@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794631570;
-	b=l9FL59npw2v1dkSliNElEk937bMr/uF0f7QHhtmTj7m4c6fSOZn40p3hkjJY9C+g2pPk
-	 2tK1cxpAwaMwNUK1wGc3ewS/YC8qRjInRHBlVFYaBP6zbKyApolrKEzHLqwrdB/lQNlDi
-	 BMPLH8m2ocegixkvf6ga2GILSXDcv3otfhdj+tf7h8zup+gX8Grl6jDGg7EYmeCacLPIL
-	 FH6hqFuHshBNlmIrVgJcd6H0Q7oK0wgyNp/NBnPe5zLc+U1q2UVBkijJ0hJeS5bToQu9E
-	 pOIIQWMxdsCr74dL5I4f19cvLxDbLNrkf4d9fDiX7YJ55MhO3V8SFiCoBNHtRxMSlmA==
+	t=1794631838;
+	b=NYMEhmgvEER2JCHUFYMdKFSSGub5TEelA4gehcldlu2qDDCHDioJ2QUyuKuxV82e5BKF
+	 kYNvgKMuWKc7yADNWkA113KY0pGoD4WzNaj2l+YeCoXsHf0HA2eVT7ADSeGzoiKYV3Mz3
+	 N1dPET13Pc4GpKpnFXotx2FqCsLvyp+ZbqkmYufjo8XxPuxXL0B1U+rge7CAhmrTZbzF2
+	 tW0jxNZBfYCXcN0FtD2AXBlSLl7SY5g5sQR8QujV5BO7GsBddL+QS6Xcrx0+oPnDLhiUH
+	 z+zYKOWUdcUx6B5JhNED9PrrK4STYGEGFy0A8rRUoI9f2O3ElnfdtA/LOS7+bjR47Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794631570;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794631838;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Yti36HqVRybzVq+dQbPwiEsZsL/TlW5Vyd2EZrAhbWQ=;
-	b=huApBSd7SbPOgAKsothh+5x5nCCe4LBjYNuI+cnzm6vnHUQoFDoXWNUGtLaLb57hjlfa
-	 rMochl06sWYXheB0MDnxz1AYkfS7yJ0AFAySeP1yeU1PPCsfZ/DfkXsy5ucPiyDpgVBxb
-	 cSNydbQZ7MUVdEBQsdq+kuf/g5AT3MqN+0kUWdM3CcA228w2JZ2rrONERey03DmnGGCov
-	 HfdFhuLHaJf0Sa61kBuBBpjJ+duoZcsTvJnA0ljavPnscmugkVGraO2u665XiULPsQ2c6
-	 Ee51Fj/cNHo+zUI5tuT+Q3qFCkriaFemfHfirwQB9+tW3HhisGevB3vfr9C84rod5Pw==
+	bh=RIGFDPbgU8//fNrKyktYS9U6y4B65PmoybGZaV2eHuk=;
+	b=1aVTgajwvtR5lmtUEL1uBngVu1LPnOMoW0z5uwp4pqLLof5RjsWwsxZdFKbvvvuXsU3o
+	 EGCAb4UEtl1rWqcNVPTNT/EuV6X0gZtO3BvViRIiqmOn0a6ohB1EsjVC0V9Bvyu3jLYgF
+	 Q9X1cOIXUMxZPNkbdO3Bp+rwdsO5H2aYgjVJUwkdkSgu0k/dKhGeCfX3JMcWcdM7ATxp1
+	 ez55pMCBqZHc1XrhPDuRehppm+DUwMSCWl95SAUA3DDit1PdMikkLhlr6M9mWW1ZOA5fP
+	 nlyOoNr8oFSEBBpgqEPYCFE+IuhyP9HfL8o1Wg2w29Q1b4Ag6dmvjmyjt677HAQcwKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XuqDt+Pu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PN4GJWfv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0489E606A330
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:46:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C33606A32D
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:50:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XuqDt+Pu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3E541F000C4;
-	Sat, 14 Nov 2026 04:46:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PN4GJWfv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7A551F000C4;
+	Sat, 14 Nov 2026 04:50:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794631569;
-	bh=Yti36HqVRybzVq+dQbPwiEsZsL/TlW5Vyd2EZrAhbWQ=;
+	s=k20260515; t=1794631837;
+	bh=RIGFDPbgU8//fNrKyktYS9U6y4B65PmoybGZaV2eHuk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XuqDt+PuqkbrCXsL47NKVbvrEK02XSmYpel5QavW2KqcosvONceu6ayGCwzkj485C
-	 9QfQgS5JjsZDkSIix5uBJS1Ilvkj96/KIyeo1SXhjeVDyfefuwQBR2WL9uzpDptGgk
-	 GuYi9I6aDL1p72iFqkLGWtWLxKw2XnibmSBfihcbZ/pb5yG1K6GFZx8j1vjc/ULrwz
-	 9WxUKkxf0ghV9cq+9R2XRz6sipZXmBoXYWq468QfNCi10yuLx69EBrZPMwMEXpqprN
-	 C83MTOXNhW5OzTQ3zxZh/Vxa8YZAMn94XWWI2BvLaQmv7VKqOsO8OJNGK8qz2VLq1T
-	 WtBBsIA4xOjjg==
+	b=PN4GJWfvIBGA8ix4YoIJtB3CGl1idsaIDFaJmlHB6VmOshw1Ee1mfrp6rrm5X7VhG
+	 EJmTd1M+jnvvx9VqKZjr87yZs+chfzFcm3v2LggEYKnKAuHafVSIP3ATsmxWHqPjHO
+	 aOzFQwrj7DT+m1CaIkPLomJzYNdA10QoqBTZOIw184u9/Ms8pHzL+8FZVjh2myQdJo
+	 w9FbcPcBBFRNYmzhAjRrbnt1PFq32FVNfo6VhWPquhF0VcpXVX8H8rhVECjx8YZOj+
+	 Nqe3p8XxKwekRmOIAWDCeVMWiyBWMSTQWrRVcTPuRRL8KRWl+oJcKd03j3oWNNR20a
+	 BlULjX5y6j/oA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Rik van Riel <riel@surriel.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Zi Yan <ziy@nvidia.com>,
+Cc: Li Zhe <lizhe.67@bytedance.com>,
 	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	Peter Xu <peterx@redhat.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm/filemap: read mapping->a_ops->free_folio under i_lock
-Date: Fri, 13 Nov 2026 23:46:07 -0500
-Message-ID: <20261114044555.2958175-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/hugetlb: fix mremap deadlock when PMD sharing is possible
+Date: Fri, 13 Nov 2026 23:50:35 -0500
+Message-ID: <20261114045016.2948921-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201558-failed-6.1-dc24e273244e@kernel.org>
-References: <20261109201558-failed-6.1-dc24e273244e@kernel.org>
+In-Reply-To: <20261109201655-failed-6.1-92daa8652f88@kernel.org>
+References: <20261109201655-failed-6.1-92daa8652f88@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,171 +67,167 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Li Zhe <lizhe.67@bytedance.com>
 
-[ Upstream commit dc24e273244e9d712257d5a6c20a32c7f5ca84e6 ]
+[ Upstream commit 92daa8652f88c8cfc05f4899a8408a04b02f211e ]
 
-memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
-after the inode has been freed. Once the folio is deleted from the
-pagecache it no longer pins the mapping, so after i_lock is dropped
-e.g., a concurrent final iput() can evict and free the inode before
-filemap_free_folio() looks up mapping->a_ops->free_folio.
+move_hugetlb_page_tables() holds the mapping's i_mmap_rwsem for
+write while moving hugetlb PTEs. This prevents races with truncation
+and protects huge_pmd_unshare(), but the move loop must not call
+helpers that can acquire the same rwsem for read.
 
-Most callers hold a reference on the inode, but not all.
+huge_pte_alloc() can do that when the destination can use PMD
+sharing: it may call huge_pmd_share(), which takes i_mmap_rwsem for
+read while searching for a shareable PMD table. Calling it while the
+move path already holds i_mmap_rwsem for write can deadlock.
 
-Documentation/filesystems/vfs.rst explicitly states that ->free_folio()
-must not assume the original address_space mapping still exists.
+Avoid that path for PMD-sized hugetlb mappings that can use PMD
+sharing. Instead of allocating or sharing the destination page table
+while moving, zap the source range and let the destination fault path
+populate or share the PMD lazily.
 
-Fix it by loading ->free_folio while i_lock is still held, similar to
-what folio_unmap_invalidate() does.
+Reuse the hugetlb unmap logic for the source-side zap by splitting
+the core loop out of __unmap_hugepage_range(). The wrapper keeps the
+existing tlb_start_vma(), tlb_end_vma() and huge_pmd_unshare_flush()
+behavior, while move_hugetlb_page_tables() can reuse the unmap loop
+with its existing mmu_gather.
 
-Inline filemap_free_folio() into its remaining caller such that
-delete_from_page_cache_batch() also just loads the callback before
-dropping the i_lock.
-
-The bug was found by code inspection and has not been reproduced.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a separate function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: get rid of filemap_free_folio() entirely; improve patch description ]
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-6-d6437171ecc3@kernel.org
+Link: https://lore.kernel.org/20261022034543.51226-4-lizhe.67@bytedance.com
+Fixes: 550a7d60bd5e ("mm, hugepages: add mremap() support for hugepage backed vma")
+Signed-off-by: Li Zhe <lizhe.67@bytedance.com>
+Co-developed-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: preserved hugetlb-aware reference counting in the inlined cleanup, including the additional invalidate_complete_folio2() caller ]
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: Mike Rapoport <rppt@kernel.org>
+Cc: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: moved existing MMU notifier calls into the unmap wrapper to preserve notification ordering ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/filemap.c  | 37 ++++++++++++++++++++-----------------
- mm/internal.h |  1 -
- mm/truncate.c | 10 +++++++++-
- 3 files changed, 29 insertions(+), 19 deletions(-)
+ mm/hugetlb.c | 66 ++++++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 48 insertions(+), 18 deletions(-)
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 7c996dc4dad28..61581b59d0ff3 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -223,20 +223,6 @@ void __filemap_remove_folio(struct folio *folio, void *shadow)
- 	page_cache_delete(mapping, folio, shadow);
- }
+diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+index 9660566a1ba4b..a4b5243281af0 100644
+--- a/mm/hugetlb.c
++++ b/mm/hugetlb.c
+@@ -99,6 +99,10 @@ static int __huge_pmd_unshare(struct mmu_gather *tlb,
+ 		bool check_locks);
+ static void hugetlb_unshare_pmds(struct vm_area_struct *vma,
+ 		unsigned long start, unsigned long end, bool take_locks);
++static void hugetlb_unmap_range(struct mmu_gather *tlb,
++				struct vm_area_struct *vma, unsigned long start,
++				unsigned long end, struct page *ref_page,
++				zap_flags_t zap_flags);
+ static struct resv_map *vma_resv_map(struct vm_area_struct *vma);
  
--void filemap_free_folio(struct address_space *mapping, struct folio *folio)
--{
--	void (*free_folio)(struct folio *);
--	int refs = 1;
--
--	free_folio = mapping->a_ops->free_folio;
--	if (free_folio)
--		free_folio(folio);
--
--	if (folio_test_large(folio) && !folio_test_hugetlb(folio))
--		refs = folio_nr_pages(folio);
--	folio_put_refs(folio, refs);
--}
--
- /**
-  * filemap_remove_folio - Remove folio from page cache.
-  * @folio: The folio.
-@@ -248,6 +234,8 @@ void filemap_free_folio(struct address_space *mapping, struct folio *folio)
- void filemap_remove_folio(struct folio *folio)
- {
- 	struct address_space *mapping = folio->mapping;
-+	void (*free_folio)(struct folio *folio);
-+	int refs = 1;
+ static inline bool subpool_is_free(struct hugepage_subpool *spool)
+@@ -5292,6 +5296,8 @@ int move_hugetlb_page_tables(struct vm_area_struct *vma,
+ 	for (; old_addr < old_end; old_addr += sz, new_addr += sz) {
+ 		const unsigned long offset_to_last_entry =
+ 			(old_addr | last_addr_mask) - old_addr;
++		const unsigned long offset_to_last_dst_entry =
++			(new_addr | last_addr_mask) - new_addr;
  
- 	BUG_ON(!folio_test_locked(folio));
- 	spin_lock(&mapping->host->i_lock);
-@@ -256,9 +244,14 @@ void filemap_remove_folio(struct folio *folio)
- 	xa_unlock_irq(&mapping->i_pages);
- 	if (mapping_shrinkable(mapping))
- 		inode_add_lru(mapping->host);
-+	free_folio = mapping->a_ops->free_folio;
- 	spin_unlock(&mapping->host->i_lock);
+ 		src_pte = huge_pte_offset(mm, old_addr, sz);
+ 		if (!src_pte) {
+@@ -5308,6 +5314,24 @@ int move_hugetlb_page_tables(struct vm_area_struct *vma,
+ 			continue;
+ 		}
  
--	filemap_free_folio(mapping, folio);
-+	if (free_folio)
-+		free_folio(folio);
-+	if (folio_test_large(folio) && !folio_test_hugetlb(folio))
-+		refs = folio_nr_pages(folio);
-+	folio_put_refs(folio, refs);
- }
- 
- /*
-@@ -318,6 +311,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
- void delete_from_page_cache_batch(struct address_space *mapping,
- 				  struct folio_batch *fbatch)
- {
-+	void (*free_folio)(struct folio *folio);
- 	int i;
- 
- 	if (!folio_batch_count(fbatch))
-@@ -335,10 +329,19 @@ void delete_from_page_cache_batch(struct address_space *mapping,
- 	xa_unlock_irq(&mapping->i_pages);
- 	if (mapping_shrinkable(mapping))
- 		inode_add_lru(mapping->host);
-+	free_folio = mapping->a_ops->free_folio;
- 	spin_unlock(&mapping->host->i_lock);
- 
--	for (i = 0; i < folio_batch_count(fbatch); i++)
--		filemap_free_folio(mapping, fbatch->folios[i]);
-+	for (i = 0; i < folio_batch_count(fbatch); i++) {
-+		struct folio *folio = fbatch->folios[i];
-+		int refs = 1;
++		/*
++		 * Avoid entering the destination PMD sharing path while holding
++		 * i_mmap_rwsem for write. Leave destination page table
++		 * population to the fault path, which can share the PMD lazily.
++		 */
++		if (sz == PMD_SIZE && want_pmd_share(new_vma, new_addr)) {
++			const unsigned long unmap_size =
++				min(old_end - old_addr,
++				    offset_to_last_dst_entry + sz);
 +
-+		if (free_folio)
-+			free_folio(folio);
-+		if (folio_test_large(folio) && !folio_test_hugetlb(folio))
-+			refs = folio_nr_pages(folio);
-+		folio_put_refs(folio, refs);
-+	}
++			hugetlb_unmap_range(&tlb, vma, old_addr,
++					    old_addr + unmap_size, NULL,
++					    ZAP_FLAG_DROP_MARKER);
++			old_addr += unmap_size - sz;
++			new_addr += unmap_size - sz;
++			continue;
++		}
++
+ 		dst_pte = huge_pte_alloc(mm, new_vma, new_addr, sz);
+ 		if (!dst_pte)
+ 			break;
+@@ -5327,9 +5351,10 @@ int move_hugetlb_page_tables(struct vm_area_struct *vma,
+ 	return len + old_addr - old_end;
  }
  
- int filemap_check_errors(struct address_space *mapping)
-diff --git a/mm/internal.h b/mm/internal.h
-index f99d9812c48d7..dd27162f310c1 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -129,7 +129,6 @@ unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
- 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
- unsigned find_get_entries(struct address_space *mapping, pgoff_t start,
- 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
--void filemap_free_folio(struct address_space *mapping, struct folio *folio);
- int truncate_inode_folio(struct address_space *mapping, struct folio *folio);
- bool truncate_inode_partial_folio(struct folio *folio, loff_t start,
- 		loff_t end);
-diff --git a/mm/truncate.c b/mm/truncate.c
-index cd6768ca5b975..785bfc4147e8b 100644
---- a/mm/truncate.c
-+++ b/mm/truncate.c
-@@ -597,6 +597,9 @@ EXPORT_SYMBOL(invalidate_mapping_pages);
- static int invalidate_complete_folio2(struct address_space *mapping,
- 					struct folio *folio)
+-static void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
+-				   unsigned long start, unsigned long end,
+-				   struct page *ref_page, zap_flags_t zap_flags)
++static void hugetlb_unmap_range(struct mmu_gather *tlb,
++				struct vm_area_struct *vma, unsigned long start,
++				unsigned long end, struct page *ref_page,
++				zap_flags_t zap_flags)
  {
-+	void (*free_folio)(struct folio *folio);
-+	int refs = 1;
+ 	struct mm_struct *mm = vma->vm_mm;
+ 	unsigned long address;
+@@ -5339,27 +5364,12 @@ static void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct
+ 	struct page *page;
+ 	struct hstate *h = hstate_vma(vma);
+ 	unsigned long sz = huge_page_size(h);
+-	struct mmu_notifier_range range;
+ 	unsigned long last_addr_mask;
+ 
+ 	WARN_ON(!is_vm_hugetlb_page(vma));
+ 	BUG_ON(start & ~huge_page_mask(h));
+ 	BUG_ON(end & ~huge_page_mask(h));
+ 
+-	/*
+-	 * This is a hugetlb vma, all the pte entries should point
+-	 * to huge page.
+-	 */
+-	tlb_change_page_size(tlb, sz);
+-	tlb_start_vma(tlb, vma);
+-
+-	/*
+-	 * If sharing possible, alert mmu notifiers of worst case.
+-	 */
+-	mmu_notifier_range_init(&range, MMU_NOTIFY_UNMAP, 0, vma, mm, start,
+-				end);
+-	adjust_range_if_pmd_sharing_possible(vma, &range.start, &range.end);
+-	mmu_notifier_invalidate_range_start(&range);
+ 	last_addr_mask = hugetlb_mask_last_page(h);
+ 	address = start;
+ 	for (; address < end; address += sz) {
+@@ -5446,6 +5456,26 @@ static void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct
+ 		if (ref_page)
+ 			break;
+ 	}
++}
 +
- 	if (folio->mapping != mapping)
- 		return 0;
++static void __unmap_hugepage_range(struct mmu_gather *tlb, struct vm_area_struct *vma,
++				   unsigned long start, unsigned long end,
++				   struct page *ref_page, zap_flags_t zap_flags)
++{
++	struct mm_struct *mm = vma->vm_mm;
++	struct mmu_notifier_range range;
++
++	tlb_change_page_size(tlb, huge_page_size(hstate_vma(vma)));
++	tlb_start_vma(tlb, vma);
++
++	/*
++	 * If sharing possible, alert mmu notifiers of worst case.
++	 */
++	mmu_notifier_range_init(&range, MMU_NOTIFY_UNMAP, 0, vma, mm, start,
++				end);
++	adjust_range_if_pmd_sharing_possible(vma, &range.start, &range.end);
++	mmu_notifier_invalidate_range_start(&range);
++	hugetlb_unmap_range(tlb, vma, start, end, ref_page, zap_flags);
+ 	mmu_notifier_invalidate_range_end(&range);
+ 	tlb_end_vma(tlb, vma);
  
-@@ -613,9 +616,14 @@ static int invalidate_complete_folio2(struct address_space *mapping,
- 	xa_unlock_irq(&mapping->i_pages);
- 	if (mapping_shrinkable(mapping))
- 		inode_add_lru(mapping->host);
-+	free_folio = mapping->a_ops->free_folio;
- 	spin_unlock(&mapping->host->i_lock);
- 
--	filemap_free_folio(mapping, folio);
-+	if (free_folio)
-+		free_folio(folio);
-+	if (folio_test_large(folio) && !folio_test_hugetlb(folio))
-+		refs = folio_nr_pages(folio);
-+	folio_put_refs(folio, refs);
- 	return 1;
- failed:
- 	xa_unlock_irq(&mapping->i_pages);
 -- 
 2.53.0
 
