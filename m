@@ -1,82 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794616562;
-	b=LPV+6DS+NqluQjyeE74pIF1wuhbBO9gcXTCRKlQ5XwdA06FOxKSA2o3dFltIu2Vq83Pg
-	 AxxSEL9MjArQluJp1X16oWG6D9cwdRpQ2+NZOgcxKgoZ2xPW/T2taMdkapYhOqkrLNcDY
-	 rE2X+6LtZxyb9UUChdD1Hv4G0Eh2L69i2NJJexOidi0izsZ57I2ugRk4XyPgcrNGh7YAp
-	 dLALXORcThe87MluJqRQF6YG4Rdr9GkzGJzR4QcSwT5d4zvc8ARtNKCihdM3OQ/WD/Db5
-	 2/rZw/PYhl3DdXSsetf9nrekBXVGtqYd1m2hRp2JBrHIA6d8OA2whXZ+lOaAxDLnr9Q==
+	t=1794616764;
+	b=g7VUeshkb8UwwQkVGR7SN6I4+KT5CL2r6LxUYnsVpI+znkBkiOlGvytI7knIQ/YggOSX
+	 WUcuTPwygm6+QaPIQOtM3K20dIo0NWZ5IeybAIUnzJ44Mdulnh18sw/BJigTtMsZY+Eip
+	 FHTQ/jtM1w+XcryOozrPVeD8yHVSnQTWJJkSonRNoXELUl9Yi1nv2Hsph2tCKp6r0JgT4
+	 RpEUO09rA3AtIoEWSAMxyi5T2wLUneEQZVKiZZe/qvPuAvsQwxHG1uCMJNj80E7ONES8J
+	 ahop3/zXQ/dUDJhZ+kL48cIwODaT/FY3WbXaX5pSbGoHuWstF+42kwk1VQys+CpqlNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794616562;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=KOIAIMFn214socxnffYVdJ7zS1ew3mG2V4IXKS4HuBA=;
-	b=i5zfav9IlvJd4jYRZM6IIyVu9PM+dnjKm/W4Bo47w18l0ngsHfJgNoHTb1QXi3RRcEP8
-	 azIuegjZr0wgB6TvflcQMMp9zYO6m96dyoc1fC/F5M0DiJsKaec0b2FCNX7uaOBc3QZnE
-	 50YVppSwLeCbw436rAzr9NyefipCInI/YYGr0o5ulLx3B4fdA6vO1YwTXH0cRZXGdZ4Kz
-	 frj/YYtxYzqoUasufUxqVIjUeiQL03Zs62bBscu8QEyKSdWA4Bvy9+rti7GYSUpCZCagW
-	 QO0tzJsBd/ea0Z//Whfut4zjvWEBBcJnL7wJ0t5MUdiZ+5CczWqKboU/ztk9rwYANyA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794616764;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=TR03HYANH3JxjEWewr/Ab8mbFLXagZ4CIuGxSt6TVjM=;
+	b=sp8PjIElOfSyTZzNo6Gsi0lrvVqFx2+xw+rj/aprPZXT1G5igiGsGk6pExYydF3Fge2D
+	 /trwE8D9VgD2GVqIctQwDDrSRLnDqtBAed4DPt52BjXKCYDFsgkyIYZTJHdTafnN8TUXN
+	 PTyMcMxjBrbeoy9+NpPI9Hy12ItKl6srPvNnvpuKzJE58J/SMo82fMk/yNeMzqJcwFk1f
+	 8dmSJBCACsE+8K4s1Fuus3atfATG2q4o/l32vDPlHP9M3gkDfDR0XZXAep+lE5cJboyTv
+	 H4oeRTxaoK1GmLzMfAb3WzR3FaXQtTCN700u6GgP4MW3RIqXBjZvknKXOaYwLJoIX2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gondor.apana.org.au;
-	spf=pass smtp.mailfrom=gondor.apana.org.au;
-	dkim=pass header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=kMqTfZNM;
-	arc=none smtp.remote-ip=180.181.231.80
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZXJ2vJR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE179606A339;
-	Sat, 14 Nov 2026 00:36:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE179606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28489606A329;
+	Sat, 14 Nov 2026 00:39:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.a=rsa-sha256 header.s=h01 header.b=kMqTfZNM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=KOIAIMFn214socxnffYVdJ7zS1ew3mG2V4IXKS4HuBA=; 
-	b=kMqTfZNMYkY5uQSGht0xtivQyXS4QQYoNSceVBFK1CvvkabGipzhTwJsc6Rk6KweVag5r30lQLX
-	f5FqHMgKzTUXSXgu/URhmW4370HBoDNxwLyou0DSaM4yOBm6gmep8MsiiaQBJUJudY5zi4+0HBXDk
-	1Kx+5/4xRPi/PL6I2kp4CqizB86M1pDdYdSdaJU6vpQoMQGvlq+zebkCTsONBLZ5eGYN00EiH6m8j
-	Tj9CWZtvMpu8Dhb+FDbFaD3JkiV0SJFfIXB5dfbfDmVDpLE3l37MqwJ4dx7DwU9t1iUO7/rnB3uaA
-	wbe3ZMbrVghNJa+HHSiTV9WVD/pzWQk36a/Q==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1xS1k6-0000000ExD5-0nuj;
-	Sat, 14 Nov 2026 08:35:43 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Sat, 14 Nov 2026 08:35:42 +0800
-Date: Sat, 14 Nov 2026 08:35:42 +0800
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Uladzislau Rezki <urezki@gmail.com>,
-	"Liam R. Howlett (Google)" <liam@infradead.org>,
-	Davidlohr Bueso <dave@stgolabs.net>, Michal Hocko <mhocko@suse.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Alexander Potapenko <glider@google.com>,
-	Andrey Ryabinin <ryabinin.a.a@gmail.com>,
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, maple-tree@lists.infradead.org,
-	Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Andrew Ballance <andrewjballance@gmail.com>, stable@vger.kernel.org,
-	"David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [PATCH] mm: kvmalloc: Bail if called with soft or hard IRQs
- disabled
-Message-ID: <aves3p5vrqqAuHma@gondor.apana.org.au>
-References: <CAHk-=wiE0KG+jkhmJWifXuAVivtB63WCWtdEpGAex7-T0SHd2g@mail.gmail.com>
- <aurAxRpCwzeyXeVj@gondor.apana.org.au>
- <CAHk-=wgPvbYRcKpQ8WTH-EYZRgMG0KSH+cZxY5-Hyf+X7JjWsw@mail.gmail.com>
- <aurJZ81qnbiHH_P1@gondor.apana.org.au>
- <ausS3LQNkdc6lBy3@milan>
- <auxDm_YO4oACA_d2@gondor.apana.org.au>
- <CAHk-=whXvVO6a5AreZu3LPBj_wjpzUanwhvu8WqWP2q7g5S7Vw@mail.gmail.com>
- <auy-7TvVzJ-VCrG4@milan>
- <avcKfEvln8_2a7fJ@gondor.apana.org.au>
- <CAHk-=wg9baZ9EDhZr7ONxjuO65+vvWFo5E2hgxt+3rYo1vnhyA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eZXJ2vJR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0B51F000C4;
+	Sat, 14 Nov 2026 00:39:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794616763;
+	bh=TR03HYANH3JxjEWewr/Ab8mbFLXagZ4CIuGxSt6TVjM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eZXJ2vJRLbnEG/8DsfpS1WuvlhpDqKP5Ad7yHWSwzESZK0n3LldVDoj2CztwVoCBh
+	 WTyP444vnzXJIHBKOWers+5ZvvFHF0FcSQqh1ztHVQEnRDIYzGQ7Fsld0tRoOkG+md
+	 qMjOIFLT9TK9QF3l3iksNJzcJp1Vcv7aCWz13sEtAz2rq6sqNqdCrHH4YAPoOQDDX/
+	 V/liyDsiVNmhpiNwMmSQjiHF+gNZ+/mPG2yZwcEyUbOYevaxMdRiUuSG15wINfKhFc
+	 KcK+hIAcFVniTfpSyuSxGJFzfwl9hM1tMKtU8cX6G7+1T7DKRhIXJEwi0gI0gCSYQN
+	 8uBXHdzKeJP3A==
+From: Miguel Ojeda <ojeda@kernel.org>
+To: gregkh@linuxfoundation.org
+Cc: 4ncienth@gmail.com,
+	akpm@linux-foundation.org,
+	azpijr@gmail.com,
+	corbet@lwn.net,
+	david@kernel.org,
+	jannh@google.com,
+	liam@infradead.org,
+	ljs@kernel.org,
+	mhocko@suse.com,
+	patches@lists.linux.dev,
+	pfalcato@suse.de,
+	rdunlap@infradead.org,
+	rppt@kernel.org,
+	sashal@kernel.org,
+	shakeel.butt@linux.dev,
+	stable@vger.kernel.org,
+	surenb@google.com,
+	vbabka@kernel.org,
+	linux-mm@kvack.org,
+	Dave Hansen <dave.hansen@linux.intel.com>
+Subject: Re: [PATCH 7.3 463/507] mm/vma: avoid spurious write locks when mm->mm_lock_seq overflows
+Date: Sat, 14 Nov 2026 01:39:12 +0100
+Message-ID: <20261114003912.82206-1-ojeda@kernel.org>
+In-Reply-To: <20261113153812.408825269@linuxfoundation.org>
+References: <20261113153812.408825269@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,31 +75,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wg9baZ9EDhZr7ONxjuO65+vvWFo5E2hgxt+3rYo1vnhyA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Nov 13, 2026 at 09:47:13AM -0800, Linus Torvalds wrote:
-> 
-> I don't think this is wrong, but I do wonder if we should at least
-> have *some* way to detect these cases and report them.
+On Fri, 13 Nov 2026 10:52:47 -0500 Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+>
+> @@ -589,6 +593,16 @@ static inline void vma_end_write_all(struct mm_struct *mm)
+>  {
+>  	mmap_assert_write_locked(mm);
+>  	mm_lock_seqcount_end(mm);
+> +
+> +	/*
+> +	 * VMA seqcounts are not updated on unlock, so once the mm seqcount has
+> +	 * wrapped, any VMA still carrying a sequence number from before the
+> +	 * wrap would satisfy __is_vma_write_locked() when that number comes
+> +	 * round again, and readers would not be excluded. Reset every VMA's
+> +	 * seqcount so that no stale value survives the wrap.
+> +	 */
+> +	if (unlikely(!mm->mm_lock_seq.sequence))
+> +		__mm_reset_vma_seqcounts(mm);
+>  }
 
-That would make sense for direct vmalloc calls.  But this is
-kvmalloc, which is supposed to choose automatically between
-kmalloc and vmalloc.
+In a UM ~defconfig build with LLVM:
 
-It was you who suggested moving this check from the caller into
-kvmalloc (2018):
+    In file included from arch/um/kernel/asm-offsets.c:8:
+    In file included from ./include/linux/audit.h:13:
+    In file included from ./include/linux/ptrace.h:10:
+    In file included from ./include/linux/pid_namespace.h:7:
+    In file included from ./include/linux/mm.h:18:
+    ./include/linux/mmap_lock.h:604:20: error: no member named 'mm_lock_seq' in 'struct mm_struct'
+      604 |         if (unlikely(!mm->mm_lock_seq.sequence))
+          |                       ~~  ^
+    ./include/linux/compiler.h:77:42: note: expanded from macro 'unlikely'
+       77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+          |
 
-https://lore.kernel.org/all/CA+55aFxvNCEBQsxfr=yL3jgxiC8M8wY2MHwVBH+T8qSWyP-WPg@mail.gmail.com/
+That exists only under `CONFIG_PER_VMA_LOCK` (commit 47e725702b0b ("mm:
+make per-VMA locks available universally") from Dave's series was not
+backported).
 
-That worked perfectly until kvmalloc started allowing vmalloc for
-non-blocking callers (2025):
+I hope this helps!
 
-https://lore.kernel.org/all/20251007122035.56347-1-urezki@gmail.com/
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Vlastimil Babka <vbabka@kernel.org>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>
+Cc: linux-mm@kvack.org
 
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+Cc: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: David Hildenbrand (Arm) <david@kernel.org>
+
+Cheers,
+Miguel
