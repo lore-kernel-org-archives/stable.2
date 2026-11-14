@@ -1,72 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794661041;
-	b=cFkz8Lckg3I/FqdyGebJnJ7Dt4TabCLVi72qvGuTopWUBph0yFSXeoDGij2cla/XmjkZ
-	 V1OrYpJuremWOP+vsqK9uGGlxeZax41z9GeGUuj5DdqA3SQtv2Io9jvScE7sVi7Hq+UdK
-	 +EQvqTo/IX8PFzjIYGl5i1Pt6ae2vga4YFHQlj/xXExwtfQxuUpK+eyYMC70isMbhzctP
-	 33byyRlWXctOXmYqwzr5dLtyqYShnc5q5JjOyBneRvC+E3/jv++cRl9ciMgILxjWJajpN
-	 mVQzhSAZ+LpCpLIKJF8qZHSyvA0Pi1kFlDax8RZpujT6LxattgMP8If3T3LMqebuuEA==
+	b=fEcR5deNt8r/ndpooBVvCjzWV8Xgeu1VK6d3st+9m3WfTxNtcR4L+weIJBIcVTRzyzE4
+	 o30dP8VrKF9A6XXxS7L9FPamGuyDQevOYKPJRzacIXB6XOWqHQ9T7y+rpWy59SEIHNpdd
+	 9Sdh8JY70Yr8NtvrGfl04ZLMbov+sSubnl/btnkDBYuEoNOd/OY3UzRys/KMPgnbKGGmB
+	 XNM6J9X3cnOYgSMDljQ/XEUYFPovh9oMOsiGo8a4Fh+e7miVYbrTokEI/PhdJC1Gj0P0m
+	 T6mow/vs6UiULo/Y/RUlqg1Q2Z8Imfh+DDnjO4acEHxi7zQByGEM9R1cODTubDJ5UKA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794661041;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Subject:
-	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=vURHFJpqxdNji4XYAfQR0vnMtn7b/TNM3hv/Ptn0Qv0=;
-	b=oSOJjBC/fCWR5a3c+mp8x7Wi2wGnxRK6DWgg7xsGkvrReiHx9cSgPJwVNyYAaAytdtrr
-	 79IJeMHQXhrDEzI6hP5OjJMSfx8SOGwVHQqXprPtw7dUHvYsfj3SD5t/zaUZqhrHw887l
-	 6t+LXSEn9M4SEEQu2sYoz6Myb14TxtWgmW5B6v7bTqqnL1zks8+R+y9lh9kC5rk1q8tpn
-	 qKHY+wcXMvZZ9lyFt+1Jiu2KkgItI5uOYVLCgiQduHNNVze80/Bb3ThaVAX18dF/9BK5j
-	 b/TAkTdJmAQyMW97vevElym3bA3+Bxshssm0QMaSEtNsQeQka3LcvWfJJ8O2mO9pnCQ==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=9gKGnztOczuNd4xvzEZ+s0v96neMAAhFQuwPjwgllc8=;
+	b=yDA6qXhY9qbYXtPtPe33+tHKLOrq0kQ57Us10/yUgEJtp+3uj/53agAEOSNzFQAiHtR2
+	 TRKBpJ9z1g1YvAxGstHwSiRRK6J8fqFXP1mELKa4q5tSYfzNohlzg7PfvBQfl0+KClu9/
+	 yN34idVw3FEyYgCkdpjQ+eWlNU5p0etccpQ3rnIGiJvocolJhh7/+PD+OWSnjC0CU2fB5
+	 hiDMEyG0v3a7I5h2Z3yxB0W7DY/PInGLQ/GfmWPAnBnMYHJkW1bkJUozDYX0d5X+SHcOM
+	 0Yj7F42NUmxQxS/GV+7VQ+HOF03ZtQPWjXHFJLbRZnhKc35hWX8YikDXYW4d5FBabMA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=V6pRcREO;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Bvw5LNZT;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B818E606A331;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B802B606A330;
 	Sat, 14 Nov 2026 12:57:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B818E606A331
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B802B606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=V6pRcREO
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=Bvw5LNZT
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id CC911201CE0;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E331B2022F0;
 	Sat, 14 Nov 2026 13:57:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794661037;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=vURHFJpqxdNji4XYAfQR0vnMtn7b/TNM3hv/Ptn0Qv0=;
-	b=V6pRcREOcS8DazD7+nUWOzWbx4mrJWgVIZ0rFjXcdVtBBnHMBpU+f/9vA0Q20cMGj8gNPh
-	sId6A1UrHwcN7k1SlknbyERxEkMNi9fJDsMuPG7x6rnmDLv41H6wj72XZI+AyQjGzr5oVY
-	D8cAV9/p7T4iMn9Kfk2Q05tX4LaldCaLT3YGLMZHocvDqU1jjJTxN1K20Cjf92BtWo1ZgY
-	L43OXOUcU1ofPko5/28oB2cJ/df3sAqB/F1bAPILMJRSGokcz4Y4YTww1/VO3yltl/t/NN
-	/5OldG5gHQUJYdfvvgU3iA7ctet0DeiAU7BNII1TyGzO5uAdK5Cgu9a28zhLbA==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9gKGnztOczuNd4xvzEZ+s0v96neMAAhFQuwPjwgllc8=;
+	b=Bvw5LNZT3LIMcWhg6Z5zlEYJIpLrF2WXb6ahmJFG/DF1NsLVVy1wyhd1CowDPghL+HPyTn
+	zImFi1qwQKcJWJei24swhHuyS5OXhWusWZ6SfTtpmbibqe59a8/FLQQP8U6fQN4PFXu8d5
+	/BTL/9OmE7JuZ/SwMfMeXiBcVkGdsNyk/ouF0bM7yeD0nLdzDsP05I6b+bEjUGke2ds9zw
+	zzEwnjVy2He7q1beYOjEahQMgl8wfqpmkl3MatLHWXhDnBXk/YtoQqIiAy1t+fVvi1IMup
+	M0kUiQ50ljTQdxBXzKhcpd2Rhh/gx1KEJQFo+NMtMHr9O1vEPKuZ35/tg+fRjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794661037;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=vURHFJpqxdNji4XYAfQR0vnMtn7b/TNM3hv/Ptn0Qv0=;
-	b=OvoRCl627zMY2S/Yz1ukLl+v8T4j+L0KPaiZHAFavpv5ae8u6OejyPgE/7ndVSY1VeDarc
-	Ls5okLdNAmnHtb3akC9DJ2hqgAQ+EL0pPb9Efxn9MjnNdVTsl2WRbyt7sWJoB6pORazwHR
-	K9zyY0x5m2B92/ViGdQLXrblBm+I3mm08mra5HHZY6X9CgVJ3s0KUmLz/M+uribwnmP6CY
-	84GZ5N0gm9NSgAuHZbxluBCD1ecuBACCWMXAAcijrskHblK26Kywevjck/1zH+SQU1tUEj
-	fNV0HGaO1R1OhjdKN+EsBUCXdK5KoA7/z65SMX4WjVhHbzA0A/kcf8/l/GZ2pA==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9gKGnztOczuNd4xvzEZ+s0v96neMAAhFQuwPjwgllc8=;
+	b=IwH/ZkVOe9l2nM+F/FE+S5mxd8OI6zAaBPvsP13ilSAPcjQ0lUyNP8AlH2cLPZPmE3HJSY
+	DltqBp3ZqdugaCe9weugssE0lBVmyWVY7oQl4xrgQ1KllgZquu2NEFxdTWQT8DTUirYNNr
+	T2pGK8ue1dm4Y3CblBvGW5hMomt+7lwOvBY782WmBkri1VsnrsMZ+bHDOVZj3KflNyFHLl
+	1BY3enMl/eVz9KytmOgBJ2733z44W51ZXaplcvJ1KZFiky6mPyfjcMqpE/KtipWAjNx8Qn
+	lTg2Gnh4Le93uKcSVE/z+NpkilT5fyrJQEZrs8K0u48aUZFVwQJosM7H85cA4A==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794661037; a=rsa-sha256;
 	cv=none;
-	b=YjMGpMMkkie6EmcNdoiNMsbyHeDr5iwrD5Hv2m3OLj9ZJ31BVrWF3JtuPipQI2hzAUUSzV
-	rcw5Lewt3pD1mXXhZjK8F8azBKjJ6BOe6j1PgVgv2eF/OtyKkvPOY1RWfNJKGjK6GWLYYt
-	RiUrv/RL0IiK8AnNIeZKIMu6m980RkaEMezw+HEVcqJ/P9jXvTfNAYfR9Ze/WvGeDp38M7
-	DyMbmcSBr6rPccVzws66HoUW81IFeRUZBD93fYjqZ6FFak77FFHu9DArS7rVLRMmqne/PT
-	wXoEAo6+d5idmizcWzvoaoWEcIa5q11WF/LhA9pzw7WpRSr9UmcF9NVXcZyJWg==
+	b=EbjRPEJTPdZcSSpHG7CQeiBrUNj/78RW8BAz0FJ90aVuJJgpIfzOhWV/2zShRLKSQ0k1AP
+	ZzBIbVUy6oVQg3bQjNZJFLc6nmiKCLkn2JoeJpJpG6c9lfRdm0KAxQ9L1use568E9+Foeo
+	IGJWkzaufcfSxVp4dvpnJFrw9nVchtS+71GJLVwdeKH9z7qCV/2T65s1mbvZ0Ghl4UaqFH
+	K06Fq+VdYpQOjIol1UTWYyBUKbt2KZMqkXKJH0QibayrFKLTSP7y9nYYgMcNz1RBMrS17g
+	fAHX2OMDeUWQSFncLPtLfX/NGo9OJXSftaR59nQU3Tz7EZrV6S3ZANQ6tRyX7Q==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
@@ -74,20 +76,19 @@ Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjor
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xSDJl-0048pS-2I;
+	id 1xSDJl-0048pU-2N;
 	Sat, 14 Nov 2026 13:57:17 +0100
 Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 5B4785EB9A7;
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 7BBBD5EB9A9;
 	Sat, 14 Nov 2026 12:56:23 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
-Subject: [PATCH can 0/4] can: fix probing and use of
- device_get_match_data()
-Date: Sat, 14 Nov 2026 13:56:13 +0100
-Message-Id: <20261114-fix-device_get_match_data-v1-0-2d82025e9646@pengutronix.de>
+Date: Sat, 14 Nov 2026 13:56:15 +0100
+Subject: [PATCH can 2/4] can: flexcan: flexcan_probe(): fix probing for
+ m68k/coldfire and reject devices without match data
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,11 +99,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM2wrCQAwFf6Xk2QVTWm+/IrLEJLYRXGV3LULpv
- zfq4xzmzAxFs2mBUzND1smKPZMDbhrgkdKgwcQZ2m27Q8Qu3OwTxEXWOGiND6o8RqFKAVH4yHL
- olffg/1dWl3/tMzAluPzH8r7eleu3CsuyApeWB7qCAAAA
-X-Change-ID: 20261114-fix-device_get_match_data-11dc9cd85ec7
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261114-fix-device_get_match_data-v1-2-2d82025e9646@pengutronix.de>
+References: <20261114-fix-device_get_match_data-v1-0-2d82025e9646@pengutronix.de>
+In-Reply-To: <20261114-fix-device_get_match_data-v1-0-2d82025e9646@pengutronix.de>
 To: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
  Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>, 
  Geert Uytterhoeven <geert+renesas@glider.be>, 
@@ -113,47 +113,57 @@ Cc: kernel@pengutronix.de, linux-can@vger.kernel.org,
  stable@vger.kernel.org, 
  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
 X-Mailer: b4 0.17-dev-d7211
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1497; i=mkl@pengutronix.de;
- h=from:subject:message-id; bh=oxSiDfJJ5FKPdCOEbPDPir49JWXUKfRJ5chn629wb4c=;
- b=owGbwMvMwCV2xirl17qZay8xnlZLYsj6EVVw55uF9HbLnxmNq65PP8Q05W/ut9tvdIPfJZ84M
- GnvqsBW5Y5SFgYxLgZZMUWWpT9OKAoEOpT2vkyYBDOHlQlkCAMXpwBMxNCY4X9RRWYr89G6X78v
- WoikulRLxLBkC1xP8jZK8f/NxBL/qI3hN8uK3ov6ufHJptk7f/yadPKAgur5v2e4tG9XvuB9O/n
- YGUYA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1920; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=x2DoOAMK8qYYiTqT7rP4+/o++VZfdsYk6nV6J+hmNmM=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsj6EVX04eNjRq7F+xbm96Z8qZO02jdpa/H6Xj67IpXjw
+ q89A977dJSyMIhxMciKKbIs/XFCUSDQobT3ZcIkmDmsTCBDGLg4BWAi84sY/lkKzc8tOrKKL45L
+ /htbg1dZthH/NSFenTS23zz/Uq4dtGf475uXeKpMaJK28NzK0wqFhjn8KV0iqTqnfh1U+fj6urs
+ aMwA=
 X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
  fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-With patch 5e6c3454b405 ("net: can: Use device_get_match_data()") several
-CAN drivers were converted to device_get_match_data(). The author assumed
-that error checking for matching and match data is not necessary.
+When determining the device details was reworked in commit 5e6c3454b405
+("net: can: Use device_get_match_data()") there was no replacement for the
+previous handling of non-of instantiated devices via the device's id_entry
+which then results in a NULL pointer exception. The only in-tree provider
+of such a device is arch/m68k/coldfire/device.c.
 
-This misses the fact that that drivers on the platform bus can forcefully
-bound using driver_override and device_get_match_data() will return NULL.
+Restore retrieving the devtype_data via platform_get_device_id().
 
-By using device_get_match_data(), this change broke probing for
-m68k/coldfire, which still uses platform devices.
+Also a device bound through driver_override need not match an entry in
+of_match_table or id_table. In that case device_get_match_data() returns
+NULL, but flexcan_probe() dereferences the result.
 
-This series adds missing NULL pointer checks and fixes probing for the
-flexcan on m68k/coldfire.
+Reject devices without match data before continuing probe.
 
+Fixes: 5e6c3454b405 ("net: can: Use device_get_match_data()")
+Cc: stable@vger.kernel.org
+Reported-by: Uwe Kleine-König <u.kleine-koenig@baylibre.com>
+Closes: https://lore.kernel.org/all/20260618140147.142489-2-u.kleine-koenig@baylibre.com/
+Reported-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Closes: https://lore.kernel.org/all/20260528-fluorescent-sage-ladybug-43261b-mkl@pengutronix.de/
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
-Marc Kleine-Budde (4):
-      can: c_can: c_can_plat_probe(): reject devices without match data
-      can: flexcan: flexcan_probe(): fix probing for m68k/coldfire and reject devices without match data
-      can: xilinx_can: xcan_probe(): reject devices without match data
-      can: rcar_canfd: rcar_canfd_probe(): reject devices without match data
-
- drivers/net/can/c_can/c_can_platform.c | 2 ++
  drivers/net/can/flexcan/flexcan-core.c | 5 +++++
- drivers/net/can/rcar/rcar_canfd.c      | 2 ++
- drivers/net/can/xilinx_can.c           | 2 ++
- 4 files changed, 11 insertions(+)
----
-base-commit: ead6fa9a0ab194f02a2f36d634b193e9c5f9a1c6
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net.git main
-change-id: 20261114-fix-device_get_match_data-11dc9cd85ec7
+ 1 file changed, 5 insertions(+)
 
-Best regards,
---  
-Marc Kleine-Budde <mkl@pengutronix.de>
+diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/flexcan/flexcan-core.c
+index 86b40abe9e76..2bb9e4184eb5 100644
+--- a/drivers/net/can/flexcan/flexcan-core.c
++++ b/drivers/net/can/flexcan/flexcan-core.c
+@@ -2148,6 +2148,11 @@ static int flexcan_probe(struct platform_device *pdev)
+ 		return PTR_ERR(regs);
+ 
+ 	devtype_data = device_get_match_data(&pdev->dev);
++	if (!devtype_data && platform_get_device_id(pdev))
++		devtype_data = (struct flexcan_devtype_data *)
++			platform_get_device_id(pdev)->driver_data;
++	if (!devtype_data)
++		return -ENODEV;
+ 
+ 	if ((devtype_data->quirks & FLEXCAN_QUIRK_SUPPORT_FD) &&
+ 	    !((devtype_data->quirks &
+
+-- 
+2.53.0
 
