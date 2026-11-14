@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794645212;
-	b=1oipqdnY++lwBmVOFArAUIKMN/QfbQuOguKgD0hlo6rcFY0DTJAGsC1OFjWPzdwKRQ1B
-	 Ao8M8nW6yNcBpAxa/qt25ZtKxe8vAWNKrx46VyXapwE5vGPj4O/pCSRCqMnq/vOmBiyA7
-	 N8qDCOykGFQ5H6m8iRr5hCJhPMMbWeGf5nY9b153jaomWOcMDOmLu+KplVtfjI0NZcJ4g
-	 bHUab3auwShF6FEYN92zMmJhAc7oZ3yI4P6VDwzPrBK0MKtpnmkMDTuW2WUW1SarIvSKz
-	 rMfrYqobbQo+Winclqv/43JRljDFBk7UBkx/VdvA1urIwMefDKfo6dkodYTh8pnJwpQ==
+	t=1794645360;
+	b=VUA5KW5IsfEX2CwDgrd/zcyV77RfaCsTTwwQyvgBSMuHKTF+6H+3Im0MlWklzsGg60Yz
+	 zOytK5inKQHM1Ay/y4e8zzqfFtE6SxT+0TtnCDdjQV641NhsUSxmR91ddqw6kkj97umCZ
+	 C7oM/lFWPUNqkXIWWum6P/tVutEJ7XcBS42g709HrUysJrF9jhaZ/ZNUrBqkqLKFVIG2f
+	 tMatKF4tdf5JDwWUuIIvkdecYXGLWn/SrnAwg5XXHqamxQ8LIOjiFGlalLEhGVg7nX2RC
+	 /4RVvBk1YrV9p9oXMsJVv377bMy2K4zFObXu2x1fgCoz9Zneoal0bFZA2d3whDG+cWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794645212;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794645360;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
 	bh=QC5iG8Fvq0w0Cc03pgJd+iLfyOqr7ITsw0zOuCfILxM=;
-	b=RRfcVwoPrFuRSf8U9dJAePNz8prc5C8D8PD5DHXnIU4vXzl6jlT9XhpXXlUNMxDdhWeH
-	 sWyY74Pa4AOffJNpdxjj7QXAGher1eeryBlprtbkAs/ig1OZ/oKm4/Kf8LDyYP9CUZjGo
-	 57CR8Q8iDpVa42Hkj2NLuHuZML+zS/RspUBluXG2XActICEzYsPlK1aFsqgSAUDYKz/sf
-	 ZO7mpMKQCjNeOiRFALzjr5IQrSNuwwE1uh52ojkw/2FhS1jjExr2hbWVKKxc+KLUl9q6v
-	 k6pSkq/sK2VAMtSsRhN3sal1es62/2tHTN2ftvNvEiRjrQlnZ43QYSmrEd8zDL22P1A==
+	b=2sTWE61yizn3PhWYdykZQvIuKHm4Jc2VLr2ZEEtwcdbaziq8H0hlCUJPnGwy2AfB0Loq
+	 qWaaOb3973fMyIwgMg+Vk9u1gKmxWiP8h7lVW25jqWjkI/VHpGt/6km64He5dmg10IiIg
+	 Uw7LMKGsFFVV3mjunYKFcWuuy95X69fjESCWJI5sKoryyRnkvb3Ft4Kr0Djf1pBwgnVwf
+	 AH3jbLvtgOXru6Av4BHhfQgkRz6L0n06L//DX4oZM/Uwt1whn3yqhzQRtuFTW8VMpTxOa
+	 Mmb93KfAyIYMD1VghQdauge+Zu++fK1ZfQgr1VwYeYouWdEDGgNytsBRcVaadryItwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQE6ZOBl;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=djbsqaB3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AE1606A327
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 08:33:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7A1606A330
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 08:36:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OQE6ZOBl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37ACB1F000C4;
-	Sat, 14 Nov 2026 08:33:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=djbsqaB3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D1161F000C4;
+	Sat, 14 Nov 2026 08:35:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794645211;
+	s=k20260515; t=1794645359;
 	bh=QC5iG8Fvq0w0Cc03pgJd+iLfyOqr7ITsw0zOuCfILxM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OQE6ZOBlj/42d+lQ2yJRPFOMCGU93y8TMf8J51yqwpWyul7Hbls2dojAzGDlzPqeV
-	 hAFAP0wPOwnrpGeVdMVIuZMhCoLmkOsiOkGzwsvhzDUBFF1cJiwZDPFIHnrpLVJjbg
-	 V7WuKFfIrcOJoyYHFblh0pGO/oGr1qgn1+x7nM28tHouy19gAUomKY1gba+ftxu3SN
-	 sCnopJuGglstqWsGiuYjvLwUep+x4P3d3F54lnBRPMVlpwO6C15RN3k5l3guEYSlV5
-	 h/aWv7viZ48XICGlrNwm6CKBZeblfQSbDvEbF7vk0Pwe79NbHkkHlt6+vBVnk+95LA
-	 qQ05jcLL3bGPg==
+	b=djbsqaB3d9IizH99oiVvRADomiMA9IMJ0uIwQDzLE6fPqWJYMY8qPs/iZobfCFEsz
+	 ND9tiBdkH8e19BH6Qc0KFPfjOcZbcCQJLVHprD5SgG5jeo0OYNlwIcQI+mFlYBZXsr
+	 IkcOOpXUwlzi+39SZJTI39gwt4gRHqy7sqO8PWfhZA/hpwucUbPErbeyn14PJD/mOE
+	 sWaTAh6w/LCrnEyXj7gy/SI1+NL4VuOtA6obFX1Z6Pt/9T+QAMrO8FwrNcqtBABG/i
+	 ifeJFrd8/SGvzbyjhNBlTUCBdAvQ+3TZof0CCKZFpUHV+w3HqufpGH7bmMFrx+rA9I
+	 q5qa0pctXWaQA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Matthias Goergens <matthias.goergens@gmail.com>,
 	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] udf: fix preallocation discarding before an empty allocation extent
-Date: Sat, 14 Nov 2026 03:33:29 -0500
-Message-ID: <20261114083317.3274309-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] udf: fix preallocation discarding before an empty allocation extent
+Date: Sat, 14 Nov 2026 03:35:58 -0500
+Message-ID: <20261114083541.3277688-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202455-failed-5.15-0c52750caaac@kernel.org>
-References: <20261109202455-failed-5.15-0c52750caaac@kernel.org>
+In-Reply-To: <20261109202917-failed-5.10-0c52750caaac@kernel.org>
+References: <20261109202917-failed-5.10-0c52750caaac@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
