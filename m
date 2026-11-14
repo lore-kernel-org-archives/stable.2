@@ -1,70 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794632906;
-	b=zpGYBLv3f+A6x8JJUviN6tX8g/aIkGbalRCOnbjQU/+gC39BQEh8MjG7niwfYB6hiwCp
-	 VrhqfWnLh2z0ZeGA1uF1f7A8ed+UApwAAR1cF3r43rWgblnuXXUUMsTzzsurrpr8yOgWU
-	 CB4drJUFGSHH4pAwIj20ztrNSvxisrvs4v92zVZM8/Wf6azySyCo1R7URKJUYWSGRC8T5
-	 Y6BkFm9S1wG3pePjHs5omFCJiTyPGhterLphA+7Q84vBxcdnWM7PjdzFj8YSIIC0DvoFS
-	 2OH/So2edxhhu3n+PEhRSZ/lVHRdSL/jRYYXBxzfyiI8hz0dd7kAzj4lPSENs6i4hdg==
+	t=1794632909;
+	b=YBLxXy6iLPxk67al+joSVFuq29HLgXY2pC73TvD34PTYekjQVXqn9SFsI4EZNGSczRMA
+	 EkRnQMo4LP13h/+7FVapAMnxX4ZesZq/x75BF9zHezjGzLSFgPpse5KOe1q5XKTCKo191
+	 sPtbt3lJfb+m3mc3clXm7tJ71vbWN2L0LURMSLrtxp6+hgtJakgxowhTN0KCXGe4mYfaO
+	 ZbBVlZ/1QXyVbsIR/fAAuhIh9Xr0zQAZhrArLMWfdMcK0VYgtDk3LgnCtndn3KtovRFsL
+	 Y9fc8JH0N0/4Yf/MXoTc2EQns8Cemh25PHXXzRfb8bR2R5Mu/szgNUvtegEsmnVj0/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794632906;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794632909;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tsL3iwsFx71GaykuCUTIehWzz071WJJ0i9okmw4GtGI=;
-	b=L1prAo+EA7ecOVgmE32E/yObd9kRJ6JxJHc1HQKknEV6+JT5dRe2Qo9paJGt9Anm1h7C
-	 LLOvmbLNTJz65zMwn6f2IdTeYdyx+4a89pq0aJTQAeqMtRalagx9+EJygqQH8vfGpQZ8G
-	 TuyokI403dJDemmIWKxfswesSMA/DlTPMXgJ1SWXBJ6LcrUlwYoVIh/R/UqN//2aQ+Gsj
-	 qGOwlCUyfTHRwz5AzeZAVX6p70zL7/Z9rN+HnOgEJWJ3rtrgB6NkRQAP/e5d7wnpKTq/Z
-	 vopFGw/cbnhPFUppPn8P+grraTEgVxx4I4MW9ImOA+wVtk5rsa09Wasefpon+bT+LOw==
+	bh=s3tqao3gu78L5JXeH7aKRsHMDDcpMOgJCMMXmjvHGxg=;
+	b=i09WkmAcDY9dKgGhHCF3xYGb+uuy3aUDlBh83cwTIgpqRW5Ohyyt5vpW7cgOEmE8B1r+
+	 pANoOjYb0lDowODZQ+mJdztMPZ5geMpOB4Cdr2YGGhkl7TWdV0wRY/9+qAMpjGK9tB/AR
+	 nkncXtUhE+h+kv77Ho2a2+gr7GzeHtqio0E7NKtqxlPkAy7vCj18iDXu+Ho/u4k/qnP7K
+	 5T1sZQJyWNd62QhvYv3QgmjGOROS5dBepuNeM3QGX9vinSL3J7jyp5RsVO2sVzT+jR+4R
+	 hvHvj2Wne9oApDaTdl85cuJwLMd/K6tkd6oFWSy0Get4n49Id8GAYYd1DWOXFHTWHvA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYW2Kbv+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LbzCkTwv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5931F606A32D
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:08:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476BD606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:08:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYW2Kbv+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32FFD1F000C8;
-	Sat, 14 Nov 2026 05:08:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LbzCkTwv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C1661F000C4;
+	Sat, 14 Nov 2026 05:08:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794632905;
-	bh=tsL3iwsFx71GaykuCUTIehWzz071WJJ0i9okmw4GtGI=;
+	s=k20260515; t=1794632908;
+	bh=s3tqao3gu78L5JXeH7aKRsHMDDcpMOgJCMMXmjvHGxg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EYW2Kbv+6PKesDhrlpDRRqPlTUjWeCQo3lwfSFSwORlk9C2AIxLnIL3tZ237ATwhC
-	 r2cH+bwT6ELYO0Xie5ia8rXWD3SpEBlDgbIO1HNR0/hehFE1h7alByZskwWKOE3KNA
-	 7X8WAKt0fyL6/hSOaZbCRZC6XX4UfHXdyLv2TxOr1HcWrQb+tvE42x1nRuEwS78JbS
-	 oi2ZaAUO1oY8gKnFw9tRb17gmqTBi+LDlIr2xIZLKvn2SWIs+6UD4b29Ce5nI4MEYs
-	 VJzAEegyWjMknSnS7AtLjQm5fMQ73wvK7tixKNKGjfW38hvU/e6yR+WU1bPAvCYeTr
-	 kLX7ly4uADY+Q==
+	b=LbzCkTwvQJUWGAYWXwfcXsz74WbT6MUEsmq8/HhU/0kt7Ya6QR3ac9+9EhjLQ2RVi
+	 /rLpujl63B8sl2z5JhnOXnf5BDSy9UHjM22PkMZss1GIi9DN9iCh21O2gf1w5Wvyaz
+	 TMRA0ZXHdb699J76+ah6T780rjcba/gXnaJIv7dO9m0pIR1VPtTOUuvzAA4xQFOT1z
+	 JOq7lvIsfT6fWzGS2sRTpLWvSCzBHSKS184Pp3ryKrKW3j/L96dX+idYWpOCc2+8EU
+	 uxN7vQA83y89oZETtppTtzP9ho/N1zhO4md32OxjUysChm8Xg0FUjSe+F45QLIpJzk
+	 S0ajCMMW12MXg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Kyle Zeng <kylebot@openai.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Ying Huang <huang.ying.caritas@gmail.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Chuanhua Han <hanchuanhua@oppo.com>,
+Cc: Thorsten Blum <blum@kernel.org>,
+	PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] mm: fix address wraparound when scanning large folio PTEs
-Date: Sat, 14 Nov 2026 00:08:21 -0500
-Message-ID: <20261114050807.3044739-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] hwrng: virtio - prevent use-after-free after a failed restore
+Date: Sat, 14 Nov 2026 00:08:27 -0500
+Message-ID: <20261114050812.2912148-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114050807.3044739-1-sashal@kernel.org>
-References: <20261109200351-failed-6.18-f681d4580d5c@kernel.org>
- <20261114050807.3044739-1-sashal@kernel.org>
+In-Reply-To: <20261109202248-failed-5.15-0f7bf47f5a0c@kernel.org>
+References: <20261109202248-failed-5.15-0f7bf47f5a0c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,132 +62,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Thorsten Blum <blum@kernel.org>
 
-[ Upstream commit f681d4580d5c3c749f623cda722a21aefd3147b3 ]
+[ Upstream commit 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74 ]
 
-numa_rebuild_large_mapping() and do_swap_page() can be tricked into
-generating an address wraparound, crashing the kernel. All that's required
-is to map a tail page of a large folio close enough to the start/end of
-the address space to e.g., make
+remove_common() frees the driver data during freeze, but does not clear
+vdev->priv, which points to freed memory. If probe_common() then fails
+during restore, a later remove or freeze can dereference the dangling
+pointer.
 
-	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
+Clear vdev->priv on the probe_common() error cleanup path and before
+freeing the driver data in remove_common(). Also reset the device and
+return early from remove_common() if vdev->priv is already NULL for a
+safe teardown after a failed restore.
 
-to wrap around.
-
-Let's fix it by providing a better helper, folio_scan_range(), that
-takes care of staying within VMA and page table boundaries while
-handling possible wraparounds.
-
-There are some nasty details, like not being able to use pmd_addr_end()
-in this context. Add some helpful comments for these cases.
-
-Link: https://lore.kernel.org/20261014-folio_pte_scan_range-v2-1-00cf9bbaa364@kernel.org
-Fixes: d2136d749d76 ("mm: support multi-size THP numa balancing")
-Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Kyle Zeng <kylebot@openai.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Barry Song <baohua@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Ying Huang <huang.ying.caritas@gmail.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Chuanhua Han <hanchuanhua@oppo.com>
-Cc: <stable@vger.kernel.org>
+Fixes: 08e53fbdb85c ("virtio-rng: support multiple virtio-rng devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+Reviewed-by: PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>.
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Message-ID: <20261016103640.4989-2-blum@kernel.org>
+[ sashal: Replaced virtio_reset_device(vdev) with the existing vdev->config->reset(vdev) callback. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/memory.c | 50 ++++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 36 insertions(+), 14 deletions(-)
+ drivers/char/hw_random/virtio-rng.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index c9597d7f8ba0a..e8a5292c5a317 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -4604,6 +4604,34 @@ static struct folio *alloc_swap_folio(struct vm_fault *vmf)
- 
- static DECLARE_WAIT_QUEUE_HEAD(swapcache_wq);
- 
-+/*
-+ * Get the address range in which a folio might be mapped, assuming its pages
-+ * are mapped consecutively and the folio page at the given idx is mapped at
-+ * the given address.
-+ */
-+static void folio_pte_range(const struct folio *folio,
-+		const struct vm_area_struct *vma, unsigned long addr,
-+		unsigned long idx, unsigned long *start, unsigned long *end)
-+{
-+	/* Stay within the page table and VMA boundaries. */
-+	const unsigned long pmd_start = addr & PMD_MASK;
-+	const unsigned long pmd_end = pmd_start + PMD_SIZE;
-+	const unsigned long lower = max(pmd_start, vma->vm_start);
-+	/*
-+	 * We cannot use pmd_addr_end(), as it does not clamp reliably. To
-+	 * avoid wraparounds, compute using the inclusive end.
-+	 */
-+	const unsigned long upper = min(pmd_end - 1, vma->vm_end - 1) + 1;
-+	const unsigned long offset = idx << PAGE_SHIFT;
-+
-+	/*
-+	 * Avoid start/end addresses wrapping by not adding/subtracting more
-+	 * than the lower/upper limits would allow.
-+	 */
-+	*start = addr - min(addr - lower, offset);
-+	*end = addr + min(upper - addr, folio_size(folio) - offset);
-+}
-+
- /*
-  * We enter with either the VMA lock or the mmap_lock held (see
-  * FAULT_FLAG_VMA_LOCK), and pte mapped but not yet locked.
-@@ -4861,16 +4889,15 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
- 	address = vmf->address;
- 	ptep = vmf->pte;
- 	if (folio_test_large(folio) && folio_test_swapcache(folio)) {
--		int nr = folio_nr_pages(folio);
--		unsigned long idx = folio_page_idx(folio, page);
--		unsigned long folio_start = address - idx * PAGE_SIZE;
--		unsigned long folio_end = folio_start + nr * PAGE_SIZE;
-+		const int nr = folio_nr_pages(folio);
-+		const unsigned long idx = folio_page_idx(folio, page);
-+		unsigned long folio_start, folio_end;
- 		pte_t *folio_ptep;
- 		pte_t folio_pte;
- 
--		if (unlikely(folio_start < max(address & PMD_MASK, vma->vm_start)))
--			goto check_folio;
--		if (unlikely(folio_end > pmd_addr_end(address, vma->vm_end)))
-+		folio_pte_range(folio, vma, address, idx, &folio_start,
-+				&folio_end);
-+		if (unlikely((folio_end - folio_start) >> PAGE_SHIFT != nr))
- 			goto check_folio;
- 
- 		folio_ptep = vmf->pte - idx;
-@@ -5963,16 +5990,11 @@ static void numa_rebuild_large_mapping(struct vm_fault *vmf, struct vm_area_stru
- 				       struct folio *folio, pte_t fault_pte,
- 				       bool ignore_writable, bool pte_write_upgrade)
+diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
+index f6c0de82c22bc..72c99fa35e78d 100644
+--- a/drivers/char/hw_random/virtio-rng.c
++++ b/drivers/char/hw_random/virtio-rng.c
+@@ -186,6 +186,7 @@ static int probe_common(struct virtio_device *vdev)
+ err_find:
+ 	ida_simple_remove(&rng_index_ida, index);
+ err_ida:
++	vdev->priv = NULL;
+ 	kfree(vi);
+ 	return err;
+ }
+@@ -194,6 +195,11 @@ static void remove_common(struct virtio_device *vdev)
  {
--	int nr = pte_pfn(fault_pte) - folio_pfn(folio);
-+	const unsigned long idx = pte_pfn(fault_pte) - folio_pfn(folio);
- 	unsigned long start, end, addr = vmf->address;
--	unsigned long addr_start = addr - (nr << PAGE_SHIFT);
--	unsigned long pt_start = ALIGN_DOWN(addr, PMD_SIZE);
- 	pte_t *start_ptep;
+ 	struct virtrng_info *vi = vdev->priv;
  
--	/* Stay within the VMA and within the page table. */
--	start = max3(addr_start, pt_start, vma->vm_start);
--	end = min3(addr_start + folio_size(folio), pt_start + PMD_SIZE,
--		   vma->vm_end);
-+	folio_pte_range(folio, vma, addr, idx, &start, &end);
- 	start_ptep = vmf->pte - ((addr - start) >> PAGE_SHIFT);
++	if (!vi) {
++		vdev->config->reset(vdev);
++		return;
++	}
++
+ 	vi->hwrng_removed = true;
+ 	vi->data_avail = 0;
+ 	vi->data_idx = 0;
+@@ -203,6 +209,7 @@ static void remove_common(struct virtio_device *vdev)
+ 		hwrng_unregister(&vi->hwrng);
+ 	vdev->config->del_vqs(vdev);
+ 	ida_simple_remove(&rng_index_ida, vi->index);
++	vdev->priv = NULL;
+ 	kfree(vi);
+ }
  
- 	/* Restore all PTEs' mapping of the large folio */
 -- 
 2.53.0
 
