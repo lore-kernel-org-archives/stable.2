@@ -1,69 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677277;
-	b=sJSMe1y7DihPH56oA4c1dSAa+50wJCS0x/JA1tVSnozCDPwzU1lgN8bOGRV5amqX/0Xs
-	 dqG1C0FIhcJPX/QNVm1w8PESb8TE5qroyaPCL48tjwKBrcvFGESNw/S1XD6tSGRD0khOV
-	 510IHTO9yCTx2yImi6+dWBC8i+zL53VyweIeMrtby9waGAtB5DAYwCkL9ao1K3h38zHs3
-	 3PYoQg96nH2ccRbzCIDNOMRUS+em7xp04rX7qDAWFKl9WP5Gqg0lJDQOMInw3JNRfDOb3
-	 PaPGBk07AhxZPf1WA9Z1zSNQwqyMZ8myGbffW01kzTiZlrgnZPQCb9I31cLyvQ0vzHg==
+	t=1794677282;
+	b=UKHASNyB+96s3HogSV2SE5l61w2cX835qrkDNT6LDn/wUe18u3ZPZvy+I+oTYIb5mCc+
+	 4z+e/oXrG0kh/d/jQ5/9ipx7RJPpHoOyzaYqwlkV5x4hBXdPE2Ewzi0CacgzeODFIkSCl
+	 UJGU6/5y/fBykV0auh19pNG3e4uZhewEe2Laka5y78nesET9bUzu+vZFi8Lp8DonrL+Zw
+	 wUtMCIdleMqlSOi0rqYYJaSmqCEViWQiclyQ4/ZaEuGGCiPHy7ZFcC63loGcHEmW8/+kw
+	 Z5i7rImPwmVxf/C8TWw0lYIgY455OwXJ7WrLpI9hRcSsBfnJGZF+SPfhIq7lejJ5kkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677277;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677282;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 X-Zmail-TransId:X-Mailer:Message-ID:In-Reply-To:References:Date:
 	 Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:X-TLS:
 	 X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:X-Fangmail-Anti-Spam-Filtered:
 	 X-Fangmail-MID-QID;
-	bh=2pYc6UijVi1dVzKNNbe4/SSGyC+4QOdNzqCFDBVOzCQ=;
-	b=y1DTpR2Vk/yPKaHXE2JIuVS4Ejm14tccBWKCx1XWiuwSKuYPpYiVY69fOvd2rTAB3hsi
-	 TnvwJJ0MrfQUHxils78eKtLq2OlmLIZsVh6WGqn87/UWGOEt30n3S4zfBfiSg6Rhi0jDZ
-	 yMBOfBnGgIkfKD9l8U84Z5V1iG8W7haOmLReoPwXiuqZlziCLYv9mQRz+uJxQecn+sZnh
-	 ElDrkB6AyeKH5VZQZUypVox12YsaTyijQC+LApK6u4ZvRjE+g6OfQ4BgmSQPef9TRZIOJ
-	 9PMSjeC8akt4OuT44OZJuWfQqdWTNCAfjSWN4kha8E5lUU22Egn1OhwE3AokQ2ljBTA==
+	bh=qt+PZYhf7moATmrnYKqOmwNJHY0piXh7VUHf25O4hOA=;
+	b=aOuqCLGUubq95ObL3OeoUWql7OOcvbFBHgcSyLrZmwyu0VcdPNjzXut6mGi7E51Rj80l
+	 lVQzOjlVEI9WMVeQ6X2xwl3Lv+q0zTQpSaLHveHGjQNo/hYrWu24ntXRvwJJZjDsqIkiS
+	 MSQ1oMSTytJY0oRfeMwaxekAS8ceat8IcN1seIfOGtQV84CPIOnZpo4uqUHl2q8ZvS46I
+	 Io5IeT23Vrc1sbbNM606CsCTIHhV353y65w3O6qFuluUEmKGnfJLY/jnj0TMUdMRWUNgU
+	 qkEi+IteP87fhjMUVRACzGJXxer6g+XfuIo4EILUBIq9dVxXm0Hr/53eb3nQELwQNng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=zte.com.cn;
 	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=dWLePgFo;
-	arc=none smtp.remote-ip=160.30.148.34
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.34])
+	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b="uVRGv/HS";
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40F2606A323;
-	Sat, 14 Nov 2026 17:27:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B40F2606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D6A606A337;
+	Sat, 14 Nov 2026 17:28:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7D6A606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=dWLePgFo
-Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=uVRGv/HS
+Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jRh0W3jw4z4yjS4;
-	Sun, 15 Nov 2026 01:27:55 +0800 (CST)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jRh0b3hp4z4xPS1;
+	Sun, 15 Nov 2026 01:27:59 +0800 (CST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794677275;
-	bh=SQAa9s9qVGymsPeujlLVA0PUZrLDkbbjCB3mFYRW+a0=;
+	s=z202610; t=1794677279;
+	bh=sB1aNW+0iZJGGQWzuqfYmutpRzCDePbP1duuwkfP40U=;
 	h=In-Reply-To:References:Date:From:To:Cc:Subject;
-	b=dWLePgFoyytFzOJvuO8XQnDCLYrbyhVcVMBIYrO1tijTMZIX/KIIHxlyZG19Mtu/A
-	 3Z3c4UptpNfRGoIzomtTYrD6CIQy08mx6iK6RZQqWRVv555GKbld1C/wHxR6cf3wJX
-	 PZEyN97hHVHOgg2QdmGhCocv19sOBE19GuN37ZzgZnnOvSco9oZr8yqEn4Cb1zs1Ea
-	 u2Z0NLqmx+TXCw/KfEdTUfzDjjiBUz+RC0np9LKFn6hqU/UtJyKsVuRMQbRO5Fsn+9
-	 r9w1cmiPlQdFJUedztNvHbgZ6o0P+KxKbkZVOFOXk+8YAwwidgfMe5f0Tbpg7CFAaa
-	 Pum8ueiFcqKPw==
-Received: from xaxapp04.zte.com.cn ([10.99.98.157])
-	by mse-fl1.zte.com.cn with SMTP id 6AEHRmaU012382;
-	Sun, 15 Nov 2026 01:27:48 +0800 (+08)
+	b=uVRGv/HSU3xSduRb81XbodjAeDn7FyXBM7Kj97WR1L1tiwfCGWxm9WJ9tcYxYg8fT
+	 SFEAXgZijZVhSD2uCcEow/r53FYOfRKio6q/aMcqjtZ6VcKA0D2UaTZfxm249HWr/I
+	 hMdJGsE7wlL3EU//HVEFa5EvUHOhnxAYJjcpcIzCQJy2UfDc3eApnCJVSdny1PXf+t
+	 FHaGtQTvIVvUk7zaNv/F/PtgsiNJX6TpDLE9mySQ0ea2A573/xKr7rrhaL1Pz6h620
+	 CNezuHvHoDyEGpk3i2Tn2PEF7px8/Oe3rFC6U//a5mTNPz18fbwuGyAaU9GXuAxNqn
+	 /Ks2K8TfCrYVQ==
+Received: from xaxapp05.zte.com.cn ([10.99.98.109])
+	by mse-fl2.zte.com.cn with SMTP id 6AEHRrRE016766;
+	Sun, 15 Nov 2026 01:27:53 +0800 (+08)
 	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp05[null])
+Received: from mapi (xaxapp04[null])
 	by mapi (Zmail) with MAPI id mid32;
-	Sun, 15 Nov 2026 01:27:52 +0800 (CST)
-X-Zmail-TransId: 2afc6af89a18f0a-53eb7
+	Sun, 15 Nov 2026 01:27:57 +0800 (CST)
+X-Zmail-TransId: 2afb6af89a1d225-561cf
 X-Mailer: Zmail v1.0
-Message-ID: <20261115012752774qFGtgUXwZKwN-2LDj0D80@zte.com.cn>
+Message-ID: <202611150127572887TC7vHzVUFLZ6nyW1NuhU@zte.com.cn>
 In-Reply-To: <202611150127512368BGQ07ZNIRAIwClkam-8u@zte.com.cn>
 References: 202611150127512368BGQ07ZNIRAIwClkam-8u@zte.com.cn
-Date: Sun, 15 Nov 2026 01:27:52 +0800 (CST)
+Date: Sun, 15 Nov 2026 01:27:57 +0800 (CST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,80 +77,89 @@ From: <shao.mingyin@zte.com.cn>
 To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
         <linux-nvme@lists.infradead.org>
 Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: =?UTF-8?B?W1BBVENIIDEvNV0gbnZtZTogem5zOiByZWplY3QgYW4gb3V0LW9mLXJhbmdlIHpvbmUgYXBwZW5kIHNpemUgbGltaXQ=?=
+Subject: =?UTF-8?B?W1BBVENIIDQvNV0gbnZtZTogZGVjb2RlIHRoZSBGRFAgR2V0IEZlYXR1cmVzIHJlc3VsdCBhcyBhIGR3b3Jk?=
 Content-Type: text/plain;
 	charset="UTF-8"
-X-MAIL:mse-fl1.zte.com.cn 6AEHRmaU012382
+X-MAIL:mse-fl2.zte.com.cn 6AEHRrRE016766
 X-TLS: YES
 X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.132 unknown Sun, 15 Nov 2026 01:27:55 +0800
+X-SOURCE-IP: 10.5.228.133 unknown Sun, 15 Nov 2026 01:27:59 +0800
 X-CLEAN: YES
 X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF89A1B.001/4jRh0W3jw4z4yjS4
+X-Fangmail-MID-QID: 6AF89A1F.000/4jRh0b3hp4z4xPS1
 
 From: Shao Mingyin <shao.mingyin@zte.com.cn>
 
-nvme_set_max_append() computes the zone append limit as
+nvme_query_fdp_info() passes a struct nvme_fdp_config, which is exactly
+four bytes, as the result buffer of nvme_get_features():
 
-	ctrl->max_zone_append = 1 << (id->zasl + 3);
+	struct nvme_fdp_config fdp;
 
-where zasl is a u8 from the controller's Identify Controller ZNS data
-structure.  A value of 29 or more shifts a 32-bit int by 32 or more,
-which is undefined behaviour even with the kernel's -fno-strict-overflow;
-GCC may turn the result into zero, one, or another arbitrary value.  The
-limit then either disables zone append or advertises a size larger than
-the controller and the block layer expect.  This is reachable with a
-malicious or buggy controller.
+	ret = nvme_get_features(ctrl, NVME_FEAT_FDP, info->endgid, NULL, 0,
+				&fdp);
+	if (!(fdp.flags & FDPCFG_FDPE))
+		return 0;
+	ret = nvme_query_fdp_granularity(ctrl, info, fdp.fdpcidx);
 
-Use an unsigned shift, and fall back to max_hw_sectors, as for a zero
-ZASL, when the reported value does not fit.  Warn once about the invalid
-value so the device can be identified.
+nvme_features() stores the result with
 
-Fixes: 240e6ee272c0 ("nvme: support for zoned namespaces")
+	*result = le32_to_cpu(res.u32);
+
+i.e. it writes a CPU-endian dword through the pointer.  On a big-endian
+host this puts the flags byte in the fourth byte of the structure, so
+fdp.flags is always zero and FDP support is silently disabled, while
+fdpcidx would be read from the wrong byte.
+
+Read the result as a u32 and decode the flags and the FDP config index
+explicitly, which works on both endiannesses.
+
+Fixes: 30b5f20bb2dd ("nvme: register fdp parameters with the block layer")
 Cc: stable@vger.kernel.org
 Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 ---
-Tested on 7.3.0-next-20261030 (QEMU/TCG guest) with a host-managed
-zoned null_blk exported through nvmet and connected over the loop
-transport, so the host driver and the target run in the same guest.
-A TEST-ONLY hook makes the target report ZASL = 29 in its Identify
-Controller ZNS data; only the nvme host patch differs between the two
-runs.
+Tested on 7.3.0-next-20261030 under QEMU/TCG (guest s390x, big-endian),
+loop transport + file-backed namespace.  The nvmet target needs no FDP
+hardware: a TEST-ONLY stub (applied to both kernels) advertises FDPS and
+answers the FDP Get Features / configs log / RUHS commands; the only
+difference between the two kernels is this patch.  The FDP probe runs
+during namespace scan; the verdict is
+/sys/block/nvme0n1/queue/max_write_streams (= nr_plids):
 
-The out-of-range shift silently collapses the zone append limit to one
-sector on the unpatched driver; the fix falls back to max_hw_sectors
-and warns once:
+  unpatched (big-endian): max_write_streams=0  FDP silently disabled
+  patched   (big-endian): max_write_streams=1  FDP registered
 
-  unpatched                            patched
-  zone_append_max_bytes 512            zone_append_max_bytes 1044480
-  (max_zone_append = 1 sector)         (fallback to max_hw_sectors)
-  no warning                           "invalid zone append size limit 29"
+On x86 (little-endian) both kernels report max_write_streams=1, i.e. no
+regression.
 
- drivers/nvme/host/zns.c |   11 ++++++++---
- 1 file changed, 8 insertions(+), 3 deletions(-)
+ drivers/nvme/host/core.c |    6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/nvme/host/zns.c b/drivers/nvme/host/zns.c
-index e31ec6f4f94f..c34015e68f81 100644
---- a/drivers/nvme/host/zns.c
-+++ b/drivers/nvme/host/zns.c
-@@ -27,10 +27,15 @@ static int nvme_set_max_append(struct nvme_ctrl *ctrl)
- 		return status;
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index a7a4d09644c1..45feafa00325 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -2339,8 +2339,8 @@ static int nvme_query_fdp_info(struct nvme_ns *ns, struct nvme_ns_info *info)
+ 	struct nvme_ns_head *head = ns->head;
+ 	struct nvme_ctrl *ctrl = ns->ctrl;
+ 	struct nvme_fdp_ruh_status *ruhs;
+-	struct nvme_fdp_config fdp;
+ 	struct nvme_command c = {};
++	u32 fdp;
+ 	size_t size;
+ 	int i, ret;
+ 
+@@ -2351,10 +2351,10 @@ static int nvme_query_fdp_info(struct nvme_ns *ns, struct nvme_ns_info *info)
+ 		return ret;
  	}
  
--	if (id->zasl)
--		ctrl->max_zone_append = 1 << (id->zasl + 3);
--	else
-+	if (id->zasl && id->zasl + 3 < 32) {
-+		ctrl->max_zone_append = 1U << (id->zasl + 3);
-+	} else {
-+		if (id->zasl)
-+			dev_warn(ctrl->device,
-+				 "invalid zone append size limit %u\n",
-+				 id->zasl);
- 		ctrl->max_zone_append = ctrl->max_hw_sectors;
-+	}
- 	kfree(id);
- 	return 0;
- }
+-	if (!(fdp.flags & FDPCFG_FDPE))
++	if (!(fdp & FDPCFG_FDPE))
+ 		return 0;
+ 
+-	ret = nvme_query_fdp_granularity(ctrl, info, fdp.fdpcidx);
++	ret = nvme_query_fdp_granularity(ctrl, info, (fdp >> 8) & 0xff);
+ 	if (!info->runs)
+ 		return ret;
+ 
 -- 
 2.43.0
