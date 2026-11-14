@@ -1,75 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794668760;
-	b=hxzQMGUPxGqGxYz+HuEnmvl5V890/oCBU+Ap7Dv3sn824/c6ndiIOKXF9DJo6AMT5nhX
-	 mwKH3kyU0YoJpEJzuXtuim5r2KscfRNzn4/SaezotCfZdBTpZHA3iC/oaElgNgsT5tykL
-	 qz0B4MkL1rVTUEXYU7wH/oe9rakThdLkdLvtJZqwZr3loQtwLNgESYL1ODcYTnl83xEiZ
-	 O/2rZYjgrGv5Bl+oINMmzyYvzEK1uk+S+mN+AgYPKrehQ3nPBB4OQMFYrN+L/CfL+KdU9
-	 Xtt30Ey641xmUE/JXmFPVh/oEIgUBlYc1sYqKuWRA6K/vvOLWWIwhhrT7W8IkL9/Deg==
+	t=1794669062;
+	b=2cLALkXwA/51IZZ1BIhgy5cm6J9rDa+BdQupQf21z58jy9ZgH71oi4csxCJXquP9Lenk
+	 M9ixulDSc2bRHagR2SgpalpXgQjVKddzJKRcHTh+HnNQw26la73NtBwYONq1CQiJV1J7M
+	 wqS4RUXyGI7lWq1E9vNArdqdBb829LkkvLTjmI2NxkgGFLtqal0VYfQZvGPWPm/JDv2SR
+	 NSLOgQBF8B5cyTTK+Mq9+/NQsLJZ93veXhsumCMjVTb2Lab2Yx0S7MlrMeXSUYc7h0kca
+	 hf0SP3RONDgnhDs4q5uilHlpfsLwr2NH/RHuLtoVUOsoXgO9PImDPFCPkuWRRS/rSkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794668760;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=/mxt8P+p8nf0AiOazDgUB7JS7ORkdSvZiaaLa5AtUKc=;
-	b=LXolftgfT0ydqIOKm0Nry5LgmeynfgLe5UoLcfyXYvknDbTc+hqHBXuhg4ftulZLBV2M
-	 iMRuTRhE6DH/rFPVwAkMJg/dNS1XOadPsj6IX5a7clw2SVz4Ic/Pq/cGZSpXffM7bUWBo
-	 +gnw14g08aZJi5r3qNgR3jxkN7CCsdQzDqH7Z1ESOIt5CWU5p6ou67bCN+Av64XX/YGqX
-	 sLVPSqHICf7CsQm8BErS5JamB2f5wtxP6kMaovFGj1y9jrX371idgkf6FK9a7kCp71rvO
-	 Ju2fH5iwqel2dVkG9spH3Rirw4gMW3QLDqxz9SyJyTSsBwoZ5IcoNpI2NulRHdEPDzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794669062;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=5it/Uvl643VmKkvLyLwpkWuzBJo+xJFYR0Qsi5rFVWM=;
+	b=hapW7w774pLjKWi14P2IBUZsbMSzm6od0E12jLvACCUyYfA+Wi/VnxegwD/8FxdU3xEt
+	 e99MDyEY991rDNXGHZm6bDS6OmDqDJUzOvpMV4SfwOBIdXB4MyaT4xO5NWGPnSRDiwfwT
+	 KoymThVRenmzvoD6YA9ACYH1cOZ5rdSgQQo26kK/YhX2LgV0X6Ex9YoE8csIFIP5fuE6V
+	 1Z2M4Nf12Hr7WiYsTFdZkJCKge6m1KSiE/mDJ6GIhxKbxuwYpEhUVQD7vRFFppPe0vNDO
+	 uxE8gq/TXmsZcebW5KutEc8YW/FPrpcQ/BLcnRxBd18pFERDzUyg8pkhzGpFjzQ+Zhg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mf5fqHeK;
-	arc=none smtp.remote-ip=111.22.67.137
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 950E7606A330;
-	Sat, 14 Nov 2026 15:05:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 950E7606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nzXAL2eU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7361606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 15:11:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mf5fqHeK
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=mf5fqHeKuc5bU5TH8fTSzCRqE13f/jgJFdelRXx6kMGeDMulRczsq9NTFgf1Ds94uK0thS95oObIm
-	 PcHn1FieVBL2lnLEDMeI3tRMvuqp7iWcbsEa+RbNXvIHpz+7KRP703tCyaGW9b2lvM2Uud7B2kDoXW
-	 temuXqNFacPRBob4=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86af878cebd0-91f2c;
-	Sat, 14 Nov 2026 23:05:50 +0800 (CST)
-X-RM-TRANSID:2ee86af878cebd0-91f2c
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from FHD-W7400297 (unknown[10.55.1.70])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66af878cb188-47d2b;
-	Sat, 14 Nov 2026 23:05:49 +0800 (CST)
-X-RM-TRANSID:2ee66af878cb188-47d2b
-From: Aibing Chen <chenaibing@cmss.chinamobile.com>
-To: josef@toxicpanda.com,
-	axboe@kernel.dk
-Cc: edumazet@kernel.org,
-	kuniyu@google.com,
-	pabeni@redhat.com,
-	willemb@google.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	horms@kernel.org,
-	linux-block@vger.kernel.org,
-	nbd@other.debian.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+b29ed72382b0e218323a@syzkaller.appspotmail.com,
-	Aibing Chen <chenaibing@cmss.chinamobile.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] nbd: do not reinitialize a live socket lock when reclassifying
-Date: Sat, 14 Nov 2026 23:05:46 +0800
-Message-ID: <20261114150547.842-1-chenaibing@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nzXAL2eU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 677B61F000C4;
+	Sat, 14 Nov 2026 15:11:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794669062;
+	bh=5it/Uvl643VmKkvLyLwpkWuzBJo+xJFYR0Qsi5rFVWM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nzXAL2eUAQ5QoYd3+XQgfm2M6eMg97cpIa7TEnYJEHgqvFS9E37kbGcz8tynfl6+2
+	 B3BXSKl2dKGdywSe2DPp5ekFRf7Ow1Pe0RUd1qx6RoBopyH+jGZvqvXe7FU9bqvJGe
+	 FTep91ECnUhemQFF6rpcqmWAad9OW70Gxsh6TVPh73RQp0MoEpxpZkx0MmGalFEJas
+	 Q5p6NM2GimyW9HVIqCPdpALX0f3TdgCTspS8Yd6opJKkkAXpksGglvAnfrc0VXiksR
+	 +kXp+N4QEFKiXFgukL7uNouM1fcccUlE7lr0Tf3w9SP+rt8+Wp0k4YkKjxHWMmybTK
+	 SLM1TqM1kzEZA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Sean Christopherson <seanjc@google.com>,
+	Jim Mattson <jmattson@google.com>,
+	James Houghton <jthoughton@google.com>,
+	Yosry Ahmed <yosry@kernel.org>,
+	David Woodhouse <dwmw2@infradead.org>,
+	Stefan Teodorescu <fane@google.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] KVM: x86/mmu: Cap number of parent PTEs per SP at 1000 (the arbitrary rmap limit)
+Date: Sat, 14 Nov 2026 10:10:59 -0500
+Message-ID: <20261114151029.3453893-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202134-failed-5.15-e4558c3d7198@kernel.org>
+References: <20261109202134-failed-5.15-e4558c3d7198@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,94 +66,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep circular
-dependency") reclassifies the socket passed via NBD_SET_SOCK (or the
-netlink equivalent) with sock_lock_init_class_and_name().  That helper
-is meant for freshly created sockets: besides setting the lockdep
-class it clears sk_lock.owned, reinitializes the wait queue and
-reinitializes sk_lock.slock with spin_lock_init().
+From: Sean Christopherson <seanjc@google.com>
 
-The NBD protocol has userspace keep the socket fd open, so the socket
-can be in active use while it is being reclassified: an inet_shutdown()
-or lock_sock() racing the reclassification can hold sk_lock.slock
-across spin_lock_init(), leaving the live lock zeroed.  On
-DEBUG_LOCK_ALLOC kernels this surfaces as "BUG: spinlock already
-unlocked" (debug_spin_unlock()) from the shutdown/lock_sock path
-running in parallel.
+[ Upstream commit e4558c3d7198ed9a0adc3304681f561f4e4d80e1 ]
 
-Add sock_lock_reclassify_and_name(), a variant that only re-arms the
-lockdep class and name of the live sk_lock (plus the module owner
-tracking) without touching the lock itself, sk_lock.owned or the wait
-queue, and switch nbd_reclassify_socket() to it.  The
-sock_allow_reclassification() guard is kept to narrow the window in
-which the lock is in use by lock_sock().
+When potentially reusing a shadow page, zap the shadow page if its number
+of parent PTEs exceeds KVM's (mostly) arbitrary rmap recycling threshold.
+Letting the guest create a (mostly) unbounded number of parent PTEs allows
+the guest to coerce KVM into creating lists containing millions of PTEs,
+effectively bounded only by the maximum number of shadow pages.
 
-Reported-by: syzbot+b29ed72382b0e218323a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=b29ed72382b0e218323a
-Fixes: d532cddb6c60 ("nbd: Reclassify sockets to avoid lockdep circular dependency")
+Because PTE lists are simple singly linked lists, removal is O(n).  Even
+worse, if a list is constructed just so, teardown can be O(n^2), e.g. if
+SPTEs are built such that zapping child SPTEs always zaps the last entry
+in the list.  To cap things off, all paths that walk PTE lists do so
+while holding mmu_lock, without conditionally rescheduling.
+
+Using a doubly linked list would not address the issue, as removal would
+remain O(n) since KVM still wouldn't know where in the list to remove from.
+Removal could be made O(1) by storing a per-SPTE pointer, but that would
+largely defeat the purpose of reusing SPs, and would penalize well-behaved
+guests, especially for nested TDP where aliasing page tables is uncommon.
+
+So, cap the maximum number of parent PTEs at the rmap limit.  In practice,
+well-behaved guests will likely never run afoul of the limit.  E.g. when
+running Linux as L1 with TDP, the number of parent PTEs for a single SP
+tops out at under 200 (though undoubtedly obscure workloads can push it
+higher).  Deliberately use a "greater than or equal" as opposed to rmap's
+strictly "greater than", as the rmap code checks the threshold immediately
+*after* inserting into the list, i.e. the limit is 1000 for rmaps, KVM just
+very briefly blows past it.
+
+Apply the check to both indirect and direct SPs, because while a fully
+direct MMU naturally limits the number of parent PTEs to '1', direct SPs in
+indirect MMUs have no such constraint.  E.g. if the guest maps a huge PTE
+into many locations in its page tables, and KVM is backing the hugepage
+with a direct SP, i.e. with a series of smaller pages, then KVM could end
+up with a direct SP with many parents.
+
+Note, shadow_mmu_try_split_huge_pages() always restarts the rmap walk or
+bails entirely if it gets to the point where it tries to grab a SP, i.e.
+there is *no* pre-existing bug that would be tripped by zapping a SP and
+thus rmaps when getting a SP.
+
+Cc: Jim Mattson <jmattson@google.com>
+Cc: James Houghton <jthoughton@google.com>
+Cc: Yosry Ahmed <yosry@kernel.org>
+Cc: David Woodhouse <dwmw2@infradead.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Aibing Chen <chenaibing@cmss.chinamobile.com>
+Reported-by: Stefan Teodorescu <fane@google.com>
+Signed-off-by: Sean Christopherson <seanjc@google.com>
+Message-ID: <20261027171518.1432557-1-seanjc@google.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+[ sashal: Adapted the guard from kvm_mmu_find_shadow_page() to kvm_mmu_get_page() using vcpu->kvm as the zap argument. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/block/nbd.c |  6 +++---
- include/net/sock.h  | 16 ++++++++++++++++
- 2 files changed, 19 insertions(+), 3 deletions(-)
+ arch/x86/kvm/mmu/mmu.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
-index ffce519bf..28274a48d 100644
---- a/drivers/block/nbd.c
-+++ b/drivers/block/nbd.c
-@@ -1251,19 +1251,19 @@ static void nbd_reclassify_socket(struct socket *sock)
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 887a9d4a1e8bb..8237ff8e889b7 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -2087,6 +2087,16 @@ static struct kvm_mmu_page *kvm_mmu_get_page(struct kvm_vcpu *vcpu, gfn_t gfn,
+ 			continue;
+ 		}
  
- 	switch (sk->sk_family) {
- 	case AF_INET:
--		sock_lock_init_class_and_name(sk, "slock-AF_INET-NBD",
-+		sock_lock_reclassify_and_name(sk, "slock-AF_INET-NBD",
- 					      &nbd_slock_key[0],
- 					      "sk_lock-AF_INET-NBD",
- 					      &nbd_key[0]);
- 		break;
- 	case AF_INET6:
--		sock_lock_init_class_and_name(sk, "slock-AF_INET6-NBD",
-+		sock_lock_reclassify_and_name(sk, "slock-AF_INET6-NBD",
- 					      &nbd_slock_key[1],
- 					      "sk_lock-AF_INET6-NBD",
- 					      &nbd_key[1]);
- 		break;
- 	case AF_UNIX:
--		sock_lock_init_class_and_name(sk, "slock-AF_UNIX-NBD",
-+		sock_lock_reclassify_and_name(sk, "slock-AF_UNIX-NBD",
- 					      &nbd_slock_key[2],
- 					      "sk_lock-AF_UNIX-NBD",
- 					      &nbd_key[2]);
-diff --git a/include/net/sock.h b/include/net/sock.h
-index 3144efad8..2b305777c 100644
---- a/include/net/sock.h
-+++ b/include/net/sock.h
-@@ -1704,6 +1704,22 @@ do {									\
- 	lockdep_init_map(&(sk)->sk_lock.dep_map, (name), (key), 0);	\
- } while (0)
- 
-+/*
-+ * Reclassify the lockdep class of a live socket lock.  Unlike
-+ * sock_lock_init_class_and_name() this variant does not touch the
-+ * lock itself, sk_lock.owned or the wait queue, so it is safe on a
-+ * socket that userspace still holds.  The caller should check
-+ * sock_allow_reclassification() first to narrow the window in which
-+ * the lock is in use by lock_sock().
-+ */
-+#define sock_lock_reclassify_and_name(sk, sname, skey, name, key)	\
-+do {									\
-+	sk_owner_set(sk, THIS_MODULE);					\
-+	lockdep_set_class_and_name(&(sk)->sk_lock.slock,		\
-+				   (skey), (sname));			\
-+	lockdep_init_map(&(sk)->sk_lock.dep_map, (name), (key), 0);	\
-+} while (0)
++		/*
++		 * Note!  Unlike fully direct MMUs, direct SPs in indirect MMUs
++		 * can have an arbitrary number of parents, e.g if the guest is
++		 * mapping a huge PTE at many points in its page tables.
++		 */
++		if (pte_list_count(&sp->parent_ptes) >= RMAP_RECYCLE_THRESHOLD) {
++			kvm_mmu_prepare_zap_page(vcpu->kvm, sp, &invalid_list);
++			break;
++		}
 +
- static inline bool lockdep_sock_is_held(const struct sock *sk)
- {
- 	return lockdep_is_held(&sk->sk_lock) ||
+ 		if (direct_mmu)
+ 			goto trace_get_page;
+ 
 -- 
-2.50.1.windows.1
-
-
+2.53.0
 
