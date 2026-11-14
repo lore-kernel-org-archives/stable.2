@@ -1,67 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.164
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.191
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794661785;
-	b=DGZFYhqKl8wXVPvHag6OAuMDxTYebfDwKxyKNxQ0koAUyUJjvxUF+fEDKeHbADEFYl8c
-	 ZSPEzGaFrr62KC+sOKZ2SeskbiIZbEFP1oxWs8xxPO8Bbb+cFirfwQ8K7/bdzwj0sdSFQ
-	 ZyNMoBW59TBI6+uLlX+JzcwAN6izBNpJxfk63FP9re+MOJq4LMgRWm49NCuooBE2ip2I+
-	 RUyRSqJSBKhgDdJ1CUXvy+FYj2JYu+gynCdrfOPKL0bF/qvsHLrV80gj4oD3jDC0Xb7hT
-	 uvZTJBmHweVXJ1LJr0rpvYIdELSkXcHTI9gNpsHDC/nPYJ/tmpaBtrDC8YMsWEn+Iuw==
+	t=1794661780;
+	b=lLLSAl9RKg0T3QYHhWLBSLzob/xyH+6+82JZpiDl/fzQnDHgSLKKm1/J3jHQRzvI3fVC
+	 x0VjMtA3KaOWsl/TrqBKjtnVujnKL3RjV/uC0gzotrXw54gZ6JVeXa/3ZcuUp5tjYU2Yi
+	 iQWr+lbajFQZO3VUO4ynLtVpx+JIpXDQOgUhwoc+/M0P9JlsDrQbeIFHq5BLASSeK50xk
+	 s6NRrk9Q+yahebPUN+7el/zzskxKXvKGS5evx/7JCZdRyDrrxOj7xjqKhQbLfMWj9GoLZ
+	 VVqdytBOtUc2FHgBdr2uEq30i73CYjXs5GMOpBSXEow0SvI07tPFFDfQa6+IkBIX4/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794661785;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794661780;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=P6Yuh683q5aNH3HN18bjb0/+LSo0udXf08N/NrFxA9s=;
-	b=wiMCX0uOPs3SODGeYkavevVcu2X0SKWl933784gJt5MxZ93c59z64r5T32lU1mjRmbD/
-	 N9qDSNKwKoezjla1BAdPXCPHZmVGWY5R0zHb3K88UG0HgHqKhQDtfN5Pm7LOQiKSeRBab
-	 KujcsoUqwx+0fNAgHnRDPhXXYMw7QBuCRsi3teG5XaBdaCwNNrFzm7rslzlFqiHvTEbzQ
-	 pYzjS0a+/neNByGQMYdgzWBI/fb1DrG5lOo6iETFcEGHkD5QZlt/90VT3kjBgaewztWaw
-	 jOBHGuzhPLbfmGtN1NhuLJ5dU9q1ULrNRGWwllBd/KoyA2gSLsPYFVlGDJMpvNVikJg==
+	bh=ptAK2PfuAn77oHZ/Ek1nHocPe/xXcFqzM2kqY1MBHQA=;
+	b=3K89NKTkID52NC0TNx7vH69iIym3hpeVjoZ8kb5KpYqekp75sTiMWvd/QTfotIQ8fdQJ
+	 Z2E0mi0YBwUat+CZ/JEHl0A9HP0/xBK2+iqcIou9zq4bHetwG9c8jOsghKzBzF2CpO/mr
+	 pDw6rlNjf7Kv0HqEe4UE9z0E9YpvaJ4nIdaXqvqoDqwk2YSkiac9Dwxz5YhTWu4L+Us9L
+	 q+WqkaI4DxINLvbV53RxdWmW8HgMDbE22DlWL6fGQe+tS9KUfz/n+/PTGhtvBp/BB8RM3
+	 CM/mzT9Tx8zYwOKKqRSu3Ik7Y/VTPr0VLR9CYgLq40uOO5in5wzmtXMt0CpgHerC77g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=qq.com;
 	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=aFa5JwqW;
-	arc=none smtp.remote-ip=203.205.221.164
-Received: from out203-205-221-164.mail.qq.com (out203-205-221-164.mail.qq.com [203.205.221.164])
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=x0ELlvH+;
+	arc=none smtp.remote-ip=203.205.221.191
+Received: from out203-205-221-191.mail.qq.com (out203-205-221-191.mail.qq.com [203.205.221.191])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C7060A6F57;
-	Sat, 14 Nov 2026 13:09:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58C7060A6F57
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEE8A6078A15;
+	Sat, 14 Nov 2026 13:09:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEE8A6078A15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=aFa5JwqW
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=x0ELlvH+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794661782; bh=P6Yuh683q5aNH3HN18bjb0/+LSo0udXf08N/NrFxA9s=;
+	t=1794661778; bh=ptAK2PfuAn77oHZ/Ek1nHocPe/xXcFqzM2kqY1MBHQA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aFa5JwqWvTYPesigACA0Omj4TNQendrt8W6ZBKDd6oVeNVU0ysB7AO9PR+7xuHxBl
-	 D0uMi3vq5Pzo1dVyoZwpMZl8F83VVzp5CXVGYspKaXN3MsGfq461rMmsM9wPa2PE1T
-	 YxJ9PmRzmnZEiWPkRJtW6HoI9M/T+lMQLwqAD6eo=
+	b=x0ELlvH+oI6lwYCLAelq+HYAJoM6Eg/3h2UoDlt9MbZ0AMmOXJW4xoWWsYsMls9nN
+	 3k6gApyWj3cFlixEw3lMSCwOOoUca1cNyiiECuKT7q+P/+XGf9/qIXGAufobYZDl9L
+	 Mtp5SYjBTqm5ZhM6q9Bhf2FH15G9bpQCH1ojL8q8=
 Received: from localhost.localdomain ([2409:8d5c:8f0:65e5:7443:873c:1230:8af8])
 	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
 	id 25C3B2E4; Sat, 14 Nov 2026 21:09:28 +0800
-X-QQ-mid: xmsmtpt1794661778tlw5bgnh1
-Message-ID: <tencent_735D19C1C588FD2DF1F0532892DDD768FA06@qq.com>
-X-QQ-XMAILINFO: MaHcj0GmOzv95xuNXONc1Jg81SNQTcimdqmtrArM4YNP3GhGawe0+rkXxacuuW
-	 OGyR6zQmTJo0MXiKM4cOAj3xqBuE2Aesu1uE2PybsgbAp9yNZLTGc7og2ZjF8MBC22J13jXyRcQX
-	 ar9mZ0fkdhHJjzgz6H8lALrgYP6Ob+g0cVOMU+iT2hpyOSfsnYMI7o8bRTm7SXNH1FwkRkH9UuMz
-	 gND/z69qSsl8wWplAPy01mwzYJMiNfEQF5+9NDNcDYs2rsgCTf+sskzjlKefRLZZY/CtuyH/3QXb
-	 KUgrp69poRt8PHmsNl/lU528vtztdcdUaSMvgvuJ+0aLDeRMXXAcjeXMUWOHsrMX737zMzApV7ar
-	 AvojxUCg5qO9TebCn6kyg85ZxgWprMhDM7kKZfqIJeWUj+/YX+p1fxTGjQd2Iovbs+MSD6vkUSFq
-	 MpkGduln6LkIxoIxmXMryHHO1c7A+wD5VBOzAsym/saxAN36NySuzm4EpPCVNPysyPvAse1BaSFl
-	 dCJz94pnMSQ+bjm11nwzVrhySH3/eIsrlcXNBxi9+VAUUlQMOLi8WkNfq5RNzm32bAqfemwJaqg0
-	 kB1pgQIzNkXIf8IFZ5HA2uoWnEEE62uPPJ3y+EvULQInHmziV31QwKmfKl20CzVOB+nWMmbjIDE7
-	 fzkiaLx63bPbViGThR7XQ4ApajM0FxtmMQrab6qSUwfR+ptEuskpllltNmnBHsnTT7o/5IbbtqQv
-	 Pd3mI7pcZtmUuqQ2WQfb4ZTe5brIiro89Vs8yAlIawg5jW4i32rttZ50W1kfekaLCOng0aou36Hx
-	 NZHvWs/BOQckZCxTUubBbVOpv+xgM+0L1RDkkeHQxgUPAteJLVxYtsY4w+TQO1dP3VEdsW1qPZB/
-	 xLls3032JpUUbfR1Qiy4yvpNMoFwfCIUpc675rHC3bJCJTEySH0m2iwUKIAoHjSRrgP9yDMVcPdA
-	 DOBz+UmNrAuXGdTbanYcZnksudzu1NMSU7jYEKY3EAxd0GPDYdk3jlbxQQZDBKO+xXFdCOzZKeNG
-	 FB/s6zfok1Sqp8oXQ3lWUCfwdmqLB6BhEHbA03CFpeQ1vuB+kiaE6nYi1Qp1FHvNnweQMwGW05Jd
-	 jieRZyZ7Bp77FElj6/14MbZZzBlV/Ru4WxUtUHiZSNkzw3hcHftaXU3u2L8ptK+zisWqTkdH6+zf
-	 0e9/A=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+X-QQ-mid: xmsmtpt1794661773tm1g0da2u
+Message-ID: <tencent_BF4B5FE9E95165CF1734F65EC40D4FEB4808@qq.com>
+X-QQ-XMAILINFO: NbgegmlEc3Jue+F2vLrGacWsZf+O1K50A2SxhzxbnblTYVisPlYosMMO9+GzfQ
+	 KkU/rLf3pqY/SQG0YYi3MjAPAU+YHFdMvV2FPEbi1pZeuZoeiGo0iZqSFulBSgQT76JhT02EDSNr
+	 S2HuW0ZteksJch8+czq8sNa/DWTSHuKRrtHHd3/zDbN3yoeEYtu3zkfGm7Y4MTRJFYya0jH/ZMeE
+	 kC5369UlwjKaN46W127L2qf068duoUjmpo6GEb77X331rTnf94y2LPolmXWOSUwWfjx8CuLX6bIQ
+	 jfct3kGfLdK1Gb/Zez8p/aP87RN4v+Pn/cvmJzv11pyAr/fRFIr/4cVHlURDWHStAQxUyqjwfhU7
+	 I5xLPDEQingaftMvED1PPFFpI3v3223l5czpKauufO2CmyD83+SzCYelZO9h0WUlCqQ0aF9kZhb4
+	 yzPU3R6WxpwxlC7duKwhE/DisUN3/5s8gGd8XgKgpQBgvn+tOq4NTACP0kxc6C0S7mJPUDxsCQKd
+	 VX0LOqLJ9E5AmBlPMTut8fmtco2ndjI/v2Y2sheVz5o75DIM07gA5MhmtxaPqLzPcyzo2MZ0zliw
+	 3ukgTPLDwBkOR1d+YVDO7yJvdrZE1+YmPD3L6PPE5ehkzO+HILG58y30KOIzi1gMjP9uUd9Mr6xA
+	 A2qy5yWnUUiAHv1mnPfFsYQV+Mlxrl+dgD3tMsUO/Dfvhq3w/02p5BogoUiBY/I/yaEoW/KNDERP
+	 bRsRqMuWNf9lpZvC18FCGwA0iAFozQEFm9fuew1iqRG+wEi1+UEJlffPJpwAFJyi508tSUVSraCu
+	 ImDFXmxe6f124UrdPvLr5z9tx6jSt1jiveU0ElG1hWQrogWrX+DtPUpZ9/6+ltmH+j/2xZL+B6bU
+	 kqOFssgLN3iPAlKAR/J/RSfMCkuShrj0t5AcGLHbZFvDs/wHPZWBAUNRKubVHWmNAWVSHpOQu2lR
+	 tWbdW1SY2fVIQaYs8XCn0LMsDJcN/vQAAsHcFo848vkKE3qoVUZdMU7xx7lvdDb+6B1jzjXmSJbL
+	 Xi+c5rz8ZBRHIl+7kuzPWyjb+jbOFg4Z+et97GtqaAl4Hfl4Ry+7EyHAzn5pUWGpQ6hVYLKe3PTb
+	 T8lOXM1KIJmjO6EGRRxld+yuhS2Q==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
 From: Hang Nan <2122295973@qq.com>
 To: netdev@vger.kernel.org
 Cc: mptcp@lists.linux.dev,
@@ -78,9 +77,9 @@ Cc: mptcp@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	2122295973@qq.com
-Subject: [PATCH net v3 4/4] net: mptcp: verify the token slot in mptcp_token_iter_next()
-Date: Sat, 14 Nov 2026 21:09:27 +0800
-X-OQ-MSGID: <20261114130927.91839-5-2122295973@qq.com>
+Subject: [PATCH net v3 2/4] net: core: take the reuseport migration reference with acquire ordering
+Date: Sat, 14 Nov 2026 21:09:25 +0800
+X-OQ-MSGID: <20261114130927.91839-3-2122295973@qq.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261114130927.91839-1-2122295973@qq.com>
 References: <20261114130927.91839-1-2122295973@qq.com>
@@ -95,47 +94,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mptcp_token_iter_next() takes a reference on a socket found on the chain
-of the slot it is walking and then re-checks only net_eq().  A socket
-that was freed and whose memory has been reused by a new msk in the same
-network namespace passes that check while it is still zeroed, and the
-callers - mptcp_diag and the userspace path manager - then use mptcp_pm
-state that has not been initialised yet.
+reuseport_migrate_sock() returns a listener with a reference held, and
+every caller immediately reads that listener: tcp_v4_rcv() and
+tcp_v6_rcv() pass it to tcp_filter() and tcp_check_req(), and the
+request-socket paths clone its state.  A listener removed from the
+reuseport group concurrently with that lookup must not be observed in a
+half-torn-down state after the reference was successfully taken.
 
-The token of a socket on a chain always hashes to the slot being walked,
-and token 0 is never assigned, so re-read the token after the acquisition
-and drop the socket unless it is non-zero and still maps to this slot.
+refcount_inc_not_zero() lost its acquire ordering in commit fb041bb7c0a9
+("locking/refcount: Consolidate implementations of refcount_t"), so these
+subsequent reads are not ordered against the reference acquisition.  Use
+refcount_inc_not_zero_acquire(), as was done for the established-socket
+lookups, inet_twsk_purge() and bpf_sk_assign() in commit 5b5d8f351dd9
+("net: restore refcount ordering for lockless socket access").
 
-Fixes: 96d890daad05 ("mptcp: add msk interations helper")
+No behaviour change on strongly ordered architectures.
+
+Fixes: 1cd62c21572c ("tcp: Add reuseport_migrate_sock() to select a new listener.")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hang Nan <2122295973@qq.com>
 ---
- net/mptcp/token.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ net/core/sock_reuseport.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/net/mptcp/token.c b/net/mptcp/token.c
-index 8a603fc8dc05..48470d6e751d 100644
---- a/net/mptcp/token.c
-+++ b/net/mptcp/token.c
-@@ -355,6 +355,7 @@ struct mptcp_sock *mptcp_token_iter_next(const struct net *net, long *s_slot,
- 	struct mptcp_sock *ret = NULL;
- 	struct hlist_nulls_node *pos;
- 	int slot, num = 0;
-+	u32 token;
+diff --git a/net/core/sock_reuseport.c b/net/core/sock_reuseport.c
+index b9e5648fa4c5..56230aa55a3e 100644
+--- a/net/core/sock_reuseport.c
++++ b/net/core/sock_reuseport.c
+@@ -667,7 +667,8 @@ struct sock *reuseport_migrate_sock(struct sock *sk,
+ 	if (!nsk)
+ 		nsk = reuseport_select_sock_by_hash(reuse, hash, socks);
  
- 	for (slot = *s_slot; slot <= token_mask; *s_num = 0, slot++) {
- 		struct token_bucket *bucket = &token_hash[slot];
-@@ -377,7 +378,9 @@ struct mptcp_sock *mptcp_token_iter_next(const struct net *net, long *s_slot,
- 			if (!refcount_inc_not_zero_acquire(&sk->sk_refcnt))
- 				continue;
- 
--			if (!net_eq(sock_net(sk), net)) {
-+			token = READ_ONCE(mptcp_sk(sk)->token);
-+			if (!token || (token & token_mask) != slot ||
-+			    !net_eq(sock_net(sk), net)) {
- 				sock_put(sk);
- 				continue;
- 			}
+-	if (IS_ERR_OR_NULL(nsk) || unlikely(!refcount_inc_not_zero(&nsk->sk_refcnt))) {
++	if (IS_ERR_OR_NULL(nsk) ||
++	    unlikely(!refcount_inc_not_zero_acquire(&nsk->sk_refcnt))) {
+ 		nsk = NULL;
+ 		goto failure;
+ 	}
 -- 
 2.47.3
+
 
