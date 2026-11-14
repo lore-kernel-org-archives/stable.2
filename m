@@ -1,61 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794678333;
-	b=W8RD92sc2+16r94nt5Hw6O78B47c0gbuGeeg3Ad8RXTjZVm2p8+65hurhaQrxybJGJqW
-	 3PEc3ENErJgHrwHA9qPXD8ajSkJeT+VAwDdd/3PdxQomP4XSyc8nfuMBl8MN/ET01RuG7
-	 j8wxjEIiUDmxq64FSq9h8tBn0nl3wK38LqsK9Novk+4CnggVy/FMk8Xnxs9ll1zeBuDnd
-	 fWyzREyKzg4bSFXiGFEYrURtQUgs5GfWnSiR871p2363bzm2lY/tSSzb6iX4kVxu1l3u8
-	 H+ujbiFk3NnO6kyXNjcyf3MOZl5giR+AM4T8O7138AumjSF0xgzf984qVvKC/970//w==
+	t=1794678429;
+	b=koE8V4ZFjeHSVmHga4wDZvq8xhDWoRUc8WyoEAtXcnJBhsyaFFXcyw+bVTZPGwRDTUpx
+	 7gEpDWBEs4UJ+TJ2M/MhlWdPcaCpVPU6Fiwgj6gfPSfEoRWhHE6m0hnvvnZCbwV3Z6LfS
+	 FEUUXcpW9BfP98I7ZQJRNnvNfcDXNSVSD7G0hAWHurVI/Y050SeUkiAJ9ncsyffW5MXSN
+	 WUqq2PuhvaxN0/dT77jq/OPlge+h60+YptHGUuQXzYkm20kMSAa1SeDbfk0qg28XHfZWd
+	 C3mN0vYRbTZtb93uyNrvWs56Ser+5kkLToZEr85F3qqe8Xj0cm9Wyf1kn/pUVqKe3iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794678333;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xB2Ll/hE6fCRL1qkpv+uhy1y1+Wgnd2n6ZmeDTOra9U=;
-	b=NH0DO3y9zh+NWfn5wph8nFMwhk/2vFKdOCEUPSIKqXEWBMKXtKtl+1CeeYiijjDLOoF/
-	 6G9uTJY+OfzZ/djJYFYKxQ0DEvpeTdoJgwLhb5DKaWoRHxSo3XwU3sAMFYdNaCEE2KjoZ
-	 RHe0HfdmeYgfyvfm6ifQBf9bzLUHqJiikItw+kpFNQELAxmdCyAyTh7Kl7FV4aNWBWeJU
-	 mHY0c1GRyPgf912/FCA+sClpI55BtOiakV6pYT48ukwQPWGwD0URFXZCVuN+P0tw3oqXY
-	 eov8icnWVk7hTZZRaU/i5hUCsMv/TdWE192roZ2NEeo0yQh9g6v2OONPiC6kPQNKXFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794678429;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wUS99+5bD74l0g6u7scaH+a/BayDu1xBqJPWbuaHkXA=;
+	b=EbpTseUUx/Z/JDg3jlxdMSz0DodVEK7aCFakFsBb1YmQAriOv3O/3Y0lSWmqHA5h7fn9
+	 e1KnSqdD4jLwyKMcqgiUAtNeOlZ66aaNao2uTv/qQZX6ru3frTXmQ7hLvaysFQwiGBIFe
+	 A7dA8tfJb2u2y6EqgF8jj1fRfYRMkXG22WkjzYMymv2GBr7YNX7/lRWSX08ArrQ8ZmdJo
+	 B0Hn4D/U4+X7OT1J9OZ9ocoV25tJagP380hKMuu3Asw0jZzs3XB6JjEQYHt82iOUtWEt9
+	 OhHMmWSAQejlTOqe8EOKf5BNHP+Zmy92f3qoB8yo+edNMDDq1v4NIUxjh+VDE34XAWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QyO2K7lf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VY/qQQai";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1362606A327;
-	Sat, 14 Nov 2026 17:45:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07633606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 17:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QyO2K7lf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50A281F000C4;
-	Sat, 14 Nov 2026 17:45:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VY/qQQai
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 900CB1F000C4;
+	Sat, 14 Nov 2026 17:47:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794678333;
-	bh=xB2Ll/hE6fCRL1qkpv+uhy1y1+Wgnd2n6ZmeDTOra9U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QyO2K7lf1ccEKQG1VMjR3+Rwahnau24XY+kx4XPVNNGQEeMmOOut7N90cZW4mLteO
-	 qjjCohp3Qs5gB9pctDHPTSXmSCdiISZagmNAN6RoKNrpZ6GXgX7UYPq+VI2/OG/wYI
-	 FGqML+O0QatMY9194eGPdqOzRz4KFNY2xC+OGDidmocLeYAiBqZDjpOSBonm9HnXRr
-	 TUaCkhO95FRm6FsEUwjE23wZ9CkrQjAuqu5ZYJDzmR4DfRitGiiBnJCeX1cBhJawQq
-	 dnN4e6j97peIUuVQ4Oq0YyCX9qrqPa2yINYLRIG98eFspiKDABiKdSg5CGW6ueBiQo
-	 Qsz6Eh5rehgsQ==
-Date: Sat, 14 Nov 2026 17:45:25 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: SJ Park <sj@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	gregkh@linuxfoundation.org, 4ncienth@gmail.com, akpm@linux-foundation.org, azpijr@gmail.com, 
-	corbet@lwn.net, david@kernel.org, jannh@google.com, liam@infradead.org, 
-	mhocko@suse.com, patches@lists.linux.dev, pfalcato@suse.de, rdunlap@infradead.org, 
-	rppt@kernel.org, shakeel.butt@linux.dev, stable@vger.kernel.org, 
-	surenb@google.com, vbabka@kernel.org, linux-mm@kvack.org, 
-	Dave Hansen <dave.hansen@linux.intel.com>
-Subject: Re: [PATCH 7.3 463/507] mm/vma: avoid spurious write locks when
- mm->mm_lock_seq overflows
-Message-ID: <avieGNg0Z0WsD17N@gremlin>
-References: <20261113153812.408825269@linuxfoundation.org>
- <20261114003912.82206-1-ojeda@kernel.org>
- <20261114031943.192867-1-sj@kernel.org>
- <20261114154112.3718615-1-sashal@kernel.org>
+	s=k20260515; t=1794678428;
+	bh=wUS99+5bD74l0g6u7scaH+a/BayDu1xBqJPWbuaHkXA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=VY/qQQaiOQZmqSgdiiS4FfET6cMOK1O757/v8LKMQFzK3v9tIax/40l7QDXIpU0mC
+	 JIjpgGNGtdAIdKfbOKUlDp7loWI4cRkG6E9eFPdTg9k7VPq0UmLgGrjlvydZRw4PLb
+	 PXVBRwL0xZwvgTLYIOAELF34dpsqHortMY3L8p4npmYYcMQdINP1or3B3Z2JXUhyzM
+	 QW+2PUKA6O0X3XxIVyQFtkpoS+Q6Zlw5XPmIDo6WZOS9SThOcT29ciOSS/G/3enRsd
+	 4WBmzhPM59tNIZ4YM0Ux5hC7UQe5Kl1Zj0lyThK3qR7HzuQ3MxA6DhF+bFr8SN91eM
+	 5t6o2QL2XPfsA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Yafang Shao <laoar.shao@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Zi Yan <ziy@nvidia.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Matthew Wilcox <willy@infradead.org>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Alistair Popple <apopple@nvidia.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/migrate: snapshot the source nid before the misplaced migration
+Date: Sat, 14 Nov 2026 12:47:06 -0500
+Message-ID: <20261114174651.355700-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201713-failed-6.1-fe623a81ad9e@kernel.org>
+References: <20261109201713-failed-6.1-fe623a81ad9e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,23 +69,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114154112.3718615-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 14, 2026 at 10:41:11AM -0500, Sasha Levin wrote:
-> On Fri, Nov 13, 2026 at 07:19:42PM -0800, SJ Park wrote:
-> > On Sat, 14 Nov 2026 01:39:12 +0100 Miguel Ojeda <ojeda@kernel.org> wrote:
-> >> ./include/linux/mmap_lock.h:604:20: error: no member named 'mm_lock_seq' in 'struct mm_struct'
-> >
-> > I found same thing while running kunit.  I also confirmed both applying commit
-> > 47e725702b0b from Dave and reverting this patch fix the problem on my setup.
->
-> Dropped from the 7.3 queue, together with the prerequisite it pulled in.
->
-> Thanks to both of you for the report and the confirmation.
+From: Yafang Shao <laoar.shao@gmail.com>
 
-I'll send a fixup.
+[ Upstream commit fe623a81ad9eddf10059b4e44bca0440d9120613 ]
 
---
-Cheers, Lorenzo
+A successful migration frees the source folio before the promotion
+counter update, so the folio_nid() read there operates on a freed
+folio — which may already have been reallocated. It happens to work
+today, as Zi explained:
+
+  : Strictly speaking, it can be seen as a benign UAF. It works, because
+  : 1. folio->flags happens to be the same as page->flags,
+  : 2. folio/page nid is stored in the ->flags and never changed.
+  :
+  : In memdesc world, after a folio is freed, I assume folio->flags would be
+  : zeroed since struct folio is freed and calling folio_nid() on a freed
+  : folio would give a bogus result (yeah, it can be mitigated by not
+  : zeroing node field and each node has its own struct folio pool, but that
+  : makes folio_nid() implementation dependent).
+
+and Matthew explained further:
+
+  : once struct folio is separately allocated, it's a UAF.  It could be
+  : recycled to a different NID or maybe the slab containing the folio could
+  : be freed (assuming we're not holding the RCU read lock at this point in
+  : migration, and I don't see why we would be).
+
+A separate concern is memory hot-removal.  With memory-tiering mode
+enabled, successful migration can release the source before the
+promotion-accounting folio_nid() read.  If the task is preempted there,
+an otherwise-free source block can be offlined and removed first.  On
+the x86 path, removal can unmap the source's vmemmap, so the later read
+can fault.  The snapshot avoids that read.
+
+Link: https://lore.kernel.org/20261027021721.95781-1-laoar.shao@gmail.com
+Fixes: e39bb6be9f2b ("NUMA Balancing: add page promotion counter")
+Signed-off-by: Yafang Shao <laoar.shao@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Suggested-by: Zi Yan <ziy@nvidia.com>
+Suggested-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Zi Yan <ziy@nvidia.com>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Ying Huang <ying.huang@linux.alibaba.com>
+Cc: Matthew Wilcox <willy@infradead.org>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
+Cc: Byungchul Park <byungchul@sk.com>
+Cc: Gregory Price <gourry@gourry.net>
+Cc: Alistair Popple <apopple@nvidia.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: adapted folio_nid(folio) to page_to_nid(page) in migrate_misplaced_page() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/migrate.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/mm/migrate.c b/mm/migrate.c
+index 09acee0c43569..0f3af8eb6356c 100644
+--- a/mm/migrate.c
++++ b/mm/migrate.c
+@@ -2458,6 +2458,7 @@ int migrate_misplaced_page(struct page *page, struct vm_area_struct *vma,
+ 	int isolated;
+ 	int nr_remaining;
+ 	unsigned int nr_succeeded;
++	int src_node = page_to_nid(page);
+ 	LIST_HEAD(migratepages);
+ 	int nr_pages = thp_nr_pages(page);
+ 
+@@ -2495,7 +2496,7 @@ int migrate_misplaced_page(struct page *page, struct vm_area_struct *vma,
+ 	}
+ 	if (nr_succeeded) {
+ 		count_vm_numa_events(NUMA_PAGE_MIGRATE, nr_succeeded);
+-		if (!node_is_toptier(page_to_nid(page)) && node_is_toptier(node))
++		if (!node_is_toptier(src_node) && node_is_toptier(node))
+ 			mod_node_page_state(pgdat, PGPROMOTE_SUCCESS,
+ 					    nr_succeeded);
+ 	}
+-- 
+2.53.0
+
