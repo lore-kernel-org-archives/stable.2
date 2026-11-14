@@ -1,59 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.182.66.162
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.88.38.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794650672;
-	b=FLo5LtoHTGZsI/ncZ1AzvQWUUhrqtHyOB+4Wk5OzWmdBoc5dq+EcQghBq4K4Ij1u6agP
-	 WDYP/37V5ia+d5wE26eUQb0bVuIbND0Qci1ULOHZAQKguAB4xeGxcJWoCKVO8JVM7HYsK
-	 7tqdgeQ1MSkALRHBvCXfhxf/9/aRfrXQvtOMzw6c5OZbXg5vJgCunhlKLozANghL03TEi
-	 HhtwEUd47bPjAwraShIAfWSTMbJa4vr6+y5upftETKeHkCkuyMMohLBIhz4dLYlhIBODw
-	 Qqn2cljY0h89wZHwjAeyI40HnMqGictBiUJvJrMRC1W04hDMszUZwn51WPqkwMtiDVw==
+	t=1794650774;
+	b=agOA1+Nqv5VHXiGGtRXA9gfXSucyGAkW7A58TisnTfB2tuBqKvjoBxaFz5idA9OUb2xY
+	 eNof9xBfvyUs3Dmz2iWAtXS/8mZJyYWpWF1oaTs/kulOdnpunJX6jAcnHBkCFFedJW3dX
+	 oJPlOPBSnbSZpgvBYwAzsUW4Ik93m7YfFKTTlbYLdUaTomleXfT38q+kHIxxKQNIsmMc1
+	 fFJ5eY6TWvKRVQOPRbacZXu/qkkUhpoXXK8olFWaRwa+xoqlEna2+me61CT7oLmfGN0/V
+	 o6robyo9mDU5r42DOywkO7GvNbXdqtK7CEnz22tC5RDxdI96f/X5AzkXy7nwF/nGPxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794650672;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Content-Language:To:Cc:From:Subject:
-	 Content-Type:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
-	 X-Spamd-Result:X-Rspamd-Action:X-Rspamd-Server;
-	bh=cg6fKvnH/uKWYe/esn2QO5i04Su5kqIyBMMBNXXe/EQ=;
-	b=fDd+NymSMIQ2NtlxnVQXm0c2nmBuCfWCHO4jxArrm/I6L3zlvikJzUU9L78FdS+xD5I5
-	 UStAjjBiN9CJqvHZyh7pIAe+PLO82ArCAUI8rSuLRwAJvr8Rr3PqYgu6jkE+YFAcdtT22
-	 JKjSTXt6KAgenBH5HBzRLqF2bZGa9sOVZOJ970q9LepEIUaVba4cBNsiLVsJ/YmjIT6v1
-	 +lSyg0vymvlfrYo8tdV0S/pGJr7trVnJ6Zc/7QE6aZDgcsWUPzE3gNiYRE5IFDshZOSQK
-	 giTTp3n8FXM7z7VLkxEZ5Bxh3tWyxX93bM7Tfy/bU13328IN1hlrAugWF4ptV81urjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794650774;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Pl2hOz6BzMGr9Dpq8GYJiAgRRx0ylFIRGI3z7sZaMZs=;
+	b=ktttlSJs3U00eknDXPrgKn1otMCRjSLYDdvD+1B78iwwJT0z3TXEwy0Zc46pvCjQW7kz
+	 1XFRMJsf5xTOKzVGWlMC4PlXLQEboIDWnywGAVj2arIOJUbmsQ8V/wYifrgfhvSDBOpGV
+	 MWSjNu+M4eZv/v6wlV829SEi8ZX6fUlWrXA2+cnDNmzlm6DjPtf9vMWXCcB7YSMWheWIc
+	 2nRi4AYKgVZanfVKuGs+5wXUoy0BS0Hh5k5EAhkJX0CELYCxF/jie3A72jERtXTjcWCQ4
+	 eluYqNvhU0PJoOcImoaRa1ntcME4bmVzkNGQJdExbQJdnlCOqAgtrPPoawInGMCowKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=aosc.io;
-	spf=pass smtp.mailfrom=aosc.io;
-	dkim=pass header.d=aosc.io header.i=@aosc.io header.a=rsa-sha256 header.s=default header.b=uCJK5+6A;
-	arc=none smtp.remote-ip=217.182.66.162
-Received: from relay2.mymailcheap.com (relay2.mymailcheap.com [217.182.66.162])
+	dmarc=pass header.from=simonwunderlich.de;
+	spf=pass smtp.mailfrom=simonwunderlich.de;
+	dkim=pass header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=yqSHP3Np;
+	arc=none smtp.remote-ip=23.88.38.48
+Received: from mail.simonwunderlich.de (mail.simonwunderlich.de [23.88.38.48])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C315E606A330;
-	Sat, 14 Nov 2026 10:04:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C315E606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aosc.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aosc.io
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7FA9E606A334;
+	Sat, 14 Nov 2026 10:06:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7FA9E606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=simonwunderlich.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=simonwunderlich.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=aosc.io header.i=@aosc.io header.a=rsa-sha256 header.s=default header.b=uCJK5+6A
-Received: from nf1.mymailcheap.com (nf1.mymailcheap.com [51.75.14.91])
-	by relay2.mymailcheap.com (Postfix) with ESMTPS id 2DF183E878;
-	Sat, 14 Nov 2026 10:04:24 +0000 (UTC)
-Received: from mail20.mymailcheap.com (mail20.mymailcheap.com [51.38.223.107])
-	by nf1.mymailcheap.com (Postfix) with ESMTPSA id B4E2240009;
-	Sat, 14 Nov 2026 10:04:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aosc.io; s=default;
-	t=1794650659; bh=cg6fKvnH/uKWYe/esn2QO5i04Su5kqIyBMMBNXXe/EQ=;
-	h=Date:To:Cc:From:Subject:From;
-	b=uCJK5+6Ab0kTMLGbS+64UC/mQzolXRiVdFL33RAKHEc7eo+8g/3vw3GcLTFjf561R
-	 Vh0h/dmmwZXlIG/Qm7VTIgE7iaYpCnkDH5GRR7hYcJBHCLBcqRJjUERtClLsgKqrm+
-	 9/JqNKG86sY3NAMwXt9w13EIpoEygiMZufWuRsIA=
-Received: from [198.18.0.1] (li1563-205.members.linode.com [139.162.83.205])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass (2048-bit key) header.d=simonwunderlich.de header.i=@simonwunderlich.de header.a=rsa-sha256 header.s=09092022 header.b=yqSHP3Np
+Received: from kero.packetmixer.de (unknown [IPv6:2a02:3037:6ed:dd6c:838:344b:3152:2d5e])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail20.mymailcheap.com (Postfix) with ESMTPSA id 5EE08E1F52;
-	Sat, 14 Nov 2026 10:04:13 +0000 (UTC)
-Message-ID: <4ab8d1e3-4e8d-4172-b36e-570eb1ef9e11@aosc.io>
-Date: Sat, 14 Nov 2026 18:04:08 +0800
+	by mail.simonwunderlich.de (Postfix) with UTF8SMTPSA id 578D7FA0B2;
+	Sat, 14 Nov 2026 11:06:11 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=simonwunderlich.de;
+	s=09092022; t=1794650771;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Pl2hOz6BzMGr9Dpq8GYJiAgRRx0ylFIRGI3z7sZaMZs=;
+	b=yqSHP3NpQXlqj10CQ0FopwiVDN+5CY7Z2xafQRDZxF7Bc2dqQgAeBw3kNge0fSqpj4999J
+	LsDUAP1nNvjpm0hLtB2c6Y1A7oI0+n6zQQGioVZ1KG0/Gr6C386KhtyxTchsVgWrAaXYzx
+	t/u4OA8WDnEinmAlc4bg4X21/UiyisXRXVF6J9QDYtFJyRHTtI2QmT+0ac1AX2V+T1EnZ3
+	vwc8AePElrLdBNcJ7DWuRzhHyeDXeQAKhEzgy+TOnYbPc0W/y1v78TWNjcoHvGaH1HVvHL
+	bg4e0PGEB9HAcTVIZYVL1c//TNgoKPGvnaqrBwbPDeN3W9DljUkHU7NoRNoS2Q==
+From: Simon Wunderlich <sw@simonwunderlich.de>
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-mtd@lists.infradead.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	linux-mips@vger.kernel.org,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	Aleksander Jan Bajkowski <olek2@wp.pl>,
+	John Crispin <john@phrozen.org>,
+	Sebastien Decourriere <sebtx452@gmail.com>,
+	Yangtao Li <frank.li@vivo.com>,
+	linux-kernel@vger.kernel.org,
+	Simon Wunderlich <sw@simonwunderlich.de>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/5] mtd: maps: lantiq-flash: fix NULL pointer dereference on probe
+Date: Sat, 14 Nov 2026 11:06:03 +0100
+Message-ID: <20261114100608.3432120-2-sw@simonwunderlich.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261114100608.3432120-1-sw@simonwunderlich.de>
+References: <20261114100608.3432120-1-sw@simonwunderlich.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,63 +85,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>,
- Matt Turner <mattst88@gmail.com>, Magnus Lindholm <linmag7@gmail.com>,
- Sasha Levin <sashal@kernel.org>, linux-alpha@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-From: Mingcong Bai <jeffbai@aosc.io>
-Subject: [7.3.y] Please backport e517a172b776 ("alpha: select
- SYSCTL_EXCEPTION_TRACE")
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: B4E2240009
-X-Spamd-Result: default: False [-0.30 / 10.00];
-	R_SPF_ALLOW(-0.10)[+mx];
-	R_DKIM_ALLOW(-0.10)[aosc.io:s=default];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	ASN(0.00)[asn:16276, ipnet:51.38.0.0/16, country:FR];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_ONE(0.00)[1];
-	DMARC_POLICY_ALLOW(0.00)[aosc.io,quarantine];
-	TO_DN_SOME(0.00)[];
-	FREEMAIL_TO(0.00)[gmail.com];
-	RCPT_COUNT_SEVEN(0.00)[8];
-	MID_RHS_MATCH_FROM(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	R_DKIM_ALIGNED(0.00)[strict];
-	RCVD_TLS_ALL(0.00)[];
-	LOCAL_OUTBOUND(0.00)[];
-	FREEMAIL_CC(0.00)[linaro.org,gmail.com,kernel.org,vger.kernel.org];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DKIM_TRACE(0.00)[aosc.io:+]
-X-Rspamd-Action: no action
-X-Rspamd-Server: nf1.mymailcheap.com
 
-Hi Matt,
+Since commit 6145e07e9c77 ("mtd: lantiq-flash: Use
+devm_platform_get_and_ioremap_resource()"), ltq_mtd_probe() stores the
+ioremapped address in ltq_mtd->map->virt before ltq_mtd->map is
+allocated. ltq_mtd comes from devm_kzalloc(), so map is still NULL at
+that point and the probe dereferences a NULL pointer on every board
+with a "lantiq,nor" node.
 
-On 7.3.y, commit 4bef20bbb9e0 ("alpha: handle VM_FAULT_HWPOISON in 
-do_page_fault()") was backported as it was marked Cc stable. However, it 
-introduces `show_signal_msg()', which was introduced with commit 
-e517a172b776 ("alpha: select SYSCTL_EXCEPTION_TRACE"). This commit was 
-not marked Cc stable and therefore never landed on 7.3.y.
+Allocate the map before mapping the resource.
 
-This resulted in a build failure on 7.3.4:
+Found by code inspection while porting a lantiq-flash change from
+OpenWrt, which replaces this probe function downstream.
 
-arch/alpha/mm/fault.c: In function ‘do_page_fault’:
-arch/alpha/mm/fault.c:242:9: error: implicit declaration of function 
-‘show_signal_msg’ [-Wimplicit-function-declaration]
-   242 |         show_signal_msg(regs, address, SIGBUS, "hardware memory 
-error");
-       |         ^~~~~~~~~~~~~~~
+Fixes: 6145e07e9c77 ("mtd: lantiq-flash: Use devm_platform_get_and_ioremap_resource()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Simon Wunderlich <sw@simonwunderlich.de>
+---
+ drivers/mtd/maps/lantiq-flash.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-Please consider (partially) backporting this patch to fix build on Alpha.
+diff --git a/drivers/mtd/maps/lantiq-flash.c b/drivers/mtd/maps/lantiq-flash.c
+index 80d467eba92a..5c2ace302b50 100644
+--- a/drivers/mtd/maps/lantiq-flash.c
++++ b/drivers/mtd/maps/lantiq-flash.c
+@@ -118,15 +118,15 @@ ltq_mtd_probe(struct platform_device *pdev)
+ 
+ 	platform_set_drvdata(pdev, ltq_mtd);
+ 
+-	ltq_mtd->map->virt = devm_platform_get_and_ioremap_resource(pdev, 0, &ltq_mtd->res);
+-	if (IS_ERR(ltq_mtd->map->virt))
+-		return PTR_ERR(ltq_mtd->map->virt);
+-
+ 	ltq_mtd->map = devm_kzalloc(&pdev->dev, sizeof(struct map_info),
+ 				    GFP_KERNEL);
+ 	if (!ltq_mtd->map)
+ 		return -ENOMEM;
+ 
++	ltq_mtd->map->virt = devm_platform_get_and_ioremap_resource(pdev, 0, &ltq_mtd->res);
++	if (IS_ERR(ltq_mtd->map->virt))
++		return PTR_ERR(ltq_mtd->map->virt);
++
+ 	ltq_mtd->map->phys = ltq_mtd->res->start;
+ 	ltq_mtd->map->size = resource_size(ltq_mtd->res);
+ 
+-- 
+2.47.3
 
-Best Regards,
-Mingcong Bai
