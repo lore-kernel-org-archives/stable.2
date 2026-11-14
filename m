@@ -1,57 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794630158;
-	b=0dBCwhfiwDMdRithxiqIhy+jglfC3hdiNDHoOQaZ7cp1pSyfnATKryIokyao6Arcq0Jy
-	 WJZ4l5rz+3kWiKkC8ah8nUwZ3PdK0QhaAwhcT21An7LnXT0xXK3fh/+PYio9Jv6zp/0jV
-	 tFsPmd1CZjZiUMXsoVxV5snekGS0+FEcLv0xcX9pmEBqAKZPk2epBsp3I6+Yty+tnxxSc
-	 OZrgWVZ0mumSAQgrOwqVVy5Tl9MfZ9nq1eXrVm7XsaSZJTp7eSOZ4V+ptPQlXjVvMPC5d
-	 urDmQNImDfKy/YiFOonBEL7ohMbyVIevkXjWL7iePpgW4B1J4vd4Feo8Hlw6b6nfLJw==
+	t=1794630283;
+	b=w2J91zFhEKcX1A1D9OghRcnI6ObrAwjX7w/7VvFMdz7lUmcmdkHSPOJscQ2CKSprlORY
+	 We2KBkCxP6+c+PG68vuRjiqQwzsOfsx56qASlCOhsEIE3+4YL2K39icWSxCJ6UrboDLY9
+	 FeA9Ow3aTjNfBWnk3DQ8NwIcx2NOqH6MyHRGwoH+oQztACWqPdS1uAU+o0nZFqO4+s5oF
+	 Pl+ZyN8h1B+yWMcMQraTtQMeenaAN9+vCR7/ONJC9zplpJhmpOLnZJPXvo+IrRvAjg+Bo
+	 qxuFc4BJWBVXvMf+AWfzUG9HKeRdNDC5dARR8zunWI6hNxlOlMYdhD7LRp3QZsg4SoA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794630158;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794630283;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9LYpH8OROROqGOi14QXEz/eepTQ6ZYQQmVxfDrYZ27Q=;
-	b=d8hnE+jWegtE5lD+S6e9Tf7jVexbMhRilp9Gw7caqcR/nTB4a/A9csB1QfTWZIYG1muv
-	 RozonKwczrAjFBsP6CvSKvP3qFSIQB2br2KBvwMz9jFjHX0oU0/kyPLFm0B4hofg5kFnJ
-	 9r50hh0Q9tSs2OjQiubB4uON1Bf737wrgtai54dTGzh+8Vfy1oNxD5jC/IlvbbpuK5t2v
-	 sIP4YB8oNA5LJkG86AJLZJ3szlRp95uKqHSymOpczQbcHxkO5U5K1zgITifwiAce+8pde
-	 zcxgd+IxuzQwPc0S3jov2ZpriDiBflcnJ0KRipsiqGnHwFpIX2izuR7EcnqL5HZ1Mfw==
+	bh=joKHWasDVx94xJaDBf76q7rwDUpQIE4X9bCzWu1KkXo=;
+	b=sbvROnZ/YdtIvIrCDCaJikY5grMh/gyL8cWQv2qZIOvPghqYKym50Nlx9vyrADlG6/YE
+	 TCZlquXZ8eccwzeLA7bGwzPM/jhVv/w5oc8H9MNF1m+2rk93wXKM/W0uCCq/G7OGzTA7N
+	 JyQZd3wThoTvJanl5lu3mKGS33o/r+KJEQ6OF7Ibq3W2HaIF2vc6brs+59gc6IM1CVhhy
+	 3jYerbk53/lJNAAyS5/z6VRzCyK14k4tA1w7vSGKAaBWNIbFRlOfGDyM0ASWFLH6TYR9W
+	 vtfAbN3F0WHyjLjwAjsts9m8HcYx4ReVmHxIgL96KpuVFvogVWb8zZqVuMCO8dOcRIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=koxncPRn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hs0qXFUI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F575606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:22:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0817D606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:24:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=koxncPRn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E0671F000C5;
-	Sat, 14 Nov 2026 04:22:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hs0qXFUI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 756411F000C4;
+	Sat, 14 Nov 2026 04:24:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794630158;
-	bh=9LYpH8OROROqGOi14QXEz/eepTQ6ZYQQmVxfDrYZ27Q=;
+	s=k20260515; t=1794630282;
+	bh=joKHWasDVx94xJaDBf76q7rwDUpQIE4X9bCzWu1KkXo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=koxncPRnth8WPAfIC/Bkga65GsQQPc1JL2D3MPMIoIZIrb5zEd8Lklf67VYy9uz5U
-	 cu3dS5gMqJQCyW0sUHF3d35sDVmnarcuOLNQTIL+338uNeD3QaR0LVUvtr6dW8stkA
-	 OlHcTkdUZ8/EUtj3IWEdNX1FRS2g28DDa1BxVIfnvF1qsz2v8VLLtkJM+vUbpjZfON
-	 SNBA0Q1Y8loukbL+H2yLsXTN/+zEAtQuBDnvb9jt7o4ADlBrWe4ntNXDidlok+wNJR
-	 P6+a1cpdHMmwy63bG/KDMIzMIGLjWC3BElX2Zyaz+2/UzGkTD+7dC9HAYO9JogiYdJ
-	 ir1RUFY+Usuyg==
+	b=hs0qXFUI02nL2eDVAKGvtUuDmbRV8Mur82ZYIY2m3KiLhTJgZzw8dLttyzht0W7e/
+	 efWPs6pmmErAZZiIg405tL6enVYnfsAfEQaBojWhhyYiSd1BA3yaycS5jmuk+Iec23
+	 IzXH8mQaKD9qX8kw2fuiuj703RIhLeeKSoR2QU1bMy4YnbAQRmL4HW3OUjBsijSpyV
+	 UzyiLq7jtpD0h6nLBsKtuINtzUWDY00aH+aRQqV/4/zRUVjtc33WUPs/ICpPyuWEnV
+	 M6TexpAcm3FLmMvvMpAzR2xxl43+2fIEgcft1PeTE5yI21NYwwW0XBpRwfQSHSnFxN
+	 aVkjezANrrQzQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thorsten Blum <blum@kernel.org>,
-	PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	"Harry Yoo (Meta)" <harry@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] hwrng: virtio - prevent use-after-free after a failed restore
-Date: Fri, 13 Nov 2026 23:22:35 -0500
-Message-ID: <20261114042223.2847229-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/rmap: handle device-exclusive entries in folio_referenced_one()
+Date: Fri, 13 Nov 2026 23:24:40 -0500
+Message-ID: <20261114042411.2838629-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114042223.2847229-1-sashal@kernel.org>
-References: <20261109201257-failed-6.6-0f7bf47f5a0c@kernel.org>
- <20261114042223.2847229-1-sashal@kernel.org>
+In-Reply-To: <20261109200320-failed-6.18-f3c493d2f42b@kernel.org>
+References: <20261109200320-failed-6.18-f3c493d2f42b@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,63 +67,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thorsten Blum <blum@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit 0f7bf47f5a0cc26320aa4b14f4504d03a07f4b74 ]
+[ Upstream commit f3c493d2f42b5f44a5c134d8d7ea7f960caf5e2c ]
 
-remove_common() frees the driver data during freeze, but does not clear
-vdev->priv, which points to freed memory. If probe_common() then fails
-during restore, a later remove or freeze can dereference the dangling
-pointer.
+page_vma_mapped_walk() can return non-present device-exclusive entries,
+but folio_referenced_one() passes them to PTE young-bit accessors that
+require present PTEs.
 
-Clear vdev->priv on the probe_common() error cleanup path and before
-freeing the driver data in remove_common(). Also reset the device and
-return early from remove_common() if vdev->priv is already NULL for a
-safe teardown after a failed restore.
+We must neither call clear_flush_young_ptes_notify() nor
+folio_pte_batch() with non-present entries. For example, clearing the
+young bit on non-present PTEs can corrupt the entry: on arm64
+PTE_AF overlaps the swap type, so clearing it turns a device-exclusive
+entry into an ordinary swap entry.
 
-Fixes: 08e53fbdb85c ("virtio-rng: support multiple virtio-rng devices")
+folio_pte_batch() will VM_WARN_ON_FOLIO.
+
+Apply the same approach as the previous fixes to e.g., damon_ptep_mkold():
+treat these entries as old from the CPU's perspective and obtain their
+young state through the MMU notifier.
+
+Skip PTE batching and MGLRU look-around for non-present entries, and
+don't modify non-present PTEs.
+
+Fixes: b756a3b5e7ea ("mm: device exclusive memory access")
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Thorsten Blum <blum@kernel.org>
-Reviewed-by: PrasannaKumar Muralidharan <prasannatsmkumar@gmail.com>.
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20261016103640.4989-2-blum@kernel.org>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Dev Jain <dev.jain@arm.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-9-d6437171ecc3@kernel.org
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adapted batched PTE handling to the existing single-PTE APIs ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/char/hw_random/virtio-rng.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ mm/rmap.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
-index 65984504a3ca9..3b47bf1a65f51 100644
---- a/drivers/char/hw_random/virtio-rng.c
-+++ b/drivers/char/hw_random/virtio-rng.c
-@@ -187,6 +187,7 @@ static int probe_common(struct virtio_device *vdev)
- err_find:
- 	ida_free(&rng_index_ida, index);
- err_ida:
-+	vdev->priv = NULL;
- 	kfree(vi);
- 	return err;
- }
-@@ -195,6 +196,11 @@ static void remove_common(struct virtio_device *vdev)
- {
- 	struct virtrng_info *vi = vdev->priv;
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 03d7d666cc578..14b5d9f2093fd 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -858,6 +858,7 @@ static bool folio_referenced_one(struct folio *folio,
+ 	struct folio_referenced_arg *pra = arg;
+ 	DEFINE_FOLIO_VMA_WALK(pvmw, folio, vma, address, 0);
+ 	int ptes = 0, referenced = 0;
++	pte_t pteval;
  
-+	if (!vi) {
-+		virtio_reset_device(vdev);
-+		return;
-+	}
+ 	while (page_vma_mapped_walk(&pvmw)) {
+ 		address = pvmw.address;
+@@ -901,12 +902,25 @@ static bool folio_referenced_one(struct folio *folio,
+ 			return false;
+ 		}
+ 
+-		if (lru_gen_enabled() && pvmw.pte) {
++		if (pvmw.pte)
++			pteval = ptep_get(pvmw.pte);
 +
- 	vi->hwrng_removed = true;
- 	vi->data_avail = 0;
- 	vi->data_idx = 0;
-@@ -204,6 +210,7 @@ static void remove_common(struct virtio_device *vdev)
- 	virtio_reset_device(vdev);
- 	vdev->config->del_vqs(vdev);
- 	ida_free(&rng_index_ida, vi->index);
-+	vdev->priv = NULL;
- 	kfree(vi);
- }
- 
++		if (lru_gen_enabled() && pvmw.pte && pte_present(pteval)) {
+ 			if (lru_gen_look_around(&pvmw))
+ 				referenced++;
+ 		} else if (pvmw.pte) {
+-			if (ptep_clear_flush_young_notify(vma, address,
+-						pvmw.pte))
++			bool young = false;
++
++			/*
++			 * PFN swap PTEs, such as device-exclusive ones, that
++			 * actually map pages are "old" from a CPU perspective.
++			 * The MMU notifier takes care of any device aspects.
++			 */
++			if (pte_present(pteval))
++				young = ptep_clear_flush_young(vma, address, pvmw.pte);
++			young |= mmu_notifier_clear_flush_young(vma->vm_mm, address,
++							      address + PAGE_SIZE);
++			if (young)
+ 				referenced++;
+ 		} else if (IS_ENABLED(CONFIG_TRANSPARENT_HUGEPAGE)) {
+ 			if (pmdp_clear_flush_young_notify(vma, address,
 -- 
 2.53.0
 
