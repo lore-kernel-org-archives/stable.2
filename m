@@ -1,58 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794633400;
-	b=HR2LzSwPYn0fCbSZXVee5e7XD5TxkvvNGRbPniuSen2We2wFIFir+a0Rz8oVMR8Pev+O
-	 itfPQ1Hx0S/HeSNmywhQc/MKMHTiOAqMCxAN6toZ/qyFtdmN1pft3yeleQo9ztmVaQpPd
-	 IbKTmLefK9RTYG05qlfDcp6QJnzuHFzUHrXDV0WKTurC1AjdfIIzzMN8GgVlrG+sNMpbR
-	 59hOjYT9Zx+2GN/mQHxTOSkDd2h9a8ZbHWp8BGS0SRfx/mOe3zrYrGe7UEXTVPN27YOq6
-	 BlSxK83QmA3RV24fip1yk4WI0JWqqrvSaaV+L5eCk5fRY0V4sGoDkE46SRneozKa+XA==
+	t=1794633466;
+	b=j/QcHaIlZX47FRIpMnkfPFCIJThORO71Ro4KxSyLKiYPuamy3WixjxVYdqUim+1z2awC
+	 z6/QU0lFwVNiiX+sQZEvSTXLs5JVud9SWboTEYW8X8DSR67ozOzAofGGgaWQkHIhwZ9qX
+	 AB/wq7NUWpjjkDzTotxiBeq3CSaDe8N1FlIRU0E/96PqArkv5Hu0+z+0WgzpybUPDLiGm
+	 cWAv/WEBa3Oo6mKN8ouMRy7jEUm23PmTw1JE0kDXcJ/pv9z/sRFE2RZOsPZQQm+MuCfNd
+	 a9bc+NxIQs0CSz7h6gTCSZ7PCKxp5DQoL0KSfa0wAWSvfD4+O4zaV+RTnvKwFp4ovLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794633400;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794633466;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pSMJfvXaskHo2X9v8Fbo7eLwVGzn6cwOuJDSszrhNOM=;
-	b=0qHE8Bkov/7Z7qffBVpqBofsZZZC0QNzrBFF1QF+nJhoy3V39bDZ6BOEm0hKygAfRHGt
-	 0s9U5eRTVEUrVLGR7k1n9EXn9vSiROSKlD5KpZjI3IYDPs2NmyYJVLll6dIVocaY8MblU
-	 2m2aqZPgDwKZnHVAH8t7eeuGgW0Yv9xi+JqIEyv5j35eGtRbdlMBVI8w4IbfXskBUep3T
-	 yJBQX04+yoS1IH5dPvtNKPfOkRDx/iRp45dvKvFGOkxirRIVJLBlEpEe5K7dtQT7zXrpR
-	 HlBnKz7J8BNg81Hnlc7rd2PYK2bD5muLTzdKV1x5y0eiwbI6Jc9g8St23e9XUp/siyw==
+	bh=FuxYxFoxGXf9cqFfbP0L04E5xaO0r5INxg5NN3OxeDg=;
+	b=i+3iYsYMKKWbQkAEehDiW6sghVwbvJGssfE8xegZ8JKn1yAcqVnZdnqdX2BVpo1fYoQs
+	 WdHVIHAQ5JGV6UaXdUmtXb1EtpluQo4fESXGZkjTUMco5VrRCc01nzroojYJjmbYafF62
+	 R+flHXrhcsHZ4ylbRoLLBmFa0Jtnmmru60JTHjie4CG9gEdlURiqxgLlAafOcyEFz4TG+
+	 h7aEhIw+qJVQ/sw2nGwA8JCvoQBUNMaIZJOixrxaanI5huSrcw7TFHY3ykYz7TyHW7MND
+	 eSngeMrMjaFpdTyGAsnKLTrucgR1fsLJV39MGeIQ2EllpNfnMlwi9d7wAqS8VgPPIUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FDC2rCGz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MZYF/09y";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4098606A329
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:16:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D751606A329
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:17:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FDC2rCGz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BF261F000C4;
-	Sat, 14 Nov 2026 05:16:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MZYF/09y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CF71F000C4;
+	Sat, 14 Nov 2026 05:17:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794633400;
-	bh=pSMJfvXaskHo2X9v8Fbo7eLwVGzn6cwOuJDSszrhNOM=;
+	s=k20260515; t=1794633465;
+	bh=FuxYxFoxGXf9cqFfbP0L04E5xaO0r5INxg5NN3OxeDg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FDC2rCGzeT6sRwqDdt7dPt2aF3yyckZJfH5eHrFgCZWtDVLXBdybfThu3kfguM/HB
-	 37vMYfBiEeccZkKqwiZXV5vbFa/5eETmT1qCOi6zxpQhHQI+Ogttg/P7nkPfsOop3E
-	 wAxxFyvRo/OEVfEqHWokRrtmx71GsnAX5nfC46knk5EKK7bRmZxZevGB1+Hf9dsNsb
-	 x/3IrwxoCNUdIodRN7NSw9S6AtFYQjaS9TUoFyML4/G+kKuWq3JuO5u0Jha/PfPAKL
-	 PUyfczXpgVnpBc54vt1EQWz6SqW26D79n8b+hXhsP+XoTdGd/2Is0kY+T/gZG7qr9b
-	 NsS+mcqLXtkow==
+	b=MZYF/09yJc0YyXXi8qX50yKYozHxRrhqTWlpvbjxX7DuCyqPeECqIvdzdIbmnFFYQ
+	 qf279lrz9NF6rQnJPTV7FN2WY0mmxqQB+n5VU7REM7KdMlD3g6GHprXRl/SX85QJ8U
+	 KFdpsmDLj3T8z0qmrB5/8KXxvHqX9dxGyttHbEzHJILysmJLwn16rHDx7W3F9EMiD/
+	 W1cdQCqRMn6WNTTODDCnTSiLCyszLHtWL1UYULQOzUz4B8Gj3nZNOlOJAiMzE/kWEX
+	 wD/pL0b9nN20eWoMnCHDQhNbN0njTGKQTQ3s68FRlpnmKkQt+zLD9F89Ho0Rr5aYgz
+	 Gk/lVfkvjDqyg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Zi Yan <ziy@nvidia.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+	Rik van Riel <riel@surriel.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	Barry Song <baohua@kernel.org>,
 	Pedro Falcato <pfalcato@suse.de>,
-	Lance Yang <lance.yang@linux.dev>,
+	"Harry Yoo (Meta)" <harry@kernel.org>,
+	"Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+	SJ Park <sj@kernel.org>,
 	Muhammad Usama Anjum <usama.anjum@arm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/huge_memory: properly handle refcounted PUD mappings on fork
-Date: Sat, 14 Nov 2026 00:16:38 -0500
-Message-ID: <20261114051621.3049515-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] fork: take mmap_lock before copying mm_struct
+Date: Sat, 14 Nov 2026 00:17:43 -0500
+Message-ID: <20261114051728.3052394-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200317-failed-6.18-d90bdc02e36e@kernel.org>
-References: <20261109200317-failed-6.18-d90bdc02e36e@kernel.org>
+In-Reply-To: <20261109200309-failed-6.18-ef694e2d2101@kernel.org>
+References: <20261109200309-failed-6.18-ef694e2d2101@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,122 +72,128 @@ Content-Transfer-Encoding: 8bit
 
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-[ Upstream commit d90bdc02e36ec08d8248ebc6cdc52e12043eb28c ]
+[ Upstream commit ef694e2d210111cc08c52fd25da9ab130170bfa3 ]
 
-copy_huge_pud() copies device-DAX entries without taking a folio reference
-or updating mapcounts and the child's RSS.
+dup_mm() copies the parent's mm_struct before dup_mmap() takes the
+mmap_lock. A concurrent brk() can leave the child with a stale mm->brk
+and newer heap mappings, causing later brk() requests to fail.
 
-For example, MADV_GUARD_INSTALL sets VM_MAYBE_GUARD on a device-DAX VMA,
-forcing copy_page_range() to traverse the whole VMA on fork. Any remaining
-huge PUDs are then copied without accounting for the new mappings.
-Unmapping them in the child decrements accounting that was never added.
+Other operations (e.g., PR_SET_MM) on the parent's mm_struct can similarly
+cause inconsistencies.
 
-Use vm_normal_page_pud() to identify refcounted mappings. Take a folio
-reference and add the child's PUD rmap and RSS accounting before installing
-the copied entry. Pass src and dst VMAs consistently instead of src and
-dst MM. Move the TODO.
+As a simple and robust fix, grab the parent's mmap_lock earlier. This
+way we don't need to update individual mm fields in dup_mmap() and
+keep missing ones. Stop updating the 4 existing members (total_vm, data_vm,
+exec_vm, stack_vm), as that is now no longer required.
 
-Fixes: aed877c2b4257 ("device/dax: properly refcount device dax pages when mapping")
+Keep releasing the parent's mmap_lock in dup_mmap(), before
+userfaultfd completion, to avoid moving the userfaultfd handling into the
+caller. This should get cleaned up later.
+
+Move uprobe_start_dup_mmap() to preserve the lock ordering.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reported-by: Josef Bacik <josef@toxicpanda.com>
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
 Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Harry Yoo (Meta) <harry@kernel.org>
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
 Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-11-d6437171ecc3@kernel.org
+Link: https://patch.msgid.link/20261031-fixes_core-v3-2-d6437171ecc3@kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: changed vma_is_cow_mapping(src_vma) to is_cow_mapping(src_vma->vm_flags) ]
+[ sashal: Retained mm->user_ns as the third argument to mm_init(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/huge_mm.h |  5 ++---
- mm/huge_memory.c        | 27 +++++++++++++++++++--------
- mm/memory.c             |  4 +---
- 3 files changed, 22 insertions(+), 14 deletions(-)
+ kernel/fork.c | 20 ++++++++++++++------
+ mm/mmap.c     |  8 +-------
+ mm/nommu.c    |  2 +-
+ 3 files changed, 16 insertions(+), 14 deletions(-)
 
-diff --git a/include/linux/huge_mm.h b/include/linux/huge_mm.h
-index b55a4a342f578..c6befc9fddf12 100644
---- a/include/linux/huge_mm.h
-+++ b/include/linux/huge_mm.h
-@@ -12,9 +12,8 @@ int copy_huge_pmd(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 		  pmd_t *dst_pmd, pmd_t *src_pmd, unsigned long addr,
- 		  struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma);
- void huge_pmd_set_accessed(struct vm_fault *vmf);
--int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
--		  pud_t *dst_pud, pud_t *src_pud, unsigned long addr,
--		  struct vm_area_struct *vma);
-+int copy_huge_pud(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
-+		pud_t *dst_pud, pud_t *src_pud, unsigned long addr);
+diff --git a/kernel/fork.c b/kernel/fork.c
+index bc6078b910a6a..e38d2de6c6b52 100644
+--- a/kernel/fork.c
++++ b/kernel/fork.c
+@@ -1487,12 +1487,19 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+ 	if (!mm)
+ 		goto fail_nomem;
  
- #ifdef CONFIG_HAVE_ARCH_TRANSPARENT_HUGEPAGE_PUD
- void huge_pud_set_accessed(struct vm_fault *vmf, pud_t orig_pud);
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 24f5887eb48ee..73e7c6d4726e7 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1911,11 +1911,13 @@ void touch_pud(struct vm_area_struct *vma, unsigned long addr,
- 		update_mmu_cache_pud(vma, addr, pud);
- }
- 
--int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
--		  pud_t *dst_pud, pud_t *src_pud, unsigned long addr,
--		  struct vm_area_struct *vma)
-+int copy_huge_pud(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
-+		pud_t *dst_pud, pud_t *src_pud, unsigned long addr)
- {
-+	struct mm_struct *dst_mm = dst_vma->vm_mm;
-+	struct mm_struct *src_mm = src_vma->vm_mm;
- 	spinlock_t *dst_ptl, *src_ptl;
-+	struct page *page;
- 	pud_t pud;
- 	int ret;
- 
-@@ -1928,11 +1930,20 @@ int copy_huge_pud(struct mm_struct *dst_mm, struct mm_struct *src_mm,
- 	if (unlikely(!pud_trans_huge(pud)))
- 		goto out_unlock;
- 
--	/*
--	 * TODO: once we support anonymous pages, use
--	 * folio_try_dup_anon_rmap_*() and split if duplicating fails.
--	 */
--	if (is_cow_mapping(vma->vm_flags) && pud_write(pud)) {
-+	page = vm_normal_page_pud(src_vma, addr, pud);
-+	if (page) {
-+		struct folio *folio = page_folio(page);
-+
-+		folio_get(folio);
-+		/*
-+		 * TODO: once we support anonymous pages, use
-+		 * folio_try_dup_anon_rmap_*() and split if duplicating fails.
-+		 */
-+		folio_add_file_rmap_pud(folio, page, dst_vma);
-+		add_mm_counter(dst_mm, mm_counter_file(folio), HPAGE_PUD_NR);
++	uprobe_start_dup_mmap();
++	if (mmap_write_lock_killable(oldmm)) {
++		free_mm(mm);
++		goto fail_uprobe;
 +	}
 +
-+	if (is_cow_mapping(src_vma->vm_flags) && pud_write(pud)) {
- 		pudp_set_wrprotect(src_mm, addr, src_pud);
- 		pud = pud_wrprotect(pud);
- 	}
-diff --git a/mm/memory.c b/mm/memory.c
-index e37ae367c8c19..a24e990583be1 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -1416,7 +1416,6 @@ copy_pud_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
- 	       unsigned long end)
+ 	memcpy(mm, oldmm, sizeof(*mm));
+ 
+-	if (!mm_init(mm, tsk, mm->user_ns))
+-		goto fail_nomem;
++	if (!mm_init(mm, tsk, mm->user_ns)) {
++		mmap_write_unlock(oldmm);
++		goto fail_uprobe;
++	}
+ 
+-	uprobe_start_dup_mmap();
+ 	err = dup_mmap(mm, oldmm);
+ 	if (err)
+ 		goto free_pt;
+@@ -1511,9 +1518,10 @@ static struct mm_struct *dup_mm(struct task_struct *tsk,
+ 	mm->binfmt = NULL;
+ 	mm_init_owner(mm, NULL);
+ 	mmput(mm);
+-	if (err)
+-		uprobe_end_dup_mmap();
+-
++	if (!err)
++		return NULL;
++fail_uprobe:
++	uprobe_end_dup_mmap();
+ fail_nomem:
+ 	return NULL;
+ }
+diff --git a/mm/mmap.c b/mm/mmap.c
+index b29b31a29ef66..9bf16cc92f185 100644
+--- a/mm/mmap.c
++++ b/mm/mmap.c
+@@ -1724,8 +1724,7 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+ 	LIST_HEAD(uf);
+ 	VMA_ITERATOR(vmi, mm, 0);
+ 
+-	if (mmap_write_lock_killable(oldmm))
+-		return -EINTR;
++	mmap_assert_write_locked(oldmm);
+ 	flush_cache_dup_mm(oldmm);
+ 	uprobe_dup_mmap(oldmm, mm);
+ 	/*
+@@ -1736,11 +1735,6 @@ __latent_entropy int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
+ 	/* No ordering required: file already has been exposed. */
+ 	dup_mm_exe_file(mm, oldmm);
+ 
+-	mm->total_vm = oldmm->total_vm;
+-	mm->data_vm = oldmm->data_vm;
+-	mm->exec_vm = oldmm->exec_vm;
+-	mm->stack_vm = oldmm->stack_vm;
+-
+ 	/* Use __mt_dup() to efficiently build an identical maple tree. */
+ 	retval = __mt_dup(&oldmm->mm_mt, &mm->mm_mt, GFP_KERNEL);
+ 	if (unlikely(retval))
+diff --git a/mm/nommu.c b/mm/nommu.c
+index d609ecdcf022b..be977f0dd0c10 100644
+--- a/mm/nommu.c
++++ b/mm/nommu.c
+@@ -1896,7 +1896,7 @@ subsys_initcall(init_admin_reserve);
+ 
+ int dup_mmap(struct mm_struct *mm, struct mm_struct *oldmm)
  {
- 	struct mm_struct *dst_mm = dst_vma->vm_mm;
--	struct mm_struct *src_mm = src_vma->vm_mm;
- 	pud_t *src_pud, *dst_pud;
- 	unsigned long next;
- 
-@@ -1430,8 +1429,7 @@ copy_pud_range(struct vm_area_struct *dst_vma, struct vm_area_struct *src_vma,
- 			int err;
- 
- 			VM_BUG_ON_VMA(next-addr != HPAGE_PUD_SIZE, src_vma);
--			err = copy_huge_pud(dst_mm, src_mm,
--					    dst_pud, src_pud, addr, src_vma);
-+			err = copy_huge_pud(dst_vma, src_vma, dst_pud, src_pud, addr);
- 			if (err == -ENOMEM)
- 				return -ENOMEM;
- 			if (!err)
+-	mmap_write_lock(oldmm);
++	mmap_assert_write_locked(oldmm);
+ 	dup_mm_exe_file(mm, oldmm);
+ 	mmap_write_unlock(oldmm);
+ 	return 0;
 -- 
 2.53.0
 
