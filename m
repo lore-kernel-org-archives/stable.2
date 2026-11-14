@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677333;
-	b=U0VBUGCDnuLjeY2l6ev23KROvJ6jOoMcHRIJQrhjk+fEBjySRpS7MBEJKygKtNOeefxt
-	 LTspJplkSn1TgNmngiJ9+iHWzlEe2RQPMVhVtAa6kZaCLpLOAC7D5VdjTThH3H5GW4EGA
-	 iOo4lbIr3n35nCZdI67Jq4KRKJV1KoAYClpLPGFw8Iadc4XDc5i5y6o1lIdI/GtsM4a5t
-	 vtwBrXtcMiPtagAR03DeW4SvbQDFY8Jwj9NFLsg3OMKO0Jt2LltXCJJNsIZsXDsV0iSin
-	 hRX7uKo+0Cv0PW/fCUq31xH0decqhBdmE6ZhxF8W5ONyIdOd5kgZqJAC5oz875fXM2A==
+	t=1794677340;
+	b=Xxq70ZNtOUpEwZxseSpvkegjEQhpQQIG5Pv4GgmUzwqqV/znDRWQMFuKyR0jLoHk8MQY
+	 EMtTJLA76RlMSfUihZyosIxqbNAs5ipuJAzbTYooK/1TziSzsnG+JDsIroasQmup1ayOQ
+	 WefjWB1tYvCfA4e6sNG/Zwa4vsFTSjkqVCerU2X+D3/S1G2uGDdHyUdwVrFgpMHvHRp5t
+	 Udw/z9G5LQ7z5VpmjikxnDhKP28tsu80rSthwt6DekvhpBsJ1RRahIOJVCfaxa7AJZWn0
+	 noMxU0WO4JGR9AnvemMcCxxfE5zZXFghBERc7gr/tPzWvtpufiu0sA1pMOEK6tb1kfQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677333;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677340;
 	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
 	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=bwuiQTGA7IyiYt4mUxO48SU0Ewzb475ptfetTK8z/XA=;
-	b=FfSanGnynPbRa5lAn5oDrnL4LGC6cH13j5+I1yTXXmTdpGopIimwHxlsrd9AjH84Euji
-	 XyEj0XHXxHVv5Rhv3S7Ng2UBwK23uOfRv0qT+Xwnaj+0CNcnzZnX54ip8h+OBok+P9kx6
-	 K4lQ7XoYCjYCES8qRM+2YAJG+vA8ip+lpkW+CKkTOc5HexTPixqQgczRzRuqkmXwBVh5o
-	 F6XQGAUayLTKuuvRMdwh20P+HGt6sKgSMmIom7ce/H4pGV7EtvtgQj4A/J5uTrEXv9iOV
-	 RQzEL0/BIJrSDYaXY6fIRp5odaoy7ZnfCOGTZtJBCCW7UG+V3IF2OwFLKK4iuzOmkAA==
+	bh=7qwBif7qVK4IAlFZhcxh0706XbjAgwfM1uX8I90j4LQ=;
+	b=mV51/d9XhglXo+eNWZrKxy9lWyPDIme+AaFb6qhvKOqJqwbBbKQ74m6yJZwbukoOu1oE
+	 cPwF0BsLE3kf9r7doP9Oc1GK3G9lw7hOwoz94yPbuZ5+Omk0BwEX0ClO34+Z3szaCFTgt
+	 +wF0H12ErZKiyR4OaJ1bc8ujP8fQ4YDQ0N5NhtEGnjiIkNMIt4ffHt64liJWgm0WQzfPU
+	 0xmfShb0G/sNpjU4qDmYvMVKtOW6xsMlsr/pJ/5uwDTqBClh+JB+B2EiAgC2Mem+0rPCi
+	 U4NiRXkg9GEpOQI45cho1UCV2e7zUQVSHA7vwYgsD0bZ7OD4RIjVL0gSj7T4oaY/s7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=becholey.ch;
 	spf=pass smtp.mailfrom=becholey.ch;
-	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b="Z/wigYSs";
-	arc=none smtp.remote-ip=109.224.244.21
-Received: from mail-24421.protonmail.ch (mail-24421.protonmail.ch [109.224.244.21])
+	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=MDkOJ9D6;
+	arc=none smtp.remote-ip=79.135.106.25
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A85A606A331;
-	Sat, 14 Nov 2026 17:28:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A85A606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B259B606A88F;
+	Sat, 14 Nov 2026 17:28:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B259B606A88F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=Z/wigYSs
+	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=MDkOJ9D6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
-	s=protonmail; t=1794677331; x=1794936531;
-	bh=bwuiQTGA7IyiYt4mUxO48SU0Ewzb475ptfetTK8z/XA=;
+	s=protonmail; t=1794677337; x=1794936537;
+	bh=7qwBif7qVK4IAlFZhcxh0706XbjAgwfM1uX8I90j4LQ=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=Z/wigYSsk4l87qE8bRW7ZqOWzYhrR+Ro/eNdrEi2qoncanLADeM1pUEk9jy3plPdf
-	 KrVbosJci6dKvqg4TS5eOv4fNsEjvfUbIxIBvngETN4kI/FoHCD2T6kEhWFDkBOBNU
-	 jjT6x1Q5dJgyaQde5wqjBqDYXRqOss8v/ALwNt22bLghUWdF8sk4CMnL+hzFJWPCGq
-	 Epu9sRA9KbWdSDEPT8T/4ZH7ippFlcjK23IMu6+1oTNisYlWX7xGdQs1egjjLW4f18
-	 ehRni2jNRTbZ0trdUucDHh909D/X8wW765SU4Tch+Tj2+9tuLX1kXegtMuqO6rgyhr
-	 2FYdyo5oSNT1Q==
-Date: Sat, 14 Nov 2026 17:28:46 +0000
+	b=MDkOJ9D6sUaDnARYT7UL/7Cw6p+L3tg6SFsVVT7yPnKg7aYb9fT5z8JHDTgnsvoA5
+	 clQabFuYGCavKIjyFhxsPGp8gfq7uu5XWLiw3IpMxnHvWTVwQ0wkb01sP2I9chzmA5
+	 qAEDtnpeFbsePmrP1YTPYjHGmMrnrsJoYGaDyA2UQYYJl7vNpiOL/2UDm4hqwXY7AT
+	 yT0Tgcx2dHbhC1oV+JHkIJ3QiwPY+CN3wNUoUO63AaX4EDAAO6EDyxkNLWNLGIcxu9
+	 QQOMUmxFeCvAkkLl2ik+HunLzpUrefJMzLZhW+xmIDA5pRNF2899X8l9aegyNjwm9g
+	 Ek38eLL4AmxlQ==
+Date: Sat, 14 Nov 2026 17:28:54 +0000
 To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, =?utf-8?Q?=C5=A0erif_Rami?= <ramiserifpersia@gmail.com>
 From: Alexandre Becholey <alex@becholey.ch>
 Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, Hanxiang Xu <xuhx@hust.edu.cn>, Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 2/5] ALSA: usx2y: us144mkii: wait for the capture work on capture close
-Message-ID: <20261114172806.88710-3-alex@becholey.ch>
+Subject: [PATCH 3/5] ALSA: usx2y: us144mkii: only touch the buffer of a running PCM stream
+Message-ID: <20261114172806.88710-4-alex@becholey.ch>
 In-Reply-To: <20261114172806.88710-1-alex@becholey.ch>
 References: <20261114172806.88710-1-alex@becholey.ch>
 Feedback-ID: 60743817:user:proton
-X-Pm-Message-ID: d12c42654642bc83481c1b20d82e104f1a8f72f7
+X-Pm-Message-ID: c235a142e3ca384b982e5abd034b0a36baf64120
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,49 +67,47 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The capture URBs are started and stopped together with the playback
-stream by the shared trigger callback, and every completed capture URB
-schedules capture_work. tascam_capture_work_handler() reads
-tascam->capture_substream and its runtime once and then keeps writing
-into runtime->dma_area, using runtime->frame_bits and
-runtime->buffer_size, for as long as capture_active is set and the
-capture ring has data.
+The playback and capture URBs of the US-144MKII always run together:
+tascam_pcm_trigger() sets both playback_active and capture_active and
+submits all URBs when either substream is started. The capture work
+handler and the playback URB completion handler, however, use the
+buffer of their own substream as soon as the corresponding *_active
+flag is set and the substream is open, without checking that this
+substream is actually running.
 
-tascam_capture_close() only clears tascam->capture_substream and does
-not wait for the work. When the capture PCM was opened and prepared but
-not started while the playback stream is running, closing it does not
-stop anything: capture_active stays set and the URBs keep completing.
-The runtime is freed by snd_pcm_detach_substream() right after the close
-callback returns, while a running work instance still uses it. With
-KASAN, on torvalds/master 9d66f26fefac:
+So if only one direction is started, the handler of the other direction
+works on a substream that may have no buffer at all:
 
-  BUG: KASAN: slab-use-after-free in tascam_capture_work_handler (sound/usb=
-/usx2y/us144mkii_capture.c:230)
-  Read of size 8 at addr ffff000013270458 by task kworker/0:1/11
-  Workqueue: events tascam_capture_work_handler
-  ...
-  Freed by task 79:
-   kfree
-   snd_pcm_detach_substream
-   snd_pcm_release_substream.part.0
-   snd_pcm_release
-   __fput
+ - capture PCM opened without HW_PARAMS, playback started:
+   tascam_capture_work_handler() writes the captured frames through the
+   NULL runtime->dma_area, and divides by the zero buffer_size.
 
-A USB device that keeps the capture endpoint busy keeps the work loop
-running, which makes the window wide.
+ - playback PCM prepared but not started (or opened without HW_PARAMS),
+   capture started, then HW_FREE on the playback PCM, which ALSA allows
+   in the PREPARED state: playback_urb_complete() copies from the NULL
+   runtime->dma_area.
 
-Cancel the capture work in the close callback, after the substream
-pointer has been cleared under tascam->lock (patch 1/5), so that no
-work instance can still use the runtime when it is freed. Instances
-queued later see the cleared pointer and return early.
+With KASAN, on torvalds/master 9d66f26fefac:
 
-The bug was found, and the reproducer and this fix were written, by AI
-agents (Claude Mythos and Claude Opus models). The analysis and the
+  BUG: KASAN: null-ptr-deref in tascam_capture_work_handler
+  Write of size 3 at addr 0000000000000000 by task kworker/0:2/62
+
+  BUG: KASAN: null-ptr-deref in playback_urb_complete
+  Read of size 480 at addr 0000000000000660 by task ksoftirqd/0/15
+
+Both only need an attached device and this order of PCM ioctls from a
+user with access to the PCM devices.
+
+Only copy to or from the substream buffer while that substream is
+running. The capture data is then dropped, and the playback URBs carry
+silence, as the device keeps streaming in both directions.
+
+The bugs were found, and the reproducers and this fix were written, by
+AI agents (Claude Mythos and Claude Opus models). The analysis and the
 patch were reviewed by a human.
 
-Reported-by: Hanxiang Xu <xuhx@hust.edu.cn>
-Closes: https://lore.kernel.org/all/12a3a26a.26361.1a1d4e1ad57.Coremail.xuh=
-x@hust.edu.cn/
+Fixes: a2a2210f2c2e ("ALSA: usb-audio: us144mkii: Implement audio playback =
+and feedback")
 Fixes: c1bb0c13e430 ("ALSA: usb-audio: us144mkii: Implement audio capture a=
 nd decoding")
 Cc: stable@vger.kernel.org
@@ -117,51 +115,100 @@ Signed-off-by: Alexandre Becholey <alex@becholey.ch>
 ---
 Notes for reviewers (not part of the commit message):
 
-Trigger: an emulated US-144MKII (raw-gadget + dummy_hcd, QEMU arm64,
-KASAN, 2 CPUs) that streams capture data. In each of 400 iterations
-the program opens the capture PCM and prepares it without starting
-it, starts the playback PCM, and closes the capture PCM. A variant
-also stops playback before the next capture open, so that only this
-race is left. The reproducers are available to maintainers on request.
+Trigger: an emulated US-144MKII under QEMU arm64 with KASAN; the
+capture case on dummy_hcd (raw-gadget), the playback case on an
+emulated xHCI controller, because the playback URBs are isochronous.
+The reproducers are available to maintainers on request.
 
-The context of this patch is the close hunk of patch 1/5. Patch 3/5
-also depends on it: with 3/5 alone, a capture work instance still
-running after close dereferences the detached runtime in the new
-snd_pcm_running() check (seen in testing, KASAN null-ptr-deref at
-include/sound/pcm.h:711 from us144mkii_capture.c:231 on v7.3.1).
+Decoded, torvalds/master 9d66f26fefac:
+  tascam_capture_work_handler (sound/usb/usx2y/us144mkii_capture.c:246)
+  playback_urb_complete (sound/usb/usx2y/us144mkii_playback.c:230)
 
-Testing, KASAN: without the series the close/reopen program crashed as
-above on the first attempt (v7.3.1 1/1, 9d66f26fefac 1/1). With
-patches 1/5..3/5 applied: v7.3.1 0/15 runs (both programs), 9d66f26fefac
-0/5 runs, each run completing all 400 iterations.
+This patch depends on patch 2/5: the new snd_pcm_running() check reads
+substream->runtime, so a capture work instance must not outlive the
+close of its substream. With this patch alone, the close/reopen
+reproducer of 2/5 crashed in the check (KASAN null-ptr-deref at
+include/sound/pcm.h:711 from us144mkii_capture.c:231, v7.3.1).
 
-Not changed here: feedback_urb_complete() also reads
-tascam->capture_substream->runtime before taking tascam->lock and uses
-capture_rt->period_size under it; patch 4/5 fixes that.
+Testing, KASAN: without the series both cases crashed on the first
+attempt (v7.3.1 and 9d66f26fefac, 1/1 each). With patches 1/5..3/5
+applied: no report in v7.3.1 15 runs (capture 10, playback 5 with two
+programs) and 9d66f26fefac 5 runs (capture 3, playback 2). Normal
+streaming in both directions was checked on v7.3.1 with patches
+1/5..3/5 applied (2 runs): the playback and capture positions keep
+advancing. The playback test of patch 5/5 (normal streaming, 187 of
+187 STARTs) also ran with all five patches.
 
 Thanks,
 Alexandre Becholey
 
- sound/usb/usx2y/us144mkii_capture.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ sound/usb/usx2y/us144mkii_capture.c  |  8 +++++++-
+ sound/usb/usx2y/us144mkii_playback.c | 23 ++++++++++++++++++-----
+ 2 files changed, 25 insertions(+), 6 deletions(-)
 
 diff --git a/sound/usb/usx2y/us144mkii_capture.c b/sound/usb/usx2y/us144mki=
 i_capture.c
-index 30cdd73ca99c..973bed60bfcd 100644
+index 973bed60bfcd..9c142a85e8b2 100644
 --- a/sound/usb/usx2y/us144mkii_capture.c
 +++ b/sound/usb/usx2y/us144mkii_capture.c
-@@ -40,6 +40,12 @@ static int tascam_capture_close(struct snd_pcm_substream=
- *substream)
- =09=09tascam->capture_substream =3D NULL;
- =09/* The stop work may still be using this substream; wait for it. */
- =09flush_work(&tascam->stop_pcm_work);
-+=09/*
-+=09 * The capture work keeps a pointer to the runtime, which is freed
-+=09 * when this callback returns. The capture URBs (and so the work) keep
-+=09 * running as long as the playback stream does, so wait for it here.
-+=09 */
-+=09cancel_work_sync(&tascam->capture_work);
+@@ -231,7 +231,13 @@ void tascam_capture_work_handler(struct work_struct *w=
+ork)
+ =09=09=09=09=09=09  routed_block);
 =20
- =09return 0;
- }
+ =09=09scoped_guard(spinlock_irqsave, &tascam->lock) {
+-=09=09=09if (atomic_read(&tascam->capture_active)) {
++=09=09=09/*
++=09=09=09 * capture_active is also set when only the playback
++=09=09=09 * stream was started; the capture buffer is only valid
++=09=09=09 * while the capture stream itself is running.
++=09=09=09 */
++=09=09=09if (atomic_read(&tascam->capture_active) &&
++=09=09=09    snd_pcm_running(substream)) {
+ =09=09=09=09int f;
+=20
+ =09=09=09=09for (f =3D 0; f < FRAMES_PER_DECODE_BLOCK; ++f) {
+diff --git a/sound/usb/usx2y/us144mkii_playback.c b/sound/usb/usx2y/us144mk=
+ii_playback.c
+index 0df95dbf585d..e6266488cf32 100644
+--- a/sound/usb/usx2y/us144mkii_playback.c
++++ b/sound/usb/usx2y/us144mkii_playback.c
+@@ -166,6 +166,7 @@ void playback_urb_complete(struct urb *urb)
+ =09size_t total_bytes_for_urb =3D 0;
+ =09snd_pcm_uframes_t offset_frames;
+ =09snd_pcm_uframes_t frames_to_copy;
++=09bool running;
+ =09int ret, i;
+=20
+ =09if (urb->status) {
+@@ -207,13 +208,25 @@ void playback_urb_complete(struct urb *urb)
+ =09=09}
+ =09=09urb->transfer_buffer_length =3D total_bytes_for_urb;
+=20
+-=09=09offset_frames =3D tascam->driver_playback_pos;
+-=09=09frames_to_copy =3D bytes_to_frames(runtime, total_bytes_for_urb);
+-=09=09tascam->driver_playback_pos =3D
+-=09=09=09(offset_frames + frames_to_copy) % runtime->buffer_size;
++=09=09/*
++=09=09 * The URBs also run when only the capture stream was started;
++=09=09 * the playback buffer is only valid while the playback stream
++=09=09 * itself is running.  Send silence otherwise.
++=09=09 */
++=09=09running =3D snd_pcm_running(substream);
++=09=09if (running) {
++=09=09=09offset_frames =3D tascam->driver_playback_pos;
++=09=09=09frames_to_copy =3D bytes_to_frames(runtime,
++=09=09=09=09=09=09=09 total_bytes_for_urb);
++=09=09=09tascam->driver_playback_pos =3D
++=09=09=09=09(offset_frames + frames_to_copy) %
++=09=09=09=09runtime->buffer_size;
++=09=09}
+ =09}
+=20
+-=09if (total_bytes_for_urb > 0) {
++=09if (!running) {
++=09=09memset(urb->transfer_buffer, 0, total_bytes_for_urb);
++=09} else if (total_bytes_for_urb > 0) {
+ =09=09u8 *dst_buf =3D urb->transfer_buffer;
+=20
+ =09=09/* Handle ring buffer wrap-around */
 
