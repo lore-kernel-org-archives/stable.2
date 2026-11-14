@@ -1,57 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794685434;
-	b=auaQsXGrvwDSMKiZtZkwt9EIecfJcq/yjaCHdiVM8Bl/2sY67aQjED/1SA0xEH43cTNA
-	 IT/7ZYdFAKlNdOhIISORREg+ppnQVeq+9C4i06h37JiI3IcoKiBhWMegBHRUEQnbHvbD4
-	 3akbL5DdAmqEpqEdA5phH3qyo+QnlVbak1n/3/1Yg1ncR4/G6r5SU0YO1Dw3iBUbT/7gd
-	 0WKUxQe0Z2XxfmbuieGGJtG2NG0jjX67zgC81ZuCq8RHz4EGhUWLd4gko1EhEGwjJAQl1
-	 km/7y/Df1THQyGU91iIVHH7xNT41tkMeCak1HGPaLvcTnBROfiJZjGWFZjenblKywrw==
+	t=1794686064;
+	b=PHb0v50Z4q+VVwx++D78ZWCoXgmajiZky8MQLdH+uryGPqvdRe/jC2D5iLnZBVBhpTp/
+	 tqaMGlBpfsimPlm/06FozXNdQIaH3g/8HLtDE8cBH3tErdYPCXeym1bfe1DNh0W8zxzgs
+	 XOPgr4ICWGOtBBcqy+iZcDze8mA5aVEmx6nuMGqa5t5LRFfxLUjFZCQerOdDWEaiJtkeB
+	 l9yOz7iySnaLIlIVELJPfD0uXtgdoq3IKElE3R4lvWFZNnF0u0llTPuMmbYhMHTyzdkud
+	 Co2eobxjRz+D52ExbQT820hMAg+E1z3rpgK05z99rd+OmIqEN413AgswFTKbpeg4R8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794685434;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rsXZ7d4QFn0NUg+8/La6gaeSrqv6Sy38QEAOiwgBoiI=;
-	b=u+Uu6Mb67qVol1I5M7WHdALhS6wLmdiVCA01HCBkWjp2a3iGgpLH+ZWruRxsg9k+Pf/T
-	 YrkbCO45PhM8Bt9yAoIfjW/bu40OFVh6bbo6rLsXnHsPNhllLxB4gXNN73JPwpw141WCE
-	 u5YkKwOlvh06sfjDDHyPUwwqh/+pN5XYaAonv2144cZuZO8ezoY171n222S4y//i+7yWL
-	 njGCTs1Dax7c69T+LL0vT4wJ1e4vhrvO7WDwfq/VDWa4gXW/N+h6J2CgiljOpiqjo0OLT
-	 /DJBeVxbwTg5vltehdeIGo8mrcThGUWKmZQohxcX37p44CiaDy1s9JEg+MhJjfP9O/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794686064;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3qJyGE4a5UB8YhjOY/fzHOLCz805/i0NwCGq/ktQh8s=;
+	b=RIIhk4HALWLO5hJ5zqRiq7gUTuXjObf1a/g21S4fryK5SUU2S7GUi7dx75UMC/GowHSA
+	 nyhC1kUO+DuZZbFFS4oxbSS2U6DBGEkL1zjKpzZmMg78tzt3fKkwQjO5VD/kM5s5ZQ2oQ
+	 96edzSMnigVIytPc+TbcCJJoqF+/xeEKzvXxJZ3GxuZceD2FoyYi7bSBcEi0qS9MuDZt7
+	 3PHCQCmjr0qf53E7xvnVuFlxmf858PcR3zwLRJIr0io2Snhz774ROuJlKdK1na/1qKDbu
+	 I8KwXuLggati0b8TzaA8DuY/7lJxJNLkIOoKy7RSQQr6oXkmaNWQqtatbPDDByUs+Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lpm6ElOH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wIUueDOB;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F58606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 19:43:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34BC9606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 19:54:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34BC9606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Lpm6ElOH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B901F000C4;
-	Sat, 14 Nov 2026 19:43:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794685433;
-	bh=rsXZ7d4QFn0NUg+8/La6gaeSrqv6Sy38QEAOiwgBoiI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lpm6ElOHD0235euwr3EvfumLL96ZT2EvX6Bl+aUJNhIjqqmpLcL8EljNagOQXzGZB
-	 LhIw7uDc/zBm5cKVIaRjZbuEHImrPZFAfGtHB0b8rprM0C0/bw2Ull8bJmX3ndi1dX
-	 XqGdV5WAHOQmrOxyl0GAhFI2++pH+0tsBwkXVO33DQFB5JPjdY6/mRzM2tqA33blIr
-	 uAukdZbjUlxJc7f4zQhpVwHC/wOCXCKiZDik7so/ZmbYONXHiHnGEA6r44tg2tJB45
-	 bC6/jqW1SJMFXpgP+y5YvSOwRKl+fpxdNtxDOZAnL5Vh/LyL+Mi5B0Ao4+dHQDlKoK
-	 jyJv1ySVoca+g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Qiliang Yuan <odys.yuan@gmail.com>,
-	Christoph Hellwig <hch@lst.de>,
-	"Paul E. McKenney" <paulmck@kernel.org>,
-	Keith Busch <kbusch@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] srcu: Add list_splice_init_srcu()
-Date: Sat, 14 Nov 2026 14:43:51 -0500
-Message-ID: <20261114194327.449275-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201944-failed-6.1-d06917d0ba22@kernel.org>
-References: <20261109201944-failed-6.1-d06917d0ba22@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wIUueDOB
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-37628596783so3712184eec.1
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 11:54:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794686063; x=1795290863; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3qJyGE4a5UB8YhjOY/fzHOLCz805/i0NwCGq/ktQh8s=;
+        b=wIUueDOBpnVCEvuV8Dp2/5jiAS+lYJl4cP2IVvXaTwL/NtbOF8E8OqpR1ki0rwgV4d
+         Qec5TkPv0LlEh2Y8V/u9Q43jXt1yQmzhpMWLB2CUDZgGmaA3QxIAqDH0yKtxJgtwhT2O
+         5bgWymkei0ImgUBzoSsanK+1ZWFBMKcSp9Xnmjz+usNmf59VffX6IvJ+uAMZ6x4MIva6
+         Y56K6nOVKvFIOxhdmCokMLbIt0LEN0RrmXyhCSk9sOIgG4HLbEWsInMOfIhU95K1ikJ5
+         o6jpnA3CHQTHjXPVjkosZKfqXN/2gs6gqXC1Ymz5ux3Fy07zhmVMY2BhXS4dnBIGDWLi
+         xL1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794686063; x=1795290863;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3qJyGE4a5UB8YhjOY/fzHOLCz805/i0NwCGq/ktQh8s=;
+        b=hEoliQ88RplpI8OSyvhAi6dYeyDf2+xmb9kzKjcspwKAYXn58B7dyISvWbUb2wRwpI
+         hLdQOC48cPRnxnZVazHZnny0A22Vvd5WgqWVPjbCZW5AD6SiHVqWyek+FZQFIGq6glCA
+         9RHMrh+YLTAGhCnlY9Q0ckcP+UEAW8jPpRhIGFdSpFAEBRUn5IIuHWoU/MblzhWm+bV2
+         +FBZQFZUoILFdd9r4fTbOidJ6UGmPrb2O11R3W5XpiT5XwHxUa7oFcm/1jLSJZESPvnJ
+         aeantS/O0a7qXvyqUOr5DNpJkc2Shgkr+W9JujpnnuTpK4sAOkQItqUgC5d+PXnHDh7u
+         2m3g==
+X-Forwarded-Encrypted: i=1; AL+hErE+8uNsuUwVMmepxns9wCuNhEzsyAdcMAWZ2uGDF6SkXi8oTWfc+0UhXHYpkaqxrbPQXglxp/0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VBi+qCcgk76DHkwA+Izu8CXFYNS/wfAdz0pVSx0sXm5gwVTFv
+	Nqy5GltBUR3+Sf1tbOCW/mYzCc69N+vR11OS3yloEFS5a3lFpwF8eaYG
+X-Gm-Gg: AYBFou1u83NBUbmv0BY53xtt/qlTm6onF1ZRLXh5eXpfZxXdRqjvKBi3M0QSXA1eJmi
+	uYkDGJReg1x+jbfN5bOn/p2sVFpJk093QBpFwJ1wGzfGqF+y1XzTFRxGNq4L7SuCCrmINCzW1uk
+	qvsRORJY78QV3JucAius8DyqioymqD8I/3+QHTKyHG96Z+LfbOTeLeH+01RQ5Jcl25EA4+4Ulo2
+	15uc9rjfDTW4wD4++vJ9Ht/Rst3oRgOqkQfCFId5PVpiTKDAwgD/H+hPdvn+xjskSHc1gDlxM3e
+	gocVEGiAb+LLvsdSbUso0n01Tl/jgGjvcOGUKIjX/dKV+IWXol8LLT+SEvhKB87ep0i7OW9u2Q7
+	twS9sK0mv+1YF377IkR1ksyGQKB5GmH+pyt2F+6AWRw0jtiCV0mqjeoIBSr4Vqw2y1LtXs9aQX6
+	dJGi4JMuKN6CMtvED8mZloPdxOA303q2QCPYftjPcvgeLuTHoppGmqvkVuMlqzu0GdM7w7QLwqD
+	cn8Joqio5WZBMofJCvRGBaTzC6zHNeg/C+4t08Sj6g+89c3x/x57KrgEFcsWP2cwFNnsdiECXk3
+	1DjvbXYd6oEI10Q6xImShEVSmkC9nzTIgS57
+X-Received: by 2002:a05:7301:fc09:b0:36e:b3e6:ebe7 with SMTP id 5a478bee46e88-37966a58499mr5631650eec.26.1794686063266;
+        Sat, 14 Nov 2026 11:54:23 -0800 (PST)
+Received: from user.. ([2405:201:c052:b00b:f7bc:3425:951e:ab09])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad134sm23226931eec.27.2026.11.14.11.54.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 11:54:22 -0800 (PST)
+From: pavankumaryalagada@gmail.com
+To: horms@verge.net.au,
+	ja@ssi.bg
+Cc: pablo@netfilter.org,
+	fw@strlen.de,
+	phil@nwl.cc,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	lvs-devel@vger.kernel.org,
+	netfilter-devel@vger.kernel.org,
+	coreteam@netfilter.org,
+	linux-kernel@vger.kernel.org,
+	skhan@linuxfoundation.org,
+	Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>,
+	syzbot+84e27adb95fd2a1fe9bb@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH net] ipvs: wait for RCU callbacks before dst_ops teardown
+Date: Sun, 15 Nov 2026 01:24:09 +0530
+Message-ID: <20261114195410.96503-1-pavankumaryalagada@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,88 +111,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Qiliang Yuan <odys.yuan@gmail.com>
+From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 
-[ Upstream commit d06917d0ba226206dbd606330d73a8eb1e3029c1 ]
+During network namespace cleanup, IPVS releases cached destinations
+using RCU callbacks. However, ip6_route_net_exit() destroys the
+per-CPU destination counters before these callbacks complete.
+The RCU callbacks call dst_release(), which updates the destroyed
+counters and causes a NULL pointer dereference in
+percpu_counter_add_batch().
 
-list_splice_init_rcu() makes a list look empty to new readers, waits for
-the current ones with the given sync function, and only then links the
-entries into the new list. The sync function takes no argument, so it
-can wait for RCU readers but not for the readers of an srcu_struct.
+Call rcu_barrier() at the end of __ip_vs_cleanup_batch() to make
+sure all pending IPVS RCU callbacks finish before the destination
+counters are destroyed.
 
-Passing synchronize_rcu() for a list read under SRCU still builds, but
-leaves SRCU readers on the entries while the last one's next pointer is
-moved onto the new list head. nvme_remove_namespaces() does this today.
-
-Add list_splice_init_srcu(), which waits for the readers of the given
-srcu_struct instead.
-
+Reported-by: syzbot+84e27adb95fd2a1fe9bb@syzkaller.appspotmail.com
+Link: https://lore.kernel.org/all/6af795e2.98e60839.1e023a.00d4.GAE@google.com/T/
+Closes: https://syzkaller.appspot.com/bug?extid=84e27adb95fd2a1fe9bb
+Fixes: 026ace060dfe ("ipvs: optimize dst usage for real server")
 Cc: stable@vger.kernel.org
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ sashal: Placed list_splice_init_srcu() after existing polling declarations because synchronize_srcu_atomic() is absent. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 ---
- include/linux/srcu.h | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+ net/netfilter/ipvs/ip_vs_core.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/include/linux/srcu.h b/include/linux/srcu.h
-index f9e1fa7ff86fc..676dc3490c058 100644
---- a/include/linux/srcu.h
-+++ b/include/linux/srcu.h
-@@ -18,6 +18,7 @@
+diff --git a/net/netfilter/ipvs/ip_vs_core.c b/net/netfilter/ipvs/ip_vs_core.c
+index 8a3c880fdb26..9c456efe13c7 100644
+--- a/net/netfilter/ipvs/ip_vs_core.c
++++ b/net/netfilter/ipvs/ip_vs_core.c
+@@ -2553,6 +2553,11 @@ static void __net_exit __ip_vs_cleanup_batch(struct list_head *net_list)
+ 		IP_VS_DBG(2, "ipvs netns %d released\n", ipvs->gen);
+ 		net->ipvs = NULL;
+ 	}
++
++	/*
++	 * Wait for ip_vs_dest_dst_rcu_free() callbacks before dst_ops teardown
++	 */
++	rcu_barrier();
+ }
  
- #include <linux/mutex.h>
- #include <linux/rcupdate.h>
-+#include <linux/rculist.h>
- #include <linux/workqueue.h>
- #include <linux/rcu_segcblist.h>
- 
-@@ -64,6 +65,41 @@ unsigned long get_state_synchronize_srcu(struct srcu_struct *ssp);
- unsigned long start_poll_synchronize_srcu(struct srcu_struct *ssp);
- bool poll_state_synchronize_srcu(struct srcu_struct *ssp, unsigned long cookie);
- 
-+/**
-+ * list_splice_init_srcu - splice an SRCU-protected list into an existing list
-+ * @list:	the SRCU-protected list to splice
-+ * @head:	the place in the existing list to splice the first list into
-+ * @ssp:	the srcu_struct that readers of @list use
-+ *
-+ * Like list_splice_init_rcu(), but wait for the SRCU readers of @list
-+ * instead of RCU ones, so that none of them can follow a next pointer
-+ * onto @head.
-+ *
-+ * Note that this function blocks, and that the caller must prevent any
-+ * other updates to @list.
-+ */
-+static inline void list_splice_init_srcu(struct list_head *list,
-+					 struct list_head *head,
-+					 struct srcu_struct *ssp)
-+{
-+	struct list_head *first = list->next;
-+	struct list_head *last = list->prev;
-+	struct list_head *next = head->next;
-+
-+	if (list_empty(list))
-+		return;
-+
-+	INIT_LIST_HEAD_RCU(list);
-+	synchronize_srcu(ssp);
-+	ASSERT_EXCLUSIVE_ACCESS(*first);
-+	ASSERT_EXCLUSIVE_ACCESS(*last);
-+
-+	last->next = next;
-+	rcu_assign_pointer(list_next_rcu(head), first);
-+	first->prev = head;
-+	next->prev = last;
-+}
-+
- #ifdef CONFIG_SRCU
- void srcu_init(void);
- #else /* #ifdef CONFIG_SRCU */
+ static void __net_exit __ip_vs_dev_cleanup_batch(struct list_head *net_list)
 -- 
-2.53.0
+2.43.0
 
