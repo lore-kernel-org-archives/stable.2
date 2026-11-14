@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794630127;
-	b=T+DV3uewzGiLocM3DcqgSaqP8RVEcGJIZZtyYpZyJTfFiF3t/MPooykYQyytjpwnGoDF
-	 K32AULMZcJpvdHyxrY21ZbN5SxU10MTFSUp6Df/DdwoTP3muOg8BeXC1aKXJEOdE81tie
-	 x4FRJk6E169GyDc1YiJvegP2B5oJIQTHCaDGaQRG2rCIdKmruHFx1tvtrSLwszlWFkssc
-	 PgkIlRgplnBAw6Ws0AfES7BcAuFnrSLxFVwbRm5dJGUGYqM6V4tnHQJ7qbk48xc8FUHpP
-	 24vhRSokTz2q4yPXJidECXiiIW2agpjVpdsPCMKOVadXLb8mglN4Nw46ScugTYSZykg==
+	t=1794630157;
+	b=dKUSAg4PZ8vr8lnJoC6O5Vh1wZfeHaRVTjYHv3RFsnOYeyE0KY5PipX/2vrY7oty4vU8
+	 uI36EfzQs8oL0Wa/0DjRNIft2sopgd2VMfU+ikIgJgU6IHLcetDA1U4oDp5KglZYPS4eg
+	 ZVjlTpCxGQY8DG/pZdKzQu5WM3j+033ACRCgPmoCi/HtVhYTggd+O83VawVLOV/tpG2ux
+	 XxroabVa3u4KrMwg7Ie/5Ed2jm3GnZO3nIsv55+UUgGXhV2kZG3CK/Dx6jeBo9SRoLxGf
+	 MpHX8jDX+nnYFn/vHAtUfnv1tkh3ka85X7PE6dhQJS3zClkB7c+y2zBC2DbnXv6KUag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794630127;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794630157;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=GUeVhR0JjXcyFFVYBAIi5lG7lbTkoAV/YstHNFy6jvc=;
-	b=wkLvgb7c054onn+EZyygd5u5ympTMjtkzM4bef/COXSROfELuj7px8ZuYDtPzUD2iKyl
-	 OU4k4BOenzRY1wg8N13D8xm7zg0/TxK1YsDCr5pb2r2jaLrZgImhgs2Cyq7CU2WbB7+yc
-	 XKT2YQudteOvrUkgQcbDiOOM3K6at9IUt/uwGha7QFKGofpD5JYZQrxV+qmV7L6BGeyIZ
-	 mSvqWb1gCyPM1zQYn03+qkeljbADmyT/ukEtSH/njH7OdhtjNcbDHynnCJfCrQQN9YbCY
-	 TPsl5DLEFRzhCwThSJSgGLwMN3F5yLxDlgjRp1uAv4+heiwZr2oliBB6Gu3QZalCYvQ==
+	bh=fiFcITt6/RWYn37iBuro/+ZBXZ6JM7SRS3rT8//BXxE=;
+	b=LUZvIZEAAlDkfKufQVcvvLK5eWgVIrwksd/sRqSNL8OvLYze/kcZEdPniZo7uw1Co2RT
+	 qtJNFvHa8Dr5mPoWlD67FQAeCoUoyd/o34YljVKTHtmAvVZTsFZhX9BFHUSg5Dee9z54x
+	 H36cyHUloO/qWCTsZG9tbBEziz3vF3ajc6fW7b+Ml5u8RkrOIXfM4dPaPsaF63CQmjhPH
+	 BU8uT/M92wp03LDbYgHN0gY5BYB6dXLF0TOXQYstgpYu+fdy/eODek1NYgY+GwTbIf7Fd
+	 ahiskYBoIl2MaZG1qf7ONDZsFcEAD4LY2SqKR6VmlZiZbS77dVvd8BQiW+pATPGirmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehs+3lyW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZ7UwBFp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E99606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:22:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6B9606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:22:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehs+3lyW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A17111F000C4;
-	Sat, 14 Nov 2026 04:22:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VZ7UwBFp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962F91F000C4;
+	Sat, 14 Nov 2026 04:22:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794630126;
-	bh=GUeVhR0JjXcyFFVYBAIi5lG7lbTkoAV/YstHNFy6jvc=;
+	s=k20260515; t=1794630157;
+	bh=fiFcITt6/RWYn37iBuro/+ZBXZ6JM7SRS3rT8//BXxE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ehs+3lyW39Dal/7mwPtmQ3xjl/MIdaVd9gKfLCmKTSACGXrXLgYedI8lqAouMWGT3
-	 W6y8QOYB7KD/+zXnXI6OF6dyvScOmFziN5nZ/pRRrt6OG45bm3FMBK5JcI8QHwyJTt
-	 TduxB1REWuoZzDpYI3HmXP88x8Ehrvx8JUlFLLeamlnbjnecyUoAs98qDqzFZP5wH1
-	 ykG+vd5o170vcdsnLm+7egxw02xQbrVNLmHPY3VDNo6HQMV2ELiEO3rtTyLgohFz6A
-	 Q7aiRs0umrKe+JT2D0Mqvx9VXJHi9xOEKr3csTgFrdPWykFvBWFrM/RzUVJcrR4Q/B
-	 1r0QaofCid3Xg==
+	b=VZ7UwBFpLvLGaIeTppI925ta+VllUtog1pBXwNlgbCwAh5rNGpGLLisYkMRLeT0qg
+	 SEtaMl/HuaCrtFvgPU3+z5U9ALsBO1LrBEUPiYxkYsORmyLV7otryzelPRg3FP1+FW
+	 xJZhZImSkSGAT4wDX/uEsVhidzc1oGGnGwT2QpiHr6+j94m2mGE5n5qil6o/9RbCFA
+	 LClHmyYPytF/CqletgzslVOaG3Y3HUTA8VffZo2/9wjeu1l839g6CP5eE/3h8Xzotd
+	 FY3ffOrl/jkGLjOpur2YlcJdRJnQ80aewnnuzXR9xksvrO3HIPO5sICem3S+mogQ6j
+	 4wXyrUvlB5OaQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Josef Bacik <josef@toxicpanda.com>,
-	Rik van Riel <riel@surriel.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Zi Yan <ziy@nvidia.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/filemap: read mapping->a_ops->free_folio under i_lock
-Date: Fri, 13 Nov 2026 23:22:04 -0500
-Message-ID: <20261114042149.2838075-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] hwrng: virtio - Remove usage of the deprecated ida_simple_xx() API
+Date: Fri, 13 Nov 2026 23:22:34 -0500
+Message-ID: <20261114042223.2847229-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200315-failed-6.18-dc24e273244e@kernel.org>
-References: <20261109200315-failed-6.18-dc24e273244e@kernel.org>
+In-Reply-To: <20261109201257-failed-6.6-0f7bf47f5a0c@kernel.org>
+References: <20261109201257-failed-6.6-0f7bf47f5a0c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,119 +61,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Josef Bacik <josef@toxicpanda.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-[ Upstream commit dc24e273244e9d712257d5a6c20a32c7f5ca84e6 ]
+[ Upstream commit e4db80d80cff590eb5fe0444b665cec839c34133 ]
 
-memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
-after the inode has been freed. Once the folio is deleted from the
-pagecache it no longer pins the mapping, so after i_lock is dropped
-e.g., a concurrent final iput() can evict and free the inode before
-filemap_free_folio() looks up mapping->a_ops->free_folio.
+ida_alloc() and ida_free() should be preferred to the deprecated
+ida_simple_get() and ida_simple_remove().
 
-Most callers hold a reference on the inode, but not all.
+This is less verbose.
 
-Documentation/filesystems/vfs.rst explicitly states that ->free_folio()
-must not assume the original address_space mapping still exists.
-
-Fix it by loading ->free_folio while i_lock is still held, similar to
-what folio_unmap_invalidate() does.
-
-Inline filemap_free_folio() into its remaining caller such that
-delete_from_page_cache_batch() also just loads the callback before
-dropping the i_lock.
-
-The bug was found by code inspection and has not been reproduced.
-
-Fix generated by an LLM and sent by Josef Bacik in private.
-
-Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a separate function")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: get rid of filemap_free_folio() entirely; improve patch description ]
-Reviewed-by: Rik van Riel <riel@surriel.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-6-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Adjusted patch context to retain inode_add_lru() instead of inode_lru_list_add(). ]
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Stable-dep-of: 0f7bf47f5a0c ("hwrng: virtio - prevent use-after-free after a failed restore")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/filemap.c | 29 ++++++++++++++---------------
- 1 file changed, 14 insertions(+), 15 deletions(-)
+ drivers/char/hw_random/virtio-rng.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index cd7af384cff26..ee6594e691456 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -227,18 +227,6 @@ void __filemap_remove_folio(struct folio *folio, void *shadow)
- 	page_cache_delete(mapping, folio, shadow);
+diff --git a/drivers/char/hw_random/virtio-rng.c b/drivers/char/hw_random/virtio-rng.c
+index 43e84983c428b..65984504a3ca9 100644
+--- a/drivers/char/hw_random/virtio-rng.c
++++ b/drivers/char/hw_random/virtio-rng.c
+@@ -154,7 +154,7 @@ static int probe_common(struct virtio_device *vdev)
+ 	if (!vi)
+ 		return -ENOMEM;
+ 
+-	vi->index = index = ida_simple_get(&rng_index_ida, 0, 0, GFP_KERNEL);
++	vi->index = index = ida_alloc(&rng_index_ida, GFP_KERNEL);
+ 	if (index < 0) {
+ 		err = index;
+ 		goto err_ida;
+@@ -185,7 +185,7 @@ static int probe_common(struct virtio_device *vdev)
+ 	return 0;
+ 
+ err_find:
+-	ida_simple_remove(&rng_index_ida, index);
++	ida_free(&rng_index_ida, index);
+ err_ida:
+ 	kfree(vi);
+ 	return err;
+@@ -203,7 +203,7 @@ static void remove_common(struct virtio_device *vdev)
+ 		hwrng_unregister(&vi->hwrng);
+ 	virtio_reset_device(vdev);
+ 	vdev->config->del_vqs(vdev);
+-	ida_simple_remove(&rng_index_ida, vi->index);
++	ida_free(&rng_index_ida, vi->index);
+ 	kfree(vi);
  }
  
--static void filemap_free_folio(const struct address_space *mapping,
--		struct folio *folio)
--{
--	void (*free_folio)(struct folio *);
--
--	free_folio = mapping->a_ops->free_folio;
--	if (free_folio)
--		free_folio(folio);
--
--	folio_put_refs(folio, folio_nr_pages(folio));
--}
--
- /**
-  * filemap_remove_folio - Remove folio from page cache.
-  * @folio: The folio.
-@@ -250,6 +238,7 @@ static void filemap_free_folio(const struct address_space *mapping,
- void filemap_remove_folio(struct folio *folio)
- {
- 	struct address_space *mapping = folio->mapping;
-+	void (*free_folio)(struct folio *folio);
- 
- 	BUG_ON(!folio_test_locked(folio));
- 	spin_lock(&mapping->host->i_lock);
-@@ -258,9 +247,12 @@ void filemap_remove_folio(struct folio *folio)
- 	xa_unlock_irq(&mapping->i_pages);
- 	if (mapping_shrinkable(mapping))
- 		inode_add_lru(mapping->host);
-+	free_folio = mapping->a_ops->free_folio;
- 	spin_unlock(&mapping->host->i_lock);
- 
--	filemap_free_folio(mapping, folio);
-+	if (free_folio)
-+		free_folio(folio);
-+	folio_put_refs(folio, folio_nr_pages(folio));
- }
- 
- /*
-@@ -320,6 +312,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
- void delete_from_page_cache_batch(struct address_space *mapping,
- 				  struct folio_batch *fbatch)
- {
-+	void (*free_folio)(struct folio *folio);
- 	int i;
- 
- 	if (!folio_batch_count(fbatch))
-@@ -337,10 +330,16 @@ void delete_from_page_cache_batch(struct address_space *mapping,
- 	xa_unlock_irq(&mapping->i_pages);
- 	if (mapping_shrinkable(mapping))
- 		inode_add_lru(mapping->host);
-+	free_folio = mapping->a_ops->free_folio;
- 	spin_unlock(&mapping->host->i_lock);
- 
--	for (i = 0; i < folio_batch_count(fbatch); i++)
--		filemap_free_folio(mapping, fbatch->folios[i]);
-+	for (i = 0; i < folio_batch_count(fbatch); i++) {
-+		struct folio *folio = fbatch->folios[i];
-+
-+		if (free_folio)
-+			free_folio(folio);
-+		folio_put_refs(folio, folio_nr_pages(folio));
-+	}
- }
- 
- int filemap_check_errors(struct address_space *mapping)
 -- 
 2.53.0
 
