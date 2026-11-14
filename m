@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794630660;
-	b=G62ewnBMmP70WYwPhiC6BBIdkz0ju70LhxTQW3YIQGW4XW1FUonVIK/F90eUqpX5GlQ1
-	 +U2GxMZ0akvqqVBZVbgnC8aY927wzdGF0pate//DfjRS2Ye43L4zUVWuQ/0De5pEscej2
-	 3Pp5qKNDuYWPh1OtDQwodHmFOJUiF3UNoRrq7BmPUtvf/yff7QSYPOwM2mLki5009c50P
-	 0Ii2Z5443cv6L0TLV064qxjCG7Q3VwJ9H5ttTCnZfH22WPo/yQPyFT/lfw1k2+M/eZav9
-	 ujkhU0pvxUqfOKpm6ovJzXd2YYNQv7S/mKkbK4sE8TqBuPCSLcXhPTcUdAV7sZB8Rnw==
+	t=1794630761;
+	b=Sh3cKP2XNe/m3AhTX7tSfyWwX5BMOEMkURM5YcnwVXHMW8ipT9isIGRkFLq8Sc0G8mdS
+	 iMEqTVuQQ17NJMzmO3lWM9R6lUojYOsykRckpRhXhc0V0pIB6rxo4kM3vKo7V7l8MdQUW
+	 Ni6jfYwoump4/8k6VjSPevw2/J2j8Zpkx6CPtJFYPmszXB27OP+PqJDLEwn1lG/HsKHhb
+	 6WndBz2opoC966QvcvTTuCAfcptrNbRZeP3AL8u+KBo/5dYwIh6vY+0rNNqVZWqCxNs/9
+	 PTCWuN3Kb/kjPVzMC/rks4hhPxmY+4dNW+sEDA8Kx59DJD17QY/+jCTofGkpkwyH6Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794630660;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794630761;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/dOOqt1PbI2Tb7oHeV6EDINR2Z6kREnN7E7KjieWKt8=;
-	b=yDNP9BF1mV9+aZFCI+9xccA22Ve3a+TNjj1I6zJ/1lVrfww3mOng5w8BPE77QCSxBqol
-	 44BqmQ5xarC+Fwkh3F7UdBzdj8J4XbYy3DQi10ze3A3/EIPndQJLUWOJrShEsCK0n0XPc
-	 H4jyAwlDL+N7RhABQXRvKDApJjOaFJrIC50vtJXH8pkLyQjDFqNFDHbaHqzJKcBfjVLD6
-	 1qVDRur3ObJ0DI1pRAoWJsr60GOb3l805OBbjAkNxjWYUV01t9CKGv7qsr8QysZ7z6Jbn
-	 gdkDFohKf2+QGNcNwyoHEE80XMkJY8EKv0bsIYMXULNDzp+O62mWF3T7+DCoaajkOOA==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=rUDtpGvWiJFYHdFOYuGZNchwlTnQhy0ujviPe6R/iX8=;
+	b=iiNuhoG4flr9uMjgbeBY8NA+w3NelZTODNSpbAzXHqTylufGAUNIkB+ntQ0GIIqfTDrr
+	 ZE22vdCw/UCBUXTfNOJnhToDvEsgWEmRjSfyCGnvXKpRZIick1taW5t+zzO0WxxQLbS0G
+	 aUxXciotWuTVMHdfH/oEV3nTCG16SElwA7ipmXG6PGWGHP8o8rXVq9Tcd5/0MTqe2zIvq
+	 ur0v3WsUDPGku1NpyG8emdcjjT1gesymuTSJWEYOF8voHZ1TYYfinPW2ZvpXTAc/PHofP
+	 cumrqdbgdLaPbXNX6sUN4cXcqjzvhj2/g9dbp/6c3nEg2jywAqRjjBwwwdedkIkRnSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5oh9jki;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FS0reEBF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAEC8606A33B
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:31:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F8D606A330
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:32:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K5oh9jki
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A1F51F000C4;
-	Sat, 14 Nov 2026 04:31:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FS0reEBF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5011F000C4;
+	Sat, 14 Nov 2026 04:32:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794630660;
-	bh=/dOOqt1PbI2Tb7oHeV6EDINR2Z6kREnN7E7KjieWKt8=;
+	s=k20260515; t=1794630761;
+	bh=rUDtpGvWiJFYHdFOYuGZNchwlTnQhy0ujviPe6R/iX8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=K5oh9jkiC9ec8BuEzQG+Dwo/1wwwTOdBrlHDFRe3eQ4ZEYif2bjfCAiQ/Um8y6L3f
-	 0xrFrKeD2zVi+XVtP6n8HxpPlXzGFtUwvmq4nwUKSm/1IE2uy0CjOr6eINnhiFoji9
-	 sTsxWVgsTNvjlIx2s1GQsl2eYT5+pecOjpGs2pfrud4nIyjIL+bVI/oeBrbzFQzyqy
-	 j5fCN4uKxnhnnNuFJBC/TZuoWi6C9NYMuo01GddwB97F3xCQ8iYtks2HpItAhAO77Z
-	 EyWMN2LcI8JMtTeBwDCi3t3SXnrJU0IU/P+chOeIGpLQ09fqCyIHsZX/RivM5eaXbJ
-	 hprcS2CCcRNBg==
+	b=FS0reEBFrBXarmzVlAs8fpi0rMB2fYWQ1cvahGT2H2r/XK8RSkkrUZcBdqk1yygo9
+	 bxz4kGLUQvycaOQJoaz8p3CCCZoQ+6VWBz/VOVxDEKOQkbi8qB+0BK4VITmmj9HMPY
+	 eavYtGAVR45d2Oon1qE8TMY9VC3bY8F0fsq0vYYIKt7e37XXu0ASgLC2y63s/5Yr2J
+	 5R2jZiRYkG59Cr+t7xBdU178xz+PhgAaUgJHGit1SppfCcuk23XEgmlg8PQ82x1Eok
+	 ehdIbneXBfpKFKyqwR7UziXV86HlTyv+sLJ399h+yhrClUcJab2G9/3LgB2C4k4Gx5
+	 0YiZuHz7lKPuQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jesse Zhang <Jesse.Zhang@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Chris Mason <mason@kernel.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/amdgpu: don't walk the CS chunks when allocating them failed
-Date: Fri, 13 Nov 2026 23:30:58 -0500
-Message-ID: <20261114035319.2634521-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] aio: fix NULL deref when a fault races ring truncation
+Date: Fri, 13 Nov 2026 23:32:39 -0500
+Message-ID: <20261114042622.2837414-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202433-failed-5.15-ade92d50aad6@kernel.org>
-References: <20261109202433-failed-5.15-ade92d50aad6@kernel.org>
+In-Reply-To: <20261107063059-failed-5.10-d53b5aa5cfae@kernel.org>
+References: <20261107063059-failed-5.10-d53b5aa5cfae@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,59 +59,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jesse Zhang <Jesse.Zhang@amd.com>
+From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit ade92d50aad6799a5a9d7e73cd1604fd0576e656 ]
+[ Upstream commit d53b5aa5cfae27e4d236fc0ab9581085d27f7d33 ]
 
-amdgpu_cs_pass1() sets p->nchunks before allocating p->chunks, and the
-allocation failure path skips resetting it. amdgpu_cs_parser_fini() then
-frees the kdata of nchunks chunks from a NULL array. On navi48 with the
-chunk array allocation failed through failslab:
+The aio ring lives in a file on the aio pseudo filesystem and the ring
+VMA uses filemap_fault(). aio_ctx_aops doesn't have a ->read_folio
+because aio_setup_ring() puts all folios of the ring into the page
+cache. So a fault on the ring only works as long as it finds its folio
+in the page cache. If it doesn't, filemap_fault() calls ->read_folio
+without checking and we jump to NULL.
 
-  Oops: general protection fault, probably for non-canonical address 0xdffffc0000000001: 0000 [#1] SMP KASAN NOPTI
-  KASAN: null-ptr-deref in range [0x0000000000000008-0x000000000000000f]
-  RIP: 0010:amdgpu_cs_parser_fini+0x35d/0x710 [amdgpu]
-   amdgpu_cs_ioctl+0xcae/0x7a20 [amdgpu]
-   drm_ioctl_kernel+0x180/0x320 [drm]
+We already fixed this twice this year. A forked child could inherit the
+ring mapping, fixed by commit c03ce4173c7b ("fs: aio: set
+VMA_DONTCOPY_BIT in mmap to fix NULL-pointer-dereference error"). And a
+partial mremap() could leave part of the ring mapped, fixed by
+commit 3adf7ae18bf4 ("fs: aio: reject partial mremap to avoid
+Null-pointer-dereference error"). Both times a VMA outlived the ring and
+the ring file was truncated under it.
 
-Set nchunks once the array exists.
+There's a third way to get there. kill_ioctx() and the error path of
+ioctx_alloc() unmap the ring with vm_munmap() and ignore the return
+value. If vm_munmap() has to wait for mmap_lock and a fatal signal is
+pending it returns -EINTR and the VMA stays. free_ioctx() then calls
+put_aio_ring_file() which truncates the ring file to zero. A fault that
+passed the i_size check in filemap_fault() before that doesn't find its
+folio anymore, allocates a new one and calls ->read_folio:
 
-Fixes: d38ceaf99ed0 ("drm/amdgpu: add core driver (v4)")
-Signed-off-by: Jesse Zhang <Jesse.Zhang@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 0c828445757b86aaa3ed2638832d76f450022bdf)
+    fault on the ring                 io_destroy() with SIGKILL pending
+    =================                 =================================
+                                      vm_munmap() returns -EINTR
+    filemap_fault()
+      i_size check passes
+                                      free_ioctx()
+                                        put_aio_ring_file()
+                                          truncate_setsize(inode, 0)
+      no folio, allocate a new one
+      filemap_read_folio()
+        ->read_folio == NULL
+
+All that's needed is a second process that shares the mm. If a CLONE_VM
+child calls io_destroy() and gets SIGKILLed while it waits for mmap_lock
+the ring stays mapped for the threads of the parent. Any user can do
+that.
+
+Instead of plugging the routes one by one give the ring a ->read_folio
+that unlocks the folio and returns -EIO. All folios of a live ring are
+in the page cache so a fault can only end up there if the ring was
+truncated. The fault now gets SIGBUS. Nothing else reads the ring file
+and the aio filesystem uses noop_backing_dev_info so there's no
+readahead either.
+
+Making vm_munmap() unkillable in those two places would only close this
+one route and bring back what commit ae7987835643 ("mm: make vm_munmap
+killable") fixed.
+
+Fixes: 36bc08cc0170 ("fs/aio: Add support to aio ring pages migration")
 Cc: stable@vger.kernel.org
-[ sashal: adapted kvmalloc_objs() to kvmalloc_array() in amdgpu_cs_parser_init() ]
+Signed-off-by: Chris Mason <mason@kernel.org>
+Link: https://patch.msgid.link/20261029-work-fs-ai-fixes-v1-1-88f22792f6f7@kernel.org
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+[ sashal: adapted the folio-based read_folio callback to page-based readpage using unlock_page() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ fs/aio.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index b28e98ab94ece..d1e99112a1931 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -134,13 +134,14 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
- 		goto free_chunk;
- 	}
+diff --git a/fs/aio.c b/fs/aio.c
+index 16ceed755b7e5..8ba65b4ec8fc2 100644
+--- a/fs/aio.c
++++ b/fs/aio.c
+@@ -455,7 +455,18 @@ static int aio_migratepage(struct address_space *mapping, struct page *new,
+ }
+ #endif
  
--	p->nchunks = cs->in.num_chunks;
--	p->chunks = kvmalloc_array(p->nchunks, sizeof(struct amdgpu_cs_chunk),
-+	/* parser_fini() walks nchunks chunks, set it once they exist */
-+	p->chunks = kvmalloc_array(cs->in.num_chunks, sizeof(struct amdgpu_cs_chunk),
- 			    GFP_KERNEL);
- 	if (!p->chunks) {
- 		ret = -ENOMEM;
- 		goto free_chunk;
- 	}
-+	p->nchunks = cs->in.num_chunks;
- 
- 	for (i = 0; i < p->nchunks; i++) {
- 		struct drm_amdgpu_cs_chunk __user *chunk_ptr = NULL;
++/*
++ * filemap_fault() reads a page that it did not find in the page cache. All
++ * pages of a live ring are there, so the ring was truncated under the fault.
++ */
++static int aio_readpage(struct file *file, struct page *page)
++{
++	unlock_page(page);
++	return -EIO;
++}
++
+ static const struct address_space_operations aio_ctx_aops = {
++	.readpage	= aio_readpage,
+ 	.set_page_dirty = __set_page_dirty_no_writeback,
+ #if IS_ENABLED(CONFIG_MIGRATION)
+ 	.migratepage	= aio_migratepage,
 -- 
 2.53.0
 
