@@ -1,57 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794669358;
-	b=3APYuuVMwJjYYpe2wI7DeMcGbomfFHvejerkrtG8vbk2kHzceFpQJPTj1pvau3huVGx3
-	 d3/eNn/Bwch+vREFbMN5eBeN2noRWXJlnnou8XE1JJSPHzbJSZ5sCLZFZwUsa8Dw2FDS4
-	 O+qF3UJ5R/NWQTFYmV3xVJ8Q7imCU5McEV0JdabuHaCPBgOSfnB7K8wOc4C62mTCqW8Hq
-	 7l2slCGAVbgfIZgSQ5q+dU8mUq6DV67OosgM3iH1uj4HeBvjySs3XE06ztqdFyrzCxQf/
-	 S8DqtYhebU56/So7Ym1AcYj0gLo25GDWpMFN6IaYBdePz3HbzV9bBOfM2GY4/Uw6dOA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794669358;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Ns+Vtt0gloFNgRyJBkm9c7URdPK9hD7QUQdViMFHoxY=;
-	b=TORlF9jL81nykzklV9rpGBHT2DJ573vVIJ+jg7Ik4jEdF1MR78khaMkqHoLEQurSiBEP
-	 Y97Y89yMmCnlULjTrs1msBt2zjfigDsWnVpF2VG0x7RHvGxD6f/i/9bYjcNwKOviWHaLV
-	 I5B0DhGzKG2bY55ufdtEqCs5c3N/zuGs28eBm+Vg6Kx8dvXLaFNnHGfq5ndDg1XTaDlrQ
-	 9dOff4Xjhbln89k+4dvA86jtifi8ZIiqPNH+4zOP4ZIzJCrl5sRZp7J5CrYhRU2u6dkSS
-	 efql74K8aG9ltvofqaTK/FkNBg4pXGBU42FtSp27sfp+IefkyTctX93GIN0pyjLRsug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcjwWc0+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794669477;
+	b=ENiLzZtdNYebQt7iGW4lq88g79raP91pQmk+QSqmw3ibMu9ioAXkne17yf6dzMV5nbov
+	 NaRQMHoh8Xfg7xSnJyXCE6jspFqLdbdQXZBRxov+343zGcs3Ke8YmiOCn9dNDT4I96TCN
+	 UQxOf2nnVMsHbm5olFZQmzEbFtcziiVmyMP5QSLO1fJ0dgwrIuGgXFrjxfCvHLHin/jGP
+	 vXmjejOOZ5tki/41T7vNbhAUsYvpKxu4/ji6tYXUPERVKQTJHBJ6bFcyJJdvnoj5Y27wq
+	 9nQjmQyat2/BeXsDQzHkcgMsCkDgYB3QGT9NAgkVM0pVQ9ncm8xxE0Otxbr8Bp+KjPw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794669477;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=Ti0JWkIkKPgSVJO+xE5HKdSUB2nbIRtCDPD5HTD8o0Y=;
+	b=1ozRiLNVZXFE+mTGq3+RWViLqHqzPygOySflZDCQM8JuCRZTxSx762B7AQAESQH+9bjg
+	 JZmaaI8kcI7FTbicwon98zqUCTs4+TJJWSETxfwUk8feJQp0ReG7vmRz1Upp94BVDqg8p
+	 YPhlDvfV6vvbsYQDbmDKqNPPdBW1xJPg1GRx6IzDaVXuXKUROc2hxKDnhy4LHBHKaynBj
+	 JzE2CH2XcUrn21Nv8cmnMWiWgzjxeOMOh0mfA1qF09IBLLrT117z/EO8ninF/isvqGWqM
+	 uFURNemwmOAYG92/o0qF7Ju7ZnAs3mk5+zr0pXTQEvI24RbDF8qIvRo4SJuOvI8G1tg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=dYK9kqeI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB2C5606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 15:15:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9043D606A332;
+	Sat, 14 Nov 2026 15:17:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9043D606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XcjwWc0+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5BC91F000C4;
-	Sat, 14 Nov 2026 15:15:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794669358;
-	bh=Ns+Vtt0gloFNgRyJBkm9c7URdPK9hD7QUQdViMFHoxY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XcjwWc0+RLoqbP+qnVYpoU5fDzkm5zXWDeZbFAnVAfbxLFtmoB1xxL1dFzRpFxa8L
-	 UjkKUs8Vm/prk4PKkt6pnR8ghvSV1P2HGx6sKQOvT+46vGKVJzPNnWzlpxvz1SLqUu
-	 6OzyzeABOEBS4arfa0Et6rlrumRZY40UGdPdtfsERUcqHnSgL6gKTB8m6chjvRj1nG
-	 SEV2NcMhplStlezApXR+cf0RMgW5FvzSYBajDwEfev3+gdr/uvt7ixiV2GUMGE5q/Y
-	 HSjystmSbQTgYkaqqSG4cirGmUBa/Aj2v0v6rf/RRidePMnAmtPsA9X/5JFZp+h5Or
-	 qcR9ZXG9JfPxA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Wei Wang <wvw@google.com>,
-	Will Deacon <will@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] arm64: suspend: Save and restore TPIDR2_EL0 across CPU suspend
-Date: Sat, 14 Nov 2026 10:15:56 -0500
-Message-ID: <20261114151544.3432889-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201937-failed-6.1-beeec0404622@kernel.org>
-References: <20261109201937-failed-6.1-beeec0404622@kernel.org>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=dYK9kqeI
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 562372022EA;
+	Sat, 14 Nov 2026 16:17:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794669474;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ti0JWkIkKPgSVJO+xE5HKdSUB2nbIRtCDPD5HTD8o0Y=;
+	b=dYK9kqeIKuxuDeTeTWTGkHdnQE8k5tA+5aNBHYaxdiwmzeC2lupUhmgHVi0EJOklZAxwAf
+	9sIFQJFlPvDi/akUIbOF8dwLFWtI3ZovUYbk22+Hissa8T0OXQPbExlIShDvN8bjBZFHqG
+	YVwPGObtHdVw1is+cirzKw4BbdsiLd7hLtGpM9SIV7PbH1ExY1ieu5VyN8EI7xCdGZlG/j
+	U4mgGdu2weYedjl8YE4tWjNWMrbjFZO7O55Lb4LmcNhvpu0dxZR+PFa6+W8+N89afUnLEg
+	/hwEdar0HxXP4+MT0A8jynAu141Djcctbdfq/eO7JWzjFxBKv8L7kPOuuwS5FA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794669474;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Ti0JWkIkKPgSVJO+xE5HKdSUB2nbIRtCDPD5HTD8o0Y=;
+	b=WoMZ7ZIOwr0HoJ/JeTjlYKhlX3lG/xPhOCSsIv69dYxrfl50w5/T+YWGPQDOtmFEutwutz
+	PNnSZbloFioX4vsRb6/R72agnN/i5pOr06DSD82dffBEUzA0kfxQUE/9+W0OWSLgdBzx7f
+	EWtFXNCjf2dh7rI+GggZRQEn35FMyE+NSjbvIQn+4AdgyTadAcMhFMIlzerHh20v/hix4i
+	AmvJSy9Fpwyw6y3328LXnrleD5MVGZSJDrvj6HyblyaAAGGCkpoeFW3UAosHD7/dB4uBO2
+	rGX0W4KVUU8hMMoYGHd+YRihCBu0xSDPsd3WHEmpUvDGaUt27RAGD3O8+qraXw==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794669474; a=rsa-sha256;
+	cv=none;
+	b=G8JKzuEnsovfI/1n9N0jLYRJYpIBjl+4UjkX24o9Yl2Z3ohATtV9aQb3OYZyBApl2MHl3e
+	CowP+TdN0H0DMsqXGkteGzwa8++ypw/wPeWi1q6eyKzvjKkAVXh6gDLwrw24SZZphQCWpU
+	xqv34NnMzrM44MUchcUH8hdK/+sHBtXTud0FN19aSfbXn3L0Wh82thy55MtnY9AsivZPtB
+	6pvi6eAeGhxPpUR4c0YXtzEmJxUCpUtVMPX8MsjJH+Zmf19JQjb/TxnTVfwKSDdqERYc4a
+	SmKNRpIvKnCX1pzWLXVoeIL1nedfR/ZKdcdECf5ZC/YCYnLdVRNWokNoC4C3Hw==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xSFVq-0049oD-0l;
+	Sat, 14 Nov 2026 16:17:54 +0100
+Received: from hardanger.blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id EBC165EBB30;
+	Sat, 14 Nov 2026 15:17:53 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+Date: Sat, 14 Nov 2026 16:17:41 +0100
+Subject: [PATCH can-next v7 2/6] can: gs_usb: gs_usb_probe(): init netdev
+ completely before register_candev()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,73 +98,161 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-gs_usb-fixes-v7-2-58b6341b1c08@pengutronix.de>
+References: <20261114-gs_usb-fixes-v7-0-58b6341b1c08@pengutronix.de>
+In-Reply-To: <20261114-gs_usb-fixes-v7-0-58b6341b1c08@pengutronix.de>
+To: Vincent Mailhol <mailhol@kernel.org>, Peter Fink <pfink@christ-es.de>, 
+ Eric Evenchick <eric@evenchick.com>, 
+ Maximilian Schneider <max@schneidersoft.net>, 
+ Wolfgang Grandegger <wg@grandegger.com>
+Cc: kernel@pengutronix.de, linux-can@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-d7211
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4199; i=mkl@pengutronix.de;
+ h=from:subject:message-id; bh=HP0EDW+WYKMQf1wWMtYGpxOpElxHWNwuHeeJfWjuVy8=;
+ b=owGbwMvMwCV2xirl17qZay8xnlZLYsj6UT37k1LSOrfCuXvb1p0TvZKrU7TU/H2d3Oyznzr0a
+ iTu3grm7ihlYRDjYpAVU2RZ+uOEokCgQ2nvy4RJMHNYmUCGMHBxCsBE7nxg+O/IYrbUZ9/mBWe/
+ ruv8XPAyR74jvrZsq/WNU42b7qx5aMrE8D/47I+rRxU3hupNaqmKeGWtoH1b+dzLHQ+83kYf/rn
+ PcDMDAA==
+X-Developer-Key: i=mkl@pengutronix.de; a=openpgp;
+ fpr=C1400BA0B3989E6FBC7D5B5C2B5EE211C58AEA54
 
-From: Wei Wang <wvw@google.com>
+In gs_usb_probe(), gs_make_candev() is called to allocate and set up the
+CAN channel, as well as to call register_candev(). However, gs_usb_probe()
+defers the assignment of dev->parent and parent->hf_size_rx until after
+gs_make_candev() returns. This opens a race window for the user space to
+bring up the CAN interface, while it's not completely setup.
 
-[ Upstream commit beeec04046227eba42b7cc5ab32498aa43da9632 ]
+To close the race window, initialize all CAN interfaces in a first loop and
+then register them in a second loop: Don't call register_candev() from
+gs_make_candev() but explicitly from gs_usb_probe(). Adjust
+gs_destroy_candev() likewise, move unregister_candev() to
+gs_usb_disconnect() and the error paths in gs_usb_probe(), to keep it
+inverse to symmetric to gs_make_candev().
 
-TPIDR2_EL0 is a live EL0 register on systems with SME, but
-cpu_do_suspend()/cpu_do_resume() don't preserve it. Its value is
-UNKNOWN after a warm reset, so the task that initiates suspend can
-return to userspace with a corrupted TPIDR2_EL0.
-
-Save and restore it alongside TPIDR_EL0 and TPIDRRO_EL0. The new slot
-fits in existing padding, so sizeof(struct cpu_suspend_ctx) is
-unchanged.
-
-Fixes: a9d691585950 ("arm64/sme: Implement support for TPIDR2")
+Closes: https://sashiko.dev/#/bug/linux-be54de7d-0b75-408c-b3ee-dd90c9756857
+Closes: https://sashiko.dev/#/bug/linux-71076d59-0843-4749-a5ab-fdd98a08582f
+Fixes: d08e973a77d1 ("can: gs_usb: Added support for the GS_USB CAN devices")
 Cc: stable@vger.kernel.org
-Acked-by: Will Deacon <will@kernel.org>
-Reviewed-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Wei Wang <wvw@google.com>
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-[ sashal: Adapted the suspend context layout for the missing TCR2_EL1 slot, using offset 104 instead of 112 for TPIDR2_EL0. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- arch/arm64/include/asm/suspend.h | 2 +-
- arch/arm64/mm/proc.S             | 8 ++++++++
- 2 files changed, 9 insertions(+), 1 deletion(-)
+ drivers/net/can/usb/gs_usb.c | 64 +++++++++++++++++++++++++++-----------------
+ 1 file changed, 40 insertions(+), 24 deletions(-)
 
-diff --git a/arch/arm64/include/asm/suspend.h b/arch/arm64/include/asm/suspend.h
-index 0cde2f473971e..eb60c97355530 100644
---- a/arch/arm64/include/asm/suspend.h
-+++ b/arch/arm64/include/asm/suspend.h
-@@ -2,7 +2,7 @@
- #ifndef __ASM_SUSPEND_H
- #define __ASM_SUSPEND_H
+diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+index cac4ce323a1d..6997cc8a6b2d 100644
+--- a/drivers/net/can/usb/gs_usb.c
++++ b/drivers/net/can/usb/gs_usb.c
+@@ -1493,18 +1493,8 @@ static struct gs_can *gs_make_candev(unsigned int channel,
  
--#define NR_CTX_REGS 13
-+#define NR_CTX_REGS 14
- #define NR_CALLEE_SAVED_REGS 12
+ 	SET_NETDEV_DEV(netdev, &intf->dev);
  
- /*
-diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
-index b9ecbbae1e1ab..5d41d39d58472 100644
---- a/arch/arm64/mm/proc.S
-+++ b/arch/arm64/mm/proc.S
-@@ -102,6 +102,10 @@ SYM_FUNC_START(cpu_do_suspend)
- 	 * call stack.
- 	 */
- 	str	x18, [x0, #96]
-+alternative_if ARM64_SME
-+	mrs_s	x2, SYS_TPIDR2_EL0
-+	str	x2, [x0, #104]
-+alternative_else_nop_endif
- 	ret
- SYM_FUNC_END(cpu_do_suspend)
+-	rc = register_candev(dev->netdev);
+-	if (rc) {
+-		dev_err(&intf->dev,
+-			"Couldn't register candev for channel %d (%pe)\n",
+-			channel, ERR_PTR(rc));
+-		goto out_can_rx_offload_del;
+-	}
+-
+ 	return dev;
  
-@@ -145,6 +149,10 @@ SYM_FUNC_START(cpu_do_resume)
- 	 */
- 	disable_daif
- 	msr	mdscr_el1, x10
-+alternative_if ARM64_SME
-+	ldr	x2, [x0, #104]
-+	msr_s	SYS_TPIDR2_EL0, x2
-+alternative_else_nop_endif
+-out_can_rx_offload_del:
+-	can_rx_offload_del(&dev->offload);
+ out_free_candev:
+ 	free_candev(dev->netdev);
+ 	return ERR_PTR(rc);
+@@ -1512,7 +1502,6 @@ static struct gs_can *gs_make_candev(unsigned int channel,
  
- 	msr	sctlr_el1, x12
- 	set_this_cpu_offset x13
+ static void gs_destroy_candev(struct gs_can *dev)
+ {
+-	unregister_candev(dev->netdev);
+ 	can_rx_offload_del(&dev->offload);
+ 	free_candev(dev->netdev);
+ }
+@@ -1590,21 +1579,16 @@ static int gs_usb_probe(struct usb_interface *intf,
+ 
+ 	for (i = 0; i < icount; i++) {
+ 		unsigned int hf_size_rx = 0;
++		struct gs_can *dev;
+ 
+-		parent->canch[i] = gs_make_candev(i, intf, &dconf);
+-		if (IS_ERR_OR_NULL(parent->canch[i])) {
++		dev = gs_make_candev(i, intf, &dconf);
++		if (IS_ERR_OR_NULL(dev)) {
+ 			/* save error code to return later */
+-			rc = PTR_ERR(parent->canch[i]);
++			rc = PTR_ERR(dev);
+ 
+-			/* on failure destroy previously created candevs */
+-			icount = i;
+-			for (i = 0; i < icount; i++)
+-				gs_destroy_candev(parent->canch[i]);
+-
+-			usb_kill_anchored_urbs(&parent->rx_submitted);
+-			kfree(parent);
+-			return rc;
++			goto out_gs_destroy_candev;
+ 		}
++		parent->canch[i] = dev;
+ 		parent->canch[i]->parent = parent;
+ 
+ 		/* set RX packet size based on FD and if hardware
+@@ -1624,7 +1608,37 @@ static int gs_usb_probe(struct usb_interface *intf,
+ 		parent->hf_size_rx = max(parent->hf_size_rx, hf_size_rx);
+ 	}
+ 
++	for (i = 0; i < icount; i++) {
++		struct gs_can *dev = parent->canch[i];
++
++		rc = register_candev(dev->netdev);
++		if (rc) {
++			const unsigned int cur = i;
++
++			dev_err(&intf->dev,
++				"Couldn't register candev for channel %d (%pe)\n",
++				i, ERR_PTR(rc));
++
++			for (i = 0; i < cur; i++)
++				unregister_candev(parent->canch[i]->netdev);
++
++			goto out_gs_destroy_candev;
++		}
++	}
++
+ 	return 0;
++
++out_gs_destroy_candev:
++	for (i = 0; i < parent->channel_cnt; i++) {
++		if (!parent->canch[i])
++			continue;
++
++		gs_destroy_candev(parent->canch[i]);
++	}
++
++	kfree(parent);
++
++	return rc;
+ }
+ 
+ static void gs_usb_disconnect(struct usb_interface *intf)
+@@ -1640,8 +1654,10 @@ static void gs_usb_disconnect(struct usb_interface *intf)
+ 	}
+ 
+ 	for (i = 0; i < parent->channel_cnt; i++)
+-		if (parent->canch[i])
+-			gs_destroy_candev(parent->canch[i]);
++		unregister_candev(parent->canch[i]->netdev);
++
++	for (i = 0; i < parent->channel_cnt; i++)
++		gs_destroy_candev(parent->canch[i]);
+ 
+ 	kfree(parent);
+ }
+
 -- 
 2.53.0
 
