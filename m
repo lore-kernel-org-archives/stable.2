@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794636186;
-	b=ETpgq4KZUMEiJALyChXQ9pLUaCZEce5gc4GJBVd6I+XBUu/mbknvViDU+ylOA+OACSk4
-	 0uSMOtF4VtFL3yprD1exyV+L67REfsPrdGAknNXr7hYKzYaMCxx8S8vsbwU9q6hLFFXqD
-	 wNHwQ+lnJy3wwb63KmBfO1m4qLTtjH8Lc9IOu72vBoMHmO27DYE6oMMoQi0dTp6V+jKE5
-	 RqcX5J8uo2UGgh9fiqxmgHCUm5rKGKFKFpXT8+vP6rQKWQPCbu7e0KCIlnvSBTsD9cNoo
-	 UBRWmUgmSTkf2NG6eRV84lG21PQ4YnvZFXKOxzScObVkoaAhae5ithuUlED61QhH47Q==
+	t=1794636593;
+	b=gm4ehlvW0JDOfoDqpKDYGssIcjIHliYR8XaZoULzoTyuYh5jQZFniO/cJyy/mzJEwVV4
+	 /n1GrbX1yvkONLIi55wxe9GScS4okBAo5atx5IHknrUxv2XUdhO+JcoII/dpGr2OhTk6l
+	 Wu3DKIUyLKyJSh6kNZAbPKCM70RDbzzNs33FHxbF5Lp0HPb3aODm1gjiuWN6aUhIvPbiR
+	 Ms7QGodTrBGA3bxQmT8KPy4fahBGMxdNo3iIGzA1VZiJIf6pf/Mgx6N0qcMS9a/oaS6Lj
+	 TTVKw6MxAOf9GHXc7dBL8fT7htXduHQCCvSqki6bs5rKQAT3dBa5rwIxxEqVKDtgFug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794636186;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794636593;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=2FE9OsMpDMg823a/yJwGbJcXU0vkqMKjNXZxUQwV3Zo=;
-	b=qAqXQnyDa+wqLgR1v/qEK/PZBr1DiVWegTu5rBPis2eNeDyA9cTC2pN4hBcdTmabRmp1
-	 SnfJvs7mnt8pmFJY76c8/zWcj2W5HAqixf6y8HaJXSteXhoSa5bWTdo5nkKmlXYsLQKnV
-	 f55yASlXUtD1kypjJ7fyVAoa814bUb1KLO4xa5umwrCKh7FUqzZRugDOqKo2HbdtIS1me
-	 +ib7UaTswOYOl945nWdsrOQFXSmHG3UXeJXsz7uwtqP+oo4dGf0U59Bjb0IPXxcmXYkZP
-	 xJ9LqSljXe+8h+B6jB21ntnt4ESM4neYkOT9nFPl/71mOxHKTVQItRK1EfIQR/Sul6g==
+	bh=3KVXR3yLuHVmc3TmOYoyDNSvbtEPu+NQ+Q0QM+bRsho=;
+	b=Ho0LBo/g8hXMzALv9e8HFPs00IjyZ9aRn2eGpuDBPntUl1X5VG2ZpQF3IYo6X7MVzrFQ
+	 AnFFu+B501kIg7ogEQAK/v+CzTBwTy2/Gkpdm6a2q9YE3Fa7IXNb1V0q6fOYWEtbIbPXP
+	 7Tm9Z+PUuJgoXnurRZGCn0/h2WOfyq4+jE/ZbiV2PquKF0ehf/8VxBN0YPABYJ7x2bPWX
+	 FP+MCaXS+P8SLoFonJXA0K9PpdnK0JuS29Fy6j1rpJBFmc3d7sR1pF5jJy/EX0P/+bDez
+	 fTO4nEuOMDlm5/qUZKE39OSt4udlZFZ1pThvtUeZ2a2noYJQOpd/AU6s223xycAO+rQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X8T91Dcu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RO3x81SJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65FD606A32E
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:03:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12954606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:09:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X8T91Dcu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8977F1F000C4;
-	Sat, 14 Nov 2026 06:03:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RO3x81SJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9921F000C5;
+	Sat, 14 Nov 2026 06:09:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794636186;
-	bh=2FE9OsMpDMg823a/yJwGbJcXU0vkqMKjNXZxUQwV3Zo=;
+	s=k20260515; t=1794636592;
+	bh=3KVXR3yLuHVmc3TmOYoyDNSvbtEPu+NQ+Q0QM+bRsho=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X8T91DcuVL89KSHuWm1twIAO86G82ffgIA2fxLHYkeqDUztIfnYvMATlFnmVMMIgZ
-	 W7q2ddpzPKAUf/r4G/B0q5hY4IcZ6c3WmzW8HEdNX2QUJtOLvreioqMbNNyXRatJuW
-	 DtILLsmf+ynTaU/zLFugk7FusTWWgplBI3RdXT9Pv4kwoM6CI24ZvP6AKdmmg5j484
-	 UMiR1wtvSb2FP2SWDhmXMguVGjSK7bGOlPDRVBoC/HFekZGpuSp06J1TJSqHjzvSuV
-	 i0Z6CqZU+2B6HEf6NqSxq7spdAIpy4nedOhEKrtXDPcliWDugg+9pM/jNNPs7JlQu3
-	 mvGZq1SWWK3SQ==
+	b=RO3x81SJL57Gi3fht7mAozW6Rvo8mDJakXhIjiusfsFtafl1VKSm65hXdtmYRlWVO
+	 +vNHjE9ZgJekbthiPqqdViKXxVeAbaf+4NdNCiAkhvWK59K5uCbvFsp6YU0rr40gas
+	 5hUHqGj4Kujm/jZee9pT3A8fGaP6KeznWF1CkLyStAsdnf2xQNMf/zN0n6kO6N8sgF
+	 is/0A+gdUcHmtmhJKjnHNci2yRdzejuktDXC9ZBSV0k/oEZXA+upe1IvylRjIesWR3
+	 9CyDjdbmLmvYhL70ZNEhJrWYvXnaV3JIFwwXovl0haT1NNhlMi9INlnEqR80NWmjO3
+	 qvGrCatubb9TQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chris Mason <mason@kernel.org>,
@@ -48,12 +48,12 @@ Cc: Chris Mason <mason@kernel.org>,
 	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/huge_memory: fix truncate racing with PMD zapping
-Date: Sat, 14 Nov 2026 01:03:04 -0500
-Message-ID: <20261114060252.3196314-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/huge_memory: fix truncate racing with PMD zapping
+Date: Sat, 14 Nov 2026 01:09:50 -0500
+Message-ID: <20261114060934.3198345-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200855-failed-6.12-e6a07d29b0a6@kernel.org>
-References: <20261109200855-failed-6.12-e6a07d29b0a6@kernel.org>
+In-Reply-To: <20261109201323-failed-6.6-e6a07d29b0a6@kernel.org>
+References: <20261109201323-failed-6.6-e6a07d29b0a6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,41 +93,38 @@ Link: https://patch.msgid.link/20261031-fixes_core-v3-13-d6437171ecc3@kernel.org
 Reviewed-by: Zi Yan <ziy@nvidia.com>
 Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adapted to inline zap_huge_pmd() logic with flush_needed replacing the is_present || is_device_private check ]
+[ sashal: Adapted zap_huge_pmd_folio() changes to zap_huge_pmd() using page_remove_rmap(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/huge_memory.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ mm/huge_memory.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index ce4d17871ff43..6cd88cd4b33be 100644
+index 4aa032e96fa60..c9b40d69ff1fd 100644
 --- a/mm/huge_memory.c
 +++ b/mm/huge_memory.c
-@@ -2128,8 +2128,6 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 			struct page *page = pmd_page(orig_pmd);
+@@ -1717,8 +1717,6 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
  
- 			folio = page_folio(page);
--			folio_remove_rmap_pmd(folio, page, vma);
--			WARN_ON_ONCE(folio_mapcount(folio) < 0);
+ 		if (pmd_present(orig_pmd)) {
+ 			page = pmd_page(orig_pmd);
+-			page_remove_rmap(page, vma, true);
+-			VM_BUG_ON_PAGE(page_mapcount(page) < 0, page);
  			VM_BUG_ON_PAGE(!PageHead(page), page);
  		} else if (thp_migration_supported()) {
  			swp_entry_t entry;
-@@ -2154,6 +2152,15 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 				folio_mark_dirty(folio);
+@@ -1742,6 +1740,12 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 				folio_mark_dirty(page_folio(page));
  		}
  
-+		/*
-+		 * Only present folios are rmappable. Remove the rmap after
-+		 * transferring young+dirty to the folio.
-+		 */
-+		if (flush_needed) {
-+			folio_remove_rmap_pmd(folio, &folio->page, vma);
-+			WARN_ON_ONCE(folio_mapcount(folio) < 0);
++		/* Remove the rmap after transferring the dirty bit to the folio. */
++		if (pmd_present(orig_pmd)) {
++			page_remove_rmap(page, vma, true);
++			VM_BUG_ON_PAGE(page_mapcount(page) < 0, page);
 +		}
 +
  		spin_unlock(ptl);
  		if (flush_needed)
- 			tlb_remove_page_size(tlb, &folio->page, HPAGE_PMD_SIZE);
+ 			tlb_remove_page_size(tlb, page, HPAGE_PMD_SIZE);
 -- 
 2.53.0
 
