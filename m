@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794700285;
-	b=3d31cQ7b7I9fw1s1DHgv4EpRKna3NwjTIPF7+RFZx8LZrhOflPnVPTaNYrroXkjDEpR2
-	 Gt4MXPl/tGfyJn7BxRp5zMPqzSeZzprwwl9caU7xfjHaVTNudhDyDLeYunMDEH2evAK6U
-	 32I+8XpBy5lzgiW5pDonaf1aqg/URJaAtmoBA1RYyXtpaUzU4X6VnI6BndOfaYxX9SdXN
-	 COfDD5QL3NQT7eeZLLIMQJfX7E9KT/ked2JVrLxHUW29XMhCwv764b1XZuipUOhV3haXg
-	 ZX7xcE9lTw9sXEdlfii7095SyWQEFn0Wp9rKud6Ui3+FsLXe/A880ZfqMzTOAHIP0jg==
+	t=1794700406;
+	b=tNeedzhkciGnyL/+Y6QQ9iT7eEeQ1fZ86Ti0xwiyn349GQ7wAn5L9fykPp1PUH0DSUVB
+	 3F5pkYVPSGBJH8rIKPtEdioWoFsBKKkSYI1oaRy7LT6dTxeGspUtIDnMz3tRcP9nRJ4+c
+	 S8D6Df+d+ajvOdOQ6qjJb52owFK90DrYtJ5DdBBKIg+q1og/opqdEDIzUs3ad2UFlNfKw
+	 BiPOF0aHRo3rdhsC1++QkOeGBnkYWCA+SZtLbnCae2U2MIavLkYf4Kl+im7ai2Xoecvv0
+	 5TLtLBS43YK38eZxHM0XFjjC5FAVS5Gl82a/T7mywdRyy2Dq9xwtyQOv7e3r4DdOniw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794700285;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794700406;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=HF4qsdT3pDO/lfjF2ZH17P5CQ+es7odDj7yyFf89T9Y=;
-	b=ncozLKWInEAhLLbJELgs7FhlKtiYNy/8hVdVuURWop4eJPWnx0eYwRshaCLBu1XyOvae
-	 kPLoyUGibK22KWaE29e7TT1QT0iprDQPe74sxnta83euvauxJltrrroQp3FvUshqrSvYO
-	 OrxZ3RqIMuKVlvxCVrtHbpHmfk+dx+t2nKsjRpISbWhKD0GwB94ZMNir3N+iKczhofUPO
-	 v1EOaXs8p+2x7z5/svBrDDrVxFLjhc9r9y3AuKwfkQmisPtbLZQm8wlgmdcvf91EVkDyY
-	 +mdBJKSTPVx7rQhGBbQ2QrNesy+Qqh8fIHosZppU+qQ2k6+4udP3Am9ZbOnb+Z3UtmQ==
+	bh=BcS6lewsMsxh+yguDvKs5aIMaULOPSzvSJzYsHF8Bnc=;
+	b=hp0Fx8djsOUHrephVS6v0b+nf/v5aKN0zjHAQ36uH+5ffSKcpsjkOjJ0C8bL1f0vQre2
+	 rFt8ArChJkRPWcL6QI/R33GDVG2Ek21p4ZNkSnC8IkUsmS3qVcFDoH5p411BWBmXzknuY
+	 6i90b3P4Ep0lvrUTRmLkXnwKu4c7fYm2/RGT0vp0MnRbymIGsliU86hlqprCE/opj7R3l
+	 Dcc53Eqb1WPN9suh45t9RzQCdTnWPgQA+yvafHYaJowu8eOEL3Me7gFk0/MDbl100zWZI
+	 G+Al94IereaYkxP1+ehOQgGN8BPQzCb3nY8GUm93ANHiUYCT2vX4Ivtt+UbapGQVMnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDRtAQ5X;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dILB7IAA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44E3606A32C;
-	Sat, 14 Nov 2026 23:51:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8058606A323;
+	Sat, 14 Nov 2026 23:53:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDRtAQ5X
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403AE1F000C4;
-	Sat, 14 Nov 2026 23:51:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dILB7IAA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87C9E1F000C4;
+	Sat, 14 Nov 2026 23:53:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794700285;
-	bh=HF4qsdT3pDO/lfjF2ZH17P5CQ+es7odDj7yyFf89T9Y=;
+	s=k20260515; t=1794700406;
+	bh=BcS6lewsMsxh+yguDvKs5aIMaULOPSzvSJzYsHF8Bnc=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=UDRtAQ5XHWLxrVTJ0yTwuHz5KYEDGJg1pARtih6ncqeAocahr/ruYBqh47vBNhIze
-	 pAPV/ulqN0jDWY0EtpX5arM+3FIMrgUL6ZXV+MArH9ZwxO730/TeZWMXM/oKNgjhXE
-	 74WNisa6xCt9jx+B7Gipw9lSvcQcunfh+aFJA2rTiby5tHtzV7Eubxe6Q6uWM7AvSU
-	 bxlOi2uhSLbh6KA4++h0QrQihC4TWW1RM6Dw66ckIjSc67CG3aiqn8s+tYgUv85vAC
-	 etYZ2Zf9npP+XyYew9qEILl9975XQecDBRdncK+lh80ahnp9S4mjr9aJOURgIicQyG
-	 Bz2ivr9F2+fUw==
-Date: Sat, 14 Nov 2026 23:51:18 +0000
+	b=dILB7IAA+jHokJuEtOTRXAu7Abug2vOjywOp31dAhe+jPVfO9JSkjfjni58mmxtX8
+	 bukLfkWRH8prGRkPQFuBgfwRfIZ2M/dbVu9tb44SUUXu8LfSTUmlJuKEi2aGsqAmV0
+	 xFc7Bdcpwq5g+B1LZiDjQaI2x/ZjoZNcAak/iKaFtmiWMKn6wduYngoxI10T73V0s4
+	 TzjeWhfsJZDHm+wdK3Kicsejl07VlrDBm2tmFlFpkcfavlYG9qe0sTnvY10DHCfgEG
+	 mI0aSk9PYv1RF7S/lXtvXX3nHBv0l5Yn9hA3I9bevFsSbm2O1h4CegCr6u156HARhv
+	 +zFksWVgh+5iw==
+Date: Sat, 14 Nov 2026 23:53:18 +0000
 From: Jonathan Cameron <jic23@kernel.org>
-To: Yu Zhang <yuz08559@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v3] iio: trigger: fix use-after-free in
- current_trigger_store() on concurrent writers
-Message-ID: <20261114235118.4414bd1f@jic23-hlaptop>
-In-Reply-To: <20261109095728.59024-1-yuz08559@gmail.com>
-References: <20261109095728.59024-1-yuz08559@gmail.com>
+To: Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-kernel@vger.kernel.org, Lorenzo Bianconi
+ <lorenzo.bianconi83@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: light: st_uvis25: notify the current trigger when
+ done
+Message-ID: <20261114235318.67c97636@jic23-hlaptop>
+In-Reply-To: <20261109085523.0000513e@oss.qualcomm.com>
+References: <20261109025454.1260519-1-jic23@kernel.org>
+	<avGKjh7GOtE2tPGt@lore-desk>
+	<20261109085523.0000513e@oss.qualcomm.com>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,167 +67,67 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon,  9 Nov 2026 19:57:28 +1000
-Yu Zhang <yuz08559@gmail.com> wrote:
+On Mon, 9 Nov 2026 08:55:23 -0800
+Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> wrote:
 
-> current_trigger_store() holds iio_dev_opaque->mlock only around the
-> INDIO_BUFFER_TRIGGERED / trig_readonly checks and then drops it. The rest
-> runs unlocked: it reads the current trigger into oldtrig, acquires the new
-> one by name, stores it into indio_dev->trig, and drops the old trigger's
-> reference with iio_trigger_put().
+> On Mon, 9 Nov 2026 09:55:42 +0100
+> Lorenzo Bianconi <lorenzo@kernel.org> wrote:
 > 
-> sysfs does not serialize writes to the same attribute issued through
-> different open file descriptors (each open has its own kernfs_open_file),
-> so two threads can run current_trigger_store() on the same
-> .../trigger/current_trigger concurrently. Both read the same oldtrig, both
-> overwrite indio_dev->trig, and both call iio_trigger_put(oldtrig). The
-> extra put drops the trigger's refcount to zero while it is still in use,
-> frees it, and a concurrent writer then dereferences the freed trigger.
+> > > From: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+> > > 
+> > > The trigger handler calls iio_trigger_notify_done() on the driver's own
+> > > trigger rather than on the trigger that is currently in use by the
+> > > device. The driver does not restrict which trigger may be used, so if
+> > > another trigger, for example an hrtimer trigger, is selected then that
+> > > trigger's use_count is never decremented and it stops firing after the
+> > > first sample. The driver's own trigger use_count also underflows,
+> > > preventing it from firing later.
+> > > 
+> > > Use iio_dev->trig instead.
+> > > 
+> > > Fixes: 3025c8688c1e ("iio: light: add support for UVIS25 sensor")
+> > > Cc: stable@vger.kernel.org
+> > > Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>    
+> > 
+> > Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>  
 > 
-> With two sets of writers hammering current_trigger between two software
-> triggers on an iio_dummy device, KASAN reports:
-> 
->   refcount_t: addition on 0; use-after-free.
->   WARNING: CPU: 3 PID: 3467 at refcount_warn_saturate+0xbb/0xe0
->    kobject_get+0xf6/0x100
->    current_trigger_store+0x15c/0x4b0
->   ...
->   BUG: KASAN: slab-use-after-free in current_trigger_store+0x168/0x4b0
->   Freed by task 3468:
->    kobject_put+0x125/0x220
->    current_trigger_store+0x2cc/0x4b0
->   Allocated by task 3454:
->    __iio_trigger_alloc+0xc7/0x100
->   ...
->   Oops: general protection fault
->    __module_get+0x27/0xd0
->    current_trigger_store+0x192/0x4b0
-> 
-> Hold mlock across the whole operation so that reading oldtrig, swapping
-> indio_dev->trig and dropping the reference are atomic with respect to
-> other writers (and to buffer enable, which the -EBUSY check guards).
-> Acquiring the new trigger with iio_trigger_acquire_by_name() under mlock
-> is safe: it only takes iio_trigger_list_lock, and the buffer path already
-> calls iio_trigger_{attach,detach}_poll_func() with mlock held.
-> 
-> The trigger swap itself keeps its goto based cleanup of the newly
-> acquired trigger, so move it into a helper and take mlock with guard()
-> in current_trigger_store() around the mode checks and the helper call,
-> rather than mixing guard() and goto in one function.
-> 
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yu Zhang <yuz08559@gmail.com>
-Sashiko quite right calls out that this should have a fixes tag.
+> Given content is all still here, rather than resend immediately to fix
+> the linux-iio mailing list address, I've just fixed it in this reply.
+I decided to be a tiny bit naughty.  So picked this up directly from
+lkml (Well I asked b4 to find it).
 
-Probably goes back a long way but please check and reply to this
-thread with a suitable tag.
+Thanks,
 
-I think this patch looks correct but given it affects the core code
-I would like to leave it a little longer and hopefully get some more
-eyes on it!  Hence I'll not pick this up just yet.
-
-Thanks
-
-Jonathan
-
-> ---
-> v3:
->  - Add a blank line after the -EBUSY check and drop the one between
->    current_trigger_store() and DEVICE_ATTR_RW() (Andy Shevchenko).
->  - Move this changelog under the --- marker and send as a new thread
->    instead of in reply to v2 (Jonathan Cameron).
-> v2: https://lore.kernel.org/all/20261102034532.33246-1-yuz08559@gmail.com/
->  - Move the trigger swap into a helper, iio_trigger_set_current(), and
->    take mlock with guard() in current_trigger_store() only, so that
->    guard() and the goto based cleanup of the newly acquired trigger are
->    not mixed in one function (Jonathan Cameron, Sashiko). No change to
->    the locking itself.
-> v1: https://lore.kernel.org/all/20261026100246.68005-1-yuz08559@gmail.com/
+J
 > 
->  drivers/iio/industrialio-trigger.c | 60 +++++++++++++++++-------------
->  1 file changed, 34 insertions(+), 26 deletions(-)
+> Thanks Lorenzo.
 > 
-> diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industrialio-trigger.c
-> index 76926fe..74058f6 100644
-> --- a/drivers/iio/industrialio-trigger.c
-> +++ b/drivers/iio/industrialio-trigger.c
-> @@ -421,37 +421,14 @@ static ssize_t current_trigger_show(struct device *dev,
->  	return 0;
->  }
->  
-> -/**
-> - * current_trigger_store() - trigger consumer sysfs set current trigger
-> - * @dev:	device associated with an industrial I/O device
-> - * @attr:	device attribute that is being processed
-> - * @buf:	string buffer that holds the name of the trigger
-> - * @len:	length of the trigger name held by buf
-> - *
-> - * For trigger consumers the current_trigger interface allows the trigger
-> - * used for this device to be specified at run time based on the trigger's
-> - * name.
-> - *
-> - * Return: negative error code on failure or length of the buffer
-> - *	   on success
-> - */
-> -static ssize_t current_trigger_store(struct device *dev,
-> -				     struct device_attribute *attr,
-> -				     const char *buf, size_t len)
-> +/* Must be called with iio_dev_opaque->mlock held. */
-> +static ssize_t iio_trigger_set_current(struct iio_dev *indio_dev,
-> +				       const char *buf, size_t len)
->  {
-> -	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
-> -	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
->  	struct iio_trigger *oldtrig = indio_dev->trig;
->  	struct iio_trigger *trig;
->  	int ret;
->  
-> -	scoped_guard(mutex, &iio_dev_opaque->mlock) {
-> -		if (iio_dev_opaque->currentmode == INDIO_BUFFER_TRIGGERED)
-> -			return -EBUSY;
-> -		if (iio_dev_opaque->trig_readonly)
-> -			return -EPERM;
-> -	}
-> -
->  	trig = iio_trigger_acquire_by_name(buf);
->  	if (oldtrig == trig) {
->  		ret = len;
-> @@ -492,6 +469,37 @@ out_trigger_put:
->  	return ret;
->  }
->  
-> +/**
-> + * current_trigger_store() - trigger consumer sysfs set current trigger
-> + * @dev:	device associated with an industrial I/O device
-> + * @attr:	device attribute that is being processed
-> + * @buf:	string buffer that holds the name of the trigger
-> + * @len:	length of the trigger name held by buf
-> + *
-> + * For trigger consumers the current_trigger interface allows the trigger
-> + * used for this device to be specified at run time based on the trigger's
-> + * name.
-> + *
-> + * Return: negative error code on failure or length of the buffer
-> + *	   on success
-> + */
-> +static ssize_t current_trigger_store(struct device *dev,
-> +				     struct device_attribute *attr,
-> +				     const char *buf, size_t len)
-> +{
-> +	struct iio_dev *indio_dev = dev_to_iio_dev(dev);
-> +	struct iio_dev_opaque *iio_dev_opaque = to_iio_dev_opaque(indio_dev);
-> +
-> +	guard(mutex)(&iio_dev_opaque->mlock);
-> +
-> +	if (iio_dev_opaque->currentmode == INDIO_BUFFER_TRIGGERED)
-> +		return -EBUSY;
-> +
-> +	if (iio_dev_opaque->trig_readonly)
-> +		return -EPERM;
-> +
-> +	return iio_trigger_set_current(indio_dev, buf, len);
-> +}
->  static DEVICE_ATTR_RW(current_trigger);
->  
->  static struct attribute *iio_trigger_consumer_attrs[] = {
+> >   
+> > > ---
+> > > Another LLM found one as part of refactoring how all the code around
+> > > triggers works.  Definitely the wrong trigger. There are lots
+> > > that access the right trigger via the wrong path (shortly to be
+> > > cleaned up), this one manages to get the wrong one in many cases!
+> > > ---
+> > >  drivers/iio/light/st_uvis25_core.c | 2 +-
+> > >  1 file changed, 1 insertion(+), 1 deletion(-)
+> > > 
+> > > diff --git a/drivers/iio/light/st_uvis25_core.c b/drivers/iio/light/st_uvis25_core.c
+> > > index 94d5261b2663..5c63a68948d6 100644
+> > > --- a/drivers/iio/light/st_uvis25_core.c
+> > > +++ b/drivers/iio/light/st_uvis25_core.c
+> > > @@ -248,7 +248,7 @@ static irqreturn_t st_uvis25_buffer_handler_thread(int irq, void *p)
+> > >  				    iio_get_time_ns(iio_dev));
+> > >  
+> > >  out:
+> > > -	iio_trigger_notify_done(hw->trig);
+> > > +	iio_trigger_notify_done(iio_dev->trig);
+> > >  
+> > >  	return IRQ_HANDLED;
+> > >  }
+> > > -- 
+> > > 2.56.0
+> > >     
+> >   
+> 
 
