@@ -1,49 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794617407;
-	b=BhZjbMnRaOyq/eMI8ntd1fzGo+Ui6WvTT+cjoSB2XColH98GtEI0I0A8+Vgbvbqt/ES2
-	 5B99E/4FSnmvCvXnt55FQUQlAUOwLyLk6iPqnyz+OxzSaV7wLkHLd77AuhYcCeBk10ZRh
-	 5Qsr4XqQZyaQA2gFi2HsNyGJoJxE6J2x0s+BzQLnVaeaYvleUFh0LmjFOjzrCV/hE2jtN
-	 GInisZZcAOUFi9jxdJ57CxopU/I3XXUK3oLTny7x8hrNMvMiBUIIHk6KfLAFvWsALY5uX
-	 0ZoY42mOzUa9nMaH3h/o1upVE/GUWKn1XkOUJ2jTrHMF//fHo5a9htIk6J7QV2s8U1w==
+	t=1794617430;
+	b=mUeQGBgLPdQy1oqhb49a5fuyV6Lu5Z27zVSRWsT9ZY5viiAR5AIrRP0LTtMegjbv3BHa
+	 4cNEAgiFpuN3wGLH9bw+uFfGtpTnh+m2SiMpj/fa0gEDPnfOjOQHT2fnbOhS/PR9xpdFE
+	 +Twfb/JKPUAcnlIrf8iP0tNupSjvhpPYybGrzQiUPuwTkpsjxrdpRo7r919Nrb+bHaTZP
+	 OnAKaGJVJBrlRpOMg1gjQ5qcXdFBK67CkfCEMQ99AhrvYxMn78BrmNh9rdN6U7rX2CrJi
+	 /PWPHKoZle10rdhyuLgCL4EqZCTODL/cyYaxTSV76nunu/k1sjn7hqBo3hpdaP4HwiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794617407;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=RV2WT/ax20xY4zHVO5Fo+VeAWkgRpjWTrwUTpYs4W74=;
-	b=CyJOe+6dDWgwH83bwMGhApOglJ+1+xyFfEFBdsK84QAH5uV0ES0vhWerLmYFylyqUHeE
-	 HH9I7L4/O6cdtFMdqqO/8AxfzUHrOX7aLawxYkX29AE9+JRNLzuXWmxFjtCaFnT74SgP4
-	 MhkvMzqVyjXRsEezrVgnMxL9mF5lKROE8469DQy2ejiefRDJJGCECelbaBcnxWkV/hqzs
-	 +pTjWRmcobe/YBXRGLlR03TjxQTa87O0g8iO63EbNgvWnherzFoK2RLw5B3yrg+0eyjb0
-	 PsEL9aMtXAlIaW00nmXFuRJ71PAa6VXkpPyM5FKHcK0KbzZUma9c/lsugAGBxLwTa2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794617430;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=rLSKJAjdQ30Vjky7tJx+bCFWc1SyvtYYvxDMUVTLXvE=;
+	b=Ebd1hkoqh/MyMAP4vmPAqakQp5danaw7pMeFrJAzQpvhjenPKnlKXIt4vCVsUpguis4v
+	 rkpng7nqpwGt96MjQAptwisULbI///LZo0ymQaMZnxrY3RdJNepThRy1ssFNSrklIk2oR
+	 nlI5SK2TfmveSom+xilZYWWcaGTmADptCIeGtVTQg9sRq1Dg42ZTkfkCQC/A+rnuTctCG
+	 uUAUd4Y7VwhroikKS7iihh4o3fPNyDSgwt94tUgQ1hxvaxsz1svC7BOqYvbkJEwx5nBLE
+	 HV6i1ePnNaTK4YBWV/tXewsH9wyByc7luSTgth87jVwxAcLyVSQ2D8xX2fS3/+A1scQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ljHD7OWy;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=proton.me;
+	spf=pass smtp.mailfrom=proton.me;
+	dkim=pass header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=S7p3BxY3;
+	arc=none smtp.remote-ip=185.70.43.19
+Received: from mail-4319.protonmail.ch (mail-4319.protonmail.ch [185.70.43.19])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6EC9606A889;
-	Sat, 14 Nov 2026 00:50:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0D61606A327;
+	Sat, 14 Nov 2026 00:50:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0D61606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ljHD7OWy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90D051F000C6;
-	Sat, 14 Nov 2026 00:50:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794617407;
-	bh=RV2WT/ax20xY4zHVO5Fo+VeAWkgRpjWTrwUTpYs4W74=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ljHD7OWyETYSKtGS8YYjTMQkDGjPZEMZpO8DCHFCXJNvg/eRSSgowhgROVGKE/22i
-	 TUdjL7hyeiTQ1qN1atqvhL/A3SYYcGtwxvC9gusQk3waVR9EKO+3tjUP1i9EEqEoiR
-	 h52zb/9FL70Ryehkc5h/LIJnvFpGoUxLPSEw0ycL3eMxSMOfy4Pf+RzOwNFq6m/G9j
-	 eQjEXQCzUSMZzpA0/+cjZRRNhNZvcg1wLZU6ZgtgNNlDzrkK//qmtUPsmFULeGLhB+
-	 4CxMc5twr1BKgo3XP6M0BrsDsNp9wfxdw0pbufotmfbrm3BrGa0LIcax6DI7xUfaaB
-	 awSIs1ySuxS5A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 8882B380821F;
-	Sat, 14 Nov 2026 00:50:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=proton.me header.i=@proton.me header.a=rsa-sha256 header.s=protonmail2 header.b=S7p3BxY3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1794617426; x=1794876626;
+	bh=rLSKJAjdQ30Vjky7tJx+bCFWc1SyvtYYvxDMUVTLXvE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=S7p3BxY3+zyWG/4+usTUelBlt7jQ6oBsNBXH/4O6QaTuZmKuXpVmIJplfewyYqC1h
+	 h2Tka5t8M2ZG+gm6FPVItdZKB5BS12DpknnHXvTSuY3g0T15EUWiQtfvPkgaHWtZp4
+	 RY4BsPFKOxuW2XlxZQvD90xWPUoI7Add3baCMhsqG6e67AMetYGmFRGie8FM9XksGr
+	 2AiMNWcIqEMJUDD69BSN0wyBVbg5AbpWMSHgOr+wYZLDaLVsX36i+pK763j4G8fOVY
+	 etE4OabbVX7H/FVVVkUaI2COUASETuRtQp5eAzOynOJrB8mWHqclx+fbbiaov1sB1B
+	 NnDxnBv2F7UQQ==
+Date: Sat, 14 Nov 2026 00:50:19 +0000
+To: Denis Benato <denis.benato@linux.dev>
+From: Aspecky <tarrihmoad@proton.me>
+Cc: Corentin Chary <corentin.chary@gmail.com>, "Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Antheas Kapenekakis <lkml@antheas.dev>, Benjamin Tissoires <bentiss@kernel.org>, Sercan GOKMEN <gokmensercan@gmail.com>, Burak Goncu <burakgon12@gmail.com>, Denis Benato <benato.denis96@gmail.com>, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4] platform/x86: asus-wmi: Ignore unusable kbd backlight WMI device on ROG Strix G814FP
+Message-ID: <-sHRKK56awNgHWFUXMcBVRL0SSag0CruNAfbxPNPYJJC8qqk_N74k3wCldWqNkfw-CBwHj-6CvkYhrkCsBYqgNNUQV2oT31VbehOxMbR87E=@proton.me>
+In-Reply-To: <04c46822-9baa-4152-8193-d8aa9d757b4e@linux.dev>
+References: <20261111-asus-wmi-kbd-readback-v4-1-79df1567476d@proton.me> <04c46822-9baa-4152-8193-d8aa9d757b4e@linux.dev>
+Feedback-ID: 110671326:user:proton
+X-Pm-Message-ID: a91a08dbf9326579b6cc51664856e37e4569519b
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,52 +64,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net v2] virtio_net: check RX buffer length before DMA sync
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179461740627.1921910.2264840033885936833.git-patchwork-notify@kernel.org>
-Date: Sat, 14 Nov 2026 00:50:06 +0000
-References: <20261110-b4-virtionet-rxlen-v2-1-6ec5aa0edf9f@dfb.sh>
-In-Reply-To: <20261110-b4-virtionet-rxlen-v2-1-6ec5aa0edf9f@dfb.sh>
-To: Vladimir Petrzhikovskii <vladimir@dfb.sh>
-Cc: netdev@vger.kernel.org, mst@redhat.com, jasowangio@gmail.com,
- eperezma@redhat.com, xuanzhuo@linux.alibaba.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- vishs@meta.com, virtualization@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, nikolai@kalinidze.me
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hello:
+On Thursday, November 12th, 2026 at 10:21 AM, Denis Benato <denis.benato@li=
+nux.dev> wrote:
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+>> On the ASUS ROG Strix G18 G814FP, writing a level to the keyboard
+>> backlight brightness in sysfs works, but reading it back always gives
+>> 0, and the read makes the Fn brightness keys misbehave.
+>
+> With "works" do you mean the write report success but does nothing or
+> that it is actually changing the brightness?
 
-On Tue, 10 Nov 2026 16:38:27 +0100 you wrote:
-> An RX queue that uses the DMA API (rq->use_page_pool_dma, for example
-> with VIRTIO_F_ACCESS_PLATFORM) syncs each received buffer with
-> page_pool_dma_sync_for_cpu() using the length the device wrote to the
-> used ring, and checks that length against the posted buffer only after
-> the sync.
-> 
-> With SWIOTLB bouncing (swiotlb=force, or a confidential-computing
-> guest), the sync copies from the shared bounce buffer into the guest's
-> private page, so an oversized length also copies the bytes the device
-> wrote past the posted buffer over the neighbouring page pool fragments.
-> The later check drops the packet, but the copy has already happened. A
-> malicious device, such as a host the confidential guest does not
-> trust, can overwrite guest kernel memory next to an RX buffer with
-> bytes it chooses, which is enough to take an unprivileged guest
-> process to root.
-> 
-> [...]
+Sorry about the confusion, the write does actually change the brightness.
+Writing 3 to /sys/class/leds/asus::kbd_backlight/brightness turns the
+LEDs to high. asus-wmi passes the level both to the WMI device and to
+hid-asus, the latter is the one that registers as a listener on the LED.
+The DEVS(0x00050021) write to the WMI device fails with -ENODEV and
+changes nothing, hid-asus is what actually sets the LEDs:
 
-Here is the summary with links:
-  - [net,v2] virtio_net: check RX buffer length before DMA sync
-    https://git.kernel.org/netdev/net/c/29dfa436bc48
+sysfs write -> asus-wmi |- DEVS(0x00050021) -> firmware -> rejected
+                        |_ hid-asus -> USB HID report -> LEDs
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+>> DSTS(0x00050021) always returns 0x50000, which is level 0
+>
+> Always returns level zero with the presence bit set.
 
+Correct, always returns level zero with the presence bit set,
+i'll say that in v5.
+
+>> As a side effect, the kbd_rgb_mode and kbd_rgb_mode_index attributes are
+>> no longer created on this board, they never worked here since the firmwa=
+re
+>> rejects those writes as well.
+>
+> Isn't this a contraddiction to what is written above? That writes
+> actually succeeds?
+
+It's not a contradiction, the sysfs brightness write succeeds because
+of hid-asus, while the WMI DEVS(0x00050021) writes are rejected and
+so are the ones behind kbd_rgb_mode. The commit message doesn't make
+that clear, I'll reword it in v5 and wait a day or so in case there
+are more comments.
+
+Thanks,
+Moad
 
