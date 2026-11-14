@@ -1,66 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.30.148.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794677296;
-	b=CECTBAlfmgc/TaVmr0zmviHtHUFHC9B0b2isK8sJsuWz6MB9gihByICmO8D+UnXEzONL
-	 Zi86qPHOffhNwNH9N5t1SjQguSsLnN6+xTs/RpZRw8UBi8OR9zN5lcnub/7UE3PLNYtF/
-	 lz3aQ7xRXF1k6KE4FiRQl04iNJqHiR2VVZxg71v8PLVX+SkjEnlfIaTG85iQEojYt0+9V
-	 IPPkjN8/vDmD2IKaE+IIKEAU4mAka2/Gz//ngoC8Vct/gY0Bx8zkESaOGgqeAwJuN5sOV
-	 qssovUmzJgrnCONor/tlo+O/+Ys4mycvFtjfZC4VrL1hheUOKxLVZ5tuyTW5kgiJk7Q==
+	t=1794677327;
+	b=s0DbE3NVTR6i80qa4ZPPg4V5MljGk7SASxhCfdIpRS++vInLwazDWWFwQbZVhSHM2Rnb
+	 1reIcBEtPj9Qq16MYSWGII6dBpxHYbVP7jfb8pnTBsbl9+skttkIm9JYnheiRrZKE4E64
+	 ylZ3U10jbdaD/VeOLIvVOKfs6Mi4W6M4J+VNpHVhf6+KyKBix6tM440IyhUxzZAbo4S4t
+	 KKo5SFRYLhEGaXNgvzfBi0pfeNBsaL/Pw8rEiwBXabYfhdeCsOWo3BFcE97mu3D5DhZDG
+	 Ix7kQQoaqIyQRFN9BuuwV6NR34SiIjgJPRpbgie9jZlf7Fb7SA1200j+L70hWz9N2Hg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794677296;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 X-Zmail-TransId:X-Mailer:Message-ID:Date:Mime-Version:From:To:Cc:
-	 Subject:Content-Type:X-MAIL:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-CLEAN:X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
-	bh=/zJvyhXVmWQ8n6ulJrzTmjWsDytDY/8DsGllw13TDE8=;
-	b=2CByWQlm7wK2NnzhPm5J3mg9ESkGURqbVBr5LaprX3YjZqsCI4GvZmQX4bJAdLYpyHpB
-	 euy6jpZWFmIoPszOmxjUIdYJJH6WCglbu1uscoZOrEAlDjVoCNUmJSGWONSlQpWgFAWqQ
-	 NRllroaMcvU4E7BpNifU5R4vd1HoAiVz3lEX5fsRL4d5uKpvcu5/Y8V+a6moi8XEkoHX3
-	 MWtxIYCTgAdEPY7hPigGDczHm2RJIGn/H/VcswzyoS8RJtgm7RwQc/lNCHwaCaEANjcSw
-	 5tkae1TfI8sFRU90NDJDwqKSkN7h1H8AKuRqP59HtHnzTWd03zMvD9wPxqcL7yd82mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794677327;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=p4J8Dv74HYruB0IAeayh97Xhw6bG1CdU94jvBoEPmgs=;
+	b=q9oplMDfdsDjqo5BLyY2fr+35q2v/fh/nrbzD3W8aacxFNOuz1IQJU5M7zwePLCoRZv3
+	 kXFgxpiFedcmv+27mt5DoDffiNU2MHGXwHH9ucgZElf2qZCE6qBs/e+JuTySR5NWJfPQq
+	 oZXfezQ1pHWbVpkY8Ch22VlP/yehbOQg+SWjeZVO68Qs/0x9H7psMgj7LWeSZPdP1+eGL
+	 m32RCt0JK9tHN33sLs2Jygdz6W22ic+PKyAVP8Ur2X5hiG5XJxMuauvBovT9XPs9R0d/f
+	 OMvTFJI/SjS/xCWpGcJZA826tMMiwmrnvDV115n9E1qOskYom2gkwDb+hEHSZMolYxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=zte.com.cn;
-	spf=pass smtp.mailfrom=zte.com.cn;
-	dkim=pass header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Z2KfI1FV;
-	arc=none smtp.remote-ip=160.30.148.35
-Received: from mxhk.zte.com.cn (mxhk.zte.com.cn [160.30.148.35])
+	dmarc=pass header.from=becholey.ch;
+	spf=pass smtp.mailfrom=becholey.ch;
+	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=J7XBLz4X;
+	arc=none smtp.remote-ip=185.70.43.18
+Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF444606A33B;
-	Sat, 14 Nov 2026 17:28:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF444606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E25606A886;
+	Sat, 14 Nov 2026 17:28:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81E25606A886
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=zte.com.cn header.i=@zte.com.cn header.a=rsa-sha256 header.s=z202610 header.b=Z2KfI1FV
-Received: from mse-fl2.zte.com.cn (unknown [10.5.228.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mxhk.zte.com.cn (FangMail) with ESMTPS id 4jRh0t2Pk1z8XrrM;
-	Sun, 15 Nov 2026 01:28:14 +0800 (CST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=zte.com.cn;
-	s=z202610; t=1794677294;
-	bh=g2Pv6nwAGtwV6QX8+pn88NBhcXvjxGhcFYlL9Fzu+Io=;
-	h=Date:From:To:Cc:Subject;
-	b=Z2KfI1FVzaXNz+uvodFMcTb0jg19SG14R/i4Hzol3FnybUFkK2pDiijjhD8wLGOHF
-	 CRdOZ3cH2I2U7jdqLKqBgHD4wriLUD6/PL6DPAp+P1WgoEYqjoAsLLkubIFBmBQu2a
-	 fEvr3vY81IHj+Ij0Ku7RsOQrXHHamdksF5VZPcu9W2ZXapYatQiv0xKIhyosrJOpm+
-	 SqLSUl5aISWsRkk0Lp2VpT4JMvYV1cmZ0CprZKKRNFp0nX+6JjJm5lcS6MVq3cVQ9+
-	 R6Wcl5GD0p5Os+kb4jrY8wjz8gDWP+6UmZNWEg826w3e62zO1TCxrKholdDcQW3x78
-	 mkgi9mFDLK2kw==
-Received: from xaxapp01.zte.com.cn ([10.88.99.176])
-	by mse-fl2.zte.com.cn with SMTP id 6AEHS5kp016868;
-	Sun, 15 Nov 2026 01:28:05 +0800 (+08)
-	(envelope-from shao.mingyin@zte.com.cn)
-Received: from mapi (xaxapp02[null])
-	by mapi (Zmail) with MAPI id mid32;
-	Sun, 15 Nov 2026 01:28:09 +0800 (CST)
-X-Zmail-TransId: 2afa6af89a29b80-55b2b
-X-Mailer: Zmail v1.0
-Message-ID: <20261115012809000VXL8NL9lZ4gQEKv-NNqUP@zte.com.cn>
-Date: Sun, 15 Nov 2026 01:28:09 +0800 (CST)
+	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=J7XBLz4X
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
+	s=protonmail; t=1794677324; x=1794936524;
+	bh=p4J8Dv74HYruB0IAeayh97Xhw6bG1CdU94jvBoEPmgs=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=J7XBLz4XS6NN74uEjNysT7LWPJEjUiwNYYhoIbRG/D/hvaql5YwEbl9WEj4LEe4dd
+	 OP1WZVeIHh/x5yAFXQBaQJGJ2sxdJ5o194XSVPDFFCa29Ytsdnz3hju6L13+FbNYv4
+	 ntpRJwok+WFTYCfGIrZk1ZNqVEyztsb06F1TSRAkC6bzHkOFrknESfE10NsZMGl3xW
+	 VQsseKs8kriC4XpwijBQI/xIT7uS4zpdljsZIB9vN8oGKvzOBiWs3VVA6PX7dbKUrp
+	 MQf/tCVtXoZEXaoHz7m4IqLVZZxmXFLeP1pZxEKt6Xvr97GT5XdyzbWZLKuedXKcui
+	 o0l234ysnN0/w==
+Date: Sat, 14 Nov 2026 17:28:39 +0000
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, =?utf-8?Q?=C5=A0erif_Rami?= <ramiserifpersia@gmail.com>
+From: Alexandre Becholey <alex@becholey.ch>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, Hanxiang Xu <xuhx@hust.edu.cn>, Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH 1/5] ALSA: usx2y: us144mkii: fix stop_pcm_work race with PCM close
+Message-ID: <20261114172806.88710-2-alex@becholey.ch>
+In-Reply-To: <20261114172806.88710-1-alex@becholey.ch>
+References: <20261114172806.88710-1-alex@becholey.ch>
+Feedback-ID: 60743817:user:proton
+X-Pm-Message-ID: 7bd0f6a070258e079f77a9a608fe47d4cb5f5a49
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,100 +63,189 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-From: <shao.mingyin@zte.com.cn>
-To: <kbusch@kernel.org>, <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
-        <linux-nvme@lists.infradead.org>
-Cc: <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-        <justin.tee@broadcom.com>, <nareshgottumukkala83@gmail.com>,
-        <paul.ely@broadcom.com>
-Subject: =?UTF-8?B?W1BBVENIXSBudm1lLWZjOiBpbml0aWFsaXplIEkvTyBxdWV1ZXMgYWRkZWQgZHVyaW5nIHJlY29ubmVjdA==?=
-Content-Type: text/plain;
-	charset="UTF-8"
-X-MAIL:mse-fl2.zte.com.cn 6AEHS5kp016868
-X-TLS: YES
-X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
-X-SOURCE-IP: 10.5.228.133 unknown Sun, 15 Nov 2026 01:28:14 +0800
-X-CLEAN: YES
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AF89A2E.000/4jRh0t2Pk1z8XrrM
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+The feedback URB completion handler schedules stop_pcm_work when the
+device stops sending valid feedback. The work handler then calls
+snd_pcm_stop() on tascam->playback_substream and
+tascam->capture_substream without the stream lock, and nothing keeps
+these substreams open while it runs: the PCM .close callbacks only clear
+the pointers and do not wait for the work.
 
-nvme_fc_alloc_ctrl() initializes only the admin queue and leaves the
-other nvme_fc_queue entries zeroed.  The initial connect path calls
-nvme_fc_init_io_queues() before creating the tag set, but reconnects go
-through nvme_fc_recreate_io_queues(), which does not initialize the
-queues it adds when the controller grants more I/O queues than the
-previous connection.
+If the PCM is closed while the work is running, snd_pcm_detach_substream()
+frees the runtime under it, and the work then accesses the freed runtime
+in snd_pcm_post_stop(), or dereferences a NULL substream->runtime in
+snd_pcm_do_stop(), depending on how far the close has got. A USB device
+can fire the work whenever it wants by sending bad feedback packets, so
+a malicious device plus a process closing the PCM can trigger this.
+With KASAN, on torvalds/master 067c5c24cef2:
 
-blk_mq_update_nr_hw_queues() then publishes the new hardware contexts
-while the corresponding queue entries still have qnum == 0 and
-ctrl == NULL.  nvme_fc_connect_io_queues() builds Create Connection
-commands from qnum, so the new queues are connected with queue ID 0
-(the admin queue), and __nvme_fc_init_request() also classifies their
-requests as admin commands.  Worse, nvme_fc_queue_rq() dereferences
-queue->ctrl, so any request dispatched to a new hardware context before
-the queue is initialized crashes.  This includes the connect requests
-themselves, since connect_q belongs to the same tag set.
+  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0xb0/0x104
+  Workqueue: events tascam_stop_pcm_work_handler
 
-Initialize the newly added queues before growing the tag set, matching
-what the initial connect path does.  Existing queues are left alone so
-their connection state is preserved, as required by
-nvme_fc_recreate_io_queues().
+Clear the substream pointers under tascam->lock in the .close callbacks
+and flush stop_pcm_work afterwards, so the work can no longer run on a
+closing substream. In the work, read the pointers under the same lock
+and stop the streams with snd_pcm_stop_xrun(), which takes the stream
+lock and checks that the stream is still running. The lock is dropped
+before snd_pcm_stop_xrun() because the trigger callback takes
+tascam->lock with the stream lock held.
 
-Fixes: 3e493c00cedb ("nvme-fc: fix nulling of queue data on reconnect")
+Found with an emulated US-144MKII device (USB/IP, vhci_hcd).
+
+The bug was found, and the reproducer and this fix were written, by AI
+agents (Claude Mythos and Claude Opus models). The analysis and the
+patch were reviewed by a human.
+
+Reported-by: Hanxiang Xu <xuhx@hust.edu.cn>
+Closes: https://lore.kernel.org/all/6891aa7d.26365.1a1d4e2c4e4.Coremail.xuh=
+x@hust.edu.cn/
+Fixes: a2a2210f2c2e ("ALSA: usb-audio: us144mkii: Implement audio playback =
+and feedback")
 Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+Signed-off-by: Alexandre Becholey <alex@becholey.ch>
 ---
-Tested on 7.3.0-next-20261030 with nvmet-fcloop in a single QEMU/TCG
-guest (2 vCPUs); no FC or network hardware is involved.
+Notes for reviewers (not part of the commit message):
 
-The controller is created with one I/O queue (attr_qid_max=1), then
-attr_qid_max=2 deletes it and forces a reconnect that grants two
-queues, so nvme_fc_recreate_io_queues() grows the tag set from 1 to 2:
+Trigger: an emulated TASCAM US-144MKII served over USB/IP to vhci_hcd
+(an AF_UNIX socketpair inside the VM; dummy_hcd cannot do isochronous
+transfers) under QEMU, arm64, KASAN. The program opens a PCM and
+starts streaming; the device sends invalid feedback packets until the
+driver logs "Fatal: Feedback sync lost. Stopping stream." and schedules
+stop_pcm_work, while the program closes the PCM. The reproducer is availabl=
+e to maintainers on request.
 
-  unpatched                              patched
-  nvme0: reconnect: revising io queue    same
-    count from 1 to 2
-  Oops: 0000 [#1] SMP NOPTI              no oops, 6/6 cycles
-  Workqueue: nvme-wq
-    nvme_fc_connect_ctrl_work
-  RIP: nvme_fc_queue_rq+0x21/0x190       queue_count=3
-  CR2: 0000000000000020                  I/O from cpu1, ret=0
-  Kernel panic - not syncing
+Decoded trace, torvalds/master 067c5c24cef2 (arm64, QEMU virt); the
+object is the kmalloc-2k snd_pcm_runtime, allocated by
+snd_pcm_attach_substream() on open and freed by
+snd_pcm_detach_substream() from snd_pcm_release() on close:
 
-The NULL dereference is the Create Connection for the new queue: it
-goes through ctrl->connect_q, which shares the tag set, and is
-dispatched to the new hctx whose queue->ctrl is still NULL.  CR2 is
-0x20, the offset nvme_check_ready() reads.  The target also warns about
-a duplicate queue id on the same reconnect, because the new queue is
-connected with queue ID 0 instead of 2.
+  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave (include/linux/=
+spinlock_api_smp.h:155 (discriminator 1) kernel/locking/spinlock.c:181 (dis=
+criminator 1))
+  Read of size 1 at addr ffff00001318a180 by task kworker/1:0/24
+  CPU: 1 UID: 0 PID: 24 Comm: kworker/1:0 Not tainted 7.4.0-rc2+ #1 PREEMPT=
+(full)
+  Hardware name: linux,dummy-virt (DT)
+  Workqueue: events tascam_stop_pcm_work_handler
+  Call trace:
+   show_stack (arch/arm64/kernel/stacktrace.c:498 arch/arm64/kernel/stacktr=
+ace.c:499) (C)
+   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+   kasan_report (mm/kasan/report.c:595)
+   __kasan_check_byte (mm/kasan/common.c:585)
+   lock_acquire (include/linux/kasan.h:402 (discriminator 1) kernel/locking=
+/lockdep.c:5916 (discriminator 1) kernel/locking/lockdep.c:5899 (discrimina=
+tor 1))
+   _raw_spin_lock_irqsave (include/linux/spinlock_api_smp.h:155 (discrimina=
+tor 1) kernel/locking/spinlock.c:181 (discriminator 1))
+   __wake_up (kernel/sched/wait.c:124 (discriminator 3) kernel/sched/wait.c=
+:146 (discriminator 3))
+   snd_pcm_post_stop (sound/core/pcm_native.c:1622)
+   snd_pcm_action_single (sound/core/pcm_native.c:1386)
+   snd_pcm_action (sound/core/pcm_native.c:1467)
+   snd_pcm_stop (sound/core/pcm_native.c:1642)
+   tascam_stop_pcm_work_handler (sound/usb/usx2y/us144mkii_playback.c:453)
+   process_one_work (kernel/workqueue.c:3495)
+   worker_thread (kernel/workqueue.c:3578 kernel/workqueue.c:3659)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/arm64/kernel/entry.S:870)
 
- drivers/nvme/host/fc.c |    4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+On v7.3.1 the same reproducer also ends in
+"KASAN: null-ptr-deref in range [0x1c0-0x1c7]" in snd_pcm_do_stop()
+called from tascam_stop_pcm_work_handler() (us144mkii_playback.c:453),
+the snd_pcm_stop() call this patch replaces.
 
-diff --git a/drivers/nvme/host/fc.c b/drivers/nvme/host/fc.c
-index 0b9ff50d26ff..f3603c793ede 100644
---- a/drivers/nvme/host/fc.c
-+++ b/drivers/nvme/host/fc.c
-@@ -2932,7 +2932,7 @@ nvme_fc_recreate_io_queues(struct nvme_fc_ctrl *ctrl)
- 	struct nvmf_ctrl_options *opts = ctrl->ctrl.opts;
- 	u32 prior_ioq_cnt = ctrl->ctrl.queue_count - 1;
- 	unsigned int nr_io_queues;
--	int ret;
-+	int ret, i;
- 
- 	nr_io_queues = min3(opts->nr_io_queues, num_online_cpus(),
- 				ctrl->lport->ops->max_hw_queues);
-@@ -2959,6 +2959,8 @@ nvme_fc_recreate_io_queues(struct nvme_fc_ctrl *ctrl)
- 		dev_info(ctrl->ctrl.device,
- 			"reconnect: revising io queue count from %d to %d\n",
- 			prior_ioq_cnt, nr_io_queues);
-+		for (i = prior_ioq_cnt + 1; i <= nr_io_queues; i++)
-+			nvme_fc_init_queue(ctrl, i);
- 		blk_mq_update_nr_hw_queues(&ctrl->tag_set, nr_io_queues);
- 	}
- 
--- 
-2.43.0
+sound/usb/usx2y/us144mkii*.c are identical in v7.3.1, 067c5c24cef2
+and 9d66f26fefac.
+
+Testing, KASAN: without the patch every run crashed in
+tascam_stop_pcm_work_handler (v7.3.1 3/3, 067c5c24cef2 1/1). With the
+patch no run showed this crash (v7.3.1 0/14 with three test programs,
+067c5c24cef2 0/5 with one).
+With patches 1/5..3/5 applied (v7.3.1, the same three test programs,
+8 runs), the stop work fired 10 to 1740 times per run and no run
+showed this crash; 4 of those 8 runs ended in the first two other
+problems listed below. These programs were not re-run with 4/5 and
+5/5 added; those patches were tested with their own reproducers.
+
+17 of the 19 runs with this patch alone still crashed elsewhere:
+- 12 runs: list_del corruption in __usb_unanchor_urb(), on v7.3.1
+  after a WARNING at drivers/usb/core/urb.c:379 in the stream start
+  path (that WARNING was also seen without the patch); fixed by
+  patch 5/5;
+- 4 runs: KASAN use-after-free in vhci_urb_dequeue() from
+  usb_kill_anchored_urbs() in tascam_stop_work_handler(), a race in
+  the vhci_hcd test harness, not in this driver;
+- 1 run: KASAN slab-use-after-free in feedback_urb_complete()
+  (us144mkii_playback.c:347, reading playback_rt->rate); fixed by
+  patch 4/5.
+
+Thanks,
+Alexandre Becholey
+
+ sound/usb/usx2y/us144mkii_capture.c  |  5 ++++-
+ sound/usb/usx2y/us144mkii_playback.c | 19 ++++++++++++++-----
+ 2 files changed, 18 insertions(+), 6 deletions(-)
+
+diff --git a/sound/usb/usx2y/us144mkii_capture.c b/sound/usb/usx2y/us144mki=
+i_capture.c
+index d7cdf9e0f685..30cdd73ca99c 100644
+--- a/sound/usb/usx2y/us144mkii_capture.c
++++ b/sound/usb/usx2y/us144mkii_capture.c
+@@ -36,7 +36,10 @@ static int tascam_capture_close(struct snd_pcm_substream=
+ *substream)
+ {
+ =09struct tascam_card *tascam =3D snd_pcm_substream_chip(substream);
+=20
+-=09tascam->capture_substream =3D NULL;
++=09scoped_guard(spinlock_irqsave, &tascam->lock)
++=09=09tascam->capture_substream =3D NULL;
++=09/* The stop work may still be using this substream; wait for it. */
++=09flush_work(&tascam->stop_pcm_work);
+=20
+ =09return 0;
+ }
+diff --git a/sound/usb/usx2y/us144mkii_playback.c b/sound/usb/usx2y/us144mk=
+ii_playback.c
+index 7efaca0a6489..0df95dbf585d 100644
+--- a/sound/usb/usx2y/us144mkii_playback.c
++++ b/sound/usb/usx2y/us144mkii_playback.c
+@@ -36,7 +36,10 @@ static int tascam_playback_close(struct snd_pcm_substrea=
+m *substream)
+ {
+ =09struct tascam_card *tascam =3D snd_pcm_substream_chip(substream);
+=20
+-=09tascam->playback_substream =3D NULL;
++=09scoped_guard(spinlock_irqsave, &tascam->lock)
++=09=09tascam->playback_substream =3D NULL;
++=09/* The stop work may still be using this substream; wait for it. */
++=09flush_work(&tascam->stop_pcm_work);
+=20
+ =09return 0;
+ }
+@@ -448,9 +451,15 @@ void tascam_stop_pcm_work_handler(struct work_struct *=
+work)
+ {
+ =09struct tascam_card *tascam =3D
+ =09=09container_of(work, struct tascam_card, stop_pcm_work);
++=09struct snd_pcm_substream *playback_ss, *capture_ss;
++
++=09scoped_guard(spinlock_irqsave, &tascam->lock) {
++=09=09playback_ss =3D tascam->playback_substream;
++=09=09capture_ss =3D tascam->capture_substream;
++=09}
+=20
+-=09if (tascam->playback_substream)
+-=09=09snd_pcm_stop(tascam->playback_substream, SNDRV_PCM_STATE_XRUN);
+-=09if (tascam->capture_substream)
+-=09=09snd_pcm_stop(tascam->capture_substream, SNDRV_PCM_STATE_XRUN);
++=09if (playback_ss)
++=09=09snd_pcm_stop_xrun(playback_ss);
++=09if (capture_ss)
++=09=09snd_pcm_stop_xrun(capture_ss);
+ }
+
