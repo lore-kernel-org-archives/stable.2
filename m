@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794635698;
-	b=I2hqlbGDHsQE1aSHZiz3thKFmmMmq3Iyst7LytIbSMi5Jpl4NN6No2RbgY7tHVviwWmM
-	 HIgnx8XXAYsmCxlcpLChacMtpcEG/gT8+mv6zlHon39Mkh/9HSrDvQSOY0muhDrbBbgQF
-	 xxVYitNEU3oppu0odHGvXD7ji2sA06HZrZpUyaNLMxB80kjQR+NCCIaUfyDqYY3JWC8og
-	 wkU67drTdKo8JYMPi4VNh04H4VqmGmVOYf4Z75AP4y4eZoz7wbD1hY+EdWFfvo36cBU/0
-	 y55uL1LOtVSxuKaKjXyql/X4fl4/YU/ZqQnINVu6Crgg5EnStZn4knQU3mfIXVx1SYw==
+	t=1794636048;
+	b=l+LN/9NT4uPbjieqH0OxEpCU/dvONFxh4JpU5RGBSvfdGYvMR07ODcyEEXPoYQcJyexG
+	 wBU3z6UNukbHLBhVHxTtvna5GrzW+mDY2SSbVH3IzwLIEiLqamjyIPvzp2uydFZImaU6F
+	 FOs0ySbytXtm3lssdkwDkjq1OwWSrlGo2CGGZvohf1BuV3GG76ezNcOgqFxymGnezyXQB
+	 umfLf4yUyRIJk8T8ypE2Be122kNs9hQbgfLmHQidaHG7Gn7xTzyw11SYJCjT+vL6X7eFa
+	 gobf++tIczhbSlSOeIeo7qOdZTG7mfTyFcH8fGwacafCH+LrX6aH8S4qVVjBvlg8oIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794635698;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794636048;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Fx5AeYPMgitO4jaK8EGw/oxO0BNF1P4PRcbaR89DyLQ=;
-	b=mQQM51Opkz/f3HeoNffpWm0uKu8ePffVqleZaIEnwV7X/HqYb0p/EUsO/ENnlmJA9pJi
-	 GTGgeYBC9YJk11YjjSYJrVZ0g+s482Hy77d/4RmEXjQ6iTuLqKWLFCs5ZjpCo0a40W/ff
-	 SAs5iOs42TbeCSmuZ4WkgEhV4eNUrcgYnkrWiYoHwwISh69RKWgIFDu/f8qGH2O3KbEOn
-	 +WhdhdbbFYd439SGZFqO2t/heG+2oK1jfSE2DivMWgknuqK9HxfBLmFwQ4oiywPhLftbd
-	 wkDMmEgdanHBjFkaCT6z41GzBlIEV5vkxMt7Pv8F1gvcFPIAbHXndXn4g3G09hqHmcw==
+	bh=8tbvdHlJ5oYB0VgvsfjmGVGYKtd+kxpfRtJCKzPpzds=;
+	b=v+NiZUe0R6uYdtStiwS1IlFKSPVdctV5kdpOY8RxwfMQh3sSc4G6Isfrm/BWXIAADqIG
+	 M7xpTC/7CZIypELOJ4mDg13iBC0cv9yOquo2kUsJd3SlbjUmGkue3ixXHa12EJ45WK+XM
+	 c95DJ8CN1Wdfnflvu36Wf5pgIUFNiZOQdIB+Jmt7IQVKZABR4bIeP+drAMe36jfSxVm9F
+	 JBrh9u4Ci/uyeWipX/1zS4o2l2Tb9Y9Fw6f4yYHrNgNF6UMLEZrbzwVX6QcAqoKeafT4x
+	 mdJk7YhqJBE8mCx3hZvJy6i7QWw43p15kgpCBVzmXjPjsEPZsgdu6SU8o418c90R7gQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=miF4g2Mo;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gEq3qXfx;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06A5606A329
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 05:54:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0286A606A329
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:00:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=miF4g2Mo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E41E01F000C4;
-	Sat, 14 Nov 2026 05:54:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gEq3qXfx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FFC61F000C4;
+	Sat, 14 Nov 2026 06:00:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794635698;
-	bh=Fx5AeYPMgitO4jaK8EGw/oxO0BNF1P4PRcbaR89DyLQ=;
+	s=k20260515; t=1794636047;
+	bh=8tbvdHlJ5oYB0VgvsfjmGVGYKtd+kxpfRtJCKzPpzds=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=miF4g2MolJBXctc8KMwBbncOasfB8QTUNyqoUVCh42gJh58oPdwICWJe81/1Btgin
-	 YCegEWNJ3ELuMcNLB2M8kG/VaLNaICYym7I7rM0Ou0Bmm5UyEMk7ApRqCl3UJttPpd
-	 K13CB7AUdxO07ks/YMXvb3fnTo38vD2KmAnkyePgwhe3shGhRUQVsiCi4CL3xEIAk9
-	 uRV//zHOcOkA6oog3rekZwXUW5AtMr7wES/fdyIxy8Gqn2KC0CYFCCDF+jsCDMuQBy
-	 5CWNSUvJCTllRMvJzaKBsqAI4lunH7lBCba1lrr3hZ4JOW5D9ZLAtcnEY+4J+hlrr7
-	 0tUKFB0gOxZKw==
+	b=gEq3qXfx31+KZFAtu3/yWbH01cUO/JvgYMxC7oOm7GfVSLItCnfNpTArc/ouNE9Kk
+	 H5S51Jk/p70y0TbQGsyn4ai84EpVXsVzgdBP3C9jd/2zGsqFBpTZ65bGQu1LL7fXQN
+	 SeeRk++VwM/G9Z3dTQGgmKrHHgtd5CcKUH2HQIlIK5yj1GGsz5Dl5vviLicDXNykxa
+	 j+dNvNBb91uw/Ertu2pTs71XQjp7OyRg/mklUrVN/kcifhpvK/1m6ddWQU3m846MV8
+	 eTSk4TPLiroY9rUgNNziHFeB4+94Bex2+Vgep8UVn027LPRLsp4NrW3pHODOAk7Hqx
+	 x1Z1Ofh+7Do1Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Yingjie Wang <1075151112@qq.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+Cc: Chris Mason <mason@kernel.org>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Zi Yan <ziy@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] nvmet: reject keep-alive timeouts that would overflow
-Date: Sat, 14 Nov 2026 00:54:56 -0500
-Message-ID: <20261114055435.3111329-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] mm/huge_memory: fix truncate racing with PMD zapping
+Date: Sat, 14 Nov 2026 01:00:45 -0500
+Message-ID: <20261114060030.3191180-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201758-failed-6.1-96ae13f40ce5@kernel.org>
-References: <20261109201758-failed-6.1-96ae13f40ce5@kernel.org>
+In-Reply-To: <20261109200457-failed-6.18-e6a07d29b0a6@kernel.org>
+References: <20261109200457-failed-6.18-e6a07d29b0a6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,112 +65,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yingjie Wang <1075151112@qq.com>
+From: Chris Mason <mason@kernel.org>
 
-[ Upstream commit 96ae13f40ce5930cd58c43128e385131476f2a66 ]
+[ Upstream commit e6a07d29b0a60f3a4cfe77fe34eeb4b3fb38d6c4 ]
 
-nvmet_set_feat_kato() and nvmet_alloc_ctrl() convert the 32-bit
-millisecond KATO from the host to seconds with DIV_ROUND_UP(kato, 1000).
-The addition in DIV_ROUND_UP() is done in 32 bits, so any KATO above
-4294966296 ms wraps around and rounds to 0 seconds. A Set Features
-command with KATO 0xffffffff then succeeds but disables the keep-alive
-timer: Get Features returns 0 and Keep Alive fails with Keep Alive
-Timeout Invalid. A Connect command with such a KATO creates a controller
-without a keep-alive timer.
+zap_huge_pmd_folio() removes the rmap before calling folio_mark_dirty().
+If this was the last mapping, truncation can skip unmapping the folio
+and proceed without waiting for the PMD lock, racing with dirtying.
 
-The converted value has more consumers that can overflow. Get Features
-multiplies it by 1000, and the timer paths multiply it by HZ in 32 bits
-and arm a delay that must not exceed MAX_JIFFY_OFFSET.
+ifs_set_range_dirty() can oops if MADV_DONTNEED races with
+ftruncate() on XFS, when we get the folio set dirty after it was found
+to not be mapped anymore.
 
-Reject a KATO whose rounded value does not fit all of these. Return Keep
-Alive Timeout Invalid from both Set Features and Connect. Validate Set
-Features before stopping the current timer so a failed update leaves its
-timeout unchanged. Round in 64 bits. A KATO of 0 keeps its current
-meaning.
+Move folio_mark_dirty() and folio_mark_accessed() before rmap removal,
+matching the PTE zap path. This keeps the folio mapped while updating
+its state, so truncation must wait for the page table lock.
 
-Fixes: a07b4970f464 ("nvmet: add a generic NVMe target")
+Fix generated by an LLM and sent by Chris Mason in private.
+
+Fixes: fe6cf984939d ("mm/huge_memory: transfer the pmd dirty bit to the folio on zap")
 Cc: stable@vger.kernel.org
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Yingjie Wang <1075151112@qq.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ sashal: adapted nvmet_alloc_ctrl() error handling to set req->error_loc and return status directly instead of updating args fields and returning NULL ]
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ david: simplify comment and description ]
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-13-d6437171ecc3@kernel.org
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adapted zap_huge_pmd_folio() changes to the existing inline logic in zap_huge_pmd() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/target/admin-cmd.c | 7 ++++++-
- drivers/nvme/target/core.c      | 7 ++++++-
- drivers/nvme/target/nvmet.h     | 8 ++++++++
- 3 files changed, 20 insertions(+), 2 deletions(-)
+ mm/huge_memory.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-index b62f40d0899e1..6d028b497c5f9 100644
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -814,8 +814,13 @@ u16 nvmet_set_feat_kato(struct nvmet_req *req)
- {
- 	u32 val32 = le32_to_cpu(req->cmd->common.cdw11);
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 24f5887eb48ee..eba9280ddb594 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -2327,8 +2327,6 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 			struct page *page = pmd_page(orig_pmd);
  
-+	if (val32 > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		req->error_loc = offsetof(struct nvme_common_command, cdw11);
-+		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
-+	}
+ 			folio = page_folio(page);
+-			folio_remove_rmap_pmd(folio, page, vma);
+-			WARN_ON_ONCE(folio_mapcount(folio) < 0);
+ 			VM_BUG_ON_PAGE(!PageHead(page), page);
+ 		} else if (thp_migration_supported()) {
+ 			swp_entry_t entry;
+@@ -2360,6 +2358,15 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+ 				folio_mark_accessed(folio);
+ 		}
+ 
++		/*
++		 * Only present folios are rmappable. Remove the rmap after
++		 * transferring young+dirty to the folio.
++		 */
++		if (flush_needed) {
++			folio_remove_rmap_pmd(folio, &folio->page, vma);
++			WARN_ON_ONCE(folio_mapcount(folio) < 0);
++		}
 +
- 	nvmet_stop_keep_alive_timer(req->sq->ctrl);
--	req->sq->ctrl->kato = DIV_ROUND_UP(val32, 1000);
-+	req->sq->ctrl->kato = DIV_ROUND_UP_ULL(val32, MSEC_PER_SEC);
- 	nvmet_start_keep_alive_timer(req->sq->ctrl);
- 
- 	nvmet_set_result(req, req->sq->ctrl->kato);
-diff --git a/drivers/nvme/target/core.c b/drivers/nvme/target/core.c
-index ed92999609c7f..ca4fd4e88e116 100644
---- a/drivers/nvme/target/core.c
-+++ b/drivers/nvme/target/core.c
-@@ -1414,6 +1414,11 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
- 	int ret;
- 	u16 status;
- 
-+	if (kato > NVMET_MAX_KATO * MSEC_PER_SEC) {
-+		req->error_loc = offsetof(struct nvmf_connect_command, kato);
-+		return NVME_SC_KA_TIMEOUT_INVALID | NVME_STATUS_DNR;
-+	}
-+
- 	status = NVME_SC_CONNECT_INVALID_PARAM | NVME_STATUS_DNR;
- 	subsys = nvmet_find_get_subsys(req->port, subsysnqn);
- 	if (!subsys) {
-@@ -1478,7 +1483,7 @@ u16 nvmet_alloc_ctrl(const char *subsysnqn, const char *hostnqn,
- 		kato = NVMET_DISC_KATO_MS;
- 
- 	/* keep-alive timeout in seconds */
--	ctrl->kato = DIV_ROUND_UP(kato, 1000);
-+	ctrl->kato = DIV_ROUND_UP_ULL(kato, MSEC_PER_SEC);
- 
- 	ctrl->err_counter = 0;
- 	spin_lock_init(&ctrl->error_lock);
-diff --git a/drivers/nvme/target/nvmet.h b/drivers/nvme/target/nvmet.h
-index cc74886cb3b0a..be8affa1aab18 100644
---- a/drivers/nvme/target/nvmet.h
-+++ b/drivers/nvme/target/nvmet.h
-@@ -7,6 +7,7 @@
- #define _NVMET_H
- 
- #include <linux/dma-mapping.h>
-+#include <linux/jiffies.h>
- #include <linux/types.h>
- #include <linux/device.h>
- #include <linux/kref.h>
-@@ -561,6 +562,13 @@ bool nvmet_subsys_nsid_exists(struct nvmet_subsys *subsys, u32 nsid);
- #define NVMET_KAS		10
- #define NVMET_DISC_KATO_MS		120000
- 
-+/*
-+ * Largest keep-alive timeout in seconds that can be reported back in
-+ * milliseconds and converted to jiffies without overflowing.
-+ */
-+#define NVMET_MAX_KATO	\
-+	min3(U32_MAX / MSEC_PER_SEC, U32_MAX / HZ, MAX_JIFFY_OFFSET / HZ)
-+
- int __init nvmet_init_configfs(void);
- void __exit nvmet_exit_configfs(void);
- 
+ 		spin_unlock(ptl);
+ 		if (flush_needed)
+ 			tlb_remove_page_size(tlb, &folio->page, HPAGE_PMD_SIZE);
 -- 
 2.53.0
 
