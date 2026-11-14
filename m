@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794631392;
-	b=LiyJc+pupwSJ7m9BaUJs+OadsK3AaiGF4Uro8CrXfM45wAQE9xdza4dHV/8nLIgwqLpP
-	 8N2tn+r5QKcozggdN0uEY1I8V03jSIMrpWIYgYn2EJEfOFqTslUxcvPxAocX8EB/sWLua
-	 MOszfkhHUv5yCN2U9jXE9ip6T4WvuRw+DtmQVe2p67ULqM7gRAtuu3oj2E1o4xPYJ9By8
-	 LmzkBqzgJ/ZjaK+nWQfH7ov4RhlcH1hHbFwBK7nWU6zSveJwHXSQSeX0PcSCQFMD9m2+j
-	 4E/5cVpC/3A6SSOkOxdIjnn2TznXCkxdP2tME9n59dO+j9hYxqnnezpKqgT9ts9sP5w==
+	t=1794631395;
+	b=CBTxedZU4oHcx5Aq1FwrrTU9GHAp2cP4ETEHWQkv0Sa4AToyMp4U9Y/QsXsgA5Ng0FqW
+	 X9y/rIDN4Xc7nVNByb7g6QdRWKBE4PGuaRG8cbNaXhDU+ZofZ7/7o7mA9iD6KKMa5dRfE
+	 D3i51it+4svXvSUnsl94jjiwTelTknPvuM6bMg2O0CyBzAH5iZzyDQBIOUcIB+QDBEHzE
+	 iGxACSbzivV7cAgXBPyqIZFnneJYqyajs/7vIwi8yD2Xze3GSaSXmbu4Zwbie1ezq2qmw
+	 PMxj7lCsFyfwr7JoqHVyeClWg502NkAF0i2XlyqlOyUem/MpU7hZb5qoEU56Ui0+BHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794631392;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794631395;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rKi8yYYVtSnfS6ryEqVMufvuvaferXyW9UbHfZcmAMk=;
-	b=yfVy2dKZ3ur2jYTkxyg0jgQp1m1XA7iCdY6o/XD8BHMonRstumcAP5JWNMd68LYdQoBb
-	 e7GxIG+I97X8DnRpQ1V6T7OXn3ESrPAyaYYA92nvFgF5X228uxuf/RUmE/lsy0wjw0DSP
-	 7U58uJBhIL20NFInDltCyzzDtoUI1XznhcQjX6NMWvTLnAt7xMqoiK/pBh/fzGVF5noD6
-	 oYCJqS9FDpqxXJAgyyybTXLtdCnxxpEWNeOlyJMKHKj+w+9qcgSIIFgT6Dv9+5/n3yvil
-	 6FHYchj//Hg5i+eUr1Y1xwR6KnpDBm6BtiOGzyWvPYLF0xxKq73GLz1Njn2EVZvAMcQ==
+	bh=7ZU7h0wlAuf8ircXlhWVxYk7TUSgoywsSbcV9zgliPo=;
+	b=JqroBMT22SJgylooXzgoYau0Tesg/XBRpOS1h+9P6x3xz5sEZDuWz98n2KKqWjGKB/oE
+	 h/J3yj2rdSu2kbgiEd4ppS3DnXKNMEkyTSUxWcSCp87vk5tYfPMiThFv9SsqjzVUdEphr
+	 feJmamjBYB63hId5iocLI05R9RPcNU/qkbxn+JQznQxO36hNhR9pcvxsTItPDxOkEXt6e
+	 OLQJQN19TJRuPscaUoyjGJf97gnq7FLh9IHQsnHpiRyqqjxnlksXU8ZNizZefO15Fh8r/
+	 yZmxQpkl423dG6VV39XI1KqUEyoxILxVJkC5HOOBHeLOfw8eNPBLA0CQRvdXKwiFSTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEhE7Kh1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0VOiQwF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF590606A32D
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:43:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4278A606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 04:43:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WEhE7Kh1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B6EA1F000C4;
-	Sat, 14 Nov 2026 04:43:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j0VOiQwF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAFE11F000C4;
+	Sat, 14 Nov 2026 04:43:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794631391;
-	bh=rKi8yYYVtSnfS6ryEqVMufvuvaferXyW9UbHfZcmAMk=;
+	s=k20260515; t=1794631394;
+	bh=7ZU7h0wlAuf8ircXlhWVxYk7TUSgoywsSbcV9zgliPo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WEhE7Kh1j4r8pAUWptz/ksVvzTIDObQKFGowGspE2HR5mZztqQMH1RqShKco3sz2N
-	 B5mtxUWYvSwd9Xj02GXP/VtCTbcUkohitFno1IwSDULP7aG9zzLOWmzoNebAignHxY
-	 dysAd9fl5dKVW83U4bgfp6kf2/sgzkP/TjpXWSoAoDjbr2vu+DGmJtfPE6w84uLvIJ
-	 rHbZFwJK57BGz5f0m47VWSgEg1XN2Sgam84PHjhApCIe5I04xXMhKw8JFpqj2H2Plt
-	 jfJnBDzJr+McfR9FzwY9MMx9Mw6vMwR2za6WotDFE+wM/D+ZwYq7f1eLd1COoGdW+t
-	 XIQr6Xegr5K0g==
+	b=j0VOiQwFtved8T8iMMDBzKaA6yYMxr4oBE6MrgVNtLmgHQQZSoVMQAeD9eB6JJ/pe
+	 1+TR+l01rgB1M7UDIjxmM3tf4k/F1I1VopwuF/ooJBJ6P6p9NYir9R/SDtgXSdMcV5
+	 QRnc//c20ledQZPpCwMOpofWlJWeBO79uPTbVBTMkAZ3+9z5yAL/4lEeihiSh3dLjl
+	 76J7/dlwWWk0mtl+x1z9p3jxnyV1iHhZQn0Vf8WQ2oRLEotllEPFcZpazagIidn9NI
+	 LcQKoZUnEtd3iMMgdWQMot7OCGILrlglcmaB6eWr6dzB34GvMhztvFli2nsE9rWWzw
+	 6yuxxNgtT+qXQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Misha Nasledov <misha@nasledov.com>,
-	Alex Hung <alex.hung@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Josef Bacik <josef@toxicpanda.com>,
+	Rik van Riel <riel@surriel.com>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Zi Yan <ziy@nvidia.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] drm/amd/display: Drop clock requirements on DCN32 when no displays are active
-Date: Fri, 13 Nov 2026 23:43:09 -0500
-Message-ID: <20261114044246.2910453-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/filemap: read mapping->a_ops->free_folio under i_lock
+Date: Fri, 13 Nov 2026 23:43:12 -0500
+Message-ID: <20261114044256.2942554-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201918-failed-6.1-bba4dc330648@kernel.org>
-References: <20261109201918-failed-6.1-bba4dc330648@kernel.org>
+In-Reply-To: <20261109201130-failed-6.6-dc24e273244e@kernel.org>
+References: <20261109201130-failed-6.6-dc24e273244e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,62 +64,171 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Misha Nasledov <misha@nasledov.com>
+From: Josef Bacik <josef@toxicpanda.com>
 
-[ Upstream commit bba4dc3306483335ddbe065c05b2d8359ec387a4 ]
+[ Upstream commit dc24e273244e9d712257d5a6c20a32c7f5ca84e6 ]
 
-amdgpu_dm builds the new dc_state as a copy of the old one. When the last
-stream is removed, dml1_validate() returns early on pipe_cnt == 0 and
-never reaches dcn32_calculate_dlg_params(), so bw.dcn.clk keeps the
-dramclk/dcfclk/fclk requirements of the display that was just turned off.
-dcn32_update_clocks() then keeps those hard minimums applied.
+memory_failure() -> ... -> filemap_remove_folio() can read mapping->a_ops
+after the inode has been freed. Once the folio is deleted from the
+pagecache it no longer pins the mapping, so after i_lock is dropped
+e.g., a concurrent final iput() can evict and free the inode before
+filemap_free_folio() looks up mapping->a_ops->free_folio.
 
-On an RX 7900 XTX this leaves UCLK at 456 MHz and DCFCLK at 637 MHz with
-the monitor off, and the board idles at 28.4 W. With this change they
-drop to 96 MHz and 145 MHz and board power falls to 15.3 W.
+Most callers hold a reference on the inode, but not all.
 
-Reset the clock requirements in that case, as calculate_dlg_params()
-already does when no HUBP is active and as the DML2 path does for
-stream_count == 0.
+Documentation/filesystems/vfs.rst explicitly states that ->free_folio()
+must not assume the original address_space mapping still exists.
 
-Signed-off-by: Misha Nasledov <misha@nasledov.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 0261a0ef89f37ef962fbc9dbc724ebf65fe681cf)
+Fix it by loading ->free_folio while i_lock is still held, similar to
+what folio_unmap_invalidate() does.
+
+Inline filemap_free_folio() into its remaining caller such that
+delete_from_page_cache_batch() also just loads the callback before
+dropping the i_lock.
+
+The bug was found by code inspection and has not been reproduced.
+
+Fix generated by an LLM and sent by Josef Bacik in private.
+
+Fixes: 59c66c5f8c4f ("mm: factor out page cache page freeing into a separate function")
 Cc: stable@vger.kernel.org
-[ sashal: applied the change in dcn32_validate_bandwidth() instead of dml1_validate() ]
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+[ david: get rid of filemap_free_folio() entirely; improve patch description ]
+Reviewed-by: Rik van Riel <riel@surriel.com>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Reviewed-by: Zi Yan <ziy@nvidia.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-6-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: preserved single-reference HugeTLB accounting when inlining cleanup into existing callers, including invalidate_complete_folio2() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../gpu/drm/amd/display/dc/dcn32/dcn32_resource.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+ mm/filemap.c  | 37 ++++++++++++++++++++-----------------
+ mm/internal.h |  1 -
+ mm/truncate.c | 10 +++++++++-
+ 3 files changed, 29 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-index 9f5425e6474fb..3195fe12fc1b9 100644
---- a/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/dcn32/dcn32_resource.c
-@@ -1870,8 +1870,21 @@ bool dcn32_validate_bandwidth(struct dc *dc,
- 	if (fast_validate)
- 		dcn32_restore_mall_state(dc, context, &mall_temp_config);
+diff --git a/mm/filemap.c b/mm/filemap.c
+index aec7fb85775c3..db9499f6abd3d 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -225,20 +225,6 @@ void __filemap_remove_folio(struct folio *folio, void *shadow)
+ 	page_cache_delete(mapping, folio, shadow);
+ }
  
--	if (pipe_cnt == 0)
-+	if (pipe_cnt == 0) {
-+		/* The context is a copy of the previous state, so without this the
-+		 * clocks the last display needed stay applied with all displays off.
-+		 */
-+		context->bw_ctx.bw.dcn.clk.socclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dppclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dcfclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dcfclk_deep_sleep_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.dramclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.fclk_khz = 0;
-+		context->bw_ctx.bw.dcn.clk.p_state_change_support = true;
-+		context->bw_ctx.bw.dcn.clk.fclk_p_state_change_support = true;
-+		context->bw_ctx.bw.dcn.clk.num_ways = 0;
- 		goto validate_out;
+-void filemap_free_folio(struct address_space *mapping, struct folio *folio)
+-{
+-	void (*free_folio)(struct folio *);
+-	int refs = 1;
+-
+-	free_folio = mapping->a_ops->free_folio;
+-	if (free_folio)
+-		free_folio(folio);
+-
+-	if (folio_test_large(folio) && !folio_test_hugetlb(folio))
+-		refs = folio_nr_pages(folio);
+-	folio_put_refs(folio, refs);
+-}
+-
+ /**
+  * filemap_remove_folio - Remove folio from page cache.
+  * @folio: The folio.
+@@ -250,6 +236,8 @@ void filemap_free_folio(struct address_space *mapping, struct folio *folio)
+ void filemap_remove_folio(struct folio *folio)
+ {
+ 	struct address_space *mapping = folio->mapping;
++	void (*free_folio)(struct folio *folio);
++	int refs = 1;
+ 
+ 	BUG_ON(!folio_test_locked(folio));
+ 	spin_lock(&mapping->host->i_lock);
+@@ -258,9 +246,14 @@ void filemap_remove_folio(struct folio *folio)
+ 	xa_unlock_irq(&mapping->i_pages);
+ 	if (mapping_shrinkable(mapping))
+ 		inode_add_lru(mapping->host);
++	free_folio = mapping->a_ops->free_folio;
+ 	spin_unlock(&mapping->host->i_lock);
+ 
+-	filemap_free_folio(mapping, folio);
++	if (free_folio)
++		free_folio(folio);
++	if (folio_test_large(folio) && !folio_test_hugetlb(folio))
++		refs = folio_nr_pages(folio);
++	folio_put_refs(folio, refs);
+ }
+ 
+ /*
+@@ -320,6 +313,7 @@ static void page_cache_delete_batch(struct address_space *mapping,
+ void delete_from_page_cache_batch(struct address_space *mapping,
+ 				  struct folio_batch *fbatch)
+ {
++	void (*free_folio)(struct folio *folio);
+ 	int i;
+ 
+ 	if (!folio_batch_count(fbatch))
+@@ -337,10 +331,19 @@ void delete_from_page_cache_batch(struct address_space *mapping,
+ 	xa_unlock_irq(&mapping->i_pages);
+ 	if (mapping_shrinkable(mapping))
+ 		inode_add_lru(mapping->host);
++	free_folio = mapping->a_ops->free_folio;
+ 	spin_unlock(&mapping->host->i_lock);
+ 
+-	for (i = 0; i < folio_batch_count(fbatch); i++)
+-		filemap_free_folio(mapping, fbatch->folios[i]);
++	for (i = 0; i < folio_batch_count(fbatch); i++) {
++		struct folio *folio = fbatch->folios[i];
++		int refs = 1;
++
++		if (free_folio)
++			free_folio(folio);
++		if (folio_test_large(folio) && !folio_test_hugetlb(folio))
++			refs = folio_nr_pages(folio);
++		folio_put_refs(folio, refs);
 +	}
+ }
  
- 	if (!out)
- 		goto validate_fail;
+ int filemap_check_errors(struct address_space *mapping)
+diff --git a/mm/internal.h b/mm/internal.h
+index 03cfd9f736597..a918559e57661 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -180,7 +180,6 @@ unsigned find_lock_entries(struct address_space *mapping, pgoff_t *start,
+ 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
+ unsigned find_get_entries(struct address_space *mapping, pgoff_t *start,
+ 		pgoff_t end, struct folio_batch *fbatch, pgoff_t *indices);
+-void filemap_free_folio(struct address_space *mapping, struct folio *folio);
+ int truncate_inode_folio(struct address_space *mapping, struct folio *folio);
+ bool truncate_inode_partial_folio(struct folio *folio, loff_t start,
+ 		loff_t end);
+diff --git a/mm/truncate.c b/mm/truncate.c
+index 6a82e981b63ce..bdb7f5fc94945 100644
+--- a/mm/truncate.c
++++ b/mm/truncate.c
+@@ -594,6 +594,9 @@ EXPORT_SYMBOL(invalidate_mapping_pages);
+ static int invalidate_complete_folio2(struct address_space *mapping,
+ 					struct folio *folio)
+ {
++	void (*free_folio)(struct folio *folio);
++	int refs = 1;
++
+ 	if (folio->mapping != mapping)
+ 		return 0;
+ 
+@@ -610,9 +613,14 @@ static int invalidate_complete_folio2(struct address_space *mapping,
+ 	xa_unlock_irq(&mapping->i_pages);
+ 	if (mapping_shrinkable(mapping))
+ 		inode_add_lru(mapping->host);
++	free_folio = mapping->a_ops->free_folio;
+ 	spin_unlock(&mapping->host->i_lock);
+ 
+-	filemap_free_folio(mapping, folio);
++	if (free_folio)
++		free_folio(folio);
++	if (folio_test_large(folio) && !folio_test_hugetlb(folio))
++		refs = folio_nr_pages(folio);
++	folio_put_refs(folio, refs);
+ 	return 1;
+ failed:
+ 	xa_unlock_irq(&mapping->i_pages);
 -- 
 2.53.0
 
