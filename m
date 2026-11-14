@@ -1,59 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794636593;
-	b=gm4ehlvW0JDOfoDqpKDYGssIcjIHliYR8XaZoULzoTyuYh5jQZFniO/cJyy/mzJEwVV4
-	 /n1GrbX1yvkONLIi55wxe9GScS4okBAo5atx5IHknrUxv2XUdhO+JcoII/dpGr2OhTk6l
-	 Wu3DKIUyLKyJSh6kNZAbPKCM70RDbzzNs33FHxbF5Lp0HPb3aODm1gjiuWN6aUhIvPbiR
-	 Ms7QGodTrBGA3bxQmT8KPy4fahBGMxdNo3iIGzA1VZiJIf6pf/Mgx6N0qcMS9a/oaS6Lj
-	 TTVKw6MxAOf9GHXc7dBL8fT7htXduHQCCvSqki6bs5rKQAT3dBa5rwIxxEqVKDtgFug==
+	t=1794636607;
+	b=p2szuHC9Exx0Oyut+fFpmMB+0PoZppeYKU1Y+4S6T3tXXDiOhFXqNnrLGNGa3AcWEPoG
+	 EsBadvCEMjxTnwgXZEDFUWLk11HOiMpN6PhRIqrBt/CywtwCUBsJsgcMZUvx2aSRKMeml
+	 dntiFUiRvdrp9rIEya54hVIwv6YNNPCg56rLTBDvqCvL2Dk4WbocATANN9JnP4KnfM5aT
+	 SG5x+hMGqGxuQ8lW1QChBFtDeJihwhsRJJEsZcbeAWmV2qqy74a8ObeTt4Slm9Ot/55Y8
+	 rGHp0f3CErIkDYn3HOqJyCbxAh7drAwmiMhqH13m3A2JV0P/jsqSdT8A8KkUD8XGQxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794636593;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3KVXR3yLuHVmc3TmOYoyDNSvbtEPu+NQ+Q0QM+bRsho=;
-	b=Ho0LBo/g8hXMzALv9e8HFPs00IjyZ9aRn2eGpuDBPntUl1X5VG2ZpQF3IYo6X7MVzrFQ
-	 AnFFu+B501kIg7ogEQAK/v+CzTBwTy2/Gkpdm6a2q9YE3Fa7IXNb1V0q6fOYWEtbIbPXP
-	 7Tm9Z+PUuJgoXnurRZGCn0/h2WOfyq4+jE/ZbiV2PquKF0ehf/8VxBN0YPABYJ7x2bPWX
-	 FP+MCaXS+P8SLoFonJXA0K9PpdnK0JuS29Fy6j1rpJBFmc3d7sR1pF5jJy/EX0P/+bDez
-	 fTO4nEuOMDlm5/qUZKE39OSt4udlZFZ1pThvtUeZ2a2noYJQOpd/AU6s223xycAO+rQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794636607;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=L9h/UAPmbKaXk4/qoOHze3vgmQg4+hfv0Rqo0AleFgg=;
+	b=dgshc7xHE+obHiOULAOuQevdYQ4KPJuMkD+vRkO6eLa9rQB359P3CxqYXsV+X/hAYEu3
+	 l2Y3FiOsnQk3npUwNrKFL+1dUU40wZTjLQpHkXwXIZAx7rJKg06lcsFPC+EydA/2IrkNY
+	 Qi6QowQT1McxmdhN7uW/WCltAXVHXpEAgha9ouQEmx47rTkG1WPSbG3WbOHKhM00utztT
+	 gRZGLjhE0w85PzXjdsZBeUHu89Q30udDTim2Ej6At72AoWuNLOaESgu12/FytFuF3+aRD
+	 LXVQB62uUGPDsXQIthmgu7cFpWe1o/ebYLjUlsGwt7VKgxY63NuGaXlXxqEr/Ghf0VA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RO3x81SJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=miP5RfLL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12954606A323
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:09:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2F60606A331;
+	Sat, 14 Nov 2026 06:10:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RO3x81SJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE9921F000C5;
-	Sat, 14 Nov 2026 06:09:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=miP5RfLL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 818521F000C4;
+	Sat, 14 Nov 2026 06:10:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794636592;
-	bh=3KVXR3yLuHVmc3TmOYoyDNSvbtEPu+NQ+Q0QM+bRsho=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RO3x81SJL57Gi3fht7mAozW6Rvo8mDJakXhIjiusfsFtafl1VKSm65hXdtmYRlWVO
-	 +vNHjE9ZgJekbthiPqqdViKXxVeAbaf+4NdNCiAkhvWK59K5uCbvFsp6YU0rr40gas
-	 5hUHqGj4Kujm/jZee9pT3A8fGaP6KeznWF1CkLyStAsdnf2xQNMf/zN0n6kO6N8sgF
-	 is/0A+gdUcHmtmhJKjnHNci2yRdzejuktDXC9ZBSV0k/oEZXA+upe1IvylRjIesWR3
-	 9CyDjdbmLmvYhL70ZNEhJrWYvXnaV3JIFwwXovl0haT1NNhlMi9INlnEqR80NWmjO3
-	 qvGrCatubb9TQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Zi Yan <ziy@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] mm/huge_memory: fix truncate racing with PMD zapping
-Date: Sat, 14 Nov 2026 01:09:50 -0500
-Message-ID: <20261114060934.3198345-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201323-failed-6.6-e6a07d29b0a6@kernel.org>
-References: <20261109201323-failed-6.6-e6a07d29b0a6@kernel.org>
+	s=k20260515; t=1794636606;
+	bh=L9h/UAPmbKaXk4/qoOHze3vgmQg4+hfv0Rqo0AleFgg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=miP5RfLLvwei/QZ/+fFs90TyUZvbAEXReUZaafBGtp8xAs1/Nhb9sTWfwQ4jVDnrn
+	 HG4jILtrinnkOJXe0RV3ehjAcecFUsYToeVLXuzVNiNPNwp4M502GkB4XuZ5Q65lTE
+	 n50kxFrWoDdh5NNVKoFraAC9uuWE0qDm9V6q0zklrRUmYC69Dc5hN5FYuRbmVtlCLp
+	 Ga+y98ICvBeM/eU8v6E3unN315obWhMolCEH3yt1QCL/iaUBAdfRlxin/FsrEyDlH3
+	 ZjOyfbFyW5ORrRFMhT/ncfJlil10pEhp/AwQrHOdczoSfEDo+xD/8expmX5cesiXW3
+	 O7AOaGAPiM4Rg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 77435380821F;
+	Sat, 14 Nov 2026 06:10:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,67 +54,48 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH bpf] bpf,
+ lsm: Mark backing_file_alloc/free LSM hooks as untrusted
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179463660529.2025154.16083428356016903156.git-patchwork-notify@kernel.org>
+Date: Sat, 14 Nov 2026 06:10:05 +0000
+References: <20261111203614.1221188-1-snizovtsev@cloudlinux.com>
+In-Reply-To: <20261111203614.1221188-1-snizovtsev@cloudlinux.com>
+To: Sergei Nizovtsev <snizovtsev@cloudlinux.com>
+Cc: bpf@vger.kernel.org, linux-security-module@vger.kernel.org,
+ stable@vger.kernel.org, kpsingh@kernel.org, matt@bobrowski.net,
+ ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com,
+ memxor@gmail.com, martin.lau@linux.dev, song@kernel.org,
+ yonghong.song@linux.dev, jolsa@kernel.org, emil@etsalapatis.com,
+ ihor.solodrai@linux.dev, serge@hallyn.com, amir73il@gmail.com,
+ paul@paul-moore.com, brauner@kernel.org, linux-kernel@vger.kernel.org
 
-From: Chris Mason <mason@kernel.org>
+Hello:
 
-[ Upstream commit e6a07d29b0a60f3a4cfe77fe34eeb4b3fb38d6c4 ]
+This patch was applied to bpf/bpf.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-zap_huge_pmd_folio() removes the rmap before calling folio_mark_dirty().
-If this was the last mapping, truncation can skip unmapping the folio
-and proceed without waiting for the PMD lock, racing with dirtying.
+On Wed, 11 Nov 2026 21:35:52 +0100 you wrote:
+> The backing_file_alloc and backing_file_free LSM hooks get the backing
+> file as "struct file *backing_file", but its f_path is not populated
+> while they run:
+> 
+>  - security_backing_file_alloc() is called from init_backing_file() in
+>    alloc_empty_backing_file(), before vfs_open() sets f_path, so
+>    backing_file->f_path.dentry is NULL;
+>  - security_backing_file_free() can run for a backing file whose open
+>    failed and whose f_path was already cleared.
+> 
+> [...]
 
-ifs_set_range_dirty() can oops if MADV_DONTNEED races with
-ftruncate() on XFS, when we get the folio set dirty after it was found
-to not be mapped anymore.
+Here is the summary with links:
+  - [bpf] bpf, lsm: Mark backing_file_alloc/free LSM hooks as untrusted
+    https://git.kernel.org/bpf/bpf/c/ab86b62012b9
 
-Move folio_mark_dirty() and folio_mark_accessed() before rmap removal,
-matching the PTE zap path. This keeps the folio mapped while updating
-its state, so truncation must wait for the page table lock.
-
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: fe6cf984939d ("mm/huge_memory: transfer the pmd dirty bit to the folio on zap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: simplify comment and description ]
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-13-d6437171ecc3@kernel.org
-Reviewed-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Adapted zap_huge_pmd_folio() changes to zap_huge_pmd() using page_remove_rmap(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/huge_memory.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-index 4aa032e96fa60..c9b40d69ff1fd 100644
---- a/mm/huge_memory.c
-+++ b/mm/huge_memory.c
-@@ -1717,8 +1717,6 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 
- 		if (pmd_present(orig_pmd)) {
- 			page = pmd_page(orig_pmd);
--			page_remove_rmap(page, vma, true);
--			VM_BUG_ON_PAGE(page_mapcount(page) < 0, page);
- 			VM_BUG_ON_PAGE(!PageHead(page), page);
- 		} else if (thp_migration_supported()) {
- 			swp_entry_t entry;
-@@ -1742,6 +1740,12 @@ int zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
- 				folio_mark_dirty(page_folio(page));
- 		}
- 
-+		/* Remove the rmap after transferring the dirty bit to the folio. */
-+		if (pmd_present(orig_pmd)) {
-+			page_remove_rmap(page, vma, true);
-+			VM_BUG_ON_PAGE(page_mapcount(page) < 0, page);
-+		}
-+
- 		spin_unlock(ptl);
- 		if (flush_needed)
- 			tlb_remove_page_size(tlb, page, HPAGE_PMD_SIZE);
+You are awesome, thank you!
 -- 
-2.53.0
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
