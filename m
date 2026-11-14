@@ -1,48 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794622234;
-	b=WXN8RHSYvzhpvhePTZswbKP6i2B7HOcjOAMdkiX/1GgEN1hxN0G3Q9zNGmH4RA69S19o
-	 f+0t+qQt15Ii0lc7LFO3+M9cgxOMEuiR+eeruOQqjsHSlVYADG3a4JDKxhgRu4NM+4CeE
-	 f2vV5C+eYiDrKYSFZ5BgayNelG6Uy7lf0mHzpAElzodXz+xVYGIQxs2HRbN7LmUOobxdH
-	 earq4oosNtqIbYuWTVsRIqGf83xZkW4VfssJwoD0x7t7cNNbmJONUlXsPD3eADmnEzsoi
-	 5ODsprsjGujUPJ0HhAAg1ZSoJ3N/6yzkFIbh/kCfOu347yAmKweiJTKnkt3GJCJxJqQ==
+	t=1794622416;
+	b=2YGCMVo99ZQXMPiDhViIfQQAZg+j5/4GLYKfpQ7Sq8rWyOWksepcWmC8NxS8lhGT9XXt
+	 HJwUOWmznShZYHiFl2BoCw7UPuucHIUoaTwMOJ9dDR6/YdSGkKoDMOQkZg5+WGVrxCxdH
+	 uz5OTUZNLCYv3DFWatC/Ynady16AgduJE+fArY44igYpwqABk4NQiMqa9xP5P9Sq4FXSv
+	 xc+f1ht6NjLaaAaBkWuNjRNi1DsAAZOlQlEY8pU1mZudzfVOJH1OGIojJ6iBeCPsr0oBN
+	 4CoS4vKTiK0jZuaP6Utr943jVXebzxdatjrYqoWGDyI0pTSYx8UzV9NJw6vovqLtgZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794622234;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=E9VrLCp9fCbcAVvbA8CwSeFUDUfw7CReZTiENbyaPLU=;
-	b=SUSEGC4S4vH6RcRRuEmAASFKbKaens3I4ZmnTmb1yKfySCm8e2s/6leTn1hMP5Di8gUO
-	 AbGxItVn+l6PVNbo3zQvM7b0sNb2dhjgeTDe8lSCwp4EMwcXA/au3GZID437L0Un2IKg1
-	 y493j1YXa8GiM56HHVBdyN51yjNk46BtWjJW6zXQqEDsiDNWmGnDZgvJ2+K86H6MwHW91
-	 bZ+1U5Tgdk324UREyK9fKIFsArlwB0X0Jtm+G7NCVTma/qZc+R1k93cLGbDlCvVitML5z
-	 eHjW+MnX+JqzF2E8KbGgjX1BzDhzO08CEDn2Azm1DJpzohd4Sb9S/mdjzy9UldHsG0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794622416;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Message-ID:In-Reply-To:
+	 References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Correlation-ID;
+	bh=pSEjQ6X6nKMFKE8BpPFQ+T1/sYQgPv1ypTviAL6uW8A=;
+	b=g8zy0S0CNOT631ZY3xXF9Vz22urFfU+awE1pzmimytvTedPyxh4cRGiEYZy4jlV9f3zg
+	 ZNrJ66OGVtW4P0LJWQKbWuRjl1+u5MKqMJv+w+cKKMWNYmZ3hX05bZvAfm0IeFbNa8W0S
+	 R7iGwPdOQDEKqSoEb1XE6JoYNFH1gWbclzfAbJpEthrOy2hT2dTfxBdjzB47oAMq6toGc
+	 ZeKh4967D0dDpD84KKs+kUqswvf40q2/E30M3jhpPjazljSCZLsGMSKz3Eqg6xy3z4ccA
+	 ribK+1vPwrya7qDFeVA7nmS6C72GmqajUiyPgnLoyAbHCjDHlp0NVY7Zrjx/JRbu9Ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=x6h6bw5r;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uJHIuLM9;
+	arc=none smtp.remote-ip=91.218.175.13
+Received: from mta0.migadu.com (out-13.mta0.migadu.com [91.218.175.13])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8281D606A32D;
-	Sat, 14 Nov 2026 02:10:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CB6606A32D
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 02:13:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96CB6606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=x6h6bw5r
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29D411F000C7;
-	Sat, 14 Nov 2026 02:10:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794622234;
-	bh=E9VrLCp9fCbcAVvbA8CwSeFUDUfw7CReZTiENbyaPLU=;
-	h=Date:To:From:Subject;
-	b=x6h6bw5reBwMAE+afFc2ePzp0t7U8CcdSyciIn9t6dVAvQJXfQ0zuWOxvumxWhVWq
-	 U29Xa0LTDJGSBImgmbGPY3KORUH58PtvsyzE3OoP/laYqcjUwJFEN67LS5050dWOlq
-	 FoQZVlUWYpxVCYXDMmQtDQpbpZbILbmxVbth5aDo=
-Date: Fri, 13 Nov 2026 18:10:33 -0800
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,rppt@kernel.org,
-	ljs@kernel.org,leon@kernel.org,kas@kernel.org,jgg@ziepe.ca,jgg@nvidia.com,
-	david@kernel.org,dave.hansen@linux.intel.com,bp@alien8.de,gourry@gourry.net,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-hmm-reject-shadow-stack-mappings.patch added to mm-new branch
-Message-Id: <20261114021034.29D411F000C7@smtp.kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uJHIuLM9
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=pSEjQ6X6nKMFKE8BpPFQ+T1/sYQgPv1ypTviAL6uW8A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794622412; v=1; x=1795227212;
+ b=uJHIuLM9sQrW+i/MVKZJ3bRJpeZLK6ZH4se7cKklNSodCE/MgkX+kpLge8jc9btBUpVOBGzF
+ 9xBr6lzwoFdZWSAwIEshq20merSButjJv92IRPZZoHbHfq5xPxpggbyqbaArGSWAh7SsFRO+QgO
+ zwdk8rScDaQFykPSgnPmA7mk=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e5565a4f17b539d2;
+	Sat, 14 Nov 2026 02:13:32 +0000
+X-Mizu-Trace-ID: e5565a4f17b539d2
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 14 Nov 2026 03:13:32 +0100
+From: Denis Benato <denis.benato@linux.dev>
+To: Aspecky <tarrihmoad@proton.me>
+Cc: Corentin Chary <corentin.chary@gmail.com>,
+	"Luke D. Jones" <luke@ljones.dev>, Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Antheas Kapenekakis <lkml@antheas.dev>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Sercan GOKMEN <gokmensercan@gmail.com>,
+	Burak Goncu <burakgon12@gmail.com>,
+	Denis Benato <benato.denis96@gmail.com>,
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Message-ID: <1b1257ea-e6c0-4380-a277-e20c99e047de@linux.dev>
+In-Reply-To: <-sHRKK56awNgHWFUXMcBVRL0SSag0CruNAfbxPNPYJJC8qqk_N74k3wCldWqNkfw-CBwHj-6CvkYhrkCsBYqgNNUQV2oT31VbehOxMbR87E=@proton.me>
+References: <20261111-asus-wmi-kbd-readback-v4-1-79df1567476d@proton.me> <04c46822-9baa-4152-8193-d8aa9d757b4e@linux.dev> <-sHRKK56awNgHWFUXMcBVRL0SSag0CruNAfbxPNPYJJC8qqk_N74k3wCldWqNkfw-CBwHj-6CvkYhrkCsBYqgNNUQV2oT31VbehOxMbR87E=@proton.me>
+Subject: Re: [PATCH v4] platform/x86: asus-wmi: Ignore unusable kbd
+ backlight WMI device on ROG Strix G814FP
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,108 +73,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Correlation-ID: <1b1257ea-e6c0-4380-a277-e20c99e047de@linux.dev>
+
+14 nov 2026 01:50:29 Aspecky <tarrihmoad@proton.me>:
+
+> On Thursday, November 12th, 2026 at 10:21 AM, Denis Benato <denis.benato@=
+linux.dev> wrote:
+>
+>>> On the ASUS ROG Strix G18 G814FP, writing a level to the keyboard
+>>> backlight brightness in sysfs works, but reading it back always gives
+>>> 0, and the read makes the Fn brightness keys misbehave.
+>>
+>> With "works" do you mean the write report success but does nothing or
+>> that it is actually changing the brightness?
+>
+> Sorry about the confusion, the write does actually change the brightness.
+> Writing 3 to /sys/class/leds/asus::kbd_backlight/brightness turns the
+> LEDs to high. asus-wmi passes the level both to the WMI device and to
+> hid-asus, the latter is the one that registers as a listener on the LED.
+> The DEVS(0x00050021) write to the WMI device fails with -ENODEV and
+> changes nothing, hid-asus is what actually sets the LEDs:
+>
+
+No, you excuse me: the question was not well expressed.
+
+I meant if wmi actually changes something, not if the sysfs write does... F=
+rom this answer I understand. Keep the description this way.
 
 
-The patch titled
-     Subject: mm/hmm: reject shadow-stack mappings
-has been added to the -mm mm-new branch.  Its filename is
-     mm-hmm-reject-shadow-stack-mappings.patch
+Do as if I never said anything about this :)
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hmm-reject-shadow-stack-mappings.patch
+> sysfs write -> asus-wmi |- DEVS(0x00050021) -> firmware -> rejected
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |_ hid-a=
+sus -> USB HID report -> LEDs
+>
+>>> DSTS(0x00050021) always returns 0x50000, which is level 0
+>>
+>> Always returns level zero with the presence bit set.
+>
+> Correct, always returns level zero with the presence bit set,
+> i'll say that in v5.
+>
+>>> As a side effect, the kbd_rgb_mode and kbd_rgb_mode_index attributes ar=
+e
+>>> no longer created on this board, they never worked here since the firmw=
+are
+>>> rejects those writes as well.
+>>
+>> Isn't this a contraddiction to what is written above? That writes
+>> actually succeeds?
+>
+> It's not a contradiction, the sysfs brightness write succeeds because
+> of hid-asus, while the WMI DEVS(0x00050021) writes are rejected and
+> so are the ones behind kbd_rgb_mode. The commit message doesn't make
+> that clear, I'll reword it in v5 and wait a day or so in case there
+> are more comments.
+>
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+All good. I understand, proceed mentioning the presence bit and level zero =
+and you're done.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+Put a Reviewed-by: Denis Benato <denis.benato@linux.dev> in your next patch=
+.
 
-The mm-new branch of mm.git is not included in linux-next
+Thanks,
+Denis
 
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-Subject: mm/hmm: reject shadow-stack mappings
-Date: Fri, 13 Nov 2026 14:55:36 -0500
-
-On x86, a shadow-stack PTE has its ordinary write bit clear.  The CPU
-rejects ordinary stores to it, but pte_write() reports it writable because
-shadow-stack instructions can write it.  HMM consequently sets
-HMM_PFN_WRITE, which Nouveau turns into ordinary GPU write permission.  A
-process with GPU access can then overwrite its own shadow stack,
-potentially corrupting return addresses or bypassing that protection.
-
-Reject shadow-stack VMAs in hmm_vma_walk_test(), including read access.  A
-requested fault returns -EFAULT; a snapshot records HMM_PFN_ERROR.
-
-Link: https://lore.kernel.org/20261113195536.2660763-1-gourry@gourry.net
-Link: https://lore.kernel.org/linux-mm/20261111-mason-migrate-et-al-fixes-v1-10-3d2454362e8d@kernel.org/
-Fixes: 54007f818206 ("mm: Introduce VM_SHADOW_STACK for shadow stack memory")
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Leon Romanovsky <leon@kernel.org>
-Cc: Kiryl Shutsemau <kas@kernel.org>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>
-Cc: Borislav Petkov <bp@alien8.de>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: <stable@vger.kernel.org>
----
-
- mm/hmm.c |    3 +++
- 1 file changed, 3 insertions(+)
-
---- a/mm/hmm.c~mm-hmm-reject-shadow-stack-mappings
-+++ a/mm/hmm.c
-@@ -596,6 +596,7 @@ static int hmm_vma_walk_test(unsigned lo
- 	struct vm_area_struct *vma = walk->vma;
- 
- 	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)) &&
-+	    !vma_test_single_mask(vma, VMA_SHADOW_STACK) &&
- 	    vma->vm_flags & VM_READ)
- 		return 0;
- 
-@@ -607,6 +608,8 @@ static int hmm_vma_walk_test(unsigned lo
- 	 * allow write access either. HMM does not support architectures that
- 	 * allow write without read.
- 	 *
-+	 * Devices must not gain ordinary write access to shadow stacks.
-+	 *
- 	 * If a fault is requested for an unsupported range then it is a hard
- 	 * failure.
- 	 */
-_
-
-Patches currently in -mm which might be from gourry@gourry.net are
-
-mm-memory-tiers-reset-demotion-targets-of-nodes-without-memory.patch
-mm-mempolicy-convert-mempolicy-refcnt-to-refcount_t.patch
-selftests-mm-add-madv_cold-and-madv_pageout-contract-tests.patch
-selftests-mm-check-madv_cold-and-madv_pageout-range-handling.patch
-selftests-mm-check-that-madv_cold-and-madv_pageout-reject-hugetlb.patch
-selftests-mm-check-that-madv_cold-and-madv_pageout-preserve-shared-memory.patch
-selftests-mm-check-madv_cold-and-madv_pageout-on-partly-advised-thps.patch
-selftests-mm-check-madv_pageout-file-permissions.patch
-selftests-mm-check-that-unauthorized-madv_pageout-skips-large-file-folios.patch
-mm-hmm-reject-shadow-stack-mappings.patch
+> Thanks,
+> Moad
 
