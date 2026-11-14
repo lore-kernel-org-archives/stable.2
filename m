@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672038;
-	b=WXBwswEjpkZt+peA/qlyB9Xstwyqe8IxggpbV7xpPOba6ZLkk9qShLzO0ckibYPu5Fb2
-	 1IKsNkcwN/+mHdb/h0msGwXfUlsFflpgEOT/w//nTJgVTQkCvHCLL9nCuJLtAFBfkha29
-	 1YGp1OmqEQxsjW0bnsBq/DzX1U1rtwessJ746IHxL9FVFBKKfg3JUTCDF6hfn6yZrtyLk
-	 cDkb7qTvAtaAKDnkXYXX2ujIX04QkzbHhH0UnJRwacca8AVS0we2EjcNQhJ8XEZBvVS+U
-	 3QRtaG8m7logqW2SioKNcPk8TWsxKJ3C/W/Jessd/di4+WmXebmJRAap2q3oMkNgNBg==
+	t=1794672075;
+	b=Txmek3DvCu8qcfpFPVzAblZRE3SI31wZWe9tWlUfXIkcl35t5RFKRZ/kVQAeVE3qYBvo
+	 Cg+jIkUsF8Ukl/ev45jrNIEYqMY8OclswB10/6Ync+s7k84Gh4b0ZJqyjMosUrZ/DNdpE
+	 sX8S19FpGNOW0nbdZUMTQIMyiWKJHZojXMS3wyvHHYRdfQWf+UyZJZrA0NHQla4iowLes
+	 Y0y4XsVBlIueBxPVE7huevYfCwB6Y5oVKFK+FZlRUce2lVKkjUYNDXtUfCzVTlO2ceUBD
+	 RIrRXeflbBUXmeoBUHzAKcZXKxb8e3W2DSYJ90VN7QV6wWMfLKbl6N0TCgaj5RPNiQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672038;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672075;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lsmxITMmSW0elYEZ5EsLhhdo35zyPEVkSkFGzD291ag=;
-	b=X6GxYbZqoesewBpTH6j/McfPRg+EWrCJEvYrlGvhHzMYXQLzHT8ul7Kvuj86fXH9ZTm7
-	 yUl23O/WGjYLnF7d8zZfA73ug41oBdqQ0KBV+KykHAHXz/xeX+ZOahivDQY05+LN4KQ6N
-	 xesTyhOlt6DhO4BFAvYKMNJldvhaQ4W8YhaMjHBAadBx9f/Q8rSlif6LlfBqtL169b7ea
-	 ZGSSTSyIMlEooBQHTp4+ZUCdBurzCduEQrTEu2hBfk9Mfsbm2RwPxU6t3nc12voM3N+PO
-	 EwzRYG9epYNp66qU9vnRqg/0KjTZLyM2GX5ccOUN5xB5zUlvTbJClOJqGVID/pejUmA==
+	bh=T0msHvgWsP1vhn1q0HB4qRit7l16jXCR3LUZjmqSxrY=;
+	b=ANLoIHZCL0CCmaWVc5EcFAByAKyia9SkmBXgXbtSNmXLEjHXlBm/++GcSLXHQieehhot
+	 SWyp0V2Ra/+hGCVUq823Zy4q7eGmqkcJ9AkmluSFJ7fQAATht7tOForWGkLtGwqxGbM2P
+	 2zUM3NqT0IouHqK1yuDhe/fC/8YehgRh21f5kmowxRq614KxfZ9ztZV6qM6YGD/CDyNbQ
+	 nsJ1Exf5HKvGsvUBxz94jbG75J870DKOsLNQm3m93YXdFcvEPuy/bTBLiCjRxjVgjoR51
+	 gActdTUy9V3/2swdcnGIxKYIHa72u+VfhKWrlSDEX6YTpGlRMlBmgS8OgIeFFgGnQqg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIl1Tn27;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCH0UDmL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1455B606A32E
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:00:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A569606A327
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:01:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aIl1Tn27
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB14E1F000C4;
-	Sat, 14 Nov 2026 16:00:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HCH0UDmL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 566721F000C4;
+	Sat, 14 Nov 2026 16:01:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794672037;
-	bh=lsmxITMmSW0elYEZ5EsLhhdo35zyPEVkSkFGzD291ag=;
+	s=k20260515; t=1794672075;
+	bh=T0msHvgWsP1vhn1q0HB4qRit7l16jXCR3LUZjmqSxrY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aIl1Tn27N+LYxtIyWE/LinlqJRZkaW2LpIvXJKHiOlr89QJyfwGS0//92rok9Q5VD
-	 q9coLQXsUV294Qaubj6iGQ8qwB6yNffVYZJ4Re29xLP4uWOKLLnCyw+w4Y2i8y5csk
-	 IZ3+Aqf6XiYYg5jgvke9wYwgVmnajuvwFAfvAqs5kNR7V2Us54g+o2OL4o1v3F5S7I
-	 IGzA55LEuw1exl67zXFnni6Da1hWdaLpqoGML1tOxFgJhH6b23oQJdGt/2Kwsux64V
-	 iFrvHlUBzGhvJiI/z0hm5ppaVKxulxXBsRX3SfBxEcDICVthTixp1uA/W5rYAgL+Zw
-	 AMlpEJAe2KUvw==
+	b=HCH0UDmLzIDr9eTln1o87gHBrBkFTI1zJ3mOC0yYtgVPRYbuVcv3AewfrOd8msTuU
+	 nonOCG0KhQt9DdfAOS2O9xm+NIiCp4+h0u+y+Y/ZX5Muarup6y8V3Wfd/JYY98nDHo
+	 DeLXAnSxjJLSd6MGQOBfgjbVFoNmuvJRdCHxqyVNoAynwWoVmIFe/wHNsrrIhLhkrw
+	 1jhOO47AH8hpL9VObEK8kdE/z3oBPXAFqEiZKmet29aKHHOMWqnI/YWztL33Jl3HgU
+	 G3IOKTJoSWOAXifML5q+5w4CskpcJsYkTvgg70z9u9BYeTLNsqm1gF84wfGps2mePE
+	 mqd09jUenqszA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
+Cc: Bart Van Assche <bvanassche@acm.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm/shmem: fix accounting of swapin-error markers
-Date: Sat, 14 Nov 2026 11:00:35 -0500
-Message-ID: <20261114160024.3870080-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/2] blk-iocost: Simplify ioc_rqos_done()
+Date: Sat, 14 Nov 2026 11:01:12 -0500
+Message-ID: <20261114160106.3688025-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200307-failed-6.18-66ce68a249f4@kernel.org>
-References: <20261109200307-failed-6.18-66ce68a249f4@kernel.org>
+In-Reply-To: <20261109202255-failed-5.15-e9804489e27d@kernel.org>
+References: <20261109202255-failed-5.15-e9804489e27d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,131 +63,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Bart Van Assche <bvanassche@acm.org>
 
-[ Upstream commit 66ce68a249f4ac56cd6968aa6d8ded20fb4b7d09 ]
+[ Upstream commit 62c159a03da92121b1b909fd8039028de97885fc ]
 
-A failed swap read replaces the swap entry with a swapin-error marker in
-the page-cache and subtracts its pages from "alloced" and "swapped";
-however, it leaves their block charge in place.
+Leave out the superfluous "& REQ_OP_MASK" code. The definition of req_op()
+shows that that code is superfluous:
 
-Removing the marker during truncate then subtracts from "swapped" again.
-This can underflow the counters or make swapped reach zero while other
-pages remain swapped out, causing swapoff to loop without finding them.
+ #define req_op(req) ((req)->cmd_flags & REQ_OP_MASK)
 
-When installing the marker, subtract only from "swapped" and let
-shmem_recalc_inode() reduce "alloced" and release the block charge.
+Compile-tested only.
 
-Make shmem_free_swap() report successful removal separately from the
-number of swap pages freed, so removing a swapin-error marker does not
-subtract from "swapped" again.
-
-It's a bit confusing, but replacing a swapped out page by a swapin-error
-marker in shmem_set_folio_swapin_error() behaves as follows:
-
-Initially:
-	alloced=1, swapped=1, nrpages=0
-Calling shmem_recalc_inode(inode, 0, -1)
-	-> swapped = 0
-	-> freed =  1 - 0 - 0 = 1
-	-> alloced -= freed
-	-> alloced=0, swapped=0, block charge released
-
-Fixes: 6cec2b95dadf ("mm/shmem: fix infinite loop when swap in shmem error at swapoff time")
-Cc: stable@vger.kernel.org
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Link: https://patch.msgid.link/20261029-fixes_shmem-v4-14-392fc715d8f6@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adapted swap-entry handling to !non_swap_entry() and the existing swap-release APIs ]
+Cc: Tejun Heo <tj@kernel.org>
+Acked-by: Tejun Heo <tj@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+Link: https://lore.kernel.org/r/20220615225549.1054905-2-bvanassche@acm.org
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Stable-dep-of: e9804489e27d ("blk-iocost: account flush sequence latency only once")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/shmem.c | 31 ++++++++++++++-----------------
- 1 file changed, 14 insertions(+), 17 deletions(-)
+ block/blk-iocost.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 6828611bcdfe0..eb052b1dad252 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -940,12 +940,11 @@ static void shmem_delete_from_page_cache(struct folio *folio, void *radswap)
- }
+diff --git a/block/blk-iocost.c b/block/blk-iocost.c
+index 496aa2d4c435a..2c3047d2c80e1 100644
+--- a/block/blk-iocost.c
++++ b/block/blk-iocost.c
+@@ -2808,7 +2808,7 @@ static void ioc_rqos_done(struct rq_qos *rqos, struct request *rq)
+ 	if (!ioc->enabled || !rq->alloc_time_ns || !rq->start_time_ns)
+ 		return;
  
- /*
-- * Remove swap entry from page cache, free the swap and its page cache. Returns
-- * the number of pages being freed. 0 means entry not found in XArray (0 pages
-- * being freed).
-+ * Remove a swap entry or swapin-error marker wholly within [index, end].
-+ * Return whether it was removed, counting freed swap pages in nr_swaps_freed.
-  */
--static long shmem_free_swap(struct address_space *mapping,
--			    pgoff_t index, pgoff_t end, void *radswap)
-+static bool shmem_free_swap(struct address_space *mapping,
-+		pgoff_t index, pgoff_t end, void *radswap, long *nr_swaps_freed)
- {
- 	XA_STATE(xas, &mapping->i_pages, index);
- 	const swp_entry_t swp = radix_to_swp_entry(radswap);
-@@ -966,8 +965,10 @@ static long shmem_free_swap(struct address_space *mapping,
- 	xas_unlock_irq(&xas);
- 
- 	/* A swapin-error marker holds no swap slot, so just drop it. */
--	if (nr_pages && !non_swap_entry(swp))
-+	if (nr_pages && !non_swap_entry(swp)) {
- 		free_swap_and_cache_nr(swp, nr_pages);
-+		*nr_swaps_freed += nr_pages;
-+	}
- 
- 	return nr_pages;
- }
-@@ -1120,8 +1121,8 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, loff_t lend,
- 			if (xa_is_value(folio)) {
- 				if (unfalloc)
- 					continue;
--				nr_swaps_freed += shmem_free_swap(mapping, indices[i],
--								  end - 1, folio);
-+				shmem_free_swap(mapping, indices[i], end - 1,
-+						folio, &nr_swaps_freed);
- 				continue;
- 			}
- 
-@@ -1188,13 +1189,11 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, loff_t lend,
- 
- 			if (xa_is_value(folio)) {
- 				int order;
--				long swaps_freed;
- 
- 				if (unfalloc)
- 					continue;
--				swaps_freed = shmem_free_swap(mapping, indices[i],
--							      end - 1, folio);
--				if (!swaps_freed) {
-+				if (!shmem_free_swap(mapping, indices[i], end - 1,
-+						     folio, &nr_swaps_freed)) {
- 					pgoff_t base = indices[i];
- 
- 					order = shmem_confirm_swap(mapping, indices[i],
-@@ -1215,7 +1214,6 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, loff_t lend,
- 					index = base;
- 					break;
- 				}
--				nr_swaps_freed += swaps_freed;
- 				continue;
- 			}
- 
-@@ -2238,11 +2236,10 @@ static void shmem_set_folio_swapin_error(struct inode *inode, pgoff_t index,
- 	if (!skip_swapcache)
- 		swap_cache_del_folio(folio);
- 	/*
--	 * Don't treat swapin error folio as alloced. Otherwise inode->i_blocks
--	 * won't be 0 when inode is released and thus trigger WARN_ON(i_blocks)
--	 * in shmem_evict_inode().
-+	 * Let shmem_recalc_inode() reduce alloced and release the block charge
-+	 * for the freed swap pages.
- 	 */
--	shmem_recalc_inode(inode, -nr_pages, -nr_pages);
-+	shmem_recalc_inode(inode, 0, -nr_pages);
- 	swap_free_nr(swap, nr_pages);
- }
- 
+-	switch (req_op(rq) & REQ_OP_MASK) {
++	switch (req_op(rq)) {
+ 	case REQ_OP_READ:
+ 		pidx = QOS_RLAT;
+ 		rw = READ;
 -- 
 2.53.0
 
