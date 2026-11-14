@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794638838;
-	b=piPiuuHaWotj4yO9cH4Xndr2j0jJ9BqNN9LjCvhfUKVJQNR/kNMPkQl1HJNq1hYyEOgB
-	 UcvGUYF8yblWRSguJQDyGYnxHFA0JgJOH2OnnN9qM8LCQaWtU36uhyB07th1IZaR7PU4H
-	 G1YF47y2lRbgFts/AnC51Oc1YFEOlYh/yMTt0poQetw/xP5idT/8Zi4NA+DlIjc/NZoH6
-	 7G4fRYBAahVneS4VlqZwnZAf0uoqwQEpuRJHASHjXWA9BEnu1Bl4nOKashJXvXuU55SZE
-	 amNlxcXa8m0puiQy16yAzxBhLcX/RnjLHWlKoQR67oI39qdjmT1TA7LZk325+IjjsxA==
+	t=1794639028;
+	b=Oa3mT80o3/lpZr123j3GVvzDQCYcP6Z9IRWaGRP09AgfQp68y82+xHHmtda98AqA+/xT
+	 2W+FrnirtQrBRcyPchebN5rU63bAQbSN/mV6gMgUxa1gxoc252Mlj6/mzf8HasZDePMHt
+	 TtiIKiM2z6q9OGM4/h8H+5Cff5tfCvH31v+MSbPSx7NK9qiNirEmgN7U5rV7zwqFEwbW3
+	 nsDOraRHZg4F0Cm7WulDdruCuyjxlC8M6bjuGaNTQunbPoukSyLVv6H5bV3EeseN6Xu0e
+	 CGOFyAJWD7aB+e4rNiPkA6msSWCKD6myK7vvhs0mp2v/8hF0zOr7FtiAbIff3lG9gvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794638838;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794639028;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=KU2DGHJTqeFJpefLhYFgosKs8k0dlsxDE/9ISFruxTI=;
-	b=LiAtdRrabPCBB18fp8R2ORYah+Ceh6L4xGzoB4Xb5PrtbXsiYHUopmMQm3Yhork/BVfv
-	 Lg5cgsMZNbfbOsMabZtV9X9vBgHc2foeoSS5HU9i/IDxPPz8lyGNe/JUNpfF9DdWITkIF
-	 VMOfHmz5IDekqZRWF5cjVqrv+InWoDKoebZEC1HNThjBT19cKb7HL6KT1a6V/p4PSvt6W
-	 1qbjJXXMaCH3uOPxOCpTL8X8rV/4f3khIzmiDplJiSkqiUVnRzKhQcdlaJY0et5teNd0I
-	 6SepBPa7SJIAXJN1Ny/ND76HMrMtfswWXiTKK+oPTUFM0mN3ITatOOjhlBAQg7y4lxg==
+	bh=DOyBoioYHCWLyh07NlJPkAGqlylR2I/EfAeAVCJpPq4=;
+	b=4I4SrsFTOPpNdFxJ8xTDjUvc1NPDAxZdxwNh0VvepauVbOlTzjjyMVgOCfu+nULtjwYZ
+	 x9KcSCekCdVLpStNbpaZZetKpVPV8KZP7yTf35I7ihPehneCaochmkDAjRIaa+xbJ8czA
+	 B1nr2B3PuSGvRdF8lWg0HKuoDgQmGqXIPg9pU/UJuRiijYUYk3GwAdaX6+RQUPp5t8nxC
+	 8PfWlR5jzTvq5YSexwpoVpa2j5bfqyMAhCh9Kmv3YRyU+5S7wbgKJKz1SxQagOLNdiWKG
+	 ObfZpJMbOSSc1Tn7xJOLis3FezoEKwy1jljW2hfsL975zZiaJp44PiOWut+dXDnDe0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrM8OWYP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvkRqLwI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51010606A330
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:47:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300FE606A323
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 06:50:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nrM8OWYP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6885F1F000C6;
-	Sat, 14 Nov 2026 06:47:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CvkRqLwI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42B3A1F000C4;
+	Sat, 14 Nov 2026 06:50:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794638838;
-	bh=KU2DGHJTqeFJpefLhYFgosKs8k0dlsxDE/9ISFruxTI=;
+	s=k20260515; t=1794639027;
+	bh=DOyBoioYHCWLyh07NlJPkAGqlylR2I/EfAeAVCJpPq4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nrM8OWYPlz0LjXHwRLcn1V/kaMWtGWORVW4N8ayn/GpgyB1IBs3tTBsKH85qe2ZS1
-	 GPLD0ywPr05uokvos223Uogmza3BcU8cZ+lLuAhRHfFhemMfVlDVvOaB7VqDVmzAvg
-	 1twmgmyvDcew2W/kG+cc9GCC5CLpmnOj57smokVWKLaEO0XnOnBH9luIL/h+R/w5Ff
-	 hIptbLoAt5Fr/0ZOvq4n24VEBkjApSujllVKXhvLXnzycWrlYkBiHuV+e2P1TD6hva
-	 Zuo1IjwS6g5kPyN5W0oi04Y3MFkiADpo+d2Iiz+EEu9o/5sHnBdirp2i56WUN+OhM5
-	 /RQv6fVjZ9Nig==
+	b=CvkRqLwIAIksJXhWYreIJNBA8z6sIiGPttKW/K+YgTds0WgjBqE03PNZdO3K8XIR5
+	 9sz8ReKuHarzdt2Q8ISOUZuJTyXeSJZ6qDafcNgknccXBmCL1+c+wQfekEsxXLpsPr
+	 5xZ9POnkUTGtsdn1Q2YoFOE3PgWOxbvJQD0tTJgRqYfwjOCz+pryfw8aHipnlieqsi
+	 pBZFnP5tI0YNirrDX2JIDOHCRk+NzDxDz+wg3Qqrjm6VkZKg0sqkldOZ0JcnHC8vVU
+	 k+oseahcKBJeXnCli0Wr9dzDRieWfJEImiBdXxcdJbx+S3+0jU8aoOzdY6LGNkGlj+
+	 ITB9qayMwF9Tw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Joseph Qi <joseph.qi@linux.alibaba.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Heming Zhao <heming.zhao@suse.com>,
-	Mark Fasheh <mark@fasheh.com>,
-	Joel Becker <jlbec@evilplan.org>,
+Cc: Hou Wenlong <houwenlong93@linux.alibaba.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] ocfs2: do not read the entry array of an empty xattr bucket
-Date: Sat, 14 Nov 2026 01:47:15 -0500
-Message-ID: <20261114064224.3223276-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] KVM: x86: Exit to userspace if emulation prepared a completion callback
+Date: Sat, 14 Nov 2026 01:50:24 -0500
+Message-ID: <20261114065019.3231096-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114064224.3223276-1-sashal@kernel.org>
-References: <20261109201729-failed-6.1-e8de099f2958@kernel.org>
- <20261114064224.3223276-1-sashal@kernel.org>
+In-Reply-To: <20261109202643-failed-5.10-ae85ac25eb67@kernel.org>
+References: <20261109202643-failed-5.10-ae85ac25eb67@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,84 +61,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
+From: Hou Wenlong <houwenlong93@linux.alibaba.com>
 
-[ Upstream commit e8de099f2958c84aa23186c5481e69f7ffd39355 ]
+[ Upstream commit adbfb12d4c4517a8adde23a7fc46538953d56eea ]
 
-ocfs2_check_xattr_bucket_collision() decides whether splitting a bucket
-can make room by comparing the hash being inserted against the first and
-the last entry.  xh_count comes off disk and is never checked, and a
-bucket is allowed to hold no entries: ocfs2_xa_remove_entry() keeps the
-last slot when it removes the only one, so that an empty bucket still
-carries the hash it is keyed by.  xh_count then reads back as 0 while
-xh_entries[0] is still meaningful, and the second comparison indexes
-xh_entries[-1].
+em_rdmsr() and em_wrmsr() return X86EMUL_IO_NEEDED if MSR accesses
+required an exit to userspace. However, x86_emulate_insn() doesn't return
+X86EMUL_*, so x86_emulate_instruction() doesn't directly act on
+X86EMUL_IO_NEEDED; instead, it looks for other signals to differentiate
+between PIO, MMIO, etc. causing RDMSR/WRMSR emulation not to
+exit to userspace now.
 
-That is outside the __counted_by_le(xh_count) bounds of xh_entries[] and
-lands on the header.  An entry is 16 bytes and xe_name_hash is its first
-field, so the value read is xh_count | xh_free_start << 16.  It stays
-inside the block, but the answer is arbitrary, and for an empty bucket
-it says there is no collision, so a new bucket gets added on the
-strength of it.
+Nevertheless, if the userspace_msr_exit_test testcase in selftests
+is changed to test RDMSR/WRMSR with a forced emulation prefix,
+the test passes.  What happens is that first userspace exit
+information is filled but the userspace exit does not happen.
+Because x86_emulate_instruction() returns 1, the guest retries
+the instruction---but this time RIP has already been adjusted
+past the forced emulation prefix, so the guest executes RDMSR/WRMSR
+and the userspace exit finally happens.
 
-An empty bucket holds no entries to collide with.  Return before reading
-the array.
+Since the X86EMUL_IO_NEEDED path has provided a complete_userspace_io
+callback, x86_emulate_instruction() can just return 0 if the
+callback is not NULL. Then RDMSR/WRMSR instruction emulation will
+exit to userspace directly, without the RDMSR/WRMSR vmexit.
 
-One way to reach the test with an empty bucket is a set that removes the
-bucket's only entry during cleanup and then fails for space again, since
-it is that second -ENOSPC which calls this.  Growing a value past
-OCFS2_XATTR_INLINE_SIZE is the easy route: the cluster allocation fails,
-the "!orig_clusters" arm of ocfs2_xa_cleanup_value_truncate() removes
-the entry, and although the "growing" caller does set ctxt->set_abort,
-only ocfs2_xattr_block_set() and __ocfs2_xattr_set_handle() look at it,
-so ocfs2_xattr_set_entry_index_block() goes straight on to the collision
-check.
-
-This sits on commit a9ea8b397864 ("ocfs2: use the stored hash when
-checking xattr bucket collision"), which gave the collision check its two
-argument form and is marked for 6.2 and later.  The read fixed here is
-present in the three argument version too, but a tree without that
-commit needs the hunk adapted by hand.
-
-Link: https://lore.kernel.org/20261024151012.1059683-5-joseph.qi@linux.alibaba.com
-Fixes: 012255961c9e ("ocfs2: Enable xattr set in index btree")
-Signed-off-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: <stable@vger.kernel.org>
+Fixes: 1ae099540e8c7 ("KVM: x86: Allow deflecting unknown MSR accesses to user space")
+Signed-off-by: Hou Wenlong <houwenlong93@linux.alibaba.com>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+Message-Id: <56f9df2ee5c05a81155e2be366c9dc1f7adc8817.1635842679.git.houwenlong93@linux.alibaba.com>
+Stable-dep-of: ae85ac25eb67 ("KVM: x86: Conditionally resched when restarting REP string emulation")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ocfs2/xattr.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ arch/x86/kvm/x86.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-index fca9ed94ca17a..49b1b4e072ce3 100644
---- a/fs/ocfs2/xattr.c
-+++ b/fs/ocfs2/xattr.c
-@@ -5609,11 +5609,20 @@ static int ocfs2_check_xattr_bucket_collision(struct ocfs2_xattr_bucket *bucket,
- 					      u32 name_hash)
- {
- 	struct ocfs2_xattr_header *xh = bucket_xh(bucket);
-+	u16 count = le16_to_cpu(xh->xh_count);
-+
-+	/*
-+	 * An empty bucket keeps the hash of the entry that was removed in
-+	 * xh_entries[0] so that it can still be found, but it holds no
-+	 * entries to collide with.
-+	 */
-+	if (!count)
-+		return 0;
- 
- 	if (name_hash != le32_to_cpu(xh->xh_entries[0].xe_name_hash))
- 		return 0;
- 
--	if (xh->xh_entries[le16_to_cpu(xh->xh_count) - 1].xe_name_hash ==
-+	if (xh->xh_entries[count - 1].xe_name_hash ==
- 	    xh->xh_entries[0].xe_name_hash) {
- 		mlog(ML_ERROR, "Too much hash collision in xattr bucket %llu, "
- 		     "hash = %u\n",
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index 6f5a6fe42d874..d7236e8467316 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -7717,6 +7717,9 @@ int x86_emulate_instruction(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
+ 			writeback = false;
+ 		r = 0;
+ 		vcpu->arch.complete_userspace_io = complete_emulated_mmio;
++	} else if (vcpu->arch.complete_userspace_io) {
++		writeback = false;
++		r = 0;
+ 	} else if (r == EMULATION_RESTART)
+ 		goto restart;
+ 	else
 -- 
 2.53.0
 
