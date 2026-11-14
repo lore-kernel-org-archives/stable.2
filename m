@@ -1,75 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794669807;
-	b=N7NpQb3gB17MdOPtOa9JBY9sLBg1f1Ws9oEsXqSZObFpgdlgls5ctbG++dwTiA2/SZF3
-	 NF4RPiTmxWNE13vHFRu1JMqXzcpWTVh0R4RzlosVfJgx4BsOUh1IAhJVsNyo++U81DpaG
-	 X/smzajIrVbRKEJQ1aMiho5ykOQhG5a1ENrTx1y0G3gavZqqOrAu3E1VbeFqF5KVgQ8Z1
-	 cOlt1eRp/8yjCFSCKaV0m+jWNeYEe3gnMLZH+kZndxp08hMWrlOVw2FK0EBJSU7azfa9A
-	 BqtT/WCU3ljVuBxcAKAGepq/Ux6VbLLzU6ss54Ro5gLWYyGLDrst9NOov2K89p65uaA==
+	t=1794669854;
+	b=zNa+zt6ibF0mzUvaZyM/fCDf71laBkChaRRRRca9k3D3scQJpeQcd65CPca8J5g8sb4k
+	 PEjbeDwrVh8AvIvhgDPWK/9+iaVvuDSi65yt2NBqpu/qDTDTeWvvLQMqlQY9Dw4bvd1te
+	 yaY9+wo0saRaA44VG9viFGd4ZmNcHVuxKYU58ZJGzycoiNg8hmTBXbiyVI+cUjh5KxXDA
+	 kbUZdIKvlysQ684QpbfSccmZR433RSDdeiRC1+yafdh2O4JhmN910y69PC1l6/1DzaSFE
+	 xt2xOrgG9y+UK0Gp7sT3Xg810qKoO6oOQ/ELUrDrkKg5KjO4S+ScFvQ49dZrkpInSHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794669807;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=3JMhWfUcU7fxNCU/ri2y5UyMUFxhaJHLZo8Ai7ubS5A=;
-	b=WLZFikepj5La6Jmf4rge4jNAFGhiQer5VBIjhZ84kEMTu3f2I0FiFHLAxL8xz2DDfdFv
-	 nW09FkeZHdhVtizZRIhnGqyP27zQ5rqZC7EfQzffNDch5lQyNIkvx8pjmh2SrRYbpez3T
-	 PaCrPtafpe1oESE6CPzK7/Mxt7M9+Ce7moCqi1I6LO50505i17F6tQ6a+GAjiQhuiLVkl
-	 X2+0lYLKZt443uBonYojwBG+B9681wcJskijWZqwmlxf3xerexks3y7O247XEwn97UpwY
-	 tuKgKeNNGH6WqInRNyohz4C1VMeOFoFd8z1Iu5AQmS4UERuKNUr+Wlq+An2WfC2jmVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794669854;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=CoXnC1tPBI1LFwh7h6dEj9gOVxNtcdjV3JxT2bwo9Aw=;
+	b=ql0EH3v78tUR9hdi6w+dZj6tWQWPQDyN6aYGTbpUFtu80eObm3XuW4SZSV8NU6LAjCFE
+	 6epmozY7gS55X2ManbqOddzvbJh7/+9MHPCro/OWQ1fNdFpZsUjFAdFkFNptwUvm0Vme6
+	 tWszCymKYhmFdEWymdazu41QO0LH6CllG1wgHmse3xoeN2lm28G58k3qDSQqZ7e550WGj
+	 vHUoi9lTkaUGpMv9nIV7OkQ+IhCIOI7Acq0M3c+5rdC6cBm5uUpC+b3ihOS2cU4VMalAU
+	 fyQcoLSJfJtnoVan0/08hE7z3ZC5RPjKpDDGW/In5G41q2sgeGl9uLxKIRxqKxQKodQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZFJUXHnJ;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uso5uN82;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10813606A332;
-	Sat, 14 Nov 2026 15:23:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 10813606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE048606A327
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 15:24:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZFJUXHnJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794669806; x=1826205806;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=kZGVpg2F7/HHNo/fRGXO4LMnPCizNrXdzI6fin2ZWoc=;
-  b=ZFJUXHnJ+ovNMLXwKFIXiLmXbcBnIfj1DwS9k30EgsmWsuyAmQVFBkvs
-   Sjw9qnevB9BwmQMtlY2Fd30bFrfcXmaEfDBjfFzBzpZBYeXRGvFUEj7lM
-   qPqMV0taozMeo8eVupJzjm9z4NwGrBDtVBxuyWgbWL6fyuxiS1ZoQHDHf
-   XoE5joiPH2EVyE+3/tPMD4QVziZAkQkYOrTQF2n90NzZioovI07OZE+AJ
-   DGzcoOcCemd2QAUyGa04RqbRU0moJGsNffV58zoxCE3KHjEZy6WL88r8l
-   fIeKYdx3JwwP3m/kTwi3qMOQaMb6OFdYvLEWpYlZx7UAwdWKO8abQvLc0
-   Q==;
-X-CSE-ConnectionGUID: gcvubHj9RHuOZkhvrxU56A==
-X-CSE-MsgGUID: PSD0OrMvTVSkJmNGkn/jKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11966"; a="3365436"
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="3365436"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Nov 2026 07:23:25 -0800
-X-CSE-ConnectionGUID: RUehccmiT2+4igswWMrX0g==
-X-CSE-MsgGUID: etcpffj8QLSD5YY8McYSaw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,213,1787036400"; 
-   d="scan'208";a="11066525"
-Received: from yilunxu-optiplex-7050.sh.intel.com (HELO localhost) ([10.239.47.46])
-  by fmviesa013.fm.intel.com with ESMTP; 14 Nov 2026 07:23:23 -0800
-Date: Sat, 14 Nov 2026 23:14:58 +0800
-From: Xu Yilun <yilun.xu@linux.intel.com>
-To: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
-Cc: mdf@kernel.org, yilun.xu@intel.com, trix@redhat.com,
-	linux-fpga@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] fpga: altera-hps2fpga: Fix reset control leak
-Message-ID: <avh68lVmIG6MwMby@yilunxu-OptiPlex-7050>
-References: <20261107150747.1152-1-laixiangwu@cmss.chinamobile.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Uso5uN82
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5FB91F000C5;
+	Sat, 14 Nov 2026 15:24:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794669854;
+	bh=CoXnC1tPBI1LFwh7h6dEj9gOVxNtcdjV3JxT2bwo9Aw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Uso5uN82u11bM2efZ1Jy0fG+XKRlyteXUpnMew8lZL/xfg8YmZCMWipZ/IrsMFtvU
+	 JbvpBTvsQQ6aKg+sFE/4ayn3HzEPHAPswBUFzfSij/+u3kqeg2McL+nrWEpsDhDOlR
+	 vnlwpHVbjzxz51FRf6Oun+4HWOYbgIRlhH4cUKzFXlVMRFKsurnkF0rNmZbadlUw9S
+	 zrGCGiUN+abXTTeaJHk7NcV8ooQGDmw2wxUvTj+HrfVdu2PT9oSMQWD90JZHVEWsQl
+	 zVcwt4WtP+eUzu0B5bDjhtw7MwXIiMU8SOj0Ua4pazJBJxdjowZjz6RBApotPdVUHB
+	 4/oSolKh7d/Kg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Chris Mason <mason@kernel.org>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] mm/shmem: make shmem_file() check the file's inode
+Date: Sat, 14 Nov 2026 10:24:12 -0500
+Message-ID: <20261114152354.3620753-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202102-failed-5.15-d3710111839d@kernel.org>
+References: <20261109202102-failed-5.15-d3710111839d@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,62 +61,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107150747.1152-1-laixiangwu@cmss.chinamobile.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Nov 07, 2026 at 11:07:47PM +0800, Xiangwu Lai wrote:
-> From: laixiangwu <laixiangwu@cmss.chinamobile.com>
-> 
-> alt_fpga_bridge_probe() acquires the bridge reset control with
-> of_reset_control_get_exclusive_by_index(), which is not
-> device-managed. None of the probe error paths release it, and
-> alt_fpga_bridge_remove() does not call reset_control_put() either,
-> so the reset control reference leaks both on a failed probe and on
-> every bind/unbind cycle.
-> 
-> Since the leaked exclusive reset remains acquired, rebinding the
-> driver afterwards also fails with -EBUSY.
-> 
-> Use devm_reset_control_get_exclusive_by_index() so the reset control
-> is released automatically when the driver is unbound or the probe
-> fails.
-> 
-> Fixes: e5f8efa5c8bf ("ARM: socfpga: fpga bridge driver support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xiangwu Lai <laixiangwu@cmss.chinamobile.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
 
-Reviewed-by: Xu Yilun <yilun.xu@intel.com>
+[ Upstream commit d3710111839d11339e414b1bb3fea3d05ab83f6e ]
 
-Applied to for-next, thanks
+shmem_file() only checks if file->f_mapping is a shmem mapping. This
+mapping can belong to another file, however, as with a Coda file backed
+by a tmpfs container after mmap().
 
-> ---
-> Changes in v2:
-> - Drop the enumeration of probe error path examples from the commit
->   message, as suggested by Xu Yilun.
-> - Add Cc: stable@vger.kernel.org for backporting.
-> 
-> Link: https://lore.kernel.org/r/20261103014240.1194-1-laixiangwu@cmss.chinamobile.com
->  drivers/fpga/altera-hps2fpga.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/drivers/fpga/altera-hps2fpga.c b/drivers/fpga/altera-hps2fpga.c
-> index f2f125068..6d9798bb9 100644
-> --- a/drivers/fpga/altera-hps2fpga.c
-> +++ b/drivers/fpga/altera-hps2fpga.c
-> @@ -134,8 +134,7 @@ static int alt_fpga_bridge_probe(struct platform_device *pdev)
->  
->  	priv = (struct altera_hps2fpga_data *)device_get_match_data(dev);
->  
-> -	priv->bridge_reset = of_reset_control_get_exclusive_by_index(dev->of_node,
-> -								     0);
-> +	priv->bridge_reset = devm_reset_control_get_exclusive_by_index(dev, 0);
->  	if (IS_ERR(priv->bridge_reset)) {
->  		dev_err(dev, "Could not get %s reset control\n", priv->name);
->  		return PTR_ERR(priv->bridge_reset);
-> -- 
-> 2.50.1.windows.1
-> 
-> 
-> 
-> 
+So it does not guarantee that the file inode is an actual shmem inode.
+
+Seal handling and memfd preservation use this check before accessing
+shmem inode state, so they can access an inode of the wrong type.
+
+Let's make shmem_file() check the inode's file operations instead, to
+identify shmem inodes reliably. This will identify regular shmem inodes,
+including memfds and ordinary tmpfs files, independently of wrapper file
+operations.
+
+Use shmem_mapping() in collapse_file() instead to not change the behavior
+of collapse_file(): it operates on the page cache and uses mapping->host
+for shmem inode operations. Focusing on the file does not seem relevant.
+
+Fixes: c49fcfcda8b5 ("mm/shmem: update file sealing comments and file checking")
+Fixes: b3749f174d68 ("mm: memfd_luo: allow preserving memfd")
+Cc: stable@vger.kernel.org
+Reported-by: Chris Mason <mason@kernel.org>
+Suggested-by: Pratyush Yadav <pratyush@kernel.org>
+Reviewed-by: Pratyush Yadav (Google) <pratyush@kernel.org>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-3-d6437171ecc3@kernel.org
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: Adjusted context to retain the existing inline shmem_mapping() helper. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/linux/shmem_fs.h | 15 ++++++---------
+ mm/khugepaged.c          |  2 +-
+ mm/shmem.c               |  5 +++++
+ 3 files changed, 12 insertions(+), 10 deletions(-)
+
+diff --git a/include/linux/shmem_fs.h b/include/linux/shmem_fs.h
+index 166158b6e917a..d6aeccd1d22a0 100644
+--- a/include/linux/shmem_fs.h
++++ b/include/linux/shmem_fs.h
+@@ -68,12 +68,18 @@ extern unsigned long shmem_get_unmapped_area(struct file *, unsigned long addr,
+ 		unsigned long len, unsigned long pgoff, unsigned long flags);
+ extern int shmem_lock(struct file *file, int lock, struct ucounts *ucounts);
+ #ifdef CONFIG_SHMEM
++bool shmem_file(struct file *file);
+ extern const struct address_space_operations shmem_aops;
+ static inline bool shmem_mapping(struct address_space *mapping)
+ {
+ 	return mapping->a_ops == &shmem_aops;
+ }
+ #else
++static inline bool shmem_file(struct file *file)
++{
++	return false;
++}
++
+ static inline bool shmem_mapping(struct address_space *mapping)
+ {
+ 	return false;
+@@ -115,15 +121,6 @@ static inline struct page *shmem_read_mapping_page(
+ 					mapping_gfp_mask(mapping));
+ }
+ 
+-static inline bool shmem_file(struct file *file)
+-{
+-	if (!IS_ENABLED(CONFIG_SHMEM))
+-		return false;
+-	if (!file || !file->f_mapping)
+-		return false;
+-	return shmem_mapping(file->f_mapping);
+-}
+-
+ /*
+  * If fallocate(FALLOC_FL_KEEP_SIZE) has been used, there may be pages
+  * beyond i_size's notion of EOF, which fallocate has committed to reserving:
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index a7a8e6bc70b01..bd909aa4b8fee 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1694,13 +1694,13 @@ static void collapse_file(struct mm_struct *mm,
+ 		struct page **hpage, int node)
+ {
+ 	struct address_space *mapping = file->f_mapping;
++	const bool is_shmem = shmem_mapping(mapping);
+ 	gfp_t gfp;
+ 	struct page *new_page;
+ 	pgoff_t index, end = start + HPAGE_PMD_NR;
+ 	LIST_HEAD(pagelist);
+ 	XA_STATE_ORDER(xas, &mapping->i_pages, start, HPAGE_PMD_ORDER);
+ 	int nr_none = 0, result = SCAN_SUCCEED;
+-	bool is_shmem = shmem_file(file);
+ 	int nr;
+ 
+ 	VM_BUG_ON(!IS_ENABLED(CONFIG_READ_ONLY_THP_FOR_FS) && !is_shmem);
+diff --git a/mm/shmem.c b/mm/shmem.c
+index cc5b08d9802cf..1ad2d64d18470 100644
+--- a/mm/shmem.c
++++ b/mm/shmem.c
+@@ -250,6 +250,11 @@ static const struct inode_operations shmem_special_inode_operations;
+ static const struct vm_operations_struct shmem_vm_ops;
+ static struct file_system_type shmem_fs_type;
+ 
++bool shmem_file(struct file *file)
++{
++	return file && file_inode(file)->i_fop == &shmem_file_operations;
++}
++
+ bool vma_is_shmem(struct vm_area_struct *vma)
+ {
+ 	return vma->vm_ops == &shmem_vm_ops;
+-- 
+2.53.0
+
