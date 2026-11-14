@@ -1,61 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.128.211.58
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794642293;
-	b=LuSn9zpdsnR8XRiF7SxcCzZd1nQdVT3MPOubHzU9D1hCODdTkBNdStWfV9blaw7Lx/3/
-	 N7nDe0XMK+YkXEM7dYAlov4X3CpHTc+Bl5Fn7wDvV9jpZ9Jh+lLFLETxTwWTdGFJuIXd7
-	 sjqUU5UWlYeTNc3zG59A8f9Vd3u32jLCOlpUQoI5Yz7YBGyjChLK9OS1ik4QuJNLrw3R5
-	 XsDkYWPUJ+Er/uyc1Oaodb7oM3MJHdJ3qOp4a1NtcsP78YcjbTW59ooUCLFk0oqB4MWKp
-	 hCz5/Csz+heXEBmRamkrR54my1FDrTMNK5Z1lHiQCRt4ugqN18bIhP3av266EYuz8wA==
+	t=1794643228;
+	b=z5J3LEwohWO/siLoTx7jrRBjhfYY1Zu2T3KMR3UGARwbu9mldqmmBrxUHN0KdYZ+aQhg
+	 UNS9BGsRbsZOTAsFlsyBl7ZDM74TW931ZNMQ2d+mL6JZmvKCRKMEETNVpw7KOGFt/IDAI
+	 uC8wgLkqps0g2dbOd7F3bjpZIrlt3Q3pHcXk2Au4bXmWda+hkrhJf7LWTf3Jb9b/jhr26
+	 YpcjB/FwBL4lfZR9zKPThwZq6+HlJa0QzTst4P9YjgLcZ9i94SQ+QSklr6ufmj2/mYjde
+	 JZOfWudKYlbPEeR9zSPpG2kXKYovBCGDLsAX6i6WeEXKQkeD+jd/9NZ0BOTOINhMx1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794642293;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=e3A7gGjqJdGZgTWJM2XoL79jlQpwRLz/9JBwDnVXF7A=;
-	b=4BxvjE2o/Rkj68cpyqHE6MgSh8P8eNB+h75EReE6crsQfEE5B8JRpFhjU6BfZJb3QZkM
-	 meITtcOx2g8bqwi7BNk4OknUbD6twlksznrzhIkVJhhR1NBZdEm7fWGqp4H+xSwvfLQc5
-	 bDqN+hZnoFQhW2YMTfFB6F2LhlDTihNhanhph2zFAJ/buvlET6eos6jGyFWogUKXOv4HQ
-	 cxN+pL+zNZ5MX0g4ols8cIJjKcKjZ5nVp8FELWLBC5d2NxVrdRlrtWCnDeInWwkfuZ0PU
-	 XXskAg9YkbY/wa/FiBzMV/wdUAcqF7QlWkWRmXvFxFWz9V0GkSM5By5zvXoNmRGztPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794643228;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JP4jgX34T6MQcf8dxCFAQwBrwZa4mGZ/Xx+Lud2Vfy4=;
+	b=ubmY0nWP9gV6EePTsuqEAFJVR4kFacv+itNIsVBB3JqRiTJlLF8PKMR1Xhhc6nkXUw8K
+	 E2y9cYuTzBuvjrhrv/9sY1voISbyeQgSEkcC44VnKrXF0YqRksWc5SGviYHz3jqggV9Pb
+	 6SH2hPxwT2P+LWjKaBSQeLxeZ5LOjBcSmmx2VCXpXT9qV5jSlfuAgX3Z9O0nIZOv+yeD+
+	 O6GnDejaBo6Y3iFJIxZ/vgOYB+Cz3D8UyDjgVsxdhDunnn/8QRPHH0j7rAc/WzMmowuBR
+	 SfWg0aNtOKR+OGJI1ShHSPR081tVkkhm5m4YHiK27hCRRBQEKV3rao79HXrEFQfsY+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MEmKY0Ln;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=librecast.net;
+	spf=pass smtp.mailfrom=librecast.net;
+	dkim=pass header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=m3q0ASoK;
+	arc=none smtp.remote-ip=185.128.211.58
+Received: from bregans-1.gladserv.net (bregans-1.gladserv.net [185.128.211.58])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC111606A32E
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 07:44:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18EFF606A32D;
+	Sat, 14 Nov 2026 08:00:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18EFF606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MEmKY0Ln
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2900B1F000C4;
-	Sat, 14 Nov 2026 07:44:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794642293;
-	bh=e3A7gGjqJdGZgTWJM2XoL79jlQpwRLz/9JBwDnVXF7A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MEmKY0LnOFOuY+H2JdoNzEh00N/8GFtK5GotRrPUzkKSBiSwQhyOSWsnnYC8kxgjb
-	 fD044v5t2+cXoRa18ikeu5BHKZIxe3HaHh30i1uglB849UhX6rzzI+/ZyROT8e8NF2
-	 bJjzzNsLlChVIsDmoK+YIa7DGOuk35slxk69jjzHQV+KYrCu9nqocnH3URz/uiwma1
-	 PzMXo3ZMqLoCVM1tGh6W/hao2rAGHKWPtM2K/ioDwmHP0LkVidYMzvzYEZ4Fv3huMu
-	 7MjowSERvXAR1SWvsKgXK3oTnDAyZ9Hkw1sAd+jLaEK8JtkZhQOhSXg3IyH2dzSn0y
-	 VabA4aA5t0nPA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jinjie Ruan <ruanjinjie@huawei.com>,
-	Will Deacon <will@kernel.org>,
-	Thomas Huth <thuth@redhat.com>,
-	Breno Leitao <leitao@debian.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	Baoquan He <bhe@redhat.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] arm64: kexec_file: Fix elf_headers memory leak in retry loop
-Date: Sat, 14 Nov 2026 02:44:50 -0500
-Message-ID: <20261114074433.3235650-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202921-failed-5.10-ac302aea3d82@kernel.org>
-References: <20261109202921-failed-5.10-ac302aea3d82@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=librecast.net header.i=@librecast.net header.a=rsa-sha256 header.s=2026110900 header.b=m3q0ASoK
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=librecast.net; s=2026110900; h=Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:
+	Content-Type:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=JP4jgX34T6MQcf8dxCFAQwBrwZa4mGZ/Xx+Lud2Vfy4=; t=1794643225; x=1795507225; 
+	b=m3q0ASoKyQ4U60wnuobqOZU+EoYgoABk7I4ihF8eYydUHc9Vh/3Ojm7+3vOlpze/P/xFp3AED/J
+	y4yYcxzw/hwQLwnN/JCmsF5+i/MePeuSZzaeuCHPH9mX3+NKF6JUdT5ZrzFZYyBQT5EBhdC8X4rzZ
+	alcN3nSbdzSOZy2TFPKksYrBAoYiDsQlXJyGsdihPLetoXUpyWCuNnM1lB1zTuRSgTaKjYJ53IDMv
+	e14lzaNBZf15ToqKgHVOGJ83xtTcPpI7Ald0UOQNBWj4lcUO6L0hmEFjZUE2vTv3/qgad+ISiUemz
+	Ga/L90YBf9CBHE7WxWQZFUPyAe8UnnPPZT3w==;
+From: Brett A C Sheffield <bacs@librecast.net>
+To: gregkh@linuxfoundation.org
+Cc: stable@vger.kernel.org,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	Brett A C Sheffield <bacs@librecast.net>
+Subject: Re: [PATCH 6.18 000/686] 6.18.64-rc1 review
+Date: Sat, 14 Nov 2026 07:51:35 +0000
+Message-ID: <20261114075136.50674-1-bacs@librecast.net>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
+References: <20261113153820.902362109@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,46 +84,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jinjie Ruan <ruanjinjie@huawei.com>
+# Librecast Test Results
 
-[ Upstream commit ac302aea3d824ccc99f29b8e499c365cb9a684a9 ]
+044/044 [ OK ] liblcrq
+010/010 [ OK ] libmld
+120/120 [ OK ] liblibrecast
 
-A retry allocates new elf headers and overwrites image->elf_headers,
-leaking the previous buffer.
+CPU/kernel: Linux auntie 6.18.64-rc1-g910b5c0af479 #1 SMP PREEMPT_DYNAMIC Sat Nov 14 07:25:26 -00 2026 x86_64 AMD Ryzen 9 9950X 16-Core Processor AuthenticAMD GNU/Linux
 
-Free it before assigning.
-
-Cc: Will Deacon <will@kernel.org>
-Cc: Thomas Huth <thuth@redhat.com>
-Cc: Breno Leitao <leitao@debian.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Yeoreum Yun <yeoreum.yun@arm.com>
-Cc: Baoquan He <bhe@redhat.com>
-Cc: stable@vger.kernel.org
-Fixes: 108aa503657e ("arm64: kexec_file: try more regions if loading segments fails")
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-[catalin.marinas@arm.com: drop the redundant NULL check before vfree()]
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-[ sashal: Changed the vfree() argument from image->elf_headers to image->arch.elf_headers. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/arm64/kernel/machine_kexec_file.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-index 0cde47a63bebf..1226d665a5872 100644
---- a/arch/arm64/kernel/machine_kexec_file.c
-+++ b/arch/arm64/kernel/machine_kexec_file.c
-@@ -284,6 +284,8 @@ int load_other_segments(struct kimage *image,
- 			vfree(headers);
- 			goto out_err;
- 		}
-+
-+		vfree(image->arch.elf_headers);
- 		image->arch.elf_headers = headers;
- 		image->arch.elf_headers_mem = kbuf.mem;
- 		image->arch.elf_headers_sz = headers_sz;
--- 
-2.53.0
-
+Tested-by: Brett A C Sheffield <bacs@librecast.net>
