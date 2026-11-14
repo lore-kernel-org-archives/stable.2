@@ -1,56 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794672452;
-	b=z58tGJmUwBRj/5oDkFlEKkZP85lOtiXDYJuvSd3zvdJrQDzyA2GuyH6/roMp7kXz/ry1
-	 tMphNW3RjnSk6p9DF5ATE1OweW3Bm4b9eGrA+e2/TpQR58MyexvvMB6pN+AGY+PpcZTWx
-	 8Tgf2O2oz5HNF0qXxsekKHUZnv7L1g/cTZIRABf6Rq4vYwqm5z5svzAFaz3gF2BrB9WAn
-	 LK2i8I8xRlBp2CzgbA6Ad3Sp6gH/8oSKQk2RrIlWV/f7UxzLmgjS2nxIM3qWFXO3K8OXM
-	 R0RsRlMnu9+tzFQ2zNtympBLqS2eYWduzhHYhjAq6qBbO2Ye4i4ETvasZYjzo4Jl2hw==
+	t=1794672513;
+	b=XcagKB49UeJQCLHpHEjv321aoxZAmcJjBhY/pFDQqpYwtEbVSxd4wJFJcMSYxQkWYeXn
+	 HHQMO+RRSqNNUOsvq/PrYeurm0azbnl74n6ftgRHVJVAd5fURohK8aBD6C0Vkk/tx5F/3
+	 hi2cRpV5mKAS9GeWntSTUgN8Y94Wv6/fwT3S5ZBCrG/N2vWbATW7wUN7Nt5mdVg+P3x8E
+	 eZ8YzlY341x9F2Mmr+oM99HwplBUoFAcxQzvfF/knCMGkxfCrm7p4Uen/SRp7TEJKs+Yj
+	 2LnomCEbepbotpYfaWpXeJu3DiPXvWa2zyFcXB5W4DH2qeELWuPNPlDT+3HNFitlxPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794672452;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794672513;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=J5eOfzQmafq77zZV0B+BOpxLyvPTWUCJaTlDrefVNro=;
-	b=vpmB5YCTOmF+HnhZLLUrxSiJLYQoTmwg0ggKKJNcxjwjIOsB+aKIiZ5j9MyeHCEmB+Bg
-	 PAVrWTb3VhWMCaE+O9xr2E8ObdcwNx6Pudp1/tTIrlwNrRCFw7sbwSNksveCzvrBPPTbV
-	 WxIjz1Uk7wPCr3DzEQ4I5pzHMTLZFHt6f+Fk+Tz0vjC+n5zMdveVZYqmzK8KkvLtTuo3Q
-	 g5aGX7omP15Jfoi/cdoypGp1CPOjY1MSUcFsxuKqHog7zP0ociZKeIJQ1P73vKzvUNvYN
-	 Fsy7tt09OM9vnktsjJmjQ+mJtFHmb1cHJfKOKNOXICTcRioe7i32rtAeJ9xf/DgB2Ww==
+	bh=Ttk5Cg9W27d16Bd72OIb0nsDSU6C0TJQeWcWsj1YW7Y=;
+	b=vNqUf74FdmBvowPiIkLLqMw4mRrx8kxKsHzlbe7qk63lSApPPfQOIscQL7Sq4O7s1Lq2
+	 BmLWKRPR/JDsnHPBKay0T5a4zWbA2LK7hXmsWEyzFHBiX48LD+MZVLScaJSe9UXztMzTD
+	 zjkSDlYax+Gq1Y/vt9TYV4dQzBprge21sjwf2C8zYF6qwJwvSrIpnb8HqvrgTp0iPzydI
+	 4QQvkT8ntZAzLEfGJxYegzPDKvNvz0bf1GVVAVbXHRLwiUbLD/hM7ZxAjAuXPkRlrNevm
+	 EdY9DmUg6pG3zclV1mByiO7BqAOt0KPf3D7QAEy8ib6doBc2d0mLY3IRNRyhTKu7gtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="E+D/ohyn";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SDty6xOL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A6D606A32D
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:07:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22E00606A881
+	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 16:08:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E+D/ohyn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEFFC1F000C5;
-	Sat, 14 Nov 2026 16:07:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SDty6xOL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54BE71F000C5;
+	Sat, 14 Nov 2026 16:08:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794672452;
-	bh=J5eOfzQmafq77zZV0B+BOpxLyvPTWUCJaTlDrefVNro=;
+	s=k20260515; t=1794672512;
+	bh=Ttk5Cg9W27d16Bd72OIb0nsDSU6C0TJQeWcWsj1YW7Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E+D/ohynis+/yrW4hsAWphi4ZDjPVKja3JoF0L+RbEaqfFh5qG/n8LC/B6L1k52Hk
-	 JX77DD4cxpPKcPMKCWZ6XN2YWWmDG/HCexDwFMNFr30BsIxj8nOnuvE6SXxifomQSr
-	 TomCwVMv4N+2mfo2ylPU2KcE/AZHx39ubhFnNyrbX6X/dpknRBxsttEDy3UpZDd0Zn
-	 ctw94ru9yfDhkRjlZD9Dlc2/6QZz3UN96vTJOiB2uWeeJgsIlzw+KgejhXdZSPmN1h
-	 c9XUiDKx2LNN7DRFy36en5hk/KQTgWNkAFyoht5UYmjDY0eof22X9ibXR/slmiz1L2
-	 WIggdx/8dUj4g==
+	b=SDty6xOLSFrPTh6ta/S4OI7RlyDfgzDNYzwccLJtQIhEQGemUhzp0jRbhJPWyr3Gi
+	 pmZSw02/++Zbp6DRYXDnFXfUdAjQaSMEWR8V1eLi9neBkp0oX2xPnFqxrXpdntHF89
+	 S9i0x79lLVg8ogEYqyOY7vMLQc+khRMISFXSh/sadKwGdSdvBe+974vYU91+spa+7f
+	 eVktw4zkm7zGbHbUy608PzS4K6TQOuZt4zif3siPr7a0ip4LScpxFdoposoDtEQu9/
+	 UUtQVY+KS3lAZbnYjf2dcvFGoZQk9gotGvjM4CP1cLbehSFxEUwqDBHn2yt4T7b6U3
+	 B7KOcyyM3qrkg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
+Cc: Amir Goldstein <amir73il@gmail.com>,
+	Edvard Conrad <edvard@tuta.io>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] xfrm: retry inexact policy lookup after node reinsertion
-Date: Sat, 14 Nov 2026 11:07:29 -0500
-Message-ID: <20261114160719.3922066-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y] ovl: inherit FMODE_NONOTIFY when reading directory layers
+Date: Sat, 14 Nov 2026 11:08:30 -0500
+Message-ID: <20261114160728.3931675-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261114160719.3922066-1-sashal@kernel.org>
-References: <20261109202003-failed-5.15-868f63c8bfaf@kernel.org>
- <20261114160719.3922066-1-sashal@kernel.org>
+In-Reply-To: <20261109200931-failed-6.12-9ff338af0e00@kernel.org>
+References: <20261109200931-failed-6.12-9ff338af0e00@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,85 +61,177 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
 
-[ Upstream commit 868f63c8bfafa9b827168c9126f85264c39c02ec ]
+[ Upstream commit 9ff338af0e002fe217cfa16b1289b76f6b21fc72 ]
 
-An inexact policy lookup first records pointers to candidate hlist heads
-and then traverses the lists.  A concurrent policy insertion can merge
-inexact tree nodes between those operations:
+Listing a merged or impure overlay directory opens the real layer
+directories from ovl_dir_read(), when the readdir cache is filled.
+Those opens use plain ovl_path_open(), so when the directory fd is
+one that fanotify created for a permission event, they can still raise
+FS_OPEN_PERM.  A listener that also marks the backing filesystem and
+calls getdents() on the event fd before answering then deadlocks the
+same way as with the directory open fixed by the previous commit.
 
-  lookup                         policy insertion
-  ------                         ----------------
-  find inexact candidates
-    save obsolete hlist head
-                                 write_seqcount_begin(&bin->count)
-                                 merge inexact tree nodes
-                                   hlist_del_rcu(&policy->bydst)
-                                   reinsert policy->bydst in survivor
-                                 write_seqcount_end(&bin->count)
-  evaluate saved candidate list
-    miss the moved policy
+Store the overlay user file in struct ovl_readdir_data and pass it to
+ovl_path_open_realfile() from ovl_dir_read(), for both the merged and
+the impure cache.  Internal readers such as ovl_check_empty_dir() and
+the mount-time workdir cleanup still pass no user file.
 
-The merge immediately reinserts the same hlist node into the surviving
-tree node.  RCU keeps the policy alive, but it does not provide a
-consistent view while its list node is moved.  A lookup that selected the
-obsolete list can observe it empty.  A lookup already traversing a moved
-policy can instead follow the next pointer rewritten by the reinsertion.
-Either case can return an incorrect IPsec policy result.
+A note about severity and real world impact: The FAN_OPEN_PERM event is
+traditionally used by anti-malware protection agents and security/audit
+agents. The scope that is often used in those use cases is FAN_MARK_MOUNT
+and agents typically monitor multiple mounts in a mount namespace.
+FAN_OPEN_PERM from directory open requires user opt-in with FAN_ONDIR.
+It is often not the case that anti-malware agents monitor open of
+directories. Security/audit engines are more likely to opt-into
+FAN_OPEN_PERM on directories, but are less likely to list the content
+of a directory within the scope of FAN_OPEN_PERM event, so the real
+world impact of this bug is likely not significant.
 
-The per-bin sequence counter already brackets calls to
-xfrm_policy_inexact_insert_node(), including node merges.  The read side,
-however, currently validates the counter only while searching an
-individual rb-tree.  A successful search returns without validation, and
-the later candidate-list traversal is outside that read-side section.
-
-Snapshot the per-bin sequence before discovering candidate heads and
-validate it after evaluating all candidate lists.   Retry the lookup if
-the inexact policy tree changes while it is being searched.
-
-Fixes: 9cf545ebd591 ("xfrm: policy: store inexact policies in a tree ordered by destination address")
+Reported-by: Edvard Conrad <edvard@tuta.io>
+Closes: https://lore.kernel.org/all/P5Qu3co--N-9@tuta.io/
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
+Tested-by: Edvard Conrad <edvard@tuta.io>
+Link: https://lore.kernel.org/ltp/P5WKBbq--F-9@tuta.io/
+Co-developed-by: Edvard Conrad <edvard@tuta.io>
+Signed-off-by: Edvard Conrad <edvard@tuta.io>
+Signed-off-by: Amir Goldstein <amir73il@gmail.com>
+[ sashal: replaced ovl_path_open_realfile() with ovl_path_open() using a conditional __FMODE_NONOTIFY flag ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/xfrm/xfrm_policy.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ fs/overlayfs/readdir.c | 31 ++++++++++++++++++++-----------
+ 1 file changed, 20 insertions(+), 11 deletions(-)
 
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index 9e18e8d2c1c5c..c48315afead13 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -2102,6 +2102,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 	struct xfrm_pol_inexact_bin *bin;
- 	struct xfrm_policy *pol, *ret;
- 	struct hlist_head *chain;
-+	unsigned int inexact_sequence;
- 	unsigned int sequence;
+diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
+index 843c3d5168f4e..d102819622109 100644
+--- a/fs/overlayfs/readdir.c
++++ b/fs/overlayfs/readdir.c
+@@ -38,6 +38,7 @@ struct ovl_dir_cache {
+ 
+ struct ovl_readdir_data {
+ 	struct dir_context ctx;
++	const struct file *user_file;
+ 	struct dentry *dentry;
+ 	bool is_lowest;
+ 	struct rb_root *root;
+@@ -299,9 +300,13 @@ static inline int ovl_dir_read(const struct path *realpath,
+ 			       struct ovl_readdir_data *rdd)
+ {
+ 	struct file *realfile;
++	int flags = O_RDONLY | O_LARGEFILE;
  	int err;
  
-@@ -2133,12 +2134,18 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 		}
- 	}
- 	bin = xfrm_policy_inexact_lookup_rcu(net, type, family, dir, if_id);
--	if (!bin || !xfrm_policy_find_inexact_candidates(&cand, bin, saddr,
--							 daddr))
-+	if (!bin)
-+		goto skip_inexact;
+-	realfile = ovl_path_open(realpath, O_RDONLY | O_LARGEFILE);
++	if (rdd->user_file && FMODE_FSNOTIFY_NONE(rdd->user_file->f_mode))
++		flags |= __FMODE_NONOTIFY;
 +
-+	inexact_sequence = read_seqcount_begin(&bin->count);
-+	if (!xfrm_policy_find_inexact_candidates(&cand, bin, saddr, daddr))
- 		goto skip_inexact;
++	realfile = ovl_path_open(realpath, flags);
+ 	if (IS_ERR(realfile))
+ 		return PTR_ERR(realfile);
  
- 	pol = xfrm_policy_eval_candidates(&cand, ret, fl, type,
- 					  family, if_id);
-+	if (read_seqcount_retry(&bin->count, inexact_sequence))
-+		goto retry;
-+
- 	if (pol) {
- 		ret = pol;
- 		if (IS_ERR(pol))
+@@ -345,12 +350,13 @@ static void ovl_dir_reset(struct file *file)
+ }
+ 
+ static int ovl_dir_read_merged(struct dentry *dentry, struct list_head *list,
+-	struct rb_root *root)
++	struct rb_root *root, const struct file *user_file)
+ {
+ 	int err;
+ 	struct path realpath;
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_merge,
++		.user_file = user_file,
+ 		.dentry = dentry,
+ 		.list = list,
+ 		.root = root,
+@@ -397,9 +403,10 @@ static void ovl_seek_cursor(struct ovl_dir_file *od, loff_t pos)
+ 	od->cursor = p;
+ }
+ 
+-static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
++static struct ovl_dir_cache *ovl_dir_cache_get(struct file *file)
+ {
+ 	int res;
++	struct dentry *dentry = file->f_path.dentry;
+ 	struct ovl_dir_cache *cache;
+ 	struct inode *inode = d_inode(dentry);
+ 
+@@ -419,7 +426,7 @@ static struct ovl_dir_cache *ovl_cache_get(struct dentry *dentry)
+ 	INIT_LIST_HEAD(&cache->entries);
+ 	cache->root = RB_ROOT;
+ 
+-	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root);
++	res = ovl_dir_read_merged(dentry, &cache->entries, &cache->root, file);
+ 	if (res) {
+ 		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -563,14 +570,15 @@ static bool ovl_fill_plain(struct dir_context *ctx, const char *name,
+ 	return true;
+ }
+ 
+-static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+-			       struct rb_root *root)
++static int ovl_dir_read_impure(const struct path *path, struct list_head *list,
++			       struct rb_root *root, const struct file *user_file)
+ {
+ 	int err;
+ 	struct path realpath;
+ 	struct ovl_cache_entry *p, *n;
+ 	struct ovl_readdir_data rdd = {
+ 		.ctx.actor = ovl_fill_plain,
++		.user_file = user_file,
+ 		.list = list,
+ 		.root = root,
+ 	};
+@@ -608,9 +616,10 @@ static int ovl_dir_read_impure(const struct path *path,  struct list_head *list,
+ 	return 0;
+ }
+ 
+-static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
++static struct ovl_dir_cache *ovl_cache_get_impure(struct file *file)
+ {
+ 	int res;
++	const struct path *path = &file->f_path;
+ 	struct dentry *dentry = path->dentry;
+ 	struct inode *inode = d_inode(dentry);
+ 	struct ovl_fs *ofs = OVL_FS(dentry->d_sb);
+@@ -628,7 +637,7 @@ static struct ovl_dir_cache *ovl_cache_get_impure(const struct path *path)
+ 	if (!cache)
+ 		return ERR_PTR(-ENOMEM);
+ 
+-	res = ovl_dir_read_impure(path, &cache->entries, &cache->root);
++	res = ovl_dir_read_impure(path, &cache->entries, &cache->root, file);
+ 	if (res) {
+ 		ovl_cache_free(&cache->entries);
+ 		kfree(cache);
+@@ -744,7 +753,7 @@ static int ovl_iterate_real(struct file *file, struct dir_context *ctx)
+ 	dput(parent);
+ 
+ 	if (ovl_is_impure_dir(file)) {
+-		rdt.cache = ovl_cache_get_impure(&file->f_path);
++		rdt.cache = ovl_cache_get_impure(file);
+ 		if (IS_ERR(rdt.cache))
+ 			return PTR_ERR(rdt.cache);
+ 	}
+@@ -792,7 +801,7 @@ static int ovl_iterate(struct file *file, struct dir_context *ctx)
+ 	if (!od->cache) {
+ 		struct ovl_dir_cache *cache;
+ 
+-		cache = ovl_cache_get(dentry);
++		cache = ovl_dir_cache_get(file);
+ 		err = PTR_ERR(cache);
+ 		if (IS_ERR(cache))
+ 			goto out;
+@@ -1007,7 +1016,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
+ 	const struct cred *old_cred;
+ 
+ 	old_cred = ovl_override_creds(dentry->d_sb);
+-	err = ovl_dir_read_merged(dentry, list, &root);
++	err = ovl_dir_read_merged(dentry, list, &root, NULL);
+ 	revert_creds(old_cred);
+ 	if (err)
+ 		return err;
 -- 
 2.53.0
 
