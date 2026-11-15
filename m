@@ -1,61 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794785246;
-	b=Z4+uE5H0h/V/FP7eK/xtyscpOBmslb45QEgxxzSwQyZifRYZqMASDKvX9qW5Qaimdtxd
-	 gu6MykFR5PzUyi3mgsX3GvTxHGzgb9Lw1mfzRImMMpE5fr/iXJ+XnXg0c1zG6N2yNPwf5
-	 wFmH8lUQUKvZ0nsMnqZgMm41F5d7bsxD8XRI2jb/4Hi73jknwB6LPZmCbolLWFKmZRQvq
-	 kQAWV9MQDlFIVZSmkyonEi4zA0M1a6T7l8bomxgwlfJZbNFtDno/vVzF8STxvNTLu9U7s
-	 RdryEKVFY1Jem4PVLnHggwxOO8PzGN4cN32uAAoDQ/qeM8NnQUS1C34tkW+BnAetwwQ==
+	b=MEiZV4Hgb1Z3i+KT25Wt/ayH8nyIySfmcVCgg5IJiWT1drVJLF+1mNq0eKbp5Id0Ukli
+	 euoGkQjJtgO0M1gw70LNcVVLueozwOPCZWXLsAWqArMlO7lG6eCxwiV1Cjziv/r1IQ121
+	 +lV9XC+wCW2IDwtPC2br5Tg7VNvrivDqCPlTpzF+uMRrwAZK6rFY3HcChk5d5diUb/Wjn
+	 OBSxDKwnuFHrvc0c+l4u+rcfCGgCQ5+nZb6MyCsYANjgj23XKo1GB5OTh5JblADSTuEG3
+	 b81d1NrxFuxPAcEZazD220GSr5RvM9joOt+sU7iCX/1o7zEnuijlnwdIoK2RMpr3bKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794785246;
 	h=Received:DKIM-Signature:Received:From:To:Cc:In-Reply-To:References:
 	 Subject:Message-Id:Date:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=8avGk5JBGul3hBeisCG2W22d+l9vhZ85CMAb8/QdrjQ=;
-	b=sLcgWiMVvB/wG1JtUAFalVN9dZfpoyUJx1ahkgmge2JFsIHPaZ4Os9sdP6fSYOUSkXEP
-	 GpyhlAeNQgyENf6F5CvSkqLk9PVi+XmNCfFSGgKJgXZuWty7iN7MT8ou2GJt6dwEu7ISh
-	 LC0wnfGV7QaBzhBSNjVv6AOI9xxr1G9tZlnhkaoG8Xpxx1v+5vHfHTQvaf9enXLl9N9n0
-	 yu1KPGmCfuhZAaQv2pu+3PZmy2p69xJsTWiq8DlKxE42fsunsAmDXakl8UV/fa/XkugNR
-	 SHyy0sxCTVbSRGKJq7ZIXQw9dUoFBjdOb5i+AxH3Jc+sH6KI1f3d2rSQ/kfTjjyoPyA==
+	bh=cIfzgv3qu6yiC39fCkm4e84KuPvX4hk/OB4bftLSTYo=;
+	b=GsAAw9Emj5P/6JdGBmyeQSHQ1uzfgXQbDxNvony8K6fqzpIKkZAy4iwwjS263E76DWKt
+	 ZpDi0N3Hja0y8pHg3B2MLqsv980eGv62dzVIcPcBvr3Ku/Al8D4M8PKhZvYDTrbQnM382
+	 nLkySGEG6bX+ThK3YlKyl/XoXHJO4R7Wxcu7pQmiAkbpDVsh21gK294MnUPLrm/xI9cjd
+	 AgFHWidnIK0X7AiA3h79ByzNSmbi7Iqni/1SwQmGuQHjW9tyT5wWHP7hBb7A0yPVsqwbb
+	 5nyg/+KATd/LOjDgqZ2a0hbPPkaixMT1QxQvXirnZ5WCUrx/YHm5P/Pri/BTUdPH3Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWr7o8ZB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tj8MZ9Ai;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44409606A31F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD50606A334;
 	Sun, 15 Nov 2026 23:27:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SWr7o8ZB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC6401F000C4;
-	Sun, 15 Nov 2026 23:27:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tj8MZ9Ai
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 809291F000C4;
+	Sun, 15 Nov 2026 23:27:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794785245;
-	bh=8avGk5JBGul3hBeisCG2W22d+l9vhZ85CMAb8/QdrjQ=;
+	s=k20260515; t=1794785246;
+	bh=cIfzgv3qu6yiC39fCkm4e84KuPvX4hk/OB4bftLSTYo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=SWr7o8ZBGhPrpWikB/cSncS8daIhOpKQ+IBV9u7XgCp+5CosdZQvI1yzdlFrOU7zN
-	 zXeo6lCgBjzNNFAzeec/oFmh7PEO7sVTDe6f4Uv/hO7Rwrb7xuj4Nkx8zEw1jT0PsC
-	 Mhms6RZRTiRUzb473W1IH/J9DBCBCOIQEKt/3t0+/6Pm/pIh1oGHocpvr/7oEOT8Vm
-	 HrTu9bE2v9QNOj7z6YqBIhTG8hKMUZGx/73uNLHgyfF+NZcq6Y6CrQwMNBck4bcpcK
-	 JkCyM4V4DCq4k9agAInN1RaldAQ0EC9RIVfklseJ5IoOjMFtX9OEuhQXR3M5I4oVzG
-	 Kohagwfjx8nSA==
+	b=Tj8MZ9AisVgw23GvZTy8kfJAIVljSioV2c9AEIyfYmz+LEqzzin978LRIQYN1TM1w
+	 xOoGxmw7itwSeXXflZUeYaRACoqUNSJ7INT2qv3A2EJ6wUC4a82Pi8JQ0iQ6v789kz
+	 KNVnMKH+EzTc10z/lWVnR8GMyxZB+UfiX+wBSqOMLGrSH1Qab/XqZDXapyrW26Qkmo
+	 QlyYGnvyMnGAj8097Xlgb6Yr1L2m2mib3dCu/SXImCU5d5ego9+Cqx0mlbMc7ZNOCM
+	 OLfotQbFIv4Tu4x1ef5MlPzumz1BtZmKGdHbadEPxjCTuhXrtnJ9TEk/ZBWpovhKAa
+	 igC3a3Nnt1yWQ==
 Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 412193438EE1;
+	by traversing.sirena.org.uk (Postfix) with ESMTP id D97613438EEB;
 	Sun, 15 Nov 2026 23:27:24 +0000 (GMT)
 From: Mark Brown <broonie@kernel.org>
 To: Oder Chiou <oder_chiou@realtek.com>, 
  Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Tristan Madani <tristmd@gmail.com>
-Cc: linux-sound@vger.kernel.org, stable@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
-In-Reply-To: <20261110230603.2110759-1-tristan@talencesecurity.com>
-References: <20261110230603.2110759-1-tristan@talencesecurity.com>
-Subject: Re: [PATCH v3] ASoC: rt5659: fix teardown order and stale state
- across card rebind
-Message-Id: <179476742200.140154.3384054500213156937.b4-ty@b4>
-Date: Sun, 15 Nov 2026 18:30:22 +0000
+ Takashi Iwai <tiwai@suse.com>, Myeonghun Pak <mhun512@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+In-Reply-To: <20261110043013.56937-1-mhun512@gmail.com>
+References: <20261110043013.56937-1-mhun512@gmail.com>
+Subject: Re: [PATCH] ASoC: rt5682: disable jack detection works on shutdown
+Message-Id: <179476728283.140154.14405729138456445681.b4-ty@b4>
+Date: Sun, 15 Nov 2026 18:28:02 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,17 +67,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1154; i=broonie@kernel.org;
- h=from:subject:message-id; bh=b7+hhAo595bS0+aonRgQ/iSM0jJlt0LFDQFx2Ry9794=;
- b=kA0DAAoWL+9zsLPQOIkByyZiAGr6P9ygb66UssKiz3NgO37xyr5ETxPj9Yy6gSVwO7biCLa9w
- Ih1BAAWCgAdFiEEXmoL6X9066wOwaGGL+9zsLPQOIkFAmr6P9wACgkQL+9zsLPQOImViwD8Dukr
- yRrKGiETn/2eSq9CKRY+jd2hwOiIQKTKOAI9zkoA/3P4eVgcn5GPkL6iun9bfQkLMBf6N6uRPxu
- feNhUuVUG
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1127; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=HF+jy0ZS6sDiGK3srGFu8ugezhonIivYkip1HGfkOqg=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLJ+2d+Z2D85L39DV4JCRuiP40V8T479dDT7UL52ybQ/u
+ 7WlGlSXd5SyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAilqmMDAcvLhc1710QYPva
+ qClxseO95NR9OnpZnySnTuzfrSFj8ZGR4YBtJd/eVZEJs1/IRiws9V/TL7Y5g10kXrlqtd3VzXF
+ lrAA=
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, 10 Nov 2026 23:06:03 +0000, Tristan Madani wrote:
-> ASoC: rt5659: fix teardown order and stale state across card rebind
+On Mon, 09 Nov 2026 23:30:13 -0500, Myeonghun Pak wrote:
+> ASoC: rt5682: disable jack detection works on shutdown
 
 Applied to
 
@@ -86,8 +85,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: rt5659: fix teardown order and stale state across card rebind
-      https://git.kernel.org/broonie/sound/c/f49581b7e27e
+[1/1] ASoC: rt5682: disable jack detection works on shutdown
+      https://git.kernel.org/broonie/sound/c/b45849311e88
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
