@@ -1,67 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794705526;
-	b=o82vTbr/+R74zSbL7M8bxGmB+bKOQIrTmX2DdnfzlBob44XvoW1QmyZdzHTNt7Lawml0
-	 0oY3jfcA2W4Sj14hYVKLUnAiCIAH+hqgK6rHkg2w9OKdDak26wPntFK6wEIWSeP73nHkg
-	 zs4dZjivp1u9vLVh/IusUYz8inZHgzAmz07X2J7p82zcTldy2K7rFz8jjTIlY+WMa4GU5
-	 tP3BMQyOlEtJhU2miRXXge2WF9m50xBNGR9pURUjl6BIznolhJbrdeNtpqe9GLbVvJwHL
-	 p9j5H5m+F1t4Jb6XoiuSp/A4/9/9nb/Tvkzjlo+EfKx8kM2+heMcBq4+/8aS75X1RWA==
+	t=1794705530;
+	b=QnnIYTwL6qF4/pudCPdNd/rxfY4WsSESqeS6P47LiLePgu3/VyWerTCYSpyGiP5hi0rr
+	 tV0Yq1A/hQF7Jx8NWB9xsHPmsL1B36GefvL/mnY4rcfl6uVyBFv/LPnmc+ZaaA1j5/IX7
+	 80LSYwkX9xgAzBDZ9SW4ARhKaQiv+DZymDh0/f4zOnNI4Z5Mbd6KJq4s+SUrfmXJarzuQ
+	 i4Nya7WO+il4SO0EE+yIzmNJQf5Z6bDFvsJu+pTtVLLYssnDmp0X2eecz64wyyokNRlJF
+	 Y/ixv0lPAg1OHpKDMt776IxHYIeJKD7WrGV+WEV5QcDWcaDUJiS2nGmJZglMFAduTIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794705526;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794705530;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=HAABiq2PmBC/aR93zM0EQlExMzfPywWrtGAryutsYvs=;
-	b=wMaP1A82SVetWtr3RKSNAadkwTk1WZwVqIl9TN/epnLoT23KbjpzRwDb9Veap2BUEL7h
-	 UF0TC29COJh/iZ7IJrHSlj3I534NoTkRYqll/kyYjAKXm62AShTaPp3U3gs5ZMpZbAAKm
-	 35wsR3/uefvpjXOI213kEeQWMQOV1F8GDyXJA0WQzhQ+pR4pQZRVs4F5CSa/IUfX8j+eb
-	 8tDLc3h0EV0MpQ39E/npSNFSObvZRAoecXB0gX+xwFoSbKQJVTljXZkdoU6145vxHaW+q
-	 CO+qATiOXIHtMX7uNf80F1Yy6tCfWRVcCn3shL6Mzg47+6pmzhlMM57UAj5C5k9L86Q==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Z3CPdADV6moy4vZas20KVEa0m6bNzbLyLGpoL86eqQs=;
+	b=RtI55guGWbBYgCt1neyRK8l3rQax5b2qybvRNpm3vuVOfAFBtF2ipQN5q2vZ1I9EtzI4
+	 XxcmQgvdHH5w5w9kUjVXFBSklbH10+d2QkUPK4qQxPyRuVSiRlyiL8nPRui7iDcetlNlz
+	 h3jrnNAq3n6/SgqqiIVSnr+UgG45CHEGMGyPCz50LyW65nYUxgVJG5oosJHYwG30BBn+6
+	 MS0V3dL69qT0aSJBA4gteN6VXrOOGNep7JR2Ce4oZXUSUlt5v3ptpnLhfqNDPf4QA50Rz
+	 kqX+SFoaQO9PaPzPfyihy0KxFWRsrCMv12Pj6RO04sGLnCK+aZ5tDeDd1FsaSEVi4Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NF7Fnciq;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pw+r0qHE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C4A606A329
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 01:18:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0073F606A32D
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 01:18:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NF7Fnciq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E76BF1F000C5;
-	Sun, 15 Nov 2026 01:18:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pw+r0qHE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4071F000C5;
+	Sun, 15 Nov 2026 01:18:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794705526;
-	bh=HAABiq2PmBC/aR93zM0EQlExMzfPywWrtGAryutsYvs=;
+	s=k20260515; t=1794705529;
+	bh=Z3CPdADV6moy4vZas20KVEa0m6bNzbLyLGpoL86eqQs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NF7FnciqDJG8cKWRh+1TJX7QtmDQj5iKWXBOtls7etKxRzlR9l8rmt7NZy/L7Fdjh
-	 1/NyFQb6RbLOeE6athngzUPFuiHhc2lU+JhTRhJyK0jLg86TjjYXw4DsEEqGt5eLoE
-	 3nCKKj+orzuR7RCxBn/mF3LtmNXyxb9Xu5fs1r8Be3Y3tK5Wq+bB3pFapvaBZG9lZV
-	 OYqCz/fHdQohlf9nIKPnKAwtitg5poiIei9fW2Pyw+78do42maT14fGh9L+6h97W3u
-	 ehv0ZG8BXXKc+7W2uSqPyQkm3HoFTXVN8xf3DKKiasIzZaSR7YvTO+GPcwZGoDJ4Rz
-	 xjbBUT0GFezbg==
+	b=Pw+r0qHEPYkZcHcIecOsMXYXPaB79h1JCRAHe/Z9+JT4VxKYyCM0ajoKJbYNU5gOp
+	 7S5EVqEyr5rCrlBUyrZJczagQZdnYsD8/iC9mgkLiUcONgB3JnuPaVul6XK5vdy/mv
+	 p7p1mSW4KgsF2yxruVRp61nekczsoYUCO6Nzz2x65yZ32ZIanSIiK0Naq4Jd8bwTfu
+	 wf53hOXVuPWIug71na87TIb+y4xvDgz0o3PU1eJvXlw6da+9bbMgepDxW3DsPHXxO+
+	 JeHGkhiPcVlRVlvIZbJgq40Jz1nfwrb1MIX2N4lHzOC9NjSMnYAn7metyThcW8Pw9s
+	 8BwGNkT/q1jXg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Balbir Singh <balbirs@nvidia.com>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Salvatore Dipietro <dipiets@amazon.it>,
-	Christoph Hellwig <hch@lst.de>,
-	Dave Chinner <dgc@kernel.org>,
-	Matt Fleming <matt@readmodwrite.com>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Michal Hocko <mhocko@suse.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+	Mika Kahola <mika.kahola@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
-Date: Sat, 14 Nov 2026 20:18:43 -0500
-Message-ID: <20261115011434.626719-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] drm/i915/display: Add enabled pipe planes into state for selective fetch
+Date: Sat, 14 Nov 2026 20:18:48 -0500
+Message-ID: <20261115011437.621430-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201723-failed-6.1-fe21f930d1e6@kernel.org>
-References: <20261109201723-failed-6.1-fe21f930d1e6@kernel.org>
+In-Reply-To: <20261109201102-failed-6.6-94cb1f08b197@kernel.org>
+References: <20261109201102-failed-6.6-94cb1f08b197@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,112 +61,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Johannes Weiner <hannes@cmpxchg.org>
+From: Jouni Högander <jouni.hogander@intel.com>
 
-[ Upstream commit fe21f930d1e64d121191673076fc4ebe79fc82d5 ]
+[ Upstream commit 94cb1f08b197d9ae932ff98c741bd0dbc96e17e8 ]
 
-1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH
-non-blocking allocations accesses reserves") stopped handing out reserve
-access for ALLOC_NON_BLOCK on its own: the extra 25% below the min
-watermark is now only granted on top of ALLOC_MIN_RESERVE.  But the flag
-was left in ALLOC_RESERVES, which produces something odd:
+Selective fetch support for biplanar formats relies on linking of UV and
+the Y planes. Planes that are not part of the atomic state are pulled in by
+the drm_atomic_add_affected_planes. If the UV plane is added into the state
+by drm_atomic_add_affected_planes in the selective fetch calculation, the
+linking isn't done anymore and the Y plane is left disabled.
 
-With the ALLOC_RESERVES match, __zone_watermark_unusable_free() doesn't
-subtract the free highatomic pages for them.  So in the slowpath, they get
-to consume regular blocks below the min watermark by the number of free
-highatomic pages.  The highatomic reserve is capped at 1% of the zone,
-which on any decently sized machine is a multiple of the min watermark:
-GFP_NOWAIT can drain regular memory to zero.
+Fix this by adding affected planes already in intel_add_affected_planes if
+selective fetch is enabled.
 
-The user-visible result is brutal hiccups during bursts of GFP_NOWAIT
-allocations under memory pressure.  This was found in review and
-reproduced with a synthetic burst, not observed in production, but the
-sequence of events is a realistic one: On a 32G box with an anonymous
-working set, swap, and a filled 290M highatomic reserve, a GFP_NOWAIT
-burst drove regular free memory in the 28G Normal zone (min=60M) to 28M,
-0.8M and 0.6M in three runs.  Swapout failed to allocate its swap table,
-reclaim scanned 13M pages to reclaim 200k, page faults stalled for tens to
-hundreds of milliseconds.  The machine survives it, but not by design:
-direct reclaimers eventually fail and start unreserving highatomic blocks,
-until the allocation succeeds or the reserve is gone and the OOM killer
-runs.  That reserve exists for high-order atomic allocations; here it is
-destroyed to bail out a GFP_NOWAIT consumer that was never entitled to the
-memory.
+Remove redundant drm_atomic_add_affected_planes from
+intel_psr2_sel_fetch_update and redundant check for plane selective fetch
+support that is not needed as all planes are already in atomic state on
+first loop iterating them. Also switch to intel_atomic_get_new_plane_state
+for linked plane new plane state.
 
-Remove ALLOC_NON_BLOCK from ALLOC_RESERVES.  With that, the GFP_NOWAIT
-burst is stopped short at the min watermark.  No direct reclaim, no
-stalls, no failed allocations, and the highatomic reserve stays intact for
-the requests it exists for.
-
-__zone_watermark_ok() is unaffected, since everything it keys on
-ALLOC_NON_BLOCK is already nested under ALLOC_MIN_RESERVE.  Update the
-flag comments accordingly: ALLOC_NON_BLOCK just means the caller can't
-block; the reserve math belongs with ALLOC_MIN_RESERVE.
-
-GFP_ATOMIC order-0 requests have a milder version of the same problem.
-Through ALLOC_MIN_RESERVE they also count the free highatomic pages in
-their watermark check, but rmqueue_buddy() serves them regular pages first
-and only falls back to the reserve once those are gone.  They can still
-push regular free memory to 37.5% of min minus the free highatomic pages
-before the reserve is touched.  Unlike GFP_NOWAIT they are entitled to the
-reserve, so this needs the watermark check and the freelist order reworked
-together, and is left to a separate patch.
-
-Link: https://lore.kernel.org/20261028171719.2043421-3-hannes@cmpxchg.org
-Fixes: 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH non-blocking allocations accesses reserves")
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Balbir Singh <balbirs@nvidia.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Salvatore Dipietro <dipiets@amazon.it>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Dave Chinner <dgc@kernel.org>
-Cc: Matt Fleming <matt@readmodwrite.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: adjusted context for allocation flags defined in the internal header ]
+Fixes: 3809991ff5f4 ("drm/i915/display: Add initial selective fetch support for biplanar formats")
+Cc: <stable@vger.kernel.org> # v5.17+
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+Reviewed-by: Mika Kahola <mika.kahola@intel.com>
+Link: https://patch.msgid.link/20260929094434.77129-3-jouni.hogander@intel.com
+(cherry picked from commit 0d173898b11157d37de3e5f01ef28a48582167d8)
+Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+[ sashal: adapted early plane collection to intel_atomic_check_planes() using the existing intel_atomic_add_affected_planes() helper ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/internal.h | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/i915/display/intel_display.c | 12 ++++++++++++
+ drivers/gpu/drm/i915/display/intel_psr.c     | 17 ++++-------------
+ 2 files changed, 16 insertions(+), 13 deletions(-)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index 1c1b37bd4226d..3e3e231c65016 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -777,12 +777,11 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
- #define ALLOC_OOM		ALLOC_NO_WATERMARKS
- #endif
+diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
+index 28d132c238d19..f8c3cba3ca620 100644
+--- a/drivers/gpu/drm/i915/display/intel_display.c
++++ b/drivers/gpu/drm/i915/display/intel_display.c
+@@ -5672,6 +5672,18 @@ static int intel_atomic_check_planes(struct intel_atomic_state *state)
+ 	struct intel_crtc *crtc;
+ 	int i, ret;
  
--#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. Allow access
--				       * to 25% of the min watermark or
--				       * 62.5% if __GFP_HIGH is set.
--				       */
-+#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. */
- #define ALLOC_MIN_RESERVE	 0x20 /* __GFP_HIGH set. Allow access to 50%
--				       * of the min watermark.
-+				       * of the min watermark, or 62.5% if
-+				       * the caller cannot block either
-+				       * (ALLOC_NON_BLOCK).
- 				       */
- #define ALLOC_CPUSET		 0x40 /* check for correct cpuset */
- #define ALLOC_CMA		 0x80 /* allow allocations from CMA areas */
-@@ -795,7 +794,7 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
- #define ALLOC_KSWAPD		0x800 /* allow waking of kswapd, __GFP_KSWAPD_RECLAIM set */
++	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
++		/*
++		 * Add affected plane here to ensure UV and Y plane linking is
++		 * in place if UV plane is added as a part of selective update.
++		 */
++		if (new_crtc_state->enable_psr2_sel_fetch) {
++			ret = intel_atomic_add_affected_planes(state, crtc);
++			if (ret)
++				return ret;
++		}
++	}
++
+ 	ret = icl_add_linked_planes(state);
+ 	if (ret)
+ 		return ret;
+diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
+index 416686a6566ba..aba5ce55eeba4 100644
+--- a/drivers/gpu/drm/i915/display/intel_psr.c
++++ b/drivers/gpu/drm/i915/display/intel_psr.c
+@@ -2043,7 +2043,7 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 		.y2 = crtc_state->hw.adjusted_mode.crtc_vdisplay,
+ 	};
+ 	bool full_update = false;
+-	int i, ret;
++	int i;
  
- /* Flags that allow allocations below the min watermark. */
--#define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
-+#define ALLOC_RESERVES (ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+ 	if (!crtc_state->enable_psr2_sel_fetch)
+ 		return 0;
+@@ -2144,10 +2144,6 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 	    crtc_state->splitter.enable)
+ 		pipe_clip.y1 = 0;
  
- /* Flags that mean GFP_ATOMIC */
- #define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
+-	ret = drm_atomic_add_affected_planes(&state->base, &crtc->base);
+-	if (ret)
+-		return ret;
+-
+ 	intel_psr2_sel_fetch_pipe_alignment(crtc_state, &pipe_clip);
+ 
+ 	/*
+@@ -2167,11 +2163,6 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 		if (!drm_rect_intersect(&inter, &new_plane_state->uapi.dst))
+ 			continue;
+ 
+-		if (!psr2_sel_fetch_plane_state_supported(new_plane_state)) {
+-			full_update = true;
+-			break;
+-		}
+-
+ 		sel_fetch_area = &new_plane_state->psr2_sel_fetch_area;
+ 		sel_fetch_area->y1 = inter.y1 - new_plane_state->uapi.dst.y1;
+ 		sel_fetch_area->y2 = inter.y2 - new_plane_state->uapi.dst.y1;
+@@ -2185,9 +2176,9 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
+ 			struct intel_plane_state *linked_new_plane_state;
+ 			struct drm_rect *linked_sel_fetch_area;
+ 
+-			linked_new_plane_state = intel_atomic_get_plane_state(state, linked);
+-			if (IS_ERR(linked_new_plane_state))
+-				return PTR_ERR(linked_new_plane_state);
++			linked_new_plane_state = intel_atomic_get_new_plane_state(state, linked);
++			if (!linked_new_plane_state)
++				return -EINVAL;
+ 
+ 			linked_sel_fetch_area = &linked_new_plane_state->psr2_sel_fetch_area;
+ 			linked_sel_fetch_area->y1 = sel_fetch_area->y1;
 -- 
 2.53.0
 
