@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794717018;
-	b=e3rmuA4jCMFqQ7fbKoUy3XVzLbp1N+ww2VM1L28LdyUGnxXgJUCtFGgtw3CStd+vNEeg
-	 vhPMMwybH3HOvcOkBTZTJ1WzbU7af7ZYU+gHO1D3i53UC4jlfTeddUz4eNfVwphjwFwNl
-	 B48WlO8AZtw7a2AuZ2KRYMGhTrSxlrkfogXEfAsOkl8a58RkC6S4AmmXElyMxdumcBs6C
-	 MOIuyGPrPPjMrKuXbq70TBgY32POrScgbQNxwyDnssx6to5nzwXDOl/paIZsnSkb/Rqu5
-	 HRruiLufycumv1W77BkVEdFqdp1xkmfwmhPsTbmwLEJXu8YbV/aHg/s4m4GFV7VKlsQ==
+	t=1794717340;
+	b=C7Kq/w91IAC5moF1d3/ZEV+kY/YqJrgVV4BAN0XGuJkZGOo0cceWft0lVS5grUOVoG4o
+	 vWJJfTWaLpqGN/TFvv8mKc67OzSTNOtz9F0ScLXcasUkcD3BzoFU+6BUxnn+7H1VvOiLB
+	 SSdQIIsNeLDfxOhPWmVZ6bzezS8sJZPZbnADots1LBE2Zs+aQP16koRxT9WOHH5MOqr7C
+	 +ZVh1H2UHeGQC9K9WcxSaEFJGupr9utNRR6Evi1xQ7344nh7nyYjx4xorHRhsOMjf+M1e
+	 OcidUz/INUxzyn96S+0eGKOEb5Ti8Efmer5Kn3HfKx2KFPsM8aI9UHR01myVPXo3CfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794717018;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794717340;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=qSWECCtGDXdUz5py+dVMGpmrzXXOmBWZXWLybIApoNY=;
-	b=vXMxBM1qFjvWN8IX2WLr5ixbP7E7pOpArB57/inaQYNim0eYoDXHDaZraXZlJY25EXZy
-	 x43BEku2spddG91SAlibELY4jO+xQuphWBQu5LtbSx2jz8C9rPWS2r5MioWArS8W5NrqK
-	 EYB7mu2ihuOSQPNL/jihvOC7nLGQ1CG+G7+SYodwI6bRSvJ/8Mkt2k/I9dlyB1hBpGIXz
-	 pXbZmWSs85WJLno00E/CSGOclV0LBv2aeXJLN+gJTG+F3YF7hdFDAoBr4uUAv60my5ch3
-	 0Utf+kmcgz6KeXxI7/FjHqcXtMqIrDU9c4w/2mj40WdRsYPs8kjQ5QXUdi6omAbWAgA==
+	bh=pge8S+uzPBjYzO9sQ/3/s+m2MnX1W31RL27i5NJe3sM=;
+	b=xuF/DTbsPrGx9WMcKPdJHIrxCVupq0CV1hvphJmM1CnJYxpZIFBwvg7wGpoWVolJsHEh
+	 HFnie/fwFRYz8OiLmXCygkXcIUXJUuBgOA+oqIi63DVAclFwWgMqcGZVjIERpIWHdGcSy
+	 5hLcTI/n0zyo46tc3PNybRCsKhTvxujha3fYFtNVcBtrM/sKNvjf/brYa0P97rjA0zU9b
+	 mbmOWOv0RY2L9PJoaKDIoePB3wEKoM78/j7yAqrYDSPhWkjiC2jWxcJlLKYP1ESx4EP9w
+	 cj1yURV1KuGFTaa3SUrlrJG1XXZbEOLSYr7ZNyi8xiJTmNDWB1cwclR+CrfrOuNG2hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJbOOHAf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TtiHk++8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3168606A323;
-	Sun, 15 Nov 2026 04:30:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DC6606A323;
+	Sun, 15 Nov 2026 04:35:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BJbOOHAf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5A411F000C4;
-	Sun, 15 Nov 2026 04:30:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TtiHk++8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4589B1F000C4;
+	Sun, 15 Nov 2026 04:35:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794717018;
-	bh=qSWECCtGDXdUz5py+dVMGpmrzXXOmBWZXWLybIApoNY=;
+	s=k20260515; t=1794717339;
+	bh=pge8S+uzPBjYzO9sQ/3/s+m2MnX1W31RL27i5NJe3sM=;
 	h=From:Date:Subject:To:Cc;
-	b=BJbOOHAfJ8JcakyXQ2lueLKzkN8+oiF5xbu7e23UJJjn27lLLKTIYFJmma5RIh64D
-	 ZCvUJ0xaiEGuyNNN2lghrMu2+1zqwUueMQvkWph6fCCg2i0RURcJHszzxXsd/5Ku/y
-	 03u4/v2NJBzAIu/Z48Gzih+P7kUH844A1rpcdHzvoiVhqeQJtQ55pLTycNMNNHPbVs
-	 iKV0mXFlFjQF5e44WxzFEog3jElJSbbnDN/eLwrmhjtplYd6FasD4pq5q4VZL9ptEN
-	 WMs9TDeW4X7uSlf9lRK9IJAg+sfe7ypuXbfanIEz9MdWezzD3vZ9uvVfMjhHMyUMGz
-	 0nUojFCDNOmBw==
+	b=TtiHk++8tQHafjcGYp/xGrHpiXXoT8vhlQVhEZ24RMB0GOQcBnhKKzpeWZEduoLew
+	 Wq5Azc/0MBnlmG3bSxy4lnfjDHVtwK4ZoK67gTNvPQvrBM9THocGbhiSudonVB4L53
+	 8ksUFWN8vGpd3JOzX4PVyo6lu8lcXtS2rOcuZ2aBYAT2FesiG3axRIwJor13PROdoo
+	 VEUFtWoJYHhFiyny7SFc4Qx802tSL4f90aGalRboqS0aafTW9s/AuJbgBvJwLRtav+
+	 N0Tfgm//J3rDcozU/bdq14GzFNFFAx/ofWJGcbnvUgYNUxnkM/ucUheQVz44pJ9qe1
+	 /jws/+E8U40uw==
 From: Nathan Chancellor <nathan@kernel.org>
-Date: Sat, 14 Nov 2026 21:30:07 -0700
-Subject: [PATCH net] mptcp: Avoid unsequenced accesses to jiffies in
- mptcp_reset_tout_timer()
+Date: Sat, 14 Nov 2026 21:35:33 -0700
+Subject: [PATCH] lkdtm/bugs: Remove volatile from element_count
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,72 +54,89 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-mptcp-wunsequenced-v1-1-707a73a6c172@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yWMwQrCMBAFf6Xs2YBbSxF/RTyYzatGcI3ZRIXSf
- 2/U4wzMzGTIEUaHbqaMV7T40Aa86UiuZ73AxdCY+m0/MvPg7qlIcu+qhmeFCoIT8X4/st+FQai
- FKWOKn9/0SIpCp7+06m+Q8t3Rsqxa9bLeewAAAA==
-X-Change-ID: 20261114-mptcp-wunsequenced-ccbb861b3d4c
-To: Matthieu Baerts <matttbe@kernel.org>, 
- Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- netdev@vger.kernel.org, mptcp@lists.linux.dev, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, stable@vger.kernel.org, 
- Nathan Chancellor <nathan@kernel.org>
+Message-Id: <20261114-lkdtm-bugs-wunsequenced-v1-1-b24f15ce1328@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMwQ6CMAyA4VchPduELsSJr2I8SFexqFNXpiaEd
+ 3fC8Tv8/wQmScVgX02Q5K2mj1hAmwr4coq9oIZicLXbElGDt2sY79jl3vCTo8krS2QJ6Jl2Tdu
+ y856g1M8kZ/0u58NxteVuEB7/O5jnHzaJdJt7AAAA
+X-Change-ID: 20261114-lkdtm-bugs-wunsequenced-7c18499c2771
+To: Kees Cook <kees@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
+ kernel test robot <lkp@intel.com>, Nathan Chancellor <nathan@kernel.org>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2034; i=nathan@kernel.org;
- h=from:subject:message-id; bh=J/YSlnqi7aQ98+addJs8Lr4CNVb3jotGxM7r3NCMf7k=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFk/TUOePuv7w8r5I5zPMe9kik1ElAaT5y+7yM2nbjg8f
- pjLPGlKRykLgxgXg6yYIkv1Y9XjhoZzzjLeODUJZg4rE8gQBi5OAZjI62JGhuvpbdYi29fHVCcL
- Nn2XsxSuqn+6L9B02np/4cI3bmF8vxj+Fxx69bSAozl73Q4O1z0sZuXBbKnldhafxCdEaJtNFDn
- IAwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2596; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=PXq6yOI2haGDOFCWB2rN+EDzgPLHZ2hY9ZGbOCcl0rs=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFk/zaYXeDZXMzGc05ffviN0l/Kq7W0GwdPNdzQu/9Wwc
+ PLnU6HBHaUsDGJcDLJiiizVj1WPGxrOOct449QkmDmsTCBDGLg4BWAiESEM/wyPzQyX6HvhasrI
+ 8qa9zncJn6K8AKNuxtke8Z73iyqXP2H4H2xm5iBn0efxr8ZukcEht5tad7fd+HTqu5lRI8OEmUe
+ X8gEA
 X-Developer-Key: i=nathan@kernel.org; a=openpgp;
  fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
 After a recent improvement in clang to warn on unsequenced accesses to
-volatile variables [1], an instance appears in mptcp_reset_tout_timer(),
-which can break the build with CONFIG_WERROR=y / W=e:
+volatile variables [1], an instance appears in lkdtm_FAM_BOUNDS(), which
+can break the build with CONFIG_WERROR=y / W=e:
 
-  net/mptcp/protocol.c:3044:20: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
-   3044 |                         tcp_jiffies32 + jiffies + mptcp_close_timeout(sk);
-        |                         ~~~~~~~~~~~~~   ^
+  drivers/misc/lkdtm/bugs.c:493:31: error: unsequenced accesses to volatile qualified 'element_count' [-Werror,-Wunsequenced]
+    493 |         inst->array[element_count] = element_count;
+        |                     ~~~~~~~~~~~~~    ^
 
 Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
 6.5.2, unsequenced side effects on the same scalar object are undefined
-behavior. Per C11 6.5.3, unless otherwise specified, side effects and
-value computations of subexpressions are unsequenced within expressions.
+behavior. Per C11 6.5.16.3, the value computations of the left and
+right operands of the assignment operator are unsequenced.
 
-Add an explicit sequence point by splitting the addition expression in
-half, eliminating the undefined behavior and clearing up the warning.
+This variable is marked volatile to hide its value from the compiler at
+compile time. The same thing can be accomplished with
+OPTIMIZER_HIDE_VAR. Drop volatile from element_count to clear up the
+warning. The tests still pass and there are no warnings at compile time.
 
 Cc: stable@vger.kernel.org
-Fixes: 76a13b315709 ("mptcp: invoke MP_FAIL response when needed")
-Closes: https://github.com/ClangBuiltLinux/linux/issues/2193
+Fixes: 5d207e83ca41 ("lkdtm: Add FAM_BOUNDS test for __counted_by")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202611140405.wMowxoPE-lkp@intel.com/
+Closes: https://github.com/ClangBuiltLinux/linux/issues/2194
 Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
 Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
- net/mptcp/protocol.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/misc/lkdtm/bugs.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 8968db58083e..8a9efebf3497 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -3041,7 +3041,8 @@ void mptcp_reset_tout_timer(struct mptcp_sock *msk, unsigned long fail_tout)
- 		return;
+diff --git a/drivers/misc/lkdtm/bugs.c b/drivers/misc/lkdtm/bugs.c
+index 2761685cf4f8..7c799fef89a8 100644
+--- a/drivers/misc/lkdtm/bugs.c
++++ b/drivers/misc/lkdtm/bugs.c
+@@ -472,12 +472,14 @@ struct lkdtm_cb_fam {
+ 	int array[] __counted_by(count);
+ };
  
- 	close_timeout = (unsigned long)inet_csk(sk)->icsk_mtup.probe_timestamp -
--			tcp_jiffies32 + jiffies + mptcp_close_timeout(sk);
-+			tcp_jiffies32;
-+	close_timeout += jiffies + mptcp_close_timeout(sk);
+-static volatile int element_count = 4;
++static int element_count = 4;
  
- 	/* the close timeout takes precedence on the fail one, and here at least one of
- 	 * them is active
+ static void lkdtm_FAM_BOUNDS(void)
+ {
+ 	struct lkdtm_cb_fam *inst;
+ 
++	OPTIMIZER_HIDE_VAR(element_count);
++
+ 	inst = kzalloc_flex(*inst, array, element_count + 1);
+ 	if (!inst) {
+ 		pr_err("FAIL: could not allocate test struct!\n");
+@@ -534,6 +536,8 @@ static void lkdtm_PTR_BOUNDS(void)
+ {
+ 	struct lkdtm_cb_ptr *inst;
+ 
++	OPTIMIZER_HIDE_VAR(element_count);
++
+ 	inst = kzalloc_obj(*inst);
+ 	if (!inst) {
+ 		pr_err("FAIL: could not allocate struct lkdtm_cb_ptr!\n");
 
 ---
-base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
-change-id: 20261114-mptcp-wunsequenced-ccbb861b3d4c
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+change-id: 20261114-lkdtm-bugs-wunsequenced-7c18499c2771
 
 Best regards,
 --  
