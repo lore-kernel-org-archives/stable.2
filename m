@@ -1,58 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794702105;
-	b=ZVwSOF4cTGum8e48RYCRA00qMoEZyoOoG3U3kaTRFjo5rv2G/z5if7W5VxLBEEj7hC4C
-	 +N3rgzjCQmYn99BWrH2rctOZG6wPZexTJORCeZNQn5bCZKMmaG5txMprpdEDvVKEuViJU
-	 ilL7RizRa2fyohTrP7NX5vzTatihVlFeOBeSE+FwDmq9MPa/7S1xmu3uhRyq2/+8TyvKK
-	 kjtEy06+Z4eRoKCz9Y+A2/y70qh6GKLWbgPVhZcnNBbNJfvxK3qmI9080wR0qs71SUODG
-	 0T7k8LcqgRu5zMfw0YFTAfGdUOONBbywUQMxjGO0d1NYKUVpEEoi8sPlNv8LOghO2yg==
+	t=1794702136;
+	b=r72bi+6IuKURZeJt81r4RfOKFEcQuGiDCtrBeJT9axdDUx6tHRYjbULEQ27jXxwWrel7
+	 MqvqyXubOgfkCwiHRhzGlnWdzC1N+rPYCf7ar6hgTzdK61dTyI0jjEaM/0aDGS+lRU9q6
+	 Qcs2sxSW8J3Msnfqk5nr6E/kax8Xj8JBj/EoVuI8pXEOKWLH4yObAk+EqEvwHS4ApY6c/
+	 CpyXj9lvEMuJRhr2xMWW6nNCjG864bvzDI0pMqz83FaNp8Zz2MeJHRUtooDuEYaDhBlE0
+	 EokPYYP8xjH+MELk7n7qSUAGY/6EfSQAxLwOfqonHMXO8bMhS2zqBlJc2XJSF9kKerA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794702105;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794702136;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=9Rfc6EWNAUE+Box8JThlJy486Viui4E/MQlJqsiGxD8=;
-	b=LOYiKh4KUFPUJbx4r6B15O9ysTgbRwV04aNKJlpuY++85QtHmf+shBQg58USCNG3C+Cv
-	 C+LWzcec3qEhva0xOpY+gOG69tSW8XIpPH1rjbE90A8RuYdL1MPRgMZn43+jdgY8YE+oX
-	 ySXLwOH5+ZUhR7UfSfIBbv0XkAaf7I6IMPIzBUjYHwhakMF07eponL4MT4FHpKQB16tSW
-	 5orsMJMS111Ae5XnD5WjMd62a/6fw40gufiBcrZWReGPR0Mic5YQ6mXcg9/E19g81JIlY
-	 9TWJO7T4Q+u+/tvw/zq5lhnczpkGj3ESJvGeQVrEPcJXTNN3HUyjHr8boJiK13jkR0w==
+	bh=yauzOlNqaiRncpm/7jb+NIR/dAQ03mPEzyinA8AhCk0=;
+	b=Zx1o3TdACIwLkJ9eIYKDurMMDKwRB5/gQAEZRDz0lOypIFVW2BRwsHtCU7r9s1nnjJFj
+	 qE+iSlClOZdsLPvfvAMA/qXNr5yojBTsUnO76BZs2zsrrucfvybJzLdQ3Uelu0jXaQNdn
+	 J14GNHedQFgRKdw2i/DJKhrYkp7ztcEQ1iMXwLOo+ZrzG21s/XZjwiMD8Qy/q2UTDk3Ur
+	 NP7xqBo/kLK04RL/HsnhChMWP+7qGzvMvDTgGcQl/wpOpK9+1ZLSgz+2PPhsKTuHZFXb8
+	 K0NZW1G3IrI5onpHcZtirz/DProAxB0hJDODh13c1+5CAKc+OqaDNKNiMh8OFtohSPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDhHBETA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzuJ5mJr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34150606A329
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 00:21:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A9F606A329
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 00:22:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iDhHBETA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 343111F000C4;
-	Sun, 15 Nov 2026 00:21:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NzuJ5mJr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FACD1F000C4;
+	Sun, 15 Nov 2026 00:22:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794702104;
-	bh=9Rfc6EWNAUE+Box8JThlJy486Viui4E/MQlJqsiGxD8=;
+	s=k20260515; t=1794702136;
+	bh=yauzOlNqaiRncpm/7jb+NIR/dAQ03mPEzyinA8AhCk0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iDhHBETA9wF2Xu463mKDAERteFgqKNCLSG55+PIICIbQP+kaUn2gezxmNv5sSPGU7
-	 D52EMG640ggOA7Qwj3fpiOOXV/s+WOAo+ZzX2o2R8NuWC26MQfkEvgGe6Sa0uGGClN
-	 qlW/xmZSOtYWnd2EsGcs2NdHPp21WNP6l38yAI0jqb/WBsVWLelUBfXDgwrjgzverj
-	 d9Vi87PRNIaNDCcsGbfXwZcpYz0ypQ8vVXkrlTST/nyLCo3rO+QDb9mmhr8ZwJwBdD
-	 6EoGEppTpsEYX1wOs6d7s0EaEg0oFo+rQbwn8a5nTCQnOnKPiqwJpgNkbrzzY5XohD
-	 g+FfHdNJIuISw==
+	b=NzuJ5mJr6MhKTD4BYDHUOPU30EWJ70n855oNMVOoyc8a6I4lgNaIfg4mXufeUxt+D
+	 4ITkTd+NrW8a1StjeB1YnxiKTn0HmgoTqmLOgGRAoFfR2j4htKmwhRWfaQLCTjlKpX
+	 CM8rEUI5FISvpFmi8iwlHk/WFap5sqpxDYpFHlT6amOv495Lrg6NRSCR1Evmsk42Tc
+	 3LXZI89OHM22tk7QGSRUhTJJWcXM7rJnRb1L6EgFmxaCLRcQMfEPZ0yLLqOAFcXsrP
+	 IXWMrkULdEKqOdi+ZvMTJsjmXjxZU9rVDIa7vj/vrDnDKMaTBDdcdE/uKcDyJfpT/n
+	 8bSTPMAR89T/Q==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daehyeon Ko <4ncienth@gmail.com>,
-	Stefano Garzarella <sgarzare@redhat.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] vhost/vsock: size receive SKBs from declared payload
-Date: Sat, 14 Nov 2026 19:21:41 -0500
-Message-ID: <20261115002130.534693-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] mm: make lock_folio_maybe_drop_mmap() VMA lock aware
+Date: Sat, 14 Nov 2026 19:22:13 -0500
+Message-ID: <20261115002150.534207-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261115002130.534693-1-sashal@kernel.org>
-References: <20261109201414-failed-6.6-d5e912448cd9@kernel.org>
- <20261115002130.534693-1-sashal@kernel.org>
+In-Reply-To: <20261109201133-failed-6.6-97156a6c355c@kernel.org>
+References: <20261109201133-failed-6.6-97156a6c355c@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,108 +62,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daehyeon Ko <4ncienth@gmail.com>
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
 
-[ Upstream commit d5e912448cd98b261eba8e35ab838f2dc69a79f5 ]
+[ Upstream commit 5d74b2ab2c15d596c470bae6626f345d5575a9d0 ]
 
-vhost_vsock_alloc_skb() sizes the skb from iov_length(), the total guest
-descriptor length.  virtio_transport_inc_rx_pkt() instead adds hdr->len to
-rx_bytes and buf_used, and budgets each queued skb as SKB_TRUESIZE(0).  The
-guest controls the descriptor length and hdr->len independently.
+Patch series "Handle more faults under the VMA lock", v2.
 
-A guest can therefore provide a 64 KiB descriptor while declaring a zero
-payload.  The descriptor-sized skb remains queued, rx_bytes and buf_used
-remain unchanged, and only the fixed queue-entry budget limits retention.
-This is not a lifetime leak: the skb is freed when dequeued or at socket
-teardown.  Repeating this across connections can nevertheless exhaust host
-memory.  On Linux v7.2, 455 such descriptors retained 30,255,680 bytes for
-a 262,144-byte receive buffer; a full-payload control retained 265,984
-bytes.
+At this point, we're handling the majority of file-backed page faults
+under the VMA lock, using the ->map_pages entry point.  This patch set
+attempts to expand that for the following siutations:
 
-Vhost previously read hdr->len and allocated pkt->buf from that value.  The
-conversion from virtio_vsock_pkt to sk_buff instead allocated receive skbs
-from the descriptor length, introducing the allocation-accounting mismatch.
+ - We have to do a read.  This could be because we've hit the point in
+   the readahead window where we need to kick off the next readahead,
+   or because the page is simply not present in cache.
+ - We're handling a write fault.  Most applications don't do I/O by writes
+   to shared mmaps for very good reasons, but some do, and it'd be nice
+   to not make that slow unnecessarily.
+ - We're doing a COW of a private mapping (both PTE already present
+   and PTE not-present).  These are two different codepaths and I handle
+   both of them in this patch set.
 
-Copy the header into a stack object and validate hdr->len before allocating
-the skb.  Size the allocation as sizeof(hdr) + payload_len so descriptor
-capacity no longer determines queued memory.  Check payload_len against
-len - sizeof(hdr) to avoid addition overflow on 32-bit hosts.
+There is no support in this patch set for drivers to mark themselves as
+being VMA lock friendly; they could implement the ->map_pages
+vm_operation, but if they do, they would be the first.  This is probably
+something we want to change at some point in the future, and I've marked
+where to make that change in the code.
 
-Fixes: 71dc9ec9ac7d ("virtio/vsock: replace virtio_vsock_pkt with sk_buff")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
-Link: https://patch.msgid.link/20261004235101.1464007-1-4ncienth@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+There is very little performance change in the benchmarks we've run;
+mostly because the vast majority of page faults are handled through the
+other paths.  I still think this patch series is useful for workloads that
+may take these paths more often, and just for cleaning up the fault path
+in general (it's now clearer why we have to retry in these cases).
+
+This patch (of 6):
+
+Drop the VMA lock instead of the mmap_lock if that's the one which
+is held.
+
+Link: https://lkml.kernel.org/r/20231006195318.4087158-1-willy@infradead.org
+Link: https://lkml.kernel.org/r/20231006195318.4087158-2-willy@infradead.org
+Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Stable-dep-of: 97156a6c355c ("mm/filemap: finish fault cleanup before dropping the fault lock")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/vhost/vsock.c | 34 ++++++++++++++++------------------
- 1 file changed, 16 insertions(+), 18 deletions(-)
+ mm/filemap.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/vhost/vsock.c b/drivers/vhost/vsock.c
-index f197f0c28022e..b67ccae915464 100644
---- a/drivers/vhost/vsock.c
-+++ b/drivers/vhost/vsock.c
-@@ -327,7 +327,7 @@ static struct sk_buff *
- vhost_vsock_alloc_skb(struct vhost_virtqueue *vq,
- 		      unsigned int out, unsigned int in)
- {
--	struct virtio_vsock_hdr *hdr;
-+	struct virtio_vsock_hdr hdr;
- 	struct iov_iter iov_iter;
- 	struct sk_buff *skb;
- 	size_t payload_len;
-@@ -344,34 +344,32 @@ vhost_vsock_alloc_skb(struct vhost_virtqueue *vq,
- 	if (len > VIRTIO_VSOCK_MAX_PKT_BUF_SIZE + VIRTIO_VSOCK_SKB_HEADROOM)
- 		return NULL;
+diff --git a/mm/filemap.c b/mm/filemap.c
+index aec7fb85775c3..4e62509489c58 100644
+--- a/mm/filemap.c
++++ b/mm/filemap.c
+@@ -3154,7 +3154,7 @@ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
  
--	/* len contains both payload and hdr */
--	skb = virtio_vsock_alloc_skb(len, GFP_KERNEL);
--	if (!skb)
--		return NULL;
--
- 	iov_iter_init(&iov_iter, ITER_SOURCE, vq->iov, out, len);
- 
--	hdr = virtio_vsock_hdr(skb);
--	nbytes = copy_from_iter(hdr, sizeof(*hdr), &iov_iter);
--	if (nbytes != sizeof(*hdr)) {
-+	nbytes = copy_from_iter(&hdr, sizeof(hdr), &iov_iter);
-+	if (nbytes != sizeof(hdr)) {
- 		vq_err(vq, "Expected %zu bytes for pkt->hdr, got %zu bytes\n",
--		       sizeof(*hdr), nbytes);
--		kfree_skb(skb);
-+		       sizeof(hdr), nbytes);
- 		return NULL;
- 	}
- 
--	payload_len = le32_to_cpu(hdr->len);
-+	payload_len = le32_to_cpu(hdr.len);
-+
-+	/* The pkt is too big or the length in the header is invalid */
-+	if (payload_len > len - sizeof(hdr))
-+		return NULL;
-+
-+	/* Allocate only for the payload declared in the header. */
-+	skb = virtio_vsock_alloc_skb(payload_len + sizeof(hdr), GFP_KERNEL);
-+	if (!skb)
-+		return NULL;
-+
-+	memcpy(virtio_vsock_hdr(skb), &hdr, sizeof(hdr));
- 
- 	/* No payload */
- 	if (!payload_len)
- 		return skb;
- 
--	/* The pkt is too big or the length in the header is invalid */
--	if (payload_len + sizeof(*hdr) > len) {
--		kfree_skb(skb);
--		return NULL;
--	}
--
- 	virtio_vsock_skb_put(skb, payload_len);
- 
- 	nbytes = copy_from_iter(skb->data, payload_len, &iov_iter);
+ 	/*
+ 	 * NOTE! This will make us return with VM_FAULT_RETRY, but with
+-	 * the mmap_lock still held. That's how FAULT_FLAG_RETRY_NOWAIT
++	 * the fault lock still held. That's how FAULT_FLAG_RETRY_NOWAIT
+ 	 * is supposed to work. We have way too many special cases..
+ 	 */
+ 	if (vmf->flags & FAULT_FLAG_RETRY_NOWAIT)
+@@ -3164,13 +3164,14 @@ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
+ 	if (vmf->flags & FAULT_FLAG_KILLABLE) {
+ 		if (__folio_lock_killable(folio)) {
+ 			/*
+-			 * We didn't have the right flags to drop the mmap_lock,
+-			 * but all fault_handlers only check for fatal signals
+-			 * if we return VM_FAULT_RETRY, so we need to drop the
+-			 * mmap_lock here and return 0 if we don't have a fpin.
++			 * We didn't have the right flags to drop the
++			 * fault lock, but all fault_handlers only check
++			 * for fatal signals if we return VM_FAULT_RETRY,
++			 * so we need to drop the fault lock here and
++			 * return 0 if we don't have a fpin.
+ 			 */
+ 			if (*fpin == NULL)
+-				mmap_read_unlock(vmf->vma->vm_mm);
++				release_fault_lock(vmf);
+ 			return 0;
+ 		}
+ 	} else
 -- 
 2.53.0
 
