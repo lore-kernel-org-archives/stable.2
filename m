@@ -1,58 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794729786;
-	b=vJcScS5FwG5JQZXSD0Kd7xJusdb3tzSMuKpG1okOJg4wyJW+GMuB/juaM/8vwKn5OkVB
-	 obDld2R4hU+V0zSaG2pE8l/1oP/G4OtApHVUB0iqYyNkPLwDekNTlaKAqVGWiCU+ubU6s
-	 0FBoAgLSnebzs0gLIJiwfxTram41IyUTpaptTWBVB2wbVKHvY6rMynHYTpnNz7w3D6P50
-	 Jw6pMN8s87sepaJEfbJTdW3PG6yBz+x/7aec4F7e4q/sIUK7Jr3mnRzwSRYYdbXEpccXI
-	 VGKJzexHey+evnIH3mNrIHo2RxDQDjGf8YWh8Q3K1V1f3PkMoOIzgdRXG96DSvnsHsg==
+	t=1794729788;
+	b=IzvA23Pn2gVDdpe3yr5vIKRZUDfcMjGr6nU4LVW4iegSRR3ulUD6pY24jvY9JKsdgNQs
+	 y3qYDBp2B0tNw5vD9YkneIoVcRB19Z8pVcn/Qu8O/K21YjkJY6NrVQHgSuGbyyD6GWeqR
+	 fSe2vXYgaTr5d8Mz/VBLOuj8/G3dQqGdjdS0h7nEy2W3nOb9oxfLXPjVY5Dqd3ZU3J3XX
+	 Q2tvcrgid5baNPxAIovVxPVXDVuivIoPEJkcYhMp7wD0DvXBqhjf+wNtvVxqEDCt9C8jX
+	 DuJhE5a6ggbnalTYta99a0ruJoCfyyFXaBliaMd7m45QAzMeQ8U/OIcBXBxAm4nzzCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794729786;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794729788;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=2cHoKfMTCq8qVifnRs0Z8Ntt3pn0su/nfO0nJQ9487s=;
-	b=nqdvBY4m2JaQ1xF1b7QV+xkANklnehoi6Krd4ZcdUK40oVOtF9ehg9MwfUwo+VUDgA5v
-	 +YqHVfcxTpkSlYCzrVMa2ip+O0zdjVE4nOUFcXRp9UQMuk1jEQbBGoMK5jCCTJxEFFP1E
-	 OZmOz1A7yvCDvTRWSh5uXTz/o2EBHVQPwTx2EB7QyObKkYX8Lqrzptc5HhnvNZ2lTSCRS
-	 x3RMTt09Px9k3AG1oHAmFvsD/luHdLw8YVaxCxCekGR0yE+WTcp6R9Q4vT+S4euH/gGC2
-	 6mn6rYJXybcaIVoGowF3L8G51xmXQWA9PdSiPU8vKjKeyodJjqnov0Sufd6rnoh4Grg==
+	bh=iqFD1Dy0PA5Hv/7kVoTZRvbdlmdkVu9y//K9Cw3fKM8=;
+	b=qHkExpasRRDPUSTXPVeEhcGQXqfIvSS94J9q+txQU38YM317zLUj8Cznqv/VqPn6zvS5
+	 aDZ8eqSr6Yxui4+/5wAD0vvGbFDMxgQ+p1a7pmaH/0vXuO6LwIAIo8g1cQrAxKZwFgpt9
+	 dqBDWua+t7NzxrYH3y6wjj2N8td5fvrQFKqrmyQ91LqrXD7P/PYlqJs2MAQ5KXtKE6R9C
+	 yiRlJ3UIBeN0Dij6R1HsnqesNmOF6jGU/+NIXzXFRYwHNGnBAHOU65O6C78nE5WUmRX/z
+	 BuMOQeSsRdS4EpIWSv1xaUwMgH2C4cuhnHINsc4ZMnO2y2K0aUl100r2zfYb8oj4fsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dGFRbzx3;
-	arc=none smtp.remote-ip=117.135.210.3
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=AccT0Gtp;
+	arc=none smtp.remote-ip=220.197.31.5
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F01606A329;
-	Sun, 15 Nov 2026 08:03:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25F01606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 372F4606A33F;
+	Sun, 15 Nov 2026 08:03:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 372F4606A33F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dGFRbzx3
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=AccT0Gtp
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=2c
-	HoKfMTCq8qVifnRs0Z8Ntt3pn0su/nfO0nJQ9487s=; b=dGFRbzx3fNZVhnYwa2
-	mdZ982tnEwZzeHvABeQ1FQjbJZeTHWYKl92Yo+9Sv2o8j1g/LIeUNFkGhblbfiZh
-	smQZMvkfAZQ0y3SulsA6GlanApw9VU1EV4c8/9eL9fBf3wJnzngR0LzNYpXd8w9C
-	6qy/Q8wajVI4z7kJHuVXR8cYY=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=iq
+	FD1Dy0PA5Hv/7kVoTZRvbdlmdkVu9y//K9Cw3fKM8=; b=AccT0GtpYOmkgHaMbw
+	qgk5oDQiS2+F1HIJtb+ZKtzUXFiXh54CYN9I5QXybfghSl07ssNJFR5CUN9Sr2O9
+	aVHMcfKssWn8Cj0UVh6X01X72wBDJjRvjdSp/NCAU8/CWDTJauu5jt6RiNq4crHu
+	XhmT7y22CyAFlzxkKRUhDaVxs=
 Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wB3fJUmZ_lqQz57HA--.24354S2;
-	Sun, 15 Nov 2026 16:02:46 +0800 (CST)
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wBnbpcfZ_lqTjp7HA--.27549S2;
+	Sun, 15 Nov 2026 16:02:39 +0800 (CST)
 From: Ziheng Wei <zihengw03@163.com>
-To: Ludovic Desroches <ludovic.desroches@microchip.com>,
-	Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.Li@kernel.org>,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+To: Felix Fietkau <nbd@nbd.name>,
+	Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	linux-wireless@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] dmaengine: at_xdmac: handle empty transfer list in tx_status
-Date: Sun, 15 Nov 2026 16:02:45 +0800
-Message-ID: <20261115080245.910534-1-zihengw03@163.com>
+Subject: [PATCH] wifi: mt76: mt7925: fix mt7925_reverse_frag0_hdr_trans() for MLO
+Date: Sun, 15 Nov 2026 16:02:39 +0800
+Message-ID: <20261115080239.910402-1-zihengw03@163.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,38 +66,36 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wB3fJUmZ_lqQz57HA--.24354S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCry3Aw1kAw17CF45GrWDXFb_yoW5Gr43pa
-	yfG3y5CryktF4ruF1kG3W09ay5ZF4rCayUuayDW3s8uF4Yvr4rW3s7t34jqF98Wrs5XFyv
-	yF4Ut3s3CryDGrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07bU-erUUUUU=
-X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7Qb7TGr5ZyavCQAA3o
+X-CM-TRANSID:_____wBnbpcfZ_lqTjp7HA--.27549S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF18Ww4fWFyktFWUGw15Arb_yoW5tw43pa
+	yjk3y5Gr1kXrs5Zw18Cw4j9FWava1fKFyIkryfG3Z5uFZ5tr18JFsrXry0vryYkr4kuFnI
+	yFW8tr98Gayq937anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jkpnQUUUUU=
+X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7QD6S2r5ZyCuOAAA3e
 
-at_xdmac_device_terminate_all() removes every descriptor from
-atchan->xfers_list without completing their cookies, so
-dma_cookie_status() keeps reporting a terminated cookie as
-DMA_IN_PROGRESS. at_xdmac_tx_status() then calls list_first_entry()
-on the empty list and uses the list head, which lives inside struct
-at_xdmac_chan, as a descriptor: active_xfer and xfer_size are read
-from neighbouring channel fields, and if active_xfer happens to be
-non-zero the residue loop walks a descs_list made of those fields.
+For unicast frames mt792x_rx_get_wcid() returns the wcid of the
+receiving link. Since commit 43aa4033eb18 ("wifi: mt76: mt7925: add
+mt7925_change_sta_links") the wcid of a non-default station link is
+embedded in a separately allocated struct mt792x_link_sta, not in
+struct mt792x_sta. mt7925_reverse_frag0_hdr_trans() still casts
+status->wcid to struct mt792x_sta and derives the ieee80211_sta from
+it with container_of(), so for a frame received on such a link it
+reads msta->vif past the end of the link allocation, dereferences the
+result as a vif, and copies sta->addr from memory in front of it into
+the rebuilt 802.11 header.
 
-For audio this is a routine path. The generic dmaengine PCM calls
-dmaengine_terminate_async() on TRIGGER_STOP and later
-dmaengine_tx_status() on the same cookie from
-snd_dmaengine_pcm_sync_stop() and on close. What happens depends on
-the struct layout. On a 32-bit build active_xfer overlays
-sconfig.device_fc, which is normally false, so only a bogus residue
-is reported. With CONFIG_DEBUG_SPINLOCK the larger spinlock_t puts
-active_xfer on the held lock word and descs_list on the owner_cpu and
-owner fields, so the loop follows a pointer that is not a descriptor.
+This path is taken for the first fragment of a header-translated
+unicast frame, so it is reached when the AP sends fragmented data on
+a secondary link while RX header translation is active there.
 
-Report a residue of 0 when no descriptor is queued.
+Do what commit a3ea1c309bf3 ("wifi: mt76: mt7996: Fix
+mt7996_reverse_frag0_hdr_trans for MLO") did for mt7996: get the
+station through the sta back pointer of the link and wcid_to_sta(),
+and take the BSSID from the bss_conf of the receiving link.
 
-Found by LLM-assisted source review. Not tested on hardware; the
-layout analysis above is from reading the code only.
+Found by LLM-assisted source review. Not tested on hardware.
 
-Fixes: e1f7c9eee707 ("dmaengine: at_xdmac: creation of the atmel eXtended DMA Controller driver")
+Fixes: 43aa4033eb18 ("wifi: mt76: mt7925: add mt7925_change_sta_links")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ziheng Wei <zihengw03@163.com>
 ---
@@ -104,31 +104,46 @@ Notes:
     The changelog was drafted with an AI assistant from my analysis;
     I have reviewed the code, the fix and the text.
 
- drivers/dma/at_xdmac.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/net/wireless/mediatek/mt76/mt7925/mac.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/dma/at_xdmac.c b/drivers/dma/at_xdmac.c
-index ef0dfe9d3..bcfbb41ea 100644
---- a/drivers/dma/at_xdmac.c
-+++ b/drivers/dma/at_xdmac.c
-@@ -1553,7 +1553,16 @@ at_xdmac_tx_status(struct dma_chan *chan, dma_cookie_t cookie,
+diff --git a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
+index 7af996abe..e00c04cf5 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt7925/mac.c
+@@ -184,7 +184,9 @@ static int mt7925_reverse_frag0_hdr_trans(struct sk_buff *skb, u16 hdr_gap)
+ {
+ 	struct mt76_rx_status *status = (struct mt76_rx_status *)skb->cb;
+ 	struct ethhdr *eth_hdr = (struct ethhdr *)(skb->data + hdr_gap);
+-	struct mt792x_sta *msta = (struct mt792x_sta *)status->wcid;
++	struct mt792x_link_sta *mlink = (struct mt792x_link_sta *)status->wcid;
++	struct mt792x_sta *msta = mlink ? mlink->sta : NULL;
++	struct ieee80211_bss_conf *link_conf;
+ 	__le32 *rxd = (__le32 *)skb->data;
+ 	struct ieee80211_sta *sta;
+ 	struct ieee80211_vif *vif;
+@@ -201,8 +203,11 @@ static int mt7925_reverse_frag0_hdr_trans(struct sk_buff *skb, u16 hdr_gap)
+ 	if (!msta || !msta->vif)
+ 		return -EINVAL;
  
- 	spin_lock_irqsave(&atchan->lock, flags);
+-	sta = container_of((void *)msta, struct ieee80211_sta, drv_priv);
++	sta = wcid_to_sta(status->wcid);
+ 	vif = container_of((void *)msta->vif, struct ieee80211_vif, drv_priv);
++	link_conf = rcu_dereference(vif->link_conf[mlink->wcid.link_id]);
++	if (!sta || !link_conf)
++		return -EINVAL;
  
--	desc = list_first_entry(&atchan->xfers_list, struct at_xdmac_desc, xfer_node);
-+	desc = list_first_entry_or_null(&atchan->xfers_list, struct at_xdmac_desc,
-+					xfer_node);
-+	/*
-+	 * The list is empty once the channel has been terminated, while the
-+	 * cookie of the terminated transfer is still reported as in progress.
-+	 */
-+	if (!desc) {
-+		dma_set_residue(txstate, 0);
-+		goto spin_unlock;
-+	}
- 
- 	/*
- 	 * If the transfer has not been started yet, don't need to compute the
+ 	/* store the info from RXD and ethhdr to avoid being overridden */
+ 	frame_control = le32_get_bits(rxd[8], MT_RXD8_FRAME_CONTROL);
+@@ -215,7 +220,7 @@ static int mt7925_reverse_frag0_hdr_trans(struct sk_buff *skb, u16 hdr_gap)
+ 	switch (frame_control & (IEEE80211_FCTL_TODS |
+ 				 IEEE80211_FCTL_FROMDS)) {
+ 	case 0:
+-		ether_addr_copy(hdr.addr3, vif->bss_conf.bssid);
++		ether_addr_copy(hdr.addr3, link_conf->bssid);
+ 		break;
+ 	case IEEE80211_FCTL_FROMDS:
+ 		ether_addr_copy(hdr.addr3, eth_hdr->h_source);
 
 base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
 -- 
