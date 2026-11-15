@@ -1,122 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.143
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794748257;
-	b=GLZmjNt607f4bUOf7lWlJ9qzAZU8wqsLo2y39VnwqBWZBznAh0newYhsqv2CVlligwdZ
-	 Hc1f0qmfZtVmPlMRta3MeZtvonLn+KRZ1qLt+7ydaJQqGO2iRsdfL6d3JBn1HyDzKtTRP
-	 uXVd17wU4d9gnYB7z/lOJ0ZUQzSCb6z8J8xmnH/08lS6VRzZjjZ5VNRbChGxQjl4teq1X
-	 tiZy0OAsCMGKVFuSGgLHAKs04v1XPuY8snyg5GPRqgmMfcs80ibD5Z1fYw1LwuGeFP0YT
-	 wn9N7EO2/PapLn3QreiPPSSOtkXwMop79PoK0/fbGHIn31UiSZYzcE4XzqGLbnlrMBQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794748257;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=OT4FeXl35Wtg7prNe9t4q4OanVhGByEupJ8DCWW0Zu0=;
-	b=PJWYxPOcWYikmEpc3Ha7cxj1VUXS21dIvJFl0dHpGe/Hj09El0xP4yg7rz0rE/fsK5R5
-	 O1YD4AsCHAMo0AHj5cOuskCOtzw0+TtdgvZzJhlzPQoDf4ZH2xShEbpXtJr3UaUeCclR4
-	 SuVc9JVDgIQ5iWin3w05GZqU/VyruxwbRYy58fPoL05UFujpJMwPnLXMzxxvzySPUs3KK
-	 tieZzTQX2USZ8ZAJjH2uDvj0MZJBolfl80FYQnouRVq1Buqe8Db41ycb+VRuhwJqrYiqn
-	 jJ+Z8Xllbcb5MJwhvRz0DIwn1XLSHymeauyYcj45rO95aUknxvHGsRGv63KGacNRmTw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=VBAvAFaG;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=QpGATdJa;
-	arc=none smtp.remote-ip=103.168.172.143
-Received: from flow-a8-smtp.messagingengine.com (flow-a8-smtp.messagingengine.com [103.168.172.143])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794748383;
+	b=RhepWzx/3b+9uB96m5H+GhtFoUoerS8q7Ux0z1lGfnImi4ShGu9WWYHeT0OLxqYPdn4i
+	 RfL4m3VwiqileZ3fO/m26tK1tKuHq+MP+uf5MLDws7Q/KEKMndrzPJtzxr/zbRZjX6dEp
+	 SQJssW8+D+WSp4a/eYY4e39gjakDCZ7CKcwzirAxbZ3n/+gj3ZfLYweh3QEGP7g1Dh6SR
+	 Jao35FxDpkB6RQegtcRsq3CStjeIgvL1JD1Xg3Oo1Hi5E6KKo8Wh8ZIoMWfp0pjVs8wv7
+	 GMTADJf8Kseo4/zuu/wO3iMdWP2/sFZkLph6Kisdo4EZEkpH0OerzWblzWELXCrTl7w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794748383;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=IqR561dWiplqXUp1PMLGBdY5P8lIwtM8j4jl0EFni5Q=;
+	b=SE/mz0XFPfSbWK9iO9iDlxxQuVcHnJdM2O0Wamk57e+69Q0N6Hidr2IaeKkHYyu077Ew
+	 Yj3m/Tl76YYatkYx5p4vYyclUI0fboen5i+bJlkBo2tl8d9WWJegfXmFOVc1d8PGBssZc
+	 RTbGybZBhdEWgpqyo26Zski6oxQDIyhKEIgdmM14dHWLu6FroFdxpGuxy5mB36R5DPIx5
+	 BGQ0utdWQhZ/zK7W/hDg9v0Nqi654nubkhNiSG6bKe2xXllO5cs5LjfoK3MBPZV0QJcZ6
+	 m16hmidBZ9NkR3bOn+5KVtEj0S1J2se3h/2XpL4kqzHSVMw0X7z04dTmazQN1aSlppg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJAuXMgc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA622606A31E;
+	Sun, 15 Nov 2026 13:13:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IJAuXMgc
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794748382;
+	b=YUMDaxtYaKnTDtTrUrC8JpkhAfk6EfuC3FcLXU5KbbxxJ+lnVorlsv9saBsddQpsFbSd
+	 MG1az+RV5ZIFxYMxoY+eGo9hGlpH2KyU0Z00G9CldbrWuVQWqctofHvVJRDQLlXRyHtjY
+	 H5Hc3V2qea+rLnzOwe7We2iGl8yAjQdjsa+rYlWejFCNZahDyeEcRoNqNJzTkZd940xDr
+	 BwsdJm/R/J5eYjGcajMa0QbvI25tOO+L2eORNIr0ETe1w23tUDmyw6rcw6DqER84Ns0lR
+	 bxibclKUfA0eso0pET45uuXJc5IQV/Ju+5B3pePyO74KjdA+chKTFMWDt2WzqBlU6EA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794748382;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=IqR561dWiplqXUp1PMLGBdY5P8lIwtM8j4jl0EFni5Q=;
+	b=1yyRud+L+rYKtwZ6PO7D2QJ8P7vTG2Mfx+nijfhYAerqxx4OtSBrOagyfE4QVRmwn+kS
+	 gN8lHPHi1otlue1fFiQ6kIoHyJBU7/bOrVKKsKz6x9rQv9k7gVZflGZrCf8JUuAIEp8xM
+	 HpOlyvQvi3FUpRCC//FuaUpguLEiSUfceYHjLQqnY1eD3FIMvgbvCEpd0Iotibvb1n+SP
+	 8H1MCQsAs34HAErjcMUYMuz4eFsQN/tZnRRGs2VwK2NBPNbhj9yFNuJl5HUyz+DE0wcei
+	 +6iXtrcX7rYgbLdTo6IHWwJ2BZExhUb3cVYcAVcn5N2itmQ1CQYJCSmv4jRSIK/WIiA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B404A606A31E
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 13:10:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B404A606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=VBAvAFaG;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=QpGATdJa
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailflow.phl.internal (Postfix) with ESMTP id DBBD713819DA
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 08:10:55 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-07.internal (MEProxy); Sun, 15 Nov 2026 08:10:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1794748255; x=1794755455; bh=OT4FeXl35Wtg7prNe9t4q
-	4OanVhGByEupJ8DCWW0Zu0=; b=VBAvAFaG2NxOtSxitihLNpDtxRhSTqGiPm+2b
-	OyGb8uz4h3kyw9gtRbxTpt7enq4s7JyIAVXVgMFsWHYYho9+1VRd2dP3ol9jGw8X
-	TnVyTrRcOioznZxlEOQP/Wk48+xKYwJEONcIRB/MZtQNy7ucOo0lNt2Uw1GkZrYK
-	NGT1+meNKtioVCfvb2N3vfzBeneZQs4EnMe1JwVV6Jg36qkoGSVNqnSwhwv7IXas
-	xarfuNQIPvMSv36pCW97GqglN1k/MCF2pT+wS0AVwNCVqpjt3stvM/E9PxOETLT8
-	fplEjdM6BFj9f4//adA6bLgFbJvOAqOixgBoRxbDUmpV7xpvQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1794748255; x=1794755455; bh=OT4FeXl35Wtg7prNe9t4q4OanVhGByEupJ8
-	DCWW0Zu0=; b=QpGATdJasvCIxdd7OqsE+1+ojDS2Yc0J2czZBP0eebTsmUqa2Sr
-	oN90V7c+hYKNDSbDjMBOYONuOU3gqC1Cair05CFkKIzCV198tWcgdcFeuXZjc2OW
-	vwq127miOTCWIjiGur/bKR2IVv37lC4B44+M7JT3nkX0HHko8C1a9Y9n2abpeCiu
-	vPsPs26kGyh/DbxV0Ccc1VCIiLM//zhW2c7ThoFgIkvdPD4eCCmyRy1yyYrAHGcT
-	ZCpmC4v36oQksOlaJjKtRPqKpufOsm98AgHe2KzuzgAug1nvq7gWLP514q2uni0o
-	vQx+cJRdpeNzGL9Rh+A0D7ODjhy5OxDLWWA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794748255; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:HTTY5aQyGwHP1agZZkVbasHGOmrs3mq5rnXDA+5/+DRyVrr
-	TaMRJ7ubk3xMydRxJk0toCZkyexN5LJDVybvkz6DEfb6cDjD+mxy1OeRGU5exM+8
-	1drRGRcyYbOavA7zwPJHfjfO07+a7p8W46AmQAWQ+xnoltkW9/Rl6lWR5Cw1vcA0
-	bev1kvZW2iTFKjQs1mIIbjV6RSKAsprHYn9OGZs1+IHAsEefAAjE3Oi+wDJZugIs
-	blK5OHYZLRWzeH0lne890R7jI2gLoTEtxTPFVtZ1KlTaqOz3jqDWD0bhTs1OLB4C
-	ZkOgoXKwDcUHfNddZoyUFEQ8bSdO/ZXmvorNYtw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:O8NH1FAPmoca8ODKi9/z5j8obHXtjHqqOLT4jqdvk7g=:kc8jFrtHGOCCuXz0LhqwqZVS1P4n1jlyVi1qGpltCp0=;
-X-ME-Sender: <xms:X6_5aifvhwe3M2YueZ3YErh4mneyU5oLa1gzXgNioVLQtXf4_uOtHQ>
-    <xme:X6_5aoPbaYAg9lhcOm676mWvhIrfVOCcjrFYevwQ2yYnEgvrWJeuN72dHImlOleyZ
-    2l5d6I8SJ_DN6CNR3Il5qUKUo0rTkDG4QnydNmcdstCPzzm3ZPszy8>
-X-ME-Received: <xmr:X6_5alt50UF5teFP36MV0tlJQXfW9o4JKvN4gXXnoVBVja0kebOhPQqVPPXhLJK3>
-X-ME-Proxy-Cause: dmFkZTGPkveAdfc5w2ZRKxtHShmO68327dXLVpOEFJzba+fXOBZCJ9NDlEESf6ERyUzj3x
-    kprTj0F1LHjUz47eZg6J6ex0YNYInfQozJZBKdXWoMKMBOpVl+raMJDhDKd0AwuDLlIeuo
-    xdRWeI31Kg3v08ndDS0g6FIppPlY+MnPKljgamQdHFgveNvkROi8NS7pawEH5tIztHBzic
-    sivyUg+63B5x9f3VatMOCtaT76oyxVDYejPyNmtPlUA34Xff8Devw64Nbcjv+Ed+bPAWiV
-    qfR7zbL9Yk4Vi+PIS2Y3IAKCEjErGIpO7L4PEbzGvvf1VDonOj192IfsVE29cyqO4djECO
-    oOp5kut41//YxJalsKAQWQc7sR4CDQPT8ASGchY5GLsAwxln0Uxwbf8ZHAAHzu7FaGM51N
-    nTEdc8dSO1ugrYx4NT/V98E813ytn2XCVneEeVmA0F38N0dyx3pPrcriUpvYc4LFwMJMLZ
-    miQAGDDpKrXCXKCcV8ADv6k4I6s0q2Sm+VLdOBCPojuQBNerboDS5SnpN7dSQ2rCNx7JgU
-    HBYv9v804kvlSeJ2xPeIq2UjjCUdKauxFgxTwapTI0hoxtUB7H/p237ed80frRzfQvLadi
-    AAmOrGElWwV1iGZ9bDqgVz7nFbjKxoypZ0qak3EGYJezBTJZ1ZrRiHAugpkg
-X-ME-Proxy: <xmx:X6_5ahBO0DV_VGDTfrwu1vJ2L0Jz3nc0tDEtqfN2yU_tZIZwnpvIBA>
-    <xmx:X6_5asZxsW2yWe3fqZrmvMwloJd9q2m-Kqkb1Gt1svkmui-eEboJ5w>
-    <xmx:X6_5asUK2sRY7RGlNf6VDmdN-Z2PRVVcz2dSu6A7drx-OuPYZjybpA>
-    <xmx:X6_5arPDn_vKCAXxWOUfsUwkDdcjJaKcoLpRIymJr0mLlzNLTJUdvQ>
-    <xmx:X6_5aiAi9pNtLPSQ1sy5reKSDLIQSZJAxh5ZlqnrYa74DCJZG8OmBLgN>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 15 Nov 2026 08:10:54 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: fix smb2_cancel() use-after-free during request decompression
-Date: Sun, 15 Nov 2026 07:10:47 -0600
-Message-ID: <20261115131047.2338285-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	by smtp.kernel.org (Postfix) with ESMTPS id 14F661F000C5;
+	Sun, 15 Nov 2026 13:13:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794748382;
+	bh=IqR561dWiplqXUp1PMLGBdY5P8lIwtM8j4jl0EFni5Q=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=IJAuXMgc3/CrVFvtvJGHJ/gPL2mdVN5ctgD7Lp2r4pLqY2YIWRbpQmQcx5dZSIB6B
+	 9L5KtDAifjS4jFFDpJqDGFL6MgcpYHN1T6oVlWcfuNDN1UUZfZHpMXorYs4s4Hh7pJ
+	 VBhNS/I3/UDpchk+OS2uOIoCz7QbTQ8slEKNMhw5VA/4hgH4gUGpibYycB+8jAJPAH
+	 7LE4yp75z9xbw/gnbObKKVZsaXIteIV2TGFghAr9J+nWrMzp9J9HMQBOyMNURDn6sL
+	 eXzcS1KFY4tm317BYu/Y7d97gK7JDVhJPF5CwS5ainxK8hNEIVNbnZ3pJRoCObX/LD
+	 E0zvBA7dWlbvg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 99DE44A0A8;
+	Sun, 15 Nov 2026 13:13:01 +0000 (UTC)
+From: yzddMr6 via B4 Relay <devnull+yzddmr6.gmail.com@kernel.org>
+Date: Sun, 15 Nov 2026 21:12:57 +0800
+Subject: [PATCH] ASoC: qcom: q6dsp-lpass-clocks: Set driver data before
+ registering clocks
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,206 +83,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261115-upstream-q6dsp-clk-drvdata-v1-1-4d7dbea52e52@gmail.com>
+X-B4-Tracking: v=1; b=H4sIANiv+WoC/zXMyw6CMBCF4Vchs3aUVgLiqxgXvQxSL4Az0JgQ3
+ t2CcfmfnHwzCHEggXM2A1MMEvouhdpl4FrT3QiDTw0616VSqsBpkJHJvPBdehnQPR/oOXozGqS
+ 89rpq9Km2R0jAwNSEz4Zfrr+Wyd7Jjau4PqwRQsumc+06/e3DtsdqXyA7DcvyBbn5X9OnAAAA
+X-Change-ID: 20261114-upstream-q6dsp-clk-drvdata-e09d27f289b3
+To: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, yzddMr6 <yzddmr6@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794748380; l=4515;
+ i=yzddmr6@gmail.com; s=20261028; h=from:subject:message-id;
+ bh=IhpdDzjG8SfUTWw69Q02/8xD6GDVJahHeSuoz5N6di4=;
+ b=1VjHJ+3hckZdc0O+FuL60XGYogx0ZxwJhD+VOXHMKTe3EPdoyEnpqTWiIqO8cOPhscKIRQjan
+ UBcaxw7PFcQAtzV+3B+D6bnxJHIYHcKVusuuFUHGEN5vOJxUKkfxkEN
+X-Developer-Key: i=yzddmr6@gmail.com; a=ed25519;
+ pk=QLT2mwairk4R38oU379hkHynqjoLrlqd0Cl1ERUqIqY=
+X-Endpoint-Received: by B4 Relay for yzddmr6@gmail.com/20261028 with
+ auth_id=1489
+X-Original-From: yzddMr6 <yzddmr6@gmail.com>
+Reply-To: yzddmr6@gmail.com
+Content-Transfer-Encoding: 7bit
 
-smb2_cancel() finds the request to cancel by reading the SMB2 header in
-the request_buf of each queued struct ksmbd_work. A queued request may
-still be in preprocessing. smb3_decrypt_req() decrypts it in place, and
-ksmbd_decompress_work_request() frees request_buf and replaces it with
-the decompressed buffer. Neither runs under conn->request_lock. A
-concurrent CANCEL can therefore compare a transform header as if it were
-an SMB2 header, or read freed memory.
+From: yzddMr6 <yzddmr6@gmail.com>
 
-  BUG: KASAN: slab-use-after-free in smb2_cancel+0x73b/0x840 [ksmbd]
-  Call Trace:
-   smb2_cancel+0x73b/0x840 [ksmbd]
-   handle_ksmbd_work+0xa90/0x2110 [ksmbd]
-  Freed by task 53136:
-   ksmbd_decompress_work_request+0x10d/0x180 [ksmbd]
+The clk ops of the q6dsp clock controller look up struct q6dsp_cc with
+dev_get_drvdata(), but q6dsp_clock_dev_probe() sets the driver data only
+after it has registered the clocks and added the OF clock provider. A
+consumer that gets and prepares one of the clocks in between
+dereferences a NULL pointer.
 
-Record the MessageId and Command of each request in its struct
-ksmbd_work, under conn->request_lock. A plain SMB2 request gets them
-when it is queued, because its request_buf does not change. An encrypted
-request gets them once it is decrypted and decompressed. smb2_cancel()
-matches on these fields and skips a request that does not have them yet.
-It no longer reads the request_buf of another request.
+fw_devlink does not keep consumers out of that window. The q6prm and
+q6afe clock controllers are described below the ADSP remoteproc node,
+and their devices are only created once the ADSP has booted and its
+GPR/APR services have come up, long after the remoteproc device has
+bound. fw_devlink therefore makes the remoteproc device the supplier of
+their consumers. A consumer such as the LPASS LPI pinctrl then just
+defers until of_clk_get() succeeds, and its retry from the deferred
+probe worker can run while the clock controller is still in its probe.
 
-Fixes: 6639b6928ba2 ("ksmbd: handle encrypted compressed requests")
+That happened once on a Xiaomi Pad 8 Pro (SM8750). While the LPI pinctrl
+probe registered its GPIO chip, gpiolib read a GPIO direction, which
+runtime resumed the device and prepared its q6prm vote clocks through
+pm_clk. The prepare op then faulted with a NULL pointer dereference at
+virtual address 0x350 (trimmed):
+
+  pc : clk_vote_q6dsp_block+0x24/0x58 [snd_q6dsp_common]
+  lr : clk_core_prepare+0x7c/0x298
+  Call trace:
+   clk_vote_q6dsp_block+0x24/0x58 [snd_q6dsp_common] (P)
+   clk_core_prepare+0x7c/0x298
+   clk_prepare+0x28/0x44
+   pm_clk_resume+0x10c/0x188
+   pm_generic_runtime_resume+0x2c/0x44
+   ...
+   __pm_runtime_resume+0x50/0x94
+   ...
+   lpi_gpio_get_direction+0x4c/0x8c [pinctrl_lpass_lpi]
+   gpiochip_add_data_with_key+0x7b0/0x10dc
+   devm_gpiochip_add_data_with_key+0x38/0x8c
+   lpi_pinctrl_probe+0x2b8/0x320 [pinctrl_lpass_lpi]
+   ...
+   deferred_probe_work_func+0x88/0xc0
+
+0x350 is the offset of desc in struct q6dsp_cc; the driver data pointer
+it was loaded from was NULL. The oops left the clk prepare_lock held,
+which blocks every later clk_prepare(), and the system did not finish
+booting.
+
+On mainline the window is short, but it includes a wait for prepare_lock
+in clk_core_reparent_orphans(), which of_clk_add_hw_provider() calls
+right after listing the provider. The kernel that hit this had
+out-of-tree changes to drivers/clk/clk.c that do more work at that
+point, which makes the window wider.
+
+Both q6afe-clocks and q6prm-clocks use q6dsp_clock_dev_probe(). Set the
+driver data before the first clock is registered.
+
+The oops was analysed and the fix written with the help of an AI coding
+assistant.
+
+Fixes: 9ab71ac37240 ("ASoC: qdsp6: q6afe-clocks: move audio-clocks to common file")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+Signed-off-by: yzddMr6 <yzddmr6@gmail.com>
 ---
+The kernel that hit this was v7.4-rc2 with out-of-tree board support and
+other changes, including the clk.c changes mentioned above. The oops
+showed up once in the 23 boots of that kernel I have logs for, and I
+have not been able to reproduce it on demand. The patch is build-tested
+(arm64 defconfig, W=1) on the base commit below.
 
-Notes:
-    The bug needs an authenticated client on an SMB 3.1.1 connection with
-    encryption and compression negotiated. The client sends an encrypted,
-    compressed request. An SMB2_CANCEL on the same connection is then
-    processed while that request is being decompressed.
-    
-    A reproducer is available on request.
-    
-    Tested on ksmbd-for-next dc6eabb1bd40 under KASAN. The race window was
-    widened with a temporary msleep() in ksmbd_decompress_work_request(),
-    not part of this patch. A CANCEL sent during decompression no longer
-    triggers the report. A sync CANCEL still finds an in-flight request by
-    its MessageId, and an async CANCEL of a pending blocking lock still
-    returns STATUS_CANCELLED. smbtorture results are unchanged.
-    
-    This fix was developed with LLM assistance.
+I used an AI coding assistant for this work. It analysed the oops,
+traced the probe ordering and drafted this patch and changelog. I have
+reviewed the change.
+---
+ sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
 
- fs/smb/server/connection.c | 27 +++++++++++++++++++++++++++
- fs/smb/server/connection.h |  1 +
- fs/smb/server/ksmbd_work.h |  7 +++++++
- fs/smb/server/server.c     |  2 ++
- fs/smb/server/smb2pdu.c    | 18 +++++++++---------
- 5 files changed, 46 insertions(+), 9 deletions(-)
-
-diff --git a/fs/smb/server/connection.c b/fs/smb/server/connection.c
-index 0fcf90b877ae..01e5cc13a12a 100644
---- a/fs/smb/server/connection.c
-+++ b/fs/smb/server/connection.c
-@@ -352,6 +352,32 @@ bool ksmbd_conn_lookup_dialect(struct ksmbd_conn *c)
- 	return ret;
- }
+diff --git a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
+index 94d96130245e..c3628f90fdb2 100644
+--- a/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
++++ b/sound/soc/qcom/qdsp6/q6dsp-lpass-clocks.c
+@@ -146,6 +146,12 @@ int q6dsp_clock_dev_probe(struct platform_device *pdev)
+ 	cc->dev = dev;
+ 	q6dsp_clks = desc->clks;
  
-+/* Caller holds conn->request_lock */
-+static void __ksmbd_conn_set_request_id(struct ksmbd_work *work)
-+{
-+	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
-+
-+	if (hdr->ProtocolId != SMB2_PROTO_NUMBER)
-+		return;
-+
-+	work->req_mid = hdr->MessageId;
-+	work->req_cmd = hdr->Command;
-+	work->req_id_valid = true;
-+}
-+
-+/*
-+ * Record the MessageId and Command of a request whose request_buf now holds
-+ * a plain SMB2 header, after decryption and decompression replaced it
-+ */
-+void ksmbd_conn_set_request_id(struct ksmbd_work *work)
-+{
-+	struct ksmbd_conn *conn = work->conn;
-+
-+	spin_lock(&conn->request_lock);
-+	__ksmbd_conn_set_request_id(work);
-+	spin_unlock(&conn->request_lock);
-+}
-+
- void ksmbd_conn_enqueue_request(struct ksmbd_work *work)
- {
- 	struct ksmbd_conn *conn = work->conn;
-@@ -363,6 +389,7 @@ void ksmbd_conn_enqueue_request(struct ksmbd_work *work)
- 	atomic_inc(&conn->req_running);
- 	if (requests_queue) {
- 		spin_lock(&conn->request_lock);
-+		__ksmbd_conn_set_request_id(work);
- 		list_add_tail(&work->request_entry, requests_queue);
- 		spin_unlock(&conn->request_lock);
- 	}
-diff --git a/fs/smb/server/connection.h b/fs/smb/server/connection.h
-index e202bf7f3b98..6855c1ab691e 100644
---- a/fs/smb/server/connection.h
-+++ b/fs/smb/server/connection.h
-@@ -242,6 +242,7 @@ int ksmbd_conn_rdma_write(struct ksmbd_conn *conn,
- 			  void *buf, unsigned int buflen,
- 			  struct smbdirect_buffer_descriptor_v1 *desc,
- 			  unsigned int desc_len);
-+void ksmbd_conn_set_request_id(struct ksmbd_work *work);
- void ksmbd_conn_enqueue_request(struct ksmbd_work *work);
- void ksmbd_conn_try_dequeue_request(struct ksmbd_work *work);
- void ksmbd_conn_init_server_callbacks(struct ksmbd_conn_ops *ops);
-diff --git a/fs/smb/server/ksmbd_work.h b/fs/smb/server/ksmbd_work.h
-index 1ab9ddd20506..27c8705910fe 100644
---- a/fs/smb/server/ksmbd_work.h
-+++ b/fs/smb/server/ksmbd_work.h
-@@ -36,6 +36,13 @@ struct ksmbd_work {
- 
- 	/* Pointer to received SMB header */
- 	void                            *request_buf;
 +	/*
-+	 * MessageId and Command of the request, set under conn->request_lock
-+	 * once request_buf holds a plain SMB2 header, for smb2_cancel()
++	 * The clk ops look up cc through the driver data, so set it before
++	 * any of the clocks can be prepared.
 +	 */
-+	__le64                          req_mid;
-+	__le16                          req_cmd;
-+	bool                            req_id_valid;
- 	/* Response buffer */
- 	void                            *response_buf;
- 
-diff --git a/fs/smb/server/server.c b/fs/smb/server/server.c
-index e91e3a1459e5..962f12e969ba 100644
---- a/fs/smb/server/server.c
-+++ b/fs/smb/server/server.c
-@@ -295,6 +295,8 @@ static void __handle_ksmbd_work(struct ksmbd_work *work,
- 			ksmbd_conn_abort(conn);
- 			return;
- 		}
++	dev_set_drvdata(dev, cc);
 +
-+		ksmbd_conn_set_request_id(work);
+ 	for (i = 0; i < desc->num_clks; i++) {
+ 		unsigned int id = q6dsp_clks[i].clk_id;
+ 		struct clk_init_data init = {
+@@ -174,12 +180,6 @@ int q6dsp_clock_dev_probe(struct platform_device *pdev)
+ 			return ret;
  	}
  
- 	if (conn->ops->allocate_rsp_buf(work))
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index d8da0b259cfd..dda5f4ddbb43 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -10698,7 +10698,6 @@ int smb2_cancel(struct ksmbd_work *work)
- {
- 	struct ksmbd_conn *conn = work->conn;
- 	struct smb2_hdr *hdr = smb_get_msg(work->request_buf);
--	struct smb2_hdr *chdr;
- 	struct ksmbd_work *iter;
- 	struct list_head *command_list;
- 
-@@ -10715,8 +10714,6 @@ int smb2_cancel(struct ksmbd_work *work)
- 		spin_lock(&conn->request_lock);
- 		list_for_each_entry(iter, command_list,
- 				    async_request_entry) {
--			chdr = smb_get_msg(iter->request_buf);
+-	ret = devm_of_clk_add_hw_provider(dev, q6dsp_of_clk_hw_get, cc);
+-	if (ret)
+-		return ret;
 -
- 			if (iter->async_id !=
- 			    le64_to_cpu(hdr->Id.AsyncId))
- 				continue;
-@@ -10736,7 +10733,7 @@ int smb2_cancel(struct ksmbd_work *work)
- 			ksmbd_debug(SMB,
- 				    "smb2 with AsyncId %llu cancelled command = 0x%x\n",
- 				    le64_to_cpu(hdr->Id.AsyncId),
--				    le16_to_cpu(chdr->Command));
-+				    le16_to_cpu(iter->req_cmd));
- 			if (iter->cancel_fn)
- 				iter->cancel_fn(iter->cancel_argv);
- 			break;
-@@ -10747,10 +10744,13 @@ int smb2_cancel(struct ksmbd_work *work)
- 
- 		spin_lock(&conn->request_lock);
- 		list_for_each_entry(iter, command_list, request_entry) {
--			chdr = smb_get_msg(iter->request_buf);
+-	dev_set_drvdata(dev, cc);
 -
--			if (chdr->MessageId != hdr->MessageId ||
--			    iter == work)
-+			/*
-+			 * request_buf of another work may be replaced while
-+			 * it is decrypted or decompressed, so match on the
-+			 * MessageId recorded under request_lock instead.
-+			 */
-+			if (iter == work || !iter->req_id_valid ||
-+			    iter->req_mid != hdr->MessageId)
- 				continue;
- 
- 			if (cmpxchg(&iter->state, KSMBD_WORK_ACTIVE,
-@@ -10760,7 +10760,7 @@ int smb2_cancel(struct ksmbd_work *work)
- 			ksmbd_debug(SMB,
- 				    "smb2 with mid %llu cancelled command = 0x%x\n",
- 				    le64_to_cpu(hdr->MessageId),
--				    le16_to_cpu(chdr->Command));
-+				    le16_to_cpu(iter->req_cmd));
- 			if (iter->cancel_fn)
- 				iter->cancel_fn(iter->cancel_argv);
- 			break;
+-	return 0;
++	return devm_of_clk_add_hw_provider(dev, q6dsp_of_clk_hw_get, cc);
+ }
+ EXPORT_SYMBOL_GPL(q6dsp_clock_dev_probe);
 
-base-commit: dc6eabb1bd40c0655837844c58432ae9095f6979
--- 
-2.47.3
+---
+base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
+change-id: 20261114-upstream-q6dsp-clk-drvdata-e09d27f289b3
+
+Best regards,
+--  
+yzddMr6 <yzddmr6@gmail.com>
+
 
