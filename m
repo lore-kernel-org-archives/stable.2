@@ -1,116 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794730963;
-	b=yg1CVFqlxqYT23AI2HN0KzfPTjXVlXNWuycBlNjUzGiazGR800AC8GVw9gV+1vWG7Vh7
-	 uuAd/uRzyRH72F+jVtkJzGGLdF2rzNbuDuTfNrWQWFN7ehN975cTvJ1WEQk5B+GrD9aP6
-	 DefQgdK/uF8FmC7ueRHY0v444bswwu0N4MBGeby+9+alb891ECEUjzRWiM77KXkfLlkzl
-	 iJ7FJx65bJbh5PMx+7Cnz9KrJcM5Mjkv0nUDVi3chE52WCcvHUMkaf6fLAH0qXqxmLdLG
-	 NV45GWsblGjA5pIkoxVR9+ImcTFYxqvRVJIZ4YnE2/vX3dk45jWh+7h3Ds0R7qlgmIQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794730963;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
-	b=Oqo9v6aZkhBNBq0lSjZTmnCFfgVgdV5LUAF34TBu58sEdfZngzvIEjR7HG1k+kcgSn41
-	 a0F9woPKXmsxNLuc0Rsg59w+qPWzYlJf2D0Ndr2iEJ2sgfkjtHmNBmMlPzEO/iYi1Hp+T
-	 R0g0AGIL5EA546X/bSvrQKpchJVb4diW9xhL73VQkKhhEqzu0H0lNHjC4W6wcmhGeY7I1
-	 LMYdgwocqSN6so+nc6khCFzZcFE/tgrbEec1bqyN134ZaZjvufcW32L3H3XMeurtvv+Ba
-	 9fXi2l7JNuvOqTUbGZfTY6Tfax5Wq6LEiJZtzGlMn++lVGUGNMK+ZqnRpOorkgkbkHA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fzae79s4;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DmTM11z2;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794731548;
+	b=BK8wPiuorLIXPU/yxInPm1fSvgUCZ/C+viDaGteCk7Za3EdixDUowKMP5Y/aQO0ltxSK
+	 GQkvTZD7dAYIZ9TnCUYIELTp1DgFOxJzZGHui/JgS1i3ykScwTTKVihtuDqtfQkXC8XxQ
+	 w9q3mUVtOQbIamvTXxm9TjP3RLvrm46R/Pt1l+h/QjTu8xdAOlp661XcdopmXYKrUT1xl
+	 7mf9sELsr7DSxwXYasM09Wr+GFZrPnY0iP+KvTvxYG5z1mQr9BHvofEkn6ouJYs6Dn+tT
+	 yBNGjausGzDlaIp2oIVGdQgBKwdPKM5sEtdif4Lk49FJW2Nu3rAtEAzieQred/53AkA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794731548;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=eEmTq2aD52LZwBg8OYrz5cuWmNtD67t5UWpL7YHFS6g=;
+	b=4c8RKWFLIWwkxJ9xdWkQ9gUXQ38Qk2vLP51e2nwQVKeBc7oUr2RT9d1Rg/B9y3CbnWh6
+	 9Rq+cr6INOqCg8qpaPgzD5GDGml4Abs7EbIYKFsbKCsyzD7CL0MTDYsWMCJ8jFVaC1gej
+	 1hx4Bt4S2C7bXMA3eG1d+wTRBHlDkKSGCCgozBRCwtRE5fJ+z2SqbJ69gV2mVY/J/Wthf
+	 4Doz0j5XO3oXsKSu+LcyMYaPFVfU1mU9kOAxU8DcHsDcfGWjlaaNK9Pv7EP+EkP+PtsKr
+	 KS37LACHcFgElSoHrtNnB2m7YzRDkidOV21x5owBS4DNnH1ZUq8GIPNhNtTBKFtSggg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ErYHWPAM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C840A606A31F
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 08:22:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C840A606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68406606A31A;
+	Sun, 15 Nov 2026 08:32:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68406606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fzae79s4;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DmTM11z2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794730960;
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=ErYHWPAM
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 61837202043;
+	Sun, 15 Nov 2026 09:32:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794731545;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
-	b=fzae79s4r33XIm4X0Qplugnvzcx6gmPVHrx9mtrZBkRTm4nlRPUcw1+SPvXJg7RI2vN7db
-	cMANMWjWd4+a8HcnjUfAdloBcKJBlC61C8d9w+Yj3H6YmqZPNcP33FoP1P7YrLhbM37cjL
-	fv+ZjYa3kgtVouWIOS3xtRXdYH3jv8s=
-Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
- [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-447-lM2BI4huNw6X_q-MlHk-Lw-1; Sun, 15 Nov 2026 03:22:39 -0500
-X-MC-Unique: lM2BI4huNw6X_q-MlHk-Lw-1
-X-Mimecast-MFC-AGG-ID: lM2BI4huNw6X_q-MlHk-Lw_1794730958
-Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48e4d1e29f3so2093077f8f.3
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 00:22:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794730958; x=1795335758; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
-        b=DmTM11z2mj0Ygyj+SNk4FmJDtfZr0mpv1PUS2jGNBIKf8NMHOQcQqCCVH78jJnYr8w
-         BcLd6CjxdqglHGwJ5zLoZ2EH+AXT5DksN/YWmNfMWshEiGPfB5wbL3ur3RXMt+eak/bo
-         AJU3htHY47nwfMp58dD7JeMtvLCU83xjPwW+zQGwNZUK53OG10JeUWhK4dqc4phQswdW
-         Ar/lr9h7EaYwautyYFc1ZvinugH7pbRkEDJxsZ/bXqOBotJbEZcAGAiALRAhePW6TbLY
-         iL0iS/8I5xz+qWtOxPYrgduXx37RHZ69MBAqu39Tu6g0e1g5xBYYkd11SclSGtv3Hsdb
-         8IOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794730958; x=1795335758;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
-        b=zqG4e+lgY71umZv1DcHR5amNJwjVFZs2lFR8gayDZEI6gShJP2oGED8D2aNgG7s+QE
-         heIwr5nsB31AceS2wDsi8J68CqGJViR01hFxfIfn/zd3RCfX3P2qOvVwLMhUALll48qk
-         LSvlhpeolixT1AoVOKaX8GGJKeY1DOtTGnBPCjov2hUp4tqIj7RSgX9XTr9tSpTtH89z
-         0r0C/gM0V0Ug8wU2Co5YizyC6B/2hEtrmzvhqR6EttZejCUMfW540N4OHryD/mgEJJ2x
-         qe/4W/TwtJwCzqEK6hOvx55CqncyuKAl82j3tkNQGaPcbGPXEi50cio6CfuITAEyBMbz
-         u3pg==
-X-Forwarded-Encrypted: i=1; AL+hErEGT7PLSHpu1IlT3tAlN5lfvYQVrhUmcHbP5U8lDYpNrUA8M31RGrLJIGBkeHm7P7dsg66V1oc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qJydI7iKIAKOSQWSQpsYmUDw8YzKwgsduuEqNsiNTnrlx6JC2
-	AcaIQpUQmmTu0LVjmJjrObPTSCe7+ykUfiNrZSBLkWF2YS6QEJPcT/f+/JXUxY9tijl5dM8iVAO
-	1Wj+BbVKD+uZZjwERrqQHwlnZIdebhYJ8ahDdPDhdOm7X6lNCGU9phh8pkg==
-X-Gm-Gg: AYBFou3rrqyohrtKfJ7V4IrjXZQPHvpAaABGPjWQ8bgD4F4d+eWtl0IikScgyjz7viO
-	eW7R/yspU/nCQOfpGvzB0pSARC1rMj9Tn/uYxplCuekJkLllvCDA+ZKxiaZUnl8J2hwCjGpYEQy
-	51leLeI0dI5+Ij2DW/RK0H1oRp4wqfRFbC/vTYJhdACrNKCp2CZRkQfP/PyFRDYEm25Ol1oJJr7
-	fISIB643/0TEZCXX283l0J70T9p+ddIcN87k4mrj32KlNbNTR5n1ZebWD5vdZLwe+6kpC21c/Ck
-	gwilfneKxD6ZZDtrOn5OWwp8qYz+CWOy7oNGjzUg7yw96R49mnSGd1pbvVHw2oTIlXIopNqDy3k
-	sV1bIxuS2KzkzSMzx5L+NuQcM7gyiIJHpXxPDRf4kRUfZMi+cukZFVQ==
-X-Received: by 2002:a05:600c:b86:b0:4b5:d95c:2378 with SMTP id 5b1f17b1804b1-4bb55ac4030mr155906545e9.34.1794730958279;
-        Sun, 15 Nov 2026 00:22:38 -0800 (PST)
-X-Received: by 2002:a05:600c:b86:b0:4b5:d95c:2378 with SMTP id 5b1f17b1804b1-4bb55ac4030mr155906215e9.34.1794730957813;
-        Sun, 15 Nov 2026 00:22:37 -0800 (PST)
-Received: from sgarzare-redhat ([193.207.75.235])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2adf53sm297980195e9.15.2026.11.15.00.22.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 00:22:36 -0800 (PST)
-Date: Sun, 15 Nov 2026 09:22:22 +0100
-From: Stefano Garzarella <sgarzare@redhat.com>
-To: Sergio Lopez <slp@redhat.com>
-Cc: Bryan Tan <bryan-bt.tan@broadcom.com>, 
-	Vishnu Dasa <vishnu.dasa@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	"Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org, virtualization@lists.linux.dev, 
-	netdev@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] vsock/vmci: reject datagram binds in local network
- namespaces
-Message-ID: <avlpwYZr4pSpunEl@sgarzare-redhat>
-References: <20261113-vsock-vmci-netns-isolation-v1-1-ced02054ea61@redhat.com>
+	bh=eEmTq2aD52LZwBg8OYrz5cuWmNtD67t5UWpL7YHFS6g=;
+	b=ErYHWPAM2O28uQeOsboT09z3tSG9ykZEyafROwpzYqAZf6JCv5jV5EYSxwN7OHFRqZvaOE
+	aKuPCS9SnlTDi40PIg8URCw1qgb0ZOvw2ik7XvlUS8vrCELDgXfWxZKTyLnDHSVn+prV03
+	kK/dGh9qnOuCe0xkO/4WeeST3KwGxd+BYzyU/bhM7NV6up56UjiqVuI82HDHPYjxsfTAiF
+	RHcz5+C2qHBrkBavY6ngngX0uQdBvF/kc6duKAdVJ2oF5InBUWNtPIJKPgk5V+wMdt3ptF
+	cwQDDBzXzc/XOuC5GsSvoZtKDcjgS2e7YxgY40/MNPMuyVdKydVijtLzpHTyIw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794731545;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eEmTq2aD52LZwBg8OYrz5cuWmNtD67t5UWpL7YHFS6g=;
+	b=TtRtGrhM+dQoJIUpapXJ4hfcBBc7fwh+59v52C82XsLkVUsrg9xJE2KLSsu6PGyYOKSNYd
+	CYAUI1BK1wiWQqwGzWO3G6uu01JesPdXMYRZi1FqfDnOkCCROyMieApsuS5WPcPbdmN2mY
+	LxfCCV6ljCydXVTasazbqMWIJObvSwIB3p0F+aD+hrwlPEZAp/ICl9kpnER4J4s39dPj8A
+	fYarTJlnj5Tzq0XX3YtPgRA2o7sgsomaHXZX0nFL+7iSJdmYEicd267565bezbD+GjiMA1
+	hvp1+nxxntO3GQCR9U4VjjptAu1IhWr0ZlxbJXiNfXWXjr0bpWzIkdXjXhGM9Q==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794731545; a=rsa-sha256;
+	cv=none;
+	b=cu8muPU9IaBMS8n5CuQQl4iYPtp2GHL2L/9ICyOQo2k1HZvyJdQvp9Q4eFtvTLTP6FclSA
+	X6GrGv9NobwmG5M0G5GM+5JeveKsIisqWjAK2BiyELUl5KY4zVt+oI25YsiIZtvW4uu/Rr
+	Pe1r7F9FECvO/6HuoZOHNfEdM3sLpK7Y5v9PYalXO/b4RGXaio+RBbcWtM2ngZuF10IAT6
+	6yZDyTmn6VOzgJG3580NMIWZ8WBez2scpWzV28MRPNH/ADyFpDFAAJEGGINxYBmbooESEe
+	ifa0XBAnKZDnaT+kmAE8nGRgnZ/TxvoKWWK3F9aZYOWNkNW/oR0BIlmmhnXM0A==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xSVez-004G5Z-0s;
+	Sun, 15 Nov 2026 09:32:25 +0100
+Received: from pengutronix.de (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id F3F7B5EC1DA;
+	Sun, 15 Nov 2026 08:32:24 +0000 (UTC)
+Date: Sun, 15 Nov 2026 09:32:23 +0100
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com, 
+	max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de, 
+	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	kuba@kernel.org
+Subject: Re: [PATCH can-next v6 2/6] can: gs_usb: gs_can_start_xmit(): don't
+ leak uninitialized memory over USB
+Message-ID: <20261115-strict-wine-hoatzin-90dbc0-mkl@pengutronix.de>
+References: <20261113-gs_usb-fixes-v6-2-0c039e1bfd74@pengutronix.de>
+ <179469989360.488853.2267495586582678566@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -120,79 +103,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qwnibajoklxs4rs7"
 Content-Disposition: inline
-In-Reply-To: <20261113-vsock-vmci-netns-isolation-v1-1-ced02054ea61@redhat.com>
+In-Reply-To: <179469989360.488853.2267495586582678566@kernel.org>
 
-On Fri, Nov 13, 2026 at 06:04:40PM +0100, Sergio Lopez wrote:
->VMCI already rejects datagram sends from local network namespaces, but a
->datagram bind still creates a receive handle in VMCI's global port space.
->A VMCI sender outside the namespace can therefore deliver to the local
->socket. Its handle also prevents a global-namespace socket from binding
->the same port.
->
->Reject VMCI datagram binds in local namespaces. No namespace-local
->datagram transport exists, so EOPNOTSUPP reflects the available receive
->paths. The receive callback also rejects any local-mode socket as a
->defensive check.
->
->In a KASAN/lockdep QEMU guest, a reproducer observed cross-namespace
->delivery and the global port collision before the fix. After the fix,
->local bind returns EOPNOTSUPP, the global bind succeeds, and a global
->VMCI datagram still reaches the global socket.
->
->Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
->Cc: stable@vger.kernel.org
->Link: https://lore.kernel.org/all/sashiko-outbox-212907@kernel.org/
->Signed-off-by: Sergio Lopez <slp@redhat.com>
->---
-> net/vmw_vsock/vmci_transport.c | 6 ++++++
-> 1 file changed, 6 insertions(+)
->
->diff --git a/net/vmw_vsock/vmci_transport.c 
->b/net/vmw_vsock/vmci_transport.c
->index 1f186e8f8364..282131544c42 100644
->--- a/net/vmw_vsock/vmci_transport.c
->+++ b/net/vmw_vsock/vmci_transport.c
->@@ -627,6 +627,8 @@ static int vmci_transport_recv_dgram_cb(void *data, struct vmci_datagram *dg)
-> 	 * outside of the create and destruct socket functions.
-> 	 */
-> 	vsk = vsock_sk(sk);
->+	if (!vsock_net_mode_global(vsk))
->+		return VMCI_ERROR_NO_ACCESS;
-> 	if (!vmci_transport_allow_dgram(vsk, dg->src.context))
 
-Why duplicating the VMCI_ERROR_NO_ACCESS return? Can we just put them in 
-OR ?
+--qwnibajoklxs4rs7
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH can-next v6 2/6] can: gs_usb: gs_can_start_xmit(): don't
+ leak uninitialized memory over USB
+MIME-Version: 1.0
 
-The rest LGTM, if you respin, maybe we should mention that also 
-connect() and sendmsg() are affected since they call vsock_auto_bind().
+On 14.11.2026 23:44:53, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in ca=
+se
+> you want to address the nit picks below when you respin.
+>
+> Low priority / nit picks for your consideration:
+>
+> - [Low] can: gs_usb: inaccurate Fixes: trailer in commit message
+>
+> --
+>
+> > diff --git a/drivers/net/can/usb/gs_usb.c b/drivers/net/can/usb/gs_usb.c
+> > --- a/drivers/net/can/usb/gs_usb.c
+> > +++ b/drivers/net/can/usb/gs_usb.c
+> > @@ -861,7 +861,7 @@ static netdev_tx_t gs_can_start_xmit(struct sk_buff=
+ *skb,
+> >  	if (!urb)
+> >  		goto nomem_urb;
+> >
+> > -	hf =3D kmalloc(dev->hf_size_tx, GFP_ATOMIC);
+> > +	hf =3D kzalloc(dev->hf_size_tx, GFP_ATOMIC);
+> >  	if (!hf)
+> >  		goto nomem_hf;
+> >
+> >
+>
+> [Severity: Low]
+> The Fixes: tag points at 26949ac935e3 ("can: gs_usb: add CAN-FD
+> support"). As far as I can tell, the leak in gs_can_start_xmit() is
+> older than the CAN-FD support.
 
-@Bryan, @Vishnu PTAL.
+will fix
 
-Thanks,
-Stefano
+pw-bot: cr
 
-> 		return VMCI_ERROR_NO_ACCESS;
->
->@@ -1697,6 +1699,10 @@ static int vmci_transport_dgram_bind(struct vsock_sock *vsk,
-> 	u32 flags;
-> 	int err;
->
->+	/* VMCI handles are global and cannot serve local namespaces. */
->+	if (!vsock_net_mode_global(vsk))
->+		return -EOPNOTSUPP;
->+
-> 	/* VMCI will select a resource ID for us if we provide
-> 	 * VMCI_INVALID_ID.
-> 	 */
->
->---
->base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
->change-id: 20261113-vsock-vmci-netns-isolation-7e46732dcd73
->
->Best regards,
->-- 
->Sergio Lopez <slp@redhat.com>
->
+Marc
 
+--=20
+Pengutronix e.K.                 | Marc Kleine-Budde          |
+Embedded Linux                   | https://www.pengutronix.de |
+Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
+Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
+
+--qwnibajoklxs4rs7
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCavluFQAKCRDMOmT6rpmt
+0tO6AQCP1l91ftvr470OfnqXYtarw/3FklF+i9mJOy83itq1kQD/WGKcjxyywdLo
+7L9TOcMSo+f5V81CE+wU95maFzahawA=
+=0+XK
+-----END PGP SIGNATURE-----
+
+--qwnibajoklxs4rs7--
