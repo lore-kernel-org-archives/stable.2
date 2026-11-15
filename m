@@ -1,79 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794778803;
-	b=VHraiFOMUwt2t5KIxBPLA2D9lcD1B5gmCsxkp1ETIuZn3rhVpvMYbpmwD+mkplPAKz3o
-	 99Rh87T4eAiaqn9RHV1vyIgYp65uXbdt9GVpwQPQo/zlaQecMyzyuJp3GPIjlvXITzVzs
-	 aFdL2utc3oBr5CX0+jnRnNpjveMlGNHIKeM2ZC/hBmbLaT+DKMSX2gVVoF9x2m8D8XGyd
-	 sfRtwKFm8ZcmtQgwvMw5fJZR+UIHtQ/SQN55OSCj2/XJtRO95BMQtAl/bvrucIouBHzki
-	 HCrPHWKFbj4utg0TO7MzxsgXxTKtJlkEH4h6bJidz0Y33iX9PpD8DNxCgs55He4e8xw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794778803;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xNjAalZIzvUFa5Xbxji9aRdEkgxtocXL1VL40VOFD/c=;
-	b=1owK+qDy/2RF+uKPsy84lehi4LXIGUT1iT3UT4BnYNBPTeaQcszsRurjYwJClr27hutt
-	 jkDgBr94+ngITQw14oU/pspuZn0PxK7xmxRxRB065Qn3oa6eGAGuQV2HJgNXFsQctKYQh
-	 a3xV3ZoyYOfnlKoJaZIefQ/o1s0c5h9ClaFgSi2RgedVYembufdv1hW8icofxFTw2lkzZ
-	 k0NVDLDOPhcPGW9OWOVbpkuf1MN00FplDByzjo3ef3m6vGyUTAaNfMTCXlNqj2FEF9J/y
-	 t1AH9z8UV2A+v1jbqyjkQ5GXibmHYHrOuTYtT0IdaV00AY+rnVr8epGA9+23D1MQLtw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVYON9ny;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15544606A31F;
-	Sun, 15 Nov 2026 21:40:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVYON9ny
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794778802;
-	b=CftTzxgyLMJwm3bhBexRcZOHJBaFWxsp8vYFCWCinTzrCkITLfydDSr35THNXpJyiBF+
-	 hOB1Ciuna76PFXLHMcjoAGDws26sj+vPx2r6xgNcfMowo+ai92ruy8njvPRZY7aSTZytx
-	 coQSEXjNCdoVUfKK2IY9PVdAuKGAg1X+1Otv2PbC1sdTEvHnbRg0XVrAZ1QBVvgB1r2VW
-	 NlEuN5pVlfkb/oe+iG+ei4XRYDEsYzHQz6F41kdj0KVt/HVNxMjfDa8QJF3q8NZoGaRBW
-	 4nmAAHFLoQo7dw3qWYXkyW15n8tx6X4aJQcbzYfZoXVW5/RhY9qHWxiTUpq0GG9qU7w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794778802;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=xNjAalZIzvUFa5Xbxji9aRdEkgxtocXL1VL40VOFD/c=;
-	b=0QUf1UOk33npcTZknKyyCBniXFHLnQfyiVsQ8cI6pBTBdgx+Rrw7MkPlgfvQ6eDMbqKq
-	 ubkuxe7ee/pJli1LXzjmueEkChv6uipfvhckE9DyqnuziS9t0Vh+y7mQfs6hNjv8suT3r
-	 nlRIZmBT1fUcpjp2kahqnJLm57QfEJD1TfV+E7s/BzKUzYKrtFvMRHpyT4BGPDMeS6NjU
-	 3oPeIO3QOCAclHpkCGe7DunyT3PO/P6+3ZQFCRCdAvQWlnLZNR6hhd0EamhiYIMdIarUa
-	 pH4BT+MM0VLzYmDKXW2kf3ONk9h67sP+tmolIaShnXVbOvlB29itfyM4rz+66aDPSvw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794778873;
+	b=3f15OaNmQslTa7FHsFNuSpq1pe5LpI2mEe3iFfJaNDZwkO1dw6HlijSQLrh5YJ86mmLP
+	 jV5sn2XyCB5rVvgvQm4bAFVyD4fJOxGLKrsP+yHyjECRhutIx9rtyx+TmOS9pkPVBFbpJ
+	 9CJGuNW4d9QJXXO9KZF9hkFR245F69HfzL9p8bv7m3Mp14e99PJH8MkW8/aDx1RgOFagP
+	 eeEvtVG+I3GUBjN7RqUguUHTeNyKo1ETYD5nVwjNbNV2IvD2ZMFvwA5lMA3m7+DhIu3nn
+	 ws9/zTA3HRL8WrSa6uz3J/Z5plmyHjkBiNB2wqGfiNXTSORHlmiO6hrcj4lehMwpDwg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794778873;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=N3nFkOyWEZUrBywjXvTS/ShHOyqMLlaqIfDDq1MDiSU=;
+	b=QIJVbdcAf8ay13OVI3jcift/lTuO9Mc0tgruD8ZE1op8ssBHxDS1uU9XBlTM3zplR+bW
+	 wpBQIvtdNmAgfEXlHJj4qx6R33kLcAmXuTpdg6wTCo85uffY3nfxNqKf7+0ZdzXS7SWaT
+	 tJ59wW/hNKh2bdTX74ATqhpjyvOmych9bu2GE5QN5OtmIVJ6PBtp7k4IVjVcXyyEnmXOs
+	 2rYwKL24lfwLnpwl/hTuDLi2HrkRx5HhOumgUqcZnIHm16pvLIZTrb+zbqDS/v9b1YOOM
+	 G6H5EjSfeNwWhTIE81mXDylwaK3uMACCUUnE+FJPygzoubzvRwLKRfws1t03r6CG9bA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=UUb3Rzex;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=uy7OQGPk;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 200EB1F000C4;
-	Sun, 15 Nov 2026 21:40:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794778802;
-	bh=xNjAalZIzvUFa5Xbxji9aRdEkgxtocXL1VL40VOFD/c=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=bVYON9nyiNA1ScxrHvAukf882icY23Dl2rKcC1Gf4Zlmxw1gCWNzSz/UOVm9VWm4M
-	 1x1cXO4Rrcu/6fV962cC2v92Yu4WBfsT3mvA1qiKyVIcSxw0wcnNZ2t/TX14CSv/Yb
-	 9NvLtsjKEqCOt3FewQlx77UmOEcYtDNAnS0NE+QQmx0ABUYOQb3Yn1REQoYZPu24RS
-	 7QO3AdP1fAG7fL8eXPjI35qjPtG60negVgJ+KALKsXfOlfEPtqAX9bqERldLBBBb7P
-	 H5Px1YzwHY8R/h5tdw5OgEsCqn+AMwSAerrd9AqQClu1oe7vEfkMmNvGdxBzd6Kd7L
-	 zre8Bx7aPBs7g==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 92BB94A205;
-	Sun, 15 Nov 2026 21:40:01 +0000 (UTC)
-From: Phil Williams via B4 Relay <devnull+phil.williams.advisoft.co.nz@kernel.org>
-Date: Mon, 16 Nov 2026 10:40:01 +1300
-Subject: [PATCH] iio: imu: st_lsm6dsx: fall back to 25 us/tick without a
- trim
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11606606A323;
+	Sun, 15 Nov 2026 21:41:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11606606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=UUb3Rzex;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=uy7OQGPk
+Date: Sun, 15 Nov 2026 22:41:08 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794778870;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=N3nFkOyWEZUrBywjXvTS/ShHOyqMLlaqIfDDq1MDiSU=;
+	b=UUb3RzexVl+5dLWsvCL26n1beDhzGqP32LQfYs/xr7BrKDRnrxzxS3M6RmBTbb3al1EEU+
+	u/XnPtA+liiMl7REVQvLng51apRKpDEXesM6D2PdHy0DgDrLx1323hh4oG2yWL6LF+yFHw
+	+3OTk/o4sVppu5xhb+OyK6S4rmXcciggyy8gnY/irpMMj9uXqDCs3VhHlcNZWJLGXisPoG
+	rVDHX85AzqpJZxDTJu1j8JoxSQysZU2irDJdAzqjjw3ysgeHMh4dbMaFyums60+R4+THkm
+	3W++9rlly9CO6fEg6WqlSXfZwtDDFRNlmVw79NtaG78zNUTggTVoOyQi+SE6Nw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794778870;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=N3nFkOyWEZUrBywjXvTS/ShHOyqMLlaqIfDDq1MDiSU=;
+	b=uy7OQGPkNrSCUEgyT+RyGaqm9OcvTYlCAH190cmyNf9CvWK99nZmfd34MbjmK2ENuN9GGd
+	7llutqTwQW/P/wDw==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Xin Xie <xiexinet@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
+	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
+	fmaurer@redhat.com, luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com,
+	skhawaja@google.com, liuhangbin@gmail.com, stable@vger.kernel.org,
+	sdf.kernel@gmail.com, lukma@denx.de, fmancera@suse.de,
+	danishanwar@ti.com, richardcochran@gmail.com
+Subject: Re: [PATCH net v9 3/4] net: hsr: segment GSO before per-frame
+ forwarding
+Message-ID: <20261115214108.UmIyEJ8I@linutronix.de>
+References: <20261112153333.20-1-xiexinet@gmail.com>
+ <20261112153333.20-4-xiexinet@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,92 +82,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-st-lsm6dsx-ts-fallback-v1-1-8ace30afbfb5@advisoft.co.nz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxA0asgz1jCQcrQq6AOIXFaQ6BVnFZIi
- LuTlvEN/++gnIUVbs0Omb+i8lorqG3AP936YJRQDaYzlogsasGkiw26YVGMLqXR+Rl9MBQpEPc
- dQ43fmaNs//Fwv6yfcWJffjc4jhNT60DqegAAAA==
-X-Change-ID: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
-To: Lorenzo Bianconi <lorenzo@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Mario Tesi <martepisa@gmail.com>
-Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org, 
- Phil Williams <phil.williams@advisoft.co.nz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794778800; l=2231;
- i=phil.williams@advisoft.co.nz; s=kernel; h=from:subject:message-id;
- bh=uHlYPZd4leaL6BZM5UhiWipgD8U4U669fNKN8B6lxPA=;
- b=swvwjnWL3dHnjOwF5N49mxp+jQkSzO5f8iKsDykvNkJoG9nL5N9gOV1dfEDQAgYLgtVenSNDn
- mmz43EWAIvwD7R8bnl+BqLxRMaYraCgYT3m1eKkeiSTLJO89BB/7Zg6
-X-Developer-Key: i=phil.williams@advisoft.co.nz; a=ed25519;
- pk=t0M8TApJRlA/rHh3lIu1XTiWO2+evmU8VnO43/qqLPk=
-X-Endpoint-Received: by B4 Relay for phil.williams@advisoft.co.nz/kernel
- with auth_id=1538
-X-Original-From: Phil Williams <phil.williams@advisoft.co.nz>
-Reply-To: phil.williams@advisoft.co.nz
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261112153333.20-4-xiexinet@gmail.com>
 
-From: Phil Williams <phil.williams@advisoft.co.nz>
+On 2026-11-12 16:33:32 [+0100], Xin Xie wrote:
+> @@ -794,3 +797,158 @@ void hsr_forward_skb(struct sk_buff *skb, struct hs=
+r_port *port)
+=E2=80=A6
+> +void hsr_forward_input(struct sk_buff *skb, struct hsr_port *port)
+> +{
+=E2=80=A6
+> +	consume_skb(skb);
+> +	while (segs) {
+> +		next =3D segs->next;
+> +		segs->next =3D NULL;
+> +		hsr_forward_frame(segs, port);
+> +		segs =3D next;
+> +	}
 
-Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
-calculation") takes the FIFO timestamp scale from ts_sensitivity.
-That field is only filled in for parts that have freq_fine. The
-untagged-FIFO parts are left at zero:
+Should you repost:
 
-  LSM6DS3
-  LSM6DS3H
-  LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
-
-st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
-every sample is published with the timestamp taken when the buffer
-was enabled. The accelerometer and gyroscope values still update.
-Userspace that integrates attitude from the timestamp delta treats a
-stuck timestamp as dt = 0.
-
-These parts have no freq_fine register, so there is no trim to apply.
-Use the previous fixed scale of 25000 ns/tick when ts_sensitivity is
-unset. Entries that already set it are left alone.
-
-Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calculation")
-Cc: stable@vger.kernel.org
-Suggested-by: Jonathan Cameron <jic23@kernel.org>
-Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz>
----
-Resending inline. The first copy went out as an attachment.
-No code changes.
----
- drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-index 823f8ac66..98db90a30 100644
---- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-+++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-@@ -2525,8 +2525,14 @@ static int st_lsm6dsx_init_hw_timer(struct st_lsm6dsx_hw *hw)
- 			return err;
+diff --git a/net/hsr/hsr_forward.c b/net/hsr/hsr_forward.c
+index 9aefc5f0249f6..5e49f2bb9e39b 100644
+--- a/net/hsr/hsr_forward.c
++++ b/net/hsr/hsr_forward.c
+@@ -940,11 +940,9 @@ void hsr_forward_input(struct sk_buff *skb, struct hsr=
+_port *port)
+ 		goto drop;
+=20
+ 	consume_skb(skb);
+-	while (segs) {
+-		next =3D segs->next;
+-		segs->next =3D NULL;
++	skb_list_walk_safe(segs, segs, next) {
++		skb_mark_not_on_list(segs);
+ 		hsr_forward_frame(segs, port);
+-		segs =3D next;
  	}
- 
--	/* calibrate timestamp sensitivity */
-+	/*
-+	 * Parts with no freq_fine register have no trim and leave
-+	 * ts_sensitivity unset. Those parts used a fixed 25 us/tick.
-+	 * A zero gain publishes every FIFO sample with one timestamp.
-+	 */
- 	hw->ts_gain = ts_settings->ts_sensitivity;
-+	if (!hw->ts_gain)
-+		hw->ts_gain = 25000;
- 	if (ts_settings->freq_fine) {
- 		err = regmap_read(hw->regmap, ts_settings->freq_fine, &val);
- 		if (err < 0)
+ 	return;
+=20
 
----
-base-commit: fa2933aac170dd19c6a7f0d7b81a8f537e40915c
-change-id: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
-
-Best regards,
---  
-Phil Williams <phil.williams@advisoft.co.nz>
-
-
+Sebastian
