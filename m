@@ -1,67 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794703256;
-	b=fEZsAiFUz+rYZe8fIsT1J/OzEcZggIy1U2ce8JTYwNDyHti/GkrIJkPgML1Ke8l+aeBa
-	 rL8qaI1a6DqPOEVIOAYmtatiKR5eHc8tzvGHHTl+6M9oaulDJE8z+H7hp7HmkpByCx0wU
-	 sPtbh8pjYaAGDxRn24jlQjT/WffuqUyguBarR95N2bMHTHoBUOuKMpkQc7ioHCiq55lJm
-	 8PKLA2TJJkdywcjcYjaPKFd1IoEkp8vLRP8atu276spB/R8mpElDPBY+yytdsXLv0iWke
-	 4ZMDhM9BhQJAnl4QuKEoHBGxH+1iPHj1MPUNJo/EIYibdDgeF7Z3OZ8bsF4+VNgBpeA==
+	t=1794703263;
+	b=VhYy45GG3wG6yOMRBRr78cckUdx5467MQYDrlJOFxvmQ0CHfbMWwnfA02sFA8jNXIfN+
+	 0RgCPDC+O8UAFSfrHCtVBqLbNKJeuSRpPguCC4SQJ8HZ4X4pwoMKu/WNN9g2qUvic8WOL
+	 do/znwQGQUwc6yyL+iKmIUycN39Mp4Bs27EzDzE8gEO5GGBX1p7bi8t0D9fRj1GQBc50Y
+	 5NCWj4PB8tzHNL6Dl2MYaL3py1fjeEsRgyKzUE1ZJU4Cdj8zlJOAhPEb9JLeAwjEqvRyj
+	 7hh3cKDkpQVt+BBbNLQaoCyFyWjav+c1neMRiZsIZUnkQvhqS2Zv3eLNrsAoj9kARKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794703256;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=og7Y+0LVZku2LSNXuavngxyZPpoFiT1xhPDH5XrmFDg=;
-	b=foVaSqQiD/41F0aCph685pa3zl0OHHaBX4yiY9Exn2MgexlPckX6cA6mepl2RuLrcf3g
-	 Qkirn3rdf+TrtCbqhZ70coLOzqSu6pHJC31P2DS3Ri5bI96CPwiKRF6lvdrdZ2A2zUXnT
-	 sKhMurEd2hC3Y1a9HMcjm/lfBPL6W2G5Ni32GEDfbFzUg5HlcdCYqkWlUK7f7QmkgwT5B
-	 b0kmbj5/pANatfiwLtPT5fZLyzLronCFplPKHpyVMkrCe617Z6gfMo3Ld5lhsBLQzGE2y
-	 HMJGWnhLMFgHeLCQyfaaC5MCDR6HiZhsBrKwNI+DToxZP7je8SV3G1cvr4E1rUOwU1g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794703263;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=2BTVNNTCmIwPJfoXXVJ//zsDmeVQkbRKEKOks+yQ03M=;
+	b=34KmE7nQseg0W7cqkN5Ex/xIakttU7XBoi+zeu8solnbY2JyqMqRwgt+1Q08eSsxCMEC
+	 E0p+vQ4KdZZjIDNy8Lo09LBm17j3SKJ8GEba/R3WkmZYcwA80L5L3W3h4Sg8DN7GdEHD2
+	 ogqlodBJ/nmG8Yvy2agvpMehEKxWDRaXs9JsvI46d0q3KYci9MCeK8wSCvhCL35iwQQoq
+	 elc+FV5jdfy5HVu3Zakn3LtUEhwKUC13kLqMs2SCZUqq91VMtLRrmcSKL/XjEiH/0aSov
+	 2yRJ7mE+nHTZKinkIs2M2fGeuG5AGXVR0qg/o185dQ5gmiDs9OqMWIuF733trBgXhGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSYGk17c;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kF3EXdw3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25012606A323
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 00:40:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0876606A329;
+	Sun, 15 Nov 2026 00:41:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSYGk17c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20EBA1F000C4;
-	Sun, 15 Nov 2026 00:40:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kF3EXdw3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 522FE1F000C4;
+	Sun, 15 Nov 2026 00:41:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794703255;
-	bh=og7Y+0LVZku2LSNXuavngxyZPpoFiT1xhPDH5XrmFDg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TSYGk17c7+We5dUmCRhREAz+7iNRUnTrKwenRIiv6FKwXFO5VpI2HfJSXoFVJZNov
-	 YDA39GH5IURoCF29em5BOpToZgyG/ciK/ogOUuVeBUpcM5wfWtpJ7fc3bq0Z17a5KP
-	 IR45sgMwTsoNei+Z+nyTguFqoJAnp5MQctoIozmxBA4/0FWRUZVWqkBa7St0DMHOUC
-	 GHhD/XKa+z0bOO0C9dZBfYrkw6hbqvC8Onncw5X21inRewRf8I7LMIo8WT9NQLq00u
-	 m4XFTcY/PXf0G0FvCS4a+VXFT2sxuf3eN8Qugekn9F+iQ8rBTR9QMsVuav0yUEvjmO
-	 LdiFGpiVSPsTA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Balbir Singh <balbirs@nvidia.com>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Salvatore Dipietro <dipiets@amazon.it>,
-	Christoph Hellwig <hch@lst.de>,
-	Dave Chinner <dgc@kernel.org>,
-	Matt Fleming <matt@readmodwrite.com>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Michal Hocko <mhocko@suse.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
-Date: Sat, 14 Nov 2026 19:40:52 -0500
-Message-ID: <20261115002107.535582-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200815-failed-6.12-fe21f930d1e6@kernel.org>
-References: <20261109200815-failed-6.12-fe21f930d1e6@kernel.org>
+	s=k20260515; t=1794703262;
+	bh=2BTVNNTCmIwPJfoXXVJ//zsDmeVQkbRKEKOks+yQ03M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kF3EXdw3TWJPwTpwQtZFMF5K2pjCdQRyDfavHHylnQlmjgWjxylL6UHu2cU6ZKxn7
+	 yZaV45vzc+/6cvYt25WZmIh1tE402jTuHl262lXwAq/YXiAYQUFd0Xx0uDTCxkpWZO
+	 T9BXiJY2vdagThy4kOjUuERsc4NMppyxbQW2JSXLXUm+1LQx1LnK4lKrVidwZFHReK
+	 +sLPQZRPDmVOYRT1qd9Ltpea4Nnv0zyoHa+nA0Xf4O43ODPeqitpwozk3AGjXP1aol
+	 PBKqQHOhUe2JEHwetjjF04fy2ZTIowf45Q8OWUYaTTPFalNQ960iop8P+CzSU6CYQg
+	 +oCwaOMDxQSKQ==
+Date: Sun, 15 Nov 2026 00:41:00 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, David Lechner
+ <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] iio: buffer: fix bounce buffer use-after-free on
+ unregister
+Message-ID: <20261115004100.0effe1e4@jic23-hlaptop>
+In-Reply-To: <20261106-iio-fix-possible-uaf-v1-1-1bd8b94e771b@analog.com>
+References: <20261106-iio-fix-possible-uaf-v1-1-1bd8b94e771b@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,112 +61,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Johannes Weiner <hannes@cmpxchg.org>
+On Fri, 06 Nov 2026 16:53:00 +0000
+Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
 
-[ Upstream commit fe21f930d1e64d121191673076fc4ebe79fc82d5 ]
+> The bounce buffer used by iio_push_to_buffers_with_ts_unaligned() is
+> allocated with devm_krealloc() against the IIO device itself. Since
+> commit 699fb50d9903 ("drivers: base: Free devm resources when
+> unregistering a device"), device_del() releases the devres of devices
+> without a bound driver, so the bounce buffer is now freed from
+> cdev_device_del() in iio_device_unregister().
+>=20
+> At that point buffering may still be enabled, as
+> iio_disable_all_buffers() only runs afterwards. A trigger handler
+> firing in that window copies the sample into the freed bounce buffer
+> and pushes it to the buffers.
+>=20
+> To fix it, allocate the bounce buffer with plain krealloc() and free it
+> in iio_dev_release().
+>=20
+> Assisted-by: LLM
+Rules on that changes (again!)
+So dropped it.
 
-1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH
-non-blocking allocations accesses reserves") stopped handing out reserve
-access for ALLOC_NON_BLOCK on its own: the extra 25% below the min
-watermark is now only granted on top of ALLOC_MIN_RESERVE.  But the flag
-was left in ALLOC_RESERVES, which produces something odd:
 
-With the ALLOC_RESERVES match, __zone_watermark_unusable_free() doesn't
-subtract the free highatomic pages for them.  So in the slowpath, they get
-to consume regular blocks below the min watermark by the number of free
-highatomic pages.  The highatomic reserve is capped at 1% of the zone,
-which on any decently sized machine is a multiple of the min watermark:
-GFP_NOWAIT can drain regular memory to zero.
+> Fixes: 95ec3fdf2b79 ("iio: core: Introduce iio_push_to_buffers_with_ts_un=
+aligned()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+I think your analysis is right and even without that we should never
+have been using that device for devm.  So good to clean this up either way!
 
-The user-visible result is brutal hiccups during bursts of GFP_NOWAIT
-allocations under memory pressure.  This was found in review and
-reproduced with a synthetic burst, not observed in production, but the
-sequence of events is a realistic one: On a 32G box with an anonymous
-working set, swap, and a filled 290M highatomic reserve, a GFP_NOWAIT
-burst drove regular free memory in the 28G Normal zone (min=60M) to 28M,
-0.8M and 0.6M in three runs.  Swapout failed to allocate its swap table,
-reclaim scanned 13M pages to reclaim 200k, page faults stalled for tens to
-hundreds of milliseconds.  The machine survives it, but not by design:
-direct reclaimers eventually fail and start unreserving highatomic blocks,
-until the allocation succeeds or the reserve is gone and the OOM killer
-runs.  That reserve exists for high-order atomic allocations; here it is
-destroyed to bail out a GFP_NOWAIT consumer that was never entitled to the
-memory.
+Ideally we'd get some testing from someone who actually has a part
+using this helper?  It is rare which is why we probably had not reports
+of this yet (and remove problems only show up sometimes as many users
+never hit that path)
 
-Remove ALLOC_NON_BLOCK from ALLOC_RESERVES.  With that, the GFP_NOWAIT
-burst is stopped short at the min watermark.  No direct reclaim, no
-stalls, no failed allocations, and the highatomic reserve stays intact for
-the requests it exists for.
+Anyhow, I think very low risk and looks good so applied to
+the fixes-togreg branch of iio.git.
 
-__zone_watermark_ok() is unaffected, since everything it keys on
-ALLOC_NON_BLOCK is already nested under ALLOC_MIN_RESERVE.  Update the
-flag comments accordingly: ALLOC_NON_BLOCK just means the caller can't
-block; the reserve math belongs with ALLOC_MIN_RESERVE.
+thanks,
 
-GFP_ATOMIC order-0 requests have a milder version of the same problem.
-Through ALLOC_MIN_RESERVE they also count the free highatomic pages in
-their watermark check, but rmqueue_buddy() serves them regular pages first
-and only falls back to the reserve once those are gone.  They can still
-push regular free memory to 37.5% of min minus the free highatomic pages
-before the reserve is touched.  Unlike GFP_NOWAIT they are entitled to the
-reserve, so this needs the watermark check and the freelist order reworked
-together, and is left to a separate patch.
+Jonathan
 
-Link: https://lore.kernel.org/20261028171719.2043421-3-hannes@cmpxchg.org
-Fixes: 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH non-blocking allocations accesses reserves")
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Balbir Singh <balbirs@nvidia.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Salvatore Dipietro <dipiets@amazon.it>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Dave Chinner <dgc@kernel.org>
-Cc: Matt Fleming <matt@readmodwrite.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
-[ sashal: adjusted context for allocation flag definitions in the internal header ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- mm/internal.h | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
-
-diff --git a/mm/internal.h b/mm/internal.h
-index 9fbed032a9c1a..a13a4799bfe87 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1210,12 +1210,11 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
- #define ALLOC_OOM		ALLOC_NO_WATERMARKS
- #endif
- 
--#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. Allow access
--				       * to 25% of the min watermark or
--				       * 62.5% if __GFP_HIGH is set.
--				       */
-+#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. */
- #define ALLOC_MIN_RESERVE	 0x20 /* __GFP_HIGH set. Allow access to 50%
--				       * of the min watermark.
-+				       * of the min watermark, or 62.5% if
-+				       * the caller cannot block either
-+				       * (ALLOC_NON_BLOCK).
- 				       */
- #define ALLOC_CPUSET		 0x40 /* check for correct cpuset */
- #define ALLOC_CMA		 0x80 /* allow allocations from CMA areas */
-@@ -1228,7 +1227,7 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
- #define ALLOC_KSWAPD		0x800 /* allow waking of kswapd, __GFP_KSWAPD_RECLAIM set */
- 
- /* Flags that allow allocations below the min watermark. */
--#define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
-+#define ALLOC_RESERVES (ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
- 
- /* Flags that mean GFP_ATOMIC */
- #define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
--- 
-2.53.0
+> ---
+> Found this by accident and do note this is just code inspection.=20
+>=20
+> I tagged the original commit supporting the bounce_buffer in Fixes: but
+> to be fair, the original commit was fine. Tagging 699fb50d9903 also
+> looks bit odd but maybe it's the real one to blame?
+> ---
+>  drivers/iio/industrialio-buffer.c | 6 ++----
+>  drivers/iio/industrialio-core.c   | 1 +
+>  2 files changed, 3 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/iio/industrialio-buffer.c b/drivers/iio/industrialio=
+-buffer.c
+> index 4294101810fd..cc5fde0f5191 100644
+> --- a/drivers/iio/industrialio-buffer.c
+> +++ b/drivers/iio/industrialio-buffer.c
+> @@ -2464,10 +2464,8 @@ int iio_push_to_buffers_with_ts_unaligned(struct i=
+io_dev *indio_dev,
+>  	if (iio_dev_opaque->bounce_buffer_size !=3D  indio_dev->scan_bytes) {
+>  		void *bb;
+> =20
+> -		bb =3D devm_krealloc(&indio_dev->dev,
+> -				   iio_dev_opaque->bounce_buffer,
+> -				   indio_dev->scan_bytes,
+> -				   GFP_KERNEL | __GFP_ZERO);
+> +		bb =3D krealloc(iio_dev_opaque->bounce_buffer,
+> +			      indio_dev->scan_bytes, GFP_KERNEL | __GFP_ZERO);
+>  		if (!bb)
+>  			return -ENOMEM;
+>  		iio_dev_opaque->bounce_buffer =3D bb;
+> diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-c=
+ore.c
+> index 825cf7f32059..ed097eb8d799 100644
+> --- a/drivers/iio/industrialio-core.c
+> +++ b/drivers/iio/industrialio-core.c
+> @@ -1727,6 +1727,7 @@ static void iio_dev_release(struct device *device)
+>  	lockdep_unregister_key(&iio_dev_opaque->mlock_key);
+> =20
+>  	ida_free(&iio_ida, iio_dev_opaque->id);
+> +	kfree(iio_dev_opaque->bounce_buffer);
+>  	kfree(iio_dev_opaque);
+>  }
+> =20
+>=20
+> ---
+> base-commit: 20ce8ef9c9e04cd6c5ae0422e251a9b5936c6b7c
+> change-id: 20261106-iio-fix-possible-uaf-853ce6ff96bc
+> --
+>=20
+> Thanks!
+> - Nuno S=C3=A1
+>=20
 
