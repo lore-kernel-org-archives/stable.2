@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794769130;
-	b=PX7XJwN7wZ+F7t1dmIoqSvqrrz9r6cNqRTyDNpJSMt5a0sQTwdi8KeyUjT8lUt2a7boY
-	 xH6tJtUjYUjj3FLdoe2rW/IMnhgeELxfWmKfhEIUJqWMmEwxrre6uCpiVkUdV8xw+FcsD
-	 ikKEZIcQ6vcKYHMcmR5WVwpXKVMU4jF2SbZj4RNZg1UQQnMlSuQu7+pYOWDIp2FLN+Yqo
-	 qk+6Fdy4BB0rFvaVzLRLBxS+AbtVi7Fv+Mv9MbdIffDUx76V7LOBMZyVtso6QUr3+8BSD
-	 iOpvvfv3zioKmJcw+KPM3D2/je7pp6zpQPBlQM7vJkWp9p0SWEwUvT44I36dJBgXu8Q==
+	t=1794769133;
+	b=xKCzFdtNOE4euc6p9O29BQtjvi1NOpAV6/iLqQRMD1aB2No2UY3JJ/t6VqX5K5iXqmoH
+	 AZZzLLkZ3Y4ypS0O4OKap/z147HYkNbNAdevUZu4oxSRRAFZw8FZd9bQ1zKylmK9lRury
+	 QBURRAu3CTYGMve0Kf2wUOnMdV2MAu0AbOt5ak83bkGqFULMO/cfr/4rAlv01avZXp776
+	 GE6eEDPQx0cZ5/Sv1ejETixiUIPeWOJ0ipDq55Rkgl86su7Aj/JcQHQgjga/wnh9jlOBQ
+	 NSCS7mBXR8+BAHd7bQrP1SN4GocXFWU7wL+Oqmzy1DFzgoksq3uvbEjuNSqT3S8t9qA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794769130;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794769133;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BvKuisBW9st6dv4iYQYmdk7UUIHA5W7Ob6TCeUj4NB4=;
-	b=WQJGsykbVe8U9Hw+DTrDgIkd7nx5zRydrICBl3EH1yGiljJXxWXNQz3YX6C4BdbvXUYv
-	 Qkc7aKYmkVBAIOoZ1Ugj2bIOtlkiDNS+B/H+ASCtO6MTEF5obfLCsKko0S8Ad4nW7/k9J
-	 +ri07pwJs22FXOOqv+ybwp8Zv1QgJcDPmSOHqFiQ3LIDmpA85NzV/tuMP8PuqJl5s3cDr
-	 JADgOXwghn+aanECl9eYyleLUjYeBj2F6bng3Nu2CnihT8mQMYpRK/5uG3IXfJ8vay5mI
-	 xRgfgQ/5hu0e1Tg77+liArNOvZLwqckfpRoaXQ+hWl+mKJ1ijRd6qG5bmxGYJjsTnsw==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=EnS/ri7nlGvZvOeUzY5N/14h/E/bZuutXbD3tTV/cpk=;
+	b=iOeEV2SnRefAU00McfmMZMJDT/yFuVNjfSZSerN0d2/tW3P0MqzlzBtUa0yILZiV55KY
+	 T8H951aWzw6CYA2jF8GKKT/19pQjsBLupGSsZdgjarhSaMteqL3uIrJnnGX1Lld45jj9x
+	 WG623PBXtVpOGz4j8FWSX/EdAv3UTSLVO8sm4GCp2P8OFPYI1+eP+ynBGWZiNGCm/Vo71
+	 Gx2FY8WyxE3Y5gMEYHlAKVRg5FvonuvA8rh5z1+VFbN9AukISuk1VsIa3lovmJlo8CptQ
+	 I08wPGWV/Va38E1NM3MV/N6ty/t/cyQfxn2mydlE0dgGxTU0QIL20xfnuA2SW6kqHgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aEoxaJhj;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nUVTrE+h;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34D24606A886
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 18:58:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34D24606A886
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68674606A89B
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 18:58:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68674606A89B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aEoxaJhj
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b3acec6677so3578823c88.1
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 10:58:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nUVTrE+h
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1438d9363fbso1268619c88.0
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 10:58:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794769129; x=1795373929; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BvKuisBW9st6dv4iYQYmdk7UUIHA5W7Ob6TCeUj4NB4=;
-        b=aEoxaJhjYDfx4ScZ7+L4NjQUNajI0PdG1J1JOxjZJT7LGTv4DBXLaKAi6WHOlabSKI
-         I+khqWWi0Rgc+C9ZZrBNqqgshJBzZK0KAwQC5YVmVnh9u4Vlk2P20IQbVNRfaXi3M3nE
-         hnCkU8zwdDKRtG5bNfEq7qFubwf2rlZusMF9UFsK3n/k6W3/ZvHzOuFKP/EmGzSA7I4a
-         6D5ak1Ac8jPdEU9erARKpRgQrKjojKm2Q+A1V2KmquZZzHQWtuyITnPZGHWZUVU0XJtn
-         fThLmy2Z7/wdFAhVI4fA9x/3y3xqobYCl7jfomPyUtkDLssdQa1vbYzHVpfnXCgcyNpo
-         Brrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794769129; x=1795373929;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1794769132; x=1795373932; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BvKuisBW9st6dv4iYQYmdk7UUIHA5W7Ob6TCeUj4NB4=;
-        b=kTF08PtBBseQ8C1K7ioemq2GM/J2F3I0+lEn26tNybq1noKkS3FExvyCv1FVui5oBb
-         36Hb5V7odX5B2tVFTfg8Alk9NawG5rBKDLzM73/mdQeCINupiy/oTsJsXNaBIiUSKi/3
-         TDUcO032DAnH89keYyKIx0gY//nsWBrAQi2OZuF+JXVaQJSFBLSNCr4fnrhrQ91GsjrL
-         GBT19rasSAuzoiHq7eZGmuexPDA250IBdeO5aQTHO6B4y0xr7HgF+4ZX6xrU3pZcO1zl
-         NvX3PBMb19I0U4rDZfI9BlIDksfeeytLaqDpC16UGZr09/eHr/glL/VzpVqzr5R3oi7j
-         bb5w==
-X-Forwarded-Encrypted: i=1; AL+hErG2t+40wcpg1yH3OwSbC85JyL5TZp2PZvX6DCCHNQmidYfhmqVZCiDBdqDIwXv3mGW7NG5XvZc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9HiQEMSZwo5tqBX4b+Zz5P29dOhqYI3lTIWY+2bOVJaeOUkjMw
-	C49xSNvobQZIj90VIFcxb4E5Y5niTSdsrUnjpXsuH+Z6jcGY4HZxtudA
-X-Gm-Gg: AYBFou0g3BDoPCTz6GEoWdHjQm22i8J+XFqE6noSgb5O6UJLV+Ww7ftQit0KgedwrDz
-	58+LIJq1TgJ06s4lUegjVXoCpN+TbQTaJERTuh+ZYM52I0WXuvF3tLwt3Jy9BG3kV6UPIik8fHm
-	CMvjLwwOgi5MiY6Q8ceMvXLRj+S5AcTd/uhkNUXPaSW++X6n7vMPQrF5TsLZtZIvIBGp9XNlORQ
-	cpXuzmDXR2p0/rUvVfX87Qs/Ci+UgmUhtG1hlkAC3QJ2gFiTyFwrxAJAy9ldIWYJmCxzhnK+2Y1
-	8f1cL/rYfIHOzHqJ4ytcEH9xoBXJHTYF0mzmd1s2cGVW40zEw49Xo5/U1z45Aro9rgCxCGpHuKa
-	njm/S+9zDprTNlKecztSVYd9J0PZJm0nnoS6i5lPSsnuQlpiv+4aBX599Pvw1VQDzyWr8LHKzyd
-	XVvxFE7IMT8grS9RstxaghEf90e9vtZGrK6SIt2DepSWtYWJvWqQUAuz5JN25vnmmG1ibhjbTKB
-	l+YdZH/k9U8BEOiLH7vcQ5WjsoNLZsAe+EEkELJW7VXiwnm/jExCQ7eJYL/YIUJh9bBifAvtV6H
-	k9n8lChGVbji1Ag5khuvxiRw4uOsSk4MS3Ff1kZ5AP2tWmNiL25ukA==
-X-Received: by 2002:a05:701b:450f:10b0:1b2:41af:c21c with SMTP id a92af1059eb24-1b503157396mr7939805c88.39.1794769129109;
-        Sun, 15 Nov 2026 10:58:49 -0800 (PST)
+        bh=EnS/ri7nlGvZvOeUzY5N/14h/E/bZuutXbD3tTV/cpk=;
+        b=nUVTrE+h44fpfEqaLTkpMiSxzCY1ODqEjM4kazkgCVKQqyXisKUc6z8FX5n997A4e0
+         tlYsMrauFcu0OaCdlAZCmOhTz9c70jQunJMFn1TLeFEy8ypOBzEFdmda4H2RN/pe4AXA
+         Bq/mX42qQcbzwlZwpJYLLLJqA/Xv8Q78ae+E1rKe8EZm1916ysp+jNouDSfMAjxebEzN
+         qtHElnaU54EEjMUh+Xne310qRFDXeptNmCHfDpdBSLJgVKZb1zJmRrtjUIUhx2tFygzU
+         chnliIWwmAxz2f8DK1+dnq8TsxqdWhGXVtR9NYRzVv0Nvjrl6yosZFzY968aV87im+2t
+         Onmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794769132; x=1795373932;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EnS/ri7nlGvZvOeUzY5N/14h/E/bZuutXbD3tTV/cpk=;
+        b=pEfcBdn7hT4eukd0WDOmpaAeY1ouS9hdJXSXB5YL26Wxxwah8ZgjI5iuVSDaPLNnvw
+         kCbkLEZrT63JKJnKQO13oqC46z7rX8l3JP2ZseZGEUec77pHTVhSLn53tES3vDNT3dL+
+         KIOFko2z8GEWgC/7krU0G1NM6a7H4vu6ewQJI7L/T5GWIa0juTRDjm7bVrUjhlpKaybL
+         7vDMo+claS33py13PyJ07vzWHOTsqFAw5R9dAOyaqrdPMThp4mHt4zElqmvkv7sMKHi1
+         O4JK9+iPXXpZyCSUJR6jgpnWY+lj5Alyfwgedt4GY69pCJcXAp6U6b3Xo5Ap5YMzx5jg
+         EAHQ==
+X-Forwarded-Encrypted: i=1; AL+hErGiLpEJkZN85LvOr6csEEMLlE/LaLQv3jqXvLNiwjbl0VWHnHs5x00HahLqIzcLJXCISIW2i9M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9gBiwHVbq4byWePzNtsJDhBN5Yw9p0YU15BD4Ho2mTf7bkkwWY
+	gBMUrl4h2xP7NnXq2QuXPPXOwj0oIowRCEg8FLq07ejgfj/cc6br2S50
+X-Gm-Gg: AYBFou2rNv6T01kKMu87cvqTvmdgUoxVgpvg9VP2l+cxK5M//ub99YPzO9oxdtTkq8T
+	lIsmp2eo9ozpsTdpCuJBevBqaNTLNaPG8SPJfxcg0MT7O1LPO0BLvwmUmHY9i3QsDXzPzIxjnpe
+	va80Yfp2FZJ6tgYu8W/egFyQrElaS35ZOYWE5XhXUiry7f90cr5RInhV1KQn8fjnCn1ociBi+4+
+	k/ZWqoKYzBQhp4YaH9dJH3z7Ab7wQK9vA7ANfBYClMTAgKuTbdKcEKyGq6iyWKTBP0Wslqws4Q+
+	mft5Yp5LFpWMtcp7Km4Mrx3IbqbeoSuCPMR6AoHl76LxFvUlgHlTvNdU8MSRPYAD/hzv2AR7WZF
+	yXA3mf9rxe6zvfchTat7XerUprlO4yfv3DKPKxWeTWFPbAXNm8NSzTjgNdhmA1rljiOzURLKi28
+	8Dd4ZSQGg9dn8qADKtDECK8lCyXOt9EtlBjGTPeEOHq6vJ8O7sjEbdXFYQfSpmfah1vLC/i/bhS
+	UCp+kFtkL5GCyKAhYAIVilLVxAZsmdZ+ZWi1G295X8/kfjX0SknJT4VuaPz1EJmAn4tYbX8Igf8
+	nrsBhaVWmTqL66fMBP5o8Y9IMkHLA+kHITOf9Hli/eP6fUPU0wb6Gg==
+X-Received: by 2002:a05:701a:8148:20b0:14b:1ef8:698d with SMTP id a92af1059eb24-1b5030ad3f8mr7907297c88.15.1794769131451;
+        Sun, 15 Nov 2026 10:58:51 -0800 (PST)
 Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5329ec87bsm82306c88.0.2026.11.15.10.58.46
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5329ec87bsm82306c88.0.2026.11.15.10.58.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 10:58:48 -0800 (PST)
+        Sun, 15 Nov 2026 10:58:50 -0800 (PST)
 From: Maoyi Xie <maoyixie.tju@gmail.com>
 To: Arend van Spriel <arend.vanspriel@broadcom.com>
 Cc: linux-wireless@vger.kernel.org,
@@ -84,10 +85,12 @@ Cc: linux-wireless@vger.kernel.org,
 	brcm80211-dev-list.pdl@broadcom.com,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH wireless 0/2] wifi: brcmfmac: fwsignal: bound indices from firmware signals
-Date: Mon, 16 Nov 2026 02:58:41 +0800
-Message-Id: <20261115185843.64633-1-maoyixie.tju@gmail.com>
+Subject: [PATCH wireless 1/2] wifi: brcmfmac: fwsignal: bound the AMPDU reorder indices
+Date: Mon, 16 Nov 2026 02:58:42 +0800
+Message-Id: <20261115185843.64633-2-maoyixie.tju@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261115185843.64633-1-maoyixie.tju@gmail.com>
+References: <20261115185843.64633-1-maoyixie.tju@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,23 +102,118 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These patches add bounds checks for indices that the device sends in the
-BCDC firmware signals. Patch 1 covers the AMPDU reorder indices. Patch 2
-covers the interface index of MACDESC_ADD. On USB, brcmfmac parses these
-signals with the default module parameters.
+brcmf_fws_rxreorder() allocates max_idx + 1 slots when a reorder flow
+starts. It then uses the indices of each frame without a check.
 
-Both bugs were found with a static analysis tool that we develop. A
-userspace harness that compiles the fwsignal.c functions unchanged
-reproduces them under sanitizers. No hardware was available for testing.
+	rfi->pktslots[rfi->cur_idx] = pkt;
 
-Maoyi Xie (2):
-  wifi: brcmfmac: fwsignal: bound the AMPDU reorder indices
-  wifi: brcmfmac: fwsignal: bound the MACDESC_ADD interface index
+A cur_idx above the allocated maximum makes the driver write and read
+past pktslots[]. An exp_idx above max_idx makes
+brcmf_rxreorder_get_skb_list() read past the array or loop forever.
 
+Store the allocated maximum in the flow. Bound max_idx by it and the
+other indices by max_idx. Deliver a frame that fails the check without
+reordering.
+
+This was found with a static analysis tool that we develop. A userspace
+harness that compiles the fwsignal.c functions unchanged runs under
+AddressSanitizer. It shows the out-of-bounds accesses and the endless
+loop before this patch, but not after it. No hardware was available for
+testing.
+
+Fixes: 87edd8916ee2 ("brcmfmac: add AMPDU reordering functionality")
+Cc: stable@vger.kernel.org
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
+---
  .../broadcom/brcm80211/brcmfmac/core.h        |  2 ++
- .../broadcom/brcm80211/brcmfmac/fwsignal.c    | 26 ++++++++++++++++---
- 2 files changed, 24 insertions(+), 4 deletions(-)
+ .../broadcom/brcm80211/brcmfmac/fwsignal.c    | 24 ++++++++++++++++---
+ 2 files changed, 23 insertions(+), 3 deletions(-)
 
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.h
+index 399b6810e394de..19cecb987a87bc 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.h
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.h
+@@ -52,6 +52,7 @@
+  * @cur_idx: last AMPDU index from firmware.
+  * @exp_idx: expected next AMPDU index.
+  * @max_idx: maximum amount of packets per AMPDU.
++ * @alloc_max_idx: highest index of @pktslots, set when the flow is created.
+  * @pend_pkts: number of packets currently in @pktslots.
+  * @pktslots: array for ordering AMPDU packets.
+  */
+@@ -60,6 +61,7 @@ struct brcmf_ampdu_rx_reorder {
+ 	u8 cur_idx;
+ 	u8 exp_idx;
+ 	u8 max_idx;
++	u8 alloc_max_idx;
+ 	u8 pend_pkts;
+ 	struct sk_buff *pktslots[];
+ };
+diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwsignal.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwsignal.c
+index a43f1a38b0e30e..e81105154d6543 100644
+--- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwsignal.c
++++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwsignal.c
+@@ -1721,8 +1721,16 @@ void brcmf_fws_rxreorder(struct brcmf_if *ifp, struct sk_buff *pkt)
+ 
+ 		ifp->drvr->reorder_flows[flow_id] = rfi;
+ 		rfi->max_idx = max_idx;
++		rfi->alloc_max_idx = max_idx;
+ 	}
+ 	if (flags & BRCMF_RXREORDER_NEW_HOLE)  {
++		cur_idx = reorder_data[BRCMF_RXREORDER_CURIDX_OFFSET];
++		exp_idx = reorder_data[BRCMF_RXREORDER_EXPIDX_OFFSET];
++		max_idx = reorder_data[BRCMF_RXREORDER_MAXIDX_OFFSET];
++		if (max_idx > rfi->alloc_max_idx || cur_idx > max_idx ||
++		    exp_idx > max_idx)
++			goto bad_idx;
++
+ 		if (rfi->pend_pkts) {
+ 			brcmf_rxreorder_get_skb_list(rfi, rfi->exp_idx,
+ 						     rfi->exp_idx,
+@@ -1731,9 +1739,9 @@ void brcmf_fws_rxreorder(struct brcmf_if *ifp, struct sk_buff *pkt)
+ 		} else {
+ 			__skb_queue_head_init(&reorder_list);
+ 		}
+-		rfi->cur_idx = reorder_data[BRCMF_RXREORDER_CURIDX_OFFSET];
+-		rfi->exp_idx = reorder_data[BRCMF_RXREORDER_EXPIDX_OFFSET];
+-		rfi->max_idx = reorder_data[BRCMF_RXREORDER_MAXIDX_OFFSET];
++		rfi->cur_idx = cur_idx;
++		rfi->exp_idx = exp_idx;
++		rfi->max_idx = max_idx;
+ 		rfi->pktslots[rfi->cur_idx] = pkt;
+ 		rfi->pend_pkts++;
+ 		brcmf_dbg(DATA, "flow-%d: new hole %d (%d), pending %d\n",
+@@ -1741,6 +1749,8 @@ void brcmf_fws_rxreorder(struct brcmf_if *ifp, struct sk_buff *pkt)
+ 	} else if (flags & BRCMF_RXREORDER_CURIDX_VALID) {
+ 		cur_idx = reorder_data[BRCMF_RXREORDER_CURIDX_OFFSET];
+ 		exp_idx = reorder_data[BRCMF_RXREORDER_EXPIDX_OFFSET];
++		if (cur_idx > rfi->max_idx || exp_idx > rfi->max_idx)
++			goto bad_idx;
+ 
+ 		if ((exp_idx == rfi->exp_idx) && (cur_idx != rfi->exp_idx)) {
+ 			/* still in the current hole */
+@@ -1811,6 +1821,8 @@ void brcmf_fws_rxreorder(struct brcmf_if *ifp, struct sk_buff *pkt)
+ 	} else {
+ 		/* explicitly window move updating the expected index */
+ 		exp_idx = reorder_data[BRCMF_RXREORDER_EXPIDX_OFFSET];
++		if (exp_idx > rfi->max_idx)
++			goto bad_idx;
+ 
+ 		brcmf_dbg(DATA, "flow-%d (0x%x): change expected: %d -> %d\n",
+ 			  flow_id, flags, rfi->exp_idx, exp_idx);
+@@ -1830,6 +1842,12 @@ void brcmf_fws_rxreorder(struct brcmf_if *ifp, struct sk_buff *pkt)
+ 		__skb_unlink(pkt, &reorder_list);
+ 		brcmf_netif_rx(ifp, pkt);
+ 	}
++	return;
++
++bad_idx:
++	bphy_err(drvr, "flow-%d: invalid reorder index, ignore this packet\n",
++		 flow_id);
++	brcmf_netif_rx(ifp, pkt);
+ }
+ 
+ void brcmf_fws_hdrpull(struct brcmf_if *ifp, s16 siglen, struct sk_buff *skb)
 -- 
 2.34.1
 
