@@ -1,55 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794754042;
-	b=qldio9UcWQBHwmx5mOIbHxtipHqRE75F75IhnU1MUeRgbzCWlEohYCuFHXQ7HDZ4uBz2
-	 NPfpiRKUwmmKzq4LjPYMeiG8VCwp74mKOeRd0IdhBJGrxYi6z4ow0brH3oQDrvGg37xja
-	 dwIq+IrQraaUGxrsoz3Hh9sAXYRIPf5dSEBwA7KWDJxaSzANLPfkpWqrOnZE0tKCBtBtX
-	 QqAxgZwhepVH3n18aL5hfd4UGD38MJd0WWoTIaomW+tLXWQv38Qqtzj1ZMI+cuZ2ga09J
-	 87CiO1+jvCuHFikwXygeHwvKpkx4I/BAbghgxHACmugUDkYw5KslfDsNUzLXQO//qMg==
+	t=1794754062;
+	b=K3iKyNlY71y+/UYtZrsUXI+HZnvwh4kQADZIMwi6jlAMYvS9A1rTy5xEwp4dhvmbyegf
+	 ZLP3JbF3STQJi0XehbUmXl6ccDf7iEG1YokZTQ7XsPf1/x10N4erESi9+a71okx6fwoEX
+	 7cLEUqLJeKdgP+8KHLpkIN2P6XX1fSqdzrxLc5zMP+FqdgFG+BzivZARf7hmZAtHZSUcL
+	 yu6TZDvgniVIEaXFCDEAuiuRdi5zSYJgC2DADnNH1nhh+m/P9ho2ynpGjoJClTXOA7hZB
+	 fF3ta4Ow7SxgmjOQLJmVPjbEcmpH2SK5cAEXbZpCRik6eE0xkc5ICUzioGTWmCP7M3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794754042;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794754062;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Y5rugD2K/IA9Uv3yP3g7HbHPZIxz4gUO1RukEuDve3U=;
-	b=tP49ua1KZKs6YfbTpW+Tn9LeIcENjCCHSI2Qdkp/iVoD7t34RkXOz07x4VZpI+GajdCk
-	 G9lblWcl64WArGu+gQcIrWo/la2oSpJo9jMofL6zJ7AA6B+ahXz4tqb9L0NHZ2RcYjxsS
-	 ITEqqedQBAygipHUAXP8hE76B06PVSmEVe33DlXNSH2a96kRLqGtH7TUj9czevHDJXof4
-	 AvVd/mXRvHtoVN2Z14/HnsN6+MUZpPLmRMpx4dnAM+ms+922RSFAAXEifBhUCKV5BFoMd
-	 tdwsbLq70giRkBtuLaEum1II1rpGUHTxqP36+RMcO2pRf4oYO/LZHrJ6FhlsZ+lJXZw==
+	bh=QGQ6tUHDWALojlytnuZIeG6ZDEf/2IYAOd18Cqb3OV4=;
+	b=s4icWVuCIQ7ZafvFaJOALpQLDWk9Fig7weZU1IhIJaJ57vY2xTxzARkpNEdymTQ66Tp5
+	 DdOoncKDj6KbwvNfEkwLLAo6M2kOge0nI0uJhi2juLuhdYOkXHVxvRtXbYFTX9Kl8gbgv
+	 dY97rGyWhPziXXKPcCvKR8OtQqaLWl799GtrIQNVALkp2y2myBKx6i5mJx+GTcL2EcMOR
+	 7HfxsSP87Gwcawfotc5XNQq70u72C9tHXA9QzxRhfxiyv/qkbyg9Ri7NdRMS3Kfvs8JL6
+	 QizfYtWc7d4UCZLNDEdbkyYrjJgkMJLfqB7Q4ojDmpTOu5MmWShA6QNkUr1cvaMcCUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2zM84OH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dVfk/QsP";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591FB606A31A
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 14:47:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B26606A31D;
+	Sun, 15 Nov 2026 14:47:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2zM84OH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90A321F000C4;
-	Sun, 15 Nov 2026 14:47:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dVfk/QsP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94E7E1F000C4;
+	Sun, 15 Nov 2026 14:47:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794754042;
-	bh=Y5rugD2K/IA9Uv3yP3g7HbHPZIxz4gUO1RukEuDve3U=;
+	s=k20260515; t=1794754062;
+	bh=QGQ6tUHDWALojlytnuZIeG6ZDEf/2IYAOd18Cqb3OV4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J2zM84OHPbGaksWdyr8DkiMgbzBxmGtdGEIV7E4SLhjrjq3vZkc0UEslNhBF3r2pq
-	 ShWXGFgx/lx95Jr0sVVF7rrOf5RS93PHO9sqaQkoKMTkQ3mYcURkZ5JLHfDTHv9aPg
-	 v5WOzJgaIARsfUHCbI1B0VhJQcoAlYHgGHTPO0CoIRCokFX95iQZ7UEILMqe5EBo8P
-	 +x0ToFNF9stRWJ+SYDlBEJ9Jc5HdRnbpoiRQmRAqw+yY+30oNc4nNeFPza+euLdPNm
-	 kJwDzTHx4YSIBuQoM+9EhFUi1X6Ujjk7koptA356+nqdimEyc5VSbGBDsjSNOQcJZs
-	 gL9Pp8qSUisvA==
+	b=dVfk/QsPK0pu5cMzQQoGE2wjCh+bLZzpSt4QwnCfQFVEszWEAsMsjDR4H8THMh/kl
+	 fqDl4PelCejzfDBjv9YbIOBQwkqU+0OPCkLQiJaCoL6vV7xesIqNOzDBUL/LwJvu7u
+	 6IpcJ6HvMzK7ii2vsr2wOyTmdoQvd1WVl7+lGieZTKHF1c2XhBQpB3IdOJ/0HJQIX3
+	 RFJImSIVWiZp2wqVk+eVOo60b073TXgcj8AVRReOkKJqOQYnWBYvsJ04sveZK+bNrZ
+	 BQA1IelYg0RjcsLmF7xAUkUVEMlUQYx8OPIjrysyhKcGB9Mt7vw4vDejO2jKs//M9X
+	 FqW3fJO9FteiA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Matthias Goergens <matthias.goergens@gmail.com>,
-	Jan Kara <jack@suse.cz>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] udf: don't use eloc after the end of the unallocated space table
-Date: Sun, 15 Nov 2026 09:47:20 -0500
-Message-ID: <20261115144700.1234507-1-sashal@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>,
+	Salvatore Bonaccorso <carnil@debian.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: Re: [REGRESSION 6.12.117] CPA detected W^X violation: 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 - 0xffffffffc0477fff PFN 109c1f and WARNING at arch/x86/mm/pat/set_memory.c:665 __change_page_attr_set_clr+0xf62/0xfb0
+Date: Sun, 15 Nov 2026 09:47:37 -0500
+Message-ID: <20261115144738.1273873-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202447-failed-5.15-94401199df90@kernel.org>
-References: <20261109202447-failed-5.15-94401199df90@kernel.org>
+In-Reply-To: <avlPaC_oxGeFBeAa@kernel.org>
+References: <avcG_ggetL8ArwAx@eldamar.lan> <avdb9EPXBv2hRCzQ@eldamar.lan> <avlPaC_oxGeFBeAa@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,66 +72,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Matthias Goergens <matthias.goergens@gmail.com>
+On Sun, Nov 15, 2026 at 08:21:28AM +0200, Mike Rapoport wrote:
+> Apparently, this commit exposes issues in the management of permissions in
+> ITS mitigation that was fixed here:
+>
+> https://lore.kernel.org/all/20250603111446.2609381-1-rppt@kernel.org/
 
-[ Upstream commit 94401199df90e1c2a50c6e4b73618ac5a4ba83ba ]
+Thanks. That series (a82b26451de1 "x86/its: explicitly manage permissions for
+ITS pages" and the rest of it) is already in 7.3 and 6.18, which is why both
+keep the two pat patches.
 
-When udf_next_aext() returns 0, its eloc, elen and etype outputs hold
-no defined value.  Two walks of the unallocated space table still use
-eloc after the walk has reached the end of the table.
+Sadly 6.12, 6.6 and 6.1 have none of it, and their ITS backport is
+stable-specific :(
 
-udf_table_prealloc_blocks() looks for a free extent starting at
-first_block and decides whether it found one by comparing eloc with
-first_block after the walk.  If the table's list ends in a continuation
-descriptor that leads to an empty allocation extent, eloc is then the
-block of that allocation extent, which is in use, and if that is
-first_block, the block is handed out as preallocation.  Once
-udf_discard_prealloc() no longer frees the wrong block, this is what
-still makes fsx in generic/091 and generic/263 read back bad data on a
-table, in about one run in four.  Only take the extent if the walk
-stopped at it.
+> > On the other hand though testing 7.3.5-rc1 which is currently under
+> > review only logs:
+> >
+> > [    0.096682] CPA detected W^X violation: 8000000000000123 -> 0000000000000123 range: 0xffffffffc0200000 - 0xffffffffc0200fff PFN 100800
 
-When udf_table_free_blocks() cannot merge the freed blocks into an
-existing extent, it appends a new one and sets only its block number,
-so the partition reference comes from whatever eloc held after the
-walk, and with long allocation descriptors it is written to disk.  For
-a table without extents, eloc was never set.  Take the partition
-reference from the freed blocks instead.  Short allocation descriptors
-do not store the partition reference, which is why this half remains a
-latent long-descriptor fix rather than a reproduced failure.
+That early-boot message on 7.3 is the one ea6fd393cb9e ("x86/mm/pat: Use
+pr_warn() for early W^X warnings") describes as expected from its_alloc()
+during early retpoline setup, so it is a pr_warn and not a WARNING.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
-Link: https://patch.msgid.link/fd9ca4c4ba98c00c012ec861f6c0bc08a3b1d07b.1793349907.git.matthias.goergens@gmail.com
-Signed-off-by: Jan Kara <jack@suse.cz>
-[ sashal: Changed ret > 0 to etype != -1 to match the extent walker API that returns the extent type directly. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/udf/balloc.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/udf/balloc.c b/fs/udf/balloc.c
-index 0bbe86da3d133..267365573bf7e 100644
---- a/fs/udf/balloc.c
-+++ b/fs/udf/balloc.c
-@@ -473,6 +473,7 @@ static void udf_table_free_blocks(struct super_block *sb,
- 
- 		int adsize;
- 
-+		eloc.partitionReferenceNum = bloc->partitionReferenceNum;
- 		eloc.logicalBlockNum = start;
- 		elen = EXT_RECORDED_ALLOCATED |
- 			(count << sb->s_blocksize_bits);
-@@ -545,7 +546,7 @@ static int udf_table_prealloc_blocks(struct super_block *sb,
- 		; /* empty loop body */
- 	}
- 
--	if (first_block == eloc.logicalBlockNum) {
-+	if (etype != -1 && first_block == eloc.logicalBlockNum) {
- 		epos.offset -= adsize;
- 
- 		alloc_count = (elen >> sb->s_blocksize_bits);
 -- 
-2.53.0
-
+Thanks,
+Sasha
