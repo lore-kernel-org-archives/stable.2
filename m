@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794769133;
-	b=xKCzFdtNOE4euc6p9O29BQtjvi1NOpAV6/iLqQRMD1aB2No2UY3JJ/t6VqX5K5iXqmoH
-	 AZZzLLkZ3Y4ypS0O4OKap/z147HYkNbNAdevUZu4oxSRRAFZw8FZd9bQ1zKylmK9lRury
-	 QBURRAu3CTYGMve0Kf2wUOnMdV2MAu0AbOt5ak83bkGqFULMO/cfr/4rAlv01avZXp776
-	 GE6eEDPQx0cZ5/Sv1ejETixiUIPeWOJ0ipDq55Rkgl86su7Aj/JcQHQgjga/wnh9jlOBQ
-	 NSCS7mBXR8+BAHd7bQrP1SN4GocXFWU7wL+Oqmzy1DFzgoksq3uvbEjuNSqT3S8t9qA==
+	t=1794769135;
+	b=bNF3cq+Q8w7/cuW3vv1t5r4MOm2nsnR0VQyASscaE7bpvuEt9CSs8rVrzKmA2iZs+KPF
+	 Moz5OlpCXP/ETqZOAb6xYO//a7+ULmp54nZ3wuRqFPCylMlANrZU5WUIQEFHJ/xbVphqa
+	 0zHpDWRIkz61c75VXgP8TPdj6JZt6p3jaZQbJoqnf6mi1N2gnKAFxBd3oPVWSu5xydKIj
+	 8MlU7Y4Q9CVreeyA0xsUPdKC+LI94q/bmg2ohWSCE6jtYB1bIjS8wwv6BxVtdmrMBLCg2
+	 5P+QqKHXMfXzTwpUyFrIKKXw2zaq8AaXCcc3dTyfVwqOjA2zm/9fMDDFrfuP8OQ8/Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794769133;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794769135;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=EnS/ri7nlGvZvOeUzY5N/14h/E/bZuutXbD3tTV/cpk=;
-	b=iOeEV2SnRefAU00McfmMZMJDT/yFuVNjfSZSerN0d2/tW3P0MqzlzBtUa0yILZiV55KY
-	 T8H951aWzw6CYA2jF8GKKT/19pQjsBLupGSsZdgjarhSaMteqL3uIrJnnGX1Lld45jj9x
-	 WG623PBXtVpOGz4j8FWSX/EdAv3UTSLVO8sm4GCp2P8OFPYI1+eP+ynBGWZiNGCm/Vo71
-	 Gx2FY8WyxE3Y5gMEYHlAKVRg5FvonuvA8rh5z1+VFbN9AukISuk1VsIa3lovmJlo8CptQ
-	 I08wPGWV/Va38E1NM3MV/N6ty/t/cyQfxn2mydlE0dgGxTU0QIL20xfnuA2SW6kqHgA==
+	bh=Rfx8/QKieNzWuOWEnTbfc0MHqfPFCPFKkwmu9s+LsEQ=;
+	b=Z8/ivtd1VZpSvobUAHIjuL94LkoujjYwlmbFZqcQJyLZ47kICEnpPqEeLgdl5BHf0/oL
+	 2xz4iEtDMXBtVsOr26WJHKqoUV/qKT0G31+FOUCVcEhBAdEj93454eGqMICuEd2M80eYd
+	 nFQF8kHBeVGm8+Cd3Hgm/sd86m+lJ7nOVwE5ACmogX1BBKXeSuZgaax0Q+S0OJfKrIE9f
+	 KM4kFquQMGB5FC8gcqd6aT8LsVUJb30afqwczU3Fqaz56BK/kR/eXNTAeTVJgdpDKGkL+
+	 YTrXcfULaf8BgRxp8duHDqTgTZm1jjWFv25nrduD0M3Vb8pay40CPZQ4ne3xjNOZbiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nUVTrE+h;
-	arc=none smtp.remote-ip=74.125.82.42
-Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nEK1UAhv;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68674606A89B
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 18:58:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68674606A89B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F2A606A889
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 18:58:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6F2A606A889
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nUVTrE+h
-Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1438d9363fbso1268619c88.0
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 10:58:52 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nEK1UAhv
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36fc0a3fe93so5167798eec.0
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 10:58:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794769132; x=1795373932; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794769134; x=1795373934; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EnS/ri7nlGvZvOeUzY5N/14h/E/bZuutXbD3tTV/cpk=;
-        b=nUVTrE+h44fpfEqaLTkpMiSxzCY1ODqEjM4kazkgCVKQqyXisKUc6z8FX5n997A4e0
-         tlYsMrauFcu0OaCdlAZCmOhTz9c70jQunJMFn1TLeFEy8ypOBzEFdmda4H2RN/pe4AXA
-         Bq/mX42qQcbzwlZwpJYLLLJqA/Xv8Q78ae+E1rKe8EZm1916ysp+jNouDSfMAjxebEzN
-         qtHElnaU54EEjMUh+Xne310qRFDXeptNmCHfDpdBSLJgVKZb1zJmRrtjUIUhx2tFygzU
-         chnliIWwmAxz2f8DK1+dnq8TsxqdWhGXVtR9NYRzVv0Nvjrl6yosZFzY968aV87im+2t
-         Onmg==
+        bh=Rfx8/QKieNzWuOWEnTbfc0MHqfPFCPFKkwmu9s+LsEQ=;
+        b=nEK1UAhvCMl01hvbouw9seyvdetcS4NCdpZI7UFQbJEL+LLeSBaHvb8KFWmRuCJfkV
+         wVeZ4YSQsMIrpa+2X6DKlbJlgoTg3Y+K9dp6SFjRqFqKQ0fJb9nBqkZQ8su92THTj4gb
+         sufwRzJwLHbceHUY3kSDb2c8k3MlubNfhEY5THsXsLbPNpl3rWaYcg8YosgRXgtxSVGo
+         erSbOkTzlNfFR15748TrHeq1xlUzyuCnJ3xAObNHKEfVJlV86zk1lKT3ujHErpmuxIY0
+         Cji2rpsQBLEULthGikGy+PXFm1Vc/7xa/aTxhP2SDpxFeL+ywg+3dAF0A8YOPmA1/ydd
+         zfvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794769132; x=1795373932;
+        d=1e100.net; s=20260707; t=1794769134; x=1795373934;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EnS/ri7nlGvZvOeUzY5N/14h/E/bZuutXbD3tTV/cpk=;
-        b=pEfcBdn7hT4eukd0WDOmpaAeY1ouS9hdJXSXB5YL26Wxxwah8ZgjI5iuVSDaPLNnvw
-         kCbkLEZrT63JKJnKQO13oqC46z7rX8l3JP2ZseZGEUec77pHTVhSLn53tES3vDNT3dL+
-         KIOFko2z8GEWgC/7krU0G1NM6a7H4vu6ewQJI7L/T5GWIa0juTRDjm7bVrUjhlpKaybL
-         7vDMo+claS33py13PyJ07vzWHOTsqFAw5R9dAOyaqrdPMThp4mHt4zElqmvkv7sMKHi1
-         O4JK9+iPXXpZyCSUJR6jgpnWY+lj5Alyfwgedt4GY69pCJcXAp6U6b3Xo5Ap5YMzx5jg
-         EAHQ==
-X-Forwarded-Encrypted: i=1; AL+hErGiLpEJkZN85LvOr6csEEMLlE/LaLQv3jqXvLNiwjbl0VWHnHs5x00HahLqIzcLJXCISIW2i9M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9gBiwHVbq4byWePzNtsJDhBN5Yw9p0YU15BD4Ho2mTf7bkkwWY
-	gBMUrl4h2xP7NnXq2QuXPPXOwj0oIowRCEg8FLq07ejgfj/cc6br2S50
-X-Gm-Gg: AYBFou2rNv6T01kKMu87cvqTvmdgUoxVgpvg9VP2l+cxK5M//ub99YPzO9oxdtTkq8T
-	lIsmp2eo9ozpsTdpCuJBevBqaNTLNaPG8SPJfxcg0MT7O1LPO0BLvwmUmHY9i3QsDXzPzIxjnpe
-	va80Yfp2FZJ6tgYu8W/egFyQrElaS35ZOYWE5XhXUiry7f90cr5RInhV1KQn8fjnCn1ociBi+4+
-	k/ZWqoKYzBQhp4YaH9dJH3z7Ab7wQK9vA7ANfBYClMTAgKuTbdKcEKyGq6iyWKTBP0Wslqws4Q+
-	mft5Yp5LFpWMtcp7Km4Mrx3IbqbeoSuCPMR6AoHl76LxFvUlgHlTvNdU8MSRPYAD/hzv2AR7WZF
-	yXA3mf9rxe6zvfchTat7XerUprlO4yfv3DKPKxWeTWFPbAXNm8NSzTjgNdhmA1rljiOzURLKi28
-	8Dd4ZSQGg9dn8qADKtDECK8lCyXOt9EtlBjGTPeEOHq6vJ8O7sjEbdXFYQfSpmfah1vLC/i/bhS
-	UCp+kFtkL5GCyKAhYAIVilLVxAZsmdZ+ZWi1G295X8/kfjX0SknJT4VuaPz1EJmAn4tYbX8Igf8
-	nrsBhaVWmTqL66fMBP5o8Y9IMkHLA+kHITOf9Hli/eP6fUPU0wb6Gg==
-X-Received: by 2002:a05:701a:8148:20b0:14b:1ef8:698d with SMTP id a92af1059eb24-1b5030ad3f8mr7907297c88.15.1794769131451;
-        Sun, 15 Nov 2026 10:58:51 -0800 (PST)
+        bh=Rfx8/QKieNzWuOWEnTbfc0MHqfPFCPFKkwmu9s+LsEQ=;
+        b=VJZZEQ9nRcA0hnykpqRpTJ2iDKIJ4ihkprjzmi+6ZEhKSLtEqT7TaaotagRzN45Wa3
+         qYvtkYmlEa6l1+HIbtIAeBuBk3uZnL5Bd6rzci0DYM2Ahm+Xd4X/GstEXH5LFtm/HgrP
+         XI6D/2msxLw69BwOiESLMxYzpmHHImPqOf4/WCPXC+nFNWy2STmm2dk/zCkrTlWlM/wr
+         6WWbFLBqDVGbSR7L6pKW2v2Uau4567OUarz5/UhnQLNkSH420b9GggWeqDQneZ5uYeHu
+         l1qxAHHTY88X2sxsCbavhFQcjm4wC+tsxGAlqWrOFYvlZJM1kW1pWxsFXg6ZRwHg1k1R
+         nWgQ==
+X-Forwarded-Encrypted: i=1; AL+hErFl1Kt6u7Sh15lZdoFyCTUGZsca78gavMq3GMTClm6UKqARkT/jNWCAwpDxO5grKAqx+sgBHDI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/mYscCSqaCdMNnRVM1y6xGqyO31u5K78m/j1lpNqANIjU7ierf
+	+QBhi7eEHJ8mla7M4ReKuX1zc0Bq8S0TmPNmyXnNpSa8hXU3u+anx5Lf
+X-Gm-Gg: AYBFou35Ylsn7SUaTXG+GD1cAh5EqEpPy/AmQa3Z9IP0mTB3GoZU2CtXWbq6m5ZwSuN
+	KNbff/DvAnZQ8MfjzUSLYe7P3tTY21mZPjZpIYwqTnslLdqp8hAl2R9HyZM6BImFIQgkWx/kdbE
+	PQZsHDEgdueNSuLLdY1U4lZ04BkDFOHyzon9uBvaGyMEeQ4dTVN5gzRvo/sd33cKzxCbVVWLxFd
+	sQ3jUBKIe+/2jY+aEgrWSJgcfLZjtdMcyUxzivdWIvdBmuKV0xGEohOQ7hxKa6sQmR6mLjDq+JC
+	IxCVHYYkCDlnPXQR9d4Mq7bT9khzxOTgBBQutmyBwcNfWme/Gv/4UZox3sZfcZppkGWf4eKGH5o
+	QU+ECe+PWnfIKV5b8hy0F/FBw/XW/kV6Iqufp6+CCichEiJx5ycFNYMREQufkODW3FOzVgTnrvg
+	gmAjXGb822VVQ5jrv6K9qYXIBzqHYGxKRfeiI4fRzFrPkNGvvWd22KVnPgZAsYpBEYT72J7dkxd
+	Cna5VKkcglLzh3KHbVHznC8q858VD6OFVS/pwIwVNtzN0Q4swH6+ErsQ0s4OrUBXJ2hao3oX70S
+	waWhcMUQ2T9A3k+wCuF0YypoAoq2cgN1MSLjGxh7tsiyQ+g+rZuQPe0ijVJTM8Dv/lPXQJoMgjo
+	=
+X-Received: by 2002:a05:7022:8f:b0:191:444:425 with SMTP id a92af1059eb24-1b50306832fmr7755064c88.2.1794769133806;
+        Sun, 15 Nov 2026 10:58:53 -0800 (PST)
 Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5329ec87bsm82306c88.0.2026.11.15.10.58.49
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5329ec87bsm82306c88.0.2026.11.15.10.58.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 10:58:50 -0800 (PST)
+        Sun, 15 Nov 2026 10:58:53 -0800 (PST)
 From: Maoyi Xie <maoyixie.tju@gmail.com>
 To: Arend van Spriel <arend.vanspriel@broadcom.com>
 Cc: linux-wireless@vger.kernel.org,
@@ -85,9 +86,9 @@ Cc: linux-wireless@vger.kernel.org,
 	brcm80211-dev-list.pdl@broadcom.com,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH wireless 1/2] wifi: brcmfmac: fwsignal: bound the AMPDU reorder indices
-Date: Mon, 16 Nov 2026 02:58:42 +0800
-Message-Id: <20261115185843.64633-2-maoyixie.tju@gmail.com>
+Subject: [PATCH wireless 2/2] wifi: brcmfmac: fwsignal: bound the MACDESC_ADD interface index
+Date: Mon, 16 Nov 2026 02:58:43 +0800
+Message-Id: <20261115185843.64633-3-maoyixie.tju@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261115185843.64633-1-maoyixie.tju@gmail.com>
 References: <20261115185843.64633-1-maoyixie.tju@gmail.com>
@@ -102,118 +103,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-brcmf_fws_rxreorder() allocates max_idx + 1 slots when a reorder flow
-starts. It then uses the indices of each frame without a check.
+brcmf_fws_macdesc_indicate() stores the interface index of a
+MACDESC_ADD signal without a check. brcmf_fws_macdesc_closed() later
+uses it as an index.
 
-	rfi->pktslots[rfi->cur_idx] = pkt;
+	if_entry = &fws->desc.iface[entry->interface_id];
 
-A cur_idx above the allocated maximum makes the driver write and read
-past pktslots[]. An exp_idx above max_idx makes
-brcmf_rxreorder_get_skb_list() read past the array or loop forever.
-
-Store the allocated maximum in the flow. Bound max_idx by it and the
-other indices by max_idx. Deliver a frame that fails the check without
-reordering.
+A device that reports an index of BRCMF_MAX_IFS or more makes this read
+past iface[]. On USB this parser runs with the default module
+parameters. Reject such a signal as
+brcmf_fws_interface_state_indicate() does, and count it as a failed
+update.
 
 This was found with a static analysis tool that we develop. A userspace
-harness that compiles the fwsignal.c functions unchanged runs under
-AddressSanitizer. It shows the out-of-bounds accesses and the endless
-loop before this patch, but not after it. No hardware was available for
-testing.
+harness that compiles the fwsignal.c functions unchanged shows the
+out-of-bounds index under UBSAN before this patch, but not after it. No
+hardware was available for testing.
 
-Fixes: 87edd8916ee2 ("brcmfmac: add AMPDU reordering functionality")
+Fixes: b75c1a301b7d ("brcmfmac: destination mac closed when interface is closed")
 Cc: stable@vger.kernel.org
 Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 ---
- .../broadcom/brcm80211/brcmfmac/core.h        |  2 ++
- .../broadcom/brcm80211/brcmfmac/fwsignal.c    | 24 ++++++++++++++++---
- 2 files changed, 23 insertions(+), 3 deletions(-)
+ drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwsignal.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.h b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.h
-index 399b6810e394de..19cecb987a87bc 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.h
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.h
-@@ -52,6 +52,7 @@
-  * @cur_idx: last AMPDU index from firmware.
-  * @exp_idx: expected next AMPDU index.
-  * @max_idx: maximum amount of packets per AMPDU.
-+ * @alloc_max_idx: highest index of @pktslots, set when the flow is created.
-  * @pend_pkts: number of packets currently in @pktslots.
-  * @pktslots: array for ordering AMPDU packets.
-  */
-@@ -60,6 +61,7 @@ struct brcmf_ampdu_rx_reorder {
- 	u8 cur_idx;
- 	u8 exp_idx;
- 	u8 max_idx;
-+	u8 alloc_max_idx;
- 	u8 pend_pkts;
- 	struct sk_buff *pktslots[];
- };
 diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwsignal.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwsignal.c
-index a43f1a38b0e30e..e81105154d6543 100644
+index e81105154d6543..56eb2c2943dbe8 100644
 --- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwsignal.c
 +++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/fwsignal.c
-@@ -1721,8 +1721,16 @@ void brcmf_fws_rxreorder(struct brcmf_if *ifp, struct sk_buff *pkt)
+@@ -1010,7 +1010,7 @@ int brcmf_fws_macdesc_indicate(struct brcmf_fws_info *fws, u8 type, u8 *data)
  
- 		ifp->drvr->reorder_flows[flow_id] = rfi;
- 		rfi->max_idx = max_idx;
-+		rfi->alloc_max_idx = max_idx;
- 	}
- 	if (flags & BRCMF_RXREORDER_NEW_HOLE)  {
-+		cur_idx = reorder_data[BRCMF_RXREORDER_CURIDX_OFFSET];
-+		exp_idx = reorder_data[BRCMF_RXREORDER_EXPIDX_OFFSET];
-+		max_idx = reorder_data[BRCMF_RXREORDER_MAXIDX_OFFSET];
-+		if (max_idx > rfi->alloc_max_idx || cur_idx > max_idx ||
-+		    exp_idx > max_idx)
-+			goto bad_idx;
-+
- 		if (rfi->pend_pkts) {
- 			brcmf_rxreorder_get_skb_list(rfi, rfi->exp_idx,
- 						     rfi->exp_idx,
-@@ -1731,9 +1739,9 @@ void brcmf_fws_rxreorder(struct brcmf_if *ifp, struct sk_buff *pkt)
- 		} else {
- 			__skb_queue_head_init(&reorder_list);
- 		}
--		rfi->cur_idx = reorder_data[BRCMF_RXREORDER_CURIDX_OFFSET];
--		rfi->exp_idx = reorder_data[BRCMF_RXREORDER_EXPIDX_OFFSET];
--		rfi->max_idx = reorder_data[BRCMF_RXREORDER_MAXIDX_OFFSET];
-+		rfi->cur_idx = cur_idx;
-+		rfi->exp_idx = exp_idx;
-+		rfi->max_idx = max_idx;
- 		rfi->pktslots[rfi->cur_idx] = pkt;
- 		rfi->pend_pkts++;
- 		brcmf_dbg(DATA, "flow-%d: new hole %d (%d), pending %d\n",
-@@ -1741,6 +1749,8 @@ void brcmf_fws_rxreorder(struct brcmf_if *ifp, struct sk_buff *pkt)
- 	} else if (flags & BRCMF_RXREORDER_CURIDX_VALID) {
- 		cur_idx = reorder_data[BRCMF_RXREORDER_CURIDX_OFFSET];
- 		exp_idx = reorder_data[BRCMF_RXREORDER_EXPIDX_OFFSET];
-+		if (cur_idx > rfi->max_idx || exp_idx > rfi->max_idx)
-+			goto bad_idx;
- 
- 		if ((exp_idx == rfi->exp_idx) && (cur_idx != rfi->exp_idx)) {
- 			/* still in the current hole */
-@@ -1811,6 +1821,8 @@ void brcmf_fws_rxreorder(struct brcmf_if *ifp, struct sk_buff *pkt)
- 	} else {
- 		/* explicitly window move updating the expected index */
- 		exp_idx = reorder_data[BRCMF_RXREORDER_EXPIDX_OFFSET];
-+		if (exp_idx > rfi->max_idx)
-+			goto bad_idx;
- 
- 		brcmf_dbg(DATA, "flow-%d (0x%x): change expected: %d -> %d\n",
- 			  flow_id, flags, rfi->exp_idx, exp_idx);
-@@ -1830,6 +1842,12 @@ void brcmf_fws_rxreorder(struct brcmf_if *ifp, struct sk_buff *pkt)
- 		__skb_unlink(pkt, &reorder_list);
- 		brcmf_netif_rx(ifp, pkt);
- 	}
-+	return;
-+
-+bad_idx:
-+	bphy_err(drvr, "flow-%d: invalid reorder index, ignore this packet\n",
-+		 flow_id);
-+	brcmf_netif_rx(ifp, pkt);
- }
- 
- void brcmf_fws_hdrpull(struct brcmf_if *ifp, s16 siglen, struct sk_buff *skb)
+ 	existing = brcmf_fws_macdesc_lookup(fws, addr);
+ 	if (IS_ERR(existing)) {
+-		if (!entry->occupied) {
++		if (!entry->occupied && ifidx < BRCMF_MAX_IFS) {
+ 			brcmf_fws_lock(fws);
+ 			entry->mac_handle = mac_handle;
+ 			brcmf_fws_macdesc_init(entry, addr, ifidx);
 -- 
 2.34.1
 
