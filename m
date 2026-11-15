@@ -1,60 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794704489;
-	b=zOusGfc4SECA9la2aiZaFDUIk2QHrD/FzHbRZq9UiTeicbRFPPIi+IL8k/nFr2KYrAX9
-	 /j8boUDz8pyUpDYwCCrFIYAXgUa0kw5J6OrXc7PdrkSzEpDKvXjtvYgksHVXyUau70Jez
-	 I1zvPFnsvjvp3F+MUAXkGV9XU+MNZSGpQc5qz1kkZ+pOlLahlA5QWSfELuo9OJs1BzXG0
-	 zaTk6AlaKRaU4XaL6olcmDcR2H7RGoVbyK14ZeHem9Np53GaIHWyDAKQFyhVB7SjsP/Ke
-	 yq57FgqGMpZzWVw9uFE4kU3D37Ypg5xncSI7GfAjdXCZyb8W8oD42hjm+CHfZW3AcCw==
+	t=1794705217;
+	b=C2b0G3kZ48WImDdA518w+ai1qwvm6W88ZQMGbD5O+EDjEmdRTtCSm2Nb2G3JDrn8JDLj
+	 E61gFRIpE935KHYyMeOCoXUX0eB8HTj+/A3Uq1NbvcIQ7+fN4qfJN8OcKuV2QULeA+p7s
+	 mTU3R5VtONoFFJHbST8uSPMmHeI9d4WSDcDYN0dNO4/JVoB0NUmXILUK8JNDFnophc8+U
+	 7qPniN3OyB7+gtLFPDY0+Mds5iSSdxvu/QpxZGkbv116I/cbvzIF4oCOGgSNn4vw3w4Iu
+	 x2MaktrP8xYO2azTm0PrUMCtKI8u+L7gEjIG70vmqElL2LQtPRH1ZNrwztp4g6B6v/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794704489;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Z++RwfSOpv1D+is69MtrAgce33j60bZ7b/lnmHz+62o=;
-	b=29njrPJtWNO8F6pcGiLr/YQFVRwDeX09MRG2iw/vpqtYdnUv6kCfyk7XiLh7cr/s6Ldp
-	 CxYLgsXq1viEGhCvdvT7yLG9UuHiPeey9qhXYG/k37Q1AcLMwYSewm+c0RgSbMGaWrUOP
-	 ddO7VLPf7R6J7HwxOq3FXro24yPeHal2LPicpVfxTt/lDp1uG4YJpQmqxrwi0+m35U4RY
-	 TPeDksEUCA3kfDfkdzmcxkZ7/xeK1SEZv7bwbdXuF2qP4hGfQzBvMLshyJhw141IVRhUd
-	 /2TEnKvAtjT7pRLDkYM/53LdUhxie1DPmkHIBImn5QW8a9x61ak860Vd4Qm4RN9xbpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794705217;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ENNKEBiaOoEoJajLPGgvZOD0gIX1qPKSnvnELSKFfB8=;
+	b=KUwiAkdSKL7Z2NnbsQkaZWSF6qXDKpaNQOS0hNhSm7fpzDUbKBy/A//cm+jCCQABlEBo
+	 yOEgPhGuX4FOwSdEcZDEKxtsLU20tlXIMDZrRdialgYi1ciBCSsldflHyraytcadqvgSN
+	 chMRxJDs1tL2427YUOUSGrgpcNNs/mmynmhuXBK55nAC0ZGNY7BcDt+84JTMk2wjnE4e0
+	 Mvx0zopmapHz2ke50ADYv6n54rutxATCO5lGxuV7WctW5ZGSIRs5pkEL+lQ1TZhbZb5cf
+	 oUio2sqAsTVhrON8eJX0Kn7ul7tomKPpO4sCKGd7fBLZ5MdK+gbqJgEOPgiPUhDN8dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=I7+2eveW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rebasedinc.com;
+	spf=pass smtp.mailfrom=rebasedinc.com;
+	dkim=pass header.d=rebasedinc.com header.i=@rebasedinc.com header.a=rsa-sha256 header.s=protonmail header.b=OJB2MaaX;
+	arc=none smtp.remote-ip=79.135.106.25
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6A3606A327;
-	Sun, 15 Nov 2026 01:01:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B52C606A323;
+	Sun, 15 Nov 2026 01:13:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B52C606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rebasedinc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rebasedinc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=I7+2eveW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4311F000C4;
-	Sun, 15 Nov 2026 01:01:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794704488;
-	bh=Z++RwfSOpv1D+is69MtrAgce33j60bZ7b/lnmHz+62o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=I7+2eveWTbz5QA7n3oa8l8UmABOwqAo93YJY58ad7Gq6lfHtbMMao8yrMvSF0oQFl
-	 bs0og4THi0b6or62hMXyuP3E44tyHUBRRSFtJmeJ9sRzGhlw+zKU2cPo/7r2WKpkkb
-	 ais8kbBlQ7TTTwDgzm1xVCf3jK/9uNsoJydOuLGI=
-Date: Sat, 14 Nov 2026 17:01:27 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Jason Gunthorpe <jgg@nvidia.com>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com, leon@kernel.org,
- david@kernel.org, kas@kernel.org, dave.hansen@linux.intel.com,
- bp@alien8.de, rppt@kernel.org, stable@vger.kernel.org,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Subject: Re: [PATCH] mm/hmm: reject shadow-stack mappings
-Message-Id: <20261114170127.3d29199864eb352d9045eaba@linux-foundation.org>
-In-Reply-To: <20261115000005.GG3706007@nvidia.com>
-References: <20261113195536.2660763-1-gourry@gourry.net>
-	<20261113200303.GA395967@nvidia.com>
-	<179460249376.482102.14669935557901467762.b4-reply@b4>
-	<20261114002027.GE3706007@nvidia.com>
-	<20261113181025.6e8b9475b29c13d29f59e02e@linux-foundation.org>
-	<20261115000005.GG3706007@nvidia.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=rebasedinc.com header.i=@rebasedinc.com header.a=rsa-sha256 header.s=protonmail header.b=OJB2MaaX
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rebasedinc.com;
+	s=protonmail; t=1794705213; x=1794964413;
+	bh=ENNKEBiaOoEoJajLPGgvZOD0gIX1qPKSnvnELSKFfB8=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=OJB2MaaXxQmXKvFgdwjUAo5NRuVgF/81ZJtxG+Dda5uCiHl2QGdbJAwiWEbK+F6/A
+	 lPzJbgXsi7ckjLcSIbpAborzsXZ8e+rBnarbusedxs4d7SF/fD3fe0qTECLDRY3i2g
+	 h6Z8a8/aBJ521f8Qdgvm3sAk/AprmKaxQN1bwPrIHvGjhLFqb+HvlVOiLLxfoa05KK
+	 yfisnAhK2ADU2OU7ooBYzHjUoakwKO4TZ5h0p9/mJZOziWrxQtZ9rD/XEzKLchqyiv
+	 tGM6jsVZKfzyPIPdi1aagPWcJ1PT5oPoEm/4inYtKpo+RZ2Fls/tvjvtxiMu1CK4SE
+	 IlPsFfTxeEkwQ==
+Date: Sun, 15 Nov 2026 01:13:27 +0000
+To: Greg KH <gregkh@linuxfoundation.org>
+From: dev@rebasedinc.com
+Cc: "stable@vger.kernel.org" <stable@vger.kernel.org>, "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>, Jens Axboe <axboe@kernel.dk>, Yufan Chen <yufan.chen@linux.dev>
+Subject: Re: Subject: io_uring/eventfd: registered eventfd signals only once after the cd305ee3633a backport (6.18.y, 6.12.y, Ubuntu 26.04)
+Message-ID: <l6MRoKoZ-Ws6W9hLDlkTSwXBGm5Ozdgg2PU_u8lEBUv7ckH24ibRpB8FMBDpgxBvzA7EDuwuEV5-wVj8tBV-DPZwAvOtzGTCbfAuDJFgUC0=@rebasedinc.com>
+In-Reply-To: <2026111310-pointer-citric-2f11@gregkh>
+References: <oMhla8VwCWoihfrmgn8znIy60W1QXI8g_v2OyB9i6sWESIDlVJlwoGGOLylJgIHRARNoieXUVRGqzeB__KvHMdXgnCfPPovs8vLMOzaMPEw=@rebasedinc.com> <2026111310-pointer-citric-2f11@gregkh>
+Feedback-ID: 231970246:user:proton
+X-Pm-Message-ID: 20cced1913b2880bf7bbb39f27ad0ff8430c2d10
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,40 +63,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, 14 Nov 2026 20:00:05 -0400 Jason Gunthorpe <jgg@nvidia.com> wrote:
+Hey, Greg.=20
 
-> On Fri, Nov 13, 2026 at 06:10:25PM -0800, Andrew Morton wrote:
+I've tested the current releases, 6.18.63 & 6.12.117. Both still have the p=
+roblem: the registered eventfd signals only the first deferred task work of=
+ a registration.
+
+I noticed that Sasha already queued the backport (thank you, Sasha) of 04fe=
+9aeb4f3c for 6.18 and 6.12. With the patch applied, both releases signal ea=
+ch deferred task work.
+
+The test makes two deferred signals on one eventfd registration. Each signa=
+l comes from a poll of a pipe that a write wakes. A second test waits only =
+on the eventfd for two TCP receives that first get -EAGAIN.
+ =20
+Both tests pass on the patched kernels. These were x86_64 builds under QEMU=
+.
+
+Thanks,=20
+Nathan
+
+
+
+On Friday, November 13th, 2026 at 9:00 PM, Greg KH <gregkh@linuxfoundation.=
+org> wrote:
+
+> On Fri, Nov 13, 2026 at 11:22:38PM +0000, dev@rebasedinc.com wrote:
+> > While working on my own async runtime on io_uring, I found what looks l=
+ike a defect in the stable backports. I first saw it on Ubuntu 26.04's kern=
+el, and I can't find any existing report of it.
+> >
+> > A registered io_uring eventfd stops signaling after its first deferred =
+signal on kernels that carry the backport of cd305ee3633a ("io_uring: defer=
+ eventfd signaling when queued from a wakeup handler") but not 04fe9aeb4f3c=
+ ("io_uring/eventfd: reset deferred signal state").
+> >
+> > What I see, on Ubuntu 26.04 7.0.0-1016-aws, x86_64 and arm64. Ubuntu's =
+7.0 kernel took the cd305ee3633a backport through the 6.18.49 stable update=
+:
+>=20
+> Please test the real kernel.org 6.18.y release.  6.18.49 is very old.
+>=20
+> If that still has a problem, please let us know and ideally send us a
+> backported patch.
+>=20
+> thanks,
+>=20
+> greg k-h
 > 
-> > How does this look for an altered changelog?
-> > 
-> > : On x86, a shadow-stack PTE has its ordinary write bit clear.  The CPU
-> > : rejects ordinary stores to it, but pte_write() reports it writable because
-> > : shadow-stack instructions can write it.  HMM consequently sets
-> > : HMM_PFN_WRITE, which Nouveau turns into ordinary GPU write permission.  A
-> > : process with GPU access can then overwrite its own shadow stack,
-> > : potentially corrupting return addresses or bypassing that protection.
-> > : 
-> > : Reject shadow-stack VMAs in hmm_vma_walk_test(), including read access.  A
-> > : requested fault returns -EFAULT; a snapshot records HMM_PFN_ERROR.
-> 
-> Yes, but it is not just nouveau, RDMA user can do this too and
-> that is far more common..
-
-Thanks.  This?
-
-On x86, a shadow-stack PTE has its ordinary write bit clear.  The CPU
-rejects ordinary stores, but pte_write() reports it writable because
-shadow-stack instructions can write it.  HMM consequently sets
-HMM_PFN_WRITE.  Nouveau uses that flag for GPU write permission, and
-RDMA on-demand paging can use it to grant device write permission to a
-registered memory region.  A device, or an RDMA peer with write access
-to that region, can then overwrite the process's shadow stack,
-potentially corrupting return addresses or bypassing that protection.
-
-Reject shadow-stack VMAs in hmm_vma_walk_test(), including read access.
-A requested fault returns -EFAULT; a snapshot records HMM_PFN_ERROR.
-
