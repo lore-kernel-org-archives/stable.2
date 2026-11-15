@@ -1,90 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.42
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794727195;
-	b=ZRMOHPKNQxNJHxDxIyuVpkH6Feoct+46hy+cmHYFh6c9z7nonmjTgVffo//BSekKkty8
-	 TrkWtPSGM7ELn4P+EF9NCskiqbaYslPtTAgbXBLJ0dlvUQXHwJfG0EgyJDQbBL5yjh6zc
-	 Gde78+2PkDiuPCUr9uCb1x3yDzG9hTxUrZn/9rCQ3RbR2NreQGiygmwWDdPq2bRcVnSsN
-	 3O/0TJh/GZMv2KYvulQRazjha2bAuM2SEWLcj0hLMf1IHPfTl9UVwVs319Os6YRmxPGdS
-	 Sej2/5r/979Lm/xAOqSuWcLqldnzG7Ll+oZed3y5yjgGyIeTnOJdC9TlJonkkuS4jjQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794727195;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=pZ+dtlSoMIwzi8tXLggRIOEKa0idJB89sEnqPt1VQaE=;
-	b=wTeKDuTi2zCdmiFamnAraQDqXV1yw0DHZ0a2fdm757VU3rGyxsnMG7pxpcaZdIJWYhSW
-	 kVn1NoG/BaRyTuSycBOCbmrlU7EhjGHYuA6htTt2eNM7W9SXfAaPXEN8o7e66iJ5FjqUh
-	 7xsuhsojRyzjzT1HNSlkpn8Q09YepElNTws1/TytUTXllij1Tlzr20FYGQzpUoUE056ul
-	 TN+AV5hj4MeEUQncUcQ27VbivZCdMh4JtYggXhb+exH6piFg3Xchk3QN5f0ZHuLN53zd7
-	 mYitJ+3yVYlke0NCWI3tCE4IgUiS2brMdB7kLkgIEFnBVfEJn2DtcnwAODz34j67r3g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rVBifrle;
-	arc=none smtp.remote-ip=209.85.161.42
-Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com [209.85.161.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.4
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794728090;
+	b=V8QhM/V0uwrbFUWkvTEhzN6FHqdKXADylHXi41uqD8TeNacGfX5aHnhF4WT6BHd5OPuk
+	 vQBdqso0iF3+uI93wuGVdlTeh6kx1enwdjbSmKEcfwpYRHUh4J0UVQmKASunxsbTKX6TA
+	 EkO/lHrCmF6Tjh48YKJF8CsAc/1PLOhX9sYNR6A0VOZ4B57Oi/JkAEQT95fsDiPMzXnLD
+	 iMRXQcCgdllPwKTMyAQnB7k0AJyqYRYSkB5KieJssxL5dkqGtR2gYE3H+9l7SEFswlZFF
+	 r8mutfYw9xIgs6KSWuDHXkCwoty8c+4E/SchaNpVIEC+P1EvKjqrvkwLklM99nEM4sA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794728090;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=timNZLT0duMFMtYDBuRsl1BtmgVw5bpHD+YLnA4La70=;
+	b=hmnvP48xDDSr+g4RMhXNRR0AYOcEDxqYGYGhiTa3T5px3Zj0UxJUDdrE79cJVs3/ewxf
+	 rCS+/LcoaQ3LXPxrrvkgDRtJtMjg2ZnIjCSRYTSMN+IqknilMufNovan7ngbr2G0FfpLv
+	 h16WtKNspl4TOWPNh2exXqWjYtmybNhHLk/9Xq6UV2aErS8gEp9+vUnrM0ivmediZMYOy
+	 LyH5i8GZn2voDX8f1yeSauiobHC6KldGGx/PCqIYHATEjHhHWsYd/UGBDqFwkzGVv0kUj
+	 HW/EUgJJ+DClLa8R6RtSgA6iGGVFQLniHqn3advegQbuoN5Tz88xDRLWrfO2snKCcuA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KR4b8ktd;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.4
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010004.outbound.protection.outlook.com [52.101.46.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE03460A382F
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 07:19:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE03460A382F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAC1606A31A;
+	Sun, 15 Nov 2026 07:34:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EAC1606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rVBifrle
-Received: by mail-oo1-f42.google.com with SMTP id 006d021491bc7-6df7f544919so2064555eaf.1
-        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 23:19:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794727194; x=1795331994; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pZ+dtlSoMIwzi8tXLggRIOEKa0idJB89sEnqPt1VQaE=;
-        b=rVBifrleMzP84l/hPxYELN2fD2a0DnTrmhidiUE/G3b2Ci7QZihgT1VdZV8GePTF/t
-         DOEjfBzF6Vats+CXTaPgLqUOuAExcNKyFVfUmRaFiNc35TvW2htW4Z8MBWKo318iwwi7
-         raRNt93RWvJ+uMHRuuaPSweciuYkRCh/qidEERyNJbSO86DVK7uocznMGUMIRLU5FvAf
-         mfnS3X3pLR9G28dW/WbkdY3Ewb7H372j7Mjndz/+bYv1NY9+hjpipygSf61XHvKfrB6n
-         fCmu1Jl/0NKciZzVUVtxwSKUC7OS2BH+tyc3kYgPbtsGu4/s2ZpuCn09mx+9lWJP3dTY
-         GD3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794727194; x=1795331994;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pZ+dtlSoMIwzi8tXLggRIOEKa0idJB89sEnqPt1VQaE=;
-        b=jaJOoApCyilslF+CGzt973sNJTAxMuujpGaljuyxMfypUkI8ovJdg9XWJArTG6jCTh
-         B30Z2sUtCz+VlGeW8YdD9qXK+P9gEuWHuszN3uGpIgY4lQ3ho10RJiNzP7Dqlvs69cle
-         +daXwJXYNkfeEpz+CD6C5+SdZews4tJCp+5BtRhmwv8B9YIatZcLZECAwR/1RyQYejYT
-         jHcHyoX34GaSyLI0T7vnRxppSy2jP5biA1DOnjtl42j6rGCGmvMT2Z1FJza+BtxM2fPN
-         kcEErCASIOoQdE51DLJ77tVtjvdeNejYq/ZJNZGnCQi6UDaetyWldr8prurWWXgASQvj
-         zQAw==
-X-Forwarded-Encrypted: i=1; AL+hErGS+ud3SmCBpk4sHb2LiMgVn//SJcnJ00F8cT7jYqxe+YwS/rNR3yC/KnL23rEOMroe6T9Fhvs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6EJJK02gcjR+TE2v/4yzp2JbHa0eV4EzJbSu86NVAHC2npSsQ
-	24WQqwj9CywVPPIcrGn73NEaeUZC9FF6sFzilSZiHb1sGXovD55AW12b
-X-Gm-Gg: AYBFou2L90Lpk98hNJe8Dt+ssw/SoChHaAuReaY8/Qdxf9WY6mKBGNoezq7VnLVMvcX
-	Oil4veVeQt9PEUaHHbLMnJpparqeY+TqWS4w/suDFcq9rJqpf8yCDtroDlw4BTjr+3qC3+zROk3
-	dV8sU/ejdD9iSq2Zkpx4aDEDt6s1b2hgrntjAsgpuZM+lWW/1hh9QoNGz2OWZQBOMcff/I2y4fd
-	Ipa3jnoN9bdfG+aODXOA+fgwbBT4H45cMgAZSu25c8VEH2EKrKEhT1nfPq6+5NycrmglS9/l2lw
-	m8+A0kPeaM34XXfZgcyLca5ez0NzeIj3PmOok2rHLiPgpw8IGbDgASnAojg+um1YohGcCibKGQF
-	Ggcv9fYcILndc4fF61SMw28Is9f9YM6BqEWp2HSh8sL4B1E7FqNy5NbQRh5auh32O14vl9GtARj
-	1E7ERvuykN5FRvJpe8AsBMvuozvMB18teVE9QAovL43k3zwQDnTHCNJrWk/8Iv8l4vx5aX7pIUo
-	l0YnulIvy2772IKy2WnTNQeVmd760ET1iDg1OrQEtB4JOSH0mWIoG8mjLP94Paixoo4XmWKtO8u
-	JVXDph1wrzKOtyyS2X6DfVggmfsUtc+bDPkVmlQpLz0mLC2ky37mRCgI1kgdBojXN8KGbamvAK+
-	iKTAJpvEvYcqjFR/3sEqs/c7Z6zIsKp7qTsG+M3LVWTrRHwMES9WTmDJvIRvJN8js/t0EMonJY5
-	wbzhxvXvibGSIuovkKhPR2v3h+7ex/5f36tHn3sN/pH8pzEzMVILw=
-X-Received: by 2002:a05:6820:83d2:20b0:716:c021:56eb with SMTP id 006d021491bc7-71ab4ef6568mr3133090eaf.28.1794727193901;
-        Sat, 14 Nov 2026 23:19:53 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ae860ebd7sm1145321eaf.8.2026.11.14.23.19.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 23:19:53 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 15 Nov 2026 00:19:43 -0700
-Subject: [PATCH v7 10/10] dmaengine: dw: Prevent tx-status calling DMA-desc
- callback
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=KR4b8ktd
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uGwjScOhpfgGX4FrtvzVjxF/8m59Ee/CrNkQ8FDqpoUK5VId7zS1e3+yYrbeK7mp8dNPcVil6FfY7AZSb716CW6UFmOvfO6ly4TCW5hYq4vfBg1smBXkV3Vboknq0pyzyREbXc6TnspFRQg6wJPVHa7xfXihbH18+d3NLweaO3DfSTV14mmPV00zw3BiR0+CkrqU8BnLOPY3HLEA3nygT22RfgSGMFVRQ8hF/b3374z4VrVTF0vt85HjWtMtBg2fp9Ha3l7eJUWE0wtyWbNe6h8+0zpluukZNQ1J8Z7VyrlGUv7ZC5oYWkFZg/+RWMVp9OGaIIkzVXACwv+rmLUK8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=timNZLT0duMFMtYDBuRsl1BtmgVw5bpHD+YLnA4La70=;
+ b=isasvz5lTR1X1gBRW7xNc8pfU87fT9Y8l83RwPcBJcIS1fN0vRSGnnpJKtonvAGhC9wckrPuiA9U3RctaPr+/plOdUlVyDByM9BxlElPXILCWpaTuGv/izoI1/zhBww5F5wmFs454g9OkVJQ2CMWHLjQ8E9V1WN1D6iCZ7/k7dx82H9vY88+cpYVjdSagUb5RQbFdg/6UGyDy4U1HanlJq4f+hHyli7JcoVWukTjO03uWLqVO12SJ4ed0aVN150KnzWVHVOn2C4ln5zCvBhEFrzGq2I1znYQoFppC5JFeaveqP3Yzp9D3NrPUe1qeFoQAae6wswCoxbBypC1A0OuCA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=timNZLT0duMFMtYDBuRsl1BtmgVw5bpHD+YLnA4La70=;
+ b=KR4b8ktdKRW3E76Dd4keHgNXg4Sv4dl9+YW4dDrN5G4NZG7M3Q+7qr7CWbWgPBpZVO301MHjFkdo9cdXmoO3RI8x3oDsl7G5lKMTFmiPCQvwpcScygJJ0lJ6car17vivJkEPwB8/zzo8UsqjJoBtJEqaVJHDoJB4XQaldPFjm1Y=
+Received: from CH2PR14CA0014.namprd14.prod.outlook.com (2603:10b6:610:60::24)
+ by PH8PR12MB7111.namprd12.prod.outlook.com (2603:10b6:510:22d::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.10; Sun, 15 Nov
+ 2026 07:34:42 +0000
+Received: from BN3PEPF00022BC2.namprd05.prod.outlook.com
+ (2603:10b6:610:60:cafe::98) by CH2PR14CA0014.outlook.office365.com
+ (2603:10b6:610:60::24) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.13 via Frontend Transport; Sun,
+ 15 Nov 2026 07:34:41 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN3PEPF00022BC2.mail.protection.outlook.com (10.167.248.213) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Sun, 15 Nov 2026 07:34:41 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Sun, 15 Nov
+ 2026 01:34:38 -0600
+Received: from wayne-dev-lnx.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
+ Transport; Sun, 15 Nov 2026 01:34:36 -0600
+From: Wayne Lin <Wayne.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Adrian Betschart <adrian.betschart@cinemaone.ch>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, "Harry
+ Wentland" <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, "Rodrigo
+ Siqueira" <siqueira@igalia.com>, Alex Deucher <alexander.deucher@amd.com>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH] drm/amd/display: Apply the HDMI RGB range default only to HDMI signals
+Date: Sun, 15 Nov 2026 15:35:32 +0800
+Message-ID: <20261115073532.1476282-1-Wayne.Lin@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261029074558.41383-1-adrian.betschart@cinemaone.ch>
+References: <20261029074558.41383-1-adrian.betschart@cinemaone.ch>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,327 +112,426 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-submit-dw-dma-synchronize-v1-v7-10-8d58f3d49e4d@gmail.com>
-References: <20261115-submit-dw-dma-synchronize-v1-v7-0-8d58f3d49e4d@gmail.com>
-In-Reply-To: <20261115-submit-dw-dma-synchronize-v1-v7-0-8d58f3d49e4d@gmail.com>
-To: Viresh Kumar <vireshk@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
- Dan Williams <djbw@kernel.org>
-Cc: Serge Semin <fancer.lancer@gmail.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- dmaengine@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, 
- James Hilliard <james.hilliard1@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC2:EE_|PH8PR12MB7111:EE_
+X-MS-Office365-Filtering-Correlation-Id: ca473c1b-fa8e-49a9-7933-08df42eae92a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|11063799006|5023799004|56012099006|261028144727099003|261021121427099003|261022113327099003|261022105027099003|261022075727099003|261021123027099003|261026121527099003|261102130727099003|261102123227099003|10067099003|261026140227099003|261009223027099003|18002099003|22082099003|13003099007|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	m7C/QBsX2pWeqZV+VQRR7gntFev3s7BJOSeRK22A0ctwDTZWFQHErBlgEtTvamWnHkexGnyGUEI9k4tYmchJR6aDuXodjNYKhLq4bwmLygltLNvXB8EIu2ZDa0WDNm1pjuQoKkT6gI3Yq7vPliVbKkbfkZoQEV21jP3/h9EBpJTGxvmK5b4wPzc4IlbdNlxUEKm33ZqZz8+lYUSwSUORmOSBeRim8vVU7Wcag3mcT+/WSK3Qgir2Eoboek9S7k+3nzLSWDkiM8fp4eTmeyojZtGFKkZrZCegcuZ16AnnDMNsYQiI5zpjselCCdb1sLFpJ6Njo7RCSPwOrqimZjKvglziEU7++aGTSipyq6QC3rOGk0m4846zdAFsUNkoTMkkOl0iRVUysHv78XepIoy/knCiO2ACCSTKZBPl7HTm7PJDQv2Zuwxy+FSLIEDTfiIVRnVcLelRGrLlEsFKMuTMVs6loHSc3pNDMHsFLQLv6LehZ2fPMO7qpCJP/sBPPKaqHCiv1c4XoZHwAcd92XIlAqF14/e0u5XrMnCGw0qiYiJFfR7N8lWo3KkYLyjqTs8DpbYRc4BihfbncuhYBfN1IdOf1I2sRwpOwNg3pyZkdPdSphfO3acuuyQNrobX8VhX4Px1pIitzx4eigjZHlEYOw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(11063799006)(5023799004)(56012099006)(261028144727099003)(261021121427099003)(261022113327099003)(261022105027099003)(261022075727099003)(261021123027099003)(261026121527099003)(261102130727099003)(261102123227099003)(10067099003)(261026140227099003)(261009223027099003)(18002099003)(22082099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	cbGSkl3Z+K29n/TZ5XPB/lrVzbYoXK98wa92wdXVk4FlNmqgELGw547yyRTnMAAphhwcsb1+PywBq64ig+F/Ch0ohIPDxk/qjtmz41HYVJ5DEFx0ha4KVczX0NLP3cMXc4wpnPS3FJXvQggBoKl3Pbd4My8T+pCnIBmDGgkeogab6aLKXo7lyuzDXZikDi0lnz+G+rV8jX6kvo6OtL/ReTKmUyNlSx1O3+RA1fLBYQeMGejjBGJ8G4T4U4avhjyQPpEcOHtlMHoAoxRQpLVpQFao/I5aAqrYMjYyArs0O2UQ+f7ge0p4Onno8LHnqwhiI0oSIOOI9guygflPWtX3GIkVS2RQHp8CvDvDGqEvvN1izN8fprjR2IhLCKK5kbfryj6URUKGO4uTZ4a36+L3iTzy9UtAtKyB5KnlJxKqHBLfd8/DAEux/CYSmahk4F/p
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Nov 2026 07:34:41.1119
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ca473c1b-fa8e-49a9-7933-08df42eae92a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF00022BC2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB7111
 
-From: Serge Semin <fancer.lancer@gmail.com>
+Reviewed-by: Wayne Lin <Wayne.Lin@amd.com>
 
-The DMA transfer status getter can invoke a completion callback from
-dwc_scan_descriptors(). An 8250 RX timeout queries that status while
-holding the UART port lock, and its DMA callback takes the same lock:
-
-  serial8250_handle_irq()
-    uart_port_lock_irqsave(port)
-    serial8250_rx_dma_flush()
-      dmaengine_tx_status()
-        dwc_scan_descriptors()
-          dwc_descriptor_free()
-            dma_rx_complete()
-              uart_port_lock_irqsave(port)
-
-Queue completed descriptors on a channel completion list under the channel
-lock. Let the controller tasklet detach that list and invoke callbacks
-outside the lock. Termination discards notifications still on the shared
-list; the tasklet owns descriptors it has already detached, and the
-synchronization hook waits for that run.
-
-Keep handling raw completion events from tx_status(). Clients such as
-catpt poll transfers without DMA_PREP_INTERRUPT and can mask the controller
-interrupt externally. Polling must still advance software-emulated LLP
-blocks and complete cookies without waiting for tasklet execution. Hold
-the channel lock across event handling and status calculation, then
-schedule the tasklet for deferred notifications.
-
-On channel release, discard queued notifications after draining the
-tasklet, before clearing the controller's in-use state.
-
-Fixes: 3bfb1d20b547 ("dmaengine: Driver for the Synopsys DesignWare DMA controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
-[james: defer notifications while preserving polled completion and cleanup]
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
----
- drivers/dma/dw/core.c | 102 +++++++++++++++++++++++++++++---------------------
- drivers/dma/dw/regs.h |   1 +
- 2 files changed, 60 insertions(+), 43 deletions(-)
-
-diff --git a/drivers/dma/dw/core.c b/drivers/dma/dw/core.c
-index 6f863fae7455..804fbfa0e5e5 100644
---- a/drivers/dma/dw/core.c
-+++ b/drivers/dma/dw/core.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/bitops.h>
-+#include <linux/cleanup.h>
- #include <linux/delay.h>
- #include <linux/dmaengine.h>
- #include <linux/dma-mapping.h>
-@@ -257,6 +258,22 @@ dwc_descriptor_free(struct dw_dma_chan *dwc, struct dw_desc *desc,
- 	dmaengine_desc_callback_invoke(&cb, NULL);
- }
- 
-+static void dwc_free_completed(struct dw_dma_chan *dwc, bool callback_required)
-+{
-+	struct dw_desc *desc, *_desc;
-+	unsigned long flags;
-+	LIST_HEAD(list);
-+
-+	spin_lock_irqsave(&dwc->lock, flags);
-+	list_splice_tail_init(&dwc->completed, &list);
-+	spin_unlock_irqrestore(&dwc->lock, flags);
-+
-+	list_for_each_entry_safe(desc, _desc, &list, desc_node) {
-+		list_del_init(&desc->desc_node);
-+		dwc_descriptor_free(dwc, desc, callback_required);
-+	}
-+}
-+
- /* Returns how many bytes were already received from source */
- static inline u32 dwc_get_sent(struct dw_dma_chan *dwc)
- {
-@@ -295,19 +312,17 @@ static u32 dwc_get_hard_llp_desc_residue(struct dw_dma_chan *dwc, struct dw_desc
- 
- static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
- {
--	struct dw_desc *desc, *_desc;
-+	struct dw_desc *desc;
- 	struct dw_desc *child;
--	unsigned long flags;
--	LIST_HEAD(list);
- 
--	spin_lock_irqsave(&dwc->lock, flags);
-+	lockdep_assert_held(&dwc->lock);
- 
- 	if (!(dma_readl(dw, RAW.XFER) & dwc->mask))
--		goto unlock;
-+		return;
- 
- 	dma_writel(dw, CLEAR.XFER, dwc->mask);
- 	if (list_empty(&dwc->active_list))
--		goto unlock;
-+		return;
- 
- 	desc = dwc_first_active(dwc);
- 	if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags)) {
-@@ -325,7 +340,7 @@ static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
- 
- 			/* Submit next block, including for polled transfers. */
- 			dwc_do_single_block(dwc, child);
--			goto unlock;
-+			return;
- 		}
- 
- 		clear_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags);
-@@ -340,15 +355,8 @@ static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
- 	}
- 
- 	dma_cookie_complete(&desc->txd);
--	list_move_tail(&desc->desc_node, &list);
-+	list_move_tail(&desc->desc_node, &dwc->completed);
- 	dwc_dostart_first_queued(dwc);
--unlock:
--	spin_unlock_irqrestore(&dwc->lock, flags);
--
--	list_for_each_entry_safe(desc, _desc, &list, desc_node) {
--		list_del_init(&desc->desc_node);
--		dwc_descriptor_free(dwc, desc, true);
--	}
- }
- 
- static inline void dwc_dump_lli(struct dw_dma_chan *dwc, struct dw_desc *desc)
-@@ -365,18 +373,17 @@ static void dwc_handle_error(struct dw_dma *dw, struct dw_dma_chan *dwc)
- {
- 	struct dw_desc *bad_desc;
- 	struct dw_desc *child;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&dwc->lock, flags);
-+	lockdep_assert_held(&dwc->lock);
- 
- 	/* Termination may have cleared the error since the tasklet sampled it. */
- 	if (!(dma_readl(dw, RAW.ERROR) & dwc->mask))
--		goto unlock;
-+		return;
- 
- 	dwc_chan_disable(dw, dwc);
- 	clear_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags);
- 	if (list_empty(&dwc->active_list))
--		goto unlock;
-+		return;
- 
- 	/*
- 	 * The descriptor currently at the head of the active list is
-@@ -402,40 +409,41 @@ static void dwc_handle_error(struct dw_dma *dw, struct dw_dma_chan *dwc)
- 
- 	/* Pretend the descriptor completed successfully */
- 	dma_cookie_complete(&bad_desc->txd);
--	spin_unlock_irqrestore(&dwc->lock, flags);
-+	list_add_tail(&bad_desc->desc_node, &dwc->completed);
-+}
- 
--	dwc_descriptor_free(dwc, bad_desc, true);
--	return;
-+static void dwc_handle_channel(struct dw_dma *dw, struct dw_dma_chan *dwc)
-+{
-+	lockdep_assert_held(&dwc->lock);
- 
--unlock:
--	spin_unlock_irqrestore(&dwc->lock, flags);
-+	if (dma_readl(dw, RAW.ERROR) & dwc->mask)
-+		dwc_handle_error(dw, dwc);
-+	else
-+		dwc_scan_descriptors(dw, dwc);
- }
- 
- static void dw_dma_tasklet(struct tasklet_struct *t)
- {
- 	struct dw_dma *dw = from_tasklet(dw, t, tasklet);
- 	struct dw_dma_chan *dwc;
--	u32 status_xfer;
--	u32 status_err;
-+	unsigned long flags;
- 	unsigned int i;
-+	u32 status;
- 
- 	/* Channel release may have drained a polled completion before this run. */
- 	if (!dw->in_use)
- 		return;
- 
--	status_xfer = dma_readl(dw, RAW.XFER);
--	status_err = dma_readl(dw, RAW.ERROR);
--
--	dev_vdbg(dw->dma.dev, "%s: status_err=%x\n", __func__, status_err);
-+	status = dma_readl(dw, RAW.XFER) | dma_readl(dw, RAW.ERROR);
- 
- 	for (i = 0; i < dw->dma.chancnt; i++) {
- 		dwc = &dw->chan[i];
--		if (test_bit(DW_DMA_IS_CYCLIC, &dwc->flags))
--			dev_vdbg(dw->dma.dev, "Cyclic xfer is not implemented\n");
--		else if (status_err & (1 << i))
--			dwc_handle_error(dw, dwc);
--		else if (status_xfer & (1 << i))
--			dwc_scan_descriptors(dw, dwc);
-+		spin_lock_irqsave(&dwc->lock, flags);
-+		/* The snapshot selects work; recheck events under the channel lock. */
-+		if (status & dwc->mask)
-+			dwc_handle_channel(dw, dwc);
-+		spin_unlock_irqrestore(&dwc->lock, flags);
-+		dwc_free_completed(dwc, true);
- 	}
- 
- 	/* Re-enable interrupts */
-@@ -911,6 +919,7 @@ static int dwc_terminate_all(struct dma_chan *chan)
- 	list_splice_init(&dwc->active_list, &list);
- 	list_for_each_entry(desc, &list, desc_node)
- 		dma_cookie_complete(&desc->txd);
-+	list_splice_init(&dwc->completed, &list);
- 
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- 
-@@ -955,10 +964,9 @@ static u32 dwc_get_residue_and_status(struct dw_dma_chan *dwc, dma_cookie_t cook
- 				      enum dma_status *status)
- {
- 	struct dw_desc *desc;
--	unsigned long flags;
- 	u32 residue;
- 
--	spin_lock_irqsave(&dwc->lock, flags);
-+	lockdep_assert_held(&dwc->lock);
- 
- 	desc = dwc_find_desc(dwc, cookie);
- 	if (desc) {
-@@ -978,7 +986,6 @@ static u32 dwc_get_residue_and_status(struct dw_dma_chan *dwc, dma_cookie_t cook
- 		residue = 0;
- 	}
- 
--	spin_unlock_irqrestore(&dwc->lock, flags);
- 	return residue;
- }
- 
-@@ -988,19 +995,24 @@ dwc_tx_status(struct dma_chan *chan,
- 	      struct dma_tx_state *txstate)
- {
- 	struct dw_dma_chan	*dwc = to_dw_dma_chan(chan);
-+	struct dw_dma		*dw = to_dw_dma(chan->device);
- 	enum dma_status		ret;
- 
-+	guard(spinlock_irqsave)(&dwc->lock);
-+
- 	ret = dma_cookie_status(chan, cookie, txstate);
- 	if (ret == DMA_COMPLETE)
- 		return ret;
- 
--	dwc_scan_descriptors(to_dw_dma(chan->device), dwc);
-+	/* Poll completion even when the client has masked the controller IRQ. */
-+	dwc_handle_channel(dw, dwc);
-+	if (!list_empty(&dwc->completed))
-+		tasklet_schedule(&dw->tasklet);
- 
- 	ret = dma_cookie_status(chan, cookie, txstate);
--	if (ret == DMA_COMPLETE)
--		return ret;
-+	if (ret != DMA_COMPLETE)
-+		dma_set_residue(txstate, dwc_get_residue_and_status(dwc, cookie, &ret));
- 
--	dma_set_residue(txstate, dwc_get_residue_and_status(dwc, cookie, &ret));
- 	return ret;
- }
- 
-@@ -1079,6 +1091,7 @@ static void dwc_free_chan_resources(struct dma_chan *chan)
- 	struct dw_dma		*dw = to_dw_dma(chan->device);
- 	unsigned long		flags;
- 
-+	/* Polled completion can leave descriptors waiting for the tasklet. */
- 	tasklet_disable(&dw->tasklet);
- 
- 	dev_dbg(dmaengine_chan_dev(chan), "%s: descs allocated=%u\n", __func__,
-@@ -1089,6 +1102,8 @@ static void dwc_free_chan_resources(struct dma_chan *chan)
- 	BUG_ON(!list_empty(&dwc->queue));
- 	BUG_ON(dma_readl(to_dw_dma(chan->device), CH_EN) & dwc->mask);
- 
-+	dwc_free_completed(dwc, false);
-+
- 	spin_lock_irqsave(&dwc->lock, flags);
- 
- 	/* Clear custom channel configuration */
-@@ -1238,6 +1253,7 @@ int do_dma_probe(struct dw_dma_chip *chip)
- 
- 		INIT_LIST_HEAD(&dwc->active_list);
- 		INIT_LIST_HEAD(&dwc->queue);
-+		INIT_LIST_HEAD(&dwc->completed);
- 
- 		channel_clear_bit(dw, CH_EN, dwc->mask);
- 
-diff --git a/drivers/dma/dw/regs.h b/drivers/dma/dw/regs.h
-index 5969d9cc8d7a..c41f18281efe 100644
---- a/drivers/dma/dw/regs.h
-+++ b/drivers/dma/dw/regs.h
-@@ -279,6 +279,7 @@ struct dw_dma_chan {
- 	unsigned long		flags;
- 	struct list_head	active_list;
- 	struct list_head	queue;
-+	struct list_head	completed;
- 
- 	unsigned int		descs_allocated;
- 
-
--- 
-2.53.0
-
+On Thu, 29 Oct 2026 08:45:58 +0100, Adrian Betschart wrote:
+> Since eb5650d1f367, Broadcast RGB "Automatic" selects limited range on
+> CTA modes when display_info.is_hdmi is set. That flag comes from an HDMI
+> VSDB in the EDID and says nothing about the link, so a native
+> DisplayPort monitor whose EDID carries an HDMI VSDB now gets limited
+> range on CTA modes too. Monitors that ignore the DP range signal show
+> grey blacks, where 7.2 sent full range.
+>
+> Require an HDMI signal as well, as the original commit intended. DP++
+> passive adapters drive an HDMI signal and keep the HDMI behaviour;
+> native DP, DP MST and active DP-to-HDMI converters get full range again.
+>
+> Reported and analysed by Andrés Rodríguez in the issue below.
+>
+> Fixes: eb5650d1f367 ("drm/amd/display: Default HDMI RGB output to limited range on CTA modes")
+> Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/6052
+> Cc: stable@vger.kernel.org # 7.3
+> Signed-off-by: Adrian Betschart <adrian.betschart@cinemaone.ch>
+> Assisted-by: Claude Code:claude-opus-5-5
+> ---
+>  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 14 +--
+>  .../display/amdgpu_dm/amdgpu_dm_connector.c   | 16 ++--
+>  .../display/amdgpu_dm/amdgpu_dm_connector.h   |  3 +-
+>  .../tests/amdgpu_dm_connector_test.c          | 90 ++++++++++++++-----
+>  4 files changed, 89 insertions(+), 34 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> index dfbc384fbbdb..4f6d31812447 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+> @@ -5216,9 +5216,11 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+>  		scaling_changed = is_scaling_state_different(dm_new_con_state,
+>  							     dm_old_con_state);
+>  
+> -		if ((new_con_state->hdmi.broadcast_rgb != old_con_state->hdmi.broadcast_rgb) &&
+> -			(dm_old_crtc_state->stream->output_color_space !=
+> -				amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing, new_con_state)))
+> +		if (new_con_state->hdmi.broadcast_rgb != old_con_state->hdmi.broadcast_rgb &&
+> +		    dm_old_crtc_state->stream->output_color_space !=
+> +		    amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing,
+> +						     new_con_state,
+> +						     dm_new_crtc_state->stream->signal))
+>  			output_color_space_changed = true;
+>  
+>  		abm_changed = dm_new_crtc_state->abm_level !=
+> @@ -5240,8 +5242,10 @@ static void amdgpu_dm_atomic_commit_tail(struct drm_atomic_commit *state)
+>  		}
+>  
+>  		if (output_color_space_changed) {
+> -			dm_new_crtc_state->stream->output_color_space
+> -				= amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing, new_con_state);
+> +			dm_new_crtc_state->stream->output_color_space =
+> +				amdgpu_dm_get_output_color_space(&dm_new_crtc_state->stream->timing,
+> +								 new_con_state,
+> +								 dm_new_crtc_state->stream->signal);
+>  
+>  			stream_update.output_color_space = &dm_new_crtc_state->stream->output_color_space;
+>  		}
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> index bc5745a5ba37..f663daf19d6a 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+> @@ -739,7 +739,8 @@ EXPORT_IF_KUNIT(get_aspect_ratio);
+>   * With Broadcast RGB left at Automatic follow that default, as i915 does.
+>   */
+>  static bool rgb_output_is_limited_range(const struct dc_crtc_timing *dc_crtc_timing,
+> -					const struct drm_connector_state *connector_state)
+> +					const struct drm_connector_state *connector_state,
+> +					enum signal_type signal)
+>  {
+>  	switch (connector_state->hdmi.broadcast_rgb) {
+>  	case DRM_HDMI_BROADCAST_RGB_FULL:
+> @@ -747,14 +748,16 @@ static bool rgb_output_is_limited_range(const struct dc_crtc_timing *dc_crtc_tim
+>  	case DRM_HDMI_BROADCAST_RGB_LIMITED:
+>  		return true;
+>  	default:
+> -		return connector_state->connector->display_info.is_hdmi &&
+> +		return dc_is_hdmi_signal(signal) &&
+> +		       connector_state->connector->display_info.is_hdmi &&
+>  		       dc_crtc_timing->vic > 1;
+>  	}
+>  }
+>  
+>  enum dc_color_space
+>  amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+> -				 const struct drm_connector_state *connector_state)
+> +				 const struct drm_connector_state *connector_state,
+> +				 enum signal_type signal)
+>  {
+>  	enum dc_color_space color_space = COLOR_SPACE_SRGB;
+>  
+> @@ -777,7 +780,7 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+>  	case DRM_MODE_COLORIMETRY_BT2020_RGB:
+>  	case DRM_MODE_COLORIMETRY_BT2020_YCC:
+>  		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
+> -			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state))
+> +			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state, signal))
+>  				color_space = COLOR_SPACE_2020_RGB_LIMITEDRANGE;
+>  			else
+>  				color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
+> @@ -789,7 +792,7 @@ amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+>  	default:
+>  		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
+>  			color_space = COLOR_SPACE_SRGB;
+> -			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state))
+> +			if (rgb_output_is_limited_range(dc_crtc_timing, connector_state, signal))
+>  				color_space = COLOR_SPACE_SRGB_LIMITED;
+>  		/*
+>  		 * 27030khz is the separation point between HDTV and SDTV
+> @@ -983,7 +986,8 @@ STATIC_IFN_KUNIT void fill_stream_properties_from_drm_display_mode(
+>  	if (is_hdmi_ep)
+>  		adjust_colour_depth_from_display_info(timing_out, info);
+>  
+> -	stream->output_color_space = amdgpu_dm_get_output_color_space(timing_out, connector_state);
+> +	stream->output_color_space = amdgpu_dm_get_output_color_space(timing_out, connector_state,
+> +								      stream->signal);
+>  	stream->content_type = get_output_content_type(connector_state);
+>  }
+>  EXPORT_IF_KUNIT(fill_stream_properties_from_drm_display_mode);
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+> index 7bfbb6853833..496d2037e0c0 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.h
+> @@ -129,7 +129,8 @@ int amdgpu_dm_fill_hdr_info_packet(const struct drm_connector_state *state,
+>  
+>  enum dc_color_space
+>  amdgpu_dm_get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+> -		       const struct drm_connector_state *connector_state);
+> +		       const struct drm_connector_state *connector_state,
+> +		       enum signal_type signal);
+>  
+>  struct drm_display_mode *
+>  amdgpu_dm_get_highest_refresh_rate_mode(struct amdgpu_dm_connector *aconnector,
+> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+> index acde20241f43..f2d9798667d8 100644
+> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+> @@ -422,7 +422,8 @@ static void dm_test_output_color_space_default_rgb_full(struct kunit *test)
+>  	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+>  	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_SRGB);
+>  }
+>  
+> @@ -439,7 +440,8 @@ static void dm_test_output_color_space_default_rgb_limited(struct kunit *test)
+>  	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+>  	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_LIMITED;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_SRGB_LIMITED);
+>  }
+>  
+> @@ -457,7 +459,8 @@ static void dm_test_output_color_space_default_ycbcr709(struct kunit *test)
+>  	timing.flags.Y_ONLY = 0;
+>  	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_YCBCR709);
+>  }
+>  
+> @@ -476,7 +479,8 @@ static void dm_test_output_color_space_default_ycbcr601_limited(struct kunit *te
+>  	timing.flags.Y_ONLY = 1;
+>  	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_YCBCR601_LIMITED);
+>  }
+>  
+> @@ -492,7 +496,8 @@ static void dm_test_output_color_space_bt601_y_only(struct kunit *test)
+>  	timing.flags.Y_ONLY = 1;
+>  	state.colorspace = DRM_MODE_COLORIMETRY_BT601_YCC;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_YCBCR601_LIMITED);
+>  }
+>  
+> @@ -508,7 +513,8 @@ static void dm_test_output_color_space_bt601(struct kunit *test)
+>  	timing.flags.Y_ONLY = 0;
+>  	state.colorspace = DRM_MODE_COLORIMETRY_BT601_YCC;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_YCBCR601);
+>  }
+>  
+> @@ -524,7 +530,8 @@ static void dm_test_output_color_space_bt709(struct kunit *test)
+>  	timing.flags.Y_ONLY = 0;
+>  	state.colorspace = DRM_MODE_COLORIMETRY_BT709_YCC;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_YCBCR709);
+>  }
+>  
+> @@ -540,7 +547,8 @@ static void dm_test_output_color_space_bt709_y_only(struct kunit *test)
+>  	timing.flags.Y_ONLY = 1;
+>  	state.colorspace = DRM_MODE_COLORIMETRY_BT709_YCC;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_YCBCR709_LIMITED);
+>  }
+>  
+> @@ -555,7 +563,8 @@ static void dm_test_output_color_space_oprgb(struct kunit *test)
+>  
+>  	state.colorspace = DRM_MODE_COLORIMETRY_OPRGB;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_ADOBERGB);
+>  }
+>  
+> @@ -573,7 +582,8 @@ static void dm_test_output_color_space_bt2020_rgb(struct kunit *test)
+>  	timing.pixel_encoding = PIXEL_ENCODING_RGB;
+>  	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_RGB;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_2020_RGB_FULLRANGE);
+>  }
+>  
+> @@ -590,7 +600,8 @@ static void dm_test_output_color_space_bt2020_rgb_limited(struct kunit *test)
+>  	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_RGB;
+>  	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_LIMITED;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
+>  }
+>  
+> @@ -611,7 +622,8 @@ static void dm_test_output_color_space_default_rgb_auto_hdmi_cta(struct kunit *t
+>  	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+>  	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_SRGB_LIMITED);
+>  }
+>  
+> @@ -632,7 +644,8 @@ static void dm_test_output_color_space_default_rgb_auto_hdmi_vga(struct kunit *t
+>  	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+>  	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_SRGB);
+>  }
+>  
+> @@ -652,7 +665,31 @@ static void dm_test_output_color_space_default_rgb_auto_dp_cta(struct kunit *tes
+>  	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+>  	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_DISPLAY_PORT),
+> +			(int)COLOR_SPACE_SRGB);
+> +}
+> +
+> +/**
+> + * dm_test_output_color_space_default_rgb_auto_dp_hdmi_vsdb - Automatic on DP stays full range
+> + * even when the EDID has an HDMI VSDB
+> + * @test: The KUnit test context
+> + */
+> +static void dm_test_output_color_space_default_rgb_auto_dp_hdmi_vsdb(struct kunit *test)
+> +{
+> +	struct dc_crtc_timing timing = {};
+> +	struct drm_connector_state state = {};
+> +	struct drm_connector *connector = kunit_kzalloc(test, sizeof(*connector), GFP_KERNEL);
+> +
+> +	connector->display_info.is_hdmi = true;
+> +	timing.pixel_encoding = PIXEL_ENCODING_RGB;
+> +	timing.vic = 118;
+> +	state.connector = connector;
+> +	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+> +	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+> +
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_DISPLAY_PORT),
+>  			(int)COLOR_SPACE_SRGB);
+>  }
+>  
+> @@ -673,7 +710,8 @@ static void dm_test_output_color_space_default_rgb_full_hdmi_cta(struct kunit *t
+>  	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+>  	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_FULL;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_SRGB);
+>  }
+>  
+> @@ -694,7 +732,8 @@ static void dm_test_output_color_space_bt2020_rgb_auto_hdmi_cta(struct kunit *te
+>  	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_RGB;
+>  	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_AUTO;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
+>  }
+>  
+> @@ -710,7 +749,8 @@ static void dm_test_output_color_space_bt2020_ycc(struct kunit *test)
+>  	timing.pixel_encoding = PIXEL_ENCODING_YCBCR422;
+>  	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_YCC;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_2020_YCBCR_LIMITED);
+>  }
+>  
+> @@ -729,7 +769,8 @@ static void dm_test_output_color_space_default_ycbcr709_y_only(struct kunit *tes
+>  	timing.flags.Y_ONLY = 1;
+>  	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_YCBCR709_LIMITED);
+>  }
+>  
+> @@ -748,7 +789,8 @@ static void dm_test_output_color_space_default_ycbcr601(struct kunit *test)
+>  	timing.flags.Y_ONLY = 0;
+>  	state.colorspace = DRM_MODE_COLORIMETRY_DEFAULT;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_YCBCR601);
+>  }
+>  
+> @@ -767,7 +809,8 @@ static void dm_test_output_color_space_bt2020_ycc_rgb_encoding(struct kunit *tes
+>  	timing.pixel_encoding = PIXEL_ENCODING_RGB;
+>  	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_YCC;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_2020_RGB_FULLRANGE);
+>  }
+>  
+> @@ -785,7 +828,8 @@ static void dm_test_output_color_space_bt2020_ycc_rgb_encoding_limited(struct ku
+>  	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_YCC;
+>  	state.hdmi.broadcast_rgb = DRM_HDMI_BROADCAST_RGB_LIMITED;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_2020_RGB_LIMITEDRANGE);
+>  }
+>  
+> @@ -802,7 +846,8 @@ static void dm_test_output_color_space_bt2020_rgb_ycc_encoding(struct kunit *tes
+>  	timing.pixel_encoding = PIXEL_ENCODING_YCBCR444;
+>  	state.colorspace = DRM_MODE_COLORIMETRY_BT2020_RGB;
+>  
+> -	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state),
+> +	KUNIT_EXPECT_EQ(test, (int)amdgpu_dm_get_output_color_space(&timing, &state,
+> +								    SIGNAL_TYPE_HDMI_TYPE_A),
+>  			(int)COLOR_SPACE_2020_YCBCR_LIMITED);
+>  }
+>  
+> @@ -10058,6 +10103,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+>  	KUNIT_CASE(dm_test_output_color_space_default_rgb_auto_hdmi_cta),
+>  	KUNIT_CASE(dm_test_output_color_space_default_rgb_auto_hdmi_vga),
+>  	KUNIT_CASE(dm_test_output_color_space_default_rgb_auto_dp_cta),
+> +	KUNIT_CASE(dm_test_output_color_space_default_rgb_auto_dp_hdmi_vsdb),
+>  	KUNIT_CASE(dm_test_output_color_space_default_rgb_full_hdmi_cta),
+>  	KUNIT_CASE(dm_test_output_color_space_bt2020_rgb_auto_hdmi_cta),
+>  	KUNIT_CASE(dm_test_output_color_space_bt2020_ycc),
+> -- 
+> 2.56.0
+>
+>
