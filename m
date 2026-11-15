@@ -1,65 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=27.111.92.109
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794730645;
-	b=KqhfzibLlmKDx+mF6jU8GiP0HV8wZGFIMEgkP9/Wr6oryOaPdxRLkc1wMQJfLpVjo/G5
-	 hsiqH85E0pJ7IhKy4MdVbclhUIS0LkT90BTU51+B7CSDG/wtvmF4qymR7pEQMgQyqfJ3P
-	 DJNK7lTtEp36cCuCLBY5z6iaWrhFv5tg+YjmTqHTbWJOSNbDF4IlMGa6/2nTUWSHpm/4w
-	 wTcJGO69uU59A0244LvcXcMz1gwEjKKVxaWYcdq8TPk88o48SQJkvetEWo5JjIAf00SNd
-	 ZQG3civvrLtbOzagrhlyhIZCciLRbj889/H4GgfHU1WACJGva/aw1EsuWjTNI/oBYpQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794730645;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Content-Type:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=+xB/EiJURGaS8AnrKP8tu56DXfZyQqbE3+5bWGnca1Y=;
-	b=FJN5f++0ye18lOiGw+4tpiJ7DOh6ln23W/SUW4emgj/tJWa6t9Dw8H79PzRf1Te0MZkd
-	 65U9yArOpiuXdOajscH8F1UuqH2y+2o+dnL0IBmJkMFagab62QKnYrjTdWQlorszNSuyw
-	 Qdfs66VkjaExEoRWXbtrmr0PwPBVERb44ToZoIW+RfmRoX81lDJiVB6uH8ECh9hgQszff
-	 sxP4koLSWcNpsstjl6+WnTH44QlVTIFWkGY0mv69EfyBUjTi62Utp4rgZS4Hn2bP6BWo5
-	 Ycym3aFXpVYWcy10bBTdlJL+qDwUXm0T66AfHZqiEhDlCdVkDwkoD4jALnXoIViWbAw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=advisoft.co.nz;
-	spf=pass smtp.mailfrom=advisoft.co.nz;
-	dkim=pass header.d=advisoft.co.nz header.i=@advisoft.co.nz header.a=rsa-sha256 header.s=default header.b=ZviZSrwd;
-	arc=none smtp.remote-ip=27.111.92.109
-Received: from mail-p1-f31.ipv4.au.ds.network (mail-p1-f31.ipv4.au.ds.network [27.111.92.109])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794730889;
+	b=KcZX6cj5FT27DYB7yxKLdpJBFWrVgrepMsHY0tawliQhCb019hh6mKMm4PVzxgmz0X4s
+	 wKTiwp9hVdZ/j7/4AN0qEN6vP+hCd6B+pXNC127W9ssh59uMYPYLZ8HoCjUmBhMZOKb7x
+	 tTrpkBbqCkGi+B+IltJAI1Xzc3gw2yOGthAS6Z5zvcwtuLRRafl/LkB5OdJvw/wW3nSdL
+	 fASy7KWR6JZl8ORvuzqe+9xaZDwUfFACbLXdtdPrvVVSnXLbImUPex70JZWt6gkuPVvr1
+	 nfp3XbdPCxSurmxbNmwuZj8tyHqKBIgEAMyXihDQgsXmazcLc3ON384l1Coqye67ucA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794730889;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xvJHN8PTWcCjuzksBv84XcItk7liGN0IwqC0kFvZgKY=;
+	b=tEIQIvf95A9PnPFSegkdAlWXlTKvHJHUakG+JvryAFLKE1ZvyF3ccrPfVHDgPnCVBEyP
+	 iog6XXN7igSOlA1BN9Jws1rfWLcDEa7eNfEp3VY16GbeiHxCDze62BXdVUaUo0jaDbF0W
+	 //ZAMVHd/tn91X9WDuxyKgonaYXvio16VwY3/wllKveAoJFo6gDjlBhZ5bfCT9V5geaSU
+	 IxNO8W6G7XHJebdcWZoVAf4Ju8Ds7bf/nfFZ94NovTQgbf5k6vneZnyLTcn4PAaFkPeDy
+	 P8GnEPStqlVV5GFwCI87nUy49aMx6HRSBgt16cbvJwD2LZRSdEpz38fD8KfOZ7nNicA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQa4+kUx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E0FC606A323;
+	Sun, 15 Nov 2026 08:21:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EQa4+kUx
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794730889;
+	b=uIHTxWgxHeav0Yah/4gpId49IAp5ODUymgmPHXQE5K0anOjcH6ONa6Wd2bA5erPAVKLT
+	 wO6CyjB8o9k/m/8ZcyN4zTRWMfKQKj7hrrCu6ZebHIpMP24j4i7+JeGjWm/M7rXwfSQ7L
+	 2RsZS1lA9ZTLVLXt2THibsuzFqeacSOoE0UG2jGP3IiPeYa6OEwvz3Ivwftv2vGIitRoK
+	 uVwJn1LNzKxITF2m+Kn3CkorSGQJtmYutkCpHWj84rk+9iqF3CvO71FVlayZ8WXBXyvoW
+	 /YWtD9nUjLC2z3r9Vw2hDdNyEyPWGtk/wTJSWKm/6L6TfujPYB8u5BzeytlCzHCF84g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794730889;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xvJHN8PTWcCjuzksBv84XcItk7liGN0IwqC0kFvZgKY=;
+	b=Tx+TI57z0cW7qt3QAPtdWY5bgjD7wMextmhgcf3uuOVpnr+5WUlheQ2ITnpXL1xC7car
+	 fb1gC62NhFE+QjVfwwBk7htrEh+quFoyEzgk7+BydCB8yVdOH3sqb5Bp8EYopffEzF7qB
+	 48iXEyuF1943RyJM0ToYZVRyKwRZXw5LujJhHXIrxiEbPC8a6j605SYdhxPrB+h7oMHGn
+	 noYTcWC3WEW9Mkfqn0xU99kVAeApq/wOGrxmR/XNl1IFNqqabtMg5Y2d50JZPhxgbYRwg
+	 yT1joulCfeRkdDLIQ6H2SLynqNsJQuAI3TXXV0aZnIwlPlRYT6iSsy+sdNOu9tZRXpg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1829E606A31A
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 08:17:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1829E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=advisoft.co.nz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=advisoft.co.nz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=advisoft.co.nz header.i=@advisoft.co.nz header.a=rsa-sha256 header.s=default header.b=ZviZSrwd
-Received: from server-72-r70.ipv4.per01.ds.network (ip7ac97cc8.ipv4.syd02.ds.network [122.201.124.200])
-	by filter-out02.au.ds.network (Halon) with ESMTPS
-	id f6ad2fbc-e0cc-11f1-9d06-63c11cf4efbd;
-	Sun, 15 Nov 2026 19:17:14 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=advisoft.co.nz; s=default; h=In-Reply-To:From:References:Cc:To:Subject:
-	MIME-Version:Date:Message-ID:Content-Type:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
-	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
-	List-Help:List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:
-	List-Owner:List-Archive; bh=+xB/EiJURGaS8AnrKP8tu56DXfZyQqbE3+5bWGnca1Y=; b=Z
-	viZSrwdxRt3u/UJd+n3kzfKRtqxCrIj8yKHFmNlLspsBPskyhKVqn0japSb6Gc+76G+dyuCXgdsnC
-	tON0RL7wVKvA9ey/6ujdlqLuZRYNh/5eZFpB15KIahI4G+Sncs5fK5X0UwI2nNnZW1mebUXOGcIXS
-	CLJddU2/dIA84mmBffxb5Z6dhldTDNr+sslOL5Df+bCUX8pQvg0Ovtyg6+ZujdNS4anV+2ZXuLJOv
-	fbJ4KglQjtA8ABodBrAHXGXrF78BMPDJoOgv00Zw771FcFtx1WP/OlinhqMSdLeJ6tFF3BuVzUYr2
-	4Ch8czkmmJ3/xpf1I4QcYyaKC/eRhlnmA==;
-Received: from [115.69.178.245] (port=51528 helo=[192.168.2.211])
-	by cp-fp09.syd02.ds.network with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <phil.williams@advisoft.co.nz>)
-	id 1xSVQI-000000001wz-0DHJ;
-	Sun, 15 Nov 2026 21:17:14 +1300
-Content-Type: multipart/mixed; boundary="------------DaHNjVFhfxuojXo2uFT7yvOM"
-Message-ID: <6a9cbbcc-bdfb-4af1-a678-4f6f4b8a5f0e@advisoft.co.nz>
-Date: Sun, 15 Nov 2026 21:17:13 +1300
+	by smtp.kernel.org (Postfix) with ESMTPS id C15851F000C5;
+	Sun, 15 Nov 2026 08:21:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794730889;
+	bh=xvJHN8PTWcCjuzksBv84XcItk7liGN0IwqC0kFvZgKY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=EQa4+kUxwoSm9bMxJWdOF2lrV3sywmd78fJbBbFuqIFqg7TXwDKWdmPNstZb2kKoD
+	 nekLO+7ZKZjzuzLL2G5jCZVLXzaHJEHCX1iQr2JalLZlTnr7cidKwhwBt5aXkfm3Fl
+	 n376W0CXfOTPkrSkamWmTCoq1KgkljBxs/rGBPJ/NqiAUHUZQUJ2+aliOv3Z7Qvbqs
+	 /vi+TeiMyq3Ni6NqliLMvlKnIs8dKSTGHntVUTuotKEqAlNOwgsbqh8O6ErVardLrd
+	 dnu8cla1wrg2RGo3UbtT1DGOBWP4oThavLPBC2PhpfRNUF8WLn4jNOXT1FkC7vA4hM
+	 Kv1V51l9eUaLw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 4C40949F69;
+	Sun, 15 Nov 2026 08:21:28 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Sun, 15 Nov 2026 08:21:28 +0000
+Subject: [PATCH 1/2] media: rkvdec: Stop the VDPU381 core on timeout
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,183 +82,228 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH] iio: imu: st_lsm6dsx: fall back to 25 us/tick without a trim
-To: Francesco Lavra <flavra@baylibre.com>, Jonathan Cameron
- <jic23@kernel.org>, linux-iio@vger.kernel.org,
- Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: mario.tesi@st.com, linux-iio@vger.kernel.org, stable@vger.kernel.org,
- dlechner@baylibre.com, nuno.sa@analog.com, andy@kernel.org
-References: <a3a00c75-c830-4d1a-9a89-dd55641a422f@advisoft.co.nz>
- <20261115000940.24215eb0@jic23-hlaptop>
- <2cc30a3e725639667085f3f82d453a7dfc9f853c.camel@baylibre.com>
-Content-Language: en-GB
-From: Phil Williams <phil.williams@advisoft.co.nz>
-In-Reply-To: <2cc30a3e725639667085f3f82d453a7dfc9f853c.camel@baylibre.com>
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cp-fp09.syd02.ds.network
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - advisoft.co.nz
-X-Get-Message-Sender-Via: cp-fp09.syd02.ds.network: authenticated_id: phil.williams@advisoft.co.nz
-X-Authenticated-Sender: cp-fp09.syd02.ds.network: phil.williams@advisoft.co.nz
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261115-rkvdec-wdt-stop-v1-1-59e687c6cc63@gmail.com>
+References: <20261115-rkvdec-wdt-stop-v1-0-59e687c6cc63@gmail.com>
+In-Reply-To: <20261115-rkvdec-wdt-stop-v1-0-59e687c6cc63@gmail.com>
+To: Detlev Casanova <detlev.casanova@collabora.com>, 
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Alex Kazinsky <a.kazinsky@ideco.ru>, stable@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794730887; l=6869;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=L/ZVI8Exe59G7uEuqh1qHfrONjucBNmbBZOMQ/y3hf8=;
+ b=HW1zDX/AQ/P2BPCCM5lbu9Oq0SQoERVPUY7+uECcih2+7wLgaVBIDWQcI9C4newUPBc91Mh9S
+ LBnSiGvM4DjBO/s6XKM1s72rRVd96U45suz86+hul4DXcIEguGLSs5X
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-This is a multi-part message in MIME format.
---------------DaHNjVFhfxuojXo2uFT7yvOM
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Hi all,
+On a timeout, rkvdec_watchdog_func() writes RKVDEC_IRQ_DIS to
+RKVDEC_REG_INTERRUPT, an RK3399 register. On VDPU381 that offset is
+another register, so the core keeps running after the job completes
+and its IOMMU and power domain are suspended. On RK3588:
 
-Patch attached. It is the fallback in st_lsm6dsx_init_hw_timer() as 
-discussed.
+  Kernel panic - not syncing: stack-protector: Kernel stack is corrupted in: cpu_suspend+0x380/0x3d0
 
-On Toradex Linux 6.6.142, an ISM330DLC on SPI (whoami 0x6a) on a Verdin 
-i.MX8M Plus published every FIFO sample with one timestamp until the 
-scale was 25000 ns/tick again. After that the timestamp bytes advanced 
-and pitch updated. I have not booted this patch on mainline. It applies 
-cleanly on mainline 23c62304dde2.
+Add a ->stop() variant op, called with the IRQ disabled. VDPU381 soft
+resets the core as the Rockchip BSP does, with the reset lines as a
+fallback, and reprograms the IOMMU, which the reset leaves in bypass.
+VDPU383 is fixed separately.
 
-This is my first kernel patch, please let me know if there is anything 
-else I need to do.
+Fixes: e5aa698ea659 ("media: rkvdec: Add H264 support for the VDPU381 variant")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+ .../platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h |  4 ++
+ drivers/media/platform/rockchip/rkvdec/rkvdec.c    | 64 +++++++++++++++++++++-
+ drivers/media/platform/rockchip/rkvdec/rkvdec.h    |  3 +
+ 3 files changed, 70 insertions(+), 1 deletion(-)
 
-Thanks,
-Phil
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h
+index 6da36031df2d..57ab23d76d73 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h
+@@ -34,6 +34,7 @@
+ 
+ #define VDPU381_REG_IMPORTANT_EN	0x02c
+ #define VDPU381_DEC_IRQ_DISABLE	BIT(4)
++#define VDPU381_SOFT_RESET_EN		BIT(20)
+ 
+ #define VDPU381_REG_STA_INT		0x380
+ #define VDPU381_STA_INT_DEC_RDY_STA	BIT(2)
+@@ -41,6 +42,9 @@
+ #define VDPU381_STA_INT_TIMEOUT		BIT(5)
+ #define VDPU381_STA_INT_SOFTRESET_RDY	BIT(9)
+ 
++#define VDPU381_REG_DEBUG_INT		0x440
++#define VDPU381_DEBUG_INT_BUS_IDLE	BIT(0)
++
+ /* base: OFFSET_COMMON_REGS */
+ struct rkvdec_vdpu381_regs_common {
+ 	struct {
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+index 4e3a706f74f6..a8fdad2850fb 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+@@ -14,12 +14,14 @@
+ #include <linux/genalloc.h>
+ #include <linux/interrupt.h>
+ #include <linux/iommu.h>
++#include <linux/iopoll.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/of_device.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm.h>
+ #include <linux/pm_runtime.h>
++#include <linux/reset.h>
+ #include <linux/slab.h>
+ #include <linux/videodev2.h>
+ #include <linux/workqueue.h>
+@@ -1592,6 +1594,56 @@ static void vdpu383_flatten_matrices(u8 *output, const u8 *input, int matrices,
+ 	}
+ }
+ 
++static int rkvdec_pulse_resets(struct rkvdec_dev *rkvdec)
++{
++	int ret;
++
++	if (!rkvdec->resets)
++		return -ENODEV;
++
++	ret = reset_control_assert(rkvdec->resets);
++	if (ret)
++		return ret;
++	udelay(5);
++	return reset_control_deassert(rkvdec->resets);
++}
++
++static void rk3399_stop(struct rkvdec_dev *rkvdec)
++{
++	writel(RKVDEC_IRQ_DIS, rkvdec->regs + RKVDEC_REG_INTERRUPT);
++}
++
++static void vdpu381_stop(struct rkvdec_dev *rkvdec)
++{
++	void __iomem *regs = rkvdec->regs;
++	u32 status;
++	int ret;
++
++	/* Soft reset needs an idle bus: let a busy core finish first. */
++	readl_poll_timeout(regs + VDPU381_REG_STA_INT, status, status,
++			   100, 100 * USEC_PER_MSEC);
++
++	writel(VDPU381_DEC_IRQ_DISABLE | VDPU381_SOFT_RESET_EN,
++	       regs + VDPU381_REG_IMPORTANT_EN);
++	ret = readl_poll_timeout_atomic(regs + VDPU381_REG_STA_INT, status,
++					status & VDPU381_STA_INT_SOFTRESET_RDY,
++					1, 100);
++	writel(0, regs + VDPU381_REG_STA_INT);
++	if (!ret)
++		ret = readl_poll_timeout(regs + VDPU381_REG_DEBUG_INT, status,
++					 status & VDPU381_DEBUG_INT_BUS_IDLE, 1, 1000);
++
++	if (ret) {
++		dev_warn(rkvdec->dev, "soft reset failed\n");
++		if (rkvdec_pulse_resets(rkvdec)) {
++			dev_err(rkvdec->dev, "cannot reset the core\n");
++			return;
++		}
++	}
++
++	rkvdec_iommu_restore(rkvdec);
++}
++
+ static void rkvdec_watchdog_func(struct work_struct *work)
+ {
+ 	struct rkvdec_dev *rkvdec;
+@@ -1602,7 +1654,9 @@ static void rkvdec_watchdog_func(struct work_struct *work)
+ 	ctx = v4l2_m2m_get_curr_priv(rkvdec->m2m_dev);
+ 	if (ctx) {
+ 		dev_err(rkvdec->dev, "Frame processing timed out!\n");
+-		writel(RKVDEC_IRQ_DIS, rkvdec->regs + RKVDEC_REG_INTERRUPT);
++		disable_irq(rkvdec->irq);
++		rkvdec->variant->ops->stop(rkvdec);
++		enable_irq(rkvdec->irq);
+ 		rkvdec_job_finish(rkvdec, VB2_BUF_STATE_ERROR);
+ 	}
+ }
+@@ -1652,6 +1706,7 @@ static int rkvdec_disable_multicore(struct rkvdec_dev *rkvdec)
+ 
+ static const struct rkvdec_variant_ops rk3399_variant_ops = {
+ 	.irq_handler = rk3399_irq_handler,
++	.stop = rk3399_stop,
+ 	.colmv_size = rkvdec_colmv_size,
+ 	.flatten_matrices = transpose_and_flatten_matrices,
+ };
+@@ -1696,6 +1751,7 @@ static const struct rcb_size_info vdpu381_rcb_sizes[] = {
+ 
+ static const struct rkvdec_variant_ops vdpu381_variant_ops = {
+ 	.irq_handler = vdpu381_irq_handler,
++	.stop = vdpu381_stop,
+ 	.colmv_size = rkvdec_colmv_size,
+ 	.flatten_matrices = transpose_and_flatten_matrices,
+ };
+@@ -1723,6 +1779,7 @@ static const struct rcb_size_info vdpu383_rcb_sizes[] = {
+ 
+ static const struct rkvdec_variant_ops vdpu383_variant_ops = {
+ 	.irq_handler = vdpu383_irq_handler,
++	.stop = rk3399_stop,
+ 	.colmv_size = vdpu383_colmv_size,
+ 	.flatten_matrices = vdpu383_flatten_matrices,
+ };
+@@ -1813,9 +1870,14 @@ static int rkvdec_probe(struct platform_device *pdev)
+ 
+ 	vb2_dma_contig_set_max_seg_size(&pdev->dev, DMA_BIT_MASK(32));
+ 
++	rkvdec->resets = devm_reset_control_array_get_optional_exclusive(&pdev->dev);
++	if (IS_ERR(rkvdec->resets))
++		return PTR_ERR(rkvdec->resets);
++
+ 	irq = platform_get_irq(pdev, 0);
+ 	if (irq < 0)
+ 		return irq;
++	rkvdec->irq = irq;
+ 
+ 	ret = devm_request_threaded_irq(&pdev->dev, irq, NULL,
+ 					rkvdec_irq_handler, IRQF_ONESHOT,
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.h b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
+index 894c18eeb795..d9acf85e5acc 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.h
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.h
+@@ -74,6 +74,7 @@ vb2_to_rkvdec_decoded_buf(struct vb2_buffer *buf)
+ 
+ struct rkvdec_variant_ops {
+ 	irqreturn_t (*irq_handler)(struct rkvdec_dev *rkvdec);
++	void (*stop)(struct rkvdec_dev *rkvdec);
+ 	u32 (*colmv_size)(u16 width, u16 height);
+ 	void (*flatten_matrices)(u8 *output, const u8 *input, int matrices, int row_length);
+ };
+@@ -139,6 +140,8 @@ struct rkvdec_dev {
+ 	void __iomem *link;
+ 	struct mutex vdev_lock; /* serializes ioctls */
+ 	struct delayed_work watchdog_work;
++	struct reset_control *resets;
++	int irq;
+ 	struct gen_pool *sram_pool;
+ 	struct iommu_domain *iommu_domain;
+ 	struct iommu_domain *empty_domain;
 
-On 15/11/2026 8:11 pm, Francesco Lavra wrote:
-> On Sun, 2026-11-15 at 00:09 +0000, Jonathan Cameron wrote:
->> On Tue, 10 Nov 2026 02:38:14 +1300
->> Phil Williams <phil.williams@advisoft.co.nz> wrote:
->>
->>> Hey Guys,
->>>
->>> I ran into an issue where every FIFO sample from an ISM330DLC came out
->>> with the same timestamp, so our attitude math froze the pitch. The
->>> accelerometer and gyroscope values were fine. I've patched it locally,
->>> so this is just an FYI.
->>>
->>> Make what you want of it, but here is an AI generated description of
->>> the
->>> issue:
->>>
->>> Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
->>> calculation") drops the timestamp scale for the older parts in this
->>> driver. Stable backport 981f3da383ce is what we hit, in 6.6.142.
->>>
->>> st_lsm6dsx_init_hw_timer() used to do:
->>>
->>>       hw->ts_gain = ST_LSM6DSX_TS_SENSITIVITY; /* 25000 ns/tick */
->>>
->>> That commit deletes the constant and reads the gain from the per-chip
->>> table:
->>>
->>>       hw->ts_gain = ts_settings->ts_sensitivity;
->>>
->>> ts_sensitivity is only filled in on the entries that already had
->>> freq_fine (LSM6DSO / LSM6DSR / LSM6DSV and that generation). The
->>> untagged-FIFO entries have no freq_fine register, so they were left at
->>> 0:
->>>
->>>       LSM6DS3
->>>       LSM6DS3H
->>>       LSM6DSL, LSM6DSM, ISM330DLC, LSM6DS3TR-C
->>>
->>> st_lsm6dsx_read_fifo() still does:
->>>
->>>       ts = data[1] << 16 | data[0] << 8 | data[3];
->>>       ts *= hw->ts_gain;
->>>       iio_push_to_buffers_with_timestamp(..., sensor->ts_ref + ts);
->>>
->>> With ts_gain == 0 every sample is published as ts_ref, the
->>> CLOCK_REALTIME value taken when the buffer was enabled. The accel and
->>> gyro values are fine. Only the timestamp is stuck. The raw count is
->>> still checked against 0xff0000 before the multiply, so ts_ref is
->>> refreshed when the counter gets there. At 25 µs/tick that is about 7
->>> minutes. The driver comment says 1.638 s, which is 2^16 ticks, but the
->>> test is 0xff0000.
->>>
->>> How we found it: an ISM330DLC on SPI (whoami 0x6a), on a Toradex Verdin
->>> i.MX8M Plus, after moving onto 6.6.142. Userspace integrates attitude
->>> from the delta of the IIO buffer timestamp and treats a non-increasing
->>> timestamp as dt = 0, so pitch, roll and yaw froze at the first sample.
->>> A
->>> strace of the process reading /dev/iio:deviceX showed the xyz int16s
->>> changing and the 8 timestamp bytes identical across samples. The same
->>> binary against the previous kernel, which still used the 25000
->>> constant,
->>> did not do this.
->>>
->>> Setting the old scale on those three entries fixes it. freq_fine stays
->>> unset, so the trim register is not read and the gain stays exactly
->>> 25000, which is what those parts had before:
->>>
->>>       .ts_sensitivity = 25000,
->>>       .ts_trim_coeff = 37500,
->>>
->>> After booting that kernel the timestamp bytes increment and pitch
->>> tracks
->>> the unit again. The entries that already had ts_sensitivity (25000, or
->>> 21701 on the freq_fine 0x4f part) were left alone.
->>>
->>> Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
->>> calculation")
-> This analysis looks correct to me too.
-> But I wouldn't set .ts_trim_coeff for the parts where .freq_fine is 0: for
-> those, there is no trimming to be done.
-> So either set .ts_sensitivity = 25000 for all parts that currently don't
-> have it set, or maybe better use 25000 in st_lsm6dsx_init_hw_timer() as a
-> fallback value when .ts_sensitivity is not set.
---------------DaHNjVFhfxuojXo2uFT7yvOM
-Content-Type: text/plain; charset=UTF-8;
- name="0001-iio-imu-st_lsm6dsx-fall-back-to-25-us-tick-without-a-trim.patch"
-Content-Disposition: attachment;
- filename*0="0001-iio-imu-st_lsm6dsx-fall-back-to-25-us-tick-without-a-tr";
- filename*1="im.patch"
-Content-Transfer-Encoding: base64
-
-RnJvbSAxNDFhYTMxNDU0YmQ4N2VkMjBiMTg1NTQ0NDU2YmYyODY5MmM0YzJkIE1vbiBTZXAg
-MTcgMDA6MDA6MDAgMjAwMQpGcm9tOiBQaGlsIFdpbGxpYW1zIDxwaGlsLndpbGxpYW1zQGFk
-dmlzb2Z0LmNvLm56PgpEYXRlOiBTdW4sIDE1IE5vdiAyMDI2IDIxOjA0OjA2ICsxMzAwClN1
-YmplY3Q6IFtQQVRDSF0gaWlvOiBpbXU6IHN0X2xzbTZkc3g6IGZhbGwgYmFjayB0byAyNSB1
-cy90aWNrIHdpdGhvdXQgYSB0cmltCgpDb21taXQgOGFiYmY0NWZjZGEwICgiaWlvOiBzdF9s
-c202ZHN4OiBGaXhlZCBjYWxpYnJhdGVkIHRpbWVzdGFtcApjYWxjdWxhdGlvbiIpIHRha2Vz
-IHRoZSBGSUZPIHRpbWVzdGFtcCBzY2FsZSBmcm9tIHRzX3NlbnNpdGl2aXR5LgpUaGF0IGZp
-ZWxkIGlzIG9ubHkgZmlsbGVkIGluIGZvciBwYXJ0cyB0aGF0IGhhdmUgZnJlcV9maW5lLiBU
-aGUKdW50YWdnZWQtRklGTyBwYXJ0cyBhcmUgbGVmdCBhdCB6ZXJvOgoKICBMU002RFMzCiAg
-TFNNNkRTM0gKICBMU002RFNMLCBMU002RFNNLCBJU00zMzBETEMgYW5kIExTTTZEUzNUUi1D
-CgpzdF9sc202ZHN4X3JlYWRfZmlmbygpIG11bHRpcGxpZXMgdGhlIHJhdyBjb3VudGVyIGJ5
-IGh3LT50c19nYWluLCBzbwpldmVyeSBzYW1wbGUgaXMgcHVibGlzaGVkIHdpdGggdGhlIHRp
-bWVzdGFtcCB0YWtlbiB3aGVuIHRoZSBidWZmZXIKd2FzIGVuYWJsZWQuIFRoZSBhY2NlbGVy
-b21ldGVyIGFuZCBneXJvc2NvcGUgdmFsdWVzIHN0aWxsIHVwZGF0ZS4KVXNlcnNwYWNlIHRo
-YXQgaW50ZWdyYXRlcyBhdHRpdHVkZSBmcm9tIHRoZSB0aW1lc3RhbXAgZGVsdGEgdHJlYXRz
-IGEKc3R1Y2sgdGltZXN0YW1wIGFzIGR0ID0gMC4KClRoZXNlIHBhcnRzIGhhdmUgbm8gZnJl
-cV9maW5lIHJlZ2lzdGVyLCBzbyB0aGVyZSBpcyBubyB0cmltIHRvIGFwcGx5LgpVc2UgdGhl
-IHByZXZpb3VzIGZpeGVkIHNjYWxlIG9mIDI1MDAwIG5zL3RpY2sgd2hlbiB0c19zZW5zaXRp
-dml0eSBpcwp1bnNldC4gRW50cmllcyB0aGF0IGFscmVhZHkgc2V0IGl0IGFyZSBsZWZ0IGFs
-b25lLgoKRml4ZXM6IDhhYmJmNDVmY2RhMCAoImlpbzogc3RfbHNtNmRzeDogRml4ZWQgY2Fs
-aWJyYXRlZCB0aW1lc3RhbXAgY2FsY3VsYXRpb24iKQpDYzogc3RhYmxlQHZnZXIua2VybmVs
-Lm9yZwpTdWdnZXN0ZWQtYnk6IEpvbmF0aGFuIENhbWVyb24gPGppYzIzQGtlcm5lbC5vcmc+
-ClNpZ25lZC1vZmYtYnk6IFBoaWwgV2lsbGlhbXMgPHBoaWwud2lsbGlhbXNAYWR2aXNvZnQu
-Y28ubno+Ci0tLQogZHJpdmVycy9paW8vaW11L3N0X2xzbTZkc3gvc3RfbHNtNmRzeF9jb3Jl
-LmMgfCA4ICsrKysrKystCiAxIGZpbGUgY2hhbmdlZCwgNyBpbnNlcnRpb25zKCspLCAxIGRl
-bGV0aW9uKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9paW8vaW11L3N0X2xzbTZkc3gvc3Rf
-bHNtNmRzeF9jb3JlLmMgYi9kcml2ZXJzL2lpby9pbXUvc3RfbHNtNmRzeC9zdF9sc202ZHN4
-X2NvcmUuYwppbmRleCA4MjNmOGFjLi45OGRiOTBhIDEwMDY0NAotLS0gYS9kcml2ZXJzL2lp
-by9pbXUvc3RfbHNtNmRzeC9zdF9sc202ZHN4X2NvcmUuYworKysgYi9kcml2ZXJzL2lpby9p
-bXUvc3RfbHNtNmRzeC9zdF9sc202ZHN4X2NvcmUuYwpAQCAtMjUyNSw4ICsyNTI1LDE0IEBA
-IHN0YXRpYyBpbnQgc3RfbHNtNmRzeF9pbml0X2h3X3RpbWVyKHN0cnVjdCBzdF9sc202ZHN4
-X2h3ICpodykKIAkJCXJldHVybiBlcnI7CiAJfQogCi0JLyogY2FsaWJyYXRlIHRpbWVzdGFt
-cCBzZW5zaXRpdml0eSAqLworCS8qCisJICogUGFydHMgd2l0aCBubyBmcmVxX2ZpbmUgcmVn
-aXN0ZXIgaGF2ZSBubyB0cmltIGFuZCBsZWF2ZQorCSAqIHRzX3NlbnNpdGl2aXR5IHVuc2V0
-LiBUaG9zZSBwYXJ0cyB1c2VkIGEgZml4ZWQgMjUgdXMvdGljay4KKwkgKiBBIHplcm8gZ2Fp
-biBwdWJsaXNoZXMgZXZlcnkgRklGTyBzYW1wbGUgd2l0aCBvbmUgdGltZXN0YW1wLgorCSAq
-LwogCWh3LT50c19nYWluID0gdHNfc2V0dGluZ3MtPnRzX3NlbnNpdGl2aXR5OworCWlmICgh
-aHctPnRzX2dhaW4pCisJCWh3LT50c19nYWluID0gMjUwMDA7CiAJaWYgKHRzX3NldHRpbmdz
-LT5mcmVxX2ZpbmUpIHsKIAkJZXJyID0gcmVnbWFwX3JlYWQoaHctPnJlZ21hcCwgdHNfc2V0
-dGluZ3MtPmZyZXFfZmluZSwgJnZhbCk7CiAJCWlmIChlcnIgPCAwKQotLSAKMi41My4wCgo=
+-- 
+2.55.0
 
 
---------------DaHNjVFhfxuojXo2uFT7yvOM--
