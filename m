@@ -1,62 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794774411;
-	b=aoAN1Bew6sDZJg7NMDvBDQq5A+/zTrvjSvXWwKB7+3Q7FnTFvtgQ/2hzofCdrdp6bgfb
-	 u7Q4RTuoikI3oCGD3Su4hfyYYqTFRowaGDULa1KrrrjvEJbojz9CkAoQxr7Plrw66SSOJ
-	 4PgwrETNnIVJqInJfjnqzfe0zG3sWEGELkdJsiPhabufMHHoxXLPUus5DjF7l6QbrfEb5
-	 oCLgAq8t6B9Sjieh/TRVBdYLPt1KuSTafiQH/ve7ogs8LV425nWkipINJW3RMrZ71mxDR
-	 K3k5FoXdIh6McEkx45nilEwL6lhwCd2nZWPK+TMp98QCe7fwrthoTWoLR0pdLALDC1w==
+	t=1794774768;
+	b=BsfOYL2Km9A0aHb9gcDVR/W76QsZ8i3GGEf0hCZSRzqnmKSU5kUZo+QH9G4wZArHuj4P
+	 FNvLqNrWMpioMX/qaIPSzYQZHIlU1GLUJhPzLe9aSIpyH+hUwva4PxN9dCUlV9u1wOdVH
+	 DyophAr0hvBZZfvnIee+EtrBNw2ApcLEazLwMxE8/cs9OVx82GJpHMaJbMHId3LyIfsN8
+	 MXzHo6YqkPd0jJOk83Sib1t8BWdWl3K58nW+VHdOyr9GQ4ro+1HI/I+Oz7W0N5KPJN6Sf
+	 3dVx9EcufmhLujrLOHLIuHztuAZoTB88KXUJfUVyG6qchqaxNHNgqwl9SjX1RZgqNaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794774411;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=UmMsUg7qirony2MmNujjL3JvYsvcL7dA/KIOCNvrkw4=;
-	b=NL7MC41hkh3zZmsJXPQTZgu/kwdIz5u3M3wwdn5jlSAOgD3Kn2dloKsRaATfnDHpKdkP
-	 7fekngK6OX0r0FmFX1dobCmRt9En6s8RPmWn0byrbtXwo7WhR9hLoh5lnf+EG0y/FSXuo
-	 ii5gn47Qa6Ot0lQu7Ag1l23TWzQISOmIbwA94VbWB7VULWzOXcARVW4VYwCUTfXK5XTyz
-	 JqoNA9H4qTMK0YUfiLteVCvcpLuW1Rts4BPcRuTm+fPO2egQDOdGF3KyJ5nG8JLoOJt6r
-	 NSIxOK1RI7LT9h9qtZf4GeZkAoQPiK8hsifjAIHnTzguFejeFsBYBZGtExM0QuQH3Sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794774768;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=z2E8cye9N7jDa4iULpcVRKN56VXJv3+yGHq6G/gPctE=;
+	b=eiekEFpsX42kquWRDUlxeM18FkNDnOl9XIiRIvImTP+pSB2D/HWCjbYvGfX2EwWJEUlv
+	 Q39jRCHo+2w4ezhYvQoGVucZxqMnC8aTQBHCDmZZ60c0JJKyuheTa6z/FOcsaYwbXZZlk
+	 dhunPPxvXTIDNNrubm1zljF3i7Hbf7ZjkGjFWXl4eBSouPf6QpTdZwg9XIzYkx15u3vEO
+	 qz6IgVzrJSmfqKqppbT3zwZcWPxPXl9x6MqD5u+whs80Y4fYfNmlA3bgKaJgT+nSrK4BN
+	 dheB9TFVFlzdOXOV+2o6Wnh4fNeaJssh8kQgirTjAX6/rGDfTnRnl9qtcOhCgN+YehQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WZdl/8Mr";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XXjEXxGs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3A1606A33D;
-	Sun, 15 Nov 2026 20:26:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141D6606A31F;
+	Sun, 15 Nov 2026 20:32:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WZdl/8Mr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 851E71F000C4;
-	Sun, 15 Nov 2026 20:26:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XXjEXxGs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4BF1F000C4;
+	Sun, 15 Nov 2026 20:32:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794774411;
-	bh=UmMsUg7qirony2MmNujjL3JvYsvcL7dA/KIOCNvrkw4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WZdl/8MrB9ghZMYD+hcoPGJxQqRu+TG39F741KS2zxOWGaJiKdoRz4CHOk67GaD2C
-	 Df0Zc+sKN1owyxq+C1mPKXSXb5Kroo99rt51j6hDlOVi7iijX5IMIDJE6fa9uojWuZ
-	 JjhbVEzwdtRvf6Hp05NvLFOq6TyQ7/9hDLFq3UtAjrCd9ZqY1iLt4XIuk5MX5CACzP
-	 M6iccznMsIbwwqjpmzU2J+4LApjFY9Qya5GQGopsZsbC+Ps2anE+U0iAuyweuoxI4p
-	 Alpy3v+jpt8G24UyD76E/hrH64Dh92NUtdBSYSLcNO+fgHcjhu0WHgJEsKep35wHfE
-	 f+QZ0mKeLOQBA==
-Date: Sun, 15 Nov 2026 20:26:43 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Phil Williams <phil.williams@advisoft.co.nz>, Francesco Lavra
- <flavra@baylibre.com>, linux-iio@vger.kernel.org, mario.tesi@st.com,
- stable@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org
-Subject: Re: [PATCH] iio: imu: st_lsm6dsx: fall back to 25 us/tick without a
- trim
-Message-ID: <20261115202643.49ae2247@jic23-hlaptop>
-In-Reply-To: <avlyw4qzdFUnM1DC@lore-desk>
-References: <a3a00c75-c830-4d1a-9a89-dd55641a422f@advisoft.co.nz>
-	<20261115000940.24215eb0@jic23-hlaptop>
-	<2cc30a3e725639667085f3f82d453a7dfc9f853c.camel@baylibre.com>
-	<6a9cbbcc-bdfb-4af1-a678-4f6f4b8a5f0e@advisoft.co.nz>
-	<avlyw4qzdFUnM1DC@lore-desk>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1794774767;
+	bh=z2E8cye9N7jDa4iULpcVRKN56VXJv3+yGHq6G/gPctE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XXjEXxGsZhFdiIdgAd9zdQZ5sg2zi9bU9wCcqLMbLpM0K30o2aQN6JSwgfIj7Aima
+	 UFwVvHruhejgF6ZccneCpLn9aoeV6eZoj/eLW3R+LzWeXoDdgNGbDuLEQnLxlPhsK7
+	 mfFgdWvShzoZaqHjBKdGQV0IR96LRF37IKjvVT4Au4gurr6hcDFV1kxOIDlOgC8Mqa
+	 uC6YdDM28Mi6nhMJX9zR3wKxYzCick+pbb7Zk28IFOk20ucBk2YzX2rm8/FAMhd/lX
+	 9Ti3pvxcE/S3wru1A2wG41hMRq8nMcF7A9jVC4ZyDo1F08OOfbav9TYkj3usOGI/gR
+	 lAiXr0naZ6nqg==
+Subject: Re: [PATCH ipsec] xfrm: avoid wrapping AEVENT timer thresholds
+From: netdev-bot+sashiko@kernel.org
+To: flashhhhha@gmail.com
+Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, jhs@mojatatu.com, netdev@vger.kernel.org,
+ ipsec@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sun, 15 Nov 2026 20:32:46 +0000
+Message-ID: <179477476677.3136.11263726270247439987@kernel.org>
+In-Reply-To: <20261114091239.780633-1-flashhhhha@gmail.com>
+References: <20261114091239.780633-1-flashhhhha@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,223 +63,107 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, 15 Nov 2026 09:52:19 +0100
-Lorenzo Bianconi <lorenzo@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-> > Hi all,
-> >=20
-> > Patch attached. It is the fallback in st_lsm6dsx_init_hw_timer() as
-> > discussed.
-> >=20
-> > On Toradex Linux 6.6.142, an ISM330DLC on SPI (whoami 0x6a) on a Verdin
-> > i.MX8M Plus published every FIFO sample with one timestamp until the sc=
-ale
-> > was 25000 ns/tick again. After that the timestamp bytes advanced and pi=
-tch
-> > updated. I have not booted this patch on mainline. It applies cleanly on
-> > mainline 23c62304dde2.
-> >=20
-> > This is my first kernel patch, please let me know if there is anything =
-else
-> > I need to do.
-Take a look a the documentation for submitting patches.  It needs
-to be sent as an inline patch rather than an attachment.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-That may be easiest done via the b4 tool and gateway depending on your
-email set up.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Thanks,
+- [Medium] The patch clamps x->replay_maxage only on the sysctl path.
 
-Jonathan
+--
 
-> >=20
-> > Thanks,
-> > Phil
-> >=20
-> > On 15/11/2026 8:11 pm, Francesco Lavra wrote: =20
-> > > On Sun, 2026-11-15 at 00:09 +0000, Jonathan Cameron wrote: =20
-> > > > On Tue, 10 Nov 2026 02:38:14 +1300
-> > > > Phil Williams <phil.williams@advisoft.co.nz> wrote:
-> > > >  =20
-> > > > > Hey Guys,
-> > > > >=20
-> > > > > I ran into an issue where every FIFO sample from an ISM330DLC cam=
-e out
-> > > > > with the same timestamp, so our attitude math froze the pitch. The
-> > > > > accelerometer and gyroscope values were fine. I've patched it loc=
-ally,
-> > > > > so this is just an FYI.
-> > > > >=20
-> > > > > Make what you want of it, but here is an AI generated description=
- of
-> > > > > the
-> > > > > issue:
-> > > > >=20
-> > > > > Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
-> > > > > calculation") drops the timestamp scale for the older parts in th=
-is
-> > > > > driver. Stable backport 981f3da383ce is what we hit, in 6.6.142.
-> > > > >=20
-> > > > > st_lsm6dsx_init_hw_timer() used to do:
-> > > > >=20
-> > > > >  =C2=A0=C2=A0 =C2=A0 hw->ts_gain =3D ST_LSM6DSX_TS_SENSITIVITY; /=
-* 25000 ns/tick */
-> > > > >=20
-> > > > > That commit deletes the constant and reads the gain from the per-=
-chip
-> > > > > table:
-> > > > >=20
-> > > > >  =C2=A0=C2=A0 =C2=A0 hw->ts_gain =3D ts_settings->ts_sensitivity;
-> > > > >=20
-> > > > > ts_sensitivity is only filled in on the entries that already had
-> > > > > freq_fine (LSM6DSO / LSM6DSR / LSM6DSV and that generation). The
-> > > > > untagged-FIFO entries have no freq_fine register, so they were le=
-ft at
-> > > > > 0:
-> > > > >=20
-> > > > >  =C2=A0=C2=A0 =C2=A0 LSM6DS3
-> > > > >  =C2=A0=C2=A0 =C2=A0 LSM6DS3H
-> > > > >  =C2=A0=C2=A0 =C2=A0 LSM6DSL, LSM6DSM, ISM330DLC, LSM6DS3TR-C
-> > > > >=20
-> > > > > st_lsm6dsx_read_fifo() still does:
-> > > > >=20
-> > > > >  =C2=A0=C2=A0 =C2=A0 ts =3D data[1] << 16 | data[0] << 8 | data[3=
-];
-> > > > >  =C2=A0=C2=A0 =C2=A0 ts *=3D hw->ts_gain;
-> > > > >  =C2=A0=C2=A0 =C2=A0 iio_push_to_buffers_with_timestamp(..., sens=
-or->ts_ref + ts);
-> > > > >=20
-> > > > > With ts_gain =3D=3D 0 every sample is published as ts_ref, the
-> > > > > CLOCK_REALTIME value taken when the buffer was enabled. The accel=
- and
-> > > > > gyro values are fine. Only the timestamp is stuck. The raw count =
-is
-> > > > > still checked against 0xff0000 before the multiply, so ts_ref is
-> > > > > refreshed when the counter gets there. At 25 =C2=B5s/tick that is=
- about 7
-> > > > > minutes. The driver comment says 1.638 s, which is 2^16 ticks, bu=
-t the
-> > > > > test is 0xff0000.
-> > > > >=20
-> > > > > How we found it: an ISM330DLC on SPI (whoami 0x6a), on a Toradex =
-Verdin
-> > > > > i.MX8M Plus, after moving onto 6.6.142. Userspace integrates atti=
-tude
-> > > > > from the delta of the IIO buffer timestamp and treats a non-incre=
-asing
-> > > > > timestamp as dt =3D 0, so pitch, roll and yaw froze at the first =
-sample.
-> > > > > A
-> > > > > strace of the process reading /dev/iio:deviceX showed the xyz int=
-16s
-> > > > > changing and the 8 timestamp bytes identical across samples. The =
-same
-> > > > > binary against the previous kernel, which still used the 25000
-> > > > > constant,
-> > > > > did not do this.
-> > > > >=20
-> > > > > Setting the old scale on those three entries fixes it. freq_fine =
-stays
-> > > > > unset, so the trim register is not read and the gain stays exactly
-> > > > > 25000, which is what those parts had before:
-> > > > >=20
-> > > > >  =C2=A0=C2=A0 =C2=A0 .ts_sensitivity =3D 25000,
-> > > > >  =C2=A0=C2=A0 =C2=A0 .ts_trim_coeff =3D 37500,
-> > > > >=20
-> > > > > After booting that kernel the timestamp bytes increment and pitch
-> > > > > tracks
-> > > > > the unit again. The entries that already had ts_sensitivity (2500=
-0, or
-> > > > > 21701 on the freq_fine 0x4f part) were left alone.
-> > > > >=20
-> > > > > Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
-> > > > > calculation") =20
-> > > This analysis looks correct to me too.
-> > > But I wouldn't set .ts_trim_coeff for the parts where .freq_fine is 0=
-: for
-> > > those, there is no trimming to be done.
-> > > So either set .ts_sensitivity =3D 25000 for all parts that currently =
-don't
-> > > have it set, or maybe better use 25000 in st_lsm6dsx_init_hw_timer() =
-as a
-> > > fallback value when .ts_sensitivity is not set. =20
->=20
-> > From 141aa31454bd87ed20b185544456bf28692c4c2d Mon Sep 17 00:00:00 2001
-> > From: Phil Williams <phil.williams@advisoft.co.nz>
-> > Date: Sun, 15 Nov 2026 21:04:06 +1300
-> > Subject: [PATCH] iio: imu: st_lsm6dsx: fall back to 25 us/tick without =
-a trim
-> >=20
-> > Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
-> > calculation") takes the FIFO timestamp scale from ts_sensitivity.
-> > That field is only filled in for parts that have freq_fine. The
-> > untagged-FIFO parts are left at zero:
-> >=20
-> >   LSM6DS3
-> >   LSM6DS3H
-> >   LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
-> >=20
-> > st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
-> > every sample is published with the timestamp taken when the buffer
-> > was enabled. The accelerometer and gyroscope values still update.
-> > Userspace that integrates attitude from the timestamp delta treats a
-> > stuck timestamp as dt =3D 0.
-> >=20
-> > These parts have no freq_fine register, so there is no trim to apply.
-> > Use the previous fixed scale of 25000 ns/tick when ts_sensitivity is
-> > unset. Entries that already set it are left alone.
-> >=20
-> > Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calcu=
-lation")
-> > Cc: stable@vger.kernel.org
-> > Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> > Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz> =20
->=20
-> Hi Phil,
->=20
-> just a nit inline Fixing it:
->=20
-> Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
->=20
-> > ---
-> >  drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 8 +++++++-
-> >  1 file changed, 7 insertions(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio=
-/imu/st_lsm6dsx/st_lsm6dsx_core.c
-> > index 823f8ac..98db90a 100644
-> > --- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-> > +++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-> > @@ -2525,8 +2525,14 @@ static int st_lsm6dsx_init_hw_timer(struct st_ls=
-m6dsx_hw *hw)
-> >  			return err;
-> >  	}
-> > =20
-> > -	/* calibrate timestamp sensitivity */
-> > +	/*
-> > +	 * Parts with no freq_fine register have no trim and leave
-> > +	 * ts_sensitivity unset. Those parts used a fixed 25 us/tick.
-> > +	 * A zero gain publishes every FIFO sample with one timestamp.
-> > +	 */
-> >  	hw->ts_gain =3D ts_settings->ts_sensitivity;
-> > +	if (!hw->ts_gain)
-> > +		hw->ts_gain =3D 25000; =20
->=20
-> What about re-adding the macro here?
->=20
-> #define ST_LSM6DSX_TS_SENSITIVITY	25000UL /* 25us */
->=20
-> Regards,
-> Lorenzo
->=20
-> >  	if (ts_settings->freq_fine) {
-> >  		err =3D regmap_read(hw->regmap, ts_settings->freq_fine, &val);
-> >  		if (err < 0)
-> > --=20
-> > 2.53.0
-> >  =20
->=20
+xfrm: avoid wrapping AEVENT timer thresholds
 
+This patch converts net->xfrm.sysctl_aevent_etime to jiffies in u64 and
+clamps the result to min(U32_MAX, MAX_JIFFY_OFFSET) before storing it in
+x->replay_maxage. It also widens the arithmetic build_aevent() uses when
+it reports XFRMA_ETIMER_THRESH, so large stored values do not wrap on
+readback.
+
+> diff --git a/net/xfrm/xfrm_user.c b/net/xfrm/xfrm_user.c
+> index f802899d3d130..d7fa63aeea37b 100644
+> --- a/net/xfrm/xfrm_user.c
+> +++ b/net/xfrm/xfrm_user.c
+> @@ -924,6 +924,14 @@ static void xfrm_smark_init(struct nlattr **attrs, struct xfrm_mark *m)
+>  	}
+>  }
+>  
+> +static u32 xfrm_aevent_etime_to_jiffies(u32 etime)
+> +{
+> +	u64 maxage = min_t(u64, U32_MAX, MAX_JIFFY_OFFSET);
+> +	u64 j = div_u64((u64)etime * HZ, XFRM_AE_ETH_M);
+> +
+> +	return min_t(u64, j, maxage);
+> +}
+> +
+>  static struct xfrm_state *xfrm_state_construct(struct net *net,
+>  					       struct xfrm_usersa_info *p,
+>  					       struct nlattr **attrs,
+> @@ -1022,7 +1030,8 @@ static struct xfrm_state *xfrm_state_construct(struct net *net,
+>  	x->km.seq = p->seq;
+>  	x->replay_maxdiff = net->xfrm.sysctl_aevent_rseqth;
+>  	/* sysctl_xfrm_aevent_etime is in 100ms units */
+> -	x->replay_maxage = (net->xfrm.sysctl_aevent_etime*HZ)/XFRM_AE_ETH_M;
+> +	x->replay_maxage =
+> +		xfrm_aevent_etime_to_jiffies(net->xfrm.sysctl_aevent_etime);
+
+[Severity: Medium]
+The commit message says the value is clamped to the range "safe for
+jiffies comparisons". This clamp only applies to the sysctl default,
+though.
+
+A little further down, xfrm_state_construct() calls
+xfrm_update_ae_params(x, attrs, 0). That call overwrites replay_maxage
+with the raw attribute value whenever XFRMA_ETIMER_THRESH is present:
+
+net/xfrm/xfrm_user.c:xfrm_update_ae_params() {
+    ...
+	if (et)
+		x->replay_maxage = nla_get_u32(et);
+    ...
+}
+
+xfrm_new_ae() reaches the same store on a live SA through
+xfrm_update_ae_params(x, attrs, 1). The xfrma_policy entry for
+XFRMA_ETIMER_THRESH is only NLA_U32, so it does no range check.
+
+On 32-bit kernels, MAX_JIFFY_OFFSET is 0x3FFFFFFE. If a caller sends
+XFRMA_ETIMER_THRESH >= 0x80000000, this call gives the timer a negative
+delta:
+
+    mod_timer(&x->rtimer, jiffies + x->replay_maxage);
+
+The call appears in __xfrm_state_insert(), xfrm_replay_notify(),
+xfrm_replay_notify_bmp() and xfrm_replay_notify_esn().
+calc_wheel_index() treats a negative delta as already expired:
+
+	} else if ((long) delta < 0) {
+		idx = clk & LVL_MASK;
+		*bucket_expiry = clk;
+
+Would rtimer then fire on the next tick? If so, XFRM_MSG_NEWAE
+notifications would no longer be rate-limited while the replay state
+keeps changing.
+
+This looks like the "turning a long threshold into a short delay" case
+the commit message describes. It can still be reached through netlink
+with CAP_NET_ADMIN in the netns, including from a user namespace.
+
+Should xfrm_update_ae_params() apply the same clamp, or should the
+XFRMA_ETIMER_THRESH policy carry a matching range?
+
+>  
+>  	if ((err = xfrm_init_replay(x, extack)))
+>  		goto error;
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114091239.780633-1-flashhhhha%40gmail.com
