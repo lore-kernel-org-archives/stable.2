@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794753016;
-	b=ufp7PYQFrOX2IFMh8vclMQCD6hPTBl0EfQeKnjS8dLKEIZQ8tLvNkTwLcC3m6N4vQVQ1
-	 9iHt7O2KbvSUl5mf91stIIEI2CM515/yo9WmGZXsmYG/xTgOqJu6zDW9Jqdsia90E+DF5
-	 V8spQwr7vfXqmhgBjZDmvqL7QGM2ULncWBgbAd4YtPdw4vdQAZyp3ZRYfFr1yQTY0wTsq
-	 0aJB0Vzj6pFCH8tg/nL0TYXIzvWMLoHiy8h54G17AnI2mTQCsz+f2qsxiyTFeyUttLqUr
-	 lifZc7s/jJo72pJ74MG4jkMR76+0UNWMlTnUp+SddcuHfdsUim8RdlUDm5kyj8P4q3A==
+	t=1794753180;
+	b=x7BFwCzVZZvE2vpiHP00+5VH7pnU6QR84Jy2y7teoLwBhjA29/ddT8gCSiqYtFYtm7OC
+	 dtC6jC93TN6IcpREAqBNXyMP36iPaihMd9TEXn8pAucKO7Sdk/Dv23fNaKP8adzdEz1TR
+	 Tw0MjT/Oaq/61TekGvnBhCkDQtyoubnOWkDOU/7m6W5fs576fG4CCcJYhBn2OCBVAthCi
+	 32T20J/RSjA743B4Y6D74HWWWQc5zrJOQHXf2FeUeJ2C3LuQldms8Z8F79eH+7PsG6yDE
+	 U3oeiK/t/U+KmoNGqu88nqd5JJ8BXyTSZ8J3nnIYHLkybIN68/Ug18h6YMEkvQAH8dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794753016;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794753180;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zEtffmCmDe9Gn+/P3IRk3/1c0xowv35GBpCPd/aPMFk=;
-	b=cofFavBn7GUwXkGJmsTo+eIYnHPxbrcWOE9F+q+2U55ag76LsHhaORicxTbW3H00Oq8M
-	 AyH0yLzymT8SY1prPILv6m7puyWoek6kH0/HH/2Q4U/gi8gjA4YJBDIWs7kJd4YLnQ2pN
-	 jJpqXTDGahFqJqXtrvCELYHvFOLJF4T9WRjW2bgYD9btq/gcOoHQ/S9hzThZyZpZKPPK2
-	 ydxBq15HNZ/ekjOUNGjFYDY5QQrTmAJgreAHUzL93Y18qMNCKSZhM47Zc1gQaBDI8+jOV
-	 4P/LAAuJcdxxdg47xkrVeTzEMDqBk6TpaHMg+xK1Pn6mCCfbQCiNeFnYVHeXUjaZYyA==
+	bh=5uwYvg6aL1vioaKaYYDk8bpN9zxS7Jdk8MpZyYrgeNA=;
+	b=1SWeZG593iiY8NBWSbxLTroq96C9DOnHPiL/dgMwm+KUETO0DQB3hn0ItII4NQRLLRLp
+	 xKlyiB8Nxxe5zTHwx6YQWXJUlVH0LBOI1c0iqLw+ifihhe/4tzt1E27bBOZinp6Fz6xaC
+	 ucOM1A03G3BUCcuPD8VpD4GKaFUiE/1MPQCtlPO88APsvigiF2k4HX0AvGqmokxcB/M46
+	 PJ/NufvPANo904whou7EWtJnkgYN3Z58DHgeFVKfZ48KZ6NUL5glCI9Sf6hyWYqlEgtbT
+	 7riAKwXOFtvLYDXKnXmJjahzEX/bG3vWDHbvMqYVK3pxPoVvEMB+BbsdMzvRPJQfTrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJkvrn8x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhUAuRPj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686F9606A323
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 14:30:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBE4606A31A
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 14:33:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJkvrn8x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 626931F000C4;
-	Sun, 15 Nov 2026 14:30:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhUAuRPj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BD561F000C4;
+	Sun, 15 Nov 2026 14:32:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794753016;
-	bh=zEtffmCmDe9Gn+/P3IRk3/1c0xowv35GBpCPd/aPMFk=;
+	s=k20260515; t=1794753180;
+	bh=5uwYvg6aL1vioaKaYYDk8bpN9zxS7Jdk8MpZyYrgeNA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PJkvrn8xu5LJXkN5IsqHBZZmTsQXBL3bTuBzhYRyaKIWAUJ0bFCyEjdS6wP04Ibkg
-	 aVXB93ZM8sUrE9FBex/A8dDCnoXgdrbMuNPoFL7/I+bLUGXgUJkvYZ1UktzuN2bCTW
-	 vozw6uk6If53lOnIYGcvspLm+eBTu99EDXqHu6FaKX+JHLoXbJuJs+6KVMuPmxnpI9
-	 7wV6pJJAsGQUgPebWIl9ZJKnICLUbI9PsHbFaygX2Hhu6C5TdUFKy3qsASdKSJzZ8c
-	 5vyN51UN2iPbIWIIaGYSefYEt+IvXp3gZIzM0bEEqsKm23TK06fBEIiahTUxj3XG2N
-	 3LVgXZTsSIs7A==
+	b=lhUAuRPjcxPTZvOnqw0UYbHRqO7namUhtMkMhz58uOspGHSHFPDgnuFYxi8ingmvp
+	 KjdSC7tAl2atsE/k8DMmOz2X+gngP/6lQLSZVhNSSvBg+Z932wRcK6LxEikjx+uf3C
+	 VAbKgGjWzU0OeQKvVl/RTLZRO71RZ4UMilLlj3GfrGSIurGf0R50DB+dou/sTMfzlR
+	 ORln5HyApsscmyZA4eIwjczdqkoPFyWEyhLizctZEJP1hZ8zXFuB/wm+3rWcIWMD3u
+	 cNoPQSHspK5Ecw+7GA/qmgmxd2rA2GonhFrQWm8FCyUWz5zurCP0Ho3tS+ybtzTtHF
+	 NQDimBv0ADOJw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Daejun Park <daejun7.park@samsung.com>,
@@ -46,12 +46,12 @@ Cc: Daejun Park <daejun7.park@samsung.com>,
 	Pankaj Raghav <p.raghav@samsung.com>,
 	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] xfs: add a flag to convert unwritten extents without allocating blocks
-Date: Sun, 15 Nov 2026 09:30:14 -0500
-Message-ID: <20261115142957.1213907-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] xfs: add a flag to convert unwritten extents without allocating blocks
+Date: Sun, 15 Nov 2026 09:32:58 -0500
+Message-ID: <20261115143240.1217756-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201254-failed-6.6-f3ca3498dfe6@kernel.org>
-References: <20261109201254-failed-6.6-f3ca3498dfe6@kernel.org>
+In-Reply-To: <20261109201743-failed-6.1-f3ca3498dfe6@kernel.org>
+References: <20261109201743-failed-6.1-f3ca3498dfe6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,7 +83,7 @@ Signed-off-by: Daejun Park <daejun7.park@samsung.com>
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: adapted flag insertion to follow XFS_BMAPI_NORMAP because XFS_BMAPI_EXTSZALIGN is absent ]
+[ sashal: adjusted flag context to follow XFS_BMAPI_NORMAP because XFS_BMAPI_EXTSZALIGN is absent ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  fs/xfs/libxfs/xfs_bmap.c | 14 ++++++++++++--
@@ -91,10 +91,10 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  2 files changed, 21 insertions(+), 3 deletions(-)
 
 diff --git a/fs/xfs/libxfs/xfs_bmap.c b/fs/xfs/libxfs/xfs_bmap.c
-index c111f691ea51a..974dd4cd38e50 100644
+index 14b0d230f61bd..c715e03020d41 100644
 --- a/fs/xfs/libxfs/xfs_bmap.c
 +++ b/fs/xfs/libxfs/xfs_bmap.c
-@@ -4296,6 +4296,8 @@ xfs_bmapi_finish(
+@@ -4333,6 +4333,8 @@ xfs_bmapi_finish(
   * Returns a negative error code on failure, including -ENOSPC when it could not
   * allocate any blocks and -ENOSR when it did allocate blocks to convert a
   * delalloc range, but those blocks were before the passed in range.
@@ -103,7 +103,7 @@ index c111f691ea51a..974dd4cd38e50 100644
   */
  int
  xfs_bmapi_write(
-@@ -4355,6 +4357,8 @@ xfs_bmapi_write(
+@@ -4392,6 +4394,8 @@ xfs_bmapi_write(
  	 */
  	ASSERT((flags & (XFS_BMAPI_PREALLOC | XFS_BMAPI_ZERO)) !=
  			(XFS_BMAPI_PREALLOC | XFS_BMAPI_ZERO));
@@ -112,7 +112,7 @@ index c111f691ea51a..974dd4cd38e50 100644
  
  	if (XFS_IS_CORRUPT(mp, !xfs_ifork_has_extents(ifp)) ||
  	    XFS_TEST_ERROR(false, mp, XFS_ERRTAG_BMAPIFORMAT)) {
-@@ -4402,6 +4406,9 @@ xfs_bmapi_write(
+@@ -4439,6 +4443,9 @@ xfs_bmapi_write(
  		 * that we found, if any.
  		 */
  		if (need_alloc || wasdelay) {
@@ -122,7 +122,7 @@ index c111f691ea51a..974dd4cd38e50 100644
  			bma.eof = eof;
  			bma.conv = !!(flags & XFS_BMAPI_CONVERT);
  			bma.wasdel = wasdelay;
-@@ -4489,10 +4496,13 @@ xfs_bmapi_write(
+@@ -4526,10 +4533,13 @@ xfs_bmapi_write(
  	 *
  	 * To avoid a successful return with *nmap set to 0, return the magic
  	 * -ENOSR error code for this particular case so that the caller can
@@ -139,10 +139,10 @@ index c111f691ea51a..974dd4cd38e50 100644
  	}
  	*nmap = n;
 diff --git a/fs/xfs/libxfs/xfs_bmap.h b/fs/xfs/libxfs/xfs_bmap.h
-index e33470e39728d..8bcb1a9b5fed3 100644
+index 524912f276f87..bf51d7d428156 100644
 --- a/fs/xfs/libxfs/xfs_bmap.h
 +++ b/fs/xfs/libxfs/xfs_bmap.h
-@@ -87,6 +87,13 @@ struct xfs_bmalloca {
+@@ -86,6 +86,13 @@ struct xfs_bmalloca {
  /* Do not update the rmap btree.  Used for reconstructing bmbt from rmapbt. */
  #define XFS_BMAPI_NORMAP	(1u << 10)
  
@@ -156,7 +156,7 @@ index e33470e39728d..8bcb1a9b5fed3 100644
  #define XFS_BMAPI_FLAGS \
  	{ XFS_BMAPI_ENTIRE,	"ENTIRE" }, \
  	{ XFS_BMAPI_METADATA,	"METADATA" }, \
-@@ -98,7 +105,8 @@ struct xfs_bmalloca {
+@@ -97,7 +104,8 @@ struct xfs_bmalloca {
  	{ XFS_BMAPI_REMAP,	"REMAP" }, \
  	{ XFS_BMAPI_COWFORK,	"COWFORK" }, \
  	{ XFS_BMAPI_NODISCARD,	"NODISCARD" }, \
