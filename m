@@ -1,58 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794735690;
-	b=HjMh67y4L/KTNsP4K2Ui5VEh8b+w8fjJDZM6d8u+6xxV2IJySzaUeC/h5pW9jOXlwcQ0
-	 +Q3ujhpdlc2nMs/DRxP9/TOXBG7zCg8MGewcewM7iZoOPgUavPyok8aaYBSScuyv9aAcU
-	 EB0bqqjoGg+pT/DcJ0l6xMQ6hQKJHt6LGnDAXS42ng/khwuVWAhKF4Ig37EMt4GUZXKxG
-	 +R5UpzPY05/by+wUjbPNuIgT/6+PddcI0iiWeBtObJ70JE4e0zHI8+74AivJ4gCphSGSS
-	 iEePNKTXfeGpGAlB0G1aE5IQS7u6qvkrt1DzncyJqe+O9bfuPJ+GnHj2MtU/H3Mfg3Q==
+	t=1794735693;
+	b=rwM4J1nx+huH4ykd/eHg/EPkMqm7xRsi54CD+Gxhar9mkvyXDc57FXtLejFAtUG9oc6C
+	 3xaiCWvoz1m3+YiEuBHmIcV7LRVjrFPAxdxlVsNGwlvfghMEq2LKIunE9HtW57ZjtZZQK
+	 pxzweZU4V/xuw0y7/3vem+hiwn5gxJEfQpt/3i+7GmGGFfj3Ps4f0JK3aJ9nlBUZ+VQnr
+	 30Bt/x1ZxDQxU8qj44GCX1Z7H6E2PumZqTCr6ZIejRLo6q/jcnbroNjBy3uxk6rAMMFNx
+	 ouyfD4RBDjp02wKgf/mPIk92MjJyqrd/C14Wfti1nk1Mo3S4bAN+D222tlfnBbR+Wcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794735690;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794735693;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=LZYkjRr27NpPjrqvd+JcqlBpgfomsPg1KNU4BHdFI7w=;
-	b=YYBItySpVR1VnhMCemhHWkIUdI+Rlq+0rPEQQphjM475tg2IebBfRFnIWE9JZrnqvWHN
-	 5Rij3OB8+kUhFODGaovKBV+gJ23TZFIKFJhjj9cPUJvpdR/zWbHglclRPEgGzcV5D7Ni1
-	 9L9sncCsvOkIuoY95bqgH8LiS+frSXHVeTv++eEKyyKuzfwwCRJ2zqq7ZyzvcF5p4+TRY
-	 2TeJiiI3nJyvfMg/PRYzt72GauAWq4FO4nTiLM8OlXcguRZcv/0T7oPi2zB+TB+vRLb4e
-	 GE2BQ8pONyiEAKnhi+ko4Rg2BEyphXE0C+Z5LVnQqsASFtg0vT4NNt3pOQ52hEWGs0Q==
+	bh=XNnu+4CWKAt1mZbirX7yXEhcAb/VZnf34sFLG6GDqg8=;
+	b=SuOXTI7aRmF5VdK6gD0yszQX9tMyep8PxVCMsBU3UsX2tViF1nVtxBJJKFMDkfnjqq8v
+	 wRxTcSTPav/TohL/BVPM5LdSfYheb4YwctjgmED2WOC44EjD5QvObhLtXB/xprQ1mx1yH
+	 WKzaFEMzoXEDjaa4mJKn/E6CJPnzv22Qrl9r8FHWg3QybKFgM2Xj17jJ3/Sz9oy5Qv8Sr
+	 RZNu/cJ2llwd2cE1OR7uywA28lYH610rVegiCGshcbAFevOkelbcqpsw2g6Ripi3yZqIr
+	 bGhbhE7/4ACWA7lOFPbQP3zlL36BrKKgcTeV6ez0qE2omEaHI+VqtOwNa8CjTRSGW2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ho5zCD20;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbGZZz3i;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B34606A31F;
-	Sun, 15 Nov 2026 09:41:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB3D606A334;
+	Sun, 15 Nov 2026 09:41:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ho5zCD20
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53C761F000C5;
-	Sun, 15 Nov 2026 09:41:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbGZZz3i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F39C1F000C4;
+	Sun, 15 Nov 2026 09:41:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794735690;
-	bh=LZYkjRr27NpPjrqvd+JcqlBpgfomsPg1KNU4BHdFI7w=;
+	s=k20260515; t=1794735692;
+	bh=XNnu+4CWKAt1mZbirX7yXEhcAb/VZnf34sFLG6GDqg8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ho5zCD206rnLx852iEbpOOVmyKXF9i1DcDHzYqIy49aE1868GulR5Fc8133qXK/Ic
-	 LeR+Tzh4NSpecXTspBUF9AHQtoBSEmpsLIEANVGtXmSv06kvXp/qApitlJW99rzwcM
-	 wPt31ShaNPD8AuPxv/u5lvrCkj3vK6aunE1Hzy5zE8zlF6VaX+Zo4gsbgnt9ECBQB9
-	 /ybTm1IOLrEH1NDTDw8oMbP4zCRK8KkodgWfZSO2bMOt+hJ92/8lyb3g+90dWRyj0G
-	 j7z+Ktc9ET8NSwMG+yfA2XPG6rRmbrmSNJhg13B6fbHi9tDOjtamZS0S9IthLx7ZV3
-	 ib+zo8PBh7+rQ==
+	b=IbGZZz3if4zVOx/vM2ZpfeZ6Uims1Duj+Dn3BW+MRUz4XBu7eQY4RkuKHW22grHWu
+	 36SSubkHHe0loMbe0ytt9zFW4mlWBmM9qhL09QN3zr42XQnhEsWtaegErwVVC4Mmc1
+	 1d8yl93vPWkS7iXFjFPUab2z/TpNJ6aU/wmdMjf6lvZXl6y3bWGJmBVGvuRLQ2YoEX
+	 ftwBL80thNNOllg6F1sSK37BVv+FxDeaNfM6X+6LZoZ/ijF3L8D1NJcOcp8Un0rMnU
+	 DILHBTOzbdO4DN6AVc80FjWq/Zivzy4NKU97mvVdtqXmHy862T0xw7RMuPxCNeFGcM
+	 85EOI7ran2SOA==
 From: Chen-Yu Tsai <wens@kernel.org>
-To: sboyd@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, 
- andre.przywara@arm.com, Ilya Titov <ilya.titov@wirenboard.com>
-Cc: bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, 
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Maxime Ripard <mripard@kernel.org>, 
+ Andre Przywara <andre.przywara@arm.com>, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+Cc: linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org
-In-Reply-To: <20261109090914.46872-1-ilya.titov@wirenboard.com>
-References: <20261109090914.46872-1-ilya.titov@wirenboard.com>
-Subject: Re: [PATCH] clk: sunxi-ng: h616: register CPU PLL notifier before
- mux notifier
-Message-Id: <179473568811.3056166.5724569905086596761.b4-ty@kernel.org>
-Date: Sun, 15 Nov 2026 17:41:28 +0800
+In-Reply-To: <20261110-h616-clk-emac-spdif-v1-0-e5e36e8963e4@gmail.com>
+References: <20261110-h616-clk-emac-spdif-v1-0-e5e36e8963e4@gmail.com>
+Subject: Re: [PATCH 0/2] clk: sunxi-ng: h616: Fix the EMAC 25 MHz and
+ S/PDIF clocks
+Message-Id: <179473569042.3056166.1982990416520172498.b4-ty@kernel.org>
+Date: Sun, 15 Nov 2026 17:41:30 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,20 +69,22 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.2
 
-On Mon, 09 Nov 2026 12:09:14 +0300, Ilya Titov wrote:
-> Currently the CPU mux notifier is registered first, so on
-> POST_RATE_CHANGE the CPU is switched back to PLL_CPUX before the PLL
-> notifier re-locks it. The CPU then runs from the PLL while it is still
-> settling. The comment for ccu_pll_notifier_cb() says it must be
-> registered first, and the other sunxi-ng drivers (A33, H3, R40, A64,
-> A100) do it in that order.
+On Tue, 10 Nov 2026 06:02:59 +0000, Arun Iyengar wrote:
+> Two small fixes for the H616 CCU, found while checking the clock tree of
+> an Orange Pi Zero2 against the H616 user manual.
+> 
+> Patch 1 models the EPHY 25 MHz clock as PLL_PERI0 / 24, as the manual
+> describes it. Only the parent and the reported rate change; the register
+> writes are the same.
 > 
 > [...]
 
 Applied to sunxi/clk-for-7.5 in sunxi, thanks!
 
-[1/1] clk: sunxi-ng: h616: register CPU PLL notifier before mux notifier
-      https://git.kernel.org/sunxi/linux/c/0ec5e7572ddc
+[1/2] clk: sunxi-ng: h616: Fix the EMAC 25 MHz clock parent and divider
+      https://git.kernel.org/sunxi/linux/c/93797c1f8455
+[2/2] clk: sunxi-ng: h616: Let the S/PDIF clock set the audio PLL rate
+      https://git.kernel.org/sunxi/linux/c/d0cd486a2b64
 
 Best regards,
 -- 
