@@ -1,80 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794730889;
-	b=EgW4vEklsgzi/SLiHfXPNU5MLHdbeMIif3lMktqeTuCeqlxUFe3YZ/mzttrZH1xyi4dB
-	 24jM1qk982ams3mX0Gh7MgOIpbO9zkdjRiuhrrum9p8zQYeadNZwJRRYh/YrkxyjM67V8
-	 RrKOX9Ogi6DT1sB+jKHpsDPHS10bSwQgPmYoZmHEMVRI3pk6ixSrFkmLFuDUlLY/Vvm6+
-	 H6tIX6g1wgFdGr77cIBp16PqXFLxHKJvjZ8mihFPTmeKoIlWPQGQ6Qw/1f/S4FdqUWAIu
-	 NXFfbaO6FqhFUnzataga/MiVtUfMVcb33tq+wKyREdUvHpsM824LUSOcTz3PtU9GuCQ==
+	b=Cfasmefez7ZazjDLGqb1PwxTkcA5UWFwpzrtizTEuMcUPCRfF2GZjqcsqTOp0BRSt/y/
+	 QVzR0XCi7BXOaG5eTIoeIG0smsb4o588MwOLr/eejlA2zjbvVTZnq6vNuwBGqsJ4HD2bp
+	 t284qOG8ga1NfnTnRQdl4lL2B3k/JnITsTHBltgtGvAiYypXcoMBRxoDVluQBPf6ynSrH
+	 z1pLCGC5mMxyOlpTpxfYmEkv6nu0k3KeJ+mx8bqbPLrHishs1je82MvxCh/GZEuTM/XI+
+	 NTfynOXVTNP+L87QtQprAXFuTcd16ki5dcGl2AzC7WCeyLb76pWmDCbhJkCoNlDI2+A==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794730889;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=2Gm1niHwn94JPZGn5PVHkH3FZDaWwSEi7IqQ6yWaOZU=;
-	b=L7qtKTgqsGHD01Bu57CEg3Y/mxB1QkEkx+zWCtDJp7qD/f6//dy8U4tV2H92lecd+4xe
-	 RxUoDeG5+MN/6KXzGaT6HvoyVj8pEhva6FLwLnbgHJjhs/Vz7wnHzLYmFg7tLOPSeTOwO
-	 LQgZ2sR5swed2riA4tgVMbavuuBDS5uo/obuETvTyKNiXqgseYmspRC+hCSkUlFltMM3b
-	 mvHSdiYzVI/aN4o0mBKIVM3TPgb6LPazlvsb5aEJUgVoJq9klppKtt2Q9esMhpp/hEp91
-	 HI/FLvBD8ylVP1nZ9lzO5l1uLbXQ2OB6jMVxzcMrmLmuD2j85Uk7qjkE0dnAlzfF3Pg==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ENmgzf/tl3n2tKo2JxTzXWou+7h9tZdT57vOa3F26Cc=;
+	b=A39MjerJuLi7KIr4vhkZkMwEAFLz7IFtxlRCF4qmMR9hrKgZ8Zmw4VTNhuRUcuDNxokn
+	 lgrx/lkEkCQhIVImLV8nlt19JLQwWUrLOyPgkmsAO1m3sBp4s4nPGNheJ+7vFCrZuvSu7
+	 XL+F3YWlpVgJjOlRAD8tpci32bw59TmR4n+DBSbQNgxIFeSQYDWbXVp+R5loSlT22ozSy
+	 2rPmv24mXKVIgdmTXdV6PjWjvUD8YrKZP+LakaC1pQ5BPbgA4IvvAAZvkEz4z9fMIKVL1
+	 d1vikWybjRGa40kYZWPk38QetL7EFjD5mfhbmqgZBQNYOyiyTqVCsmbxSQ3j/57pHSA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FU/uU0Pn";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BpyRBYU2;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF8B606A31F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3D2606A330;
 	Sun, 15 Nov 2026 08:21:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FU/uU0Pn
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BpyRBYU2
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794730889;
-	b=cbOnCvyby97a17fJt8vioEGQ9L2fTzeCwx0LGcNDsdpjXXfM/gaZaJWV9DglxLOVZSUJ
-	 ubF0Wd9e6rIB1Gz+hJqKTT3TnpddcrLYkqwS2Z7lnfTWpeznr4/UApnz3oKceNjID2ScC
-	 MbzHDNFh41zgwCyeSASCcOYi3u4SyDYBz4Z1kh6gLkdwooSBnj7tPAqbnjqOhgorqC3eY
-	 UI6Q1/Tpafh91xmo9EfspRMG/dLtD6YAtX4GzEOkBp3mkOSkxugcaTHgDIEV8RsTOPrN5
-	 cGkRlJNkCXBLl/kG36sRmfcEnKdYB6HMricyfiPsNnGqcBS3ceOiPSCPRZLsF1HhS3Q==
+	b=MzrAL84BkU0iS4w4dm81jOX1zb9NCzBQ5v0LUUhQK3a4fDcSpHwXyh3OagNS/9Z3h/qv
+	 Cxkhs5CN4syrX/xbitBQVJI/Oi/5/1bEUiUM2nvdKoszbqjCQWBJRN8zPViWM5H4IqiQC
+	 dj4JpGZF8uzusBQqusEf8ze8cySWxlo8aG7gblWoY1aATvlIYAEvuwQ+KGLZCXulEB8Hu
+	 mNd2ZOjGlFVJKst6JfiF0HcIsyXPCGv9vNbIk94Iaee0gEChfgH/HNKZ26kSUnPmzFJp3
+	 Md/CeOom7aneVRGBhaUjJ0wPk/+u91vKn0/Kj4aaI7B/niCrehDz3xqTBNnKaWaCTYw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794730889;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=2Gm1niHwn94JPZGn5PVHkH3FZDaWwSEi7IqQ6yWaOZU=;
-	b=RXzRCSwG9VHByTIe3mbr/ObY404lTRiktIgZo5qFb0KoFQ7UpKKbS/LKDEtDRTjWqTLY
-	 S9KW+Gpp65KfSqJPB2bA1mlGjRG+VCIyokUxRI6O0y93o7N4YriQhHzPPLgixAsaQInHn
-	 /aEb/66FGlHo3dYBAaGrMrW9tU9TmSn0ti8vFQj5haGp5LHHjuwrY4NlmuOTYpDBiB0ok
-	 r77IDsb0NbT9keYYtklNMMzND9w2I2m187kY+No9tjtWcdlE+pwjq1bkjh8j3aEsH1D7S
-	 TJE480Y4/6HR43nVBQ+QEFdgP9N9fxIGyY/O6iKI/4l1rLZpOQf7QoaDiDxUMLTfUDA==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=ENmgzf/tl3n2tKo2JxTzXWou+7h9tZdT57vOa3F26Cc=;
+	b=xezzN3HvdI9p1/MhKJgFkMzQHvczVPzaehsHZb0F4mRFMBo75zpnqVCHDHeacrUxkGue
+	 zvXjn6Hkpf1cGkCKl4xNOKrf0HVtM/tmPd+qC2RpQ+ZU8BAG2U+xFbzsHyt1CjWFgQqHV
+	 I9lwNYR2xSE99VmjXTosWXhMr1d3ZMhoFaACKXr91vxcuKazYWrBrYUALlOZ3Q5M5NMR1
+	 sGuA54k4+j7xM+V7TQFFyvCOe5JXNot/Rnipo11hVcE8tkvMYNRhsdx9hjxb8jpNL/w4P
+	 kOfte4nfVxyhMb3+qyt9+mt0DTZ5CrUrTSD6ZvwT42zZdQ1RJtzlCJeqvwOX+hbOrHg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B50CE1F000C4;
+	by smtp.kernel.org (Postfix) with ESMTPS id D75E71F000C6;
 	Sun, 15 Nov 2026 08:21:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1794730889;
-	bh=2Gm1niHwn94JPZGn5PVHkH3FZDaWwSEi7IqQ6yWaOZU=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=FU/uU0Pnjc5CleEYBEa46Fym4G1kTC4QrQ9ag3U9TyliL2muCNBmvfGipOukpjpmS
-	 2bHLHtjGy5VcqcYgWBlXaxfwN367iItBHLIkxr8fPu5/HHgpt24KcHSgospPf/OsRv
-	 Z5koIfvJdejZO2fe+xIfxXWzpKL7z9cICsKaA+95UYBpxdf8yjIcOiY8uM5euf0CyT
-	 vSns0xZXKjlNrDZQ6HhWietwg3ui+dVUfhNrc5lbJBCPg0EMmI0qoKIp5Q3x/sOIvg
-	 uc3FqgPKkkA5EdKK2Uqnkx0efRA9ZfkOssPzVAwqcxaGvqfd7X3olr/pXbasdPkFRC
-	 E+yT60tvtRQmw==
+	bh=ENmgzf/tl3n2tKo2JxTzXWou+7h9tZdT57vOa3F26Cc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=BpyRBYU2KY3sEJXEWT64YFXWDBxtN8Tss1AhHeNFf6F215TqWrLS6QmHHvQ3ChHUr
+	 CDBP8SbivO0j86mlFJpDeIgS7Be81LvBdY5M0jcI3r2Hfhg28fYccbeRSpxjLgdQtS
+	 d46NFsZMQEAtrrtRUmf4gMz+5GoX7G+cHMkQXZo+9Xx/pZqASlIIVr0UTb3cMs5HDn
+	 7KBgzoZqaEuiz82XAG1nnSlOa9TIknPCaLZGDExOwQdGmTI4Fzabb2QFi4O6/AWR7l
+	 o30Ts/r4mza7H9uc6nRmwtnmlYoAlAkovumLq0pyIjHX1ZN7LQI39a+heu681F9iRf
+	 N73lxqf5PngOw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1543F49FDE;
+	by lkml.kernel.org (Postfix) with ESMTP id 62B4A49FE2;
 	Sun, 15 Nov 2026 08:21:28 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH 0/2] media: rkvdec: Stop VDPU381 and VDPU383 cores on
- timeout
-Date: Sun, 15 Nov 2026 08:21:27 +0000
-Message-Id: <20261115-rkvdec-wdt-stop-v1-0-59e687c6cc63@gmail.com>
+Date: Sun, 15 Nov 2026 08:21:29 +0000
+Subject: [PATCH 2/2] media: rkvdec: Stop the VDPU383 core on timeout
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,13 +83,9 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2OzW7DIBAGX8XiXCwWcMBWVfU9ohzwsrTUsp0CT
- tpGefeSn+NI387shWVKkTIbmgtLdIo5rksFeGkYfrrlg3j0lZkUcgcAmqfp5An52Reey3rk2Cs
- re6OhR2T16pgoxJ+7cX94cN7GL8Jy0zwXib63miqPGZspZ3dPDc3rs6RASN3tWg1dJ5XhwF07u
- b+45On3PdYX1jZtbzff6DJxXOc5lqHRNlDnjFUaEYSwYK3xZkTfhyCcRudRBWeRHa7Xf5WFBgj
- 9AAAA
-X-Change-ID: 20261114-rkvdec-wdt-stop-c938297419cc
+Message-Id: <20261115-rkvdec-wdt-stop-v1-2-59e687c6cc63@gmail.com>
+References: <20261115-rkvdec-wdt-stop-v1-0-59e687c6cc63@gmail.com>
+In-Reply-To: <20261115-rkvdec-wdt-stop-v1-0-59e687c6cc63@gmail.com>
 To: Detlev Casanova <detlev.casanova@collabora.com>, 
  Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -103,58 +97,98 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Alex Kazinsky <a.kazinsky@ideco.ru>, stable@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794730887; l=1762;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794730887; l=2992;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=vXWQKYqD65FGosSnp3CAGgFjhJ+XWPam2Tye34T89dI=;
- b=2i2GBE9TZ5786AIiy27G0vx6e0j71HcTkOrGbu5PMhpK7IEv5Spj9aGfiDYZzqjRYpmkN0l+8
- EgZ+OjQtN7LBMlRglqt/sq4LBCzBbMkZ33U6J9qr9fEs03gBunTosVQ
+ bh=igPIRoqR10XhXtRMntnOpxbLAunwjLzr9JIJfVVGwv8=;
+ b=uDK7aEpPgMbGShhyHDHLQc5AGfT0UOsY5Ar/vSvRfvtp0JO7iOAsFrAIYv26VDvlfCA84Yf7c
+ BNKe0CtcK23BXvO7k1DdQN0BDVFHfHaZXly0aQybwFwW5F0cxzPhAS0
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-The rkvdec watchdog writes an RK3399 register on VDPU381 and VDPU383,
-so a timed-out core keeps running after its IOMMU and power domain are
-suspended. On RK3588 this corrupts memory and panics.
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-1/2 fixes VDPU381 and is board-tested. 2/2 fixes VDPU383 and is
-compile-tested only.
+The watchdog's RK3399 register write does not stop a VDPU383 core
+either. Use the IP reset, as the Rockchip BSP does, then reprogram the
+IOMMU, which the reset leaves in bypass. No reset line pulse: on RK3576
+the DT lines are the BIU resets.
 
-The series applies on top of Alex Kazinsky's "media: rkvdec: Handle
-interrupts without a current context" v3 [1], which touches the same
-lines. For stable this needs [1] first.
+Compile-tested only.
 
-Tested on an Orange Pi 5 (RK3588S) with KASAN, my pending
-rockchip-iommu fixes [2] and the watchdog cut to a few ms: unpatched
-panics within 8 s; patched, 5955 timeouts with no KASAN, IOMMU or WARN
-report, fluster H.264/H.265 unchanged.
-
-Developed with Claude (Anthropic), which wrote the code and the commit
-messages. I reviewed every change.
-
-[1] https://lore.kernel.org/linux-media/20261113102456.4155237-1-a.kazinsky@ideco.ru/
-[2] https://patch.msgid.link/20261110-iommu-rockchip-faults-v1-0-b1dda574dbb8@gmail.com
-
+Fixes: fde24907570d ("media: rkvdec: Add H264 support for the VDPU383 variant")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Arun Iyengar (2):
-      media: rkvdec: Stop the VDPU381 core on timeout
-      media: rkvdec: Stop the VDPU383 core on timeout
+ .../platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h   |  4 ++++
+ drivers/media/platform/rockchip/rkvdec/rkvdec.c      | 20 +++++++++++++++++++-
+ 2 files changed, 23 insertions(+), 1 deletion(-)
 
- .../platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h |  4 ++
- .../platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h |  4 ++
- drivers/media/platform/rockchip/rkvdec/rkvdec.c    | 82 +++++++++++++++++++++-
- drivers/media/platform/rockchip/rkvdec/rkvdec.h    |  3 +
- 4 files changed, 92 insertions(+), 1 deletion(-)
----
-base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
-change-id: 20261114-rkvdec-wdt-stop-c938297419cc
-prerequisite-message-id: <20261113102456.4155237-1-a.kazinsky@ideco.ru>
-prerequisite-patch-id: 4199405920f24e49b3993996a6bd951136e52e92
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
+index 04eb23297e37..b8ee9c4dd294 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
+@@ -33,6 +33,9 @@
+ #define VDPU383_LINK_DEC_ENABLE		0x40
+ #define VDPU383_DEC_E_BIT		BIT(0)
+ 
++#define VDPU383_LINK_IP_RESET		0x044
++#define VDPU383_IP_RESET_EN		BIT(0)
++
+ #define VDPU383_LINK_INT_EN		0x048
+ #define VDPU383_INT_EN_IRQ		BIT(0)
+ #define VDPU383_INT_EN_LINE_IRQ		BIT(1)
+@@ -40,6 +43,7 @@
+ #define VDPU383_LINK_STA_INT		0x04c
+ #define VDPU383_STA_INT_DEC_RDY_STA	BIT(0)
+ #define VDPU383_STA_INT_SOFTRESET_RDY	(BIT(10) | BIT(11))
++#define VDPU383_STA_INT_IP_RESET_RDY	BIT(11)
+ #define VDPU383_STA_INT_ALL		0x3ff
+ 
+ struct vdpu383_regs_common {
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+index a8fdad2850fb..63482354bc2e 100644
+--- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
+@@ -1644,6 +1644,24 @@ static void vdpu381_stop(struct rkvdec_dev *rkvdec)
+ 	rkvdec_iommu_restore(rkvdec);
+ }
+ 
++static void vdpu383_stop(struct rkvdec_dev *rkvdec)
++{
++	void __iomem *link = rkvdec->link;
++	u32 status;
++
++	writel(FIELD_PREP_WM16(VDPU383_INT_EN_IRQ | VDPU383_INT_EN_LINE_IRQ, 0),
++	       link + VDPU383_LINK_INT_EN);
++	writel(VDPU383_IP_RESET_EN, link + VDPU383_LINK_IP_RESET);
++	if (readl_poll_timeout_atomic(link + VDPU383_LINK_STA_INT, status,
++				      status & VDPU383_STA_INT_IP_RESET_RDY,
++				      1, 200))
++		dev_warn(rkvdec->dev, "IP reset failed\n");
++	writel(FIELD_PREP_WM16(VDPU383_STA_INT_ALL | VDPU383_STA_INT_SOFTRESET_RDY, 0),
++	       link + VDPU383_LINK_STA_INT);
++
++	rkvdec_iommu_restore(rkvdec);
++}
++
+ static void rkvdec_watchdog_func(struct work_struct *work)
+ {
+ 	struct rkvdec_dev *rkvdec;
+@@ -1779,7 +1797,7 @@ static const struct rcb_size_info vdpu383_rcb_sizes[] = {
+ 
+ static const struct rkvdec_variant_ops vdpu383_variant_ops = {
+ 	.irq_handler = vdpu383_irq_handler,
+-	.stop = rk3399_stop,
++	.stop = vdpu383_stop,
+ 	.colmv_size = vdpu383_colmv_size,
+ 	.flatten_matrices = vdpu383_flatten_matrices,
+ };
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
