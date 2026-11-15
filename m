@@ -1,65 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794784780;
-	b=bkT+BOIyJGUwzCZUjX/qvkeXtCZ3Wh5HQwWkq9CQjk/0TpPf42pqMj7RDaM1T1DFulRK
-	 KC+CzfwovNKJGiPG2Qgx2AgmqsRDWr7azdL3dBfiI4Pp/EBCro1XyHAjOTwYfBZOncJWm
-	 /pnEZVxhqRgilithy7xkXbl1BFvdGH9gw2x4gjBQDQCvchtrTDbHY5O32ZEcZNq06WhGa
-	 O3oqrTndZe3TUa+JCD7FotAHjGlTAm6ftY+NEjVg2agaqVIpGMvZlI80INBkzFRF5L44Y
-	 eKGj5WcSrPfzUxbExVjEE7oYjNWQVY2c6xR9YcGYcKZkCbrW6rZRTcOnRM8Ca1yzToA==
+	t=1794784847;
+	b=F2gvBT5kawVpTmtq0Ez1i4VHsUJqovjJUhhJPFgn0WdlIEjGc0nCk7b9phbuF7dA53ig
+	 kK8hbK0TT7eidU19TlD/je0kJ2dZDnMLRG83g4tSZOoLVTvbOxbCKeyOgrCSmtZZa6YR2
+	 mfs4qV64s2g/d1X1+HlbkW+PWo4dp8z38IbWnAcQooyjtaDmWEqqKsm91JAuGGcWaJuI3
+	 1/Of/9sKCx/Y+KGLLfVIlrJV8TULM+j3fAsRLHXyUFcV5BRM7X3L+zUwKkVU9QNHHRg+t
+	 V4T9T73RUEmbEpYLs5O/kRgvmTC/34tLoRmLo6HJ+JGSoASaz1b8YYyWqZENPZ/ZWrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794784780;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=zW3WAwOIhD2940ok5Ysp8C9N1lcPwOPYgjTzBcC4E2g=;
-	b=ZqynkdOSYlFlLBJ7ylX0agDddZm4l8TJ9NH7XkvS8Xfy2uzDe88oAJ4mZC6QuWPZbiBt
-	 5f7OKEHhUoflmd3qfgzMzYh3AAcVUsfXT03Wj4UcLz9cycArpSwHcnYkrecSJ9S4y5s/1
-	 SkbmrzT8eG9WgD6oVYEUr8Ug6JvV9Y9G2zGfbCvWIM+9URdOrqhxsqdj4SHayI8moqxdS
-	 icwne0DvBSltHwGCbQPgrseP3i4XFjOrzBynV4ykzrNusoJKvenKUH+dGbMAAg8RNnP1y
-	 595l2Gu+cG2WwBVWXvHua51yl0J9LLHCH+s+goT7kRAdPuVrGXZIc9UBZB8aLKk/8/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794784847;
+	h=Received:DKIM-Signature:Date:From:To:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QeLhvkX3NWJ4S8JQPYbjel83/diYUBmz82AKkpUE+tA=;
+	b=ozsdckAk4t+hyCuBzgcAe6gqDKvvM8qdm785qxvPmUfDq0CpxfXTWswl0hPosl3PV7t7
+	 YoefDd33/WO9QTz7JXZrQkpBQ1eOlbGOONLFQ12lUBxTW8dGasGGZ8W1/HzudvBAmws3q
+	 kNvPDruxvFDS1EG3aaULiGm7MAjTy6ijakQ7OaXKhmYe7DhjFt3pL8t/VWCh+vA3WsBCe
+	 RZmdCzRS6PwQx2og8ZpfEW21U4LomkOjMcsIzsFfa/Q71HbhLkcZY+I2pTNb9Aw2joYQH
+	 AmSvwdiKM/geLlr5IGfgOutdV5ReMm3zHO8QO2IcaRiK5oiH19TAr3g1W6659mQQUKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Q6vwdnwo;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIVzPsJO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA396606A31F;
-	Sun, 15 Nov 2026 23:19:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA396606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 0DF5C606A31F;
+	Sun, 15 Nov 2026 23:20:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=Q6vwdnwo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=zW
-	3WAwOIhD2940ok5Ysp8C9N1lcPwOPYgjTzBcC4E2g=; b=Q6vwdnwo0i1zIwDlDq
-	J7RNLcxl6SWskDC+f7SHrE7lTMwe+p4kiCHYKJE9UYpK5ZciKG1F7b/XG42hNQm/
-	V26ycwV0fVPg38ArFJn0M4ZCc62iEATVsFviYPxsAkskEhcCpHzjn5Pt4RpoIh0e
-	Is0Hbleipvw/hxhDq1ZqcUgbk=
-Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzsmtp4 (Coremail) with SMTP id PygvCgBn8YfgPfpqh0u8GA--.59459S2;
-	Mon, 16 Nov 2026 07:18:57 +0800 (CST)
-From: Ziheng Wei <zihengw03@163.com>
-To: Zhao Li <enderaoelyther@gmail.com>
-Cc: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: mt76: mt7925: fix mt7925_reverse_frag0_hdr_trans() for MLO
-Date: Mon, 16 Nov 2026 07:18:56 +0800
-Message-ID: <20261115231856.965757-1-zihengw03@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261115192725.8230-1-enderaoelyther@gmail.com>
-References: <20261115080239.910402-1-zihengw03@163.com> <20261115192725.8230-1-enderaoelyther@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eIVzPsJO
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 28FBF1F000C4;
+	Sun, 15 Nov 2026 23:20:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794784846;
+	bh=QeLhvkX3NWJ4S8JQPYbjel83/diYUBmz82AKkpUE+tA=;
+	h=Date:From:To:Subject:References:In-Reply-To;
+	b=eIVzPsJO69ekiasN2+DKI13yQSBHSkfxRsthhZfWk3oHuARd3DcA9mLmqoK06rcOV
+	 zy45GlQ+j2AbPir8fNu/CCaGfi6dICzlWqishevDgjbMzQfVTvTzFg8zQYuUES83iK
+	 eQtZxTyE+a9tQ2avk5cMI7xmAiS956cYmxJ1BlLBjmRjrZ2tBnLj6AJ44dqq131i9b
+	 j9wqiEcRqoXANUyD+2Rd3TGWEjR6i74EbxiMedbeTzelmzUGVqjxRF6KOlGNpDs8/2
+	 vyCx8nTv+qN9nC2g+loJ43E6QTB8EbOzqwPTXy0oaZlB5vJeCAtAZX3ZRYYu0SbxDn
+	 PURd6gUZ2WHYw==
+Date: Sun, 15 Nov 2026 18:20:44 -0500
+From: Joel Fernandes <jfern@kernel.org>
+To: Chris Wiseman <chriswiseman@google.com>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Joel Fernandes <joel@joelfernandes.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Uladzislau Rezki <urezki@gmail.com>, Boqun Feng <boqun@kernel.org>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Tze-nan Wu <Tze-nan.Wu@mediatek.com>,
+	Cheng-jui Wang <cheng-jui.wang@mediatek.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>, rcu@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] rcu/nocb: Keep lazy timer intact on second lazy callback
+Message-ID: <20261115232044.GA3906606@joelbox>
+References: <18e815d3ba49a353.3137322e32332e3235332e313736.192c60.0000sendgmr@google.com>
+ <20261115023115.GA3752240@joelbox>
+ <18e81aaf93650e1b.3137322e32332e3235332e313736.231b55.0000sendgmr@google.com>
+ <20261115034343.GA1016414@joelbox>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,23 +71,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PygvCgBn8YfgPfpqh0u8GA--.59459S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUsBHqUUUUU
-X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7QHgMWr6PeFs7gAA3z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115034343.GA1016414@joelbox>
 
-On Mon, Nov 16, 2026 at 03:27:25AM +0800, Zhao Li wrote:
-> Not every entry is a station link. mt792x_init_wcid() reserves index 0
-> for beacons and management frames and installs dev->mt76.global_wcid
-> there, a bare struct mt76_wcid inside struct mt76_dev, immediately
-> followed by the wcid[] table.
+On 11/14, Joel Fernandes <jfern@kernel.org> wrote:
+> 
+> 
+> On chriswiseman@google.com wrote:
+> > Hi Joel,
+> > 
+> > > Looks reasonable to me. Is there a test case that you added to find this, or any
+> > > power savings that you found with this added patch?
+> > 
+> > I spotted this while tracing idle rcuog wakeups with CONFIG_RCU_LAZY=y
+> > and rcu_nocbs=all, where rcuog kept waking up after 1 jiffy whenever a
+> > second CPU in the group queued a lazy callback.  I verified it with
+> > rcutorture (NOCB01) and measured a light background callback workload on
+> > an arm64 system:
+> > 
+> >                         Before          After           Delta
+> > rcuog wakeups:          1,885           1,174           -37.7%
+> > 1-jiffy timer resets:     739               0          -100.0%
+> > SoC power (CPU+DSU):   94.1 mW         76.5 mW          -18.6% (-17.5 mW)
+> > 
+> 
+> Looks nice! I will apply the patch and run some tests.
+> 
+> Reviewed-by: Joel Fernandes <jfern@kernel.org>
 
-You're right, I missed that the unicast branch returns the entry unchecked.
-Only station links set wcid->sta (mt7925_mac_link_sta_add() does, the
-global wcid never does), so your check covers every entry. I'll send a
-v2 with it and without the redundant !sta test.
+Frederic, could you review from nocb PoV too and let me know if it looks good to you?
 
-Thanks for the review,
-Ziheng
+thanks,
 
+Joel Fernandes
