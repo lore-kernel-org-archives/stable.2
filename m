@@ -1,55 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794750790;
-	b=y3CHyT8pJ6eu3tA8a/dZ4fgDZioAqQhmdg36fGyF64RAxw8QjwurFxbdOjZbAyV6y0R0
-	 h8CjsqwqxSgw5ra3JQRGx5IMzGQFtZuESbW+nY7+0Jn56YraWcdBwKcicERCURI0D5m5L
-	 tBkqWlE40tkA0JZn7VP1Ec14e2itLQN3xjOlMHK3Tm2cFVBVISxsBZba8h8rodGGKCVRV
-	 dppMuvYHznabXybfqgDNc082m0Hv1IEmnUjf8RLGlT1rcZjIdAhhp9mUrO6WxmGmYRUa3
-	 lp8MsGwzbaV1G0VbZkrENULgorJ292lWntOQ7TFJzK4JGWUjjAZpqPWLlkfvZ58jDOw==
+	t=1794751333;
+	b=gOcqrr008jr0lmSy4sQlOfCga4d64py5MxBwfnfrFARwW6yas912Mobv1s6kGKy3CNLH
+	 xnbi2vhAZj6cL1I+fwj73DqcPhmo4uS0j5uzggom1pp9QNB3zQeMOjmyC5rhGak5UoYxg
+	 pIhHb1aCFEtwKKTClRB5rZ/PWg4kbXluMVgc9LmAO9PWmyb7TNjWZkqKyMs1fII0mWTBM
+	 cjlUPuhDTPG5NRtfMdS3ReOR//JgZgv8JPBFCaXAj4ATEmN8eNy0MXQGHnAKtmucnnTTr
+	 Kf7v5NMPPy2snlEEPhcdiJOlJmVyS1FHpOYOT43pXUhHHvuY1AO6AnCn7AN5HlIpCJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794750790;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=fmKXw7Sp/MNvZTSb4xcRBsLRBVw5OzncMgLzcyPSN0Y=;
-	b=LRKVIKrSGhso+We9wcaGgs+RD1WGC0s7Kybap1i3GzfaCcY3ljYtVGvy/x8szgv4ePuk
-	 b8RIohEk/jqaoVzzT5PYr5SbMVekScDqFIVftou54gqoAP3d9V68Mxy3S9eLJWm3gFwUK
-	 rPWX9CW4qAR/SSyfTHSntYYL0iIj5sZmaeCz9lxWUhwfgi+2YwBCRZFYkoWw0FbptrUtD
-	 J62Yrvd+s+vFz7bqWanMbR7pBC1p5qBkqZL9KfCE6A9D13VMcT+3jixK4JolG2xzKWmyW
-	 JYmif8u/n/NBJd1l1Bm2D+LUcTXaL+B4ASn9jwmfgWXxcOR1DiAetTYc13jHAHyNa/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794751333;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=C0hZCZ1HlArCnNua5WGJXPR4s/dAC6fjh9Brf5xLf/I=;
+	b=W/3U+seu0eiSNU1FhefTu/lo879ac/tagtIXPJ+Egy6yptHA16acTNbzsIY8sT8Qkej1
+	 82ZFGcjFLYfCwRjO0nYeNiyg8ggVf1xCSxSzaGRlW0n2beTNTw5adLuBuw2gwFUApebBA
+	 nihxPmruiCGh3vbacdlaGAhqU4bi6NJnt8n82n+TV6YOnI6NLlfN5qlOIUmYSZxmO7TdN
+	 SiIyTb/XBS8AFu24g6OYcmCtDv7LEPttKJNqMiSaZ8xTauRQSq8jki7V4+U/tqfeaijOs
+	 gzLjPtj4IuZhD2xi9BMwdpijlz6UYA3+/qp9oMxUkdjvuOsPCLTatwMcPuaBizJ8lIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Umse5wP1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCmT3vgU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624D5606A33B
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 13:53:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C644606A31D;
+	Sun, 15 Nov 2026 14:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Umse5wP1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 041FC1F000CB
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 13:53:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lCmT3vgU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E7041F000C4;
+	Sun, 15 Nov 2026 14:02:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794750790;
-	bh=fmKXw7Sp/MNvZTSb4xcRBsLRBVw5OzncMgLzcyPSN0Y=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Umse5wP1+g5ZjdU/edSukKLDYhwuE+VrhK1TQzLQD/zvn7110aHBYDqcDuvTQ1dmA
-	 R6ayqisUdEbD8ztajANSM8AzqaPQ+vawzwQcwQhQU22gzy6JX5TExK8TTCk5EXMqpF
-	 Zxj8/GORSs9l9AETbEDWsqd7gaqHuyBoXnuGilYMwZNltaBdCtXs+dqITvWGl1xBWd
-	 efyBGNm3ms7nyA0v3yE2cK/GIUIt7fc/sRSgMIn7tFDmShJimQVc1kVMHFflhGee2R
-	 J/ONdotLkCbp+hTHlSwd0iB739tyD1V9q1dW8Eogaz/A3duOIpDjLUblOfMhwME3Jp
-	 u3iKdGZtJoC1Q==
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c50cc7540b7so63415766b.0
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 05:53:09 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEwgQhk0gxAuHUxEpxdU70Tk2NiBFuauU35jtivMJ9P5PitFtgNW8YLTyR1RgEjLcyGSh/m8PE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9RTAS/cAoHo2rMcmFMQ1am5dujMMCQSLyeNCdLIUESHiIxE++d
-	rybsHAK0KF90uBltphA3yvX9dYiapHgVe/kFZZ/bNbK1PhpItBdQOTBoPxJpCdrph3SMbfA9Toa
-	7EGV1NpJZVcEGQzykhQFDbTJuUhf/qVg=
-X-Received: by 2002:a17:907:94c5:b0:c50:576f:b3a8 with SMTP id
- a640c23a62f3a-c50963d9089mr835079466b.48.1794750788588; Sun, 15 Nov 2026
- 05:53:08 -0800 (PST)
+	s=k20260515; t=1794751333;
+	bh=C0hZCZ1HlArCnNua5WGJXPR4s/dAC6fjh9Brf5xLf/I=;
+	h=From:Subject:Date:To:Cc;
+	b=lCmT3vgUByzTeA9R757hy9aa0HZE4kCVK0A5FBSbwAooKZHJJK5oK2QqoPEHWyoRJ
+	 swdVTlXDdJUVBnvWkHnXkipTzyAaAqAS70tC39ZUzbXkKiiE+btYREERd5StseDTbn
+	 zcWzdziNnXo7X8mLYhlfZiPFvM6GhaTPKVNQ4SNKWtudv3284JWjz5NKhzyuvhykbo
+	 ovdYHOZj3BYLhEEY0IXslCiJifUqNJRF1mJ/5GrBXZVB7wuVcQMnbQQ4wxPOeBmK1F
+	 BFH5jgiZxb185bU/PJcIc3uCfdbR8kKmCpMNI1ltjBdq0NvcTQJfswD215TGXdMxuI
+	 HmHiQHeWiNVOg==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 00/13] fs: let d_real() fail
+Date: Sun, 15 Nov 2026 15:01:30 +0100
+Message-Id: <20261115-work-ovl-d_real-v1-0-ca155efbcb2e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,48 +53,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115131047.2338285-1-icb@fastmail.org>
-In-Reply-To: <20261115131047.2338285-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sun, 15 Nov 2026 22:52:55 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_c8GCg58jTKw3shF+aFmR8KaDx8Ve4wQUHMjoZ6PT4wg@mail.gmail.com>
-X-Gm-Features: AclHuK98yWzx6FWaTeowYxcy45zR74kQejiLyKPT7sgUKp8qn5-gwUVdz8a4ndE
-Message-ID: <CAKYAXd_c8GCg58jTKw3shF+aFmR8KaDx8Ve4wQUHMjoZ6PT4wg@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: fix smb2_cancel() use-after-free during request decompression
-To: Ian Bridges <icb@fastmail.org>
-Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMWw6CMBBA0a2Q+XYaWoJJ3YoxpI9BqqQ1U0UTw
+ t5p5fPO46yQiQNluDQrMC0hhxRLyFMDbjLxThh8aVCtOkspe/wmfmJaZvQDk5lRSa271o+aXAf
+ l68U0ht9fvN6Ozh/7IPeuTL2wJhNaNtFNdVRBUUBxgKKuYdt2HWulIpoAAAA=
+X-Change-ID: 20261115-work-ovl-d_real-219930df9ec3
+To: Amir Goldstein <amir73il@gmail.com>, linux-fsdevel@vger.kernel.org
+Cc: Chris Down <chris@chrisdown.name>, Miklos Szeredi <mszeredi@redhat.com>, 
+ linux-unionfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+ linux-integrity@vger.kernel.org, linux-security-module@vger.kernel.org, 
+ linux-mm@kvack.org, "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3833; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=pa24T6yCoOSBNbgGCY6AwfmcBlLS5Ar6zkTbMn0Wgmg=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT93O2vqVrhsEVk8w8bwRPB9mu2b58txH/6hPzbCzOYZ
+ 7yfu3bL5Y5SFgYxLgZZMUUWh3aTcLnlPBWbjTI1YOawMoEMYeDiFICJ7DvK8D+374Hlzv9ipvZl
+ Rq1dFcfahVq2mU5V8n4bsrj5WOOGjjhGhnYt3WqWp77Lo13D994t4tVteLmD2d3HMMT838fvTsd
+ uMAAA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Sun, Nov 15, 2026 at 10:10=E2=80=AFPM Ian Bridges <icb@fastmail.org> wro=
-te:
->
-> smb2_cancel() finds the request to cancel by reading the SMB2 header in
-> the request_buf of each queued struct ksmbd_work. A queued request may
-> still be in preprocessing. smb3_decrypt_req() decrypts it in place, and
-> ksmbd_decompress_work_request() frees request_buf and replaces it with
-> the decompressed buffer. Neither runs under conn->request_lock. A
-> concurrent CANCEL can therefore compare a transform header as if it were
-> an SMB2 header, or read freed memory.
->
->   BUG: KASAN: slab-use-after-free in smb2_cancel+0x73b/0x840 [ksmbd]
->   Call Trace:
->    smb2_cancel+0x73b/0x840 [ksmbd]
->    handle_ksmbd_work+0xa90/0x2110 [ksmbd]
->   Freed by task 53136:
->    ksmbd_decompress_work_request+0x10d/0x180 [ksmbd]
->
-> Record the MessageId and Command of each request in its struct
-> ksmbd_work, under conn->request_lock. A plain SMB2 request gets them
-> when it is queued, because its request_buf does not change. An encrypted
-> request gets them once it is decrypted and decompressed. smb2_cancel()
-> matches on these fields and skips a request that does not have them yet.
-> It no longer reads the request_buf of another request.
->
-> Fixes: 6639b6928ba2 ("ksmbd: handle encrypted compressed requests")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ian Bridges <icb@fastmail.org>
-Applied it to #ksmbd-for-next.
-Thanks!
+overlayfs looks up the data of a metacopy file in a data-only layer
+lazily and validates its verity digest when it's first needed. Both can
+fail but d_real() has no way to report it. So ovl_d_real() warns and
+hands back the overlayfs dentry and every caller silently works with an
+inode that doesn't host the data:
+
+- uprobes get created just fine and fail later with a bogus -EIO. Every
+  new uprobe warns again for each of them. With panic_on_warn that's a
+  panic.
+- IMA skips detecting changes to the backing file and hands out a cached
+  verdict.
+- IPE evaluates its policy against an inode that has none of the
+  dm-verity or fs-verity properties of the real file.
+
+And that's not limited to files nobody opened yet. A metadata-only
+copy-up of an open file makes overlayfs validate the digest again.
+
+As Amir pointed out the correct fix is to teach the callers to deal with
+an error. So d_real() may now fail for D_REAL_DATA and all callers
+handle it: uprobes fail when they're created, IMA treats it like failing
+to hash the file, IPE denies and the bpf kfunc returns NULL. Then
+d_real_inode() goes away so nobody can ignore the error again. The first
+patch only drops the WARN.
+
+This came out of the same work as the freeze protection fixes for
+backing files (cf. [1]). I ran into it with the pseudo filesystem
+series (cf. [2]) where file_check_backing() looks at the file hosting
+the data of O_PATH files registered for fuse passthrough. With this
+series it can just return the error. But this stands on its own.
+
+[1]: https://lore.kernel.org/r/20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org
+[2]: https://lore.kernel.org/r/20261114-work-loop-pseudo-v2-0-98639a2286fb@kernel.org
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (13):
+      ovl: don't warn when the lazy lowerdata lookup fails in ovl_d_real()
+      fs: add d_real_data_inode() and d_real_metadata_inode()
+      tracing/uprobes: handle errors from resolving the real inode
+      bpf: handle errors from resolving the real inode in uprobe_multi
+      selftests/bpf: handle d_real_data_inode() errors in bpf_testmod
+      ima: handle errors from resolving the real inode
+      ima,evm: use d_real_metadata_inode()
+      ipe: handle errors from resolving the real inode
+      bpf: return NULL from bpf_real_data_inode() on errors
+      ovl: return the error from the lazy lowerdata lookup in ovl_d_real()
+      fs: remove d_real_inode()
+      selftests/ftrace: add uprobe tests on overlayfs
+      selftests/bpf: add uprobe_multi test on overlayfs without data
+
+ Documentation/filesystems/porting.rst              |  10 ++
+ Documentation/filesystems/vfs.rst                  |   6 +
+ fs/bpf_fs_kfuncs.c                                 |  13 +-
+ fs/overlayfs/super.c                               |  19 ++-
+ include/linux/dcache.h                             |  47 ++++++-
+ kernel/trace/bpf_trace.c                           |   9 +-
+ kernel/trace/trace_probe.h                         |   1 +
+ kernel/trace/trace_uprobe.c                        |  57 +++++++--
+ security/integrity/evm/evm_crypto.c                |   2 +-
+ security/integrity/ima/ima_api.c                   |  17 ++-
+ security/integrity/ima/ima_main.c                  |  11 +-
+ security/ipe/eval.c                                |  15 ++-
+ security/ipe/eval.h                                |   1 +
+ .../selftests/bpf/prog_tests/uprobe_multi_test.c   | 141 +++++++++++++++++++++
+ .../testing/selftests/bpf/test_kmods/bpf_testmod.c |  11 +-
+ .../test.d/dynevent/add_remove_uprobe_overlayfs.tc |  92 ++++++++++++++
+ 16 files changed, 408 insertions(+), 44 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261115-work-ovl-d_real-219930df9ec3
+
