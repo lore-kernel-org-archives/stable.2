@@ -1,78 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.222.135.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794778873;
-	b=3f15OaNmQslTa7FHsFNuSpq1pe5LpI2mEe3iFfJaNDZwkO1dw6HlijSQLrh5YJ86mmLP
-	 jV5sn2XyCB5rVvgvQm4bAFVyD4fJOxGLKrsP+yHyjECRhutIx9rtyx+TmOS9pkPVBFbpJ
-	 9CJGuNW4d9QJXXO9KZF9hkFR245F69HfzL9p8bv7m3Mp14e99PJH8MkW8/aDx1RgOFagP
-	 eeEvtVG+I3GUBjN7RqUguUHTeNyKo1ETYD5nVwjNbNV2IvD2ZMFvwA5lMA3m7+DhIu3nn
-	 ws9/zTA3HRL8WrSa6uz3J/Z5plmyHjkBiNB2wqGfiNXTSORHlmiO6hrcj4lehMwpDwg==
+	t=1794778896;
+	b=zVWfkFMp3QzZiS9JfkTTmiNDo8HWRxtJmWrEzqjMSmGUb61yUgnTRkonZKbxrLZ7OEQj
+	 K8hkIZGr+Fzz9e6CAy1EZKiDswUxpBYbCDNXOywdc7FWUzDAOae1hpLQZvAQ3Kwe/EV1J
+	 l9xFPWtEG7hLYaG1iZBZaq5RwuGf1HLq6LEZ5BZI8vaMNofsQlaNFVzJc3+IOXE20G3f7
+	 UDawenAflEbSylyKeNZ+RQrCO6qSGbYBsZ+AzCCpXhXXQjzhaZoPm/9IGLJjMrOsyEuY7
+	 iLG6onF7VdUSgf2SSF5vDdJLugUV95VXNhQly5MTPmsw25SHqO77h6nGAEHtrklJQ5A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794778873;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=N3nFkOyWEZUrBywjXvTS/ShHOyqMLlaqIfDDq1MDiSU=;
-	b=QIJVbdcAf8ay13OVI3jcift/lTuO9Mc0tgruD8ZE1op8ssBHxDS1uU9XBlTM3zplR+bW
-	 wpBQIvtdNmAgfEXlHJj4qx6R33kLcAmXuTpdg6wTCo85uffY3nfxNqKf7+0ZdzXS7SWaT
-	 tJ59wW/hNKh2bdTX74ATqhpjyvOmych9bu2GE5QN5OtmIVJ6PBtp7k4IVjVcXyyEnmXOs
-	 2rYwKL24lfwLnpwl/hTuDLi2HrkRx5HhOumgUqcZnIHm16pvLIZTrb+zbqDS/v9b1YOOM
-	 G6H5EjSfeNwWhTIE81mXDylwaK3uMACCUUnE+FJPygzoubzvRwLKRfws1t03r6CG9bA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794778896;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-WP-MailID:X-WP-AV:X-WP-SPAM;
+	bh=EX/WMz4K9+MmwON2KxDxCyPiS2fPCwq6MkZjWtu8Bxs=;
+	b=c0BM3vDWFpNtTWVUNQgQgzKUkVlmf3Mo39zpqmrhPm90ZP0UftI20qFwlhlT5nm3dnjX
+	 urae5+powkd1LrWcgBbbcWXbLC2tH8HSyyBK0wwlg/NzU1HQabITkWj2rFo/+ZKxI6U56
+	 xBk44eJb/tf7UVP+nE3IMN33jopEIhckHHJXT4jw+HNFrl+IwZQei7GHq24vZ9Q+Veo0E
+	 WBug8xMv7qsEizG6pWXBo6U5rINKOBkpwUkzCegFlVUkkSoyA1ruNGaftZEbzv7bS8vhy
+	 AX0Kr9VjrkUFYWisOsftQPSH4u5pAPfFk5YTxXixKeaBynbhLR5DvRuff3Qz2p4Ta3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=UUb3Rzex;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=uy7OQGPk;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=o2.pl;
+	spf=pass smtp.mailfrom=o2.pl;
+	dkim=pass header.d=o2.pl header.i=@o2.pl header.a=rsa-sha256 header.s=s20261001 header.b=F+aVCR5W;
+	arc=none smtp.remote-ip=193.222.135.145
+Received: from mx-out.tlen.pl (mx-out.tlen.pl [193.222.135.145])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11606606A323;
-	Sun, 15 Nov 2026 21:41:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 11606606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C161D606A329
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 21:41:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C161D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=o2.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=o2.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=UUb3Rzex;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=uy7OQGPk
-Date: Sun, 15 Nov 2026 22:41:08 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794778870;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=N3nFkOyWEZUrBywjXvTS/ShHOyqMLlaqIfDDq1MDiSU=;
-	b=UUb3RzexVl+5dLWsvCL26n1beDhzGqP32LQfYs/xr7BrKDRnrxzxS3M6RmBTbb3al1EEU+
-	u/XnPtA+liiMl7REVQvLng51apRKpDEXesM6D2PdHy0DgDrLx1323hh4oG2yWL6LF+yFHw
-	+3OTk/o4sVppu5xhb+OyK6S4rmXcciggyy8gnY/irpMMj9uXqDCs3VhHlcNZWJLGXisPoG
-	rVDHX85AzqpJZxDTJu1j8JoxSQysZU2irDJdAzqjjw3ysgeHMh4dbMaFyums60+R4+THkm
-	3W++9rlly9CO6fEg6WqlSXfZwtDDFRNlmVw79NtaG78zNUTggTVoOyQi+SE6Nw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794778870;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=N3nFkOyWEZUrBywjXvTS/ShHOyqMLlaqIfDDq1MDiSU=;
-	b=uy7OQGPkNrSCUEgyT+RyGaqm9OcvTYlCAH190cmyNf9CvWK99nZmfd34MbjmK2ENuN9GGd
-	7llutqTwQW/P/wDw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Xin Xie <xiexinet@gmail.com>
-Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org, davem@davemloft.net,
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
-	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
-	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
-	fmaurer@redhat.com, luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com,
-	skhawaja@google.com, liuhangbin@gmail.com, stable@vger.kernel.org,
-	sdf.kernel@gmail.com, lukma@denx.de, fmancera@suse.de,
-	danishanwar@ti.com, richardcochran@gmail.com
-Subject: Re: [PATCH net v9 3/4] net: hsr: segment GSO before per-frame
- forwarding
-Message-ID: <20261115214108.UmIyEJ8I@linutronix.de>
-References: <20261112153333.20-1-xiexinet@gmail.com>
- <20261112153333.20-4-xiexinet@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=o2.pl header.i=@o2.pl header.a=rsa-sha256 header.s=s20261001 header.b=F+aVCR5W
+Received: (wp-smtpd smtp.tlen.pl 8488 invoked from network); 15 Nov 2026 22:41:26 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=o2.pl; s=s20261001;
+          t=1794778886; bh=EX/WMz4K9+MmwON2KxDxCyPiS2fPCwq6MkZjWtu8Bxs=;
+          h=From:To:Cc:Subject;
+          b=F+aVCR5WEgfGfW4Hx/2FONXc0DcjhxOXc497DRK+dEVu2KBhQMvx7dlduIpCdFR2y
+           01soBL3a6l78QIt5h+GfHEWbB+u5+5YxbHltabdzRCL3OJRzJsQCowr+Y5xzed4j05
+           +XuMNgoIznjaAfVobDjSdOYVhfReS2rNKLz9H3vugz8LiK/1cgcDkiOM32GzvcbjfO
+           2lQkNYSfaF1eABupwQq+f33k1v/cxB+nSHmV4eM+Zo+eByPnweSr7z3uGUQvgct2WO
+           4HWBT16OS/LKe48NMqkmagh7a7TJc23gJVfESz/WKXhEUE4ZV/VI8oKtSsfE6EJCpV
+           uRZoty0rIv1QA==
+Received: from localhost.localdomain (apn-78-30-67-84.dynamic.gprs.plus.pl [78.30.67.84])
+          (envelope-sender <mat.jonczyk@o2.pl>)
+          by smtp.tlen.pl (WP-SMTPD) with SMTP
+          for <andrew@lunn.ch>; 15 Nov 2026 22:41:26 +0100
+From: =?UTF-8?q?Mateusz=20Jo=C5=84czyk?= <mat.jonczyk@o2.pl>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Javen Xu <javen_xu@realsil.com.cn>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Mateusz=20Jo=C5=84czyk?= <mat.jonczyk@o2.pl>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: phy: realtek: fix listing of sysfs directory tree
+Date: Sun, 15 Nov 2026 22:40:45 +0100
+Message-ID: <20261115214045.3704-1-mat.jonczyk@o2.pl>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,46 +71,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261112153333.20-4-xiexinet@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-WP-MailID: df77d61d8830132bd5de278ca3bd0916
+X-WP-AV: skaner antywirusowy Poczty o2
+X-WP-SPAM: NO 000000B [ATMk]                               
 
-On 2026-11-12 16:33:32 [+0100], Xin Xie wrote:
-> @@ -794,3 +797,158 @@ void hsr_forward_skb(struct sk_buff *skb, struct hs=
-r_port *port)
-=E2=80=A6
-> +void hsr_forward_input(struct sk_buff *skb, struct hsr_port *port)
-> +{
-=E2=80=A6
-> +	consume_skb(skb);
-> +	while (segs) {
-> +		next =3D segs->next;
-> +		segs->next =3D NULL;
-> +		hsr_forward_frame(segs, port);
-> +		segs =3D next;
-> +	}
+On git master, listing the contents of sysfs produces an error:
 
-Should you repost:
+	root@mateusz-debian:/sys# LANG=C find -iname foobar
+	find: './module/realtek/drivers': Input/output error
+	root@mateusz-debian:/sys# LANG=C ls -1 ./module/realtek/drivers
+	ls: reading directory './module/realtek/drivers': Input/output error
+	'mdio_bus:Generic FE-GE Realtek PHY'
+	'mdio_bus:RTL8201CP Ethernet'
+	'mdio_bus:RTL8201F Fast Ethernet'
+	'mdio_bus:RTL8208 Fast Ethernet'
+	'mdio_bus:RTL8211B Gigabit Ethernet'
+	[...]
 
-diff --git a/net/hsr/hsr_forward.c b/net/hsr/hsr_forward.c
-index 9aefc5f0249f6..5e49f2bb9e39b 100644
---- a/net/hsr/hsr_forward.c
-+++ b/net/hsr/hsr_forward.c
-@@ -940,11 +940,9 @@ void hsr_forward_input(struct sk_buff *skb, struct hsr=
-_port *port)
- 		goto drop;
-=20
- 	consume_skb(skb);
--	while (segs) {
--		next =3D segs->next;
--		segs->next =3D NULL;
-+	skb_list_walk_safe(segs, segs, next) {
-+		skb_mark_not_on_list(segs);
- 		hsr_forward_frame(segs, port);
--		segs =3D next;
- 	}
- 	return;
-=20
+Investigation shows that the forward slash in the driver name is the
+culprit. Fix it.
 
-Sebastian
+Cc: stable@vger.kernel.org
+Fixes: f0667918d5fc ("net: phy: realtek: add support for RTL8261D")
+Signed-off-by: Mateusz Jończyk <mat.jonczyk@o2.pl>
+---
+ drivers/net/phy/realtek/realtek_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
+index ca2d515b77b3..a39ad18382f2 100644
+--- a/drivers/net/phy/realtek/realtek_main.c
++++ b/drivers/net/phy/realtek/realtek_main.c
+@@ -3483,7 +3483,7 @@ static struct phy_driver realtek_drvs[] = {
+ 		.write_mmd	= genphy_write_mmd_unsupported,
+ 	}, {
+ 		PHY_ID_MATCH_EXACT(RTL_8261C_CG),
+-		.name			= "Realtek RTL8261C/D 10Gbps PHY",
++		.name			= "Realtek RTL8261C_RTL8261D 10Gbps PHY",
+ 		.probe			= rtl8261x_probe,
+ 		.config_init		= rtl8261x_config_init,
+ 		.get_features		= rtl8261x_get_features,
+-- 
+2.47.3
+
