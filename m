@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794727188;
-	b=dym34TKJciYjgLfb5xE0NGKMudIp8Tbdo9iDXZAmhgTM1aXjScFNDWZmQa5gkNc28nAO
-	 PAK+cAAfpJuoaJ2UH4G+mI+Zr5Iof32seXlPDjAIPeBOxWKJGU+jyNvWNuie/8fcyfILN
-	 dX84M6Ngkwml+MPhLH/SP+8p7ZPStzyWC+PjyVS7T+uc3T+OrqQ/4v99j55yMuPDRf7OW
-	 mAaDphmeNlGpJ+wR3a1vH683XYj+anl8hnV7pFicunVk2wepbpkbZnof2qA+AI4XzpHJC
-	 uM6nBCVYlOvmya/JanYLSOuJmmzMBjFpeUwcgedX3wYkaP89GyUOz07nHrp8owmrNhQ==
+	t=1794727191;
+	b=n77tFq4ag/TBOJY9TvZTWqX0c5zu7BC03o2d8YSAMEa/XsCCeOW3eLlwjkABAHHJzLRQ
+	 LeJVTHWTMa+rcQrJBIAsIO2hpZRS556u/39aZQjUKR8TEOXhCk9/Q1ZuyN9qGSWqGzBcp
+	 bXPOPjoMRYEx6NMwvjOzTj7UFTOvMmm5SwjLg63XFUqTBoNovvwK1rF14m6dWPrtt9Zof
+	 bLBuhapTXIx/pC4K8OtYYPmK/mLlFn3EYrmV8Q8qw9DFoFWZkz6zcc3u+lzVBCDFH+Lu9
+	 iXitTQNdhQWfiBrUw/10ugTwsevPGeaVs9ENZFQ89pVpo93j3AZjXW9bXex066qhMJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794727188;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794727191;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=dTZw+th+8Oe1DXeAcCeWuqBX9XGzYLMqzgYNqTgZsHI=;
-	b=dQav0993uNTxVpUXOkJ0WRd0Y3AaO6t6lRVIzPE0PVo4sLGH1SDNpkQbvaLUJ5aI904S
-	 Cwjfnsx9hR8TkPZAVRyIzD2UXYw0ePbyGPUF7/G2QAvWD314kLrN58VLY6VXgRfL7p9+u
-	 8y+fIY4wg7rmW3+I3HS7I4Bj8yoRcS3dIw8y5ejQdLegqhUn5C+y7axzFQxtsW9DycQvi
-	 niceOCdAtJZQSlRNBFqdHb9PdQU+14K0KpM6UGwNi9dd+FZJsZG54DnZZGTZm88pxx6iH
-	 ZPe91EqnxyBH61BcYlXVLzD3F4K8ZQRV1j3uhPKY92RqZXlDiEodm9HcyjI4pDxi5Hw==
+	bh=tEAC3AEP0gmVOZIrEp2K5naXDusA8lAF2Ew6yHoW5j0=;
+	b=f2u8EpkFKz0u3p/zkSzmpdK0pg6LHKsvWGjr9QTG6HaFSJJPsUc5ZUwR2Pu7YREP+e9L
+	 GVYmW3HwLD2nvU5ode1eV19qHRazekbowdmiWsk+Lc3HSyXvprKRRQnrxVFw9ksOWlRw/
+	 0sAHb8lIAr3l+x4qZPk7YJAlKWTREoaykluJNixlmvsJ1L3PaLGDFeUZ/r5/8+1UIp7L9
+	 6lDjGN+GpC62apQykvyhXycbAfJ/pQNWqmOru873bKQZbcGXvlJf1nP0gb76E5ld6CBqg
+	 V88RwSTjGV1QBpwoNyMjLdNvAXJFEdYXTt1V9qsN713vGweqnXgTgT37C7YqrazGbyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ck/EJRgd";
-	arc=none smtp.remote-ip=209.85.161.41
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ErPm0KHX;
+	arc=none smtp.remote-ip=209.85.161.46
+Received: from mail-oo1-f46.google.com (mail-oo1-f46.google.com [209.85.161.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F67606A8BF
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 07:19:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9F67606A8BF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B1060A262A
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 07:19:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7B1060A262A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ck/EJRgd
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-71acdd32a53so412037eaf.3
-        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 23:19:47 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ErPm0KHX
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-70b875f6f13so2871444eaf.0
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 23:19:50 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794727187; x=1795331987; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794727190; x=1795331990; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dTZw+th+8Oe1DXeAcCeWuqBX9XGzYLMqzgYNqTgZsHI=;
-        b=ck/EJRgdKqGC7cXPITkzdHjaQLHvhByrX3uVCO7/7RrT7F8xvaxJYD868XZ5kzYi0R
-         08JM4XEK3L6R2MHR4KsC1onDpWWIvEZ3/NWe/HdOTt/zDeIj1SiVLWY6MXYy+lGHWEL9
-         C1Im4dZ0EDQ+SzQRHRUe1Yq44tks9mBZRPawFZOB0oL7PgfwxuGyHFyE0014fHiCpgoj
-         DFeUj2I4dmwxjaDLgqgcI8ud1Hh37xNgdKtzUzHvsXLeUkI5TGYt/4TPCVi+aRgep75U
-         DrQJRsIwwt3H56Cm9edMcuQUGtL11d3OUoROlJTctxKyeqiUtDSy2JV2Ox612UvYj5R8
-         lntg==
+        bh=tEAC3AEP0gmVOZIrEp2K5naXDusA8lAF2Ew6yHoW5j0=;
+        b=ErPm0KHXB4Mv060O7w91PxAQZnj4lSzJqaCrlPecymxQxZufCsxz6cv+hYWfhbtihU
+         pdJqmR5A/OiXJ/6cVyyp6OOa9ckp4ZrXzfGv9ttSWI2Wer420pQOhk64kRy/kl4I7ncS
+         EaF2NZJtozE1gSVbKoePM1btESFdANQr2KB+8S7+0x8y4BrZfEg6Sm24malWI/UyEst0
+         +JWgrXFsw4Ondp1Bnr4KDxzb220OjFurLOOTr/hXUGDG18a0K+cMOCX5CGs6ZUQUGC7s
+         ++h1hAvHkHb1fHmX1ASQBODhwj3+xSwSTDOC+huEIrHtHpTM8it1Ig3jrDHMh6j2iViZ
+         L1Bg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794727187; x=1795331987;
+        d=1e100.net; s=20260707; t=1794727190; x=1795331990;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dTZw+th+8Oe1DXeAcCeWuqBX9XGzYLMqzgYNqTgZsHI=;
-        b=dM+JCyEKB8fXdWFw76BodMJJbPbP4eq+1b1QGNueRXV7WlypZyUAkwGoGIQ7pnb1ci
-         88wiiMLCK7Mbrh/rau6tOpfauGyTIcr4ncBgiODSY7bKPx8alV3ag4IGuLoGnoR8fONz
-         WK6F1ajsx1I+OztwmhAhqX2gPjiuyGO+zbKqzcJNUcv0fB5q/j67Fxpu9yBOhFsT7ivX
-         fVWUJzzVUjzPLEJjjDkU0KpvjEANT2Wxa5V+3VIGry0ZnirhtnoJClRmGX3EFAVDWGFB
-         a3ni8speRJ0Z4wdrBOAosezfk8GdX8ejk/1dUr6MlsZJu7RkSdweuU8ht2MGey4tBinQ
-         8kVA==
-X-Forwarded-Encrypted: i=1; AL+hErFGy1ASAHYxJ6Xb9BcWs72xViKTM6T33SgHCtKxOSjOA08npi36XcQhNIl13VGrucoapeqba6Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/nyjbD8b5NzM9aHjRNU+K6XHLaeh2TiEaCmryBfYjz3RM3NIGt
-	35sSzh5VVeDvrGytBjpIrYTn5GymHjTFrCfgp6V16puCX5VzpIyiE3mkFUeGnw==
-X-Gm-Gg: AYBFou1qEEgznhtxz+ebQE6kap4RrH1bReBxGi4J+sXckv9XxVIe1GSKa8YvXHQEojJ
-	WpAQvV+oo0RuFeRnAGbn17JkHnQG0XYMp+5lF08wtITGdK4m/SIu+L3aRm01vhY/q3s5os8dLRi
-	QWEsY3O3wB7+41AFgpUE1XbtTnrD7nyysrcIUytypzVW/zM9u3TgL12DP4JkDnOQY9ODS/iMrzV
-	rHdbLSDUvXOcu8c3Qu7AgvgNp1dj0UIsZ45DNamNAJ9AH5WDnk2Qi4ZU4QH+6YdKpjo8KpEJndE
-	qtish8+NPNKeQoBuEIbzdwV4dewYeQlnjXghYQ1tpJGP7XDmPXIdNuNqR5E6jVLYuRB7us+QbOk
-	l2qCN3RdLlKzGZo2jTzeahoRa0kxZ8XhCmhEh4yubamuTTraNCMKi+pmQED1rDWgsdcJJe+eIxn
-	kbMQBz1cKdOj20fCF4BBzCsVYidnPPAVuYvFJ1Q5WeeUpyJxczTrG/wQBpH5XTB/31cfBdn/Eg0
-	vTqajt2vc8SuGtLpawuqHZwF2RDoFe25UscSBk6Sx2HNDR9BT1iU+p2lRAZdSKvFz9cS/lrcvGe
-	RMZfm1lNfrfb7H9aD9kQhc8PXNOPMBKcKmUD7NkLPNMM2+YItsc9jhpOUs1HoyFvulayuNYD4E5
-	e6cuybk+Mc95iBTLetgVoqC8MkWB1Aqd2TFG4fBm50g16cvD1tz8PPKcU7ZMeB00Q+bUtUXJgyg
-	01Iv4QMyABEdqt/mRaRBHnKauJ+j6SdxgT/Py0+k7QYGuX124tShI=
-X-Received: by 2002:a05:6820:a29c:10b0:700:371e:ee02 with SMTP id 006d021491bc7-71ab50bdde3mr3199222eaf.53.1794727186924;
-        Sat, 14 Nov 2026 23:19:46 -0800 (PST)
+        bh=tEAC3AEP0gmVOZIrEp2K5naXDusA8lAF2Ew6yHoW5j0=;
+        b=IeAx19K+fkV3Ee+TXN5s30RHF/K5U3OHVR2T6d3zI2qMcKzbGgUxErM3iFrVjC/n4K
+         R8fkZ0a72VAEzWks3L5hnhFawkVLNClAKD1RM3Q3IIN3D04rC1AMejW2+poPFJ5mQHvc
+         U/GXujADXdqK8hluieFT9rwDdRiM6bUjZXub2LK21sCNuRBqy0hs84cOZsZHF5ydjDlu
+         WFKCpaO4vstzisWooN2yv28zx5Km/UjH5pgiEIwkYVHCoZTw76Biu80CAa+W7YxidMoT
+         A/f3JniXO2r6hdzZk1XmjxSqhNVlSRIZ5tsD/8IDiwfOkc3Bpr5SWTmbSQG+ObAcbvFX
+         K0qQ==
+X-Forwarded-Encrypted: i=1; AL+hErER8IFv/JhEifH+zfHGmDGF0bihz8Z8+Q/iatJWU528T7FrW8osMb1lEkPPl3XNuN/mCjezgAU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/zwCX2GRJCPEhe/ouHco7mcTUxtut754SwvJJWUxGWTXzKyNNK
+	uk9MipDxs4r7jQaHrVIf3IDK6SuiMW7MhZH1rnRIToO5xrwgMxPShvVF
+X-Gm-Gg: AYBFou30NcyBuA+HyNqJQtRxw3j7+X4QEip2qXxLia3gAMljZq3NjJeT0ITlY33lmjr
+	nqWEjjcPFaZlU0SdF3ZlZLXDzGbiposf0YIRYJrinImMWHuMbS07h5ZlrpnbCVr31MAz8EdOvnp
+	XufHOrVDSj93o6PUjJSnWGZ2ootA/UJKbyvMYOLkxYpqMR8ug01hW9O9EndID7lcB5NHAcyUViB
+	xX1VW/2HEa84D22kjchQ2Q3mUopVGsalUwzV0B53GKDDy0sds0m+MN3JmHYw+qBQhFBffvY/23J
+	heUhBwOSiU0j0H5rfrTQBZvl+4L/EO55aNhMyg+6bMQdZ7TT5NBdgUC3sKzRVJHdOX+Ybl9ovlv
+	mU1XQ3ooAHMKJolsmqUn1sOCO61YOvuYCrQS/i8otiCAJT6IxS8ZtqGh97zKZfUxkCb6mSvPODg
+	ZU1UVxK8rHT0BOayOPKGS1FiYIX+ET5wTXkEiQvEOXwGnTR/qrVryrgoZTHF0DSB9pUc0CYboq4
+	nzMY8s6zVknKRVPAKiq79r7vKzZdC0YVCIuPX4CmlKZNnvlA4mCRNJHroRhZcXqVlJ/MgO2Mu8v
+	s3sYv3RobNJtOUAOVqRrvHGbSCJbYZqekNKlVyeoa8mQplXRxamUh7jFE4IxC+v5d1wpZKPfkXZ
+	jGbJz7xTm0Hzs/APNF6n2pjLbTianVFqYv+kuWyG2MDWtAtu6BTf8cjWiHYZyPGWBvajtkrr76z
+	6J0pKIwDwdo2lf3bRMWk+IAT0Wn90Pdg/EA87R2ydB0ycqXd+9QBU=
+X-Received: by 2002:a05:6820:1385:b0:719:204c:fae2 with SMTP id 006d021491bc7-71ab4fb81e1mr4716551eaf.28.1794727189811;
+        Sat, 14 Nov 2026 23:19:49 -0800 (PST)
 Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ae860ebd7sm1145321eaf.8.2026.11.14.23.19.45
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ae860ebd7sm1145321eaf.8.2026.11.14.23.19.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 23:19:46 -0800 (PST)
+        Sat, 14 Nov 2026 23:19:49 -0800 (PST)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 15 Nov 2026 00:19:38 -0700
-Subject: [PATCH v7 05/10] dmaengine: dw: calculate residue in the status
- getter
+Date: Sun, 15 Nov 2026 00:19:40 -0700
+Subject: [PATCH v7 07/10] dmaengine: dw: report residue for queued
+ transfers
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-submit-dw-dma-synchronize-v1-v7-5-8d58f3d49e4d@gmail.com>
+Message-Id: <20261115-submit-dw-dma-synchronize-v1-v7-7-8d58f3d49e4d@gmail.com>
 References: <20261115-submit-dw-dma-synchronize-v1-v7-0-8d58f3d49e4d@gmail.com>
 In-Reply-To: <20261115-submit-dw-dma-synchronize-v1-v7-0-8d58f3d49e4d@gmail.com>
 To: Viresh Kumar <vireshk@kernel.org>, 
@@ -114,140 +114,38 @@ Cc: Serge Semin <fancer.lancer@gmail.com>,
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-From: Serge Semin <fancer.lancer@gmail.com>
+A submitted transfer may still be queued behind the active transaction.
+dwc_find_desc() only searches the active list, so a status query reports
+zero residue for the queued cookie even though none of its data has been
+transferred.
 
-Calculate hardware-LLP residue while looking up the requested cookie under
-the channel lock. The scanner and the status getter currently take that
-lock separately, allowing a descriptor to start between the scanner's
-residue update and the status query.
-
-Have dwc_get_hard_llp_desc_residue() return a local residue value from a
-fresh LLP snapshot. Keep the persistent residue field for software-LLP
-block accounting, subtracting the current block's progress when reporting
-status. The descriptor scanner continues to advance software-LLP blocks
-and complete cookies from RAW.XFER, including for polled transfers.
+Search the queue as well. The status getter already reports total_len for
+a descriptor that is not the active transaction, giving queued transfers
+their full remaining length.
 
 Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Fixes: 3bfb1d20b547 ("dmaengine: Driver for the Synopsys DesignWare DMA controller")
 Cc: stable@vger.kernel.org
-Signed-off-by: Serge Semin <fancer.lancer@gmail.com>
-[james: retain polled completion and software-LLP progress]
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/dma/dw/core.c | 64 +++++++++++++++------------------------------------
- 1 file changed, 19 insertions(+), 45 deletions(-)
+ drivers/dma/dw/core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/dma/dw/core.c b/drivers/dma/dw/core.c
-index 5a1caca7ad68..d9127337c849 100644
+index 3cc8579f8829..c602ea01cb83 100644
 --- a/drivers/dma/dw/core.c
 +++ b/drivers/dma/dw/core.c
-@@ -267,41 +267,34 @@ static inline u32 dwc_get_sent(struct dw_dma_chan *dwc)
- 	return dw->block2bytes(dwc, ctlhi, ctllo >> 4 & 7);
- }
+@@ -927,6 +927,10 @@ static struct dw_desc *dwc_find_desc(struct dw_dma_chan *dwc, dma_cookie_t c)
+ 		if (desc->txd.cookie == c)
+ 			return desc;
  
--static bool dwc_get_hard_llp_desc_residue(struct dw_dma_chan *dwc,
--				       struct dw_desc *desc, dma_addr_t llp)
-+static u32 dwc_get_hard_llp_desc_residue(struct dw_dma_chan *dwc, struct dw_desc *desc)
- {
-+	u32 residue = desc->total_len;
- 	struct dw_desc *child;
-+	dma_addr_t llp;
- 
--	/* Initial residue value */
--	desc->residue = desc->total_len;
-+	llp = channel_readl(dwc, LLP);
- 
--	/* Check first descriptors addr */
-+	/* The first descriptor may still be waiting to be fetched. */
- 	if (desc->txd.phys == DWC_LLP_LOC(llp))
--		return true;
-+		return residue;
- 
--	/* Check first descriptors llp */
--	if (lli_read(desc, llp) == llp) {
--		/* This one is currently in progress */
--		desc->residue -= dwc_get_sent(dwc);
--		return true;
--	}
-+	if (lli_read(desc, llp) == llp)
-+		return residue - dwc_get_sent(dwc);
- 
--	desc->residue -= desc->len;
-+	residue -= desc->len;
- 	list_for_each_entry(child, &desc->tx_list, desc_node) {
--		if (lli_read(child, llp) == llp) {
--			/* Currently in progress */
--			desc->residue -= dwc_get_sent(dwc);
--			return true;
--		}
--		desc->residue -= child->len;
-+		if (lli_read(child, llp) == llp)
-+			return residue - dwc_get_sent(dwc);
++	list_for_each_entry(desc, &dwc->queue, desc_node)
++		if (desc->txd.cookie == c)
++			return desc;
 +
-+		residue -= child->len;
- 	}
- 
--	return false;
-+	return residue;
+ 	return NULL;
  }
  
- static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
- {
--	dma_addr_t llp;
- 	struct dw_desc *desc, *_desc;
- 	struct dw_desc *child;
- 	u32 status_xfer;
-@@ -309,7 +302,6 @@ static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
- 	LIST_HEAD(list);
- 
- 	spin_lock_irqsave(&dwc->lock, flags);
--	llp = channel_readl(dwc, LLP);
- 	status_xfer = dma_readl(dw, RAW.XFER);
- 
- 	if (status_xfer & dwc->mask) {
-@@ -372,27 +364,6 @@ static void dwc_scan_descriptors(struct dw_dma *dw, struct dw_dma_chan *dwc)
- 		return;
- 	}
- 
--	if (list_empty(&dwc->active_list)) {
--		spin_unlock_irqrestore(&dwc->lock, flags);
--		return;
--	}
--
--	if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags)) {
--		dev_vdbg(dmaengine_chan_dev(&dwc->chan), "%s: soft LLP mode\n", __func__);
--		spin_unlock_irqrestore(&dwc->lock, flags);
--		return;
--	}
--
--	dev_vdbg(dmaengine_chan_dev(&dwc->chan), "%s: llp=%pad\n", __func__, &llp);
--
--	list_for_each_entry_safe(desc, _desc, &dwc->active_list, desc_node) {
--		if (dwc_get_hard_llp_desc_residue(dwc, desc, llp)) {
--			spin_unlock_irqrestore(&dwc->lock, flags);
--			return;
--		}
--	}
--
--	/* Residue describes source reads; only RAW.XFER completes a transfer. */
- 	spin_unlock_irqrestore(&dwc->lock, flags);
- }
- 
-@@ -987,9 +958,12 @@ static u32 dwc_get_residue_and_status(struct dw_dma_chan *dwc, dma_cookie_t cook
- 	desc = dwc_find_desc(dwc, cookie);
- 	if (desc) {
- 		if (desc == dwc_first_active(dwc)) {
--			residue = desc->residue;
--			if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags) && residue)
-+			if (test_bit(DW_DMA_IS_SOFT_LLP, &dwc->flags)) {
-+				residue = desc->residue;
- 				residue -= dwc_get_sent(dwc);
-+			} else {
-+				residue = dwc_get_hard_llp_desc_residue(dwc, desc);
-+			}
- 			if (test_bit(DW_DMA_IS_PAUSED, &dwc->flags))
- 				*status = DMA_PAUSED;
- 		} else {
 
 -- 
 2.53.0
