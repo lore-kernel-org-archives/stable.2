@@ -1,99 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.46
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.173
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794785059;
-	b=G46IWrG2yjCQELWnH0GrDE4y6OwHvr16LfmiHbC/y5uwtExbdQ7SmxiK8JlYs+uxGArD
-	 D3YpqDgQgGOGk+4m4fumeNwe3wol3UoANPJWxRYSJtonhMjGnERavjDBdtE/s1kQoR32d
-	 teYFCtTP5PAstZHaRF1WMIIrEOUTfxtxi8NEY82aUfLcYImNK5gDZFWLy7Fzf92dUtPST
-	 Gx5S2uDze1u3XuvgMTUsaD4xI/biOWedU1aTXXhcs1LZtIZsiCCBa2PO4hY9++vIm48Gp
-	 6x9kbEJwOMtIQorVFVwjwWBhS0oqIZC+v1XCx55H01ulYVTAuqQLfbFDYpV2fSjxUWQ==
+	t=1794785219;
+	b=1GfjpAV3dVZAtbopZw3ZnQz1ydm76FWQqnhyTO4LF0923vWtPXiWFLgrIkodbbio+2H+
+	 4puYtVWDeMX6s1y07kbfQMjO1kuc3h6qGn8JYFw9Sa9/ELHbQZW1zKNlm5Hkl0El//3cM
+	 EnB9hyEuZQAMu/g3R/XgeiV0LWh9Rl5q8BbnBWJB24tWvOppyg/PD0qZlh3Pb63GZJ7Kc
+	 4NZUEI8ou62VmMI06ocjsfDhi/MQinaxIeB7Wgsn48G/pd3Le09wsM3NAAf5KgBVVXmGO
+	 SnRZJ0lRNxQq4SSXFZQ/W62Gq8lwxPe0Hq1CTO3As/gOwjk/WKeYcSkHlq5G/O6uOYQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794785059;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794785219;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=+/Z4L9oHVW0yiRbluEN2fpODjMHQCBt/wYZxCW702Rw=;
-	b=F62OphSFbD+tkW3KYSNS42jcEhqU3EWXqqZuvXVBtRzzJXM+iJI/ShC4gZcOlb+Pwl4y
-	 JoVaNtdFGBm8gkYhW/9XdXqTLlCaE3wiBLULZx1hSo2nKhbSRYyEUVgOF5KIgIq/FRTig
-	 VyoomesI/F7rDG/HgcObi7s9XHPUTdax3Tc3VurQNShuXwgoIFc6ZmPjeEb9kEbgNGq+h
-	 lpygKOK0XWoL6bPsYUukHlZSTxS4SbPmy0cYBYCwi08NMQ9LijSQzh4cBn/FLtM+9ssiB
-	 WduPaVfPHxkmSkT7eqIckS1PSbyKXNI/Vcj3FQJykiVRcm1s0MfAfDMyEtC4yPfSb0w==
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=S7sUxxOjR8dG97fsnQkso2azf9gww/Gfl7/yzKc8Re8=;
+	b=TGS1Z0KoG2fHEar0wUt2WaDBu80gg+4CZUDj5EElMCnB3lmBrrCprE83hhePaC1B2M4A
+	 zml16b3jbQxCeeiBo7cbme/kzplqG1Pj/gi/6j09WruuqhIukzmfvDZJJ9xntQuYiL1kN
+	 /Nhrhb/WN2rbg3To7eC+70Aybn3TElr9xowWBIRLVDEN8ZySJybZN/EZgmN6LqQWi8/XX
+	 4vKikRollAarrofPfjKpnnscGVcsghC5UqHGPyacwXccv6AIXYfSTdnUHu8x049Aj0aDS
+	 sJrnbnSljeExOfk2I3qtUnvRw8vM5kS1X7XbldCiH65qFdkJSiKN7Gw6zmjAOD+r8kw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=k-tech.co.jp;
-	spf=pass smtp.mailfrom=k-tech.co.jp;
-	dkim=pass header.d=k-tech.co.jp header.i=@k-tech.co.jp header.a=rsa-sha256 header.s=google header.b=R4Xmh2mw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.46
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=rEWXnzDK;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9EA5606A329
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 23:24:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9EA5606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=k-tech.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=k-tech.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACC1606A32C
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 23:26:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CACC1606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=k-tech.co.jp header.i=@k-tech.co.jp header.a=rsa-sha256 header.s=google header.b=R4Xmh2mw
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5c1479a959aso2287513e87.2
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 15:24:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794785057; cv=none;
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=rEWXnzDK
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-886e61fa30fso1110446b3a.1
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 15:26:58 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794785218; cv=none;
         d=google.com; s=arc-20260327;
-        b=TnIhfPypmt89zMF0Lc6Z0VW9Hnwd1MB92mfV2zlYYuyHvIGWutaXJl2RHIomKj6u0M
-         Cxv8QCP8F+PDoXziSU4WhP+bgtk/SCWYN5sSALtKgxGZvQmWBRbGQJxHOKKg1MTjiZbq
-         vddoJMmIwNCPyzRHBzpNnwL0vRObjZ/monQzLqnxNB5WR2JnnkX7e91QQVIlLerAnFxr
-         Bo+DBR1FtvDl2C7CIOd5hSLIwJ7mUqFuABZJS9kJlXTC34NLPTEHcLG61Ko0wO9k+EQV
-         raP2VkL53yV7ghzKd4xux1hRqfoYbJ50fWMCxRQEdY9J9yK3kBP2QfCOrtHGKwhPeaCq
-         HOaA==
+        b=ljDYURxZMyeDIvPeaTKB+o1RbkqYZQomjJWGQXZXHKkarPFcydfssJp7To7dAyAMEy
+         Y/lPRtbZFPk0oWNQW00aXIzVOjxEmQbuouco4igWR8X61R4Un9yiRmy22G0BS07IXibO
+         raROreZD8KhTRd5u8s0I8tvuCa49XdkJvPIlqRgO6fwfsLg9CWqLL391kMx1Qi4VsO/b
+         lPz0AkRi2clBL7bscZVzFSzTiwviClqWPw4D0B/qcwx+AcRiEPJoKEBFxQM5RMXxFiD/
+         tRNrKCXk8mRYAryUIPs7OLva06/D+0X9jLnyk38Wu2wT1k7ml1PK/I0p1K+lVa5R8RbE
+         bqnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=+/Z4L9oHVW0yiRbluEN2fpODjMHQCBt/wYZxCW702Rw=;
-        fh=F4ULNILDT0OzN44xjbcwxDj117yuJZ5G7w2muzWYpqw=;
-        b=UenYtoLUAHj+cka2lsU+1KHmubF4DoaXOsMzFeMPzP4OHzM19ZC7kfpusaOMZqzHCW
-         TGGU84Y85Pg30pySwteXied6JaDYfeU4qXgHlfLbC8XOTfbd+LkFqMjByOj0g/RwxaAW
-         k3MsyyNiXcFC++W+qL4ie9yzB1Zv4ULS1J27anLOiN0sluk4cQSBRXYGzKcnH/NTxRJM
-         w58WDtU/1IHOIwupuhfXMQeOoX7bwOgbk34Ic3Wk0gHQfkFVVrWZtPHvb7bOazbp+9WO
-         65AhJnA/jgF0QOVoFszP+ndxJWrQlUIXUgfhzxOcrZMwgN1OMciThA7BVATIqYLTe2CF
-         8wbA==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=S7sUxxOjR8dG97fsnQkso2azf9gww/Gfl7/yzKc8Re8=;
+        fh=OUihlJUS8lPfthzmckYijWyXxLnfQO+7smBRwSZ7Euk=;
+        b=s8fTsCIFB2BDlbdyUibIzCZO6hRrAwQzoL9Dgwh6JkTLwtrYNUirWyEdzRI0cEQRbM
+         Rs0K4TBeL8aHKE5zPGLulILGq9W57Wo7vEZ42py/IPgmWchsGeP1rhXfSVEszXOs4PM5
+         i2bCiDEFajHwgcIK57wa6I9kLE75itMzrG4iTWUecFMoUsE+7JMCApkVxRbk+8vWfSvf
+         fmOwDezO/MC5rRivNx25thckKte+EFa3TIZ65fpSg9vbfQQ/hTu1kFGJlbzNCKCfGuu9
+         WBfXiDICv1zrW7cWIn9XWHRzw5UQqkNXAmafgXR3Zn8tVbnLBQT/x9QE6mEaSSG3tcAC
+         Ax0A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=k-tech.co.jp; s=google; t=1794785057; x=1795389857; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+/Z4L9oHVW0yiRbluEN2fpODjMHQCBt/wYZxCW702Rw=;
-        b=R4Xmh2mwXLsPCOaJD8TW7ya7EtAVRGAaQIG5L3wZG7XdQW+qhsrN5zBWRhdhBktZne
-         awo7HfP9rtfuGqN0RtshAvP5AAVtSRFPbN4OxYTAVrIWiIiXPHFCtgU+wN8/4pobBYUM
-         nFyIfIYy4AJ8VbkbedE3IhZyc3WL8mdyP2u6r6w21KfHMJpKJk/5qMWeFV9EcQfCoMeM
-         VwzEa4ZE72D4dbYkoDRjPqVr+izUivDRp0TueTZOZUetXUMJYpDdeieFfzOZ9U/qBM/h
-         Q9GA3i/zmbvw1E6xwQMDQ6jtGzub270bUq5urqk3w9aEbCaOZLIrtX+L2R3i2q0eAlYc
-         HuLQ==
+        d=mojatatu.com; s=google; t=1794785218; x=1795390018; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=S7sUxxOjR8dG97fsnQkso2azf9gww/Gfl7/yzKc8Re8=;
+        b=rEWXnzDK2MWC7y6VIpU145cB4rjCv0L5lm5GGhn79QDKjesIZIFdyfJZ0NRN6M2vuV
+         hQPJlYXHXrl9/lwiUfrMSZsGMY5WlgyfDAPLGYi8NDPvNcBC1DK64dRbqANpJHDO/o9v
+         A3cnDVs3Kbv9fDDA0m+ZVEtyICkNq/BcqQLHo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794785057; x=1795389857;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+/Z4L9oHVW0yiRbluEN2fpODjMHQCBt/wYZxCW702Rw=;
-        b=ZRABZn3SX29svIDmYxSDiCINuNB38bxunkmOaMyBCEewveDexYG15RqMEWJRdL+neZ
-         /Uwn3CRyhiNG2Xhh/d7rKHeUYdUgXIW6DPVSUPRRte+DIHkRb2VN89Pw6BuUncy8izag
-         Z62HjufIJV+9vteVR78y9usyMb/aDu5QcfSSaBReIM5yXAzV8nABwoGfxbGR5TBrj6/Q
-         /Khxg3L4CfHBwiA3T8PdXXX8q/1Qp9yMI43chLLKllN3d0HK4b7htBE/YlUxjB4sSLMI
-         orZCAtW0OmcnvVtIYgOWEXp0SV1aYdUnMEvyduwRoHU+TgHFIiyw6vNbW31RzroeAnHF
-         0Tag==
-X-Forwarded-Encrypted: i=1; AL+hErGLPnpUr3bTZ5zqtLNkcuix0H1ZuBAFMQYQjpOlRe+xFZVC5OvQlnteevJyt9ftnB7/1Uycniw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+xJ2OR78YVP27WL8vgJzavtjlSKYpAF0LKMxYyGZn5wsn+vC87
-	sr1tZoc91NFv84WHBj+GcIUvZFqzHTphLDC7LqQ+9lFbuG/rlTG/HJi3ub/4lw+HJy4b0PVgMa4
-	3jCUbsK/xZruk3J82nyltO7Yv/q88/KdOIgPLoLXSoA==
-X-Gm-Gg: AYBFou3vs+Xbsoe8Hua0ep8ZSUJQGfqu8hVCmhG5gADBXaYTxxN2ZlzRm3FArdJD8FI
-	DTpYI0LO83LZu5UyufMjdpopqmFRUCcXLQjhb75WCS4KuWrRCi3qCEjYFBg7eOfdCfjcfeF7r1l
-	k8olaBWunPmGt7vI/StCs3jyKEQky9Zdyhl8qum6dfaBcNngjbfCZTk12GWuE7DbiDtm/hlnpKE
-	vnGwvL9Eg2ajfOfwpjqZjkToI+BwGvGXK6/nhpTv/tneJFOlXhnv+3OC1Rjkvr2a57cPka89AqF
-	e6M93MBM7G50m/VmkftLZmP2LzPGzeV3uyyRG5uecrxAvt//qmaSyeQu+nEDuyNA5p5ngSI01NH
-	y+SbCyJYQLq/Cz6loS+MB/Ks54CrBgzB0QDtmYsc9g8n5lkmWY4h2+SQxCQQfdS/piCE=
-X-Received: by 2002:a05:6512:3c8d:b0:5c0:bca:77cd with SMTP id
- 2adb3069b0e04-5c1709e0f4bmr3285081e87.42.1794785056172; Sun, 15 Nov 2026
- 15:24:16 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794785218; x=1795390018;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S7sUxxOjR8dG97fsnQkso2azf9gww/Gfl7/yzKc8Re8=;
+        b=NuuVnBZK3n4npGWiEH9Lz4553mNaw0UoQPYDulDm9f6LDp0WDCR9zhMZrqs9UZWr77
+         Co30zO7FHPaQJpQHYCKOv3QxtkHw8XRLya33mTQPGQVJU9QH5k4BllM842tJqpWkNC+7
+         TElipInHP1Mea0/viB9mVZ2x3GSh1gQ5lPa9OZb8FopIMG0uPz657t+oCNhEB9EPFb03
+         4FKirGuYznkHBbxMS0Srh0819bqohXRBMsaZ5I0vEWTPXNROss7xVV3i2zsxL8R/VyzS
+         efygFnovsL6NCLSa9D0CeBwE9d+lkXZOTDTKpgr7c7i73vRJU0/go5M2MrNvCb9fgYJG
+         nNOg==
+X-Forwarded-Encrypted: i=1; AL+hErEOK//nNiFmQ2j/o7as15pos5D7NiOEL9GFrTtUs2FeE3nFlbF6/YkctEHEF9k+M1F/HXkB/I8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Y9lUiQbWL8q6hKMGYKRIgCfF1SMoZWZyW+r9ZmhQ1/jSr9a98
+	+h2qhKAOax7t77PE8O5kT/il/bNQSwRiTiPxS+r80RA+boAgjW8yxsajS3DIIdhQCHaDqNvNmKd
+	exyUql4KztV3RuSy9jaKc3dD5+QDYNHd2ECS7FUpa
+X-Gm-Gg: AYBFou2hSr3LIS5DN7mJciY/Lt9SO7NZlzX0xWTDbby9q92S+H7WgwVpOPZ891d+TAe
+	AmKLS21cNz34Cz+7k3/pupLpat64+ECJcj9ev9IbjQvoCSKiDhJnx8JUDi+RCjrkCNz20msd10R
+	EZJzQWvFObIUUujd63izx7NtsVfFyFMcKku4UKqPW5hNtK6ToQ2Di397jxeQAbB1LkvZiHD1Q5y
+	scQZeg3txVCJmnY8He6ic7Ya1WqWB5GYHhmBkxHV/bIcWZuyqynI9yl4Ckaebt/q/j0ZPFq5zwV
+	o3VAd9ll7sZD7pJh9EhCpg7aOYuLNQS2vD9VRSqhWyRpJ6zcx1XmkNUlGS1E1nF7SbMYzMyZOaX
+	nQiLE3DbWFjkn+g0NjbODAuSkakugGzREIcfhiKYmgwQv+EpDPGtYcGva37A2KHW/rB0hz6AkN+
+	HVR+q8QRV8NXagSU54KtnL5R5pQyOnsbaPTYvT
+X-Received: by 2002:a05:6a00:22d2:b0:878:34d7:69b2 with SMTP id
+ d2e1a72fcca58-8beb7a246c3mr7580094b3a.57.1794785218099; Sun, 15 Nov 2026
+ 15:26:58 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,45 +102,199 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261113033833.124797-1-goto@k-tech.co.jp> <avb1CyLqJGI_MtXv@gmail.com>
-In-Reply-To: <avb1CyLqJGI_MtXv@gmail.com>
-From: Yuichiro Goto <goto@k-tech.co.jp>
-Date: Mon, 16 Nov 2026 08:24:02 +0900
-X-Gm-Features: AclHuK9TcUvv-xb8BW0WisisJi7QnpM6fvoiPZapBIoaiw0rO_faqX91PXWLlCk
-Message-ID: <CAFn2DuFZFtgsjD-TTrK5x-C43sE328Pi5hoxOCvzcKoM0DpWCQ@mail.gmail.com>
-Subject: Re: [PATCH] configfs: wait for pending RCU callbacks on module exit
-To: Breno Leitao <leitao@debian.org>
-Cc: a.hindborg@kernel.org, viro@zeniv.linux.org.uk, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <QDISC-6HS9.v4.r0.20261111094338-1@mojatatu.com> <179475765049.2199510.14948882455046575190@kernel.org>
+In-Reply-To: <179475765049.2199510.14948882455046575190@kernel.org>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Sun, 15 Nov 2026 18:26:46 -0500
+X-Gm-Features: AclHuK_eTuwrE8e6HXSsCYU9ijyR2ZQyojeGZtN2xoEOB1ZZirMWjoCaM0BPz_U
+Message-ID: <CAM0EoM=SAaQUa0vZnBAPeAtRpQ4FPxng1hdNbm2LqOo00FrxBw@mail.gmail.com>
+Subject: Re: [PATCH net v4 1/3] net/sched: sch_teql: unshare the header before
+ writing and fix retry strip
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, stable@vger.kernel.org, sashiko-bot@kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Breno,
-
-On Fri, Nov 13, 2026 at 8:33 PM Breno Leitao <leitao@debian.org> wrote:
-> Is this still the case on mainline? Since commit 3bc999d944b3 ("mm/slab:
-> introduce kfree_rcu_nolock()") in v7.3, kmem_cache_destroy() calls
-> rcu_barrier() unconditionally, and configfs_exit() already reaches it:
+On Sun, Nov 15, 2026 at 10:47=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wr=
+ote:
 >
-> configfs_exit()
->         kmem_cache_destroy(configfs_dir_cachep)
->                 kvfree_rcu_barrier_on_cache()
->                         rcu_barrier()
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
 >
-> so the pending configfs_free_inode() calls finish before configfs_exit()
-> returns.
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] The fix leaves a gap: `skb_cow_head()` in `__teql_resolve()`
+>   (net/sched/sch_teql.c) only runs when `neigh_event_send(n, skb_res) =3D=
+=3D=E2=80=A6
 
-You are right, thanks for pointing it out. I reproduced the oops on
-v6.18.63, which does not have 3bc999d944b3. With that commit,
-configfs_exit() already waits for the pending callbacks in
-kmem_cache_destroy(), and I confirmed that v7.3-rc2 with
-CONFIG_RCU_LAZY=y no longer oopses with the same commands.
+I think this one deserves a respin. Will send a v5 in the morning.
 
-So please drop this patch for mainline.
+pw-bot: cr
 
-3bc999d944b3 is not a fix and is unlikely to be backported, so the
-stable trees that contain e9c03af21cc7 are still affected. I would like
-to send the explicit rcu_barrier() to stable instead, referring to
-3bc999d944b3 as the upstream equivalent. Does that sound reasonable?
+cheers,
+jamal
 
-Kind regards,
-Yuichiro Goto
+> --
+>
+> net/sched: sch_teql: unshare the header before writing and fix retry stri=
+p
+>
+> This patch calls skb_cow_head() in __teql_resolve() before
+> dev_hard_header() writes the slave's link header, so that a header-cloned
+> skb does not corrupt the other clone. It also records how many header byt=
+es
+> each slave added in teql_master_xmit() and pulls back only that many on
+> retry. As a result, an AF_PACKET frame with no dst keeps its user-supplie=
+d
+> header.
+>
+> Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@moja=
+tatu.com/
+> Link: https://lore.kernel.org/netdev/20261110101908.2e64e8e9@kernel.org/
+>
+> > diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
+> > index dc21cd9704a25..3f781a3ffb41a 100644
+> > --- a/net/sched/sch_teql.c
+> > +++ b/net/sched/sch_teql.c
+>
+> [ ... ]
+>
+> > @@ -293,15 +293,24 @@ __teql_resolve(struct sk_buff *skb, struct sk_buf=
+f *skb_res,
+> >       }
+> >
+> >       if (neigh_event_send(n, skb_res) =3D=3D 0) {
+> > +             int off =3D skb_network_offset(skb);
+> >               char haddr[MAX_ADDR_LEN];
+> >
+> >               neigh_ha_snapshot(haddr, n, dev);
+> > +             /* Unshare the header before dev_hard_header() writes to =
+it. */
+> > +             if (skb_cow_head(skb, LL_RESERVED_SPACE(dev)) < 0) {
+> > +                     err =3D -ENOMEM;
+> > +                     goto out;
+> > +             }
+> >               if (dev_hard_header(skb, dev, ntohs(skb_protocol(skb, fal=
+se)),
+> >                                   haddr, NULL, skb->len) < 0)
+> >                       err =3D -EINVAL;
+> > +             /* The bytes prepended above skb->data, pulled back on re=
+try. */
+> > +             *hlen =3D skb_network_offset(skb) - off;
+> >       } else {
+> >               err =3D (skb_res =3D=3D NULL) ? -EAGAIN : 1;
+> >       }
+>
+> [Severity: Medium]
+> The skb_cow_head() only runs when neigh_event_send() returns 0. What
+> happens to a header-cloned skb that takes the else branch instead?
+>
+> Suppose every slave neighbour is unresolved on the first pass of
+> teql_master_xmit(). Then neigh_event_send(n, NULL) fails, teql_resolve()
+> returns -EAGAIN and nores is set, and no unshare has run. teql then
+> restarts with the same skb as skb_res:
+>
+> teql_master_xmit() {
+>     ...
+>         if (nores && skb_res =3D=3D NULL) {
+>                 skb_res =3D skb;
+>                 rcu_read_unlock();
+>                 goto restart;
+>         }
+>     ...
+> }
+>
+> On the restart, neigh_event_send(n, skb_res) parks the skb on the slave
+> neighbour's arp_queue with its header still cloned:
+>
+> net/core/neighbour.c:__neigh_event_send() {
+>     ...
+>                         skb_dst_force(skb);
+>                         __skb_queue_tail(&neigh->arp_queue, skb);
+>     ...
+> }
+>
+> The usual reinjection path is covered. The skb's dst resolves to teql0's
+> own neighbour, whose output is neigh_direct_output(). That re-enters
+> teql_master_xmit(), where the new skb_cow_head() runs.
+>
+> However, neigh_update_process_arp_queue() can fall back to a different
+> neighbour:
+>
+> net/core/neighbour.c:neigh_update_process_arp_queue() {
+>     ...
+>                 n2 =3D NULL;
+>                 if (dst &&
+>                     READ_ONCE(dst->obsolete) !=3D DST_OBSOLETE_DEAD) {
+>                         n2 =3D dst_neigh_lookup_skb(dst, skb);
+>                         if (n2)
+>                                 n1 =3D n2;
+>                 }
+>                 READ_ONCE(n1->output)(n1, skb);
+>     ...
+> }
+>
+> This happens in two cases:
+>
+> - The dst became DST_OBSOLETE_DEAD while the skb was parked (for example,
+>   a route delete that ends in dst_dev_put()), or dst_neigh_lookup_skb()
+>   fails. Then n1 stays the slave's neighbour.
+>
+> - In the tc-mirred setup from the commit message, the dst belongs to the
+>   physical device, so n1 is that device's neighbour.
+>
+> In both cases neigh_resolve_output() writes the link header without
+> checking skb_header_cloned():
+>
+> net/core/neighbour.c:neigh_resolve_output() {
+>     ...
+>                         __skb_pull(skb, skb_network_offset(skb));
+>                         seq =3D read_seqbegin(&neigh->ha_lock);
+>                         err =3D dev_hard_header(skb, dev, ntohs(skb->prot=
+ocol),
+>                                               neigh->ha, NULL, skb->len);
+>     ...
+> }
+>
+> Can this overwrite the link header of the other clone, such as the mirred
+> original still pending on the physical device or a PF_PACKET tap clone? I=
+n
+> the mirred case the bytes written are usually identical, but they differ =
+if
+> the lladdr changed in the meantime.
+>
+> The commit message says "a header-cloned skb is unshared before the write=
+",
+> but the arp_queue handoff does not seem to be covered.
+>
+> The later patches in the series don't add an unshare on this path either:
+>
+> - "net: neighbour: reinject a parked skb through a headerless output
+>   device" only rewrites skb->dev for a headerless n1.
+>
+> - "net/sched: sch_teql: keep skb->dev consistent on the arp-queue path"
+>   only moves the skb->dev =3D slave assignment.
+>
+> Would it work to call skb_cow_head() before neigh_event_send(n, skb_res),
+> or once at the top of teql_master_xmit()?
+>
+> > +out:
+> >       neigh_release(n);
+> >       return err;
+> >  }
+>
+> [ ... ]
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/QDISC-6HS9.v4.r0.20261111094338%40mojatatu.com
