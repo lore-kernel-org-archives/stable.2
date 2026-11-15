@@ -1,62 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794736084;
-	b=pZC8rRfXpVXfs7Vpi7hd/0doZdvy5J7qAUOsWEBnS5YEeaXMf/KUhtyBLR6UkanHwjno
-	 0niZw0Aa3TN1c9tixZrA1AVOD6AyPQUWiAcSrvxCmZRmbmHP5r5SmTU+Ww/iO5mrS6GrO
-	 0K0EYLIS1xUMsWgIsDrJXLVEwMr0uIA4F9WUcqjt4ZqwfpL2AiSiiLkE1xqxWIugtBWbb
-	 SotRBvVx7iZy5pox7nQoT5um9Ls6QNZPiMHj8sx/59yQ3bjC3bZoHrAFFnVoszVLXKWiw
-	 HwUpVpCQH9cXfe/hry5hCeBoqwcILe/te9/kTaViwTAAH77VhJWzUwPiebssE1mQLUg==
+	t=1794736550;
+	b=32rIUzPBErx0dGXoqnORNdOfv2X2Q7F+1KklTebSz3auOTPp1c+/JjKKUIK81M+/lNLE
+	 f0x0neeV4THQ5UAVDzQzCXM0dXXA+tIf9fhhUoVh4ixN6Uv1W6Zh7+9LqEgzU/61wPwi/
+	 ouOhOoclMYBah7tauEexyFRP6JJTKa7XVUkmVTtD2l8JqeS7cbL/1nXl/icHWJGMzWUsS
+	 yuuxtdku6mp7xXxp3T5fhVkySSRerlniZ6638fAhuJAcPVeEI6fTmevqOjmvSUF7w6wm4
+	 kh9EisFrEPdNDmCrIefcUPGtAAadkAfKflHr+2pIW6e6+niUTT/Oa6FcbzAEXhDlPuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794736084;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AlZgloI6wwHeCon3TkjYRmDAZCVeVDQbpt8xdWpWa7k=;
-	b=ZaQIs9FRXEE+CQtk0/8ociGdqebSRHFz7IOQPW7tg/XwlvpkJjDTK9ltaDLKEsUglwOj
-	 yCWfs0eM/tXptHsDfpBTAdYBuIlA0bOAxw049+KkE5XpkbdT9cGQ5skPd3cH3/Sc8A39D
-	 6O3x8tvLTwTpfx9Ygpo2IPkIrtnindtZ32wB+Ur2m60PZunQBWQ20CjziDp+Xd4D/19fN
-	 zybj9qVF2IYqTqaU4fauE9ZHIwRlRc6FqV2JIsDieEC0BH+w+KTqhAzgrII5X/x0vJstf
-	 SKgy1CCWYnv7Z7sg1PVSOEhgph26HM0g9qu0vA6Q0ngfkE2iCPFD9fPUohxYEqoY8wQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794736550;
+	h=DMARC-Filter:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=VfNEYKtq+P1y119j5w9ZasnBrt/MoIaAlnAPJm3j+is=;
+	b=y2Py25/elZi41F2pW8Xc1hKdevdVuCirb4bRfWJTt3aLK/6APOOJYyd3gHILwAR4LpSg
+	 LJCf6cGrvmeDQgJVzS+tWivzgDFEXi5mDhVEv/XVa/yNzI2zMvJb+5IHFjd0AGGXOwq8P
+	 7wQcZ7YvClQEmDWaVglgeZAre0joq7MLLDpvA6yKxbpEjxnrE9IlY+h0sNlSyuj2QQ1m/
+	 SK2eflI9glyprmu/GZTgWOBZDF6xvFPO3nelD2hbcsIcaVPIXUa+LpDdvxH7jfQ1uPC8H
+	 tRsLbQWCNIqxgvmLrJsl7UUkLj36VRzpLAU2Krt+Ymx2KZ2ibvvLP1mVGR1Qz22h6zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W1H3Xh7f;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6575D606A31D;
-	Sun, 15 Nov 2026 09:48:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W1H3Xh7f
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67E581F000C4;
-	Sun, 15 Nov 2026 09:48:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794736084;
-	bh=AlZgloI6wwHeCon3TkjYRmDAZCVeVDQbpt8xdWpWa7k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=W1H3Xh7fTWmxgEDoPdba3IDvkSnN2nqv6vQx4FoIUavc2pjruROFXyHRjmA9YR5OT
-	 mSjCW7LSqq6LXwILyoWVsb510KY9WFV9Z5zm3UR20Kg/OYo8Nn5wfP8GFLPXrWX2KN
-	 3gQgl+V7KOxDnWlV7OXGhCVwf8TCdZS648j7bmWYYB6RTOfMN+ZxqtJjI0+j5uF/sZ
-	 xW31g0VCi5X8YWi3SNCekgZpNuuaBwSdC2oNiwciM+OHDdXHiYDpX26cL++pAWauLi
-	 Upf/lgkarx+EHDlS3IG1H6OYgR8tY7AsOs2TYz5Liq/SM2mQwXcqUh0+tGawkRPh6X
-	 GjOwKM7bYkNcg==
-From: Namjae Jeon <linkinjeon@kernel.org>
-To: linux-cifs@vger.kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	atteh.mailbox@gmail.com,
-	chenxiaosong@chenxiaosong.com,
-	chenxiaosong@kylinos.cn,
-	icb@fastmail.org,
-	mike.michalo@gmail.com,
-	wangzhaolong633@gmail.com,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] ksmbd: protect CREATE metadata updates against filesystem freezing
-Date: Sun, 15 Nov 2026 18:47:37 +0900
-Message-Id: <20261115094737.8532-2-linkinjeon@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261115094737.8532-1-linkinjeon@kernel.org>
-References: <20261115094737.8532-1-linkinjeon@kernel.org>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 35DAA606A31D;
+	Sun, 15 Nov 2026 09:55:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35DAA606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.69.17])
+	by gateway (Coremail) with SMTP id _____8CxPtObgflqM9kfAA--.26322S3;
+	Sun, 15 Nov 2026 17:55:39 +0800 (CST)
+Received: from kernelserver (unknown [223.64.69.17])
+	by front1 (Coremail) with SMTP id qMiowJAxFs2WgflqibM0AA--.48914S2;
+	Sun, 15 Nov 2026 17:55:38 +0800 (CST)
+From: Huacai Chen <chenhuacai@loongson.cn>
+To: Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Huacai Chen <chenhuacai@kernel.org>
+Cc: linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	stable@vger.kernel.org,
+	Tiezhu Yang <yangtiezhu@loongson.cn>
+Subject: [PATCH V2] lib/smp_processor_id: Don't warn if there is only one CPU
+Date: Sun, 15 Nov 2026 17:55:03 +0800
+Message-ID: <20261115095503.2922598-1-chenhuacai@loongson.cn>
+X-Mailer: git-send-email 2.52.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,110 +63,88 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxFs2WgflqibM0AA--.48914S2
+X-CM-SenderInfo: hfkh0x5xdftxo6or00hjvr0hdfq/
+X-Coremail-Antispam: 1Uk129KBj93XoWxAFW8WF47tw13KryfXFy3WrX_yoW5Xr4Dpa
+	40k3y8Kr4rAr1jvw47AaykGFyFq3Z8ua97Gw17A3y5ZF45Aw1Dtry5tF12qFy5CF4UCa18
+	JFn2qr1Fvr1rXwcCm3ZEXasCq-sJn29KB7ZKAUJUUUUk529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2kKe7AKxVWUtVW8ZwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
+	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
+	8JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
+	6r4UMxCIbckI1I0E14v26r1q6r43MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+	0xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
+	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AK
+	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0L0ePUUUUU==
 
-Since commit 4e45cca31d4e, smb2_open() no longer holds a write reference
-after path lookup. The CREATE path still writes EAs, security descriptor
-and stream xattrs, inherited DACLs, and initial POSIX ACLs.
+When CONFIG_DEBUG_PREEMPT is enabled on a Non-SMP (single-core) kernel,
+calls to smp_processor_id() in preemptible contexts trigger some false
+positive "BUG: using smp_processor_id() in preemptible" warnings, which
+are harmless noise because the process always executes on CPU 0 and CPU
+migration is impossible.
 
-Request write protection in the xattr helpers and hold a reference around
-the initial POSIX ACL updates.
+Here are some of the trimmed log messages:
 
-Fixes: 4e45cca31d4e ("smb/server: add ksmbd_vfs_kern_path()")
+  Call Trace:
+  [<9000000000d33e28>] show_stack+0xf8/0x1c0
+  [<9000000000d2fdac>] dump_stack_lvl+0x4c/0x78
+  [<9000000002456fc0>] check_preemption_disabled.isra.0+0x100/0x110
+  [<9000000002456ff8>] debug_smp_processor_id+0x18/0x40
+  [<9000000000d31118>] init_cache_level+0x18/0x90
+  [<9000000001adbe2c>] detect_cache_attributes+0x4c/0x640
+  [<9000000001adc44c>] cacheinfo_cpu_online+0x1c/0x310
+  [<9000000000d5ae04>] cpuhp_issue_call.constprop.0+0x94/0xd0
+  [<9000000000d5b278>] __cpuhp_setup_state_cpuslocked+0x208/0x320
+  [<9000000000d30148>] do_one_initcall+0x68/0x200
+  [<90000000024711b8>] kernel_init_freeable+0x1fc/0x294
+  [<900000000245824c>] kernel_init+0x20/0x134
+  [<9000000002455b54>] ret_from_kernel_thread+0x24/0x1d0
+  [<9000000000d31650>] ret_from_kernel_thread_asm+0xc/0x9c
+
+This warning only exists for the !CONFIG_SMP build. This is because for
+CONFIG_SMP cpuhp_issue_call() invokes callbacks in cpuhp_thread_fun()
+which is a percpu thread, but for !CONFIG_SMP build it invoke callbacks
+in the init process which is not a percpu thread. And there is such a
+skip condition in check_preemption_disabled():
+
+    if (is_percpu_thread())
+            goto out;
+
+Since there is only one CPU for the !CONFIG_SMP, we can simply skip the
+warning if (!IS_ENABLED(CONFIG_SMP)) in check_preemption_disabled(). The
+effect is partially reverting 570a752b7a9bd03b50 ("lib/smp_processor_id:
+Use is_percpu_thread() instead of nr_cpus_allowed"), because now in the
+UP case nr_cpus_allowed is 1 but PF_NO_SETAFFINITY is unset.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Reported-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
 ---
- fs/smb/server/smb2pdu.c | 10 +++++-----
- fs/smb/server/smbacl.c  |  2 +-
- fs/smb/server/vfs.c     |  6 ++++++
- 3 files changed, 12 insertions(+), 6 deletions(-)
+V2: Keep the behaviors for CONFIG_SMP.
 
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 1b8471d75afa..d8da0b259cfd 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -3719,7 +3719,7 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
- 			};
- 			rc = ksmbd_vfs_setxattr(idmap, path, xattr_stream_name,
- 						(void *)afpinfo_empty,
--						sizeof(afpinfo_empty), 0, false);
-+						sizeof(afpinfo_empty), 0, true);
- 			return rc < 0 ? rc : 0;
- 		}
- 		ksmbd_debug(SMB, "XATTR stream name lookup failed: %d\n", rc);
-@@ -3729,7 +3729,7 @@ static noinline int smb2_set_stream_name_xattr(const struct path *path,
- 	if (!test_tree_conn_flag(fp->tcon, KSMBD_TREE_CONN_FLAG_WRITABLE))
- 		return -EACCES;
+ lib/smp_processor_id.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/lib/smp_processor_id.c b/lib/smp_processor_id.c
+index 94b3f6b19538..be079b908504 100644
+--- a/lib/smp_processor_id.c
++++ b/lib/smp_processor_id.c
+@@ -22,6 +22,9 @@ unsigned int check_preemption_disabled(const char *what1, const char *what2)
+ 	if (is_percpu_thread())
+ 		goto out;
  
--	rc = ksmbd_vfs_setxattr(idmap, path, xattr_stream_name, NULL, 0, 0, false);
-+	rc = ksmbd_vfs_setxattr(idmap, path, xattr_stream_name, NULL, 0, 0, true);
- 	if (rc < 0)
- 		pr_err("Failed to store XATTR stream name :%d\n", rc);
- 	else
-@@ -3944,7 +3944,7 @@ static int smb2_create_sd_buffer(struct ksmbd_work *work,
- 	    sizeof(struct create_sd_buf_req))
- 		return -EINVAL;
- 	return set_info_sec(work->conn, work->tcon, path, &sd_buf->ntsd,
--			    le32_to_cpu(sd_buf->ccontext.DataLength), true, false,
-+			    le32_to_cpu(sd_buf->ccontext.DataLength), true, true,
- 			    true, true);
- }
- 
-@@ -5075,7 +5075,7 @@ int smb2_open(struct ksmbd_work *work)
- 
- 			rc = smb2_set_ea(&ea_buf->ea,
- 					 le32_to_cpu(ea_buf->ccontext.DataLength),
--					 &path, false);
-+					 &path, true);
- 			if (rc == -EOPNOTSUPP)
- 				rc = 0;
- 			else if (rc)
-@@ -5280,7 +5280,7 @@ int smb2_open(struct ksmbd_work *work)
- 								    &path,
- 								    pntsd,
- 								    pntsd_size,
--								    false);
-+								    true);
- 					kvfree(pntsd);
- 					if (rc)
- 						pr_err("failed to store ntacl in xattr : %d\n",
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 04dd4a6d7092..0ca093de83c6 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1443,7 +1443,7 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
- 			pntsd_size += sizeof(struct smb_acl) + nt_size;
- 		}
- 
--		ksmbd_vfs_set_sd_xattr(conn, idmap, path, pntsd, pntsd_size, false);
-+		ksmbd_vfs_set_sd_xattr(conn, idmap, path, pntsd, pntsd_size, true);
- 		kfree(pntsd);
- 	}
- 
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 0c95d4668370..09dad151360c 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -2334,6 +2334,10 @@ int ksmbd_vfs_set_init_posix_acl(const struct mnt_idmap *idmap,
- 	}
- 	posix_state_to_acl(&acl_state, acls->a_entries);
- 
-+	rc = mnt_want_write(path->mnt);
-+	if (rc)
++	if (!IS_ENABLED(CONFIG_SMP))
 +		goto out;
 +
- 	rc = set_posix_acl(idmap, dentry, ACL_TYPE_ACCESS, acls);
- 	if (rc < 0)
- 		ksmbd_debug(SMB, "Set posix acl(ACL_TYPE_ACCESS) failed, rc : %d\n",
-@@ -2345,7 +2349,9 @@ int ksmbd_vfs_set_init_posix_acl(const struct mnt_idmap *idmap,
- 			ksmbd_debug(SMB, "Set posix acl(ACL_TYPE_DEFAULT) failed, rc : %d\n",
- 				    rc);
- 	}
-+	mnt_drop_write(path->mnt);
+ 	if (current->migration_disabled)
+ 		goto out;
  
-+out:
- 	free_acl_state(&acl_state);
- 	posix_acl_release(acls);
- 	return rc;
 -- 
-2.25.1
+2.52.0
 
