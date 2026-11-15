@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794754919;
-	b=LQzXJggtq/v+TQSeSbBk/xFvd2cGbBpwcspRa7HQJW8OL1JgA2TV2xM5p1XHmXkyFQOA
-	 QZxJaKJWDDNkC1fWUo9CpHd3wI/rjIIMRXQ0AddIQB8fQJfRos4fdfAbGu0JO9uddo3g5
-	 /5zaZgvpfWS+oCY1JigEhADJK0jVePXf+HCE4Tfl7eSi+OnC+lxXCoYTdmkp0WWaVMfkf
-	 xUTfBiT15elGZOi61WYSje+Jz/pe6XtD+c3EeX/2Sbg2qnCnTdzD01ombNzMpVZ+3gGOs
-	 PtP5VI//Yt8t3wzZR4jJBkSOhD0/ifxxHUNrTSlYjWFLn2aPJAXALT3WPtzh0/IMmXg==
+	t=1794755367;
+	b=lZa5HN928slxo/se7+vDB4g2Mo7NXfGxXxp4jIFkJCx+SDgQtwjDyKaPPTHvtXYBEM8U
+	 P+lSgg4yh7nAEhI1czRFKnRyUhXM5cFU1YeUjb4rB+4Emc9ZUOQPcpYA0PxhG9YjQOD0t
+	 aWPQ7ke4W8ZWvmCvCh9tqOuEvPAiR0sXHudNmTjfinDGQjIQboMdtZ3L+c7ow2F59lfsV
+	 ZkPkCWx2rsp8kGl2fc+ruiIdqg0l/8C1iEbtpLXlKPb13GwuJ5g5g/p77K8s7kbEhdb9s
+	 6URDgDgHGhnHUp/lSDUaZazWO0j2ORRAs4EwcxV1YwKa1k114EYvtMjFBybFrHChqjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794754919;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794755367;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AkumforwubAFxEEoVuxRLLsmIQmPil2mVc+5NswWoT0=;
-	b=afwRapFHCmMPr9gmtdVUmZ1brhdtwzQhEc3jNZr31VD62SCLBApKKixfpRkojEDJN5hO
-	 vTHVjN9zm+/xoxoHotf19flEQ9CHcR+ELk77oUec2mfrmVz9IVmkgdHMM8uo9ShXTsb6z
-	 04UG8kkEWAzUN8BjmIdznK7wGb0c6adXxLxBNDv5LXTSoU52BJGM+q1GVWvnETGxMaw+Z
-	 ZJh3ZERz+ixYMKXWC3CR/Ywx5FiqlamP74PILhPgy+2IH7S8ih4dYhLSuPWkQOwa9b9Hi
-	 YFA7DftLxU4DAn66ujz0WYMXleRWvVLUkJZTsto8b9LLqWv4UVpgC/FIWpLDLk1A1tQ==
+	bh=VKErtXF1yDIAtUQP6Vi5aM9hZ/2tCLLOH0SWFJ9oZQ0=;
+	b=WQEtLfUT3vdrKCkEM+R8SpF7rtEZcQ2t6woxd23Oqch2V4xumL6IJEqVDbbyZyxLukDR
+	 0EeB32FeWXSy4mbbyrpiHYd8+/AwNvRIH1QXxle9VWb6SnbXkqC5JWt2pi2VMh/bcyk13
+	 xD5OEW/QPxB+tPOX8OteyfAdx9nwmF40hLmS9fo2kACTpOfqUgeaPmsmp06I/eUPlDbzN
+	 518JjrNtn7JknRmGRGL/9qBtWJeFCrZWWDbRLXANTLmu+0lxEigRBnzdeTOoE5EqG7mZG
+	 GBejvLAMfjEKZyNskk9aq+GFk7bdHm2nzTVsJ2LwNAQg97vGeW1hjNMNoYcmoY8OKAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZZ0amOY0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nC45FoPy;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BE9606A31D
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 15:01:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134F7606A31D
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 15:09:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZZ0amOY0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F6C01F000C4;
-	Sun, 15 Nov 2026 15:01:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nC45FoPy
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EED121F000C4;
+	Sun, 15 Nov 2026 15:09:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794754918;
-	bh=AkumforwubAFxEEoVuxRLLsmIQmPil2mVc+5NswWoT0=;
+	s=k20260515; t=1794755366;
+	bh=VKErtXF1yDIAtUQP6Vi5aM9hZ/2tCLLOH0SWFJ9oZQ0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZZ0amOY09hxFCeJoqgkljXKYJzlvOsZHJoHydd3/VpA0uatfMrc9d4V2Mi/z370aT
-	 ls8FLtjItxyleZii+AxYwt26ug6x+q8gfyf/SluZndI+Qzyi+KV+Sv6kAu5JVjE7Ca
-	 4HTdvu7j91VTHMfgdYkN1QC+iCLUWPkws+K3fnUZEe1i4PnLm6J+6hooqq9OnHEnvR
-	 Nwftdgl6oVdkQ6eEfqtJ1D9HWynV8iZUD/kc/WgaIGAJdKMunsYuIqC+DbWJFCf5JU
-	 H9E2qPrUsRjcRAi8s9qJvB0uNOYwmz+Q4HWbwEvzP7S/3UYnYEAyT4akDfKsBt0/mM
-	 FN6rOaNeDW0Aw==
+	b=nC45FoPysFqmghNTPYWqT7eHyk2ClF9LWNwzJJGl7gyIwNuFnfzZBfPJC3oWzsh9a
+	 s783+MSn3lythNjpsO3R1fi/Ak/ImUPrnDdlH0tcTt/GWgTOrsaubRRxJg7Su92ZVs
+	 sqwOtW4cHvlhdGzjqxP68EiDkaxs/M6o7cBEjkvVeUnXfUh8I7D/BXRVtSoax9QXEI
+	 YfYpLBrA7leNVNUFbObAzdCdB3/smc9EFJXaMT5RM+O0zfVrUYt97Apxqm33/UPOqB
+	 kk96emIbOUT+UeUMm96J4tgFwp5dFNHskmBBofsFgVhfXnPaOop4/ev7D+K9JZgLTn
+	 c6eOsywg899EA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Chris Mason <mason@kernel.org>,
@@ -49,12 +49,12 @@ Cc: Chris Mason <mason@kernel.org>,
 	Baolin Wang <baolin.wang@linux.alibaba.com>,
 	"David Hildenbrand (Arm)" <david@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] mm/khugepaged: preserve dirty bits when collapsing PTE-mapped THPs
-Date: Sun, 15 Nov 2026 10:01:56 -0500
-Message-ID: <20261115150050.1272623-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mm/khugepaged: preserve dirty bits when collapsing PTE-mapped THPs
+Date: Sun, 15 Nov 2026 10:09:24 -0500
+Message-ID: <20261115150907.1323951-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200852-failed-6.12-fe2817e3d5ea@kernel.org>
-References: <20261109200852-failed-6.12-fe2817e3d5ea@kernel.org>
+In-Reply-To: <20261109201326-failed-6.6-fe2817e3d5ea@kernel.org>
+References: <20261109201326-failed-6.6-fe2817e3d5ea@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,17 +102,17 @@ Link: https://patch.msgid.link/20261031-fixes_core-v3-17-d6437171ecc3@kernel.org
 Reviewed-by: Lance Yang <lance.yang@linux.dev>
 Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: Adapted batched get_and_clear_ptes() handling to the existing single-PTE loop using ptep_get_and_clear(). ]
+[ sashal: adapted batched folio-based PTE handling to the existing per-PTE loop using ptep_get_and_clear() and set_page_dirty() ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
  mm/khugepaged.c | 5 +++--
  1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index 2e9d0e13b068a..410259dd68a87 100644
+index c0a3d09cfd976..3ed77c50de6e0 100644
 --- a/mm/khugepaged.c
 +++ b/mm/khugepaged.c
-@@ -1636,9 +1636,10 @@ int collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr,
+@@ -1612,9 +1612,10 @@ int collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr,
  		/*
  		 * Must clear entry, or a racing truncate may re-remove it.
  		 * TLB flush can be left until pmdp_collapse_flush() does it.
@@ -121,8 +121,8 @@ index 2e9d0e13b068a..410259dd68a87 100644
 -		ptep_clear(mm, addr, pte);
 +		ptent = ptep_get_and_clear(mm, addr, pte);
 +		if (pte_dirty(ptent))
-+			folio_mark_dirty(folio);
- 		folio_remove_rmap_pte(folio, page, vma);
++			set_page_dirty(page);
+ 		page_remove_rmap(page, vma, false);
  		nr_ptes++;
  	}
 -- 
