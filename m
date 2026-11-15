@@ -1,58 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794703047;
-	b=hDHQcbicNeulSwAa/YwCOURec1m+2nSvPRYtSYip1AECdM/pCTKJCfcV3xaRSR4qgmCX
-	 VZvenvGRePVLV18QuPdzjL6qPgqhv6qwe4pRWmtbbDzrJrTeA+RlT5d6rt1RXE3RIIYBO
-	 XoLZOd57Tgk02Ge+XaRI/I7axkJfE2T9Lvsz4aErdAP5nZmQTtJyRkJQ62qPWBjMkxfSV
-	 noomEYOdCdySGsm8CnK9Ii1d6quFNzxpOyAZ+gXcwls9O82sRkInH9/fpu8EJIhZ+lIL+
-	 saA2ST4C3TeAO/OAa8yak4PRaufwkgCbMsXqYYPwkubSVGZMLkWnYr9yhkYRXBY6xzQ==
+	t=1794703256;
+	b=fEZsAiFUz+rYZe8fIsT1J/OzEcZggIy1U2ce8JTYwNDyHti/GkrIJkPgML1Ke8l+aeBa
+	 rL8qaI1a6DqPOEVIOAYmtatiKR5eHc8tzvGHHTl+6M9oaulDJE8z+H7hp7HmkpByCx0wU
+	 sPtbh8pjYaAGDxRn24jlQjT/WffuqUyguBarR95N2bMHTHoBUOuKMpkQc7ioHCiq55lJm
+	 8PKLA2TJJkdywcjcYjaPKFd1IoEkp8vLRP8atu276spB/R8mpElDPBY+yytdsXLv0iWke
+	 4ZMDhM9BhQJAnl4QuKEoHBGxH+1iPHj1MPUNJo/EIYibdDgeF7Z3OZ8bsF4+VNgBpeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794703047;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794703256;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=XU+HB6VWKnT4l2qMGWJzHZAqDowhE8VPfkmuhPL/+tI=;
-	b=PHF4dR5o4mgsBJZNAG+9JZcA9BlIenbKExPOzipZVE5T2/X41o0vZWEEocRBEjIrgXit
-	 qsXdQk3n9ZWaUJ7h4ZyT4U/m68iKY2KQnQ/vsgiOmmsPOPC4p2Jwi5SDZ80f+Ia3wl58c
-	 xcT6Yzcmw9uMIoZI4+24uzHz5nxUNLCc7XqAGNe14X3KStWkZAJ3cJ1I8dH/aJ3u0QZGy
-	 qAdaeg8tpJdOzGbp/KTBGTcz5F7pkvTNnXv5FwulioIAEd9f1Pgd0kn/4XFiIjhHZjDgw
-	 loDP2uBNsjUE7wO1h9/Dyn6SvB0GVWS6biH8V/kZIrWObc6YFcuvxH/u5jeti1axa9w==
+	bh=og7Y+0LVZku2LSNXuavngxyZPpoFiT1xhPDH5XrmFDg=;
+	b=foVaSqQiD/41F0aCph685pa3zl0OHHaBX4yiY9Exn2MgexlPckX6cA6mepl2RuLrcf3g
+	 Qkirn3rdf+TrtCbqhZ70coLOzqSu6pHJC31P2DS3Ri5bI96CPwiKRF6lvdrdZ2A2zUXnT
+	 sKhMurEd2hC3Y1a9HMcjm/lfBPL6W2G5Ni32GEDfbFzUg5HlcdCYqkWlUK7f7QmkgwT5B
+	 b0kmbj5/pANatfiwLtPT5fZLyzLronCFplPKHpyVMkrCe617Z6gfMo3Ld5lhsBLQzGE2y
+	 HMJGWnhLMFgHeLCQyfaaC5MCDR6HiZhsBrKwNI+DToxZP7je8SV3G1cvr4E1rUOwU1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQETRgwg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSYGk17c;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EF5606A323
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 00:37:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25012606A323
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 00:40:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQETRgwg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42C9F1F000C4;
-	Sun, 15 Nov 2026 00:37:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TSYGk17c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20EBA1F000C4;
+	Sun, 15 Nov 2026 00:40:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794703047;
-	bh=XU+HB6VWKnT4l2qMGWJzHZAqDowhE8VPfkmuhPL/+tI=;
+	s=k20260515; t=1794703255;
+	bh=og7Y+0LVZku2LSNXuavngxyZPpoFiT1xhPDH5XrmFDg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YQETRgwgvX1+gSOtH5EqEaSZJ0FArWrxLUQ5jWSQ7uuMryexBLNpX70N6njyBuAjm
-	 zY4jS/SFRUCy1gAE8njgddZGd+witT8bHC1o/dfRJ33TiObrEaQOEc7AZlIXugSLl2
-	 7aawJQokezCWhBe2mgC6eYJLqzaZclzvlI9Rwu4SCaNKhc2frcLIrCW5HXydoud3SO
-	 rcxtHbRQ71kpk1Fryz1gdImKRHqxHAlPjnx3fc0AwtGvS4VcimsXkG9aNi/HwMYxxl
-	 9tz0CQeyyMV4wagFPjAl6JLjgiZj9250sylEQxqtWprIqsHl3VQIBHTT8EEY7mAcXQ
-	 Kr51EX4CQZ+UA==
+	b=TSYGk17c7+We5dUmCRhREAz+7iNRUnTrKwenRIiv6FKwXFO5VpI2HfJSXoFVJZNov
+	 YDA39GH5IURoCF29em5BOpToZgyG/ciK/ogOUuVeBUpcM5wfWtpJ7fc3bq0Z17a5KP
+	 IR45sgMwTsoNei+Z+nyTguFqoJAnp5MQctoIozmxBA4/0FWRUZVWqkBa7St0DMHOUC
+	 GHhD/XKa+z0bOO0C9dZBfYrkw6hbqvC8Onncw5X21inRewRf8I7LMIo8WT9NQLq00u
+	 m4XFTcY/PXf0G0FvCS4a+VXFT2sxuf3eN8Qugekn9F+iQ8rBTR9QMsVuav0yUEvjmO
+	 LdiFGpiVSPsTA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daejun Park <daejun7.park@samsung.com>,
-	Chuck Lever <cel@kernel.org>,
+Cc: Johannes Weiner <hannes@cmpxchg.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Balbir Singh <balbirs@nvidia.com>,
+	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	Salvatore Dipietro <dipiets@amazon.it>,
 	Christoph Hellwig <hch@lst.de>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Carlos Maiolino <cem@kernel.org>,
+	Dave Chinner <dgc@kernel.org>,
+	Matt Fleming <matt@readmodwrite.com>,
+	Mel Gorman <mgorman@techsingularity.net>,
+	Michal Hocko <mhocko@suse.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Brendan Jackman <brendan.jackman@linux.dev>,
+	Zi Yan <ziy@nvidia.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] xfs: mark the inode preallocated for pNFS write layouts past EOF
-Date: Sat, 14 Nov 2026 19:37:24 -0500
-Message-ID: <20261115003700.571334-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
+Date: Sat, 14 Nov 2026 19:40:52 -0500
+Message-ID: <20261115002107.535582-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202724-failed-5.10-8b8e26599155@kernel.org>
-References: <20261109202724-failed-5.10-8b8e26599155@kernel.org>
+In-Reply-To: <20261109200815-failed-6.12-fe21f930d1e6@kernel.org>
+References: <20261109200815-failed-6.12-fe21f930d1e6@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,78 +73,110 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daejun Park <daejun7.park@samsung.com>
+From: Johannes Weiner <hannes@cmpxchg.org>
 
-[ Upstream commit 8b8e265991556d99b6d721697f148975a7c68767 ]
+[ Upstream commit fe21f930d1e64d121191673076fc4ebe79fc82d5 ]
 
-xfs_fs_map_blocks() marks the inode XFS_DIFLAG_PREALLOC only when it
-allocates blocks for a write layout. A write layout past EOF can also
-hand out allocated blocks, such as speculative preallocation. blockgc
-then frees them under the layout, and another file may get them.
+1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH
+non-blocking allocations accesses reserves") stopped handing out reserve
+access for ALLOC_NON_BLOCK on its own: the extra 25% below the min
+watermark is now only granted on top of ALLOC_MIN_RESERVE.  But the flag
+was left in ALLOC_RESERVES, which produces something odd:
 
-Mark the inode whenever a write mapping ends past EOF.
+With the ALLOC_RESERVES match, __zone_watermark_unusable_free() doesn't
+subtract the free highatomic pages for them.  So in the slowpath, they get
+to consume regular blocks below the min watermark by the number of free
+highatomic pages.  The highatomic reserve is capped at 1% of the zone,
+which on any decently sized machine is a multiple of the min watermark:
+GFP_NOWAIT can drain regular memory to zero.
 
-Fixes: 527851124d10 ("xfs: implement pNFS export operations")
-Cc: stable@vger.kernel.org
-Reported-by: Chuck Lever <cel@kernel.org>
-Link: https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: replaced xfs_fs_map_update_inode() with the existing xfs_update_prealloc_flags() helper ]
+The user-visible result is brutal hiccups during bursts of GFP_NOWAIT
+allocations under memory pressure.  This was found in review and
+reproduced with a synthetic burst, not observed in production, but the
+sequence of events is a realistic one: On a 32G box with an anonymous
+working set, swap, and a filled 290M highatomic reserve, a GFP_NOWAIT
+burst drove regular free memory in the 28G Normal zone (min=60M) to 28M,
+0.8M and 0.6M in three runs.  Swapout failed to allocate its swap table,
+reclaim scanned 13M pages to reclaim 200k, page faults stalled for tens to
+hundreds of milliseconds.  The machine survives it, but not by design:
+direct reclaimers eventually fail and start unreserving highatomic blocks,
+until the allocation succeeds or the reserve is gone and the OOM killer
+runs.  That reserve exists for high-order atomic allocations; here it is
+destroyed to bail out a GFP_NOWAIT consumer that was never entitled to the
+memory.
+
+Remove ALLOC_NON_BLOCK from ALLOC_RESERVES.  With that, the GFP_NOWAIT
+burst is stopped short at the min watermark.  No direct reclaim, no
+stalls, no failed allocations, and the highatomic reserve stays intact for
+the requests it exists for.
+
+__zone_watermark_ok() is unaffected, since everything it keys on
+ALLOC_NON_BLOCK is already nested under ALLOC_MIN_RESERVE.  Update the
+flag comments accordingly: ALLOC_NON_BLOCK just means the caller can't
+block; the reserve math belongs with ALLOC_MIN_RESERVE.
+
+GFP_ATOMIC order-0 requests have a milder version of the same problem.
+Through ALLOC_MIN_RESERVE they also count the free highatomic pages in
+their watermark check, but rmqueue_buddy() serves them regular pages first
+and only falls back to the reserve once those are gone.  They can still
+push regular free memory to 37.5% of min minus the free highatomic pages
+before the reserve is touched.  Unlike GFP_NOWAIT they are entitled to the
+reserve, so this needs the watermark check and the freelist order reworked
+together, and is left to a separate patch.
+
+Link: https://lore.kernel.org/20261028171719.2043421-3-hannes@cmpxchg.org
+Fixes: 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH non-blocking allocations accesses reserves")
+Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Balbir Singh <balbirs@nvidia.com>
+Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Salvatore Dipietro <dipiets@amazon.it>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Dave Chinner <dgc@kernel.org>
+Cc: Matt Fleming <matt@readmodwrite.com>
+Cc: Mel Gorman <mgorman@techsingularity.net>
+Cc: Michal Hocko <mhocko@suse.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Brendan Jackman <brendan.jackman@linux.dev>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
+[ sashal: adjusted context for allocation flag definitions in the internal header ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/xfs_pnfs.c | 21 ++++++++++++++++++---
- 1 file changed, 18 insertions(+), 3 deletions(-)
+ mm/internal.h | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
-index e02a6b84c609c..931080dc64d3c 100644
---- a/fs/xfs/xfs_pnfs.c
-+++ b/fs/xfs/xfs_pnfs.c
-@@ -91,6 +91,7 @@ xfs_fs_map_blocks(
- 	int			nimaps = 1;
- 	uint			lock_flags;
- 	int			error = 0;
-+	bool			update_inode = false;
+diff --git a/mm/internal.h b/mm/internal.h
+index 9fbed032a9c1a..a13a4799bfe87 100644
+--- a/mm/internal.h
++++ b/mm/internal.h
+@@ -1210,12 +1210,11 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
+ #define ALLOC_OOM		ALLOC_NO_WATERMARKS
+ #endif
  
- 	if (XFS_FORCED_SHUTDOWN(mp))
- 		return -EIO;
-@@ -157,7 +158,24 @@ xfs_fs_map_blocks(
- 				end_fsb - offset_fsb, &imap);
- 		if (error)
- 			goto out_unlock;
-+		update_inode = true;
-+	} else {
-+		xfs_iunlock(ip, lock_flags);
+-#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. Allow access
+-				       * to 25% of the min watermark or
+-				       * 62.5% if __GFP_HIGH is set.
+-				       */
++#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. */
+ #define ALLOC_MIN_RESERVE	 0x20 /* __GFP_HIGH set. Allow access to 50%
+-				       * of the min watermark.
++				       * of the min watermark, or 62.5% if
++				       * the caller cannot block either
++				       * (ALLOC_NON_BLOCK).
+ 				       */
+ #define ALLOC_CPUSET		 0x40 /* check for correct cpuset */
+ #define ALLOC_CMA		 0x80 /* allow allocations from CMA areas */
+@@ -1228,7 +1227,7 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
+ #define ALLOC_KSWAPD		0x800 /* allow waking of kswapd, __GFP_KSWAPD_RECLAIM set */
  
-+		/*
-+		 * Blocks past EOF that were allocated for buffered writes, such
-+		 * as speculative preallocation, can be freed by
-+		 * xfs_free_eofblocks() without breaking the layout unless the
-+		 * inode is marked as preallocated. Mark it before handing them
-+		 * out for writing, as for blocks allocated above.
-+		 */
-+		if (!error && write && !(ip->i_d.di_flags & XFS_DIFLAG_PREALLOC) &&
-+		    imap.br_startoff + imap.br_blockcount >
-+		    XFS_B_TO_FSB(mp, XFS_ISIZE(ip)))
-+			update_inode = true;
-+	}
-+
-+	if (update_inode) {
- 		/*
- 		 * Ensure the next transaction is committed synchronously so
- 		 * that the blocks allocated and handed out to the client are
-@@ -168,9 +186,6 @@ xfs_fs_map_blocks(
- 			error = xfs_log_force_inode(ip);
- 		if (error)
- 			goto out_unlock;
--
--	} else {
--		xfs_iunlock(ip, lock_flags);
- 	}
- 	xfs_iunlock(ip, XFS_IOLOCK_EXCL);
+ /* Flags that allow allocations below the min watermark. */
+-#define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
++#define ALLOC_RESERVES (ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
  
+ /* Flags that mean GFP_ATOMIC */
+ #define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
 -- 
 2.53.0
 
