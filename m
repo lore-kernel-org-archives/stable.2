@@ -1,85 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794757991;
-	b=fmpVBujC/gjoerr6ufAVGzE/7pWgXiXuvvLX9GsecCI1Co3xvjz9x2LQLR8QZoWgJ2tj
-	 TaS3QkkOoh7TuW2nUWysVC+2XKFO+CRWjdEE1yhxESKiIjUG3vHM21tvPi0c+oOpO0xRi
-	 QHMoq+geiLy5tEBeJ1s+LS7SdscRzxZkAjS2dceIhvn0tFQ914zhfPGwwmOrG8/zyDLEv
-	 TkTFP8uyJsCcHe2cQogb1W+aSXn/iLVuTecnvFUMX9FaMtV5hKBhQO2PUahzNhC/+rq2A
-	 MDD4BKVtO/mx1Mw4+vWZtKTNIJ4uuE3nAd4PhT+cgIWUntrWfpRavn1muNii3gSEAcg==
+	t=1794758272;
+	b=fgECuhc4mPxwLsgpn8dFfvQ6TiLRuAR0iemSg4/odtSg5c9DkD+1w5jQ9RmhhggpcLLs
+	 mTn1TVhYkDMk5/gnEeM17FSL/nP34F7cPPrfKIWGnQPvXwat3bIfcI1V+APwJ15ogE2M0
+	 uxDlMBKhJ8lc5SiTwm0Ex7ncZI6fTX2FpfI/CvheiNqeQQf1u+ICGx7+9eeZSHJKFqDEQ
+	 a2Fb/C1uIfewGd3sUaCu1r0jKTOI8FThDasDwGqL7IpwMI5XRqbdpXVVFgWsDRrks3jgb
+	 8w0Woq0bZcHCQbY2+wpYRcMKS9hWnwUDQAV/NHu+cTvpLMIK1/0ztR9lKjo0KJ0CuDg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794757991;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=br1F6rx2z239r/9xCTQgT7hTSXdQ1STMvzPD8aikQWs=;
-	b=gORZL6IzNIEhbOGNfU33UbOcufreTPdEJyUScdiF62YdkzRR8m18cFSrSG9PrR6XQ43h
-	 tmjTGCifGCL4X/e6gnyJ5hjr7bIHdACqYERD4AYJpQeBQKpLdKzbLPngxZHx7o723/aoJ
-	 fsSxqijQKvyiR7uhEON1TY1mFv/OMWLWTwGCmI44j9DIsOJ4VXno9ZCnjcLH8EdKl0HSw
-	 xg8YxiZgX6IYUnBqnyK6coX9TqRnMN7jgI613RsKfAvEpuVghYUIHWhNhx6wJYTnM1h8H
-	 SrCl/ucyfCW8G2cRq5A5Fuv8uCSeQvhCTI6cqGpRZ27gbV3Bfzw8jD3D1xUYniZ/4EQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794758272;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=o+XltfqJrZ95a6qdyrBWf8fYWe7VspmbFRBcyA2Af60=;
+	b=D+expajsQOAkVauDcWDS85v8Livj8/xPnO/ncDDos+mLYN9sBHn2Gg1O4d1JIS+p7U/P
+	 oET8cJ7NQbkqzxOKWHpY00gEpMG+1Nq9pYCbw3SQCqeJ4COHeOOcjglVY3OW2n//T7Evp
+	 TJELaoeTFaPAlCTsiJuiiTQ7Qhjguqhk6ImUeoBdH/peRso/Zcq3iwM49t1kI+MvU51DK
+	 2EYgcBHfixVI9V7WvPJqzWe8L0/Mso2VrYbVn3YhD8PDrq5mdMcmqNi95vOQuzNVzn2dr
+	 QnJq4ks1e1qpwDWcaikXh4KV+4GZIQS+tXZ3oaMb9WQg3KA083cVUS8DaiEB0hNsl3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=KrFT9Mhz;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kobgKXOA;
+	arc=none smtp.remote-ip=162.62.57.87
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6613606A327;
-	Sun, 15 Nov 2026 15:53:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6613606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2986606A33D;
+	Sun, 15 Nov 2026 15:57:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2986606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=KrFT9Mhz
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 89CCB40E01F4;
-	Sun, 15 Nov 2026 15:53:02 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id TvAwHo6x9pPC; Sun, 15 Nov 2026 15:52:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1794757979; bh=br1F6rx2z239r/9xCTQgT7hTSXdQ1STMvzPD8aikQWs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=KrFT9MhzFLLDqOxM2wzt59BT3y58CHCiRcWr7hmsUQ+Bx2E5xNr1XiKejqJRIH2+B
-	 8US7qzAyJGcmksh+zbUGIorcQx8uBVDt8gLTuPId2CxDuIqaomfPZbjOIFLs1Y74lN
-	 di4+DgCwFvDWydLV0vG6+l5WSS1B+7GvIeO139mZls5yUsl4SgiRzwpV/v5YZBxsUm
-	 DY9By72tWc+rm1+9woElIRKVZULwZd97HROlhedNvmzjeau8Aksh4F+Lf1E+/qQLgb
-	 60BW0Bz/P238gHPhLKYFqwyZ5KX7eiwIwI2p7gi95Tn0O9Dj8PBBjoHW261QoA9EDS
-	 CujsvfTllPvt7UPCwh1WJM/fsMB2O2sPyQKx49sfmFmBs99iIp38kg8L1b8EbaHLa1
-	 Aowb0QEVB3kuou/37Je0A0GtmBSrQZ3sAHCKsVyRaQRErYl0V46CBTE5EgWdODtn3g
-	 10xTEqEHJK6RPYWZC6Dz5AgVLj96PKJZ6ePdDWmlkIm/+2GA+aELJ9rX0+jFOnU+D1
-	 q4ilqqLrXrcZbLo16x5lK4z29DljODIMSldXtrG3v4DLkqi71ioKolRxOG9QLmw6lw
-	 AEeGz0fAVKPEP4FMB0fS8dxz5YR6dyoFOumNjx+hOib9vB3sysmvzSBGsehot9eptr
-	 Rrcm+UOssG/cLrGWlPU07xZk=
-Received: from stx.tnic (unknown [209.52.143.85])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E0D6740E00DC;
-	Sun, 15 Nov 2026 15:52:46 +0000 (UTC)
-Date: Sun, 15 Nov 2026 07:52:42 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] x86/build: Do not allow X86_NATIVE_CPU to be enabled on
- non-x86_64 hosts
-Message-ID: <20261115155242.GAavnVSv7VTBO51JGK@fat_crate.local>
-References: <20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org>
- <20261114202524.GBavjDtC9Z3j7PrV3Y@fat_crate.local>
- <20261114204605.GA173332@ax162>
- <20261114205806.GCavjLXgsKNNwK0zLz@fat_crate.local>
- <20261115050730.GB600738@ax162>
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=kobgKXOA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794758265; bh=o+XltfqJrZ95a6qdyrBWf8fYWe7VspmbFRBcyA2Af60=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=kobgKXOAsg5+xHaP1djE8bGgJsgAtadgWvObfORQmaYTw7+8YGzJFLi1ioKrfb9pJ
+	 WnUfL4V8xGa0l46uplKZ2zBnPf04+IVxBc+mIewNXbQXSt6/UVGGXijVD0UDoPm2B5
+	 +BRzQoNZp/1JPBaXjFWLmSa+8zK2J6s9nIOdlAVI=
+Received: from [127.0.0.1] ([2409:8d5c:8f0:65e5:103b:e9c7:571:634c])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id E6931827; Sun, 15 Nov 2026 23:57:41 +0800
+X-QQ-mid: xmsmtpt1794758261twipasb0b
+Message-ID: <tencent_B3B795CD5D04DB5F115B3CED23D57EF9A40A@qq.com>
+X-QQ-XMAILINFO: N/WmRbclY25Gc3Kg9n4OQQyzt3Yrgm+67u9HPDMgjYzX0dIkePlahq3yL1TsBZ
+	 IoNShSC/xl/hfDG94CfHQFQubLBSfN3k1Jsk3iY1MjI3GzE2cLKhtmkeTUa1ckqtHNbMqa9aYH/n
+	 IlHvHE8PsQBXB6fTCCxRZWNceP3kUWB/Py8mvjPO4RZrANd5JRZyuowdePUZyKPnzym1sIhtTcNb
+	 JQMuqig3Y7+ZZcCTUPSWaA8Zanu0VWnSSy38Jvq4tHG4jRwkP34CeY1+gpaplYcT5DEKMX1P4nhH
+	 pfF6s6tsrHivYf7s0VJGPbvtS9rPfmI2if1wViL4j/fo7TX7rqre9XDGj3abp1u9Fii1GhbarRxa
+	 wCoAQURsOhKY5e3r+QuldjAyzqVSLWSP2+I6yxFK0eAnwgc/joUOXed3KRPM+dqJmCrehNAOXeKR
+	 quF1KPpPeWbfGtJBZD/ZyFcKEeZNb9wJwbq1pPb+CaKoahhoNQFso1pFwTAQT3lGcChQCO1tKFzV
+	 mxZaNjmkFJ2JK72g7mu7NvOtjQN2NIjzf/Nh69Ema8ZfydBKUBb+9dOxflQxZ7T/os5+M2c5SFg5
+	 /bXbSbfZZVPnZ8fUBWNENa99t+r1d+NdnH4WWEuXw0fmTjt9j6f4qGxzuie4fvOi/rykHJnRdyWK
+	 XEFqPuM70EOCBUlFemwM6nxfn6DqgiPp983yhdPy56ZYvtb9WdHo9rJdqOP3CKHQK0LjaI2n1j5Z
+	 HVqqEuJ/awFGPxleg7d6/8lgMDw0XwJPzSDpaFw3x2XPqiRnQel1o2rR3/Ci2mskOPq2k7ubkpai
+	 +iEqHs6yw0ybta5VLT6e9yEtusRMaiLwhiYNvepswdrkRElxpBEtnt4b26SYrVU0tB6skpHmX14A
+	 qvuGR+eqYv/8tS9F1FDQlaOS567XyV7E1H7uljY/vEdiJalggy2gsIpR6+XXqTqxezZreo3in+qV
+	 PbQYzS2qPTHWZ21FhyVDQUqcllIOHIsARlKg/tKjt1e9aN3OoXusPFRP2RrxQ69HvKDqBlgLUQyl
+	 6PUq63/CJ/W0VGINOTm22LXd54Ge/pIzR8wjrgp4Z9XLHU1jdZSUfMHnrE8XKryL9Q2Uhtgkx6j0
+	 kCXUCa471CZbJgNwI=
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Hang Nan <2122295973@qq.com>
+To: sashiko-bot@kernel.org
+Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, matttbe@kernel.org,
+ martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ kuniyu@google.com, willemb@google.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, 2122295973@qq.com
+Subject: Re: [PATCH net v3 2/4] net: core: take the reuseport migration
+ reference with acquire ordering
+Date: Sun, 15 Nov 2026 23:57:40 +0800
+X-OQ-MSGID: <179475826068.178830.14957974064477086476@qq.com>
+In-Reply-To: <20261114130927.91839-3-2122295973@qq.com>
+References: <20261114130927.91839-1-2122295973@qq.com>
+ <20261114130927.91839-3-2122295973@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,23 +86,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261115050730.GB600738@ax162>
 
-On Sat, Nov 14, 2026 at 10:07:30PM -0700, Nathan Chancellor wrote:
-> Another option short of adding this test or killing it entirely would be
-> depending on !COMPILE_TEST, as I only noticed this because
-> CONFIG_X86_NATIVE_CPU gets enabled for allmodconfig.
+Thanks, agreed - the patch is dropped in v4, and the series is now three
+patches: the two mptcp token patches and the iterator one, unchanged.
 
-This sounds better to me, TBH. As in: we don't need to do native CPU compile
-tests in environments like cross-compiling on another uarch where this doesn't
-even make sense to begin with.
+One correction to the reasoning: TCP sockets are allocated from a
+SLAB_TYPESAFE_BY_RCU slab too (tcp_prot.slab_flags in net/ipv4/tcp_ipv4.c),
+so "not a SLAB_TYPESAFE_BY_RCU lookup" is not what separates this site
+from the ones in 5b5d8f351dd9 ("net: restore refcount ordering for
+lockless socket access").  What separates it is the second half of your
+argument, which I agree with: the acquire only orders a validation
+performed after the increment, and reuseport_migrate_sock() performs
+none.  It takes the reference, unlocks and returns the listener; the
+callers go straight to tcp_filter() and tcp_check_req(), and the state
+they actually depend on is re-checked under queue->rskq_lock in
+inet_csk_reqsk_queue_add() (net/ipv4/inet_connection_sock.c:1403), which
+drops the child when sk->sk_state is not TCP_LISTEN.  Ordering the
+increment changes nothing about what any of those paths observe, so the
+change was cosmetic and I should not have included it.
 
-Thx.
+I also considered adding the missing post-acquire validation instead
+(re-checking sk_state or membership in the reuseport group), but that
+would duplicate the check that already exists in inet_csk_reqsk_queue_add
+under the queue lock, so dropping the patch seemed the honest fix.
 
--- 
-Regards/Gruss,
-    Boris.
+pw-bot: cr
 
-https://people.kernel.org/tglx/notes-about-netiquette
