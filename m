@@ -1,71 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794744047;
-	b=Ku796PwmU4AEU8uvsXYvP8WgSwP6Jlol3NQrHLOFGVpEr91ef2kWTrfrvU+nRAgytHWV
-	 UgVIEqI6TbOHxS61v0Xe9lLFIioPWf4MoCFhjqyUXYDuvis+M4iGjvvzgWoytUdMQ75Lr
-	 YI00cMA5+O06fUc3WmCZkabgGP0UW0o/KEGZkTywP6WwMuIquu+RCuTImnHWAtnHBYPyZ
-	 XMZjCcbH5dCIBe7NooKDs7Yyrxu68jbYh2tyXvIPIK9GKmnT1OdwbnyyKx//ku3Gbf+3l
-	 CCHEjWIRfdd7ajxQzc1zGxyERuRWn4W4aA6kN+5v+ahoKMA/IVnrfsgnj8nVQuhIVgg==
+	t=1794745044;
+	b=xBFeL4C/sweuABqsns0pRtcViZoKwcoJiCxXiOUSoFgT5uQSpr+pZwV7fJyfC1U6wC1U
+	 JVCJe/bI6656OdY6luCTXUkTs1W3Lg4lTYGyuI/X1cHOOYOJZjmYb6qwl8k3X2ulbzzC4
+	 A5Xk66kqTDKqlhlHYUoWWhEJ8EKTaozlM4WlVzbC0cvBon+FvZslaeHjnFWqkGD6fOEqo
+	 CUiPzIby1XOxPnc1xC9URCKRitmbro0sUEDfrp4tHqREutK7VHQQpNhQNz1H+7wqkkuKC
+	 +XU+XFT3jeF7Hm5CULvztO+bwOEe0OetSm4hwBMhImN9qKXyQpbK2NpJUgzYEWUzUNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794744047;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
-	 Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=1Y0Mh/YaPXXvxNmz8dhObdzhGRPTzFyPCl8ygTk5WmA=;
-	b=iBYgjnIAlm+U+AYh8JTlv76x54RJ4L4zQjNyjb0p+cC3Mi1veXq8//E4Iq/RjZfGUEGm
-	 85ecbeUvhVYtsiLisfRVpFvuQAEgumzJ5tdb/mRK7T3QIUIbdodVKAw9gHrM7LT7ueMuZ
-	 flgrogcU3aIQNGQs0gGP6F6A6pXVvl9XO2o0xuTOCzxowOyiJPha2xngDxIhMUyUSgRnM
-	 WQ0vbFvpADCaZKLSrTHS+qTB9JUvQSedAHS4o8jw0vkCrjKUMbmZ2++9wkBsDvjFtqMDG
-	 YEELwzZX4a3cnAGloWcwgRT3ZBkUD21SRHYxixf08wta4rVh9tLrheLIUGMRDytFnYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794745044;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HSieq9Kr+Lv0bYY/t7jT+oYMzlrXjrzzugbFbs8ONwc=;
+	b=jIUOiLaouHh6vtiDVOFqIX/OZqig4vV1hLgnWdb6c9e7B4XY9FAhfJ7e3orNL6EPl8oR
+	 eQYk5xHpYLgupUBmdbh3NDqIaSkzHupXLPjtsG7hYT97l+bJeltnQ5nsqSXaz6/+pgb2Y
+	 95WAecYVA60CmONQQCRGJcGhMjNzZIexvow6AepAt8NvLrLRCAfXJmyE7oAJRMzQjIb05
+	 PeiS+6gnlRhpgVzWQuFaD6t84vJJ35Ux6p7QHtbND5jCvTUGUmX10fliK5g4l/awMMUU/
+	 corwjIlLE6NuIfkO7e5PPfo3aTcsXVSDD5bQ/lQT3a+ZCRJ51xwAKtNU3fOqDkoKUPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=0LzKODUO;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=SjjwGNvV;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dmarc=pass header.from=pm.me;
+	spf=pass smtp.mailfrom=pm.me;
+	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=qHosZlD3;
+	arc=none smtp.remote-ip=79.135.106.119
+Received: from mail-106119.protonmail.ch (mail-106119.protonmail.ch [79.135.106.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553F3606A323;
-	Sun, 15 Nov 2026 12:00:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 553F3606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F0FA606A31A;
+	Sun, 15 Nov 2026 12:17:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F0FA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=0LzKODUO;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=SjjwGNvV
-Date: Sun, 15 Nov 2026 12:00:36 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794744039;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-	bh=1Y0Mh/YaPXXvxNmz8dhObdzhGRPTzFyPCl8ygTk5WmA=;
-	b=0LzKODUOFf5ulx+DdfYG3FYhOcbIimD9F/qrJ+ahrn0RGYZwmy17A6sYzQ4DWGvx0gAC5Y
-	SSetyZo+Gwh9K6pMl+Goul03hRPiV0uMckMDZ+6Jv5x+qGdBFbA/peYhxkHFxqCylHPZfU
-	VnsEuCY9B0Y7bmFQOsW1hhPBqn7B9hvgM61X26RNb0AlXlLnWTQguAbQUx/qHWYFaBSKa6
-	aozBle4JTz3MEbBhQPBNTPwiI8JJwNceDr3CPVkCTeC7AJl3h5fVLc4zfEF2b/QQ3DnHP3
-	XWcutzqdKySPCOOC4eG7cZ4xR8HmXfGttNuXaQ72IIOQXJryCb6FalLy+29kSg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794744039;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-	bh=1Y0Mh/YaPXXvxNmz8dhObdzhGRPTzFyPCl8ygTk5WmA=;
-	b=SjjwGNvVA1Yp9e0SnOszo8zgKhHd9Nti1+tPBE2aq5kUa29C4O1bLYhKi4ZSzBfzh7cdZR
-	nysy8Czym/dJm5Cw==
-From: "tip-bot2 for Dave Hansen" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject:
- [tip: x86/urgent] x86/mm: Ensure write visibility during LDT installation
-Cc: Jaeyoung Chung <jjy600901@snu.ac.kr>,
- Dave Hansen <dave.hansen@linux.intel.com>, Ingo Molnar <mingo@kernel.org>,
- Linus Torvalds <torvalds@linuxfoundation.org>,
- "Peter Zijlstra (Intel)" <peterz@infradead.org>,  <stable@vger.kernel.org>,
- x86@kernel.org, linux-kernel@vger.kernel.org
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=qHosZlD3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1794745041; x=1795004241;
+	bh=HSieq9Kr+Lv0bYY/t7jT+oYMzlrXjrzzugbFbs8ONwc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=qHosZlD3yVZ9fwvUmnc4hfYPPKknoMo9NJSXNny3jkXABONJ40LSeOYArWVnNLGvC
+	 ZxmOIOj+tCr9T232p+NDo9yqKtymaCu4h0r/c6E5PtO/4U2oD58oVfB5MpriZtw90o
+	 8tFaNRmgewnUHj9qlxoSX7qL8cvhX8XNUjmsQ/QI6boI+7psrxFazOnq+dHK2IlNRd
+	 gMQ57C/5yNsHs8IvmCJuO/SSah2Xi/H9be4BlDcpVoMMv7+bvSeBqSPWi2XQ0D9rPm
+	 9+zH/0RkU9or7bRIFv8kbyrnUKvhn9/4KU604S7VH4Z7qlm8w7t0cnTlGNnTIPVxBF
+	 JOP+xT4vz+gyQ==
+Date: Sun, 15 Nov 2026 12:17:18 +0000
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>
+From: Sinan Turunc <enscrpt@pm.me>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: [PATCH] media: uvcvideo: Reject metadata packets shorter than their header
+Message-ID: <20261115121701.189-1-enscrpt@pm.me>
+Feedback-ID: 48393780:user:proton
+X-Pm-Message-ID: ae5b306e35375055db343d5fb860a0a83e2cc56b
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,86 +61,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179474403679.3191731.3498878914619508052.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-The following commit has been merged into the x86/urgent branch of tip:
+uvc_video_decode_meta() derives the length of a UVC payload header
+from the PTS and SCR flag bits in the packet, not from the packet
+length, and with V4L2_META_FMT_UVC it copies that many bytes with
+memcpy(meta->buf, &mem[2], length - 2). Nothing compares the derived
+length with the packet length, so a packet shorter than the header it
+claims is read past its end, and the bytes beyond it - whatever the
+URB buffer held there before - are copied into the metadata buffer
+that userspace reads.
 
-Commit-ID:     0dc2a4dac3d04e9e4479aeb0b46172feab1cca0a
-Gitweb:        https://git.kernel.org/tip/0dc2a4dac3d04e9e4479aeb0b46172feab1=
-cca0a
-Author:        Dave Hansen <dave.hansen@linux.intel.com>
-AuthorDate:    Tue, 10 Nov 2026 09:27:39 -08:00
-Committer:     Ingo Molnar <mingo@kernel.org>
-CommitterDate: Sun, 15 Nov 2026 12:53:02 +01:00
+An emulated UVC camera that sends an 8-byte isochronous packet with a
+3-byte header and both the PTS and SCR bits set made the copy take 10
+bytes from mem[2]: the last four came from past the packet, and in one
+run those four were the tail of the previous packet still in the URB
+buffer (03 0c, a UVC header) rather than zeros. With this patch the
+same device delivers no metadata blocks at all, and the video stream
+is unchanged: 25905 buffers, 5958150 bytes over a 30-second window.
 
-x86/mm: Ensure write visibility during LDT installation
+The check is placed after the derived length is final and before the
+format override, and treats such a packet the way the function already
+treats a 2-byte one: it returns.
 
-During LDT installation, the intent is to overwrite the old per-mm
-LDT value, then send an IPI to the mm user CPUs to have each load
-the new value.
-
-But there is an ordering problem: a new mm user CPU sets itself in
-mm_cpumask() and then reads mm->context.ldt. The LDT-installing CPU
-writes mm->context.ldt and then reads mm_cpumask(). But, there is
-nothing which orders the LDT installation side actions. The CPU
-can read mm_cpumask() before its write becomes visible.
-
-Ensure that new mm user CPUs see the new mm->context.ldt. Make
-mm->context.ldt visible before reading mm_cpumask().
-
-Also convert the smp_store_release() over to a WRITE_ONCE().
-smp_store_release() has an internal barrier which is weaker than
-the new smp_mb(). Avoid an extra barrier by converting it to
-WRITE_ONCE().
-
-Also refresh/correct misleading comments. READ/WRITE_ONCE() do not
-"synchronize" anything themselves.
-
-Reported-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
-Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Tested-by: Jaeyoung Chung <jjy600901@snu.ac.kr>
-Acked-by: Linus Torvalds <torvalds@linuxfoundation.org>
-Acked-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Cc: <stable@vger.kernel.org>
+Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sinan Turunc <enscrpt@pm.me>
 ---
- arch/x86/kernel/ldt.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+ drivers/media/usb/uvc/uvc_video.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/arch/x86/kernel/ldt.c b/arch/x86/kernel/ldt.c
-index 4fa7a86..c4bbb41 100644
---- a/arch/x86/kernel/ldt.c
-+++ b/arch/x86/kernel/ldt.c
-@@ -43,7 +43,7 @@ void load_mm_ldt(struct mm_struct *mm)
- {
- 	struct ldt_struct *ldt;
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_=
+video.c
+index fc3536a4399..25c3b8dc891 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -1487,6 +1487,10 @@ static void uvc_video_decode_meta(struct uvc_streami=
+ng *stream,
+ =09if (has_scr)
+ =09=09len_std +=3D 6;
 =20
--	/* READ_ONCE synchronizes with smp_store_release */
-+	/* Pairs with WRITE_ONCE() in install_ldt() */
- 	ldt =3D READ_ONCE(mm->context.ldt);
++=09/* A packet shorter than the header it declares is malformed. */
++=09if (length < len_std)
++=09=09return;
++
+ =09if (stream->meta.format =3D=3D V4L2_META_FMT_UVC)
+ =09=09length =3D len_std;
 =20
- 	/*
-@@ -422,8 +422,14 @@ static void install_ldt(struct mm_struct *mm, struct ldt=
-_struct *ldt)
- {
- 	mutex_lock(&mm->context.lock);
-=20
--	/* Synchronizes with READ_ONCE in load_mm_ldt. */
--	smp_store_release(&mm->context.ldt, ldt);
-+	/*
-+	 * Ensure that new mm user CPUs either see the new LDT value
-+	 * or get an IPI. Make the store visible before reading
-+	 * mm_cpumask(). New mm users make their mm_cpumask() writes
-+	 * visible before reading mm->context.ldt.
-+	 */
-+	WRITE_ONCE(mm->context.ldt, ldt);
-+	smp_mb();
-=20
- 	/* Activate the LDT for all CPUs using currents mm. */
- 	on_each_cpu_mask(mm_cpumask(mm), flush_ldt, mm, true);
+--=20
+2.56.0
+
+
