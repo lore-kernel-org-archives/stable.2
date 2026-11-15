@@ -1,95 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794708467;
-	b=0N3nrbtRaeIcILvEwu17VHHH2/qwxik3MFJa3iBAVNHqu/Zi6ze6DaGg1c8nWsmKjqN3
-	 JgLBcM1r99tgiRycx/eN4MCOeqN/sjhQGeD6RH66kQufWRofXxZ5mFUr+EhLdpkdf9J0s
-	 Rq+GsDrcqLVuPpBeCGNjuZXD/UnNzNTwHpObesdsRCBcz4kRbht07rBAbjAtyGBuMKXvH
-	 kMWoEiHbDo1qxK3saoM/QpnCWDRlAsOsF3hlCIBWZixM1eFD7rh154P6hNqX0kDGzHhoC
-	 hrahT5UIpXyRbUbNb5hRxfBoZwF5au5c24tGKcSaxB6+3/fR9WursbeGtQ3K/R4Yn3Q==
+	t=1794708829;
+	b=zI/v5Re6/KlhY2sMJ1nG3bp5gpis9rqRPxI4OzquhBz975FsKVwl6eME2/Vf958c7bOK
+	 +6eYUi+vN2OrhOnhl8fK7i6XbiEs2YoqF4hDNrv/Ob0DA86BeqK+/oFAk3qwi287DNLZY
+	 avtTYgoG7fRVX2V9EHfQduLA8YaGVseXba5TeCAUj8sI1TiGqZeIPUWM7iti/axUaaSUf
+	 hrD7WH/wlo3a70YSy0DLL6s1UEwN0JNmaIV991HP42QBwNocziLE2er/SgTxBjjNhCHq3
+	 MtDq/9w6x5x5jZF3klWx6Tny7nTdIZLiECckjRuGXZEwsjtkzCcE1ZWfxqw7s4L/cPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794708467;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794708829;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=rnqu5ao9YJwk94NMnB9wLTZ5Ww11Mzaq96WX6a9SCys=;
-	b=1FRyluu5zOYGBgSwWAekNzcuLk9/LUpjlgz1NIONN0/r+ehqDXdwp0089mlNxYjMA6Xj
-	 JfaNz0K5Rg1V5j6gZ1Gejq7eEYSu2EJaQ7iPxKJD7+vk0/GJBJvnoCQJ0MsvZKi1YiMTe
-	 jlXt0+42Z0rhuCbK52eUvdfm9OFUA8KS8/NGsw+gg3wFFGQwlj9V6IpjeeekaXgsQIf6c
-	 Gd9bsPXYIqMZJHKl/+HosVrBpGkQGvBAO2Oas8H6ucyYjsRUls4uMXRpW+6CMs4Y6/dTM
-	 88SjrlR90BqvWTrir8GN8WucKqPIo85S1x25xmFMFdRICuayFGAyzNj69/lZI2Wvu5g==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dpgzsurd5/xcAqQNY8m4SztexczNhtYFtRWAJE5g84I=;
+	b=sjlTvK+GdMM8oSDw4O6rTbGe3cO2jd8Wt0crQOXW0t7+IIgIJijJZq5JIAZTMUH2wumd
+	 K3KK7Pcr2V/Fh9+UaW3vqrwvpTo6Hy7W36srtWe1cdzh2fw6LIE04znz1OV5HQWTe+lSO
+	 62UptsUzU4KvdQfUibWOxsBnBDHvnBZfhSvxOUHG5ARm9y538Pp/hxhrT95lLSD+/8izs
+	 vwL54pzKO7kQQQeh0KQBoUjM2N8rghMnVZbpejRlPV6iMVJEwx78CIqg2F7Ju7phofwBp
+	 AN0I73KsI014+cxAFxGwwNh6tjQr6U9UiYKcqAKpGYchH4RhM0zEEBhiGnc4EJAztqw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hLnlNQK8;
-	arc=none smtp.remote-ip=209.85.210.47
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wZyfed2q;
+	arc=none smtp.remote-ip=209.85.221.46
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C84606A32D
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 02:07:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0C84606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCBA606A323
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 02:13:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0BCBA606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hLnlNQK8
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-862b76e3c8cso71125a34.1
-        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 18:07:46 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wZyfed2q
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-4919a880834so1067945f8f.0
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 18:13:48 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794708465; x=1795313265; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rnqu5ao9YJwk94NMnB9wLTZ5Ww11Mzaq96WX6a9SCys=;
-        b=hLnlNQK8veP334z+eVkUDAES3G1yQmoS+IwKg8o4QOrZ6P44r8AkjMZlynKd27RZbc
-         p+nb1wVMj174+IPPxl8ZBp7Mmc5FGxR09y5xaFBVcsIF2IQaee1ma6hxIbz88svT+mr5
-         SyMgE+EeIY8vD06U/mS1vcAuJz4LjrTAHL6vptfjVDeAtuat+fAIJPECALmQi7y9O38M
-         BhwxmXVSzb7x5q4nPK3ol/34LXAE4t3yqVJf97ZATIecE+cbI1sOQjsLhYaURc6YgJuI
-         vV/WeenOkKeTh4I3Vqb081WEucdnNXZ3sgcwyW30M3qGGscFejT1hmq2KswuO8nwqZgf
-         2y1w==
+        d=gmail.com; s=20260707; t=1794708827; x=1795313627; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dpgzsurd5/xcAqQNY8m4SztexczNhtYFtRWAJE5g84I=;
+        b=wZyfed2qCeeBfHWG1DKaL6asdZzlFwUXPD75qJl4GBTpM7Xu9PbPFAZbXXiqS2j3jA
+         9gEOT4s0AnOmDrli3PlV276OK3KvyXfmxU3H/PHlbhK2dJPpaNl2U23novqmIbAAv2l1
+         1GFMFATx4514ZRKZL+V6ayPLwzLxoIelt14oHup+eAlOREpSrpF3Kb6Lz413p9ZED0Wx
+         3z0qbWcPLETiy9lSh58IwxnEfF1cTaOB6gR2ODWXmsoQtK0ukOE3i9kwdy7E+iiO4GjX
+         pR3orwAX5rikKleDpbVgje49wBieqR0/bZvr6nf+YOvPWeqIX0pNj0ysIsCJOEk3uj7Y
+         +zcg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794708465; x=1795313265;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rnqu5ao9YJwk94NMnB9wLTZ5Ww11Mzaq96WX6a9SCys=;
-        b=JEAdFPMNKFERPeusxGAPuh5JG63RJ0LAOeuE3gvMuai/yQ/y8zEPxNZeBGpf/df/tf
-         a6YdDs8btKjirolM04S6gmrTBiA5KaybG0ucD9BRtMqiWDjnNz00DW2d/ez9jlS+Xq7n
-         x7w5Z1GPZT1xH8Xc797rEfczzhJqD+anDassbVvMqoN0k1oIYw1v+fpNyTCiNLYLsxgC
-         TKVLe+HuVc5vzV4p87zrLHqHIulv0AnYjRSJqVJ+od6CYxYR0QXJaqLXAGN8mAOSWHbx
-         siAVsMT4Hswfwah6WJTk00+QbXAsDEKDwawUwFVjTchzkccB35aI0kufTcDIlANy+OVb
-         K7DQ==
-X-Forwarded-Encrypted: i=1; AL+hErGj0cOQZet5S0h3qkiU72avGph2/WoDsV6jCMeUNmKXPA6P09uigO9miO0r4S0vL8D28wxN9AE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z81J9iHoAVGYKkDwvZ3O/XZvZL6e0ly++AM//mm8Yxtka0H0hG7
-	tt1Zh/rKzpJ/0s/yA6vSWr1bhdQa3QR5RyZxhLqrJ4S9VJi8VxVpBCtE
-X-Gm-Gg: AYBFou03icmpH+jVZUgf65y4ioZVOiiGyTXs9BfRTKDCw+EXthpmUnVwexKa56NFADx
-	z227jWQ1hmmg1xwbprOLmYknS/rM5fGtrxj1rEsNNa7Q11dBJojtKYhiaVfwc6dixFHG6HWlIMj
-	FbF0ym0OcsVbnQ1zxCWxwRpFDpRX/1rvpjkqVf9s5LMHQHGeOW3RMl+ZtBPzuDAWZ53jfhbG9N9
-	6JUCJLTHG+dAoKzI8n/OLJK72763UHgazKqmDRN9//1LZnPn3qvdB6A47aSLCAEFqO8cFJOIIGb
-	nLhx7IOlOn5D15n70SBVotqwZG5RRjg0Y5R+Bpvj8+7H7LcnuDAouL7D4/e2hUpo0v8ZZSIpCqR
-	8GkYwj19o8YeaNAWRF+sXOOoxvITF4ZXqjFBtThNSjuXUXBFIJdt7AKM6BKxaymjazHA0JoxoWC
-	sznLCgLf/mhlA8eIdfpSHGcH+4SvDEN8Hv1wOXOoaiHGvKIS0A8GzNuBm7QnesAs8wNw8v8cAQ7
-	FiJ8+2w3XC7SSZ4/sX4w1VyvdR4v6Bv8LKPoprHtBD+H65tC/UXjL62Pr3JLZ5ClY2pql3XeX4c
-	d0tPOytAwNCQC1oOpr0C0iXWmB7p2XNxGjZkKAIWnNukPIl8XKjZxu1j3vntfekAdMdlK4vLYuE
-	ggqRk1H1AsB2zskR2tdwZSwmQlUU1ninF
-X-Received: by 2002:a05:6830:4104:b0:822:527e:f653 with SMTP id 46e09a7af769-862898681aemr7487703a34.13.1794708465542;
-        Sat, 14 Nov 2026 18:07:45 -0800 (PST)
-Received: from fedora-laptop ([172.245.82.59])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862880a5298sm7113595a34.7.2026.11.14.18.07.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 14 Nov 2026 18:07:44 -0800 (PST)
-Date: Sat, 14 Nov 2026 20:07:35 -0600
-From: Ming Lei <tom.leiming@gmail.com>
-To: shao.mingyin@zte.com.cn
-Cc: shuah@kernel.org, linux-block@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1794708827; x=1795313627;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dpgzsurd5/xcAqQNY8m4SztexczNhtYFtRWAJE5g84I=;
+        b=Er0R3srhmPGozthKhYStKyyXFr2j54NOJ/ZvzG9WlbQGU6uO7XupM4nH/GJi/95J5K
+         LE+dclhgBGIuOwylRrtFp3XS3CgX5s2UnLwHvh7XatV/FLcwVQ94wSk2Unh48bth2b4P
+         T2TUYjx56cInvJ5MiblF5uBVJo4lMjL+kzhlgGZGo2pjIiRHNvh5G0AHBAyLDWZoUjjw
+         5yMu5zJpOXjeKwv1nmxfZB1v7KwgPnrgpFVT+RDd7wcFZn2fcyyHSrDznEME8mZ0qsgK
+         6EEz0pL35dn774Cf1Wx7nToc57zz2Ru0eTeW0iHd3+fjWWKBCd8rOYbuCT8BEha1cj+Z
+         m8HA==
+X-Forwarded-Encrypted: i=1; AL+hErH3tXEn7o2oyPaxOZVgf+loTPrBno6r5vZlM+HIaoMpHzwynne7AHf5S4A4AcGVc2nU5TPVtBo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/l3NnvJenFsCLsoF5xpj7z8ER3NjcX02rlZ66Hspk5mWo8vRu8
+	BoishD2fo7a00lzogs2sC2etPO6oVzTyTWASCkxcM3LdWF/MlGBhOfTJGEH/+9v5GfU=
+X-Gm-Gg: AYBFou2xVltj82TnOD33rarN8bV4TWB5o+VXYSi1Irtd07KttGJfFBTshNFh5ybKl1w
+	L6nVIwfM0PEjVefvsfAcMIdpqV4VICwKMhpt3CEyRaxKzT/5CHqRfv8gn3kMANEDZI893DYX3bM
+	JxPpj+OTc99sKbUChkuiRl+gtvpJzIXmukp9OyMxeNIGvTX+2CrGhMAqHGsEol/JRrA6LMSvSNT
+	Xr0WHhF5gn1F63/BGP7VqGImYPaihFsK52R1Ah5R0uDdRx4ZJhsoaXQNpMtFGDAyTo1/M8U3VXY
+	un8YeV1itAvIVYde/9gnGyGHHQQRCPLmgEjNe2V+yCMNlfYI58KWpB7+1ra13SaIm4SY35SpAw2
+	981xmhUlKtw4xR5zQkJw3kIDjg05V8YNgb9yNV3vTEWog9Q49OKcqd7+ASd/TTXTJb5UwFxREv6
+	NqQldDkyzdlaRMA4mxpD+3AOdpfoTHqVZ7JVUPNI82GiBgUwTmEXYBC5v8h+GwQkvF8Qf3JpP2v
+	lqqxqIQVoMM66lEZAjahaFNM4i+3SLwT39gdPytlpUD7HMpDUNltvmC4q9qDxutMTXVBsOAC6Nd
+	qQtvc9XBoJsisTNa0lx5nenbERn2H0HQwLsaHa8B2Yd6i/ZSqGdBKlSz/rX73Z3zUojvgDPCvzI
+	NDcFdN3hI5Kak7vLOGABD9FEfmFaqL85W1A==
+X-Received: by 2002:a05:6000:4a07:b0:48e:10a7:438 with SMTP id ffacd0b85a97d-49c725e5f59mr14233599f8f.36.1794708827120;
+        Sat, 14 Nov 2026 18:13:47 -0800 (PST)
+Received: from localhost.localdomain ([5.195.38.27])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f5972a7sm13226402f8f.21.2026.11.14.18.13.44
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 14 Nov 2026 18:13:46 -0800 (PST)
+From: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+To: linkinjeon@kernel.org
+Cc: Michail Andreas Michalopoulos <mike.michalo@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 2/4] selftests: ublk: propagate stress worker failures
-Message-ID: <avkT5yu3hJgi-YWb@fedora-laptop>
-References: <202611112257529855AMDZLzg8ZmFDQ3fBstbi@zte.com.cn>
- <20261111225759742pwhACD8p_0GdXSYIk_Ob6@zte.com.cn>
+Subject: [PATCH] ksmbd: refuse EA names that contain a NUL byte
+Date: Sun, 15 Nov 2026 06:13:40 +0400
+Message-ID: <20261115021340.17611-1-mike.michalo@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,30 +95,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111225759742pwhACD8p_0GdXSYIk_Ob6@zte.com.cn>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 11, 2026 at 10:57:59PM +0800, shao.mingyin@zte.com.cn wrote:
-> From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> 
-> The stress tests update ERR_CODE in background subshells and use a bare
-> wait in the parent. A worker can therefore fail while the parent still
-> prints PASS and exits successfully. Calling _show_result() from a worker
-> also removes backing files shared with other workers.
-> 
-> Generalize the recovery PID collector and use it to wait for every stress
-> worker in the parent. Return errors from the worker helpers, leave result
-> reporting and cleanup to the parent, and reset the PID array after each
-> batch. Keep failures ahead of skips when collecting worker exit statuses.
-> 
-> Fixes: bb2cabf23568 ("selftests: ublk: run stress tests in parallel")
-> Reported-by: Ming Lei <tom.leiming@gmail.com>
-> Link: https://lore.kernel.org/all/avJ0Vn9G7XhZv-XL@fedora-laptop/
-> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> ---
+smb2_set_ea() checks that an EA name is followed by a NUL, but not that
+it contains none. The xattr layer takes the name as a C string, so the
+name ends at the first NUL. An EA named "DOSATTRIB\0X" with EaNameLength
+11 passes smb2_is_private_ea(), which compares all EaNameLength bytes,
+and is then stored as user.DOSATTRIB, the xattr in which ksmbd keeps
+the DOS attributes and creation time of a file. A client with only
+FILE_WRITE_EA on a file can so replace them, which commit 4ea46ea602fc
+("ksmbd: protect private extended attributes") meant to prevent. Any
+other name with a NUL is stored under the part before it.
 
-Reviewed-by: Ming Lei <ming.lei@redhat.com>
+An EA name is EaNameLength bytes followed by a single terminating NUL
+(MS-FSCC 2.4.15), so a NUL inside it is malformed. Refuse such an entry
+as one without the terminating NUL already is, with
+STATUS_EA_LIST_INCONSISTENT, for both SET_INFO and the EA buffer of a
+CREATE.
 
-Thanks,
-Ming
+An AI assistant was used to draft the patch and as an independent
+reviewer.
+
+Fixes: 4ea46ea602fc ("ksmbd: protect private extended attributes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Michail Andreas Michalopoulos <mike.michalo@gmail.com>
+---
+Namjae, this gets around the private-EA check from 4ea46ea602fc, so I'm
+sending it to you first rather than to the list. Please post or apply it
+as you prefer.
+
+Tested on a KASAN/lockdep UML kernel based on ksmbd-for-next, with a
+share on tmpfs with user xattrs: setting, reading and deleting a user EA
+works as before; an EA named "ab\0cd" was stored as user.ab before this
+patch and is now refused with STATUS_EA_LIST_INCONSISTENT; DOSATTRIB is
+still refused with STATUS_ACCESS_DENIED.
+
+ fs/smb/server/smb2pdu.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index d17fe9f9ffc6d..066d30b4ec281 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3441,7 +3441,14 @@ static int smb2_set_ea(struct smb2_ea_info *eabuf, unsigned int buf_len,
+ 		if (!eabuf->EaNameLength)
+ 			goto next;
+ 
+-		if (eabuf->name[eabuf->EaNameLength]) {
++		/*
++		 * The name is EaNameLength bytes and a terminating NUL, with no
++		 * NUL inside it: the xattr name ends at the first NUL, so one
++		 * inside would also get past smb2_is_private_ea().
++		 */
++		if (eabuf->name[eabuf->EaNameLength] ||
++		    strnlen(eabuf->name, eabuf->EaNameLength) !=
++		    eabuf->EaNameLength) {
+ 			rc = -EBADMSG;
+ 			break;
+ 		}
+
+base-commit: f4692d0e3b5e16d32d4ec7b1e0e58d7dbe74aaf4
+-- 
+2.43.0
+
