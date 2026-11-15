@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794706174;
-	b=2R7KVH8QkCRyRMRUsXiYziiSwg2U2H93Iv46QFjV9fCbX1sEGUqswkD5C3EvZVByOnJB
-	 HhPAJ25Nb/CiueysSBphSw9fCPxr6PTKhh1aijdGyMMFeeEZDnro7eESccYoMtGyDjt2q
-	 83X8dkfNgg2Ot03rd0EaAnJKEoyOlff7IOrFrmnCUIa7P6X/8UO/XF5vrk4KdY6ZWN6Zv
-	 42ahp8aOYSfj2WrXTm7FzSKG44VD83u2vENeA6vzgzeMHgLjcACHMaFBpwYGe88eFIw5m
-	 JBYFcticMXxLjfKxkxXpkPssHaxA90AC8/CiC9al3o9pEmnjUm3YYMt1mjEBrCDnGPQ==
+	t=1794706674;
+	b=C+fETRbdEnyJuuUJXiwmeq9HOLE1B8NGkHhQcTTmsZ7RpljXO60NRC7obNA4fBcz4VX7
+	 kj5HRNCwJUzkRA3hJikQUs6M4btb5H84u1+JoMuBb5fU4vDeLGLcuc6HyW6uAU02qS0Wa
+	 VOhZpOL0FA2GVSfhSNmBg/27wClaLd+mP81UBlhACFJ2kT4DhzmYqgcbtHTvwGvHerV6B
+	 p4gKs7WCTBVr/k5U1m77EdTmrD6BK7CzcmLym+bQ08tsl4FDa5WnLPDm0MSH7STmXJFQT
+	 0vDTRvx63cbk+LkQ+JwvDeLJqTVzfWZn0cNQHU8/zwJQ7L/F/4ZRyAovIoE46Rxh+Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794706174;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794706674;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=pr1/5h0sh6TbBZVZLb1G9TfsQmujR5rS1nffbcM0bqo=;
-	b=eyq2uiGaVSubsvrWA5OF/MYf9sUI2qsZSDW3G2M2xUL9pLw29kUIicVp4trq6+YObfRz
-	 IRcC4tljd2Hm28SkytPvWiLa4Ci1JwruPalskwQOyLpp7ub9IoCODIXjgUthWlCQE/XuK
-	 mqlYwaaYXWpmwQ7HzAwJXEYhb7ak2oCVKzuKa1MFTY1EKwuo+IC0OgescX/tV2RhAzNUc
-	 QRwb/QfX33nTAShzJ19Zwanu8l527xz6Y0af8f9He4qY8UfrEYZJvlLmeYwYyOm8wQ/s1
-	 /WLf9wa13fpcmX0LZMT7xl8+KlhefcW5yzNdyrVTs5T7m92RiSUA6vIZjvFs9pl30ZA==
+	bh=Qw0vchi07J5a23Neg8MphcsEqpjuPMnpEriw1d3MbJs=;
+	b=r2+ww/E5ZIRqlmkiHmaYal8ClQ9aiEpagOo1x+hpnOnjDV0yj/RjBO/Tv28If7Ob9kwp
+	 V58ZIwtMaMbV4kepW4eo6kDa11hldg9eeMlqGAc9diRzoUrB7zHiuam3R2pQpVj172hzg
+	 qem29Rbw9dlG5S3bI3Hr2e0hQkwJIf0Lb7A3f8ZQ4LkiMevKHCD3btIGYexBOFhWEyHyz
+	 X5/JUqE7XkTGROMGfyxi603dfTZvwePY95DVUONknoxMD/8HbdsVpk/M98Gj5KMFN0Ena
+	 Y3Y0iA71N1qD6sLGKsI13pzuJZApUhe3v7z0EwiR9lMh6D3A+juAE4StgZJq8tv4bnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ndjZD7nP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nC/G2+bz";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11504606A88C
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 01:29:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CB6606A323
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 01:37:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ndjZD7nP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 542381F000C4;
-	Sun, 15 Nov 2026 01:29:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nC/G2+bz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74C851F000C4;
+	Sun, 15 Nov 2026 01:37:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794706173;
-	bh=pr1/5h0sh6TbBZVZLb1G9TfsQmujR5rS1nffbcM0bqo=;
+	s=k20260515; t=1794706674;
+	bh=Qw0vchi07J5a23Neg8MphcsEqpjuPMnpEriw1d3MbJs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ndjZD7nPFv05wEHhWrRaIvKdV2w3/mo67N12duyIiikGresat2PxZPiYA2qSy85Ag
-	 RgIKMYinXhnvNS8ehv8iEX0u/z9LxT8HDlSnEB+ZR3BI9uhzKcfE4S48N+O4i6wI7I
-	 qKeLtYBE6AfpUWDuVOWs5Tz+3mPPyyL9bH2nsAKGDMsLkbbXlG8jZH3ZowAxAH5h4P
-	 GpgF/lubxjDhvOLrDj6TfB7sO5gnfmu9NNo82nFBpAtqrtjW2/lvsmkME2+pXRcTve
-	 /8RS56mvWML97LmjOEj5f1ro9HSo6US0jBbcYiVMY5UXpmTMpHCABceNdkuRWROJ2C
-	 gvANrqZLuh+4Q==
+	b=nC/G2+bz9yIcooc+NuML8P1LILM69upNlLgCvfWu8TOXofIs2xg+jpaiqYILwhMU5
+	 fV+gRtU15S86DLiRMpCazPE4rjg1VN954W7wQwHXnU9DyYyngwsy0avl+s4yfgiwLC
+	 wNgD6UJOXTR8CS9QeJz3e2yOzlasVa8SzmaqPSdXhGNjSp0gCZUFn1dxLsTbHUrRVT
+	 S6aU/TpeSPYr/VxWZayjN6cTw8i5lsrV9rWVijtg6Gum5d/t9TBS7s1xC6cncFMEhK
+	 8GMEHB00Sl8EjZcCHZ8rNT04FvQVRjdtapFN8tHQ4x47ezbVK1vHAFf+eULvZ3xyZF
+	 qEFmGUY/Xj/kA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Zhou Qiuyue <n0ps1edzz@gmail.com>,
 	Hangbin Liu <liuhangbin@kylinos.cn>,
 	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ipv6: raw: fix use-after-free in rawv6_send_hdrinc()
-Date: Sat, 14 Nov 2026 20:29:31 -0500
-Message-ID: <20261115012900.674278-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ipv6: raw: fix use-after-free in rawv6_send_hdrinc()
+Date: Sat, 14 Nov 2026 20:37:52 -0500
+Message-ID: <20261115013731.709166-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202038-failed-5.15-66dfb2cacda7@kernel.org>
-References: <20261109202038-failed-5.15-66dfb2cacda7@kernel.org>
+In-Reply-To: <20261109202548-failed-5.10-66dfb2cacda7@kernel.org>
+References: <20261109202548-failed-5.10-66dfb2cacda7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,7 +94,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
-index c3719e5ac89fc..2d72f5c5d8381 100644
+index 6ec51b1a4e26b..e24e49cdf141c 100644
 --- a/net/ipv6/raw.c
 +++ b/net/ipv6/raw.c
 @@ -650,6 +650,9 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
