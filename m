@@ -1,60 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794729757;
-	b=ku6NaRLm19VMJzlOJ54ILvWmblj+NEExr0cU+czkVJd5VEe+ab0RiXHcsExV7g4WvVKf
-	 aYdNVLAtckq+VR7g0hogEsRHqZG8n52ctyPFm38cgH8tlDxGS219IQ24YxLiMqcaDZxIJ
-	 X/d59t9JWv60REPs4Ji2tqRf+ov2jnWxyAhsbJzB+JcQJYrRnYXc1pW0hJ9TLPzV5caQT
-	 cXjI69HjGKD8A+xZfgWWzLxM4veGyYTD5jy1/5WFOtfwqjx6uODOm9VXVqbOjfWvwsNRU
-	 oSdh+5zOKIcf979guWTz6G960icZBFs+LFXKWR3oRpLk42TzNfeGwfIuUGK3q5cf+QA==
+	b=rUv1Rayh1tIr0bUQl5TWP976XfGnqICLYPd8nb/bRP9MREl6EFyPsN+DA+1ezdL25GeE
+	 YbOENfb8VRhRVeMu1WhL5vv1Z5nOoW43fQG7U+A4ZZJZcCeETx0E+uvk3ZwVHr0Iw+CUD
+	 tNB4FlRZ0yTW+UyoIjOSjkujZNKM4VR+vE/v2nfP0oMrRd8JbWdXpYTOGs6iysuZU/6Fj
+	 9Haz0vRjkBtZJaIbZFdgmteAmCQcgxRKKqey9MrG+0WJgRum6DBvfKuweczsJbsw5d9hO
+	 12cme1K2+A6NcjEm0NWAJrmxvHWKY7XCxsDe8X7xpDFLvDgvqwMykCdFPMp2D/aGJvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794729757;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=bdU7br1gy9EV9/tYTrttX+aGuzCg7r+AtUPEfTqRJ1I=;
-	b=NJ5uOAvcnBq8XvUvEIZZ+Xojp9RsB7ObY1DuHuC7KfXbz3EHmTgndnJ7KEGrJPY18Okd
-	 wsazpKrH0f345XfBbUuQdQid7VrRImhBRpSKF/TFAF3nvPjR6u7KPqMnvxmnDihUlxTsU
-	 IZZDm54aaEA5ZrMyRF9ajmIR1J1iqlGfWmAvn1fGXWJ1jDsRdYZdohGJAvCndGOfSF2Lp
-	 Maunm/LyIJvkJWi6Tb+E0HlYkdQxTRb6FVRzCA3EMjusEt36fqEAy1yvxFTv69H/eKYjx
-	 eQIGBQZzVgby2FVnuSJx/CKTHa6Szhk9pYDRY0YR1n7x95YKQdrMzOd3hDFvO9sVSxg==
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=3fQFDkrdsCA7N+Ly9z4DF7jBxsWW1klAti6PabpR7rc=;
+	b=yK06bhWLYBOQQ0yYM22cxA1HXuyKCLGzbmD9DOK6efrMz5VkqjDlSk7E+bQDOa1bF4gD
+	 fxzHO/FQmSG/zy6SNt8sD/jvoQ6Jv9F3Jl/0M2mFe8E9sXZEzq8ZZu85DcHpZ+dwJSZ3W
+	 fg74OYcJYfS8PA0rdaVPURtMZiFKtiscW3hKrMFLlDh1o1pVB8bfVkNn4wbLAqDBRatyR
+	 ro8gjsRA7VzxxOOb1kQWYJKnApI3zJWAUzg9BFwWnVvuPGJ9YRGtn8GwBPSFVPX9rpmrI
+	 QP7zgaQdVIJLWsyjpxHE5E+bw9pmDp1FKEeUXmylmw0q6TwAYMrqQHw3x4k08hqbZ2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=oGuIwSj8;
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NxlK0myy;
+	arc=none smtp.remote-ip=117.135.210.2
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EC4606A8A2;
-	Sun, 15 Nov 2026 08:02:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42EC4606A8A2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76786606A8A7;
+	Sun, 15 Nov 2026 08:02:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 76786606A8A7
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=oGuIwSj8
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=NxlK0myy
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=bd
-	U7br1gy9EV9/tYTrttX+aGuzCg7r+AtUPEfTqRJ1I=; b=oGuIwSj8cLH/BI2sqm
-	wETADnFgke0N+zgCjtPdJAp4uoZNg9b7lM9PyBZZgianPHSOGRKAX+ZdHPHPcdL0
-	Qq48ARHjVjoq8hRprNZ3+Uu6IWFn79dlTRYVM6NuWB7Pm1CHvkkP7UovJ7veorA+
-	39l02JKXy4YhMg10oVuONXQL8=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=3f
+	QFDkrdsCA7N+Ly9z4DF7jBxsWW1klAti6PabpR7rc=; b=NxlK0myy/+HIdUmRzy
+	vi5coMGxFaYla/+d3+5mh3ljOcq7FocZ82tEnnLIWSJitEALNVB3VQXZsGWHXEG1
+	wW6jyN8ZRQLmd0yY9YgiC9tjDDNxVfs1xycmjvRnUHRE/1WX7ul2WWOOMR2L+Kfg
+	Z+lbBv6BpjZzgAy7ExrB8pxKw=
 Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3v4f8ZvlqxKXvHg--.43707S4;
-	Sun, 15 Nov 2026 16:02:07 +0800 (CST)
+	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3P+EFZ_lqIm43HQ--.51631S2;
+	Sun, 15 Nov 2026 16:02:14 +0800 (CST)
 From: Ziheng Wei <zihengw03@163.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Marc Hulsman <m.hulsman@tudelft.nl>,
-	linux-hwmon@vger.kernel.org,
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>
+Cc: linux-leds@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/3] hwmon: (w83791d) Fix incorrect struct cast in show_temp1() and store_temp1()
-Date: Sun, 15 Nov 2026 16:02:02 +0800
-Message-ID: <20261115080203.910033-3-zihengw03@163.com>
+Subject: [PATCH] leds: lm3642: Fix container_of() member confusion in pin attributes
+Date: Sun, 15 Nov 2026 16:02:13 +0800
+Message-ID: <20261115080213.910112-1-zihengw03@163.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261115080203.910033-1-zihengw03@163.com>
-References: <20261115080203.910033-1-zihengw03@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,40 +62,54 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v4f8ZvlqxKXvHg--.43707S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxArWUuw4rurWfWw15JF47Arb_yoW5AF1DpF
-	WkGa4Fk3yDJws7WrW7Za17ua4Ygr18Cay3Gwn0kw1S9r1UJas7Jas8Ja1jvw13Aws8AFWk
-	Jr1qvryUWayvvaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07brsjUUUUUU=
-X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7h-xQmr5Zv+hegAA3T
+X-CM-TRANSID:_____wD3P+EFZ_lqIm43HQ--.51631S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCFyDZw1xKr1xGr47Ary3twb_yoW5Zr45pF
+	Z8Ca4Ykrs3tw1kCryDXrWxua4fAF4kAFy3KF48Kw17Zw15Way0qFy5Ka4YyFy5G3yxArnI
+	vF45Wryxta1DJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j_o7NUUUUU=
+X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7gbzRGr5ZwaifQAA3y
 
-On big-endian architectures, accessing the temp1_max and temp1_max_hyst
-sysfs attributes in the w83791d hardware monitoring driver uses a huge
-out-of-bounds index, because show_temp1() and store_temp1() downcast the
-attribute to the wrong struct.
+The strobe_pin and torch_pin sysfs attributes are registered on the
+flash and torch LED class devices respectively, but their store
+callbacks recover the chip data by container_of() on cdev_indicator.
 
-The driver defines the temp1_* attributes with SENSOR_ATTR_2(), which
-initializes them as struct sensor_device_attribute_2 (where the index is
-an 8-bit u8). The temp1_input attribute has index 0, temp1_max has
-index 1 and temp1_max_hyst has index 2. However, show_temp1() and
-store_temp1() downcast the attribute to struct sensor_device_attribute
-(where the index is a 32-bit int) and use it to index data->temp1[].
+dev_get_drvdata() in the attribute callbacks returns the led_classdev
+that owns the attribute group:
 
-Because both structs start with struct device_attribute, container_of()
-resolves to the same base address, but the field widths differ. On
-big-endian architectures, reading the 32-bit int from the memory layout
-of the two u8 fields yields index << 24: 0x01000000 for temp1_max and
-0x02000000 for temp1_max_hyst, instead of 1 and 2. data->temp1[] has
-only 3 elements, so the access runs off the end of the array by up to
-32 MiB.
+  - strobe_pin is in lm3642_flash_groups, so drvdata is &chip->cdev_flash
+  - torch_pin is in lm3642_torch_groups, so drvdata is &chip->cdev_torch
 
-Fix the type casts in show_temp1() and store_temp1().
+Both strobe_pin_store() and torch_pin_store() however use
+container_of(led_cdev, struct lm3642_chip_data, cdev_indicator).
 
-Confirmed on a big-endian s390x QEMU guest with the driver bound to an
-emulated chip: temp1_max and temp1_max_hyst read 0 instead of the
-register values. Not tested on real hardware.
+cdev_indicator comes after cdev_flash and cdev_torch in struct
+lm3642_chip_data, so the resulting pointer lands before the start of
+the structure (by 1536 bytes for strobe_pin and 768 bytes for
+torch_pin on x86_64). The callbacks then write chip->strobe_pin or
+chip->torch_pin into unrelated memory and pass whatever is found at
+the chip->regmap offset to regmap_update_bits().
 
-Fixes: 9873964d6eb2 ("[PATCH] HWMON: w83791d: New hardware monitoring driver for the Winbond W83791D")
+Writing strobe_pin on an lm3642 instantiated on an emulated I2C
+adapter (QEMU, KASAN, v7.3.1) faults the kernel:
+
+  Oops: general protection fault: 0000 [#1] SMP DEBUG_PAGEALLOC KASAN NOPTI
+  KASAN: null-ptr-deref in range [0x00000000000000a0-0x00000000000000a7]
+  RIP: 0010:regmap_update_bits_base+0x4e/0x1c0
+  Call Trace:
+   strobe_pin_store+0x15d/0x240 [leds_lm3642]
+   dev_attr_store+0x5d/0xc0
+   sysfs_kf_write+0xfb/0x180
+
+The other three container_of() users in the driver already pick the
+member matching the LED class device they are called for.
+
+Use cdev_flash in strobe_pin_store() and cdev_torch in
+torch_pin_store().
+
+Found by LLM-assisted static analysis. Not tested on real hardware;
+no in-tree board provides lm3642 platform data.
+
+Fixes: 8b7cfbec052d ("leds: Add new LED driver for lm3642 chips")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ziheng Wei <zihengw03@163.com>
 ---
@@ -107,31 +118,33 @@ Notes:
     The changelog was drafted with an AI assistant from my analysis;
     I have reviewed the code, the fix and the text.
 
- drivers/hwmon/w83791d.c | 4 ++--
+ drivers/leds/leds-lm3642.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hwmon/w83791d.c b/drivers/hwmon/w83791d.c
-index 8bb457326..530935a6d 100644
---- a/drivers/hwmon/w83791d.c
-+++ b/drivers/hwmon/w83791d.c
-@@ -924,7 +924,7 @@ static struct sensor_device_attribute sda_temp_tolerance[] = {
- static ssize_t show_temp1(struct device *dev, struct device_attribute *devattr,
- 				char *buf)
- {
--	struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
-+	struct sensor_device_attribute_2 *attr = to_sensor_dev_attr_2(devattr);
- 	struct w83791d_data *data = w83791d_update_device(dev);
- 	return sprintf(buf, "%d\n", TEMP1_FROM_REG(data->temp1[attr->index]));
- }
-@@ -932,7 +932,7 @@ static ssize_t show_temp1(struct device *dev, struct device_attribute *devattr,
- static ssize_t store_temp1(struct device *dev, struct device_attribute *devattr,
- 				const char *buf, size_t count)
- {
--	struct sensor_device_attribute *attr = to_sensor_dev_attr(devattr);
-+	struct sensor_device_attribute_2 *attr = to_sensor_dev_attr_2(devattr);
- 	struct i2c_client *client = to_i2c_client(dev);
- 	struct w83791d_data *data = i2c_get_clientdata(client);
- 	int nr = attr->index;
+diff --git a/drivers/leds/leds-lm3642.c b/drivers/leds/leds-lm3642.c
+index 9af8b8e47..91ea41a7c 100644
+--- a/drivers/leds/leds-lm3642.c
++++ b/drivers/leds/leds-lm3642.c
+@@ -173,7 +173,7 @@ static ssize_t torch_pin_store(struct device *dev,
+ 	ssize_t ret;
+ 	struct led_classdev *led_cdev = dev_get_drvdata(dev);
+ 	struct lm3642_chip_data *chip =
+-	    container_of(led_cdev, struct lm3642_chip_data, cdev_indicator);
++	    container_of(led_cdev, struct lm3642_chip_data, cdev_torch);
+ 	unsigned int state;
+ 
+ 	ret = kstrtouint(buf, 10, &state);
+@@ -219,7 +219,7 @@ static ssize_t strobe_pin_store(struct device *dev,
+ 	ssize_t ret;
+ 	struct led_classdev *led_cdev = dev_get_drvdata(dev);
+ 	struct lm3642_chip_data *chip =
+-	    container_of(led_cdev, struct lm3642_chip_data, cdev_indicator);
++	    container_of(led_cdev, struct lm3642_chip_data, cdev_flash);
+ 	unsigned int state;
+ 
+ 	ret = kstrtouint(buf, 10, &state);
+
+base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
 -- 
 2.43.0
 
