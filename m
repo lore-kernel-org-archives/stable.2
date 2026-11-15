@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794732649;
-	b=n9Dr/BYqPWxELzmQBZRJn+z4AJ76dDogB1JDaMhVNNy5m1zNICzBKPPe/sjB5ct/gwgW
-	 KFanAg5OZKz7ciMB3zwKz2tbtEFRHhPxEt0qHUTTGpqpKDTOkDKg7hFQIY1r7q8dX+JKR
-	 gjP0W54iaqU/4a/WJhx2jz1Nk3sz/bnX0VYWJZbEVUx7R6yOAEhPxdTOTVXwoBQzbW1lY
-	 j7gQXYoPL0/Z97XASTVS4UedLJmxdv35IgBf3MPUQtr3BnwhQXXPqEeJFPjySNiCnWZwz
-	 wprAu7eRtmP3No9eCBPheRXYX+OmughaOWe5AGCcrHkO7phucyneGD+Wge4vjC8jQZA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794732649;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1SLobgO+XdP4qfweA06oyBZa+bHh3rqcaF3Z4e+D+dY=;
-	b=VeToIq1aW6PQsKxYRqgJWrVUzbYuO3XsTijw/tOzqSje4iMkATaDJHUxYW3j4QjwBHt0
-	 2ZDudmoRRx3I6iWd71HT2Zyy03IErzqap05KX67kMeGA1SN0GES00vaznlQPe7+BwTpLI
-	 6wBzuobV4Z0FK/V5b5GPghe6eGsBARwfgS+mF3sEMU8waJyR6/7c71y+czichnVB26wvY
-	 3gCfQaKnqt8ZdDCkHyYEl67hbK3M4YcncR+dNyBF2ARcyvmB9I2QmwLkBvNuucERPbS2E
-	 +TxpRgU5abRwqJgf+cG39BU2RkJO/Rg6q1quQ6ak7DMq1TOOdADo3O4CyVoavXYJaXw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dz66k5Vj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794732742;
+	b=Pg1m7Job+c9gOHlLB2NKvtp+Ze6hEaaaQ7C+PIBnRbus7q77pBCpfZ2J+uCqAWH06AO5
+	 K17LJZpJgB1GCIJe5MA0cjTSsdvn/p7Yi3uK/a/kYmrndG+3l1zH8qpyNoAwP8HfqnidW
+	 wfwVsvGz5kNkOGaiKyY3yhAniT2bXyyUoD7TnEV8ol7ZI/jdi6OrHo1MmvBRA6XjPkXVk
+	 faLE9OXeNE+w6oZReZ5kximnZ0pxz+5sCZdFrTA0eVCpf2MOgFz8UXsEGzIPnLFR8M8Pn
+	 xXcETBBHwpA4Fz3XxZUXwjPvbp3JJc8skzHxL8PRHC2JZBh7mFABNSN850xqE9nJ8gA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794732742;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=X7R2ObYq1Fhv6av8RxsP4ymD1EUZRl057ikwLLDbUE0=;
+	b=uOWAI3IOADonH2dkdiLj3emqcmGfo2AOP+K//eOxpInET/GsHXMFHikmAWV7YCrva8cu
+	 HyPfRK3tpio588L/g39Dg9d8g2oMc+/2yTOvIEEtO8CVFQVOLyr2yWCx8CuD28C9InX5Q
+	 ec1xaiyF3YRklcRgZ3R61t4+QhKsrTzylVxKJ5LM+sWgACZE7IKQAjcO/Mxf5XPL9mJzB
+	 obOeLC/eOZ6pMAqZPfCnbIwgoiJZKFDRY5O5kb9i8JBUQmZs7gxJuOmYbm0p+ftSZ7hUL
+	 32IiwRlrcdo+9nOyxAZTES/qTMUrkEuBZHwClVmnPYfq52JdLW3z7MqHUMbi/DjIcZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPFyQqxp;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455B9606A31D;
-	Sun, 15 Nov 2026 08:50:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B141E606A31A;
+	Sun, 15 Nov 2026 08:52:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dz66k5Vj
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794732649;
-	b=CFcQfsOc5mjENN58Pe2TEPytIBq8zudKIobrJzyoKCZaEzghqJo17jJKcZw+JvH1JmIW
-	 shElwt8BGAyRuDoZp6MsOySeYoUjmwTorFMPOU5xQaZhBhxFAuVIKSVMXonHCZC199Erc
-	 plL0SPIfhUSZm/dboXWtMS26fQkywfI0XM74YkPb8XCLBQY5M+6uwexN45YtkqGWmus7K
-	 V8ly3fcQlAATE5UQyPMxmtY8dDptp4ZqYXEek8h+C6uErQaRcNJ5CPVpQw4E3dD3QP+m6
-	 Aa7KCjxo1VUGd0iZr1z7twV0LzMZscXvctlOMezZoNoTG2P3sX20JSdghH1tgM+fcfA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794732649;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=1SLobgO+XdP4qfweA06oyBZa+bHh3rqcaF3Z4e+D+dY=;
-	b=iZ1GYcCsS1zp/4We6IKiJzu9jLZPL4AfQOndSfO65I9zT7OuUY9psTR9RcRxYfduejO1
-	 jrK0ZMSyJ96EMPsdrrmzxEucKrFloi7ueMpg4dCFscsBLXYbG5ShjG4IofcaZp05ke2vo
-	 avZJTFfJ+IHvdTYeClJUK1yHlJ/5E/c1TPgM6Nkb5PsSh1wl5Ue+lwF5gxEDbrFJW5yff
-	 YaluUmjV95wdjB9Ncvstksw7JW7uIme29ZsicNm9cUAgp0dDPVtrSANomxRl2XCQjZBTE
-	 BMd6v4dB44BMGMH97R5R1Kp2VRcQGZiQvJuOx1z6KjjHgBwEchBX2VyFjSDBxyoNfNw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 90E9F1F000C4;
-	Sun, 15 Nov 2026 08:50:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SPFyQqxp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4DA01F000C4;
+	Sun, 15 Nov 2026 08:52:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794732649;
-	bh=1SLobgO+XdP4qfweA06oyBZa+bHh3rqcaF3Z4e+D+dY=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=dz66k5VjJh6mZaOPUNHCqAkkd2FXirpnX/6w9/WUgfIo/s869pONZC+1JeeYtX5yc
-	 CEkvJqwwU3HLYb2s0RNJQDsshTeiYPVBVAtjpyupvPtc617wkPCKTzhf2aTD4iJM02
-	 BrDYk/nnQTIUkI7dylw6Sg3umyde/1KEI4ItuQtN6DoRJ6HttkVJTkqgFn43qI1KTm
-	 F81Aqi1z/l2GY+KmSS3n784kSrt/K+xTIKlzFTQBIMdsuuFa2T4maV8bwFGVwV+JUk
-	 uokGYMpeDY46R0+5/XDfUgjTJTRyR4+k8be7Oumgn8HdWBNGq7bZk7HEncT3YKLTOs
-	 T0+JnCtghqMXA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 06CD849FF3;
-	Sun, 15 Nov 2026 08:50:48 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Sun, 15 Nov 2026 08:50:48 +0000
-Subject: [PATCH] media: v4l2-mem2mem: Don't leave the context aborted when
- STREAMOFF fails
+	s=k20260515; t=1794732742;
+	bh=X7R2ObYq1Fhv6av8RxsP4ymD1EUZRl057ikwLLDbUE0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SPFyQqxp364A5+UCdbNct6E/GefvCzxlwuzQ4YGVWiJbvq08+SYDi8ktpdhsiaXHK
+	 cJ/Q0gncnh7YSjg0NouoqRHyJ5DN7Y+cK8sI4F8QDQUjUNrb6E4fBYHkZf5rT8fiBf
+	 xixklkpC3g4NwsHnjx1berYoq9xsGF9pEG1iEyjukrOqynRwQDPo08q9eMFwL/WeLa
+	 3ZCnmFuTbzgbQAyuC6O1vI4wW68IvbW/xFtJEfHe98I/ju/WhUrqwPXG3oVo86hIR4
+	 OaYtZ4RpnAfRhnj+BmUM8hd1TjHK6kJQBumDtVBkcSjxlcEZMCGLdR4EkTzBWIFqFS
+	 jX8fGe9h8dPng==
+Date: Sun, 15 Nov 2026 09:52:19 +0100
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Phil Williams <phil.williams@advisoft.co.nz>
+Cc: Francesco Lavra <flavra@baylibre.com>,
+	Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	mario.tesi@st.com, stable@vger.kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org
+Subject: Re: [PATCH] iio: imu: st_lsm6dsx: fall back to 25 us/tick without a
+ trim
+Message-ID: <avlyw4qzdFUnM1DC@lore-desk>
+References: <a3a00c75-c830-4d1a-9a89-dd55641a422f@advisoft.co.nz>
+ <20261115000940.24215eb0@jic23-hlaptop>
+ <2cc30a3e725639667085f3f82d453a7dfc9f853c.camel@baylibre.com>
+ <6a9cbbcc-bdfb-4af1-a678-4f6f4b8a5f0e@advisoft.co.nz>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,92 +62,222 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-b4-m2m-streamoff-abort-v1-1-03d069fd446d@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ7CMAxA0atUnrFUp6UDV0EMSeOAkdIgOyCkq
- ncnpeMb/l/BWIUNLt0Kyh8xKUsDnTqYH365M0psBte7iYhGDCNml9Gqss8lJfShaMUYaYhTz34
- 4E7T4pZzk+x9fb4ftHZ481/0G2/YDxOVqXnoAAAA=
-X-Change-ID: 20261114-b4-m2m-streamoff-abort-dd13d60ea351
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794732647; l=2190;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=BuQkZRj7ByvS1NUQNOI5Oe3+pEoeToFjAE2b+Y7gZv0=;
- b=31LFjhg6raOEK+/4BmBo3P4wFiBpFI5mErQ8Jc9DyB7SPwYS9ky2pWUvv859FlNhLz4yBQOMO
- /kXF0tOLV54BKZxtRYH4WWfVnytW+2qGaFOlkKqR9k41bxERHfdtlIt
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BSc6zn2TSPAs0pUK"
+Content-Disposition: inline
+In-Reply-To: <6a9cbbcc-bdfb-4af1-a678-4f6f4b8a5f0e@advisoft.co.nz>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+--BSc6zn2TSPAs0pUK
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-v4l2_m2m_streamoff() sets TRANS_ABORT before vb2_streamoff(). If that
-fails, e.g. for a single-planar type on a multi-planar device, the flag
-stays and no job of the context runs until a successful STREAMOFF.
+> Hi all,
+>=20
+> Patch attached. It is the fallback in st_lsm6dsx_init_hw_timer() as
+> discussed.
+>=20
+> On Toradex Linux 6.6.142, an ISM330DLC on SPI (whoami 0x6a) on a Verdin
+> i.MX8M Plus published every FIFO sample with one timestamp until the scale
+> was 25000 ns/tick again. After that the timestamp bytes advanced and pitch
+> updated. I have not booted this patch on mainline. It applies cleanly on
+> mainline 23c62304dde2.
+>=20
+> This is my first kernel patch, please let me know if there is anything el=
+se
+> I need to do.
+>=20
+> Thanks,
+> Phil
+>=20
+> On 15/11/2026 8:11 pm, Francesco Lavra wrote:
+> > On Sun, 2026-11-15 at 00:09 +0000, Jonathan Cameron wrote:
+> > > On Tue, 10 Nov 2026 02:38:14 +1300
+> > > Phil Williams <phil.williams@advisoft.co.nz> wrote:
+> > >=20
+> > > > Hey Guys,
+> > > >=20
+> > > > I ran into an issue where every FIFO sample from an ISM330DLC came =
+out
+> > > > with the same timestamp, so our attitude math froze the pitch. The
+> > > > accelerometer and gyroscope values were fine. I've patched it local=
+ly,
+> > > > so this is just an FYI.
+> > > >=20
+> > > > Make what you want of it, but here is an AI generated description of
+> > > > the
+> > > > issue:
+> > > >=20
+> > > > Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
+> > > > calculation") drops the timestamp scale for the older parts in this
+> > > > driver. Stable backport 981f3da383ce is what we hit, in 6.6.142.
+> > > >=20
+> > > > st_lsm6dsx_init_hw_timer() used to do:
+> > > >=20
+> > > >  =A0=A0 =A0 hw->ts_gain =3D ST_LSM6DSX_TS_SENSITIVITY; /* 25000 ns/=
+tick */
+> > > >=20
+> > > > That commit deletes the constant and reads the gain from the per-ch=
+ip
+> > > > table:
+> > > >=20
+> > > >  =A0=A0 =A0 hw->ts_gain =3D ts_settings->ts_sensitivity;
+> > > >=20
+> > > > ts_sensitivity is only filled in on the entries that already had
+> > > > freq_fine (LSM6DSO / LSM6DSR / LSM6DSV and that generation). The
+> > > > untagged-FIFO entries have no freq_fine register, so they were left=
+ at
+> > > > 0:
+> > > >=20
+> > > >  =A0=A0 =A0 LSM6DS3
+> > > >  =A0=A0 =A0 LSM6DS3H
+> > > >  =A0=A0 =A0 LSM6DSL, LSM6DSM, ISM330DLC, LSM6DS3TR-C
+> > > >=20
+> > > > st_lsm6dsx_read_fifo() still does:
+> > > >=20
+> > > >  =A0=A0 =A0 ts =3D data[1] << 16 | data[0] << 8 | data[3];
+> > > >  =A0=A0 =A0 ts *=3D hw->ts_gain;
+> > > >  =A0=A0 =A0 iio_push_to_buffers_with_timestamp(..., sensor->ts_ref =
++ ts);
+> > > >=20
+> > > > With ts_gain =3D=3D 0 every sample is published as ts_ref, the
+> > > > CLOCK_REALTIME value taken when the buffer was enabled. The accel a=
+nd
+> > > > gyro values are fine. Only the timestamp is stuck. The raw count is
+> > > > still checked against 0xff0000 before the multiply, so ts_ref is
+> > > > refreshed when the counter gets there. At 25 =B5s/tick that is abou=
+t 7
+> > > > minutes. The driver comment says 1.638 s, which is 2^16 ticks, but =
+the
+> > > > test is 0xff0000.
+> > > >=20
+> > > > How we found it: an ISM330DLC on SPI (whoami 0x6a), on a Toradex Ve=
+rdin
+> > > > i.MX8M Plus, after moving onto 6.6.142. Userspace integrates attitu=
+de
+> > > > from the delta of the IIO buffer timestamp and treats a non-increas=
+ing
+> > > > timestamp as dt =3D 0, so pitch, roll and yaw froze at the first sa=
+mple.
+> > > > A
+> > > > strace of the process reading /dev/iio:deviceX showed the xyz int16s
+> > > > changing and the 8 timestamp bytes identical across samples. The sa=
+me
+> > > > binary against the previous kernel, which still used the 25000
+> > > > constant,
+> > > > did not do this.
+> > > >=20
+> > > > Setting the old scale on those three entries fixes it. freq_fine st=
+ays
+> > > > unset, so the trim register is not read and the gain stays exactly
+> > > > 25000, which is what those parts had before:
+> > > >=20
+> > > >  =A0=A0 =A0 .ts_sensitivity =3D 25000,
+> > > >  =A0=A0 =A0 .ts_trim_coeff =3D 37500,
+> > > >=20
+> > > > After booting that kernel the timestamp bytes increment and pitch
+> > > > tracks
+> > > > the unit again. The entries that already had ts_sensitivity (25000,=
+ or
+> > > > 21701 on the freq_fine 0x4f part) were left alone.
+> > > >=20
+> > > > Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
+> > > > calculation")
+> > This analysis looks correct to me too.
+> > But I wouldn't set .ts_trim_coeff for the parts where .freq_fine is 0: =
+for
+> > those, there is no trimming to be done.
+> > So either set .ts_sensitivity =3D 25000 for all parts that currently do=
+n't
+> > have it set, or maybe better use 25000 in st_lsm6dsx_init_hw_timer() as=
+ a
+> > fallback value when .ts_sensitivity is not set.
 
-Reject a type the queue doesn't have before cancelling, and if vb2 still
-fails, clear TRANS_ABORT and reschedule the context.
+> From 141aa31454bd87ed20b185544456bf28692c4c2d Mon Sep 17 00:00:00 2001
+> From: Phil Williams <phil.williams@advisoft.co.nz>
+> Date: Sun, 15 Nov 2026 21:04:06 +1300
+> Subject: [PATCH] iio: imu: st_lsm6dsx: fall back to 25 us/tick without a =
+trim
+>=20
+> Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
+> calculation") takes the FIFO timestamp scale from ts_sensitivity.
+> That field is only filled in for parts that have freq_fine. The
+> untagged-FIFO parts are left at zero:
+>=20
+>   LSM6DS3
+>   LSM6DS3H
+>   LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
+>=20
+> st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
+> every sample is published with the timestamp taken when the buffer
+> was enabled. The accelerometer and gyroscope values still update.
+> Userspace that integrates attitude from the timestamp delta treats a
+> stuck timestamp as dt =3D 0.
+>=20
+> These parts have no freq_fine register, so there is no trim to apply.
+> Use the previous fixed scale of 25000 ns/tick when ts_sensitivity is
+> unset. Entries that already set it are left alone.
+>=20
+> Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calcula=
+tion")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Jonathan Cameron <jic23@kernel.org>
+> Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz>
 
-Fixes: 2ad5389b3412 ("[media] v4l2-mem2mem: Don't schedule the context if abort job is called")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-Tested on an Orange Pi 5 (RK3588S): after a wrong-type STREAMOFF on an
-RGA context, the next job ran only with this patch.
+Hi Phil,
 
-Developed with Claude (Anthropic), which wrote the code and the commit
-message. I reviewed it.
----
- drivers/media/v4l2-core/v4l2-mem2mem.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+just a nit inline Fixing it:
 
-diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
-index a65cbb124cfe..03d9f492fbe9 100644
---- a/drivers/media/v4l2-core/v4l2-mem2mem.c
-+++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
-@@ -874,15 +874,24 @@ int v4l2_m2m_streamoff(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
- 	unsigned long flags_job, flags;
- 	int ret;
- 
-+	q_ctx = get_queue_ctx(m2m_ctx, type);
-+	m2m_dev = m2m_ctx->m2m_dev;
-+
-+	if (type != q_ctx->q.type)
-+		return -EINVAL;
-+
- 	/* wait until the current context is dequeued from job_queue */
- 	v4l2_m2m_cancel_job(m2m_ctx);
- 
--	q_ctx = get_queue_ctx(m2m_ctx, type);
- 	ret = vb2_streamoff(&q_ctx->q, type);
--	if (ret)
-+	if (ret) {
-+		spin_lock_irqsave(&m2m_dev->job_spinlock, flags_job);
-+		m2m_ctx->job_flags &= ~TRANS_ABORT;
-+		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags_job);
-+		v4l2_m2m_try_schedule(m2m_ctx);
- 		return ret;
-+	}
- 
--	m2m_dev = m2m_ctx->m2m_dev;
- 	spin_lock_irqsave(&m2m_dev->job_spinlock, flags_job);
- 	/* We should not be scheduled anymore, since we're dropping a queue. */
- 	if (m2m_ctx->job_flags & TRANS_QUEUED)
+Acked-by: Lorenzo Bianconi <lorenzo@kernel.org>
 
----
-base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
-change-id: 20261114-b4-m2m-streamoff-abort-dd13d60ea351
+> ---
+>  drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/i=
+mu/st_lsm6dsx/st_lsm6dsx_core.c
+> index 823f8ac..98db90a 100644
+> --- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+> +++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+> @@ -2525,8 +2525,14 @@ static int st_lsm6dsx_init_hw_timer(struct st_lsm6=
+dsx_hw *hw)
+>  			return err;
+>  	}
+> =20
+> -	/* calibrate timestamp sensitivity */
+> +	/*
+> +	 * Parts with no freq_fine register have no trim and leave
+> +	 * ts_sensitivity unset. Those parts used a fixed 25 us/tick.
+> +	 * A zero gain publishes every FIFO sample with one timestamp.
+> +	 */
+>  	hw->ts_gain =3D ts_settings->ts_sensitivity;
+> +	if (!hw->ts_gain)
+> +		hw->ts_gain =3D 25000;
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+What about re-adding the macro here?
+
+#define ST_LSM6DSX_TS_SENSITIVITY	25000UL /* 25us */
+
+Regards,
+Lorenzo
+
+>  	if (ts_settings->freq_fine) {
+>  		err =3D regmap_read(hw->regmap, ts_settings->freq_fine, &val);
+>  		if (err < 0)
+> --=20
+> 2.53.0
+>=20
 
 
+--BSc6zn2TSPAs0pUK
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCavlywwAKCRA6cBh0uS2t
+rIT0AP9cHXc0QioukxwlysOLwcCCE8JC7e3JG7/3Pg3nzlq3hQEAxTHXd8kiKpeW
+WmEbP8jRFB7HpItvglwQokuMjO7RDwY=
+=IkzA
+-----END PGP SIGNATURE-----
+
+--BSc6zn2TSPAs0pUK--
