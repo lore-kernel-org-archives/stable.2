@@ -1,41 +1,41 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794743275;
-	b=BUf9v4ddRPjF9ek0o0EonbqsN4CG/KuQZIH50aqZ1HxMW5aMarFahar87LuKmOY3Qlwp
-	 CYq50rM2L6V74NbiWaVqiYZqqV2GbXR8dRSFsTfPf4ekwuS3RE0h79dvpJdmNlIrxMBaH
-	 eLQC71Q9pJLw/6RfCMm2Dr9rfIYoq6ZbOfKWqPOBZ3i4/jI/Bh/U752ATFPOr7Z//euLV
-	 B4f6SpfnWE9jvY4ZA+5VQ+BSZHJzqWdt5zBgID0kKT975JAgY9OeqgtOueDYos97Z/nUP
-	 RLCCK38NQlQTTjTaEPxuwQ2bNnVvCrCqIRvTQDQCVxXkxfh/+x96BOf4taOnE5fwlCA==
+	t=1794743278;
+	b=h5mtYhLkKdoljRiCD3fhyxsjkgzdNRHLtoSSYP5BgcJJsU5c4OICrqBKbKb4vmswABrr
+	 2Lm7H8qdji38e7mjWSqgS7+n/E1PKXcK5sqtyIpu9a7TLd2jdh0rlPH0b7vM1W8f+jk97
+	 Ywe/QWqSv5MZfHNW2Q1RKN2CYpJmOldmSMkotl4mLJKYClVUumHv62utISUJlQwnfMSp/
+	 R6rdsTIejkh04jAvsFV4v4ayc4hlTsyE5RZ2UqKAPaPAmOxgmVxmOj/otq/E8YfTA/saw
+	 QjichJx171OVzIqidFCLiYnyoDi5fTMtbkCuBRWJYZL7cQN8o8BeR2zJ0s4kuoCxP2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794743275;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version:X-HM-Tid:
-	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=6f2sASHFDTpQp30NDWOYVGZZ1kdQ6WO9ewogODjhD6Q=;
-	b=rMia+NLdcX2siMtVhTJTw/R1AYHITHedr0HCgpUk09BQmZHRDRqexLAnjNR8u4XAP9P0
-	 vyICl0vpoRfFcn0JPQxxekYHLJ1dKb6blOQhrzTnZrmURRHdGcEemO6vh2nSAl+xxAs69
-	 Wce32HohiFdWy35SK9aQelazKWST914YaV8FV3Nyj01GlLyuEEOyVElr6v1PkhguOF3DR
-	 LP7fhpDPNLfhORApJKAYZsiqmNHWv9gpOOievVrnL8EB5h3YuA4veKjZOQ7uwRTCbnOYt
-	 Y//jV2Ki6vQ5N6jK8sAntOKdGXKtmZ4KfL0qFEEBiG1obLVojUaMHfe9tw5OkV9CNYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794743278;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:MIME-Version:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=RU/JFtl3t2fQyM9MGmpqoQqoNW5efmsBFP2qUPrWTuI=;
+	b=qq4+4yr0s6t85ANhjTw6wC6AdXsSp1988cMXEd5uRWtU9HnbsROH0RY4Aog1lDFYmWcW
+	 unr41UX2xVUrziKYLV7GbJm4i2K2s8e1ENdObm0vsEiOCkqO76z9xvk3qHRTyOdcVGL0F
+	 0696KsyqPK0FNFT9W5r97GJJHEnHJzy8Z7FMRU1EpQuhOgpSHxS/qHJdEZ5UHgdsSCWEC
+	 fT6QLoGGjupVLG/dvdzaV+LWuq6WCTLHNkRvVTIEgJOo3sGTi7N1AX+Xc127qD+AFRRnR
+	 KB+3sP8xfhKIt4z9/j+aIFCz28blsv1pqd9I3aOp5xz6l2gSC+AE8yC8x+/I98pO9Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=seu.edu.cn;
 	spf=pass smtp.mailfrom=seu.edu.cn;
-	dkim=pass header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=LRBrxkMT;
+	dkim=pass header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=kAxxGKMw;
 	arc=none smtp.remote-ip=45.254.49.198
 Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D398606A338;
-	Sun, 15 Nov 2026 11:47:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D398606A338
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5673D606A88C;
+	Sun, 15 Nov 2026 11:47:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5673D606A88C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=LRBrxkMT
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.a=rsa-sha256 header.s=default header.b=kAxxGKMw
 Received: from [192.168.17.1] (unknown [124.79.98.159])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54b7e04d7;
-	Sun, 15 Nov 2026 19:47:43 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54b7e04da;
+	Sun, 15 Nov 2026 19:47:47 +0800 (GMT+08:00)
 From: Hongyan Xu <getshell@seu.edu.cn>
 To: Ilpo =?utf-8?b?SumQqeeeqHZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
  Hans de Goede <hansg@kernel.org>
@@ -45,10 +45,12 @@ Cc: MyungJoo Ham <myungjoo.ham@samsung.com>,
  Mark Pearson <mpearson-lenovo@squebb.ca>, Rong Zhang <i@rong.moe>,
  platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-Subject: [PATCH v2 0/2] extcon: synchronize all-connector removal and fix
- Lenovo fastcharger teardown
-Date: Sun, 15 Nov 2026 19:47:40 +0800
-Message-ID: <179474326098.103840.15531040789536968458@seu.edu.cn>
+Subject:
+ [PATCH v2 2/2] platform/x86: lenovo: cancel fastcharger work on detach
+Date: Sun, 15 Nov 2026 19:47:44 +0800
+Message-ID: <179474326460.103840.3845211906644469212@seu.edu.cn>
+In-Reply-To: <179474326098.103840.15531040789536968458@seu.edu.cn>
+References: <179474326098.103840.15531040789536968458@seu.edu.cn>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -60,42 +62,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-HM-Tid: 0aa1df08e10703a1kunmbac61c98bf76e
+X-HM-Tid: 0aa1df08ef6503a1kunmbac61c98bf774
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHUpIVhhNGEhKGU8YQkpOH1YeHw
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCS0tMVk8ZGEkYT0NOHR1CSlYeHw
 	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSU9VTEJVQkNVSk5CWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
+	JKVUpLS1VLWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=LRBrxkMTJQiTIXvV+FwesJO0vwnpIXE0A4xzedRHk3fz94aXNxIROY7nqKLdWjbh1z5VoOuZ8O1P6LH7lVCe4QAtRAVfKTylaPWh4PJiXblC8sDtGqLoxGDwR+nb+BiXQ2WCsL5K6C/N15zEwv4PKPjLm53U4PxoMzwstBOg4UE=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=6f2sASHFDTpQp30NDWOYVGZZ1kdQ6WO9ewogODjhD6Q=;
+	b=kAxxGKMwu40CGR48f1pV5d/EnzMC5gTA5G65i+Zby2KGDHV8i7QumPaVxH3cYzKJbTBSxyndr/cXysgMJ6Q0mCC/hdKWaOO9T2OxaDPUryGCAyijnapp6i374EXB0cZVE9SuueOhqpcedltSe6Qh90gLFxjPi2vsI9QD5RKTdDc=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=RU/JFtl3t2fQyM9MGmpqoQqoNW5efmsBFP2qUPrWTuI=;
 	h=date:mime-version:subject:message-id:from;
 
-The Lenovo Yoga Tab 2 fastcharger driver releases managed serdev,
-pinctrl and GPIO resources while its extcon callback can still publish
-work.  Ordering the devres actions alone is not enough because the
-all-connector raw notifier does not wait for an in-flight callback.
+The extcon callback schedules a worker which uses managed serdev,
+pinctrl and GPIO resources. Releasing those resources while the
+worker remains pending or running can access invalid state.
 
-Patch 1 converts only the all-connector notifier chain to an atomic
-chain so unregister waits for callbacks and is safe from interrupt
-context.  The per-ID chains stay raw because some current callbacks
-perform sleeping regulator operations.  Patch 2 then installs the
-managed work cancellation before the notifier, so reverse devres order
-stops the producer before releasing the resources it uses.
+Install managed work cancellation after the UART is opened and
+before registering the managed notifier. Reverse devres order
+then unregisters and waits for notifier callbacks, drains the
+worker and only afterwards closes the UART and frees its pin
+resources. This depends on the preceding all-connector notifier
+synchronization patch; resource order alone is insufficient.
 
+The actual lc824206xa supplier notifies from work context, and
+this consumer callback only schedules work. The callback must not
+outlive synchronized unregister or republish after cancellation.
 
-Hongyan Xu (2):
-  extcon: synchronize all-connector notifier removal
-  platform/x86: lenovo: cancel fastcharger work on detach
+Found by the author's in-house static analysis tool.
 
- Documentation/driver-api/extcon.rst           |  2 +-
- drivers/extcon/extcon.c                       | 28 ++++++-------------
- drivers/extcon/extcon.h                       |  2 +-
- .../lenovo/yoga-tab2-pro-1380-fastcharger.c   |  6 +++-
- include/linux/extcon.h                        |  4 +++
- 5 files changed, 20 insertions(+), 22 deletions(-)
-
--- 
-2.50.1.windows.1
+Fixes: b2ed33e8d486 ("platform/x86: Add lenovo-yoga-tab2-pro-1380-fastcharger driver")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/20260806060526.1189-1-getshell@seu.edu.cn/
+Signed-off-by: Hongyan Xu <getshell@seu.edu.cn>
+Signed-off-by: Zehao Gao <gaozehao@iie.ac.cn>
+---
 
 Discovery: found by the author's in-house static analysis tool.
+
+ .../platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c    | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
+index 9e2ac80..51ff383 100644
+--- a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
++++ b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
+@@ -8,6 +8,7 @@
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
+ #include <linux/delay.h>
++#include <linux/devm-helpers.h>
+ #include <linux/err.h>
+ #include <linux/errno.h>
+ #include <linux/extcon.h>
+@@ -160,7 +161,6 @@ static int yt2_1380_fc_serdev_probe(struct serdev_device *serdev)
+ 
+ 	fc->dev = dev;
+ 	fc->nb.notifier_call = yt2_1380_fc_extcon_evt;
+-	INIT_WORK(&fc->work, yt2_1380_fc_worker);
+ 
+ 	/*
+ 	 * Do this first since it may return -EPROBE_DEFER.
+@@ -209,6 +209,10 @@ static int yt2_1380_fc_serdev_probe(struct serdev_device *serdev)
+ 	serdev_device_set_baudrate(serdev, 600);
+ 	serdev_device_set_flow_control(serdev, false);
+ 
++	ret = devm_work_autocancel(dev, &fc->work, yt2_1380_fc_worker);
++	if (ret)
++		return ret;
++
+ 	ret = devm_extcon_register_notifier_all(dev, fc->extcon, &fc->nb);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "registering extcon notifier\n");
+-- 
+2.50.1.windows.1
