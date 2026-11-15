@@ -1,57 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794705530;
-	b=QnnIYTwL6qF4/pudCPdNd/rxfY4WsSESqeS6P47LiLePgu3/VyWerTCYSpyGiP5hi0rr
-	 tV0Yq1A/hQF7Jx8NWB9xsHPmsL1B36GefvL/mnY4rcfl6uVyBFv/LPnmc+ZaaA1j5/IX7
-	 80LSYwkX9xgAzBDZ9SW4ARhKaQiv+DZymDh0/f4zOnNI4Z5Mbd6KJq4s+SUrfmXJarzuQ
-	 i4Nya7WO+il4SO0EE+yIzmNJQf5Z6bDFvsJu+pTtVLLYssnDmp0X2eecz64wyyokNRlJF
-	 Y/ixv0lPAg1OHpKDMt776IxHYIeJKD7WrGV+WEV5QcDWcaDUJiS2nGmJZglMFAduTIA==
+	t=1794705536;
+	b=IhpP7nq9RXwWym4gar0xb4JqF22GlrZdUhm081d2wfxvyiBTKafZ9vNQyShe4tpfT+7h
+	 waROehAPzQFJ+7aLQ7c3UIzV0c+HfXOohOjXTYMLK2Sr6Pc9xYTjqwAxawDKwVGGuM0Yi
+	 grzPbgBXPpIL52LUVPayZVOpfa/2TwsO9Lga4xCG4h9lqYR9Mzrx6aaKYYBl+laZgMHIV
+	 ugKHZ1bYFrMOBWQ1AJ/+3nMdKJL3ZRfJWXMiW6kZNgWeMfQ9wHNX/PLWT3/6S265hd0FV
+	 6poSVrGtLfyM2Vpa0IIIvqaN9qlabrn7lWLY5HA0eW2kbBs5BSNGF1cx9IgD2EfqyBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794705530;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794705536;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Z3CPdADV6moy4vZas20KVEa0m6bNzbLyLGpoL86eqQs=;
-	b=RtI55guGWbBYgCt1neyRK8l3rQax5b2qybvRNpm3vuVOfAFBtF2ipQN5q2vZ1I9EtzI4
-	 XxcmQgvdHH5w5w9kUjVXFBSklbH10+d2QkUPK4qQxPyRuVSiRlyiL8nPRui7iDcetlNlz
-	 h3jrnNAq3n6/SgqqiIVSnr+UgG45CHEGMGyPCz50LyW65nYUxgVJG5oosJHYwG30BBn+6
-	 MS0V3dL69qT0aSJBA4gteN6VXrOOGNep7JR2Ce4oZXUSUlt5v3ptpnLhfqNDPf4QA50Rz
-	 kqX+SFoaQO9PaPzPfyihy0KxFWRsrCMv12Pj6RO04sGLnCK+aZ5tDeDd1FsaSEVi4Gg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=I6TUikNARU1D8kg86XCW293m8lA/2MrDlsV/EcIKQ+I=;
+	b=ZNBTh4UuInDGitqN2y/BPuVGG026sur5FqRI6ZL1zZoAE2g7OO6YmyRObiQdosVSQm5S
+	 J0gXTC6a+Ggr7ojZvlF7qc/Mk09KKjCxDA/x+nBB2IMrcLhNcCDym3sfXtS4z3cLyJHml
+	 CLLdGu8gBwDtdY3TOiChAgtoVphogbjkTJbPi2Xxa9/m2jS6MNqs2+wc3LlBQ1BFdKtkS
+	 5HikNPMuhXRwTbxK8aG0P4+BvsW7Pmk3EfIbcJSMEEI6yM9OFqebbsAi2W49q+i7gHIPF
+	 g3u9Ak+1O0qxsxTBqBnF1gW7mTNr3kpDgfBO+a++anu+IypnvjCUHblV85Sk80gUnjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pw+r0qHE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bEkrTFtS;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0073F606A32D
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 01:18:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D910606A323
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 01:18:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pw+r0qHE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4071F000C5;
-	Sun, 15 Nov 2026 01:18:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bEkrTFtS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 842131F000C4;
+	Sun, 15 Nov 2026 01:18:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794705529;
-	bh=Z3CPdADV6moy4vZas20KVEa0m6bNzbLyLGpoL86eqQs=;
+	s=k20260515; t=1794705535;
+	bh=I6TUikNARU1D8kg86XCW293m8lA/2MrDlsV/EcIKQ+I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Pw+r0qHEPYkZcHcIecOsMXYXPaB79h1JCRAHe/Z9+JT4VxKYyCM0ajoKJbYNU5gOp
-	 7S5EVqEyr5rCrlBUyrZJczagQZdnYsD8/iC9mgkLiUcONgB3JnuPaVul6XK5vdy/mv
-	 p7p1mSW4KgsF2yxruVRp61nekczsoYUCO6Nzz2x65yZ32ZIanSIiK0Naq4Jd8bwTfu
-	 wf53hOXVuPWIug71na87TIb+y4xvDgz0o3PU1eJvXlw6da+9bbMgepDxW3DsPHXxO+
-	 JeHGkhiPcVlRVlvIZbJgq40Jz1nfwrb1MIX2N4lHzOC9NjSMnYAn7metyThcW8Pw9s
-	 8BwGNkT/q1jXg==
+	b=bEkrTFtSBiviKZCPBn0rsUOi879sk4jzTYmBbygItjGvhbowpKViWsPYSNcXywfYD
+	 uDxqcdtGLr3+U9Y/qBofNdW5GsRACl60geTCMbyq1Md9Qe6Fq8PA3jZfC3/UlCzXAG
+	 gda+BAnqnHF0tBFVCv0e8DMkmpdfUg5e4qYYVnsh12PhAsC4J58afzRbvuoq/lS9/Z
+	 x9/ypOv480bk2rTISoQkm6IhunURv1jqhjLci8Ru08lB4s7RQgZWwob0IbcQPwBead
+	 C6NWXRF3TG9Z3bwkllfn9NfFY/R4BWE5gPNcpyX0q+V8huXVdwXpQHoWO9XdNY0FK+
+	 iwDIhgOqPleww==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
-	Mika Kahola <mika.kahola@intel.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+Cc: Cen Zhang <zzzccc427@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Jia-Ju Bai <baijiaju1990@gmail.com>,
+	jjzuming@gmail.com,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] drm/i915/display: Add enabled pipe planes into state for selective fetch
-Date: Sat, 14 Nov 2026 20:18:48 -0500
-Message-ID: <20261115011437.621430-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] ocfs2: validate move extents against a stable EOF
+Date: Sat, 14 Nov 2026 20:18:52 -0500
+Message-ID: <20261115011436.640663-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109201102-failed-6.6-94cb1f08b197@kernel.org>
-References: <20261109201102-failed-6.6-94cb1f08b197@kernel.org>
+In-Reply-To: <20261109201732-failed-6.1-84db6619cb70@kernel.org>
+References: <20261109201732-failed-6.1-84db6619cb70@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,114 +65,186 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jouni Högander <jouni.hogander@intel.com>
+From: Cen Zhang <zzzccc427@gmail.com>
 
-[ Upstream commit 94cb1f08b197d9ae932ff98c741bd0dbc96e17e8 ]
+[ Upstream commit 84db6619cb702c37cf848b450c21b9c9706b0775 ]
 
-Selective fetch support for biplanar formats relies on linking of UV and
-the Y planes. Planes that are not part of the atomic state are pulled in by
-the drm_atomic_add_affected_planes. If the UV plane is added into the state
-by drm_atomic_add_affected_planes in the selective fetch calculation, the
-linking isn't done anymore and the Y plane is left disabled.
+The move-extents range must be bounded by the inode size used for extent
+movement.  ocfs2_ioctl_move_extents() checks and clamps the request before
+taking the local inode and cluster locks in ocfs2_move_extents().  It also
+uses separate i_size_read() calls for the range check and subtraction.
 
-Fix this by adding affected planes already in intel_add_affected_planes if
-selective fetch is enabled.
+A concurrent truncate can invalidate the first check and make the later
+unsigned subtraction underflow:
 
-Remove redundant drm_atomic_add_affected_planes from
-intel_psr2_sel_fetch_update and redundant check for plane selective fetch
-support that is not needed as all planes are already in atomic state on
-first loop iterating them. Also switch to intel_atomic_get_new_plane_state
-for linked plane new plane state.
+  Move-extents ioctl                  Truncate
+  ------------------                  --------
+  check me_start <= i_size
+                                      take inode and cluster locks
+                                      shrink EOF below me_start
+                                      release locks
+  compare me_start + me_len with EOF
+  set me_len = EOF - me_start
+    [unsigned underflow]
+  acquire inode and cluster locks
+  select extents using the bad range
 
-Fixes: 3809991ff5f4 ("drm/i915/display: Add initial selective fetch support for biplanar formats")
-Cc: <stable@vger.kernel.org> # v5.17+
-Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
-Reviewed-by: Mika Kahola <mika.kahola@intel.com>
-Link: https://patch.msgid.link/20260929094434.77129-3-jouni.hogander@intel.com
-(cherry picked from commit 0d173898b11157d37de3e5f01ef28a48582167d8)
-Signed-off-by: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
-[ sashal: adapted early plane collection to intel_atomic_check_planes() using the existing intel_atomic_add_affected_planes() helper ]
+A truncate after clamping can also leave the range extending beyond EOF.
+Conversely, the cached size may be smaller than the size refreshed when
+the cluster inode lock is acquired.  Early validation can then reject a
+valid start or permanently shorten the requested length and threshold.
+The me_start + me_len comparison can also wrap for a large input length.
+
+Validate and adjust the original request once, after inode_lock(), the
+exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed the
+size.  Read EOF once, reject a start beyond it, and bound the length by
+EOF minus start.  Normalize the threshold using the same EOF snapshot.
+This keeps zero as the default-threshold sentinel until validation uses
+the size that will govern extent movement.
+
+Move goal validation after range adjustment as well.  Its allocation-group
+capacity check uses me_len and must see the EOF-clamped length.  Both
+validation failures use the existing inode-lock unwind path before any
+extent movement or transaction starts.
+
+Range errors now reach the ioctl's normal copyout path, as goal errors
+already did.  Unlike the old early rejection, a failed copyout can
+therefore override -EINVAL with -EFAULT.
+
+Link: https://lore.kernel.org/pm-ocfs2-move-extents-isize-rrw-v6-395bdee84ea81149068e@gmail.com
+Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
+Cc: <stable@vger.kernel.org>
+
+A truncate after clamping can also leave the range extending beyond EOF.
+Conversely, the cached size may be smaller than the size refreshed when
+the cluster inode lock is acquired.  Early validation can then reject a
+valid start or permanently shorten the requested length and threshold.
+The me_start + me_len comparison can also wrap for a large input length.
+
+Validate and adjust the original request once, after inode_lock(), the
+exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed the
+size.  Read EOF once, reject a start beyond it, and bound the length by
+EOF minus start.  Normalize the threshold using the same EOF snapshot.
+
+[ sashal: inlined range validation into ocfs2_move_extents() instead of adding a separate helper ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/i915/display/intel_display.c | 12 ++++++++++++
- drivers/gpu/drm/i915/display/intel_psr.c     | 17 ++++-------------
- 2 files changed, 16 insertions(+), 13 deletions(-)
+ fs/ocfs2/move_extents.c | 62 ++++++++++++++++++++---------------------
+ 1 file changed, 31 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display.c b/drivers/gpu/drm/i915/display/intel_display.c
-index 28d132c238d19..f8c3cba3ca620 100644
---- a/drivers/gpu/drm/i915/display/intel_display.c
-+++ b/drivers/gpu/drm/i915/display/intel_display.c
-@@ -5672,6 +5672,18 @@ static int intel_atomic_check_planes(struct intel_atomic_state *state)
- 	struct intel_crtc *crtc;
- 	int i, ret;
+diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
+index 32b4271f3deb6..e3a9404c71bda 100644
+--- a/fs/ocfs2/move_extents.c
++++ b/fs/ocfs2/move_extents.c
+@@ -906,8 +906,10 @@ static int __ocfs2_move_extents_range(struct buffer_head *di_bh,
+ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ {
+ 	int status;
++	u64 i_size;
+ 	handle_t *handle;
+ 	struct inode *inode = context->inode;
++	struct ocfs2_move_extents *range = context->range;
+ 	struct ocfs2_dinode *di;
+ 	struct buffer_head *di_bh = NULL;
+ 	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
+@@ -932,6 +934,35 @@ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ 		goto out_rw_unlock;
+ 	}
  
-+	for_each_new_intel_crtc_in_state(state, crtc, new_crtc_state, i) {
-+		/*
-+		 * Add affected plane here to ensure UV and Y plane linking is
-+		 * in place if UV plane is added as a part of selective update.
-+		 */
-+		if (new_crtc_state->enable_psr2_sel_fetch) {
-+			ret = intel_atomic_add_affected_planes(state, crtc);
-+			if (ret)
-+				return ret;
++	i_size = i_size_read(inode);
++	if (range->me_start > i_size) {
++		status = -EINVAL;
++		mlog_errno(status);
++		goto out_inode_unlock;
++	}
++
++	if (range->me_len > i_size - range->me_start)
++		range->me_len = i_size - range->me_start;
++
++	/*
++	 * The default threshold for defragmentation is 1 MiB, which
++	 * matches the maximum OCFS2 cluster size.
++	 */
++	if (!range->me_threshold)
++		range->me_threshold = 1024 * 1024;
++
++	if (range->me_threshold > i_size)
++		range->me_threshold = i_size;
++
++	/* The goal check depends on the adjusted range length. */
++	if (!context->auto_defrag) {
++		status = ocfs2_validate_and_adjust_move_goal(inode, context->range);
++		if (status) {
++			mlog_errno(status);
++			goto out_inode_unlock;
 +		}
 +	}
 +
- 	ret = icl_add_linked_planes(state);
- 	if (ret)
- 		return ret;
-diff --git a/drivers/gpu/drm/i915/display/intel_psr.c b/drivers/gpu/drm/i915/display/intel_psr.c
-index 416686a6566ba..aba5ce55eeba4 100644
---- a/drivers/gpu/drm/i915/display/intel_psr.c
-+++ b/drivers/gpu/drm/i915/display/intel_psr.c
-@@ -2043,7 +2043,7 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 		.y2 = crtc_state->hw.adjusted_mode.crtc_vdisplay,
- 	};
- 	bool full_update = false;
--	int i, ret;
-+	int i;
- 
- 	if (!crtc_state->enable_psr2_sel_fetch)
- 		return 0;
-@@ -2144,10 +2144,6 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 	    crtc_state->splitter.enable)
- 		pipe_clip.y1 = 0;
- 
--	ret = drm_atomic_add_affected_planes(&state->base, &crtc->base);
--	if (ret)
--		return ret;
--
- 	intel_psr2_sel_fetch_pipe_alignment(crtc_state, &pipe_clip);
- 
  	/*
-@@ -2167,11 +2163,6 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 		if (!drm_rect_intersect(&inter, &new_plane_state->uapi.dst))
- 			continue;
+ 	 * rememer ip_xattr_sem also needs to be held if necessary
+ 	 */
+@@ -1024,49 +1055,18 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+ 		goto out_free;
+ 	}
  
--		if (!psr2_sel_fetch_plane_state_supported(new_plane_state)) {
--			full_update = true;
--			break;
--		}
+-	if (range.me_start > i_size_read(inode)) {
+-		status = -EINVAL;
+-		goto out_free;
+-	}
 -
- 		sel_fetch_area = &new_plane_state->psr2_sel_fetch_area;
- 		sel_fetch_area->y1 = inter.y1 - new_plane_state->uapi.dst.y1;
- 		sel_fetch_area->y2 = inter.y2 - new_plane_state->uapi.dst.y1;
-@@ -2185,9 +2176,9 @@ int intel_psr2_sel_fetch_update(struct intel_atomic_state *state,
- 			struct intel_plane_state *linked_new_plane_state;
- 			struct drm_rect *linked_sel_fetch_area;
+-	if (range.me_start + range.me_len > i_size_read(inode))
+-			range.me_len = i_size_read(inode) - range.me_start;
+-
+ 	context->range = &range;
  
--			linked_new_plane_state = intel_atomic_get_plane_state(state, linked);
--			if (IS_ERR(linked_new_plane_state))
--				return PTR_ERR(linked_new_plane_state);
-+			linked_new_plane_state = intel_atomic_get_new_plane_state(state, linked);
-+			if (!linked_new_plane_state)
-+				return -EINVAL;
+-	/*
+-	 * ok, the default theshold for the defragmentation
+-	 * is 1M, since our maximum clustersize was 1M also.
+-	 * any thought?
+-	 */
+-	if (!range.me_threshold)
+-		range.me_threshold = 1024 * 1024;
+-
+-	if (range.me_threshold > i_size_read(inode))
+-		range.me_threshold = i_size_read(inode);
+-
+ 	if (range.me_flags & OCFS2_MOVE_EXT_FL_AUTO_DEFRAG) {
+ 		context->auto_defrag = 1;
  
- 			linked_sel_fetch_area = &linked_new_plane_state->psr2_sel_fetch_area;
- 			linked_sel_fetch_area->y1 = sel_fetch_area->y1;
+ 		if (range.me_flags & OCFS2_MOVE_EXT_FL_PART_DEFRAG)
+ 			context->partial = 1;
+-	} else {
+-		/*
+-		 * first best-effort attempt to validate and adjust the goal
+-		 * (physical address in block), while it can't guarantee later
+-		 * operation can succeed all the time since global_bitmap may
+-		 * change a bit over time.
+-		 */
+-
+-		status = ocfs2_validate_and_adjust_move_goal(inode, &range);
+-		if (status)
+-			goto out_copy;
+ 	}
+ 
+ 	status = ocfs2_move_extents(context);
+ 	if (status)
+ 		mlog_errno(status);
+-out_copy:
+ 	/*
+ 	 * movement/defragmentation may end up being partially completed,
+ 	 * that's the reason why we need to return userspace the finished
 -- 
 2.53.0
 
