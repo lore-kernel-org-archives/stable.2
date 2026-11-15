@@ -1,88 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794714487;
-	b=QZxo2uC/ztuJ3EqHzFtdbDQdZmlgnexDhbhO8cGYJJ8HtMHV1JzictkqfEjuIQQPeolu
-	 9ux8qA2vJRqGovR75FjSTtRAhd18z0nL73f3tvbMPu3wiFwPe4ToBtQtysABlFj8DV+Wk
-	 Xs7qCOdXb8Q//54t+xHlh1dZavb8mfMldlmsw0x5sKhumMXwt3rlsOWBBgCgAf6YFnhpW
-	 0lFPddJaEcBjs70f2c4aJwZdWlhQ3uI7uCr3F3UZyrsI6ThDJ87hsiO9EJmMHcKtX1esF
-	 YShBsLl2SswbXJstrPgEZZkfMkcP/BKpwFvQvQfyCTXkWBhfuLXnIaOHYDJgrUWZfcQ==
+	t=1794716431;
+	b=jk3Cj2Arz59jNmtCdf4KPQjfolItE0XLRVbQNtFVk6Y8aWWFZ2HRpUXDiTKEojlQOrsl
+	 anP4OaOrxn/ABSEmB8Ri4QFP6QHxPeyc3FSO3aiHyrPI4VXe1vMZByoRN3dePVxQNHlOq
+	 48z3mypRYAu03qQtRjohAaf4LhoovOETt7Z7a/tMoOq/OgWGgi/pSTkNs0Dev3MVWNdeI
+	 BjwLdiPThO+n4193+2dH6qxKAmEbA0LNEq1u5zwnRniw0CsXGgH5+YhWrQeBNqid9xsA9
+	 kETB+oA0RYshlP3r/cHEwBHw9rCK0XJW+4Yq5PD7vA49B4BcbqhKlsnGielb9wSQ3pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794714487;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=koJgHflpF8SlmhITyVQWyV+LPgkeAJc/hP06L9RsOYI=;
-	b=3I9f6esG6mXf4l/N4cTQVNSCsbVTjHgEJDlIdtAiUpLeJ4TAyBQVji/afusYNICabeyG
-	 UdGl+mLtfmB/TEtaivGMR2is6gYTnzd0Olfgup+Vv+GBJwCEwSEx9lKkpALQV0VG5tIvC
-	 KoEwtB3i44OcocqxwWpU6wSfP80LPh3cDyB3GTL0kFAX8Iw73EIMCoFYCtnu5e6IrIDX4
-	 9751EmgSib4FnOSbLd0CpSAtzCgWmF6MbJfOTH4SAbGBa1epQnrQnnkGyMROaDosrtl+L
-	 IoJdS3ksDmzvKI2aRshb6hl5zhIszANd5Iv1K6UpHlXILTLM2Gg1FV/m7iE8K7QwD/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794716431;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=bvlsH/sbn+K2R4f7czn8STf5Bd21I+JO8/DeovfDxJ0=;
+	b=RcjXFYbWy9B2orSsU+Kjoeg6HcxVGvekfSZlTGlU304BEQBGmiAtzB74vZRHS3ZfF2j6
+	 n8f7+ACNXFM9HuB01+QUoegxsOoSnwu8eqYSSewKjoURKHmzrtjV3mFuY7Fi2qUi+qyOf
+	 eY/f4zakB5n1TVe+FGs5U6ArWxp6z6atOAY5PbJMpAKRMCswZeRPtwwSQojBkpYgxDVbb
+	 egKdruega0FrFBqbJ+DFJ7CMnEpnrVTxJl5Zo9JR0RQ7A782BVFhngjQ8e/C7tU4fm9eg
+	 3J/FpXqKBYS7HQdnYCwzKDMLHlXyBQGOHsYD7ARfCEah7UgGVJE6HOBSmjD5spTTP0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b183+LWr;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hU4MYkLZ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A030606A32E
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 03:48:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A030606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353EB606A323;
+	Sun, 15 Nov 2026 04:20:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b183+LWr
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-37600b0db49so2996677eec.1
-        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 19:48:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794714485; x=1795319285; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=koJgHflpF8SlmhITyVQWyV+LPgkeAJc/hP06L9RsOYI=;
-        b=b183+LWrZFM0bv0LIXdbfL6FW/5eUn2mEGH7ooYlP86N7E5uEfzcrKvKo4HKAKacxv
-         GqV0dysJkB7meYrGx87aZE+fCxomVCXUMduyJD73Zgmcj0puzmcUhF0MzKt+RM8cE8u3
-         /3szSVzA9HIR4/XE9TJh7h9/5vMbEMJLeweZtnrZfKdEGc2AWJZQF6XvYh1jee0OGNVP
-         lSdaRpAbzDg4CCbLX71SNKq1wJzqX4tAwesTMwSbeo60lSD7M1Lqk6AP2QWG4W5ZIh6b
-         pO9+2qonCSweRR7vdT+SZWk+WOSn/Wz6alFcj6r4EWTisZAITnDRhwDSI1XIOongLCYf
-         yXoQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794714485; x=1795319285;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=koJgHflpF8SlmhITyVQWyV+LPgkeAJc/hP06L9RsOYI=;
-        b=rGGY6QqPmxvFLbTrK95LyuFR3PqkqH7YlrZXfpn50yrWlAQe12v5z+r2QA4dtaWONn
-         oU3AEOcSsitpa1c+/A0TGLos8Q9eW6hHgB2XCjatI08+qQtgyH7fHzi4vH7Cz7Ismi8K
-         K4WqWyr27xIODgeWJ1ggg7P6QKsrIiLr/inlBsFAYYwSfXshTs6yt0VUWjdQVQjHTo1G
-         ktYh4OwTwDRsEH+guzufkufdLDM7LDgmMW69BOQKqrPB0kAPEmk3Hl167s8BxUxezrIE
-         GnCtRRJZJ/ItQbeQ/WdzKQgw8CrOBkv45yNS6kVzHayxio9/egp1qhSbBMlRGZfi0kXG
-         GQtA==
-X-Forwarded-Encrypted: i=1; AL+hErGTR45MWxZqRxpCYYzAZa5N6MXjPhila5VhFGpSXsFZv0UGdI0jwQIW7hanxZOGQq3wE9xfp/w=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/l12rn3oY+6eRztNG/eoSg2WPocGgY2xHq+DE+mF77zgvOFnMf
-	PEHes8bpBfFYQk3Bvzrim9gEmZzjq4QpLDV2fDiDGro21PZjt7Up92ga
-X-Gm-Gg: AYBFou1z1hfkakBH3oB8Y7GwI52vYvRq8j23UL81g4PMcBsA6abuNXwmb+XRonKUAhI
-	u0uH+f+Z+neGyltp7eZTPSno20uVQye3jCSrL7FwXlkWUk8sXt/S7WyyQC5y9sEYZ3HgQpm66K5
-	xjQ/D+dxkIKRzpB9S7dTuDB0w9nCigCI5ld6y1XdHFqfevAQe7u7MN+weyaqYbx3t9+zXFnQ4St
-	a5cwVh9Usj2XAGwFqXnd1ou04ClWbbcpMyqc8d8CCbzf7+jHwC2SfrH+lSjZYDqkQFGxQm1AlTI
-	iLhTAUbm4oi4u9iQZ1gtFL3bqBHNV6NUXC5NZarZWvx5xu6WBtPnU91Pr/qMNhBCP8TIrLOE6+f
-	hkLu3yo/DeIh8RWcRBiDTtxjxAfQExaiL00BGJa8AegCHdmYdl1Fbupm+fvnKYoizgovtcxUBy/
-	HXX1RBii7A6enLgmve9ADTpn/syVCWK6ZDsekIcOCNizc+7LKJmrpITJj/9QWgzj9OVmYUTe8RA
-	5zfFtodApj376xk7I6zGXgDaPCxGTUz6RT4ikC1jPUCockf89vp81Z1MjALx9n6PGqdW/xp3Av1
-	ki1tSRpLTchBW7MMroPxS3nxAFijhc0T2Q==
-X-Received: by 2002:a05:7300:c00b:10b0:36a:647b:2d7a with SMTP id 5a478bee46e88-377db7c8ac3mr10822333eec.0.1794714485325;
-        Sat, 14 Nov 2026 19:48:05 -0800 (PST)
-Received: from [192.168.100.6] ([121.144.254.242])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563e6b6dsm37381434eec.21.2026.11.14.19.48.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 14 Nov 2026 19:48:04 -0800 (PST)
-Message-ID: <84aaed30-5259-47cc-88b2-437b81efc90f@gmail.com>
-Date: Sun, 15 Nov 2026 12:48:00 +0900
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hU4MYkLZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C1D1F000C4;
+	Sun, 15 Nov 2026 04:20:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794716430;
+	bh=bvlsH/sbn+K2R4f7czn8STf5Bd21I+JO8/DeovfDxJ0=;
+	h=From:Date:Subject:To:Cc;
+	b=hU4MYkLZXw12HdHIP9yihXb3opRHpFwJbEwjWtexlAp1zvjAnPuUNqwutAW4UCHGR
+	 pTnK3vGMRfTlQnQkFWxMEUNy46wtoRU6D1EpfMhnJ+F9TjdeGHq4+b0Acweqxjzpq0
+	 GyjHEHELZe/Q+TWGc00FxF8pcC3bvk4tqkYYmyWPiGHohG5H/9ZBctmu48kVj5Vost
+	 JDEyw90VdlqEiv8qKBSRLi+VychXiy/EdEQlwhUoWzrtega0T0LjoADqKQwFStHDjN
+	 8hXN/UvNsuVBo8GXbePb/+OWdXGD4e4f6PSjmAyRrktOFh1A5Ln8B9zVJEdiujiN5E
+	 zvB7qoPaG4vSQ==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Sat, 14 Nov 2026 21:19:52 -0700
+Subject: [PATCH] sched/topology: Avoid unsequenced accesses to jiffies in
+ sd_init()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,50 +53,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/686] 6.18.64-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261113153820.902362109@linuxfoundation.org>
-Content-Language: en-US
-From: Joungmin Lee <leejm516@gmail.com>
-In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-topology-wunsequenced-v1-1-686a36fe61f5@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMyw6CMBBG4Vchs7YJgwbUVzEspP3BMabFDvUSw
+ rtbYfktzplJEQVK52KmiJeoBJ/Bu4Ls7eoHGHHZVJVVzcwHM4UxPMLwNe/kFc8Eb+EMH3t2++7
+ EdWMpt2NEL5/1e2k3a+rusNN/RsvyAyaiFcp5AAAA
+X-Change-ID: 20261114-topology-wunsequenced-18f1d3b9167c
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, Ingo Molnar <mingo@kernel.org>, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3032; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=dsqEYcSriLtcVQdAiw5Q3eG9QiLqh3XfUg5g6y/H4E0=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFk/jdlCmL04GOb9d/taLZbaX1D3Vf+7TWoJc9K8E2yyU
+ xckq6t2lLIwiHExyIopslQ/Vj1uaDjnLOONU5Ng5rAygQxh4OIUgImwTGFkeFHD/MPbMWll7wex
+ OdsKFk3+KNUgEKiU4RLT6PeHzyf4HiPDHmbTg3HBn3ZOL/88+be3yM9VIQzfIu9cuhX0RGJ5xnQ
+ jbgA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On 11/14/26 12:42 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.64 release.
-> There are 686 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
-> Anything received after that time might be too late.
-> 
+After a recent improvement in clang to warn on unsequenced accesses to
+volatile variables [1], an instance appears in sd_init(), which can
+break the build with CONFIG_WERROR=y / W=e:
 
-Hi, Greg:
+  In file included from kernel/sched/build_utility.c:86:
+  kernel/sched/topology.c:2008:29: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
+   1998 |                 .last_balance           = jiffies,
+        |                                           ~~~~~~~
+   1999 |                 .balance_interval       = sd_weight,
+   2000 |
+   2001 |                 /* 50% success rate */
+   2002 |                 .newidle_call           = 512,
+   2003 |                 .newidle_success        = 256,
+   2004 |                 .newidle_ratio          = 512,
+   2005 |                 .newidle_stamp          = now,
+   2006 |
+   2007 |                 .max_newidle_lb_cost    = 0,
+   2008 |                 .last_decay_max_lb_cost = jiffies,
+        |                                           ^
 
+Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
+6.5.2, unsequenced side effects on the same scalar object are undefined
+behavior. Per C11 6.7.9.23, the evaluation of the initialization list
+expressions in a designated initializer is indeterminately sequenced
+relative to each other, meaning any side effects in the initialization
+list are unsequenced.
 
-6.18.64-rc1 successfully built and booted in my system without any notable
-regressions.
+Move the initialization of these fields outside the designated
+initializer to place sequence points between the accesses to jiffies,
+clearing up the warning.
 
-Distribution: Gentoo Linux
-Architecture: x86_64 (ASUS Zenbook UM3504DA)
-CPU: AMD Ryzen 7 7735U
-iGPU: AMD Radeon 680M
+Cc: stable@vger.kernel.org
+Closes: https://github.com/ClangBuiltLinux/linux/issues/2190
+Fixes: 2b4cfe64dee0 ("sched/numa: Initialize newidle balance stats in sd_numa_init()")
+Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ kernel/sched/topology.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-[    0.000000] Linux version 6.18.64-rc1-900-myllvm+
-(user1@gentoo-zenbook) (clang version 23.1.5, LLD 23.1.5) #3 SMP
-PREEMPT_DYNAMIC Sun Nov 15 12:36:52 KST 2026
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index 99878da03bce..f5975079f453 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -1994,7 +1994,6 @@ sd_init(struct sched_domain_topology_level *tl,
+ 					| sd_flags
+ 					,
+ 
+-		.last_balance		= jiffies,
+ 		.balance_interval	= sd_weight,
+ 
+ 		/* 50% success rate */
+@@ -2004,10 +2003,11 @@ sd_init(struct sched_domain_topology_level *tl,
+ 		.newidle_stamp		= now,
+ 
+ 		.max_newidle_lb_cost	= 0,
+-		.last_decay_max_lb_cost	= jiffies,
+ 		.child			= child,
+ 		.name			= tl->name,
+ 	};
++	sd->last_balance = jiffies;
++	sd->last_decay_max_lb_cost = jiffies;
+ 
+ 	WARN_ONCE((sd->flags & (SD_SHARE_CPUCAPACITY | SD_ASYM_CPUCAPACITY)) ==
+ 		  (SD_SHARE_CPUCAPACITY | SD_ASYM_CPUCAPACITY),
 
-Tested-by: Joungmin Lee <leejm516@gmail.com>
+---
+base-commit: d7e670601af6c564ccf6d3b2ddf70ee4f41a6d1c
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261114-topology-wunsequenced-18f1d3b9167c
 
-Best,
-Joungmin
+Best regards,
+--  
+Cheers,
+Nathan
 
