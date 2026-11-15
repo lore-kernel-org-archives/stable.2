@@ -1,93 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794778548;
-	b=pL+aIqi/pt2oMyJmaGgcqGEvRoMy67mz6Si9rg2p2obtuDBELKWGOXIrO0ZWb+aIwcG+
-	 bC01uhNticnfWCA27DkKwvS7WtM+B18Jg92A6uCfNY99S/TDxA/+PIbdlpUozntUyjiRB
-	 JAw0V3EoMyUFO8vwoDiR29e2TIDdcnRW1vRsDugcr435kLbUfl76HBgqPFyJQAEOxym/T
-	 M0EkX3kv2UkKHwy55km8/Hf34fne6E34v+ZWEprYog//WoqvakqSkYRRYp+CMroKo191Y
-	 +pWOK5zqxbVngKluhTXNHvaU8t0/VdrLCoaTKGX+7xhNn6/NLh46irdp2CZdzzbKfuw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794778548;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=v+bEaKhMDCZtV/jlBILoWtbmCL9qsyLUohE1CagS/qY=;
-	b=4Kfks9kgXsMBa1SKz9Hz6cyCawBrVM5K4QekYHbj3qFS8dw9eABhKCYxYpKzdaXRwgWo
-	 FQaeAUmlNfK2q8hybWGxpQQ8v/NcRw/C4AzDiHrWnpQymRBoK36BcJkr+MnwTw+vqhmAy
-	 jqD/qOfO/qSEfDQJoGKhoUvc1pcxwZ/ZULAG2kN6/yrTbut4gXLsqyoIlKeYtU7IizbHM
-	 J/BJSp12Nj1Mv6h1SuuShvLd4Tgqnd9dbHf4s0dQIdwTJfj5JTP5yHOQZeXHPJwqWfHnn
-	 Mn15YMdw5Rs0cfRe9xPeiC98TT9ABMrJ22plUR4PbFyNDTDZ0DX5jVdE/1LFlp4R8Rg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vf3Q6OFD;
-	arc=none smtp.remote-ip=209.85.215.174
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794778803;
+	b=VHraiFOMUwt2t5KIxBPLA2D9lcD1B5gmCsxkp1ETIuZn3rhVpvMYbpmwD+mkplPAKz3o
+	 99Rh87T4eAiaqn9RHV1vyIgYp65uXbdt9GVpwQPQo/zlaQecMyzyuJp3GPIjlvXITzVzs
+	 aFdL2utc3oBr5CX0+jnRnNpjveMlGNHIKeM2ZC/hBmbLaT+DKMSX2gVVoF9x2m8D8XGyd
+	 sfRtwKFm8ZcmtQgwvMw5fJZR+UIHtQ/SQN55OSCj2/XJtRO95BMQtAl/bvrucIouBHzki
+	 HCrPHWKFbj4utg0TO7MzxsgXxTKtJlkEH4h6bJidz0Y33iX9PpD8DNxCgs55He4e8xw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794778803;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xNjAalZIzvUFa5Xbxji9aRdEkgxtocXL1VL40VOFD/c=;
+	b=1owK+qDy/2RF+uKPsy84lehi4LXIGUT1iT3UT4BnYNBPTeaQcszsRurjYwJClr27hutt
+	 jkDgBr94+ngITQw14oU/pspuZn0PxK7xmxRxRB065Qn3oa6eGAGuQV2HJgNXFsQctKYQh
+	 a3xV3ZoyYOfnlKoJaZIefQ/o1s0c5h9ClaFgSi2RgedVYembufdv1hW8icofxFTw2lkzZ
+	 k0NVDLDOPhcPGW9OWOVbpkuf1MN00FplDByzjo3ef3m6vGyUTAaNfMTCXlNqj2FEF9J/y
+	 t1AH9z8UV2A+v1jbqyjkQ5GXibmHYHrOuTYtT0IdaV00AY+rnVr8epGA9+23D1MQLtw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVYON9ny;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15544606A31F;
+	Sun, 15 Nov 2026 21:40:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bVYON9ny
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794778802;
+	b=CftTzxgyLMJwm3bhBexRcZOHJBaFWxsp8vYFCWCinTzrCkITLfydDSr35THNXpJyiBF+
+	 hOB1Ciuna76PFXLHMcjoAGDws26sj+vPx2r6xgNcfMowo+ai92ruy8njvPRZY7aSTZytx
+	 coQSEXjNCdoVUfKK2IY9PVdAuKGAg1X+1Otv2PbC1sdTEvHnbRg0XVrAZ1QBVvgB1r2VW
+	 NlEuN5pVlfkb/oe+iG+ei4XRYDEsYzHQz6F41kdj0KVt/HVNxMjfDa8QJF3q8NZoGaRBW
+	 4nmAAHFLoQo7dw3qWYXkyW15n8tx6X4aJQcbzYfZoXVW5/RhY9qHWxiTUpq0GG9qU7w==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794778802;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=xNjAalZIzvUFa5Xbxji9aRdEkgxtocXL1VL40VOFD/c=;
+	b=0QUf1UOk33npcTZknKyyCBniXFHLnQfyiVsQ8cI6pBTBdgx+Rrw7MkPlgfvQ6eDMbqKq
+	 ubkuxe7ee/pJli1LXzjmueEkChv6uipfvhckE9DyqnuziS9t0Vh+y7mQfs6hNjv8suT3r
+	 nlRIZmBT1fUcpjp2kahqnJLm57QfEJD1TfV+E7s/BzKUzYKrtFvMRHpyT4BGPDMeS6NjU
+	 3oPeIO3QOCAclHpkCGe7DunyT3PO/P6+3ZQFCRCdAvQWlnLZNR6hhd0EamhiYIMdIarUa
+	 pH4BT+MM0VLzYmDKXW2kf3ONk9h67sP+tmolIaShnXVbOvlB29itfyM4rz+66aDPSvw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89A7606A32C
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 21:35:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B89A7606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vf3Q6OFD
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so983328a12.0
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 13:35:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794778547; x=1795383347; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v+bEaKhMDCZtV/jlBILoWtbmCL9qsyLUohE1CagS/qY=;
-        b=Vf3Q6OFDzCu80dUMBSm6nrS5KkYQg5Tn04XGAPOUltWAHsYq11qX2pkdaBDdva22Za
-         +WZvfsjthxomjl/Y2rvWXKnSdp08I/rHPnYwvJP1etkIKzvGksvL001yMAZzG0vtTVeD
-         B2tynu8fvY1xmmN5+zTuTRQ50SvWbu9cXfC/HRyaGk96TYmSnelNqRrhGxO+OV0tf2Iq
-         mPvrgBtoTgJgTO4AXGXrstFevsN2a//MVy1/u0b3eKcYFv7WqlyZCU2gp/ekT/Qcnibu
-         RGu89/5R5djmP5Nh24GVohYeNnwXJU3YYn8z/LZ+WIFAk4muSRIFYFQxRyM6z/Vmgxrn
-         HOfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794778547; x=1795383347;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=v+bEaKhMDCZtV/jlBILoWtbmCL9qsyLUohE1CagS/qY=;
-        b=bUXXnHeYXzDgEJAjco0UrieZOyHIJ7hAofQR1YHST02pi9GkpfM0f2QHMU20X7XKKr
-         YBNnES3CuuMdac2Ej8+y8YLqCpjnlGef7Bh+7i5nkRGjBHIyxllcDNgovVbAVR/egCr+
-         oTNmkNPLkuapXXYDzYI8tBnOEZSTlBX35gNpt9huQkNEwn2YDb3egUghXNApgxRB8o2P
-         VzKEKDgrliRmcxl79k+jklK92ZWfzB74cFEjensVbE7wzd9sch6KHhe6FyYl66fJCipw
-         ZcxPpW2pkYRIk+27/YjfeWm3Y2NJzkAUVhcSy8lVz53G89QQ1nKSCMFXwcuYNcI1gyWb
-         mORw==
-X-Forwarded-Encrypted: i=1; AL+hErHlUxRJZ3vSGy2T7l9hpL40dp7jvtWguX/fM0got7RDkDLraFaZWzhssNH6HzABnG/ceRHR+wc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8+tn29t0x4MmxZHGyTngZgiuLx8BxDHo+szwdD9RyO/7KCX/+I
-	getZPtFB39josPduaODHbz1wMu8ARl4uPPNCPxRNa1zgTzHX28zPLag7
-X-Gm-Gg: AYBFou2r7W/8ka5jbmF6N5k30UzUPBZe1gQzQ9r7i9AfHHvnW2f5vhh1SlcUcPFnsL8
-	s6WfRiCNh0Uvs7UJMutfQlLCW4/2m9ZVSwPH+B2j/7ZklTc3CL2LoK31Igiy1a1NeCYDNKCzOYG
-	vWyGEudgkXrwrR6hQ2W8YZVCD/Mu/fCsjdV5aCYzuZaFlxLVAg3jZXI/VhR5D9ilDJaK2Dtlx1g
-	czVDm3C48b+W3bL8C8Je6Jo2719rZeTUp7tfhXT1ejMQeVEfS4yR55oVKC1W6u3ZYpok1s5rwty
-	IhSiAxwJj/0plOzHT1hFTlbB1fNg+L/RmaKu5xaVHtiK0feHgn4wvBvDQGk4IaSC7AsppizGbpS
-	ZcgWMTEsEeAx7z2MzcHYtUFETb1zmLXkRxR1ET0k7iYnYz6z2MJovWAEbwVXAVgGZ/GES/VO5PC
-	pkkriJCJHhycR9w2drbYKki+vrJ8KkoNK12MEXE9yZ406t2y6rgYwxlx1bWnQoajF4lEVejzSkn
-	Gbop+PGI2vv8KHeYA8Ch/MNw4XHVIDa5VrMgKs11Ymef3CQZbc2hMRpa+DDV/gEKhhZPHXZKdal
-	JtPFiteGKDtEgYVKu1IKXZI6wk/oI+7+z8uI+usRbsm+RcRiS4+BvcB1nMYD0/CUaV+4dM3BPGo
-	PiZXj5b5XpogICzNe/PbypW+LpDLr18VNLSq8T+4W+ZVgKDo=
-X-Received: by 2002:a17:90b:554e:b0:396:41d1:cbc7 with SMTP id 98e67ed59e1d1-3b1b07ef11bmr8709233a91.3.1794778546907;
-        Sun, 15 Nov 2026 13:35:46 -0800 (PST)
-Received: from f2fs-test.c.googlers.com.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce556dsm18831394a91.6.2026.11.15.13.35.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 13:35:45 -0800 (PST)
-From: Daeho Jeong <daeho43@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] f2fs: write a checkpoint in fsync after the warm node log is moved
-Date: Sun, 15 Nov 2026 13:35:40 -0800
-Message-ID: <20261115213540.2100311-1-daeho43@gmail.com>
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+	by smtp.kernel.org (Postfix) with ESMTPS id 200EB1F000C4;
+	Sun, 15 Nov 2026 21:40:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794778802;
+	bh=xNjAalZIzvUFa5Xbxji9aRdEkgxtocXL1VL40VOFD/c=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=bVYON9nyiNA1ScxrHvAukf882icY23Dl2rKcC1Gf4Zlmxw1gCWNzSz/UOVm9VWm4M
+	 1x1cXO4Rrcu/6fV962cC2v92Yu4WBfsT3mvA1qiKyVIcSxw0wcnNZ2t/TX14CSv/Yb
+	 9NvLtsjKEqCOt3FewQlx77UmOEcYtDNAnS0NE+QQmx0ABUYOQb3Yn1REQoYZPu24RS
+	 7QO3AdP1fAG7fL8eXPjI35qjPtG60negVgJ+KALKsXfOlfEPtqAX9bqERldLBBBb7P
+	 H5Px1YzwHY8R/h5tdw5OgEsCqn+AMwSAerrd9AqQClu1oe7vEfkMmNvGdxBzd6Kd7L
+	 zre8Bx7aPBs7g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 92BB94A205;
+	Sun, 15 Nov 2026 21:40:01 +0000 (UTC)
+From: Phil Williams via B4 Relay <devnull+phil.williams.advisoft.co.nz@kernel.org>
+Date: Mon, 16 Nov 2026 10:40:01 +1300
+Subject: [PATCH] iio: imu: st_lsm6dsx: fall back to 25 us/tick without a
+ trim
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,102 +83,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261116-st-lsm6dsx-ts-fallback-v1-1-8ace30afbfb5@advisoft.co.nz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ6DMAxA0asgz1jCQcrQq6AOIXFaQ6BVnFZIi
+ LuTlvEN/++gnIUVbs0Omb+i8lorqG3AP936YJRQDaYzlogsasGkiw26YVGMLqXR+Rl9MBQpEPc
+ dQ43fmaNs//Fwv6yfcWJffjc4jhNT60DqegAAAA==
+X-Change-ID: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
+To: Lorenzo Bianconi <lorenzo@kernel.org>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Mario Tesi <martepisa@gmail.com>
+Cc: linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jonathan Cameron <jic23@kernel.org>, stable@vger.kernel.org, 
+ Phil Williams <phil.williams@advisoft.co.nz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794778800; l=2231;
+ i=phil.williams@advisoft.co.nz; s=kernel; h=from:subject:message-id;
+ bh=uHlYPZd4leaL6BZM5UhiWipgD8U4U669fNKN8B6lxPA=;
+ b=swvwjnWL3dHnjOwF5N49mxp+jQkSzO5f8iKsDykvNkJoG9nL5N9gOV1dfEDQAgYLgtVenSNDn
+ mmz43EWAIvwD7R8bnl+BqLxRMaYraCgYT3m1eKkeiSTLJO89BB/7Zg6
+X-Developer-Key: i=phil.williams@advisoft.co.nz; a=ed25519;
+ pk=t0M8TApJRlA/rHh3lIu1XTiWO2+evmU8VnO43/qqLPk=
+X-Endpoint-Received: by B4 Relay for phil.williams@advisoft.co.nz/kernel
+ with auth_id=1538
+X-Original-From: Phil Williams <phil.williams@advisoft.co.nz>
+Reply-To: phil.williams@advisoft.co.nz
+Content-Transfer-Encoding: 7bit
 
-From: Daeho Jeong <daehojeong@google.com>
+From: Phil Williams <phil.williams@advisoft.co.nz>
 
-Roll-forward recovery finds fsynced node blocks by following the chain in
-the warm node log. It starts from the next free block of the log recorded
-in the last checkpoint, and each node block has the address of the next
-one in its footer. f2fs_allocate_data_block() fills the footer after it
-moves the log to a new segment, so the chain is kept when a segment is
-full.
+Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
+calculation") takes the FIFO timestamp scale from ts_sensitivity.
+That field is only filled in for parts that have freq_fine. The
+untagged-FIFO parts are left at zero:
 
-f2fs_allocate_segment_for_resize() moves the log out of the range to be
-removed in the middle of a segment. No node block is allocated there, so
-the last node block in the old segment still points to the next block of
-the old segment, and nothing points to the new one. The node blocks
-written after that cannot be found by recovery until the next checkpoint.
+  LSM6DS3
+  LSM6DS3H
+  LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
 
-For example, with F2FS_IOC_RESIZE_FS:
+st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
+every sample is published with the timestamp taken when the buffer
+was enabled. The accelerometer and gyroscope values still update.
+Userspace that integrates attitude from the timestamp delta treats a
+stuck timestamp as dt = 0.
 
-  - fsync(A) writes a node block to segment X, which is in the range.
-  - resize moves the warm node log from segment X to segment Y.
-  - fsync(B) writes a node block to segment Y and returns 0.
-  - after a sudden power-off, recovery follows the chain in segment X,
-    recovers A and stops there. B is lost.
+These parts have no freq_fine register, so there is no trim to apply.
+Use the previous fixed scale of 25000 ns/tick when ts_sensitivity is
+unset. Entries that already set it are left alone.
 
-Checkpoint is blocked during the first GC pass of resize, so this lasts
-until the pass is done. f2fs_ioc_reserve_dev_alias() moves the logs in
-the same way.
-
-Set SBI_NEED_CP when the warm node log is moved, so that fsync writes a
-checkpoint instead of relying on the chain. The next checkpoint clears
-the flag and starts a new chain from the new segment. Such an fsync waits
-for the first GC pass of resize, since checkpoint is blocked until then.
-
-An fsync which has already passed need_do_checkpoint() can still write
-its node blocks after the log is moved. So check the flag again after
-the node blocks are written, and write a checkpoint in that case, too.
-
-Test: four tasks create and fsync files while F2FS_IOC_RESIZE_FS shrinks
-the filesystem, and the machine is rebooted by sysrq-b 1.5 seconds after
-the log is moved. Without this patch, all the files whose fsync returned
-after the move were lost (454 and 437 files in two runs). With this
-patch, no fsync returned in that window and no file with a returned
-fsync was lost. The second check was tested with a debug patch which
-delays an fsync between need_do_checkpoint() and its node writes.
-
-Fixes: b4b10061ef98 ("f2fs: refactor resize_fs to avoid meta updates in progress")
+Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calculation")
 Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Suggested-by: Jonathan Cameron <jic23@kernel.org>
+Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz>
 ---
- fs/f2fs/file.c    |  8 ++++++++
- fs/f2fs/segment.c | 10 +++++++++-
- 2 files changed, 17 insertions(+), 1 deletion(-)
+Resending inline. The first copy went out as an attachment.
+No code changes.
+---
+ drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 05061254c3b2..61ed0ad5d29d 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -466,6 +466,14 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
- 		goto sync_nodes;
+diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+index 823f8ac66..98db90a30 100644
+--- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
++++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
+@@ -2525,8 +2525,14 @@ static int st_lsm6dsx_init_hw_timer(struct st_lsm6dsx_hw *hw)
+ 			return err;
  	}
  
+-	/* calibrate timestamp sensitivity */
 +	/*
-+	 * The warm node log can be moved after need_do_checkpoint() above.
-+	 * Then the node blocks written here are out of the chain, so write
-+	 * a checkpoint.
++	 * Parts with no freq_fine register have no trim and leave
++	 * ts_sensitivity unset. Those parts used a fixed 25 us/tick.
++	 * A zero gain publishes every FIFO sample with one timestamp.
 +	 */
-+	if (unlikely(is_sbi_flag_set(sbi, SBI_NEED_CP)))
-+		goto go_write;
-+
- 	/*
- 	 * If it's atomic_write, it's just fine to keep write ordering. So
- 	 * here we don't need to wait for node write completion, since we use
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 31ac93a93021..e77a01376288 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -3488,9 +3488,17 @@ int f2fs_allocate_segment_for_resize(struct f2fs_sb_info *sbi, int type,
- unlock:
- 	up_write(&SIT_I(sbi)->sentry_lock);
- 
--	if (segno != curseg->segno)
-+	if (segno != curseg->segno) {
- 		f2fs_notice(sbi, "For resize: curseg of type %d: %u ==> %u",
- 			    type, segno, curseg->segno);
-+		/*
-+		 * The chain of fsynced node blocks is cut here, so roll-forward
-+		 * recovery cannot find what is fsynced from now on. Let fsync
-+		 * write a checkpoint until the next checkpoint is done.
-+		 */
-+		if (type == CURSEG_WARM_NODE)
-+			set_sbi_flag(sbi, SBI_NEED_CP);
-+	}
- 
- 	mutex_unlock(&curseg->curseg_mutex);
- 	f2fs_up_read(&SM_I(sbi)->curseg_lock);
--- 
-2.56.0.611.g1030f0b940-goog
+ 	hw->ts_gain = ts_settings->ts_sensitivity;
++	if (!hw->ts_gain)
++		hw->ts_gain = 25000;
+ 	if (ts_settings->freq_fine) {
+ 		err = regmap_read(hw->regmap, ts_settings->freq_fine, &val);
+ 		if (err < 0)
+
+---
+base-commit: fa2933aac170dd19c6a7f0d7b81a8f537e40915c
+change-id: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
+
+Best regards,
+--  
+Phil Williams <phil.williams@advisoft.co.nz>
+
 
