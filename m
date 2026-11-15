@@ -1,66 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794716556;
-	b=Tt64OnFvdKoX2GiK2TsJCUzjeOdVJQ9e5baut3LoYUflzMwQKoIjoUtX587EJcex6loS
-	 KbGObS8S+qY5nGSO8s4MVN0snX/gkfa3RAREHguOOi2LxapvzA7AiIjv1yXDeZXnlPtC7
-	 nz3k6vKT9vraTCBKqCd9TlaT+LsG5p9H7q1bX8+QW1QqCpfoJbdFeNwpewzeGE6JnGmnv
-	 oYHDCL00sicmuQh4hZCuBt6A+TLfWDky8NpXpB9OONYDUZWuz+LCpaBPypowPaq2F5S5m
-	 Y7WC8Dq9uI4h1EW3mgZ+YhOrVwlLWwT+j7nJew5/uW5UPBrx0w6eY7U96sqOM28iizg==
+	t=1794716617;
+	b=CzBmuaolTQt87jLU+BSnhQci7639B2xZH/WhkVsgvlRkoaJ/TNCLZPoYvlvGnVPhVxo/
+	 xVRmhbmXYS2n0dypuA9K4x2KbWSQZTxsDcgLiwXmEINg664FAaX9N2Ev9/dGvSZ2PlNQd
+	 ZefmRTkGqGGJ4TpVoMZ02LGAGSyfABlGdkSX3pIe8tt6JizU2OY69bilT4BuBevw+4eA2
+	 nN5vJ/iPzhISLVYBQ8qju0at9g971yKD5tzqZGP4d5esfLFJb7tEAK04fqPuI24gvLVwK
+	 ZliZaaK0zN6Jrcg2sHksI7fuWWQXC/Foh/8RhJUpwyFDhoZgjnzoCCFgFMLe+RYPKJg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794716556;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=YXt+m65s9sfa6GGsjmbISDgFqPDceUiO6WhfTNtsSu0=;
-	b=yZmh7cUgeefcCPHqaRg8d09dtsB7EyJm16Oc2XqGuoNdmPvvmWrPqqz+mhC/84Hnu3EJ
-	 TDUKsQPTVxtnd666beJn3Ckj1N4fUim0Dm3MY0jzs2lacWbS9C9GdvfwJJREjq+Wtz9rR
-	 iz9WrAlQyHzr08pMZ3yOJeoyaKQQt5zI+Cf8bpUc1pa3kOh+PHNFc7LKNsmDGsY/hP0vK
-	 2ZCDR5E797NyYp3dOK01iGZC+1TDYWvNXEpPth/ffyNKqYd+SrLOCll9fDqElzPkBenMr
-	 XnLH97daKCc8yfSEc7iLiBa6NcZNXLBAFJqx5tk2/g6eb9td/JbwTMLSCajoHyQTpOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794716617;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=A4I4qu/iwSH9El3GjPAfCR6Msrnw2D8e/uEUG113PAM=;
+	b=tLN7aPehvL1MjuBPEEMhg30KZsMa7Sqem5sKlu0CXi72mZVkw50h+y6aqEgUPTDvPLB/
+	 Syce++tBNISKEAxKCGe/hZwrTWTWRQ2sl/nheGenhcDGPf4MOE4nU0vXsyYNGY5/J6jky
+	 /sLWmQUKJo0gJfuD4Dx4qPZHcGLydVesY3+EDiwbaotDK8GFkXmMBm/07JWBEMrY0yTi6
+	 sVvXQb95P3+C2mB6fKqjyeVUcNidjxxuiICxr+K7aGgQt7gsnBTvLyCNl6u/m/uVocvmG
+	 rlNuTXiZnp5RfhVR1SnXzZ1xQ0yGbIoB08yJqb1Li0yWGXp+fh9An/AG24/GbD6QH+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=acm.org;
-	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=CYD1uaP5;
-	arc=none smtp.remote-ip=199.89.1.16
-Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmC61Bve;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBD5606A32D;
-	Sun, 15 Nov 2026 04:22:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EBD5606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58C8C606A323;
+	Sun, 15 Nov 2026 04:23:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=CYD1uaP5
-Received: from localhost (localhost [127.0.0.1])
-	by 013.lax.mailroute.net (Postfix) with ESMTP id 4jRyWv5gVszllN3x;
-	Sun, 15 Nov 2026 04:22:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:content-type:content-type:in-reply-to
-	:from:from:content-language:references:subject:subject
-	:user-agent:mime-version:date:date:message-id:received:received;
-	 s=mr01; t=1794716553; x=1797308554; bh=YXt+m65s9sfa6GGsjmbISDgF
-	qPDceUiO6WhfTNtsSu0=; b=CYD1uaP5muJc9HvBL7/tluqrK2CCgOX45hYSTcHy
-	cpQAmCpFgKNqjOrwbKy7ymHmHTPvyTtedn4+BLqRHnd1SfudmKhxBqxrT6se9HQl
-	BMrHlcv7+5ppoqXJJ9OOkcCXviWheA7PL/5RvEfmUhrku6eCrIyWNvltBfK5Rwc6
-	n87IKmeMK/1EEn9ps2SU/Qqb3svLThBnCquHeer4NiAw1VrBqD15wAbzp4/ITPpS
-	+dRuc9UnmRSj6oxlAv6KB275muRefPIfvPytqOaup7dOfdh22nTtqfd23td9/uUW
-	ntpUBqTLAbuJcP3pi56Npbw4CoGgUyDzUIM/TXQbfEBwdA==
-X-Virus-Scanned: by MailRoute
-Received: from 013.lax.mailroute.net ([127.0.0.1])
- by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id FiLQlFqH7Juo; Sun, 15 Nov 2026 04:22:33 +0000 (UTC)
-Received: from [192.168.51.14] (c-24-6-239-25.hsd1.ca.comcast.net [24.6.239.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: bvanassche@acm.org)
-	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4jRyWr4kCGzlffvQ;
-	Sun, 15 Nov 2026 04:22:32 +0000 (UTC)
-Message-ID: <9e58338c-282e-45ed-b78c-b2032e5b5f73@acm.org>
-Date: Sat, 14 Nov 2026 20:22:31 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jmC61Bve
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38ABF1F000C4;
+	Sun, 15 Nov 2026 04:23:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794716617;
+	bh=A4I4qu/iwSH9El3GjPAfCR6Msrnw2D8e/uEUG113PAM=;
+	h=From:Date:Subject:To:Cc;
+	b=jmC61BvepYRA0P/xbjjR6VV829gwlfHqVed7ADgROAY47YEf9tYfqGlMHZ06ekpOA
+	 VpPy+u1tROFdvnB9BFm3y1lpVoeuQEaVPyeDwY/4/q41hQaZwS9Vt5p7NEnOVBeGGo
+	 ZavjeyUksnty3ZX/93Z3IwvrTpm2hE/uVGaMjDykn9VP3c4ZeNs7U96vO+61Ooqucr
+	 69om0NzX22WYgZp19IzMYNLRY7qddy+9D4/QLqCAXNmEgTa4Q22PNqkN8qzJNb68CV
+	 KDfATnVSAehIB1YPZs2hU1A7Nnif26SzOUH+s9qSi+8ghZm5v4VT4176vL/QYA5bbL
+	 mEJuL03xkXDLA==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Sat, 14 Nov 2026 21:23:26 -0700
+Subject: [PATCH] blk-throttle: Avoid unsequenced accesses to jiffies in
+ throtl_schedule_pending_timer()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,33 +53,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nbd: do not reinitialize a live socket lock when
- reclassifying
-To: Aibing Chen <chenaibing@cmss.chinamobile.com>
-Cc: axboe@kernel.dk, davem@davemloft.net, edumazet@kernel.org,
- horms@kernel.org, josef@toxicpanda.com, kuba@kernel.org, kuniyu@google.com,
- linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
- nbd@other.debian.org, pabeni@redhat.com, stable@vger.kernel.org,
- syzbot+b29ed72382b0e218323a@syzkaller.appspotmail.com, willemb@google.com
-References: <426d5936-54aa-4b4a-b70f-73f506c5a902@acm.org>
- <20261115033749.827-1-chenaibing@cmss.chinamobile.com>
-Content-Language: en-US
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20261115033749.827-1-chenaibing@cmss.chinamobile.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261114-blk-throttle-wunsequenced-v1-1-d28ed5553ff3@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMwQ6CMAyA4VchPduEDmKMr2I8sFKkSoauG5oQ3
+ p2px+/w/yuYRBWDc7VClEVN51BAhwp47MJNUPticLU7ElGLfnpgGuOc0iT4zsHklSWw9Mg8NPW
+ pcw2Th9I/owz6+b0v178t+7tw+g5h23ZfaRVbfQAAAA==
+X-Change-ID: 20261114-blk-throttle-wunsequenced-ccf308a23c1b
+To: Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
+ Jens Axboe <axboe@kernel.dk>
+Cc: cgroups@vger.kernel.org, linux-block@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2551; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=QkGwnED++mIJD2hpQCP/OIux2aV3aOzS1no61B7/dRw=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFk/jY+Er4jMLfJbc/2W8FRt1R6pC+yaGza4RMRtjOvZE
+ JS5OfBFRykLgxgXg6yYIkv1Y9XjhoZzzjLeODUJZg4rE8gQBi5OAZhINRsjwxsBuekFWpPjpFss
+ 7q3ons05+e26CZ49zFUb97R0x868lcLwP+q96kcbO/t77AeWqhgdX2CRXdTtXlHhv86Fa4vRllt
+ HWAA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On 11/14/26 7:37 PM, Aibing Chen wrote:
-> Are you (or Eric) planning to prepare the
-> revert of d532cddb6c60 and 9280e6edf656 together with the TX/shutdown
-> deferral to a workqueue, or would you like me to prepare it?  If you
-> would like me to prepare it, I would appreciate your guidance on the
-> workqueue design (nbd_queue_rq() currently transmits inline via
-> nbd_handle_cmd()).
+After a recent improvement in clang to warn on unsequenced accesses to
+volatile variables [1], two instances appear in
+throtl_schedule_pending_timer(), which can break the build with
+CONFIG_WERROR=y / W=e:
 
-If nobody else volunteers to work on this I will take a look myself.
+  block/blk-throttle.c:469:25: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
+    469 |                    expires - jiffies, jiffies);
+        |                              ~~~~~~~  ^
+  block/blk-throttle.c:469:25: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
+    469 |                    expires - jiffies, jiffies);
+        |                              ~~~~~~~  ^
 
-Thanks,
+Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
+6.5.2, unsequenced side effects on the same scalar object are undefined
+behavior. Per C11 6.5.2.2.10/12, the evaluation of arguments in a
+function call is indeterminately sequenced, meaning any side effects in
+the arguments are unsequenced.
 
-Bart.
+Add a local variable to hold the value of jiffies before the function
+call so that there are no unsequenced side effects, clearing up the
+warning.
+
+Cc: stable@vger.kernel.org
+Fixes: 69df0ab030c9 ("blk-throttle: separate out throtl_service_queue->pending_timer from throtl_data->dispatch_work")
+Closes: https://github.com/ClangBuiltLinux/linux/issues/2191
+Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+ block/blk-throttle.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/block/blk-throttle.c b/block/blk-throttle.c
+index c5e26551956a..a1db2babd846 100644
+--- a/block/blk-throttle.c
++++ b/block/blk-throttle.c
+@@ -454,6 +454,7 @@ static void throtl_schedule_pending_timer(struct throtl_service_queue *sq,
+ 					  unsigned long expires)
+ {
+ 	unsigned long max_expire = jiffies + 8 * DFL_THROTL_SLICE;
++	unsigned long j;
+ 
+ 	/*
+ 	 * Since we are adjusting the throttle limit dynamically, the sleep
+@@ -465,8 +466,9 @@ static void throtl_schedule_pending_timer(struct throtl_service_queue *sq,
+ 	if (time_after(expires, max_expire))
+ 		expires = max_expire;
+ 	mod_timer(&sq->pending_timer, expires);
++	j = jiffies;
+ 	throtl_log(sq, "schedule timer. delay=%lu jiffies=%lu",
+-		   expires - jiffies, jiffies);
++		   expires - j, j);
+ }
+ 
+ /**
+
+---
+base-commit: ab43ec385580b8f8abf72d70fa3acbf4e4f098a5
+change-id: 20261114-blk-throttle-wunsequenced-ccf308a23c1b
+
+Best regards,
+--  
+Cheers,
+Nathan
+
