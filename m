@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794735576;
-	b=D4VInM8Nr2by4dXjMzBvMnP/1KOR6EmjO2ossut822Gc+R2MynvPDllnlIL86szPdItq
-	 nKjAm7p9y6Zxor6qbUGj8RpGXawghBaNVf5pJR9zfwb6E9JHxmDq3JdRGVtQFpEc9BSwv
-	 TFp3e6HrCymAvXkPZd27yBTw/4IwhpM9RdfPdZtb7BhHJPBHX05XxRuoWwurC2v1sry1l
-	 NCWRdCzYp8ybUmY02WUMYcBXQRHnMgRJlxeYPt0U2SCVMG72GkEah/YJNdrkzO+GKV9vo
-	 2JQI2tfUZZJc20w7/7HPxzWp1zXpDvs3cjS7ckD/omvcm9LxBbjhUSjzshDyIbXvnqA==
+	t=1794735578;
+	b=swqdrz4+30OHPgv6cLkhj3va4E0s830pMMOZUd1wqLMmE9eaxuLDO1dNMfwSpdzBwV21
+	 LHuF6qadXZF4XBQQImh1gxqSNdkLBnSqybhfKk2R/gHGutIev4pXd6lsBdvUCqN90eAq/
+	 XFml607VPYtyNNwIylKZx99BW21yqL1e1YZL7lij+3s39GQTWyaGbXRCgOlpARtGy7w3S
+	 XQyt7pjZD9SvSpmFdZ0Dtix6ZJ7pqWTxawXmZ62dp8hn6XcOjyHvMCGrx34pJm4ocZ1O2
+	 +CJq9WV+IHDbbVi1qG07e6+ivz/hKyPyU+47LJrhRGtMiI54tQd9RItbu/H1+xISniQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794735576;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794735578;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=JM6k01Ttm0jeBYqGpKvHxBo6u55v8KB/HBMFkcLSpXo=;
-	b=mIlK0n4XdCLhP0k4b/lAVKz/OI2TLs0OEtFVodVxnw9bjlSS+lMMZ1gRJMr+T9UDmU16
-	 CpAa7fEVCQSVQVwb1R5xPUP2/Ic5Pde1SpPt8TV0wjVO2dSUoeISxLYBLOYs6Q+V8/mbj
-	 j42Si7v8hsscRX1PnAsjDRqVB0Z4LJR4m6HHcGxpdfkP8IJkrjDli16KsASJrkZTxpz4W
-	 M50+F7DIvcC5h8kHKfyoG3JpQGQZIBxy3aI4kmFvi3sFC2hQy6MZxvmTQLtV5CUc4lEho
-	 kHlvBaGyNTSIJ+nmnENoxQ7oRt/0kgtZL1egBQ9mnVboqh2MNu09nJFm4CYZLG5A6zw==
+	bh=wyznBQGouKTKz8qr6f9Rju1zs8kXOgCrx7IgnhIi4QI=;
+	b=qHVPm0JJliGbbA3dmVzxPRxsPMCu5kA8R7yZ60q9VBB6De+wiI7YBCdY6uRLDgaNaJvL
+	 L0t3qL0AulEMcWyYmIgljYk+KGS8NDS+arWk2rVQllnetjRQG20UoZVO6Lg1BdmuEQwZG
+	 I6ZvGVEYjaQyaVjf3fVvrI4bA4ihINLne4y/C/d4pcEKo6/T0Ti/ULsiblWCl8l8p55hL
+	 WmuG7/ZaDuepqwwG55ia6f4RQacyhhonXXw8vKjoe2ReHwTyHREDub4pfqmQZcdFWYdN4
+	 2mbxeWt2fLWdwIrhF7d1moCBoePbFC2Z4CNYH1xBWHI/P6CQboXreGTCfGDWWj2Vf4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dUtdOS9q;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCirDnVt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543AF606A31F;
-	Sun, 15 Nov 2026 09:39:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589D5606A883;
+	Sun, 15 Nov 2026 09:39:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dUtdOS9q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C62091F000C4;
-	Sun, 15 Nov 2026 09:39:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCirDnVt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963881F000C4;
+	Sun, 15 Nov 2026 09:39:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794735576;
-	bh=JM6k01Ttm0jeBYqGpKvHxBo6u55v8KB/HBMFkcLSpXo=;
+	s=k20260515; t=1794735578;
+	bh=wyznBQGouKTKz8qr6f9Rju1zs8kXOgCrx7IgnhIi4QI=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dUtdOS9qP3pJnvEH+AuAVWXe9+b4lkGivaNuSkrl90HG38yKW7pjWZHlXuZa/AMd1
-	 UBN0jGDaqwvILNx2iE11KwQvW+CQgJSTfHgvLPlBYT2LZwo4lr+X6AowBRKraK8ulm
-	 9uEPceTw0Jm8EYIkwdxFTEAhvy6i8SKC01MXVB+d1cMBWtcDZN0DgDNAA1QAUdt8g4
-	 a4FyoFkEI+bKE/ubIsBwZlV1wL/qENSEQWvOyatg8WKMa2EqaE91yLEQ+jA2JWPPkr
-	 xBq7cFiPUmRlJC08NvlzwDcjBAlsxxjCvyj+9n21pVTxK2LJISSGp1f5enUnYtp93b
-	 /2VX26IAliwsA==
-Subject: Re: [PATCH net v6 1/3] igb: do not let XDP frames span more than one
- Rx buffer
+	b=nCirDnVtKf1Ox41/VfqiewEzOOqEtF/anc0JIio+h4Qio00goTIwK/1jEWklekbWQ
+	 qeOjRiEAUOyeC1gTVUPv7NJpr6m4Q33epRLf8G4yJFkd1b3lorVr2uW1UIWCbBeMDl
+	 HkpoTb5OdKGoB2R8hem/Vwg0aPbAbJuKTfoyam1PRca4zj/DFrCmhV7DDIGxhv5zuU
+	 Ihw6TAeNs//mMmskAhiyQXGPwREXZQfJHqr7IJnW6G4ZTj0PN95nH2RJYw0lQp2AIn
+	 IAeZ889upK2jP2Ir/e4QkFth08ZeboY6e9cgdrb/xQ48PZrUkAgr6YCoT+iyzdq0RA
+	 TlNVAcpk1C+dQ==
+Subject: Re: [PATCH net v6 3/3] igb: do not split AF_XDP zero-copy frames over
+ several Rx buffers
 From: netdev-bot+sashiko@kernel.org
 To: tkusters@aweta.nl
 Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
@@ -52,11 +52,11 @@ Cc: anthony.l.nguyen@intel.com, przemyslaw.kitszel@intel.com,
  sriram.yagnaraman@ericsson.com, intel-wired-lan@lists.osuosl.org,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
  maciej.fijalkowski@intel.com, p@1g4.org, stable@vger.kernel.org
-Date: Sun, 15 Nov 2026 09:39:34 +0000
-Message-ID: <179473557433.2199510.15562599161772023793@kernel.org>
-In-Reply-To: <20261111-igb-rx-ts-fix-v6-1-ba5b9903859c@aweta.nl>
-References: <20261111-igb-rx-ts-fix-v6-1-ba5b9903859c@aweta.nl>
-X-sashiko-severity: Medium
+Date: Sun, 15 Nov 2026 09:39:36 +0000
+Message-ID: <179473557614.2199510.972066447270237709@kernel.org>
+In-Reply-To: <20261111-igb-rx-ts-fix-v6-3-ba5b9903859c@aweta.nl>
+References: <20261111-igb-rx-ts-fix-v6-3-ba5b9903859c@aweta.nl>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -69,10 +69,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 (3) · Medium: 2 · Low: 0
+Critical: 0 · High: 1 (1) · Medium: 1 (1) · Low: 3
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -80,276 +80,293 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] igb_xdp_setup() now calls netdev_update_features(dev) without
-  first checking that the device is running or awake.
-- [Medium] igb_xdp_setup() ignores the return value of igb_open() and
-  then calls the new netdev_update_features(dev) unconditionally.
+- [High] The new XSK queue check sits in igb_sriov_reinit(), and that
+  function is shared by the SR-IOV enable and disable paths.
+- [Medium] The new -EBUSY return from igb_sriov_reinit() gives userspace
+  a deterministic way into igb_enable_sriov()'s err_out path while the…
+- [Low] This patch raises the XSK ring hardware buffer in
+  igb_setup_srrctl() to 2 KiB or 3 KiB, while the XSK frame can be as…
+- [Low] The new -EBUSY refusal in igb_sriov_reinit() runs after
+  igb_enable_sriov() has already called igb_vf_configure() for each VF.
+- [Low] The new restore `if (dmac) adapter->flags |= IGB_FLAG_DMAC;` in
+  igb_enable_sriov() err_out is a non-atomic read-modify-write of…
 
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but
-  igb_set_rx_mode() runs without netif_addr_lock_bh() from several paths…
-- [High] This problem wasn't introduced by this patch, but
-  igb_set_vf_rlpml() takes the VF-supplied msgbuf[1] (u32) into 'int…
-- [High] This problem wasn't introduced by this patch, but on 2 KiB
-  build_skb Rx rings (PAGE_SIZE < 8192, legacy-rx off,…
+- [High] This problem wasn't introduced by this patch, but it sits in
+  igb_xsk_pool(), which the patch edits.
+- [Medium] This problem wasn't introduced by this patch.
 
 --
 
-igb: do not let XDP frames span more than one Rx buffer
+igb: do not split AF_XDP zero-copy frames over several Rx buffers
 
-This commit limits the receive length to the configured maximum frame
-size while XDP is attached, so XDP frames cannot span more than one Rx
-buffer. The limit goes in RLPML, or in the PF pool's VMOLR when VFs are
-allocated. The length programming moves from igb_set_rx_mode() into a
-new igb_set_rlpml() called from igb_configure(), the XDP fit check now
-reserves room for the Rx timestamp header, and rx-all and legacy-rx are
-kept from changing while XDP is attached.
+AF_XDP zero-copy Rx rings now get the same 2 KiB or 3 KiB SRRCTL buffer
+size as the other rings, so frames are no longer split over two
+buffers. The patch adds checks that refuse an XSK pool, an MTU change,
+or VF enablement when a bound pool's frame size or queue would no
+longer fit. When the frame does not fit at ring setup, igb_xsk_pool()
+falls back to copy mode.
 
 Link: https://lore.kernel.org/all/20261028083344.3047350-3-p@1g4.org/
 
 > diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-> index ce91dda00ec0e..711a67f0bd801 100644
+> index e787095d3cdbe..c9351a8c4f5e5 100644
 > --- a/drivers/net/ethernet/intel/igb/igb_main.c
 > +++ b/drivers/net/ethernet/intel/igb/igb_main.c
-> @@ -1964,6 +1964,57 @@ static void igb_setup_tx_mode(struct igb_adapter *adapter)
-
-[ ... ]
-
-> +static void igb_set_rlpml(struct igb_adapter *adapter)
-> +{
-
-[ ... ]
-
-> +	/* the PF pool's VMOLR is used on these MACs, see igb_set_rx_mode(),
-> +	 * and with VFs it carries the only limit for the PF, also on i354
-> +	 */
-> +	if (hw->mac.type < e1000_82576 ||
-> +	    (hw->mac.type > e1000_i350 && !vfn))
-> +		return;
-> +
-> +	/* igb_set_rx_mode() also updates this register, and the core calls
-> +	 * it under the address lock
-> +	 */
-> +	netif_addr_lock_bh(adapter->netdev);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the core is not the only
-caller of igb_set_rx_mode(). Several others run it without
-netif_addr_lock_bh(): igb_configure() just before this call,
-igb_set_vf_multicasts() and igb_vf_reset() from the VF mailbox interrupt
-path (holding only vfs_lock), and __igb_shutdown().
-
-igb_set_rx_mode() walks dev->mc without the lock:
-
-igb_write_mc_addr_list() {
-    ...
-	mta_list = kcalloc(netdev_mc_count(netdev), 6, GFP_ATOMIC);
-	if (!mta_list)
-		return -ENOMEM;
-
-	/* The shared function expects a packed array of only addresses. */
-	i = 0;
-	netdev_for_each_mc_addr(ha, netdev)
-		memcpy(mta_list + (i++ * ETH_ALEN), ha->addr, ETH_ALEN);
-    ...
-}
-
-Suppose dev_mc_add() adds an entry between netdev_mc_count() and the
-walk, for example on an IPv6 multicast join that holds only
-addr_list_lock. Can this then write past the end of mta_list?
-
-A VF can reach the unlocked path whenever it wants by sending
-E1000_VF_SET_MULTICAST:
-
-igb_msg_task()->igb_rcv_msg_from_vf()->igb_set_vf_multicasts()
-  ->igb_set_rx_mode()->igb_write_mc_addr_list()
-
-The unlocked __dev_uc_sync()->__hw_addr_sync_dev() can also race with a
-locked __dev_uc_sync() on another CPU. Both update sync_cnt and refcount
-and can delete entries on dev->uc. An entry freed with
-list_del_rcu()/kfree_rcu() during the unlocked walk could also be used
-after it is freed.
-
-> +	vmolr = rd32(E1000_VMOLR(vfn));
-> +	vmolr &= ~E1000_VMOLR_RLPML_MASK;
-> +	vmolr |= pool_rlpml | E1000_VMOLR_LPE;
-> +	wr32(E1000_VMOLR(vfn), vmolr);
-> +	netif_addr_unlock_bh(adapter->netdev);
-> +}
-
-[Severity: High]
-This is a pre-existing issue, but it sits next to the VMOLR length logic
-reworked here. igb_set_vf_rlpml() writes the VF's own VMOLR from a
-mailbox word that the VF controls:
-
-igb_set_vf_rlpml(struct igb_adapter *adapter, int size, int vfn) {
-    ...
-	if (size > MAX_JUMBO_FRAME_SIZE)
-		size = MAX_JUMBO_FRAME_SIZE;
-
-	vmolr = rd32(E1000_VMOLR(vfn));
-	vmolr &= ~E1000_VMOLR_RLPML_MASK;
-	vmolr |= size | E1000_VMOLR_LPE;
-	wr32(E1000_VMOLR(vfn), vmolr);
-    ...
-}
-
-For E1000_VF_SET_LPE, igb_rcv_msg_from_vf() passes msgbuf[1] straight
-through. A value of 0x80000000 or more becomes a negative int, skips the
-clamp, and is ORed into VMOLR without being masked to
-E1000_VMOLR_RLPML_MASK.
-
-Can a malicious VF use this to set ROPE, AUPE, MPME, ROMPE, BAM, STRVLAN
-and other pool bits that the PF otherwise controls? igb_set_vf_promisc()
-explicitly clears ROPE, and igb_set_vmolr() clears AUPE when a port VLAN
-is assigned.
-
-With AUPE set on a port-VLAN VF, the pool would accept untagged frames.
-With ROPE set and UTA all-ones (82576 with the PF in promiscuous mode,
-or RAR overflow), the VF would receive unicast traffic for other MACs.
-
-Would treating size as unsigned and masking it with
-E1000_VMOLR_RLPML_MASK be enough here?
-
-[ ... ]
-
-> @@ -2886,6 +2946,27 @@ static int igb_setup_tc(struct net_device *dev, enum tc_setup_type type,
->  	}
->  }
+> @@ -3777,9 +3777,29 @@ static int igb_sriov_reinit(struct pci_dev *dev)
+>  	struct net_device *netdev = pci_get_drvdata(dev);
+>  	struct igb_adapter *adapter = netdev_priv(netdev);
+>  	struct pci_dev *pdev = adapter->pdev;
+> +	unsigned int i, rxq, txq, end;
 >  
-> +/* Check that a frame fits in one Rx buffer together with the inline Rx
-> + * timestamp header, for the buffer size igb_set_rx_buffer_len() selects.
-> + * The ring flags are only updated when the rings are configured, so they
-> + * are not used here. For build_skb rings the frame is limited to
-> + * IGB_MAX_FRAME_BUILD_SKB, which is below the 2 KiB hardware buffer size
-> + * even with the header.
-> + */
-> +static bool igb_xdp_frame_fits(struct igb_adapter *adapter, int max_frame)
-> +{
-> +#if (PAGE_SIZE < 8192)
-> +	if (!(adapter->flags & IGB_FLAG_RX_LEGACY)) {
-> +		if (max_frame <= IGB_MAX_FRAME_BUILD_SKB &&
-> +		    !IGB_2K_TOO_SMALL_WITH_PADDING)
-> +			return true;
+>  	rtnl_lock();
+>  
+> +	/* With VFs the PF gets fewer Rx queues and a single Tx queue, see
+> +	 * igb_set_interrupt_capability(). Refuse that while an XSK pool is
+> +	 * bound to a queue the PF would lose; the core refuses ethtool -L in
+> +	 * the same case.
+> +	 */
+> +	rxq = min_t(unsigned int, igb_get_max_rss_queues(adapter),
+> +		    num_online_cpus());
+> +	txq = adapter->vfs_allocated_count ? 1 : rxq;
+> +	end = max(netdev->real_num_rx_queues, netdev->real_num_tx_queues);
+> +	for (i = min(rxq, txq); i < end; i++) {
+> +		if (xsk_get_pool_from_qid(netdev, i)) {
+> +			rtnl_unlock();
+> +			dev_err(&pdev->dev,
+> +				"Cannot change the number of queues, an AF_XDP socket is bound to queue %u\n",
+> +				i);
+> +			return -EBUSY;
+> +		}
+> +	}
 
 [Severity: High]
-This is a pre-existing issue, but the comment's "even with the header"
-compares against the 2 KiB SRRCTL buffer size. Does it also hold for
-the build_skb data area?
+igb_sriov_reinit() is shared by igb_enable_sriov() and
+igb_disable_sriov(). Can this check also fire on the disable path? The
+commit message only describes refusing the enable case.
 
-igb_skb_pad() leaves exactly IGB_MAX_FRAME_BUILD_SKB bytes between the
-DMA start (page_offset = IGB_SKB_PAD) and the skb_shared_info that
-igb_build_skb() places at SKB_WITH_OVERHEAD(2048):
+igb_disable_sriov() calls igb_sriov_reinit() only after the VFs have
+already been torn down:
 
-igb_skb_pad() {
+igb_disable_sriov() {
     ...
-		rx_buf_len = IGB_RXBUFFER_1536;
-
-	/* if needed make room for NET_IP_ALIGN */
-	rx_buf_len -= NET_IP_ALIGN;
-
-	return igb_compute_pad(rx_buf_len);
+		pci_disable_sriov(pdev);
+    ...
+		kfree(adapter->vf_data);
+		adapter->vf_data = NULL;
+		adapter->vfs_allocated_count = 0;
+    ...
+		wr32(E1000_IOVCTL, E1000_IOVCTL_REUSE_VFQ);
+    ...
+	return reinit ? igb_sriov_reinit(pdev) : 0;
 }
 
-On 82580 and later MACs, Rx hardware timestamping makes the MAC prepend
-the 16-byte timestamp header. RLPML (or the PF pool limit) is
-IGB_MAX_FRAME_BUILD_SKB here. A 1525 to 1536 byte frame from the wire
-can then put up to 16 + (1536 - 4) = 1548 bytes after the DMA start on
-x86_64.
+One possible path is an i350 with the interface down.
+real_num_rx_queues and real_num_tx_queues stay at 8 from
+alloc_etherdev_mq(). Enable VFs, then bind a copy-mode XSK to queue 5.
+The loop doesn't check pool->dev, so copy-mode pools count too. On a
+host with fewer than 8 CPUs, writing 0 to sriov_numvfs then lands queue
+5 inside [min(rxq, txq), end) and returns -EBUSY, even though the VFs
+are already gone. On 82576, ethtool -L combined 2 on a 1-CPU host, or
+offlining a CPU, gives a similar range.
 
-Could this write up to 12 bytes into the shinfo area? Then
-napi_build_skb(xdp->data_hard_start, truesize) zeroes shinfo over the
-end of the payload, and __skb_put() in igb_build_skb() leaves tail past
-end.
+The -EBUSY return skips igb_clear_interrupt_scheme(),
+igb_init_queue_configuration() and igb_init_interrupt_scheme(). The PF
+keeps a single Tx queue. The rings also keep the reg_idx offset that
+igb_cache_ring_register() computed from the old vfs_allocated_count,
+while vfs_allocated_count is now 0.
 
-With XDP attached and the new RLPML of max_frame_size, data_end would
-also land past data_hard_end at MTU 1510, or with QinQ frames at MTU
-1500.
+Would the next igb_configure() then program non-VT MRQC that steers to
+hardware queue 0, while the only PF Rx ring sits at the old register
+index, so PF Rx stops?
 
-Since igb_xdp_frame_fits() now accepts this layout explicitly, should
-the build_skb path also leave room for IGB_TS_HDR_LEN?
+Could this check run only on the enable path, ideally at the start of
+igb_enable_sriov() before any VF state is set up?
 
 [ ... ]
 
-> @@ -2935,6 +3020,10 @@ static int igb_xdp_setup(struct net_device *dev, struct netdev_bpf *bpf)
->  	if (running)
->  		igb_open(dev);
->  
-> +	/* rx-all may have been requested while XDP was attached */
-> +	if (!prog && (dev->wanted_features & NETIF_F_RXALL))
-> +		netdev_update_features(dev);
+> @@ -3933,6 +3954,8 @@ static int igb_enable_sriov(struct pci_dev *pdev, int num_vfs, bool reinit)
+>  	kfree(adapter->vf_data);
+>  	adapter->vf_data = NULL;
+>  	adapter->vfs_allocated_count = 0;
 
 [Severity: Medium]
-Can this new call touch a device that is runtime-suspended?
+The new -EBUSY return lets userspace reliably reach this err_out
+teardown while the PF is still up. The check runs before igb_close(),
+so the watchdog and rx_mode keep running. Here rtnl has already been
+dropped inside igb_sriov_reinit(), and vfs_lock is not taken.
 
-Take an interface that is down, where rx-all was requested while XDP was
-attached. When XDP is removed, igb_fix_features() stops masking
-NETIF_F_RXALL. igb_set_features() then sees it in changed and takes the
-!netif_running() branch:
+Some readers walk vf_data without either lock, for example
+igb_watchdog_task()->igb_ping_all_vfs():
 
-igb_set_features() {
-    ...
-	if (netif_running(netdev))
-		igb_reinit_locked(adapter);
-	else
-		igb_reset(adapter);
-    ...
-}
+	for (i = 0 ; i < adapter->vfs_allocated_count; i++) {
+		ping = E1000_PF_CONTROL_MSG;
+		if (adapter->vf_data[i].flags & IGB_VF_FLAG_CTS)
 
-igb_reset() accesses MMIO registers right away. The ndo_bpf path
-(dev_xdp_install()->bpf_op()) does not take a runtime-PM reference. The
-ethtool paths that reach igb_set_features() do take one.
+igb_set_rx_mode()->igb_restore_vf_multicasts() does the same under
+addr_list_lock only. rtnl-only VF ops such as igb_ndo_set_vf_mac() also
+write vf_data[vf].
 
-With power/control=auto, a sequence like this seems to reach it:
+vf_data is set to NULL before vfs_allocated_count is cleared. Can a
+concurrent reader see a non-zero count and either use the freed
+vf_data or dereference NULL plus an offset?
 
-  ethtool -K <if> rx-all on   (XDP attached, only wanted_features changes)
-  ip link set <if> down       (igb_runtime_idle() schedules suspend
-                               after 5s without link, device in D3hot)
-  ip link set <if> xdp off
-    igb_xdp_setup()
-      netdev_update_features()
-        igb_set_features()
-          igb_reset()
+This unsynchronized reader pattern also exists against
+igb_disable_sriov(), but this patch adds a user-triggerable way into
+it. Moving the XSK check before vfs_allocated_count and vf_data are
+published would avoid that.
 
-igb_rd32() would then read all-F, set hw->hw_addr = NULL and warn about
-the lost PCIe link. __igb_resume() does not restore hw_addr. Does the
-NIC then stay unusable until the driver is rebound?
+[Severity: Low]
+The commit message says the MAC filter entries reserved for the VFs
+stay reserved until the next reset. They come from
+igb_vf_configure()->igb_set_vf_mac(), which runs before
+igb_sriov_reinit():
 
-Before this patch, igb_xdp_setup() did not touch the hardware on a down
-interface.
+	adapter->mac_table[rar_entry].queue = vf;
+	adapter->mac_table[rar_entry].state |= IGB_MAC_STATE_IN_USE;
+	igb_rar_set_index(adapter, rar_entry);
+
+err_out does not release them. With vfs_allocated_count back at 0, the
+PF loses up to num_vfs - 1 unicast filter slots.
+
+If the check ran at the top of igb_enable_sriov() (the PF queue limit
+can be derived from num_vfs), would this leak and the disable-path
+problem above both go away?
 
 [Severity: Medium]
-What happens here if igb_open() fails? Its return value is ignored, and
-the new netdev_update_features() call runs anyway.
+This isn't a bug introduced by this patch, but when igb_sriov_reinit()
+succeeds and pci_enable_sriov() then fails:
 
-When XDP is removed from a running interface, igb_close()->igb_down()
-disables NAPI on every q_vector and the rings are freed. __igb_open()
-can then fail in Tx/Rx resource allocation, igb_request_irq() or
-netif_set_real_num_*_queues(). Its error labels free the resources and
-return without napi_enable(), but netif_running() is still true.
-
-If rx-all was requested while XDP was attached, igb_set_features() then
-calls igb_reinit_locked()->igb_down()->napi_disable() on NAPI instances
-that are already disabled. napi_disable_locked() waits for:
-
-	while (val & (NAPIF_STATE_SCHED | NAPIF_STATE_NPSVC)) {
-		usleep_range(20, 200);
-		val = READ_ONCE(n->state);
+	if (!old_vfs) {
+		err = pci_enable_sriov(pdev, adapter->vfs_allocated_count);
+		if (err)
+			goto err_out;
 	}
 
-Would this spin forever with RTNL held? Even past that point,
-igb_up()->igb_configure()->igb_alloc_rx_buffers() would use rings whose
-descriptors and rx_buffer_info were freed.
+err_out clears vfs_allocated_count without running igb_sriov_reinit()
+again. The interrupt scheme, the ring reg_idx offsets and the VT
+register programming all stay in VF mode while software believes there
+are no VFs.
 
-Ignoring the igb_open() error is older than this patch, and the broken
-state would also hang on a later link down. This call, though, turns a
-single failed XDP removal straight into the hang. Should igb_xdp_setup()
-return the igb_open() error and skip netdev_update_features() when it
-fails?
+The new DMAC restore matches the intended no-VF state and does not
+make this worse. Should err_out redo the reinit in this case?
 
-> +
->  	return 0;
+> +	if (dmac)
+> +		adapter->flags |= IGB_FLAG_DMAC;
+
+[Severity: Low]
+This is a non-atomic read-modify-write of adapter->flags from sysfs
+context, and the interface is still up after the -EBUSY return.
+
+igb_watchdog_task() updates the same word
+(IGB_FLAG_NEED_LINK_UPDATE, IGB_FLAG_MEDIA_RESET, IGB_FLAG_EEE), and so
+does igb_set_rx_mode() (IGB_FLAG_VLAN_PROMISC) under addr_list_lock.
+
+Can an overlapping update lose either the DMAC bit or the other
+context's bit? The earlier "adapter->flags &= ~IGB_FLAG_DMAC" in this
+function already follows the same pattern.
+
+>  out:
+>  	return err;
 >  }
+
+[ ... ]
+
+> @@ -4836,9 +4859,13 @@ void igb_setup_srrctl(struct igb_adapter *adapter, struct igb_ring *ring)
+>  	u32 srrctl = 0;
+>  	u32 buf_size;
+>  
+> -	if (ring->xsk_pool)
+> -		buf_size = xsk_pool_get_rx_frame_size(ring->xsk_pool);
+> -	else if (ring_uses_large_buffer(ring))
+> +	/* SRRCTL.BSIZEPKT has a 1 KiB granularity, so programming the XSK
+> +	 * frame size would round it down and split frames over several
+> +	 * buffers. XSK rings use the same buffer size as the other rings.
+> +	 * While XDP is attached, the receive length limit keeps frames
+> +	 * within the XSK frame, see igb_xsk_frame_fits().
+> +	 */
+> +	if (ring_uses_large_buffer(ring))
+>  		buf_size = IGB_RXBUFFER_3072;
+>  	else
+>  		buf_size = IGB_RXBUFFER_2048;
+
+[Severity: Low]
+This is only safe together with the receive length limit from the
+earlier patch. The commit message says:
+
+    This depends on "igb: do not let XDP frames span more than one Rx
+    buffer" ... Without it, the hardware can write past the XSK frame.
+
+The two patches carry different Fixes: tags (9cbc948b5a20 and
+2c6196013f84), and the Cc: stable tag here has no prerequisite note. If
+a stable tree takes this patch without the prerequisite, could the NIC
+DMA up to 2 KiB or 3 KiB into a 1792-byte XSK frame and overrun the
+next UMEM chunk?
+
+Would a stable prerequisite annotation on the Cc: stable line make the
+dependency explicit?
+
+> diff --git a/drivers/net/ethernet/intel/igb/igb_xsk.c b/drivers/net/ethernet/intel/igb/igb_xsk.c
+> index ce4a7b58cad2f..7f99e834c1edb 100644
+> --- a/drivers/net/ethernet/intel/igb/igb_xsk.c
+> +++ b/drivers/net/ethernet/intel/igb/igb_xsk.c
+> @@ -91,7 +91,21 @@ struct xsk_buff_pool *igb_xsk_pool(struct igb_adapter *adapter,
+>  	if (!igb_xdp_is_enabled(adapter))
+>  		return NULL;
+>  
+> -	return (pool && pool->dev) ? pool : NULL;
+> +	if (!pool || !pool->dev)
+> +		return NULL;
+> +
+> +	/* igb_change_mtu() does not see a pool on a queue that is hidden, for
+> +	 * example after a fallback from MSI-X to MSI. The hardware buffer can
+> +	 * be larger than the XSK frame, so check again when the ring is set up.
+> +	 */
+> +	if (!igb_xsk_frame_fits(pool, adapter->max_frame_size)) {
+> +		netdev_warn_once(adapter->netdev,
+> +				 "XSK frame size is too small for the MTU, queue %d is not used in zero-copy mode\n",
+> +				 qid);
+> +		return NULL;
+> +	}
+> +
+> +	return pool;
+>  }
+
+[Severity: High]
+This is a pre-existing issue that was not introduced by this patch.
+igb_xsk_pool() picks the pool from ring->queue_index alone.
+igb_setup_desc_rings() in igb_ethtool.c never sets
+test_rx_ring.queue_index, so it stays 0. It then calls
+igb_configure_rx_ring(), which sets ring->xsk_pool from
+igb_xsk_pool().
+
+Suppose XDP is attached and a zero-copy pool is bound to queue 0. Then
+ethtool -t ethX offline takes this path:
+
+igb_diag_test()
+  igb_loopback_test()
+    igb_setup_desc_rings()
+      igb_configure_rx_ring()   test ring gets the queue 0 pool
+      igb_alloc_rx_buffers()    fills igb_rx_buffer page entries
+    ...
+    igb_free_desc_rings()
+      igb_free_rx_resources()
+        igb_clean_rx_ring()
+          igb_clean_rx_ring_zc()
+
+igb_clean_rx_ring_zc() then does:
+
+	struct xdp_buff *xdp = rx_ring->rx_buffer_info_zc[ntc];
+
+	xsk_buff_free(xdp);
+
+Can this call xsk_buff_free() on words of the igb_rx_buffer array (DMA
+addresses, struct page pointers) as if they were struct xdp_buff
+pointers?
+
+The test's pages would also leak and stay DMA-mapped. The live pool's
+rxq info also gets pointed at the test ring's xdp_rxq. The new
+netdev_warn_once() above can also fire for this test ring.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111-igb-rx-ts-fix-v6-0-ba5b9903859c%40aweta.nl
