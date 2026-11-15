@@ -1,79 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794733145;
-	b=02grKOPo7lMbps0CXQaXZpa2nCEoEqbXVr5Sa6xLwgDgE+beg6quTQBTd8Y05HKUbMff
-	 BCzGDrdB90oCUhIJtqGuiX+uN9++O3rh/Ah0+w+riz7THmuGW07NhNVnyH3cS6gOLWCOz
-	 axkCMz3pAFeizBKsp810jjgRfiRAmtTwtSRunyq1eAhUp2FI7LbDUe/+5jD7dAZXzTWHF
-	 mRxMCALveUY4aZRRN36TyOgZieyQrdAXrVHsBzuR/8/mKs2hlmi1ZX3MqiVsgtQm8bEtw
-	 X8SmEg5EfB+FICoxDwQGbv2vDPrlP1CQU33K0KOIJqm/Gi4DOQbgf4EAKWA9e7wZsiQ==
+	b=PmTmT8qNRSJ2aZuTofBZyH/XHw8p9ikDxUpPAHWZRI5hKJBnBRyswMBMPS80uxJqwmkB
+	 9GW3vA+24VS3FAUYQiU1dTobDkrqLWbW+qzRGRUy0a+89S19Rtbj12TombimsjTxV4n7F
+	 hDYUKi2Yy0N+Av7+O0CE87CQLDi+BICm2R7y/Rd6TM0PCskfSOWd1Mxrk7UUKp6n1UJzu
+	 vVtevDaRlSME6NEWZLOwIt1Bh78tBxp+Ic2JVBgv4jXZ7zqD0VYLSe6LvyU9oAaNsuAk9
+	 JpBU0PBtFFQMNe8YTQ1UfwRNwJD+o7ouxVr7ISX30TjI9Xlm5YRTOsKOTJeMqrLqU5w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794733145;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=w4c5EyXhPB8AqpXcztYFqZ1wWsQTa6fMhtyUitpIppk=;
-	b=B6IP9wSc8lS6g2u1ckCynjEXjfOHmwQwqvmMjth+Mm06BC0agevyJvEKisnFIHgbQVDW
-	 NeJ1e0BQFO+hM2tXc+eJ1UXzDwADu1v0zQ6GeMUYKXnlPoIHwDmvQZwHso9bcfvwKJZku
-	 UPrfq2p7RVvz18ltkNjqfcM5bJLAiyN2MOIQlTbMhGd2leEqmUnQyw0mpBKVJXOuInnwj
-	 mEU1l//BEysxgtNLjKcw4v/YKUfTWlE4ZyjtdXnt6slqnGNPswUF2rT2Z9VEDR04kFxIk
-	 DcOTz7KJnAk42qiPrFLkOf2cTFSLjJYErDcpfdQLyI+4L8nz+V4IBEZjcdO4zIqQgQg==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qDP4N5+jJcRg7Y6okxsTnefvSa683G32wQT+RQCKUfI=;
+	b=FyviPilL7P4yrwdscsosLDhx3kS5Cqj+EGBa45K8paXDXZfEyRL9NpsU0BT3Ph/3pf3c
+	 Yh81t4OnvS7vSKzf9a+1RJKBwwpSqOGp4u/xvTwi55RkDX2dNc2jBrI7ZlEviSExi2UYZ
+	 6yr9faSmw3PEVMkSfDp0x6BEAFWKMxYdMsd7FdO0YfxXz3U7zRI3OkESrP2EkQ/kQ5vp/
+	 RhduD03og75//HeNtj98Ank8X1p1DYKLqB3lQwA0F1qN5U93RDoWCjK8AfxpSJb8l1YXw
+	 FWTm93NPH6dKFv4Kcfw8qfxE/AaQyjNcH3xfZB+dZL6Vl1CSPw2Qtk0yl1k6YHAJ1Wg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvhXCykB;
-	arc=fail smtp.remote-ip=100.103.45.18
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="bnNzd/sX";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EED6606A31E;
-	Sun, 15 Nov 2026 08:59:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDD3606A31D;
+	Sun, 15 Nov 2026 08:59:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvhXCykB
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bnNzd/sX
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794733144;
-	b=PYH7ONLnJweS27rUCQirrrXMrtw6Zn6TYAD0IkMivTQwH9m63GNmBpV+xaXJ+ChyKtGf
-	 ruZh8/PepZj2bvQf5lXjSEDH6Dy0WXNiZqbqiPWQKpv0jMU+WdWpkHCYCiww3Hir4oZPO
-	 YRVJBzGzWLwx/1uG6km196DwSQClhXlecFH2HdTOFAzhiuJQD2yWzAjk1HxVQRn92tc1n
-	 JUokxEQu3YkzuulNGxMLf7eb6+awP2h9R8gl1B9ThmNlGZBVl+ALUjgzxBzJB4BsgaqAO
-	 +UeC3xJpXUdU5wsL7lGUDilLaYP6TdYKzofvSuFdowdH+tVy1xZaC7SDXKG7mtJqTBQ==
+	t=1794733145;
+	b=3VCcJPh7sC3qOSHJKnhhIQP3488ZooJiKXJsTvq6arCxfQv9SvGIW64ca46kkULl4zV5
+	 dTMrpMpDmD+QzEnTO8KU4WcsoKnBhqB62dPik6fMCFmBVch9kRMuTbJ3Uk8Ig0cH8LJjr
+	 gwlkSZ1xknW1ogUZN8hXTRf6RUJ3Rrl9W8J8anKnRLVPbWNeSJ9QeyM4wVhWGNmr9K0wt
+	 tubITSZE8W+2BV7/K2HhasMEaTgszx9YnBbCC7L6/5c95yhWU4w07eB0+uk0h4mxpsqtu
+	 QbvcM6QcEytwD72IY7owHB72sFrfEWi0iOwl1fK8zUSEr6wW0AgzPRZWbZLJhs88L7w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794733144;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=w4c5EyXhPB8AqpXcztYFqZ1wWsQTa6fMhtyUitpIppk=;
-	b=ORPvgim5FyIBjt3UivUfsr4l39n3WxXPkIsZ8ZW1V8cHRHb2+3CZJvlUUSsComeH5Vp6
-	 0dZkbB2yDZ9NChWW+r1IqM+XZHQgQcvPisgEo4hW9IHkDzNaAD5t0TvPYwdGTWLBFN2Xa
-	 +3Lvwkit72T2mfexJwEsofSmQy7fKRyMPmQW7DwxgZecnE3cfX0o44hpFLMAi3fgFanxL
-	 kGgXAU+017r4KfA+gdINT4ejcetjVs3fSJGBhc/jnVm/btCOJfXwNIuJPl68PlWM9zAcx
-	 Z1lZR0oQA5NLniBhMepxoVMzI60OwSh691kA19h28Nw1pGpWH41nAYQxtxs4/EJYpiQ==
+	c=relaxed/relaxed; t=1794733145;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=qDP4N5+jJcRg7Y6okxsTnefvSa683G32wQT+RQCKUfI=;
+	b=kjkAsNjw6kyIzC63goa3HXohc0xOQF0U9p6Pz5Jyx8l9TKw8C4vaz2R331jxJ2CTcw3T
+	 W7JDql3W2/4Jhm9bX+pRauc8TYrzMdaFtfpwQltVIJUZBNaNQfHeb35MdHFhP6KLNZdFh
+	 21Ra0Z1qwEx9J/0KB+fc3uv0kgq9vUSC0F1r93K1JeJqZLPmTFEeW6DqILy5nBAONKBr+
+	 tb6Hzqozfmliv5xTZk/hbiG+zN5vYfG142Q4PhGpLXQU/8lGgcqAo6DPfEvWLsRtKrC9N
+	 Qpxz2LOc/368Mj6tQOFuym3f2JWzueDB3BHl8HKticn5eK7KhFBNpVvutKtNwUVfEZA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 41B1D1F000C5;
+	by smtp.kernel.org (Postfix) with ESMTPS id 5DBC61F000C7;
 	Sun, 15 Nov 2026 08:59:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794733144;
-	bh=w4c5EyXhPB8AqpXcztYFqZ1wWsQTa6fMhtyUitpIppk=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=WvhXCykBnqMPlcGOtGXn1Ekqm+4XA/c3st/eF4qp5/ogHYJR1hwRnN4yARdjlRwLT
-	 SwkNtVoagvK8zpqwgl47s/rBiUbwGOCoYcufIJO5BaAEcYoj5ekao0gQb7rN6iazSp
-	 HsKAD0Ro6VomJlisbhnuZ227ITYQcUCKnXXGXsqSSDudqocEs05VFSshh6MPTF+AmF
-	 McDsU+6y7+6ndfC1eWjOCOPlEQLsHcogZQJgEZhkTArhuH3hwjESvH8SBDoAE4lAvx
-	 cuiNxR1MiAaV0Le2kKnF2935E63hHSxxnkKVm/0cYk6qs8MHD3Q3ymxVZu8IxWBnUc
-	 rEWrtrkRdsW5g==
+	s=k20260515; t=1794733145;
+	bh=qDP4N5+jJcRg7Y6okxsTnefvSa683G32wQT+RQCKUfI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=bnNzd/sXXPmZiuZJrsHt+ORFsP3a28E/vdosEXAB49sTdYrp+h5Jdu7kuA9pmwx/x
+	 0Sq8yy0xRVscOf9vNTfi2TklVDUKf1O55bFW1qDo31iGcI2Li1jOgZvSm5v0WrM6zd
+	 S3HD2lmbcM2UpDtURGh7ycIDn9PQ0HIbcNqpmBTiP9SXUddF3ivSaHkahhLjQ6zjvH
+	 eVBCXxl6hZZmA72EDcCGXyeBVKyzjhdufMY41JTei9QaYpOtpKRAyLme0dGK0DgryC
+	 m9KKS8XFGIRVMMYCAQNslV1inMnvTOhkZ7COpaOakLGYXqJwfrdH4Ye5/w8YTgcTzc
+	 gPKZ5uQi76VEw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id AF54C4A015;
+	by lkml.kernel.org (Postfix) with ESMTP id DB74C4A023;
 	Sun, 15 Nov 2026 08:59:03 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH 0/2] media: verisilicon: av1: Fix two reference reads
-Date: Sun, 15 Nov 2026 08:59:03 +0000
-Message-Id: <20261115-b4-vpu981-av1-refs-v1-0-c65769715db9@gmail.com>
+Date: Sun, 15 Nov 2026 08:59:05 +0000
+Subject: [PATCH 2/2] media: verisilicon: av1: Read the segmentation map at
+ the reference's offset
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,11 +84,9 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqEMAyF4atI1gZMKcPUq4iLauMYFyqNFkG8u
- 9VZfg/ef4JyFFaoixMiJ1FZ5gwqC+hHP/8YJWSDqcyHiCx2FtO6uy+hT4SRB8XgLDk/kOEqQD6
- ueZXjjTbt37p3E/fbU4LrugFy+K5TdgAAAA==
-X-Change-ID: 20261114-b4-vpu981-av1-refs-d9419af12e0d
+Message-Id: <20261115-b4-vpu981-av1-refs-v1-2-c65769715db9@gmail.com>
+References: <20261115-b4-vpu981-av1-refs-v1-0-c65769715db9@gmail.com>
+In-Reply-To: <20261115-b4-vpu981-av1-refs-v1-0-c65769715db9@gmail.com>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
  Philipp Zabel <p.zabel@pengutronix.de>, 
@@ -98,44 +96,63 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  stable@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794733143; l=1051;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794733143; l=2088;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=KuW65qSSVnoaFOMXDWaytG4qSD+RtxeDkZRMmT3rxPk=;
- b=GOhE6FcdPqzO/RtJbvJshne/Kp5GWQEHTECh5RXURiF95TRQfXKzfe9d1oCbDfeH8DvnmWExC
- M/RJavEVeFIA1odvmPCM5B1scSIkoTHp/JQ0Wc7VbALqViO4CTSVN9r
+ bh=0GThhk2z/cRQbgXeldqMBs3lGFcw7t5kkHOX/IFY9c4=;
+ b=o3Cf4VWabdI+ePII3AjfgP52dIS0jsu4DNRqWTn/g2TqG+UlYC8uLuWyOC/OOPpWjZvQis/fo
+ uxdVrh9Py6TAnNb9XgZFsUNMdVEna1ZFJOoNvCMQp9GVaAwjVg16/vs
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-The RK3588 AV1 decoder (VPU981) can read a CAPTURE buffer freed with
-VIDIOC_REMOVE_BUFS (patch 1), and reads the segmentation map past the
-end of a smaller reference after a switch to a larger CAPTURE format
-(patch 2).
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Found by code review; neither was reproduced. Tested on an Orange Pi 5
-(RK3588S), 7.3-based tree with these patches: fluster AV1 test vectors,
-no new failures.
+The segmentation map of the primary reference is read at the motion
+vector offset of the current CAPTURE format. After a switch to a larger
+format, that is past the end of a reference held in a smaller buffer.
 
-Developed with Claude (Anthropic), which wrote the code and the commit
-messages. I reviewed every change.
+Use the reference's own offset, and skip the map of a reference of
+another size (the spec then uses segment 0, load_previous_segment_ids()
+in section 6.8.2).
 
+Fixes: 727a400686a2 ("media: verisilicon: Add Rockchip AV1 decoder")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-Arun Iyengar (2):
-      media: verisilicon: av1: Find the reference buffers by timestamp
-      media: verisilicon: av1: Read the segmentation map at the reference's offset
+ drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
- drivers/media/platform/verisilicon/hantro_hw.h     |  1 -
- .../verisilicon/rockchip_vpu981_hw_av1_dec.c       | 45 +++++++++++++---------
- 2 files changed, 26 insertions(+), 20 deletions(-)
----
-base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
-change-id: 20261114-b4-vpu981-av1-refs-d9419af12e0d
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+index 59f2adf74850..f23af435f961 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
+@@ -899,15 +899,17 @@ static void rockchip_vpu981_av1_dec_set_segmentation(struct hantro_ctx *ctx)
+ 	if (!!(seg->flags & V4L2_AV1_SEGMENTATION_FLAG_ENABLED) &&
+ 	    frame->primary_ref_frame < V4L2_AV1_REFS_PER_FRAME) {
+ 		int idx = rockchip_vpu981_get_frame_index(ctx, frame->primary_ref_frame);
++		int mi_cols = DIV_ROUND_UP(frame->frame_width_minus_1 + 1, 8);
++		int mi_rows = DIV_ROUND_UP(frame->frame_height_minus_1 + 1, 8);
+ 
+-		if (idx >= 0) {
++		if (idx >= 0 && av1_dec->frame_refs[idx].mi_cols == mi_cols &&
++		    av1_dec->frame_refs[idx].mi_rows == mi_rows) {
+ 			dma_addr_t luma_addr, mv_addr = 0;
+ 			struct hantro_decoded_buffer *seg;
+-			size_t mv_offset = rockchip_vpu981_av1_dec_chroma_size(ctx);
+ 
+ 			seg = vb2_to_hantro_decoded_buf(rockchip_vpu981_av1_dec_ref_buf(ctx, idx));
+ 			luma_addr = hantro_get_dec_buf_addr(ctx, &seg->base.vb.vb2_buf);
+-			mv_addr = luma_addr + mv_offset;
++			mv_addr = luma_addr + seg->av1.mv_offset;
+ 
+ 			hantro_write_addr(vpu, AV1_SEGMENTATION, mv_addr);
+ 			hantro_reg_write(vpu, &av1_use_temporal3_mvs, 1);
 
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
+-- 
+2.55.0
 
 
