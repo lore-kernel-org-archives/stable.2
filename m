@@ -1,101 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.41
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794709738;
-	b=5o6SxazaYQH9jscYUQAvxCXH4d5OiHnNTUNaGLvUiFECRXlbRayUt9eoFZ9RwfggBigS
-	 KuvTpwqk6RYT/xdIuLkJY+pyAVRCP+5m/9tcSweumE9ghOgq+0kw7Fn+cLSbi6I198/5D
-	 Kvb6XGkW7kVlPEvZkhhAWW4aJ8JPP/3HRRb7C5O0vcChKawzQU/fRWmWqpTMXcNS4N5Pr
-	 u0APeFLA0usDzKenFkHolv7PkVhY4/KqqYpfIbs/lqbTkkz2HkjWAV01KhsAT0bwJWCef
-	 jWZP2dYZcA2TKw0+dKo2fXPhcvrihErCssrRj0KyWoVSdWDNVmdUm5nG6eXEZkHEXoA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794709738;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794709751;
+	b=qllHNXca41u5TexNi4iGcqPTdS9HVYcIzZpuqI6dUUNC7k75UbpcwQCc+gMFiIhcQHEz
+	 Z+5LgPwtPQ3QCXZoQiv29BTpSOu5s2h76hmcdj90tbXoCvKcFtMrb4M+NR35omnftyGAt
+	 KShLQT7y4n++JUR8EARwUdworL1kQcgCcfzeEH9cPfYAXFFtFcXsFPCrRSCuEISmDC8Eu
+	 FUK+Gz/p8jh3MrJfsKsq/HZreXa0caXlai8tUcfOATJNhvoCl9ct4x4PivG6dE/L0kov1
+	 0BLI+blQtah9z///YMsWLAz9U3DICX92Vd70pzLn49AYNAG8RPu1Avc9pjuWFc4pMNw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794709751;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=G0R1NDMcyta6okyUda1y3v58EnPaSSc7GPjs8feVmgU=;
-	b=FEaTetsGibrMtpl4jnC/zsP94XBXwvIYcni9BKkrY2+sgLU4r6Y5lgm3Q4eNiQAS2QSC
-	 16ZRbUgpax9fNQdMvx/hS8RVvkOBedvdb0VNn/8KhGmCv553Kt8h8MTHi8WHMuc8teTuo
-	 zE0YAwA2U2s8vTeNIL42ZqqiemFhZBDX96zy3/Ml6ZkpjULJZvETDyCTxAClH7MYhFbTo
-	 dK7SGv1ENaxZxpoEzMRkGAZc5GCIBoKned/uAHA7tddY9agQG3x7UW9SJ67u++Rbx/IZu
-	 BYMLH1I8RweYT/ZyWtRVdCK/2q1bo1/4i0L4C+MkoOziCDcZSIvbtKeO1wsdQsdXFTA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=7CDE5oldwyToxMIHZaDAAROi1zR3/FKKlLBPz1nWp5Y=;
+	b=zVkJmbdHannRIZnDmhKS+xuzSthinfJvXve/iWEQdbd2t4A8rCWWjcGqBRdjZ1ZZPxIP
+	 vZ06ZiKx3/d5/58CWgXq4A93o2idtyTkSoDnhBBInYLzx0c+80n5vdVykjAJbPAt6wmjF
+	 K+7RNX5Day3XhjtOlf0/WQ0lnhDf2VsA84V4pNeSn+EtB4o+p2NpArh/gRnYvrdv5TCos
+	 Pnuqs0jvmE4mbl4tpX8Uq1n7HBBa3wjSBxDpf2EsktuLK3mcZVaFBTdsFT6zloNAffFM9
+	 mslN8s4ao1dkUdo78/UK1/SOQHj7GlSH/U77vejjkIalfOyFBmTzhwKBxZCYBILIVHg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nbfneGYr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.41
-Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T+tStDCN;
+	arc=none smtp.remote-ip=209.85.210.54
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D1F606A32C
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 02:28:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28D1F606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52AC8606A329
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 02:29:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52AC8606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nbfneGYr
-Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-716c0217635so3399314eaf.0
-        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 18:28:56 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794709736; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rJBeoDxJEircYEDSv03dV6DPPQO0tQcZ2eSJSy9wX8ZkSIhrebb8hbXaNaLIkbHcZY
-         ekUUSarpQGiCuFrHp39uHNLrpgkLeryb3Vd8KjSqH9IBH+8dM7gq8KEqMCz3OZ4jJkLF
-         9mVVPNx1wW2K8fv/JRv1pVhq3hojC9Eo3m3LGYA78EnYfdt1zptiXK/Qw07kfwuZMEF4
-         vuF2DqKIKNM7Wn40PsFCTyguVlEjHCvPHiLx4nEvzPwXSKZoT70B/x2fowuxQjV6HMxt
-         4Z6x/6TvXUonBURP0MHeLTOqx+LNhwS5P+z2DkY+JBvtxpWdL5g57kTSv9mMSleGBQIc
-         oN3w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=G0R1NDMcyta6okyUda1y3v58EnPaSSc7GPjs8feVmgU=;
-        fh=zKlIH3DqejfDYJ7u1zFpo3zSl4mat25CN2fWwh1ZbW0=;
-        b=r2eYCpT1jNW6PqjRZ1YLXO5mb41sfft4Pm7ApT9b2vAFLJkO2cutjayNZBQ/dng42V
-         vZDdQo7xBId23Hl5WzpzHm2jzMmGen8qlwAhaVkNpNgkNYwEIMoujzLePY/ZvlOYGnsr
-         hC094p2tMZZ1JPu9UdpEiuI4blD1Os/gE4TxAnBI8PirTCneoiKAO81H5IP1sfHX/BXe
-         NRr5cGeUYN1rpuoBkoJqI4k7Ai0YO5jPocKuImWc6QEiQ4rmpmcyow0nZzUT98O4lJ7N
-         G7bZKGsrF7oXOf1ceGnjPWujXbkdmgEGfDx+Fl8pIOnLwPfRHftG8MwhEeYyRtFAxcVL
-         2+LA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T+tStDCN
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-8470d7d430fso914341a34.3
+        for <stable@vger.kernel.org>; Sat, 14 Nov 2026 18:29:10 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794709736; x=1795314536; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1794709750; x=1795314550; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=G0R1NDMcyta6okyUda1y3v58EnPaSSc7GPjs8feVmgU=;
-        b=nbfneGYreYpMfUAFkHDdlSMQmERdv23sSDuuWJ0gzACuRP9FFyRT1YhoCeaRNHI/jL
-         GsNPvJ1lCij/s0E8/JKYBXgeOm98BmOsIqtmYEEd9Q11go5twbrwrZfHYhwsxndejGwb
-         coGSqvOT/VjRhCiU0gDbZO9XzTM9tsW8vq8oPHjV11xIHreG57Y+9SAlELikVNansz7w
-         DBfUMM01rxIJZvCOdRfWEtFTZUWi91j+FXUH6H2pFwKEpwV1o5EMLC3tREoEQjcKt6Rx
-         rQ043/klYKCRt+u1wmVY8lr65wlrxV5NKQbmiv5au+/hyPqPvinslNUx6gAjn09+GaSY
-         CHYQ==
+        bh=7CDE5oldwyToxMIHZaDAAROi1zR3/FKKlLBPz1nWp5Y=;
+        b=T+tStDCNHyTwpVrwpY/oHLqkXZxok0j3rwq91AyNE0mZPek6fIP8b13nuvhrJIUKa6
+         ab1Kh/ROheDyxFbx5YhNLKdwQPpuAfv+em7i6tO8eNAGl4rztkwPSbCiHY6B1jVvXfoN
+         o4lluGVK+4Gg/8XVtXotyh/feX3v1JHh0z566htkVAuSIMVyBSfBm6WImqIRC6OFv0u3
+         yrccVrcpg2IHV66qfkIJs756YbNS7o9c7PTtu0upsnyijkhazliAemD6XeL00AaMJkFs
+         JCgxOroc3w4Ddt4bs4GJPrf/PjeaJBWcSqLwS2ntKBZNgeCUIsnbhLPWh5bxnmBLox8V
+         uRWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794709736; x=1795314536;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794709750; x=1795314550;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=G0R1NDMcyta6okyUda1y3v58EnPaSSc7GPjs8feVmgU=;
-        b=wFBRZmQWfhbTuA9V2M5Q713nnphIRapTk/V40nHNfVgcQ2QAHq6icjHxpY8bvHNHZ7
-         ByaLNrTf5vqxU75BAO71MtPdEHF8wRGahZRAVvisskV/+kw9hNbk3O0b6hAR5c+zuKNw
-         Jy6pyge2Xyo8byEgFYuKE4EbHLoMM9K298iVTfTpeRAvXOfEyjhhG8lbL1Xp47q9AaxT
-         1Umi4QZLk4pnrdFOf3nTLripeuQ8RwIqJWHuxgKR0ex7OEwmoIuv+LtfaoAycvzAow1x
-         nxzUaKf3ztrI5YqCQn/+w3C0XrZ1ysuOMCOtWU2xi6rpNL0wnxljuAT5yiGlt0cmATw/
-         e8mg==
-X-Forwarded-Encrypted: i=1; AL+hErFCJz2Xp6dJ317TrFWNtrL0NpeekIh3XMQguKru0Pce7ro4YMqOVIwxpgpfJWYVTKpms3k+U84=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ftEUD3PQN8e9WUhBTycTZEFPHqhF8pqF4ZAn7eefXJecRZHqP
-	GtA/YR6bVTwX4j1wGYnvqDrI1Jt7fxk0MjfTt0ATbYU8Y67SwZP2Pod+S3qGjZYK8GK8YZdoBzO
-	Zh4d59ebv2aOZNV/E1aQDQOS0c2Pfi966DbL+
-X-Gm-Gg: AYBFou3IYicRuUSJC+iTxuTkNvAckDqUGZqvHmxWjdYtU1PONocp7ObFE5PeirxJtQ2
-	97EM9kL+Na02DwrIHbVKVgYjX58wIkZyOIuYVYPcAlq7JZhEFr/zZQtrvW3+CEyw1PeoWdLTe2s
-	L63ZFVp3Cc2NZKtZYYFlrRhaVwrTP90M/7ClDpxCjCk4O2gxV7PywJ9puZHoz2dTKmqBOak2ieb
-	PheCQdPPImeoG9VlRKFRYqIYMEz90ZftZiugRTyozVQVeKnDDFyuCWoe3nFT99gjOxcOHn5TNhc
-	SJUK6OmgooXKgsM3CFTgzXgFNTC6//jug2ZEi8yFzLHXScDhKSx017P7zEJ0XgRxf7a8ndPW6Vg
-	VjNNdUqkb4HQTL2OfUMSiqtTq8kjFkYXiCORptedMABC7XbcayhkjMm1dQOcTrt61Or5ur10owO
-	oGyFyeqUcdGgAeeUt+NWWuyEG2jbVu31Bo9X6wz6BTfgNEE8QyXzHV0N6OSg==
-X-Received: by 2002:a05:6820:8105:b0:6dc:7513:c06d with SMTP id
- 006d021491bc7-7197cf12f05mr6314842eaf.50.1794709735598; Sat, 14 Nov 2026
- 18:28:55 -0800 (PST)
+        bh=7CDE5oldwyToxMIHZaDAAROi1zR3/FKKlLBPz1nWp5Y=;
+        b=DKM8ccFonb2ISb/y7i6CDSXx7XbROCwwBWA5c1pk3n4FsbgQj/M3HWrC8nLlFoCCVS
+         Wn+/v3854IfXi7XA+0eW6RzN6c/Mkrp0C+Og0Km5vsPe8AKsP6pLASUz+WONTIQhyyrc
+         4Ovuj308buvZlqcfip6LD62GEGdjkWehMs7xCFXSPg+kVwrPhYC7um71nKtbefLYPOER
+         FA5oOJ+kjgdNk20202vIzPL+N0KZsx8s68fiGy5M7jPexQGfI2mq3LDVkFJTkaBchaGy
+         CnxDgM445nBpOefESfAuqllUHqTktNzM3b8qvDm8q/UoQA8ftIZFjyI1Xxa1FL73TAhZ
+         9+3A==
+X-Forwarded-Encrypted: i=1; AL+hErGCUi7nHs/1cVoNku8bICfYbk1R86M/wiVPgbxrvLf3fq4kDLmBF6X5DWfqpqTylE8EKPa3qig=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+8vnlhmf/7guAWM1dP/tlPlfTmfT5pePxAQ2vv8LalWLlvEuI3
+	lkvHm0a4XBlMx+2YHUJk0tX1YT29Ld75WLtl/tDsfRBp5CpVOyfRBsQv
+X-Gm-Gg: AYBFou0tkcyePZXnsCZCk+OgCDpVxQG5m0o6EsXLuLyXON094jHQwyiAWiU/EIVt/PP
+	y8/4RDXnKlJZA4hv7IAHhOIR0AGmf0uOtFtnkOtCrDOw2UXme6Mizx2ooezrdf/f2XxIAQEQ6AY
+	1dsLROf+pGVi2oPNhwh+YmB/E4jXnjnrv5uAA5mBMesWncIR3S4YBfPEtNDFfnlBC40GkPp0r5N
+	boCtzzeVafBfnrFyZFQPwMiR/gAIe4bA0l4EkjPbOu7h/M6L8fSPzpGGM18ELWdSMdtrdKANBfZ
+	r4wGtLZI+f/m/NYUWOkEyLhBq32mzvzjFJJkkWOuliEhS3rqsPEv4DjzKP6u5zI3kKnTBzQC1fJ
+	pACabNPE6VdLONwnhkNw5sedavYvfXyHh3X7cJJ2uXM9ODLpBRVYYb+U5yP0gGulBeRuiKNTYGl
+	iiFu9BNWXrPcUA9pMLEwWAnT1Xl6oNhgVD19JKWaxHsCqkN2RHMkUJzz4ID1tXNPAIoBLHSOZEQ
+	/zsmRz00S6ozXSsg5KPLsB6kX+Rgae1aO8jNt0dvVf7qweAdrC62NIr+4+cqpjQgaxW+RMwpQtM
+	S/56vzeCskw9Lxv5yIDWCnpww1TmnPt3Ac+Bn3Mb2hkjRGfvvJRqasPuTYPpWh/sWUivePLtoHg
+	acCoD7O+dRYLSJoh0Plq5DCRCgcJiPVgt
+X-Received: by 2002:a05:6808:14d2:b0:568:39f2:1254 with SMTP id 5614622812f47-56e64dfaba9mr5765056b6e.47.1794709750000;
+        Sat, 14 Nov 2026 18:29:10 -0800 (PST)
+Received: from fedora-laptop ([172.245.82.59])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-56e6fc412c6sm6246722b6e.4.2026.11.14.18.29.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 14 Nov 2026 18:29:09 -0800 (PST)
+Date: Sat, 14 Nov 2026 20:29:04 -0600
+From: Ming Lei <tom.leiming@gmail.com>
+To: shao.mingyin@zte.com.cn
+Cc: shuah@kernel.org, linux-block@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 4/4] selftests: ublk: clear reused batch SQE command flags
+Message-ID: <avkY8Hy04c3QzXSv@fedora-laptop>
+References: <202611112257529855AMDZLzg8ZmFDQ3fBstbi@zte.com.cn>
+ <202611112258022807A4cJ4GoTzO_Q2qeMKeG1@zte.com.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,50 +99,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <202611112257529855AMDZLzg8ZmFDQ3fBstbi@zte.com.cn>
- <20261111225759742pwhACD8p_0GdXSYIk_Ob6@zte.com.cn> <avkT5yu3hJgi-YWb@fedora-laptop>
-In-Reply-To: <avkT5yu3hJgi-YWb@fedora-laptop>
-From: Ming Lei <tom.leiming@gmail.com>
-Date: Sat, 14 Nov 2026 20:28:43 -0600
-X-Gm-Features: AclHuK_Ifc5tkbepMLK0d8ZgWsUZJ0Zl-dFfIWODo7gKqOHzWbB2LamABucX8Fs
-Message-ID: <CACVXFVN0Kw+jvDuZJB-XaAN3hNDd3WFvLZULJcpKrpz3qiehXw@mail.gmail.com>
-Subject: Re: [PATCH 2/4] selftests: ublk: propagate stress worker failures
-To: shao.mingyin@zte.com.cn
-Cc: shuah@kernel.org, linux-block@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202611112258022807A4cJ4GoTzO_Q2qeMKeG1@zte.com.cn>
 
-On Sat, Nov 14, 2026 at 8:07=E2=80=AFPM Ming Lei <tom.leiming@gmail.com> wr=
-ote:
->
-> On Wed, Nov 11, 2026 at 10:57:59PM +0800, shao.mingyin@zte.com.cn wrote:
-> > From: Shao Mingyin <shao.mingyin@zte.com.cn>
-> >
-> > The stress tests update ERR_CODE in background subshells and use a bare
-> > wait in the parent. A worker can therefore fail while the parent still
-> > prints PASS and exits successfully. Calling _show_result() from a worke=
-r
-> > also removes backing files shared with other workers.
-> >
-> > Generalize the recovery PID collector and use it to wait for every stre=
-ss
-> > worker in the parent. Return errors from the worker helpers, leave resu=
-lt
-> > reporting and cleanup to the parent, and reset the PID array after each
-> > batch. Keep failures ahead of skips when collecting worker exit statuse=
-s.
-> >
-> > Fixes: bb2cabf23568 ("selftests: ublk: run stress tests in parallel")
-> > Reported-by: Ming Lei <tom.leiming@gmail.com>
-> > Link: https://lore.kernel.org/all/avJ0Vn9G7XhZv-XL@fedora-laptop/
-> > Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-> > ---
->
-> Reviewed-by: Ming Lei <ming.lei@redhat.com>
+On Wed, Nov 11, 2026 at 10:58:02PM +0800, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> 
+> Batch FETCH commands set IORING_URING_CMD_MULTISHOT and select a buffer.
+> When a SQE slot is reused for a PREP or COMMIT command, batch command
+> initialization overwrites the SQE flags but leaves uring_cmd_flags set.
+> The multishot flag then disagrees with buffer selection, so
+> io_uring_cmd_prep() rejects the command with -EINVAL. The completion
+> assertion aborts kublk, leaving a recovery device QUIESCED or its CLI
+> waiting for a daemon notification that will never arrive.
+> 
+> Clear rw_flags when initializing a batch command. The FETCH path sets
+> its multishot flag explicitly afterwards.
+> 
+> Fixes: cb5a6b308700 ("selftests: ublk: handle UBLK_U_IO_FETCH_IO_CMDS")
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> ---
+> Tested on next-20261105 with CONFIG_BLK_DEV_UBLK=y in a local QEMU/KVM
+> VM (4 vCPUs, 4 GiB), using real kublk and fio. With the same diagnostic
+> kernel and batch null workload, the original binary received -EINVAL
+> for a multishot COMMIT without buffer selection and its daemon exited,
+> leaving the device QUIESCED. With this change the daemon remained alive
+> and the device stayed LIVE before deliberate device deletion.
+> 
+> The four recovery scripts also passed twice with this change and a
+> separate fix for commits arriving after the quiesce cancellation scan.
+> 
+>  tools/testing/selftests/ublk/batch.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/tools/testing/selftests/ublk/batch.c b/tools/testing/selftests/ublk/batch.c
+> index 625a9c32a..fcab2ca9e 100644
+> --- a/tools/testing/selftests/ublk/batch.c
+> +++ b/tools/testing/selftests/ublk/batch.c
+> @@ -241,6 +241,7 @@ static void ublk_init_batch_cmd(struct ublk_thread *t, __u16 q_id,
+>  
+>  	sqe->fd	= 0;	/* dev->fds[0] */
+>  	sqe->opcode	= IORING_OP_URING_CMD;
+> +	sqe->rw_flags	= 0;
 
 Reviewed-by: Ming Lei <tom.leiming@gmail.com>
 
 Thanks,
-Ming Lei
+Ming
