@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794757652;
-	b=Yglm5Qcx5XOWzd8+RSvzKCX44tfcuYJ57ZlY0DyZRSNvxsspf1agYl4Rm7Xmty3JrsRO
-	 ok61UYsScSAYHrQlmdC/ykwZWn/mrZKvkhfJMNKn9RjSFx2Oz6c4GdJvwLA+fHGXIFey0
-	 UgTLs4VzcqifzjFoH6/MQTBBSn2dp7cPuieJ7qn2s/myYTEP11JvHPrbOLJbfCNZbpapA
-	 yCmC3QP4hsKQnNQV+0Fv9v+i/xfQ0Xhx8GS5JCxmluYwikrnrK4xBzQGtrnfTGTROMj6X
-	 gfuOyLI7n6ZS5hALNu5juJ0qcoPeIdIDjYms2ymbjJpBGHTYkk5kcUIuFYD0njKa7Ew==
+	t=1794757653;
+	b=YT29GG5jm6x1/nOHZ95uALwCfeOiOwvj+3/UzPGsWcSFcgL4iFkI7yZuGnu1YIg/w+fK
+	 ITfBCbLjdUa4BPigZn92AqS+BxgWa1+LgGS/NjW99ev0AsTvWKwX47BO56ojYm0OCL2y+
+	 vu1hTaAHoEZqwZ7SRVIvqjhuatkj3gX/PJJ5FBqnEt6/I5jfUAVjhbuCHYUW2w4JHDxbd
+	 eiPuccE0vCHDKD0dzg/UCEFi/gyum070CxOMtZbMouxjFKKRKQfRTTNS3C6fmBG8ox90w
+	 ws/8JkbXbkbDYn4JUd0BQpeW0dTvakn9QZb6aDoM3w2BoE8B7J97YUQNS9jt7qffY8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794757652;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794757653;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=ssC+l7FHTZNvjshh4+FS/k6nvNfv//7Ip2k4X6XbrQg=;
-	b=fQ92xgGaZHgCohPl0qhI1Y6gpwblYhFPIJ95CIROMVUp6DjHfnsDUEf8LcyNUK2DEjYp
-	 2s7rqNZBI2rK5F3OmMndbI0/YJnlXJzcl0kEY8RUMLMYfY5fxZcEdYFtmA4KxIih3x1qr
-	 qdWxUq1vwrqD5wMhA/phavP/EAvvyKIDrkxzo1hXvab9FVaBLv3wD+up4pw36ij9S1VoG
-	 tlxUJXg0aOQu62jRE7hgpdMePFRk++Ysmd8VK0iS+9yjFS8aXISa1Gw/Yk4aJxflaK8tp
-	 a6be5S2R9Q8l5ODVu3o0trYiDmNtO0jTuZxbhvNc2N1W7Jo6qF5MWJ+SGDhol3qso6A==
+	bh=drYBVwb1O7PjkEdSxQ7VDO99vSxLe3uiv56MMlcoFsE=;
+	b=DT9RycZ9wF1qaGv4HZh5cpb0m74gEf2pZ/jZ9mh2kxP7V+j0l6U/KWnoLqKl0DMyZ1PE
+	 Ydpvtite/hlml5sdS7AP7ThxJCzajESBr1gfK60ZGAnc7zlnPSRUrX9SNqruXUd5aAiGZ
+	 dvA0zW+chri5AoXc0J+cGRhbzFjw0qhhQNdYxjardOdiPLO1Y6slzkjfWzBype++2S17e
+	 nDqrbKeoonGsdLXgORYjBNe88SSi5liyndu1dj2TvR5S6t85shGhqVMtDtelI0ioFKJks
+	 w5dwr5gbTtEO0c3PxYvKwqqVJ626wNdvX29RN370a1Zg4r2D0YFdq2dI3DcFqhen7ug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bBnDOjBI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQAlcJg2;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D62606A31A;
-	Sun, 15 Nov 2026 15:47:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FCE606A331;
+	Sun, 15 Nov 2026 15:47:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bBnDOjBI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E9D1F000C4;
-	Sun, 15 Nov 2026 15:47:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQAlcJg2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37FC41F000C4;
+	Sun, 15 Nov 2026 15:47:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794757651;
-	bh=ssC+l7FHTZNvjshh4+FS/k6nvNfv//7Ip2k4X6XbrQg=;
+	s=k20260515; t=1794757652;
+	bh=drYBVwb1O7PjkEdSxQ7VDO99vSxLe3uiv56MMlcoFsE=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bBnDOjBI5rEpcIDxpLhV1OI9mZbML0CcNkvS1nKwGqiQqWn3z31/EXGwmqRp0YUAT
-	 zPaituEts5BfK//OsZlPUbhOiAfFfxluDU6BqKCd2FdtH0a0XPY7amcE4EF9VU7LWV
-	 TDgjZyRq/6l3pA6VW2a7+akXKbYDtqJ27stWVlOSQ6yHgPjytosqs36Gq3wi7nbwLU
-	 rKVQdSq53X8Ckej8GC1I+pHU4t5Pl1mqrlTuxNyzA4OtcELSMGwWCbfSItKVZOqZl3
-	 QIqf0FnJjl1Xry4YNM7JBR+4J9+goB0KLLgFD5dUUxFOyngCO1grbkHGJMHcz/b4JZ
-	 wpac5Pdp8Pt/A==
-Subject: Re: [PATCH net v4 1/3] net/sched: sch_teql: unshare the header before
- writing and fix retry strip
+	b=RQAlcJg29DmqUdLbKFjewSYH8Bx1N1dyCCQKB6kkpM1roEmi9ZjwFyHtMbL/XaHVS
+	 AodsczZ/o3+0gX9gSa+e/GPK3nz0K19AcNWE1rtBphDF73JDnauvQaOzoobOvQl6/a
+	 nAWpt1VAgtyRqlr9865VAJ+9TbH/U6cIsFlXVlZnY2EvlYVzA9cimKnYeNobA1cqY+
+	 qbeO2Z5Fef6uhh9YuPYLFWf9ypCD195Y/nt3f51YMU5Lj7TMeHA6GNiK8juX9Rf5tF
+	 2su61lp3l7cRG2TcbJdXjNryLVpXCidLKMVxSlVQsvl35tqyB0OVez9fHSeQNdUhZ/
+	 42czDxesZ8jqQ==
+Subject: Re: [PATCH net v4 2/3] net: neighbour: reinject a parked skb through
+ a headerless output device
 From: netdev-bot+sashiko@kernel.org
 To: jhs@mojatatu.com
 Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us,
  davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  horms@kernel.org, stable@vger.kernel.org, sashiko-bot@kernel.org
-Date: Sun, 15 Nov 2026 15:47:30 +0000
-Message-ID: <179475765049.2199510.14948882455046575190@kernel.org>
-In-Reply-To: <QDISC-6HS9.v4.r0.20261111094338-1@mojatatu.com>
-References: <QDISC-6HS9.v4.r0.20261111094338-1@mojatatu.com>
+Date: Sun, 15 Nov 2026 15:47:31 +0000
+Message-ID: <179475765178.2199510.12946653524000550678@kernel.org>
+In-Reply-To: <QDISC-6HS9.v4.r0.20261111094338-2@mojatatu.com>
+References: <QDISC-6HS9.v4.r0.20261111094338-2@mojatatu.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -75,147 +75,138 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The fix leaves a gap: `skb_cow_head()` in `__teql_resolve()`
-  (net/sched/sch_teql.c) only runs when `neigh_event_send(n, skb_res) ==…
+- [Medium] The new check in neigh_update_process_arp_queue()
+  (net/core/neighbour.c) is `if (!n1->dev->header_ops) skb->dev =…
 
 --
 
-net/sched: sch_teql: unshare the header before writing and fix retry strip
+net: neighbour: reinject a parked skb through a headerless output device
 
-This patch calls skb_cow_head() in __teql_resolve() before
-dev_hard_header() writes the slave's link header, so that a header-cloned
-skb does not corrupt the other clone. It also records how many header bytes
-each slave added in teql_master_xmit() and pulls back only that many on
-retry. As a result, an AF_PACKET frame with no dst keeps its user-supplied
-header.
+When n1->dev has no header_ops, this patch makes
+neigh_update_process_arp_queue() set skb->dev to n1->dev before it calls
+n1->output. Here n1 is the top-level neighbour looked up again from the
+skb's dst. The patch is aimed at sch_teql, which parks skbs on the slave's
+neighbour with skb->dev set to the slave.
 
-Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@mojatatu.com/
 Link: https://lore.kernel.org/netdev/20261110101908.2e64e8e9@kernel.org/
 
-> diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
-> index dc21cd9704a25..3f781a3ffb41a 100644
-> --- a/net/sched/sch_teql.c
-> +++ b/net/sched/sch_teql.c
-
-[ ... ]
-
-> @@ -293,15 +293,24 @@ __teql_resolve(struct sk_buff *skb, struct sk_buff *skb_res,
->  	}
->  
->  	if (neigh_event_send(n, skb_res) == 0) {
-> +		int off = skb_network_offset(skb);
->  		char haddr[MAX_ADDR_LEN];
->  
->  		neigh_ha_snapshot(haddr, n, dev);
-> +		/* Unshare the header before dev_hard_header() writes to it. */
-> +		if (skb_cow_head(skb, LL_RESERVED_SPACE(dev)) < 0) {
-> +			err = -ENOMEM;
-> +			goto out;
-> +		}
->  		if (dev_hard_header(skb, dev, ntohs(skb_protocol(skb, false)),
->  				    haddr, NULL, skb->len) < 0)
->  			err = -EINVAL;
-> +		/* The bytes prepended above skb->data, pulled back on retry. */
-> +		*hlen = skb_network_offset(skb) - off;
->  	} else {
->  		err = (skb_res == NULL) ? -EAGAIN : 1;
->  	}
+> diff --git a/net/core/neighbour.c b/net/core/neighbour.c
+> index d6e9c7c59a892..1b556fa17c57c 100644
+> --- a/net/core/neighbour.c
+> +++ b/net/core/neighbour.c
+> @@ -1339,6 +1339,9 @@ static void neigh_update_process_arp_queue(struct neighbour *neigh)
+>  			if (n2)
+>  				n1 = n2;
+>  		}
+> +		/* headerless output transmits on skb->dev, not n1->dev */
+> +		if (!n1->dev->header_ops)
+> +			skb->dev = n1->dev;
+>  		READ_ONCE(n1->output)(n1, skb);
 
 [Severity: Medium]
-The skb_cow_head() only runs when neigh_event_send() returns 0. What
-happens to a header-cloned skb that takes the else branch instead?
+Can this gate send a redirected skb back through the egress hooks of the
+original device?
 
-Suppose every slave neighbour is unresolved on the first pass of
-teql_master_xmit(). Then neigh_event_send(n, NULL) fails, teql_resolve()
-returns -EAGAIN and nores is set, and no unshare has run. teql then
-restarts with the same skb as skb_res:
+The check has no way to tell sch_teql apart from forwards that move the
+skb to another device but keep the original route's dst attached. Two
+forwards do this: nft fwd ... neigh, and bpf_redirect_neigh() called with
+explicit nexthop parameters.
 
-teql_master_xmit() {
+Here is the sequence:
+
+1. One of these forwards runs at the egress hook of a device X that has no
+header_ops (for example wireguard, ipip or sit). nft_fwd_validate() allows
+NF_NETDEV_EGRESS. The egress hooks run before the dst is dropped, so
+dst->dev is still X:
+
+net/core/dev.c:__dev_queue_xmit() {
     ...
-	if (nores && skb_res == NULL) {
-		skb_res = skb;
-		rcu_read_unlock();
-		goto restart;
+	skb = nf_hook_egress(skb, &rc, dev);
+    ...
+	skb = sch_handle_egress(skb, &rc, dev);
+    ...
+	if (dev->priv_flags & IFF_XMIT_DST_RELEASE)
+		skb_dst_drop(skb);
+    ...
+}
+
+2. The forward sets skb->dev to an ARP-capable device Y and transmits
+without dropping the dst:
+
+net/netfilter/nft_fwd_netdev.c:nft_fwd_neigh_eval() {
+    ...
+	skb->dev = dev;
+	skb_clear_tstamp(skb);
+
+	nf_dev_xmit_recursion_inc();
+	neigh_xmit(neigh_table, dev, addr, skb);
+    ...
+}
+
+On the BPF side, __bpf_redirect_neigh_v4() replaces the dst only when
+nh is NULL:
+
+	if (!nh) {
+		...
+		skb_dst_drop(skb);
+		skb_dst_set(skb, &rt->dst);
 	}
+
+	err = bpf_out_neigh_v4(net, skb, dev, nh);
+
+The IPv6 path through bpf_out_neigh_v6() follows the same pattern.
+
+3. If Y's neighbour is INCOMPLETE, the skb is parked on Y's arp_queue
+with the stale dst still attached.
+
+4. When Y's neighbour resolves, the drain loop sets n1 from
+dst_neigh_lookup_skb(dst, skb). That gives X's neighbour, and because X
+has no header_ops, arp_constructor() set it up with neigh_direct_output:
+
+net/ipv4/arp.c:arp_constructor() {
+    ...
+	if (!dev->header_ops) {
+		neigh->nud_state = NUD_NOARP;
+		neigh->ops = &arp_direct_ops;
+		neigh->output = neigh_direct_output;
     ...
 }
 
-On the restart, neigh_event_send(n, skb_res) parks the skb on the slave
-neighbour's arp_queue with its header still cloned:
+5. The new gate changes skb->dev from Y back to X, and
+neigh_direct_output() then calls dev_queue_xmit() on X.
 
-net/core/neighbour.c:__neigh_event_send() {
-    ...
-			skb_dst_force(skb);
-			__skb_queue_tail(&neigh->arp_queue, skb);
-    ...
-}
+As a result, X's nft netdev egress chain and its tc egress BPF program
+run a second time on a packet they have already handled.
 
-The usual reinjection path is covered. The skb's dst resolves to teql0's
-own neighbour, whose output is neigh_direct_output(). That re-enters
-teql_master_xmit(), where the new skb_cow_head() runs.
+nft_fwd_neigh_eval() calls ip_decrease_ttl() (or decrements hop_limit)
+again, so TTL drops by 2. A packet that arrives with TTL 2 is then
+dropped.
 
-However, neigh_update_process_arp_queue() can fall back to a different
-neighbour:
+Counters, quotas and limits count the packet twice, and BPF mangling or
+encapsulation is applied twice. If the second pass makes a different
+decision, the packet leaves on X instead of the forward target.
 
-net/core/neighbour.c:neigh_update_process_arp_queue() {
-    ...
-		n2 = NULL;
-		if (dst &&
-		    READ_ONCE(dst->obsolete) != DST_OBSOLETE_DEAD) {
-			n2 = dst_neigh_lookup_skb(dst, skb);
-			if (n2)
-				n1 = n2;
-		}
-		READ_ONCE(n1->output)(n1, skb);
-    ...
-}
+Before this patch the same parked skb was also mishandled: it left Y
+through neigh_direct_output with no link header. So the patch changes how
+this case fails, but running the hooks a second time is new.
 
-This happens in two cases:
+The commit message describes this side effect:
 
-- The dst became DST_OBSOLETE_DEAD while the skb was parked (for example,
-  a route delete that ends in dst_dev_put()), or dst_neigh_lookup_skb()
-  fails. Then n1 stays the slave's neighbour.
+  Those forwards supply their own device and nexthop and do not consult
+  the retained dst, so dropping it at those two sites is where that is
+  fixed; that is a separate change to the producers.
 
-- In the tc-mirred setup from the commit message, the dst belongs to the
-  physical device, so n1 is that device's neighbour.
+That producer change does not appear in the series. The later commit
+"net/sched: sch_teql: keep skb->dev consistent on the arp-queue path"
+only touches sch_teql.c, so the double traversal is still there at the
+end of the series.
 
-In both cases neigh_resolve_output() writes the link header without
-checking skb_header_cloned():
+Could skb_dst_drop() be added to nft_fwd_neigh_eval() and to the nh != NULL
+paths of __bpf_redirect_neigh_v4() and __bpf_redirect_neigh_v6() as part of
+this series, ordered before this patch?
 
-net/core/neighbour.c:neigh_resolve_output() {
-    ...
-			__skb_pull(skb, skb_network_offset(skb));
-			seq = read_seqbegin(&neigh->ha_lock);
-			err = dev_hard_header(skb, dev, ntohs(skb->protocol),
-					      neigh->ha, NULL, skb->len);
-    ...
-}
-
-Can this overwrite the link header of the other clone, such as the mirred
-original still pending on the physical device or a PF_PACKET tap clone? In
-the mirred case the bytes written are usually identical, but they differ if
-the lladdr changed in the meantime.
-
-The commit message says "a header-cloned skb is unshared before the write",
-but the arp_queue handoff does not seem to be covered.
-
-The later patches in the series don't add an unshare on this path either:
-
-- "net: neighbour: reinject a parked skb through a headerless output
-  device" only rewrites skb->dev for a headerless n1.
-
-- "net/sched: sch_teql: keep skb->dev consistent on the arp-queue path"
-  only moves the skb->dev = slave assignment.
-
-Would it work to call skb_cow_head() before neigh_event_send(n, skb_res),
-or once at the top of teql_master_xmit()?
-
-> +out:
->  	neigh_release(n);
->  	return err;
->  }
-
-[ ... ]
+>  		if (n2)
+>  			neigh_release(n2);
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-6HS9.v4.r0.20261111094338%40mojatatu.com
