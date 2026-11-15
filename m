@@ -1,63 +1,46 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794783640;
-	b=uCTfqluhq3uFC9J5mr/o+X5iQAYzVU008ivPmgRINwWsaQjB4SPyMoMf4ch8uarAumQe
-	 SAsJM9tZCE//S8Wdi/IyKeBt87tQaMxzS3oW6T/z3UxmMHJs1zlR59agUov7nJ/pz2UWp
-	 mC1MJGt4vNjzYy/SAzTrwEGdYHMwhZ31Wq+k8ktrYn4/+ydqEOM8N9VF4yLy7FHr//m2J
-	 //KOqkHVYDmnF/BHmHOgeA72ayALzD2A30Kzi0MYJj0sYUJCX7RCQN8f1PI/CX8SvMSh6
-	 AiBeaqF/cqDdUQC/jd1nSTKduyhoB7Mzem/2J6KEtY8hpcnLchGHK3iKc1Cmap09BJw==
+	t=1794783682;
+	b=37ulUQYV5sx5NdUoWpEtHqRWswHF2RxN8j/8ziM/Gniv+kopPOJyko984njKmHK4snkk
+	 R9jhkp3mpa+ppsgAm0dMQwVvHAwocK1WlMdiL7Z7LcWAeMTU/nCraCmtXraBVgaVj2d/b
+	 lwfIIXgzu4c9fHvJflnsS0yb2v7D5kgb6AD0c5zlPNy4yHRE5WsuU3aCqcd7L0yImyBjd
+	 57AWvnXujqkF3I802EGnQXhVie8iaru3USDe7Q9U8/39wVpVyoTojlHBd3R0i4T129Who
+	 FzUNRJIDqBqcvm00K0Re6/rZlILgJtPt6meWSCJYJHN9E03z3rbdEjANw/m+jEQx3oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794783640;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=Dtzz/VpouXrrXDmorVx10zRi4oO7y9Kg47BHVA7WTBk=;
-	b=rONcdXnqjPAiaxi2KLwkcVWo3tRSvNjInUilciXXpOyF8k8APHP3/WG4yzNcSOK+jJsh
-	 2haFHUCNsAXxJPZjSF7ud00avFt8YYIiq51Xf+z+pky5GvPC7ZRjurYmXlfJrAHAe+9NK
-	 vbu5G4W6UIt/O4+MpyawWuTDQNcw40SYDGa+nRZlE1EXEk7lNKYTnDmW5CzXMoih6+rOv
-	 8t8y7R5t73EZLjwCRY7uHeYss1F569sMuRPvPsuvVN9lBD+9Qpo11KZzlrDvkyBPN8L1y
-	 bK2puggBZeAKSyeYmMi6ZSmVF5Q7s9aXpThvahlwR/iYBNqnLTqD+dlYE2knD6/fEKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794783682;
+	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
+	bh=6g8JTVSLBsKLhqOkVttdCkVyuo0+rrMFkhzuEtSx9hI=;
+	b=bIA21Olt/XVNEPSAYrf8LhNCznH9/AES6AYwFd489Ukias3QpBHA0P6lZtCtEwFYwK99
+	 FJaJ0DiKPY19/eBme0nbfawgTfyPc8GBG8b3Zn61IgBfjsqYmViCVqhHb/EtjqOEcuhY9
+	 8mCDrUNGku+jnv1rmEsahCuubnSCLgkt6mEsBqvSSwloKOdEwx8hYCTAl7cAqZA4K2xpq
+	 yEATi9kSkWTm/wq1nAw0biNvIYRcB+WJC81Qc+RI5Sg2BVtQo4MLxNdkYE9h+mZ31yHjW
+	 jq/qXEroqdCstv+FpSXg2UVdnZ6cQOcNxwc2ql3BQdqG4LjuHYVQS2OZtNwYlMgcbJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=2FzAPsiD;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ghFzYW3f;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388B3606A31F;
-	Sun, 15 Nov 2026 23:00:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 388B3606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3D1606A323;
+	Sun, 15 Nov 2026 23:01:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=2FzAPsiD
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=Dtzz/VpouXrrXDmorVx10zRi4oO7y9Kg47BHVA7WTBk=; b=2F
-	zAPsiDu6d79iVDQ0PWRJKPD+elLD+ekKINgX9rBaG+xbnIjGKd14ERsKr+TRDZGSEvgL0Nl7zrkzp
-	9/PwMis0I99vSbJvEZkcYnulX+Qdfmjq1bN1EiwGUAj/WEA4Ed1eO/OVIN++Odj0TSZzhBd93v1Ew
-	Z0zcB3Obq1lCC3o=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xSjCf-00Ghqs-QW; Mon, 16 Nov 2026 00:00:05 +0100
-Date: Mon, 16 Nov 2026 00:00:05 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Mateusz =?utf-8?Q?Jo=C5=84czyk?= <mat.jonczyk@o2.pl>
-Cc: Javen Xu <javen_xu@realsil.com.cn>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] net: phy: realtek: fix listing of sysfs directory tree
-Message-ID: <5dda104d-da46-4020-9af5-941fe9d5c8f9@lunn.ch>
-References: <20261115214045.3704-1-mat.jonczyk@o2.pl>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ghFzYW3f
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED35B1F000C4;
+	Sun, 15 Nov 2026 23:01:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794783682;
+	bh=6g8JTVSLBsKLhqOkVttdCkVyuo0+rrMFkhzuEtSx9hI=;
+	h=Date:To:From:Subject;
+	b=ghFzYW3fi6JJEUyfZ8fpbTX5IN4lFGMqUkYn9A/YFryYDPLUD5F47TrRQxuHutcki
+	 9iT3Q3DPMs+IO/ZTKLXKxNETATM6SRr5RmCAFFdcJZCeKfB3GYQ6yjWirVGwEa2KRy
+	 RSJCCHFtODe1m8mk12bSC7s+oBHu7e9xnW8gAKz4=
+Date: Sun, 15 Nov 2026 15:01:21 -0800
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,phillip@squashfs.org.uk,
+	guozh23@xiaopeng.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + squashfs-read-symlink-error-before-putting-cache-entry.patch added to mm-nonmm-unstable branch
+Message-Id: <20261115230121.ED35B1F000C4@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,33 +49,72 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261115214045.3704-1-mat.jonczyk@o2.pl>
 
-On Sun, Nov 15, 2026 at 10:40:45PM +0100, Mateusz Jończyk wrote:
-> On git master, listing the contents of sysfs produces an error:
-> 
-> 	root@mateusz-debian:/sys# LANG=C find -iname foobar
-> 	find: './module/realtek/drivers': Input/output error
-> 	root@mateusz-debian:/sys# LANG=C ls -1 ./module/realtek/drivers
-> 	ls: reading directory './module/realtek/drivers': Input/output error
-> 	'mdio_bus:Generic FE-GE Realtek PHY'
-> 	'mdio_bus:RTL8201CP Ethernet'
-> 	'mdio_bus:RTL8201F Fast Ethernet'
-> 	'mdio_bus:RTL8208 Fast Ethernet'
-> 	'mdio_bus:RTL8211B Gigabit Ethernet'
-> 	[...]
-> 
-> Investigation shows that the forward slash in the driver name is the
-> culprit. Fix it.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: f0667918d5fc ("net: phy: realtek: add support for RTL8261D")
-> Signed-off-by: Mateusz Jończyk <mat.jonczyk@o2.pl>
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+The patch titled
+     Subject: squashfs: read symlink error before putting cache entry
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     squashfs-read-symlink-error-before-putting-cache-entry.patch
 
-    Andrew
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/squashfs-read-symlink-error-before-putting-cache-entry.patch
+
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Guo Zihao <guozh23@xiaopeng.com>
+Subject: squashfs: read symlink error before putting cache entry
+Date: Thu, 29 Oct 2026 15:25:42 +0800
+
+In the read error path of squashfs_symlink_readpage() the entry is
+put back before its error value is read:
+
+squashfs_cache_put(entry);
+= entry->error;
+
+Once the reference count drops to zero another thread can take the entry
+back from the cache for a different block and overwrite entry->error, so
+the value read here may be stale.  Read the error before dropping the
+reference.
+
+Link: https://lore.kernel.org/20261029072542.4131873-1-guozh23@xiaopeng.com
+Fixes: 675f02e5e656 ("squashfs: convert squashfs_symlink_read_folio to use folio APIs")
+Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Cc: Phillip Lougher <phillip@squashfs.org.uk>
+Cc: <stable@vger.kernel.org>
+
+ fs/squashfs/symlink.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/fs/squashfs/symlink.c~squashfs-read-symlink-error-before-putting-cache-entry
++++ a/fs/squashfs/symlink.c
+@@ -74,8 +74,8 @@ static int squashfs_symlink_read_folio(s
+ 			ERROR("Unable to read symlink [%llx:%x]\n",
+ 				squashfs_i(inode)->start,
+ 				squashfs_i(inode)->offset);
+-			squashfs_cache_put(entry);
+ 			error = entry->error;
++			squashfs_cache_put(entry);
+ 			goto out;
+ 		}
+ 
+_
+
+Patches currently in -mm which might be from guozh23@xiaopeng.com are
+
+squashfs-read-symlink-error-before-putting-cache-entry.patch
+
