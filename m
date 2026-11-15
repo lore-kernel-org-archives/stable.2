@@ -1,67 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794701534;
-	b=ms05Dwz7QPg0L6Mcru4CLzoYgTRNS6+i6SSLPLj08SGzjl9Szjsb6h1PwWM5pH4yncuA
-	 6u3feiHhZ3O0fzpZkSBhmAum+z4fi4NXvKTe5Xa2m1WdlBaPPQraByQEDbYC4jtfOLhT+
-	 QmRszp3FCkJ3ZdEyFI7cnvzS6Jo23sBsDlB1LadAQccTSRerFt765aGm5khB0/yIz9gwS
-	 WuyGV6IpY1Aey/JhBqNH27/BkyWfdDfvDUeelT17t/354Rl5iz89NxBJRxCUIW/R92LhO
-	 hqnUqtlmEte7dl5Oj2ljj7Ygeofn+kdCMZNJZlnV2TwR8rWYmmX10HRyw5b9ohcLUig==
+	t=1794701535;
+	b=0kgsbqFPRUyubWcn8sx69vFYw9nFBaH7NdMeoYYUZZJ66BsOZGVfeE27GFMOiU48WWlN
+	 9vPsnwAxRjFlF4k+ue6OftN2iwLdS6kFZL8XWyKnKh79+oBIbGpa6REXYcF67KnhmlwVO
+	 UHniAeQOAZ12HL8oaKZP4W0JaZtE5Zd+knt2fTRMwRpu1Jh/HD6BgXpMa10i9jbregA42
+	 h60MrLW+liVwbB+GqLIpHWJ9v8wWMq6GOIJdSnqm7H4SQg9HnAiIyc+XzPYVNP8E0Hw6R
+	 UnV4o0B0Ah5ve90EnVPX991t51KJyJYoF9VAlSzUtHX8hCKCMWd5J78vX/brAl3k9CQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794701534;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794701535;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=jVfQFxxbM2BbE/Z+1PkhKNrLAHRr9oNFYg+xHQGghX4=;
-	b=KFUFh/Bn+GkstVXUs4ZLTjJPPyywsRNGuFPq1S6ULkOwrfrHxisYHtFoGDVFiSBzoTJD
-	 B9M/s4H2dfEBKJNC3viRbJBPOlcS3vsQvoZhf1MHCdtm6bqdzF8wxvI+UfhrSxzR6m4zI
-	 i1HTUE/JGWZuyques1N/P9wH2T7Y2lwWmy2OQ+DWAJXfLKb/3oLZJHjDXjR3LUoL+P7TY
-	 kgD9bBKUmd6mNELZSWw5Srj0O/lC1cmD/AimNbcweMnHKa1dSz+rYOWlQRqsJkdTBnp2c
-	 d3C3LUXzcjw71VINmiRzTsYZMYsa9VOcndjpmh8f3Y4NT9PXubAkOIKhDVrQIYQiO3g==
+	bh=hywaSbrPVzpNYOJfDLZfDZOtqgBZTTztHRmB4EsjRcQ=;
+	b=sH3O8Y6YHaRDj9HxdB5mPHn3ELylqYHzO9RXRyK0NQ01ZrsWFyuaOT3m6hMf8vStjrS7
+	 QdMgUvUpuGkSjZN0iAS8JieqxbdLNaDTo9ikbfXmdGS6Iu7zGLJ9pFcl2uOTT1I0neP3A
+	 HBdAZxT4gVoGF0/fT4EsciYJ/ZG6Zx/8suowLXWr08PuqCpUwwo5V9HHCoWvpzKVwyDSY
+	 waOAM7YIdIZIDyzBgK+oqlXYxASov/vw1s8M6KR/H2GyTHcjfjtUNOZCe1d8/Q78LFwQ/
+	 7JHfkun3kjQCPuaez3b2LU1NrYLxkkZo3GskrTFFMk6zX48CygM1067dSccdnhkw8Iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CaHck7G1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nAJRNzhF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF15F606A323
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 00:12:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF9C9606A323
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 00:12:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CaHck7G1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AFBB1F000C4;
-	Sun, 15 Nov 2026 00:12:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nAJRNzhF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8041F000C5;
+	Sun, 15 Nov 2026 00:12:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794701534;
-	bh=jVfQFxxbM2BbE/Z+1PkhKNrLAHRr9oNFYg+xHQGghX4=;
+	s=k20260515; t=1794701535;
+	bh=hywaSbrPVzpNYOJfDLZfDZOtqgBZTTztHRmB4EsjRcQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CaHck7G1c2TYG4F2MNldRXxSRMMzhmG1vL0KxepLSW5VH3KF0mBWFFgiXCE/hoY5b
-	 aCeyZev8wqlv/yz/r2GjmZ+LIgYuk+u3Ec1OinABJn6XId629v5okwpVcsenAh5wmV
-	 JL2qkDKECHdf1tTM5inPp/Z2CQYWjzRZU/uOA2VNxac/f8aDH5unDoz2FWCWTmfoVy
-	 kkBd4XUx2I5ftmih744Xbvd0RRBLxU7r1KFXkT3iMNg/ZzcfkhrkrOkOYVtvDD92oL
-	 XlkGby2vu0kjT9Wcya+iW7ENFotq8DZKLGZV82GffC0ZPYGNM8cBYFIVRKxw7dlXQs
-	 +UVdbebWZOa1w==
+	b=nAJRNzhF7KgjA+6nfbnTflPsMZIQO1zRqaOqGBWSqcCNNGZwC5TrCAH3RnKPCCjOZ
+	 51GtOJa7X1oaN1DD/7ndVAMfrfz9SeDf2yZgB7qp/zt8t1RaCpyEENOup9+/2G4O1x
+	 7KRkXko47BJqyBUleuObn8X3s5IXSO9QmiCXrBXYWh4WpoV4B/5aHvHTEofnQ896dV
+	 sWAKVNa+VH+c2QzMAw2Hr6OgGhbGQBtOZVNbTAKLudrUgPfe1qt1+UaS6UZJdql9hy
+	 dz6tQS6VnYw2DyRDI6zHQEY8POr2bExpn6zy5sE6ncoWuSXtKVyaA4KblodGRv3bGY
+	 B8SMgkpNmHQSw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Johannes Weiner <hannes@cmpxchg.org>,
+Cc: Cen Zhang <zzzccc427@gmail.com>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Balbir Singh <balbirs@nvidia.com>,
-	"Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
-	Salvatore Dipietro <dipiets@amazon.it>,
-	Christoph Hellwig <hch@lst.de>,
-	Dave Chinner <dgc@kernel.org>,
-	Matt Fleming <matt@readmodwrite.com>,
-	Mel Gorman <mgorman@techsingularity.net>,
-	Michal Hocko <mhocko@suse.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Zi Yan <ziy@nvidia.com>,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Mark Fasheh <mark@fasheh.com>,
+	Joel Becker <jlbec@evilplan.org>,
+	Heming Zhao <heming.zhao@suse.com>,
+	Jia-Ju Bai <baijiaju1990@gmail.com>,
+	jjzuming@gmail.com,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] mm: page_alloc: remove ALLOC_NON_BLOCK from ALLOC_RESERVES
-Date: Sat, 14 Nov 2026 19:12:11 -0500
-Message-ID: <20261115001143.372862-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ocfs2: validate move extents against a stable EOF
+Date: Sat, 14 Nov 2026 19:12:13 -0500
+Message-ID: <20261115001146.468298-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109200410-failed-6.18-fe21f930d1e6@kernel.org>
-References: <20261109200410-failed-6.18-fe21f930d1e6@kernel.org>
+In-Reply-To: <20261109201244-failed-6.6-84db6619cb70@kernel.org>
+References: <20261109201244-failed-6.6-84db6619cb70@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,110 +67,184 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Johannes Weiner <hannes@cmpxchg.org>
+From: Cen Zhang <zzzccc427@gmail.com>
 
-[ Upstream commit fe21f930d1e64d121191673076fc4ebe79fc82d5 ]
+[ Upstream commit 84db6619cb702c37cf848b450c21b9c9706b0775 ]
 
-1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH
-non-blocking allocations accesses reserves") stopped handing out reserve
-access for ALLOC_NON_BLOCK on its own: the extra 25% below the min
-watermark is now only granted on top of ALLOC_MIN_RESERVE.  But the flag
-was left in ALLOC_RESERVES, which produces something odd:
+The move-extents range must be bounded by the inode size used for extent
+movement.  ocfs2_ioctl_move_extents() checks and clamps the request before
+taking the local inode and cluster locks in ocfs2_move_extents().  It also
+uses separate i_size_read() calls for the range check and subtraction.
 
-With the ALLOC_RESERVES match, __zone_watermark_unusable_free() doesn't
-subtract the free highatomic pages for them.  So in the slowpath, they get
-to consume regular blocks below the min watermark by the number of free
-highatomic pages.  The highatomic reserve is capped at 1% of the zone,
-which on any decently sized machine is a multiple of the min watermark:
-GFP_NOWAIT can drain regular memory to zero.
+A concurrent truncate can invalidate the first check and make the later
+unsigned subtraction underflow:
 
-The user-visible result is brutal hiccups during bursts of GFP_NOWAIT
-allocations under memory pressure.  This was found in review and
-reproduced with a synthetic burst, not observed in production, but the
-sequence of events is a realistic one: On a 32G box with an anonymous
-working set, swap, and a filled 290M highatomic reserve, a GFP_NOWAIT
-burst drove regular free memory in the 28G Normal zone (min=60M) to 28M,
-0.8M and 0.6M in three runs.  Swapout failed to allocate its swap table,
-reclaim scanned 13M pages to reclaim 200k, page faults stalled for tens to
-hundreds of milliseconds.  The machine survives it, but not by design:
-direct reclaimers eventually fail and start unreserving highatomic blocks,
-until the allocation succeeds or the reserve is gone and the OOM killer
-runs.  That reserve exists for high-order atomic allocations; here it is
-destroyed to bail out a GFP_NOWAIT consumer that was never entitled to the
-memory.
+  Move-extents ioctl                  Truncate
+  ------------------                  --------
+  check me_start <= i_size
+                                      take inode and cluster locks
+                                      shrink EOF below me_start
+                                      release locks
+  compare me_start + me_len with EOF
+  set me_len = EOF - me_start
+    [unsigned underflow]
+  acquire inode and cluster locks
+  select extents using the bad range
 
-Remove ALLOC_NON_BLOCK from ALLOC_RESERVES.  With that, the GFP_NOWAIT
-burst is stopped short at the min watermark.  No direct reclaim, no
-stalls, no failed allocations, and the highatomic reserve stays intact for
-the requests it exists for.
+A truncate after clamping can also leave the range extending beyond EOF.
+Conversely, the cached size may be smaller than the size refreshed when
+the cluster inode lock is acquired.  Early validation can then reject a
+valid start or permanently shorten the requested length and threshold.
+The me_start + me_len comparison can also wrap for a large input length.
 
-__zone_watermark_ok() is unaffected, since everything it keys on
-ALLOC_NON_BLOCK is already nested under ALLOC_MIN_RESERVE.  Update the
-flag comments accordingly: ALLOC_NON_BLOCK just means the caller can't
-block; the reserve math belongs with ALLOC_MIN_RESERVE.
+Validate and adjust the original request once, after inode_lock(), the
+exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed the
+size.  Read EOF once, reject a start beyond it, and bound the length by
+EOF minus start.  Normalize the threshold using the same EOF snapshot.
+This keeps zero as the default-threshold sentinel until validation uses
+the size that will govern extent movement.
 
-GFP_ATOMIC order-0 requests have a milder version of the same problem.
-Through ALLOC_MIN_RESERVE they also count the free highatomic pages in
-their watermark check, but rmqueue_buddy() serves them regular pages first
-and only falls back to the reserve once those are gone.  They can still
-push regular free memory to 37.5% of min minus the free highatomic pages
-before the reserve is touched.  Unlike GFP_NOWAIT they are entitled to the
-reserve, so this needs the watermark check and the freelist order reworked
-together, and is left to a separate patch.
+Move goal validation after range adjustment as well.  Its allocation-group
+capacity check uses me_len and must see the EOF-clamped length.  Both
+validation failures use the existing inode-lock unwind path before any
+extent movement or transaction starts.
 
-Link: https://lore.kernel.org/20261028171719.2043421-3-hannes@cmpxchg.org
-Fixes: 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH non-blocking allocations accesses reserves")
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Range errors now reach the ioctl's normal copyout path, as goal errors
+already did.  Unlike the old early rejection, a failed copyout can
+therefore override -EINVAL with -EFAULT.
+
+Link: https://lore.kernel.org/pm-ocfs2-move-extents-isize-rrw-v6-395bdee84ea81149068e@gmail.com
+Fixes: 53069d4e7695 ("Ocfs2/move_extents: move/defrag extents within a certain range.")
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Balbir Singh <balbirs@nvidia.com>
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
-Cc: Salvatore Dipietro <dipiets@amazon.it>
-Cc: Christoph Hellwig <hch@lst.de>
-Cc: Dave Chinner <dgc@kernel.org>
-Cc: Matt Fleming <matt@readmodwrite.com>
-Cc: Mel Gorman <mgorman@techsingularity.net>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Zi Yan <ziy@nvidia.com>
+Suggested-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+Assisted-by: LLM
+Cc: Mark Fasheh <mark@fasheh.com>
+Cc: Joel Becker <jlbec@evilplan.org>
+Cc: Heming Zhao <heming.zhao@suse.com>
+Cc: Jia-Ju Bai <baijiaju1990@gmail.com>
+Cc: <jjzuming@gmail.com>
 Cc: <stable@vger.kernel.org>
-[ sashal: Applied the edits to the existing internal header because the upstream allocator header split is absent. ]
+
+A truncate after clamping can also leave the range extending beyond EOF.
+Conversely, the cached size may be smaller than the size refreshed when
+the cluster inode lock is acquired.  Early validation can then reject a
+valid start or permanently shorten the requested length and threshold.
+The me_start + me_len comparison can also wrap for a large input length.
+
+Validate and adjust the original request once, after inode_lock(), the
+exclusive rw lock and ocfs2_inode_lock() have stabilized and refreshed the
+size.  Read EOF once, reject a start beyond it, and bound the length by
+EOF minus start.  Normalize the threshold using the same EOF snapshot.
+
+[ sashal: inlined range validation into ocfs2_move_extents() instead of adding a separate helper ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/internal.h | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ fs/ocfs2/move_extents.c | 62 ++++++++++++++++++++---------------------
+ 1 file changed, 31 insertions(+), 31 deletions(-)
 
-diff --git a/mm/internal.h b/mm/internal.h
-index e36c46e865956..955da91dea3a1 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1294,12 +1294,11 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
- #define ALLOC_OOM		ALLOC_NO_WATERMARKS
- #endif
+diff --git a/fs/ocfs2/move_extents.c b/fs/ocfs2/move_extents.c
+index fc9aa015e05ec..0fbcb9dbdab45 100644
+--- a/fs/ocfs2/move_extents.c
++++ b/fs/ocfs2/move_extents.c
+@@ -906,8 +906,10 @@ static int __ocfs2_move_extents_range(struct buffer_head *di_bh,
+ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ {
+ 	int status;
++	u64 i_size;
+ 	handle_t *handle;
+ 	struct inode *inode = context->inode;
++	struct ocfs2_move_extents *range = context->range;
+ 	struct ocfs2_dinode *di;
+ 	struct buffer_head *di_bh = NULL;
+ 	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
+@@ -932,6 +934,35 @@ static int ocfs2_move_extents(struct ocfs2_move_extents_context *context)
+ 		goto out_rw_unlock;
+ 	}
  
--#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. Allow access
--				       * to 25% of the min watermark or
--				       * 62.5% if __GFP_HIGH is set.
--				       */
-+#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. */
- #define ALLOC_MIN_RESERVE	 0x20 /* __GFP_HIGH set. Allow access to 50%
--				       * of the min watermark.
-+				       * of the min watermark, or 62.5% if
-+				       * the caller cannot block either
-+				       * (ALLOC_NON_BLOCK).
- 				       */
- #define ALLOC_CPUSET		 0x40 /* check for correct cpuset */
- #define ALLOC_CMA		 0x80 /* allow allocations from CMA areas */
-@@ -1313,7 +1312,7 @@ unsigned int reclaim_clean_pages_from_list(struct zone *zone,
- #define ALLOC_KSWAPD		0x800 /* allow waking of kswapd, __GFP_KSWAPD_RECLAIM set */
++	i_size = i_size_read(inode);
++	if (range->me_start > i_size) {
++		status = -EINVAL;
++		mlog_errno(status);
++		goto out_inode_unlock;
++	}
++
++	if (range->me_len > i_size - range->me_start)
++		range->me_len = i_size - range->me_start;
++
++	/*
++	 * The default threshold for defragmentation is 1 MiB, which
++	 * matches the maximum OCFS2 cluster size.
++	 */
++	if (!range->me_threshold)
++		range->me_threshold = 1024 * 1024;
++
++	if (range->me_threshold > i_size)
++		range->me_threshold = i_size;
++
++	/* The goal check depends on the adjusted range length. */
++	if (!context->auto_defrag) {
++		status = ocfs2_validate_and_adjust_move_goal(inode, context->range);
++		if (status) {
++			mlog_errno(status);
++			goto out_inode_unlock;
++		}
++	}
++
+ 	/*
+ 	 * rememer ip_xattr_sem also needs to be held if necessary
+ 	 */
+@@ -1024,49 +1055,18 @@ int ocfs2_ioctl_move_extents(struct file *filp, void __user *argp)
+ 		goto out_free;
+ 	}
  
- /* Flags that allow allocations below the min watermark. */
--#define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
-+#define ALLOC_RESERVES (ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+-	if (range.me_start > i_size_read(inode)) {
+-		status = -EINVAL;
+-		goto out_free;
+-	}
+-
+-	if (range.me_start + range.me_len > i_size_read(inode))
+-			range.me_len = i_size_read(inode) - range.me_start;
+-
+ 	context->range = &range;
  
- /* Flags that mean GFP_ATOMIC */
- #define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
+-	/*
+-	 * ok, the default theshold for the defragmentation
+-	 * is 1M, since our maximum clustersize was 1M also.
+-	 * any thought?
+-	 */
+-	if (!range.me_threshold)
+-		range.me_threshold = 1024 * 1024;
+-
+-	if (range.me_threshold > i_size_read(inode))
+-		range.me_threshold = i_size_read(inode);
+-
+ 	if (range.me_flags & OCFS2_MOVE_EXT_FL_AUTO_DEFRAG) {
+ 		context->auto_defrag = 1;
+ 
+ 		if (range.me_flags & OCFS2_MOVE_EXT_FL_PART_DEFRAG)
+ 			context->partial = 1;
+-	} else {
+-		/*
+-		 * first best-effort attempt to validate and adjust the goal
+-		 * (physical address in block), while it can't guarantee later
+-		 * operation can succeed all the time since global_bitmap may
+-		 * change a bit over time.
+-		 */
+-
+-		status = ocfs2_validate_and_adjust_move_goal(inode, &range);
+-		if (status)
+-			goto out_copy;
+ 	}
+ 
+ 	status = ocfs2_move_extents(context);
+ 	if (status)
+ 		mlog_errno(status);
+-out_copy:
+ 	/*
+ 	 * movement/defragmentation may end up being partially completed,
+ 	 * that's the reason why we need to return userspace the finished
 -- 
 2.53.0
 
