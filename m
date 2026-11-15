@@ -1,65 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.245.243.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794762281;
-	b=buzl2u29pYRuqCmFNJJGLRNGovV79T5KN7La2NmWb20JdGqxjLaEWvZpgorrnAI7JbG3
-	 eenH9i/Uhc2pI3zwJXgOabz+H3ZYTxgAKS7f1EPhjwLBvqcL6p+7bTxi+Ln3EFW84Zwke
-	 2C1GNMdOJLOqzFg6IiLJj9Ag7HRp+bxfkCeFP/0N3WjJw2FBrSo01NSpR9Le61Psr8vLq
-	 H0cKRSUQxyVIEjqV3HE8VPIZ4hHCizNgeZmwEoYEu3NlsL7TDmwC7NyrNhMsjck1JGiyM
-	 G5ki1xk9SiJ9QZO4z/i5xX11HiDRcs2hxrDuJjl4eUy+ZbJHt3qoKnbeZdbryiDdjug==
+	t=1794763123;
+	b=oAf4E+qYEkRBwjyp8ygy1op1KO7pBEeWAl5mZ3YrL4BneeZ3IcxqoHixcPpeMZhjMcD2
+	 FX8H+PJzGgO6cuJHNUukmfgHqsUs3kIvhE+X7m3w/cSgmHXop/y8WkXL2Yg/cXtZFZRMO
+	 fvTtamytAVfQRJvT7tj09oaE+gbAQpmcoPMkVTlYmxinqNaDbgqSBlbvkvdZsNjKePGYF
+	 OLhoSwd6Mj4/bhvuDRyUonFANszXNsUSUdlHMHjCTEtXvdPid2O6dPmAgUq88wJGoVIz9
+	 vg4MKs7/uHdUW3wQKHaAbOJKwOOFyvRszcoO8+uhHwc1/4OCWOk5jiVUSIGIevPAENQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794762281;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=J6V0Kz0XMpC5wJkQlSs9iIsGa6Tot3NeP2rg3wU4mYg=;
-	b=xqu6cEWADUeqW2DLlONQe3Rlh9FTe4a0wZ/tH7Wp8hwDHA4nXPpsYPIXeIsoP8DPZRvw
-	 5gktPf9ElSAFkfgX9Qh5WqEG1aRQ9Bx/erJwheiPYK6wJF1KiXKTB1XaMs6QzMDqvFLPt
-	 j4B0JNLqJHGi0g/RHQzqTbUiBZH+UgI8HvIGiuPiJPBYfpEm5qKLnQm13iQBIwLRqe1Vk
-	 +UwcGTjW6NFNAKJo444TWdLfhoKImJZvA2QIfEiZQRb3pPsupTsqHg9rImX1jwTnFKBMr
-	 Tqom9pQh1hnF/RUgdj2V67VxWDVGTU30++0Nr4wl4WswxAhFMEgfvXEMR+bfVwd1s9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794763123;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=6SPQoq63tz1usrlqWtzQsVBhtZ6Dan0Y+sElILVXxNU=;
+	b=iRDdGhcpicTG7IWa1+kiM+PzAEdrTNSTjhnoeEk0Xk5xAlxgq96mWcY5nusdYO+L4AIR
+	 nDMgqMqOIkcZYoHL/meaiQhEg0+mRoR41jI59GiNBfUSVlUzWmw2HyiYyvcxwgs7vFhGv
+	 iolqXOnO6dOMjbE2KCfePsH2ePgWPk1ADHIudc5kNXE2BCcOmQ0pfjTm6hBpdcX/9TzeI
+	 qL8GxNbPGt+s1yg/aGTayRhDGqUBJC6mR8KwE+0GSjAfjy5a5WuznIVEHPRhDmWwOyMUI
+	 DC3wujbCNWp+nt2MUWg9npFqNgEt4sRMFa4Tb4wCXsNxkKNy+uCMnyDSbdYexz8pN0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="hR/6g12X";
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=B0keetNt;
+	arc=none smtp.remote-ip=44.245.243.92
+Received: from pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.245.243.92])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA68606A31D;
-	Sun, 15 Nov 2026 17:04:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BA68606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469FA606A32C;
+	Sun, 15 Nov 2026 17:18:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 469FA606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=hR/6g12X
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=J6
-	V0Kz0XMpC5wJkQlSs9iIsGa6Tot3NeP2rg3wU4mYg=; b=hR/6g12XkkFjrk/aoh
-	7V/vYb0LTdmLsPVEY4FqXUexd13Y0Swxc12TEw5r0RXVnsOrflAwrmfNvNm7q7vR
-	VlEdoVbVg2TXgJL1jTlwjw/81Wm9bzczCY9D1ps77txnl8RDYgv776BaVdWaGMyj
-	WRacK4GJpKzsXJfsD6NoWsKQ0=
-Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgAXb0L75flqS77DGA--.57717S2;
-	Mon, 16 Nov 2026 01:03:55 +0800 (CST)
-From: Ziheng Wei <zihengw03@163.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] net: phy: reject non-PHY mdio devices in phy_connect()
-Date: Mon, 16 Nov 2026 01:03:54 +0800
-Message-ID: <20261115170354.944219-1-zihengw03@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <04781560-2b66-4ac2-9e7c-a786be43fc10@lunn.ch>
-References: <20261115161811.941022-1-zihengw03@163.com> <06c3990a-8f2d-4e8c-931f-6ad77a79a84b@lunn.ch> <20261115164233.942709-1-zihengw03@163.com> <04781560-2b66-4ac2-9e7c-a786be43fc10@lunn.ch>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=B0keetNt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794763123; x=1826299123;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=6SPQoq63tz1usrlqWtzQsVBhtZ6Dan0Y+sElILVXxNU=;
+  b=B0keetNtUU23rtId5sBsV43DovuI0nNMHZgQWGleU6z0XN2zBgtdysy6
+   X9nOcCXt4SaAQVUL82thV4eO5BRWHUOvkSOiev+1R53sbHLyF70hAJNhq
+   spm4I6pfuNAr2tyQriyyDxnoY1lbvq1TavB4shf6zeoms50o3MTONI42q
+   xQQ4kcjm2AHTvHkIgtrsCsKnQG/5C/xVxpvL6g6/Iv4rC/f9ufQhiIThi
+   /QIPSAsvQkA5+g62rs3+06ImR8/rkgl6AxJsZMyRD4NhF1sQtnhdTEsFN
+   aKYRp06WQbo0YaOxwuYx7KwwnyaZ1Jly6myXPNAsyfd9rEcS0ip35kEDD
+   Q==;
+X-CSE-ConnectionGUID: TBQbZXeDR8+az+kBVpncgQ==
+X-CSE-MsgGUID: 3XsX8a3oSKS9xc61eAx6AQ==
+X-IronPort-AV: E=Sophos;i="6.27,215,1787011200"; 
+   d="scan'208";a="33568805"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-001.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 17:18:41 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:31330]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.34.255:2525] with esmtp (Farcaster)
+ id c6c90dd7-06c0-43c5-9b34-b42e3de9f4fc; Sun, 15 Nov 2026 17:18:40 +0000 (UTC)
+X-Farcaster-Flow-ID: c6c90dd7-06c0-43c5-9b34-b42e3de9f4fc
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Sun, 15 Nov 2026 17:18:40 +0000
+Received: from dev-dsk-avivb-1a-8cc559d6.eu-west-1.amazon.com (172.19.102.34)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Sun, 15 Nov 2026 17:18:39 +0000
+From: Aviv Bakal <avivb@amazon.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+CC: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	<linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Zeev Zilberman
+	<zeev@amazon.com>, <stable@vger.kernel.org>
+Subject: [PATCH 1/3] PCI/PM: Honor PCI_DEV_FLAGS_NO_D3 in pci_bridge_d3_possible()
+Date: Sun, 15 Nov 2026 19:18:29 +0200
+Message-ID: <20261115171831.1498006-2-avivb@amazon.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261115171831.1498006-1-avivb@amazon.com>
+References: <20261115171831.1498006-1-avivb@amazon.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,16 +86,42 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgAXb0L75flqS77DGA--.57717S2
-X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
-	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxUTYhFUUUUU
-X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7hvQIWr55ftAkQAA3Y
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Sun, Nov 15, 2026 at 05:53PM +0100, Andrew Lunn wrote:
-> You have to defend your own patch. Do you think it is worth having?
+pci_set_power_state() does not put a device with PCI_DEV_FLAGS_NO_D3
+into D3, but pci_bridge_d3_possible() ignores the flag.
+pcie_portdrv_probe() therefore enables runtime PM on such a port, and
+on runtime suspend pciehp masks the hotplug interrupt while the port
+stays in D0.
 
-No. Without a real user hitting it, I don't think it is worth the
-churn. Please drop it, and thanks for the review.
+Return false from pci_bridge_d3_possible() when the flag is set.
 
-Ziheng
+Fixes: d4c79b63d82d ("PCI: Allow D3 for native hotplug-capable Root Ports on non-x86 platforms")
+Cc: stable@vger.kernel.org # 7.3.x
+Co-developed-by: Zeev Zilberman <zeev@amazon.com>
+Signed-off-by: Zeev Zilberman <zeev@amazon.com>
+Signed-off-by: Aviv Bakal <avivb@amazon.com>
+---
+ drivers/pci/pci.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 7c6f2aba8144..1a23be4b6a07 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -3055,6 +3055,10 @@ bool pci_bridge_d3_possible(struct pci_dev *bridge)
+ 		if (pci_bridge_d3_disable)
+ 			return false;
+ 
++		/* The port is known not to work correctly in D3 */
++		if (bridge->dev_flags & PCI_DEV_FLAGS_NO_D3)
++			return false;
++
+ 		/*
+ 		 * Hotplug ports handled by platform firmware may not be put
+ 		 * into D3 by the OS, e.g. ACPI slots ...
+-- 
+2.50.1
 
