@@ -1,55 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794770909;
-	b=yKFoqrlrpAh6qNz+ivUovm9cYuxdimkpAWcQEfv+Gh8TCer3CpW5BYfrmaPZapqHT9U1
-	 lNNghbetRtrS0G36WdRTY3tZF27Tm+CjvO+pUXfUCcbdrBouqbw2BsbCJywIUiMn62O+Q
-	 Nwgp+ZTiXUBE5z9Hc8syttgsHF0KvkmM5xgyJuDl+pb1oCsO7sObyU5X5Hy/TdSv5vNXV
-	 rnqjhUZ5dYDWJP8vzqVm+Uyl7RY/Jfw4L882yciKRYWPd2jQKyHkAyPzywEE+i/jZzIlW
-	 61op/XKyRsAgDjP0eA3Ms1aK0WuOII8eYRqmSnu5oYfG2OWDEgHsAhG86CGQRl6lAjA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794770909;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=UOdzf68upyWQEY74y7UPNoTUyYjNf3ubgd9Hck5dWAM=;
-	b=haT+Z/W9BqkwTL1x6ZPCds5nY8CAIvf0iw084dezW6ba1sRLduW6YyciRewT9UkBJHAv
-	 usIdHFS3lhAppWRJKQzg1ruKk6KJ4KGqg2CYgf6vyxmJ2uwy9D5Zw/nASDPElrtng5YCE
-	 g9T35RqTCMOD+HlE5UEBjMupcquKFmwspu5LqVE8fJyMt+zCbDMp+2/l25kQmYhZDMvbZ
-	 RTuhWpLRB4hVAdFswOLYeE9NsEIQWdGjjFO8MxT0+YLnxKBYEKvgfFknQPQ5Qeg0Sz5R6
-	 m7GcdtA7zieuGO+PMRiM/z7mOqUVLuoDmhgOe1SYZuMqoUNrE8zYNN7jOEN/D2jrayg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=QIO4lf+B;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794771477;
+	b=SkYdmnBBT63v02Cfitt6Nmv2fcCIqWcx7gLCNCVnW8zrzqYozxMTnQ3daClndYKptwQ0
+	 lWv0JGgezMAEZPsKyVyM12dhgUuBxTxpR4LJAxcu77Q3341AqMb0SrECNh0sR497yr/kA
+	 ljCbN7gNU/SN8SAYrrAqpojDK4i7u03WL0lEFg6CrUcf05H4UfroogtPsDUt9bYhdQrmG
+	 cj9GbH29YoGSKRXcgPXeLYLhAVLQIxXULVNWDUMrc+AUi6K0YLA0B+hma2PrIQMds1kw/
+	 dbZcBBrzBM2TsilUYNJJ2fjmsLYKn5CkHzp74I8YAypvAzPYlwOwbYWvk5n3YSQqhWA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794771477;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:
+	 Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=isEsQrrx0hL73b1p5Jr6MlaLz4dtBNblQFsunuEj6v8=;
+	b=ekpF7ekvyOajQXE/vXp1G3tPRu7r2q6nSBNFHmYb71XnbNJ26ftrYs2OoFkyhyPqSAIb
+	 4DIiCbny6ReBWvhVJHq8avZrlFs6yzYiLxe27qNcf0aRpgSszbAZFcMbdeiwmfLaB+45V
+	 Ur1+cZNL5hz3ntjqVVOpvlazgFNixvWPhjBoFgRIWHm5X2FB/ihysvsNmjrS4OhNn9+Rd
+	 KyeC2pL9QGVpe2gIGRsIPf1IfZvo0jwGdECYJwHND6yJl7apCAI3/px6wH0ZA4jM5Tu2H
+	 5vqzi9EMRc5AnJa0NkpNM6DZtr8FuyRIc/r0Q+DcjezEOR3vbS72NczEBGRKfWtW0RQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=mandelbit.com;
+	spf=pass smtp.mailfrom=mandelbit.com;
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=GiSawGQk;
+	arc=none smtp.remote-ip=195.10.208.46
+Received: from mout-b-106.mailbox.org (mout-b-106.mailbox.org [195.10.208.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8BF606A338;
-	Sun, 15 Nov 2026 19:28:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F8BF606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46CDF606A33F;
+	Sun, 15 Nov 2026 19:37:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46CDF606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=QIO4lf+B
-ARC-Seal: i=1; a=rsa-sha256; t=1794770883; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UUxsCUBEa6m6mkEe0uWPcXvDchkQzosFE/KivROKt4et3xYeaY9B2GpPqIDBaTOIq/RQJ2K+3ODjJBigmn8JIvWqtP8fOBhBqiDR5Kd23vkR2VOzHAEMZVV2fu+9ysD5fbvjtoUfk16xnIfi0xrSPKJNxdYcdsByIFRogb2Z9lY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794770883; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=UOdzf68upyWQEY74y7UPNoTUyYjNf3ubgd9Hck5dWAM=; 
-	b=GCd9WdF/Icfk0wwdVWM9OZ4bsP2AGnfFA5MJymiNVQ3QkuMNVe9GRhRNr3LF5oy3zmTm4mJB4x5RcGGmM1ctBcowBePdF1imhQZ21m6Ot37B1bSjjq+fcO2g6/KrV6y/NcAWolSvhTR8dRma7JRGPamb13XuyGuUrZjeZZpdoB4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=QIO4lf+BAKr7/0ApAn9LLax1t+lisQuPYDbsP0AmFtbTHHRyxj58zgpXAtJvpAkPBSoZcAIm1m4DJ8m1DnXsNZmbWE0uyWHmLLup/p7qN2AW/REbFeZ3EPfVO7Nakq5JkwMvgEgFtIF977RUfgu+a3EtUWMi9pLIe9WiIg3oBVb/W40kXvWhqUJmCGrT0HFiO9nS2fC6JypaNOMRrTcoJ//XKONqhUnHE55tMwPFLAyC7+9T+cuklvyEqjUvCMbdoKnwxHOnh9R5tWTfDAXyxwfQjzS38QzTBZGhmgJTTiHvHLeceuwYpjgEOQR/ZyP4RvQoxL2roDANZKRjAHkIYQ==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=UOdzf68upyWQEY74y7UPNoTUyYjNf3ubgd9Hck5dWAM=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794770881105493.91694378790714;
-	Sun, 15 Nov 2026 11:28:01 -0800 (PST)
-From: Rong Zhang <i@rong.moe>
-Date: Mon, 16 Nov 2026 03:27:03 +0800
-Subject: [PATCH 2/7] platform/x86: lenovo-ymc: Serialize WMI event handling
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=GiSawGQk
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-b-106.mailbox.org (Postfix) with ESMTPS id 4jSLqt1NjvzNl6l;
+	Sun, 15 Nov 2026 20:37:46 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
+	s=MBO0001; t=1794771466;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=isEsQrrx0hL73b1p5Jr6MlaLz4dtBNblQFsunuEj6v8=;
+	b=GiSawGQkORQPgxry110kOJKRxqQGGrmkoV1eGmHSj+S+ZUPrbQ01sfFAi3I1PaaN4YZR5J
+	8zPNOf5PL2cluuIlUggromDPjMExlNdbJBkoCGDOTwfkw3p3TGxW/PiB9viFuXHr1RLCs5
+	XKjtSxPeaYty0wdrgcBOTUviEXOrvnwdtXeNikySC/WDs3uEbID83zskgVyeMCtx+R/nBB
+	A/DHIgJ4DkI6nrU1RIDkBy1tPvIHFSJOtMG5d4whFjbfpYb0Yw5kYlwx7R76B6XUDSUXE4
+	VBTJfmCbZjrnQ5n08kWKWZRA8Q2Q/DXd1OxHFTigp1mwI4qXJrwqw6ENG2j3jA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
+Message-ID: <fc4b8168-d8b9-426b-95c5-4a24e93f46b9@mandelbit.com>
+Date: Sun, 15 Nov 2026 20:37:43 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,87 +66,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-ymc-82yl-v1-2-fac1a2b01a84@rong.moe>
-References: <20261116-ymc-82yl-v1-0-fac1a2b01a84@rong.moe>
-In-Reply-To: <20261116-ymc-82yl-v1-0-fac1a2b01a84@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, 
- "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Gergo Koteles <soyer@irl.hu>, Ike Panhc <ikepanhc@gmail.com>, 
- Andrew Kallmeyer <kallmeyeras@gmail.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mahir Faisal <mahirfaisalantiq33@gmail.com>, Rong Zhang <i@rong.moe>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 1/3] igb: fix RTNL assertion when resuming from
+ runtime suspend
+To: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-ce4c1
-X-ZohoMailClient: External
+References: <20261113105835.3821433-1-antonio@mandelbit.com>
+Content-Language: en-US
+From: Antonio Quartulli <antonio@mandelbit.com>
+Organization: Mandelbit SRL
+In-Reply-To: <20261113105835.3821433-1-antonio@mandelbit.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: 4jSLqt1NjvzNl6l
 
-WMI events may arrive in parallel, causing race conditions, e.g.,
+On 13/11/2026 11:58, Antonio Quartulli wrote:
+> Since commit ac8c58f5b535 ("igb: fix deadlock caused by taking RTNL in
+> RPM resume path") __igb_resume() doesn't take RTNL for runtime resume,
+> but __igb_open() still calls netif_set_real_num_{tx,rx}_queues(), which
+> require it. An asynchronous runtime resume (e.g. after the link comes
+> back) then triggers "RTNL: assertion failed".
+> 
+> The queue counts only change on paths that re-open the device under
+> RTNL (ethtool -L, SR-IOV reconfiguration): set them in igb_open() only,
+> as igc does since commit 6f31d6b643a3 ("igc: Refactor runtime power
+> management flow").
+> 
+> Fixes: ac8c58f5b535 ("igb: fix deadlock caused by taking RTNL in RPM resume path")
+> Cc: stable@vger.kernel.org
+> Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
+> Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
+Sashiko reported an interesting finding that is worth fixing.
+Will spin v2.
 
-  CPU1				CPU2
-  query: posture A
-  				query: posture B
-  				input report B
-  input report A
-  				trigger EC with B
-  trigger EC with A
-
-Fix it by serializing lenovo_ymc_notify() with a mutex.
-
-Fixes: e82882cdd241 ("platform/x86: Add driver for Yoga Tablet Mode switch")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rong Zhang <i@rong.moe>
----
- drivers/platform/x86/lenovo/ymc.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
-
-diff --git a/drivers/platform/x86/lenovo/ymc.c b/drivers/platform/x86/lenovo/ymc.c
-index 70f3ae20d3e3..eba22600161e 100644
---- a/drivers/platform/x86/lenovo/ymc.c
-+++ b/drivers/platform/x86/lenovo/ymc.c
-@@ -10,9 +10,11 @@
- #include <linux/acpi.h>
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/cleanup.h>
- #include <linux/dmi.h>
- #include <linux/input.h>
- #include <linux/input/sparse-keymap.h>
-+#include <linux/mutex.h>
- #include <linux/wmi.h>
- #include "ideapad-laptop.h"
- 
-@@ -60,6 +62,7 @@ static const struct dmi_system_id allowed_chasis_types_dmi_table[] = {
- 
- struct lenovo_ymc_private {
- 	struct input_dev *input_dev;
-+	struct mutex mutex; /* Protects event handling. */
- };
- 
- static const struct key_entry lenovo_ymc_keymap[] = {
-@@ -82,6 +85,8 @@ static void lenovo_ymc_notify(struct wmi_device *wdev, union acpi_object *data)
- 	acpi_status status;
- 	int code;
- 
-+	guard(mutex)(&priv->mutex);
-+
- 	status = wmi_evaluate_method(LENOVO_YMC_QUERY_GUID,
- 				LENOVO_YMC_QUERY_INSTANCE,
- 				LENOVO_YMC_QUERY_METHOD,
-@@ -137,6 +142,10 @@ static int lenovo_ymc_probe(struct wmi_device *wdev, const void *ctx)
- 	if (!input_dev)
- 		return -ENOMEM;
- 
-+	err = devm_mutex_init(&wdev->dev, &priv->mutex);
-+	if (err)
-+		return err;
-+
- 	input_dev->name = "Lenovo Yoga Tablet Mode Control switch";
- 	input_dev->phys = LENOVO_YMC_EVENT_GUID "/input0";
- 	input_dev->id.bustype = BUS_HOST;
+pw-bot: cr
 
 -- 
-2.55.0
+Antonio Quartulli
+
+CEO and Co-Founder
+Mandelbit Srl
+https://www.mandelbit.com
 
