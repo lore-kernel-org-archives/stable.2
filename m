@@ -1,65 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.54.127.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794766458;
-	b=G+R0nGhGcQVWELgaYCLn1Vzz+6+SON5BF6n24TnA12jSZtlNlXBTeaiVz2fue4QA2RiO
-	 OKMGXo9eIKSUPCf7kDackwjZSPJq+2DkO8yaO8Za3rSeUfyku0c3O/UWK1DWxJel+zm3Y
-	 lrcjYu9JemHgeIcM1KL7CyisqJK9odokuk88v8hgKsn3/KvVUkwybB9W3VSTPhdxR4Gdi
-	 LppjQdTtv0C9zyzGFMJwBW2eSxMfuBQdKALjFJgB/agfL+HxpRh4RAiiGVH76/WpjoVKA
-	 lY2+fwKBADtS2vnkc7q1iKWaKst9Tws/tyPyn2G5t7I060YhmGbouWQGFF8VthLo4tQ==
+	t=1794767296;
+	b=LaxVKa3i7qkUZaKgFEEAhLhPT4z9wu2iQUoS6Mz0ekTa9TEOWuO+snm99xCnedymR8zI
+	 ZCSE51zdiA2NZ7JjDCQ33665hjjH6iYvinv8qR5fYlRjUzD0ckNnzatA3S60OoAN5aJpW
+	 +/2YYTklRC2KWtQBLjBz109OvP/OjqrLWz5vmeONXUbyyK+K2wZRmemy+cMFk6YWxrdG6
+	 U3PmJoOQc7JAg9R5GSeTFAlXdfDpCHW0r8U63QwCiGXkGJsdVAiKrahCjit1CxM6rVHPd
+	 HCvemF7ilsbVgu7LzFECtYlCnxWYWVDO1p1U38X3rQ4iVxV8AWaDi6O/W+8JxhHWW4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794766458;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Envelope-From;
-	bh=+k5tKf6urPY8lWMEjLDvjWecJXDmPvgqG1+tcJ/GJR4=;
-	b=D0dGvh1rwxHsxsNJSjCn1ridyiD9ZPcWMtlPf+ark78rWvar+l/yrt+1Ntgdxl/GfD5H
-	 lz1AH1Q5rUdFJcVgBJg2NskhfgLd4jiny9CbcTc9A8NYFLcLB16Hy7ZHhh4L12Sx6kW4C
-	 BRtnW997LwAihBIE9KHRD+/nIBv4aqT0TjwzYxwuYBcEzbcmP7h5rLwCY3tBvEspMzAMO
-	 EefPlHiMzOJLKMd2GvGapDk7cWeXWX9IbsOnCeTRsZz85zinzRwCuCW1rnYZvZpq3dN1k
-	 Zhr7PD0TMKbUcY6IM12dGtB4Mystfmo3+3Voh8hRG4kC16QsRDGZYCS4/bABnCzn/rg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794767296;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=S2sqyuT4GDnGp9+dHpDjnGTvZCe15TFZq/xtAkotKkE=;
+	b=o7F+d+lWek6KyVvmOrlcwFCBwHb1TqoV8/3AHaEMxLbqtIGzC1IqSDVSQapRiYMJ/FG6
+	 KMAV+vPc/9SBQCDqUQiI7oGT7hrgKmReQK4GFf2SayUlqduZU0BfKHaRkH5BjwYdqCgr/
+	 90FgI5W6g+fp8YIq77afjDdb29Foa7cKV5Djieitgy/x/xPJDSgEZA/Vtg8LN2sWk5GTn
+	 d4tnJFmKjEGcrF2a07JjbtofwVFjISXLr2ic/X3XaLKF/F5pID8XGBSIb4ZQIuBUjk+/q
+	 GQSoTyXcu4PIjuQxH3HSziIsoDm9Css2z1+/018HMcsVZtFimyr8Kop9Rr5HdyGdz1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=liuolia.eu;
-	spf=pass smtp.mailfrom=liuolia.eu;
-	dkim=pass header.d=liuolia.eu header.i=@liuolia.eu header.a=rsa-sha256 header.s=default header.b=KF7WLUcY;
-	arc=none smtp.remote-ip=198.54.127.149
-Received: from out-2z4y-a149.jellyfish.systems (out-2z4y-a149.jellyfish.systems [198.54.127.149])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HBV5nxYv;
+	arc=none smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0273C606A32F
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 18:14:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0273C606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=liuolia.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=liuolia.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E074606A31F
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 18:28:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E074606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=liuolia.eu header.i=@liuolia.eu header.a=rsa-sha256 header.s=default header.b=KF7WLUcY
-Received: from mail.privateemail.com (unknown [217.31.190.30])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4jSJz34hDhz6tkP;
-	Sun, 15 Nov 2026 18:13:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=liuolia.eu;
-	s=default; t=1794766433;
-	bh=+k5tKf6urPY8lWMEjLDvjWecJXDmPvgqG1+tcJ/GJR4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=KF7WLUcYG9SlWaDOi3S6I1r4AHqLJ+MFcuczAiGYmbAQjcAI28goBj42DAw87uTZ7
-	 AEwqmwCCMPwlQS7YldQb13IlQjQEZCifCMnuo6ghPDjCgCM+q5cDHk/91R8m2/NSuo
-	 x4q8vtE7L3FvIbSifanF70yjK8IZuKuvpfF9IjkBQopmKR4GfdR5y8FiOJQl8R5dOZ
-	 czFRK++hQMYrDl/5f5oE7fPBaztnkaZcwljSNSRIWtL8tj5m1sKPTOPUH4yl5F+Z97
-	 NUl8aqq+RdZPYLOXpWpQN+UZbHP754pTovW14sBSZqFCMz7gFgeRSRUxPeZHVWMgqc
-	 imOQ+L3l6gEOg==
-From: Vytautas Liuolia <vytautas@liuolia.eu>
-To: Takashi Iwai <tiwai@suse.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vytautas Liuolia <vytautas@liuolia.eu>,
-	stable@vger.kernel.org
-Subject: [PATCH] ALSA: usb-audio: Add quirk for VF0790
-Date: Sun, 15 Nov 2026 19:13:24 +0100
-Message-ID: <20261115181324.97843-1-vytautas@liuolia.eu>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HBV5nxYv
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8a06e79e152so1223949b3a.0
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 10:28:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794767296; x=1795372096; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S2sqyuT4GDnGp9+dHpDjnGTvZCe15TFZq/xtAkotKkE=;
+        b=HBV5nxYvdpLlRvsxsYLbFKr5P34f8mj9a/XJil7dVolrFQomVVkyecHxP6BgFGwDxs
+         /19GzczoyqLC7fuxmwJyN2rwUymD2CerKLMnjfS/2CRMvt+ynLs5gkxwuVBuAu3q9J20
+         IzB2wBplZLjMFwEGGW7prCWCSa7Aywa/5h22qXYWy2au5OKH6AKODohFFnhhSeGrFYHI
+         n+FqPiDDYHHddi3JAW7aghC+X3tcMJhczYrIX5Hp62B1gpJjhhKWZLANouBkWkfFg5wA
+         r6zaGmjBjVlFtwZxS8OaoxZbnmYU5uIROK1UqsDLBtdOM41dsZCnP9Jsrl/zETDD4H/q
+         kP7w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794767296; x=1795372096;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S2sqyuT4GDnGp9+dHpDjnGTvZCe15TFZq/xtAkotKkE=;
+        b=pZWOyncbBYBnMryIlR5wAlP8eckLE0OpDw6wmAd2aZovYuCLD+uP1gWH6c/WQavK4S
+         p9c/ebkpBqXUfvVr2TWIHCnZYmPwxlsTXtZKSLCHZ0I0khL81DunroApkSMDnZGOR4Eq
+         a4xUHQlZXKFe+ITRYG14d5lBfjH/wr/J5ShLufTMMFSdX+APNSYZkhzJ0oAB3XmhYi+y
+         yZlbbbpiq3iOLpV+EMG9pNGj115S1Q1IXkoJ1D4jA1vhATnw97Dcg+3MZkcFNRt/nnG8
+         hPllywKUo2Y1SwjBXNzg3FYEDBf+NJG8jcTmq8TCacN9Bc2PYL8VM+iIJYqsvRi9Tobu
+         +hOQ==
+X-Forwarded-Encrypted: i=1; AL+hErGdVnIMTPkuKpzAQEavUu+u9EyLn29zEsGglCf3JnqY0d/qoFCXPxS58+zS0c0YzPWvwhVepN4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8cgefPSFQ4w0qCQs4oPNCvScONd8GwvB09n49adcEdlqGuDcNV
+	JXGco+NAbWjWY9/hQjTCnQD1ieCGRHiSXbqj3kU9r5ivOGoxdMco9By5
+X-Gm-Gg: AYBFou0UOLwEnVfSDfLEDQ0PDpZDfTBx1ckDJEvPMyZKiO/0ubAAXU7OtpQSckx0iAM
+	oH51bgPRHkV6QiF57pB4FH6ACexN/JX7FTPQ0Mj9ykUOLFNLSYUE+KQ9BMWa9kmJ2vZw0LPuzXy
+	INmXrC8/mT90ysY8GXcv8UymBzBus4OO02GQ/HMSAEGUOPK5/u4GK5VNgdUPA0VhA9r6FaLtseu
+	J2HhzN4WCbBs+RAewN/vOdqbiUJFMTsQ0MnJTNdS3BKrghhnvSYjJMeU7YWLPts3whD7eHFQyo2
+	j/K+DfeXmdBTRblrI+1yOd38tdPRhYetSbE18Gm8whpyWuf3BFtJdyZJkxkCve3PHGiUe7nHN5n
+	oAtIwNU9HHiwTq1PJ6VQSWx2g3PP5hMmb5Rof5LYW9EPwTapYgWQKsmbNzXc1ZZK9WmbPc/t6lL
+	lFXnbNLh9pyajfZGPRUIfuK8tTsvFm20fcEJ4lR1E+muq1ef6k6spJGu2ySF39Q7edwYu425Nox
+	xt5/NsGWPbEYr7Q+yjDw6tkXAccrCg3X/QMwscDUx1FFQAT/F+QJplXVOjB+4I+8LxpnKcLdQbv
+	m0U+81KnUgVYTM+zACv5j6IPrHGHe7zVldzY8blGuzY1Jwdvyyzs/r8y0UVRucp4UTU27cH2et4
+	BHi5XnzAUkWnyZH9oHkNbLOvF1uxSL0nT1g==
+X-Received: by 2002:a05:6a00:230c:b0:89f:d620:226 with SMTP id d2e1a72fcca58-8beb619bec4mr7100607b3a.24.1794767295502;
+        Sun, 15 Nov 2026 10:28:15 -0800 (PST)
+Received: from localhost ([153.61.198.242])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bececcce6bsm2804318b3a.1.2026.11.15.10.28.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 15 Nov 2026 10:28:14 -0800 (PST)
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 15 Nov 2026 18:28:14 +0000
+Message-Id: <DMVZWOMFDBX6.3HVETC9L8RUEU@gmail.com>
+To: "Christian Brauner" <brauner@kernel.org>, "Amir Goldstein"
+ <amir73il@gmail.com>, <linux-fsdevel@vger.kernel.org>
+Cc: "Chris Down" <chris@chrisdown.name>, "Miklos Szeredi"
+ <mszeredi@redhat.com>, <linux-unionfs@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+ <linux-trace-kernel@vger.kernel.org>, <linux-integrity@vger.kernel.org>,
+ <linux-security-module@vger.kernel.org>, <linux-mm@kvack.org>,
+ <stable@vger.kernel.org>, "Sashiko" <sashiko-bot@kernel.org>
+Subject: Re: [PATCH 00/13] fs: let d_real() fail
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+In-Reply-To: <20261115-work-ovl-d_real-v1-0-ca155efbcb2e@kernel.org>
+References: <20261115-work-ovl-d_real-v1-0-ca155efbcb2e@kernel.org>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,87 +105,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Envelope-From: vytautas@liuolia.eu
 
-The Creative Live! Cam Chat HD VF0790 (041e:4097) has the same audio
-interface layout as the VF0770: interface 3 offers S16_LE and S24_3LE
-capture altsettings at 8, 16, 44.1 and 48 kHz. The 24-bit altsettings
-advertise the same wMaxPacketSize as their 16-bit counterparts, e.g.
-216 bytes at 48 kHz, which holds 54 frames of S16_LE but only 36 frames
-of S24_3LE instead of the 48 needed per 1 ms packet. The device then
-delivers only 36 frames per packet.
+On Sun, Nov 15, 2026 at 06:01 AM Christian Brauner <brauner@kernel.org> wrote:
+> As Amir pointed out the correct fix is to teach the callers to deal with
+> an error. So d_real() may now fail for D_REAL_DATA and all callers
+> handle it: uprobes fail when they're created, IMA treats it like failing
+> to hash the file, IPE denies and the bpf kfunc returns NULL. Then
+> d_real_inode() goes away so nobody can ignore the error again. The first
+> patch only drops the WARN.
 
-PipeWire picks S24_3LE by default, so 1/4 of the samples are lost: the
-captured audio sounds chopped and carries a constant 1333 Hz buzz, one
-discontinuity every 0.75 ms. Timed raw captures at 48 kHz with arecord
-deliver about 36000 frames/s with S24_3LE and 48000 frames/s with
-S16_LE.
-
-As done for the VF0770, only report the 16-bit 48 kHz altsetting. The
-other 16-bit rates have not been verified, so leave them out as well.
-
-Tested with this patch applied to snd-usb-audio from v7.0: the capture
-stream now only lists the S16_LE 48 kHz altsetting, PipeWire uses it
-without any local configuration, and recordings no longer show the
-1333 Hz artifact.
-
-The problem was diagnosed, and this patch written, with the help of an
-AI coding assistant (Claude Code).
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Vytautas Liuolia <vytautas@liuolia.eu>
----
- sound/usb/quirks-table.h | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
-
-diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
-index b6da5bcb15e4..56f32b3f873f 100644
---- a/sound/usb/quirks-table.h
-+++ b/sound/usb/quirks-table.h
-@@ -187,6 +187,40 @@
- 	},
- },
- 
-+/*
-+ * Creative Technology, Ltd Live! Cam Chat HD [VF0790]
-+ * Same audio interface layout as the VF0770 above. The 24-bit altsettings
-+ * advertise the same wMaxPacketSize as their 16-bit counterparts, so only
-+ * 3/4 of the frames fit into each packet and the audio is chopped. Only
-+ * report the 16-bit 48kHz altsetting.
-+ */
-+{
-+	USB_AUDIO_DEVICE(0x041e, 0x4097),
-+	QUIRK_DRIVER_INFO {
-+		QUIRK_DATA_COMPOSITE {
-+			{ QUIRK_DATA_STANDARD_MIXER(2) },
-+			{
-+				QUIRK_DATA_AUDIOFORMAT(3) {
-+					.formats = SNDRV_PCM_FMTBIT_S16_LE,
-+					.channels = 2,
-+					.fmt_bits = 16,
-+					.iface = 3,
-+					.altsetting = 4,
-+					.altset_idx = 4,
-+					.endpoint = 0x82,
-+					.ep_attr = 0x05,
-+					.rates = SNDRV_PCM_RATE_48000,
-+					.rate_min = 48000,
-+					.rate_max = 48000,
-+					.nr_rates = 1,
-+					.rate_table = (unsigned int[]) { 48000 },
-+				},
-+			},
-+			QUIRK_COMPOSITE_END
-+		},
-+	},
-+},
-+
- /*
-  * HP Wireless Audio
-  * When not ignored, causes instability issues for some users, forcing them to
-
-base-commit: 6db55dc5b1272e8fe63328a3bca610fe1fb5d382
--- 
-2.43.0
-
+For bpf bits:
+Acked-by: Alexei Starovoitov <ast@kernel.org>
