@@ -1,48 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794717340;
-	b=C7Kq/w91IAC5moF1d3/ZEV+kY/YqJrgVV4BAN0XGuJkZGOo0cceWft0lVS5grUOVoG4o
-	 vWJJfTWaLpqGN/TFvv8mKc67OzSTNOtz9F0ScLXcasUkcD3BzoFU+6BUxnn+7H1VvOiLB
-	 SSdQIIsNeLDfxOhPWmVZ6bzezS8sJZPZbnADots1LBE2Zs+aQP16koRxT9WOHH5MOqr7C
-	 +ZVh1H2UHeGQC9K9WcxSaEFJGupr9utNRR6Evi1xQ7344nh7nyYjx4xorHRhsOMjf+M1e
-	 OcidUz/INUxzyn96S+0eGKOEb5Ti8Efmer5Kn3HfKx2KFPsM8aI9UHR01myVPXo3CfA==
+	t=1794717470;
+	b=PkHHULXTFNr3Zx5QTp3sR2xdGowEufjrrh8Bpu9xQ66fIs3WNV1TnMYS02eoulTni7ic
+	 u86iRLVHfVWyWQPWinUKA/oytAUts8wXMwkSJndgDsESpJhh95xWlTGr2wTbm0mXpnlkI
+	 I2S4WnSC1RAX7Kx6+cWtaEJeZAYa27C7eU+yUlbvLOQzp0JAVvjWKvfp5fIBM3nu3D+ZF
+	 NtTNaJ4wn7Zjf/odLTW9uXQjF1SFxRxiILaXroGS20XZ10g3dYVyBzWWEWgUuDKLIVNVI
+	 +VSRNruhqL7w3L2OrMj3gNbAIGcxrxuH3e1toT6rIOKxSL9EAxukPxf6JVUBpSDQgbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794717340;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794717470;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=pge8S+uzPBjYzO9sQ/3/s+m2MnX1W31RL27i5NJe3sM=;
-	b=xuF/DTbsPrGx9WMcKPdJHIrxCVupq0CV1hvphJmM1CnJYxpZIFBwvg7wGpoWVolJsHEh
-	 HFnie/fwFRYz8OiLmXCygkXcIUXJUuBgOA+oqIi63DVAclFwWgMqcGZVjIERpIWHdGcSy
-	 5hLcTI/n0zyo46tc3PNybRCsKhTvxujha3fYFtNVcBtrM/sKNvjf/brYa0P97rjA0zU9b
-	 mbmOWOv0RY2L9PJoaKDIoePB3wEKoM78/j7yAqrYDSPhWkjiC2jWxcJlLKYP1ESx4EP9w
-	 cj1yURV1KuGFTaa3SUrlrJG1XXZbEOLSYr7ZNyi8xiJTmNDWB1cwclR+CrfrOuNG2hw==
+	bh=fiox8npA7vcktuSSypBhupUyZJNfQ8Xi0cqno2AYL58=;
+	b=I5mHdoX60wYzvT06sEXiGByZJKjsOTpaUVQiCJ6pRwRetISCZyZnv8Fky0WJ3uWzY0I4
+	 6RmF49FpV04afUEhB4GO4xOZGCOSPvDQhCCeUUvvcFxt40+LmmzoiCFEdt+O8cUybJ/WA
+	 07jF3p7aBss4KSEOcEwFfr0bzQDaIGj/9Udkr8fEQ6h3Hj9OOAJMXe8nFnK8alOxh5L47
+	 soP+6inmuZIqFEuXq0QjSq0uUEsxJSo5mrj/pUaOVhXV2geUhBwM1K/l1vr0kAjQ2Kwh5
+	 2C5Frl+iN8B40IEdZ+oQd4CJBXHoBkJ8mcWf8Wr1x8u0bWswIxt3G7It6gIP4YeO2dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TtiHk++8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Hrs/r8NJ";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DC6606A323;
-	Sun, 15 Nov 2026 04:35:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A35606A323;
+	Sun, 15 Nov 2026 04:37:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=TtiHk++8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4589B1F000C4;
-	Sun, 15 Nov 2026 04:35:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hrs/r8NJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7868C1F000C4;
+	Sun, 15 Nov 2026 04:37:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794717339;
-	bh=pge8S+uzPBjYzO9sQ/3/s+m2MnX1W31RL27i5NJe3sM=;
+	s=k20260515; t=1794717470;
+	bh=fiox8npA7vcktuSSypBhupUyZJNfQ8Xi0cqno2AYL58=;
 	h=From:Date:Subject:To:Cc;
-	b=TtiHk++8tQHafjcGYp/xGrHpiXXoT8vhlQVhEZ24RMB0GOQcBnhKKzpeWZEduoLew
-	 Wq5Azc/0MBnlmG3bSxy4lnfjDHVtwK4ZoK67gTNvPQvrBM9THocGbhiSudonVB4L53
-	 8ksUFWN8vGpd3JOzX4PVyo6lu8lcXtS2rOcuZ2aBYAT2FesiG3axRIwJor13PROdoo
-	 VEUFtWoJYHhFiyny7SFc4Qx802tSL4f90aGalRboqS0aafTW9s/AuJbgBvJwLRtav+
-	 N0Tfgm//J3rDcozU/bdq14GzFNFFAx/ofWJGcbnvUgYNUxnkM/ucUheQVz44pJ9qe1
-	 /jws/+E8U40uw==
+	b=Hrs/r8NJFwoQ31ab4s7sZv+pqxnpMxh4nFdHw8s2cv6H0sslXfyHnVJ4uYNmQEisd
+	 x3b3zurpRoAq9TihalbtF4GrBavCuZGoeh6+ZNslJDo4JZwSWJ3S/yx9+AV+M1xxPw
+	 cIazmwjAgZyhlwE7XhgFfWXxTCthgJBbshFZqxhhyIULV+ueV4kiqrXaZXEj3vpGA9
+	 8WEc8ZLk8+yj1rccmhum0XPQ8agJELuFWA21hrrngfJttVlkEbEL8CCQevzVpv4Zs3
+	 DjV+rHl5vr7Wd6UrqqPks401jwmRhnvLexrhatVht3STcerH49u0qhikHtNzYQJdrZ
+	 F2LvsN4F6uXPQ==
 From: Nathan Chancellor <nathan@kernel.org>
-Date: Sat, 14 Nov 2026 21:35:33 -0700
-Subject: [PATCH] lkdtm/bugs: Remove volatile from element_count
+Date: Sat, 14 Nov 2026 21:37:31 -0700
+Subject: [PATCH] lkdtm/usercopy: Avoid unsequenced accesses to cache_size
+ in lkdtm_usercopy_init()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,89 +55,143 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261114-lkdtm-bugs-wunsequenced-v1-1-b24f15ce1328@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMwQ6CMAyA4VchPduELsSJr2I8SFexqFNXpiaEd
- 3fC8Tv8/wQmScVgX02Q5K2mj1hAmwr4coq9oIZicLXbElGDt2sY79jl3vCTo8krS2QJ6Jl2Tdu
- y856g1M8kZ/0u58NxteVuEB7/O5jnHzaJdJt7AAAA
-X-Change-ID: 20261114-lkdtm-bugs-wunsequenced-7c18499c2771
+Message-Id: <20261114-lkdtm-usercopy-wunsequenced-v1-1-d9f288701932@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMSw7CMAxF0a1UHmMpqSBCbAUxAOcVzCctccNHV
+ fdOgOEZ3DuRISuMNs1EGQ817VOFXzQkp306gjVWU+va4L1f8vUSxxuXmkk/vPlZkuFekASRAcg
+ 6oAsr56gehoxOX7/7dve3lcMZMn6XNM8f4yH1Mn8AAAA=
+X-Change-ID: 20261114-lkdtm-usercopy-wunsequenced-eeec86ef6500
 To: Kees Cook <kees@kernel.org>
 Cc: Arnd Bergmann <arnd@arndb.de>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
  linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
- kernel test robot <lkp@intel.com>, Nathan Chancellor <nathan@kernel.org>
+ Nathan Chancellor <nathan@kernel.org>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2596; i=nathan@kernel.org;
- h=from:subject:message-id; bh=PXq6yOI2haGDOFCWB2rN+EDzgPLHZ2hY9ZGbOCcl0rs=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFk/zaYXeDZXMzGc05ffviN0l/Kq7W0GwdPNdzQu/9Wwc
- PLnU6HBHaUsDGJcDLJiiizVj1WPGxrOOct449QkmDmsTCBDGLg4BWAiESEM/wyPzQyX6HvhasrI
- 8qa9zncJn6K8AKNuxtke8Z73iyqXP2H4H2xm5iBn0efxr8ZukcEht5tad7fd+HTqu5lRI8OEmUe
- X8gEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4887; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=4midEWMf9NZGRC+22ADVD7A69KC1zsvLaU5UjWnFBUc=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFk/zXlSZgV47++Uz1r2yu9kmvEyNikv3/h1p9qsciU3H
+ rjImzalo5SFQYyLQVZMkaX6sepxQ8M5ZxlvnJoEM4eVCWQIAxenAEwk+gHD/wzPpluNhZeWWWkf
+ Lr747fTja3/K7pxod4i5flbytsDLCTsYGR5bZXOvOhUtV6Je/OXuV8uUzaWbJdt0J2RvsXhc2fl
+ MmgMA
 X-Developer-Key: i=nathan@kernel.org; a=openpgp;
  fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
 After a recent improvement in clang to warn on unsequenced accesses to
-volatile variables [1], an instance appears in lkdtm_FAM_BOUNDS(), which
-can break the build with CONFIG_WERROR=y / W=e:
+volatile variables [1], an instance appears in lkdtm_usercopy_init(),
+which can break the build with CONFIG_WERROR=y / W=e:
 
-  drivers/misc/lkdtm/bugs.c:493:31: error: unsequenced accesses to volatile qualified 'element_count' [-Werror,-Wunsequenced]
-    493 |         inst->array[element_count] = element_count;
-        |                     ~~~~~~~~~~~~~    ^
+drivers/misc/lkdtm/usercopy.c:431:9: error: unsequenced accesses to volatile qualified 'cache_size' [-Werror,-Wunsequenced]
+  429 |                 kmem_cache_create_usercopy("lkdtm-usercopy", cache_size,
+      |                                                              ~~~~~~~~~~
+  430 |                                            0, 0,
+  431 |                                            cache_size / 4,
+      |                                            ^
 
 Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
 6.5.2, unsequenced side effects on the same scalar object are undefined
-behavior. Per C11 6.5.16.3, the value computations of the left and
-right operands of the assignment operator are unsequenced.
+behavior.  Per C11 6.5.2.2.10/12, the evaluation of arguments in a
+function call is indeterminately sequenced, meaning any side effects in
+the arguments are unsequenced.
 
-This variable is marked volatile to hide its value from the compiler at
-compile time. The same thing can be accomplished with
-OPTIMIZER_HIDE_VAR. Drop volatile from element_count to clear up the
-warning. The tests still pass and there are no warnings at compile time.
+cache_size is marked as volatile to hide its value from the compile time
+constant checks in the hardened usercopy routines. Refactor the
+calculations based on cache_size into their own volatile variables to
+keep the values hidden while avoiding unsequenced accesses on the same
+object.
 
 Cc: stable@vger.kernel.org
-Fixes: 5d207e83ca41 ("lkdtm: Add FAM_BOUNDS test for __counted_by")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202611140405.wMowxoPE-lkp@intel.com/
-Closes: https://github.com/ClangBuiltLinux/linux/issues/2194
+Fixes: e47e311843de ("lkdtm: Update usercopy tests for whitelisting")
+Closes: https://github.com/ClangBuiltLinux/linux/issues/2195
 Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
 Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
- drivers/misc/lkdtm/bugs.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/misc/lkdtm/usercopy.c | 28 ++++++++++++++++------------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/misc/lkdtm/bugs.c b/drivers/misc/lkdtm/bugs.c
-index 2761685cf4f8..7c799fef89a8 100644
---- a/drivers/misc/lkdtm/bugs.c
-+++ b/drivers/misc/lkdtm/bugs.c
-@@ -472,12 +472,14 @@ struct lkdtm_cb_fam {
- 	int array[] __counted_by(count);
- };
+diff --git a/drivers/misc/lkdtm/usercopy.c b/drivers/misc/lkdtm/usercopy.c
+index 67db57249a34..6c561dc1bcaa 100644
+--- a/drivers/misc/lkdtm/usercopy.c
++++ b/drivers/misc/lkdtm/usercopy.c
+@@ -19,10 +19,15 @@
+  * hardened usercopy checks by added "unconst" to all the const copies,
+  * and making sure "cache_size" isn't optimized into a const.
+  */
++#define CACHE_SIZE 1024
+ static volatile size_t unconst;
+-static volatile size_t cache_size = 1024;
++static volatile size_t cache_size = CACHE_SIZE;
+ static struct kmem_cache *whitelist_cache;
  
--static volatile int element_count = 4;
-+static int element_count = 4;
- 
- static void lkdtm_FAM_BOUNDS(void)
- {
- 	struct lkdtm_cb_fam *inst;
- 
-+	OPTIMIZER_HIDE_VAR(element_count);
++/* Whitelisted window in buffer, from kmem_cache_create_usercopy. */
++static volatile size_t cache_whitelist_offset = CACHE_SIZE / 4;
++static volatile size_t cache_whitelist_size = CACHE_SIZE / 16;
 +
- 	inst = kzalloc_flex(*inst, array, element_count + 1);
- 	if (!inst) {
- 		pr_err("FAIL: could not allocate test struct!\n");
-@@ -534,6 +536,8 @@ static void lkdtm_PTR_BOUNDS(void)
- {
- 	struct lkdtm_cb_ptr *inst;
+ static const unsigned char test_text[] = "This is a test.\n";
  
-+	OPTIMIZER_HIDE_VAR(element_count);
-+
- 	inst = kzalloc_obj(*inst);
- 	if (!inst) {
- 		pr_err("FAIL: could not allocate struct lkdtm_cb_ptr!\n");
+ /*
+@@ -204,7 +209,6 @@ static void do_usercopy_slab_whitelist(bool to_user)
+ 	unsigned long user_alloc;
+ 	unsigned char *buf = NULL;
+ 	unsigned char __user *user_addr;
+-	size_t offset, size;
+ 
+ 	/* Make sure cache was prepared. */
+ 	if (!whitelist_cache) {
+@@ -233,31 +237,31 @@ static void do_usercopy_slab_whitelist(bool to_user)
+ 
+ 	memset(buf, 'B', cache_size);
+ 
+-	/* Whitelisted window in buffer, from kmem_cache_create_usercopy. */
+-	offset = (cache_size / 4) + unconst;
+-	size = (cache_size / 16) + unconst;
+-
+ 	if (to_user) {
+ 		pr_info("attempting good copy_to_user inside whitelist\n");
+-		if (copy_to_user(user_addr, buf + offset, size)) {
++		if (copy_to_user(user_addr, buf + cache_whitelist_offset,
++				 cache_whitelist_size)) {
+ 			pr_warn("copy_to_user failed unexpectedly?!\n");
+ 			goto free_user;
+ 		}
+ 
+ 		pr_info("attempting bad copy_to_user outside whitelist\n");
+-		if (copy_to_user(user_addr, buf + offset - 1, size)) {
++		if (copy_to_user(user_addr, buf + cache_whitelist_offset - 1,
++				 cache_whitelist_size)) {
+ 			pr_warn("copy_to_user failed, but lacked Oops\n");
+ 			goto free_user;
+ 		}
+ 	} else {
+ 		pr_info("attempting good copy_from_user inside whitelist\n");
+-		if (copy_from_user(buf + offset, user_addr, size)) {
++		if (copy_from_user(buf + cache_whitelist_offset, user_addr,
++				   cache_whitelist_size)) {
+ 			pr_warn("copy_from_user failed unexpectedly?!\n");
+ 			goto free_user;
+ 		}
+ 
+ 		pr_info("attempting bad copy_from_user outside whitelist\n");
+-		if (copy_from_user(buf + offset - 1, user_addr, size)) {
++		if (copy_from_user(buf + cache_whitelist_offset - 1, user_addr,
++				   cache_whitelist_size)) {
+ 			pr_warn("copy_from_user failed, but lacked Oops\n");
+ 			goto free_user;
+ 		}
+@@ -428,8 +432,8 @@ void __init lkdtm_usercopy_init(void)
+ 	whitelist_cache =
+ 		kmem_cache_create_usercopy("lkdtm-usercopy", cache_size,
+ 					   0, 0,
+-					   cache_size / 4,
+-					   cache_size / 16,
++					   cache_whitelist_offset,
++					   cache_whitelist_size,
+ 					   NULL);
+ }
+ 
 
 ---
 base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
 base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-change-id: 20261114-lkdtm-bugs-wunsequenced-7c18499c2771
+change-id: 20261114-lkdtm-usercopy-wunsequenced-eeec86ef6500
 
 Best regards,
 --  
