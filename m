@@ -1,67 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.222.135.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794778896;
-	b=zVWfkFMp3QzZiS9JfkTTmiNDo8HWRxtJmWrEzqjMSmGUb61yUgnTRkonZKbxrLZ7OEQj
-	 K8hkIZGr+Fzz9e6CAy1EZKiDswUxpBYbCDNXOywdc7FWUzDAOae1hpLQZvAQ3Kwe/EV1J
-	 l9xFPWtEG7hLYaG1iZBZaq5RwuGf1HLq6LEZ5BZI8vaMNofsQlaNFVzJc3+IOXE20G3f7
-	 UDawenAflEbSylyKeNZ+RQrCO6qSGbYBsZ+AzCCpXhXXQjzhaZoPm/9IGLJjMrOsyEuY7
-	 iLG6onF7VdUSgf2SSF5vDdJLugUV95VXNhQly5MTPmsw25SHqO77h6nGAEHtrklJQ5A==
+	t=1794779115;
+	b=EHZJjsAt8BMsJpuu+xcbf95/xqJQ5tpsoxfFOSvBfEkx7ZhYI2b0DnP6drY4FwY7TEeM
+	 7eXwKPzG5VsBtJi0GpDps5W//GvkrYru2mkRiuzkEFOOXDY7h0st7YqiweWjdJrSXhPOu
+	 kKrPV6hYWFhCsJpx6lmbhy1MmshcYLK0URmJpgwAbyh+0ZdmSJNp83ylPDf4DUFbuoKMK
+	 7fxRvBxgV0wP0uqsnAOsckoQeDUbg/7lrU3+acDWaMcREYlpWN9GUTT78yCtWjsUvP8oR
+	 tSb9WGKyLk3LzVGgE7Or+7p/hoAqnhzkmuP8W96QMrkdz+Xr9LObyjPTj/8n2TU4MIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794778896;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-WP-MailID:X-WP-AV:X-WP-SPAM;
-	bh=EX/WMz4K9+MmwON2KxDxCyPiS2fPCwq6MkZjWtu8Bxs=;
-	b=c0BM3vDWFpNtTWVUNQgQgzKUkVlmf3Mo39zpqmrhPm90ZP0UftI20qFwlhlT5nm3dnjX
-	 urae5+powkd1LrWcgBbbcWXbLC2tH8HSyyBK0wwlg/NzU1HQabITkWj2rFo/+ZKxI6U56
-	 xBk44eJb/tf7UVP+nE3IMN33jopEIhckHHJXT4jw+HNFrl+IwZQei7GHq24vZ9Q+Veo0E
-	 WBug8xMv7qsEizG6pWXBo6U5rINKOBkpwUkzCegFlVUkkSoyA1ruNGaftZEbzv7bS8vhy
-	 AX0Kr9VjrkUFYWisOsftQPSH4u5pAPfFk5YTxXixKeaBynbhLR5DvRuff3Qz2p4Ta3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794779115;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=mD9hayVJvAjyxBRT0dnmZkuOvhkP4+8zcep4nlSZMwg=;
+	b=2oYJvq1vCjnJm2lUv80nj9qmWRydhFMf0P36gWzNz6fEDI4H2Igp7vSvC/L2Qh7MCJP2
+	 Eeob6DwcpR4hs0qeCAFeyMXrry3FlKFPviFuLmomrZ87Yyme9VxqFfw8JtSClMRH51ld/
+	 d+2wM9mMt/rpTKYP/FayZ/V4LVMYe99lWoBVClCflwLxg3FS7fGIdrBj5JVa39lm1imwz
+	 fBRmAGYYlsNzLOk/8s8GJ1UnWrGmHLxDx2M1TnCUD00un1n5poz48mtyZoMJ/8vXsrizE
+	 YyeEFLp5i3N5Z1/NHBrqj3ChCHbbvGwmA/g3jYDZN+1ry1JrdNR9aIYAqqbWD7nWg1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=o2.pl;
-	spf=pass smtp.mailfrom=o2.pl;
-	dkim=pass header.d=o2.pl header.i=@o2.pl header.a=rsa-sha256 header.s=s20261001 header.b=F+aVCR5W;
-	arc=none smtp.remote-ip=193.222.135.145
-Received: from mx-out.tlen.pl (mx-out.tlen.pl [193.222.135.145])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Semlvncf;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=0MXy4QeK;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C161D606A329
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 21:41:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C161D606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=o2.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=o2.pl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE38606A329;
+	Sun, 15 Nov 2026 21:45:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAE38606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=o2.pl header.i=@o2.pl header.a=rsa-sha256 header.s=s20261001 header.b=F+aVCR5W
-Received: (wp-smtpd smtp.tlen.pl 8488 invoked from network); 15 Nov 2026 22:41:26 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=o2.pl; s=s20261001;
-          t=1794778886; bh=EX/WMz4K9+MmwON2KxDxCyPiS2fPCwq6MkZjWtu8Bxs=;
-          h=From:To:Cc:Subject;
-          b=F+aVCR5WEgfGfW4Hx/2FONXc0DcjhxOXc497DRK+dEVu2KBhQMvx7dlduIpCdFR2y
-           01soBL3a6l78QIt5h+GfHEWbB+u5+5YxbHltabdzRCL3OJRzJsQCowr+Y5xzed4j05
-           +XuMNgoIznjaAfVobDjSdOYVhfReS2rNKLz9H3vugz8LiK/1cgcDkiOM32GzvcbjfO
-           2lQkNYSfaF1eABupwQq+f33k1v/cxB+nSHmV4eM+Zo+eByPnweSr7z3uGUQvgct2WO
-           4HWBT16OS/LKe48NMqkmagh7a7TJc23gJVfESz/WKXhEUE4ZV/VI8oKtSsfE6EJCpV
-           uRZoty0rIv1QA==
-Received: from localhost.localdomain (apn-78-30-67-84.dynamic.gprs.plus.pl [78.30.67.84])
-          (envelope-sender <mat.jonczyk@o2.pl>)
-          by smtp.tlen.pl (WP-SMTPD) with SMTP
-          for <andrew@lunn.ch>; 15 Nov 2026 22:41:26 +0100
-From: =?UTF-8?q?Mateusz=20Jo=C5=84czyk?= <mat.jonczyk@o2.pl>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Javen Xu <javen_xu@realsil.com.cn>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Mateusz=20Jo=C5=84czyk?= <mat.jonczyk@o2.pl>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: phy: realtek: fix listing of sysfs directory tree
-Date: Sun, 15 Nov 2026 22:40:45 +0100
-Message-ID: <20261115214045.3704-1-mat.jonczyk@o2.pl>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=Semlvncf;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=0MXy4QeK
+Date: Sun, 15 Nov 2026 22:45:10 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1794779112;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mD9hayVJvAjyxBRT0dnmZkuOvhkP4+8zcep4nlSZMwg=;
+	b=SemlvncfCZsr8wvzwJ9LmjkuUasMvqfPlROuJ9H1rzoRgdOzU6eG+GiKdAdO9bz/+Q2PuD
+	XJxo9E5R5KmORZDsICthK9uqUL+XkbzTkcVEbPeURl4mWqnahfBkI97eXyZEPTn+5FiAPj
+	ObIAUDx5U1MuSq4p/XTf8JliePdTMWftvG4PgO8JutWhsr7mnEC3hhy1M/OmJ38O5xbZVs
+	hxHKs9Ej/tS9VDW8hFFAU7qyhOHCON03vYUE6j5pGIoe10zAWt8mVGoBb+EUPzuHmSIVyq
+	ZVrjvi9itmv+RC1/laXB5AZyLkOsc8KC6e/OFX0ekZN/FsojOu2cW3YdStE5wA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1794779112;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mD9hayVJvAjyxBRT0dnmZkuOvhkP4+8zcep4nlSZMwg=;
+	b=0MXy4QeKAOE5FDfZNvA6N1LHvj9XBXZVVKTSUIPkyw88KgGhJXYpewH07pNTK9+Bb6Dqdt
+	Tqsj5NDEMtdW1+Dg==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Xin Xie <xiexinet@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org, davem@davemloft.net,
+	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+	horms@kernel.org, andrew+netdev@lunn.ch, shuah@kernel.org,
+	kees@kernel.org, petr.wozniak@gmail.com, qingfang.deng@linux.dev,
+	fmaurer@redhat.com, luka.gejak@linux.dev, xiaoliang.yang_1@nxp.com,
+	skhawaja@google.com, liuhangbin@gmail.com, stable@vger.kernel.org,
+	sdf.kernel@gmail.com, lukma@denx.de, fmancera@suse.de,
+	danishanwar@ti.com
+Subject: Re: [PATCH net v9 0/4] net: hsr: fix super-packet forwarding
+Message-ID: <20261115214510.MDb9zdCb@linutronix.de>
+References: <20261112153333.20-1-xiexinet@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,48 +80,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-WP-MailID: df77d61d8830132bd5de278ca3bd0916
-X-WP-AV: skaner antywirusowy Poczty o2
-X-WP-SPAM: NO 000000B [ATMk]                               
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261112153333.20-1-xiexinet@gmail.com>
 
-On git master, listing the contents of sysfs produces an error:
+On 2026-11-12 16:33:29 [+0100], Xin Xie wrote:
+> HSR and PRP tag, number and de-duplicate each frame on the wire. GRO
+> and GSO can hand them one skb holding several frames, which the lower
+> device then drops or which goes out with a single tag or RCT and
+> sequence number.
+>=20
+=E2=80=A6
+> Xin Xie (4):
+>   net: hsr: keep GRO disabled on HSR/PRP ports
+>   net: hsr: refuse forwarding devices as HSR/PRP ports
+>   net: hsr: segment GSO before per-frame forwarding
+>   selftests: net: hsr: verify GRO policy and ordered forwarding
 
-	root@mateusz-debian:/sys# LANG=C find -iname foobar
-	find: './module/realtek/drivers': Input/output error
-	root@mateusz-debian:/sys# LANG=C ls -1 ./module/realtek/drivers
-	ls: reading directory './module/realtek/drivers': Input/output error
-	'mdio_bus:Generic FE-GE Realtek PHY'
-	'mdio_bus:RTL8201CP Ethernet'
-	'mdio_bus:RTL8201F Fast Ethernet'
-	'mdio_bus:RTL8208 Fast Ethernet'
-	'mdio_bus:RTL8211B Gigabit Ethernet'
-	[...]
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
 
-Investigation shows that the forward slash in the driver name is the
-culprit. Fix it.
+The test covers the aggregated frames which are unfolded which is nice.
+It looks good from what I can tell.
 
-Cc: stable@vger.kernel.org
-Fixes: f0667918d5fc ("net: phy: realtek: add support for RTL8261D")
-Signed-off-by: Mateusz Jończyk <mat.jonczyk@o2.pl>
----
- drivers/net/phy/realtek/realtek_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/phy/realtek/realtek_main.c b/drivers/net/phy/realtek/realtek_main.c
-index ca2d515b77b3..a39ad18382f2 100644
---- a/drivers/net/phy/realtek/realtek_main.c
-+++ b/drivers/net/phy/realtek/realtek_main.c
-@@ -3483,7 +3483,7 @@ static struct phy_driver realtek_drvs[] = {
- 		.write_mmd	= genphy_write_mmd_unsupported,
- 	}, {
- 		PHY_ID_MATCH_EXACT(RTL_8261C_CG),
--		.name			= "Realtek RTL8261C/D 10Gbps PHY",
-+		.name			= "Realtek RTL8261C_RTL8261D 10Gbps PHY",
- 		.probe			= rtl8261x_probe,
- 		.config_init		= rtl8261x_config_init,
- 		.get_features		= rtl8261x_get_features,
--- 
-2.47.3
-
+Sebastian
