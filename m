@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794777014;
-	b=JJPoNSfRjdJYubmMfFtkmrrELXsxvXDfzbhin/RibIT+cP4WJyz9hWYL+9Zwrvbi5OnK
-	 TjWHkkr+ysojDLwyZSUkvgxXT9VAUFl2/yOvoFNWUi5QYty3DO94xbdvTkms2olGlUz35
-	 /STanHkZdvVFlV+UKOzbP6Tf5Dv6EgJy1LHWeGa2ywWpffIVXQmLvSdFSwqd/cJqeICPa
-	 rOojGaXY6Xk828EARxDv9fbnKC0MPnVrY//E2UIi5MKXSyMRTfPzxZnisrvzmvAtplAEw
-	 wolCqkuePG1Uc4Y44GOtCll0LGeWgTTQ9s/4yeVbVpgWY9/QhX3jXWdyprk+hQqwOkA==
+	t=1794777020;
+	b=umEflpvSlIcHKhNzqvcZxxICKyqkSsjUxwJubY2x9ASWuhy2KN8lB/UfcxfR+QH8il6e
+	 G7pPhdl87dq5Ed9dVaCaGj6BjCDiL1z6TzTIq3GSKMaTJN6lzJVaL1V3km/CU4vsrrfRE
+	 jOVh9aVpe44DwkrxucYfoBmlxFM4e0qk1sbPF++9S+b2WfrpIIbxf1OSrFBbhKmn1KLGV
+	 gbwycz40KdatX2bW+TIZDOyth5GMjQe1wMQkHZe3G2/q7qKjVFBVNVPOeYsVeE602l+jH
+	 ML0P/rMu4KGgCS7sOmVKaGuwdLlZ+NU3OkhPmO6h/Vn1z4M595IxJdduxcC74rNkPpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794777014;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794777020;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=oQFSDg5cHBfrZhn/Xqr57kPvYhbLjr1otgLb7m0JLjg=;
-	b=z8b2f+AbJwRHhbXMb4VPXjqtk+SL5rUnDdDlc2z36fytjdZzOvWfSRLRgeySAegXbno+
-	 Hg0hjQP32apg5RR3Aww9bzvxwzn5iBQPT9c69x7QNOwheReT6AUC0KlrHV1rZGb3I7DYS
-	 rLQ0V7EZ2HKOEJxY0NQ2lcpf86Eh02e+aYbeIoQK/RL9TCfHcdfzZeS51DdmaUVKdA/ji
-	 52FzjGQApjfi4RV5o9CtLCmOzBoodOtCIHxPvLqoon5N8B8AAlslc/QT6vHH4R6Wd2O17
-	 gogm9SwBNZku/8uQvBjfr5QGCU5SaMA1qWXr4+febZVKtlVOp8kuaszjB9rdIZZQinQ==
+	bh=/ARd3XR21b98dC+E0q+y0HBDJ/Q/aPk0xOOUSlTPKys=;
+	b=3HjpZf6BTpnItlw/9dJIxz0viO1e2JjSN0yAzfer3fYaflSn82PDZdIvh+DagNmtvQpM
+	 JmJfuZeZxAUsMEz10a5bM6+vqSiS0yDxvR+U/FSRmDD9cfA7ShIU6CgOaVYpsPISGozeQ
+	 04a6zBSTmx31awts0ZsNHU9f5dgpPlRo1W1yY6PSuf6MTwJAHoVeoVKxamH66nP8fdbsf
+	 78Y9cMM4+jJ/lU5kmPxSNVMZlsZgfYRfssdoryMmsCzIT0M6SQHRPyEeEZ3Tr3LUMjbec
+	 ictpW8I7sHb+J1/E1DPV5VMbsqL6EeaDDZkAPSB0Ru4y5peLTNmnfx3v41Ekt1bEfBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uzSCHJmS;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zov0bB1B;
+	arc=none smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF7CD606A333
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 21:10:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BF7CD606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCC38606A331
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 21:10:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCC38606A331
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uzSCHJmS
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8b5e5e64494so1664615b3a.1
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 13:10:13 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zov0bB1B
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a06e79e152so1249590b3a.0
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 13:10:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794777013; x=1795381813; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794777019; x=1795381819; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oQFSDg5cHBfrZhn/Xqr57kPvYhbLjr1otgLb7m0JLjg=;
-        b=uzSCHJmSpT6rzm/HyErENUYElGk4p7T1CSvlyZl0mzgDMdAfIgkX0aLaP7TtwxAoax
-         svNoHOEL8l/h/2pQyQ3ZlTMD1t3gIPMXJdpwVsG0ma/h9WoOV+2NvsA+/8kn3hjruQ21
-         dcI7KWPlQYxkBH/J9CtXpJxzFSVkAZnoB8HYbbu0GH9r8fri9YsGfMcnkb+z1n+PRdr2
-         JNaorixqYXZO4BmtjqqA4TTqv1d9DPC2z8Rjnv/eJAfqi0fTQT9TeTv/2UHJ5Mt1qyvv
-         49Mv+rm1Y1qM7A4Tz9mbPuS8hdd7E0Qxrxzx/fIOiPX0tOTPMqRv53rYSqVX2qjMCO2a
-         22Wg==
+        bh=/ARd3XR21b98dC+E0q+y0HBDJ/Q/aPk0xOOUSlTPKys=;
+        b=zov0bB1BeWYlvinho67CCGeV5prFtKbwWE5DLx9OjQ9i5m0s4tKX7fcbk9OnyZxscj
+         iiIZn1Pe0QEadl9n0hXFATr+CIi22CgXmZ+ZvhSGE/YNbvnwoYW3b+jMhU13p3BSIjrq
+         Iws/Wvp0ObtM3pHjNj/727/xUe2atB+gxKGMqJsexyGvTKRsfsQ8WfCAAmrbLe7lpXJj
+         OuF1IhLuRSTcEf9foqQkIJ9H59SqT/4n8tm/GfxFgyj2JKwbvMnwCrhqWZcx1uhj9eRV
+         CuCxJaL5IzARj3qrtmPtHCb8HoBRC4gsCO6tTCGHZ3alIWAb9uFhQ/SnTJ+dOYlmYvOe
+         oS0w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794777013; x=1795381813;
+        d=1e100.net; s=20260707; t=1794777019; x=1795381819;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oQFSDg5cHBfrZhn/Xqr57kPvYhbLjr1otgLb7m0JLjg=;
-        b=RJaBO5RHuET4cqn91C8g8w68BYbK0S5mZ6500CEpzZ+rYa3MYbz/kJn8bUMm0kUvts
-         Z7pQ3nTi3CeUy3DLA62WG23DEloo6fmI67Ht7AEwBaT49Yksyb7A+qqpUw076wv53qWg
-         u5k/vFE3otgd7m/tMCrobQjmzwmdsAQ24YLqTThTEx5nfAdp3C65rcZ2fA9/2kMyfmXD
-         8I2SWXzjg5JfUkVY74S2loAiQERpr9/msLQaLZWKE/PY5eaDXjRB53VJI/UCI0ru3bQX
-         YD/ppdhv1Onf/Ee1a31Y5gTjqDDOKH2FoipNQ7eCV9ET29KD/eFZ5tD+Y1bmOc5V9ipU
-         qZCg==
-X-Forwarded-Encrypted: i=1; AL+hErGQjuk/EZKRLmTKYq/MKtqu8Tn3sxaA23N3J/6spUp4QNBon8p9Fa4VRg3qllbmPBsPRVMAGoM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+Q7AR4vvAFFHXDmluEnUvhb+egIDNH2JSz+w2DwbBFM/197Q9
-	w2sb+PI326J87YDVUBsFv8WrGgneIrbUkq7EPdYJsUomna9gzb2HY09C
-X-Gm-Gg: AYBFou1ImjP2V9/IgpENf9UE98bjNFWVatb4D8IDpevDWOzPedGDBU+p6kYs/r0ZcuH
-	++zBZU4PI40QdPt6sHBcbd+WNlth5sJrREIw2SuVsuL9g3SrRanTWLbND0GotOxA3bmcQP3zpvq
-	fqfmpH2ZfIZLdkCVhzcWUUwd57J57ru99yu+Y3bwzB2fMhKRXC0XpiTPxmbl2q8fDOVPvNGBC5r
-	gHo2n1LUoT1TRlfLwLImW/3wa2JCOfhhIXE9mUUebw0CO2SMy2TOxM2eZqdoedNbKmvxciKAYkn
-	ihmN9XpN5tE4LKaH6EB0VbJaQFtO+0pc7mILqnub5KnV65p/2eNcrAUkarzPdPVfyrxenn/NX+C
-	VKQhhWDMOWdv9WtsLhNgKDsIzeXpgkMr+Snncz+j8tAfwCAND963KLf1QlXV15zqc4Eh80vgJzg
-	e9HysLy5+6u8Xm5M9ZU3jrI/VjwqiyeCddwCxU4nkSQAYkoSO5czEjgn2T3Y+pRmuPrQcpgHVkE
-	mspFnBfbkGxiAl9ZmFQus2PWnENBSgQk4uIoGZFjDlQi4VJfv1yezGRVKLKo3olj/tsJVp+Ewn2
-	jwpoMspqsPOjbFB0MTjPkl1PnXBf0GBYWWwPp1z7OPcn6RjUqQ==
-X-Received: by 2002:a05:6a00:1990:b0:8b5:b3c9:ff71 with SMTP id d2e1a72fcca58-8beb374decemr7993433b3a.7.1794777013037;
-        Sun, 15 Nov 2026 13:10:13 -0800 (PST)
+        bh=/ARd3XR21b98dC+E0q+y0HBDJ/Q/aPk0xOOUSlTPKys=;
+        b=L7jLd0X7QPQTfYYQBayrvwwVbUocf9JzUp/RE+OgAVSuDFrHWRyOSIaC1mNeLTUtv3
+         aHbq9Sc5Jz9Tj2bM5gPaUbE2A6xW9w7bxwmuROAuCSO87wj4XnSjSgoR1Mfm6zd4MDbm
+         i38LSCM3Ij6WaJ3mqGsbBWuwX+nTet1XyRGEntN3eIzoeDuMXmLnEOBISjHpAE85dBAZ
+         cDKDXPdtTqXm2AeWenxOTeCJSKZZfeS2ENRowlkzXA/sRZzS5Z1yrmVSoApyXr5la5XX
+         LOcUhTIUPTSnoSbWSzwy+YI2ycsb0/RrQ7xH8QXVE19phzbg2XIJsBk/aTSqH5OZy5Fi
+         W+Wg==
+X-Forwarded-Encrypted: i=1; AL+hErG3t+LjTZoSuNfJuusFhwTzULJ1mexlnHbNG5ICRgXNyj4U3OBxJ/IcllvtD3getzPNQ0NS/Sk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/m6pjvqH7x26EYUtgZyoFvT9DJnSiaeuxNZYDS9z4/CRKQFQKu
+	TBK1xg4Rdf0U6XT+EczBhnaaamC6nq17T8uHthNnyIURx6sXq1zALe+G
+X-Gm-Gg: AYBFou2nTjNVV6M5xLWMhsI2j1tsRPWiT8q3PcEfZo71MaOdnfnmyS6WDJdhNP157wh
+	ZEVKsCPp39pAOj37wPW/uUl9vL+7KxraT9fxqNR5JtVwh+ol0LIaKJjdp81kHen6SgK8M+3RKIW
+	tZKL+ykjnbnjjxG/ZpElhQfuH47ctjHXvrDFht2EX34p4a/e8tcKVGu7BGPdEXxSIdkueurt2Li
+	4ab6WI6zpgn7VekJXcHnZt68jYfpGhCCoqq4h419Puy17TNljWeDPgJyarhuUfXxJcVB9Eo4Qyz
+	g8WAbIbcFYFVCPt2pOLJm7nXum5fzuEuD5Vx/roswSlgueCa6oIOEc0nVkSmGEHYbq5o9m8WJnr
+	OwmF0TDBRfbj8XICA9MAJUHHgQYCLDkGkeTyDUAIGmGfL3Ee4h5P7DXEjUcJ3C0zkR0BITjdjQs
+	jnmzXG60ibSPYtWZWnqAIq57crBVwxtl9EJMy9f+jh1V8p1N16rPG9RaifHEHcWaqbeEJvavfxf
+	RE/kZdWt/DfrsghPk+6W57CcnZvxqsi9aDSxJhmcNbww7CObOCqivc8nBWlL+cJYOW+uQOHD9nj
+	r5Q0ysoMHvorgZoYrHUItc8driHLlMAgeTqSIifpcsrgGNeQew==
+X-Received: by 2002:a05:6a00:1a89:b0:8b1:e8cd:49cf with SMTP id d2e1a72fcca58-8beb619b3f3mr7131715b3a.22.1794777019150;
+        Sun, 15 Nov 2026 13:10:19 -0800 (PST)
 Received: from localhost.localdomain ([112.170.44.210])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1a6e7f5sm2892615b3a.25.2026.11.15.13.10.09
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1a6e7f5sm2892615b3a.25.2026.11.15.13.10.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 13:10:11 -0800 (PST)
+        Sun, 15 Nov 2026 13:10:17 -0800 (PST)
 From: Junyoung Jang <graypanda.inzag@gmail.com>
 To: Miklos Szeredi <miklos@szeredi.hu>,
 	Jan Kara <jack@suse.cz>
@@ -89,9 +89,9 @@ Cc: Junyoung Jang <graypanda.inzag@gmail.com>,
 	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/3] inotify: zero-pad event names after an embedded NUL
-Date: Mon, 16 Nov 2026 06:09:49 +0900
-Message-ID: <20261115210952.2140036-3-graypanda.inzag@gmail.com>
+Subject: [PATCH 3/3] fanotify: zero-pad copied event names after an embedded NUL
+Date: Mon, 16 Nov 2026 06:09:50 +0900
+Message-ID: <20261115210952.2140036-4-graypanda.inzag@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261115210952.2140036-1-graypanda.inzag@gmail.com>
 References: <20261115210952.2140036-1-graypanda.inzag@gmail.com>
@@ -106,46 +106,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-inotify_handle_inode_event() allocates the variable-length event with
-kmalloc() without zeroing the name buffer, sets event->name_len to
-name->len, and copies name->name with strscpy().
+fanotify_alloc_name_event() sizes the variable-length event buffer from
+the qstr lengths and allocates it via kvmalloc() without zeroing.
+fanotify_info_copy_name() and fanotify_info_copy_name2() record
+name->len in info->name_len and info->name2_len, but copy the strings
+with strscpy().
 
-If a dentry qstr contains an embedded NUL byte (for example, via a
-crafted FUSE READDIRPLUS entry aliasing an open directory), strscpy()
-stops at the first NUL while event->name_len still covers the trailing
-bytes. copy_event_to_user() then copies event->name_len bytes to
-userspace, leaking uninitialized slab memory from the tail of the
-event allocation.
+If a qstr contains an embedded NUL byte, strscpy() stops at the first
+NUL and leaves the trailing bytes of the allocated name buffer
+uninitialized. copy_fid_info_to_user() then copies name_len + 1 bytes
+to userspace, leaking uninitialized kernel heap memory.
 
 This mismatch dates back to
-commit ce163918cd33 ("inotify_handle_event(): don't bother with strlen()"),
-which replaced strlen(file_name->name) with file_name->len, and remained
-in commit b8f2688258f8 ("inotify: Use strscpy() for event->name copies").
+commit 929943b38daf ("fanotify: add support for FAN_REPORT_NAME") and
+remained after commit 0fdbe845534f
+("fanotify: replace deprecated strcpy in fanotify_info_copy_{name,name2}").
 
-Switch to strscpy_pad() so any trailing bytes up to event->name_len + 1
-are zeroed.
+Switch both helpers to strscpy_pad() so any trailing bytes up to the
+recorded length are zeroed.
 
-Fixes: ce163918cd33 ("inotify_handle_event(): don't bother with strlen()")
+Fixes: 929943b38daf ("fanotify: add support for FAN_REPORT_NAME")
 Cc: stable@vger.kernel.org
 Co-developed-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
 Signed-off-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
 Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
 ---
- fs/notify/inotify/inotify_fsnotify.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Note: default FUSE mounts report a zero fsid (-ENODEV on fanotify_mark()
+with FAN_REPORT_DFID_NAME), so this patch was runtime-tested on tmpfs
+with FAN_REPORT_DFID_NAME create and FAN_RENAME events.
 
-diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/inotify_fsnotify.c
-index 6e3af6452dcc..78eb1e92a14c 100644
---- a/fs/notify/inotify/inotify_fsnotify.c
-+++ b/fs/notify/inotify/inotify_fsnotify.c
-@@ -121,7 +121,7 @@ int inotify_handle_inode_event(struct fsnotify_mark *inode_mark, u32 mask,
- 	event->sync_cookie = cookie;
- 	event->name_len = len;
- 	if (len)
--		strscpy(event->name, name->name, event->name_len + 1);
-+		strscpy_pad(event->name, name->name, event->name_len + 1);
+ fs/notify/fanotify/fanotify.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/notify/fanotify/fanotify.h b/fs/notify/fanotify/fanotify.h
+index c25cf5c1fc70..4a1f14aa4974 100644
+--- a/fs/notify/fanotify/fanotify.h
++++ b/fs/notify/fanotify/fanotify.h
+@@ -225,14 +225,14 @@ static inline void fanotify_info_copy_name(struct fanotify_info *info,
+ 		return;
  
- 	ret = fsnotify_add_event(group, fsn_event, inotify_merge);
- 	if (ret) {
+ 	info->name_len = name->len;
+-	strscpy(fanotify_info_name(info), name->name, name->len + 1);
++	strscpy_pad(fanotify_info_name(info), name->name, name->len + 1);
+ }
+ 
+ static inline void fanotify_info_copy_name2(struct fanotify_info *info,
+ 					    const struct qstr *name)
+ {
+ 	info->name2_len = name->len;
+-	strscpy(fanotify_info_name2(info), name->name, name->len + 1);
++	strscpy_pad(fanotify_info_name2(info), name->name, name->len + 1);
+ }
+ 
+ /*
 -- 
 2.43.0
