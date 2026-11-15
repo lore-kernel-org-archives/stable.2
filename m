@@ -1,60 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794729786;
-	b=Q7dZTVVpTlE9q4s0sEDqYrkkb6TqGlDxKGn1LsbUym9CIW8eLB7Ka/oT6Rl28qkPvMtz
-	 5i5drN+Dnc+nxOSI0+4qfwLvppYNPi/NCLslMhfso0r/X7KKJ2/uA0ulkfEVnbjPWll9D
-	 2cPhuUoV4l53G0Ljfxj8vyUydRqmzw2SDEsYAIW59goatdBVFgG/du5H6ji8sAlme+mTL
-	 7lGqzGMFU4+lGVhxIQwuxSyCQkQM4VJSMf3jKr9LJwONCzz8e3BY1qMwXW2J6JWlt9c10
-	 cvKACTNTg7tt8Lakw1w1nvXoZNkB5WMseJFPVpU7c7FFAy4uBSeTAClQog/mBn6rQZA==
+	b=vJcScS5FwG5JQZXSD0Kd7xJusdb3tzSMuKpG1okOJg4wyJW+GMuB/juaM/8vwKn5OkVB
+	 obDld2R4hU+V0zSaG2pE8l/1oP/G4OtApHVUB0iqYyNkPLwDekNTlaKAqVGWiCU+ubU6s
+	 0FBoAgLSnebzs0gLIJiwfxTram41IyUTpaptTWBVB2wbVKHvY6rMynHYTpnNz7w3D6P50
+	 Jw6pMN8s87sepaJEfbJTdW3PG6yBz+x/7aec4F7e4q/sIUK7Jr3mnRzwSRYYdbXEpccXI
+	 VGKJzexHey+evnIH3mNrIHo2RxDQDjGf8YWh8Q3K1V1f3PkMoOIzgdRXG96DSvnsHsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794729786;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Ox2XlTyOSiiELfMJRA1RMpYz/DEXqGXFohGx482vSjg=;
-	b=NZM9NLoF3hYCbue13oKE2z2FulGLOtNE+Q3dFvEehmHANn+kmT3O0sQaimpq32QZydLO
-	 BKYX8MFa0KaZiGpQVo4/wi1uOyUkk1xtwoWr0XcKFFTrdVjm+ZfEVRYwX6dJIA2vi1Zm+
-	 ngaH8pJW9DgEr5WPSY0vCYiH6nNJ6PlEB0m3qTYYgZoyhUzLbJDLIxqX+Tqa5A4fn/REc
-	 9fbheqCP20n8la3Ut7GQIT6j4+uUdRWOk5LkS9Zsu+QtOi1jruaJFEwRd32JhlFVLzt3C
-	 tAXA5bvnvTXWVbDIcXUL5CIqhGF/CDTVel042pNC5aprDQayfPwwgZl0i5eL54HmNTg==
+	bh=2cHoKfMTCq8qVifnRs0Z8Ntt3pn0su/nfO0nJQ9487s=;
+	b=nqdvBY4m2JaQ1xF1b7QV+xkANklnehoi6Krd4ZcdUK40oVOtF9ehg9MwfUwo+VUDgA5v
+	 +YqHVfcxTpkSlYCzrVMa2ip+O0zdjVE4nOUFcXRp9UQMuk1jEQbBGoMK5jCCTJxEFFP1E
+	 OZmOz1A7yvCDvTRWSh5uXTz/o2EBHVQPwTx2EB7QyObKkYX8Lqrzptc5HhnvNZ2lTSCRS
+	 x3RMTt09Px9k3AG1oHAmFvsD/luHdLw8YVaxCxCekGR0yE+WTcp6R9Q4vT+S4euH/gGC2
+	 6mn6rYJXybcaIVoGowF3L8G51xmXQWA9PdSiPU8vKjKeyodJjqnov0Sufd6rnoh4Grg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=UsTDTdqY;
-	arc=none smtp.remote-ip=220.197.31.2
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dGFRbzx3;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39E1606A31A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F01606A329;
 	Sun, 15 Nov 2026 08:03:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C39E1606A31A
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25F01606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=UsTDTdqY
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=dGFRbzx3
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ox
-	2XlTyOSiiELfMJRA1RMpYz/DEXqGXFohGx482vSjg=; b=UsTDTdqYIgrfG2yCl7
-	p9l5zRaFhkqL6dLz7I/pvh7lF9JVvwXTHcZbyM6qyu9RToyIrz2nn1u9Y99wxQbJ
-	hiuBkVTiiOBvZ+2UgAU1qzNyciERnaszjeVo4NcrYeCaEObDLKqdAQ6Fj+QSM31P
-	oej25ueIQDy44OiIK/5f+Opvg=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=2c
+	HoKfMTCq8qVifnRs0Z8Ntt3pn0su/nfO0nJQ9487s=; b=dGFRbzx3fNZVhnYwa2
+	mdZ982tnEwZzeHvABeQ1FQjbJZeTHWYKl92Yo+9Sv2o8j1g/LIeUNFkGhblbfiZh
+	smQZMvkfAZQ0y3SulsA6GlanApw9VU1EV4c8/9eL9fBf3wJnzngR0LzNYpXd8w9C
+	6qy/Q8wajVI4z7kJHuVXR8cYY=
 Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3v_AZZ_lqifQ9IQ--.40454S2;
-	Sun, 15 Nov 2026 16:02:33 +0800 (CST)
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wB3fJUmZ_lqQz57HA--.24354S2;
+	Sun, 15 Nov 2026 16:02:46 +0800 (CST)
 From: Ziheng Wei <zihengw03@163.com>
-To: Felix Fietkau <nbd@nbd.name>,
-	Lorenzo Bianconi <lorenzo@kernel.org>
-Cc: Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	linux-wireless@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
+To: Ludovic Desroches <ludovic.desroches@microchip.com>,
+	Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] wifi: mt76: connac: use wcid_to_sta() when dequeuing PM frames
-Date: Sun, 15 Nov 2026 16:02:33 +0800
-Message-ID: <20261115080233.910330-1-zihengw03@163.com>
+Subject: [PATCH] dmaengine: at_xdmac: handle empty transfer list in tx_status
+Date: Sun, 15 Nov 2026 16:02:45 +0800
+Message-ID: <20261115080245.910534-1-zihengw03@163.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,43 +64,38 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v_AZZ_lqifQ9IQ--.40454S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxWF47ur17KF1kZrW7KrWDtwb_yoW5Gr1UpF
-	WUK3yq9r1vgr45Za1kAw4kZF9Iyan5GFy0yF1S9wn5uw1rZF109F4jga4YyF4FyFs2qFnI
-	kr4DtrnxurZ8Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jkGYLUUUUU=
-X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7hn4SWr5Zxmk1wAA3Y
+X-CM-TRANSID:_____wB3fJUmZ_lqQz57HA--.24354S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCry3Aw1kAw17CF45GrWDXFb_yoW5Gr43pa
+	yfG3y5CryktF4ruF1kG3W09ay5ZF4rCayUuayDW3s8uF4Yvr4rW3s7t34jqF98Wrs5XFyv
+	yF4Ut3s3CryDGrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07bU-erUUUUU=
+X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7Qb7TGr5ZyavCQAA3o
 
-When the device is in runtime PM, mt792x_tx() cannot transmit right
-away and queues the frame with mt76_connac_pm_queue_skb(), keeping only
-the wcid. mt76_connac_pm_dequeue_skbs() later recovers the station
-from that wcid with
+at_xdmac_device_terminate_all() removes every descriptor from
+atchan->xfers_list without completing their cookies, so
+dma_cookie_status() keeps reporting a terminated cookie as
+DMA_IN_PROGRESS. at_xdmac_tx_status() then calls list_first_entry()
+on the empty list and uses the list head, which lives inside struct
+at_xdmac_chan, as a descriptor: active_xfer and xfer_size are read
+from neighbouring channel fields, and if active_xfer happens to be
+non-zero the residue loop walks a descs_list made of those fields.
 
-	sta = container_of((void *)wcid, struct ieee80211_sta, drv_priv);
+For audio this is a routine path. The generic dmaengine PCM calls
+dmaengine_terminate_async() on TRIGGER_STOP and later
+dmaengine_tx_status() on the same cookie from
+snd_dmaengine_pcm_sync_stop() and on close. What happens depends on
+the struct layout. On a 32-bit build active_xfer overlays
+sconfig.device_fc, which is normally false, so only a bogus residue
+is reported. With CONFIG_DEBUG_SPINLOCK the larger spinlock_t puts
+active_xfer on the held lock word and descs_list on the owner_cpu and
+owner fields, so the loop follows a pointer that is not a descriptor.
 
-This is only valid for the default link's wcid, which is embedded at
-the start of struct mt792x_sta and therefore at drv_priv. Since MLO
-support, mt792x_tx() queues the per-link wcid of the link the frame is
-sent on. For any link other than the default one, that wcid lives in a
-separately allocated struct mt792x_link_sta, so container_of() yields
-a pointer 600 bytes (offsetof(struct ieee80211_sta, drv_priv) on
-x86_64) before that allocation. mt76_tx() then passes it to mac80211,
-which dereferences it as the station, e.g. in
-rate_control_fill_sta_table() via ieee80211_get_tx_rates().
+Report a residue of 0 when no descriptor is queued.
 
-wcid_to_sta() in mt76.h follows wcid->def_wcid for link wcids and is
-correct for both cases. Use it.
+Found by LLM-assisted source review. Not tested on hardware; the
+layout analysis above is from reading the code only.
 
-mt76_check_sta() in mac80211.c has the same pattern, but only uses the
-result when MT_WCID_FLAG_CHECK_PS is set, which only mt76x02 and
-mt7603 set; neither supports MLO, so it is left alone.
-
-Found by LLM-assisted source review. Not tested on hardware. A test
-module that queues a frame for a separately allocated link wcid and
-calls mt76_connac_pm_dequeue_skbs() hits a KASAN slab-out-of-bounds
-read in rate_control_fill_sta_table().
-
-Fixes: ebb1406813c6 ("wifi: mt76: mt7925: add link handling to txwi")
+Fixes: e1f7c9eee707 ("dmaengine: at_xdmac: creation of the atmel eXtended DMA Controller driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ziheng Wei <zihengw03@163.com>
 ---
@@ -111,23 +104,31 @@ Notes:
     The changelog was drafted with an AI assistant from my analysis;
     I have reviewed the code, the fix and the text.
 
- drivers/net/wireless/mediatek/mt76/mt76_connac_mac.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/dma/at_xdmac.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt76_connac_mac.c b/drivers/net/wireless/mediatek/mt76/mt76_connac_mac.c
-index 8481eac8d..6c2caade6 100644
---- a/drivers/net/wireless/mediatek/mt76/mt76_connac_mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt76_connac_mac.c
-@@ -134,8 +134,7 @@ void mt76_connac_pm_dequeue_skbs(struct mt76_phy *phy,
- 			continue;
+diff --git a/drivers/dma/at_xdmac.c b/drivers/dma/at_xdmac.c
+index ef0dfe9d3..bcfbb41ea 100644
+--- a/drivers/dma/at_xdmac.c
++++ b/drivers/dma/at_xdmac.c
+@@ -1553,7 +1553,16 @@ at_xdmac_tx_status(struct dma_chan *chan, dma_cookie_t cookie,
  
- 		if (wcid && wcid->sta)
--			sta = container_of((void *)wcid, struct ieee80211_sta,
--					   drv_priv);
-+			sta = wcid_to_sta(wcid);
+ 	spin_lock_irqsave(&atchan->lock, flags);
  
- 		mt76_tx(phy, sta, wcid, pm->tx_q[i].skb);
- 		pm->tx_q[i].skb = NULL;
+-	desc = list_first_entry(&atchan->xfers_list, struct at_xdmac_desc, xfer_node);
++	desc = list_first_entry_or_null(&atchan->xfers_list, struct at_xdmac_desc,
++					xfer_node);
++	/*
++	 * The list is empty once the channel has been terminated, while the
++	 * cookie of the terminated transfer is still reported as in progress.
++	 */
++	if (!desc) {
++		dma_set_residue(txstate, 0);
++		goto spin_unlock;
++	}
+ 
+ 	/*
+ 	 * If the transfer has not been started yet, don't need to compute the
 
 base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
 -- 
