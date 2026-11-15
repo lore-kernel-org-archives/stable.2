@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794706674;
-	b=C+fETRbdEnyJuuUJXiwmeq9HOLE1B8NGkHhQcTTmsZ7RpljXO60NRC7obNA4fBcz4VX7
-	 kj5HRNCwJUzkRA3hJikQUs6M4btb5H84u1+JoMuBb5fU4vDeLGLcuc6HyW6uAU02qS0Wa
-	 VOhZpOL0FA2GVSfhSNmBg/27wClaLd+mP81UBlhACFJ2kT4DhzmYqgcbtHTvwGvHerV6B
-	 p4gKs7WCTBVr/k5U1m77EdTmrD6BK7CzcmLym+bQ08tsl4FDa5WnLPDm0MSH7STmXJFQT
-	 0vDTRvx63cbk+LkQ+JwvDeLJqTVzfWZn0cNQHU8/zwJQ7L/F/4ZRyAovIoE46Rxh+Pw==
+	t=1794707601;
+	b=4mjuYDvokTG4E8WAaCuuAhOj7a+NDaaeFB59ZE87seT7F3eCOrsRqsRR82fQfUiR5KDs
+	 uwAG0SV5+4SdkkEhIEg6SDcEaLmkki64gG5CDy+ctWOLzbCY5fhyQWNhk8aOJHjS85ntR
+	 FX9r2A+NTcv5wXGIRxRG8tb52J5D7JpHwe6DlHadhqRwLcXvr7HSTdUQ9eXUDN7DD7N9a
+	 UnaW333Fa/0CzOVKu2m4qbf2ToYKeQnntYmCcJg+VR+yK+/b6v3+QmbNA+8JOu4k2I0UB
+	 cg1jqWZSIpLK50nH1IflVVUY1kTd6MSLhH2rQU1ajz14fH09fT45ItzUDcTTk87bFMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794706674;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794707601;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Qw0vchi07J5a23Neg8MphcsEqpjuPMnpEriw1d3MbJs=;
-	b=r2+ww/E5ZIRqlmkiHmaYal8ClQ9aiEpagOo1x+hpnOnjDV0yj/RjBO/Tv28If7Ob9kwp
-	 V58ZIwtMaMbV4kepW4eo6kDa11hldg9eeMlqGAc9diRzoUrB7zHiuam3R2pQpVj172hzg
-	 qem29Rbw9dlG5S3bI3Hr2e0hQkwJIf0Lb7A3f8ZQ4LkiMevKHCD3btIGYexBOFhWEyHyz
-	 X5/JUqE7XkTGROMGfyxi603dfTZvwePY95DVUONknoxMD/8HbdsVpk/M98Gj5KMFN0Ena
-	 Y3Y0iA71N1qD6sLGKsI13pzuJZApUhe3v7z0EwiR9lMh6D3A+juAE4StgZJq8tv4bnw==
+	bh=Cqjl+p5eTKueQYWLRz2uMzmNHeLSPT2jMNGn2HfF83A=;
+	b=pkAQPkVY1wSp+vl4/lwmoX7XaEZIPkegh340Ki3UuYBch+X+y8gDwv15mF7xNRlGLyRv
+	 6FxmhvZAtVHY3sNyYi3Ty0wB1cbJ59wX7CoNSaRFaeMxaehkAYMq0MtoeIKKNuxKfliH8
+	 9MDJ+QhPO3/n6hpxss+or2zXxpxbf/sxQqy8taPElWcM3P+91y8tyKVFfjmLFSwuPFBko
+	 myLXTCTqbmvX0eoAHLAm9HOMKVATEH35u9Zj7fpLabKib3M1ca3rWjvyFfDdbNt0S3MEw
+	 F5k/kOsyFEbV71xFrUlwCNWCH14JR8iQQuH/zbLx6CcseHHv2UG4rT8ppnigRqUpOug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="nC/G2+bz";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BX4F4TPR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4CB6606A323
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 01:37:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32BFB606A327
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 01:53:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nC/G2+bz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74C851F000C4;
-	Sun, 15 Nov 2026 01:37:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BX4F4TPR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3ADBB1F000C6;
+	Sun, 15 Nov 2026 01:53:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794706674;
-	bh=Qw0vchi07J5a23Neg8MphcsEqpjuPMnpEriw1d3MbJs=;
+	s=k20260515; t=1794707601;
+	bh=Cqjl+p5eTKueQYWLRz2uMzmNHeLSPT2jMNGn2HfF83A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nC/G2+bz9yIcooc+NuML8P1LILM69upNlLgCvfWu8TOXofIs2xg+jpaiqYILwhMU5
-	 fV+gRtU15S86DLiRMpCazPE4rjg1VN954W7wQwHXnU9DyYyngwsy0avl+s4yfgiwLC
-	 wNgD6UJOXTR8CS9QeJz3e2yOzlasVa8SzmaqPSdXhGNjSp0gCZUFn1dxLsTbHUrRVT
-	 S6aU/TpeSPYr/VxWZayjN6cTw8i5lsrV9rWVijtg6Gum5d/t9TBS7s1xC6cncFMEhK
-	 8GMEHB00Sl8EjZcCHZ8rNT04FvQVRjdtapFN8tHQ4x47ezbVK1vHAFf+eULvZ3xyZF
-	 qEFmGUY/Xj/kA==
+	b=BX4F4TPRzxMi5enBuZbd3bilfJG8oIVKFzzQY70A/eUFYW02i2eCOT8vnnKd7M3x7
+	 gyL+QghrbY/VxnH48xEiXNJtta3iswJ78o4xzctRxRNwP/+etbkGATp3oCSiNNL7tO
+	 3ithB7/WxSyuYXQ7xhhAsgV3wttUMNZTKaDh7O3bk7j0BHGhhsalMG8JdTEp27S9jx
+	 asDVsFN9APGMDMo+zMI+tYdYr4Sx8BUF2gXDWyGfFYUTg14Y/SkdWzTnTzc3DbYHIa
+	 atuew4kWDt2lI7Sz/f6J4osD5bZA53e1jvCFdqQimOfsPwAGepX5/vbjCER+OBguJC
+	 IO27WEoOmcFCg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zhou Qiuyue <n0ps1edzz@gmail.com>,
-	Hangbin Liu <liuhangbin@kylinos.cn>,
-	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>,
+Cc: Daejun Park <daejun7.park@samsung.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ipv6: raw: fix use-after-free in rawv6_send_hdrinc()
-Date: Sat, 14 Nov 2026 20:37:52 -0500
-Message-ID: <20261115013731.709166-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] xfs: cap the block count of xfs_iomap_write_direct() at one extent
+Date: Sat, 14 Nov 2026 20:53:18 -0500
+Message-ID: <20261115015155.842255-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202548-failed-5.10-66dfb2cacda7@kernel.org>
-References: <20261109202548-failed-5.10-66dfb2cacda7@kernel.org>
+In-Reply-To: <20261109202300-failed-5.15-66d1ce09ebd7@kernel.org>
+References: <20261109202300-failed-5.15-66d1ce09ebd7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,51 +64,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhou Qiuyue <n0ps1edzz@gmail.com>
+From: Daejun Park <daejun7.park@samsung.com>
 
-[ Upstream commit 66dfb2cacda7faae614d688943d85e75abf7f586 ]
+[ Upstream commit 66d1ce09ebd72709f8d739630c39f440445173fd ]
 
-rawv6_send_hdrinc() caches the route before handing the skb to
-l3mdev_ip6_out(). The VRF output path may replace skb->dst and release
-the original route, leaving the cached pointer stale.
+xfs_iomap_write_direct() reserves blocks for the whole count in an
+unsigned int. For a pNFS layout the client chooses that count, and an
+RW LAYOUTGET for 16 TiB wraps the reservation and shuts XFS down.
 
-The function later dereferences that pointer for statistics accounting
-and as the output device passed to NF_HOOK(). Its RCU read-side critical
-section starts after l3mdev_ip6_out(), so it cannot prevent the old route
-from being reclaimed in between.
+xfs_bmapi_write() maps at most XFS_MAX_BMBT_EXTLEN blocks here, so cap
+the count at that. nfsd asks again for the rest. The other callers get
+the same mapping as before.
 
-Reload the route from the current skb destination after
-l3mdev_ip6_out() returns.
-
-KASAN reports a slab-use-after-free in rawv6_sendmsg(), with the route
-allocated by ip6_dst_alloc(), freed by dst_destroy() from rcu_core(), and
-the related RCU callback queued from vrf_l3_out().
-
-Fixes: 4c1feac58e06 ("net: vrf: Flip IPv6 output path from FIB lookup hook to out hook")
+Suggested-by: Darrick J. Wong <djwong@kernel.org>
+Suggested-by: Christoph Hellwig <hch@lst.de>
+Suggested-by: Pankaj Raghav <p.raghav@samsung.com>
+Fixes: 527851124d10 ("xfs: implement pNFS export operations")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhou Qiuyue <n0ps1edzz@gmail.com>
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
-Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
-[ sashal: Replaced the unavailable dst_rt6_info() helper with a direct cast to struct rt6_info *. ]
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ sashal: Replaced XFS_MAX_BMBT_EXTLEN with the equivalent MAXEXTLEN macro in the added code and comment. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/raw.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/xfs/xfs_iomap.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/net/ipv6/raw.c b/net/ipv6/raw.c
-index 6ec51b1a4e26b..e24e49cdf141c 100644
---- a/net/ipv6/raw.c
-+++ b/net/ipv6/raw.c
-@@ -650,6 +650,9 @@ static int rawv6_send_hdrinc(struct sock *sk, struct msghdr *msg, int length,
- 	if (unlikely(!skb))
- 		return 0;
+diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
+index 093758440ad53..920ce54d00055 100644
+--- a/fs/xfs/xfs_iomap.c
++++ b/fs/xfs/xfs_iomap.c
+@@ -202,6 +202,14 @@ xfs_iomap_write_direct(
  
-+	/* l3mdev_ip6_out() may have replaced the skb dst. */
-+	rt = (struct rt6_info *)skb_dst(skb);
+ 	ASSERT(count_fsb > 0);
+ 
++	/*
++	 * xfs_bmapi_write() maps at most MAXEXTLEN blocks in one
++	 * mapping, so don't reserve blocks for more. A pNFS layout range
++	 * comes from a client, and its block count may not even fit the
++	 * 32-bit reservation. The caller maps the rest with a later call.
++	 */
++	count_fsb = min_t(xfs_filblks_t, count_fsb, MAXEXTLEN);
 +
- 	/* Acquire rcu_read_lock() in case we need to use rt->rt6i_idev
- 	 * in the error path. Since skb has been freed, the dst could
- 	 * have been queued for deletion.
+ 	resaligned = xfs_aligned_fsb_count(offset_fsb, count_fsb,
+ 					   xfs_get_extsz_hint(ip));
+ 	if (unlikely(XFS_IS_REALTIME_INODE(ip))) {
 -- 
 2.53.0
 
