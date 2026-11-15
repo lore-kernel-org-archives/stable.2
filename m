@@ -1,60 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794729753;
-	b=n8xCwamyrHsjvS7asWNjWCNBYa6YRuQnxvY7Ihz9Kmyb2FYeJELN8DpYycxcI/3Lr59U
-	 Kq9YSW/uasiU0vR/3z9RC/Ww7Co5lDgVgJxvxXQUxuqgjqwAqJsEjLXXc31SLQrkeYWx2
-	 2chLRVobLoS56PJRa6BIcbAcBf6Xy6ngHzdaTU37nrFM+cFqeyMmSewpI8ZUkD1Uyp+DO
-	 67p/YqXYftEMY9F+vwimamo7LkQac3HIuiZVZpVlZBAahI8aBVWBcw0OdyMIu8q8+dF3y
-	 crYJ9RIF5ByAi8VbzwhjwAc9Qv8RHu7X/EXcuFxuycNM4xh/ZauS2tFDykMVKKK9IPA==
+	b=XucjFcU76YoiltYr2O7uc5JixJvOdY3uiWpGJEke0RKPyPruDLazKhwPTINpSe5j9gHp
+	 1MRHs6ARELqvS2WBN7K77925YM9RZ/zHOq0LPby/SEQgVALAeEumJ/f3/bxDtCsiZ+ZaN
+	 8oOpb11Gpz/qyCQrN2NGBe9PaqgNCzUpl0A05qPP0azZ8BdqMcRNZ56SoAimIh7Egt+wy
+	 v4wgi2507zAg/bN8f/VIiCD9/MLWemab2xvt9yCa2PGIZgHDBxvRhiyeKy5zGknDjF8vK
+	 AR1UZeCR10jIVIkBXHqLzgiO11+OCkgbR44a37fxJgRfWSv3hwTDb4PNueehIYGZ6pQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794729753;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=qIBe1IptJdEw3mbiQ59WdvqMuyWgbSIYKmhp3SuEzqE=;
-	b=NQ4NOSDGKhbKmM1LCvc2psNmpKnbDr44veKAsmV+C2M9A1lt/XkOZ7Glna/kprqvQ82I
-	 xsOQGI3Xyn99RWAmThfQTQhP/KbMA7gENvbwxem0lG5T1oWNGp9iagx0WJPfWXuXMRUnU
-	 z/kyx72DCzhP4Cld23yYGLxqKztle0Tc9qtD/7eb087HofWMWOMWm9m9TNZDpOmrU3uUW
-	 l0tBV/yuth7Tlqbx/5yUqmuGLUa6PdNDZr6xtq3hhXCAwttp10KwrEv5qV8shfXnHmmD+
-	 h0ETAFcNTktqW8Gbag0Lvls9hf3A4Xuu9Kg5/Lz6h1HIJkSElLANRS0tcoJuO2E1/kQ==
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=1OO0lS3mKKeof2v18GumxH/mC7gZUca+/4y3VVU/5T8=;
+	b=xFOVskshDB+3rWTCUCjCeUFXTRwmtQjuKjlT04aWuV134Z8rSXlCWQ+Gwg1EzFB7kOA8
+	 r8Ue6+5733/yIDff32SdXxmG+yyZEEERB8eRGtvX219ax29UMlhB4ZsS94ZFOMYYiBQ7f
+	 SQtYaqCwFI5IlVRwmBcIJwZeGiNJWJpq/pLrUgsSm4GNfpy2XxgeQEJ5+ig2//K/39v9T
+	 WT1X3ZS72M0YIxPcFaTwYpJtuEvbGs32O7s6ZusiDLRxSk/HN0hkKcX6YDKO2nyh8yt99
+	 SKX2oaR2syOYODioK9FLIzrUN+WVbA3slpZ+/uXW3KS9rcylbUtW/BZS7HvbdRl2Nkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=f2xM5+4A;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=I4iEycBq;
 	arc=none smtp.remote-ip=220.197.31.3
 Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68D0D606A31D;
-	Sun, 15 Nov 2026 08:02:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 68D0D606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB989606A31E;
+	Sun, 15 Nov 2026 08:02:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB989606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=f2xM5+4A
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=I4iEycBq
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=qI
-	Be1IptJdEw3mbiQ59WdvqMuyWgbSIYKmhp3SuEzqE=; b=f2xM5+4ADtDFI9vSU+
-	2yFfp/aOFvBszez/p+L2uEIq5gSEeuEpy3MoQVXH4qmZq/lZY/cjiO3S2uKdMNcD
-	JV5bYTQxI08Q67bM2NsTOo+P5LBmMhA4PZ0y2a3tEUwbrTAqbQdPtwXsZAe7YKil
-	cTCbpHF2OV8SxPc21gm4USON4=
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=1O
+	O0lS3mKKeof2v18GumxH/mC7gZUca+/4y3VVU/5T8=; b=I4iEycBqkHO4C11nrC
+	WuREO39zmJgEbNU8PlJrHW2hcGmVLQajiqArpMAm42TAIL94vMxDdnMlTjc1Rk8+
+	aZDh7F4eGaP29QE+5N+/IyZ/Tv925UfMkmAzFaLV8ZS3De0bK6N7N2Hwo1t3L9+2
+	fUqi/j2/lCKG3hR9CwsXvswRo=
 Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3v4f8ZvlqxKXvHg--.43707S5;
-	Sun, 15 Nov 2026 16:02:07 +0800 (CST)
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3f3sMZ_lqt6_vHg--.43860S2;
+	Sun, 15 Nov 2026 16:02:20 +0800 (CST)
 From: Ziheng Wei <zihengw03@163.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: Marc Hulsman <m.hulsman@tudelft.nl>,
-	linux-hwmon@vger.kernel.org,
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: linux-input@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 3/3] hwmon: (w83792d) Fix incorrect struct cast in show_temp1() and store_temp1()
-Date: Sun, 15 Nov 2026 16:02:03 +0800
-Message-ID: <20261115080203.910033-4-zihengw03@163.com>
+Subject: [PATCH] HID: cougar: do not resurrect a zeroed shared object
+Date: Sun, 15 Nov 2026 16:02:19 +0800
+Message-ID: <20261115080219.910186-1-zihengw03@163.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261115080203.910033-1-zihengw03@163.com>
-References: <20261115080203.910033-1-zihengw03@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,40 +62,55 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3v4f8ZvlqxKXvHg--.43707S5
-X-Coremail-Antispam: 1Uf129KBjvJXoWxArWUuw4rurWfWw15JF47Arb_yoW5AF4kpF
-	WkGaySk3ykGrs7WrW7Za1Dua4Ygr1rCay5Grn0kw1Skr1UJas7Jas8Jayjvw1ayrs8AFW8
-	Gr4qqryUWFWkZaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07bxfOwUUUUU=
-X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7h-xQmr5Zv+hiQAA3g
+X-CM-TRANSID:_____wD3f3sMZ_lqt6_vHg--.43860S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGryxGrWDWw1fJw4xJw1rCrg_yoW5Ar18pF
+	WFgrW3JrZ7Xwn7Arykur18WryrCrn5AFyY9Fy8G3s3Za93JF15Kr43tFZ0qa4j93yktrWq
+	qwnFqr1qgFWqv3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jMlk3UUUUU=
+X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7gz1Rmr5ZwyjRwAA3N
 
-On big-endian architectures, accessing the temp1_max and temp1_max_hyst
-sysfs attributes in the w83792d hardware monitoring driver uses a huge
-out-of-bounds index, because show_temp1() and store_temp1() downcast the
-attribute to the wrong struct.
+cougar_get_shared_data() calls kref_get() on any entry it finds on
+cougar_udev_list.  The entry itself is removed only from the kref
+release callback, which runs after the refcount has already reached
+zero:
 
-The driver defines the temp1_* attributes with SENSOR_DEVICE_ATTR_2(),
-which initializes them as struct sensor_device_attribute_2 (where the
-index is an 8-bit u8). The temp1_input attribute has index 0, temp1_max
-has index 1 and temp1_max_hyst has index 2. However, show_temp1() and
-store_temp1() downcast the attribute to struct sensor_device_attribute
-(where the index is a 32-bit int) and use it to index data->temp1[].
+	cougar_remove_shared_data()
+	    kref_put(&shared->kref, cougar_release_shared_data)
+	        /* refcount is now 0, entry still linked */
+	        cougar_release_shared_data()
+	            mutex_lock(&cougar_udev_list_lock)
+	            list_del(&shared->list)
+	            kfree(shared)
 
-Because both structs start with struct device_attribute, container_of()
-resolves to the same base address, but the field widths differ. On
-big-endian architectures, reading the 32-bit int from the memory layout
-of the two u8 fields yields index << 24: 0x01000000 for temp1_max and
-0x02000000 for temp1_max_hyst, instead of 1 and 2. data->temp1[] has
-only 3 elements, so the access runs off the end of the array by up to
-32 MiB.
+A concurrent cougar_get_shared_data() that already holds
+cougar_udev_list_lock still finds the entry and increments a zero
+refcount.  refcount_t reports "addition on 0; use-after-free", the
+release callback then frees the object, and the reviving probe's devres
+action writes into freed memory.
 
-Fix the type casts in show_temp1() and store_temp1().
+This was triggered by binding and unbinding two interfaces of the same
+emulated (uhid) device concurrently through
+/sys/bus/hid/drivers/cougar/{bind,unbind}.  hid_bus_type does not set
+bus_type.need_parent_lock, so the two sysfs writes run in parallel on
+separate CPUs.  KASAN on v7.3.1:
 
-Confirmed on a big-endian s390x QEMU guest with the driver bound to an
-emulated chip: temp1_max and temp1_max_hyst read 0 instead of the
-register values. Not tested on real hardware.
+	refcount_t: addition on 0; use-after-free.
+	 cougar_bind_shared_data+0x53b <- cougar_probe <- __hid_device_probe
 
-Fixes: 1f8dae31fe8d ("[PATCH] hwmon: w83792d use arrays of attributes")
+	BUG: KASAN: slab-use-after-free in cougar_remove_shared_data+0x5e
+	Write of size 4 at addr ffff888013723550
+	Allocated by task 534: cougar_bind_shared_data+0x2fb
+	Freed by task 176: kfree <- cougar_remove_shared_data+0xba
+
+Use kref_get_unless_zero() and skip an entry that is already being
+released, as Documentation/core-api/kref.rst describes for lookups,
+so the probing interface allocates a fresh shared object instead of
+resurrecting the dying one.
+
+Found by LLM-assisted static analysis, then reproduced with uhid as
+described above. Not tested with a real Cougar device.
+
+Fixes: b8e759b8f6da ("HID: cougar: Add support for the Cougar 500k Gaming Keyboard")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ziheng Wei <zihengw03@163.com>
 ---
@@ -107,31 +119,28 @@ Notes:
     The changelog was drafted with an AI assistant from my analysis;
     I have reviewed the code, the fix and the text.
 
- drivers/hwmon/w83792d.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/hid/hid-cougar.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hwmon/w83792d.c b/drivers/hwmon/w83792d.c
-index 2de6d7b68..cba907713 100644
---- a/drivers/hwmon/w83792d.c
-+++ b/drivers/hwmon/w83792d.c
-@@ -487,7 +487,7 @@ store_fan_div(struct device *dev, struct device_attribute *attr,
- static ssize_t show_temp1(struct device *dev, struct device_attribute *attr,
- 				char *buf)
- {
--	struct sensor_device_attribute *sensor_attr = to_sensor_dev_attr(attr);
-+	struct sensor_device_attribute_2 *sensor_attr = to_sensor_dev_attr_2(attr);
- 	int nr = sensor_attr->index;
- 	struct w83792d_data *data = w83792d_update_device(dev);
- 	return sprintf(buf, "%d\n", TEMP1_FROM_REG(data->temp1[nr]));
-@@ -496,7 +496,7 @@ static ssize_t show_temp1(struct device *dev, struct device_attribute *attr,
- static ssize_t store_temp1(struct device *dev, struct device_attribute *attr,
- 				const char *buf, size_t count)
- {
--	struct sensor_device_attribute *sensor_attr = to_sensor_dev_attr(attr);
-+	struct sensor_device_attribute_2 *sensor_attr = to_sensor_dev_attr_2(attr);
- 	int nr = sensor_attr->index;
- 	struct i2c_client *client = to_i2c_client(dev);
- 	struct w83792d_data *data = i2c_get_clientdata(client);
+diff --git a/drivers/hid/hid-cougar.c b/drivers/hid/hid-cougar.c
+index c8ae18f13..fa7bcb34a 100644
+--- a/drivers/hid/hid-cougar.c
++++ b/drivers/hid/hid-cougar.c
+@@ -122,10 +122,9 @@ static struct cougar_shared *cougar_get_shared_data(struct hid_device *hdev)
+ 
+ 	/* Try to find an already-probed interface from the same device */
+ 	list_for_each_entry(shared, &cougar_udev_list, list) {
+-		if (hid_compare_device_paths(hdev, shared->dev, '/')) {
+-			kref_get(&shared->kref);
++		if (hid_compare_device_paths(hdev, shared->dev, '/') &&
++		    kref_get_unless_zero(&shared->kref))
+ 			return shared;
+-		}
+ 	}
+ 	return NULL;
+ }
+
+base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
 -- 
 2.43.0
 
