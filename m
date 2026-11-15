@@ -1,54 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.54.127.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794765903;
-	b=ack/bnluSA/QVbLcb7VTrB+DCcleMhmtMic/jCGWLXcOtVr2/hRrBbuu3GCYCjnYGH9x
-	 R5TXuxLxQhDcSsSh2O+j/LuH/C02Kxzg4xR8XBEjlLJw2vnbsYp7paF2wCSyzG1IfGWed
-	 FybT7t33WhdL5N6q0UqBzGe2vuBb48mEbFOeCkoP74QR9whwCgDmFal62f7A8Mhe+nnph
-	 4QwdA6PL7lwGzyPkbcDhTE+wAu80w0HVQ1WpGhXeUKq0a/b/cBfuThFRn7n7pOagrYj9a
-	 xUT16cMwSqGki0ebC6D1/NMOoaIgOZlLm/9hRJy2KMBjVNbmknMII4UIpcl4YvsglpA==
+	t=1794766458;
+	b=G+R0nGhGcQVWELgaYCLn1Vzz+6+SON5BF6n24TnA12jSZtlNlXBTeaiVz2fue4QA2RiO
+	 OKMGXo9eIKSUPCf7kDackwjZSPJq+2DkO8yaO8Za3rSeUfyku0c3O/UWK1DWxJel+zm3Y
+	 lrcjYu9JemHgeIcM1KL7CyisqJK9odokuk88v8hgKsn3/KvVUkwybB9W3VSTPhdxR4Gdi
+	 LppjQdTtv0C9zyzGFMJwBW2eSxMfuBQdKALjFJgB/agfL+HxpRh4RAiiGVH76/WpjoVKA
+	 lY2+fwKBADtS2vnkc7q1iKWaKst9Tws/tyPyn2G5t7I060YhmGbouWQGFF8VthLo4tQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794765903;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=FJvm5/zzuNKuQVsdQQwncA9TdHL9pGAG2/TLNuHbhRk=;
-	b=G/1o1L7JBkBPw1k4Ak+8ayfIFV7f1azRSAUBpLeeDEHH80shUFl5Qm9dL7I/TJ7xHgMn
-	 DdIMZoF0CGH7+rGEtzvW8n880z9JY7LDvFmYbBzOVt7G0xpCqRFCeYJ1Uk75PWY5GP8fu
-	 pgJ9GYxIvaalHt4Cc2/shL7312zta/0Tg6z5J9BvUug6d3U7yVxf33RBSkPCvHM6J5mHN
-	 vqiVofBkqi+PGyd30UuLxgTZCBU8Y5Bb5KFjnw2cDPcPvuDBv1QPdX3KwoLwvgkgJSsCn
-	 vMaTNEwfOZysmL1j2oKaPZqt196kOckNX4q1dmn6KnwdFQpwF/TOe30wMQTvyXOVa1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794766458;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Envelope-From;
+	bh=+k5tKf6urPY8lWMEjLDvjWecJXDmPvgqG1+tcJ/GJR4=;
+	b=D0dGvh1rwxHsxsNJSjCn1ridyiD9ZPcWMtlPf+ark78rWvar+l/yrt+1Ntgdxl/GfD5H
+	 lz1AH1Q5rUdFJcVgBJg2NskhfgLd4jiny9CbcTc9A8NYFLcLB16Hy7ZHhh4L12Sx6kW4C
+	 BRtnW997LwAihBIE9KHRD+/nIBv4aqT0TjwzYxwuYBcEzbcmP7h5rLwCY3tBvEspMzAMO
+	 EefPlHiMzOJLKMd2GvGapDk7cWeXWX9IbsOnCeTRsZz85zinzRwCuCW1rnYZvZpq3dN1k
+	 Zhr7PD0TMKbUcY6IM12dGtB4Mystfmo3+3Voh8hRG4kC16QsRDGZYCS4/bABnCzn/rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JgkiFtmg;
-	arc=none smtp.remote-ip=91.218.175.181
-Received: from mta0.migadu.com (out-181.mta0.migadu.com [91.218.175.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=liuolia.eu;
+	spf=pass smtp.mailfrom=liuolia.eu;
+	dkim=pass header.d=liuolia.eu header.i=@liuolia.eu header.a=rsa-sha256 header.s=default header.b=KF7WLUcY;
+	arc=none smtp.remote-ip=198.54.127.149
+Received: from out-2z4y-a149.jellyfish.systems (out-2z4y-a149.jellyfish.systems [198.54.127.149])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A171606A32C
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 18:05:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A171606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0273C606A32F
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 18:14:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0273C606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=liuolia.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=liuolia.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JgkiFtmg
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2IH1/X6CTvt0313Vz/VAWwJDEFN/f/O4dyfh9jni4TM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794765900; v=1; x=1795370700;
- b=JgkiFtmgYEe7oNWrKZ9TGdmjzzT9V0itTqKf4Ur9WzTSV5cHjOexXjN7SlbyRUqE9wFPn9oj
- ExFMY8ZBmi5AnK7XWRSgM8rx3zxEEM+JcU+d3a3H5EocJAa8BTt5vETxFS7cC4Be6SS5/iPe2SP
- KRsteUsVlo3PIqziI0FEhB+k=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id d1d3b2979402012a;
-	Sun, 15 Nov 2026 18:05:00 +0000
-X-Mizu-Trace-ID: d1d3b2979402012a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <37cb0b01-0c6a-4b3d-b3d8-c4e5a45977a8@linux.dev>
-Date: Sun, 15 Nov 2026 18:04:54 +0000
+	dkim=pass (2048-bit key) header.d=liuolia.eu header.i=@liuolia.eu header.a=rsa-sha256 header.s=default header.b=KF7WLUcY
+Received: from mail.privateemail.com (unknown [217.31.190.30])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4jSJz34hDhz6tkP;
+	Sun, 15 Nov 2026 18:13:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=liuolia.eu;
+	s=default; t=1794766433;
+	bh=+k5tKf6urPY8lWMEjLDvjWecJXDmPvgqG1+tcJ/GJR4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=KF7WLUcYG9SlWaDOi3S6I1r4AHqLJ+MFcuczAiGYmbAQjcAI28goBj42DAw87uTZ7
+	 AEwqmwCCMPwlQS7YldQb13IlQjQEZCifCMnuo6ghPDjCgCM+q5cDHk/91R8m2/NSuo
+	 x4q8vtE7L3FvIbSifanF70yjK8IZuKuvpfF9IjkBQopmKR4GfdR5y8FiOJQl8R5dOZ
+	 czFRK++hQMYrDl/5f5oE7fPBaztnkaZcwljSNSRIWtL8tj5m1sKPTOPUH4yl5F+Z97
+	 NUl8aqq+RdZPYLOXpWpQN+UZbHP754pTovW14sBSZqFCMz7gFgeRSRUxPeZHVWMgqc
+	 imOQ+L3l6gEOg==
+From: Vytautas Liuolia <vytautas@liuolia.eu>
+To: Takashi Iwai <tiwai@suse.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vytautas Liuolia <vytautas@liuolia.eu>,
+	stable@vger.kernel.org
+Subject: [PATCH] ALSA: usb-audio: Add quirk for VF0790
+Date: Sun, 15 Nov 2026 19:13:24 +0100
+Message-ID: <20261115181324.97843-1-vytautas@liuolia.eu>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,125 +69,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] scsi: scsi_dh_alua: set handler_data before
- alua_initialize()
-To: Laurence Oberman <loberman@redhat.com>,
- "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- Bart Van Assche <bvanassche@acm.org>, Martin Wilck <mwilck@suse.com>,
- Hannes Reinecke <hare@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261109201120.1067815-1-loberman@redhat.com>
-Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <20261109201120.1067815-1-loberman@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: vytautas@liuolia.eu
 
-On 11/9/26 20:11, Laurence Oberman wrote:
-> Since commit 50759b881e1d ("scsi: device_handler: alua: Call
-> scsi_device_put() from non-atomic context"), alua_rtpg_queue() only
-> queues an RTPG when sdev->handler_data points at an alua_dh_data whose
-> port group matches:
-> 
-> 	struct alua_dh_data *h = sdev->handler_data;
-> 	...
-> 	if (h && rcu_dereference(h->pg) == pg) {
+The Creative Live! Cam Chat HD VF0790 (041e:4097) has the same audio
+interface layout as the VF0770: interface 3 offers S16_LE and S24_3LE
+capture altsettings at 8, 16, 44.1 and 48 kHz. The 24-bit altsettings
+advertise the same wMaxPacketSize as their 16-bit counterparts, e.g.
+216 bytes at 48 kHz, which holds 54 frames of S16_LE but only 36 frames
+of S24_3LE instead of the 48 needed per 1 ms packet. The device then
+delivers only 36 frames per packet.
 
-Do we still require this check (for h being non-NULL) after the change 
-in this patch? I assume that we flush any calls to this function prior 
-to unsetting sdev->handler_data.
+PipeWire picks S24_3LE by default, so 1/4 of the samples are lost: the
+captured audio sounds chopped and carries a constant 1333 Hz buzz, one
+discontinuity every 0.75 ms. Timed raw captures at 48 kHz with arecord
+deliver about 36000 frames/s with S24_3LE and 48000 frames/s with
+S16_LE.
 
-> 
-> However alua_bus_attach() only assigns sdev->handler_data after
-> alua_initialize() returns, and alua_initialize() -> alua_check_vpd()
-> is where the initial RTPG is queued. At that point handler_data is
-> still NULL, so the initial RTPG is silently dropped: no RTPG is sent,
-> nothing is logged, and sdev->access_state keeps its zeroed default of
-> active/optimized for every path.
-> 
-> With dm-multipath this goes unnoticed, as pg_init calls
-> scsi_dh_activate() once the map is loaded, which queues an RTPG after
-> handler_data is set, and multipathd's alua prioritizer issues its own
-> RTPG from userspace. Anything relying on sdev->access_state without a
-> subsequent activate (sysfs access_state/preferred_path, native SCSI
-> multipath path selection) sees every path as active/optimized until a
-> Unit Attention or rescan triggers an RTPG.
-> 
-> Seen on an HP P2000 G3 FC array (implicit ALUA, two port groups, four
-> paths per LUN) with dm-multipath not in use: sg_rtpg reports port group
-> 0 active/non-optimized and port group 1 active/optimized, but
-> /sys/class/scsi_device/H:C:T:L/device/access_state reads
-> active/optimized on all four paths after boot, and no
-> "alua: port group XX state ..." message is logged. Writing "activate"
-> to dh_state sends the RTPG and corrects access_state.
-> 
-> Kernels without commit 50759b881e1d queue the attach-time RTPG
-> unconditionally and are not affected.
-> 
-> Fix by assigning sdev->handler_data before calling alua_initialize(),
-> and clearing it again on failure. sdev->handler is only set once
-> scsi_dh_handler_attach() sees ->attach() succeed, so no handler
-> callback can observe the partially initialised alua_dh_data. On the
-> failure paths of alua_initialize(), h has not been added to a port
-> group and no RTPG has been queued, so freeing it is unchanged.
-> 
-> Fixes: 50759b881e1d ("scsi: device_handler: alua: Call scsi_device_put() from non-atomic context")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Laurence Oberman <loberman@redhat.com>
-> ---
-> 
-> Notes:
->      Tested on an HP P2000 G3 FC array (30 LUNs, 4 paths each): with this
->      patch the "alua: port group 00 state N ..." messages are logged during
->      boot and access_state shows two active/optimized and two
->      active/non-optimized paths per LUN without any manual activate.
->      Without it, all paths read active/optimized until an RTPG is triggered.
->      
->      I found this while testing John Garry's native SCSI multipath series
->      (v9) on an HP P2000 G3 FC array (30 LUNs, 4 paths each, dm-multipath
->      not in use). Native multipath uses sdev->access_state for path
->      selection, and every path showed active/optimized, although sg_rtpg
->      and dm-multipath (alua prio 50/10) both report port group 0 as
->      active/non-optimized. No "alua: port group XX state ..." message was
->      logged at boot. Writing "activate" to dh_state corrected access_state,
->      which pointed at the attach-time RTPG never being queued.
->      
->      With this patch, the port group state messages are logged during boot
->      and access_state shows two active/optimized and two
->      active/non-optimized paths per LUN without any manual activate.
->      
->      This fix is independent of the native multipath series. It affects any
->      user of access_state/preferred_path, and ALUA prep_fn fast-fail, on
->      kernels with 50759b881e1d where nothing calls scsi_dh_activate()
->      after attach.
->      
->      v9 series: https://lore.kernel.org/linux-scsi/20261108204733.557995-1-
->      john.garry@linux.dev/
-> 
->   drivers/scsi/device_handler/scsi_dh_alua.c | 9 ++++++++-
->   1 file changed, 8 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/scsi/device_handler/scsi_dh_alua.c b/drivers/scsi/device_handler/scsi_dh_alua.c
-> index 87ac0a6d63e5..84ff3aed2c46 100644
-> --- a/drivers/scsi/device_handler/scsi_dh_alua.c
-> +++ b/drivers/scsi/device_handler/scsi_dh_alua.c
-> @@ -1233,13 +1233,20 @@ static int alua_bus_attach(struct scsi_device *sdev)
->   	INIT_LIST_HEAD(&h->node);
->   
->   	mutex_init(&h->init_mutex);
-> +	/*
-> +	 * alua_rtpg_queue() only queues an RTPG when sdev->handler_data
-> +	 * points at this alua_dh_data, so set it before alua_initialize()
-> +	 * otherwise the initial RTPG issued from alua_check_vpd() is
-> +	 * silently dropped and sdev->access_state is never populated.
-> +	 */
-> +	sdev->handler_data = h;
+As done for the VF0770, only report the 16-bit 48 kHz altsetting. The
+other 16-bit rates have not been verified, so leave them out as well.
 
-Note: I was checking which members of alua_dh_data are not initialized 
-prior to publishing sdev->handler_data, and alua_dh_data.group_id is 
-never accessed at all AFAICS.
+Tested with this patch applied to snd-usb-audio from v7.0: the capture
+stream now only lists the S16_LE 48 kHz altsetting, PipeWire uses it
+without any local configuration, and recordings no longer show the
+1333 Hz artifact.
 
-Thanks,
-John
+The problem was diagnosed, and this patch written, with the help of an
+AI coding assistant (Claude Code).
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Vytautas Liuolia <vytautas@liuolia.eu>
+---
+ sound/usb/quirks-table.h | 34 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 34 insertions(+)
+
+diff --git a/sound/usb/quirks-table.h b/sound/usb/quirks-table.h
+index b6da5bcb15e4..56f32b3f873f 100644
+--- a/sound/usb/quirks-table.h
++++ b/sound/usb/quirks-table.h
+@@ -187,6 +187,40 @@
+ 	},
+ },
+ 
++/*
++ * Creative Technology, Ltd Live! Cam Chat HD [VF0790]
++ * Same audio interface layout as the VF0770 above. The 24-bit altsettings
++ * advertise the same wMaxPacketSize as their 16-bit counterparts, so only
++ * 3/4 of the frames fit into each packet and the audio is chopped. Only
++ * report the 16-bit 48kHz altsetting.
++ */
++{
++	USB_AUDIO_DEVICE(0x041e, 0x4097),
++	QUIRK_DRIVER_INFO {
++		QUIRK_DATA_COMPOSITE {
++			{ QUIRK_DATA_STANDARD_MIXER(2) },
++			{
++				QUIRK_DATA_AUDIOFORMAT(3) {
++					.formats = SNDRV_PCM_FMTBIT_S16_LE,
++					.channels = 2,
++					.fmt_bits = 16,
++					.iface = 3,
++					.altsetting = 4,
++					.altset_idx = 4,
++					.endpoint = 0x82,
++					.ep_attr = 0x05,
++					.rates = SNDRV_PCM_RATE_48000,
++					.rate_min = 48000,
++					.rate_max = 48000,
++					.nr_rates = 1,
++					.rate_table = (unsigned int[]) { 48000 },
++				},
++			},
++			QUIRK_COMPOSITE_END
++		},
++	},
++},
++
+ /*
+  * HP Wireless Audio
+  * When not ignored, causes instability issues for some users, forcing them to
+
+base-commit: 6db55dc5b1272e8fe63328a3bca610fe1fb5d382
+-- 
+2.43.0
+
