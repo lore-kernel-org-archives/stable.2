@@ -1,80 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794731988;
-	b=h/0j+v5ULDWTenaV47piUfMvrc9UoZ0HmJqat7HkTek9AOl2ihz8jyZR+CspoSWWYRkd
-	 ahOoV4OvSEL3H5lS03u17fFE1CqbltGVrtBzr9DFanRXRlFYw8ZSUkh5aw+aDEvZGeNA+
-	 zw5ixON7+5VP9AiNNkoxpjGtBVRJzbcjpxQyrYiON4XiMHkAxbL/o7gys+g56NzdX4K6C
-	 907cfA0hSuXUuYuRC900xnOCuU6/Z5a2/+qZiz+R7eCfsFUElV3RQjZKNeC14lfOhI70K
-	 5H5W03y0GhAKhesXufyQZNWdnYG3AzK+jlT6ze/8NLl8a+GAUrkNNUul56cjdXTDywg==
+	t=1794732649;
+	b=n9Dr/BYqPWxELzmQBZRJn+z4AJ76dDogB1JDaMhVNNy5m1zNICzBKPPe/sjB5ct/gwgW
+	 KFanAg5OZKz7ciMB3zwKz2tbtEFRHhPxEt0qHUTTGpqpKDTOkDKg7hFQIY1r7q8dX+JKR
+	 gjP0W54iaqU/4a/WJhx2jz1Nk3sz/bnX0VYWJZbEVUx7R6yOAEhPxdTOTVXwoBQzbW1lY
+	 j7gQXYoPL0/Z97XASTVS4UedLJmxdv35IgBf3MPUQtr3BnwhQXXPqEeJFPjySNiCnWZwz
+	 wprAu7eRtmP3No9eCBPheRXYX+OmughaOWe5AGCcrHkO7phucyneGD+Wge4vjC8jQZA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794731988;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=Ws4/1OWekV2GIMndfcjnMtK+0NiaXYDp8JwTOAVBfcc=;
-	b=fbZ+SqVX1u6yZsWOK/YvTjCAqeSS+VOluYLGj80HgIq1t7YVu3YE7T/3+EKrJyIA3zGD
-	 WH3v7gCRt3uzZ6eHSXlZGE+8Z3A3VSYB9wnXZOlJ41JX7W+nFZeT96wLMs1e/hop4t3RA
-	 wsZjIfkxmNvDWKTx3W6hHpQySQGn5QFI083zce9V3aVIyljtoRPXSw20EG79DaFpY3mZ0
-	 glLfYIaIUKdMpWfSjSjaWWgw9++o6YL2WAPIk1c85NFuvHKc4JLe0nKM8gphZqGMRElXp
-	 4pGlrQPXhou3BOeJ4K9x/9iYHty7M9Zb7c74MNAHZqY9cKlxld2QWxnPbVtbe0TeRaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794732649;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1SLobgO+XdP4qfweA06oyBZa+bHh3rqcaF3Z4e+D+dY=;
+	b=VeToIq1aW6PQsKxYRqgJWrVUzbYuO3XsTijw/tOzqSje4iMkATaDJHUxYW3j4QjwBHt0
+	 2ZDudmoRRx3I6iWd71HT2Zyy03IErzqap05KX67kMeGA1SN0GES00vaznlQPe7+BwTpLI
+	 6wBzuobV4Z0FK/V5b5GPghe6eGsBARwfgS+mF3sEMU8waJyR6/7c71y+czichnVB26wvY
+	 3gCfQaKnqt8ZdDCkHyYEl67hbK3M4YcncR+dNyBF2ARcyvmB9I2QmwLkBvNuucERPbS2E
+	 +TxpRgU5abRwqJgf+cG39BU2RkJO/Rg6q1quQ6ak7DMq1TOOdADo3O4CyVoavXYJaXw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ktmLE8v6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dz66k5Vj;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A76606A31D;
-	Sun, 15 Nov 2026 08:39:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455B9606A31D;
+	Sun, 15 Nov 2026 08:50:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ktmLE8v6
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dz66k5Vj
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794731987;
-	b=hgeT4rSJrfvcuuBDLhOdIafhnNnt8VqRzOnOadG4eBPvFdSi8g7fX9C5LYxdL9qe2VK5
-	 Bie3HhP9E8Jqdw7R24zkDHgr8ID1uuB2b1HhFvUB+KyopgOVwhrx41GNsOLQnwfEyEdaH
-	 73BelQgGsI5AMmqVPK5dJv9XDU6627fBBAwoJW/KvgCDGm3QYbgua9vUm0M7EWnAKlCO2
-	 vXDo+yizpv/zQ4UoSaJ/SlY8jCRatDlhDnw92gYPOXTsqfIJaIyvu9pwKyeT6sdwe4D5/
-	 xmQNj+U9NmP/DQzU+hgoRIbZ/OVDspyxmJp6OJkFjeRsuCTKTW/coy4bujN3HqL/ESQ==
+	t=1794732649;
+	b=CFcQfsOc5mjENN58Pe2TEPytIBq8zudKIobrJzyoKCZaEzghqJo17jJKcZw+JvH1JmIW
+	 shElwt8BGAyRuDoZp6MsOySeYoUjmwTorFMPOU5xQaZhBhxFAuVIKSVMXonHCZC199Erc
+	 plL0SPIfhUSZm/dboXWtMS26fQkywfI0XM74YkPb8XCLBQY5M+6uwexN45YtkqGWmus7K
+	 V8ly3fcQlAATE5UQyPMxmtY8dDptp4ZqYXEek8h+C6uErQaRcNJ5CPVpQw4E3dD3QP+m6
+	 Aa7KCjxo1VUGd0iZr1z7twV0LzMZscXvctlOMezZoNoTG2P3sX20JSdghH1tgM+fcfA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794731987;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=Ws4/1OWekV2GIMndfcjnMtK+0NiaXYDp8JwTOAVBfcc=;
-	b=anR3PReuSgfqF1ZMkSb8uvMlY4X0jNvam6WvJ/a0cLRby9kUR6m5AV4qVpgEpPj5Lv68
-	 3Iohsq0rHNHSNPGTn4p7bB5dQuZPWjyoqlp2eRZVmJAssmJeUVFJ5X3ZDIhroro//540z
-	 jG+chJAEHvYqY13HjmatV3iCV1SqoPjRVJzog/QTkGTE79X+4VrOon7VBF6JA624sN1A4
-	 VjHNu0KPjcCtIo0RpMR9Ax1SPKYxoU87YaVJVCQkmoxBA1TkS4OSAsyRCnitDrQ26/qkI
-	 G7LFXwx13RfT1wV5fE9ojUHLdpgrlMu+AKNaWdoIjRp1k21yFhMly/FU2i4HWgOqI+g==
+	c=relaxed/relaxed; t=1794732649;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=1SLobgO+XdP4qfweA06oyBZa+bHh3rqcaF3Z4e+D+dY=;
+	b=iZ1GYcCsS1zp/4We6IKiJzu9jLZPL4AfQOndSfO65I9zT7OuUY9psTR9RcRxYfduejO1
+	 jrK0ZMSyJ96EMPsdrrmzxEucKrFloi7ueMpg4dCFscsBLXYbG5ShjG4IofcaZp05ke2vo
+	 avZJTFfJ+IHvdTYeClJUK1yHlJ/5E/c1TPgM6Nkb5PsSh1wl5Ue+lwF5gxEDbrFJW5yff
+	 YaluUmjV95wdjB9Ncvstksw7JW7uIme29ZsicNm9cUAgp0dDPVtrSANomxRl2XCQjZBTE
+	 BMd6v4dB44BMGMH97R5R1Kp2VRcQGZiQvJuOx1z6KjjHgBwEchBX2VyFjSDBxyoNfNw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 011241F000C4;
-	Sun, 15 Nov 2026 08:39:47 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 90E9F1F000C4;
+	Sun, 15 Nov 2026 08:50:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794731987;
-	bh=Ws4/1OWekV2GIMndfcjnMtK+0NiaXYDp8JwTOAVBfcc=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=ktmLE8v6EPy3nnzVEgF205RPmo+vRcXS3TffguDg9PMtecfb8CGavNUsex/ur5ojo
-	 uOLonktkHCLViz4RORQhf6p5G6/yKAsnVSOgPDZAQezUQdNEwM1+/eCEtshAmJfjld
-	 e04P69Mlk6qSs4aQTy0JIXqFV0A3/tXNPzdxryo8fCRyxPGVBHT2yTQegrSFYZCaus
-	 M1JAF7lMvOQNWCaa5cfEr6FPUiTu56rgqbAy3LD4IolJiYDarReTsIRaN0My9QyFF2
-	 E7BhjHMi8sviSdybNi6QWyegGk/SyBl3B87I0J9YQyzGojcK9vkcWr0036+ghFcqL8
-	 qPx7cm8ETjJ5A==
+	s=k20260515; t=1794732649;
+	bh=1SLobgO+XdP4qfweA06oyBZa+bHh3rqcaF3Z4e+D+dY=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=dz66k5VjJh6mZaOPUNHCqAkkd2FXirpnX/6w9/WUgfIo/s869pONZC+1JeeYtX5yc
+	 CEkvJqwwU3HLYb2s0RNJQDsshTeiYPVBVAtjpyupvPtc617wkPCKTzhf2aTD4iJM02
+	 BrDYk/nnQTIUkI7dylw6Sg3umyde/1KEI4ItuQtN6DoRJ6HttkVJTkqgFn43qI1KTm
+	 F81Aqi1z/l2GY+KmSS3n784kSrt/K+xTIKlzFTQBIMdsuuFa2T4maV8bwFGVwV+JUk
+	 uokGYMpeDY46R0+5/XDfUgjTJTRyR4+k8be7Oumgn8HdWBNGq7bZk7HEncT3YKLTOs
+	 T0+JnCtghqMXA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 5141549FEF;
-	Sun, 15 Nov 2026 08:39:46 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 06CD849FF3;
+	Sun, 15 Nov 2026 08:50:48 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH v2 0/4] media: verisilicon: Keep the CAPTURE format in line
- with the decoder
-Date: Sun, 15 Nov 2026 08:39:45 +0000
-Message-Id: <20261115-hantro-fixes-v2-0-bfecfb07a3e7@gmail.com>
+Date: Sun, 15 Nov 2026 08:50:48 +0000
+Subject: [PATCH] media: v4l2-mem2mem: Don't leave the context aborted when
+ STREAMOFF fails
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,70 +84,88 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNQQ6CMBBFr0Jm7Zi2IhJX3sOwaMsIY4SSFomG9
- O62GBcu35//36wQyDMFOBcreFo4sBsTqF0BttdjR8htYlBCVVLKA6Zw9g5v/KKAWlsSZXtUVW0
- gTSZP2yEtrs2Xw9Pcyc7ZkRs9h9n59/Zvkbn3U5f/6kWiQG3MqVZVWQtJl27Q/NhbN0ATY/wAr
- ST8D7oAAAA=
-X-Change-ID: 20261113-hantro-fixes-aace04d5268b
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>, 
+Message-Id: <20261115-b4-m2m-streamoff-abort-v1-1-03d069fd446d@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMMQ7CMAxA0atUnrFUp6UDV0EMSeOAkdIgOyCkq
+ ncnpeMb/l/BWIUNLt0Kyh8xKUsDnTqYH365M0psBte7iYhGDCNml9Gqss8lJfShaMUYaYhTz34
+ 4E7T4pZzk+x9fb4ftHZ481/0G2/YDxOVqXnoAAAA=
+X-Change-ID: 20261114-b4-m2m-streamoff-abort-dd13d60ea351
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Hans Verkuil <hverkuil@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794731985; l=1704;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794732647; l=2190;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=ieijxoJ+Z395DXW1QlEoaITK3L8xF7mWwBby8wJ+DGk=;
- b=/uVlZ6ozpByZ8clNwP0NjCB4JDtnqv9NzXnKK2vpfHhw2ZdhGxVR0IoF5sT99Iw0cgW+z9uWP
- bIah0ICOwAMCLAlDAPAGWgscLLinzYElFp68cno5uNHbTyMNHyC1wx7
+ bh=BuQkZRj7ByvS1NUQNOI5Oe3+pEoeToFjAE2b+Y7gZv0=;
+ b=31LFjhg6raOEK+/4BmBo3P4wFiBpFI5mErQ8Jc9DyB7SPwYS9ky2pWUvv859FlNhLz4yBQOMO
+ /kXF0tOLV54BKZxtRYH4WWfVnytW+2qGaFOlkKqR9k41bxERHfdtlIt
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
  auth_id=1480
 X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
 Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Fixes for cases where the decoder writes past the CAPTURE format or an
-auxiliary buffer, found by Sashiko on hantro-dec-size-check v1 [1].
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-Tested on an Orange Pi 5 (RK3588S) with AV1: the CAPTURE format is right
-after film grain is turned off and for 10-bit streams; VP8 and AV1
-fluster show no new failures. The overrun in patch 1 was not reproduced.
-HEVC and VP9 are untested (the RK3588 has no G2 core).
+v4l2_m2m_streamoff() sets TRANS_ABORT before vb2_streamoff(). If that
+fails, e.g. for a single-planar type on a multi-planar device, the flag
+stays and no job of the context runs until a successful STREAMOFF.
+
+Reject a type the queue doesn't have before cancelling, and if vb2 still
+fails, clear TRANS_ABORT and reschedule the context.
+
+Fixes: 2ad5389b3412 ("[media] v4l2-mem2mem: Don't schedule the context if abort job is called")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+Tested on an Orange Pi 5 (RK3588S): after a wrong-type STREAMOFF on an
+RGA context, the next job ran only with this patch.
 
 Developed with Claude (Anthropic), which wrote the code and the commit
-messages. I reviewed every change.
+message. I reviewed it.
+---
+ drivers/media/v4l2-core/v4l2-mem2mem.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-[1] https://lore.kernel.org/r/20261112-hantro-dec-size-check-v1-1-e5f1180b625f@gmail.com
+diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-core/v4l2-mem2mem.c
+index a65cbb124cfe..03d9f492fbe9 100644
+--- a/drivers/media/v4l2-core/v4l2-mem2mem.c
++++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+@@ -874,15 +874,24 @@ int v4l2_m2m_streamoff(struct file *file, struct v4l2_m2m_ctx *m2m_ctx,
+ 	unsigned long flags_job, flags;
+ 	int ret;
+ 
++	q_ctx = get_queue_ctx(m2m_ctx, type);
++	m2m_dev = m2m_ctx->m2m_dev;
++
++	if (type != q_ctx->q.type)
++		return -EINVAL;
++
+ 	/* wait until the current context is dequeued from job_queue */
+ 	v4l2_m2m_cancel_job(m2m_ctx);
+ 
+-	q_ctx = get_queue_ctx(m2m_ctx, type);
+ 	ret = vb2_streamoff(&q_ctx->q, type);
+-	if (ret)
++	if (ret) {
++		spin_lock_irqsave(&m2m_dev->job_spinlock, flags_job);
++		m2m_ctx->job_flags &= ~TRANS_ABORT;
++		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags_job);
++		v4l2_m2m_try_schedule(m2m_ctx);
+ 		return ret;
++	}
+ 
+-	m2m_dev = m2m_ctx->m2m_dev;
+ 	spin_lock_irqsave(&m2m_dev->job_spinlock, flags_job);
+ 	/* We should not be scheduled anymore, since we're dropping a queue. */
+ 	if (m2m_ctx->job_flags & TRANS_QUEUED)
 
 ---
-Changes in v2:
-- 3/4: also replace a native format when post-processing; second Fixes tag (Sashiko)
-- 4/4: check the control returned by v4l2_ctrl_new_custom() (Sashiko)
-- Shorter commit messages, fewer code comments
-- Link to v1: https://patch.msgid.link/20261114-hantro-fixes-v1-0-abb78264801e@gmail.com
-
----
-Arun Iyengar (4):
-      media: verisilicon: Size the VP8 segment map for the largest frame
-      media: verisilicon: Set need_postproc before resetting the CAPTURE format
-      media: verisilicon: Keep the CAPTURE format at the stream's bit depth
-      media: verisilicon: Set the bit depth again when its control is rewritten
-
- drivers/media/platform/verisilicon/hantro_drv.c  | 12 ++++++++++--
- drivers/media/platform/verisilicon/hantro_v4l2.c | 20 +++++++++++++++++---
- drivers/media/platform/verisilicon/hantro_vp8.c  |  4 ++--
- 3 files changed, 29 insertions(+), 7 deletions(-)
----
-base-commit: ad6549a46748d00818483b535e5cd2a704685c98
-change-id: 20261113-hantro-fixes-aace04d5268b
+base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
+change-id: 20261114-b4-m2m-streamoff-abort-dd13d60ea351
 
 Best regards,
 --  
