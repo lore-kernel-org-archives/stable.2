@@ -1,57 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794746496;
-	b=HGj+NYjPAXclP5DH49GaRxNP2lrj78GygVJZuiq9H5uOfbg/WISMHqDlj5kT2efCKi4Z
-	 RgvRQ1aDvaR5010A2WY5aE3s2x/jwtHsn560H0D0FF0avl1BFUoT7sHWKs4rdWRG5jrTp
-	 q19K0fwiJWp9JQ5Ik/cTN+KvN+NBtZF5a1V7PBfD6raHRfI/60L80jsmxEjkrotOZEYos
-	 Mw8vmCIHCD/jPo2OC0CwedWFMM66Y4a91zVykYD/VChxZ62NdNOLFOxA2Jfnuh0gUq7/s
-	 d0XLYahWldUBjDTEvVNli+9E/XGGE5ft7PHucahbWzSZ707+qltji8dnZqayGJ0cAGw==
+	t=1794746627;
+	b=GZmd6X9wumk6HHOO7x7iIfb1hESpUCgwN937bBCUJqqMB9GgEPoZNqevVnvgG30Z45Nh
+	 xT15VgyoutwuG7lO+9jAdVWGbI4RmfAOsiTIWJJdlOXmDktydVNS8bL7FNs7B66PLnuJN
+	 mGpIwsWEqZsIFt4fBSEUOGVmIv10uGPxp20HsNsNVFe+ZoKZt6objBW8myAHS9HcnXIz2
+	 cG/AW5KNjzQz8z4KS6/1bRoKiF4GUAdWqZvIaCdkRLFPKxVbastHVE/dxe6Pug729veoB
+	 TLTGxBatHcmCw7RoWsOHI1w4/IG4kp9VAtlnHFItYTy0qmC8F2f9/uGjPxIpo6v2V6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794746496;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794746627;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LzcXdrOgQ1HaUj250QGR/Dchu7w4hQjXhuOLUavjkoE=;
-	b=Ii17EeR4N7HjEnsVvSuw88xdMz+Yiuvuk+EXWkFMrEQNa45I4tq+gxXIe7SSe2GMokWf
-	 GzpXOxVnp2oePEO1AB2UihLmfrxqNm2t5biYQ0nq8MKQO6YcA6ol4hXWHQ8n8aul+m8BZ
-	 G0lbLpiUTkU1JR32Zl4djO2FhMgkAkWHDRbnRPiRjaiACjHDgdbrQv/uLxybSFCAOSim8
-	 JpufT7ZgOFPeZOOIaFtppkfSQDv8QhRr8CPjbcL6xNeol9MC7LDvp0gOjcSMqCuUOcbdH
-	 36ywW3bbjZIHF2OhknTjM+bHRAccuTgnHs+naFJ7xTW982o7san7aiNP8DFSc2kSLyw==
+	bh=ItLIVfR1UvySuEEyBIwhJcSgZBhLRZU0DncWL/OBsMk=;
+	b=h/jtpU/dMDfMyeCgxzuOuSQrngFxnzLWzUurPD1/Qf9NwI7RvzgvkBGlW/tz60ipXRHd
+	 Dvoc0r0Ql7K510Z51nfv2phBSQUt5WOvK8OaykDGIGPuPC2DCo7pNBu/V8tZjwKxX4qBJ
+	 TZLLMWolYuAJ5KPvCl5sDE/oy9ClWaDbLV2uK4QT/HSQzvch4Wy0hb0zTUnwWnuq/Q9IQ
+	 Rn10Lt4CtXohs9wS6HNYkD8HLJnBOjTk1Sx2722Bz+lg4lUdwhj2DA9fcFAU0sR8HWCZO
+	 3uh0FCs3GZm4OK4UMPxuoSjj0E+fn3wON0wKnf0PnBt7DpZYDyfS500GIxn+Qhk+NFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NI6P9MDg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQUCoZgo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id EE2E6606A31D;
-	Sun, 15 Nov 2026 12:41:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A334606A327;
+	Sun, 15 Nov 2026 12:43:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NI6P9MDg
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 1FA0D1F000C4;
-	Sun, 15 Nov 2026 12:41:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQUCoZgo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55E391F000C4;
+	Sun, 15 Nov 2026 12:43:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794746495;
-	bh=LzcXdrOgQ1HaUj250QGR/Dchu7w4hQjXhuOLUavjkoE=;
+	s=k20260515; t=1794746626;
+	bh=ItLIVfR1UvySuEEyBIwhJcSgZBhLRZU0DncWL/OBsMk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NI6P9MDgHPfKp+q4hLzNUBAYUtlquAxXePLDvoc9WwFHK/jghw4F0pPs3HBBG5fHE
-	 RuEpsSet6vFUwEtOX9gOkCj9oYNRplLqEMVkCVLL6hsio1D+/8wB4bAPRbrmdWmcdU
-	 2kbaP3gx+I3PvMshgqrDIdAu1pFbta6HK3crCjg7Icc0G+kiRZTDREGPdLqVF3Ej53
-	 M0PoDc7+UZkcBd7Wq6EPqAf671pYS4QGB8iCQ7Et0fP5PEMFZfny0aKVLDeJharu/E
-	 wvVVHoOxs9a1o/2u0oPAV6qgtPT62WMU/8j55SfTuUwYxJuxLM5CfuxUA2dPDhgHMF
-	 LW+rralqOUWzw==
-Date: Sun, 15 Nov 2026 14:41:31 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Sinan Turunc <enscrpt@pm.me>
-Cc: David Howells <dhowells@redhat.com>, paul@paul-moore.com,
-	jmorris@namei.org, serge@hallyn.com, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	b=kQUCoZgoZYY0fcgF/LYN5sg/FhigfV0RmeA/86U/4sCjPuPGBE7pd/oHPIVJVMHeI
+	 2IlWDFrE2uywqCCL3Jj4I0gGH96okLxf/UhYvS5kk81lBsUXiLT0XG4bnC3fmIIbQT
+	 FAXlrPGLPbzjzk/slqBIXIi2bdAAItZxNHxkbUNb2Djd2SOHBSqePSUK+11mTmke2o
+	 pFbiltFhIDDUt2GyBFurnDfb1H58W6ugxVtf1bPJT4VmYgHVtu2+LnWlCcDTfojdcw
+	 G5zEG77A/QC/3H4C0a3ofuIthVL6eskpAnW0W6WqaYJziKQzUOtpAXQO19MXd54q0C
+	 fv05uW8CCyplA==
+Date: Sun, 15 Nov 2026 12:43:34 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Chris Down <chris@chrisdown.name>
+Cc: David Hildenbrand <david@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
 	stable@vger.kernel.org
-Subject: Re: [PATCH] keys: serialise instantiation against keyctl_chown_key
-Message-ID: <avmoe41hNwe5GryN@kernel.org>
-References: <20261115121722.206-1-enscrpt@pm.me>
- <avml2-lpRCJYlHOp@kernel.org>
- <avmmnHsz2vDUk8HO@kernel.org>
- <avmnRbuvbSg2fCVg@kernel.org>
+Subject: Re: [PATCH v2 08/13] mm/migrate_device: fix ksmd oops on a migrated
+ KSM page
+Message-ID: <avmojuNNO_ZRKL1P@gremlin>
+References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
+ <20261113-mason-migrate-et-al-fixes-v2-8-50a2ed382b61@kernel.org>
+ <20261114115657.f63de4714929f7af@chrisdown.name>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,37 +79,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avmnRbuvbSg2fCVg@kernel.org>
+In-Reply-To: <20261114115657.f63de4714929f7af@chrisdown.name>
 
-On Sun, Nov 15, 2026 at 02:36:25PM +0200, Jarkko Sakkinen wrote:
-> On Sun, Nov 15, 2026 at 02:33:36PM +0200, Jarkko Sakkinen wrote:
-> > On Sun, Nov 15, 2026 at 02:30:23PM +0200, Jarkko Sakkinen wrote:
-> > > Please review the LLM generated patch yourself at first and write
-> > > a commit message thta you can understand yourself.
-> > > 
-> > > Plus, remove spurious inline comment changes. I'm only then going
-> > > to review this.
-> > 
-> > I.e., I have serious concerns that you might not know what you're
-> > doing. Well-formed commit is the way to get evidence on that.
-> 
-> E.g., if I pick and write proper explanation instead of slop,
-> should I call it my own?
-> 
-> To have a review process, there must be two who think. Otherwise,
-> it is just me figuring out all of this; and LLM. You have no role.
-> 
-> This is also why it is important to write proper commits.
+On Sat, Nov 14, 2026 at 11:56:57AM -0800, Chris Down wrote:
+> Hi Lorenzo,
+>
+> Lorenzo Stoakes (ARM) writes:
+> > [ ljs: tweak commit message, comment, also refuse device coherent ]
+>
+> Alistair's Reviewed-by on v1 came with the argument that KSM pages should
+> still be able to go to device coherent memory [1], which is the opposite of
+> what this does now, so it's probably worth checking that he's happy for it
+> to be carried over. Going by what ksmd does with zone device pages, the
+> change itself looks right to me.
 
-Finally, while not knowing if this is the case, it is irresponsible
-as hell to send patches to subsystems like keyrings *if* you don't
-understand yourself exactly what you are doing.
+Given the endless waves of AI fixes I think giving a little slack is fair
+on details :)
 
-Leaf driver mixes up only that leave driver; an uncosidered fix to
-a subsystem that is always on  side-effects can do much worse.
+But, yes, that was a mistake so - apologies Alistair, let me know if that's
+OK.
 
-Have you considered this?
+>
+> I've tested the device private case. Without this the process hangs the
+> next time it touches one of the pages, and with it the migration is
+> refused and the pages stay merged.
+>
+> [1] https://lore.kernel.org/r/avTu3LmscsttRVRp@nvdebian.thelocal
+>
+> Reviewed-by: Chris Down <chris@chrisdown.name>
+> Tested-by: Chris Down <chris@chrisdown.name>
 
-I'll hold for for v2 :-) Just do the work properly. That's all.
+Thanks!
 
-Br, Jarkko
+--
+Cheers, Lorenzo
