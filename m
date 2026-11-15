@@ -1,78 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794730889;
-	b=Cfasmefez7ZazjDLGqb1PwxTkcA5UWFwpzrtizTEuMcUPCRfF2GZjqcsqTOp0BRSt/y/
-	 QVzR0XCi7BXOaG5eTIoeIG0smsb4o588MwOLr/eejlA2zjbvVTZnq6vNuwBGqsJ4HD2bp
-	 t284qOG8ga1NfnTnRQdl4lL2B3k/JnITsTHBltgtGvAiYypXcoMBRxoDVluQBPf6ynSrH
-	 z1pLCGC5mMxyOlpTpxfYmEkv6nu0k3KeJ+mx8bqbPLrHishs1je82MvxCh/GZEuTM/XI+
-	 NTfynOXVTNP+L87QtQprAXFuTcd16ki5dcGl2AzC7WCeyLb76pWmDCbhJkCoNlDI2+A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794730889;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ENmgzf/tl3n2tKo2JxTzXWou+7h9tZdT57vOa3F26Cc=;
-	b=A39MjerJuLi7KIr4vhkZkMwEAFLz7IFtxlRCF4qmMR9hrKgZ8Zmw4VTNhuRUcuDNxokn
-	 lgrx/lkEkCQhIVImLV8nlt19JLQwWUrLOyPgkmsAO1m3sBp4s4nPGNheJ+7vFCrZuvSu7
-	 XL+F3YWlpVgJjOlRAD8tpci32bw59TmR4n+DBSbQNgxIFeSQYDWbXVp+R5loSlT22ozSy
-	 2rPmv24mXKVIgdmTXdV6PjWjvUD8YrKZP+LakaC1pQ5BPbgA4IvvAAZvkEz4z9fMIKVL1
-	 d1vikWybjRGa40kYZWPk38QetL7EFjD5mfhbmqgZBQNYOyiyTqVCsmbxSQ3j/57pHSA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BpyRBYU2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD3D2606A330;
-	Sun, 15 Nov 2026 08:21:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BpyRBYU2
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794730889;
-	b=MzrAL84BkU0iS4w4dm81jOX1zb9NCzBQ5v0LUUhQK3a4fDcSpHwXyh3OagNS/9Z3h/qv
-	 Cxkhs5CN4syrX/xbitBQVJI/Oi/5/1bEUiUM2nvdKoszbqjCQWBJRN8zPViWM5H4IqiQC
-	 dj4JpGZF8uzusBQqusEf8ze8cySWxlo8aG7gblWoY1aATvlIYAEvuwQ+KGLZCXulEB8Hu
-	 mNd2ZOjGlFVJKst6JfiF0HcIsyXPCGv9vNbIk94Iaee0gEChfgH/HNKZ26kSUnPmzFJp3
-	 Md/CeOom7aneVRGBhaUjJ0wPk/+u91vKn0/Kj4aaI7B/niCrehDz3xqTBNnKaWaCTYw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794730889;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=ENmgzf/tl3n2tKo2JxTzXWou+7h9tZdT57vOa3F26Cc=;
-	b=xezzN3HvdI9p1/MhKJgFkMzQHvczVPzaehsHZb0F4mRFMBo75zpnqVCHDHeacrUxkGue
-	 zvXjn6Hkpf1cGkCKl4xNOKrf0HVtM/tmPd+qC2RpQ+ZU8BAG2U+xFbzsHyt1CjWFgQqHV
-	 I9lwNYR2xSE99VmjXTosWXhMr1d3ZMhoFaACKXr91vxcuKazYWrBrYUALlOZ3Q5M5NMR1
-	 sGuA54k4+j7xM+V7TQFFyvCOe5JXNot/Rnipo11hVcE8tkvMYNRhsdx9hjxb8jpNL/w4P
-	 kOfte4nfVxyhMb3+qyt9+mt0DTZ5CrUrTSD6ZvwT42zZdQ1RJtzlCJeqvwOX+hbOrHg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794730963;
+	b=yg1CVFqlxqYT23AI2HN0KzfPTjXVlXNWuycBlNjUzGiazGR800AC8GVw9gV+1vWG7Vh7
+	 uuAd/uRzyRH72F+jVtkJzGGLdF2rzNbuDuTfNrWQWFN7ehN975cTvJ1WEQk5B+GrD9aP6
+	 DefQgdK/uF8FmC7ueRHY0v444bswwu0N4MBGeby+9+alb891ECEUjzRWiM77KXkfLlkzl
+	 iJ7FJx65bJbh5PMx+7Cnz9KrJcM5Mjkv0nUDVi3chE52WCcvHUMkaf6fLAH0qXqxmLdLG
+	 NV45GWsblGjA5pIkoxVR9+ImcTFYxqvRVJIZ4YnE2/vX3dk45jWh+7h3Ds0R7qlgmIQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794730963;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
+	b=Oqo9v6aZkhBNBq0lSjZTmnCFfgVgdV5LUAF34TBu58sEdfZngzvIEjR7HG1k+kcgSn41
+	 a0F9woPKXmsxNLuc0Rsg59w+qPWzYlJf2D0Ndr2iEJ2sgfkjtHmNBmMlPzEO/iYi1Hp+T
+	 R0g0AGIL5EA546X/bSvrQKpchJVb4diW9xhL73VQkKhhEqzu0H0lNHjC4W6wcmhGeY7I1
+	 LMYdgwocqSN6so+nc6khCFzZcFE/tgrbEec1bqyN134ZaZjvufcW32L3H3XMeurtvv+Ba
+	 9fXi2l7JNuvOqTUbGZfTY6Tfax5Wq6LEiJZtzGlMn++lVGUGNMK+ZqnRpOorkgkbkHA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fzae79s4;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DmTM11z2;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D75E71F000C6;
-	Sun, 15 Nov 2026 08:21:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794730889;
-	bh=ENmgzf/tl3n2tKo2JxTzXWou+7h9tZdT57vOa3F26Cc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=BpyRBYU2KY3sEJXEWT64YFXWDBxtN8Tss1AhHeNFf6F215TqWrLS6QmHHvQ3ChHUr
-	 CDBP8SbivO0j86mlFJpDeIgS7Be81LvBdY5M0jcI3r2Hfhg28fYccbeRSpxjLgdQtS
-	 d46NFsZMQEAtrrtRUmf4gMz+5GoX7G+cHMkQXZo+9Xx/pZqASlIIVr0UTb3cMs5HDn
-	 7KBgzoZqaEuiz82XAG1nnSlOa9TIknPCaLZGDExOwQdGmTI4Fzabb2QFi4O6/AWR7l
-	 o30Ts/r4mza7H9uc6nRmwtnmlYoAlAkovumLq0pyIjHX1ZN7LQI39a+heu681F9iRf
-	 N73lxqf5PngOw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 62B4A49FE2;
-	Sun, 15 Nov 2026 08:21:28 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Sun, 15 Nov 2026 08:21:29 +0000
-Subject: [PATCH 2/2] media: rkvdec: Stop the VDPU383 core on timeout
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C840A606A31F
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 08:22:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C840A606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=fzae79s4;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DmTM11z2
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794730960;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
+	b=fzae79s4r33XIm4X0Qplugnvzcx6gmPVHrx9mtrZBkRTm4nlRPUcw1+SPvXJg7RI2vN7db
+	cMANMWjWd4+a8HcnjUfAdloBcKJBlC61C8d9w+Yj3H6YmqZPNcP33FoP1P7YrLhbM37cjL
+	fv+ZjYa3kgtVouWIOS3xtRXdYH3jv8s=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-447-lM2BI4huNw6X_q-MlHk-Lw-1; Sun, 15 Nov 2026 03:22:39 -0500
+X-MC-Unique: lM2BI4huNw6X_q-MlHk-Lw-1
+X-Mimecast-MFC-AGG-ID: lM2BI4huNw6X_q-MlHk-Lw_1794730958
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-48e4d1e29f3so2093077f8f.3
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 00:22:39 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794730958; x=1795335758; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
+        b=DmTM11z2mj0Ygyj+SNk4FmJDtfZr0mpv1PUS2jGNBIKf8NMHOQcQqCCVH78jJnYr8w
+         BcLd6CjxdqglHGwJ5zLoZ2EH+AXT5DksN/YWmNfMWshEiGPfB5wbL3ur3RXMt+eak/bo
+         AJU3htHY47nwfMp58dD7JeMtvLCU83xjPwW+zQGwNZUK53OG10JeUWhK4dqc4phQswdW
+         Ar/lr9h7EaYwautyYFc1ZvinugH7pbRkEDJxsZ/bXqOBotJbEZcAGAiALRAhePW6TbLY
+         iL0iS/8I5xz+qWtOxPYrgduXx37RHZ69MBAqu39Tu6g0e1g5xBYYkd11SclSGtv3Hsdb
+         8IOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794730958; x=1795335758;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hOqx9PI7nO87s05epf/KxKW2rSgtDSMLjv2nLVv2RsY=;
+        b=zqG4e+lgY71umZv1DcHR5amNJwjVFZs2lFR8gayDZEI6gShJP2oGED8D2aNgG7s+QE
+         heIwr5nsB31AceS2wDsi8J68CqGJViR01hFxfIfn/zd3RCfX3P2qOvVwLMhUALll48qk
+         LSvlhpeolixT1AoVOKaX8GGJKeY1DOtTGnBPCjov2hUp4tqIj7RSgX9XTr9tSpTtH89z
+         0r0C/gM0V0Ug8wU2Co5YizyC6B/2hEtrmzvhqR6EttZejCUMfW540N4OHryD/mgEJJ2x
+         qe/4W/TwtJwCzqEK6hOvx55CqncyuKAl82j3tkNQGaPcbGPXEi50cio6CfuITAEyBMbz
+         u3pg==
+X-Forwarded-Encrypted: i=1; AL+hErEGT7PLSHpu1IlT3tAlN5lfvYQVrhUmcHbP5U8lDYpNrUA8M31RGrLJIGBkeHm7P7dsg66V1oc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8qJydI7iKIAKOSQWSQpsYmUDw8YzKwgsduuEqNsiNTnrlx6JC2
+	AcaIQpUQmmTu0LVjmJjrObPTSCe7+ykUfiNrZSBLkWF2YS6QEJPcT/f+/JXUxY9tijl5dM8iVAO
+	1Wj+BbVKD+uZZjwERrqQHwlnZIdebhYJ8ahDdPDhdOm7X6lNCGU9phh8pkg==
+X-Gm-Gg: AYBFou3rrqyohrtKfJ7V4IrjXZQPHvpAaABGPjWQ8bgD4F4d+eWtl0IikScgyjz7viO
+	eW7R/yspU/nCQOfpGvzB0pSARC1rMj9Tn/uYxplCuekJkLllvCDA+ZKxiaZUnl8J2hwCjGpYEQy
+	51leLeI0dI5+Ij2DW/RK0H1oRp4wqfRFbC/vTYJhdACrNKCp2CZRkQfP/PyFRDYEm25Ol1oJJr7
+	fISIB643/0TEZCXX283l0J70T9p+ddIcN87k4mrj32KlNbNTR5n1ZebWD5vdZLwe+6kpC21c/Ck
+	gwilfneKxD6ZZDtrOn5OWwp8qYz+CWOy7oNGjzUg7yw96R49mnSGd1pbvVHw2oTIlXIopNqDy3k
+	sV1bIxuS2KzkzSMzx5L+NuQcM7gyiIJHpXxPDRf4kRUfZMi+cukZFVQ==
+X-Received: by 2002:a05:600c:b86:b0:4b5:d95c:2378 with SMTP id 5b1f17b1804b1-4bb55ac4030mr155906545e9.34.1794730958279;
+        Sun, 15 Nov 2026 00:22:38 -0800 (PST)
+X-Received: by 2002:a05:600c:b86:b0:4b5:d95c:2378 with SMTP id 5b1f17b1804b1-4bb55ac4030mr155906215e9.34.1794730957813;
+        Sun, 15 Nov 2026 00:22:37 -0800 (PST)
+Received: from sgarzare-redhat ([193.207.75.235])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb4e2adf53sm297980195e9.15.2026.11.15.00.22.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 00:22:36 -0800 (PST)
+Date: Sun, 15 Nov 2026 09:22:22 +0100
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Sergio Lopez <slp@redhat.com>
+Cc: Bryan Tan <bryan-bt.tan@broadcom.com>, 
+	Vishnu Dasa <vishnu.dasa@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Bobby Eshleman <bobbyeshleman@meta.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	"Michael S. Tsirkin" <mst@redhat.com>, linux-kernel@vger.kernel.org, virtualization@lists.linux.dev, 
+	netdev@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] vsock/vmci: reject datagram binds in local network
+ namespaces
+Message-ID: <avlpwYZr4pSpunEl@sgarzare-redhat>
+References: <20261113-vsock-vmci-netns-isolation-v1-1-ced02054ea61@redhat.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,113 +120,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261115-rkvdec-wdt-stop-v1-2-59e687c6cc63@gmail.com>
-References: <20261115-rkvdec-wdt-stop-v1-0-59e687c6cc63@gmail.com>
-In-Reply-To: <20261115-rkvdec-wdt-stop-v1-0-59e687c6cc63@gmail.com>
-To: Detlev Casanova <detlev.casanova@collabora.com>, 
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Alex Kazinsky <a.kazinsky@ideco.ru>, stable@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794730887; l=2992;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=igPIRoqR10XhXtRMntnOpxbLAunwjLzr9JIJfVVGwv8=;
- b=uDK7aEpPgMbGShhyHDHLQc5AGfT0UOsY5Ar/vSvRfvtp0JO7iOAsFrAIYv26VDvlfCA84Yf7c
- BNKe0CtcK23BXvO7k1DdQN0BDVFHfHaZXly0aQybwFwW5F0cxzPhAS0
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261113-vsock-vmci-netns-isolation-v1-1-ced02054ea61@redhat.com>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On Fri, Nov 13, 2026 at 06:04:40PM +0100, Sergio Lopez wrote:
+>VMCI already rejects datagram sends from local network namespaces, but a
+>datagram bind still creates a receive handle in VMCI's global port space.
+>A VMCI sender outside the namespace can therefore deliver to the local
+>socket. Its handle also prevents a global-namespace socket from binding
+>the same port.
+>
+>Reject VMCI datagram binds in local namespaces. No namespace-local
+>datagram transport exists, so EOPNOTSUPP reflects the available receive
+>paths. The receive callback also rejects any local-mode socket as a
+>defensive check.
+>
+>In a KASAN/lockdep QEMU guest, a reproducer observed cross-namespace
+>delivery and the global port collision before the fix. After the fix,
+>local bind returns EOPNOTSUPP, the global bind succeeds, and a global
+>VMCI datagram still reaches the global socket.
+>
+>Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
+>Cc: stable@vger.kernel.org
+>Link: https://lore.kernel.org/all/sashiko-outbox-212907@kernel.org/
+>Signed-off-by: Sergio Lopez <slp@redhat.com>
+>---
+> net/vmw_vsock/vmci_transport.c | 6 ++++++
+> 1 file changed, 6 insertions(+)
+>
+>diff --git a/net/vmw_vsock/vmci_transport.c 
+>b/net/vmw_vsock/vmci_transport.c
+>index 1f186e8f8364..282131544c42 100644
+>--- a/net/vmw_vsock/vmci_transport.c
+>+++ b/net/vmw_vsock/vmci_transport.c
+>@@ -627,6 +627,8 @@ static int vmci_transport_recv_dgram_cb(void *data, struct vmci_datagram *dg)
+> 	 * outside of the create and destruct socket functions.
+> 	 */
+> 	vsk = vsock_sk(sk);
+>+	if (!vsock_net_mode_global(vsk))
+>+		return VMCI_ERROR_NO_ACCESS;
+> 	if (!vmci_transport_allow_dgram(vsk, dg->src.context))
 
-The watchdog's RK3399 register write does not stop a VDPU383 core
-either. Use the IP reset, as the Rockchip BSP does, then reprogram the
-IOMMU, which the reset leaves in bypass. No reset line pulse: on RK3576
-the DT lines are the BIU resets.
+Why duplicating the VMCI_ERROR_NO_ACCESS return? Can we just put them in 
+OR ?
 
-Compile-tested only.
+The rest LGTM, if you respin, maybe we should mention that also 
+connect() and sendmsg() are affected since they call vsock_auto_bind().
 
-Fixes: fde24907570d ("media: rkvdec: Add H264 support for the VDPU383 variant")
-Cc: stable@vger.kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
- .../platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h   |  4 ++++
- drivers/media/platform/rockchip/rkvdec/rkvdec.c      | 20 +++++++++++++++++++-
- 2 files changed, 23 insertions(+), 1 deletion(-)
+@Bryan, @Vishnu PTAL.
 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-index 04eb23297e37..b8ee9c4dd294 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vdpu383-regs.h
-@@ -33,6 +33,9 @@
- #define VDPU383_LINK_DEC_ENABLE		0x40
- #define VDPU383_DEC_E_BIT		BIT(0)
- 
-+#define VDPU383_LINK_IP_RESET		0x044
-+#define VDPU383_IP_RESET_EN		BIT(0)
-+
- #define VDPU383_LINK_INT_EN		0x048
- #define VDPU383_INT_EN_IRQ		BIT(0)
- #define VDPU383_INT_EN_LINE_IRQ		BIT(1)
-@@ -40,6 +43,7 @@
- #define VDPU383_LINK_STA_INT		0x04c
- #define VDPU383_STA_INT_DEC_RDY_STA	BIT(0)
- #define VDPU383_STA_INT_SOFTRESET_RDY	(BIT(10) | BIT(11))
-+#define VDPU383_STA_INT_IP_RESET_RDY	BIT(11)
- #define VDPU383_STA_INT_ALL		0x3ff
- 
- struct vdpu383_regs_common {
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index a8fdad2850fb..63482354bc2e 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -1644,6 +1644,24 @@ static void vdpu381_stop(struct rkvdec_dev *rkvdec)
- 	rkvdec_iommu_restore(rkvdec);
- }
- 
-+static void vdpu383_stop(struct rkvdec_dev *rkvdec)
-+{
-+	void __iomem *link = rkvdec->link;
-+	u32 status;
-+
-+	writel(FIELD_PREP_WM16(VDPU383_INT_EN_IRQ | VDPU383_INT_EN_LINE_IRQ, 0),
-+	       link + VDPU383_LINK_INT_EN);
-+	writel(VDPU383_IP_RESET_EN, link + VDPU383_LINK_IP_RESET);
-+	if (readl_poll_timeout_atomic(link + VDPU383_LINK_STA_INT, status,
-+				      status & VDPU383_STA_INT_IP_RESET_RDY,
-+				      1, 200))
-+		dev_warn(rkvdec->dev, "IP reset failed\n");
-+	writel(FIELD_PREP_WM16(VDPU383_STA_INT_ALL | VDPU383_STA_INT_SOFTRESET_RDY, 0),
-+	       link + VDPU383_LINK_STA_INT);
-+
-+	rkvdec_iommu_restore(rkvdec);
-+}
-+
- static void rkvdec_watchdog_func(struct work_struct *work)
- {
- 	struct rkvdec_dev *rkvdec;
-@@ -1779,7 +1797,7 @@ static const struct rcb_size_info vdpu383_rcb_sizes[] = {
- 
- static const struct rkvdec_variant_ops vdpu383_variant_ops = {
- 	.irq_handler = vdpu383_irq_handler,
--	.stop = rk3399_stop,
-+	.stop = vdpu383_stop,
- 	.colmv_size = vdpu383_colmv_size,
- 	.flatten_matrices = vdpu383_flatten_matrices,
- };
+Thanks,
+Stefano
 
--- 
-2.55.0
-
+> 		return VMCI_ERROR_NO_ACCESS;
+>
+>@@ -1697,6 +1699,10 @@ static int vmci_transport_dgram_bind(struct vsock_sock *vsk,
+> 	u32 flags;
+> 	int err;
+>
+>+	/* VMCI handles are global and cannot serve local namespaces. */
+>+	if (!vsock_net_mode_global(vsk))
+>+		return -EOPNOTSUPP;
+>+
+> 	/* VMCI will select a resource ID for us if we provide
+> 	 * VMCI_INVALID_ID.
+> 	 */
+>
+>---
+>base-commit: 65ba8f34ec886ec72b2c07ddc8cf3d815c32869d
+>change-id: 20261113-vsock-vmci-netns-isolation-7e46732dcd73
+>
+>Best regards,
+>-- 
+>Sergio Lopez <slp@redhat.com>
+>
 
