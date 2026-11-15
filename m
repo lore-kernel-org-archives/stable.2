@@ -1,115 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794708170;
-	b=lHq212PtWE6ysyM4vGw2j6TQCQWlxaP89fGelH4DWo8ZfnTGt37i6aURpkyQ5SZxqmR6
-	 NpVX/f6DwmqH2Llj+90QNdT6+Q/DPJ+tRxIuJPoUXGNaxiK368Ezw7aeICwPKamZ8xeNh
-	 6WZbIrJ0YC4zwdESm3FKkdPlrgjEGPvrpltn7g7otUuAnbpuKDCpeyWxbU9jjiRQvQHMk
-	 0X3e6SOeNok93M+J3jQFFJ0HpP1Aok+Suzv6CrLyIP7Ethv8diSASv0ufwNXUSeIlYIud
-	 SBe05cAvlR2NUAS5g7d5P7j0qKMXBbZTZXqPOC+ZNjHL7aJjML2jXAJAKrupMJXD5uA==
+	t=1794708303;
+	b=AxksdRKAjtxnspOodN4zv+HJgOPqh/kQF1I3V/eQsaIP98EY5I+33isE5yrrx2IetizU
+	 gEjbkTIpkBpTd3ES1Kh3QKG2AeErqOmdCRGegeUAsUKr1l35qDyJUw27cxF+3jmUqEXOT
+	 PHtS3251wMDr+1KkKuZ2of3hgNsBfMbZfCta4lYTn3WoF/skiQu9ZUwcASEON6qJitg++
+	 YlPLeSMCHCZj+RKSp43YFUod8dOPJe3M3HdAPklOGfDt3QA48GeqNa7mHx4YCW51xpAUw
+	 MEY2S95IauLOdcMElkEBtSRR/2YqUAaxyaa5duxcjxvHqGya7F3vxMVggQZnKnJny+Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794708170;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=xgSiOUry8/4GQSmtt4XirsMA0TN+qnFqTSFR2WzxbOg=;
-	b=nwUShqgmZD4F4goBqLLBSacMYAbjWB/0nDEext4zvyGPodvlIOYYPmwuLoSfXNnFjUbA
-	 b0VT5Z9JqfVEL+xpfbTb52qO10SfLaXT81uxGwngMqdf2vbtG23po9uCmji7RH2ELMk9X
-	 bkVxVVNnbfsTt0cGvp/YG6PZmjNkUCbMKUBlgvlzsD8ZNfpXs3svypO7v53LjjWTCgu4r
-	 ylbFzVTPV2PI2nE5WXnk4leXvyxIKxsBUWWwyYDOMzlcdkUl+U7OTu5GbaGQTFhwQ3v/p
-	 mjfbPv8JVUbZiNgvygW61towCrJELjAxDSPPdw0NX8XhA5rMWTkxN6uxaZ3FchEK9aA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794708303;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=IsX6i/arkXv76D0Oz+26RxsybxuShnCTv57q518OhQs=;
+	b=QXMPbpH6Ey3Q4YvJOGkqLCGA66HltbYV+iM2pO5waYiJAflTDHJNoPKuzt/NTtJkrYPC
+	 bqe/eAJIteUanYi3qvm9Lg9cBcu1pHv/wU8cuw8OHSHOjwPPrdcbJ1EseoJ9DlSBlqo57
+	 7k8xTDAGdDB1pJUGDycg4ZdIL8IU4l4DLU1C3HERJ1zzttlGqdYnyEhr0O4RP4WbiJUOo
+	 2zgChPZ/1oMYHaNAYskA0FGOsVmUQ0s/WNL8LZBq77cW/hMr/kfhp+UhktqwmH9idcckU
+	 GshFIL/ryp4mtIYISJyuQUGg3GuBEIGEF7i6dgSOmarn7K9UX4cJg3tRPPrM9vfXZSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=jpltLqPc;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=4haMV33o;
-	arc=none smtp.remote-ip=103.168.172.155
-Received: from fhigh-a4-smtp.messagingengine.com (fhigh-a4-smtp.messagingengine.com [103.168.172.155])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXJeFddG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38900606A32C
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 02:02:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38900606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04197606A327
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 02:05:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=jpltLqPc;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=4haMV33o
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 4CE2F1400034
-	for <stable@vger.kernel.org>; Sat, 14 Nov 2026 21:02:48 -0500 (EST)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-09.internal (MEProxy); Sat, 14 Nov 2026 21:02:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794708168;
-	 x=1794794568; bh=xgSiOUry8/4GQSmtt4XirsMA0TN+qnFqTSFR2WzxbOg=; b=
-	jpltLqPc+1cMXe8U/4NNjhTBF07N1HJLp5JaxV4gXQzRZlv5sIGERY9JKds5Z9yg
-	Nzdj38K1xBxpbWkwksuFK8KcawJQlmhNS+ATLBTxA48j++/Sk4gFO6lNyX+g3J7T
-	ejVxjv4QrYjpuPKwlPWKXJ8oiiKPcSu/36V2ynaqITfJlbcSpW1wo7YsjyQvzuV2
-	pXWt7HDtSdo59RBgtPtVIRnpyoOdyUG7uQmqP1ev7Dn/cCYL+BHg1WH3EBmwP4il
-	wYSj2vktsd6pmlz2VYwAkrsACUysRUgmeLUU10AhRgrsjbjuZAfLKoF8+LV/IKtl
-	OTH+h/WjRBXZ2nxltvgBnQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794708168; x=
-	1794794568; bh=xgSiOUry8/4GQSmtt4XirsMA0TN+qnFqTSFR2WzxbOg=; b=4
-	haMV33o8rJYNBBtMSnF5ghWdDrsxgk8USzpPZBdpgN9cVMu10LFy1Ycqwx9PBmvy
-	4L5ooYYTLRZYUdwkWdGJJWzulrt1cnKTmYMW3wb6eYAPz3jaYkyOoO/71TLdJE3V
-	HeSBxANeu2etF6Hvoz7m5JTXUFOjusTuP+ivB2yVawfqmhI7sUHxE5V/6YqVOZua
-	5TgvHFOzRouLwJRAW4PAwd/+PsfV7WkIETOUYQI/V07mI/+yFF5YQNRQAKWfJyuF
-	tsp4j/UzyfUBXlTry0R0x4MkX8TMSFmEYDwk020PuKTeOSrdSkwcoGE/bfmTu7wN
-	qava5rk2qrlZXNDGQw8pA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794708168; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:RG3YZqcaASpb585fWKQYEy60tLQzM0CZ6u4L7Rqgu03EkaD
-	xn6a1PyxOEVW6ojTxUUfO4J5qESWwcnHwQz8p1Wr/Q97nIIFxt+5Glz1fAcGiJ4R
-	JKWawjCm+Y9tRmMVI1p+1kg1lHU8bLJkzQr+LUzVezp61LEcACAHGh6nzNCaClhu
-	qDd8j/pTldp6jtVmZwQwCc9J2z6ly5WRHDYo9fI1G7TTfhraIGJaqkKb7HwcQzW9
-	/N08XteIUuh3xwXAFowtNgT8PE+467tOllNby7+319XZQ3mD5IPaf+TEmHT8jB48
-	ZHT5zjht36k1LA7eFGVsK+cAYVaimJlfiO1ecdw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:FFMOKhGJ9p5eEH2DWlocJU0y0igLo2sjuCpJrZ4TlrE=:Tpw3Non5gE6pOfwR95MYUuG0UIe4k4tfuqOTIQe75TI=;
-X-ME-Sender: <xms:xxL5aq1nOGhKMVoze3UkOdBNoD2EMM_t8CGYGS-hySl20DKiv8FEVA>
-    <xme:xxL5ao_hqIIuhdC8obRYOMqsZxyOXvwAZvFYjmXiRq3t_Cgq3kH7TY5HWnnb6wWAc
-    pQ_lBdgRiuXAqJOB9WrUgvoEQZNCW_4H7GLUmSRJkrRU6ofbSy9E6E>
-X-ME-Received: <xmr:xxL5auZqdlfqnyRwfOHAKdmJObz2InV71Aa9dE3azzW4fr6aNCNurzR-lwswTFVOrNslPb--TTerz5ywjrHfF0fWBby-h989>
-X-ME-Proxy-Cause: dmFkZTEBnDdc4pznVckitJbI95Pg4sruqJ/c4GzT1RFlylgcChDtglOD1navQFQG9T4WdT
-    LXPCzMsSu7+oOpY/tjKnfqRsuvXzo79H7cOA+v8kIeagruBSfkGe1+uq5oeBHFGJxFr+36
-    AL1dyct1h4wr3rBmLn9Mb4ldooOvCJeU/TUZucAGYD3qu7WQf20bmLL323jDt17o5E5bJd
-    APKGrDsMvQH8nXrriEODv1pzjIWhRVRoWXpqc25IvCd8u8I1ys+BU52SWIU1KX0u7NkRcN
-    f8RnJ7Er57suWh3UQVFeSXdvs5JOoNqt9S4CjwofcljgVELRsd3VxZ+7ZrtCw/esE8y3b7
-    /dBG2vrnnO8SKWNmcG3dsndWf1biHJlej4f1ljsec9wVKAjrb18RMjAeRD/aCOyrHW99mS
-    4pqtfeJI13SWVbp5YsBkIOU4sSMXmsaQ6+3BoEeICygVGxS6PKpRE+WGCOAVrLLRekQB6w
-    bNEwAO7Q2Vm2URk9D9lKEXS8/m4ue1ZonxwuXy9SIfJA2GyuAQ/qR+EibuGeYL7xKQYKn8
-    /68V8pfketRlDNN1dqxK6g0tQDk1a9VgKMR1jEAhZ+caP/o0JQfG3Zoxauh0eWxxhpIgAf
-    xfbPJJQHuln0cm5vVodt+hvcDl3V1Gbu+LMxwnbVatrU6X8R06xC5DoMLqPg
-X-ME-Proxy: <xmx:xxL5avwR8fRZofkKhc99HzlOq0JBscni2uz8TmbXvJMNUgbhlO1G-Q>
-    <xmx:xxL5ak_JiHhyG6a4W6jMxbHylA_JRapgiQs_nroXTeNngL3MfeFB6A>
-    <xmx:xxL5ajxHSg7--_Eot-wiG4yOrh7X_x5udtjzNeiHP6V3DSy9taSfMg>
-    <xmx:xxL5ahteuo7yxBCJEaPn2OVoilGuzOCBCqcWERFosfuSNtuwqiQf7Q>
-    <xmx:yBL5anIzwXDe2ioczJ87icRmiKppHm2Y2h8Is0__2b-fCef22e2ytdAH>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 14 Nov 2026 21:02:44 -0500 (EST)
-Message-ID: <e750f93e-1378-412c-b213-4d0e1408c067@pobox.com>
-Date: Sat, 14 Nov 2026 18:02:43 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BXJeFddG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F8F1F000C4;
+	Sun, 15 Nov 2026 02:05:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794708302;
+	bh=IsX6i/arkXv76D0Oz+26RxsybxuShnCTv57q518OhQs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BXJeFddGGHmMAFCuPVamhkqOUDuKq3LGPUOz225duiLu139UesyS02soi/Bosbt/Z
+	 mt4lSZQz3CPJkxBv8t+E9lUEsYmdZhrUO8m1tL6Gt5GrXYkYCdRPcugzBOUlW+dKQU
+	 uiSPPUkRR2z3O+61fNdHPBSvsQVUXs4WiQWd8CEycUVzku07ttR3PeFfuQH7dX4g24
+	 S/uAGQ0edyFro/shqNIr6rNKFQY1VFGOaYuv/yREuxplDd/hY/qnpBux0M/9m1UsD6
+	 /dTIlao00wHWGp27ezIzjDoPtEMnwAq2pF/0pxT+pVqgDIsCmLxROHeHkO4+IKB+EN
+	 oAz7zU2MGcrng==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Daejun Park <daejun7.park@samsung.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Carlos Maiolino <cem@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] xfs: cap the block count of xfs_iomap_write_direct() at one extent
+Date: Sat, 14 Nov 2026 21:05:00 -0500
+Message-ID: <20261115020407.852939-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202734-failed-5.10-66d1ce09ebd7@kernel.org>
+References: <20261109202734-failed-5.10-66d1ce09ebd7@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,46 +62,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 000/686] 6.18.64-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261113153820.902362109@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/13/26 7:42 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.64 release.
-> There are 686 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 15 Nov 2026 15:36:17 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.64-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+From: Daejun Park <daejun7.park@samsung.com>
 
-Tested on my Lenovo ThinkPad T14 Gen 1 and an arm64 virtual machine.
-Working well, no regressions observed.
+[ Upstream commit 66d1ce09ebd72709f8d739630c39f440445173fd ]
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+xfs_iomap_write_direct() reserves blocks for the whole count in an
+unsigned int. For a pNFS layout the client chooses that count, and an
+RW LAYOUTGET for 16 TiB wraps the reservation and shuts XFS down.
 
+xfs_bmapi_write() maps at most XFS_MAX_BMBT_EXTLEN blocks here, so cap
+the count at that. nfsd asks again for the rest. The other callers get
+the same mapping as before.
+
+Suggested-by: Darrick J. Wong <djwong@kernel.org>
+Suggested-by: Christoph Hellwig <hch@lst.de>
+Suggested-by: Pankaj Raghav <p.raghav@samsung.com>
+Fixes: 527851124d10 ("xfs: implement pNFS export operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ sashal: Replaced XFS_MAX_BMBT_EXTLEN with the equivalent MAXEXTLEN constant in the expression and comment. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/xfs/xfs_iomap.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
+index bd5a25f4952d0..2f7cce023c0e8 100644
+--- a/fs/xfs/xfs_iomap.c
++++ b/fs/xfs/xfs_iomap.c
+@@ -203,6 +203,14 @@ xfs_iomap_write_direct(
+ 
+ 	ASSERT(count_fsb > 0);
+ 
++	/*
++	 * xfs_bmapi_write() maps at most MAXEXTLEN blocks in one
++	 * mapping, so don't reserve blocks for more. A pNFS layout range
++	 * comes from a client, and its block count may not even fit the
++	 * 32-bit reservation. The caller maps the rest with a later call.
++	 */
++	count_fsb = min_t(xfs_filblks_t, count_fsb, MAXEXTLEN);
++
+ 	resaligned = xfs_aligned_fsb_count(offset_fsb, count_fsb,
+ 					   xfs_get_extsz_hint(ip));
+ 	if (unlikely(XFS_IS_REALTIME_INODE(ip))) {
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.53.0
+
