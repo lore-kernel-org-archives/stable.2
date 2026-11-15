@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794702137;
-	b=VNQoM08gB99ELxoX5/sEbp6u5WdY8TL3QcpdoCk6dX5fiIGDTi0WsNblSwVym3l+rbXV
-	 Y9w2B3q0UZ71qc3TROvxqw4YspEGG0HQ6AJT5ompmbMBAVSKEAqEexBqCjn91eEekV9Cj
-	 DmUjGUY636TC7fHMpLh6QttE7oHFN+7vD/Z+NzPozFfsGWsyfSci1s3+BveG1m95qGhwA
-	 m0SGJtQ3sPL2JXutvaD++AKFeT/vREsp2OVDcs03iRqQudksqp0zVb+M3+LTyfW08islr
-	 LByYhXQPcdg1HJrKRHs5D6Gf5nXDn7jcAVnPGnLajc5hiEj6pNgqnhIf8UwPc4+gYmA==
+	t=1794702397;
+	b=uOgUeQJmsMicFBQgpOMRobiqsKwIaV8nfQwa3927YbjHFSHdQZJR4xybMYKGt9RsVjq6
+	 k/sOybT7tcf7hlUmplO+C9OVGQBTcqlQkvALSh0PaG5zSZ5TzNvC3ikuqHPa6xVSFRWN0
+	 zn+q/RcBHIlQld4SR0cVZ3hrfAIAWrDWsJF2GmjriUyxIw8+dEDMBVFzBWENrTwB5v0hc
+	 nk+cK4u1KQDL6eJOtmm/bVw4P/AQWbbTM8+aa0R3MhRoVjoQt90DB8578uYFw3XXERx1V
+	 1QRyqNkqj457mx4N68AbNSMQX+qCFWgIhTgZ3skofE8FU57jn9YC05zA5I3RvE1YN8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794702137;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794702397;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3Ib11J+vVA5aXOtwIn3szcSoNMQHISL1ty4QM97FYlM=;
-	b=k0Iq6svmaJmLxwoVSzMRf2s6tB5ErSC6/R5+KYXpx5cKkxEQxCIS4oAzSWIYpjPMSi+4
-	 tucgLQCjTu+z3lnquzNGJl2EGoc05HJgbcLDQw9RtxXboKFH1KYIeoYNFHy/Nk9DIasYf
-	 unzAGeUMTqRTKP22B3cKZLHYs4VpwduvYhIz1XSiBOdpC6THsCIxVQY745ZH9SANsa/+E
-	 tnE+sbLUPtEd9LwzyoBE38wJV3lbHi7Vq3XKPwYOU7i/NQPrTGl1AAAcwYYVA8vz7Yd0a
-	 HVeBM7bQWroC+5qVD2KGVH9OXaAM1gUcBdmvTRErPsqXt42mv6eYE7QmUGqyK/6kiEg==
+	bh=ZeLcqBTIlcZabA/3h/tUph9a+5OlhxUdFEGGKNGpziQ=;
+	b=RknO1RqqGS4bVcuwozXsyJ0t11cXVLIPKeK81Iwc+aCQa8UITjq++MZFqGsifdJ08fCn
+	 LV5ofFm02Z1bkDUcYrQ/+rjqbo2yP4fIJL9OqLh3AUEPrxCoeDUHQ/DrMu9B7uUqjucxz
+	 /s3oGHB9wxtR6EnBz2AdVaE8mK/U//o5HRq3px+r3y/0apPKJGU+gUYmL5d0Of6VaI/0G
+	 W+Ax4cO9PBknkfwux8u9pE3alYv8kd7yZ58cK7ZXjXf7ys/8LQc7U7IADpFcdB0P2xMj2
+	 KvhL98cRppODUceyNfMMk4FtpXokreGkfY/S0R5no3JsyEhHcnyLgaKKkhenOzFc3+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DXdzQ+pu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5tEH5dR;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42978606A323
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 00:22:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A1F606A323
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 00:26:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DXdzQ+pu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D5F01F000C5;
-	Sun, 15 Nov 2026 00:22:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P5tEH5dR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2FE41F000C4;
+	Sun, 15 Nov 2026 00:26:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794702137;
-	bh=3Ib11J+vVA5aXOtwIn3szcSoNMQHISL1ty4QM97FYlM=;
+	s=k20260515; t=1794702396;
+	bh=ZeLcqBTIlcZabA/3h/tUph9a+5OlhxUdFEGGKNGpziQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DXdzQ+pu/m5VrYqZFOA5pQJNXL+5quDXcEQhNvAgpHyrxqKkfv2mPA5jTqjH96nha
-	 R+vP00PXoyy9wZjlAIst9eCVL+mxZrH4QBTfOfJTHSlSYm02c5jL1oBI5h3v3/IGWI
-	 uMIM6gl0WHvTrJHM0GweqC0K6p6I4OxYWyXZPjxR5Fy2nj71M8los5Geou+smNNfeA
-	 mNXzB16/OkNJwpC9qh/tdc1V7p/cBm1gmQ0pm2ubHjeMi9WdkOg74a1dwFzAWDXC2K
-	 EgcXQLhQnprLgAMUmLrUvcGb18sLxs44kgJTlABEESGsqe4F1DCm/n4AuVshwSCF6L
-	 ZWbV+uy1xoThA==
+	b=P5tEH5dRlrP8KkJqBPQcCQYPiGfR6gWG2+JSein5sjCc2STg3r0wSU/AHUmySHGhu
+	 XvznqpTMrpqBCH+JnM6qL25+B4fkVJiuhLfA2zbODfk19Bg/JashRB5eQNS1An0NXz
+	 42aw+IwALYHTX9V4uftayh1Bxy6zNzcJA1EGX8TPlQVufx5gcy27bwWVmZvxCD/b3N
+	 nTVRk4Fz/7KU76MrGhP9u3XqWjRo9+t/W6//Y4jVfZbqzSIAlZGcH4SX0mpgyVizbc
+	 cUrZEbc2hPhTYcZ4Yp8WS+/rceMVZ2+097ex4ltBVxiZINCg7t10jLc6lw1sGUVOoq
+	 MRgymMF2Ew5jw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
-	Chris Mason <mason@kernel.org>,
-	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
+Cc: Daejun Park <daejun7.park@samsung.com>,
+	Chuck Lever <cel@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Pankaj Raghav <p.raghav@samsung.com>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] mm/filemap: finish fault cleanup before dropping the fault lock
-Date: Sat, 14 Nov 2026 19:22:14 -0500
-Message-ID: <20261115002150.534207-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y] xfs: mark the inode preallocated for pNFS write layouts past EOF
+Date: Sat, 14 Nov 2026 19:26:34 -0500
+Message-ID: <20261115002607.550063-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261115002150.534207-1-sashal@kernel.org>
-References: <20261109201133-failed-6.6-97156a6c355c@kernel.org>
- <20261115002150.534207-1-sashal@kernel.org>
+In-Reply-To: <20261109202252-failed-5.15-8b8e26599155@kernel.org>
+References: <20261109202252-failed-5.15-8b8e26599155@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,109 +64,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+From: Daejun Park <daejun7.park@samsung.com>
 
-[ Upstream commit 97156a6c355c21f7122421915f05461bd11699a4 ]
+[ Upstream commit 8b8e265991556d99b6d721697f148975a7c68767 ]
 
-On a retried fault, a fatal signal interrupting the folio lock wait
-makes lock_folio_maybe_drop_mmap() drop the fault lock without pinning
-the file. However, filemap_fault() may still need to release
-mapping->invalidate_lock. A concurrent munmap() can release the last
-file reference and free the mapping before that unlock.
+xfs_fs_map_blocks() marks the inode XFS_DIFLAG_PREALLOC only when it
+allocates blocks for a write layout. A write layout past EOF can also
+hand out allocated blocks, such as speculative preallocation. blockgc
+then frees them under the layout, and another file may get them.
 
-Defer dropping the fault lock to filemap_fault()'s retry cleanup, after
-releasing invalidate_lock. If the fault lock was already dropped for
-I/O, release the existing file reference instead. Keep the fault lock
-held for FAULT_FLAG_RETRY_NOWAIT as before.
+Mark the inode whenever a write mapping ends past EOF.
 
-Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+Fixes: 527851124d10 ("xfs: implement pNFS export operations")
 Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-8-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Reported-by: Chuck Lever <cel@kernel.org>
+Link: https://lore.kernel.org/r/4de5356f-bc4d-4f1a-9c81-fce09b1b46fd@slotpi15m67
+Signed-off-by: Daejun Park <daejun7.park@samsung.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ sashal: replaced xfs_fs_map_update_inode() with xfs_update_prealloc_flags(ip, XFS_PREALLOC_SET) ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/filemap.c | 37 +++++++++++++------------------------
- 1 file changed, 13 insertions(+), 24 deletions(-)
+ fs/xfs/xfs_pnfs.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
 
-diff --git a/mm/filemap.c b/mm/filemap.c
-index 4e62509489c58..fe469f6c24e52 100644
---- a/mm/filemap.c
-+++ b/mm/filemap.c
-@@ -3140,11 +3140,11 @@ loff_t mapping_seek_hole_data(struct address_space *mapping, loff_t start,
-  * @folio - the folio to lock.
-  * @fpin - the pointer to the file we may pin (or is already pinned).
-  *
-- * This works similar to lock_folio_or_retry in that it can drop the
-- * mmap_lock.  It differs in that it actually returns the folio locked
-- * if it returns 1 and 0 if it couldn't lock the folio.  If we did have
-- * to drop the mmap_lock then fpin will point to the pinned file and
-- * needs to be fput()'ed at a later point.
-+ * Returns 1 with the folio locked, or 0 if locking failed.
-+ *
-+ * On both entry and return, a non-NULL *fpin means the fault lock has
-+ * already been dropped and the caller must eventually fput() the file.
-+ * Otherwise the fault lock is still held, including on failure.
-  */
- static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
- 				     struct file **fpin)
-@@ -3161,21 +3161,9 @@ static int lock_folio_maybe_drop_mmap(struct vm_fault *vmf, struct folio *folio,
- 		return 0;
+diff --git a/fs/xfs/xfs_pnfs.c b/fs/xfs/xfs_pnfs.c
+index 0bf547d730990..a8db739dd4166 100644
+--- a/fs/xfs/xfs_pnfs.c
++++ b/fs/xfs/xfs_pnfs.c
+@@ -91,6 +91,7 @@ xfs_fs_map_blocks(
+ 	int			nimaps = 1;
+ 	uint			lock_flags;
+ 	int			error = 0;
++	bool			update_inode = false;
  
- 	*fpin = maybe_unlock_mmap_for_io(vmf, *fpin);
--	if (vmf->flags & FAULT_FLAG_KILLABLE) {
--		if (__folio_lock_killable(folio)) {
--			/*
--			 * We didn't have the right flags to drop the
--			 * fault lock, but all fault_handlers only check
--			 * for fatal signals if we return VM_FAULT_RETRY,
--			 * so we need to drop the fault lock here and
--			 * return 0 if we don't have a fpin.
--			 */
--			if (*fpin == NULL)
--				release_fault_lock(vmf);
--			return 0;
--		}
--	} else
--		__folio_lock(folio);
-+	if (vmf->flags & FAULT_FLAG_KILLABLE)
-+		return !__folio_lock_killable(folio);
-+	__folio_lock(folio);
+ 	if (xfs_is_shutdown(mp))
+ 		return -EIO;
+@@ -157,7 +158,24 @@ xfs_fs_map_blocks(
+ 				end_fsb - offset_fsb, &imap);
+ 		if (error)
+ 			goto out_unlock;
++		update_inode = true;
++	} else {
++		xfs_iunlock(ip, lock_flags);
  
- 	return 1;
- }
-@@ -3294,7 +3282,7 @@ static struct file *do_async_mmap_readahead(struct vm_fault *vmf,
-  * vma->vm_mm->mmap_lock must be held on entry.
-  *
-  * If our return value has VM_FAULT_RETRY set, it's because the mmap_lock
-- * may be dropped before doing I/O or by lock_folio_maybe_drop_mmap().
-+ * may be dropped before doing I/O or when aborting an interrupted wait.
-  *
-  * If our return value does not have VM_FAULT_RETRY set, the mmap_lock
-  * has not been released.
-@@ -3437,9 +3425,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
++		/*
++		 * Blocks past EOF that were allocated for buffered writes, such
++		 * as speculative preallocation, can be freed by
++		 * xfs_free_eofblocks() without breaking the layout unless the
++		 * inode is marked as preallocated. Mark it before handing them
++		 * out for writing, as for blocks allocated above.
++		 */
++		if (!error && write && !(ip->i_diflags & XFS_DIFLAG_PREALLOC) &&
++		    imap.br_startoff + imap.br_blockcount >
++		    XFS_B_TO_FSB(mp, XFS_ISIZE(ip)))
++			update_inode = true;
++	}
++
++	if (update_inode) {
+ 		/*
+ 		 * Ensure the next transaction is committed synchronously so
+ 		 * that the blocks allocated and handed out to the client are
+@@ -168,9 +186,6 @@ xfs_fs_map_blocks(
+ 			error = xfs_log_force_inode(ip);
+ 		if (error)
+ 			goto out_unlock;
+-
+-	} else {
+-		xfs_iunlock(ip, lock_flags);
+ 	}
+ 	xfs_iunlock(ip, XFS_IOLOCK_EXCL);
  
- out_retry:
- 	/*
--	 * We dropped the mmap_lock, we need to return to the fault handler to
--	 * re-find the vma and come back and find our hopefully still populated
--	 * page.
-+	 * With fpin set, the fault lock was already dropped. Otherwise it is
-+	 * still held. Release invalidate_lock before dropping either protection.
- 	 */
- 	if (!IS_ERR(folio))
- 		folio_put(folio);
-@@ -3447,6 +3434,8 @@ vm_fault_t filemap_fault(struct vm_fault *vmf)
- 		filemap_invalidate_unlock_shared(mapping);
- 	if (fpin)
- 		fput(fpin);
-+	else if (!(vmf->flags & FAULT_FLAG_RETRY_NOWAIT))
-+		release_fault_lock(vmf);
- 	return ret | VM_FAULT_RETRY;
- }
- EXPORT_SYMBOL(filemap_fault);
 -- 
 2.53.0
 
