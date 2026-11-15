@@ -1,57 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794754015;
-	b=JK6XgIAE+wXnVFRR3P7RtpfdAydBYSrgatyL325OhIAO392QY3nqZdudJRo1w0+YtumO
-	 ogqp23i7lQtnM+dicO6HKuQUcfVg4Xs/1Nz6UMD+0pYtdRjn27OMcaAgk20PabhL7K3aI
-	 yavXud5PlA3qOzH/1QbROyYN3fthGDw+E+XpK48EwH+Kq/zLSXAaGjmBjxs0JK7r0l/PP
-	 ZLIl3a20U53U/A21rVKGy0keVPCLiRqwmVdYJvQjQCEpZsWoy9dMdv44sy6J22FdIjyrP
-	 yeNSet0FU90Xn+00kmLAkV/nSyyHeYWqYhEjL/jzd86dmGjedCuUsaCeAJ67nHtB3sA==
+	t=1794754042;
+	b=qldio9UcWQBHwmx5mOIbHxtipHqRE75F75IhnU1MUeRgbzCWlEohYCuFHXQ7HDZ4uBz2
+	 NPfpiRKUwmmKzq4LjPYMeiG8VCwp74mKOeRd0IdhBJGrxYi6z4ow0brH3oQDrvGg37xja
+	 dwIq+IrQraaUGxrsoz3Hh9sAXYRIPf5dSEBwA7KWDJxaSzANLPfkpWqrOnZE0tKCBtBtX
+	 QqAxgZwhepVH3n18aL5hfd4UGD38MJd0WWoTIaomW+tLXWQv38Qqtzj1ZMI+cuZ2ga09J
+	 87CiO1+jvCuHFikwXygeHwvKpkx4I/BAbghgxHACmugUDkYw5KslfDsNUzLXQO//qMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794754015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794754042;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=qfzr8wUUUR/DONjn0vDRiQZPtomeGYZyJpuLJGk34x4=;
-	b=hOsxSIbSwAwaM00MbzKFg5P66e1qT1pPNi+pckyR/yoOSNA85gDmgcVKbFkQ0n0+cfof
-	 w0bOiyD/dQ3ngKHb3Zo88Vi5pbEQUCc8VU8R+c5/ell0uxLf25fbbnT1FniORnxj+J3qr
-	 NaM3S9Cl8JnPXN//SpuI/KO8sEesZqagJkUHcT8wPW2wtz8S5HpY0DIjeVGuTD5syqLCa
-	 2DWxwNWPAtdPtM0MXarmMMqCMrU27JvhAl7bGuoChgItr62jVDhdFvENMWYYrmjBIeKe0
-	 j4V8v/UOZShlIEwW60jg9aBhgbbeeFrVJlIYVRHRfeod+bYLoORu+YG2sftVT4mjDsA==
+	bh=Y5rugD2K/IA9Uv3yP3g7HbHPZIxz4gUO1RukEuDve3U=;
+	b=tP49ua1KZKs6YfbTpW+Tn9LeIcENjCCHSI2Qdkp/iVoD7t34RkXOz07x4VZpI+GajdCk
+	 G9lblWcl64WArGu+gQcIrWo/la2oSpJo9jMofL6zJ7AA6B+ahXz4tqb9L0NHZ2RcYjxsS
+	 ITEqqedQBAygipHUAXP8hE76B06PVSmEVe33DlXNSH2a96kRLqGtH7TUj9czevHDJXof4
+	 AvVd/mXRvHtoVN2Z14/HnsN6+MUZpPLmRMpx4dnAM+ms+922RSFAAXEifBhUCKV5BFoMd
+	 tdwsbLq70giRkBtuLaEum1II1rpGUHTxqP36+RMcO2pRf4oYO/LZHrJ6FhlsZ+lJXZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NJeQ/Qlk";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2zM84OH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6FEE606A31A
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 14:46:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 591FB606A31A
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 14:47:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NJeQ/Qlk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 873FB1F000C4;
-	Sun, 15 Nov 2026 14:46:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J2zM84OH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90A321F000C4;
+	Sun, 15 Nov 2026 14:47:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794754015;
-	bh=qfzr8wUUUR/DONjn0vDRiQZPtomeGYZyJpuLJGk34x4=;
+	s=k20260515; t=1794754042;
+	bh=Y5rugD2K/IA9Uv3yP3g7HbHPZIxz4gUO1RukEuDve3U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NJeQ/QlkIaxAcMovNlVIjHfzhT3Gz55mJjBQMysmAjqZhd5Epxs+11/gI4qGlDCQY
-	 n9BuJeiiForiF4R8cCmqQgXxUZXc3HUX2xtwcPvZwn6oMExmYXqTfoDaK/5MJZsCTo
-	 YtquGTf2uMf+HvwFSEeNoVkb/4VHTiy66FQbGciIH0izS9KotTIrZ2vqURMjdGqva5
-	 1/qOMNNon/d9oKohIFrbWeYkLHIMTToF/9KU5zQwJG0V1e+j00TmNhukmR30iNgOgg
-	 yuweMD3d0J50DrhLlwz3ueaSnxRAAh3ZWY+A6bquSJeO86LKydGVZnceOAy56kDIxl
-	 HG4eURmmJLH4g==
+	b=J2zM84OHPbGaksWdyr8DkiMgbzBxmGtdGEIV7E4SLhjrjq3vZkc0UEslNhBF3r2pq
+	 ShWXGFgx/lx95Jr0sVVF7rrOf5RS93PHO9sqaQkoKMTkQ3mYcURkZ5JLHfDTHv9aPg
+	 v5WOzJgaIARsfUHCbI1B0VhJQcoAlYHgGHTPO0CoIRCokFX95iQZ7UEILMqe5EBo8P
+	 +x0ToFNF9stRWJ+SYDlBEJ9Jc5HdRnbpoiRQmRAqw+yY+30oNc4nNeFPza+euLdPNm
+	 kJwDzTHx4YSIBuQoM+9EhFUi1X6Ujjk7koptA356+nqdimEyc5VSbGBDsjSNOQcJZs
+	 gL9Pp8qSUisvA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Daejun Park <daejun7.park@samsung.com>,
-	Christoph Hellwig <hch@lst.de>,
-	Pankaj Raghav <p.raghav@samsung.com>,
-	Carlos Maiolino <cem@kernel.org>,
+Cc: Matthias Goergens <matthias.goergens@gmail.com>,
+	Jan Kara <jack@suse.cz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] xfs: add a flag to convert unwritten extents without allocating blocks
-Date: Sun, 15 Nov 2026 09:46:53 -0500
-Message-ID: <20261115144625.1269525-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] udf: don't use eloc after the end of the unallocated space table
+Date: Sun, 15 Nov 2026 09:47:20 -0500
+Message-ID: <20261115144700.1234507-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202717-failed-5.10-f3ca3498dfe6@kernel.org>
-References: <20261109202717-failed-5.10-f3ca3498dfe6@kernel.org>
+In-Reply-To: <20261109202447-failed-5.15-94401199df90@kernel.org>
+References: <20261109202447-failed-5.15-94401199df90@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,105 +61,66 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Daejun Park <daejun7.park@samsung.com>
+From: Matthias Goergens <matthias.goergens@gmail.com>
 
-[ Upstream commit f3ca3498dfe624f9b604c934263538a3acd55af5 ]
+[ Upstream commit 94401199df90e1c2a50c6e4b73618ac5a4ba83ba ]
 
-xfs_bmapi_write() with XFS_BMAPI_CONVERT also allocates blocks for
-holes and delalloc extents in the range. Add XFS_BMAPI_CONVERT_ONLY for
-callers that may only convert already allocated blocks. It stops at a
-hole or delalloc extent, and returns -ENOSR if it stops before mapping
-anything.
+When udf_next_aext() returns 0, its eloc, elen and etype outputs hold
+no defined value.  Two walks of the unallocated space table still use
+eloc after the walk has reached the end of the table.
 
-Marked for stable because "xfs: refuse a pNFS LAYOUTCOMMIT of a range
-without blocks" needs it.
+udf_table_prealloc_blocks() looks for a free extent starting at
+first_block and decides whether it found one by comparing eloc with
+first_block after the walk.  If the table's list ends in a continuation
+descriptor that leads to an empty allocation extent, eloc is then the
+block of that allocation extent, which is in use, and if that is
+first_block, the block is handed out as preallocation.  Once
+udf_discard_prealloc() no longer frees the wrong block, this is what
+still makes fsx in generic/091 and generic/263 read back bad data on a
+table, in about one run in four.  Only take the extent if the walk
+stopped at it.
 
-Suggested-by: Christoph Hellwig <hch@lst.de>
-Link: https://lore.kernel.org/r/20261013120359.GB2944@lst.de
+When udf_table_free_blocks() cannot merge the freed blocks into an
+existing extent, it appends a new one and sets only its block number,
+so the partition reference comes from whatever eloc held after the
+walk, and with long allocation descriptors it is written to disk.  For
+a table without extents, eloc was never set.  Take the partition
+reference from the freed blocks instead.  Short allocation descriptors
+do not store the partition reference, which is why this half remains a
+latent long-descriptor fix rather than a reproduced failure.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Daejun Park <daejun7.park@samsung.com>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Pankaj Raghav <p.raghav@samsung.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ sashal: used a separate conversion-only -ENOSR check because the general zero-mapping error check is absent ]
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
+Link: https://patch.msgid.link/fd9ca4c4ba98c00c012ec861f6c0bc08a3b1d07b.1793349907.git.matthias.goergens@gmail.com
+Signed-off-by: Jan Kara <jack@suse.cz>
+[ sashal: Changed ret > 0 to etype != -1 to match the extent walker API that returns the extent type directly. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/libxfs/xfs_bmap.c | 12 ++++++++++++
- fs/xfs/libxfs/xfs_bmap.h | 10 +++++++++-
- 2 files changed, 21 insertions(+), 1 deletion(-)
+ fs/udf/balloc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/fs/xfs/libxfs/xfs_bmap.c b/fs/xfs/libxfs/xfs_bmap.c
-index 5483572512edf..124c60176c612 100644
---- a/fs/xfs/libxfs/xfs_bmap.c
-+++ b/fs/xfs/libxfs/xfs_bmap.c
-@@ -4304,6 +4304,8 @@ xfs_bmapi_finish(
-  * extent state if necessary.  Details behaviour is controlled by the flags
-  * parameter.  Only allocates blocks from a single allocation group, to avoid
-  * locking problems.
-+ * With XFS_BMAPI_CONVERT_ONLY, it stops at a hole or a delalloc extent instead
-+ * of allocating blocks, and returns -ENOSR if it stops before mapping anything.
-  */
- int
- xfs_bmapi_write(
-@@ -4363,6 +4365,8 @@ xfs_bmapi_write(
- 	 */
- 	ASSERT((flags & (XFS_BMAPI_PREALLOC | XFS_BMAPI_ZERO)) !=
- 			(XFS_BMAPI_PREALLOC | XFS_BMAPI_ZERO));
-+	ASSERT(!(flags & XFS_BMAPI_CONVERT_ONLY) ||
-+	       (flags & XFS_BMAPI_CONVERT));
+diff --git a/fs/udf/balloc.c b/fs/udf/balloc.c
+index 0bbe86da3d133..267365573bf7e 100644
+--- a/fs/udf/balloc.c
++++ b/fs/udf/balloc.c
+@@ -473,6 +473,7 @@ static void udf_table_free_blocks(struct super_block *sb,
  
- 	if (XFS_IS_CORRUPT(mp, !xfs_ifork_has_extents(ifp)) ||
- 	    XFS_TEST_ERROR(false, mp, XFS_ERRTAG_BMAPIFORMAT)) {
-@@ -4412,6 +4416,9 @@ xfs_bmapi_write(
- 		 * that we found, if any.
- 		 */
- 		if (need_alloc || wasdelay) {
-+			if (flags & XFS_BMAPI_CONVERT_ONLY)
-+				break;
-+
- 			bma.eof = eof;
- 			bma.conv = !!(flags & XFS_BMAPI_CONVERT);
- 			bma.wasdel = wasdelay;
-@@ -4486,6 +4493,11 @@ xfs_bmapi_write(
- 	xfs_bmapi_finish(&bma, whichfork, 0);
- 	xfs_bmap_validate_ret(orig_bno, orig_len, orig_flags, orig_mval,
- 		orig_nmap, *nmap);
-+
-+	if (!n && (flags & XFS_BMAPI_CONVERT_ONLY)) {
-+		ASSERT(bma.nallocs == 0);
-+		return -ENOSR;
-+	}
- 	return 0;
- error0:
- 	xfs_bmapi_finish(&bma, whichfork, error);
-diff --git a/fs/xfs/libxfs/xfs_bmap.h b/fs/xfs/libxfs/xfs_bmap.h
-index 6747e97a79490..1d68bd3c2863d 100644
---- a/fs/xfs/libxfs/xfs_bmap.h
-+++ b/fs/xfs/libxfs/xfs_bmap.h
-@@ -101,6 +101,13 @@ struct xfs_extent_free_item
- /* Do not update the rmap btree.  Used for reconstructing bmbt from rmapbt. */
- #define XFS_BMAPI_NORMAP	0x2000
+ 		int adsize;
  
-+/*
-+ * Use with XFS_BMAPI_CONVERT to convert unwritten extents without allocating
-+ * blocks. Stop at a hole or a delalloc extent: return the mappings found so
-+ * far, or -ENOSR if there are none.
-+ */
-+#define XFS_BMAPI_CONVERT_ONLY	0x4000
-+
- #define XFS_BMAPI_FLAGS \
- 	{ XFS_BMAPI_ENTIRE,	"ENTIRE" }, \
- 	{ XFS_BMAPI_METADATA,	"METADATA" }, \
-@@ -112,7 +119,8 @@ struct xfs_extent_free_item
- 	{ XFS_BMAPI_REMAP,	"REMAP" }, \
- 	{ XFS_BMAPI_COWFORK,	"COWFORK" }, \
- 	{ XFS_BMAPI_NODISCARD,	"NODISCARD" }, \
--	{ XFS_BMAPI_NORMAP,	"NORMAP" }
-+	{ XFS_BMAPI_NORMAP,	"NORMAP" }, \
-+	{ XFS_BMAPI_CONVERT_ONLY,	"CONVERT_ONLY" }
++		eloc.partitionReferenceNum = bloc->partitionReferenceNum;
+ 		eloc.logicalBlockNum = start;
+ 		elen = EXT_RECORDED_ALLOCATED |
+ 			(count << sb->s_blocksize_bits);
+@@ -545,7 +546,7 @@ static int udf_table_prealloc_blocks(struct super_block *sb,
+ 		; /* empty loop body */
+ 	}
  
+-	if (first_block == eloc.logicalBlockNum) {
++	if (etype != -1 && first_block == eloc.logicalBlockNum) {
+ 		epos.offset -= adsize;
  
- static inline int xfs_bmapi_aflag(int w)
+ 		alloc_count = (elen >> sb->s_blocksize_bits);
 -- 
 2.53.0
 
