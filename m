@@ -1,114 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794776587;
-	b=2N2bDW0vWHieEYqN+5jN327NDJ6KpRs13w/OV5PbE23M096tigyhPnsVxJuRMZEy4rmK
-	 QejbMJBeD5Pfp6xNPD5uywis+j6BiYURQUb59iDVfDLBajbPiICsYIoX4gN64hajl77k3
-	 rrbyKSAonEqp5pU/mli2YWMWPadsMdIHJSFNwfN3vmEMwzaq5DNdpHYMtd2XUnzi8BJ4u
-	 JQ8DPVwMDaT7BizDYiLLTelQtGNxbkAwWjT0YoHTANzf71TnNnEeOLFalkOHsyQtDO1yh
-	 w5diStpiaCOGNArfwawFbeyEH8BxH2iV0kA8dyTgk3thyOn5gOXSAk1nPafCqyVmn7w==
+	t=1794776816;
+	b=lBKp5WvNi66kobqJpFcEIuK/2SqjH8TYdQ0xj/EAdaz/rAwzOwvtO5A3QN6cFJ0/jNeU
+	 cfv30j81LaD97T8wmd6MlnR3ri9zf+DkEjTivMkUDiUlXhJgXJYdTBwZ6z9wSvB/bJQYe
+	 Y1bYgUV9uhkWMYB8GqBYIZwtUBf5b4TlW3h6Ar2Ekp3TfgtROyG1D4BVai6KBmRkY6uxP
+	 0C8+zzcGPoQeVwiNaIkjMT1XHVTjdcGXoJK14kYgOLI2y198Bhmjkj+OFUX94mU4InUj5
+	 BDr7YGICPrMC1DMPumIv77E7QRfA4vAiAb1gazxxXW2vSPxLr+2NCICl4kGmzBJoSYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794776587;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794776816;
 	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
 	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Received:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-DetectorID-Processed;
-	bh=UWIlSlhDqIZVJylV02U3W5JWNr4VF81Iz41rAjFMs+U=;
-	b=02blz5/5XQQywEAQBuN493/JDNS5R9eKNNtxVOza/+cIv0sYtdxKO5ITDlY5NmMqxhC4
-	 wZ8H1jDZrZhXX20N0lue5K2+T5pis1s04R+zAcGiM3Fp47DaqCzxsUXVKvaO2ctCS6O9o
-	 VJsV6HsTyovkF1qAs9YY11CISBO3UilhRbEOV6md/vLSH5PlpxWHFwv1owsRSuJwgR5hZ
-	 jKyVxryTCWzk4FqusfOAO7vke02Wkgileoj86W4E2/nMkFc20IopT9yVfv2jFS1Arzal5
-	 Dacb+W7KUj07DAUDoXMTISCSefnXNk1vRLiY3RkMtVH3pYXpb74fFHvpvqQhdLqAYKA==
+	bh=Hy5B50aWYdVKoabUEPf9kAEQZD5oIZknlEXK2QY/HkU=;
+	b=ZDHbRj1J0EHT+y+cTv+57/Lh2O/3F6INj53bT1Nv7nqMxh4XLglclM9Nhon2Qspxo34x
+	 UvsaiR5cvcakqkaVCNt7rUjVRiC2BaxttU3exr1iAghcv97KwYu/0li5MF+jHMI+47TTp
+	 9XcgW/VHsDZ6D90MXep2iFpPEjtkzoZVjKOXy5g6LBYNTwc1ka75PBdmcmqXA6mqwRdCj
+	 FO8SNjnk0MMQtQi4IH72VLH4xnfOT1aWsVni40r4Ps7QBN5y+iCuUxhntug199OJ6Meso
+	 MB/GdF2AjQRO64nowA9QL20DchEiwUXuutvocDBNzRoMinO2Z02WbSSLFFvgjUocq+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=broadcom.com;
 	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=P+YkhPYS;
-	arc=none smtp.remote-ip=209.85.215.227
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Pihjmq93;
+	arc=none smtp.remote-ip=209.85.214.226
+Received: from mail-pl1-f226.google.com (mail-pl1-f226.google.com [209.85.214.226])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A457606A329
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 21:03:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6A457606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1082606A32C
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 21:06:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1082606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=P+YkhPYS
-Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cdb628232d2so2368918a12.0
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 13:03:07 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Pihjmq93
+Received: by mail-pl1-f226.google.com with SMTP id d9443c01a7336-2efa9addec5so2120375ad.0
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 13:06:55 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794776587; x=1795381387;
+        d=1e100.net; s=20260707; t=1794776815; x=1795381615;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:dkim-signature:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UWIlSlhDqIZVJylV02U3W5JWNr4VF81Iz41rAjFMs+U=;
-        b=ttOpDKZIeKKRpYTYc43LfN7kyARSUq11C1HvG02ujztUbO9HOVuub7ZkEi0yTqjCQX
-         XaFz+t2xUGI86zuPPyp+vDWCFMsKQdy6zlg0PXRF6ow0ezSUNJl1F+bg7xVz/rKe+na0
-         c9l5aFaIcO1QaX2jNE3e4DYp96FvH5FNm+Hv6fXzO+GChDdLDS9fqxUUd6GPnu3rV9WE
-         rwLKhe3nbmkcIIsKILM+xH451Tjg6s0yX9/6yyQBRAqdETREzB/YLqqiQ2rxmM4/G3a2
-         7Oq/IMkU1SIIHgIdPQBjI13cHr3CrObNOULaP68Jy1hxRYxDfyYNsorB+/2llSxLq82j
-         Ia/g==
-X-Forwarded-Encrypted: i=1; AL+hErExMtsGOMaJMlzGwE4nhQ/1+9JoQvn89/cLhCjoYWfAkqpi0ZcV96U2qu1mE2dYah81ugBEj7c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2XBrCQ58TcceP2HApIQB3ftBxs8zSZ/pt35UT6JGzNeD1beCI
-	2rW21Rg/u24BLZuYhvZNRyDkQQyi+0cmh+Z9+OP+7WRQ6KJlLRSQBN8tKWN16/JhgaHA60BkK3R
-	RA7+Yd5v/+yR+V5Cla9dc/2CmvHcxrKmWDk5hmjo/UM0uSYgBtoRvuS4d6Vt3Oh8y0RxVmhpERc
-	uWb97i0LpTzFtHgvZwMoQEsrZcCF2W2s/Aw6zBwoay30CYOKh+p7NRirIhZHCN7n4/zhIlRYpub
-	sIUwm0+Z42o2NYVqQ==
-X-Gm-Gg: AYBFou29CkTRwB4hn7C5KOdmsLyNSiFMEK34L81rSWYk8N5Hq8lcJu5XLtuJbCM8ts4
-	qAECERRKVgLOiWTPWMJOoqlhj77319EDgncIza4vGaRgKRka55Q9i05zBScpTboeRY4HDKCzmU5
-	00908q1ytzsfBkTjkKCoDk19R9aQIM76aru26HmY1FOHqiNFy21dPmoyhNbaKxc+hHoA/GX+NPK
-	m66CgQ6/t2W9b5IJYYYxTW6MyAObz0yV/CVzlczPc4VLl2dp229HbBFv9saCH8bMnvtanIwzwh5
-	kh4WUaTU7uYcACN5Qx0e/XF1ywHy9qFIXwhL2+DjyMepKqK9niH23Qt8J4qu07yyTS6GStghtah
-	HIohGs8qbWREZ+QHWXseCHWYoyvHqwE0dcUOJxj3/IzlfyXlRwdhThGeCLkwmcWjPFqbKGtBXuc
-	rVg404nAij/JjstgvhMJGICqPtTA2xYzPiPwlWkFnYRg==
-X-Received: by 2002:a17:90b:3808:b0:3a0:ca1d:b40d with SMTP id 98e67ed59e1d1-3b1b0d08ec9mr9881824a91.55.1794776586618;
-        Sun, 15 Nov 2026 13:03:06 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-123.dlp.protect.broadcom.com. [144.49.247.123])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1b3a71eb9sm5140932a91.4.2026.11.15.13.03.04
+        bh=Hy5B50aWYdVKoabUEPf9kAEQZD5oIZknlEXK2QY/HkU=;
+        b=Py60AUa4V7Soii2pl9VfAdJf3/MSKKK8XmKuIA8gGdNwDl3E39llIMMYjGKOli7+xo
+         b2eT2wRKlSPMiuTF9ZE7jNJkNlhoZbwfwWuuzbp2oCn6G9reN4IIdXnYcoRAH5RxFxQm
+         NT1KzhK9TKPA7XMarLVGWQx/0O7nT/6uHWN28/0uq2DprkH01FbPCXMOjuYSR5Y47Ibk
+         2iEShMJG9rdKG2JYJOrS77fHjMZb+dUsFURu2lA5Oq7mqhcIycKoz+OhffEdCsXdLd0m
+         Jp5Odp+wEKvR9uL82MCBuyp/uOQQUhBYbMMmG+mY8EJWSTnPnwA7VI+W0TLeF5esGPgM
+         1www==
+X-Forwarded-Encrypted: i=1; AL+hErEKrPHMJadPAV8APGHUHoGI9ZULlGvyGpYPJjaKu0ZWgX4ZvUaAv/LOgrcrUwb/KH9dQqLZyEk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9LVsm+C9/QcjFGJNR3P1InScKa0mG2amKHbITF6JhlUWRmqD1r
+	yMr8ID3/KNIaIWdH0c+D6+A5fWxUimno8btFJX+UUykGDgSDupFK5dp90iRy8CTGBjiXOIumzT9
+	6czNtW/+pcKn0+j5dC/t3uE6/39I3CysIJbOAZoO6AG9m+h/8FpKdhZ5WsaaDK5o3VxWI4ADcfL
+	Ca374IUd/wr44AAV1bt3k1MWe4aIOAf5ZfY1uoC4LOcRezXZ3F+/lO2oKDnJhmSnI1mXJMiwzrg
+	x7b3f67P8ZGAkBG9Q==
+X-Gm-Gg: AYBFou11K3gEXCaivZSwSrVbzsY0Ev2f8acueTeY5aK9JyyNxyaQepd/9etHVVmoSum
+	zFt+bm5iNYYGoWvUk0wPaNVB0hRRNE4AC5YT1bS7E/AlOEX5dvvz9WwYoK89/m7Zqv/uqch1A3V
+	SIRUW13jOtHuD5Q+cz68QYufAyXHN5UiJPwanCGM0AsN0197LWJuxTXDBdpKxKsCANvsz1HgQU2
+	O5Yq8qw9UI++lxUc+PbQJZW7KNAAIFDn/Y1w9Df/MYFN3yMFWbMKdJuqEu9xFA5LX0zMIKy9Ex7
+	l6cfIZ+rUgSP6TEo/fJcmZTq2S/2y8YGEx236ARbTGhmS8EC3zKV4zHEIOMXulppLjKKj1FzMC+
+	8aIdO7nbQQouz5W+4aBdjPnjwC51JKVBosRpBsIuScs7OvBkXtLelix/9X9uf184Tni5eZyw2kM
+	prdD4lWQSVF11LUsB+7sxkNU9aGxjyv472d+5yhFg=
+X-Received: by 2002:a17:90b:4410:b0:3ad:818f:3da2 with SMTP id 98e67ed59e1d1-3b1b0b9a342mr6916753a91.63.1794776815187;
+        Sun, 15 Nov 2026 13:06:55 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1d1d744e2sm2126211a91.1.2026.11.15.13.06.54
         for <stable@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Sun, 15 Nov 2026 13:03:06 -0800 (PST)
+        Sun, 15 Nov 2026 13:06:55 -0800 (PST)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-36d1353fdcdso623958eec.0
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 13:03:04 -0800 (PST)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-30c0d568830so3646454eec.1
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 13:06:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794776583; x=1795381383; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1794776813; x=1795381613; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UWIlSlhDqIZVJylV02U3W5JWNr4VF81Iz41rAjFMs+U=;
-        b=P+YkhPYSzjgtIYqyhXYvAz/rsuK2NUWUM/uibW8+kKIILJa7otHrwhb67uVjZymHUH
-         h27G9DUzAuoh43yxm6770OxgT97MZ+ll5/Svyfk8Qi6EQN3Q9U1PgXlcaetHjrEfIr2W
-         brWj2nYan2HrFcq+OkM/qMjyRV7kkhM5vpIhI=
-X-Forwarded-Encrypted: i=1; AL+hErH18ymYDYm9VXp4hVfd91lcg4yoeL346BkdBKEqZRzG4J0F/N39prWzT4lpUkqKtwESD/uxMuE=@vger.kernel.org
-X-Received: by 2002:a05:7300:dd03:b0:36a:437a:4c00 with SMTP id 5a478bee46e88-37967314a08mr7970683eec.24.1794776583529;
-        Sun, 15 Nov 2026 13:03:03 -0800 (PST)
-X-Received: by 2002:a05:7300:dd03:b0:36a:437a:4c00 with SMTP id 5a478bee46e88-37967314a08mr7970660eec.24.1794776582638;
-        Sun, 15 Nov 2026 13:03:02 -0800 (PST)
+        bh=Hy5B50aWYdVKoabUEPf9kAEQZD5oIZknlEXK2QY/HkU=;
+        b=Pihjmq93+ydLw/QwqloP/87X/p2H2h8JbkfGEB7Zz37C4ErTSkKAtgkme/dLgDvNIH
+         ETlniro1qPFH0xV3XKu8HichpOYLw3AfnBItaPu1Q5nr8RUaF60oMgMHcNDcMVuddW0D
+         RIFKayaOlH7VCZvhe7RHhoP+yQ/FGeg+y4Zg0=
+X-Forwarded-Encrypted: i=1; AL+hErGBmFYvmRsxxJcrL0e0nPYlXbZkQEWA1u5kIJ7hU+RD6TGqa8uiuPmdd9no9tNNSiSnTDboMHI=@vger.kernel.org
+X-Received: by 2002:a05:7300:e9ce:10b0:368:7c2d:a612 with SMTP id 5a478bee46e88-37966c4738fmr8998724eec.10.1794776813212;
+        Sun, 15 Nov 2026 13:06:53 -0800 (PST)
+X-Received: by 2002:a05:7300:e9ce:10b0:368:7c2d:a612 with SMTP id 5a478bee46e88-37966c4738fmr8998706eec.10.1794776812568;
+        Sun, 15 Nov 2026 13:06:52 -0800 (PST)
 Received: from bld-bun-02.bun.broadcom.net ([192.19.176.227])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379565d3e37sm31068797eec.24.2026.11.15.13.02.59
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379553316f2sm28693790eec.9.2026.11.15.13.06.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 13:03:01 -0800 (PST)
+        Sun, 15 Nov 2026 13:06:51 -0800 (PST)
 From: Arend van Spriel <arend.vanspriel@broadcom.com>
-To: Vitor Soares <ivitro@gmail.com>
-Cc: Vitor Soares <vitor.soares@toradex.com>,
+To: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+Cc: Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Angus Ainslie <angus@akkea.ca>,
+	Kalle Valo <kvalo@kernel.org>,
+	kernel@puri.sm,
 	linux-wireless@vger.kernel.org,
 	brcm80211@lists.linux.dev,
 	brcm80211-dev-list.pdl@broadcom.com,
 	linux-kernel@vger.kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>,
-	stable@vger.kernel.org,
-	Arend van Spriel <arend.vanspriel@broadcom.com>
-Subject: Re: [PATCH v1] wifi: brcmfmac: skip bus_reset cancel when the work was never initialized
-Date: Sun, 15 Nov 2026 22:02:50 +0100
-Message-ID: <20261115210253.883721-2-arend.vanspriel@broadcom.com>
+	stable@vger.kernel.org
+Subject: Re: [PATCH] wifi: brcmfmac: use ISO3166 country code fallback on 43752
+Date: Sun, 15 Nov 2026 22:06:46 +0100
+Message-ID: <20261115210646.889090-1-arend.vanspriel@broadcom.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261020203916.381637-2-ivitro@gmail.com>
-References: <20261020203916.381637-2-ivitro@gmail.com>
+In-Reply-To: <20261018-brcmfmac-country-code-v1-1-54d7cbcce035@puri.sm>
+References: <20261018-brcmfmac-country-code-v1-1-54d7cbcce035@puri.sm>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -121,31 +122,25 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Tue, 20 Oct 2026 21:39:13 +0100, Vitor Soares <ivitro@gmail.com> wrote:
-> From: Vitor Soares <vitor.soares@toradex.com>
+On Sun, 18 Oct 2026 08:52:43 +0200, Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm> wrote:
+> Without this, the interface stays confined to the country set by
+> ccode iovar default value, which is usually 0 (global).
 >
-> When the firmware request fails, brcmf_pcie_setup() releases its own
-> driver, which runs brcmf_pcie_remove() -> brcmf_bus_cancel_reset_work().
-> At that point brcmf_alloc() has set bus_if->drvr, but brcmf_attach() has
-> not run, so drvr->bus_reset was never INIT_WORK()ed. cancel_work_sync()
-> on the zeroed work then trips WARN_ON(!work->func) in __flush_work():
-
-[...]
-
-> brcmf_bus_schedule_reset() already gates on bus_reset.func for this
-> reason. Apply the same check on the cancel side.
+> Tested by verifying that enabling the fallback makes channel 13 APs
+> visible in scans while in Poland without having to manually change
+> the ccode variable.
 >
-> Reproduced on a BCM43752 PCIe module with the firmware file absent.
-> With this change the same failure path completes without the warning.
->
-> Fixes: 43b25879f004 ("wifi: brcmfmac: drain bus_reset work on device removal")
+> Fixes: d2587c57ffd8 ("brcmfmac: add 43752 SDIO ids and initialization")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
+> Signed-off-by: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
 > ---
->  drivers/net/wireless/broadcom/brcm80211/brcmfmac/core.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/net/wireless/broadcom/brcm80211/brcmfmac/cfg80211.c | 1 +
+>  1 file changed, 1 insertion(+)
 
-Acked-by: Arend van Spriel <arend.vanspriel@broadcom.com>
+The subject does not indicate that this should go in the wireless tree
+so wireless-next is assumed. The Fixes: and stable Cc: suggest this should
+go in wireless tree and it does not apply to wireless-next tree. Please
+clarify and send a v2 with [PATCH wireless] in the subject.
 
 Regards,
 Arend
