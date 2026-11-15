@@ -1,47 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794747298;
-	b=E2c2dF/YxEXA6kvNcu3BIF5IiLfUeIS0EcWnM12u/DStEA4kQilaFlpgdWwhe0S5DFUH
-	 XGaOUgo6bPVRQ8BLgquJmrHFJgi6UcbdZ05VJboYuMDYGJxfdywVvzyjzDPbFrCPYby+1
-	 1lhdlRlpUkIQPmtt3VR+EtJbCqkYe0N97gYBYp2peguczNGMiO3jRwHIgK1nhLup61P9Z
-	 /l+HjxIrle3CMCOSC08Kb2YzG2imcYXC/6SMbZhbe86wDzRzwEBJ0sNr02XXfok9oprdi
-	 N/TK7CgYc4aMSHLKo3JRPENfsO9aZEwf2JufkUaMI9GaGm5pZ6BjQH7fq/gTpiGYMRQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794747298;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=AJTKULYseaeK5WjHYtGrkruJIYuQWcLHf4wiRJSayYY=;
-	b=UdmJ18/UITpNIqb5z+iZoKvKsYfNZEVVCqm5z6huhkYeVo0DXeHTdXCwBkV7gn4xkCcV
-	 HidpKPFbfHazwpzv+l69ZkUKts60cV/rXaRLOSih6yDAvee/25Sbk49ofR38QWfAZvd1k
-	 6x9DSgv1woo/5KBosjFg1pVgqdsF5B+hxM3Bxaw4QNmGAJfCSHE+0Co6IFlGtGbk/P/Mw
-	 DdkLar0tkSTrw4UbJ/+OzntmFGsITfw6dYpltNE7NfXcVPpp1u/WX1O5nsB/aedcbGMHq
-	 K0Q5TfLI9XO5Jp2nrQMYGEdgE4lWHsB199PSMPkzbLXANz3zgx4m9t3IQNqlVy77nWg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gSIPRigB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.210.169
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
+	t=1794747403;
+	b=AaW1q155GdmzGKshrC25A6HvzZoXPR21hy5y9qFweItNAEjIcr95MnZYIc/VHZWNKrgA
+	 bO6fcZaVdmwMV6iqKM8xR1nqStTBzg7b0AEiO3ledrGRP0EUipRgB7jgL5BqHLScEZgFe
+	 qzkkaREjMwfDRLdOuPZ3cypKVIq6R2DXwZy/BMUlfHONbmOVM3gbQ28kvwFJRawisfDXS
+	 tinaFGve5CBsvtEzUJfOYMZTwyFIgk+eKh2DeacL2TpUFaWpeixBujQOzljbk6a4bZuSO
+	 1VuLNNQX137l7nQI5tRdo7oMbV3a5dcV7fNKQvnpyoCLa4LHjKn5+EvmPNhcnQGsN2g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794747403;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=MPjxARwbhT7wpT+NldH9sgjHxyAG1kHYfbUx4elToaA=;
+	b=bD1DkDZgJzxw8DR1NFPlK2UZ4vbopZE7H2sXHyvtCZ3HVLK2diBz6xWwRGb7iZjB5Q/q
+	 UoZYcz2MBezLTQg8cprb8/AfKK3w5/ITFMPXsJDFzSIEpmnIleuPoOe16UQVBvOf9zG8T
+	 5em+tbheYxx09iuG0Txt3rqXkREDLiangcMEtipwxrgGGlGjCakkaD/Bfe/SCgqJu40n2
+	 ftGbb8dhL7gPEV97/03ihGCjHoPmK+ZF0Aebd8YHk64qWaCobr+ZtiluQEH1eUeTRf9FV
+	 +w0UOyLDRvhS5FXN7YydS2/jQX/2m/Q+eq31O7H4s6j0h1moo2/tuGG7+i7sn64bwSw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JIHfnajk;
+	arc=fail smtp.remote-ip=209.85.210.169
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F42606A31A;
-	Sun, 15 Nov 2026 12:54:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6324D606A327
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 12:56:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6324D606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gSIPRigB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6801F000C4;
-	Sun, 15 Nov 2026 12:54:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794747298;
-	bh=AJTKULYseaeK5WjHYtGrkruJIYuQWcLHf4wiRJSayYY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gSIPRigBwIctPck5wIv4+u3hlMzO9GbAF+hN46/IM8ZR/4VJvencCFeC7m39EKC+x
-	 1OeFidqcun9/TmXmsYVHvoPET+7UA+ch7CizWKYVKfbfA6jbs1rL0+alcaUBbhIF/k
-	 Q8n+85uJ/E1wp0wy/Seaa5T7g/dE6VPfMu66sZZDLpQUKvLCVIULhEmedbTfAZbsf+
-	 hOsaG54OLjJ10OqiWsNvWPj3hEttquU86bcNCuegwZfNoU8d85wMVSwSRRATnrStwc
-	 DKw663nyW9jjXuOz5I8FLtA7lSa01HlYlulIxCETbfzUHMhaZ2J+BJrbATVGNB/tF4
-	 Tg5ynOFW+ga4g==
-Message-ID: <c81473c3-e735-44ba-b9b3-ef71a206e4c9@kernel.org>
-Date: Sun, 15 Nov 2026 12:54:51 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JIHfnajk
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8b58d6f67a5so1211161b3a.2
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 04:56:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794747403; cv=none;
+        d=google.com; s=arc-20260327;
+        b=d4lgV97EFa7TtBtTlw6aP0N5r0rrLz+ODtJtgLULn/pYWj49nJgydlr4q3LZEw5ev8
+         vwVzEZes0Gj5aKMaCl2pgDhZbHCVwBXEP7QoWsMF73l2+8ylYqkczWeKx1o9BFnmvPRN
+         vVZRi1ISNtnwdWnRGJLxrKNjh6ZzhoxiMtJqXY5bZr4Nkux0HGvNqsk0VlaktcbjeoRG
+         AqE2Bk44LM5d/B5OhkNh/kDHDOPNjK+4CDPxZ0zoB6R7iD6YATjL+PF+6TnzwqgXqFUM
+         49rFHF+E7om8e8a6o3F1Sqz4a7U03C/iDH49lZ1691Viif3XQqQ8gQB9SCAbrovkWc8w
+         nnww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MPjxARwbhT7wpT+NldH9sgjHxyAG1kHYfbUx4elToaA=;
+        fh=7zwtyNSixcx76RvD0xlSSXHXjVjUrjFAWAfrUuV5xgM=;
+        b=rAHS2JhAAc/N898Of2xcNVOdsdqi6FfIH0x6NOJmgg1NornLpkOY5IU0lL2USt4rqd
+         CDAB9E3drRfEhiqV6NBTXpHOItHs5wjyPL2e48cXSHfDmY/ESoU4nOBw6YOvY6pz+Nwm
+         qjnn3FTmtK1IPIi7PPMZ4BErx6UNqnrqvTAWVIq34l29aiFiM3iXTanh4OH18rU+Vk7u
+         A1iIiDHN0a//aYCXtfqNgi4SNvHmUjsmBdb3F46ZQfCth7KMdx7VorjJQB2oWrPdt+Gi
+         VcGwCqwMgBsqd0U0ujU4e1rrtjwMnNwcuTUdn/mvK8UzvOL4Evh79dp6+ij7MPN3Nj9j
+         80DA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794747403; x=1795352203; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MPjxARwbhT7wpT+NldH9sgjHxyAG1kHYfbUx4elToaA=;
+        b=JIHfnajkwoCboS1fv2TBBmAWt9SCje39C14bfMNUah71eWfYjaT87VKc6RlzVqcHPw
+         eYNpcWQm+b6idCc1SH/a4OCC/q0vZO4Mw01QBK+p9yznmlJXA//tRL+czKQ0rBbgE6nY
+         8lLjLIawO0THSZCW4cQcCUIkHNRLz8ZoFGkKG8OX8nVTvJ1hEsQMTsaxyGT9yTZgwQ0a
+         b1hR37QqhrTzTJaCqoYWZrbdMRHK4IXMOTPeASsN5wT1OZNdM701u3sHqlTPtK+XyPi6
+         OwbSXhYh00Riv7eXcfCttV6qZ+GcCwihBZe468YDDlk1+3TQvqglMyecLDGYh87L0XPq
+         +ZyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794747403; x=1795352203;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MPjxARwbhT7wpT+NldH9sgjHxyAG1kHYfbUx4elToaA=;
+        b=wfjBAGcXi58V45OW07ZTd8jgRUNbw91PWdoy0OFzJq8EBxOmNsoxCoxBE2D8p5qoTQ
+         hzN/aOS5nHic/EJXQT88O3yWJmeDVBrk4qtCnQV44NyrJoNaLboZKmntiehbOKbceAHR
+         n2PCitFBDG0QJz009zTmuKkkduNo8qUc4sQUB6CBqUY3tzgwyCaV8fUV41B+CbVkPH+Z
+         7y7YjjEIdKaCjctDbkQVBzCY9IEC8Jh502C5M53mfLB5PmqKm4Knee2cb4VyguVqdaoC
+         ElLY4SwsmBqYYqCzN+G8+Hx43RqoW0TAqc62vn975LHOu6OcY3rv8n2fP+wQfmT1GKmp
+         4pCQ==
+X-Forwarded-Encrypted: i=1; AL+hErGdEzjXYYlGOb3ENwEvkTHFmLVILPSj08wvMYgVwQKab0gyn+qIa7StCmPuBhI7TLERQSmrp8I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/rB9fQX1pXhPZzXqRggKPWjFyubhgrOVxDkg0QDG+Ji8A/WNYH
+	KFtVHVPpzIDABN4hUO0mjjAMCB4Z/5LhBniAbxhioJTTLcb2YfqHcVRAi7g9OThj+KN7lFiNMV2
+	tunntE7oPEIo9LlikWNLhdfAd02VlM8c=
+X-Gm-Gg: AYBFou2TSGy3LnTwTzMPxvzaS9jWRepE+0+CLMA77p5cCQIC7th3sT26KZVmOSr9qmO
+	Qk/kr01bEKjiLHc3FCvfOfQzqRUPMBU46hO+ytpm1WQKFFQMOSiSgeh2iz+X3tdDupRnmI9YAHg
+	X/31LQdv4uGKCdvDrlQuWIgm3lQuulap1g4sg2XjHlBSpr9swUkhG86zP7wmBBSHFjzHvYNibrT
+	SNmhhN0Wz7DxluknSzhG+eZZuMKUnD/SSGI2/kjPMK5eThlgiFA5I3o5n9RSTGhhp1+LMCGHb/v
+	ZIA/MWV9iOni3HQWRN5CH90YPAIqnB/EyPFl1k1hmC3q+tVm8l8BgIir2jW6dLiaY1RkGvc6g94
+	pixYIu7TT/SpyoPxNZOjlgp/bXiBTyRMpf/kYkNW9+O88AbdJ7N/M9QD78vR2ogd1+NuOdA==
+X-Received: by 2002:a05:6a00:8011:b0:881:1c64:6723 with SMTP id
+ d2e1a72fcca58-8beb6f5c1f9mr6440205b3a.37.1794747402550; Sun, 15 Nov 2026
+ 04:56:42 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,158 +104,118 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: iris: Fix out-of-bounds read in timestamp metadata
- fallback
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil@kernel.org>,
- Stefan Schmidt <stefan.schmidt@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <MHYjgQwKyl4g6PykXAKsc_qby-VHmaZ8ZyKEoTM1Fpmve-Cg_dUJaQT0a2MReqplHxr4JLS7xunPQ6qB5AlxVg==@protonmail.internalid>
- <20261017-fix-oob-tss-v1-1-fb86f4cabf65@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20261017-fix-oob-tss-v1-1-fb86f4cabf65@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261110151407.789960-1-nphamcs@gmail.com> <20261110151407.789960-3-nphamcs@gmail.com>
+In-Reply-To: <20261110151407.789960-3-nphamcs@gmail.com>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Sun, 15 Nov 2026 20:56:02 +0800
+X-Gm-Features: AclHuK_5SaXrB5pmLGWhXjUHDXsOmgc2bg3dysnge6viAM7H3emnkg8TzZhuZpQ
+Message-ID: <CAMgjq7A9_KRxJEA1gLO8aEuUkbQ-Wh_N3gfTqRuX7A3_Ysh4Ag@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] mm/swap: publish cluster tables after reacquiring
+ allocator locks
+To: Nhat Pham <nphamcs@gmail.com>
+Cc: linux-mm@kvack.org, akpm@linux-foundation.org, hannes@cmpxchg.org, 
+	david@kernel.org, mhocko@kernel.org, qi.zheng@linux.dev, 
+	shakeel.butt@linux.dev, ljs@kernel.org, baohua@kernel.org, 
+	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
+	baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, willy@infradead.org, 
+	brauner@kernel.org, linux-kernel@vger.kernel.org, chrisl@kernel.org, 
+	shikemeng@huaweicloud.com, youngjun.park@lge.com, sashiko-bot@kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 17/10/2026 04:25, Vishnu Reddy wrote:
-> inst->tss[] has VIDEO_MAX_FRAME (32) entries, so valid indexes are 0
-> through 31. iris_set_ts_metadata() writes at metadata_idx and then
-> increments it. After the 32nd input buffer, metadata_idx is 32 until
-> the next input buffer is queued.
-> 
-> If iris_get_ts_metadata() finds no matching timestamp in that window,
-> its fallback reads inst->tss[32], one entry past the end of the array.
-> UBSAN (Undefined Behavior Sanity Checker) reports this as an
-> array-index-out-of-bounds error.
-> 
-> Use the last written entry, metadata_idx - 1, in the fallback instead.
-> Fall back to slot 0 if nothing has been written yet. Even if stream off
-> and stream on happen multiple times on the same session, the fallback
-> always uses the latest metadata received.
-> 
-> Fixes: 17f2a485ca67 ("media: iris: implement vb2 ops for buf_queue and firmware response")
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
+On Tue, Nov 10, 2026 at 11:14=E2=80=AFPM Nhat Pham <nphamcs@gmail.com> wrot=
+e:
+>
+> Under memory pressure, swap_cluster_populate() can publish a table
+> while its locks are dropped for a sleeping allocation. A cached
+> allocator can consume and free that table before the populating
+> allocator resumes, leaving the resumed scan with a NULL table.
+>
+>     CPU0                           CPU1
+>     alloc_swap_scan_list()
+>       isolate_lock_cluster()
+>         swap_cluster_populate()
+>           drop local/global/ci locks
+>           swap_cluster_alloc_table()
+>             rcu_assign_pointer(ci->table, table)
+>                                    folio_alloc_swap()
+>                                      swap_alloc_fast()
+>                                        alloc_swap_scan_cluster()
+>                                          __swap_cluster_alloc_entries()
+>                                      mem_cgroup_try_charge_swap()
+>                                        return -ENOMEM
+>                                      swap_cache_del_folio()
+>                                        __swap_cache_del_folio()
+>                                          __swap_cache_do_del_folio()
+>                                            __swap_cluster_free_entries()
+>                                              free_cluster()
+>                                                __free_cluster()
+>                                                  swap_cluster_free_table(=
+)
+>           reacquire local/global/ci locks
+>           return ci
+>       alloc_swap_scan_cluster()
+>         cluster_scan_range()
+>           __swap_table_get()  /* NULL table */
+>
+> Keep the count table, cgroup table and zero bitmap private until
+> swap_cluster_alloc_table() restores all allocator locks. Install them
+> under the cluster lock and retain it through the scan. Initial bad-slot
+> setup takes only the cluster lock because the device is unpublished.
+>
+> The allocator releases its locks before the sleeping allocation. A
+> reclaimer that dropped ci->lock earlier can then resume and put the
+> cluster back on the free list. Abandon installation if the list state
+> changes or a table appears, freeing only private allocations. Restore
+> locks on allocation failure too, so the caller can return a still-isolate=
+d
+> cluster to its free list.
+>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/all/sashiko-outbox-181084@kernel.org/
+> Link: https://lore.kernel.org/all/sashiko-outbox-181086@kernel.org/
+> Suggested-by: Kairui Song <ryncsn@gmail.com>
+> Fixes: cdd77f84d966 ("mm, swap: consolidate cluster allocation helpers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Nhat Pham <nphamcs@gmail.com>
 > ---
->   drivers/media/platform/qcom/iris/iris_buffer.c | 6 ++++--
->   1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
-> index eb8de60c1177f..31cba99a665c1 100644
-> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
-> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-> @@ -865,9 +865,11 @@ static void iris_get_ts_metadata(struct iris_inst *inst, u64 timestamp_ns,
->   		return;
->   	}
-> 
-> +	i = inst->metadata_idx ? inst->metadata_idx - 1 : 0;
-> +
->   	vbuf->flags &= ~mask;
-> -	vbuf->flags |= inst->tss[inst->metadata_idx].flags;
-> -	vbuf->timecode = inst->tss[inst->metadata_idx].tc;
-> +	vbuf->flags |= inst->tss[i].flags;
-> +	vbuf->timecode = inst->tss[i].tc;
->   }
-> 
->   int iris_vb2_buffer_done(struct iris_inst *inst, struct iris_buffer *buf)
-> 
-> ---
-> base-commit: 2efb7a11f1aa4d2dc285fe2680cca22cb9f72f64
-> change-id: 20261013-fix-oob-tss-7d317d612cf0
-> 
-> Best regards,
+>  mm/swapfile.c | 106 +++++++++++++++++++++++++++++++++++---------------
+>  1 file changed, 74 insertions(+), 32 deletions(-)
+>
+
+Thanks for the fix!
+
+> @@ -825,9 +862,13 @@ static int swap_cluster_setup_bad_slot(struct swap_i=
+nfo_struct *si,
+>
+>         ci =3D cluster_info + idx;
+>         /* Need to allocate swap table first for initial bad slot marking=
+. */
+> -       if (!ci->count && swap_cluster_alloc_table(ci, GFP_KERNEL))
+> -               return -ENOMEM;
+> -       spin_lock(&ci->lock);
+> +       if (!ci->count) {
+> +               ret =3D swap_cluster_alloc_table(NULL, ci, GFP_KERNEL, fa=
+lse);
+> +               if (ret)
+> +                       goto out;
+> +       } else {
+> +               spin_lock(&ci->lock);
+> +       }
+>         /* Check for duplicated bad swap slots. */
+>         if (__swap_table_xchg(ci, ci_off, SWP_TB_BAD) !=3D SWP_TB_NULL) {
+>                 pr_warn("Duplicated bad slot offset %d\n", offset);
+> @@ -835,6 +876,7 @@ static int swap_cluster_setup_bad_slot(struct swap_in=
+fo_struct *si,
+>         } else {
+>                 ci->count++;
+>         }
+> +out:
+>         spin_unlock(&ci->lock);
+>
+>         WARN_ON(ci->count > SWAPFILE_CLUSTER);
 > --
-> Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
+> 2.53.0-Meta
 
-Just control the variable where it is owned/assigned - the index should 
-never run outside of bounds - dealing with that out-of-bounds is a fixup 
-that shouldn't have to be done.
-
-Don't let the index overrun at all. That way the next function that 
-reads the index, doesn't have to know or care that the index might run.
-
-[0] % git diff
-diff --git a/drivers/media/platform/qcom/iris/iris_common.c 
-b/drivers/media/platform/qcom/iris/iris_common.c
-index 25836561bcf3e..b2b9349c38ea9 100644
---- a/drivers/media/platform/qcom/iris/iris_common.c
-+++ b/drivers/media/platform/qcom/iris/iris_common.c
-@@ -33,9 +33,6 @@ void iris_set_ts_metadata(struct iris_inst *inst, 
-struct vb2_v4l2_buffer *vbuf)
-         struct vb2_buffer *vb = &vbuf->vb2_buf;
-         u64 ts_us = vb->timestamp;
-
--       if (inst->metadata_idx >= ARRAY_SIZE(inst->tss))
--               inst->metadata_idx = 0;
--
-         do_div(ts_us, NSEC_PER_USEC);
-
-         inst->tss[inst->metadata_idx].flags = vbuf->flags & mask;
-@@ -43,7 +40,10 @@ void iris_set_ts_metadata(struct iris_inst *inst, 
-struct vb2_v4l2_buffer *vbuf)
-         inst->tss[inst->metadata_idx].ts_us = ts_us;
-         inst->tss[inst->metadata_idx].ts_ns = vb->timestamp;
-
--       inst->metadata_idx++;
-+       if (inst->metadata_idx + 1 >= ARRAY_SIZE(inst->tss))
-+               inst->metadata_idx = 0;
-+       else
-+               inst->metadata_idx++;
-  }
-
-  int iris_process_streamon_input(struct iris_inst *inst)
-
-There should exist no window in time where the index is invalid.
-
----
-bod
+Acked-by: Kairui Song <kasong@tencent.com>
