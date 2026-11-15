@@ -1,49 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794777503;
-	b=bv65qTfhwSb7dPQwLrw+Yst1yhlFWcOahGOhbZFj7j/PK6K0LCu51qFLtW2DY9Ce3ytd
-	 +hzRVV/aDxFz48U/C3QWj0c2rK2qn1kMKWKW2WzqwUGQS2uCiOvtC/1NIGqTqSm9OaOE+
-	 lfLOmkdo5Ut11E8isvR/D09MdEzMN/dhmPt4gR6+RR/uAu6EpvemdKByl0urgsBfreLcn
-	 kLBsV2jmS84wJN+/FXrDt7EqfmEME3QK8z7ZAYXY6FnajiEjlXnDZNRuZL7c56vwmbkRy
-	 vkCta3YRjleyDob4E90OnK3O0DbcUIaYiVF3MMvQJyGg0bSf466jvtY0kbiw99zcp+w==
+	t=1794778548;
+	b=pL+aIqi/pt2oMyJmaGgcqGEvRoMy67mz6Si9rg2p2obtuDBELKWGOXIrO0ZWb+aIwcG+
+	 bC01uhNticnfWCA27DkKwvS7WtM+B18Jg92A6uCfNY99S/TDxA/+PIbdlpUozntUyjiRB
+	 JAw0V3EoMyUFO8vwoDiR29e2TIDdcnRW1vRsDugcr435kLbUfl76HBgqPFyJQAEOxym/T
+	 M0EkX3kv2UkKHwy55km8/Hf34fne6E34v+ZWEprYog//WoqvakqSkYRRYp+CMroKo191Y
+	 +pWOK5zqxbVngKluhTXNHvaU8t0/VdrLCoaTKGX+7xhNn6/NLh46irdp2CZdzzbKfuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794777503;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=4NmVekp5AF3TQlvKfhhoRjPEWciyBwoXsOkkxZlyMuo=;
-	b=Zixe/hV+EdkILhAyiU9JZZvMDw+8FqFJMj2FOe3sBiZkYf/b8WsWRTIGXo688RSjaplm
-	 KQ3Gm9816PHj4S9LZ6poZoUjz8FaV57ppsyLt8LW8sbZwoFu2wDIqvrBeTjf2fo8lAjNF
-	 Fcvclc7a7LtBG0pDh2F0RdUIsJPgaG7yrRRP7cdXxWirXPmFAMWagai51CBCYv6hz1wPy
-	 4hERNxVSpg5PBFYpv90fkzLivFx3hNv6cgaJn509wCoQd0tqAJHUzpl8N9D9CwUdCC0CS
-	 PC5690OjinszKbMEFFQ+C9ew4ZsWgM+ckFQ1guy3t5k7Ouoil4WV1iGXymXBvRrJTpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794778548;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=v+bEaKhMDCZtV/jlBILoWtbmCL9qsyLUohE1CagS/qY=;
+	b=4Kfks9kgXsMBa1SKz9Hz6cyCawBrVM5K4QekYHbj3qFS8dw9eABhKCYxYpKzdaXRwgWo
+	 FQaeAUmlNfK2q8hybWGxpQQ8v/NcRw/C4AzDiHrWnpQymRBoK36BcJkr+MnwTw+vqhmAy
+	 jqD/qOfO/qSEfDQJoGKhoUvc1pcxwZ/ZULAG2kN6/yrTbut4gXLsqyoIlKeYtU7IizbHM
+	 J/BJSp12Nj1Mv6h1SuuShvLd4Tgqnd9dbHf4s0dQIdwTJfj5JTP5yHOQZeXHPJwqWfHnn
+	 Mn15YMdw5Rs0cfRe9xPeiC98TT9ABMrJ22plUR4PbFyNDTDZ0DX5jVdE/1LFlp4R8Rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EwsrI/yS";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vf3Q6OFD;
+	arc=none smtp.remote-ip=209.85.215.174
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A7AF606A32C;
-	Sun, 15 Nov 2026 21:18:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B89A7606A32C
+	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 21:35:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B89A7606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EwsrI/yS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E02E61F000C4;
-	Sun, 15 Nov 2026 21:18:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794777503;
-	bh=4NmVekp5AF3TQlvKfhhoRjPEWciyBwoXsOkkxZlyMuo=;
-	h=From:Date:Subject:To:Cc;
-	b=EwsrI/ySyvB20G0OXm5ps0iHqCR5WTS32bYIMIkp6kAmcrqApUPqMEqq+cvOy00uX
-	 ho4vyv2AUSFdsaQKdjVayMoQTcfrB2xGxXN0Vp4peDzCY5TJYQI/eBXKlFblLqQmt0
-	 KckZyexpMFRvAR69YKm3wSJvWv1t2w6N3uZv6OppxZOw4UpobFwa2tv7WeOXTgLIyA
-	 Cxo02L3wPE8NOgJ/ynLbsnCI+iNFz9fa/IC8fnU2wrGrux6Foj5P1tJ/d4POnE7C/k
-	 7uhcJ9BKJJZA9zrKIor1VA+oNivY260M9LERoMcVdvJGdzk1Ad/pat33zeEoN7bUvg
-	 pmMteI/xmOSxg==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Sun, 15 Nov 2026 14:18:07 -0700
-Subject: [PATCH] powerpc/xmon: Avoid unsequenced accesses to tsk in
- show_task()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Vf3Q6OFD
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so983328a12.0
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 13:35:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794778547; x=1795383347; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v+bEaKhMDCZtV/jlBILoWtbmCL9qsyLUohE1CagS/qY=;
+        b=Vf3Q6OFDzCu80dUMBSm6nrS5KkYQg5Tn04XGAPOUltWAHsYq11qX2pkdaBDdva22Za
+         +WZvfsjthxomjl/Y2rvWXKnSdp08I/rHPnYwvJP1etkIKzvGksvL001yMAZzG0vtTVeD
+         B2tynu8fvY1xmmN5+zTuTRQ50SvWbu9cXfC/HRyaGk96TYmSnelNqRrhGxO+OV0tf2Iq
+         mPvrgBtoTgJgTO4AXGXrstFevsN2a//MVy1/u0b3eKcYFv7WqlyZCU2gp/ekT/Qcnibu
+         RGu89/5R5djmP5Nh24GVohYeNnwXJU3YYn8z/LZ+WIFAk4muSRIFYFQxRyM6z/Vmgxrn
+         HOfA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794778547; x=1795383347;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v+bEaKhMDCZtV/jlBILoWtbmCL9qsyLUohE1CagS/qY=;
+        b=bUXXnHeYXzDgEJAjco0UrieZOyHIJ7hAofQR1YHST02pi9GkpfM0f2QHMU20X7XKKr
+         YBNnES3CuuMdac2Ej8+y8YLqCpjnlGef7Bh+7i5nkRGjBHIyxllcDNgovVbAVR/egCr+
+         oTNmkNPLkuapXXYDzYI8tBnOEZSTlBX35gNpt9huQkNEwn2YDb3egUghXNApgxRB8o2P
+         VzKEKDgrliRmcxl79k+jklK92ZWfzB74cFEjensVbE7wzd9sch6KHhe6FyYl66fJCipw
+         ZcxPpW2pkYRIk+27/YjfeWm3Y2NJzkAUVhcSy8lVz53G89QQ1nKSCMFXwcuYNcI1gyWb
+         mORw==
+X-Forwarded-Encrypted: i=1; AL+hErHlUxRJZ3vSGy2T7l9hpL40dp7jvtWguX/fM0got7RDkDLraFaZWzhssNH6HzABnG/ceRHR+wc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8+tn29t0x4MmxZHGyTngZgiuLx8BxDHo+szwdD9RyO/7KCX/+I
+	getZPtFB39josPduaODHbz1wMu8ARl4uPPNCPxRNa1zgTzHX28zPLag7
+X-Gm-Gg: AYBFou2r7W/8ka5jbmF6N5k30UzUPBZe1gQzQ9r7i9AfHHvnW2f5vhh1SlcUcPFnsL8
+	s6WfRiCNh0Uvs7UJMutfQlLCW4/2m9ZVSwPH+B2j/7ZklTc3CL2LoK31Igiy1a1NeCYDNKCzOYG
+	vWyGEudgkXrwrR6hQ2W8YZVCD/Mu/fCsjdV5aCYzuZaFlxLVAg3jZXI/VhR5D9ilDJaK2Dtlx1g
+	czVDm3C48b+W3bL8C8Je6Jo2719rZeTUp7tfhXT1ejMQeVEfS4yR55oVKC1W6u3ZYpok1s5rwty
+	IhSiAxwJj/0plOzHT1hFTlbB1fNg+L/RmaKu5xaVHtiK0feHgn4wvBvDQGk4IaSC7AsppizGbpS
+	ZcgWMTEsEeAx7z2MzcHYtUFETb1zmLXkRxR1ET0k7iYnYz6z2MJovWAEbwVXAVgGZ/GES/VO5PC
+	pkkriJCJHhycR9w2drbYKki+vrJ8KkoNK12MEXE9yZ406t2y6rgYwxlx1bWnQoajF4lEVejzSkn
+	Gbop+PGI2vv8KHeYA8Ch/MNw4XHVIDa5VrMgKs11Ymef3CQZbc2hMRpa+DDV/gEKhhZPHXZKdal
+	JtPFiteGKDtEgYVKu1IKXZI6wk/oI+7+z8uI+usRbsm+RcRiS4+BvcB1nMYD0/CUaV+4dM3BPGo
+	PiZXj5b5XpogICzNe/PbypW+LpDLr18VNLSq8T+4W+ZVgKDo=
+X-Received: by 2002:a17:90b:554e:b0:396:41d1:cbc7 with SMTP id 98e67ed59e1d1-3b1b07ef11bmr8709233a91.3.1794778546907;
+        Sun, 15 Nov 2026 13:35:46 -0800 (PST)
+Received: from f2fs-test.c.googlers.com.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce556dsm18831394a91.6.2026.11.15.13.35.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 13:35:45 -0800 (PST)
+From: Daeho Jeong <daeho43@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] f2fs: write a checkpoint in fsync after the warm node log is moved
+Date: Sun, 15 Nov 2026 13:35:40 -0800
+Message-ID: <20261115213540.2100311-1-daeho43@gmail.com>
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,88 +97,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261115-xmon-wunsequenced-v1-1-42ae3fe45bf4@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMQQrCMBBG4auUWRvoRBrBq4iLmP7VEZxqptFC6
- d0bdfkt3lvIkAVGx2ahjLeYjFrBu4bSLeoVTvpq8q0PzNy5+TGq+xQ1vAo0oXfs24iYhkPYB6r
- dM2OQ+fc8nf+2crkjTd8RresGh06aTXUAAAA=
-X-Change-ID: 20261115-xmon-wunsequenced-120aeacf7636
-To: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>, 
- Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
- Shrikanth Hegde <sshegde@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>, 
- linuxppc-dev@lists.ozlabs.org, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, stable@vger.kernel.org, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2438; i=nathan@kernel.org;
- h=from:subject:message-id; bh=n3wmVZOyMNsX0uk3IiniOVaUBJnF2oOZEtO24z2uNpg=;
- b=kA0DAAoWHWsmkXHAGpYByyZiAGr6IZihRZbffcT0Cn4l0kQ9p2gOZzFH1xiWaOwkQ4z9Dio1B
- Ih1BAAWCgAdFiEEe+MlxzExnM0B2MqSHWsmkXHAGpYFAmr6IZgACgkQHWsmkXHAGpZYQAEA+JcF
- h7PyeMAe3s4nhbTb5HJ8VLD36RDIdTWqIVyIciABAI7Ee9Nul+Wz3OwRJenTiDaR5Ht50X9ChFl
- /YY2LYwQI
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
+Content-Transfer-Encoding: 8bit
 
-After a recent improvement in clang to warn on unsequenced accesses to
-volatile variables [1], an instance appears in show_task(), which can
-break the build with CONFIG_PPC_WERROR=y / CONFIG_WERROR=y / W=e:
+From: Daeho Jeong <daehojeong@google.com>
 
-  arch/powerpc/xmon/xmon.c:3262:3: error: unsequenced accesses to volatile qualified 'tsk' [-Werror,-Wunsequenced]
-   3261 |         printf("%16px %16lx %16px %6d %6d %c %2d %s\n", tsk,
-        |                                                         ~~~
-   3262 |                 tsk->thread.ksp, tsk->thread.regs,
-        |                 ^
+Roll-forward recovery finds fsynced node blocks by following the chain in
+the warm node log. It starts from the next free block of the log recorded
+in the last checkpoint, and each node block has the address of the next
+one in its footer. f2fs_allocate_data_block() fills the footer after it
+moves the log to a new segment, so the chain is kept when a segment is
+full.
 
-Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
-6.5.2, unsequenced side effects on the same scalar object are undefined
-behavior. Per C11 6.5.2.2.10/12, the evaluation of arguments in a
-function call is indeterminately sequenced, meaning any side effects in
-the arguments are unsequenced.
+f2fs_allocate_segment_for_resize() moves the log out of the range to be
+removed in the middle of a segment. No node block is allocated there, so
+the last node block in the old segment still points to the next block of
+the old segment, and nothing points to the new one. The node blocks
+written after that cannot be found by recovery until the next checkpoint.
 
-tsk was made volatile in commit a2305e3de819 ("powerpc: mark local
-variables around longjmp as volatile") to ensure its value in
-show_tasks() was properly restored after returning from a potential
-longjmp(). Aside from that, the value is not being modified through
-other means, so rename the volatile parameter and add a local variable
-named tsk to hold its value throughout show_task(), clearing up the
-warning.
+For example, with F2FS_IOC_RESIZE_FS:
 
+  - fsync(A) writes a node block to segment X, which is in the range.
+  - resize moves the warm node log from segment X to segment Y.
+  - fsync(B) writes a node block to segment Y and returns 0.
+  - after a sudden power-off, recovery follows the chain in segment X,
+    recovers A and stops there. B is lost.
+
+Checkpoint is blocked during the first GC pass of resize, so this lasts
+until the pass is done. f2fs_ioc_reserve_dev_alias() moves the logs in
+the same way.
+
+Set SBI_NEED_CP when the warm node log is moved, so that fsync writes a
+checkpoint instead of relying on the chain. The next checkpoint clears
+the flag and starts a new chain from the new segment. Such an fsync waits
+for the first GC pass of resize, since checkpoint is blocked until then.
+
+An fsync which has already passed need_do_checkpoint() can still write
+its node blocks after the log is moved. So check the flag again after
+the node blocks are written, and write a checkpoint in that case, too.
+
+Test: four tasks create and fsync files while F2FS_IOC_RESIZE_FS shrinks
+the filesystem, and the machine is rebooted by sysrq-b 1.5 seconds after
+the log is moved. Without this patch, all the files whose fsync returned
+after the move were lost (454 and 437 files in two runs). With this
+patch, no fsync returned in that window and no file with a returned
+fsync was lost. The second check was tested with a debug patch which
+delays an fsync between need_do_checkpoint() and its node writes.
+
+Fixes: b4b10061ef98 ("f2fs: refactor resize_fs to avoid meta updates in progress")
 Cc: stable@vger.kernel.org
-Fixes: a2305e3de819 ("powerpc: mark local variables around longjmp as volatile")
-Closes: https://github.com/ClangBuiltLinux/linux/issues/2199
-Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
 ---
- arch/powerpc/xmon/xmon.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ fs/f2fs/file.c    |  8 ++++++++
+ fs/f2fs/segment.c | 10 +++++++++-
+ 2 files changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/arch/powerpc/xmon/xmon.c b/arch/powerpc/xmon/xmon.c
-index cb3a3244ae6f..90a8d7a8f42d 100644
---- a/arch/powerpc/xmon/xmon.c
-+++ b/arch/powerpc/xmon/xmon.c
-@@ -3240,8 +3240,9 @@ memzcan(void)
- 		printf("%.8lx\n", a - mskip);
- }
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 05061254c3b2..61ed0ad5d29d 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -466,6 +466,14 @@ static int f2fs_do_sync_file(struct file *file, loff_t start, loff_t end,
+ 		goto sync_nodes;
+ 	}
  
--static void show_task(struct task_struct *volatile tsk)
-+static void show_task(struct task_struct *volatile vol_tsk)
- {
-+	struct task_struct *tsk = vol_tsk;
- 	unsigned int p_state = READ_ONCE(tsk->__state);
- 	char state;
++	/*
++	 * The warm node log can be moved after need_do_checkpoint() above.
++	 * Then the node blocks written here are out of the chain, so write
++	 * a checkpoint.
++	 */
++	if (unlikely(is_sbi_flag_set(sbi, SBI_NEED_CP)))
++		goto go_write;
++
+ 	/*
+ 	 * If it's atomic_write, it's just fine to keep write ordering. So
+ 	 * here we don't need to wait for node write completion, since we use
+diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
+index 31ac93a93021..e77a01376288 100644
+--- a/fs/f2fs/segment.c
++++ b/fs/f2fs/segment.c
+@@ -3488,9 +3488,17 @@ int f2fs_allocate_segment_for_resize(struct f2fs_sb_info *sbi, int type,
+ unlock:
+ 	up_write(&SIT_I(sbi)->sentry_lock);
  
-
----
-base-commit: 7475ea8b58616b33c04afb976cf0fbaad9dd63fb
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-change-id: 20261115-xmon-wunsequenced-120aeacf7636
-
-Best regards,
---  
-Cheers,
-Nathan
+-	if (segno != curseg->segno)
++	if (segno != curseg->segno) {
+ 		f2fs_notice(sbi, "For resize: curseg of type %d: %u ==> %u",
+ 			    type, segno, curseg->segno);
++		/*
++		 * The chain of fsynced node blocks is cut here, so roll-forward
++		 * recovery cannot find what is fsynced from now on. Let fsync
++		 * write a checkpoint until the next checkpoint is done.
++		 */
++		if (type == CURSEG_WARM_NODE)
++			set_sbi_flag(sbi, SBI_NEED_CP);
++	}
+ 
+ 	mutex_unlock(&curseg->curseg_mutex);
+ 	f2fs_up_read(&SM_I(sbi)->curseg_lock);
+-- 
+2.56.0.611.g1030f0b940-goog
 
