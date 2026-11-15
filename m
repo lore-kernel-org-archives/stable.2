@@ -1,41 +1,41 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794736675;
-	b=Rd19fDAr7yD5aSZOOKvVthHwAsAC9mvxcZrIzSk95in+6RxrxnfoI1o3tbA8swJ04k4c
-	 jfR3crLyr1iWmN7NHpLJOrh0evME1/jvOGtoSiREhTD/8LEA7IJbfVvnXKOFJ3UPJfUtS
-	 Q05srCnJrrQHGfusEC8euWXNrLzqENSfz5XyTP8mT/afCpFXAwFBkyt+84VzuwpMFJb0U
-	 4BX6XsZ2kVCNcNTndq6ja7KtRBtxdI/zpadTdNDBRY6WCzbbZT7V1+RtcLUHShHFjBFx6
-	 BzT6meWzK6oNQxBQYlMt3CI369EoFRRCYsi48+5SqJ6MUIzHeGblkMPHyt5f4Jul94Q==
+	t=1794736676;
+	b=BWFcsv9mGkJR4psoQ6svMM5Cf0G6oQTAhYC88fJ8WvMvnlQbWbWGyQK22Kf2deoydwDj
+	 Ly/rB/dtodaIv8ocOUW4M0wa6AhsUD+nw4Lj50I+Z13/hEAOuh7XX0T1WQ4b3jc/e2RkG
+	 VD/QdSseAB0I4U/Z2O9LN8LMTPKiYuU5Uy/dxvDffJuesmbLi4cSK3HQhoQmBX2cGW/BS
+	 KHx47EfWWDcI90N63E8eMNEGk96MojhfhnHhWgNMS45WO0+d03w6t2eYrR/UFgdEqbPZR
+	 Nt3zauaqSKWviU1x9FxxIUxF9omrrFCg04T/JQUD2MMdKMt6TYycVVQPxbhTOeEIuog==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794736675;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794736676;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=sXVOFq7OpstFUNryPthfsCINYLwKy9AAup6V1x6fyig=;
-	b=5OptmgxeQuPM3H9mf+FIHRygcrYUg3S+3RFh9uAY1hX4Luc+Kujs4C4Iuf0fB0YY3Sz6
-	 WKapZD0kG6SrZIK2cfdkOrZogV5pBpPNK/wPMsH5hpKof1z6oDBYqdZlQzADAnPH92zCu
-	 VCl97226s+ry77Y+HR4t5ublpSJFSxRR32IoPqC80kMLh7iOf5A/cUFs3NdxTVZk2we5J
-	 T4TROEMX8NcgotGsDa2qo0vuiYhSlgK+5fxvSTWg523MzpxqkIwqOywta1oOqk8aVi3WO
-	 fRW1JIN5DKamkm7/3IQCPiEY/YB5A074GKencERQ6yHppuaQpWOxTAdqSRn6iPRZd1Q==
+	bh=aPf4nWP/msnsObcEmYeM7UUyuMAGJkUfnjaCBIfLpmw=;
+	b=R8moAkzzXUQTV60hgqGQkDVdFqSAqDJMcbiO3/LXH3Bn16cd/GitoGIXW3ouSbQw6qaD
+	 yQr9NDyZbtW4hnp53F2QLEizngjKkdQs/6EgfTxhcqL8GBJik6nbvDlHgh160yoHZzFfp
+	 yj3P7cezuxJwg93c8cZlreDkNKvyn64L5bVeZ0HRNJoLok3JlnqfbIzlSigtO0axwckVl
+	 2XzAgX5X9PgiBuP47T81qPrBWe/n7czLVQ9my8lRBJ8GTm5LGRHP+4VgnJy6mmllpK6GG
+	 8KKt9ROCFWZ17BYEiBrnpPrW6mLNpMSwEZCYJxeWWIG4XHTZWgin++DJXQ6sLtXhJZQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=none header.from=pengutronix.de;
 	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b="J+1QZz/7";
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=daDK35jL;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 590D6606A32F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4E2606A89A;
 	Sun, 15 Nov 2026 09:57:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 590D6606A32F
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C4E2606A89A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=J+1QZz/7
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=daDK35jL
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 7EDB7205A02;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 98031205A08;
 	Sun, 15 Nov 2026 10:57:50 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794736670;
@@ -43,31 +43,31 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=sXVOFq7OpstFUNryPthfsCINYLwKy9AAup6V1x6fyig=;
-	b=J+1QZz/7fPouF6Ao6NDhLpFey8WnExpdG9WK6E1FC0jU3Xz6kcTdt8hBhfSxo75FPYpl38
-	XUqzlZSgyyyzLsgQrkZEnzdVaH5ZLrH4U8WLEvI3vhmUemRp9jYHFXWOI5dvpHyl6cl8I5
-	9pn0P7WTgJUqmp6+IFxfbI7E7Psgq4T7N5k8Rm7y1GMqdbXcwcAVtZKM1x8P7g31LeNeg1
-	7GUDvtiyQ2o+w8WX0GmYnrPpUMgZxwZ4Tnw8J5WLxqaLVy/w3DTd7ZfmCUHn5owwUTKed/
-	a5mcpIUufEn3ECyxtNuVKOtHsqRkcIb590VvjfMY6EMof5hUoYPQOgo9sTHgOQ==
+	bh=aPf4nWP/msnsObcEmYeM7UUyuMAGJkUfnjaCBIfLpmw=;
+	b=daDK35jLYErpRJFXDE0LTo2teGQ87nYoowfmOMnNdGhpm1sr5CA8cXm6XCfTzEn9D8K2/W
+	pMaEff5pI2RFWIbF3CIOsv3drRjkVB7S4441WlYoH2WlN0UDgUgksLvnV/34yZB170h+gp
+	7IMUkSj2cOu5hE7igHKlcP7XsfRjLETGdeXPkB6LykvjsZf59BqxHwskmSYxeVMa7S09Bx
+	Ubeik1vjVMzpjA/zql8LMwfg8I/6jVNmm01BI5Q8k9KT8WmqZGfTPA/SE3ESLdNzqZ8XmY
+	Tw8PmfcDY5chmjFdpAMv4X5RzM5wK7+70RxQg8k1SqDVRFxyWKuvZIxsxyj9Xw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
 	s=20260414; t=1794736670;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=sXVOFq7OpstFUNryPthfsCINYLwKy9AAup6V1x6fyig=;
-	b=dmoJ7+3KbEzCzHEn1bjg4RYHanZzvc7LrXkEkWMo6aDnFsD/9i+pZwcfsWIvHs0JuaNQc2
-	96BZvZNgB6+ERZ5maRx1fPWayHMAAQop+OS3g2+j4uE8u7RS+hXfSOXwN8ekZWGO349Rfb
-	EU92Sh5lcTmK8Fu9LS0hUtG0pztWBbbA1Lg4zSNAeCMgptNUe7mI6PHKVs3EihF7rGc/Y9
-	nTbcsc1VmYMq0yVRANOtuOzljA0lZmlHmuOJP03x5NreFDxna0eahBrHtKFWwa5sX8DJWX
-	W1sRgrNDKluI8YtZlKv/5Q7M7SZ4MTg6ks5X+QvuGPXwU1VMKX8TlQwWRo8OiA==
+	bh=aPf4nWP/msnsObcEmYeM7UUyuMAGJkUfnjaCBIfLpmw=;
+	b=GMteqbHVS3dtARIyr0zxsD+GuAZ5cz0P63zjREhUiyAqqfT6xGE1B3QM+bQoqTgW3HGplz
+	KwmVdprUlzzsBGzHjsP54s2RwgSuqzmR7anwgAsfPm8Ijo6KP1XeEQrkXN/kBTuCMTPx4r
+	fGjiL7hNijgxeIkVu+Cj52iK6+u0WyarNW2HBedl++g0BmN2IPPyXPNISBGtbjsWptSW8q
+	EZxEvO7J+vSqwcp3B0oevQAxiNvoC+YliP5+fClxwdY7Kn1ZEfIAhyWfPTuOKhpbfCNqCc
+	iYUlo0MtJHpp8TH2h9W/Lgq3ejBfbVstIOJ72g5rA4fjkg4esbviiqsAqt2DPw==
 ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794736670; a=rsa-sha256;
 	cv=none;
-	b=X8kz3ocojTp/U+BzejbmKOMpddBl04jU/kF4hgw1657hFq99am2RSPg/tHOJbwafUVCdf+
-	sGQtISkPPqCoqHsG8ZO462JP9pOA6srGyeWEAyFf0CJjwwT5YUqlyraAAWMwa+/6c+FWcJ
-	omwOEVH7LatGqZzfmtfdWHMY6xZPyU1RK3KyoOr/7AFa+u8SvhhwmTbiL288atGIkqPs48
-	YRjYRPauu8rD9v/PdlszvAh3Jesm3CSUZ2GDiomULMdJK/VcndAQk9FHdabLtljJeNfxE8
-	EklF9OZlN4FbWZ8KnT6cLYMqMTUVjAzdmaq4igQEXzWWbuflq3xb0GjBm2FCEA==
+	b=DkkbDeWPyeVu15C2liKP+9GDCcUUR0a0yAtyXxAMrOM1LJoX3LsluOIHTRSQc4SlQ2iNVb
+	cHJV44mxidzVioj4C08cjqshtqW8ez01qqYkHlJdCYCE/5hmz5V+EE6HEseeVuX9qyFAUG
+	iA92Oee+xyDjz0A2D7NN8bIvQA1Wj7cnoGrghVLr++VqFKK/XjA/2+OfK/tRYVWXP2GIwk
+	R4B6SiNMULzgfPEstiOZBVZeBUFySsFwUNLGA5U2ehNoQ/NtB+kSlNk+5n/MJRGD9ilKDe
+	kCFvcV+UCJfqEIbiv/zy5KY9ahFhmquYs97ckZJaS6o3K3CPDQvZTb/i5S5t5w==
 ARC-Authentication-Results: i=1;
 	ORIGINATING;
 	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
@@ -75,14 +75,14 @@ Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjor
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <mkl@pengutronix.de>)
-	id 1xSWze-004GWM-1M;
+	id 1xSWze-004GWQ-1X;
 	Sun, 15 Nov 2026 10:57:50 +0100
 Received: from blackshift.org (p4ffb23c7.dip0.t-ipconnect.de [79.251.35.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
 	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 1FA305EC251;
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 32EF25EC253;
 	Sun, 15 Nov 2026 09:57:50 +0000 (UTC)
 From: Marc Kleine-Budde <mkl@pengutronix.de>
 To: netdev@vger.kernel.org
@@ -92,11 +92,11 @@ Cc: davem@davemloft.net,
 	kernel@pengutronix.de,
 	Zhu Ling <zhuling0805@qq.com>,
 	stable@vger.kernel.org,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net 5/9] can: netlink: fix IFLA_CAN_BITRATE_MAX attribute sizing
-Date: Sun, 15 Nov 2026 10:54:56 +0100
-Message-ID: <20261115095746.709371-6-mkl@pengutronix.de>
+	Sashiko <sashiko-bot@kernel.org>,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH net 7/9] can: netlink: fix CAN XL PWM attribute sizing
+Date: Sun, 15 Nov 2026 10:54:58 +0100
+Message-ID: <20261115095746.709371-8-mkl@pengutronix.de>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261115095746.709371-1-mkl@pengutronix.de>
 References: <20261115095746.709371-1-mkl@pengutronix.de>
@@ -113,48 +113,55 @@ Content-Transfer-Encoding: 8bit
 
 From: Zhu Ling <zhuling0805@qq.com>
 
-can_fill_info() emits IFLA_CAN_BITRATE_MAX with nla_put(), which consumes
-space for both the attribute header and its aligned payload. However,
-can_get_size() accounts for the payload only. The resulting underestimate
-can make filling the netlink response fail with -EMSGSIZE when the skb has
-no remaining slack.
+can_pwm_fill_info() emits the PWM capability limits whenever pwm_const is
+present, regardless of whether TMS is enabled. In contrast,
+can_pwm_get_size() currently returns 0 when TMS is disabled. It
+therefore underestimates the required netlink message size by the nested
+attribute header and 6 u32 attributes.
 
-Use nla_total_size() to account for the complete attribute.
+Always account for the PWM capability attributes when pwm_const is present,
+and account for the 3 runtime PWM values only when TMS is enabled.
 
-Fixes: 2290aefa2e90 ("can: dev: Add support for limiting configured bitrate")
+Fixes: 46552323fa67 ("can: netlink: add PWM netlink interface")
 Cc: stable@vger.kernel.org
 Signed-off-by: Zhu Ling <zhuling0805@qq.com>
-Reviewed-by: Marc Kleine-Budde <mkl@pengutronix.de>
-Link: https://patch.msgid.link/tencent_D1C873B86B0E92011A264B0E196B911D5308@qq.com
+Link: https://patch.msgid.link/tencent_9A525E0656A4F7D4CA9CFA1AB1A4BFC6D706@qq.com
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Closes: https://sashiko.dev/#/bug/linux-3924d490-baed-49dc-880a-6fd1163cf08d
+Reviewed-by: Marc Kleine-Budde <mkl@pengutronix.de>
 Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
-
-Notes:
-    FAQ:
-    
-    Q: What about netlink payload size underestimation in `can_pwm_get_size()`
-       when PWM capabilities exist but `CAN_CTRLMODE_XL_TMS` is disabled?
-    A: This issue will be fixed in a follow up patch, to ease backporting to
-       stable.
-
- drivers/net/can/dev/netlink.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/can/dev/netlink.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
-index 0cd55613a616..c0367c9e65f4 100644
+index c0367c9e65f4..5a3c453a65a7 100644
 --- a/drivers/net/can/dev/netlink.c
 +++ b/drivers/net/can/dev/netlink.c
-@@ -825,7 +825,7 @@ static size_t can_get_size(const struct net_device *dev)
- 	if (priv->bitrate_const)				/* IFLA_CAN_BITRATE_CONST */
- 		size += nla_total_size(sizeof(*priv->bitrate_const) *
- 				       priv->bitrate_const_cnt);
--	size += sizeof(priv->bitrate_max);			/* IFLA_CAN_BITRATE_MAX */
-+	size += nla_total_size(sizeof(priv->bitrate_max));	/* IFLA_CAN_BITRATE_MAX */
- 	size += can_ctrlmode_ext_get_size();			/* IFLA_CAN_CTRLMODE_EXT */
+@@ -783,7 +783,7 @@ static size_t can_pwm_get_size(const struct can_pwm_const *pwm_const,
+ {
+ 	size_t size;
  
- 	size += can_data_bittiming_get_size(dev, &priv->fd,
+-	if (!pwm_const || !pwm_on)
++	if (!pwm_const)
+ 		return 0;
+ 
+ 	size = nla_total_size(0);			/* nest IFLA_CAN_PWM */
+@@ -795,9 +795,11 @@ static size_t can_pwm_get_size(const struct can_pwm_const *pwm_const,
+ 	size += nla_total_size(sizeof(u32));		/* IFLA_CAN_PWM_PWMO_MIN */
+ 	size += nla_total_size(sizeof(u32));		/* IFLA_CAN_PWM_PWMO_MAX */
+ 
+-	size += nla_total_size(sizeof(u32));		/* IFLA_CAN_PWM_PWMS */
+-	size += nla_total_size(sizeof(u32));		/* IFLA_CAN_PWM_PWML */
+-	size += nla_total_size(sizeof(u32));		/* IFLA_CAN_PWM_PWMO */
++	if (pwm_on) {
++		size += nla_total_size(sizeof(u32));	/* IFLA_CAN_PWM_PWMS */
++		size += nla_total_size(sizeof(u32));	/* IFLA_CAN_PWM_PWML */
++		size += nla_total_size(sizeof(u32));	/* IFLA_CAN_PWM_PWMO */
++	}
+ 
+ 	return size;
+ }
 -- 
 2.53.0
 
