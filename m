@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794704195;
-	b=r4+DroaDIUcAyagTDe3L15NYKNF1pEiVH/WQn9HM//ZoewlGOtYElL5Qvb9msp/WnECf
-	 j12iIObgKbtivFcFM+ZfuhC2AiAle0g1UHbQhHkaK26O1zg+VbNdtw5/cVdlK4aKTd6EG
-	 jmRjGqcwmTKkHwDESMoRHh8AnGy4Z7lk7WwnVsI70phftiEu3bWfC9qoHzGC1BEt8BtIp
-	 +wqdC0yfmhlD2IujauoX17xa7A593nGKptVjPw7boO0OdvxTnJWMAAWTEpLBOonzpgjvt
-	 v09iFFz/O1f/61po6xC4Vh+f6yr8ZTaE4kF2cHp3aSy+e9jFswP6dxSdcn/k2ErwQNw==
+	t=1794704489;
+	b=zOusGfc4SECA9la2aiZaFDUIk2QHrD/FzHbRZq9UiTeicbRFPPIi+IL8k/nFr2KYrAX9
+	 /j8boUDz8pyUpDYwCCrFIYAXgUa0kw5J6OrXc7PdrkSzEpDKvXjtvYgksHVXyUau70Jez
+	 I1zvPFnsvjvp3F+MUAXkGV9XU+MNZSGpQc5qz1kkZ+pOlLahlA5QWSfELuo9OJs1BzXG0
+	 zaTk6AlaKRaU4XaL6olcmDcR2H7RGoVbyK14ZeHem9Np53GaIHWyDAKQFyhVB7SjsP/Ke
+	 yq57FgqGMpZzWVw9uFE4kU3D37Ypg5xncSI7GfAjdXCZyb8W8oD42hjm+CHfZW3AcCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794704195;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=5dXjD2qR6qM2aViVTtuAOp4gGmEo825SdXXlHkWmJWQ=;
-	b=D0gKfK5zvcYWAg09vxXT5Rrm7fbrGndZ4ib0lDM6tWiotxVrdeIJR606mJvj+/l0dIMV
-	 OvpaXQTXmaurKEDhQ/JhrkhY/X9VC1ArY97SVmVxRKLpUSk4DQR1OIjl9qbscvdAhNwXb
-	 t8MAZxykgTVQ8qWZ2YX0f9QzsIPoMqFlMyXX/9AsCqaliEWpFEFyuATVkl9GB5ovgEA+M
-	 Y0ZLLnltFV+VDuy7giLFbIrx/PVB1kB0wmdJCg0EuZn/XwnrhH09/6MqYVpsX+M1mvsDV
-	 iNZ7ZY/ePdhnpVH911ZlHNQuKL/h8CCIRNMd8NF1elXTXSb1Qk2NolPDnKGBflfBqbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794704489;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Z++RwfSOpv1D+is69MtrAgce33j60bZ7b/lnmHz+62o=;
+	b=29njrPJtWNO8F6pcGiLr/YQFVRwDeX09MRG2iw/vpqtYdnUv6kCfyk7XiLh7cr/s6Ldp
+	 CxYLgsXq1viEGhCvdvT7yLG9UuHiPeey9qhXYG/k37Q1AcLMwYSewm+c0RgSbMGaWrUOP
+	 ddO7VLPf7R6J7HwxOq3FXro24yPeHal2LPicpVfxTt/lDp1uG4YJpQmqxrwi0+m35U4RY
+	 TPeDksEUCA3kfDfkdzmcxkZ7/xeK1SEZv7bwbdXuF2qP4hGfQzBvMLshyJhw141IVRhUd
+	 /2TEnKvAtjT7pRLDkYM/53LdUhxie1DPmkHIBImn5QW8a9x61ak860Vd4Qm4RN9xbpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iI+DyWLt;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=I7+2eveW;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A28606A323
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 00:56:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C6A3606A327;
+	Sun, 15 Nov 2026 01:01:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iI+DyWLt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8EF81F000C4;
-	Sun, 15 Nov 2026 00:56:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794704195;
-	bh=5dXjD2qR6qM2aViVTtuAOp4gGmEo825SdXXlHkWmJWQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iI+DyWLtLD8J40LmxfNlQuit514tuyl740SGlbz6n3SAYM06Fh8aOc+x5wn5H0XYI
-	 lFT81RbyeBdE2L7GJFmdki1h5e+vfx5SNAtFPlYq54R2tWrESPNbRU02Mbk0v+mNVv
-	 OX/o+YKI0u/DU4IpeS7PktN1Tbfj8KJkSxrNbvwQhdpX7pH786rvt2R2FlsaYXm3H1
-	 NWcmKex3slfiPCK1INepta7WumoIsLqnLfTdAxuXmFagK34R2zB2Nsrt06tdmoddQg
-	 7LlQAko3dh20TTxgPJxetTih3vAJYlm8UpqMIDq7BzEq2Qino9In8XMHmQ8kEpFrcd
-	 Oajk24oaYmKXA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Steffen Klassert <steffen.klassert@secunet.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] xfrm: retry inexact policy lookup after node reinsertion
-Date: Sat, 14 Nov 2026 19:56:33 -0500
-Message-ID: <20261115005611.615768-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202506-failed-5.10-868f63c8bfaf@kernel.org>
-References: <20261109202506-failed-5.10-868f63c8bfaf@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=I7+2eveW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B4311F000C4;
+	Sun, 15 Nov 2026 01:01:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1794704488;
+	bh=Z++RwfSOpv1D+is69MtrAgce33j60bZ7b/lnmHz+62o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=I7+2eveWTbz5QA7n3oa8l8UmABOwqAo93YJY58ad7Gq6lfHtbMMao8yrMvSF0oQFl
+	 bs0og4THi0b6or62hMXyuP3E44tyHUBRRSFtJmeJ9sRzGhlw+zKU2cPo/7r2WKpkkb
+	 ais8kbBlQ7TTTwDgzm1xVCf3jK/9uNsoJydOuLGI=
+Date: Sat, 14 Nov 2026 17:01:27 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Jason Gunthorpe <jgg@nvidia.com>
+Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, leon@kernel.org,
+ david@kernel.org, kas@kernel.org, dave.hansen@linux.intel.com,
+ bp@alien8.de, rppt@kernel.org, stable@vger.kernel.org,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Subject: Re: [PATCH] mm/hmm: reject shadow-stack mappings
+Message-Id: <20261114170127.3d29199864eb352d9045eaba@linux-foundation.org>
+In-Reply-To: <20261115000005.GG3706007@nvidia.com>
+References: <20261113195536.2660763-1-gourry@gourry.net>
+	<20261113200303.GA395967@nvidia.com>
+	<179460249376.482102.14669935557901467762.b4-reply@b4>
+	<20261114002027.GE3706007@nvidia.com>
+	<20261113181025.6e8b9475b29c13d29f59e02e@linux-foundation.org>
+	<20261115000005.GG3706007@nvidia.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,89 +63,40 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+On Sat, 14 Nov 2026 20:00:05 -0400 Jason Gunthorpe <jgg@nvidia.com> wrote:
 
-[ Upstream commit 868f63c8bfafa9b827168c9126f85264c39c02ec ]
+> On Fri, Nov 13, 2026 at 06:10:25PM -0800, Andrew Morton wrote:
+> 
+> > How does this look for an altered changelog?
+> > 
+> > : On x86, a shadow-stack PTE has its ordinary write bit clear.  The CPU
+> > : rejects ordinary stores to it, but pte_write() reports it writable because
+> > : shadow-stack instructions can write it.  HMM consequently sets
+> > : HMM_PFN_WRITE, which Nouveau turns into ordinary GPU write permission.  A
+> > : process with GPU access can then overwrite its own shadow stack,
+> > : potentially corrupting return addresses or bypassing that protection.
+> > : 
+> > : Reject shadow-stack VMAs in hmm_vma_walk_test(), including read access.  A
+> > : requested fault returns -EFAULT; a snapshot records HMM_PFN_ERROR.
+> 
+> Yes, but it is not just nouveau, RDMA user can do this too and
+> that is far more common..
 
-An inexact policy lookup first records pointers to candidate hlist heads
-and then traverses the lists.  A concurrent policy insertion can merge
-inexact tree nodes between those operations:
+Thanks.  This?
 
-  lookup                         policy insertion
-  ------                         ----------------
-  find inexact candidates
-    save obsolete hlist head
-                                 write_seqcount_begin(&bin->count)
-                                 merge inexact tree nodes
-                                   hlist_del_rcu(&policy->bydst)
-                                   reinsert policy->bydst in survivor
-                                 write_seqcount_end(&bin->count)
-  evaluate saved candidate list
-    miss the moved policy
+On x86, a shadow-stack PTE has its ordinary write bit clear.  The CPU
+rejects ordinary stores, but pte_write() reports it writable because
+shadow-stack instructions can write it.  HMM consequently sets
+HMM_PFN_WRITE.  Nouveau uses that flag for GPU write permission, and
+RDMA on-demand paging can use it to grant device write permission to a
+registered memory region.  A device, or an RDMA peer with write access
+to that region, can then overwrite the process's shadow stack,
+potentially corrupting return addresses or bypassing that protection.
 
-The merge immediately reinserts the same hlist node into the surviving
-tree node.  RCU keeps the policy alive, but it does not provide a
-consistent view while its list node is moved.  A lookup that selected the
-obsolete list can observe it empty.  A lookup already traversing a moved
-policy can instead follow the next pointer rewritten by the reinsertion.
-Either case can return an incorrect IPsec policy result.
-
-The per-bin sequence counter already brackets calls to
-xfrm_policy_inexact_insert_node(), including node merges.  The read side,
-however, currently validates the counter only while searching an
-individual rb-tree.  A successful search returns without validation, and
-the later candidate-list traversal is outside that read-side section.
-
-Snapshot the per-bin sequence before discovering candidate heads and
-validate it after evaluating all candidate lists.   Retry the lookup if
-the inexact policy tree changes while it is being searched.
-
-Fixes: 9cf545ebd591 ("xfrm: policy: store inexact policies in a tree ordered by destination address")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Steffen Klassert <steffen.klassert@secunet.com>
-[ sashal: preserved the required dir argument in xfrm_policy_eval_candidates() ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/xfrm/xfrm_policy.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
-
-diff --git a/net/xfrm/xfrm_policy.c b/net/xfrm/xfrm_policy.c
-index c14f495f62b80..0b753c0ba0055 100644
---- a/net/xfrm/xfrm_policy.c
-+++ b/net/xfrm/xfrm_policy.c
-@@ -2104,6 +2104,7 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 	struct xfrm_pol_inexact_bin *bin;
- 	struct xfrm_policy *pol, *ret;
- 	struct hlist_head *chain;
-+	unsigned int inexact_sequence;
- 	unsigned int sequence;
- 	int err;
- 
-@@ -2135,12 +2136,18 @@ static struct xfrm_policy *xfrm_policy_lookup_bytype(struct net *net, u8 type,
- 		}
- 	}
- 	bin = xfrm_policy_inexact_lookup_rcu(net, type, family, dir, if_id);
--	if (!bin || !xfrm_policy_find_inexact_candidates(&cand, bin, saddr,
--							 daddr))
-+	if (!bin)
-+		goto skip_inexact;
-+
-+	inexact_sequence = read_seqcount_begin(&bin->count);
-+	if (!xfrm_policy_find_inexact_candidates(&cand, bin, saddr, daddr))
- 		goto skip_inexact;
- 
- 	pol = xfrm_policy_eval_candidates(&cand, ret, fl, type,
- 					  family, dir, if_id);
-+	if (read_seqcount_retry(&bin->count, inexact_sequence))
-+		goto retry;
-+
- 	if (pol) {
- 		ret = pol;
- 		if (IS_ERR(pol))
--- 
-2.53.0
+Reject shadow-stack VMAs in hmm_vma_walk_test(), including read access.
+A requested fault returns -EFAULT; a snapshot records HMM_PFN_ERROR.
 
