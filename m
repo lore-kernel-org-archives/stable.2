@@ -1,58 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846074;
-	b=V45t+f7f7OPN+ctb8mttxLeEMWms03DQxWmMfcqPRFiP0qMAFkSE1YvOG8s/HBHAFde7
-	 7KE6GKvyp1MTvZFGfxuivOf6Brf+AMKNxR6alD4DwzHd6IyziBrcqDQELtDjBCSk7fVBc
-	 tnihUH9kCGfc5ydLXw5xMvIm/a3NT4Iv5H5qEAFSHI3LzXtLtU77uVnMLspYX7bsZTsnJ
-	 HirTwwbb3ACoDrbFFWspfTSygXr4MaEz6DEHLKQNVnTu0aMu4wlogpLhEjVCctgkhlGg6
-	 OBMxCUd+sywjSy+SiAHHWFm1RPFaxAv6d3GnvSBGPxBxS9n/8lPdcq1x1+Puk1Xh1qA==
+	t=1794846099;
+	b=zeMkO4lcSr2wkQl975RruxRAQ8XCYfP5GUb0Vm/nszOWhHVhMRFSuq1p1I79GA0tTYrw
+	 e0DOacNhLxiwv3iXXffkyGW5QvJ/u9EBH0dfP2Me1VuUnwf+I6CDz8122mGCzwEKt6GeX
+	 stw95qda6zvM3wip2OY48pBDGap5xbI5v3IsBhbUxUl6jWmpvpB0pBpBXZPcQHvmeAq7K
+	 dnJufZ+RbZotK6DVD7f6EpRlCNDBMGaNH09Eo6ISI0pQZYp+8U7n+qH8fBt/2UDAIqjBl
+	 Cgov0gzYXddPE+VJ5xRGRoNu4PqcPIq/me4oVB+PIqlMBktfXEOQyCasU4zqAPnXZuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846074;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=KfrMIznTPxa2yE9FrkggciGBvOzUaeqzqHBaXFUlP00=;
-	b=pAbS8TYNkaRlcZVVZegUOp9AOTF5geePaRVsX4ga4ScsIAADfNlHkoaSAtjxlDkMgYQg
-	 y9c56Mfx11K1PqkEvjVFtEHeIPTQGZUiR1c6+oGiAMABZU1hbiF03Y0kMWwMFO469KRg4
-	 fr98AQJgm/wjeUoTsdTMfGQOWWOG1GTyKU9kTOsABJtCQw/sK6Hrj2g+KFQ8emcHS3AOM
-	 x81qNSkLS7RKJ9Z3ruPQEcSFuGohv8g8WXvuAHjFazXa/b0n3BBipzAR8acDVrcdmC9zP
-	 WYkuAloSdzfbkOP24g7Iqdcz+evRKYq53t6A9n8IGZjuahEsyAt10bWbNPi0W2/TxTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846099;
+	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:
+	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-FB-Internal:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Virus-Version;
+	bh=nvFyqL3Y0/F0u1N6y6kg8ykuU4M2/XUEp7+RfXlmBzs=;
+	b=ni4BvCgM98eIu+Zildhw9whJXVXh8CBBSORUt4IB2teOkrjG57hmqkoLvE3r+OEf2Uub
+	 76VBP7EE3aI+fu4bb3ABPGUiEw+ZdPWa31TIGNLoPT+iMfDNOKswadR1j1zrU+cWIbqfX
+	 GylluRqizAeqNfbud/5urEfZ5hrYJbL2BvtAMVLazKeWw/vYkXrSn+OuBOLc6WoW+PAP+
+	 AtINOWs/9IzlyfUXG1Lxv4MzLSwK/bkj+F0dzmFzEx4IHZ+A7vVQf9e4y34CAbZbrGyR9
+	 zsIoodf5ypBMVxeSIDBbxbmcln9Vt8hjDDZZHSyjc97AumhTdRRwD6t4a0ajJoG3tCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jlNCtANk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=fail header.from=kernel.org;
+	spf=pass smtp.mailfrom=meta.com;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3576F606A31C;
-	Mon, 16 Nov 2026 16:21:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jlNCtANk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30B6D1F000C4;
-	Mon, 16 Nov 2026 16:21:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794846073;
-	bh=KfrMIznTPxa2yE9FrkggciGBvOzUaeqzqHBaXFUlP00=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jlNCtANktlATNh7bwB7zOXxHXMW8lACqeqU4vjMj9/REAp0CtRTDxZ2DU2lMkW2v7
-	 YlpBslE4i8vmj8E2sQ4gevyd4BDW/bvYco2ysHENbgUpl8kGuWhbDJuTt3QRa95pvs
-	 9/INmLz9lyfW3NU32GaT9sBZtoEEfm5GlaAN+ncqBmp4N+WR1fYUdnMxywwcA6jFyX
-	 KLA7FDJwIqeUNkWKrmTnzCebzVfejieBCA7NyDQy6dKh8J+TdPopQbtGxCGLXXIj6n
-	 oA/dtX9jxM8GfZvPEl6PiNgg6MGWQqhVkdCrDc5JLJWQyXz2g86D2L2mxiJq3Ri4VI
-	 oYMyszXWzrcXQ==
-Subject: Re: [PATCH net] net: qed: fix dead NULL check on the MPA buffer list
-From: netdev-bot+sashiko@kernel.org
-To: zihengw03@163.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 16 Nov 2026 16:21:12 +0000
-Message-ID: <179484607270.3136.35330548202236483@kernel.org>
-In-Reply-To: <20261115161815.941090-1-zihengw03@163.com>
-References: <20261115161815.941090-1-zihengw03@163.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0AD8606A33F
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 16:21:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0AD8606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+Received: from pps.filterd (m0528009.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGGIfB22660633
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 08:21:38 -0800
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hya99p6gj-7
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 08:21:37 -0800 (PST)
+Received: from twshared77744.15.frc2.facebook.com (2620:10d:c085:208::7cb7) by
+ mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Mon, 16 Nov 2026 16:21:21 +0000
+Received: from devbig197.nha3.facebook.com (localhost [IPv6:::1])
+	by devbig197.nha3.facebook.com (Postfix) with ESMTP id A7B112F08A7BA;
+	Mon, 16 Nov 2026 08:18:29 -0800 (PST)
+From: Keith Busch <kbusch@kernel.org>
+To: <axboe@kernel.dk>, <hch@lst.de>, <sagi@grimberg.me>,
+        <linux-nvme@lists.infradead.org>, <shao.mingyin@zte.com.cn>
+CC: <justin.tee@broadcom.com>, <nareshgottumukkala83@gmail.com>,
+        <paul.ely@broadcom.com>, <kch@nvidia.com>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+In-Reply-To: <20261114020245882Mvd6t10TkCZuRWpYFR3m5@zte.com.cn>
+References: <20261114020245882Mvd6t10TkCZuRWpYFR3m5@zte.com.cn>
+Subject: Re: [PATCH v2 0/6] nvme: fix transport request and queue error
+ handling
+Message-ID: <179484590968.648177.5424785032446332753.b4-ty@kernel.org>
+Date: Mon, 16 Nov 2026 08:18:29 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,116 +68,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.13.0
+X-FB-Internal: Safe
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2NCBTYWx0ZWRfX/M60C5aciKpz
+ /xuqoEJxMBCTpuvYSk9X4b9Hm11Hnw04WOBzxpMf1OTniAQfC0vH8HRTAOoi8adj5gAlPJKoR5E
+ PHHubZpJxAGw0ML/4wbjOsoNjCi2wfU=
+X-Proofpoint-ORIG-GUID: 5PGTooDP8dxo29FRsBruF4NtdTj11GK1
+X-Authority-Analysis: v=2.4 cv=ZuN4uN7G c=1 sm=1 tr=0 ts=6afb2d91 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=U_y8lYiYyhHBU5rMqhb2:22
+ a=1RTuLK3dAAAA:8 a=VwQbUJbxAAAA:8 a=0v5wFFy9qJCc6wKa7McA:9 a=QEXdDO2ut3YA:10
+ a=kRpfLKi8w9umh8uBmg1i:22
+X-Proofpoint-GUID: 5PGTooDP8dxo29FRsBruF4NtdTj11GK1
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2NCBTYWx0ZWRfX5+WzM0dTZkyg
+ ukHcs/wS8/dVuLXHNWN8/OtzmAtYhGkAnUX/uJ2458gvUAxo/aAHG35W9tvC1vNT7sP9/VbAAFz
+ TsnQgbKkmKL5IdWRk4phmaEnoW4JFekSd/Vw9zrEjU0/mFi1jIGb1eWrYibsBp47hcsEkEcfjcS
+ QEPYPlHNVvngywuUlurAMrCH4nVcE1PQnY0BviNY5Ym/Gx4e+SjVwZfVnYjNEJnwiFqpIlLBNoX
+ Pn+1Uu3WQEYhjRmW/mOH4nW+Vw9l3FVG5OxwaQV0GmkOI8SlwI0Le2hQql3WIzFLznAf3FoZfRo
+ Sv/xgohgWr9ab4eu8BwLRnTVlAwRObSeOHnmkr/TaHwBxuAHcpc7CzaFrf6zG8u2B1FREaCOYix
+ omdApyrC/0QPNm+8HK2K7jAATYY778GwmZ7gI3+5m20UzIetHBlsBMZMmZbwzhbgb54QoipgSx9
+ hKnrexPe3n5JvGaohMw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_05,2026-11-16_01,2025-10-01_01
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Sat, 14 Nov 2026 02:02:45 +0800 (CST), shao.mingyin@zte.com.cn wrote:
+> The six patches fix independent error paths in the NVMe transports.
+> 
+> Patch 1 releases the target request in nvme-loop when SG setup fails.
+> nvmet_req_init() has already taken the queue, namespace and reservation
+> references, and blk-mq retries the same request, so each failure leaked a
+> set of references.
+> 
+> [...]
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+Thanks, applied to nvme-7.4.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] The commit message says nothing guarantees that mpa_buf_list
-  is non-empty, and that whether it can run empty "depends on traffic…
-- [Low] The commit message says commit fbb8bc408027 ("net: qed: Remove
-  redundant NULL checks after list_first_entry()") "removed the other…
-
+[1/6] nvme-loop: release the target request when SG setup fails
+      commit: f2937481c28033e10e8a29b8742a767e73c696df
+[2/6] nvmet-tcp: only wait for in-capsule data for inline SGLs
+      commit: 9dac3b1aa2a99e126a5504b7f5bc781c8b2771e0
+[3/6] nvme-tcp: require the R2T offset to match the data sent
+      commit: 347d50d92e25d4b9c50c5f5c1d8b727b9c88d12c
+[4/6] nvmet-fcloop: free the LS request when delivery fails
+      commit: 8c1f99419b6cc51892e259497c8e10a5d079621a
+[5/6] nvmet-fc: reject duplicate queue IDs on Create Connection
+      commit: 153eac284ebf68be74993643e9b2fe2f9b2b1d88
+[6/6] nvmet: roll back queue bindings on connection failure
+      commit: 3f82752e089283eb8204b9d2ebd8246077031173
 --
+Keith Busch <kbusch@kernel.org>
 
-net: qed: fix dead NULL check on the MPA buffer list
-
-This commit changes qed_iwarp_ll2_comp_mpa_pkt() to use
-list_first_entry_or_null() instead of list_first_entry(). With that, the
-existing "No free mpa buf" check on mpa_buf_list can actually fire. The
-patch has a Fixes: tag for fcb39f6c10b2 and is Cc'd to stable.
-
-> Buffers taken here go back to mpa_buf_list only through
-> qed_iwarp_process_pending_pkts(), which keeps a buffer on the pending
-> list while an FPDU is split across packets (-EBUSY). Whether the list
-> can run empty in practice depends on traffic and rx_num_desc; the driver
-> already has an error path for it, which just never runs.
-
-[Severity: Medium]
-Can mpa_buf_list actually run empty here?
-
-qed_iwarp_ll2_start() posts rx_num_desc RX buffers on the MPA LL2
-connection. It then puts exactly rx_num_desc mpa_bufs on mpa_buf_list,
-and the comment says this lookup is not supposed to fail:
-
-drivers/net/ethernet/qlogic/qed/qed_iwarp.c:qed_iwarp_ll2_start() {
-    ...
-	rc = qed_iwarp_ll2_alloc_buffers(p_hwfn,
-					 data.input.rx_num_desc,
-					 buff_size,
-					 iwarp_info->ll2_mpa_handle);
-    ...
-	/* The mpa_bufs array serves for pending RX packets received on the
-	 * mpa ll2 that don't have place on the tx ring and require later
-	 * processing. We can't fail on allocation of such a struct therefore
-	 * we allocate enough to take care of all rx packets
-	 */
-	iwarp_info->mpa_bufs = kzalloc_objs(*iwarp_info->mpa_bufs,
-					    data.input.rx_num_desc);
-    ...
-}
-
-An mpa_buf only leaves the free list in qed_iwarp_ll2_comp_mpa_pkt(), and
-only for an RX buffer that has just completed. It stays on the pending
-list only while qed_iwarp_process_mpa_pkt() returns -EBUSY for it.
-
-The -EBUSY paths are win_right_edge, cp_pkt/recycle_pkt and a send_fpdu
-prepare failure. In each of them, that mpa_buf's own RX buffer has not
-been reposted yet. cp_pkt recycles the previous buffer (fpdu->mpa_buf),
-not the current one.
-
-So every pending mpa_buf holds an RX buffer that has not been reposted.
-When a new completion arrives, at most rx_num_desc - 1 mpa_bufs are in
-use.
-
-rx_num_desc sizes both pools. Doesn't that make the "No free mpa buf"
-path unreachable, whatever the traffic or the value of rx_num_desc?
-
-The only crash evidence in the changelog is a test module that empties
-mpa_buf_list by hand. The list_first_entry_or_null() change looks like
-harmless hardening. If no real path empties the list, do the Fixes: and
-Cc: stable@vger.kernel.org tags still fit?
-
-The changelog also treats the existing error path as a valid way to
-handle an empty list. If that path ever ran, it would repost the RX
-buffer and drop a TCP segment that firmware already sent to the
-unaligned MPA path. Wouldn't that leave the connection's FPDU reassembly
-state (incomplete_bytes and fpdu->mpa_buf) out of sync?
-
-> Commit fbb8bc408027 ("net: qed: Remove redundant NULL checks after
-> list_first_entry()") removed the other checks of this kind in qed where
-> the list was known to be non-empty. Nothing guarantees that here, so
-> keep the check and make it effective with list_first_entry_or_null().
-
-[Severity: Low]
-Is this an accurate description of fbb8bc408027? That commit only
-changed three functions in qed_ooo.c: qed_ooo_release_connection_isles(),
-qed_ooo_release_all_isles() and qed_ooo_free().
-
-The same redundant pattern is still in other parts of qed: a NULL check
-after list_first_entry() inside a !list_empty() guard. For example,
-qed_ll2_txq_flush():
-
-	while (!list_empty(&p_tx->active_descq)) {
-		p_pkt = list_first_entry(&p_tx->active_descq,
-					 struct qed_ll2_tx_packet, list_entry);
-		if (!p_pkt)
-			break;
-
-There are similar checks in qed_ll2_txq_completion(), qed_ll2_rxq_flush(),
-qed_ll2_tx_packet_notify() and qed_iwarp_free_prealloc_ep(). There are
-more in qed_spq.c, qed_fcoe.c, qed_iscsi.c and qed_nvmetcp.c.
-
-All of these are guarded, so none of them is a bug. Could the changelog
-avoid saying that fbb8bc408027 removed all the other checks of this kind
-in qed?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115161815.941090-1-zihengw03%40163.com
