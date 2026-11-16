@@ -1,66 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794822804;
-	b=DspA/SEmOB8dh7CeYNc7Tz9bBOqgMIGoipTa0JC9KHB+PH1uHfSj83Ll1RkjR2Gu7rHc
-	 JtEclfjP2khtt38QVltOgY2G/yWlntP2MBGfLoNl2/Dp/wZcMHQkbfdfO6WSzYJ9tPeNZ
-	 IyMLQ1QITiUlV27kF+76fhYHkeS/2o2D9mkoTlpUWB/joaoW4P7pCFXPO5c8vr5MAtMV6
-	 vXd6o3vlkGgS8earcPzG569nEQPMie+axQLFdhG4UI+pTBh31fp0pW8TS+4iU+V/SdJkA
-	 sF+f4x6LeW9rI8syixBTaqqr23ayZIoC4L4z9tjV4jvblFqIv/jl5n1P3jFDxsIb7YA==
+	t=1794822837;
+	b=YYd5Md1puLE4oEEldfMgIqv4Qa0Z7+MJF9f2HxyP+SH32bCUFWIaRYpT8DxfaYRbRh2k
+	 G7BqhkddVILP2XAW3z1y1BCujmtw+OPrbasWJg/9j8yfJ9ESZ4xxhEZf3I/vWg4dfGvlT
+	 CK7AEGEY1ahGV+s3VuUJSqNDatdE+gFbptquuYQq5cfx5cg7mRTeZ6Df/godz9yDILovr
+	 5Ao6NVw5Hx6yQ0XFp1lOqnRP/RD/lcXEUSJpImlhGV2K2M2ofEj6uwWfqeOedHMFQ2Q9E
+	 jgCrRKRo004M92RN8/iSX3jsnWBFuLwt2PORZcoOplePIYTLyBB52lu4v2CiWbZHjUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794822804;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822837;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=86ohtxTvSaBHSGY2DmtY/5Zzi74x0UKFvz0vz8fUu/I=;
-	b=Pc5kyt+6uqjgWfgDNpPk3KJEOOSO+fsMQrnA5i6L6mKJFEp3R/TYINBV4xkkBXOeXOT4
-	 eB2ZXZmhnMs+VJhVgZ2GO0PeKYQx+W+Gd8sruFXHA/UizoPz+VzmtQQKqAmW79ja2miJT
-	 cBGUaO9wAWzBffALZjyHYQecgmQJo6o1FRRm99S6OCTDure0RnsCcZYhcziPfLQWB7MPY
-	 qn+5VyL6B2G7tZrxWcWD4eSJ7dtgIPGbuOn4VH0hxUFE/7n7/JrUJjRqiV257kU6VVvru
-	 gp76whKEo56yBI5MQacnDYL7Rf2cQuCGrrk9SCArV0pgm4xYc4WF1KQYCkTWybaXmRQ==
+	bh=ZJJAwrYiVuc03fJzpQ6JP1zmHcGVR+cvTb2BYqmzziU=;
+	b=SmBS51cPH3PWL4p1jqfbfTq67blorvOMeFK7DxAbpTikmv/sKwdK/23rVrjrD5duUpwW
+	 1YzRuPTp5LYuMFr3z9AcvPq6hcCQO+jJE9G5hU286/QRxNC3ol6K0gUWch+zPGKXm1W1d
+	 iiudvyXcFS44DvzIajhNo5tJvWeoZKwKEPCoYTgl3/mwmGPxECohO901/oxazAcAQ3lK4
+	 EswWtQfuYqppzLRfRc4DxqxF0z+xjuaeTBVrwhC1qikXB0UL/7YYCnXip2W7uUf49iQlC
+	 2/VCzE1AkAZy0tioaJxXwdgbxnPkTJAlkti/8EGvWGbNbqaf1P3TFVM7ooqKeDum4Ig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTxKyHr3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ITfVd9wI;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 7634E606A31C;
-	Mon, 16 Nov 2026 09:53:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67714606A32F;
+	Mon, 16 Nov 2026 09:53:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTxKyHr3
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 993491F000C4;
-	Mon, 16 Nov 2026 09:53:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ITfVd9wI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 755391F000C4;
+	Mon, 16 Nov 2026 09:53:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794822804;
-	bh=86ohtxTvSaBHSGY2DmtY/5Zzi74x0UKFvz0vz8fUu/I=;
+	s=k20260515; t=1794822837;
+	bh=ZJJAwrYiVuc03fJzpQ6JP1zmHcGVR+cvTb2BYqmzziU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JTxKyHr31jO+92h0pBpMOuP625dM5BZcQlfCJjvaAiNj4laFmnmrjhNzL/7EghWNG
-	 55YGNcqoAFV6T+q/KLEaal4zdSA/cXctkjAogAoEBMwcR82JgMcPVJIUiiFveB1esU
-	 zdd8msoLksJJKuzDOeZ0SyGlmcJoq8CQEuztMRDSaOIdopAd/NKRiVWU1ybzUtbw2r
-	 OjvBkMaDIck6fWJhuhsfRyZ6ZZ4Q67jq8b0JdaVa/yu10x3BULEWZTlf39YpuCFW00
-	 ibJTWoTluwS7muE7dXcHcjz6Y5JVIYZnUEDFuGFC62he7UbDRWIm9iMYgana8/Iy14
-	 d2cYAYG9AhPwg==
-Date: Mon, 16 Nov 2026 11:53:19 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Jonathan McDowell <noodles@earth.li>
-Cc: linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
-	Alec Brown <alec.r.brown@oracle.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	David Howells <dhowells@redhat.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	James Morris <jmorris@namei.org>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Matthew Garrett <mjg59@srcf.ucam.org>,
-	Mimi Zohar <zohar@linux.ibm.com>, Paul Moore <paul@paul-moore.com>,
-	Peter Huewe <peterhuewe@gmx.de>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Ross Philipson <ross.philipson@gmail.com>,
-	"Serge E. Hallyn" <serge@hallyn.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/5] tpm2-sessions: Drop TPM2_NAME_SIZE
-Message-ID: <avrSj7gxIaBLRn1d@kernel.org>
-References: <20261116005105.1573016-1-jarkko@kernel.org>
- <20261116005105.1573016-2-jarkko@kernel.org>
- <avrQTPj-iwlrUvcp@earth.li>
+	b=ITfVd9wIQ+nAJl70v53f42aDy/XLw55ZzF4oM5tblfEkuK2iHhD8qpLtJZT0c0P+n
+	 HTtvLYBRLgESb81dQJ9PMlL8Si8rguYAg3MfEHU2CYldhRS9twbkP4WgHCBwgFXQT7
+	 b78SqT79oeCU7aHqQl3icLQCvN74FKTQYOIdftgBB/Pp9sTlail+VAzkjVRGlSgVUB
+	 wx6NDyYG0eJRW9+VWuvkpQkOs6ju3VgVddH1fqrpvs7U8MQOKu6shGaFMeZPkgQmZS
+	 O/Y6znUt0e5V4BVxF51ykZt+7guJX6IM2GRfuJSgYd1WbVXBzS0acGGTp0MhvwaUCn
+	 TYQGj8hI8awFA==
+Date: Mon, 16 Nov 2026 10:53:49 +0100
+From: Christian Brauner <brauner@kernel.org>
+To: linux-fsdevel@vger.kernel.org, Jan Kara <jack@suse.com>
+Cc: Al Viro <viro@zeniv.linux.org.uk>, ecryptfs@vger.kernel.org, 
+	linux-ext4@vger.kernel.org, jfs-discussion@lists.sourceforge.net, 
+	linux-nilfs@vger.kernel.org, exfat@lists.linux.dev, linux-mm@kvack.org, ntfs@lists.linux.dev, 
+	ocfs2-devel@lists.linux.dev, linux-btrfs@vger.kernel.org, gfs2@lists.linux.dev, 
+	linux-efi@vger.kernel.org, linux-mtd@lists.infradead.org, linux-xfs@vger.kernel.org, 
+	stable@vger.kernel.org, Farhad Alemi <farhad.alemi@berkeley.edu>, 
+	Tyler Hicks <code@tyhicks.com>, Jan Kara <jack@suse.cz>, 
+	Karl Mehltretter <kmehltretter@gmail.com>, Ryusuke Konishi <konishi.ryusuke@gmail.com>, 
+	Viacheslav Dubeyko <slava@dubeyko.com>, Hyunchul Lee <hyc.lee@gmail.com>, 
+	Joseph Qi <joseph.qi@linux.alibaba.com>, Christoph Hellwig <hch@lst.de>
+Subject: Re: [PATCH v3 00/33] fs: don't set SB_RDONLY after filesystem errors
+Message-ID: <20261116-kiesel-exekutive-liedchen-26b1c45fe533@brauner>
+References: <20261113-work-fs-sb_rdonly-v3-0-0be92bb73709@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,28 +64,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <avrQTPj-iwlrUvcp@earth.li>
+In-Reply-To: <20261113-work-fs-sb_rdonly-v3-0-0be92bb73709@kernel.org>
 
-On Mon, Nov 16, 2026 at 09:43:40AM +0000, Jonathan McDowell wrote:
-> On Mon, Nov 16, 2026 at 02:51:00AM +0200, Jarkko Sakkinen wrote:
-> > TPM2_NAME_SIZE was left to include/linux/tpm.h when the base definitions
-> > were consolidated. Switch struct tpm2_auth to TPM2_MAX_NAME_SIZE and
-> > convert TPM2_NAME_SIZE users to TPM2_NULL_NAME_SIZE, removing the
-> > redundant TPM2_NAME_SIZE definition.
-> > 
-> > Cc: stable@vger.kernel.org # v7.3+
-> > Fixes: 88c5a62c3af7 ("tpm: Move TPM common base definitions to the command header")
-> > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-> 
-> Reviewed-by: Jonathan McDowell <noodles@meta.com>
+This is now on vfs-7.5.super. There's a bunch of outstanding
+pre-existing fixes per-filesystems. So please, if you're a filesystem
+maintainer take a look.
 
-Thanks. I was not exactly sure (since time has passed) whether this
-should have had your R-by so I just in case dropped it :-)
-
-Cleaning up the dirt from tpm2-sessions suddenly became more relevant
-as Matthew sent "hibernate for lockdown" patches; so I thought that
-these patches would be a low-barrier kickoff towards that direction.
-
-Br, Jarkko
+I will declare this series ready, otherwise this will turn from the yak
+shaving that this is right now into yak-herd shaving.
