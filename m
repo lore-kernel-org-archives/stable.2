@@ -1,57 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.117
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.21.23.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846473;
-	b=0UghduaMSLLMe1R48VqFXw6ukt57VmnBa2CGSScOpRRkdx1bl2n6iu63jQ4FjhwMniIj
-	 b1/MetjjGyJX7aHginRDqtVsd5mliety/1nRP1tqQktE5ho7wNMdk3Cnj02F+xgd0r7ob
-	 owviJDbrqcTV3r6rXh3NJNOGBtpIO8jsEGAb7+8TgbdD5SNw/hWO0lB8KyHqyNHBpTTxG
-	 U5FRD16JRAPGh9ETSJGkOWPmgYD/ITQJG9BnVQkkba4wUV0/4kbF/rEZXPIZMzT6df1FD
-	 0n7h2sHv63E3KQFrv6sH+y+7AUfVqj5Isp3zH0YoKxPl+hYqkD4JzsLn3MrCSRO5cPw==
+	t=1794846475;
+	b=H/loGALb/2jsCRWwS1pGZmpX/tqhXZNQjKbE+H2Yj+GgbTARXdyGJi1vpasHhhbCCuMH
+	 3iqPeclSWqQzK6yyd3MrO9HGv9tLem7+1AhBdunHWqkUTESFH8ZqerWKxvvqDVEagONcF
+	 x/DLajN08Ck5M/Xeoaj5cgvdOW2omZS+/rmZbo9ogBKpPw7XA7XPME7rZtjzcUqZpYrA9
+	 QbR3tL6V4gsCHIJtuin+N6iMHdPEHLRZTGl+bmzP6veXOaIrBZ3rzXBIf/kqQQKj3P+Mb
+	 vZF7RDXjheN+pdoBleDcPUCA/kuKSq6vCOXDApeXnq5aO34CruCilEAsA1KBtGT4ISQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846473;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846475;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:From:
+	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=dZe/LijuVLl7MoBOEgcpysGGUCW3oMka5tpf4Xkq18w=;
-	b=jKfmCRw4Ey0qbAeHwSg7+MaUpnHm0H60B1u4IQ1+sSNoQxsbPnDVHiBAmcUfz1C5/5J9
-	 Ittyhqo7/Ux0GZeVYZ8SQnhShTVLUE8Wqnfz0w60EtTPiTgh4AgL6MQ1Ao7jX9rMqvRI7
-	 gUfQWCJizl6LnkzPwntiPVYbyXsdnBV3JFDonuPg1qg0oo2YGLhoQfqgRTbJWqWWnn51R
-	 q6YrJEqqkzjYszTuMm+mD5yaztSaPq8X06MOgxWiNgezRiXz/ib6FCSAnrzPWYd2TJz6C
-	 /ITarVbOPFtvK3kXYDtuz7/oMq/7j9ZIYWCGmtCf70KNscfbvQ5Z9a1VAxR3VsAwzZg==
+	bh=2jBU5o2bkTGSmlvbTbsB7gQEFSTPAxXPYXkt03I97h4=;
+	b=WE8tt7jTEHz1O3t62xIimkJkhn9bfmjKatS9ZlTBX0r82yex/W9cHA6L4/nmyPItxlRu
+	 mWOOdKCu6apFQ5CO8F7RXaM7sEMxy0C1Q2YdpfxeKEAdkAsVE32e1fEWQsXPaytrMQ1aw
+	 JHE7ry7mLKKVZPVei/XtG4q+tmrWp5MnCaIUYTfl9y3J+s5aD+WJi5Z+PURdI82wVNOKL
+	 doPpq/qoHOMzEvHNuhQmTfUoLLyrwd16QxeMsKv3WC/HBfjlWG/oIVNmkCaKh5zfvXNYx
+	 WPi9AOkVbAhrtwGaX/AsSwdGCFnerapMQaAD+1wJdb9qrJvWp+uMdhsBZMPMV0dvpRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pisu.la;
-	spf=pass smtp.mailfrom=pisu.la;
-	dkim=pass header.d=pisu.la header.i=@pisu.la header.a=rsa-sha256 header.s=protonmail2 header.b=nhWUzufZ;
-	arc=none smtp.remote-ip=79.135.106.117
-Received: from mail-106117.protonmail.ch (mail-106117.protonmail.ch [79.135.106.117])
+	dmarc=pass header.from=disroot.org;
+	spf=pass smtp.mailfrom=disroot.org;
+	dkim=pass header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=DrWFQCUZ;
+	arc=none smtp.remote-ip=178.21.23.139
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8175B606A322;
-	Mon, 16 Nov 2026 16:27:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8175B606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pisu.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pisu.la
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F03606A336;
+	Mon, 16 Nov 2026 16:27:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30F03606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pisu.la header.i=@pisu.la header.a=rsa-sha256 header.s=protonmail2 header.b=nhWUzufZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pisu.la;
-	s=protonmail2; t=1794846468; x=1795105668;
-	bh=dZe/LijuVLl7MoBOEgcpysGGUCW3oMka5tpf4Xkq18w=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=nhWUzufZ8YEhdFzqvfugw8jS2dfMkh3TdFnQyI0AO448S+BoELVndnJ3KQ9P2mP5a
-	 kYaz2alAUyp2SCSdEiaubvFDzqT773pilVIBnb0wH6IWQHSeJbih9K9VL+zXGKn8+2
-	 IZ7JfVHSpWK7GtGX0U5R97a5hTilWIHgwliqa+cclvr/C/CdHx1yY3mDtOM0g8eQt/
-	 dKy2ndZh48BIKQRxPhR9vT7YJfsplBH66TkAIqh24083c4ahJ6W9WwONS3KcgC9lif
-	 Ce6v9NJNAdELXkmbfnixRDLW02WiuTw1aa9YEV6soNwb9QYIS20IgjPmfbbJaBmUSd
-	 PBq4B4OuB0UMA==
-Date: Mon, 16 Nov 2026 16:27:41 +0000
-To: =?utf-8?Q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-From: =?utf-8?Q?Miko=C5=82aj_Pisula?= <mikolaj@pisu.la>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, =?utf-8?Q?Miko=C5=82aj_Pisula?= <mikolaj@pisu.la>, stable@vger.kernel.org
-Subject: [PATCH] wifi: ath9k_htc: fix use-after-free of tx cleanup timer after failed start
-Message-ID: <20261116162702.15393-1-mikolaj@pisu.la>
-Feedback-ID: 197744389:user:proton
-X-Pm-Message-ID: 148aae3cd3306f701aa0b110078fd135038b2bb3
+	dkim=pass (2048-bit key, unprotected) header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=DrWFQCUZ
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 4F2AB808EB;
+	Mon, 16 Nov 2026 17:27:52 +0100 (CET)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id uKkmEh0y6lrv; Mon, 16 Nov 2026 17:27:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1794846471; bh=pILPvvNhNcniZXqO6U9udmiLgiJvcbsp+5tCyQ0iSDA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DrWFQCUZtaM/iwRuaQiyr0audWq+nwMBikIk9hjfhc8zvqlsmr5sOZUR+ALOuaS6f
+	 YCFfsHpYfBNb97a7NKH7ZKk9hkikOSwaZHMB8VtAtRItfaoq3+FAW1UjZhTycOymFU
+	 spBSaoGaTVD+hfjKzgyXVi1Iw0OCHcAEO7mHjsYhSkV+XYhvn+AYsKfStrKLP0mMNB
+	 6P3ue0rEov+GFGGOadzAJG6jds2PdK5RZzJgMPxnRCyK6r7SMpb8/f/Ty1a/8yOnij
+	 Y1wXXAbGmjcs0JRhzfqspv5NP+AXvven9xq0VvVv68qmCgs+6isCdbEVJ9C/4GmHAj
+	 PlcuEhlhWL5+w==
+From: Florian Maurer <fmaurer@disroot.org>
+To: Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Florian Maurer <fmaurer@disroot.org>,
+	Felix Fietkau <nbd@nbd.name>,
+	Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH wireless 1/2] wifi: mt76: npu: return rx slots to the NPU only after refilling them
+Date: Mon, 16 Nov 2026 16:27:38 +0000
+Message-ID: <20261116162741.2438098-1-fmaurer@disroot.org>
+In-Reply-To: <avrdu8qr9L2sEuTz@lore-desk>
+References: <cover.1793927986.git.fmaurer@disroot.org> <d6314f34e0965464207656d38a145490b6437aa5.1793927986.git.fmaurer@disroot.org> <au3igPTxdz3i64SO@lore-desk> <20261108205350.2956138-1-fmaurer@disroot.org> <avGnv8Jr7BAiQhG1@lore-desk> <avrdu8qr9L2sEuTz@lore-desk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,72 +77,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-ath9k_htc_start() does not treat a failure of
-ath9k_htc_update_cap_target() as fatal: it logs it at debug level and
-goes on to clear ATH_OP_INVALID, starts HTC, wakes the queues and arms
-priv->tx.cleanup_timer. It then returns the stale error code.
+On Mon, Nov 09, 2026 at 12:00:15PM +0100, Lorenzo Bianconi wrote:
+> q->head and q->tail are not the same when we have refilled the queue
+> with new buffers. Moreover, I think if mt76_npu_fill_rx_queue() fails
+> [...] it is not correct to use q->head for dma_idx
 
-mac80211 takes the failed drv_start() to mean the interface was not
-opened and never calls ath9k_htc_stop(), which is the only place the
-timer is deleted. The timer re-arms itself, so it is still pending when
-the device is unplugged and ath9k_htc_disconnect_device() frees the
-ieee80211_hw:
+You're right, q->tail it is. In my tests I could not tell your version
+and mine apart, so nothing speaks for head + 1.
 
-  ODEBUG: free active (active state 0) object: 000000002df157c8 object type=
-: timer_list hint: ath9k_htc_tx_cleanup_timer+0x0/0x770 [ath9k_htc]
-  WARNING: lib/debugobjects.c:629 at debug_print_object+0x1a4/0x3b0, CPU#2:=
- kworker/2:2/110
-  Workqueue: usb_hub_wq hub_event
-  Call Trace:
-   debug_check_no_obj_freed+0x44c/0x5b0
-   __free_frozen_pages+0x724/0xed0
-   device_release+0xcf/0x390
-   kobject_put+0x19e/0x530
-   ath9k_hif_usb_disconnect+0x371/0x540 [ath9k_htc]
-   usb_unbind_interface+0x1a0/0x860
-   device_release_driver_internal+0x35c/0x560
-   bus_remove_device+0x28a/0x540
-   device_del+0x371/0x930
-   usb_disable_device+0x2ad/0x6a0
-   usb_disconnect+0x27f/0x990
-   hub_event+0x1bd5/0x3ad0
+> Can you please check the updated patch below?
 
-Without debug objects the timer core later finds the freed timer in its
-wheel ("WARNING: kernel/time/timer.c ... !fn" in __run_timers()).
+Sorry for the delay. I tested it on the W1700K (kernel 6.18.55, mt76
+467ae2e3) and it works: no oops, no rx stall.
 
-The device is fully started at that point, so return 0. The interface
-then goes through the normal stop path, which deletes the timer.
+What I ran: your diff as posted, plus read-only counters that write
+nothing to the descriptors. Load was 62 minutes of iperf3 from an
+ath11k mesh peer at 113-259 Mbit/s, with four busy loops at nice -20
+on the W1700K for 3 s every 18 s. In that time:
 
-First seen with a TP-Link AR9271 adapter whose interface open failed.
-Reproduced on v7.4-rc2 with a USB proxy that withholds the reply to
-WMI_TARGET_IC_UPDATE_CMDID and then disconnects the device; with this
-change the same sequence produces no report.
+- 61.9 M frames on MT_RXQ_NPU1, 1.88 M on MT_RXQ_NPU0, of which 227781
+  span two slots
+- no oops, no page_pool warning
+- no descriptor that changed between consume and refill
+- no refill failure, no skb failure, no tx-free parse error
 
-Fixes: 859c3ca1e460 ("ath9k_htc: Add a timer to cleanup WMI events")
-Cc: stable@vger.kernel.org
-Signed-off-by: Miko=C5=82aj Pisula <mikolaj@pisu.la>
----
- drivers/net/wireless/ath/ath9k/htc_drv_main.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Tested-by: Florian Maurer <fmaurer@disroot.org>
 
-diff --git a/drivers/net/wireless/ath/ath9k/htc_drv_main.c b/drivers/net/wi=
-reless/ath/ath9k/htc_drv_main.c
-index 6578114a4019..773787416694 100644
---- a/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-+++ b/drivers/net/wireless/ath/ath9k/htc_drv_main.c
-@@ -970,7 +970,7 @@ static int ath9k_htc_start(struct ieee80211_hw *hw)
-=20
- =09mutex_unlock(&priv->mutex);
-=20
--=09return ret;
-+=09return 0;
- }
-=20
- static void ath9k_htc_stop(struct ieee80211_hw *hw, bool suspend)
---=20
-2.56.1
+I found another issue of the NPU while testing, so this took me some
+time as well:
+In one minute, 226 multi-slot frames in a row did not end on the slot
+with LAST. Slots of the rx ring go missing under this kind of load (I
+suspect the NPU drops them), and counting slots by PKT_COUNT then
+assembles the following frames one slot off, in your version and in
+mine. I think tx-free events are lost the same way.
+I will post it as a separate [BUG] report in the next days.
 
+Optional: in my tree I made the poll report the budget as used when
+the skb allocation fails, so napi polls again instead of waiting for
+an interrupt. It never triggered here.
 
+Please post your patch with the Tested-by. My 2/2 can be dropped.
+
+Thanks,
+Florian
