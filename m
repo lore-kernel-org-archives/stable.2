@@ -1,49 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794866941;
-	b=K6kVO5PHTuF/7iIjNwlkeu9Sngp4kqbjND7gkPHp4WJKxiUeOPVLO2Uy+W42vxWMMGJ9
-	 SMVZeD4KyDOXf+AYh13FxxzscZDoBj5T+ga6t14YsIRUTyYjTWImPdjqYuAJ4HBgiB2PY
-	 9v1h/jrgvnU8pYk1Uj30bVivtK2uMnz0A9x6B8Kp2TUMazfEwtjuoAO7st7l9zc9hCqyz
-	 woHPf5jsYoHFY7YRPVs6fS8kwOuTt2JVgfNItUHciWNQ/S7nhdXkOgL4VyqI+IaGG0Ccb
-	 mQQ1lMKtHoFCC2Mu99pWsbAkpz+PeYt3KJSVFyiKcm9WJB3CbqLYbF0mb4wtetBOXHA==
+	t=1794866947;
+	b=5gXKwJatX3ampyC8bxYvsIimqIK0DtYiiUAAsuXrNC6NO3XAigHfZdEiz6IVEDaHMvis
+	 sjDQdaTb80X9CB4zz5oF4AFD64oPdDwHPr7PinjokDk6nAG0SrZJxfChOibMBVmdatPe2
+	 ilAG6ZIQNFXH7ALiTPk4PL0Cy8aLp4HR9kR4yg/XnjEOS0XuRqQVI5UETtjSSCZYTsNS9
+	 e0Oy2DhsC/lJoyrcdB+kS/7HYFSkPzfzYyXlJrpeGpQCI6xbDVVU/t/uoD6SaVMhPt1fv
+	 0KjUQB74zO/Mmc9P/jnSgmEkbJyXk9utHiYT3qJMaodVMDxpkWBwNraOvttLC4JGBRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866941;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866947;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=XeFi5cCNjQ75ncJcr9kVqUiYUHdBVb+5baL45/OqCQM=;
-	b=KejOOaa/s6nzTQZPsNMQ74X3UHLWMrnZkWrVJLtn0px5hKxL1O5KyJuQyILZMQhE6Gde
-	 GTY8i6ar+0oQ9shrgnljok8QzAijEAwnCIsq/1Aw7m4Kw6Hg/H3TXUDA4GGMN7m7QhY4R
-	 9rhNb41P2BURujzzu54FUDQHGxQAmf34+sykg+Ree36O/70fL0XxHIdeVcWrr31ygT0sI
-	 44eDAN1cPKN55wO0C7vsLpqtpykVSZEaOjAG1xOMpyFFUMU2EJRqpzjTjedkSqDGc4I7D
-	 drVQc1+KAD/AYaJ8kLz7XspRshSdGyvcNzgO9CfC3ehhoRy6gFSta0A5hIf12G2uOZg==
+	bh=1S2JG0K8dQlVY7uMvfgeH0EUxwYxdfh4NPdqZIEsOw8=;
+	b=C6WRoopyuZqGgTwt0s7TTWhU1Ux1jpGNb7AbEx1nMxn/Oay+XVoO/srODG2BlEMloqSN
+	 NyWyAB3qDB0sMLBTWgr+U0LjPrGW/7B2sgBhY2j0W/12UGCWxYumUvaTjpsYXV7lMrPEv
+	 7Ar4rWIMHNiSuX1y5KJhm2X5xm4CABBly/NQWHrcs7lYl+4GuIwwp/VIwMrxRT4nLbuNy
+	 8HjfNhFLhrdm9Yqc01wUfym6mvFCQPHXo4/EBJV335v83ZTpjRflr2W2s2L93n0PFPkuf
+	 Chw/AlHCaSYtuR3oTQKqFkhKKQfnXvtrsqqSrxHvWWrzjSq0DDfCaneMWMLfhxGHTng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LFaGbaB/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gzdAzHls;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A74606A332;
-	Mon, 16 Nov 2026 22:09:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3242E606A887;
+	Mon, 16 Nov 2026 22:09:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LFaGbaB/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02F791F000D2;
-	Mon, 16 Nov 2026 22:08:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gzdAzHls
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C6651F000C4;
+	Mon, 16 Nov 2026 22:09:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794866941;
-	bh=XeFi5cCNjQ75ncJcr9kVqUiYUHdBVb+5baL45/OqCQM=;
+	s=k20260515; t=1794866946;
+	bh=1S2JG0K8dQlVY7uMvfgeH0EUxwYxdfh4NPdqZIEsOw8=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LFaGbaB/5yuL0F57HTHlahpbnmd2QMFDWhqRTJfYgGxgvbV+DbF54DHK1mTz1as5R
-	 FQvdzBsSUTl+Ejd89z+9PqUtWsOx20Hpn03fYpqMH4oi06vz5u3z7bqcKOxlBLZbVt
-	 lqYuLujbOYTy29hK3hsMePSTBFOA+Ab6LqBJM5O8+6MLpmYBaXW5jpplVwF/cooH+F
-	 LwdMgvAgaUsKLaktxhIyUnpwJQrftB1Lwv4sngaxVXKleb7MyMNyom/MpYzFoMv09I
-	 6Vvc+Xb35PZbmAspXQ61s2lDwa9FjdNKlBDAd9w3Yq3atrykcKFbMSzZOqyA17IpyQ
-	 12XSf3mhNTz9A==
+	b=gzdAzHlst/oVpS2s52CTsRAoa5D07MLUNCHLzFdWrKucjLubUDdeskYoYJURjWazw
+	 L3boWOY4zd7fFouLxIG3xRnJ2N4puO/xi682567esA27euPBYW22iTr/YvOBd4NMLF
+	 AQEF9jHvz7PDJNynNyLtb2Go3K7DqFaA8xfaM1m0z6FwEmH/ltJ2dU8o+9wjqG72Az
+	 95kjOaC4dVv3Y5F5II7wLilSvp0MsUDZw+qR/OaZLwd0y8WEic8vhLrsdyHvQDmjUC
+	 a12wEPm4OjK1+49nAUNSfIC0qazDuSCMSe0G+pR18OBL2kg5elzOIR/qPV5Er5RGYg
+	 zr/6KOnDtqrmA==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Mon, 16 Nov 2026 23:06:12 +0100
-Subject: [PATCH net 5/7] mptcp: push queued data on subflows falling back
- at the handshake
+Date: Mon, 16 Nov 2026 23:06:14 +0100
+Subject: [PATCH net 7/7] mptcp: fix dummy mapping of overlapping segments
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +54,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-net-mptcp-misc-fixes-7-4-rc4-v1-5-bf7656de653e@kernel.org>
+Message-Id: <20261116-net-mptcp-misc-fixes-7-4-rc4-v1-7-bf7656de653e@kernel.org>
 References: <20261116-net-mptcp-misc-fixes-7-4-rc4-v1-0-bf7656de653e@kernel.org>
 In-Reply-To: <20261116-net-mptcp-misc-fixes-7-4-rc4-v1-0-bf7656de653e@kernel.org>
 To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
@@ -65,82 +64,91 @@ To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
  Dmytro Shytyi <dmytro@shytyi.net>
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
  linux-kernel@vger.kernel.org, "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, 
- stable@vger.kernel.org
+ stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+ Geliang Tang <geliang@kernel.org>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3208; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=bBQ+7q7jKXtl+hia6u5vrQe80TFZSnB3h5CQQ2i9hd8=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLJ+173Y/NbQ8TZHM5elrKuC+gSp7TUh7yYw8m2e6a5+f
- otog9WMjlIWBjEuBlkxRRbptsj8mc+reEu8/Cxg5rAygQxh4OIUgIl8lGBk2FvmVnshfE/29W9c
- iVIbtf+xPg2fkSh0uGeB7pWGxZfNyhh+MVtveMYy+8Fn4c4LPgLX/r+3+f/M/2DT3LWFU3OObBI
- R5QEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3846; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=cZPOlHWTnOxbxMx5o66RJt82bkh/T4a/OuHPb6biV0g=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLJ+170K8mA6VbLamnGrkQnDZYE/W5XW5nOwv1204/F3z
+ nleU9cc7ihlYRDjYpAVU2SRbovMn/m8irfEy88CZg4rE8gQBi5OAZjITT6GPxxS+TPv8658373f
+ s7DLK7H33yHuD/zsy8/pemYsmtfQMZ/hv9faeRss84vu7j28jMdT9fpGjTCXtg22infvM607sqL
+ pLBcA
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
  fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-With TCP Fast Open, the data written by an MPTCP server before the 3rd
-ACK is not sent when this ACK arrives without MPTCP options, but only
-when another event triggers a push, e.g. new data from the peer.
+From: Geliang Tang <tanggeliang@kylinos.cn>
 
-The previous commit pushes this data when the third ACK, with the
-MP_CAPABLE option, makes a passive TFO subflow fully established. If
-this ACK has no MPTCP options, e.g. because a middlebox removed them,
-check_fully_established() falls back to TCP, and returns before this
-push. The fallback case of mptcp_incoming_options(), which pushes the
-pending data, is only reached with the next packets.
+An MPTCP socket that has fallen back to TCP can silently lose received
+data if a segment partly overlaps data received earlier, and recv() then
+blocks, returning neither later data nor end of file.
 
-The fix used here is to push the pending data after this fallback too.
-Not only for the passive TFO subflows: data can also be pending on the
-client side, when the first ACK from the server has no MPTCP options,
-e.g. if the window announced by the SYN+ACK was too small for it. Same
-here, this data was then only sent when another event triggered a push.
+After a fallback, subflow_check_data_avail() makes up a dummy mapping
+for the skb at the head of the subflow's receive queue, in which map_seq
+and map_subflow_seq must describe the same byte. But since commit
+2834f8edd74d ("mptcp: cleanup fallback dummy mapping generation"), it
+computes map_seq from the first byte of the skb, while map_subflow_seq
+is still computed from copied_seq, the next unread byte.
+mptcp_subflow_get_mapped_dsn() then returns the data sequence number
+(DSN) of the first byte of the skb, instead of the one of copied_seq.
 
-This issue has been found by an AI code review agent (Clashiko), while
-reviewing an earlier version of the previous commit. It has been
-reproduced with a new Packetdrill test, where the MPTCP options are
-removed from the third ACK. Without this patch, and before the earlier
-commit "mptcp: arm the rtx timer if a push leaves data behind", this
-data was not sent:
+These two bytes differ for a segment that starts before rcv_nxt and ends
+after it, since TCP does not trim it. mptcp_init_skb() then gives the
+new bytes of this skb a DSN that is too low, and __mptcp_move_skb()
+skips some of them as old data, leaving a hole in the stream:
 
-  server-tfo-fallback-write-before-3rd-ack.pkt:26: error handling packet: Timed out waiting for packet
+    bytes 0 to 999 are received, the skb holds bytes 900 to 1499
+      byte 1000 gets the DSN of byte 900: too low by the 100 old bytes
+        that is 100 below ack_seq, the next DSN that MPTCP expects
+          __mptcp_move_skb() skips bytes 1000 to 1099 as old data
+            ack_seq is the DSN of byte 1400, copied_seq is byte 1500
+              later data starts at the DSN of byte 1500: out of order
+                the TCP FIN becomes a dummy DATA_FIN after the last byte
+                  ack_seq does not reach it, so there is no end of file
 
-Since this earlier commit, this data is sent, but only when the MPTCP
-retransmission timer fires, here after one second, as the test increases
-its interval:
+Fix this by computing map_subflow_seq from the first byte of the skb as
+well: mptcp_subflow_get_mapped_dsn() then returns the DSN of copied_seq.
 
-  server-tfo-fallback-write-before-3rd-ack.pkt:26: error handling packet: timing error: expected outbound packet at 0.235869 sec but happened at 1.144189 sec; tolerance 0.100000 sec
+Chris Mason sent the same fix in private, and found this issue with the
+help of an LLM. It has been reproduced in a VM, with the reproducer he
+shared, and with a new Packetdrill test: after a fallback to TCP, a
+segment overlapping data already received is injected. Without this
+patch, the new bytes at the beginning of this segment were lost, and the
+connection stalled, with no end of file:
 
-The client side case has been reported by Sashiko, while reviewing an
-earlier version of this commit, and confirmed with another new
-Packetdrill test, where the client writes more data than the window of
-the SYN+ACK, before an ACK without MPTCP options. Without this patch:
+  reader   30.64: conn 1 BREAK: at my offset 1000 the bytes claim offset 1100: A GAP OF 100 BYTES
+  reader   30.64: READ-TOTAL conn 1 outcome iii-gap-or-repeat bytes 1400 of 2500 [...]
+  [...] end: hang: no data and no end of file for 30 s
 
-  v1_connect_fallback_pending_data.pkt:30: error handling packet: timing error: expected outbound packet at 0.251394 sec but happened at 1.195904 sec; tolerance 0.100000 sec
+And with the Packetdrill test:
 
-Two Fixes tags: the passive TFO case comes from the first commit, and
-the client side one from the second one.
+  dss_fallback_overlap_client.pkt:24: runtime error in read call: Expected result 2500 but got 1400 with errno 115 (Operation now in progress)
 
-Fixes: 36b122baf6a8 ("mptcp: add subflow_v(4,6)_send_synack()")
-Fixes: 6f8a612a33e4 ("mptcp: keep track of advertised windows right edge")
+Fixes: 2834f8edd74d ("mptcp: cleanup fallback dummy mapping generation")
 Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/4c48d016490d43b6892c622cbae858b48f176cff.1794304840.git.tanggeliang@kylinos.cn [1]
+Co-developed-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Chris Mason <mason@kernel.org>
+Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
+[ Combine the commit messages of Geliang's [1] and Chris's versions.
+  Commit message: how the issue was found, and its symptoms. ]
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
- net/mptcp/options.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ net/mptcp/subflow.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/mptcp/options.c b/net/mptcp/options.c
-index bcf3440d1901..617358ff7f99 100644
---- a/net/mptcp/options.c
-+++ b/net/mptcp/options.c
-@@ -1035,6 +1035,10 @@ static bool check_fully_established(struct mptcp_sock *msk, struct sock *ssk,
- 			MPTCP_INC_STATS(sock_net(ssk), MPTCP_MIB_FALLBACKFAILED);
- 			goto reset;
- 		}
-+		/* this ACK will not reach the fallback path: push from here */
-+		mptcp_data_lock(sk);
-+		__mptcp_check_push(sk, ssk);
-+		mptcp_data_unlock(sk);
- 		return false;
- 	}
- 
+diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
+index 00677fb3efcd..6f07544bfe40 100644
+--- a/net/mptcp/subflow.c
++++ b/net/mptcp/subflow.c
+@@ -1496,7 +1496,7 @@ static bool subflow_check_data_avail(struct sock *ssk)
+ 	skb = skb_peek(&ssk->sk_receive_queue);
+ 	subflow->map_valid = 1;
+ 	subflow->map_data_len = skb->len;
+-	subflow->map_subflow_seq = tcp_sk(ssk)->copied_seq - subflow->ssn_offset;
++	subflow->map_subflow_seq = TCP_SKB_CB(skb)->seq - subflow->ssn_offset;
+ 	subflow->map_seq = __mptcp_expand_seq(subflow->map_seq,
+ 					      subflow->iasn +
+ 					      TCP_SKB_CB(skb)->seq -
 
 -- 
 2.55.0
