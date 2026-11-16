@@ -1,97 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855373;
-	b=VMJDPn9wyPION6ND8OdCpAfkp64uXjBDHeDnFmoAbJqXkW6K7WClrdhteiBveVo2AyzU
-	 LbCgh/y6uhmVQDSCVJtvl0ovKx5RcQN+J3GOxhTyoGElteYIq+51Zy6Ou3ZLqQBr5c+r2
-	 jD/S2JafqAEpo74tWRtGZqyqGqoJh+kQZbRwF/0swBoPhcRGq57zzJbAQWg9K2Ja4Xrhn
-	 4nQiBVk5H+yJh/9IndbyRCgS18qxedcflqueCUJTATmS5+am3mszXaarweherr+lJafa8
-	 7Kpx26M0UIfCGW7dyVuMPRRfX61Ygg7Dunp4K3tcQbzI3hrH85JMAXgnmP1VK3Q/SPQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855373;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Qq6glhbhJ58HkVzMpkvkPAysJCirBwST/ZXZJ+yxSic=;
-	b=X9edmObkX7/axxcGNQK3qWOGPKBWsxNV8+8jrcEbJ/p9yxuPKyQSNHw5tLoDEewUBacG
-	 mhU2vu3ZeokeEzGn4aXZkMeGnwyXEZ6RM/1lhhZ0bJG9oQv0LSZfApYzBgdRO261nTa/a
-	 40QAyl6d2GzhU2ls0XKyhmYjgoOSuzfoR3KsqpMiPN/df0VabLrBlUwqmGMT/VXVWEKBT
-	 2cD5GvjVr1VMX6Hg4IVes9KgwWkS73yq+aVTA2kq8B+j8WWg0xHS1tq8Odny/fRS9bkEy
-	 xaYxZxUcTGdXiTTBy3LWra6+vDYUNNqkDh0SbAQ6R7BBTmI1Ndd5LkuCzuFEhxF6gLw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=prb93aDP;
-	arc=none smtp.remote-ip=209.85.219.47
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.53
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794855527;
+	b=WgLJ2ybFWcdrvXG/AEXVMsQ/DQU0EPM3MK8bdMlO6dyTjAF11wJdqaHR1xz8FGOqDhNo
+	 ZsJsDRvwKipB6nJgFd0wNDwEq2LkMT33m5r9r9vIHPV3rJZDwG2WBNZSpYfZ/k+qOTg/a
+	 rWfMXkFIIaO77PuqDG0rgESQEDIEQnRsS4AhnifnKUB0I7rbAbgvvk86n1XfDV6YS2ufJ
+	 oxB8Tf+r8IPzE02lROgj3MftsQ7CnY9Ol4UeBdvUMYayS0lE27u0WGA7k3NFBSaY9NuFp
+	 r0zLSfdBvlMYnaG8scK4vXVFAsACk2UoH2R+aPbbm/ae0sl+FNwhHC7yOfpI+JDMjIg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855527;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
+	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=sSJQwAVjqtKC68lGy7Idfh+eTeZHnkXWIJOGxpRoXqg=;
+	b=mif7z3P7jxLIpzSXhsXxx1a50ZLLgAn27T7rBeI9h8IaACg+NXCDrRq3sD3PfBvjprnc
+	 pot91+UwS7vLULBq3MUmlbrDdcqPN4mlTT6wmkSKThxxQazep/5d6CJMy9R2nlcUDCOA6
+	 KazO0Xk55cpNZndbb7okOf1I8u4d3OAloaJJTCzWAm4W5sFludIODXj9nW1ZP+KedG4FG
+	 sqJ31E+X7Ebmjhw4Yine3ACnyi9gAJkmeefQeaoHoSABidKg8AvLoEthpdWEA00dHf9nw
+	 T00q1FynEc9dVO91lKxpY9h4ckCiZYbBOMgIXZbs2slcPLEsfOfuUxsmcyLevvuK2Lg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=WGFtOJWe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.201.53
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013053.outbound.protection.outlook.com [40.107.201.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DEC606A8B0
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 18:56:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3DEC606A8B0
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D447606A337;
+	Mon, 16 Nov 2026 18:58:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D447606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=prb93aDP
-Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91ebf4cd218so46463636d6.3
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:56:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1794855371; x=1795460171; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Qq6glhbhJ58HkVzMpkvkPAysJCirBwST/ZXZJ+yxSic=;
-        b=prb93aDPHbM4PkhU42SDnNuqiQ52r1qwsMJJOJBlfjVXwraNrmm7Fp0ZJlYiy7AhDb
-         RFZcoczw17nHNZJl2Dq1/lz2x2Koem0UJlzEqsnHXWOCiHhcyhUOmn3ZeuxiLtXL2xV/
-         cPuhq00K5vyqt9v7BBMjcsN2IAdUurpI7l7W2SBmJjLr3xUCy2+6PDo3KMCCcr+h3fLN
-         ci5wwfAZHTeRWjsGX1E8M1YoGYqpAlBrLeKplVJ2ZHuyD0FgJHQ92/Jr37oeRlDDT/oK
-         /bA54ELtG4w+vL9KReaEjrw3ARv0q5LGTT2/IfTomu+rfN/i2+9bV2QD4PEqmmkgd3mw
-         f2bA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794855371; x=1795460171;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qq6glhbhJ58HkVzMpkvkPAysJCirBwST/ZXZJ+yxSic=;
-        b=a+xguGITh3LdI4DxNWeqlxpokMBfqdYTHhB/mHxNEp+KB9W1WVw+jS8hyBliFF5wbt
-         8UL0FW6j3P2jVPy0liKgGaY2XFe+4gXPx2cnxOQ+0TqNQ/9A80XpzrqHbQIzYRVWqcd7
-         pgNmW9Dh6cU85akW9NnN0BRd8eknYcDJIOlJcSVutNw7lcQPLWUNU4Oai4NX7wM5Feh9
-         PgOjbFhoUSRvTuLANQ1a7Cj7PNUFob9seqYkh6bKx7lhtqdw50BuY+XVacKsJo4lTokc
-         2bJ5LETxqZYKPsohujVtK4zq9XJNC69igkaM5b3Rbr7F7ew/81yl8AaifjR2PYZHPoXl
-         8oww==
-X-Forwarded-Encrypted: i=1; AL+hErEQhahkSJLBDzt71jil1S00PzMbFjMJUoSkGjt71IHPdoV4U5/fEeXycPYCbap0BZ+tq6NLP6s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/uYCbeTI9E+4lZmnZTxISKSD4A4mPNU1GNFcGczJVgNyMck4P7
-	AabcAcMhoKf7DjG5yT51yXOj3L7crmp1wtZfoIlaQWZEpzBRio6FTrDCW0sQDQ6N7Q==
-X-Gm-Gg: AZFdTZdUmrvEpdbXX5dodJax7Bo/wCyZK0ju/SOn1T/4J5RugafM+tj4bJppHBiU02F
-	nL3RZ46kSdRr6TnmcWLkewfyi3B7hkGctWEA2dSxD+0G7jYPiJa/n1z4X1DnPR79oUIQSUl5zSN
-	apP+Vj+f9vNS3j6e2VR7P+lHZfrML+lcxR9wE4Lv+LdzLnWj+I4jV1tn/G251Hk5Cs5lvYshHDX
-	xyalixrYOsOlnBxetsaaYkJzr7wCR74EFmZo6mVuaEnz8DF05VksoOd+CPzeX6Sa48Q0ix/LlKw
-	eDWgfvfHwIHCD3F9REDUsNSwRV/0Tjqz52SAtnsbAtfhZ5f6awI92XkFWrCxYwVGPORMqxTpoOF
-	eKa60NsBbLNQV0aDGo5TECwtNWRILQN4/lo/BwYctO29EO0JWKCJgH0yjDYGuFhmKUxbtmztUTj
-	CPaeOpUUJv2i0RXqIxs1JdgSd8EDbdtRLpwnMeh7nJKewtfzpg80X4t6BIoSt/GkHSK+TdqpItr
-	Xb2/d/ZYsFGsuQfUvIRMHGMXo4TYEAi27tSzh/Zz4wjDGTExvhN0CnAiK2Dmx4uSRZrs30quM08
-	rLGI7Y27mi5hqdLJS20qBVH2f/JvnYBL5iH+Hl1XQNVc6HaXPGA=
-X-Received: by 2002:a0c:e084:0:10b0:917:af36:df30 with SMTP id 6a1803df08f44-91f24194addmr143466866d6.16.1794855371264;
-        Mon, 16 Nov 2026 10:56:11 -0800 (PST)
-Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d452b0sm92039326d6.11.2026.11.16.10.56.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:56:10 -0800 (PST)
-Date: Mon, 16 Nov 2026 13:56:08 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Pengfei Lv <lvpengfei20@huawei.com>
-Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, michal.pecio@gmail.com,
-	stable@vger.kernel.org, xuhaiyang5@hisilicon.com,
-	xuetao09@huawei.com, caiyadong@huawei.com,
-	suzhuangluan@hisilicon.com
-Subject: Re: [PATCH v4] usb: core: hub: Re-guess ep0 maxpacket size after
- reset
-Message-ID: <bbc753f4-4120-4274-85cb-a4e1e987156a@rowland.harvard.edu>
-References: <20261109093935.2634235-1-lvpengfei20@huawei.com>
- <20261110033038.2882473-1-lvpengfei20@huawei.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=WGFtOJWe
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Mr0QZ2Ek5XAtbJMrqFs+njtohX7u68o9YBWgabEJWL3wDmnJ/yQXFRa8tM8We4XXfi5psRj6FOIieKgM7ap9EehW28ykzz4f9tjPrvAHB3LfUjFgJY124NUYgUB3VPZ3vPpEse/VxGzVXf5uOs7nppPyBl/IW62rcDwVXTDA7ZOIp3xZpSBdgATGZipJwlsxi/3PUoe/Ge9BKPTmW39IipXKSDRrOATU14V01wWuJ0c6AWuB1SolNg+nUNVFIbhKB/vKCGO1UBjHlB30YaqC06+xMZ3dLK2cPjQEfzjDorgBcZkL1Is+BT8AKjdpqJZDCS1pHnhxbG0MZDtQvQ/NVw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sSJQwAVjqtKC68lGy7Idfh+eTeZHnkXWIJOGxpRoXqg=;
+ b=ZZWjQ1ivUKZ0sFGstYgXEhkSb4cAFgVH9GWaRaOOen1qmps8G0Itx6AUvIS8FFeimWBNacON5KkU1IfaX6Gb1CL+y35W0rw08C5TKNOHVylMLdGT/f+VdlVfZj2UZ+6jk1l9NdfhktTPYOra/9be3myJVbEsadrBV4ziesef1HShXTgFrS2+mkmml/GE5zqIlJp0OAV0Omtmg0sbEi0TEHvdGt61gQ2detl+WG7PkiJNGnFyeTwVmIQZkP+MuuF9tPgj1rLvmNj4K9r5JSh4YsE+cfHNhNauFqqaWDzv3vYE34RSAiE4W+KVi3/OcV35fWw0RlYc5CkVTYuStel8PA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sSJQwAVjqtKC68lGy7Idfh+eTeZHnkXWIJOGxpRoXqg=;
+ b=WGFtOJWeAEhiJjVCZs1/alNZZ5X+lz0rD4OkKxwfvoWNv2txnlnEYZQhFDu45DFfnlkSQSY8pBfvOeLEgDodU2ht+wBbQRbPg76BNwt2/v9Z2NHod0FZYxzfhJpQTx5+qsjbuf995QxHyfYePMIYuGlZpUUY57/iC2Gn9Rubi/64U2xnGRrDUl/9ZUCwpDKlMDrFqyfZkPM3I/LqUvZlcdl29M7CM8YBEtSB/HT8uAB9aswJQ7rD1ZabKPdo+AGudRjQ06IDJaRBI9lBZGy5rNmoN3ICVvkBjCY59WReKPGLT2pYxpQS4/deSLWK/pbcKmCB0wr3q8P9O0nf5V/fXw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by MN2PR12MB4269.namprd12.prod.outlook.com (2603:10b6:208:1d4::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 18:58:38 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0615.009; Mon, 16 Nov 2026
+ 18:58:38 +0000
+From: Zi Yan <ziy@nvidia.com>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com,
+ byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com,
+ joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
+ matthew.brost@intel.com, mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org,
+ surenb@google.com, vbabka@kernel.org, ying.huang@linux.alibaba.com,
+ kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com, shakeel.butt@linux.dev,
+ kernel-team@meta.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] mm/migrate_device: avoid leaking folio references
+ during THP splitting
+Date: Mon, 16 Nov 2026 13:58:35 -0500
+X-Mailer: MailMate (3.0r7038)
+Message-ID: <F40191DE-78E7-4861-8CFB-A460A543F49D@nvidia.com>
+In-Reply-To: <20261116063624.1382944-2-usama.arif@linux.dev>
+References: <20261116063624.1382944-1-usama.arif@linux.dev>
+ <20261116063624.1382944-2-usama.arif@linux.dev>
+Content-Type: text/plain
+X-MS-Reactions: disallow
+X-ClientProxiedBy: BLAPR03CA0130.namprd03.prod.outlook.com
+ (2603:10b6:208:32e::15) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,130 +106,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110033038.2882473-1-lvpengfei20@huawei.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|MN2PR12MB4269:EE_
+X-MS-Office365-Filtering-Correlation-Id: c9400155-85a3-4a5c-9d7d-08df44139f65
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|5023799004|10067099003|4143699003|11063799006|56012099006|261026121527099003|261026140227099003|261028144727099003|261022075727099003|261022105027099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	9fby0mjT/koKjqWluJpHmiAyS7YPXgUwWIyv8VwMVlj7wSeGaMZAa3Qv9QLAPmyNeMy5xgEufuX6pfhVj6YIhn/t+TT6KVE9z5ZOjvZj4mXpKp3VgB5+RUijO0gJkfsLliOIKFBl0ZGAFK0Gs4CLxo2XvxBgDZ+TJqdvdVJLIA2tCqpIwa28dqcGYUSbjsbB/aITtGEjlfcJOI+U/cIKF70890zDFZKwqPMBKII+lEfjldJj2USyXboyDCSIIw2eWoWhHLr0i7S1V/TPwKfVoc8OwxXagUOWgXM/NhiidO6pk1t9xl1Z1mrUUPH1+WGLcjru70qhC+t+bf7sjAMy7dRm6v3wtgQuex+u6K/Bk2+H4lUweLOuE1bXtSxLZgg/zpVrSPX0FSiqqGF5pOha6zdtWlDi0lrzoYy+VfSGNf1H0AsyVpg9haizchKf9MXaAQVhYAg1Qu2/rsM2niTBmUXKGuTjYfVfEHFRRhOpd1x53WWCLf9pBMBeTi1t/Qx2WVL61Qo7PYPn2e/CaMixb0xbMnDC1KJ217iC/YrGb+Ff8gk1069oKTUXAWF1f1Uw7ULSt4TNxkdtO5avU2k9beGWE8+zdD4iyMq49HvTa25/h59A2CPIcR8PCriOusKwFF7Mcuc+Mwxpd5k/ohdnDHyuLOdT8aHcWBFBG7kFJ8Q=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(5023799004)(10067099003)(4143699003)(11063799006)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022075727099003)(261022105027099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?S4KChVLOqc9H4DIPgDSt9/2SUSIR6haoWyUEFYTVe3QgcIRzSoJxZPKAI3Az?=
+ =?us-ascii?Q?zQZk13K3uz1kVzgZV6GBlOFIMSaQcF+WVR883AQFnntfLJKeq6CXr+20ZVuh?=
+ =?us-ascii?Q?r4m2Z4Y5FwlO9XPI84al8hFQsapjPkpHSbq/gF3HQhPpn9xwxVQDNmKJEPrc?=
+ =?us-ascii?Q?4CDF/vy5aqPgqH9gR7kjSjDh8kzZ0U37IBrmObyZpGRiDgpiaZ6AVgS8yS7n?=
+ =?us-ascii?Q?SWLCyXgmxoN0JOXZG1BrjaNCVuaslMVWKItO3nTEeJ6eFljmuaidIrWwYz0y?=
+ =?us-ascii?Q?S89vDwHfjw2mEzig9e/HNfBXfDtVpCejY3mEOuv+sZRrx0y8mPgmx6QWpAKa?=
+ =?us-ascii?Q?RXn98KFmoUBNJDBP6nJdv1NG24ADQFxPlgjV/EQVppO+uiDTZyXdyWooV25w?=
+ =?us-ascii?Q?aI0OPIOopVn4aXwRNTo/kLL1pFzExzIRgbdvPt4MzHoexwbNfMCuf8pDELEE?=
+ =?us-ascii?Q?emo72me0Fj1CVZTmhQ6d3k/ke89gBa6iFdHRIKEo9hgClNvkopNwGfUqs6Ea?=
+ =?us-ascii?Q?QRGvhjrH99VS7Otlo4QpdVQRzpg2rj47vXp1B92sRp9aKH/5nj8Csd9N8wPw?=
+ =?us-ascii?Q?6k5M86evFtI8+TtDcyZ37U8+zvp1QrcbxY3Aarpx9augOeD47xuzQNWiqEfg?=
+ =?us-ascii?Q?GcHOAIPEIaRUgeccvDxJiMjU3hbuRRswKL1TixSxyVwuQ4qDtCrZVEaOuK9Q?=
+ =?us-ascii?Q?C0MMJErgWMh+p8ogDhRfso89nIkQqWltNs6eZIs5nIHXdKjNxlV72EmMwnsB?=
+ =?us-ascii?Q?SEWsJyUvW5Fvzi4EsLAT6AKLZmQ4+kyxOxaVzqO/c5+R2qpPlw1RA3gvo8r5?=
+ =?us-ascii?Q?VSuEVWVTv0pfV/hIjLWN55WiBHky/0urf/Mwh/t6oIdwcQBGtsrCXVC55N7p?=
+ =?us-ascii?Q?8cVKzsnmWfIacWQ4sD7nzqXrTicIZzanAjW3FJWAx2vIpy4UuHgSGeiKzgiz?=
+ =?us-ascii?Q?vlpUj415qs0TQIXT3RsTniq4RKQGMhGoTx7tCq/jzCyyOTVZeMqfgmyhuJp3?=
+ =?us-ascii?Q?8a+3xOB1pf9V3AP9sILRN1sUMTXVVDwnYnqeKQNLl5Hl3FZT52oLWF/5XQJ9?=
+ =?us-ascii?Q?yVwaFEQjbzgu3KIUSYGO0cW2ey/V5NPl88Ra5u78a679PFPBJpshRMlyw0oQ?=
+ =?us-ascii?Q?N2WeEaSRe/ZicqcoeVhAGgMQ3BFXBluxZppeAG0ZG8GDrHbrKWdxQlpMAEpd?=
+ =?us-ascii?Q?OxPQqotJpwL55ON4fVx4uhxn0KClRgyAgCeCC/l/7C7n93q9orSeixT9JHkm?=
+ =?us-ascii?Q?75RwkOrA+GEvCreg4dJgUnP56BcSmm1htuLg2+XLShM5EMXDBPoZFRigUuc+?=
+ =?us-ascii?Q?+U6aivE/Qm04msXijY3rxz1rlu3O0tHSaRMcwhZb5nBYOF6wG/k9zmEv1FTy?=
+ =?us-ascii?Q?fT+4mDV0hANA7qymYB4OYkdyYE0CF0iwYtLpwzvx8PhSByG6plYW9Jl4c9UO?=
+ =?us-ascii?Q?unBDJsxe42t61XswDhVqYQ1zLMGJ25Td1WDCQB+tMWPiF5xMOEE/mF4s3b7x?=
+ =?us-ascii?Q?0xh+fu2gNu6RCVHR27jL1u/dY0A23JW5rADvEDfXRIGI5K9UztB6e4GBQWus?=
+ =?us-ascii?Q?jtsprvDj208/nPdnxHaXmSPhtRprjeVO3b9L1k8d0DtRNsv1P3lFjasG3dCt?=
+ =?us-ascii?Q?cSpK9c5szNPqXNOrigemYxll9v9PEa8ULrPLd2qnML8xhpviL1o6kgq7F7dZ?=
+ =?us-ascii?Q?4Ju3hl/qPIQgI0AEGuib0XD0nTMSt5nU9y02wohnKyL4ojKd?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c9400155-85a3-4a5c-9d7d-08df44139f65
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 18:58:38.0389
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5zIGJalD5NCpvmQgYBBboyl2Dz1Y/fDGIS8Fb8MiSsaYBFDFxZvbBeX6hqRN+D99
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4269
 
-On Tue, Nov 10, 2026 at 11:30:38AM +0800, Pengfei Lv wrote:
-> Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
-> all device speeds except full-speed devices, where it can be 8, 16,
-> 32, or 64 bytes and can only be determined by reading the device
-> descriptor.  During initial enumeration the USB core guesses 64 bytes
-> for full-speed devices; after reading the descriptor, the real value
-> is stored in udev->ep0.desc.wMaxPacketSize and applied to hardware by
-> usb_ep0_reinit().
-> 
-> Commit ff33299ec8bb ("USB: core: Fix race by not overwriting
-> udev->descriptor in hub_port_init()") guarded the ep0 maxpacket guess
-> block with "if (initial)", so on the reset path the guess is skipped
-> and the host keeps using the value from the previous enumeration.  If
-> a buggy full-speed device responds with one 8-byte packet and NAKs
-> all further polling, the HC doesn't recognize a short transfer but
-> keeps polling for the rest of the descriptor till unlink, and the
-> device cannot be re-enumerated.
-> 
-> This was observed in production on a 6.6 LTS kernel with a full-speed
-> USB banking token (bMaxPacketSize0 = 8) in a virtual-machine USB
-> passthrough scenario; the reset re-enumeration hangs 100% of the time
-> after the VM issues USBDEVFS_RESET.  The device is not strictly
-> compliant (it should continue answering IN tokens), but this class of
-> USB banking token is widely deployed in enterprise environments, and
-> the regression breaks a configuration that previously worked.
-> 
-> The 18-byte GET_DESCRIPTOR that runs after SET_ADDRESS (wLength=18)
-> is unaffected: the device sends the full 18 bytes as 8 + 8 + 2, and
-> the final 2-byte packet is always a short packet regardless of
-> maxpacket.  This is why the device completes initial enumeration yet
-> hangs on reset re-enumeration.
-> 
-> Fix this by removing the "if (initial)" guard so that the ep0
-> maxpacket size is re-guessed on every reset, and by calling
-> usb_ep0_reinit() right after the maxpacket size is re-guessed so that
-> the re-guessed value is applied to hardware before the GET_DESCRIPTOR
-> data stage.
-> 
-> Fixes: ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
+On 16 Nov 2026, at 1:34, Usama Arif wrote:
+
+> migrate_vma_split_unmapped_folio() takes an extra folio reference because
+> split_huge_pmd_address(..., true) drops one when it splits a PMD.
+>
+> However, migrate_vma only holds mmap_lock for reading. A concurrent
+> MADV_DONTNEED can clear the migration PMD, or split it into PTE migration
+> entries, before the split helper takes the PMD lock. The helper then does
+> nothing and leaves the extra reference behind. folio_split_unmapped()
+> fails with -EAGAIN due to the unexpected reference, and the reference is
+> never dropped, so the source THP is leaked.
+>
+> If a THP is faulted in at the same address inside that window it is
+> worse: freeze = true replaces the new folio's mappings with migration
+> entries that nothing will ever remove, and drops a reference the caller
+> never took.
+>
+> An existing migration PMD is expanded into PTE migration entries even
+> with freeze = false. Use that mode and remove the extra folio_get(). The
+> reference already held by migration keeps the source folio alive whether
+> or not its PMD migration entry still exists.
+>
+> Reported-by: Zi Yan <ziy@nvidia.com>
+> Closes: https://lore.kernel.org/all/DLZ48KMS7YG8.3BTM0UUU8CTU2@nvidia.com/
+> Fixes: 4265d67e405a ("mm/migrate_device: add THP splitting during migration")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Pengfei Lv <lvpengfei20@huawei.com>
-> 
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 > ---
-> 
-> v4: Per further review by Alan Stern, move the usb_ep0_reinit() call
-> to right after the ep0 maxpacket re-guess block.  Each layer does the
-> right thing on its own side.
-> 
-> v3: https://lore.kernel.org/linux-usb/20261109093935.2634235-1-lvpengfei20@huawei.com/
-> ---
+>  mm/migrate_device.c | 7 +------
+>  1 file changed, 1 insertion(+), 6 deletions(-)
+>
+Thank you for fixing it.
 
-Pending other comments by Michal Pecio:
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
-
->  drivers/usb/core/hub.c | 48 +++++++++++++++++++++---------------------
->  1 file changed, 24 insertions(+), 24 deletions(-)
-> 
-> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-> index 199d3f535a89..e3d8ee3271cb 100644
-> --- a/drivers/usb/core/hub.c
-> +++ b/drivers/usb/core/hub.c
-> @@ -4969,33 +4969,33 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
->  	}
->  	oldspeed = udev->speed;
->  
-> -	if (initial) {
-> -		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
-> -		 * it's fixed size except for full speed devices.
-> +	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
-> +	 * it's fixed size except for full speed devices.
-> +	 */
-> +	switch (udev->speed) {
-> +	case USB_SPEED_SUPER_PLUS:
-> +	case USB_SPEED_SUPER:
-> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
-> +		break;
-> +	case USB_SPEED_HIGH:		/* fixed at 64 */
-> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-> +		break;
-> +	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
-> +		/* to determine the ep0 maxpacket size, try to read
-> +		 * the device descriptor to get bMaxPacketSize0 and
-> +		 * then correct our initial guess.
->  		 */
-> -		switch (udev->speed) {
-> -		case USB_SPEED_SUPER_PLUS:
-> -		case USB_SPEED_SUPER:
-> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
-> -			break;
-> -		case USB_SPEED_HIGH:		/* fixed at 64 */
-> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-> -			break;
-> -		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
-> -			/* to determine the ep0 maxpacket size, try to read
-> -			 * the device descriptor to get bMaxPacketSize0 and
-> -			 * then correct our initial guess.
-> -			 */
-> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-> -			break;
-> -		case USB_SPEED_LOW:		/* fixed at 8 */
-> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
-> -			break;
-> -		default:
-> -			goto fail;
-> -		}
-> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
-> +		break;
-> +	case USB_SPEED_LOW:		/* fixed at 8 */
-> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
-> +		break;
-> +	default:
-> +		goto fail;
->  	}
->  
-> +	usb_ep0_reinit(udev);
-> +
->  	speed = usb_speed_string(udev->speed);
->  
->  	/*
-> -- 
-> 2.34.1
-> 
+Best Regards,
+Yan, Zi
