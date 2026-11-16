@@ -1,102 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.181
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794855972;
-	b=YTF13wUCugKj0AlrNEHSA2AGbJ3A4Dp6IAcQfE4+BYl02u/YLqk5GePqkV9mcIbPdrz5
-	 lG/d/rdR6hZzaPzw4X5rUKh4vw1ABb9pDJZzb19+zfPYcHADuC2itxveADbb8kVtpRTmy
-	 7S9+Z7S4HUUsNn5cnquO8lmA4ba9b1VDQGz4VQdJ6Cyfy3+jEjOWP275Bs2xv2nnjAzUT
-	 nNqRg5nuu9/Qwr0BJge1auG1DP4QU0D3J4GteDapEj7H0gPUk0Jn8Hwwv4osqF0j9O8lR
-	 I+mayLY5tXQMsPWvEGJPJdLNYHPAsBxE4FeSiXtkFhIFrnu+0g0BYbiCybuJmCWKdpQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855972;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=G7I1SlfQuGFwSPm/Qi4+nTEZRsPgA0OBSH2M8WIp0JA=;
-	b=uRZwHSNkraiPiGgxp2ENQdTwkvR9blZWkPvaCr2qun+0sXR+GNr6wzwDL0sj3L0ifLZu
-	 NduYUhAdl6MP8bHR6nCVpSKMcaXx0Vi6VLq0lPTZCFnpYaKB+ZjFf4VUOzze7KOQAQzk/
-	 HItIZNlSs3YmTIl+l0qhvpI0PZrf3njwcYUbXREPbwAGvXw2DylEAPBzBgU2Ju1d2eAqC
-	 /mzrmxkzC8zOsB3sv8tOAEpjHzXrKqi/9cSOB/Nn17J+rPx+GslmQyidLagldZHz+4Yif
-	 wYm7gzXM4zMElunNFFvwKakmgG7jeaX/5ohx0ZxYE6NVyqyAyZUx297tpeSB6oLILUg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=Jm2Gk8kj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.181
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794855967;
+	b=GWO9Gs62alnKDMXSfRjGE9HMnWs/dmiUVfNBXwf9eU5b6TJtVqIElIjhtogWdAXGdEo+
+	 vAaizZTMIi72TDElqdmfp2yApaIuKBDCWDTDyawFOISV0pPcZ8VXSUB1PHJyNFZUPlsZB
+	 1w5F9feh5MtaDyJR8q0e+JyI10LZh04UHrIb5P8WgMQL8LXO3RGgAhKdPQJOjYI57aR3o
+	 Spht7d7f6h18qoExWLs4WsWYmXaWWQp2TGoeWOe2gjJtBzzZJX4D8df12Kq1l4+AWQ2cJ
+	 k46abfNeL5VUWySJyRtoOZAQrCOsk4KiLWMa/8HnN88Wd6ovkzPY0W0mknkR5xLEaFg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855967;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9p94hJD2vP0zDldchA7bxwpBsXvy/6CynoDvMnhZnkE=;
+	b=WgxTwM6Tw8JAzCR9e9FhXoDK+zgiLygnbakCCNfiaDW23BSaqsGW1SGxWORu2CdzbNBO
+	 RbmTaXc68W129rDAw6UEgrWIKsyG28gqfEYIBQkrOn8DdxNrVuN1z+oFUWKsrNGnuGP3+
+	 dCPzJcwUJK8zwGwNdoMdLShOaD4CFVQaPtvviF7nDpyY2mekKpX/KDdjgPX/K69MgbCoA
+	 MgrUSfyH0ynCY/1E7PioTnt40Qy4J23AGedyWNwcMTN6WpaFZFZmcA9TbP+I6JLKSF/lr
+	 CwpY8zWY0tf5vcPXWqeU53mNln/aySiJwKsimRLPxeCun3fISzrozRpbdlQYNADzclw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=aVuyW3lo;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E2D606BA33
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 19:06:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6E2D606BA33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0212460A3822;
+	Mon, 16 Nov 2026 19:06:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0212460A3822
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=Jm2Gk8kj
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eae1276409so1406507e0c.3
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 11:06:11 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794855970; cv=none;
-        d=google.com; s=arc-20260327;
-        b=l66eQQaaofyfYSDgsEh/sJb5peS8Idjm74vEOeo0ea5FW0lh1pTBdIpcfD8jPbsYVC
-         7xsny+PbsdoSaURG9NCBIg9rS2+yOnt4KW4bviUnJ2iDcHkj5xAuDlz5oyI42gBpEPM9
-         8vCwHD++bl8WlqDRvcNoMSfPIRgbDD6gOTyoNSVUcm4PvQ5PFzK8J+2iEU0CzoVTLKdf
-         VH3Yq5reHI0w6qh8bDa0ApkOURgVCMy6QkQj/6pm+1eUTT9AEioOYD/CwTjZuu5X17aS
-         Mt5Grn7jbxafkiBOtBfSHfDLsbdILOfHH7n1MekPdzslyJG2pzuXL+8LQK3IfWiqASI8
-         tjdA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=G7I1SlfQuGFwSPm/Qi4+nTEZRsPgA0OBSH2M8WIp0JA=;
-        fh=q3AdA9DbzqcL0mFIvmqOFth8pJmRV/0zARIE8jy13xA=;
-        b=g4JulFOCx1eNxzIZ99BlgwIXMEkdZAFGma+nCm9t0iUkxfxxo153puilxK8dVdgXGZ
-         YMhbHEhDhpxLO9/9NvXtOtfzf5yx0VPmqhGTf+PKEb6RgxdJyP5TNLZiQk4P5Re93ZD7
-         VUMvAOpoBAiT569ynhnj+yKWoUwqcXoSoHQKDGYhzkMh14dZW7fmhgLUfJgLrEb+ngTZ
-         PrCls8n7jiU15cwTpHqHgICwQHzWwzz0jBEKBOCyIyWvIai8pdWmtwpU5sX4oWQTHqeV
-         3xYTY2c2iJ1pJ1pJUI5qR9bqf7NfD+pUkJ2bUbyOwWMF3ef1JvDQs4d9Derpoa42SAS3
-         GZ4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1794855970; x=1795460770; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=G7I1SlfQuGFwSPm/Qi4+nTEZRsPgA0OBSH2M8WIp0JA=;
-        b=Jm2Gk8kjWWwRV2Oi1KDcMVKvvo2dKssVrRlht1w65ARIvAvJHtaRkh5gALMeNGFexR
-         j2tS4wtXZv6yXg83D423lAlXUdUogfBCNoql26Ht2pY9lBro3u2idDSeOaZkduUKxiwt
-         g8cTxqxbDTTTOvMQZYgK5qFPiJ0jZJY9+JwRFURRFaoYKECLPDoGE9lTtLEC5ClMw6zQ
-         W41sm8KufFyLvIFlC7ApPY7fL4TIZGIgN6ckkuKJV1IWh9KX4VRJ9wg60OI2QVITa/7B
-         h6XBilkVxUviYZ0x1faQAS+D45VQIabR3Pm3OxpAR6OX1tFpiMiSDb/O757nTsQGAq9T
-         DLrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794855970; x=1795460770;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G7I1SlfQuGFwSPm/Qi4+nTEZRsPgA0OBSH2M8WIp0JA=;
-        b=AqTfar7YVZEJ2yWDgWUOzMOCYnvCfUf8Gap/hFG3HXOrzbKQ3yWdXHVKP3/MAfZ+23
-         ZV0YigvrGAn1WeMiFZj8jAbAVZ6e/KO1YT2jS8m7nXXkTW4m3X51fGAxcw8Z3m/cWJb9
-         C7sQX53JEgLqSeQodheKwSBvyZQ4izbCqMeGDOntWTute1r5F/i3Pi0wF0vlC3FrrpV3
-         iJKwFIfwEYUsMV40B6jxwCSnANZL3lbXYg1TzeUTIr+msiDavsBJZcTHzAt4HZvokZRQ
-         A3ud1J6EVVPz9HGr8SS0zQoVfRJ/NYj3yWlMSC/fdX7V9CtD+AoLy1FW+P0LXPSpdCOu
-         L8fg==
-X-Forwarded-Encrypted: i=1; AL+hErGomf8/cwxwnbDBd3nx81NUxoQZihwZR8xPTzRae1+rsYomgAqKyTGTPlI7oep7hBzY4c+i+dA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Tc6B0aRFmNk7EEA1QlIZuMQTwF4efexkpkOILM2GvGNOuTjLd
-	asvUsbpTuHtKFPcwLODpY40Cy5pFJvdxST3KXMRuI2dUwfOYgLbZEXbHmWA5Z6mZuhZ18iduntC
-	yHTpdd05IYFaCWDYrIavJXINXjEIAX+1n2OhhjyWZyA==
-X-Gm-Gg: AYBFou37vGJ1XE+KJ/f2dS+lx4avkkzJl7gEh+DVMOpEQTcl27jaiHt52KLnHJSy8Ie
-	jbam/RRHHgTr1TL9CSek2Wcqo/Ka/zWtAJpaQQanHxIVKAhsuTWIYCUXiPza6FfBVwqBKJUC4L8
-	2Phy59I6Q1r/ojg0QjFzpp01Jqnm1ANKzuPo75JnC1AS/p3F/VNu1ElwLHkj5MqcDFdEt39qJeL
-	zzWg9ALiPOnNJVYZ4pS4pyZYJUxlBIUHs8uOSOFmhztjTUFmn/z8jTljD7BODNwt3GKswGY4E40
-	uq/vZJ3+Vcc103Kwa/4ZNGNE3fKEzfXkPvsfPYJk8zqR7jyQDNti6Un75J/bzbJVQqMxB/mlYrX
-	XLdfolNnQawXRcmUbshxo3AdeYbWF1g0At7PCrGlkRlB8xHRYt4i5TW57zVVRrkZERsvdtisRSY
-	TLDS3PmwhsZLdQKqz8pVOTbaMWi+DUn0CnYGIQT15NrEaX8V1Xgj2D/iTM/N1PwKtxmA7bMY50K
-	fv99U0jIdgvrcOkd2TQLzfzYqCgjgIedB+/ZC1TAwHEfEI=
-X-Received: by 2002:a05:6122:1b10:b0:5ec:4a13:8aae with SMTP id
- 71dfb90a1353d-5ee34a9298dmr3969191e0c.17.1794855970467; Mon, 16 Nov 2026
- 11:06:10 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=aVuyW3lo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1794855957;
+	bh=9p94hJD2vP0zDldchA7bxwpBsXvy/6CynoDvMnhZnkE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=aVuyW3loStTI85JnVMGM9Xdx8VYuzdrpuxdNwg3zTPQ8QJHcbDpwhOB3hP+58K1Ro
+	 TwTFa6kLAwO4BRn/2Wiw+D1Gd9pmm571Q4rOnJZhA78Fjh9QsoV/yaIfVU7xxMuNyz
+	 dK7++Fp4ZjYxHYkyfEwXAWEav0sM5aW0VTBO4EUaymOi3k0t2zTQfb1y3Gbb004g+x
+	 pq8vey5SsWn2btLAph6qzuUV4MYTnWDc95r+g7bBIGzZf6ylRFQBJHJENzXr5yl8kB
+	 iaOFTuiUpFChQrp00snSOKFlJfDRD34DQzOq87OWT3cFD/rPdUk/tFKmtiGJcpA+Se
+	 uachTzUfzXp6Q==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jSy4j2tmrzR10;
+	Mon, 16 Nov 2026 14:05:57 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	tglx@kernel.org,
+	will@kernel.org,
+	boqun@kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v6 20/37] cgroup/cpuset: Wait for an attach before rebuilding the sched domains
+Date: Mon, 16 Nov 2026 14:05:32 -0500
+Message-Id: <20261116190549.230119-21-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
+References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,46 +95,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116190111.3317976-1-rjethwani@purestorage.com> <179485574283.3291.7349043137994808253@kernel.org>
-In-Reply-To: <179485574283.3291.7349043137994808253@kernel.org>
-From: Rishikesh Jethwani <rjethwani@everpuredata.com>
-Date: Mon, 16 Nov 2026 11:05:59 -0800
-X-Gm-Features: Aa3M54o7vX-XpVUCQ5-uuaPc-Fmkae2NyST6GEXFL4X2HiaIMluNfTh_m5Er0I0
-Message-ID: <CAKaoeS29P8SukOACusGaO=7z13_eFR5pFWDjbYqurgYd2bVz9w@mail.gmail.com>
-Subject: Re: [PATCH net v8] kcm: reject TLS on attached TCP sockets
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, jiayuan.chen@linux.dev, stable@vger.kernel.org, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Neal Cardwell <ncardwell@google.com>, 
-	Kuniyuki Iwashima <kuniyu@google.com>, John Fastabend <john.fastabend@gmail.com>, 
-	Sabrina Dubroca <sd@queasysnail.net>, Dave Watson <davejwatson@fb.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 11:02=E2=80=AFAM <netdev-bot+sinfo@kernel.org> wrot=
-e:
->
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account.
->
-> *IMPORTANT*: If you do repost (for other reasons) - please include
-> the relevant info in the cover letter or commit messages.
-> --
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+cpuset_can_attach() reserves the bandwidth of the deadline tasks it
+moves in the destination root domain. cpuset_attach() moves their
+bandwidth later, on the strength of that reservation.
 
-Found by code review. The sleep in atomic context was reproduced on an
-unmodified kernel with CONFIG_DEBUG_ATOMIC_SLEEP.
+Commit 75f7a25ec6bb ("cgroup/cpuset: Prevent race between task attach
+and cpuset state change") lets cpuset_attach() rely on what
+cpuset_can_attach() set up. The writes of cpus, mems and cpus.partition
+wait for an attach in progress, in wait_attach_done_lock(). CPU hotplug
+cannot run in between either: it takes cpus_write_lock, and the attach
+holds cpus_read_lock throughout.
+
+But a rebuild of the sched domains does not wait. A write of
+sched_rt_runtime_us and the energy model rebuild them through
+rebuild_sched_domains(). The cgroup v1 writes of sched_load_balance and
+sched_relax_domain_level, and hk_sd_workfn(), use cpuset_full_lock().
+
+In this example, a rebuild drops the reservation. T is a deadline task
+asleep in root domain R. Thread A moves T to a partition root P, which
+has a root domain of its own. Thread B writes sched_rt_runtime_us:
+
+  A                                      B
+
+  cpuset_can_attach()
+    takes cpuset_mutex
+    cpuset_reserve_dl_bw()
+      P's total_bw += T's bandwidth
+    drops cpuset_mutex
+                                         rebuild_sched_domains()
+                                           takes cpuset_mutex
+                                           dl_rebuild_rd_accounting()
+                                             clears R's and P's total_bw
+                                             counts T in R (not moved yet)
+                                           drops cpuset_mutex
+  cpuset_attach()
+    takes cpuset_mutex
+    cpuset_attach_task(T)
+      set_cpus_allowed_dl(T)
+        R's total_bw -= T's bandwidth
+        records a CPU of P
+
+P now lacks the bandwidth of T, and admits deadline tasks beyond its
+capacity. When T leaves P, P's total_bw underflows. In testing, the
+race left a destination admitting 3 tasks of 10% too many, or P
+admitting no task at all.
+
+Fix this by waiting for an attach in progress in
+rebuild_sched_domains_cpuslocked() and in cpuset_full_lock(). The
+latter then takes its locks in the order of the writes of cpus and
+cpus.partition. A rebuild from CPU hotplug finds no attach in progress.
+The online, offline and kill of a cpuset never wait: they hold
+cgroup_mutex, which the attach holds throughout.
+
+The move_vs_rebuild case of deadline_bw_test, added later in this
+series, tests this race. Without this patch, it fails in 5 of 8 VMs with
+8 CPUs. With it, the case passes in 8 of 8. The next patch needs this
+wait too: without it, it would give back a reservation that a rebuild
+dropped already.
+
+Found by the Sashiko AI reviews of v2 (the race) and v3 (the cgroup v1
+writes) of this series.
+
+Fixes: 2ef269ef1ac0 ("cgroup/cpuset: Free DL BW in case can_attach() fails")
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Cc: stable@vger.kernel.org
+---
+ kernel/cgroup/cpuset.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 194a438e25c3..51b6be460794 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -296,17 +296,20 @@ void lockdep_assert_cpuset_lock_held(void)
+ 	lockdep_assert_held(&cpuset_mutex);
+ }
+ 
++static void wait_attach_done_lock(void) __acquires(&cpuset_mutex);
++
+ /**
+  * cpuset_full_lock - Acquire full protection for cpuset modification
+  *
+  * Takes both CPU hotplug read lock (cpus_read_lock()) and cpuset mutex
+- * to safely modify cpuset data.
++ * to safely modify cpuset data. Waits for an attach in progress before
++ * it takes cpuset mutex.
+  */
+ void cpuset_full_lock(void)
+ {
+ 	mutex_lock(&cpuset_top_mutex);
+ 	cpus_read_lock();
+-	mutex_lock(&cpuset_mutex);
++	wait_attach_done_lock();
+ }
+ 
+ void cpuset_full_unlock(void)
+@@ -1005,7 +1008,14 @@ void rebuild_sched_domains_locked(void)
+ 
+ static void rebuild_sched_domains_cpuslocked(void)
+ {
+-	mutex_lock(&cpuset_mutex);
++	/*
++	 * Wait for an attach in progress. cpuset_can_attach() has reserved
++	 * the deadline bandwidth of the moving tasks in their new root
++	 * domain, and cpuset_attach() moves it on the strength of that
++	 * reservation. A rebuild of the accounting in between would drop
++	 * the reservation.
++	 */
++	wait_attach_done_lock();
+ 	rebuild_sched_domains_locked();
+ 	mutex_unlock(&cpuset_mutex);
+ }
+-- 
+2.47.3
+
