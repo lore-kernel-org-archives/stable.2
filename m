@@ -1,122 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.143
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833280;
-	b=mPXd6DZBKdF/In/xzLO6KYXyxu9zH0bgbD8HPRpg/Ll57T6Tc8prU8gvM6riwYdNOpVg
-	 I833/BM/eeDlgFdtrotmi1uQgxirOrS7QikqphaZCsb7tpJaOb0iNOT0LtqBWwqHOptVF
-	 f5y+0GrRoUUdo8aoWxXNIe8g4pHiTCGJ66zDHZT1a/W6mTlSm/6/p1YHmnXUX67ak3+FP
-	 mVuSFkl7h2dDZeUmMe6jNuAjbCfgfkWfocLHRcYoEbXoDYk3z5nX8slMeKVa1sugCdhRG
-	 9Fr0VG4m3Aj2+wo36TpECrFkTzRfop8vrfwPvs7OZTQ6QNBlq7d4HN00Pmm3Ke/t04Q==
+	t=1794833326;
+	b=hkgShAa/XCp8yM0g34Lq8sOQPvVvaF06P6qx/jprZu6dYV1rWBysdOd5xRR8mXdpNSC8
+	 akM+LK62Tgvi2pqexGtdFpaglcCde911QPFFASCYN/s0z9R+2NS2ZJLhDXNcob4sOejJu
+	 /oikNuWDVwT+aWx1X0vAdVJc5WIKfWV1hUwSBle2uQIRyqTWhamjKl7t4PBE3nbDfFFPa
+	 DWW8KxEpPhQiYe9bzZL2jt9Eqi1PwhUoHkTCbAPUQCUc6cKfJXq6GTFw1WghaOBLk46qB
+	 GP1xo8f8wavD4HrDsUiImpER/GVk22imDJHKL+Cp+N84egNPUx46MGzLjPPs9VKzcmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833280;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4Nhh+Myk7Yfs7g/NU55nfHgNLFz8G3A8qUiieuO0GHA=;
-	b=UYNpGpnSIC2PBrTgFPrZ79VX1DElzWE9tkXIaOKfxXBJS2tvoH2XDmsEvI3fs8/3DtRE
-	 jLI9mGPOAcMCmHb9ivfrMewfDWy2TSSYHLlUUZJ3WWshtzaHc7GJwjyc6nBFbUV3WWYL0
-	 Ar+T3gtp99bY2T5NuRcJv54EHdfPzS4MP9JYILAfr36ZqtSXP2YW/qMSkDJnlGrF75x7p
-	 dwLTJLdG1HfM22m8LGqP0HLYRKLJAbB9ZxAUVTZntk3kvxL83AddvRO9GRJ4IIb0IyJ+G
-	 iSQ/2P45T319cEtVK5DEU4ilm51iu3TzUk8rJYxrwAHlYJwdQma8d8h4ZcneO1lFQ2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833326;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=muCsOHPgshNynmm1OLGJYfu6W2sds6nitTgZ+7QRuR4=;
+	b=HhQlsZDDaUFD6hhoQH1jOj2Zdh+3yoyJhBJuQ/NWILETV1gS0ddIPg1mf7fJgieCrm56
+	 m/a7T9mGv0qkTd5kb/S/rOgd7mXM8FtTlPo9jKniS9lA5cUmOQrjFtxSOnv0rQhf6nK0o
+	 fMiFr8gyGagwmDbP7o4nmQUrsP0kuSkyZ7dHo+HR3p0YnXmJEBKPS3ZFkT04oyLnebZeT
+	 vpZJqXE7TfYDMlfq+mWoDDMKeq0TTNpe9BoHr0iC7phaJENOlQ0e1gTsr8VroT6io+FDO
+	 BWnyg17+uiK9+IFml73zIs1Vohy6vf6QprduBsl3U1U1wvKPU3lzZEynxw+4CGbPxCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=U1tKZadF;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=aPRQ9mdi;
-	arc=none smtp.remote-ip=202.12.124.143
-Received: from flow-b8-smtp.messagingengine.com (flow-b8-smtp.messagingengine.com [202.12.124.143])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=apNPIfb6;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="hgy7725/";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=nt0QvDaP;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7VcVi+gM;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74432606A32F
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:48:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74432606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FD1606A323;
+	Mon, 16 Nov 2026 12:48:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70FD1606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=U1tKZadF;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=aPRQ9mdi
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailflow.stl.internal (Postfix) with ESMTP id 02EB81302EBC
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 07:47:59 -0500 (EST)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-07.internal (MEProxy); Mon, 16 Nov 2026 07:48:00 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1794833278; x=1794840478; bh=4Nhh+Myk7Yfs7g/NU55nf
-	HgNLFz8G3A8qUiieuO0GHA=; b=U1tKZadF2VJyDxGh17o2TR6Y/hDq9s8lTfFSQ
-	eg+CB3scY7p2OW+OsAiFwaozSSvPxANIq4FNoCTQ0Wg3oJZiPXJcH8baCb1Ca76R
-	P6mW16vH+tUwDMCocTQAr08KOAjDrL0dV5p0YQNYlK7yTnckEjelDCYf1MGZJZG8
-	vHr6QdUYaGUrARSafINdu1qIeg2xFCVA/gzuwnTkKkdCI7UCcLy1j2aF94saFKdK
-	5tCA2I7iPBPUyrLfIenKjbWmy86FeNXISiTss+LP96okCPlqGwHh/9F7m/CxPohf
-	GjXpcWLKDWZ8QyiKs/Y2LUuHd5TjR9lbDabJArbwwikRcmU9A==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1794833278; x=1794840478; bh=4Nhh+Myk7Yfs7g/NU55nfHgNLFz8G3A8qUi
-	ieuO0GHA=; b=aPRQ9mdiCJkCYXrDFhUhIR3rwTAKFLj1lMQIxbmm8xXj2hJtDYp
-	WsevN9eRiIDdl71EzbSeXmYeMa/eciDlufIVAnG6Y6WeupZDoMAW8wVTAhZQ03kV
-	Wfkjv2Du5x6c30yiUoWStqDKsTLQQl0/kM5e4+wG9lSr3WxDbC6SbnS7A9DobTNf
-	sqzaNae9LbpiLNbNR4z+ZmAlwVnRahFEh3vTXuj2T5rvxAdFBi7mvdervljifwR5
-	IUYNiyWyV7sPBWETPnOLx7wssaebVKVt0U7FsqFQbMDdz6V7NAEBkn6ZMl2MhRpU
-	lz/mSWyMgX3pj07ShVsXWm26uA6vUEc5NRQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794833278; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:PAPcjZMSxDZfCQgDJeWuJrVbHSPKhTukEJEj95lD8t1eJI0
-	rpyld0N57181w/0/jaVE1n6l9aymZm32irA3LuwutvMhNEJH3FLkbhYBSBo0ZEwV
-	umC7N6MWzijHY3GrE/XXPZnJJCdJZU/VpsvfllJb2TEPN+jLUuTDc+S1ySZKjBXW
-	mP0OP30/GUaN2Pp6/raknkAAtHuQC+xr7+6D3qZbjPVKTyMAh1M+NQtboZU/yhbY
-	NjLXBFvrVbyB4twvRLiMc3e1z9TV8YPtQLxRPuyc+9SLlnK2D/trqWLPSMpCmAVE
-	oy/wqiu/PB2k9UyVhyG8gEBu3gRz6m/XEb5KieQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:2RS39Rpgbyaw+8J2joXdq/Rgs0beJss6U3tJ1RZt3Cg=:+GDiYo6tSkjCHtYSxwo7Nfv3StSVNtQPClNLOgx/qfA=;
-X-ME-Sender: <xms:fvv6aoumcHJ9VW66bg4iG_Ed4iV0H88VTAcGkQOU8TJtLXqEnK1Gbw>
-    <xme:fvv6ahfJc-KqR4BL3SQKZTXkh-pFcLjNwCFGubOWO4JbCTJfQXi9ek_A004IPcUw7
-    AAnYCJ0gKwt1GoPDjAeb3FipzBRAc-0Ju-OUICd6aPgRn9VjyKVRDQe>
-X-ME-Received: <xmr:fvv6al-Z7kcEPT7tFJSPI4-p7rP72U1XXT73MQ0aOt99PH1Uu-ujPWtogaWLYNkl>
-X-ME-Proxy-Cause: dmFkZTGOySjBYUo1B/JhD/yzmyleGW1OuzjED8GPy471VzQhXLb9eNFZLQxwb6UFphxkRL
-    wTOOhzJBg9NM5KPvKTo8Bq1EW6KSwa/VudHHhPZRA6JxQJhssBlD/dU6guPRDGBZ3L58nx
-    CfiulJTxysAYJYSsj2UkXcREckeP7jAOauV+kfRXmv4Zm48F8QRmhbnY/12O4vz4owk93i
-    OjDXzkeXEOJ9YN/SsMxxOdndmJ05+S0J/KCASAoWBlZeTDUDae1mOKBs78n4exIk9QdcT9
-    Qk61QLh3on1tJ+1YkKk+N4Ldqwwh7sqJBOF+7bZafEjqVohRJty0jADSRICylIj6G2M+KS
-    LuPSUGKXO/DYTpjrsdR/sg+tD86mFjRc5SejIhTiXqz1pb4yPUqc87JXAyxXOoIjyrvn5f
-    jOXipmppcjFXMKL3BZVQYoAJIy20pqV9uwQeByCEi0AXGK2swwGbXiMTOxLF3yPrrfirEl
-    BoVa8BOR+c01UpcC2VNwTJfsnL0QtZYDejwiX/ZRceA1nrdC0++f1sEae7FzP9hw3vnjFX
-    QUMkA1zcURGfX6jMSrCFZtXsxJnP6GsV5B0ll/cFEtHFVHxORVSZPmRyRNTUGcHR0GfEeB
-    MBj5u2fncUZGbMVaMgF5ZwyNQz7zNa7ExeRi79kfCfT5DFvvlCl0yAS3rQrw
-X-ME-Proxy: <xmx:fvv6asSHqvYcTVm8fs4niGq6YYG35uEU5u6dzLAEDcqKEcLDdOjX3A>
-    <xmx:fvv6amq7Y-TMrG5GceX8g5I86UVAtIakNg49Zg7JnkkMiAUpFQI6Yw>
-    <xmx:fvv6apm9HJjTbrqokxZgYfXdz7SMO9rCeg_d-NVPDIeekInMrrziGw>
-    <xmx:fvv6avdfII_gWCKpyaXzHZL9-eBFPnp2ZnNAYlnHJzO-qkKh9Rasug>
-    <xmx:fvv6apQQXiZnXFPG2w7hQx6tvf-pvfzZ6Khvh4BDrZyvyyW5Bl-rzYw4>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 07:47:57 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: do not treat an unreadable security descriptor as none
-Date: Mon, 16 Nov 2026 06:47:53 -0600
-Message-ID: <20261116124753.2521705-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=apNPIfb6;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=hgy7725/;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=nt0QvDaP;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=7VcVi+gM
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 11C6321DFE;
+	Mon, 16 Nov 2026 12:48:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794833322; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=muCsOHPgshNynmm1OLGJYfu6W2sds6nitTgZ+7QRuR4=;
+	b=apNPIfb66Va+LbqfktNNcArsxTUjia89+nO/IYZNRhXcjercHexCX3wF4Z8dKN3pqHUWXw
+	L8XtP+arAXjuvXYmHKIHMNxyrxiLIKpgqpPRW43i2eU+SotAKPYJypRJomsqbemy0vTZAS
+	Hv5ktoWrb0nHq9ByOZWrmFQlGG0giAg=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794833322;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=muCsOHPgshNynmm1OLGJYfu6W2sds6nitTgZ+7QRuR4=;
+	b=hgy7725/CWunCK/JEauo/zXGDcWesrJSLGsgx8IbV256dgQKX8nLgj9HtxsxCoYHbySmCr
+	g/f6wLVdLgAz24DA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=nt0QvDaP;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=7VcVi+gM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794833321; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=muCsOHPgshNynmm1OLGJYfu6W2sds6nitTgZ+7QRuR4=;
+	b=nt0QvDaPvJcwKrIUlO6ggIpwTTPxr7Opu0/elsnR9U7gJ2OhcxPILAhFrD+jIqgMuNjfBd
+	6ceNeSJ+9aEcxACrXMJuTjke+t97jBfJ5NE2xFo5amxT/vejhq5liqc5KHoxP4ZMyjGRtX
+	egZvl51K1P2dH4q3arSwDHbTyziMFDA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794833321;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=muCsOHPgshNynmm1OLGJYfu6W2sds6nitTgZ+7QRuR4=;
+	b=7VcVi+gMZSY9k49upLnc8L9D7Wb05qnPsarEcKvnSzv4bSm3BHTTQG+GWLklbkASkHzUs8
+	8BoUPh2o6xtHvVAg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DD98E1334C;
+	Mon, 16 Nov 2026 12:48:40 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id aZdtLaj7+mpOfAAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 16 Nov 2026 12:48:40 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 7044024DF8; Mon, 16 Nov 2026 13:48:36 +0100 (CET)
+Date: Mon, 16 Nov 2026 13:48:36 +0100
+From: Jan Kara <jack@suse.cz>
+To: Alan <3164729207@qq.com>
+Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
+	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, harshadshirwadkar@gmail.com, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: reserve inode write access before unlinking entry
+Message-ID: <otvuclstcoaysrnywzdttapxbxg7hq3p7lp3iexy7u5cuj6plx@waqfsi2dg2p4>
+References: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com>
+ <tencent_69B311F4356254E166A5EFDC981AA138D80A@qq.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,165 +114,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_69B311F4356254E166A5EFDC981AA138D80A@qq.com>
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	MIME_TRACE(0.00)[0:+];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	RCVD_COUNT_THREE(0.00)[3];
+	FREEMAIL_TO(0.00)[qq.com];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,qq.com];
+	TO_DN_SOME(0.00)[];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.com:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -11.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 11C6321DFE
 
-On acl_xattr shares, a failed security descriptor load makes access
-checks fall back to POSIX permissions. An allocation or read failure
-can therefore bypass a stored deny ACE. Security queries also fall
-back, returning a descriptor built from the inode instead.
 
-Fail access checks and security queries on allocation and read errors.
-Keep the existing fallback for missing xattrs, unsupported xattrs, and
-malformed or stale descriptors.
+Hi!
 
-Propagate POSIX ACL read and allocation failures during descriptor
-validation too. Otherwise, hashing an unreadable ACL as absent can
-make a valid descriptor appear stale and allow the same fallback.
-Leave the descriptor store path's error handling unchanged.
+On Mon 16-11-26 15:35:19, Alan wrote:
+> Hi Ted, Jan and ext4 reviewers,
+> 
+> A gentle ping on this patch from October 27. Are there any comments on the
+> approach?
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Fixes: f44158485826 ("cifsd: add file operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
+So for me it is unclear whether this needs addressing at all. Because
+realistically the only reason why getting write access to inode bh can fail
+is due to aborted journal in which case no transaction will get committed
+anyway. So this looks mostly like a problem specific to this error
+injection testing...
 
-Notes:
-    Tested on ksmbd-for-next 3bc1fb9c3b20 with KASAN and failslab.
-    Failed descriptor and POSIX ACL allocations now fail opens and
-    security queries instead of falling back to POSIX permissions. With
-    hide unreadable enabled, directory listings omit the file. Files
-    with no stored descriptor behave as before, including under
-    allocation failure. smbtorture results match the base.
+								Honza
 
-    This fix was developed with LLM assistance.
 
- fs/smb/server/smb2pdu.c |  7 ++++++-
- fs/smb/server/smbacl.c  |  5 ++++-
- fs/smb/server/smbacl.h  |  6 ++++++
- fs/smb/server/vfs.c     | 28 ++++++++++++++++++++++++----
- 4 files changed, 40 insertions(+), 6 deletions(-)
-
-diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
-index 9ef2d086fc4e..a900f1331c42 100644
---- a/fs/smb/server/smb2pdu.c
-+++ b/fs/smb/server/smb2pdu.c
-@@ -8503,10 +8503,15 @@ static int smb2_get_info_sec(struct ksmbd_work *work,
- 	}
- 
- 	if (test_share_config_flag(work->tcon->share_conf,
--				   KSMBD_SHARE_FLAG_ACL_XATTR))
-+				   KSMBD_SHARE_FLAG_ACL_XATTR)) {
- 		ppntsd_size = ksmbd_vfs_get_sd_xattr(work->conn, idmap,
- 						     fp->filp->f_path.dentry,
- 						     &ppntsd);
-+		if (ppntsd_size < 0 && !smb_no_stored_sd(ppntsd_size)) {
-+			rc = ppntsd_size == -ENOMEM ? -ENOMEM : -EIO;
-+			goto release_acl;
-+		}
-+	}
- 
- 	/* Check if sd buffer size exceeds response buffer size */
- 	max_len = smb2_calc_max_out_buf_len(work,
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 0ca093de83c6..9aac87ff3b4a 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1545,8 +1545,11 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 	ksmbd_debug(SMB, "check permission using windows acl\n");
- 	pntsd_size = ksmbd_vfs_get_sd_xattr(conn, idmap,
- 					    path->dentry, &pntsd);
--	if (pntsd_size <= 0 || !pntsd)
-+	if (pntsd_size <= 0 || !pntsd) {
-+		if (pntsd_size < 0 && !smb_no_stored_sd(pntsd_size))
-+			rc = pntsd_size == -ENOMEM ? -ENOMEM : -EACCES;
- 		goto err_out;
-+	}
- 
- 	dacl_offset = le32_to_cpu(pntsd->dacloffset);
- 	if (!dacl_offset ||
-diff --git a/fs/smb/server/smbacl.h b/fs/smb/server/smbacl.h
-index bbd35948a379..6bb64fef02cd 100644
---- a/fs/smb/server/smbacl.h
-+++ b/fs/smb/server/smbacl.h
-@@ -95,6 +95,12 @@ int compare_sids(const struct smb_sid *ctsid, const struct smb_sid *cwsid);
- bool smb_inherit_flags(int flags, bool is_dir);
- int smb_inherit_dacl(struct ksmbd_conn *conn, const struct path *path,
- 		     unsigned int uid, unsigned int gid);
-+/* Missing, unsupported, malformed or stale SDs retain the POSIX fallback */
-+static inline bool smb_no_stored_sd(int rc)
-+{
-+	return rc == -ENODATA || rc == -EOPNOTSUPP || rc == -EINVAL;
-+}
-+
- int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
- 			__le32 *pdaccess, __le32 raw_daccess, int uid,
- 			bool authenticated, bool strict);
-diff --git a/fs/smb/server/vfs.c b/fs/smb/server/vfs.c
-index 09dad151360c..45618b2bc1fb 100644
---- a/fs/smb/server/vfs.c
-+++ b/fs/smb/server/vfs.c
-@@ -1630,13 +1630,15 @@ static struct xattr_smb_acl *ksmbd_vfs_make_xattr_posix_acl(const struct mnt_idm
- 
- 	posix_acls = get_inode_acl(inode, acl_type);
- 	if (IS_ERR_OR_NULL(posix_acls))
--		return NULL;
-+		return ERR_CAST(posix_acls);
- 
- 	smb_acl = kzalloc(sizeof(struct xattr_smb_acl) +
- 			  sizeof(struct xattr_acl_entry) * posix_acls->a_count,
- 			  KSMBD_DEFAULT_GFP);
--	if (!smb_acl)
-+	if (!smb_acl) {
-+		smb_acl = ERR_PTR(-ENOMEM);
- 		goto out;
-+	}
- 
- 	smb_acl->count = posix_acls->a_count;
- 	pa_entry = posix_acls->a_entries;
-@@ -1712,11 +1714,17 @@ int ksmbd_vfs_set_sd_xattr(struct ksmbd_conn *conn,
- 
- 	sha256(acl.sd_buf, acl.sd_size, acl.hash);
- 
-+	/* A POSIX ACL that cannot be read is hashed as none, as before */
- 	smb_acl = ksmbd_vfs_make_xattr_posix_acl(idmap, inode,
- 						 ACL_TYPE_ACCESS);
--	if (S_ISDIR(inode->i_mode))
-+	if (IS_ERR(smb_acl))
-+		smb_acl = NULL;
-+	if (S_ISDIR(inode->i_mode)) {
- 		def_smb_acl = ksmbd_vfs_make_xattr_posix_acl(idmap, inode,
- 							     ACL_TYPE_DEFAULT);
-+		if (IS_ERR(def_smb_acl))
-+			def_smb_acl = NULL;
-+	}
- 
- 	rc = ndr_encode_posix_acl(&acl_ndr, idmap, inode,
- 				  smb_acl, def_smb_acl);
-@@ -1770,11 +1778,23 @@ int ksmbd_vfs_get_sd_xattr(struct ksmbd_conn *conn,
- 	if (rc)
- 		goto out_free;
- 
-+	/* ACL read failures must not masquerade as a stale SD */
- 	smb_acl = ksmbd_vfs_make_xattr_posix_acl(idmap, inode,
- 						 ACL_TYPE_ACCESS);
--	if (S_ISDIR(inode->i_mode))
-+	if (IS_ERR(smb_acl)) {
-+		rc = PTR_ERR(smb_acl) == -ENOMEM ? -ENOMEM : -EIO;
-+		smb_acl = NULL;
-+		goto out_free;
-+	}
-+	if (S_ISDIR(inode->i_mode)) {
- 		def_smb_acl = ksmbd_vfs_make_xattr_posix_acl(idmap, inode,
- 							     ACL_TYPE_DEFAULT);
-+		if (IS_ERR(def_smb_acl)) {
-+			rc = PTR_ERR(def_smb_acl) == -ENOMEM ? -ENOMEM : -EIO;
-+			def_smb_acl = NULL;
-+			goto out_free;
-+		}
-+	}
- 
- 	rc = ndr_encode_posix_acl(&acl_ndr, idmap, inode, smb_acl,
- 				  def_smb_acl);
+> 
+> I have additional validation from November 2 using QEMU blkdebug to fail an
+> actual guest block READ. These results supplement the source-derived fault
+> injection described in the original mail.
+> 
+> On the unpatched Linux 6.12.1 test kernel, with errors=continue, the failed
+> read was at sector 2312, in the parent inode-table block (block 289, parent
+> inode 13). The kernel reported:
+> 
+>   I/O error, dev vda, sector 2312 op 0x0:(READ)
+>   ext4_get_inode_loc:4554: inode #13: block 289: unable to read itable block
+>   __ext4_unlink:3469: inode #13: mark_inode_dirty error
+> 
+> unlink returned EIO. After normal unmount, /p/file was absent, but raw
+> inode 2064 still had Links: 1. e2fsck -fn reported:
+> 
+>   Unattached inode 2064
+> 
+> In this case the inode-table read fails in ext4_get_inode_loc(), before the
+> journal write-access call. A separate run of the same block-read failure
+> traced JBD2 through unlink, sync and normal unmount:
+> 
+>   jbd2_journal_abort() probe hits: 0
+>   unlink handle at jbd2_journal_stop(): TID 7, T_RUNNING
+>   h_err=0, h_aborted=0, j_errno=0, journal JBD2_ABORT flag clear
+>   jbd2_journal_stop() return value: 0
+>   jbd2_start_commit: transaction 7
+>   jbd2_end_commit: transaction 7
+> 
+> The offline filesystem check still reported the unattached inode. This
+> demonstrates that this read-error path can commit the directory change
+> without a journal abort when mounted with errors=continue.
+> 
+> With the fix, the same clean input and block-read error failed before the
+> directory entry was removed. After normal unmount, /p/file remained present,
+> inode 2064 still had Links: 1, and e2fsck -fn completed without diagnostics.
+> 
+> Thanks,
+> Alan
+> 
 -- 
-2.47.3
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
