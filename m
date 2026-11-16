@@ -1,85 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794849218;
-	b=pW4XpaeEZ5OvLUiM4AG5GpHhnSVBFT+RBNHWU7HnSKkhW++3znN0K1xbUVGBsNoZW7K3
-	 L5MRRN8kFXcOq7PZsYY0bW9zZC0PBeB0/1F13NOB4tXZ2wLBbQJ5MM7ZUsCJ1xKvQZpn7
-	 fPKAbHlfpQWWurt+6VwkA38Y9WAAnp2RSn0e6mHKw+tfUffiKQtlNcftG8ckvcUy39IbH
-	 natxylMenhSEgUElyOkRr/iWAcmj4WbVrhFn5zF/sNF3V4kOR/vrtkm+qv8sFUsemODQj
-	 iRhWoBDmS3+YC+FK3aFubkhFIOQ7EAyMGJcHwiPBr9WZxG2JeWZ8/Q1LivdcfS0KYzw==
+	t=1794849538;
+	b=hg1B5fMww2jKlLOlOrJGWSV9T9+GJEM2/VvYycpCRTD17h1Qxqpa1xmkkjD8qj3ysXit
+	 6sm1oPh6pWxz6hV+/PJD5SX0O6yT2quUQKM24XpjTh3OuUcWTagdVZY0Xv/9jfIUrByc1
+	 AX9WkOKy3G61j9JDAS3/M36lRkRNNMBqlMEv51ZPqRQj8mRJ6WBHXfEttXZP/wZHRBq1B
+	 OvfCLdLTnw6Xn4gRVb8KwihZnvsND3BU421Y3ivBA1ofNelGJa3XclRbBc4oCoQIe0KPK
+	 Uhbe2lGfF5/sIatcZ70k48t/5gvEUBQL1SYATpNS5GtP6Zn0CpHVhBDVPoIwCs9UNcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794849218;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=shD7TQdyrY//KXAdRt3/QqtehaN+j47EiX/0lzmZT5U=;
-	b=tcsXtrI5SGtblLJUKzb/ThP6aDnS3VOb+BTIzfS9FnBEnzNFXEuUZphVhxA7fMitY+sq
-	 rtBklGHHqOXGwKuW1vfwNvd4p9h3BUEOLwNgNAFbtaCSvpOEVhs4I8aUiUURBWWteCewo
-	 awv3dv2PTh13FGSIKjh8LBFeJdeina6gY/iuTpyE9png4o3F4mtjM49gQKlloWmpqAS4t
-	 wcjFjaxTP8szkTvMAva6G4e6WX9YlzC+zjD+Sih265WB4EGob8nDsriey7/57KMNm88nJ
-	 R3ebqmqN+cUHMoA4JUXgl0LkQRJPr9MzoRojKcuFodgoYytNllUh4wYPkcTDGZdLl3w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794849538;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=OzaqIXPqhSSG4ejd/hB4U1AFDk/wquty1pyzaNNEA1Y=;
+	b=2jYAtUiSdPY5+/zYj4iFsaw+OKY3XOSv/Goywv44f9pzdm/dNRAVD+I7p/xjbDFZ+1+z
+	 ewfHFaZMA5gVwBHZuobuBQzrIKEIhDLMQQ6FO1tZxYQ5aSJ7kGOvKuVDikZDoRMepGhXd
+	 ltSWJ1242EWjypo2XkMnEvAcmQFfbZR8HB2n7gGe4Mk07jCM7FWeuZmJyTEtq18KrO2GS
+	 NTF4GIvzeis5P5EKCkdz2Vna4iP0Jjrft6FQ+VeqfvInpiGkhBeP8zHdaaAzgqwlTIYnS
+	 oKpPvXhYrrU07q65m2WS9z0ScFFvKmdNggcC/rzoKcrYuh9nbxyPOd1z0GTwh0N2vtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h1oJ5A2Z;
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TXGTtgf9;
+	arc=none smtp.remote-ip=91.218.175.128
+Received: from mta0.migadu.com (out-128.mta0.migadu.com [91.218.175.128])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775A7606A898;
-	Mon, 16 Nov 2026 17:13:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 775A7606A898
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3778606A322
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:18:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3778606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=h1oJ5A2Z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794849208; x=1826385208;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=IVUb/8UhGxzbrGpp745Xo4gWp3uac57uzqgfFoMYaXI=;
-  b=h1oJ5A2Z1FvNhKjioEBFMgwhQj4vnjKmhDJZ7o8mYVkQlY8+X8WdZlmV
-   ZtpWisdUEncjKseZYT9qdIG0Ts/c57bc9ZSf+RdDZkqpTLy5LdxXm8zdf
-   3HoK6l/oxsgKtOZPybI60gWQm5vEwFAwLRJwCukq7+568b8e2gB++lMIV
-   MclU/BGEodIGmCLBfNDjKceirCe5FWYS90BZWjNrZdootqffGWvKRYzTN
-   7/zC3MfXYUSP80FjzCsotWEIfu7nFxETqJtxrNAX3tSV/mqS02pbT/RMW
-   2Fq/gSGuEKcp12bj9xET4xOHW5dOCWqUM55rI3z/GmckAK11bFOTPCfJc
-   Q==;
-X-CSE-ConnectionGUID: vkysCGrsRK+JESH5PjeqDw==
-X-CSE-MsgGUID: rUl53sZbRG+TJNP/urC1JA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3627196"
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="3627196"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 09:13:25 -0800
-X-CSE-ConnectionGUID: je074InHSo2mkxa9dg+EJA==
-X-CSE-MsgGUID: 4mXQyoDBSvetiYZPm3j2YQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
-   d="scan'208";a="9491511"
-Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
-  by orviesa004.jf.intel.com with ESMTP; 16 Nov 2026 09:13:22 -0800
-From: "Chang S. Bae" <chang.seok.bae@intel.com>
-To: linux-kernel@vger.kernel.org
-Cc: x86@kernel.org,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	andrew.cooper3@citrix.com,
-	arjan.van.de.ven@intel.com,
-	chang.seok.bae@intel.com,
-	Sohil Mehta <sohil.mehta@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/7] x86/microcode: Accept a boolean for force_minrev parameter
-Date: Mon, 16 Nov 2026 16:45:43 +0000
-Message-ID: <20261116164548.900486-3-chang.seok.bae@intel.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116164548.900486-1-chang.seok.bae@intel.com>
-References: <20261116164548.900486-1-chang.seok.bae@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=TXGTtgf9
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PAxYfgYQrRbaE3T1nWWUCpJHJViNiRZaZVomuIz4tHw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794849535; v=1; x=1795454335;
+ b=TXGTtgf916t0FrahnyYwcZuggrp0Un3kaP7LDIevjUCrJAOLgjU1S4cMB0aRW0xH7ChUaaPB
+ tBgrj/D+jYsjn6DCNxKI4o2GGSkh4i8FbEEoV6mKLCi9eoAxp125hWOBbjiIv3cl67Qxa9ETatO
+ Ndi9Z8IiczMNUcaZPpi8pgd0=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1558a152b9a96594;
+	Mon, 16 Nov 2026 17:18:55 +0000
+X-Mizu-Trace-ID: 1558a152b9a96594
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5c14bc5a743so13565e87.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 09:18:55 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEyAQhIxODNQj7pYgrIGt1siqL/L98lQOQRHTUdgVAEBrbcxW50hoFKsiwDjbWD+WaQlToWYgs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9mrj6Kyyq27tC4nolZ5/gAYIW/tWB/J+Jw+LoyZsGV3T2quNka
+	IuC8WbD6gS39tyU66/pEsgLjymDfNirOp5FRXp2q6N2rcB9DuKHslPnaTj4HkSvoJh15ZEHElI9
+	pStKZUUMOOKc1rXpntuSZzAGG3Il0EDtQT25mBa8q
+X-Received: by 2002:a05:6512:110b:b0:5bf:f84f:1d74 with SMTP id
+ 2adb3069b0e04-5c17e52e81emr262285e87.13.1794849533007; Mon, 16 Nov 2026
+ 09:18:53 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,87 +66,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
+ <20261110110724.3614412-2-fuad.tabba@linux.dev> <avM81YcTBTJ8zCMX@seanjc-mac.roam.internal>
+ <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com>
+ <CA+EHjTyqJfGS+5UajX=RYTAG-qfhZ-vmGi=1SixXydWhwGHLUA@mail.gmail.com> <avs5UD79FB_DG1Vs@seanjc-mac.roam.internal>
+In-Reply-To: <avs5UD79FB_DG1Vs@seanjc-mac.roam.internal>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Mon, 16 Nov 2026 17:18:16 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTwXO_Ym1+ErHT9Si6FwHtDaPDmMRwY+RS8LDNK421rchA@mail.gmail.com>
+X-Gm-Features: AclHuK9xW32VPDT60mgyMDdb5wXbr3ChwJoDPUUlo1Wmi2N2JEJM_TMFlrp_0kc
+Message-ID: <CA+EHjTwXO_Ym1+ErHT9Si6FwHtDaPDmMRwY+RS8LDNK421rchA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty
+ ring is full
+To: Sean Christopherson <seanjc@google.com>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, 
+	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The microcode= command-line option allows controlling all microcode
-loading options. However, force_minrev can only enable minimum revision
-enforcement, not disable it.
+On Mon, 16 Nov 2026 at 17:11, Sean Christopherson <seanjc@google.com> wrote:
+>
+> On Mon, Nov 16, 2026, Fuad Tabba wrote:
+> > Hi Sean,
+> >
+> > On Tue, 10 Nov 2026 17:18:22 +0000, Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> > [...]
+> > > > Eh, I vote to just use kvm_dirty_ring_check_request(), I don't see any harm in
+> > > > clobbering vcpu->run->exit_reason.
+> > >
+> > > Will do.
+> >
+> > After taking a closer look, the clobber is problematic on arm64, where
+> > KVM_RUN completes a pending MMIO exit only if run->exit_reason is
+> > still KVM_EXIT_MMIO. If a pre-fault stops on a full ring after an MMIO
+> > exit, the helper overwrites exit_reason, so the next KVM_RUN doesn't
+> > complete the exit and the guest repeats the MMIO access. The ring can
+> > be full at that point if the pre-fault dirties pages, or with NV, if
+> > the stage-2 walk for the MMIO access does.
+>
+> Wouldn't that require userspace to do KVM_PRE_FAULT_MEMORY after KVM_RUN with a
+> KVM_EXIT_MMIO return?  If so, userspace gets to deal with the fallout of being
+> stupid.
 
-The previous microcode.force_minrev= option accepted both boolean values,
-and the current behavior differs from the documentation in
-kernel-parameters.txt.
+Ack, so v2 will be as you suggested.
 
-Add `force_minrev=` as a sub-option to explicitly enable or disable the
-minimum revision enforcement. Update the documentation accordingly.
-
-While doing so, wrap strsep() in a descriptively named helper.
-
-Fixes: 632ff6170647 ("x86/microcode: Add microcode= cmdline parsing")
-Reported-by: Sohil Mehta <sohil.mehta@intel.com>
-Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-Cc: <stable@vger.kernel.org>
----
- Documentation/admin-guide/kernel-parameters.txt |  7 ++++---
- arch/x86/kernel/cpu/microcode/core.c            | 15 ++++++++++++---
- 2 files changed, 16 insertions(+), 6 deletions(-)
-
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 0b3c140babd9..a6d50cf6435c 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -4086,9 +4086,10 @@ Kernel parameters
- 
- 			dis_ucode_ldr: disable the microcode loader
- 
--			force_minrev:
--			Enable or disable the microcode minimal revision
--			enforcement for the runtime microcode loader.
-+			force_minrev[=<bool>]:
-+			Enable or disable microcode minimal revision enforcement
-+			for the runtime microcode loader according to <bool>. If
-+			<bool> is not given, enable the enforcement.
- 
- 	mitigations=
- 			[X86,PPC,S390,ARM64,EARLY] Control optional mitigations for
-diff --git a/arch/x86/kernel/cpu/microcode/core.c b/arch/x86/kernel/cpu/microcode/core.c
-index 303b0d0b4573..af7196d94540 100644
---- a/arch/x86/kernel/cpu/microcode/core.c
-+++ b/arch/x86/kernel/cpu/microcode/core.c
-@@ -138,6 +138,11 @@ bool __init microcode_loader_disabled(void)
- 	return dis_ucode_ldr;
- }
- 
-+static inline void advance_option_argument(char **s)
-+{
-+	strsep(s, "=");
-+}
-+
- static void __init early_parse_cmdline(void)
- {
- 	char cmd_buf[64] = {};
-@@ -147,15 +152,19 @@ static void __init early_parse_cmdline(void)
- 		while ((s = strsep(&p, ","))) {
- 			if (IS_ENABLED(CONFIG_MICROCODE_DBG)) {
- 				if (str_has_prefix(s, "base_rev=")) {
--					/* advance to the option arg */
--					strsep(&s, "=");
-+					advance_option_argument(&s);
- 					if (kstrtouint(s, 16, &base_rev)) { ; }
- 					continue;
- 				}
- 			}
- 
--			if (!strcmp("force_minrev", s))
-+			if (!strcmp("force_minrev", s)) {
- 				force_minrev = true;
-+			} else if (str_has_prefix(s, "force_minrev=")) {
-+				advance_option_argument(&s);
-+				if (kstrtobool(s, &force_minrev)) { ; }
-+				continue;
-+			}
- 
- 			if (!strcmp(s, "dis_ucode_ldr"))
- 				dis_ucode_ldr = true;
--- 
-2.53.0
-
+/fuad
