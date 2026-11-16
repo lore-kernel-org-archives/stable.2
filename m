@@ -1,64 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794849039;
-	b=J1YxsrG4zSfHDnDLe+/4CuIr4Py586pcI3MYf192g19gWhN6oSfBAWkR8AGdyGUameex
-	 gEhWA7zJz6rIKZ0VUAjtlL/5Q73qh+h14Qb5vRI58AikDWYTyBXz04N+I/DrLctthrctE
-	 qHdczrL1EoOt6NNfTdD2YlSY7mrZ+qJnVLq47CQxgFF5i+g7M0oLhm1re0dM8mgFfhxRT
-	 ERca35f/jhcoTRVdBtluJkCanWnLambRB7J03TsG/kV5c2I02n9VeonvZ6FHaJst2K0Qj
-	 qYxwXzsqEV9y7jMd2HnKq1qN0+Zi90GAUeCbaV70VAI7/5gtq84tJqkuBCBXEFyuppA==
+	t=1794849107;
+	b=XgyJzSjUudFPfAthnmKxX/uMmw9ayoZmNyPyjlIADIwJMJYDBUjjF8kPLksPOe4KlfWQ
+	 9waK2DlT8jLO4XiY5MbM9tKrpLqeXkDQAof8JxW9r19QUfbfCwlPQj2j+JwLuYP9BbF24
+	 zB0LUBGaEWSEdIL3D/k1i1f7DRQccN9Wq85XFeSTBzvOQjSp8h6rs1m/ivg233XhxjNnr
+	 9SqsolZcH5QM6LFLMI00NP3EJOW39WsC1GUAdseO6nuTY+xW7uuuKxPce+lmnZNYtqxDx
+	 0uIntuyEveqiMUrM71MVsrmgZd0iwAJAMlG41bStj86oUeZNBaBkx6d72d4NkNxoC6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794849039;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=tbHsekUSMb7nu0RIE/MWB5d+upWpW4eGrN8+h/t43/A=;
-	b=b/YgV1PiZ0SyTnhxnP47F4+BABgBy5yDluthGPsUXvTksJt1u8MC1DwX4SDkmOJLQkox
-	 KldBPekBU8cpn+BntxSBJzZWCVFfXLCiP0QziRXENKU2sNsKvEJe/G0pUHqIwpBJSeaQy
-	 pMtIyN8zZJSmvLiX7Xw4RGYKat+PUXkxsPUJqO4NIEDO4YuWzvWCg74wIdj3NCFAFO0Yw
-	 X0op1bAYX0yA11Mum761aYlD4f6Gkio4E/bUKSkC2vQpbxDJQnBeI4P7jCwkxiz8VldQm
-	 sdMVZ2k/6LVGi8gvSfkv/Qc2hyKFGJIbBJnsNAhU7ZRVnN+6guF6FIW12CIPbMQTUVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794849107;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=XSh28i+VhSML98fbPpvhJzYzMwMr+W1AdTaomqWNWcI=;
+	b=0CUhg56LZdIutSbXBKWv2JngqAsMKFCL2N+d7qbZTrutlXRkvtOYlkLtYaSSGI7oNzWH
+	 8xY+vYUeM2pYKNptOIHOtNzpoVxD/oyQbly5/BMJIteCYTy04NWuHoyFF/ml/2nOdZSV0
+	 niq3Mv9ITW4BLO9lyJ8dMpOKa3w7mG2Re8IX2icY6RyxT9OWMfUGZ4tXZmDIGEb1D9mFN
+	 2rsKW+3ov61ao2OCAunR4admPj14QuXyVTmJ90PXRNYbykF6QZbfmg7xs4GKcCBUNH7Uw
+	 L7Z/TqIbQW4kdSqIizBHfDbRFxxTdYKlWdNK5C037h1tk6Ll1rnQHjrtlP6Vojf/bCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ooFZpzeq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fAdSLYMJ;
+	arc=none smtp.remote-ip=209.85.210.197
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC691606A33D;
-	Mon, 16 Nov 2026 17:10:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF4B606A322
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:11:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFF4B606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ooFZpzeq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6B8C1F000C4;
-	Mon, 16 Nov 2026 17:10:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794849039;
-	bh=tbHsekUSMb7nu0RIE/MWB5d+upWpW4eGrN8+h/t43/A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ooFZpzeqTPFuyP7Lh15EzI5bg9INBkCaKSSB/Wn0ybABoCZOdwGmkd4AWhLRWChoS
-	 o7czW1XViUOfgC5gEd/vymO+F8VD50VxRYJOgFJQy9ICLGhFxoRZpdRIpi6ZpvQr05
-	 fnZbT7fZfg4/ICiky6eLv0i5apWEUf4USsayEPrUhjfpDnLXZdPvUlzx4UIEHFACVd
-	 KUhYexqFCsA9zVXZbqV8R432S7E/l+lw/ot1ce2rTthHGn3HfbTl/8wnseBBvNA0On
-	 0y0yW0dcxaBc+UJ5qrSthAvIaAZgPZ0wCBPcLN0twIduD1KfTFeiY4XEsiq8G8SYRs
-	 M4raFmCI52cng==
-Date: Mon, 16 Nov 2026 17:10:29 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, Peter Xu <peterx@redhat.com>, 
-	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
-	Roman Kisel <romank@linux.microsoft.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
-	Naman Jain <namjain@linux.microsoft.com>, Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] mm/memory: remove racy huge PMD assertion from
- walk_to_pmd()
-Message-ID: <avs1rOJQ1gV33z8w@gremlin>
-References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
- <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
- <dccf94b3-b901-4311-a233-488c87195dc5@kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fAdSLYMJ
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a0619b1fe5so2489458b3a.3
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 09:11:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794849106; x=1795453906; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XSh28i+VhSML98fbPpvhJzYzMwMr+W1AdTaomqWNWcI=;
+        b=fAdSLYMJ506+m+diwF6sFIbKTIywITxdgd/t8G3MxgiF5OVoSL5ZC1zK6LiBufXCX/
+         kvnhmlRoHgNzszyclZVB6Dn8Ez3iPNphBPeMp+BHzo33ndkbg9Avc/IOq5Q1jJ9uuwSZ
+         B0wAlkywavz1RYVEanbvdZAgSx3dK5HuI7VyuegEwDxwnRyAbiAiUmrmbfYTB2uMA9ci
+         eBUYBEjvL/M8WJhax76OndVS1Xd/tyXgvRlvl52mu5Pm3413we7w3lHoarUBVuwJanHB
+         x1OyrQC7Tr1h0i/4l9bN6llc6NjEQ1Rjytk3sde0vFJyRCN/W5JAu8qrn1ojO497A93i
+         wvRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794849106; x=1795453906;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XSh28i+VhSML98fbPpvhJzYzMwMr+W1AdTaomqWNWcI=;
+        b=rnDdX+R5KzWrg0ZMsuHeTZSVqglYjBZLI8aYsMpibvlsgISflRAPdXnLvSbkgIJq6S
+         qPGOQL6SYjHAgaJ/hbbUcZEGYfRsVO+MmJFrY2XQHB/snIV5e4SeCo03Af7dGSZRKg44
+         a6h53CfKqOzT/t18QOkF/GEfHSWtOHeYpv+VGszpQXsLQOujHGe6QLu7zuPcx5TWD26q
+         5jOWoLw/byj8wXC8H5cFxID1O3YOwvcx2F4V3Hkd7i+bND8DnPHpeSWyecgvj9xWGXSs
+         3qAdnNY0yJHFgf86ypX0qkzVUaYzx9DY2AUOJ3JhmHIfSW/+WA185O5D/3pFi4wZzZda
+         9Inw==
+X-Forwarded-Encrypted: i=1; AL+hErHSRBrAxRwt3WLhPWkl+JqD4m4dNEmttLI2K3goodjC2XZpckG80IGkIRYqkolr3CE/ZiKokWk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vP4U75sc/AGe8d7bSp9ZQNzrCRG9lla5UFZ09z5jmNYK2lxGx
+	vQFRszQ3hc3yvFFBm6tEIk4Ye+R1ed8u5RslRLsE1UdbuXdmZ7XtQT5D/KKB/B67+SpDuoEH4lZ
+	Yq+5BIg==
+X-Received: from pffi16-n2.prod.google.com ([2002:a05:6a00:c290:20b0:8a2:1bc3:8884])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:1a87:b0:89f:9ea6:1ddb
+ with SMTP id d2e1a72fcca58-8beb619b3e6mr9177875b3a.23.1794849105715; Mon, 16
+ Nov 2026 09:11:45 -0800 (PST)
+Date: Mon, 16 Nov 2026 09:11:44 -0800
+In-Reply-To: <CA+EHjTyqJfGS+5UajX=RYTAG-qfhZ-vmGi=1SixXydWhwGHLUA@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,94 +77,50 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <dccf94b3-b901-4311-a233-488c87195dc5@kernel.org>
+Mime-Version: 1.0
+References: <20261110110724.3614412-1-fuad.tabba@linux.dev>
+ <20261110110724.3614412-2-fuad.tabba@linux.dev> <avM81YcTBTJ8zCMX@seanjc-mac.roam.internal>
+ <CA+EHjTz-Nb-g9YQKX2fKk61hC2BfzXfmUHv=2j+eZ18YuTv2Eg@mail.gmail.com> <CA+EHjTyqJfGS+5UajX=RYTAG-qfhZ-vmGi=1SixXydWhwGHLUA@mail.gmail.com>
+Message-ID: <avs5UD79FB_DG1Vs@seanjc-mac.roam.internal>
+Subject: Re: [PATCH 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty
+ ring is full
+From: Sean Christopherson <seanjc@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Lorenzo Stoakes <ljs@kernel.org>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, kvmarm@lists.linux.dev, 
+	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Mon, Nov 16, 2026 at 04:56:25PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/15/26 21:58, Lorenzo Stoakes (ARM) wrote:
-> > From: Eliav Farber <farbere@amazon.com>
+On Mon, Nov 16, 2026, Fuad Tabba wrote:
+> Hi Sean,
+> 
+> On Tue, 10 Nov 2026 17:18:22 +0000, Fuad Tabba <fuad.tabba@linux.dev> wrote:
+> [...]
+> > > Eh, I vote to just use kvm_dirty_ring_check_request(), I don't see any harm in
+> > > clobbering vcpu->run->exit_reason.
 > >
-> > walk_to_pmd() asserts that the PMD entry it returns is not huge, but does
-> > so without holding the PMD lock, so the assertion is only valid if nothing
-> > can concurrently install a huge PMD entry in the range.
-> >
-> > This is not the case for a VMA whose driver implements both ->fault and
-> > ->huge_fault and which invokes vmf_insert_pfn() from the former.
-> >
-> > The existence of prctl(PR_SET_THP_DISABLE) is problematic here, as it only
-> > takes the mmap write lock and faults taken under the VMA lock are
-> > unaffected by this.
-> >
-> > This can result in two concurrent threads faulting the same thing
-> > disagreeing as to whether to attempt a huge fault and thus ->fault and
-> > ->huge_fault running at the same time and triggering this assertion.
-> >
-> > So just remove the assert.
-> >
-> > Target the commit which introduced the first driver able to do this for the
-> > fix - vfio-pci. DAX also mixes fault orders within a VMA, but serialises
-> > them using its own mapping entry lock.
-> >
-> > Link: https://lore.kernel.org/all/20261112051440.16140-2-farbere@amazon.com/
-> > Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Eliav Farber <farbere@amazon.com>
-> > [ ljs: rewrote commit message ]
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
-> >  mm/memory.c | 1 -
-> >  1 file changed, 1 deletion(-)
-> >
-> > diff --git a/mm/memory.c b/mm/memory.c
-> > index 3a20d64fd276..e03110906aa8 100644
-> > --- a/mm/memory.c
-> > +++ b/mm/memory.c
-> > @@ -2384,7 +2384,6 @@ static pmd_t *walk_to_pmd(struct mm_struct *mm, unsigned long addr)
-> >  	if (!pmd)
-> >  		return NULL;
-> >
-> > -	VM_BUG_ON(pmd_trans_huge(*pmd));
-> >  	return pmd;
-> >  }
-> >
-> >
->
-> Could this also stumble over a huge PUD somehow? Should we just prepare it for
-> any leaves and bail out if we find some?
+> > Will do.
+> 
+> After taking a closer look, the clobber is problematic on arm64, where
+> KVM_RUN completes a pending MMIO exit only if run->exit_reason is
+> still KVM_EXIT_MMIO. If a pre-fault stops on a full ring after an MMIO
+> exit, the helper overwrites exit_reason, so the next KVM_RUN doesn't
+> complete the exit and the guest repeats the MMIO access. The ring can
+> be full at that point if the pre-fault dirties pages, or with NV, if
+> the stage-2 walk for the MMIO access does.
 
-No, walk_to_pmd() can only come from the order-0 path right now and
-__handle_mm_fault() makes sure that can't happen in the fault path:
+Wouldn't that require userspace to do KVM_PRE_FAULT_MEMORY after KVM_RUN with a
+KVM_EXIT_MMIO return?  If so, userspace gets to deal with the fallout of being
+stupid.
 
-	vmf.pmd = pmd_alloc(mm, vmf.pud, address);
-	if (!vmf.pmd)
-		return VM_FAULT_OOM;
-
-	/* Huge pud page fault raced with pmd_alloc? */
-	if (pud_trans_unstable(vmf.pud))
-		goto retry_pud;
-
-So by the time any ->fault path runs, the PUD is stable.
-
-We don't have to worry about the mmap paths as at that point nothing has
-faulted in and it's all fresh.
-
-So it's all safe as things stand.
-
-But could update for future-proofing like:
-
-	/* PUD leaf might have been installed. */
-	if (pud_trans_unstable(pud))
-		return NULL;
-
-?
-
->
-> --
+> I don't think changing how arm64 completes an MMIO exit should be in a
+> fix for stable, so should I keep testing kvm_dirty_ring_soft_full()
+> directly in v2, or do you have another suggestion?
+> 
 > Cheers,
->
-> David
-
---
-Cheers, Lorenzo
+> /fuad
+> 
