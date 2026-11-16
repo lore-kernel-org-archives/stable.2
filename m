@@ -1,91 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855971;
-	b=t4jCU/gn5uIxyeOlolCs5RQk6f6UXr0nfS/gBnXSSHbwFlc4gZoI/CKjJC7B4IQnmSzk
-	 k7XyFs43HLX/OJrFW9KLbAW+cSzlJJR3wukqbjwYntpERnksSXHuUOlYe6qaZnf6+GW7g
-	 w5Jfi+nT6Nn7rFHHpPT/GJ7FST/MLsu6SBxS+HjKbY5YL9y1UXIxz+pj1PUJUqvPEl7RT
-	 DEt7fyVhIvs9VY4WFF8XTzsbcq6MkkgiKjm8z787TMgcJXSfveOjLYoiaWasyJnfB98I3
-	 J7OkDezCeQ4ytWihb5uWAfboeoT6nRjj8D8uGGzJyADTLvx0V7AjxY172e0NbyiD+Sw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855971;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=iGBVYBjEfgobKOOWr8jMB9oqOSFznO4qt9KNsCj0Lyo=;
-	b=hWgYDlzyHX5r5INRcEZJNdR2K+MlHfUO/OOdEU9Df0WhAam4PyqtZ8U3sOx2lC0R6Yby
-	 hgMyR+VSHzjPwsqLPQzice2mdmbY3eIv4OifIEHzsitK8Oi9iOAl+cLNtKl2RI56nQjmV
-	 TbZKoSKBe5mUJNPwSazzmPLMa6FWW6D2C4ZfHYevbBscUT7iKQPcPr7inMLCgEwJDCwS9
-	 NpWM4ZQGCM5ieUmX8dNUI8T3kirg0W8pMwR/5ymIaTJzZ/6KESRJpiZE3bF6aQ5aLEmMV
-	 fuRO8GRL0IgCD+IYi3LZe8Kd8yj3Dgl7YVkkGj3Gtk/7c/P8bOmhLWn0ttOAe5SGykw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=R71TrQSC;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.181
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794855972;
+	b=YTF13wUCugKj0AlrNEHSA2AGbJ3A4Dp6IAcQfE4+BYl02u/YLqk5GePqkV9mcIbPdrz5
+	 lG/d/rdR6hZzaPzw4X5rUKh4vw1ABb9pDJZzb19+zfPYcHADuC2itxveADbb8kVtpRTmy
+	 7S9+Z7S4HUUsNn5cnquO8lmA4ba9b1VDQGz4VQdJ6Cyfy3+jEjOWP275Bs2xv2nnjAzUT
+	 nNqRg5nuu9/Qwr0BJge1auG1DP4QU0D3J4GteDapEj7H0gPUk0Jn8Hwwv4osqF0j9O8lR
+	 I+mayLY5tXQMsPWvEGJPJdLNYHPAsBxE4FeSiXtkFhIFrnu+0g0BYbiCybuJmCWKdpQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855972;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=G7I1SlfQuGFwSPm/Qi4+nTEZRsPgA0OBSH2M8WIp0JA=;
+	b=uRZwHSNkraiPiGgxp2ENQdTwkvR9blZWkPvaCr2qun+0sXR+GNr6wzwDL0sj3L0ifLZu
+	 NduYUhAdl6MP8bHR6nCVpSKMcaXx0Vi6VLq0lPTZCFnpYaKB+ZjFf4VUOzze7KOQAQzk/
+	 HItIZNlSs3YmTIl+l0qhvpI0PZrf3njwcYUbXREPbwAGvXw2DylEAPBzBgU2Ju1d2eAqC
+	 /mzrmxkzC8zOsB3sv8tOAEpjHzXrKqi/9cSOB/Nn17J+rPx+GslmQyidLagldZHz+4Yif
+	 wYm7gzXM4zMElunNFFvwKakmgG7jeaX/5ohx0ZxYE6NVyqyAyZUx297tpeSB6oLILUg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=everpuredata.com;
+	spf=pass smtp.mailfrom=purestorage.com;
+	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=Jm2Gk8kj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.181
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB97606F14E;
-	Mon, 16 Nov 2026 19:06:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FB97606F14E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E2D606BA33
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 19:06:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6E2D606BA33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=R71TrQSC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794855958;
-	bh=iGBVYBjEfgobKOOWr8jMB9oqOSFznO4qt9KNsCj0Lyo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=R71TrQSCNTcV+Djymc8OgLFP+eto6mh+bM+cMF6nCUPm6nqi13e9LnmHRSY+rRVhg
-	 WmY4ZmmkdVjDhCTSwg/UJEDjAClkkYh0XTItr4tbGDyeyC2LwAG8wCqCbTtuTD0WXz
-	 +25fXT0vxjbz5Ukn9OTJW+VQbeEjdsrk2D46gmSHqJ6bofZBJ5NWDSyxhvsk4mdbqG
-	 Djl9bFrOlpX+Am+MnEeI0AcAhH8/NVONNxnPFJ0PNjJTRBUZhwHxj9w1ww/egBkNv2
-	 MAEBsJMs1RAw/KwYDhmU1pBRjvW8lbphabglXXpnMialPJp4fLj6JQbUtiSNCsOJAc
-	 8V6J8xZJjB+0A==
-Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jSy4k0tc0zR13;
-	Mon, 16 Nov 2026 14:05:58 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: juri.lelli@redhat.com,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	vincent.guittot@linaro.org
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	tglx@kernel.org,
-	will@kernel.org,
-	boqun@kernel.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org,
-	longman@redhat.com,
-	ridong.chen@linux.dev,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shuah@kernel.org,
-	bigeasy@linutronix.de,
-	clrkwllms@kernel.org,
-	parri.andrea@gmail.com,
-	m.szyprowski@samsung.com,
-	kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com,
-	cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH v6 24/37] sched/deadline: Make a rebuild count a task in the root domain it runs in
-Date: Mon, 16 Nov 2026 14:05:36 -0500
-Message-Id: <20261116190549.230119-25-mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
-References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=Jm2Gk8kj
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5eae1276409so1406507e0c.3
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 11:06:11 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794855970; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l66eQQaaofyfYSDgsEh/sJb5peS8Idjm74vEOeo0ea5FW0lh1pTBdIpcfD8jPbsYVC
+         7xsny+PbsdoSaURG9NCBIg9rS2+yOnt4KW4bviUnJ2iDcHkj5xAuDlz5oyI42gBpEPM9
+         8vCwHD++bl8WlqDRvcNoMSfPIRgbDD6gOTyoNSVUcm4PvQ5PFzK8J+2iEU0CzoVTLKdf
+         VH3Yq5reHI0w6qh8bDa0ApkOURgVCMy6QkQj/6pm+1eUTT9AEioOYD/CwTjZuu5X17aS
+         Mt5Grn7jbxafkiBOtBfSHfDLsbdILOfHH7n1MekPdzslyJG2pzuXL+8LQK3IfWiqASI8
+         tjdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=G7I1SlfQuGFwSPm/Qi4+nTEZRsPgA0OBSH2M8WIp0JA=;
+        fh=q3AdA9DbzqcL0mFIvmqOFth8pJmRV/0zARIE8jy13xA=;
+        b=g4JulFOCx1eNxzIZ99BlgwIXMEkdZAFGma+nCm9t0iUkxfxxo153puilxK8dVdgXGZ
+         YMhbHEhDhpxLO9/9NvXtOtfzf5yx0VPmqhGTf+PKEb6RgxdJyP5TNLZiQk4P5Re93ZD7
+         VUMvAOpoBAiT569ynhnj+yKWoUwqcXoSoHQKDGYhzkMh14dZW7fmhgLUfJgLrEb+ngTZ
+         PrCls8n7jiU15cwTpHqHgICwQHzWwzz0jBEKBOCyIyWvIai8pdWmtwpU5sX4oWQTHqeV
+         3xYTY2c2iJ1pJ1pJUI5qR9bqf7NfD+pUkJ2bUbyOwWMF3ef1JvDQs4d9Derpoa42SAS3
+         GZ4w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=everpuredata.com; s=google; t=1794855970; x=1795460770; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G7I1SlfQuGFwSPm/Qi4+nTEZRsPgA0OBSH2M8WIp0JA=;
+        b=Jm2Gk8kjWWwRV2Oi1KDcMVKvvo2dKssVrRlht1w65ARIvAvJHtaRkh5gALMeNGFexR
+         j2tS4wtXZv6yXg83D423lAlXUdUogfBCNoql26Ht2pY9lBro3u2idDSeOaZkduUKxiwt
+         g8cTxqxbDTTTOvMQZYgK5qFPiJ0jZJY9+JwRFURRFaoYKECLPDoGE9lTtLEC5ClMw6zQ
+         W41sm8KufFyLvIFlC7ApPY7fL4TIZGIgN6ckkuKJV1IWh9KX4VRJ9wg60OI2QVITa/7B
+         h6XBilkVxUviYZ0x1faQAS+D45VQIabR3Pm3OxpAR6OX1tFpiMiSDb/O757nTsQGAq9T
+         DLrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794855970; x=1795460770;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G7I1SlfQuGFwSPm/Qi4+nTEZRsPgA0OBSH2M8WIp0JA=;
+        b=AqTfar7YVZEJ2yWDgWUOzMOCYnvCfUf8Gap/hFG3HXOrzbKQ3yWdXHVKP3/MAfZ+23
+         ZV0YigvrGAn1WeMiFZj8jAbAVZ6e/KO1YT2jS8m7nXXkTW4m3X51fGAxcw8Z3m/cWJb9
+         C7sQX53JEgLqSeQodheKwSBvyZQ4izbCqMeGDOntWTute1r5F/i3Pi0wF0vlC3FrrpV3
+         iJKwFIfwEYUsMV40B6jxwCSnANZL3lbXYg1TzeUTIr+msiDavsBJZcTHzAt4HZvokZRQ
+         A3ud1J6EVVPz9HGr8SS0zQoVfRJ/NYj3yWlMSC/fdX7V9CtD+AoLy1FW+P0LXPSpdCOu
+         L8fg==
+X-Forwarded-Encrypted: i=1; AL+hErGomf8/cwxwnbDBd3nx81NUxoQZihwZR8xPTzRae1+rsYomgAqKyTGTPlI7oep7hBzY4c+i+dA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Tc6B0aRFmNk7EEA1QlIZuMQTwF4efexkpkOILM2GvGNOuTjLd
+	asvUsbpTuHtKFPcwLODpY40Cy5pFJvdxST3KXMRuI2dUwfOYgLbZEXbHmWA5Z6mZuhZ18iduntC
+	yHTpdd05IYFaCWDYrIavJXINXjEIAX+1n2OhhjyWZyA==
+X-Gm-Gg: AYBFou37vGJ1XE+KJ/f2dS+lx4avkkzJl7gEh+DVMOpEQTcl27jaiHt52KLnHJSy8Ie
+	jbam/RRHHgTr1TL9CSek2Wcqo/Ka/zWtAJpaQQanHxIVKAhsuTWIYCUXiPza6FfBVwqBKJUC4L8
+	2Phy59I6Q1r/ojg0QjFzpp01Jqnm1ANKzuPo75JnC1AS/p3F/VNu1ElwLHkj5MqcDFdEt39qJeL
+	zzWg9ALiPOnNJVYZ4pS4pyZYJUxlBIUHs8uOSOFmhztjTUFmn/z8jTljD7BODNwt3GKswGY4E40
+	uq/vZJ3+Vcc103Kwa/4ZNGNE3fKEzfXkPvsfPYJk8zqR7jyQDNti6Un75J/bzbJVQqMxB/mlYrX
+	XLdfolNnQawXRcmUbshxo3AdeYbWF1g0At7PCrGlkRlB8xHRYt4i5TW57zVVRrkZERsvdtisRSY
+	TLDS3PmwhsZLdQKqz8pVOTbaMWi+DUn0CnYGIQT15NrEaX8V1Xgj2D/iTM/N1PwKtxmA7bMY50K
+	fv99U0jIdgvrcOkd2TQLzfzYqCgjgIedB+/ZC1TAwHEfEI=
+X-Received: by 2002:a05:6122:1b10:b0:5ec:4a13:8aae with SMTP id
+ 71dfb90a1353d-5ee34a9298dmr3969191e0c.17.1794855970467; Mon, 16 Nov 2026
+ 11:06:10 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,176 +106,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261116190111.3317976-1-rjethwani@purestorage.com> <179485574283.3291.7349043137994808253@kernel.org>
+In-Reply-To: <179485574283.3291.7349043137994808253@kernel.org>
+From: Rishikesh Jethwani <rjethwani@everpuredata.com>
+Date: Mon, 16 Nov 2026 11:05:59 -0800
+X-Gm-Features: Aa3M54o7vX-XpVUCQ5-uuaPc-Fmkae2NyST6GEXFL4X2HiaIMluNfTh_m5Er0I0
+Message-ID: <CAKaoeS29P8SukOACusGaO=7z13_eFR5pFWDjbYqurgYd2bVz9w@mail.gmail.com>
+Subject: Re: [PATCH net v8] kcm: reject TLS on attached TCP sockets
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, jiayuan.chen@linux.dev, stable@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, Neal Cardwell <ncardwell@google.com>, 
+	Kuniyuki Iwashima <kuniyu@google.com>, John Fastabend <john.fastabend@gmail.com>, 
+	Sabrina Dubroca <sd@queasysnail.net>, Dave Watson <davejwatson@fb.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A rebuild of the accounting counts each deadline task on the first
-active CPU of its cpuset. Commit 318e18ed22e8 ("sched/deadline: Walk up
-cpuset hierarchy to decide root domain when hot-unplug") made this
-choice. It relies on the bandwidth check to keep such a CPU active.
-This guess would go wrong in three ways:
+On Mon, Nov 16, 2026 at 11:02=E2=80=AFAM <netdev-bot+sinfo@kernel.org> wrot=
+e:
+>
+> Hi!
+>
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+>
+>  - How the issue was discovered, e.g. hit in production, hit during
+>    development, syzbot report, manual code inspection, LLM or static
+>    analysis tool scan.
+>
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account.
+>
+> *IMPORTANT*: If you do repost (for other reasons) - please include
+> the relevant info in the cover letter or commit messages.
+> --
+> The evaluation is done by an LLM so it may be wrong, if you think
+> that is the case please reply and explain.
 
- - A cpuset, like the root one, can hold CPUs isolated by
-   isolcpus="domain" beside housekeeping CPUs. If an isolated CPU comes
-   first, the task would be counted in the default root domain. Its own
-   root domain would then be short of that bandwidth.
- - A task confined to isolated CPUs can see them all go offline. The
-   rebuild would then find no active CPU, and hit its BUG_ON().
- - dl_task_offline_migration() moves a throttled task, with its
-   bandwidth, off CPUs that went offline. The rebuild would count it in
-   its cpuset, not where it moved.
-
-In the first and third cases, a root domain would admit deadline tasks
-beyond its capacity.
-
-Fix this by choosing the CPU in this order:
-
- 1. The CPU the task is on, if it is active and in the task's mask. A
-    mask can hold CPUs of two root domains, for instance after
-    select_fallback_rq() widened it.
- 2. dl_bw_cpu, the CPU recorded with the bandwidth, if it is active and
-    in the mask. A task moved asleep is not on its new CPUs yet.
- 3. The first active CPU of the mask, a housekeeping one if any.
- 4. With no active CPU in the mask: dl_bw_cpu if it is active, else an
-    active CPU of the cpuset.
-
-The mask of the task comes before its cpuset. A partition change sets
-the task masks before its rebuild, and the housekeeping mask after.
-
-Leave out a task with no active CPU, instead of the BUG_ON(). dl_bw_gen
-then keeps its release from removing anything.
-dl_task_offline_migration() counts it again when it moves it.
-
-A task that select_fallback_rq() moves to another root domain still runs
-where its bandwidth is not counted. The next patch moves the bandwidth
-with it.
-
-The Sashiko AI reviews of v1 to v4 found these cases.
-
-Fixes: f9a25f776d78 ("cpusets: Rebuild root domain deadline accounting information")
-Fixes: 318e18ed22e8 ("sched/deadline: Walk up cpuset hierarchy to decide root domain when hot-unplug")
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: stable@vger.kernel.org
----
- kernel/sched/deadline.c | 83 +++++++++++++++++++++++++++++++++++------
- 1 file changed, 72 insertions(+), 11 deletions(-)
-
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index b43106a59025..c765a403014a 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -923,14 +923,20 @@ static struct rq *dl_task_offline_migration(struct rq *rq, struct task_struct *p
- 			__dl_sub(dl_b, p->dl.dl_bw,
- 				 cpumask_weight(src_rq->rd->span));
- 			raw_spin_unlock(&dl_b->lock);
--
--			dl_b = &later_rq->rd->dl_bw;
--			raw_spin_lock(&dl_b->lock);
--			__dl_add(dl_b, p->dl.dl_bw,
--				 cpumask_weight(later_rq->rd->span));
--			raw_spin_unlock(&dl_b->lock);
- 		}
-+		/*
-+		 * Count the bandwidth in the root domain the task moves to.
-+		 * Do it also when a rebuild left the task out, for want of an
-+		 * active CPU. A rebuild that reaches the task after this finds
-+		 * its dl_bw_gen current, and leaves it alone.
-+		 */
-+		dl_b = &later_rq->rd->dl_bw;
-+		raw_spin_lock(&dl_b->lock);
-+		__dl_add(dl_b, p->dl.dl_bw,
-+			 cpumask_weight(later_rq->rd->span));
-+		raw_spin_unlock(&dl_b->lock);
- 		p->dl.dl_bw_cpu = later_rq->cpu;
-+		p->dl.dl_bw_gen = dl_bw_gen;
- 	}
- 
- 	set_task_cpu(p, later_rq->cpu);
-@@ -3795,6 +3801,55 @@ static void dl_get_task_effective_cpus(struct task_struct *p, struct cpumask *cp
- 	cpuset_cpus_allowed_locked(p, cpus);
- }
- 
-+/*
-+ * Return a CPU of the root domain where a rebuild of the accounting should
-+ * count the bandwidth of @p, or nr_cpu_ids if there is none.
-+ *
-+ * Prefer the CPU @p is on, if it is active and in the mask of @p. The
-+ * task runs, or wakes up, in the root domain of that CPU. A mask can hold
-+ * CPUs of two root domains: housekeeping CPUs and CPUs isolated by
-+ * isolcpus="domain". When every CPU of a mask goes offline,
-+ * select_fallback_rq() can widen it to both. It moves no bandwidth.
-+ *
-+ * Else prefer the CPU recorded with the bandwidth, if it is active and in
-+ * the mask. It is in the root domain that admitted the bandwidth, or that
-+ * its last move put it in. A task moved asleep is still on a CPU of the
-+ * root domain it left, out of its mask. Else take the first active CPU of
-+ * the mask, a housekeeping one if there is one. A task on isolated CPUs
-+ * that all went offline can have no active CPU at all.
-+ */
-+static unsigned int dl_task_rebuild_cpu(struct task_struct *p)
-+{
-+	struct cpumask *msk = this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
-+	int recorded = p->dl.dl_bw_cpu;
-+	unsigned int cpu;
-+
-+	/*
-+	 * Look at the mask of the task first. A change of the cpusets sets
-+	 * the mask of each task before its rebuild. The housekeeping mask
-+	 * that dl_get_task_effective_cpus() reads is updated after it. If no
-+	 * CPU of the mask is active, take the CPU recorded if it is active.
-+	 * dl_task_offline_migration() moved the task there, or an earlier
-+	 * rebuild counted it there. Else ask the cpuset.
-+	 */
-+	cpumask_and(msk, &p->cpus_mask, cpu_active_mask);
-+	cpu = task_cpu(p);
-+	if (cpumask_test_cpu(cpu, msk))
-+		return cpu;
-+	if (cpumask_empty(msk)) {
-+		if (recorded >= 0 && cpu_active(recorded))
-+			return recorded;
-+		dl_get_task_effective_cpus(p, msk);
-+		cpumask_and(msk, msk, cpu_active_mask);
-+	} else if (recorded >= 0 && cpumask_test_cpu(recorded, msk)) {
-+		return recorded;
-+	}
-+	cpu = cpumask_first_and(msk, housekeeping_cpumask(HK_TYPE_DOMAIN_BOOT));
-+	if (cpu < nr_cpu_ids)
-+		return cpu;
-+	return cpumask_first(msk);
-+}
-+
- /* From dl_rebuild_rd_accounting(), under the locks it asserts. */
- void dl_add_task_root_domain(struct task_struct *p)
- {
-@@ -3802,7 +3857,6 @@ void dl_add_task_root_domain(struct task_struct *p)
- 	struct rq *rq;
- 	struct dl_bw *dl_b;
- 	unsigned int cpu;
--	struct cpumask *msk;
- 
- 	raw_spin_lock_irqsave(&p->pi_lock, rf.flags);
- 	/*
-@@ -3817,10 +3871,17 @@ void dl_add_task_root_domain(struct task_struct *p)
- 		return;
- 	}
- 
--	msk = this_cpu_cpumask_var_ptr(local_cpu_mask_dl);
--	dl_get_task_effective_cpus(p, msk);
--	cpu = cpumask_first_and(cpu_active_mask, msk);
--	BUG_ON(cpu >= nr_cpu_ids);
-+	cpu = dl_task_rebuild_cpu(p);
-+	if (cpu >= nr_cpu_ids) {
-+		/*
-+		 * No active CPU can count the bandwidth of this task. Leave it
-+		 * out of this rebuild. dl_bw_gen then keeps its release from
-+		 * removing anything. A later rebuild, or
-+		 * dl_task_offline_migration(), counts it again.
-+		 */
-+		raw_spin_unlock_irqrestore(&p->pi_lock, rf.flags);
-+		return;
-+	}
- 
- 	raw_spin_lock(&dl_departed_lock);
- 	/*
--- 
-2.47.3
-
+Found by code review. The sleep in atomic context was reproduced on an
+unmodified kernel with CONFIG_DEBUG_ATOMIC_SLEEP.
