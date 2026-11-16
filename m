@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821379;
-	b=kIUKGphw7uJL7NiEZ1esCGgAvmplGSSELssaYNIrwkZ4kpqCXp8Phf92i2JRN406NoPT
-	 EEM1Sc6IxZEifz5ppQTD4/Z5nrooNCaVmFamWLxdcd6aJMCqx0LPzlGN+3Lvte01K5Yu+
-	 r2z7ORG2iYGoAjkfmVI5TukmjiqFt5nHvaV4b/Q40dZfIT5NC5TYiV9ZZ7iOXCqVK8uHa
-	 82anDQjqoV3gjbHwFCDXpMnkDCESRM414psEC3yVAE2FpB4wOFQzik75eeubYPGrhaSlM
-	 Qn4TVEuRRi4+ls0ujQ67BBIvlZmaRfnR52um818GTyGS+C/Fy9FvWVadvUgscRLlWUw==
+	t=1794821415;
+	b=MxCVvCFS4eLmmTIlSa0ZNj8gw5oLU/QVpeMyqAYZMY1dRBdy6m2sdOjPXpMbclX1FY+1
+	 wrUw+zRKqPtEGprMjq6q7H56/vrojDNUu1YDdBXgnNMkdfjpTWyaK0zX+w05meNHWnKzC
+	 KsUA9zxsLWisM52HQhmiyI1G+WTFBOWAvr+fI3IS6mUxRbkcevoray/optah8rWEkZvFS
+	 59uqlQmKKi4bO03kjKYmzDqA4TgN6mXuPN99/U0U+qE55gNQSUjMTQ1vx6sHyqMJ7tWbN
+	 ez/811FL9hGlrkmF8SR7bDiwPNdwj03SaHTID05J93Ldbi4cUpVKfRFOkU7bzsqHaiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821379;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821415;
 	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
 	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
 	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=srNT1g0/2GJ2jSCDD9SJhNktnNEDWVkT3KkNi8KVEMs=;
-	b=lld1BYfRSlnmjhISkzfbbVGlB9MQUzTsDn/g/MP4617prdc9OxF54mxSdvvLYIgHLItO
-	 wnDrDqAjkbKBKFj6QvyABJ6LJspa+s49dxA2Wks9mzBLKChUIVflnVbnQqJizoQLonWtl
-	 tQYIDJVPTtJm2p4dsZLEm2SDfReBe+VCcMcrpbk8/HncvsJ59Zr8oWS4b3h/K45kHF6DC
-	 zvlMrTQ9CJdRDU3baiYv+5Y7wCN4emkHJKUN+zguQq1/BZFlkGNPA4bv9z1AvvMSw/Exk
-	 sHfCyVeZo33yER+fMGHVV3W8Z9at8uBdGNfbe/sHfyd7p8dZBWsfMzhx9bPf9jmY8pQ==
+	bh=xlljGRJsSC+5JkrL3aZZmjEC8607mng2pcknj/B50Xk=;
+	b=wDMzUDzZIj4YC+1ETtMF0KA9ZR+QzWrmq4BRN9R1Eh1oP0oxjYV7yg+ID4vC6erL5b+s
+	 nGwGzikJv2qIC1AHbEgwkjlhFpVhYQmFoMUq5kHd8JUrglTi/BZ5OLV91cBVxeS8W89Rf
+	 4U+kKXC8vzAmoyKxVpiVh5dGo/BeV6C/j4BoQURXNyv8iAPCAvNVa8HN6p32xsIMQKd3H
+	 OTUvHZY4bZY5FRcL+GxgM9cxsbVJuKBmQuRm1lMb19xAEbTO0VfJ5WbtOmwHQC7/swVv0
+	 AZX9c6SlGPlUMUnutDCrRNEg+qxqVGKgn9gD3lw9UFGHoJ4v35uAsubVgVqIFXD9y7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nabladev.com;
 	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=dfn4Aai8;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=E4wIoCqV;
 	arc=none smtp.remote-ip=178.251.229.89
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF991606A323;
-	Mon, 16 Nov 2026 09:29:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF991606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F00D606A329;
+	Mon, 16 Nov 2026 09:30:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F00D606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=dfn4Aai8
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2940810EF2A;
-	Mon, 16 Nov 2026 10:29:28 +0100 (CET)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=E4wIoCqV
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6167C10F00E;
+	Mon, 16 Nov 2026 10:30:08 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794821371;
+	s=dkim; t=1794821409;
 	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=srNT1g0/2GJ2jSCDD9SJhNktnNEDWVkT3KkNi8KVEMs=;
-	b=dfn4Aai8KxAEY/hOWnVRFeZOTvLtVaSyfYtShvT2x7CgGN32/ZClwNyojlJEmP/iY55DOl
-	+8fCEq3KLtOAl9mkPK7lp3UMC+bVEEUBBsE+yjMbZCDrNOBx4TMlt0GMTf3wML5GfSS+mv
-	glf+qcTD57ASYybYtCkTCNtdP96ZASBRFxh+0DSJpkTHlPMxtP41xKXSv2Bwz/4OqIBl7q
-	SkmjzxUP/cW8VBhJruhtwbiVCEVfM89CMs2e+PnjrXnvLkr47BGM3rYkKbm0kIQS3ZxLbV
-	NnJkf6EQMEdMjt01jnAEfXNXRWu8TyfnPhwmEaNp11Ps0BweT5FiSqjAJGVd2Q==
-Date: Mon, 16 Nov 2026 10:29:27 +0100
+	 in-reply-to:references; bh=xlljGRJsSC+5JkrL3aZZmjEC8607mng2pcknj/B50Xk=;
+	b=E4wIoCqVUzIHymoyFLnOmrk7CiA9+YDFuJnj0LJwZEfKF0aTnr1vZgaHyrIKV+dUMgq3lQ
+	qUM9kKWSGt61gECAE33IOdbINGwmlkow0QJuPoNT1QJ3wwNOz/e4ydnElTLtWnzYJzXzjZ
+	eJabVdMEcLdv28CRLAmzoCyaWpPTVW6PPNxXI4KbWU+LaLplMj+XlGq41BKX2pkBkkCZbk
+	R61JVmktGe/qKvf3JzOWPmBgsaXQ+foexQkxTgbOVNZ3/tFrHW+kibyJtagotfe9YgQ02u
+	H1JCqZIXrln1k8XLGPP8zKkY9Q8CGrjd8VAT8BAPDMivnIr3dT4YG0iszrTnLA==
+Date: Mon, 16 Nov 2026 10:30:07 +0100
 From: Pavel Machek <pavel@nabladev.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: stable@vger.kernel.org, patches@lists.linux.dev,
@@ -55,9 +55,9 @@ Cc: stable@vger.kernel.org, patches@lists.linux.dev,
 	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
 	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
 	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 000/670] 6.12.118-rc1 review
-Message-ID: <avrM9wu4dDhQm65_@duo.ucw.cz>
-References: <20261113153811.177190860@linuxfoundation.org>
+Subject: Re: [PATCH 6.18 000/686] 6.18.64-rc1 review
+Message-ID: <avrNH09FzQfmPb2R@duo.ucw.cz>
+References: <20261113153820.902362109@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,40 +68,40 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="Aey5mxOHeVp4SQ0v"
+	protocol="application/pgp-signature"; boundary="+vogw0/b0BeL8/+7"
 Content-Disposition: inline
-In-Reply-To: <20261113153811.177190860@linuxfoundation.org>
+In-Reply-To: <20261113153820.902362109@linuxfoundation.org>
 X-Last-TLS-Session-Version: TLSv1.3
 
 
---Aey5mxOHeVp4SQ0v
+--+vogw0/b0BeL8/+7
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Hi!
 
-> This is the start of the stable review cycle for the 6.12.118 release.
-> There are 670 patches in this series, all will be posted as a response
+> This is the start of the stable review cycle for the 6.18.64 release.
+> There are 686 patches in this series, all will be posted as a response
 > to this one.  If anyone has any issues with these being applied, please
 > let me know.
 
 CIP testing did not find any problems here:
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.12.y
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.18.y
 
 Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
 
 Best regards,
                                                                 Pavel
 
---Aey5mxOHeVp4SQ0v
+--+vogw0/b0BeL8/+7
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCavrM9wAKCRAw5/Bqldv6
-8hh7AJ9ZkOhA3vDbv8IMtSrUp4UijQifEACeIjguJe4qn3cN5iP/FQ8qLm+kwOA=
-=mavu
+iFwEABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCavrNHwAKCRAw5/Bqldv6
+8qwwAJdaeQcd9mGrY6VeeHrxT5v+1+koAKCESukRNsZoqhbnORGYqsVIT/HzrQ==
+=1szu
 -----END PGP SIGNATURE-----
 
---Aey5mxOHeVp4SQ0v--
+--+vogw0/b0BeL8/+7--
