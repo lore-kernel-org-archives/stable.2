@@ -1,99 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.176
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794828676;
-	b=ND6Fl82YM0pwF1Ymc264mc+ba6FcBJlM3cLqN5imgga6ZYUru0DfIIqjSC7XknDapSbo
-	 nxwqqPQtKGAcqpgHuTgTEfMTAyNZy8VeIr6YMx9LjfsYGWRDYuz83TA6zXppcMkKdfstT
-	 Qy/aXDM6X8AMGBYyPMR9IAqTtCeWad4/8/A9KldtCcOiAM45qnZ2CKWzKO71GtCodogVF
-	 6mJE58CJfdw1u6F73BL0Vez7r02s9SWcAjZBOM9Sjmgk9Tb5QMmhTX4aBlvNRSkW02NIU
-	 GEU712UcHFaQDH/joDeqmk27BaObewwY0ZAOAgRjOm3wrTyT3Ia6UMrPkkzz6D7qhhw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794828676;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794828833;
+	b=yTgghYbVXihUFv9qDpBpp6ngpjBNHQxtQGI8UlAgJWIfBuqInKdzZio1TTtJVbnfoq3u
+	 1CTwN2QEO1BJxKNhTi8vCLMxdDJEEPoanSIly4m5uumNRDmzV8blZNn+5IKuOFfIvwHCh
+	 lQ2t54CKIz4F9PezF0juQ/EwQk+gCH7FxXBbRW3nzdxDVsrRpdi1bpSv2ivxe1rtn03iX
+	 VC1z/zJO47IwFa2lLeUAPMB3fjsgpdjjmcRp5vGGA1o51PkIjPjucqIkpQmJE2OseqFGg
+	 9ubN6NLgFITw6HZizJx/XGysyBShnfRPqW7uhPPHOXu4xFkncCLwtNjbBPVCCv9wdPA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828833;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=wtSeKpS27rBmoNgRnmtk6Fl68DcVUzwroJjv5Gt9KJo=;
-	b=dHf7s635TE2BZnrgCsozLGNolv9nk+kwDvKVJ6Rlqwm8VnMsaZaGlcW9mmwv/a7ttrK4
-	 J866lWY8jhLbW/aWyXBnAHgYxu/3ukxLCsgilqk27SoIPMNXJOebf7/bFYYNWoN2Aygcy
-	 90H/iIY/eRfCFwoYES2jpXswbsdUJKRY+glC87rJ80U5rNZdkK/mqezl8m0VTu3mrczhO
-	 8dIQYL5O1x2fu4i/C4vGpvvIra/WZd2/8eAqM5y/1TptAENdkT6xUocaOOhNy8TjRawst
-	 kcVX6XI1iSRdpZNFDcwzkL8iJJi9yprpq9sURyB1IOkafLjJEAUr26xUgwFPgFfRDCw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition;
+	bh=j8WmM2ZDC4HM11sYU2pJKBTku+9RknFe6Tk44ETTgFE=;
+	b=L45Z/h5fYvx3ZtEVA0ea5EDLdTUS99qiMWeirMg7LeVvDZphZjQziQk221AN+KctapVs
+	 ZrlO/MoOQ+AC1ZvT0eAaRJIctA5PRGskA2ZvIj1zoULyRm9zOBjzkozbgyW4mcA2cgsyr
+	 R9VazYQ7TrG1Ot5u9/Tzv+K18P7/WPzURwQD13t+s1EoK7YhlgnAr4FLi0Ef1/7Ygsxe7
+	 QBCttTjNp1MI7feGNvaGNyYD4iLptsTxREccaDQ8DokDBn2mOlJBXfsvM/TNL3S+hWBqb
+	 2XSxGN8o1U1jHOo/5yftMiDYfV2uUGO60RAsfU83XEjrIDqXru6JLtRi00M6GWWyhJw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kxWZ3V2d;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.176
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bznbirs1;
+	arc=none smtp.remote-ip=209.85.208.53
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEAE606A329
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 11:31:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FEAE606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CFE606A329
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 11:33:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71CFE606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kxWZ3V2d
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3adfc004920so34836151fa.3
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 03:31:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794828674; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PccRxK+84asLujv5q0hEtGu7vMaJ9MPxKIq5l04G0/4QNYqs2lczKy1iC90hVAPDt0
-         szo7YYWCp80M1TPvt8n26Xo9DxFJOkeqfKdzYvO+VGwMTgrAdQi23e6iRa+N6DEV60cz
-         Hqu+uIk4Rx+HDF1XKmh7CU+WkP70u5psS844oK9vyaSmOetBZihEsbJg787bAkZWdJmL
-         rIAGgwMEML3nqw0rueoYxKY7Vvp67HEVd+vJCKDDXf0Ker8kiB26gFdg25N50uds5wUW
-         aEcV3UADWHLcuHfKd/i2RvagVYyXswDF9Z4dRCbeSUiYmPRQIwyV838F6B/HZqFEeYTu
-         AmyQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=wtSeKpS27rBmoNgRnmtk6Fl68DcVUzwroJjv5Gt9KJo=;
-        fh=+aAdKQRdJwxY9WvmRzYSp+k8mKgavJMhBZGpYXMQiNw=;
-        b=O2ZjoBsxavUItZrljGi0y+wZV7XgE8JERWKWgIwKD5LyupTkGOVRz9Ull4byOgXnjn
-         A+9d81qB0ysDrv7nVZMao6+VzZwwKWvGe8YXAMaAIjxrcUty2rIGD6AlMf2DFmn67x76
-         N1HBGG0qfBAkNKRPsO2AAylH1MOxrFW4EV9CBmrom4t2T5E/4ttZ+H05uTiBybGPZ8h+
-         By+fK/8g20d/M61stMtFMberXJNX+3CILQcJUsnxFUcI9Gotde7cogxKC1+1LAwloOXe
-         D/7V8NCFVlxAhgHeoYOmLnT1D1lSHrLiHzoRF/SPpGJ0D+WfHe/gc8NC1MDjEyw2Qe/T
-         6wsA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bznbirs1
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b8082af2ffso1256942a12.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 03:33:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794828674; x=1795433474; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794828832; x=1795433632; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wtSeKpS27rBmoNgRnmtk6Fl68DcVUzwroJjv5Gt9KJo=;
-        b=kxWZ3V2dVLj+c2/8iSKefCrbXhzuXYCgt5E4YLq/IbkWEXpqNbQOR1/wAnWoWUhqXA
-         QXEo807K+w4JcmYKtkfJqxmstIa4egAT1Sl4+XhRI1Rbsv3DKmQPvfrB7gbuDfW1uRmH
-         n9Luy6QTnwLwntMmFdIBQKVSBC120MN2xvKRYW1Ib/gid02S7pSadDR5mk6mfYZJ1CE5
-         qfpaFgr8QW/aEVwn62yYQHLYw5S/Qo6GSb68PdpnJ3gvg8H/wu5CB1dwjGHHMKtcx3Cx
-         +PupmxkMqvBMbrWh0X2nETj4/m7GFVhZVT1iy055+ZP6FrtX93azsktz0agKKku4ajOW
-         ZxeQ==
+        bh=j8WmM2ZDC4HM11sYU2pJKBTku+9RknFe6Tk44ETTgFE=;
+        b=bznbirs1W7KeLTcdGuIpmYZRxwnkpH5f/RlkezPsx5Zs2Dhfp3ec/lefIvLuX18cvt
+         NoHo1RgNL6dtz3aB/iO9bwSZ2pifRfzNuYCA+txJ7XIF9qmTspFwlHcl0aGGHRSepq1B
+         /TOeVLLVz41daiNJlAwZjifgbnod0SJgbT/IroLzExz8JT51sPXXN94sua4KXnRgJIyQ
+         CekQtxYPcK8+dRCrhd6uWNrtdVljKk6Xv6ungX6K/1e3VgZnTRko7umi4kFW/5Yt8hQt
+         rag4Ksak60RTN/ZX2aveiMw34rvA8uNIIEUFMLcrTryqj47WTpdbCXdDm0aNgjJupPYX
+         Hfcw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794828674; x=1795433474;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wtSeKpS27rBmoNgRnmtk6Fl68DcVUzwroJjv5Gt9KJo=;
-        b=LVPhUqqb846MQ1ti9QpO8izJIS73R9A3A78V07ZoawP1lb4h6TQ01y4rpeaTv0wnEK
-         h/LHVs+ROCSyZOYClj4q4pA+qczZa0pHEynY+0Hs/rrnpra3ARhoYRwUclp3ounfBNdw
-         Fk4xSU6f4UYD3mEbrtWtow+gEdSuVOoqDrR1LjFjfk+STiqDGHl4ISQgSHKOeJMw+nVC
-         TESfbLWkg6c0HcmegvDdYIaDrcmAkg1tWpFn0RAI0poNt6K4uLTXBKzPx6Us/reCA41S
-         HwsIcFD2TyP/fSRDBDSNO7VBz0i4sGThYfQHpmNduUlLWmP1y8ka3fIhrJjTOgQjjnrL
-         ilvg==
-X-Forwarded-Encrypted: i=1; AL+hErFIoXr212+5NMnkZpzy3x5SF3GyXoKufnjKvZjqHrEoP09y4rnn2qzxZ+Go6iVmglsF5xYpUl4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9PY/3O9dak8yWD934DSK81FSW0w6dgbGQRHk+Zib1Uk8TZq7v9
-	1YVz2yRisYDX4xEbOLedzL1Ve8OOPgyY+3kNqvFqzVUuFhTUPpgokNiUBeTqc4PdHKypqzqzuzn
-	A0SJMURH41xYElr9muhnlqhahjzoD0jk=
-X-Gm-Gg: AYBFou1Jj2WZYzUbf41hHyz9e+yD8fUUxzRbcXGs3PqDMuA/kLsvoQ6LMZ+Tj0Scuup
-	8yYlwXe3UJ3o2fbPfJ8je/qu+/kWGOSYSUg3I7lyC9USpyucBYBp9zpw+eP3Fr4bums2FAAvrmj
-	HUwGnNGFfP5zUawhA4HWSwIxM5gJH5uHabUXnY5BXps8+9UWgLZw5JQXSzI43gehkaQVSGmWJ0N
-	vF+SFztMXU4FlFffT7+oADyzXSsjeMYCN9RPT8jxvOtIEelhGzRbI0DSuXYhYmnzJfbePPPiN2u
-	CejBwBdyh0dPPKJ3duyggPyI9KuH3KHWnOCUbR0hKT+bO+gQ7Vvb6OzMr5GIBD9LR67uDTFyqom
-	L6r5WOaBW/pmKYC0fbvsrc1Zn0p3qycAEkAY3XA==
-X-Received: by 2002:a05:651c:a344:b0:3ac:ff0a:9d86 with SMTP id
- 38308e7fff4ca-3ae2b4bad81mr32453821fa.15.1794828674271; Mon, 16 Nov 2026
- 03:31:14 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794828832; x=1795433632;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=j8WmM2ZDC4HM11sYU2pJKBTku+9RknFe6Tk44ETTgFE=;
+        b=j2k4r4ag7Rkj17xNF+dz5QX+KAX4v9D6nVBX34L1/JABZkp0wz6ZKLoedwqMrHltA7
+         4hqd0SAO9IBH0K8NzATuvn9lhLroc0SaCR4lCMXKmL+SwmjWN93YtJSIqv5zcRgyZQgS
+         5tBRwawmOa/+eoT/0cdEkxa8DkBZlPO7KygTKNAsiFrKCH0c7E3GRPIC0q8YCHGwvNnN
+         7QnTjfzEu3nlLpm8El4txzBwMaPfLvlrMoMfP7S+SPiIUrpsgqmrr+iHdlhO9WjXoEn/
+         8YeGTnCT93RMZkLJC/XsvzDTA9wM8qFkU3Mo8VZcfnaimm+9RI7yZdRnljtVIG+9L7mb
+         68pQ==
+X-Forwarded-Encrypted: i=1; AL+hErEb2bFCkwdCaDdUV8kL3vrFUlCyfLY96dsRw3PvlCHl45tj/Jm+uLTcbAkRl6LDS40p7z2Ut4s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ETkbdlSTv5QlHp8N8PUw2OprqpSAvA8e2i8ljRAYRGTVVuPns
+	HqdHB9wEspyv5AmEbE39er+erLcC/kdXjbEJYAcDyrrnOs5AAJ28g26d
+X-Gm-Gg: AYBFou1epOYN7FPJZ0796UeXE3KKoGnmmboyqRR8EwRNQqX5GAex/9HRAVhFaqJr97F
+	I95sv69/njIzhaKhina6wVa4fwmfHiVhrXUQYsa1LW97FN/bkDBh5973KR8xy2gz+kx8hPmaSnS
+	2Q1CtVXUElyafjvJqIYkZS+ngzsKpJVehC6/AwIQigST6ffBUWiNegctAL7wCL8CaO5zZ0kR70T
+	LSIVIn2eNrbgCsp9cNzMq1GXEhxYJfPshfJ7BoNxpyVaLHhStsET3clYYEcI4Utq6tIQknjm2+J
+	sBhQew33sq6uovoEearqIMUOOkNuwYkL9U3Cz0LloVqbcl1m0CM97iUHUNqIU0Cl7ntJV5VJvz7
+	gDNec5QovOJ9BzWr8eyimN+l+ebF9/E2V2uMo82TSgURrHcXg0gYXP/SNSAo/3ktrZ/qZ0N7ns4
+	dsw7yRJ/afosVMiyP15KxhfDgiJqYXYssJ7Gused+ZYF122mWJ3iuweH9m7+vUHi46pkrL5a8VD
+	bL5PzWk/PtHrmE5BewZKDmDKWE1QXxqpXp1zvE24FgKiQ+fzipBNfEYl/3xsTbesTvcfTWeOE8m
+	QDKCbbM8J89u4aaDyKpzanNOVpssWLtXPOQpHwHncsOg0IQZ
+X-Received: by 2002:aa7:df02:0:b0:6b1:e4cb:a23e with SMTP id 4fb4d7f45d1cf-6b7c0953c22mr5985412a12.14.1794828831465;
+        Mon, 16 Nov 2026 03:33:51 -0800 (PST)
+Received: from localhost ([188.146.172.76])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23db711sm4334432a12.24.2026.11.16.03.33.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 03:33:51 -0800 (PST)
+Date: Mon, 16 Nov 2026 12:33:47 +0100
+From: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
+To: linux-media@vger.kernel.org, mchehab@kernel.org, mkrufky@linuxtv.org
+Cc: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
+	stable@vger.kernel.org, media-ci@linuxtv.org, patchwork@media-ci.org
+Subject: [PATCH v3] media: mxl111sf: initialize state->d and fe_lock in probe
+Message-ID: <xbzvgut6eavjeo3q5cpysxdirlvgatcr7qjkyadz4eolcchfeo@rjhvhba7lvdh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,64 +94,155 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115210952.2140036-1-graypanda.inzag@gmail.com>
- <20261115210952.2140036-2-graypanda.inzag@gmail.com> <CAOQ4uxhZS1w24GXWphu-PNPbGxVJUDwOfqHdRZcb05+_HVv=aA@mail.gmail.com>
-In-Reply-To: <CAOQ4uxhZS1w24GXWphu-PNPbGxVJUDwOfqHdRZcb05+_HVv=aA@mail.gmail.com>
-From: Junyoung Jang <graypanda.inzag@gmail.com>
-Date: Mon, 16 Nov 2026 20:31:00 +0900
-X-Gm-Features: Aa3M54qrozvfFSvQ0gfAb_mSn86pOQYMr6gnIKh6TI_Xntwk7Flfv7qM72l-pE8
-Message-ID: <CAO7ntTRdY+5G1wiETFu0SVa3vFX+0RyMO6R5XpoosF0zhuoQYw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] fuse: reject embedded NULs in readdir entry names
-To: Amir Goldstein <amir73il@gmail.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Jan Kara <jack@suse.cz>, Matt Bobrowski <matt@bobrowski.net>, 
-	Gwanhyun Lee <gwanhyunlee@gmail.com>, fuse-devel@lists.linux.dev, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On Mon, Nov 16, 2026 at 7:25 PM Amir Goldstein <amir73il@gmail.com> wrote:
->
-> On Sun, Nov 15, 2026 at 10:10 PM Junyoung Jang
-> <graypanda.inzag@gmail.com> wrote:
-> >
-> > parse_dirfile() and parse_dirplusfile() reject '/' in dirent->name, but
-> > do not check for embedded NUL bytes.
-> >
-> > Unlike plain getdents() buffers covered by verify_dirent_name() in
-> > fs/readdir.c, FUSE READDIRPLUS passes dirent->namelen directly to
-> > QSTR_INIT() in fuse_direntplus_link() and instantiates or aliases live
-> > dentries via d_splice_alias(). A dirent name containing an embedded NUL
-> > produces a dentry whose d_name.len extends past the NUL terminator,
-> > which allows callers such as inotify to copy uninitialized kernel slab
-> > memory past the NUL byte to userspace.
-> >
-> > Reject dirent names containing NUL alongside '/' in the FUSE readdir
-> > parsers.
->
-> My concern is that there are innocent buggy servers that pass NUL
-> maybe even because of length including the terminating NUL.
->
-> It would be more considerate to make this check in fuse_direntplus_link()
-> rather than to fail the readdir.
->
-> See precedent in:
-> 78d04af4995a1 NFS: nfs_prime_dcache must validate the filename
->
-> Also, verify_dirent_name() never checks for embedded NUL, so all the
-> other filesystems can get away with this without failing readdir.
->
-> Thanks,
-> Amir.
+During device initialization in dvb_usbv2_probe(), the dvb-usb-v2 core
+allocates the dvb_usb_device structure and its private state (struct
+mxl111sf_state) via kzalloc(), then invokes dvb_usbv2_init(). Within
+dvb_usbv2_init(), dvb_usbv2_i2c_init() registers the I2C adapter with
+i2c_add_adapter(), which immediately exposes the I2C adapter to
+userspace via the /dev/i2c-X character device.
 
-Hi Amir,
+However, state->d was only assigned later during frontend attachment
+inside dvb_usbv2_adapter_frontend_init() via
+d->props->frontend_attach(). If userspace performs an I2C transaction
+before frontend_attach() completes, mxl111sf_i2c_xfer() delegates to
+mxl111sf_ctrl_msg(), which reads state->d and passes it to
+dvb_usbv2_generic_write() or dvb_usbv2_generic_rw(). Since state->d is
+still NULL, dereferencing &d->usb_mutex inside dvb_usbv2_generic_write()
+triggers a null-pointer dereference crash. Although the crash report was
+captured in compat mode with PTI, the failure is illustrated by the
+following x64/NOPTI trace:
 
-That makes sense, breaking getdents() for FUSE servers that include a
-trailing NUL in namelen is definitely a real risk.
+Oops: general protection fault, probably for non-canonical address
+0xdffffc0000000018: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x00000000000000c0-0x00000000000000c7]
+RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
+RIP: 0010:__mutex_lock+0x149/0x1550 kernel/locking/mutex.c:821
+Call Trace:
+ <TASK>
+ dvb_usbv2_generic_write+0x26/0x60
+ drivers/media/usb/dvb-usb-v2/dvb_usb_urb.c:77
+ mxl111sf_ctrl_msg+0x160/0x2f0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:73
+ mxl111sf_write_reg+0xa9/0x1b0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:123
+ mxl111sf_i2c_start drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:130
+ [inline]
+ mxl111sf_i2c_sw_xfer_msg drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:-1
+ [inline]
+ mxl111sf_i2c_xfer+0x463/0x5060
+ drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:813
+ __i2c_transfer+0x7bf/0x1fe0 drivers/i2c/i2c-core-base.c:-1
+ i2c_transfer+0x1cb/0x2d0 drivers/i2c/i2c-core-base.c:2350
+ i2cdev_ioctl_rdwr+0x460/0x740 drivers/i2c/i2c-dev.c:306
+ i2cdev_ioctl+0x6a5/0x880 drivers/i2c/i2c-dev.c:467
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ </TASK>
 
-In v2, I will drop the parser checks and instead have
-fuse_direntplus_link() return 0 early when memchr(name.name, '\0',
-name.len) is non-NULL, skipping dcache instantiation without failing
-readdir (matching the nfs_prime_dcache() precedent).
+Additionally, state->fe_lock was initialized in mxl111sf_init() (called
+via d->props->init()), which runs after frontend attachment, leaving the
+mutex uninitialized during frontend registration. Although the reported
+I2C fault does not demonstrate a frontend lock race, fe_lock should also
+be initialized before frontend registration.
 
-Thanks,
-Junyoung
+Fix this by setting state->d = dev and initializing state->fe_lock in
+mxl111sf_probe(), which runs before dvb_usbv2_init() registers the I2C
+adapter or attaches frontends. Furthermore, remove the redundant
+mutex_init(&state->fe_lock) from mxl111sf_init() and the redundant
+assignments of state->d in the frontend attach functions.
+
+The fix originated in the linked syzbot AI patch job, which used
+Gemini:gemini-3.8-flash.
+
+Fixes: 4c66c9205c07 ("[media] dvb-usb: add ATSC support for the Hauppauge WinTV-Aero-M")
+Reported-by: syzbot+f9f5333782a854509322@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=f9f5333782a854509322
+Link: https://syzkaller.appspot.com/ai_job?id=c5284b5c-3f14-4e95-a4b7-6ee38f0d2e1f
+Cc: stable@vger.kernel.org
+Signed-off-by: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
+
+---
+Changes since v2:
+- Drop the non-standard Assisted-by trailer. Upstream commit
+  1e035297ffdadf2184c3c773b8c098e372324aaf
+  removed the Assisted-by guidance and checkpatch exception.
+- Disclose the syzbot AI origin and model in the commit description.
+- Put the stable Cc after Link in the commit trailers.
+- The code diff is unchanged.
+
+diff --git a/drivers/media/usb/dvb-usb-v2/mxl111sf.c b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
+index 6404eb74d..fc4010b6e 100644
+--- a/drivers/media/usb/dvb-usb-v2/mxl111sf.c
++++ b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
+@@ -431,8 +431,6 @@ static int mxl111sf_lgdt3305_frontend_attach(struct dvb_usb_adapter *adap, u8 fe
+ 
+ 	pr_debug("%s()\n", __func__);
+ 
+-	/* save a pointer to the dvb_usb_device in device state */
+-	state->d = d;
+ 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
+ 	state->alt_mode = adap_state->alt_mode;
+ 
+@@ -502,8 +500,6 @@ static int mxl111sf_lg2160_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
+ 
+ 	pr_debug("%s()\n", __func__);
+ 
+-	/* save a pointer to the dvb_usb_device in device state */
+-	state->d = d;
+ 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
+ 	state->alt_mode = adap_state->alt_mode;
+ 
+@@ -587,8 +583,6 @@ static int mxl111sf_lg2161_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
+ 
+ 	pr_debug("%s()\n", __func__);
+ 
+-	/* save a pointer to the dvb_usb_device in device state */
+-	state->d = d;
+ 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
+ 	state->alt_mode = adap_state->alt_mode;
+ 
+@@ -674,8 +668,6 @@ static int mxl111sf_lg2161_ep6_frontend_attach(struct dvb_usb_adapter *adap, u8
+ 
+ 	pr_debug("%s()\n", __func__);
+ 
+-	/* save a pointer to the dvb_usb_device in device state */
+-	state->d = d;
+ 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
+ 	state->alt_mode = adap_state->alt_mode;
+ 
+@@ -749,8 +741,6 @@ static int mxl111sf_attach_demod(struct dvb_usb_adapter *adap, u8 fe_id)
+ 
+ 	pr_debug("%s()\n", __func__);
+ 
+-	/* save a pointer to the dvb_usb_device in device state */
+-	state->d = d;
+ 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 1 : 2;
+ 	state->alt_mode = adap_state->alt_mode;
+ 
+@@ -935,8 +925,6 @@ static int mxl111sf_init(struct dvb_usb_device *d)
+ 	if (mxl_fail(ret))
+ 		pr_err("failed to get chip info during probe");
+ 
+-	mutex_init(&state->fe_lock);
+-
+ 	if (state->chip_rev > MXL111SF_V6)
+ 		mxl111sf_config_pin_mux_modes(state, PIN_MUX_TS_SPI_IN_MODE_1);
+ 
+@@ -1068,7 +1056,9 @@ static int mxl111sf_probe(struct dvb_usb_device *dev)
+ {
+ 	struct mxl111sf_state *state = d_to_priv(dev);
+ 
++	state->d = dev;
+ 	mutex_init(&state->msg_lock);
++	mutex_init(&state->fe_lock);
+ 	return 0;
+ }
+ 
+
+
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
