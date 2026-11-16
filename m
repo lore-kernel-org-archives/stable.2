@@ -1,50 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.203.187.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794838536;
-	b=0WeWf09n3ZNkq3VwPJZCzWb554/qf89NFlw0fkkjDPQsDtKN85t3slRGd5dShD+x76ky
-	 eR3n2p6ljdureXDiV1+WYAbd+ftbjceaC5RdHqBK6vAQzVkAV0RYwJvW8qzRyBRJ1DaF/
-	 sJGcq+9Vu+tIZxLSd7eF6sp0pxFyMKEUNNYSSOKjSa71qVhNJvW9Si5a2YNPl9Umn4TlN
-	 8couZYUgFyoZ8BldK6esB59RqRLI72H9Ibp7B/ZHNl+FeWSF+4yYVedLo145iyu59P5zt
-	 82SIreFFmPFPiD7Bs4PUUddzmldFbf2okulXKuANqHoiUYv3lEn8X3FlPhkyEdqQd8Q==
+	t=1794838779;
+	b=vf2Qdi2Af6/QAEVPg3H+807J4+J1Ipss1bV2GHMJCVzSAHqIdFFf0r9C4x09HiTh79Lr
+	 Xy0mUltFD3zfepVi5DeiKhQUFMva8cR04YIPyey3oJyMRcs2ckcud88c+d7KVsADUTj+b
+	 t+1BTRoR95kab06nk6jerPTY1a3MsHhw+0GTb7FOIPjkLngajPnaO08OiyzsZ7w+/DJnk
+	 +zay3KEbJOR29DSCQ4aw77MKZfMXqXH7hmJNnLlj7keYI0dvv61mn+cpFXeHv4Clp/Nvh
+	 +1EciHRWrmDxXhbVjb8uq6Hkmxv6SzmO/RpiBE5fjQ33Nguzuzo5Ro2U/UM/DQ40p1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794838536;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-HM-Tid:
-	 X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
-	bh=YhJiqIC2CQYxKyjK89PKRm2NdKGhD1jQabLgnETqdAo=;
-	b=1BrcIkic4HU5/4DoUP8JUnDXBvnoTtqoaK1YXgBBpIJ8ygxypCNBTkL7cB+Lq+wBaDyx
-	 hJFUGTFhoQbqqZKLFfzbcEysbx+faYjN9nTwKE1xxUZVwTqZFWSVbvqqH0D9gVRHioqpy
-	 xxIe27atBuaJu0giKnwAW9EuBunDoZkPi7nzTuRvIiS+8DjgO/OsmBd9V3lxl2HZFeEWQ
-	 Sg4i6n2YcE6E8HaXbduehvatk4n2aTnk0FEdykf3AETAwzZDXr5IgU4Yb9S+rS/ApTdz7
-	 eqrF+b377M/ZwSDPP7zV2DQhQLS4eMGfAxuLHyTC+SzwZ+j7wPW+KkbYPeYOVOXBdRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794838779;
+	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Classification-ID;
+	bh=OqN1DOAMuLQ9+9GOzq0fUU7KVDMi+b8LxbPVnWHn8wM=;
+	b=FRfqHVAGBoMIws4SYkR511iPVSAAH5Ylxbf4vCe0DyHMvPSGFANV7c3fEG1P8mG+dF5s
+	 zlYX1JGi0aRdN5vKPTI089tueVZkQdl88KDmixeKT/aaOUpyMxjacbAM6EpK9HzcEhVWZ
+	 T3/cgdWvEUYyiqKLF7Qnd1uASh3B13FFi7t7t3d5hmwOhkC6DV1Q6nPVEKfrN47NoLSJV
+	 Yy/TJa6l07TG/psoUKEkGNyb8TPKaUR1I0ZyL5oaFSJiUKcJMgw88nldee+OlG6qdZTfw
+	 r+RabK8L3BnwJ1tdyuoa5e5Y2LHMt2UyF4FTo4I2WzxR9v3B8YuxwIfy8QexMDa/mXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=P53w9KOT;
-	arc=none smtp.remote-ip=45.254.49.198
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mev.co.uk;
+	spf=pass smtp.mailfrom=mev.co.uk;
+	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=fTaPHzzH;
+	arc=none smtp.remote-ip=173.203.187.72
+Received: from smtp72.iad3a.emailsrvr.com (smtp72.iad3a.emailsrvr.com [173.203.187.72])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666BB606A33E;
-	Mon, 16 Nov 2026 14:15:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 666BB606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1902606A331
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:19:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1902606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=P53w9KOT
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 54db44753;
-	Mon, 16 Nov 2026 22:15:25 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: ngene: Fix potential stale I2C adapter on initialization failure
-Date: Mon, 16 Nov 2026 22:15:24 +0800
-Message-ID: <20261116-c29ba55625-media-ngene@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=fTaPHzzH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
+	s=20221208-6x11dpa4; t=1794838771;
+	bh=/Mn2I+Cn2UjhsYhz+k9MZr2YV9us0+ffGx459V0Dj9M=;
+	h=From:To:Subject:Date:From;
+	b=fTaPHzzHqvG/6b7o8alwEZCzVy5b3jnPpCEdlA9cjZ2MopuM0sSRrIid3MWlsIQFi
+	 paA30kSL+s3Iso/K+z/mx831K9R1ujpj0M2fwO4Mgsllki+jJVat4z+V4+Eg/1iudy
+	 ihHEzcaad/kWpIJ634oetIPrDfdsW7L+XB6cprfA=
+X-Auth-ID: abbotti@mev.co.uk
+Received: by smtp10.relay.iad3a.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 097C56348;
+	Mon, 16 Nov 2026 09:19:30 -0500 (EST)
+From: Ian Abbott <abbotti@mev.co.uk>
+To: stable@vger.kernel.org
+Cc: Pei Xiao <xiaopei01@kylinos.cn>,
+	syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com,
+	Ian Abbott <abbotti@mev.co.uk>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 7.3.y] comedi: dt2811: fix shift-out-of-bounds in IRQ check
+Date: Mon, 16 Nov 2026 14:19:13 +0000
+Message-ID: <20261116141922.113138-1-abbotti@mev.co.uk>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,52 +61,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1e4b6752903a1kunm077e66c010de6d
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaS0xDVh8YGEhMGh4dTxkYQlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=P53w9KOTdo7CHUuw9cvfLzxr1VqsmQCISo3LJzZEiVSZiJP4m8zgfAtcQzMMlfySstG+fy0RUnYSeKdbssvJQuu8PCOUYexOdrv2s1m00S5Vo3fYRkoVhfZJ/6wW70in2gLxEqw2hqgzEfkPVboOJYaBwCzLunag+z9kPfAMLY0=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=YhJiqIC2CQYxKyjK89PKRm2NdKGhD1jQabLgnETqdAo=;
-	h=date:mime-version:subject:message-id:from;
+X-Classification-ID: 800804f7-6982-484f-aaf2-b3ff9e6b760e-1-1
 
-If the second I2C adapter fails to register, ngene_start() leaves the
-first adapter registered. Probe subsequently frees the device that
-contains that adapter.
+From: Pei Xiao <xiaopei01@kylinos.cn>
 
-Unregister the first adapter before shutting down interrupts on this
-error path.
+[ Upstream commit 471ce96a9c415b8a67bd5081ac2089a458cacc2f ]
 
-This issue was found by our static analysis tool under development.
+The IRQ number passed via comedi_devconfig->options[1] is a signed int
+that comes from userspace.  The check `it->options[1] <= 7` does not
+reject negative values, so a negative IRQ number reaches
+`BIT(it->options[1])`, which is undefined behavior and triggers a UBSAN
+shift-out-of-bounds warning:
 
-Fixes: dae52d009fc9 ("V4L/DVB: ngene: Initial check-in")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+  UBSAN: shift-out-of-bounds in drivers/comedi/drivers/dt2811.c:570:31
+  shift exponent -251 is negative
+
+Add an explicit lower bound check (`it->options[1] >= 0`) so that only
+valid IRQ numbers 0..7 are accepted before the shift.
+
+Fixes: f2975a9b2ab9 ("staging: comedi: dt2811: add async command support for AI subdevice")
+Reported-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6ab21240.e548f532.1ca396.0018.GAE@google.com/#R
+Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
+Reviewed-by: Ian Abbott <abbotti@mev.co.uk>
+Tested-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
+Link: https://patch.msgid.link/02c46315293a26169d2a3862a2047959a1651ef4.1790061387.git.xiaopei01@kylinos.cn
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
 ---
- drivers/media/pci/ngene/ngene-core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/comedi/drivers/dt2811.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/pci/ngene/ngene-core.c b/drivers/media/pci/ngene/ngene-core.c
-index db6796240bce..b2864abe4b81 100644
---- a/drivers/media/pci/ngene/ngene-core.c
-+++ b/drivers/media/pci/ngene/ngene-core.c
-@@ -1368,10 +1368,12 @@ static int ngene_start(struct ngene *dev)
+diff --git a/drivers/comedi/drivers/dt2811.c b/drivers/comedi/drivers/dt2811.c
+index 0438b8c90e44..53cb17993ae7 100644
+--- a/drivers/comedi/drivers/dt2811.c
++++ b/drivers/comedi/drivers/dt2811.c
+@@ -567,7 +567,7 @@ static int dt2811_attach(struct comedi_device *dev, struct comedi_devconfig *it)
+ 	dt2811_reset(dev);
  
- 	stat = ngene_i2c_init(dev, 1);
- 	if (stat < 0)
--		goto fail;
-+		goto fail_i2c;
- 
- 	return 0;
- 
-+fail_i2c:
-+	i2c_del_adapter(&dev->channel[0].i2c_adapter);
- fail:
- 	ngwritel(0, NGENE_INT_ENABLE);
- 	free_irq(dev->pci_dev->irq, dev);
+ 	/* IRQ's 2,3,5,7 are valid for async command support */
+-	if (it->options[1] <= 7  && (BIT(it->options[1]) & 0xac)) {
++	if (it->options[1] >= 0 && it->options[1] <= 7 && (BIT(it->options[1]) & 0xac)) {
+ 		ret = request_irq(it->options[1], dt2811_interrupt, 0,
+ 				  dev->board_name, dev);
+ 		if (ret == 0)
+-- 
+2.53.0
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
