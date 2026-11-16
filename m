@@ -1,111 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794834846;
-	b=OP4j/bcN8PwFtv+luGG7Exopj64EN3Nqxb1x8Nc3JZhJdUkjVP6ldbKdJRjMfBUx/rug
-	 r0UWdNpLeoyglbmP9Zc4YUXOu8M16qcQVpeFFp7dtyMFlpk0d3hjzDWOVLyCMxUlXM9Dc
-	 18A0g4iyY3Xeu0D/2T2pOVJdRBOeFN6aWsh72sNIxkvtBbQt0JRE7IBQ748QLlWuQTaGY
-	 SI8noQDKo20RCj0eFjLk+NepyrKpQ/2XUBmBkL1JXzze+R4Vbs6AAREuDI3F74BHan8Ni
-	 6sk6n5Gomxg3qq4Cdr/m93NzCKOFizAjBqcSW+h71fZbpee/t12CSHjEEN1zus8Gszg==
+	t=1794835012;
+	b=T6T1UyevUB0+E2DhqhJBHSeQ4GvjiuGnRV70MraWg4U3LLXTj/uVu8DNUOcICgC3iBjq
+	 R+6Vv3jPOnAjWp+k6wPasZJG3Lnfr4HrwhInXnILZVta7fso69e2hKySkEaZAmRF9w9m7
+	 y5EAQKCSQ2rrQiX6HoRufpQCKCZc8SuTG8II7WBTpCrDyOR5Ar06YGrfFomv/9e5L7nu1
+	 bI3sQ3tvovPa6WqBzNlc2BgleSTg7swByzgx4e5NMWbtFksGYn9sBl8K43qHq/y9l1J/6
+	 A0d1KbBHmvFvqaQWEqs9922aB4zquF3EbbFsEFLx3XiXa9gk8yTfV6rGHYD6/MidzwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794834846;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=PFhObvSjr3B4O2wdtH/yQGSD5a72BQl4ILGJIm9KYfw=;
-	b=hr//QxhiAx1Aj8NaG0eoqYbwb6w65Ib840EPiIpz2UJPQdiLLq2uEnPc8qRW+bhmocC3
-	 68GYiS9KSWQYqJiNlMCbW9ty6dw6VcR0p/Uc0gMwkjbnlOlU+NLK9BzzZayMz44ahNeDm
-	 jrLEArmDoj5hmErm5ueIbICxX58+eGolLzb+Oni5MjJUxIqoUugi7cX1uHRzBWtyjy6gp
-	 SRgn64WELDWnbLlSamxtFvM4XQ8f4wQfHISHzdCxcJbZk26cHh3VdeyrdxS9QfWNVhVNa
-	 dFQDdjXwj9/NmGeFegbknTiBMjEg4oVwW9PCW/mt4YajF1/Zr3EKVoUekcBO/KnFZ1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794835012;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=k03plxax1sqgbyh+GRdp3af22vFwjxkHs/qqHnb9320=;
+	b=j5pkavWgFnau4gjUCAmyLeV5YEtFpu31RpnuraQrWYl5MYr1r5DZP4+8Hj1BCwXCLUdX
+	 phuIdWGl2+Rw+rVooSyEz4BImIDJVG1w2bksZvC2YIWxZUQXQV8vMmZidiefa/0U08UTQ
+	 jB/r5vBsM/fIgTggSyMw0WORExP8Gxbq04x1oz+SyYaKC2tUjKwGDh1rZAogZtKpC6IMc
+	 YIWhTqoI5QPcOpeZq197Zw5v9S/pqFRfQW9v3EJmoQAOXLzLJyQllT0cSOhA4SRjsTNNp
+	 rWerMMynKFwrUkTkT13I6SIJdSHXOuNeQed2NtioxmgLFss065F08QA9A1VM7OQys0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ge5B3Buh;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/UriHDLT";
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ge5B3Buh;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/UriHDLT";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7uco0zx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1C4606A329;
-	Mon, 16 Nov 2026 13:14:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC1C4606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E245606A323;
+	Mon, 16 Nov 2026 13:16:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ge5B3Buh;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/UriHDLT;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=ge5B3Buh;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/UriHDLT
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 342082227B;
-	Mon, 16 Nov 2026 13:14:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794834844; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PFhObvSjr3B4O2wdtH/yQGSD5a72BQl4ILGJIm9KYfw=;
-	b=ge5B3BuhYHXLUUA0JptT1fuMmK2fIyQRBlBbkLe5iP1FVc3OEd0ejnKlZc+ceDiibQ0hgM
-	SA+sCF4v3SxoT4tA4WXsHvVUWDAjyJ85msUa+4P5Il2eEmHTzYungj9K/MlkGl2tXrvhyH
-	+NSZxDcIYvriE/byAr13XLt+bLariQo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794834844;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PFhObvSjr3B4O2wdtH/yQGSD5a72BQl4ILGJIm9KYfw=;
-	b=/UriHDLTlNk2T+Cwf4CDo4p9g0KiCUlMtFrs0hPKknPGohUHrw4I4RR6SVZ87yf8Yw7fN7
-	/4V5KpFXOweIlRAA==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794834844; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PFhObvSjr3B4O2wdtH/yQGSD5a72BQl4ILGJIm9KYfw=;
-	b=ge5B3BuhYHXLUUA0JptT1fuMmK2fIyQRBlBbkLe5iP1FVc3OEd0ejnKlZc+ceDiibQ0hgM
-	SA+sCF4v3SxoT4tA4WXsHvVUWDAjyJ85msUa+4P5Il2eEmHTzYungj9K/MlkGl2tXrvhyH
-	+NSZxDcIYvriE/byAr13XLt+bLariQo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794834844;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PFhObvSjr3B4O2wdtH/yQGSD5a72BQl4ILGJIm9KYfw=;
-	b=/UriHDLTlNk2T+Cwf4CDo4p9g0KiCUlMtFrs0hPKknPGohUHrw4I4RR6SVZ87yf8Yw7fN7
-	/4V5KpFXOweIlRAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 0B16F1334C;
-	Mon, 16 Nov 2026 13:14:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id +4lPNpsB+2rMGAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 16 Nov 2026 13:14:04 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id A700424E0E; Mon, 16 Nov 2026 14:14:03 +0100 (CET)
-Date: Mon, 16 Nov 2026 14:14:03 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
-	linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org, 
-	target-devel@vger.kernel.org, linux-unionfs@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-nfs@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 08/17] loop: take freeze protection for discard and
- write zeroes
-Message-ID: <mmuho3sjwkzcsibntmqp4phwfo63a2hkzfy34qes6zlhztehgg@e5t5igmvtboa>
-References: <20261116-work-fs-frozen_writes-v2-0-ecc4a2aac40e@kernel.org>
- <20261116-work-fs-frozen_writes-v2-8-ecc4a2aac40e@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M7uco0zx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D2221F000C4;
+	Mon, 16 Nov 2026 13:16:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794835012;
+	bh=k03plxax1sqgbyh+GRdp3af22vFwjxkHs/qqHnb9320=;
+	h=From:To:Cc:Subject:Date;
+	b=M7uco0zxuI8sSccqlw/XEz7uKq0bU8EEVWie5wHNeZD8DKg5yTWCNDh6dDZHEiwQW
+	 qoP3wVnbi9yFDJ0MZrpJv9SGtqYNouiouQVKp8lUqwTyZEpsfZXZxalbJZl+qUGVE8
+	 j7bMh1qk2NU3ETT3qbCeJYgKf4+bgeY/PqtTzAb+KRSSCLvpSlpJJThzdOCcZwY4rJ
+	 U7JaM9Ti+w6/Seixu+NAd+0Vp7snKCwJTH8Pt+OUZGg0gFOGgf8JZOumSlFw7F8whE
+	 bPcs8sp5FcJGG4AE4xvmfjVMjMk4NPPrpVP1AAbHcbxSyfwVIJ3cjDCI4t76DsJ5CL
+	 LDWExSmw7I8Gg==
+From: Dinh Nguyen <dinguyen@kernel.org>
+To: bp@alien8.de,
+	tony.luck@intel.com
+Cc: dinguyen@kernel.org,
+	rounakdas2025@gmail.com,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Niravkumar L Rabara <niravkumarlaxmidas.rabara@altera.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] EDAC/altera: Fix Port B error injection in altr_edac_a10_device_trig
+Date: Mon, 16 Nov 2026 07:16:41 -0600
+Message-ID: <20261116131641.3064859-1-dinguyen@kernel.org>
+X-Mailer: git-send-email 2.42.0.411.g813d9a9188
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,91 +61,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116-work-fs-frozen_writes-v2-8-ecc4a2aac40e@kernel.org>
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_THREE(0.00)[3];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,suse.cz:email,imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.80
+Content-Transfer-Encoding: 8bit
 
-On Mon 16-11-26 12:03:48, Christian Brauner wrote:
-> Discard and write zeroes requests end up in lo_fallocate() which calls
-> ->fallocate() of the backing file directly. That skips the freeze
-> protection vfs_fallocate() would have taken. So they go straight
-> through to a filesystem that is frozen. With the backing file on ext4:
-> 
->   WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0, CPU#3: kworker/u16:1/44
->   Workqueue: loop1 loop_rootcg_workfn
->   Call Trace:
->    <TASK>
->    __ext4_journal_start_sb+0x7a/0x470
->    ext4_dirty_inode+0xa1/0x120
->    __mark_inode_dirty+0x154/0x1110
->    file_update_time_flags+0x3ab/0x4b0
->    ext4_fallocate+0x286/0x3440
->    lo_fallocate+0x13e/0x290
->    loop_process_work+0x486/0xe70
->    process_one_work+0x946/0x1820
->    worker_thread+0x4f1/0xd60
->    kthread+0x364/0x460
->    ret_from_fork+0x525/0x770
->    ret_from_fork_asm+0x1a/0x30
->    </TASK>
-> 
-> Take freeze protection around ->fallocate() like vfs_fallocate() does.
-> 
-> Fixes: dfaa2ef68e80 ("loop: add discard support for loop devices")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+From: Niravkumar L Rabara <niravkumarlaxmidas.rabara@altera.com>
 
-Looks good. Feel free to add:
+The INTTEST register on SoCFPGA only supports 16-bit writes; a 32-bit
+write triggers an SError to the CPU.  altr_edac_a10_device_trig() was
+already using writew() correctly, but Port B test bits (TSERRB at
+BIT(16), TDERRB at BIT(24)) live in the upper half of the 32-bit
+register.  Writing them to the base address silently truncates the
+value to zero, so no test interrupt is ever asserted.
 
-Reviewed-by: Jan Kara <jack@suse.cz>
+Write only the 16-bit half that holds the trigger bits, and leave the
+zero half untouched.
 
-								Honza
+Fixes: e5ef4cd2a47f ("EDAC/altera: Use correct write width with the INTTEST register")
+Cc: stable@vger.kernel.org
+Signed-off-by: Niravkumar L Rabara <niravkumarlaxmidas.rabara@altera.com>
+Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+---
+ drivers/edac/altera_edac.c | 16 +++++++++++++---
+ drivers/edac/altera_edac.h |  3 +++
+ 2 files changed, 16 insertions(+), 3 deletions(-)
 
-> ---
->  drivers/block/loop.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-> index a3325ceab484a..d2f29aadabcc1 100644
-> --- a/drivers/block/loop.c
-> +++ b/drivers/block/loop.c
-> @@ -259,7 +259,8 @@ static int lo_fallocate(struct loop_device *lo, struct request *rq, loff_t pos,
->  	if (!bdev_max_discard_sectors(lo->lo_device))
->  		return -EOPNOTSUPP;
->  
-> -	ret = file->f_op->fallocate(file, mode, pos, blk_rq_bytes(rq));
-> +	scoped_guard(file_write, file)
-> +		ret = file->f_op->fallocate(file, mode, pos, blk_rq_bytes(rq));
->  	if (unlikely(ret && ret != -EINVAL && ret != -EOPNOTSUPP))
->  		return -EIO;
->  
-> 
-> -- 
-> 2.53.0
-> 
+diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
+index bb95dab847b3c..37ce2a87443e2 100644
+--- a/drivers/edac/altera_edac.c
++++ b/drivers/edac/altera_edac.c
+@@ -1741,16 +1741,26 @@ altr_edac_a10_device_trig(struct file *file, const char __user *user_buf,
+ 	const struct edac_device_prv_data *priv = drvdata->data;
+ 	void __iomem *set_addr = (drvdata->base + priv->set_err_ofst);
+ 	unsigned long flags;
++	u32 mask;
++	u16 half;
+ 	u8 trig_type;
+ 
+ 	if (!user_buf || get_user(trig_type, user_buf))
+ 		return -EFAULT;
+ 
+-	local_irq_save(flags);
+ 	if (trig_type == ALTR_UE_TRIGGER_CHAR)
+-		writew(priv->ue_set_mask, set_addr);
++		mask = priv->ue_set_mask;
+ 	else
+-		writew(priv->ce_set_mask, set_addr);
++		mask = priv->ce_set_mask;
++
++	local_irq_save(flags);
++	half = lower_16_bits(mask);
++	if (half)
++		writew(half, set_addr);
++
++	half = upper_16_bits(mask);
++	if (half)
++		writew(half, set_addr + ALTR_A10_ECC_INTTEST_PORTB_OFST);
+ 
+ 	/* Ensure the interrupt test bits are set */
+ 	wmb();
+diff --git a/drivers/edac/altera_edac.h b/drivers/edac/altera_edac.h
+index 9387056fd65e3..fe6d0289f5c35 100644
+--- a/drivers/edac/altera_edac.h
++++ b/drivers/edac/altera_edac.h
+@@ -244,6 +244,9 @@ struct altr_sdram_mc_data {
+ #define ALTR_A10_ECC_TSERRB             BIT(16)
+ #define ALTR_A10_ECC_TDERRB             BIT(24)
+ 
++/* Byte offset of bits[31:16] of INTTEST for a 16-bit write */
++#define ALTR_A10_ECC_INTTEST_PORTB_OFST  2
++
+ /* ECC Manager Defines */
+ #define A10_SYSMGR_ECC_INTMASK_SET_OFST   0x94
+ #define A10_SYSMGR_ECC_INTMASK_CLR_OFST   0x98
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.42.0.411.g813d9a9188
+
