@@ -1,79 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794860190;
-	b=Ok5vjQLgwGwuldWGZ1IyMO0r1h1A0+Pm8w2exbvpspMsp8311mHY1QlxqKV/R1ebIxwX
-	 NGe7xPilt+xhjBJDVvLjUcgczd6u3UU/R5tvbYqVQuQPSQ9EoxJNrQIFx6p1hbLAzPgB/
-	 CG3t6e+aIL4Cy1npnCj+7lXs8aXKHK6Gq6AhJUfu1c8bwzF/R+cRTkX9D1VOEx4mpGYGB
-	 xjlYDamG3GN3amxempGgb2yYlmTlbkciNPDFsru3mGYG2jy4CZI5YTaFUZah+RRsV3a2l
-	 8thqEyc/zIk25zul2m8C5lxzCkkOGbbdAK2DSWl/gbjMujsGqBadoIn1yZcfUxoKtfw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794860190;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=72vSkN7QWDjTb/UUTmMIDRQ1rcbFn8s8bM+JdHjC0lg=;
-	b=qq2FLf/wqQPmJ9NCJGHNtS8XBWZPFgpSJ4z/AcHkiWDskTC1Oa8kHXJgvMLJcNnKh32l
-	 qJLatlKSpeSqwBn5mkasCnJ/MR27ImPGiwWPhLLuXzQPzaSK0Ias5SWsXz+S7c1TGKshS
-	 tHF5LLsY4EcKZk82g10QXcTWjhNLKx7/TCToqXXhzZS0kqdfq7u5O0Q+jYnA3nw7b3NPq
-	 oDwAnTgI0aYJWOzUZFd+fEfvpL5w2gYWtgiq1+LwizIzSXQt7p89a/MxyNbGRD80Ogb7p
-	 FixDmXkU45j1aaXxU+84Vv7vkla1Tjy4pA81yunthyZkNk2T85bIzsMCn7jRK9BRH2Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QwItsvUt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794860223;
+	b=nbnHkf8vpA8JH0broo7TlLhR+xOkwx2GEdibcQ89GiRN92Vmreonm2xY+6udeHRdpRr2
+	 aHc/fVU1Vbn1FwVQSSL4XcHQW2Dn7F48AOlFdFC58XpuOwphQkiDAViDZ+TJHV52/FHeb
+	 GeDpWMmQkcjpPzw4BYz/G/52ZJpX10VX1dLEfyj24aet6Pu7OGWFyot/qQlDq4CLZfOxi
+	 G2LRTnPufeVSvU5WHp83bGVir/9F47FrolcQJI/4VK9ti8uKlR73hri++1sp9CgLevXjn
+	 TRVCp8nUYMZCBczjMa0eCRzJgFSkZTW4+eXR7cid1zCC4ENk8NSnweuiLzYlnp24zOA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794860223;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bKzzzSpBOaonU826sARfDAiFw4R3omUJQM2ebnYyTcA=;
+	b=2w2Q7ucH5N7NrmYL2xiFuuAvoKeWdgmj+YtVvWv0u2+zW6jiKHrI4ue0uxbSd/+w0zTn
+	 OytTxfFPBsqKXudzOBvHGMiSI4551Ue03Sw0+wr2t2ctar38IRC+u2vnWG8MCDMCKYSk0
+	 IpOm/NWlwsw4GCSkMMdUwK0g6G0NejoROg126azWmw7uu3sc0LTNrGDO9S3dHJaWmIiV6
+	 zuDSxfrfjYls05yWIzxs6xAks9sdkkzabFV38rbCZqrwy88BhlUNNnUN7Ko9CQhjy8vf/
+	 8ix4VaR9C8hWrBuQzR1SkjNdkdRj30XrCy7bo6ATHx/OCvj4dJOBNHiHrYHcrdBiSpw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItU7TeQa;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5753606A322;
-	Mon, 16 Nov 2026 20:16:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87187606A31C;
+	Mon, 16 Nov 2026 20:17:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QwItsvUt
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794860190;
-	b=Cedlzh64XYdQxMxKi9aJiyWtNhE7dGPbeGldh09Vn6KpDhmiyo5OYoS5t9fQD801sVOp
-	 PyyyBxs46TaCKGgtXNzwaLibqszTsgqaWq7W1G8kBwyynLZmtGtqV3CTMFCrJBdbZifhT
-	 czeJEh6Gc78MAzTxrh2sDGDYqLFiWM3hZmuwZEaOxnMRqTOLy+XuwnBczMFHlhOuBfa1M
-	 P5c3xSiC1vv9H9XTzStGAjTu/et13emSqDWx714vRtVzziMhvRZ6j+Q9osBlhGoAD6EmN
-	 0GUwNCvnZhU1bkKMqTaB8s8109zny8ddjinhxpsvt3oTPG8vZ5RQqT8Vu0uRca63ZSw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794860190;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=72vSkN7QWDjTb/UUTmMIDRQ1rcbFn8s8bM+JdHjC0lg=;
-	b=sBhQblsRBcUnE7I7iGBWI+ZyanLajGSEuoLrtBUbwbvTwzTirw5C6kYOzyBA8IjujTyf
-	 isK9TMp+N0+D6MbeXl5sAlaZ3WkSvp7Eb6RBuhuYogJMExQrxy5w1I7EqemWzLND6yN5L
-	 fvX5I1LK63vnVLzJ5PLG81V9d2JEAEOIr3xQh3T0Mt8XNjLHfdmm8FEaQdV/5v6DsGQ36
-	 4UWORvgY5JVGJEmJ4VtmpZJns8aZeolbN5A+w4YiqrKjV1qKZVSk9VywZidUIi9dzBRbx
-	 uktjhwdrZ6iPrOSig3T3S6VvsMsvqLZ7iOLrS9GCg/qrt0m8FC8Pd2kVGmPRmmOwdfw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0F2CD1F000C4;
-	Mon, 16 Nov 2026 20:16:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ItU7TeQa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89F631F000C5;
+	Mon, 16 Nov 2026 20:16:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794860190;
-	bh=72vSkN7QWDjTb/UUTmMIDRQ1rcbFn8s8bM+JdHjC0lg=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=QwItsvUtw8gDoWsbt0gs7QSlghEZAOqv/3HA2rgIbsYkMhHY20PGWdnybE0Ez/hZx
-	 EnYyjPqDdADujMbAbNDwRdM6tMl9JW/zvZWPzJy08E8HyA5XJynb6VzW2COuA0HGNs
-	 irJHjzQOldgPg1H8XkMJG0/U1unQraapr2jMUbFB3uoCmgQVHIZ2560+TpXRi9dlQJ
-	 EX+5aC+KK3LY0gormylNCOuPIHA6/Wr14YWso/9l1DY4TgQGnK7meIgnkZ3QewSzOo
-	 DVCm5WOpRAG9ioJypkmQPdr9Q8106mLfMje2/nr3E2/zRkrkx280o4f3PjuHmQYwQf
-	 /bHye9TQigeyA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 965124A5B5;
-	Mon, 16 Nov 2026 20:16:29 +0000 (UTC)
-From: Marc Herrero via B4 Relay <devnull+marcht.proton.me@kernel.org>
-Date: Mon, 16 Nov 2026 20:16:29 +0000
-Subject: [PATCH v2] ASoC: qcom: audioreach: apply volume changes to a
- running graph
+	s=k20260515; t=1794860223;
+	bh=bKzzzSpBOaonU826sARfDAiFw4R3omUJQM2ebnYyTcA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ItU7TeQai/+BclW1EU5PAUfzqEk6kWfCZ7ASDuNsu2JYjtmngJxaHrhyvN8sM7Et+
+	 j5moSLArwbw6kg8SHUQd2XgGhkfhaugo+URtLWL4KRZs1ekwG4oSZgnaO+lQXKcrXz
+	 cBui06n56DU1FOwISRi0be2gp8TQiBxJCNALY3VmaNhxOmIg5C7ZJlmCNj/T2fX0JP
+	 GqbLTDxJP5qoqUlbrDewG3W4XgLWIc8posALz4Qwrni4AXv+rFL/LvijdI7xVFBVjZ
+	 SBFR4Srme2YbACrF1idrOzrbm8NhExSVlzMUG8lyRZoYUFLntPc6cwBaVXX3CXB29n
+	 1tdHE12H9/lEA==
+Message-ID: <cc865bc8-b96f-4385-97b1-976de4465ca1@kernel.org>
+Date: Mon, 16 Nov 2026 21:16:50 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,163 +51,165 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261116-q6apm-vol-live-v2-1-fbeba4402984@proton.me>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WMQQ7CIBBFr9LM2jFCFK0r72G6KDC1k7RAoSGah
- ruL3ft37yfvbZAoMiW4NxtEypzYuwry0IAZe/ciZFsZ5EkqUYeL6sOM2U84cSa0SmthNZmraaF
- KIdLA7z347CqPnFYfP3s/i9/7N5UFCtR0uxAN6twa8QjRr94dZ4KulPIF6Y/zRKwAAAA=
-X-Change-ID: 20261111-q6apm-vol-live-d6bb1dbec7c9
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Marc Herrero <marcht@proton.me>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794860189; l=5278;
- i=marcht@proton.me; s=20261111; h=from:subject:message-id;
- bh=mp2MbI2XiexMCnav2onYjsf+zW4C1sDOoQtZdybVDJk=;
- b=uWiabstwfrwXapwCEIJ2z2qJ6Bro5hEqxGWwLMW3uDhCYHmT2E99Vw3EjNByte2HbhREeY3Dz
- KVuNWySWd8gAvHKEH8VPFKD/x3rxY0eECoB45g/r+eDSsjvYBQR21K0
-X-Developer-Key: i=marcht@proton.me; a=ed25519;
- pk=pIPy6L+INgiuJt7L7umVilPgpzy/Ni3QS77ToLj/H9c=
-X-Endpoint-Received: by B4 Relay for marcht@proton.me/20261111 with
- auth_id=1490
-X-Original-From: Marc Herrero <marcht@proton.me>
-Reply-To: marcht@proton.me
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/9] userfaultfd: use anonymous memory for
+ UFFDIO_ZEROPAGE on private file mappings
+To: Tal Zussman <tz2294@columbia.edu>,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
+ Andrea Arcangeli <aarcange@redhat.com>,
+ Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+ =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
+ <20261116-uffd-state-fixes-v2-1-4397a0196479@columbia.edu>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261116-uffd-state-fixes-v2-1-4397a0196479@columbia.edu>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-From: Marc Herrero <marcht@proton.me>
+On 11/16/26 21:02, Tal Zussman wrote:
+> If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
+> mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
+> installs it through vma_uffd_ops(), no matter what kind of mapping it
+> is. An s390 KVM guest with storage keys or protected virtualization is
+> such an mm.
+> 
+> For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
+> cache of the file. That is wrong: a private mapping must never modify
+> the file it maps, and the file might even be mapped from a read-only fd.
+> 
+> The ioctl can also fail where it should succeed. A missing fault is only
+> delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
+> an address that did not fault, or can race with a write to the file. If
+> the file has a page at that offset by then, inserting the zeroed folio
+> fails and the ioctl returns -EEXIST although nothing is mapped at the
+> destination address.
+> 
+> What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
+> shared zero page can be used, and what UFFDIO_COPY does: only check that
+> nothing is mapped at the destination address, map zeroed memory there,
+> and leave the page cache alone. The zeroed folio path did that before it
+> was moved to vm_uffd_ops.
+> 
+> To fix it, pick the ops in the common folio path, as
+> mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
+> mapping, the ops of the VMA otherwise. That makes
+> mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
+> so remove them and rename __mfill_atomic_pte() to
+> mfill_atomic_pte_folio().
+> 
+> UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
+> if something is already mapped at the destination address.
+> 
+> Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
+> Cc: stable@vger.kernel.org
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> ---
+>  mm/userfaultfd.c | 46 ++++++++++++++++------------------------------
+>  1 file changed, 16 insertions(+), 30 deletions(-)
+> 
+> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+> index d65184d9a480..61a712e1f9f5 100644
+> --- a/mm/userfaultfd.c
+> +++ b/mm/userfaultfd.c
+> @@ -531,15 +531,27 @@ static int mfill_copy_folio_retry(struct mfill_state *mfill_state,
+>  	return 0;
+>  }
+>  
+> -static int __mfill_atomic_pte(struct mfill_state *state,
+> -			      const struct vm_uffd_ops *ops)
+> +static int mfill_atomic_pte_folio(struct mfill_state *state)
+>  {
+> +	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
+>  	unsigned long dst_addr = state->dst_addr;
+>  	unsigned long src_addr = state->src_addr;
+>  	uffd_flags_t flags = state->flags;
+>  	struct folio *folio;
+>  	int ret;
+>  
+> +	/*
+> +	 * The normal page fault path for a MAP_PRIVATE mapping in a
+> +	 * file-backed VMA will invoke the fault, fill the hole in the file and
+> +	 * COW it right away. The result generates plain anonymous memory.
+> +	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
+> +	 * generate anonymous memory directly without actually filling the
+> +	 * hole. For the MAP_PRIVATE case the robustness check only happens in
+> +	 * the pagetable (to verify it's still none) and not in the page cache.
+> +	 */
+> +	if (!(state->vma->vm_flags & VM_SHARED))
+> +		ops = &anon_uffd_ops;
 
-audioreach_put_vol_ctrl_audio_mixer() only stores the new gain in the
-module. The gain reaches the DSP from audioreach_pga_event() on
-SND_SOC_DAPM_POST_PMU, that is when a stream starts, so changing the
-"<stream> Playback Volume" control while playing has no effect until the
-next stream.
+Oh, but one comment: why not check for actual cow mappings?
 
-On QCS6490 (Radxa Dragon Q6A) shairport-sync uses this control as its
-hardware volume: the volume set when an AirPlay session starts is
-applied, but every later change from the phone is ignored.
+	vma_is_cow_mapping()
 
-Send the gain to the DSP right away when the widget is powered and the
-graph holding the volume module has been started, since the DSP rejects
-the parameter before that. Otherwise only store it, and the PGA event
-applies it at power up as before. Hold the DAPM lock so the power state
-cannot change between the check and the update, keep the old gain and
-return the error if the DSP does not take the new one, and report no
-change when the value is the same.
+is your friend :)
 
-Fixes: 36ad9bf1d93d ("ASoC: qdsp6: audioreach: add topology support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Marc Herrero <marcht@proton.me>
----
-Found on the Radxa Dragon Q6A together with the two fixes in
-"[PATCH v2 0/2] ASoC: qcom: audioreach: fix S24_LE playback and route
-mixer disconnects". This one is independent of them.
-
-Tested on 7.2.9: with the patch, moving the AirPlay volume while
-playing changes the output immediately; without it nothing changes
-until the next stream. Builds on asoc/for-next.
----
-Changes in v2:
-- Only send the gain when the graph holding the volume module has been
-  started, since the DSP rejects it before that (Srini). Add
-  q6apm_is_graph_started() for this.
-- Take the DAPM lock so the widget power state cannot change between
-  the check and the update (Mark).
-- Return the error and keep the old gain if the DSP does not take the
-  new one, so writing the same value again retries (Sashiko).
-- Link to v1: https://lore.kernel.org/r/20261111-q6apm-vol-live-v1-1-be85eef649c1@proton.me
----
- sound/soc/qcom/qdsp6/q6apm.c    | 13 +++++++++++++
- sound/soc/qcom/qdsp6/q6apm.h    |  1 +
- sound/soc/qcom/qdsp6/topology.c | 26 ++++++++++++++++++++++++--
- 3 files changed, 38 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/qcom/qdsp6/q6apm.c b/sound/soc/qcom/qdsp6/q6apm.c
-index 8e3314a2738c..034d42edde22 100644
---- a/sound/soc/qcom/qdsp6/q6apm.c
-+++ b/sound/soc/qcom/qdsp6/q6apm.c
-@@ -839,6 +839,19 @@ int q6apm_graph_stop(struct q6apm_graph *graph)
- }
- EXPORT_SYMBOL_GPL(q6apm_graph_stop);
- 
-+bool q6apm_is_graph_started(struct q6apm *apm, uint32_t graph_id)
-+{
-+	struct audioreach_graph *graph;
-+	bool started;
-+
-+	mutex_lock(&apm->lock);
-+	graph = idr_find(&apm->graph_idr, graph_id);
-+	started = graph && graph->start_count > 0;
-+	mutex_unlock(&apm->lock);
-+
-+	return started;
-+}
-+
- int q6apm_graph_flush(struct q6apm_graph *graph)
- {
- 	return audioreach_graph_mgmt_cmd(graph->ar_graph, APM_CMD_GRAPH_FLUSH);
-diff --git a/sound/soc/qcom/qdsp6/q6apm.h b/sound/soc/qcom/qdsp6/q6apm.h
-index 9092359ccf90..b84ccbee4926 100644
---- a/sound/soc/qcom/qdsp6/q6apm.h
-+++ b/sound/soc/qcom/qdsp6/q6apm.h
-@@ -120,6 +120,7 @@ int q6apm_graph_prepare(struct q6apm_graph *graph);
- int q6apm_graph_start(struct q6apm_graph *graph);
- int q6apm_graph_stop(struct q6apm_graph *graph);
- int q6apm_graph_flush(struct q6apm_graph *graph);
-+bool q6apm_is_graph_started(struct q6apm *apm, uint32_t graph_id);
- 
- /* Media Format */
- int q6apm_graph_media_format_pcm(struct q6apm_graph *graph,
-diff --git a/sound/soc/qcom/qdsp6/topology.c b/sound/soc/qcom/qdsp6/topology.c
-index 612d8f03e6e9..956f8e9e6a76 100644
---- a/sound/soc/qcom/qdsp6/topology.c
-+++ b/sound/soc/qcom/qdsp6/topology.c
-@@ -1322,11 +1322,33 @@ static int audioreach_put_vol_ctrl_audio_mixer(struct snd_kcontrol *kcontrol,
- 					       struct snd_ctl_elem_value *ucontrol)
- {
- 	struct snd_soc_dapm_widget *dw = snd_soc_dapm_kcontrol_to_widget(kcontrol);
-+	struct snd_soc_component *c = snd_soc_dapm_to_component(dw->dapm);
- 	struct audioreach_module *mod = dw->dobj.private;
-+	struct q6apm *apm = dev_get_drvdata(c->dev);
-+	long gain = ucontrol->value.integer.value[0];
-+	int ret = 0;
- 
--	mod->gain = ucontrol->value.integer.value[0];
-+	/*
-+	 * The PGA event applies the gain when the widget powers up. Hold the
-+	 * DAPM lock so the power state cannot change under us: either the
-+	 * event sees the new gain or it is sent here. The DSP only accepts
-+	 * the parameter once the graph holding the module has been started.
-+	 * Keep the old gain if the DSP did not take the new one, so that
-+	 * writing the same value again retries.
-+	 */
-+	snd_soc_dapm_mutex_lock(dw->dapm);
-+	if (mod->gain != gain) {
-+		if (dw->power &&
-+		    q6apm_is_graph_started(apm, mod->container->sub_graph->info->id))
-+			ret = audioreach_gain_set_vol_ctrl(apm, mod, gain);
-+		if (!ret) {
-+			mod->gain = gain;
-+			ret = 1;
-+		}
-+	}
-+	snd_soc_dapm_mutex_unlock(dw->dapm);
- 
--	return 1;
-+	return ret;
- }
- 
- static int audioreach_control_load_mix(struct snd_soc_component *scomp,
-
----
-base-commit: cde5523c75f1320a55ac1d55a717ccbb566557f0
-change-id: 20261111-q6apm-vol-live-d6bb1dbec7c9
-
-Best regards,
 -- 
-Marc Herrero <marcht@proton.me>
+Cheers,
 
-
+David
