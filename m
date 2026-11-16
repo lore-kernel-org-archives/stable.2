@@ -1,93 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794787225;
-	b=BOBkxxhC92803LtKo5S4TYD8bDzvWRcCG7ZcBugQZvrUHnangP2y5mIIb7sZ5erc/WpQ
-	 WCTZmfumtlU3vIIVzy56dYsr0/WObrJvWOOdhD03sayKSlIgvlqolHAqpiD+NX3ocpLIX
-	 Hc8/MPRk3phgXr0FTBMGZY1FhHCrRAOHsdoEOa9+dm+ezeuqDPpHWdzQWD34a7x1xoQxh
-	 j2bNyJDJTCWJcuZxoUa7OpfmLKn7V3Qow3DZOWfWuET3mOtW+JTDLVfZ4ikOKucuHGudx
-	 BSkqwAeMZm+RwpfSQ3cStU7wxO1fps4ujIi3Qs/kAy9ph9nyHO9jUuiTnUJLbn9bCmQ==
+	t=1794787349;
+	b=tigxMslloiGjN4dFSt90iTe8+YilpICDwnNnGVHg+BacvwMcqUBVDs+doBd/H6DMMPMM
+	 8moEHt+OswWBW6vcmQ4FDv/m0e6v3R32x7ehImb72l1iK9TJb4xtFAvNeQq3RQAVZNn/Q
+	 Vlp/UDX2KVAbUjtPrWL5C+TnPXjDVKJtGuYMarDb42p8JUJn713fH+X/DprS7svVvDSZx
+	 QMXdXHOnFhKPq3lK5yvSgNUKDZmOoBDkGIo0uq4+NN3VTt26DkvGQWdFMydnnLWA1oMM/
+	 u9MDq2XTZnuxQQ4o98pvAk8EjYxUXW4qsWgAC4iqMxaePsAM2/iL2xlEqz7ySqABlCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794787225;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7mrq+jL5aACHNl3ltXcO3fURb6JLvjPGhfwWz9B6vIw=;
-	b=qrkM1cLU4SYAAr+qO0143FU0Xui7lbjwrIAX0Kdgnw2kO4/0KcawZyO1yTQnST9KB83/
-	 a/67rzef14jQtzxG5GryaTW5BZBOJZZKXHe+5EhGEiEoFkc9uCq2PWIlBAxi3Og8o3UsG
-	 k+u4j7mTNYxh3c5PX2f9uNEMBkdLc0/s/DWJFuy2nRi0ySyO/Ls7HlwTyY+0GxS0p4LeP
-	 CIDyn8hw28eCq0/n8pkPgJUgdocv40iwucM+/j9U80GMucQZRLeHOl/PcpeB8ys5ga8fh
-	 sTTEM/2aMFnQbebtduEgIPtkqcvfIsmWkHBY9S5VR5+raVJTYEFDGTBoPsa3ASyiHHA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794787349;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=0LiZaiovIoEgc2+KzKF9v3Bvxk8MU684up3WOQq16sY=;
+	b=geuFcUB7VQmuN3aBvSFS9sP5pTZOGRJ3GCX3pyqDSHQwPasETDJ534hgq9fZR5tQQW+E
+	 Bmk6NOYLueKiBq1RtQA7iwaHnmUqK+SaskLINxtzQ6R/9Q8q5G8243gpRqHfIhpzoklF4
+	 AsoSIya/rOudjGWkdlimhJO5Rk8utPkNFzINVIGF3yDnxNsMAzGlk6GcMJor57b63JQ7h
+	 pV4AitCHhy4f/pGNhebMvqK1VmklEkgS54Nvc2g2zuOsndKGfDNvjTMZs4nzgKHYinkkX
+	 WFCftugNK/EEVL/mUC/FJZ+vuNnFmniNfId90SDKIOjhmW9Vnagj4nVrxOQzDh+7OPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JOxpDL5y;
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irUiT623;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC30606A329
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 00:00:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FC30606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7A1606A31F;
+	Mon, 16 Nov 2026 00:02:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JOxpDL5y
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ae7626d14aso1439191a91.2
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 16:00:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794787224; x=1795392024; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7mrq+jL5aACHNl3ltXcO3fURb6JLvjPGhfwWz9B6vIw=;
-        b=JOxpDL5yC+IX5MOwPs/wTSOTxN89zjXJhuVNEmkPS30q+66oFAjGHytW+TWBKytTIB
-         ZsE073w4Cc4vDEvRCkcxQYXvO8tu157YnjM3orpHlXPtqqMy2C26JlpDxkH9TwJGHFxO
-         IzkU3woKqocMsKNBcHSugkPuYAqnx50Gf+aY+Is+6wGPHNTYI5Ca822Wy7loVl4rK3d2
-         /4tLwypm4GS6t8iJNNAHQrEMWwBb2DZbcqfN81r1neJC9iThz91LnnK+64WnJQSSo0QA
-         H0PSd3v9ZwLkY5doEslPgLdYS5jvdUxlrgPiVJz95n+p3JNp+SEsbCv/BZWloCMxEtSP
-         LHcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794787224; x=1795392024;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7mrq+jL5aACHNl3ltXcO3fURb6JLvjPGhfwWz9B6vIw=;
-        b=WoV+FvPAeGEvq7phBJyhKeqeNSsKWtj4VaqcuqrF2OMhwi4g1TztS3bHxK83PCBeM0
-         aTwnKqkzEX4rYiaPKA7MCM02gnq4pToO31ImmFVVya52U0PyVRd+uQo1G4/PdrzqQPZ6
-         0kfIntDx/usZ9NDcdSZFYtrQ5EJ2kMaIQS4ji7RLYG6hvN4jxFApixKnFuLQ7h7MRpB/
-         +Nk7fIZt8cMbKPDpjhpJwYsKAcleDP4ltLnphOcEh7vfvJ9no7CCVLOldF6t8M45lBu5
-         hz0pt+ti2SBea7O0rqNu+DKBnIZDf/tcpcdmXSpvqJIQvuEg8ea6K4Ev/Uh83YoDxuDa
-         S1wg==
-X-Forwarded-Encrypted: i=1; AL+hErHmNClTOW/nV+wrwV4/3w3Wjg3+C4UDC1k0S4mMtK4lkqCbjs8A+J9u9sUMQXoj6x/a17p5ea8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/bnWx0+gUCfH+5g7xfWeO3cwKTEpVzVN+NxEyOaOXyiXdLQk7x
-	zQagME5Kfrkg9tNG53QmtUNAFGTNJaWPclPDVALRDNBuSH0H/WpUckJj
-X-Gm-Gg: AYBFou07dQ24UTRqK/DiqQ0BTG3iO23WM59F7Mz2I004d0DflPsEr73psQkE1oxrGxW
-	YQ6sBp88tVlkDmClr0+EecYa6U8fQ8UkPt0cVsEtfF84ibaQOc8AMyObCAEUHO6kKBCoXRDOXO6
-	0394C77dWgZABlRkGaAUMHsxngIKakiQL7HrmNxpOK6iUwDZipPwNsxPOp6HPpsG46uRw7CgOeR
-	rB0o0AsLSSDNp3X4wX4gfBRzy76zoJxEdqBMfpiSMg1bC9Bw37L76+SVb82a5s0MXV3js/CuKHz
-	xYvnTWEXmPTj4RJ9VXP2Q8YMiPjN5DaOpVLROdsi1lDDfItvy9bT29qnilVKTfQGIHDjx1Bpxms
-	arpL+UHV+BqBh22RpiTW1fAVv09FfI3uJ+XVO0EMSIRo4A7TRhT8WEq9D3DZl5UeuabxpmomiU/
-	4hBq3qzTCGXSoIvmh/RetzgZT/vK6nqsvs2w3kUM1XDWjUuhWb3xVRuns7lGBCRuGudYXA4hSum
-	beDFDXliXBNeZFvcRAhdWuc3AO5klvk4F1ZXw2Ix/mitLr7z6i7ngQaiHwtSFXa+8ZRhpKVAXTW
-	Yp2Ost+S+SUSbzBQuJF3Ag7a8zp241sbsGDMSGk9m+bQs7fNM33hZlJuU0JyFlkZYX6rl+Ro6qW
-	CAhGTd6WWMF8ngpN9TTrLKXwwwrAkXtKVYhELLdYMlWgcVA==
-X-Received: by 2002:a17:90b:5608:b0:3ac:adce:60a9 with SMTP id 98e67ed59e1d1-3b1b07ef0camr8541905a91.9.1794787224413;
-        Sun, 15 Nov 2026 16:00:24 -0800 (PST)
-Received: from f2fs-test.c.googlers.com.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce556dsm19125756a91.6.2026.11.15.16.00.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 16:00:23 -0800 (PST)
-From: Daeho Jeong <daeho43@gmail.com>
-To: linux-kernel@vger.kernel.org,
-	linux-f2fs-devel@lists.sourceforge.net,
-	kernel-team@android.com
-Cc: Daeho Jeong <daehojeong@google.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] f2fs: block checkpoint before moving cursegs for device aliasing
-Date: Sun, 15 Nov 2026 16:00:19 -0800
-Message-ID: <20261116000019.2299222-1-daeho43@gmail.com>
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irUiT623
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517CE1F000C4;
+	Mon, 16 Nov 2026 00:02:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794787349;
+	bh=0LiZaiovIoEgc2+KzKF9v3Bvxk8MU684up3WOQq16sY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=irUiT623aRt32I4fhbQ5pqZjzskjxyj/oIiFf4X64UuBPVJnLFBEooSWi5qHOsejM
+	 0ZKXg1cLffpgEOkAWwjPWjzFyO9HkVK00eyymwk4FiQppgTiRCW1Yb0I520qBx0fcQ
+	 dYbAULLLkF2hV9Kr6IrqpHlQzn1SdqQU1TMcl8Bjwl8HdgtmIj9tdziztL9dEZEr3F
+	 DbfY1UjHUUzrqbwrvvzTg1ycDJbeDl909lCiOPYliWDTmAzUdh5RrEz5jwFQ13PZy4
+	 fpmxYxK0Z7vMoJlMLLeU6T3veq+IMlUytVbdariGyV9z52/5Ex5fUUNqasVzGRR88G
+	 p1Yhk/viXd7kg==
+Subject: Re: [PATCH net v4 1/2] tls: restrict device-down TX fallback to
+ hardware TX sockets
+From: netdev-bot+sashiko@kernel.org
+To: rjethwani@purestorage.com
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, john.fastabend@gmail.com,
+ kuba@kernel.org, sd@queasysnail.net, davem@davemloft.net, edumazet@kernel.org,
+ pabeni@redhat.com, horms@kernel.org, tariqt@nvidia.com,
+ alice.kernel@fastmail.im, linux-kernel@vger.kernel.org
+Date: Mon, 16 Nov 2026 00:02:27 +0000
+Message-ID: <179478734781.3136.1664474557678569331@kernel.org>
+In-Reply-To: <20261111232930.2532497-1-rjethwani@purestorage.com>
+References: <20261111232930.2532497-1-rjethwani@purestorage.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,73 +64,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Daeho Jeong <daehojeong@google.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-f2fs_ioc_reserve_dev_alias() moves the cursegs out of the range of the
-alias device with gc_lock only, before it takes f2fs_lock_op(). gc_lock
-does not keep every checkpoint away: f2fs_ioc_reserve_dev_alias() and
-f2fs_ioc_release_dev_alias() write the checkpoint at their end after they
-released gc_lock. So the cursegs can be moved while a checkpoint of
-another alias ioctl is in progress.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-do_checkpoint() copies the positions of the cursegs into the checkpoint
-first and writes their summaries later. If a curseg is moved in between,
-the checkpoint does not match it. Commit b4b10061ef98 ("f2fs: refactor
-resize_fs to avoid meta updates in progress") fixed the same problem in
-f2fs_resize_fs() by taking f2fs_lock_op() before the cursegs are moved.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Do the same here. Take f2fs_lock_op() first, and then move the cursegs.
+- [High] In tls_device_down() (net/tls/tls_device.c), this patch decides
+  whether to call tls_dev_del(TX) from the result of…
 
-Test: two alias files, with a debug patch which makes do_checkpoint()
-of the release ioctl sleep after it copied the curseg positions. A
-reserve ioctl on the other alias file moved the warm data curseg during
-that sleep, and the checkpoint recorded the segment the curseg had left.
-With this patch, the curseg is moved after the checkpoint is done.
+--
 
-Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daeho Jeong <daehojeong@google.com>
----
- fs/f2fs/file.c | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
+tls: restrict device-down TX fallback to hardware TX sockets
 
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 05061254c3b2..75c51b3a4118 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -3905,13 +3905,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
- 	/* Reset the victim information to prevent GC from targeting the range */
- 	f2fs_reset_gc_victim_resource(sbi, start, end);
- 
--	/* Move out cursegs from the target range */
--	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_PERSIST_TYPE; type++) {
--		err = f2fs_allocate_segment_for_resize(sbi, type, start, end);
--		if (err)
--			goto out_gc_unlock;
--	}
--
-+	/* stop CP before moving cursegs, as f2fs_resize_fs() does */
- 	f2fs_lock_op(sbi, &lc);
- 
- 	if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
-@@ -3920,6 +3914,15 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
- 		goto out_gc_unlock;
- 	}
- 
-+	/* Move out cursegs from the target range */
-+	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_PERSIST_TYPE; type++) {
-+		err = f2fs_allocate_segment_for_resize(sbi, type, start, end);
-+		if (err) {
-+			f2fs_unlock_op(sbi, &lc);
-+			goto out_gc_unlock;
-+		}
-+	}
-+
- 	/* do GC to move out valid blocks in the range all at once! */
- 	err = f2fs_gc_range(sbi, start, end, false, 0, false);
- 	if (err) {
+This commit changes tls_device_down() so the TX validator is switched to
+the software fallback only for sockets that use hardware TX. The cmpxchg
+result now decides whether the driver TX state is deleted. RX driver
+state is tracked with TLS_RX_DEV_CLOSED, which is set at context
+creation and cleared after a successful RX tls_dev_add().
+
+> diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
+> index 4cdfbb57ecff0..a42cbc89db2bb 100644
+> --- a/net/tls/tls_device.c
+> +++ b/net/tls/tls_device.c
+
+[ ... ]
+
+> @@ -1350,10 +1350,14 @@ static int tls_device_down(struct net_device *netdev)
+>  	spin_unlock_irqrestore(&tls_device_lock, flags);
+>  
+>  	list_for_each_entry_safe(ctx, tmp, &list, list)	{
+> +		bool tx_hw;
+> +
+>  		/* Stop offloaded TX and switch to the fallback.
+>  		 * tls_is_skb_tx_device_offloaded will return false.
+>  		 */
+> -		WRITE_ONCE(ctx->sk->sk_validate_xmit_skb, tls_validate_xmit_skb_sw);
+> +		tx_hw = cmpxchg(&ctx->sk->sk_validate_xmit_skb,
+> +				tls_validate_xmit_skb,
+> +				tls_validate_xmit_skb_sw) == tls_validate_xmit_skb;
+
+[Severity: High]
+Is ctx->sk still guaranteed to be allocated when this cmpxchg runs?
+
+The cmpxchg is in the second loop, after tls_device_lock has been
+dropped. The refcount_inc_not_zero() in the first loop pins only the
+tls_context, not the socket.
+
+The final reference on a hardware TX socket can be dropped from skb
+freeing, and that path does not take device_offload_lock. The socket
+destructor then sees the extra ctx reference held by tls_device_down()
+and returns early:
+
+__sk_destruct()
+  tls_device_sk_destruct()
+    tls_device_queue_ctx_destruction()
+        spin_lock_irqsave(&tls_device_lock, flags);
+        if (unlikely(!refcount_dec_and_test(&ctx->refcount))) {
+            spin_unlock_irqrestore(&tls_device_lock, flags);
+            return;
+        }
+
+The ctx survives, but the sock is freed. ctx->sk is left dangling. Each
+earlier context in the list adds a synchronize_net() before this one is
+reached, so the window can be fairly wide.
+
+If that happens, can the cmpxchg read and write freed or reused socket
+memory? There seem to be two bad outcomes:
+
+If the compare fails, tx_hw is false and tls_dev_del() is never called
+for TLS_OFFLOAD_CTX_DIR_TX. ctx->netdev has already been set to NULL,
+and the final refcount_dec_and_test() in tls_device_down() goes to
+tls_device_free_ctx(), which never calls tls_dev_del(). Would this leak
+the driver TX offload state?
+
+If the memory has been reused by another TLS socket whose validator is
+tls_validate_xmit_skb, the cmpxchg would switch that unrelated socket to
+the software fallback.
+
+The unconditional WRITE_ONCE() through ctx->sk in the second loop was
+already a use-after-free before this patch, so that part is pre-existing.
+What this patch adds is that driver TX teardown now depends on that
+unprotected access, where before it used the pinned ctx->tx_conf.
+
+The next patch in this series, "tls: fix socket use-after-free during
+device-down", seems to address this. It moves the cmpxchg into the first
+loop under tls_device_lock, records the result in TLS_TX_DEV_DOWN, and
+tests that flag in the second loop. Would it make sense to fold that fix
+into this patch, or reorder the two? Then this commit would not add the
+dependency on its own, which matters since it is marked for stable.
+
+>  
+>  		/* Stop the RX and TX resync.
+>  		 * tls_dev_resync must not be called after tls_dev_del.
+> @@ -1370,13 +1374,14 @@ static int tls_device_down(struct net_device *netdev)
+>  		synchronize_net();
+>  
+>  		/* Release the offload context on the driver side. */
+> -		if (ctx->tx_conf == TLS_HW)
+> +		if (tx_hw)
+>  			netdev->tlsdev_ops->tls_dev_del(netdev, ctx,
+>  							TLS_OFFLOAD_CTX_DIR_TX);
+
+[ ... ]
+
 -- 
-2.56.0.611.g1030f0b940-goog
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111232930.2532497-1-rjethwani%40purestorage.com
