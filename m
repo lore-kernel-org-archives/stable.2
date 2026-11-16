@@ -1,55 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794821716;
-	b=MQD+rxXiSxHJoOhf9qeLDxYYSnRyGlqb52ALDh3F/XbtONKGMcvnRG7iuHlYJ0ociXx1
-	 vn1+Z43Huol7kpoISW3bewzI7bnRh/HWXqNVOFNb2eAVDSx96CC/c/g33H1iWQ2G9J4vb
-	 P/MQ9BxMsjOY5/IanTY0qrjcrXf+/3eOZ+UebvsMLl3kbQsbqemNYbR5m3sWI5wd7Abra
-	 1QemChHDr43mCvI2ZCfpRxirym+IkRrwQ6oYCmjVEntc7LySqnAtp+FrQnmb15xkmfC4u
-	 slkBYoZbslGjc0uPEGsxApy9mi3pbtwVAiKoHVYSmrdtK46CH9Ot9n6mVj4Ev/jqQBg==
+	t=1794822007;
+	b=op9vEkO6QUWNDJVUKNtMDEpHZBVGRQzIG5mYLyUBgZ71KA5bFDAlRQgMg+P9gdyjLWok
+	 0tI1zO1UnZVz8IIwB1VldXUvzvMDWKxX/bISBi4LcN4X28e+U4SlaXVzp4jcwbmskGYTd
+	 mzfu8HtINbqsxV/A+QxCFpnX73DOO6gRfaU8xMMC8SD51UNJ+FSGhb6yBvBRGfoQv79ZW
+	 6wjjTU+S9syI2HhSCUQh+f1Q5lJTcTyfWsDayzWpwwGmlftYYGdBFgcKQzl5oLzjMdu78
+	 BgT4/e+NbXbT+aD6Lud5GgtzebSKjeamhl40tkD/2Lqt1DUUJIT+xwnSW9sGqOMrtJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794821716;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=m2paPrvOQbcYKgaX4fQc0mmLJu13moPBo8N94dl2CTg=;
-	b=d47uu3xI3rkZzK3GzUiGkoJwuUyHUx4F32oiezT3d2NUyCmnjHO1vwIai3UieJ8yG6vD
-	 QnIIZLzK+uopS5+w03FvRO4ui4CZPJQDD4f17XEdSe8GN+B9My5RUnNVUkyPZmW5quVL/
-	 /arswQCz7olKaVj+CDg7vmruy+I11UbUKiYCHL3sbB1DNjHOu77o1n+EDym0jLQkrdP1v
-	 X/4JcUlCNSqfLr+40qpUw9aI94Ne88g3sJZ8TAycq+A+JxsUHGfGzHCvKlJYyWuWBlfju
-	 oGk3DOstVmLE+Tp8lTghG6vXaYGxlyVxracHYcZZhRLVws91ilps0fl02BO6plK08MA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794822007;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=XQ+OBeDeOmk+ytQmg9fDb33P5Vaxo9hGwNAAAF0nKHA=;
+	b=BJdEZhmft/7VZKQH2zRXYbgL2oaTcD7LWTVkchPVP1rIoPf9eJ1fkR6Z6nMdfPGsdac/
+	 3UGfLSDdK1zKjVIMaTAnX4ie1uP51E+LIGN8iQE5Yj5J2L4v5X269UvWGHgL8+qH6FKc+
+	 pD/ejf9nxXlfmwUfNZXbmBsNtrZdfLxlspTjcdMor/Ct1ea3YHUWg+helOOadIwPCdqvc
+	 1QLiTlqKrDBRJQdBVmOIIMZf2u+fmF/Wx4skfbgq7bmITfidqmwOGy4kcEEBpP7YUe7XI
+	 gQOzdaDGDAO5jUh9LMpf9YK94naM8OoiNeMDOTO9KWAiJx3jfWx0nF6prwVry/fRrfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CDBF0606A31C;
-	Mon, 16 Nov 2026 09:35:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDBF0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=m2paPrvOQb
-	cYKgaX4fQc0mmLJu13moPBo8N94dl2CTg=; b=OMv4njrsNs10dtQK0F9L1Yd9XG
-	WpSYW02xeDZUYMtwYxDPyhthlJES4aCCZzuHGvnjPrw5nagnWcRyHmpLVwu9k9Ud
-	7DlHp6vnlFO1Tlr64MROHOM0TELNflwcX8Qub6sHBONNUssu+Bt58Vx8MCMb+3AZ
-	YQs686gVw+Cm/KL9E=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkAmTAI8zvpq9Gy2AQ--.21849S2;
-	Mon, 16 Nov 2026 17:34:54 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] usb: storage: shuttle_usbat: do not divide by an unknown sector size
-Date: Mon, 16 Nov 2026 17:34:52 +0800
-Message-Id: <20261116093452.15286-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=js4XJazp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20215606A31C;
+	Mon, 16 Nov 2026 09:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=js4XJazp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2E701F000C4;
+	Mon, 16 Nov 2026 09:40:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794822006;
+	bh=XQ+OBeDeOmk+ytQmg9fDb33P5Vaxo9hGwNAAAF0nKHA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=js4XJazpaZKaaHhd/OMdq+l1uFyYnDLi8LdQmgKphxcYcapgoXB1xBOZVl5XMhfxy
+	 QOehX/xsmZuvuwRNzHXpWylLTdMHS+vi+5fgWODyZcmAbUy/rAUY+zJS54mvAxEQBi
+	 MHiRaz5SXWZqrSawXkns+P8pJy+xgulEw4awxc3fpm1xcwJkgIGK50meal2QcKysvL
+	 SPet0fyrFf66wI2xxuf6mW3jy9tXDT1MsCu66AAoMsVoYYeOG5yvHiAC7vtIz/b8rj
+	 UlGMdTUQBC+UQvEUNZwC+fobpJG6mCCEsO7UCscm1AFx1K1lRTMt1SYYsPpkGdXhP5
+	 WCa+m/g5cD2ew==
+Date: Mon, 16 Nov 2026 10:40:01 +0100
+From: Ingo Molnar <mingo@kernel.org>
+To: linux-kernel@vger.kernel.org
+Cc: linux-tip-commits@vger.kernel.org,
+	Nathan Chancellor <nathan@kernel.org>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org,
+	x86@kernel.org, Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
+ enabled when compile testing
+Message-ID: <avrPcQ4sOkgJPbkZ@gmail.com>
+References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,89 +60,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkAmTAI8zvpq9Gy2AQ--.21849S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuryxAry8Cw17Wr18GrWfKrg_yoW5Gw1Dpa
-	y2kFWYkryDtan3Cw45XwsFqFy5XFZ3AFW3GryIgw15Ww15uF1xCrW2ga4rWa43Jr97XF1I
-	qF4vvFn8CayDCaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
-	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
-	17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
-	C0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxUcmiiUUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2r5ytetsAACsJ
+In-Reply-To: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
 
-usbat_flash_read_data() and usbat_flash_write_data() divide the transfer
-length by info->ssize to turn it into an ATA sector count.  info->ssize is
-only assigned when a READ CAPACITY command has completed successfully, so
-it is still zero when a read request arrives earlier.
 
-Such a request is sent during device scan: sd_probe() starts with
-media_present set and usb-storage sets read_before_ms for every device, so
-sd_revalidate_disk() calls sd_read_block_zero() right after
-sd_read_capacity(), even when READ CAPACITY failed, because
-read_capacity_error() deliberately keeps media_present set for drives that
-fail it with media loaded.  A CompactFlash reader that does not complete
-the READ CAPACITY sequence, for example because a register access is
-stalled, therefore reaches usbat_flash_read_data() with info->ssize == 0:
+* tip-bot2 for Nathan Chancellor <tip-bot2@linutronix.de> wrote:
 
-  Oops: divide error
-  RIP: 0010:usbat_flash_read_data+0x2a4/0x5c0
+> which was first added by the initial '-march=native' support in clang in 2009¹
+> (other architecture drivers appear to have a similar problem).  Due to the lack
+> of validation that the host CPU is an x86_64 CPU, '-march=native' is expanded
+> using the aarch64 host CPU's target features, which are unrecognized by the x86
+> backend.
+> 
+> While this should obviously be fixed in the compiler, this does not help
+> currently released toolchains that have this issue. As a simple workaround that
+> makes sense regardless of the toolchain issue, only allow CONFIG_X86_NATIVE_CPU
+> to be enabled when CONFIG_COMPILE_TEST is not set (i.e., the user intends to run
+> the kernel, not just build it), which will exclude it from allmodconfig.
+> 
+>   ¹https://github.com/llvm/llvm-project/commit/e13ada6a3b236f505b24501d456dec2518e4944c
+> 
+> Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/r/20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org
+> ---
+>  arch/x86/Kconfig.cpu | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+> index 6e7a366..32d22cb 100644
+> --- a/arch/x86/Kconfig.cpu
+> +++ b/arch/x86/Kconfig.cpu
+> @@ -217,6 +217,7 @@ config RUSTC_HAS_APXF
+>  config X86_NATIVE_CPU
+>  	bool "Build and optimize for local/native CPU"
+>  	depends on X86_64
+> +	depends on !COMPILE_TEST
 
-Reject read and write requests while the sector size is unknown, the same
-way the driver already rejects an out of range LBA.
+I really don't like this patch. People *do* use this feature,
+and it's good to have it enabled in allmodconfig.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/usb/storage/shuttle_usbat.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Another problem is that this turns off most automated x86-on-x86
+build testing of CONFIG_X86_NATIVE_CPU in essence, at least for the
+typical configs that CI farms test, just to make much more rare
+types of cross-builds a bit more convenient...
 
-diff --git a/drivers/usb/storage/shuttle_usbat.c b/drivers/usb/storage/shuttle_usbat.c
-index 7e5424268c73..faea2c77c5aa 100644
---- a/drivers/usb/storage/shuttle_usbat.c
-+++ b/drivers/usb/storage/shuttle_usbat.c
-@@ -1130,6 +1130,13 @@ static int usbat_flash_read_data(struct us_data *us,
- 	if (result != USB_STOR_TRANSPORT_GOOD)
- 		return result;
- 
-+	/*
-+	 * The sector size is only known once a READ CAPACITY command has
-+	 * succeeded; a request can arrive before that.
-+	 */
-+	if (!info->ssize)
-+		return USB_STOR_TRANSPORT_ERROR;
-+
- 	/*
- 	 * we're working in LBA mode.  according to the ATA spec,
- 	 * we can support up to 28-bit addressing.  I don't know if Jumpshot
-@@ -1221,6 +1228,13 @@ static int usbat_flash_write_data(struct us_data *us,
- 	if (result != USB_STOR_TRANSPORT_GOOD)
- 		return result;
- 
-+	/*
-+	 * The sector size is only known once a READ CAPACITY command has
-+	 * succeeded; a request can arrive before that.
-+	 */
-+	if (!info->ssize)
-+		return USB_STOR_TRANSPORT_ERROR;
-+
- 	/*
- 	 * we're working in LBA mode.  according to the ATA spec,
- 	 * we can support up to 28-bit addressing.  I don't know if the device
--- 
-2.34.1
+Can we just limit the feature to when host == target, ie. to not
+work it around in such a crude fashion?
 
+Thanks,
+
+	Ingo
