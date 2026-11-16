@@ -1,70 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794848097;
-	b=AekaJcsju9ARunGa3GitMYeGPTexxvWDxZRnsf4IzevchCmikEk//8OMPwl2x6/flGo8
-	 NN+UmGHBCdSd8OnuGh7qPzaMtc4Wphk1AhK/2t08dC05oCNQikzN8sv3tv7cdKYMRrxyu
-	 3lpVYIb5IE6SicAO/WG4nSis3sb8kUcXN7UVv9fkaAfoVcvo58UHVKKBFeoiQRueS9D5c
-	 1k7MX2L9oMliOw5b0jWnn18D07832ugvwgsUAgVQZk4MCbTcCuRlW6aJXPpURKdtJlnyV
-	 btnh1gbZY5wfHNlXSjizgTkFwav3qUXG00szIyZWlQ+mw7U7W2WhQzRTa3fScOhjw8w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848097;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=ZSzyp4lFwlreLUU4PejF2EMnCKVfR/iyAWf8TtqgbQ0=;
-	b=1bn2IopS1GXVVL/ozH0HeIXGtn88o0O8S8+9L6tfCgRolYqvew5LOUmAFFXA4aLButdy
-	 F0gXGZ2/69xE6uyNNGgY4PGG2/3KTEyFycpzN/8kkRIfOoAxrcRUMW4cGBiEYxUbeCRkt
-	 Hgqtkf9qnJE+A+trWYCdQU7qJ97w0imJzhoQfcATk4uvz7iQg5NEf1jljaJ+VXf+NI4ni
-	 QtYdsQa6uJGWEUhSCSwZrH5uvIOh8sOioszC8GvPfxMbMQrsug8RnltHtKr7/o0kzB2DL
-	 JdVnpG+tBlA3hJEmEQeDgk+kx48qStHXweeLVNQ39Mt6dRoEpesBFjl37mthM3hR1Fw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=C6zquPRs;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794848121;
+	b=OyDsxsZoTKP12pcI0E+0SjrRdc7jqLa7tsH5jbydEtY50Vi+E5sODuEKHFhM0Hjzbh8i
+	 JX40JdlYN56TRQItwvXYMC7UhcVENKIVjbLI46I2JqkeOrfsSDBy9sP/d8o7BjfnOl3Ln
+	 8h259qzEDlcqS2LQiAmdOQnZ6knAMqfeLFlhIC19Cj76yO//RRBx1QE9hAx8hVmlMQqy1
+	 CDAafZQlcXMcOdpcrsAv79h7MAyyKfjkdy24DTnmNapcVlYCuxov78ABgPRI1L4FfBW3s
+	 ENA5OuDSkik1Kc+me4r3CLEpcveGs29mbPL0FHglFjojDkrfy33GAlZKKs7EJgkgHmQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848121;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=MOX2IuvHhL6KYQ9Yw7AqZupB+f7laGqvjxs74L8EXG8=;
+	b=ehAPu6R4IJQwAhBDMsoCrkxqdbtZwurzgi0FQOVA8gkv+lMdAkzZTLJkQevVo8zxJ46r
+	 bfJrujZ7mFbvv6cITnWsPJOH6IAc22+or0ylLHCTCXCIeWrGDnx64aWLS7REiKJ6EjEXF
+	 731DNsr5HG+Rr1jiMPwPw1u+UBsrwNNyCtrbdVeEqjimBgQsdeTXELY6+7vZxzRgjHLAP
+	 z/G0nTgb98Xg6akOU8R5b3NxH/hjfrG1kvP4uWmBQnG2PHnw5MygdGrhRq+TXzB29hCnk
+	 vJxbHGUJzzgaEYyi61k4vq0EM7zqkO1k7Xhzl4hYsC/qnSBi9djlD7fG3NYo4VZbfTA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j6GIz5y6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6286E606A33B;
-	Mon, 16 Nov 2026 16:54:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6286E606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121A5606A883;
+	Mon, 16 Nov 2026 16:55:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=C6zquPRs
-ARC-Seal: i=1; a=rsa-sha256; t=1794848083; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=JD4ydr1iuiHowzpMJSrv8Q6GfZX0KYDc7G3D7m1tSwHAwd8zPUCzXY+5hZva6xFS4OnbIc+IBlbS3JJIF5Q5Jbd8hlcJyRWbXxLIXYXfcfRMlpbsFmL1O+q2h8lB9ZEpCDKcIVLN3n1Awmmb/aNS2KB5bczq3VTKPitwqUUBtmI=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794848083; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ZSzyp4lFwlreLUU4PejF2EMnCKVfR/iyAWf8TtqgbQ0=; 
-	b=nI4G34cyRCkGjcEc2RF6lA5n1vRelRbVgHgOZy9Ko6nK6j6SixkIdGszxe+jqJFXrbbKoLCpvWWFqR6FNGFjmUHQnMjqhgRS5aUr6HrLVfckr/EeCnumoXAMpn5RB8ajZXa9fMux4yghlnaO1p09eWCqzTdoYPLLStLubJdUUvc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=C6zquPRsGZfuwy6/Qpi0D4VvD+o2x369ORaqRuMb5i4H+GvkWfbd9dLqJyyYqlF7vPwydqeEYz3DA3fzPLiGTpSMvbZ449tKKzk/DkEKAx6uwB3JwTgKwvj4/rKIQJFzppG8sChyGOw4RuUW2Pf2ptplzolGx+QATXoHlbDJNl91maAXNYmz/hU6UQg9zi9GOXUVgeP179jhQp4hWKSJiiRIUSNh/bgOI9EXCKM1NjAE3SlGA6+jS0BB63lPVripxzkZOkDXA3ttekRlU1jeHlWKHOHi5zFAZGIM8T+EcMXJ8RuvFT57d3pK4aPhdY//F7dCx+JVQZhE5HHr1wyQig==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=ZSzyp4lFwlreLUU4PejF2EMnCKVfR/iyAWf8TtqgbQ0=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 179484808123116.622750164090803;
-	Mon, 16 Nov 2026 08:54:41 -0800 (PST)
-Message-ID: <c5dd1ebfb0b359663636b76d3f61c9fd9fefd661.camel@rong.moe>
-Subject: Re: [PATCH 0/7] platform/x86: ideapad-laptop: Trigger the EC on
- YMC events following Windows behavior
-From: Rong Zhang <i@rong.moe>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>, "Derek J . Clark"	
- <derekjohn.clark@gmail.com>, Hans de Goede <hansg@kernel.org>, Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>, Gergo Koteles
- <soyer@irl.hu>, Ike Panhc <ikepanhc@gmail.com>, Andrew Kallmeyer	
- <kallmeyeras@gmail.com>
-Cc: "platform-driver-x86@vger.kernel.org"
-	 <platform-driver-x86@vger.kernel.org>, linux-kernel@vger.kernel.org, Mahir
- Faisal <mahirfaisalantiq33@gmail.com>, stable@vger.kernel.org
-In-Reply-To: <859daa2c-e891-410c-a528-58fc49a2ccea@app.fastmail.com>
-References: <20261116-ymc-82yl-v1-0-fac1a2b01a84@rong.moe>
-	 <859daa2c-e891-410c-a528-58fc49a2ccea@app.fastmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 17 Nov 2026 00:49:31 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j6GIz5y6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0771F000C4;
+	Mon, 16 Nov 2026 16:55:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794848120;
+	bh=MOX2IuvHhL6KYQ9Yw7AqZupB+f7laGqvjxs74L8EXG8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j6GIz5y63dt2rZbL7xip5OTicaJXloFWpGTULYFqkW9HNEePnEJsw/7ovDbpWiQDO
+	 BechQm/psjOWB/RzQycF0bnACUr4SnQgyaJZGQnMMOsrmeys0qzHu7IzBstSYksORU
+	 ZH0CAlw6byFvqDhSazJnACEhhLQyvMB0Dyqx9Us6iBvreHHS0U5Gto+9/Bwv2YjTmd
+	 w9OJWt3ApH+4oPK8ln5XSFK1K9BUegykOibmGaHp5oIMR29n6LOwoRbwSkSoAdW2ot
+	 7WZXWkPsMcpymkpe+jgN53EDt4FjWuL54O7Xer9UNnRsIhZJ92t2/wrqIB6sPr1zVC
+	 Md5feKFAEJoYg==
+Date: Mon, 16 Nov 2026 16:55:12 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, Peter Xu <peterx@redhat.com>, 
+	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
+	Roman Kisel <romank@linux.microsoft.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
+	Naman Jain <namjain@linux.microsoft.com>, Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 3/3] mm/huge_memory: only compare PFNs of huge entries on
+ huge fault insert
+Message-ID: <avsz6Op6mfkF4y1x@gremlin>
+References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
+ <20261115-huge-pfnmap-fault-races-v1-3-537605643f6f@kernel.org>
+ <e13044a0-871b-4033-8a79-22cb9653b6b1@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,109 +68,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e13044a0-871b-4033-8a79-22cb9653b6b1@kernel.org>
 
-Hi Mark,
-
-On Sun, 2026-11-15 at 17:38 -0500, Mark Pearson wrote:
->=20
-> On Sun, Nov 15, 2026, at 2:27 PM, Rong Zhang wrote:
-> > Currently, the ideapad-laptop driver triggers the EC with YMC command
-> > 0x01, which seems to be randomly chosen with trail-and-error and turns
->=20
-> typo: trial-and-error (this is in patch 6 too)
-
-Whoops, I will fix it in the next revision.
-
->=20
-> > out to be not a command for YMC events. While the devices in the DMI
-> > quirk table recognize it, some other devices do not, making the
-> > trigger_ec functionality a no-op.
-> >=20
-> > Lenovo's YMC driver for Windows (YMC.exe) emits YMC command 0x08/0x09 o=
-n
-> > fold/unfold YMC events, in which "unfold" means laptop mode and "fold"
-> > means other modes.
-> >=20
-> > Adopt the said sequence to make it work on all relevant devices. For th=
-e
-> > sake of caution, only emit YMC command 0x08 only for the known fold
-> > postures. For all other postures (including unknown ones), emit 0x09 to
-> > make sure the touchpad and keyboard are still functional.
-> >=20
-> > Beforehand, also fix pre-existing issues, modernize relevant WMI
-> > drivers, and add a resume callback refreshing the posture and poke
-> > ideapad-laptop to trigger the EC. See each patch for details.
-> >=20
-> > With these changes, add a DMI quirk table entry the Lenovo Yoga 7
-> > 14IRL8 as its EC must be triggered by software on YMC events properly
-> > (i.e., with command 0x08/0x09), or else the enable state of touchpad,
-> > keyboard, and keyboard backlight become out of sync.
-> >=20
-> > Reported-by: Mahir Faisal <mahirfaisalantiq33@gmail.com>
-> > Closes:=20
-> > https://msgid.link/CAGAHqH6o0TUa1HXMrNV6e+HNYwU3xxHkOM665756n8Cp3AzhVQ@=
-mail.gmail.com
-> > Signed-off-by: Rong Zhang <i@rong.moe>
+On Mon, Nov 16, 2026 at 05:01:52PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/15/26 21:58, Lorenzo Stoakes (ARM) wrote:
+> > A driver that implements both ->fault and ->huge_fault must anticipate
+> > concurrent use of both.
+> >
+> > This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
+> > concurrent with faulting, as that only holds the mmap write lock and thus
+> > does not exclude faulting threads stabilised by VMA lock.
+> >
+> > insert_pmd() and insert_pud() have issues with this as they both assume
+> > that, if the page table entry being populated is not empty, it must a
+> > present huge entry.
+> >
+> > This is problematic as if it is a write fault, it compares its PFN against
+> > the one being inserted, warning if they differ, on the assumption that the
+> > entry is a huge leaf.
+> >
+> > Since the entry may be a page table, this is invalid and can result in
+> > spurious warnings.
+> >
+> > Equally, the entry might be non-present. Nothing can install such an entry
+> > in the VMAs that reach this code today, but there is no reason to rely upon
+> > that.
+> >
+> > Therefore only examine the PFN if the entry is both present and huge, and
+> > otherwise simply return VM_FAULT_NOPAGE so the fault is retried and handled
+> > at the appropriate level.
+> >
+> > This is what already happens for a read fault, for which the existing entry
+> > is not examined at all.
+> >
+> > Target the commit which introduced the first driver which both mixes fault
+> > orders and passes the write flag for the fix (since this commit, both
+> > drm_gem_shmem and panthor are prey to this issue).
+> >
+> > Reported-by: Eliav Farber <farbere@amazon.com>
+> > Closes: https://lore.kernel.org/all/20261112051440.16140-4-farbere@amazon.com/
+> > Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > > ---
-> > Rong Zhang (7):
-> >       platform/x86: lenovo-ymc: Use enumeration to represent device=20
-> > posture
-> >       platform/x86: lenovo-ymc: Serialize WMI event handling
-> >       platform/x86: lenovo-wmi-events: Modernize WMI event handling
-> >       platform/x86: lenovo-ymc: Modernize WMI driver and factor out=20
-> > events
-> >       platform/x86: lenovo-ymc: Refresh posture on resume
-> >       platform/x86: ideapad-laptop: Trigger the EC on YMC events=20
-> > following Windows behavior
-> >       platform/x86: ideapad-laptop: Enable ymc_ec_trigger for Lenovo=
-=20
-> > Yoga 7 14IRL8
-> >=20
-> >  drivers/platform/x86/lenovo/Kconfig          |   2 +
-> >  drivers/platform/x86/lenovo/ideapad-laptop.c |  42 +++++++++-
-> >  drivers/platform/x86/lenovo/ideapad-laptop.h |   9 ++
-> >  drivers/platform/x86/lenovo/wmi-events.c     |  38 +++++----
-> >  drivers/platform/x86/lenovo/wmi-events.h     |   1 +
-> >  drivers/platform/x86/lenovo/ymc.c            | 118 +++++++++++++++++--=
---------
-> >  6 files changed, 147 insertions(+), 63 deletions(-)
-> > ---
-> > base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
-> > change-id: 46a18a06-ymc-82yl-d59b4f8f891e
-> >=20
-> > Thanks,
-> > Rong
->=20
-> I feel like I should be able to find some more formal documentation on th=
-is, but as these platforms aren't in the Linux program not sure what I'll g=
-et (or how long it will take) and the series looks good to me.=C2=A0I'll se=
-e what I can find so hopefully we can avoid a long list of quirks (as neede=
-d in patch 7).
+> >  mm/huge_memory.c | 8 ++++++++
+> >  1 file changed, 8 insertions(+)
+> >
+> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> > index 0d589be136d2..da632c3e834b 100644
+> > --- a/mm/huge_memory.c
+> > +++ b/mm/huge_memory.c
+> > @@ -1643,6 +1643,10 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
+> >  		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
+> >  					  fop.pfn;
+> >
+> > +		/* We may have raced a fault which installed a page table. */
+> > +		if (!pmd_present(*pmd) || !pmd_trans_huge(*pmd))
+>
+> Ok, we hold the PMD lock, so that cannot change concurrently.
+>
+> Given that we are in THP code, I wonder if we could just test for pmd_leaf()
+> instead.
+>
+> Same below for PUDs.
 
-Thanks. I have a faint feel that the 0x08/0x09 sequence should be
-generic, and removing the quirk table is on my plan, too.
+That's what the original did, but as the commit message says I don't want
+to rely on the entry not being a softleaf here, in case we do something
+later that changes that.
 
-My decision when I wrote this was to figure out a compromise before
-confirming how generic the sequence is. As a compromise, PATCH 6 applied
-the sequence to devices that were already in the quirk table but did not
-apply to all devices by removing the table.
+It's future-proofing.
 
-Would you prefer to defer to the documentation, or we can figure out a
-follow-up patch afterward?
+>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
->=20
-> One open question on patch 4 - but patches 1 to 3 and 5 to 7 look good to=
- me.=C2=A0
->=20
+Thanks!
 
-I will answer it there.
+>
+> --
+> Cheers,
+>
+> David
 
-> For those:
-> Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-
-Thanks for the tag ;-)
-
-Thanks,
-Rong
+--
+Cheers, Lorenzo
