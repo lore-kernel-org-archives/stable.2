@@ -1,86 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794853359;
-	b=e9p/Ql52bSgtj/Lg5q6ovLhAyuNJvAGalO8F9FghLNEyUYi20CA6UCeSYDvzG/faWMHj
-	 LuPmiAtG2FVIEFczDlFhb07z0i1wn5Uy5lavxBxK2Ok12gmjaHvjiX57gfuIA4CilpwBb
-	 Vmb66nBBVz67a3f0UKGWhRR92ETMuQZginPusR69l1cAyb3irf98mqxb2//zK8txrxGZq
-	 R+C102pFjO+6LezMUQAVHj5x630MpHzAZwNQ7Sxe+RibzBDxKZhEHm9BE7q8vlYE8C8dC
-	 sUL4QXAlvG6q2t1ClV3OQoxbYYXwsu/AOy1eDGpbDDq40wz5aK0YAw7Zwnz14w1L60Q==
+	t=1794853556;
+	b=joqn540e+MvicVzse+frx4EdXIfrBqpjmdUKQ8O3YvaFe5ivW9KakYbOl11PeBy3bX0n
+	 CPvNMCI8NuVP7AVfgeXAVpDdzsmclOQ9Ns0wgwmscXBYV7y616xkSqfYwEM5UE98wE7jF
+	 5GOTRT1/hd9J4L/HNr13PlkUC9xHdkUflsgruqlkS1lXQJb3N7KUDpEd1XHvFoZvI6Lf7
+	 aKFYN3jg+OakdE9OiOEhyVAF9bIjs48lOJXW+gqqpO/Cu8kdiGnEs1Nr5GdpD6VyWzH0y
+	 V5WOSFkWXXICYUPaB80XV/CvjrdlgoBeh7WVNgio9h6tsvXvYy+1I3PmUZ2D6ssP9MQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794853359;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=MqhyZLQkkCy8/4ClTcekh7qpvqyyl6/PFl4tE1ESvso=;
-	b=tMiDRg/oqZhQiP73xlqRHATfrVdr35JZWePlcZzt+uzSb/pOSwXfLOsR/feqVxhseie9
-	 3x+Yi9oWslRAVk4Wq0MkcJCiKXxEO2t11RCdeF9011xGRJi5qffHo53KFXqjUoQ1uJQVq
-	 /JhhQWK4f6YQfQAKo9RQSlFBGUO7gKjzyCa+xuJTsRxxmMGDyA6DqKOhhV9P90LVDHw05
-	 L2UBCrUPmzZAyTN5gi8RhrvMMZGRn/x/WVc5byfT1+jIPRBGAhxgeZDf+6yZbViAgP3Zb
-	 ZW+52OGhVPVRyAZN6eV4kTnonzuZL2zYaHraoJtwD2o9U93AfLBQ7blRLoTjIpXuFdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794853556;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2k2NEly1JslwutfN2kmamMP4TPSeSDUKck630Kcz9aM=;
+	b=LO/BqomOEPeldVUgTZMnR8iD729cQW9eg48EuwArnkryTAFrbbZnquc8ac+OcrwIMmpP
+	 8ShQETUHxg7nf/hveIEn8DD+2HOyjTiYplCne6UIqyjcKwgXcS0Zs0u7f4c3oUEeVZFzD
+	 /0DgUVsb85/2D6hQg7ISyehlJW0jO93gr8CO2j6sKtjjcO/tX+7p+T3fLQ3B1qaEQBoKH
+	 poxCxIyveQlRtm93NzmnuUUTxQ349Ibbpgnm2Lxu0EJxhzwxb2UztSUtzdSkYkNyF1Plv
+	 ud9xdyTnHA0AoTl1TZ92kG3KV8/dH4ZLBnJdvtbUsV/0m49ThwF0sLOKaJA4XFmxKBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=I2P8n3HM;
-	arc=none smtp.remote-ip=209.85.222.175
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hIlInLX0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B44D606A88C
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 18:22:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B44D606A88C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C556606A31C;
+	Mon, 16 Nov 2026 18:25:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=I2P8n3HM
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-93f2b8cf037so410014985a.1
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:22:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794853358; x=1795458158; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MqhyZLQkkCy8/4ClTcekh7qpvqyyl6/PFl4tE1ESvso=;
-        b=I2P8n3HMzvp5OKzZYOywUkl/ozYHK/CE5fFhHOEnWVWSF5Hs9PV7EqrjZetfF/5b3n
-         UNY0wMypHqtMSPepRPFkLZ5Q+5s94MSzWnT2fIz7EhrM8VBiiOjlUdMLUdBZRUghmRgx
-         3BgqQOrjVqwxBoE88tyXgjoTG8xRjAdqhOkIhTUPThw3aPoo2K/nFb4v4lBsDH1Md6dN
-         O32jBFBsWEmvw8yW8uDJQl6YzKgWF8vJrF5z456xn7mnX5GNbYB6QJQ9vOwT5nweIA2v
-         BH6h4rocb+/H+baHciMu3epiiArYA7Khb8i8FT0J/LokU6MSt14VZp84+9pNlLLkBaNo
-         /fqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794853358; x=1795458158;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MqhyZLQkkCy8/4ClTcekh7qpvqyyl6/PFl4tE1ESvso=;
-        b=NWPJa9pdWdhD1SEhmntboJvk2jK7PYv8bFJOw9P5iKuV54XrLd06aNV0iDvtFbYhLm
-         HpiMkY0D+JjyBvt2BypnnmofVhCx2Rbvdsvs0PGVwTh79PPf20z08bhQvC+0GqfbPtYa
-         hWCYTr8qSiJ5elPYWNW4ignU4q+r8soFDATXnlT20qT90sU7OgsuxzENUfxNn9bdP3q0
-         64FnqR8N3miTHffaTytNPokZLJlGFxOeF4WI48gFYH7AL0pYa07gzehX2oLUqndz3+Z0
-         uGMDFrIi3OYAIniNVqzggfvL3XKmMq29C4BvlzodzNw2jjRbtAhTTEDvYiIaDhw8grq3
-         N2PA==
-X-Forwarded-Encrypted: i=1; AL+hErGYuA+wbfAbOx4jzaiX5Oima/dWozFtBBfw7OScubGlknVu6IWYkmwnJM6w8Ghos0+UpAq42x0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/2hCXibU+JgtLAcyzdsXzcCznfxpgJcqizqCswaR+8Hptg4RGI
-	mYNcN7tqNrO6lqFWvKEmMXZu4OIQjHwoLJ4hgZSH6SoqRzU18hhIFYQ7J7VouG5nKTC6d1qRHma
-	kNG7L
-X-Gm-Gg: AYBFou0u4STsVQJ6+GBcurs9os+el/DNvtaij0o99/qK0kNh1Z+liVzdEpwGL/4G+ft
-	e18YNbEuoNupoeFGhTz/svvPEUju5cOB3TOKbfvGPtETjI62g6wbr9HIUKq9S07CMZBdCsPK9AN
-	qSZVf9v81u/p6NLryVCnEE/vT8W2kBBPgye+WGQ9LCoLYSUf0bVjnI+MnjrlcqOocGesWbrMwCm
-	RaRyuLKsKZWqj4z70jEpuHIR3qdZXUqXMJNu65d9cfYh/TUCvk5x3g4Jwx4T9Or61T+O6U0xjN6
-	XqH/Q8+4BaPwIZmmvsXluMsaMrWunZ1QQWwFRniipZtmesbBRp1jF7Frn0n+86WtNt04PBVhQvj
-	kLbk2RlVgpKqCnB1mVHuUfpZqJlNKpwbxPNqexADJ4jTezeCO/Rc1GDEGHHlAVdoVDlNYz3us/y
-	/q4dDta/ozA55z4KufWXOg80quSDfb/WGDau2wWKC++8Gcxk2tmsN/QdkQJ4N5xF9hDr56xkUQa
-	a6ctFbgv8+2df77sL8wm7LKIKdDu237n0T0+krzTWRpN6NCdfQrQ+kb/4U4Ei67bSRd0MyuOkQO
-	Xo0hxzHfR6O+E72ZbcNCaV3GyViR8IxykNsEH6NTPSPApWAiW5vo0IDI2qwblgckAk975nmY0sz
-	H5EkU7g5sg4Vd/P/JP1LVicYIy3zN
-X-Received: by 2002:a05:620a:4111:b0:93f:cbd:8e20 with SMTP id af79cd13be357-9494bbeb2cdmr1788283985a.73.1794853358208;
-        Mon, 16 Nov 2026 10:22:38 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c836f6dsm902791285a.22.2026.11.16.10.22.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:22:37 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hIlInLX0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450671F000C4;
+	Mon, 16 Nov 2026 18:25:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794853555;
+	bh=2k2NEly1JslwutfN2kmamMP4TPSeSDUKck630Kcz9aM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hIlInLX0k4w7S9z9er1Q+mK2xoyvxq3xh+z63yVdJBnNG1U7r51BKt1DyyHsOsN0w
+	 RP8jV9+5ZAmahdrePt1/3Fw0FSSqn0IBhBwctzCVpF103eFLuQwKqdqaAjiGS0ch19
+	 SNJpB+sZgd+hzNoOlCS6wbYEZz1qkbUBtbKY5/2qh84NMplyZPHvuh1raEQ9ESeFiZ
+	 bKh+WRf9x/Ya98gQj2KbEnNNcAowoEc868bUukPvDhhi16J+nsVPMwo5rV4DOa3CG7
+	 umXc4/9dXU1ezRRtaQZLBXRbuJTxTKZanti9GZe9i2zyHSy9mHe2uqPMv+6dIxK+Og
+	 bWhd6VF0CntMw==
+Date: Mon, 16 Nov 2026 18:25:52 +0000
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	arm-scmi@vger.kernel.org, philip.radford@arm.com,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Chengyu Liu <lui2012qwq@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] firmware: arm_scmi: Fix deadlock between reboot
+ notifier and forceful work
+Message-ID: <20261116-astonishing-urchin-from-jupiter-838cfc@sudeepholla>
+References: <20261116084211.3066460-1-cristian.marussi@arm.com>
+ <20261116084211.3066460-2-cristian.marussi@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,91 +60,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 3/3] mm/huge_memory: only compare PFNs of huge entries
- on huge fault insert
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, 
- Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
- Roman Kisel <romank@linux.microsoft.com>, 
- Saurabh Sengar <ssengar@linux.microsoft.com>, 
- Naman Jain <namjain@linux.microsoft.com>, 
- Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>, 
- stable@vger.kernel.org
-In-Reply-To: <20261115-huge-pfnmap-fault-races-v1-3-537605643f6f@kernel.org>
-References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
- <20261115-huge-pfnmap-fault-races-v1-3-537605643f6f@kernel.org>
-Date: Mon, 16 Nov 2026 13:22:36 -0500
-Message-Id: <179485335600.482102.464304486749600271.b4-reply@b4>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116084211.3066460-2-cristian.marussi@arm.com>
 
-On 2026-11-15 20:58 +0000, Lorenzo Stoakes (ARM) wrote:
-> A driver that implements both ->fault and ->huge_fault must anticipate
-> concurrent use of both.
+On Mon, Nov 16, 2026 at 08:42:10AM +0000, Cristian Marussi wrote:
+> From: Chengyu Liu <lui2012qwq@gmail.com>
 > 
-> This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
-> concurrent with faulting, as that only holds the mmap write lock and thus
-> does not exclude faulting threads stabilised by VMA lock.
+> scmi_reboot_notifier() calls cancel_delayed_work_sync() while holding
+> sc->state_mtx, but the work it waits on - scmi_forceful_work_func() -
+> takes the same mutex.  If a forceful transition work is in flight when
+> the reboot notifier fires, the notifier holds the lock and waits for
+> the callback while the callback waits for the lock: deadlock, and the
+> reboot wedges.
 > 
-> insert_pmd() and insert_pud() have issues with this as they both assume
-> that, if the page table entry being populated is not empty, it must a
-> present huge entry.
+> Moving the cancel outside the lock is not sufficient on its own, as the
+> callback also calls unregister_reboot_notifier() unconditionally, which
+> blocks on the reboot chain rwsem (down_write vs. the in-progress
+> chain's down_read) while the notifier waits for the callback - the
+> deadlock would just move to a different lock.  Fix both sides:
 > 
-> This is problematic as if it is a write fault, it compares its PFN against
-> the one being inserted, warning if they differ, on the assumption that the
-> entry is a huge leaf.
+> - Notifier: compute the decision under state_mtx, drop the lock, then
+>   cancel.  A callback that slips in between sees state ==
+>   SCMI_SYSPOWER_REBOOTING (not IN_PROGRESS), skips the forceful
+>   request and finishes, so the cancel cannot miss it.  (The callback's
+>   own system_state early-return does not cover a work item that
+>   started before the reboot began: kernel_restart_prepare() runs the
+>   notifier chain before setting system_state.)
 > 
-> Since the entry may be a page table, this is invalid and can result in
-> spurious warnings.
+> - Callback: only unregister the reboot notifier when actually forcing
+>   the transition - that is the only case that needs it, because the
+>   forceful kernel_restart()/kernel_power_off() would otherwise
+>   re-enter scmi_reboot_notifier and self-deadlock on state_mtx.  When
+>   the state is not IN_PROGRESS there is nothing to force, and skipping
+>   the unregister keeps the callback from blocking on the reboot chain
+>   rwsem while the notifier waits for it.
 > 
-> Equally, the entry might be non-present. Nothing can install such an entry
-> in the VMAs that reach this code today, but there is no reason to rely upon
-> that.
+> Found by static analysis.
 > 
-> Therefore only examine the PFN if the entry is both present and huge, and
-> otherwise simply return VM_FAULT_NOPAGE so the fault is retried and handled
-> at the appropriate level.
-> 
-> This is what already happens for a read fault, for which the existing entry
-> is not examined at all.
-> 
-> Target the commit which introduced the first driver which both mixes fault
-> orders and passes the write flag for the fix (since this commit, both
-> drm_gem_shmem and panthor are prey to this issue).
-> 
-> Reported-by: Eliav Farber <farbere@amazon.com>
-> Closes: https://lore.kernel.org/all/20261112051440.16140-4-farbere@amazon.com/
-> Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Fixes: 2c4b97fee94a ("firmware: arm_scmi: Add SCMI System Power Control driver")
+> Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
+> [Cristian: drop lock before triggering forceful reboot (needs_forceful)]
+> Tested-by: Cristian Marussi <cristian.marussi@arm.com>
+> Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
+> ---
+>  .../firmware/arm_scmi/scmi_power_control.c    | 26 ++++++++++++++-----
+>  1 file changed, 19 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/firmware/arm_scmi/scmi_power_control.c b/drivers/firmware/arm_scmi/scmi_power_control.c
+> index e791a206768c..e0680e33180e 100644
+> --- a/drivers/firmware/arm_scmi/scmi_power_control.c
+> +++ b/drivers/firmware/arm_scmi/scmi_power_control.c
+> @@ -121,6 +121,7 @@ static int scmi_reboot_notifier(struct notifier_block *nb,
+>  				unsigned long reason, void *__unused)
+>  {
+>  	struct scmi_syspower_conf *sc = reboot_nb_to_sconf(nb);
+> +	bool cancel_work;
+>  
+>  	mutex_lock(&sc->state_mtx);
+>  	switch (reason) {
+> @@ -138,11 +139,18 @@ static int scmi_reboot_notifier(struct notifier_block *nb,
+>  		break;
+>  	}
+>  
+> -	if (sc->state == SCMI_SYSPOWER_REBOOTING) {
+> +	cancel_work = sc->state == SCMI_SYSPOWER_REBOOTING;
+> +	mutex_unlock(&sc->state_mtx);
+> +
+> +	if (cancel_work) {
+>  		dev_dbg(sc->dev, "Reboot in progress...cancel delayed work.\n");
+> +		/*
+> +		 * cancel_delayed_work_sync() waits for a running
+> +		 * scmi_forceful_work_func(), which takes state_mtx - it must
+> +		 * not be called with the lock held.
+> +		 */
+>  		cancel_delayed_work_sync(&sc->forceful_work);
 
+Sashiko still complains about the deadlock.
 
-Tested with a similar test to patch 1, but used QEMU's virtio-gpu device
-to generate the bad condition.
+How about changing this to non-sync cancel_delayed_work() so that it doesn't
+wait and deadlock like it complains ?
 
-With just patch 1 applied we generate a bunch of warnings, while this
-resolves those warnings.
+>  	}
+> -	mutex_unlock(&sc->state_mtx);
+>  
+>  	return NOTIFY_OK;
+>  }
+> @@ -181,6 +189,7 @@ static void scmi_forceful_work_func(struct work_struct *work)
+>  {
+>  	struct scmi_syspower_conf *sc;
+>  	struct delayed_work *dwork;
+> +	bool needs_forceful;
+>  
+>  	if (system_state > SYSTEM_RUNNING)
+>  		return;
+> @@ -188,13 +197,16 @@ static void scmi_forceful_work_func(struct work_struct *work)
+>  	dwork = to_delayed_work(work);
+>  	sc = dwork_to_sconf(dwork);
+>  
+> -	dev_dbg(sc->dev, "Graceful request timed out...forcing !\n");
+>  	mutex_lock(&sc->state_mtx);
+> -	/* avoid deadlock by unregistering reboot notifier first */
+> -	unregister_reboot_notifier(&sc->reboot_nb);
+> -	if (sc->state == SCMI_SYSPOWER_IN_PROGRESS)
+> -		scmi_request_forceful_transition(sc);
+> +	needs_forceful = sc->state == SCMI_SYSPOWER_IN_PROGRESS;
+>  	mutex_unlock(&sc->state_mtx);
+> +
+> +	if (needs_forceful) {
+> +		dev_dbg(sc->dev, "Graceful request timed out...forcing !\n");
+> +		/* avoid deadlock by unregistering reboot notifier first */
+> +		unregister_reboot_notifier(&sc->reboot_nb);
 
-Rethinking whether any of these should be squashed, and maybe not.
-Really i guess patch 1 just mask's the bugs, and patches 2/3 fix them.
-
-Either way, change looks straightforward to me.
-
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+And re-evaluate needs_forceful again here after un-registration before
+calling below forced transition ?
 
 -- 
-~Gregory
-
+Regards,
+Sudeep
