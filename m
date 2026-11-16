@@ -1,86 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830203;
-	b=QHa6pqwCxdL53+ed/WSP7cF+oZr3qzw8wYcmwLw9KlPq/OgFTHONasAEu2cSMEkRymrN
-	 qfcWo0vXWQ72u1EB94d6E/alxgywIQgcSG+ndkIWd6h5OYrHOkE4bihkRkKHmxkgNi/2j
-	 vipy+Zr2dgY8fPOzHrs/i2ruKnxUaYv27FUodn98INkLvAU6LDWOjJu/oB07AfusPjOWs
-	 R6qaE6JSbCeUb/2qPKoovNBTuAF53X1IvHaG7F+cCmqL49eN7O7eGZQVK8yj1a6l6xcJV
-	 Xny0kQYFL4L4IL6QwWVfVvMNWmFG4gbdpy8iUzMySa2G+F5AM67IVf9Oue0rH/rVMeQ==
+	t=1794830233;
+	b=cvnB5fYIqf25/k4xxgf+dlN/NBSV+3Ua+nFHJTe5vGnvMwgqC2LNNn+OLcNWG2ij8nah
+	 CE1Ot3Wmew+Zq2NXeBhuCOdHn58bciZINSXzbvxdNji+uHFasDV8hTeR/gZrS3inrYpOp
+	 ngDmzRZQG2Ck8hdm60CmccDZBi26EAj6Mt07RvtWyUoU8Dy4lMZlnVOx3mPCMpHcE0zPZ
+	 OE2iVpA5rJjZ5FNVUXLpufrn4baClxXBYbYn9fQ7pCAE8+apshHN/dX3NdYxz42aWcwtc
+	 jNzjKrC/JXlwIzBWaUcZK0x/0Ge2/YKHFKj77BRWYxGN3f4M3RuLRvO+ynK1eFQ6W3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830203;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=75BqASa3pQSiCLazbg9HUnip9NSP2k2e52gEQNem2NY=;
-	b=u/z/tqA4OsZ4Wgbauvst7i19bqD3/Qk87rsamwRDYtEgMk9PivsrYJdsqMyM7XyLeBf0
-	 lzLYOc8AX/03BUuHjltWqSTHPcJFuQx5TGA2gh9ZOvcfGVMBMmBVwri0+LE76Hb+hguIB
-	 W+yHXywSLKAUKGEdhi22JyezeLNC4ZZ2CynIL26c5rZmFmjAcyqkfNYzYfMvTfMMBBcnR
-	 vExTH+BForWytKMqt5PZQfAWSRNEd6QwHiPKXkuZktIU8nnlq9AdPrbkg1SxR2OmMGQeo
-	 ppMzMjpTovwQkb2CaJo3e+QbD/aVt3CBDtfMXe6quv7ob592YyGVqULkpug9/C30FOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830233;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=5dd3gaWnxyGYmLDfQYceg41vjRMRWzOvPs+gvBjx0cg=;
+	b=r98DS9vnLPZYTlcMhC2MAzhoDZnHyVtGOF+701Os5s/3ANjybPTlpouCWP8DcoQTfpKX
+	 YLKFF+3yd4zYuhvfQ04QK5jJmXROtiEjC3peSbHEmfGYMUrQGqJPqz7eUyVwbWxti8Z70
+	 7iircKWRa1wWA4QgjuzWvzTOz50SIrzYNlzN1nwGlNmbWRVggzUAyUpcLUQBn2lHNb80f
+	 SGJ6TUUgG57CLQZNQIedFKG3n3v+8AoaCkqVI3UXCPetRKTlG0kd7Fq0eXD7Pz2mFHUho
+	 sBMixxanBtyt10EIe2HPhUcJhjwXf9OWBGRWY/fiDmZVte+IeswGGJ2SbrQeZx7YYNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=R7eMeQvc;
-	arc=none smtp.remote-ip=209.85.208.180
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=hi+7am1n;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=a6HFcYZg;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=hi+7am1n;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=a6HFcYZg;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7ED606A330
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 11:56:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF7ED606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75063606A323;
+	Mon, 16 Nov 2026 11:57:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75063606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=R7eMeQvc
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3ae25dcbd81so32022381fa.3
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 03:56:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794830201; x=1795435001; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=75BqASa3pQSiCLazbg9HUnip9NSP2k2e52gEQNem2NY=;
-        b=R7eMeQvcKmV+YQ0RO1A52l9WKu6AgEr6CjleT4AbxpCF087ib+8qBbk7ylI3LyhvGW
-         nl9mwEBSL5R3YwT8HcD8fSldh9XD0xvhB1oGKgsDUm3nfxN2sXcfT0rJRpvYfdS+rI0B
-         ano23tip8N3VL1zCVMp+MZ4hN0+YQDLDOcFQ8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794830201; x=1795435001;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=75BqASa3pQSiCLazbg9HUnip9NSP2k2e52gEQNem2NY=;
-        b=cgaBiDC7aoF1dRkJmwb949XGgRxLBabWbqgtTbbI3xKJk+S+l81syuOWysZDBBFEaG
-         OAw5llpYIxt4nJjX6bKFWYExY+GZ0zX8adE2xtwGtFSDsT8enZj/rTxhvNB7RR1EDBTu
-         LKOdQ1vEhG1+A7+AoXglWb+02DW0ME3X6hd19FzV+29/gy6gVpCN2hJwZDdplCC8rdPD
-         ogISlItQNiNmpGj45q70RUszZQB3If/Lr2SH7yA/XN1Bm6q0TouPKRinlcQjgmwZsu/X
-         2DXnY5mPXSkMa3ccQ9ZbCjvz9AUgYqhCW5yVXyzby2qvVzE90FmDJQmil+ECEqMYIN2H
-         Adnw==
-X-Forwarded-Encrypted: i=1; AL+hErF+cAKTxAxt4WOHEy/QB2uLG/MF6doovEi4dbWpfzRywvUcpZzFHdPtfDc4DkcIhtZXc7FYnOo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/XSV4DIcog1Eo3CxrYyQq7b9xdBOLX/+p5mD2t0S9Y0UOzLwpb
-	JTCqWVTAI4r6ANQ8M8pqUAbB6VyuFAsi3sSOQLeVVSpO0gl9tNuo+oE/TR1wbemGKnlHDSejljo
-	PEmk=
-X-Gm-Gg: AYBFou3/myfeYEcsF+sfTn3zMAkkjX4S01atTa52xOpnvvNppvk2e+NQU1i/hi76iaH
-	a3nKkrK6MPL+pYRaZnhi6Pq+jcux+IR05CQpzbJOxl25AfANDfOPHa6CMyEED/oxmSIq6B5rqmh
-	In0lN+swK7KzMTJqcyt30PkOcKpiTVnmXb7MYpyosTVT3+NQvSy7B8+f0O6eUBKHuBjDl+b7C/7
-	JZC0A3tVzZP6sFWcuqFOJGfAu+XjUUfPDzuLd7ZTLDe+9/tQyypYCSuL/xGgQ9wNUVJ0TK6fxac
-	LF6kIJHadcjkHxWx72KVpEFchg6MGBYkjgUvM4pEDLG2YQGXwlZtdU8nlcwLN5vQhlbHUcAxYes
-	mlfSRGR3Peh0TWlZ25PaltpnQ02CGYDQ2nCQJeV/uCtK1q7TASEknqcyfZ9KtlFC0UyNLqp1jmb
-	mW4QtXTxogaYKCk/0+nqjl4DxMouF6atUO+b8+BHJtBB55mhFbv73qWz5huG6p/ymA+2+xhWqlq
-	T2p/eMKqUhmKWWzFWCRrFqDU3cJB6XptTmf/b5mPLmk80MmEd1rCq7iCrHg+9d7/iMyH1IfW9EY
-	ES6es53kUMRFpk8DUAHcej2dhraNqPKnDJshGUMLRetK0cZS2nz34NHrntCbuxE28lhS3icpk64
-	bxeup/OmarQ==
-X-Received: by 2002:a2e:8a88:0:b0:3aa:fd7d:6164 with SMTP id 38308e7fff4ca-3ae2b68121fmr25930611fa.25.1794830201228;
-        Mon, 16 Nov 2026 03:56:41 -0800 (PST)
-Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712dad7dsm3183754e87.9.2026.11.16.03.56.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 03:56:40 -0800 (PST)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Subject: [PATCH 0/3] media: uvcvideo: Improve checks for medatata size
-Date: Mon, 16 Nov 2026 11:56:36 +0000
-Message-Id: <20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org>
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=hi+7am1n;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=a6HFcYZg;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=hi+7am1n;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=a6HFcYZg
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 3807522288;
+	Mon, 16 Nov 2026 11:57:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794830230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5dd3gaWnxyGYmLDfQYceg41vjRMRWzOvPs+gvBjx0cg=;
+	b=hi+7am1nCU82xuxgxJ3x1Q+7twFUxXAhmtRKgkw6ZHdNS0IPvLhLiKC4uDUbqqjUxfkO5R
+	W97VxwcpFF+tseH9CD1RRAyGXq8JSTyz0/nX2329JtfEtKrNBYUzeqWDsD6xweP7U60+YB
+	dY8nblDInaXxv4tg/Q6CKtOsryKRVzk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794830230;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5dd3gaWnxyGYmLDfQYceg41vjRMRWzOvPs+gvBjx0cg=;
+	b=a6HFcYZg6dz08eQi4ySHauPik6itTK+HROwVhnt3GP6fnnvjX+Fg7ABd1cgQn+qcp9xGL/
+	+OcAb3Ppbz5loJCg==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794830230; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5dd3gaWnxyGYmLDfQYceg41vjRMRWzOvPs+gvBjx0cg=;
+	b=hi+7am1nCU82xuxgxJ3x1Q+7twFUxXAhmtRKgkw6ZHdNS0IPvLhLiKC4uDUbqqjUxfkO5R
+	W97VxwcpFF+tseH9CD1RRAyGXq8JSTyz0/nX2329JtfEtKrNBYUzeqWDsD6xweP7U60+YB
+	dY8nblDInaXxv4tg/Q6CKtOsryKRVzk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794830230;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5dd3gaWnxyGYmLDfQYceg41vjRMRWzOvPs+gvBjx0cg=;
+	b=a6HFcYZg6dz08eQi4ySHauPik6itTK+HROwVhnt3GP6fnnvjX+Fg7ABd1cgQn+qcp9xGL/
+	+OcAb3Ppbz5loJCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 09F471334C;
+	Mon, 16 Nov 2026 11:57:10 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id C6ISNpXv+mqcRgAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 16 Nov 2026 11:57:10 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 9090E24DD2; Mon, 16 Nov 2026 12:57:09 +0100 (CET)
+Date: Mon, 16 Nov 2026 12:57:09 +0100
+From: Jan Kara <jack@suse.cz>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, Jan Kara <jack@suse.cz>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+	Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	io-uring@vger.kernel.org, linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, 
+	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, linux-unionfs@vger.kernel.org, 
+	bpf@vger.kernel.org, linux-nfs@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 07/12] zloop: take freeze protection when recording write
+ pointers
+Message-ID: <t73376p7ip4bvetjbqijzugvglhi2rdxsqt62l3uuqtmt3tqgk@2rlkkdy33hwk>
+References: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org>
+ <20261114-work-fs-frozen_writes-v1-7-f5ae61c898b1@kernel.org>
+ <20261116064820.GB2964@lst.de>
+ <20261116-biegen-flaute-flanke-cebddae97444@brauner>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,45 +117,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAHTv+moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQ0Mz3dKyZN3ijPyiktzUkkRdc9Pk5CQzcwPzFMsUJaCegqLUtMwKsHn
- RsbW1ALgAAO5fAAAA
-X-Change-ID: 20261116-uvc-shortmeta-75ccb6707d9d
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ricardo Ribalda <ribalda@chromium.org>, Sinan Turunc <enscrpt@pm.me>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-biegen-flaute-flanke-cebddae97444@brauner>
+X-Spamd-Result: default: False [-12.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	ARC_NA(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[17];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	FROM_EQ_ENVFROM(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-In some parts of the code we have not been very strict when checking the
-payload header size; fix this.
+On Mon 16-11-26 10:41:49, Christian Brauner wrote:
+> Fwiw, the check can't go into __vfs_setxattr(), __vfs_setxattr_noperm()
+> or __vfs_removexattr(). cap_inode_killpriv(), IMA and EVM call those
+> from ->write_iter() via file_remove_privs() and kiocb_start_write()
+> hides the freeze protection from lockdep for aio and io_uring. I have
+> not bothered to figure out why. Maybe you already know? In any case,
+> until that's fixed we can't place it there which means this doesn't
+> catch IMA/EVM at which point this patch becomes pointless.
 
-While doing that, I also spotted an unaligned and OOB access in a debug
-message, so I added a fix for it to this series.
+It's because of AIO and io_uring - if you don't hide the protection from
+lockdep, it will complain about it when returning to userspace while IO is
+still in flight (and thus protection is held). Sadly lockdep does not
+support releasing resources by anybody else than the process which acquired
+it so we fool it in this way...
 
-This work was triggered by:
-https://lore.kernel.org/linux-media/20261115121701.189-1-enscrpt@pm.me
-
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
----
-Ricardo Ribalda (3):
-      media: uvcvideo: Reject short metadata
-      media: uvcvideo: Check header length in uvc_video_clock_decode()
-      media: uvcvideo: Fix unaligned and OOB access
-
- drivers/media/usb/uvc/uvc_video.c | 20 ++++++++++++++++----
- drivers/media/usb/uvc/uvcvideo.h  |  1 +
- 2 files changed, 17 insertions(+), 4 deletions(-)
----
-base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
-change-id: 20261116-uvc-shortmeta-75ccb6707d9d
-
-Best regards,
+								Honza
 -- 
-Ricardo Ribalda <ribalda@chromium.org>
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
