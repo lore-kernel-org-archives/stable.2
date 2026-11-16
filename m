@@ -1,59 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794800666;
-	b=GL8PvnrktNKoDzFNE90HEQN1o/d9J/KUHoLy7gve+jZf3YYyCwp6MDUBcVuu04MgwR92
-	 SuBljZ2mClm8wd6Q69STUGQ843sfOJPq6mh0yrNIBW3GE5BgmA8GZyTgvOQx/+4ZSQPUd
-	 R5huOKM8xbuCXDem4J6RHaoQiYQYm8W0MEx8Sa/2KwPZ+k7Drrvg6Kj28qLJ2TaUE6BKG
-	 /DCXbftNMLEdMLl2Uq8+lpUybabBQ/LH1gsfkcTRSdxaOXBEpJPEmNxWtlzJSw5h4Bmc2
-	 6Wl8iCKOS9YjfF4rvncqaV2RzTdGQmO6RvWN0ixUSWAW8k2WQP15kbmTcCsmxpE+7jQ==
+	t=1794801303;
+	b=n34bjaBZudKXBmV7LJmRksQx560QWUf5auedRGy253OLg/C9u3kh0d8GPVBszle8snPP
+	 S/OBBtU3U+oLjTyyaURI45ZfoE4Hf8tiLv3jm47FLdaw3DD1//sDb+G6tZb8QSRKhCLoo
+	 +L0YDjJvpeYadbFnbrdOPREh6VGBb301O2bdFJZV66f8JPCFMmlM0oHKJYERtkT95lnw1
+	 Oc8ujLjoTfwcq3bjSt7NpjFp9sBafkxca++a8UdzpSvUceP2Th6cb3NnWut9ozOZznXY2
+	 Iwp3/29fKB4kFuqUoVQRWqfiILgylRD9S3t1B0cKWlawuoRlCfPjFhDyxgVZ/rDfV7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794800666;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=v+oEFSF5FAVe57kexz+WWWyJRElN6EdjpF+6YGfbga8=;
-	b=k6D9NDZnRFPRG1HsC13hNyF5EXdPr+eVRy5I9B0zOMS1ujqefVIc839JLEIAi2I4Z7wG
-	 5O85e9qU4zZZ4x+qkz1VKxXdQlZVsp2wCOIkVMOo1NXBmgL6L+dGyh/ZiHvhSjB8lTigg
-	 QKfIKqJKO4viLlLttQehYKznBGFgKiTxvRT+xzLYxwGy6mU3s9eKRcbDzxqrAuj7QvZ0E
-	 dInULYoT3f7ZexFO5WoYUdfhP/fSZdI808RgON0iA7YBLi7tCueSVMc+eIDtASmVqb22U
-	 I0XAH0svmr/5WZUOmV3ybMHHFO7iDMd9abQWqD/9M4eZeCtKVY68QH3kK9Ixlq0G4Bw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794801303;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=XVo8cX/ZclE2JZLJ5Sy4t7M6wxCXh5CPKIlg5JJkfRI=;
+	b=Pi4g10Fz+UFumV/4VEz2nuh/p5m08+204QAU4qmHEhMOVBEO3MiqQDLQeR9FE2Ce7g+0
+	 eWoOVTwCYtCWOCe7n0TbK4XdMgBzssSmWv/UpsRMKTbvZ/oL4uDrRe2FZKlEsK8SlchGc
+	 c32tZWTykdmGe/Gpi3vIW91cBdFIu69elD8I6jEgGPXVeCM7jiCKgVP3TicsS3VREMQhk
+	 INwn0UYRxwGAsPijk0vPNgQ8syvWeRqfYkgRZofEmZYiZ9MVxvmT5q3feKHqc7vQptSdW
+	 6PRVVJhpz/tR0RC8kQ/hhzzE7NvnjgDqg2kGGTu8FrrWWetxcmHHse3FC8cgWQy4bww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxzAMH0Q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=R7sLG4T9;
+	arc=none smtp.remote-ip=113.46.200.216
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008DE606A323;
-	Mon, 16 Nov 2026 03:44:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B6B606A31F;
+	Mon, 16 Nov 2026 03:55:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3B6B606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gxzAMH0Q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86D4D1F000C4;
-	Mon, 16 Nov 2026 03:44:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794800665;
-	bh=v+oEFSF5FAVe57kexz+WWWyJRElN6EdjpF+6YGfbga8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gxzAMH0QhxwxxcDQXdGkGvtMG/+FCh2Ukhd4PZHrh/vMOEyXqV1TIFiEVFu4GuQ/m
-	 aGD8+3JHzmMKAEBjBpV+WseVl7eKQFXeoKEq0g/Dj7PzyGmrq1wKaDNbTDcxCnplwv
-	 H9V3LEtgCzyoC2VlhsjM/WWugA5j+n87rf3raC7xtTUoATVDGuO2OiTJsxPtL+7nGG
-	 +dPgS/bPvrbNVqA4P2jhV5OATcWGAIJwuKeEgF4P5vrN04wQWX9A4uxwMZbxA5IF9e
-	 b/1XWsfhBY76H4iftco+UHwIfZDI+wx5qeEZ0stmS6kshGlpIYelWgYQ7LPgWsALuU
-	 3vBMoa4IVXsdw==
-Date: Sun, 15 Nov 2026 20:44:21 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Stefan Wahren <wahrenst@gmx.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH net] qca_spi: Avoid unsequenced accesses to jiffies in
- qcaspi_netdev_tx_timeout()
-Message-ID: <20261116034421.GA47691@ax162>
-References: <20261114-qca_spi-wunsequenced-v1-1-6b219b906db7@kernel.org>
- <490e6ccf-0cc0-4db6-b076-5d4ac5f5b8a4@gmx.net>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=R7sLG4T9
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=XVo8cX/ZclE2JZLJ5Sy4t7M6wxCXh5CPKIlg5JJkfRI=;
+	b=R7sLG4T9vY049yplmjnT6eRystNU87CIO2ZCQLt+aQXGzOQlCmADTVHSxbU6wvUSHp9FGtCUF
+	ZdY0OpNctAk7BW91JZ/ymjVka4sZSTT7t8+ilaMcOvTGrKFfLDRdbudEUJn+S2sSzMK7JTVuSYT
+	LTkTzqbkQdVVovu5MIdlxoY=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4jSYrs35q8z1T4Fp;
+	Mon, 16 Nov 2026 11:54:21 +0800 (CST)
+Received: from whupemk300003.china.huawei.com (unknown [7.152.185.49])
+	by mail.maildlp.com (Postfix) with ESMTPS id EB55B40561;
+	Mon, 16 Nov 2026 11:54:57 +0800 (CST)
+Received: from huawei.com (10.50.87.204) by whupemk300003.china.huawei.com
+ (7.152.185.49) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 16 Nov
+ 2026 11:54:57 +0800
+From: Zhang Yuwei <zhangyuwei20@huawei.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>, Frank Li
+	<Frank.Li@nxp.com>
+CC: <linux-i3c@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, <chenjun102@huawei.com>
+Subject: [PATCH] i3c: master: Skip IDR cleanup if bus ID allocation fails
+Date: Mon, 16 Nov 2026 11:53:17 +0800
+Message-ID: <20261116035317.132490-1-zhangyuwei20@huawei.com>
+X-Mailer: git-send-email 2.22.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,25 +69,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <490e6ccf-0cc0-4db6-b076-5d4ac5f5b8a4@gmx.net>
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ whupemk300003.china.huawei.com (7.152.185.49)
 
-On Sun, Nov 15, 2026 at 03:08:23PM +0100, Stefan Wahren wrote:
-> In general agree, but imo the jiffies itself were not helpful to debug a
-> transmit timeout in the first place, so I hope we can avoid adding a local
-> variable here.
-> 
-> How about this:
-> 
-> netdev_info(qca->net_dev, "Transmit timeout, latency %ld\n",
->             jiffies -  dev_trans_start(dev));
-> 
-> The timestamp from netdev_info() is much more helpful.
+Since commit 9d4f219807d5 ("i3c: fix refcount inconsistency in
+i3c_master_register"), an i3c_bus_init() failure is handled by dropping
+the initialized device reference. This invokes i3c_masterdev_release(),
+which unconditionally calls i3c_bus_cleanup().
 
-Sure, that is totally fine with me. I will send a v2 with that shortly.
+However, i3c_bus_init() only assigns the bus ID after idr_alloc()
+succeeds. If the allocation fails, a zero-initialized controller retains
+a bus ID of zero, and i3c_bus_cleanup() removes ID zero from the IDR.
+If another bus owns that ID, its mapping is incorrectly removed, allowing
+the ID to be reused while that bus is still registered.
 
+Initialize the bus ID to -1 before attempting allocation and skip IDR
+cleanup when the ID is negative. Keep the put_device() error path so that
+the device reference and firmware node reference are released normally.
+
+Fixes: 9d4f219807d5 ("i3c: fix refcount inconsistency in i3c_master_register")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhang Yuwei <zhangyuwei20@huawei.com>
+---
+ drivers/i3c/master.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index 9928c5dffb5b..39363c097682 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -523,6 +523,9 @@ static void i3c_bus_init_addrslots(struct i3c_bus *bus)
+ 
+ static void i3c_bus_cleanup(struct i3c_bus *i3cbus)
+ {
++	if (i3cbus->id < 0)
++		return;
++
+ 	mutex_lock(&i3c_core_lock);
+ 	idr_remove(&i3c_bus_idr, i3cbus->id);
+ 	mutex_unlock(&i3c_core_lock);
+@@ -532,6 +535,7 @@ static int i3c_bus_init(struct i3c_bus *i3cbus, struct fwnode_handle *fwnode)
+ {
+ 	int ret, start, end, id = -1;
+ 
++	i3cbus->id = -1;
+ 	init_rwsem(&i3cbus->lock);
+ 	INIT_LIST_HEAD(&i3cbus->devs.i2c);
+ 	INIT_LIST_HEAD(&i3cbus->devs.i3c);
 -- 
-Cheers,
-Nathan
+2.22.0
+
