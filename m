@@ -1,70 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826920;
-	b=4pEbPjDIXZ4QwJq+JU4b56D6HC3CMM5mwkRVKr45/k2Pp//V/fEJsWIe8WsjhJGQwfBn
-	 FEM3+Co4QB1yKPzELJd2/npyQLi1BmoEbvl+DUMzR+CgVHUHvvuUAPbDCpuBOS3BzUzkA
-	 e3xP4q4ChDWtkz2fKClSOrTXefwvWfRsUooCTKY0jA4UffrkzFIaiLdZz2rqKUK7gvdlL
-	 nkAmTclPas7ETpdVrIKTnb50//vcVa54OQUx2NVF5ECIHxIgDP00Nb9ESVj0IQlPeaHP2
-	 xfOmkCBusXmwAYk85OIfkm1tlwuyXT7iEB79c9Zg5/lVXMlde54BbloZj6U7jadgB4w==
+	t=1794827065;
+	b=Mp2w7l8puSqP3/mF7EOi+lC0EvA2gs2oy/OCov4A4yEuYtHGHgdcOggC0KZvLGtvLDFx
+	 0XCvFqOW1MT5GKYnKhJ9LXdGi1Ahod1onLqDJoBM/I8RMM7grpdXtmvimAU7xFMa8jWWa
+	 01ndclItPf2lv0VY0WmWVAbSkjzr3nr9UTjEFcrySVlXxfofvUq6CiMBGptfwfC9Zulw5
+	 OeuOIglFzgaM91DzhdgchTsEobJFFM5Xzr9my9PIh9Y67NnDgBiBzaGp+9NogYn/mDtKz
+	 Dya/fJjjNd05LyAvhBE9UAQFRcpjBTY9HW44lF7BShYnYJ1kDk3oHXcdGeawFqtdhGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826920;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=Rf8qt+Zh3EUE2lSQ6kbDmdifzLtndza1jl085CZIWqw=;
-	b=ZEt0AdwqU1xfATBk7mPSPWjIpPwqU/ab+gOOqs4R3QrZ+cKUZtRAWA1wQ20Bx/FoTb/D
-	 RhLiUV+T0DBg1QmEqKcyaxvH/0Jlud0Jp2nfH2veAjFkiZDG6l9OJyhnlxnGRVjEhKkLz
-	 m+ug3ZIsnYA2f58Mwc0Gs6sysoGl28XAb3/umZfX8EgI1aKw4AzdFGa1zektkZYnSmgcG
-	 mLETMTWFyVfC/g/P2RCe+iPxkdEIz2tE5HnTcz/d5dZB9Wg5DWRs5+tFnXraNfN6Vdj5f
-	 OpdZxiPS9ck+BwO+WxJ/RXMGIOfD1Ke+1WU0LyfvY8iKYPa6Vr3417o01e8aAvxkusQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794827065;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=K6hcsOKot76i6ofOuhnqMqhE4PYGjzAJldUZv2AbfjY=;
+	b=TZYjSp03rT+BhHwAj4k+bVnSSruv9QB2cqbeYrkt/vay3puYzYIsXEWTANx4zREiIf0c
+	 TDLOQSXShhPwQ/qU6NfrdnahhpaES3HY4LJsSLnd4iRT7Zxqt9MU5dJ6lIMU4+j3Yi00w
+	 yiWx3YqE9OZ9bmYljqx44ihORSPhK1DyM2wuUlZgG+jIpdSPYsSnT5XEPUAISs6MnCX2D
+	 ADmy6O8HgfjKfIeGIAx2Wn82pRJChEBFHtC6iKMXq6D9QRQ2AmKUqcelP8BfOIg2dIyP5
+	 EXHr1zObHA4sRK9oN5BULjo1puzSzVAdYDo6vNVulLxwgChhAy+S+9vdV8OsMiMzKdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=QabxuAwS;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yv+83Ada;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D618606A323
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 11:01:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D618606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1331E606A323;
+	Mon, 16 Nov 2026 11:04:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=QabxuAwS
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
-	From:Subject:Message-ID:From:Reply-To;
-	bh=Rf8qt+Zh3EUE2lSQ6kbDmdifzLtndza1jl085CZIWqw=; t=1794826918; x=2110186918; 
-	b=QabxuAwSteZpDJ+qHNUfOJnOhwvoPeT5XQj6ZMlThEX+m7Bf0aBhLU5X5y+TPz6PVOpIdrOqUF4
-	A/PaICJQiu0WntHICTldl7pTha+ZPzHB8Q7R5/dii9OQBFgYGTuNNc3NoK4TWfagpa1vrvxygssi1
-	dnPZguz1U982CVR/HtKgziDAst1bJASs53kYVPqc3KSF5GcWhmaslTMQTRJTJX/EjyeXz/C2DnfCZ
-	cGDn9ndQ/g9/dRw7Ugc1SUl0Xsl0IvBpMUyZKcIA2F7J9RQJdMzRFhpjZkMqqYDWtwDpghnPM9awU
-	Ic4RHHkWOkROVZ/VKH33To36jbjd9UOpUHOg==;
-Received: from [137.101.48.64] (helo=[192.168.0.17])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xSuTA-000000009mR-1nOX;
-	Mon, 16 Nov 2026 12:01:52 +0100
-Message-ID: <08699944b70494159b0f750c1ffb4d8dc14bfe82.camel@igalia.com>
-Subject: Re: [PATCH v2 0/3] drm/vc4: Fix async page flip completion
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, Melissa Wen
- <mwen@igalia.com>, Maxime Ripard <mripard@kernel.org>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance
- <kernel-list@raspberrypi.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann
- <tzimmermann@suse.de>,  David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
-	stable@vger.kernel.org
-Date: Mon, 16 Nov 2026 12:01:41 +0100
-In-Reply-To: <20261114-vc4-async-flip-fixes-v2-0-d33cbe99ed5d@igalia.com>
-References: <20261114-vc4-async-flip-fixes-v2-0-d33cbe99ed5d@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yv+83Ada
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 086591F000D1;
+	Mon, 16 Nov 2026 11:04:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794827064;
+	bh=K6hcsOKot76i6ofOuhnqMqhE4PYGjzAJldUZv2AbfjY=;
+	h=From:Subject:Date:To:Cc;
+	b=Yv+83AdaI+rMIF6ZcVumQESxSFqk/+q4KEQ/dNYe1vqGAjhO4UZuY0f32upeyeIcL
+	 U7luNKMRuAsOI84eZrIlAJi/zJYCE8A/tcPIQNVv+qkGeMR+iT2Qd/a23r3cWeRQU+
+	 uTSVeXg9wu6s2JknLRPylmOgOMgs4JvwAc752i150GOLDrUHLrkFmN2Gzfynarvx/9
+	 MQjhumagM8tTagR1n3h7iQmHaV8zyZ3rBpUM5zVesg7Yce9jIpL6WN2evAWJQVcUQz
+	 5lL6SvuerYCNW4EDL0oKuEOdAKrLTwc4zYsCSCXp8DAReNjFGyaadFvjQMB+WH5CwD
+	 iQFheHbOkWpOg==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH v2 00/17] fs: take freeze protection for writes to backing
+ files
+Date: Mon, 16 Nov 2026 12:03:40 +0100
+Message-Id: <20261116-work-fs-frozen_writes-v2-0-ecc4a2aac40e@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,109 +54,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WOQQ6CMBBFr0K6toRWRHTlPQwxbZ1CxbRmBkEl3
+ F2KceHC5Zv8eXkjI0AHxPbJyBB6Ry74GeQqYaZRvgbuzjMzmclCCLHmQ8CWW+IWwwv8aUDXAfE
+ sl0ZtC6mtLtn8e0Ow7rF4j9WH6a4vYLooiwutCLhG5U0TT1GbWkp/tGkcxXHjqAv4XCp7EaXfo
+ PxPUC94xu1GQSFMuSu1OLSAHq5pwJpV0zS9AYIJ+TH6AAAA
+X-Change-ID: 20261113-work-fs-frozen_writes-042ca762bfb8
+To: Jan Kara <jack@suse.cz>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>, 
+ Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>, 
+ linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
+ linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, 
+ linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+ linux-unionfs@vger.kernel.org, bpf@vger.kernel.org, 
+ linux-nfs@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org, 
+ Amir Goldstein <amir73il@gmail.com>
+X-Mailer: b4 0.17-dev-ce4c1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3938; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=aJ8lkhUZfSAZD0d0zDSWnIQ89Aj8tUdfJ3u4ID7PtUE=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9eixbv91/Cx9PdNTthXsErvIYvLi4cEr/18tX/HtEJ
+ pfvP/W+sKOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAie24w/A+ctEfepmXaNH6+
+ fUv+voy9HejBG/Od15BdYyPzrWxh5+WMDKe+GJ5fa2TqoDH18nZZNmF57r7kO2y31r/wVrK0UDL
+ h4QAA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Thanks! Looks good to me:
+While testing the pseudo filesystem series I noticed that zloop, the
+nvme target's file backend and the fileio backend of the scsi target
+with fd_async_io=1 call ->write_iter() of their backing files without
+taking freeze protection. So their writes go straight through to a
+frozen filesystem. ext4 complains loudly:
 
-Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+    WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0
 
-El s=C3=A1b, 14-11-2026 a las 16:16 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> VC4 implements async page flips with a custom code path that waits
-> for
-> the BO fence before completing the flip. On VC4_GEN_4 (RPi 0-3), the
-> completion also decrements the usecnt of the old FB's BO. This series
-> fixes three bugs in that path.
->=20
-> Since commit e8941ac97f28 ("drm/vc4: Remove BOs seqnos"), the
-> completion
-> runs from a dma_fence callback. VC4 signals that fence from the
-> render
-> job IRQ handler. As v
-> c4_bo_dec_usecnt() takes a mutex, running an SDL
-> application with SDL_VIDEODRIVER=3Dkmsdrm on the RPi 3 triggers:
->=20
-> =C2=A0 [ 2511.636319] BUG: sleeping function called from invalid context
-> at kernel/locking/mutex.c:623
-> =C2=A0 [ 2511.636667] in_atomic(): 1, irqs_disabled(): 1, non_block: 0,
-> pid: 0, name: swapper/0
-> =C2=A0 [ 2511.636681] preempt_count: 1000002, expected: 0
-> =C2=A0 [ 2511.636689] RCU nest depth: 0, expected: 0
-> =C2=A0 [ 2511.636698] locks held by swapper/0/0: 1, on CPU#0:
-> =C2=A0 [ 2511.636711]=C2=A0 #0: ffff000037183198 (&fence->inline_lock){-.=
-..}-
-> {3:3}, at: dma_fence_signal+0x88/0xec
-> =C2=A0 <snip>
-> =C2=A0 [ 2511.636892] Hardware name: Raspberry Pi 3 Model B Plus Rev 1.3
-> (DT)
-> =C2=A0 [ 2511.636899] Call trace:
-> =C2=A0 <snip>
-> =C2=A0 [ 2511.636991]=C2=A0 mutex_lock_nested+0x24/0x30
-> =C2=A0 [ 2511.637002]=C2=A0 vc4_bo_dec_usecnt+0x40/0x124 [vc4]
-> =C2=A0 [ 2511.637070]=C2=A0 vc4_async_page_flip_complete_with_cleanup+0xa=
-0/0xc4
-> [vc4]
-> =C2=A0 [ 2511.637102]=C2=A0 dma_fence_signal_timestamp_locked+0x118/0x290
-> =C2=A0 [ 2511.637116]=C2=A0 dma_fence_signal+0x9c/0xec
-> =C2=A0 [ 2511.637126]=C2=A0 vc4_irq_render_job_done+0x24/0x114 [vc4]
-> =C2=A0 [ 2511.637158]=C2=A0 vc4_irq+0x16c/0x274 [vc4]
->=20
-> While looking into this issue, I also noticed that, since commit
-> 4d12c36fb73b ("drm/vc4: crtc: Move the BO handling out of common
-> page-flip
-> callback"), the old FB is released before decrementing its BO usecnt.
-> If
-> userspace removes the old FB and closes its handle while the flip is
-> pending, vc4_bo_dec_usecnt() runs on a freed or recycled BO.
->=20
-> Patch 1 fixes the use-after-free, patch 2 moves the completion to a
-> worker
-> and patch 3 returns fence lookup errors to userspace instead of
-> leaving
-> the flip pending forever.
->=20
-> In v1, Sashiko reported that a flip waiting on its fence can complete
-> after, or concurrently with, a later flip that has no fence. This has
-> been
-> possible since commit 82faa3276012 ("drm/vc4: kms: Remove async
-> modeset
-> semaphore") and isn't changed by this series. The best way to fix it
-> would be moving to the generic async helpers, which is on my TODO
-> list.
-> Until then, this series keeps the current behavior and only fixes the
-> bugs
-> above.
->=20
-> Best regards,
-> - Ma=C3=ADra
->=20
-> ---
-> v1 -> v2:
-> https://lore.kernel.org/r/20261112-vc4-async-flip-fixes-v1-0-42449a703840=
-@igalia.com
->=20
-> - [1/3] Add the refcount underflow warning to the commit message.
-> - [2/3] Allocate the workqueue after initializing the CRTC, so it's
-> =C2=A0 released before the CRTC is cleaned up and named after the CRTC
-> (Sashiko).
-> - [3/3] New patch.
->=20
-> ---
-> Ma=C3=ADra Canal (3):
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Drop BO usecnt before releasing t=
-he old FB
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Complete async page flips from an=
- ordered workqueue
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Look up the async page flip fence=
- before committing
-> the flip
->=20
-> =C2=A0drivers/gpu/drm/vc4/vc4_crtc.c | 136 +++++++++++++++++++-----------=
--
-> ----------
-> =C2=A0drivers/gpu/drm/vc4/vc4_drv.h=C2=A0 |=C2=A0=C2=A0 6 ++
-> =C2=A02 files changed, 70 insertions(+), 72 deletions(-)
-> ---
-> base-commit: d48ea86919434695da12d280dccab72b094397e1
-> change-id: 20261111-vc4-async-flip-fixes-1b1ab17dc795
->=20
->=20
+Loop doesn't get it right for discard and write zeroes. Those end up
+calling ->fallocate() of the backing file directly. The fileio backend
+does the same for UNMAP. And zloop records its write pointers on flush
+with vfs_setxattr() which leaves freeze protection to the caller. So all
+of them modify a frozen filesystem just the same. Fix them too.
+
+Looking for more of the same turned up a few simple ones. coredump
+truncates the core file, overlayfs stores its uuid xattr on mount, nfsd
+truncates on OPEN and the BPF xattr kfuncs modify xattrs, all without
+freeze protection. Fix those as well. The ones that need more work in
+their subsystems I have reported separately.
+
+The fileio backend also frees its aio command in the completion handler
+while the filesystem may still be using the kiocb. KASAN catches ext4
+doing that for direct reads on v7.4-rc1. ext4 gets its own fix (cf. [1])
+but fileio should hold a reference across the submission like loop,
+zloop and fs/backing-file.c do.
+
+[1]: https://lore.kernel.org/r/20261113-work-ext4-dio_read_kiocb-v1-1-172a88be803c@kernel.org
+[2]: https://lore.kernel.org/r/20261116064654.GA2964@lst.de
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Changes in v2:
+- Add kiocb_write_iter() and kiocb_end_write_iter() and use them for
+  zloop, the nvme target and fileio as per Christoph's suggestion.
+- Add a file_write guard and use it for loop discard and write zeroes
+  and fileio unmap.
+- Convert loop, vfs_iocb_iter_write() and fs/backing-file.c to the new
+  helpers.
+- Only complete the fileio target command when the last reference to
+  the aio command is dropped.
+- Link to v1: https://patch.msgid.link/20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org
+
+---
+Christian Brauner (17):
+      fs: add kiocb_start_write_trylock()
+      fs: add kiocb_write_iter() and kiocb_end_write_iter()
+      fs: add file_write guard
+      zloop: take freeze protection for writes
+      nvmet: take freeze protection for writes to files
+      target: fileio: don't free the aio command under the filesystem
+      target: fileio: take freeze protection for aio writes
+      loop: take freeze protection for discard and write zeroes
+      zloop: take freeze protection when recording write pointers
+      target: fileio: take freeze protection for unmap
+      coredump: take freeze protection for the truncate
+      ovl: take freeze protection when storing the uuid
+      bpf: fs/xattr: take freeze protection in the xattr kfuncs
+      nfsd: take freeze protection for the truncate on open
+      loop: use kiocb_write_iter()
+      fs: use kiocb_write_iter() in vfs_iocb_iter_write()
+      backing-file: use kiocb_end_write_iter()
+
+ drivers/block/loop.c              | 13 ++++---
+ drivers/block/zloop.c             | 12 +++++--
+ drivers/nvme/target/io-cmd-file.c | 20 +++++++----
+ drivers/target/target_core_file.c | 31 +++++++++++-----
+ fs/backing-file.c                 |  8 ++---
+ fs/bpf_fs_kfuncs.c                |  8 +++++
+ fs/coredump.c                     |  6 ++--
+ fs/nfsd/nfs4state.c               | 10 +++++-
+ fs/overlayfs/util.c               |  8 +++--
+ fs/read_write.c                   |  7 ++--
+ include/linux/fs.h                | 75 +++++++++++++++++++++++++++++++++++++++
+ io_uring/rw.c                     |  9 +----
+ 12 files changed, 158 insertions(+), 49 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261113-work-fs-frozen_writes-042ca762bfb8
 
