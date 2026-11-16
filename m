@@ -1,77 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794825461;
-	b=lIEK5e8oY6p8oXttMBNXuy6EWE2OsaaAD3hTixb/l0XgbOWipxb//35qPNs5VwecmKGt
-	 /DtQPiOwUdkJ4gvyaRtAljvfDL9FE5E+Bz6XsiGkAsp8Iz8qwnEua3bIDJaQdgVUTmY6s
-	 HcQhpuCb0V71nIImNIBl3uagLr4IfoaBrgcEwWoS+XMUpH/4U7EOZZBCmqq98Ci/tY/Zn
-	 yKMKRwvSV3iPjaLhH4/ag1M/8J30BPKqDHiTU3jtiEFElABp94fHAC38l3vJXgZ0VTNPm
-	 6NKawLCiNHAtedsjEs6xVm6rkYDPfCZJ55wx94t+FTWNhr6hGhXY2pewQL97B3O6uIQ==
+	t=1794825661;
+	b=yA5o0B+SeaZFDUODap0doI2EHlD6RQ922cN2cwx5V7NzrtwVSynOjcuV4Y1IOVpp7jD1
+	 Y1Mx3mKlfRsGCkF4ewWVlrdhhFmmaM30gdLCSpjHlIzr4iTMAmKdoNoDSSWGvZxkIKbx8
+	 ef9F8QsFQy3x7YhdRrYZUQ9fVenL5M3KQXyd5E9pywBOWgYuigo2m8i8GOhzP6D0Sy9EU
+	 5g6Vk3fdaFSTqfFPJCNPXT9V8RDrwJ0ZbFkf9DFjswsYi1Xo7lpfo0bTzoOBOx1LEKEKs
+	 hjjKElhDblzWuywbICkQAPAgThpTyLcDk+AVRINMR1BhlHkNfT2c8tiO8wk8YE6Kxbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825461;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
-	 UI-OutboundReport;
-	bh=/GCPAd6kHKEiM8IfAgF80ZnqxP8C3ez55s7HWJvwjdU=;
-	b=3HdnbAYg+Cjh2dJmhOdCZOvxMhFGNoRYYqog4Cthib6dVVpQC+A/Jiw2ir63r4r5zWbo
-	 svwfcLY1azJ/lYGZ3wbGBKx5Mbl8d6yKk2UX+4ySWMgUs2Cs+GpugertZcQ6XWkPF4hAw
-	 w5UCd37r4ooUeUU5c5C9Emyap8PlYDLcPf6JTv5wdolDBprqvUYUTrsD7Ig0lHWlbhCVl
-	 xqJ0bsZAtt2ArdHwZ+wSYj8gYFzZJiI9592iUCKDy7z3Y2SG/ZxPKTPpzMKgSP69ZVCW7
-	 Lt4kqlqoU2VVNbHQaTbN3r3BHqveRjoYZwU7NIpJXswYU0LTQTIRzWORY44G9MVa9HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825661;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=jm+zkfC0aDj61p8db3QGEDzyqPbTXKA6Lfv6ZVi5xO8=;
+	b=pYtB7q0wo58SXUgqmIuTgHgLcmG+c0eZH2Z+14/RU5647mb8twK1ThbuCF6/A0u9TeyG
+	 Zfdz/SBefC15xDO7HQ8v76ORgH8qVu/g19HY+QrgtnLJ8nXsZXjEEf6JmehGd4TmPxj8r
+	 WsiZb9LA3YD9KnNrABNP+KhvoRrWVtq6vJQoscnL23i7jn8w4Q2TUx8FIhz7WGrlGClvt
+	 eCAowqMqm4oDTl3Di1+rPAyJAqyhd+ki3/p6Nj97WKidjAfrjM2x41Z73C+9sUoqU/vKc
+	 SepcwC9BKMVw6xnfYn8DZ8XcBzSyY0y2OCGxkdd/9vYPjGY51DAHuZQv6qih8ctRG0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.net;
-	spf=pass smtp.mailfrom=gmx.net;
-	dkim=pass header.d=gmx.net header.i=wahrenst@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=D6e5zpBh;
-	arc=none smtp.remote-ip=212.227.17.20
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hviX8UjR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00F7D606A32A
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:37:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 00F7D606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1F2C606A31C;
+	Mon, 16 Nov 2026 10:41:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.a=rsa-sha256 header.s=s31663417 header.b=D6e5zpBh
-DKIM2-Signature:  i=1; m=1; t=1794825458;
- mf=PHdhaHJlbnN0QGdteC5uZXQ+;
- rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
- d=gmx.net;
- s=s31663417:rsa-sha256:mzjsHOFBLKLAwaklQevzewSKhCbd
-   vWUkkUpZ3F6m+QSuzLSgJ0zc9xU3y9E1op8X5s3cgqq3um0Dn7MRxjf6WUF5I2Yb+0340B/kRGB
-   K9pIv+a4yFTdWO3C2O6aNdmHwowOv4Q4IvkTZ7eJt+8jIhvEkMfEeuvGTG/lJo99q+NCWjfAZ89
-   beHIF18fo94pKguZ0RWNupv+hCee5jjGf3p4JuFgo8UdN0MEUhcypqJT+9rvO7GnFQkFnh6Y7m9
-   1DY285V9Jdf9lak6CxjcMdAM5HiWvb6/pA7ZubHrEb4R7dH9Ov0zsUO07+oYSS7DEyBbI9Cdqx/
-   C52sPUD8RnW0Ew==;
-Message-Instance:  m=1;
- h=sha256:
-   mTgSnPIgQAo7sCQ2Qi/skYZh5e01zeios2QeuqOq56k=:
-   bBTZ/rtzF4z2DLFAzLPSXaLy0E0T8GUsx1TXINyUjNs=,
-  sha512:
-   IKVqGH1uxnS4bnp5Hu4HWX5atnCldgFzqJObuRoxIhdXwgLZpCUFDk5RvTUMgE9YCuO4DbvguB0Haexn6tOV5A==:
-   nBwE4r7v0oFa5gOxnw9BEIMxjQKFBpZqLvyNlJLRFdh5ZpCPZzgmAdkfNkylettxZKsGtNhgyZMA3QNmgDkOZg==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1794825445; x=1795430245; i=wahrenst@gmx.net;
-	bh=/GCPAd6kHKEiM8IfAgF80ZnqxP8C3ez55s7HWJvwjdU=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=D6e5zpBhMEqBXHETMziRvfZJAyJZEE+QVhGuUuSIfBwluWzpyymE2LevSrXYctah
-	 vZ/D+XK/5R/31AC4iVPNLbDWKU5NswzlvWJXSxXWZcpr4ozk5MymeSlKsbAg1Fof5
-	 9WWuOBLVNRFLpEzt5uRJlpLOQXepyMjN5incX/TIwfndVqtsHbBWHm+/0alW8s+1v
-	 at/XS/aMCtvcwtkfFXCI6iArLIZBaublUdHTWu3DBvosJATzKfWO88ZuoHRlKyep+
-	 lDTU5fi8NmBqwr93ZswlTYbM9N98FdB5QDZ0/+q9FDlMPLQtpRNWfOVOp3DrDz/BY
-	 Kp6PYRcOTkEFmL/TKA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx105
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MeCpb-1wuOLi0Ok3-00Zm7I; Mon, 16
- Nov 2026 11:37:25 +0100
-Message-ID: <a1c08551-8f1e-444a-9597-219fb3228e0e@gmx.net>
-Date: Mon, 16 Nov 2026 11:37:22 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hviX8UjR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14B91F000C4;
+	Mon, 16 Nov 2026 10:41:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794825661;
+	bh=jm+zkfC0aDj61p8db3QGEDzyqPbTXKA6Lfv6ZVi5xO8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hviX8UjRlp9SSmeSVwQw+1RcH1nPyk3wSOCHzD9L1z27BA+RXfULG37781lY4MoRb
+	 MsHLgBQ11vtYaHKZDBXc2tn+ZvBFgTgLUCJQsr1VOoPRpED9AwnC8eqWpLazGATxBg
+	 w+ZK+QYX1fZ17uMLXqH2A3k6WJs+HZ5No9OSisLP2cemi4s0c9dZ1Wkzmo61fxDaZr
+	 oDHmm293H76V76MRhIR2DSG6CJiMn+vYflZILXepWst1txc0y++Rc0BnHrmN+c9i6k
+	 HsdtCaceilkyYOEbJYWt/1C8h3XABW0UA/rIKiv8SvX3ClQVjwnlxtHfgSkL092SqG
+	 hHnjN1LMXa0bA==
+Date: Mon, 16 Nov 2026 11:40:59 +0100
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Florian Maurer <fmaurer@disroot.org>
+Cc: Felix Fietkau <nbd@nbd.name>, Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH wireless 1/2] wifi: mt76: npu: return rx slots to the NPU
+ only after refilling them
+Message-ID: <avrdu8qr9L2sEuTz@lore-desk>
+References: <cover.1793927986.git.fmaurer@disroot.org>
+ <d6314f34e0965464207656d38a145490b6437aa5.1793927986.git.fmaurer@disroot.org>
+ <au3igPTxdz3i64SO@lore-desk>
+ <20261108205350.2956138-1-fmaurer@disroot.org>
+ <avGnv8Jr7BAiQhG1@lore-desk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,149 +67,340 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] qca_spi: Avoid unsequenced accesses to jiffies in
- qcaspi_netdev_tx_timeout()
-To: Nathan Chancellor <nathan@kernel.org>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, stable@vger.kernel.org
-References: <20261115-qca_spi-wunsequenced-v2-1-8cf32f12d546@kernel.org>
-Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-In-Reply-To: <20261115-qca_spi-wunsequenced-v2-1-8cf32f12d546@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:tu5VFCKA4q+bKIlTAsu3cZvJjOG2PUjTetMQV6XRKLLsS9hx0aE
- flE9HxGhnBHhrt9aXwrG7pMc/d0b17eBX2GRs1EZVAVgSxXkKP60i/LYGEqyKZf0faqn7Mc
- biAOXebRAX5UpXIwlzQUOVrY1cyWVAOJLJQdgVniY6d/AfCDNFLhkwlSNyMjrJE3wUv3S6A
- 1KTY31uH3xb2/14uA9JkA==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:TUx73lpeZog=;Bjw+QQ6lsicew3kZlxc0zqkr6lY
- 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
- WIGi5DAIA==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="LqmHgd5bDG2pnVB6"
+Content-Disposition: inline
+In-Reply-To: <avGnv8Jr7BAiQhG1@lore-desk>
 
-Am 16.11.26 um 05:45 schrieb Nathan Chancellor:
-> After a recent improvement in clang to warn on unsequenced accesses to
-> volatile variables [1], an instance appears in
-> qcaspi_netdev_tx_timeout(), which can break the build with
-> CONFIG_WERROR=y / W=e:
->
->    drivers/net/ethernet/qualcomm/qca_spi.c:805:16: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
->      805 |                     jiffies, jiffies - dev_trans_start(dev));
->          |                     ~~~~~~~  ^
->
-> Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
-> 6.5.2, unsequenced side effects on the same scalar object are undefined
-> behavior. Per C11 6.5.2.2.10/12, the evaluation of arguments in a
-> function call is indeterminately sequenced, meaning any side effects in
-> the arguments are unsequenced.
->
-> Printing jiffies on its own is not that useful for debugging transmit
-> timeouts, so get rid of it to clear up the warning.
->
-> Cc: stable@vger.kernel.org
-> Fixes: 291ab06ecf67 ("net: qualcomm: new Ethernet over SPI driver for QCA7000")
-> Closes: https://github.com/ClangBuiltLinux/linux/issues/2197
-> Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Acked-by: Stefan Wahren <wahrenst@gmx.net>
+--LqmHgd5bDG2pnVB6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+> > On Fri, Nov 06, 2026 at 03:21:52PM +0100, Lorenzo Bianconi wrote:
+> > >> +	Q_WRITE(q, dma_idx, (q->head + 1) % q->ndesc);
+> > >
+> > > why are you writing q->head here?
+> >=20
+> > Once the ring is full, (q->head + 1) % q->ndesc =3D=3D q->tail, so the
+> > value is the same as today. Only the timing changes: the slots go back
+> > to the NPU after they have a new buffer, not before.
+> >=20
+> > The +1 assumes the NPU completes slots only up to dma_idx - 2. Every
+>=20
+> I guess this is used to mark what is the next index the mt76 driver is
+> expecting but I guess airoha folks can provide more details about it.
+>=20
+> > slot it can still complete then lies between its own position and
+> > q->head - 1. The host has not consumed those yet, so they still have a
+> > buffer. If the refill fails, the same value is written again and the
+> > ring stalls instead of handing back an empty slot. A debug patch that
+> > cleared DONE after each consumed slot saw no slot completed early in
+> > 60 minutes of rx load, though I can't tell how often the NPU reached
+> > that slot. Can you confirm this is how the NPU treats dma_idx?
+>=20
+> q->head and q->tail are not the same when we have refilled the queue with=
+ new
+> buffers. Moreover, I think if mt76_npu_fill_rx_queue() fails (so mt76_get=
+_page_pool_buf()
+> returns NULL) it is not correct to use q->head for dma_idx, we should use=
+ q->tail.
+>=20
+> >=20
+> > >> +	if (nframes > q->queued)
+> > >> +		return NULL;
+>=20
+> Can you please check the updated patch below?
+>=20
+> > >
+> > > can this really occur?
+> >=20
+> > I have not seen it. The slot at q->head is never cleared while the ring
+> > is full: it is the one kept free, consumed in the previous round, so it
+> > still has DONE set. If the NPU has completed the first slots of a frame
+> > up to q->head - 1, the count reaches past q->queued and the next DONE
+> > check finds that stale bit. A page pool failure makes the stale region
+> > larger.
+> >=20
+> > > I got your time, and I agree this is an issue we need to fix but I gu=
+ess we
+> > > should avoid a double loop. What about the patch below? (just compile=
+d and not
+> > > tested).
+> >=20
+> > Keeping the partial frame in q->rx_head is nicer, and it lets the slots
+> > of a half-received frame be refilled early. Comments inline.
+> >=20
+> > > +	if (!nframes) {
+> > > +		nframes =3D FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK,
+> > > +				    desc[q->tail].info);
+> > > +		nframes =3D max_t(int, nframes, 1);
+> > > +	}
+> >=20
+> > PKT_COUNT is read before DONE of this slot, see my reply to 2/2. Once
+> > q->pending keeps the count across polls, a stale count of 1 would
+> > stick. On top of your patch, something like (not compiled):
+> >=20
+> > 	if (!nframes) {
+> > 		u32 ctrl =3D READ_ONCE(desc[q->tail].ctrl);
+> >=20
+> > 		if (!q->queued || !FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, ctrl))
+> > 			return -EBUSY;
+> >=20
+> > 		/* PKT_COUNT is only valid once the first slot is complete */
+> > 		dma_rmb();
+> > 		nframes =3D FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK,
+> > 				    desc[q->tail].info);
+> > 		nframes =3D max_t(int, nframes, 1);
+>=20
+> ack, I can fix it.
+>=20
+> > 	}
+> >=20
+> > > +	while (nframes > 0) {
+> > > +		struct mt76_queue_entry *e =3D &q->entry[q->tail];
+> > >  		int len =3D FIELD_GET(NPU_RX_DMA_DESC_CUR_LEN_MASK,
+> > > -				    desc[index].ctrl);
+> > > +				    desc[q->tail].ctrl);
+> > [...]
+> > > +		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[q->tail].ctrl))
+> > > +			return -EBUSY;
+> >=20
+> > Three things here:
+> >=20
+> > - ctrl is loaded twice, so len can come from before the slot was
+> >   completed.
+>=20
+> ack, I can fix it.
+>=20
+> > - Nothing stops the loop at q->queued =3D=3D 0, so it can take the stale
+> >   slot at q->head, whose buffer already belongs to an skb, and
+> >   q->queued goes negative.
+>=20
+> please see above
+>=20
+> > - q->pending is never set, so after -EBUSY the next poll reads
+> >   PKT_COUNT from desc[q->tail].info, which is now a later slot of the
+> >   same frame.
+>=20
+> I can fix it.
+>=20
+> >=20
+> > So:
+> >=20
+> > 		u32 ctrl =3D READ_ONCE(desc[q->tail].ctrl);
+> > 		int len;
+> >=20
+> > 		if (!q->queued || !FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, ctrl)) {
+> > 			q->pending =3D nframes;
+> > 			return -EBUSY;
+> > 		}
+> >=20
+> > 		dma_rmb();
+> > 		len =3D FIELD_GET(NPU_RX_DMA_DESC_CUR_LEN_MASK, ctrl);
+> >=20
+> > [...]
+> > >  	Q_WRITE(q, dma_idx, q->tail);
+> >=20
+> > This still hands the slots back before mt76_npu_fill_rx_queue() refills
+> > them, so the oops is still there. It needs to stay at the end of the
+> > refill as in my patch. With your structure that also lets a frame that
+> > runs into the free slot finish, since the NPU gets new slots after
+> > every poll.
+>=20
+> I guess q->tail should point to the next already allocated buffer, right?=
+ The
+> only corner case is when we consume the all the allocated buffers. In thi=
+s case
+> we should wait to update it. Do you agree? Can you please check the updat=
+ed
+> patch below?
+>=20
+> >=20
+> > I can fold this into a v2, test it on the W1700K for 60 minutes under
+> > rx load, this time with a counter for misframed frames, and send it
+> > with the results. Since the structure is yours, I'd add
+> > Co-developed-by and your Signed-off-by if that's fine with you. If
+> > you'd rather post it yourself, I'll test yours instead.
+>=20
+> Sure, feel free to add your Co-developed-by tag if the patch below works.
+>=20
+> Regards,
+> Lorenzo
+>=20
+> diff --git a/drivers/net/wireless/mediatek/mt76/mt76.h b/drivers/net/wire=
+less/mediatek/mt76/mt76.h
+> index 2ade848fe3bb..9537c6d28e8d 100644
+> --- a/drivers/net/wireless/mediatek/mt76/mt76.h
+> +++ b/drivers/net/wireless/mediatek/mt76/mt76.h
+> @@ -249,6 +249,7 @@ struct mt76_queue {
+>  	int ndesc;
+>  	int queued;
+>  	int buf_size;
+> +	int pending;
+>  	bool stopped;
+>  	bool blocked;
+> =20
+> diff --git a/drivers/net/wireless/mediatek/mt76/npu.c b/drivers/net/wirel=
+ess/mediatek/mt76/npu.c
+> index c4c7c0af6321..3ca83985376d 100644
+> --- a/drivers/net/wireless/mediatek/mt76/npu.c
+> +++ b/drivers/net/wireless/mediatek/mt76/npu.c
+> @@ -56,61 +56,81 @@ void mt76_npu_queue_cleanup(struct mt76_dev *dev, str=
+uct mt76_queue *q)
+>  		q->tail =3D (q->tail + 1) % q->ndesc;
+>  		q->queued--;
+>  	}
+> +	if (q->rx_head) {
+> +		dev_kfree_skb(q->rx_head);
+> +		q->rx_head =3D NULL;
+> +		q->pending =3D 0;
+> +	}
+>  	spin_unlock_bh(&q->lock);
+>  }
+> =20
+> -static struct sk_buff *mt76_npu_dequeue(struct mt76_dev *dev,
+> -					struct mt76_queue *q,
+> -					u32 *info)
+> +static int mt76_npu_rx_process_entry(struct napi_struct *napi)
+>  {
+> +	struct mt76_dev *dev =3D mt76_priv(napi->dev);
+> +	enum mt76_rxq_id qid =3D napi - dev->napi;
+> +	struct mt76_queue *q =3D &dev->q_rx[qid];
+>  	struct airoha_npu_rx_dma_desc *desc =3D (void *)q->desc;
+> -	int i, nframes, index =3D q->tail;
+> -	struct sk_buff *skb =3D NULL;
+> +	int nframes =3D q->pending;
+> +	u32 info =3D 0;
+> +
+> +	do {
+> +		struct mt76_queue_entry *e =3D &q->entry[q->tail];
+> +		u32 ctrl =3D READ_ONCE(desc[q->tail].ctrl);
+> +		int len;
+> =20
+> -	nframes =3D FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK, desc[index].info);
+> -	nframes =3D max_t(int, nframes, 1);
+> +		if (!q->queued) {
+> +			q->pending =3D nframes;
+> +			return -EBUSY;
+> +		}
+> =20
+> -	for (i =3D 0; i < nframes; i++) {
+> -		struct mt76_queue_entry *e =3D &q->entry[index];
+> -		int len =3D FIELD_GET(NPU_RX_DMA_DESC_CUR_LEN_MASK,
+> -				    desc[index].ctrl);
+> +		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, ctrl)) {
+> +			q->pending =3D nframes;
+> +			return -EBUSY;
+> +		}
+> =20
+> -		if (!FIELD_GET(NPU_RX_DMA_DESC_DONE_MASK, desc[index].ctrl)) {
+> -			dev_kfree_skb(skb);
+> -			return NULL;
+> +		dma_rmb();
+> +		len =3D FIELD_GET(NPU_RX_DMA_DESC_CUR_LEN_MASK, ctrl);
+> +		info =3D desc[q->tail].info;
+> +		if (nframes =3D=3D q->pending && !nframes) {
+> +			nframes =3D FIELD_GET(NPU_RX_DMA_PKT_COUNT_MASK, info);
+> +			nframes =3D max_t(int, nframes, 1);
+>  		}
+> =20
+>  		dma_sync_single_for_cpu(dev->dma_dev, e->dma_addr[0],
+>  					e->dma_len[0],
+>  					page_pool_get_dma_dir(q->page_pool));
+> =20
+> -		if (!skb) {
+> -			skb =3D napi_build_skb(e->buf, q->buf_size);
+> -			if (!skb)
+> -				return NULL;
+> +		if (!q->rx_head) {
+> +			q->rx_head =3D napi_build_skb(e->buf, q->buf_size);
+> +			if (!q->rx_head)
+> +				return -ENOMEM;
+> =20
+> -			__skb_put(skb, len);
+> -			skb_reset_mac_header(skb);
+> -			skb_mark_for_recycle(skb);
+> +			__skb_put(q->rx_head, len);
+> +			skb_reset_mac_header(q->rx_head);
+> +			skb_mark_for_recycle(q->rx_head);
+>  		} else {
+> -			struct skb_shared_info *shinfo =3D skb_shinfo(skb);
+> +			struct skb_shared_info *shinfo =3D skb_shinfo(q->rx_head);
+>  			struct page *page =3D virt_to_head_page(e->buf);
+>  			int nr_frags =3D shinfo->nr_frags;
+> =20
+>  			if (nr_frags < ARRAY_SIZE(shinfo->frags))
+> -				skb_add_rx_frag(skb, nr_frags, page,
+> +				skb_add_rx_frag(q->rx_head, nr_frags, page,
+>  						e->buf - page_address(page),
+>  						len, q->buf_size);
+>  		}
+> =20
+> -		*info =3D desc[index].info;
+> -		index =3D (index + 1) % q->ndesc;
+> -	}
+> -	q->tail =3D index;
+> -	q->queued -=3D i;
+> +		q->tail =3D (q->tail + 1) % q->ndesc;
+> +		q->queued--;
+> +	} while (--nframes > 0);
+> +
+> +	dev->drv->rx_skb(dev, qid, q->rx_head, &info);
+> +	mt76_rx_poll_complete(dev, qid, napi);
+> +	q->rx_head =3D NULL;
+> +	q->pending =3D 0;
+> +
+>  	Q_WRITE(q, dma_idx, q->tail);
+> =20
+> -	return skb;
+> +	return 0;
+>  }
+> =20
+>  void mt76_npu_check_ppe(struct mt76_dev *dev, struct sk_buff *skb,
+> @@ -155,18 +175,10 @@ static int mt76_npu_rx_poll(struct napi_struct *nap=
+i, int budget)
+>  		goto out;
+> =20
+>  	while (done < budget) {
+> -		struct sk_buff *skb;
+> -		u32 info =3D 0;
+> -
+> -		skb =3D mt76_npu_dequeue(dev, &dev->q_rx[qid], &info);
+> -		if (!skb)
+> +		if (mt76_npu_rx_process_entry(napi))
+>  			break;
+> -
+> -		dev->drv->rx_skb(dev, qid, skb, &info);
+> -		mt76_rx_poll_complete(dev, qid, napi);
+>  		done++;
+>  	}
+> -
+>  	mt76_npu_fill_rx_queue(dev, &dev->q_rx[qid]);
+>  out:
+>  	if (done < budget && napi_complete(napi))
+>=20
+> >=20
+> > Thanks,
+> > Florian
+
+Hi Florian,
+
+do you have any update about this patch?
+
+Regards,
+Lorenzo
+
+
+--LqmHgd5bDG2pnVB6
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCavrduwAKCRA6cBh0uS2t
+rDMpAQDj3gXJCZXk4KYSPUnFroGe3NPfTuFQI0zqSsQ6EVM3EwD9H4j6NULngp1s
+pD6aFOP5EF74nh4wUivMWDCFKmJStAo=
+=7q7A
+-----END PGP SIGNATURE-----
+
+--LqmHgd5bDG2pnVB6--
