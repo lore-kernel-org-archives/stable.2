@@ -1,55 +1,39 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.196
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794810225;
-	b=Dd4cZAGLH0399v6W27HmYBH/CEtZUIDg8OqyFmZbz+rH+LTxFjh2q46md9QClGo05yqz
-	 ey26yzibkAURcwsuJXbBOjAXodAXsJ62OCuuMVuYmg4BryVeHWBSlkMq9mRzVVNq02811
-	 pdrReR87ioT7wT/cO8IGkWXt+V6Zd8XvS5YEiJIrjfQfLke2LqOEFhbvjhSLoYHSamASP
-	 TNMXIJuiebi6PfSkQfFc71NNlYDg9vTVtUxoulaXnIQhKpCTGrX0CJq69Iwt5t8TQJFt2
-	 MAdfkeFJdk6uF4+LP7VMgjzwiIaUhOxgKo0UnMYIO/cEuzUzt0dEmNyhK/jKFN8vJRw==
+	t=1794810553;
+	b=nrfcAdMwEs0w93w3MVG15efziNZglUn82jLqPpdwgF+uREY5s7AyuG1brzF0t0zf13Uq
+	 aQ5xtXOjUJHHftgnODuK+/M6SSAJMZqno8N3dNxW/JWHlJEbyfwan5jTLO8QLB/0hFuq8
+	 V8N8F86O6Zb3yKzRUHy5G2XWdTdHdLafjnTw2Jfw6n4ZmuDDnEdCflwniZqWFO9oQN6Vq
+	 FC01RMuuZ4kxG6tg2o6rGbI+UkQZT4bqD/UjTNkMbbrg47UQb0w2vN8iGJIW+VWIM7WQ7
+	 jqSm2ZsNveMp6cpykl8RgX54z9bnO9uGgtcgVhNgykGy4+lOlLtc7znJ658ahP95w3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794810225;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
-	 X-FangMail-Miltered:X-FangMail-Envelope:X-FangMail-Bounce-Flag:
-	 X-FangMail-Outinfo:X-CLEAN:Message-Id:X-Fangmail-Anti-Spam-Filtered:
-	 X-Fangmail-MID-QID;
-	bh=KQlDVWjXZe3NXqiXUZIGcGPVYKyfWxuBXPObZCUjmvE=;
-	b=K+Xuh5/XwAgQfPZw9QNBVjOreiPUr1r/ZPnNFRMFap7jjcv4ZmFMjHTxkqV4z2w2HfUN
-	 1ujN8d7Vk5Ql89Ir4514YkUhGm2AppTN+xzT/vnFXWvP+qnxZOGBbaTLGd4KdJ4I6q/0J
-	 HlNJ5gNnfJQFSRlbKbhR6ucOEwmWSknBnJIv+y/68WmPhOKnqXiNPtHVz01jBHGn2X7W8
-	 1AYWrdcvJraGk5gZLP0Lms6LVNFbpmNEVP5V2oXRKrT1Wnga9NxU5dH8I4Hscgvcg6Hao
-	 f8dpCd0iWEQ47Zon4gHlkWnraValR5YIscV8tSufBRAIzrMwRZOCvSeM8OX+8i7S8hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794810553;
+	h=DMARC-Filter:X-Alimail-AntiSpam:Received:Mime-Version:
+	 X-Lms-Return-Path:Content-Type:Date:To:Cc:Subject:From:Message-Id:
+	 In-Reply-To:References:Feedback-Id:Content-Transfer-Encoding;
+	bh=mE97UPOaYLHglbpiiGVMMa71t82rp4Bxit1cOc7q500=;
+	b=ZYPNeA0e4ZAZNNu4h/BjCm3R3kyheJUdlxWyN4BM2LUE0+WHrD7ABLBMylvYiIW38sP6
+	 XfkO006Un3ciwvY22i4Hs7TyeF1wEmpfQQPv8Nkn0RZ9aWkIbIlClrEsztNDw5+hkybG+
+	 PjlA+6Xr8gqLpvqA5QwPi7PwHHqxhhSu/m2rdkHyRQc/S2IDYyQI6D4n8jJIlx7rk3ITP
+	 ybPhlSAih1wx+/uO7JkANloZpCgYUUNm/NFibY15i0XB6j7qSOQNws2h+b6aGi9Tu/aWJ
+	 aNDIPbKo3sEyUo80Ws2Di/rPhRCPiySyo6q7nxilWNm7nmMDEytmLAlLB94ULNc063A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=isoftstone.com;
-	spf=pass smtp.mailfrom=isoftstone.com;
-	arc=none smtp.remote-ip=219.143.121.9
-Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
+	dmarc=none header.from=kaihong.com;
+	spf=pass smtp.mailfrom=kaihong.com;
+	arc=none smtp.remote-ip=115.124.28.196
+Received: from out28-196.mail.aliyun.com (out28-196.mail.aliyun.com [115.124.28.196])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37AE8606A323;
-	Mon, 16 Nov 2026 06:23:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37AE8606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
-Received: from ldzh.. (unknown [221.226.109.28])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dlzhangak@isoftstone.com)
-	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jSd904hpVz22V1;
-	Mon, 16 Nov 2026 14:23:32 +0800 (CST)
-From: zhangdaolong <dlzhangak@isoftstone.com>
-To: Ilya Dryomov <idryomov@gmail.com>,
-	Alex Markuze <amarkuze@redhat.com>,
-	Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: ceph-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	zhangdaolong <dlzhangak@isoftstone.com>
-Subject: [PATCH] libceph: fix 32-bit object_base overflow in ceph_osdc_new_request()
-Date: Mon, 16 Nov 2026 14:23:32 +0800
-X-Mailer: git-send-email 2.48.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 134F0606A31C;
+	Mon, 16 Nov 2026 06:29:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 134F0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kaihong.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaihong.com
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07481378|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00795401-0.000598776-0.991447;FP=666744097143580335|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034017;MF=wangxiaolei01@kaihong.com;NM=1;PH=DS;RN=12;RT=12;SR=0;TI=SMTPD_---.k2mszI-_1794810541;
+Received: from localhost(mailfrom:wangxiaolei01@kaihong.com fp:SMTPD_---.k2mszI-_1794810541 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Mon, 16 Nov 2026 14:29:02 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,66 +42,99 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TLS: YES
-X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
-X-SOURCE-IP: 221.226.109.28 unknown Mon, 16 Nov 2026 14:23:32 +0800
-X-FangMail-Miltered: at fangwg01 with ID 6AFAA164.001 by FangMail milter!
-X-FangMail-Envelope: 1794810212/4jSd904hpVz22V1/6AFAA164.001/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
-X-FangMail-Bounce-Flag: 1794810212.6AFAA164.001
-X-FangMail-Outinfo: 1794810212/6AFAA164.001/4jSd904hpVz22V1/dlzhangak@isoftstone.com/1
-X-CLEAN: YES
-Message-Id: <1794810212.6AFAA164.001.4jSd904hpVz22V1@fangwg01>
-X-Fangmail-Anti-Spam-Filtered: true
-X-Fangmail-MID-QID: 6AFAA164.001/4jSd904hpVz22V1
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+16afaa2ab+00dff8+gmail.com+wangxiaolei01@kaihong.com>
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 16 Nov 2026 14:28:58 +0800
+To: <mwen@igalia.com>, <mcanal@igalia.com>, 
+	<maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>, 
+	<tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>, 
+	<tvrtko.ursulin@igalia.com>
+Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Iago Toral Quiroga" <itoral@igalia.com>
+Subject: Re: [PATCH] drm/v3d: Fix double free of query arrays when extension parsing fails
+From: =?utf-8?q?=E7=8E=8B=E5=AD=9D=E9=9B=B7?= <wangxiaolei01@kaihong.com>
+Message-Id: <e457d7c64cc913174affb10b272225cc3cbe88a3.b4134cc3.ce36.43c9.8ca3.6de341ddc6de@feishu.cn>
+In-Reply-To: <20261110061341.2075931-1-wangxiaolei01@kaihong.com>
+References: <20261110061341.2075931-1-wangxiaolei01@kaihong.com>
+Feedback-Id: kaihong.com:1:all:larkmailservice
+Content-Transfer-Encoding: quoted-printable
 
-In ceph_osdc_new_request(), both 'off' and 'objoff' are 64-bit file
-offsets (u64), and 'truncate_size' is also a 64-bit file size (u64).
-However, commit 864e9197f10c ("libceph: add CREATE osd operation
-support") inadvertently changed 'object_base' from u64 to u32 when
-moving its declaration into the extent op branch.
-
-When accessing a file at offset >= 4 GiB (0x100000000ULL), 'object_base'
-wraps around modulo 4 GiB. If the file has ever been truncated
-(truncate_seq > 1), the per-object truncate_size calculation becomes
-corrupted:
-
-1. If truncate_size >= 4 GiB and falls inside the target object,
-   'truncate_size - object_base' exceeds 4 GiB (> object_size), so the
-   per-object truncate_size is erroneously clamped to object_size
-   (e.g. 4 MiB) instead of the intra-object truncate offset. On a write,
-   this causes the OSD to truncate the object to object_size while
-   bumping oi.truncate_seq, causing subsequent MDS TRIMTRUNC operations
-   to be ignored as no-ops and leaving stale post-truncate data intact.
-2. If the file was previously truncated below 4 GiB and later extended
-   past 4 GiB via writes, 'truncate_size <= object_base' can evaluate to
-   false for objects at >= 4 GiB whose 32-bit wrapped object_base is
-   smaller than truncate_size, passing a bogus non-zero truncate_size to
-   those objects.
-
-Change 'object_base' back to u64 to fix the 32-bit truncation overflow.
-
-Fixes: 864e9197f10c ("libceph: add CREATE osd operation support")
-Cc: stable@vger.kernel.org
-Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
----
- net/ceph/osd_client.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
-index 2ff00070c181..7dfac7aa93e3 100644
---- a/net/ceph/osd_client.c
-+++ b/net/ceph/osd_client.c
-@@ -1090,7 +1090,7 @@ struct ceph_osd_request *ceph_osdc_new_request(struct ceph_osd_client *osdc,
- 		osd_req_op_init(req, which, opcode, 0);
- 	} else {
- 		u32 object_size = layout->object_size;
--		u32 object_base = off - objoff;
-+		u64 object_base = off - objoff;
- 		if (!(truncate_seq == 1 && truncate_size == -1ULL)) {
- 			if (truncate_size <= object_base) {
- 				truncate_size = 0;
--- 
-2.48.1
-
+Humble ping...
+Thanks
+Xiaolei
+> From: "Wang Xiaolei"<wangxiaolei01@kaihong.com>
+> Date:=C2=A0 Tue, Nov 10, 2026, 14:14
+> Subject:=C2=A0 [PATCH] drm/v3d: Fix double free of query arrays when exte=
+nsion parsing fails
+> To: <mwen@igalia.com>, <mcanal@igalia.com>, <maarten.lankhorst@linux.inte=
+l.com>, <mripard@kernel.org>, <tzimmermann@suse.de>, <airlied@gmail.com>, <=
+simona@ffwll.ch>, <tvrtko.ursulin@igalia.com>, <wangxiaolei01@kaihong.com>
+> Cc: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>, <s=
+table@vger.kernel.org>, "Iago Toral Quiroga"<itoral@igalia.com>
+> v3d_get_cpu_timestamp_query_params() and v3d_copy_query_info() - the
+> latter used by both performance query parsers - free the query array on
+> their error paths through v3d_timestamp_query_info_free() /
+> v3d_performance_query_info_free(), but leave query_info->queries
+> pointing at the freed buffer.
+>=C2=A0
+> The same job is then released by v3d_submit_cpu_ioctl()'s failure path
+> (v3d_submit_cleanup_jobs() -> v3d_job_cleanup() -> v3d_job_put() ->
+> v3d_cpu_job_free()), which calls the same helpers on the same
+> query_info. On these error paths query_info->count was never assigned -
+> it is only written after the parsing loop completes - so the syncobj
+> loop runs zero times and no syncobj is put twice, but the
+> "if (query_info->queries)" test still succeeds and the dangling pointer
+> is handed to kvfree() a second time.
+>=C2=A0
+> Every failure inside the parsing loop takes this path: -ENOENT from
+> drm_syncobj_find(), -EFAULT from get_user(), or -ENOMEM from
+> kvmalloc_array() in v3d_copy_query_info(). The helpers are shared
+> between that error path and the job release path.
+>=C2=A0
+> Clear the pointer once the buffer has been freed.
+>=C2=A0
+> Fixes: 0e50fcc20bd8 ("drm/v3d: Fix potential memory leak in the timestamp=
+ extension")
+> Fixes: 32df4abc44f2 ("drm/v3d: Fix potential memory leak in the performan=
+ce extension")
+> Cc: stable@vger.kernel.org
+> Cc: Ma=C3=ADra Canal <mcanal@igalia.com>
+> Cc: Iago Toral Quiroga <itoral@igalia.com>
+> Cc: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Signed-off-by: Wang Xiaolei <wangxiaolei01@kaihong.com>
+> ---
+> =C2=A0drivers/gpu/drm/v3d/v3d_sched.c | 2 ++
+> =C2=A01 file changed, 2 insertions(+)
+>=C2=A0
+> diff --git a/drivers/gpu/drm/v3d/v3d_sched.c b/drivers/gpu/drm/v3d/v3d_sc=
+hed.c
+> index 1924e3440dc9..a96023b5dce0 100644
+> --- a/drivers/gpu/drm/v3d/v3d_sched.c
+> +++ b/drivers/gpu/drm/v3d/v3d_sched.c
+> @@ -106,6 +106,7 @@ v3d_timestamp_query_info_free(struct v3d_timestamp_qu=
+ery_info *query_info,
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
+=A0 =C2=A0 =C2=A0drm_syncobj_put(query_info->queries[i].syncobj);
+> =C2=A0
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kvfree(quer=
+y_info->queries);
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0query_info->quer=
+ies =3D NULL;
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}
+> =C2=A0}
+> =C2=A0
+> @@ -122,6 +123,7 @@ v3d_performance_query_info_free(struct v3d_performanc=
+e_query_info *query_info,
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}
+> =C2=A0
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0kvfree(quer=
+y_info->queries);
+> + =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0query_info->quer=
+ies =3D NULL;
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}
+> =C2=A0}
+> =C2=A0
+> --=C2=A0
+> 2.34.1
+>=C2=A0
