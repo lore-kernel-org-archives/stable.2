@@ -1,58 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794794967;
-	b=VVh6wsV1IhVEFua/69bSQrbP4EGD3luXEKk+RMZvfQRmyr0T4178uvQxuES18hJYtcKQ
-	 bgkDh+HoQXq2hex9axXomMpYLEAG3YOa+P4SO1/CFT0A8hcngkTEtFNtH25JiHYNgLlUO
-	 Fz0vccMEmmyVbTFhJB+9sNSJ5ImbTPFmg0oPUa2qmdOIr7m2072JfFzFy+9b9mxfxWwRp
-	 HyvOcsikffa/+uNNQaPn7T+07OTT9czU9YyiDZP0p0nt6wJF3tlznVhPf0kJW7CcuO0mj
-	 pcZMWnXnjpEeD7Fq77JHFM6z23PQMWD/4TzvKg6iZZwDBb48JPIb7loo9VapgZO6i1A==
+	t=1794795219;
+	b=vypacod4ZlbRWNaEeAlbA+4GDuLpHd1uutgzMP/ZBd0wKdDPN45hR5zPL8gi7IUM+Z1W
+	 nggzSJUxCEA1IFiD3yLrdenGRepSKRDLBSuSFjIUMPfx8adCS1m5VQAs3eRtcRWDCvvov
+	 FgzZ+NGms2z6LsVWdEiUpSGntXA78kcWBHOBOAlD9m9ZXWyboNomLFqqt1JGgDbnCZNwd
+	 5Ey0HTHqq2VF4KJe8yT4x3D6AItlOuprVg1BgUWge1o02fucW5uaSiuJ0jECJJaDMttmk
+	 oNy6D9MSdGZMqcg2kbqm2NZ6sp6x/yEuHhZYyjE1TO5o35PeufVVo3fL9gCzfYF9iqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794794967;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=m+dEIJONCiCim+YEcdPwcO1SEYQrLR9cGyOiWLDFjYs=;
-	b=wcDMNZUH3qLqh0az11HFKJfO4gsfnpjqjhGI8/yLHKWTJ+WZmiEcnUCzGRjgLf66Pdzw
-	 ZfqBlij5TbxfnRk9uDH0a460Ijl6oVcOKnj6O4b1b3XTK3iM6+0tOEelr1Bk4sSo8GVff
-	 TnXVJFgsjArZqO9EkhE+/C71ThHAPfZ6lkGbREIIIRQDwA2jIH/wwufmv1GJKlmqNKJYo
-	 k3qhoI21Bi5RnmVJ3qrEhPBJ0k6XfF6jZDthINYe5lCe6U/YqLnWFhrXTqlIU1S+gZlQx
-	 KIhmwbCNLdDLvzfOMNzZBG9krbL9F2PmX0VVLXb/UDkEbQQjTucK/uQNySyvdRavGXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794795219;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:To:Cc:Subject:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=uom7B3dmljcE5dgbhBFq073CCfa8xqWgFEsm90SeRkQ=;
+	b=eDMM63QRzU5r5VSdWa5DAvzu4m54hrD7nAQVm6K/h9BsK2e5wcGkPlhENyiFiE65VKbv
+	 R59IQc46+HyRCBJO0HZZVE/Ehkl8HXnBhQu/0vkmn8CBvnps8f0xJevOBlaRzmhKf9ajI
+	 gQDgp2LwT4AgwmilHytc7gHQi/8g/oTvzEAHQVlzF2t7dmINICiTDRlm0VaXyjxh7bzO3
+	 TL/XXq74OBbeIPgmmeqfA6fPArz0AaPae79Twt8AWE92Zw9Gzs7Bd4T9nCJo9ykLwcjpC
+	 qcPRDkRlM1Ohy9wFwQrpyeSGUbr7rjov/ja9U/bEOjdat1xu6hUB88slKJRgDMvSXNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 49CCF606A31C;
-	Mon, 16 Nov 2026 02:09:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49CCF606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=m+dEIJONCi
-	Cim+YEcdPwcO1SEYQrLR9cGyOiWLDFjYs=; b=wKWTqWeQi8ekrnB7xQgGSsOyCe
-	qf4C2oXy6qDzGm1pH+9/pajNNGCLQkvMr/fZL09Su4m1a37ijJnAVxaLuLw8ToyT
-	52YN0Jz5mBAuA+Uyj8HxZG8CyFN0Vn1YKXEVarjhJY14t62AlgMG9I1aNOh9blHk
-	T2HXO3AVU55Pk3tMI=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkDmCgGyZfpqZCuyAQ--.59725S2;
-	Mon, 16 Nov 2026 10:08:52 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Israel Cepeda <israel.a.cepeda.lopez@intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] i2c: usbio: check the return value of usbio_acquire()
-Date: Mon, 16 Nov 2026 10:08:50 +0800
-Message-Id: <20261116020850.10526-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=FyqVxPRZ;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3467A606A337;
+	Mon, 16 Nov 2026 02:13:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3467A606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=FyqVxPRZ
+Received: from killaraus.ideasonboard.com (81-175-209-152.bb.dnainternet.fi [81.175.209.152])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7DD9C63C;
+	Mon, 16 Nov 2026 03:11:03 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1794795063;
+	bh=0BXRXg7UODOKuM2rD1/JbijBaD+p9Q3+Qq2kMPYggPA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=FyqVxPRZn4cQ1oVgqaY2W4ZgnziY/cr7vY6VVQTkfYYUgC6KIJzz4jYdrkGvfeH5J
+	 cvsjxy8QIzQ+KqvgYGCazQ7BEo7J6FVgJkaah6TYC5hEiVLC91ZYJUVqK+z8kY8Fla
+	 0hydk5iyUkuj4cOEWWTc+Tb2e7mOyO96RXSjBXyo=
+Message-ID: <89b15b01cfebb86185ec643ec6ce5427@killaraus.ideasonboard.com>
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sinan Turunc <enscrpt@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Reject metadata packets shorter than
+ their header
+Date: Mon, 16 Nov 2026 04:13:25 +0200
+In-Reply-To: <20261115121701.189-1-enscrpt@pm.me>
+References:  <20261115121701.189-1-enscrpt@pm.me>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,84 +65,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkDmCgGyZfpqZCuyAQ--.59725S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr13Jw17Xr4rArWUZrWxCrg_yoW8Kw4xpF
-	43WFZ0kFW0qr109ws8Jr1IvF15AwsruFW5GFyjkwn5ZF15XwnFyryDtw1jgFn5Cr4xCw1q
-	vFWqq39FkF1jyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUB0b7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64
-	vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK
-	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I
-	0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcjg4UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2r5ytdeeQAAsx
 
-usbio_i2c_xfer() ignores the return value of usbio_acquire() and always
-calls usbio_release() on the way out.
+Hello,
 
-usbio_acquire() returns -ENODEV once the USBIO bridge has been
-disconnected: usbio_disconnect() sets client->bridge to NULL, and
-usbio_acquire() then only drops client->mutex and returns without
-taking usbio->bulk_mutex or the runtime PM reference of the USB device.
-The transfer is nevertheless issued.  usbio_bulk_msg() dereferences the
-NULL client->bridge in its packet size check and the kernel faults on
-usbio->txbuf_len.  The matching usbio_release() then drops a runtime PM
-reference that was never taken, which is reported as "Runtime PM usage
-count underflow!", and unlocks a mutex that nobody holds.
+This is an automated reply.
 
-Propagate the error instead, so that a transfer racing with the
-disconnect returns -ENODEV without touching the bridge.
+You have sent a patch or bug report that appears to have been generated
+by an LLM. The commit message, code and/or problem description show
+little to no real understanding of the issue and changes being proposed.
 
-A NULL pointer dereference in usbio_bulk_msg() was observed when the
-bridge was unplugged while i2c-dev was reading from the adapter:
+Such patches or reports require a large amount of work to handle. They
+rely on maintainers to propose - and often even implement - a proper
+design. The probability that the author will learn from the experience
+to improve their future contributions is close to zero.
 
-  usbio-bridge 1-1:1.0: Bulk out failed: -19
-  usbio-bridge 1-1:1.0: Runtime PM usage count underflow!
-  usb 1-1: USB disconnect, device number 3
-  general protection fault, probably for non-canonical address
-  KASAN: null-ptr-deref in range [0x0000000000000060-0x0000000000000067]
-  RIP: 0010:usbio_bulk_msg+0xce/0x9f0
-  Call Trace:
-   usbio_i2c_init
-   usbio_i2c_xfer
-   __i2c_transfer
-   i2cdev_read
-   vfs_read
+As a result, to make good use of maintainer time and keep the kernel
+development process sustainable, your contribution has been rejected.
 
-Fixes: daf161343a39 ("i2c: Add Intel USBIO I2C driver")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/i2c/busses/i2c-usbio.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+If you believe the change you proposed is important, take time to study
+the problem, learn, and develop a solution without AI assistance.
+Answering this e-mail or generating a new version of a patch by feeding
+this reply to an LLM will only result in your e-mails being ignored.
 
-diff --git a/drivers/i2c/busses/i2c-usbio.c b/drivers/i2c/busses/i2c-usbio.c
-index 259754e5fd05..232397efe8a4 100644
---- a/drivers/i2c/busses/i2c-usbio.c
-+++ b/drivers/i2c/busses/i2c-usbio.c
-@@ -178,7 +178,9 @@ static int usbio_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int nu
- 	struct usbio_i2c *i2c = i2c_get_adapdata(adap);
- 	int ret;
- 
--	usbio_acquire(i2c->adev);
-+	ret = usbio_acquire(i2c->adev);
-+	if (ret)
-+		return ret;
- 
- 	ret = usbio_i2c_init(adap, msgs);
- 	if (ret)
--- 
-2.34.1
+Please note that if your patch attempted to address an important
+problem, maintainers or other contributors can submit and merge a
+similar or entirely different fix without crediting you.
 
+Your contributions to the Linux kernel will be welcome if you genuinely
+desire to invest your time and learn.
+
+Thank you,
+
+Laurent's mail bot
+
+On Sun, 15 Nov 2026 12:17:18 +0000, Sinan Turunc <enscrpt@pm.me> wrote:
+> uvc_video_decode_meta() derives the length of a UVC payload header
+> from the PTS and SCR flag bits in the packet, not from the packet
+> length, and with V4L2_META_FMT_UVC it copies that many bytes with
+> memcpy(meta->buf, &mem[2], length - 2). Nothing compares the derived
+> length with the packet length, so a packet shorter than the header it
+> claims is read past its end, and the bytes beyond it - whatever the
+> URB buffer held there before - are copied into the metadata buffer
+> that userspace reads.
+>=20
+> An emulated UVC camera that sends an 8-byte isochronous packet with a
+> 3-byte header and both the PTS and SCR bits set made the copy take 10
+> bytes from mem[2]: the last four came from past the packet, and in one
+> run those four were the tail of the previous packet still in the URB
+> buffer (03 0c, a UVC header) rather than zeros. With this patch the
+> same device delivers no metadata blocks at all, and the video stream
+> is unchanged: 25905 buffers, 5958150 bytes over a 30-second window.
+>=20
+> The check is placed after the derived length is final and before the
+> format override, and treats such a packet the way the function already
+> treats a 2-byte one: it returns.
+>=20
+> Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sinan Turunc <enscrpt@pm.me>
+> ---
+>  drivers/media/usb/uvc/uvc_video.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_=
+video.c
+> index fc3536a4399..25c3b8dc891 100644
+> --- a/drivers/media/usb/uvc/uvc_video.c
+> +++ b/drivers/media/usb/uvc/uvc_video.c
+> @@ -1487,6 +1487,10 @@ static void uvc_video_decode_meta(struct uvc_streami=
+ng *stream,
+>  	if (has_scr)
+>  		len_std +=3D 6;
+> =20
+> +	/* A packet shorter than the header it declares is malformed. */
+> +	if (length < len_std)
+> +		return;
+> +
+>  	if (stream->meta.format =3D=3D V4L2_META_FMT_UVC)
+>  		length =3D len_std;
+> =20
