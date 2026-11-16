@@ -1,47 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794859591;
-	b=FHkmGIvt+Bo4Ww3zU2+XX+0TGnCGsfbKvk6RYzBCdA27m4DztVFVzbk2ECg+Lu8/k1oA
-	 Nqfyq5kMq5iVJFsudNH4uDrNTBQyuBb5dnXLDp/oayYdj8f/UZkmqmUYc5DoU2kJGTpMd
-	 ms8mZLAM1E9NptwXSclxU7pDgPnMj1eE76T3Fc/aZICKspS9Ak7FVfbklnFx+rJbN90j2
-	 Zd/18e3Mtj9ybSfnXsbp9+4trioPtfIfO1vUG5TmzeU2XuS8eL5VX6O5YKGqbt/Y39muK
-	 VWYWLWmDBFpqlO0PYgJ/5/yEiGgJUxJO+uO42OYD0UjLXmmOCADja8fN4DedzBsLZlA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794859591;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=X8UnW/+ryATRWv2jbp1Jmeefb/aGbvl2dgmvZUGeG9w=;
-	b=sWxgAasjch73nDo70vEf7iQ7ikL3cc0MArG5eazvKAjAyvzlJx602RO0U3E4Qd4f1Gqt
-	 M8vVTgqpw05Dn8j7vVxn4a9cTyQe4GiJXkUcJaaC+JHx1Y9sVftU6/o0qTTFVREY39GSA
-	 rp+xT8J+6ilbR7LuzX2gr+VvR7NAtxwGCZpNwOypOJR+WSe1qwUuEwL0vvqT4pbdIUe9b
-	 uSoyuCBfPaQLLy6PXwgxGzF8tOv1k6O1aVihczmT+ehGH5xgLn+Gu/fVPXLY60IliHr9x
-	 kYKC0qIe1Znb3NcelA/GKWRVxOc+hVRWcXF66FtaqOzzwRfzfzGmHV/qigPV1jxnQ3A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2plYUDt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794859646;
+	b=be7fmtInZA/hYbbwkizHlv0meXqELcRL4f7rc28bpc72stljZ5Tg1gZsTiCAQrk0es+O
+	 vvysH2e/PNFdfcdKzjRYy3xWqCpIH9nikxawzGFtJD/wIDchb+1ihppXXYxizJbfnEO2E
+	 6RCjXbuubXHmMmGzLJwyfLkXYEdGoySV0tr9akNL5uLApUtUBFpyUg7N9uhuQwKnZNHbX
+	 sLAHHEFb/2afC1Kpf/DCGCy/WY3DBOHhPMn4p4GdZNDhwDILrx/B0SQal+756VLoNbicI
+	 q65L4ddj88dkfX+vcadzA1eqAa2I7qCXSXli6l4FshaYlvf5Vj1Y1M+d2OV7/+GA0kg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794859646;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=EZDAQV8yhgMyPQgwR3U/5djFDS4+SZxlS+9+Esw/bYc=;
+	b=CHJjEzQy1N6KczKyPwRMq9T8GEj+B4L/7uBBU5qBVSzjfc361RT1JAjXRdAzI/tr76qi
+	 a+KqwRSRR3TapAiuX2bM66juUxF9hr63UoCluX4nVL2l4kmgSpUAC8ADX3AQ1QazB1zbY
+	 pzmP8y/PBhLdwJ9uFGZDvvxnAu+yYfH3pflAioYxbFp6vPivThVBRDTVQG3M8irhGQLBO
+	 idvN3q2lEpnMltUYBP6VjrqrMVAixPzlSwC+gES5diFg4ZovuCdM8/edAJd2BMAli5Gge
+	 LF7dZrl47f110UD7cL0MaMPLy2sYFVNOFLJ8vFHlaZ4griIaTgqZzu6sSPsKnRte7mA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XFDBy0c2;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391FE606A322;
-	Mon, 16 Nov 2026 20:06:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 208C2606A33F
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 20:07:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 208C2606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T2plYUDt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C6C1F000C4;
-	Mon, 16 Nov 2026 20:06:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794859590;
-	bh=X8UnW/+ryATRWv2jbp1Jmeefb/aGbvl2dgmvZUGeG9w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=T2plYUDtEMo5l8QnCju2iEMh29uWpUA4vTKV28s7z9pQZZILdhvhTjBmwGioCvaAa
-	 c0AbD7dQwL5IDeHcoqLBdQqh/q617GeLKxvTf0rybyfhZ4hHppJryslcR1HwZ6bGOc
-	 od2dXVEgk/IRiORWDup8I/9VbyUkFdCUFLbPvoWr3uwsJnbw9jIr3ZpffzgNLeCzhj
-	 OpX14fkND2iscwB3DNdBecYGJerEVPi9xqltzZX8aMzc2B3AUib9qtm5liUsaMpllR
-	 MQ8kvHrofTXmed6J3Fd0M0BlJyGiZuGjZgV/jPteRmO/pXfa8GFTjsewgmzMRA5Eh4
-	 D/5zA8/omXfig==
-Message-ID: <61d4f3ee-7a0b-4a8b-b5a2-35380dd46b4c@kernel.org>
-Date: Mon, 16 Nov 2026 21:06:21 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XFDBy0c2
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4b79502c27aso32098795e9.1
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:07:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794859644; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EpiSDO1Ob4PANyzLDVJLJ/MGN+HVIzJV55u7GZYT6ALr76zrjBZhfImiViEJJQXSlD
+         9FQkMAeyH9pHHufmGc4a78Tiec+//v6hpO9uwm1riVFSi4pBxyrLc9Dve0lN+1fG234e
+         xTpwME8fhKC7KBDRMOSZ4CPquRWawI5ANUEvKDz2S9pTRud2fhKy/ARlx/c/JE2dJ5By
+         glsL2/IwANGeKoraqHWmoSBH+2NHPP2Q8KlzRLTqLl/kx6fE3ZZD3XZDoSyKQOBLbnEq
+         FDvby8pdqI2/3uvEHm0xUGCMQmvc93BxfyvDQXrPwkVEpMf8g7+FYRJIHpVIm4aTzVCU
+         mUTw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EZDAQV8yhgMyPQgwR3U/5djFDS4+SZxlS+9+Esw/bYc=;
+        fh=eAKSI0q0N3SwZ8/heij7YcCVvhwzU9OVqVKtshFlgY4=;
+        b=f4rtEyg1I5VhFBnBDVNC71GVa2tnSkbM92Hj2vi1BDLvWA1tWx+qgQr8Jk6xT+WGmO
+         2xeExsmMTR7vy9PCO6cc9zxYs5ecagxxOJqFRxxe6I3M3Ea4gEXeYE4rLRRBSIn8zfou
+         TQGwlt6lmKVyhFdf/ZwbPVcILctxb9kPd7u2Wo1OAykmIkyxrQkv0hp2bUbfSsBgp61h
+         3MGa2//xcXiGvVGI2uNZ7Ih1zGimWNflkWPVXUuIrrJ7v02+6sCXAv6Vp+JE69b46ffS
+         K0H4DCKT8XYJkca85GBbZ9Ke4xLNr9euFYxl5oNRR+z8C9xDh9hma3CGAaAZ/5yYRnJp
+         /+LQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794859644; x=1795464444; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EZDAQV8yhgMyPQgwR3U/5djFDS4+SZxlS+9+Esw/bYc=;
+        b=XFDBy0c2q6nTYiJ4dwLENH1mguXX/IcFF58gOeYQArjps79P1XpkrhGZpUclTyZwpS
+         r/ZYwRoOG8WhRg+8JvLZN08T5FQLHs7jA/CzeQCQsJeulI93s02F+iYtli/pBjYHG+CR
+         W2MoU0n/+grSPpLZW83MAsn9WQiLh5CCwtBf/0GxLqRHC416IFZ4i13TeIFhLxmbz0il
+         NPxDzLDOL7N17VVYsTOL0jDLDvB5woBcjlvcU+oGB0Wrnz6q9rCc3VHuwmdjl71ac6+n
+         fuvYHmykPJU4vuSvTSKMetyKY9BqLddb2of0qXOJ87q21uNxSrudqkhk+T/+cyqihyd7
+         2YNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794859644; x=1795464444;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EZDAQV8yhgMyPQgwR3U/5djFDS4+SZxlS+9+Esw/bYc=;
+        b=0axSYJB5OPYBgNqH3tSjNz9UYM2w5jF005LeaWQbFGye68jL429dsYvXAA4lI53sZK
+         bqInU72Q30k4nO0DlCE0DMUEVHmrYa3bozSsJL1biVZlwJEQZNpeA9YrhLhJp+4qrZfP
+         2H8/wvlxAMOA1LzRLhoYe9aV3ggwIPc+KQ0jHc/GNTRLZH3Jck4Ehn/qUngLDRAjV1ML
+         Q2Er6EkVkvND2CClYUi3/S2qFG3+k/2FFhKAMsMBU4XBUhM+TP91ekflcKQj0jHIYoe5
+         1t1aS86Ud+4h25CwT/soA0ol443zXdfly26HFAXQLgBL1ZDLBSIF/8q3FTgn5xgcuIcU
+         ug9g==
+X-Forwarded-Encrypted: i=1; AL+hErHRKQWkZfrP6X+itCOfJBGNubiBV+O/4OKzNDfe5WCf3kVYCtoTne6Z5bIc0s7FgJg9LtPSDo8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8uO59kG54b1Fr39qVrBjnw++f9ZLVC9sHFzfND4/bPL3amQIOM
+	Mw9hLJD6qsRaHaOBr/Pl1dz6gI6eNcyIzl9sTl8ZdtjIl/o1WGbixsSUoBlD0psdNQGDo3JiXci
+	Qk9d/pOmUGpcNL+p3TqjhhnihrIT5u98=
+X-Gm-Gg: AYBFou3EKupVHvPxoY8SZXRP0ciLVKcKQs/rNxEKV5zXK6EVk9WNda33w53FqedWX1z
+	sral0YwJHH9BWXLsOXxcUVF/8O3M7b5XhIRt5ScFa+Gzi+bOO8O1lsMxmvh80i+Hc/XsPeLG+ZW
+	mo/JD6Je8Rlv1NGnVTKVeXKJAukoynypP5XApbJvlqnw1tJw7qkCakiK8xd0p9J6sqRbentviPe
+	WXhD1wX5tvheP8tdqHtR3OVVN4ozsN6G1ADAqGjd01Z2zU8zOl1QUqIHPkOI2mzNfRfxP+oIcF+
+	rj4zOq6TP28T/HQoluuuwf/uK7h0CcRB5E7djAgFnnTo8yQRXCCyVOw1tVHh+le3vIms8RRJsdx
+	jlsx4aCSn1V0f2Sc4iK1EYmJtSohSSptzvhbf+tonAD/SIF7cXTw9yUSIZv3mQiuvGYLReVle/n
+	M/lHV1kd6IoBGi2nSi5A==
+X-Received: by 2002:a05:600c:506:b0:4a1:f377:5c6c with SMTP id
+ 5b1f17b1804b1-4bb55a5d6bbmr165067875e9.10.1794859644313; Mon, 16 Nov 2026
+ 12:07:24 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,170 +105,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] mm/memory: remove racy huge PMD assertion from
- walk_to_pmd()
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>,
- Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>,
- Roman Kisel <romank@linux.microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>,
- Naman Jain <namjain@linux.microsoft.com>,
- Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>,
- stable@vger.kernel.org
-References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
- <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
- <dccf94b3-b901-4311-a233-488c87195dc5@kernel.org> <avs1rOJQ1gV33z8w@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <avs1rOJQ1gV33z8w@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20261116-work-fs-frozen_writes-v2-0-ecc4a2aac40e@kernel.org> <20261116-work-fs-frozen_writes-v2-13-ecc4a2aac40e@kernel.org>
+In-Reply-To: <20261116-work-fs-frozen_writes-v2-13-ecc4a2aac40e@kernel.org>
+From: Andrii Nakryiko <andrii.nakryiko@gmail.com>
+Date: Mon, 16 Nov 2026 12:07:13 -0800
+X-Gm-Features: Aa3M54rpWiCplKeR8o5TX-NbYGDID_36BWk-3VAyUzdEoXSYZ7J-t8pfWvm9Fcc
+Message-ID: <CAEf4BzYANM9vtQ8L9-rJPQC-tTcw3YUGsw=qnCaoym3+EU=DBg@mail.gmail.com>
+Subject: Re: [PATCH v2 13/17] bpf: fs/xattr: take freeze protection in the
+ xattr kfuncs
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, io-uring@vger.kernel.org, 
+	Christoph Hellwig <hch@lst.de>, linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, 
+	linux-scsi@vger.kernel.org, target-devel@vger.kernel.org, 
+	linux-unionfs@vger.kernel.org, bpf@vger.kernel.org, linux-nfs@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/16/26 18:10, Lorenzo Stoakes (ARM) wrote:
-> On Mon, Nov 16, 2026 at 04:56:25PM +0100, David Hildenbrand (Arm) wrote:
->> On 11/15/26 21:58, Lorenzo Stoakes (ARM) wrote:
->>> From: Eliav Farber <farbere@amazon.com>
->>>
->>> walk_to_pmd() asserts that the PMD entry it returns is not huge, but does
->>> so without holding the PMD lock, so the assertion is only valid if nothing
->>> can concurrently install a huge PMD entry in the range.
->>>
->>> This is not the case for a VMA whose driver implements both ->fault and
->>> ->huge_fault and which invokes vmf_insert_pfn() from the former.
->>>
->>> The existence of prctl(PR_SET_THP_DISABLE) is problematic here, as it only
->>> takes the mmap write lock and faults taken under the VMA lock are
->>> unaffected by this.
->>>
->>> This can result in two concurrent threads faulting the same thing
->>> disagreeing as to whether to attempt a huge fault and thus ->fault and
->>> ->huge_fault running at the same time and triggering this assertion.
->>>
->>> So just remove the assert.
->>>
->>> Target the commit which introduced the first driver able to do this for the
->>> fix - vfio-pci. DAX also mixes fault orders within a VMA, but serialises
->>> them using its own mapping entry lock.
->>>
->>> Link: https://lore.kernel.org/all/20261112051440.16140-2-farbere@amazon.com/
->>> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Eliav Farber <farbere@amazon.com>
->>> [ ljs: rewrote commit message ]
->>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->>> ---
->>>  mm/memory.c | 1 -
->>>  1 file changed, 1 deletion(-)
->>>
->>> diff --git a/mm/memory.c b/mm/memory.c
->>> index 3a20d64fd276..e03110906aa8 100644
->>> --- a/mm/memory.c
->>> +++ b/mm/memory.c
->>> @@ -2384,7 +2384,6 @@ static pmd_t *walk_to_pmd(struct mm_struct *mm, unsigned long addr)
->>>  	if (!pmd)
->>>  		return NULL;
->>>
->>> -	VM_BUG_ON(pmd_trans_huge(*pmd));
->>>  	return pmd;
->>>  }
->>>
->>>
->>
->> Could this also stumble over a huge PUD somehow? Should we just prepare it for
->> any leaves and bail out if we find some?
-> 
-> No, walk_to_pmd() can only come from the order-0 path right now and
-> __handle_mm_fault() makes sure that can't happen in the fault path:
+On Mon, Nov 16, 2026 at 3:13=E2=80=AFAM Christian Brauner <brauner@kernel.o=
+rg> wrote:
+>
+> bpf_set_dentry_xattr() and bpf_remove_dentry_xattr() go through
+> __vfs_setxattr() and __vfs_removexattr() which leave freeze protection
+> to the caller. BPF LSM programs call them from sleepable hooks such as
+> file_open where nobody holds it. So a program can modify a frozen
+> filesystem.
+>
+> The hook may already hold freeze protection or locks a frozen
+> filesystem would make us wait under. So don't wait for a thaw. Fail
+> with -EBUSY if the filesystem is frozen.
+>
+> The _locked variants are only used from hooks that run inside setattr,
+> setxattr, removexattr, unlink and rmdir. Their callers hold freeze
+> protection already.
+>
+> Fixes: 56467292794b ("bpf: fs/xattr: Add BPF kfuncs to set and remove xat=
+trs")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+> ---
+>  fs/bpf_fs_kfuncs.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+>
 
-That implies that get_locked_pte() and all insert_pages interfaces can only be
-called from that path in __handle_mm_fault().
+LGTM
 
-x86 an s390x use get_locked_pte() for some other paths, so I wouldn't want to
-trust on that :)
+Acked-by: Andrii Nakryiko <andrii@kernel.org>
 
-(did I say that I hate walk_to_pmd and get_locked_pte? But you likely guessed it
-at this point lol)
-
-> 
-> 	vmf.pmd = pmd_alloc(mm, vmf.pud, address);
-> 	if (!vmf.pmd)
-> 		return VM_FAULT_OOM;
-> 
-> 	/* Huge pud page fault raced with pmd_alloc? */
-> 	if (pud_trans_unstable(vmf.pud))
-> 		goto retry_pud;
-> 
-> So by the time any ->fault path runs, the PUD is stable.
-> 
-> We don't have to worry about the mmap paths as at that point nothing has
-> faulted in and it's all fresh.
-> 
-> So it's all safe as things stand.
-> 
-> But could update for future-proofing like:
-> 
-> 	/* PUD leaf might have been installed. */
-> 	if (pud_trans_unstable(pud))
-> 		return NULL;
-
-Yeah, that makes sense. I was just wondering whether we'd actually want to
-return a proper error then instead, because this would not be an -ENOMEM case.
-
--- 
-Cheers,
-
-David
+> diff --git a/fs/bpf_fs_kfuncs.c b/fs/bpf_fs_kfuncs.c
+> index 35ccd98a4de64..7f61e2efa08ba 100644
+> --- a/fs/bpf_fs_kfuncs.c
+> +++ b/fs/bpf_fs_kfuncs.c
+> @@ -295,9 +295,13 @@ __bpf_kfunc int bpf_set_dentry_xattr(struct dentry *=
+dentry, const char *name__st
+>         if (!inode)
+>                 return -EINVAL;
+>
+> +       /* The hook may hold locks or freeze protection already. */
+> +       if (!sb_start_write_trylock(inode->i_sb))
+> +               return -EBUSY;
+>         inode_lock(inode);
+>         ret =3D bpf_set_dentry_xattr_locked(dentry, name__str, value_p, f=
+lags);
+>         inode_unlock(inode);
+> +       sb_end_write(inode->i_sb);
+>         return ret;
+>  }
+>
+> @@ -323,9 +327,13 @@ __bpf_kfunc int bpf_remove_dentry_xattr(struct dentr=
+y *dentry, const char *name_
+>         if (!inode)
+>                 return -EINVAL;
+>
+> +       /* The hook may hold locks or freeze protection already. */
+> +       if (!sb_start_write_trylock(inode->i_sb))
+> +               return -EBUSY;
+>         inode_lock(inode);
+>         ret =3D bpf_remove_dentry_xattr_locked(dentry, name__str);
+>         inode_unlock(inode);
+> +       sb_end_write(inode->i_sb);
+>         return ret;
+>  }
+>
+>
+> --
+> 2.53.0
+>
+>
