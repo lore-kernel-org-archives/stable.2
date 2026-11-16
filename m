@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.203.187.115
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=184.106.54.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839532;
-	b=XWDhkHHj2OyeeuKHoG0CCaijwXdRmkpTn7H6MUK6KvNACgDbmRmaIETqCqN0Jb9Kyn6H
-	 DlnVMqcAzE8o7qgMNquuO4suEJjK+A24PNJh8Cq+J/tlFppGCVlVK8zkJr8Ub2aEgT2e5
-	 yLX/B04KDpxvke6aQ+M6r0/G8CIxS4p+IrPdB1gIIrRkWHh4zs4Hdd7dYVhhEFUPNbJNS
-	 Lo3z+Z/yHpK0i6jxxxcbHvuhhuxmi+81FX/ew072cMwdH8wEQLko5Y0TYZMJ71vemwZvg
-	 xXPSnBTbRLPfrPcbZYSCT28c28yZp3cvvKB3C227UfTuaYt9qgIhm5MMJoVzosIiQOw==
+	t=1794839590;
+	b=GTzRE+9Bt9vZwL87qp1bOvKh+xug6eIJA81ubklLHqEn13zH13VSYw5PXFoH4msVBCfk
+	 q33MmT/AJT0kG6+PUiZlX7kN/31PcT/WKTRQpCBmJ4WwvRJj7FcbdTHRFqEXdSESzq7uj
+	 OIlO59bVczzGevULJ3ErdRI0gJOifUy8NLICUuTHviSdxn2Dn70U26/Np8BHRFz2cA+tY
+	 qjXUa8q7AXYhIxIkUAf8I6cgtfZaKx/cBJL7OcH7N6VGS/GPJ5eRb6875Z5RNxuIelIG0
+	 DrrLlRUrdCbqm+vg9HLCfLTQgNxiqa0W6EsH0WjO4YDNanjB6egwDw3EebP8h9rhzwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839532;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839590;
 	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
 	 X-Classification-ID;
-	bh=BtgtOzbB0l9pwyzEIO2q09M5Qz2h3fBu0wufeRTzwoc=;
-	b=kl9KmE1Y6jfzguD1zagI1Btr5dEa+4P1rl09+QJ+DqPEAQlMJAc91d1hErq6ylZfZQVV
-	 JDu5S5a0wY2LrAej7PD8dFV9feRCRY/JhxDvcJAhqdC3VSzczjS8OMsBSBwFT2cEu9sc+
-	 XH/m0njFI+ZX7BRocXUMD5hcNB2UpOc8dE479dMr9xwGeEh2dnKDQaeoQ/91th+Gchv9Z
-	 eJXJYmLAVnIWZEWonse5ahPRL97Meb3pA7fRcb2hbTJlOVi0hIeMQ/NdJe6b7TQ6/1kLA
-	 uaJrd2EnT4sNQuvfD2IFLQ1C2QJ4Hmvl2Hn3nN8oOdNqTddTym/U6DweN1aSniRmOSA==
+	bh=na+52K5Vw3QuTveZpUPzhnaKQFwpkpbuQ7pSOrZ1flE=;
+	b=4ji0woTmsN1PAbUBlp3ElpU/GlSEpDEFIqYzhG44F1GMUsZgG/pWDXrtD2GR2atbWOxl
+	 3omzK54o+K/lx8BROTm8NZ6q3u9LLz8WDxsule5TmWngIFSS2Z5Gh4OP2AYUGAy9G/J95
+	 nw2hOEiXd8ErHqkCpBkcN98QlOacGdgACOLLLpwFZaLq88AlPeU7Zz29Haz/Npv7ORZLC
+	 1mUjEju0RWt1i9wdkOZKwF9CpP4JSfHs8ARoaeohDqcck3H+wueUzMXpcEQTB0jikBx+3
+	 RTlo9EjQu6+S1vid3yEy1PdDV4LS+GLV5ofYI1sRCItwy704EVLrrC8GyIXDXsTCLMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mev.co.uk;
 	spf=pass smtp.mailfrom=mev.co.uk;
-	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=tqSXlDnU;
-	arc=none smtp.remote-ip=173.203.187.115
-Received: from smtp115.iad3a.emailsrvr.com (smtp115.iad3a.emailsrvr.com [173.203.187.115])
+	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=jW7SDqyl;
+	arc=none smtp.remote-ip=184.106.54.124
+Received: from smtp124.ord1d.emailsrvr.com (smtp124.ord1d.emailsrvr.com [184.106.54.124])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06689606A31C
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:32:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06689606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1817606A334
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:33:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1817606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=tqSXlDnU
+	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=jW7SDqyl
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-	s=20221208-6x11dpa4; t=1794839525;
-	bh=aYArWBQ1pAOF/v3HbifxrESRLRxUFpthqsJ5QNSbvQY=;
+	s=20221208-6x11dpa4; t=1794839583;
+	bh=rAmEbSy8GgqfuxJ7C9oFCZjW5c+Bb85rqk1J7MQhaXw=;
 	h=From:To:Subject:Date:From;
-	b=tqSXlDnU1J36hV+YBYqaCKu6EX/bxMzbT/IQD1rBaTh77c646NGzzB82gIACGK11B
-	 oo04u6PkEmCE0Xh93HGxXWT+ILtjPVfxF4JfQytHAlytTy9OIdmhoPUf3ZPh2QG0X8
-	 ytv7q/3qsFlpl8W6Cn5qO5girJB4cK+LtoRS8GqA=
+	b=jW7SDqylbASYQeeMyz/5721OgHeeEf/afbrS6XZmugGX6VpvrDCE3qgOOaqxppy5l
+	 KbXSRudo8Q9ksDZY9kKhd114OSuv4NsUQEqkL5N5tnH5DpFLzMAfE992NnbFmV05j0
+	 7pzmaW4HXGi+ZsoTVrodmn3Gc9r22YOfeFdtGnQA=
 X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp39.relay.iad3a.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 17E955940;
-	Mon, 16 Nov 2026 09:32:05 -0500 (EST)
+Received: by smtp24.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id CA46DA0246;
+	Mon, 16 Nov 2026 09:33:02 -0500 (EST)
 From: Ian Abbott <abbotti@mev.co.uk>
 To: stable@vger.kernel.org
 Cc: Pei Xiao <xiaopei01@kylinos.cn>,
 	syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com,
 	Ian Abbott <abbotti@mev.co.uk>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 6.1.y] comedi: dt2811: fix shift-out-of-bounds in IRQ check
-Date: Mon, 16 Nov 2026 14:31:49 +0000
-Message-ID: <20261116143157.115090-1-abbotti@mev.co.uk>
+Subject: [PATCH 5.15.y] comedi: dt2811: fix shift-out-of-bounds in IRQ check
+Date: Mon, 16 Nov 2026 14:32:45 +0000
+Message-ID: <20261116143254.115307-1-abbotti@mev.co.uk>
 X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,7 +62,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Classification-ID: 00d20541-dea4-4f59-a216-d3d960992f7c-1-1
+X-Classification-ID: ec0a2cd4-9251-483f-89b2-b14764c7b2de-1-1
 
 From: Pei Xiao <xiaopei01@kylinos.cn>
 
@@ -94,10 +94,10 @@ Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/comedi/drivers/dt2811.c b/drivers/comedi/drivers/dt2811.c
-index dbb9f38da289..01ff86ec5473 100644
+index 0eb5e6ba6916..68716c3b8d94 100644
 --- a/drivers/comedi/drivers/dt2811.c
 +++ b/drivers/comedi/drivers/dt2811.c
-@@ -563,7 +563,7 @@ static int dt2811_attach(struct comedi_device *dev, struct comedi_devconfig *it)
+@@ -564,7 +564,7 @@ static int dt2811_attach(struct comedi_device *dev, struct comedi_devconfig *it)
  	dt2811_reset(dev);
  
  	/* IRQ's 2,3,5,7 are valid for async command support */
