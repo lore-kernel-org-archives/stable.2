@@ -1,72 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845382;
-	b=0rNjzzTit3yW+NmLnN4JFuymur0jDY0z+zKD+KeKeu35rb1xRbH8azQcF81uo8+cYAoR
-	 4G6N1D1o+nV0bMae3Q3kGODDpBVs/M4SBL8D3ZZaJKtXGHbX+o1KeAcVEILj3kjqo2fDm
-	 HBZstpiPT2EeKTSbaSQL6Vn6N5TkZt9wEX61A3pacu/l9gUYYVKlNaqNwVZ+Vlal/UN5B
-	 x+EKTHNpbCegWgczLERhnmW5No49YS8mizoLAcdM2qoJEBCM2cBusoMIV89FPJLEKkDy4
-	 VpF0QQvPiw1GV1y16aVuPqT3806L3NMU837AGOA+k+XKs44Zgwse1MfNWKIIjdfdKoA==
+	t=1794845386;
+	b=13WFF63MzE88XoHdnHnj0v9KRjuxQwzoJl1vtp7CjA/WH6Xuugy/TsIQKK3TMZVl8F+8
+	 IBNhrseg7umMDYtgYQzxHZ+Bak8E95RB4cEzmqx4ZI7FTKmCDu9Ytkn0R/tgoFFu2nUpZ
+	 kCQ94UQV8UapPrcUUztxSMoaTMFyCrqrBEeIiNZ9EFl6ZsEsC4djt8Sr49GezrFaK93Fp
+	 /HGQ4gA4DSS62ABeRuFDIzKjxs2XICSrG0jQdqYSkHWOt7qdl5qT6OhOE26yeqLl49dA3
+	 xfVBdI100CWiXX+URw25wmEiO84s3vcQp09PogQ/0WWjuzp4yYWhidmypPA56lqK3pQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845382;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=k442VjNAgTRK01arDxCo74sZ/IUCWSOvu/yQtHpOYbc=;
-	b=ccII+SOaMA42pSPC/oJd+6r6ZBXtm5M1vwBnVxqdDu5jjX+r0f/eQroHgeY/x+vqqXNQ
-	 FDMH+rFrFmnremRwBpcT9jei9VGLHm3zZFyPP+NnVlbI9zodxoGjp1Inu76si5N5oZgoc
-	 Io+WBllHVodD1yO40h6ixWBJty/oY+AqlybeAilQizhHvpVyrLuClH38BgNZi5rLjkvfs
-	 YwaGac4qJg4Zjjl7araWPg4vwUghr7XWi7CGTi/bxKN5snLeFHw1NvA9n003JKQDmDdRE
-	 LkgFPsLSIfg71TUzaZof+pSGXczaHACCNeGGZv+H+hkCNZsShJwNSTaRR0QAAGDnIOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845386;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=O/mwZYYaBoMRcXn1MKOiGJvQffr+SWgcNW4Z7wvG98U=;
+	b=oO0vuMkyJzaTDSA2SMHpY9Q5oQdfICjeseI5QQtDmgj2ioe4bCjxrdumPG2wiBEFNJHD
+	 F+fF/bLTVTabX3FS6s8V/gkW7HIHiuWNuTOa83UeSa7Z6mkRMIqyDA8ZKFokdUL9xHA/y
+	 yqp731NUSgYKl3oXt+uI8559WQMkxeuPaUfaTWbIxmbOek1MsStJZp1OCUOaO6ozmIEgS
+	 D4Bxq+F82kak6+R3Hhw3q9C0tJ+BRkC6AwQZUsR9yW793p2ksIdbxCLcfmI5nxwxThz7V
+	 KJErkH4S90lgo7dcdmWmcKxQ6bLWDOeZK2tLT2AgH3tgoZ5MJsuk9NcSDvyTbgzRncA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k7lMJ6+7;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Pwoj9ith;
+	arc=none smtp.remote-ip=209.85.219.44
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34878606A322;
-	Mon, 16 Nov 2026 16:09:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34878606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236F6606A329
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 16:09:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 236F6606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=k7lMJ6+7
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 77582C4EFDB;
-	Mon, 16 Nov 2026 16:09:43 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 662156023F;
-	Mon, 16 Nov 2026 16:09:39 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 40CFC11BC146D;
-	Mon, 16 Nov 2026 17:09:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794845378; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=k442VjNAgTRK01arDxCo74sZ/IUCWSOvu/yQtHpOYbc=;
-	b=k7lMJ6+7AhYnaYvY82R1DvzIhN4zHmQZ3VDVTttNGtJH6ANkEgdXIeR1CpN2CEF2hoYXJy
-	sL7WhLKofJrdr5cqC6aR97+94ECZx7wWLy9K7/RngBU+a/rU1zi4zeCBJ0UdfIG96koqh+
-	kx38y8XL9kChVFjozBShYbJ97bDsqa1uJmb73Budvya7HQuReuDP9kIZl4oT0TbNYUb/58
-	Bqt/6Wqtyxq53eQq1A85Ys6bev1mPbsN+efZBx34RZ8v81hNeK2e6e8jGVhA5nGgOpPtXx
-	wqUYOSNjZ7kseNdDddogbsIdHRqTasD5U4FWramVuOzx/irq2vmBmQQW8Qd+9Q==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
-Cc: linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
-  alex.aring@gmail.com,  stefan@datenfreihafen.org,  davem@davemloft.net,
-  edumazet@kernel.org,  kuba@kernel.org,  pabeni@redhat.com,
-  horms@kernel.org,  zihanx@nebusec.ai,  stable@vger.kernel.org,
-  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3] mac802154: validate pinned interface before
- beacon transmission
-In-Reply-To: <179378621331.55520.8126896786309171541@stu.pku.edu.cn> (Yifan
-	Zhang's message of "Wed, 04 Nov 2026 17:56:53 +0800")
-References: <179337523079.51423.6573078122047317758@stu.pku.edu.cn>
-	<179378621331.55520.8126896786309171541@stu.pku.edu.cn>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Mon, 16 Nov 2026 17:09:32 +0100
-Message-ID: <87y0aspxkz.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=Pwoj9ith
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-91ecd81cd67so46484096d6.2
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 08:09:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794845385; x=1795450185; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=O/mwZYYaBoMRcXn1MKOiGJvQffr+SWgcNW4Z7wvG98U=;
+        b=Pwoj9ithuYi/5fpoYzERLi4LsD3EQgXEzgL+h8/4anPHsJZ7zKgS7puJ446SO3SAbB
+         W3q0/I+fZ7LsFa2hJniqO0eyxWwTRO2lIZiMrPejnATDLb7ZVkwcOJcS3JuThp/1ov1c
+         uh+sU4u3QcN3E/nVGYI5boiGhypkvBsVpbKtyjdpIxRM3sme7xOwIpNARGf9pPi6ptr4
+         qQacE8rnNtFvpW0JvJAfuFni3s5F2rE/ny/wl+xbkPOO8mTXCO/+/uV89aqC+MzP7S0P
+         AwyDWvVIwvjwP5PWeC8DHD2u87uYLwrDzej4/2SF9O00iEmtPcoh1u6hGbMjh7A5uGlv
+         sLkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794845385; x=1795450185;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=O/mwZYYaBoMRcXn1MKOiGJvQffr+SWgcNW4Z7wvG98U=;
+        b=MAEd5Q5i7jRAhNC2PnHdtmllM1fd5/X6Ha6xFiS96JfqeIh5sjU2hVJ7TVyWEKoSAe
+         ksdAGtLorGnDfj6C5Vl8YkywQT8s/4+LyVW+hyro8TOgmMTGgquwDxSR3rTJsgqH7IYH
+         +mQCfDsvUEkuLFDmbbGJZsSsvCriKtLYRsAQnGouGIVJqYJpWhjDxl5NbiuIzb5REho9
+         RRuSgHhWWwEHjwEo8poWDS7fvch6I0vnyhn6Me2pC+6gOIreBELjqO/IMqCzoSdYTU7G
+         SI0YviXZ1VYq/4nsKqImkiIjXkR7lEzyRazcAKVQ6cjr/4LNevlm3lhFSojatpffrNsi
+         PH3Q==
+X-Forwarded-Encrypted: i=1; AL+hErGQCTzPi0466JJQu08FZuRijbfbnxSbGLpgXusgDe6s916Ngc5Oaa9/f6gee3KXO71TTIJOeAc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/G0TZZXUXZglQ5DU9k9XBmFh4qpWEceR8VHttYnXYCHUO18OzD
+	r5EjR5qBYg+ZYbP2bV3aCi48k3Wm2NS1MWW8zeMKYOdAsnEjh3vy+Fa2htD6HSuARweZTEISCir
+	JMvAQ
+X-Gm-Gg: AZFdTZcOX0O/30gDZXQ/HzGJ5sRV8jVbU2XRbjReu4OVZ/YjpHnNIo+ByQvRhz/7bzN
+	u0Nv3NYy4nHDvB9eZ4t9ZI2PumrL+nfzeri3AmKUv58wTM8GTuiNbavc63KrexMNxtCVaD41djn
+	ChDMVQQcibfq4B4PVlQYhjs7Puc3DhId+JQ4fOBZ8SpLw5UK+u4PUiq1/2NPFUPGXYb5pEzNpMA
+	UYYmRKoAtDb7tXA/tg4u02pHprMrfRfzggKdC4tqbptjV0LAMHMIrA8ykcawdt4bzEe4FazIbkZ
+	k57GwctIIhlTKAWNCeCzwWsWosnYMyM3BYDYR2TT8jLoJLjlLxREa5h36NZ2G/U1eGBeoY0LJC9
+	H9SflZewuxQWlTjnamulh8TaMMBcYd+u/fppbuO9N7HJ8SrOu4iB6Wp3pGn6kiimbGEpOq6q6tf
+	WxeKZWlPpb0yOMFQynNPvd4ma0W/djKTGU/braDbaY+zU2e6ETQxO4Js7vreYIujmt8Oy/6Xubj
+	k9iiiDnb4yUVfpkbCh0zUp243M7D5BF49mE4SMqIZoQPP9u6V3qEMRTufhcz4P43M+KTPRTlOQz
+	JLFcKurfNjn5oWrwAJ9ATuCvCC8xKqbL70/X0DliNI3/rN/6rHqZ4xNx29J4QX9FSkNfV48AXpN
+	4ob95r2E=
+X-Received: by 2002:ad4:4484:0:b0:91e:9ab9:bf37 with SMTP id 6a1803df08f44-91f2415f57amr132104666d6.14.1794845384821;
+        Mon, 16 Nov 2026 08:09:44 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d6193esm88683016d6.19.2026.11.16.08.09.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 08:09:44 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,90 +90,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] mm/hmm: reject shadow-stack mappings
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: Alistair Popple <apopple@nvidia.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+ "Gregory Price (Meta)" <gourry@gourry.net>, 
+ Jason Gunthorpe <jgg@nvidia.com>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, leon@kernel.org, 
+ akpm@linux-foundation.org, kas@kernel.org, dave.hansen@linux.intel.com, 
+ bp@alien8.de, rppt@kernel.org, stable@vger.kernel.org, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+In-Reply-To: <avpAQyLCpJPKSpT-@nvdebian.thelocal>
+References: <20261113195536.2660763-1-gourry@gourry.net>
+ <20261113200303.GA395967@nvidia.com>
+ <179460249376.482102.14669935557901467762.b4-reply@b4>
+ <20261114002027.GE3706007@nvidia.com>
+ <179464112539.482102.8723246686117488051.b4-reply@b4>
+ <2fc85df3-cffc-4786-a7a8-0f0a6347fd59@kernel.org>
+ <avpAQyLCpJPKSpT-@nvdebian.thelocal>
+Date: Mon, 16 Nov 2026 11:09:42 -0500
+Message-Id: <179484538296.482102.4367398493158269026.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-Hi,
+On 2026-11-16 10:48 +1100, Alistair Popple wrote:
+> On 2026-11-14 at 22:11 +1100, "David Hildenbrand (Arm)" <david@kernel.org> wrote...
+> > It's writable by the hardware, that's what matters to core-mm, for example, when
+> > it comes to things like fork(), mproetect() etc.
+> 
+> Except they're not universally writable by HW, after all _PAGE_RW = 0. So
+> pte_write() is documented to return if it is logically writable, which of course
+> is what hmm_range_fault() also needs for certain values of "logic" :-)
+> 
+> So it's easy to see how this is confusing and got missed. Anyway this fix looks
+> good:
+> 
+> Reviewed-by: Alistair Popple <apopple@nvidia.com>
+> 
 
-> Changes in v3:
-> - revalidate the request and pinned interface under RTNL
-> - serialize beacon template access with request replacement
-> - free the skb on every failure before the transmit-path handoff
+Thank's Alistair!
 
-I think on this point we should have something a bit unified with the
-scan worker, because both handle similar situations. This is worth
-fixing in another patch.
+-- 
+~Gregory
 
-> --- a/net/mac802154/scan.c
-> +++ b/net/mac802154/scan.c
-> @@ -354,35 +354,31 @@ static int mac802154_transmit_beacon(struct ieee802=
-154_local *local,
->  				     struct wpan_dev *wpan_dev)
->  {
-
-...
-
-> +	rtnl_lock();
-> +	beacon_req =3D rtnl_dereference(local->beacon_req);
-> +	if (unlikely(!beacon_req || beacon_req->wpan_dev !=3D wpan_dev ||
-> +		     !ieee802154_sdata_running(sdata) ||
-> +		     !netif_running(sdata->dev))) {
-> +		ret =3D -ECANCELED;
-
-Since this is not an error, the caller should maybe not amit a log at
-the error level. Again, not worth a change in this patch, but would be a
-good follow-up.
-
-> +		goto out_free;
->  	}
->=20=20
-> -	sdata =3D IEEE802154_WPAN_DEV_TO_SUB_IF(beacon_req->wpan_dev);
-> +	/* Update the sequence number */
-> +	local->beacon.mhr.seq =3D atomic_inc_return(&wpan_dev->bsn) & 0xFF;
->  	skb->dev =3D sdata->dev;
->=20=20
-> -	rcu_read_unlock();
-> -
->  	ret =3D ieee802154_beacon_push(skb, &local->beacon);
-> -	if (ret) {
-> -		kfree_skb(skb);
-> -		return ret;
-> -	}
-> +	if (ret)
-> +		goto out_free;
->=20=20
->  	/* Using the MLME transmission helper for sending beacons is a bit
->  	 * overkill because we do not really care about the final outcome.
-> @@ -402,7 +398,16 @@ static int mac802154_transmit_beacon(struct ieee8021=
-54_local *local,
->  	 * transmissions, wich anyway does not have a huge impact on the
->  	 * performances given the current design of the stack.
->  	 */
-> -	return ieee802154_mlme_tx(local, sdata, skb);
-> +	ret =3D ieee802154_mlme_tx_locked(local, sdata, skb);
-> +	rtnl_unlock();
-> +
-> +	return ret;
-> +
-> +out_free:
-> +	rtnl_unlock();
-> +	kfree_skb(skb);
-> +
-> +	return ret;
->  }
->=20=20
->  void mac802154_beacon_worker(struct work_struct *work)
-
-Again, not related to this patch, but existing issue: since you are
-fixing the beacon path that is very close to the scan path that has
-already been fixed, there may be a missing cancel_delayed_work_sync() in
-mac802154_stop_beacons_locked() (the timer may still be pending when the
-PHY is freed).
-
-So for me the patch is correct, but follow-ups are needed.
-
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-
-Thanks,
-Miqu=C3=A8l
