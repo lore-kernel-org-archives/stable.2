@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794855970;
-	b=bOE6CmpFZT4Qfo2BjE/bPfLVdCBckZcDjTeEzbtwmxtPKsAW/cs0OPMCmqbJxS6FGD4j
-	 N6AANnq3MzEXiHWXKSHzb2Bw2RreEs15ZmRUFQqkPxrGoAelxH8spsSi5X4QZQLFsOlHw
-	 qwHlcTyHYSFNgHgApK9ikqVi/4rjKd3akVBPRkJ6KE2+YZPPnc9OPuZ9x7pSo151mZzBe
-	 f0Hu6guCkJ/Y3EFWHMEYuJFOB1NSXk6OkVOKBqa76Pg2y3aPenNAFygGzdB3n1bVAyWe6
-	 FbGYtrHUeb0VEZ0hleKT2blDELXUP2t7MJNn6zcTtkkjV0tRa3f6Fc6uMjf7FSRs3eA==
+	b=tVQBHom6A0E3utqX0lE/4zMEWWPRCnwoUc8Kfz8CPB/Hz2lUHip09wOrKXXKUs3fn5fG
+	 VcKCRc9gkwTonfq+IL0hiUImUGQDGX6G0+0ppnWrjgsjUPNc3RJ4KYCPTGhvS22lvyCvA
+	 RKF6G2uJgzwqiS/meCkgg57/RdUyG8HMUay7otacFL3p+mXP7Wm4ubkjVVdM/2VfsfEKI
+	 waA+YRCaNFrpDBNucNpOgJJ4aVXGg91JEYQL8+RtZGNxf+ip9sZfRThbx+vWwZG3ADamo
+	 HQ9/LfcqRyXNBSGW6AoUNz5jcMSGvZpBr0A8wrfkw3OBqYOnk0drIc6nLJ93ztk08FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794855970;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=9hg/XLb/8rXmcE81BwPZ5cEsKDZju0f1hHk/xV/boBc=;
-	b=OztAtWOc9HPu5UQi4f3lJ7yA+sxEvumdmWznlfJrcCiHDPdn2aTgBYHTKaSo6o5Cqg7G
-	 Sw76nKNve00+GjKDgEBBYwru1p2kvYfagVKmrUQripAPhWGdwFo0k3Tnpa4IaLBNiN01X
-	 tdfD5OXmUnzypHynYqxkWkeoBHuf5NhW2w6iLZwcQOSdWr5l0Q6Eg1Cz61pBnEUFoOpSU
-	 sDGHrn6VkgDzcpZCwRtlptEhODh7uWMiAIfdNviwMzhvocUN8tnhCu2Ro8DxX89Yg7Owq
-	 gs0vWB4bjzZmwlLe3p7oETsmXuVhDtAI9kc6VBZBsVmxktOILkhgtHbhILf4dDcl1XQ==
+	bh=5GdNYKHtbggdeH/PSiTG08XEZjI27VRLEXKyaaPcMCk=;
+	b=EttuhhHbjhZwltdPn42Iual5NfbOGsJGKhG94ZGhjA8/3Fzs9uXbNXJoIIeoF4Cw47Q7
+	 5o4iaTNQVsLNgdgXFYu5oWWaauQjcJMSNKd+j70nd9ssn986nLwqc3v/RQ0/XBWGvXPu7
+	 9X4qE31e8WoEZqBXJZIRWUI8ZLtuNnsqSgzeiUAkA4x2BZYnQlO/qIWRornEC5H0aDX5B
+	 Ui5xUhWHQ5tM+iFRh8gMpZwGh0UXM9gJIbIY/Lvt1lHU2ZzTY//Nt+3QTxms8LyeUcgYa
+	 4Aty987IlbLW9dXTsrOvhwzhpQpMjia23aYXHC5uNQ1pd/eJjOPisBV0JJII7aNMx0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=l1yetUyV;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=SHobBh0I;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D6D606A89A;
-	Mon, 16 Nov 2026 19:06:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55D6D606A89A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1C760A380E;
+	Mon, 16 Nov 2026 19:06:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D1C760A380E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=l1yetUyV
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=SHobBh0I
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794855959;
-	bh=9hg/XLb/8rXmcE81BwPZ5cEsKDZju0f1hHk/xV/boBc=;
+	s=smtpout1; t=1794855956;
+	bh=5GdNYKHtbggdeH/PSiTG08XEZjI27VRLEXKyaaPcMCk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=l1yetUyVQNZCrfWh624sFw68CGai9DZefTbHnAjna5xTzTPu8GMv20KH0eysBbszA
-	 Qjqa1GWbkefsoduHx6AFdyBJAUSkKPczIFJqzkgv3R+0enkjYswkajsP7DoUq8TM0d
-	 WwjmTU5jy96XPn4VRo0IwewFjvF+oCg9ZLMDVnCoWyMStdYHAxZB6F0BnKjlAGiPdv
-	 QQo0xkKLFWyYIQcaVJf2BYaD8hRD/tc8ipGtF6Dq0+swEAq0kKVyDL8mCcC0cu35Z5
-	 KEDgTILDgTRMWsWstj5SqfsI8uUuf6JrZF8QdEFyIbvEHWMBSh+E5l33OWBpDdBw7q
-	 ug8T6Zbp2HlCA==
+	b=SHobBh0INsRbR5cAac3VNIyYKUTw9UEcv6paJn6hQrMEZ/4QzCScuDFjzGWrprrqk
+	 3PumitAJKXWYmGsftUDXewTOMF9RYNM3gkZcO58BguscqqWEFzOBDCL9nrF/H2tgpd
+	 DIgd/W/UF4NYEJcrmnh1mF+hfBBlJeCwLEB6xjRFKYxM5DuN5HVcnS2vKTPydnDE2j
+	 Joxej7lvxoB8LYpPHoWmYH2uqU0pkd/2GJTAisRH6xci1JJ40MKhw6t1jCzlBdSUCW
+	 wMOCrotPNQTN1cNwVfZvhzd3jGUzqjtTsxEbeIumaNiKvasWIxj6p59GrO1VtGzViS
+	 yEGFdAQyJyOpg==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jSy4l0dlwzQth;
-	Mon, 16 Nov 2026 14:05:59 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jSy4h5nrhzR7L;
+	Mon, 16 Nov 2026 14:05:56 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -80,9 +80,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v6 29/37] sched/deadline: Cancel the replenishment timer with the parameters
-Date: Mon, 16 Nov 2026 14:05:41 -0500
-Message-Id: <20261116190549.230119-30-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v6 17/37] sched/deadline: Leave a dying task out of a rebuild of the accounting
+Date: Mon, 16 Nov 2026 14:05:29 -0500
+Message-Id: <20261116190549.230119-18-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
 References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
@@ -97,65 +97,88 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A task that leaves SCHED_DEADLINE has its parameters cleared at its
-0-lag time. Its replenishment timer can still be armed then. If the
-task comes back and throttles before that timer fires, start_dl_timer()
-does not restart it, since it is queued. The replenishment would then
-come at the period of the reservation the task left. Too early, it would
-give the task runtime it has not earned. Too late, it would delay the
-task by up to a period.
+A rebuild of the root domains' accounting takes the pi_lock of each
+deadline task, not its rq lock. A dying task past its 0-lag time
+releases its bandwidth at its last schedule. It holds its rq lock there,
+not its pi_lock. Then it clears dl_bw. The rebuild can find the task
+between the two steps.
 
-Commit a649f237db18 ("sched,dl: Fix sched class hopping CBS hole") armed
-the replenishment timer when a task leaves the class. The timer then
-reset the task if it was still out. Commit 209a0cbda7a0
-("sched/deadline: Improve the tracking of active utilization") moved
-that reset to the inactive timer, at the 0-lag time. Nothing cancels
-the replenishment timer there.
+In this diagram, T is a deadline task that exits on CPU 0 past its 0-lag
+time. bw is its dl_bw. CPU 1 rebuilds the accounting:
 
-The timer of a throttled task fires at its next period, which can come
-after the 0-lag time:
-- A task that yielded is throttled with runtime left. Its 0-lag time
-  comes before its deadline.
-- A constrained-deadline task that overran by little reaches its 0-lag
-  time before the end of its period.
+  CPU 0 (T)                                  CPU 1 (rebuild)
 
-Fix this by cancelling the timer where the parameters are cleared. This
-includes task_non_contending(). switched_from_dl() calls it to release
-the bandwidth of a task that leaves asleep past its 0-lag time. A
-constrained task that overran as it blocked has the timer armed there
-too.
+  do_task_dead(): TASK_DEAD, under pi_lock
+  __schedule(): T's rq lock taken
+    task_non_contending(T)
+      dl_task_release_bw(T)
+        total_bw -= bw
+        dl_bw_gen recorded
+        record cleared
+                                             dl_rebuild_rd_accounting()
+                                               dl_clear_root_domains()
+                                                 dl_bw_gen++
+                                                 total_bw reset
+                                               dl_add_task_root_domain(T)
+                                                 T's pi_lock taken
+                                                 dl_bw != 0, dl_bw_gen old
+                                                 total_bw += bw
+      __dl_clear_params(T): dl_bw = 0
 
-The Sashiko AI review of the first posting of this series found this.
-It has no reproducer.
+dl_bw_gen does not help, since the release came before the rebuild. The
+rebuild would count a bandwidth that nothing releases again. The root
+domain would then refuse deadline tasks it has room for, until the next
+rebuild.
 
-Fixes: 209a0cbda7a0 ("sched/deadline: Improve the tracking of active utilization")
+Fix this with the record of the bandwidth, dl_bw_cpu. The release
+clears it under dl_departed_lock, which the walk holds. So leave out a
+dead task with no record. A dead task with a record has not reached its
+last schedule. The walk counts it as a live task. That schedule then
+releases the bandwidth, or puts the task on the departed list. A dead
+task on the departed list keeps its bandwidth until its timer, and the
+rebuild counts it as before.
+
+The Sashiko AI review of v2 of this series found this window. Its review
+of v4 found a gap in the first version of this fix. That version also
+left out a task between TASK_DEAD and its last schedule, with its 0-lag
+time ahead.
+
+This patch completes "sched/deadline: Rebuild the root domains'
+accounting from the task list". The walk of that patch finds exiting
+tasks, which the cpuset iterator skipped. The fix needs the record
+that "sched/deadline: Record the root domain holding a task's
+bandwidth" adds. The three go to stable together.
+
+Fixes: f9a25f776d78 ("cpusets: Rebuild root domain deadline accounting information")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
 Cc: stable@vger.kernel.org
 ---
- kernel/sched/deadline.c | 2 ++
- 1 file changed, 2 insertions(+)
+ kernel/sched/deadline.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
 diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 61b50266468f..72bafa46ae41 100644
+index 44db625bffc3..75fc9314da67 100644
 --- a/kernel/sched/deadline.c
 +++ b/kernel/sched/deadline.c
-@@ -650,6 +650,7 @@ static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
- 				if (dl_task && READ_ONCE(p->__state) == TASK_DEAD)
- 					sub_rq_bw(dl_se, &rq->dl);
- 				dl_task_release_bw(p);
-+				cancel_replenish_timer(dl_se);
- 				__dl_clear_params(dl_se);
- 			}
- 		}
-@@ -2446,6 +2447,7 @@ static enum hrtimer_restart inactive_task_timer(struct hrtimer *timer)
- 		}
- 
- 		dl_task_release_bw(p);
-+		cancel_replenish_timer(dl_se);
- 		__dl_clear_params(dl_se);
- 
- 		goto unlock;
+@@ -3767,6 +3767,17 @@ void dl_add_task_root_domain(struct task_struct *p)
+ 		if (recorded < 0 || !cpu_active(recorded))
+ 			goto unlock;
+ 		cpu = recorded;
++	} else if (READ_ONCE(p->__state) == TASK_DEAD && p->dl.dl_bw_cpu < 0) {
++		/*
++		 * Count nothing for a dead task with no record. Its last
++		 * schedule released the bandwidth under its rq lock, and has
++		 * not cleared dl_bw yet. The release clears the record under
++		 * dl_departed_lock, which this walk holds. A dead task with a
++		 * record has not reached its last schedule. Count it as a
++		 * live task. That schedule then releases what the walk
++		 * counted, or puts the task on the departed list.
++		 */
++		goto unlock;
+ 	}
+ 	rq = cpu_rq(cpu);
+ 	dl_b = &rq->rd->dl_bw;
 -- 
 2.47.3
 
