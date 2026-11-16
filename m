@@ -1,75 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.203.187.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839235;
-	b=bE7UvIBV0PtzO9HS/HsvKlxC2VSNN+uTzvTrOBfi03GrXaa+rgrTLKVlj+kT/ZErnamW
-	 Ca6UOFtD8XuolnY1caTdqguvrHsy0W30tJ3bSe2k3TBdlK9Kz/Ckp5vq2P0CbNPvKsqcx
-	 +wuxgNdmgyjZGjmuo5nxRh1JpUaseCQgoRctkpC8f9A6v3K1MAE6zl+PDOSpDjORQgsIS
-	 ROrTp6stLSCYp8TQD1hOgeivDMz5UwYL5DyBsLFFgUj6rKTIw5KTOjl2GksvMlPBlln1V
-	 y2VQS3frwSadUjadu8ITXlgLMCm+hIRjK5FgT+NXpUlbqvZOFsWk/l39jstPHtwKtGg==
+	t=1794839236;
+	b=SkrIu6QfKaBecJtQ592hlSJbDYlCYm31pikMfFVgU4uq1xGe9w2O8L6CGyAsIL6uUq7r
+	 EySJrJy652m1x9FVreCAgRn+Ho3cI6bek10gG2i+8aTw6+EeESRV/qUAVxYLTzyLpL7Mk
+	 ThRC3BpbIntUa08DeNxhccb9LCmcGsI9KWYYJRH3bUdMwsW5gB47e/wDO7VDrsnSn+4oQ
+	 aCqaEih/HntESEOpf0qCwb8jDTFkGnFvh6rqEjKbYA9VgRoUb9LRWvJu71LyzaMeuBgEh
+	 BFNALXd0h0B6GUKMtERcRnv7B6AtTu/8KlI35K7dfonmMqkwfK6JDay0qXN8MwcXYqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839235;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Developer-Key:X-Developer-Signature:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=90r0f+b5kRu0Uic25PAyXOgLnJJKMJ4pyDwq3qDyCYw=;
-	b=teVPuaKY9OLV/CqGTZV0XLwBKOtVMTg6yhcL18E2snGJ+ZcFiR8jGObolZleVjrY2B5m
-	 cHsksPrXxPh5Ipd+qXgAOF7wyk0oEgOzIhyDU/QjZOgPrR5GIOux4NxUm3Yj5iqRFLTpX
-	 ltP/moFaFk3pd2z9bhD80yaTb9EDRLp9WL/dJsGuEuJwEsoakYo3hlzxMBJG7/GC6udPj
-	 yjGuNArnwItdLeAD/k0mm1J/yuTLV46u/SJcJZGr684drFTsgMhay7i2MHUouDRkOvv7X
-	 P/YGcGdv/fEiZ7DiqIEANyxssYKoKwdJLfGGy3zNRJY1Uilz3cJp3qj9CeVKtaPDHkg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839236;
+	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Classification-ID;
+	bh=VQ3YeRHwI3MrkRmNiZMDbwPTTYvVwwgd1WHuRMFva8Q=;
+	b=1d8Z7iyLu5wEIPSxcB0O5PoUfAKlBqK3ZE/LJOV7dsd5cGsnLjf4sMxebkYf3tcqxhPQ
+	 6yLdnU1eXNr837JLWTvhL3raqwLGpJvYQKphUZhDCo7XLZQcb3Zlt8TwnmzbZGAp+ztoj
+	 ubYgW1kDXftYP5+CPzHv+8G8D/X0gnJDcEBocu8VGeHePG/zbCoXtF5Y6bt2z3HKC1kD5
+	 kgEO+VxHzttyRM3jCWmRBV8WSuvD0w+t7FGIvgXZwWvvYpqMPR4qp44qNIMFDyZ+vHBua
+	 sBOijI1keboC33O4QTYqyXygxF771IIyoEj09hEulVrYfTSUaXmHaelSthnTwC9gWcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--ardb.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=llsSItMG;
-	arc=none smtp.remote-ip=209.85.218.72
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mev.co.uk;
+	spf=pass smtp.mailfrom=mev.co.uk;
+	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=IVcOdv1V;
+	arc=none smtp.remote-ip=173.203.187.113
+Received: from smtp113.iad3a.emailsrvr.com (smtp113.iad3a.emailsrvr.com [173.203.187.113])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D56C1606A32F
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:27:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D56C1606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--ardb.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FC0606A32A
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:27:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7FC0606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=llsSItMG
-Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c504b52eed3so373502866b.1
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 06:27:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794839233; x=1795444033; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=90r0f+b5kRu0Uic25PAyXOgLnJJKMJ4pyDwq3qDyCYw=;
-        b=llsSItMGsdt24weZq6w0Sp7YnsZovRXMtc6m7pTGlF/6APJ7UeBotmOykgf26PJpbE
-         58CaIrszm74ryKHHFDKTQHa1oEdSaQ0F1zS5cOJi23YGNJMvynyG5Lth4/nSvXYRasMH
-         FdHlhzOivne5drFFaK5EgDgqGnbdX10XtljxuZQdJ/9Ps6tYztamA+H6EV0BVMiY/J79
-         D3NCdzU3YdQB70WuHoF2ly0gTfVbeKXUUJXumNtw9HiohzCnzr6BS+zG8t5WN0jjmLEy
-         qmpP+jsr3w4yamOlsXxBS8IDeOkFUfRXSREyl/1kUEWjPbjO6/BC1/L0OcZu3RgGske8
-         N1cA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794839233; x=1795444033;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=90r0f+b5kRu0Uic25PAyXOgLnJJKMJ4pyDwq3qDyCYw=;
-        b=iqHjQaBpxO3/5mYjOUBA9Ze4xt6mSYRJ3f4ZqR8blmfUJ4fY9gVdHqpfEVG7H56KuT
-         yKzmjFuvPLOHD3GwP5uZGFXbgKFe3+j6A5SvkHqQ6UmpD0n23ySmXQV6AqvBF258BR/a
-         QCDSCn5hUA1FMiD/zDEuH0HesB/uu8INdYHg4rXggj/m31orJHDKyCiVL/WTgvgnwSz9
-         c9MwfNWk4vHw4m26AVzcth3aGdtAiq1UOLyTqpvBXi0Y3t83NLyeNUdNBD01xcKLekEZ
-         4tz1O/0ELSeNPa0TQebKbNaktHIDi9i5QdzEavKmY+s/kdBbjD1xapp9/NB13yfVCa8n
-         oeUg==
-X-Forwarded-Encrypted: i=1; AL+hErEISMPC7nPBrnVZ3qVHgvci5osrEoNxmOH25Ip5aCOOmBrrZt5gmXwwPCxXsWyohJQ69i9+RK0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Rf2wziav/m1dQjuVOND5vvxMfGJEqSz4JfkmleTra4pgNJ5E2
-	E62B/CUNhlyeQAzJM7SVa5WO6quy2Se0NTHHot/MrtpTu2KL26G9fyi/ptm0R5pTo4rlrNrMdQ=
-	=
-X-Received: from ejbm16.prod.google.com ([2002:a17:906:2590:b0:c31:b9d1:9418])
- (user=ardb job=prod-delivery.src-stubby-dispatcher) by 2002:a17:907:3f93:b0:c50:4a71:cb5
- with SMTP id a640c23a62f3a-c5096325a62mr886143966b.15.1794839232899; Mon, 16
- Nov 2026 06:27:12 -0800 (PST)
-Date: Mon, 16 Nov 2026 15:26:20 +0100
-In-Reply-To: <20261116142618.1687025-17-ardb+git@google.com>
+	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=IVcOdv1V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
+	s=20221208-6x11dpa4; t=1794839234;
+	bh=RWxgcjm3KzeVMSTEJdoZ4zYT0jBi17kDCX2UYtzBi3w=;
+	h=From:To:Subject:Date:From;
+	b=IVcOdv1VeNQR7J9delFiF8WNpdlaWT3OEWXmbqdrgWo4QBiC+nlj4cWqWb0V5X+FB
+	 /VOspPnUHkoVZAZkMQmRq//Za1vogn3r5c8aPKlXMKlucsT3Ztw2LvsHwr3cSkZxCi
+	 3BaEzT7e6jZs2QuxV+p1UN1JyDQRALfhhRqoZHo0=
+X-Auth-ID: abbotti@mev.co.uk
+Received: by smtp39.relay.iad3a.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 3B40C5922;
+	Mon, 16 Nov 2026 09:27:14 -0500 (EST)
+From: Ian Abbott <abbotti@mev.co.uk>
+To: stable@vger.kernel.org
+Cc: Yang Zi <2959243019@qq.com>,
+	Ian Abbott <abbotti@mev.co.uk>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 6.1.y] comedi: addi_apci_3xxx: fix subdevice count underallocation
+Date: Mon, 16 Nov 2026 14:26:58 +0000
+Message-ID: <20261116142706.114307-1-abbotti@mev.co.uk>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,49 +59,53 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261116142618.1687025-17-ardb+git@google.com>
-X-Developer-Key: i=ardb@kernel.org; a=openpgp; fpr=F43D03328115A198C90016883D200E9CA6329909
-X-Developer-Signature: v=1; a=openpgp-sha256; l=746; i=ardb@kernel.org;
- h=from:subject; bh=iJCrUIisab7JCQVRK3E8zIw6kz1I277eBbn3gnc4d2w=;
- b=owGbwMvMwCVmkMcZplerG8N4Wi2JIeu3UG90+Yzl1rc013y9ZXnQWS/H/X/bfbaiq8UBCq2FN
- gdPX+bsKGVhEONikBVTZBGY/ffdztMTpWqdZ8nCzGFlAhnCwMUpABPh2cPwh6dmke6e8uL/z2ad
- mSb4JvW/NQNDXmW2/c78Vb+e+jD+jmP4X6y5KONutmDPSvfWR4F7GjZoFLxQSRbMnznVJfniZ95 cXgA=
-X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
-Message-ID: <20261116142618.1687025-18-ardb+git@google.com>
-Subject: [PATCH v3 01/15] efi/zboot: arm64: Add missing barrier after cache maintenance
-From: Ard Biesheuvel <ardb+git@google.com>
-To: linux-efi@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org, Ard Biesheuvel <ardb@kernel.org>, 
-	Jason Gunthorpe <jgg@nvidia.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Huacai Chen <chenhuacai@kernel.org>, loongarch@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Classification-ID: ad503688-7a1c-47c0-bc52-0a44c851b200-1-1
 
-From: Ard Biesheuvel <ardb@kernel.org>
+From: Yang Zi <2959243019@qq.com>
 
-Prevent the I-cache from fetching stale data by issuing a barrier after
-the data cache maintenance completes but before performing the I-cache
-maintenance.
+[ Upstream commit 3de5aa458dede472a253266d02902bd95af8e849 ]
 
-Cc: <stable@vger.kernel.org>
-Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+In apci3xxx_auto_attach(), the number of subdevices is computed with
+
+    n_subdevices = (board->ai_n_chan ? 0 : 1) + board->has_ao + ...
+
+The ternary is inverted: when the board has analog input channels
+(ai_n_chan != 0), it counts 0 instead of 1, so the AI subdevice that is
+actually created is not accounted for. As a result
+comedi_alloc_subdevices() allocates one entry too few, and the later
+subdevice initialization (notably the TTL Digital I/O subdevice, which
+is populated last) writes past the end of the allocated array, causing a
+slab out-of-bounds write.
+
+Flip the ternary to count 1 when ai_n_chan is non-zero and 0 otherwise,
+matching the subdevice creation order in the function.
+
+Signed-off-by: Yang Zi <2959243019@qq.com>
+Reviewed-by: Ian Abbott <abbotti@mev.co.uk>
+Link: https://patch.msgid.link/20261014101803.11036-1-abbotti@mev.co.uk
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 656e39fedcf0 ("staging: comedi: addi_apci_3xxx: only allocate needed subdevices")
+Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
 ---
- drivers/firmware/efi/libstub/arm64.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/comedi/drivers/addi_apci_3xxx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/firmware/efi/libstub/arm64.c b/drivers/firmware/efi/libstub/arm64.c
-index e57cd3de0a00..d35c6dd76601 100644
---- a/drivers/firmware/efi/libstub/arm64.c
-+++ b/drivers/firmware/efi/libstub/arm64.c
-@@ -109,6 +109,7 @@ void efi_cache_sync_image(unsigned long image_base,
- 		} while (size >= lsize);
+diff --git a/drivers/comedi/drivers/addi_apci_3xxx.c b/drivers/comedi/drivers/addi_apci_3xxx.c
+index bc72273e6a29..7355ec454cb4 100644
+--- a/drivers/comedi/drivers/addi_apci_3xxx.c
++++ b/drivers/comedi/drivers/addi_apci_3xxx.c
+@@ -787,7 +787,7 @@ static int apci3xxx_auto_attach(struct comedi_device *dev,
+ 			dev->irq = pcidev->irq;
  	}
  
-+	dsb(ish);
- 	asm("ic ialluis");
- 	dsb(ish);
- 	isb();
+-	n_subdevices = (board->ai_n_chan ? 0 : 1) + board->has_ao +
++	n_subdevices = (board->ai_n_chan ? 1 : 0) + board->has_ao +
+ 		       board->has_dig_in + board->has_dig_out +
+ 		       board->has_ttl_io;
+ 	ret = comedi_alloc_subdevices(dev, n_subdevices);
 -- 
-2.56.0.611.g1030f0b940-goog
+2.53.0
 
