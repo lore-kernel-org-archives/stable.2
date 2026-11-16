@@ -1,94 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826450;
-	b=H5oh6E8NyE6rF4OuweZDOs9ksie4I+AtDO04U/cWJ2HYiupB2SdHYtqiqhB2RbSN4xra
-	 Abw0882KtFtz8S5yU4yjPvaK2/fIU2vAynD1T1MgSLIVpoSWNL4zzBOg5ykpcBhz73BFT
-	 I+a9Q9B5YZk7tSbROZTZTHXLMrNjTY2TC/PyB6EJaU+fyCjGzi3GT0qIDjltdxiXLIJgm
-	 Q4LTRQnkbscsgi/pYQ5U4tH3GJs5CYigauOhk1WXBYdebIgqaOEqJuJ3Zoju3e/hj23fU
-	 CHURLG/Q5j/bnwlI9NkSeki0UgETGz2bTvxsmB53wGsbQhsSfgs3/bRtOev0Gg2zu+g==
+	t=1794826528;
+	b=tkMw3KEHDqgElXafRmMcMUvOXn3Ozcv43rdEz7RvhyzxJK/2NeyI1O6iY0KH2pg7vQ7H
+	 cw6QuE+3o18HvykhSdjym1tyOdPfQR1KhzNV8rUTvXpVimSkclaigkrIyi7PjNcrzMNVe
+	 mf5je0e6covxwEct8SQVT10/DxUYUPWXoN37MgRsV5Lb4N0a/oBVNjjnYDmuU5TUjqe5I
+	 9AimgpxV4gYI+W6Lts1zZv2Ii/+sTyMOqXcHvkfejTNt66ncY7zqEx8ld+cLGJfmibgZn
+	 INrWrLKqiwQD0mFdCZCRfIZ2FINjcuLCrlVY8vra8pYtvsppq2PO3ZpLWBvO7r9IpJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826450;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=cdKuq3/Fu2jW7L/YxaeYVgsN39DZtPGFu/e9jRJDqRI=;
-	b=jcyr5dCZeZcVg80e5//NNeqXuOmBlLuw86vmI2Y6nxJFHbTDw/EPexpwffdHHHEFy45e
-	 3/M+jTBoVQ5MC3wf+onYF6TqiukLx3Z/8OBTEaqsVLebPyn/Og/ADH6CDK/fV5xJ2Gyvj
-	 1rieFwDveNt9DZmEiTKuMrvrybQCZcaNdOicxP0mS/BvnEOJNf2L63fVk7fQxaCp+l669
-	 WYZ30N/KLl+Y6Gmq2/4MT+FQaG7weULFpyjz3yfsUEFBSR2rXNI0TStsJT+OUH3nKLjjC
-	 vP5EiiNwyeip2JPHSZcXqzUF1oYJqvzQgeH4BelIK7TJzW+ZbT3n5KM+uAV84HT9ghA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826528;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BKcngCVl81a+5cZXKQf9a6BxtCh+iivu3O1Qx8AltbQ=;
+	b=suavSf8kZy1PJHLO/obKOFT7SQ7Y+OLRizVLFi8044uTmIhW0w4guUpi1Dzu/PkYvUng
+	 c96EzuSXsMc89WhfeScCMIE9B8KrW4PCyQOKnUhb3F8s24P1sX8CPoQkDVgXhKOk4KhHW
+	 fesp9jOAOYLsNHEcbemVJ6fFaHPjH+zsR1pvysxgayyIx0+cZTP61Dv9p7hHi02GQWlAk
+	 wnMObybmUoSACWKHbIgxGFDq/XqhJwCzRh536pzaZfFwn7ZtSWGBL/HO54zbyEtwnlUcL
+	 gu1X51aBs9o6t2c0HduMeSDW69YqqtU8dS6aICODtE35wN8aUxT55EJ3Yq6rDeWZXxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V6uqr42W;
-	arc=none smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eW48fgDz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B927E606A333
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:54:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B927E606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B952606A329
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:55:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=V6uqr42W
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5c14f3dab66so4034413e87.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 02:54:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794826447; x=1795431247; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cdKuq3/Fu2jW7L/YxaeYVgsN39DZtPGFu/e9jRJDqRI=;
-        b=V6uqr42Wj5tCt2pj4NsxEWUA9ZPV2hJ8vbtfEJHqEWup61LERHaYBhxJtqUNRTqLwu
-         xjS8Wcw1MkaEVKEW2FlvbzSlniIrC4yQncyGGWN7oyxOkcmIllBELJ3GHhZ1eM1mV5lk
-         DtJy3osQM+taLpTs1LMUb0MlchzFAVsx54QVwlRbrGzDEGJzBoizYdOJWp0TP5ytlmXb
-         ZS+NlW9pzXwzAy0GCVNgPoQfZt58VL4fpFeqUBnlW1PkKFGWF5lBPZcB22zzj37sQbBC
-         aEV9U5r/FbgH2GaZXhpQgTBC8htE5gWHKQOlkUFAZMtEI5pCvGVxE1kfJ8ruW8PzjV1m
-         EE3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794826447; x=1795431247;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cdKuq3/Fu2jW7L/YxaeYVgsN39DZtPGFu/e9jRJDqRI=;
-        b=ijsr/gtEWXfCpVAniLt3exRMbUPRUi2InzUw1iig9zOZi+Mvg3H7g0RiD5NcM+w+4d
-         pWSr8/a1gtRVFNnUUzy+YtPwm09Esd3oYES0b3cQX+mNWhTIIobQcZJdMVU/bHbsYEeK
-         8WVhSZqjnFsLDXnBUC1vlQcg/1PTEE7xUb6c8O0dkM1lO5kQXh9ShJlFZNX+396V9h6M
-         ckcQZ6zVway1ZtAF+L55NahA4b1ZbGO7XkFmJNLQyIl8DUIiyTNjoWv2T3fSoSre+PuJ
-         5r448q/gI9VfED70IvUi9q6wTVqwR8z2GF1cI6A02usgn2pF4IqXLackeYchyMHhPdVs
-         fJzQ==
-X-Gm-Message-State: APuU4Z+mQWkzpdPR2ZswVM8yRGnQA854SXafAYmlKJn4wKyXwi5HgTeW
-	pee/uodNYMGjK5J85uS5lGfAOB4V+nkkdXc35NkhlclY8YJMbke17i+dLMxRuBj2
-X-Gm-Gg: AYBFou2xGsGc2pXd6arPgYnbLqA1b2SdpDm3QOq2NZAdPFVfiaEcAKaUlBXgED/rSIV
-	HD/eEm30pr74yB3YPNMtZ3K0tNGg15NMXjCcCSeBdzlu6aVrCqdIXBbLCGuXSqV+odGjUggL+mm
-	+g9XCi5hPkRX/o6x2LMusQ6tOXuJxm1iTDknSlkuBFcEOGmoTkeTFqlqqZqQ3ZY/o615y9kvkqF
-	sOCGdj/dBkKm5Ed8oG05TZvlf7G9P0nvWkE3Xd5PZfnj1MVg122pZtwalRfp326PPwxxzlW+fne
-	ZO5HcaqtbUEWnjba8UM9Pxr/EruW+96Nwk0aeOV0k55Xmvd57nnOc5mMDh6FliJt5dcsV3z8NdA
-	yNlBXOM/UjZsjkMuOX5sy9c3t+ot/3LAqQC6Uc/FpB52EB2x1Gwzdr+ARpuihloZwQZ++L5F5LC
-	ka/JxGOvt/t36nKhwn6H/uxdxcZg/xjnPbnVU0fxuELVbarz943xNECqLPkoDR2//ho0i4zLomH
-	8chBacnXwbObuOOUscMSDpDiWBeTS8rJFob0/S4DSUz7514X7ccOXXj/TDZq2CnybeJE85sFmTj
-	036EPPzd08TKcF0w0cOj
-X-Received: by 2002:a05:6512:1322:b0:5c1:5b06:27c0 with SMTP id 2adb3069b0e04-5c170731f7dmr3105250e87.3.1794826447410;
-        Mon, 16 Nov 2026 02:54:07 -0800 (PST)
-Received: from fedora ([5.131.7.59])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c17133c663sm3069194e87.34.2026.11.16.02.54.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 02:54:06 -0800 (PST)
-From: Petr Vaganov <petrvaganoff@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Petr Vaganov <petrvaganoff@gmail.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	=?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>,
-	Andrew Kanner <andrew.kanner@gmail.com>,
-	selinux@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 5.10] selinux: prevent KMSAN warning in selinux_inet_conn_request()
-Date: Mon, 16 Nov 2026 17:53:54 +0700
-Message-ID: <20261116105355.89902-1-petrvaganoff@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eW48fgDz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF391F000C4;
+	Mon, 16 Nov 2026 10:55:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794826528;
+	bh=BKcngCVl81a+5cZXKQf9a6BxtCh+iivu3O1Qx8AltbQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eW48fgDzzDOs6ff2VSkCZ5ZhnZNSLmJIJ2FmLgLmmOPTuW82IsPqc4sa0+mxzgTr0
+	 5Pf9kdVun4VQB5+6aTdEswDRgTOPz6Qr4ERQI27euYwpSUQi0EMtL8BMjr7LSW6hWP
+	 auxR7UdLXc1bK73BZqqctXGk8JvraqYHl3823bnY=
+Date: Mon, 16 Nov 2026 11:55:24 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Petr Tesarik <ptesarik@suse.com>
+Cc: Borislav Petkov <bp@alien8.de>, Andrea Mattiazzo <amattiazzo@suse.de>,
+	cve@kernel.org, stable@vger.kernel.org
+Subject: Re: 098bcea71b8d security relevant
+Message-ID: <2026111647-accent-penniless-9cb3@gregkh>
+References: <c78fbc1b-b190-4111-a6a8-f456b5c85a51@suse.de>
+ <2026111326-acre-backhand-a1d5@gregkh>
+ <20261113202510.2107c905@mordecai>
+ <2026111303-colonial-wrongly-7d9c@gregkh>
+ <20261114062419.GBavf-kxerE_YDukB7@fat_crate.local>
+ <20261116094133.4aa496f0@mordecai>
+ <2026111606-uneaten-passport-9d89@gregkh>
+ <20261116114902.561ada6f@mordecai>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,86 +60,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116114902.561ada6f@mordecai>
 
-commit 1df83cbf23a27174aee6ea5e52462f03f7e48a10 upstream.
+On Mon, Nov 16, 2026 at 11:49:02AM +0100, Petr Tesarik wrote:
+> On Mon, 16 Nov 2026 10:54:47 +0100
+> Greg KH <gregkh@linuxfoundation.org> wrote:
+> 
+> > On Mon, Nov 16, 2026 at 09:41:33AM +0100, Petr Tesarik wrote:
+> > > On Fri, 13 Nov 2026 22:24:19 -0800
+> > > Borislav Petkov <bp@alien8.de> wrote:
+> > >   
+> > > > On Fri, Nov 13, 2026 at 02:30:48PM -0500, Greg KH wrote:  
+> > > > > System configurations do not seem to meet the cve.org definition of
+> > > > > vulnerability, right?    
+> > > > 
+> > > > Yah, a system without any microcode loaded by the BIOS is not the common
+> > > > situation but rather an exception.  
+> > > 
+> > > One of the systems used by SUSE Performance Team boots the kernel
+> > > without applying any microcode patch first. We assumed that the
+> > > microcode from early initrd was applied in that case, but it was
+> > > applied only to BSP, leaving all other CPUs unpatched.
+> > > 
+> > > Thank you for explaining to me that failing to apply a security fix
+> > > (i.e. failing to load the available microcode update) is not security
+> > > relevant, because the admin should know better and update their BIOS
+> > > instead.  
+> > 
+> > I'm not saying it is not security relevant, only that it does not match
+> > the definition of what cve.org considers a vulnerability and so is
+> > allowed to have a CVE id assigned to.  Many such security things like
+> > this fall into this category, as you know.
+> > 
+> > > I still do not like the fact that the Linux kernel then lies about the
+> > > vulnerability status under /sys/devices/system/cpu/vulnerabilities/,
+> > > because those files are based solely on data from BSP;
+> > > cpu_show_common() contains:
+> > > 
+> > > 	if (!boot_cpu_has_bug(bug))
+> > > 		return sysfs_emit(buf, "Not affected\n");
+> > > 
+> > > This gives the admin a false sense of security, but I agree it can be
+> > > perceived as a configuration issue: The admin should not rely on that
+> > > data, because they can simply check /proc/cpuinfo to see for themselves
+> > > that all APs actually do not have any microcode applied to them, and
+> > > then go read AMD errata to understand which CPU vulnerabilities are
+> > > mitigated with a microcode update.  
+> > 
+> > So is this bug not fixed?  If so, it probably should be.
+> 
+> It is fixed with 098bcea71b8d (by correctly updating the AP microcode).
+> I guess the commit should be included in stable branches even if it is
+> not a security fix.
 
-KMSAN reports the following issue:
-[   81.822503] =====================================================
-[   81.823222] BUG: KMSAN: uninit-value in selinux_inet_conn_request+0x2c8/0x4b0
-[   81.823891]  selinux_inet_conn_request+0x2c8/0x4b0
-[   81.824385]  security_inet_conn_request+0xc0/0x160
-[   81.824886]  tcp_v4_route_req+0x30e/0x490
-[   81.825343]  tcp_conn_request+0xdc8/0x3400
-[   81.825813]  tcp_v4_conn_request+0x134/0x190
-[   81.826292]  tcp_rcv_state_process+0x1f4/0x3b40
-[   81.826797]  tcp_v4_do_rcv+0x9ca/0xc30
-[   81.827236]  tcp_v4_rcv+0x3bf5/0x4180
-[   81.827670]  ip_protocol_deliver_rcu+0x822/0x1230
-[   81.828174]  ip_local_deliver_finish+0x259/0x370
-[   81.828667]  ip_local_deliver+0x1c0/0x450
-[   81.829105]  ip_sublist_rcv+0xdc1/0xf50
-[   81.829534]  ip_list_rcv+0x72e/0x790
-[   81.829941]  __netif_receive_skb_list_core+0x10d5/0x1180
-[   81.830499]  netif_receive_skb_list_internal+0xc41/0x1190
-[   81.831064]  napi_complete_done+0x2c4/0x8b0
-[   81.831532]  e1000_clean+0x12bf/0x4d90
-[   81.831983]  __napi_poll+0xa6/0x760
-[   81.832391]  net_rx_action+0x84c/0x1550
-[   81.832831]  __do_softirq+0x272/0xa6c
-[   81.833239]  __irq_exit_rcu+0xb7/0x1a0
-[   81.833654]  irq_exit_rcu+0x17/0x40
-[   81.834044]  common_interrupt+0x8d/0xa0
-[   81.834494]  asm_common_interrupt+0x2b/0x40
-[   81.834949]  default_idle+0x17/0x20
-[   81.835356]  arch_cpu_idle+0xd/0x20
-[   81.835766]  default_idle_call+0x43/0x70
-[   81.836210]  do_idle+0x258/0x800
-[   81.836581]  cpu_startup_entry+0x26/0x30
-[   81.837002]  __pfx_ap_starting+0x0/0x10
-[   81.837444]  secondary_startup_64_no_verify+0x17a/0x17b
-[   81.837979]
-[   81.838166] Local variable nlbl_type.i created at:
-[   81.838596]  selinux_inet_conn_request+0xe3/0x4b0
-[   81.839078]  security_inet_conn_request+0xc0/0x160
+It is in the 6.18.y and 7.2 and newer kernels already.  If it needs to
+go to older kernel releases, let stable@vger.kernel.org know with a
+working backport and they will be glad to queue it up.
 
-KMSAN warning is reproducible with:
-* netlabel_mgmt_protocount is 0 (e.g. netlbl_enabled() returns 0)
-* CONFIG_SECURITY_NETWORK_XFRM may be set or not
-* CONFIG_KMSAN=y
-* `ssh USER@HOSTNAME /bin/date`
+thanks,
 
-selinux_skb_peerlbl_sid() will call selinux_xfrm_skb_sid(), then fall
-to selinux_netlbl_skbuff_getsid() which will not initialize nlbl_type,
-but it will be passed to:
-
-    err = security_net_peersid_resolve(nlbl_sid,
-                                       nlbl_type, xfrm_sid, sid);
-
-and checked by KMSAN, although it will not be used inside
-security_net_peersid_resolve() (at least now), since this function
-will check either (xfrm_sid == SECSID_NULL) or (nlbl_sid ==
-SECSID_NULL) first and return before using uninitialized nlbl_type.
-
-Signed-off-by: Andrew Kanner <andrew.kanner@gmail.com>
-[PM: subject line tweak, removed 'fixes' tag as code is not broken]
-Signed-off-by: Paul Moore <paul@paul-moore.com>
-Signed-off-by: Petr Vaganov <petrvaganoff@gmail.com>
----
- security/selinux/netlabel.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/security/selinux/netlabel.c b/security/selinux/netlabel.c
-index 6a94b31b5472..e5af391023ba 100644
---- a/security/selinux/netlabel.c
-+++ b/security/selinux/netlabel.c
-@@ -195,6 +195,7 @@ int selinux_netlbl_skbuff_getsid(struct sk_buff *skb,
- 	struct netlbl_lsm_secattr secattr;
- 
- 	if (!netlbl_enabled()) {
-+		*type = NETLBL_NLTYPE_NONE;
- 		*sid = SECSID_NULL;
- 		return 0;
- 	}
--- 
-2.55.0
+greg k-h
