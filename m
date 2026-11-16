@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794849726;
-	b=O6t8JsHWr3S2eqTuW579wB22m9BGfDQXKn0RDE/lPQ3yAVsNDHdDajqmkfsfPv8+Gxm3
-	 eO6DhVu3TJJkDru1Xd3bFqGqJcQy0wdH5mqa6RpzcStGHQkW2sozEFe7NZdOA6Tuc7Lnd
-	 76FTGkuGfuGW3Sxk/kKkLSr13U7Anvgl9Ip5REo8nyYzQckA7tdI031XvTADNdHHo/Y1I
-	 FMskkYn7eEb28GHu3XiPbzzRcuqL90Sg54SpD3fc1HD+B2RkYMQsTSwSHzbZH8AdiNPVX
-	 mskZ1DRWs9VazFgt+dxwOVvP0eK9z6Yz1uZyJhC6ENCT1Upyv1DgTVwMUjpU4om3YEg==
+	t=1794849880;
+	b=mCN4KY/BqAeQHeG9DyENsHd/QgHbnuiMeNTxB+TyqqmYGHtptJTQAwX2Uy6DJLyB1N+x
+	 ym9iuTgOb5j+gnvHilYqie3UZwz49cKmKpTY0OPDaexxSsVtbgOqYSZAaFI4BvVjprfaK
+	 8P9zSPVt/k5tjl6PIzSveXIgcQM/sCKuMKj3oV2VR+iurJZY6bEPiPER8/QeuXs4BXAVO
+	 FVI96ua8JE+BvQMWky9by3YRGqxDONcTlYNu1l6Q0qWuia3ZhqRRIpfVr1XILmr2Y1O05
+	 AHBhqzNbmlpz45wlGs32Ln7+5R1phCdxd7Pm7KthHpmKsnXSCBO/j3Z0829azlUFPNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794849726;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=O7BgrBkMuexja3njpLbIXe/m63bIjcVrAywZghQs//s=;
-	b=MWxPhMgNIjitUOVCjB7/yRP4tVVbm0Td6AgNPxMBPuf8c3YoAAeItjIFanxEvOZle9fX
-	 WWMu8pARjjr/fGGXYmfPjDUanKNSX+1pyN8ELwr/C+y+B2+kHBvRnX8RYVYJjAo35ruHf
-	 di3F12FLoYs7S7SK2aa13lyymxOCWA3ZbtoS8r1yq8cdyyoe64SfYKVvjRMueDRJbOtqs
-	 Nq4wKThz62+yOEWzs3Qmcau39DC8forOsyw1o1fVxEFyCfHd72RgR/G5kgaonwwRySOTb
-	 rk8TOngLGSNAZmaXrNCiiNDl1GiuiLHw7cwrMabVX1MDS8i5ZZBmafS9TH26MPb9+1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794849880;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=wKQl+YigGDBDremvuG6tzQKQ4x5z4Gx5JaxzCuaqXF4=;
+	b=p8xbyAPs+o/S7x8eHiClmlcecMp0tAFnqSmmFMaRa0DQIH5J/7fgrqwigLDUvN7RXhW+
+	 g/MYGvZKy6BS7WI+sMEh+/cN4fFd+bLJxf6FCHZdd2lmicQhulksCXDhym/bbT8wPV5Jy
+	 XlmcHnhaCf1sK+wgRphOeAYCIJCtjaiK3xLdb6Ew/m91XCSFLyB66nYjnT2qt7kF2fv1f
+	 XvlDWehm4/aaaE0AREOhPZPGejxmjkxWcEG8B0BbgmC9iLnsLT3Zo4vSdYe8ohyagHyx9
+	 5U0JKGnhg+JhEWKF+GbVdNW2JRPAigfBSfCo0/gZkM3LX64y1do8ovFXR3wnPcxHfdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gwFkmIYL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="MXXMR/5e";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C839606A31C;
-	Mon, 16 Nov 2026 17:22:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88441606A31C;
+	Mon, 16 Nov 2026 17:24:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gwFkmIYL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7481F000C4;
-	Mon, 16 Nov 2026 17:22:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXXMR/5e
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2FC41F000CA;
+	Mon, 16 Nov 2026 17:24:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794849726;
-	bh=O7BgrBkMuexja3njpLbIXe/m63bIjcVrAywZghQs//s=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=gwFkmIYLQGHnSsvD4hEKcb5Y/3TEO/MJIBae/UiJnC3M98PdOrXe9U/tC6j2cmeDG
-	 gg2PhpI4lwAU3RTKt788TwYnr3LkHftwwtXc76DOyrHtGDyAIzU4yo2Hxzq5fA8KKT
-	 ufH1No6fL7yja9ML+j0FU8tettI5bK9EuM3Fq9EAXZ43zegrSSPqxunRQbn2C3HNgU
-	 RxhvRvFDcKs2hZ0VuGtSmcBavQz9Gb67jQfQaiH0te05TrGk4+V1C8+uKZzQileXMf
-	 fw2jDIOTEm50IBHF1eaNpE0uK64A9n5tra3H+s6qKgr+jVBwBu4gzY4A8KicsQAAtn
-	 B/if6/L+pPa6Q==
+	s=k20260515; t=1794849880;
+	bh=wKQl+YigGDBDremvuG6tzQKQ4x5z4Gx5JaxzCuaqXF4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MXXMR/5eSUhzFqIsmILdpZpp67LQl+0b3nk7gWOHu7vKzhWScTZ1iJwnHN2akub6a
+	 JvghUsEihIJCO9vx0uaDUH/Pnpn42tuxYA0IMFkMBt0ZpiW3oO8xIGDlMCJ0W0TjsR
+	 sL6saXhL3qp26TEUMSWYwxzc06nyXP1UH8rI6NVNsqQoVP20hbMdvODPboqGQcwKqH
+	 7WtG8n+h5zhQHrxdVPJw7sPjDhmjOu5t/65r0DvhFyyWv8OmtRIaEhuD+SMY3tvvMn
+	 7DWGfcixyEJeUAsTH9ugO0lG3sg9Uy4pPigO33kMRKhFsSJxbgq+z6qLqXk43J1fJQ
+	 1SQJEKXSuQJpA==
+Date: Mon, 16 Nov 2026 18:24:36 +0100
 From: Niklas Cassel <cassel@kernel.org>
-To: dlemoal@kernel.org, linux-ide@vger.kernel.org, shao.mingyin@zte.com.cn
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261114015622273t9IBdo0FnDVvP3kTsQiZs@zte.com.cn>
-References: <20261114015622273t9IBdo0FnDVvP3kTsQiZs@zte.com.cn>
-Subject: Re: [PATCH RESEND v4 0/4] ata: libata-scsi: fix ATA
- PASS-THROUGH(32) handling
-Message-Id: <179484972496.2801974.4760709190020871959.b4-ty@kernel.org>
-Date: Mon, 16 Nov 2026 18:22:04 +0100
+To: Damien Le Moal <dlemoal@kernel.org>
+Cc: shao.mingyin@zte.com.cn, linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4 1/4] ata: libata-scsi: reject reserved bits in 32-byte
+ passthru
+Message-ID: <avs8VMjIphKkvc9S@ryzen>
+References: <20261114014801031Y999WJfhmUrM7FRlZ-2Qf@zte.com.cn>
+ <40839783-b23d-41df-8c71-19fdcca00323@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,34 +58,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <40839783-b23d-41df-8c71-19fdcca00323@kernel.org>
 
-On Sat, 14 Nov 2026 01:56:22 +0800, shao.mingyin@zte.com.cn wrote:
-> ATA PASS-THROUGH(32) still has translation and completion paths that
-> interpret fields as if the command used a 12- or 16-byte CDB.
+Hello Damien,
+
+On Sun, Nov 15, 2026 at 11:01:10AM +0900, Damien Le Moal wrote:
+> On 11/14/26 02:48, shao.mingyin@zte.com.cn wrote:
+> > From: Shao Mingyin <shao.mingyin@zte.com.cn>
+> > 
+> > ATA PASS-THROUGH(32) has no MULTIPLE_COUNT field. Byte 1 is CONTROL,
+> > including vendor-specific bits 7:6, but libata interprets bits 7:5 as
+> > MULTIPLE_COUNT. This rejects non-multiple commands with those bits set
+> > and can print spurious count mismatch warnings for multiple commands.
+> > The reserved bits 7:5 of byte 10 are not checked.
+> > 
+> > Reject nonzero reserved bits in byte 10 with field pointer 10. Skip
+> > the MULTIPLE_COUNT checks for the 32-byte form while retaining the
+> > device multiple-mode check for READ/WRITE MULTIPLE commands. Also point
+> > to byte 10 for invalid PROTOCOL. Keep the 12- and 16-byte count checks
+> > unchanged.
+> > 
+> > Fixes: b1ffbf854e08 ("libata: Support for an ATA PASS-THROUGH(32) command.")
+> > Suggested-by: Niklas Cassel <cassel@kernel.org>
+> > Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
 > 
-> Patch 1 checks the reserved bits in byte 10, skips the nonexistent
-> MULTIPLE_COUNT field, and corrects the invalid-PROTOCOL field pointer.
-> Patch 2 rejects unsupported service actions with sense data. Patch 3
-> honors CK_COND and generates SAT sense on completion. Patch 4 corrects
-> the remaining field pointers, including READ/WRITE LONG count errors.
-> The four patches can be applied independently.
-> 
-> [...]
+> Reviewed-by: Damien Le Moal <dlemoal@wdc.com>
 
-Applied to libata/linux.git (for-7.5), thanks!
+I replaced this with your @kernel.org email.
 
-[1/4] ata: libata-scsi: reject reserved bits in 32-byte passthru
-      https://git.kernel.org/libata/linux/c/4136e336
-[2/4] ata: libata-scsi: reject unsupported ATA-32 service actions
-      https://git.kernel.org/libata/linux/c/22526964
-[3/4] ata: libata-scsi: generate SAT sense data for ATA PASS-THROUGH(32)
-      https://git.kernel.org/libata/linux/c/bee1c872
-[4/4] ata: libata-scsi: fix remaining passthru field pointers
-      https://git.kernel.org/libata/linux/c/791ef60c
 
 Kind regards,
 Niklas
-
