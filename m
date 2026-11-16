@@ -1,55 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794808710;
-	b=i9FQN4lNgu1veAOPxTXj47p1wWM51XolWcColRQeELXQbkraHJCHcgO7119Dwo6dVH9L
-	 uuki+vxxG9EuATgewTDY3jEvbvODeqVlvZivqYVC38qj5PfUW+II/pMHnde3KoyNKLFaw
-	 DZxOUzDa4Aq76jOA0G2DKgM30bk4esGU95NCD2KEi3kjNswz+HAsomaH7znwQyh65Kvrl
-	 MRytD6SbCWiCBYhPNPC3tkX4UypuyF7IysHChMpGPLFtWMbqI7Oh54viZ71edWksYl4tq
-	 UeQLK1Gfw3vnn9Sah65KOUePxdALP8kmYmK+c12bGrDtcHFVP32WhdFDYaqdU+s7q4A==
+	t=1794808881;
+	b=LPs59IYYMff7SHBMDVIy44ok+1vu0MAW/PzGyWf7pveZKEwQALrvkrhmaNQxmfBkBymj
+	 61vEX+WJ8uODWC70K5vFd0RVx81p/0qwu5KQ2DZD8zo6RNDd6824o3fU1edOJFG4X89qW
+	 GZnvLt/q0DOm1o0OCYcHRUIEyHcgzrcV+8zItAFayXnArQg9dbUcERro9LdYKS31a1dq1
+	 X5RuJdbs3k/7WzKsre53VYDRMcZS80TE98FbM5MyDwvB+89/V4thGbThxQ/mZs3FcyGkL
+	 lHpkrO/TCwwThgYfyb7CXCe/pbnCQ33OXp2Xt1lZ4Ub7qk6cb9VBgy/N9rMIRs3Xqwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794808710;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Qtjxe/UkLfMtfJgLawV+AiEqNNAopf39+TFUQLWRVLY=;
-	b=ozKOFvdxJa3aNhHv+n3gDCjVCRqjx3fuNC+Gx1iPauZ9knMZvUBng7gl/B/bWxFTsSb5
-	 5InEGEfRWpCxAH64+L7fC9xoaCIdMfvatxfmdmKJHLJNfvdush5gdAnixF1ETilNKB3G1
-	 r3gO4aO/N1HTfZiZ7OazXFuXfyRFAP9yfculQssHR2e4BSGPU4SM9e1nPi+D3Ta6X44yc
-	 N1LolfCk1Yk0CKT+4OT19kfZKRseSaLsb16tLKQou+upaY8T1u9p1iIiZZ7H0IGlR3qvV
-	 bcQdueSWeEO7qx1puqljPnKWEiMrTXM7BYVDwL8kZgj6tKLjY1NT0Sog3kjokO2m06Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794808881;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=nePOsiSE38oIpTj8kEKJWPw4XmKgSjPcHWo82NxSsVk=;
+	b=FJUthLdwo6hHhqBLD2g/3mk1Qj7zTx1sffv+W9h7EBTELwsAFK6lsYQsKeO93mwBITBo
+	 hJMdXeUISzTcJhizD/7ThsXaq3Rgi/8L1e5V3AUkWCDDXU+Wl7ei1iBARC2G7qSfIoJf1
+	 wFqA55F54MuVxyC7qThPbJdKqliH3NZoMNUw4RV1v3/5VV/txb/9QxA3rFYSwwttGPhqi
+	 3mrOlyrM0p2N+TYM05MGm5arZ6ZiVaTG2fpoGYg/64RnAJ7vZvsFfFL69cUPSw2yOH/Bm
+	 e0airhHtIAwsB/tfNAcYnCRyWVeGah5GoIb/VfgTR1bdPE5Zpl8vd6UWy5hWU/8bJ0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NkRIot3E;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j89hqomv;
+	arc=none smtp.remote-ip=209.85.210.47
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6125A606A323
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 05:58:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE6F606A323
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 06:01:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCE6F606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NkRIot3E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F4A71F000CB
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 05:58:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794808710;
-	bh=Qtjxe/UkLfMtfJgLawV+AiEqNNAopf39+TFUQLWRVLY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=NkRIot3E/qWwu1CwaGVWtl8JrHrQEzwk73mAjwkGenfeXOeLlAkS4uJkFbojGWqBS
-	 tnysZQBg7zogpJCz+vWbFtmXYS1R6HekG6vyke7+nI2F0ve5j0QooBv22/039TVoWQ
-	 3A93oSmtM8SJCrrHGYSWfFPRMqWIITpyA6ZT1nkaj0lnKhXOHaoJDHHfzFglbbfVuo
-	 m+IqdJ7ZjVmZiWBIfY4y6o62zDVeTKojcpdaSIJTApxBB2f3q2a8/jFOalPA5Iwf9m
-	 lrZpAUzGZPkhFe0lKdnE/7FYvPeNO1tzVL4pHRAgD4aLK3qgH/7lXIqKnE9+OpnDo4
-	 UExrJ35QRXK8A==
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso6907891a12.0
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 21:58:30 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEno6WhplOYxWR+0j9uoB3pPPPmv9cgPezur3wuNrGjKyJhdIRuyFXWus95HebCKj4Q6v4R0OM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IN8J/c3JeyKNXSxw6B0xRscnYHvvbrZwX5KN1KkiUTWLRJTO/
-	hTSIerU7iSbfXI+64HEJRfmmSjK6+fly0vRJp+23SYnS+ErVAFK5bH/3BQTFeqAoQ92NHuHRw2i
-	lqRH30WDzUXUwDZZE7q2I1UQDHeJc1ds=
-X-Received: by 2002:a05:6402:438f:b0:6b5:5ee4:c9d8 with SMTP id
- 4fb4d7f45d1cf-6b7c0c8232bmr7182338a12.32.1794808709070; Sun, 15 Nov 2026
- 21:58:29 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j89hqomv
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-86103aaac12so2739793a34.0
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 22:01:19 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794808879; x=1795413679; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=nePOsiSE38oIpTj8kEKJWPw4XmKgSjPcHWo82NxSsVk=;
+        b=j89hqomvuimomVSu1CF3ItRhsmN5PYi9J+k35y7awl+izbLhdkQg395cbWoGtk2n9L
+         YONflXRLAiEHubmjtDiAjVPf9G6EXs1rophJKA8ahTBa8UMoDB6LXRPokSgLTUOPACOF
+         CFBALFog2JulqHIEdgiJJM0gJP2fOABJ8xbJ8pYuf0H3WQDalLm28dHLkSDEcru6lN4c
+         t4y40b6WvXzxkGKa5YkqP5ngpJSVywwHzWu24OF7y4xXXCAmiqvb8zc5MH9o3qDV/yDH
+         /Jk1/kcP+QhY/oQCRV37WesmNBuWyVPJDqBfC6TG7d3ci1sNNOKwDAY9Qn4i9luxGKJh
+         NX2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794808879; x=1795413679;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nePOsiSE38oIpTj8kEKJWPw4XmKgSjPcHWo82NxSsVk=;
+        b=N0h5pkr0y2qnDbNRD2k7rC3tvL690QicnAS0LryxHCuq2x+3WDkqvZdPKUaAnkScyT
+         VC3xb8gi1/vAeHIkWf3FzQ+4pFQRmG4tFw4G8G15ESQlbAlRu6I19f8BBZYMSTrJON+g
+         vjduryfIpEVqjLs1e1VRDOldkajFXWYCzWzh8ojADd9AvWnykv0bIODdD07l1XzpuxyX
+         EjzA/b9jJj+dY2oF9IEIiFpDgzcT84hneBV+VXXHO6u8THQkwbUeQYJ/R4hvsfCqsx3B
+         Ab9PsU+18jjSyKI+UTpiMByGyQQV85Co9DFmk4VC/T4ILm1EvOdgaTCv7neol0+cEkCp
+         44+A==
+X-Forwarded-Encrypted: i=1; AL+hErEjoO52qR+F9Cn1DRpDFflFbjEYxm5QX8r49gd0OAxFK3V3D77eyy3rVHcUAh0P8DijkPGsngA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+XwMPEfCaovOajz/4QnW/Snt6ngsDs0I3D2VxHGpdgCx88/J6O
+	JskWK0pL747uZNSZofx/eyQRi0Os6rYMUC0LEAsHK2sfnIDFWD3VM14P
+X-Gm-Gg: AYBFou027nIY09Xg28RJU0W2ZisskDosFcHDhMkjhACXDW6Vj9FCZNNyLG70ai1oXAk
+	YRUJ3C4fCEeczr8NkXz6Zj1PNm7HxydM0UufMrlr1Tldgli2DXlOEk9oLkv6RL4ijo786UN46cn
+	bMKYAAXoyuSXYE/nxd/m7t2sZtjI7KRhgTACRTCdvDwP42vnmOsS0BqukaTOs6q3nH5mXLethNs
+	MSj5JrrBCezeOP7UWC8Okn3PbBm9QePO6OwDPzoc+maE0rSKgR5nJPSGYdInK/+kj8kmhPQbMUh
+	S7txeC4X8Z+deBkgdsxEF3tsMdbw3OJHPrAX8MIHgSmoFM8B80NCd8LCbgzsuXvhmcij8g4OqDQ
+	BNVXDRExPsjf4lazzInxPO7Mw1P2ZPOVx6ZOWk014lAGZ4vO8Ff0imF6v2RgKQ3TMzzfgD1WgC2
+	w2BW357GP3OvpK4gn+NfV6CPXbQrz2d6sAR3CxqPXMDr1AnyvFSnnhLq1oVCCmVgLAJ4cIiUSYV
+	h/VXn6pm5/yE6TB8cFqBhZ/DDNzkUFwBUm5DorYPCBajoWqjB9owsNokteUMqEFv7SxnMdtIii9
+	FZS829nSbBKLd2TtfPI3Ka0Ml240KeYLLhcA4/U4jRcgLSXcIKpdpT1efNssCEN/LWCb5qKoJHM
+	EePBBBwjQYRxd6MFO7EQ9DRvPHqLP0yH9dib4Zv6pMF0kukfRkskQ9DiVgywqhS0zdMbQm4n/aG
+	ElE05UdwoWldVWte5wJ58DoV2h88jidbOqHSkUjJe8D4PTh7pWujE=
+X-Received: by 2002:a05:6830:448e:b0:862:bb95:4148 with SMTP id 46e09a7af769-862bb954527mr1954757a34.33.1794808878766;
+        Sun, 15 Nov 2026 22:01:18 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862881a965esm9375160a34.25.2026.11.15.22.01.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 22:01:18 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v6 0/7] dmaengine: dw-axi-dmac: fix termination and pause
+ acknowledgment
+Date: Sun, 15 Nov 2026 23:00:41 -0700
+Message-Id: <20261115-submit-dw-axi-dma-stop-pause-v1-v6-0-bcb23d1e7029@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,310 +94,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
-In-Reply-To: <20260928-driver-core-v1-1-0846bb8e0f32@nxp.com>
-From: Saravana Kannan <saravanak@kernel.org>
-Date: Sun, 15 Nov 2026 21:58:17 -0800
-X-Gmail-Original-Message-ID: <CACRMN=fuqk67Z+OSEhTUnFK-owMyU7iV-Fk=AQexpnz4_mqR9A@mail.gmail.com>
-X-Gm-Features: AclHuK-zpUdb2F46bithlUxQxaDMREUiER_9wRVuxeroYiWCzxmoBbULZP0FN9w
-Message-ID: <CACRMN=fuqk67Z+OSEhTUnFK-owMyU7iV-Fk=AQexpnz4_mqR9A@mail.gmail.com>
-Subject: Re: [PATCH] driver core: hand off fwnode ownership when shared fwnode
- owner is rejected
-To: "Peng Fan (OSS)" <peng.fan@oss.nxp.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>, 
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	imx@lists.linux.dev, Peng Fan <peng.fan@nxp.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43SzWrDMAwA4FcpOddb/G/3tPcYO8i23HgsaZekW
+ Ufpu09pGYTCyMAX+eeTsHSpBuwLDtVuc6l6nMpQDh0FZrupYgPdHllJFFeiFobz2rHhFNoysvT
+ F4FxYaoEN4+HIjnAakE2cRS8zR2ssN74i5dhjLudbhte3e0zEO8ZxZucbAehl6KGLzbxFF3r8f
+ P4jgZlfNIW2+u9b0ROf5f/XR6tmUTmM3KNHVC/7FsrHUzy01VzfJJaeX/cEeUZBIjNl6+WjJxc
+ er9c9SZ7UOeUALhieHj219MS6p2YPQxQqCCVTePT00pPrnibPaSFB2KCtc0vvuv3t34kmabx3/
+ d5gOieXJssIhzapaILQ0SXuMpdKI3l1EtwJD4AW1W12YIwNDeBuk6NUUrlayjqBztlr1MJy720
+ GS99qvbVRBEclXH8AgQsj6dQCAAA=
+X-Change-ID: 20261108-submit-dw-axi-dma-stop-pause-v1-c93f1e767169
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Sergey Khimich <serghox@gmail.com>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Sia Jee Heng <jee.heng.sia@intel.com>
+Cc: Mitch Barnett <mitch@accuratesound.ca>, dmaengine@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, James Hilliard <james.hilliard1@gmail.com>, 
+ stable@vger.kernel.org, Wang YuWei <1973615295@qq.com>
+X-Mailer: b4 0.17-dev
 
-I'd like to reject this patch. More details below.
+Keep cyclic mode in each descriptor so failed preparation and queued
+work cannot change the completion handling of another transfer.
 
-On Mon, Sep 28, 2026 at 4:51=E2=80=AFAM Peng Fan (OSS) <peng.fan@oss.nxp.co=
-m> wrote:
->
-> From: Peng Fan <peng.fan@nxp.com>
->
-> When multiple devices share the same fwnode (e.g. the SCMI bus creates
-> both "pinctrl" and "pinctrl-imx" devices for SCMI_PROTOCOL_PINCTRL), only
-> the first device registered becomes the fwnode owner (fwnode->dev, set in
-> device_add()). If that owner never binds -- for example its driver return=
-s
-> -ENODEV because it is blocklisted on this SoC,
+Use the layout-aware channel enable check during termination and retain
+transfer resources when the channel does not stop. Preserve suspension
+status for the pause and resume paths, including acknowledgments that
+arrive after a polling timeout or during another channel's interrupt.
 
-If it's blocklisted, why is the driver registering itself to match
-that device? Register a different match list during driver
-registration if you realize you are running on a particular SoC?
-Saying your driver supports a device and then not probing it when
-requested is not right. Honestly, this is the simplest fix.
+Keep a pending pause across cyclic segment completion and resume the
+segment only after the client releases the pause. Track the active
+descriptor until completion so queued work cannot reissue it while its
+interrupt is pending.
 
-> or because its driver is
-> not compiled in at all -- then driver_bound() is never called for it, so
-> fwnode_links_purge_suppliers() and fw_devlink_pickup_dangling_consumers()
-> are never run for the fwnode. The child fwnode supplier links (pin group
-> nodes such as lpi2c3grp, uart5grp, ...) stay unsatisfied and every
-> consumer of those child nodes defers probe forever.
+Retain terminated descriptors until their callbacks have drained, including
+cyclic descriptors that error handling has moved to the completed list.
+Serialize interrupt status collection with channel reuse so an old event
+cannot complete a replacement transfer.
 
-For the not compiled in part, after a timeout, fw_devlink unblocks all
-probes. You can even set it to a very small number using
-CONFIG_DRIVER_DEFERRED_PROBE_TIMEOUT too. So it should never block for
-the scenario of the driver not being compiled in or ever loaded.
+This series uses the shared virt-dma descriptor-retirement helper [0].
 
-> On i.MX95 this manifests as a complete boot failure: the generic "pinctrl=
-"
-> SCMI device claims fwnode ownership but its driver returns -ENODEV, while
-> the vendor "pinctrl-imx" device binds successfully. Because
-> dev->fwnode->dev still points at the rejected "pinctrl" device,
-> driver_bound() of "pinctrl-imx" skips the supplier purge and dangling
-> consumer pickup, so all I2C buses, SPI, UART, MMC, USB and PCIe
-> controllers wait forever for their pinctrl suppliers.
->
-> Fix this in two places:
->
-> 1. In really_probe() failure path: when the driver definitively rejects
->    a device (-ENODEV / -ENXIO),
+[0] https://lore.kernel.org/r/20261115-submit-sun4i-dma-callback-lifetime-v1-v2-1-fb7d258702f8@gmail.com/
 
-This is just arbitrary. Why not do this for all the error returns
-other than -EPROBE_DEFER and -ENOMEM? This might work for your case,
-but I don't think you can make a sweeping call for all drivers.
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v6:
+- Retain descriptors through callback synchronization using the posted
+  virt-dma helper, covering pending, executing and error-completed cyclic
+  callbacks raised in Mitch's follow-up.
+- Serialize interrupt status collection with channel reuse and clear old
+  completion and error status after successful termination.
+- Link to v5: https://patch.msgid.link/20261113-submit-dw-axi-dma-stop-pause-v1-v5-0-8523a27b5788@gmail.com
 
-> fw_devlink_release_shared_fwnode() is
->    called. If the rejected device is the fwnode owner, it either
->    transfers ownership to an already-bound sibling (and runs the
->    purge/pickup on its behalf) or clears ownership so the next sibling
->    to bind can re-acquire it.
->
-> 2. In device_links_driver_bound(): re-acquire the fwnode when it is
->    unowned (!fwnode->dev) or when the current owner has no driver at
->    all (!fwnode->dev->driver, meaning the driver was never compiled in
->    or loaded as a module). This covers the case where probe rejection
->    never happens because no driver ever matches.
->
-> fwnode->dev is not serialized by a lock; instead every writer only ever
-> touches a fwnode->dev it already owns (=3D=3D dev, as device_del() does w=
-hen
-> it clears ownership) or one that is currently unowned (=3D=3D NULL, as
-> device_add() does when it claims ownership). This patch follows the same
-> discipline: fw_devlink_release_shared_fwnode() only writes fwnode->dev
-> when this device is the current owner; device_links_driver_bound() only
-> claims fwnode->dev when it is NULL or when the current owner has no
-> driver (and therefore cannot be in the process of binding).
->
-> Fixes: f9aa460672c9 ("driver core: Refactor fw_devlink feature")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Peng Fan <peng.fan@nxp.com>
-> ---
-> This issue is triggered by
-> aac4e67d6eb9 ("firmware: arm_scmi: Always create devices for standard pro=
-tocols")
-> in linux-next next-20260925.
->
-> But I think this is a fix to
-> f9aa460672c9 ("driver core: Refactor fw_devlink feature")
->
-> Detailed information could be found in patch commit log.
-> ---
->  drivers/base/base.h |  1 +
->  drivers/base/core.c | 63 +++++++++++++++++++++++++++++++++++++++++++++++=
-++++++
->  drivers/base/dd.c   |  9 ++++++++
->  3 files changed, 73 insertions(+)
->
-> diff --git a/drivers/base/base.h b/drivers/base/base.h
-> index a5b7abc10ff0..36d34aa328c5 100644
-> --- a/drivers/base/base.h
-> +++ b/drivers/base/base.h
-> @@ -292,6 +292,7 @@ void device_links_unbind_consumers(struct device *dev=
-);
->  bool device_link_flag_is_sync_state_only(u32 flags);
->  void fw_devlink_drivers_done(void);
->  void fw_devlink_probing_done(void);
-> +void fw_devlink_release_shared_fwnode(struct device *dev);
->
->  #define dev_for_each_link_to_supplier(__link, __dev)   \
->         list_for_each_entry_srcu(__link, &(__dev)->links.suppliers, c_nod=
-e, \
-> diff --git a/drivers/base/core.c b/drivers/base/core.c
-> index 5daa88fa724a..e76153d5f124 100644
-> --- a/drivers/base/core.c
-> +++ b/drivers/base/core.c
-> @@ -1376,6 +1376,20 @@ void device_links_driver_bound(struct device *dev)
->         struct device_link *link, *ln;
->         LIST_HEAD(sync_list);
->
-> +       /*
-> +        * Multiple devices may share the same fwnode (e.g. the SCMI bus
-> +        * creates several devices per protocol node).  The first one
-> +        * registered owns the fwnode; if that owner's driver is rejected
-> +        * it relinquishes ownership (fwnode->dev =3D=3D NULL, see
-> +        * fw_devlink_release_shared_fwnode()).  If the owning device has
-> +        * no driver at all (driver never compiled / loaded as module), i=
-t
-> +        * will never bind, so it is safe to take over.  Re-acquire the
-> +        * fwnode here so the purge/pickup still happens.
-> +        */
-> +       if (dev->fwnode && (!dev->fwnode->dev ||
-> +           (dev->fwnode->dev !=3D dev && !dev->fwnode->dev->driver)))
-> +               dev->fwnode->dev =3D dev;
-> +
->         /*
->          * If a device binds successfully, it's expected to have created =
-all
->          * the device links it needs to or make new device links as it ne=
-eds
-> @@ -1390,6 +1404,7 @@ void device_links_driver_bound(struct device *dev)
->          * consumers to defer probe indefinitely waiting for a device for=
- the
->          * child firmware node.
->          */
-> +
+Changes in v5:
+- Use a positive enabled-channel condition in the suspend-status helper,
+  following Andy's review.
+- Initialize the resume result immediately before its first use.
+- Separate the lock-protected channel bitfields from the preceding fields.
+- Link to v4: https://patch.msgid.link/20261112-submit-dw-axi-dma-stop-pause-v1-v4-0-3ebc24b243db@gmail.com
 
-Did you add a blank line for no reason? Or am I missing something?
+Changes in v4:
+- Add a preparatory fix for cyclic mode leaking between transfers,
+  following Sashiko's review. Store the mode in each descriptor so
+  failed preparation, error recovery and queued work cannot change
+  another transfer's completion handling.
+- Link to v3: https://patch.msgid.link/20261110-submit-dw-axi-dma-stop-pause-v1-v3-0-35fdfba8b61d@gmail.com
 
->         if (dev->fwnode && dev->fwnode->dev =3D=3D dev) {
->                 fwnode_links_purge_suppliers(dev->fwnode);
->                 fw_devlink_pickup_dangling_consumers(dev);
-> @@ -1474,6 +1489,54 @@ void device_links_driver_bound(struct device *dev)
->         device_links_flush_sync_list(&sync_list, dev);
->  }
->
-> +static int fwnode_shared_bound_match(struct device *dev, const void *dat=
-a)
-> +{
-> +       const struct device *rejected =3D data;
-> +
-> +       return dev !=3D rejected && dev->fwnode =3D=3D rejected->fwnode &=
-&
-> +              device_is_bound(dev);
-> +}
-> +
-> +/**
-> + * fw_devlink_release_shared_fwnode - Hand off a shared fwnode on probe =
-reject.
-> + * @dev: Device whose driver just definitively rejected it (-ENODEV/-ENX=
-IO).
-> + *
-> + * Several devices can share one fwnode (e.g. the SCMI bus creates both =
-a
-> + * "pinctrl" and a "pinctrl-imx" device for one protocol node). Only the=
- first
-> + * one registered owns the fwnode (fwnode->dev). If that owner's driver =
-rejects
-> + * the device, driver_bound() never runs for it, so the dangling consume=
-rs of
-> + * the fwnode's child nodes are never picked up and defer probe forever.
-> + *
-> + * When the rejected device is the fwnode owner, relinquish ownership so=
- those
-> + * consumers can be resolved by a sibling that does bind:
-> + *
-> + *  - If a sibling has already bound, transfer ownership to it and run t=
-he
-> + *    purge/pickup the owner could not do.
-> + *  - Otherwise clear ownership so the next sibling to bind re-acquires =
-it in
-> + *    device_links_driver_bound() and runs the purge/pickup there.
-> + *
-> + * fwnode->dev is not lock-serialized; this only ever writes it when @de=
-v is
-> + * the current owner (fwnode->dev =3D=3D dev), the same ownership-gated =
-rule
-> + * device_del() uses when it clears fwnode->dev on the owner.
-> + */
-> +void fw_devlink_release_shared_fwnode(struct device *dev)
-> +{
-> +       struct device *sibling;
-> +
-> +       if (!dev->fwnode || dev->fwnode->dev !=3D dev)
-> +               return;
-> +
-> +       sibling =3D bus_find_device(dev->bus, NULL, dev, fwnode_shared_bo=
-und_match);
-> +       if (sibling) {
-> +               dev->fwnode->dev =3D sibling;
-> +               fwnode_links_purge_suppliers(dev->fwnode);
-> +               fw_devlink_pickup_dangling_consumers(sibling);
-> +               put_device(sibling);
-> +       } else {
-> +               dev->fwnode->dev =3D NULL;
-> +       }
+Changes in v3:
+- Wrap the atomic polling calls by argument group and correct their
+  continuation indentation, following Andy's review.
+- Move the termination return-value check simplification into the
+  channel-enable polling patch.
+- Separate the pause-loop conversion to atomic polling from the
+  pending-request and cyclic-restart changes.
+- Annotate the suspend-wait helper with its channel-lock requirement.
+- Pack the lock-protected flags into existing padding while keeping
+  cyclic separately writable, following Andy's review.
+- Link to v2: https://patch.msgid.link/20261109-submit-dw-axi-dma-stop-pause-v1-v2-0-64adc48df793@gmail.com
 
-This is not even correct. If you don't have a sibling that's bound,
-you are just clearing the fwnode->dev and leaving a bunch of device
-links stuck to the old device. And in the case there is a sibling
-device, you are assuming all the consumers are only pointing to the
-child devices. If a consumer was pointing to this device, then you are
-just deleting the device link and not moving it to the sibling.
+Changes in v2:
+- Use readx_poll_timeout_atomic() for the single-argument status helpers
+  and express the termination polling interval and timeout in milliseconds,
+  following Andy's review.
+- Track pending suspend requests separately from confirmed suspension so
+  resume can handle acknowledgments received after a pause timeout.
+- Use the atomic polling helper, including its final status check, and
+  report -EAGAIN if resume cannot yet cancel a pending suspend request.
+- Defer cyclic restart while paused and track the active descriptor until
+  completion, preventing resume or issue_pending from reissuing it.
+- Reset pause state on successful termination and channel allocation;
+  clear stale status when starting a new descriptor.
+- Link to v1: https://patch.msgid.link/20261108-submit-dw-axi-dma-stop-pause-v1-v1-0-c48ec19e9ee4@gmail.com
 
-This patch is just a hodge podge of ideas that happen to fix it for
-the imx case, but not really a sound/principled design.
+To: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>
+To: Vinod Koul <vkoul@kernel.org>
+To: Frank Li <Frank.Li@kernel.org>
+To: Sergey Khimich <serghox@gmail.com>
+To: Sia Jee Heng <jee.heng.sia@intel.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: dmaengine@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-This patch also makes a lot of assumptions that I'm not comfortable
-with. Please try the simpler fix I suggested above. Essentially, edit
-drivers/pinctrl/pinctrl-scmi.c so it doesn't always register the
-driver. Register it only if it's not one of those blocked machines.
+---
+James Hilliard (7):
+      dmaengine: dw-axi-dmac: keep cyclic mode in the descriptor
+      dmaengine: dw-axi-dmac: poll the correct enable bit during termination
+      dmaengine: dw-axi-dmac: retain descriptors when termination times out
+      dmaengine: dw-axi-dmac: use atomic polling for suspend acknowledgment
+      dmaengine: dw-axi-dmac: preserve pending pause requests
+      dmaengine: dw-axi-dmac: retain descriptors until callbacks drain
+      dmaengine: dw-axi-dmac: serialize interrupt status with channel reuse
 
-If we really want a systemic solution to the "two device point to one
-fwnode" problem, then we have a couple of options:
+ drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 183 +++++++++++++++++--------
+ drivers/dma/dw-axi-dmac/dw-axi-dmac.h          |  10 +-
+ 2 files changed, 130 insertions(+), 63 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine.git fixes
+change-id: 20261108-submit-dw-axi-dma-stop-pause-v1-c93f1e767169
+prerequisite-patch-id: fc343480330da5ff95e5271997fa71107977c2b8
 
-1. Have the bus code that's adding the two devices to make one of them
-to be ignored for fw_devlink.
-2. For any fwnode with multiple devices, give up enforcing fw_devlink
-for that node and all its descendants.
-3. Have the bus code that's adding the two devices to go through all
-the fwnode_links and mark which link is for which device.
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
-(1) is simplest and an opt-in.
-(2) will affect a lot of current cases where the first added device is
-the right one and has no problem (eg: PCI)
-(3) will work well if the bus can actually tell the devices and their
-consumers apart, but will also increase the memory usage a bit (need
-to store a dev pointer or cookie for every fwnode link)
-
-Neither of these are great options, but they are better than some
-partial heuristics that can't be easily applied for all systems and
-depend on timing.
-
--Saravana
-
-> +}
-> +
->  /**
->   * __device_links_no_driver - Update links of a device without a driver.
->   * @dev: Device without a drvier.
-> diff --git a/drivers/base/dd.c b/drivers/base/dd.c
-> index f6525a7ee8c5..e19cfc91ebe1 100644
-> --- a/drivers/base/dd.c
-> +++ b/drivers/base/dd.c
-> @@ -762,6 +762,15 @@ static int really_probe(struct device *dev, const st=
-ruct device_driver *drv)
->  dev_groups_failed:
->         device_remove(dev);
->  probe_failed:
-> +       /*
-> +        * -ENODEV/-ENXIO mean the driver definitively rejected this devi=
-ce
-> +        * (errors are returned as positive values at this label). If it =
-owns a
-> +        * fwnode shared with sibling devices (e.g. SCMI creates several =
-devices
-> +        * per protocol node), hand the fwnode off so its dangling child
-> +        * consumers can be resolved by a sibling instead of deferring fo=
-rever.
-> +        */
-> +       if (ret =3D=3D ENODEV || ret =3D=3D ENXIO)
-> +               fw_devlink_release_shared_fwnode(dev);
->         driver_sysfs_remove(dev);
->  sysfs_failed:
->         bus_notify(dev, BUS_NOTIFY_DRIVER_NOT_BOUND);
->
-> ---
-> base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
-> change-id: 20260928-driver-core-f1d9e991edb2
->
-> Best regards,
-> --
-> Peng Fan <peng.fan@nxp.com>
->
