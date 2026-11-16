@@ -1,50 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=184.106.54.120
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794824098;
-	b=kGYjYarZ9dlY9nv6QeXiFKYRsjZzwgwxjl8a/yen+ID8pq3/wsD1NUl5AHr6iE0MGlIh
-	 kWglAygT9+StcSCZs76R7oHbSPbwhO5gd98WFrw76Ekm7Pef7EjROsCbHHCsss6ypHBu6
-	 0KpZp/RtLKmAg44l2O/ztMMZ+XlhjLtl7dmVc5Bn24R47QOgL/xWQHd9NsPMwjj7nWks4
-	 za5Gvw6EFuhIuuYc88SmOSYCeOmNcpGrICv9HQQ1bviPwIT3KSdKmquewwSITWv/QN/AL
-	 ADOsD3J4bfkn3gHnbPJULMJ77sWxu08sbY+BSt2Xmy2P3YyMnEGXrcHKawF+bmJ4U5g==
+	t=1794824179;
+	b=o9ca9Six7vr2DN9xhUQ3ytGmeY1Dct2r5t6vmNqZVSohB0nNMtm8S8JMHtBl1Nn3bfw5
+	 t4L7Vk0TUqmLhtjEKWH1V6ELHHI6d9MWllQPQA4EZH6Dg8ggqn387xYzecUMPi8/deu+U
+	 EtSgV2B58zsKFpYNuJSlVM8MG6ZnhNuipaOHTFBufQ95bmUPvEiBQD+MpQWnFWozewHms
+	 gImde1BC52uD2ICAlAr9Rec2ayA3HA5qbCZbz33tnf9ekU78aQwZxye/6pYPFc6U3DBPS
+	 sLYxyRQ9PrReIwNvgiFmvfnoS9F8JffRkNKu2qSC/HR8ccUtdpxe4rd6ymIRDY+N53A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794824098;
-	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:Organization:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Classification-ID;
-	bh=SQ/dI9dsVM147KmQyCu8940dPv7eiRNbyoonkE+v7wY=;
-	b=od/TXrxJ+ZCFUJqBxSwgeCcTbWNeRpYTm7T9Zb+HRpDcO9HstzgB2EFKlu/WOKhwTLaf
-	 sM/bkfOwsoYixSVSusWKhgHrjdpOWLs5NQBvF5JvrLg0G3HrS4noTCpntDjfSKv/FDiNy
-	 2tRSZKTOgmnzk5KjTZWik8j+Zs6IbFWMKcpCgxgbbtgYTwtmxIgdr6y2kMc5gQEXioGsW
-	 ZZVoKk1OEQ0QWh68oDsArxAVSZ8evoLjWu1JPJF97kTaCxvo/bZf9jjRCJYoiNBY3Qxi3
-	 NlmH5OB5R8bq7nwRvei7bSWtdhhjyW8tvm1XUjKS/nXzv/xOnLQFFUg/LHjEVgHF4Yw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794824179;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=lp1hBh3kGMtiMv4I01/WDcU3LFNFBfEj5W+S8mSCYKc=;
+	b=qgOpgP5zMr4K3DHm2LDaK9uRdFepPFXWM/4C65S+fJCeaFEHnYT3n3UFyFkfwMDh1Ebm
+	 qHGy7Ik8zg1qzaypEq+SX9Xt55ojrcMP4N9zWsVMXG6OemCkEsYRDcZ2PflZnZX+XuIlr
+	 BbdHaUwLa0azfd8/kSYKXbSPl+zWZQ5S4WwbPCPneQeB/FoG4D+n1dKFg1zBZF3aDUqC2
+	 qaUOpgEcDn/a3uMNIPOSkGz0i0SaUQJEK/5lpPE/o4EDf5DIhGx3A+PvY5Oz4eQ5lnOdY
+	 Ix5Gz8NEDjvUQeFQmqUgJcxtWHw7xXtiRUBtmQpAV9X9DbaI7pG+mpip1Ef3ZKhP3Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mev.co.uk;
-	spf=pass smtp.mailfrom=mev.co.uk;
-	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=niRxiDUG;
-	arc=none smtp.remote-ip=184.106.54.120
-Received: from smtp120.ord1d.emailsrvr.com (smtp120.ord1d.emailsrvr.com [184.106.54.120])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9803F606A323
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:14:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9803F606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=niRxiDUG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-	s=20221208-6x11dpa4; t=1794824090;
-	bh=eoWnZRZmALCF+kIvIYZxN9W8oA7hh9Q0a3aJPfpZ4ck=;
-	h=Date:Subject:To:From:From;
-	b=niRxiDUGNCRJ7A8iSPYeqfSkHs+QNzNTzGQND1Jbilp1adIoaeHvB1AxHDgZKE03f
-	 iBkr7hoblP83/DEEjmQogWb2Ggjmzffqpu3PyGV9+L+shZZ892WqspPHWhD8QvpY5/
-	 7miQSRNiSqMix1A9MzeFGB8qJFZHNn616z8tdofs=
-X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp8.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id A6C81C01F2;
-	Mon, 16 Nov 2026 05:14:49 -0500 (EST)
-Message-ID: <68cfd12f-5e86-45d6-b186-46058cbacc1b@mev.co.uk>
-Date: Mon, 16 Nov 2026 10:14:49 +0000
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D385A606A31C;
+	Mon, 16 Nov 2026 10:16:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D385A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=lp1hBh3kGM
+	tiMv4I01/WDcU3LFNFBfEj5W+S8mSCYKc=; b=cAqQfbC+WP8SkhEgXaV8Z0b4Ga
+	WvAoZa5vHcNAr0MpgVK9Pih0DKqO26s1vlyP90OlpW0LBlTCsPWlBHqVbjsOF6Qf
+	3eaFJBcpwEYyJJsOaVezKimi0ebGIm4rdvf+l1EM08eG7seG+waUghBWqh5qTnM7
+	dR8iT87LHB/GR8aGo=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDW2_7k1_pqoDG2AQ--.2231S2;
+	Mon, 16 Nov 2026 18:16:04 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Alan Stern <stern@rowland.harvard.edu>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] usb-storage: reject too small values in max_sectors_store()
+Date: Mon, 16 Nov 2026 18:16:04 +0800
+Message-Id: <20261116101604.42161-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,161 +59,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] comedi: defer freeing async areas that still have pollers
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>,
- H Hartley Sweeten <hsweeten@visionengravers.com>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
-References: <20261116085328.11090-1-25031212351@stu.xidian.edu.cn>
-Content-Language: en-US
-From: Ian Abbott <abbotti@mev.co.uk>
-Organization: MEV Ltd.
-In-Reply-To: <20261116085328.11090-1-25031212351@stu.xidian.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Classification-ID: 36dd1f15-91be-4f68-b55c-f259251cbc73-1-1
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkDW2_7k1_pqoDG2AQ--.2231S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar43Jr4DCw1DKw43trWUurg_yoW8uw13pF
+	ZrXFyakFWUtanrWws8Xw17uasYk39rGFy2krsxXwn5urnxGF9IkryUtr1aqFy3Awn8Aa48
+	tFZ0yFyqk3yDuFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9vb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
+	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r
+	15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+	r41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4DMxAIw28IcxkI7VAKI48JMxC20s
+	026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_
+	JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14
+	v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xva
+	j40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JV
+	W8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8LYFJUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2r5zUi2hAACs9
 
-On 2026-11-16 08:53, YuanZhe Liu wrote:
-> comedi_device_detach_cleanup() frees the async area of every subdevice.
-> The async area contains the wait queue head that comedi_poll() queues
-> pollers on, and a poller is not removed while comedi_poll() runs:
-> comedi_poll() only holds dev->attach_lock while adding the wait queue
-> entry, and the entry is removed later by poll_freewait() when the poll
-> system call returns.
-> 
-> Detaching through the COMEDI_DEVCONFIG ioctl is guarded by
-> is_device_busy(), which refuses to detach while the wait queue has
-> sleepers.  Removing the hardware is not: comedi_release_hardware_device()
-> calls comedi_free_board_dev(), which detaches unconditionally.  Unplugging
-> a USB COMEDI device while a task is polling it therefore frees the async
-> area from under that task, and the task hits a use-after-free when
-> poll_freewait() locks the freed wait queue head:
-> 
->    BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave
->    Write of size 4 at addr ffff888004508498
->    Call Trace:
->     _raw_spin_lock_irqsave
->     remove_wait_queue
->     free_poll_entry
->     poll_freewait
->     do_sys_poll
-> 
-> Every task that can have an entry queued on async->wait_head holds a
-> reference to the COMEDI device file, and comedi_open() holds a reference
-> to the COMEDI device for as long as the file is open.  The device
-> therefore cannot be released until the poll system call is done with the
-> wait queue, so move async areas that still have waiters to a list and
-> free them from comedi_dev_kref_release() instead of freeing them at
-> detach time.
-> 
-> Fixes: 2f3fdcd7ce93 ("staging: comedi: add rw_semaphore to protect against device detachment")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-> ---
->   drivers/comedi/comedi_fops.c     |  8 ++++++++
->   drivers/comedi/drivers.c         | 14 +++++++++++++-
->   include/linux/comedi/comedidev.h |  8 ++++++++
->   3 files changed, 29 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/comedi/comedi_fops.c b/drivers/comedi/comedi_fops.c
-> index 9a65dc5d62a4..932e35d7f68c 100644
-> --- a/drivers/comedi/comedi_fops.c
-> +++ b/drivers/comedi/comedi_fops.c
-> @@ -106,6 +106,7 @@ static struct cdev comedi_cdev;
->   static void comedi_device_init(struct comedi_device *dev)
->   {
->   	kref_init(&dev->refcount);
-> +	INIT_LIST_HEAD(&dev->async_free_list);
->   	spin_lock_init(&dev->spinlock);
->   	mutex_init(&dev->mutex);
->   	init_rwsem(&dev->attach_lock);
-> @@ -116,6 +117,13 @@ static void comedi_dev_kref_release(struct kref *kref)
->   {
->   	struct comedi_device *dev =
->   		container_of(kref, struct comedi_device, refcount);
-> +	struct comedi_async *async, *tmp;
-> +
-> +	list_for_each_entry_safe(async, tmp, &dev->async_free_list,
-> +				 free_list) {
-> +		list_del(&async->free_list);
-> +		kfree(async);
-> +	}
->   
->   	mutex_destroy(&dev->mutex);
->   	put_device(dev->class_dev);
-> diff --git a/drivers/comedi/drivers.c b/drivers/comedi/drivers.c
-> index 3f75485338a1..f91535fccd2b 100644
-> --- a/drivers/comedi/drivers.c
-> +++ b/drivers/comedi/drivers.c
-> @@ -168,7 +168,19 @@ static void comedi_device_detach_cleanup(struct comedi_device *dev)
->   			comedi_free_subdevice_minor(s);
->   			if (s->async) {
->   				comedi_buf_alloc(dev, s, 0);
-> -				kfree(s->async);
-> +				/*
-> +				 * A task that is polling the device file may still
-> +				 * have an entry queued on the wait queue inside the
-> +				 * async area.  Such a task holds a reference to the
-> +				 * device file, which keeps the COMEDI device itself
-> +				 * alive until the poll is done with it, so defer
-> +				 * the release until the device is released.
-> +				 */
-> +				if (wq_has_sleeper(&s->async->wait_head))
-> +					list_add_tail(&s->async->free_list,
-> +						      &dev->async_free_list);
-> +				else
-> +					kfree(s->async);
->   			}
->   			kfree(s->readback);
->   		}
-> diff --git a/include/linux/comedi/comedidev.h b/include/linux/comedi/comedidev.h
-> index 577a08f37aee..54e324c0614f 100644
-> --- a/include/linux/comedi/comedidev.h
-> +++ b/include/linux/comedi/comedidev.h
-> @@ -15,6 +15,7 @@
->   #include <linux/spinlock_types.h>
->   #include <linux/rwsem.h>
->   #include <linux/kref.h>
-> +#include <linux/list.h>
->   #include <linux/completion.h>
->   #include <linux/comedi.h>
->   
-> @@ -365,6 +366,11 @@ struct comedi_async {
->   	unsigned int cb_mask;
->   	int (*inttrig)(struct comedi_device *dev, struct comedi_subdevice *s,
->   		       unsigned int x);
-> +	/*
-> +	 * Link in &struct comedi_device.async_free_list when the async area
-> +	 * cannot be freed at detach time because pollers may still use it.
-> +	 */
-> +	struct list_head free_list;
->   };
->   
->   /**
-> @@ -558,6 +564,8 @@ struct comedi_device {
->   
->   	int n_subdevices;
->   	struct comedi_subdevice *subdevices;
-> +	/* async areas waiting for the last user of the device */
-> +	struct list_head async_free_list;
->   
->   	/* dumb */
->   	void __iomem *mmio;
+Writing a value smaller than a page worth of sectors to
+/sys/class/scsi_device/.../device/max_sectors passes an invalid
+max_hw_sectors to queue_limits_commit_update_frozen().  The block layer
+requires max_hw_sectors to cover at least one page and treats a smaller
+value as a driver bug:
 
-The patch looks interesting, but I have already sent a patch that fixes 
-the problem in a different way, by waiting for the queues to clear 
-before freeing the storage.
+ WARNING: block/blk-settings.c:389 at blk_validate_limits+0xeb9/0x14b0
+ Call Trace:
+  queue_limits_commit_update
+  queue_limits_commit_update_frozen
+  max_sectors_store
+  dev_attr_store
+  sysfs_kf_write
 
-https://lore.kernel.org/lkml/20261112173314.118594-1-abbotti@mev.co.uk/
+Before commit 70a7949335e5 ("scsi: usb-storage: Switch to using
+->device_configure") the store called blk_queue_max_hw_sectors(), which
+silently raised values below PAGE_SECTORS to that minimum.  The
+conversion to the queue_limits API lost the clamping, so a single sysfs
+write from user space can now trigger the warning.
 
+Reject values below PAGE_SECTORS with -EINVAL before taking the limits
+lock.  This keeps the return value for 1..7 unchanged, as the block
+layer already returned -EINVAL for them, and also rejects zero, which
+blk_validate_limits() would otherwise replace with BLK_SAFE_MAX_SECTORS
+without the user asking for it.
+
+Fixes: 70a7949335e5 ("scsi: usb-storage: Switch to using ->device_configure")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+ drivers/usb/storage/scsiglue.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/usb/storage/scsiglue.c b/drivers/usb/storage/scsiglue.c
+index 97de28e85562..94131b726ade 100644
+--- a/drivers/usb/storage/scsiglue.c
++++ b/drivers/usb/storage/scsiglue.c
+@@ -591,6 +591,8 @@ static ssize_t max_sectors_store(struct device *dev, struct device_attribute *at
+ 
+ 	if (sscanf(buf, "%hu", &ms) <= 0)
+ 		return -EINVAL;
++	if (ms < PAGE_SECTORS)
++		return -EINVAL;
+ 
+ 	lim = queue_limits_start_update(sdev->request_queue);
+ 	lim.max_hw_sectors = ms;
 -- 
--=( Ian Abbott <abbotti@mev.co.uk> || MEV Ltd. is a company  )=-
--=( registered in England & Wales.  Regd. number: 02862268.  )=-
--=( Regd. addr.: S11 & 12 Building 67, Europa Business Park, )=-
--=( Bird Hall Lane, STOCKPORT, SK3 0XA, UK. || www.mev.co.uk )=-
+2.34.1
 
