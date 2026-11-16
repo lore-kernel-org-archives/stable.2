@@ -1,103 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.20
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794861403;
-	b=FtjSReaW4vX/dMDYgWodC4NpA6wWdUyJj7RiO16tEiANijaATfJVXSLHnitEEZEjKqiU
-	 e+RxIyRmIKTnefuYffvTnOib5KxRrwvRn7ghli6Pu2CqcNQUKpY8s+EVVuDDNcfnGaLNT
-	 qWE6FO3x7CufrBA2houoLpOnRutbPuxBxQHCzfS9+42/twiNYUiOat5YNWYcz4pXP7bvm
-	 CABxGRrfjrZ2/ViqhCT0TEeXcQp52hG40SqAxIbS75zFtcifxHpqXyedTjCrEcBG5yIV1
-	 mH6bg0V4C/X1Q4bmd5Yj7Fn0i2Tdljxkpml8LVwSA5M3pqRK3wDbGXTcsf7wzMX9S6g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794861403;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy:X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=eeZOPO3QLfvWLA8CHiJx3zwNTnETF1XOOEPEFdBmXsM=;
-	b=hdX7T2MH/3w2ziNQtDdy2XodL9wRs+eyBsYWJCn2ZC5h0BGGSY+gFoTq3aYfZaKy2dgv
-	 pLPvr/DhdIfwxzGQDAkn31j+5Yyzl0ci4i4NnzvD324v4xzuDjCr/Cq/AoEA1cpbZrSpT
-	 d13Ihhn84uEXzxBrcu8+inCr3XTEAPkKchtR+DEAZw2c8ccO+56hKz6UtHej3vHp2T9Kr
-	 dpnYKSJisW5qPFBWzY59oBrpyqxnL4vednOCC1zzCXK2O90xhl6dRi95ybW8TrCwdqE9s
-	 JM5MypCNWaofJQgPVLDGo7aik1SUJKPz31+uqXkFfFF2cCMsBAPxEDB4hD3K6QNzEXA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=z0VoxvvV;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.20
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012020.outbound.protection.outlook.com [40.107.200.20])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=173.37.86.79
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794861545;
+	b=DqBLsc1N28inc2R+OhUM6tubjWkmBRImmooHQagihu5KqNUximOxMjQQuJCwIiqEVc1F
+	 Q5dEsONihc2BsQjH8xQ6RxtpGHVjFog2JNDB9+nTGGh3lBcv+/l+UmSkjD3QSaAjodUnz
+	 mZBk7MArjHpZVw/IxT0cOwiZOIS4t1WAUyDgxVcUCsrN+y4WGr0vHbP0nHiJlLssuVRPe
+	 aGRu0hNn/LgFv64bWdeFe2OkJaSwXI995CO6L0SQd53BfnJhKmE5zgxFbKS+7K3njO9HM
+	 O9Wb6frKRURvksT4d9r7fVm2eTUYesMArEYLjXcywlbDsRM8VvMHyBdaAg+Pj3EjfvQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794861545;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IPAS-Result:IronPort-Data:IronPort-HdrOrdr:X-Talos-CUID:
+	 X-Talos-MUID:X-IronPort-Anti-Spam-Filtered:X-IronPort-AV:Received:
+	 Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Outbound-Client-TLS:
+	 X-Outbound-SMTP-Client:X-Outbound-Node;
+	bh=xVJ7wS5s+PAGh2ipNS10JXvI3Lsan3rvod9uIbNhZRI=;
+	b=Bq19ujVgdIwvBeZJsXGJLhOKZuO8INoMV34i5+8x6nvCXwkEQQCVHusLRQo4aK3R/Df0
+	 QX2Pck6gxnt8dniCdKm73Fz9GudDtqmOejDXEMIbd95U3CPkmQQkK+UqoQyqKEC7yATMB
+	 8WiJG8ZAPtAFNiw+nBf2Z25HNWQWeyt0DAyo8JxoGLpBN8ANlM2gQg9zSr639rOpLli7s
+	 o9q1E0xrWQZkaBudRcw1HVTbQAarGjafN916mPIQjuS/YChiqEU1cyLAEfIvIeOgCkc/o
+	 P937v37/uXn6AVbLyGO8IljFyTqixiHOECallbk7tWmdryxNB/i45izSSO1CA1MpZng==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cisco.com;
+	spf=pass smtp.mailfrom=cisco.com;
+	dkim=pass header.d=cisco.com header.i=@cisco.com header.a=rsa-sha256 header.s=iport01 header.b=GHOAy6lp;
+	arc=none smtp.remote-ip=173.37.86.79
+Received: from rcdn-iport-8.cisco.com (rcdn-iport-8.cisco.com [173.37.86.79])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD9A606A33E;
-	Mon, 16 Nov 2026 20:36:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFD9A606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58E3606A334;
+	Mon, 16 Nov 2026 20:39:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C58E3606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cisco.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cisco.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=z0VoxvvV
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=UDv8T8hKUaoBXJDZbsXWXT2jnpJoSz3Pnsiin3uZpH8/zNYUwptWuqsaDY7oaMTB7DJRhvghK8SDqUlRVajMzs3wJbD3BjxgnxMk8vU9nFz0+CPtVVsZH2UZs1gz3jhBhguyM5TQFs5f9sfIYqPV5t9RSM+P3G6ew5Vky1sQHRH+VUVI/mvFWK1DjC5qBnKJsrFUmS1JpnSXQS79U7U9xZCbsT2M8r1w5BUUU0bcBOUDSwilUCdt6x1tmhHFltpUkdHdijflFY03Iw7gPVtMKbOgRNyBjtL7Ozc+okUl5lOSAK6vwldOvEMpw2bebuOFsHqE0zcTYjX7NF6zwiLrqw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eeZOPO3QLfvWLA8CHiJx3zwNTnETF1XOOEPEFdBmXsM=;
- b=aijQb12pxIOoFLH62LWo60FG+xFiXXJCo/2G+JSh9/nd2dZjF+8PJ6vGATM4UnLUtHrQUNaraMIc+OZzcxN5myKCRpzg13+fnt6H4a9/aFLc9nCLlzGQQZ8ysxsoq2qirLWclK9vjUeg992ibQEmR/tY+RszYYL82eS7PDytW7Dct1+uAOinBBETcD2KAIE2aCMjSPMXXZME0S48WZ2rj1OqxOZ2HEhcRgXrbVuqs+SP5ItfUwp9PDfCxJ93xeODoQ+SRPVJY/UENHnol1uLCBYcfY11/0NUg03lQhcYakBJmW2KUBBBY7+RzWkwhaBhC6c0N8O5nK1jad6cqgOasQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=gondor.apana.org.au smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eeZOPO3QLfvWLA8CHiJx3zwNTnETF1XOOEPEFdBmXsM=;
- b=z0VoxvvVZc9IBUEZ+QtRD361Fmbbe9N00+oBJL/ro71EiXqy+/JNb5SvaQ04ovybE+nMYaKloKSxUt8tu6+EIBNpfMJbT6/U4qcMS+bX7wrONiOn1NfIdLBJaQ91b+tu5xyYbeVbbrKCZPoC4ZdzNUEO36fga86xb2JijfEoQeY=
-Received: from BYAPR21CA0029.namprd21.prod.outlook.com (2603:10b6:a03:114::39)
- by IA1PR12MB6209.namprd12.prod.outlook.com (2603:10b6:208:3e7::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Mon, 16 Nov
- 2026 20:36:35 +0000
-Received: from SJ1PEPF00002320.namprd03.prod.outlook.com
- (2603:10b6:a03:114:cafe::af) by BYAPR21CA0029.outlook.office365.com
- (2603:10b6:a03:114::39) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.0 via Frontend Transport; Mon, 16
- Nov 2026 20:36:33 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF00002320.mail.protection.outlook.com (10.167.242.86) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 20:36:32 +0000
-Received: from dryer.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Mon, 16 Nov
- 2026 14:36:31 -0600
-From: Kim Phillips <kim.phillips@amd.com>
-To: <kim.phillips@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>, Herbert Xu
-	<herbert@gondor.apana.org.au>, "David S . Miller" <davem@davemloft.net>,
-	"Rijo Thomas" <Rijo-john.Thomas@amd.com>, Mario Limonciello
-	<mario.limonciello@amd.com>
-CC: <linux-crypto@vger.kernel.org>, <linux-kernel@vger.kernel.org>, Sashiko
-	<sashiko-bot@kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH v2] crypto: ccp - unwind PSP sub-devices on partial psp_init() failure
-Date: Mon, 16 Nov 2026 14:36:22 -0600
-Message-ID: <20261116203622.615371-1-kim.phillips@amd.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=cisco.com header.i=@cisco.com header.a=rsa-sha256 header.s=iport01 header.b=GHOAy6lp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=cisco.com; i=@cisco.com; l=5061; q=dns/txt;
+  s=iport01; t=1794861544; x=1796071144;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=xVJ7wS5s+PAGh2ipNS10JXvI3Lsan3rvod9uIbNhZRI=;
+  b=GHOAy6lpy1lEzlz3zH8pJlrKK8clNIG6dLg8WYs/dCbS5Eqs6F9omjoB
+   lY4JFNRFiB5uUHgU1AwvI7tp+1z6lGlZ7b23B07TvWkV6XIYtFOGVVfHH
+   4AyheOM/q6D1vXPxqiEV1v29Y25AGGKfoNN1rkq4b16eNu8nvU+fMoSjR
+   c0wKc5U9VJ5ugxA+CybjxEWdUdcBKoz/HadFY8fMrS+ayYm95qP0ADQXS
+   uOLEiBVGogyB4Pjpma7vIcBHPAk/zG4bDn6HN997WHqYHBh/OP1x8zW1n
+   Z6qsZcXidoMtyaRL0cHLgUVuBtsTb9rrjpMtaLUXagzgmpSfI/BhDm0dk
+   A==;
+X-CSE-ConnectionGUID: 4osFWF5mRbanqGpumdQOpA==
+X-CSE-MsgGUID: mORXt0fNT+KlYWa/PISBAg==
+X-IPAS-Result: =?us-ascii?q?A0AIAAD9aPtq/5T/Ja1aGwEBAQEBAQEBBQEBARIBAQEDA?=
+ =?us-ascii?q?wEBAYF8BgEBAQsBglaBVUNJhFeIG4c4giGRT4xWgX4PAQEBD1EEAQGFBY4hA?=
+ =?us-ascii?q?iY0CQ4BAgQDAgMBAQEBAQEBAQEBAQEKAQEFAQEBAgEHBYEOE4ZckBUnBD4UN?=
+ =?us-ascii?q?QImAkgXEoMCgnUDuRd6fzOBAYR+2UuBaAELFAGBCi4BhXOCbgGBcYQIO4RCJ?=
+ =?us-ascii?q?xuBSUSBFYJ7b4gfgmoEgQ6BFIEMiBGEHIQQh1MJP4ECHANZLAFVEw0KCwcFY?=
+ =?us-ascii?q?4EFAyoLEhIYFW4yHYEjOxcvWBsGBYEcgQcEE4ESgQVdgSsoXQEhgQiBdgKCU?=
+ =?us-ascii?q?YIAAgFJQQ4HRVMJJUMSRyQiCBIJARMaLAqBGjU8CSY/FQxnCAMaBUACHwgCD?=
+ =?us-ascii?q?Qx0ORAwHiQvBRomPhsKgQ4nERgNSBEsNxUZBD0BbgeTFoIjLz0GAQEVCTsKF?=
+ =?us-ascii?q?wkKCkQuBCcITTUOHgwhkwYTMoMwjV5roRGEKoFooBAzl2qTBwGZCCOjUA8JG?=
+ =?us-ascii?q?TeEaoFoPIFZMxoIGxWDIlMZD9srJjI9AQEHAgcOAwuBaIReiyQtgU8BAQ?=
+IronPort-Data: A9a23:8h0Ke6AEvRDthRVW/6biw5YqxClBgxIJ4kV8jS/XYbTApG8k0WQAn
+ DEYCmmPM6yOY2b2Ltx0O4zgoU9QvpTQy4A2OVdlrnsFo1CmBibm6XV1Cm+qYkt+++WaFBoPA
+ /02M4eGcYZsCC+G+39BC5C5xVFkz6aEW7HgP+DNPyF1VGdMRTwo4f5Zs7ZRbrVA357jXGthh
+ fuo+5eBYQb8hWYkWo4pw/vrRC1H7ayaVAww5jTSVdgT1HfCmn8cCo4oJK3ZBxPQXolOE+emc
+ P3Ixbe/83mx109F5gSNy+uTnuUiG9Y+DCDW4pZkc/HKbitq+kTe5p0G2M80Mi+7vdkmc+dZk
+ 72hvbToIesg0zaldO41C3G0GAkmVUFKFSOuzXWX6aSuI0P6n3TEn/J1In4YYIgi8O9xGE5W6
+ PkUERcVR0XW7w626OrTpuhEnM8vKozveYgYoHwllGifBvc9SpeFSKLPjTNa9G5v3YYVQrCEO
+ pdfMGY/BPjDS0Un1lM/E5sinfyohXnXeDxDo1XTrq0yi4TW5FEtiOK0bICLILRmQ+1QuXyou
+ jrI2Vi6IRUrC9XY8Ru+2Fuj07qncSTTHdh6+KeD3vRyqFSXx2EVWFsaWDOTuvSwjEy1c91YL
+ EMQ92wlqq1a3FCkSsnVXBCipnOA+BkGVLJ4A71kwAKA0KzZ50CeHGdsZjJIdtFgtMYwXjEs/
+ luImc75Qz1prLCRD3ma89+8qDK0Ni89N2IOZSYYCwAC5rHLuIs0iADOSNdLCqO5jtTpXzr3x
+ liirzY7r6scgNRN1Kih+13DxTW2qfDhSg8z+xWSXW+/6A59TJCqapbu6lXB6/tEaoGDQTGpp
+ 2QNkcyTxP4BAIvLlyGXRugJWraz6J6tMCXVqUx+A547sT+q/haekZt4+jpyIgJtd80DYzKsO
+ RaVsgJK75gVN3yvBUNqX7+M5w0R5fCIPbzYujr8N7KivrAZmNe7wRxT
+IronPort-HdrOrdr: A9a23:yJ8Lo6ALAJ73QyLlHeky55DYdb4zR+YMi2TDGXoBLSC9Ffb4qy
+ nOppomPHDP5Qr5NEtLpTniAsa9qA3nlaKdiLN5VdyftWLd1FdAQrsSiLfK8nnKRmnC7eZW16
+ dmfcFFeb7NJGk/p8fz5we1V/YMqeP3kpyAtKPyw2hgSAdyZ7olzQtoYzzra3FedU1qCYU0EZ
+ yE6tECnTqvfnwLct+2b0N1OdQr3+e7867OUFohGwMt7hWIgHeD7b73FAXd4zIlOgk/uYvLNQ
+ P+4nbEDmLJiYDB9iPh
+X-Talos-CUID: =?us-ascii?q?9a23=3A/PlGQGvpeanunB4iVKflgk1i6It5dWbz81mNJnW?=
+ =?us-ascii?q?yAGBwZ6WITFOp37tNxp8=3D?=
+X-Talos-MUID: 9a23:hR9AKQS887jj9q6xRXTpowtSKJ9mxZjtK0Q8rpxBg+i/HwV/bmI=
+X-IronPort-Anti-Spam-Filtered: true
+X-IronPort-AV: E=Sophos;i="6.27,217,1787011200"; 
+   d="scan'208";a="540214262"
+Received: from rcdn-l-core-11.cisco.com ([173.37.255.148])
+  by rcdn-iport-8.cisco.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 16 Nov 2026 20:38:57 +0000
+Received: from [127.0.0.1] (unknown [10.25.129.52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by rcdn-l-core-11.cisco.com (Postfix) with ESMTPS id 8F44A18000149;
+	Mon, 16 Nov 2026 20:38:56 +0000 (GMT)
+From: Satish Kharat <satishkh@cisco.com>
+Date: Mon, 16 Nov 2026 12:38:52 -0800
+Subject: [PATCH] KVM: x86: Start IRQ bypass with local interrupts enabled
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,130 +107,152 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00002320:EE_|IA1PR12MB6209:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d09d3e1-5780-4955-0e61-08df44214d08
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|1800799024|23010399003|82310400026|261022105027099003|10067099003|11063799006|56012099006|261021123027099003|261009221227099003|261021121427099003|261009223027099003|261026140227099003|261102123227099003|261026121527099003|261028144727099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	6IkEuJCr7I00dAy/CDXk8JTNZ1Fo4+S1ioYJ+iJln1LE7kg/risYLPnXLU4xiiLM/tVWRvvzZp1t2uZrbGgT15ncsWI9t9bU5iOnv9uDyo24O2XTHwb9Z6M8XNxy52v8KiaUQDXeV2zRrdI+v/ZqlYf8z09zplTZ8fMDrMVyxP8Ak0UVAjzfKruXdzvHcNjwCLz/sw/J83Aq6DLzn9zOBj/Z8u3fxaIM6eeOcFQvApGGAzwT4naiVxSxIa/s83PS3WMm5wxRps9NeATW4Yi05jPnEGx6MXrkjsEw8EnpVxkeoVSdnTAo19inF9o46x4eD6nWFoyo5+6R0T1dIlaGrs5q4v3y/ZfK2T6ZhZxBr3OQ+potYIq2MBz2Py1WhGE02b1pktd5L82jJCoiMtPtWnimzLC5qPr6bwsK0DxTnOO9cm1QG3GVPypgQ8ms1fNYvy7AdWg7ShpEhj38JB6pj+ntOnTWBAdjT2Cpa6pK0D20dROab+j8wQoLD+rGRovaGGHwHafyvVYVjYN29HWfanY7vmZ+M7A68/A5tOxykfC2+Ricon756588n+NtpeccLMenAuEGoZ1pxPjxbSb3z+gI+zjrNhVL2wYEjsq3Y9EdSPfh2PE1c0IF3YxQpwuI25zM2bZytgLJV/fuPOCu+g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(23010399003)(82310400026)(261022105027099003)(10067099003)(11063799006)(56012099006)(261021123027099003)(261009221227099003)(261021121427099003)(261009223027099003)(261026140227099003)(261102123227099003)(261026121527099003)(261028144727099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	sIPgZsKkkZ7UalOtI9jiZxdhDyEDeCKajNwfnuncbO+YnxfM8vMzO0iPHXcIUnfwRgbF7YfNGVhhJQ9tn98rMxdGAtyv3NmUjXiA5RjA2K7HW2EgxpOs8bxnFjgzw+e5udHSsyfuQJbCTsgLW5vtpfmKGDlaHI14EBzMVSUgQyPvt1CzRIU0oKXlrqPBiYKeyk9u7THk+O04VMzl4g0BI9O8vlSjUndxUypNsqHI239GUYRk9o5tA/+tb57jXvCp2sk9nuIx9Fjaoxd1k2xuR3WZ7sjmrTgqD6RJjyUD2JD+h3Lb0dFzBx3GPKLMj20qvUpOnw430LY/fNAAnwXLVrheWc0g4jL199jQXygImvndKgUEv0b2cZzVpGfUbwoZfKV6VbrkGp/Zgf8BZj9OdP9WEuUCIuOtcC9hwVIlomRBgQzEgaiIUkI8awXu8tzt
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:36:32.5885
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d09d3e1-5780-4955-0e61-08df44214d08
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00002320.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6209
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-b4-kvm-irq-bypass-irqs-20261116-v1-1-6cc721a062fd@cisco.com>
+X-B4-Tracking: v=1; b=H4sIANtp+2oC/z2Nyw6CQAxFf4V0bSNDzAT9FeNiHkWqccQpkjGEf
+ 5dqwu6e2+bcGYQyk8CpmiHTxMLPtILZVRB6l66EHFeGpm6sMcaiP+B9eiDnF/rP4EQ0Cm737hh
+ dTTa25C2sliFTx+W3cL78Wd7+RmFUrX54J4Q+uxR6rRT3OlFai4nKuLlhWb4eoekKsAAAAA==
+X-Change-ID: 20261116-b4-kvm-irq-bypass-irqs-20261116-f9da0e6d8eb6
+To: seanjc@google.com, pbonzini@redhat.com
+Cc: kvm@vger.kernel.org, x86@kernel.org, linux-kernel@vger.kernel.org, 
+ tglx@kernel.org, mingo@redhat.com, bp@alien8.de, 
+ dave.hansen@linux.intel.com, hpa@zytor.com, stable@vger.kernel.org, 
+ Satish Kharat <satishkh@cisco.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794861536; l=5111;
+ i=satishkh@cisco.com; h=from:subject:message-id;
+ bh=ZeFucPcfC3LRZpV0j/vmi51iAxZtU4EeWQbX+0tsTLs=;
+ b=GS3vK1WlVDrrOkFv954VJ1xQ6Ls78j1H0RA604hpcneWvAv5d19Xm7CJ23zAfQix4SpxttzhJ
+ 5zPMBq/qUu/Bupu35nxtTcWmu+nCUoAlHIKn+UNBBX+MQORqhhL9Ifn
+X-Developer-Key: i=satishkh@cisco.com; a=ed25519;
+ pk=4BxbLoCGvHeIMH/PbpiNVx8/2IcTjFvqcr0AD8K6WLY=
+X-Outbound-Client-TLS: ANONYMOUS;unknown [10.25.129.52];TLSv1.3;TLS_AES_256_GCM_SHA384;256
+X-Outbound-SMTP-Client: 10.25.129.52, [10.25.129.52]
+X-Outbound-Node: rcdn-l-core-11.cisco.com
 
-psp_init() initializes sub-devices sequentially but returns immediately
-on the first failure, leaving earlier sub-devices registered. Its caller
-psp_dev_init() then sets sp->psp_data = NULL, so the later
-psp_dev_destroy() on unbind bails out early and never unregisters them.
+Move the first IRQ-bypass notification after releasing irqfds.lock so
+that the vendor callback runs with local interrupts enabled.
 
-Non-devm resources such as the /dev/sev and /dev/dbc character devices
-stay globally visible while their devm-allocated backing structures are
-freed by the driver core, giving a use-after-free if userspace opens the
-orphaned device.
+On Intel, pi_start_bypass() issues KVM_REQ_UNBLOCK to the vCPUs through
+kvm_make_all_cpus_request(). If another CPU needs to be kicked, this can
+reach smp_call_function_many(), which requires local interrupts enabled.
+Calling the hook inside spin_lock_irq() violates that requirement and
+triggered the following warning during VFIO MSI-X setup:
 
-Add reverse-order unwind labels to psp_init() so each sub-device is torn
-down before the error is propagated. Every *_dev_destroy() is already
-NULL-guarded on its own psp->*_data pointer, so skipped or unreached
-sub-devices are no-ops.
+  WARNING: kernel/smp.c:943 at smp_call_function_many_cond
+    kvm_make_all_cpus_request [kvm]
+    kvm_arch_irq_bypass_add_producer [kvm]
+    __connect [irqbypass]
+    irq_bypass_register_producer [irqbypass]
+    vfio_msi_set_vector_signal [vfio_pci_core]
 
-sp_init() continues to ignore the psp_dev_init() return value on
-purpose: a PSP failure must not fail the probe, as the CCP can still
-initialize successfully.
+The SMP API documents a possible deadlock in this context, including for
+non-waiting calls. No deadlock was observed in this case.
 
-Fixes: 33960acccfbd ("crypto: ccp - add TEE support for Raven Ridge")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-0de87f0c-0f5a-4dad-8ef1-f49844eb4cce
-Cc: Tom Lendacky <thomas.lendacky@amd.com>
-Cc: Rijo Thomas <Rijo-john.Thomas@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
+Keep producer publication, bypass accounting and IRTE error rollback under
+the existing lock. The IRQ bypass mutex still serializes producer
+callbacks after irqfds.lock is released. Notify only for a successful
+first attachment, after any IRTE failure has been ruled out.
+
+An LLM assisted with implementation, code review and test automation.
+
+Fixes: 77e1b8332d1d ("KVM: x86: Decouple device assignment from IRQ bypass")
 Cc: stable@vger.kernel.org
-Signed-off-by: Kim Phillips <kim.phillips@amd.com>
+Signed-off-by: Satish Kharat <satishkh@cisco.com>
 ---
-v1: https://lore.kernel.org/linux-crypto/20261021215716.1076732-1-kim.phillips@amd.com/
+Based on kvm-x86/next at cbe54fc3462b3949ab27b9ae81fb9ddb509040c7.
 
- drivers/crypto/ccp/psp-dev.c | 23 ++++++++++++++++++-----
- 1 file changed, 18 insertions(+), 5 deletions(-)
+Validation:
+- Build-tested irq.o against kvm-x86/next with W=1 and -Werror.
+- Built the KVM core, Intel and AMD modules for a 7.4-rc1 kernel
+  and used those modules for runtime testing.
+- On Intel VT-d hardware, started a guest with an ENIC VF passed through
+  using VFIO and reloaded its driver with device-posted interrupts and
+  APICv enabled. Function-graph tracing captured pi_start_bypass() reaching
+  the real SMP call with IRQs enabled. Posted-IRTE updates and bidirectional
+  guest traffic passed.
+- On Intel, selected KVM selftests passed: irqfd_test; irq_test in xAPIC and x2APIC
+  routing modes; vmx_apicv_updates_test; nested_close_kvm_test; and
+  xapic_ipi_test.
+- On Intel, selected kvm-unit-tests passed: x2apic, xapic, ioapic, smptest and
+  smptest3. The xapic run had one expected internal skip for absent
+  x2APIC support in that test's CPU model.
 
-diff --git a/drivers/crypto/ccp/psp-dev.c b/drivers/crypto/ccp/psp-dev.c
-index b14ce51065d5..3d9341c2876d 100644
---- a/drivers/crypto/ccp/psp-dev.c
-+++ b/drivers/crypto/ccp/psp-dev.c
-@@ -207,19 +207,19 @@ static int psp_init(struct psp_device *psp)
- 	if (!psp_check_tee_support(psp)) {
- 		ret = tee_dev_init(psp);
- 		if (ret)
--			return ret;
-+			goto e_sev;
+On a Cisco C225 M8 (AMD EPYC 9555P) with AVIC/x2AVIC and
+device-posted interrupts enabled, selected KVM selftests and
+kvm-unit-tests passed; the VMX-only test skipped.
+
+Physical NIC passthrough passed bidirectional traffic, link cycling,
+driver reload and guest shutdown with two guest kernels. Tracing
+confirmed balanced IRQ-bypass registration and successful AMD
+posted-interrupt setup.
+
+AMD has no pi_start_bypass() hook, so these are regression tests rather
+than a reproduction of the Intel warning.
+
+One guest logged an informational clocksource-check timeout, without
+a BUG/WARN or unstable-clock report. Host lockdep remained enabled.
+NetworkManager route-metric and profile-timestamp changes were
+restored and verified separately after the tests.
+
+On AMD EPYC 7343 with AVIC disabled, assigned ENIC VF traffic and
+guest-driver reload passed using VIC forwarding between the VF
+and its parent PF.
+
+External-wire traffic was not tested on AMD.
+
+The complete default test suites and forced IRTE-error runtime test were
+not run. The public-base build check compiled the changed object; it was
+not a full public-base kernel runtime test.
+
+The IRQ-disabled warning in smp_call_function_many_cond() was observed
+on multiple occasions during VFIO MSI-X setup. No deadlock was observed.
+Additional diagnostic logs are available on request.
+---
+ arch/x86/kvm/irq.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/kvm/irq.c b/arch/x86/kvm/irq.c
+index 7f8b092b4479..611b3e57b09a 100644
+--- a/arch/x86/kvm/irq.c
++++ b/arch/x86/kvm/irq.c
+@@ -485,13 +485,13 @@ int kvm_arch_irq_bypass_add_producer(struct irq_bypass_consumer *cons,
+ 	struct kvm_kernel_irqfd *irqfd =
+ 		container_of(cons, struct kvm_kernel_irqfd, consumer);
+ 	struct kvm *kvm = irqfd->kvm;
++	bool start_bypass;
+ 	int ret = 0;
+ 
+ 	spin_lock_irq(&kvm->irqfds.lock);
+ 	irqfd->producer = prod;
+ 
+-	if (!kvm->arch.nr_possible_bypass_irqs++)
+-		kvm_x86_call(pi_start_bypass)(kvm);
++	start_bypass = !kvm->arch.nr_possible_bypass_irqs++;
+ 
+ 	if (irqfd->irq_entry.type == KVM_IRQ_ROUTING_MSI) {
+ 		ret = kvm_pi_update_irte(irqfd, &irqfd->irq_entry);
+@@ -502,6 +502,13 @@ int kvm_arch_irq_bypass_add_producer(struct irq_bypass_consumer *cons,
  	}
+ 	spin_unlock_irq(&kvm->irqfds.lock);
  
- 	if (!psp_check_sfs_support(psp)) {
- 		ret = sfs_dev_init(psp);
- 		if (ret)
--			return ret;
-+			goto e_tee;
- 	}
- 
- 	if (psp->vdata->platform_access) {
- 		ret = platform_access_dev_init(psp);
- 		if (ret)
--			return ret;
-+			goto e_sfs;
- 	}
- 
- 	/* dbc must come after platform access as it tests the feature */
-@@ -227,15 +227,28 @@ static int psp_init(struct psp_device *psp)
- 	    psp->capability.dbc_thru_ext) {
- 		ret = dbc_dev_init(psp);
- 		if (ret)
--			return ret;
-+			goto e_platform_access;
- 	}
- 
- 	/* HSTI uses platform access on some systems. */
- 	ret = psp_init_hsti(psp);
- 	if (ret)
--		return ret;
-+		goto e_dbc;
- 
- 	return 0;
++	/*
++	 * Wake vCPUs with IRQs enabled. The IRQ bypass mutex keeps producer
++	 * callbacks serialized after dropping irqfds.lock.
++	 */
++	if (!ret && start_bypass)
++		kvm_x86_call(pi_start_bypass)(kvm);
 +
-+e_dbc:
-+	dbc_dev_destroy(psp);
-+e_platform_access:
-+	platform_access_dev_destroy(psp);
-+e_sfs:
-+	sfs_dev_destroy(psp);
-+e_tee:
-+	tee_dev_destroy(psp);
-+e_sev:
-+	sev_dev_destroy(psp);
-+
-+	return ret;
+ 	return ret;
  }
  
- int psp_dev_init(struct sp_device *sp)
 
-base-commit: 26ca5f34841f0a86d0883664a1c13be89a01d351
--- 
-2.43.0
+---
+base-commit: cbe54fc3462b3949ab27b9ae81fb9ddb509040c7
+change-id: 20261116-b4-kvm-irq-bypass-irqs-20261116-f9da0e6d8eb6
+
+Best regards,
+--  
+Satish Kharat <satishkh@cisco.com>
 
