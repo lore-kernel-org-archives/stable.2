@@ -1,102 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.171
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794855366;
-	b=EwCICwh9tlk9aTig2OXHNkgq8sGT1AgiecHBrWdVQLPz2bFy17OCVH1E3Lf3sbBgW2cE
-	 XSISSnJ2qaQM0nSRPbrOYzqs4PFdczbgR2Q0oF4H+XVVO08DmekF25Xrhds4Yu5xLrXw7
-	 WaaT1KLj+l8bt51C/KtFYxRPVokfPQn13iY8lH6epGC+UDToGNgnYvQvB5WKP2O/2ANzD
-	 aR0JyXCCY4s8OLiWWBu6RmfIFRHc8aqjeMgIR6UUDZCkLDJ7QyY5CKD31WWOdrwB73Crc
-	 TEU6bcrLOqRISuwO22X6KvNooMsG+cQlvuR6KJ6WwzdPPgSGYE2bQAbga9Xa+aKQsNg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855366;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794855373;
+	b=VMJDPn9wyPION6ND8OdCpAfkp64uXjBDHeDnFmoAbJqXkW6K7WClrdhteiBveVo2AyzU
+	 LbCgh/y6uhmVQDSCVJtvl0ovKx5RcQN+J3GOxhTyoGElteYIq+51Zy6Ou3ZLqQBr5c+r2
+	 jD/S2JafqAEpo74tWRtGZqyqGqoJh+kQZbRwF/0swBoPhcRGq57zzJbAQWg9K2Ja4Xrhn
+	 4nQiBVk5H+yJh/9IndbyRCgS18qxedcflqueCUJTATmS5+am3mszXaarweherr+lJafa8
+	 7Kpx26M0UIfCGW7dyVuMPRRfX61Ygg7Dunp4K3tcQbzI3hrH85JMAXgnmP1VK3Q/SPQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855373;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=pJ3VePYLXSQe6BrY0Rbuq9cNJKXVi3VErXRi88A5vGY=;
-	b=MWbiTYBlmZBNPnDiAjQX6nhiD385nPkGH/va0S1OVgMu6CtRI6fz6Xn1RGwmkKusxc9t
-	 dMpjij0leeEUKkaBlML8NcLZE8lSoIPX0i4niSJC2fQrecapB7MKIUucdA6aQg1H5rKK2
-	 KsgnlmtZ0cH4HGB0uRlyEg8g1I7swelxQxBrg6GjWXxebvQh1vzBV7h9ZPsVNvw5rq1GL
-	 vkzzCdqin7ugvkS2ZHrP3L+aSu+L9CJtGDjE01zYO54WKWndbAeZTZZE+knuINAasccBZ
-	 fCv7x2IviV+TImz5gLB/XPGMUHtyqhnAjltwQrq61V/BgnWIrfsacBKwtzbWUpvD/wg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=everpuredata.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=f4j2uwvJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.171
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=Qq6glhbhJ58HkVzMpkvkPAysJCirBwST/ZXZJ+yxSic=;
+	b=X9edmObkX7/axxcGNQK3qWOGPKBWsxNV8+8jrcEbJ/p9yxuPKyQSNHw5tLoDEewUBacG
+	 mhU2vu3ZeokeEzGn4aXZkMeGnwyXEZ6RM/1lhhZ0bJG9oQv0LSZfApYzBgdRO261nTa/a
+	 40QAyl6d2GzhU2ls0XKyhmYjgoOSuzfoR3KsqpMiPN/df0VabLrBlUwqmGMT/VXVWEKBT
+	 2cD5GvjVr1VMX6Hg4IVes9KgwWkS73yq+aVTA2kq8B+j8WWg0xHS1tq8Odny/fRS9bkEy
+	 xaYxZxUcTGdXiTTBy3LWra6+vDYUNNqkDh0SbAQ6R7BBTmI1Ndd5LkuCzuFEhxF6gLw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=prb93aDP;
+	arc=none smtp.remote-ip=209.85.219.47
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com [209.85.219.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EFFD606A893
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 18:56:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EFFD606A893
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DEC606A8B0
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 18:56:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3DEC606A8B0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.a=rsa-sha256 header.s=google header.b=f4j2uwvJ
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5eafaeb8684so1048826e0c.3
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:56:05 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794855364; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T8P9sY29gxYqFxUX0v9QP2HAidmfW1+Cg80AYUQxHUmDYqEgl4H6/catk9LRMH8v0T
-         N/1xsxxbnxSNuhbqksqE0xPbuMd8KJeJqSpiqrUV+SV82T8grCWD47Gz+RHdOeGoitXd
-         LvA8JPp7+KqaOn1NkkCUU71OiHyGHlGKwkLYSTOGygYI0C5xjHRHbknk1/kiKn1ax9ZW
-         sbqboKEKql3B0gp8aKvU13/PxuTOQQgAh8ZWyFjYccseAJC+M9g5uSMLsehnqAGzShgG
-         qRK6zbiXhsAGlHgmgxip1C8TvHcPBsS6P7Qc9LvgOVWw3OfkNNKJ4sctGA0kBkKefoFc
-         z9Zw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pJ3VePYLXSQe6BrY0Rbuq9cNJKXVi3VErXRi88A5vGY=;
-        fh=Rm1Gg0tuOcUJKEACx6xADc6gchwWnCSLSDENioFEJOU=;
-        b=HpUgcyifWO1V9s9GnUjApU5b5Gmo615B/U3qLFR8PbdBEOyX4YVJgQld3G631ovpsh
-         1tVbY3Za4ILMiMZb0IBh/Zc46rRp/BoiPvnz4rGO2iIVChO6FUy4C77xK52EPIX8rVcT
-         85q2dEXGTO2Mlnwmf58agrKC2BKpi0HZlxFCQySrRUBmpNvw0/RsLkKs9Zz6x5tNeNKh
-         88MBZrHaDogXEshy0iRs8MI7sEv0JWLr5lOagxAmCo2hW2eeFt5dqTRBp4M/Nqx5sIZ8
-         jX3Q86/AXWrHN7MiOC2qAMsW6ejHwd0kOHAZjVVlak2/XysJlwYl7BmurZTtD8c7ShPv
-         hb+w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=prb93aDP
+Received: by mail-qv1-f47.google.com with SMTP id 6a1803df08f44-91ebf4cd218so46463636d6.3
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:56:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1794855364; x=1795460164; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=rowland.harvard.edu; s=google; t=1794855371; x=1795460171; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=pJ3VePYLXSQe6BrY0Rbuq9cNJKXVi3VErXRi88A5vGY=;
-        b=f4j2uwvJ+lHyrTAK7E5Dtl+M5bvamBrr6tzEfQoknmihhN2xaDOFSeiFQC7EokOwp9
-         FkbrM0aMK7Smc4PSIjTgdcY8BHaxQ9mPWaS1UpPgIoSfLWYHXfhpCxX4eTSZNcmr5OTX
-         o7cNGzWKceJXCB1lcrkgJs0NokQ3DC4lK2Txcbw7nVY0k8FUEDlWkVtXA0GpvFd+0xMg
-         iHLiy63ly8w3NByFVDUXRalIbK4skjf70Mrr3u6qupmTZx6mxSuWIuwiyWzMyhnhQ4hh
-         eaBj7LQV6a0E/pELWEaHa/PlhMPXLKUjdX34CtmYWWpn8c3dl15vksdun+k2C03nAQA4
-         mi/Q==
+        bh=Qq6glhbhJ58HkVzMpkvkPAysJCirBwST/ZXZJ+yxSic=;
+        b=prb93aDPHbM4PkhU42SDnNuqiQ52r1qwsMJJOJBlfjVXwraNrmm7Fp0ZJlYiy7AhDb
+         RFZcoczw17nHNZJl2Dq1/lz2x2Koem0UJlzEqsnHXWOCiHhcyhUOmn3ZeuxiLtXL2xV/
+         cPuhq00K5vyqt9v7BBMjcsN2IAdUurpI7l7W2SBmJjLr3xUCy2+6PDo3KMCCcr+h3fLN
+         ci5wwfAZHTeRWjsGX1E8M1YoGYqpAlBrLeKplVJ2ZHuyD0FgJHQ92/Jr37oeRlDDT/oK
+         /bA54ELtG4w+vL9KReaEjrw3ARv0q5LGTT2/IfTomu+rfN/i2+9bV2QD4PEqmmkgd3mw
+         f2bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794855364; x=1795460164;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794855371; x=1795460171;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=pJ3VePYLXSQe6BrY0Rbuq9cNJKXVi3VErXRi88A5vGY=;
-        b=UZZf5gMWceEu2QI0ZubdtJQyYSVS4H1BR3qeouIXO/h6Hvaesc3BdWJarj8rIbxM3I
-         wO7OhRw6c5TreIevEWDVfbvfExL5KXRYCzhPLSfUDPTRSeqlzddgMqMRSj7xkCK33aKg
-         PF64wrDJgrie+fJyyyHMjDixFUs5Hk6AeXFjPVy+yebXm4Re0DAJdhV6aKacO69h/mqH
-         CRraFvF146DFmNbPHuRHzciW3kwxQUOWHR+m9eHpnwtku6NXX4XE/xnSJaKg1u4RTv5N
-         TueO5tHP6XYFQANSXQrkvW7lozd1lPXI3rRayZZ5QDVBUemEY6v/0k71GrfnYFP37J68
-         e3Og==
-X-Forwarded-Encrypted: i=1; AL+hErF6xGu3brtXcG1SJs4ASyKU/WpgEDK0RPX9ozkAObMzARQGLyUizO3osMRkfAbMglaVSzFcP/Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dWW3pJLiX7dlAFOEloR4HoddAIWihsCTn6oj9op5A9M3r8dM2
-	sz+9/uylLZQcrLZwjSkWlwF1eHR27vJZ/9/Hj76H8zDAHaEi8TJIb3KHa3R5ujLo5cU71SG9u0g
-	YiSSRIhmXWOnNeSuEB1Sii3WbASra70SEPhDFoCsgTQ==
-X-Gm-Gg: AZFdTZcpt0biOhNOJ0ZuUWQrb4bdkHOLi/eHYyABaAX/KnTAMA6P7JDuWMloH7kzzu1
-	gSXjgRdI3xcQksPdhm0qdLfd5/uGn1RsgU4vMOa1zNfAua0j2UJS1fihkLVfoCchiddCTQOxXrQ
-	2XRR7g23gtcpLPYh4AL1DCxghO7m3xHRKhUJgIy3MenuPO1NtkGs7IwV6Th5eDgKisbG+Gj5zq0
-	eOHB/Deo69PMl3nwiNjFbJHL5GMNxBOwhW95p7WD/6LBIuRzcfA2l1lLLMrdgh1ZMQ3FmIgk11Q
-	HP0KC9+D7Cc5lyRc9dnujrwjhR1AqfT5PWTlACScKAEs84i0O7YiJnAuOYxRLz42KLsyGoiY8v8
-	vW7l5DRrJjbJYLfLf2WteOpxM27xbtrIn/EAE0RVjxG8a/wHJAdQOH1554wC2qBO7pVkChL0RI6
-	sqKlZNMYcQuZgyJKuZv7gwoYrO4yF0neGZLI20YEUKL1IykatR5lvMIMh+/oRJZ1CkjeIiGaa8p
-	e9Wwd62kP228LuEFG3AI+v1iw==
-X-Received: by 2002:a05:6122:4215:b0:5ec:3e18:a912 with SMTP id
- 71dfb90a1353d-5ee34a968e1mr3829197e0c.14.1794855364480; Mon, 16 Nov 2026
- 10:56:04 -0800 (PST)
+        bh=Qq6glhbhJ58HkVzMpkvkPAysJCirBwST/ZXZJ+yxSic=;
+        b=a+xguGITh3LdI4DxNWeqlxpokMBfqdYTHhB/mHxNEp+KB9W1WVw+jS8hyBliFF5wbt
+         8UL0FW6j3P2jVPy0liKgGaY2XFe+4gXPx2cnxOQ+0TqNQ/9A80XpzrqHbQIzYRVWqcd7
+         pgNmW9Dh6cU85akW9NnN0BRd8eknYcDJIOlJcSVutNw7lcQPLWUNU4Oai4NX7wM5Feh9
+         PgOjbFhoUSRvTuLANQ1a7Cj7PNUFob9seqYkh6bKx7lhtqdw50BuY+XVacKsJo4lTokc
+         2bJ5LETxqZYKPsohujVtK4zq9XJNC69igkaM5b3Rbr7F7ew/81yl8AaifjR2PYZHPoXl
+         8oww==
+X-Forwarded-Encrypted: i=1; AL+hErEQhahkSJLBDzt71jil1S00PzMbFjMJUoSkGjt71IHPdoV4U5/fEeXycPYCbap0BZ+tq6NLP6s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uYCbeTI9E+4lZmnZTxISKSD4A4mPNU1GNFcGczJVgNyMck4P7
+	AabcAcMhoKf7DjG5yT51yXOj3L7crmp1wtZfoIlaQWZEpzBRio6FTrDCW0sQDQ6N7Q==
+X-Gm-Gg: AZFdTZdUmrvEpdbXX5dodJax7Bo/wCyZK0ju/SOn1T/4J5RugafM+tj4bJppHBiU02F
+	nL3RZ46kSdRr6TnmcWLkewfyi3B7hkGctWEA2dSxD+0G7jYPiJa/n1z4X1DnPR79oUIQSUl5zSN
+	apP+Vj+f9vNS3j6e2VR7P+lHZfrML+lcxR9wE4Lv+LdzLnWj+I4jV1tn/G251Hk5Cs5lvYshHDX
+	xyalixrYOsOlnBxetsaaYkJzr7wCR74EFmZo6mVuaEnz8DF05VksoOd+CPzeX6Sa48Q0ix/LlKw
+	eDWgfvfHwIHCD3F9REDUsNSwRV/0Tjqz52SAtnsbAtfhZ5f6awI92XkFWrCxYwVGPORMqxTpoOF
+	eKa60NsBbLNQV0aDGo5TECwtNWRILQN4/lo/BwYctO29EO0JWKCJgH0yjDYGuFhmKUxbtmztUTj
+	CPaeOpUUJv2i0RXqIxs1JdgSd8EDbdtRLpwnMeh7nJKewtfzpg80X4t6BIoSt/GkHSK+TdqpItr
+	Xb2/d/ZYsFGsuQfUvIRMHGMXo4TYEAi27tSzh/Zz4wjDGTExvhN0CnAiK2Dmx4uSRZrs30quM08
+	rLGI7Y27mi5hqdLJS20qBVH2f/JvnYBL5iH+Hl1XQNVc6HaXPGA=
+X-Received: by 2002:a0c:e084:0:10b0:917:af36:df30 with SMTP id 6a1803df08f44-91f24194addmr143466866d6.16.1794855371264;
+        Mon, 16 Nov 2026 10:56:11 -0800 (PST)
+Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d452b0sm92039326d6.11.2026.11.16.10.56.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 10:56:10 -0800 (PST)
+Date: Mon, 16 Nov 2026 13:56:08 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Pengfei Lv <lvpengfei20@huawei.com>
+Cc: gregkh@linuxfoundation.org, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, michal.pecio@gmail.com,
+	stable@vger.kernel.org, xuhaiyang5@hisilicon.com,
+	xuetao09@huawei.com, caiyadong@huawei.com,
+	suzhuangluan@hisilicon.com
+Subject: Re: [PATCH v4] usb: core: hub: Re-guess ep0 maxpacket size after
+ reset
+Message-ID: <bbc753f4-4120-4274-85cb-a4e1e987156a@rowland.harvard.edu>
+References: <20261109093935.2634235-1-lvpengfei20@huawei.com>
+ <20261110033038.2882473-1-lvpengfei20@huawei.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,126 +101,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112232444.2865382-1-rjethwani@purestorage.com> <179461232334.2199510.12258955725199996955@kernel.org>
-In-Reply-To: <179461232334.2199510.12258955725199996955@kernel.org>
-From: Rishikesh Jethwani <rjethwani@everpuredata.com>
-Date: Mon, 16 Nov 2026 10:55:53 -0800
-X-Gm-Features: AclHuK9aI72Wzc15wwlEEJSue0Lw3dqJipNrakxflrQi_c6kzLHMREGXD0OoOA4
-Message-ID: <CAKaoeS2yeZ3WciKNtdp8ee+n+v+xc4+QAcwZU3-fzG6J28-5dw@mail.gmail.com>
-Subject: Re: [PATCH net v7] kcm: reject TLS on attached TCP sockets
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, davem@davemloft.net, 
-	edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
-	corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	ncardwell@google.com, kuniyu@google.com, john.fastabend@gmail.com, 
-	sd@queasysnail.net, sagi@grimberg.me, hare@suse.de, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110033038.2882473-1-lvpengfei20@huawei.com>
 
-On Fri, Nov 13, 2026 at 3:25=E2=80=AFPM <netdev-bot+sashiko@kernel.org> wro=
-te:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] The Fixes: tag covers only one of the two defects the commit
->   message says it fixes.
->
-> --
->
-> kcm: reject TLS on attached TCP sockets
->
-> This patch makes kcm_attach() reject TCP sockets that already have a ULP
-> installed. It also makes tls_init() reject sockets attached to KCM, using
-> a new kcm_attached flag in tcp_sock. The kcm_attach() type check now uses
-> sk_is_tcp(), so raw sockets created with IPPROTO_TCP are rejected.
->
-> Link: https://lore.kernel.org/netdev/3108e934-ec00-458b-8720-450554b35b55=
-@linux.dev/
->
-> > KCM calls read_sock() from its receive callback in atomic context. With
-> > kTLS RX, this reaches tls_sw_read_sock(), which can sleep. KCM and TLS
-> > also replace socket callbacks, so detaching KCM can discard TLS handler=
-s.
->
-> [ ... ]
->
-> > Fixes: 662fbcec32f4 ("net/tls: implement ->read_sock()")
-> > Cc: <stable@vger.kernel.org> # see backport requirement above
->
-> [Severity: Medium]
->
-> Does the Fixes: tag cover both of the problems described above?
->
-> 662fbcec32f4 added tls_sw_read_sock() as the read_sock op, which explains
-> the sleep in atomic context. The callback replacement problem looks older=
-.
-> In the parent of 662fbcec32f4, neither kcm_attach() nor tls_init() checke=
-d
-> for the other, so the two could already be stacked.
->
-> If KCM is attached first and TLS_RX is enabled afterwards,
-> tls_sw_strparser_arm() saves psock_data_ready and installs tls_data_ready=
-:
->
-> net/tls/tls_sw.c:tls_sw_strparser_arm() {
->     ...
->         rx_ctx->saved_data_ready =3D sk->sk_data_ready;
->         sk->sk_data_ready =3D tls_data_ready;
->     ...
-> }
->
-> On SIOCKCMUNATTACH, kcm_unattach() then writes the pre-KCM callback back
-> over tls_data_ready:
->
-> net/kcm/kcmsock.c:kcm_unattach() {
->     ...
->         WRITE_ONCE(csk->sk_data_ready, psock->save_data_ready);
->     ...
-> }
->
-> After that, TLS RX is no longer notified.
->
-> Before 662fbcec32f4 the TLS_SW proto_ops also inherited read_sock from
-> inet_stream_ops. So in either order, strp_read_sock() would call
-> tcp_read_sock(). KCM's strparser would then take raw TLS ciphertext from
-> the same receive queue that TLS parses.
->
-> This seems to go back to c46234ebb4d1 ("tls: RX path for ktls"). Stable
-> selection uses the Fixes: commit. Would LTS trees without 662fbcec32f4
-> (6.1, and 5.15/5.10 while they are still maintained) skip this patch? On
-> those trees an unprivileged user could still stack KCM and kTLS RX.
->
-> Could the Fixes: tag point at c46234ebb4d1, or could the Cc: stable note
-> say whether pre-6.6 trees are affected? Right now the note only mentions
-> the 8cc3aef0cb198 dependency.
+On Tue, Nov 10, 2026 at 11:30:38AM +0800, Pengfei Lv wrote:
+> Per USB 2.0 spec section 5.5.3, the ep0 maxpacket size is fixed for
+> all device speeds except full-speed devices, where it can be 8, 16,
+> 32, or 64 bytes and can only be determined by reading the device
+> descriptor.  During initial enumeration the USB core guesses 64 bytes
+> for full-speed devices; after reading the descriptor, the real value
+> is stored in udev->ep0.desc.wMaxPacketSize and applied to hardware by
+> usb_ep0_reinit().
+> 
+> Commit ff33299ec8bb ("USB: core: Fix race by not overwriting
+> udev->descriptor in hub_port_init()") guarded the ep0 maxpacket guess
+> block with "if (initial)", so on the reset path the guess is skipped
+> and the host keeps using the value from the previous enumeration.  If
+> a buggy full-speed device responds with one 8-byte packet and NAKs
+> all further polling, the HC doesn't recognize a short transfer but
+> keeps polling for the rest of the descriptor till unlink, and the
+> device cannot be re-enumerated.
+> 
+> This was observed in production on a 6.6 LTS kernel with a full-speed
+> USB banking token (bMaxPacketSize0 = 8) in a virtual-machine USB
+> passthrough scenario; the reset re-enumeration hangs 100% of the time
+> after the VM issues USBDEVFS_RESET.  The device is not strictly
+> compliant (it should continue answering IN tokens), but this class of
+> USB banking token is widely deployed in enterprise environments, and
+> the regression breaks a configuration that previously worked.
+> 
+> The 18-byte GET_DESCRIPTOR that runs after SET_ADDRESS (wLength=18)
+> is unaffected: the device sends the full 18 bytes as 8 + 8 + 2, and
+> the final 2-byte packet is always a short packet regardless of
+> maxpacket.  This is why the device completes initial enumeration yet
+> hangs on reset re-enumeration.
+> 
+> Fix this by removing the "if (initial)" guard so that the ep0
+> maxpacket size is re-guessed on every reset, and by calling
+> usb_ep0_reinit() right after the maxpacket size is re-guessed so that
+> the re-guessed value is applied to hardware before the GET_DESCRIPTOR
+> data stage.
+> 
+> Fixes: ff33299ec8bb ("USB: core: Fix race by not overwriting udev->descriptor in hub_port_init()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Pengfei Lv <lvpengfei20@huawei.com>
+> 
+> ---
+> 
+> v4: Per further review by Alan Stern, move the usb_ep0_reinit() call
+> to right after the ep0 maxpacket re-guess block.  Each layer does the
+> right thing on its own side.
+> 
+> v3: https://lore.kernel.org/linux-usb/20261109093935.2634235-1-lvpengfei20@huawei.com/
+> ---
 
-Agreed, both problems predate 662fbcec32f4. Before that commit,
-kcm_attach() only
-checked sk_user_data, tls_init() only checked the socket state, and the TLS=
-_SW
-proto_ops inherited tcp_read_sock() from inet_stream_ops. v2 changes the ta=
-g to
-Fixes: c46234ebb4d1 ("tls: RX path for ktls") so pre-6.6 LTS trees
-pick it up, and
-the commit message now describes the callback clobbering and the shared-que=
-ue
-reads. The stable note still flags the 8cc3aef0cb198 requirement for
-older trees.
+Pending other comments by Michal Pecio:
 
-pw-bot: cr
+Acked-by: Alan Stern <stern@rowland.harvard.edu>
 
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20261112232444.2865382-1-rjethwani%40purestorage.com
+>  drivers/usb/core/hub.c | 48 +++++++++++++++++++++---------------------
+>  1 file changed, 24 insertions(+), 24 deletions(-)
+> 
+> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> index 199d3f535a89..e3d8ee3271cb 100644
+> --- a/drivers/usb/core/hub.c
+> +++ b/drivers/usb/core/hub.c
+> @@ -4969,33 +4969,33 @@ hub_port_init(struct usb_hub *hub, struct usb_device *udev, int port1,
+>  	}
+>  	oldspeed = udev->speed;
+>  
+> -	if (initial) {
+> -		/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+> -		 * it's fixed size except for full speed devices.
+> +	/* USB 2.0 section 5.5.3 talks about ep0 maxpacket ...
+> +	 * it's fixed size except for full speed devices.
+> +	 */
+> +	switch (udev->speed) {
+> +	case USB_SPEED_SUPER_PLUS:
+> +	case USB_SPEED_SUPER:
+> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+> +		break;
+> +	case USB_SPEED_HIGH:		/* fixed at 64 */
+> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> +		break;
+> +	case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+> +		/* to determine the ep0 maxpacket size, try to read
+> +		 * the device descriptor to get bMaxPacketSize0 and
+> +		 * then correct our initial guess.
+>  		 */
+> -		switch (udev->speed) {
+> -		case USB_SPEED_SUPER_PLUS:
+> -		case USB_SPEED_SUPER:
+> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(512);
+> -			break;
+> -		case USB_SPEED_HIGH:		/* fixed at 64 */
+> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> -			break;
+> -		case USB_SPEED_FULL:		/* 8, 16, 32, or 64 */
+> -			/* to determine the ep0 maxpacket size, try to read
+> -			 * the device descriptor to get bMaxPacketSize0 and
+> -			 * then correct our initial guess.
+> -			 */
+> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> -			break;
+> -		case USB_SPEED_LOW:		/* fixed at 8 */
+> -			udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+> -			break;
+> -		default:
+> -			goto fail;
+> -		}
+> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(64);
+> +		break;
+> +	case USB_SPEED_LOW:		/* fixed at 8 */
+> +		udev->ep0.desc.wMaxPacketSize = cpu_to_le16(8);
+> +		break;
+> +	default:
+> +		goto fail;
+>  	}
+>  
+> +	usb_ep0_reinit(udev);
+> +
+>  	speed = usb_speed_string(udev->speed);
+>  
+>  	/*
+> -- 
+> 2.34.1
+> 
