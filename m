@@ -1,76 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794872005;
-	b=wVrdJZY2HpiXyyfocow8OEEZZVfP1UsUHmgoDcxLTasY3axhnIcS4S71HsS1nYuZVKLp
-	 nYWL4Eibt62yNBwfXDBF51D6m7OKgbA94hNmkqxENYZzraGpBD0iKZNCPR7+jXDa1KXpI
-	 EmLTorKojvsY6uLaIIArpWNxkurB+Rm41PY1zy/q5MM/PiIkRIMjwpULZrNI94KWRlmQJ
-	 t3UlFUbH769zj2SDJrY9S46dCVs//1jdko4yGSWQBKmaoMhbWg0HcGVR6sHIOsaPmrdol
-	 25nAJpLLVqRXu07XmfFWzKFBUyZ4rqjprobT9C27XjX/W8K6DKKiV/YhICHOPZmiRow==
+	t=1794872101;
+	b=LKs6rae2L+J5hvZOUC+ZfYSHP9waQo/n/NrKskA60zrAB8yc5VceyBfFbKNmCvKyu+Ty
+	 MdVQJEvw9ehbqx9DhiP2dppe5n6s+MJdsn+uy4t9l0Vteu+TySmuBF66BeOvxo9pMmluV
+	 oGr8lBULfXXvcMILJs4t6A0i0C0RP0S0igmzuDxWUdRA0uQ8Nf5NtcMvrXH1uamPTZlXy
+	 FAgDaXTHTEEKRRtXIAbwm3r2oSjzTSpEIlxi7A3Z6DeO9zQrGbtkV1Cx2+mNtO5nbhrg6
+	 iVJD7R8tAO1FvMHu/kt/jI7asNMMPOtSnT1O5oS2m9WDsl0PIbMLnr3y/GnRcnRI10Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794872005;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=JkYXEQFB9TJaWPCUl6oELzMgMKopSE/CjrWR4W7FyQE=;
-	b=2OVEWAxed3lPyDXjpB669i+rP3bnybK9/+3vEMNcS8ovYpANQ6ovAdza4mVfHr6y5BN4
-	 kdiiIa0gz+fHYz0DE2AIATT0Q4fF6dPjfo3V2G8CjKIauIuB7/0kO6V1w07OW/Hnel9+F
-	 n6rdasPM9Rr12HkUcwKaUyRwipR43TOiWiLqQ18T/tDNBsfQ2/Wct8GK5m5zkG3/N0vSS
-	 NHkPchzzJczLq38JN/gDXOt4fxZLstgCtYwEv7nBFm9xPYccZEBMXFo4kFdMruSbgw2/W
-	 kOU+TEew/dOrep7pNZlsA9+5f8GiV6YSU8CtkRXYyETU3BrZo0Ckj4yeOZtTVRFZy6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794872101;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=Af1reff1Z1EffjIkRxjPvN5B/PFFTOsk4MNCtyRPsM4=;
+	b=PCxJCX1MFgRvw+P8RkBxMAf8JXMBVI8K0P+gi62iC5f2RU8iC8Xm689y9sX3f8dJnXYL
+	 mPWBmSb2oi8M6bzXHT1vQz+BTDSkMrhAZ24ywFXxpT8A4eo9II8Ba1E9fbmmuPAUr1GUb
+	 I7Rl2wxUSZF9XTQ6jrSDNBCi/wVJcYX523NI/reUJNlZf3A1Czx3Hh7hr4wEU0I1EYMtU
+	 aPzLpZHnJB/m5KL8FYfPp8L9oF8X63a6/gwsPJoIvaMj5qzd+uI/fjhr4pWPyktWAvmOz
+	 g4yVKw3q+yX/YkFwQG4FU4CCFMlk95wGRQw4JmATJJnbmTHrYt0neVGzCTfr4TyPl2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=codewreck.org;
-	spf=pass smtp.mailfrom=codewreck.org;
-	dkim=pass header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=pNuTU8B3;
-	arc=none smtp.remote-ip=62.210.214.84
-Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cRQy3Vq3;
+	arc=none smtp.remote-ip=209.85.215.199
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E460606A31C;
-	Mon, 16 Nov 2026 23:33:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E460606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87C3B606A323
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 23:35:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87C3B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nkapron.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=codewreck.org header.i=@codewreck.org header.a=rsa-sha256 header.s=2 header.b=pNuTU8B3
-Received: from gaia.codewreck.org (localhost [127.0.0.1])
-	by submarine.notk.org (Postfix) with ESMTPS id 60FE714C2D6;
-	Tue, 17 Nov 2026 00:33:09 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
-	s=2; t=1794871994;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=JkYXEQFB9TJaWPCUl6oELzMgMKopSE/CjrWR4W7FyQE=;
-	b=pNuTU8B3i6pOmJ0Tv3rncHYONbO5KnmNW9dj7+hdcT1hbaN0JZjXHVFWcaKZgrYqZwpfDM
-	viEkrRNUO8hNJ84QoOE77456DldXXOdQ2h36yYZmegZEhSur07Nmfvi9TBfljUAtf+kw7K
-	kW0fmVigSsuR0Wi0Ixe0iK57cUgNl96sFg4eWZCSjQGrR2bKj7p6kspqOJvCmYJhDmXqsO
-	AZcwpTyUpZe5l0/CsJB0rMp1UJGDxDk/Jnde3XNKQPYztgHfkA9Gtu6vFyPyIPVBd0dQ8p
-	YCAnF/4QWmedIW2FKRU6AbAJb/XPObmBgkXBuxVCVVwYnzXnk6gmuu8d5e7HiQ==
-Received: from gaia.codewreck.org (localhost.lan [::1])
-	by gaia.codewreck.org (OpenSMTPD) with ESMTP id 2d9951d4;
-	Mon, 16 Nov 2026 23:33:07 +0000 (UTC)
-From: Dominique Martinet <asmadeus@codewreck.org>
-To: stable@vger.kernel.org,
-	Alan Maguire <alan.maguire@oracle.com>,
-	andrii@kernel.org,
-	eddyz87@gmail.com
-Cc: ast@kernel.org,
-	ihor.solodrai@linux.dev,
-	daniel@iogearbox.net,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	dwarves@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Alan Maguire <almagui@kernel.org>
-Subject: [PATCH 5.10-6.18 v2] libbpf: fix cross-endian build with newer libbpf
-Date: Tue, 17 Nov 2026 08:33:01 +0900
-Message-ID: <20261116233301.1531563-1-asmadeus@codewreck.org>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=cRQy3Vq3
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cd0cf3b1c70so2289762a12.3
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 15:35:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794872100; x=1795476900; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Af1reff1Z1EffjIkRxjPvN5B/PFFTOsk4MNCtyRPsM4=;
+        b=cRQy3Vq3OMHU9OwTKTCh9lffRzgluUfegDZwWUYI0urJ9QJfPJ3mWWRyllJIQDU0Uk
+         pOo/9ZnKyAqrsmxAqCKUquZT3fQn2Yf2NhhpJLAS4+mrg8edGkbl3UZ/NS0XepXIIk8m
+         MFwkb225BNfp15ktiVfULrnMonmVqbu71GhTqNaVsin3AyloVqeAF0vCqIi4Xu2CfApW
+         nbmGXSiG0gtxnOkKtKp4Y5d61tC8KsxS/BCu2JFZm1E+zC5T/eHqmKfaejtGnAYgvD7L
+         RRK634vuPE/1HD+1eL9lN2yIudw/EZHM0GOGbww4tsSW/r/uYYxKJmWvljTcWqu4W/Mt
+         JXvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794872100; x=1795476900;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Af1reff1Z1EffjIkRxjPvN5B/PFFTOsk4MNCtyRPsM4=;
+        b=XVnF7P1Xiu8mfSxVc5YQ50FYQbuiudzmEypDDcE8ru2xbO9dcGmL8kYYaBvUWGek+p
+         rtmh+quO3w788gW4ck9yUyF/y97S6Bhp087AjnHopU1yYLHGZTdOJ+67YmvFfRw/OMwx
+         IoYG+vYj68c0BX84MqA7iFvlJJVYxHgv0tEe+bOLkS3h9BKwclUQTK2g12wO49Uebgjb
+         bECfbTB13VoudHpxHX9gmQwHPLgQW3bRxAqeTlvF/pJLATW9dgr3dBiCsI6tztPg00uc
+         WB3HcihXLBrlGUQ092DrGXC0Kg3b6ZcHUVPlDvxAxFw/HqDpviIgkopDSCGTxKjc0ADg
+         DJbg==
+X-Forwarded-Encrypted: i=1; AL+hErF4NRGkPgSqQ7VC+3DEu8IZhiE1VZ0hpIJFBGc1tnesr2oAmHHe1YLt7l4EQBjPwnVTTR2syv0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9J/B8Kgpl3Oy6eJNwbiau99jDyMfaBAMMjRX9WU9r83KnmN+HK
+	fm+YWQfWKoRYtf48a8aXz/1PllWBspOCBMt8SM8DEL92GfnLYUs+iW6wqttxNheEnMyZtECyFSV
+	cdQkczbCNPg==
+X-Received: from pghi2.prod.google.com ([2002:a63:e902:0:b0:cdc:b85b:3d46])
+ (user=nkapron job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:3b8c:b0:3ac:af8d:c839
+ with SMTP id 98e67ed59e1d1-3b1b0a48e43mr12339856a91.35.1794872099477; Mon, 16
+ Nov 2026 15:34:59 -0800 (PST)
+Date: Mon, 16 Nov 2026 23:34:56 +0000
+In-Reply-To: <20261109103714.4000-1-ingo.rohloff@lauterbach.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,62 +78,29 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <20261109103714.4000-1-ingo.rohloff@lauterbach.com>
+X-Mailer: b4 0.17-dev
+Message-ID: <179487209634.2938203.11644350063446655443.b4-review@b4>
+Subject: Re: [PATCH] usb: gadget: f_fs: Fix mmgrab()/mmdrop() balance.
+From: Neill Kapron <nkapron@google.com>
+To: Ingo Rohloff <ingo.rohloff@lauterbach.com>
+Cc: gregkh@linuxfoundation.org, viro@zeniv.linux.org.uk, nkapron@google.com, 
+	me@samcday.com, michael.bommarito@gmail.com, linux-usb@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
 
-commit 087f3964f4b3 ("libbpf: Support layout section handling in BTF")
-added extra data to the BTF header.
+On Mon, 09 Nov 2026 11:37:14 +0100, Ingo Rohloff <ingo.rohloff@lauterbach.com> wrote:
+> This fixes commit 5eb5c72c72fe ("USB: gadget: ffs: fix mm lifetime
+> handling").  The problem is that the previous patch calls mmgrab() for
+> reads and writes, but it only calls mmdrop() for reads.  So with each
+> completed async IO write (via an USB IN endpoint) the number of mm_count
+> increases.
+> 
+> 
+> [...]
 
-This extra data is ignored in the native case, but when building with
-different endianness the bswap code in old libbpf would check for strict
-size equality, leading to build failures such as this when BTF data is
-generated with a newer version of libbpf (through pahole)
-    BTFIDS  vmlinux.unstripped
-  libbpf: Can't load BTF with non-native endianness due to unsupported header length 32
-  FAILED: load BTF from vmlinux.unstripped: Operation not supported
-  make[2]: *** [../scripts/Makefile.vmlinux:72: vmlinux.unstripped] Error 255
+Acked-by: Neill Kapron <nkapron@google.com>
 
-Newer libbpf versions also properly ignore trailing data in the bswap
-case, but the patch is too intrusive to backport, so take the header 
-length comparison fix from it instead.
-
-Link: https://github.com/NixOS/nixpkgs/pull/570639
-Fixes: 3289959b97ca ("libbpf: Support BTF loading and raw data output in both endianness")
-Acked-by: Alan Maguire <almagui@kernel.org>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
----
-v1 -> v2:
-- link to v1: https://lore.kernel.org/r/20261115200505.1494710-2-asmadeus@codewreck.org
-- use offsetofend() instead of sizeof() to match the support layout
-section handling patch as suggested by Alan
-I checked this builds on 5.10 (non-cross-endian build) and 6.18 (ppc64
-cross build)
-- add Fixes tag as suggested by sashiko
-
- tools/lib/bpf/btf.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/tools/lib/bpf/btf.c b/tools/lib/bpf/btf.c
-index 9f141395c074..0ab11be8ebc5 100644
---- a/tools/lib/bpf/btf.c
-+++ b/tools/lib/bpf/btf.c
-@@ -229,14 +229,14 @@ static int btf_parse_hdr(struct btf *btf)
- 	struct btf_header *hdr = btf->hdr;
- 	__u32 meta_left;
- 
--	if (btf->raw_size < sizeof(struct btf_header)) {
-+	if (btf->raw_size < offsetofend(struct btf_header, str_len)) {
- 		pr_debug("BTF header not found\n");
- 		return -EINVAL;
- 	}
- 
- 	if (hdr->magic == bswap_16(BTF_MAGIC)) {
- 		btf->swapped_endian = true;
--		if (bswap_32(hdr->hdr_len) != sizeof(struct btf_header)) {
-+		if (bswap_32(hdr->hdr_len) < offsetofend(struct btf_header, str_len)) {
- 			pr_warn("Can't load BTF with non-native endianness due to unsupported header length %u\n",
- 				bswap_32(hdr->hdr_len));
- 			return -ENOTSUP;
 -- 
-2.56.1
-
+Neill Kapron <nkapron@google.com>
