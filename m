@@ -1,111 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794830362;
-	b=Ake2umOeOqU+RNiRzW40Vdk0Kv8iUdj23/AcwsR97qGdEVU4cPEJPVwUdtJiTCuJaDTe
-	 iT8ZZCLAYvx00kBazssPXrD2Mt7fbgu/JJu5avNKdT8L+aZofEXFQXXipCJmW/x1DD+ry
-	 8feC1XnlskSk/2Qnej1Rjz/bJ2kxdGRXxeX0wLlq4uxll4AxUIWu+2eg0QtICF1/6yJbh
-	 ut4RRRSw89ChCtyQ9p5VtONT4bRanSSbJr3/nPnsLfwx4xSrse0b3MDJe8Hgiypg3/Pt3
-	 sEBbqoXZBUDCWWrHs7Gquy7nNNNCIg10mFmafzqbxyOUOA/jsm6jAMRPKnaVv03mJoA==
+	t=1794830455;
+	b=ufubUY9JpxWWmCl4NP9D6cOr7QseNPiIX68XbqD77XIocyoypd6eU/ATKyn1fRmLHuFs
+	 +vgf6ov3/5VwFOCWzDxlDo0uA9XZW2kL5SYJyhZH+hSJ9qbX5lYh50AGpSM81BPwmgqpS
+	 +a/5oh3D3zJEBMQH3z9Smn4UKN84RLkLT0eNhz9s8isZtFl4mefN+TaIRogICBqeP9y/N
+	 1B/hJkDI0NnX3ZfmuT9VDem/AbhazbAaOXUgmkn0+HO0JAIEwGPY8A3NF/omcZM/R3Aqp
+	 GSQpAIHLMQiGbVMz4+YVwQMYQADlB1TQsNepOFRSGDN3mdUIQCrTBF2xmDyXK+/BSfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794830362;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=m+MSrAqEZVeGiRYWzVvdWVxYsWhCX93lP+R84odRzMg=;
-	b=48HYheV3VHbMHj2uTUR187BNSmEKbfvaSJcuRomlc2i1fvRCMR9fyy1B5xIBvkNnvvT3
-	 qNkVbDd74xQBkuHkcU9rkf3wiR9hskB9ZBKobvr5afoViSKkckH6TUYKWy2tAkr3yEuv5
-	 Wq61rxYrA5CIvlkiqj8EbAE9mJxw3BtzlnoAY4znqbU7HrPjG4N2SuZSrFS1+xOr+ipAI
-	 KeNKCmAIxDnAk7n6cW2ZtawVTrbS5k7j/0WAi+m+1CQDiQCjsSc4DhKLVk0mIc8uYfDYB
-	 vY/XmSgw75oPbnDSDLlGqjio0jGz7D7t9QNINU5gVkklVBrlSTVq/NImTnwpvZXcUCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794830455;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7GrrfPTtSiFf3eqOfS5BMereeBw05VZ56XZNeLfVvKc=;
+	b=YNfYJI/ObcJtHTOmR83NmyHonPoI/p2dGoNAAMIg8Awkx3HOudlCo04+WEHa6Ejpbwlt
+	 cJWbvuHC6zU1ucttWwBsLm4+AUxsXDnVrqK6018Lr5WdWRay7czhDCjEw3T86oGKtdVp8
+	 mrNZslL5kXWBcfngHV1fyYLejvsDSakFMkmJl61S6miLYkIsTqUPv2qQvl41A0rnNbRhH
+	 hG6juSwsvoFI+wHZQ1WAToA4jZxfofLa2n2UJu9RO7HceT9Q4oIId32w6d7/cbtlFVA0x
+	 rZbJxfDqe7sQOdGOLYgLfsg9T8MgBfMIRLPKrrwTxvBAIQUHxxO+MzeTipPdE/SdOaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=suse.cz;
-	spf=pass smtp.mailfrom=suse.cz;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=w9UbCaXu;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=2jwVNDcA;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=g4vMACQr;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=caRSVl6C;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=OJ1T4FZP;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C96606A32F;
-	Mon, 16 Nov 2026 11:59:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1C96606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DC59606A329
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:00:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DC59606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=w9UbCaXu;
-	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=2jwVNDcA;
-	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=g4vMACQr;
-	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=caRSVl6C
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id EE0101FD69;
-	Mon, 16 Nov 2026 11:59:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794830360; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m+MSrAqEZVeGiRYWzVvdWVxYsWhCX93lP+R84odRzMg=;
-	b=w9UbCaXuysYMtCIxOa132sEBAfLLV3g9wdb1P7GKdWn/KBZf0xmX7OUV+ry36tyRgtBwUS
-	4JPmU/S88K0Op27fmaA7V6goV7N2yNsSNSQIpoYQaj+dstfcE8cabCg3iBG0CJKceovJdZ
-	Kkbrv96x3HQpafle84sXhPdn8ej/ry8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794830360;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m+MSrAqEZVeGiRYWzVvdWVxYsWhCX93lP+R84odRzMg=;
-	b=2jwVNDcA0m8yAXkVNIaEcYrvMMOpVTPtYSZdQJ07T4BxiUwkJUf6TP91tqXL1n7+tEfQJH
-	xqMjVZqR9XeIW3AQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
-	t=1794830359; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m+MSrAqEZVeGiRYWzVvdWVxYsWhCX93lP+R84odRzMg=;
-	b=g4vMACQr/XoNhb2D6Tfs8OcqkvXsZpLJDqPYvATm26ZFdE6vvhBB3vGbNqlOEgJ8uYa/la
-	EjnuXJUwsQoDxaCQsQo8Ri2QffqhE6VsQot9a1SMyU2VlnjOVWNJ7nPTjn627vClCwaFSo
-	Xhxkv9s8KDC8PybbLZk1gMZbBLRP4qU=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
-	s=susede2_ed25519; t=1794830359;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=m+MSrAqEZVeGiRYWzVvdWVxYsWhCX93lP+R84odRzMg=;
-	b=caRSVl6Coo+XYxmVsbKV6C63GdJ2akNXbWZXWZfrt4t4jRCHnf+Y6z+dO/xYN8ZQi/I6AH
-	3E8s8YYRMhGwO9Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C5405134B8;
-	Mon, 16 Nov 2026 11:59:19 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id NmvtJxfw+mreSAAAD6G6ig
-	(envelope-from <jack@suse.cz>); Mon, 16 Nov 2026 11:59:19 +0000
-Received: by quack.suse.cz (Postfix, from userid 1000)
-	id 6BADD24DD6; Mon, 16 Nov 2026 12:59:19 +0100 (CET)
-Date: Mon, 16 Nov 2026 12:59:19 +0100
-From: Jan Kara <jack@suse.cz>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jan Kara <jack@suse.cz>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, io-uring@vger.kernel.org, Christoph Hellwig <hch@lst.de>, 
-	linux-block@vger.kernel.org, linux-nvme@lists.infradead.org, linux-scsi@vger.kernel.org, 
-	target-devel@vger.kernel.org, linux-unionfs@vger.kernel.org, bpf@vger.kernel.org, 
-	linux-nfs@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 06/12] loop: take freeze protection for discard and write
- zeroes
-Message-ID: <wpcg3f2t6onllwx4qd42n6epkqaw4huwhurwc5xf3hbnjjo43a@2fwxzz4khwxe>
-References: <20261114-work-fs-frozen_writes-v1-0-f5ae61c898b1@kernel.org>
- <20261114-work-fs-frozen_writes-v1-6-f5ae61c898b1@kernel.org>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=OJ1T4FZP
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso18746175e9.1
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 04:00:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794830452; x=1795435252; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7GrrfPTtSiFf3eqOfS5BMereeBw05VZ56XZNeLfVvKc=;
+        b=OJ1T4FZPLnEjhpZLRMscVm6TOrD714DlttVfFF9Pcqur0ovOiJigLjAYbysaNsYEhK
+         p0Cp4RLKGHi8p3EUmd4ZHBMhfUTeJpXA/HArJL0ahopo5ab/POfIaNcD8vAp/m8vRlMQ
+         v8lhaheuFY6Bg8YyyeDyH6SQ8pe3+LnMZXkkR1x5E0z0FTfM+IytG9vEF5PjnrwL1GIq
+         jrgM0IC+/j7kCK+wk//bKWutt5fJeR18H44UYjA76NrmI4pOa2ccQwnbSOChGpTjPS5Y
+         zPlEjiX6SQ60rRpFgCBbkt1UTKi1z+WkitWjT2RjYz9pKGbfX8vvWW31msbJDdu4o4vY
+         96Ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794830452; x=1795435252;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7GrrfPTtSiFf3eqOfS5BMereeBw05VZ56XZNeLfVvKc=;
+        b=O3r5Mvk8vjrkS/P8ouWRhp+iv94UVnWfxvRH4ArzWJiZCewPJh/Q3XNNOLdfYmxtA3
+         reXYOdXEh+ouJvoTlioW8RQem9IsbtEmP41yUhfKjd3XqBIS8U46Kny4ev4MybLezHxd
+         esPvtu+wOaaqwOodQM0cWPbv00qOGJKhm7JqK2dnEKj1OqEidXH+oO4GKYl+e+Uo1to6
+         exMppHAb5hRPQotcG2nVr2NhHG+FG5cC3LLdShF/uI2ns4yLUYAn4I8ifQsuIBu8BZqi
+         5dcZNxJ+BzONdCPiv42m0yTCEzKeIgzqwqRaf5VuiNOACDU8pV6JmdWRjEdyyBCRh5PX
+         rS8g==
+X-Forwarded-Encrypted: i=1; AL+hErH5Xe1giVCJxTc8uvFV/Z4M5QMbeA9HFzk4O/pvsM0e0ZXLxt5rldShWPVZEHU5HdKEPgrTL5g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8phM2jxtrfye8v67f59sJm3MYul61jzvOCuk2rAkQ+VYkQFiYV
+	4CcWoCUxuePTcJfyrdpL6gD8Y/OlB9PwzI2FadLLLmFJ6BUz+6aHLmgeIXWbhb5RzX4=
+X-Gm-Gg: AYBFou0ucqQ2Tt7pq5zCvJAsGt9Qgwtazr49vvmndfDuSyhTCeiUS5b6WJmBJVBSZyI
+	SR7Xp7+Mo35qMYUwoL7R5nI8aV8CEVkSKOlaEKj11IBLBssZ5mbX+heF7DcYUxDWlbCEDrIz+AH
+	mMFdRacDb3BJntNWuyBuorBEQ/WMzh8lATr7wIGqryd3zUj3czlQyKO2fUNtQ0iQ70ACQr9+iIA
+	Z+mGAopjsybU8Gxyd5VGj7irl+RXI4HnJqvsCuOqjiUSWvd/XviwmQMIT2R+bWkDXEzyM+uossa
+	f4MOgcsrWwLV5UcFY/VVagsYX6H8y1CBNGskq0MOKf0+lU9lpbhNkOXUzDQEgRpjUtAe22erBjn
+	dBi15cGDgJl+28m3/p2Vnb9QyJF8VTkTEZII1W1ORwJCeYYF7u1yigdZvV2YO2G4KyIm3/akEDg
+	JzV0pm81KZdzh01g+07lLkaLsvaDZi8sjsS8jMmdgeoAXVb/EDQVJ0dp/bFykoKf/zjeEmOrTYx
+	gbA74qzyadGOCqGca/y6dhWH7TgKqB1r/Rafv1Ofuocj5zXPn7uMfvf1/HjAJFNd0gHydfK/YDP
+	QNiuuslUFo260xmzOVvWmKT3RDZhVI5YZ1gD7P1596eg82E9ZZfK/iXIvmnlQRPrn2rrR6m1
+X-Received: by 2002:a05:600c:b86:b0:4a1:811c:8078 with SMTP id 5b1f17b1804b1-4bb55a67c61mr228790365e9.26.1794830452167;
+        Mon, 16 Nov 2026 04:00:52 -0800 (PST)
+Received: from ?IPV6:2001:a61:13bb:d801:1801:5442:bbc8:29a9? ([2001:a61:13bb:d801:1801:5442:bbc8:29a9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571f6a40sm110447535e9.2.2026.11.16.04.00.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 04:00:51 -0800 (PST)
+Message-ID: <69bbe579-d296-4bef-bd0f-da30f12b466f@suse.com>
+Date: Mon, 16 Nov 2026 13:00:50 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -115,91 +92,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114-work-fs-frozen_writes-v1-6-f5ae61c898b1@kernel.org>
-X-Spamd-Result: default: False [-12.80 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	MID_RHS_NOT_FQDN(0.50)[];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	RCVD_COUNT_THREE(0.00)[3];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
-	ARC_NA(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[17];
-	FROM_HAS_DN(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_TLS_LAST(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	MISSING_XM_UA(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,imap1.dmz-prg2.suse.org:helo,suse.cz:email]
-X-Spam-Score: -12.80
-X-Spam-Level: 
-X-Spam-Flag: NO
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] usb: uas: ignore UAS for ASMT135x bridges (174c:55aa)
+To: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>, linux-usb@vger.kernel.org
+Cc: stern@rowland.harvard.edu, gregkh@linuxfoundation.org,
+ usb-storage@lists.one-eyed-alien.net, stable@vger.kernel.org
+References: <20261114174929.53871-1-olivier.kaloudoff@gmail.com>
+Content-Language: en-US
+From: Oliver Neukum <oneukum@suse.com>
+In-Reply-To: <20261114174929.53871-1-olivier.kaloudoff@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat 14-11-26 11:47:13, Christian Brauner wrote:
-> Discard and write zeroes requests end up in lo_fallocate() which calls
-> ->fallocate() of the backing file directly. That skips the freeze
-> protection vfs_fallocate() would have taken. So they go straight
-> through to a filesystem that is frozen. With the backing file on ext4:
-> 
->   WARNING: fs/ext4/ext4_jbd2.c:90 at ext4_journal_check_start+0x1f6/0x2d0, CPU#3: kworker/u16:1/44
->   Workqueue: loop1 loop_rootcg_workfn
->   Call Trace:
->    <TASK>
->    __ext4_journal_start_sb+0x7a/0x470
->    ext4_dirty_inode+0xa1/0x120
->    __mark_inode_dirty+0x154/0x1110
->    file_update_time_flags+0x3ab/0x4b0
->    ext4_fallocate+0x286/0x3440
->    lo_fallocate+0x13e/0x290
->    loop_process_work+0x486/0xe70
->    process_one_work+0x946/0x1820
->    worker_thread+0x4f1/0xd60
->    kthread+0x364/0x460
->    ret_from_fork+0x525/0x770
->    ret_from_fork_asm+0x1a/0x30
->    </TASK>
-> 
-> Take freeze protection around ->fallocate() like vfs_fallocate() does.
-> 
-> Fixes: dfaa2ef68e80 ("loop: add discard support for loop devices")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Looks good. Feel free to add:
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-
-								Honza
-
-> ---
->  drivers/block/loop.c | 2 ++
->  1 file changed, 2 insertions(+)
+On 14.11.26 18:49, Olivier Kaloudoff wrote:
+> The ASMedia chip detection in uas_use_uas_driver() assumes that every
+> device with idVendor/idProduct 174c:5106 or 174c:55aa reporting a
+> config.MaxPower of 0 is an ASM1153 with working UAS.
 > 
-> diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-> index a3325ceab484a..77f0601475bb9 100644
-> --- a/drivers/block/loop.c
-> +++ b/drivers/block/loop.c
-> @@ -259,7 +259,9 @@ static int lo_fallocate(struct loop_device *lo, struct request *rq, loff_t pos,
->  	if (!bdev_max_discard_sectors(lo->lo_device))
->  		return -EOPNOTSUPP;
->  
-> +	file_start_write(file);
->  	ret = file->f_op->fallocate(file, mode, pos, blk_rq_bytes(rq));
-> +	file_end_write(file);
->  	if (unlikely(ret && ret != -EINVAL && ret != -EOPNOTSUPP))
->  		return -EIO;
->  
+> ASMT135x bridges (iProduct "ASMT135x") share the same 174c:55aa id and
+> also report MaxPower == 0, so they take the "ASM1153, do nothing"
+> path — but their UAS implementation is broken:
 > 
-> -- 
-> 2.53.0
+> - The first READ(16) issued by sd probing times out after 30 s;
+>    enumeration only completes after a uas_eh_abort_handler plus a full
+>    uas_eh_host_reset_handler cycle:
 > 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+>      scsi 3:0:0:0: Direct-Access  ASMT     ASMT135x        0  PQ: 0 ANSI: 6
+>      sd 3:0:0:0: [sdb] tag#26 uas_eh_abort_handler 0 uas-tag 1 inflight: CMD IN
+>      sd 3:0:0:0: [sdb] tag#26 CDB: Read(16) 88 00 00 00 00 00 00 00 00 00 00 00 00 01 00 00
+>      scsi host3: uas_eh_host_reset_handler start
+>      usb 6-2: reset SuperSpeed USB device number 2 using xhci_hcd
+>      scsi host3: uas_eh_host_reset_handler success
+> 
+> - Under concurrent load the bridge stalls: all inflight commands (20+
+>    UAS tags in the captured incident, mixed READ(16)/WRITE(16)) hit the
+>    30 s UAS timeout in the same event, forcing repeated abort/reset
+>    cycles and eventually a USB disconnect.  Writes dropped mid-flight
+>    during these resets returned zeros to the filesystem (observed as
+>    XFS metadata corruption on the mounted volume).
+> 
+> - Sequential-write throughput is ~45 MiB/s under UAS versus ~136 MiB/s
+>    after disabling UAS (usb-storage BOT mode), which is fully stable:
+>    several tens of GiB written without a single error.
+> 
+> - Bulk reads of healthy LBA ranges do work under UAS (~190 MiB/s, no
+>    errors); the failure pattern is command-timeout at enumeration and
+>    under queue depth / write load, not a broken transfer path.
+> 
+> An extended soak was also run at maintainer request: the device was
+> rebound to uas and pushed with ~640 GiB of mixed I/O over ~2h45
+> (randrw/seqwrite at queue depths 8-32, disk util ~100%).  Result: zero
+> uas_eh events; the queue-depth wedge did not reproduce on demand.  The
+> enumeration stall did reproduce once more at the first UAS probe and
+> self-recovered via host reset.  Per the maintainer, an inconclusive
+> load test still warrants the blacklist given the filesystem-loss risk.
+> 
+> Since 174c:55aa is shared across several ASMedia bridges and enclosure
+> rebrandings, distinguish the ASMT135x by its product string — the same
+> approach used for the HIKSEMI MD202 check a few lines below.  The
+> product strings of working bridges using the same id ("ASM1053E",
+> "ASM1153", "ASM1153E", "ASM1351", vendor rebrands such as "YZWY_TECH")
+> do not contain "ASMT135", so the match is safe.
+> 
+> Verified on an ORICO C10 enclosure (iManufacturer "ASMT", iProduct
+> "ASMT135x", bcdDevice 1.00, stock firmware) attached through an Alpine
+> Ridge TB3 dock: with the equivalent usb-storage quirks parameter
+> (174c:55aa:u) the device is completely stable.
+> 
+> Signed-off-by: Olivier Kaloudoff <olivier.kaloudoff@gmail.com>Acked-by: Oliver Neukum <oneukum@suse.com>
