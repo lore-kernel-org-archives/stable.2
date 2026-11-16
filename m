@@ -1,109 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794843106;
-	b=V+gb4AX1KD81Pi4KDGXDkkObhPTjcwetTkYl6vEmfUzS4EtYyNd8WO+6vAtVrCCSQ1fc
-	 7P6XynKrKDscXuBud5YsxPSWSIPoL0KYX0PPWYs921B2d843okuGpKpkPnyxV3LvWWM32
-	 lMzeC0NGGuzzrNy70CFJuk2yt6uDcGXHm+yQHnotjOMq5wF4+2zGdRdHLgXt5CUjZHEp6
-	 WaMDdO7jiMi4afCuhhxOKJML1lm1NvSYw44tFRvMheePudZG3nLYJZvTOAuj8dZOn72MP
-	 uXXpI8UEZVuV7K+K0/xVyo9T061iuttaRwBRzn3jyTOQPt2E0I46M77fpqWvStKuKmg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794843106;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
-	bh=Idicx8emA2oqvBA/OxBNuiAP4xRKrUiUsD475RwA6E0=;
-	b=G7Vq7o1TaFrhJ+4EXj7xw+LGYZucHQtTZ/tYL70qh8jLb63qXwYqL1CEjBtOelDQ3XFJ
-	 yxCpEhfluiceQWvKeiiwyASqHpDjgQI21zooI7ElgCqAe/7/LnSBU5Wg7kLreRKVeTet8
-	 GkrHbfgFHInEsYat/Qr0HBtIIY9slrnpWTpvtPT4ThK0FkoCvSmYzeAc2UlQ0cuNXsUs/
-	 xmQkx50vTJXwsbQB3dC2uots25XBP8RhE4pniGW5CAGbdejndzY4MwuvVjcDkJLXb8abA
-	 uPVTih7pfMAB2V8CUHoH5FNYZDbRWfBzBzp54nvqZUgsGWIGVGiyL+zJTT1xpDtO8mg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=znWO6M9w;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+27JLGYz;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=y4Bl7LUs;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="WqlYwjw/";
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794843185;
+	b=wo98ZiMzSN8UV6jo1IYJJ0eDUaYlkUHeecSA5R+jz0YUdsdMkJ+bZc5IMUXgv/yVhgzU
+	 KYBdhFVtSv/3AHO+2brhK4zWLVZT4IKDt2h9sDo+/hpP0VL/7SDVbd0tphp0E5pEEjkUd
+	 i39T4QjEjxmLZNl6v9skOK2kDsW64gcpmsdRS4d3Nu+3L/gUJRLwvC8WB2EEIMTijwOT9
+	 DvJWlQzMwkuoUMka7ZI/7sRdaMmU6zeIKAnkJaqXqh5yyVqn5V4k9Cjy0hvSyw8op75WN
+	 r+p7boNSsn7SeFgz5Ezh9bRofkGWZJFu22zcg091fLaoThbuqns24ZhsUqrOZx+2//w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794843185;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=C+j+4XkHf4LiDZU7z6o8HQSgVoE7bLITsjQsgM893MM=;
+	b=fJQpHp99QfMbB8/rF6uT0QZ771sGeTYSFtSH0IuRbQc3MwPMdykO/KyT4fbUjfKyEjja
+	 7uCMteqXX1Q6F52Mz8B3HrCaomWSiA1fpu9jgFXwgARCVSPCMIUwwGTRO/Is66VlF/bA1
+	 3lx/q4CZKMVftxEO9FcFKXk8Pdlt4QQrjJXsvrOwd9mK7soAeXJm6HXGNJcQ4qeleQtOZ
+	 eEzWWxFoQoslPmrOWEAY8yCAb0Ze4oYJyUM5x1Z+nolrqukAklbf7vLgpoOMsxFK3b/uF
+	 h7faA13nqR3stbVU831AihPY8GPshfMsvUahfOo0m4X6zEFTxQ/3zCXQ1gnnS8O+hpQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=M5zuDo6f;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.18
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011018.outbound.protection.outlook.com [40.107.208.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F91606A339;
-	Mon, 16 Nov 2026 15:31:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74F91606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72050606A322;
+	Mon, 16 Nov 2026 15:33:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72050606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=znWO6M9w;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+27JLGYz;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=y4Bl7LUs;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WqlYwjw/
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 637F5222E9;
-	Mon, 16 Nov 2026 15:31:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794843103; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Idicx8emA2oqvBA/OxBNuiAP4xRKrUiUsD475RwA6E0=;
-	b=znWO6M9wpsS5mf/SnkNuKM/pDJTqz5RmAtQamiXjfOqWMjTmQN/Ulvx+d+bcqj0aLgyBNU
-	FjBKS6YzmL9pUEfStn5YHfRc2+Ru8w64A3NmiHQ9nlPwUNBZmATEAl/mFQ5BBy8tYGvNh7
-	NbKW350KE5uQzO4koS3rXUOzbDjqbW0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794843103;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Idicx8emA2oqvBA/OxBNuiAP4xRKrUiUsD475RwA6E0=;
-	b=+27JLGYzcIxM57T30HTPmT3JWkI/tUZoo317Eq6wEfzE2MgBFvGJJvKPYrqxO2KVkdMRap
-	5+bdkgyo1MGZJmCA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=y4Bl7LUs;
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="WqlYwjw/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1794843102; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Idicx8emA2oqvBA/OxBNuiAP4xRKrUiUsD475RwA6E0=;
-	b=y4Bl7LUscTQ5TQwLCWIBllBNYEakHtfb8MhkESItEYN0nbXLx54dwabz8K1qmQ1KSM0zVi
-	Jh8Kng6fRNVaJYZK57aiQ6XJ0JgohUe9i4rdMSqP2lqEm29luS5+GvH4IsP8RAOkj7oHnG
-	30DuLHRoTpd1D7sxXRPVonVNKPZ2tVo=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1794843102;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Idicx8emA2oqvBA/OxBNuiAP4xRKrUiUsD475RwA6E0=;
-	b=WqlYwjw/YdMT532VL2vb+DWwLKQrl8V1AR8f5l986xSh4PXoyRh0XJeEKSne+cNyH2vmy1
-	of/NVauX9t7cz/Bg==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1EE7113408;
-	Mon, 16 Nov 2026 15:31:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id vI1vO90h+2qgLgAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 16 Nov 2026 15:31:42 +0000
-Date: Mon, 16 Nov 2026 16:31:41 +0100
-Message-ID: <878q2syeqq.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Ye Weihua <yeweihua4@huawei.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	<linux-sound@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH -next 1/2] ALSA: pcm: oss: Restore params flag after failed reconfiguration
-In-Reply-To: <20261116064850.3540576-1-yeweihua4@huawei.com>
-References: <20261116064850.3540576-1-yeweihua4@huawei.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=M5zuDo6f
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LK+07FsWlCFioNqjmPT2amfAxkRyMGuiWn5yMxteMkLpzZq8dhnN06FUUbkBO6Yak7XdTvUEOnK9Psn5Wh1OZZXQFVF6LdTuaB023nV8FvcGrrMQWbzXNq1aqgTcpVkc891ydZdGAh4eNps621UawkHJLP2TY61xG39CsnR7IbGy5wuhsMWsLHnMg6W6gYpVExzskyU3bgYcdNOyWeu6U55cPASGocHIO8B4WAlFsdjYPgX9lp+1yj95vfEAZKPxuiMxryq3eNgXtbTHF0eNq3/lAd7mgHvdwgF62yXiEFMk6Jvk9dGzhbpA+gMLhgmO8x93cxddn7vHvrmFZ6q9HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C+j+4XkHf4LiDZU7z6o8HQSgVoE7bLITsjQsgM893MM=;
+ b=uvkrYp8RukLek9qedd1xK94F6EPj0vHz7U3Jn2Fzkr5hcP9TcXlEPFNYwhND8HHCcf2qXkXb4bsLhg7ckSfAT0awjVcn6GViWVrACYOUf86Ewo0qg8eUnczeVo4Z78sIelUMb+bXvX/cybVLW9mBMxMZvayJPA8mIKtQFZgHw7eoFRcnj89FhGPgK6YlRpvlS76xv/kl3JV71MZJE7yVYnc0BPBn2p1DMV8UQdRM98Fm239voBWh5b6Lei77r1Kqhx871JWzalPLmUgrSxLCoOebJ1bdQswbYRQxKS6Nbpg/R8S+RHru89FXTzZnonqskp0uIVT5HMwDhmfq0lxGdg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C+j+4XkHf4LiDZU7z6o8HQSgVoE7bLITsjQsgM893MM=;
+ b=M5zuDo6fM+ESoNL3yOjUGApZZsZ9X3ufZVNjntkp6/0nEVovwPDJ5n0btHee1HZ4CskOS666LJAdqXvsC0EKuyrHKHcB532nNfv9AP+hn83GCSYcd7tqqQiBTS3uvQ0NpQP8mXI026GH/8hEuVBcZuBP640/QeywWawLQBFOTak=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA3PR12MB138305.namprd12.prod.outlook.com (2603:10b6:806:517::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 15:31:00 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 15:31:00 +0000
+Message-ID: <d65e90aa-a97a-4703-adb9-e95e07d8e4c7@amd.com>
+Date: Mon, 16 Nov 2026 16:30:54 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] drm/syncobj: Limit the number of handles and use
+ kvmalloc for user-sized arrays
+To: "Yu, Fei" <fei.yu@intel.com>
+Cc: dri-devel@lists.freedesktop.org, tursulin@ursulin.net,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, linux-kernel@vger.kernel.org,
+ syzbot+95416f957d84e858b377@syzkaller.appspotmail.com,
+ madhurkumar004@gmail.com, stable@vger.kernel.org
+References: <3aaea7f4-62a5-435c-b1ca-35babf30a7d2@amd.com>
+ <20261110084906.2458016-1-fei.yu@intel.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261110084906.2458016-1-fei.yu@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR2P281CA0144.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:98::18) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,63 +100,98 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.51 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,huawei.com:email];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[5];
-	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	DKIM_TRACE(0.00)[suse.de:+];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,huawei.com:email]
-X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spam-Score: -12.51
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 637F5222E9
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA3PR12MB138305:EE_
+X-MS-Office365-Filtering-Correlation-Id: b50a3786-256a-4fdb-a86d-08df43f69d75
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|7416014|366016|22082099003|18002099003|5023799004|11063799006|56012099006|10067099003|4143699003|261102123227099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info:
+	JMbvlthBL5VxjQyYPLI4HPf06MWgNDeRoxIsvBjJHaWxIih9vws6jJ+97D0sVFyRZ93Pg+NfDQmdAjzWllJRDf21bTp7RwQxhL11Gptc/7DrmvH09VtQEraHVaEMJliS3BOytDLUR6318WKLx6r1Fx2JL5aHSVEjXErmf8k3PnpUYlv3/0fE6M7mR+v4mQQHLLVZA654TZTMvRc09fJMaJ+ihVagtDHeWnh8SdMeNteybBsQQWYud862LOvdwNC1EriN21W+0tdnxt2Sr39H8s3OTWxhpZrxsxYJLtwQAgi0EGGdZANB/GmfX2ehbjNytggC/xV6vok60fzrepWpApbPDx00h91jNdqjKXd5e/LuXFOy14Tkp1YvbFnkR+X/8lj53oTmiNVGOQECkshwlPZmS9d6o4o+sqQLDnYXurAiIOMJ+HOfnQZhqQSmZbExRillmL5M8lakGqBPWZCu150OvGgflwffILntFShoP1OSq69pXnLieDjNkqKuC/arryx7LYF4/cMuUHVTTZOdRyr61xJKROjX6zYoh9u2c8NHrzMXQUTGDAVPG6jQo3qOuuKX+ahIvYVxkJndwijs5GrLzQ671QyTHWWCdiithp3GkIsNrY/gQsATgitmGDd04SQGbRBm+u+zvYF3KUhTe6WOZLJF642ZmdI/0d2b38o=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(7416014)(366016)(22082099003)(18002099003)(5023799004)(11063799006)(56012099006)(10067099003)(4143699003)(261102123227099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022105027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Rk4wblpreHZXdEtkZmI0Ukx1S2tJL1dIb0cxdk0vSlNoMm5lSVNpVitTSXM5?=
+ =?utf-8?B?MjN4elVobjVOdXpRN0NsaTdNVFNTbktTeTMvLzYrM280SFJMYWhMSUZDWEtn?=
+ =?utf-8?B?dFZUd1Nmcis4MWpPNmptSkduWEhIc3ZFeEJKdkVZSkpKZ05rNEUvZ1NPTXVh?=
+ =?utf-8?B?RFEyakNKeXlESDRkbWxEbUJyNSt0Vk9DWi9WR1dxWktDaXI1RGo5a3l2bXlI?=
+ =?utf-8?B?R0RZM0E1cW1KSFBBZzBsbzQ0c0FXcW1hMDFTdnJEUWlsQnVhRXVycXRZNnp5?=
+ =?utf-8?B?dzRzVVgzV3JJR2hHWnl6VW14d2ppZkpQdjlNMmdpRmJUemF4SHFpaDlqNmRF?=
+ =?utf-8?B?c0RpcHlyc2tPNUdNSEdCb0w0Vmt3b2J5V1dVZ1RkMEc4MlRzdWVRQnREN1FT?=
+ =?utf-8?B?cGw2MndZUW9pT2JKMTgrajVHTzBuTElZUjUvRFVoQ3B4R3dmTVR5ZTNEdTIy?=
+ =?utf-8?B?ZnN6K0psY2RDS2J1YVVuMjZHWHltTThkKzV3QlRpYm9kcHdSYVlJaHBaRG5Q?=
+ =?utf-8?B?K3Rja2VmOUZyTnZUNlIvTUFCQzVva2hOL1ozUFBNenkzSUtuUUtMaXRnZGVW?=
+ =?utf-8?B?M1B1SmN3Rmc3ZHZuNU81eVVSSTBEQnF2L2t5TnNyOW1Mb0R2MDJkb0xycisy?=
+ =?utf-8?B?bVRZcXhpbTFPd25lN3NQTTdEa2FnWEZzZkZ2MDRxMkhpL1A0UlhFR2ZaU1dy?=
+ =?utf-8?B?enFhVjd6MkdUOWV2SHE0ZjhKVWRFTzJmL2NLV3JHV3VPWVRZaU5lYndNbXdL?=
+ =?utf-8?B?cVh1LzhVZ1Vkc1pPM01ENzRKMzBDeG9hWWZvZEJtN3lQb3ZwUnBSUVdQVXZs?=
+ =?utf-8?B?clZuK3RrYThNVUh5SFRwMWhpZVRlRnNWWnl4YzJlNGtBWlppQUJLVjZUUnNn?=
+ =?utf-8?B?QWdXdUtJMmtJS010OE5pRFBDUGR2WmRqSTE5S3J0clZlb21uVURmQVY0aEpM?=
+ =?utf-8?B?SGx2dE55a1BCaGdjbHA5aUR4R1YxZUNXVjhHZk5Sb1pobHBLSUhUZ3B2ckww?=
+ =?utf-8?B?T2dUMUN2enV4cVJNTWJuMi9pWjh5cmhKd281RldEMzRMQlRkM3pEQ2hleGtj?=
+ =?utf-8?B?ZjJUNU9qTm1OekdKSDZzeS9NWGlRME5zRGFZWmMxcGllUVQ4OHU0S3dWZGpS?=
+ =?utf-8?B?MHpYNFYxREIxSUJCOUdOQm02WWFxdWVNQjFXR2tCZFprUXBORUg4QkV3ZE91?=
+ =?utf-8?B?L0tqYXZUWFBMZWpPUEdJYjBBNFNhRWRJK1doQ29jQnIwVU9JUmxRY0tSb2ZS?=
+ =?utf-8?B?aHRjN1lKQ1JvTERwZWNkVnhZdmZsTlRGbFVVNXRhZzVYeEE2WU5nZGhqb1ho?=
+ =?utf-8?B?a1RIcTZkRngrRk9hN204WjJDWTRrVG8yUkRvYnRCM1V3Vm9GTldyZW1QajZi?=
+ =?utf-8?B?TWZXUUpKQUQ2Q1JDVnc2K2tJNVR1UDFCZDhIWnU2Y0dMdEJhalB2UzRHSUNQ?=
+ =?utf-8?B?L29RbUdVcmJOWUdaU0xrMENPaWdQYk1UYU5QK04xVG1Xdml2VlZvbWJpQlda?=
+ =?utf-8?B?eFVQbjhidWUrcUlQU3d5aTF2NnpPQVRZcnlORkQ2RUdtdDlMSUNhVVNJaXVj?=
+ =?utf-8?B?MERoQXV5ODJEQW5rUm4yZ1NNdlYrUTBEUU5aL0kyUTFCckNDVkYvWWM2RHdN?=
+ =?utf-8?B?R0I3b2dVQ0RVZ0lETSszM3ZhTzJ3K2dCdW1iM0ZFcGs1K3hNbXBRNGJFZDc1?=
+ =?utf-8?B?VHhtNk03Z0NUaEQ0UUZSemgwTEhQbFc2ZFVDWnlqNWJHbXY1c1p6c0gySzYz?=
+ =?utf-8?B?dEtLMVlyTmtUUWY0ZjdzODFoK1VZYXlmdkF2SVdiMXgwOHZhTGZ4NTYzM0da?=
+ =?utf-8?B?SnhDVkozNHE5U0dBOW1ocUdXcVpidno3bDlFNjdjenp1YUFkSTY4VnlUa3NP?=
+ =?utf-8?B?RCthYnlieXdvcy9tZW1kMS84Yk1CV0gyRzNFK2t0YW5nYTNsblUwL2ZvWmhN?=
+ =?utf-8?B?OGVudVpRV3RvVVNKS1JCN29SdEIxZ0RSVnVqL1JlT2tSd2JuSm9ZV3lMMDJp?=
+ =?utf-8?B?UjlLNkVGZ1lndnBIMDlSOTZ0TzE4dDRFZ3lWRnprUk9KMk56ZUNZT2JJRXJ6?=
+ =?utf-8?B?N1pOaThHR0pjMFNSMmdoR3loMXMwcHdoamMwTzdrZHArZ1JVcStTK1Jka0N5?=
+ =?utf-8?B?Zklybi81amlSTC8xd2hnK3RGYjEwb3JSVUVvRUw3dkdRK1hmZDh3OHljSmxr?=
+ =?utf-8?B?WXJxa0FqYzhwNm5uNWJsTWRrUFBKT1Y5WkM4cTVtN2N5TndqYkRwN0tjYkgr?=
+ =?utf-8?B?R2FXelQ2Rmp1bmdFRXZ4eHNSMzJlbTJnWTQybGRQZTUyckExakU4WWEzb2FW?=
+ =?utf-8?Q?LJj72jZy1MDcchB/bK?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b50a3786-256a-4fdb-a86d-08df43f69d75
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 15:30:59.9109
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FrEt3gy+xnS5XOwsRgrARx05iX2tJmQT76B0al/iTcHMClLtlBb30k4jqf/7e/Te
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR12MB138305
 
-On Mon, 16 Nov 2026 07:48:49 +0100,
-Ye Weihua wrote:
+On 11/10/26 09:49, Yu, Fei wrote:
+> From: Fei Yu <fei.yu@intel.com>
 > 
-> snd_pcm_runtime_buffer_set_silence() may fail with -EBUSY when a
-> concurrent PCM transfer is accessing the buffer.  The error path
-> releases runtime->oss.buffer and clears the plugins, but leaves
-> runtime->oss.params cleared as well.  A subsequent small read/write
-> then skips the reconfiguration and dereferences the released buffer:
+> On 11/9/26 12:54, Christian König wrote:
+>> On 11/9/26 02:48, Yu, Fei wrote:
+>>> Signed-off-by: Fei Yu <fei.yu@intel.com>
+>>
+>> Reviewed-by: Christian König <christian.koenig@amd.com>
+>>
+>> Let me know if you need somebody to push this to drm-misc-next.
 > 
->   Unable to handle kernel NULL pointer dereference at virtual address
->   0000000000000000
->   pc : __arch_copy_from_user+0x78/0x23c
->   lr : snd_pcm_oss_write+0x10c/0x340 [snd_pcm_oss]
+> Thanks for the review! Yes please, I don't have drm-misc commit
+> access, so I'd be grateful if you could push it.
 > 
-> Restore runtime->oss.params on the error path so that the next OSS
-> operation reconfigures and reallocates the buffer.
-> 
-> Fixes: 47c27c9c9c72 ("ALSA: pcm: Improve the fix for race of buffer access at PCM OSS layer")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ye Weihua <yeweihua4@huawei.com>
+> Since it carries Fixes: and Cc: stable, drm-misc-fixes was what we
+> discussed earlier, but drm-misc-next is fine with me too if you
+> prefer, your call.
 
-Applied both patches now.  Thanks.
+Right, I just pushed it to drm-misc-fixes.
 
+Sorry for the delay,
+Christian.
 
-Takashi
+> 
+> I'll send the uAPI doc patch for the 1M limit against drm-misc-next
+> once this has landed.
+> 
+> Thanks,
+> Fei
+
