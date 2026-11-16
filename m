@@ -1,101 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.143
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833080;
-	b=Wwz2/A4yPxhSj/zIkPrXKPfWntAfGfR8jPevC/6BZ7PbA1woQnQ9mXZc4ZEFjPSfHXm6
-	 bCPr0743pZDNV1INTWQoZf4AfwFkA8tiioL4YOVxqsEEnMH+l99hroq0CKHeJB4NtnS1x
-	 Dd7ZSXuie61fC12+mHLpIOcj3Lo7cNY8QMq/Nc6yLDA6hMXTPL10n0JgIlTRgl3RnWoNE
-	 Jy+KcxiJDyH37XNPteYegjkymQb6fxmfPVH0yM1WtJcr+oiQHLanG6a2CecY2UZMu1A0m
-	 6GgJClf+LFxholJQxEiIs0akkvMhBhVpPtlSE8e9CsqUDKu2kAQ+KpGIuTHybPdsHEA==
+	t=1794833095;
+	b=athpacoF/LzillCTqK+eVEU7qNxy0yJbzW26+X8YkZsqXorh/ydWeeRlh5hUUZF8/XIF
+	 owHePJFpfZZocANtpFBFm+t4KpEnbeRMlHaBO/7ZWaY2E+H3BzIsVzWKzoCAB4zb+AXqb
+	 zQAV4NsXpbdEuXDpWwSseE+hqSUeXgkx+A3APf/fpz0IzvaaxrARzK6V2GYxW0Ah88e8H
+	 l7/nurRu8tPBlHWuvI+VLJIVml1A0kDTNapmGARaRh3nY5lf8vgzVl6zVKIKdzhnMovDb
+	 W3zRxlkP897uTr7N2ubU2rjKlwJDlD6t2JdMYQebilgbMO6/3En9WlKQAbkaWHqRe6A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833080;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833095;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=3CMJxVv9/aaz1Nd1h5S+aoZPa6Wsq51r76/7Qk+jCcU=;
-	b=hvAaqzCwpn87MSnFcQJJRFE77qTiy17e6ZiQkJhhjgOGtZQ6M8vofWlQwL/cktrt4/71
-	 9BoSEkdHd21soQCIdjufLaU5+LrBnG49ThysC/CY6IsVYX9FU3Za4ECXgc5mPs/5ctra6
-	 6il2qh4hmmiB3Zl4sZmSOlxifIGWqptNst+sF4FY/Ql9jZyruYImsw7lNbe5F0FfOjNF8
-	 Qr5kVyHKzGySpttT6GA6k/s44pWShu9pUSQw/WMbhK0IdUPqS4sfAKbJgrDEujwDr0LtO
-	 6/uADyv+Av6oUJFVPtVh67mTbOhRU8+xKImbMt0pxe1bC8N9Ahu0S7wMaeSg/thguWw==
+	bh=CBTG9XO8hynQExe03zgtJdvux0RZ9OF1uSQtjwSQDOw=;
+	b=jKDP+sQD53QYLusT/i8sVFlG2kFX2zGQ5rQhabWJERpcFgQTbc9C4ujtLrgihTjoDsNC
+	 8O3LV7Cxl3RoEbt63q4F0ivkCEVVxnPnL7yPCk4aYGBi4Aq69EngzQMVQL6KDox7ZWYNb
+	 y7KsPWpHj+9cc2XfzXqrmZ6SQqlxxZjWFq+93WR70BMzzdiZsiGA0PCTzFLgex23FTMsV
+	 Q6Axti7QlYMQb9ruFcu6n/JJovfR+dqR5vNzR01y66vq/PGym5VaS/LuHt9uPPbSCjZG4
+	 PSBpyBqH636qDtG9c9yF8CA9UuR7/7v0ETxDwBlwx3RAX75TldoMxjGyQyQYp/iIqZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="XFKY5V/o";
-	arc=none smtp.remote-ip=209.85.167.42
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=1RwsEUoy;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="XrhkZX/b";
+	arc=none smtp.remote-ip=202.12.124.143
+Received: from flow-b8-smtp.messagingengine.com (flow-b8-smtp.messagingengine.com [202.12.124.143])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE94606A329
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:44:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1EE94606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763D6606A329
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:44:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 763D6606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XFKY5V/o
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5c17a1775fcso1909983e87.3
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 04:44:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794833078; x=1795437878; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3CMJxVv9/aaz1Nd1h5S+aoZPa6Wsq51r76/7Qk+jCcU=;
-        b=XFKY5V/o0fvV9QZehP/l7g9fPYmKxqllsHjCT4DOfQMJYCPmzEbnz4qijBwT1XfN++
-         gkWRWUv8CIxs6o/FJG7TaSM7iSeaFEunze0I2ugQX9/GDWxNl9i43YgB8aLp9qRpCGjL
-         40x9jm3XWiS0JY3g/th95mcIQvgU6/tr5Li/PgwrBHqu4cIBBJtuN3jzMYwJI5W3ufOO
-         cH8MiltsSDXpKpE8JtEBKuCpKhAsAa37nCvAJ8NjE+GKWMOcDJrIjaON6HuzozE4BqjK
-         VeDTJF7NqblpFZmYkI7Lpxdp1fegmQV1nWPJ+OvjSOK4zKPhZGNoKWSpOpPE7+IXana0
-         aAkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794833078; x=1795437878;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3CMJxVv9/aaz1Nd1h5S+aoZPa6Wsq51r76/7Qk+jCcU=;
-        b=vSp2qWBXyPo0idQhVAt0SpZ97eg6EnPPqoTuLnFwL+iwWoStF+fLELIExU6NhHLFx1
-         Cxt3A84ku+LUhjjGsmUYKpJdneuLGtF0eNdrkMHz7ZjoPVxXw5dJw3eMPxCy+nWbIQ6B
-         /u2J5zCa2Sb5oIRo4Ovivo/Dp1ZqTFUR78FrmJYUomkjfgAVM5onUvZnp2ik+KWnHar/
-         npoqMNxDraKEER5OSUGMocz/jX8LgxXvBxTJ9+gOq5GShnTQhL37qn4RerByYr+CMhSl
-         EAdXrG4QF1PYjKpPMxZAxDjOFMsZ3UG3gxTvcKbt9FGLIPNHOOCJIM2ajiRjbjXRNksx
-         M2hQ==
-X-Forwarded-Encrypted: i=1; AL+hErGO6lNlwtO4xQ0FvpiUToCm1byaNNMJmEggEqJ9aiTLTybIgMxP4PAg9LzTAS4MrYI6D9Ia9Ls=@vger.kernel.org
-X-Gm-Message-State: APuU4Z++tDjC+tOAfdNSAJ/a2oRcQC1vfEXJdH+4AW/9O/Xk8ry9rVSj
-	SCGDyAzSA5QvPSAwzumiGoU1Sju3sVHV4d24nyfxgi/Qg5iyhRl6/Hyi
-X-Gm-Gg: AYBFou3M6PrARIoaWkLqksEPpWjfK41sLmWVaqRFNoseBvXR+ialRP8E/2HllAB1xt8
-	NViaCUTyR7rTaS4xWk9N9J3K76uoVxFn2WUKHb/BdIhWC+p+UxWTvuI4e+IsW9YOJvJjODZ8+7B
-	lERtCVgijwWFLOvrboHQRFL7XjMpwcu7Sq3N3haRCPFGboFaG8631wmTOJxKLG6jYUmEgSOc9vK
-	qzWfvo3bEwvUQ00r7kAe+8dL4oZSk2sfdgoZKB+1IDiw1GT/PRGfocI/6qH9Q5Csg+gBdeT8I6Q
-	Bv8SIq9miR0j5DKNo/Cd7PGmOyBoLU0psPHedr40J3ilLTF0vBWHFPrhhieOzrc5AFI1s1V3Og0
-	2wzSPv1hjMbIiPPzlXPxrpay3fJCyEvVSuC5BaE2A5omdJMucCr3k0rX73Ikb1N/9wwX53nCvSd
-	kdov2aZWB/gK69MRVRkmdjS+p0ui/KwQOQfi26Jgb3aDot+7LXqXAwqezP0qT6PZF1qWhB23cS7
-	11TQwR7ua9RTodhPvWM9eob5hlzwTk3obSJoZgCWpJVFa3eBDm4AaKxAXVTNeHRUWtGZ7NmQIpf
-	pABWfPAHFeiQMDrvlGD0ZexxMScnNl3S6aM=
-X-Received: by 2002:a05:6512:3a8a:b0:5c1:5715:bd00 with SMTP id 2adb3069b0e04-5c170b1c313mr3742145e87.18.1794833078067;
-        Mon, 16 Nov 2026 04:44:38 -0800 (PST)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171348078sm3201870e87.57.2026.11.16.04.44.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 04:44:37 -0800 (PST)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Stefan Eichenberger <stefan.eichenberger@toradex.com>,
-	Stefan Eichenberger <eichest@gmail.com>,
-	linux-i2c@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=1RwsEUoy;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=XrhkZX/b
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailflow.stl.internal (Postfix) with ESMTP id F3BB31303220
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 07:44:53 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Mon, 16 Nov 2026 07:44:54 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1794833092; x=1794840292; bh=CBTG9XO8hynQExe03zgtJ
+	dvux0RZ9OF1uSQtjwSQDOw=; b=1RwsEUoygakGRkvaZu0jXrvEKrVV7zDpGYdZy
+	i9p02WDncN/A68jMuVqODYb3xJSnbEW4IaPmgSLhA3XjZKOYrezTu7eovSH67qmF
+	XLzFWgXED4AXNDwl/Tq/sNMpX1M8ij8gnlPE7UN/lRLrhPQrA84wBVaWRkwWsGO8
+	e4BgGal4CZu0BFq/lBJFFv1aR/xzbK3y/OZn/t8EecfpxumJQGhzH5qapFXGHHj6
+	SGI3rAfFCc7mKZQlRJBw0sTvGikVQtucEyvrS/Ldc3+sXqAcdJtmt/Un6vWrZGnt
+	DpeO9zxX4TqPZpVDXEQhAuzLLxQK1q+T0qudVN/WoSDVSZ8rA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1794833092; x=1794840292; bh=CBTG9XO8hynQExe03zgtJdvux0RZ9OF1uSQ
+	tjwSQDOw=; b=XrhkZX/bHTov1PFWI/9LqVfST2ELF+vHwqrKQZfIjLLzV8wcvui
+	3/nvDxzjlvIWDac90YfCyyS/osJ7lhK3eJxyzF+cQMw2BWlL9n0AYaS/P/14/9Xx
+	P2WnGHrRVLn0ROgSNuXCmbBoqoVFl8b0k1PNPNygx8xWLFecGb45EoSLzROehnYx
+	76iReITPkHz//9GjvPurvgAlM9NWqVgDutBsGsn+vxSMvos+38xqbMzcyRpeEv78
+	TZmu2Fn8AGqzfzAD0kFKyyG9muAAwrb3i6W2NR06w73LS8O4KPR7LQb4JNXN0t3/
+	R4K78YGMmk7HC5UI+RnDHToILaWgFbhriLw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794833092; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:pGjQkfhzxpwAbQeD7pnPzd189PD5QWcXFr9byAj+wMSWIz8
+	Y+jdfbmfN/22bqoSBvZfhtg5SHY4zMfp/hFxRmYP5C5EOTgnUHNz687b1qxjllwI
+	gCOowcI6r4QHHkkArl/Fco+jYYAtVB0pskOLKJXYEHyXu9VeNLwzReTrbiZypem5
+	ZXFKoCLqYIL5iNMbcitbbzLNnO3n6gQxoGLICDWNo+vZSukqnIvCNcd5AaZ6j+GT
+	vxzoz01qucnMyHb5/cyXGBJaDQ2iSyrTod8DfakdIVHnAszqEEXxLLBQ4DxHcC+C
+	qr6BFJfuD1b+1jLsjvX7//2VAlQehvY0h+pvDiQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:0oY/pBXbQKvquv1RTT5tHyLwatXa5YD3swtjubGxgj8=:0HozEhzHLgVA0r9j7E4h3L/XZCW98IOZDIM8q/GHO3k=;
+X-ME-Sender: <xms:w_r6ahKTtPF_1UB5gIq7ro6Anromk5_0uaeoGPne_Wl6h0GZeMnYzQ>
+    <xme:w_r6apLIVDdEkyu4Ej1UA04wBwg99AO0Ml_fThDhk9KtkLzAYDp7HjYVuhFtX5kqG
+    i0RQSEtN6z9II6TkL-APbAHw6RNe7QJkdwiMPx--IDyeYJ9fKR69sxx>
+X-ME-Received: <xmr:w_r6ar7ip8AjWpKT0TK3HRUg-X2vACRYv-Mrg7QntwWyR4PowaoPrVH2vnNFw6dI>
+X-ME-Proxy-Cause: dmFkZTGOySjBYUo1B/JhD/yzmyleGW1OuzjED8GPy471VzQhXLb9eNFZLQxwb6UFphxkRL
+    wTOOhzJBg9NM5KPvKTo8Bq1EW6KSwa/VudHHhPZRA6JxQJhssBlD/dU6guPRDGBZ3L58nx
+    CfiulJTxysAYJYSsj2UkXcREckeP7jAOauV+kfRXmv4Zm48F8QRmhbnY/12O4vz4owk93i
+    OjDXzkeXEOJ9YN/SsMxxOdndmJ05+S0J/KCASAoWBlZeTDUDae1mOKBs78n4exIk9QdcT9
+    Qk61QLh3on1tJ+1YkKk+N4Ldqwwh7sqJBOF+7bZafEjqVohRJty0jADSRICylIj6G2M+qV
+    ZJdQ3JLBfuS44c94iSPmxy+dynWUkUOsjdxmX3CegKdUA0cqh57CPLHez7DB+AOwLK5Epz
+    9nGTXWhhxcxhrMaWd58O5tNW5RKijRGJpX3JF+4XvGHhvKwLFaMSStnwGuRQtgv7lR7ybF
+    2jVumaHn4l4c62GuIe4E26PXjDyC27u2oO6R772RK745V5w0JbqSuMwoJWLNC4AM/Hj8U+
+    gC3kmNOE5KBhSwN+yAsRueQUeBekRRKOfQa17k3zVaUKyOkiKy8eV3D1KLGW29GI1fSqy+
+    QBmL3QTVbFEwqWY7LgOHkdwdj2F1uHC2h1kwEo1ts4svz4qktLJr0+sjRhZA
+X-ME-Proxy: <xmx:w_r6ajcfDtu0zmxr5UziUKS4LQYlnqnPboWTVOEFRPTMO9XXPSUxcQ>
+    <xmx:w_r6amGJ4PQ96ZD6mgTfZftLamEhud5WTT1-iVkTJf8PRzzbAuUp7A>
+    <xmx:w_r6asRZANDjYqlum6cS4jhxkHc7ID2Atbx_-lSEGPYMNTXBhJcFkg>
+    <xmx:w_r6akaA_BrGQ3nf1UJZxdpniqDzNHStqnYFUaW4C4vtaRKklbRYng>
+    <xmx:xPr6aqybQviil6F0rg-J0zN5gIJmpR4K355Zt18At9TNVLUZNHNuDDQd>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 16 Nov 2026 07:44:49 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: [PATCH] i2c: imx: do not acknowledge the last byte of a block read of one byte
-Date: Mon, 16 Nov 2026 13:44:30 +0100
-Message-ID: <20261116124430.1358948-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: read create context data at its DataOffset
+Date: Mon, 16 Nov 2026 06:44:41 -0600
+Message-ID: <20261116124441.2521447-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,57 +128,424 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+ksmbd reads most create context data at a fixed offset instead of the
+client's DataOffset. When the data starts later, ksmbd reads padding or
+other bytes. For a security descriptor, zero padding can be parsed as
+having no DACL, so CREATE succeeds without applying the client's
+descriptor.
 
-In the interrupt driven read, the read of I2DR that takes the count byte
-of an SMBus block read starts the reception of the next byte. With a
-count of 1 that byte is the last one, but I2CR_TXAK is only set in
-i2c_imx_isr_read_continue() for the byte after it, so the last byte is
-acknowledged and the target goes on sending. The read fails with
--ETIMEDOUT, the bus stays busy and the following transfers on it fail
-too.
+Use DataOffset for security descriptor, extended attribute, lease,
+durable handle, POSIX and allocation size contexts. The context lookup
+already validates DataOffset and DataLength. Check each payload's
+minimum length and keep the existing parser checks. Add
+smb2_context_data() and a structure for the durable reconnect data, and
+remove the request structures that no longer have users. Contexts using
+the usual offset behave as before.
 
-Set I2CR_TXAK after taking a count of 1, as the read before the
-interrupt driven state machine did and the atomic read still does.
-
-Fixes: 5f5c2d4579ca ("i2c: imx: prevent rescheduling in non dma mode")
-Cc: stable@vger.kernel.org # v6.13+
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
 ---
 
 Notes:
-    Tested on a Colibri VF50 on the Iris carrier, kernel at this base plus
-    "i2c: imx: acknowledge the count byte of an atomic block read", with the
-    M41T0 RTC at 0x68. A test-only hook passed the messages that
-    i2c_smbus_xfer_emulated() builds for a block read to the adapter, alone
-    and followed by a one byte read. Register 0x05 (0x01) as count byte:
-    without the patch 40 of 40 failed (35 -ETIMEDOUT, 2 -EAGAIN, 3 -EINVAL),
-    after which the RTC driver could not read the time any more; with it
-    01 01 and, in the second case, the byte after it, 200 of 200. A count
-    of 0x13 (register 0x04) reads the same bytes as before.
+    Tested on ksmbd-for-next 3bc1fb9c3b20 with KASAN. Moving context
+    data 8 or 16 bytes beyond its usual offset now gives the same
+    results as the usual layout. At the usual offset, a DataLength
+    one byte too short is rejected with and without the patch.
+    smbtorture results match the base.
 
- drivers/i2c/busses/i2c-imx.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+    This fix was developed with LLM assistance.
 
-diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-index ccf08cd63151..0a59ebe70eb0 100644
---- a/drivers/i2c/busses/i2c-imx.c
-+++ b/drivers/i2c/busses/i2c-imx.c
-@@ -1095,6 +1095,12 @@ static inline void i2c_imx_isr_read_block_data_len(struct imx_i2c_struct *i2c_im
- 	}
- 	i2c_imx->msg->len += len;
- 	i2c_imx->msg->buf[i2c_imx->msg_buf_idx++] = len;
+ fs/smb/server/oplock.c  |  30 +++++-------
+ fs/smb/server/oplock.h  |  10 ++++
+ fs/smb/server/smb2pdu.c | 102 +++++++++++++++++-----------------------
+ fs/smb/server/smb2pdu.h |  20 ++------
+ 4 files changed, 67 insertions(+), 95 deletions(-)
+
+diff --git a/fs/smb/server/oplock.c b/fs/smb/server/oplock.c
+index c933d1e5f545..7c567180dbe1 100644
+--- a/fs/smb/server/oplock.c
++++ b/fs/smb/server/oplock.c
+@@ -2321,36 +2321,28 @@ struct lease_ctx_info *parse_lease_state(void *open_req)
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	if (sizeof(struct lease_context_v2) == le32_to_cpu(cc->DataLength)) {
+-		struct create_lease_v2 *lc = (struct create_lease_v2 *)cc;
++		struct lease_context_v2 *lc = smb2_context_data(cc);
+ 
+-		if (le16_to_cpu(cc->DataOffset) + le32_to_cpu(cc->DataLength) <
+-		    sizeof(struct create_lease_v2) - 4)
+-			goto err_out;
+-
+-		memcpy(lreq->lease_key, lc->lcontext.LeaseKey, SMB2_LEASE_KEY_SIZE);
+-		lreq->req_state = lc->lcontext.LeaseState;
+-		lreq->flags = lc->lcontext.LeaseFlags;
+-		lreq->epoch = lc->lcontext.Epoch;
+-		lreq->duration = lc->lcontext.LeaseDuration;
++		memcpy(lreq->lease_key, lc->LeaseKey, SMB2_LEASE_KEY_SIZE);
++		lreq->req_state = lc->LeaseState;
++		lreq->flags = lc->LeaseFlags;
++		lreq->epoch = lc->Epoch;
++		lreq->duration = lc->LeaseDuration;
+ 		if (!lease_state_valid(lreq->req_state) ||
+ 		    !lease_v2_flags_valid(lreq->flags))
+ 			goto err_out;
+ 		lreq->req_state = lease_state_grantable(lreq->req_state);
+ 		if (lreq->flags == SMB2_LEASE_FLAG_PARENT_LEASE_KEY_SET_LE)
+-			memcpy(lreq->parent_lease_key, lc->lcontext.ParentLeaseKey,
++			memcpy(lreq->parent_lease_key, lc->ParentLeaseKey,
+ 			       SMB2_LEASE_KEY_SIZE);
+ 		lreq->version = 2;
+ 	} else if (sizeof(struct lease_context) == le32_to_cpu(cc->DataLength)) {
+-		struct create_lease *lc = (struct create_lease *)cc;
+-
+-		if (le16_to_cpu(cc->DataOffset) + le32_to_cpu(cc->DataLength) <
+-		    sizeof(struct create_lease))
+-			goto err_out;
++		struct lease_context *lc = smb2_context_data(cc);
+ 
+-		memcpy(lreq->lease_key, lc->lcontext.LeaseKey, SMB2_LEASE_KEY_SIZE);
+-		lreq->req_state = lc->lcontext.LeaseState;
++		memcpy(lreq->lease_key, lc->LeaseKey, SMB2_LEASE_KEY_SIZE);
++		lreq->req_state = lc->LeaseState;
+ 		lreq->flags = 0;
+-		lreq->duration = lc->lcontext.LeaseDuration;
++		lreq->duration = lc->LeaseDuration;
+ 		if (!lease_state_valid(lreq->req_state))
+ 			goto err_out;
+ 		lreq->req_state = lease_state_grantable(lreq->req_state);
+diff --git a/fs/smb/server/oplock.h b/fs/smb/server/oplock.h
+index d81013c514e3..945effd5240a 100644
+--- a/fs/smb/server/oplock.h
++++ b/fs/smb/server/oplock.h
+@@ -123,6 +123,16 @@ void create_posix_rsp_buf(char *cc, struct ksmbd_file *fp);
+ void create_aapl_rsp_buf(char *cc, __u64 vol_caps, __u64 req_bitmap,
+ 			 bool readdir_attr_v2);
+ struct create_context *smb2_find_context_vals(void *open_req, const char *tag, int tag_len);
 +
-+	if (len == 1) {
-+		temp = imx_i2c_read_reg(i2c_imx, IMX_I2C_I2CR);
-+		temp |= I2CR_TXAK;
-+		imx_i2c_write_reg(temp, i2c_imx, IMX_I2C_I2CR);
-+	}
++/*
++ * The data of a context smb2_find_context_vals() returned. It starts at
++ * DataOffset, and its DataLength bytes lie inside the context.
++ */
++static inline void *smb2_context_data(struct create_context *cc)
++{
++	return (char *)cc + le16_to_cpu(cc->DataOffset);
++}
++
+ struct oplock_info *lookup_lease_in_table(struct ksmbd_conn *conn,
+ 					  char *lease_key);
+ int find_same_lease_key(struct ksmbd_conn *conn, struct ksmbd_inode *ci,
+diff --git a/fs/smb/server/smb2pdu.c b/fs/smb/server/smb2pdu.c
+index 9ef2d086fc4e..df81d5a3b378 100644
+--- a/fs/smb/server/smb2pdu.c
++++ b/fs/smb/server/smb2pdu.c
+@@ -3931,7 +3931,7 @@ static int smb2_create_sd_buffer(struct ksmbd_work *work,
+ 				 const struct path *path)
+ {
+ 	struct create_context *context;
+-	struct create_sd_buf_req *sd_buf;
++	struct smb_ntsd *pntsd;
+ 
+ 	if (!req->CreateContextsOffset)
+ 		return -ENOENT;
+@@ -3945,13 +3945,10 @@ static int smb2_create_sd_buffer(struct ksmbd_work *work,
+ 
+ 	ksmbd_debug(SMB,
+ 		    "Set ACLs using SMB2_CREATE_SD_BUFFER context\n");
+-	sd_buf = (struct create_sd_buf_req *)context;
+-	if (le16_to_cpu(context->DataOffset) +
+-	    le32_to_cpu(context->DataLength) <
+-	    sizeof(struct create_sd_buf_req))
+-		return -EINVAL;
+-	return set_info_sec(work->conn, work->tcon, path, &sd_buf->ntsd,
+-			    le32_to_cpu(sd_buf->ccontext.DataLength), true, true,
++	/* parse_sec_desc() refuses a length shorter than the SD header */
++	pntsd = smb2_context_data(context);
++	return set_info_sec(work->conn, work->tcon, path, pntsd,
++			    le32_to_cpu(context->DataLength), true, true,
+ 			    true, true);
  }
  
- static irqreturn_t i2c_imx_master_isr(struct imx_i2c_struct *i2c_imx, unsigned int status)
-
-base-commit: 25e7ab89f4774b0f842cee0e8a20c11f755924d5
+@@ -4112,7 +4109,7 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
+ 		switch (dh_idx) {
+ 		case DURABLE_RECONN_V2:
+ 		{
+-			struct create_durable_handle_reconnect_v2 *recon_v2;
++			struct durable_reconnect_context_v2 *recon_v2;
+ 			u32 flags;
+ 
+ 			if (dh_info->type == DURABLE_RECONN ||
+@@ -4121,20 +4118,19 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
+ 				goto out;
+ 			}
+ 
+-			if (le32_to_cpu(context->DataLength) <
+-			    sizeof(recon_v2->dcontext)) {
++			if (le32_to_cpu(context->DataLength) < sizeof(*recon_v2)) {
+ 				err = -EINVAL;
+ 				goto out;
+ 			}
+ 
+-			recon_v2 = (struct create_durable_handle_reconnect_v2 *)context;
+-			flags = le32_to_cpu(recon_v2->dcontext.Flags);
++			recon_v2 = smb2_context_data(context);
++			flags = le32_to_cpu(recon_v2->Flags);
+ 			if (flags & ~SMB2_DHANDLE_FLAG_PERSISTENT) {
+ 				err = -EINVAL;
+ 				goto out;
+ 			}
+ 			dh_info->persistent = flags & SMB2_DHANDLE_FLAG_PERSISTENT;
+-			persistent_id = recon_v2->dcontext.Fid.PersistentFileId;
++			persistent_id = recon_v2->Fid.PersistentFileId;
+ 			dh_info->fp = ksmbd_lookup_durable_fd(persistent_id);
+ 			if (!dh_info->fp) {
+ 				ksmbd_debug(SMB, "Failed to get durable handle state\n");
+@@ -4143,15 +4139,15 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
+ 			}
+ 
+ 			/* A zero VolatileFileId means that the client did not specify it. */
+-			if (recon_v2->dcontext.Fid.VolatileFileId &&
++			if (recon_v2->Fid.VolatileFileId &&
+ 			    dh_info->fp->durable_volatile_id !=
+-			    recon_v2->dcontext.Fid.VolatileFileId) {
++			    recon_v2->Fid.VolatileFileId) {
+ 				err = -EBADF;
+ 				ksmbd_put_durable_fd(dh_info->fp);
+ 				goto out;
+ 			}
+ 
+-			if (memcmp(dh_info->fp->create_guid, recon_v2->dcontext.CreateGuid,
++			if (memcmp(dh_info->fp->create_guid, recon_v2->CreateGuid,
+ 				   SMB2_CREATE_GUID_SIZE)) {
+ 				err = -EBADF;
+ 				ksmbd_put_durable_fd(dh_info->fp);
+@@ -4174,7 +4170,7 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
+ 		}
+ 		case DURABLE_RECONN:
+ 		{
+-			create_durable_reconn_t *recon;
++			struct durable_reconnect_context *recon;
+ 
+ 			if (dh_info->type == DURABLE_RECONN_V2 ||
+ 			    dh_info->type == DURABLE_REQ_V2) {
+@@ -4182,14 +4178,13 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
+ 				goto out;
+ 			}
+ 
+-			if (le32_to_cpu(context->DataLength) <
+-			    sizeof(recon->Data)) {
++			if (le32_to_cpu(context->DataLength) < sizeof(*recon)) {
+ 				err = -EINVAL;
+ 				goto out;
+ 			}
+ 
+-			recon = (create_durable_reconn_t *)context;
+-			persistent_id = recon->Data.Fid.PersistentFileId;
++			recon = smb2_context_data(context);
++			persistent_id = recon->PersistentFileId;
+ 			dh_info->fp = ksmbd_lookup_durable_fd(persistent_id);
+ 			if (!dh_info->fp) {
+ 				ksmbd_debug(SMB, "Failed to get durable handle state\n");
+@@ -4198,9 +4193,9 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
+ 			}
+ 
+ 			/* A zero VolatileFileId means that the client did not specify it. */
+-			if (recon->Data.Fid.VolatileFileId &&
++			if (recon->VolatileFileId &&
+ 			    dh_info->fp->durable_volatile_id !=
+-			    recon->Data.Fid.VolatileFileId) {
++			    recon->VolatileFileId) {
+ 				err = -EBADF;
+ 				ksmbd_put_durable_fd(dh_info->fp);
+ 				goto out;
+@@ -4214,7 +4209,7 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
+ 		}
+ 		case DURABLE_REQ_V2:
+ 		{
+-			struct create_durable_req_v2 *durable_v2_blob;
++			struct durable_context_v2_req *durable_v2_blob;
+ 
+ 			if (dh_info->type == DURABLE_RECONN ||
+ 			    dh_info->type == DURABLE_RECONN_V2) {
+@@ -4223,24 +4218,23 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
+ 			}
+ 
+ 			if (le32_to_cpu(context->DataLength) <
+-			    sizeof(durable_v2_blob->dcontext)) {
++			    sizeof(*durable_v2_blob)) {
+ 				err = -EINVAL;
+ 				goto out;
+ 			}
+ 
+-			durable_v2_blob =
+-				(struct create_durable_req_v2 *)context;
+-			if (le32_to_cpu(durable_v2_blob->dcontext.Flags) &
++			durable_v2_blob = smb2_context_data(context);
++			if (le32_to_cpu(durable_v2_blob->Flags) &
+ 			    ~SMB2_DHANDLE_FLAG_PERSISTENT) {
+ 				err = -EINVAL;
+ 				goto out;
+ 			}
+ 			ksmbd_debug(SMB, "Request for durable v2 open\n");
+-			dh_info->CreateGuid = durable_v2_blob->dcontext.CreateGuid;
++			dh_info->CreateGuid = durable_v2_blob->CreateGuid;
+ 			dh_info->persistent =
+-				le32_to_cpu(durable_v2_blob->dcontext.Flags) &
++				le32_to_cpu(durable_v2_blob->Flags) &
+ 				SMB2_DHANDLE_FLAG_PERSISTENT;
+-			dh_info->fp = ksmbd_lookup_fd_cguid(durable_v2_blob->dcontext.CreateGuid);
++			dh_info->fp = ksmbd_lookup_fd_cguid(durable_v2_blob->CreateGuid);
+ 			if (dh_info->fp) {
+ 				if (!memcmp(conn->ClientGUID, dh_info->fp->client_guid,
+ 					    SMB2_CLIENT_GUID_SIZE)) {
+@@ -4300,7 +4294,7 @@ static int parse_durable_handle_context(struct ksmbd_work *work,
+ 			if ((lc && (lc->req_state & SMB2_LEASE_HANDLE_CACHING_LE)) ||
+ 			    req_op_level == SMB2_OPLOCK_LEVEL_BATCH) {
+ 				dh_info->timeout =
+-					le32_to_cpu(durable_v2_blob->dcontext.Timeout);
++					le32_to_cpu(durable_v2_blob->Timeout);
+ 				dh_info->type = dh_idx;
+ 			}
+ 			break;
+@@ -4514,7 +4508,7 @@ int smb2_open(struct ksmbd_work *work)
+ 	struct kstat stat;
+ 	struct create_context *context;
+ 	struct lease_ctx_info *lc = NULL;
+-	struct create_ea_buf_req *ea_buf = NULL;
++	struct create_context *ea_ctx = NULL;
+ 	struct oplock_info *opinfo;
+ 	struct durable_info dh_info = {0};
+ 	__le32 *next_ptr = NULL;
+@@ -4557,8 +4551,6 @@ int smb2_open(struct ksmbd_work *work)
+ 			rc = PTR_ERR(context);
+ 			goto err_out2;
+ 		} else if (context) {
+-			struct create_posix *posix = (struct create_posix *)context;
+-
+ 			if (conn->dialect != SMB311_PROT_ID) {
+ 				rsp->hdr.Status = STATUS_INVALID_INFO_CLASS;
+ 				rc = -ENOTTY;
+@@ -4572,15 +4564,14 @@ int smb2_open(struct ksmbd_work *work)
+ 				rc = -EOPNOTSUPP;
+ 				goto err_out2;
+ 			}
+-			if (le16_to_cpu(context->DataOffset) +
+-				le32_to_cpu(context->DataLength) <
+-			    sizeof(struct create_posix) - 4) {
++			/* The data starts with the 4-byte Mode */
++			if (le32_to_cpu(context->DataLength) < sizeof(__le32)) {
+ 				rc = -EINVAL;
+ 				goto err_out2;
+ 			}
+ 			ksmbd_debug(SMB, "get posix context\n");
+ 
+-			posix_mode = le32_to_cpu(posix->Mode);
++			posix_mode = get_unaligned_le32(smb2_context_data(context));
+ 			posix_ctxt = true;
+ 		}
+ 	}
+@@ -4800,10 +4791,9 @@ int smb2_open(struct ksmbd_work *work)
+ 			rc = PTR_ERR(context);
+ 			goto err_out2;
+ 		} else if (context) {
+-			ea_buf = (struct create_ea_buf_req *)context;
+-			if (le16_to_cpu(context->DataOffset) +
+-			    le32_to_cpu(context->DataLength) <
+-			    sizeof(struct create_ea_buf_req)) {
++			ea_ctx = context;
++			if (le32_to_cpu(context->DataLength) <
++			    sizeof(struct smb2_ea_info)) {
+ 				rc = -EINVAL;
+ 				goto err_out2;
+ 			}
+@@ -5073,15 +5063,9 @@ int smb2_open(struct ksmbd_work *work)
+ 
+ 		created = true;
+ 		idmap = mnt_idmap(path.mnt);
+-		if (ea_buf) {
+-			if (le32_to_cpu(ea_buf->ccontext.DataLength) <
+-			    sizeof(struct smb2_ea_info)) {
+-				rc = -EINVAL;
+-				goto err_out;
+-			}
+-
+-			rc = smb2_set_ea(&ea_buf->ea,
+-					 le32_to_cpu(ea_buf->ccontext.DataLength),
++		if (ea_ctx) {
++			rc = smb2_set_ea(smb2_context_data(ea_ctx),
++					 le32_to_cpu(ea_ctx->DataLength),
+ 					 &path, true);
+ 			if (rc == -EOPNOTSUPP)
+ 				rc = 0;
+@@ -5411,10 +5395,10 @@ int smb2_open(struct ksmbd_work *work)
+ 	}
+ 
+ 	if (req->CreateContextsOffset) {
+-		struct create_alloc_size_req *az_req;
++		struct create_context *az_req;
+ 
+-		az_req = (struct create_alloc_size_req *)smb2_find_context_vals(req,
+-					SMB2_CREATE_ALLOCATION_SIZE, 4);
++		az_req = smb2_find_context_vals(req,
++						SMB2_CREATE_ALLOCATION_SIZE, 4);
+ 		if (IS_ERR(az_req)) {
+ 			rc = PTR_ERR(az_req);
+ 			goto err_out1;
+@@ -5422,13 +5406,11 @@ int smb2_open(struct ksmbd_work *work)
+ 			   test_tree_conn_flag(tcon, KSMBD_TREE_CONN_FLAG_WRITABLE)) {
+ 			int err;
+ 
+-			if (le16_to_cpu(az_req->ccontext.DataOffset) +
+-			    le32_to_cpu(az_req->ccontext.DataLength) <
+-			    sizeof(struct create_alloc_size_req)) {
++			if (le32_to_cpu(az_req->DataLength) < sizeof(__le64)) {
+ 				rc = -EINVAL;
+ 				goto err_out1;
+ 			}
+-			alloc_size = le64_to_cpu(az_req->AllocationSize);
++			alloc_size = get_unaligned_le64(smb2_context_data(az_req));
+ 			fp->allocation_size_set = true;
+ 			ksmbd_debug(SMB,
+ 				    "request smb2 create allocate size : %llu\n",
+diff --git a/fs/smb/server/smb2pdu.h b/fs/smb/server/smb2pdu.h
+index 8c6b170c2716..3edd7747b96f 100644
+--- a/fs/smb/server/smb2pdu.h
++++ b/fs/smb/server/smb2pdu.h
+@@ -140,10 +140,10 @@ struct create_aapl_rsp {
+ 
+ #define DURABLE_HANDLE_MAX_TIMEOUT	300000
+ 
+-struct create_alloc_size_req {
+-	struct create_context_hdr ccontext;
+-	__u8   Name[8];
+-	__le64 AllocationSize;
++/* See MS-SMB2 2.2.13.2.4, the data of a DHnC create context */
++struct durable_reconnect_context {
++	__u64 PersistentFileId;
++	__u64 VolatileFileId;
+ } __packed;
+ 
+ struct create_durable_rsp {
+@@ -338,18 +338,6 @@ struct smb2_ea_info {
+ 	/* optionally followed by value */
+ } __packed; /* level 15 Query */
+ 
+-struct create_ea_buf_req {
+-	struct create_context_hdr ccontext;
+-	__u8   Name[8];
+-	struct smb2_ea_info ea;
+-} __packed;
+-
+-struct create_sd_buf_req {
+-	struct create_context_hdr ccontext;
+-	__u8   Name[8];
+-	struct smb_ntsd ntsd;
+-} __packed;
+-
+ /* See POSIX-FSCC 2.2.1 */
+ struct smb2_posix_info {
+ 	__le32 NextEntryOffset;
 -- 
-2.56.0
+2.47.3
 
