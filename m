@@ -1,94 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820288;
-	b=uy4tdtk0+VZUqI2BgQNop+AhUQS2XOv/MJ1aIFp/rA68MO9sdzGIGm7g++Jcb3lWP8OZ
-	 3Sv6jXPLV+/1UZDLRIjyei5HiBZfy5duApxImy5W7hDZSvMu0Whej+lxOre9CA6QucUA7
-	 1yRhd+TtUkfz3+JnJ7kjJzDSK7/f0GVdw11Aefmx1YQqD/jUFSKWmWgdoTN40kcU3VoYW
-	 FQ+EJUnyDd67W8hUIsOOXqkcMauItXRQNJwDLNzvZ5mJIRfrsdLJEDtSr97vTlj0V5ARE
-	 WIGyU4qEpICvnsfUFlZPrOkkXRfSDs/Svq637jgcEIAj2LPcfDiaa7yCBB1N1CYy2aw==
+	t=1794820462;
+	b=mOMnye79ZWnHsoU/q9RMpLbCI8AesrbU3FqtTfbY57b5P+OryKLxEMWqVkAHpLPB0n2q
+	 VEg16VMNLTQOOOu/crhttmybzed99YYTj4SIeG5N9kiYTqiXE+Koov9/iNAHJlnBA0mqR
+	 eqHCwdj/V2OagT5RlQ21aDAlBrEszykXZ6rBO+YS2UaiNGgGoJnhtbWMLzJbWcKi1P9z2
+	 HRCG0Bgi1oympNjHAFnTR9swE69EksU40dxaCBq+maI2WbxyewQZvyaaqb1d5l55TxQDT
+	 pQqyKMU5UOyRjB3UnW4JGtP2MsKidKlPa+wze2dcckTB9Fn1HdqPTWD3lvIU3gSVYeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820288;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794820462;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=QuJg4mFjV8o+bewKGTUYwBsLOBBN5sR9GT1t3zfRmcE=;
-	b=TfUewFANSJikRjmuEX+aPqamLiQmDxfQS1m20GLARGru9i5PKXrhkOHTVEl4Euv8bcTf
-	 q8OqjCOuJZ1WXfJVtFhVck3vM7+CmjF+Yz3jSqmxKVdNVXUG6nkrSgNgNhcmo7k7V9wp0
-	 o7b+7uNMVUTNsWEit/6frFMaBdA6sVP7auQsOiDpUNG5h/J22M7wAs/7qu116ABFlKhOJ
-	 X+DWqJcsD7IbIlH/SdYR9LB/foDQUMyZRztG1iTLyW4EmIps5RxLfkWHbqFqNBJFZaYo3
-	 73FdCxq4ALsAO7KgQqMDvlNDsfEMBAUNZDMg6Ac1pgpcXmthYp6VsL3GUeFjZTkJwlg==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=duB+53Rzo/I6JCkMTJRwR1f6X11DgAhC6/nYlh9cR8c=;
+	b=m0SpFHPNAFmozWUmwmR/5MHO2nGqQRtpf3t7ZEiZOfe8LLiARvJWIdbnSPzbAQ3XKQOM
+	 lgohV/6M8F8QeD2blpW6mojxRrWzPkNPqIXJZWYEuLM3g4mpfzGpsJWmPOmECZHRYIp8K
+	 G16fQRJ3XCTLpzqX5fr236dSSQ7uUFsAWFZcbnLWJbgjBA5SIa0JhWdZ6eBcIKF1Wp65C
+	 ToPuqk2sZxaqKbJp6OFax73kQU6sx1OoHDADkKHrXV8rTpY+XQdK+PPmDXtASsvZsaDAk
+	 UNwRDZaRjK7dk5xh2rm21t4Yxtw4n20GdPCg1Pkish/AO5k3J3oPbgqvEhWALUrHzwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J1txTdnt;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	dmarc=pass header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=b0a3iGWr;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3837F606A31C
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 09:11:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3837F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C522B606A323
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 09:14:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C522B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J1txTdnt
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ede35b0cf2so21374925ad.2
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 01:11:27 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=b0a3iGWr
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4b467581b98so25750035e9.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 01:14:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794820287; x=1795425087; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QuJg4mFjV8o+bewKGTUYwBsLOBBN5sR9GT1t3zfRmcE=;
-        b=J1txTdnteo4BhhpH8I7odcWH1jASAqbRZN+FPvofz0+HtgOgmx1Okr8kkeR1nJQxa1
-         hCarnru/7Nd0V36FyGkFVN1vuPWck2gevz6h/RU2MXCcIftrumOHbZ0MLwvIoco76VhG
-         Pxvaxb0oijBSpgCZYMOZxpTqGbxc/fV0AIr3WkrfZhvzgDkRvKsLG/5ngsXBG64hTR5Y
-         I3s0loUWZU/S8jV0bGZa0RnhjPk955Z3Q3KvU8r8YUP9WUOwQNr10hxv70Ht3TMLRPkd
-         iDCrJnpAqmGA8fX1OX6XXPUORaX1FjSzH/J/dio0NbSXmzqwuAEBbWTQVEHbFzF9OyVv
-         WnCw==
+        d=baylibre.com; s=google; t=1794820460; x=1795425260; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=duB+53Rzo/I6JCkMTJRwR1f6X11DgAhC6/nYlh9cR8c=;
+        b=b0a3iGWrhf0lSrT8W5PZ3apkvAjkLzovGdk1hHP6fmuZKr0QgHoQskCMS/2eXD8s1H
+         KMlOrWoYP2COhV2udxBxwK3o35CxHUhhuUrA/gsxWN/ozahfqeYoF760rLEDhKWIf9J1
+         qdrT6VnVDZxSlFoyG21Gp1FxTNXij99MBVUfo9iJxRy/yMfTJZPqEIGSE4gOOqSCv8iX
+         ADnrBEXLVfxAyBDtPbyu8KzXQABpCjhC8TzviIGKLh6Ana7YjdzUvNiyAee/3o8oN6L3
+         zijZgQpZW15/LdRnrqhdxzbIDH4YtVKirByXJQPFA2vMzaeNSUzuHGaW5+jHojV5ACNm
+         NOfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794820287; x=1795425087;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QuJg4mFjV8o+bewKGTUYwBsLOBBN5sR9GT1t3zfRmcE=;
-        b=Wu1uUCyF+qo8MjxR2FGL4+XKOvCPAUF7FFXHiohuUb/5nZ2pG5AD5COdfzB44+cYKy
-         y19ZSJXDKxXuYi6P84t/bhmQpRswAoyualARuDv5VG8EjaLydgZq65UqL/CahISjrRMV
-         SWt/9JZvwGb83SuDaX3R2/C+WctiDl1xPvB/TusABssyb3493paMidpZTB3E1iq20GSI
-         Ugj6I8S1w8xqzUvlhuiz82Dttwie1BolShHjzIINuasv/yg5mXDltIcY8HaTH4F56csE
-         88tOr0ZtPR18BjLXEg1yP5IIt//etBVGBa4fAbsozwrruxb8SxGTAeg6ombf0psBkByZ
-         Lmaw==
-X-Forwarded-Encrypted: i=1; AL+hErGp8V3em2K+YV7mpBcxJBftv0Ele98WbaZoaAlpuic6MzinWhGEojz7sma0jCSerlVTQ5sbDkU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+rt0olEARIS37+nj9He7eLT8AjDWRYy5gPg2aCJdc3oqSJXnch
-	hc4DpAVRWZYjdM4Fdn1BZ6PMapmQVxfLKJFMKTvtNoKhkfAMnHWrR1cI
-X-Gm-Gg: AZFdTZe6kT3Oj6Ry6ZKJka31ISr4AT7NybuqCw+RG67S22tVufX+/ubAMFzEB1UECf8
-	7Qtaumpk15oCArWa89QXfTELdWCN+X1qClkS+5LDtkYWI2KkQ/6nvh7wdymfE7XsN0BY298zZsv
-	2oBoOAKNXlRCNVtZi0eTUrm1V6kkx282tpLvTMBwsR95TYGRRxG5pCbqBMhW8LhsJZZgJhjqKIr
-	PbFP0bIxXz0fsJpyTdqVvGKRJ5aY8lnEzZv/vf1vZP4eBztKlGsLFFF6lelWxHRmlMQQYUG6dD9
-	I957voavmLHPQXIqn3LBvWE63IDh4Vba73NKCTF+zSD73sB6p5NHkgBFjTrsntEhRpGsgVwnJdO
-	63KkaIllmx9eD+xvju7xMJCQ7tXzVKhjCmN7HUq1NyghjCrN6HrP7MuI0g7txuAiFUchx5bxT6b
-	1sKlAkz0V3B+KENUxqPBojr3jnfaQUhHem397AXT73jl+//nVx5hWFs9oFD0cO+uEVBBtG8Pr3g
-	iTwIO2Uw4aLjdbhl0l3Rait+A/QavTCriH/UTAF4KEc1/6e/upnP3APi1iQ5F13WBOIioz4rO5c
-	H9liHH3X7VRcaB7omEnuJxLaWw1AZFygLXQxVHFDa9vpow==
-X-Received: by 2002:a17:90b:2803:b0:3ab:be66:ddbe with SMTP id 98e67ed59e1d1-3b1b0ba1693mr10019691a91.28.1794820287377;
-        Mon, 16 Nov 2026 01:11:27 -0800 (PST)
-Received: from osman.mioffice.cn ([43.224.245.178])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b1aed76f95sm15336398a91.17.2026.11.16.01.11.23
+        d=1e100.net; s=20260707; t=1794820460; x=1795425260;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=duB+53Rzo/I6JCkMTJRwR1f6X11DgAhC6/nYlh9cR8c=;
+        b=Pca7WdR353NPX0NT0w3Sz1z5ZghAbpVHpfZaL9d+3+SEyiUhQ7B1in/D/gP1RELdsd
+         MYMuGDJI+VLGeVz+/h2pYRMLbAVQ6AkpIVJMl2cRJenbSe9YRqyTUd3NBYvudCZdgQ67
+         Fr32NQM1OgpsbMTonDv5h2Kat+KBSi8trBGTpLQAuIGVo6NJcV1k5H4t0GfU7EGmscs3
+         LLPDRE+0e3fcyBNYtWKIGzipsC3UZFWjAdC34xriZ1FjdBaRr99CTIOctPf+UWLvpiGu
+         6yrWl3AmvOujshoEvz+lr0w7LSfGL1a2FFLWJASJHLMKG4qx4dWDlRPPzmN6DKsr6vYD
+         P8HQ==
+X-Forwarded-Encrypted: i=1; AL+hErHchbqkzxpW5tDqxid/C1Kka2n2rQTR50te6vtNrvNMoHpwsAIgWSlBACPK7whwQ0iaOhDqsv8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9TilHASlUkM6jaaUiTx8Gmxp7XXnVKcIh74dIeys5xfp5IYJJ2
+	t9ifiCoEhPGBKaSWhaFL5PwRgPiNBiqqQoFJEB3KvDg1KTXRI6xjrtAV35ffazEXTYM=
+X-Gm-Gg: AYBFou0R7dIEW4LB2d+sgQbK0yj0CwpymMgWkQu0vtvZ5+gWw4jmdzQqIUsedmWfH3k
+	Ksfnoi6akRqW07djaNajtv60YDaOHOhwiCWfSGhy5xvr6pqDUvB/L5Zmcl8zWt7uPvtcAFnTCTm
+	YHgOBU2jy6dN/fg2ZCFaLjGhicsYcQa2I4uZ7nPOYhf0h7kxe8UChXC4sf54CUe/JgKD/YyDzLe
+	y8JCKlJGoHuxKOEp61YSqzu7LdUiNZzRiiG7F6HZxOu8ZuVmHFap8Fjf/UeqJCGBxFvSwUNsjd+
+	iZgW7ODdLdKTo3Ui9CFwUlgEObc3Wumx/YtKpd5/ZcVSKeOjszw0jugyme04dA4zyHQE7oKxbZX
+	U0KIai7b8NEngy3/MZXJDZnMpgwWBg8GPgqCTOOxzykSSBU8e1TUqBncbwF3CjO7vMvuH2P1y4c
+	n2+zi2aJsPdVIodVPwma9o2FRrjaROdPih6cfvc0RbR9kl1pYii/H4IoORCfHR88P/RxPdvdVEb
+	hYrYaNteM5QcFbjIze2lHVw5WLwm1A06fnMwdZ1Seb+6+S9A/7zI3PVUUTyBTS+UWgkRe7CNiE3
+	KmRMXNvFqp9mqSYr49xmhdvSsi2RZHortdIkvDaNuFP1Xn7XPghXnvdkLxORbWDFqNr1WlY7CYd
+	jO/AbIuV+DzTf8nNKHA==
+X-Received: by 2002:a05:600c:1d10:b0:4b2:3c81:d1 with SMTP id 5b1f17b1804b1-4bb55a65ea5mr192703955e9.5.1794820459865;
+        Mon, 16 Nov 2026 01:14:19 -0800 (PST)
+Received: from localhost (p200300f65f19a9042c263c0c153a4e28.dip0.t-ipconnect.de. [2003:f6:5f19:a904:2c26:3c0c:153a:4e28])
+        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb5faf05f8sm159998655e9.10.2026.11.16.01.14.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 01:11:26 -0800 (PST)
-From: Zhan Xusheng <zhanxusheng1024@gmail.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: liubaolin12138@163.com,
-	ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	zhanxusheng@xiaomi.com
-Subject: [PATCH v5] ntfs: trim the sizes after a short write
-Date: Mon, 16 Nov 2026 17:11:21 +0800
-Message-ID: <20261116091121.2547497-1-zhanxusheng1024@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Mon, 16 Nov 2026 01:14:19 -0800 (PST)
+Date: Mon, 16 Nov 2026 10:14:17 +0100
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, kernel@pengutronix.de, 
+	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH can 2/4] can: flexcan: flexcan_probe(): fix probing for
+ m68k/coldfire and reject devices without match data
+Message-ID: <avrHkaYw-De6nv8B@monoceros>
+References: <20261114-fix-device_get_match_data-v1-0-2d82025e9646@pengutronix.de>
+ <20261114-fix-device_get_match_data-v1-2-2d82025e9646@pengutronix.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,190 +102,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3kbn6dvhzgm4gtvf"
+Content-Disposition: inline
+In-Reply-To: <20261114-fix-device_get_match_data-v1-2-2d82025e9646@pengutronix.de>
 
-From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-ntfs_file_write_iter() moves the data size and, for a non-resident
-uncompressed file, the initialized size to pos + count before the copy.
-__ntfs_extend_initialized_size() only zeroes [old initialized size, pos),
-so the range [pos, pos + count) is initialized only by the copy itself.
-When iomap_file_buffered_write() copies less than count, it returns a
-positive short count and the error rollback at out: does not run.  The
-file keeps the size pos + count, and [pos + ret, pos + count) reads back
-whatever the freed clusters held before, also after a remount.  A local
-user can read the old contents of freed clusters this way.
+--3kbn6dvhzgm4gtvf
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH can 2/4] can: flexcan: flexcan_probe(): fix probing for
+ m68k/coldfire and reject devices without match data
+MIME-Version: 1.0
 
-Run the existing rollback for a short write as well, and roll the data
-size back to the end of what was written.  Keep the initialized size,
-as a page fault through a shared mapping may rely on it while the write
-is stalled on its source, and zero what the write did not reach, up to
-the end of the block holding pos + count.  Only if that fails, take the
-initialized size back to where the zeroing started.
+Hello Marc,
 
-Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
----
-v5 (Baolin):
-- start the zeroing at pos, not at the old initialized size, which
-  overwrote data stored through a shared mapping below pos
-- do the same for a direct write, instead of truncating the page cache
-  and taking the initialized size back
-- if the zeroing fails, take the initialized size back to where it
-  started, instead of skipping both rollbacks
-v4: for a buffered write, zero the unwritten range instead of
-truncating the page cache and taking the initialized size back, which
-dropped data stored through a shared mapping during the copy (Baolin).
-v3: clear the cache up to EOF, not up to the extended initialized
-size, which left the rest of the block holding pos + count (Baolin).
-v2: also clear the cached tail of the last block, which v1 left in
-place when the write stayed inside the old data size (Baolin).
+On Sat, Nov 14, 2026 at 01:56:15PM +0100, Marc Kleine-Budde wrote:
+> When determining the device details was reworked in commit 5e6c3454b405
+> ("net: can: Use device_get_match_data()") there was no replacement for the
+> previous handling of non-of instantiated devices via the device's id_entry
+> which then results in a NULL pointer exception. The only in-tree provider
+> of such a device is arch/m68k/coldfire/device.c.
+>=20
+> Restore retrieving the devtype_data via platform_get_device_id().
+>=20
+> Also a device bound through driver_override need not match an entry in
+> of_match_table or id_table. In that case device_get_match_data() returns
+> NULL, but flexcan_probe() dereferences the result.
+>=20
+> Reject devices without match data before continuing probe.
+>=20
+> Fixes: 5e6c3454b405 ("net: can: Use device_get_match_data()")
+> Cc: stable@vger.kernel.org
+> Reported-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
+> Closes: https://lore.kernel.org/all/20260618140147.142489-2-u.kleine-koen=
+ig@baylibre.com/
+> Reported-by: Marc Kleine-Budde <mkl@pengutronix.de>
+> Closes: https://lore.kernel.org/all/20260528-fluorescent-sage-ladybug-432=
+61b-mkl@pengutronix.de/
+> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+> ---
+>  drivers/net/can/flexcan/flexcan-core.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/fle=
+xcan/flexcan-core.c
+> index 86b40abe9e76..2bb9e4184eb5 100644
+> --- a/drivers/net/can/flexcan/flexcan-core.c
+> +++ b/drivers/net/can/flexcan/flexcan-core.c
+> @@ -2148,6 +2148,11 @@ static int flexcan_probe(struct platform_device *p=
+dev)
+>  		return PTR_ERR(regs);
+> =20
+>  	devtype_data =3D device_get_match_data(&pdev->dev);
+> +	if (!devtype_data && platform_get_device_id(pdev))
+> +		devtype_data =3D (struct flexcan_devtype_data *)
+> +			platform_get_device_id(pdev)->driver_data;
+> +	if (!devtype_data)
+> +		return -ENODEV;
 
-v4: https://lore.kernel.org/all/20261113050148.1466682-1-zhanxusheng1024@gmail.com/
-v3: https://lore.kernel.org/all/20261112093233.1118469-1-zhanxusheng1024@gmail.com/
-v2: https://lore.kernel.org/all/20261112030815.982026-1-zhanxusheng1024@gmail.com/
-v1: https://lore.kernel.org/all/20261111093459.660484-1-zhanxusheng1024@gmail.com/
+My stance is that the ability to bind an "unexpected" device via
+driver_override is something that should be handled in the core, see
+https://lore.kernel.org/all/0f7446324f6a0c8f0153d6532d92a6eeecd6a308.179061=
+2298.git.u.kleine-koenig@baylibre.com/
+for the latest patch to address this. I'll work on this patch to
+hopefully get it into v7.5-rc1. IMHO it's ok to not fix this in a driver
+specific way now. (And then my patch referenced above in the first
+Closes:-trailer is IMHO better than this patch.)
 
-Tested in a VM on ntfs-next b025f526c5d0, with all free space filled
-with a known pattern first.  Short buffered writes of 4M, old data
-readable after drop_caches and after remount, 3 runs each:
+Best regards
+Uwe
 
-                                    unfixed    v4     v5
-  fallocated, ends block-aligned    3137536    0      0
-  fallocated, ends inside a block   3141332    0      0
-  fallocated, unaligned start       3137536    0      0
-  same, pos + count in that page    -          0      0
-  append                            3137536    0      0
+--3kbn6dvhzgm4gtvf
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Marker stored through a shared mapping at 64K while pwritev() is
-stalled on a userfaultfd source page, state after remount, with and
-without fallocate():
+-----BEGIN PGP SIGNATURE-----
 
-                                          unfixed  v4     v5
-  buffered 4K at 128K, EFAULT             lost     lost   kept
-  O_DIRECT 12K at 0, EFAULT               lost     lost   kept
-  buffered 12K at 0, short 8192 (v3)      kept     kept   kept
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr6yV8ACgkQj4D7WH0S
+/k4KnAf+I1gQa7nnydreBqpl18qr3bjlMpNbM/wcIEtGP3xMBPkpDX2yJFljOI8k
+9TayfHIOvCINmFKVvL4sioue78+dQP56QUAmZGMHZNnQd4W/38CNi+PxKIqgsV74
+yoJHlZhYsHSMLMsf8oAIKAGhkVtpziLJ88i2Yc2ghjZ7erYkKrSuBc+jFTFzI4tM
+OknkKdfObSLN1TAr5lJYpnpvCn6HNJOkz//vLAgu6wAYdV9WtAd0wrkm/4tFcfir
+MpB/Cw/PNtHNAZWiKPL50rum+ferNUNUzHrRAEx38UA5Sj1Nz4MQonl0UUVFoPIr
+tgcOC5iCUQKdoIJu+AnDEx5AuRV1Dw==
+=98Fb
+-----END PGP SIGNATURE-----
 
-A store into [pos + ret, pos + count) itself during the write is
-zeroed, as that range belongs to the write.  With iomap_zero_range()
-failing (injected -ENOMEM), a 32K write to a 16K file that returns
-12288 leaves the size at 28K with no old data, also after remount.
-fsx (buffered, no-mmap, O_DIRECT and mixed), compressed files,
-fallocate, insert/collapse range and punch hole give the same results
-with v5 as with v4.
----
- fs/ntfs/file.c | 69 +++++++++++++++++++++++++++++++++++++++++++++-----
- 1 file changed, 62 insertions(+), 7 deletions(-)
-
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index 3213a0c9f96b..83e424a25a48 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -928,10 +928,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		ret = iomap_file_buffered_write(iocb, from, &ntfs_write_iomap_ops,
- 				&ntfs_iomap_folio_ops, NULL);
- out:
--	if (ret < 0 && ret != -EIOCBQUEUED) {
-+	/*
-+	 * Both sizes were moved to end before the copy, so a short write,
-+	 * like a failed one, must take back what it did not write.
-+	 */
-+	if (ret < count && ret != -EIOCBQUEUED) {
-+		loff_t new_init_size = old_init_size;
-+		loff_t new_data_size = old_data_size;
- 		int init_err = 0;
- 		int data_err = 0;
- 
-+		if (ret > 0) {
-+			new_init_size = max(old_init_size, pos + ret);
-+			new_data_size = max(old_data_size, pos + ret);
-+		}
-+
- 		/*
- 		 * Like ntfs_setattr_size(): __ntfs_attr_truncate_vfs()
- 		 * expects the invalidate lock held across the size
-@@ -939,14 +950,58 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		 */
- 		filemap_invalidate_lock(vi->i_mapping);
- 
-+		/*
-+		 * A page fault through a shared mapping may have used the
-+		 * extended initialized size while the write was stalled on
-+		 * its source, so keep that size and zero what the write did
-+		 * not reach instead.  [old_init_size, pos) was zeroed before
-+		 * the write.  Past end, zero the rest of the block that a
-+		 * buffered copy may have read from disk, unless such a fault
-+		 * already moved the initialized size past end and zeroed it.
-+		 */
-+		if (NInoNonResident(ni) && !NInoCompressed(ni) &&
-+		    ni->initialized_size > new_init_size) {
-+			loff_t zstart = max(pos, new_init_size);
-+			loff_t zend = ni->initialized_size > end ? end :
-+				      round_up(end, i_blocksize(vi));
-+			int err = 0;
-+
-+			zend = min(zend, new_data_size);
-+			if (zend > zstart) {
-+				err = iomap_zero_range(vi, zstart,
-+						zend - zstart, NULL,
-+						&ntfs_seek_iomap_ops,
-+						&ntfs_iomap_folio_ops, NULL);
-+				/* A direct read must not see the old blocks. */
-+				if (!err && iocb->ki_flags & IOCB_DIRECT)
-+					err = filemap_write_and_wait_range(
-+						vi->i_mapping, zstart, zend - 1);
-+			}
-+			if (!err)
-+				new_init_size = min(ni->initialized_size,
-+						    new_data_size);
-+			else
-+				new_init_size = min(zstart, new_data_size);
-+		}
-+
- 		/* ntfs_attr_set_initialized_size() rejects a resident one. */
--		if (ni->initialized_size != old_init_size &&
-+		if (ni->initialized_size != new_init_size &&
- 		    NInoNonResident(ni)) {
- 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
- 
-+			/*
-+			 * Only reached when the zeroing above failed or did
-+			 * not apply.  Drop what was cached past the new
-+			 * initialized size, as __ntfs_extend_initialized_size()
-+			 * does.
-+			 */
-+			if (ni->initialized_size > new_init_size)
-+				truncate_pagecache_range(vi, new_init_size,
-+						max_t(loff_t, i_size_read(vi),
-+						      ni->initialized_size) - 1);
- 			mutex_lock(&mrec_ni->mrec_lock);
- 			init_err = ntfs_attr_set_initialized_size(ni,
--					old_init_size);
-+					new_init_size);
- 			mutex_unlock(&mrec_ni->mrec_lock);
- 		}
- 		/*
-@@ -955,13 +1010,13 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		 * the uninitialized tail, so skip it unless the rollback
- 		 * above restored that size.
- 		 */
--		if (ni->data_size != old_data_size && !init_err) {
-+		if (ni->data_size != new_data_size && !init_err) {
- 			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
- 
--			truncate_setsize(vi, old_data_size);
-+			truncate_setsize(vi, new_data_size);
- 			mutex_lock(&mrec_ni->mrec_lock);
--			data_err = __ntfs_attr_truncate_vfs(ni, old_data_size,
--					old_data_size);
-+			data_err = __ntfs_attr_truncate_vfs(ni, new_data_size,
-+					new_data_size);
- 			mutex_unlock(&mrec_ni->mrec_lock);
- 			/* Like ntfs_setattr_size(): stay on the durable size. */
- 			if (data_err)
-
-base-commit: b025f526c5d04929212c9d5fb7ffc96608f3eacc
--- 
-2.43.0
-
+--3kbn6dvhzgm4gtvf--
