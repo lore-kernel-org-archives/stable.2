@@ -1,66 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813500;
-	b=B2HjiDLnlrIC2+KVFG7NByDqq17YN+cWWsgCmM1DfhKCCAs9avlBzHFjZoLAtEUxVPfp
-	 V/EpARV+X4KIgAbaudBc4yfEs/Yo64e30FtTRQQaHArlHQj4w7gpQQL4t3qwNIaE37VQW
-	 HUF2W0whzwFblXbaGslB2jNR39pjHY+XDW3+obi+nZIAmTYL4YCZX8oMZ12r5rMufuwqm
-	 ERu11cIn7QFXXHH1p5aMapyvhPNlnPwt2/s675rKvQ055TDJv/LYkYhYyiPg7nQaHwK5U
-	 rY8yuHgFoOSC9dRpU0uEzhyOMxi10vYTPB+Tpm7Y2g3r69po+OOWL4bBFpFIWw/ZClg==
+	t=1794814380;
+	b=IMFoDlJJxf3P13OA/LlJRO98FoEFNx9x56vQwV1THuiqLHbxCG5FZ/55DvTgZQFex/rT
+	 UYNVJZI7Tj09dz7Bv7EZUWkeH+ycrJcs9g7uPMELfLjLNJRvIi1qfWo5m0A/mEDKmIunG
+	 A6L9ttz65H1yOkF7DfrZyISAfZTJfmSNHm/fXIJxKB0WicHlu13F6HeZQqwwYndrLD9Pn
+	 QvbCx4fSdQ+mSuipWpG/lmeNpDeeGZVQFgt/5dSNvtc+qyVHUTtxCWcKiVsbjtrV04ywD
+	 ljZC47IDNAen2Zvi7eTR7CtCs2lmfLXGe/5bB8IskkbdcLKXv+6Z2L8ShH1/D+sQb4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813500;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=JFmvBZpwMqindYiNi7ogSyswfQwIz3IOi5bZUrK2eHs=;
-	b=2wudOuCe7jlJaz6c80EfLDtkzz8yQtUJDMeUh+g4ugd58tXU6GL7SowCDjE5Pw1suswF
-	 sUGjx/uBRYkrbZLnzMZiidoxWRzIO/ZrcsN0Ni+8qXBfbjTbYQTaltAXRlHyvjP+QetvL
-	 BlHUS3Jl0wltvQkQ28er8/z3H96uvAQ5sI6FGJLzMQO2r7pBr+SJ/llO7iaftdAhv+2kU
-	 fRsmJzkQuZ4OQojvFdiEo91vZl0E2Cxr0OBhzjn2+SqC3ZnTidlP8A5iD7Wz+2lAr3toZ
-	 Pkg5sgtgEzSY/ayPV7vE03UZc22zXxa6KxxKfZTvscq4EKovY6PKa4kJ0JBJxJDiMMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814380;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=1Lb0d+nlQPwj2uxwrjLTKUVhOeG90QM798BTau5rOQU=;
+	b=Ii14Ywu5EsRuLnqyT+fczMMdSq6nOqy/is/HaaG5R2RRGXTuss4H26Hs/ZJf5oye28rs
+	 752oWuNFgd9SBMq7TORq/TKhYTktpVXxCGc0f/7jaD/WCfmuzGukXzyitgDBNHo33wDmg
+	 7qeFO0W7e8eGUWcuAhRP2OaYS+8nyXpxfrCed3LZtl/rSIsPjf5/UP83JvaPiybMNARZe
+	 HFVxyhbyfRptq2B1LPn25QYfdXaXMyHmc4dn+l18/xQHh/+c1bZIdaJ+BLa8Xa5LQEift
+	 Gaq1Uz5BkxczalT84vVklFU+kL+ImltHHBKJDuRDonp7DzF/tjvyARzgwcjlTmuHc0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=fySSgXYU;
-	arc=none smtp.remote-ip=113.46.200.218
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=aIT7S67W;
+	arc=none smtp.remote-ip=115.124.30.133
+Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2293E606A31C;
-	Mon, 16 Nov 2026 07:18:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2293E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D71606A31C;
+	Mon, 16 Nov 2026 07:32:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65D71606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=fySSgXYU
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=JFmvBZpwMqindYiNi7ogSyswfQwIz3IOi5bZUrK2eHs=;
-	b=fySSgXYUJsKs6wQ9ZInYWkiZYXtIL44oK+ZLlI2X9UdG5+9KRhM1Xm5O6ufFQFt86yKvMt7lH
-	TJ16ss/1KR7gBTrdQpJb3REnew8XXMwlEJYoLXBrMRJscziuB5BVXrODOpqYUThJQ+jWdtXVa+N
-	YsOJou3GG9bKApK1GTpz60Q=
-Received: from mail.maildlp.com (unknown [172.19.162.144])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jSfM96SGszpT06;
-	Mon, 16 Nov 2026 15:17:25 +0800 (CST)
-Received: from whupemo500017.china.huawei.com (unknown [7.152.184.243])
-	by mail.maildlp.com (Postfix) with ESMTPS id 1CBCB40538;
-	Mon, 16 Nov 2026 15:18:12 +0800 (CST)
-Received: from huawei.com (10.67.174.49) by whupemo500017.china.huawei.com
- (7.152.184.243) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 16 Nov
- 2026 15:18:11 +0800
-From: Ye Weihua <yeweihua4@huawei.com>
-To: Takashi Iwai <tiwai@suse.com>, Jaroslav Kysela <perex@perex.cz>
-CC: <linux-sound@vger.kernel.org>, <stable@vger.kernel.org>, Ye Weihua
-	<yeweihua4@huawei.com>
-Subject: [PATCH -next 2/2] ALSA: pcm: oss: Clear params flag only after successful setup
-Date: Mon, 16 Nov 2026 06:48:50 +0000
-Message-ID: <20261116064850.3540576-2-yeweihua4@huawei.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116064850.3540576-1-yeweihua4@huawei.com>
-References: <20261116064850.3540576-1-yeweihua4@huawei.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=aIT7S67W
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1794814375; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=1Lb0d+nlQPwj2uxwrjLTKUVhOeG90QM798BTau5rOQU=;
+	b=aIT7S67WovzDeADTdzTC5uHCMJUj0JPN/oWtXIZK+F2DGHkeokGy0A1tCbRGCXVip6FSkXuyL7tGPpDFAM/OpNEI6c7KsUUTMVkuvsGTy52eAXJCB1mNk2DzQ8SyeA25WUazsJdUZooFFc9SecZ2HMfengSzapzfLImwMeKFP3s=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XEnXkf5_1794814373;
+Received: from 30.74.144.137(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEnXkf5_1794814373 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 16 Nov 2026 15:32:53 +0800
+Message-ID: <4bbe4321-ab91-40e4-bd15-6428660d8ea9@linux.alibaba.com>
+Date: Mon, 16 Nov 2026 15:32:52 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,46 +53,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- whupemo500017.china.huawei.com (7.152.184.243)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/huge_memory: flush dirty file PMDs before removing
+ rmap
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Nick Piggin <npiggin@gmail.com>,
+ Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
+ Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Jan Kara <jack@suse.cz>, Ross Zwisler <zwisler@kernel.org>
+Cc: linux-arch@vger.kernel.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>
+References: <20261113-dirty_file_pmd-v1-1-8c11f2a2e65f@kernel.org>
+From: Baolin Wang <baolin.wang@linux.alibaba.com>
+In-Reply-To: <20261113-dirty_file_pmd-v1-1-8c11f2a2e65f@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-runtime->oss.params is cleared before the initial silence setup has
-completed, so the flag claims a complete configuration while the
-buffer setup is still in progress.  The error path now restores the
-flag, so this is not fatal, but clear it only after the whole
-reconfiguration has succeeded.
 
-Move the assignment after snd_pcm_runtime_buffer_set_silence().
 
-Signed-off-by: Ye Weihua <yeweihua4@huawei.com>
----
- sound/core/oss/pcm_oss.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 11/14/26 1:15 AM, David Hildenbrand (Arm) wrote:
+> Unmapping a file PMD can lose concurrent stores when it races with
+> writeback. zap_huge_pmd() removes rmap and drops the PMD lock before the
+> gather flushes the TLB. Writeback can then clean the folio while another
+> CPU can still write through a stale writable TLB entry. Those stores do
+> not fault and dirty the folio again. Filesystem DAX has the same problem
+> with its dirty tags.
+> 
+> Commit 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB
+> has been flushed") fixed the same race for PTEs by adding delayed rmap
+> removal to the mmu_gather infrastructure. The PMD path still removes
+> rmap before flushing.
+> 
+> Flush the TLB under the PMD lock before removing rmap for dirty file
+> PMDs. Skip the early flush at address-space teardown, when no users
+> remain, and for mappings without writeback, including shmem and device
+> DAX.
+> 
+> Use tlb_can_delay_rmap() to share the PTE path's architecture checks.
+> On s390, clearing the entry already handles TLB synchronization, and
+> __tlb_remove_page_size() immediately drops the mapping reference, so
+> rmap must be removed first. UP cannot have concurrent stores from
+> another CPU while holding the page table lock. Make the predicate
+> side-effect-free and set the gather's delayed_rmap flag when an entry
+> is actually queued for delayed rmap removal.
+> 
+> Queue the folio before the early flush, while the gather still has a
+> valid range. Keep batching references and drain a full batch only after
+> dropping the PMD lock. The early flush resets the gather's TLB state,
+> so draining the batch does not flush that range again.
+> 
+> Although writing to files through mmap is generally discouraged,
+> unmapping such mappings may become slower: each dirty file PMD now
+> requires a TLB flush under the PMD lock. Future work should properly
+> extend the delayed-rmap machinery to PMDs and hold the PMD spinlock
+> across multiple entries, so their TLB invalidations and rmap removals
+> can be batched.
+> 
+> Fixes: 4b4bb46d00b3 ("dax: clear dirty entry tags on cache flush")
+> Cc: stable@vger.kernel.org
+> Reported-by: Kiryl Shutsemau <kas@kernel.org>
+> Link: https://lore.kernel.org/linux-mm/aoWw_iKEDLjKL2jr@thinkstation/
+> Reported-by: Chris Mason <mason@kernel.org>
+> Suggested-by: Lance Yang <lance.yang@linux.dev>
+> Suggested-by: Usama Arif <usama.arif@linux.dev>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-diff --git a/sound/core/oss/pcm_oss.c b/sound/core/oss/pcm_oss.c
-index 29812b0d1318..2fc52fe2cb52 100644
---- a/sound/core/oss/pcm_oss.c
-+++ b/sound/core/oss/pcm_oss.c
-@@ -1071,16 +1071,16 @@ static int snd_pcm_oss_change_params_locked(struct snd_pcm_substream *substream)
- 	if (!runtime->oss.buffer) {
- 		err = -ENOMEM;
- 		goto failure;
- 	}
- 
--	runtime->oss.params = 0;
- 	runtime->oss.prepare = 1;
- 	runtime->oss.buffer_used = 0;
- 	err = snd_pcm_runtime_buffer_set_silence(runtime);
- 	if (err < 0)
- 		goto failure;
-+	runtime->oss.params = 0;
- 
- 	runtime->oss.period_frames = snd_pcm_alsa_frames(substream, oss_period_size);
- 
- 	err = 0;
- failure:
--- 
-2.34.1
-
+Make sense to me.
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
