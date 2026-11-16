@@ -1,120 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=68.232.141.245
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794848151;
-	b=TBuNsJ4zISR9TXq2sY1JPPzBMZd0ouwPDOWPIZ6lIbZ5t1fJQ2MdFHGgqGPXByhJO0v1
-	 o3Nvw4Le8bvYqtFf9WnYpuPqeph/WlNBYUlCLEelMmenvZUhi7McSdZHiP1mBy/E/YPAp
-	 Iyz6lKsT1coY85nIre1sMRD4doiltE/WCTGbN5h9Q6CdyBkjorfMhAjcZY/LnAmEgh8Au
-	 xg/NC3KhpkyqKe61j4Ln4E+KXkiv6+4o9CMmGkr8El26ZR952xUiB5TDj5dzKgubeM41R
-	 Gvcr06w1q3Bh50+xPvQEc78LiVBLyZQdlsgZnHjraBlzfifmNOd2SXdxxlXAhiGRZUA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794848151;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:DKIM-Signature:Received:Received:Message-ID:
-	 Date:User-Agent:Subject:To:Cc:References:Content-Language:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:WDCIPOUTBOUND:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-Exchange-RoutingPolicyChecked:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=mCWxSpGHKTfBHHzye7tA9hUwtBdGebHPFrm0cqjMZao=;
-	b=TdLKWsx6vLKZYZf0Bmh4NAzjmr3HKlUZ0x8dGXK4x6CnkTnqH1DYLafZ2WeZr0eyY2NW
-	 lu7qgz9hbUV2w6eMa9f+6ptmB9HB2vXb2mXxh+qpuLTvevLa6k/wrZkH2l/S+Q/ymHnpp
-	 M+rM/y02zOFtp5ZTJ5poePUHBBV6fF1MUZVkbfZwoSVvW2jWcxtxptXqHNuuAmpVaTvlU
-	 ztpSl9LXdnF1xDxEuVwPFb7ZT3crGEuX/vIPvbtQ8tn1mxdNnflRo/0HN5p8LFjCZIRbH
-	 EzTLQreVhigjX00Db4ZUk3AOiRhRzwe0T1WfZD6+ogEq4kPRDEAzG484GkNzyVNlSWA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wdc.com;
-	spf=fail smtp.mailfrom=wdc.com;
-	dkim=pass header.d=wdc.com header.i=@wdc.com header.a=rsa-sha256 header.s=dkim.wdc.com header.b=Xtsdgw+n;
-	dkim=pass header.d=sharedspace.onmicrosoft.com header.i=@sharedspace.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-sharedspace-onmicrosoft-com header.b=XilbLetn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=68.232.141.245
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794848861;
+	b=RQrIn5OfCELf6pcejpW4L+rGMKsjrCG257QJiYK8Suh94n3+HVe+yDVWQuL52ZemTv6T
+	 FAqH8e9urKwmaTU9zk56ljtqChKLsmIWFPUgqCm71jvlQRNXKFVYsBbyHwkGi+xTARIUQ
+	 eXq3V0mRIyRXj8iQ2aA2E8z04BWLxbLDrtETqph+SP53vAqGcQV4WcTqFc5Kt7MxUh9fw
+	 sKUDAstMNSPOTB5W0+4NhQN/S9A3GvmJqfE75Tq2HnzMAzXqnxS3S+SQyyai4RDHZtCwc
+	 TnB/4UCR3D4kksccG30trrdvBdgfw7a0nyqWBhu4L3fWdlZ/07uMl1DWeN84ngLdJkg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794848861;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=LrPchhpZJR/1gFY94P7uZJUteTqsj+C1U2e/SDMmL2Y=;
+	b=GJyHUWCaZ92Fygw4hVp5kYkJlD1EnEHVBs1v2nIy1p7ZomoFVFYJ3OuY07YIjpNg5QVa
+	 0Yj6g8eVVqV2k+OgInR+zOsDsUOMXSw8lGoHOAig1OFQ6hMgUGkxpE5FZRjUAjIcKvubp
+	 CBun9+0wdV+dgh5P0QgDJkUVrbjnp+8X/cgr5eE5dfxia37dZaYRNps+7sm7IqVwFG3ss
+	 s8CPZw2vbCy+b5yAczTKLelWXhpfWLcgqg8eIHZRXZYe45A2mP+w8ALOzDhGd44ZlmynU
+	 PkPwCE1GtWT1BYwGV7oAo8YuTY8kMMBJb8eZ0pC7Ri3tMORv+5W4xnkjAeZEO8Ko13A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="F9/rn9YY";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C1B606A33B;
-	Mon, 16 Nov 2026 16:55:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77C1B606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wdc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=wdc.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93BA9606A32C;
+	Mon, 16 Nov 2026 17:07:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wdc.com header.i=@wdc.com header.a=rsa-sha256 header.s=dkim.wdc.com header.b=Xtsdgw+n;
-	dkim=pass (1024-bit key, unprotected) header.d=sharedspace.onmicrosoft.com header.i=@sharedspace.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-sharedspace-onmicrosoft-com header.b=XilbLetn
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
-  d=wdc.com; i=@wdc.com; q=dns/txt; s=dkim.wdc.com;
-  t=1794848158; x=1826384158;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=mCWxSpGHKTfBHHzye7tA9hUwtBdGebHPFrm0cqjMZao=;
-  b=Xtsdgw+nnUyUHHK4rWiemI9uU3VKOZ25prkw8DqS9/yLpTl6Z+92FuVc
-   Cp8c//Sa4B4V1CKOK0h8GTQUNyay3PCKb9O9BgluG/Tu88PhuwbUzgJGK
-   oBmbUiYyxQXbxqi/CzstkGxesgfZVpy0DR+n7Rp9+9hS6iDFpDOumjq1/
-   Q+mEB6zZuQGORcaDU5g9G6vJxDUtZmA3Jtz9xCU6bMUGnmmM6oqAztl9o
-   5mviCZorT4pyZEnYKsivjfIbiKBT0v3Gvfc7bduFpFQJTN96T7QHLz1VH
-   HgAOqcc/PlhTvI/qaTDsXDq42jd96ZyZrQnnRAOiqmfkkaekCxzHadpFy
-   w==;
-X-CSE-ConnectionGUID: e2lP6tiHS1uXBXvoPrU1Nw==
-X-CSE-MsgGUID: PidJ/hJFSeqdOYw1gFWGcA==
-X-IronPort-AV: E=Sophos;i="6.27,217,1786982400"; 
-   d="scan'208";a="160939474"
-Received: from mail-westus2azon11010055.outbound.protection.outlook.com (HELO CO1PR03CU002.outbound.protection.outlook.com) ([52.101.46.55])
-  by ob1.hgst.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 17 Nov 2026 00:55:51 +0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x+1Dq4NTSd9JwZihMBGksxeeWqQZP48P3pyeAPWGRu6blJtVMQwQmMoSbqEgRuuc2usvO3RsKs4/1bzT53mbUWGdjlQMSosL8EjFhHBW0b+XPdl3KR4eZZY+FIeFlgZ2XofgYGIzWLRBJg1MIp3svnVl2nqbI8MkaUoRQabIP6GdZYq39Gp7YFI+cXNndPoVzK6Y4UYkkh12/an9ETi3ilc9lHzPO067lkfhUeRhDkC8hGMfNYIf1xxuUegS+06QhJTeyR3ulH615tHZXN+VeRQdcuWqjla1AhyE+TcyLvrY/zhuQYpTpoofOzwappUjLn+p20nA1m0U/BKmhh5TiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mCWxSpGHKTfBHHzye7tA9hUwtBdGebHPFrm0cqjMZao=;
- b=AYcsmz7AzFKNThg5hOCZJcnNMBUoqSwki4bxJgO2/0E5h8WlHFrFqHDrc/orBPSIyaiOtj020+TGhx1uXZ2GA9oWJppSlF2ZrUxucvV3PpBVrNacw8vDxfItvkxkkyM7+9byuRqK9Ey93vDuXK43wByrLoGf8PoAaWGqccTWBD7IytXn5sUiBhNwAkHzvDkBtwVKTirjMnbFDdAndbAtTbNjveiVwwITstxEpYHred7VbSxm6Pq6fML0fSfjMHB/orUBZZRK3FSb2iu0uU2+bhBi9iFOHFuuXn4xyiUauDM7oU+1VCZSMppQySbzVf4qb8gqrL0lJp4jS/mxLIBMxA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=wdc.com; dmarc=pass action=none header.from=wdc.com; dkim=pass
- header.d=wdc.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=sharedspace.onmicrosoft.com; s=selector2-sharedspace-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mCWxSpGHKTfBHHzye7tA9hUwtBdGebHPFrm0cqjMZao=;
- b=XilbLetnl0aQrNkzE9YELJvpTaP2XpJhQBTojvu/K2ZJrI8Pqhqm47EDzvfVDWl6+l147Xr8VLxqNlqrZGitgSUZW7FXf1/j59HXHEmeStzjpdGk4O6qrULmmafhljf2k8dJo/XspOe5CZVtGKiMmzmR6PS2kZfk1C9GnDF3hK4=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=wdc.com;
-Received: from SA6PR04MB9447.namprd04.prod.outlook.com (2603:10b6:806:436::21)
- by CH0PR04MB8161.namprd04.prod.outlook.com (2603:10b6:610:f5::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 16:55:42 +0000
-Received: from SA6PR04MB9447.namprd04.prod.outlook.com
- ([fe80::14c6:1c14:485f:1825]) by SA6PR04MB9447.namprd04.prod.outlook.com
- ([fe80::14c6:1c14:485f:1825%6]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 16:55:42 +0000
-Message-ID: <5a1144ad-a773-4851-8832-78e46e065653@wdc.com>
-Date: Mon, 16 Nov 2026 17:55:31 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/2] btrfs: zoned: fix silent data loss from leaked
- active zone reservation
-To: socketpair@gmail.com, David Sterba <dsterba@suse.com>,
- Chris Mason <mason@kernel.org>, Naohiro Aota <naohiro.aota@wdc.com>
-Cc: linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261104-btrfs-zoned-active-zone-leak-v2-0-0cee2ef72171@gmail.com>
-Content-Language: en-US
-From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-In-Reply-To: <20261104-btrfs-zoned-active-zone-leak-v2-0-0cee2ef72171@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0345.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:ea::6) To SA6PR04MB9447.namprd04.prod.outlook.com
- (2603:10b6:806:436::21)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F9/rn9YY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A4601F000C4;
+	Mon, 16 Nov 2026 17:07:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794848861;
+	bh=LrPchhpZJR/1gFY94P7uZJUteTqsj+C1U2e/SDMmL2Y=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=F9/rn9YYCWS44yZBatgT3UQFikp0tYuQXvgprTbgrD4W0JVVRwe/rtA0sv9F011Bp
+	 jbNt2VqDEZWWE/+O2b7V9ZUn97KBKyUnthok+rtC0gw9/3VxxnHA2hNn0D8C0ytCLG
+	 XKVASn0VhoxmWIPBCn0+Dq60Obf9tZPemX3mWufj2WOqKkjWkTX47Zv5tM94ww2erm
+	 uRAIuKAnqwDZbFC/LGj8AIlmdw5/VEWp0ZhFZCOS7pEFJ6GPkkX9+4khFOwxNRst6Y
+	 l2inPP7JbrcjNUSQdPR40aRfQFh0c/hFyeQ6InEeF48fWRl8fOPHGomc0xsz6p6q4g
+	 t+JWiyWIXcM7g==
+Subject:
+ Re: [PATCH net v3] net/sched: sch_qfq: revalidate aggregate after peek
+From: netdev-bot+sashiko@kernel.org
+To: Jeremy.Jean@oss.cyber.gouv.fr
+Cc: jhs@mojatatu.com, jiri@resnulli.us, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, kuba@kernel.org
+Date: Mon, 16 Nov 2026 17:07:40 +0000
+Message-ID: <179484886054.3136.13514425685595573517@kernel.org>
+In-Reply-To: <20261112164954.2786444-2-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261112164954.2786444-2-Jeremy.Jean@oss.cyber.gouv.fr>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -124,82 +62,333 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA6PR04MB9447:EE_|CH0PR04MB8161:EE_
-X-MS-Office365-Filtering-Correlation-Id: e0c46e7a-b257-4270-0461-08df44027316
-WDCIPOUTBOUND: EOP-TRUE
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|376014|23010399003|10070799003|366016|22082099003|18002099003|56012099006|11063799006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	Sc8N3yQ+FNkZ1LN+cATJ8mIQxh5+7cvPxCzu+4NAP1jG2zkITO05jZ9iPCBjOZIcSW1I7Lcgw5JW7qtc+uHp0RhAg6AMWUVkKXC8R6ZqwPiA0eiHjIpKF78YeEWgPEYxIkOLPOypJVFld4n09Jh91sRFNu6x4TCCGTrcbvgQGQqaReiSndC/BmU79/J/hqrXCHc8BjB723TNMbOJjgFdOA995LmYyG++vaA1yAR/MV2G3Yc7yfU+0N1VNQHhUhqiE5QmKKD5mz9XbC107CQVRqKX7J7/rtb3NHPspTgQmKn7/STUcIBVhVDdj+DxZazgwxBoX2HXMF8fD8wvNho7hbMcgheDHQqQdXMFq6RK9tILUfgD0bRa7rHeO0RmFGIUrFIgGR6BUmyYXTJF1L2CEenTNSxZ10C6/uIbDHY8K+3NFgCoxrMdMhoDNZzZRUTD4hMbEuEc2mq4t6FTCzmuGcxBtkWGRcfZSTKQcKVcbnKRWltIgyokLCHds0BqgZZEZmqevyMGEchEymY+agUiFT64nd3afYr5eZI7yJnGUJoLnX/kSSICDqa2f53OP6N7ctcTA2DtXE3Dq+ug+xNyY7qYL9ig6onwiW3ArTxNWx96ZKOCTVaEfEcAykjMPX/Wu0SfZVDAW/bLWKYqenvqyZhaiorMGQG8r6wO0emeKSg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA6PR04MB9447.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(23010399003)(10070799003)(366016)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RTJkMEorVVM0SXljVlZmbzhqTHg1b0hyaDJQS3dCblFMSVNnbFdYYmxNUmdV?=
- =?utf-8?B?cVdpb0xIUE9wamp3VmFOZGRNT1IwQXMrNmlHMmF3cUxwM1l4VE8yWXJXaHNS?=
- =?utf-8?B?YlJ3VGoxRUtqejdBWFlGWHl3U0o2MDNEN0Z2RkJoVlFmY2VyZjZ2TTZtUTJE?=
- =?utf-8?B?RTlYb0o2SzlYVVpKc1ExSnd1cTZsTDBmWFF4ekdoZHpDOTBYMWlhWnF6OVp6?=
- =?utf-8?B?VG1XV1RIZngvS0IxemlPNDMvdnV6NlV0WkREblBOYTM5d1FHb1kvNHBQcVpy?=
- =?utf-8?B?cnBwUHRlRmVwWnlYcXorQjdDY3RDQkF3eHRqTS9OZzNkbkJWRlBIUWliemUy?=
- =?utf-8?B?c0ZaZTFMUndnU0JRM3ZRR0ljN1VFNzc5ZGtkRVducmxpVTYrVFlrY0Y5U0I4?=
- =?utf-8?B?aDZrVFJkNGptbnlidEpFaE1JbXdzSXllNXZDOUN1TTM1NmEySEhkaGZXVmNJ?=
- =?utf-8?B?N1RuY2NnUDhRN3NjTDVzdG96bER1K0JGQTdTSWllZ3VSVkFMNzdJdnFSc2FC?=
- =?utf-8?B?Q3BBSkowWnpnQVhUQkt6NW0yYW9RdHNFY0J5SENxZDlmMS9rbldLd0ZzOGpZ?=
- =?utf-8?B?VTYxVzUwTlRwaUUvVC9UU1pUU3RjbUMzdUNrNWs4djRyV3RaQzQ3Rjkwempn?=
- =?utf-8?B?WGpWeXdZNnh4Q3VBVkFxQmlIcTEvZWlpUjYrYTRkdTVEb2t5L1V2RnduTUty?=
- =?utf-8?B?ZGdXdDlKWHN2S04yMm0yMGtpRjRoVkFQM1R3NEgwajNhclQzQWsxalhPcENo?=
- =?utf-8?B?UmljVFNJOXk0eGlTMGh3aDRMVWtHbGFWbndKWUhxVUxRL0RqWnFVcXlvRnlu?=
- =?utf-8?B?Y0JIbWswNjVCMTNyWk5MUzNrZDZ0dUFOSTRIMDVwbFEvNXNvTC8yUG5vTjEw?=
- =?utf-8?B?TVpFQ2t3aEVuWnF6ZjM3a1hLN3J6dFVMMlpNbUNEMHREZDYvTjc5OENrM3N4?=
- =?utf-8?B?Q0Nld0FEazVid3EvZEVHQ0dXTjNESnFRUW5TNm9RcHpuL2lnUVBoUEt3V09u?=
- =?utf-8?B?STFPb2dEYnByK3lzaDA4QUE4Wk9odWR4V1JWTmwwc3Bpb21uZ3F5Sk1QQlpa?=
- =?utf-8?B?ZVVRcE9Oc0FITFNkd3lXRW80S2UraEVEeGQxeHFyUC91VUhxQVJUWlNPQWJq?=
- =?utf-8?B?TVpDWVZ1eGxwZ3BIdFdxVGo3V3plY3BRUXRtSVUxdDNmdlhjT21ZR0Z3eFgy?=
- =?utf-8?B?SDcyQTk5VDdUVEJmbVR4OFdNNytya1VMMHBWRW5PaFd5NTV0NXRuN2JFWndW?=
- =?utf-8?B?T0Q4NUhNUE9kWHdiNlVNY2lKdDZnV1ppUzdMdjExZVNQYVlIM2VhVFRyWGUw?=
- =?utf-8?B?RUgvSi9hNVcvbFk1THVsZXpuOXhlYmFicnFETkszV0VGVXQ3NkZPNHNiMFor?=
- =?utf-8?B?bE5NSGhGR0V1RHp5Uk1jc09aSXdtNFlOamhvdUdsWFN3Mm5WS2NBVVdHNGM5?=
- =?utf-8?B?YktlQXJCU1RMb0p2bDdHUXp5dElPK2Ewck5SdUpDT1RvcUhqZjJ2NHVmdGlh?=
- =?utf-8?B?Qkt5MFpzNkY4Z0NtTWIySE1DOEd3NER6ZnpPTFpvL2kyRllSZ3IrWmJiSHdO?=
- =?utf-8?B?cDJLd2oxbDFVNkpSWCtJSWw3YWI0WkVVSmVtSzJ3Nnl5TTVTdmtudE42R0RZ?=
- =?utf-8?B?a3NZQUhNanJnaFFJeTh6U2VibEVvUWpiRittRGpzZmE2M0dkMXhHa2c1dnlC?=
- =?utf-8?B?RkNKVDRYdVl3WmRYbWYzZ2ttZ1ZKVzNZbkk0ZWhBeUlZWWw5VG1CVGJRbXd5?=
- =?utf-8?B?RGVtbGhQdmNhY1dXMTdzRC82WlNwSVN6U3NBczJyaEp1M2xSSUs1a1l4VjdE?=
- =?utf-8?B?OVJZbHdqQkRTZGJ3ck5yTzNiWUlwU2FoTnBIYm92SDVjakFUV2UzcHZEdjRB?=
- =?utf-8?B?N2FlYm55MlJZeDJRMnNSdHdsNFRoNGRiSkk2SldTbW56dnoyZ0EwY3oxek9Y?=
- =?utf-8?B?SkxiYTg5YVZvbk1JU1RLcER3aHNHb21qenZ4TTdWbFB5N0oxODNOeE9IMnYw?=
- =?utf-8?B?Q0dSaEc2Y1Q5ZjIzV2lhaWdMVXBsaERKN2RzeWNpbGdUcm5YTmptY2hEQUhy?=
- =?utf-8?B?S2xoSldoYjBJOWNWMXZYcDk1QzNOVHZXcmJUVGVLK1NMQ0t5VGEvQmRxWW82?=
- =?utf-8?B?ZmlOdWZwQ3Fmak92RUtSYUtZSEFHVHJHb29hN1hScWJjZkM2UkY1SjVyT05j?=
- =?utf-8?B?clRRVmlnUDhDVmdGZ2hoVEJHbDRjK0dnRVg2Z2duQ2J0MDUzQWJyYnM3dE9Q?=
- =?utf-8?B?MEJvT3czVWlUaG84SmxIMWVTNlhsNFpHMDV3M0pLVXB5TUhyTlRCNjczZ2N6?=
- =?utf-8?B?T2hzdCtQNFh2T1M1blo4Q2pZNGN4OVNoNm5zSEpRV242UkxRYURDbENBM0Vl?=
- =?utf-8?Q?k9mBva+WsyHrVRHRyW+zxRWeN/cG4O92HicOXmnZiap4G?=
-X-MS-Exchange-AntiSpam-MessageData-1: e/9fh/qWcwTogYAw4IWH1ciL+TRrzmMO1oU=
-X-Exchange-RoutingPolicyChecked:
-	QNfvP7RCibTLcYsBDzOSLl8fzOabYUwcw23dUVa6UJUKkd2rPNMubSmnOAeeCmsEf0rUrKjs5NM1JaAbxfAi7H4SicRNQpCt0V+ifhYnb6S4FfnqDWP8UtHLdgoYAnsHlzR4zWkzcRcKSJUBkwyzKFH36yKads/3OcykZq04OiiYxUkgK8XF7yf/fL40HoCvB8Mkyl7nXnb84az5xwPuSIWOIJZ09XbJhfYMciNAkHz33ZAX6sBUcwpLnnU65Gxd+u83J4fvIRofNqSHebv23ad9qB2LMHKBxYv4yCS9UcQrNUr+T76wtSeNPrsxlVucMurNVSnF4i6qwvcrZ1Nzsw==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	WR2yHoK/7wpQwKH+ITFqdN8e+EUHzacD8rQuXbMQa+jDS18Q0oIznOExC5/JAq/WfZMbM0sgQoKh7fz2oY7EL2THwAbDnRvbiWt6INmJusU7ryettPg1dQSd5kZzcHb3hTvF0BG0Cx6pxpxBKaHgKyueC1p0OPeCzoNjmdhaNdnS8t6ZwkK+9/L4Hz414GL/qGjPFkJP6B7QcL91EHwreXLwGXrMGjEz7ZcIz+yo49B4Bv24iCm5DVDY2+5ThLkjW0E/nD5PSmv9M7F8VMNgmvTNs154QsbrKLsfProrTjEMxFwlxLEgP8Nqe2s/ef3jvIy3mhNUrZDQc++vDBberXueK30OI2QDqis/D3eaVbH5/+6dF7Jn2QNIImYhzTj/R6VMZBBKigeb9WbCDfDOs7q/Ns0oDJXyZ4qcDFGnRWWDC9a0xRidAeXzVI5Lfmyah3WTl7l9KL+tCJEn6CavPN520JwU/IoHQT6h9zQ5q5DS60Ob/DyturTI1st8EYyIsgXFIM+XROM4SMH+zil9ifbMxNree2MV8GtxnnnfNXNGTZp80ZTsRDYuYh5cxCAIkGC95QtX6IPCao+m5VBKWBZ9CHB5F2T4wj6Zky5FKaTrrHP2tj6EK6UfiHjs1+3m
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e0c46e7a-b257-4270-0461-08df44027316
-X-MS-Exchange-CrossTenant-AuthSource: SA6PR04MB9447.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:55:42.4066
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: jq5AmEgJTE6ob5yNch6tOj7DwFYVFEd0GxhpfKeRE1kntw31nmxJ5GnFD6ldTe7vX7TMpCiWfZS6q7rjwlpTv3e/QqUOpqPx+2QdAi6j3j8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR04MB8161
 
-Looks good to me,
+Thank you for your contribution! Sashiko AI review found 7 potential
+issue(s) to consider.
 
-Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Critical: 0 · High: 3 · Medium: 3 · Low: 1
 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-And applied to for-next.
+- [High] In qfq_dequeue() (net/sched/sch_qfq.c), `q->deferred_enqueues`
+  is one pointer per qdisc.
+- [High] The new replay loop in qfq_dequeue()
+  (net/sched/sch_qfq.c:1200-1202) calls `qdisc_enqueue(next, sch, ...)`.
+- [High] net/sched: sch_qfq: premature qdisc_qlen_dec() triggers false
+  qlen_notify
+- [Medium] qfq_dequeue() calls qdisc_root_sleeping(sch) twice without
+  holding rcu_read_lock(): once at line 1171 to set TCQ_F_DEQUEUE_DROPS,…
+- [Medium] qfq_dequeue() now does a plain read-modify-write of the root
+  qdisc's flags word on every dequeue: `qdisc_root_sleeping(sch)->flags…
+- [Medium] On every packet it dequeues, qfq_dequeue() sets
+  TCQ_F_DEQUEUE_DROPS on the root qdisc, which may be a different qdisc…
+- [Low] The commit message says only "A QFQ child callback can re-enter
+  qfq_enqueue() during a peek or dequeue".
 
+--
+
+net/sched: sch_qfq: revalidate aggregate after peek
+
+This patch makes qfq_dequeue() restart when the in-service aggregate
+changes during a child peek. It also defers enqueues that re-enter
+qfq_enqueue() while agg_dequeue() runs, and replays them after service
+accounting. Finally, qfq_enqueue() now rechecks class activity and uses
+cl->agg after peeking the child.
+
+> A QFQ child callback can re-enter qfq_enqueue() during a peek or
+> dequeue.
+
+[Severity: Low]
+This isn't a bug, but could the commit message name the trigger?
+
+As far as I can tell, the path is:
+
+  netem_dequeue()
+    qdisc_enqueue(skb, q->qdisc, &to_free)
+      netem_enqueue()           <- duplicating child netem
+        rootq->enqueue(skb2, rootq, to_free)
+          qfq_enqueue()
+            qfq_change_agg() -> ... -> qfq_destroy_agg()
+
+The goto tfifo_dequeue loop in netem_dequeue() can also cause several
+nested enqueues from a single peek.
+
+The v2 changelog says "Clarify the trigger". The body still doesn't name
+a qdisc or a configuration.
+
+> diff --git a/net/sched/sch_qfq.c b/net/sched/sch_qfq.c
+> index e900890e9c544..d867d3b918def 100644
+> --- a/net/sched/sch_qfq.c
+> +++ b/net/sched/sch_qfq.c
+
+[ ... ]
+
+> @@ -1151,17 +1160,23 @@ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
+>  		 */
+>  		in_serv_agg = q->in_serv_agg = qfq_choose_next_agg(q);
+>  		skb = qfq_peek_skb(in_serv_agg, &cl, &len);
+> +		if (unlikely(in_serv_agg != q->in_serv_agg || cl->agg != in_serv_agg))
+> +			goto restart;
+>  	}
+>  	if (!skb)
+>  		return NULL;
+>  
+>  	qdisc_qlen_dec(sch);
+>  
+> +	qdisc_root_sleeping(sch)->flags |= TCQ_F_DEQUEUE_DROPS;
+
+[Severity: Medium]
+Is it safe to call qdisc_root_sleeping() here without rcu_read_lock()?
+
+qdisc_root_sleeping() is:
+
+	return rcu_dereference_rtnl(qdisc->dev_queue->qdisc_sleeping);
+
+On the transmit path only rcu_read_lock_bh() is held, and RTNL is not:
+
+  __dev_queue_xmit()
+    __dev_xmit_skb()
+      qdisc_run()
+        dequeue_skb()
+          qfq_dequeue()
+
+With CONFIG_PROVE_RCU, can this trigger a "suspicious
+rcu_dereference_check() usage" splat on every dequeue? The
+qdisc_root_sleeping() call in the replay loop below has the same
+problem.
+
+qdisc_dequeue_drop() uses the same root->to_free mechanism, and it
+wraps the call:
+
+	rcu_read_lock();
+	root = qdisc_root_sleeping(q);
+
+[Severity: Medium]
+Can this plain read-modify-write of the root qdisc's flags race with
+qdisc_offload_dump_helper()?
+
+This line runs under the root qdisc lock. qdisc_offload_dump_helper()
+changes the same word while holding only RTNL:
+
+	sch->flags &= ~TCQ_F_OFFLOADED;
+	...
+	if (!err)
+		sch->flags |= TCQ_F_OFFLOADED;
+
+It runs on every tc qdisc show, through tc_fill_qdisc() -> tbf_dump()
+-> tbf_offload_dump(). prio, red, ets, gred, fifo and mq reach it the
+same way.
+
+Take a tree like TBF -> QFQ, where tbf_dequeue() peeks the child and
+runs qfq_dequeue(). A stale write-back from the dump can clear
+TCQ_F_DEQUEUE_DROPS, and then qdisc_run_end() does not collect
+root->to_free:
+
+	if (qdisc->flags & TCQ_F_DEQUEUE_DROPS) {
+		to_free = qdisc->to_free;
+		...
+
+Would the replay drops then stay on root->to_free, and leak if the root
+is destroyed first?
+
+The race can go the other way too. The QFQ write can undo a
+TCQ_F_OFFLOADED update, so TCA_HW_OFFLOAD would be reported wrongly in
+dumps.
+
+Before this patch, the data path did not write another qdisc's flags.
+
+[Severity: Medium]
+This sets TCQ_F_DEQUEUE_DROPS on the root qdisc on every dequeued
+packet, and nothing clears it. The root may be a different qdisc type.
+
+Until now, a qdisc set this flag on itself at init (codel, fq_codel,
+cake and dualpi2). That matches the flag's description, "->dequeue()
+can drop packets in q->to_free".
+
+Say QFQ sets the flag on an HTB root. Every codel, fq_codel, cake or
+dualpi2 under that root then switches qdisc_dequeue_drop() from
+kfree_skb_reason() to deferring drops onto root->to_free. qdisc_run_end()
+also starts returning root->to_free. Both stay that way after the QFQ
+qdisc is deleted.
+
+The unconditional |= also writes to the root qdisc's first cache line on
+every packet, and other CPUs read that line in __dev_xmit_skb().
+
+The commit message only says "Keep replay drops on the same root".
+Should it describe this cross-qdisc change? Should it also mention the
+dependency on the TCQ_F_DEQUEUE_DROPS and qdisc_run_end() to_free code,
+given the requested stable backport?
+
+> +	__skb_queue_head_init(&deferred_enqueues);
+> +	q->deferred_enqueues = &deferred_enqueues;
+>  	skb = agg_dequeue(in_serv_agg, cl, len);
+> +	q->deferred_enqueues = NULL;
+
+[Severity: High]
+Can a nested qfq_dequeue() on the same qdisc clear this pointer while
+the outer call is still inside agg_dequeue()?
+
+q->deferred_enqueues is a single pointer per qdisc. It is set, then
+cleared to NULL, with no save and restore. Consider a tree where QFQ Q
+is a child of another QFQ R:
+
+  R (qfq) -> class X -> Q (qfq) -> class Y -> netem A -> netem B (duplicate)
+
+The sequence could be:
+
+  qfq_dequeue(R) peeks X
+    qdisc_peek_dequeued(Q)
+      qfq_dequeue(Q)                       <- D1, sets Q->deferred_enqueues
+        agg_dequeue()
+          qdisc_peek_len(A)
+            netem_dequeue(A)
+              netem_enqueue(B)
+                rootq->enqueue(skb2, rootq, to_free)
+                  qfq_enqueue(R)
+                    qdisc_enqueue(skb2, Q) <- deferred, NET_XMIT_SUCCESS
+                    cl->qdisc->ops->peek(Q) <- X is still active
+                      qdisc_peek_dequeued(Q)
+                        qfq_dequeue(Q)     <- D2
+
+Q->gso_skb is still empty because D1 has not returned, so the peek runs
+a full qfq_dequeue(Q). On its way out, D2 sets Q->deferred_enqueues to
+NULL. It then replays its own list through the normal qfq_enqueue()
+path, while D1 is still inside agg_dequeue().
+
+>From then on, re-entrant enqueues during D1's agg_dequeue() are no
+longer deferred. That covers D2's replay and later passes of the
+tfifo_dequeue loop in netem_dequeue(A). On that path, this chain can
+free the in_serv_agg that D1 still holds:
+
+  qfq_enqueue()
+    qfq_change_agg()
+      qfq_deact_rm_from_agg()
+        qfq_destroy_agg()
+          kfree(agg)
+
+agg_dequeue() then continues with:
+
+	else if (cl->deficit < qdisc_peek_len(cl->qdisc)) {
+		cl->deficit += agg->lmax;
+		list_move_tail(&cl->alist, &agg->active);
+	}
+
+After that, qfq_dequeue() updates in_serv_agg->budget and reads
+in_serv_agg->F.
+
+Doesn't this leave reachable the same use-after-free and active list
+corruption that the commit is meant to fix? Is a save and restore of
+the previous pointer needed here? Another option would be to avoid
+peeking a child that is in the middle of its own dequeue.
+
+>  
+>  	if (!skb) {
+>  		qdisc_qlen_inc(sch);
+> -		return NULL;
+> +		goto replay_deferred;
+>  	}
+
+[ ... ]
+
+> @@ -1181,6 +1196,11 @@ static struct sk_buff *qfq_dequeue(struct Qdisc *sch)
+>  		 len, (unsigned long long) in_serv_agg->F,
+>  		 (unsigned long long) q->V);
+>  
+> +replay_deferred:
+> +	while ((next = __skb_dequeue(&deferred_enqueues)) != NULL)
+> +		if (qdisc_enqueue(next, sch, &qdisc_root_sleeping(sch)->to_free))
+> +			qdisc_tree_reduce_backlog(sch, 1, qdisc_pkt_len(next));
+
+[Severity: High]
+Can the replay loop send a false qlen_notify to the parent qdisc?
+
+qdisc_qlen_dec(sch) runs before agg_dequeue(). The deferral in
+qfq_enqueue() returns NET_XMIT_SUCCESS without touching sch->q.qlen.
+The ancestors above sch have already counted each deferred skb, but
+sch has not. So while the replay loop runs, sch->q.qlen counts neither
+the skb about to be returned nor the deferred skbs still on the list.
+
+When a parent peeks a QFQ child, qdisc_peek_dequeued() calls
+qfq_dequeue(). It stores the result in sch->gso_skb and calls
+qdisc_qlen_inc() only after qfq_dequeue() returns. DRR, ETS, HFSC and
+QFQ all peek their children this way.
+
+Say sch holds one packet and a deferred skb fails to enqueue during
+the replay. qdisc_tree_reduce_backlog() then computes
+notify = !sch->q.qlen, which is true, and calls cops->qlen_notify() on
+the parent. The parent deactivates sch's class. Yet qfq_dequeue() still
+returns an skb, which ends up in sch->gso_skb with q.qlen == 1.
+
+The same happens with two deferred skbs where the first fails and the
+second succeeds. This case applies even when the parent dequeues sch
+directly, as HTB does. The parent is told sch is empty, and then the
+second replay puts a packet in sch without reactivating the class.
+
+In both cases the parent's class stays inactive while sch holds a
+packet. It is not served until a later enqueue reactivates it.
+
+With an outer QFQ, the first case runs inside the outer agg_dequeue(),
+through qdisc_peek_len(cl->qdisc):
+
+	else if (cl->deficit < qdisc_peek_len(cl->qdisc)) {
+		cl->deficit += agg->lmax;
+		list_move_tail(&cl->alist, &agg->active);
+	}
+
+By this point qfq_qlen_notify() has already taken cl off agg->active.
+If cl was the only active class, qfq_deactivate_agg() has also run.
+Since agg is the outer in-service aggregate, it picked a new one.
+
+list_move_tail() then puts cl back on agg->active, but agg is now
+neither in service nor in any slot. Wouldn't later enqueues to that
+aggregate see a non-empty active list and skip qfq_activate_agg()?
+That would stall the aggregate for good. The outer qfq_dequeue() also
+goes on to charge len to its stale in_serv_agg.
+
+The early qdisc_qlen_dec() is not new. But this patch adds a new
+caller of qdisc_tree_reduce_backlog() in that window, along with skbs
+that sch has not counted yet. Could the deferred skbs be counted in
+sch->q.qlen when they are queued? Or could the decrement move after
+the replay? Or is there another way to keep sch->q.qlen in step with
+its ancestors whenever the tree is walked?
+
+[Severity: High]
+Can qdisc_pkt_len(next) read next after it has been freed?
+
+qfq_enqueue() passes the child's error back unchanged. Not every child
+puts a dropped skb on to_free. Take a TBF child and a GSO skb larger
+than max_size:
+
+  qfq_dequeue()                 <- replay loop
+    qfq_enqueue()
+      qdisc_enqueue(skb, cl->qdisc, to_free)
+        tbf_enqueue()
+          tbf_segment()
+
+If no segment could be enqueued, tbf_segment() ends with:
+
+	kfree_skb(skb);
+	return NET_XMIT_DROP;
+
+The deferred skb here is a netem duplicate made with skb_clone(), so it
+can be a GSO skb.
+
+In that case qdisc_pkt_len(next) reads the cb of a freed skb. The
+resulting garbage length is subtracted from every ancestor's
+qstats.backlog.
+
+Would it be safer to save qdisc_pkt_len(next) before calling
+qdisc_enqueue(), the way netem_dequeue() does?
+
+>  
+>  	return skb;
+>  }
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112164954.2786444-2-Jeremy.Jean%40oss.cyber.gouv.fr
