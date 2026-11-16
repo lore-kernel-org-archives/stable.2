@@ -1,60 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.148
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832490;
-	b=wFcG6qPfWt0KX8mE+mPwyuTFH72BRkkdZd3cZ7d7i9tUV80r1vTgT1wNVLmtxwS6c+so
-	 PQkUyysgeDtFgBPUGqTLt16qywRIUJvQueRsLLfnKJfKaKAT+cVwJT6rNtB9TGtOq+dyc
-	 l0N/ntyfv1qKld2l2PB7Kdcmsyljs4Vlf68rjaAmkkJkqQpY6R3t+gjxzDRRipEnfJH9J
-	 fElNTGb8K/tSaKUvVd5OO+glfNNpRJHGzG3QWM0CQpGC1TeqarEB+D80E6RttHn01po2O
-	 IFMmieX91FUxnxL5zlGtXKFZaGE6c2lIbJR5G6gsl0Rsmfg4fE8UfXonGGepgMOvulw==
+	t=1794833060;
+	b=fKEB3+bHNkevY8nMr4BVoX242Y0ZRsxAyVOVAFHLjjBgLLZTd3SCU3f48Q0LdXiYNpc5
+	 mlVcxCJ3oEZ6o2hFSHaLZhEDPXuzW4g3ko8Ks37ufSVtOZfwz6XND4sQjXNnPITKOsnNL
+	 lk8apMx08Hf5ez0vuClbr2WcifWKUD24f2dZVBnE6l/j77eR4nHrvcVxoaXMLRysDBjlW
+	 XO40V0NT3YaF55wb+sETjyZ8CM5+GCYpLHc4v+moCxXWKgb/OxueaJXabklO2lew9axox
+	 2m5xW8VnBZjyBgAzhiurddplDGBBx/mYoeuQULmgOD4h1ceSolF+tmTrAX2HzABUcPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832490;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=rmFZBU+djXC1DwS5T84xaTgNqzLLRJFK2oNrTGLRxSY=;
-	b=mweF45zztjhSUqLnM0+jrJoy0Y2IDfEwombxh+WGr8iPXjKvs9pwSNiETahKKkGvZDE1
-	 Rn+cB8zSnFJ9fKmKlYZhKFH9GvT6e2jcbc5fx1f2I7f65zy9bg7Vw6N+qzFCkhTKhNCYW
-	 zER+twveO1v60IOxw6VzGr3lfSRtA7siddrVWc08tq4loQ6zeWZ2Ai5IR51HpMmJ4UhbH
-	 nMRSiniWgJsFle2soFkQAQrTb4SlsQwuB7MItlZGW2RNjRnlGfa2n2NzCZvWhk1NULwsm
-	 TMVH32Ho65Ku1CnxzVKY0xMH4eLT/fHy/ywaBRNay7LwNn9nzFkGyivgE5/zHa+mBCA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794833060;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Cc:Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HdBYWB42Ov1f7t5UzOhOjOd4BKScNXzBpb3W6636xpA=;
+	b=T4y7JfqOarVwFvsztSiis5qHvLfb7tP04SA1vAl0hWv7C7NxqyD8xWXnoBQ+FUBkGPw2
+	 6i6JjszqG32pt/IauCbJWuGYB3dRvGrbbdAxukwDID3hKj4wrwkkEr3xB0lsiMexbLrO3
+	 s+ZEMQWje8WGCsZT12Da7O5oHt+i/du/sf6ODHyYeAn8HNOd2p9rrFMj733Z962me9UrY
+	 fXuNzoxGXL2DvE4HWdQB5nXCSxBtwRJsOwYp4LtvNG+cdBCgVK/za2LtsBWrkD0YUOhAT
+	 LsqDz6YYv0Z/vea9qCca1gGYlcEbRWMo+2EaH48Q3xbPmacyRKwZGm2+R/jVsvPExQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jcHftABx;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SBi8nsIQ;
+	arc=none smtp.remote-ip=91.218.175.148
+Received: from mta0.migadu.com (out-148.mta0.migadu.com [91.218.175.148])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EE3A606A31C;
-	Mon, 16 Nov 2026 12:34:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F509606A31C
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:44:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F509606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jcHftABx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E84131F000C4;
-	Mon, 16 Nov 2026 12:34:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794832489;
-	bh=rmFZBU+djXC1DwS5T84xaTgNqzLLRJFK2oNrTGLRxSY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jcHftABxu0aBGnDyc9/O4/25ziNGWdLHxVYaObnXFZ/zOLWSv10rN9tLoqksB0YoV
-	 jAjs7e2PrPrlvW6VT5aWVFBwgW+ea9mFlSjf4H0r3hsSw6Go4U3rUyEpQl728vVw7I
-	 MXG8Xv6VSbwkpAUVzVaGcQIQ8z1czhbFoKWgHJyuCRfYCIyRfA6rvUKMIAQ28cYPT1
-	 3MYt5J/zs7toNcWHzNavjfhlb5nIB+BLYC9rTg9RSD9j49yI0pJIb68fj5JyTN+ato
-	 ZpfFCqR8lOCAtX6eMqixu54p8+l3rDfYDAgDEGtA+LhyAFrlgqQBVAWPxnazG2jWIw
-	 uUuEPjDfVJc5Q==
-From: Sasha Levin <sashal@kernel.org>
-To: Thorsten Leemhuis <regressions@leemhuis.info>,
-	william <assassinshalo29@gmail.com>
-Cc: Sasha Levin <sashal@kernel.org>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	tiwai@suse.de,
-	evgeny@devduty.com,
-	stable@vger.kernel.org,
-	regressions@lists.linux.dev,
-	linux-sound@vger.kernel.org
-Subject: Re: [REGRESSION] ALSA: hda/realtek: no speaker sound on Lenovo Legion 16IRX9H since f2293e7b2ddd (PCI SSID 17aa:3842 shared with ThinkBook X G2 IAH)
-Date: Mon, 16 Nov 2026 07:34:45 -0500
-Message-ID: <20261116123446.2789283-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <380ce8f7-1d88-4d5c-bf3d-108be7055ec9@leemhuis.info>
-References: <CAFjFWEjt+DPJ_gM1uTBZ_NoV6-3mi57ArjZ_Qdah2DqY-GCD1w@mail.gmail.com> <380ce8f7-1d88-4d5c-bf3d-108be7055ec9@leemhuis.info>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=SBi8nsIQ
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=t5dJVaGKrDmbOPD5DFRf/whdm1YuXTQu5zTjuKwHh4A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794833057; v=1; x=1795437857;
+ b=SBi8nsIQOJA45gIFRMHH2Ml12AHpKafEV6fzehZjssQob1eD04E8DSiHGJNRwbZzHOnxpAdU
+ 38ehjlTif7N09vwGwPXrZ3vrKTQL7/E+cIEJHT/WOuGeARKOwPLiiXPs7PAeqezV40PLL8SV0qX
+ zvBsGB2ZdjU4OWBfA1Gn94eQ=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 10d7ca4d1171aa70;
+	Mon, 16 Nov 2026 12:44:17 +0000
+X-Mizu-Trace-ID: 10d7ca4d1171aa70
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <01f0b173-dbd2-484e-8e53-f4a001af9acb@linux.dev>
+Date: Mon, 16 Nov 2026 20:44:06 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,19 +58,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: cui.tao@linux.dev, cgroups@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH v2] blk-throttle: Avoid unsequenced accesses to jiffies in
+ throtl_schedule_pending_timer()
+To: Nathan Chancellor <nathan@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Josef Bacik <josef@toxicpanda.com>, Jens Axboe <axboe@kernel.dk>
+References: <20261115-blk-throttle-wunsequenced-v2-1-1d297c891b82@kernel.org>
+From: Tao Cui <cui.tao@linux.dev>
+In-Reply-To: <20261115-blk-throttle-wunsequenced-v2-1-1d297c891b82@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 09:29:45AM +0100, Thorsten Leemhuis wrote:
-> Greg, Sasha, that change made it to 7.3.y already, but is in the current
-> 6.18.y-rc afaics -- so might be something to drop until this is sorted out.
 
-Thanks for the report, William and Thorsten. I've dropped f2293e7b2ddd ("ALSA:
-hda/realtek: Enable all four speaker amps on Lenovo ThinkBook X G2 IAH") from
-the 6.18 queue, so it will not be in 6.18.64.
 
-It already shipped in 7.3.4, so 7.3.y will need an upstream fix (for example a
-codec-SSID quirk for the Legion) that we can then backport.
+在 2026/11/16 11:37, Nathan Chancellor 写道:
+> After a recent improvement in clang to warn on unsequenced accesses to
+> volatile variables [1], two instances appear in
+> throtl_schedule_pending_timer(), which can break the build with
+> CONFIG_WERROR=y / W=e:
+> 
+>   block/blk-throttle.c:469:25: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
+>     469 |                    expires - jiffies, jiffies);
+>         |                              ~~~~~~~  ^
+>   block/blk-throttle.c:469:25: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
+>     469 |                    expires - jiffies, jiffies);
+>         |                              ~~~~~~~  ^
+> 
+> Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
+> 6.5.2, unsequenced side effects on the same scalar object are undefined
+> behavior. Per C11 6.5.2.2.10/12, the evaluation of arguments in a
+> function call is indeterminately sequenced, meaning any side effects in
+> the arguments are unsequenced.
+> 
+> Add a local variable to hold the value of jiffies before the function
+> call so that there are no unsequenced side effects, clearing up the
+> warning.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 69df0ab030c9 ("blk-throttle: separate out throtl_service_queue->pending_timer from throtl_data->dispatch_work")
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2191
+> Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
--- 
-Thanks,
-Sasha
+Reviewed-by: Tao Cui <cuitao@kylinos.cn>
+> ---
+> Changes in v2:
+> - Reuse value of jiffies in max_expire to avoid
+>   -Wunused-but-set-variable for j when CONFIG_BLK_DEV_IO_TRACE is
+>   disabled (Sashiko)
+> - Link to v1: https://patch.msgid.link/20261114-blk-throttle-wunsequenced-v1-1-d28ed5553ff3@kernel.org
+> ---
+>  block/blk-throttle.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/block/blk-throttle.c b/block/blk-throttle.c
+> index c5e26551956a..8e58e50bce4d 100644
+> --- a/block/blk-throttle.c
+> +++ b/block/blk-throttle.c
+> @@ -453,7 +453,8 @@ static void throtl_dequeue_tg(struct throtl_grp *tg)
+>  static void throtl_schedule_pending_timer(struct throtl_service_queue *sq,
+>  					  unsigned long expires)
+>  {
+> -	unsigned long max_expire = jiffies + 8 * DFL_THROTL_SLICE;
+> +	unsigned long j = jiffies;
+> +	unsigned long max_expire = j + 8 * DFL_THROTL_SLICE;
+>  
+>  	/*
+>  	 * Since we are adjusting the throttle limit dynamically, the sleep
+> @@ -466,7 +467,7 @@ static void throtl_schedule_pending_timer(struct throtl_service_queue *sq,
+>  		expires = max_expire;
+>  	mod_timer(&sq->pending_timer, expires);
+>  	throtl_log(sq, "schedule timer. delay=%lu jiffies=%lu",
+> -		   expires - jiffies, jiffies);
+> +		   expires - j, j);
+>  }
+>  
+>  /**
+> 
+> ---
+> base-commit: ab43ec385580b8f8abf72d70fa3acbf4e4f098a5
+> change-id: 20261114-blk-throttle-wunsequenced-ccf308a23c1b
+> 
+> Best regards,
+> --  
+> Cheers,
+> Nathan
+
