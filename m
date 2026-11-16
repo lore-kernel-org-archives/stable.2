@@ -1,54 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794797051;
-	b=ozqvEPmZZygC/zZwGwTlNDElsKSBzKq+CaSCkn1kW5Be2+Zz9U0yGnFnv1La6ZENoE6H
-	 4Psnz65NCu7Wct2gWmSoY6s81lW4s1EW7UsIxgGZl2FPGuwl4coeDYSZuX8AbY4Cc1TGU
-	 otRWTkPbf/q+irQ/7HgRGMBZW80s81kVpSyRT43vYJAmzqISMgXpyKHESUBtz2n9FXtJc
-	 A5DObLSpfgzj3hZLINg4aIAytFTVdO3Qi0KUVNCJftOutoM2yGGQ0QiVAQxeblxvpzXRa
-	 R2rm4gbHHuzp/CgK3HP/or1EUW475M80MjUZRB6drzfu903UmqalB/gJZ3RSN1/1WFg==
+	t=1794797188;
+	b=xgBx2QuUdIj0teAN+a9I5QnqFeZTYqTl+bqv1nGMMjy+G0pjhsExXqqmc+kRM2ZW9zGJ
+	 Gmaf6xWrq0ow+3NUpWkyv14hq7CTOyXBnyPPt7LNIRyFMlONHq0jqbgqxSasq7pyDzfZw
+	 UWmy7z59ZCcvW8edYsdJpKIsQX9gMleFfv00G5k55A3Gd7qe/nja6BfsSp5KQZmNxC0cR
+	 mvHry/34zrbgCHOUUgFuP7Ud0xPDhT3oWQnnOrvL8Opo5qkGQFc9nl3izroGanM1ibwAd
+	 DFV7jCrvv0fCj+Eq6dsVahW6R2LQwpQ9tgM8vauEIdRrziULJSzFvGCmXczrG22NsQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794797051;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=QA54ZmiCg4eSRO8G55NzOCBf0UqL63kojA2ZQ4QzxvQ=;
-	b=Z8t6aokwiV+Oa4RTQYuzlZJwHR+LFcpdLwF7eNgvJsb6wlZbCbCmto7FywtnaXf484gW
-	 mTwpCt0tpUbjste90DLO2DHliQI5Zd7awZhpjR9eMI+oeriWG8O7oyKq3IIpzQpE6+ejV
-	 nlyMcZmwQQfaDs1M9ArFavW//mQRl58AcmwVLyJpH2G35zF+PLqvWPzoh/qrqyQy1t2S3
-	 0xORBQhYxMfLmigy6XvC0knPAB23m5MEk6+9bFWjbqCscOR/xWHw9et33ZQo4U5hBAm2t
-	 l8ih78TQYONrZ2AgA1STJEHCSgkmXpchrTlpXEIdyvF2pa6TYysvEM03c5YVEYmUTEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794797188;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=/fqBO00/DFAzvxk5Mf9LNLQgbnCrN5lDLWiAWKz28NM=;
+	b=NPYVCgACyN8LYQHjXBRtirllXrKpFdKc/I9KbLWfgKv0a6yAkE68gLI+W+rGlGFchBK2
+	 7WSQ3xzfnur245GL35nR03iIMxfX2bmLDOXQd+pKvAoUup2lYKiImME2TGSkvYewmASsJ
+	 0OAhzMIQbaomdX2dU12k9jWMxuIjtgIji5sPfWJCToKC6CHHqNo4YxaVu6ITF1301sWR/
+	 ZTVFHge4t3XUDXu4re/HybyyM2IoA3MDTCe3vgDUD1quNzMvAmpsg5jSUUU1bCwSrahvK
+	 +F6UONmN3KBpJavwtdbEyxEOvdGgedmQ82LohPiw5QlweecElkRVqfjctv+Eoy3IXPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id BBBDF606A31F;
-	Mon, 16 Nov 2026 02:44:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBBDF606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=QA54ZmiCg4
-	eSRO8G55NzOCBf0UqL63kojA2ZQ4QzxvQ=; b=WbzKWahzjRp0XXQPG+rFJxiLIo
-	BnCnuoKmywrt6gcAeUKxMX74M+KAobmSFivCR8XgoW/DsUhCB3ZJmrHeSHDkXPD4
-	6L+vzDBwjG7NzMjdtVQvE+/rd0M2tY9yHLDxrquq55ubSWjlON7fAQRT0nNATHZ5
-	KZUIe5D0q8P7SpsVY=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2OP7sbfpqHHeyAQ--.1603S2;
-	Mon, 16 Nov 2026 10:43:57 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] media: dvb-core: initialize DVR ring buffer before registering the device
-Date: Mon, 16 Nov 2026 10:43:55 +0800
-Message-Id: <20261116024355.17602-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OcQB5I9u;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AE21606A31C
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 02:46:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OcQB5I9u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 123FC1F000C4;
+	Mon, 16 Nov 2026 02:46:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794797187;
+	bh=/fqBO00/DFAzvxk5Mf9LNLQgbnCrN5lDLWiAWKz28NM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OcQB5I9uDCpkCveFxAZ1zLLpkdUMurL83vwYgkp/EckUcihT6MR2EQ2clqMRvTlj7
+	 jlJJ7OPFGv2Y48zxgE4UYQ4zb8qPh2hVP189Tu3W0jcKwaXUQowHYeX3Q444VAt8D+
+	 eBmZzlmzhavNJnT9AzuqKZ5lT7zh+uxx7/OVqMNBHfRpK26NlPw/R/i56HM/lPOn2y
+	 iDDvhFBJaxiYLFRHDdoiI45W5pF2Ti+ed4HfYQF/XoC/UcZ95vXhfHakSq+f6FwIzm
+	 /DeUMhoyIHD1cL6Rag9tY4aEcLfIO7ON3bQwA2IgNimB9gG/jWMO4V54aJC4Yn2Y5b
+	 O6fA1h2FtKm9w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Xie Yongji <xieyongji@bytedance.com>,
+	Jason Wang <jasowang@redhat.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/3] vdpa: factor out vhost_vdpa_pa_map() and vhost_vdpa_pa_unmap()
+Date: Sun, 15 Nov 2026 21:46:23 -0500
+Message-ID: <20261116024616.2408867-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109202626-failed-5.10-fd1462c96baf@kernel.org>
+References: <20261109202626-failed-5.10-fd1462c96baf@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,87 +61,157 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkD2OP7sbfpqHHeyAQ--.1603S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWw1DXw4rAF4Dur1rXF4fZrb_yoW5Xw1rp3
-	95Kay5trW2grs7Cr47u348uas0yws3ArWSkF1fJwn3urnrGF4qqFZ0yF47XFnrGrZ2y347
-	Kas8Way8CrWUJF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvGb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwV
-	C2z280aVCY1x0267AKxVW8Jr0_Cr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
-	07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
-	18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
-	r41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr
-	0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY
-	17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcV
-	C0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa
-	73UjIFyTuYvjxUc038UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2r5ytdqdQAAsJ
 
-dvb_dmxdev_init() calls dvb_ringbuffer_init() on dmxdev->dvr_buffer
-only after dvb_register_device() has registered the DVR device. The
-device node becomes usable as soon as device_create() runs inside
-dvb_register_device(), so a reader that opens
-/dev/dvb/adapterN/dvr0 right after it appears and blocks in read()
-can reach wait_event_interruptible() while dvr_buffer.queue is still
-zeroed.
+From: Xie Yongji <xieyongji@bytedance.com>
 
-The waiter is then queued on a wait queue whose list head is still
-all zero. __add_wait_queue() derives (void *)-24 from
-head->next == NULL and faults while reading wq->flags:
+[ Upstream commit 22af48cf91aae5f2fd32fe811d9be1c52d7a801b ]
 
-  BUG: unable to handle page fault for address: ffffffffffffffe8
-  RIP: 0010:__add_wait_queue include/linux/wait.h:177 [inline]
-  RIP: 0010:prepare_to_wait_event+0x2ef/0x520 kernel/sched/wait.c:316
-  Call Trace:
-   dvb_dmxdev_buffer_read drivers/media/dvb-core/dmxdev.c:76
-   dvb_dvr_read drivers/media/dvb-core/dmxdev.c:277
+The upcoming patch is going to support VA mapping/unmapping.
+So let's factor out the logic of PA mapping/unmapping firstly
+to make the code more readable.
 
-Commit bfbc0b5b32a8 ("media: dvb-core: fix wrong reinitialization of
-ringbuffer on reopen") replaced the dvb_ringbuffer_init() call in
-dvb_dvr_open() with dvb_ringbuffer_reset(), so the open path no
-longer initializes the queue and dvb_dmxdev_init() is the only place
-doing it. Initialize the ring buffer before the device is registered.
-
-Fixes: bfbc0b5b32a8 ("media: dvb-core: fix wrong reinitialization of ringbuffer on reopen")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Suggested-by: Jason Wang <jasowang@redhat.com>
+Signed-off-by: Xie Yongji <xieyongji@bytedance.com>
+Acked-by: Jason Wang <jasowang@redhat.com>
+Link: https://lore.kernel.org/r/20210831103634.33-10-xieyongji@bytedance.com
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Stable-dep-of: fd1462c96baf ("vhost-vdpa: fix pinned page leak in vhost_vdpa_pa_map() error path")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/media/dvb-core/dmxdev.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ drivers/vhost/vdpa.c | 55 ++++++++++++++++++++++++++++----------------
+ 1 file changed, 35 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/media/dvb-core/dmxdev.c b/drivers/media/dvb-core/dmxdev.c
-index 6a825d9bae43..8ef31066ec8d 100644
---- a/drivers/media/dvb-core/dmxdev.c
-+++ b/drivers/media/dvb-core/dmxdev.c
-@@ -1431,6 +1431,12 @@ int dvb_dmxdev_init(struct dmxdev *dmxdev, struct dvb_adapter *dvb_adapter)
- 					    DMXDEV_STATE_FREE);
+diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
+index db488b98cc9f9..43e7528b8fa03 100644
+--- a/drivers/vhost/vdpa.c
++++ b/drivers/vhost/vdpa.c
+@@ -517,7 +517,7 @@ static long vhost_vdpa_unlocked_ioctl(struct file *filep,
+ 	return r;
+ }
+ 
+-static void vhost_vdpa_iotlb_unmap(struct vhost_vdpa *v, u64 start, u64 last)
++static void vhost_vdpa_pa_unmap(struct vhost_vdpa *v, u64 start, u64 last)
+ {
+ 	struct vhost_dev *dev = &v->vdev;
+ 	struct vhost_iotlb *iotlb = dev->iotlb;
+@@ -539,6 +539,11 @@ static void vhost_vdpa_iotlb_unmap(struct vhost_vdpa *v, u64 start, u64 last)
+ 	}
+ }
+ 
++static void vhost_vdpa_iotlb_unmap(struct vhost_vdpa *v, u64 start, u64 last)
++{
++	return vhost_vdpa_pa_unmap(v, start, last);
++}
++
+ static void vhost_vdpa_iotlb_free(struct vhost_vdpa *v)
+ {
+ 	struct vhost_dev *dev = &v->vdev;
+@@ -619,38 +624,28 @@ static void vhost_vdpa_unmap(struct vhost_vdpa *v, u64 iova, u64 size)
+ 	}
+ }
+ 
+-static int vhost_vdpa_process_iotlb_update(struct vhost_vdpa *v,
+-					   struct vhost_iotlb_msg *msg)
++static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
++			     u64 iova, u64 size, u64 uaddr, u32 perm)
+ {
+ 	struct vhost_dev *dev = &v->vdev;
+-	struct vhost_iotlb *iotlb = dev->iotlb;
+ 	struct page **page_list;
+ 	unsigned long list_size = PAGE_SIZE / sizeof(struct page *);
+ 	unsigned int gup_flags = FOLL_LONGTERM;
+ 	unsigned long npages, cur_base, map_pfn, last_pfn = 0;
+ 	unsigned long lock_limit, sz2pin, nchunks, i;
+-	u64 iova = msg->iova;
++	u64 start = iova;
+ 	long pinned;
+ 	int ret = 0;
+ 
+-	if (msg->iova < v->range.first || !msg->size ||
+-	    msg->iova > U64_MAX - msg->size + 1 ||
+-	    msg->iova + msg->size - 1 > v->range.last)
+-		return -EINVAL;
+-
+-	if (vhost_iotlb_itree_first(iotlb, msg->iova,
+-				    msg->iova + msg->size - 1))
+-		return -EEXIST;
+-
+ 	/* Limit the use of memory for bookkeeping */
+ 	page_list = (struct page **) __get_free_page(GFP_KERNEL);
+ 	if (!page_list)
+ 		return -ENOMEM;
+ 
+-	if (msg->perm & VHOST_ACCESS_WO)
++	if (perm & VHOST_ACCESS_WO)
+ 		gup_flags |= FOLL_WRITE;
+ 
+-	npages = PFN_UP(msg->size + (iova & ~PAGE_MASK));
++	npages = PFN_UP(size + (iova & ~PAGE_MASK));
+ 	if (!npages) {
+ 		ret = -EINVAL;
+ 		goto free;
+@@ -664,7 +659,7 @@ static int vhost_vdpa_process_iotlb_update(struct vhost_vdpa *v,
+ 		goto unlock;
  	}
  
-+	/*
-+	 * The DVR device node is usable as soon as dvb_register_device()
-+	 * creates it, so its ring buffer must be initialized first.
-+	 */
-+	dvb_ringbuffer_init(&dmxdev->dvr_buffer, NULL, 8192);
+-	cur_base = msg->uaddr & PAGE_MASK;
++	cur_base = uaddr & PAGE_MASK;
+ 	iova &= PAGE_MASK;
+ 	nchunks = 0;
+ 
+@@ -695,7 +690,7 @@ static int vhost_vdpa_process_iotlb_update(struct vhost_vdpa *v,
+ 				csize = PFN_PHYS(last_pfn - map_pfn + 1);
+ 				ret = vhost_vdpa_map(v, iova, csize,
+ 						     PFN_PHYS(map_pfn),
+-						     msg->perm);
++						     perm);
+ 				if (ret) {
+ 					/*
+ 					 * Unpin the pages that are left unmapped
+@@ -724,7 +719,7 @@ static int vhost_vdpa_process_iotlb_update(struct vhost_vdpa *v,
+ 
+ 	/* Pin the rest chunk */
+ 	ret = vhost_vdpa_map(v, iova, PFN_PHYS(last_pfn - map_pfn + 1),
+-			     PFN_PHYS(map_pfn), msg->perm);
++			     PFN_PHYS(map_pfn), perm);
+ out:
+ 	if (ret) {
+ 		if (nchunks) {
+@@ -743,13 +738,33 @@ static int vhost_vdpa_process_iotlb_update(struct vhost_vdpa *v,
+ 			for (pfn = map_pfn; pfn <= last_pfn; pfn++)
+ 				unpin_user_page(pfn_to_page(pfn));
+ 		}
+-		vhost_vdpa_unmap(v, msg->iova, msg->size);
++		vhost_vdpa_unmap(v, start, size);
+ 	}
+ unlock:
+ 	mmap_read_unlock(dev->mm);
+ free:
+ 	free_page((unsigned long)page_list);
+ 	return ret;
 +
- 	ret = dvb_register_device(dvb_adapter, &dmxdev->dvbdev, &dvbdev_demux, dmxdev,
- 			    DVB_DEVICE_DEMUX, dmxdev->filternum);
- 	if (ret < 0)
-@@ -1441,8 +1447,6 @@ int dvb_dmxdev_init(struct dmxdev *dmxdev, struct dvb_adapter *dvb_adapter)
- 	if (ret < 0)
- 		goto err_register_dvr_dvbdev;
++}
++
++static int vhost_vdpa_process_iotlb_update(struct vhost_vdpa *v,
++					   struct vhost_iotlb_msg *msg)
++{
++	struct vhost_dev *dev = &v->vdev;
++	struct vhost_iotlb *iotlb = dev->iotlb;
++
++	if (msg->iova < v->range.first || !msg->size ||
++	    msg->iova > U64_MAX - msg->size + 1 ||
++	    msg->iova + msg->size - 1 > v->range.last)
++		return -EINVAL;
++
++	if (vhost_iotlb_itree_first(iotlb, msg->iova,
++				    msg->iova + msg->size - 1))
++		return -EEXIST;
++
++	return vhost_vdpa_pa_map(v, msg->iova, msg->size, msg->uaddr,
++				 msg->perm);
+ }
  
--	dvb_ringbuffer_init(&dmxdev->dvr_buffer, NULL, 8192);
--
- 	return 0;
- 
- err_register_dvr_dvbdev:
+ static int vhost_vdpa_process_iotlb_msg(struct vhost_dev *dev,
 -- 
-2.34.1
+2.53.0
 
