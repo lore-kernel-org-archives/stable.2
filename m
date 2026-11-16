@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846446;
-	b=Ca6XwR2Zy7lt2utNmKCbVylvth4/JOkpwQnvSFjEL0UnP+9YjFfa9TJqUQeJjIOM+TMm
-	 pLiz8pseI+HLJDqqSdmx5Z52Mr28I3FB6KpnGwHNAo0maDU1O2Y0Y8MITuzQqIpvYUuHZ
-	 sQgeIPLY2P0MujB8wJCqQPAR90kBsT4PPITAGUTu7lsQQP2tuaImOJte+Dg6HqLOfxwPo
-	 qz1lpL6ew+X2/QbRnWAkbGK3XE1JjXVJu0VnX0XJt8z53D+kDsa2QyPm8bNQ4c/tf/gxZ
-	 EQu28sezoTE/krknPdL/tqrqoCI5W7SMvoLZ1vKtEI9QnZVemxDAB9ToWnHn1Ukp71A==
+	t=1794846449;
+	b=KelDVbuzHshosJLzFO9JkgyBL9lrJ9zH2Yn9xk2E6tsho3d/IL3IOoebfL1rKHjnJgoE
+	 lr9h+fnxMaZMrn2FSr+UAx9Tub9EAu/0y0b5DnwK1d1EiZBJEg2Q9ACCXHOTMZMY5YQ1I
+	 9F6sb9wk4RR85evZ1NZQWuZtgWWQbqQD6DbYVABHbPUB5HEpcRQyalv1tJfoT77M292o0
+	 hcQ2phlCcPYBAdhMTC5WBef9+kmocoBQReo8fxTI5ldDT8SDFVQ7xebzcZIyURR7UbiLh
+	 RKY03TiwTr+gbfrRBwL2y6WS3/5RAZ/h6aLr1kfABOCxww8bh0J3r96bauD6iG70ScA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846446;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846449;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=mgoHNCQFmyooSMzLO2bc00mj4pbw+UsxHk7YoLVItNo=;
-	b=SFZvzQcRUtBAnlrAicDP7bl0rpKjLpPi+mKGAGU8PNN2aU9vN1TUyjl92CAgY2MkId+u
-	 brACcuHkvuN5AHkDX/TKHIDcdgXqKTP/fRGZHcUjCOKo4x5/Qgw2oMTGNzfYGAO+SzXsg
-	 QrhCbgjglsec/8IdRNRTDkjIMANN3yJrd82hIyA4XXdoDPRkWbwtgJRwFAN7wgRoC3kS5
-	 FYfGIdUdFcq/7mUtPU9K6cpxSydhitg55gC0qC2nj5zoK85qFpNlbzVzQZrv9mFLDnd2O
-	 c5R887LLjwTtXqRyOmMlIa931VnzcUOEhkX3m55mmJAxHlCQ6EJqjs1ZJ8IkypcudIA==
+	bh=nV9c2MLNlihsCA7BTpRORTeWE46Uw4LSE6nUB+YU+40=;
+	b=JgVedYGJiiPiKI5qzZeDeCtOieLg+If04nh92ReQpGCtPEH1JBe3OaH4bdfzQUbquw6l
+	 ilMBRluNHoVxJkpOhRGVUrMUjS8z7Imf3Feakj0E3I8Go2O3ROXPHUrnv7R54ClrS/2YG
+	 VcEHUPa4af3MnHv5OAGRUwyKxKKCUbIh6k/HTOoXqTicwgOVkokNa53HS66MhMTGN6B92
+	 v6XMI06nLRkehC94MNd3bVq0BEx973KspYYESIrVmOwm8yYxrZ1mNHevg8NRjcBG5QngC
+	 cA4xpHXujvF6cVKPCtXZ10E7EmqOZ06h1Yj9mLcu1MVA5HdU3IQDU8aQEt9itGMtn/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jTUwnHc/";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvdLpzCv;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D463F606A331;
-	Mon, 16 Nov 2026 16:27:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26EB4606A32C;
+	Mon, 16 Nov 2026 16:27:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jTUwnHc/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D54F1F000C4;
-	Mon, 16 Nov 2026 16:27:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EvdLpzCv
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 530861F000D0;
+	Mon, 16 Nov 2026 16:27:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794846446;
-	bh=mgoHNCQFmyooSMzLO2bc00mj4pbw+UsxHk7YoLVItNo=;
+	s=k20260515; t=1794846448;
+	bh=nV9c2MLNlihsCA7BTpRORTeWE46Uw4LSE6nUB+YU+40=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jTUwnHc/3jQtZGhgn+Svf64L3AAZj0Qq9DNcBY6huUoJdXG5ibRAE0tT/tjFteweP
-	 MWYpegq/L1yQYXrPXpb7/Pp3Wm/qcadXwBDHvN5069C5z19zk9ErtnO6yNVCyzSCew
-	 2AXf9EEMN1yRv+CHxCVXchJrlvzkdaXwaod7Vs9+v6EszkYaX37UzzQY7jp+Ykz5Vr
-	 7SeQQzQoXWL++grJeKQvB0A+qLsEw3vllxBUKjFgIh0GxqsCZr4blKmu/gnSgz+2gv
-	 1HRJGFpLezSaTsCEmLXLGGkS2QU6z4DMlBvNYXhXwpCqLQaZK7aMugItpYEjiA7rKi
-	 as+ZXXWy3eUFA==
-Subject:
- Re: [PATCH net v9 2/4] net: hsr: refuse forwarding devices as HSR/PRP ports
+	b=EvdLpzCvDmBIPhUdLLEYg/bg/X09XK9EzfDBSHVn6+fs1+9GupPKWuockBAB/U11/
+	 rXZ7Xw2eVeUa/QZ8lcKySQShRZgO5zA7Gopx3Y9Ws9KukNTgUklisww4m3STxOg57f
+	 F/ouZZg6ycw8Sw7KvtJrJgnWRZEAPjrgpmxQSI9sdeYpr+aytHp+C+dCVOTBEicR4Q
+	 ej0laSiZVDd8thLnM4G4AdXsHlzzqRKDjRre32y8xVEemlvsiXxVyuF5iXWB6i5ddJ
+	 dwdlIONRiJvpVQsdgWXi1G9MJxHSMVy/35MQMSnRHqUtIcQbiBFlYpm0lwgkHVe1d2
+	 kK6YvMYwy6WQg==
+Subject: Re: [PATCH net v9 4/4] selftests: net: hsr: verify GRO policy and
+ ordered forwarding
 From: netdev-bot+sashiko@kernel.org
 To: xiexinet@gmail.com
 Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
@@ -52,11 +52,11 @@ Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
  bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
  liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
  lukma@denx.de, fmancera@suse.de, danishanwar@ti.com
-Date: Mon, 16 Nov 2026 16:27:25 +0000
-Message-ID: <179484644509.3136.13013479615245017745@kernel.org>
-In-Reply-To: <20261112153333.20-3-xiexinet@gmail.com>
-References: <20261112153333.20-3-xiexinet@gmail.com>
-X-sashiko-severity: High
+Date: Mon, 16 Nov 2026 16:27:26 +0000
+Message-ID: <179484644688.3136.15525954898173827248@kernel.org>
+In-Reply-To: <20261112153333.20-5-xiexinet@gmail.com>
+References: <20261112153333.20-5-xiexinet@gmail.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -69,10 +69,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 4 potential
 issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 · Low: 3
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -80,125 +80,184 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [High] The patch is meant to stop recursive seqnr_lock acquisition from
-  the HSR transmit path, but it only refuses a list of device types as…
+- [Medium] In tcp_prp(), the check for 'no tag/RCT on local delivery' can
+  never fail.
+- [Low] The commit message overstates what the second refusal group in
+  port_types() checks…
+- [Low] In tcp_prp(), a Skip raised by verify_stream() bypasses the PRP
+  reply checks.
+- [Low] Lab.close() closes every owned socket (lines 367-368) before it
+  joins the producer threads (lines 369-373).
 
 --
 
-net: hsr: refuse forwarding devices as HSR/PRP ports
+selftests: net: hsr: verify GRO policy and ordered forwarding
 
-This patch stops bridge, OVS, bond and team masters from being used as
-HSR/PRP slave or interlink ports. It also refuses macvlan or MACsec
-devices that sit on top of such masters or on top of an HSR master. It
-adds checks for a busy or unsupported RX handler and for an existing
-master, and hsr_dev_finalize() now checks every port before changing any
-of them.
+This adds two HSR/PRP selftests, hsr_gro_superpacket.sh and
+hsr_ordered_forwarding.sh. Both exec one shared Python helper. The gro
+mode checks the member GRO policy, the refusal of unsupported port
+types, and byte-exact TCP forwarding over an HSR interlink and over PRP
+LANs. The ordered mode checks sequence ordering of local, interlink,
+supervision and concurrent traffic, including a sequence wrap.
 
-Closes: https://syzkaller.appspot.com/bug?extid=fbf74291c3b7e753b481
-
-> diff --git a/net/hsr/hsr_slave.c b/net/hsr/hsr_slave.c
-> index b7765a4bb9920..666220b24dee4 100644
-> --- a/net/hsr/hsr_slave.c
-> +++ b/net/hsr/hsr_slave.c
+> diff --git a/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py b/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
+> new file mode 100755
+> index 0000000000000..3548ee0adfae3
+> --- /dev/null
+> +++ b/tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
+> @@ -0,0 +1,1456 @@
 
 [ ... ]
 
-> @@ -131,13 +163,56 @@ static int hsr_check_dev_ok(struct net_device *dev,
->  		return -EOPNOTSUPP;
->  	}
->  
-> -	/* HSR over bonded devices has not been tested, but I'm not sure it
-> -	 * won't work...
-> +	/* Forwarding devices feed HSR frames into another device's
-> +	 * transmit path and can nest seqnr_lock through a second HSR
-> +	 * device. A bridge, bond, team or OVS master makes no sense as a
-> +	 * ring or LAN port and is refused by type. A macvlan or MACsec
-> +	 * device is refused if such a master or an HSR/PRP master is
-> +	 * below it. Other devices keep their lower devices unchecked:
-> +	 * DSA user ports are uppers of their conduit.
-> +	 */
-> +	if (netif_is_any_bridge_master(dev) || netif_is_lag_master(dev)) {
-> +		NL_SET_ERR_MSG_MOD(extack,
-> +				   "Cannot use a bridge, bond, team or OVS master as HSR port.");
-> +		return -EINVAL;
-> +	}
+> +    def close(self):
+> +        """Stop threads, close sockets and delete owned namespaces."""
+> +        self.stop.set()
+> +        end, errors = time.monotonic() + 20, []
+> +        for sock in self.sockets:
+> +            sock.close()
+> +        for thread in self.threads:
+> +            if thread.ident is not None:
+> +                thread.join(max(0, end - time.monotonic()))
+> +            if thread.is_alive():
+> +                errors.append("sender thread did not stop")
 
-[Severity: High]
-If a routed L2 tunnel is used as a slave, can its transmit path come back
-into the same HSR master while seqnr_lock is still held?
+[Severity: Low]
+This isn't a bug, but the docstring says "Stop threads, close sockets".
+Lab.close() closes the sockets before it joins the producer threads
+started by ordered_concurrent().
 
-A gretap, VXLAN or Geneve device is ARPHRD_ETHER with ETH_ALEN. It has no
-rx_handler and no master. It is not a VLAN, bridge, LAG, macvlan or MACsec
-device, so it passes every check in hsr_check_dev_ok().
+If a producer is still running here, its sendto() on the closed socket
+gets EBADF. Its except (OSError, ValueError, RuntimeError) clause
+catches that. The 1 second timeout from ordered_socket() and the
+lab.stop check limit how long it can run. The main thread opens no new
+fds until the join returns, so fd reuse does not look possible.
 
-Suppose the tunnel's remote address, or its ARP, is routed through hsr0,
-for example because hsr0 has an address on the remote's subnet. Then the
-announce timer alone looks like enough to trigger it:
+Would joining the threads before closing the sockets match the docstring
+order?
 
-hsr_announce()
-  send_hsr_supervision_frame()
-    spin_lock_bh(&hsr->seqnr_lock);
-    hsr_forward_skb()
-      hsr_xmit()
-        dev_queue_xmit(gretap0)
-          gre_tap_xmit()
-            ip_tunnel_xmit()
-              iptunnel_xmit()
-                ip_local_out()
-                  ip_finish_output2()
-                    dev_queue_xmit(hsr0)
-                      hsr_dev_xmit()
-                        spin_lock_bh(&hsr->seqnr_lock);
+[ ... ]
 
-ip_tunnel_xmit() only rejects a route that goes back through the tunnel
-device itself:
+> +    # A refused second port leaves the first port as it was.
+> +    for dev in ("w", "g"):
+> +        local_pair(lab, ns, dev)
+> +    set_gro(lab, ns, "p", "on")
+> +    set_gro(lab, ns, "g", "on")
+> +    first, second = link_state(lab, ns, "p"), []
 
-net/ipv4/ip_tunnel.c:ip_tunnel_xmit() {
-    ...
-	if (rt->dst.dev == dev) {
-		ip_rt_put(rt);
-		DEV_STATS_INC(dev, collisions);
-		goto tx_error;
-	}
-    ...
-}
+[ ... ]
 
-hsr_dev_setup() sets IFF_NO_QUEUE and lltx on hsr0, so __dev_queue_xmit()
-takes the no-qdisc path. netif_tx_owned() does not see the recursion,
-because xmit_lock_owner is not set for lltx devices. dev_xmit_recursion()
-is also far below XMIT_RECURSION_LIMIT at this depth.
+> +    for kind, dev, error in second:
+> +        label = f"{kind} as slave2"
+> +        result = lab.ip(ns, "link", "add", "name", "hsr0", "type", "hsr",
+> +                        "slave1", "p", "slave2", dev, "version", "1", check=False)
+> +        require(result.returncode != 0 and error in result.stderr,
+> +                f"{label}: missing refusal message: {result.stderr.strip()}")
+> +        require(lab.ip(ns, "link", "show", "dev", "hsr0", check=False).returncode,
+> +                label + ": HSR device left behind")
+> +        after = link_state(lab, ns, "p")
+> +        require("master" not in after and after["promiscuity"] == first["promiscuity"],
+> +                f"{label}: first port p changed by the refused attach")
+> +        gro_state(lab, ns, "p", "on", label + ": first port p")
+> +        refused.append(label)
 
-In the syzbot report the two locks belonged to two different HSR devices.
-Here both belong to the same HSR device. So instead of a lockdep warning,
-this looks like the CPU deadlocking on a seqnr_lock it already holds, with
-BH disabled. User traffic through hsr_dev_xmit() would follow the same
-path. A user with CAP_NET_ADMIN in a user namespace can create both the
-HSR and the gretap links.
+[Severity: Low]
+Does this second refusal group in port_types() check what the commit
+message describes? The message says:
 
-The commit message says this case is not handled:
+    ... and of a VRF port without leaving an upper link or a promiscuity
+    reference on any port ...
 
-  Not covered are a tunnel whose route leads back through the HSR master,
-  a tc or BPF redirect to it, other stacked devices, and a software
-  device without an identifying flag such as batman-adv. Narrowing
-  seqnr_lock, planned for net-next, addresses that class as a whole.
+and:
 
-This patch has Fixes: tags for the commits that added the seqnr_lock
-coverage. Would narrowing seqnr_lock be a better fix here than a list of
-refused device types that will have to be replaced later anyway?
+    ... a device refused at attach keeps its request.
 
-At the end of the series, after "net: hsr: segment GSO before per-frame
-forwarding", hsr_forward_frame() in net/hsr/hsr_forward.c still holds the
-lock around forwarding:
+Only p is snapshotted here (first = link_state(lab, ns, "p")), and only
+p is compared after each refused attach. The refused VRF port w and the
+macvlan mvg have no baseline. Their promiscuity is never compared, and
+the GRO state of mvg is never read back.
 
-	if (numbered)
-		spin_lock_bh(&hsr->seqnr_lock);
-	hsr_forward_skb(skb, port);
-	if (numbered)
-		spin_unlock_bh(&hsr->seqnr_lock);
+The first refusal group snapshots every candidate device in before and
+checks each one again, so the two groups do not match. A leaked
+promiscuity reference on w or mvg would still pass this case.
 
-Both supervision senders also still hold seqnr_lock across
-hsr_forward_skb(). So this recursion still seems reachable after the full
-series.
+Should w and mvg also go into the before/after comparison?
+
+[ ... ]
+
+> +def tcp_prp(lab, row):
+> +    """TCP GSO from a SAN on one PRP LAN is delivered locally, segmented."""
+
+[ ... ]
+
+> +    lab.cmd(tx, "ethtool", "-K", lower, "tso", "on", "gso", "on")
+> +    caps = [lab.capture(tx, lower, pkttype=4), lab.capture(dut, "pm", pkttype=0)]
+
+[Severity: Medium]
+Can the check for no tag/RCT on local delivery ever fail for this
+capture?
+
+The pm capture is opened with the default prp=False. decode() only
+recognises a PRP RCT when prp is set:
+
+    elif prp and end >= off + 6 and raw[-2:] == b"\x88\xfb":
+
+So every frame captured on pm decodes with tag=False and
+encoding="plain". The TCP payload ends at the IPv4 total length, so 6
+trailing RCT bytes are silently ignored.
+
+verify_stream(..., local=True) then calls:
+
+    wire_rows(captures[1].rows, port, stack, tagged=False)
+
+and this check in wire_rows() is always true here:
+
+    require(row["tag"] == tagged, "flow tag/RCT missing or unexpected")
+
+The size limit does not catch it either. A 1514 byte segment plus a 6
+byte RCT is exactly 1520, which passes
+row["size"] <= 1520 + 4 * len(stack).
+
+Suppose the PRP master delivered frames locally with the RCT still
+attached. The IP stack would trim the trailer and TCP would still
+complete, so this case would pass. The commit message says "Tags/RCT,
+sequence numbers and VLAN stacks are checked".
+
+Would opening the pm capture with prp=True make this check effective?
+
+> +    ingress = lab.capture(dut, "d" + side.lower(), prp=True)
+> +    lanes = [lab.capture(dut, dev, pkttype=4, prp=True) for dev in ("da", "db")]
+> +    payload, reply = tcp_transfer(lab, tx, dut, sender, "10.68.0.2", "10.68.0.1", 5201)
+> +    lab.finish(fin_seen(caps + lanes + [ingress], 5201))
+> +    verify_stream(caps, 5201, payload, stack, local=True, inband=inband, ingress=ingress)
+
+[Severity: Low]
+What happens to the PRP reply checks below when verify_stream() raises
+Skip? verify_stream() ends with:
+
+    if not aggregate:
+        raise Skip("no sender GSO aggregate observed")
+
+The comment above it says this gap is reported only "after transfer and
+all other checks". In tcp_prp(), though, the reply checks run only after
+verify_stream() returns: exactly once per LAN, RCT present, LAN id
+10 + index, encoding "prp", identical copies. Nothing here catches
+Skip, so main() prints "ok N - ... # SKIP".
+
+When the sender capture shows no payload larger than 1500 bytes, a
+missing, duplicated or wrongly tagged PRP reply would be reported as
+SKIP, not FAIL. This seems to contradict "its reply must appear once on
+each LAN" in the commit message.
+
+Could the Skip be held back until the reply checks in tcp_prp() have
+run?
+
+> +    copies = []
+> +    for index, cap in enumerate(lanes):
+> +        cap.validate()
+> +        rows = [frame for frame in cap.rows if frame["ports"] and
+> +                frame["ports"][0] == 5201 and frame["payload"]]
+> +        require(len(rows) == 1 and rows[0]["payload"] == reply,
+> +                "PRP reply not exactly once per LAN")
 
 [ ... ]
 
