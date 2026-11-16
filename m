@@ -1,64 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855744;
-	b=AlOtPE5kmbyQgVg7WH0JZ5Me31X6fG1NqPwMEwAJxD5U9bQawRxWd14mJ0mA0TOrwHGg
-	 KDt6ZE51nUfK8qZOrx8lPNVkNPsLM3zwt4TnkD0m76XVlpghs1zvRP/aovEvP4GwZ+LSa
-	 Y1SKwFI+1Z85V1MqHIX73pt5n0cqqtIbwVdMXsF7s001HUEByisSGg2Bdw0SASHUsBBF7
-	 yM6zb+wB+0+vW532Kq+7ImzDp3dphD3LxoBbtZ2L5eKF3Rn/RzbnXJ7FMK0rK/uJxqe5O
-	 ZbWyZSbdB3I5FkcfdIecyx8a8e8RuCmmrG8ldSqvp5Tu4Gy5SFOEeZHCNGlTUYdh7dg==
+	t=1794855961;
+	b=h2jrQbS+Sn1MWfn0mKF8H0XWqSK0QSakJoIN7zZeJTeErKHjUMpHc4afgmXAJMPXEKBe
+	 ik++2qP2lZHVxPzuKm+h6XSaQBZV/Y9rKVJRsYG+A1z2bKw/6TVLZfBi4eQRMtZ1VFKBM
+	 JyrKeEFA/bQN9vPm+WHazxW3Q4vz4gZrgoKsysxeh2K44comA/qjUSu0Osd+P2Mz0iz0b
+	 LysFWaCZjdba9w4ELYvd/AaeqKLjbgiVGfpSlwTK2pUjtWws8jM1YmsNES78piSmpmnsa
+	 HxRvGH9hzIt5AMr+wJY2MLGC/eAMT51cUVG9+BMBm7Qwr+h74yjRSGXj7sR0SaE25dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855744;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=sS9FIrfW22SIhehTvpH3rdvmtslwIeEYozBr0OvaZe8=;
-	b=esrzrED9rv7bpO0h9sTGws/iaXSwv8MCk3+mq5g0fnASZzEy92R0fUwyk+cU54nPOn/n
-	 8PZJoSIpKLqGffrhqbACoDIq1E66rjP6miSrVVj9I3CQN9hUDRYoualTYyuwikJBSGcgA
-	 S4bxepY8W3/SJ8aPG2kTXsZt3RKCRIdRzTQATJttcAcNa7cHGyKmT65kp2D1IMJBneF/K
-	 M8Yk0n9nmbDYJZ9BpoYxFnalQPOSIZ5TZuEKX8p43sUiKIJdxJLx7YKJ1W9rme/pg0ZDD
-	 bI/dogWRxBtLDbRCzx17Fklrs1P9g97Yra0dsASudJmpPT6nv+q0lp7PxKf970z8+zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855961;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Bz63C07qNTrJNIT7ciigC4ityK+fnROxTDmBGBinnp0=;
+	b=4Gvh11G2ZvIvmnpOnmf5nYDin758MXObkOe/KAB2u1GO+837RyI7muZGOB4pW97KxB0/
+	 L5wPfczvpP9o0Ytt6fX53AU/EOqTyHlTxBWlnPSP1gH8gbqJos78kg7Slm/KLlyqxtM62
+	 x9kNbc6cFg7cQAX4GqNg+Fiujwb4PkhKW+QrJhV+PkjZ8BaNClcOQ6MwxroJRyf4LIKyo
+	 NDu4TYEQe+/y+kST+y9Cey3FvsZL2jFUHHMlTdLcbeV0fxt+AzIfz+8BxA6O9Azm6TMJZ
+	 86hXcPPAqsKLGyHQyVbbvQ4Z+uZUCOsJtMh2tIctoFmcJMgeqvHuV5YrnGHspYayiaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fZiBO0w0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=UjOJLzNl;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719AB60A2608;
-	Mon, 16 Nov 2026 19:02:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0082A606A883;
+	Mon, 16 Nov 2026 19:06:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0082A606A883
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fZiBO0w0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49DA11F0092C;
-	Mon, 16 Nov 2026 19:02:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794855744;
-	bh=sS9FIrfW22SIhehTvpH3rdvmtslwIeEYozBr0OvaZe8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fZiBO0w0LoRJkpwoeS+Ra3YUKeiqUmYYIMiAUZN4l8ygJzUxl6xd84pnFmpSwturz
-	 hnp3t1bg+0dYSUv/4t3Kil1G4vCwb2hKvFDFcuPw+ePhI9kDsgrnGtLnPyrhnJyGhT
-	 z7W1PeE2n/FN0NIrB6VW2TUnWm2dI8pp8DUQnN7arUH9ShzhUemoMyb/xusGTS3gGR
-	 ccljuZUWUpkTT7aWfW8MLz2SA1wuVIgHXuwK9cb/DQFTeLtNbuLON44sVX/WkDsq7R
-	 Ywf5rHig6zUCZSLDLzrSZHx/OFkJ6mQc9qE0BnfnTgQH0rRpL4DMH8v4coZN6uBCfd
-	 1ePLpqsONsoBA==
-From: netdev-bot+sinfo@kernel.org
-To: Rishikesh Jethwani <rjethwani@purestorage.com>
-Cc: netdev@vger.kernel.org, jiayuan.chen@linux.dev, stable@vger.kernel.org,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>,
- Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>,
- John Fastabend <john.fastabend@gmail.com>,
- Sabrina Dubroca <sd@queasysnail.net>, Dave Watson <davejwatson@fb.com>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v8] kcm: reject TLS on attached TCP sockets
-Date: Mon, 16 Nov 2026 19:02:22 +0000
-Message-ID: <179485574283.3291.7349043137994808253@kernel.org>
-In-Reply-To: <20261116190111.3317976-1-rjethwani@purestorage.com>
-References: <20261116190111.3317976-1-rjethwani@purestorage.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=UjOJLzNl
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1794855954;
+	bh=Bz63C07qNTrJNIT7ciigC4ityK+fnROxTDmBGBinnp0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=UjOJLzNldjgdmJ8SFyTNtpNG/A1CsSLw1HmLZBGd3D6F3kaWWjwWFzbF5Z76ZsYA5
+	 vAFf0yob/qLQZL2itKh9CnGtM6g6qC+mVeIStsMvBx4w11H/c1KVEUcAzZ75SJejmy
+	 1zgrXiSoT9spGY9HgOgjounhX7yELd5X+e4ewhqARhj8624IqEiI5YMXjd/9EeedTM
+	 WbylaeQITvDF14bYdKq0vgnH8L55p7f+bLVHqCA6plnQgjls13wokorRf7N6XqgPFy
+	 R/hkdmx3ZNUStErhrMh8tbCyPpfcEnVqFViKuH6bJ+4usYAuhN1mmq2rkCZuRC5tV/
+	 /lhyA3kwUHghg==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jSy4f2N6CzRGb;
+	Mon, 16 Nov 2026 14:05:54 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	tglx@kernel.org,
+	will@kernel.org,
+	boqun@kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v6 04/37] sched/deadline: Do not divide by zero active CPUs of a root domain
+Date: Mon, 16 Nov 2026 14:05:16 -0500
+Message-Id: <20261116190549.230119-5-mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
+References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,22 +95,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+__dl_sub() and __dl_add() divide by their cpus argument. Most callers
+pass dl_bw_cpus(), the number of active CPUs of a root domain. That
+number can be 0, and the division then traps.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Commit daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl
+tasks") added extra_bw, the bandwidth that deadline tasks can reclaim
+on a runqueue. A change of a root domain's total_bw is spread over the
+extra_bw of its active CPUs.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+During hotplug, a CPU sits in the default root domain, which can then
+have no active CPU. This lasts from the rebuild in
+sched_cpu_deactivate() to the offline, and from the online to
+sched_cpu_activate(). A debugfs write to the runtime or period of its
+fair or ext server divides there. A write of the current value passes
+admission in the window. In 8-CPU VMs of v7.4-rc1, a loop of such writes
+oopses at the first offline and online:
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account.
+  Oops: divide error: 0000 [#1] SMP NOPTI
+  RIP: 0010:dl_server_apply_params+0x335/0x380
+  Call Trace:
+   sched_server_write_common.isra.0+0x1c0/0x260
+   full_proxy_write+0x58/0x90
+   vfs_write+0xcb/0x550
 
-*IMPORTANT*: If you do repost (for other reasons) - please include
-the relevant info in the cover letter or commit messages.
+By reading, two other paths would divide by zero:
+- inactive_task_timer(), for a task that left SCHED_DEADLINE or died,
+  if its CPU went offline.
+- sched_setattr(SCHED_DEADLINE) on a task asleep on an offline CPU,
+  with admission control off.
+
+Fix this by changing total_bw alone when the root domain has no active
+CPU.
+
+With this patch, the reproducer survives 20 rounds with no warning.
+
+Fixes: daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl tasks")
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: stable@vger.kernel.org
+---
+ kernel/sched/deadline.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index dfae08625342..b614d5fc1a1a 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -189,18 +189,25 @@ void __dl_update(struct dl_bw *dl_b, s64 bw)
+ 	}
+ }
+ 
++/*
++ * Spread a change of total_bw over the extra_bw of the active CPUs of the
++ * root domain. @cpus is their number. With no active CPU, as can happen
++ * during CPU hotplug, change total_bw alone.
++ */
+ static inline
+ void __dl_sub(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+ {
+ 	dl_b->total_bw -= tsk_bw;
+-	__dl_update(dl_b, (s32)tsk_bw / cpus);
++	if (cpus)
++		__dl_update(dl_b, (s32)tsk_bw / cpus);
+ }
+ 
+ static inline
+ void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+ {
+ 	dl_b->total_bw += tsk_bw;
+-	__dl_update(dl_b, -((s32)tsk_bw / cpus));
++	if (cpus)
++		__dl_update(dl_b, -((s32)tsk_bw / cpus));
+ }
+ 
+ static inline bool
 -- 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+2.47.3
+
