@@ -1,49 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862544;
-	b=lzvfV6FSQSaSZrPSgSO0qsxktDx9JA3rINbBGhp98ja+zkXBIsHonDb5Fno6KjyvOe2z
-	 15rFDaEPaGpozTykc1AMi6nSgQ3+FePaapyAEejIO9Eamg6+G64eD/UPkZMmn7NIqcneu
-	 uPofS+3td5Yy93bYhfSXy/Kbw3K8I7frlEVBwrhofTKIHIf2Hz6MJsp+3enwP/m5B2GrC
-	 YmBA6EMudf1nlGOUmbjNq1QGMi4I4EiJDaqsxnyF11TnszcZCnxzMvRx+evXnSbuxcbT2
-	 Uybgw1HiWtqADKHub4tL9ABaWeElIc70xPrU+xceg9NI3Om1hT7U624GAv0C9cuuWwA==
+	t=1794864259;
+	b=lMlRgbi9dyakIZuTydghbgH2onLR4rXgVwrjfvnGQChi1NOd0CmfNJraZcqYjuZ4UsHV
+	 hg5oCrjw/6Zt5usiMQkWY0ImyOKk+yyL24/RjQ2i45GAVIIxr6b8/leU63/eUwYNCakb8
+	 wMWdf/cfQkPSv3J1K4LsztMY70JJn/FcyFFNKdywmJeF+do2BcErAM4XszPbqXbdJ2k2B
+	 GmfehFJ6z3J3MbqGL1bW0fkfEUqYch2+Z0UxspiHEP7m4acul3MnzRZnpGsAWkJij72Nb
+	 VxhvShaE0WcnblNFNsrVsnMwXkCj5tUzClXEeB/WNtBB8LDwRG8KNJqQYqrGasNRHvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862544;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=JpiHRtIiEHYG0g+BY20ZAPvVQUUBUsrr7vJkSH72tOE=;
-	b=CgW6G2Wb7dqHUESHZMwxSLUgu8S4OQmVgNZ0LrYk8xADsWeh5oq1XWa88rBO/2oCUFLG
-	 Qu4ChQcUSeQZUiRPDpTsEYRLyahqr741i6OOoA1shLLWfX+WITRUorJbj/X/kZM13Ly8Q
-	 31iQpSImxUeU/fFRzKjdw4sHRLM4Qxt9naiKdhdl45qRgZIU9tf+Fqunj6Edc+KqobW/V
-	 5rPQXwN60fZrvfRmJySIQ7ZCzs7cy7vICvnq66E2MA8y+wMfmJnjLj7smGypUkhPiuc6G
-	 ZRDfHQWZqUttYnpw9/A0YwPaUGMWQlLjK00joXnhmwwk0cNIoHD9kVwa3WwToXqA2SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794864259;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=nF1lgddmXzEwbIQR/XI4AlniU/W1R7lMyZGbYZTGFus=;
+	b=gGmA6N9V5BletvNZSnbuf+/R8LHpX4OfFwQxASQx46BjscGXPbb5Lwq6HdX+1NmMAStR
+	 jEvBonyLYAM6yzt7mZ7RON292Ef1vLWQpw28mZPVwMe1HCWBbxB2V8v3fRyUzL+GC/HOG
+	 i+ZF4w+RWiT+1NCrDt8Q+YEongBFOnVuo7QpedFMCeenoujhf64sFgpMjzBBvuXDugXZq
+	 5BcFmJa/bkXddbyst/VbwpckE64FXKCliG7cBQ9QEex9X2Md+kOL/oxPZwfxYRoDB/DmO
+	 SegTZsFMUeSuuxp/ljxt6KxgXH3ss2oxPTm1FNA2qpPuaek38ZSRiBjrExBqP5uPAEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bW0xtvpI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ej4Qwmji;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1003606A323;
-	Mon, 16 Nov 2026 20:55:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD5E606A330;
+	Mon, 16 Nov 2026 21:24:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bW0xtvpI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 750B11F000C6;
-	Mon, 16 Nov 2026 20:55:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ej4Qwmji
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A8C1F000C4;
+	Mon, 16 Nov 2026 21:24:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794862544;
-	bh=JpiHRtIiEHYG0g+BY20ZAPvVQUUBUsrr7vJkSH72tOE=;
-	h=From:Date:Subject:To:Cc;
-	b=bW0xtvpIH1XUubxCLTSIEBtaQQyg+fazIdPDGXNY86c6zXktXDVmhyTfNLzAD8ugJ
-	 u7+PX310dxqG31Pa+RI6ES1tR1fMO9R/yB+kY9guEXM+bfXCX5sAOylgNs2DFW1O2r
-	 xpF6M+teOaYzJxeAJrWYxV7K+qNXN+lI/8Y5XZrWuxV/bgfPbL64yX02JjWvNuaSvu
-	 jPjQKVWLcyBmQzjx+xO84EgpwnSE9brLjB3WmyzZ/NaDyk376RjAw0j31GSmzCtmA3
-	 yFHdwji3ujdLpw8aDC69snJEadkHi7IGopqf+JzF7PclgB5jCHsQZxIX0oGkq6KdEP
-	 sysGAj3aF5kSA==
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Mon, 16 Nov 2026 13:55:26 -0700
-Subject: [PATCH v2] sched/topology: Avoid unsequenced accesses to jiffies
- in sd_init()
+	s=k20260515; t=1794864259;
+	bh=nF1lgddmXzEwbIQR/XI4AlniU/W1R7lMyZGbYZTGFus=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ej4Qwmjiv120TbNI1IHtoi9NfN04FA13r3fMfGhYwts70KjNoKyZ5l9GzpgsnTXen
+	 TO4I7Dgx3iSPXcYJ/0N+NsR25GTsowwGmz2pTqjLd+1Uf//8/TGjK6KpmYmmHbXSnN
+	 tGu8eqwuDqsseHjzGdY0amctDPXOygpcXhw2NXQrABhjn/ar0a4mtbGERwa9r//wdr
+	 8U2ik8CS6FQivmbt5HkmBrHv4+MvKPBhrzdGN78zaOjtI57wjPN9FBHddyzyBv94Wa
+	 9Ay9vYq8sqe+tYMcp10+2irslI3wzC1YNB+vjGiayeUY5vEKbVkukoe6T+YP6srTbm
+	 4wIcSMe3uTSmA==
+Message-ID: <c99b891f-05fb-4629-b439-ac3828a4ea0a@kernel.org>
+Date: Mon, 16 Nov 2026 15:24:18 -0600
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,125 +51,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] crypto: ccp - unwind PSP sub-devices on partial
+ psp_init() failure
+Content-Language: en-US
+To: Kim Phillips <kim.phillips@amd.com>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S . Miller" <davem@davemloft.net>,
+ Rijo Thomas <Rijo-john.Thomas@amd.com>
+Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20261116203622.615371-1-kim.phillips@amd.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20261116203622.615371-1-kim.phillips@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-topology-wunsequenced-v2-1-54611119172b@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4WNQQ6CMBBFr0JmbY1TtKIr72FYQJlClbTYFpSQ3
- l2KB3D5kvffX8CT0+Thmi3gaNJeW7MC32Ugu8q0xHSzMvADF4h4ZMEOtrftzN6j8fQayUhqGBY
- Km7y+oDhLWLeDI6U/W/de/tiP9YNkSLFkdNoH6+bteMLk/fuYkCEThahyoUigOt2e5Az1e+taK
- GOMX9uN8PXNAAAA
-X-Change-ID: 20261114-topology-wunsequenced-18f1d3b9167c
-To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
- Juri Lelli <juri.lelli@redhat.com>, 
- Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, 
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
- K Prateek Nayak <kprateek.nayak@amd.com>, 
- Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org, 
- llvm@lists.linux.dev, stable@vger.kernel.org, 
- Nathan Chancellor <nathan@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3664; i=nathan@kernel.org;
- h=from:subject:message-id; bh=kYoFFxXOitrN11C8It6IfIw2VCFnijveRC0lPF68XnM=;
- b=owGbwMvMwCUmm602sfCA1DTG02pJDFm/c09tmnxCc8eMrmxHnqOuzdsizu91Zdxc/OrjhPgDu
- 0xFJY1YOkpZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBEli5nZNhnP/3XDyt+/+aX
- fFai6m+4eC54Zt254f1q8sH5mh25d8UY/oddPMc1oWNaZs7T+6e6WzTVUv5fly875sKqnOi45v/
- E52wA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-After a recent improvement in clang to warn on unsequenced accesses to
-volatile variables [1], an instance appears in sd_init(), which can
-break the build with CONFIG_WERROR=y / W=e:
 
-  In file included from kernel/sched/build_utility.c:86:
-  kernel/sched/topology.c:2008:29: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
-   1998 |                 .last_balance           = jiffies,
-        |                                           ~~~~~~~
-   1999 |                 .balance_interval       = sd_weight,
-   2000 |
-   2001 |                 /* 50% success rate */
-   2002 |                 .newidle_call           = 512,
-   2003 |                 .newidle_success        = 256,
-   2004 |                 .newidle_ratio          = 512,
-   2005 |                 .newidle_stamp          = now,
-   2006 |
-   2007 |                 .max_newidle_lb_cost    = 0,
-   2008 |                 .last_decay_max_lb_cost = jiffies,
-        |                                           ^
 
-Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
-6.5.2, unsequenced side effects on the same scalar object are undefined
-behavior. Per C11 6.7.9.23, the evaluation of the initialization list
-expressions in a designated initializer is indeterminately sequenced
-relative to each other, meaning any side effects in the initialization
-list are unsequenced.
+On 11/16/26 14:36, Kim Phillips wrote:
+> psp_init() initializes sub-devices sequentially but returns immediately
+> on the first failure, leaving earlier sub-devices registered. Its caller
+> psp_dev_init() then sets sp->psp_data = NULL, so the later
+> psp_dev_destroy() on unbind bails out early and never unregisters them.
+> 
+> Non-devm resources such as the /dev/sev and /dev/dbc character devices
+> stay globally visible while their devm-allocated backing structures are
+> freed by the driver core, giving a use-after-free if userspace opens the
+> orphaned device.
+> 
+> Add reverse-order unwind labels to psp_init() so each sub-device is torn
+> down before the error is propagated. Every *_dev_destroy() is already
+> NULL-guarded on its own psp->*_data pointer, so skipped or unreached
+> sub-devices are no-ops.
+> 
+> sp_init() continues to ignore the psp_dev_init() return value on
+> purpose: a PSP failure must not fail the probe, as the CCP can still
+> initialize successfully.
+> 
+> Fixes: 33960acccfbd ("crypto: ccp - add TEE support for Raven Ridge")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/bug/linux-0de87f0c-0f5a-4dad-8ef1-f49844eb4cce
+> Cc: Tom Lendacky <thomas.lendacky@amd.com>
+> Cc: Rijo Thomas <Rijo-john.Thomas@amd.com>
+> Cc: Mario Limonciello <mario.limonciello@amd.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Kim Phillips <kim.phillips@amd.com>
+> ---
+> v1: https://lore.kernel.org/linux-crypto/20261021215716.1076732-1-kim.phillips@amd.com/
 
-Add a local variable to hold the value of jiffies before the designated
-initializer so that there are no unsequenced side effects while using a
-consistent value, clearing up the warning.
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
 
-Cc: stable@vger.kernel.org
-Closes: https://github.com/ClangBuiltLinux/linux/issues/2190
-Fixes: 2b4cfe64dee0 ("sched/numa: Initialize newidle balance stats in sd_numa_init()")
-Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
-Changes in v2:
-- Use a local variable with one access to jiffies before designated
-  initializer (Nick)
-- Link to v1: https://patch.msgid.link/20261114-topology-wunsequenced-v1-1-686a36fe61f5@kernel.org
----
- kernel/sched/topology.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index 99878da03bce..60fad1690894 100644
---- a/kernel/sched/topology.c
-+++ b/kernel/sched/topology.c
-@@ -1956,6 +1956,7 @@ sd_init(struct sched_domain_topology_level *tl,
- 	int sd_id, sd_weight, sd_flags = 0;
- 	struct cpumask *sd_span;
- 	u64 now = sched_clock();
-+	unsigned long j;
- 
- 	sd_span = sched_domain_span(sd);
- 	cpumask_and(sd_span, cpu_map, tl->mask(tl, cpu));
-@@ -1973,6 +1974,7 @@ sd_init(struct sched_domain_topology_level *tl,
- #endif
- 	sd_flags |= asym_cpu_capacity_classify(sd_span, cpu_map);
- 
-+	j = jiffies;
- 	*sd = (struct sched_domain){
- 		.min_interval		= sd_weight,
- 		.max_interval		= 2*sd_weight,
-@@ -1994,7 +1996,7 @@ sd_init(struct sched_domain_topology_level *tl,
- 					| sd_flags
- 					,
- 
--		.last_balance		= jiffies,
-+		.last_balance		= j,
- 		.balance_interval	= sd_weight,
- 
- 		/* 50% success rate */
-@@ -2004,7 +2006,7 @@ sd_init(struct sched_domain_topology_level *tl,
- 		.newidle_stamp		= now,
- 
- 		.max_newidle_lb_cost	= 0,
--		.last_decay_max_lb_cost	= jiffies,
-+		.last_decay_max_lb_cost	= j,
- 		.child			= child,
- 		.name			= tl->name,
- 	};
-
----
-base-commit: d7e670601af6c564ccf6d3b2ddf70ee4f41a6d1c
-base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
-change-id: 20261114-topology-wunsequenced-18f1d3b9167c
-
-Best regards,
---  
-Cheers,
-Nathan
+> 
+>   drivers/crypto/ccp/psp-dev.c | 23 ++++++++++++++++++-----
+>   1 file changed, 18 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/crypto/ccp/psp-dev.c b/drivers/crypto/ccp/psp-dev.c
+> index b14ce51065d5..3d9341c2876d 100644
+> --- a/drivers/crypto/ccp/psp-dev.c
+> +++ b/drivers/crypto/ccp/psp-dev.c
+> @@ -207,19 +207,19 @@ static int psp_init(struct psp_device *psp)
+>   	if (!psp_check_tee_support(psp)) {
+>   		ret = tee_dev_init(psp);
+>   		if (ret)
+> -			return ret;
+> +			goto e_sev;
+>   	}
+>   
+>   	if (!psp_check_sfs_support(psp)) {
+>   		ret = sfs_dev_init(psp);
+>   		if (ret)
+> -			return ret;
+> +			goto e_tee;
+>   	}
+>   
+>   	if (psp->vdata->platform_access) {
+>   		ret = platform_access_dev_init(psp);
+>   		if (ret)
+> -			return ret;
+> +			goto e_sfs;
+>   	}
+>   
+>   	/* dbc must come after platform access as it tests the feature */
+> @@ -227,15 +227,28 @@ static int psp_init(struct psp_device *psp)
+>   	    psp->capability.dbc_thru_ext) {
+>   		ret = dbc_dev_init(psp);
+>   		if (ret)
+> -			return ret;
+> +			goto e_platform_access;
+>   	}
+>   
+>   	/* HSTI uses platform access on some systems. */
+>   	ret = psp_init_hsti(psp);
+>   	if (ret)
+> -		return ret;
+> +		goto e_dbc;
+>   
+>   	return 0;
+> +
+> +e_dbc:
+> +	dbc_dev_destroy(psp);
+> +e_platform_access:
+> +	platform_access_dev_destroy(psp);
+> +e_sfs:
+> +	sfs_dev_destroy(psp);
+> +e_tee:
+> +	tee_dev_destroy(psp);
+> +e_sev:
+> +	sev_dev_destroy(psp);
+> +
+> +	return ret;
+>   }
+>   
+>   int psp_dev_init(struct sp_device *sp)
+> 
+> base-commit: 26ca5f34841f0a86d0883664a1c13be89a01d351
 
