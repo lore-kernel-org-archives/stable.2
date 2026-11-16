@@ -1,82 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794862495;
-	b=3KdaP7/ePLGkxNHux+UyOxbTjvyBwUh+CmAqgBlPkT/RK9BaC1/6777RafyMTX6k4Hfd
-	 cnnZgaDvWVBovCZBOaZgAV3d1eYWNn2aJZjIxspYfGdjWiYJPS4tyWcPFXCz+55DPjAxx
-	 o1yqEQsXll27GAD0tKoodSvcOJSBXv3tTwiqVDrNyF28gSNrUJPjH8iZeV69/9wSIP4Uh
-	 gbjeXpvlvjLPGQo2kIpVPRhF9DmQhM6YjivTVOS7Z8T+DDLDqp7wycegCQKFlDsIOHJlR
-	 mLQEd0oGqRhLShmYMHmLdKJsdX47tOJ851B9UN2/8LDhVznUf2kuVr/SAyU+fRzCxUg==
+	t=1794862544;
+	b=lzvfV6FSQSaSZrPSgSO0qsxktDx9JA3rINbBGhp98ja+zkXBIsHonDb5Fno6KjyvOe2z
+	 15rFDaEPaGpozTykc1AMi6nSgQ3+FePaapyAEejIO9Eamg6+G64eD/UPkZMmn7NIqcneu
+	 uPofS+3td5Yy93bYhfSXy/Kbw3K8I7frlEVBwrhofTKIHIf2Hz6MJsp+3enwP/m5B2GrC
+	 YmBA6EMudf1nlGOUmbjNq1QGMi4I4EiJDaqsxnyF11TnszcZCnxzMvRx+evXnSbuxcbT2
+	 Uybgw1HiWtqADKHub4tL9ABaWeElIc70xPrU+xceg9NI3Om1hT7U624GAv0C9cuuWwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794862495;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=UAG6ybXWhgd9D/xMXlE5TO4WMq8Qm8ocklmlYGwsIOo=;
-	b=ZaCKiMDVK9k0tbdwEGBpl0OyaSF1g3200/Re9Gqq19ng9C04tnsuCu1XhTiXXYZlC3tf
-	 9877cMwm/3W3uTxPQBK3YE0rAL1HGb+mbUCcV4L0uqGg29iVl2nPEh8idtPXuSS14O8jA
-	 qaJ/vMVzdabRC1vXRdZ134Df8Hf6RQCWJo4OeE0nXtJ6cSNUbhqwpn6m6zmVY5xxdoZdt
-	 V6uWY5DYPrIOAzQFkB3bmNCIjq+gGzKWHbBxi4iYw81bPaSKuEHtbJpNlJF9v+F2UML78
-	 SccBXfqIgT+/hRWhdreDvHcKQO+9nHAD+5mKBpR8fOb/mE9AdIk9y3C/R9gLUOrwWOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794862544;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=JpiHRtIiEHYG0g+BY20ZAPvVQUUBUsrr7vJkSH72tOE=;
+	b=CgW6G2Wb7dqHUESHZMwxSLUgu8S4OQmVgNZ0LrYk8xADsWeh5oq1XWa88rBO/2oCUFLG
+	 Qu4ChQcUSeQZUiRPDpTsEYRLyahqr741i6OOoA1shLLWfX+WITRUorJbj/X/kZM13Ly8Q
+	 31iQpSImxUeU/fFRzKjdw4sHRLM4Qxt9naiKdhdl45qRgZIU9tf+Fqunj6Edc+KqobW/V
+	 5rPQXwN60fZrvfRmJySIQ7ZCzs7cy7vICvnq66E2MA8y+wMfmJnjLj7smGypUkhPiuc6G
+	 ZRDfHQWZqUttYnpw9/A0YwPaUGMWQlLjK00joXnhmwwk0cNIoHD9kVwa3WwToXqA2SQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Et2ZYoFY;
-	arc=none smtp.remote-ip=52.26.1.71
-Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bW0xtvpI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC5D606A322;
-	Mon, 16 Nov 2026 20:54:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AC5D606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1003606A323;
+	Mon, 16 Nov 2026 20:55:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=Et2ZYoFY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794862495; x=1826398495;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=UAG6ybXWhgd9D/xMXlE5TO4WMq8Qm8ocklmlYGwsIOo=;
-  b=Et2ZYoFYABwQm7Je6xGMxPOh8BU5mA6c8UjfTBpMJuBPSOW/XvO7Jw7x
-   /f3gmAuz/piuEqd/5xZGMgOIAfjcD5qH0GrT8ePw1wPQrzMQ7v+R+hSvg
-   vtusABMsv+pK/2LLC5GY7PP4cCv+28Dm5qGs6O9Ng+BuqwxY7JHm0dqwz
-   u4Jz7dvG8V5rbOx05B4JSqHu8pAOsQU8bSnSYKnHpF/r3XtFBQ99IRhjw
-   otp+ngFxXKbNZU5yJv9tFadS3q/Z4G9yHkT+OgLZvUGSYOOrWEBj0uuED
-   JNrYzkmrxyBj9eP9A7GnCWHBXR6rXCMKk+9r3lmq2wx83r4Zp4YJnUkGi
-   g==;
-X-CSE-ConnectionGUID: 8XwXTjfrTo6CcMYkgV2Zgw==
-X-CSE-MsgGUID: tXoOGXwOS1uP+4QVietCjw==
-X-IronPort-AV: E=Sophos;i="6.27,217,1787011200"; 
-   d="scan'208";a="34339671"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 20:54:55 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:8311]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.128:2525] with esmtp (Farcaster)
- id b7c41268-69a0-46a3-be2e-c11ff2b8e151; Mon, 16 Nov 2026 20:54:54 +0000 (UTC)
-X-Farcaster-Flow-ID: b7c41268-69a0-46a3-be2e-c11ff2b8e151
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Mon, 16 Nov 2026 20:54:54 +0000
-Received: from 80a9970eed1e.amazon.com (10.106.101.27) by
- EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Mon, 16 Nov 2026 20:54:53 +0000
-From: Justinien Bouron <jbouron@amazon.com>
-To: Damien Le Moal <dlemoal@kernel.org>, Niklas Cassel <cassel@kernel.org>,
-	Johannes Thumshirn <johannes.thumshirn@wdc.com>, "Martin K . Petersen"
-	<mkp@kernel.org>, John Garry <john.garry@linux.dev>, Hannes Reinecke
-	<hare@suse.de>, Jens Axboe <axboe@kernel.dk>, <linux-ide@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: Justinien Bouron <jbouron@amazon.com>, Gunnar Kudrjavets
-	<gunnarku@amazon.com>, <stable@vger.kernel.org>
-Subject: [PATCH] ata: libata-core: Add max sector quirk to INTEL SSDSCKKB240G8
-Date: Mon, 16 Nov 2026 12:54:30 -0800
-Message-ID: <20261116205430.44305-1-jbouron@amazon.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bW0xtvpI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 750B11F000C6;
+	Mon, 16 Nov 2026 20:55:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794862544;
+	bh=JpiHRtIiEHYG0g+BY20ZAPvVQUUBUsrr7vJkSH72tOE=;
+	h=From:Date:Subject:To:Cc;
+	b=bW0xtvpIH1XUubxCLTSIEBtaQQyg+fazIdPDGXNY86c6zXktXDVmhyTfNLzAD8ugJ
+	 u7+PX310dxqG31Pa+RI6ES1tR1fMO9R/yB+kY9guEXM+bfXCX5sAOylgNs2DFW1O2r
+	 xpF6M+teOaYzJxeAJrWYxV7K+qNXN+lI/8Y5XZrWuxV/bgfPbL64yX02JjWvNuaSvu
+	 jPjQKVWLcyBmQzjx+xO84EgpwnSE9brLjB3WmyzZ/NaDyk376RjAw0j31GSmzCtmA3
+	 yFHdwji3ujdLpw8aDC69snJEadkHi7IGopqf+JzF7PclgB5jCHsQZxIX0oGkq6KdEP
+	 sysGAj3aF5kSA==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Mon, 16 Nov 2026 13:55:26 -0700
+Subject: [PATCH v2] sched/topology: Avoid unsequenced accesses to jiffies
+ in sd_init()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,49 +53,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWA001.ant.amazon.com (10.13.139.88) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-topology-wunsequenced-v2-1-54611119172b@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/4WNQQ6CMBBFr0JmbY1TtKIr72FYQJlClbTYFpSQ3
+ l2KB3D5kvffX8CT0+Thmi3gaNJeW7MC32Ugu8q0xHSzMvADF4h4ZMEOtrftzN6j8fQayUhqGBY
+ Km7y+oDhLWLeDI6U/W/de/tiP9YNkSLFkdNoH6+bteMLk/fuYkCEThahyoUigOt2e5Az1e+taK
+ GOMX9uN8PXNAAAA
+X-Change-ID: 20261114-topology-wunsequenced-18f1d3b9167c
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ Juri Lelli <juri.lelli@redhat.com>, 
+ Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, 
+ Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, 
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org, 
+ llvm@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3664; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=kYoFFxXOitrN11C8It6IfIw2VCFnijveRC0lPF68XnM=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFm/c09tmnxCc8eMrmxHnqOuzdsizu91Zdxc/OrjhPgDu
+ 0xFJY1YOkpZGMS4GGTFFFmqH6seNzScc5bxxqlJMHNYmUCGMHBxCsBEli5nZNhnP/3XDyt+/+aX
+ fFai6m+4eC54Zt254f1q8sH5mh25d8UY/oddPMc1oWNaZs7T+6e6WzTVUv5fly875sKqnOi45v/
+ E52wA
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-INTEL SSDSCKKB240G8 with firmware version XC311102 runs into FPDMA
-timeout errors when queue/max_sectors_kb is set to
-BLK_DEF_MAX_SECTORS_CAP = 4096KiB / 8192 sectors. Similar to model
-SSDSC2KG480G8, the issue disappears when setting this max size to 8191
-sectors, thus apply the same quirk.
+After a recent improvement in clang to warn on unsequenced accesses to
+volatile variables [1], an instance appears in sd_init(), which can
+break the build with CONFIG_WERROR=y / W=e:
 
-Firmware version X5A1ME59 for SSDSCKKB240G8 is un-affected by this bug
-thus keep the quirk specific to firmware XC311102.
+  In file included from kernel/sched/build_utility.c:86:
+  kernel/sched/topology.c:2008:29: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
+   1998 |                 .last_balance           = jiffies,
+        |                                           ~~~~~~~
+   1999 |                 .balance_interval       = sd_weight,
+   2000 |
+   2001 |                 /* 50% success rate */
+   2002 |                 .newidle_call           = 512,
+   2003 |                 .newidle_success        = 256,
+   2004 |                 .newidle_ratio          = 512,
+   2005 |                 .newidle_stamp          = now,
+   2006 |
+   2007 |                 .max_newidle_lb_cost    = 0,
+   2008 |                 .last_decay_max_lb_cost = jiffies,
+        |                                           ^
 
-Fixes: 9b8b84879d4a ("block: Increase BLK_DEF_MAX_SECTORS_CAP")
-Signed-off-by: Justinien Bouron <jbouron@amazon.com>
-Reviewed-by: Gunnar Kudrjavets <gunnarku@amazon.com>
+Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
+6.5.2, unsequenced side effects on the same scalar object are undefined
+behavior. Per C11 6.7.9.23, the evaluation of the initialization list
+expressions in a designated initializer is indeterminately sequenced
+relative to each other, meaning any side effects in the initialization
+list are unsequenced.
+
+Add a local variable to hold the value of jiffies before the designated
+initializer so that there are no unsequenced side effects while using a
+consistent value, clearing up the warning.
+
 Cc: stable@vger.kernel.org
+Closes: https://github.com/ClangBuiltLinux/linux/issues/2190
+Fixes: 2b4cfe64dee0 ("sched/numa: Initialize newidle balance stats in sd_numa_init()")
+Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 ---
- drivers/ata/libata-core.c | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v2:
+- Use a local variable with one access to jiffies before designated
+  initializer (Nick)
+- Link to v1: https://patch.msgid.link/20261114-topology-wunsequenced-v1-1-686a36fe61f5@kernel.org
+---
+ kernel/sched/topology.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/ata/libata-core.c b/drivers/ata/libata-core.c
-index 5ff45a5cbfe4a..2a5ca1b9ee5c0 100644
---- a/drivers/ata/libata-core.c
-+++ b/drivers/ata/libata-core.c
-@@ -4204,6 +4204,7 @@ static const struct ata_dev_quirk_value __ata_dev_max_sec_quirks[] = {
- 	{ "LITEON EP1-*",		NULL,		1024 },
- 	{ "DELLBOSS VD",		"MV.R00-0",	8191 },
- 	{ "INTEL SSDSC2KG480G8",	"XCV10120",	8191 },
-+	{ "INTEL SSDSCKKB240G8",	"XC311102",	8191 },
- 	{ },
- };
+diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+index 99878da03bce..60fad1690894 100644
+--- a/kernel/sched/topology.c
++++ b/kernel/sched/topology.c
+@@ -1956,6 +1956,7 @@ sd_init(struct sched_domain_topology_level *tl,
+ 	int sd_id, sd_weight, sd_flags = 0;
+ 	struct cpumask *sd_span;
+ 	u64 now = sched_clock();
++	unsigned long j;
  
-@@ -4474,6 +4475,8 @@ static const struct ata_dev_quirks_entry __ata_dev_quirks[] = {
- 						ATA_QUIRK_MAX_SEC },
- 	{ "INTEL*SSDSC2CT*",		NULL,	ATA_QUIRK_ZERO_AFTER_TRIM |
- 						ATA_QUIRK_NO_FUA },
-+	{ "INTEL SSDSCKKB240G8", "XC311102",	ATA_QUIRK_ZERO_AFTER_TRIM |
-+						ATA_QUIRK_MAX_SEC },
- 	{ "INTEL*SSD*",			NULL,	ATA_QUIRK_ZERO_AFTER_TRIM },
- 	{ "SSD*INTEL*",			NULL,	ATA_QUIRK_ZERO_AFTER_TRIM },
- 	{ "Samsung*SSD*",		NULL,	ATA_QUIRK_ZERO_AFTER_TRIM },
--- 
-2.47.3
+ 	sd_span = sched_domain_span(sd);
+ 	cpumask_and(sd_span, cpu_map, tl->mask(tl, cpu));
+@@ -1973,6 +1974,7 @@ sd_init(struct sched_domain_topology_level *tl,
+ #endif
+ 	sd_flags |= asym_cpu_capacity_classify(sd_span, cpu_map);
+ 
++	j = jiffies;
+ 	*sd = (struct sched_domain){
+ 		.min_interval		= sd_weight,
+ 		.max_interval		= 2*sd_weight,
+@@ -1994,7 +1996,7 @@ sd_init(struct sched_domain_topology_level *tl,
+ 					| sd_flags
+ 					,
+ 
+-		.last_balance		= jiffies,
++		.last_balance		= j,
+ 		.balance_interval	= sd_weight,
+ 
+ 		/* 50% success rate */
+@@ -2004,7 +2006,7 @@ sd_init(struct sched_domain_topology_level *tl,
+ 		.newidle_stamp		= now,
+ 
+ 		.max_newidle_lb_cost	= 0,
+-		.last_decay_max_lb_cost	= jiffies,
++		.last_decay_max_lb_cost	= j,
+ 		.child			= child,
+ 		.name			= tl->name,
+ 	};
+
+---
+base-commit: d7e670601af6c564ccf6d3b2ddf70ee4f41a6d1c
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git master
+change-id: 20261114-topology-wunsequenced-18f1d3b9167c
+
+Best regards,
+--  
+Cheers,
+Nathan
 
