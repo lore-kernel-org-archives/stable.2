@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794834575;
-	b=eTDWVvatkqsIU3YQ5YxoWAkJ4t3n0orIgjlYPtUG/2h3Wef4xU8fQGfziGYAX+uS6gUN
-	 OpnewM3hylCdQE3YNmqJLZ0yBv4iyFbIzkdLNV1RbVmg0Xfq2L1EhnKH8CAjbQQWcAM1l
-	 B5nG7VqgzlV+JR224x/tPPB/QTdLK52hBNdIou5i7LLNuCtrj9tZvSqOcWdevailqZzrQ
-	 T75rTXMAQdMn1hD6KgMyfiyrwHFlQ5zgl5f6TsFRKBLZVsZI34nFCTvRI8/NcBStFabyz
-	 PXBkJA2MrlDonc7gucOSxx4XZVQO39tc+rybrRoMwUc6eLuzpfdjG+hg34meJOu7DXg==
+	t=1794834597;
+	b=qM9+1qw1gA2L1hVwB9vywK/9j5QPogVMZuI4xYZ/sN85/PmfM1Sa7ujWPNZyi/vESr5x
+	 J2cxbcDRVp/hHUnu8eqROScfNXuMxDWwo8X5rpm3oABWngySpnZiPQzNAU7UKHdeS7qRx
+	 AJIlxsKAuMQmwfMavfT6cBuiN+pXNdmE5wssCJio5iTtOO/+JOJAYCzP1SyLC2oDgiS+Z
+	 uhwUGN/lHzI1rVZEzD5EJxiuUwIaKFtGpvAVysOxFvvMUrDrpg7N38HqCDkHF5Fb+s4gM
+	 xhAResj7+HfuQpw+XKC94c62AO40yiijVS7m9LQETJf5BnIWrcaMdM5JlGzZJFq3Mrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794834575;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=wT4KcYQ4U823B0fuDQzJMcLhNaGywoyMhrKfcXljBEE=;
-	b=uZs+QwmSi+KV1K35OOBKnKcNaYPGcquIwg3axyt/4RLK72j3/u8Ud/r0W3UrARwnnKSm
-	 v1qD8tpW0Jqkb9/qbfARfzCXgKFylw86UIkzSaEwRhoDBPr0/0dxlJxuOzlPQOd3VlSdJ
-	 j3gKSNfrxmLAnMpzrCXnPB0Za4CrQQg3FOKk13/uV9jBDv5UxpAOG28/gpzhYw2G1fyG8
-	 SQRPHtwzgJOOelVHiSmvx5335mByUmFBHHQAoiTJ9T29qln9quBt9wR908TB5kFMRhJKW
-	 w0peGDD7CgWFi1LM+9tsRltaXcPEIRlNUlx+RnDjBGD6IO/4Fl9MSBGD97VW2j1VXUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834597;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=wukc0fhPEwtFGc9I09i5YG1FWfRn2SmGsfOzkZNlNXQ=;
+	b=Hwxttxs/IfqJJJDF76TWtisCPzSd6AgU4BGq2mSEq8z6oZHUvmczydC6JSdPIYk+e1KM
+	 jyNPCuk3m2thGiAR2OkSNTDeOllmq/WkVi+KVIfiQHK0OBD2ySoQhD9AKcN/IN4ZkbYbq
+	 vQrhG3ywNIzUj9Xpu6kNu0oBMdZRDD4hqDDTac8E2RpLeW6i4HfNHIcMS0ypZyxcXn+KJ
+	 z3J9tckXSLhYXzqxyIiS0RgYE59FUDpgKlAmd64iBDACNEdOrEiBBx+41l9M32tNAlRU0
+	 ePSmfrdICBpBnJ5FxvqO0PjH0rl819I8d2cET2YSe6siVIwd0bOb11lHADg6EcsrP3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=iQHnSc8Q;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=l+iKxJ1M;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77853606A32F;
-	Mon, 16 Nov 2026 13:09:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77853606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81EC8606A31C;
+	Mon, 16 Nov 2026 13:09:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81EC8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=iQHnSc8Q
-Received: from killaraus.ideasonboard.com (2001-14ba-7086-3000--a06.rev.dnainternet.fi [IPv6:2001:14ba:7086:3000::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3FDB24BB;
-	Mon, 16 Nov 2026 14:07:06 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794834426;
-	bh=XGFT3pYMLclnI4fXApBtwxVaR0ChmeSMX60Y/t7ko04=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iQHnSc8QlzXeUpMIyURmdSwPqr4S38zZ9DToT905zH1tbSwWt8Smlaq+gYp3oOKw8
-	 D2lwrS1d15qO9V6ut1ZD4KD9GedfaqYPCMlY6x5UfdXeP8eadpejCVuTr7daeoKarW
-	 fPtkbIWgbldZzp8ybj6zDbHjJf1hSk/DbbgsPGuQ=
-Date: Mon, 16 Nov 2026 15:09:31 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=l+iKxJ1M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=wu
+	kc0fhPEwtFGc9I09i5YG1FWfRn2SmGsfOzkZNlNXQ=; b=l+iKxJ1M9vBZrthH1a
+	BtwSX0AKYtnuI/yzTpaqajrlv0EimpZg7NABwC0NsbNcjJAGtKIoVdQgJfym2pS1
+	V03eQjLUvPiLO+fJslBveiSYbvyt43Xh63iUYiKGznjkR4v5OYpK519xLAhElcEJ
+	RU4g8zIuH0ss+c5Zqsw7JFQnI=
+Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-0 (Coremail) with SMTP id _____wD3X2KMAPtqmzyJHQ--.35872S2;
+	Mon, 16 Nov 2026 21:09:33 +0800 (CST)
+From: Ziheng Wei <zihengw03@163.com>
+To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	kernel test robot <lkp@intel.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 2/3] media: uvcvideo: Check header length in
- uvc_video_clock_decode()
-Message-ID: <20261116130931.GB1714298@killaraus.ideasonboard.com>
-References: <20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org>
- <20261116-uvc-shortmeta-v1-2-487cfe42fa89@chromium.org>
+Subject: [PATCH] parport: do not re-enable interrupts in parport_claim()
+Date: Mon, 16 Nov 2026 21:09:30 +0800
+Message-ID: <20261116130930.1629208-1-zihengw03@163.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,49 +61,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261116-uvc-shortmeta-v1-2-487cfe42fa89@chromium.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3X2KMAPtqmzyJHQ--.35872S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCrykXw4rKFWrAw1fCFW5Awb_yoWrWFy5pF
+	WvgF90q3yv9Fyxuw47X3Wj9a4Y9ws5Aw43CFykG343Aa1DJr4fWr1xKF909F1Y9r1xJFZ5
+	XF1rWrZ7Cw45Aw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jtPEhUUUUU=
+X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7g28DWr7AI0FFQAA3e
 
-On Mon, Nov 16, 2026 at 11:56:38AM +0000, Ricardo Ribalda wrote:
-> In UVC, the header size is defined in data[0]; all the bytes beyond that
-> length are pixels.
-> 
-> Currently, uvc_video_clock_decode() could parse pixels as PTS/SCR
-> because it checks the bounds against the USB packet size, not the header
-> size.
+parport_claim() takes port->cad_lock with write_lock_irqsave() and holds
+it until the end of the function.  When the device that gets the port
+was queued on the wait list (sleeping in parport_claim_or_block(), or
+having a wakeup callback), parport_claim() takes it off the list under
+port->waitlist_lock using spin_lock_irq() and spin_unlock_irq().  This
+usually runs in the context of the previous owner, when
+parport_release() hands the port over.  spin_unlock_irq() enables local
+interrupts unconditionally, so the rest of the cad_lock section (setting
+port->cad, daisy chain selection and ->restore_state()) runs with
+interrupts enabled while cad_lock is held for writing.
 
-So you have seen those checks :-)
+parport_irq_handler() takes read_lock(&port->cad_lock) for every
+interrupt on the port's line, including shared PCI INTx lines, since
+parport_pc and parport_serial request the IRQ with IRQF_SHARED.  If
+such an interrupt arrives on the same CPU inside that window, the
+handler spins on the lock held by the code it interrupted and the CPU
+locks up.  The early unlock also turns interrupts back on behind the
+back of callers that hold their own spinlock with interrupts disabled,
+such as imm_wakeup()/imm_pb_claim() and ppa_wakeup()/ppa_pb_claim(),
+which call parport_claim() under spin_lock_irqsave(&arbitration_lock).
 
-> Fix it.
-> 
-> Fixes: 66847ef013cc ("[media] uvcvideo: Add UVC timestamps support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> ---
->  drivers/media/usb/uvc/uvc_video.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> index 9cc5d83acbc2..e9be0a627033 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -582,8 +582,12 @@ uvc_video_clock_decode(struct uvc_streaming *stream, struct uvc_buffer *buf,
->  	}
->  
->  	/* Check for invalid headers. */
-> -	if (len < header_size)
-> +	if (len < header_size || data[0] < header_size) {
-> +		uvc_warn_once(stream->dev, UVC_WARN_META_SHORT,
-> +			      "UVC non compliance: payload header length %u is shorter than expected %u (flags 0x%02x).\n",
-> +			      data[0], header_size, data[1]);
->  		return;
-> +	}
->  
->  	/*
->  	 * Extract the timestamps:
+Reproduced on v7.3.1 (share.c is unchanged in mainline) in QEMU with the
+emulated ISA parallel port (parport_pc, IRQ 7 from ACPI PnP), as a user
+in the lp group with two ppdev openers: one holds the port, the other
+blocks in PPCLAIM, and the holder closes its fd.  Lockdep reports:
 
+  WARNING: inconsistent lock state
+  inconsistent {IN-HARDIRQ-R} -> {HARDIRQ-ON-W} usage.
+  ...
+   _raw_spin_unlock_irq+0x28/0x80
+   parport_claim+0x692/0xc80 [parport]
+   parport_release+0x5c0/0x7c0 [parport]
+   pp_release+0x37c/0x980 [ppdev]
+
+and CONFIG_DEBUG_IRQFLAGS adds "raw_local_irq_restore() called with IRQs
+enabled" for the final write_unlock_irqrestore().  When the closing task
+runs on the CPU that handles IRQ 7, that CPU spins forever in
+parport_irq_handler() -> _raw_read_lock(), on top of
+parport_pc_restore_state() running with interrupts enabled.  QEMU
+raises the port interrupt on the control register write in
+->restore_state(), so there the hang happens every time.  On real
+hardware the interrupt has to arrive inside a window of a few
+microseconds; I have not tested real hardware.  With this patch the
+same test runs clean and the port interrupt is still delivered.
+
+Interrupts are already disabled at this point, so use spin_lock() and
+spin_unlock(), as the "blocked" path in the same function already does.
+waitlist_lock is never taken from hardirq context.
+
+Found by LLM-assisted static analysis.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/r/202608091622.jlJn0jOj-lkp@intel.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Ziheng Wei <zihengw03@163.com>
+---
+
+Notes:
+    The changelog was drafted with an AI assistant from my analysis;
+    I have reviewed the code, the fix and the text.
+
+ drivers/parport/share.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/parport/share.c b/drivers/parport/share.c
+index eb0977ca1..d1b9f17d1 100644
+--- a/drivers/parport/share.c
++++ b/drivers/parport/share.c
+@@ -999,7 +999,7 @@ int parport_claim(struct pardevice *dev)
+ 		dev->waiting = 0;
+ 
+ 		/* Take ourselves out of the wait list again.  */
+-		spin_lock_irq(&port->waitlist_lock);
++		spin_lock(&port->waitlist_lock);
+ 		if (dev->waitprev)
+ 			dev->waitprev->waitnext = dev->waitnext;
+ 		else
+@@ -1008,7 +1008,7 @@ int parport_claim(struct pardevice *dev)
+ 			dev->waitnext->waitprev = dev->waitprev;
+ 		else
+ 			port->waittail = dev->waitprev;
+-		spin_unlock_irq(&port->waitlist_lock);
++		spin_unlock(&port->waitlist_lock);
+ 		dev->waitprev = dev->waitnext = NULL;
+ 	}
+ 
+
+base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
 -- 
-Regards,
+2.43.0
 
-Laurent Pinchart
