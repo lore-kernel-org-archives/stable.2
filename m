@@ -1,63 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794818868;
-	b=p/WC8zPxHGjWcx6T/aetMy58mAAQQdOWa/1pdonJurbv3Rm9K/iQp2VzKzSuAk95P9/e
-	 prZ7hlDEn3NvAGTwWvDpiFjnBZav00zuXEAa/H4b0CpRSnxWS3k4S7GPEEfQok7Kohrcn
-	 lwEn6NX6rAvvjfv9EsZo1qpiMmVvL35/MRtfcMigtO+Mb96BSwob91Ziaftdov80Rjfm8
-	 Hhktu3Pj5XIlq3TJarXtFgabVQENjg4y9wBpoVcav3/i8PHy7LSrjwUBvdltd7F02tLsZ
-	 wosD9OSRfOlJlv/WMJ2Tf/e4NP8sdwCsdhzyEwTtdnZExI4lPE+qZmq0HdS2BJFb4rA==
+	t=1794818931;
+	b=t9gpAWngiDCFp2qEb9O8pu7sLGzXM2ldZ/L7q2pxi0Yjh2QCiQ7p0Ocs1o0WsUw/G8QP
+	 rtf7h7p1yQLAqevGOvEKtwaIZYzPVm9j9Xk95NWiXbNTO84GDDuQeqowtnGYEuTvAi2b5
+	 AqwM6wdIXFCXZl0n0u1DhhhR7NsH1aEmOOvf+FMB7QPBt+W9PTZDZFalhuPV/3M++MoG3
+	 u3EH75C/QX8lwUaINMWw5bPRAWGmgE8H5mJasmWYA/OXmfJrSmHAMH+649Kd5+Fam52VD
+	 GwHnZJmtwEOiwGyNbow6gC+5giQFNEPeXv7/nuRwrDO/w+daMi+dC1JQ7egVHhigeNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794818868;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=qs1+XyJIBcRXvNK4eAjtS4NGdjhzHm1jJtJ5wQ/HE4A=;
-	b=Veo+XTwlZhEwjWzeVQOHz8eAKSTz6RLgJTXLzqUDk4wa148ZeJaf1x2BoR3/BcdazmFO
-	 FzNAFhl3/3FDX+5yzfRzdgnIO34/Xn35oqFko9705DFNMVyuX0luf6mKctZeKBhMrGXOz
-	 +zKDJTkJlYVCDrEIqbV+HtDrH00kqoyx3ASq53jYL+gji6+tmIWl5D3oBNxRKp4ZYWTIG
-	 qE4SgHWNwBPzJpbvs3yWQvbP2XH8e+bujgNNfG580Rljo4XDrj6Bi3ZnIFyT8/8lN9jHI
-	 q8yy5fSR+VgG5SvDoxGIEw/eywDWrEBWNFkW9xf3+bZ9W0U9q1jBrjpJtArUXz0me6w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794818931;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=cRVaCL7qU/Nur8d4hgs/SV92X/SL9mr/1daLWF0YHKI=;
+	b=STxujYFlUrhM1OCs4symiMGqEO0KFX7hjFYuofS8xLF4tEQPgOfRTNdnVJ9lrIbxFLmj
+	 yuZ8Ahr4KcKzY0EqHl5zgaN5ScnYv2zO923QvfsqKqOsJ/cQoZxmO+1VvUUg8sWwPwnXA
+	 YenbCrrVJvz0fFwOifj56sf8D5dRT8Uzdu3zM3fwhYsTO6ah5myJvbN/X9EtTsHxhjjT5
+	 LsVDus04iGFgdOwuqWcOiS2uwTLvBdyVXlxn2bJRjmwJQOgmbLqlscQ/RoZM9wpSrBv2H
+	 /DJ0AAzSRKHdu+QUdUAb72ivpOZqCBTU1Och6GX24us+aO4O86/t6Qf6ZqwB6jfiBcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Dszj5M7U;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C88606A31C;
-	Mon, 16 Nov 2026 08:47:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17C88606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="Vqu+DQf/";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA85A606A335;
+	Mon, 16 Nov 2026 08:48:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA85A606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Dszj5M7U
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9661410EF78;
-	Mon, 16 Nov 2026 09:47:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794818861;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=qs1+XyJIBcRXvNK4eAjtS4NGdjhzHm1jJtJ5wQ/HE4A=;
-	b=Dszj5M7U3OEX3vPhggvupYiDIDtgJ1CjrqH5Jt0f645TpAqgjRC9P+8/lrpkHKJ+4JoiTI
-	L6UReXGEDu+KJYLwUgrhEDOaOLHm8TXhzjZsjwb1Cvq8TSacvTA4Zi7CQC+V2kbXr6z2Ec
-	oJYa65T0uQ1X8vP0Ux1FzzD28Tw5cWSUL3S4IYBT8R50BW7hIMwlI/8f42jVXfRI2av8Qg
-	Nr8K2WPco6yYOr8L9d1lNx14IvPMRsO1EjKVZuGoVCeILnDjUDnlM/+rpDR6UfPcoSs0l3
-	x6LaUOrQKikwH0C250Caia2m9t8ssLX83VmU+40Km/H10RKzqjVPiq2+uJXVfA==
-Date: Mon, 16 Nov 2026 09:47:36 +0100
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 7.3 000/507] 7.3.5-rc1 review
-Message-ID: <avrDKGcdTCqA4RFn@duo.ucw.cz>
-References: <20261113153753.358973689@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=Vqu+DQf/
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1987E1476;
+	Mon, 16 Nov 2026 00:48:47 -0800 (PST)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 063273F673;
+	Mon, 16 Nov 2026 00:48:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794818930; bh=0WXE/Ly9cpApr/71QrxJ7M876eoHyZDmr6/7lDWWuQA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Vqu+DQf/8WoHXNUICTl252urZ1VZBjUD5IxrSPQw8Og68X/mI+9yOTKikAuycE2NM
+	 JgV9UHCp9ROnf6DrjV6/siDzVuGlksM11dt4Nb6DgaYzrn6sWGuXVE4upg4m0oHcmQ
+	 aqnGnd/xYeD550ektColUwYAJhb6NeVbei6HnwpM=
+Date: Mon, 16 Nov 2026 08:48:41 +0000
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: Chengyu Liu <lui2012qwq@gmail.com>
+Cc: sudeep.holla@kernel.org, arm-scmi@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org,
+	cristian.marussi@arm.com
+Subject: Re: [PATCH] firmware: arm_scmi: fix deadlock between reboot notifier
+ and forceful work
+Message-ID: <avrDaZKTkXKfono7@pluto>
+References: <20261104053359.1613991-1-lui2012qwq@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,72 +61,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="7nLTaoNpBa1RI6kS"
-Content-Disposition: inline
-In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
-
-
---7nLTaoNpBa1RI6kS
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20261104053359.1613991-1-lui2012qwq@gmail.com>
 
-Hi!
+On Wed, Nov 04, 2026 at 01:33:59PM +0800, Chengyu Liu wrote:
+> scmi_reboot_notifier() calls cancel_delayed_work_sync() while holding
+> sc->state_mtx, but the work it waits on - scmi_forceful_work_func() -
+> takes the same mutex.  If a forceful transition work is in flight when
+> the reboot notifier fires, the notifier holds the lock and waits for
+> the callback while the callback waits for the lock: deadlock, and the
+> reboot wedges.
+> 
+> Moving the cancel outside the lock is not sufficient on its own, as the
+> callback also calls unregister_reboot_notifier() unconditionally, which
+> blocks on the reboot chain rwsem (down_write vs. the in-progress
+> chain's down_read) while the notifier waits for the callback - the
+> deadlock would just move to a different lock.  Fix both sides:
+> 
+> - Notifier: compute the decision under state_mtx, drop the lock, then
+>   cancel.  A callback that slips in between sees state ==
+>   SCMI_SYSPOWER_REBOOTING (not IN_PROGRESS), skips the forceful
+>   request and finishes, so the cancel cannot miss it.  (The callback's
+>   own system_state early-return does not cover a work item that
+>   started before the reboot began: kernel_restart_prepare() runs the
+>   notifier chain before setting system_state.)
+> 
+> - Callback: only unregister the reboot notifier when actually forcing
+>   the transition - that is the only case that needs it, because the
+>   forceful kernel_restart()/kernel_power_off() would otherwise
+>   re-enter scmi_reboot_notifier and self-deadlock on state_mtx.  When
+>   the state is not IN_PROGRESS there is nothing to force, and skipping
+>   the unregister keeps the callback from blocking on the reboot chain
+>   rwsem while the notifier waits for it.
+> 
+> Found by static analysis.
 
-> This is the start of the stable review cycle for the 7.3.5 release.
-> There are 507 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+Hi,
 
-We get build errors here:
+thanks for this, this looks good to me.
 
+Sashiko flagged a residual issue in your patch:
 
-236
-19:06:22
-  CC      arch/arm/kernel/asm-offsets.s
-237
-19:06:23
-In file included from arch/arm/kernel/asm-offsets.c:12:
-238
-19:06:23
-./include/linux/mmap_lock.h: In function 'vma_end_write_all':
-239
-19:06:23
-./include/linux/mmap_lock.h:604:25: error: 'struct mm_struct' has no member named 'mm_lock_seq'
-240
-19:06:23
-  604 |         if (unlikely(!mm->mm_lock_seq.sequence))
-241
-19:06:23
-      |                         ^~
-242
-19:06:23
-./include/linux/compiler.h:77:45: note: in definition of macro 'unlikely'
-243
-19:06:23
-   77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
-244
-19:06:23
-      |                                             ^
-245
-19:06:23
-make[2]: *** [scripts/Makefile.build:185:
-arch/arm/kernel/asm-offsets.s] Error 1
+https://sashiko.dev/#/patchset/20260916093527.2004594-1-vulab%40iscas.ac.cn
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/3065943408
+Since I am fixing some other issues around this driver I reposted your
+patch within my own series, maintaining your authorship and adding
+the additional fix needed (hopefully :P)
 
-Best regards,
-								Pavel
+My series including your is at:
 
---7nLTaoNpBa1RI6kS
-Content-Type: application/pgp-signature; name="signature.asc"
+https://lore.kernel.org/arm-scmi/20261116084211.3066460-1-cristian.marussi@arm.com/T/#t
 
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCavrDKAAKCRAw5/Bqldv6
-8ul/AJ9f+PnOukZPzcN2ZHZtw9cnclNmZACeMOiCeO2h+nlj4rHyzyH6uojigtI=
-=Qmfa
------END PGP SIGNATURE-----
-
---7nLTaoNpBa1RI6kS--
+Thanks,
+Cristian
