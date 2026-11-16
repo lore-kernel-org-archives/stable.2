@@ -1,105 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794815990;
-	b=ofvLKS5Q3utssyXzNplNuCt1khBLg8ITDR8o6AfQ3CNvkzXr03ToZKsZ84heJ1D7qulN
-	 AXsCH4hNoX/cpNAe7H34Qh2X+ZCO+8ELV5TBZqUepgY9rDjvtSrtB+VeMXILN1oBx20NI
-	 UW4r0PVm8rVY/6X2ifunfaxIQvc2aziC72MeJVw6rPXkXT9zJZpwoBya4zE08O6Y0y9M0
-	 VfBuC3jgpvoBovOVEg5EQfLvCJNLYS5a5VMpTbOtSTyztdhH1Y+40ZeEDfce3EhmPoLDs
-	 ZPhhXp5huE0pZV5XXdLZHBK2xMoAm+Y2w6LgePGq2fQpZaHhmgoiahYAl5A608QynnA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794815990;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
-	bh=mcuJSSxZnzgSbNJLicY5YRDK+dG26RVtPhpOzcEjiSU=;
-	b=YFH+JN4Bybx0OfEm+u7Uknm35iT9u96oQD1E+utdnsc/y/PeiuA/LjkoPZhepzhW8z1N
-	 5304ZR+7cASk7rVgAoWQnj9Bdim80wIe4hlw4yUxA5uupEXBCsOdUZaKIaTqQwjkBWgBG
-	 8liFfVhBsv4+ZPbJYTnI7CcqIcB3TPD+w23EpMO3+2jEz0EGx0A88UJ/IjPd2zpltrcba
-	 dOSAKDwypETnRnUdzgZFwodIiK83l+uX+18Nth7qGlJHLB6C8pHaUq9xUN2jtKAGx7XHU
-	 N8/YMt9cyN6+FJcxzgQhg4i1OU8BJcXIP6RD2768I6wt6f2/1qx6S1km5aRvk2EFGtg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=amutable.com;
-	spf=pass smtp.mailfrom=amutable.com;
-	dkim=pass header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=O1BXF7ki;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.89
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794816409;
+	b=cDTOyE0gMA2OImGytCNIw2dKqycS1vUg65JOYmiJa/keu7RK4KHc5G4oTEViLoEBBro/
+	 KzTpFRhRQWUgjMppawnfzChvSohG0ZegE/flOkeUekuBOjbRy0ellDG97b7w4xNeMSSdk
+	 CIVyMolX5apH99kV5JJEKsoOuZiqk9VGQ44VPhvUMpzlKcSTl0Io5wWPavAKFb1Ouk3m7
+	 BD5CPcNOZrc7DuGxBSTQwnq9jczxmVEIzPMiyu6TDmlq8/mG9+yCw2BCCRQt+MNykviPW
+	 vmFyupaugWb60qVu7gD4anLOh+sq61wWrhwbsW8cxhMszvg4yV9IHTKm5EGhQb+Y6AA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794816409;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Voebxl4/DcQA8voWRgiWEBplvH3q7171n/a/71SM/Bc=;
+	b=S07sZvoqjR8l/GoVN+LPBZCOTl+y2S/Bezf4RXLtlgTkPwc4r1OIzSA9akBHybLkoUuX
+	 PNb4BIelgMqWfGubSS+kNaF0v3Gu07Fb1k4VKpwvIBskrgEEurdJyiIleqmGLxqNWJ9dx
+	 GNSIMI2SleiwOem6onMbRx0F1BRekFrTBo1I1CrJyvl13douQlWgTzjY8q0jtKTrvIGWn
+	 WIDWqsNTpw78y0c9uQqzQVgV7S1becWDtAmtrpWymO+Huxp2e238S+ak+1IAvH33pOCla
+	 HMmjFZxMrt913UeoQzp9pIjUax4Tycz+0F59yaRh6RPZJG8NRkLl2FmaGkz/jOV4pMA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=vaisala.com;
+	spf=pass smtp.mailfrom=vaisala.com;
+	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=aD67uigr;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.162.89
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11023089.outbound.protection.outlook.com [40.107.162.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FD8606A329
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 07:59:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41FD8606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amutable.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amutable.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EE0606A31C;
+	Mon, 16 Nov 2026 08:06:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7EE0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amutable-com.20260707.gappssmtp.com header.i=@amutable-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=O1BXF7ki
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48dee593f18so3296511f8f.3
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 23:59:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amutable-com.20260707.gappssmtp.com; s=20260707; t=1794815987; x=1795420787; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=mcuJSSxZnzgSbNJLicY5YRDK+dG26RVtPhpOzcEjiSU=;
-        b=O1BXF7kitU2oRSc1LTo+wW4pDoWUGl2PNfV6Mrx6Mvp0/wij7mnUpERFldGZUqkIKs
-         XZw/mtfFkj/UusVH9UrBTKcJVRdKx157srIuj7SKjCzseY8A/sgQ6OmnwahspQTTMdTb
-         ByYOOEcfk1PuecIY/16A6lAoNoMzQHrf6zdncTXX7aDRK9LszvHpzh7ZPEH0Mx6sQJmq
-         xrh7MXGpzyM4o4TzkERIrB1zJfr9k2i/s6K+UbTefEt1DHDqv/Xkm9Buwd9MUFTJidcV
-         xXqa8U5JudzPl6G50YjbGyGAURqJrnYr87IThG271yWvR/pRqmIPWQef8YP9COtt8oSx
-         doJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794815987; x=1795420787;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mcuJSSxZnzgSbNJLicY5YRDK+dG26RVtPhpOzcEjiSU=;
-        b=IsCrocAzHY8utoqvq104C/Vs7kIVUtzJV5IALyQtNPyzGemk3YvXXua85qYrpG7J/S
-         YjJM0gsMJnA0MwWdRQNDKtV7wUdo794cH3FC7aAsfV8GSOxyznVzykk5uoAWFq5v6WdS
-         4sEtpg+U2VsyFhqxBllivs7+vg6MvMkasb200ICG5nbIBcPvmUbWgMVX3HjHHtZhYqWd
-         ChHqJUnaK95O3UtoRsbxkpQOUKeG2vsj0TdmKlOlODWyP1OSrT2mGjdMPajz8qisNOGU
-         5+vvjGuJCvwsbOaPkzyd+7mjlIUIVq3vZtYnVlSQsEYlC6ppEuxJHELyh2keACOHTUgt
-         NXqA==
-X-Forwarded-Encrypted: i=1; AL+hErHIO4rwXDeDhOAyArl/AQoBmBzGCdXsAFw4JyyiL6gV3rfDRQ9QLihBwhrkx/kx4s4urZqL2eo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+YISfC+VvF7BHuAemjRWd6oquAUlxRdXcsFv2z/Oy6N//7lJNC
-	s5gau+dopMaNEJTpza1nDbZTGNkunADlIa6sIsZS6ECMDlU3IbbKcwmk1NpJSybKVes/
-X-Gm-Gg: AYBFou0n3uv1hYKJhxBr1WaoijaoRR8YToSRMi7cLoMmETSQ5GJPgVGkefvwW+pDRF6
-	gAwdrZdNSxXv2vztK4couApwfzWZnsBWf5OQoHtMxfTWpxF37Hl/oM4vFevs/WPU3j2P/99g/WT
-	2ZG8pph+/bZmTLudkHNndvHOi5HXlcxznHM3bhdK3UNhegHrnyga1yI5GZyWH125aW5et3iCz3q
-	ZGOd0ZAimYrXi0ziEVKimhWy+mA3c+QZqgvTJIRPobUKcwMNq+JYlhXf4JPYQwpkCb0IwX5ky6v
-	0FC0oTWC3hzu9PvgSruFArzro7kPVfrJPwo+ho0i9mjMI8YCWwHG2gYlhHoSvtar1rtoa8uKvOp
-	Rrtcnko5rITMzCdxMpE4jFOFRf+xQAaKiDR95xmzfhHx5e4ksghn95nABC+9LrAI6I93eEeNE0r
-	TEUTyOeOU9VnBPKjY48R1P7JSCqGsuJXmFPeib20/xPyncY5Ko7HR0WpYiMBBUneYbdJ/F2G9he
-	K8KjOqlDeTMrdltacN7jVebmD4DcbyYf/pPuHQh9Gme1pqWemFndhxR0mFHb+M5ij6Y2rEx8qoZ
-	jcr8YrVOSjiai7S1TO1Acep9X19RO4FG6F70LP7qFR9AI/UgWnRd19leSnYvkSvBhqqP51BrVqU
-	q3ePucVPH
-X-Received: by 2002:a05:6000:993:b0:48f:bc59:ab9c with SMTP id ffacd0b85a97d-49c6fd932f0mr20349731f8f.12.1794815987554;
-        Sun, 15 Nov 2026 23:59:47 -0800 (PST)
-Received: from [10.0.0.233] (tmo-086-54.customers.d1-online.com. [80.187.86.54])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49d69c21a17sm15766858f8f.50.2026.11.15.23.59.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 15 Nov 2026 23:59:47 -0800 (PST)
-Message-ID: <832e0f9ce4e81ee31a6bcde01591a56aac36e976.camel@amutable.com>
-Subject: Re: [PATCH RFC 3/4] crash_dump: recover from a machine check in
- copy_oldmem_page()
-From: Alexander Mikhalitsyn <alex@amutable.com>
-To: Christian Brauner <brauner@kernel.org>, linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Breno Leitao
-	 <leitao@debian.org>, Chris Mason <mason@kernel.org>, Thomas Gleixner
-	 <tglx@kernel.org>, x86@kernel.org, kexec@lists.infradead.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-arm-kernel@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, loongarch@lists.linux.dev, 
-	linux-mips@vger.kernel.org, linux-sh@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, David Hildenbrand <david@kernel.org>, 
-	stable@vger.kernel.org
-Date: Mon, 16 Nov 2026 08:59:45 +0100
-In-Reply-To: <20261112-work-procfs-oldmem-v1-3-ecdcafd99265@kernel.org>
-References: <20261112-work-procfs-oldmem-v1-0-ecdcafd99265@kernel.org>
-	 <20261112-work-procfs-oldmem-v1-3-ecdcafd99265@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=aD67uigr
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yR6uAIxxYTzIPJsPF7xWEq+6HsDgwGsYL2indLZGJD7F8A8kSZ5/er28fekeNFFgWMlYXrAbYbtiU48iBQtTGYix5/zSK9ONXoJHZJlMwkCoLJB3+pSY2C32GN7JFVw0VQ3cfHma8YQAr4TPu/ofrOb4tutWA2ogsIIq8dggNrulDlmphyeevczAFvMAXRgpSNJGIgNqmRPFSvoC5tpDFxyX0YQhh9VTzDlG+YvdPWt3LNNA3oRkkcVaw0UZ9yaGH33hzLNz1r2/r7HHMqIwl96vi5RlPhdli3QVYTDfThvEacmlBUN495z0/5PM4Jx9oYXxgRGj5qxvF9FGRccGxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Voebxl4/DcQA8voWRgiWEBplvH3q7171n/a/71SM/Bc=;
+ b=fvD5+G3cY/JMCgrZ8pf52/nh4WLtitiVF869e8ZvtWhLoepRXcUmFFgezbbBNCby8fImiXEztT1Et2qS7lOsSVCzCjC6zuWLrrmNP+Nlz8stzsjyqEuHuMuvbc5MbZMmxdG10YlHXK434re0wVU2YdLOQSg2PlR5Ji8JS8OeLaj6D8oILG5E5rioMLqtiIJFYLgS4/dQ0mTIEagsoiPa005CZYG7HH0mTnYorM9iHYC34xE8t48DUHAX/PTZTu47GCzdJjTL5YGS/GEtagcZY0ofAQdPdbr3QFLYBrxOEOYFqTN6lN2DCswfGemnbRIHuLgv2Z4agdMJuIYY8yHaUQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
+ dkim=pass header.d=vaisala.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Voebxl4/DcQA8voWRgiWEBplvH3q7171n/a/71SM/Bc=;
+ b=aD67uigrz/Y1ZhKBJ18AdcsUNnwfOc5TTVjiyvTAFFc4cjiojkizqRQQS1lPSEspnRtuBNfZH6tWtuQ5cbRZLShTskVX5ijRcOJVqBPlWqJWZ3S1/yGOJEb6lRxkWwzMuTsFA80ePmEH9YEmb+DkxUbr2Rmcn/p3tLP8ebFTYv1jEfcQV+18B6TnN/+emstDFlgRtxbydKU4d+kTTgVhm8vC6xSl7wZXtuRsM3ZaSgrq9zJXVqrTly9gTuIt7/vIUmA29PeK6R9FnbfxNQlhG+JThRWvJbZw0q7GRevuSbN6M3JmdpGA5LlAscuV4LY3XWZ7niUICYViajcPy4Jtfg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=vaisala.com;
+Received: from PA2PR06MB9176.eurprd06.prod.outlook.com (2603:10a6:102:407::17)
+ by GV2PR06MB10207.eurprd06.prod.outlook.com (2603:10a6:150:2d0::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 08:06:40 +0000
+Received: from PA2PR06MB9176.eurprd06.prod.outlook.com
+ ([fe80::b6d:8160:d324:3bfc]) by PA2PR06MB9176.eurprd06.prod.outlook.com
+ ([fe80::b6d:8160:d324:3bfc%7]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
+ 08:06:40 +0000
+From: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Date: Mon, 16 Nov 2026 08:06:29 +0000
+Subject: [PATCH v3 2/2] serial: core: do not touch the port after dropping
+ the last reference
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261116-serial-core-remove-deadlock-v3-2-899237225221@vaisala.com>
+References: <20261116-serial-core-remove-deadlock-v3-0-899237225221@vaisala.com>
+In-Reply-To: <20261116-serial-core-remove-deadlock-v3-0-899237225221@vaisala.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: Johan Hovold <johan@kernel.org>, stable@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ Tapio Reijonen <tapio.reijonen@vaisala.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794816397; l=1957;
+ i=tapio.reijonen@vaisala.com; s=20250903; h=from:subject:message-id;
+ bh=9rHnIKmF0zrfnunBh7XA9C6cbJSLablTKXNoWNAnQzQ=;
+ b=8DlLOwQx5H2oDWKOEMM2ASN//5p4CKDrF19i+L/k5QPrE1fjDPoXUjdA4CwaPfzdlVGYu0Ug7
+ 1d3sp31pmBmD48hndyPKZAzxm1lj/aUToOiYX8lwgbtk+eSolbnYRha
+X-Developer-Key: i=tapio.reijonen@vaisala.com; a=ed25519;
+ pk=jWBz3VD84WbWgfEgIqB5iFFiyVIHZr52zVBPOm7qiGo=
+X-ClientProxiedBy: OS6P279CA0145.NORP279.PROD.OUTLOOK.COM
+ (2603:10a6:e10:3a::19) To PA2PR06MB9176.eurprd06.prod.outlook.com
+ (2603:10a6:102:407::17)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -109,220 +107,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|GV2PR06MB10207:EE_
+X-MS-Office365-Filtering-Correlation-Id: bed85478-9eca-4141-8dbb-08df43b88b71
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|52116014|23010399003|38350700014|10067099003|11063799006|56012099006|261021123027099003|261022075727099003|261021121427099003|261026140227099003|261022105027099003|261028144727099003|261102123227099003|261009223027099003|261009221227099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	F0jX4az+5vB+faIrM3r9IU4S76hGpBG/eykxnXLq2bbn499XbNFt//9guf5uAhrLoZLMQTXrC7J/uDoFe0wp3hEViYKKkV8S+lqO6t78zEtw9gWXx8DZE8DmRIKtG7ArXB69lk0Yy8potbPboCiJZWNAyT4hWU6BFeV7ttt1CKCmGw7geLBsDsRJjxLIwrFjFUigaOFs7U17MOyozM+WsHaBuq4XoM2a+8Z1VGzbjLO+W24kNLMRcnGpchZ/toE2naf9pR2z/LC8uob4rRopZ3W553VBWHr4FUA/161CkE/kavM5Cpsvv7BYN30A42jA2TvLZX8T1ynp9NnS1rdmWE7/JDtrO9VpfmU00iY4ZPkkZgcC2oIMN1IpcaMCK3b90NQaqamW41evHubpG3VV3DpcrOQcTyzHPBUwBKvo5kqxcvpLGMvCFPvrztqS4RWqPO25wOjh+F84Ge1eZLM7EpvkBglQwHg3AbBlwVfIHXVOeUC48U8lIwLcXQ5dlCQhxDKNoq7DWwsmWUNLa1wzgTwcIF2Nyip66oO73LbDWPgJ4mW+JrWGq0yLDeqV3XjUzCLAVDO7p/XRmlPXEodmRx9M7bPAHW9eSc7H/XdHPDNoVd5vhlvJJBWXypy/QCAlFeg3vjPuC/rpWN39QWsPEkFhfo73MFZakDbv6bBTrf1FrPzVEq8fc9ojFXfNwIgYYFjkoDB+XT37uaQLRJouQg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(52116014)(23010399003)(38350700014)(10067099003)(11063799006)(56012099006)(261021123027099003)(261022075727099003)(261021121427099003)(261026140227099003)(261022105027099003)(261028144727099003)(261102123227099003)(261009223027099003)(261009221227099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?THU1amk5MjFEdDJqSEpYUGdrY2hEZlN2RlZJbkQ4ZElYNVhaUTNLRUd4aHZw?=
+ =?utf-8?B?Zk44VDArbFpjRVZYRDVodFhYajdRVU5pMGhIUHJCamp1YWF4NDN4S2l4UTM0?=
+ =?utf-8?B?QUx6eURzT3pyTzBZYTRNYVd5eGNpYlp1VmhNakx4YTQ5YXJzVzFPSCtmT0gz?=
+ =?utf-8?B?ckdSRGkrVUo3UjhKOVhyL1U1clR4MFRJTGhRYm83WmJ4cG9nL3ZUNWR3eitu?=
+ =?utf-8?B?cGNtTFA0RnZVdFJoRlRRSFgwbWxmMUxLQXZ4c2xyMUk4WWZUVGVHZVQzeUZv?=
+ =?utf-8?B?akJaRi9uTlVtUEtlNGNDaEtnZXRORlpwK3JOVmQzQ3ZJanFIdmkxbjJORTNh?=
+ =?utf-8?B?K2lQQjJoNGZ1UkVJMG5qSElNR3lSTkVEUHQvb1krM0Y0bGVUM0k4cmJEZVhn?=
+ =?utf-8?B?d1lGYmR2eG1jR1k4aUVoOE5JY1BxQ0xPYy9TblQwM1BKY1JocUhVL3h0ZE9Y?=
+ =?utf-8?B?eFlIdktDWU56WFpicGtyaVdXVzc1NkphSnE2aGtmOUZleHNYSGVnNXg0NmIz?=
+ =?utf-8?B?ekJJTk96N294UC9xdmVSMkFvNWZCRW9iWW84ODVxc09FSS85OUN6di8zMDBC?=
+ =?utf-8?B?dXVlVjFoL3ZsUlh2QldvWWhUa2JnSEtVdWlKNlRmUi8zWlJCOHQ5azM2d29M?=
+ =?utf-8?B?Y01zN3VlNkNzZ0UrRlRFVkd3STZxR2ZBczhCYzZjYkUzWHFjY3duNHhSZVV3?=
+ =?utf-8?B?S2QwOVNiaTMrakFSSnZjQmlkTkI5ZkpZdElhYUYvQUl0aVFLQ0RKU1k3Znlq?=
+ =?utf-8?B?TXg0R25uQ2VrZGRwY0Z3NEpQdjAvZ2ordEdrR2ZPUldDL0M3NWxoeS9TcFdW?=
+ =?utf-8?B?OGJrMzhVK1lPMFZqdmJrVTJHSkdOSENQMU4zSjRCR202ejJjYmxOSVE0R3dB?=
+ =?utf-8?B?Z1c4aUFjT0FMajJYTkQrUVllQWdPNmZMN3FtR1hSdkJsMmtFNDd3cEtjcEEx?=
+ =?utf-8?B?VWY0M29PRkd2SjdZSjhDUSs1Z0Q3SFg2MkhkNHJEcVRQdkIxKzdEdW9IQTZF?=
+ =?utf-8?B?ZytsUW1Sd29jdUozUFVtTDl4NElnM3BDMWFlRHNlaW1YRUEvMEVvTE5tODZL?=
+ =?utf-8?B?bjVHSVJ2TTZlb0NGWGlXTTMrUUNjd0N2VCsrdU5BdmdqMXpLZ0hqMUM5Vmd4?=
+ =?utf-8?B?KzY2ZlFiTW5BczZkbWlVcFQyd2xTNCthR0QydVZHWE93WGVPeDFGVE1BQWwz?=
+ =?utf-8?B?eVdVVHR0VzN0bjMxSHAxc3pCcjl2MXhyYXRIY2w1YlJyblhHUWJQNCtwMy9X?=
+ =?utf-8?B?ZzQrNy94SEVXalpPdDV3OEhvK3M4d0ZSczdmYjVySjFnY05vS0pYTGlVS3Nk?=
+ =?utf-8?B?aExxNHRzcnNjWHhwSUZYZlQ2Y055YzVaeWdRWmtXaC82ZStVSGRISisrRU85?=
+ =?utf-8?B?elB4WkxnVXpVRUt3bEQwbm9qODJabmRJMlA0SlA3VU5FN05TWUZ2OGxkeEJ6?=
+ =?utf-8?B?MU9Cb0Q4MGpwTjBEck1kTy81dWR5ODcwZExHNWZHSEFteXRlNW5qYnZmaWFu?=
+ =?utf-8?B?dW1RNmFxL1RZTnpGdHh2V0hGRG1VeFc2dk9FU1dFVC80aUVST0xlR2ZBYjAy?=
+ =?utf-8?B?a3BRNmxGRmNlUFd3Y0dFN3llN0t0TjhlQjh2U0s3TEU5cCszOHA0U2JBcTBN?=
+ =?utf-8?B?OVpkZ2IzU0ViakpWZjI5aEtibklzQWtsNlFWQzdRd3UrUFo2eS9uNCtCWDA4?=
+ =?utf-8?B?T3ZJL1ZndytoenlhYzR2dGZ3R3pSV3JYSkk4cnFXQ3N2elBXVE5nellHbmIy?=
+ =?utf-8?B?UTZwd3htK052dUIvNVNTWHM4NXorZ1lrZzZ4N1YvTjkxTFhsTHZLZ2NJVjY5?=
+ =?utf-8?B?aUljNXNPb2tzQTFDQUw3Ylg3eVBEYTJ1RERBK2dIbFIwRHRMeDJldE44VHR1?=
+ =?utf-8?B?WFUwaStwS1liamxiSWg4YUYvMDZBQUEyNFR2NTRSUk9RZGp1dzhSTjZJZHVm?=
+ =?utf-8?B?Wi83V291SE9heUEweFM5YlhGMUpHTFRzaVRXZFhSRkZMaUZuOHdCZ1N6VGUv?=
+ =?utf-8?B?Rm5RWUpzS1Y3RmNCWXRpTUFRQmlpZDNXSi9sUmtLRnoxTGQvWDdNV1JNZWdl?=
+ =?utf-8?B?Ry9VbThFazZrbW50QTgza204Uzk3WVkzakcwNTlYYUh6TUZBYUFWcjNCR09m?=
+ =?utf-8?B?U1NpakE5R2crVGhsSWxrNUxDWmk1UmJlTVdseUtuRCtQNS9jZUVxNHc2eHFM?=
+ =?utf-8?B?V0E3VnkrQU0zeGtUbmVBODNMK3MzaUZOQjlZV3kyVVM0VTYzMk0rQnhUclJ5?=
+ =?utf-8?B?d01QUWFnWHBCQ3UxL3hmeUUxKzJPUUp2SUtpUW5zc0NWbS9EaHFUQjVlSFZF?=
+ =?utf-8?B?THlDNXNmd1NFazRpWXFHQTBoR0FiOUFzSnFzanVVNHAwMVpTRUJXN3dWZUJv?=
+ =?utf-8?Q?t7PeWLKoubazHWhA=3D?=
+X-OriginatorOrg: vaisala.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bed85478-9eca-4141-8dbb-08df43b88b71
+X-MS-Exchange-CrossTenant-AuthSource: PA2PR06MB9176.eurprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 08:06:40.3350
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: B5NTQq98I3jxh19WDwqUH9wLQKWwOhYPRG1CaAVMrhQ/Mw20lzDb42PRoNV/tm2VSeDIzWFhhn2xeZmgzd909CjKWx8fCe7YfcjYxFDwQMY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR06MB10207
 
-On Thu, 2026-11-12 at 17:37 +0100, Christian Brauner wrote:
-> A capture kernel reads the memory of the crashed kernel, and that
-> memory
-> may well have uncorrectable errors. That is after all what the first
-> kernel often died of. Every architecture that maps a page of the old
-> kernel and copies it out does so with copy_to_iter(), and a machine
-> check in that copy takes the capture kernel down.
->=20
-> On x86 a machine check in the kernel is only recovered from if the
-> instruction that took it has a machine check safe exception table
-> entry
-> or copies from userspace (cf. error_context()). The copy of an old
-> page
-> is neither. Its source is kernel memory, whether it goes to the
-> buffer
-> of a read() or, since commit 4a22fd20379c ("vmcore: convert
-> __read_vmcore to use an iov_iter"), into a kernel page for splice(),
-> sendfile() and copy_file_range(). So a read of /proc/vmcore that runs
-> into a poisoned page panics the capture kernel, and so do vmcore's
-> own
-> reads of the ELF headers and notes. Breno sees the result on a fleet:
-> the first kernel dies of a machine check and the capture kernel
-> produces
-> no usable vmcore at all (cf. [1]).
->=20
-> On book3s64 a machine check in the kernel is recovered from if the
-> instruction that took it has an exception table entry (cf.
-> mce_common_process_ue()). The user copy has them, so a read() comes
-> up
-> short there and read_from_oldmem() returns -EFAULT. The copies into
-> kernel pages have none and panic the same way. Other powerpc
-> platforms
-> don't recover from a machine check in such a copy at all.
->=20
-> Copy with _copy_mc_to_iter() instead. x86_64 and PPC64 select
-> ARCH_HAS_COPY_MC, and on x86_64 and book3s64 the machine check safe
-> copy
-> turns the machine check into a short copy, which read_from_oldmem()
-> turns into -EFAULT like any other short copy. On x86 that holds for
-> the
-> fragile and the enhanced fast string variant, a CPU with neither gets
-> the plain copy it has today. Everywhere else _copy_mc_to_iter() is
-> _copy_to_iter(). Put the call into a helper, copy_oldmem_to_iter(),
-> so
-> that the copy of a page of the old kernel lives in one place and an
-> architecture that gains a machine check safe copy later gets this for
-> free. The helper does the same check_copy_size() as copy_to_iter(),
-> so
-> hardened usercopy keeps checking the copy.
->=20
-> With a v7.4-rc1 capture kernel reading /proc/vmcore and a machine
-> check
-> injected into the copy of an old page the capture kernel is gone. A
-> machine check panic prints no trace of its own, this one comes from
-> panic_sys_info=3Dall_bt:
->=20
-> [=C2=A0=C2=A0=C2=A0 0.580568] mce: [Hardware Error]: CPU 0: Machine Check=
- Exception:
-> 7 Bank 1: bd80000000000134
-> [=C2=A0=C2=A0=C2=A0 0.580574] mce: [Hardware Error]: RIP 10:<ffffffff8190=
-9b11>
-> {_copy_to_iter+0x81/0x850}
-> [=C2=A0=C2=A0=C2=A0 0.580584] mce: [Hardware Error]: TSC 202f2117f ADDR 1=
-0000000
-> MISC 8c
-> [=C2=A0=C2=A0=C2=A0 0.580587] mce: [Hardware Error]: PROCESSOR 2:aa0f02 T=
-IME
-> 1794493617 SOCKET 0 APIC 0 microcode aa0021c
-> [=C2=A0=C2=A0=C2=A0 0.580589] mce: [Hardware Error]: Machine check: Uncor=
-rected
-> unrecoverable error in kernel context
-> [=C2=A0=C2=A0=C2=A0 0.580591] Kernel panic - not syncing: Fatal local mac=
-hine check
-> [=C2=A0=C2=A0=C2=A0 0.582587] CPU: 0 UID: 0 PID: 1 Comm: init Not tainted=
- 7.4.0-rc1-
-> g6628e7d4c6b2 #1 PREEMPT(lazy)
-> [=C2=A0=C2=A0=C2=A0 0.583101] Call Trace:
-> [=C2=A0=C2=A0=C2=A0 0.583198]=C2=A0 <#MC>
-> [=C2=A0=C2=A0=C2=A0 0.583279]=C2=A0 dump_stack_lvl+0x4d/0x70
-> [=C2=A0=C2=A0=C2=A0 0.583419]=C2=A0 nmi_cpu_backtrace.cold+0x18/0x6e
-> [=C2=A0=C2=A0=C2=A0 0.583584]=C2=A0 ? __pfx_nmi_raise_cpu_backtrace+0x10/=
-0x10
-> [=C2=A0=C2=A0=C2=A0 0.583772]=C2=A0 nmi_trigger_cpumask_backtrace+0xba/0x=
-f0
-> [=C2=A0=C2=A0=C2=A0 0.583955]=C2=A0 sys_info+0x83/0xb0
-> [=C2=A0=C2=A0=C2=A0 0.584075]=C2=A0 vpanic+0x1b4/0x303
-> [=C2=A0=C2=A0=C2=A0 0.584197]=C2=A0 panic+0x66/0x70
-> [=C2=A0=C2=A0=C2=A0 0.584488]=C2=A0 mce_panic+0x19e/0x290
-> [=C2=A0=C2=A0=C2=A0 0.584799]=C2=A0 do_machine_check+0x627/0x9a0
-> [=C2=A0=C2=A0=C2=A0 0.584953]=C2=A0 ? _copy_to_iter+0x81/0x850
-> [=C2=A0=C2=A0=C2=A0 0.585099]=C2=A0 exc_machine_check+0x68/0xb0
-> [=C2=A0=C2=A0=C2=A0 0.585246]=C2=A0 asm_exc_machine_check+0x1e/0x40
-> [=C2=A0=C2=A0=C2=A0 0.587747]=C2=A0 </#MC>
-> [=C2=A0=C2=A0=C2=A0 0.587831]=C2=A0 <TASK>
-> [=C2=A0=C2=A0=C2=A0 0.588092]=C2=A0 ? iomem_map_sanity_check+0x98/0xb0
-> [=C2=A0=C2=A0=C2=A0 0.588430]=C2=A0 ? __ioremap_caller.isra.0+0x1a9/0x300
-> [=C2=A0=C2=A0=C2=A0 0.588604]=C2=A0 ? __copy_oldmem_page+0x3d/0xb0
-> [=C2=A0=C2=A0=C2=A0 0.588928]=C2=A0 __copy_oldmem_page+0x5e/0xb0
-> [=C2=A0=C2=A0=C2=A0 0.589079]=C2=A0 read_from_oldmem.part.0+0xe3/0x140
-> [=C2=A0=C2=A0=C2=A0 0.589247]=C2=A0 read_vmcore+0x137/0x280
-> [=C2=A0=C2=A0=C2=A0 0.589381]=C2=A0 proc_reg_read_iter+0x49/0x90
-> [=C2=A0=C2=A0=C2=A0 0.589533]=C2=A0 vfs_read+0x348/0x490
-> [=C2=A0=C2=A0=C2=A0 0.589666]=C2=A0 ksys_read+0x76/0x100
-> [=C2=A0=C2=A0=C2=A0 0.589792]=C2=A0 do_syscall_64+0xde/0x4b0
-> [=C2=A0=C2=A0=C2=A0 0.590103]=C2=A0 entry_SYSCALL_64_after_hwframe+0x77/0=
-x7f
->=20
-> With this patch the same injection ends the read() with -EFAULT, the
-> capture kernel logs the machine check and keeps running.
->=20
-> [1]: https://lore.kernel.org/all/avRXzzCSzT9Qj2FC@gmail.com/
->=20
-> Reported-by: Chris Mason <mason@kernel.org>
-> Suggested-by: Breno Leitao <leitao@debian.org>
-> Fixes: 4ae362be5093 ("[PATCH] kdump: read previous kernel's memory")
-> Fixes: 54c32021eb6f ("[PATCH] powerpc: Add arch-dependent
-> copy_oldmem_page")
-> Fixes: 4a22fd20379c ("vmcore: convert __read_vmcore to use an
-> iov_iter")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+uart_port_deref() decrements the reference count through uport->state
+and then reads uport->state again for the wake_up(). The last
+decrement is what lets serial_core_remove_one_port() return, and the
+driver may free its struct uart_port right after that. A reference
+holder that drops the last reference can therefore read the freed port
+on its way to the wake_up().
 
-Reviewed-by: Alexander Mikhalitsyn <alex@amutable.com>
+Read the state pointer once, before the decrement, with READ_ONCE()
+so that the compiler cannot load it again afterwards. The uart_state
+belongs to the uart_driver and lives until uart_unregister_driver(),
+so the wake_up() target outlives the port. Drivers that unregister the
+uart_driver in the same remove() are a separate matter and not changed
+here.
 
-> ---
-> =C2=A0arch/powerpc/kernel/crash_dump.c |=C2=A0 4 ++--
-> =C2=A0arch/x86/kernel/crash_dump_64.c=C2=A0 |=C2=A0 2 +-
-> =C2=A0include/linux/crash_dump.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 22=
- ++++++++++++++++++++++
-> =C2=A03 files changed, 25 insertions(+), 3 deletions(-)
->=20
-> diff --git a/arch/powerpc/kernel/crash_dump.c
-> b/arch/powerpc/kernel/crash_dump.c
-> index 1543917bd3e1d..f784fc5cb0030 100644
-> --- a/arch/powerpc/kernel/crash_dump.c
-> +++ b/arch/powerpc/kernel/crash_dump.c
-> @@ -83,12 +83,12 @@ ssize_t copy_oldmem_page(struct iov_iter *iter,
-> unsigned long pfn,
-> =C2=A0
-> =C2=A0	if (memblock_is_region_memory(paddr, csize)) {
-> =C2=A0		vaddr =3D __va(paddr);
-> -		csize =3D copy_to_iter(vaddr + offset, csize, iter);
-> +		csize =3D copy_oldmem_to_iter(vaddr + offset, csize,
-> iter);
-> =C2=A0	} else {
-> =C2=A0		vaddr =3D ioremap_cache(paddr, PAGE_SIZE);
-> =C2=A0		if (!vaddr)
-> =C2=A0			return -ENOMEM;
-> -		csize =3D copy_to_iter(vaddr + offset, csize, iter);
-> +		csize =3D copy_oldmem_to_iter(vaddr + offset, csize,
-> iter);
-> =C2=A0		iounmap(vaddr);
-> =C2=A0	}
-> =C2=A0
-> diff --git a/arch/x86/kernel/crash_dump_64.c
-> b/arch/x86/kernel/crash_dump_64.c
-> index 32d710f7eb84c..e10dada855b70 100644
-> --- a/arch/x86/kernel/crash_dump_64.c
-> +++ b/arch/x86/kernel/crash_dump_64.c
-> @@ -29,7 +29,7 @@ static ssize_t __copy_oldmem_page(struct iov_iter
-> *iter, unsigned long pfn,
-> =C2=A0	if (!vaddr)
-> =C2=A0		return -ENOMEM;
-> =C2=A0
-> -	csize =3D copy_to_iter(vaddr + offset, csize, iter);
-> +	csize =3D copy_oldmem_to_iter(vaddr + offset, csize, iter);
-> =C2=A0
-> =C2=A0	iounmap((void __iomem *)vaddr);
-> =C2=A0	return csize;
-> diff --git a/include/linux/crash_dump.h b/include/linux/crash_dump.h
-> index 8315270e27b7a..12aeaa40c1c94 100644
-> --- a/include/linux/crash_dump.h
-> +++ b/include/linux/crash_dump.h
-> @@ -6,6 +6,7 @@
-> =C2=A0#include <linux/proc_fs.h>
-> =C2=A0#include <linux/elf.h>
-> =C2=A0#include <linux/pgtable.h>
-> +#include <linux/uio.h>
-> =C2=A0#include <uapi/linux/vmcore.h>
-> =C2=A0
-> =C2=A0/* For IS_ENABLED(CONFIG_CRASH_DUMP) */
-> @@ -33,6 +34,27 @@ ssize_t copy_oldmem_page(struct iov_iter *i,
-> unsigned long pfn, size_t csize,
-> =C2=A0ssize_t copy_oldmem_page_encrypted(struct iov_iter *iter, unsigned
-> long pfn,
-> =C2=A0				=C2=A0=C2=A0 size_t csize, unsigned long
-> offset);
-> =C2=A0
-> +/**
-> + * copy_oldmem_to_iter - copy from the crashed kernel's memory
-> + * @src: where in the mapped page of the crashed kernel to copy from
-> + * @count: how many bytes to copy
-> + * @iter: where to copy them
-> + *
-> + * The memory of the crashed kernel may well have uncorrectable
-> errors.
-> + * Where the architecture has a machine check safe copy a machine
-> check
-> + * in the copy ends it short, like a fault would, instead of taking
-> the
-> + * capture kernel down. Everywhere else this is copy_to_iter().
-> + *
-> + * Return: the number of bytes copied, like copy_to_iter().
-> + */
-> +static inline size_t copy_oldmem_to_iter(const void *src, size_t
-> count,
-> +					 struct iov_iter *iter)
-> +{
-> +	if (check_copy_size(src, count, true))
-> +		return _copy_mc_to_iter(src, count, iter);
-> +	return 0;
-> +}
-> +
-> =C2=A0void vmcore_cleanup(void);
-> =C2=A0
-> =C2=A0/* Architecture code defines this if there are other possible ELF
+Found by review of the removal path while fixing the deadlock between
+port removal and a blocked tcdrain(); not reproduced.
+
+Fixes: 9ed19428a51d ("serial: core: Prevent unsafe uart port access, part 2")
+Cc: stable@vger.kernel.org
+Reviewed-by: Johan Hovold <johan@kernel.org>
+Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+---
+ drivers/tty/serial/serial_core.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index 2e53d194ecfe853ade1ac6f33e047eb8ff11e283..a6dfa90aba34c8e6ada1c23d25a9e7d0d78fdea9 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -72,8 +72,10 @@ static inline struct uart_port *uart_port_ref(struct uart_state *state)
+ 
+ static inline void uart_port_deref(struct uart_port *uport)
+ {
+-	if (atomic_dec_and_test(&uport->state->refcount))
+-		wake_up(&uport->state->remove_wait);
++	struct uart_state *state = READ_ONCE(uport->state);
++
++	if (atomic_dec_and_test(&state->refcount))
++		wake_up(&state->remove_wait);
+ }
+ 
+ static inline struct uart_port *uart_port_ref_lock(struct uart_state *state, unsigned long *flags)
+
+-- 
+2.47.3
+
