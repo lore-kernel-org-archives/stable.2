@@ -1,46 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794846445;
-	b=5Uxqs9ekbWgv54eee+M9HP2UYdD3m5RHPseOkB83BqOJC7KZIRZcnP/TaEO4ShsekiI5
-	 3xkhyOLQ0x72+vo9ZiO9yZ8GGd7/vS1iCTsdxNLkHVh3zn3W4z+ogkLgZbOYNz4mD6urq
-	 S4kuDq8/hrtViYjNz9quqBxBG1TX0pwwDwVCxuyv1l772kttWX5qv/R8Owf3QgwEp1mcE
-	 8pkuLBr8rxVyTDM7jfSJwzwT1ZJp/RUoIlkVsT8Nv0aKRvlRY5Dek8jeomDExB/vn/Ae7
-	 OtV0d5ouYVYpK94nL3zADudhXFIjlMWHbNEyxZcM2DSoXgIq3leg6zAor6CP2lTUCcQ==
+	t=1794846446;
+	b=Ca6XwR2Zy7lt2utNmKCbVylvth4/JOkpwQnvSFjEL0UnP+9YjFfa9TJqUQeJjIOM+TMm
+	 pLiz8pseI+HLJDqqSdmx5Z52Mr28I3FB6KpnGwHNAo0maDU1O2Y0Y8MITuzQqIpvYUuHZ
+	 sQgeIPLY2P0MujB8wJCqQPAR90kBsT4PPITAGUTu7lsQQP2tuaImOJte+Dg6HqLOfxwPo
+	 qz1lpL6ew+X2/QbRnWAkbGK3XE1JjXVJu0VnX0XJt8z53D+kDsa2QyPm8bNQ4c/tf/gxZ
+	 EQu28sezoTE/krknPdL/tqrqoCI5W7SMvoLZ1vKtEI9QnZVemxDAB9ToWnHn1Ukp71A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794846445;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794846446;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=aqVXnpsGKUb5dmAyOvsZyxLyttfxnbXbLvMJdAHt3hw=;
-	b=A7w7dkQAyLaIoVLaew2opeTEvqNRtajUd8c5W1oAwKfHb8L+t5up/rWtsexdriDm7WaH
-	 kcQXdgPfjZ3vS9On9VKKe4LPPcBUzw6keCBUiXDAtSBYktjbMnMrvmYTMwkf7zOYsoNNe
-	 2kCrb8BPc3dXfGtpa+Uo/WackBLaKHL5k5M7PMUAHHjOi0ZYggnfcqGldrVFRRP3ewSax
-	 A3c+Z+E0VslrdE9U6gbE2ePDCKqtTM8OAehsLQgQRRxRUirqgmKVVyAfLBiMcTCUmpjZZ
-	 Rd1XPe0p3gG5rFlEPI/ZGRcRsUHaDpULt7pRTR+f3FZhI/VkXHEGJmV3lWgYQHK87/w==
+	bh=mgoHNCQFmyooSMzLO2bc00mj4pbw+UsxHk7YoLVItNo=;
+	b=SFZvzQcRUtBAnlrAicDP7bl0rpKjLpPi+mKGAGU8PNN2aU9vN1TUyjl92CAgY2MkId+u
+	 brACcuHkvuN5AHkDX/TKHIDcdgXqKTP/fRGZHcUjCOKo4x5/Qgw2oMTGNzfYGAO+SzXsg
+	 QrhCbgjglsec/8IdRNRTDkjIMANN3yJrd82hIyA4XXdoDPRkWbwtgJRwFAN7wgRoC3kS5
+	 FYfGIdUdFcq/7mUtPU9K6cpxSydhitg55gC0qC2nj5zoK85qFpNlbzVzQZrv9mFLDnd2O
+	 c5R887LLjwTtXqRyOmMlIa931VnzcUOEhkX3m55mmJAxHlCQ6EJqjs1ZJ8IkypcudIA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VIQgZsHP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jTUwnHc/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5312C606A31C;
-	Mon, 16 Nov 2026 16:27:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D463F606A331;
+	Mon, 16 Nov 2026 16:27:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VIQgZsHP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0791F000C4;
-	Mon, 16 Nov 2026 16:27:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jTUwnHc/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D54F1F000C4;
+	Mon, 16 Nov 2026 16:27:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794846444;
-	bh=aqVXnpsGKUb5dmAyOvsZyxLyttfxnbXbLvMJdAHt3hw=;
+	s=k20260515; t=1794846446;
+	bh=mgoHNCQFmyooSMzLO2bc00mj4pbw+UsxHk7YoLVItNo=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VIQgZsHPU4uQodvLyAAwsRYYmobWrji3K/0jNrzRo6ZcvRJyw2jluC3GEXDumUeHG
-	 vshdVlPKJzv2h8ow2lf2LCxd4EtGKG3she1k9a7HNCNCiM+6kCNk/I0CY8N8rULByL
-	 TDOkbJhA4OstvcEodNimQ/pM9bRyYgRLmKiC4Kf+WNNmqFVGwSz3hJsOHzKVIhMgEh
-	 /GHpCfNPA137OnbSvPSp55ELxA3u56ls5U3K80LMbdFrhVJZUZ9XsxK09S+OpwuJpL
-	 kx25cNpEkX2UtvhDGje24GRYxBH/hu3aNINtgMXi2kbxphTkXvvFbtPUuA/FW2qn1h
-	 zegWEGlK2AXSQ==
-Subject: Re: [PATCH net v9 1/4] net: hsr: keep GRO disabled on HSR/PRP ports
+	b=jTUwnHc/3jQtZGhgn+Svf64L3AAZj0Qq9DNcBY6huUoJdXG5ibRAE0tT/tjFteweP
+	 MWYpegq/L1yQYXrPXpb7/Pp3Wm/qcadXwBDHvN5069C5z19zk9ErtnO6yNVCyzSCew
+	 2AXf9EEMN1yRv+CHxCVXchJrlvzkdaXwaod7Vs9+v6EszkYaX37UzzQY7jp+Ykz5Vr
+	 7SeQQzQoXWL++grJeKQvB0A+qLsEw3vllxBUKjFgIh0GxqsCZr4blKmu/gnSgz+2gv
+	 1HRJGFpLezSaTsCEmLXLGGkS2QU6z4DMlBvNYXhXwpCqLQaZK7aMugItpYEjiA7rKi
+	 as+ZXXWy3eUFA==
+Subject:
+ Re: [PATCH net v9 2/4] net: hsr: refuse forwarding devices as HSR/PRP ports
 From: netdev-bot+sashiko@kernel.org
 To: xiexinet@gmail.com
 Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
@@ -51,11 +52,11 @@ Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
  bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
  liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com,
  lukma@denx.de, fmancera@suse.de, danishanwar@ti.com
-Date: Mon, 16 Nov 2026 16:27:23 +0000
-Message-ID: <179484644326.3136.10831441284903731799@kernel.org>
-In-Reply-To: <20261112153333.20-2-xiexinet@gmail.com>
-References: <20261112153333.20-2-xiexinet@gmail.com>
-X-sashiko-severity: Low
+Date: Mon, 16 Nov 2026 16:27:25 +0000
+Message-ID: <179484644509.3136.13013479615245017745@kernel.org>
+In-Reply-To: <20261112153333.20-3-xiexinet@gmail.com>
+References: <20261112153333.20-3-xiexinet@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -68,101 +69,138 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Low priority / nit picks for your consideration:
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-- [Low] The patch puts HSR-specific policy into the generic core function
-  __netdev_update_features() in net/core/dev.c (lines 11279-11285):…
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The patch is meant to stop recursive seqnr_lock acquisition from
+  the HSR transmit path, but it only refuses a list of device types as…
 
 --
 
-net: hsr: keep GRO disabled on HSR/PRP ports
+net: hsr: refuse forwarding devices as HSR/PRP ports
 
-This commit adds an hsr_port bit to struct net_device. HSR sets the bit
-on its direct members (slave A/B and interlink). While the bit is set,
-__netdev_update_features() clears NETIF_F_GRO and configurable
-NETIF_F_GRO_HW from both wanted_features and the computed features, and
-an attach fails if software GRO stays on.
+This patch stops bridge, OVS, bond and team masters from being used as
+HSR/PRP slave or interlink ports. It also refuses macvlan or MACsec
+devices that sit on top of such masters or on top of an HSR master. It
+adds checks for a busy or unsupported RX handler and for an existing
+master, and hsr_dev_finalize() now checks every port before changing any
+of them.
 
-> diff --git a/net/core/dev.c b/net/core/dev.c
-> index df1a840b03343..c8c2de2125567 100644
-> --- a/net/core/dev.c
-> +++ b/net/core/dev.c
-> @@ -11269,6 +11269,21 @@ int __netdev_update_features(struct net_device *dev)
+Closes: https://syzkaller.appspot.com/bug?extid=fbf74291c3b7e753b481
+
+> diff --git a/net/hsr/hsr_slave.c b/net/hsr/hsr_slave.c
+> index b7765a4bb9920..666220b24dee4 100644
+> --- a/net/hsr/hsr_slave.c
+> +++ b/net/hsr/hsr_slave.c
+
+[ ... ]
+
+> @@ -131,13 +163,56 @@ static int hsr_check_dev_ok(struct net_device *dev,
+>  		return -EOPNOTSUPP;
+>  	}
 >  
->  	features = netdev_get_wanted_features(dev);
->  
-> +	/* A direct HSR/PRP port needs per-frame metadata. Drop software
-> +	 * GRO and configurable GRO_HW from the request as well as from the
-> +	 * features passed to ndo_fix_features(), as the core does for
-> +	 * upper-disabled features: drivers such as veth derive state from
-> +	 * wanted_features and need the requested and the active bit to
-> +	 * agree. Fixed-on or driver-required GRO_HW is left to the driver.
+> -	/* HSR over bonded devices has not been tested, but I'm not sure it
+> -	 * won't work...
+> +	/* Forwarding devices feed HSR frames into another device's
+> +	 * transmit path and can nest seqnr_lock through a second HSR
+> +	 * device. A bridge, bond, team or OVS master makes no sense as a
+> +	 * ring or LAN port and is refused by type. A macvlan or MACsec
+> +	 * device is refused if such a master or an HSR/PRP master is
+> +	 * below it. Other devices keep their lower devices unchecked:
+> +	 * DSA user ports are uppers of their conduit.
 > +	 */
-> +	if (dev->hsr_port) {
-> +		netdev_features_t gro = NETIF_F_GRO |
-> +					(dev->hw_features & NETIF_F_GRO_HW);
-> +
-> +		dev->wanted_features &= ~gro;
-> +		features &= ~gro;
+> +	if (netif_is_any_bridge_master(dev) || netif_is_lag_master(dev)) {
+> +		NL_SET_ERR_MSG_MOD(extack,
+> +				   "Cannot use a bridge, bond, team or OVS master as HSR port.");
+> +		return -EINVAL;
 > +	}
 
-[Severity: Low]
+[Severity: High]
+If a routed L2 tunnel is used as a slave, can its transmit path come back
+into the same HSR master while seqnr_lock is still held?
 
-The comment says this follows what "the core does for upper-disabled
-features". Is that right?
+A gretap, VXLAN or Geneve device is ARPHRD_ETHER with ETH_ALEN. It has no
+rx_handler and no master. It is not a VLAN, bridge, LAG, macvlan or MACsec
+device, so it passes every check in hsr_check_dev_ok().
 
-netdev_sync_upper_features() runs inside the lower device's own update.
-It masks only the computed features and does not touch the request:
+Suppose the tunnel's remote address, or its ARP, is routed through hsr0,
+for example because hsr0 has an address on the remote's subnet. Then the
+announce timer alone looks like enough to trigger it:
 
-    if (!(upper->wanted_features & feature)
-        && (features & feature)) {
-        ...
-        features &= ~feature;
-    }
+hsr_announce()
+  send_hsr_supervision_frame()
+    spin_lock_bh(&hsr->seqnr_lock);
+    hsr_forward_skb()
+      hsr_xmit()
+        dev_queue_xmit(gretap0)
+          gre_tap_xmit()
+            ip_tunnel_xmit()
+              iptunnel_xmit()
+                ip_local_out()
+                  ip_finish_output2()
+                    dev_queue_xmit(hsr0)
+                      hsr_dev_xmit()
+                        spin_lock_bh(&hsr->seqnr_lock);
 
-Only netdev_sync_lower_features() clears lower->wanted_features, and it
-does that once, when the upper device turns the feature off. In this
-patch, the request is cleared inside the same update that is supposed to
-apply it.
+ip_tunnel_xmit() only rejects a route that goes back through the tunnel
+device itself:
 
-Can this make the legacy ETHTOOL_SFEATURES ioctl report success for a
-GRO request that was never applied? ethtool_set_features() sets
-wanted_features and then runs:
-
-net/ethtool/ioctl.c:ethtool_set_features() {
+net/ipv4/ip_tunnel.c:ip_tunnel_xmit() {
     ...
-	__netdev_update_features(dev);
-
-	if ((dev->wanted_features ^ dev->features) & valid)
-		ret |= ETHTOOL_F_WISH;
+	if (rt->dst.dev == dev) {
+		ip_rt_put(rt);
+		DEV_STATS_INC(dev, collisions);
+		goto tx_error;
+	}
     ...
 }
 
-When hsr_port is set, GRO is already gone from both wanted_features and
-features when the XOR runs. So ETHTOOL_F_WISH is not set for GRO, and
-the ioctl reports full success while GRO stays off. A later ethtool -k
-shows GRO off without the "[requested on]" marker.
+hsr_dev_setup() sets IFF_NO_QUEUE and lltx on hsr0, so __dev_queue_xmit()
+takes the no-qdisc path. netif_tx_owned() does not see the recursion,
+because xmit_lock_owner is not set for lltx devices. dev_xmit_recursion()
+is also far below XMIT_RECURSION_LIMIT at this depth.
 
-Compare LRO disabled by an upper device: there the request stays in
-wanted_features and ETHTOOL_F_WISH is returned. The netlink path,
-ethnl_set_features(), still reports the mismatch, because it compares
-against its local req_wanted copy.
+In the syzbot report the two locks belonged to two different HSR devices.
+Here both belong to the same HSR device. So instead of a lockdep warning,
+this looks like the CPU deadlocking on a seqnr_lock it already holds, with
+BH disabled. User traffic through hsr_dev_xmit() would follow the same
+path. A user with CAP_NET_ADMIN in a user namespace can create both the
+HSR and the gretap links.
 
-The comment on the new struct net_device field also says "Kernel role
-state only; no user ABI", but the field changes behaviour that ethtool
-users can see. It also puts HSR-specific policy into the generic
-__netdev_update_features() under a "net: hsr:" subject. Later patches in
-the series do not touch net/core/dev.c, so this is still the case at the
-end of the series.
+The commit message says this case is not handled:
 
-Would it work to mask only the computed features here, the way
-netdev_sync_upper_features() does? Or, if the request has to be cleared
-for veth, could the comment stop citing the upper-disable path as the
-model and mention the ETHTOOL_F_WISH change?
+  Not covered are a tunnel whose route leads back through the HSR master,
+  a tc or BPF redirect to it, other stacked devices, and a software
+  device without an identifying flag such as batman-adv. Narrowing
+  seqnr_lock, planned for net-next, addresses that class as a whole.
+
+This patch has Fixes: tags for the commits that added the seqnr_lock
+coverage. Would narrowing seqnr_lock be a better fix here than a list of
+refused device types that will have to be replaced later anyway?
+
+At the end of the series, after "net: hsr: segment GSO before per-frame
+forwarding", hsr_forward_frame() in net/hsr/hsr_forward.c still holds the
+lock around forwarding:
+
+	if (numbered)
+		spin_lock_bh(&hsr->seqnr_lock);
+	hsr_forward_skb(skb, port);
+	if (numbered)
+		spin_unlock_bh(&hsr->seqnr_lock);
+
+Both supervision senders also still hold seqnr_lock across
+hsr_forward_skb(). So this recursion still seems reachable after the full
+series.
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112153333.20-1-xiexinet%40gmail.com
