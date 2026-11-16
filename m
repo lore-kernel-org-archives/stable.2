@@ -1,64 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794829857;
-	b=2S7lklcZoK2cknidP2mVdA00JZsHehc4nulx6RkTXdQ9GEl7WTdEAjhlvdTeoHytRda/
-	 QeaPPDURL/9QB/nImRuM5GvZHptGFzyU51i2YuCazfBoYp2swh/7ijKs0e5krQJplkH12
-	 VAH8FstvDyFRV+ATjS9ELxA1QY4f8fbmq9L68Fw39LP5zO9oGi7lckcOw5cvKwXd7XDgJ
-	 8MITiGN5SejhyRAGWJARrLjlbHYheVoQSOnP9YlB5qLo5UH/GlHprDlbnWkIM6Ih7kbFq
-	 RK6DMxs7FT6ZIOzuOQtn0pfUXhucTXhDpq/kjgJSmZtFpQ82AFPNHgyTqGn9fMHdxfw==
+	t=1794829925;
+	b=5QrmBUDAwiq/K6DACWNdo9fzfgucjhVuagaltRiDbTQJx9WXUZsKPB7HROhcE18mgWRx
+	 etJbPry9r423HpR0lO1OHCYlXmbWVoWd9mfUnegg2HSl5Izm0olUaOVFiqMIXnYasxYP4
+	 oK2DVZ52sBNVxKEKTHxHsJymazG+fY9ntC8mp4A/irbWzthJTfW3EO8mqyQUFvrjYFzEh
+	 chWX73VPjEcVWnXH7YhmJmBe8gq3/e6r8DVOaJZzAJqmJp4mNMZQ3a9YssyTIk60izi5R
+	 PokczuScclzlj+0hS9UlMDGLT3SW+q9KXkN1NNu3P4zzu5g2W5f3VHbZY55N3Fy0Zqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794829857;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=6WoQEmCVBIuhl/cSF3DZdFXshm17IcMA/oo1QCpuU6Y=;
-	b=zylW2fj3wfADCDo+Vj4HFuwp6f6kQeGafGMJ2d+I+YJscFN67Z09ZwLOTreCAs/EXFLr
-	 firQztqkGmVs94PYnqbDymveMgdZOx7trioVy8PfTF27o6ar6Wsdi4CLjfPvj/Vv0YRUj
-	 wDk+SDuzfzziRmZ+t8ksDtOIJLnKET91W3ZO63cpO2o7KC1knUwNtK8atVKdqKHWGRdm5
-	 H+M0u8qgZljpd7oAyKj2xg6+vtAJdpwAAVoPBGhwlx55bOnISzgGtt0Mk9c1Dp0RKup0l
-	 w2MWAYKq/l0RabyKbByWTCrx2b55hYALmCuNH44UFFIsBSmWEL5G2E9MEB1eMuPqaLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794829925;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=+ggAgtRCRsNdJ87i6KfaO+cwyhqOwEZfS1zOfOdXtt4=;
+	b=l+cPj/4JttAhXNfxJRG3F5V0zArCNtKL5cPsuY12EBDHHpaFAFKlgaTSFwqOtlYWw/5i
+	 0JNxOgWwHXxbr3mBFNjH3+Epy3nKB2hj3RC4x42HbJRx/pG5mUEYQxCwaGWaqfa3f5Kks
+	 8Wn7OT5wbWu0mITFXBG2mb3sF08/+4me2jTIOJf0W250s/D/hrEq/1QIhnejTdZhNtw9I
+	 bUVK6HG2pw8oBKM2UgHazp26rw2od7fO7UHe/hpR9EesTzf/9oTr6X2C7U2onHS4Inb3S
+	 0YUsrRPWja/3m0MBk/BYZeRT5hIQjXkxCqSePOXEKhGMC0XJGfkCNEemRMzQRgSKL3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 37FDD606A32C;
-	Mon, 16 Nov 2026 11:50:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37FDD606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=6WoQEmCVBIuhl/cSF3DZdFXshm17IcMA/o
-	o1QCpuU6Y=; b=xd7TyJkFQexSyjngBgdxIIKCaZmIeVLBa3O+p/8KMV+5Gl5OTJ
-	eLmcux86f349NUo1qW52SJdv/wKIaWudJB8uxPJn15VJEOwtNZxA4w14Olv2KgiE
-	moX8Nh4vllVi4rlI0ogmTcZ7p0X5i8oeuNEvgPNm6euagYNPg/S2M1u3I=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkB2vwQF7vpqZ6S3AQ--.3956S3;
-	Mon, 16 Nov 2026 19:50:38 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Felix Fietkau <nbd@nbd.name>
-Cc: Lorenzo Bianconi <lorenzo@kernel.org>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org
-Subject: [PATCH 1/2] wifi: mt76: mt7615: fix out-of-bounds read in mt7615_mac_add_txs
-Date: Mon, 16 Nov 2026 19:50:27 +0800
-Message-Id: <20261116115028.2766-2-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116115028.2766-1-25031212351@stu.xidian.edu.cn>
-References: <20261116115028.2766-1-25031212351@stu.xidian.edu.cn>
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ayrH6I6d;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9884606A31C;
+	Mon, 16 Nov 2026 11:52:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ayrH6I6d
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C88151F000C4;
+	Mon, 16 Nov 2026 11:52:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794829925;
+	bh=+ggAgtRCRsNdJ87i6KfaO+cwyhqOwEZfS1zOfOdXtt4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ayrH6I6dtjz2KXLlDFaZorRzpuns3qKD5zLL11VCWkdgnxn3/ZnERbuY5g+cXdjtc
+	 kgPrCMLL4X0r0vRjisOedk4LG5JP6M5TNNBkssxRrAg29e7gMkGXitcal/lgrdHHgy
+	 IV1n67fmTHLtgqFsoLLzpdJv4kD5eZ72J/kgdeBXS1FmoH6V/+AGMD6CXlDoA+U77E
+	 R97NILg5fRUr1YsAdVd1zMSZNSukX7xtqkzTFZBp7WGk9pT0hi8ivAmMyOkZCKS0x3
+	 sehpIFRkbSLOOBUR8XoqjzteT0NOkncM8b6OpAVUukbH9cByxqRo5MLqtMzEB2qU6j
+	 jDkJMnFHrN5uA==
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>, Artemy Kovalyov <artemyko@mellanox.com>, 
+ Edward Srouji <edwards@nvidia.com>
+Cc: linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Moshe Shemesh <moshe@nvidia.com>, stable@vger.kernel.org, 
+ Tony Battersby <tonyb@cybernetics.com>
+In-Reply-To: <20261112-moshe-ib-virt-guard-v1-1-6d2caf8bdb1b@nvidia.com>
+References: <20261112-moshe-ib-virt-guard-v1-1-6d2caf8bdb1b@nvidia.com>
+Subject: Re: [PATCH rdma-rc] RDMA/mlx5: Skip vport context query on FW
+ without ib_virt support
+Message-Id: <179482992212.1351547.14353874397695544189.b4-ty@kernel.org>
+Date: Mon, 16 Nov 2026 06:52:02 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,64 +61,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkB2vwQF7vpqZ6S3AQ--.3956S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar4kJw4fXw1ftr4rZFWxCrg_yoW8AFyrpF
-	WjkFyj93yDtr4DGw4kAa1293Z8XanYgFWSgr4Fvw15u3s8Cr1rXFyrZF4j9r1FyrWYkF18
-	JF4Utry3WrZ8uaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmEb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv
-	6xkF7I0E14v26F4UJVW0owAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62
-	kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2
-	z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4IIrI
-	8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC2
-	0s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI
-	0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE
-	14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20x
-	vaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8
-	JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0ag43UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2r5ytfPsAAAsp
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15-dev-18f8f
 
-mt7615_queue_rx_skb() walks the TXS entries up to skb->len, but that
-length only describes the whole packet. For RX skbs that are not fully
-linear, such as the ones built from the fragmented USB RX path,
-skb->data only covers skb_headlen(skb) bytes, so the loop advances past
-the skb head buffer and mt7615_mac_add_txs() reads outside of the
-allocated slab object:
 
-  BUG: KASAN: slab-out-of-bounds in mt7615_mac_add_txs+0x5c8/0x650
-  Read of size 4 at addr ffff888005097b40
+On Thu, 12 Nov 2026 15:27:19 +0200, Edward Srouji wrote:
+> Since commit b02289b3d60f ("RDMA: Validate grh_required when handling
+> AVs"), mlx5_port_immutable() unconditionally issues
+> QUERY_HCA_VPORT_CONTEXT on InfiniBand ports to read grh_required.
+> Devices that do not support the InfiniBand virtualization interface
+> (ib_virt cleared) are not guaranteed to implement this command. For
+> example, Connect-IB with FW 10.10.5020 rejects it and mlx5_ib fails to
+> probe:
+> 
+> [...]
 
-Bound the iteration by skb_headlen(skb) instead. Fully linear skbs keep
-the previous behaviour, since both lengths are equal there.
+Applied, thanks!
 
-Fixes: eb99cc95c3b6 ("mt76: mt7615: introduce mt7663u support")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
- drivers/net/wireless/mediatek/mt76/mt7615/mac.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+[1/1] RDMA/mlx5: Skip vport context query on FW without ib_virt support
+      https://git.kernel.org/rdma/rdma/c/e7732ec135b501
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7615/mac.c b/drivers/net/wireless/mediatek/mt76/mt7615/mac.c
-index aad232c5a6fa..86c6b443ef71 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7615/mac.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7615/mac.c
-@@ -1620,7 +1620,7 @@ void mt7615_queue_rx_skb(struct mt76_dev *mdev, enum mt76_rxq_id q,
- {
- 	struct mt7615_dev *dev = container_of(mdev, struct mt7615_dev, mt76);
- 	__le32 *rxd = (__le32 *)skb->data;
--	__le32 *end = (__le32 *)&skb->data[skb->len];
-+	__le32 *end = (__le32 *)&skb->data[skb_headlen(skb)];
- 	enum rx_pkt_type type;
- 	u16 flag;
- 
+Best regards,
 -- 
-2.34.1
+Leon Romanovsky <leon@kernel.org>
 
