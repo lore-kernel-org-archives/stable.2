@@ -1,61 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794795219;
-	b=vypacod4ZlbRWNaEeAlbA+4GDuLpHd1uutgzMP/ZBd0wKdDPN45hR5zPL8gi7IUM+Z1W
-	 nggzSJUxCEA1IFiD3yLrdenGRepSKRDLBSuSFjIUMPfx8adCS1m5VQAs3eRtcRWDCvvov
-	 FgzZ+NGms2z6LsVWdEiUpSGntXA78kcWBHOBOAlD9m9ZXWyboNomLFqqt1JGgDbnCZNwd
-	 5Ey0HTHqq2VF4KJe8yT4x3D6AItlOuprVg1BgUWge1o02fucW5uaSiuJ0jECJJaDMttmk
-	 oNy6D9MSdGZMqcg2kbqm2NZ6sp6x/yEuHhZYyjE1TO5o35PeufVVo3fL9gCzfYF9iqQ==
+	t=1794795395;
+	b=gTDJKXHa4haIBUob/jKd+TyX+hUTIU0DprdCZpy1/umI6f2vFfqKxXsishUbppTsXxY1
+	 qogUU2k3LcJbVSBG/a92yk4y2rvVuTc/piAqQNsQbABxOLWrubHWMXxuZyt294V1luawA
+	 OPmzHQVEyLcxLiycI2UK9t/1yYGPty0od8oCE5LKXWyms7AA6p031jXQN8b669NanH+CN
+	 biaC94AfyJmDMxwNeKnQz89FEB9pWFcjhEBZjPnoPgxC3nuaH7uD+X/AgiDF8bECZaqZF
+	 xjKPr2XdvLOBk629hYL1HHqbu1Z4I7lSGGfHpbGh2WZBWEJXA5VpYw8pLzsSQoS9VTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794795219;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:To:Cc:Subject:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=uom7B3dmljcE5dgbhBFq073CCfa8xqWgFEsm90SeRkQ=;
-	b=eDMM63QRzU5r5VSdWa5DAvzu4m54hrD7nAQVm6K/h9BsK2e5wcGkPlhENyiFiE65VKbv
-	 R59IQc46+HyRCBJO0HZZVE/Ehkl8HXnBhQu/0vkmn8CBvnps8f0xJevOBlaRzmhKf9ajI
-	 gQDgp2LwT4AgwmilHytc7gHQi/8g/oTvzEAHQVlzF2t7dmINICiTDRlm0VaXyjxh7bzO3
-	 TL/XXq74OBbeIPgmmeqfA6fPArz0AaPae79Twt8AWE92Zw9Gzs7Bd4T9nCJo9ykLwcjpC
-	 qcPRDkRlM1Ohy9wFwQrpyeSGUbr7rjov/ja9U/bEOjdat1xu6hUB88slKJRgDMvSXNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794795395;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=dJ770QTyHlT3R1FacxceaX+27jgJG/EikmN6GHu8EmE=;
+	b=dYWxfhvC97RqBWn0UR2+AAxcGaOIZkGUm1auP4OmDgbcShtbhGvlBKhCUiwd6o8V/EQ1
+	 huUzgS+UEmkCinb6pO+Zt7w9G2QbWVKDhDpo5xV+n3QPfwbqeEcGvgh0x66IE1An0wRVi
+	 bZE4rQOUasYTOJ1Xjw8i6q4eSsbNWnBUHTV43mox+GRPIEGJNAZub8eixJKLMnqJk1tVv
+	 mfvXaX1OkQt6p/V0cqz2bGUKgCAl4CkpRhCg/gVf5H/zG1kXCVPeYePmeT5FuXccGW+8C
+	 inCF+oSklKG9wI4dVRGnADh/UK4dI3kua4hFbD+/khDlkkvgdrCGSPjHznxIHzsWLNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ideasonboard.com;
-	spf=pass smtp.mailfrom=ideasonboard.com;
-	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=FyqVxPRZ;
-	arc=none smtp.remote-ip=213.167.242.64
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbZGqKe9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3467A606A337;
-	Mon, 16 Nov 2026 02:13:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3467A606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44095606A321
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 02:16:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=FyqVxPRZ
-Received: from killaraus.ideasonboard.com (81-175-209-152.bb.dnainternet.fi [81.175.209.152])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7DD9C63C;
-	Mon, 16 Nov 2026 03:11:03 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1794795063;
-	bh=0BXRXg7UODOKuM2rD1/JbijBaD+p9Q3+Qq2kMPYggPA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=FyqVxPRZn4cQ1oVgqaY2W4ZgnziY/cr7vY6VVQTkfYYUgC6KIJzz4jYdrkGvfeH5J
-	 cvsjxy8QIzQ+KqvgYGCazQ7BEo7J6FVgJkaah6TYC5hEiVLC91ZYJUVqK+z8kY8Fla
-	 0hydk5iyUkuj4cOEWWTc+Tb2e7mOyO96RXSjBXyo=
-Message-ID: <89b15b01cfebb86185ec643ec6ce5427@killaraus.ideasonboard.com>
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sinan Turunc <enscrpt@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, mchehab@kernel.org,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Reject metadata packets shorter than
- their header
-Date: Mon, 16 Nov 2026 04:13:25 +0200
-In-Reply-To: <20261115121701.189-1-enscrpt@pm.me>
-References:  <20261115121701.189-1-enscrpt@pm.me>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IbZGqKe9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEE4C1F000C4;
+	Mon, 16 Nov 2026 02:16:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794795394;
+	bh=dJ770QTyHlT3R1FacxceaX+27jgJG/EikmN6GHu8EmE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IbZGqKe9IiAE3vnYM1KUmlLWc/VfyQZaY5A9RfM9t2aGDCgtG3qnusOyaNC2Kt7sg
+	 3xXoWMOTRX5/YSgp7L6n8GBPbgWugWkaHf+yvcatJiWdvHihoXRZZCpqKYJDDAmqWF
+	 dfHMcATcTJd0US+B+fT/8swkeqaOdTxUZxDT+InnV7Ctq+7lYaaWWMFcnXL7ld4lNC
+	 NxRwQ95UIbCysWQin8YpW9QCoAZIwW9Gn5MsqfOFeHeLIL7ZNin0mHng5VmIosY4fg
+	 gBB2HSA4m0a6jobMfUc3apNyqHh13kCCaaFFNzK8s7s3kNxvJgcIXHVB5oby2/swPg
+	 zIh0Ro+/RmgZg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Chris Mason <mason@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] mm/khugepaged: preserve dirty bits when collapsing PTE-mapped THPs
+Date: Sun, 15 Nov 2026 21:16:32 -0500
+Message-ID: <20261116014403.2235359-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261109201818-failed-6.1-fe2817e3d5ea@kernel.org>
+References: <20261109201818-failed-6.1-fe2817e3d5ea@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,82 +64,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello,
+From: Chris Mason <mason@kernel.org>
 
-This is an automated reply.
+[ Upstream commit fe2817e3d5ea347214342c9a5cd8bcbff20c0574 ]
 
-You have sent a patch or bug report that appears to have been generated
-by an LLM. The commit message, code and/or problem description show
-little to no real understanding of the issue and changes being proposed.
+try_collapse_pte_mapped_thp() clears PTEs without transferring their dirty
+bits to the folio. A shmem read fault can map a clean folio writable, so
+a later store only dirties the PTE. Losing that dirty bit allows reclaim
+to discard modified data.
 
-Such patches or reports require a large amount of work to handle. They
-rely on maintainers to propose - and often even implement - a proper
-design. The probability that the author will learn from the experience
-to improve their future contributions is close to zero.
+The assumption that regular files are read-only is also obsolete since
+commit 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse
+for writable files"). In any case, transferring PTE dirty bits to the folio
+when removing mappings (and while the folio is still mapped) is the right
+thing to do.
 
-As a result, to make good use of maintainer time and keep the kernel
-development process sustainable, your contribution has been rejected.
+Use get_and_clear_ptes() to collect the dirty bits and mark the folio
+dirty before unmapping it. Update the comment.
 
-If you believe the change you proposed is important, take time to study
-the problem, learn, and develop a solution without AI assistance.
-Answering this e-mail or generating a new version of a patch by feeding
-this reply to an LLM will only result in your e-mails being ignored.
+This was reproduced with shmem using MADV_COLLAPSE followed by
+MADV_PAGEOUT.
 
-Please note that if your patch attempted to address an important
-problem, maintainers or other contributors can submit and merge a
-similar or entirely different fix without crediting you.
+Fix generated by an LLM and sent by Chris Mason in private.
 
-Your contributions to the Linux kernel will be welcome if you genuinely
-desire to invest your time and learn.
+Fixes: 27e1f8273113 ("khugepaged: enable collapse pmd for pte-mapped THP")
+Fixes: 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse for writable files")
+Cc: stable@vger.kernel.org
+Signed-off-by: Chris Mason <mason@kernel.org>
+[ david: adjust comment; simplify description; cover file-thp as well ]
+Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-17-d6437171ecc3@kernel.org
+Reviewed-by: Lance Yang <lance.yang@linux.dev>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: adapted batched PTE and folio handling to the existing per-PTE loop using ptep_get_and_clear() and set_page_dirty() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ mm/khugepaged.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Thank you,
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index f21b78228cb40..e679ca54b4474 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1562,12 +1562,16 @@ int collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr,
+ 	for (i = 0, addr = haddr, pte = start_pte;
+ 	     i < HPAGE_PMD_NR; i++, addr += PAGE_SIZE, pte++) {
+ 		struct page *page;
++		pte_t ptent;
+ 
+ 		if (pte_none(*pte))
+ 			continue;
+ 		page = vm_normal_page(vma, addr, *pte);
+ 		if (WARN_ON_ONCE(page && is_zone_device_page(page)))
+ 			goto abort;
++		ptent = ptep_get_and_clear(mm, addr, pte);
++		if (pte_dirty(ptent))
++			set_page_dirty(hpage);
+ 		page_remove_rmap(page, vma, false);
+ 	}
+ 
+-- 
+2.53.0
 
-Laurent's mail bot
-
-On Sun, 15 Nov 2026 12:17:18 +0000, Sinan Turunc <enscrpt@pm.me> wrote:
-> uvc_video_decode_meta() derives the length of a UVC payload header
-> from the PTS and SCR flag bits in the packet, not from the packet
-> length, and with V4L2_META_FMT_UVC it copies that many bytes with
-> memcpy(meta->buf, &mem[2], length - 2). Nothing compares the derived
-> length with the packet length, so a packet shorter than the header it
-> claims is read past its end, and the bytes beyond it - whatever the
-> URB buffer held there before - are copied into the metadata buffer
-> that userspace reads.
->=20
-> An emulated UVC camera that sends an 8-byte isochronous packet with a
-> 3-byte header and both the PTS and SCR bits set made the copy take 10
-> bytes from mem[2]: the last four came from past the packet, and in one
-> run those four were the tail of the previous packet still in the URB
-> buffer (03 0c, a UVC header) rather than zeros. With this patch the
-> same device delivers no metadata blocks at all, and the video stream
-> is unchanged: 25905 buffers, 5958150 bytes over a 30-second window.
->=20
-> The check is placed after the derived length is final and before the
-> format override, and treats such a packet the way the function already
-> treats a 2-byte one: it returns.
->=20
-> Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sinan Turunc <enscrpt@pm.me>
-> ---
->  drivers/media/usb/uvc/uvc_video.c | 4 ++++
->  1 file changed, 4 insertions(+)
->=20
-> diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_=
-video.c
-> index fc3536a4399..25c3b8dc891 100644
-> --- a/drivers/media/usb/uvc/uvc_video.c
-> +++ b/drivers/media/usb/uvc/uvc_video.c
-> @@ -1487,6 +1487,10 @@ static void uvc_video_decode_meta(struct uvc_streami=
-ng *stream,
->  	if (has_scr)
->  		len_std +=3D 6;
-> =20
-> +	/* A packet shorter than the header it declares is malformed. */
-> +	if (length < len_std)
-> +		return;
-> +
->  	if (stream->meta.format =3D=3D V4L2_META_FMT_UVC)
->  		length =3D len_std;
-> =20
