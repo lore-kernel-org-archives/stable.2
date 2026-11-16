@@ -1,62 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.220
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794818681;
-	b=4s/6mdEJl0/E1QxhUsPdiiFCZZQZDzUSju9TrQ4kGx9qLNXoCnn1HSwn1PgxmUlPUnWx
-	 4Dmxo1mBRVJ6YrG8k87oEiM4ecbkH5q9El0V/uys4AXkA/IWZ2QBghWH+WbM752sutR2y
-	 aJxLVbP4xaVr61jPkpnwD+WyaXFBlOROa1xHwWZUUnysvH483sVKIdPtq8aaZwgmXrzu9
-	 YTQ5J/6DOPgKaBTuC0AX5u27HWAwvekMhpnY0berprqB6aWFhhvXqmT3fCDUR3bntv2Us
-	 XMuJOwvDh8Pb1nF35u+qPL8kBeYU2NI9mU3fhsd9+UGAuJ/WSsurgOdJ8dtjJM4iFdQ==
+	t=1794818692;
+	b=mawM0h4ufKjCnO6jmbeFkWzhENsTNIxPTQKTc+/zDuKuR9KsPCg8rcVqfq0uoABZBp51
+	 TdTMrEPl292HyuGeKleTBD8YPlYdgu3PgFUa5M2WmJBmNUkqB6l4DmfOyxyHAJgE7oD1x
+	 mxRSmgz3Rp3Vg2i/+KzHFhgDpgO2BE893mK7XRIbrvnJL29BZrWKdyjuthQ8g2BcfYLEM
+	 DZZJ59sqElFa7HEwgqxWwifPS8+I3TbYP6BUBeWH7iH8inLhAUSXGUyIwBPA0b4EWq1/3
+	 ypRnaMbvxtc04mSdPE+3UFazBx8FMvbr/HXBXKMC6qE8XqiICio05nVaVDWVdPzcHhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794818681;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=jDMEgU3pAAkuzBbptHC17mrC+iYnBOL0PE3ezJSQuwQ=;
-	b=24OVYkCovxz7ZFp0bdAV4jpjHCdlgOZFncTbtTey47+eI7vEgQDiXjiNl8O6FceuESAv
-	 VJWmr0BVnx8TTqfAIdKfieOytN01OqSBti1rOKOwXDIrTRAptj4yVL1RkxpX2e9pqB814
-	 ZDLMBEG1RdEFVEs1NwlDiAg1m1nSVvB41Jmz2Ao/6cgdAjnymnAOjbSD7mkHUSi0gETuu
-	 dujpM74qMl8sVhw2miU5qo9zLN9QeFSfYFtyi78Ux/puJAg+WgPSOATv9T7DiXFh0Hp5k
-	 /rBVmIUHnHFtzR2/ft1v59iBTYmsFhhIr/DRM8q9kQlwuEBaIwoVts+rj8ZeojqdReg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794818692;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=App5MivrC29qJ5YU4+PdoN/90QWxn2hpy56HecE5sTc=;
+	b=zNCjuK3uYSWcowtxe9jm9Bc8Lc5MSZ+FTOJoF0E6X7cpTELgcs8AaeRIYkITQ532ye4+
+	 4AtgHZxxdYMENbHATMdo4sW71SfjStiudb/onC9jMhTivv+mF/FSu7XSxkCT5GCVwSxoc
+	 tnQT9fpuqygkGowzhkc/xcCfPhimaVddrcA7TfbJ0c9XbopeFmCjWFsrwUCbk75e1aP56
+	 amHPQvGudSaxhhZDsq8MQd3xjMjOizfILbOjDEIrgGE/E3iPs4ivXqV5IkkqEI3lk1Yd5
+	 a9z9mpsp87ylt/IXHfvXJMftGcd2wG0QDqienp7+9kS5i3xcoYqFpblM8OP+qZnKdQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=iRrTV024;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 96985606A331;
-	Mon, 16 Nov 2026 08:44:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96985606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="rn/HLG3Y";
+	arc=none smtp.remote-ip=91.218.175.220
+Received: from mta0.migadu.com (out-220.mta0.migadu.com [91.218.175.220])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7F5606A329
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 08:44:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F7F5606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=iRrTV024
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 336051713;
-	Mon, 16 Nov 2026 00:44:37 -0800 (PST)
-Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D4A643F673;
-	Mon, 16 Nov 2026 00:44:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794818680; bh=MVIVrVn+MfbtQKO5pcUer4ZuZBQC3obEsrNsqTq1eow=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=iRrTV024bR3xM4wt4Y+GDGzJFOIok626HqtD6WoUf8mZVHKvYoa7IChfyBlzt3IAg
-	 MFSZkEqCAUAMSHtBMt/3O0oCdMzJfe0UNoXDBaNvmM6DbxSbmGVP+eNgbqHjbDuTEf
-	 P5YJs8DqtKPk5YD3LEzs5LybhlQABZLk6yIerVsQ=
-From: Cristian Marussi <cristian.marussi@arm.com>
-To: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org
-Cc: sudeep.holla@kernel.org,
-	philip.radford@arm.com,
-	Chengyu Liu <lui2012qwq@gmail.com>,
-	stable@vger.kernel.org,
-	Cristian Marussi <cristian.marussi@arm.com>
-Subject: [PATCH 1/2] firmware: arm_scmi: Fix deadlock between reboot notifier and forceful work
-Date: Mon, 16 Nov 2026 08:42:10 +0000
-Message-ID: <20261116084211.3066460-2-cristian.marussi@arm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261116084211.3066460-1-cristian.marussi@arm.com>
-References: <20261116084211.3066460-1-cristian.marussi@arm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rn/HLG3Y
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=/9gL/L4VRPsjzM4uXBvjKnOQSjh1vwhsojRka+2HEnc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794818689; v=1; x=1795423489;
+ b=rn/HLG3YYMNYo8/Wmq3T0sKhDAVEDcszGPsHt4wuj9yh0W/PUJDzNhz5Xv2gfNiCIO7if3jz
+ oZZV9Kd25GtTsmdCTcPgUY/jVrpknIIymsTdJ4IfBaCdQZGdTC8H9Z08IOp34MkgEgQ+rhjf96L
+ FD2D9zSTjq4GnSAhmKvXBhEI=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 112a824f4d90f4bf;
+	Mon, 16 Nov 2026 08:44:49 +0000
+X-Mizu-Trace-ID: 112a824f4d90f4bf
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <70e9dc89-595b-4cab-a338-f0a1b6b9b58a@linux.dev>
+Date: Mon, 16 Nov 2026 08:44:48 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,114 +58,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] scsi: scsi_dh_alua: set handler_data before
+ alua_initialize()
+To: Laurence Oberman <loberman@redhat.com>,
+ "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Bart Van Assche <bvanassche@acm.org>, Martin Wilck <mwilck@suse.com>,
+ Hannes Reinecke <hare@kernel.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261109201120.1067815-1-loberman@redhat.com>
+ <37cb0b01-0c6a-4b3d-b3d8-c4e5a45977a8@linux.dev>
+ <57f9665fb8c3571cff55b2fafceec7437634fd5d.camel@redhat.com>
+Content-Language: en-US
+From: John Garry <john.garry@linux.dev>
+In-Reply-To: <57f9665fb8c3571cff55b2fafceec7437634fd5d.camel@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-From: Chengyu Liu <lui2012qwq@gmail.com>
+On 11/15/26 19:37, Laurence Oberman wrote:
+> Agreed, group_id is never read or written. All other members are
+> initialized before handler_data is set (h is kzalloc'd, and disabled
+> is set under init_mutex in alua_initialize()).
+> 
+> I would prefer to keep this patch minimal since it is tagged for
+> stable, and send a follow-up cleanup that drops the now-redundant
+> h check in alua_rtpg_queue() and removes the unused group_id member.
+> Does that work for you, or would you rather I fold both into a v2?
 
-scmi_reboot_notifier() calls cancel_delayed_work_sync() while holding
-sc->state_mtx, but the work it waits on - scmi_forceful_work_func() -
-takes the same mutex.  If a forceful transition work is in flight when
-the reboot notifier fires, the notifier holds the lock and waits for
-the callback while the callback waits for the lock: deadlock, and the
-reboot wedges.
+I think that you can keep it separate.
 
-Moving the cancel outside the lock is not sufficient on its own, as the
-callback also calls unregister_reboot_notifier() unconditionally, which
-blocks on the reboot chain rwsem (down_write vs. the in-progress
-chain's down_read) while the notifier waits for the callback - the
-deadlock would just move to a different lock.  Fix both sides:
-
-- Notifier: compute the decision under state_mtx, drop the lock, then
-  cancel.  A callback that slips in between sees state ==
-  SCMI_SYSPOWER_REBOOTING (not IN_PROGRESS), skips the forceful
-  request and finishes, so the cancel cannot miss it.  (The callback's
-  own system_state early-return does not cover a work item that
-  started before the reboot began: kernel_restart_prepare() runs the
-  notifier chain before setting system_state.)
-
-- Callback: only unregister the reboot notifier when actually forcing
-  the transition - that is the only case that needs it, because the
-  forceful kernel_restart()/kernel_power_off() would otherwise
-  re-enter scmi_reboot_notifier and self-deadlock on state_mtx.  When
-  the state is not IN_PROGRESS there is nothing to force, and skipping
-  the unregister keeps the callback from blocking on the reboot chain
-  rwsem while the notifier waits for it.
-
-Found by static analysis.
-
-Cc: stable@vger.kernel.org
-Fixes: 2c4b97fee94a ("firmware: arm_scmi: Add SCMI System Power Control driver")
-Signed-off-by: Chengyu Liu <lui2012qwq@gmail.com>
-[Cristian: drop lock before triggering forceful reboot (needs_forceful)]
-Tested-by: Cristian Marussi <cristian.marussi@arm.com>
-Signed-off-by: Cristian Marussi <cristian.marussi@arm.com>
----
- .../firmware/arm_scmi/scmi_power_control.c    | 26 ++++++++++++++-----
- 1 file changed, 19 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/firmware/arm_scmi/scmi_power_control.c b/drivers/firmware/arm_scmi/scmi_power_control.c
-index e791a206768c..e0680e33180e 100644
---- a/drivers/firmware/arm_scmi/scmi_power_control.c
-+++ b/drivers/firmware/arm_scmi/scmi_power_control.c
-@@ -121,6 +121,7 @@ static int scmi_reboot_notifier(struct notifier_block *nb,
- 				unsigned long reason, void *__unused)
- {
- 	struct scmi_syspower_conf *sc = reboot_nb_to_sconf(nb);
-+	bool cancel_work;
- 
- 	mutex_lock(&sc->state_mtx);
- 	switch (reason) {
-@@ -138,11 +139,18 @@ static int scmi_reboot_notifier(struct notifier_block *nb,
- 		break;
- 	}
- 
--	if (sc->state == SCMI_SYSPOWER_REBOOTING) {
-+	cancel_work = sc->state == SCMI_SYSPOWER_REBOOTING;
-+	mutex_unlock(&sc->state_mtx);
-+
-+	if (cancel_work) {
- 		dev_dbg(sc->dev, "Reboot in progress...cancel delayed work.\n");
-+		/*
-+		 * cancel_delayed_work_sync() waits for a running
-+		 * scmi_forceful_work_func(), which takes state_mtx - it must
-+		 * not be called with the lock held.
-+		 */
- 		cancel_delayed_work_sync(&sc->forceful_work);
- 	}
--	mutex_unlock(&sc->state_mtx);
- 
- 	return NOTIFY_OK;
- }
-@@ -181,6 +189,7 @@ static void scmi_forceful_work_func(struct work_struct *work)
- {
- 	struct scmi_syspower_conf *sc;
- 	struct delayed_work *dwork;
-+	bool needs_forceful;
- 
- 	if (system_state > SYSTEM_RUNNING)
- 		return;
-@@ -188,13 +197,16 @@ static void scmi_forceful_work_func(struct work_struct *work)
- 	dwork = to_delayed_work(work);
- 	sc = dwork_to_sconf(dwork);
- 
--	dev_dbg(sc->dev, "Graceful request timed out...forcing !\n");
- 	mutex_lock(&sc->state_mtx);
--	/* avoid deadlock by unregistering reboot notifier first */
--	unregister_reboot_notifier(&sc->reboot_nb);
--	if (sc->state == SCMI_SYSPOWER_IN_PROGRESS)
--		scmi_request_forceful_transition(sc);
-+	needs_forceful = sc->state == SCMI_SYSPOWER_IN_PROGRESS;
- 	mutex_unlock(&sc->state_mtx);
-+
-+	if (needs_forceful) {
-+		dev_dbg(sc->dev, "Graceful request timed out...forcing !\n");
-+		/* avoid deadlock by unregistering reboot notifier first */
-+		unregister_reboot_notifier(&sc->reboot_nb);
-+		scmi_request_forceful_transition(sc);
-+	}
- }
- 
- /**
--- 
-2.54.0
-
+Thanks,
+John
