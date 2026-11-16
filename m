@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794859815;
-	b=tyvTyWiDNzXUZWtiS+7B0CZCQMqPGRQQdYk323n6XUJ3u4lyyhL6129kqp2bETVLIlCn
-	 RfIpSoQTEgTYiBopwf4itA4c+s+2TcoDog/k6EL0oDG81zW/rMc9cUqpzCs/SY4dTK1VY
-	 qIClwvKwK4Xb6c0bKlB0rlRE0ompHVtGBGlb+t6CcOOohauMAUJymykQDtR5LZE6CJEZj
-	 2zQQi3L5dj+V5g24Y+n2dzzvIlAcm/gsF+if24kBKUhuNrczbkjyyulIae8ibibmWVDro
-	 slpCxeMtAgagRXTnbW7vuGwnEn+0WndgTWkPBrXIS1/NMHdq4BZjWi2W1f0vo74NcFA==
+	t=1794860168;
+	b=RblzGvZlP9UMtL494RgWzrO3vt4r7fTirVb0lMD9v91KGSQR5UXtS/gaRz6ObFkvP1V/
+	 DKDELtyOrr+ZoeEVKsnsb8vgj1IoDlP432jYjwnkoe/8VxiE0KxgkzvHUxw51oU1wciqT
+	 xJiircGo7qFhJV7hO0f4zgtcggknT9mBbhzkrD0iO+2cAr6uHg15ta359EwC3BtpoJOeD
+	 bjR7+yiiEGAIGHdG/fMbRNUQ471gw+55KZuuLboOO8JVH/+tY1P9VP3AH9G+cSKfJFoAq
+	 DIp3HZrY0UcGv2hGmSOt3f/d4+8lL4M7ysFU+0VFQFMYTKHsaHrx2Fck2BEJ1HKDOnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794859815;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794860168;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=DnZY0R4CFWaA841+h8c4OqRg9398Cp2ZyZRKUgM0LV4=;
-	b=IQuuBJ2gKkzrEHJuvfpYYHL8kZ2KhrdH+VTmhNJmdoghO/26FeCOQSmcT3fPzv0qZDXs
-	 APROxtKdjU2JAzqU7YNvgcxZdzABU8SCMcF/u5Ux8S0UWXyg9VU6Db81qv5IuhaFKn2Nc
-	 Ciu66OAIiJbqyxrq1UOCV4DNdqR/Vd8yr1BhiPsQIo3sAgn9hmzxNdXY/vTigdxQv3YQq
-	 WVTZALRr+rNLLuX46djlq/sQk2kNM8bCw2uYKr0AHtII12Rb1p+zHvlGwo7/a13GrmQb6
-	 tVLJrtNncxcm4++S9KrC38bf3sOWLAUUnnWEqWeunOs2g9XbElxWl+PcSiVeAwm1vFg==
+	bh=nP2/A4kreMDxcG0ChilH5zyKMiflQw713CJUf+u0xOo=;
+	b=gjfV+5CkhPuyw/2Cp3kFSWNfxrBEuNSlukE3u3TNwKevjvhSn0Qb8Pf52LBKQs+F4PKM
+	 CEk/OR0P9mOX8nDyxrwD8J3yRYwS2ovl8cQMmDNqNKcqMBwo24t0S18hvBOBWDYBTT0am
+	 IV9QOXtIK0VwCMfP3Gr6QNP0O+J6ezfC5TvKspXiaV6og1LsjAlrLYhbND7hC7/8maoR9
+	 ulRMTGql9r5Dco2yCWDAOvh3RL8MGfo00sGJPIZi1oM8IukguI+I4DdXnn8TjU5pYQ7JH
+	 m690N7vPIsSz1jAv08Y1lK6yPM3KfoSggZRA+DswAMqYvvPvOP5qt6iJXlsr8pupT0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SrCWeG9C;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="e91q/zjO";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15CB606A322;
-	Mon, 16 Nov 2026 20:10:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B99606A323;
+	Mon, 16 Nov 2026 20:16:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SrCWeG9C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FA1F1F000C4;
-	Mon, 16 Nov 2026 20:10:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e91q/zjO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D8901F000C4;
+	Mon, 16 Nov 2026 20:15:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794859815;
-	bh=DnZY0R4CFWaA841+h8c4OqRg9398Cp2ZyZRKUgM0LV4=;
+	s=k20260515; t=1794860168;
+	bh=nP2/A4kreMDxcG0ChilH5zyKMiflQw713CJUf+u0xOo=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=SrCWeG9CA1eAKSC/Tiu2df8H1SoSfnefW1/ZFb3AIH90QnNtE02+DN93168cqg+wz
-	 C1QOjXXky/ZPZztUmEeCRRBdbXE6me3o8RF292CDppPRFPtAfXtQBjp9GOmFEiNGWN
-	 VdNCL5T8GONGf19sCNQOI5a4GS19yRby73zsAXImG8fkrdFw+i03LRCUwGHRwi1mI1
-	 KO8oDtnTnnG3O68W9KCN75GOvxuF7P4lgZGHF02at51ByAgZdayqdP0aelKtJuVThH
-	 VXVvincUfF+kCDqY5AGJE7YL2BBGBcfV0Tr6/DsviVC+J3l0oSnx4LiopwTTfnyqMi
-	 TPQhuEAe0adDQ==
-Message-ID: <b58451d6-e90d-4aa3-afb4-13666953dd1b@kernel.org>
-Date: Mon, 16 Nov 2026 21:10:05 +0100
+	b=e91q/zjOKL9q/uw7SxD7P7ZTugdBB+UjVeXZwDBA8rP/BBz54+FhWFY2qnooMzVWg
+	 oX84IokEF/q+TxpkmbU7qiM8zh6hxBTGVrRnh87SH/qv2wv73t0THwTWBdRowX9+AW
+	 RsgMhZw0A+ywGRj0DJFvpaHq6RCtWbqAcmzibI9A5TOIQWQadHYiu3HFc4ldrL80oc
+	 QVTzetfhI4ylCxsQROZuZt6AFLOVYngULhFF4XkkvJWtMCM7UKrYOC9vo4XfaKbqwF
+	 qfWjUYCzprpyX+YfuMV5cvu2RO7YeSZKHw0+Qs9kodUTW39ZT8Qjf3Cdi+TeTSWEsc
+	 el6L+IFlE/R9A==
+Message-ID: <d4ceead7-4b55-4525-8d09-121a75c30ac4@kernel.org>
+Date: Mon, 16 Nov 2026 21:15:56 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,28 +52,34 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] mm/memory: do not report OOM if insert_pfn() races a
- huge fault
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>,
- Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>,
+Subject: Re: [PATCH v2 1/9] userfaultfd: use anonymous memory for
+ UFFDIO_ZEROPAGE on private file mappings
+To: Tal Zussman <tz2294@columbia.edu>,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
+ Andrea Arcangeli <aarcange@redhat.com>,
+ Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
  Baolin Wang <baolin.wang@linux.alibaba.com>,
  Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
  Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
  Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>,
- Roman Kisel <romank@linux.microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>,
- Naman Jain <namjain@linux.microsoft.com>,
- Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>,
- stable@vger.kernel.org, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
- <20261115-huge-pfnmap-fault-races-v1-2-537605643f6f@kernel.org>
- <998b00e3-bde9-450c-b50b-069e65d00c49@kernel.org> <avs6WWOurjIN-trm@gremlin>
+ Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+ =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
+ <20261116-uffd-state-fixes-v2-1-4397a0196479@columbia.edu>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -120,89 +126,51 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <avs6WWOurjIN-trm@gremlin>
+In-Reply-To: <20261116-uffd-state-fixes-v2-1-4397a0196479@columbia.edu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/16/26 18:21, Lorenzo Stoakes (ARM) wrote:
-> On Mon, Nov 16, 2026 at 04:59:35PM +0100, David Hildenbrand (Arm) wrote:
->> On 11/15/26 21:58, Lorenzo Stoakes (ARM) wrote:
->>> From: Eliav Farber <farbere@amazon.com>
->>>
->>> A driver that implements both ->fault and ->huge_fault must anticipate
->>> concurrent use of both.
->>>
->>> This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
->>> concurrent with faulting, as that only holds the mmap write lock and thus
->>> does not exclude faulting threads stabilised by VMA lock.
->>>
->>> This is not currently safely handled by insert_pfn(), however, which
->>> obtains its PTE entry via get_locked_pte(), and treats a NULL return value
->>> as an allocation failure, returning VM_FAULT_OOM.
->>>
->>> The issue is that get_locked_pte() also returns NULL if the PMD entry is
->>> not a page table which can happen if a concurrent huge fault installs a
->>> huge PMD entry between __handle_mm_fault() observing the PMD entry to be
->>> empty and insert_pfn() being invoked.
->>>
->>> This can result in VM_FAULT_OOM being reported incorrectly.
->>>
->>> Address this by proactively checking whether a page table allocation
->>> actually failed, and returning VM_FAULT_NOPAGE if the NULL indicates that
->>> we were raced instead.
->>>
->>> The same assumption is made in insert_page(), however only DAX implements
->>> ->huge_fault and can reach it, and it serialises faults of different orders
->>> with its own mapping entry lock, so it does not require a change.
->>>
->>> Target the commit introducing the first driver able to do this.
->>>
->>> Link: https://lore.kernel.org/all/20261112051440.16140-3-farbere@amazon.com/
->>> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
->>> Cc: stable@vger.kernel.org
->>> Suggested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
->>> Signed-off-by: Eliav Farber <farbere@amazon.com>
->>> [ ljs: rewrote commit message, trimmed comment ]
->>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->>> ---
->>>  mm/memory.c | 11 +++++++++--
->>>  1 file changed, 9 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/mm/memory.c b/mm/memory.c
->>> index e03110906aa8..cff39eccfd42 100644
->>> --- a/mm/memory.c
->>> +++ b/mm/memory.c
->>> @@ -2866,10 +2866,17 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
->>>  	struct mm_struct *mm = vma->vm_mm;
->>>  	pte_t *pte, entry;
->>>  	spinlock_t *ptl;
->>> +	pmd_t *pmd;
->>>
->>> -	pte = get_locked_pte(mm, addr, &ptl);
->>> -	if (!pte)
->>> +	pmd = walk_to_pmd(mm, addr);
->>> +	if (!pmd)
->>>  		return VM_FAULT_OOM;
->>> +	if (pte_alloc(mm, pmd))
->>> +		return VM_FAULT_OOM;
->>> +	/* We may have raced a huge fault, if so let the fault be retried. */
->>> +	pte = pte_offset_map_lock(mm, pmd, addr, &ptl);
->>> +	if (!pte)
->>> +		return VM_FAULT_NOPAGE;
->>
->> Same question, what if we would stumble over a PUD entry, how would we handle
->> that today? I'd assume we'd also want to return VM_FAULT_NOPAGE instead of
->> VM_FAULT_OOM.
+On 11/16/26 21:02, Tal Zussman wrote:
+> If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
+> mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
+> installs it through vma_uffd_ops(), no matter what kind of mapping it
+> is. An s390 KVM guest with storage keys or protected virtualization is
+> such an mm.
 > 
-> It can't for similar reasons.
+> For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
+> cache of the file. That is wrong: a private mapping must never modify
+> the file it maps, and the file might even be mapped from a read-only fd.
 > 
-> Actually changing this would require changing walk_to_pmd() a fair bit so it can
-> distinguish a failure to allocate from that, and I'm not sure it's worth doing
-> that at this point, better as follow-up?
+> The ioctl can also fail where it should succeed. A missing fault is only
+> delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
+> an address that did not fault, or can race with a write to the file. If
+> the file has a page at that offset by then, inserting the zeroed folio
+> fails and the ioctl returns -EEXIST although nothing is mapped at the
+> destination address.
+> 
+> What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
+> shared zero page can be used, and what UFFDIO_COPY does: only check that
+> nothing is mapped at the destination address, map zeroed memory there,
+> and leave the page cache alone. The zeroed folio path did that before it
+> was moved to vm_uffd_ops.
+> 
+> To fix it, pick the ops in the common folio path, as
+> mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
+> mapping, the ops of the VMA otherwise. That makes
+> mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
+> so remove them and rename __mfill_atomic_pte() to
+> mfill_atomic_pte_folio().
+> 
+> UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
+> if something is already mapped at the destination address.
+> 
+> Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
+> Cc: stable@vger.kernel.org
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+> ---
 
-There are only two users in mm/memory.c right?
-
-I'd just make the whole thing less shaky right away, but whatever you prefer!
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
 -- 
 Cheers,
