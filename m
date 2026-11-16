@@ -1,47 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794840008;
-	b=ZazUgzXDj72zXREDMTuRcTl3CeHfmVyuRyDdVWpO12wCqLKXBeO8Vgj8g85uzr/JTXto
-	 d79zSuOy9mlIg72X1v8pW3R6Kcs+t4f2a4A7vor46T46RnUQLPrfmrlwzS9b0f3P7Tf/g
-	 jpkYzcLe9KBABe4BzfyWZbMqc4Op1laarM5dYFWTei6idszf0uDYksAQrB+7ONf9s7AEq
-	 ii4XlbaBC0DR0BPH3UfQ724icUOsehNtL11waUdduKqQt5+I9hoBgbjz4A8EmWAiI44dB
-	 m8Z2T2OuWqbFzFfEyYgs03oie4rZ8bmbXFuWWTSMWXOannyg8Yod2KuT/PdZBhByYGA==
+	t=1794840576;
+	b=Xi5cug8zcMmKyvVmGLjjdqk6eUkUG+1Wuc7UrTOXRTbQsEkvTHQRRFhijeGIotUrJ8lP
+	 a88VWprij0kRmVSjbySAvkocGODEAxZS07/Alg529pRTlIvDFZks4iTvifJZ2m1vNCMF2
+	 yice9VBcbLMNG56p2A3N300p9l+9kVW4BHhyCvaPIWPVIcYZfaZNpAC/420SNytpBnNV/
+	 Hf0skl5ixYgaSSsRdLhqI5CR5czzDB84Fu9oAbh4Wiy7ZorR63SxgFyXbaLpfU7H6y6Wu
+	 94tw/gmBNa0iOJxhvy1GeFQ2pUbv1qDVbijA6XFz025fuuM/kmregnk+S87z1SlCCfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794840008;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=l2EBpH08xKGjJnPxYpGviTvnZuT+6vV8X+V/VrgfnoA=;
-	b=BlkCvQxIz9tpI/q13meTlPvQj+9Bukmqn0UAux0BwYz7HwUwDWw9oXPPBPcsw9fZk5G1
-	 Wxv9TnKXX/SsDJurH10XNaIrOWFalpV5FkkWrfEyoPCFeji4uPtjYBrdx5J2UvrreI/cA
-	 bMvr39+o4MsaCSxklxe/1RRCMvG5CxEjhY1QecFcUvO6Vq9rxkd2wAtCwEhJIlf2p0jry
-	 fJTob/Ox+uR230XQ2mKp+6yZlb40rHixo2BC8MGVu8gjdZedg/wdE8F4jZa+VgSR0QMdv
-	 EwjSq1YZoA7PPxYzBiUFcCPHUF7HlB5+9UUO/SGKI5339ploMxbvIu6/nGc+RbGdLRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794840576;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=npfZK7W8Bp9paacaxLF0kqkWMJTXuX5iG3UN6ApFE/8=;
+	b=iYz6e/gp3jM16KyEDJrG5LLmkltkod1dCh/UT05dKiFEnAg4i8c2XxBIa4Vo4bPGbKEN
+	 kP4SmrBw8B5/PPUgyswSZNv9zLpI+ReDtiwErvcHYceY4sYx+SOczoEO//NZ0ERfBfIyn
+	 QAIL1dYBFwRn6V2XFcy3PsgZizM2Fuq9Eugy0c9oe6WeSxh47KkWmFI3vDbOzmx5BKjQ3
+	 J6lwrtuHHh8fcOEKvfg7Ok941YidOwwjGOGKsp3os3SxSx3mFI6zgTQ2noBgocOV3uhLv
+	 P/mzKMnUyvsZiMiT+kbz1TetHCR7Q3mLAhnmOskI81vGca+Z7BrMfjbKnkAyKHD+V7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="EzD/GQvN";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TCkMsXsw;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14FD3606A32C;
-	Mon, 16 Nov 2026 14:40:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780E5606A335
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:49:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 780E5606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EzD/GQvN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E2921F000C4;
-	Mon, 16 Nov 2026 14:40:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794840007;
-	bh=l2EBpH08xKGjJnPxYpGviTvnZuT+6vV8X+V/VrgfnoA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EzD/GQvNR1otlSd8m8+eabMhI+h/azuepFBT9Ub3NmseDVOzAH7kWm0cTfaBVrwZN
-	 PYJa3KDrymDi8ElGdVUSB8ndLE1YlG64gmRyaFpm3SBlFmbXXYB3W//ePI8DFTSdpc
-	 vUN/AJ9yR4oSGMoTq4wmKbFkJBeP+LiFP+naYrQrTQdSU1wFI+wEPYyn6Wc+ACYm4q
-	 96X5AjYy+bOd81oyk8a61CxLWXFLnPWlu4Dtkx9fSZkGIM8pbH7cmR5O0O3QhMlVGW
-	 AGWdA9F9RAKNPbig7CQgrlVocvp9yPH0k3kMd3cQulE9G0WxQIEZ/bTDw2eDbg6VsY
-	 l5fteDhN/fhhQ==
-Message-ID: <1d43222e-b864-44a3-a159-575fc1a9b388@kernel.org>
-Date: Mon, 16 Nov 2026 15:40:01 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=TCkMsXsw
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 19A351A1699;
+	Mon, 16 Nov 2026 14:49:34 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id E2E026023F;
+	Mon, 16 Nov 2026 14:49:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0531A11BC05D6;
+	Mon, 16 Nov 2026 15:49:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794840572; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=npfZK7W8Bp9paacaxLF0kqkWMJTXuX5iG3UN6ApFE/8=;
+	b=TCkMsXsw0vPqbYSF117iBfd1nPrPAXb7HjQFdYTu02WXw6zIu6rxu0WAW23tXJCXC+TiJw
+	xjWbT3OrHFcuqVRhDhP0Q+7Q5ZRELMRrF+UNazUTCI8QsbZGwIQtnMiEst6GLOyVDY50CK
+	A0HbnyoyY2HIVlRFvrCqlAsU0kWbCdJIUFRK6/Sg8wvCE3vtfeAclYvascIJniL5Owb9bj
+	HN64+Ylw2/m+iKPPuwjmi+LC2Bfw6ZA63e77un5UUMv8N/whiZ5vwVBeF8zkIKx+tuD94D
+	Strqu1TR/vOQNwiu7ZCATjvW62JOIrK29//4YPAm2fYIK9SE0hje9YLRhC0w4g==
+From: Paul Cercueil <paul.cercueil@bootlin.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Bharat Bhushan <bbhushan2@marvell.com>,
+	Sunil Kovvuri Goutham <sgoutham@marvell.com>,
+	Tanmay Jagdale <tanmay@marvell.com>,
+	Jisheng Zhang <jszhang@kernel.org>,
+	George Cherian <gcherian@marvell.com>,
+	Witold Sadowski <wsadowski@marvell.com>,
+	stable@vger.kernel.org,
+	Paul Cercueil <paul.cercueil@bootlin.com>
+Subject: [PATCH v4 1/7] spi: cadence-xspi: Properly handle errors in .transfer_one_message
+Date: Mon, 16 Nov 2026 15:49:04 +0100
+Message-ID: <20261116144910.44151-2-paul.cercueil@bootlin.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261116144910.44151-1-paul.cercueil@bootlin.com>
+References: <20261116144910.44151-1-paul.cercueil@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,95 +78,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net] mptcp: Avoid unsequenced accesses to jiffies in
- mptcp_reset_tout_timer()
-Content-Language: fr
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, netdev@vger.kernel.org,
- mptcp@lists.linux.dev, linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
- stable@vger.kernel.org
-References: <20261114-mptcp-wunsequenced-v1-1-707a73a6c172@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <20261114-mptcp-wunsequenced-v1-1-707a73a6c172@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Nathan,
+From: Tanmay Jagdale <tanmay@marvell.com>
 
-On 15/11/2026 05:30, Nathan Chancellor wrote:
-> After a recent improvement in clang to warn on unsequenced accesses to
-> volatile variables [1], an instance appears in mptcp_reset_tout_timer(),
-> which can break the build with CONFIG_WERROR=y / W=e:
-> 
->   net/mptcp/protocol.c:3044:20: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
->    3044 |                         tcp_jiffies32 + jiffies + mptcp_close_timeout(sk);
->         |                         ~~~~~~~~~~~~~   ^
-> 
-> Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
-> 6.5.2, unsequenced side effects on the same scalar object are undefined
-> behavior. Per C11 6.5.3, unless otherwise specified, side effects and
-> value computations of subexpressions are unsequenced within expressions.
-> 
-> Add an explicit sequence point by splitting the addition expression in
-> half, eliminating the undefined behavior and clearing up the warning.
+The cdns_xspi_transfer_one_message_b0() function was not setting
+m->status on error, causing it to be stuck at -EINPROGRESS, confusing
+the SPI core.
 
-Thank you for the fix, it looks good to me:
+Additionally, reset cdns_xspi->xfer_in_progress on error.
 
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Fixes: 931e389ded0f ("spi: cadence: Add Marvell xfer operation support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tanmay Jagdale <tanmay@marvell.com>
+Co-developed-by: Paul Cercueil <paul.cercueil@bootlin.com>
+Signed-off-by: Paul Cercueil <paul.cercueil@bootlin.com>
 
-@Net maintainers: this can be applied in net directly (simple, safe, and
-avoid build break with -Werror on newer version of clang).
+---
 
-Cheers,
-Matt
+v2: New patch
+
+v3: No change
+
+v4: Also reset cdns_xspi->xfer_in_progress on error.
+---
+ drivers/spi/spi-cadence-xspi.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
+index 3687853e4ce4..442595daf7b5 100644
+--- a/drivers/spi/spi-cadence-xspi.c
++++ b/drivers/spi/spi-cadence-xspi.c
+@@ -1112,6 +1112,7 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ 	int current_transfer_len;
+ 	int cs = spi_get_chipselect(spi, 0);
+ 	int cs_change = 0;
++	int ret = -EIO;
+ 
+ 	/* Enable xfer state machine */
+ 	if (!cdns_xspi->xfer_in_progress) {
+@@ -1152,7 +1153,7 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ 							  false, cmd_regs);
+ 				cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
+ 				if (!cdns_xspi_is_stig_ready(cdns_xspi, true))
+-					return -EIO;
++					goto out;
+ 			} else {
+ 				cdns_xspi_prepare_generic(cs, txd, 1, true, cmd_regs);
+ 				cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
+@@ -1161,11 +1162,11 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ 				cdns_xspi_trigger_command(cdns_xspi, cmd_regs);
+ 				cdns_xspi->sdma_xfer_len = current_transfer_len - 1;
+ 				if (!cdns_xspi_is_sdma_ready(cdns_xspi, true))
+-					return -EIO;
++					goto out;
+ 				if (cdns_xspi->sdma_handler(cdns_xspi))
+-					return -EIO;
++					goto out;
+ 				if (!cdns_xspi_is_stig_ready(cdns_xspi, true))
+-					return -EIO;
++					goto out;
+ 
+ 				if (rxd)
+ 					cdns_xspi->in_buffer += current_transfer_len;
+@@ -1202,10 +1203,17 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ 		cdns_xspi->xfer_in_progress = false;
+ 	}
+ 
+-	m->status = 0;
++	ret = 0;
++
++out:
++	if (m->status == -EINPROGRESS)
++		m->status = ret;
++	if (ret)
++		cdns_xspi->xfer_in_progress = false;
++
+ 	spi_finalize_current_message(controller);
+ 
+-	return 0;
++	return ret;
+ }
+ #endif
+ 
 -- 
-Sponsored by the NGI0 Core fund.
+2.47.3
 
