@@ -1,57 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794852025;
-	b=Pao5GKpVI3tPW+poAGMpFVMG2BESXTqbqiaLd7X0cfKQZN2mBzDUYNN719AP/wolLyHL
-	 ix4YQ8aJAaCxSL1N7hUh+0mO2z9RNCDwSmEKHAacAbdOcIoovvTGXdTTjuyKN7RCTwTF+
-	 v0gxKHp1iD2dQ7EMZY2VbAcOFxiaGkG30BKlwdbvsZVUuwUIlu8JjlOpCssrjrldTqiZu
-	 qWHRSyVxJv85uVuWVkcL8ZgcxuzgVEYLADiZC9PZ7tOh1kP+Rnqmx3o1Bg2uo3SDPlaY6
-	 /xEFO1nnV93plygY/eT6k0DfPV0aN3TtZNw0WF+TWbp9zS9Wwxj8QuXEHBiRKfdyJdA==
+	t=1794852561;
+	b=uRn3G3/ulWPNIyuQnCoC26lHm+ZJNISA+3eb/5S/5+TMLqG0sqMH1glUer9X6W82BVzt
+	 Ln9lx5kPL5Re6x69cQz0ocPYLHtxK4xjOmO7jEMDuQbHWjB4dIT+J4i2uEK92WMkEskEK
+	 UGURI9vDREYTQjY24HxRQtfZ04FG6+rKp5GuNuFQlkbIInh8dLQCwbxKsKH/XbDiVMEhw
+	 BW7d4xlrE3LBnPVorA51pZqZc2w06GX44mQbBs2M9NjvXNhMCgbfkR67E0vil9McxMPG1
+	 LhcDkhJhjYATsXOIcI+UbdniTuRcHMvC+ZNcZ2fajeoBHEY5lvuPtsx67JGqUDt8Srw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794852025;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Z9itY3sFaKo4aFamvcDFo7fjuWWUI0oOdPWW++KRUSA=;
-	b=GLBtcgo2XxD3CvQ8oD0cuJT/OwkYil/pNisRwGF67Nd98ig93EBcpBVbe4H+0aWnaeBs
-	 NH5YfLRqy1jyiHG8OruHIUnJ4Ytgotse7x0i96ydPn80cKcVAXqRRajZE46T3SMDpvykB
-	 bgbJeA0oihQuyjkCVVHpxBf3l8r3A+GU9zh69dev9vZWSu7CaTX4GgmER5Zrn3FjjPJCT
-	 /0c7VS04q32Iak2rg9veghqL8ytW7rhvnNRxXI3U/xwOK7lMMd+/urzs4XGL72XDa1ACG
-	 8LtSrTqqQSnTVYjOQHCiLah12/4nxjDAuvtFPpsgA85IGZ+azDqiDdzy37xybVQG32w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794852561;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=okvp8C0zuSE2GrsT9KtMaCBqr1Zkfu7oGXcl3aeW/jw=;
+	b=VNaJHNf31u+414WynIlqRNtdYwmqrjiPpmB2QrF4y1APn2K+Nx/a5stqapmMUM2bT7CL
+	 sByifwAm2PmbPtIJp12q7ZuR1ypgytzoz3EMV3gvTNXPiO/bvpPrLzKvdVus/t3ltfNBo
+	 C/JXBquVRwQ0I0drMaQHacCD2E1YNqE09ONTOM/UpDcjro0KqzWh2/1iroopB1e53ylsV
+	 4rJpYQek4wKoS6D9At7dNAeQzjfktIXcMhlsbyxDuF5QO34tSaTG1q4OPnpzMXCsD3Csk
+	 TeSPrYZyZNiuw8p5d0eWVv7aRpWAhXTTMnnycKor9APEJMJ5zZittLwJPpABaRgpKmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=logarcheon.com;
-	spf=pass smtp.mailfrom=logarcheon.com;
-	dkim=pass header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=JfIPx31E;
-	arc=none smtp.remote-ip=79.135.106.25
-Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=rowland.harvard.edu;
+	spf=fail smtp.mailfrom=g.harvard.edu;
+	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=OiL05YS2;
+	arc=none smtp.remote-ip=209.85.160.175
+Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64303606A33F;
-	Mon, 16 Nov 2026 18:00:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64303606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=logarcheon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logarcheon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E850606A31C
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 18:09:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E850606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=logarcheon.com header.i=@logarcheon.com header.a=rsa-sha256 header.s=protonmail3 header.b=JfIPx31E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=logarcheon.com;
-	s=protonmail3; t=1794852016; x=1795111216;
-	bh=Z9itY3sFaKo4aFamvcDFo7fjuWWUI0oOdPWW++KRUSA=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=JfIPx31EMnRMdkJD7PAIr22ncUpj2cfU9NiajYlpI8IrBYnXaVPmMeJEaK66ckOQT
-	 dFpeWU9W1GP0AF0xA35fTR61V+HFLKYfDNYimilNhXafx9YWyM3EjgFLjN1P8whuJS
-	 T3GWbO4vDGrblkKe5lVr/6eg62bQ+mbLWHqZjOAJcgdRTNKhVoL/+RqgACTr3C7R7A
-	 IeNa/Tsw+HHLZCMuaXa4uJF1z8TrYplNzE38NazTvqBVVtUKmsbtsIdAPxRApqBPvd
-	 r/dhMAqiaNhir5dfi7l3F/QSKrDK9PI++G95MhioHHEy3pDAj//PWfcUxFa5gmyHfL
-	 XyvHdFdYLm82Q==
-Date: Mon, 16 Nov 2026 18:00:11 +0000
-To: Andreas Gruenbacher <agruenba@redhat.com>
-From: William Chuang <founder@logarcheon.com>
-Cc: gfs2@lists.linux.dev, linux-kernel@vger.kernel.org, William Chuang <founder@logarcheon.com>, syzbot+5a5f492ccae698fd7434@syzkaller.appspotmail.com, stable@vger.kernel.org
-Subject: [PATCH] gfs2: Fix NULL pointer dereference in gfs2_seek_data/gfs2_seek_hole
-Message-ID: <20261116180002.44336-1-founder@logarcheon.com>
-Feedback-ID: 145408520:user:proton
-X-Pm-Message-ID: 1b394b004e1d598caff714f572707eece21ebc06
+	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=OiL05YS2
+Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-5361e313e63so54424901cf.3
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:09:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=rowland.harvard.edu; s=google; t=1794852559; x=1795457359; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=okvp8C0zuSE2GrsT9KtMaCBqr1Zkfu7oGXcl3aeW/jw=;
+        b=OiL05YS2dUgjulEGZcPXZ2GuuPa/kGvqN3r2wKpIWxdRWJBuCWWnuQRwvIsJ3sA+B6
+         t6KKOyOM0n7cbylFAJD/bMiC6rbwG/aZVbI4p6sfZVr5Qjttyl8bhfL/1SRsFfy/DMia
+         ZRmY5IVTEWmeRQlhNXWoAO2LkovRs7PyMF+I6PDXPo22DTCgroKPuKMpxSH2mif/r8ev
+         IkcUPTqY3fgyh5mx8lPonJdaS/NZz80oey7iNRgfblPLVYYICRLhZ6ZVpPuw+okbkEv3
+         bOTxYJ+EoZW571F5EkPT4g89TG/xLfrro0PkZccqWb65T0ztIDbVg72oCSV4pkCJbEOh
+         5+QQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794852559; x=1795457359;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=okvp8C0zuSE2GrsT9KtMaCBqr1Zkfu7oGXcl3aeW/jw=;
+        b=fKRu9H+anBZtzOg5EYBcUlv99k41iux8lEMtO984Pcu5+zpXVXpZWLs5+MEwBgEg9N
+         7mbHYYabed+9hNd46+JyPpHNJOGvTYTc/wqekQ1FPnjB6KFkuV0+Pl/kg8VMvZMxUBnc
+         xsQtvNN/nWAzAwBN5E/8pIptJA5csWW5A+uO0D0ZY7nZX5fneuF5xBdwfcBRGRWjC2Au
+         9AzvALp585bwDXrEizhBOOC1wkqgYIZBGNZDFvc8hhWIxrqWI0KsCLD/ed09nOpYVRT3
+         7qdSGwBP54EzMgWXi3M0TStD3ubZgjkJuqObkCxts56yqrSWx3Y0z4pOT318OQ2Y+2dM
+         rtUA==
+X-Forwarded-Encrypted: i=1; AL+hErFAJjPqTJQYoM9Vqe14OcaDLvGUjJSTLmkLAO/6hE+gb3Gu/1Jxgzo/CFGxJkjI+SQiTa9mESM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9GIu1Yx3dXrQAdpO2FTWP7QKsVMxgyr3XPMl9qevPidKWcqKIV
+	nDEmRO2if79G+Ugdv9ThIvmscM3NxAA4BCXCJRA/acL9TTPUhVFrnAEboQvfghm/yQ==
+X-Gm-Gg: AYBFou3uqrDa1Xx1otZEfB6bY/Sv+7hsJ1Q0BqNAKhgmSaRIR+WV/VnYcWmCGque9QW
+	dP9AWx2+WPz+iHgwsril4xJ0+f0YjzGOrRbPaT6tXShDRek2mHYF7E3sGzk4n4KHrvj0iXbQquf
+	MN7NwGpv/91Byp/l9sFCmujTFvkaw9GUtyqgodtiXpdFQEyu0JHPRh059a61Qv2feEtHcz9baX1
+	W1G6Ss32K0zagtQ3L0HiojKovJcqA7UCoe+guDzLEwhlX8ozsQVW5hB2l7aP4xLHvVmFGx+ijDw
+	TouQS2lHPLZdwZ7hAd6Xk41G4A5Ru+gWeUj5iRsKIVhbF2HgmIYO6wg7ljbr5+3qlahcc2EpcmV
+	1HozykLYDr7sjYSt8GQiUuwJ9qRKFRfW1PMz2JdaO0/gohums+9igkCaZ+LFy6HAIMMPxwMhKFS
+	ePjcb7fRSP3sEJI6zB1fcp5+qCaVjCd2FAlcGSO3D2uBBx52Ftp8DDORl2bw3VLNowNRV5oODoD
+	mPxUnxUOTwYxuhw0g97fvUuGhda5HBCOBl/34ARnz/piIt2Xfs7CpkdEDTYmCGZ2Hzp/aZ5/WXI
+	DRgtT8xpV/FbpQQvYcmDEwKEPSEOHtAPujEDbOJjr37s1ivJM+Y=
+X-Received: by 2002:a05:622a:580a:b0:535:7b01:1ac7 with SMTP id d75a77b69052e-55ac4390e7dmr180243411cf.6.1794852559307;
+        Mon, 16 Nov 2026 10:09:19 -0800 (PST)
+Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55c42b6f3desm62496871cf.27.2026.11.16.10.09.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 10:09:18 -0800 (PST)
+Date: Mon, 16 Nov 2026 13:09:16 -0500
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Gichoon Han <gichoon.han@samsung.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Takashi Iwai <tiwai@suse.de>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: host: ehci-sched: Don't let a bogus siTD remaining
+ length underflow
+Message-ID: <5ed0f4b7-beb3-4059-9e12-b9738af65d91@rowland.harvard.edu>
+References: <CGME20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9@epcas1p4.samsung.com>
+ <20261116052851.2272125-1-gichoon.han@samsung.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,58 +99,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116052851.2272125-1-gichoon.han@samsung.com>
 
-When the filesystem has been withdrawn, gfs2_glock_nq() returns -EIO
-without queuing the holder, and gfs2_glock_nq_init() then calls
-gfs2_holder_uninit(), which sets gh.gh_gl to NULL.
+On Mon, Nov 16, 2026 at 02:28:51PM +0900, Gichoon Han wrote:
+> sitd_complete() computes the received length of a split isochronous
+> packet as desc->length - SITD_LENGTH(t), where SITD_LENGTH() is the
+> "Total Bytes to Transfer" count the controller leaves in the siTD.
+> Nothing checks that this remaining count is not larger than what was
+> programmed.  If the controller reports a larger value, the unsigned
+> subtraction wraps and the class driver gets an actual_length of
+> nearly 4 GiB for a packet that can hold at most 1023 bytes.
+> 
+> This was seen on an ARM32 system (vendor 5.4 kernel; this code is
 
-gfs2_seek_data() and gfs2_seek_hole() call gfs2_glock_dq_uninit()
-unconditionally, so in that case gfs2_glock_dq() dereferences a NULL
-glock when it takes gl->gl_lockref.lock, causing a general protection
-fault.
+The type of CPU doesn't matter as much as the type of EHCI controller, 
+since you're talking about a controller hardware bug.
 
-Only release the holder when it was successfully acquired, matching the
-pattern already used elsewhere in this file (such as gfs2_fiemap() and
-gfs2_getattr()).
+> unchanged in mainline) with a full-speed UAC1 microphone behind a
+> high-speed hub.  snd-usb-audio trusted the value and read far past
+> the URB transfer buffer:
+> 
+>   Unable to handle kernel paging request at virtual address e8756000
+>   Internal error: Oops: 7 [#1] PREEMPT SMP ARM
+> 
+> The register state at the fault is only consistent with a wrapped
+> actual_length coming from this path.
+> 
+> snd-usb-audio now rejects such packets (commit eed0e9583a29 ("ALSA:
+> usb-audio: Drop capture packets with bogus actual_length")), but as
+> noted when that was applied, the bug really lies in the host
+> controller driver,
 
-Fixes: 3a27411cb4bc ("gfs2: Implement SEEK_HOLE / SEEK_DATA via iomap")
-Reported-by: syzbot+5a5f492ccae698fd7434@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=3D5a5f492ccae698fd7434
-Cc: stable@vger.kernel.org
-Signed-off-by: William Chuang <founder@logarcheon.com>
----
- fs/gfs2/inode.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Actually the bug lies in the host controller hardware.  Not the driver.
 
-diff --git a/fs/gfs2/inode.c b/fs/gfs2/inode.c
-index 75fb1a0c91425..4110b2d0b549c 100644
---- a/fs/gfs2/inode.c
-+++ b/fs/gfs2/inode.c
-@@ -2255,7 +2255,8 @@ loff_t gfs2_seek_data(struct file *file, loff_t offse=
-t)
- =09ret =3D gfs2_glock_nq_init(gl, LM_ST_SHARED, 0, &gh);
- =09if (!ret)
- =09=09ret =3D iomap_seek_data(inode, offset, gfs2_iomap_next);
--=09gfs2_glock_dq_uninit(&gh);
-+=09if (gfs2_holder_initialized(&gh))
-+=09=09gfs2_glock_dq_uninit(&gh);
- =09inode_unlock_shared(inode);
-=20
- =09if (ret < 0)
-@@ -2274,7 +2275,8 @@ loff_t gfs2_seek_hole(struct file *file, loff_t offse=
-t)
- =09ret =3D gfs2_glock_nq_init(gl, LM_ST_SHARED, 0, &gh);
- =09if (!ret)
- =09=09ret =3D iomap_seek_hole(inode, offset, gfs2_iomap_next);
--=09gfs2_glock_dq_uninit(&gh);
-+=09if (gfs2_holder_initialized(&gh))
-+=09=09gfs2_glock_dq_uninit(&gh);
- =09inode_unlock_shared(inode);
-=20
- =09if (ret < 0)
---=20
-2.43.0
+>  and other class drivers trust actual_length too.
+> 
+> Treat a remaining count larger than the programmed length as a
+> protocol error instead of reporting a wrapped length.
+> 
+> Link: https://lore.kernel.org/r/87se19ufoi.wl-tiwai@suse.de
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Gichoon Han <gichoon.han@samsung.com>
+> ---
+> Compile-tested only (ARM32, W=1) on linux-next.  I could not capture
+> the siTD contents on the affected hardware; the wrapped value is
+> inferred from the oops above.
 
+So you have no way of knowing whether this patch really fixes the 
+problem?
 
+Alan Stern
+
+>  drivers/usb/host/ehci-sched.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
+> index 57d07d1c2dfa..12a10248a4b6 100644
+> --- a/drivers/usb/host/ehci-sched.c
+> +++ b/drivers/usb/host/ehci-sched.c
+> @@ -2241,6 +2241,10 @@ static bool sitd_complete(struct ehci_hcd *ehci, struct ehci_sitd *sitd)
+>  	} else if (unlikely(t & SITD_STS_ACTIVE)) {
+>  		/* URB was too late */
+>  		urb->error_count++;
+> +	} else if (unlikely(SITD_LENGTH(t) > desc->length)) {
+> +		/* controller claims more left than was programmed */
+> +		urb->error_count++;
+> +		desc->status = -EPROTO;
+>  	} else {
+>  		desc->status = 0;
+>  		desc->actual_length = desc->length - SITD_LENGTH(t);
+> 
+> base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
+> -- 
+> 2.25.1
