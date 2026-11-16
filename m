@@ -1,76 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794806946;
-	b=vPo7gp+n/L/EB0+JW8SdILtCmcY7OogbUSng0aMtn7bsKbo5PGakj06Hn1vthSWcDRWe
-	 3Jjy2zf8Be69XIlIerCk8Y8PDGNqXHX4SL+pXIiO4JnIdwRUP1bBTrDu5BPWwUvGSWsDv
-	 J7hddwXgLiPt2DC7ach1YzTXbV00vbYwBXfdt3fmb77PHbyQB341jgxOxu30BHnKvilPs
-	 EYJc1poU3eDqbubdp7ETID+pBPL/ac6jWYmzng5zwX6mHmkJAZWnmS+ql1kXRT1c4yC+A
-	 qSGm3aCG8ukdit23/x2hYsW8p0Q7z3B4lgiNqJmON7MTmdbDpAMJ5EaPYTlD9uKvrWw==
+	t=1794807879;
+	b=sUKkupDgk3UHRPF+Yvei6qI7Af0n/u0jyzRa3bawSFMFNOTv2dqMaSALG60rypHXLVKb
+	 Jn9e82DZE+oaEMbKQUml4Gi0s58H9SFy/8llOnlSm2+D7NWe8dG2Xj0l6/j/vRcKpJc3/
+	 pG+cngC4DaT/sPzP9mlAIc2ZyADeLbjjOmuTLLYvnupt3R8GVKAfTRFDWMRxyHezzX7S0
+	 vJn+vltoBvnsUGmgQS76DXiFwqXA86+hbJkS2uWvSAivJKtF8pDMmmyx2DRmwwdgdgIPM
+	 YYv6PAgD35eMy/ZzgbTXAHbmum9G5uw+W8R8zdsT0pIoOI/BFCVrjPa9Nn22m8c04qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794806946;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-CMS-MailID:X-Msg-Generator:
-	 Content-Type:CMS-TYPE:cpgsPolicy:X-CFilter-Loop:X-CMS-RootMailID:
-	 References;
-	bh=U5PQg/K60zOvaI9X1XNSQFLTUzY3suF9si7SMaK+wro=;
-	b=YkuL+MxxK0fwvZdQY9uZjX6r2tU/y3c0/uUj8SL8o09Ot7gX1zGlLxxuaHl7yGpafz8X
-	 pg72nObsK1H8ohcgRuforxncdyo625g93V0+eiKMJkEg1rwnfL/dZDeapJiJEFsivRnM6
-	 sSCrSFujbRIzl1YevFeJZ1Iw2neC4vOIWeZziKcul/AyFgacJeuc5IfLFOaRHmdSHVOH5
-	 IyA0pmdTTLUJr9Luuck3kbuL7fTbRqIsRxxCQYJA36oqjJWqq36xzpbHwjGudpDtKz+GD
-	 Dd5X6KOs4uhuImsv1OzEKW5BocaBCyXb84NvJun5CwKQYQ0Nt4Mz+qcqtSS2mFXt29w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794807879;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=6juYiLwJPfjMMa1PV9mnBM+MXTPlKv5dj+C2Lcf3/rs=;
+	b=pODJSd6Nj0n88CUNpEI20FMAn0acqFF7r4ARXXBnl+e0BMv0vrwjGzNpno49ghgpVSFR
+	 n9pZ0ApOaQtZzvzvIZPShKsVEqBqebj5XAcRkQOh0SMBRwxy5d75wLw3IWJHb9w69g395
+	 49CyfUCyaKnVa+sZ/XKk5gH65PB7JfVhrkjeoOvz7cLbOqRXFrZXq0Sc6QBCWgwJcI6yU
+	 YM06z3lkm+XC666JuMUJ83ZxLjGScBnA9dT/yLyrsPMTKbWamaYCHKyCFfKEI1xc665ie
+	 zve+XP96hWjiw1ggzwdyollw78ESKxvYwGbl2NA12jwDkv+AcCsdvDh3D0Dyb0XC2dw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=samsung.com;
-	spf=pass smtp.mailfrom=samsung.com;
-	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=LDjlDuy6;
-	arc=none smtp.remote-ip=203.254.224.34
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KbcyvYrO;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEEFD606A323
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 05:29:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEEFD606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65E6606A31C
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 05:44:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D65E6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=LDjlDuy6
-Received: from epcas1p4.samsung.com (unknown [182.195.41.48])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20261116052857epoutp047b5dad470a1218b7a899e0af6703c501~ob2ZvaCqo3185231852epoutp04E
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 05:28:57 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20261116052857epoutp047b5dad470a1218b7a899e0af6703c501~ob2ZvaCqo3185231852epoutp04E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1794806937;
-	bh=U5PQg/K60zOvaI9X1XNSQFLTUzY3suF9si7SMaK+wro=;
-	h=From:To:Cc:Subject:Date:References:From;
-	b=LDjlDuy6ho4cioLZw1y2jCQLhdCvlOlEwdlePpt4j89dOSco/kU18BYm04Zxfha+y
-	 kdk4IJUJR4yMVjsHaCIDYashuTTTZ9xyDwZ2vKvHqpgHLCdFeIwQqYH5Tw6KqF4twe
-	 AjlARD5LPqHCBTDwK1qR9RMAvM3+7IKfY8OXbF24=
-Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
-	epcas1p3.samsung.com (KnoxPortal) with ESMTPS id
-	20261116052856epcas1p3918ff298c297b56faa97959b1da0b813~ob2ZWU7bb2735427354epcas1p36;
-	Mon, 16 Nov 2026 05:28:56 +0000 (GMT)
-Received: from epcas1p4.samsung.com (unknown [182.195.38.195]) by
-	epsnrtp03.localdomain (Postfix) with ESMTP id 4jSby02zj4z3hhT3; Mon, 16 Nov
-	2026 05:28:56 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas1p4.samsung.com (KnoxPortal) with ESMTPA id
-	20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9~ob2YgxVEN1801918019epcas1p4T;
-	Mon, 16 Nov 2026 05:28:55 +0000 (GMT)
-Received: from VDBS1420.vd.sec.samsung.net (unknown [168.219.244.32]) by
-	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261116052855epsmtip26e2c05f4d73416da30deab5e21cd0249~ob2YeU5m23106931069epsmtip2L;
-	Mon, 16 Nov 2026 05:28:55 +0000 (GMT)
-From: Gichoon Han <gichoon.han@samsung.com>
-To: Alan Stern <stern@rowland.harvard.edu>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>
-Cc: Takashi Iwai <tiwai@suse.de>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Gichoon Han <gichoon.han@samsung.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KbcyvYrO
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8b6a88e4341so1127659b3a.1
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 21:44:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794807878; x=1795412678; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6juYiLwJPfjMMa1PV9mnBM+MXTPlKv5dj+C2Lcf3/rs=;
+        b=KbcyvYrOCF+jA/uX8xFI7qHAQ8AL6G1YvRWtN85kZR2PmGYHc7TC+9VQ3cPwdGWmqG
+         H5j7xrNlK1JTWUj0vR7kLwPYPKw9X81xik+JOqeQ8WUFGlSTOQIRIpsQON7TTO3FdJ8G
+         R8QsafxUs7UHjig0wcEilZjBOPXx9tl7royOiKw7YIV/cWdmmkNjgZ8yTcTGEFcj04qW
+         m916fnhskK0NTAL0aAtfkttXYrnGzGg78TjjXXoBlGvsK6oGuFMbQErcPc+h0ui/vw0Z
+         LsrJ1bwLNgL0RMknkL+OAfflZQH9zBLrmfKz8z34OTZqjW8yWVcyNcxgtgrBrRp2K8P+
+         6blw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794807878; x=1795412678;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6juYiLwJPfjMMa1PV9mnBM+MXTPlKv5dj+C2Lcf3/rs=;
+        b=H8cc/O738BxkHmSXddK5vF9XDFDaP5YNjH2Y5ZQyAX609S7AyiaxxSEe/2KvEGnmux
+         5NuEZqDbTSMI5y38XUxHP7eHgYHd3hmJIfTWVZKVRTCWCAdlzYOy6lZCVJrge07mWhVy
+         6fj2hWEx35iNfipez7UOJeZ+YdgDOmiCjOo28axaRA39B7bC/FFsqdhjmth212fUF1F4
+         OFHWUPilsEL1olGoNM5mnx+mMPGg8swq87orUSPggWmp35Kl8eisTYfDqJJJz3WiHIM3
+         3caT96k/wc9skMJYDLSD43RNUuIWthZWronhhWVk7eyMuuHSvBTQr7HFcHw0sw9NbHGd
+         TMLA==
+X-Forwarded-Encrypted: i=1; AL+hErGPSpiJoGpqKguSsMPP/NDHMZ3CTfdGnvFFtTegIogWeXMwzeYO+5ja5ANmdRCd6IH40g3iPTs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ZNA+4BNMlTaQKNyFgflAftzv2owozuaytud0PdXz1ym7oG8fS
+	CFCDcgwmtk95N4AWLFFUKpronR1oENrRTRhMbRyh/rvA/RnkDLSn+QwQ
+X-Gm-Gg: AYBFou084/OLasTs8oEddiRd0WckOTunSzu9R3pRjgYtiKiSMWh8yEAtdCi+mkcFLbI
+	VDGkC4p13ibu3UDOE3Yhkzd+L2IgKrkPytT8CZQlDccgwug7V4ziBMIniU/4kU1JlYbKF+3sPib
+	t6O9zXDp1e0t9d6Oowe0QK/MKxV9/hRKHUZY1IydHuOdVUfJlpdAzYilamtEQOIfxVIbwe5IF/o
+	bOpxMxruH1JtnfNqRB9NdINoVFq1sJSVZmItAnkogRLAbuPDt+3HkROnE32bQzYRqmTZPxIZd73
+	Mjt5dikAqrOWgmhA2q1uF9hwvy5KXsX0oUTeXStTXT2tZnzZHUchnicKO2dFYkTJsSr9kvyYpfF
+	F7XIaBlrEXz3niujh6kBkot5X3ctEYnRgpGnM4VFEz0rlnT5oWatZMt/A4Q9rnUJfplTFjx+3Kk
+	fv0fukVsYzJAFCBWsBRzaaDFU+SSlRTE8A1zPA+mxs+zBsjzbw9x/sGClpYxx/xt09QvTTPPGN7
+	Q1s4EjUo3Q7OntL8p7X6QMayiAqZq9OKo6gQdqr/KOjpWw+GkjjGBwzswVuRwezC65wEmrDofQR
+	0b99CiE5n0QX9qLCVB5Xw/Djf/hYuiRcRxc2jf3Z4NUoAp6hGbLb
+X-Received: by 2002:a05:6a21:3d86:b0:3e2:26fc:2e06 with SMTP id adf61e73a8af0-3f7a77c053fmr6978259637.26.1794807878106;
+        Sun, 15 Nov 2026 21:44:38 -0800 (PST)
+Received: from localhost.localdomain ([152.136.45.109])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cddc18c7575sm3680304a12.27.2026.11.15.21.44.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 21:44:37 -0800 (PST)
+From: Qing Zhang <diasyzhangqing@gmail.com>
+X-Google-Original-From: Qing Zhang <diasyzhang@tencent.com>
+To: tytso@mit.edu
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	kartikey406@gmail.com,
+	yi.zhang@huawei.com,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Qing Zhang <diasyzhang@tencent.com>,
+	Ahmed Khan <ahmadpsn95@gmail.com>,
+	syzbot+9c29b92a3b6500bb347d@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH] usb: host: ehci-sched: Don't let a bogus siTD remaining
- length underflow
-Date: Mon, 16 Nov 2026 14:28:51 +0900
-Message-Id: <20261116052851.2272125-1-gichoon.han@samsung.com>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH] ext4: attach jinode before inline data conversion in setattr
+Date: Mon, 16 Nov 2026 13:44:23 +0800
+Message-ID: <20261116054424.62067-1-diasyzhang@tencent.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <6afa2521.84fe3b82.798c4.0005.GAE@google.com>
+References: <6afa2521.84fe3b82.798c4.0005.GAE@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,71 +110,45 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 101P
-cpgsPolicy: CPGSC10-702,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9
-References: <CGME20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9@epcas1p4.samsung.com>
 
-sitd_complete() computes the received length of a split isochronous
-packet as desc->length - SITD_LENGTH(t), where SITD_LENGTH() is the
-"Total Bytes to Transfer" count the controller leaves in the siTD.
-Nothing checks that this remaining count is not larger than what was
-programmed.  If the controller reports a larger value, the unsigned
-subtraction wraps and the class driver gets an actual_length of
-nearly 4 GiB for a packet that can hold at most 1023 bytes.
+Commit ed9356a30e59 ("ext4: convert inline data to extents when
+truncate exceeds inline size") added inline data conversion to
+ext4_setattr(). Pathname-based truncate bypasses ext4_file_open(),
+so the inode may lack a jinode. In ordered mode, the conversion
+can pass this NULL jinode to jbd2_journal_file_inode(), causing a
+NULL pointer dereference.
 
-This was seen on an ARM32 system (vendor 5.4 kernel; this code is
-unchanged in mainline) with a full-speed UAC1 microphone behind a
-high-speed hub.  snd-usb-audio trusted the value and read far past
-the URB transfer buffer:
+Attach the jinode before ext4_convert_inline_data() and propagate
+attachment errors. The attachment in ext4_truncate_up() occurs
+after the conversion and is too late.
 
-  Unable to handle kernel paging request at virtual address e8756000
-  Internal error: Oops: 7 [#1] PREEMPT SMP ARM
-
-The register state at the fault is only consistent with a wrapped
-actual_length coming from this path.
-
-snd-usb-audio now rejects such packets (commit eed0e9583a29 ("ALSA:
-usb-audio: Drop capture packets with bogus actual_length")), but as
-noted when that was applied, the bug really lies in the host
-controller driver, and other class drivers trust actual_length too.
-
-Treat a remaining count larger than the programmed length as a
-protocol error instead of reporting a wrapped length.
-
-Link: https://lore.kernel.org/r/87se19ufoi.wl-tiwai@suse.de
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: ed9356a30e59 ("ext4: convert inline data to extents when truncate exceeds inline size")
+Reported-by: Ahmed Khan <ahmadpsn95@gmail.com>
+Link: https://lore.kernel.org/r/CAOaS1==g3mdoqmS2AjOC0_-woXJbA_X0LJQt7+M7d1=+gfyQqw@mail.gmail.com
+Reported-by: syzbot+9c29b92a3b6500bb347d@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9c29b92a3b6500bb347d
 Cc: stable@vger.kernel.org
-Signed-off-by: Gichoon Han <gichoon.han@samsung.com>
+Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
 ---
-Compile-tested only (ARM32, W=1) on linux-next.  I could not capture
-the siTD contents on the affected hardware; the wrapped value is
-inferred from the oops above.
 
- drivers/usb/host/ehci-sched.c | 4 ++++
- 1 file changed, 4 insertions(+)
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+ fs/ext4/inode.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
-index 57d07d1c2dfa..12a10248a4b6 100644
---- a/drivers/usb/host/ehci-sched.c
-+++ b/drivers/usb/host/ehci-sched.c
-@@ -2241,6 +2241,10 @@ static bool sitd_complete(struct ehci_hcd *ehci, struct ehci_sitd *sitd)
- 	} else if (unlikely(t & SITD_STS_ACTIVE)) {
- 		/* URB was too late */
- 		urb->error_count++;
-+	} else if (unlikely(SITD_LENGTH(t) > desc->length)) {
-+		/* controller claims more left than was programmed */
-+		urb->error_count++;
-+		desc->status = -EPROTO;
- 	} else {
- 		desc->status = 0;
- 		desc->actual_length = desc->length - SITD_LENGTH(t);
-
-base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index 10cd85d4c721..1e31933ae98c 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -7127,6 +7127,9 @@ int ext4_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		 */
+ 		if (ext4_has_inline_data(inode) &&
+ 		    attr->ia_size > EXT4_I(inode)->i_inline_size) {
++			error = ext4_inode_attach_jinode(inode);
++			if (error)
++				goto err_out;
+ 			error = ext4_convert_inline_data(inode);
+ 			if (error)
+ 				goto err_out;
 -- 
-2.25.1
+2.43.7
 
