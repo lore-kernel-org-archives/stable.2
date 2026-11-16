@@ -1,56 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794786786;
-	b=Mn6FLuRLnDmETMshq2izZdQtgSW+coeZPwNlyamQZTp0d3r7fXhVS3Tf2aVsodqCe3vp
-	 6naxlSCN7J6WKf9FqvImV8AcU40oQF300s7d0K6ks/KWeSDSNmTRTty4NchCnYaD83SEq
-	 EAR6SXk/kX80txsU99pdrZjHosMp3UoxhT3FEdq9MiWnYj7NRXJmS76nKPOK0Y4A8qJsL
-	 0XmoVPiF0NtD/pyYSqFacNyrFz31rBpgkaiB4dnf6R/6lIsAkTvKS9/AKFUYnOhHtkahO
-	 iF/mgK3v2Rcut8ibPZRG2PZAfrb/qKGYVunDDXWe37TKa/F/+FYNiiRGElmxWRjOYqw==
+	t=1794787225;
+	b=BOBkxxhC92803LtKo5S4TYD8bDzvWRcCG7ZcBugQZvrUHnangP2y5mIIb7sZ5erc/WpQ
+	 WCTZmfumtlU3vIIVzy56dYsr0/WObrJvWOOdhD03sayKSlIgvlqolHAqpiD+NX3ocpLIX
+	 Hc8/MPRk3phgXr0FTBMGZY1FhHCrRAOHsdoEOa9+dm+ezeuqDPpHWdzQWD34a7x1xoQxh
+	 j2bNyJDJTCWJcuZxoUa7OpfmLKn7V3Qow3DZOWfWuET3mOtW+JTDLVfZ4ikOKucuHGudx
+	 BSkqwAeMZm+RwpfSQ3cStU7wxO1fps4ujIi3Qs/kAy9ph9nyHO9jUuiTnUJLbn9bCmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794786786;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=yoEiwXRaoYoUG08i5oYI1oPLVCfYmoQ3KGp2yqcr4ds=;
-	b=pGnazj/yhjqXz8p67QdEmARk51s96W3QLZgcOCqXMoc/Y7+Vrwc41GzYWO827qip6oVK
-	 Ho6ZE0BRuKodLz7mfCcdc7qqkqtddHJIqOZ01FwiAlW34SYNhaJ41ohFtmt2FSwjwCf71
-	 XG3xyga4kz57jwfIhFUupsMlBcqVTtuqEuY8qprOvD3Y1+vHQmCwxHQuS6GDCmhBSf5bA
-	 gjR/357BElmPMoQZaN+DdK54SsszpLDyl+0gFfsZKuv8HmHp6Vl+FW/rhXKlbJ0A7IsWL
-	 keRnBtiM84/Cg/yhQTPIFt3i4LtybtdoD03LgO9brEk7v4oUUnII1V4LS3G29a27pfQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794787225;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=7mrq+jL5aACHNl3ltXcO3fURb6JLvjPGhfwWz9B6vIw=;
+	b=qrkM1cLU4SYAAr+qO0143FU0Xui7lbjwrIAX0Kdgnw2kO4/0KcawZyO1yTQnST9KB83/
+	 a/67rzef14jQtzxG5GryaTW5BZBOJZZKXHe+5EhGEiEoFkc9uCq2PWIlBAxi3Og8o3UsG
+	 k+u4j7mTNYxh3c5PX2f9uNEMBkdLc0/s/DWJFuy2nRi0ySyO/Ls7HlwTyY+0GxS0p4LeP
+	 CIDyn8hw28eCq0/n8pkPgJUgdocv40iwucM+/j9U80GMucQZRLeHOl/PcpeB8ys5ga8fh
+	 sTTEM/2aMFnQbebtduEgIPtkqcvfIsmWkHBY9S5VR5+raVJTYEFDGTBoPsa3ASyiHHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Sp/GUOAe";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JOxpDL5y;
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94FB4606A323
-	for <stable@vger.kernel.org>; Sun, 15 Nov 2026 23:53:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC30606A329
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 00:00:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FC30606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sp/GUOAe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5A8A1F000C4;
-	Sun, 15 Nov 2026 23:53:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794786786;
-	bh=yoEiwXRaoYoUG08i5oYI1oPLVCfYmoQ3KGp2yqcr4ds=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sp/GUOAeW/Yzz7FJHRWn9sDoSdBj/p9Wz8OqRHnd2YHI/HwdtUMKAQwgQ5l+BdzDG
-	 6pq151CCt/9O5yheNkK6xwUYSJvrlalbwnO+IgTCDi1WUth/PBMFBbJpKQRurCThxR
-	 nBbTCUDHTpDRMYXkVFcjaO2E0RUFtEaI3/8kRg9jfyPxqw3udWvXgi90JdE9WdATKE
-	 Pt4eKYX3lnAC/lqGcX4eV8LcxU4uIQQasfkNCD74GDbp/vaR1EFnBsffiI8Uf5fJAu
-	 jaZGAZup2q/ULqqWbfvBZcpm5G/n/dkodMeF4PjN+fR1rpgwSc/t/dMYnSzkjxRJ4C
-	 s0letkSSnVt9Q==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>,
-	Faith Ekstrand <faith.ekstrand@collabora.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] drm/amdgpu: Check cs flags.
-Date: Sun, 15 Nov 2026 18:53:04 -0500
-Message-ID: <20261115234133.1600836-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202356-failed-5.15-f5ea64f9fcd9@kernel.org>
-References: <20261109202356-failed-5.15-f5ea64f9fcd9@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JOxpDL5y
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ae7626d14aso1439191a91.2
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 16:00:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794787224; x=1795392024; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7mrq+jL5aACHNl3ltXcO3fURb6JLvjPGhfwWz9B6vIw=;
+        b=JOxpDL5yC+IX5MOwPs/wTSOTxN89zjXJhuVNEmkPS30q+66oFAjGHytW+TWBKytTIB
+         ZsE073w4Cc4vDEvRCkcxQYXvO8tu157YnjM3orpHlXPtqqMy2C26JlpDxkH9TwJGHFxO
+         IzkU3woKqocMsKNBcHSugkPuYAqnx50Gf+aY+Is+6wGPHNTYI5Ca822Wy7loVl4rK3d2
+         /4tLwypm4GS6t8iJNNAHQrEMWwBb2DZbcqfN81r1neJC9iThz91LnnK+64WnJQSSo0QA
+         H0PSd3v9ZwLkY5doEslPgLdYS5jvdUxlrgPiVJz95n+p3JNp+SEsbCv/BZWloCMxEtSP
+         LHcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794787224; x=1795392024;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7mrq+jL5aACHNl3ltXcO3fURb6JLvjPGhfwWz9B6vIw=;
+        b=WoV+FvPAeGEvq7phBJyhKeqeNSsKWtj4VaqcuqrF2OMhwi4g1TztS3bHxK83PCBeM0
+         aTwnKqkzEX4rYiaPKA7MCM02gnq4pToO31ImmFVVya52U0PyVRd+uQo1G4/PdrzqQPZ6
+         0kfIntDx/usZ9NDcdSZFYtrQ5EJ2kMaIQS4ji7RLYG6hvN4jxFApixKnFuLQ7h7MRpB/
+         +Nk7fIZt8cMbKPDpjhpJwYsKAcleDP4ltLnphOcEh7vfvJ9no7CCVLOldF6t8M45lBu5
+         hz0pt+ti2SBea7O0rqNu+DKBnIZDf/tcpcdmXSpvqJIQvuEg8ea6K4Ev/Uh83YoDxuDa
+         S1wg==
+X-Forwarded-Encrypted: i=1; AL+hErHmNClTOW/nV+wrwV4/3w3Wjg3+C4UDC1k0S4mMtK4lkqCbjs8A+J9u9sUMQXoj6x/a17p5ea8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/bnWx0+gUCfH+5g7xfWeO3cwKTEpVzVN+NxEyOaOXyiXdLQk7x
+	zQagME5Kfrkg9tNG53QmtUNAFGTNJaWPclPDVALRDNBuSH0H/WpUckJj
+X-Gm-Gg: AYBFou07dQ24UTRqK/DiqQ0BTG3iO23WM59F7Mz2I004d0DflPsEr73psQkE1oxrGxW
+	YQ6sBp88tVlkDmClr0+EecYa6U8fQ8UkPt0cVsEtfF84ibaQOc8AMyObCAEUHO6kKBCoXRDOXO6
+	0394C77dWgZABlRkGaAUMHsxngIKakiQL7HrmNxpOK6iUwDZipPwNsxPOp6HPpsG46uRw7CgOeR
+	rB0o0AsLSSDNp3X4wX4gfBRzy76zoJxEdqBMfpiSMg1bC9Bw37L76+SVb82a5s0MXV3js/CuKHz
+	xYvnTWEXmPTj4RJ9VXP2Q8YMiPjN5DaOpVLROdsi1lDDfItvy9bT29qnilVKTfQGIHDjx1Bpxms
+	arpL+UHV+BqBh22RpiTW1fAVv09FfI3uJ+XVO0EMSIRo4A7TRhT8WEq9D3DZl5UeuabxpmomiU/
+	4hBq3qzTCGXSoIvmh/RetzgZT/vK6nqsvs2w3kUM1XDWjUuhWb3xVRuns7lGBCRuGudYXA4hSum
+	beDFDXliXBNeZFvcRAhdWuc3AO5klvk4F1ZXw2Ix/mitLr7z6i7ngQaiHwtSFXa+8ZRhpKVAXTW
+	Yp2Ost+S+SUSbzBQuJF3Ag7a8zp241sbsGDMSGk9m+bQs7fNM33hZlJuU0JyFlkZYX6rl+Ro6qW
+	CAhGTd6WWMF8ngpN9TTrLKXwwwrAkXtKVYhELLdYMlWgcVA==
+X-Received: by 2002:a17:90b:5608:b0:3ac:adce:60a9 with SMTP id 98e67ed59e1d1-3b1b07ef0camr8541905a91.9.1794787224413;
+        Sun, 15 Nov 2026 16:00:24 -0800 (PST)
+Received: from f2fs-test.c.googlers.com.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197ce556dsm19125756a91.6.2026.11.15.16.00.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 16:00:23 -0800 (PST)
+From: Daeho Jeong <daeho43@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] f2fs: block checkpoint before moving cursegs for device aliasing
+Date: Sun, 15 Nov 2026 16:00:19 -0800
+Message-ID: <20261116000019.2299222-1-daeho43@gmail.com>
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,42 +99,71 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
+From: Daeho Jeong <daehojeong@google.com>
 
-[ Upstream commit f5ea64f9fcd921bc4e2307a262e19450b8a58524 ]
+f2fs_ioc_reserve_dev_alias() moves the cursegs out of the range of the
+alias device with gc_lock only, before it takes f2fs_lock_op(). gc_lock
+does not keep every checkpoint away: f2fs_ioc_reserve_dev_alias() and
+f2fs_ioc_release_dev_alias() write the checkpoint at their end after they
+released gc_lock. So the cursegs can be moved while a checkpoint of
+another alias ioctl is in progress.
 
-Had no validation before. libdrm_amdgpu memsets this, even
-for the raw/raw2 functions.
+do_checkpoint() copies the positions of the cursegs into the checkpoint
+first and writes their summaries later. If a curseg is moved in between,
+the checkpoint does not match it. Commit b4b10061ef98 ("f2fs: refactor
+resize_fs to avoid meta updates in progress") fixed the same problem in
+f2fs_resize_fs() by taking f2fs_lock_op() before the cursegs are moved.
 
-We have a lot of functions touching the ioctl struct, no
-strong opinion on where this is placed, but I thought
-early would be good.
+Do the same here. Take f2fs_lock_op() first, and then move the cursegs.
 
-Signed-off-by: Bas Nieuwenhuizen <bas@basnieuwenhuizen.nl>
-Reviewed-by: Faith Ekstrand <faith.ekstrand@collabora.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 4d01e15e76358f60ef6734462d2b6d9972b9dfbc)
+Test: two alias files, with a debug patch which makes do_checkpoint()
+of the release ioctl sleep after it copied the curseg positions. A
+reserve ioctl on the other alias file moved the warm data curseg during
+that sleep, and the checkpoint recorded the segment the curseg had left.
+With this patch, the curseg is moved after the checkpoint is done.
+
+Fixes: eae3faf210bd ("f2fs: support dynamic reserve/release for device aliasing")
 Cc: stable@vger.kernel.org
-[ sashal: Moved the flags check from amdgpu_cs_pass1() to amdgpu_cs_parser_init() to match the older parser structure. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/f2fs/file.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-index b461e31b91c25..983baafb8c2e1 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-@@ -113,6 +113,9 @@ static int amdgpu_cs_parser_init(struct amdgpu_cs_parser *p, union drm_amdgpu_cs
- 	if (cs->in.num_chunks == 0)
- 		return -EINVAL;
+diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
+index 05061254c3b2..75c51b3a4118 100644
+--- a/fs/f2fs/file.c
++++ b/fs/f2fs/file.c
+@@ -3905,13 +3905,7 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
+ 	/* Reset the victim information to prevent GC from targeting the range */
+ 	f2fs_reset_gc_victim_resource(sbi, start, end);
  
-+	if (cs->in.flags)
-+		return -EINVAL;
+-	/* Move out cursegs from the target range */
+-	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_PERSIST_TYPE; type++) {
+-		err = f2fs_allocate_segment_for_resize(sbi, type, start, end);
+-		if (err)
+-			goto out_gc_unlock;
+-	}
+-
++	/* stop CP before moving cursegs, as f2fs_resize_fs() does */
+ 	f2fs_lock_op(sbi, &lc);
+ 
+ 	if (unlikely(is_sbi_flag_set(sbi, SBI_CP_DISABLED))) {
+@@ -3920,6 +3914,15 @@ static int f2fs_ioc_reserve_dev_alias(struct file *filp)
+ 		goto out_gc_unlock;
+ 	}
+ 
++	/* Move out cursegs from the target range */
++	for (type = CURSEG_HOT_DATA; type < NR_CURSEG_PERSIST_TYPE; type++) {
++		err = f2fs_allocate_segment_for_resize(sbi, type, start, end);
++		if (err) {
++			f2fs_unlock_op(sbi, &lc);
++			goto out_gc_unlock;
++		}
++	}
 +
- 	chunk_array = kvmalloc_array(cs->in.num_chunks, sizeof(uint64_t), GFP_KERNEL);
- 	if (!chunk_array)
- 		return -ENOMEM;
+ 	/* do GC to move out valid blocks in the range all at once! */
+ 	err = f2fs_gc_range(sbi, start, end, false, 0, false);
+ 	if (err) {
 -- 
-2.53.0
+2.56.0.611.g1030f0b940-goog
 
