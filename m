@@ -1,101 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832031;
-	b=Ahi0cQXJEYX/BmvRtqZIBlIeOM9iOPMKBVOqDD/YsjiMarmUr/6FwE8mpzqDlO3t6QWO
-	 xNGLVaxq5x8HjjPUtbpzvHbyOLiBCFHC4IPJkzoBA4hG0mTcZyeEfffC7u+62H8UiMlSp
-	 wmh6D0t//PQH5ylZCsz0zvbWV6nYgQWnKPKVQDrdxA/VvOSzePOv5U+RC9SzS+zt/AMz8
-	 hfckZ1vH7gAuTVOs1SN7N3NhsD6WUq8y27jRzKBaB4IyUEhQM76UbXld7WqLcjiQRxm6s
-	 u6a1F0mnfJv4k4yQ6yEAf9RTUCiLGKbVcfWg3GoGqnWPAJoxnZvh3j/nisgK/8pAvag==
+	t=1794832081;
+	b=0ShP+ldpHMNkNK+ws6Lr+dWRAX3WrygTLPROb0ckNnsMvn+9mStUbSVuV+rA1rYZszTf
+	 VkBJA+c2ZjWoL3pILXuA92PA7wZYJZAsgnHjrUcjCO6j+Msgx06UKapwLd02SB8V8RrEX
+	 wVoBR5kkNPqRZJHVTiu05TcDBvU0QjTQJJCFkon5qmuD9QaFRR+GmktPSJpAM1bahiYHH
+	 RSRrJ2QgEc0UPMNcjn6/LnPfLP3I4i0l4ITDADNLEq8Ti5iAmYFwrLv6Ck03gpw3bHC7+
+	 9BPL43DIvEd8hkYEsa1A2BAA2Cq2xaLqflpi/tzRQU3gIisrLtvPSRgfFfFEr6ND6aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832031;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=lYiKs2zOREczoUXWCfabA4P+kj5kMFUufjVpxMQWxLc=;
-	b=To1cnoLz9sZs4LNMpSWvVr98F6KxD/NPBr2bygI5GlxJFijKkzPWh+AGNJt3sUdlVpdM
-	 oYEKznFFgK/t0vw4CDkmR+1xpZ/tLeoV7eUpHggKAquSwNYewbs2myQlInNW6oG/cx3eE
-	 dlTQt+EkDYy077r1XWVn/GKdiERP7k5m897wF3dBmmxvKh00lxr3Tvds+b3FyDVbeFAJK
-	 myfwIhbMiE+t9blz4DX400akQw5IkOG23EX0Lr3XdELaGLCb0EvW/yS01YFo2Ml72zL8R
-	 qOHOXnGJ9t7nb1xDwv4GsDCfeFQdewnfzOJsgyT6zah00UXUBWEqisdJemUmwbMnBbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832081;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=BJl817WbnyT0B8TsI9clcx+vrLcy2vNvWcdropDzQ2Y=;
+	b=GrDkT/UHGnJA3YGKQmzjMHn48wDLjkaFyYF63GX3G/rlMIbXt2/2D0W832iOiKpTV6Ec
+	 1FotAyiUwqEW1LmjLK6BeX1c25ZY7kaAkEmbPNkNq9ifi4R5N56OaXJkYFKVFNlMyF63t
+	 w0Xu113oNXIrLomYcEV1iCC6HoPXaNvXRC3EkeOex652iaB1AeuSFw/XOu/5EPjNOgaIn
+	 JNmcMwhrRkyh83nuQIgBCRRBtbr1fG/tWYUsulD9Q8G1BVFeDBiCFxNgya0VCLmoA/eqS
+	 czcJkA0wIaZyceQJoXeTb5wMa2JgMPYQAwWeE0uYgGEWgnfwyfyUeEZgDx23Xc/3EAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fBNkVy93;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wS1VS76r;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/r9kgd2N";
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wS1VS76r;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="/r9kgd2N";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A5C606A329
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:27:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3A5C606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D559C606A332
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:28:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D559C606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fBNkVy93
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb606491faso9929805e9.3
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 04:27:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794832029; x=1795436829; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lYiKs2zOREczoUXWCfabA4P+kj5kMFUufjVpxMQWxLc=;
-        b=fBNkVy93+Ivhz+cLJItX7AINqI3LPXcFYjJEc6SPK0wfFZ8GArFwA8UG0umyTif4TV
-         1uvWX+rG2VNZ8GI1dUuf7sBxQxy82ZUD/nDIn0T23BeRrAWvhjgbL2UA92RyEzsuDueK
-         5RPCfNWASJSVPjUTUGQGMFbJe+mOFBNTnkvp6J4Hg5GOha5igl1QmPeq4fNkfLPpoqms
-         kVvw0EBh9/EFRBHCbGq6rhoQ7v2N9LrrKEJu0Mbztr0btTwQ5RJDQhMh+alfveeqF+bm
-         aFWQ4+raenJPfSHzTZ7jS5TpdxApbkIlnpDa2v+YqpK+9HpEtKPfi8J4xHKCnjeLZ81E
-         OLvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794832029; x=1795436829;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lYiKs2zOREczoUXWCfabA4P+kj5kMFUufjVpxMQWxLc=;
-        b=ygMmeDpRUxVgGQMdb1GeHKKPzXRixZYVRQUOY/V25+HSMRVIvcnbW0418o84D+B8dy
-         Vhhf2dGD5cDtY+mKLT9Hhcdxxcfftz8DmB73GwL5HIcyvE4myLX+KmqqzoIqJmYprB4E
-         igvdtT/BaozHXiOn/YqyWYlmP6fGJhvSaHOIUgakSgzR1U0PoEx5GVLdXxPALoSyAWn7
-         fxud0EjWhHvd9TIcxYo5hGHmnFVWbRnoxBLmuv7URnITCQxEeA7QP1eDYlWlYRMkx97P
-         /VSLq7bDSH54HR2WuhRtpHnoVPeZ02zCgQF/FmvUIZsVqc0eAqxvlaLEWy4lz9Mq/7VC
-         DBqA==
-X-Forwarded-Encrypted: i=1; AL+hErEqLp3q4FunuBcQM1hmiiZBJLA/RP6+wLh6iQMV7Sfot4I2JgFC9f/W2lhFTcXqSK7I4CH3FI0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/O9JaFgyGesrElly9mgotsHYdyQuTq5HL/cFsYRWaZfXlxNoYO
-	8/52y/1tVjmwgJNkWR4atbhY9VKxZwNyXivi48PYPDzWb73zckDjzTqN
-X-Gm-Gg: AYBFou32RTOfK6keGcq5eoEL5wYUxp0LyIA2Ikh57hGJ9cfY/bw1SR/rVBeySVCvtLs
-	uZYF4CYyksm6Y6Dgjow9r7CB0ep7jzTiW1IE7vV7HB4tRrLQ90blHn06ThU3T0xvLZssG0oTn0n
-	PrrvidkLCQSKrtv1DBXoMe2aUjdaIhRfjmk6b3o1RXaW3gf2FqWthymihyqTmoPec8sM35eh7AP
-	kIojVeZSQ1QPG1hDSp3Qz9lfNNDds0dGnE1NtprTdGkwh+RZTfy/pg/arAVdHp3lgtgpEl05RUL
-	D6zEysUPSb8MH7YS7ulCXaA9WDWfFEl4uNwn9AV95Z9jGBScGLSagrqYfCfLL6ySBdD+yY6WFZf
-	zC21sAQoBks7D/FYQ4ev2mJhz9GgCxovX+AnnPsqGRNfoyC5GlNGSMx4WyuphDfcyAKmP3I8Epn
-	5CHx6LumQHVvQhe+rND9JyC1QMQQinTZnXQFah57kRqb3kxyxw1x51d2SmgisuAbWTAsONkqQ3f
-	CAvkNi2I9R6LQSE2olB2tOgH1nFHabE/FvvL793V3JJDgmOUy+1C1Kt9IgZ39RrDRlYyc2e/s5x
-	JWmfh+8jxhx27vZehH5103e6oYaRrRXTVvs=
-X-Received: by 2002:a05:600c:3f18:b0:4bb:6ac0:6dc0 with SMTP id 5b1f17b1804b1-4bb6ac06e5dmr82826765e9.29.1794832028780;
-        Mon, 16 Nov 2026 04:27:08 -0800 (PST)
-Received: from deb05.proceq.com ([213.160.61.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb56689bc2sm171999685e9.2.2026.11.16.04.27.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 04:27:08 -0800 (PST)
-From: Mehmet Fide <mehmet.fide@gmail.com>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Stefan Eichenberger <stefan.eichenberger@toradex.com>,
-	Stefan Eichenberger <eichest@gmail.com>,
-	linux-i2c@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	mehmet.fide@screeningeagle.com
-Subject: [PATCH] i2c: imx: acknowledge the count byte of an atomic block read
-Date: Mon, 16 Nov 2026 13:27:06 +0100
-Message-ID: <20261116122707.1349139-1-mehmet.fide@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wS1VS76r;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/r9kgd2N;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=wS1VS76r;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=/r9kgd2N
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6962F1FBA8;
+	Mon, 16 Nov 2026 12:27:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794832071; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BJl817WbnyT0B8TsI9clcx+vrLcy2vNvWcdropDzQ2Y=;
+	b=wS1VS76rrPvkg0gqcRjss6l5d01px0tB0Sqv5HoaJGErh+upiraL9d116S+6l7XzYExIsi
+	wnZXjmtz+rbIP3/ZpHReVfNlTrrBSejQG+apS+LmNu8Og6evhvLDExkWDBaqSvIRA5g0HO
+	Pxmx5H5jCW7FGtn23PQrM6fnGOT8XGk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794832071;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BJl817WbnyT0B8TsI9clcx+vrLcy2vNvWcdropDzQ2Y=;
+	b=/r9kgd2NLXBMzmrpfkuCDKqGe5dq47rlkGEKccIrJ/QCZwEwRTwhwHfv7RLe76qFFCWeK7
+	SjyqhgZJiF/ZmoCA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=wS1VS76r;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b="/r9kgd2N"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1794832071; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BJl817WbnyT0B8TsI9clcx+vrLcy2vNvWcdropDzQ2Y=;
+	b=wS1VS76rrPvkg0gqcRjss6l5d01px0tB0Sqv5HoaJGErh+upiraL9d116S+6l7XzYExIsi
+	wnZXjmtz+rbIP3/ZpHReVfNlTrrBSejQG+apS+LmNu8Og6evhvLDExkWDBaqSvIRA5g0HO
+	Pxmx5H5jCW7FGtn23PQrM6fnGOT8XGk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1794832071;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=BJl817WbnyT0B8TsI9clcx+vrLcy2vNvWcdropDzQ2Y=;
+	b=/r9kgd2NLXBMzmrpfkuCDKqGe5dq47rlkGEKccIrJ/QCZwEwRTwhwHfv7RLe76qFFCWeK7
+	SjyqhgZJiF/ZmoCA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 420141334C;
+	Mon, 16 Nov 2026 12:27:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id LzwUCMf2+moUZwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Mon, 16 Nov 2026 12:27:51 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id C8A8F24DE9; Mon, 16 Nov 2026 13:27:50 +0100 (CET)
+Date: Mon, 16 Nov 2026 13:27:50 +0100
+From: Jan Kara <jack@suse.cz>
+To: Qing Zhang <diasyzhangqing@gmail.com>
+Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
+	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	kartikey406@gmail.com, yi.zhang@huawei.com, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Qing Zhang <diasyzhang@tencent.com>, 
+	Ahmed Khan <ahmadpsn95@gmail.com>, syzbot+9c29b92a3b6500bb347d@syzkaller.appspotmail.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: attach jinode before inline data conversion in
+ setattr
+Message-ID: <xrpc6ogciidiydmvr2t5hvmnpezu4ftbvtrqjpukpva2evwg3f@tdexmd5dk2lb>
+References: <6afa2521.84fe3b82.798c4.0005.GAE@google.com>
+ <20261116054424.62067-1-diasyzhang@tencent.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,58 +117,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116054424.62067-1-diasyzhang@tencent.com>
+X-Spamd-Result: default: False [-11.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	RCPT_COUNT_TWELVE(0.00)[15];
+	RCVD_TLS_LAST(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	ARC_NA(0.00)[];
+	RCVD_COUNT_THREE(0.00)[3];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org,tencent.com,syzkaller.appspotmail.com];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[9c29b92a3b6500bb347d];
+	DKIM_TRACE(0.00)[suse.cz:+];
+	MISSING_XM_UA(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.com:email,suse.cz:email,suse.cz:dkim]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -11.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 6962F1FBA8
 
-From: Mehmet Fide <mehmet.fide@screeningeagle.com>
+On Mon 16-11-26 13:44:23, Qing Zhang wrote:
+> Commit ed9356a30e59 ("ext4: convert inline data to extents when
+> truncate exceeds inline size") added inline data conversion to
+> ext4_setattr(). Pathname-based truncate bypasses ext4_file_open(),
+> so the inode may lack a jinode. In ordered mode, the conversion
+> can pass this NULL jinode to jbd2_journal_file_inode(), causing a
+> NULL pointer dereference.
+> 
+> Attach the jinode before ext4_convert_inline_data() and propagate
+> attachment errors. The attachment in ext4_truncate_up() occurs
+> after the conversion and is too late.
+> 
+> Fixes: ed9356a30e59 ("ext4: convert inline data to extents when truncate exceeds inline size")
+> Reported-by: Ahmed Khan <ahmadpsn95@gmail.com>
+> Link: https://lore.kernel.org/r/CAOaS1==g3mdoqmS2AjOC0_-woXJbA_X0LJQt7+M7d1=+gfyQqw@mail.gmail.com
+> Reported-by: syzbot+9c29b92a3b6500bb347d@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=9c29b92a3b6500bb347d
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Qing Zhang <diasyzhang@tencent.com>
 
-i2c_smbus_xfer_emulated() sends the read message of an SMBus block read
-with a length of 1 and I2C_M_RECV_LEN. i2c_imx_prepare_read() clears
-I2CR_TXAK only for a message longer than one byte, so the atomic read
-does not acknowledge the count byte. The target stops sending, the rest
-of the block is read as 0xff and the transfer reports success.
+Looks good. Feel free to add:
 
-The test for I2C_M_RECV_LEN was dropped when the read was split into
-i2c_imx_prepare_read() and its callers. Commit a5d0b9e32745 ("i2c: imx:
-fix emulated smbus block read") added it back to the interrupt driven
-read only. The DMA read never gets an I2C_M_RECV_LEN message.
+Reviewed-by: Jan Kara <jack@suse.cz>
 
-Fixes: b460b15b3cc2 ("i2c: imx: separate atomic, dma and non-dma use case")
-Cc: stable@vger.kernel.org # v6.13+
-Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
----
+								Honza
 
-Notes:
-    Reported by the Sashiko review of "i2c: imx: test the block read flag of
-    the message that is read":
-    https://sashiko.dev/#/bug/linux-09e3015b-fc03-4410-809b-82964cdfac9c
-    
-    Tested on a Colibri VF50 on the Iris carrier, kernel at this base, with
-    the M41T0 RTC at 0x68. The core takes the atomic path only after
-    SYSTEM_RUNNING, so a test-only hook called xfer_atomic() with interrupts
-    disabled, with the two messages that i2c_smbus_xfer_emulated() builds
-    for a block read. Register 0x04 (0x13) as count byte: without the patch
-    0x13 and then 0xff (50 of 50, return 2); with it the next registers,
-    the same bytes as the interrupt driven read (50 of 50). With a count
-    byte of 1 (register 0x05): 01 ff before, 01 01 after (50 of 50 each).
-
- drivers/i2c/busses/i2c-imx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
-index ccf08cd63151..1a3fc245d6ba 100644
---- a/drivers/i2c/busses/i2c-imx.c
-+++ b/drivers/i2c/busses/i2c-imx.c
-@@ -1283,7 +1283,7 @@ static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
- 	 * Reset the I2CR_TXAK flag initially for SMBus block read since the
- 	 * length is unknown
- 	 */
--	if (msgs->len - 1)
-+	if ((msgs->len - 1) || (msgs->flags & I2C_M_RECV_LEN))
- 		temp &= ~I2CR_TXAK;
- 	if (use_dma)
- 		temp |= I2CR_DMAEN;
-
-base-commit: 25e7ab89f4774b0f842cee0e8a20c11f755924d5
+> ---
+> 
+> #syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+>  fs/ext4/inode.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index 10cd85d4c721..1e31933ae98c 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -7127,6 +7127,9 @@ int ext4_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
+>  		 */
+>  		if (ext4_has_inline_data(inode) &&
+>  		    attr->ia_size > EXT4_I(inode)->i_inline_size) {
+> +			error = ext4_inode_attach_jinode(inode);
+> +			if (error)
+> +				goto err_out;
+>  			error = ext4_convert_inline_data(inode);
+>  			if (error)
+>  				goto err_out;
+> -- 
+> 2.43.7
+> 
 -- 
-2.56.0
-
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
