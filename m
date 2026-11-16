@@ -1,87 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794868483;
-	b=vyPk8an3M1rDrah49w6wVqgGQ56n0CvjqpBi2v4SqzjwSDGn9Q4WhLYi7qBl4/ClaRYX
-	 cD7gLZEH8ehaMv1gLY1bB54jU30hhYvpDMCmdq09ZMLeJHoovwD8A1YXSxRqCCkcu03TX
-	 xboCnsLlDyJJrop7YJXWjPPduDRllDLGTetBzPASZWbQLc8xGYFpBPbr58WAk/wE5Ptnl
-	 S7n28AXPdkKp7dyIWZqkAbe22/13rShfjlUPl3KZED8aKnPmz8D4Ol7JRswzqycPbDvCd
-	 acxesWO+l5CCUptz6P9U1yPN6piJUz5jvUn3nNy0iIa/sjJ+3cxzkJPU7Bx8qmMEj1g==
+	t=1794868591;
+	b=qZENnCyziPrblz4mgVrQGbqWA0e+Zde+fZPo1ZneKOD9r15jY7L8/3x3s3rX2PTnZtn6
+	 CEPfWeTG0udJOZV+IjLdAjTzsmdeKiNMXfI6ZunjficnDrcOfm2jmsZh9dILn+ux+NP9n
+	 xDrRL4ywLgQFfu2dWe8wW0u8j2AZQ5esIsiclHkxtN6cjfBe9H3HTF809YlHAAe4SpSgp
+	 WdKqLGRgnKRH/wOq3bFj4RL+aL84YTlwoDeQYwwQfyHTNVB+5uQC4wBHmCkt0RVnTViaT
+	 WbYxiH5GtzxYm9U8hkjKFTlAiHXvuh5B1xR/SsTWfSgrb3rfbWiPCPJaWZF1AzbiX+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794868483;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:X-Rspamd-Queue-Id:
-	 X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
-	 X-Spamd-Result:X-Spam-Score;
-	bh=1nsdcP6EWm98cPheGtN2mzwCS7JvRHvEaxSnDwHM7VM=;
-	b=SYORvh0JWc9gBRBySgmRHOxFS9CddVyC3c7Xc2tegFu5x3G6SqxWpzJR5ALfn7oRW6YQ
-	 qTEBszpTjGl2ww1+8yUVEgtLNJYHSi0yHmD5hQUcmF5e55We3tLfnsOI9GWydxcc//R6G
-	 /w1lb7iPSFx8oyQu0/lygwhVXm81NQciD+OylbKm7e6CWWi51tCXp8fdDrR5J6RqMKk76
-	 NDEebV1CMUeYiq0TEXe4/QGsQMlhFPGifLqP4LBRreA5NaIGpcr57uwpXzrpWyMg6Bde9
-	 ZZeNVBVbmkyO34aE+3LxHAl7AbxGmgblpmDkFTZ1afirHOnQaJtQi4w2vF4pQG/Dd1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794868591;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=7eskyEXW2WJu1OAVnH2Z/C+gXSpaGa/nzLhd+PYAulk=;
+	b=RnPtIuqjWzl5JvH5SioH4atPZXw3DQRkWewTiw0I4d+wn90lCF8B6DWhMt0iyb5sh6VZ
+	 YaY2f+87t1HEplzAfTEeMVzFRpnBOKxKM8/obEhmI1SLzAeaVKrD6Hlym9GFCW6lS8s7t
+	 31XRRecnm/GXg8tgHbPijD7CMNSXXHheFYRsgKHKjwRHPCD/GUeJX9TRYZq9w13VujVAH
+	 8Cr1QLNelhUsjF+9C+p4cdatmVDqnc0vnZwaZIqbkXrrt075Oa7qs2pDuBmq5kn2SsZem
+	 +DApJWbhOAoB12UidbDrwNY2RSomANLWGWw74gqWmKGyTrj1xdm546PRJM8r/lQElTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.com;
-	spf=pass smtp.mailfrom=suse.com;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=X9cwObg0;
-	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=XG9kP77s;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ho2RKx3r;
+	arc=none smtp.remote-ip=209.85.221.54
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBCA1606A33E;
-	Mon, 16 Nov 2026 22:34:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBCA1606A33E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 836C1606A33E
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 22:36:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 836C1606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=X9cwObg0;
-	dkim=pass (1024-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=susede1 header.b=XG9kP77s
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id F05742228A;
-	Mon, 16 Nov 2026 22:34:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794868480; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1nsdcP6EWm98cPheGtN2mzwCS7JvRHvEaxSnDwHM7VM=;
-	b=X9cwObg05/yO4YqUYvyz/yAZWWHAPqQMhpLX2AyhrqNdEiG2fEC92jyS98N9rHo/FbzuZu
-	QeHDoFZlo83mOXM3r0uRaZkvDoLQDRiRErbhLGCgWyvdpOCKB0BT0JkEgXSAmLdmwAduSO
-	7w+0mqcoQEbpfu1gM8txZF251ntgLHc=
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.com header.s=susede1 header.b=XG9kP77s
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1794868478; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1nsdcP6EWm98cPheGtN2mzwCS7JvRHvEaxSnDwHM7VM=;
-	b=XG9kP77sskZok96gbA+UdagRzLlETjoCmaJbxeJL32ZkD46fTcKoutoZXMqwWyErK/xR59
-	pLX4o5h0u5HqMDtBF5YM4Io2H23HfatBFJ87MBLJeC6UgdmN1+pB2TCxfzHN2aGpqXe52g
-	GMU3z+xNMCp6St3ZwHDp4AwWnxsmPg0=
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 805AB1334C;
-	Mon, 16 Nov 2026 22:34:37 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id tMNxC/uE+2p2ZwAAD6G6ig:T2
-	(envelope-from <wqu@suse.com>); Mon, 16 Nov 2026 22:34:37 +0000
-From: Qu Wenruo <wqu@suse.com>
-To: linux-btrfs@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 1/2] btrfs: scrub: fix use-after-free when waking up the repair waiter
-Date: Tue, 17 Nov 2026 09:04:16 +1030
-Message-ID: <217e66b15e1646812cc86be582be67b7e558b270.1794867985.git.wqu@suse.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <cover.1794867985.git.wqu@suse.com>
-References: <cover.1794867985.git.wqu@suse.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ho2RKx3r
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-491971ac844so3466385f8f.2
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:36:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794868590; x=1795473390; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7eskyEXW2WJu1OAVnH2Z/C+gXSpaGa/nzLhd+PYAulk=;
+        b=Ho2RKx3rEO2FcF7PE8ocDweY86W0zoAnenCU/35zG2WC3UmxIGinYrRzcyNY4fMZzP
+         pmOTim/ajW0oE2Vc6v9ZiaDR3xtyFg3UUlPkbkByU24SB+naN8aPsMvG6mrB4gUU4o3a
+         aT7dP4DcGLpPpvw/L0q7i/jRpmzSGrbj90bmB4Yu66QdxwujUFcz+AL/ysjpT4RL8PUR
+         SmAKBxEVfocPjFzODut4/n4szJF4GoebMhd81kh1HCWD00plY+Z865Jduv6t0A9h7wT8
+         p8BrpHQ5YzCQS6euDyTLMjjV9SdeVVXkVYkABCBy3eTrnUzDFguCiHMIA/vVukhjp6vU
+         KzdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794868590; x=1795473390;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7eskyEXW2WJu1OAVnH2Z/C+gXSpaGa/nzLhd+PYAulk=;
+        b=XUent2srKUgf5L5y5HAdnXmj6giBXchQOpOsmIv6XXNFm1/1+cqUiajcEx2L7b1K+w
+         N4zCh7mFdU5g69xYGGOBrZC8+o2nR4WV/9jnKmWyE/8Q4dmum7jMmjc0YpFYuVA44ebE
+         nFJurB1PVgMfuP+NqTNg3s85c0NT7fw+bvL+Hxv/UW7ejxSCbSuWhtP+JKmHaqW3NIU3
+         sL30197LcvMMis4/197sQhzeEjWG3vDBfXEk+IBc1ckoFM+vE5an2SH8WTtop0ZKFhwA
+         /B92zn/ZsqxaCnGi9fp9SwvphYQ8klnZTMmbLIkw0PR5/50CqVvR5NceemaG+FgAE5z0
+         eDsQ==
+X-Forwarded-Encrypted: i=1; AL+hErHvtanfkXlB/fqiFeABmvf8cghGzRqhblY4/A3t9oQbcGnXx+KPYd7PcoF+L0MqptNydBXXBx8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+TyCzWXziRCI/OETcKtwUP4QMBfnLm4RoZtc8pD6kP5duE+0m7
+	4fkf6hScnqEJIpxTaJgSovLKi2awRTYXn5OpMPM5gfEphUbgYoXUL4yG
+X-Gm-Gg: AZFdTZdFdC+wKk5koxEuXxKh3yPsz93WY8E5tFwi4QSqVMoU1jnDLzR0qMVI32rP+Me
+	K2tQRIYpPbpbeTrtM/FTkmCHhfNowXf2CSgpmsfR+BxyelE7SrLb0dlWgYMoasBp6bvmSBSMe6M
+	ANv7xNUOzDck2vBq36s6NQi2wqPnKkHO+jSXLchwZcTfSNJ4ovcWkTNnMOCKj/4ihy7ZpWbiwCh
+	UGmvZeE00cZZ4WMXcw8anEmxmfUVLAFyvujLeaL+Z636DPaCdPlT4nl73hGvA7p77U46RFeZYGt
+	EmHRpmoR/dfRe32lGW9v3k2+pDM9AXvVQ7vpcUEFVPLnEZm7cu2KcZXODQQMACNX+JUIuT0YmFI
+	tsmWk2eTuWcnlQBeZ/N/kLfhr6Rey/jUAtzQdennTWO+8HT5g1g/trIWb7JyoxJUJW+pYLaMiFj
+	vmcmD79VSD4eJ5vMaVLHSmfYB2BE/2HPg0bnyoASehAk6FPqLY3ht2vuGnwJSt4OOoe1ULQM5iH
+	Yq71XmBY4CMqkG0gdeHdDeblFZiccEamsixxvyZEbKPylCeN3YB9Ogow98mrvG51I61WSnZ6u/Q
+	O3G7VBSi2pF3j+efK5qDTfx5p5WHfbPrbk1sB7A5EnFS8klN++K988EHbfcJ3wyVtbA=
+X-Received: by 2002:a05:6000:2402:b0:48e:5550:c64c with SMTP id ffacd0b85a97d-49c70ed7fe9mr26111904f8f.14.1794868589842;
+        Mon, 16 Nov 2026 14:36:29 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c5f1c1797sm27428709f8f.11.2026.11.16.14.36.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 14:36:29 -0800 (PST)
+Date: Mon, 16 Nov 2026 22:36:28 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Nathan Chancellor <nathan@kernel.org>, Ingo Molnar <mingo@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-tip-commits@vger.kernel.org, "Borislav
+ Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org, x86@kernel.org
+Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
+ enabled when compile testing
+Message-ID: <20261116223628.5a6139a7@pumpkin>
+In-Reply-To: <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
+References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
+	<avrPcQ4sOkgJPbkZ@gmail.com>
+	<20261116130159.GA1327949@ax162>
+	<CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,158 +103,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: F05742228A
-X-Spam-Level: 
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-12.01 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	R_MISSING_CHARSET(0.50)[];
-	R_DKIM_ALLOW(-0.20)[suse.com:s=susede1];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	ARC_NA(0.00)[];
-	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
-	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_TWO(0.00)[2];
-	DKIM_SIGNED(0.00)[suse.com:s=susede1];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	TO_DN_NONE(0.00)[];
-	URIBL_BLOCKED(0.00)[suse.com:dkim,suse.com:email,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
-	DKIM_TRACE(0.00)[suse.com:+]
-X-Spam-Score: -12.01
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The read-repair worker of a scrub_stripe can race with stripe freeing:
+On Mon, 16 Nov 2026 07:48:34 -0800
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
- CPU0 (repair worker)                CPU1 (scrub)
- scrub_stripe_read_repair_worker()   scrub_raid56_parity_stripe()
- |                                   |-wait_event()
- |                                   | ^^^ checks the condition without
- |                                   |     taking repair_wait.lock
- |-set_bit(REPAIR_DONE)              |
- | ^^^ the waiter can see it now     | ^^^ sees the bit, doesn't sleep
- |                                   |
- |                                   \-scrub_simple_mirror()
- |                                     \-...
- |                                   scrub_stripe()
- |                                   |-release_scrub_stripe()
- |                                   \-kfree(sctx->raid56_data_stripes)
- |                                     ^^^ stripe freed
- |
- \-wake_up()
-   \-_raw_spin_lock_irqsave()
-     ^^^ repair_wait.lock is in freed memory
-     Too late.
+> On Mon, 16 Nov 2026 at 05:02, Nathan Chancellor <nathan@kernel.org> wrote:
+> >
+> > On Mon, Nov 16, 2026 at 10:40:01AM +0100, Ingo Molnar wrote:  
+> > > Can we just limit the feature to when host == target, ie. to not
+> > > work it around in such a crude fashion?  
+> >
+> > That was my v1 but Boris didn't like it:
+> >
+> >   https://lore.kernel.org/20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org  
+> 
+> Well, that is admittedly very crude and hacky.
+> 
+> Maybe we should have some config variables that depend on HOSTCC, and
+> detect it *that* way. It does appear that we don't have any model for
+> cross-compiling in the Kconfig setup, but maybe  we should..
+> 
+> I'd actually love to have support for making the compiler itself part
+> of Kconfig, so that the gcc-vs-clang could be *in* the .config file
+> rather than being an external thing to it.
+> 
+> I've mentioned that before, and the problem has typically been that we
+> end up depending on 'CC' outside of the Kconfig scripts and
+> independently of the current config.
 
-The same applies to flush_scrub_stripes(), where the stripes are freed by
-scrub_free_ctx() at the end of the scrub.
+I don't even remember a check that the compiler is right for the architecture.
+I'm sure I've got strange errors when I've forgotten I need to specify the
+compiler for a cross build - and then forgotten where I'd put the compiler,
+Oh and forgotten all the things you need to set to get clang to do a
+cross compile.
 
-Fix it by waiting with a completion instead. complete_all() wakes the
-waiter under the completion's lock and does not touch it afterwards, and
-wait_for_completion() returns only after taking that lock, so the stripe
-can be freed as soon as the wait returns.
+David 
 
-The completion is re-armed by scrub_reset_stripe(), which is called
-before every refill of a stripe, i.e. after the previous waiter has
-returned. The SCRUB_STRIPE_FLAG_REPAIR_DONE flag has no user left, remove
-it.
-
-This is the same problem fixed for the RAID56 rbio in commit
-26eb4d70f96d ("btrfs: raid56: fix use-after-free when waking up the rbio
-I/O waiter").
-
-Fixes: 9ecb5ef543d3 ("btrfs: scrub: introduce the main read repair worker for scrub_stripe")
-Cc: stable@vger.kernel.org # 6.4+
-Signed-off-by: Qu Wenruo <wqu@suse.com>
----
- fs/btrfs/scrub.c | 19 ++++++++-----------
- 1 file changed, 8 insertions(+), 11 deletions(-)
-
-diff --git a/fs/btrfs/scrub.c b/fs/btrfs/scrub.c
-index 98362c91bce4..4b37ae143f61 100644
---- a/fs/btrfs/scrub.c
-+++ b/fs/btrfs/scrub.c
-@@ -80,9 +80,6 @@ enum scrub_stripe_flags {
- 	/* Set when @mirror_num, @dev, @physical and @logical are set. */
- 	SCRUB_STRIPE_FLAG_INITIALIZED,
- 
--	/* Set when the read-repair is finished. */
--	SCRUB_STRIPE_FLAG_REPAIR_DONE,
--
- 	/*
- 	 * Set for data stripes if it's triggered from P/Q stripe.
- 	 * During such scrub, we should not report errors in data stripes, nor
-@@ -153,7 +150,9 @@ struct scrub_stripe {
- 	/* From btrfs_chunk_map::stripe_len. Should not exceed BTRFS_STRIPE_LEN. */
- 	u32 stripe_len;
- 	wait_queue_head_t io_wait;
--	wait_queue_head_t repair_wait;
-+
-+	/* Completed when the read-repair is finished. */
-+	struct completion repair_done;
- 
- 	/*
- 	 * Indicate the states of the stripe.  Bits are defined in
-@@ -359,7 +358,7 @@ static int init_scrub_stripe(struct btrfs_fs_info *fs_info,
- 	stripe->state = 0;
- 
- 	init_waitqueue_head(&stripe->io_wait);
--	init_waitqueue_head(&stripe->repair_wait);
-+	init_completion(&stripe->repair_done);
- 	atomic_set(&stripe->pending_io, 0);
- 	spin_lock_init(&stripe->write_error_lock);
- 
-@@ -1234,8 +1233,7 @@ static void scrub_stripe_read_repair_worker(struct work_struct *work)
- 	}
- 
- 	scrub_stripe_report_errors(sctx, stripe, &errors);
--	set_bit(SCRUB_STRIPE_FLAG_REPAIR_DONE, &stripe->state);
--	wake_up(&stripe->repair_wait);
-+	complete_all(&stripe->repair_done);
- }
- 
- static void scrub_read_endio(struct btrfs_bio *bbio)
-@@ -1762,6 +1760,7 @@ static void scrub_reset_stripe(struct scrub_stripe *stripe)
- 	stripe->nr_meta_extents = 0;
- 	stripe->nr_data_extents = 0;
- 	stripe->state = 0;
-+	reinit_completion(&stripe->repair_done);
- 
- 	for (int i = 0; i < stripe->nr_sectors; i++) {
- 		stripe->sectors[i].csum = NULL;
-@@ -1960,8 +1959,7 @@ static int flush_scrub_stripes(struct scrub_ctx *sctx)
- 	for (int i = 0; i < nr_stripes; i++) {
- 		stripe = &sctx->stripes[i];
- 
--		wait_event(stripe->repair_wait,
--			   test_bit(SCRUB_STRIPE_FLAG_REPAIR_DONE, &stripe->state));
-+		wait_for_completion(&stripe->repair_done);
- 	}
- 
- 	/* Submit for dev-replace. */
-@@ -2236,8 +2234,7 @@ static int scrub_raid56_parity_stripe(struct scrub_ctx *sctx,
- 	for (int i = 0; i < data_stripes; i++) {
- 		stripe = &sctx->raid56_data_stripes[i];
- 
--		wait_event(stripe->repair_wait,
--			   test_bit(SCRUB_STRIPE_FLAG_REPAIR_DONE, &stripe->state));
-+		wait_for_completion(&stripe->repair_done);
- 	}
- 	/* For now, no zoned support for RAID56. */
- 	ASSERT(!btrfs_is_zoned(sctx->fs_info));
--- 
-2.56.0
+> 
+> The recent work to move the compiler flags into Kconfig itself may
+> have lessened some of those dependencies, but there's probably still
+> lots of small details.
+> 
+> But for the whole "cross-compile", maybe we can just say that
+> X86_NATIVE_CPU depends on '$CC' being the same as '$HOSTCC'.
+> 
+> Or even do '$(CC) -v" and '$(HOSTCC) -v' and check for 'Target' being
+> the same, and having a CONFIG_CROSSCOMPILE thing for that?
+> 
+>                Linus
+> 
 
