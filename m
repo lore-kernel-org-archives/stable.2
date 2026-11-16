@@ -1,104 +1,133 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794868123;
-	b=Qi/yaUkK/eAfWSYCFMxAsM6NB9EzQV4e7nIG+1jz9n8msOh1jR1k5C3M8eQLJTGG3Zwt
-	 Ihk9nNIbb1yS2OpZ+DAIKwsIt/QKNKWzJZGI0/8bU3CUHH7Y/aBFvhdRgI4JiHNzCu2+R
-	 1r6hy1ykI9yEU+2TWyjc9T5lSQ1q0Ou1gHrwfrFQ+XTzItjaBK7iSGt66/UaLcTtk55Uy
-	 iJk8Z4M/SEoa4KLBba8fYPj2q445j7/252o8W9vwbhtp78Xtu+8eSdgD4bQFLNpnbHZTS
-	 lrR8+L17idYZOceD0dim3Yu4CllD8groG/M+WcatGoYCxBsnJTYk/iKBrMERilbHFuw==
+	t=1794868233;
+	b=ie9m1Km4eT4AT08JwXQkexi+8cl0Y7AtdH526w0MNkJccvbxUlyvuqqxElEB6TbC9Gqz
+	 98dFOOH7Zmnd+Zv50mO0DL5kXU1NKTgNa/VMAvoQihrbQ2qb8wgBK9CkcpngKq4Gpikd/
+	 yYy/pVHXZ40FDj9p9uNvz8pWe4faqg/OgL13h0XhcUdT+hIlpJEyBXxvTljEIQ659akhW
+	 kEDeNzJ3FlfQxUU+FPHniD0Dntss44U6XCiz+QgeEt090pGlltUAr2A15WRxB9v1GdFCh
+	 VMOXFXl3OGjlk2SE6O+oPrESO/tr4dexeDuNCeYojHqGwN8grEfUnFcSmCIVm/p9BQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794868123;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794868233;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EN+xjqjb98UaRHMjBVBOXaIhAP0+1stF7wDJi81/iGY=;
-	b=nF9TcSqgFnxevSj7CqR3XAnx1RIPfdZnHN8eI2jMXy2fcFfJOs2z3VbPeDyXG+HgvniQ
-	 jw4X/rP27Tu/xUNG48QgbYTQjaRFJ8Zj66I03sdel17wMjUXRCHdTftikg0QyAJt+3F/S
-	 OOG0w9ilPzAplsJmyLCselT8cYfFgWKR6EQbbW9csPVAtQ+taQwT4gVrqFK3qLiuKSXrZ
-	 r09peDETx3AQ9xLa7q6h6xrNwyJdyGo0xTiBcxe/B5QSn+YThTE4trf7qzWfZe2+CNh/z
-	 zl9/Hfe2WfYQDCQuMH6PBYdUQU/1x/RICJGjPEP36aJrzVkjlrNopXcrGBXsCMB5zTA==
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=rW3ESA/Pw6NBRNjjr1CoW7LIwEGVqJDSBwtIbvXI1MI=;
+	b=VlFv/P4EYR2hezPEJoj7m1GrM5sG7cNgTI0TkPqQ7W2pB5npOyLRsQNFQP1s2Bk8K7c1
+	 wkeUgCy85GZmdtSzU4Zqm3ubBONSFYVeZpCc3lwYl2WjGMKDi/VJ+UFP59Yq4Z1CgVpW7
+	 zhMpakuZLk6ytKc81b2GJYr3PGGsiqbf/QtqCNTxWBKsXc93iP9N6fcn+Yqw397I827rx
+	 HsjwaT43yVcjXvxB0/IFnDkk/Ss68hP05YczNYbrxuFA0WV2kYCeeZw6Is3Q8O8/n42wA
+	 znZWkTCpHCTkOfVl6eoGwgKYXmA/LT/DQA9nYTAHevXHQUmFiWCO7i7P6brTjKvFqhA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DS8ntiIb;
-	arc=none smtp.remote-ip=209.85.221.54
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	dmarc=none header.from=dubeyko.com;
+	spf=pass smtp.mailfrom=dubeyko.com;
+	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ePEMFT1J;
+	arc=none smtp.remote-ip=74.125.224.53
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB158606A332
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 22:28:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AB158606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02638606A887
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 22:30:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 02638606A887
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DS8ntiIb
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so4223315f8f.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:28:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ePEMFT1J
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-67c0ffaae1dso324619d50.1
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:30:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794868121; x=1795472921; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=EN+xjqjb98UaRHMjBVBOXaIhAP0+1stF7wDJi81/iGY=;
-        b=DS8ntiIbMjgXy/fvT72WvnhHCiEtVQV//0o1lwqzzhWXt7aHFAyu/GMtRGLqnS1Blt
-         T8TaHlU0utThuxFkOqTcEftXdmS2LuYBYZwSQ5bLwaNl7Ut5taROwUrxq6hHnsYgMHGP
-         g4IyihxhDqsdice7WXk9cdjmBlg96wWQ6Qox3lc2qgO+77waI0OBsG+AAZvYHfWTqxM4
-         /mSZaFGlukGthyhCm2HideTsMusaPabxjwykJ8PgEQpc175YRJfWrim+WreubP3xp5uj
-         P2neVj3C9zHdpHYsqrPtWDiDKL9Do6z4h4+nYbFKLMEakGe1GWOk+3bloZTjIKVOsy2t
-         orew==
+        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1794868232; x=1795473032; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rW3ESA/Pw6NBRNjjr1CoW7LIwEGVqJDSBwtIbvXI1MI=;
+        b=ePEMFT1JbNVEwg8trrBH6LbistNfZoq4UZzQY1bT0hce648cBczz0Ti/xGHKUvrQVG
+         EuaTGBAsBmuOKGx1w+BHeX+9o9ToDDHUPjbHmHsUTHgW1RXlRcrnO1S8oVOFbDyKVj1Y
+         cSq+u476iZJ7MipyrMKpSznWqpSuiZkJ7AvSsMebnb2RBgtS5ey/skjjvoak+jmRvI+X
+         JTLm1uZiOoigpTgjmteSC54C6MdFnQX2dlTyBpUC71bg2tQl/x3ge3ec+MlILkYZkmvb
+         0wDVV1H7i6ir8o9Z1ze52/ejit7OuyHp9kvcpQI+ZiHMcZzCZwi4DoWuWOl9vak03PCb
+         4ncg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794868121; x=1795472921;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EN+xjqjb98UaRHMjBVBOXaIhAP0+1stF7wDJi81/iGY=;
-        b=vAS9eS6qbTLaXgv0pJzwbTERo0RvvHM8e61UUs/m7BKM+KSqEDp//EnxAAlmlOdFi3
-         rGn4UJN0KOrmPK8XndmNVlermIDin1eCBmvGmNG5WtPOHEl59S9QfqYOICnsJS2/Q9Ei
-         XwxzlA0FFIVNnRMqPrvZIQznHMxxbB6VxAzk/OEEPEXKJ7D9mIRmCWTgUJyjE02rsU++
-         eGpxu4lE+g48F3JYv1r8bpgV6n3leP7qnFLzVH2gGA1fNyZTgX/tnBLSD0yZe4ijkjgD
-         UP4gxadcRylhtVzXLdxu/drFcHJGB+R/Grp51b+BXI8PEfsul3IVy9WaVzmZQEIUZ++H
-         62bA==
-X-Forwarded-Encrypted: i=1; AL+hErEt8V9SJAvx9mR5AOds7KVUtGgF1+hiLTvWH0K22Kv9Es9GOguV77O+6twEM3lLcV5NOnBSDlc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Jbm0wFgNfNYo9oZO7P1BbRJIdrHFck1UOhgzdnLbVnVgq0F33
-	BPMkdt6xmiEE0xb+NwLPcQlxifensvc7fRPv3yxBjhIGmH15+fsPe98p
-X-Gm-Gg: AZFdTZfFDqWr8zJPwUL5oDLO6zjWKzF7eEL6wc6IprHIpRCJzccC9NMU/kGoGzW2H7a
-	q+rzbj/oipTVtkEqs6SwRwn50sNg1eyOCGgWaxbhGuaST9Gn3qa7LfAVp7zg5YiWpvsb2JMaXZp
-	q3hioWdTMzMGH3K0n/YpmoVTkxlwuup8+MtU/9+KQpRVlQqkojKQ806HBiN0fZ1zaEGDT65zIUI
-	JfTw6+TS3YXTc0FeU2AQv2zNMIQlIygBfG3Oi7QaOAu6HQ2/BYZeVkT4hKTAUuGw4t5dhtoQ9Ze
-	PYLd0JRicn90zOIz3XJy2nCD74Dj8o8/gykLMUhk9UTindNV/ghY1alLBp43XkGjgM61160lQcA
-	B1Os/PooMxKaRC5PbFBbIrf58aMYgedlqta/8TXcCon6wDxlubSh8Tp4YooE3irf3VGvQ8RQwsc
-	/0tx12J5Nmouw97O1h/4LHmmOW9F41MYZAFbBxaICx3UqHxShBReMUiWM2bE/55+L/m9JBt0dBo
-	jHYJbeYko5AQI/u6X728ZG/8PgqrcdyOGr2i6smeCmKf50h6Hn0b9U8q4zFqa+g8NffyAqiszqM
-	0JrTgSnwr7csEgYRuNdRy8ip60Uns0W59gIiee/RxKIAJEgY0EpbJUmerZGrhJC/8Q==
-X-Received: by 2002:a05:6000:2513:b0:48e:47e6:fdfb with SMTP id ffacd0b85a97d-49c70ed7c9cmr23140856f8f.13.1794868121017;
-        Mon, 16 Nov 2026 14:28:41 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a32155283bsm2125683f8f.37.2026.11.16.14.28.40
+        d=1e100.net; s=20260707; t=1794868232; x=1795473032;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=rW3ESA/Pw6NBRNjjr1CoW7LIwEGVqJDSBwtIbvXI1MI=;
+        b=m1tRPumqwt5vVdcNwwArYozmUo35Fu+4nTgb4rrO365NAHcF6Mk3EoMAIu+xjGuUBk
+         jAGRKwBHVncSKKwSuMJu+ui5MNapcoT6Lj3m2JfpWO1f0eXbssR9i1QeLcSTV0TBvBMI
+         tBdNa0+qj54QnPgkA2BodT+2upTp2waIktT+eRWjRXvfwN0InlpXH3FevTpTfUSk4c4S
+         OBW1E37f7ZmZhkAXQSYVRGwmoq50F9VyXpR+2oMT8MV0sbVOIzUA5vQgA4TX9KA8Xlnq
+         wDczuPxnh57EX2ohZBLZOA1PLjL2HkHBNJ7PLGz8+yWqpoPqfpq2KvP44lvJVBy2ToBT
+         BuCw==
+X-Forwarded-Encrypted: i=1; AL+hErHZFix9qCPI8YDeF7uN02mFjgiDn7i56eOrvoPStngYSwfuarL96H4A1B3DKFnA0C4IlW9tLvI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/v64UNHWxTz1EnGn6HTEMAuAuO1BcLI+f0vfbjjWZEUIxwUayh
+	3Ru1EifrSRGMBB2J+RdfRdFvoUJG1JlocDa4zvNmu4PJLelA3igMuUplwCG6NiKciaI=
+X-Gm-Gg: AZFdTZehF/bfdUNtIzalvFrx5/mLh7bO9sdPG84AjRKG4q1t8N385wTFszAnjIEEBU3
+	cxa12efZj8EV1q7q93OxY/A6x6/FhyJd3yUMoW3xz0HoDNcm9Vo2Vl+QGJnvYsl/ya2BwrOdu9Q
+	f6wEg1aCrsDP5ry2q/J3kl9h+XpktxUhegWFPFKfj0Cm6t2tsa72neb0R4a3I8p8E918E0rAXyU
+	KybKfiuSRUBeMmAj5Q6Iawf4P/AvgBYetwETIyqhcOXSCtETv6g1FFnZWJrqVNTk6jiPmZW5Xuw
+	IVcxTyV+9Gk7fC5Tw/UNThqAw+EpAMYPcAvT3hd9AR35GQMDLGAubVE71HFXMEnibKXTOpVzbrz
+	EPCwIbyJhObG297DkZKaurs20XA6TmsjJ4lA9WYa/JkynPJd89OR3Ij8XUGLhZY+Y6dOhAHaJVa
+	Wtu09p66MOY38z45JCONHHiRLPCynSrKYzQr5lCZoSnF/o5MsHFTkDuhwyMqgfjZVXKi5OHOfV2
+	hcKDIfaxW601nlDEx11doa8LGVl/D5SIduUcrhdEDiD5ruIl0BHXzDN5MYEC1sKMpDhJlXCBXLI
+	e5jgo7KV7Lqa16e1i3dehIXK0MZNv9jqZAhijv3yVHeh7TqUSIUapHrxGUumgkwjrIcFRBPWAgr
+	3Y3sCD2jmCVAvNAlBRqN3L96gnZe4P9hzQOcZWXlJGHng+p+erc/LzdBD7UWORTCvkS3+Le8=
+X-Received: by 2002:a05:690e:e8f:b0:677:c281:d685 with SMTP id 956f58d0204a3-67dc79787a7mr469334d50.34.1794868231774;
+        Mon, 16 Nov 2026 14:30:31 -0800 (PST)
+Received: from system76-laptop.attlocal.net ([2600:1700:6476:1430:48ee:a3ac:5a4b:3831])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67d8a55b08fsm11136160d50.7.2026.11.16.14.30.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 14:28:40 -0800 (PST)
-Date: Mon, 16 Nov 2026 22:28:39 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Nick Desaulniers <ndesaulniers@google.com>, Borislav Petkov
- <bp@alien8.de>, Thomas Gleixner <tglx@kernel.org>, Ingo Molnar
- <mingo@redhat.com>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] x86/build: Do not allow X86_NATIVE_CPU to be enabled on
- non-x86_64 hosts
-Message-ID: <20261116222839.4b4a04f2@pumpkin>
-In-Reply-To: <20261116191120.GC1036192@ax162>
-References: <20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org>
-	<20261114202524.GBavjDtC9Z3j7PrV3Y@fat_crate.local>
-	<20261114204605.GA173332@ax162>
-	<20261114205806.GCavjLXgsKNNwK0zLz@fat_crate.local>
-	<CAKwvOd=f+ib1XVvFfiW2mF8NoWo1jr55fJo=QOuZCJmzQCVmtg@mail.gmail.com>
-	<20261116191120.GC1036192@ax162>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        Mon, 16 Nov 2026 14:30:31 -0800 (PST)
+Message-ID: <446748647839fd554246a78d72be728069b44b7a.camel@dubeyko.com>
+Subject: Re: [PATCH 2/2] hfsplus: do not end readdir at i_size after an
+ unlink
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>, Yangtao Li
+	 <frank.li@vivo.com>, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 16 Nov 2026 14:30:29 -0800
+In-Reply-To: <20261114125045.466604-1-hengyul@cs.unc.edu>
+References: <0205ef88738917a6d307b4e334e2dd1b0851317b.camel@dubeyko.com>
+	 <20261114125045.466604-1-hengyul@cs.unc.edu>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+ NFdvziOa4FgUBC4X71upsZIoZJeii2V/Jtc3B4g==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,46 +137,115 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, 16 Nov 2026 12:11:20 -0700
-Nathan Chancellor <nathan@kernel.org> wrote:
-
-> On Mon, Nov 16, 2026 at 10:28:54AM -0800, Nick Desaulniers wrote:
-> > On Sat, Nov 14, 2026 at 12:58=E2=80=AFPM Borislav Petkov <bp@alien8.de>=
- wrote: =20
-> > >
-> > > (If it were me, I'd simply whack that native thing. It is such a wast=
-e of
-> > > energy). =20
+On Sat, 2026-11-14 at 07:50 -0500, Hengyu Liang wrote:
+> On Thu, 2026-11-12 at 12:44 -0800, Viacheslav Dubeyko wrote:
+> > Frankly speaking, I don't quite follow what is the issue of the
+> > fix. Do
+> > you mean that we create and delete folder in one thread and execute
+> > the
+> > readdir in another one? Or do you mean that application has several
+> > threads and one thread do readdir but another one delete file by
+> > file?
+> > How this deletion is executed? I mean which files are deleted?
+>=20
+> Sorry, the commit message was too short. There is only one thread. It
+> reads a part of the directory with getdents64(), deletes the files
+> that
+> this call returned, and then calls getdents64() again on the same fd.
+> This is what "rm -r" of BusyBox does.
+>=20
+> > Even if we delete files in folder then i_size is dropping
+> > gradually. If
+> > we traversing the folder's content and ctx->pos >=3D inode->i_size,
+> > then
+> > it sounds that we already showed the existing content. Do you mean
+> > that
+> > if we deleted the range that we already processed, then we miss the
+> > rest of undeleted items?
+>=20
+> Yes, exactly. ctx->pos counts the entries returned since the start,
+> and
+> i_size is the number of entries that exist now (valence + 2). When
+> the
+> entries that were already returned are deleted, ctx->pos stays and
+> i_size drops, so ctx->pos can reach i_size while entries are still
+> unread.
+>=20
+> A small example is a directory with 4 files and a buffer that takes 4
+> entries:
+>=20
+> =C2=A0 getdents64() returns ".", "..", f1, f2=C2=A0=C2=A0 ctx->pos =3D 4,=
+ i_size =3D 6
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 rd->pos =3D 4, rd->key =3D f3
+> =C2=A0 unlink(f1)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i_size =3D 5
+> =C2=A0 unlink(f2)=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 i_size =3D 4
+> =C2=A0 getdents64() returns 0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 f_pos (4=
+) >=3D i_size (4)
+>=20
+> f3 and f4 were never returned. Before commit 4b0496432844,
+> hfsplus_delete_cat() moved f_pos back for every deleted entry before
+> the saved key, so the second call started with f_pos =3D 2 and returned
+> f3 and f4.
+>=20
+> With 1500 files and a 32768 byte buffer, the first call returns 1022
+> files. After they are deleted, i_size is 480 and f_pos is 1024, so
+> the
+> second call returns 0 and 478 files are left.
+>=20
+> > > +	bool resume =3D rd && rd->pos =3D=3D file->f_pos;
 > >=20
-> > There's always KCFLAGS.  i.e. we _could_ remove it from the x86 build,
-> > and <whoever cares> could still do
-> >=20
-> > $ make KCFLAGS=3D"-march=3Dnative" ...
-> >=20
-> > (I'm agreeing with Boris here) =20
+> > Is it possible that rd is NULL here?
 >=20
-> I have no objections to deleting X86_NATIVE_CPU but as Ingo notes in the
-> v2, people do use this and it is much more convenient for a regular user
-> to adjust this single configuration option in their local configuration
-> file than fiddling with KCFLAGS (potentially having to modify their
-> distribution's packaging file in the process).
-
-It would certainly also be nice to put something in the .config file
-(or at least in the obj directory) that selects the correct compiler
-for the kernel being built.
-Otherwise it is easy to forget to request a cross compiler (etc).
-(Maybe there is - but I've not found it.)
-
-David
-
+> Yes. file->private_data is allocated at the end of the first
+> hfsplus_readdir() call that stops in the middle of the directory, so
+> it
+> is NULL before that. The current code has the same check
+> ("if (rd && rd->pos =3D=3D ctx->pos)").
 >=20
-> > Nathan,
-> > Was there a bug on file against clang for this?  I can picture a fix
-> > in my head for this... =20
+> > I don't really follow how the resume variable can help at all.
+> > Probably, I am missing the case. Could you please explain the issue
+> > at
+> > first?
 >=20
-> I am not sure I ever found one. I can file one later today.
+> resume tells apart the two ways the function finds the next record:
+> from the key that the previous call saved (rd->key), or by counting
+> records from the start of the directory with ctx->pos. It is the
+> condition the current code already uses to choose between them, only
+> computed at the start of the function.
+>=20
+> When the call continues from the saved key, ctx->pos no longer says
+> where the walk is in the directory, because entries returned by
+> earlier calls may have been deleted. So comparing it with i_size
+> cannot tell if the directory has ended. The patch skips the three
+> i_size checks for such a call, and ends the walk when the next record
+> belongs to another parent or the catalog has no more records.
+>=20
+> A call that finds its position with ctx->pos (the first call, or a
+> call after lseek()) keeps the i_size checks and the "walked past end
+> of dir" error as they are.
+>=20
 >=20
 
+Frankly speaking, I dislike the resume variable way. It looks really
+confusing. And, as far as I can see, you used it in two/three different
+contexts. If I understood correctly, we are checking three conditions:
+(1) Is current position correct? -> rd->pos =3D=3D file->f_pos;
+(2) Has directory content processed? -> ctx->pos >=3D inode->i_size;
+(3) Is it last directory's item? -> err =3D=3D -ENOENT.
+Could we introduce dedicated inline functions for these checks? The
+code will be more clear and easy to understand then. What do you think?
+
+And, please, explain the problem with more details in the commit
+message.
+
+Thanks,
+Slava.
