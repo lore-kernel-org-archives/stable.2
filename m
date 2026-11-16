@@ -1,63 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=219.143.121.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794809267;
-	b=Fis+x7hXGaRlJKZGluSvfRHg1pByyz6+Tm+IiIeKSBQfyOMFjScrPHIJ+2589oebzQlo
-	 I3h2bM5j+g9/OtrxUCLXu8k34so0Jp6QMwPnAPet5p/Uc8NXV8YznV/08sLCVKIl87TOO
-	 ekX4F5j5gUoIJdXyByCOROsrl1rU4vUDAswb9l1N3i5LTNiNjRabqSipYTKArKuYHOoQ0
-	 69zjnJXdWqCaHUkP8wMTH40JEQs0Ouwuw2K8qchbFTrkenGtKg/QuDXg/yHIfgsuMFz2o
-	 0FCNBlTkZNJWO4jzFrWTKKpCdj1fi7onhzW8saacNBrmyew0dDpwnZs0768NNDKdpsg==
+	t=1794810225;
+	b=Dd4cZAGLH0399v6W27HmYBH/CEtZUIDg8OqyFmZbz+rH+LTxFjh2q46md9QClGo05yqz
+	 ey26yzibkAURcwsuJXbBOjAXodAXsJ62OCuuMVuYmg4BryVeHWBSlkMq9mRzVVNq02811
+	 pdrReR87ioT7wT/cO8IGkWXt+V6Zd8XvS5YEiJIrjfQfLke2LqOEFhbvjhSLoYHSamASP
+	 TNMXIJuiebi6PfSkQfFc71NNlYDg9vTVtUxoulaXnIQhKpCTGrX0CJq69Iwt5t8TQJFt2
+	 MAdfkeFJdk6uF4+LP7VMgjzwiIaUhOxgKo0UnMYIO/cEuzUzt0dEmNyhK/jKFN8vJRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794809267;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ohY8oBfL9HsIxJ4pthQEE7H8EctHPP05752yO5BuBs0=;
-	b=ut3G3uE11OMlsbP/UfTunBc4hUeTg6P5sA9Tw2hzGrgjzh3058vCVRjgaW4um76BxDaU
-	 ffN/p7OwozIzkw4hyL52Keg3C9lgLt+m/gXbBXj8eHQKaTfwJgp8nhDbRxqzaqNUAuRuU
-	 P612vos+OeuKxpS8yi+gVFQ1gtxthGDOXkJwq1LckbCTSMrugZ82jVqzYuCpyy9r5S7Fr
-	 g95Aedk+dfhB6IlDNJtkpQBcpioZzziNwk+nqk3T74eoTrqypkLX0tdx9DZ4EpnEKVuAk
-	 ep/ShS83mvt0Jpw1s0BxQI/UKwHKCuXWD/v96xnyhbsNGGK/7FzH4tNiwW2LurnnZeg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794810225;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:
+	 X-FangMail-Miltered:X-FangMail-Envelope:X-FangMail-Bounce-Flag:
+	 X-FangMail-Outinfo:X-CLEAN:Message-Id:X-Fangmail-Anti-Spam-Filtered:
+	 X-Fangmail-MID-QID;
+	bh=KQlDVWjXZe3NXqiXUZIGcGPVYKyfWxuBXPObZCUjmvE=;
+	b=K+Xuh5/XwAgQfPZw9QNBVjOreiPUr1r/ZPnNFRMFap7jjcv4ZmFMjHTxkqV4z2w2HfUN
+	 1ujN8d7Vk5Ql89Ir4514YkUhGm2AppTN+xzT/vnFXWvP+qnxZOGBbaTLGd4KdJ4I6q/0J
+	 HlNJ5gNnfJQFSRlbKbhR6ucOEwmWSknBnJIv+y/68WmPhOKnqXiNPtHVz01jBHGn2X7W8
+	 1AYWrdcvJraGk5gZLP0Lms6LVNFbpmNEVP5V2oXRKrT1Wnga9NxU5dH8I4Hscgvcg6Hao
+	 f8dpCd0iWEQ47Zon4gHlkWnraValR5YIscV8tSufBRAIzrMwRZOCvSeM8OX+8i7S8hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=justthetip.ca;
-	spf=pass smtp.mailfrom=justthetip.ca;
-	dkim=pass header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=U5FfbXae;
-	arc=none smtp.remote-ip=95.215.58.128
-Received: from mta1.migadu.com (out-128.mta1.migadu.com [95.215.58.128])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=isoftstone.com;
+	spf=pass smtp.mailfrom=isoftstone.com;
+	arc=none smtp.remote-ip=219.143.121.9
+Received: from spam.isoftstone.com (smg.isoftstone.com [219.143.121.9])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28153606A882
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 06:07:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28153606A882
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=U5FfbXae
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=zjZz3AvtYv5pnFEpIMQaU/5mq50DMy49MjdfgWYYMaI=;
- c=simple/simple; d=justthetip.ca;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794809255; v=1; x=1795414055;
- b=U5FfbXaeU+jYNMF0KT9tv0gGfHx6hLcpNHpi5D/znDQVLceXQCShfwamWP0xjpWWZqMXJaen
- +ovZN57sWfFS8DEn6jzGGjr6WXhVrLt8CULp+Kq7jZyDdhOhQfv0JTfJD5AaBcoL3GppH344MYw
- 9aGidJTYodMZvX3tHhuS4MXfC2HExYYVxwyQjePkPbBjqSnU0wsw6z/umfswkGIjDe0gIGSlpHs
- Nd/Nb0rKU0ZFF6KbjgwrncgBn1MYe9Bm1eHCUm7C7/tSbJk8g84JTwQS3f9HNmjvmHi78Yo6poD
- 0pd2MKQanBI1wVwTtrN19j8QhbBzEkoUdO3zarn52ThDQ==
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3c946c982c1bf979;
-	Mon, 16 Nov 2026 06:07:35 +0000
-X-Mizu-Trace-ID: 3c946c982c1bf979
-X-Migadu-Flow: FLOW_OUT
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Martin Moosbauer <martinmoosbauer@vivaldi.net>,
-	linux-wireless@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37AE8606A323;
+	Mon, 16 Nov 2026 06:23:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37AE8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=isoftstone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=isoftstone.com
+Received: from ldzh.. (unknown [221.226.109.28])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: dlzhangak@isoftstone.com)
+	by spam.isoftstone.com (FangMail) with ESMTPSA id 4jSd904hpVz22V1;
+	Mon, 16 Nov 2026 14:23:32 +0800 (CST)
+From: zhangdaolong <dlzhangak@isoftstone.com>
+To: Ilya Dryomov <idryomov@gmail.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: ceph-devel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless] wifi: cfg80211: don't call CRDA for a country regdb lacks
-Date: Sun, 15 Nov 2026 23:07:23 -0700
-Message-ID: <20261116060723.37130-1-lucid_duck@justthetip.ca>
-X-Mailer: git-send-email 2.56.1
+	stable@vger.kernel.org,
+	zhangdaolong <dlzhangak@isoftstone.com>
+Subject: [PATCH] libceph: fix 32-bit object_base overflow in ceph_osdc_new_request()
+Date: Mon, 16 Nov 2026 14:23:32 +0800
+X-Mailer: git-send-email 2.48.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,67 +59,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-TLS: YES
+X-ENVELOPE-SENDER: dlzhangak@isoftstone.com
+X-SOURCE-IP: 221.226.109.28 unknown Mon, 16 Nov 2026 14:23:32 +0800
+X-FangMail-Miltered: at fangwg01 with ID 6AFAA164.001 by FangMail milter!
+X-FangMail-Envelope: 1794810212/4jSd904hpVz22V1/6AFAA164.001/221.226.109.28/[221.226.109.28]/ldzh../<dlzhangak@isoftstone.com>
+X-FangMail-Bounce-Flag: 1794810212.6AFAA164.001
+X-FangMail-Outinfo: 1794810212/6AFAA164.001/4jSd904hpVz22V1/dlzhangak@isoftstone.com/1
+X-CLEAN: YES
+Message-Id: <1794810212.6AFAA164.001.4jSd904hpVz22V1@fangwg01>
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AFAA164.001/4jSd904hpVz22V1
 
-Connecting to an AP that advertises the country "EU", seen on
-Vodafone routers, looks up a country that isn't in regulatory.db.
-The lookup falls back to CRDA, nothing answers, and the CRDA timeout
-then restores the world domain and drops the user's setting.
+In ceph_osdc_new_request(), both 'off' and 'objoff' are 64-bit file
+offsets (u64), and 'truncate_size' is also a 64-bit file size (u64).
+However, commit 864e9197f10c ("libceph: add CREATE osd operation
+support") inadvertently changed 'object_base' from u64 to u32 when
+moving its declaration into the extent op branch.
 
-CRDA has the same data, so don't ask it for a country that the
-loaded regulatory.db lacks.
+When accessing a file at offset >= 4 GiB (0x100000000ULL), 'object_base'
+wraps around modulo 4 GiB. If the file has ever been truncated
+(truncate_seq > 1), the per-object truncate_size calculation becomes
+corrupted:
 
-Fixes: 007f6c5e6eb4 ("cfg80211: support loading regulatory database as firmware file")
-Reported-by: Martin Moosbauer <martinmoosbauer@vivaldi.net>
-Link: https://lore.kernel.org/linux-wireless/8db36875c56cd9703dee42c7a00b81c9@vivaldi.net/
+1. If truncate_size >= 4 GiB and falls inside the target object,
+   'truncate_size - object_base' exceeds 4 GiB (> object_size), so the
+   per-object truncate_size is erroneously clamped to object_size
+   (e.g. 4 MiB) instead of the intra-object truncate offset. On a write,
+   this causes the OSD to truncate the object to object_size while
+   bumping oi.truncate_seq, causing subsequent MDS TRIMTRUNC operations
+   to be ignored as no-ops and leaving stale post-truncate data intact.
+2. If the file was previously truncated below 4 GiB and later extended
+   past 4 GiB via writes, 'truncate_size <= object_base' can evaluate to
+   false for objects at >= 4 GiB whose 32-bit wrapped object_base is
+   smaller than truncate_size, passing a bogus non-zero truncate_size to
+   those objects.
+
+Change 'object_base' back to u64 to fix the 32-bit truncation overflow.
+
+Fixes: 864e9197f10c ("libceph: add CREATE osd operation support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
+Signed-off-by: zhangdaolong <dlzhangak@isoftstone.com>
 ---
-Connecting to an AP whose beacons carry Country "EU", with a user
-country set:
+ net/ceph/osd_client.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-  kernel                             card          before          after
-  7.4-rc1                            MT7925, USB   world after 3s  kept
-  7.3.4 (Fedora)                     MT7927, PCIe  world after 3s  kept
-  6.18.52, 6.18.63 (Arch)            MT7925, USB   world after 3s  kept
-  6.12, 6.6, 6.1, 5.15, 5.10 (Arch)  MT7612, USB   world after 3s  kept
-
-"iw reg set EU" did the same and is now ignored, with no CRDA
-request. A CA element is still applied, and with regulatory.db
-missing or broken, CRDA is asked as before.
-
-Before 7.4 the database pointer isn't RCU protected, so stable trees
-need the plain pointer in the check. That form is what ran on 7.3 and
-older above.
-
- net/wireless/reg.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/net/wireless/reg.c b/net/wireless/reg.c
-index 5cd3880ee384..cf79059b9992 100644
---- a/net/wireless/reg.c
-+++ b/net/wireless/reg.c
-@@ -1125,9 +1125,16 @@ int reg_reload_regdb(void)
- 
- static bool reg_query_database(struct regulatory_request *request)
- {
--	if (query_regdb_file(request->alpha2) == 0)
-+	int err;
-+
-+	err = query_regdb_file(request->alpha2);
-+	if (!err)
- 		return true;
- 
-+	/* CRDA has the same data, it won't have this country either */
-+	if (err == -ENODATA && !IS_ERR_OR_NULL(rcu_access_pointer(global_regdb)))
-+		return false;
-+
- 	if (call_crda(request->alpha2) == 0)
- 		return true;
- 
-
-base-commit: 831e33ad02ff884ecc793c07a9c9bd9e06941fe5
+diff --git a/net/ceph/osd_client.c b/net/ceph/osd_client.c
+index 2ff00070c181..7dfac7aa93e3 100644
+--- a/net/ceph/osd_client.c
++++ b/net/ceph/osd_client.c
+@@ -1090,7 +1090,7 @@ struct ceph_osd_request *ceph_osdc_new_request(struct ceph_osd_client *osdc,
+ 		osd_req_op_init(req, which, opcode, 0);
+ 	} else {
+ 		u32 object_size = layout->object_size;
+-		u32 object_base = off - objoff;
++		u64 object_base = off - objoff;
+ 		if (!(truncate_seq == 1 && truncate_size == -1ULL)) {
+ 			if (truncate_size <= object_base) {
+ 				truncate_size = 0;
 -- 
-2.56.1
+2.48.1
 
