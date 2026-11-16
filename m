@@ -1,100 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794935735;
-	b=bIDt230bUH+ADa3b0iVYZnqwVtIzMlSw6v4jiMwgDZKbnIs1PwiFaW5gvQmhuN4ZqPB6
-	 mHX0TOIlRxOkSYkwoNfLPBN8rhDQHCZUMJuchoh33FLwbAPUV5y53pqqrqPxdNQ5tUQSY
-	 Dqv8zZ3/6CFK/KJvUcyd3GqqE3pIuqtiIej+/DdRP/+Wx3Jd5zpxatwp+fb9enj/m62ob
-	 ZjdCijmW8+N+BBITUSHKTGaVbF8mRFBefjsnx3XFYyu+ALIvGVGVnPzQNgM9ktyIsKd2v
-	 75Rm0bb6ROmLAHFZHzu5jkaPex4FLlW6xH+4WZYXr6AcixwXj2+yOWeqAZRfqevHF+A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794935735;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jShjFF4Sq6gPLLl5+8nJzOEA7mRuIBIl4olxLWqQ+z8=;
-	b=iNZy42DVUzMhdO//czVZkWsaUCqcgI0RhtiwgY9dUA+XHpwJrlMlPRTjnKpbnTH9j2qh
-	 KaSt7AN9qVRR81Tp2cjnibBmdn73ERwblD/uFon7N/s9nbA6hTMmD7sT/53bwNxBMTVVB
-	 MiXguKvRrV8JpKULpwPw/oXXAH8vdzTjagvEo9kyqOSbnvcXmTDkrIAiIn9tM6QdPAyZO
-	 SAKtSQmBDCInLzeOU2qYlZXHfr6vzm/1s2zZ5mEbw7W126/tactEv1XcAwGrsENnN9cFf
-	 qHCN1ygbLo+aiRrCNl7fzfngiOPl9LV35LgdPe0PAI5xMfgZBs8Xw62Q/VqLicqmzqQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rKqT+MaY;
-	arc=none smtp.remote-ip=209.85.161.54
-Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.12
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794935758;
+	b=mwmPUy8QuJHw2IcLFXOM1uUZmezw78X376hqtrmj6TPTT3aBytYHu/s9DlaiIxQP24Ch
+	 /KbijKVe+UP7FKr0xZiVrg+RwZnc2eddyiT4M38DhKYMltQZNijukWB/CzHKULCDl9Z7V
+	 vNn4awV7p7/H155w0SmQSjioFIazW1jd2GylVdJ4jWa2t85fusrKS/pUkJ2TeozXZ7OGE
+	 pLQqSbpM5VKs6w/QKBpLE4eemoSMmC+JxY3PFOCY6anlzOMFyqxaEeuyy4bO5rUvHe5IB
+	 Kkm30iMgKkgHbrOmxM6JvL64QvNO31fUBDRuhBq2xu7HNmAnHsmbkyzdoB05y/y/Nsg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794935758;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=G0MOK8MVkH601Jf3pT7rnx5Rl0X0h90tZCe59VsQ2qg=;
+	b=Hu8Ibe/pIcK32xAPbBhOuPtxay0SEwFHpff5UHWrUlAbNilNkQ6uRRLoqLjbDQmPJdJC
+	 A7LuULRPumbNHTmFvPHArBXSFiUQG2ATwjVKp+kVxcv0v9zbw6/vYwXHPhNRfVX1Df/1I
+	 stOlzPk6DOsMk2L9ZjWAm0JwEzEJQFqfvZWxUmlsWShlKyFwOgugIZ+3FSTBhHAnlEMix
+	 wTRp8Su1g8x1AWxCdWWgEuep/P9Q3kGM31cpbE2pVciJjM7sWR+Chn4P3WzbF/hNNDRPR
+	 MjCBImKdq6mHrdxTBEYSZTsOXZTrjwXHvFmU+hyplZCTM83Q9XE3kWecJKGTWyzvSFg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=R8MBZmN+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.209.12
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012012.outbound.protection.outlook.com [40.107.209.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496A6606A32C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:15:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 496A6606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B813606A32F
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:15:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B813606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rKqT+MaY
-Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-706113e92f9so13090eaf.2
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:15:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794935734; x=1795540534; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jShjFF4Sq6gPLLl5+8nJzOEA7mRuIBIl4olxLWqQ+z8=;
-        b=rKqT+MaYydX0PsyeQqfFKGGm/slS3UpjlNun4tLMIpYejfEiygK8/IBn1vvUiQtrlp
-         yR7GoCUu8LtosOIWFz2oIBYH9sZO3U1TnnrrIKGqm2EK5L0qPNHVFIUmOsD4JkwkzCgj
-         /cJrY3sFHyQz4DusZL1fHtuLBw5b8UVPQTtoNcHRzGeagRJhAgIaaaqSkKxA2ryf0mal
-         XtT+WkZotBUFNS4hDJ+oivVgmP6RRNwOJl5TO5xIf/BXFqVvhvyBR8ePn9tuF4V4n4s5
-         NQsePix3m/QplEFRDNBW2AzSh6UVM2L1wUKraim4QKsqZLloPcgxY4OE2AGgPZ3nU39o
-         xaLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794935734; x=1795540534;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jShjFF4Sq6gPLLl5+8nJzOEA7mRuIBIl4olxLWqQ+z8=;
-        b=fUQkybn7AXRnYOOTeDDCHEhf/CO5OlymRfLTm+KOvFJuh9CC1/QHdFS+tGml7BT495
-         9YuFVOkHYWCXJLo3qij0zD/vOKpo4IiYwe+1hYYCcdsRlr5Si3aXI07zYx0l5YfN0y9m
-         qvS3vHccadb2v4wbFYxQzZHK5YoLi1JF2xZt3EwBE3Xrdq8lIh3AVa1ahWNGv+m/+1lM
-         HmqxMrpAkgdCYAqmAh4+ofcK2TOWNeMS1ocrUwA5EjxUg1Yi8DJ41b/ZmPkkATXxY9Xy
-         j+TqPoGb6j518cfdFUNnKCQ4mk9k/0/2hLY67TgUV34J40CSMv5VypOqQK9Y+64APEJf
-         vicA==
-X-Forwarded-Encrypted: i=1; AL+hErEoB8yfE3z03jy7wrVNy4uDu2TmbMztemNPuLD1AZw2jCcZVf7Il1Cqs+SF27D2iI8BQEdXDvA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+wkrnfQKuozZGUuPk8B3oBA7XVRZUU+PxNLfTZ5EERRdHCT4Za
-	/cJ55or63FvVhpbAzFdfTydD/XwIb/+5ZHpfHa3xTf0AzZa7WfAZd0Al
-X-Gm-Gg: AYBFou1enDLq8GA+QzQEUww6+Hv8tnFiBTJ+1v80iy7gy9yWhoXjN9BCy5oEhaLXSC0
-	Y9GW1dAYbTBLD8toPeU5g2ZrJCBaVlUtiHwtxSx2S5DcI+Lwhgs8R3ZXYxHiyBZJNOz4UAegCYR
-	ce++5jjdZLnBuPcGQfnBwDORNl6QZq7sxLMjYAZvIgpas/6XZgmewgu0DBJGh5wpHor+w3zfH1R
-	FmZb5rJHnkafkxokYN/LazeQc5/yZw5sTYXjPQLQ9OvSADGuNSBxozLnUSBKDUTF5fqnNelMRuL
-	CRw5lRUzp9dYOlNVdq24e1Bdqyd/MF68ceNY/IHko62XAEDMsqJgzoocvVVhjYP9LrGhGSROTQv
-	1aEeL8ZVYUdFtn37y3ckWTZnHsX7dZdzOhvcGmVE7/ycidDTuP7p8+bVQNgMew3m5GBLu91PPN0
-	SnnwIaYgaO/jXApyYYO7C+nVArt9c/inpEaDfGh9cWBG/paF+uAV1TaiebllTrKrkQB6raGWcIO
-	GVITRO3nbsoQu3k9iPHFpv41lgWskIIFg6GM1PmRXTjenwkv26GzUrr6aM/x4GwBHE/VQLERnMM
-	1wltB1oWLV9ajQuN3opfDA==
-X-Received: by 2002:a05:6820:2203:b0:6cd:3ffc:ad01 with SMTP id 006d021491bc7-71ace39b3b4mr7492285eaf.81.1794935733793;
-        Tue, 17 Nov 2026 09:15:33 -0800 (PST)
-Received: from localhost ([2a03:2880:10ff:15::])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ab42cc12dsm11351357eaf.7.2026.11.17.09.15.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 09:15:33 -0800 (PST)
-From: Vlad Poenaru <vlad.wing@gmail.com>
-To: Qu Wenruo <quwenruo.btrfs@gmx.com>
-Cc: dsterba@suse.com,
-	linux-btrfs@vger.kernel.org,
-	mason@kernel.org,
-	osandov@osandov.com,
-	josef@toxicpanda.com,
-	fdmanana@suse.com,
-	boris@bur.io,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] btrfs: fix bytes_may_use underflow after a failed tree block allocation
-Date: Tue, 17 Nov 2026 09:15:26 -0800
-Message-ID: <20261117171526.1083793-1-vlad.wing@gmail.com>
-In-Reply-To: <700e302d-c85e-4bd8-84b1-0e6eb8565740@gmx.com>
-References: <700e302d-c85e-4bd8-84b1-0e6eb8565740@gmx.com>
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=R8MBZmN+
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SPQyuLQBoPRuimL6O6ZdqpcUNWW1r1HS9I5hQQ7C8bhkQJ4BMGbAg7zJ8iaFno7N0dznpnPrE/KQbARwpBVPxsLhU8Uxl7fCpbWFo21Hb7MqPirOQpNvFiRrCvAd0dOCJ/CxjpimHlpeoK2V4D2kFHxA2GeCR/Z/lQocyEpvFOaiRtTJH1PfgPwrrxdpGP5dlrQxCBMGifbvHNye4IsD833f/6ZupvWM3GwRCxp4fFaO39X6pS+TMKjIjFvS+nqEl9wmKA6ZV2LBq2HR0uPx+gpBWGdrGMsxGvRpxJumKJtiEGM6w5Rw7f7xC+FyjktRq98nGm9LEQpCvf62U2fCaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G0MOK8MVkH601Jf3pT7rnx5Rl0X0h90tZCe59VsQ2qg=;
+ b=CGL5/PZtFrjgFcVQ3zCivB0eSNA53CqzvDywwwx/xEB3WBDKx+JhWIiKB9E//VW7BZK5pvHD4a3wgZJLD+u5vjDbCgDd6JP5ui3Yj4YGo/nwcBWHztS9X5ikZkoHKvUvpJjV7pIITjzYv2qf5RyDHcKjjQVTmdXpjG0kM+QTDgEmZQ6P4mqpu2pYw++3McbGh0cd9QNRq4S6atbhDGDmtLgbfPcUEN7tbY46m3zyV9r5CdMTu//FQyEIbdnyKvdv7FRQDbR+AmvTsCIOQxibXqY2u4Pv9JANVycpH4l0eche82JUwd4EKmyZb3hrdbY/1K04SGauCJT9D3mBtAFO1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=G0MOK8MVkH601Jf3pT7rnx5Rl0X0h90tZCe59VsQ2qg=;
+ b=R8MBZmN+Ga8RWWcEhTysi+anBt6/qh+qr07y++2EtPP3PLN4UbE9EJrYMhmyoih28LtgnYJq6v/DFALqQDGDXsWdXYh89M5dbAnycOQFHwRL+xX39EB3jvP6gFwuZxi43YZcEkXkNHdaowt4Q41/s7cHuIAIXFxozVPWHNKyoUI=
+Received: from PH8PR02CA0020.namprd02.prod.outlook.com (2603:10b6:510:2d0::9)
+ by LV3PR12MB9185.namprd12.prod.outlook.com (2603:10b6:408:199::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.13; Tue, 17 Nov
+ 2026 17:15:51 +0000
+Received: from PH3PEPF0005961B.namprd05.prod.outlook.com
+ (2603:10b6:510:2d0:cafe::6b) by PH8PR02CA0020.outlook.office365.com
+ (2603:10b6:510:2d0::9) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Tue,
+ 17 Nov 2026 17:15:51 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ PH3PEPF0005961B.mail.protection.outlook.com (10.167.243.25) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 17:15:50 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
+ 2026 11:15:33 -0600
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
+ 2026 11:15:33 -0600
+Received: from james-Birman-PHX.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
+ Transport; Tue, 17 Nov 2026 11:15:24 -0600
+From: James Lin <PingLei.Lin@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+	Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
+	Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
+ Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
+	<Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
+	<alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
+	<Chen-Yu.Chen@amd.com>, Harry VanZyllDeJong <hvanzyll@amd.com>, Leon Huang
+	<leon.huang1@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, "Alex
+ Deucher" <alexander.deucher@amd.com>, <stable@vger.kernel.org>, James Lin
+	<pinglei.lin@amd.com>
+Subject: [PATCH 20/33] drm/amd/display: Honor the Replay stream regeneration wait event
+Date: Tue, 17 Nov 2026 05:50:57 +0800
+Message-ID: <20261116215641.2800595-21-PingLei.Lin@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261116215641.2800595-1-PingLei.Lin@amd.com>
+References: <20261116215641.2800595-1-PingLei.Lin@amd.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,15 +122,68 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH3PEPF0005961B:EE_|LV3PR12MB9185:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b7b5315-c18b-4e5f-af82-08df44ce6df7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|22082099003|18002099003|261009223027099003|261022075727099003|261022105027099003|261021121427099003|261026140227099003|261026121527099003|261028144727099003|56012099006|11063799006|10067099003|261102123227099003;
+X-Microsoft-Antispam-Message-Info:
+	OwP2b1ivZytfriL3MyxOYsUjWSgxv+bXv5y5qqXrMgqwSppki1cFtoxTOgwtrMHosozym4Y1P3Gop7bZHY5stJsviBiUbxVjMp/HL7gWbESsJG2ZPAOtCwryY9+C01FFw9GVHDoWc/49g1UyymJQvkkW1YJGp5MBpPKLARiXskwEnxvXiMN4lcvn4jUGLJczId52yj3Cd3csgvEGD0oj2wheOsvzVhXbvBDWYQuSblIULDYapc4QUZiLfmWGURiDn4/5JCSR2ynS0dTQuOkGTNaqZef6/wvzaB1/K3jDi0SLG7WVIW9wdKblNIEXYb6ywGQISeKaKXfvehWxdJ5XCslFhVbAsqB6Ch7R1Z2VS7sdrCPg0oNRXqqsDlqjLj2+LVddqgRqpPX74hgGc0a1PyvX4potI2zyMdW8xmE0clUzUI0UsPbQBTk5dPitkFmae0iNmcttb5UBZ5IhI+4IB93vb770ckTBgKksm4eEGqElh6zROihPPPFVOhwmwJ5lrpGaiIa3s/HH9rHKlEmCDTLhaXsMUQv5Oon0b3fKl3zHbhkp2C5UKAV3u2ydt0C6OvMQr0UoybFinaS27uQNEir3B10C38fVVt4Ali32leHkZ56vWLxX6mdeI4k273QNH0M6CQRK0L3OUTrEAJvNqmOXctzWk7ihphkgzPOqI26Kyr63glUBOHOmhbeL7hxXmNnATgkUL77lcR76rAanwg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(22082099003)(18002099003)(261009223027099003)(261022075727099003)(261022105027099003)(261021121427099003)(261026140227099003)(261026121527099003)(261028144727099003)(56012099006)(11063799006)(10067099003)(261102123227099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	vAwJKFDp0GPQVSx4l842EZ8NgWJ3/v4ezqc06pSDdB6nxjcn6nlBn8pbceY71hS6v9GkSSx+NUs/tumwhmQc1Uc3xA1wB4+PPzQ1ZIrlzj81KPCqH7PVJtYnDw6/GPDEVITEM5ccj2XZRaOdRl53yBIS1Fl/LmE6ZA6xJJb9WpSoeOWaBnwdGH0qW2tUVIStC5mxmzCy7Law+X1Q3SMA1O+Nxn+N1DUSG6Wm0ytUiLhNHGy8dBzK+SDujE1LRDWDZqNuHLl11B4DbyvxbQWsaAcyIoQkfcaDfqHET7Dykhe2S0Aptmt+lrCuSRTj/x9t+GdQ4TukBD5KnjCZj72tfWW6x8gmBUNJn+y4Q+/kd2OL4aVtwbbwLnQ68X1pOoXJ6qSBSx33OHqTk7whXP3X/6hLndJSsXN9DlGlw1F0XGn84YO0mO2brvIgtHp6EpVT
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:15:50.7465
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b7b5315-c18b-4e5f-af82-08df44ce6df7
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	PH3PEPF0005961B.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR12MB9185
 
-On Sat, Nov 14, 2026 at 08:05:47AM +1030, Qu Wenruo wrote:
-> Can you simplify the commit message, not only by a little but by a ton?
-[...]
-> To be honest, most (if not all) of your commit message can be extracted
-> into a single call trace graph:
-[...]
+From: Harry VanZyllDeJong <hvanzyll@amd.com>
 
-Thanks for the review, and sorry for the overly long changelog. v2 will
-follow with a much shorter one, built around a call trace like yours.
+[Why]
+The shared FreeSync Replay inactive mask omits the stream regeneration
+wait event. Replay can become eligible before the regeneration wait
+period expires after stream enable.
 
-Vlad
+[How]
+Include the regeneration wait in the inactive mask. Exercise the
+public event API to verify nominal coasting while waiting and
+restoration of static-screen coasting after the event clears.
+
+Cc: Leon Huang <leon.huang1@amd.com>
+Cc: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Harry VanZyllDeJong <hvanzyll@amd.com>
+Signed-off-by: James Lin <pinglei.lin@amd.com>
+---
+ drivers/gpu/drm/amd/display/modules/power/power_replay.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/display/modules/power/power_replay.c b/drivers/gpu/drm/amd/display/modules/power/power_replay.c
+index fcfb6066066c..6b1955ff2109 100644
+--- a/drivers/gpu/drm/amd/display/modules/power/power_replay.c
++++ b/drivers/gpu/drm/amd/display/modules/power/power_replay.c
+@@ -232,6 +232,7 @@ static bool mod_power_update_replay_active_status(unsigned int active_replay_eve
+ 			replay_event_sleep_resume |
+ 			replay_event_disable_in_AC |
+ 			replay_event_disable_replay_while_detect_display |
++			replay_event_waiting_stream_regen |
+ 			replay_event_infopacket |
+ 			replay_event_crc_window_active))
+ 		return false;
+-- 
+2.43.0
+
