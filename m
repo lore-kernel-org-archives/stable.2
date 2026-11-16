@@ -1,88 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794832021;
-	b=g/rpX0zd9sudGizVPnZ1Xnrr78fbiUAq+24sCeH+I0N4vkGX3k6Ui1DOs5J0JcF8hHix
-	 JtHE64cFJOmJwdqtLAttz5ZniNx9uI1J4AL6Qpca0qYduzCEdmnmq6dwnkbrwkrRNhM8r
-	 cJpEQ7Z1yNTH7R6MUxCZ+TlKPSSG4WpUMmK1mWN+rNaLxo3bxW14s+YIx5kbol3IVkPx0
-	 UR7fiNwel11H08MdKmD6LWzS5+iSy/1ZbDt5aoGUgo77bZQs/OnDn8nLfnfN+8eiOkX9n
-	 nnne7xx0c9b7AVuR+soY8b79yGZt9qaRBd7f5zml4CZps1SAs7WC2xBAMuQC+peZfnw==
+	t=1794832031;
+	b=Ahi0cQXJEYX/BmvRtqZIBlIeOM9iOPMKBVOqDD/YsjiMarmUr/6FwE8mpzqDlO3t6QWO
+	 xNGLVaxq5x8HjjPUtbpzvHbyOLiBCFHC4IPJkzoBA4hG0mTcZyeEfffC7u+62H8UiMlSp
+	 wmh6D0t//PQH5ylZCsz0zvbWV6nYgQWnKPKVQDrdxA/VvOSzePOv5U+RC9SzS+zt/AMz8
+	 hfckZ1vH7gAuTVOs1SN7N3NhsD6WUq8y27jRzKBaB4IyUEhQM76UbXld7WqLcjiQRxm6s
+	 u6a1F0mnfJv4k4yQ6yEAf9RTUCiLGKbVcfWg3GoGqnWPAJoxnZvh3j/nisgK/8pAvag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794832021;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
-	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=LztVH/Br0K4gtRrkNgsVN8G2Ix17Zkmh6T5nMPGmD4I=;
-	b=rB+FAyl4/Jz15S+XncWWpAaScCwihnY20NQj1oQNy4Ynxwdc/GTV3ukmLdzeIPXkOV57
-	 CazfzZuJ6fa7FTDpsr/jTbKT7sN5sKFifJ41wEtl4O2X/NSfoOASMNL3kDtAy6+1kAdDC
-	 Qyb/7PBkrPSP0nmvg1ZCOcyHZynB8+gZnSwPh3FCFil47Emcy7SJdG2k+zFuexdFmTnGa
-	 EgQSrPwhHTxhrNQT9dfkZ9qcCNTIGUX6ZQST7ZEM/FkSdcem4RhiTcHm6pJ5fSXd5eoFZ
-	 8BcWUqilpyKhX7AEhNZgpY3LnSchkRjmQJwbftHCHSAtws+cextPrCt82CPcGusPFZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832031;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lYiKs2zOREczoUXWCfabA4P+kj5kMFUufjVpxMQWxLc=;
+	b=To1cnoLz9sZs4LNMpSWvVr98F6KxD/NPBr2bygI5GlxJFijKkzPWh+AGNJt3sUdlVpdM
+	 oYEKznFFgK/t0vw4CDkmR+1xpZ/tLeoV7eUpHggKAquSwNYewbs2myQlInNW6oG/cx3eE
+	 dlTQt+EkDYy077r1XWVn/GKdiERP7k5m897wF3dBmmxvKh00lxr3Tvds+b3FyDVbeFAJK
+	 myfwIhbMiE+t9blz4DX400akQw5IkOG23EX0Lr3XdELaGLCb0EvW/yS01YFo2Ml72zL8R
+	 qOHOXnGJ9t7nb1xDwv4GsDCfeFQdewnfzOJsgyT6zah00UXUBWEqisdJemUmwbMnBbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X2TwkGhS;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fBNkVy93;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2997B606A31C;
-	Mon, 16 Nov 2026 12:26:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2997B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3A5C606A329
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:27:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3A5C606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X2TwkGhS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794832020; x=1826368020;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cFOAVePZVgxrC8JkOnzlLlxAgWuxq2P3Pj4zDMgFhLs=;
-  b=X2TwkGhS/Q6d99fUCmP8WdNH+YSFnJuZ6JTGWQz+dqz6fw5WXhDIT9S5
-   KhQ1UJhQbJ8pvtVkwYwqSGu//YOphSKI7kXHuFbfIPgMXgdaAUYyUwvvL
-   gjPWSKT/oMbbTxNLBqX7j+OZHd6DvAVhalptld9k72d1q9uOEhJt6u+tn
-   eRauWhRbVd++HOIlLRAXivLAnmnH0jspJyXN/LO6Ui43nquKeVhlkGZ85
-   8FC+1c1iOQ1crF12pFvdw2G6ApaCDtaxF4lRwd68mHXIZisvLPNq1s2Dl
-   KF3mEcaX8CoaFdBhDt8CXMX8w07flMYzTxCne6eEdgYEYK/ssxki+l4YN
-   Q==;
-X-CSE-ConnectionGUID: NaABzIO2T+KZrfeQoi4fCg==
-X-CSE-MsgGUID: 3weAZLfjSQeBxj+XISluOg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3444669"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3444669"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:26:59 -0800
-X-CSE-ConnectionGUID: PpbZemL8SG2DHsPDCH0gZQ==
-X-CSE-MsgGUID: j+5TbJsdQlSLfmB3YkmOPw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9535089"
-Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.87])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:26:57 -0800
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3BB55121B5D;
-	Mon, 16 Nov 2026 14:27:00 +0200 (EET)
-Date: Mon, 16 Nov 2026 14:27:00 +0200
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Richard Leitner <richard.leitner@linux.dev>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>,
-	"Paul J. Murphy" <paul.j.murphy@intel.com>,
-	Martina Krasteva <martinax.krasteva@intel.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Gyula Kelemen <gyula.kelemen@advasolutions.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3 0/8] media: i2c: ov9282: fix strobe timing and control
- handling
-Message-ID: <avr2lDQxiFnv2Gq8@kekkonen.localdomain>
-References: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fBNkVy93
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4bb606491faso9929805e9.3
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 04:27:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794832029; x=1795436829; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lYiKs2zOREczoUXWCfabA4P+kj5kMFUufjVpxMQWxLc=;
+        b=fBNkVy93+Ivhz+cLJItX7AINqI3LPXcFYjJEc6SPK0wfFZ8GArFwA8UG0umyTif4TV
+         1uvWX+rG2VNZ8GI1dUuf7sBxQxy82ZUD/nDIn0T23BeRrAWvhjgbL2UA92RyEzsuDueK
+         5RPCfNWASJSVPjUTUGQGMFbJe+mOFBNTnkvp6J4Hg5GOha5igl1QmPeq4fNkfLPpoqms
+         kVvw0EBh9/EFRBHCbGq6rhoQ7v2N9LrrKEJu0Mbztr0btTwQ5RJDQhMh+alfveeqF+bm
+         aFWQ4+raenJPfSHzTZ7jS5TpdxApbkIlnpDa2v+YqpK+9HpEtKPfi8J4xHKCnjeLZ81E
+         OLvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794832029; x=1795436829;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lYiKs2zOREczoUXWCfabA4P+kj5kMFUufjVpxMQWxLc=;
+        b=ygMmeDpRUxVgGQMdb1GeHKKPzXRixZYVRQUOY/V25+HSMRVIvcnbW0418o84D+B8dy
+         Vhhf2dGD5cDtY+mKLT9Hhcdxxcfftz8DmB73GwL5HIcyvE4myLX+KmqqzoIqJmYprB4E
+         igvdtT/BaozHXiOn/YqyWYlmP6fGJhvSaHOIUgakSgzR1U0PoEx5GVLdXxPALoSyAWn7
+         fxud0EjWhHvd9TIcxYo5hGHmnFVWbRnoxBLmuv7URnITCQxEeA7QP1eDYlWlYRMkx97P
+         /VSLq7bDSH54HR2WuhRtpHnoVPeZ02zCgQF/FmvUIZsVqc0eAqxvlaLEWy4lz9Mq/7VC
+         DBqA==
+X-Forwarded-Encrypted: i=1; AL+hErEqLp3q4FunuBcQM1hmiiZBJLA/RP6+wLh6iQMV7Sfot4I2JgFC9f/W2lhFTcXqSK7I4CH3FI0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/O9JaFgyGesrElly9mgotsHYdyQuTq5HL/cFsYRWaZfXlxNoYO
+	8/52y/1tVjmwgJNkWR4atbhY9VKxZwNyXivi48PYPDzWb73zckDjzTqN
+X-Gm-Gg: AYBFou32RTOfK6keGcq5eoEL5wYUxp0LyIA2Ikh57hGJ9cfY/bw1SR/rVBeySVCvtLs
+	uZYF4CYyksm6Y6Dgjow9r7CB0ep7jzTiW1IE7vV7HB4tRrLQ90blHn06ThU3T0xvLZssG0oTn0n
+	PrrvidkLCQSKrtv1DBXoMe2aUjdaIhRfjmk6b3o1RXaW3gf2FqWthymihyqTmoPec8sM35eh7AP
+	kIojVeZSQ1QPG1hDSp3Qz9lfNNDds0dGnE1NtprTdGkwh+RZTfy/pg/arAVdHp3lgtgpEl05RUL
+	D6zEysUPSb8MH7YS7ulCXaA9WDWfFEl4uNwn9AV95Z9jGBScGLSagrqYfCfLL6ySBdD+yY6WFZf
+	zC21sAQoBks7D/FYQ4ev2mJhz9GgCxovX+AnnPsqGRNfoyC5GlNGSMx4WyuphDfcyAKmP3I8Epn
+	5CHx6LumQHVvQhe+rND9JyC1QMQQinTZnXQFah57kRqb3kxyxw1x51d2SmgisuAbWTAsONkqQ3f
+	CAvkNi2I9R6LQSE2olB2tOgH1nFHabE/FvvL793V3JJDgmOUy+1C1Kt9IgZ39RrDRlYyc2e/s5x
+	JWmfh+8jxhx27vZehH5103e6oYaRrRXTVvs=
+X-Received: by 2002:a05:600c:3f18:b0:4bb:6ac0:6dc0 with SMTP id 5b1f17b1804b1-4bb6ac06e5dmr82826765e9.29.1794832028780;
+        Mon, 16 Nov 2026 04:27:08 -0800 (PST)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb56689bc2sm171999685e9.2.2026.11.16.04.27.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 04:27:08 -0800 (PST)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Stefan Eichenberger <stefan.eichenberger@toradex.com>,
+	Stefan Eichenberger <eichest@gmail.com>,
+	linux-i2c@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: [PATCH] i2c: imx: acknowledge the count byte of an atomic block read
+Date: Mon, 16 Nov 2026 13:27:06 +0100
+Message-ID: <20261116122707.1349139-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,44 +105,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-Hi Richard,
+From: Mehmet Fide <mehmet.fide@screeningeagle.com>
 
-On Tue, Nov 10, 2026 at 02:10:09PM +0100, Richard Leitner wrote:
-> This series fixes a set of related issues in the OV9282 strobe timing
-> and control handling code.
-> 
-> The driver updated exposure- and flash duration-related control ranges
-> in several places, but some of those updates used an incorrect timebase
-> or were triggered too late, which could leave the controls clamped
-> against stale values.
-> 
-> The series:
-> - checks the return value of the exposure range update
-> - drops the redundant vblank field
-> - converts probe error messages to dev_err_probe()
-> - fixes the 8-bit pixel rate (192 MHz instead of 200 MHz) and the
->   corresponding line time calculation
-> - treats the strobe frame span as a line count and converts the flash
->   duration accordingly
-> - fixes the flash duration range (min/max/default) and refreshes it on
->   HBLANK changes, independent of the sensor power state
-> - refreshes the exposure and flash duration ranges on mode changes
-> - reprograms the strobe span when HBLANK changes
-> 
-> This series was tested with an ov9282 sensor on a vision components camera
-> module attached to an i.MX8MP mainboard in a defined (dark) environment
-> with a custom made LED flash pcb.
-> 
-> Any feedback is warmly welcome.
+i2c_smbus_xfer_emulated() sends the read message of an SMBus block read
+with a length of 1 and I2C_M_RECV_LEN. i2c_imx_prepare_read() clears
+I2CR_TXAK only for a message longer than one byte, so the atomic read
+does not acknowledge the count byte. The target stops sending, the rest
+of the block is read as 0xff and the transfer reports success.
 
-Can you fix the issues 0-day bot found? I think the patches seem fine
-otherwise.
+The test for I2C_M_RECV_LEN was dropped when the read was split into
+i2c_imx_prepare_read() and its callers. Commit a5d0b9e32745 ("i2c: imx:
+fix emulated smbus block read") added it back to the interrupt driven
+read only. The DMA read never gets an I2C_M_RECV_LEN message.
 
+Fixes: b460b15b3cc2 ("i2c: imx: separate atomic, dma and non-dma use case")
+Cc: stable@vger.kernel.org # v6.13+
+Signed-off-by: Mehmet Fide <mehmet.fide@screeningeagle.com>
+---
+
+Notes:
+    Reported by the Sashiko review of "i2c: imx: test the block read flag of
+    the message that is read":
+    https://sashiko.dev/#/bug/linux-09e3015b-fc03-4410-809b-82964cdfac9c
+    
+    Tested on a Colibri VF50 on the Iris carrier, kernel at this base, with
+    the M41T0 RTC at 0x68. The core takes the atomic path only after
+    SYSTEM_RUNNING, so a test-only hook called xfer_atomic() with interrupts
+    disabled, with the two messages that i2c_smbus_xfer_emulated() builds
+    for a block read. Register 0x04 (0x13) as count byte: without the patch
+    0x13 and then 0xff (50 of 50, return 2); with it the next registers,
+    the same bytes as the interrupt driven read (50 of 50). With a count
+    byte of 1 (register 0x05): 01 ff before, 01 01 after (50 of 50 each).
+
+ drivers/i2c/busses/i2c-imx.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/busses/i2c-imx.c b/drivers/i2c/busses/i2c-imx.c
+index ccf08cd63151..1a3fc245d6ba 100644
+--- a/drivers/i2c/busses/i2c-imx.c
++++ b/drivers/i2c/busses/i2c-imx.c
+@@ -1283,7 +1283,7 @@ static int i2c_imx_prepare_read(struct imx_i2c_struct *i2c_imx,
+ 	 * Reset the I2CR_TXAK flag initially for SMBus block read since the
+ 	 * length is unknown
+ 	 */
+-	if (msgs->len - 1)
++	if ((msgs->len - 1) || (msgs->flags & I2C_M_RECV_LEN))
+ 		temp &= ~I2CR_TXAK;
+ 	if (use_dma)
+ 		temp |= I2CR_DMAEN;
+
+base-commit: 25e7ab89f4774b0f842cee0e8a20c11f755924d5
 -- 
-Regards,
+2.56.0
 
-Sakari Ailus
