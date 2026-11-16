@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794823691;
-	b=PyblI5RwYYOFiuYCc0QEtfRI8F9SbP9uBmCSgP7waAEdZ5J3YoNlXUehLW3rnDvD/StS
-	 zzpKVUste/Jh/No0NvKY7IhbdbN4v9EaeecizWXZfMzv1ke5IqYElo4/goychB+36AyMJ
-	 uaX31e9HtgXk8ifW66AERgYBfo8xHWagsA49vVnBTS9uHYQoj7a+ABVkRw4HQtUyhY1TZ
-	 lE1eMV9cIk6XMMyuf/Qm4T4ufNH65KTGx6gptEhXX8MDpptIAt/LDUVV5jpJ1Y8qSs7NL
-	 Q0BmgpGVNgi1pRrKxaG+zhF/iUE3oJvqWyXOfB4+GG89U38Hq0kyJg0Kavastm/R5ug==
+	t=1794823829;
+	b=xqu5XUSkRFI58hBs9tYlTpLIwjKG7pOPK8qBDUZwSA5890X+T9wg1PoEpqbVVxpOjRUu
+	 LwBhjBpVzz+hgkCCvjVkP3cwjWKF3PWd+dttwD3U0XC4o54RYf2QpNL+UMvmSaU5wnQPF
+	 ozEZuR9B5mIkzUw/tEbMIbi7VvMc2UiXCG56OP1ASxM8Lz3qVe/ExiV1t043aaUvO/6JR
+	 CPXtgQjkghS6SElW0UDq4TCWAulzPwTVYQxJR3JU3Pe8cBExl9s65h0ctkCeelwfWnNf7
+	 AhbIYDXSlvGpYaZPgnuB16hvW6PVXhuqL5YOeAAevinzXnhZR07N7E3FlTUeQNLUanQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794823691;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794823829;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xomABNJRS5DDfBS7xLxXB1ttX9vN42Q+i+1BI0PiZcg=;
-	b=uqyr9P0XBApV8xzJTVeeIGDr24nZWSpNmigI9Lsegl+0em4rK5+uGSLHulZGW2W8aDgL
-	 +L1jkMmN5uvKjlvOzhSfaI9gqsbMx39T1RB1LxqPTmmU6iYlYEMll3sq+WFbOzGeVq2MQ
-	 I3g5snhbNYNSLtyt8F6BMVNCiiBYaWfSkcd5eH+YKEkotrlcOa+4uSClZ7VLMlhsfgeE3
-	 GkRNvCpESIyRAz5j4b3OwSFl4HK4ne/IDz0/yo/GDcRd19QNbo8lR8DjlprbIh+xv/Qx5
-	 A+a5GOdHOgJ6gguYC0caKlJuq49B/UqWdnrzy00LTC4MHrAe55/o+EFmIvmfGFQRO+w==
+	bh=JXbbxzTK4STMxlRmt7LCwpa3q0WjlHYEgdFStr3myuI=;
+	b=gfuLWQaCDoJYawAJXsph8bKGjUuDNXbn1M9EfADYCnLYlCy0cy0IXTd4I4XW0XOEnTFU
+	 bNJV7VZnHQT3lTRnoB09RMkscvEW2UBeyve49shDVliJG/ayp+g6OXsIv/X9jFfXxw/lt
+	 sPqDSpaDqhStAmU4bvB+Tz5ENxnw6WdwYEEqqXcKmrGMFvqFQT4eD6TFgYq11JK9C7nyk
+	 nneCcmJalYA2VhoGQ6u5y/YELzMaTR9UbIDxhxrWXDKziUsPIn4SVpK1c4qhHApQ/NJxG
+	 jkb2rd9Q9I9eoQpHgxm524nRwCJ1RYBdDEy3jMCXlj1NuVWxAAPe7UBJIic5slBcKPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DguWC3yV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mDChAnWA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 457ED606A329;
-	Mon, 16 Nov 2026 10:08:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03766606A32A;
+	Mon, 16 Nov 2026 10:10:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DguWC3yV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAEBC1F000C4;
-	Mon, 16 Nov 2026 10:08:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mDChAnWA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00A5F1F000C6;
+	Mon, 16 Nov 2026 10:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794823690;
-	bh=xomABNJRS5DDfBS7xLxXB1ttX9vN42Q+i+1BI0PiZcg=;
+	s=k20260515; t=1794823828;
+	bh=JXbbxzTK4STMxlRmt7LCwpa3q0WjlHYEgdFStr3myuI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DguWC3yVLhDQZdYT0Ss3fhD2eGdA5SSVlW9n3iPptBfnNPe57uUf6enAe6ijWcmaz
-	 YjVLnBWa9RPOSruTDJR0Bw/3MBhirdVRAwMMMJoJ2aCU4An/GS0DtPjXrbqzCxqDPx
-	 NXjX5P+k/g4k0nvzZNmaC2wbs2IQGS3tTs/Ubuelnz0Bg3SnHkC0YdNPBkcBRci8nR
-	 7lv+y0OOJ/6bJHg7+G3mlMqJ1XR82uprshFJqjuMp8QOJoOQsB3/mOCPzuozJNDmLX
-	 zkEZsKlIaRMMroq0JiFxUbAdPShLkYVB3ZBtWQqxDX1Bb3zGNpb0IiPoNJzR202VrQ
-	 LD38oJxnYN29A==
-Date: Mon, 16 Nov 2026 11:08:03 +0100
+	b=mDChAnWAybrGnG8HbCareJDnR8uYlxFVzdt/PWEHutV/Nu9mlhxDeSVN5z3+uieoP
+	 867FCmZ3I5iE2imreP7FBRBUKB5hMORMgEXUcUpkas3sC4KaU9Q/+wmfkEF0B3SzQo
+	 OMZGv15rDPhqH47R/dN0GROMD1GDI48+9RqjdObrC3uC2NFm7CKVGfPG1nXelxvmbh
+	 w3wY/IAqaVUFR4fsK7UJHrnGVcNrYueDRfW5xfcWYiCfB8nZ379yX/zP4mA1AHXTT4
+	 fD1TYp8xdCmpMrHHD5J2pdTfZjyzi8DHOwtymSKOTRXzuS2wLJPK06p9cgYx18/KGQ
+	 yxJD18zhnfAKA==
+Date: Mon, 16 Nov 2026 11:10:22 +0100
 From: "Oscar Salvador (SUSE)" <osalvador@kernel.org>
 To: Muchun Song <songmuchun@bytedance.com>
 Cc: Oscar Salvador <osalvador@suse.de>,
@@ -55,10 +55,10 @@ Cc: Oscar Salvador <osalvador@suse.de>,
 	"Jose A . Perez de Azpillaga" <azpijr@gmail.com>,
 	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] mm/hugetlb_vmemmap: fix PMD split TLB flush race
-Message-ID: <avrWA0hxiqPDmivK@localhost.localdomain>
+Subject: Re: [PATCH v3 3/3] mm/hugetlb_vmemmap: fix deadlock during PMD split
+Message-ID: <avrWjqe5kPfkReIj@localhost.localdomain>
 References: <20261114112523.75208-1-songmuchun@bytedance.com>
- <20261114112523.75208-3-songmuchun@bytedance.com>
+ <20261114112523.75208-4-songmuchun@bytedance.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,44 +70,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261114112523.75208-3-songmuchun@bytedance.com>
+In-Reply-To: <20261114112523.75208-4-songmuchun@bytedance.com>
 
-On Sat, Nov 14, 2026 at 07:25:22PM +0800, Muchun Song wrote:
-> Bulk HVO optimization converts vmemmap PMDs for a list of folios into
-> PTE tables before issuing a single global TLB flush. After publishing
-> a PTE table, a concurrent single-folio optimization can observe it and
-> remap its PTEs before the deferred flush:
+On Sat, Nov 14, 2026 at 07:25:23PM +0800, Muchun Song wrote:
+> vmemmap_remap_range() currently walks vmemmap page tables under
+> init_mm.mmap_lock. If the walk reaches a leaf PMD, vmemmap_split_pmd()
+> allocates a PTE table with GFP_KERNEL and can enter direct reclaim:
 > 
-> CPU0                             CPU1
-> hugetlb_vmemmap_optimize_folios()
->   hugetlb_vmemmap_pteify_folio()
->     vmemmap_split_pmd()
->       pmd_populate_kernel()
->       /* TLB flush deferred */
->                                  hugetlb_vmemmap_optimize_folio()
->                                    vmemmap_pmd_entry()
->                                    /* sees a PTE table */
->                                    vmemmap_optimize_pte()
->                                      set_pte_at()
->   flush_tlb_all()
+> hugetlb_vmemmap_optimize_folio()
+>   vmemmap_remap_range()
+>     mmap_read_lock(&init_mm)  <-- outer read lock
+>     ...
+>       vmemmap_split_pmd()
+>         pte_alloc_one_kernel(&init_mm)  /* GFP_KERNEL */
+>           <direct reclaim>
+>             ttm_pool_shrinker_scan()
+>               ...
+>                 change_page_attr_set_clr()
+>                   mmap_read_lock(&init_mm)  <-- self-deadlock
 > 
-> Modern MMUs permit overlapping TLB entries with different mapping
-> granularities only when they translate to the same physical address. In
-> this race, the stale PMD translation still points at the original vmemmap
-> backing range while the new PTE can point at a shared or replacement
-> vmemmap page for the same virtual address.
+> Since commit d5d8b8662e6e ("x86/mm/pat: Acquire init_mm read lock on
+> attribute changes to avoid UAF"), reclaim through TTM can enter CPA,
+> which also takes init_mm.mmap_lock. If a writer is pending, the nested
+> read blocks behind it while the outer read cannot be released, causing a
+> self-deadlock.
 > 
-> Serialize deferred PMD splitting against PTE remapping with the HVO
-> rwsem. Hold it for write across the split-only pteify batch and its TLB
-> flush, then downgrade it before remapping the folios' vmemmap pages.
-> This guarantees that no PTE remapper can observe a newly split PMD until
-> the stale PMD translations have been invalidated.
+> HVO walks vmemmap ranges whose intermediate page tables remain present.
+> vmemmap_split_pmd() revalidates the PMD under init_mm.page_table_lock
+> before installing the PTE table. Use the lockless page-table walker so the
+> allocation no longer runs under init_mm.mmap_lock.
 > 
-> Fixes: f4b7e3efaddb ("hugetlb: batch PMD split for bulk vmemmap dedup")
+> Fixes: d5d8b8662e6e ("x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Muchun Song <songmuchun@bytedance.com>
 > Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/bug/linux-fbdc3410-a4cf-457e-88e6-684380fbadfe
+> Closes: https://lore.kernel.org/sashiko-outbox-206969@kernel.org/
 > Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 
 Acked-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
