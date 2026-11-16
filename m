@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794797189;
-	b=2P7gyylCvd8dxfn5byDFqrAaBdH/YnosVFwztctFWjaZ8PfXk6ZeAcmPqXohDic0dGfS
-	 folnmn+uYtjgIl0+zK+vs6XJxBKKW8ZlOrJnJGBJZXT2FHY3dlfuUWZFHS/6X447SZC9v
-	 NR9jQtm10Z8gNQLw5Abo6RD+Ww8hLcXo16V+q3/jVau9/fLG0ONrdmwKP6V3+09qV3RQT
-	 MEGXrvtDVPTfbdho//gDzr4zqzhpOrf2nd44FSm3bwPuUvOMmV/x/1QAwSb31Bf1e7k0A
-	 UNuJQ0pprriRyEu7xgwC6eIHAuSdqXPfyrztPRYgPmjR5SBooo5FpBY0Z7jPrqT+HTQ==
+	t=1794798237;
+	b=ffdVmWehVeOXAc1SExm8aFpfT6QJ26BejfZenzEw+BQJ9Qajqq+FlyXu7+yGtGleXpJ7
+	 mzeMV9sDmrIbNu5YbN5q7WGgXPKHFuExlopFyyCuyKSxL/fYImQl2HJjTmzSXPLS5x2qx
+	 QiaZgNv+YA41bAeUmP51+TnEWkAe/ddZmJYI/KV/VloTPS8JprWg5dGcj6EjP5w6QMmx9
+	 hlH8k88KcsWVtaWco0EvP+0QXGo32W75cmVPT8nnfWzFSDyCmjlH/vmhDBdkd1TTy7Qb9
+	 tHGmuV4e+UEhXsbXg2LYZZSTVHzAxcikLErAzxUZ+M9589Ozv7ie9el0/suRkTgkTgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794797189;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Zj59LSbZyWj0ln2DuqrPp59iX3YCpVN4OBGZx/UUUxc=;
-	b=V5weTunFQ+cq1beF7QR9gCDIXqVZqCsDcjegVFDsiCARTeDuiQmhUdxQ+Tf71YHrX8hE
-	 pJ6zO8Rx3vlE/yiWbi7DNvHKgLmgCGDT2tXyy0x1tfRnitW2slCSbZJmq3fw8YSW0Mqlw
-	 fipYMwDCS1kSF5VS0ET5w+IJXIgv3YbCaSyFqgDm5gima9RAyWXuSakHjwne/vdyZH5qv
-	 YT3enasBqdJZKq4vnBUm5yYJcm3Efvh1pKMYWGfHF89F73YDdivTbq8w2ysdDBzqcqw8j
-	 SXGMZPEuQZ7CZ4q0aDz4mAC3n+az0HxxXLtp1JxSIqNed7rkGv9/SbyAjEMusyRrLEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794798237;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SNeaXfTa9XrrJcc3jd4rJaGJBMOoRygkUVLasRGgUSw=;
+	b=O+nFC3OZbMnuLYo5VqauZDU6GAPFOcztk/9G+VrJVVroZxqfY4gvOqgg6VXheCZD+goc
+	 eK9AAuQzLXaCeVWzyxyEVfaCD8Yog8t6pNP7y+QamqSwC9Llpg3l2spBrk/Vt6PqZjEgT
+	 oGuIKYOYG4aX947QWaNc9SXhxmrW63GuU6SYV7M7YJ2IKLifmj3GRaRr1uoLHVNvmE+LK
+	 leANGMofqXlBxNW9zm9rx6v9NLF8hTnuzpw+gi6DW5yjoLUL6o/lKX/Bc4vQw4+q59lKE
+	 81grZNj+K1W2jkwBl5X6jX4b21gOsV4i9+MtgfVRnNl4VJ6QxtMo7DBSGfCcuveuZ4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIZYQnzo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pe90he5M;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E53606A32F
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 02:46:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E18606A338
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 03:03:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14E18606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIZYQnzo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CC1E1F000C4;
-	Mon, 16 Nov 2026 02:46:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794797189;
-	bh=Zj59LSbZyWj0ln2DuqrPp59iX3YCpVN4OBGZx/UUUxc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JIZYQnzocaEx9IhNDwbCjVJIqnR0LMkpNajtjnIVnBxAk8fqj+oPWtBxA67SHogl6
-	 DAOBuFDVH8FQXRAEZ3l2V7/c1rL8ecwi+XYnLgyBiHtoOfUw1OCy0y3pEOYjWBk1ef
-	 N420XOlQ1LYNVg6zbqYdyg1rDqc+k872M9ISnAh7wrTkx1Y16XZV2lsscWK55MAjPm
-	 afOn9g3KB9A7O97cpESG3U98BfaeOqfQ65sLrGfbMLGtW+i6ifhl7yP8hmyp7FBsFu
-	 6UzX8llCWQMAxb8qygESHm0Q3+F2lgQRLMDTkLJYcoemoNqBw9N//tg9BKqqloTG3S
-	 clX2cnXbpasDw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Tal Zussman <tz2294@columbia.edu>,
-	Linfeng Sun <linfeng.sun.dev@gmail.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 3/3] vhost-vdpa: fix pinned page leak in vhost_vdpa_pa_map() error path
-Date: Sun, 15 Nov 2026 21:46:25 -0500
-Message-ID: <20261116024616.2408867-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116024616.2408867-1-sashal@kernel.org>
-References: <20261109202626-failed-5.10-fd1462c96baf@kernel.org>
- <20261116024616.2408867-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pe90he5M
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-37000e7234bso2179811eec.1
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 19:03:55 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794798235; x=1795403035; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SNeaXfTa9XrrJcc3jd4rJaGJBMOoRygkUVLasRGgUSw=;
+        b=pe90he5M91kANyHpOtEYXLVei3WC1v6hnxARz3LPWc+ngmX9flCf8dFGhzEps3ActE
+         ufnm/3kO5npj5GS90QK74eqTir8h+5vpLwfA+cYlWN5uLa5R0Szpu38UXMVtYEaQ+WdE
+         55gAdIgoEzNr/FrMY/Z9cyO57SveUqLkRJ0/3KowgS4NM3jZmMDfn99HjuvVldswJs9X
+         /osx5NMwRPT6o87+Ng33GMT36pbHNouP450qaHTrO0L+vAyCgeMbdvOT9KEYnBEf30pc
+         yi0Q6qGdGesBF1xABj+cp52ZrvUd4Z7cLNB9eb8TCfXgRXz/pfHPvYsFO8sG6ISfRG3E
+         0tjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794798235; x=1795403035;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SNeaXfTa9XrrJcc3jd4rJaGJBMOoRygkUVLasRGgUSw=;
+        b=UVdTTvpWRtgcp79Nq7U0Ig42pCROOH5R7hH0TalDlh6eVz1ZBNnd2w7JhHP9ewplle
+         ljNsAp5m43WJNf/ht12PZp3DzczAzuRzXfI1q1hSiqY6+GUXv1hUUHw9eTU5sDge+TRv
+         uisiqq/Pin1V8rTCh0V+Zn4ngdaka2xFvaneah4n3xmL1sRoUNhEfM2gtHtCPB04YPND
+         d2i6b8DqqX//x2gVz9JxZqZmlwCPLw9gvxGPD9fXfwVSR84mvzVEBkAxr9SIEEuVNiZW
+         PvFwMaZ/NulZRKvc3ZQYDrwyJigv9jk+BAL1WMed0UF/BNHBwTsq/G8sTlFq+maDzxGk
+         AomQ==
+X-Forwarded-Encrypted: i=1; AL+hErEyMdiRjdOFSyFhGuKL6+6AVDejPBAoCU3sGy3k9eo67f6/IaJh1W11IgydZVQBTFXvOQehkTs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/cYf6b8/XyW10v9EVdBHtosq3G75EaZEHpf3PwbHZZTBDNSaj2
+	S4KyNlTIbsaPbPXfOLzNxjOzWGCeX9dF6f5wBVM11cbBTbQZcdjEMT6/
+X-Gm-Gg: AYBFou09Gz49RcBywFxWnICmwzzYB4dij7rQKpDVOOGdw1UyR4uI72roaibnh4R7AWq
+	zpOdBqzRai2588S9eHoA6MImc0I1gHHkPlsxuBuNctbZkpphtiZVB5670PQqfQt+wCqPA+uTd1/
+	VCQS6LuUUT2bZYxOFxMCfo9QE+9C0Jf+vigdIvSR2G1iHoQUoYfnvNh1Qj2jYJ8W1kXS1BId0jU
+	zO5n0WWjJCCAo21d9SKZwNhOMOOvjeUQYA3O1kQPpPEdCH53jC9Ir+jJwhCnEu9gmNlb/7rBAmB
+	0fBGFFrfyhUr0CDAEPhD5/pJ7VBKTqRpFgR2s30lbhF0IFlYUCa4ansklpvmI5nb6EylPwzDTJB
+	UV6PALxT+MIMbPEgtEJzXhXoqhsl3iw4OG+/jlMsu9YP1I2tIXaT1EnjEPp1IOjn9PvKlgbV0a3
+	FdYZLPc/49qnOcGrkSrHXVbVOoVTC2enV2p2EJtj9FEJPSqaRPKf7OiLpbH9XGoAOmv/ds01BIn
+	Mu6IGnB2mGCivQE95Y08DLU3lEqhzeGWpYjqIoPu3s2VKbrGRNCSvkaEhL7DgIyR/AflHOYy+lE
+	Y5JuCRz5NNvHe9keRN/DFyCrmXC2lJ/pIIT9kTZ6t5SgHxtidBS/5Ip4uvIUmESAh9bRnvBm4qf
+	NIIgxkHD0olgSdrdVOnyG2wkAq5O9liPXWChKFrON
+X-Received: by 2002:a05:7301:db11:b0:369:fe4c:b48f with SMTP id 5a478bee46e88-3796047be6bmr8947853eec.0.1794798235185;
+        Sun, 15 Nov 2026 19:03:55 -0800 (PST)
+Received: from nugod-NUC15CRHU5.tail9f095a.ts.net ([218.237.104.87])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379508762a5sm29195595eec.0.2026.11.15.19.03.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 19:03:54 -0800 (PST)
+From: HyeongJun An <sammiee5311@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Mark Brown <broonie@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-sound@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	HyeongJun An <sammiee5311@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] ALSA: seq: ump: Don't turn a zero key pressure into a Note Off
+Date: Mon, 16 Nov 2026 12:03:34 +0900
+Message-ID: <20261116030338.422671-2-sammiee5311@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261116030338.422671-1-sammiee5311@gmail.com>
+References: <20261116030338.422671-1-sammiee5311@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,87 +106,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tal Zussman <tz2294@columbia.edu>
+The conversion of legacy events to UMP MIDI 1.0 uses
+note_ev_to_ump_midi1() for KEYPRESS events as well as for note events.
+The function turns any event with zero velocity into a Note Off. So a
+Polyphonic Key Pressure of 0 reaches a UMP MIDI 1.0 client as a Note Off
+and ends the note.
 
-[ Upstream commit fd1462c96bafe2cb14e88c837b270f8990b717b5 ]
+Only a Note On with zero velocity means Note Off. To fix this, check the
+status, too.
+The conversion to MIDI 2.0 already sends a zero key pressure as it is.
 
-When pin_user_pages() or vhost_vdpa_map() fails, vhost_vdpa_pa_map()
-is supposed to unpin the pages pinned after the last successfully
-mapped chunk, i.e. the range [map_pfn, last_pfn]. The unpin is guarded
-by nchunks, but nchunks is reset to 0 every time a chunk is mapped from
-inside the current page list, so a failure after any such boundary
-leaves that pending range pinned forever. With physically scattered
-memory nearly every page list contains a boundary, so the leak happens
-on practically every failed IOTLB update.
-
-The pending range is non-empty exactly when a page has been pinned,
-which last_pfn already tells us, so drop nchunks and test last_pfn.
-
-Fixes: ad89653f79f1 ("vhost-vdpa: fix page pinning leakage in error path (rework)")
+Fixes: e9e02819a98a ("ALSA: seq: Automatic conversion of UMP events")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
-Reported-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20261031-vhost-vdpa-unpin-v1-1-94ffc9683256@columbia.edu>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
 ---
- drivers/vhost/vdpa.c | 8 ++------
- 1 file changed, 2 insertions(+), 6 deletions(-)
+ sound/core/seq/seq_ump_convert.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
-index 32dde456a181a..cfe3bf958f318 100644
---- a/drivers/vhost/vdpa.c
-+++ b/drivers/vhost/vdpa.c
-@@ -632,7 +632,7 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
- 	unsigned long list_size = PAGE_SIZE / sizeof(struct page *);
- 	unsigned int gup_flags = FOLL_LONGTERM;
- 	unsigned long npages, cur_base, map_pfn, last_pfn = 0;
--	unsigned long lock_limit, sz2pin, nchunks, i;
-+	unsigned long lock_limit, sz2pin, i;
- 	unsigned long page_offset;
- 	u64 start = iova;
- 	long pinned;
-@@ -668,7 +668,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
- 
- 	cur_base = uaddr & PAGE_MASK;
- 	iova &= PAGE_MASK;
--	nchunks = 0;
- 
- 	while (npages) {
- 		sz2pin = min_t(unsigned long, npages, list_size);
-@@ -683,7 +682,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
- 			}
- 			goto out;
- 		}
--		nchunks++;
- 
- 		if (!last_pfn)
- 			map_pfn = page_to_pfn(page_list[0]);
-@@ -714,7 +712,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
- 
- 				map_pfn = this_pfn;
- 				iova += csize;
--				nchunks = 0;
- 			}
- 
- 			last_pfn = this_pfn;
-@@ -729,7 +726,7 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
- 			     PFN_PHYS(map_pfn), perm);
- out:
- 	if (ret) {
--		if (nchunks) {
-+		if (last_pfn) {
- 			unsigned long pfn;
- 
- 			/*
-@@ -741,7 +738,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
- 			 * the corresponding unpinning will be handled by
- 			 * vdpa_unmap().
- 			 */
--			WARN_ON(!last_pfn);
- 			for (pfn = map_pfn; pfn <= last_pfn; pfn++)
- 				unpin_user_page(pfn_to_page(pfn));
- 		}
+diff --git a/sound/core/seq/seq_ump_convert.c b/sound/core/seq/seq_ump_convert.c
+index 62bdef6dca58..c248d87f7a83 100644
+--- a/sound/core/seq/seq_ump_convert.c
++++ b/sound/core/seq/seq_ump_convert.c
+@@ -630,7 +630,7 @@ static int note_ev_to_ump_midi1(const struct snd_seq_event *event,
+ 				union snd_ump_midi1_msg *data,
+ 				unsigned char status)
+ {
+-	if (!event->data.note.velocity)
++	if (status == UMP_MSG_STATUS_NOTE_ON && !event->data.note.velocity)
+ 		status = UMP_MSG_STATUS_NOTE_OFF;
+ 	data->note.status = status;
+ 	data->note.channel = event->data.note.channel & 0x0f;
 -- 
-2.53.0
+2.43.0
 
