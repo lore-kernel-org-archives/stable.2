@@ -1,99 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=216.71.153.94
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794847685;
-	b=OnR0MGsyS6hsO1ZVg+oC8WNfK4qD4Ig71fjkSrG9z5zjD3sQM1DiqDPQzHX+h9s+iNBx
-	 UdmJ9UAl1c/b+YQly+p7VT+GgGrkLlfxbGsFn0cFZUrOoXzQhUL6NUy3ve3kclPdhFN7L
-	 ayoNgjBzStOwAh5sBK6TfQUE5OMlaurmaz0T2jk7XBjDQX6DF4jiV34eZaWo8gZRCFaUz
-	 qfPbirjDecjsb2vd0zaGCRh6J9Z/+CKSd8lZb84ofTJvgsAkIWZcjiaKwpQBHBOdiSil6
-	 wvqn3ucZ8l8senYHoVODBEsZxc7CaYmcc594kKjyZOUw2p3GRvSNyLtlAcNsEf+fvEw==
+	t=1794847722;
+	b=Gy4CrAQUte1jN3nolYUQ/su6I0XUWaaJ5Kaq6lWuLMRT13hYmyJlxXa9V81ocI775zqD
+	 Bqpt4ewh8v7EN7n3OTRHdXWamfVZubB+8QrgXj6MgTMFbmCuCv5l2mgECinj5lnEPRg23
+	 4k1buhr5WYme9NHR+W20I6iyL6gY2bYYR4CL7z0/CrHjQt+iS6fuqpqvw4SsOGZJc/bmN
+	 sy+NFrZQrMhtGE+igYlGPwVgykl0l6MKsOu8lwaMcC7YekmkDC6kNnJIVglqczIEOL7w3
+	 omZjxEcdeGCEFFoal0mtrnve+HY7yWCGusg67iC7zAHmvH+HzQRn1Y3Ybgk8ZzzXD7w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794847685;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=9ucaiasafJWVLo8H1ml0lvhBlTDBTGfYuTcr2tmIkkk=;
-	b=yFZF/UWs/Zx0C8e6Xux6e1DMZu8LUoRSKr2sHqCHg7BpAjCK66Jjly3gNR81s2fdjJ5e
-	 WGZABsHZ1OKYo1bUWip5519SgDKu3EJ4nDEH/rfqr0EFsfdru4sF4BT4yHH1V2ENONC0N
-	 b649xzbdZoaGtZG/xjnQ62z+aqWHW/Dru680EZUOzXIamaIe3DRX+U5K/fzwg5g9pLJNP
-	 aQZVVB3JIe2SALuJKQEsULWrcSGoZKjV8q7C8C9i6tjLbJTISpoxhxAZZVQIePiMSWwv8
-	 DlRKk0eSH+CqUa7Bz+UzNgxNHpYA5+B78lxfGY25kolDFdLBdoTBYJ44hF3leLIDRrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794847722;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 Received:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:Received:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:STX-Internal-Secure-Mailhost:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:STX-Hosted-IronPort-Oubound:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=u2WFDN+QVvViSTo0Dei9PGJ3KkJv3PAuLWZ2MDr0g00=;
+	b=PPp8y928FG8TxZThwr4WY0i/zEl+T9NHJpo1ozWj6jmsuyNwUWNSOTR2g429jheJmaJ5
+	 mQE0b2dX6FYeizDSUrE7E1Xf4MgCYLt4hhxJBU3CiT4FvgXZwvug9MfBorGvS4HmaSjk3
+	 VTjgZbO32BGyVWLn1at7iwY5Hl/jIhtjj4WBFvGzeHibmIWzJflCe1vNSNdZI6ehnBoiY
+	 D0i3vvq8KH1NYGzrkPtcKEhAklfb+id790lat1kTHgwwwXQZu/LApgNe8FtR2rQ/gwi2o
+	 J+rnJMqPs0hACA4Z84kANWk16z2pR/HVFxz9zTSBxqxkv/WMluyudtcshixWFFCV+Iw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BRZpPH7C;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=seagate.com;
+	spf=pass smtp.mailfrom=seagate.com;
+	dkim=pass header.d=seagate.com header.i=@seagate.com header.a=rsa-sha256 header.s=stxiport header.b=DgPKi3l2;
+	dkim=pass header.d=seagate.com header.i=@seagate.com header.a=rsa-sha256 header.s=selector1 header.b=M78zgUFe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=216.71.153.94
+Received: from esa.hc4959-67.iphmx.com (esa.hc4959-67.iphmx.com [216.71.153.94])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1273606A32C
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 16:48:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1273606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99605606A323;
+	Mon, 16 Nov 2026 16:48:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99605606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=seagate.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seagate.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BRZpPH7C
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c4cdc606b47so641413866b.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 08:48:04 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794847683; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CHXA77zhugitAseBNE66tAz3KjvMGNLtP11v3dZFrNlXG6rhr2DAs2fs60G28Dz1Dx
-         t0YRLJKQtZmq8HT3tRLJa6pNBvyrnaKnr++/TfcRzgCkqEGnIx5rxJJZDA6VzZUY49Ic
-         GVDhmSxzW3gFc+bA/QfOM5Wu04Qju9BOSpkoVntqHE5SegMfx99xc4Zm6V8BLIftnPbf
-         s3kdBNOlOpIlsfzatpt7gnRDxJMJ8LHIRcKdhLukWnRU4dhbLBOIL9CWTstNPDc2RQk4
-         2nbHme6EerQhHQalQvBYJZY6Pc+3Y/Gj7lTHf6bpd3XtzwmAzqfB5Vg7lYLTaaQDKqEf
-         yFfA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=9ucaiasafJWVLo8H1ml0lvhBlTDBTGfYuTcr2tmIkkk=;
-        fh=DDDQPzRoUyfCznCtvIpx/MJaXNI66t8MUcMiLt5vFRM=;
-        b=l8lzi6AhdhJfKfnPZ6uJ0nDvaQiybVC1ol9tTQO8cCakVWR8F2AT4XXF9BN70neJ5V
-         XQYrU5MBg14GOBf3JZ+7N7NlkaXeLBOVIMjrV1MrnwOJpJyV6zogyUSCM6rhbQomU4BM
-         3NxMkMTAs0AG2p/MU4k6SrI1kFjekBfQfKP0VI2J8QlIuDXFjLoPqsjKOPf2w+x58aO1
-         JwkcIOdmXH3JD99fJMxL2NHvg6G2Fn5luoR7ZPdpT1N9VndmtD136p5C/1fL6dz3sf3P
-         4TSakjixChgA4UMWoC/VbABy91EBGURrKsPnwkFEGW50KyVu2eaPRWiKTI7lwgC76nnP
-         gm0A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=seagate.com header.i=@seagate.com header.a=rsa-sha256 header.s=stxiport header.b=DgPKi3l2;
+	dkim=pass (1024-bit key, unprotected) header.d=seagate.com header.i=@seagate.com header.a=rsa-sha256 header.s=selector1 header.b=M78zgUFe
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794847683; x=1795452483; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9ucaiasafJWVLo8H1ml0lvhBlTDBTGfYuTcr2tmIkkk=;
-        b=BRZpPH7CWREXoIQVx4hqWeRD2Q55mF2ONQt/rqbgFw+JCVZynGVS5mcNl9MqThYOT9
-         20+ObweLK0jkmtZ1W290Qf+4riG2nCByG2J+6GdLBeskWBTA2tLFL5mcEmBDnPSWATBU
-         BQI5CY9G1xEXxZu55qFcoBCQwGmjz9Z9pC3gd3xNAHs29aEmMKIRONon9FOOpo2uHZ2Q
-         ywr+KylRdBAE1Eik7ZBk3/A7E+nr4uU+WVQ7mcRDCRBv5n02bfNhsTlxCqKMeqNtrDyF
-         VbvgectNG77arQt+0qlPXBhIA+2vS1vGuQyqbekduzFfPYsk9xzMDhHUNP9rb2ifqGnD
-         6T1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794847683; x=1795452483;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9ucaiasafJWVLo8H1ml0lvhBlTDBTGfYuTcr2tmIkkk=;
-        b=nexJs5YPwATm8VtGEFYewPP6M53DDduIdOvtaHNUZ1CsSFsoFkkBYvP3UsbwWHJvUb
-         8GVEJ/LK29r3TmlgKe1SG+WQDqFk5HTXa+EW+FU1JBUb9GgTKt6SttTq/0xaPN1OJz1+
-         IMQg3i2WeRCQbdgBa1YnwK8gWR2s72MhJObHURj5yRLR+Moyt72Z99Wu0XhQuG38cRd0
-         rMkZbw0SRBvkCR8OV02PxgENy/E5INhiN0q3KAJriqupuWgRkhGoEuGCVMVoczI6eibH
-         g2ZR2UP2lf+iWJJMZnucYn4d7j1aEkqwNrMjC5LyBhtnrUY6vtUYOAXnJ6wHLSWOZnzY
-         yzSg==
-X-Forwarded-Encrypted: i=1; AL+hErEAmHsnRpkpoVsgfecmFER0umzXgYbvy9OcJbB7OIiVarAADDh40d9eYkYSwS8qdCrg1KqLzzM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/e6XrIi0U7sb/6Br1sBzNdrZLZz9SwSJ7f7bvvvhAxcPI4sLEr
-	QGGQ4XcjRvMn8jQgV9hsxR1oaMDYnJ8bOq7G8dNR+/D40HWjlB9ni3JYLjiIKTcB+cJGM7UYG5E
-	/pTWbQL8c7VjQSAkorqR35btgFr3jMGs=
-X-Gm-Gg: AYBFou2d/S6G77+U8K7dGeY/2WqYHg7AZTRixGIGhO2/zBy9W+Yyp6hrqWwRaT3INRm
-	v20ZAwbO+6Z6uIol3v1TlTAvkV1q6vutQ76z/xoP9Jb0+xzEMD9sYHk+ZcVpXK0P0DyPvawerPH
-	WIppnSVraeEvgw7V0IKtLSQUehb7df6evAa11viL3wZKZYxl3Oz0R7T2/sFtEnYGwKqTG5Qna1u
-	fFF6qBQHD62akXaDvldWSMnEV9atFVnZKxdG3cI7klN0/tkSkba8fVGwKy2GLnPtHckPq0yH6q+
-	UX5ySXGRDYdEcDIyKJftI8TeHoOk2JucDFSijpclI7T2eknfSmUXVH6yis0Hy/75+9sK1wLfnDM
-	h4WSxipm7MpUeIZM8zVMbYxHhpPjPlCGOijJvcL1Pem5ZPCG1BtWiBcqaxjQ=
-X-Received: by 2002:a17:907:1b06:b0:c41:23bf:18af with SMTP id
- a640c23a62f3a-c509614e4famr897868466b.5.1794847682879; Mon, 16 Nov 2026
- 08:48:02 -0800 (PST)
+  d=seagate.com; i=@seagate.com; q=dns/txt; s=stxiport;
+  t=1794847721; x=1826383721;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=u2WFDN+QVvViSTo0Dei9PGJ3KkJv3PAuLWZ2MDr0g00=;
+  b=DgPKi3l2SqTp6GPIyrq5mmjReX/WY50pLZeMTpcI479yK9eDWenYHZvY
+   PC4h0m98f7ZQZoLwysN/4OMkPmOXsG0Ml5bKZ1GeZSWLAx52/QmDw9Tpn
+   IlyE6Pmc8HODUAt8fc+MWl1qq2aiTu4him1oi+T9VAD3wMtZS10UVVvEV
+   8=;
+X-CSE-ConnectionGUID: 9X8k5BilTfWjT5oG2KRmXw==
+X-CSE-MsgGUID: l6laOcZHR6uW3WXsRKvc5A==
+Received: from mail-bl2pr08cu00101.outbound.protection.outlook.com (HELO BL2PR08CU001.outbound.protection.outlook.com) ([40.93.4.9])
+  by ob1.hc4959-67.iphmx.com with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 16 Nov 2026 08:48:35 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LzRsKyaHfaFFFUGqx9YD9pmGSybOk7PVHht632JXdTYxDYRtAaIfPipCaXUWwoeWWdlsij+NYPo3qwACe0gRXmuOCNwEeuazqrwKZwvy1OhP3R1wVb+r1wj/jG4bPmW+JAoV1HrtY/fGB2iRwEBSFECWYxkPm4UYijDbqi0K1LLYt9cSets5M5kzvgiPT4E+bfBJQY0tBXg1I4F7LW3I47/v/E5306HxiLNPH0ICZvB7S1quL8i5Bs6K3en6zRWVm2NIS3DtWVdsFGAhZUOJY/eFalZ/SieM43m6goR94D7pfLektN9TIDN/b5d0XeDTxEGUgRtFllkiuzI4tzPGBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u2WFDN+QVvViSTo0Dei9PGJ3KkJv3PAuLWZ2MDr0g00=;
+ b=Q7MNy9NxNqKY01PIqLDo4x+VJ/UbTTlAP6uR2TgVVfm6K3jj/32REwckgMAXTR8Lg2dj3C97vI0VeEq//V0gU/M1EGJReO1Fb93hrvGR1e8zw8RIZZ8lRoKjhoKvooURfpJENpdo1OlViI5KsyJfiIA4CCon7ZaCTlSHqe4V5tUSaB5vZBSLn5aZJEnj2GCVljEIR8/iupZSw/7YUweWB2kkSsM9DS16j0xaCECyxR2OUMbnYOXL9k63Ffhx5M3ApTjxrMTuK2HGKZQwUGSjXtgJoTWYPNRWGLs0lbd2V/nie4JVxGKAmiOMEJhHdsiGtOwz2ZqZJQqa41ixzFcwbg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
+ is 134.204.222.52) smtp.rcpttodomain=vger.kernel.org
+ smtp.mailfrom=seagate.com; dmarc=fail (p=reject sp=reject pct=100)
+ action=oreject header.from=seagate.com; dkim=none (message not signed);
+ arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=seagate.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u2WFDN+QVvViSTo0Dei9PGJ3KkJv3PAuLWZ2MDr0g00=;
+ b=M78zgUFePgYEFHpl0zhDHesYP3+XYts3NkeMaT1nlq7Mc5QHG7fuWQYOxOnppUeDBbEvObOzIG5dX/sJRFsL3XwrOB5TJqlH05zV2qJsDt6Bo0ps0LoVfQx2pNNXVPDOzAoWsvJ6D5qHSd14r9MA/qKz7LLksbATQLuumBtVUwA=
+Received: from PH8PR21CA0005.namprd21.prod.outlook.com (2603:10b6:510:2ce::21)
+ by SA1PR20MB5431.namprd20.prod.outlook.com (2603:10b6:806:2b2::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 16:47:30 +0000
+Received: from SJ5PEPF000001E8.namprd05.prod.outlook.com
+ (2603:10b6:510:2ce:cafe::a9) by PH8PR21CA0005.outlook.office365.com
+ (2603:10b6:510:2ce::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.4 via Frontend Transport; Mon, 16
+ Nov 2026 16:47:30 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
+ IP is 134.204.222.52) smtp.mailfrom=seagate.com; dkim=none (message not
+ signed) header.d=none;dmarc=fail action=oreject header.from=seagate.com;
+Received: from lcopzesaa001.seagate.com (134.204.222.52) by
+ SJ5PEPF000001E8.mail.protection.outlook.com (10.167.242.196) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.4 via Frontend Transport; Mon, 16 Nov 2026 16:47:29 +0000
+X-CSE-ConnectionGUID: ObNWyh26SwO67lHSOh1sRw==
+X-CSE-MsgGUID: 6Ur8E1MHRG+DLBKVscowOA==
+Received: from lcopiesaa01a.seagate.com ([10.230.120.56])
+  by lcopzesaa001.seagate.com with ESMTP; 16 Nov 2026 08:50:05 -0800
+X-CSE-ConnectionGUID: OkYVFcS/SWCJWa4abE3ecw==
+X-CSE-MsgGUID: sra6OglAQGWIwFtCvC95iw==
+X-IronPort-AV: E=Sophos;i="6.27,217,1787036400"; 
+   d="scan'208";a="2178875"
+STX-Internal-Secure-Mailhost: TRUE
+Received: from nick-desk-ubuntu24.colo.seagate.com ([10.230.88.152])
+  by lcopiesaa01a.seagate.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 08:47:28 -0800
+From: Nick Spooner <nicholas.spooner@seagate.com>
+To: dlemoal@kernel.org
+Cc: cassel@kernel.org,
+	linux-ide@vger.kernel.org,
+	stable@vger.kernel.org,
+	hare@kernel.org,
+	mkp@kernel.org
+Subject: Re: [PATCH] ata: libata-scsi: fix REQUESTED MAX LBA field for REMOVE ELEMENT AND TRUNCATE
+Date: Mon, 16 Nov 2026 09:47:09 -0700
+Message-ID: <20261116164709.25064-1-nicholas.spooner@seagate.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <f72e653e-2cef-4920-89c3-f32ebc68de95@kernel.org>
+References: <f72e653e-2cef-4920-89c3-f32ebc68de95@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,126 +136,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-sm8750-llcc-island1-v1-1-64055702ca3f@gmail.com> <79ac053a-3235-4da0-87da-ebd8da01e4a4@oss.qualcomm.com>
-In-Reply-To: <79ac053a-3235-4da0-87da-ebd8da01e4a4@oss.qualcomm.com>
-From: yzddMr6 <yzddmr6@gmail.com>
-Date: Tue, 17 Nov 2026 00:47:50 +0800
-X-Gm-Features: AclHuK-Lr4J3nNZOiRUCcA8IWzVao3HnhljllZthBc3TfeqQ8ypxS6Przkn-9Ek
-Message-ID: <CAB63uaGQzATJHQgA2ohAothVDYsAhAhPDrcPmgLzwO9EvnB-Vw@mail.gmail.com>
-Subject: Re: [PATCH] soc: qcom: llcc-qcom: Reserve ISLAND1 ways on SM8750
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Melody Olvera <melody.olvera@oss.qualcomm.com>, 
-	Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ5PEPF000001E8:EE_|SA1PR20MB5431:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 3583c481-5d98-4acf-a020-08df44014dda
+STX-Hosted-IronPort-Oubound: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|376014|23010399003|18002099003|22082099003|11063799006|56012099006|10067099003|261026140227099003|261022105027099003|261028144727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	zpv/glOYVlzbu2MmmVeCnQ/0AC/P4xxLniVHCE8+yaDX5aEY5cbjKCkSQ+jmw0YsP+cH/K189vMz7Wf23DdWijMK0+1AmcJgsbh3iwpngL1anafRnLT4kB8jxV6/yJGOQj53qDEHQJzpVs9Mtu28QDpIf78Lf03Qtyfuwi8hwTXSuwMLBKGNQqocaWVLIDRqOnydc+W+qg5M3B96O5WJiPMBMExDyGtt+MmV+QUq6uvjjcO6f5yUnRaWxjtZE6bQwMopdB4+/KV4lUCedfHfYJwCLL+hjP/Z4CA8uAowA/3mlDj7Te9tziSiB7A0y1v5aMM/k2gGx9/BvKE0g4ah9IHw1vRnytDYU9c4wETjwf4WYxalrXZucyY1J+UsTnj4Zw6wX9NjetWNuNR/YFzmUDNl/sC4IDk7bVabsYD4oLc5IRecxYzPblNag+htbkyMgVfEbe8a4Ie9cUVhrNWZkytgCu+4MOIaSJ5rnM98YDPkI2RdFfEratJHsVQUIJNZdr9bF0omEPWYo5GZ9h9HDIZUKiopsAfM9PgDKinczXSxE2OkKQmWhp+VxAKCeGu9vZIfJT1GQxFNHF5a+Bxv76EyMlolXNodergPqJiICRQYm1qQp/RJkTSMj6Ka/kq70n04pQQgxCApCcRv5fJxQDDS9B7TwupKqssd+in3ZHMHLXtJ0edOZgQac/QM+LAD7q/6G00RT7Qis32cTSRl7A==
+X-Forefront-Antispam-Report:
+	CIP:134.204.222.52;CTRY:US;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:lcopzesaa001.seagate.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(11063799006)(56012099006)(10067099003)(261026140227099003)(261022105027099003)(261028144727099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	cd36gkCN+Tjddda9VGCmXAafpDG7E7bCq2yYAZI6WIh9Dq2LfxvmHa37AmPfcLifSfP/O2ufYn882KrzmTCaLDsHAJXvpD549x90kT/9oDaceanQhLDJKDvuMPEn87lvBL3NzSZchTNEkWepdVhU2Ujkn26BjTQghmo9mtcZagxX/lEC5oPYMAsV3H+is2UyVTWxZWfy4Gt+xRjIpa1nxDamZpF6q+OtrhN5+mXJduRx/qfZFzvp1iWiPsSN23s2XX4lajIXXVYDWBN05GLeV3PpwaHzAL99u4o0uiJPu/DSYHoMd+iPOK3ndSHeECId++uHxHx5XpWxDGIT/EWDxveMconGpOkdJ1VCszQsV65RyqSXcdWiWshlNb32/bGpnjgt+5dPbVEBXZhkzDZxLwjK4kXy1bIdSTQ4Y6JnvaZzfvUncp09dsl9hkY6IMa6
+X-Exchange-RoutingPolicyChecked:
+	S0JsaRfL9SbzNac9zJI7u4KEeRzjaORYf2RnHK4baOdHJ7tcHz146QIVs+fVMyHMvGJJO6tHpbrCVqSBVRmlSfkNEpoNPuwS/UtZE90ZpF/tHlJmkHti8KtVXkvBaYA4FSvNmPum+1nR+5iUm32GA2RleVCXblh8NxZU2osiID29C4xRPSvei6/8IEH27hqD3fug9bIu7k90M1KzHp79CkyfY7x8jjQQ2GsIJ8I45qDDdCCpid2k/RXIQmu7eqfdgTTbKYVUXDgZ8x+3yB/B1tOeeSUgN9eTJXugiYKohejuyu+f/iDjwMMgIww/gRoM9heiWVIJuMUvA3ksn04NXQ==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	IQyK4dRNNIskrXh/+DItdj+rwlcPWkL9u4BfCEnXQ9mjcAr077vTlM2ZH66ZpLQ3XPutdTdYIKy9hzHnX3AMj8tqQp5d8EcWrPjtlnAgxzyxwNvP+BAQjvNAUKnDucEvlsHD0zRikxAkbvGeogTFi0IftCGqd5G0utp8ppC55zgFKwvHQfLLj3lnQg+39OQyfj5yndkCP6Pb/bJm+LWnO9HPHUi0KmUWZpeQROq4xMKXmW/Gxfm4KzH/j5k69OZ+2DA8Z6MjrzTZHIFD7RFHSrpGMPp9SarPAU8bjBMNy7L8vphfP/zP17YBnTnnHzEaZIkifNjde/a8QlKbchojB3HZQYPlTLjfVygsXKyPFZgXTil2lEGcLwZ5pHy3nxJaLvzBEwSFz9G3IgktI467B73oCOJpu/vGG/6+3nKq720pVQWijm3DNTYYODoiW96RThEG6JLQmq26h05eV2IzmFAW2aPdM/3HyHBFbEQwwP3CT0n7MXh06VchQzLzi1ixoxy96GyXj56d68SssHQ/wB3cGvLc9eJawvhXoIwls964rTJhUC4QgImGG/lUyd/4sOpXqI9XwmoJHmE2wlVbGBfh6BDQDs5ZOdVyneN9mOE3quvMEAtbk/d/gHRlnolA
+X-OriginatorOrg: seagate.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 16:47:29.7920
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3583c481-5d98-4acf-a020-08df44014dda
+X-MS-Exchange-CrossTenant-Id: d466216a-c643-434a-9c2e-057448c17cbe
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=d466216a-c643-434a-9c2e-057448c17cbe;Ip=[134.204.222.52];Helo=[lcopzesaa001.seagate.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ5PEPF000001E8.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR20MB5431
 
-On Fri, Nov 13, 2026 at 08:55:33AM +0100, Konrad Dybcio wrote:
-> On 11/12/26 6:35 PM, Vladyslav Tymoshchuk wrote:
->> It does not cure the reset here. The tree is v7.3-rc5 with out-of-tree
->> board support, without Ajay's series. Each run is one 60 s s2idle on
->> battery with the USB cable disconnected:
->>
->>   this patch, Wi-Fi WoWLAN enabled                    reset
->>   this patch, Wi-Fi WoWLAN disabled                   reset
->>   this patch, rpmhpd domains left at their highest
->>     corner (rpmhpd sync_state callback removed)       reset
->>   no patch, MC0 kept voted in the sleep set           resumes
->
-> This means something is accessing DDR as your platform sleeps
-> without voting for it. That indicates it's likely something that
-> Linux set up, as various subsystems (ADSP etc.) cast their own
-> votes.
+On 11/15/26 01:58 UTC, Damien Le Moal wrote:
+> So we should not silently ignore the 1 case and fail it.
+> Can you send a v2 with that failure added?
 
-Thanks, Vladyslav, for trying it on the Pad 3, and Konrad for the
-table fix [1], which includes this change.
+The 1 case should already fail. The check was in the existing code just
+above where I patched, but the diff context cut it off:
 
-On this tablet the reset went away once the ISLAND1 ways were
-reserved, with CX and DDR still collapsing, which fits that reading.
-Some of the numbers below are from a second tablet, a OnePlus Pad 2
-Pro (OPD2413, from the same erhai project as the Pad 3), which runs
-this patch on the same v7.4-rc2 based tree as this one.
+	req_capacity = get_unaligned_be64(&cdb[2]);
+	if (req_capacity == 1) {
+		ata_scsi_set_invalid_field(dev, scmd, 2, 0);
+		return 1;
+	}
 
->> On this tree the two votes do not seem to be dropped: with all five
->> macro codecs runtime suspended, clk_summary still shows LPASS_HW_MACRO
->> and LPASS_HW_DCODEC with a prepare count of 6 (LPASS_HW_LPR_VOTE is 0).
->> I read that on the workaround kernel while awake, not during suspend,
->> and the codecs have no system sleep callbacks here. So the resets above
->> most likely happened with both votes held, which is the state your
->> tablet resumes in.
+	if (req_capacity > 1)
+		req_capacity--;
 
-In the one s2idle cycle I ran with each of LPASS_HW_MACRO_VOTE and
-LPASS_HW_LPR_VOTE held, this tablet resumed with cxsd, aosd and ddr all
-staying at 0, as with your MC0 vote, and Gopi reports that held LPASS
-votes keep CX and DDR from collapsing on Glymur too [2]. So with the
-votes held I would expect DDR not to collapse in your runs either, and
-the MC0 vote to make no difference. Since it does, I think the votes
-were released in the runs that reset.
-
-On v7.3-rc5, as on v7.4-rc2, the six consumers of these votes in
-sm8750.dtsi, the five macros and the LPI pin controller, take them
-through pm_clk, which drops them on runtime suspend. With the five
-macros suspended, only the LPI pin controller could still hold them,
-so I would expect a count of at most 1; 6 looks like all six were
-active when you read it. A device that is still active when system
-suspend starts stays active until resume, though, unless it has a
-system sleep callback, which is what Gopi's LPI and SoundWire patches
-[2][3] add.
-
-Here the count read right before suspend was 3, 3 and 0 for MACRO,
-DCODEC and LPR in each of the 23 s2idle cycles I recorded with this
-kernel, 18 on this tablet and 5 on the Pad 2 Pro. Still, cxsd and ddr
-grew by about the time asleep in 21 of them; in the other two, both
-on this tablet, they did not grow at all. This tree forces all six
-consumers and the SoundWire controllers into runtime suspend at system
-sleep (Ajay's TX/VA patches, changes equivalent to [2] and [3], and
-the same for the RX and WSA macros), which drops the votes during
-suspend. Without such callbacks, a non-zero count read right before
-suspend would mean the votes were held.
-
->>> All of these suspend tests were done with a USB cable connected.
->
-> I don't think ToT linux will let you get cxsd with a cable connected.
-
-On this tree it does: 21 of the 23 cycles above reached cxsd with the
-tablet attached to a PC as a USB device, and so did the tests in the
-patch. The tree carries a fair amount on top of v7.4-rc2, though,
-including Vladyslav's USB GDSC retention patch [4], so I can't say
-what ToT does.
-
-Vladyslav, to your two questions: yes, this tablet resumes with the
-cable disconnected, though the battery cycles with stats here were
-PSCI system suspend, not s2idle. Each tablet ran two cycles on
-battery, with an RTC alarm 180 s and 70 s ahead, and resumed at the
-alarm every time. On this tablet mem_sleep was deep, and cxsd and ddr
-grew by 179.1 s and 69.2 s. On the Pad 2 Pro they were s2idle, and
-cxsd and ddr grew by about 178 s and 65 s. aosd stayed at 0 in all
-four, as in every cycle I have recorded on either tablet.
-
-As for MC0, nothing that I can see is voted on it in the sleep set.
-The interconnect drivers are as in v7.4-rc2, where the MC0 keepalive
-only votes in the active and wake sets, and a sleep-set vote on MC0
-would keep ddr from growing in every cycle, while it grew in 25 of the
-27 cycles above (21 of 23 with the cable, all four on battery).
-
-One difference between the two tablets that may matter for the Pad 3:
-on the Pad 2 Pro, adsp_island did not grow in any of its five s2idle
-cycles with the cable connected, which ran from 59 s to 2.9 hours,
-although the ADSP does enter island mode there while awake, and cxsd
-and ddr count a new entry every 5 s or so (every half second on
-battery). On this tablet the ADSP stays in island mode for nearly the
-whole sleep, and with this kernel cxsd and ddr count at most three
-entries per cycle, even in one of 1.8 hours. If the Pad 3 behaves like
-the Pad 2 Pro, the ISLAND1 slice is not in use during its s2idle, and
-this patch could not make a difference there.
-
-Since you offered to run variants: could you read the three prepare
-counts right before suspend on the kernel that resets?
-
-[1] https://lore.kernel.org/r/20261113-topic-8750_llcc-v1-1-6536cb46d7fe@oss.qualcomm.com
-[2] https://lore.kernel.org/r/20261112-lpass-lpi-system-sleep-v1-1-438cb997e0e9@oss.qualcomm.com
-[3] https://lore.kernel.org/r/20261112-qcom-swr-system-sleep-v1-1-a61a83f6475d@oss.qualcomm.com
-[4] https://lore.kernel.org/r/20261110213346.1359-1-tvlad744@gmail.com
-
-Thanks,
-yzddMr6
+I believe that should cover all three cases in SAT-6.
