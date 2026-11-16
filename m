@@ -1,69 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.254.224.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794833945;
-	b=qG4dssgso7yAsyfteOk3CRH5G8Ih53ANiQkgXSiQkPHyU4cMiQqfQp0kBXL4Tm/sb8MH
-	 U9tO/4Qw7Y1GdgdxD0S5YDp0E7cDPcoKAt6sbtuVS2dkDijkZotSRz0HYz84g+oITXS6N
-	 Ii/WYTin2xlO/MGdYxuAxphA8pCosa0Di04FHZKod5L/poEzuPfYHl+4wPY/fDInxKMRE
-	 UXIyZHR9prUGTYWS7Glad/1Ve/fJGQGUB2gjUAPlgVYjnx4WYGR0FRMZ3M8ZmtVfjOrST
-	 TnR7FkT69Mv2HWjGDLW7G7ssGc9Kk9EcOwHg/s72vhAZVykWB2iksW8ePK2L58GzjFA==
+	t=1794834009;
+	b=YuVtu1cbM9hBDq1rpyHy8GPF75wylK4MIK8tOVajl7VbZB06Tr4kMfr+BdtL0rf8qgcW
+	 vn+EzxGkRfEv0JEYbnVC7+cXJnz6vSedSRYku5hdXeqRI+fctjpujraWnflQ35OXKLBeN
+	 S1dMy1C//aG8rsl4dgLW4OwMg7E3TESJJ6YyJtTasR0djVqhAdQfheC61mFpA0fBol0J3
+	 49fUqWpmfOu9a1DO0wWFVq6zy1pTMl3d4Ccgof+MoPiPKutwdQvYgkEnhUl7d12NxZeY3
+	 ax/4+m9Ltg4dXV/qcWY7sXRuJtO1x4JpBEfWp5cr4IUvUvRm/Cfa87oB8vpzVddKDdQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794833945;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=staA6FwHbiBwqpCLIDokL/q1H41HZpyazxomLsaJBOs=;
-	b=gEttsb461uJi1KF3qwHVCeE5wtLPsqiUXlrBXj5IkpxfwQmhpd6TGNOiOPRGhzUgQ0w/
-	 IqcNp0g2O+ovy7OuiPaNq/ZJ3R83mlmrMhUUeBm/DNNEmFDVCJewaQQJ/1WoS14nkQJKD
-	 Jw4b74yHVpFSOOxRFq9qHR+MEZohb4nrjx7Atbb0VGWgaQ1b3dPtapSlttsi8+UVpMxsy
-	 zvwSARin4TPehuzUq9gndd0tEs2p8B7VLVZqOMiVV/1fvGoV/8sEQBgV6Qv+T9WCTqACg
-	 2cg7pp/VnxbfFvW4bRHF64OUTWPwj3xqlGyw/XdK97cyNiJtQFm69G5sHPmMmmLeyxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834009;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Received:Received:
+	 Received:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 X-CMS-MailID:X-Msg-Generator:Content-Type:CMS-TYPE:X-CPGSPASS:
+	 X-Hop-Count:Content-Transfer-Encoding:MIME-Version:X-CMS-RootMailID:
+	 References;
+	bh=cwjy6PsFjKhadlM83IrAOfhjuE/Eo22fd3cBhQMRQ4U=;
+	b=JM2scpduUNAVqnyMJYnGX88ad8ePFMGbEsJuphheJ46XghuKok0Uf3lOIXu1eBCVPcme
+	 JMOPkSJTC47Do6hyffgP5OexEmghnlwlDwvrJf69XHfiAyvT5yKLdW20ggDieoSFBtQv2
+	 wcxfzIGAvRd4TFNmLTN4rjrFjHDKRpGcCJnpo7Kg1KWc8IS4jQo6EDk+fcV3x+K/UAdiO
+	 o7glNd/uDDbiT3MdH7BtCN8702q5XdtHXNVmXj8jD2xXivTwCpu9qgfF5OiH9qP0UQXUd
+	 ouqIrRYRWkcSv11J81oaRQk84RjWdpi7bwzFpTLT9NZzs1Sq2OCKCO+UwuRdjEp//UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h8JqXobE;
-	arc=none smtp.remote-ip=95.215.58.3
-Received: from mta1.migadu.com (out-3.mta1.migadu.com [95.215.58.3])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=samsung.com;
+	spf=pass smtp.mailfrom=samsung.com;
+	dkim=pass header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=slhHjm68;
+	arc=none smtp.remote-ip=203.254.224.33
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F76606A329
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:59:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2F76606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 022FE606A335
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 13:00:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 022FE606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=h8JqXobE
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=JQidkp1aImcxYe8L/9R0QpEw0bwKcclDKm8qpqJRAHI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794833942; v=1; x=1795438742;
- b=h8JqXobEkbdAobMtJr0K+EU3DHnHd6SAdiBpXbD+IemPBOvCcyL8aJCYiSTfZr0UY+Gdg2WE
- urGvhOlEKe/Crtt0QD8q63KOmBRQowfJ9yLHU7+Fd5X+c+5LTSHkoe3ZsHMV0qjSnHoGR2zhGld
- TEGy9ugLkmAaVD8xRU6cq25Q=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a7cf24b6a13c472c;
-	Mon, 16 Nov 2026 12:59:02 +0000
-X-Mizu-Trace-ID: a7cf24b6a13c472c
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 16 Nov 2026 21:00:14 +0800
-From: Chen Yu <chen.yu@linux.dev>
-To: Andrea Righi <arighi@nvidia.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>,
-	Rik van Riel <riel@surriel.com>, Usama Arif <usama.arif@linux.dev>,
-	peterz@infradead.org, mingo@redhat.com, kprateek.nayak@amd.com,
-	juri.lelli@redhat.com, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, samuelcrossley@gmail.com,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	kas@kernel.org, Arnav Aghav <aghav@meta.com>
-Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to
- select_idle_capacity()"
-Message-ID: <avr-XumgYsrnA6vZ@three-body>
-References: <20261113153157.2495664-1-usama.arif@linux.dev>
- <eba9d3df71f3f37bf7a318854a1ab6bf1cfb1981.camel@surriel.com>
- <CAKfTPtCJLci=Yzq6B0-hK5L0m5iQPw1Y0NDQhKEaV6reg-690g@mail.gmail.com>
- <avglp8nnc4u9OCb5@gpd4>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=slhHjm68
+Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
+	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261116130004epoutp0379e1820b6a49121bb051aeec36a8099f~oiAR6G9I61825818258epoutp03a
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 13:00:04 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261116130004epoutp0379e1820b6a49121bb051aeec36a8099f~oiAR6G9I61825818258epoutp03a
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1794834004;
+	bh=cwjy6PsFjKhadlM83IrAOfhjuE/Eo22fd3cBhQMRQ4U=;
+	h=From:To:Cc:Subject:Date:References:From;
+	b=slhHjm68ewQWUVm6bRFUckzalB0fbQtsFeYR5SoNtLh2oIS5FJZpddqHoo4k1a6Lo
+	 qGgI4kxoNuiy1Wiyk1dMlr9BjTj31Iy4jNxRtO279sC0iLwH48rFh1hUMKkuA2TaRr
+	 LM25SJP5fkuNC37tIkq8mQkUiLCGX0vKZVyz9hu0=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPS id
+	20261116130003epcas5p41505962cdb85baef807da63df4a4bdd6~oiARTemrZ1581715817epcas5p4X;
+	Mon, 16 Nov 2026 13:00:03 +0000 (GMT)
+Received: from epcpadp1new (unknown [182.195.40.141]) by
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4jSnyW4VT6z2SSKd; Mon, 16 Nov
+	2026 13:00:03 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261116125643epcas5p17e73b0fa50f1cb7609b1d90d62c5e3f6~oh9XF0EaC2880528805epcas5p1u;
+	Mon, 16 Nov 2026 12:56:43 +0000 (GMT)
+Received: from vega.samsungds.net (unknown [107.108.73.84]) by
+	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261116125640epsmtip193698527cb698dd83aee2b514325cf77~oh9UdOLNZ1010810108epsmtip1O;
+	Mon, 16 Nov 2026 12:56:40 +0000 (GMT)
+From: Selvarasu Ganesan <selvarasu.g@samsung.com>
+To: gregkh@linuxfoundation.org, shashank.mahadasyam@sony.com,
+	rahul.bukte@sony.com, hadess@hadess.net, dakr@kernel.org, gary@garyguo.net,
+	guanyulin@google.com, rafael.j.wysocki@intel.com,
+	mathias.nyman@linux.intel.com, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
+	hongpooh.kim@samsung.com, eomji.oh@samsung.com, alim.akhtar@samsung.com,
+	muhammed.ali@samsung.com, thiagu.r@samsung.com, cpgs@samsung.com, Selvarasu
+	Ganesan <selvarasu.g@samsung.com>, stable@vger.kernel.org
+Subject: [PATCH] usb: core: don't skip system resume for an already
+ suspended device
+Date: Mon, 16 Nov 2026 18:26:25 +0530
+Message-Id: <973576304.21794834003625.JavaMail.epsvc@epcpadp1new>
+X-Mailer: git-send-email 2.17.1
+X-CMS-MailID: 20261116125643epcas5p17e73b0fa50f1cb7609b1d90d62c5e3f6
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+X-CPGSPASS: Y
+X-Hop-Count: 3
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,177 +91,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <avglp8nnc4u9OCb5@gpd4>
+X-CMS-RootMailID: 20261116125643epcas5p17e73b0fa50f1cb7609b1d90d62c5e3f6
+References: <CGME20261116125643epcas5p17e73b0fa50f1cb7609b1d90d62c5e3f6@epcas5p1.samsung.com>
 
-On Sat, Nov 14, 2026 at 10:11:03AM +0100, Andrea Righi wrote:
-> Date: Sat, 14 Nov 2026 10:11:03 +0100
-> From: Andrea Righi <arighi@nvidia.com>
-> To: Vincent Guittot <vincent.guittot@linaro.org>
-> Cc: Rik van Riel <riel@surriel.com>, Usama Arif <usama.arif@linux.dev>,
->  peterz@infradead.org, mingo@redhat.com, kprateek.nayak@amd.com,
->  juri.lelli@redhat.com, dietmar.eggemann@arm.com, rostedt@goodmis.org,
->  bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
->  samuelcrossley@gmail.com, linux-kernel@vger.kernel.org,
->  stable@vger.kernel.org, kas@kernel.org, Arnav Aghav <aghav@meta.com>
-> Subject: Re: [PATCH] Revert "sched/fair: Add SIS_UTIL support to
->  select_idle_capacity()"
-> 
-> On Sat, Nov 14, 2026 at 09:18:30AM +0100, Vincent Guittot wrote:
-> > On Fri, 13 Nov 2026 at 20:32, Rik van Riel <riel@surriel.com> wrote:
-> > >
-> > > On Fri, 2026-11-13 at 07:31 -0800, Usama Arif wrote:
-> > > >
-> > > > On a 72-CPU NVIDIA grace arm64 server, small reported capacity
-> > > > differences
-> > > > (1013-1024) within the single LLC activate asymmetric selection. Both
-> > > > the reference and affected kernels were observed with a zero scan
-> > > > hint. The reference kernel ignored it and still searched the domain.
-> > > > A latency-sensitive, wakeup-heavy production workload saw its
-> > > > reported
-> > > > minute p50 latencies average 129 ms on the reference kernel and 223
-> > > > ms
-> > > > on the affected kernel.
-> > > >
-> > > > Disabling SIS_UTIL reduced the aggregate involuntary context switch
-> > > > rate of worker main threads from 71.6k/s to 13.3k/s; re-enabling it
-> > > > raised the rate to 73.7k/s.
-> > >
-> > > Afaik, the asymmetrical selection is supposed
-> > > to solve a very specific problem: when a task
-> > > requires X amount of CPU capacity to run, we
-> > > try to avoid scheduling it on a CPU that has
-> > > only a fraction of X available.
-> > >
-> > > This creates the issue that a task that appears
-> > > to "need" exactly X, because it's been running
-> > > on a CPU with full available capacity, ends up
-> > > not being scheduled at all when the available
-> > > idle core has X-3% available capacity, because
-> > > that CPU happens to spend 3% of its time handling
-> > > interrupts, or running something else.
-> > 
-> > The task will be scheduled on this idle cpu/core of (X-3% capacity) if
-> > no other idle CPU with X capacity is available.
-> > The selection in select_idle_capacity is:
-> > - Idle core with enough capacity
-> > - Idle core with enough capacity but doesn't fullfill uclamp_min
-> > - Idle core that doesn't fit
-> > - Idle CPU with enough capacity
-> > - Idle CPU with enough capacity but doesn't fullfill uclamp_min
-> > - Idle CPU that doesn't fit
-> 
-> Right, and when the scan budget is exhausted select_idle_capacity()
-> returns the best idle candidate found so far, even if it doesn't fit.
-> 
-> However, in the zero-budget case, we return before examining any
-> candidates in the scan domain. Relaxing the capacity-fit rule inside
-> that scan wouldn't change the outcome, because we never reach that
-> check.
-> 
-> Maybe Rik's suggestion could instead help with the earlier checks in
-> select_idle_sibling()? Accepting an idle target, previous or recently
-> used CPU whose capacity is "close enough" could avoid reaching the
-> zero-budget bailout.
-> 
-> The tradeoff is that we'd accept a potentially weaker CPU immediately,
-> without searching for a better one.
->
+When offload is active on a USB device, usb_suspend_both() skips
+suspending it during system suspend so that the port is not pushed
+into its deep low power state.
 
-Do you something similar to cluster wakeup, give the wakeup a second chance to find an idle
-CPU in the LLC. I suppose what you suggested is:
+The commit bd3d245b0fef ("usb: core: use dedicated spinlock for offload
+state") made the resume path skip resuming the device whenever offload
+is active at resume time, instead of only when the corresponding suspend
+was skipped. That is wrong when the device was already suspended:
 
- 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 470ba0dc6719..d1f3b179013e 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -9141,6 +9141,24 @@ static inline bool asym_fits_cpu(unsigned long util,
- 	return true;
- }
- 
-+static int asym_idle_retry(struct task_struct *p, int prev, int target,
-+			   int recent)
-+{
-+	if (choose_idle_cpu(target, p))
-+		return target;
-+
-+	if (prev != target && cpus_share_cache(prev, target) &&
-+	    choose_idle_cpu(prev, p))
-+		return prev;
-+
-+	if (recent != prev && recent != target &&
-+	    cpus_share_cache(recent, target) &&
-+	    choose_idle_cpu(recent, p))
-+		return recent;
-+
-+	return target;
-+}
-+
- /*
-  * Try and locate an idle core/thread in the LLC cache domain.
-  */
-@@ -9149,7 +9167,7 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
- 	bool has_idle_core = false;
- 	struct sched_domain *sd;
- 	unsigned long task_util, util_min, util_max;
--	int i, recent_used_cpu, prev_aff = -1;
-+	int i, recent_used_cpu, recent, prev_aff = -1;
- 
- 	/*
- 	 * On asymmetric system, update task utilization because we will check
-@@ -9206,6 +9224,7 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
- 
- 	/* Check a recently used CPU as a potential idle candidate: */
- 	recent_used_cpu = p->recent_used_cpu;
-+	recent = recent_used_cpu;
- 	p->recent_used_cpu = prev;
- 	if (recent_used_cpu != prev &&
- 	    recent_used_cpu != target &&
-@@ -9244,7 +9263,7 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
- 				target = i;
- 				goto select_smt_priority;
- 			}
--			return target;
-+			return asym_idle_retry(p, prev, target, recent);
- 		}
+  1. Streaming is running with offload active and the AP side stops
+     using the device, the user pauses streaming, or the USB interface
+     simply becomes idle.
+  2. The device auto-suspends.  The auto-suspend path
+     (PMSG_AUTO_SUSPEND) does not carry the PM_EVENT_SUSPEND event, so
+     the offload state is not consulted.  The port goes into its deep
+     low-power state and the device enters USB_STATE_SUSPENDED.
+  3. The system enters PM suspend.  The device is already suspended,
+     so usb_suspend_both() returns early and the offload skip never
+     takes effect for this sleep.
+  4. On system resume, usb_resume_both() re-checks usb_offload_check(),
+     which is still true because the offload reference is held.  The
+     device resume is skipped even though the device is suspended, so
+     the connected USB device is never resumed and fails to function
+     after the AP resumes.
+
+Skipping the resume is only correct when the suspend was actually
+skipped, i.e. when the device was not already suspended.  Check the
+device state so that an already suspended device always goes through a
+normal resume, as before bd3d245b0fef.
+
+Fixes: bd3d245b0fef ("usb: core: use dedicated spinlock for offload state")
+Cc: stable@vger.kernel.org
+Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+---
+ drivers/usb/core/driver.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/usb/core/driver.c b/drivers/usb/core/driver.c
+index f21b1e4f9c09..48addbd1a69a 100644
+--- a/drivers/usb/core/driver.c
++++ b/drivers/usb/core/driver.c
+@@ -1552,7 +1552,15 @@ static int usb_resume_both(struct usb_device *udev, pm_message_t msg)
+ 		goto done;
  	}
+ 	udev->can_submit = 1;
+-	if (msg.event == PM_EVENT_RESUME)
++	/*
++	 * Offload is only relevant if the device was kept active during the
++	 * corresponding suspend.  A device that is already suspended (for
++	 * example auto-suspended during an idle gap) must go through a
++	 * normal resume, otherwise the port would be left in its deep
++	 * low-power state after system resume.
++	 */
++	if (msg.event == PM_EVENT_RESUME &&
++	    udev->state != USB_STATE_SUSPENDED)
+ 		offload_active = usb_offload_check(udev);
  
+ 	/* Resume the device */
 -- 
-2.43.0
+2.17.1
 
- 
-> Thanks,
-> -Andrea
-> 
-> > 
-> > >
-> > > In that situation, it will be better to run the
-> > > task on the CPU with 97% capacity right now,
-> > > than to not run the task until a CPU frees up
-> > > later.
-> > >
-> > > Things like SMT and power-driven hardware
-> > > scaling complicate the matter further, because
-> > > we simply cannot see the full amount of capacity
-> > > that is available on each CPU.
-> > >
-> > > That makes me wonder if we should simply accept
-> > > any CPU that's "close enough to X" when dealing
-> > > with asymmetrical placement.
-> > >
-> > > Say, anything that's above 3/4 of the capacity
-> > > of X would be considered good enough to run the task.
-> > >
-> > > That still prevents us from placing a CPU intensive
-> > > task on a little core in a big.LITTLE system, or
-> > > from placing a task on a CPU that spends 80% of its
-> > > time handling interrupts, but it will allow a task
-> > > to run right now, when the capacity imbalance is small.
-> > >
-> > > Does that make sense, or am I forgetting something
-> > > important?
-> > >
-> > > --
-> > > All Rights Reversed.
+
