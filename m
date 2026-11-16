@@ -1,49 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794814380;
-	b=IMFoDlJJxf3P13OA/LlJRO98FoEFNx9x56vQwV1THuiqLHbxCG5FZ/55DvTgZQFex/rT
-	 UYNVJZI7Tj09dz7Bv7EZUWkeH+ycrJcs9g7uPMELfLjLNJRvIi1qfWo5m0A/mEDKmIunG
-	 A6L9ttz65H1yOkF7DfrZyISAfZTJfmSNHm/fXIJxKB0WicHlu13F6HeZQqwwYndrLD9Pn
-	 QvbCx4fSdQ+mSuipWpG/lmeNpDeeGZVQFgt/5dSNvtc+qyVHUTtxCWcKiVsbjtrV04ywD
-	 ljZC47IDNAen2Zvi7eTR7CtCs2lmfLXGe/5bB8IskkbdcLKXv+6Z2L8ShH1/D+sQb4w==
+	t=1794814539;
+	b=v7RaQUcc4XwUxlZwKzToVpkNOR9IySIkZhorV8ZiKOS/TCBfMKHAPVVhsl0xoU7v3UeK
+	 8jdJFD4Rgao9DWBWt59/hsM6BZFweoqn808LWW20/vhhJ9Oc/5NayeGz/xfJSD8dvOC+n
+	 L3exdY5IaOXRT1UQjIqDR+lcXrMenDb2weuztkLAz8Xbvqdoxp1VD4hyLJSTGqs9gaBQo
+	 RnzhLVLv2lnzN1YlGbEVDQj04qbALC6+Uj/GOEh8nVjuUQjWV9KAa681p58rhvbMwaCFP
+	 rQAmr1KgH+1n+I0xcyz98z7g2GrzUmfvPNDFVl99d26lEQG9nSNmVs0i/2IRvcmI+wg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794814380;
-	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=1Lb0d+nlQPwj2uxwrjLTKUVhOeG90QM798BTau5rOQU=;
-	b=Ii14Ywu5EsRuLnqyT+fczMMdSq6nOqy/is/HaaG5R2RRGXTuss4H26Hs/ZJf5oye28rs
-	 752oWuNFgd9SBMq7TORq/TKhYTktpVXxCGc0f/7jaD/WCfmuzGukXzyitgDBNHo33wDmg
-	 7qeFO0W7e8eGUWcuAhRP2OaYS+8nyXpxfrCed3LZtl/rSIsPjf5/UP83JvaPiybMNARZe
-	 HFVxyhbyfRptq2B1LPn25QYfdXaXMyHmc4dn+l18/xQHh/+c1bZIdaJ+BLa8Xa5LQEift
-	 Gaq1Uz5BkxczalT84vVklFU+kL+ImltHHBKJDuRDonp7DzF/tjvyARzgwcjlTmuHc0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794814539;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gPZTbZk8SoJNpUJDON4Ig3GkkPgAjMgPKV23C0DMgpU=;
+	b=HcCko3QhekCmiXU5/pBHab6xKh+qa5q5JMC8Xz3KdKkamZ+FB/iK3p/lgAn5hzTRAY1W
+	 eqAvQAyN9k64V+Z/QYFHfyzhxdlyV9l71nwq2e53owugpDy2RvWHLuh9B9zDjxeQVFs7K
+	 WE0hZVKKmGcbOUqXLeeQY4dJ7ENlfU1zd9dIVWXX7i8w3RwNWgw94m0qH2efKL0hPl7dJ
+	 omj/RwF//V1WJHrlfawGX5W8kYOrI8wwFZDJcY8QcIDXn10kA/ErOsPfDkEb3MeKG+jSU
+	 eeCpm+Eq38J3cBh1DF768utGJ+QtzdqysHkWK8uhEPPkeY3uTf1ecIokV3rUDUBKgJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.alibaba.com;
-	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=aIT7S67W;
-	arc=none smtp.remote-ip=115.124.30.133
-Received: from out30-133.freemail.mail.aliyun.com (out30-133.freemail.mail.aliyun.com [115.124.30.133])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=m19tbZ5W;
+	arc=none smtp.remote-ip=162.62.57.210
+Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D71606A31C;
-	Mon, 16 Nov 2026 07:32:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65D71606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7F3A606A31C
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 07:35:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7F3A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=aIT7S67W
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1794814375; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=1Lb0d+nlQPwj2uxwrjLTKUVhOeG90QM798BTau5rOQU=;
-	b=aIT7S67WovzDeADTdzTC5uHCMJUj0JPN/oWtXIZK+F2DGHkeokGy0A1tCbRGCXVip6FSkXuyL7tGPpDFAM/OpNEI6c7KsUUTMVkuvsGTy52eAXJCB1mNk2DzQ8SyeA25WUazsJdUZooFFc9SecZ2HMfengSzapzfLImwMeKFP3s=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R211e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037009110;MF=baolin.wang@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XEnXkf5_1794814373;
-Received: from 30.74.144.137(mailfrom:baolin.wang@linux.alibaba.com fp:SMTPD_---0XEnXkf5_1794814373 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Mon, 16 Nov 2026 15:32:53 +0800
-Message-ID: <4bbe4321-ab91-40e4-bd15-6428660d8ea9@linux.alibaba.com>
-Date: Mon, 16 Nov 2026 15:32:52 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=m19tbZ5W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794814532; bh=gPZTbZk8SoJNpUJDON4Ig3GkkPgAjMgPKV23C0DMgpU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=m19tbZ5WnGuKPYWjPPNwepbjA4QUPEQH4rUNG5Vyckd56/go7y0EXkFaC93h8h1dW
+	 Xg6RyKFC9jgiVJDMqfX7Ah2ijCw6nTcoVgL5OnaarY+xQv5gRPSoP7pULeRmDP3zYv
+	 Ca9okPL2DfIjsyB43xA4GjwXe639CUtXYFse3vQY=
+Received: from ikun ([221.176.157.242])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 8D3BD429; Mon, 16 Nov 2026 15:35:19 +0800
+X-QQ-mid: xmsmtpt1794814519tl5lnlj7n
+Message-ID: <tencent_69B311F4356254E166A5EFDC981AA138D80A@qq.com>
+X-QQ-XMAILINFO: MAUQIEZVArhLaRAHwoTiol5Eu17QC9JGLGD4PHcJuT6LN1zjNUHNcIM05oWU26
+	 wyNGR9jWY5a/tzcgEoPwCEk8TwpkQTkplTdrFeP6TL4vi7dF1QeIlIru1AkXB7Q4HlFJO8KbRqIn
+	 FQlN0HkIHbrZP0nQpzK/NEvjmaAoAqo87M4ogtRFNMuCFnitg8C7siVQh+Y05w3XoCGYvLzVOamj
+	 trwcarLtqAY1FaPoOawK8mRzCnsBY8W2EG0jDS/GBK3z4M2xl1GbyV7XJXx0woh8Z3NPeCNiJy7m
+	 pLOAJkt+6p/g+OZJ0EpHdQApBXxUw1em1hdv5j0TYo4U4EQ7Oibk5WPKDftKej/UiJRUdcJNVpYt
+	 avDIv8MZL5gi1+TSM/ZMPAWr7+W6oX8Ntg1CHh8GxAQfapbAlyr11zREAmqwW9kUF4g6o4/fXite
+	 w2Sv+fH2/6nbT9abLemPG/B3qETPc9rbUG+BuwtIBG8T4zAOOLcvH1s4yc2geR36re5ZefiQ4u/0
+	 zHLyZKrcSq/Xo7cDJEowG2G10Ffm8Posz2Bwt9GvCdFt5LmMacE3b7sGHNo/JOKDPtXyKsIwPj/6
+	 P6NzWXqXkIJuXJnwF+g4bqw8l4qCukIqb5DY4QBanYj+363PnX5x6s70dxuaNMsljzeHKw7NQd1o
+	 HI2fseuS68VhoQgorkbdVWe8mlX+aemTsunomyJI1qV3SkN4SsLVBEMsEPMeaGI9j5hQllTAiBgo
+	 7SzucFk97OCvBNrQqJ6pgy2ojTFV5MLG5Fol8Cl2wM/of0jbzA7nCZqsaXR+AkE5jaenVI8IUnEG
+	 AOPUf9wvwevS/Pc/5ArXbWVxOKFQL08TxrZ3MbN00D8pnmzqW3VpFP4IhP7gI+fMXXy3/EYtSoDM
+	 +uF1c5Cqx2E+U5zH4AqgbDnpmqCOh3hJFtfDWeoK8VudQw/E6e/+jj9n8bHt/1ree3cBlmVE+49o
+	 4drTN6uA2uaW6xXpAfJ7XlBK8poZr7Ei5aNk82gbwz48UqzhqTQAyTjDwwbMrdUmhDjLGXrtrTXs
+	 WJZQQlz6ag8l2/s8ZAE4RATyLQ4Zs=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+From: Alan <3164729207@qq.com>
+To: tytso@mit.edu
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	harshadshirwadkar@gmail.com,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ext4: reserve inode write access before unlinking entry
+Date: Mon, 16 Nov 2026 15:35:19 +0800
+X-OQ-MSGID: <20261116073519.21804-1-3164729207@qq.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com>
+References: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,79 +87,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/huge_memory: flush dirty file PMDs before removing
- rmap
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Will Deacon <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Nick Piggin <npiggin@gmail.com>,
- Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>,
- Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jan Kara <jack@suse.cz>, Ross Zwisler <zwisler@kernel.org>
-Cc: linux-arch@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Chris Mason <mason@kernel.org>
-References: <20261113-dirty_file_pmd-v1-1-8c11f2a2e65f@kernel.org>
-From: Baolin Wang <baolin.wang@linux.alibaba.com>
-In-Reply-To: <20261113-dirty_file_pmd-v1-1-8c11f2a2e65f@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
+Hi Ted, Jan and ext4 reviewers,
 
+A gentle ping on this patch from October 27. Are there any comments on the
+approach?
 
-On 11/14/26 1:15 AM, David Hildenbrand (Arm) wrote:
-> Unmapping a file PMD can lose concurrent stores when it races with
-> writeback. zap_huge_pmd() removes rmap and drops the PMD lock before the
-> gather flushes the TLB. Writeback can then clean the folio while another
-> CPU can still write through a stale writable TLB entry. Those stores do
-> not fault and dirty the folio again. Filesystem DAX has the same problem
-> with its dirty tags.
-> 
-> Commit 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB
-> has been flushed") fixed the same race for PTEs by adding delayed rmap
-> removal to the mmu_gather infrastructure. The PMD path still removes
-> rmap before flushing.
-> 
-> Flush the TLB under the PMD lock before removing rmap for dirty file
-> PMDs. Skip the early flush at address-space teardown, when no users
-> remain, and for mappings without writeback, including shmem and device
-> DAX.
-> 
-> Use tlb_can_delay_rmap() to share the PTE path's architecture checks.
-> On s390, clearing the entry already handles TLB synchronization, and
-> __tlb_remove_page_size() immediately drops the mapping reference, so
-> rmap must be removed first. UP cannot have concurrent stores from
-> another CPU while holding the page table lock. Make the predicate
-> side-effect-free and set the gather's delayed_rmap flag when an entry
-> is actually queued for delayed rmap removal.
-> 
-> Queue the folio before the early flush, while the gather still has a
-> valid range. Keep batching references and drain a full batch only after
-> dropping the PMD lock. The early flush resets the gather's TLB state,
-> so draining the batch does not flush that range again.
-> 
-> Although writing to files through mmap is generally discouraged,
-> unmapping such mappings may become slower: each dirty file PMD now
-> requires a TLB flush under the PMD lock. Future work should properly
-> extend the delayed-rmap machinery to PMDs and hold the PMD spinlock
-> across multiple entries, so their TLB invalidations and rmap removals
-> can be batched.
-> 
-> Fixes: 4b4bb46d00b3 ("dax: clear dirty entry tags on cache flush")
-> Cc: stable@vger.kernel.org
-> Reported-by: Kiryl Shutsemau <kas@kernel.org>
-> Link: https://lore.kernel.org/linux-mm/aoWw_iKEDLjKL2jr@thinkstation/
-> Reported-by: Chris Mason <mason@kernel.org>
-> Suggested-by: Lance Yang <lance.yang@linux.dev>
-> Suggested-by: Usama Arif <usama.arif@linux.dev>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
+I have additional validation from November 2 using QEMU blkdebug to fail an
+actual guest block READ. These results supplement the source-derived fault
+injection described in the original mail.
 
-Make sense to me.
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+On the unpatched Linux 6.12.1 test kernel, with errors=continue, the failed
+read was at sector 2312, in the parent inode-table block (block 289, parent
+inode 13). The kernel reported:
+
+  I/O error, dev vda, sector 2312 op 0x0:(READ)
+  ext4_get_inode_loc:4554: inode #13: block 289: unable to read itable block
+  __ext4_unlink:3469: inode #13: mark_inode_dirty error
+
+unlink returned EIO. After normal unmount, /p/file was absent, but raw
+inode 2064 still had Links: 1. e2fsck -fn reported:
+
+  Unattached inode 2064
+
+In this case the inode-table read fails in ext4_get_inode_loc(), before the
+journal write-access call. A separate run of the same block-read failure
+traced JBD2 through unlink, sync and normal unmount:
+
+  jbd2_journal_abort() probe hits: 0
+  unlink handle at jbd2_journal_stop(): TID 7, T_RUNNING
+  h_err=0, h_aborted=0, j_errno=0, journal JBD2_ABORT flag clear
+  jbd2_journal_stop() return value: 0
+  jbd2_start_commit: transaction 7
+  jbd2_end_commit: transaction 7
+
+The offline filesystem check still reported the unattached inode. This
+demonstrates that this read-error path can commit the directory change
+without a journal abort when mounted with errors=continue.
+
+With the fix, the same clean input and block-read error failed before the
+directory entry was removed. After normal unmount, /p/file remained present,
+inode 2064 still had Links: 1, and e2fsck -fn completed without diagnostics.
+
+Thanks,
+Alan
+
