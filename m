@@ -1,89 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794835432;
-	b=lzGsY4C+gw+N6CHYuWlIQOFHhSTAX3fXrNrzQBlXT376sNiL/SZ8oJoeOr1acYkc5aQ+
-	 JiSTs0TuBQTi/PxvlOFaUG9yNWBDYyYZuvXEcro1ByCMP7TiLsuqExV4kwPMKPQ4JY3jQ
-	 /UZBzFogO0R9MSIRi8Z0V8y/t2mt3JXR0WHyzyGuVzkfKJE4CPhwaNKerhZ55FwUwugli
-	 dhqlro95F/Y5HwFK+S7j4P77UX8G3EbUbp+iEuEcppJkTOHMPczXhEr17SyTLmtoVOlWB
-	 lu032KAlXNtHgTq49y7W0LoGKUPeFn32/OJA4ogyTe6IqS3wF9fi3AkxwcDv91eAlAA==
+	t=1794835663;
+	b=d9S2JEFvACgwAHi3b2w3WPgkrCcbSg5RDYJJLBrdI8QXfE1LN3DJf0pSZoWY2ucTdHhJ
+	 vCjstYzkYX6W5aeNyBLlDNed92WdxnfXAih5uvnORlWjbe3fcJoOdgIsl/0/rSv8AMZR/
+	 Ab70gorTGVr8SRWJoB+GKLac0IY59GLd1/ObsbVKfI49pCn0ElM9rAaMmzGRSus0NHxLI
+	 xf0QZizXlZU6BIunMq/FSuMVNVXeyG+cgql4ysqzrAMfgJJG3YZ8vbpqoBR7pkINsOpz2
+	 jPAw380ewcdZQanEOKgtUWv0B35ngCX39R6xfyNSuALUF3itIL3j4TJ7vg7XYQtQocg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794835432;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=fD5u8EDjljGCE0xDZ4fbiW3sWVh8TOsEBt4cumx8/T0=;
-	b=NCBY5a6xzPQZmAaaRx8s0n6OwJPL5jcNhmU6OMPEcNrZY5WkKQSpFQY11KMTyBvKiVGP
-	 3Kp2hVKsDfo0fSIKkSB48bsMUcwKVrmnzeCaEZelaInTpyGk819bLsqZkr9EdqKF65LLZ
-	 WQvNYAc7sM4YoVffRICUU7VLqBl8ogmvsyaS65fOT7UVdJutqu/ZYsPsFL6Odo3xyl3nb
-	 /bpiCueBVgCzXrij5MXEP8U/gvcdnw5jC1f2DPaerWj4ZkPj8Rl0oHvCA4nrF2l81ociG
-	 JPLqUNJoMLhNhJdfliyGUmzWA77P5b3pCjUmeO7lVSBH7avPLpmAm771ANHdrt+HfYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794835663;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=guvuApfm1WiVp6lOwwVdCibXPFsCHhFXRI8JJuThGKE=;
+	b=e4fkn7hhbdR1gRY+EgfseqoPIfITYTZKv6iY5NgAGcMh1QdXngSiSqehRO7U//u48049
+	 ceFpCOdc7Kud+jR7vC2QexO8zPv9SeXEYQDu2kvgGeq7rA7W0ReFUkMFDfnuW6+XtOpdk
+	 D1CcYC59oG8zu5AbVxrtHXxr/89VRwGGhaFF7p1t49cP7Huw945oflBRi+vn1mF8vc549
+	 e/obIbwfKztKmy2JUiRn1/rTKktl6gr6kSBwqBtsF2TUCgjGFlbWu4CFAp1WixySlc22i
+	 4Is8tzab+fTGyXYkgLSspWAk5UViGxnTY7B7mso7imu9pBUIoAKsyc26AKa0yQntf0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XT+RFfUf;
-	arc=none smtp.remote-ip=209.85.210.181
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=G0exRy1I;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cmslQEJT;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B25B606A31C
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 13:23:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B25B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3505606A32C
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 13:27:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3505606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=XT+RFfUf
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8b2f59de176so3867609b3a.2
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 05:23:51 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=G0exRy1I;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=cmslQEJT
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGC1Gek3117232
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 13:27:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=guvuApfm1WiVp6lOwwVdCi
+	bXPFsCHhFXRI8JJuThGKE=; b=G0exRy1I7k8EfQ1IhV7Ysi77z/1Sf9YixnWMJf
+	4TLFbn8IpNzsTkfKV4Au0zE1vsgh9wrzGlPgMpSaYvXLVlXvWms8PyqsQJ0JycMW
+	jY83XBZdt7IB+lHvLB/VkYcWXtGnVC09xSkqGY6AJ5hUN0vPylBcacO7eS0ODSwU
+	qbJ1pBf8c5rLQgJWIClRTiNr3QS43yWBdE4eTnHvOpd6z/VNSSlB2AmXarEXcrNk
+	+KhSO8DDS3rTD5TqWU6h1gOxAKsbOPcXVv6+3Arab0mG9vmqATgWK0AzP5zfaIkS
+	pjyY/okPECO2pqLnxNuhkXrSux0GWpZ+hoLVuxuzAlAPBEpw==
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j01f8096w-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 13:27:41 +0000 (GMT)
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-862bdb93612so1446789a34.1
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 05:27:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794835431; x=1795440231; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fD5u8EDjljGCE0xDZ4fbiW3sWVh8TOsEBt4cumx8/T0=;
-        b=XT+RFfUfprv27LWd5bMdJlkR5mDDJLua3R67x8JDpXNDTPB12x0S/PLhevtlJR92rB
-         fJiHrcxc+XmXYOko9f17f0xJylL1yN67m/OrY1tsbt2mc+bFsME+zVTfgeChqFAbpv7H
-         yOC5Z1/8c9Bq6zZRY6JIi981H34TqvQL24Nrw=
+        d=oss.qualcomm.com; s=google; t=1794835661; x=1795440461; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=guvuApfm1WiVp6lOwwVdCibXPFsCHhFXRI8JJuThGKE=;
+        b=cmslQEJThzbaewK3b+vfKwN6WNYPfIBKibGhEK+figyrmhuilePDOvFnZLtyLlayeT
+         vDY4rGHd9dP6u0AnAZBsnIAAWofc15SQi31kI61CM4siaJapuj0dI00uhNofwYgHHNWj
+         ux5p3gMQqY9R5Cy05iX6dI45HSqdSYWkc+zC6CuxO8WjopYvBFRbGCXN0vet6j8fiV4M
+         Z+A8IQGNG3/KoUZxGiN98RTfVpukFlpnc20gpxpASOt6Mr7pcbAvmczh9kqhLjCQHBPD
+         /WwZXVf5UFr3RUzN8XOha67B/DsHJw5v6vv09iMRcHmRF464cek8h56J+cuPcpEgiT9m
+         3RnA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794835431; x=1795440231;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20260707; t=1794835661; x=1795440461;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=fD5u8EDjljGCE0xDZ4fbiW3sWVh8TOsEBt4cumx8/T0=;
-        b=bhF0slE0elBqsc0OVyDNaeZJsc2ZVCFLnYxrlT6Ah8qXnfr1SbR8lZrqQzkoBeXyZJ
-         spX5rwBxCJh9QkxXqYx/Wae9ap8ylnIedYDsxpH5ogOzzeU8kZvZLS2QId+8cMd8wxQv
-         PrRLfI8AiYqN9BVyJHUXvUaD42wNE+7zeM6MM+jVYshfm80YAGurAzRyEfxPwE5TRuZe
-         em0F0XhpnyMjp7NsXgatknVM0oFzE3RsbAqo7dyHd2MqjV98YFAoLvF0/kXnlrwduCfp
-         rFRSZfWdFcSimS7SV7KnpkqfphmzB2w4dWIhVGlnrLCiKI3DROvdKazrizN2BXJ302Mk
-         vrpg==
-X-Forwarded-Encrypted: i=1; AL+hErFKugNqwK489nuenDet508OzbpWx46peY7dRw/nr9+izwFGOq54VpmpdeEybPozA/sYLxc4cP0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91S9dQPXOc18ivhlBrCYx4HVBg3RqKXVkn8wRcS8hLgK1+y8xQ
-	0ChKh4TVz0c599+XVK31Z5BT3K6pQT9+8mptWp6VWJP512EyCUZx82Yv0+O5i5t3HcwoLdzwr85
-	8AQwX7TXK
-X-Gm-Gg: AYBFou0mpFhVeTpMdNWcf8hwlLweeKo9OdhSkJshI2ZMJVy1wzR/uDMbC5xEgCcrLlM
-	PkREFjEXfccQUJn/f7RhehHhzE14GkxYtGzQ41KG5aBclk9MLa1Pa1TXVYoPXDsEGC2f31Pk6/M
-	imaeNsjTEv3IEIlXO3lavYvOZU1I4Hhv5PeGeTtvTBWtwuurGB4hPTX7YvhnsP+vsZ7L94Wb5sf
-	pIamsEhqpEYsNoTKvlHsi2iIMC9FgBV5TwHn1sHeNV+WCv+JHoHXrbSsLrY+1aZihHLISl2mQ9E
-	eaD5P1yo9uAbVRT5NBrv39rGnKBW/XJy6J767iQi/yTfZZqIXCVxhHX2b8aIWCdh+WlNvsdC2Qg
-	vv4DAS++Ag0hBJorD5dmmyMWf2Un8Tvqi3Nu12Vm9DpBfCobut8tCxT2smm+XlPbSJ6iNGOBDOl
-	wWaAeJvg0zxpYy//pA7wsfM/vpCUMNFJTgoDAX4R3ad8S7zxsINuO8uPTuoarZ6RIDCyoS4HnzH
-	uE5s9wgNu138CLSeYJcRf/VkhjM7ovh+fgu9iG3yGXf9jLl0ApoFNX1PjU85EaPwSfn9H5pEVXZ
-	bvQ42u0l/PmtB3NT2nGohkzVxIT19Zb1aR87OFOhB7giK8LuNyrl0IkOrhhu//8ibQ==
-X-Received: by 2002:a05:6a00:2d1b:b0:89e:37b0:d1bc with SMTP id d2e1a72fcca58-8beb658dfa5mr10126552b3a.28.1794835431147;
-        Mon, 16 Nov 2026 05:23:51 -0800 (PST)
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com. [74.125.82.48])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bfca804fbesm3023467b3a.28.2026.11.16.05.23.50
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 05:23:50 -0800 (PST)
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1b50a4bd2f3so3710276c88.1
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 05:23:50 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErG9kxChMT1YFnowce7hdgGeJ5TWWI/bbDAL0voelMv6b6gde25+0Io7HQkTifSDUrKqaTXQI38=@vger.kernel.org
-X-Received: by 2002:a05:701a:cc91:10b0:1b5:2dce:1b6d with SMTP id
- a92af1059eb24-1b52dce1c17mr3055768c88.17.1794835429211; Mon, 16 Nov 2026
- 05:23:49 -0800 (PST)
+        bh=guvuApfm1WiVp6lOwwVdCibXPFsCHhFXRI8JJuThGKE=;
+        b=g5C9J1QQIVdQ55FmmcJkXvENbjMsawvW1glQaw2sMSEIAGGCsDdNPSZzMZBz7uQexE
+         wuErcTz+SIcebsPNivlSxByzPA7dM8Tn37dBkm8rK4raRy7jlrP3qsWGk/i6SduLQvQ8
+         8V+YheDHQvvUuS/qSquot78BUTPYJvKbB3XkAbDf7AMVIpdIOeZuumoE6CQjMXZFsvB9
+         mAdFrRNA59+IUsUIuqPRNs6MorOklcxPhAR0VPN90wAAZ8g/59pecdPd5RyFtWHEjn1d
+         EHk6nAqGMtmjRIYb1H+EYqi6plZMHgTyt+gwK4dneeIg1IHr0jF5uj/IIuL8RBCmlN/X
+         BpTQ==
+X-Forwarded-Encrypted: i=1; AL+hErFMkJ+rXf/VsPkV3r8T0hyZW/nt2dE+aeDcIW2kWfO0nAh4n59cu6qr1BNmzD+3c5Ql6Vx7b8Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+3AdM7OS5S6B9FGg7guddcHkwkn1CJqH/pqa2kyVEQhVxRS6/e
+	2/kN5tqyU0sFe0OU6q+x5BBZjnDSmiaM/7A+DHaMqWjYvA3flGSufHm3tBFNo9QqejoVD1SA4hN
+	F85m94mvSe7xQRQKagbEkpAZ6OecLIABIn4POfza+NGXoEfVtDjf8Ih05M8q7KGHKIlo=
+X-Gm-Gg: AYBFou2fG55JfaezONKEqJVb9izV5BnWESpisfiK+emIyiT79FaxqA5Hs9eKBnuiik4
+	Kg6/0RlnU3Xy9YOfdIbMtsXa1YOKKCwGB5srdq3svt7UWr8kRsfDUjjNGD94HBxe6YVm+/AZ/wM
+	HwoRa6fITafUgJcRBN1O9k1e5j/rOkJuRlk8GP356cmxhP/64mqWiYpmd3MPfrTcQNLrKNRYkYe
+	mC4ED46nMEtByIJrLW+T5nVzKU6G8sj4uf9mczDV2rvaq4pbGauEo8BbcF/CkVCyvbsncnbGYac
+	pLxxubEoCdPwpUvT4m/4cpnqU+YT92Jv4O7Ah0gqit51+8UeJ39jW2nLNxR1z/PZ7d2r8sO45m2
+	bIor+4ZKVC70qoGclhNFei0sdtPfZya1NMy3XwlCWWIzd9SUyeCzLe8RCJldv8sa4DxuqJxCHBZ
+	h4HktV32Y=
+X-Received: by 2002:a05:6830:2316:b0:862:b733:c7a1 with SMTP id 46e09a7af769-862b733cc47mr3294273a34.14.1794835660747;
+        Mon, 16 Nov 2026 05:27:40 -0800 (PST)
+X-Received: by 2002:a05:6830:2316:b0:862:b733:c7a1 with SMTP id 46e09a7af769-862b733cc47mr3294260a34.14.1794835660295;
+        Mon, 16 Nov 2026 05:27:40 -0800 (PST)
+Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-8628813346esm10012527a34.17.2026.11.16.05.27.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 05:27:39 -0800 (PST)
+From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Subject: [PATCH v3 0/2] fastrpc: fix probe-time races between rpmsg and
+ userspace
+Date: Mon, 16 Nov 2026 18:57:29 +0530
+Message-Id: <20261116-fastrpc-probe-fixes-v3-0-3cd56d9d9a93@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,103 +116,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116-uvc-shortmeta-v1-0-487cfe42fa89@chromium.org>
- <20261116-uvc-shortmeta-v1-1-487cfe42fa89@chromium.org> <20261116130839.GA1714298@killaraus.ideasonboard.com>
-In-Reply-To: <20261116130839.GA1714298@killaraus.ideasonboard.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 16 Nov 2026 14:23:34 +0100
-X-Gmail-Original-Message-ID: <CANiDSCsuPhCyeFWSBPWauECVHQ5A0ySMSqvC7UB6W9ZR4_+iAA@mail.gmail.com>
-X-Gm-Features: AclHuK_Zhc9uC1guqtPyu4702nINbtLFRGaSTrUWoBHn2UUyYnjYXDCq7yKTSpg
-Message-ID: <CANiDSCsuPhCyeFWSBPWauECVHQ5A0ySMSqvC7UB6W9ZR4_+iAA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] media: uvcvideo: Reject short metadata
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Sinan Turunc <enscrpt@pm.me>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMEE+2oC/22Nyw6CMBBFf4V0bUkfoYAr/8O4aGEqTcRCBxoN4
+ d8tuNAFm0nOndxzF4IQHCA5ZwsJEB06/0wgTxlpOv28A3VtYiKYUKwWklqNUxgaOgRvgFr3AqS
+ SNbyumCkYKJKaQ4D9kYrX25cDjHOST7+wczj58N6XI9/SfYQzxg9HIqeMclmqtpamMhIuHjEfZ
+ /1ofN/n6ZBNG8WfSohjlUgqrYy0yipRlPxAta7rB1+phLcdAQAA
+X-Change-ID: 20260923-fastrpc-probe-fixes-30c1980b50e6
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Thierry Escande <thierry.escande@linaro.org>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org,
+        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+        stable@vger.kernel.org, Tyler Baker <tyler.baker@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794835655; l=2067;
+ i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
+ bh=0hSbXEUHWhOnAJwHR1KYQ1+mIhj4JPQ+AgjXU0arhKo=;
+ b=17vbNjqF4I1i1d38v3E4MmjngK7pIy50QiuIVJTmoCgg906g5vHwhP7znbye0X+F0LKim2bfn
+ MUbmFojkzarC7ArQU4KIeGsPKsaDz7bY5knBTZSO1udOMn6nsPlASpo
+X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
+ pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA1MyBTYWx0ZWRfX9xXbkavIWKej
+ UfMvZiifScQoYX7uWCbtesc79ZKBcqLjUHhxrboZZjWYopmDvBgvMJkNL47urHnwA+zmAvZMbZx
+ zADmLad3HEQeq6m9UW1pjoYPk7Yf0icAIr9xeY67uno6m9TzydMZX8ne643kNN+cZ8zaLfJ3z3r
+ 6ms9Ax6d8AmX9I2z/0SN533nXFMPS+D50tlre5HCDForqRqyEARRtWlbW4vphdvRAnOhjjesdvX
+ wNjXeRz12jRv2aCMAS0aU9+cGJbVaEimQq56fyQoGdYf3TYQiYTPgkARBpb3LYPx1Z97YuZOuNY
+ lBki7zQYZeI94aLfIfX/Ym+dJ8tXKxsdcfJHnLv7z/wgJNnGcOSFdGNomRUBwO9gyb6BhU0SOtS
+ /cZQhGLgzQsln4zAMZsw8ythXymAHiz2UC3m24YRz9o7HoSF5YzasLDAawG+1RT863pB3onLRMP
+ dS/KKiCnvLbFMl8qn3w==
+X-Proofpoint-GUID: nqzuZMnl1r3pP0Z-YrvWN6JPYPMhAxeM
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA1MyBTYWx0ZWRfXz/+WIER2hdQY
+ T7t0Yg48NZQ3sAUal866uolXT/k+6N82NzYfPMUAbraKVQOsAEzKy+W7O3pl+LwKlNx7QBlhaOJ
+ VXSW/HKP/I3GQDdlqsluSA6cNdG3rvI=
+X-Proofpoint-ORIG-GUID: nqzuZMnl1r3pP0Z-YrvWN6JPYPMhAxeM
+X-Authority-Analysis: v=2.4 cv=VMpIDNPX c=1 sm=1 tr=0 ts=6afb04cd cx=c_pps
+ a=+3WqYijBVYhDct2f5Fivkw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=BKo7ZjnSzHxpABjNsfcA:9 a=QEXdDO2ut3YA:10
+ a=eYe2g0i6gJ5uXG_o6N4q:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-16_04,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0 bulkscore=0
+ spamscore=0 adultscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611160053
 
-Hi Laurent
+This series fixes two races in fastrpc_rpmsg_probe() that can be
+triggered when userspace opens a fastrpc device node concurrently with
+the rpmsg probe sequence.
 
+fastrpc_device_register() calls misc_register() before the channel
+context is fully initialised. A concurrent open() in that window hits
+kref_get() on a zero refcount, and because of_platform_populate() has
+not yet run, sesscount is 0. The error path then calls kref_put() on the
+saturated refcount, which kfree()s the channel context. A subsequent
+IRQ-path fastrpc_rpmsg_callback() dereferences the freed spinlock,
+causing a kernel panic.
 
-On Mon, 16 Nov 2026 at 14:08, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
->
-> On Mon, Nov 16, 2026 at 11:56:37AM +0000, Ricardo Ribalda wrote:
-> > The UVC header has two bits saying whether the packet contains the
-> > optional PTS or SCR fields.
-> >
-> > If the header says that those fields are there, but the header is not
-> > big enough to hold them, there is something wrong going on and we could
-> > read out of bounds.
->
-> There are multiple checks scattered through the code for this already,
-> some of them causing the whole data packet to be dropped, others just
-> short-circuiting operations such as clock and stats updates. Did you ned
-> see those ? It's getting too messy.
+A NULL dereference in the fastrpc_device_open() error path when
+cctx->rpdev is concurrently cleared by fastrpc_rpmsg_remove() is also
+addressed.
 
-Yes I saw them :P.
+Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+---
+Changes in v3:
+- Drop the dependency on the dup-sessions series; use
+  of_platform_populate()/of_platform_depopulate() directly in the init
+  ordering patch
+- Fix Fixes: tag of the init ordering patch to 965602eabb57
+- Rebase onto next-20261113
+- Collect Tested-by on the NULL rpdev patch (unchanged from v2)
+- Link to v2: https://lore.kernel.org/r/20261022-fastrpc-probe-fixes-v2-0-a6b3f6f62571@oss.qualcomm.com
 
-I can move the tests to uvc_video_decode_start(). The question is what
-we should do for non compliant cameras.
+Changes in v2:
+- Add Cc: stable to both fixes
+- Free cctx via fastrpc_channel_ctx_put() in the probe error path
+- Clear rpdev and wake pending users there, as remove() does
+- Move fastrpc_notify_users() above probe
+- Link to v1: https://lore.kernel.org/r/20261001-fastrpc-probe-fixes-v1-0-1376d93b8b3e@oss.qualcomm.com
 
-I would love to just drop the packet altogether (with a non compliance
-warning), and if someone complains... we can add a quirk or some
-heuristics.
+---
+Vinayak Katoch (2):
+      misc: fastrpc: fix NULL rpdev dereference when session alloc fails
+      misc: fastrpc: fix init ordering race in rpmsg probe
 
-Will send a v2
+ drivers/misc/fastrpc.c | 94 ++++++++++++++++++++++++++++++--------------------
+ 1 file changed, 56 insertions(+), 38 deletions(-)
+---
+base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
+change-id: 20260923-fastrpc-probe-fixes-30c1980b50e6
 
-
->
-> > Mark the metadata as invalid and move on.
-> >
-> > Reported-by: Sinan Turunc <enscrpt@pm.me>
-> > Closes: https://lore.kernel.org/linux-media/20261115121701.189-1-enscrpt@pm.me/
-> > Fixes: 088ead255245 ("media: uvcvideo: Add a metadata device node")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-> > ---
-> >  drivers/media/usb/uvc/uvc_video.c | 8 ++++++++
-> >  drivers/media/usb/uvc/uvcvideo.h  | 1 +
-> >  2 files changed, 9 insertions(+)
-> >
-> > diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-> > index a92a986ab714..9cc5d83acbc2 100644
-> > --- a/drivers/media/usb/uvc/uvc_video.c
-> > +++ b/drivers/media/usb/uvc/uvc_video.c
-> > @@ -1487,6 +1487,14 @@ static void uvc_video_decode_meta(struct uvc_streaming *stream,
-> >       if (has_scr)
-> >               len_std += 6;
-> >
-> > +     if (length < len_std) {
-> > +             uvc_warn_once(stream->dev, UVC_WARN_META_SHORT,
-> > +                           "UVC non compliance: payload header length %u is shorter than expected %zu (flags 0x%02x).\n",
-> > +                           length, len_std, mem[1]);
-> > +             meta_buf->error = 1;
-> > +             return;
-> > +     }
-> > +
-> >       if (stream->meta.format == V4L2_META_FMT_UVC)
-> >               length = len_std;
-> >
-> > diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-> > index af8cef94ffff..59e23e55bc2e 100644
-> > --- a/drivers/media/usb/uvc/uvcvideo.h
-> > +++ b/drivers/media/usb/uvc/uvcvideo.h
-> > @@ -661,6 +661,7 @@ static inline struct uvc_fh *to_uvc_fh(struct file *filp)
-> >  #define UVC_WARN_PROBE_DEF   1
-> >  #define UVC_WARN_XU_GET_RES  2
-> >  #define UVC_WARN_QUERY_CTRL  3
-> > +#define UVC_WARN_META_SHORT  4
-> >
-> >  extern unsigned int uvc_clock_param;
-> >  extern unsigned int uvc_no_drop_param;
->
-> --
-> Regards,
->
-> Laurent Pinchart
-
-
-
+Best regards,
 -- 
-Ricardo Ribalda
+Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+
