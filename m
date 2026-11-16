@@ -1,72 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794790278;
-	b=U3wCajb6ADSHWGaFMaWdJUrsU2BnfY/CSDTtWksYh3nr04A3tfbknLzHBBnTnXxquu6I
-	 K44bU8vDm55gQVV97/0qMFGfi1FPRXeR3fT5f1SR3z3kwzuv786el4HW9JhuygT5XDRov
-	 0UjmADcB0R/wgU520lBkdHpn4kH+WtPzU0wE3UGpZJfshOonxmRbKgEV+NdtGVDaricqk
-	 xOiBOgkZkWjd1Xe8gbYQBgzWA17vueUjFIQUJ5SPF1X2xKjOhAoC0Fb0uSd746cvmig98
-	 4166PYe6cKg1mO4nEu60bG2R+dThjX8oRW/t0aPC71Mfv4kMeWrvA0y+su3kVTQ5teA==
+	t=1794790550;
+	b=XEjvNJJ6YhyXkd1d/fMZhktKoqWdGI4lMDsDf5zOQNQN0mZUsiJbgJQzcxU5IwUcEAz6
+	 2U8mY7HZ4F8bEC+ueKutHpBmjcBWKQCBWB14xzLsaTVordx6jP9O+qjsHZTWR+zpGeGSz
+	 H2W79r3k10Z4ARznJcsuTFdPLtBNs/yZ04p/rEQoY/1NFun1CyHKVhjLKSd4e6N/wOrrN
+	 KWyhsSwfgwpsF4nVoHUHD6XXmcf07v95hTOQZDrMFe9VghbvtrfOGSCXawXw47L1qo4VR
+	 uYCIPSEC1puRzqO/5m7naVqPTYVIzrHYeLdWIgNKjL1NWGvdtLerkkA479KwEIZfpAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794790278;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vmIQUtngFlNvhyn0Se9v5OKBcLzkjaEzyL4mMCGL7iA=;
-	b=pwOSlYGpeFX+Yx4Nzka1iYYYw1iBoCk2lfOarg8juWrSeC4wj8gKbGv05sqitfKAf19R
-	 DO57Vn2+PErKiOv7vGTVGAgXlzjlp/7A4nbo3IXtoZbaeY2+yqd+O/nKYlGQSHpBytqgQ
-	 YntWaS/NU8VkNex2pvH7hkWRt9H43DGSSfKjIIT6G7gTfW2T0nvyJvkzccbPx1qwSAv6E
-	 HgSA7hD3MThzrVWVmjH+AyAjXc6DKkd0B12EtpiUtd9/uCYUv4CTC2ECWHvvJFZx81QwV
-	 m4nJvJvRHPGg3egBF8l7uaGiHMd1K4tn5vZXnmi8O39JpwUBtmKElLj/ufPQ98HZpUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794790550;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=M1UYvbFN4s2JD4iHUEzkq+8KWPKlmb1MzMCBDckev2I=;
+	b=U2wbXo6lAKSBcxKoU/hH5TTnIE/+pNavS8Oxpgu+JCJY0tu/60J5CQQE5Uf3ZlX/F3vV
+	 500OxPeNsWv1ujAWlyWG6/6vdlZTKGN9p7wxlEKrEsQ/Sx6j4j2196cIomkR1/cNjdn29
+	 cXDSlwq2k1P9c8pwJlNKVORjuRhOGuvn9gheT4GZxapfArdVZwXV5+sgegpdvXN7rwjdl
+	 1vANrKEthRMso3KiH1/d/LuEpSmRyiDA9ioK+5lTJueWxv8rwrwMUu0PN4yo5NBasWdgF
+	 Ic+2liKjTiQi4eNUk3rwdr08PFUZElydICnbksd1AVYpJHWiCg9FsEST83GWdm3BshA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eq7ioAIP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="b9HKMq/z";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 75340606A31F;
-	Mon, 16 Nov 2026 00:51:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514BA606A31F;
+	Mon, 16 Nov 2026 00:55:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eq7ioAIP
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 89E611F000CA;
-	Mon, 16 Nov 2026 00:51:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b9HKMq/z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931D61F000C4;
+	Mon, 16 Nov 2026 00:55:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794790278;
-	bh=vmIQUtngFlNvhyn0Se9v5OKBcLzkjaEzyL4mMCGL7iA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eq7ioAIPeF0yrZtyfdyYDfwFRm8Z/gSeDVQeqYSHHbiFq0pwZCd/bR7jWAkno9Kuq
-	 Ck9/WmPpxTSdTBfbor7i9yYVy4U3okuxCikA7KrNiGt06NiueLAFUV3WGxK96vRSeb
-	 9G7/4vUMofnFCrriU6EsbH66pTCCl/RYmHhdroUKQEyjtV+OdaT/ov2rhL/ttuCC4Q
-	 vOXeLo/nvSrMJPQM33JywYX9nk1/wqOyrttguBmyDvXlEJ0Q0UWESR0gHRsvnnfxsg
-	 3hKBs//kWbIJaNClv/M6NeSnjDgtlsmc7DBrBhQoiCP8nu5Kysd909E3JMJ+ZjqJN6
-	 mRI9ydauZlpCQ==
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: linux-integrity@vger.kernel.org
-Cc: Jarkko Sakkinen <jarkko@kernel.org>,
-	keyrings@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	Alec Brown <alec.r.brown@oracle.com>,
-	"Daniel P. Smith" <dpsmith@apertussolutions.com>,
-	David Howells <dhowells@redhat.com>,
-	Eric Biggers <ebiggers@kernel.org>,
-	James Bottomley <James.Bottomley@HansenPartnership.com>,
-	James Morris <jmorris@namei.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Jonathan McDowell <noodles@earth.li>,
-	Matthew Garrett <mjg59@srcf.ucam.org>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	Paul Moore <paul@paul-moore.com>,
-	Peter Huewe <peterhuewe@gmx.de>,
-	Roberto Sassu <roberto.sassu@huawei.com>,
-	Ross Philipson <ross.philipson@gmail.com>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/5] tpm2-sessions: Drop TPM2_NAME_SIZE
-Date: Mon, 16 Nov 2026 02:51:00 +0200
-Message-ID: <20261116005105.1573016-2-jarkko@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261116005105.1573016-1-jarkko@kernel.org>
-References: <20261116005105.1573016-1-jarkko@kernel.org>
+	s=k20260515; t=1794790549;
+	bh=M1UYvbFN4s2JD4iHUEzkq+8KWPKlmb1MzMCBDckev2I=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=b9HKMq/z4ZO31+Hr8UzNLqa0VjRqn9nHuadGPRBb6xOE97NmBlbPcpLln67f4j/Pa
+	 dsFjRkN49SpaOi67zUU1b01Fjc+1TL2cDHKE+GOwqtc6rG8FBtjBdwL8iuwG0fR8pC
+	 iYS3I2j6bv/zi6AMbLq0NaPbfin5O9uKLvXahTrcE8xRLyQMYEZ/6qzq7l/UG2ocfD
+	 CTPFrMZ/yeZpFYv2gVKRujrwxSdRQ15iPKl1ODS5ESIquWKAmKUu52m9cb1KOlcfQE
+	 fQHZ2Sn3FFkFErX5qkOcaFjLTG5Qc1p5ef568SS5NWdT6tdAqU2ZI2AMJGYhkGONqr
+	 R3wNqbli/DBiQ==
+Date: Sun, 15 Nov 2026 19:55:48 -0500
+From: Sasha Levin <sashal@kernel.org>
+To: "Barry K. Nathan" <barryn@pobox.com>
+Cc: Mike Rapoport <rppt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, regressions@lists.linux.dev,
+	Salvatore Bonaccorso <carnil@debian.org>
+Subject: Re: [REGRESSION 6.12.117] CPA detected W^X violation:
+ 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 -
+ 0xffffffffc0477fff PFN 109c1f and WARNING at
+ arch/x86/mm/pat/set_memory.c:665 __change_page_attr_set_clr+0xf62/0xfb0
+Message-ID: <avpUlHHaimEE_Rib@laps>
+References: <avdb9EPXBv2hRCzQ@eldamar.lan>
+ <draft-agent5-0008-re-pat-wx-regression-612@kernel.org>
+ <2e149d01-c932-42d3-9698-c1555e542cb1@pobox.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,74 +68,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <2e149d01-c932-42d3-9698-c1555e542cb1@pobox.com>
 
-TPM2_NAME_SIZE was left to include/linux/tpm.h when the base definitions
-were consolidated. Switch struct tpm2_auth to TPM2_MAX_NAME_SIZE and
-convert TPM2_NAME_SIZE users to TPM2_NULL_NAME_SIZE, removing the
-redundant TPM2_NAME_SIZE definition.
+On Sun, Nov 15, 2026 at 03:16:20PM -0800, Barry K. Nathan wrote:
+>On 11/14/26 9:42 AM, Sasha Levin wrote:
+>>On 2026-11-13, Salvatore Bonaccorso<carnil@debian.org> wrote:
+>>>One followup to this. Reverting
+>>>
+>>>Fixes: 091c44b2d3c3 ("x86/mm/pat: Use pr_warn() for early W^X warnings")
+>>>Fixes: 11d1ba991c07 ("x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()")
+>>Thanks for testing. Queued reverts of both for 6.12.
+>
+>I see that in the current stable-queue (commit
+>3b8ff7f280433e6fb085dbc4f44ac6a138f352a0, "Fixes for all trees"),
+>these two reverts are queued in staging-6.12, not queue-6.12, so
+>queued up for 6.12.119 not 6.12.118 as far as I can tell.
+>
+>I don't know if this was some kind of oversight or if it's
+>intentional, so I just wanted to bring it to your attention.
 
-Cc: stable@vger.kernel.org # v7.3+
-Fixes: 88c5a62c3af7 ("tpm: Move TPM common base definitions to the command header")
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
----
- drivers/char/tpm/tpm-sysfs.c     | 2 +-
- drivers/char/tpm/tpm2-sessions.c | 2 +-
- include/linux/tpm.h              | 8 +-------
- 3 files changed, 3 insertions(+), 9 deletions(-)
+It's intentional. I don't want to play with the queue right before the release,
+and we've already shipped this regression so there's no reason to rush.
 
-diff --git a/drivers/char/tpm/tpm-sysfs.c b/drivers/char/tpm/tpm-sysfs.c
-index d915307ae833..0f726cf65189 100644
---- a/drivers/char/tpm/tpm-sysfs.c
-+++ b/drivers/char/tpm/tpm-sysfs.c
-@@ -318,7 +318,7 @@ static ssize_t null_name_show(struct device *dev, struct device_attribute *attr,
- 			      char *buf)
- {
- 	struct tpm_chip *chip = to_tpm_chip(dev);
--	int size = TPM2_NAME_SIZE;
-+	int size = TPM2_NULL_NAME_SIZE;
- 
- 	bin2hex(buf, chip->null_key_name, size);
- 	size *= 2;
-diff --git a/drivers/char/tpm/tpm2-sessions.c b/drivers/char/tpm/tpm2-sessions.c
-index 9608e545602c..94c11135beb3 100644
---- a/drivers/char/tpm/tpm2-sessions.c
-+++ b/drivers/char/tpm/tpm2-sessions.c
-@@ -137,7 +137,7 @@ struct tpm2_auth {
- 	 * we must compute and remember
- 	 */
- 	u32 name_h[AUTH_MAX_NAMES];
--	u8 name[AUTH_MAX_NAMES][2 + SHA512_DIGEST_SIZE];
-+	u8 name[AUTH_MAX_NAMES][TPM2_MAX_NAME_SIZE];
- };
- 
- #ifdef CONFIG_TCG_TPM2_HMAC
-diff --git a/include/linux/tpm.h b/include/linux/tpm.h
-index 0db277af45c3..84c8fe226235 100644
---- a/include/linux/tpm.h
-+++ b/include/linux/tpm.h
-@@ -94,12 +94,6 @@ struct tpm_chip_seqops {
- /* Fixed define for the curve we use which is NIST_P256 */
- #define EC_PT_SZ	32
- 
--/*
-- * fixed define for the size of a name.  This is actually HASHALG size
-- * plus 2, so 32 for SHA256
-- */
--#define TPM2_NAME_SIZE	34
--
- /*
-  * The maximum size for an object context
-  */
-@@ -166,7 +160,7 @@ struct tpm_chip {
- 	/* saved context for NULL seed */
- 	u8 null_key_context[TPM2_MAX_CONTEXT_SIZE];
- 	 /* name of NULL seed */
--	u8 null_key_name[TPM2_NAME_SIZE];
-+	u8 null_key_name[TPM2_NULL_NAME_SIZE];
- 	u8 null_ec_key_x[EC_PT_SZ];
- 	u8 null_ec_key_y[EC_PT_SZ];
- 	struct tpm2_auth *auth;
 -- 
-2.47.3
-
+Thanks,
+Sasha
