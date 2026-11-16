@@ -1,54 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.220
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794818692;
-	b=mawM0h4ufKjCnO6jmbeFkWzhENsTNIxPTQKTc+/zDuKuR9KsPCg8rcVqfq0uoABZBp51
-	 TdTMrEPl292HyuGeKleTBD8YPlYdgu3PgFUa5M2WmJBmNUkqB6l4DmfOyxyHAJgE7oD1x
-	 mxRSmgz3Rp3Vg2i/+KzHFhgDpgO2BE893mK7XRIbrvnJL29BZrWKdyjuthQ8g2BcfYLEM
-	 DZZJ59sqElFa7HEwgqxWwifPS8+I3TbYP6BUBeWH7iH8inLhAUSXGUyIwBPA0b4EWq1/3
-	 ypRnaMbvxtc04mSdPE+3UFazBx8FMvbr/HXBXKMC6qE8XqiICio05nVaVDWVdPzcHhg==
+	t=1794818868;
+	b=p/WC8zPxHGjWcx6T/aetMy58mAAQQdOWa/1pdonJurbv3Rm9K/iQp2VzKzSuAk95P9/e
+	 prZ7hlDEn3NvAGTwWvDpiFjnBZav00zuXEAa/H4b0CpRSnxWS3k4S7GPEEfQok7Kohrcn
+	 lwEn6NX6rAvvjfv9EsZo1qpiMmVvL35/MRtfcMigtO+Mb96BSwob91Ziaftdov80Rjfm8
+	 Hhktu3Pj5XIlq3TJarXtFgabVQENjg4y9wBpoVcav3/i8PHy7LSrjwUBvdltd7F02tLsZ
+	 wosD9OSRfOlJlv/WMJ2Tf/e4NP8sdwCsdhzyEwTtdnZExI4lPE+qZmq0HdS2BJFb4rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794818692;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=App5MivrC29qJ5YU4+PdoN/90QWxn2hpy56HecE5sTc=;
-	b=zNCjuK3uYSWcowtxe9jm9Bc8Lc5MSZ+FTOJoF0E6X7cpTELgcs8AaeRIYkITQ532ye4+
-	 4AtgHZxxdYMENbHATMdo4sW71SfjStiudb/onC9jMhTivv+mF/FSu7XSxkCT5GCVwSxoc
-	 tnQT9fpuqygkGowzhkc/xcCfPhimaVddrcA7TfbJ0c9XbopeFmCjWFsrwUCbk75e1aP56
-	 amHPQvGudSaxhhZDsq8MQd3xjMjOizfILbOjDEIrgGE/E3iPs4ivXqV5IkkqEI3lk1Yd5
-	 a9z9mpsp87ylt/IXHfvXJMftGcd2wG0QDqienp7+9kS5i3xcoYqFpblM8OP+qZnKdQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794818868;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Last-TLS-Session-Version;
+	bh=qs1+XyJIBcRXvNK4eAjtS4NGdjhzHm1jJtJ5wQ/HE4A=;
+	b=Veo+XTwlZhEwjWzeVQOHz8eAKSTz6RLgJTXLzqUDk4wa148ZeJaf1x2BoR3/BcdazmFO
+	 FzNAFhl3/3FDX+5yzfRzdgnIO34/Xn35oqFko9705DFNMVyuX0luf6mKctZeKBhMrGXOz
+	 +zKDJTkJlYVCDrEIqbV+HtDrH00kqoyx3ASq53jYL+gji6+tmIWl5D3oBNxRKp4ZYWTIG
+	 qE4SgHWNwBPzJpbvs3yWQvbP2XH8e+bujgNNfG580Rljo4XDrj6Bi3ZnIFyT8/8lN9jHI
+	 q8yy5fSR+VgG5SvDoxGIEw/eywDWrEBWNFkW9xf3+bZ9W0U9q1jBrjpJtArUXz0me6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="rn/HLG3Y";
-	arc=none smtp.remote-ip=91.218.175.220
-Received: from mta0.migadu.com (out-220.mta0.migadu.com [91.218.175.220])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Dszj5M7U;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7F5606A329
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 08:44:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F7F5606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C88606A31C;
+	Mon, 16 Nov 2026 08:47:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17C88606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=rn/HLG3Y
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=/9gL/L4VRPsjzM4uXBvjKnOQSjh1vwhsojRka+2HEnc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794818689; v=1; x=1795423489;
- b=rn/HLG3YYMNYo8/Wmq3T0sKhDAVEDcszGPsHt4wuj9yh0W/PUJDzNhz5Xv2gfNiCIO7if3jz
- oZZV9Kd25GtTsmdCTcPgUY/jVrpknIIymsTdJ4IfBaCdQZGdTC8H9Z08IOp34MkgEgQ+rhjf96L
- FD2D9zSTjq4GnSAhmKvXBhEI=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 112a824f4d90f4bf;
-	Mon, 16 Nov 2026 08:44:49 +0000
-X-Mizu-Trace-ID: 112a824f4d90f4bf
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <70e9dc89-595b-4cab-a338-f0a1b6b9b58a@linux.dev>
-Date: Mon, 16 Nov 2026 08:44:48 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Dszj5M7U
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9661410EF78;
+	Mon, 16 Nov 2026 09:47:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1794818861;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=qs1+XyJIBcRXvNK4eAjtS4NGdjhzHm1jJtJ5wQ/HE4A=;
+	b=Dszj5M7U3OEX3vPhggvupYiDIDtgJ1CjrqH5Jt0f645TpAqgjRC9P+8/lrpkHKJ+4JoiTI
+	L6UReXGEDu+KJYLwUgrhEDOaOLHm8TXhzjZsjwb1Cvq8TSacvTA4Zi7CQC+V2kbXr6z2Ec
+	oJYa65T0uQ1X8vP0Ux1FzzD28Tw5cWSUL3S4IYBT8R50BW7hIMwlI/8f42jVXfRI2av8Qg
+	Nr8K2WPco6yYOr8L9d1lNx14IvPMRsO1EjKVZuGoVCeILnDjUDnlM/+rpDR6UfPcoSs0l3
+	x6LaUOrQKikwH0C250Caia2m9t8ssLX83VmU+40Km/H10RKzqjVPiq2+uJXVfA==
+Date: Mon, 16 Nov 2026 09:47:36 +0100
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 7.3 000/507] 7.3.5-rc1 review
+Message-ID: <avrDKGcdTCqA4RFn@duo.ucw.cz>
+References: <20261113153753.358973689@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,35 +67,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] scsi: scsi_dh_alua: set handler_data before
- alua_initialize()
-To: Laurence Oberman <loberman@redhat.com>,
- "Martin K . Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- Bart Van Assche <bvanassche@acm.org>, Martin Wilck <mwilck@suse.com>,
- Hannes Reinecke <hare@kernel.org>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261109201120.1067815-1-loberman@redhat.com>
- <37cb0b01-0c6a-4b3d-b3d8-c4e5a45977a8@linux.dev>
- <57f9665fb8c3571cff55b2fafceec7437634fd5d.camel@redhat.com>
-Content-Language: en-US
-From: John Garry <john.garry@linux.dev>
-In-Reply-To: <57f9665fb8c3571cff55b2fafceec7437634fd5d.camel@redhat.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="7nLTaoNpBa1RI6kS"
+Content-Disposition: inline
+In-Reply-To: <20261113153753.358973689@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 11/15/26 19:37, Laurence Oberman wrote:
-> Agreed, group_id is never read or written. All other members are
-> initialized before handler_data is set (h is kzalloc'd, and disabled
-> is set under init_mutex in alua_initialize()).
-> 
-> I would prefer to keep this patch minimal since it is tagged for
-> stable, and send a follow-up cleanup that drops the now-redundant
-> h check in alua_rtpg_queue() and removes the unused group_id member.
-> Does that work for you, or would you rather I fold both into a v2?
 
-I think that you can keep it separate.
+--7nLTaoNpBa1RI6kS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thanks,
-John
+Hi!
+
+> This is the start of the stable review cycle for the 7.3.5 release.
+> There are 507 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+We get build errors here:
+
+
+236
+19:06:22
+  CC      arch/arm/kernel/asm-offsets.s
+237
+19:06:23
+In file included from arch/arm/kernel/asm-offsets.c:12:
+238
+19:06:23
+./include/linux/mmap_lock.h: In function 'vma_end_write_all':
+239
+19:06:23
+./include/linux/mmap_lock.h:604:25: error: 'struct mm_struct' has no member named 'mm_lock_seq'
+240
+19:06:23
+  604 |         if (unlikely(!mm->mm_lock_seq.sequence))
+241
+19:06:23
+      |                         ^~
+242
+19:06:23
+./include/linux/compiler.h:77:45: note: in definition of macro 'unlikely'
+243
+19:06:23
+   77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+244
+19:06:23
+      |                                             ^
+245
+19:06:23
+make[2]: *** [scripts/Makefile.build:185:
+arch/arm/kernel/asm-offsets.s] Error 1
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/3065943408
+
+Best regards,
+								Pavel
+
+--7nLTaoNpBa1RI6kS
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCavrDKAAKCRAw5/Bqldv6
+8ul/AJ9f+PnOukZPzcN2ZHZtw9cnclNmZACeMOiCeO2h+nlj4rHyzyH6uojigtI=
+=Qmfa
+-----END PGP SIGNATURE-----
+
+--7nLTaoNpBa1RI6kS--
