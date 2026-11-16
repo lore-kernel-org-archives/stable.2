@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851947;
-	b=WZ3Ip7bJCbm7ZWmVbiKpiiC+X1C97CTgdK7eYQz1ByiEuYRMgE468GgcJ3ad6BkKClDs
-	 Xts9RkhpDaxrNEs9NXZMAftfRhH3/yU4hUrzIp8wRRXs8w7enmbFCB4JVc/Vx9Z9GbYAu
-	 PYIWxmN5d+RhZtMeFTdlh0LpVckyRlb9eVE4NIdT1CMy8fiXhtZtLwrhsAqQVDTI8g918
-	 ZzlnJC451MqXCEC/63AygIswGtwxP7A/V7Hgtf1n8H/SP4dHAA0juXtzAMKInJKB/s9uS
-	 U9v2IhaEvbZ0Az4P5hfRSPRBHuF5lzTgwXan18IJWtfNhECMMUq6GaM8RJJjJMBuMXw==
+	t=1794851948;
+	b=kuWTyM3lnWm24ZkFHtHnLNln9L7t1vMz2nIWVg+j9F+yb18NXwI+uaZrvxMgbyfCERJr
+	 vwnktHC2pKJt6jPuK8QUucsycP4AGCGwMuf9rJ8g1tFD6rF2TNv7xadGPr78AlPK3u7G+
+	 hClNJH8kZwZoxYic6HM8l3zS2yot/dcqFK/nHpKnTptDV9WUFOmqoCFIlEWMJPtOcwuXv
+	 Rjst3GO/zuGP2ugEZSlGejSRa3C6MlYgxncRq0FmQKH0d7VJfVErXQQWK9QN2g2bOxIe+
+	 r4LHvcVl/9BzCneaKT5lN+/9ekcIziiQ/mC6/Yiorrv6cTIxURzIpOdkm40moQXZTHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851947;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851948;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
 	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
 	 Date:Message-ID;
-	bh=fWBfn4U9/EenzJQH2Fcg3Ft/JofA1KPr66FsvYTQJQw=;
-	b=3E4Q/BSzYIlse2xus3Yd9+cnlQ6DtueDOrFl2wFX7svl8YMUd1OzMUrZVZ9avXLPQcQr
-	 Ax8MV7AeJ427tnOeNNue21GbschohzHBbtsha15AFx8ZO286Yxaa11ODflfx6oqDHlyYg
-	 FT/FqUX/AWZBGAT0A4uA2FNCYSqkg3Hc73SdEPErilvi0BCF2ulKsBaYt8UoS25PptgsQ
-	 IJ7hPTYUMF0en+rTy9LKaowLjcFArpR6flrNHbuK73Mw33By4vG8IBDV39L1bC5XISUDx
-	 mGBHql9eMVGfNsiOcZ6bpHmU5HmJzQBUpXK4bHw/WrECya1fcXSKTAo+yj6bho4+3bQ==
+	bh=wdIgM5+uNBMXad64CvLd+ZQwSVkPL3AqT7Lj1wSLIB0=;
+	b=xpNkVHSaneH0D6XQBk1LWgwSAlfpBz9xYsyAztcaRNVH+eQe4cC2xBY/EkAnR7RP73ux
+	 BInGXGwUhIuSFuGfGH5p8qF4/YKqGg/bkWs1EvtWgHwfIT7KFmH1w4Nd/aEYi+x6PIF/G
+	 G3E8ZRdyOWrYZk5s9xdQMLnS77RJhh9xsM9xmmppHeuWEc+tKPrtvkKo7cTn9XWkRI7L4
+	 WZK9tn1WP5B9BSpJrnW7AC+K57bH3AQ45dL6lw+iauiioKc3NYADOq0/DQTAPQzlRtYab
+	 Xs+DfzllB/C5TeMD+7bdBQMqiZ+YPLLdx5XkjK3g/biYrlht7AGhhB+wIdxDLn1w8Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernelci.org;
 	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=fPruq4pD;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=ZRV71EfN;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CD9606A333
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:59:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75CD9606A333
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3151606A884
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:59:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3151606A884
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=fPruq4pD
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a2761c69fbso5343626c88.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 09:59:06 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=ZRV71EfN
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15ea896ddc8so5733084c88.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 09:59:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1794851945; x=1795456745; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1794851947; x=1795456747; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=fWBfn4U9/EenzJQH2Fcg3Ft/JofA1KPr66FsvYTQJQw=;
-        b=fPruq4pDK6CLAkHN8KaxHx5j34kpHQ8hjT+b9gaAQxpBaATeVMnYmxZBXuCccs4iSb
-         fqdXT5InhVfR39MK/tn1aKghdMiEs5xRZCrBT/jgSiGBZqjUjVsdUTzhS8SGL8B9B0+i
-         j+l4r5TKYZ/4Ku6CTl8a8jT6SE93ZL4N1mPoaK1j0Ks4SJhuOVoNXLVpEcTen+3QeRg8
-         ffLqMj1OCDIPrA0r1mOu0XQzeVUpCPaQZmH3egymhCZu3tn61rmjVH6GHsG1wJFQzxQl
-         OPF/oMlGrVMHjc4yYd7XhI3c3hH2cpeo5etGedGQh4mkKec8XynNH2A2+QdL+q7rghH+
-         XALA==
+        bh=wdIgM5+uNBMXad64CvLd+ZQwSVkPL3AqT7Lj1wSLIB0=;
+        b=ZRV71EfNoq0m0ERxyiBp3LFJbGBOrWNN+imQCI/wzInZBLB+aJKNQaL8unTAHuaap8
+         2JlAubHE6c70Cr584TcJc/qSEbnnQohL6ixsprE43PkxaRpIgMfjBCemQbzdytNxZBeY
+         KkJxjDBjrJqk5ihSrZ9insi+HZ0PAeot9Fp/BET5Du+x5Kd/NRR8eX6feVy2j3lKPqzY
+         huRwPu8A2mH/GjXA0FNBQEwD25AeqF9NVe+BSCnIS4YN7zmF02W14VHW0TYFD240S+uQ
+         NrsqohPViC2gzWQ7vh0tCfRi0PR7K82HkbRBtnaXptMQS6hXE2Dr9Wrl/aJHz5q6Clgu
+         jtgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794851945; x=1795456745;
+        d=1e100.net; s=20260707; t=1794851947; x=1795456747;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fWBfn4U9/EenzJQH2Fcg3Ft/JofA1KPr66FsvYTQJQw=;
-        b=pguhgELrbiiNLmPd3h6y8dqRG2ACCBv9fVORmuNrHmloyfpzrgtWM3osDgLVnDcrCE
-         5MwwknQ6EvA5gQrKyrYLnW2RwdlIEQ9FN27PJTjlvelITZ55X1JHjyoQFJ+lfyEg0kt+
-         cAAbvsKpwS/SbV2j2slJP1bqzg387SRO3nXpNA/El8Zzdqb2JGrVLyz7E5XjzPvlq0e5
-         RKEuORyvjeqWOm7Hw+0e80c183Te/nnlJe+5uIVOR9ZpOsWc7HxJIcNIW9H5AzOMovkD
-         CyEaudK8rxYXT6rB4/q8hF7eN7nVQfio4u4qOAlV+yqYc/YapmTFmx0NDgTRoWiul2MY
-         DtTw==
-X-Gm-Message-State: APuU4Z9pGNO1v5zcLZBoRZcJUvM27JWJ1DxWzCJvx4f+wiyWy2c9INRm
-	wtyLfRHmvBuOY7Dav+KNa4TEKwggdVeEI/owzFPPxpBELyiZqavPrY/ejC43sbVeQjpyKk5f32s
-	ZNNKC
-X-Gm-Gg: AYBFou1+txjhhch9UM8HqWerTKVvFx44yupTe5i9J9BCUvZPenD8Dua5al8qkoDgx+5
-	64DnWPcoJH6sNn5WPTsCOD421/BoAaCOtePE+klG98eS8fe8VMZ4/wtm/gr8WuQDgNOD8QLeC/b
-	XA1HwTRMllazIkHRNeiBhJ2B//5wCVLYsNCYdCTTpFd8XqwEBIfYh2112te2+iRYJx9NWABeFdr
-	DBOReV3YbsoJAfU2RFH3u8DmCG/zHa/1F0Qa29lS2PogTMN/HhjtA37raUO3ZsK9tOiSnV7j1V8
-	jtG6t41DIWlvkfL8I7yeOIxI77vWzwabPW6Kb6CDW1L8NtkTGV0i7d9UBaWxSwZ333jMpDhqnmO
-	4xSIsE8Ivs6gRAz36P4WODI7vxpsp8K/sjrry3Q9sZOk7i1UlaEh6qui/fU/QSaIqKtIQMQfwOr
-	FGfNdQyiWopMaSjL0TWaj3tYjUfzcQZ0888MAN18+ybC2t1B9zRLOAM/MRk0YLy26u7iJXigCb3
-	GqiA1siXkOeI+dOQoZOS8uHFqy8NX0LSCKlT9V9eWVytSv0HIMNON2JuNIXWrOjQvNOz2mgqW6q
-	+uP84CWD4Gkz4H0jPwFDmQ==
-X-Received: by 2002:a05:701b:42c6:10b0:1b3:ba92:145a with SMTP id a92af1059eb24-1b503171008mr12148711c88.19.1794851945449;
-        Mon, 16 Nov 2026 09:59:05 -0800 (PST)
+        bh=wdIgM5+uNBMXad64CvLd+ZQwSVkPL3AqT7Lj1wSLIB0=;
+        b=bgYhlrtbSYqKDPyTg9gyfWKnCOOGT/momHS6dZqKa/yQkjKwzLUMRqxWxIE6XqSNx0
+         /1I67CQMFS2MS4iSRuNwz6vPkFz/hF3Rrf0/CZhFU8WTuoUjV6GCNDTJBi5kNrbSgK4z
+         e9oeRagDnEH8mEorPhrlaz/y1nKg/hFpyGHWqmCGqDxMFw61nO7ZSzEjqXC++KRG6h+L
+         aKKcYLZxFhcJMsnRDDR1Il+MGqQuCt70rgcoMGo9UGNeS82pQVdDQXaG5dEZ6EjAnKrp
+         bnQ4NNUf11dcUrIJDIF+LGSHvMIGHLl6Y3RmNeOkk/HPTZtxae3Azzeu00QAH4E4qtO6
+         jkOQ==
+X-Gm-Message-State: APuU4Z/lmFlpFlDOBvC2eWXqZZAvJrEJXQwg943OxfUiDnjupeYfykEC
+	ulGpJgNXjrbGonytM+bT5pOnSGKz5yTgXO61V1QUHJAxTQ6Ea6T8uSOwlNc/7ghcQUS4p23PM5c
+	bX7GJ
+X-Gm-Gg: AYBFou0TTM8ZUhrKX2tOcoQyxzvGCceOcykId77mZMP3uTS/fap5vdVs/JF6Bhl8Pef
+	Pkr43DGf4ePox7kt2W7l5Y6szLDv6vMOH/WR+lT7iOFhL9OT1hy+gBoxNvBI/YAt4I/WdKwbYvK
+	IG3f9v2sg6oV0cV9vF82OsZsyGiVAsn1TfwLbNJWlzGQPkakeuW05org3LSv1+2o9wixolymxCe
+	0uH1uDMb6EE7nP8qgtSCi1iVajw3MQb8uYsqwkkM0ljqZpRH09shF9DfCY8UcWTfOioMxskpHmv
+	Ukv7ZwJgkqoZeg6jlQxu5pa4dD2PahLuSoA/4yG9zuRbpJyq0MKf4v1b2N5Dda8KjrcykvlFhSc
+	AsWmzKkwDsZ8sQSU8+HyAMgt3JC4bUmhQuBgxjczKxh0F63MduHlAkMLDPPXhlJ1Sav0k+fj6qs
+	8QJlwYA3Yd/rWQ0Zl9W2IhTFdqgcPGY1WzOFn7E8y14tKV03AC9Uxa6y6OXWlt/0l7JoVlKqDch
+	Y+R++kT0LrjuMsVfB74MLopowfIgR0WBuJ0SC8pXtjD+k0VVZCgOgAjuuu/ZXsxoHmmwgrpjlbW
+	Wx1oG7r3p7sSJ9+ccw3RNQ==
+X-Received: by 2002:a05:7022:e889:b0:151:6e80:baa9 with SMTP id a92af1059eb24-1b503098119mr11535104c88.12.1794851946921;
+        Mon, 16 Nov 2026 09:59:06 -0800 (PST)
 Received: from 8439c401ee69 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm39228776c88.5.2026.11.16.09.59.04
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50319e381sm33685197c88.12.2026.11.16.09.59.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:59:04 -0800 (PST)
+        Mon, 16 Nov 2026 09:59:06 -0800 (PST)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,34 +89,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: 
- =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-7=2E3=2Ey=3A_=28build=29/tmp/kci/?=
- =?utf-8?q?linux/include/linux/mmap=5Flock=2Eh=3A604=3A25=3A_error=3A_?=
- =?utf-8?q?=E2=80=98struct_mm=5F=2E=2E=2E?=
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-7.3.y:
+ (build)./include/linux/mmap_lock.h:604:25:
+ error: 'struct mm_struct' has n...
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Mon, 16 Nov 2026 17:59:04 -0000
-Message-ID: <179485194441.205922.12481724883718062348@kernelci.org>
+Date: Mon, 16 Nov 2026 17:59:06 -0000
+Message-ID: <179485194561.205922.5436103613689093377@kernelci.org>
 
 Cc from: regression/stable-rc.yaml
 
 New build issue found on stable-rc/linux-7.3.y:
 
 ---
-/tmp/kci/linux/include/linux/mmap_lock.h:604:25: error: ‘struct mm_struct’ has no member named ‘mm_lock_seq’ in arch/riscv/kernel/asm-offsets.s (arch/riscv/kernel/asm-offsets.c) [logspec:kbuild,kbuild.compiler.error]
+./include/linux/mmap_lock.h:604:25: error: 'struct mm_struct' has no member named 'mm_lock_seq' in arch/arc/kernel/asm-offsets.s (arch/arc/kernel/asm-offsets.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-                 from /tmp/kci/linux/arch/riscv/kernel/asm-offsets.c:9:
-/tmp/kci/linux/include/linux/mmap_lock.h: In function ‘vma_end_write_all’:
-/tmp/kci/linux/include/linux/mmap_lock.h:604:25: error: ‘struct mm_struct’ has no member named ‘mm_lock_seq’
+                 from arch/arc/kernel/asm-offsets.c:7:
+./include/linux/mmap_lock.h: In function 'vma_end_write_all':
+./include/linux/mmap_lock.h:604:25: error: 'struct mm_struct' has no member named 'mm_lock_seq'
   604 |         if (unlikely(!mm->mm_lock_seq.sequence))
       |                         ^~
-/tmp/kci/linux/include/linux/compiler.h:77:45: note: in definition of macro ‘unlikely’
+./include/linux/compiler.h:77:45: note: in definition of macro 'unlikely'
    77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
       |                                             ^
 
@@ -130,18 +129,18 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:692d4377bfb692ff787168227126528168bbc6cc
+- dashboard: https://d.kernelci.org/i/maestro:487f404d8fbce0260a2f48b266a1074a5ef28a31
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
 - commit HEAD:  2a640ccd9d0b0927413e9778fa8970767b7d97d5
 
 # Builds where the incident occurred:
 
-## nommu_k210_defconfig on (riscv):
+## haps_hs_smp_defconfig on (arc):
 - compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6afb3cb999c74e1a99619260
+- config: https://files.kernelci.org/kbuild-gcc-14-arc-haps_hs_smp_defconfig-6afb3c3e99c74e1a9961914a/.config
+- dashboard: https://d.kernelci.org/build/maestro:6afb3c3e99c74e1a9961914a
 
-#kernelci issue maestro:692d4377bfb692ff787168227126528168bbc6cc
+#kernelci issue maestro:487f404d8fbce0260a2f48b266a1074a5ef28a31
 
 --
 This is an experimental report format. Please send feedback in!
