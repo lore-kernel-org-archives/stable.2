@@ -1,102 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794850321;
-	b=xPfYFbB1Lg28qadYNt44J+SP8qI4jOMaxGLRGG+L0SIkMS8lD+4pF93Exo4WQQdaSoll
-	 t9BE+EDbW2pkS3ZBPsK22l4wvEw38TT2P6sByoBZ44YkHfdlKi24v57YF6UDfidIYkKyK
-	 8KhdH+GFOuI+jPhGJCljZvdniljFSnVXTWHvCDnb//nVCiIaTrNWZO+ZWceGY7zBmF5fc
-	 Y+L+5VWKhoVnVrECwdCZEzPiDkrpTCQUEzKsUdwUCgn/GgP61DaxUi+5z2IF4psMyXN46
-	 TSlggWiJtCoCCK7Ii0QL/JCBxvduX1/XVxJ2ZYIucBHMS5hSGBtzZ6nBmP8YpiHJj8A==
+	t=1794850828;
+	b=r+ZW2zGS1mG9xEObzTgTxC0jLD8oaJBc28eZBdP/+WpOLK34Vxz9NrN4TTLLtR9IFPQG
+	 brx6nHehXynHd8oZ88VXn74d7kzlwLGyJhgwR7Vdi18JbPFqbTqwfERQSW6HHMagfafbv
+	 OfcvSctW9ocu/yxeJsMM1ttT61ehN2YWe84TG36eDOwVpSdH9lV+8S7CkKKJ/irbzQFEe
+	 w7PkGXiw3vhw+ltWuPCJWuZov6MQNtVy78YSidlhS89v80GwilwVsSRM+sjT6USIaBnj5
+	 nfDATMZE7TCcghxnC/GpCsOFd3CS/c8fo1rnmfyCpvo/Vs37Uvu/ojjL6fwct+UMzwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794850321;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=a+KpZeppcL0h3A/NiYESCTD3zYkLvfoDHcGbKEQvCZg=;
-	b=UNiZY09NHtXmsLP5D3Sba8n/Q+n+ejDHuXe8TbYFaKc/0F/lkYAba6fQimToFVSuoWJt
-	 ESinxr4sekAYweHXQnknAOOn8at8TryKYh+kIfHRQdiD1fk52D+Vic48tmFmoz23uaUH0
-	 kdz492OKi5VOrZ3mr9yzTb+M0KS3YovXh3CvYVfkf+9g/p7TwK2HAQMSVxtwilpu337Tz
-	 HbyMc4nBOwjO13upbNaImDI1J0y+/h0a9lBy74T0niSreJipz96nIRRBAtK7xEhf6P9oC
-	 rWsiFa8rPMDlSgbCixLxjZkV96Vy3H+1ctLBX5BwdWbN7nApZ42MSASFw5ra5Ksszkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794850828;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=YjLseNf2hnBu+sCpNnb8CVwZ4cVJDuEl0f+BAYdwnZg=;
+	b=XO4cIY3h7kDusJHOauk8GCYrzSpD76W3qoRiYtXKyFB+sdoQmmLFHiEBFmcnnFFXaYT2
+	 0RMPzX1I+eTJJCtNdoRTTfzcuOM+jqD3Kx0MnJUfjy95iG5IjB+ED9J/MHIBneDM7Z29/
+	 rilbEQg03jNgdolj6ONb+5igD/MhATn2wTVZA+ELLAQW2l9CmGLHyp9S1AY/mq97OW+VC
+	 i9404qclvdjtRtKEYCdW8lOBZbTeLQ/ocDWnIzOVTuK6Ir9vpqZHa7yMXIuxt2w1At4Tu
+	 SrYhLMsWkMi8QTDf9ObMs52egXltsSWIvDL5eXXzYp2LmAEPG2DLkcc0TefIzu99b8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=PHilDGng;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=NKmhI62o;
+	arc=none smtp.remote-ip=209.85.219.51
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com [209.85.219.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D650606A323;
-	Mon, 16 Nov 2026 17:32:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D650606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB926606A322
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:40:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB926606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=PHilDGng
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGGQBKB3773693;
-	Mon, 16 Nov 2026 17:30:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=a+KpZe
-	ppcL0h3A/NiYESCTD3zYkLvfoDHcGbKEQvCZg=; b=PHilDGnghmv8mW1BkhBjxL
-	Y40eFFoXnu7kdAUQFEr7V1r0E997s0UPLQuBHMqSHvfHgbLF1nGwURZyUmXVAS79
-	Pb1wkrAQ2uTq2gcOuK0ez/DJv4QCTg1JShOu8qpL6D34f7NqeVS36+R7txGvsXMq
-	kcrm/yHoq6VYngUTNUiAdP6ML7JIKK+XiYq3dg0iBd9bP8ZwihopBZsmilJiAyRS
-	Qn/PF5DpRDF+Sr6M3BveBUa+yWc9sAYWJ0oSl5MOb4HwYXtYAs5p5/EZvrPzwgRD
-	gDmM2k7OwnbWLs+TOsPtPLsrT6dLHucQOeFxLDjIFxwrljCaRXu1RMDiWC5azdBQ
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hxf9ve6dk-575
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 16 Nov 2026 17:30:21 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AFBo6xq781221;
-	Sun, 15 Nov 2026 12:17:46 GMT
-Received: from smtprelay05.wdc07v.mail.ibm.com ([172.16.1.72])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hy2yjgc7n-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Sun, 15 Nov 2026 12:17:46 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (smtpav05.wdc07v.mail.ibm.com [10.39.53.232])
-	by smtprelay05.wdc07v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AFCHkFj22151770
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Sun, 15 Nov 2026 12:17:46 GMT
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 64B9058053;
-	Sun, 15 Nov 2026 12:17:46 +0000 (GMT)
-Received: from smtpav05.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 115EB58043;
-	Sun, 15 Nov 2026 12:17:45 +0000 (GMT)
-Received: from li-43857255-d5e6-4659-90f1-fc5cee4750ad.ibm.com (unknown [9.61.95.218])
-	by smtpav05.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Sun, 15 Nov 2026 12:17:44 +0000 (GMT)
-Message-ID: <93cd2ed8c7b004898084742f28622d977f026b70.camel@linux.ibm.com>
-Subject: Re: [PATCH v2 3/3] ima: clear kexec state when replacing file image
-From: Mimi Zohar <zohar@linux.ibm.com>
-To: =?ISO-8859-1?Q?J=E9r=E9my?= Jean <Jeremy.Jean@oss.cyber.gouv.fr>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        Baoquan He
- <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
-        Pasha Tatashin
- <pasha.tatashin@soleen.com>,
-        Pratyush Yadav <pratyush@kernel.org>,
-        Roberto
- Sassu	 <roberto.sassu@huawei.com>,
-        Dmitry Kasatkin
- <dmitry.kasatkin@gmail.com>
-Cc: Eric Snowberg <eric.snowberg@oracle.com>, linux-integrity@vger.kernel.org,
-        linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-        kexec@lists.infradead.org, stable@vger.kernel.org
-In-Reply-To: <20261112125246.2715174-5-Jeremy.Jean@oss.cyber.gouv.fr>
-References: <20261112125246.2715174-2-Jeremy.Jean@oss.cyber.gouv.fr>
-	 <20261112125246.2715174-5-Jeremy.Jean@oss.cyber.gouv.fr>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 15 Nov 2026 07:17:44 -0500
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=NKmhI62o
+Received: by mail-qv1-f51.google.com with SMTP id 6a1803df08f44-91e8a05ec5aso57924616d6.1
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 09:40:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794850826; x=1795455626; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YjLseNf2hnBu+sCpNnb8CVwZ4cVJDuEl0f+BAYdwnZg=;
+        b=NKmhI62oWAb/qvj/gB+l64VYwiQsWDILUIMQgSSTq/z2zZxK8trDs32EdNKvapU4kJ
+         /k89W4cMt9/hEvQKAUWIRpsSwZgtairjn3wqNg2mTdgzJ5tEQjU0JkBDqhWuV5WVEtVN
+         z0CUx16shpdXMDDnwWNsaOT79rIAUCCUbbeEgxYFdNkH+mOGvhBx6ERrC55RfLaOX4Fl
+         BCTW7VXySTVKX2cRNDRgUS3KOXhsY2SOeVeJlPiC/jf3WudKnsQVU4JelHS6Lb3+fwfS
+         M7x7YMuI8PktatMoWWn9kCbWyvkh9sNv2fRXZu2bhfTN9/gJxapJShdYOdTZC8yhMhDj
+         ZXQA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794850826; x=1795455626;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YjLseNf2hnBu+sCpNnb8CVwZ4cVJDuEl0f+BAYdwnZg=;
+        b=H6jaeYg4zPszr+8kgcg/vgwXAW1tN83LMjuISrlRVC6AXmbS9upJ3QOnaVsk2AelCG
+         tD8A21CCVTD+V2MK4uuCJw1VUFTT/7QifxfpkPdxMocluSDavuhhovpZDBdztw3wcktO
+         ZA1xZHGYiXig3Ay/uV2l7B655JUnNoPzjWdrfHWyHoqUR6kvdm+nk5zG7PW9SPJb1aY4
+         hVZrWyUD4lVdFthLuitwIvkTzxt/hYbMYafvF64KBSNo7J3Hn+O8mE31aneOXIlZ5Qsi
+         rtJyGdBFvtbx89Va8D9XIS74j4GXptJVy122NbjFIOHtBnkUonHjtjS8dc1JDN2yW32I
+         upOQ==
+X-Forwarded-Encrypted: i=1; AL+hErFbKSCLkt/Xm/jwI9we1F6O/N3YYGRIlEHfjKMeXR/ZfM5VZLeKAfBd85ZNjBR/8NqjOFvNtzQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z85Z+jKCMJzftC4DGFiLwXfF8sYMVACtnQ8dFff6cTVCHVnRxsk
+	kZHmOilI/BmgKTG6sl/P6a6QA6y/vRz4NvjZbmieG2QEgizWoKtM4u5IamwnNU6h0FIHQIQFg1W
+	2w7rz
+X-Gm-Gg: AZFdTZd3YHovrSzCj7ak7wQG9J/nyKDWJpEtlxSkS65y146zBQorr39ho9RcHxFZy28
+	j1RQVnhSZqf48SelZtoAKV0LOWGYLH3E46WBZcYWq3zu/MgYioNhub58gG2Bl87daEg02yXh3k4
+	lXqZyfKVuCsPsSYDoh5B+dL2NpAdgXMMRNcwszysO6mzsqqZEXVUlhRBBSzq1StFc/NrH8k1m0S
+	4fP0WnRUKchsUvhwah24TKHDGiEL7yzUkJiMe4r28YHnOHpA6H7Jel30Y/ODLq3+xoRZ8TACYcO
+	MVId/E99upWon12ggOrntYMjQwamxrXFoU2et7eqkXOeMl/T495/P4tNpuRVc6Odj5E1zxLgdJi
+	4XsduF3LWgzRPgMuh+gzen2WofBdg6qxOPSUecEjS024ede4pNOgUt4BqfQ0idGbGgv0mEHxCbr
+	L0b0HwhFitQpZjw4dMl/t233jLuYC5p6VK0ZcWWSdfJwmZXqAlymaN9tPjf/YSXahr8hS2TuG+2
+	UAWYOkLXOGsz/i5EyWPoITfopYWtvG3K7bN4ssgXQXnIM7LTOsYnJErCbDGhzlTF7Sur2hWIvKU
+	ZOWey3zfnFXHo1UJdSD8Dadv2daYESQvvHMl9BPO3npcAdIgReEpIrS7ktlxhdeaSBFOOKN3x42
+	nJUuiuc4=
+X-Received: by 2002:a05:6214:2246:b0:914:53ca:99e0 with SMTP id 6a1803df08f44-91f241102aemr180003636d6.11.1794850826464;
+        Mon, 16 Nov 2026 09:40:26 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d7b607sm91534216d6.26.2026.11.16.09.40.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 09:40:26 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,81 +90,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: AA8kf3Ywixs2hpOKyns0HrNznCdx5sw5
-X-Authority-Analysis: v=2.4 cv=dtxOmFg4 c=1 sm=1 tr=0 ts=6afb3dad cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=VwQbUJbxAAAA:8
- a=j6353hJr_xf9VQ38shYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA2OSBTYWx0ZWRfX4iCfsz5fwoDm
- D0udGNqsSjOH11XRhnoyxUj7ogAXgm8g3cJ73mtre5O4hm6tofDRX6tLkD+0SFDU7pM+F3lF8/w
- 7oyhLssgYFc8wc5NYrLn/p8nKPzzd0rMQU5k3UtSLhoCVP3zqj5D1uwFLHKdqLlrKoLtb0LW1ss
- YvWPeAwN+cw7YhTKGqoRMEdLPfdmD7ttGX6Z1eczOUwDNLDYeT0YpKnVvRdU/TQaZhb9lD8NDJ1
- IYR8hl7/beDgugsMbjOAI15O1CubGQ7esmsPrX0NFvi6i9ChU4vHxj1Hbvgkec0L5W0O54qxakW
- 5cDBZ/heGQjv6uzAPAwC5k6v5Bf4D8xnqjK173OiZRiO5IKpya0F05Vs9MpO0uCy+JuCZKwk0Gt
- VmQ0ARvHAJ0deer3bq9TvfYTBp2LnBVmF4lMo9SVFshWeTRKKitpVnXOFLtzm6jdXfyviSpHTjp
- JjV0hcQ/EgNvZtfzj/g==
-X-Proofpoint-ORIG-GUID: VR-E2jzzkvwbyAeeeDKyPu_dOrjzRJZT
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA2OSBTYWx0ZWRfXwC/7sRvkiI5U
- T0baiM+IFsEvJOtCG8Kltha4V6prZvi6jnLpz7N24myVbAZZpoEG45Mykz5dV9LaRVPv7AXuGlA
- 7Ms5arn4v4I7qaixvI6ZJevbUQx4IXM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-16_05,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- spamscore=0 malwarescore=0 phishscore=0 clxscore=1015 adultscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611160069
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/3] mm/memory: remove racy huge PMD assertion from
+ walk_to_pmd()
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, 
+ Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
+ Roman Kisel <romank@linux.microsoft.com>, 
+ Saurabh Sengar <ssengar@linux.microsoft.com>, 
+ Naman Jain <namjain@linux.microsoft.com>, 
+ Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
+References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
+ <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
+Date: Mon, 16 Nov 2026 12:40:25 -0500
+Message-Id: <179485082513.482102.6134237207669235151.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-On Thu, 2026-11-12 at 12:52 +0000, J=C3=A9r=C3=A9my Jean wrote:
-> ima_kexec_buffer remains mapped to the IMA segment of the installed
-> kexec_file_load image. KEXEC_FILE_UNLOAD and a successful normal
-> kexec_load can replace and free that image without clearing the mapping.
-> Executing a later kexec_load image can then write the measurement list
-> into the freed pages. The new image has an IMA segment size of zero, but
-> size does not establish ownership of the mapping.
->=20
-> Record the image whose segment is mapped and verify it before the
-> execute-time update. Clear the mapping and scratch state under kexec_lock
-> when a normal image is removed without another file image taking its
-> place.
->=20
-> Fixes: 9f0ec4b16f2b ("ima: kexec: move IMA log copy from kexec load to ex=
-ecute")
+On 2026-11-15 20:58 +0000, Lorenzo Stoakes (ARM) wrote:
+> From: Eliav Farber <farbere@amazon.com>
+> 
+> walk_to_pmd() asserts that the PMD entry it returns is not huge, but does
+> so without holding the PMD lock, so the assertion is only valid if nothing
+> can concurrently install a huge PMD entry in the range.
+> 
+> This is not the case for a VMA whose driver implements both ->fault and
+> ->huge_fault and which invokes vmf_insert_pfn() from the former.
+> 
+> The existence of prctl(PR_SET_THP_DISABLE) is problematic here, as it only
+> takes the mmap write lock and faults taken under the VMA lock are
+> unaffected by this.
+> 
+> This can result in two concurrent threads faulting the same thing
+> disagreeing as to whether to attempt a huge fault and thus ->fault and
+> ->huge_fault running at the same time and triggering this assertion.
+> 
+> So just remove the assert.
+> 
+> Target the commit which introduced the first driver able to do this for the
+> fix - vfio-pci. DAX also mixes fault orders within a VMA, but serialises
+> them using its own mapping entry lock.
+> 
+> Link: https://lore.kernel.org/all/20261112051440.16140-2-farbere@amazon.com/
+> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: J=C3=A9r=C3=A9my Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-> ---
->  include/linux/ima.h                |  1 +
->  kernel/kexec.c                     | 11 +++++++++++
->  kernel/kexec_file.c                |  7 ++++++-
->  security/integrity/ima/ima_kexec.c | 24 ++++++++++++++++++++++++
->  4 files changed, 42 insertions(+), 1 deletion(-)
->=20
-> diff --git a/include/linux/ima.h b/include/linux/ima.h
-> index 8e08baf16c2f..d61b7b7756b7 100644
-> --- a/include/linux/ima.h
-> +++ b/include/linux/ima.h
-> @@ -34,6 +34,7 @@ static inline void ima_appraise_parse_cmdline(void) {}
->  #ifdef CONFIG_IMA_KEXEC
->  extern void ima_add_kexec_buffer(struct kimage *image);
->  extern void ima_kexec_post_load(struct kimage *image);
-> +void ima_kexec_cleanup(void);
->  #else
->  static inline void ima_kexec_post_load(struct kimage *image) {}
->  #endif
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> [ ljs: rewrote commit message ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Could ima_kexec_cleanup() get a stub, next to the ima_add_kexec_buffer() st=
-ub in
-the !CONFIG_IMA_KEXEC block at the bottom of ima.h? That would also cover
-CONFIG_IMA=3Dn, and the callers in kexec.c and kexec_file.c wouldn't need t=
-he
-#ifdefs.
+Reproduced by racing faults different mappings against THP-policy
+changes. Change looks reasonable.
 
-thanks,
+Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
 
-Mimi
+-- 
+~Gregory
+
