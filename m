@@ -1,68 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.206
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813002;
-	b=EsSMwAMucpT2sOvnzd6WfuXqMil95z/PAzJTTufH/VcbQ8Ucy5Uk2K2x2YlEURlEias0
-	 CikifsC20rpvb9rOxxZCA6AeudPCslYH3UK8q4JW5uNhIFqOV5Js6alGOdzrEnKjLGQbP
-	 duc5oQIf/JX0YJ8DQRWBEyRhuJk6rTMMbmwLlTTi7ZMANT2gwFQDc/9r1TqntmwDKgzdC
-	 /ZKW3F5i/RkLtbZHanK/ToPnM0lxORZuuLZfE1NFuHgJxBif8kZHwIGzexgR1DAKSI/x7
-	 IoM1rPDHjxX0ELL8JktMCzjBfklXvGXAVy4WRGzjcic590E1FXoaTTxCPDFUCUnj0Aw==
+	t=1794813223;
+	b=YyHT6jwY+APnVuNbJEXwebUWK45/5jGePFJo37EGWFLY5tf/Av7qjxJXgnDaVluwyPLE
+	 M4cVRO+jrRnORpXW7DxM4fciFbvSKTy+E9cRSPnZW+0Tknh2kQ/ql+TerYALSy8/Jq+4m
+	 fCIXulaKUxjFncafk9tLfZNGI4JJQQVxLx93d54iC63e9/YZAi/uUBRAavLTBUKKUujJj
+	 5p2LJNxDMouG57CQmDj75LQRFNJ5ENZtR5WUp8Jg9o1VIxdcXD43mIjRJ4Hrmu6DujzQa
+	 he+KNjM6S8vUcIeagVO9h0GcW6LhwyiiTcTy/mhjJ/Ph/ao3A5tX0yDQ/i1GnvvI1Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813002;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=HgNH1ksBGX98CE2bH1jPY9l/0FuthN2fRlNKJOzVZwA=;
-	b=aj+F3jrrWShkLzvgQGHSCW/uJsEDYq8hfs+uLx03fXfs1Y4JTQLvmmqSw5yc14Gn3XE6
-	 Ap+2rVx96I6Jvo94wHidz6T/h7209x6pkE7ZUqEwkk+zMHfn9Gygk/oLGeqbMplz4eNLE
-	 Tt1JlbF+gpunJwEU3GXpEzNbgrPjrTCGkGPD39PMfggFGSQALSG3+4l9S29QR4G0AR6Uk
-	 mXSEfr3zlJ0D8mKFOZyXhVOmUFhfFUPHIcmPwiL5k9xkC/VtsIJizjl+SHPLyU5XjaNkS
-	 Zuk7Z8oUiTL4KR1RZTz+HbggZv/J+xDf8Lq77MDsY5nMjJkLHjr5EeTGidTHpIVQzKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813223;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=AOtJc8ArX8+ToyaiTRWaxycd35R3Jnx2kTE6b07ZdMU=;
+	b=JixcxNql1O7YG2st22srOlpqSJzLsL5mbABw+117h0I5CWogbnZr5yxEslCewhKkWZZf
+	 Hpz/qQWPulusUSyQnKjinz6d7L/wmZTqLKIBJ7lLqeET/PuUvAXYCn4fWhgZ7XO0ewCbk
+	 BXoI6xE0QIdCgv50jM31WZS02uxQ0VjfWWiyF3HjQq06m4UBMkrlwtO4Juydxeit4/Ga1
+	 dwOYN8UF2TmTFTF+su4wrOUl5BxUJFyswfDlSRYWKZ/mBQsDvb6Pe7DyM1kgCW3Wthcu1
+	 8gB6yZyJThamp9RRHQ+qTvsJJI7SA5w0HjI2gFXV9KFk3B1LZ5kMCZraKtB5ISqBgNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N6jU7FA7;
-	arc=none smtp.remote-ip=192.198.163.16
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nW0D0jtq;
+	arc=none smtp.remote-ip=95.215.58.206
+Received: from mta1.migadu.com (out-206.mta1.migadu.com [95.215.58.206])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACDA606A323
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 07:10:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CACDA606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 149F6606A323
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 07:13:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 149F6606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N6jU7FA7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794813002; x=1826349002;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=f2FoQxrzWoSx2bDTdb3gWUp/L3kL9UPOZIPpU94A6x0=;
-  b=N6jU7FA7kE1AHN/TKxWOw2+o3+HHpENIZCj/qVwlejEyRQGgBSOXi/B3
-   fco7YJi1N06ljpjXJSFmvD5dZ+u5w5FTCXlL6kRGOPF+QA4h+zPGY9F2i
-   OSP5eNU6cgSUpzU07Gv3t5iIZaPcIaUFjUsIkCONANr0v32TxEFa6krpS
-   5JpR5r8MGo61H7zMVTM77bJJOlcaJq2XyEgEyqKpxGuX3u2+jo6Fbe4JH
-   uQGaN3z8D2JQ36/AuuBzyubgKkVcyJjXMFkHpp9wYKbnkpA0VNPvQ9OKx
-   emu/KBtUQGueR6cwdOuj+oedyQa9Jle8+xiY/IkICWv95tPLdm6VN7T2Y
-   Q==;
-X-CSE-ConnectionGUID: O3sus+laQJuz1juxj+ztjw==
-X-CSE-MsgGUID: EMY8dMP2SOCtIw8sP1kDFQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3577667"
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="3577667"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 23:10:02 -0800
-X-CSE-ConnectionGUID: YcVgVu1AT3mxZpR4pyPdsQ==
-X-CSE-MsgGUID: 4xjtn0sJTMS2Mup/uf9NXA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
-   d="scan'208";a="9280860"
-Received: from unknown (HELO [10.217.180.38]) ([10.217.180.38])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 23:09:59 -0800
-Message-ID: <3f41d55a-1e7a-452f-ac9c-04703a600ffc@linux.intel.com>
-Date: Mon, 16 Nov 2026 08:09:57 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nW0D0jtq
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=7/JYJzeyd+b/iRPmzXRLtiBy/A7aQtupMKn/EdxvRIU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794813221; v=1; x=1795418021;
+ b=nW0D0jtqi6IQbHFRngaT2zyRdXassmaeVQlNRx4TiqLyjQ8Y2vz17pMg4BjgFljgUXl4meIE
+ N5IXqCpfY69OSpwUq+ZvebtoPlDTTPyDSEoXvCIR8d3Uz7XyaZ4OXg+ebyqLSrfCn9l8zY8jpHN
+ lcltd8kejcBirorUAS+J6bLA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2e79e42b6b187866;
+	Mon, 16 Nov 2026 07:13:40 +0000
+X-Mizu-Trace-ID: 2e79e42b6b187866
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Suren Baghdasaryan <surenb@google.com>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+	Shrikanth Hegde <sshegde@linux.ibm.com>,
+	Alexander Potapenko <glider@google.com>,
+	Marco Elver <elver@google.com>,
+	Dmitry Vyukov <dvyukov@google.com>,
+	Dennis Zhou <dennis@kernel.org>,
+	Tejun Heo <tj@kernel.org>,
+	Christoph Lameter <cl@gentwo.org>
+Cc: linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	kasan-dev@googlegroups.com,
+	linux-mm@kvack.org,
+	Hao Ge <hao.ge@linux.dev>,
+	stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH v5 01/11] mm/vmalloc: skip cond_resched() in the vmap unmap paths when atomic
+Date: Mon, 16 Nov 2026 15:13:15 +0800
+Message-Id: <20261116071325.263682-2-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261116071325.263682-1-hao.ge@linux.dev>
+References: <20261116071325.263682-1-hao.ge@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,152 +86,193 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] accel/ivpu: Defer recovery until probe completes
-To: Toast <swizzguy76@gmail.com>
-Cc: dri-devel@lists.freedesktop.org,
- Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
- dawid.osuchowski@linux.intel.com, stable@vger.kernel.org
-References: <20261110121534.3566028-1-karol.wachowski@linux.intel.com>
- <CAHBKUQaxYcVQvUc336wCOZzpS+GDw7yEbmAWvpT8CEUSg+cK2w@mail.gmail.com>
-Content-Language: en-US
-From: Karol Wachowski <karol.wachowski@linux.intel.com>
-In-Reply-To: <CAHBKUQaxYcVQvUc336wCOZzpS+GDw7yEbmAWvpT8CEUSg+cK2w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 15-Nov-26 16:24, Toast wrote:
-> Tested v3 on Meteor Lake (Core Ultra 5 125H, vpu_37xx firmware 20260219)
-> on top of v7.4-rc1 (d48723711bae):
-> 
-> - 4 kexec runs with the NPU runtime-suspended (one from a 7.0 kernel,
->    three from 7.4): every run hit ATS_ERR during probe, recovery_work was
->    not queued, probe failed with -ETIMEDOUT, and there was no oops
-> - FLR plus rebind brings the NPU back, and it autosuspends afterwards
-> - debugfs force_recovery after a successful probe recovers the NPU, and
->    it returns to runtime-suspended
-> 
-> None of the runs had probe succeed after the error IRQ, so the deferred
-> recovery in ivpu_pm_enable() isn't covered by this.
-> 
-> One question: v2 had"Cc: stable@vger.kernel.org # v6.10+" and v3 dropped
-> the annotation. disable_work()/enable_work() only exist since v6.10 and
-> the Fixes: commit is in v6.3, so should the "# v6.10+" come back?
+The vmap failure paths can be reached with GFP_ATOMIC or GFP_NOWAIT
+since commit b186a94227b7 ("kmsan: remove hard-coded GFP_KERNEL
+flags") and commit 8da89ba18ed4 ("mm/vmalloc: handle non-blocking
+GFP in __vmalloc_area_node()"), so an undo of a partially installed
+mapping may have to run in atomic context, where the cond_resched()
+in vunmap_pmd_range() cannot schedule.
 
-Thanks for testing, and good catch. I added "# v6.10+" to the stable tag 
-when applying.
+Give __vunmap_range_noflush() and kmsan_vunmap_range_noflush() a
+can_resched argument and skip the cond_resched() when it is false.
+The existing callers are on sleepable paths and pass true, so nothing
+changes for them.
 
-Applied to drm-misc-fixes.
+Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_pages_range_noflush()")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-178439@kernel.org/
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+---
+ include/linux/kmsan.h |  8 ++++++--
+ mm/kmsan/hooks.c      | 14 +++++++++-----
+ mm/vmalloc.c          | 24 ++++++++++++++----------
+ mm/vmalloc.h          |  3 ++-
+ 4 files changed, 31 insertions(+), 18 deletions(-)
 
-> 
-> Tested-by: Daksh Sahni<swizzguy76@gmail.com>
-> 
-> On Tue, Nov 10, 2026 at 5:45 PM Karol Wachowski
-> <karol.wachowski@linux.intel.com> wrote:
->> An error IRQ that fires after ivpu_boot() enables interrupts queues
->> recovery_work during probe. If probe then fails, the device is torn
->> down while the work runs, and the work faults on the unmapped BARs:
->>
->>    BUG: unable to handle page fault for address: ffffcfc6680200f4
->>    Workqueue: events_unbound ivpu_pm_recovery_work [intel_vpu]
->>    RIP: 0010:ivpu_hw_ip_ipc_rx_addr_get+0xc/0xb0 [intel_vpu]
->>    Call Trace:
->>     ivpu_wait_for_ready+0x155/0x220 [intel_vpu]
->>     ivpu_boot+0x9e/0x270 [intel_vpu]
->>     ivpu_resume+0xa4/0xd0 [intel_vpu]
->>     ivpu_pm_reset_complete+0x2c/0x90 [intel_vpu]
->>     ivpu_pm_recovery_work+0xf6/0x140 [intel_vpu]
->>
->> If probe succeeds, the recovery runs concurrently with the rest of
->> probe, and its pm_runtime_disable() discards the initial autosuspend
->> request, leaving the NPU active until first use. Any recovery that
->> starts while the NPU is idle loses the pending autosuspend the same way.
->>
->> Keep recovery_work disabled from ivpu_pm_init() until ivpu_pm_enable().
->> A trigger during probe still runs diagnostics and masks interrupts, and
->> ivpu_pm_enable() runs the deferred recovery before the initial
->> autosuspend request. A trigger racing with ivpu_pm_enable() can cause
->> a second, harmless recovery. Request autosuspend at the end of
->> ivpu_pm_reset_complete() so the NPU suspends again after every reset.
->>
->> Fixes: 852be13f3bd3 ("accel/ivpu: Add PM support")
->> Cc:stable@vger.kernel.org
->> Reported-by: Daksh Sahni<swizzguy76@gmail.com>
->> Closes:https://lore.kernel.org/r/20261107174215.15818-1-swizzguy76@gmail.com
->> Signed-off-by: Karol Wachowski<karol.wachowski@linux.intel.com>
->> ---
->>
->> Notes:
->>      v3:
->>      - Request autosuspend at the end of ivpu_pm_reset_complete().
->>        pm_runtime_disable() in ivpu_pm_reset_begin() cancels a pending
->>        autosuspend request and pm_runtime_enable() does not re-issue it, so
->>        a recovery racing with the initial autosuspend request in
->>        ivpu_pm_enable() left the NPU active until first use (Sashiko).
->>        A trigger racing with ivpu_pm_enable() can still queue recovery
->>        twice. The second run is a full reset that leaves the device in a
->>        consistent state, and autosuspend is now re-requested after each
->>        reset.
->>      - Replace pm_runtime_mark_last_busy() with pm_request_autosuspend() in
->>        ivpu_pm_reset_complete(); it marks the device busy itself.
->>      - Shorten the commit message.
->>      - v2:https://lore.kernel.org/r/20261110085003.3527014-1- 
->> karol.wachowski@linux.intel.com
->>
->>      v2:
->>      - Rework of Daksh's "accel/ivpu: Disable recovery work on probe failure":
->>        https://lore.kernel.org/r/20261107174215.15818-1-swizzguy76@gmail.com
->>      - Keep recovery_work disabled from ivpu_pm_init() until ivpu_pm_enable()
->>        instead of disabling it on the probe error path, which is too late as
->>        recovery may already run concurrently with ivpu_boot() (Sashiko)
->>      - Run a recovery requested during probe from ivpu_pm_enable() and wait
->>        for it before the initial autosuspend request, so the NPU is reset
->>        before use and the autosuspend is not lost when probe succeeds
->>
->>      v1:
->>      - Link:https://lore.kernel.org/r/20261107174215.15818-1-swizzguy76@gmail.com
->>
->>   drivers/accel/ivpu/ivpu_pm.c | 9 ++++++++-
->>   1 file changed, 8 insertions(+), 1 deletion(-)
->>
->> diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
->> index aa813262253e..e4b79c946ca0 100644
->> --- a/drivers/accel/ivpu/ivpu_pm.c
->> +++ b/drivers/accel/ivpu/ivpu_pm.c
->> @@ -150,8 +150,8 @@ static void ivpu_pm_reset_complete(struct ivpu_device *vdev)
->>          up_write(&vdev->pm->reset_lock);
->>          atomic_set(&vdev->pm->reset_pending, 0);
->>
->> -       pm_runtime_mark_last_busy(vdev->drm.dev);
->>          pm_runtime_enable(vdev->drm.dev);
->> +       pm_request_autosuspend(vdev->drm.dev);
->>   }
->>
->>   static void ivpu_pm_recovery_work(struct work_struct *work)
->> @@ -415,6 +415,7 @@ void ivpu_pm_init(struct ivpu_device *vdev)
->>          atomic_set(&pm->engine_reset_counter, 0);
->>
->>          INIT_WORK(&pm->recovery_work, ivpu_pm_recovery_work);
->> +       disable_work(&pm->recovery_work);
->>          INIT_DELAYED_WORK(&pm->job_timeout_work, ivpu_job_timeout_work);
->>
->>          if (ivpu_disable_recovery)
->> @@ -439,6 +440,12 @@ void ivpu_pm_enable(struct ivpu_device *vdev)
->>   {
->>          struct device *dev = vdev->drm.dev;
->>
->> +       enable_work(&vdev->pm->recovery_work);
->> +       if (atomic_read(&vdev->pm->reset_pending)) {
->> +               queue_work(system_dfl_wq, &vdev->pm->recovery_work);
->> +               flush_work(&vdev->pm->recovery_work);
->> +       }
->> +
->>          pm_runtime_allow(dev);
->>          pm_runtime_put_autosuspend(dev);
->>   }
->>
->> base-commit: 54d3ff1b5ac08d0e28029b93a1719ddd9ff670a4
->> --
->> 2.43.0
+diff --git a/include/linux/kmsan.h b/include/linux/kmsan.h
+index 7da9fd506b39..0016c032d1e7 100644
+--- a/include/linux/kmsan.h
++++ b/include/linux/kmsan.h
+@@ -150,11 +150,14 @@ int __must_check kmsan_vmap_pages_range_noflush(unsigned long start,
+  * kmsan_vunmap_kernel_range_noflush() - Notify KMSAN about a vunmap.
+  * @start: start of vunmapped range.
+  * @end:   end of vunmapped range.
++ * @can_resched: whether the unmap walk may call cond_resched(); pass
++ * false from atomic context.
+  *
+  * KMSAN unmaps the contiguous metadata ranges created by
+  * kmsan_map_kernel_range_noflush().
+  */
+-void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end);
++void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end,
++				bool can_resched);
+ 
+ /**
+  * kmsan_ioremap_page_range() - Notify KMSAN about a ioremap_page_range() call.
+@@ -355,7 +358,8 @@ static inline int __must_check kmsan_vmap_pages_range_noflush(
+ }
+ 
+ static inline void kmsan_vunmap_range_noflush(unsigned long start,
+-					      unsigned long end)
++					      unsigned long end,
++					      bool can_resched)
+ {
+ }
+ 
+diff --git a/mm/kmsan/hooks.c b/mm/kmsan/hooks.c
+index a706666db097..69008b085658 100644
+--- a/mm/kmsan/hooks.c
++++ b/mm/kmsan/hooks.c
+@@ -136,10 +136,13 @@ static unsigned long vmalloc_origin(unsigned long addr)
+ 						 KMSAN_META_ORIGIN);
+ }
+ 
+-void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end)
++void kmsan_vunmap_range_noflush(unsigned long start, unsigned long end,
++				bool can_resched)
+ {
+-	__vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end));
+-	__vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end));
++	__vunmap_range_noflush(vmalloc_shadow(start), vmalloc_shadow(end),
++			       can_resched);
++	__vunmap_range_noflush(vmalloc_origin(start), vmalloc_origin(end),
++			       can_resched);
+ 	flush_cache_vmap(vmalloc_shadow(start), vmalloc_shadow(end));
+ 	flush_cache_vmap(vmalloc_origin(start), vmalloc_origin(end));
+ }
+@@ -168,8 +171,9 @@ static void kmsan_iounmap_pages(unsigned long start, unsigned long end)
+ 		if (origin)
+ 			__free_pages(origin, KMSAN_IOREMAP_META_ORDER);
+ 	}
+-	__vunmap_range_noflush(shadow_start, shadow_end);
+-	__vunmap_range_noflush(origin_start, origin_end);
++	/* ioremap metadata mappings are always GFP_KERNEL, so resched is safe. */
++	__vunmap_range_noflush(shadow_start, shadow_end, true);
++	__vunmap_range_noflush(origin_start, origin_end, true);
+ 	flush_tlb_kernel_range(shadow_start, shadow_end);
+ 	flush_tlb_kernel_range(origin_start, origin_end);
+ }
+diff --git a/mm/vmalloc.c b/mm/vmalloc.c
+index ccaf158c5b7f..3c0d9e69b886 100644
+--- a/mm/vmalloc.c
++++ b/mm/vmalloc.c
+@@ -429,7 +429,7 @@ static void vunmap_pte_range(pmd_t *pmd, unsigned long addr, unsigned long end,
+ }
+ 
+ static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
+-			     pgtbl_mod_mask *mask)
++			     pgtbl_mod_mask *mask, bool can_resched)
+ {
+ 	pmd_t *pmd;
+ 	unsigned long next;
+@@ -451,12 +451,14 @@ static void vunmap_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
+ 			continue;
+ 		vunmap_pte_range(pmd, addr, next, mask);
+ 
+-		cond_resched();
++		/* The undo path may run in atomic context. */
++		if (can_resched)
++			cond_resched();
+ 	} while (pmd++, addr = next, addr != end);
+ }
+ 
+ static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
+-			     pgtbl_mod_mask *mask)
++			     pgtbl_mod_mask *mask, bool can_resched)
+ {
+ 	pud_t *pud;
+ 	unsigned long next;
+@@ -476,12 +478,12 @@ static void vunmap_pud_range(p4d_t *p4d, unsigned long addr, unsigned long end,
+ 		}
+ 		if (pud_none_or_clear_bad(pud))
+ 			continue;
+-		vunmap_pmd_range(pud, addr, next, mask);
++		vunmap_pmd_range(pud, addr, next, mask, can_resched);
+ 	} while (pud++, addr = next, addr != end);
+ }
+ 
+ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
+-			     pgtbl_mod_mask *mask)
++			     pgtbl_mod_mask *mask, bool can_resched)
+ {
+ 	p4d_t *p4d;
+ 	unsigned long next;
+@@ -496,7 +498,7 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
+ 
+ 		if (p4d_none_or_clear_bad(p4d))
+ 			continue;
+-		vunmap_pud_range(p4d, addr, next, mask);
++		vunmap_pud_range(p4d, addr, next, mask, can_resched);
+ 	} while (p4d++, addr = next, addr != end);
+ }
+ 
+@@ -512,7 +514,8 @@ static void vunmap_p4d_range(pgd_t *pgd, unsigned long addr, unsigned long end,
+  *
+  * This is an internal function only. Do not use outside mm/.
+  */
+-void __vunmap_range_noflush(unsigned long start, unsigned long end)
++void __vunmap_range_noflush(unsigned long start, unsigned long end,
++			    bool can_resched)
+ {
+ 	unsigned long next;
+ 	pgd_t *pgd;
+@@ -527,7 +530,7 @@ void __vunmap_range_noflush(unsigned long start, unsigned long end)
+ 			mask |= PGTBL_PGD_MODIFIED;
+ 		if (pgd_none_or_clear_bad(pgd))
+ 			continue;
+-		vunmap_p4d_range(pgd, addr, next, &mask);
++		vunmap_p4d_range(pgd, addr, next, &mask, can_resched);
+ 	} while (pgd++, addr = next, addr != end);
+ 
+ 	if (mask & ARCH_PAGE_TABLE_SYNC_MASK)
+@@ -536,8 +539,9 @@ void __vunmap_range_noflush(unsigned long start, unsigned long end)
+ 
+ void vunmap_range_noflush(unsigned long start, unsigned long end)
+ {
+-	kmsan_vunmap_range_noflush(start, end);
+-	__vunmap_range_noflush(start, end);
++	/* The unmap paths are sleepable, keep the resched point. */
++	kmsan_vunmap_range_noflush(start, end, true);
++	__vunmap_range_noflush(start, end, true);
+ }
+ 
+ /**
+diff --git a/mm/vmalloc.h b/mm/vmalloc.h
+index d8372a4f65c4..4ec114a75f04 100644
+--- a/mm/vmalloc.h
++++ b/mm/vmalloc.h
+@@ -44,6 +44,7 @@ int __must_check __vmap_pages_range_noflush(unsigned long addr,
+ 
+ void vunmap_range_noflush(unsigned long start, unsigned long end);
+ 
+-void __vunmap_range_noflush(unsigned long start, unsigned long end);
++void __vunmap_range_noflush(unsigned long start, unsigned long end,
++			    bool can_resched);
+ 
+ #endif /* __MM_VMALLOC_H */
+-- 
+2.25.1
 
