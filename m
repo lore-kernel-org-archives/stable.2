@@ -1,86 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.77.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794847740;
-	b=HuM0f4GlMS9+pNWpDq6QujqDGu4FWA8A4D7g45sckcow+nEqdcCHY/y+DUA7dxtm4U4f
-	 lrGvND4IH+yKA7VudOW4wMJ7425rKPlAoyRanls3lQY00Ex4AqruIB3TpwNyzRBllh54/
-	 CtW+gkGFjDmMXcFR08nvoL1q4oKATd+SmGg2Ubec3cgCe1BfMcqEsk+X/Wb8EiKLt3uKR
-	 pejSj+0lGN+ULdnMtF5N4j2i+wfb/pckLu8jXyzQqz9tZ1/JBf9CFaXE1VJSh1VDs0s3I
-	 ZpOHTjL3PSU3DE7NNkoJ7Q/kqiEKjXzQUrhiitm1X27kJ4nMVStE1jiqtxADBDdudfA==
+	t=1794847888;
+	b=4z7ulGCRK56FF1XXyrgpULD0e7pvw/e0DiepXtpKF8vnFbyU9khos4IHG0IBVWKt7VJm
+	 pyB/yyyMCF/AYlWm9YGG3oT1mrxOARupViDSmTOCqjKdgxZ5T++rI+G9n0lk8sM+naDGo
+	 Be8KSdf2E/DeCjPI+o31Qs/o169IZuCApG2mBFx58PNJqfvs+hy2RIQ61TRZTjjkG3Vke
+	 AeAckKREbOz5hNMOcGWEB3HCS61dqghn11V4vlEOor32bELW2G7KfGjNqjFnp8abEPanC
+	 i+xTuaiUxsVTDjYYYTdRDEg0MReXq4RVnKrPKiJmUjWQnQPXo6DSrOsEu3rir2z+CoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794847740;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=6omg0ligBH57n8EnOMUV3ZmfFZF7HYyuZoHQ3IpUkmg=;
-	b=pKEd9xytnwkWlB7xAinGfELYZW9P1+vIxYXX1tpFRMcZFQSS7zX8P+qdM2zVHfB2Fesu
-	 X7COM6Obqsd0qUgcyQoorajLU2LNnTvGQP7HxQiTbcEtlcis/CJ25LgdT05mk7NIvSusC
-	 roO1G+IQYvoQFDbyL4EPBdI1BQR9aNmBf6mFAMLVO/5lgdqgRsAMA8W7cqKiDaJHtDvqa
-	 8RsgoauZ81bp2ZoGvGoDsthwFuznBSmXZSzl3CG5Cac5tFrftI52cAD//8WbiHE67ChHp
-	 PphAeEJOjhK5ftOR3xH85gXU+5fqmGakI4RMYijMKlSL0FbHz7z04uHlAPjLpQZTnpA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794847888;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=icZ0VipIZRXlm+fS9y9PWYLM7wR3UIt776786IJxl90=;
+	b=1Br7uM5/HT7zl0oFDfVRuythcJigcE7kmlnL+u4GtXDqvmI58D9r4IB9aU6ppRXkywn5
+	 7MIcwu7vlylH4taofjOZn5vDQ3mmCE+HGOfhVUHcXwxz0XAV97tSARdhr7ylGRD+/JR4D
+	 zzke3w5c+bvsjd96HAX3B21DM4anoOgZC44WSLIQ6Xttoz9GKOmOPIXuUi3boaKko6USM
+	 lmf9esvmdokWBmR1vZjHNONT6qcgCiLdG17KPwILBXiPp6RhdrlwD6KvwI4+iqS3d9QnU
+	 1bcmjHK4A8/GUuwFZU9U3m08ubGusZ/DTYkH+jJURwsyjNb8blELTOVI4RTcLRLRWdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FgmLiAiw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=cwXcuilB;
+	arc=none smtp.remote-ip=44.246.77.92
+Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21A6606A893
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 16:48:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D2F606A882;
+	Mon, 16 Nov 2026 16:51:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7D2F606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FgmLiAiw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDA4C1F000C4;
-	Mon, 16 Nov 2026 16:48:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794847739;
-	bh=6omg0ligBH57n8EnOMUV3ZmfFZF7HYyuZoHQ3IpUkmg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FgmLiAiwqY9TlwwGqjLX/hI57bfvrnBflZJ8S53YzeooIz4z8NSxcLXKtodK2j+HZ
-	 f2Yph/AsUHK/7NO11nCv5ppCiZ/l5ArHIyP5Nl9fcksutLURYpXgu0ABBAi3XHGNWf
-	 +oq/s7CRpd9pbgMWz6hVBzwgbSaiVWYoy5fcsYLU5Z5yo4GzAm1MMGy8O5+6q3ksJB
-	 o4JtJRhI2hq8LfyKL9FxCNR1Y3cZQ9SH5Yc4D5n4gb82Ok94tXI5M5N19Mmr0Mr22X
-	 24sWfbPvVn0sUCM0b3KKuXTKoqqR6HeSJ2z/zixzPp2vzq3cEZqp5aB+CXz/QPninM
-	 gVu0/odW7Fapg==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id CADC91980052;
-	Mon, 16 Nov 2026 11:48:54 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Mon, 16 Nov 2026 11:48:56 -0500
-X-ME-Sender: <xms:9jP7agKpXSc5bAZ-AhMrhB57-aBd4UfIXAtbPXxHwgkZhVlp9thpRg>
-    <xme:9jP7ahdzYhACbFdUvO7VslOo0jH1i_WrsVHZGMp-xnjKWEu6uR39vfqvNOGoPtNQJ
-    J9wIYDO6vSTYXsdVdyubsP3fEs5m-bn3HafSRfQde1VJ9cVsrxyTw>
-X-ME-Received: <xmr:9jP7alWvtBNL3xk-RJQKkzMTczgPALyD5HRnAVLGOpA4qUQW8JxAWQEX2co>
-X-ME-Proxy-Cause: dmFkZTFYEHTeQONFqSduiHoZS2ZTEPeeVopmMeomfz1WJVsyyKyGDBfvRrKrTvkq2DKLl6
-    hbXbi/AtSM0frbppQym9o93S8gk8YeFAfIPfsfMHr97SIjQZZpMHuRYiBpiSGmGqf7mgmS
-    Bxc3bBJPImVMURYvN3sFQJfTtg/H/RSMu6q97va2siGm4Ok08N3pXoLvtPleBBWZHOOT04
-    /Sdv6Qw6VVEZSmUoM7a/11MGLq03jPI+F+EGk8X1WDvYZglx7J3RFNM4qfRy6tUHvc2wcE
-    k5jcypoHfR8OZjPfT/4Fn+V7vVMxB3rVL+m+/jQJYnT8ONNs541NFnehigpC1Twm3NYUNy
-    qv6e6u/bjX+2KqQqii+1fIgiiHevWyUykqtrpFTz63pW+wkYe45neW1JE3E0aFJU8WkyvL
-    +37BLjAdro70LyXGROaWQRzpgqzdB4UJJ6bu4C1oXtnMV4p9GDoezMhjQTLofT5dSnPXrP
-    2FcgYtZ2OKbVYshmNamrTTzpuvNu0CFOTC/0d1cPS9cXtFtaMNdITkVAX4aeZp1cJ7DtUJ
-    YLWYU0nprGLdO6dSIAM3/NOejQSojmIaN0TkBbVOgRE9H29d7dADtL16iumxhqhBjZ1ZjP
-    pqFkdUWfhrZ13Hk5WvIKtB3H/gOvHGQn0HmB2yRkOMK+BdGX1/bP2WIMZlEg
-X-ME-Proxy: <xmx:9jP7agGtjLyPIIdjR3ZEXoa-gl8KOLLFWtGZPrENq8w2AFGETbw13Q>
-    <xmx:9jP7auUsZkw9Gz0WfanVsxpBsO4qyApOLMc8S-pzKbNa_1J7JibQmA>
-    <xmx:9jP7arCiX2gZaMY5mOMEibJmoBkcWIKTjFQDgBIZigvyiVU__f4noA>
-    <xmx:9jP7an2o4Mt3srcw2ycbO3qrD_c9Q5kmWGA8fLmoWz0EooIPS-3VEg>
-    <xmx:9jP7ajRifHXGnS32pRnmJMAsyNQSZGgzZw7D9tWkAPiTic5g5jqAwt3x>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 11:48:53 -0500 (EST)
-Date: Mon, 16 Nov 2026 16:48:52 +0000
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pankaj Gupta <pankaj.gupta@amd.com>, 
-	David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, Michal Hocko <mhocko@suse.com>, 
-	Suren Baghdasaryan <surenb@google.com>, Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH 6.6.y] mm/cma: accept memory of CMA areas reserved at a
- fixed address
-Message-ID: <avszpOC2q4p8dVVK@shutemov.name>
-References: <20261109201234-failed-6.6-f8f9cbc34a30@kernel.org>
- <20261114161849.4002504-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=cwXcuilB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794847887; x=1826383887;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=icZ0VipIZRXlm+fS9y9PWYLM7wR3UIt776786IJxl90=;
+  b=cwXcuilBQIIJNLUkP+0M46xJFIjtUDrZooS7JCeneuxkWSLl/xjDcEDk
+   wKHuPKn/zS100WZfPt8GcJXFhqI8rUZ05qMlh5ttPfRQrwFP5ofNrgKTY
+   IPfCx+PLTEUgAvewphgr8cb+ppsVM0EV0SvaYAE7cIrS4eFxGVVhrFRN5
+   vwn9Rx/9t/1Eu71Xvk2Fn3+3s8NXL6lpawZyfAHc0OO/nkZwpqXYQPCw1
+   5qyyJdm9y4kRH/l0dmevNDHFd4ep5FzaZHS2ep9BSJ3Cdf7J0m2xytHhp
+   NiMsfRSGqLZNyIrXLT4TPq9jQOSyL4Y5GdqJLeNFNUaBtrvj2/5lcO8IE
+   Q==;
+X-CSE-ConnectionGUID: s3Yzt6LyR7uvwSBbFAHgkg==
+X-CSE-MsgGUID: wAD/Aw9vRTiWxCXRLIw7ww==
+X-IronPort-AV: E=Sophos;i="6.27,217,1787011200"; 
+   d="scan'208";a="34220889"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 16:51:22 +0000
+Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:25088]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.128:2525] with esmtp (Farcaster)
+ id 43eb94d9-6c73-4232-898f-979989c8adb5; Mon, 16 Nov 2026 16:51:22 +0000 (UTC)
+X-Farcaster-Flow-ID: 43eb94d9-6c73-4232-898f-979989c8adb5
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Mon, 16 Nov 2026 16:51:22 +0000
+Received: from dev-dsk-avivb-1a-8cc559d6.eu-west-1.amazon.com (172.19.102.34)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Mon, 16 Nov 2026 16:51:20 +0000
+From: Aviv Bakal <avivb@amazon.com>
+To: Bjorn Helgaas <bhelgaas@google.com>
+CC: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, "Lukas
+ Wunner" <lukas@wunner.de>, Kuppuswamy Sathyanarayanan
+	<sathyanarayanan.kuppuswamy@linux.intel.com>, <linux-pci@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Zeev Zilberman <zeev@amazon.com>,
+	<stable@vger.kernel.org>
+Subject: [PATCH v2 2/3] PCI: Avoid runtime D3 on Amazon PCIe switch ports
+Date: Mon, 16 Nov 2026 18:51:09 +0200
+Message-ID: <20261116165110.2773301-3-avivb@amazon.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261116165110.2773301-1-avivb@amazon.com>
+References: <20261116165110.2773301-1-avivb@amazon.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,90 +87,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261114161849.4002504-1-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Sat, Nov 14, 2026 at 11:22:26AM -0500, Sasha Levin wrote:
-> diff --git a/mm/cma.c b/mm/cma.c
-> index ac363f16d3923..27e27e5d70cd3 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-> @@ -318,6 +318,8 @@ int __init cma_declare_contiguous_nid(phys_addr_t base,
->  			ret = -EBUSY;
->  			goto err;
->  		}
-> +
-> +		accept_memory(base, size);
->  	} else {
->  		phys_addr_t addr = 0;
->  
+The PCIe switch ports on AWS instances (vendor 0x1d0f) advertise PME
+from D3hot but do not send it. Since commit d4c79b63d82d ("PCI: Allow
+D3 for native hotplug-capable Root Ports on non-x86 platforms") these
+ports runtime suspend to D3hot on non-x86 platforms, and hotplug events
+such as an ENI attach are lost.
 
-NAK.
+Mark them PCI_DEV_FLAGS_NO_D3, reusing quirk_no_ata_d3() renamed to
+quirk_no_d3().
 
-accept_memory() takes (start, end) in 6.6. It was converted to
-(start, size) in 6.12. See 5adfeaecc487 ("mm: rework accept memory
-helpers"). Here size is taken as the end address. For the usual
-cma=<size>@<base>, base is above size and nothing gets accepted, so the
-bug stays.
-
-The 6.12.y backport is fine as is.
-
-Correct backport for 6.6.y:
-
--- >8 --
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Subject: [PATCH 6.6.y] mm/cma: accept memory of CMA areas reserved at a fixed
- address
-
-CMA areas allocated from memblock have their memory accepted by
-memblock_alloc_range_nid(), but areas reserved at a fixed address with
-memblock_reserve() are not.
-
-If a fixed CMA area is requested by the cma=<size>@<base> command line
-parameter, it may be in regular RAM and on TDX and SEV-SNP guests it
-must be accepted.
-
-Accept the memory of fixed CMA areas as well, so that all CMA areas are
-accepted regardless of how they were reserved.
-
-Link: https://lore.kernel.org/20261029-cma-multi-v1-2-2cbced8b5cb7@kernel.org
-Fixes: 75d090fd167a ("x86/tdx: Add unaccepted memory support")
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
-Reviewed-by: Pankaj Gupta <pankaj.gupta@amd.com>
-Tested-by: Pankaj Gupta <pankaj.gupta@amd.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
-
-(cherry picked from commit f8f9cbc34a309a388c052706f3329d1b52985aa3)
-[ kas: 6.6 has no cma_fixed_reserve(); accept the area in the fixed-address
-  branch of cma_declare_contiguous_nid(). accept_memory() takes (start, end)
-  in this tree, it was converted to (start, size) in 6.12 ]
-Signed-off-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Fixes: d4c79b63d82d ("PCI: Allow D3 for native hotplug-capable Root Ports on non-x86 platforms")
+Cc: stable@vger.kernel.org # 7.3.x
+Co-developed-by: Zeev Zilberman <zeev@amazon.com>
+Signed-off-by: Zeev Zilberman <zeev@amazon.com>
+Signed-off-by: Aviv Bakal <avivb@amazon.com>
 ---
- mm/cma.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/pci/quirks.c | 20 ++++++++++++++------
+ 1 file changed, 14 insertions(+), 6 deletions(-)
 
-diff --git a/mm/cma.c b/mm/cma.c
-index ac363f16d392..906bad0393dd 100644
---- a/mm/cma.c
-+++ b/mm/cma.c
-@@ -318,6 +318,8 @@ int __init cma_declare_contiguous_nid(phys_addr_t base,
- 			ret = -EBUSY;
- 			goto err;
- 		}
-+
-+		accept_memory(base, base + size);
- 	} else {
- 		phys_addr_t addr = 0;
+diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+index 7f1f47ea2ee4..338e884126fb 100644
+--- a/drivers/pci/quirks.c
++++ b/drivers/pci/quirks.c
+@@ -1458,23 +1458,31 @@ static void quirk_ide_samemode(struct pci_dev *pdev)
+ }
+ DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_82801CA_10, quirk_ide_samemode);
  
-
+-/* Some ATA devices break if put into D3 */
+-static void quirk_no_ata_d3(struct pci_dev *pdev)
++/* Some devices break if put into D3 */
++static void quirk_no_d3(struct pci_dev *pdev)
+ {
+ 	pdev->dev_flags |= PCI_DEV_FLAGS_NO_D3;
+ }
+ /* Quirk the legacy ATA devices only. The AHCI ones are ok */
+ DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_SERVERWORKS, PCI_ANY_ID,
+-				PCI_CLASS_STORAGE_IDE, 8, quirk_no_ata_d3);
++				PCI_CLASS_STORAGE_IDE, 8, quirk_no_d3);
+ DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_ATI, PCI_ANY_ID,
+-				PCI_CLASS_STORAGE_IDE, 8, quirk_no_ata_d3);
++				PCI_CLASS_STORAGE_IDE, 8, quirk_no_d3);
+ /* ALi loses some register settings that we cannot then restore */
+ DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_AL, PCI_ANY_ID,
+-				PCI_CLASS_STORAGE_IDE, 8, quirk_no_ata_d3);
++				PCI_CLASS_STORAGE_IDE, 8, quirk_no_d3);
+ /* VIA comes back fine but we need to keep it alive or ACPI GTM failures
+    occur when mode detecting */
+ DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_VIA, PCI_ANY_ID,
+-				PCI_CLASS_STORAGE_IDE, 8, quirk_no_ata_d3);
++				PCI_CLASS_STORAGE_IDE, 8, quirk_no_d3);
++
++/*
++ * Amazon 1d0f PCIe switch ports (e.g. 1d0f:cec2) on AWS instances
++ * advertise PME# from D3hot but never assert it, so hotplug events on
++ * a port in D3 are lost.
++ */
++DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_AMAZON, PCI_ANY_ID,
++			      PCI_CLASS_BRIDGE_PCI, 8, quirk_no_d3);
+ 
+ /*
+  * This was originally an Alpha-specific thing, but it really fits here.
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.50.1
+
