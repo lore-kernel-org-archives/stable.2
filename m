@@ -1,81 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.189
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794813230;
-	b=aZLJGx7u58IqCe3M2OA4mFxiy8s5ZtujRMebgY8HW6WjN/fQMHDCJBEJM5XFunVHhefp
-	 CxmJYTBkA9GKOO6BA7XYbOCAWOlcWyarJm8kCQflo3QcU2NEpxmfy9CsYP3JaOx55/ice
-	 XIbUJG4uzqUIA1x5bmB4mTzGMoO5KT7Zf4io1VoZcgmM4ghRiMDBFO+7qAogmXuFWezqS
-	 dPB7B4uXRQhiM2W1uNHwIhZ7oD05XSwSRfnCjcupHvxd2YiOMvHgCgGC14rH/t6r0c1vR
-	 uNpDwJuEKSc+jeC/7uI7ks9Ivky3PkzCSdcRmqfSRULkZ36EOlYr+sdg8qCHJM+owVQ==
+	t=1794813460;
+	b=KHRtEnrxA7iPatvkfYtPtWYWG/BhfSsG13eaDT5SfCnNtLUl2Fbr70S66rfH+ah4Yk3e
+	 nkjK82eykoOwyz/HfM7t9d+TeP/TQXsV7af/gMDw6sENuYZMX6HtNdrO/xRvy5cSZ3AAA
+	 azpdffvBSPiQi7QM/rGHVeuKO4xePIEK9UT97hi4LtTulbMET0Y3FxFXa5netBf6uqtOP
+	 PFtdLWZfyL6twWJvqXsq4gZlUnA7SzOpQgkkooXoB3/RiFQ1hyiB3iku4p0k1+3eoxFM6
+	 usuWIAY6G6nz1E9wyz4ST+60o2yNH/eI15IygPxlireBZOnV4g0/ddfNKsUccp2PB4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794813230;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9qeNI2RHXZCXvhzDDakVQtkHGPRaeLXMhl6FMpu6bHw=;
-	b=XBayS2nZEQNpmfTimYk7JWR1Fa5PGXbFf7rA8hWAPxdEcS/AXkeYCeala47ltN/eAYbG
-	 9PF0/CfFSwu3BsVTtYyS4O1rjQUN1hQqv4g9zc3Lfv7MTRpUWans5Lg2+p6ZYzoRA+NxW
-	 u2dPaO1fs/Z7wuWyIWXyauyDRNdmWQ+2mh3tTqnGUwHXKdjzb+qrcXDht9CsdZ7iiHZne
-	 3xpxpNK2GHttrSZpaBpABADzLiEhxC0XFMCByXfuk2vhkLyBwj+w3GrxYbvGnifxdeEf7
-	 MvrYTBZd73mMAFTfsNNWGxlXAjvmgO2CPqwNdJPY1iS7G/H1ggi6Ij25rQJlb48Ak+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813460;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=KZWLSazTcz/mu2ScepEs7bxsTPuGDUzfcRzi4Nrn8ag=;
+	b=l/ZE1AUv6SYVbfv5z1LPQ+L6lWBj23SU2D/zXLjXU6MEEfUAq/u04BoioUSHCd4D6OFK
+	 KxmKwi9rIHhpKyDizfh1g+ryhvMHg/EWFI0Dj27nieQ4LNx2aaV+iBi+muDo6yBrokIBi
+	 M1nMww/c18OTELwZ3WxLwvx0f96514cYIRVM0uzjc2c4HiNDb4vB4uie0eg5i8dkBe67Q
+	 G+Pl55/pOauZQ76tZ9R/IpIGqsAT3gAM2/IAn4pKXObwNT9A+aGvp6qQbjrcB2Mj2cPBC
+	 hFsGZRKd5wtjAs1IKAW6FPg14ZEsEzAVta/xI7tHI3WW2oEogc9JRDWX5lGyO0LG+kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nU15+g6Q;
-	arc=none smtp.remote-ip=91.218.175.189
-Received: from mta0.migadu.com (out-189.mta0.migadu.com [91.218.175.189])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=becholey.ch;
+	spf=pass smtp.mailfrom=becholey.ch;
+	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=FIgfEf7+;
+	arc=none smtp.remote-ip=185.70.43.18
+Received: from mail-4318.protonmail.ch (mail-4318.protonmail.ch [185.70.43.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58759606A31C
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 07:13:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58759606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DAD606A32C;
+	Mon, 16 Nov 2026 07:17:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 93DAD606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=nU15+g6Q
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=HYLuc3Z03vn3hRM0Gt/LGf7o33deLempu7jZPgTKBzU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794813227; v=1; x=1795418027;
- b=nU15+g6Q9HTaGT+miFGfGHMPjGWb7cORDoEa5n5P3MH0yxa9DNG/JyTDSj9BR65gUJ5vob7O
- y5UDPO64mHapryatDOO8bqIaNQvgqYeBr9zvdXwzMcZC6pyCcPzgR39tSCVJ2YJeAsD21ULMd4H
- 3y0HAq6MGcSIbAR7cZdqQGI8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 0051f0c538c6aaeb;
-	Mon, 16 Nov 2026 07:13:47 +0000
-X-Mizu-Trace-ID: 0051f0c538c6aaeb
-X-Migadu-Flow: FLOW_OUT
-From: Hao Ge <hao.ge@linux.dev>
-To: Suren Baghdasaryan <surenb@google.com>,
-	Uladzislau Rezki <urezki@gmail.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Alexander Potapenko <glider@google.com>,
-	Marco Elver <elver@google.com>,
-	Dmitry Vyukov <dvyukov@google.com>,
-	Dennis Zhou <dennis@kernel.org>,
-	Tejun Heo <tj@kernel.org>,
-	Christoph Lameter <cl@gentwo.org>
-Cc: linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	kasan-dev@googlegroups.com,
-	linux-mm@kvack.org,
-	Hao Ge <hao.ge@linux.dev>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 02/11] mm/kmsan: undo the shadow mapping when the origin mapping fails
-Date: Mon, 16 Nov 2026 15:13:16 +0800
-Message-Id: <20261116071325.263682-3-hao.ge@linux.dev>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261116071325.263682-1-hao.ge@linux.dev>
-References: <20261116071325.263682-1-hao.ge@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=FIgfEf7+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
+	s=protonmail; t=1794813457; x=1795072657;
+	bh=KZWLSazTcz/mu2ScepEs7bxsTPuGDUzfcRzi4Nrn8ag=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=FIgfEf7+GKoeKbDFQkHuBEHMfAdG9FNClJa3IBtPR95NtjS6mwJTzXf5nPUqKXmFN
+	 y0T7QdE37WHopmVPw2xlHK4qnmqgscJcrtAk1Xwz8uFGDCPRi9VJiYg6yhNeEMizu1
+	 b6/Fapl/Qniv5xAh8yuY/DVJHA727adtLcsqUbAwmB2uM0+TBetnG/Dl7Cl1DWIlmI
+	 zUGprzncxmln+i1u3RASFnGeyf2L3JZaXKj+UHbdTV7KhZDL2Oo//N6uaBB0r/7S6H
+	 ogTWQOCB1cSfNGOp9RgOiSShlQHxqaQjsmBcoO6FE7e0N52cUYPjqjtXUumz196yWb
+	 I9ZrCXxlaQjhw==
+Date: Mon, 16 Nov 2026 07:17:33 +0000
+To: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, =?utf-8?Q?=C5=A0erif_Rami?= <ramiserifpersia@gmail.com>
+From: Alexandre Becholey <alex@becholey.ch>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, Hanxiang Xu <xuhx@hust.edu.cn>, Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH v2 1/5] ALSA: usx2y: us144mkii: fix stop_pcm_work race with PCM close
+Message-ID: <20261116071707.217448-2-alex@becholey.ch>
+In-Reply-To: <20261116071707.217448-1-alex@becholey.ch>
+References: <20261116071707.217448-1-alex@becholey.ch>
+Feedback-ID: 60743817:user:proton
+X-Pm-Message-ID: d59f15a6d6bc4233242fd987d628ee34c4903ce0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,43 +64,195 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-kmsan_vmap_pages_range_noflush() first maps the shadow pages and then
-the origin pages. If the second mapping fails, the first one is left
-mapped, and the callers do not roll it back. The next vmap of the
-same metadata range hits the stale PTEs again and fails with a
-WARN_ON() and -EBUSY in vmap_pages_pte_range().
+The feedback URB completion handler schedules stop_pcm_work when the
+device stops sending valid feedback. The work handler then calls
+snd_pcm_stop() on tascam->playback_substream and
+tascam->capture_substream without the stream lock, and nothing keeps
+these substreams open while it runs: the PCM .close callbacks only clear
+the pointers and do not wait for the work.
 
-Undo the shadow mapping on that error path, the same way
-kmsan_ioremap_page_range() cleans up after a partial failure.
-__vunmap_range_noflush() only clears the PTEs; nothing has touched
-the shadow mapping, so no TLB flush is needed.
+If the PCM is closed while the work is running, snd_pcm_detach_substream()
+frees the runtime under it, and the work then accesses the freed runtime
+in snd_pcm_post_stop(), or dereferences a NULL substream->runtime in
+snd_pcm_do_stop(), depending on how far the close has got. A USB device
+can fire the work whenever it wants by sending bad feedback packets, so
+a malicious device plus a process closing the PCM can trigger this.
+With KASAN, on torvalds/master 067c5c24cef2:
 
-Fixes: 47ebd0310e89 ("mm: kmsan: handle alloc failures in kmsan_vmap_pages_range_noflush()")
+  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave+0xb0/0x104
+  Workqueue: events tascam_stop_pcm_work_handler
+
+Clear the substream pointers under tascam->lock in the .close callbacks
+and flush stop_pcm_work afterwards, so the work can no longer run on a
+closing substream. In the work, read the pointers under the same lock
+and stop the streams with snd_pcm_stop_xrun(), which takes the stream
+lock and checks that the stream is still running. The lock is dropped
+before snd_pcm_stop_xrun() because the trigger callback takes
+tascam->lock with the stream lock held.
+
+Found with an emulated US-144MKII device (USB/IP, vhci_hcd).
+
+The bug was found, and the reproducer and this fix were written, by AI
+agents (Claude Mythos and Claude Opus models). The analysis and the
+patch were reviewed by a human.
+
+Reported-by: Hanxiang Xu <xuhx@hust.edu.cn>
+Closes: https://lore.kernel.org/all/6891aa7d.26365.1a1d4e2c4e4.Coremail.xuh=
+x@hust.edu.cn/
+Fixes: a2a2210f2c2e ("ALSA: usb-audio: us144mkii: Implement audio playback =
+and feedback")
 Cc: stable@vger.kernel.org
-Suggested-by: Suren Baghdasaryan <surenb@google.com>
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
+Signed-off-by: Alexandre Becholey <alex@becholey.ch>
 ---
- mm/kmsan/shadow.c | 5 +++++
- 1 file changed, 5 insertions(+)
+Changes in v2:
+- no change.
 
-diff --git a/mm/kmsan/shadow.c b/mm/kmsan/shadow.c
-index 0c88d89bf0d6..212449db34a1 100644
---- a/mm/kmsan/shadow.c
-+++ b/mm/kmsan/shadow.c
-@@ -258,6 +258,11 @@ int kmsan_vmap_pages_range_noflush(unsigned long start, unsigned long end,
- 					    o_pages, page_shift);
- 	kmsan_leave_runtime();
- 	if (mapped) {
-+		/* Undo the shadow mapping set up above. */
-+		kmsan_enter_runtime();
-+		__vunmap_range_noflush(shadow_start, shadow_end,
-+				       gfpflags_allow_blocking(gfp_mask));
-+		kmsan_leave_runtime();
- 		err = mapped;
- 		goto ret;
- 	}
--- 
-2.25.1
+Notes for reviewers (not part of the commit message):
+
+Trigger: an emulated TASCAM US-144MKII served over USB/IP to vhci_hcd
+(an AF_UNIX socketpair inside the VM; dummy_hcd cannot do isochronous
+transfers) under QEMU, arm64, KASAN. The program opens a PCM and
+starts streaming; the device sends invalid feedback packets until the
+driver logs "Fatal: Feedback sync lost. Stopping stream." and schedules
+stop_pcm_work, while the program closes the PCM. The reproducer is availabl=
+e to maintainers on request.
+
+Decoded trace, torvalds/master 067c5c24cef2 (arm64, QEMU virt); the
+object is the kmalloc-2k snd_pcm_runtime, allocated by
+snd_pcm_attach_substream() on open and freed by
+snd_pcm_detach_substream() from snd_pcm_release() on close:
+
+  BUG: KASAN: slab-use-after-free in _raw_spin_lock_irqsave (include/linux/=
+spinlock_api_smp.h:155 (discriminator 1) kernel/locking/spinlock.c:181 (dis=
+criminator 1))
+  Read of size 1 at addr ffff00001318a180 by task kworker/1:0/24
+  CPU: 1 UID: 0 PID: 24 Comm: kworker/1:0 Not tainted 7.4.0-rc2+ #1 PREEMPT=
+(full)
+  Hardware name: linux,dummy-virt (DT)
+  Workqueue: events tascam_stop_pcm_work_handler
+  Call trace:
+   show_stack (arch/arm64/kernel/stacktrace.c:498 arch/arm64/kernel/stacktr=
+ace.c:499) (C)
+   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
+   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
+   kasan_report (mm/kasan/report.c:595)
+   __kasan_check_byte (mm/kasan/common.c:585)
+   lock_acquire (include/linux/kasan.h:402 (discriminator 1) kernel/locking=
+/lockdep.c:5916 (discriminator 1) kernel/locking/lockdep.c:5899 (discrimina=
+tor 1))
+   _raw_spin_lock_irqsave (include/linux/spinlock_api_smp.h:155 (discrimina=
+tor 1) kernel/locking/spinlock.c:181 (discriminator 1))
+   __wake_up (kernel/sched/wait.c:124 (discriminator 3) kernel/sched/wait.c=
+:146 (discriminator 3))
+   snd_pcm_post_stop (sound/core/pcm_native.c:1622)
+   snd_pcm_action_single (sound/core/pcm_native.c:1386)
+   snd_pcm_action (sound/core/pcm_native.c:1467)
+   snd_pcm_stop (sound/core/pcm_native.c:1642)
+   tascam_stop_pcm_work_handler (sound/usb/usx2y/us144mkii_playback.c:453)
+   process_one_work (kernel/workqueue.c:3495)
+   worker_thread (kernel/workqueue.c:3578 kernel/workqueue.c:3659)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/arm64/kernel/entry.S:870)
+
+On v7.3.1 the same reproducer also ends in
+"KASAN: null-ptr-deref in range [0x1c0-0x1c7]" in snd_pcm_do_stop()
+called from tascam_stop_pcm_work_handler() (us144mkii_playback.c:453),
+the snd_pcm_stop() call this patch replaces.
+
+sound/usb/usx2y/us144mkii*.c are identical in v7.3.1, 067c5c24cef2
+and 9d66f26fefac.
+
+Testing of v2 (whole series, KASAN, PROVE_LOCKING, PROVE_RCU): the
+main USB/IP program ran 3 times each on v7.3.1 and 97d73c825122; the
+stop work fired 3000 times per run and no run showed a report.
+
+Testing of v1, KASAN: without the patch every run crashed in
+tascam_stop_pcm_work_handler (v7.3.1 3/3, 067c5c24cef2 1/1). With the
+patch no run showed this crash (v7.3.1 0/14 with three test programs,
+067c5c24cef2 0/5 with one).
+With patches 1/5..3/5 applied (v7.3.1, the same three test programs,
+8 runs), the stop work fired 10 to 1740 times per run and no run
+showed this crash; 4 of those 8 runs ended in the first two other
+problems listed below. These programs were not re-run with 4/5 and
+5/5 added; those patches were tested with their own reproducers.
+
+17 of the 19 runs with this patch alone still crashed elsewhere:
+- 12 runs: list_del corruption in __usb_unanchor_urb(), on v7.3.1
+  after a WARNING at drivers/usb/core/urb.c:379 in the stream start
+  path (that WARNING was also seen without the patch); fixed by
+  patch 5/5;
+- 4 runs: KASAN use-after-free in vhci_urb_dequeue() from
+  usb_kill_anchored_urbs() in tascam_stop_work_handler(), a race in
+  the vhci_hcd test harness, not in this driver;
+- 1 run: KASAN slab-use-after-free in feedback_urb_complete()
+  (us144mkii_playback.c:347, reading playback_rt->rate); fixed by
+  patch 4/5.
+
+Thanks,
+Alexandre Becholey
+
+ sound/usb/usx2y/us144mkii_capture.c  |  5 ++++-
+ sound/usb/usx2y/us144mkii_playback.c | 19 ++++++++++++++-----
+ 2 files changed, 18 insertions(+), 6 deletions(-)
+
+diff --git a/sound/usb/usx2y/us144mkii_capture.c b/sound/usb/usx2y/us144mki=
+i_capture.c
+index d7cdf9e0f685..30cdd73ca99c 100644
+--- a/sound/usb/usx2y/us144mkii_capture.c
++++ b/sound/usb/usx2y/us144mkii_capture.c
+@@ -36,7 +36,10 @@ static int tascam_capture_close(struct snd_pcm_substream=
+ *substream)
+ {
+ =09struct tascam_card *tascam =3D snd_pcm_substream_chip(substream);
+=20
+-=09tascam->capture_substream =3D NULL;
++=09scoped_guard(spinlock_irqsave, &tascam->lock)
++=09=09tascam->capture_substream =3D NULL;
++=09/* The stop work may still be using this substream; wait for it. */
++=09flush_work(&tascam->stop_pcm_work);
+=20
+ =09return 0;
+ }
+diff --git a/sound/usb/usx2y/us144mkii_playback.c b/sound/usb/usx2y/us144mk=
+ii_playback.c
+index 7efaca0a6489..0df95dbf585d 100644
+--- a/sound/usb/usx2y/us144mkii_playback.c
++++ b/sound/usb/usx2y/us144mkii_playback.c
+@@ -36,7 +36,10 @@ static int tascam_playback_close(struct snd_pcm_substrea=
+m *substream)
+ {
+ =09struct tascam_card *tascam =3D snd_pcm_substream_chip(substream);
+=20
+-=09tascam->playback_substream =3D NULL;
++=09scoped_guard(spinlock_irqsave, &tascam->lock)
++=09=09tascam->playback_substream =3D NULL;
++=09/* The stop work may still be using this substream; wait for it. */
++=09flush_work(&tascam->stop_pcm_work);
+=20
+ =09return 0;
+ }
+@@ -448,9 +451,15 @@ void tascam_stop_pcm_work_handler(struct work_struct *=
+work)
+ {
+ =09struct tascam_card *tascam =3D
+ =09=09container_of(work, struct tascam_card, stop_pcm_work);
++=09struct snd_pcm_substream *playback_ss, *capture_ss;
++
++=09scoped_guard(spinlock_irqsave, &tascam->lock) {
++=09=09playback_ss =3D tascam->playback_substream;
++=09=09capture_ss =3D tascam->capture_substream;
++=09}
+=20
+-=09if (tascam->playback_substream)
+-=09=09snd_pcm_stop(tascam->playback_substream, SNDRV_PCM_STATE_XRUN);
+-=09if (tascam->capture_substream)
+-=09=09snd_pcm_stop(tascam->capture_substream, SNDRV_PCM_STATE_XRUN);
++=09if (playback_ss)
++=09=09snd_pcm_stop_xrun(playback_ss);
++=09if (capture_ss)
++=09=09snd_pcm_stop_xrun(capture_ss);
+ }
 
