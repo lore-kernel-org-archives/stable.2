@@ -1,67 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794834239;
-	b=ydQ7cQV6ZPXQMq1DgDQPk7Z5oaRH8+xNtHtRMH/Egf5FEJvTi4rzUxGD0G1nK7f1qi6a
-	 KI3fg7PPRd0DWsYxYkRoQIFlas277H8r4jMUeZeA0rdiIzRuXfFXGQMQpOyVIkIXxooL5
-	 I5EMOCoKZypRRQ+7stn9bD9vFrhDJ3X7mbDv/nkpLXYu8DpQ5kVdjG/h3BYM2euVKGdax
-	 CeFNcqhipF49STqqrdV8oIb/qPZQxc0qkHCDDnESzarCKUZEXCxLV1WisKhJK2/nBm5fQ
-	 O3GXGv4aCh6ZU1kpXjNBt1Aee0NBE/r+W7idCpP3A4e74Sr6pg/eiOOvAEPne9wlbGg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794834239;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=KPYkIWZhs3H95NN4p3RKCVS3MwCGaBCJ5wMRZZhvXy4=;
-	b=tCTnDCy+I7XYidWjs+2MPqTIjT3kTXUyOJpIojn1m5m5upippxjsoMr5UYGllmcwQIju
-	 EQ7Ay0uySLo3KmNrPc/OJd6Wfo32KrDlaf3ahrQTSbjAfPNuTmps0uOjT7ARGaujPm4ra
-	 82XllRGb83IK6TdBaq8fPhonw+kdph+mdR4IfDeiQQpNP42sDGxscCnT/EN/DhTbqgwLV
-	 N0sMWRue3dF6sCMocCKa0RmkhbD0ajpYD45Y5DxcN8XrcxgwNnwKcJDrFHx13ki3+AH3I
-	 tpH8kAiBLaWRQC/rbOJUX8U6rfAAULpPG8DNOUhRLh020/wyB98WxA3YbyKzv6IbZRg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=rJBoxq12;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7936606A31C;
-	Mon, 16 Nov 2026 13:03:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7936606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794834292;
+	b=3ycknbUqo7PZW1XYob5BiWDSozX1fT0RFf3s+xpaXODShmAVRc6GXrNQDD2b9DE6JVV4
+	 uazCEnCHSVcU5fp4GcM1BQRjk3GRXkUY3F8AcouZVXhKrHr8ltcn7DcAhLg4Btrq9WvnM
+	 7vvihx7Fr2wfyvaHrdLsxMbnSaxX3vJSUZv65UR8D6v715SIbEAOTHeE2Zuxgt4tL9Iti
+	 6YzxQ9KYbxW8MlhQ5sWA4Mf1CkUh1A6f5tyFT/nEezmPcYb+AECMEDetyVmVGaeM8FuP5
+	 +o/SUXGlcpDOYi+B8GpEAkW0OCPg8FgXw4YUQcRflqoGwoYrdk1wlBVIi7TGQUwXmBA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794834292;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=hkRhjLI8m+2MS20ZyRinnJZ2ay6VhwhiznxVcw80VDs=;
+	b=HoGorE11QfV5HTmrlNd4tu5fHHIEjPCyYVl8zzhDlSYbjMtnHN9rg6lCpM+TLCjLTqXk
+	 HrVg/2/AQvNj2uyZJrci1pbJ0AKBfT1/6SOWsXI9tAFJxfhMIwt+PFbACwuY1yxcES4f/
+	 cg61XByzuOZErKPcRpK0TJ68XSVmNhKHFv6xTBBoxiHtTboUmemey0SwYkmy/LlLDTHwy
+	 CfEXftqjEaoVQJhFCzj7/iAgxRjrYOOJk0mohX+Kl4S4mf+rlEK4uoAOaRg9yg9d/q9+E
+	 sldBt8zygJGeKiJuRxp6rD1/U3qRM6SndAhtRgtbNcnP4cDV7NKGZd1pb/arZnncysw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DfKHjh0p;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A9F31606A31C
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 13:04:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9F31606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=rJBoxq12
-ARC-Seal: i=1; a=rsa-sha256; t=1794834217; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=OAvEYWTeXEV1ufSwWHz9pxnUblLOslPWrnzfHc1grKvdJ4dZjwENG26dQcRoXIBMcuJt2itcuBWMbQTjI8phtotccNdaAyNOh+87JmJbCJilx3sySOhIdO8dsAAo0ebsAYIOkYpz3NJiL106et3D89TyF4xCbkMmiNjwMS+b/oU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794834217; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=KPYkIWZhs3H95NN4p3RKCVS3MwCGaBCJ5wMRZZhvXy4=; 
-	b=XOALMFv0dVI1gzSWsSPx/B8SKPOKnuDZnFGvpKmRhtDlxXhKyH0uypTFRlRCSjIDryB5BdOQp5QrcMusD7Yi6sNyLQUdWpnDseamo3IljnPUVOSu2JpN/FrwmI50mTtt/MWgHaGfqxJp/GqOZLlQEMKIkG+xXgRIyd7+ijVx/NE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=rJBoxq12x8Z3dTikubS6j+QJrSWk7fjborPjQX04fLVEX2z2lJWxwA//WitSw8WCpL8RyRDPCayx2Oxk9RjYMQbpz+1ElrIrLoVheBIWI1+6SDG21MnYh2ufHUNLpTdeBzoEmZRLVJWuHUyG7lL9/QsW7nuc9uuL7mtKn9OWA12tcro/fuACJwFTHC92YzhHWBRxWJTr2K4wkRKfUReVy8QB2KVaTIsZJsRrRIQb0I9hL6hJ1Qv8UoEe4ZKKOzKv8Ni7pRlOEk0MGGrbr/9lm3hoFhZqXTyiLBc+BnmeYiaBcMT00YkLxhygfLGsC8a81aHsqzAkMEIBcFjOJeh0eQ==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=KPYkIWZhs3H95NN4p3RKCVS3MwCGaBCJ5wMRZZhvXy4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794834214683661.5338127039739;
-	Mon, 16 Nov 2026 05:03:34 -0800 (PST)
-Message-ID: <9678d609d13700b186e647ee31b2c9b9788f7206.camel@rong.moe>
-Subject: Re: [PATCH v2 0/2] extcon: synchronize all-connector removal and
- fix Lenovo fastcharger teardown
-From: Rong Zhang <i@rong.moe>
-To: Hongyan Xu <getshell@seu.edu.cn>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
-	 <ilpo.jarvinen@linux.intel.com>, Hans de Goede <hansg@kernel.org>
-Cc: MyungJoo Ham <myungjoo.ham@samsung.com>, Chanwoo Choi
-	 <cw00.choi@samsung.com>, "Derek J.Clark" <derekjohn.clark@gmail.com>, Mark
- Pearson <mpearson-lenovo@squebb.ca>, platform-driver-x86@vger.kernel.org, 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=DfKHjh0p
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 4EC061BA8
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 05:04:48 -0800 (PST)
+Received: from [192.168.0.1] (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 08DF33F632
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 05:04:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794834291; bh=sLJkYT+jK0R1uMOruWdRoY7YCqhcUnkEqFSDjvSeAC0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DfKHjh0prLXujTFWH14x/K8AxBstfB83wjT6KSJCMh8V7N8qRqeBLBDtL53ec09K0
+	 A0/4FJfJqVGyJOf5uuEc8d1LeEcOuIxzksuAwNg+zQXIxdznbV4HbAbKH0eZ9EL49I
+	 D1nKCqvWePwsjt3k4WTN+Fv4xNVrbCTsRHj0kdLc=
+Date: Mon, 16 Nov 2026 13:04:36 +0000
+From: Liviu Dudau <liviu.dudau@arm.com>
+To: Osama Abdelkader <osama.abdelkader@gmail.com>
+Cc: Boris Brezillon <boris.brezillon@collabora.com>,
+	Steven Price <steven.price@arm.com>,
+	Akash Goel <akash.goel@arm.com>,
+	Karunika Choo <karunika.choo@arm.com>,
+	Lukas Zapolskas <lukas.zapolskas@arm.com>,
+	Chris Diamand <chris.diamand@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Heiko Stuebner <heiko@sntech.de>, dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <179474326098.103840.15531040789536968458@seu.edu.cn>
-References: <179474326098.103840.15531040789536968458@seu.edu.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 16 Nov 2026 20:58:25 +0800
+Subject: Re: [PATCH v2] drm/panthor: Fix race when retrieving the new chunk
+ in panthor_heap_grow()
+Message-ID: <avr_ZM6cR9jr7qxl@e142607>
+References: <20261113110217.6c1513be@fedora1.home>
+ <20261113204717.35195-1-osama.abdelkader@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,65 +71,175 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-3 
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261113204717.35195-1-osama.abdelkader@gmail.com>
 
-Hi Hongyan,
+On Fri, Nov 13, 2026 at 09:47:16PM +0100, Osama Abdelkader wrote:
+> panthor_heap_grow() allocates a new chunk with panthor_alloc_heap_chunk(),
+> which adds the chunk at the head of heap->chunks under heap->lock, and
+> then drops the lock. panthor_heap_grow() then assumes the head of the
+> list is the chunk it just added, and reads its GPU VA through
+> list_first_entry() without holding heap->lock.
+> 
+> panthor_heap_grow() and panthor_heap_return_chunk() only take pool->lock
+> in read mode, and tiler OOM events of different groups are processed in
+> parallel on the unbound heap_alloc_wq. If two groups use the same heap
+> context, they can modify the chunk list concurrently:
+> 
+>   group A OOM work                     group B OOM work
+>   alloc C_A, list_add()
+>                                        alloc C_B, list_add()
+>   list_first_entry() -> C_B
+>                                        group scheduled out:
+>                                        panthor_heap_return_chunk(C_B)
+>                                          list_del(), destroy BO, kfree()
+>   C_B->bo                              <- use-after-free
+> 
+> Even without the free, both groups end up being handed the same chunk,
+> and the chunk allocated by group A is never linked to the heap context.
+> 
+> Fix this by having panthor_alloc_heap_chunk() return the GPU VA of the
+> chunk it allocated, retrieved before the chunk is published in the list,
+> instead of looking it up afterwards. Do the same for the initial chunks
+> allocated by panthor_heap_create(), so the first chunk GPU VA is
+> returned by panthor_alloc_heap_chunks() rather than retrieved from the
+> list.
+> 
+> Fixes: 9cca48fa4f89 ("drm/panthor: Add the heap logical block")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5.5
+> Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
 
-On Sun, 2026-11-15 at 19:47 +0800, Hongyan Xu wrote:
-> The Lenovo Yoga Tab 2 fastcharger driver releases managed serdev,
-> pinctrl and GPIO resources while its extcon callback can still publish
-> work.=C2=A0 Ordering the devres actions alone is not enough because the
-> all-connector raw notifier does not wait for an in-flight callback.
->=20
-> Patch 1 converts only the all-connector notifier chain to an atomic
-> chain so unregister waits for callbacks and is safe from interrupt
-> context.=C2=A0 The per-ID chains stay raw because some current callbacks
-> perform sleeping regulator operations.=C2=A0 Patch 2 then installs the
-> managed work cancellation before the notifier, so reverse devres order
-> stops the producer before releasing the resources it uses.
->=20
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
 
-Where's the link to v1?
+Best regards,
+Liviu
 
->=20
-> Hongyan Xu (2):
-> =C2=A0 extcon: synchronize all-connector notifier removal
-> =C2=A0 platform/x86: lenovo: cancel fastcharger work on detach
->=20
-> =C2=A0Documentation/driver-api/extcon.rst=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> =C2=A0drivers/extcon/extcon.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 | 28 ++++++-------------
-> =C2=A0drivers/extcon/extcon.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0 |=C2=A0 2 +-
-> =C2=A0.../lenovo/yoga-tab2-pro-1380-fastcharger.c=C2=A0=C2=A0 |=C2=A0 6 +=
-++-
-> =C2=A0include/linux/extcon.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0 |=C2=A0 4 +++
-> =C2=A05 files changed, 20 insertions(+), 22 deletions(-)
->=20
-> --
-> 2.50.1.windows.1
+> ---
+> v2:
+> - Always write chunk_gpu_va in panthor_alloc_heap_chunk().
+> - Have panthor_alloc_heap_chunks() return the first chunk GPU VA, and drop
+>   the list_first_entry() lookup in panthor_heap_create().
+> 
+>  drivers/gpu/drm/panthor/panthor_heap.c | 39 +++++++++++++++-----------
+>  1 file changed, 23 insertions(+), 16 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
+> index 99311abdf1e9..febc18b43af8 100644
+> --- a/drivers/gpu/drm/panthor/panthor_heap.c
+> +++ b/drivers/gpu/drm/panthor/panthor_heap.c
+> @@ -139,7 +139,8 @@ static void panthor_free_heap_chunk(struct panthor_heap_pool *pool,
+>  
+>  static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
+>  				    struct panthor_heap *heap,
+> -				    bool initial_chunk)
+> +				    bool initial_chunk,
+> +				    u64 *chunk_gpu_va)
+>  {
+>  	struct panthor_heap_chunk *chunk;
+>  	struct panthor_heap_chunk_header *hdr;
+> @@ -181,6 +182,14 @@ static int panthor_alloc_heap_chunk(struct panthor_heap_pool *pool,
+>  
+>  	panthor_kernel_bo_vunmap(chunk->bo);
+>  
+> +	/*
+> +	 * Retrieve the GPU VA before the chunk becomes visible in the heap
+> +	 * chunk list: once heap->lock is released, a concurrent grow or
+> +	 * return_chunk on the same heap can modify the list, and the chunk
+> +	 * can be freed.
+> +	 */
+> +	*chunk_gpu_va = panthor_kernel_bo_gpuva(chunk->bo);
+> +
+>  	mutex_lock(&heap->lock);
+>  	list_add(&chunk->node, &heap->chunks);
+>  	heap->chunk_count++;
+> @@ -210,13 +219,19 @@ static void panthor_free_heap_chunks(struct panthor_heap_pool *pool,
+>  
+>  static int panthor_alloc_heap_chunks(struct panthor_heap_pool *pool,
+>  				     struct panthor_heap *heap,
+> -				     u32 chunk_count)
+> +				     u32 chunk_count,
+> +				     u64 *first_chunk_gpu_va)
+>  {
+>  	int ret;
+>  	u32 i;
+>  
+> +	/*
+> +	 * Chunks are inserted at the head of the list, so the last chunk
+> +	 * allocated is the first chunk of the heap.
+> +	 */
+>  	for (i = 0; i < chunk_count; i++) {
+> -		ret = panthor_alloc_heap_chunk(pool, heap, true);
+> +		ret = panthor_alloc_heap_chunk(pool, heap, true,
+> +					       first_chunk_gpu_va);
+>  		if (ret)
+>  			return ret;
+>  	}
+> @@ -280,7 +295,6 @@ int panthor_heap_create(struct panthor_heap_pool *pool,
+>  			u64 *first_chunk_gpu_va)
+>  {
+>  	struct panthor_heap *heap;
+> -	struct panthor_heap_chunk *first_chunk;
+>  	struct panthor_vm *vm;
+>  	int ret = 0;
+>  	u32 id;
+> @@ -315,15 +329,11 @@ int panthor_heap_create(struct panthor_heap_pool *pool,
+>  	heap->max_chunks = max_chunks;
+>  	heap->target_in_flight = target_in_flight;
+>  
+> -	ret = panthor_alloc_heap_chunks(pool, heap, initial_chunk_count);
+> +	ret = panthor_alloc_heap_chunks(pool, heap, initial_chunk_count,
+> +					first_chunk_gpu_va);
+>  	if (ret)
+>  		goto err_free_heap;
+>  
+> -	first_chunk = list_first_entry(&heap->chunks,
+> -				       struct panthor_heap_chunk,
+> -				       node);
+> -	*first_chunk_gpu_va = panthor_kernel_bo_gpuva(first_chunk->bo);
+> -
+>  	down_write(&pool->lock);
+>  	/* The pool has been destroyed, we can't create a new heap. */
+>  	if (!pool->vm) {
+> @@ -437,8 +447,8 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
+>  {
+>  	u64 offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
+>  	u32 heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
+> -	struct panthor_heap_chunk *chunk;
+>  	struct panthor_heap *heap;
+> +	u64 chunk_gpu_va;
+>  	int ret;
+>  
+>  	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL)
+> @@ -473,14 +483,11 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
+>  	 * further jobs in this queue fail immediately instead of having to
+>  	 * wait for the job timeout.
+>  	 */
+> -	ret = panthor_alloc_heap_chunk(pool, heap, false);
+> +	ret = panthor_alloc_heap_chunk(pool, heap, false, &chunk_gpu_va);
+>  	if (ret)
+>  		goto out_unlock;
+>  
+> -	chunk = list_first_entry(&heap->chunks,
+> -				 struct panthor_heap_chunk,
+> -				 node);
+> -	*new_chunk_gpu_va = (panthor_kernel_bo_gpuva(chunk->bo) & GENMASK_ULL(63, 12)) |
+> +	*new_chunk_gpu_va = (chunk_gpu_va & GENMASK_ULL(63, 12)) |
+>  			    (heap->chunk_size >> 12);
+>  	ret = 0;
+>  
+> -- 
+> 2.53.0
+> 
 
-Using Windows to submit this is quite weird.
-
-You submitted a lot of patches to different subsystems at the same
-minute. Did you send the email yourself, or asked an LLM agent to flood
-LKML for you? Did you (or your LLM agent) test it?
-
-Could you at least figure out how to send patches in UTF-8 correctly
-before deciding to use git-send-email on Windows? By using Windows, your
-configuration couldn't even encode Ilpo's last name correctly (I've fixed
-it in my reply) :-/
-
->=20
-> Discovery: found by the author's in-house static analysis tool.
-
-Wasn't this just LLM generated?
-
-Confused,
-Rong
+-- 
+====================
+| I would like to |
+| fix the world,  |
+| but they're not |
+| giving me the   |
+ \ source code!  /
+  ---------------
+    ¯\_(ツ)_/¯
