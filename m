@@ -1,98 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794820462;
-	b=mOMnye79ZWnHsoU/q9RMpLbCI8AesrbU3FqtTfbY57b5P+OryKLxEMWqVkAHpLPB0n2q
-	 VEg16VMNLTQOOOu/crhttmybzed99YYTj4SIeG5N9kiYTqiXE+Koov9/iNAHJlnBA0mqR
-	 eqHCwdj/V2OagT5RlQ21aDAlBrEszykXZ6rBO+YS2UaiNGgGoJnhtbWMLzJbWcKi1P9z2
-	 HRCG0Bgi1oympNjHAFnTR9swE69EksU40dxaCBq+maI2WbxyewQZvyaaqb1d5l55TxQDT
-	 pQqyKMU5UOyRjB3UnW4JGtP2MsKidKlPa+wze2dcckTB9Fn1HdqPTWD3lvIU3gSVYeQ==
+	t=1794821093;
+	b=vnj2TAh+l5wxCMUkIYaBYDNPhZ1iQ97KXkKhKjLUjuQzpJt2hDl7Wf1wX8NMvJrb610k
+	 +rxCc+BrgkkOrc8ngrZMUZSqi8u9opNomPdoyZiXCuq3qo8dSgNdiHszilkfWu+xOtxnU
+	 6LgoWNiUhQbphA3pFHT2ow1iwubfGa1MmR5ZT1dFsZigYSXmI73cfvx6Hbhxxdg/n4wYR
+	 o037/0a7sAU2wHB+Y/vto6Ty6PEAkH+aMwXW+a4tGLZOo1j/m58UE4SCh5T3ImCFW+3MK
+	 7qMDGjV+RjXhon1zQvmM8BipSOMIDWjMbeC0P+xXlI2S1uQ4lE6HLUP/DQtJPdCpALw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794820462;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794821093;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=duB+53Rzo/I6JCkMTJRwR1f6X11DgAhC6/nYlh9cR8c=;
-	b=m0SpFHPNAFmozWUmwmR/5MHO2nGqQRtpf3t7ZEiZOfe8LLiARvJWIdbnSPzbAQ3XKQOM
-	 lgohV/6M8F8QeD2blpW6mojxRrWzPkNPqIXJZWYEuLM3g4mpfzGpsJWmPOmECZHRYIp8K
-	 G16fQRJ3XCTLpzqX5fr236dSSQ7uUFsAWFZcbnLWJbgjBA5SIa0JhWdZ6eBcIKF1Wp65C
-	 ToPuqk2sZxaqKbJp6OFax73kQU6sx1OoHDADkKHrXV8rTpY+XQdK+PPmDXtASsvZsaDAk
-	 UNwRDZaRjK7dk5xh2rm21t4Yxtw4n20GdPCg1Pkish/AO5k3J3oPbgqvEhWALUrHzwg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=wWFReQCNmO0chmlv4z0vEYsw9XSwzNSVOiZAm6Q6bTo=;
+	b=r/sIEF3//P6gQJWHNLJmHQlYvxNk4sXej6h7fTQKs13bnWmY1DG9JVfHNPHaXv1tKAu6
+	 NAVO0mb1uz1Q61FRhwl0UZLq9A0eVZycUVAkbBMK/u8BOxRRTHQTjA/eZT2p9z0/CRTv5
+	 D+u4T+qhvDHOrXQwEzPncClMTj9+iwwshUea9YJQRi6FqBKDbngCtvS6e94VKc+u9I02v
+	 jgyxqgL0VLtKMGGXoHuSFkvmqZolxLUM/sPU21rs8fyvzP/0Sn7NIrY6rf7yCTPQBmilU
+	 Ve5OTPpxYbq0raA/Dfni+j0AWA4NqV+ooLABh8lO9sMwaxThwTbkKeuN/oXJ5g/eSug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=b0a3iGWr;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dmarc=pass header.from=is.s.u-tokyo.ac.jp;
+	spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp;
+	dkim=pass header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=d1xH0vwW;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C522B606A323
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 09:14:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C522B606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC640606A880
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 09:24:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CC640606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=is.s.u-tokyo.ac.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=g.ecc.u-tokyo.ac.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=b0a3iGWr
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4b467581b98so25750035e9.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 01:14:21 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=is.s.u-tokyo.ac.jp header.i=@is.s.u-tokyo.ac.jp header.a=rsa-sha256 header.s=google header.b=d1xH0vwW
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-37071c0f42aso4716752eec.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 01:24:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1794820460; x=1795425260; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=duB+53Rzo/I6JCkMTJRwR1f6X11DgAhC6/nYlh9cR8c=;
-        b=b0a3iGWrhf0lSrT8W5PZ3apkvAjkLzovGdk1hHP6fmuZKr0QgHoQskCMS/2eXD8s1H
-         KMlOrWoYP2COhV2udxBxwK3o35CxHUhhuUrA/gsxWN/ozahfqeYoF760rLEDhKWIf9J1
-         qdrT6VnVDZxSlFoyG21Gp1FxTNXij99MBVUfo9iJxRy/yMfTJZPqEIGSE4gOOqSCv8iX
-         ADnrBEXLVfxAyBDtPbyu8KzXQABpCjhC8TzviIGKLh6Ana7YjdzUvNiyAee/3o8oN6L3
-         zijZgQpZW15/LdRnrqhdxzbIDH4YtVKirByXJQPFA2vMzaeNSUzuHGaW5+jHojV5ACNm
-         NOfg==
+        d=is.s.u-tokyo.ac.jp; s=google; t=1794821092; x=1795425892; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wWFReQCNmO0chmlv4z0vEYsw9XSwzNSVOiZAm6Q6bTo=;
+        b=d1xH0vwW72dNf8B6ts19L8aOBpw3sMMg2s+Kb7smIenN9JByd8YzcP3EJ7vvYMnaz/
+         ZLlHedxVBOxcvOp/t8GiPAV5qKkppj9fYHBpCX8idlDNSURV/YgjTH9cSlLEyp0cD5Fg
+         CO5vC4p2O2dOHzJ8ikYPitSKQp0PhAJgVhmNygodgIYvOxZKF+u97D71QiRCcR7RO70V
+         Ze6QIgH0cbiwEpGR27t2F49pPAHbNFlu92fxRPDduJIyuv1H5lM+1RIqhbiVSeWuyMzr
+         3iJ/NL6IiWEB9jrVbOANK4ySE91+bRk6TwP1H6uiv2u3mVuK1URa+Aa0nQeUK5J1DPyN
+         kOYw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794820460; x=1795425260;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=duB+53Rzo/I6JCkMTJRwR1f6X11DgAhC6/nYlh9cR8c=;
-        b=Pca7WdR353NPX0NT0w3Sz1z5ZghAbpVHpfZaL9d+3+SEyiUhQ7B1in/D/gP1RELdsd
-         MYMuGDJI+VLGeVz+/h2pYRMLbAVQ6AkpIVJMl2cRJenbSe9YRqyTUd3NBYvudCZdgQ67
-         Fr32NQM1OgpsbMTonDv5h2Kat+KBSi8trBGTpLQAuIGVo6NJcV1k5H4t0GfU7EGmscs3
-         LLPDRE+0e3fcyBNYtWKIGzipsC3UZFWjAdC34xriZ1FjdBaRr99CTIOctPf+UWLvpiGu
-         6yrWl3AmvOujshoEvz+lr0w7LSfGL1a2FFLWJASJHLMKG4qx4dWDlRPPzmN6DKsr6vYD
-         P8HQ==
-X-Forwarded-Encrypted: i=1; AL+hErHchbqkzxpW5tDqxid/C1Kka2n2rQTR50te6vtNrvNMoHpwsAIgWSlBACPK7whwQ0iaOhDqsv8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9TilHASlUkM6jaaUiTx8Gmxp7XXnVKcIh74dIeys5xfp5IYJJ2
-	t9ifiCoEhPGBKaSWhaFL5PwRgPiNBiqqQoFJEB3KvDg1KTXRI6xjrtAV35ffazEXTYM=
-X-Gm-Gg: AYBFou0R7dIEW4LB2d+sgQbK0yj0CwpymMgWkQu0vtvZ5+gWw4jmdzQqIUsedmWfH3k
-	Ksfnoi6akRqW07djaNajtv60YDaOHOhwiCWfSGhy5xvr6pqDUvB/L5Zmcl8zWt7uPvtcAFnTCTm
-	YHgOBU2jy6dN/fg2ZCFaLjGhicsYcQa2I4uZ7nPOYhf0h7kxe8UChXC4sf54CUe/JgKD/YyDzLe
-	y8JCKlJGoHuxKOEp61YSqzu7LdUiNZzRiiG7F6HZxOu8ZuVmHFap8Fjf/UeqJCGBxFvSwUNsjd+
-	iZgW7ODdLdKTo3Ui9CFwUlgEObc3Wumx/YtKpd5/ZcVSKeOjszw0jugyme04dA4zyHQE7oKxbZX
-	U0KIai7b8NEngy3/MZXJDZnMpgwWBg8GPgqCTOOxzykSSBU8e1TUqBncbwF3CjO7vMvuH2P1y4c
-	n2+zi2aJsPdVIodVPwma9o2FRrjaROdPih6cfvc0RbR9kl1pYii/H4IoORCfHR88P/RxPdvdVEb
-	hYrYaNteM5QcFbjIze2lHVw5WLwm1A06fnMwdZ1Seb+6+S9A/7zI3PVUUTyBTS+UWgkRe7CNiE3
-	KmRMXNvFqp9mqSYr49xmhdvSsi2RZHortdIkvDaNuFP1Xn7XPghXnvdkLxORbWDFqNr1WlY7CYd
-	jO/AbIuV+DzTf8nNKHA==
-X-Received: by 2002:a05:600c:1d10:b0:4b2:3c81:d1 with SMTP id 5b1f17b1804b1-4bb55a65ea5mr192703955e9.5.1794820459865;
-        Mon, 16 Nov 2026 01:14:19 -0800 (PST)
-Received: from localhost (p200300f65f19a9042c263c0c153a4e28.dip0.t-ipconnect.de. [2003:f6:5f19:a904:2c26:3c0c:153a:4e28])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4bb5faf05f8sm159998655e9.10.2026.11.16.01.14.18
+        d=1e100.net; s=20260707; t=1794821092; x=1795425892;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wWFReQCNmO0chmlv4z0vEYsw9XSwzNSVOiZAm6Q6bTo=;
+        b=A/qaydzHbhVmQL/pxh+MXQ/Imxhcc52yzhmBdCNbY4pGdS43SRrU5xaFophXfdSDoc
+         5m5dukPgpoGgV19dagSrH9QhIxPQrw2vquqsIWa7R8XKMtuiMyLde506Ri6ocNlJgdE0
+         /LmPVytS1Pe2wpra8gsL2F+SMeMPJJ1gHFgKuGWcBt2E7YNijSIMZSrX5o6oIeBWuJ7I
+         QhQmTdUdGP1+6ii0j0UwQFLE3oo47k00Z2xYEEMu5CPAtYReTX/yeXSVHjRUDPqjSh3V
+         ABeowaAH4MnZnrVZ28Whv7rLqMsRR6JuuTgXKpYxtfBRd0fuNC1H8/WwNcdXD4REbv1q
+         3M7w==
+X-Forwarded-Encrypted: i=1; AL+hErHhkVdC/blru8mC0xafalMVb5oQ0oTZhLUIQnSzwhBGJN4+4Eg22lC4rvVLlqOQmvuaLH3ENdM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8TOSYZicwbNX5BnJaFHfZ26uKneT0JtxEIAFUc+XstXjovHz6U
+	rmNSPvA9CIG6vr8edDtAw72r0hXofb7yJALmR+i6FFqG2ZKxNzB4rLZ6S3WYUNxRKw==
+X-Gm-Gg: AZFdTZe47q9Zcx4fAqs5oaPQUBvKENadaHDXX7W+uSrpwYlZKZ/hWICoqiBzRg40O7+
+	o8kPYuvB8PXlFlhH3Dg13JAfwra25SjE9i+TptDmyx0cghqFCe6DmbUmfQ3e5jHILZDPQwsgFfn
+	9K6ZR4aH9GQIRjnjFWqZTehGyXcpvLzUIA+UIIuz62CTNIIHTH51rbH4BL1E2b4ARY3Blrnvgj6
+	rdUalctS9vSxPrVnjxwenDK8Bs2Uc8arSDMOTCAW3GTjfByLmocsUjXQSGJEGYYj3bVQEBBpw83
+	yu3P+FapXUEEcaKWp2x1f8o9WwgJz5RUbW5kpmhERNTEmsPZs9W23jp1d1Y2hn0F76wR7fFVU61
+	KxW7nKYUJj0gmJdifMF/osHiHCgg9mo/11fBOE3jJH8PKQ7KI9qcBG5z+N87lLkXmWuPAB/+4T0
+	pr8Txy7RvpmycOI9XyszsgdtB430Ik6IzdyBAjoF+mGZ0xhiddGWDdVOdlLN/EZkh+30RB3kTrj
+	jO8UDq35WrD+7awajTWKgsplEqqPufSole0NeSNhCxKnW4R3PO/FvNRtbfNTnBqNuY+62ZWqIk8
+	QnICDdA8JF51ybACrFMn1khfJ1V8D2IGaBLeXw==
+X-Received: by 2002:a05:7300:d40b:b0:376:b957:c08 with SMTP id 5a478bee46e88-37966c489d6mr10969239eec.9.1794821091716;
+        Mon, 16 Nov 2026 01:24:51 -0800 (PST)
+Received: from wang0.localdomain ([133.11.33.33])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad6casm32056314eec.26.2026.11.16.01.24.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 01:14:19 -0800 (PST)
-Date: Mon, 16 Nov 2026 10:14:17 +0100
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Harini T <harini.t@amd.com>, Michal Simek <michal.simek@amd.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, kernel@pengutronix.de, 
-	linux-can@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-renesas-soc@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH can 2/4] can: flexcan: flexcan_probe(): fix probing for
- m68k/coldfire and reject devices without match data
-Message-ID: <avrHkaYw-De6nv8B@monoceros>
-References: <20261114-fix-device_get_match_data-v1-0-2d82025e9646@pengutronix.de>
- <20261114-fix-device_get_match_data-v1-2-2d82025e9646@pengutronix.de>
+        Mon, 16 Nov 2026 01:24:51 -0800 (PST)
+From: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	netdev@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Michael Bommarito <michael.bommarito@gmail.com>,
+	Takahiro Shinagawa <shina@is.s.u-tokyo.ac.jp>,
+	stable@vger.kernel.org
+Subject: [PATCH net v3 1/4] virtio_net: reject stats replies for queues outside the request
+Date: Mon, 16 Nov 2026 18:24:42 +0900
+Message-ID: <20261116092445.3391334-2-lian@is.s.u-tokyo.ac.jp>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261116092445.3391334-1-lian@is.s.u-tokyo.ac.jp>
+References: <20261116092445.3391334-1-lian@is.s.u-tokyo.ac.jp>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,91 +110,104 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3kbn6dvhzgm4gtvf"
-Content-Disposition: inline
-In-Reply-To: <20261114-fix-device_get_match_data-v1-2-2d82025e9646@pengutronix.de>
+Content-Transfer-Encoding: 8bit
 
+__virtnet_get_hw_stats() passes the vq_index of each record in the
+device's statistics reply to virtnet_fill_stats() without checking it.
 
---3kbn6dvhzgm4gtvf
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH can 2/4] can: flexcan: flexcan_probe(): fix probing for
- m68k/coldfire and reject devices without match data
-MIME-Version: 1.0
+For ethtool -S, virtnet_fill_stats() uses vq_index as an offset into the
+output array, which the ethtool core sized for curr_queue_pairs. A
+record with the vq_index of a higher queue can make the driver write
+past the end of the array.
 
-Hello Marc,
+For the per-queue netlink stats, the queue type also comes from
+vq_index. A receive record in reply to a request for a transmit queue
+makes the driver fill the struct netdev_queue_stats_tx on the stack as
+if it were a struct netdev_queue_stats_rx. If the device offers
+VIRTIO_NET_STATS_TYPE_RX_SPEED, this writes one counter to the eight
+bytes after the tx struct.
 
-On Sat, Nov 14, 2026 at 01:56:15PM +0100, Marc Kleine-Budde wrote:
-> When determining the device details was reworked in commit 5e6c3454b405
-> ("net: can: Use device_get_match_data()") there was no replacement for the
-> previous handling of non-of instantiated devices via the device's id_entry
-> which then results in a NULL pointer exception. The only in-tree provider
-> of such a device is arch/m68k/coldfire/device.c.
->=20
-> Restore retrieving the devtype_data via platform_get_device_id().
->=20
-> Also a device bound through driver_override need not match an entry in
-> of_match_table or id_table. In that case device_get_match_data() returns
-> NULL, but flexcan_probe() dereferences the result.
->=20
-> Reject devices without match data before continuing probe.
->=20
-> Fixes: 5e6c3454b405 ("net: can: Use device_get_match_data()")
-> Cc: stable@vger.kernel.org
-> Reported-by: Uwe Kleine-K=F6nig <u.kleine-koenig@baylibre.com>
-> Closes: https://lore.kernel.org/all/20260618140147.142489-2-u.kleine-koen=
-ig@baylibre.com/
-> Reported-by: Marc Kleine-Budde <mkl@pengutronix.de>
-> Closes: https://lore.kernel.org/all/20260528-fluorescent-sage-ladybug-432=
-61b-mkl@pengutronix.de/
-> Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
-> ---
->  drivers/net/can/flexcan/flexcan-core.c | 5 +++++
->  1 file changed, 5 insertions(+)
->=20
-> diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/fle=
-xcan/flexcan-core.c
-> index 86b40abe9e76..2bb9e4184eb5 100644
-> --- a/drivers/net/can/flexcan/flexcan-core.c
-> +++ b/drivers/net/can/flexcan/flexcan-core.c
-> @@ -2148,6 +2148,11 @@ static int flexcan_probe(struct platform_device *p=
-dev)
->  		return PTR_ERR(regs);
-> =20
->  	devtype_data =3D device_get_match_data(&pdev->dev);
-> +	if (!devtype_data && platform_get_device_id(pdev))
-> +		devtype_data =3D (struct flexcan_devtype_data *)
-> +			platform_get_device_id(pdev)->driver_data;
-> +	if (!devtype_data)
-> +		return -ENODEV;
+Fix this by rejecting the reply when the vq_index of a record lies
+outside the range of queues in the request. The control vq is checked
+separately, since the vqs of the queue pairs beyond curr_queue_pairs lie
+between that range and the control vq.
 
-My stance is that the ability to bind an "unexpected" device via
-driver_override is something that should be handled in the core, see
-https://lore.kernel.org/all/0f7446324f6a0c8f0153d6532d92a6eeecd6a308.179061=
-2298.git.u.kleine-koenig@baylibre.com/
-for the latest patch to address this. I'll work on this patch to
-hopefully get it into v7.5-rc1. IMHO it's ok to not fix this in a driver
-specific way now. (And then my patch referenced above in the first
-Closes:-trailer is IMHO better than this patch.)
+Claude Opus 5.5 was used to audit the driver and draft this patch. To
+reproduce, the virtio-net device in QEMU was modified to offer device
+statistics and to answer the request of ethtool -S with a record for a
+nonexistent receive queue. On an unmodified kernel, KASAN reports a
+write past the ethtool -S output array:
 
-Best regards
-Uwe
+  BUG: KASAN: vmalloc-out-of-bounds in virtnet_fill_stats+0x6c1/0xf20
+  Write of size 8 at addr ffffc90000085140 by task ethtool_stats/158
+  Call Trace:
+   virtnet_fill_stats+0x6c1/0xf20
+   virtnet_get_hw_stats+0x5d6/0x7c0
+   virtnet_get_ethtool_stats+0x11b/0x920
+   ethtool_get_stats+0x150/0x1f0
+   dev_ethtool+0xaaa/0x1be0
+  The buggy address belongs to a 1-page vmalloc region starting at 0xffffc90000085000 allocated at ethtool_get_stats+0x120/0x1f0
 
---3kbn6dvhzgm4gtvf
-Content-Type: application/pgp-signature; name="signature.asc"
+With this patch, the driver rejects the same reply. When ethtool -L
+leaves queue pairs unused, the driver also rejects a record for the
+first unused receive queue, while a well-formed reply fills the
+statistics as before. The drivers/net/stats.py selftest passes when the
+device answers with well-formed records.
 
------BEGIN PGP SIGNATURE-----
+Fixes: 941168f8b40e ("virtio_net: support device stats")
+Fixes: d888f04c09bb ("virtio-net: support queue stat")
+Cc: stable@vger.kernel.org
+Signed-off-by: Lianjie Wang <lian@is.s.u-tokyo.ac.jp>
+---
+v3:
+- No functional changes.
+v2: https://lore.kernel.org/all/20261102205550.4148064-1-lian@is.s.u-tokyo.ac.jp/
+- Add a comment and a sentence on why the control vq is checked apart
+  from the range of the other queues.
+- Add the KASAN report and a test with unused queue pairs.
+v1: https://lore.kernel.org/all/20261022182710.2055771-1-karin0.zst@gmail.com/
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmr6yV8ACgkQj4D7WH0S
-/k4KnAf+I1gQa7nnydreBqpl18qr3bjlMpNbM/wcIEtGP3xMBPkpDX2yJFljOI8k
-9TayfHIOvCINmFKVvL4sioue78+dQP56QUAmZGMHZNnQd4W/38CNi+PxKIqgsV74
-yoJHlZhYsHSMLMsf8oAIKAGhkVtpziLJ88i2Yc2ghjZ7erYkKrSuBc+jFTFzI4tM
-OknkKdfObSLN1TAr5lJYpnpvCn6HNJOkz//vLAgu6wAYdV9WtAd0wrkm/4tFcfir
-MpB/Cw/PNtHNAZWiKPL50rum+ferNUNUzHrRAEx38UA5Sj1Nz4MQonl0UUVFoPIr
-tgcOC5iCUQKdoIJu+AnDEx5AuRV1Dw==
-=98Fb
------END PGP SIGNATURE-----
+ drivers/net/virtio_net.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
---3kbn6dvhzgm4gtvf--
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index ed20e76fbc4c..57d7a98ecb57 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -4973,7 +4973,8 @@ static void virtnet_fill_stats(struct virtnet_info *vi, u32 qid,
+ static int __virtnet_get_hw_stats(struct virtnet_info *vi,
+ 				  struct virtnet_stats_ctx *ctx,
+ 				  struct virtio_net_ctrl_queue_stats *req,
+-				  int req_size, void *reply, int res_size)
++				  int req_size, void *reply, int res_size,
++				  int first_vq, int last_vq, bool enable_cvq)
+ {
+ 	struct virtio_net_stats_reply_hdr *hdr;
+ 	struct scatterlist sgs_in, sgs_out;
+@@ -4994,6 +4995,13 @@ static int __virtnet_get_hw_stats(struct virtnet_info *vi,
+ 	for (p = reply; p - reply < res_size; p += le16_to_cpu(hdr->size)) {
+ 		hdr = p;
+ 		qid = le16_to_cpu(hdr->vq_index);
++		/* The vqs of the queue pairs beyond curr_queue_pairs lie
++		 * between last_vq and the control vq.
++		 */
++		if ((qid < first_vq || qid > last_vq) &&
++		    !(enable_cvq && qid == vi->max_queue_pairs * 2))
++			return -EINVAL;
++
+ 		virtnet_fill_stats(vi, qid, ctx, p, false, hdr->type);
+ 	}
+ 
+@@ -5073,7 +5081,8 @@ static int virtnet_get_hw_stats(struct virtnet_info *vi,
+ 	if (enable_cvq)
+ 		virtnet_make_stat_req(vi, ctx, req, vi->max_queue_pairs * 2, &j);
+ 
+-	ok = __virtnet_get_hw_stats(vi, ctx, req, sizeof(*req) * j, reply, res_size);
++	ok = __virtnet_get_hw_stats(vi, ctx, req, sizeof(*req) * j, reply,
++				    res_size, first_vq, last_vq, enable_cvq);
+ 
+ 	kfree(req);
+ 	kfree(reply);
+-- 
+2.56.1
+
