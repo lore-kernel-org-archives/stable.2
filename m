@@ -1,80 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.62
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794843061;
-	b=ACa/lgxCMg8bAGKgyFMYVRuc1WhJRDxqCopxfkoIbLk7k0AuIz8OZTxmUDGKsjjYwY4u
-	 kzAU/1IvsLN6ISYEc7HFLO4Yq2nqCNKiM9ynt0AWlA0TWvIrJeel/5DNlCCRnULkt7vVy
-	 mGPmLzoONKk2YlgJJGpQKjFViMLfOuqXTbG92Al3lW6c5/DiDjhMxq8vt6pQQEbhwg1dY
-	 JPEjuFwl8WgVmiNdlYw4OUhD/ynbakWQujhjlt6QygnvfMdjN0x7/52OU79st5Ib2ITZq
-	 Q6CIcIjDQsLvmJ/6sPGLGu0f/YQyJ1n22bAprivI2yqgutGFzqOIKMOSFViLdCZ0M2Q==
+	t=1794843106;
+	b=V+gb4AX1KD81Pi4KDGXDkkObhPTjcwetTkYl6vEmfUzS4EtYyNd8WO+6vAtVrCCSQ1fc
+	 7P6XynKrKDscXuBud5YsxPSWSIPoL0KYX0PPWYs921B2d843okuGpKpkPnyxV3LvWWM32
+	 lMzeC0NGGuzzrNy70CFJuk2yt6uDcGXHm+yQHnotjOMq5wF4+2zGdRdHLgXt5CUjZHEp6
+	 WaMDdO7jiMi4afCuhhxOKJML1lm1NvSYw44tFRvMheePudZG3nLYJZvTOAuj8dZOn72MP
+	 uXXpI8UEZVuV7K+K0/xVyo9T061iuttaRwBRzn3jyTOQPt2E0I46M77fpqWvStKuKmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794843061;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=izMnGSi5/C4Zjs+ze3xoS9LB92c3fP1+bt3Aegm0+Zk=;
-	b=fwMr5iO4kC+P2RrvEfmZJaCjikq1cnhePv6ZKrCr5Djg3s1X1B+9Gf5s0GXyakoEyjMt
-	 QMYSc6vG8bNMUKO4HlXN/Uz6JYOEF4h/yWYAkID80S+mCiJLogCWq+j+h5ZAoEeftXjhh
-	 7sA9BluciFNHdokvBE+TiAgjuMFm45Sw79bkT+gzhTz8gM7Jj+o4ptR98qMW2w6joPcU3
-	 uL5AoYZQjQ5QkgxrCAhhn0jPUN1f4Vat+qHdNe49PjbR65DiB1OY9oG5sVFHZ11gFHCn/
-	 W18OdVwvKkhT+Xy7CCpx7fj+MGlFISWfQZAxu9Ka/YJFblxTmtae8FyUESOudU5ylzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794843106;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Rspamd-Server:X-Rspamd-Action:X-Spam-Flag:
+	 X-Spam-Score:X-Spam-Level:X-Rspamd-Queue-Id;
+	bh=Idicx8emA2oqvBA/OxBNuiAP4xRKrUiUsD475RwA6E0=;
+	b=G7Vq7o1TaFrhJ+4EXj7xw+LGYZucHQtTZ/tYL70qh8jLb63qXwYqL1CEjBtOelDQ3XFJ
+	 yxCpEhfluiceQWvKeiiwyASqHpDjgQI21zooI7ElgCqAe/7/LnSBU5Wg7kLreRKVeTet8
+	 GkrHbfgFHInEsYat/Qr0HBtIIY9slrnpWTpvtPT4ThK0FkoCvSmYzeAc2UlQ0cuNXsUs/
+	 xmQkx50vTJXwsbQB3dC2uots25XBP8RhE4pniGW5CAGbdejndzY4MwuvVjcDkJLXb8abA
+	 uPVTih7pfMAB2V8CUHoH5FNYZDbRWfBzBzp54nvqZUgsGWIGVGiyL+zJTT1xpDtO8mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=mandelbit.com;
-	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=yvBI2C02;
-	arc=none smtp.remote-ip=195.10.208.62
-Received: from mout-b-202.mailbox.org (mout-b-202.mailbox.org [195.10.208.62])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=znWO6M9w;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+27JLGYz;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=y4Bl7LUs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="WqlYwjw/";
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D2A606A884;
-	Mon, 16 Nov 2026 15:31:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79D2A606A884
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F91606A339;
+	Mon, 16 Nov 2026 15:31:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74F91606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=yvBI2C02
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=znWO6M9w;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+27JLGYz;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=y4Bl7LUs;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=WqlYwjw/
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-b-202.mailbox.org (Postfix) with ESMTPS id 4jSsJV67ntzKm6H;
-	Mon, 16 Nov 2026 16:30:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1794843050;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 637F5222E9;
+	Mon, 16 Nov 2026 15:31:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794843103; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references;
-	bh=izMnGSi5/C4Zjs+ze3xoS9LB92c3fP1+bt3Aegm0+Zk=;
-	b=yvBI2C02ZwFRuUGrao6VTZ+vHHaEgoU0fkE9KwDDWhJWCR3EEv2bTrmUCsBU+P2yLkVrv4
-	XEJo7hEuXHrl1uY98K31N0VINK6Evzn8dHmts1HGIEHUukiIUXIDe0kThTN+QcKQ3SD977
-	J+X0EIBZJ6vyjk0I9kcQ6flZRkD+3MmP1TzApAPuILY8MkOrdGeiluHAZoBcDnEMqVlIU6
-	hoRe7HYaI5T23ITn8r1c14614oWwXAXMRytC8lAVSf2inl1ImkGdq0/Tu2dLLqECAZ7wLH
-	/R5bmYU3Go8kCKkUfaW87aVTt0+l3pqFoPr9KHZBZm+9fWfTsGYZWsFA5MiGZg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
-From: Antonio Quartulli <antonio@mandelbit.com>
-To: intel-wired-lan@lists.osuosl.org
-Cc: Antonio Quartulli <antonio@mandelbit.com>,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Kurt Kanzenbach <kurt@linutronix.de>,
-	Joe Damato <joe@dama.to>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 2/3] igb: link queues to NAPIs under RTNL after runtime resume
-Date: Mon, 16 Nov 2026 16:30:38 +0100
-Message-ID: <20261116153041.3002666-3-antonio@mandelbit.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261116153041.3002666-1-antonio@mandelbit.com>
-References: <20261116153041.3002666-1-antonio@mandelbit.com>
+	bh=Idicx8emA2oqvBA/OxBNuiAP4xRKrUiUsD475RwA6E0=;
+	b=znWO6M9wpsS5mf/SnkNuKM/pDJTqz5RmAtQamiXjfOqWMjTmQN/Ulvx+d+bcqj0aLgyBNU
+	FjBKS6YzmL9pUEfStn5YHfRc2+Ru8w64A3NmiHQ9nlPwUNBZmATEAl/mFQ5BBy8tYGvNh7
+	NbKW350KE5uQzO4koS3rXUOzbDjqbW0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794843103;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Idicx8emA2oqvBA/OxBNuiAP4xRKrUiUsD475RwA6E0=;
+	b=+27JLGYzcIxM57T30HTPmT3JWkI/tUZoo317Eq6wEfzE2MgBFvGJJvKPYrqxO2KVkdMRap
+	5+bdkgyo1MGZJmCA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=y4Bl7LUs;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b="WqlYwjw/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1794843102; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Idicx8emA2oqvBA/OxBNuiAP4xRKrUiUsD475RwA6E0=;
+	b=y4Bl7LUscTQ5TQwLCWIBllBNYEakHtfb8MhkESItEYN0nbXLx54dwabz8K1qmQ1KSM0zVi
+	Jh8Kng6fRNVaJYZK57aiQ6XJ0JgohUe9i4rdMSqP2lqEm29luS5+GvH4IsP8RAOkj7oHnG
+	30DuLHRoTpd1D7sxXRPVonVNKPZ2tVo=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1794843102;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Idicx8emA2oqvBA/OxBNuiAP4xRKrUiUsD475RwA6E0=;
+	b=WqlYwjw/YdMT532VL2vb+DWwLKQrl8V1AR8f5l986xSh4PXoyRh0XJeEKSne+cNyH2vmy1
+	of/NVauX9t7cz/Bg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 1EE7113408;
+	Mon, 16 Nov 2026 15:31:42 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id vI1vO90h+2qgLgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 16 Nov 2026 15:31:42 +0000
+Date: Mon, 16 Nov 2026 16:31:41 +0100
+Message-ID: <878q2syeqq.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Ye Weihua <yeweihua4@huawei.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	<linux-sound@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH -next 1/2] ALSA: pcm: oss: Restore params flag after failed reconfiguration
+In-Reply-To: <20261116064850.3540576-1-yeweihua4@huawei.com>
+References: <20261116064850.3540576-1-yeweihua4@huawei.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,127 +112,63 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jSsJV67ntzKm6H
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-12.51 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim,huawei.com:email];
+	MIME_TRACE(0.00)[0:+];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	TO_DN_SOME(0.00)[];
+	ARC_NA(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCPT_COUNT_FIVE(0.00)[5];
+	DWL_DNSWL_BLOCKED(0.00)[suse.de:dkim];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,huawei.com:email]
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spam-Score: -12.51
+X-Spam-Level: 
+X-Rspamd-Queue-Id: 637F5222E9
 
-__igb_open() links queues to NAPIs with netif_queue_set_napi(), which
-requires RTNL, but RTNL isn't held when resuming from runtime suspend:
-this triggers "RTNL: assertion failed".
+On Mon, 16 Nov 2026 07:48:49 +0100,
+Ye Weihua wrote:
+> 
+> snd_pcm_runtime_buffer_set_silence() may fail with -EBUSY when a
+> concurrent PCM transfer is accessing the buffer.  The error path
+> releases runtime->oss.buffer and clears the plugins, but leaves
+> runtime->oss.params cleared as well.  A subsequent small read/write
+> then skips the reconfiguration and dereferences the released buffer:
+> 
+>   Unable to handle kernel NULL pointer dereference at virtual address
+>   0000000000000000
+>   pc : __arch_copy_from_user+0x78/0x23c
+>   lr : snd_pcm_oss_write+0x10c/0x340 [snd_pcm_oss]
+> 
+> Restore runtime->oss.params on the error path so that the next OSS
+> operation reconfigures and reallocates the buffer.
+> 
+> Fixes: 47c27c9c9c72 ("ALSA: pcm: Improve the fix for race of buffer access at PCM OSS layer")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ye Weihua <yeweihua4@huawei.com>
 
-Don't link them in __igb_open() when resuming: do it right away on
-system resume (RTNL held) and from a work item taking RTNL on runtime
-resume. The links can't be kept across a suspend, because
-__igb_shutdown() frees the q_vectors. These are only freed under RTNL
-with __IGB_DOWN set, so the work item checks __IGB_DOWN under RTNL.
+Applied both patches now.  Thanks.
 
-Tested with the 82576 emulated by QEMU.
 
-Fixes: b75a1dea500f ("igb: Link queues to NAPI instances")
-Cc: stable@vger.kernel.org # 6.16+
-Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
-Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
----
-v2: no code changes; mention the tested hardware.
-
-Note: igc may have the same issue: __igc_open() also links queues to NAPIs
-(igc_set_queue_napi()) on the RTNL-less runtime resume path. We didn't
-have igc hardware to test a fix with, so no igc patch is sent for now.
-
- drivers/net/ethernet/intel/igb/igb.h      |  1 +
- drivers/net/ethernet/intel/igb/igb_main.c | 38 +++++++++++++++++++++--
- 2 files changed, 37 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/intel/igb/igb.h b/drivers/net/ethernet/intel/igb/igb.h
-index 0fff1df..ea2d739 100644
---- a/drivers/net/ethernet/intel/igb/igb.h
-+++ b/drivers/net/ethernet/intel/igb/igb.h
-@@ -585,6 +585,7 @@ struct igb_adapter {
- 
- 	struct work_struct reset_task;
- 	struct work_struct watchdog_task;
-+	struct work_struct queue_napi_task;
- 	bool fc_autoneg;
- 	u8  tx_timeout_factor;
- 	struct timer_list blink_timer;
-diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-index 4447546..894eedb 100644
---- a/drivers/net/ethernet/intel/igb/igb_main.c
-+++ b/drivers/net/ethernet/intel/igb/igb_main.c
-@@ -2115,6 +2115,30 @@ void igb_set_queue_napi(struct igb_adapter *adapter, int vector,
- 				     NETDEV_QUEUE_TYPE_TX, napi);
- }
- 
-+static void igb_link_queue_napis(struct igb_adapter *adapter)
-+{
-+	int i;
-+
-+	for (i = 0; i < adapter->num_q_vectors; i++)
-+		igb_set_queue_napi(adapter, i, &adapter->q_vector[i]->napi);
-+}
-+
-+/* Linking queues to NAPIs requires RTNL, which isn't held when resuming
-+ * from runtime suspend: do it from here instead. The q_vectors are only
-+ * freed under RTNL with __IGB_DOWN set, so checking it under RTNL is safe.
-+ */
-+static void igb_queue_napi_task(struct work_struct *work)
-+{
-+	struct igb_adapter *adapter = container_of(work, struct igb_adapter,
-+						   queue_napi_task);
-+
-+	rtnl_lock();
-+	if (!test_bit(__IGB_DOWN, &adapter->state) &&
-+	    netif_running(adapter->netdev))
-+		igb_link_queue_napis(adapter);
-+	rtnl_unlock();
-+}
-+
- /**
-  *  igb_up - Open the interface and prepare it to handle traffic
-  *  @adapter: board private structure
-@@ -3426,6 +3450,7 @@ static int igb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 
- 	INIT_WORK(&adapter->reset_task, igb_reset_task);
- 	INIT_WORK(&adapter->watchdog_task, igb_watchdog_task);
-+	INIT_WORK(&adapter->queue_napi_task, igb_queue_napi_task);
- 
- 	/* Initialize link properties that are user-changeable */
- 	adapter->fc_autoneg = true;
-@@ -3890,6 +3915,7 @@ static void igb_remove(struct pci_dev *pdev)
- 
- 	cancel_work_sync(&adapter->reset_task);
- 	cancel_work_sync(&adapter->watchdog_task);
-+	cancel_work_sync(&adapter->queue_napi_task);
- 
- #ifdef CONFIG_IGB_DCA
- 	if (adapter->flags & IGB_FLAG_DCA_ENABLED) {
-@@ -4199,7 +4225,8 @@ static int __igb_open(struct net_device *netdev, bool resuming)
- 	for (i = 0; i < adapter->num_q_vectors; i++) {
- 		napi = &adapter->q_vector[i]->napi;
- 		napi_enable(napi);
--		igb_set_queue_napi(adapter, i, napi);
-+		if (!resuming)
-+			igb_set_queue_napi(adapter, i, napi);
- 	}
- 
- 	/* Clear any pending interrupts. */
-@@ -9637,8 +9664,15 @@ static int __igb_resume(struct device *dev, bool rpm)
- 
- 	if (!rpm)
- 		rtnl_lock();
--	if (!err && netif_running(netdev))
-+	if (!err && netif_running(netdev)) {
- 		err = __igb_open(netdev, true);
-+		if (!err) {
-+			if (rpm)
-+				schedule_work(&adapter->queue_napi_task);
-+			else
-+				igb_link_queue_napis(adapter);
-+		}
-+	}
- 
- 	if (!err)
- 		netif_device_attach(netdev);
--- 
-2.56.0
-
+Takashi
