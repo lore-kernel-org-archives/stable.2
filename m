@@ -1,64 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794826575;
-	b=vnBPczxtpveiuUhDg4Egft1jdP77aiPFnIYhFKPGPPC0NwQaHS5Z/Pb6/pLxd/Y67ubM
-	 JCYaocTqBRjxigBAmkHc47hc0sSl5HWwcgSlBbFoOgxQVQbpgRWvYmTWqVazLBVgMxDuM
-	 vzJ4eKIMSFGd77T/t9UH/0/XLNT74LAJ2EPoEGQKTh06Apg9bEXNzKt66n9wj4ZubC2u6
-	 z+BCSKBo4P3cZ8BFc8xjZaRyVzpkNKC7kDNw6vWc9SOIV7HnHSbZFFNyLi6nKtPJz9Rg1
-	 ldZ40CjczwPSX1bQ5hpcbbG+RfUFgvS0MkosDeIhy6lM9+yWHL7hOfoBXqBiLr1tHBA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826575;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zzC9mBd2vZ7VW00+ztDx5uBwxIv15/snwEy/NF1H0SY=;
-	b=WVxUP4oV00gm7Z3yjycWtbVr9kXXALc+xNYjpu4VQTS1z7uVrlwVemvRDQUQ74OEg3Zw
-	 Lyw5ZkA4whv2aQJnY4mqHv2kfaTA9IMjSUKYvszUKvTCkVrQ1EJUq7M3p1LrnWKOUAaCJ
-	 YaX2OPs/WO0CJ70VwdpzIOp9qzmvHlc9nFsc646J8GoCnqlrI5I9sWlcdlKae6e77wyzm
-	 vS4MNwQ/lLC6JPcq/SqEutKjp4NKGlvtjSU18OI8Xfyx1i+wuLycp9Tl7Cs3elC6WVPMP
-	 9oFkYhHzv5Q98d68CTzSnsjfEo+FUymKsm4BrYEcLCjlG55f88oRwfpFK6NSam+KPnw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ko+hJvMw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794826747;
+	b=15d5NbXct0GXd9X5QOja/lRxV5m+4HIBkcd1yx+geQWCTW+y3gO+GPG2DRFy8d5LdXmv
+	 vJF+pBYDu3334QIEgsWe/GX8Oiib+DaMqb3GDGBCe9kWouUewFz77oI3+3ztAME6yOtcq
+	 8q5NKHFlNAFTh5/x9tU39WjwYSiFXPoRObKASf2MY5vJ8X7tmPaAjLoXl2dBzDhMi6mpH
+	 U0yb/ss+FESSxCVOqZ2r/oXyW4FwUGnKpwEJdnUif9tTyYisAwVZaEzJOuL0ssXsBoQDk
+	 iGkL0Mi3X0G+c8XIuflsCF/fEc57cp3MqpAaMFffL3iD+OEiAYxBJf+HIVABsWpEaRw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826747;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
+	bh=H0/JMO0MVBV4Zw97lRkerZQkk83rH+m9BE4n2iCqH98=;
+	b=ZGZJ6ISMKRK8aNiksr1ZALXpy9JPqfePKHD2St6RyvTyFaNGCTeqMd4a4XQaMjbMD5Q8
+	 ndnumBKNyqdEYEZYX58RNlJhcnrT+F/KNyX+WSb+eEZ3dCVmrJwz4UWq4+/hySITDXQSL
+	 NIAo81QlPqa/E9tI7FjMjM/tmzh8aE3gfRqm+2v6Rh+ORaJufKSEyK6NzlbGV2BmP9pNT
+	 OxGR5YHYQYJe9fAxzNDYnPofs13677ks9eiWb5zE4Mt2DalJ+dEl6sBIulGvTsjR4cV+t
+	 ElCC9yrAUt+rpbZgvpgnWtAwzePdhx/1UN0lQIjG3mX8xUjtcQbfAKFoNI3j9pHVmog==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=gmYoRoB6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23221606A32A;
-	Mon, 16 Nov 2026 10:56:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586C9606A32F;
+	Mon, 16 Nov 2026 10:59:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 586C9606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ko+hJvMw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 675B41F000C4;
-	Mon, 16 Nov 2026 10:56:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794826574;
-	bh=zzC9mBd2vZ7VW00+ztDx5uBwxIv15/snwEy/NF1H0SY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ko+hJvMwamhUSFrHRHQdyoFWI1pQGPuilHDbv87uoPkKbCdWXDYkn7nuRy02cMzys
-	 /1L63aZjXQWx7qlINzyYbT+BmPVJmsbR6u0YIT2nsZDgxQ6PB2TH4cF4+WWklE7R5+
-	 iQ3fYqxguzI77F0yEIVZ8LYZNNslqeS6w6P7RDSzlAAnmBkdEbDYzfeBxCXmA9lG+7
-	 Jnr+cigZupCLFRllacTG03FN30tY8cTefVkjmSh4glFfqc7BFgZSdjHK/yeHvNRzXd
-	 0Gtq11wP1PBArDxmy1imqR671YWgXOGsBqRTAadiqvu6QKDSJDuHO8cYK/3lqj5GV2
-	 5OqQ6x05GPH7A==
-Date: Mon, 16 Nov 2026 12:56:06 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Cc: Sasha Levin <sashal@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, regressions@lists.linux.dev,
-	Salvatore Bonaccorso <carnil@debian.org>
-Subject: Re: [REGRESSION 6.12.117] CPA detected W^X violation:
- 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 -
- 0xffffffffc0477fff PFN 109c1f and WARNING at
- arch/x86/mm/pat/set_memory.c:665 __change_page_attr_set_clr+0xf62/0xfb0
-Message-ID: <avrhRp9Je2ip6bKM@kernel.org>
-References: <avdb9EPXBv2hRCzQ@eldamar.lan>
- <draft-agent5-0008-re-pat-wx-regression-612@kernel.org>
- <e258c325-4b4c-4738-8de7-733da90b532b@oracle.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=gmYoRoB6
+ARC-Seal: i=1; a=rsa-sha256; t=1794826723; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=U4di7FQLEGmh5daOcGk2o50RD1RZRFsdi9aQoA8ojjLbUX96S1kCd8uSWRqLueoimcp4P7JKDZYVX4oKgLEV/m4NJbcoxgPMOKNuFlJdap9YOtxhQI4CpqdulRa2+6yLW9XDDT6LA+V6n7yB6rZxRtrtm9AlpPztUPNZH/iOX2c=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1794826723; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=H0/JMO0MVBV4Zw97lRkerZQkk83rH+m9BE4n2iCqH98=; 
+	b=NuORiU6iqRD+GYvbIZWS+GNV1E4TWx6iJwKNY9M37u/rLqNJNTyA0VjewG1qB1/Gg/wFrFqqTSUmOaDbwwBbfV+mHYJidjO1EadWsEmQwdNTuDk45z+w2eGVjdN6DYoifgNy2dlMbvUgXMPgFqM40ZQzrNmq8smMAyZuzac7doc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=gmYoRoB6F3PFZlpxFpHCOUFln6iGvF6CHYby8KvdogacxOk8YQW6aSHLgXr+P81MaTOah0JATWnZ+Tg1EMxoCPxQvonaD+Yyw0ZIpd0HqgXJNog5BEgjmh+aQAlpEQfkOMxAv4PNaPh4MfO/VvB6d5XZjrJgYDrFKtNArTSeU+g=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=H0/JMO0MVBV4Zw97lRkerZQkk83rH+m9BE4n2iCqH98=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1794826721300634.623479738804;
+	Mon, 16 Nov 2026 02:58:41 -0800 (PST)
+Message-ID: <df61d7d2-7ad8-4b68-b3a0-7a03513ab5b7@collabora.com>
+Date: Mon, 16 Nov 2026 11:58:35 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,43 +58,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e258c325-4b4c-4738-8de7-733da90b532b@oracle.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] media: rockchip: rkcif: Don't reset the hardware
+ in runtime suspend
+To: Mehdi Djait <mehdi.djait@linux.intel.com>
+Cc: linux-media@vger.kernel.org, paul.elder@ideasonboard.com,
+ daniel@makrotopia.org, linux-rockchip@lists.infradead.org,
+ stable@vger.kernel.org
+References: <20261112183208.2688580-1-mehdi.djait@linux.intel.com>
+ <20261112183208.2688580-2-mehdi.djait@linux.intel.com>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20261112183208.2688580-2-mehdi.djait@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Hi,
+Hi Mehdi,
 
-On Mon, Nov 16, 2026 at 03:01:26PM +0530, Harshit Mogalapalli wrote:
-> Hi Sasha,
+On 11/12/26 19:32, Mehdi Djait wrote:
+> The reset in the runtime suspend also resets the VICAP IOMMU.
 > 
-> On 14/11/26 11:12 pm, Sasha Levin wrote:
-> > On 2026-11-13, Salvatore Bonaccorso <carnil@debian.org> wrote:
-> > > One followup to this. Reverting
-> > > 
-> > > Fixes: 091c44b2d3c3 ("x86/mm/pat: Use pr_warn() for early W^X warnings")
-> > > Fixes: 11d1ba991c07 ("x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()")
-> > 
-> > Thanks for testing. Queued reverts of both for 6.12.
-> > 
+> When the IOMMU driver accesses the IOMMU registers inside the delay window
+> between the assert and deassert, e.g. in rk_iommu_zap_lines() to shootdown
+> IOTLB entries, the system hangs.
 > 
-> Thanks!
-> 
-> Quick Note: We are just reverting the fixes just removed the fixes to the
-> checker and the actual broken commit is: commit: 88a817e60dbb ("x86/its: Use
-> dynamic thunks for indirect branches") that introduced this problem.
+> Drop the reset and the now unused reset control.
 
-It didn't introduce a real problem, the permission are correct in the end.
-It's just the intermediate state that causes warnings.
- 
-> thanks,
-> Harshit
-> 
-> > The same two patches are also dropped from the 6.6 and 6.1 queues, where they
-> > had not been released yet. 7.3 and 6.18 keep them, since there the check only
-> > prints a pr_warn.
-> > 
-> 
+I agree that the current situation is nothing more than a crude hack
+that happened to work in most cases. But I doubt simply removing the
+reset is the correct solution. Recently, I saw some downstream patch
+that makes the reset a shared one, which seems like the right thing to
+do here. What would you think about that?
 
--- 
-Sincerely yours,
-Mike.
+Best regards,
+Michael
+
+> 
+> Fixes: f53fb31a3889 ("media: rockchip: add driver for the rockchip camera interface")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+> ---
+>  .../media/platform/rockchip/rkcif/rkcif-common.h  |  1 -
+>  drivers/media/platform/rockchip/rkcif/rkcif-dev.c | 15 ---------------
+>  2 files changed, 16 deletions(-)
+> 
+> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-common.h b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
+> index 4d9211ba9bda..38208e8b7b2d 100644
+> --- a/drivers/media/platform/rockchip/rkcif/rkcif-common.h
+> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
+> @@ -237,7 +237,6 @@ struct rkcif_device {
+>  	struct clk_bulk_data clks[RKCIF_CLK_MAX];
+>  	unsigned int clks_num;
+>  	struct regmap *grf;
+> -	struct reset_control *reset;
+>  	void __iomem *base_addr;
+>  
+>  	struct rkcif_interface interfaces[RKCIF_IF_MAX];
+> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
+> index be3a174b9aab..dceabee2ecd6 100644
+> --- a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
+> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
+> @@ -10,7 +10,6 @@
+>   */
+>  
+>  #include <linux/clk.h>
+> -#include <linux/delay.h>
+>  #include <linux/interrupt.h>
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/module.h>
+> @@ -18,7 +17,6 @@
+>  #include <linux/of_graph.h>
+>  #include <linux/of_platform.h>
+>  #include <linux/pm_runtime.h>
+> -#include <linux/reset.h>
+>  
+>  #include <media/v4l2-fwnode.h>
+>  #include <media/v4l2-mc.h>
+> @@ -201,10 +199,6 @@ static int rkcif_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "failed to get clocks\n");
+>  
+> -	rkcif->reset = devm_reset_control_array_get_exclusive(dev);
+> -	if (IS_ERR(rkcif->reset))
+> -		return PTR_ERR(rkcif->reset);
+> -
+>  	rkcif->grf = syscon_regmap_lookup_by_phandle(dev->of_node,
+>  						     "rockchip,grf");
+>  	if (IS_ERR(rkcif->grf))
+> @@ -273,15 +267,6 @@ static int rkcif_runtime_suspend(struct device *dev)
+>  {
+>  	struct rkcif_device *rkcif = dev_get_drvdata(dev);
+>  
+> -	/*
+> -	 * Reset CIF (CRU, DMA, FIFOs) to allow a clean resume.
+> -	 * Since this resets the IOMMU too, we cannot issue this reset when
+> -	 * resuming.
+> -	 */
+> -	reset_control_assert(rkcif->reset);
+> -	udelay(5);
+> -	reset_control_deassert(rkcif->reset);
+> -
+>  	clk_bulk_disable_unprepare(rkcif->clks_num, rkcif->clks);
+>  
+>  	return 0;
+
