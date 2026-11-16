@@ -1,90 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.53
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794828833;
-	b=yTgghYbVXihUFv9qDpBpp6ngpjBNHQxtQGI8UlAgJWIfBuqInKdzZio1TTtJVbnfoq3u
-	 1CTwN2QEO1BJxKNhTi8vCLMxdDJEEPoanSIly4m5uumNRDmzV8blZNn+5IKuOFfIvwHCh
-	 lQ2t54CKIz4F9PezF0juQ/EwQk+gCH7FxXBbRW3nzdxDVsrRpdi1bpSv2ivxe1rtn03iX
-	 VC1z/zJO47IwFa2lLeUAPMB3fjsgpdjjmcRp5vGGA1o51PkIjPjucqIkpQmJE2OseqFGg
-	 9ubN6NLgFITw6HZizJx/XGysyBShnfRPqW7uhPPHOXu4xFkncCLwtNjbBPVCCv9wdPA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794828833;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition;
-	bh=j8WmM2ZDC4HM11sYU2pJKBTku+9RknFe6Tk44ETTgFE=;
-	b=L45Z/h5fYvx3ZtEVA0ea5EDLdTUS99qiMWeirMg7LeVvDZphZjQziQk221AN+KctapVs
-	 ZrlO/MoOQ+AC1ZvT0eAaRJIctA5PRGskA2ZvIj1zoULyRm9zOBjzkozbgyW4mcA2cgsyr
-	 R9VazYQ7TrG1Ot5u9/Tzv+K18P7/WPzURwQD13t+s1EoK7YhlgnAr4FLi0Ef1/7Ygsxe7
-	 QBCttTjNp1MI7feGNvaGNyYD4iLptsTxREccaDQ8DokDBn2mOlJBXfsvM/TNL3S+hWBqb
-	 2XSxGN8o1U1jHOo/5yftMiDYfV2uUGO60RAsfU83XEjrIDqXru6JLtRi00M6GWWyhJw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bznbirs1;
-	arc=none smtp.remote-ip=209.85.208.53
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.68
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794828955;
+	b=TOVd3khqgM1B9jMYsHx2Q6gz+/TGDCB9DtKTxs7YKmysYJ6LviW9gAwRilsg6L+uCv5j
+	 N41JpR4/GR3q2Xdmw2lfppGrBvsW4Hk5qgMi0O1EmiJBHUEFkINe2HF0CfHttmtS4d8uX
+	 UxOtHMe77z5NWBu/0GykYUAzI02zHDChXu7Yr0dP48siRL0is6t0MYehYBnkdpvcZ/llR
+	 YhRlfad/C4ZbC8W+41lMmP7OXCcW6oZXBjcHBkg8+F1eoRMFNbdiNDMkEZY5lo6jMKdS8
+	 VIVoLPYlUWLs8XFXNCM2p1sniGcH1SSO+DVpmlly6rn2V6EaL/dNz/d7LiqE2xCUzUA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794828955;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=p38bYQE/M9ZesTuAXBTN1tA3+q49xB2OWSSXknJU4iA=;
+	b=xiEwnrWbMFCDfzNPafG0kWgH1LAyLUlBJ1VvZCQWKxI2zi9TTC9NVNCx8PulRZoB5Y+C
+	 MRp9mZxCUx8I024csU/sosiShge48tMoIXzr9mP0qlHDa9Nro9UNGzRtC63gMB+JG18q1
+	 +Q89aXoENGcppQQiV8FswphwGb7ChFr95o7eY1lnVaVSU1y7CXaYD7b7J/JxJZTJ2l/Gd
+	 DWaz2WQVuAFndpgDoAZO9xYSrCnEIBpPChOyLaa2JaKB6mvoakDAHb3d7OjgZ87TCe9nr
+	 5k3nDL6HtwFYT7o3YP8glUSHiuA/FZ8SMeMIisTaKjYhZ7bvCimF5J0YnZNnOn6W+qA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ry5eZH56;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.68
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010068.outbound.protection.outlook.com [52.101.85.68])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71CFE606A329
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 11:33:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71CFE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E65A2606A329;
+	Mon, 16 Nov 2026 11:35:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E65A2606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bznbirs1
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6b8082af2ffso1256942a12.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 03:33:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794828832; x=1795433632; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j8WmM2ZDC4HM11sYU2pJKBTku+9RknFe6Tk44ETTgFE=;
-        b=bznbirs1W7KeLTcdGuIpmYZRxwnkpH5f/RlkezPsx5Zs2Dhfp3ec/lefIvLuX18cvt
-         NoHo1RgNL6dtz3aB/iO9bwSZ2pifRfzNuYCA+txJ7XIF9qmTspFwlHcl0aGGHRSepq1B
-         /TOeVLLVz41daiNJlAwZjifgbnod0SJgbT/IroLzExz8JT51sPXXN94sua4KXnRgJIyQ
-         CekQtxYPcK8+dRCrhd6uWNrtdVljKk6Xv6ungX6K/1e3VgZnTRko7umi4kFW/5Yt8hQt
-         rag4Ksak60RTN/ZX2aveiMw34rvA8uNIIEUFMLcrTryqj47WTpdbCXdDm0aNgjJupPYX
-         Hfcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794828832; x=1795433632;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=j8WmM2ZDC4HM11sYU2pJKBTku+9RknFe6Tk44ETTgFE=;
-        b=j2k4r4ag7Rkj17xNF+dz5QX+KAX4v9D6nVBX34L1/JABZkp0wz6ZKLoedwqMrHltA7
-         4hqd0SAO9IBH0K8NzATuvn9lhLroc0SaCR4lCMXKmL+SwmjWN93YtJSIqv5zcRgyZQgS
-         5tBRwawmOa/+eoT/0cdEkxa8DkBZlPO7KygTKNAsiFrKCH0c7E3GRPIC0q8YCHGwvNnN
-         7QnTjfzEu3nlLpm8El4txzBwMaPfLvlrMoMfP7S+SPiIUrpsgqmrr+iHdlhO9WjXoEn/
-         8YeGTnCT93RMZkLJC/XsvzDTA9wM8qFkU3Mo8VZcfnaimm+9RI7yZdRnljtVIG+9L7mb
-         68pQ==
-X-Forwarded-Encrypted: i=1; AL+hErEb2bFCkwdCaDdUV8kL3vrFUlCyfLY96dsRw3PvlCHl45tj/Jm+uLTcbAkRl6LDS40p7z2Ut4s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ETkbdlSTv5QlHp8N8PUw2OprqpSAvA8e2i8ljRAYRGTVVuPns
-	HqdHB9wEspyv5AmEbE39er+erLcC/kdXjbEJYAcDyrrnOs5AAJ28g26d
-X-Gm-Gg: AYBFou1epOYN7FPJZ0796UeXE3KKoGnmmboyqRR8EwRNQqX5GAex/9HRAVhFaqJr97F
-	I95sv69/njIzhaKhina6wVa4fwmfHiVhrXUQYsa1LW97FN/bkDBh5973KR8xy2gz+kx8hPmaSnS
-	2Q1CtVXUElyafjvJqIYkZS+ngzsKpJVehC6/AwIQigST6ffBUWiNegctAL7wCL8CaO5zZ0kR70T
-	LSIVIn2eNrbgCsp9cNzMq1GXEhxYJfPshfJ7BoNxpyVaLHhStsET3clYYEcI4Utq6tIQknjm2+J
-	sBhQew33sq6uovoEearqIMUOOkNuwYkL9U3Cz0LloVqbcl1m0CM97iUHUNqIU0Cl7ntJV5VJvz7
-	gDNec5QovOJ9BzWr8eyimN+l+ebF9/E2V2uMo82TSgURrHcXg0gYXP/SNSAo/3ktrZ/qZ0N7ns4
-	dsw7yRJ/afosVMiyP15KxhfDgiJqYXYssJ7Gused+ZYF122mWJ3iuweH9m7+vUHi46pkrL5a8VD
-	bL5PzWk/PtHrmE5BewZKDmDKWE1QXxqpXp1zvE24FgKiQ+fzipBNfEYl/3xsTbesTvcfTWeOE8m
-	QDKCbbM8J89u4aaDyKpzanNOVpssWLtXPOQpHwHncsOg0IQZ
-X-Received: by 2002:aa7:df02:0:b0:6b1:e4cb:a23e with SMTP id 4fb4d7f45d1cf-6b7c0953c22mr5985412a12.14.1794828831465;
-        Mon, 16 Nov 2026 03:33:51 -0800 (PST)
-Received: from localhost ([188.146.172.76])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b7c23db711sm4334432a12.24.2026.11.16.03.33.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 03:33:51 -0800 (PST)
-Date: Mon, 16 Nov 2026 12:33:47 +0100
-From: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
-To: linux-media@vger.kernel.org, mchehab@kernel.org, mkrufky@linuxtv.org
-Cc: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com, 
-	stable@vger.kernel.org, media-ci@linuxtv.org, patchwork@media-ci.org
-Subject: [PATCH v3] media: mxl111sf: initialize state->d and fe_lock in probe
-Message-ID: <xbzvgut6eavjeo3q5cpysxdirlvgatcr7qjkyadz4eolcchfeo@rjhvhba7lvdh>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ry5eZH56
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rip13k81Oilg4OJkwXhSbiUEQW/n0JHeY7TWDOGYnKZP+Fr64tjxOYUA//xkMUtDox3YoUBab38FM3dXLPuDKbM65u+WpVy6HT89BJeBn1abY2K2f7uiuO7txNQoco+QNrPrQtFt1Xx33Xuvuw7iMkOgRNhcNX+u0cFtntbHtalv9/75ISi3S/elyrC7HoWvnxVGbhcsdneHOjfZ74CQQZC4nvzVpYpc3jOdrVj9lYRYtFNIHyCth1BOSK+UhR0Iq+onLaI+y61OjdK5tyF4pcCD4oUvXWV6iMbCOs/mIFKDx1ICvgXRsvyg0mVotpEM9ubY5Xw/ma0nCdQ+9filJg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=p38bYQE/M9ZesTuAXBTN1tA3+q49xB2OWSSXknJU4iA=;
+ b=Vr5eQ4GEroG2UsDkRNjSXcaEMMmjfW2jyP83B3Nq/zQxUsV0eM1MsyrtR65Dqkyc5kCuNb49OWNOOBKFv1NsZwLPeMidoNEEIl3Ct3LvX6+VaI+GaaDlemyIXxkLzB7INNrJXsKhOUFSnn7Gg7fDwjAS37M0rSgBUYl1GyiwP76D+ds8+3WcXQHh1eUysKffNcw2tE4WwDs7rjoGdAGADFnY7jUTfTt4hTBCRJJ40MG/uhrpOqIBnzcUU5hwzuvNkYuYmow2yCgonq8BeW37NrCrm6jhmOLGoSDnCucbRxT8HobR9YJ4J/bOpb89gO9kcy+IMj1eFZXbV+pn0bAarA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=p38bYQE/M9ZesTuAXBTN1tA3+q49xB2OWSSXknJU4iA=;
+ b=ry5eZH56iuTA3YBlaEpZ2AMlhK4IT7UP0cXMuoIUkN6oHPDazocTTIcEq9QE7OHMCi/bk+Ag+3e/FfqwM0Xuv1RXu5VO+VDTyQmIh+DZ2Xg/j/AViKX3/DAVquB1L/O47OP+hWVD3EXgkQ8rOwAjoTWRAVWtV0x1v29PfQXHQJ7Q00HMEFaSVt17R5OoGB9791tLFTEPZSy/4Gsw/0Cng9wHQ5xbxvxFm1toYJ6VsbotNAu06zACnYm/MkuZFhD05IwxX5otm07b/fwf5WfPzdMCPsHkfKbpkOcM+2lrVoHf/YotymZgoXdV/zs3SLrCMZ/pqHGwXJMo1V7wp08O0Q==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9407.namprd12.prod.outlook.com (2603:10b6:408:1f9::13)
+ by SJ2PR12MB8061.namprd12.prod.outlook.com (2603:10b6:a03:4cb::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
+ 2026 11:33:47 +0000
+Received: from LV8PR12MB9407.namprd12.prod.outlook.com
+ ([fe80::208b:424e:47e9:8a96]) by LV8PR12MB9407.namprd12.prod.outlook.com
+ ([fe80::208b:424e:47e9:8a96%4]) with mapi id 15.21.0615.009; Mon, 16 Nov 2026
+ 11:33:47 +0000
+Date: Mon, 16 Nov 2026 13:33:38 +0200
+From: Ido Schimmel <idosch@nvidia.com>
+To: Eric Dumazet <edumazet@kernel.org>
+Cc: "David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, David Ahern <dsahern@kernel.org>,
+	Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+	Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,
+	Xin Long <lucien.xin@gmail.com>, Aaron Conole <aconole@redhat.com>,
+	Eelco Chaudron <echaudro@redhat.com>,
+	Ilya Maximets <i.maximets@ovn.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Justin Iurman <justin.iurman@gmail.com>,
+	Linus =?iso-8859-1?Q?L=FCssing?= <linus.luessing@c0d3.blue>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Stefano Brivio <sbrivio@redhat.com>,
+	Hyunwoo Kim <imv4bel@gmail.com>, netdev@vger.kernel.org,
+	linux-sctp@vger.kernel.org, dev@openvswitch.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net 1/5] ipv6: gro: limit the number of extension headers
+Message-ID: <20261116113338.GA208668@shredder>
+References: <20261113124625.4010206-1-edumazet@kernel.org>
+ <20261113124625.4010206-2-edumazet@kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113124625.4010206-2-edumazet@kernel.org>
+X-ClientProxiedBy: TL2P290CA0006.ISRP290.PROD.OUTLOOK.COM (2603:1096:950:2::6)
+ To LV8PR12MB9407.namprd12.prod.outlook.com (2603:10b6:408:1f9::13)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,155 +109,97 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9407:EE_|SJ2PR12MB8061:EE_
+X-MS-Office365-Filtering-Correlation-Id: c83a91a5-1837-4bd0-746b-08df43d57a56
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|7416014|366016|22082099003|18002099003|261009223027099003|3023799007|11063799006|56012099006|10067099003|4143699003|261028144727099003|261026140227099003|261026121527099003|261021123027099003|261022105027099003|261022075727099003;
+X-Microsoft-Antispam-Message-Info:
+	XzqjH4iJOd4ehu0vjvXlSucH6jryY2NFu7cuZIkG0ltkSbgp4xKeSIsXx06AJuse9sGgcS29GKRT+m7S5iWDRBj9BYXEHKluE+loiVF5PPOGdzYUQ0C4EFOTsi+NW5WJ1VfOipuKiv3IxPTPn7VQTcCClmvSElE5pDHGxfC8K9+9fxKpQMBGhS7nGP+t5RccADlRvfuEU0P8oCMikMfnDRNxdNb9vk2tuJjNbiAbY+Wlgt5yNU0JvhThOYEnlQIjv34Qw+NEdad5jefgwJvyKZYVUsZ41yfmnFguasFKwhB04fsUyOoAGNDWqYhL2YG0tvxlUAGOF6xbwQeX562Q0jKw+CjwTPEOKQEu83lkVI07SCtQYl4fmwj1IuduBxkisNSPcDPdGCAZ0Bka3ZUoxoWGbiEVDHEPC+3izTdR1K+uRHVHHajE2Ba9HC95+SbWcnFAL6BJrBTB8fpXLoTPrBpDmJNn/BeJvUjgmEO9n3wbdubiEnAw1nUrubFbKE5pvtjUloYhOZ3Jq2updF7yJWME72+BauN1jqFoS1okvHDGLsjvByYIQ4dyilcD6rTIyhwDCHrpY6v6tUhk8Mnm/Qy8t9Yu97dKGtSTMmDacXyVNsyeJpz+8QboRJi+Y3ONj7NSOkAyv2fv7F8OUNfyAJj8qSBUX21ntiQbhpF1CgA=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9407.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(7416014)(366016)(22082099003)(18002099003)(261009223027099003)(3023799007)(11063799006)(56012099006)(10067099003)(4143699003)(261028144727099003)(261026140227099003)(261026121527099003)(261021123027099003)(261022105027099003)(261022075727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HtrdF8HvBISi04x2+moLKfEHc3EqqIvdixiugROBQHBsjewR0zjUMREGD3eZ?=
+ =?us-ascii?Q?OwC+/ygJaIZaUF6sBy47eDgCqRChD0QScuR6ddE2vjc2CIJ0EeBKgOv6f58/?=
+ =?us-ascii?Q?Cut+YxkBM2rG+Sup2z1m10Mbgif3gxZDwWlZvNcNa8EmjLxf47tZXfgEuEep?=
+ =?us-ascii?Q?Nr0FkKWxKeW7mIGZzVlaRH/iEy3KVkergpHTUkxDX0D7B2HcBKfU8o6ZSIio?=
+ =?us-ascii?Q?9JWQNJ+Ou+h36lguV6Oq+rxggSCeQnKPPuEhxPdkqtCGPijDwMdWPKcgJByJ?=
+ =?us-ascii?Q?nSxEh6Hh69WRRg1khy7uy4BA8F097Pl0lFUoXPOOkBa5+XxEOhd3p//G3xnU?=
+ =?us-ascii?Q?TxYBnn4qdrf46hEG364SD2UBZjXNjAqK9V/lGU2C+h0C/dFwuMrNueMl2h9+?=
+ =?us-ascii?Q?aQ3ET8c09uKPY1ck3k2EVnyFgPytjhpN9TnmaqyTj4uE8GuH3JbjAIRql18e?=
+ =?us-ascii?Q?1IJUzsSm86mJ1BtegVbqtEjDgWYb0bIAqh7UQiUJLl0UCBrMJa/waWJtqoKy?=
+ =?us-ascii?Q?eQxI4jU8CAqQe45pz2Ai8yVD9rHXGtIhMQDz8eo4yQjsYc2dE9RNKOkLzOFz?=
+ =?us-ascii?Q?TNkjvj8MV9748U3Bjc4SmPfnQhU++4g0736aY1gTxRB0DmRiYpMJ+NDhWtbA?=
+ =?us-ascii?Q?JLrO/uPWFjjp2yPUFADpG8nkEsFOUn87u866a/6fyeCJyvO7BzkzPopTxp7i?=
+ =?us-ascii?Q?7SEaS5NYyuMK+pfnOvUQXwbN09N0f0fxCvYkAlMWdmoNZ7teYoLI4zPoS9Yu?=
+ =?us-ascii?Q?0HemyeHWwAPmRQYbTPXSEYdE9U7UjSw9+E1TdWyjxcKjUbV+KcjXiiC3s2kJ?=
+ =?us-ascii?Q?Tj49IyWFl/2S9AY/n1LmY98T9AzuF35TGmCnMNZxeDx/4wvMTCr3O0PqhIni?=
+ =?us-ascii?Q?opSrRlRO81LUCCrPMpbRp2xU7ULKFlTkhmOOjMNHlSkJcehzoluocreIMXhC?=
+ =?us-ascii?Q?/i9BgbWo8KwbvJqMUkFkZ87kaU5A5Iro1QETPQINdNyFe93T4B+mdX6UZG/D?=
+ =?us-ascii?Q?TM/sS+d5TDLD0DkQb/8sZBrs18++/ZMiNf3GhY3QiEmKdWxXdM4HpeGsPEy9?=
+ =?us-ascii?Q?7F0wdgSdIk02aDRs55c2YKoGBkY1HoyIgXLIHnEto8eYvJHvSYKyaiI7g2Bv?=
+ =?us-ascii?Q?bgV3Gl7SnVpaZ6SilmfvvpJbfW7hd+g3ig+1p3JxmcY56uo23+vQf+hGapVm?=
+ =?us-ascii?Q?tT1jaqluHitKyGW9bMZ5eAiTYoBgAy7YPpJEJpjxxgfF2g6fRgU+tF/oZkog?=
+ =?us-ascii?Q?BBaxaadK48t0sZ0XeL3pBEV1gU1kVd4Vk3NfgTG2yTwlPbDp+SlLFRI1aLys?=
+ =?us-ascii?Q?Spyr16FvobiYJFFB7xH3l6Vyp1RVlQrxTJyTo+CtOZjyxIPsrgA9PPxNuJWH?=
+ =?us-ascii?Q?WvWjpyTfeaZ59C6fUHVBuX/pk81EJqPl982uEmmU0EVT/rmmD/diK/R1RT3+?=
+ =?us-ascii?Q?a9K09SGOVT8pasjMmcYbkhrLPXWAeJegguTKN4tjKuubVMzQaRnT0Ug/CAYQ?=
+ =?us-ascii?Q?3vqbKyAWJsPFPP0DxjbjgVeO6soH3zitDBLt3/S0ID57waOclpt215Zg68Yb?=
+ =?us-ascii?Q?Ca4ZFpw1gR4kTGi3qoGehUCgtVJUzWCfH2JsAD6iW/8AFJ43PXkhxe++g9Xm?=
+ =?us-ascii?Q?PLxDxQ3865VLFsbfmzoSLQywYD0m9GlP0OnzBIcHRHhIZbFmFVzJQIJ6PJmR?=
+ =?us-ascii?Q?fJt+sOUtacX4aqEw5Y5WKB4ryZ8yPUrhU7OfQSYV9PnzE1I4?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c83a91a5-1837-4bd0-746b-08df43d57a56
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9407.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 11:33:47.2180
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: A4t+KDAH1NKwci9eKiE49G0bPlEsj2YhuNHWloGxfyANA4Nzv7gpOXyTerS4xR51AGJhIyWd5EBXCTkOzqznVA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB8061
 
-During device initialization in dvb_usbv2_probe(), the dvb-usb-v2 core
-allocates the dvb_usb_device structure and its private state (struct
-mxl111sf_state) via kzalloc(), then invokes dvb_usbv2_init(). Within
-dvb_usbv2_init(), dvb_usbv2_i2c_init() registers the I2C adapter with
-i2c_add_adapter(), which immediately exposes the I2C adapter to
-userspace via the /dev/i2c-X character device.
+On Fri, Nov 13, 2026 at 01:46:21PM +0100, Eric Dumazet wrote:
+> Hyunwoo Kim reported that a long chain of IPv6 extension headers
+> can push the transport header offset of a GRO packet beyond what
+> the 16-bit skb->transport_header can store. The truncated offset
+> is later used by gro_receive_network_flush() to locate the network
+> header of a packet held in the GRO list, leading to an out-of-bounds
+> read.
+> 
+> Since commit 3744b0964d52 ("ipv6: Implement limits on extension header
+> parsing"), ip6_protocol_deliver_rcu() drops packets carrying more than
+> IP6_MAX_EXT_HDRS_CNT extension headers, but ipv6_gro_pull_exthdrs()
+> was left unbounded.
+> 
+> There is no point trying to aggregate packets that the stack is going
+> to drop anyway if they are locally delivered. Apply the same limit in
+> ipv6_gro_pull_exthdrs().
+> 
+> When the limit is hit, @proto still designates an extension header.
+> Extension header offloads have no gro_receive() callback, so
+> ipv6_gro_receive() takes its existing "goto out" path with flush set,
+> and the packet is given to the normal receive path. Local delivery
+> drops it with SKB_DROP_REASON_IPV6_TOO_MANY_EXTHDRS, while forwarded
+> packets are simply not aggregated.
+> 
+> An extension header being at most 2048 bytes, this bounds a chain
+> to 24576 bytes.
+> 
+> Note that offsets can still accumulate over nested encapsulations,
+> so the places storing them should be hardened separately.
+> 
+> Fixes: 4b0ebbca3e16 ("net: gro: move L3 flush checks to tcp_gro_receive and udp_gro_receive_segment")
+> Cc: stable@vger.kernel.org
+> Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+> Link: https://lore.kernel.org/netdev/avTTQNyvwPP6LtGx@v4bel/
+> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+> Cc: Daniel Borkmann <daniel@iogearbox.net>
+> Cc: David Ahern <dsahern@kernel.org>
+> Cc: Ido Schimmel <idosch@nvidia.com>
 
-However, state->d was only assigned later during frontend attachment
-inside dvb_usbv2_adapter_frontend_init() via
-d->props->frontend_attach(). If userspace performs an I2C transaction
-before frontend_attach() completes, mxl111sf_i2c_xfer() delegates to
-mxl111sf_ctrl_msg(), which reads state->d and passes it to
-dvb_usbv2_generic_write() or dvb_usbv2_generic_rw(). Since state->d is
-still NULL, dereferencing &d->usb_mutex inside dvb_usbv2_generic_write()
-triggers a null-pointer dereference crash. Although the crash report was
-captured in compat mode with PTI, the failure is illustrated by the
-following x64/NOPTI trace:
-
-Oops: general protection fault, probably for non-canonical address
-0xdffffc0000000018: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x00000000000000c0-0x00000000000000c7]
-RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
-RIP: 0010:__mutex_lock+0x149/0x1550 kernel/locking/mutex.c:821
-Call Trace:
- <TASK>
- dvb_usbv2_generic_write+0x26/0x60
- drivers/media/usb/dvb-usb-v2/dvb_usb_urb.c:77
- mxl111sf_ctrl_msg+0x160/0x2f0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:73
- mxl111sf_write_reg+0xa9/0x1b0 drivers/media/usb/dvb-usb-v2/mxl111sf.c:123
- mxl111sf_i2c_start drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:130
- [inline]
- mxl111sf_i2c_sw_xfer_msg drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:-1
- [inline]
- mxl111sf_i2c_xfer+0x463/0x5060
- drivers/media/usb/dvb-usb-v2/mxl111sf-i2c.c:813
- __i2c_transfer+0x7bf/0x1fe0 drivers/i2c/i2c-core-base.c:-1
- i2c_transfer+0x1cb/0x2d0 drivers/i2c/i2c-core-base.c:2350
- i2cdev_ioctl_rdwr+0x460/0x740 drivers/i2c/i2c-dev.c:306
- i2cdev_ioctl+0x6a5/0x880 drivers/i2c/i2c-dev.c:467
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
- </TASK>
-
-Additionally, state->fe_lock was initialized in mxl111sf_init() (called
-via d->props->init()), which runs after frontend attachment, leaving the
-mutex uninitialized during frontend registration. Although the reported
-I2C fault does not demonstrate a frontend lock race, fe_lock should also
-be initialized before frontend registration.
-
-Fix this by setting state->d = dev and initializing state->fe_lock in
-mxl111sf_probe(), which runs before dvb_usbv2_init() registers the I2C
-adapter or attaches frontends. Furthermore, remove the redundant
-mutex_init(&state->fe_lock) from mxl111sf_init() and the redundant
-assignments of state->d in the frontend attach functions.
-
-The fix originated in the linked syzbot AI patch job, which used
-Gemini:gemini-3.8-flash.
-
-Fixes: 4c66c9205c07 ("[media] dvb-usb: add ATSC support for the Hauppauge WinTV-Aero-M")
-Reported-by: syzbot+f9f5333782a854509322@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=f9f5333782a854509322
-Link: https://syzkaller.appspot.com/ai_job?id=c5284b5c-3f14-4e95-a4b7-6ee38f0d2e1f
-Cc: stable@vger.kernel.org
-Signed-off-by: Bartosz Chronowski <immersa.bartosz.chronowski@gmail.com>
-
----
-Changes since v2:
-- Drop the non-standard Assisted-by trailer. Upstream commit
-  1e035297ffdadf2184c3c773b8c098e372324aaf
-  removed the Assisted-by guidance and checkpatch exception.
-- Disclose the syzbot AI origin and model in the commit description.
-- Put the stable Cc after Link in the commit trailers.
-- The code diff is unchanged.
-
-diff --git a/drivers/media/usb/dvb-usb-v2/mxl111sf.c b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-index 6404eb74d..fc4010b6e 100644
---- a/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-+++ b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-@@ -431,8 +431,6 @@ static int mxl111sf_lgdt3305_frontend_attach(struct dvb_usb_adapter *adap, u8 fe
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -502,8 +500,6 @@ static int mxl111sf_lg2160_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -587,8 +583,6 @@ static int mxl111sf_lg2161_frontend_attach(struct dvb_usb_adapter *adap, u8 fe_i
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -674,8 +668,6 @@ static int mxl111sf_lg2161_ep6_frontend_attach(struct dvb_usb_adapter *adap, u8
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 2 : 1;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -749,8 +741,6 @@ static int mxl111sf_attach_demod(struct dvb_usb_adapter *adap, u8 fe_id)
- 
- 	pr_debug("%s()\n", __func__);
- 
--	/* save a pointer to the dvb_usb_device in device state */
--	state->d = d;
- 	adap_state->alt_mode = (dvb_usb_mxl111sf_isoc) ? 1 : 2;
- 	state->alt_mode = adap_state->alt_mode;
- 
-@@ -935,8 +925,6 @@ static int mxl111sf_init(struct dvb_usb_device *d)
- 	if (mxl_fail(ret))
- 		pr_err("failed to get chip info during probe");
- 
--	mutex_init(&state->fe_lock);
--
- 	if (state->chip_rev > MXL111SF_V6)
- 		mxl111sf_config_pin_mux_modes(state, PIN_MUX_TS_SPI_IN_MODE_1);
- 
-@@ -1068,7 +1056,9 @@ static int mxl111sf_probe(struct dvb_usb_device *dev)
- {
- 	struct mxl111sf_state *state = d_to_priv(dev);
- 
-+	state->d = dev;
- 	mutex_init(&state->msg_lock);
-+	mutex_init(&state->fe_lock);
- 	return 0;
- }
- 
-
-
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+Reviewed-by: Ido Schimmel <idosch@nvidia.com>
