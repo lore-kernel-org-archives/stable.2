@@ -1,47 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794842309;
-	b=odIw70Ys6kLFc1GqCQPpV1yxqISlA3sCfjdMowjKgQaHNU5WHiHF6Dbzlh2Qbv70w25h
-	 Ig9tjZhn7Cigodnc1SKtanG9x9bDC6IKPhe53QH8YD6EfenCYyvVApBQtavq+X/MZpWtW
-	 D55QP3dZCnGF2JHf7kew5w5jhnK/HvczzwOu0GNiCCsNhQm0nl12bXjY9X/dfKfVPimz2
-	 Bjb2S+i11RcScOotNxCKzeCi/DoslA+352Iz1UTFIoFndN/2VKIpA3uUyctH/qcWNEyzA
-	 ZIO0QEgwma809k+FBoRZ1ZArVliJQqWcbcF33Tk7BOtmBq93BcGj/TXgwUk1R23LLww==
+	t=1794842351;
+	b=nQctF4MuPJQEDshj/sWG6SegqulRzAqhGlRPmKHCqAutXSs6VZcqGSI6reWrp0vnoQNy
+	 bW5cJiAr6cWa6l6j5d+DNbmecEVnlX+UTzKQgQMvoPr/TR0fvHSc4PWBWT6jBok1wcX+n
+	 Z5yxTW4ajMeGSJTppvgAxgyut8DoXFZr6cjmxP2nZKfua9PJnE3uZ94xilv2UGRmXARgi
+	 uyVi+X/n4qqbR/NBtpKC/9md7exTAdVCcm0/1JEUykeMEwyjR5yGEGnC8QLLpvxwXq+68
+	 RQiB6n++vf8WqsAUF7pFW1J6we1aqSe1Dmul3yWGUF+gjA7+8Ms+Er/98divOaF1GKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794842309;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=jlvZrVhOkdeTk+oowKlcepHooMPcMMjRTAtKw9L9Q+Q=;
-	b=aKdvClzjqgvN4N9PUwmL98j4m1kuGrNwpLkH+lRM2nZql1rYx8s5p27aihN7IptnMDf0
-	 aVefHl8aWHykDJ1NxsJIdYMFrZSsH8Bny6XH7PuPMXK2k6J6Tz2smvRrHs8OS8AuT0HTd
-	 XIc2qPOCY7q73RqK5tZBM1zdF+AdlTDNCzsV8OVEzjSB0i/U0zqrJNwQ/8AC1nhfI3rlJ
-	 yzjOH78STzJLQybNBB3hh9PtNGQhB2RRFy/W6r0Qr4GVIWkDZkwCrkPdxaRNVwWSIjf7T
-	 E2aOIRSl5tpo6/+n5mT3nT+MOZuXNWAqa5WtQiAXOmS4JYwVJGtufSb1bwCis+oiHnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794842351;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=ncxU2r/aUF48Fhgx8Ru9QkG3S9tdy84hb9vzOCQGD4U=;
+	b=CHAJmqfyn+pSevhqekxRQdoFVH3UgyI62XCN0Ci7fbgKMAy+4uo4gSjcZ/ArllYv4yv6
+	 hBdUH9yxGfIb0zujH5MJ4+MK3cy8NQH5i99N4w3piBZo2BUk47HFGeYXfhyRyN979Skpq
+	 HTvL7U6Tb30hweZf1VU4Xz+XAIHAYq49jl8Oe7+On7de5UG/TvlMOHzKbkD/Q6n86sFGn
+	 tqp4ayYPv3YuXcNd03ce71TKG8lz/sjeFegBoFBpizIsAAfoVjg6P0CV/cBbuwhWFWTcP
+	 umMAa7K0uwzbc7BwvK/0ki0XKjCkNOBZr8L1hUPDRqAuIrsNKSRGdocJEwbaJ50r8nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgsU7v3s;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcdJF6Ak;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16D9606A31C;
-	Mon, 16 Nov 2026 15:18:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB647606A322;
+	Mon, 16 Nov 2026 15:19:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kgsU7v3s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BEF81F000C4;
-	Mon, 16 Nov 2026 15:18:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gcdJF6Ak
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F27D1F000C4;
+	Mon, 16 Nov 2026 15:19:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794842308;
-	bh=jlvZrVhOkdeTk+oowKlcepHooMPcMMjRTAtKw9L9Q+Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kgsU7v3s433NPHhbBi8chwQuS/6xMAIsLfz6t4ODCB69QCDxqQv5DYulycfrI0k/w
-	 syTvxVo83FnOihD/eGTd715sknQU3/HwORy7UvoVyUDsS9yBdbpV+EwAUITbBk5w6a
-	 AEdUqvd4GBZPsRjrlGsnD881rg0zj2/2m0oJh+zCuoYy+wzTNkOHQJGF7yxEkgaCtA
-	 FmKtOO0TSgnG8MndOPtp8gHmBSKLuZQg9eZ7lPzwh86LEJAIuKo5+YPr8NcRAxvJOu
-	 wLo0L6b/LbMMkDcoZiYL83ISmvebgbDMBZoJM/nQoT+6O+qdTgdoVz1hpf0po/U6Jn
-	 jkupeeeh8/C7g==
-Message-ID: <5b757f20-9768-4d3d-8c41-52c1c9671fa7@kernel.org>
-Date: Mon, 16 Nov 2026 16:18:17 +0100
+	s=k20260515; t=1794842351;
+	bh=ncxU2r/aUF48Fhgx8Ru9QkG3S9tdy84hb9vzOCQGD4U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gcdJF6Ake/Cm9+KZYhi0XB9P1Zks5J13i4tbLpYQRx+mq9yqJS483vqGKvGSDbVGM
+	 wiDJaOn5xTlXjgKhU4gdPkLkw6u0OrJFGbuv7ORBCIEysKemTecP8N7EDwyz17cOlm
+	 qgf699oPDpsS9U6Z9zlfL7ADvkn4KcUqIIb8ZYKvAkzodkLbhR1GQ+qlOxAKDDLVfu
+	 cXM0HDUecK5KmEd8sTHem/37JLUR9m7NgLjCahtGA7II7tupQFvU4XlDVh+u9a8VA/
+	 i/d2CkKy3G1Mm5/E85QF/REoNvAIENKVUeZ/ocN1Fg9poWNNQc4WnkPRrwDWgeAWbG
+	 hGubpbN5WtgBQ==
+Date: Mon, 16 Nov 2026 15:19:01 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Will Deacon <will@kernel.org>, 
+	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Hugh Dickins <hughd@google.com>, Zi Yan <ziy@nvidia.com>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>, 
+	Ross Zwisler <zwisler@kernel.org>, linux-arch@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Chris Mason <mason@kernel.org>
+Subject: Re: [PATCH v2 2/2] mm/huge_memory: flush dirty file PMDs before
+ removing rmap
+Message-ID: <avse3HEkP2TwNlVz@gremlin>
+References: <20261116-dirty_file_pmd-v2-0-571883053174@kernel.org>
+ <20261116-dirty_file_pmd-v2-2-571883053174@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,111 +69,219 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] mm/mmu_gather: delay rmap removal on UP as well
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Will Deacon <will@kernel.org>, "Aneesh Kumar K.V"
- <aneesh.kumar@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Nick Piggin <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Arnd Bergmann <arnd@arndb.de>, Johannes Weiner <hannes@cmpxchg.org>,
- Hugh Dickins <hughd@google.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Jan Kara <jack@suse.cz>, Ross Zwisler <zwisler@kernel.org>,
- linux-arch@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261116-dirty_file_pmd-v2-0-571883053174@kernel.org>
- <20261116-dirty_file_pmd-v2-1-571883053174@kernel.org>
- <avseFdmK8zN8JTNe@gremlin>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <avseFdmK8zN8JTNe@gremlin>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-dirty_file_pmd-v2-2-571883053174@kernel.org>
 
-On 11/16/26 16:16, Lorenzo Stoakes (ARM) wrote:
-> On Mon, Nov 16, 2026 at 04:06:58PM +0100, David Hildenbrand (Arm) wrote:
->> Commit 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB
->> has been flushed") introduced delayed rmap removal of dirty pages until
->> after the TLB flush, so writeback cannot clean a page that is still
->> writable through a stale TLB entry.
->>
->> It skips this on UP, because on UP there are no remote TLBs (single CPU)
->> and because the PTL prevents preemption.
->>
->> The PTL prevents preemption while removing the rmap, but the local TLB
->> flush is usually only performed after dropping the PTL.
->>
->> Consequently, after dropping the PTL we could reschedule to another
->> thread of the same mm, which does not flush the TLB. A kworker could
->> then run into the original race with writeback: it cleans the folio,
->> but the other thread can still modify it through the stale TLB entries,
->> and these writes get lost.
->>
->> Fix it by simply not special-casing UP. Now, only architectures that
->> select MMU_GATHER_NO_GATHER (s390) will skip delay_rmap handling.
->>
->> Fixes: 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB has been flushed")
->> Cc: stable@vger.kernel.org
->> Reported-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
->> Link: https://lore.kernel.org/r/avrxOt_GyXLXNqtR@gremlin
-> 
-> Nitty, but I think better as Closes? :P
+On Mon, Nov 16, 2026 at 04:06:59PM +0100, David Hildenbrand (Arm) wrote:
+> Unmapping a file PMD can lose concurrent stores when it races with
+> writeback. zap_huge_pmd() removes rmap and drops the PMD lock before the
+> gather flushes the TLB. Writeback can then clean the folio while another
+> thread can still write through a stale writable TLB entry. Those stores
+> do not fault and dirty the folio again. Filesystem DAX has the same
+> problem with its dirty tags.
+>
+> Commit 5df397dec7c4 ("mm: delay page_remove_rmap() until after the TLB
+> has been flushed") fixed the same race for PTEs by adding delayed rmap
+> removal to the mmu_gather infrastructure. The PMD path still removes
+> rmap before flushing.
+>
+> Flush the TLB under the PMD lock before removing rmap for dirty file
+> PMDs. Skip the early flush at address-space teardown, when no users
+> remain, and for mappings without writeback, including shmem and device
+> DAX.
+>
+> Use tlb_can_delay_rmap() to share the PTE path's architecture checks.
+> On s390, clearing the entry already handles TLB synchronization, and
+> __tlb_remove_page_size() immediately drops the mapping reference, so
+> rmap must be removed first. Make the predicate side-effect-free and set
+> the gather's delayed_rmap flag when an entry is actually queued for
+> delayed rmap removal.
+>
+> Queue the folio before the early flush, while the gather still has a
+> valid range. Keep batching references and drain a full batch only after
+> dropping the PMD lock. The early flush resets the gather's TLB state,
+> so draining the batch does not flush that range again.
+>
+> Although writing to files through mmap is generally discouraged,
+> unmapping such mappings may become slower: each dirty file PMD now
+> requires a TLB flush under the PMD lock. Future work should properly
+> extend the delayed-rmap machinery to PMDs and hold the PMD spinlock
+> across multiple entries, so their TLB invalidations and rmap removals
+> can be batched.
+>
+> Fixes: 4b4bb46d00b3 ("dax: clear dirty entry tags on cache flush")
+> Cc: stable@vger.kernel.org
+> Reported-by: Kiryl Shutsemau <kas@kernel.org>
+> Closes: https://lore.kernel.org/linux-mm/aoWw_iKEDLjKL2jr@thinkstation/
+> Reported-by: Chris Mason <mason@kernel.org>
+> Link: https://git.kernel.org/linus/5df397dec7c4c08c23bd14f162f1228836faa4ce
+> Suggested-by: Lance Yang <lance.yang@linux.dev>
+> Suggested-by: Usama Arif <usama.arif@linux.dev>
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Ack, fixed it on #2 but forget it here ... why does checkpatch not complain? Weird.
+LGTM so:
 
-Will change when picking :)
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
--- 
-Cheers,
+> ---
+>  include/asm-generic/tlb.h | 10 +++-------
+>  mm/huge_memory.c          | 39 +++++++++++++++++++++++++++++++--------
+>  mm/memory.c               |  2 +-
+>  mm/mmu_gather.c           |  2 ++
+>  4 files changed, 37 insertions(+), 16 deletions(-)
+>
+> diff --git a/include/asm-generic/tlb.h b/include/asm-generic/tlb.h
+> index cb087315b4e72..b318e3e9e66a8 100644
+> --- a/include/asm-generic/tlb.h
+> +++ b/include/asm-generic/tlb.h
+> @@ -249,11 +249,7 @@ extern bool __tlb_remove_page_size(struct mmu_gather *tlb, struct page *page, in
+>  bool __tlb_remove_folio_pages(struct mmu_gather *tlb, struct page *page,
+>  		unsigned int nr_pages, bool delay_rmap);
+>
+> -/*
+> - * This both sets 'delayed_rmap', and returns true. It would be an inline
+> - * function, except we define it before the 'struct mmu_gather'.
+> - */
+> -#define tlb_delay_rmap(tlb) (((tlb)->delayed_rmap = 1), true)
+> +#define tlb_can_delay_rmap() (true)
+>  extern void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma);
+>
+>  #endif
+> @@ -263,8 +259,8 @@ extern void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma);
+>   * delay anything. That is used on S390, which flushes remote
+>   * TLBs synchronously.
+>   */
+> -#ifndef tlb_delay_rmap
+> -#define tlb_delay_rmap(tlb) (false)
+> +#ifndef tlb_can_delay_rmap
+> +#define tlb_can_delay_rmap() (false)
+>  static inline void tlb_flush_rmaps(struct mmu_gather *tlb, struct vm_area_struct *vma) { }
+>  #endif
+>
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 7791872f14af7..79d400ea9553d 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -2508,10 +2508,12 @@ static inline void zap_deposited_table(struct mm_struct *mm, pmd_t *pmd)
+>  	mm_dec_nr_ptes(mm);
+>  }
+>
+> -static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
+> -		pmd_t pmdval, struct folio *folio, bool is_present)
+> +static void zap_huge_pmd_folio(struct mmu_gather *tlb, struct vm_area_struct *vma,
+> +		pmd_t pmdval, struct folio *folio, bool is_present, bool *force_flush)
+>  {
+>  	const bool is_device_private = pmd_is_device_private_entry(pmdval);
+> +	struct mm_struct *mm = tlb->mm;
+> +	bool delay_rmap = false;
+>
+>  	if (folio_test_anon(folio)) {
+>  		add_mm_counter(mm, MM_ANONPAGES, -HPAGE_PMD_NR);
+> @@ -2519,23 +2521,42 @@ static void zap_huge_pmd_folio(struct mm_struct *mm, struct vm_area_struct *vma,
+>  		add_mm_counter(mm, mm_counter_file(folio),
+>  			       -HPAGE_PMD_NR);
+>
+> -		if (is_present && pmd_dirty(pmdval))
+> +		if (is_present && pmd_dirty(pmdval)) {
+>  			folio_mark_dirty(folio);
+> +			/*
+> +			 * Remove rmap after the TLB flush if stale TLB entries
+> +			 * could still be used to write to a mapping that
+> +			 * supports writeback.
+> +			 */
+> +			if (!tlb->fullmm && vma->vm_file &&
+> +			    mapping_can_writeback(vma->vm_file->f_mapping))
+> +				delay_rmap = tlb_can_delay_rmap();
+> +		}
+>  		if (is_present && pmd_young(pmdval) &&
+>  		    likely(vma_has_recency(vma)))
+>  			folio_mark_accessed(folio);
+>  	}
+>
+> +	if (!is_present && !is_device_private)
+> +		return;
+> +
+>  	/*
+>  	 * Present and device private folios are rmappable. Remove the
+>  	 * rmap after transferring young+dirty to the folio.
+>  	 */
+> -	if (is_present || is_device_private)
+> +	if (!delay_rmap)
+>  		folio_remove_rmap_pmd(folio, &folio->page, vma);
+>
+> -	/* Device private folios are pinned. */
+> +	/* Device private folios are pinned and don't need a TLB flush. */
+>  	if (is_device_private)
+>  		folio_put(folio);
+> +	else if (__tlb_remove_page_size(tlb, &folio->page, HPAGE_PMD_SIZE))
+> +		*force_flush = true;
+> +
+> +	if (delay_rmap) {
+> +		tlb_flush_mmu_tlbonly(tlb);
+> +		folio_remove_rmap_pmd(folio, &folio->page, vma);
+> +	}
+>  }
+>
+>  static struct folio *normal_or_softleaf_folio_pmd(struct vm_area_struct *vma,
+> @@ -2573,6 +2594,7 @@ bool zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+>  	struct mm_struct *mm = tlb->mm;
+>  	struct folio *folio = NULL;
+>  	bool is_present = false;
+> +	bool force_flush = false;
+>  	bool has_deposit;
+>  	spinlock_t *ptl;
+>  	pmd_t orig_pmd;
+> @@ -2597,13 +2619,14 @@ bool zap_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+>  	folio = normal_or_softleaf_folio_pmd(vma, addr, orig_pmd, is_present);
+>  	has_deposit = vma_has_deposited_pgtable(vma);
+>  	if (folio)
+> -		zap_huge_pmd_folio(mm, vma, orig_pmd, folio, is_present);
+> +		zap_huge_pmd_folio(tlb, vma, orig_pmd, folio, is_present,
+> +				   &force_flush);
+>  	if (has_deposit)
+>  		zap_deposited_table(mm, pmd);
+>
+>  	spin_unlock(ptl);
+> -	if (is_present && folio)
+> -		tlb_remove_page_size(tlb, &folio->page, HPAGE_PMD_SIZE);
+> +	if (force_flush)
+> +		tlb_flush_mmu(tlb);
+>  	return true;
+>  }
+>
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 7f019afc35ca0..cd954afb146f4 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -1757,7 +1757,7 @@ static __always_inline void zap_present_folio_ptes(struct mmu_gather *tlb,
+>  		ptent = get_and_clear_full_ptes(mm, addr, pte, nr, tlb->fullmm);
+>  		if (pte_dirty(ptent)) {
+>  			folio_mark_dirty(folio);
+> -			if (tlb_delay_rmap(tlb)) {
+> +			if (tlb_can_delay_rmap()) {
+>  				delay_rmap = true;
+>  				*force_flush = true;
+>  			}
+> diff --git a/mm/mmu_gather.c b/mm/mmu_gather.c
+> index c022aeb7c84d0..fc547be33a919 100644
+> --- a/mm/mmu_gather.c
+> +++ b/mm/mmu_gather.c
+> @@ -169,6 +169,8 @@ static bool __tlb_remove_folio_pages_size(struct mmu_gather *tlb,
+>  	struct mmu_gather_batch *batch;
+>
+>  	VM_BUG_ON(!tlb->end);
+> +	if (delay_rmap)
+> +		tlb->delayed_rmap = 1;
+>
+>  #ifdef CONFIG_MMU_GATHER_PAGE_SIZE
+>  	VM_WARN_ON(tlb->page_size != page_size);
+>
+> --
+> 2.56.1
+>
 
-David
+--
+Cheers, Lorenzo
