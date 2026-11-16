@@ -1,95 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794854389;
-	b=FqSDplH1HsOc3iEFItCtaB0p5HEolSl+xP+xcSSdUdN//mVMyD9kD50Qg6DBqJZGMi1b
-	 hqdfHmA35lj1My20eG4d/IRlMnvhQK5mZQHBqF3Jzhs9rqpCwuA0iltiFz2t7+KWEV8xu
-	 ot6flxGr4NuEyMb3MX0y9B8N0w8bX+Gs0sBPiWeCACctKGHdz7wFweV2MdqhvRMl1Fpq1
-	 TNN/lrdWRUOohG5Ad3OSIgZ9DyBj0oFEDFF3DVsbZPNS1Z5IZckqmSQMsxYCzrMNgiFhp
-	 RxNfNUacxdKt/XrfOjXUTiJ90FMqYelxJ/UQG5O2VuLOuMfjRdr94AWzGkzGZ9A2UXw==
+	t=1794854694;
+	b=AJt16ObdCiCU7jT3F9pLEubulpDx4hHI6Zfg9OoWrAW3zA/bqytNVxEr7f0RogrCXpBi
+	 Ela7QINnCuKnETmxVPuuOHXQWXHCMBLDp3ktyw08WWl2gu4M/6o0EAe05aqzmmLOX3fuQ
+	 U9RPrretHAI4CmJJPuFnL/USOGdldl6im7Dv2PX+J/VDyhThfTZ1GG0QfQqiFbiwofcZ8
+	 Y1MecXdOexT7Cc8iv8ax/6fHX3sSpN6DuC82Ecfz4koUZpf1DLBe2STg0/TncHqgU3DkM
+	 AVDKn4Ebvp2sNiOYOFh7Yx1BUi2RQmsM8QZH3v0tfYRwL/A9McnC8wWfeTYg2w/5QNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794854389;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=iEJ8Vsur5VkO8QT2c30olgm3N6esX9fQIbded5RAIic=;
-	b=xYcI6BCuDGUknYnANoRpM6mFgSGkgPUyyCOysCYYhr4buAx6enX+taFMklQtUv6wzgFY
-	 ZGKn8Baqyi/8voIQy+hojt9ifGYenSE/FPaK2qH9P3BPAgc2PnoxW9mDHdWe2irmfFpmy
-	 lKTCFsDMVRthQS58SUtbDug64TFFQ2V9IgZ22h813GipB8hBofK5siMYbPhNm53TFRq9V
-	 rZnsC0aZD35vBQZ5i6Itd9261Uho8GBj9WDKuPa0k3ewdGHgpyEDAybr2zlsfH7eiHfuv
-	 bOyTTy7ILUHZL3E0JMiyB1u93XaKisPP/t2k+t8zlk9SQVOASTHBWZWfLYu/J5MdOSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794854694;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=EfMm5UKO/b+xbcoLhLXEne0KqVWvpjz0F0uxyUz9DJg=;
+	b=sU8NMmc+TqJ6arwvC/NFQYIJENeqRPsL5x+ohNlxhY78tqOXsNWc44D4qm0X++gEFKMu
+	 eZsxASu4vUp6l2DSGj2W93wVeVkATSQNVyzQUcSj0pScH/tgWiKdLWKDW7jpnAkSYRcA8
+	 wfYrN4/1OqDVPqziSgUE67vPblC9GIk+lP71J6sLYX4JXVuCwrXhlGtd9GrE+gI0+7KYl
+	 n6zoMlcVuRWY/N+279YWNz2lbP5I3UOxHZQVV1FJm8Rem/I5ovETnm1HqpbQntMMYvxlA
+	 NI6/RVwx0vemE6iC3FP+gMBeK9BKaqhnLDZqmOVXuGsH7/2UaVLTcef09gajj83eoTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=TH1m0vuJ;
-	arc=none smtp.remote-ip=209.85.222.180
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a9GKAGL6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05E2A606A880
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 18:39:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05E2A606A880
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D14606A31C;
+	Mon, 16 Nov 2026 18:44:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=TH1m0vuJ
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-94965745d92so221566785a.2
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:39:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1794854388; x=1795459188; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=iEJ8Vsur5VkO8QT2c30olgm3N6esX9fQIbded5RAIic=;
-        b=TH1m0vuJccTqmdU3PT3n1mdfI7HFuF62hxpy0vA2BsVWNZetFtshwN6jrDZg1Yl6mI
-         1rvTUutxNaLtBV44vEH0YXMpZ3xaUmIN2MzVHqlrj7kgA9xnAxiyeQpK2QqYTc2UrmhW
-         jpmzbzG8mN6nSfdH9uCRyTWn0/Y7PJLjKjOobvMDHfVN0x7iQKk8OGNp27jekWN6Ve3B
-         pE2+DYe8PBGloVou5x0p5rKrpHyLpTuOViqnUFn8gL1vLQdmcmDbJnE54Hh+Zx2CtQlR
-         4ux9HA8rvZeZ39MILQcajDRSUjTksAqxEJo1/YYmJ3N2D058dfPeX6n5SHnxUPRjyCnS
-         GFXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794854388; x=1795459188;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iEJ8Vsur5VkO8QT2c30olgm3N6esX9fQIbded5RAIic=;
-        b=P0179zQNbbph56rjvoFyyORxx0ttP2xL+NT7XIPGsqdMyyO1iB6xd+vVVwi0c0KaNr
-         1AESqdpXxQcfeNCLryjYahKpIcTcAS6RYhjRN48FEuVX/eGp9UPxNznc0bi6u/lUipZv
-         GTkm9rdbsgXIOHM2lDAhxGOz+L7kPJ9mHXtw67DWGyT6cKSMyU8B5GCzhtrSMSWMa+0J
-         WjiK7/9CFmggLSPvn8BBMD29lpuLg5xCxOUdpizE4/EcijG3yAZn3lpRQtpVALmIyMjj
-         KDT+EZZ94bQUiHLkJN7jE9BU8/W56r+09r1yBmEKlYA2oPJU9x78yRr32BYesZ7a/TPw
-         BvxQ==
-X-Forwarded-Encrypted: i=1; AL+hErGq1fE/3jK5/8IwBgC+f94Hoxm/TZOOvjTJaxQv4WbiCtXY9FjT4Oew5oibPSFqr6a8nRqygrE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+OF2sTZ4XUsRFzcPd3412NA9AmdNQ+1+j7858K7jh43ThrUByJ
-	ExhwmPoEInbIv9d3J1wepvdqOV6E3ufetDSn0ZmVkN0+Ju0aQsnLs44SU2Qr2nITGw==
-X-Gm-Gg: AYBFou2vHfyf64djVMJ3g24UPeYkAO3xoAkuF17VvPTFPydiQkroTtuyA7Uc1juc2k7
-	rRkNohQVMQE20kLM1TvdIxJV1osr5YksXaIUclUM7TVQ24zEWUzjiMf9nIr4VjFEnkbAlCHh2UP
-	NHkEf7a//uFfIybXIXJWYBKkXZtJNNe8+8E7X5JW61rfQM0e39eRjd9+B9SG43zYT6jFE0vAqz1
-	hxjH9fRlhxPCpPtfHgPnAF4PNtIc0oQBtcCDII2klhk3KJ7M3wda9H89bnDqhXYMjqFTG4Om9UW
-	FuCSLST11XbE1yaIii823xG2dVDl6wegBkhdoxmBOLEHAgy/aggI81jv1COlc+PvJ8Hgs2Fd7Ie
-	HI6UFa6NMvb+IrfTFXj91zdbWGjBhd3wWA4JItviMJxkd8A49xhgVV8+/UIr1h/SDtpRhlxLs/E
-	96mM3WYQJGGvV5urOEO/iKiT0ItKGaLsFoj8U7aZF+vJhgWGT6pmnkna/FX4McJsEORXw1jKFzn
-	eqGCKsr5wMaHOS7pP1SufaTDkI4+G+ZnZ3ZPGuTUvNTL7yCaL6/UWz50bFEO4nM6KgHryu0msBw
-	0opfXxU7p8Yr1V8EEhz2dGl6hPB4nQQE9agTJncuyOWxuHUjNlE=
-X-Received: by 2002:a05:620a:2b99:b0:93e:e376:9b1d with SMTP id af79cd13be357-9494ba53a16mr1920666185a.9.1794854387842;
-        Mon, 16 Nov 2026 10:39:47 -0800 (PST)
-Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c803b15sm906677185a.14.2026.11.16.10.39.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:39:45 -0800 (PST)
-Date: Mon, 16 Nov 2026 13:39:42 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-usb@vger.kernel.org, usb-storage@lists.one-eyed-alien.net,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [usb-storage] [PATCH v2] usb-storage: reject too small values in
- max_sectors_store()
-Message-ID: <5a202c7e-f7c2-44cb-8bf4-0673ba7ee9a1@rowland.harvard.edu>
-References: <20261116163946.2502-1-25031212351@stu.xidian.edu.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a9GKAGL6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74ACB1F000C4;
+	Mon, 16 Nov 2026 18:44:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794854694;
+	bh=EfMm5UKO/b+xbcoLhLXEne0KqVWvpjz0F0uxyUz9DJg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=a9GKAGL6SmSIX91dJbJlokWyOCe3GYYifYd/yidJ7sJ5uxKCf5K3SkAI6aIy4V8Ag
+	 UH6T5kAPE+93oZUrvLXqrRFnVEbHL9MCqiOx0e1qwy3KERGec74id4fAR9Sx9GBDoR
+	 EbVoBrByP9A9rPWvBS/nCgK/OyC7Ea1KMvwzUYmmMonJTjQE1u/IigwEK97qnZYClX
+	 8e4hnc4xO5a6+Q71lvcdf91j2hyJEjJzYJMyJNz2+dkyzJt42+yMLTyPxK5pIn5sLf
+	 M4KhOtH3lur+QJE7TpWFbmzSIxygodBRSiGhnekqRnOjcinRBJFxF78h0SqzoCV9pO
+	 YLH/E1sDrsjNg==
+Message-ID: <40f86b39-96cb-4fb3-9282-ec06504774e5@kernel.org>
+Date: Mon, 16 Nov 2026 19:44:42 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,75 +51,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116163946.2502-1-25031212351@stu.xidian.edu.cn>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] mm/migrate_device: avoid leaking folio references
+ during THP splitting
+To: Usama Arif <usama.arif@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com,
+ byungchul@sk.com, gourry@gourry.net, jannh@google.com,
+ joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org,
+ matthew.brost@intel.com, mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org,
+ surenb@google.com, vbabka@kernel.org, ying.huang@linux.alibaba.com,
+ ziy@nvidia.com, kas@kernel.org, hannes@cmpxchg.org, riel@surriel.com,
+ shakeel.butt@linux.dev, kernel-team@meta.com, baolin.wang@linux.alibaba.com,
+ Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, lance.yang@linux.dev
+Cc: stable@vger.kernel.org
+References: <20261116063624.1382944-1-usama.arif@linux.dev>
+ <20261116063624.1382944-2-usama.arif@linux.dev>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261116063624.1382944-2-usama.arif@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026 at 12:39:46AM +0800, 'YuanZhe Liu' via USB Mass Storage on Linux wrote:
-> Writing a value that is smaller than a page worth of sectors, or
-> smaller than one logical block, to
-> /sys/class/scsi_device/.../device/max_sectors passes an invalid
-> max_hw_sectors to queue_limits_commit_update_frozen().  The block layer
-> requires max_hw_sectors to cover at least one page and at least one
-> logical block, and treats a smaller value as a driver bug:
+On 11/16/26 07:34, Usama Arif wrote:
+> migrate_vma_split_unmapped_folio() takes an extra folio reference because
+> split_huge_pmd_address(..., true) drops one when it splits a PMD.
 > 
->  WARNING: block/blk-settings.c:389 at blk_validate_limits+0xeb9/0x14b0
->  Call Trace:
->   queue_limits_commit_update
->   queue_limits_commit_update_frozen
->   max_sectors_store
->   dev_attr_store
->   sysfs_kf_write
+> However, migrate_vma only holds mmap_lock for reading. A concurrent
+> MADV_DONTNEED can clear the migration PMD, or split it into PTE migration
+> entries, before the split helper takes the PMD lock. The helper then does
+> nothing and leaves the extra reference behind. folio_split_unmapped()
+> fails with -EAGAIN due to the unexpected reference, and the reference is
+> never dropped, so the source THP is leaked.
 > 
-> Before commit 70a7949335e5 ("scsi: usb-storage: Switch to using
-> ->device_configure") the store called blk_queue_max_hw_sectors(), which
-> silently raised values below PAGE_SECTORS to that minimum.  The
-> conversion to the queue_limits API lost the clamping, so a single sysfs
-> write from user space can now trigger the warning.
+> If a THP is faulted in at the same address inside that window it is
+> worse: freeze = true replaces the new folio's mappings with migration
+> entries that nothing will ever remove, and drops a reference the caller
+> never took.
 > 
-> Reject such values with -EINVAL on the limits snapshot returned by
-> queue_limits_start_update(), cancelling the update.  This keeps the
-> return value for values below a page unchanged, as the block layer
-> already returned -EINVAL for them, and also rejects zero, which
-> blk_validate_limits() would otherwise replace with BLK_SAFE_MAX_SECTORS
-> without the user asking for it.  Checking the logical block size as
-> well covers devices that report a block size larger than a page, where
-> a value above PAGE_SECTORS can still be smaller than one logical block.
+> An existing migration PMD is expanded into PTE migration entries even
+> with freeze = false. Use that mode and remove the extra folio_get(). The
+> reference already held by migration keeps the source folio alive whether
+> or not its PMD migration entry still exists.
 > 
-> Fixes: 70a7949335e5 ("scsi: usb-storage: Switch to using ->device_configure")
+> Reported-by: Zi Yan <ziy@nvidia.com>
+> Closes: https://lore.kernel.org/all/DLZ48KMS7YG8.3BTM0UUU8CTU2@nvidia.com/
+> Fixes: 4265d67e405a ("mm/migrate_device: add THP splitting during migration")
 > Cc: stable@vger.kernel.org
-> Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-> Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-> Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-> Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 > ---
-> Changes in v2:
->  - Also reject values below one logical block and cancel the limits
->    update; with a device reporting a logical block size larger than a
->    page, such a value reaches the second WARN_ON_ONCE() in
->    blk_validate_limits().
-> ---
-
-Acked-by: Alan Stern <stern@rowland.harvard.edu>
-
->  drivers/usb/storage/scsiglue.c | 4 ++++
->  1 file changed, 4 insertions(+)
+>  mm/migrate_device.c | 7 +------
+>  1 file changed, 1 insertion(+), 6 deletions(-)
 > 
-> diff --git a/drivers/usb/storage/scsiglue.c b/drivers/usb/storage/scsiglue.c
-> index 97de28e85562..7a55cfc18236 100644
-> --- a/drivers/usb/storage/scsiglue.c
-> +++ b/drivers/usb/storage/scsiglue.c
-> @@ -593,6 +593,10 @@ static ssize_t max_sectors_store(struct device *dev, struct device_attribute *at
->  		return -EINVAL;
+> diff --git a/mm/migrate_device.c b/mm/migrate_device.c
+> index 9e19fadfa65c6..3286bb8a4b73e 100644
+> --- a/mm/migrate_device.c
+> +++ b/mm/migrate_device.c
+> @@ -920,12 +920,7 @@ static int migrate_vma_split_unmapped_folio(struct migrate_vma *migrate,
+>  	unsigned long flags;
+>  	int ret = 0;
 >  
->  	lim = queue_limits_start_update(sdev->request_queue);
-> +	if (ms < PAGE_SECTORS || ms < lim.logical_block_size >> SECTOR_SHIFT) {
-> +		queue_limits_cancel_update(sdev->request_queue);
-> +		return -EINVAL;
-> +	}
->  	lim.max_hw_sectors = ms;
->  	ret = queue_limits_commit_update_frozen(sdev->request_queue, &lim);
+> -	/*
+> -	 * take a reference, since split_huge_pmd_address() with freeze = true
+> -	 * drops a reference at the end.
+> -	 */
+> -	folio_get(folio);
+> -	split_huge_pmd_address(migrate->vma, addr, true);
+> +	split_huge_pmd_address(migrate->vma, addr, false);
+>  	ret = folio_split_unmapped(folio, 0);
 >  	if (ret)
-> -- 
-> 2.34.1
+>  		return ret;
+
+Oh, that means we can remove the parameter from split_huge_pmd_address no? Best
+as a cleanup patch once this is in for-next-fixes.
+
+Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
+
+-- 
+Cheers,
+
+David
