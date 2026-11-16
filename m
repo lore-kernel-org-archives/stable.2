@@ -1,63 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794844048;
-	b=c9b5euQWwbkjv+7jQ6tq+2dqUB7DF+BOBrALSC7ctzlAsRY/uHnzbWi1+UTIarCIBZLh
-	 seAY6hicTzkAEJgZ3ZemYvW5PUbCW44LpZ0ClI5VaE+gp6lHXmolrnWXDqiCBzsvP7m9G
-	 zzN2jnWgAfd5UAicUHiGASEwLIf6DPa8ADoIrObxb2VQR5YXjlxwue/LArUg6djd/P4YR
-	 xHZ6ubHv5OHeO/sb/LOxqytyKS3rCwtwfijQ674vxwlDmIt6daq5frfLrdxScSqDbs+Bl
-	 pG03DUc4aN0EyUaXzyge+tBEsxh7G3nHOy7sieyYpAXjx5OHB+7K0ajl7Q2I+QKwINw==
+	t=1794844135;
+	b=olqPqFVufeLFK/5oCDa3hkQaQZS/XhtNUoJuj0Uam13Qn4skNw3sDuRNFfpgaWB19LK7
+	 ZkYSBtHAeVUf4KQy4vjswFcozv0FD3evxmaSzPXOchKbqoJ+Shl3wrqzLORNeVTj5qsnw
+	 oEYo19aTkomMapyVwZ9L9DEc58YzRXemWgNnT9Z0owSkg6MOekMi8MM3eG7P4judlUyy0
+	 j8t/NJRja9fc++S++5B0rGrWQmpG5u+o3/xh/eyipJdXLVtembHhGJ2L6+7EFh/0tPXqm
+	 R+6QKxlAB9w/jmHcM/v++Qhnj8ncHu4JLDdFgdpS1EOxQ+O7/YRKH/q0xI8uxydOe2Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794844048;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=DgvSdpgqo/6Q3DRzr9oY0yJxYdWV9SFCTzt1+TEwysk=;
-	b=AmuYB4Zfn96tdQ9zY55TDwiebgC9+J69+i36Bv6Fp4GYZ2wdzXu7EM+axwJpPQjauySM
-	 2enlsaSHRlyOgHzX5RC+7lVrK18CW/A40KOQFWfCgzhBvNZcxm+Le0FOmJwt3qTr5/hb8
-	 bgOPbWno3q1bGDN7TKM9u1PozvMeFL5rK9Hm8yKPMd0NpBXN/0gLtzPOwX3KqMVG2qBeZ
-	 ZHgiA0YOwR8l14hfzgJ4l8RDSuqMZe6TIeiKKK99rSlgGYcB/1kP+La2Z8ZzDr0hMC4IN
-	 +5RW1zeFAe7NeKl/6mOC+FWCJGYdXlp7ZZq8uJmiTAPd/G3oNR59eSZJb1G9OQfNdUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794844135;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=FS02JGyQWyDQPrqY2V1gfk2fF4qT2C6KJC4N7D0XFkQ=;
+	b=m1QCMdajwlNk5dELXRBS51WHHMQn6RMDVVH1PNI6JOkKHftnmpQSwzvhvNonekgC7Iou
+	 2MqP59FZYP4MVGyEc0Y7wsBkLs/pT9voRL8EfS7wytNZE49XTxIiyER0Is6wDnPWs6Twa
+	 cMZwRpBs5HZKJwd8YBuIJISJMQjJO464xmKdL4Q/kY6psLluc1rPuAuSIjASadWsalBIa
+	 8A9r1AxYywCS4tHNwnQjCjyfLsagVj5jevf+UQAiv4KKKnL5Hp/FzDf5dgcGWQVu55ehW
+	 tWbSishIwgLfRLPqfE4kuuQYecvtADH06KCj+s+FflvTTMxgnbsZ8LYQRf9yQkJ/spg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CpviVmx5;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=XouADcMU;
+	arc=none smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0568606A331;
-	Mon, 16 Nov 2026 15:47:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A583606A31C
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 15:48:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A583606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CpviVmx5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6663D1F000C4;
-	Mon, 16 Nov 2026 15:47:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794844048;
-	bh=DgvSdpgqo/6Q3DRzr9oY0yJxYdWV9SFCTzt1+TEwysk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=CpviVmx5WDFRPf6kQ6D3wx0B3aUGQUHdHqQSopd9+w6X+t033cN22DD5HxXSrHy/L
-	 qwwGTNXF9rh8SDCuBS9C140u4DxW13BOqILYvnWGky/PYA5VlI93c/dh5EJvIRIacv
-	 3MonQy5Gtf+xSWe2m5ifpVaz+1qnMyG73ezmC7gROMXLrM2c4YJNHS6Zie3HZG0ZW3
-	 KuAOh+Tp+4gbpWA6m/wFGfALRrul9jC27DpMFJBYbmLRLJIpIQYTVxxEDhUaMprk9l
-	 14XPOLVmT96NGnln6NHdAaPYHB2pQW4EJhFwYtKDeuISGHnVyMQ5xqPxY+97Maqy/Z
-	 Hm2M6gL4/BhQQ==
-Subject: Re: [PATCH net 4/5] sctp: use skb_set_transport_header_careful() in
- sctp_v6_err()
-From: netdev-bot+sashiko@kernel.org
-To: edumazet@kernel.org
-Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- dsahern@kernel.org, idosch@nvidia.com, willemdebruijn.kernel@gmail.com,
- marcelo.leitner@gmail.com, lucien.xin@gmail.com, aconole@redhat.com,
- echaudro@redhat.com, i.maximets@ovn.org, daniel@iogearbox.net,
- justin.iurman@gmail.com, linus.luessing@c0d3.blue, sd@queasysnail.net,
- sbrivio@redhat.com, imv4bel@gmail.com, netdev@vger.kernel.org,
- linux-sctp@vger.kernel.org, dev@openvswitch.org, stable@vger.kernel.org
-Date: Mon, 16 Nov 2026 15:47:26 +0000
-Message-ID: <179484404697.3136.10852363970744263229@kernel.org>
-In-Reply-To: <20261113124625.4010206-5-edumazet@kernel.org>
-References: <20261113124625.4010206-5-edumazet@kernel.org>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=XouADcMU
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c4d28f75d62so714019966b.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 07:48:54 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1794844133; x=1795448933; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FS02JGyQWyDQPrqY2V1gfk2fF4qT2C6KJC4N7D0XFkQ=;
+        b=XouADcMUL0XQFADxs3pBf+Gz919GggZE5ALx55FS9G+ehE8L9k63fjuJTqLxhO54JT
+         pmhmVLb2iXKv9EUzT4YT0HTLgL9/7/zyhvhCfKwQYqF/EAZehe0OCkpbYnE5GpagJZr7
+         h5ZTxds5IcGTFIli/DkSzd/ZHD/0xmv7RiB8E=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794844133; x=1795448933;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=FS02JGyQWyDQPrqY2V1gfk2fF4qT2C6KJC4N7D0XFkQ=;
+        b=zR+v9eR+B6DW7m+RmA+7CTfcmnOm0us2yij5B0KzaFgOTy5sOAA1S4i1BBV2XKOHxA
+         128ZE72LmNz9HAqwUoj0lVI0KpbfTT0y3C6ksNiwa0Az7JDexKlOph5PpZkzHOEIFvPR
+         LTq7eOZ6J6xQxiC3k9rkpTBwQAAdOS1UrwpkgN+yDujD2JRPjAQMkcmx/15Z3eL7SUXU
+         pjDFHF3oQjtq3bEWA/i37b8WO3rJ+BTY+toNyNgW6L1yQNWXaRYTwdhj3gu1X5Nx5Dl6
+         f+U5d7NZjyLz8Rgzcf8LpeD/mmpVEcsoFbdPfBdkAXR3iy76tq3/+X0Njrmq1LS6HeH3
+         El7g==
+X-Forwarded-Encrypted: i=1; AL+hErF18c0eiKFoMgyUPq56LrajrIBOB47CGhuoKtISRtH61sVEQ++qvUjnJyOE7bPm7+8MBfqFcUI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9RG3ue6z//9uwAKvfWMNJYmk1knIDLJEYb71iJ3RT5CHRMMqt
+	LCQeDSUQnGdEslyiHZT/qRUnAL5Z/Jmu6aJ98EKYq3QWFaM5YTkwfIF/yl0kJgwBa8DKcBrcuXF
+	JbLVJYYM=
+X-Gm-Gg: AYBFou0MKtaRqA1ZctAawX+v4PoD00Jrjse0ViuPbxdLO386bUYZmxDVw927qMJrYVq
+	Q57pAq8xgI6GR2zXMwsKS1DsohgX8Tzd/Je8+egmLVLK8Yp0abvRvUrAhWbUiFuyXxjgi6etvLD
+	HN34s8gS2ES0RTwLlCWytfMzA8uxXRbSv6Yd5yei3hORfpPXXwAZ1Ibo/3y6FIvDzCVhzQk4HKE
+	oqbqu+TZUBikqVXTnCuBTHymBQn5Zu0gjXGgH+TDSehNxC/HabgpEt+Px5vf/GDRNHzh3WT6hLa
+	5nAb7dfygYlSpyRt8HmsD2OADdTmKn5UHK3vd4qzm1xB3DPBRq9hxCXxbbtuBKTjicJm08Y74FY
+	eWZaImf87XuIo+2AotEdSZqpOTnyFGHBdgDuYLN0rOhipFd3cgo/fe5n2n2G/ydMwDCrKlXRJnM
+	OfFGW15O/l/PREj5WYsEHETPalRUkBiWet/CWmPyjXyFU0NkMTg6ouhgx9SpmR6VD6ccDtsOkYD
+	3HcOBvdsaewY8eB3riFjJiz8M9cEwxPFJAGYgIdSYNOhw7/DPaIPVKOtP/OAQ4MtCh3zuvKEijX
+	8ek57BaPD2zODxvWOk1nz1uv24JFzlXrs+CnFzIXdbxb+Iz8h4aZt44BdHGbhU+YmmKEbKXX3ff
+	9Bvu4d55vN1kS5S5tJbQlUwsj
+X-Received: by 2002:a17:907:c06:b0:c21:9b4b:2690 with SMTP id a640c23a62f3a-c5096328858mr852922966b.17.1794844132943;
+        Mon, 16 Nov 2026 07:48:52 -0800 (PST)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com. [209.85.218.42])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095b42782sm442775266b.38.2026.11.16.07.48.51
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 07:48:51 -0800 (PST)
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4d28f75d62so714013266b.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 07:48:51 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFQFxAlj3rnEjHO1p41qg/xcuGItTeDUuZQkL3uqIf8MXYAjowHVIDVGYCl/5w68esQf5O2UzM=@vger.kernel.org
+X-Received: by 2002:a17:907:608f:b0:c2e:317e:d711 with SMTP id
+ a640c23a62f3a-c509638a784mr861145066b.27.1794844131072; Mon, 16 Nov 2026
+ 07:48:51 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,92 +94,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
+ <avrPcQ4sOkgJPbkZ@gmail.com> <20261116130159.GA1327949@ax162>
+In-Reply-To: <20261116130159.GA1327949@ax162>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Mon, 16 Nov 2026 07:48:34 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
+X-Gm-Features: AclHuK8IIj-MneOH8L5W6agOUkuIoQlSh4TEbGiPlvCYhRM7OLWTDF_kmyXir5I
+Message-ID: <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
+Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
+ enabled when compile testing
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-tip-commits@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org, 
+	x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Mon, 16 Nov 2026 at 05:02, Nathan Chancellor <nathan@kernel.org> wrote:
+>
+> On Mon, Nov 16, 2026 at 10:40:01AM +0100, Ingo Molnar wrote:
+> > Can we just limit the feature to when host == target, ie. to not
+> > work it around in such a crude fashion?
+>
+> That was my v1 but Boris didn't like it:
+>
+>   https://lore.kernel.org/20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Well, that is admittedly very crude and hacky.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Maybe we should have some config variables that depend on HOSTCC, and
+detect it *that* way. It does appear that we don't have any model for
+cross-compiling in the Kconfig setup, but maybe  we should..
 
-- [Medium] The main part of this concern is fixed later in the series.
+I'd actually love to have support for making the compiler itself part
+of Kconfig, so that the gcc-vs-clang could be *in* the .config file
+rather than being an external thing to it.
 
---
+I've mentioned that before, and the problem has typically been that we
+end up depending on 'CC' outside of the Kconfig scripts and
+independently of the current config.
 
-sctp: use skb_set_transport_header_careful() in sctp_v6_err()
+The recent work to move the compiler flags into Kconfig itself may
+have lessened some of those dependencies, but there's probably still
+lots of small details.
 
-sctp_v6_err() now stores the ICMPv6 inner transport offset with
-skb_set_transport_header_careful(). If the offset does not fit in the
-16-bit skb->transport_header field, the ICMPv6 error is ignored. Before,
-the offset was silently truncated and sctp_err_lookup() read the SCTP
-header from the wrong place.
+But for the whole "cross-compile", maybe we can just say that
+X86_NATIVE_CPU depends on '$CC' being the same as '$HOSTCC'.
 
-> diff --git a/net/sctp/ipv6.c b/net/sctp/ipv6.c
-> index 97390569c4bdc..ad5c951efdf06 100644
-> --- a/net/sctp/ipv6.c
-> +++ b/net/sctp/ipv6.c
-> @@ -170,8 +170,11 @@ static int sctp_v6_err(struct sk_buff *skb, struct inet6_skb_parm *opt,
->  	/* Fix up skb to look at the embedded net header. */
->  	saveip	 = skb->network_header;
->  	savesctp = skb->transport_header;
-> +	if (unlikely(!skb_set_transport_header_careful(skb, offset))) {
-> +		__ICMP6_INC_STATS(net, __in6_dev_get(skb->dev), ICMP6_MIB_INERRORS);
-> +		return -EINVAL;
-> +	}
->  	skb_reset_network_header(skb);
-> -	skb_set_transport_header(skb, offset);
->  	sk = sctp_err_lookup(net, AF_INET6, skb, sctp_hdr(skb), &asoc, &transport);
+Or even do '$(CC) -v" and '$(HOSTCC) -v' and check for 'Target' being
+the same, and having a CONFIG_CROSSCOMPILE thing for that?
 
-[Severity: Medium]
-
-This covers native SCTP. Can the SCTP-over-UDPv6 handler in the same file
-still hand a wrapped transport header to sctp_err_lookup()?
-
-sctp_udp_v6_err() is installed as encap_err_lookup. It still does an
-unchecked 16-bit add:
-
-net/sctp/ipv6.c:sctp_udp_v6_err() {
-    ...
-	skb->transport_header += sizeof(struct udphdr);
-	sk = sctp_err_lookup(net, AF_INET6, skb, sctp_hdr(skb), &asoc, &t);
-    ...
-}
-
-A later patch in this series ("udp: use skb_set_transport_header_careful()
-in __udp6_lib_err_encap()") makes __udp6_lib_err_encap() store the UDP
-header offset carefully. That check only makes sure the UDP header offset
-itself fits and is not U16_MAX, so transport_header can still be as high
-as 0xFFFE when sctp_udp_v6_err() runs.
-
-For a UDP header offset between 0xFFF7 and 0xFFFE, adding 8 gives a bad
-value:
-
-  - 0xFFF7 becomes 0xFFFF, the "not set" value. With CONFIG_DEBUG_NET this
-    trips the DEBUG_NET_WARN_ON_ONCE() in skb_transport_header().
-  - 0xFFF8 to 0xFFFE wrap to 0..6, so sctp_hdr(skb) points at
-    skb->head + 0..6.
-
-In the wrapped case, sctp_err_lookup() reads vtag from the wrong bytes.
-sctp_v6_from_skb(), called through af->from_skb, also reads sh->source and
-sh->dest from there for the association lookup. When vtag == 0, the INIT
-chunk is read with skb_header_pointer() at a negative
-skb_transport_offset().
-
-The commit message says "Should the value be truncated, sctp_err_lookup()
-would read the SCTP header at the wrong place". Would it make sense to
-also check, before the += in sctp_udp_v6_err(), that transport_header +
-sizeof(struct udphdr) fits in 16 bits and is not U16_MAX? Another option
-is for __udp6_lib_err_encap() to reserve room for the payload header.
-
-This needs the same large skb->data - skb->head precondition the series
-describes, and there is no reproducer.
-
->  	/* Put back, the original pointers. */
->  	skb->network_header   = saveip;
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113124625.4010206-1-edumazet%40kernel.org
+               Linus
