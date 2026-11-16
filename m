@@ -1,86 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851539;
-	b=Dvccj8A7Z+Ghrw/XWJNMqAZdf1tPRncXOOfNZpLDGIA/Io2tLXaAUh2eE/zu4lVWnTIG
-	 Ph9kBly7Bi1zOKi9oPpQJM2pHHCOc7JIotDbld9rmpE04PUKEr21s9jPYQM5vVc+X6xjX
-	 qHf8TTGppLIK1j+ul3QibrFXOLKWN56QbXTOl7BuVE45ncA7wgwr75+rQsjKKsmrw6q3c
-	 o4xDRvx3Qd/POvxiCGFDsVG01j1M2odfuHGe8ozuG6nrmJtUX2BdJ5UGeMX/ZXQyALIt9
-	 XEJifpJZIwaYwRA165G9PutGs/wibHS+ZPVhBLSu1z9YPq3v4fK9JyPGgxJBQU9b5Og==
+	t=1794851688;
+	b=SjJ8LI+PidFNC19IGfOUkeY+NvtB3+YbQVbUGJIeUReEiyLHCYxnXnzGqlhPaEnaPNiG
+	 sH9Zqi03detbiq7T+2xZg+iGV1SdFj4BK3iLppuXmNashI/L+Chy7J4nrcuqBBWoBU9wv
+	 me7Aori//sraVuWc/G/NziMFQ4tC0q1kDv0c4447Xw0FgkW0vlFTounmfSMQqUsJr+xLW
+	 RhZwX64viTwi7/h5v9dW+72Ko7Jq68dhQPkxC8FLr8awWxmm9U/Q+EpCBTuVLLWUTaeuQ
+	 jIgQiTQ1Tk8+A1I1+aD92xfTtVMRcty5QxFoqyBz1w/S6dzjOw07dDNwbQD8Pwykb+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851539;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=wJ8TnT2XfhDoFSzBoirS9TeHlGIUWbru6eIu+8n9Klw=;
-	b=t/TgQAWQx3MzGLto2wBEjkgcABkcANpiPb2EL6I5DB87WLvO2fY7AtGdlGaQjrN33hef
-	 jppCpjUA7pueKqD/0OeZnv2yPezQjE3wRzjv6aO1pGqCktRLB6/dHx1XVGeNHztaOQoXU
-	 VowtTJA47iJbnOtv9oiirgrk4P7R00gyU56JYcPfx3TkcBPncu9QKcenBVyU0nPgSv826
-	 CUbuh0yglWe3yLlDSGb0dIny0uUUoRK2n0TZjg6rxqvoG57m2tXAT3IYQ/+qQ9eJNIg/4
-	 jQgrRdFPQklaH0yTWp3D1w+7NL7UghsQOWWtCnjXFa1GCGWXD8Prj1KtyJ8HilkgApw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851688;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=BexiXxDoqI0E/gCNS3LAqWJ7uuhxAY02QSzzdUZk1WQ=;
+	b=xi3KRo7eqSLUL381d+8AMjyWyXJtXLCQA9cmew46X5agIqevNH+BlUsL6RJH+hbQ0EUk
+	 IYMKo0qU52VRrri+vIpORONJ252ClKXzoiCIFp1WpcWOg4ZghJ9zGiT8ZTnsskGwFFRaY
+	 GOqX46eEw6j/y5BT6KtbGQENFBCZGvHTPH19XZwBF1ueOpjJqNktvoYhdFGjO9kVDbJB5
+	 gbYk/5ujUlxUVmeKN4SSR5cMH/aaMSk9aLOpkTPXdmxgjCjEtRNSCs+k7Hn051LMGfPnn
+	 NP5haW24EOJmpMlOXMLElwgEyXN0m+dfQMa5ntTLnP58jLdiXsoC7jcOlZuNmbYi3tA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=RDOf8EIy;
-	arc=none smtp.remote-ip=209.85.167.50
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D52606A8AD
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:52:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65D52606A8AD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=RDOf8EIy
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5be4a2d94adso3487714e87.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 09:52:18 -0800 (PST)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C19D3606A334;
+	Mon, 16 Nov 2026 17:54:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C19D3606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1794851537; x=1795456337; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wJ8TnT2XfhDoFSzBoirS9TeHlGIUWbru6eIu+8n9Klw=;
-        b=RDOf8EIyDdPhIhwkU2Y+kks81uAo3qI0dVnrzE44118r05BQIWANGKQxYwZzuOX3vD
-         zwNEJmtE63iju1pVjGWF1qU7xBKYcDB/bbsbsjpJ+8qc/knq6XU0HAUSZUmLJe0wm7w/
-         g3OIplPwGclz2FdxlBa+hCMd3/BvncIvoq0zY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794851537; x=1795456337;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wJ8TnT2XfhDoFSzBoirS9TeHlGIUWbru6eIu+8n9Klw=;
-        b=law8f7A592zwo8P1KbIRq7QGK2KbLzgC+bfiwfVjayrqbaaWJEwXXag2zXYrUcSwMd
-         0Mka6A3QOJETg6zdGswURyOvJ0UeZi6OHVa1Ll82gBALi9p/YfWXgexriinVdcXjA6Bu
-         qcRQyvm1xAp8NdLdKLaSgeWlCWjurh6lQs9AcuutJFHMYyjfup9zxfT9YLFUPxEd5uOE
-         erQrj7OWCOiuOMTatA7oxEpnq1fLCRIDiDB49tX0ghqOQpMQr6GhBLI6xTyw6oKb4EFJ
-         bF5BhbphhfQgCjhK8BHLAgHa/3gw9vzd9YOQwX8xvdHr/E9ufngqVZ5KRhKO1Jg/JsvG
-         cspQ==
-X-Forwarded-Encrypted: i=1; AL+hErEyWh7E9ZCPymlWyZY3lIcEeVOsOqJ1UME0Q5aIcjODM5eFins0MqloJnGTN82o+mRKeu64vTg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9rmOFWgj6gWGcrx8LHHrWaKWy7yif0iNIShr0yp8EhHkikLWTN
-	wsO3uHc0OkdraW1VFrxqplIBVAvQzhSM5Xaf78ZVs22cUBqrLNPYDsa1bD9udEqYRQ==
-X-Gm-Gg: AYBFou25yJDlPIHDSgP59KNYuqEOglm18r3ailAsdL9qtCDQHQ7tU9HBQHJndSmDhHd
-	Mp1iDyhj+p9BXODARknGL6st+hI5GPouI2OwielCqv3sHWHo9ABAAI9c3g5SoDqI2LYs16Xzx4v
-	2Ywh1rnW+dzbb88LK00Smv7JKn88ufW35rdyIQfOz99zfy9/KEPuzGyoHHmkMFMjjdJKRFOBa2p
-	WQ3IdUU9djYkZEclfCQ+Ovlkx/vsTG3SmlnbYhg8GOqsg8myzPKXI6RCDcRySZ3Yjd6ASW8Uf3X
-	15INK6Hiyludyb9UJsVUpC52pAksqzC8ZMuzln5Bqsw99zYvIfUMz8xT8AdHT8RIRIyGXMCwPSo
-	xCbza7S1X0TCOnJNufnUjRzeGvoti8ru+SZDYgR7hzB9Ng7LKGF+vuXRXK9NwYxx1OIzD+gAYKq
-	lz9vMpOqHPMd5chczL74dzN9z6MuIwwV7houSPokeA5wnYfCDRNRgBVjpplNvC/bwPmEiCgxeTa
-	K12Y1rzkwWwAoKkFPFy+kWNKlnhzhaYB9rNpGrFewtTsEFkuQyfccPUF1fOQKy2aV9lB3d1GHHl
-	cI98cD3vvZ+vT+9D5S8bAI27wfkId9aqwslIOSM/0C+M7urQIbIJCpgH/0nQ7P0IQQ3ACD6BlI+
-	4hG27iQ8RNQ==
-X-Received: by 2002:a05:6512:31c3:b0:5c1:4f6f:564c with SMTP id 2adb3069b0e04-5c1709c5b64mr4239145e87.39.1794851536662;
-        Mon, 16 Nov 2026 09:52:16 -0800 (PST)
-Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c171333630sm3391252e87.19.2026.11.16.09.52.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 09:52:15 -0800 (PST)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 16 Nov 2026 17:52:10 +0000
-Subject: [PATCH v2 3/6] media: uvcvideo: Use bHeaderLength for payload size
- in stats
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=BexiXxDoqI
+	0E/gCNS3LAqWJ7uuhxAY02QSzzdUZk1WQ=; b=a1HOpdCzlzIRK8XvtHzHMeW/b5
+	jHiKge8ooTBEcQ39iyCQV58sOWADJOBoaSMdvP+c+eNrRDNiw5NUl/5Om04axCBf
+	m3WDgbl9RhH/nkh2T8ONcgeb0EU9RauyAMjAabePsrYtOt7QTBRq/+BikFkJY5ZS
+	MXElTwifkrvMnACpY=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkB2nwVUQ_tqLZG7AQ--.61802S2;
+	Tue, 17 Nov 2026 01:54:30 +0800 (CST)
+From: 25031212351@stu.xidian.edu.cn
+To: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] media: hdpvr: fix out-of-bounds read in hdpvr_read()
+Date: Tue, 17 Nov 2026 01:54:28 +0800
+Message-Id: <20261116175428.14540-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -90,68 +58,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-uvc-shortmeta-v2-3-62d4a8176fb8@chromium.org>
-References: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
-In-Reply-To: <20261116-uvc-shortmeta-v2-0-62d4a8176fb8@chromium.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ricardo Ribalda <ribalda@chromium.org>, stable@vger.kernel.org
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkB2nwVUQ_tqLZG7AQ--.61802S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAF18ur4kWFy5Gw1Utw18Krg_yoW5KFWDpF
+	W3KayayryDXr9F9wsrGa1xXa1rCw1kCFW8GrW7Gasakr45XF1S9ryrtayjvFyrGr92vry0
+	qFZI9r95ua1UAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBGb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2vYz4IE4I80cI0F6IAv
+	xc0EwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ew
+	Av7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY
+	6r1j6r4UM4x0Y48IcxkI7VAKI48JM4kE6xkIj40Ew7xC0wCY1x0262kKe7AKxVWUAVWUtw
+	CF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j
+	6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64
+	vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_
+	Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0x
+	vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07boT5LUUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2r7HFch0wAAsw
 
-uvc_video_stats_decode() does not take into consideration extended
-header data (e.g. MSXU metadata) when it calculates the payload size or
-decides if a UVC packet contains payload data or not.
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 
-Use the correct size (data[0]) instead of the minimum header size.
+hdpvr_read() computes the number of bytes left in the current buffer as
+urb->actual_length - buf->pos and uses that as the length for
+copy_to_user(). buf->pos is a plain unsigned int that is not reset when
+hdpvr_cancel_queue() recycles a buffer, and it is not protected against
+concurrent readers of the same device.
 
-Fixes: 7bc5edb00bbd ("[media] uvcvideo: Extract video stream statistics")
-Fixes: 25738cbd72db ("[media] uvcvideo: Extract timestamp-related statistics")
+After hdpvr_stop_streaming() has killed the URBs, the buffers are put
+back on the free list with their old position, and the worker resubmits
+them with urb->actual_length reset to 0. If the next transfer completes
+with less data than the position a reader has already consumed, the
+subtraction yields a negative value. As rem is an int and count is a
+size_t, the comparison "rem > count" is then true, so cnt becomes count
+and copy_to_user() copies count bytes starting at
+transfer_buffer + buf->pos, which can be past the end of the 8192 byte
+transfer buffer. Two readers of the same video device can corrupt each
+other's position in the same way, and buf->pos is read twice, once for
+rem and once for the source address.
+
+A KASAN slab-use-after-free read of 4096 bytes was observed in
+hdpvr_read() with the source address 1281 bytes past the end of the
+transfer buffer; the pages following the buffer had been recycled as
+slab pages. A second report with a 42 byte copy was 25 bytes past the
+end of the buffer.
+
+Fix this by reading the position once, by handing a buffer whose
+position reached actual_length back to the worker, and by using min_t()
+so that a negative remainder can no longer be turned into a full-size
+copy.
+
+Fixes: 9aba42efe85b ("V4L/DVB (11096): V4L2 Driver for the Hauppauge HD PVR usb capture device")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
- drivers/media/usb/uvc/uvc_video.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/media/usb/hdpvr/hdpvr-video.c | 25 ++++++++++++++++++++++---
+ 1 file changed, 22 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
-index 8bae91af03ba..ac8e0c3a0c71 100644
---- a/drivers/media/usb/uvc/uvc_video.c
-+++ b/drivers/media/usb/uvc/uvc_video.c
-@@ -1016,9 +1016,9 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
- 	 * their first empty packet ?
- 	 */
- 	if (stream->stats.frame.size == 0) {
--		if (len > header_size)
-+		if (len > data[0])
- 			stream->stats.frame.has_initial_pts = has_pts;
--		if (len == header_size && has_pts)
-+		if (len == data[0] && has_pts)
- 			stream->stats.frame.has_early_pts = true;
- 	}
+diff --git a/drivers/media/usb/hdpvr/hdpvr-video.c b/drivers/media/usb/hdpvr/hdpvr-video.c
+index 4290b2367fa3..364a55dbdde8 100644
+--- a/drivers/media/usb/hdpvr/hdpvr-video.c
++++ b/drivers/media/usb/hdpvr/hdpvr-video.c
+@@ -415,6 +415,7 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
+ 	struct urb *urb;
+ 	int ret = 0;
+ 	int rem, cnt;
++	unsigned int buf_pos;
  
-@@ -1047,15 +1047,15 @@ static void uvc_video_stats_decode(struct uvc_streaming *stream,
- 	}
+ 	if (*pos)
+ 		return -ESPIPE;
+@@ -488,10 +489,28 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
  
- 	/* Record the first non-empty packet number. */
--	if (stream->stats.frame.size == 0 && len > header_size)
-+	if (stream->stats.frame.size == 0 && len > data[0])
- 		stream->stats.frame.first_data = stream->stats.frame.nb_packets;
+ 		/* set remaining bytes to copy */
+ 		urb = buf->urb;
+-		rem = urb->actual_length - buf->pos;
+-		cnt = rem > count ? count : rem;
++		buf_pos = buf->pos;
++		rem = urb->actual_length - buf_pos;
++		if (rem <= 0) {
++			/*
++			 * The buffer was recycled and refilled with less data
++			 * than this reader already consumed from it, so there
++			 * is nothing left to copy. Give it back to the worker.
++			 */
++			mutex_lock(&dev->io_mutex);
++			buf->pos = 0;
++			buf->status = BUFSTAT_AVAILABLE;
++			list_move_tail(&buf->buff_list, &dev->free_buff_list);
++			mutex_unlock(&dev->io_mutex);
++
++			wake_up_interruptible(&dev->wait_buffer);
++
++			buf = hdpvr_get_next_buffer(dev);
++			continue;
++		}
++		cnt = min_t(int, rem, count);
  
- 	/* Update the frame size. */
--	stream->stats.frame.size += len - header_size;
-+	stream->stats.frame.size += len - data[0];
- 
- 	/* Update the packets counters. */
- 	stream->stats.frame.nb_packets++;
--	if (len <= header_size)
-+	if (len <= data[0])
- 		stream->stats.frame.nb_empty++;
- 
- 	if (data[1] & UVC_STREAM_ERR)
-
+-		if (copy_to_user(buffer, urb->transfer_buffer + buf->pos,
++		if (copy_to_user(buffer, urb->transfer_buffer + buf_pos,
+ 				 cnt)) {
+ 			v4l2_err(&dev->v4l2_dev, "read: copy_to_user failed\n");
+ 			if (!ret)
 -- 
-2.56.0.679.gc527c65306-goog
+2.34.1
 
