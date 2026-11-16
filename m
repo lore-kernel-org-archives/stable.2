@@ -1,95 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=89.58.8.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794852561;
-	b=uRn3G3/ulWPNIyuQnCoC26lHm+ZJNISA+3eb/5S/5+TMLqG0sqMH1glUer9X6W82BVzt
-	 Ln9lx5kPL5Re6x69cQz0ocPYLHtxK4xjOmO7jEMDuQbHWjB4dIT+J4i2uEK92WMkEskEK
-	 UGURI9vDREYTQjY24HxRQtfZ04FG6+rKp5GuNuFQlkbIInh8dLQCwbxKsKH/XbDiVMEhw
-	 BW7d4xlrE3LBnPVorA51pZqZc2w06GX44mQbBs2M9NjvXNhMCgbfkR67E0vil9McxMPG1
-	 LhcDkhJhjYATsXOIcI+UbdniTuRcHMvC+ZNcZ2fajeoBHEY5lvuPtsx67JGqUDt8Srw==
+	t=1794852683;
+	b=STLGgq4PHY7A/qysB+SFx1ZXaHS/4zJPlh1UQioaEvLz3VND/aPzQoJHKveEZxkcswX9
+	 TgfwJh+AC9zYt9g2GsycBail8icIwbLMV0y32jmnTZAttXFcdR7PpqXhrQYjJUSmu9iKY
+	 /z2Vl4Ar8ZTbBlm1W6E2ROUtCiY19S4HqDZoavA2i/imIl965zxXLGFxbKYg1l5Zg6vMi
+	 7o5iwm+BQTFPYmtJgftVxOB38EI25Pb3Xs6C7XC9CBDOC5DkB8jy8Z0lJtfUqw4jkVbr8
+	 Ku2NUyFw4HO+VhZ5/KBYXhuz8LLus5mep3TG5bBQQHflcwuoZ563dyUadGZdkISVWfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794852561;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=okvp8C0zuSE2GrsT9KtMaCBqr1Zkfu7oGXcl3aeW/jw=;
-	b=VNaJHNf31u+414WynIlqRNtdYwmqrjiPpmB2QrF4y1APn2K+Nx/a5stqapmMUM2bT7CL
-	 sByifwAm2PmbPtIJp12q7ZuR1ypgytzoz3EMV3gvTNXPiO/bvpPrLzKvdVus/t3ltfNBo
-	 C/JXBquVRwQ0I0drMaQHacCD2E1YNqE09ONTOM/UpDcjro0KqzWh2/1iroopB1e53ylsV
-	 4rJpYQek4wKoS6D9At7dNAeQzjfktIXcMhlsbyxDuF5QO34tSaTG1q4OPnpzMXCsD3Csk
-	 TeSPrYZyZNiuw8p5d0eWVv7aRpWAhXTTMnnycKor9APEJMJ5zZittLwJPpABaRgpKmw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794852683;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Ii7eXXhVcBfoOGhMw2PgBCfYdC3g+b8/CmFf4j37bkM=;
+	b=tQg5Rrd6H0ab5qrQScOCgfEWWt9ryyFaloduvw8JyEtWjcU2Qu4Otra+2BuZ8w35l7sQ
+	 nBDyCvP2446RkjtCMZm2F9TLeXM7orU21zmYZhOoL4Q30TE0ZGlwVrs2kbp5k4M2uPCGK
+	 izXJ+H1wLEKK1OyglPmXSAEHWZ1ufOBm748sVG/zFzL7vy/iXnc6zEGxHWz9FhgP/nP9P
+	 UhKl3hdODbFaw8qVR0mleTQnR6wBTA3m5yQWk5RLSaEqzfN/8kGt5kA5bBfFI2rHc5HZ9
+	 LQ2T5axwFG2XYkg7rFKuAzvT8MztEllW9aBoSp+rkKk1Ouiid7UO5knrxF3RdHUyzzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rowland.harvard.edu;
-	spf=fail smtp.mailfrom=g.harvard.edu;
-	dkim=pass header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=OiL05YS2;
-	arc=none smtp.remote-ip=209.85.160.175
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=wagner-flo.de;
+	spf=pass smtp.mailfrom=wagner-flo.de;
+	dkim=pass header.d=wagner-flo.de header.i=@wagner-flo.de header.a=rsa-sha256 header.s=fuldigor header.b=J3YIZBbo;
+	arc=none smtp.remote-ip=89.58.8.210
+Received: from fuldigor.wagner-flo.de (fuldigor.wagner-flo.de [89.58.8.210])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E850606A31C
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 18:09:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E850606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A32606A32A;
+	Mon, 16 Nov 2026 18:11:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07A32606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wagner-flo.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wagner-flo.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.a=rsa-sha256 header.s=google header.b=OiL05YS2
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-5361e313e63so54424901cf.3
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:09:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1794852559; x=1795457359; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=okvp8C0zuSE2GrsT9KtMaCBqr1Zkfu7oGXcl3aeW/jw=;
-        b=OiL05YS2dUgjulEGZcPXZ2GuuPa/kGvqN3r2wKpIWxdRWJBuCWWnuQRwvIsJ3sA+B6
-         t6KKOyOM0n7cbylFAJD/bMiC6rbwG/aZVbI4p6sfZVr5Qjttyl8bhfL/1SRsFfy/DMia
-         ZRmY5IVTEWmeRQlhNXWoAO2LkovRs7PyMF+I6PDXPo22DTCgroKPuKMpxSH2mif/r8ev
-         IkcUPTqY3fgyh5mx8lPonJdaS/NZz80oey7iNRgfblPLVYYICRLhZ6ZVpPuw+okbkEv3
-         bOTxYJ+EoZW571F5EkPT4g89TG/xLfrro0PkZccqWb65T0ztIDbVg72oCSV4pkCJbEOh
-         5+QQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794852559; x=1795457359;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=okvp8C0zuSE2GrsT9KtMaCBqr1Zkfu7oGXcl3aeW/jw=;
-        b=fKRu9H+anBZtzOg5EYBcUlv99k41iux8lEMtO984Pcu5+zpXVXpZWLs5+MEwBgEg9N
-         7mbHYYabed+9hNd46+JyPpHNJOGvTYTc/wqekQ1FPnjB6KFkuV0+Pl/kg8VMvZMxUBnc
-         xsQtvNN/nWAzAwBN5E/8pIptJA5csWW5A+uO0D0ZY7nZX5fneuF5xBdwfcBRGRWjC2Au
-         9AzvALp585bwDXrEizhBOOC1wkqgYIZBGNZDFvc8hhWIxrqWI0KsCLD/ed09nOpYVRT3
-         7qdSGwBP54EzMgWXi3M0TStD3ubZgjkJuqObkCxts56yqrSWx3Y0z4pOT318OQ2Y+2dM
-         rtUA==
-X-Forwarded-Encrypted: i=1; AL+hErFAJjPqTJQYoM9Vqe14OcaDLvGUjJSTLmkLAO/6hE+gb3Gu/1Jxgzo/CFGxJkjI+SQiTa9mESM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9GIu1Yx3dXrQAdpO2FTWP7QKsVMxgyr3XPMl9qevPidKWcqKIV
-	nDEmRO2if79G+Ugdv9ThIvmscM3NxAA4BCXCJRA/acL9TTPUhVFrnAEboQvfghm/yQ==
-X-Gm-Gg: AYBFou3uqrDa1Xx1otZEfB6bY/Sv+7hsJ1Q0BqNAKhgmSaRIR+WV/VnYcWmCGque9QW
-	dP9AWx2+WPz+iHgwsril4xJ0+f0YjzGOrRbPaT6tXShDRek2mHYF7E3sGzk4n4KHrvj0iXbQquf
-	MN7NwGpv/91Byp/l9sFCmujTFvkaw9GUtyqgodtiXpdFQEyu0JHPRh059a61Qv2feEtHcz9baX1
-	W1G6Ss32K0zagtQ3L0HiojKovJcqA7UCoe+guDzLEwhlX8ozsQVW5hB2l7aP4xLHvVmFGx+ijDw
-	TouQS2lHPLZdwZ7hAd6Xk41G4A5Ru+gWeUj5iRsKIVhbF2HgmIYO6wg7ljbr5+3qlahcc2EpcmV
-	1HozykLYDr7sjYSt8GQiUuwJ9qRKFRfW1PMz2JdaO0/gohums+9igkCaZ+LFy6HAIMMPxwMhKFS
-	ePjcb7fRSP3sEJI6zB1fcp5+qCaVjCd2FAlcGSO3D2uBBx52Ftp8DDORl2bw3VLNowNRV5oODoD
-	mPxUnxUOTwYxuhw0g97fvUuGhda5HBCOBl/34ARnz/piIt2Xfs7CpkdEDTYmCGZ2Hzp/aZ5/WXI
-	DRgtT8xpV/FbpQQvYcmDEwKEPSEOHtAPujEDbOJjr37s1ivJM+Y=
-X-Received: by 2002:a05:622a:580a:b0:535:7b01:1ac7 with SMTP id d75a77b69052e-55ac4390e7dmr180243411cf.6.1794852559307;
-        Mon, 16 Nov 2026 10:09:19 -0800 (PST)
-Received: from rowland.harvard.edu ([2607:fb60:1011:2006:2008:aeb7:73d7:d8ff])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55c42b6f3desm62496871cf.27.2026.11.16.10.09.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 10:09:18 -0800 (PST)
-Date: Mon, 16 Nov 2026 13:09:16 -0500
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Gichoon Han <gichoon.han@samsung.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Takashi Iwai <tiwai@suse.de>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] usb: host: ehci-sched: Don't let a bogus siTD remaining
- length underflow
-Message-ID: <5ed0f4b7-beb3-4059-9e12-b9738af65d91@rowland.harvard.edu>
-References: <CGME20261116052855epcas1p403c518b90d70d98752ad0ca2d9ac05e9@epcas1p4.samsung.com>
- <20261116052851.2272125-1-gichoon.han@samsung.com>
+	dkim=pass (1024-bit key, unprotected) header.d=wagner-flo.de header.i=@wagner-flo.de header.a=rsa-sha256 header.s=fuldigor header.b=J3YIZBbo
+Received: from localhost.localdomain (p4fe8fa45.dip0.t-ipconnect.de [79.232.250.69])
+	by fuldigor.wagner-flo.de (Postfix) with ESMTPSA id 0FBDC9F42;
+	Mon, 16 Nov 2026 19:11:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=wagner-flo.de;
+	s=fuldigor; t=1794852669;
+	bh=dEme217co1guRc4M61YU0j/BR4fYRiFVRuGtXDd3x2k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=J3YIZBbo5i0whdWrQ8A11WtXhqMkSOwUAJ8/oliSX0IRpq3j6yCirG1Rus8VEJiLE
+	 nWy/hlOpy+szJIuTK934l9TGFRJ49qMgdXIRu5N/WeJ81icifeZzWzRHKHtwxeeiJZ
+	 w+4q2LHVE3KnQJAo5NIRxc/7OkOzcGAdYhWzXgfk=
+From: Florian Wagner <florian@wagner-flo.de>
+To: florian@wagner-flo.de,
+	stable@vger.kernel.org
+Cc: regressions@lists.linux.dev,
+	linux-acpi@vger.kernel.org,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] ACPI: button: Enable wakeup GPEs for ACPI buttons at probe time
+Date: Mon, 16 Nov 2026 19:11:04 +0100
+Message-ID: <20261116181104.7297-1-florian@wagner-flo.de>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <2026-11-15-1-daily-reply-0001-acpi-button-618@kernel.org>
+References: <2026-11-15-1-daily-reply-0001-acpi-button-618@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,79 +65,201 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116052851.2272125-1-gichoon.han@samsung.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 02:28:51PM +0900, Gichoon Han wrote:
-> sitd_complete() computes the received length of a split isochronous
-> packet as desc->length - SITD_LENGTH(t), where SITD_LENGTH() is the
-> "Total Bytes to Transfer" count the controller leaves in the siTD.
-> Nothing checks that this remaining count is not larger than what was
-> programmed.  If the controller reports a larger value, the unsigned
-> subtraction wraps and the class driver gets an actual_length of
-> nearly 4 GiB for a packet that can hold at most 1023 bytes.
-> 
-> This was seen on an ARM32 system (vendor 5.4 kernel; this code is
+From: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 
-The type of CPU doesn't matter as much as the type of EHCI controller, 
-since you're talking about a controller hardware bug.
+[ Upstream commit a004b8f0d3bc5d82d3f2c91ff93f4b4b7ccb8f76 ]
 
-> unchanged in mainline) with a full-speed UAC1 microphone behind a
-> high-speed hub.  snd-usb-audio trusted the value and read far past
-> the URB transfer buffer:
-> 
->   Unable to handle kernel paging request at virtual address e8756000
->   Internal error: Oops: 7 [#1] PREEMPT SMP ARM
-> 
-> The register state at the fault is only consistent with a wrapped
-> actual_length coming from this path.
-> 
-> snd-usb-audio now rejects such packets (commit eed0e9583a29 ("ALSA:
-> usb-audio: Drop capture packets with bogus actual_length")), but as
-> noted when that was applied, the bug really lies in the host
-> controller driver,
+Prior to commit 57c31e6d620f ("ACPI: scan: Use acpi_setup_gpe_for_wake()
+for buttons"), ACPI button wakeup GPEs having handler methods remained
+enabled after acpi_wakeup_gpe_init(), but currently they are not enabled
+because acpi_setup_gpe_for_wake() disables them.
 
-Actually the bug lies in the host controller hardware.  Not the driver.
+That causes function keys to stop working on some systems [1] and there
+may be other related issues elsewhere.
 
->  and other class drivers trust actual_length too.
-> 
-> Treat a remaining count larger than the programmed length as a
-> protocol error instead of reporting a wrapped length.
-> 
-> Link: https://lore.kernel.org/r/87se19ufoi.wl-tiwai@suse.de
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gichoon Han <gichoon.han@samsung.com>
-> ---
-> Compile-tested only (ARM32, W=1) on linux-next.  I could not capture
-> the siTD contents on the affected hardware; the wrapped value is
-> inferred from the oops above.
+To address that, make the ACPI button driver enable wakeup GPEs for ACPI
+buttons so long as they have handler methods.  While this does not
+restore the old behavior exactly (the ACPI button driver needs to be
+bound to the button devices for the GPEs to be enabled), it should be
+sufficient to restore the missing functionality.
 
-So you have no way of knowing whether this patch really fixes the 
-problem?
+For this purpose, introduce acpi_enable_gpe_cond() that enables
+a GPE if its dispatch type matches the supplied one and modify
+acpi_button_probe() to use that function for enabling the GPEs in
+question.
 
-Alan Stern
+Fixes: 57c31e6d620f ("ACPI: scan: Use acpi_setup_gpe_for_wake() for buttons")
+Reported-by: Nick <nick@kousu.ca>
+Closes: https://lore.kernel.org/linux-acpi/E2OXET.4X5GTP37VTNC3@kousu.ca/ [1]
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Tested-by: Nick <nick@kousu.ca>
+Cc: 7.0+ <stable@vger.kernel.org> # 7.0+
+Link: https://patch.msgid.link/9629117.CDJkKcVGEf@rafael.j.wysocki
+[ Adjusted for 6.18.y: struct acpi_button has no dev member in this
+  tree, so use &button->pdev->dev in the two dev_dbg() calls. ]
+Signed-off-by: Florian Wagner <florian@wagner-flo.de>
+---
 
->  drivers/usb/host/ehci-sched.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/usb/host/ehci-sched.c b/drivers/usb/host/ehci-sched.c
-> index 57d07d1c2dfa..12a10248a4b6 100644
-> --- a/drivers/usb/host/ehci-sched.c
-> +++ b/drivers/usb/host/ehci-sched.c
-> @@ -2241,6 +2241,10 @@ static bool sitd_complete(struct ehci_hcd *ehci, struct ehci_sitd *sitd)
->  	} else if (unlikely(t & SITD_STS_ACTIVE)) {
->  		/* URB was too late */
->  		urb->error_count++;
-> +	} else if (unlikely(SITD_LENGTH(t) > desc->length)) {
-> +		/* controller claims more left than was programmed */
-> +		urb->error_count++;
-> +		desc->status = -EPROTO;
->  	} else {
->  		desc->status = 0;
->  		desc->actual_length = desc->length - SITD_LENGTH(t);
-> 
-> base-commit: 84abb955b1015477aa11a96e2f3ac1b938b77f48
-> -- 
-> 2.25.1
+Notes:
+    Resent inline with my Signed-off-by, as requested. Applies to v6.18.60
+    through v6.18.63 (the touched files are unchanged in between).
+
+ drivers/acpi/acpica/evxfgpe.c | 50 ++++++++++++++++++++++++++++-------
+ drivers/acpi/button.c         | 22 +++++++++++++++
+ include/acpi/acpixf.h         |  5 ++++
+ 3 files changed, 68 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/acpi/acpica/evxfgpe.c b/drivers/acpi/acpica/evxfgpe.c
+index 60dacec1b..4074b5908 100644
+--- a/drivers/acpi/acpica/evxfgpe.c
++++ b/drivers/acpi/acpica/evxfgpe.c
+@@ -78,18 +78,22 @@ ACPI_EXPORT_SYMBOL(acpi_update_all_gpes)
+ 
+ /*******************************************************************************
+  *
+- * FUNCTION:    acpi_enable_gpe
++ * FUNCTION:    acpi_enable_gpe_cond
+  *
+  * PARAMETERS:  gpe_device          - Parent GPE Device. NULL for GPE0/GPE1
+  *              gpe_number          - GPE level within the GPE block
++ *              dispatch_type       - GPE dispatch type to match
+  *
+  * RETURN:      Status
+  *
+- * DESCRIPTION: Add a reference to a GPE. On the first reference, the GPE is
+- *              hardware-enabled.
++ * DESCRIPTION: Add a reference to a GPE so long as its dispatch type matches
++ *              the supplied one, or it is different from ACPI_GPE_DISPATCH_NONE
++ *              if the supplied one is ACPI_GPE_DISPATCH_MASK. On the first
++ *              reference, the GPE is hardware-enabled.
+  *
+  ******************************************************************************/
+-acpi_status acpi_enable_gpe(acpi_handle gpe_device, u32 gpe_number)
++acpi_status acpi_enable_gpe_cond(acpi_handle gpe_device, u32 gpe_number,
++				 u8 dispatch_type)
+ {
+ 	acpi_status status = AE_BAD_PARAMETER;
+ 	struct acpi_gpe_event_info *gpe_event_info;
+@@ -100,14 +104,18 @@ acpi_status acpi_enable_gpe(acpi_handle gpe_device, u32 gpe_number)
+ 	flags = acpi_os_acquire_lock(acpi_gbl_gpe_lock);
+ 
+ 	/*
+-	 * Ensure that we have a valid GPE number and that there is some way
+-	 * of handling the GPE (handler or a GPE method). In other words, we
+-	 * won't allow a valid GPE to be enabled if there is no way to handle it.
++	 * Ensure that we have a valid GPE number and that the dispatch type of
++	 * the GPE matches the supplied one (or it is not ACPI_GPE_DISPATCH_NONE
++	 * if the supplied one is ACPI_GPE_DISPATCH_MASK).
+ 	 */
+ 	gpe_event_info = acpi_ev_get_gpe_event_info(gpe_device, gpe_number);
+ 	if (gpe_event_info) {
+-		if (ACPI_GPE_DISPATCH_TYPE(gpe_event_info->flags) !=
+-		    ACPI_GPE_DISPATCH_NONE) {
++		if (dispatch_type == ACPI_GPE_DISPATCH_MASK)
++			dispatch_type = ACPI_GPE_DISPATCH_TYPE(gpe_event_info->flags);
++		else if (dispatch_type != ACPI_GPE_DISPATCH_TYPE(gpe_event_info->flags))
++			dispatch_type = ACPI_GPE_DISPATCH_NONE;
++
++		if (dispatch_type != ACPI_GPE_DISPATCH_NONE) {
+ 			status = acpi_ev_add_gpe_reference(gpe_event_info, TRUE);
+ 			if (ACPI_SUCCESS(status) &&
+ 			    ACPI_GPE_IS_POLLING_NEEDED(gpe_event_info)) {
+@@ -128,6 +136,30 @@ acpi_status acpi_enable_gpe(acpi_handle gpe_device, u32 gpe_number)
+ 	acpi_os_release_lock(acpi_gbl_gpe_lock, flags);
+ 	return_ACPI_STATUS(status);
+ }
++ACPI_EXPORT_SYMBOL(acpi_enable_gpe_cond)
++
++/*******************************************************************************
++ *
++ * FUNCTION:    acpi_enable_gpe
++ *
++ * PARAMETERS:  gpe_device          - Parent GPE Device. NULL for GPE0/GPE1
++ *              gpe_number          - GPE level within the GPE block
++ *
++ * RETURN:      Status
++ *
++ * DESCRIPTION: Add a reference to a GPE. On the first reference, the GPE is
++ *              hardware-enabled.
++ *
++ ******************************************************************************/
++acpi_status acpi_enable_gpe(acpi_handle gpe_device, u32 gpe_number)
++{
++	/*
++	 * Ensure that there is some way of handling the GPE (handler or a GPE
++	 * method). In other words, we won't allow a valid GPE to be enabled if
++	 * there is no way to handle it.
++	 */
++	return acpi_enable_gpe_cond(gpe_device, gpe_number, ACPI_GPE_DISPATCH_MASK);
++}
+ ACPI_EXPORT_SYMBOL(acpi_enable_gpe)
+ 
+ /*******************************************************************************
+diff --git a/drivers/acpi/button.c b/drivers/acpi/button.c
+index 4ddaee895..b507b88df 100644
+--- a/drivers/acpi/button.c
++++ b/drivers/acpi/button.c
+@@ -190,6 +190,7 @@ struct acpi_button {
+ 	ktime_t last_time;
+ 	bool suspended;
+ 	bool lid_state_initialized;
++	bool gpe_enabled;
+ };
+ 
+ static struct acpi_device *lid_device;
+@@ -651,6 +652,21 @@ static int acpi_button_probe(struct platform_device *pdev)
+ 		status = acpi_install_notify_handler(device->handle,
+ 						     ACPI_ALL_NOTIFY, handler,
+ 						     button);
++		if (ACPI_SUCCESS(status) && device->wakeup.flags.valid) {
++			acpi_status st;
++
++			/*
++			 * If the wakeup GPE has a handler method, enable it in
++			 * case it is also used for signaling runtime events.
++			 */
++			st = acpi_enable_gpe_cond(device->wakeup.gpe_device,
++						   device->wakeup.gpe_number,
++						   ACPI_GPE_DISPATCH_METHOD);
++			button->gpe_enabled = ACPI_SUCCESS(st);
++			if (button->gpe_enabled)
++				dev_dbg(&button->pdev->dev, "Enabled ACPI GPE%02llx\n",
++					device->wakeup.gpe_number);
++		}
+ 		break;
+ 	}
+ 	if (ACPI_FAILURE(status)) {
+@@ -694,6 +710,12 @@ static void acpi_button_remove(struct platform_device *pdev)
+ 						acpi_button_event);
+ 		break;
+ 	default:
++		if (button->gpe_enabled) {
++			dev_dbg(&button->pdev->dev, "Disabling ACPI GPE%02llx\n",
++				adev->wakeup.gpe_number);
++			acpi_disable_gpe(adev->wakeup.gpe_device,
++					 adev->wakeup.gpe_number);
++		}
+ 		acpi_remove_notify_handler(adev->handle, ACPI_ALL_NOTIFY,
+ 					   button->type == ACPI_BUTTON_TYPE_LID ?
+ 						acpi_lid_notify :
+diff --git a/include/acpi/acpixf.h b/include/acpi/acpixf.h
+index e65a2afe9..af796d079 100644
+--- a/include/acpi/acpixf.h
++++ b/include/acpi/acpixf.h
+@@ -725,6 +725,11 @@ ACPI_HW_DEPENDENT_RETURN_STATUS(acpi_status
+  */
+ ACPI_HW_DEPENDENT_RETURN_STATUS(acpi_status acpi_update_all_gpes(void))
+ 
++ACPI_HW_DEPENDENT_RETURN_STATUS(acpi_status
++				acpi_enable_gpe_cond(acpi_handle gpe_device,
++						     u32 gpe_number,
++						     u8 dispatch_type))
++
+ ACPI_HW_DEPENDENT_RETURN_STATUS(acpi_status
+ 				acpi_enable_gpe(acpi_handle gpe_device,
+ 						u32 gpe_number))
+-- 
+2.43.0
+
