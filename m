@@ -1,97 +1,44 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794792253;
-	b=2HJoSGVhQnmd2xmgWPeLVIrYeO4N4nEDx5OM4Fh9FSRclUcof2tGw2GoFG+h95MLWuEc
-	 WW+S5JJFaWQpIG8KlCbx1xuP7U7xYvMYXmoalBshpV6GnCi/+yvzdNAJaR8p7apnFAQi+
-	 bu304Glo4jYIBSJ3pyDbeOo14euszgZDfF3MgFv+lKjjrFgkysJ1WOUQ/Mk0oeFQUU2JW
-	 NeINNBUaS91XuhpxWjQixeqULS30Ulot8x1P2+wA3swu4XzATMoYPkbFianoow2fXjhzt
-	 ABYgXCLohBsdPFxo+ptP0cinPl8n1iaSDZ72962h7BdjjGoxYbku2oaGDhpZBvNTDZw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794792253;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=r7vL0qrifdEMu6hnfiQ4kzrLVyL8oBEHcc38n/hRip4=;
-	b=id4jckYTTihTr9+0uc+Q4VS6FXwNo+rvdJ9AQztjLe4mhj+XMNERmYAM86VKUAxSz80x
-	 vpBm7zUa4Xv/023QWCDOMUyhVeq3maMRGDFdwhFizb0xiYqPr6klwx2DmDDvmkSlniraa
-	 bzu3WhgiyF+tQu6ppm47xVq+TdsebaT+QHRNaD7mfTXGtX78ooavR7b6PdJ/4W/XYSHxQ
-	 30shq9oVYOUJVe52uz5pkSHSTcRMKgrab9vun7xxH173Nh87cyWC14KjkNMeWfwuZzCxy
-	 p7aHjXPffiY5QxPPgJwVY+UJvabI0KGft6dzDoUGl7luQwlzOdEuRaV38lxw3eunQQQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nuqJn7NW;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=160.236.53.106
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794793634;
+	b=prnK8f9eXAO6Oa5HQ+dQH9BqT8yhu4jQXPkMNvbshvJYptiNiBTD15NppPyjYTR2lgtn
+	 D95/hvDr4c6TiyiPUGu3l+5Gp07nF7tGochjU0d7Vae0WCm1FmqjSF8WG0u2sgcNFoJb9
+	 F324l9FVx5dzcBYFXHFaaJA4/mUwtRzxEc5AumLsEZVHDZ/VPR3rZXeFeQBeLBoEWzglN
+	 C2Y9TTgYdTqVaiXNRbHe08YNA/W1HP7GmuEXk3vYOQvDTtEhwxLFKROISbXoXYS6Z/z7l
+	 PSXoFfMhdUy+A6AyATFEsC5CfH1u9tkOzIC4l8HSB2j37t05MTiuxKI0aB+IT+nT1iA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794793634;
+	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
+	 DKIM-Signature;
+	bh=QL5XckioorVY3HmQuyB7sCoeqaOvjjXM1fRm/QS1zoc=;
+	b=fGBg9sue5shgZ3zIW3Eu5wm+kR3MCT17eRyQDc6+zgL9jy6TJ7SkIOq0s4KwO1kwC4A8
+	 pgbtrY8SZhAlmO+zIRgHNp/ibgDzCmyDIL4DLGHtBmeypz2UEkcQA770p1ivNoI8dvhDF
+	 ZlouRbAqYfB5QAOCOwqqrtzxokuj/X3wFlbU0jNXq/DhWOohdmE9N6vbPFl5TyOP+Whek
+	 N1xA9kWdMCg22Vn5jUkidPjjSZPVWqlniEcUIj2dSmGPLdkeTzaFkPT+sVW8I8HG2aV5X
+	 4UMEt9WCuhoIpRbsa/D/sW4tF91dpvzpp4811IlNY9j8+h/OKka/NEQp1fD0KnuWS4w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Xlx9MASN;
+	arc=none smtp.remote-ip=160.236.53.106
+Received: from mail-m16023653106.xmail.ntesmail.com (mail-m16023653106.xmail.ntesmail.com [160.236.53.106])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59948606A32A
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 01:24:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 59948606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48EC2606A31F;
+	Mon, 16 Nov 2026 01:47:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48EC2606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nuqJn7NW
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-49412eb1474so1333996f8f.3
-        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 17:24:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794792252; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rW9qa13PS8/oTsf7gydx8asTD0T7PaR9DIywq8174ZoOwLiXE0URPR85dzyg3u9vmz
-         ndIu9vbxQCrmdhwM2xo0JTyjkSZDqEQw3vSF1FxUmpkTyk3DC/J3/Se+tTcgKqlOujT0
-         THyJ+/npDmW19SSB66KO/jOX/F3/YaVVc57YWAJJ76/fDRbvdr+XFskexoeHBi5lSteu
-         lxwTTl65gD3/HEnsMuu5uizfT+s9dNMN5Fxum5ohLyN9P9Puj9+Mf8A8QXrvn/sZKGQV
-         n6i6Q4C6O1o2wwEbZN1pZlfN72RBRPNwPRzyCZ6d4mwTWUBij7zaDx1ufHziSTCH5dJv
-         Z0sw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=r7vL0qrifdEMu6hnfiQ4kzrLVyL8oBEHcc38n/hRip4=;
-        fh=7LUG51yWlj1pqkQDl2x1DTKSvy6diXJMGZre3mwxbUs=;
-        b=i9e7SpUHTbh+ISK9rZ/fm0VPO7w1ubjG4NTc4mJ34LhyiDqPW+0sIgp9xVE9mwAFcQ
-         ByK1SgScDeufsqP7H7tqyTtXhAKYWxeqVSPSN4oMvvApN54HoIdJynBHwZ+6NPupFh3S
-         dxBH9DYCO7VPZNjHFGyvfOlvqU3hVJyfACHd2om5BKitTcJRt2Cmmjn15NDrCw4M6vfH
-         VD1dRl7YpprF6QvwTMggUxqicEMJYB/eTValY1kL4w6tmIN0f1bG6b9oN0vyVa8bOhHr
-         P4jT53HPOhJEPPdMHPrh9Duh4jZp64uhZySmmCnZBlyCZtLsEs98+gyiVMB7KZL57Njw
-         LlCQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794792252; x=1795397052; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r7vL0qrifdEMu6hnfiQ4kzrLVyL8oBEHcc38n/hRip4=;
-        b=nuqJn7NW9lMUsb8EDML59apEX5MjFBCUyO4+WsSliUSLf/w30eKx99p2NUak/Go7wD
-         ciipjVpQP0a33PbNJaixS8RQQi0m9Hu3KW0KPMhloSW1cHJTiGkRMi/W4z8/LQ5Oi0sH
-         2zKeYRWXp4JU50GniIhhBKn3sMw6NPrwEwwD7hU2NBIV3OPQP4KHSOhRcAAywECIZh3X
-         7cMo5FW7pZxGNoRjDGPhLYmEEdABgTFuGGKnEPFLjfJXqtqknznZm9gnB50hh9Bv9Eq4
-         FRVG5k6J7WxTyJpvY4OylK6dr14BK1e5vtIc0oGn6gQCvt9kADZsT7WEVepqXEicQqj2
-         KrPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794792252; x=1795397052;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=r7vL0qrifdEMu6hnfiQ4kzrLVyL8oBEHcc38n/hRip4=;
-        b=l3nYdL5JslePRmKTUafr+9KBqXDLqQSFf8E5LagMaH/CepwBC3FC8VPHyd13l7lk/z
-         tG0IVZKI8imqqiFsJmrxl65IISPU6R4Ult2sGpyMi6plpoIbvcguduksLhH5yff2MDs7
-         aUJfIxKs7BBHRsQvr3ChmX6n/PD3AdStdMVz5w+vBIGD6TLQ+T26uh61POYgELLokeNr
-         Qxdxkwa1DjN1qcgrJ41mIFyatEybLZlH5aT97DIseRcACdZuw+K/r5Z+SuTivfGiKDX3
-         EtCWgcS8AWxySQhY5IQEOTi3P/zgcEMrwv5HjOtNBNrv2XFGyZVMsYEjKPilfoASmU92
-         LTFw==
-X-Forwarded-Encrypted: i=1; AL+hErH3cLLKZDeWc3zWOg0PE8dEm3EFKjuLaBylurm7vpr3aYBQG2ym8V1f5soN3y64JaCLev4EDCU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Xf+vuTHwsCpNFjMte5Z7ECExI48vOZkfm+M8oLqaDDJ6IYiVo
-	LxvtAIjYUu2irztsN4+O0ghJePZ8hovoVyDnHHJfnyLg2vGDSt9myul9rQuS8K+WEvxQr1YM9XG
-	oAntBJcCqUcaarHCc/aOpTri+5Y25D2gOFnAYzOd8jQ==
-X-Gm-Gg: AYBFou2TMvalXq6/EvnaOeovi0IcdIHqQwhm8RrKCWa19AQmOWp+q5DQ93Yg+SaEyJ2
-	6KT9PsSQ/7Thx1F/V4Y79EW4tN9uXzXN+XDBsgATWjz8OVhAxZOdpYWO6pct/shhHHVkF4/7qD0
-	54kpPJ62Xs6EKD0/j/7xSb5+5Mn+uMgzdJnZ5lDMeGnxefDqCQvH5DziIXTGNw+FtSQfY2F/fOI
-	488Rp02oby4dnsUFPKcX2Oa0OwDP+kK9isYU8F3Ph5uqnFeES+MhXKERG4DCHbGrqwttm33vDkw
-	+3FvUYFwPr6eEPUabNJwgGQt+OkqQex7lx/tcM+jwNE1R2hExDRSdsDO8INbFFd4lYFgbBaoqpV
-	4IL2w5onpx0+Su0AoZckhP7O5Lni/KDGx8aQv
-X-Received: by 2002:a05:600c:3f18:b0:4bb:6ac0:6dc0 with SMTP id
- 5b1f17b1804b1-4bb6ac06e5dmr57112905e9.29.1794792251495; Sun, 15 Nov 2026
- 17:24:11 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Xlx9MASN
+Received: from [172.16.12.11] (gyproxy-mailtls4-entmail-gy2-virt39.gy.ntes [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 54c20f935;
+	Mon, 16 Nov 2026 09:46:55 +0800 (GMT+08:00)
+Message-ID: <13ee0fa0-fcbf-455e-9aac-ea3dcf03b270@rock-chips.com>
+Date: Mon, 16 Nov 2026 09:46:53 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,75 +48,141 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: william <assassinshalo29@gmail.com>
-Date: Sun, 15 Nov 2026 20:24:00 -0500
-X-Gm-Features: AclHuK-vjL1wmMPjBQCKuN5LdAtAqjLjQE_NAzaw7x4qYE1TjyXWc0GBGd6bI1U
-Message-ID: <CAFjFWEjt+DPJ_gM1uTBZ_NoV6-3mi57ArjZ_Qdah2DqY-GCD1w@mail.gmail.com>
-Subject: [REGRESSION] ALSA: hda/realtek: no speaker sound on Lenovo Legion
- 16IRX9H since f2293e7b2ddd (PCI SSID 17aa:3842 shared with ThinkBook X G2 IAH)
-To: linux-sound@vger.kernel.org
-Cc: tiwai@suse.de, evgeny@devduty.com, stable@vger.kernel.org, 
-	regressions@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] PM / devfreq: governor_userspace: Guard against NULL
+ governor_data during switch
+To: Choi Chanwoo <cwchoi00@gmail.com>, heiko@sntech.de,
+ linux-pm@vger.kernel.org
+Cc: cw00.choi@samsung.com, myungjoo.ham@samsung.com, kant@allwinnertech.com,
+ kyungmin.park@samsung.com, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, tony.xie@rock-chips.com,
+ huangtao@rock-chips.com, stable@vger.kernel.org
+References: <20261022022109.642339-1-finley.xiao@rock-chips.com>
+ <94a65d65-e81f-4942-b119-51b71e8eabb4@gmail.com>
+From: Finley Xiao <finley.xiao@rock-chips.com>
+In-Reply-To: <94a65d65-e81f-4942-b119-51b71e8eabb4@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa1e2092ded03a8kunm3009e2001cb66a
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCHhkfVkJPT0lDHU0fTE9MQ1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUJCSU
+	5LVUpLS1VKQktCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=Xlx9MASNidfN/0/OmnFeLgsodsmzadR89tKU3zq++QnM8UqlhcBAE9GPtPhdMUj8as2WjEADMkE/eG3Rli8TzVi7BgvVr9cUHtnLqTgGasY8903Sk5ClXTWQxdj6y6ojSI0uCWupVaDfuFNU/3WGZBJQghHQMmWVOc63uL7iGhQ=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=QL5XckioorVY3HmQuyB7sCoeqaOvjjXM1fRm/QS1zoc=;
+	h=date:mime-version:subject:message-id:from;
 
-Hi,
-Commit f2293e7b2ddd ("ALSA: hda/realtek: Enable all four speaker amps on Lenovo
-ThinkBook X G2 IAH", Cc: stable) matches the laptop by PCI SSID
-17aa:3842, on the
-assumption that this SSID had no quirk entry. The Lenovo Legion 16IRX9H (83DE)
-has the same PCI SSID, so its internal speakers are silent on kernels that carry
-this commit. Headphones work.
-Hardware
-Lenovo Legion 16IRX9H, product 83DE, BIOS N2CN32WW
-Codec: Realtek ALC287, codec SSID 17aa:38cd, PCI SSID 17aa:3842
-Amplifier: ACPI TIAS2781:00 (i2c-TIAS2781:00 on i2c_designware.2),
-driver snd_hda_scodec_tas2781_i2c
-Kernels
-Works: 7.2.10-200.nobara.fc44, 7.1.6-1-cachyos (live ISO)
-Fails: 7.3.4-201.nobara.fc44, 7.3.4-1-cachyos
-The 3842 entry is absent from v7.2 and v7.3, present in v7.3.4, and still
-present in v7.4-rc1 and master as of 2026-11-15 (checked via the GitHub mirror).
-Analysis
-snd_hda_pick_fixup() walks the table and matches PCI-SSID entries before the
-codec-SSID fallback. Before the commit, 17aa:3842 had no entry, so this machine
-fell through to the existing codec-SSID entry
-SND_PCI_QUIRK(0x17aa, 0x38cd, "Y790 VECO DUAL", ALC287_FIXUP_TAS2781_I2C),
-which works. With the commit, the 3842 entry wins and chains to
-cs35l41_fixup_i2c_four(), so the codec master waits for four CS35L41 components
-that do not exist on this machine.
-Evidence on 7.3.4
-dmesg: "ALC287: picked fixup for PCI SSID 17aa:3842"; no "bound i2c-TIAS2781:00"
-line (on 7.2.10 that line is present).
-/sys/kernel/debug/device_component/hdaudioC0D0: master "not bound",
-four entries "(unknown) not registered".
-With dyndbg, after "echo 1 > /sys/class/sound/hwC0D0/reconfig":
-hdaudioC0D0: trying to bring up adev
-hdaudioC0D0: Looking for component 0
-hdaudioC0D0: master has incomplete components
-After unbinding/binding i2c-TIAS2781:00, tas2781-hda logs "adding component"
-but the master still reports incomplete components.
-Workaround confirmed
-Booting with snd_hda_intel.model=17aa:38cd (alias SSID, handled first by the
-picker) gives:
-ALC287: picked fixup for alias SSID 17aa:38cd
-bound i2c-TIAS2781:00 (ops tas2781_hda_comp_ops [snd_hda_scodec_tas2781_i2c])
-and the speakers work.
-Possible direction
-Since both laptops share the PCI SSID, the ThinkBook entry cannot be fixed by
-PCI SSID alone. One option is a codec-SSID entry for this machine placed before
-the 0x3842 line, e.g.
-HDA_CODEC_QUIRK(0x17aa, 0x38cd, "Legion 16IRX9H / Y790 VECO DUAL",
-ALC287_FIXUP_TAS2781_I2C),
-I have not compiled or tested a patch, only the model= alias above. I am happy
-to test patches on this hardware.
-Separate observation
-After the workaround, speakers still stopped after some idle time. It went away
-with snd_hda_intel power_save=0 power_save_controller=N and keeping
-i2c-TIAS2781:00 power/control at "on". I applied both at once, so I do not know
-which is required. This looks unrelated to the regression above.
+Hi Chanwoo,
 
-I'd really appreciate it if the issue is fixed, as I'm now having the
-same problem when the laptop is turned on after being suspended for a
-while, and I haven't been able to solve it.
-Thanks,
-William
+Thanks for the review. You're right — I've also taken devfreq->lock
+around the governor_data assignment in userspace_init() in v3.
+
+Will send v3 shortly.
+
+
+在 2026/11/14 22:16, Choi Chanwoo 写道:
+>
+> On 10/22/2026 11:21 AM, Finley Xiao wrote:
+>> The userspace governor is the only one that uses devfreq->governor_data,
+>> allocated in its DEVFREQ_GOV_START handler (userspace_init()) and freed
+>> in its DEVFREQ_GOV_STOP handler (userspace_exit()).
+>>
+>> When switching governors via sysfs (governor_store in devfreq.c), the
+>> sequence is:
+>>
+>> STOP(old) -> df->governor = userspace -> START(userspace) -> userspace_init
+>>
+>> Between the df->governor assignment and userspace_init() completing,
+>> governor_data is still NULL (the previous governor never touched it,
+>> and the core does not clear or pre-allocate it). During that window,
+>> asynchronous paths that call update_devfreq() outside of the driver's
+>> control -- the OPP notifier (devfreq.c:686) and the pm_qos notifier
+>> (devfreq.c:707) -- run devfreq_update_target() under df->lock and reach
+>> devfreq_userspace_func(), which dereferences governor_data without a
+>> NULL check, causing:
+>>
+>>    Unable to handle kernel access to user memory outside uaccess routines
+>>    pc : devfreq_userspace_func+0xc/0x28
+>>    lr : devfreq_update_target+0x58/0x158
+>>
+>> Add a NULL check in devfreq_userspace_func() and fall back to
+>> previous_freq, which is the same behaviour as the existing "no user
+>> frequency specified yet" branch. This closes the race for all callers
+>> since every path ultimately goes through get_target_freq.
+>>
+>> Additionally, take devfreq->lock around the kfree()/NULL assignment in
+>> userspace_exit(). Without it, a concurrent OPP/pm_qos notifier running
+>> under devfreq->lock could read governor_data after it is freed but
+>> before it is set to NULL, constituting a use-after-free.
+>>
+>> Fixes: 5fdded844892 ("PM/devfreq: governor: Add a private governor_data for governor")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Finley Xiao <finley.xiao@rock-chips.com>
+>>
+>> Link: https://lore.kernel.org/linux-pm/20260723080806.1451-1-finley.xiao@rock-chips.com/
+>> ---
+>> Changes in v2:
+>> - Add Fixes: tag and Cc: stable@vger.kernel.org
+>>
+>>   drivers/devfreq/governor_userspace.c | 4 +++-
+>>   1 file changed, 3 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
+>> index 3906ebedbae8..f7a485c43fd7 100644
+>> --- a/drivers/devfreq/governor_userspace.c
+>> +++ b/drivers/devfreq/governor_userspace.c
+>> @@ -24,7 +24,7 @@ static int devfreq_userspace_func(struct devfreq *df, unsigned long *freq)
+>>   {
+>>   	struct userspace_data *data = df->governor_data;
+>>   
+>> -	if (data->valid)
+>> +	if (data && data->valid)
+>>   		*freq = data->user_frequency;
+>>   	else
+>>   		*freq = df->previous_freq; /* No user freq specified yet */
+>> @@ -110,8 +110,10 @@ static void userspace_exit(struct devfreq *devfreq)
+>>   	if (devfreq->dev.kobj.sd)
+>>   		sysfs_remove_group(&devfreq->dev.kobj, &dev_attr_group);
+>>   
+>> +	mutex_lock(&devfreq->lock);
+>>   	kfree(devfreq->governor_data);
+>>   	devfreq->governor_data = NULL;
+>> +	mutex_unlock(&devfreq->lock);
+>>   }
+>>   
+>>   static int devfreq_userspace_handler(struct devfreq *devfreq,
+> Hi,
+>
+> Looks good to me.
+>
+> I think that it is needed to lock  on usrespace_init.
+>
+> diff --git a/drivers/devfreq/governor_userspace.c b/drivers/devfreq/governor_userspace.c
+> index f7a485c43fd7..cfbd72892598 100644
+> --- a/drivers/devfreq/governor_userspace.c
+> +++ b/drivers/devfreq/governor_userspace.c
+> @@ -94,7 +94,9 @@ static int userspace_init(struct devfreq *devfreq)
+>   		goto out;
+>   	}
+>   	data->valid = false;
+> +	mutex_lock(&devfreq->lock);
+>   	devfreq->governor_data = data;
+> +	mutex_unlock(&devfreq->lock);
+>   
+>   	err = sysfs_create_group(&devfreq->dev.kobj, &dev_attr_group);
+>   out:
+
+-- 
+Best regards,
+
+底层平台中心 肖锋（Finley Xiao）
+************************************************************************************
+瑞芯微电子股份有限公司
+Rockchip Electronics Co., Ltd.
+福建省福州市铜盘路软件大道89号软件园A区21号楼 350003
+No.21 Building, A District, Fuzhou Software Park, Fuzhou, Fujian 350003, P.R. China
+Tel: 0591-83991906-8602 Mobile: 18506057603
+************************************************************************************
+
