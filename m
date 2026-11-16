@@ -1,11 +1,11 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.246.77.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794847888;
-	b=4z7ulGCRK56FF1XXyrgpULD0e7pvw/e0DiepXtpKF8vnFbyU9khos4IHG0IBVWKt7VJm
-	 pyB/yyyMCF/AYlWm9YGG3oT1mrxOARupViDSmTOCqjKdgxZ5T++rI+G9n0lk8sM+naDGo
-	 Be8KSdf2E/DeCjPI+o31Qs/o169IZuCApG2mBFx58PNJqfvs+hy2RIQ61TRZTjjkG3Vke
-	 AeAckKREbOz5hNMOcGWEB3HCS61dqghn11V4vlEOor32bELW2G7KfGjNqjFnp8abEPanC
-	 i+xTuaiUxsVTDjYYYTdRDEg0MReXq4RVnKrPKiJmUjWQnQPXo6DSrOsEu3rir2z+CoQ==
+	b=CpISH9pEDjfiyFCyDmSTiI2rMGK7KOvwpUDC0Hf0sabpeU1kQfR+/QGdH6xcB+6K4paN
+	 +ma9+1N4feUvjA6RZA1L5wc8vQ/O9xf37iK/PuiJQ3ALkOClI8Db/gaZFFlpE/95NeQiz
+	 PxqN9ualP9wTVp6BDercYaahtO6uV9/WvShCPk5EA2mRlxtKfGx3hEXaI6zG7ARIqzF/E
+	 S8WI3PRgECFimpsSb/nX5OKfXaKLzegJJWEXW8ODu/osq96yo1Hi7JQPIHStHBQ0DpRNz
+	 4gUH5vFG8F5Gray5xbUldOokF4gOYjfvraiINnCcA/7CXzb9+ZEzT0JsGbb0QtoUJXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794847888;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
@@ -13,58 +13,58 @@ ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=icZ0VipIZRXlm+fS9y9PWYLM7wR3UIt776786IJxl90=;
-	b=1Br7uM5/HT7zl0oFDfVRuythcJigcE7kmlnL+u4GtXDqvmI58D9r4IB9aU6ppRXkywn5
-	 7MIcwu7vlylH4taofjOZn5vDQ3mmCE+HGOfhVUHcXwxz0XAV97tSARdhr7ylGRD+/JR4D
-	 zzke3w5c+bvsjd96HAX3B21DM4anoOgZC44WSLIQ6Xttoz9GKOmOPIXuUi3boaKko6USM
-	 lmf9esvmdokWBmR1vZjHNONT6qcgCiLdG17KPwILBXiPp6RhdrlwD6KvwI4+iqS3d9QnU
-	 1bcmjHK4A8/GUuwFZU9U3m08ubGusZ/DTYkH+jJURwsyjNb8blELTOVI4RTcLRLRWdQ==
+	bh=1pwY32vzU52ZQS2Abk01B/OTrskSTo9RY0mYXqsrgE4=;
+	b=0QgOx11vMUMXPvIFcTGOxcSd2uZPxZNrZepzamQ8hZp5VFM0UPmvinCsg9PqHJW3KEAt
+	 LFTuDdgdL/EO/8muHLgQaFbf2OHw9bVIXSQJpKwMLenTvpvrG5pXbj0MWP7z4G40LMt39
+	 oqS83EdP0nBhh2k14huz8ps7Iz+K16qKrSEBFUu/9bsVD7KcnZZ5KBXiIa+v4+0uaSh3o
+	 nNju4TdvBJ7b9QZWkKid6Yl9Xp1otDi+/4zZKP7SJkmhx9ttTXOKn765P50wJ/BDMszxD
+	 t6aybhLn1DVUYdwJOwD7yPrtpOCprJEThG34myKvSlT8neZPXUaepd9MGosXOHssYtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amazon.com;
 	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=cwXcuilB;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=JDkqvHLe;
 	arc=none smtp.remote-ip=44.246.77.92
 Received: from pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com [44.246.77.92])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7D2F606A882;
-	Mon, 16 Nov 2026 16:51:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7D2F606A882
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44C17606A886;
+	Mon, 16 Nov 2026 16:51:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44C17606A886
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=cwXcuilB
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=JDkqvHLe
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794847887; x=1826383887;
+  t=1794847888; x=1826383888;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=icZ0VipIZRXlm+fS9y9PWYLM7wR3UIt776786IJxl90=;
-  b=cwXcuilBQIIJNLUkP+0M46xJFIjtUDrZooS7JCeneuxkWSLl/xjDcEDk
-   wKHuPKn/zS100WZfPt8GcJXFhqI8rUZ05qMlh5ttPfRQrwFP5ofNrgKTY
-   IPfCx+PLTEUgAvewphgr8cb+ppsVM0EV0SvaYAE7cIrS4eFxGVVhrFRN5
-   vwn9Rx/9t/1Eu71Xvk2Fn3+3s8NXL6lpawZyfAHc0OO/nkZwpqXYQPCw1
-   5qyyJdm9y4kRH/l0dmevNDHFd4ep5FzaZHS2ep9BSJ3Cdf7J0m2xytHhp
-   NiMsfRSGqLZNyIrXLT4TPq9jQOSyL4Y5GdqJLeNFNUaBtrvj2/5lcO8IE
-   Q==;
-X-CSE-ConnectionGUID: s3Yzt6LyR7uvwSBbFAHgkg==
-X-CSE-MsgGUID: wAD/Aw9vRTiWxCXRLIw7ww==
+  bh=1pwY32vzU52ZQS2Abk01B/OTrskSTo9RY0mYXqsrgE4=;
+  b=JDkqvHLeP70GjQowh0w5tNgXTaod4blnBfY0M/n6hcWaveVZlUkHyBee
+   NuWY4mE3aVQu5+9Q4ZaxwcE6p2W+rOYZlf31gGcUbXDpbkV0BXTht2Izv
+   xOwZivErwppG33NfIv2CyK87obi9P2h0za3uC5Z8klJR8R1I1SQ/19Jim
+   Guwnvz1sNBr06nDtNek8qqfoqLCJdH8lHo2bEYlFeSjmHCUj543/tj13y
+   CFj1wTgUFuprfoBdV4PVtWlMyTFUUOrhEouFifQUWgO/8xhzUqtPno6YM
+   bvYD7h2AO2941GQOHLewLXbMw1A4SlGIleYqBXyuEMTAYqshjwQyWRV5g
+   g==;
+X-CSE-ConnectionGUID: U5NgDz/cRWm8tRQiTjeWzA==
+X-CSE-MsgGUID: vEe/iOEuRzWh3fiIbWjqOg==
 X-IronPort-AV: E=Sophos;i="6.27,217,1787011200"; 
-   d="scan'208";a="34220889"
+   d="scan'208";a="34220885"
 Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 16:51:22 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:25088]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.46.128:2525] with esmtp (Farcaster)
- id 43eb94d9-6c73-4232-898f-979989c8adb5; Mon, 16 Nov 2026 16:51:22 +0000 (UTC)
-X-Farcaster-Flow-ID: 43eb94d9-6c73-4232-898f-979989c8adb5
+  by internal-pdx-out-004.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 16:51:21 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:15678]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.34.255:2525] with esmtp (Farcaster)
+ id de546fa7-f6dc-4602-a240-529b60e41581; Mon, 16 Nov 2026 16:51:20 +0000 (UTC)
+X-Farcaster-Flow-ID: de546fa7-f6dc-4602-a240-529b60e41581
 Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Mon, 16 Nov 2026 16:51:22 +0000
+ Mon, 16 Nov 2026 16:51:20 +0000
 Received: from dev-dsk-avivb-1a-8cc559d6.eu-west-1.amazon.com (172.19.102.34)
  by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Mon, 16 Nov 2026 16:51:20 +0000
+ Mon, 16 Nov 2026 16:51:19 +0000
 From: Aviv Bakal <avivb@amazon.com>
 To: Bjorn Helgaas <bhelgaas@google.com>
 CC: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, "Lukas
@@ -72,9 +72,9 @@ CC: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, "Lukas
 	<sathyanarayanan.kuppuswamy@linux.intel.com>, <linux-pci@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, Zeev Zilberman <zeev@amazon.com>,
 	<stable@vger.kernel.org>
-Subject: [PATCH v2 2/3] PCI: Avoid runtime D3 on Amazon PCIe switch ports
-Date: Mon, 16 Nov 2026 18:51:09 +0200
-Message-ID: <20261116165110.2773301-3-avivb@amazon.com>
+Subject: [PATCH v2 1/3] PCI/PM: Honor PCI_DEV_FLAGS_NO_D3 in pci_bridge_d3_possible()
+Date: Mon, 16 Nov 2026 18:51:08 +0200
+Message-ID: <20261116165110.2773301-2-avivb@amazon.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261116165110.2773301-1-avivb@amazon.com>
 References: <20261116165110.2773301-1-avivb@amazon.com>
@@ -92,14 +92,16 @@ Content-Type: text/plain
 X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
  EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-The PCIe switch ports on AWS instances (vendor 0x1d0f) advertise PME
-from D3hot but do not send it. Since commit d4c79b63d82d ("PCI: Allow
-D3 for native hotplug-capable Root Ports on non-x86 platforms") these
-ports runtime suspend to D3hot on non-x86 platforms, and hotplug events
-such as an ENI attach are lost.
+pci_set_power_state() does not put a device with PCI_DEV_FLAGS_NO_D3
+into D3, but pci_bridge_d3_possible() ignores the flag.
+pcie_portdrv_probe() therefore enables runtime PM on such a port, and
+on runtime suspend pciehp masks the hotplug interrupt while the port
+stays in D0.
 
-Mark them PCI_DEV_FLAGS_NO_D3, reusing quirk_no_ata_d3() renamed to
-quirk_no_d3().
+Return false from pci_bridge_d3_possible() when the flag is set.
+pci_bridge_d3_possible() must return the same value for the lifetime
+of the device, and FINAL fixups may set the flag after portdrv has
+probed, so record the flag in pci_pm_init() and check that copy.
 
 Fixes: d4c79b63d82d ("PCI: Allow D3 for native hotplug-capable Root Ports on non-x86 platforms")
 Cc: stable@vger.kernel.org # 7.3.x
@@ -107,51 +109,50 @@ Co-developed-by: Zeev Zilberman <zeev@amazon.com>
 Signed-off-by: Zeev Zilberman <zeev@amazon.com>
 Signed-off-by: Aviv Bakal <avivb@amazon.com>
 ---
- drivers/pci/quirks.c | 20 ++++++++++++++------
- 1 file changed, 14 insertions(+), 6 deletions(-)
+ drivers/pci/pci.c   | 10 ++++++++++
+ include/linux/pci.h |  1 +
+ 2 files changed, 11 insertions(+)
 
-diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
-index 7f1f47ea2ee4..338e884126fb 100644
---- a/drivers/pci/quirks.c
-+++ b/drivers/pci/quirks.c
-@@ -1458,23 +1458,31 @@ static void quirk_ide_samemode(struct pci_dev *pdev)
- }
- DECLARE_PCI_FIXUP_EARLY(PCI_VENDOR_ID_INTEL, PCI_DEVICE_ID_INTEL_82801CA_10, quirk_ide_samemode);
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index 7c6f2aba8144..eb7f2f03d9ae 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -3055,6 +3055,10 @@ bool pci_bridge_d3_possible(struct pci_dev *bridge)
+ 		if (pci_bridge_d3_disable)
+ 			return false;
  
--/* Some ATA devices break if put into D3 */
--static void quirk_no_ata_d3(struct pci_dev *pdev)
-+/* Some devices break if put into D3 */
-+static void quirk_no_d3(struct pci_dev *pdev)
- {
- 	pdev->dev_flags |= PCI_DEV_FLAGS_NO_D3;
- }
- /* Quirk the legacy ATA devices only. The AHCI ones are ok */
- DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_SERVERWORKS, PCI_ANY_ID,
--				PCI_CLASS_STORAGE_IDE, 8, quirk_no_ata_d3);
-+				PCI_CLASS_STORAGE_IDE, 8, quirk_no_d3);
- DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_ATI, PCI_ANY_ID,
--				PCI_CLASS_STORAGE_IDE, 8, quirk_no_ata_d3);
-+				PCI_CLASS_STORAGE_IDE, 8, quirk_no_d3);
- /* ALi loses some register settings that we cannot then restore */
- DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_AL, PCI_ANY_ID,
--				PCI_CLASS_STORAGE_IDE, 8, quirk_no_ata_d3);
-+				PCI_CLASS_STORAGE_IDE, 8, quirk_no_d3);
- /* VIA comes back fine but we need to keep it alive or ACPI GTM failures
-    occur when mode detecting */
- DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_VIA, PCI_ANY_ID,
--				PCI_CLASS_STORAGE_IDE, 8, quirk_no_ata_d3);
-+				PCI_CLASS_STORAGE_IDE, 8, quirk_no_d3);
++		/* The port is known not to work correctly in D3 */
++		if (bridge->no_d3)
++			return false;
 +
-+/*
-+ * Amazon 1d0f PCIe switch ports (e.g. 1d0f:cec2) on AWS instances
-+ * advertise PME# from D3hot but never assert it, so hotplug events on
-+ * a port in D3 are lost.
-+ */
-+DECLARE_PCI_FIXUP_CLASS_EARLY(PCI_VENDOR_ID_AMAZON, PCI_ANY_ID,
-+			      PCI_CLASS_BRIDGE_PCI, 8, quirk_no_d3);
+ 		/*
+ 		 * Hotplug ports handled by platform firmware may not be put
+ 		 * into D3 by the OS, e.g. ACPI slots ...
+@@ -3227,6 +3231,12 @@ void pci_pm_init(struct pci_dev *dev)
+ 	dev->pm_cap = 0;
+ 	dev->pme_support = 0;
  
- /*
-  * This was originally an Alpha-specific thing, but it really fits here.
++	/*
++	 * pci_bridge_d3_possible() must not change after this point, so
++	 * ignore NO_D3 set by later fixups.
++	 */
++	dev->no_d3 = !!(dev->dev_flags & PCI_DEV_FLAGS_NO_D3);
++
+ 	/* find PCI PM capability in list */
+ 	pm = pci_find_capability(dev, PCI_CAP_ID_PM);
+ 	if (!pm)
+diff --git a/include/linux/pci.h b/include/linux/pci.h
+index aa3765a20a96..1238667d643c 100644
+--- a/include/linux/pci.h
++++ b/include/linux/pci.h
+@@ -420,6 +420,7 @@ struct pci_dev {
+ 	unsigned int	no_d1d2:1;	/* D1 and D2 are forbidden */
+ 	unsigned int	no_d3cold:1;	/* D3cold is forbidden */
+ 	unsigned int	bridge_d3:1;	/* Allow D3 for bridge */
++	unsigned int	no_d3:1;	/* NO_D3 set before PM init */
+ 	unsigned int	d3cold_allowed:1;	/* D3cold is allowed by user */
+ 	unsigned int	mmio_always_on:1;	/* Disallow turning off io/mem
+ 						   decoding during BAR sizing */
 -- 
 2.50.1
 
