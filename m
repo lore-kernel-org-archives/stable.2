@@ -1,115 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794866821;
-	b=mDtD140LId+fZs7YLbCZEigXuBt5n957QNUJj46JBD3jOkZxqfy1wzbxin6RBSyiN7ze
-	 Q5uj/jgmQ5xynOzQvrAHrocAl3ilUTDmImCL/yNIPc78A7bOxZ7R994JMdOU/LM8FhH51
-	 k/uY8YUPkeeDsy5RtZMfsBU8RS3BPF6gPhDnYhj4cPSXdp2CoHj7Tpyms3q73Y7DWp4+n
-	 IF0b7FjhkQBw8WNUUlfS3MCy3N0S8JteH6jTiahJ7ATUc+2g/uETDUZG1w6me2jz7V5+g
-	 Uzzbfqm0Et/2wb6DfkXoYcP4fE7dI5VSASjTTQevL2WddauXjy4QH45dXdIC0IKHwrw==
+	t=1794866904;
+	b=bXuRzynYkVJm24rFcK4JAmEUd4rAn77RvM6FZVjSvSZBa1V7wdolC6Eym7wYbr0SjgyT
+	 WxsLovWIzSZiV98/zxOqSpeQX197aeMTcxyPMGq22hzgwybF++kOoM615UWCC6jOjIJfO
+	 zjCqeWppRjA05ZmKtNkSzdL6jgm8EZAFrAKyh0z2qNKfinbTKEElhBF57b9EHdHVMeA/D
+	 Mawl7kyMML2ipGGAAJDKFi1fWQrPclzd3bWbKbVR97VGHAhzyFFzUt4DiJtgYweUzvViP
+	 vz0S/G9RNDnqp3e28O23ZnWOwcRQL9PD/1ZKyOcPVMxaImRfRbVQDUxvr3c9DXsAYug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794866821;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vsc7QdWwKgQ0PfQnJbRw/cR4lUlNXyZF39QitBUyknA=;
-	b=YCvBSrJbcadTIppkcRdSDCy3crDRACCm9b3BtAmI1H/7b7Ey8t+dSHGihagmNbIiyn4Q
-	 gP8iZ92Ph3P72T3fC3vkLQ1JCgYsGRR6VW+Wngrw2ovPB3gkEdo14FbtGWEnP/FkQNgTk
-	 pALlCInG4uPMmLq2RyObRq8QZRXIg6/nThXLsyOBfxtqc2eDohYP8Czcg+ZFwmhU2Pbvc
-	 rlq5+uGJYqk/UNh4aNB5XZD031qGKpS7Bs1SUde60W/UNIWh1TGLrF8ZICJWBjMq07Xyu
-	 Zw6YUSeBXzYk3OC5M2YAxZDxeC/QBCJNF1mA3RemOXloQH4yeMmY3C9wnGSPVsOdQsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794866904;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=jCQCdjWXGwSTK6KbBHTCoC610xQNusLZzaXj3lRu9vY=;
+	b=pYxIiw0NkUIa06k6QG6JkHp8ydo0dHWUNWP3HU3xxP2ZfifJnUqeXVaZPD2k8U3GjH/k
+	 F4va2bgE9lECaP0/NdVXfFKXSoDY4tWb6zuYRjwWTCgrLRTPtvxHbqJbNPPRsJwIIhcZL
+	 hY7dZ00ARenG48b9s1DyAm5p2ZGSd9U3zvQerLQtGpLjpXIctyhdsXDEXk2lBqWMO8c6K
+	 llN4laH3VoJIXSlsadDDcCLTrfaVdtcd3pIacSrZSulXzAgheMOQrJZHGlU3EourSCH/2
+	 H/QPNdtrk7tG7vqcmiyCvCxHzs2emn0urTol43oJXoxSd+4deWsHy6+J6W0z9twZWIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=Of763eXj;
-	dkim=temperror header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=hV8+IW5E;
-	arc=none smtp.remote-ip=202.12.124.159
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=Jj0cwWoT;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=ywkyBbYi;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD9B606A31C
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 22:06:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AD9B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A73606A895
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 22:08:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88A73606A895
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=Of763eXj;
-	dkim=temperror header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=hV8+IW5E
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id F2C717A015F
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:06:54 -0500 (EST)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-04.internal (MEProxy); Mon, 16 Nov 2026 17:06:55 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794866812;
-	 x=1794953212; bh=vsc7QdWwKgQ0PfQnJbRw/cR4lUlNXyZF39QitBUyknA=; b=
-	Of763eXjGwumyQnteF7BPt3bSNwJYxBYa3Ev1ubdkMJgbxaDdyDoru+KwDpp6Kjn
-	3J15TwralibmvGbLxoB3jUprbfD7dOWhF8Wqd8kcvonwj1zXOkqANlBgWWBl6H+Q
-	x4vdUKkz4Gvqjw3Tbuh95SnOOKujzgd6j2HkoINlXyJra1g81L1/zLzJKZXPElsY
-	0HATUZQYE5DkKZ+zFpiEpR4XmLfeOqqX22p1lGqL8GG5S3+3/fAgtxKDyTdftSoW
-	gPO0yG1IyurAh6KLuhD4Zfx+0NpgPBgtiFvpnS5hKQN1teBhbVnrWInR/cU4BPbC
-	cYyWQ+R3W4J6cAqM29uVFQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794866812; x=
-	1794953212; bh=vsc7QdWwKgQ0PfQnJbRw/cR4lUlNXyZF39QitBUyknA=; b=h
-	V8+IW5EzZMBpWZZTLRayaQ8zWdy176E6AWKIuX5tgYoiYi1MNvSkv/iCUXnlZHEP
-	idK5efB5kS1shjR6b7B81P8t/yto4ZAaO0RV8OEFXPB44Xeq6TjhqdhOU2yn6ulS
-	Z4h51SETI2MAflXkLbVjqUn0J0tkyCdGCBZ4ci/C7nsGmBVzuPmdrkkI9QYKqCL+
-	J26AGHPzCwTUAoUC3eEjZSkr0YzGUPHUQBKPgCsl3FtHWzWE8b8Z78m6g3Ms9O+L
-	vynSMUU+Py7/6iH94n0b7mQXSs+9OxovbcugYKyDtpGnWVj/8bsw4xM/qaNAxpag
-	TALzoPDk3HK4x3ewFDA0A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794866812; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:bA+9MZCsqOgM0MXLKyX21oZSFFVUCj5RaL0gM/6/7xmiMD+
-	4MTCN/cpDMp9q1C89OY95/FicuZnx/fCiXc8sHrVrhgZuhyO48yWM8a0vnU69Mwh
-	bJqDDO0W6Nv70SA10+iPABLdOg6tm16hCMV0i8ofdjsEa+eG71KFlrpnZX2H+vo6
-	rUu5xdrvKLnDtxhV/FNAi0Qk9F3v8kY4euzVb5r6eCueerQp9c9D9NRKLDqLc1oy
-	iNdy9FPvwgQbz4HtIvAkxSPHJRtmOkaHu1G3tAz1EoV3mqtwX2j0aBpyhEs+XRxV
-	0lWR/sA+Y4/f3mjKV4VwSFO9qnPdP/HdKtdxxUg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:UyL/Iv80/j5QV7yVFqfIl7cbPB/ppw8/4Va7FOuu8EU=:4j/DMfnc0hdTWO0CRI7hD4D97WMBwHIteEaLnc8xQz0=;
-X-ME-Sender: <xms:fH77alNur4u4gJACJ3d_TMQmPcdiHMYoedMX3HflSe1a2NtCi8Sb4A>
-    <xme:fH77aob-_vh4Rr8wAU_WoP_xrpMzSFwmm1saRTZ_XL3R91JmBhSNr3UOvUOl0ayia
-    K4enhEgrJFY3CJmjkaWlgz9zCdBuvPzHREMNSd51u7msJTON_7zZRof>
-X-ME-Received: <xmr:fH77akAzqlWoIEgg5PMO5UDMjqPJDq6_BT_lEjo4nHnJUap_X7LKvzx6wKuWB7S8eR3-W-xq2CzZ04ZVkmRtAWU1TUIR0hiP>
-X-ME-Proxy-Cause: dmFkZTFtc41ee/Iidnc/YKyFRrlcbY0qjv7vqTZLN5qT1G/s1A6ODY0jpLG7OyEpYUVtYp
-    rxrHQVSxWkmpyGRsz9lunc8LDSpBqe9tsIONdlQ3MpDcLVxPNBosQA61pMRunTuvOsWRK0
-    XlAqabvwAjhMKyQyDzm/UFdyEHNWaCwCwWjvl882gkJh451mUafQaBB0yDkAGs/9YPYQL3
-    i8GF1w5NLrcOdAemY4lV9Xqv5dH9DyE3gxX++6KPQ6gVwc508qBf7RvoV4KaDZBU2lGdzt
-    VawjCYAbC2Usre/a6pEIEddTaKECceSLt9P6H40e0jaAAEzuItvughm0hzu6r4rd8RJ1QZ
-    oM4+bIXmMb6cDj57o0CGr6UGHVlHQdBL9mALTfZc5kC48fbdUaH357WhcWWQ7CAqrKDByh
-    wsCzY41+N+Auu28QIaqd6IuuLgK8Uu0+VdAnBNh3EUtmD1gPqlYqgeY6oWwsGhYMp+Gabt
-    SoZ2SEVwMaT6KRBp8lEv4OYdZpP5e6KK4TTlaT8uDUFFpRmlkdmk4haJI0fKtQlTlsEz6p
-    dXmLLIy5ZPD5zDt1GpwH6ywPe04dh8fW5w2QYI6X9KyRsb99oplKk6oIh2GFc0dsIE39LK
-    90vn+8HI9Zehkdy1WNoCmZ3uIDeB53vY2RBOKm9ZSRq5S21pjy0Wv1FBnU/A
-X-ME-Proxy: <xmx:fH77auEhFXkbc64TI9i3tVfon4gv-mH-eP6aOB-13zMl7bwebge5_w>
-    <xmx:fH77anOdhv6zpDgUCj-lZBLkMKmoj0__a5uS7gasdEY2qNdhCtIH6Q>
-    <xmx:fH77ani7feRs8uW4UmJVeNoy82Mq0tUG2hfzPrSGsVZAbUI8EsqC-w>
-    <xmx:fH77av0p6DYMXP-WghMsthNo2C6TSJno4dSPXYvRcchbOGsU7nIDJg>
-    <xmx:fH77auSSAO8p553AhlbtJ0V_FAzfA9yDLSSecJfHSRRMfdLsovFEBgzc>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 16 Nov 2026 17:06:50 -0500 (EST)
-Message-ID: <2ed04104-e061-47e4-914e-3a2b35b214dc@pobox.com>
-Date: Mon, 16 Nov 2026 14:06:49 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=Jj0cwWoT;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=ywkyBbYi
+Received: from pps.filterd (m0167071.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AGLYk4S3935624
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:08:23 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=jCQCdjWXGwSTK6KbBHTCoC610x
+	QNusLZzaXj3lRu9vY=; b=Jj0cwWoTPJ1LT1nEtYVY+g6wopvZb2ugEOPQhvYuZD
+	rZXjEdPYzTBKd0n/Xn2H0QkYSXsJO/OUQU+SG9NXan49oxGdVH3tQCnG/gj7tMz/
+	3L6Eh/do8aRZfoMXmalg6p7RAsCNIzgG0FVlNk9wo0DHSKmsyfPVtP/NQI0Ctmpp
+	H7raP/Dx74Sy2BfJbdthP9WDn2DDVzGz2lEkkrpAHqIDRLHcIQv62vB8EAxUJd2D
+	+55kJzkTDg4LUOlHrKKY/4VyAScWN0dBbcVdYdR2QMXnkXNXe176zsyOFAEbqW6B
+	Z9ZV+K15NNLLDng6fzrtofQSHdK/dm0t/zgeBR6EZsNg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4j059ck745-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:08:22 -0500 (EST)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9495dd0f07eso676755685a.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:08:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1794866902; x=1795471702; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jCQCdjWXGwSTK6KbBHTCoC610xQNusLZzaXj3lRu9vY=;
+        b=ywkyBbYiDRW95M2a1ooFhISBYvF1tXOptyQi7HDLEkFUXXONSwX6hV7R7lTFoz56Uz
+         akFYtpT6+6oofBGA4+/eAZOtRk+uFEq8mQ9v35mjU2bZvbqq0KyprgbdXYx/Cx2TA1c+
+         STT3MbbzNNJC1/kFeFcCAF5qf9FVlZZXn646vqlzWmogftWIai51xrQs8L7r0RFVhI8T
+         1Uc5628GUP09rlftVMCrKqIMEhGzAcolNqb+b2SqPomvYxOEv5LMZb636LH4IgHAU+2Z
+         d1vF3xmEp0PYpZgxXwS2EktTfBSiI5u552QYEs8MRmgYZnFKPxhoix1dXY/+wSK4JGvf
+         cp3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794866902; x=1795471702;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=jCQCdjWXGwSTK6KbBHTCoC610xQNusLZzaXj3lRu9vY=;
+        b=G2N8jUG1vE9c0hX5EBjjybbr191msHgtIJrlPLLa2alvtdBJ8G4e8xQETQFsTLALzW
+         aRrl81lTvD7hJjLl0zWYeSl77ur1Dn6YiGY6gIdYucSnWso2MZ3GqY+pzV5pOsYUqaLJ
+         1VaO85GowW7cI4aIrG0BLzOc4UCX1pPePt1Eerg+Y/fbsCrzchLKyvzlSdY88cdWYuX3
+         oR5eJzz7IAobQD0NII8jBYNQiA2+jrt10csoJAqQFsYgKqR5X9bZcNslD/BQNr06N+c5
+         WQvbpTSGItNwM9jUQIOaFAhfkFIUXAIRtWr5/bx8VGJN0XdILC3CkLR5QXnjDsC2n5hj
+         5I/A==
+X-Forwarded-Encrypted: i=1; AL+hErG2qHxqb2SpB4r5UWKUdxdPkmcTgDtZ0nirvVfBSt1CWF4VY4d2r0ihTtQJ6hB5NmQeRFTu5gA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8I/Y3k0GESxPVDw8g1tabnOtN1xoTOK4WNxO1L8PYyaqeAO6mS
+	3kSaABo4CngZecFg0Ih+FEr196cpR847R79WYgKn1A25i7VaRNMKGQGPvfmyvkc/6yMAKtG9AyN
+	htVgkd0Q0LaL96nPo35lSJjjCOY5Qg8x44TMjW+VI7aXesBItQ18a6w==
+X-Gm-Gg: AYBFou2RugBA+fqM4OK6M+SfJFwB9eqW3LVMoKjSka56RWNepFcJO7N/hy/bGJPnxNn
+	yNFNBTm+S8/FSj+wz5MRPdeH9GdJLbJNdY0J2oYi1WTcsgyU9l1oerSkIYPFjDhPfgxJZHXTO9j
+	rcT33rH6xXzJ3g/Kf1ZU3C7ABv8ZXjyW6GHiv1r7jl4tJyTNGS7xoqfVjrf2iCgFz7sYx9L5XPI
+	O2mKLZCMLQCr+eEa5vikWek2ddehh2RX+kM5AOk2f0PyMUwocrZgi4cUN/ThaUNLp6Mf5iGLQ6n
+	bReQaMQwqeE/pCJHufwAtZjF1uH5n9op/vXJdwRr7JG4+gyp9YgizR+JUEQ3kr1Sj4givR5qDjL
+	SENU3tWivMh7YbQozAxtz/ADkO+adXbFrRz5bZ3E582V161fwgDu62qEEYda1phMAChwYutXX/y
+	HOTt9w4x5DM2vYBm5Fzpr3
+X-Received: by 2002:a05:620a:6cc1:b0:93b:d7a1:ba16 with SMTP id af79cd13be357-9494bc57948mr1946978085a.65.1794866901699;
+        Mon, 16 Nov 2026 14:08:21 -0800 (PST)
+X-Received: by 2002:a05:620a:6cc1:b0:93b:d7a1:ba16 with SMTP id af79cd13be357-9494bc57948mr1946974885a.65.1794866901277;
+        Mon, 16 Nov 2026 14:08:21 -0800 (PST)
+Received: from [127.0.1.1] (nat-128-59-176-174.net.columbia.edu. [128.59.176.174])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c86c946sm951838885a.25.2026.11.16.14.08.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 14:08:20 -0800 (PST)
+From: Tal Zussman <tz2294@columbia.edu>
+Subject: [PATCH v3 00/10] ecryptfs: remove the remaining struct page usage
+Date: Mon, 16 Nov 2026 17:08:06 -0500
+Message-Id: <20261116-ecryptfs-folio-v3-0-1aba8e620eda@columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -119,50 +115,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION 6.12.117] CPA detected W^X violation:
- 0000000000000121 -> 0000000000000123 range: 0xffffffffc0477000 -
- 0xffffffffc0477fff PFN 109c1f and WARNING at arch/x86/mm/pat/set_memory.c:665
- __change_page_attr_set_clr+0xf62/0xfb0
-To: Sasha Levin <sashal@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
- Dave Hansen <dave.hansen@linux.intel.com>, Andy Lutomirski
- <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, regressions@lists.linux.dev,
- Salvatore Bonaccorso <carnil@debian.org>
-References: <avdb9EPXBv2hRCzQ@eldamar.lan>
- <draft-agent5-0008-re-pat-wx-regression-612@kernel.org>
- <2e149d01-c932-42d3-9698-c1555e542cb1@pobox.com> <avpUlHHaimEE_Rib@laps>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <avpUlHHaimEE_Rib@laps>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMZ++2oC/3XNQQ6CMBCF4auQrq3pFKToynsYFzCdSg1S0kIjI
+ dxdwI3RuPyTN99MLJC3FNgpmZinaIN17RLpLmFYl+2NuNVLMylkDgIyTujHrjeBG9dYx3NFhUA
+ kVCZly1HnydjnBl6u7w5DdSfsV2Vd1Db0zo/bxwjr7i8egQtusgwkFKoCnZ7RNcOjsuWe9MBWP
+ 8oPQR5/BLkIGg+pAZ0pfcQvYZ7nFyBUA7kDAQAA
+X-Change-ID: 20261014-ecryptfs-folio-67e80ccec7f3
+To: Tyler Hicks <code@tyhicks.com>, Erez Zadok <ezk@cs.sunysb.edu>,
+        Phillip Hellewell <phillip@hellewell.homeip.net>,
+        Badari Pulavarty <pbadari@us.ibm.com>, Theodore Ts'o <tytso@mit.edu>,
+        Andrew Morton <akpm@linux-foundation.org>
+Cc: ecryptfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+        "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        Stephan Mueller <smueller@chronox.de>, Adrian Bunk <bunk@stusta.de>,
+        Michael Halcrow <mhalcrow@us.ibm.com>,
+        Randy Dunlap <rdunlap@infradead.org>, stable@vger.kernel.org,
+        Tal Zussman <tz2294@columbia.edu>, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794866899; l=3051;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=e9ns/mhrua12V9cs3nOxOTFGBfzridFhDLFScimnOns=;
+ b=iBVxfPIBdPottMuKyPmmAPo79Z1TtTJ2eIEFxn5bup/BvRzKZWhGSUSVKFVGq+hcJWd/M6Hi1
+ ABps9rU1r/nDCzVpL6RuvalHXWAsLG0wm+gt9MHin7ZrhDMws2bKUL2
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE2MDA4OCBTYWx0ZWRfX2uTPOx2enWzd
+ HpSKlYbmDXGJweZI5U5+M96MlLBOthH2D2Hf8PTUdrswx0rbgYJ0VmbYhoCDWXhbcZ6rYGg6OeN
+ WkvxbfbYfqlwXRkDilgDq9lktwsFxbvfThRbVqNWMh3QTYiACo5T
+X-Authority-Analysis: v=2.4 cv=MsPHeGae c=1 sm=1 tr=0 ts=6afb7ed6 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=KPY1cyGZ6h6m4ASiENTC8Q==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=79PYxaXUQd1wl-QFWJnA:22
+ a=bC-a23v3AAAA:8 a=yHkjf8DjpYn1_ea-2f8A:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-GUID: JlwWxk_KnthRKt3j-gybysxsbtoFhOWi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE2MDA4OCBTYWx0ZWRfX44vIp0EISuOX
+ gP3QUMJCOGjscyml+DGLLfWngyJ684XKlZCfTszHLe3NjriEiEANbKu/nKxcN2QZsDOaaqfrLyt
+ x0BYw4Z/ZsJQcXu6uS9PFsF3xAMoEWpifWPYI+IVSjrU6/pIV23GZV79UkZU0ihra/KLem4MsQP
+ 2G99iVGns4p5hpmLU8gbDU8gUTkJrRovvlWMavj5yf56XLEIBir4Crb59zHEoCUifYxImbrsN3p
+ 9CLWcD2Kp4HCbrzeMEAuTySozMFxctrJgaUH3e1+eD5DwGqDKnjN8KfY9WtpEcMIgnMXA/QjK0u
+ Hqive226jsUg0LcLq70vtg+0ZGkcS72va3p9Z6wwi/KBHlu5wCsAr3ujwWwnvqOf1hSq1bHWXzU
+ yFeRD5qd/FH/lUkceOOlb9Dk8mW3fRsjPuk1fSTboHqv6oepQsLjTmyO5xiKu3nPrAXuZ2LVY5W
+ e3lZMdfCCs28zRdjE6A==
+X-Proofpoint-ORIG-GUID: JlwWxk_KnthRKt3j-gybysxsbtoFhOWi
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11968
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=10 clxscore=1015 impostorscore=10
+ malwarescore=0 adultscore=0 phishscore=0 priorityscore=1501 spamscore=0
+ bulkscore=10 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611160088
 
-On 11/15/26 4:55 PM, Sasha Levin wrote:
-> On Sun, Nov 15, 2026 at 03:16:20PM -0800, Barry K. Nathan wrote:
->> On 11/14/26 9:42 AM, Sasha Levin wrote:
->>> On 2026-11-13, Salvatore Bonaccorso<carnil@debian.org> wrote:
->>>> One followup to this. Reverting
->>>>
->>>> Fixes: 091c44b2d3c3 ("x86/mm/pat: Use pr_warn() for early W^X warnings")
->>>> Fixes: 11d1ba991c07 ("x86/mm/pat: Fix effective RW computation in lookup_address_in_pgd_attr()")
->>> Thanks for testing. Queued reverts of both for 6.12.
->>
->> I see that in the current stable-queue (commit
->> 3b8ff7f280433e6fb085dbc4f44ac6a138f352a0, "Fixes for all trees"),
->> these two reverts are queued in staging-6.12, not queue-6.12, so
->> queued up for 6.12.119 not 6.12.118 as far as I can tell.
->>
->> I don't know if this was some kind of oversight or if it's
->> intentional, so I just wanted to bring it to your attention.
-> 
-> It's intentional. I don't want to play with the queue right before the release,
-> and we've already shipped this regression so there's no reason to rush.
+Convert the page cache side of the encryption path to folios, and use
+plain kernel memory for the buffers that were only pages because of the
+old interfaces: the ciphertext block, the header buffer from
+ecryptfs_get_zeroed_pages(), and the scatterlists built by
+virt_to_scatterlist(). Also make a shrinking truncate zero the tail of
+the last folio in place, as other filesystems do, instead of copying
+from the zero page through the write path. After this, fs/ecryptfs has
+no struct page usage left.
 
-OK. Thanks for explaining!
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Three related fixes come first. ecryptfs_write_lower_page_segment() now
+writes from the right offset in the folio, which matters when a truncate
+extends a file that is not encrypted. The packet parsers now reject a
+zero-length encrypted session key, which used to leave a file set up
+with an all-zero key. ecryptfs_write() keeps the folio locked until it
+has been written to the lower file.
+
+Ran cleanly with fsx and fsstress on ecryptfs over ext4 in the default,
+xattr, and passthrough mount options.
+
+---
+Changes in v3:
+- Patch 1 (new): Write from the right offset in
+  ecryptfs_write_lower_page_segment().
+- Patch 8: Skip zeroing the tail when the new size is page-aligned, per
+  Sashiko.
+- Link to v2: https://patch.msgid.link/20261029-ecryptfs-folio-v2-0-dc53f1d47d9c@columbia.edu
+
+Changes in v2:
+- Patch 1 (new): Reject zero-length encrypted session keys in the
+  tag 1 and tag 3 packet parsers, per Sashiko.
+- Patch 2 (new): Keep the folio locked in ecryptfs_write() until it
+  has been written to the lower file, per Sashiko.
+- Patch 7: Hold the folio lock while encrypting the zeroed tail and
+  mark the folio not uptodate if that fails, per Sashiko.
+- Link to v1: https://patch.msgid.link/20261014-ecryptfs-folio-v1-0-f4412187b1d3@columbia.edu
+
+---
+Tal Zussman (10):
+      ecryptfs: write from the right offset in ecryptfs_write_lower_page_segment()
+      ecryptfs: reject zero-length encrypted session keys
+      ecryptfs: keep the folio locked while ecryptfs_write() writes it out
+      ecryptfs: remove struct ecryptfs_page_crypt_context
+      ecryptfs: use a folio and a buffer in crypt_extent()
+      ecryptfs: use kzalloc() for the header buffer
+      ecryptfs: use sg_init_one() instead of virt_to_scatterlist()
+      ecryptfs: zero the tail of the last folio in place on truncate
+      ecryptfs: rename functions to refer to folios
+      ecryptfs: refer to folios in comments and printk strings
+
+ fs/ecryptfs/crypto.c          | 145 ++++++++++++------------------------------
+ fs/ecryptfs/ecryptfs_kernel.h |  21 ++----
+ fs/ecryptfs/inode.c           |  55 ++++++++++++----
+ fs/ecryptfs/keystore.c        | 118 ++++++++--------------------------
+ fs/ecryptfs/mmap.c            |  60 +++++++++--------
+ fs/ecryptfs/read_write.c      |  54 ++++++++--------
+ 6 files changed, 169 insertions(+), 284 deletions(-)
+---
+base-commit: 8f6626bd6594a78f454d02b27b74a580c890cab9
+change-id: 20261014-ecryptfs-folio-67e80ccec7f3
+
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
+
