@@ -1,60 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.97
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794859791;
-	b=w7uXC+nxchoJ4ywPzP2WylRp3/5tG0vSZq1Fu5AIHRWmnPAy8/NeCqMBxl1N4/nbGLgQ
-	 XNJkwU1V3Y1l+bO2AFoH9bkYiKSPjupqiKcO+HaEirrUkcUi8jPp4a3/9SiQdT6UZjkJ5
-	 Ax6yDCTzuIv/tdEbamlw8gECY3CFKGGwCzBPw1Hw/1zTV1xf6FHPxOFiOsjrOvD3vXhZF
-	 bfhkUcaEzsixFeZgCn1Ks5S1AfOKamAg1PMh2TJ3j3SKO8WHZHekL3tymI72nf8oRD2Oe
-	 rlqEePMUdaGUTKNeoZHILLd0PjvECWRNyoGBBWa+LvkkcADN2pNSjx6Csxt9Dubai3A==
+	t=1794859815;
+	b=tyvTyWiDNzXUZWtiS+7B0CZCQMqPGRQQdYk323n6XUJ3u4lyyhL6129kqp2bETVLIlCn
+	 RfIpSoQTEgTYiBopwf4itA4c+s+2TcoDog/k6EL0oDG81zW/rMc9cUqpzCs/SY4dTK1VY
+	 qIClwvKwK4Xb6c0bKlB0rlRE0ompHVtGBGlb+t6CcOOohauMAUJymykQDtR5LZE6CJEZj
+	 2zQQi3L5dj+V5g24Y+n2dzzvIlAcm/gsF+if24kBKUhuNrczbkjyyulIae8ibibmWVDro
+	 slpCxeMtAgagRXTnbW7vuGwnEn+0WndgTWkPBrXIS1/NMHdq4BZjWi2W1f0vo74NcFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794859791;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794859815;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=2B25+wnVPJcXu/9HzjnfC6KHhZGgpfc/3lc1JiQ3Z5A=;
-	b=Y04WyS2JwPpz+QMsw1CdS7ISF3FeHae6c5UMaDImpG5OTGJK9pNgPfab6KRewxSb46XM
-	 d6t757GsGknvMtwB7rlfehRJqyK8yfVMNIPu2X6uL39l64h4YkvruuC86oUB43I8G0U5j
-	 wmQYIzVjuVHaZ3qHCXmLIAT2vXXpKK2NfUzfobmOqWAWFhahJorpspYzT+2kJgpXPdqsg
-	 vBx2rAaL4EfYWIy+9yBvWJVbU2k/ISyXnWaKybnKH4Gkezg/IXIR4x8g+napPqj23HWz/
-	 wRo/ZswELPGNDVGLmSm5SLPJiZ41W1YV25sallF2v8Wr8v6Q5RlpDrcapm6ibgdmybg==
+	bh=DnZY0R4CFWaA841+h8c4OqRg9398Cp2ZyZRKUgM0LV4=;
+	b=IQuuBJ2gKkzrEHJuvfpYYHL8kZ2KhrdH+VTmhNJmdoghO/26FeCOQSmcT3fPzv0qZDXs
+	 APROxtKdjU2JAzqU7YNvgcxZdzABU8SCMcF/u5Ux8S0UWXyg9VU6Db81qv5IuhaFKn2Nc
+	 Ciu66OAIiJbqyxrq1UOCV4DNdqR/Vd8yr1BhiPsQIo3sAgn9hmzxNdXY/vTigdxQv3YQq
+	 WVTZALRr+rNLLuX46djlq/sQk2kNM8bCw2uYKr0AHtII12Rb1p+zHvlGwo7/a13GrmQb6
+	 tVLJrtNncxcm4++S9KrC38bf3sOWLAUUnnWEqWeunOs2g9XbElxWl+PcSiVeAwm1vFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=NrJHe3tH;
-	arc=none smtp.remote-ip=185.70.43.97
-Received: from mail-4397.protonmail.ch (mail-4397.protonmail.ch [185.70.43.97])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SrCWeG9C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77EE606A323
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 20:09:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B77EE606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15CB606A322;
+	Mon, 16 Nov 2026 20:10:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=NrJHe3tH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1794859788; x=1795118988;
-	bh=2B25+wnVPJcXu/9HzjnfC6KHhZGgpfc/3lc1JiQ3Z5A=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=NrJHe3tHBNMKOEc+MO7WI9m9on98H9lShQTPo7oeTjw37fIxJpvcCuAh+cNdYsG9B
-	 jjb9TzNu1qCvHmP3fpqsnJrBQ3NGVnZtOE/DkPn36p2vdAG/a0k+KtoXr5mMmN+ugA
-	 dgJ51k5Ify+kqkexJs1LUUOqQBm98+HD3IjE9NETCyHRDpCVsnJq07ELgDCgKdQOis
-	 qfkQXWJZFE9VLnVovA9sefXhGNbM/onB3zoj8DhL25V5tKAxuB7p3DpkWY9LC8swVB
-	 Hd/TXpAMrbb+pfyXGSP7Nh9eTjJDt9V8+LgCmdI5JAdk9W3cNWjRpKTUwsivm/4fZ9
-	 mWr9is3Sq7rgg==
-Date: Mon, 16 Nov 2026 20:09:43 +0000
-To: "Rafael J. Wysocki" <rafael@kernel.org>
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: Len Brown <lenb@kernel.org>, Chen Yu <yu.c.chen@intel.com>, Shuangpeng Bai <shuangpeng.kernel@gmail.com>, linux-acpi@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] ACPI: pfr_telemetry: keep the state until the last file is closed
-Message-ID: <20261116200935.2464922-2-ca@modelmiser.com>
-In-Reply-To: <CAJZ5v0jTHbr2KD3PXMdcOCs+QUrGrjGGuxOH7cbOe4kEF77d-A@mail.gmail.com>
-References: <20261110144436.1529000-2-ca@modelmiser.com> <CAJZ5v0jTHbr2KD3PXMdcOCs+QUrGrjGGuxOH7cbOe4kEF77d-A@mail.gmail.com>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: 22a8e2365a91d688f9c376356b62f0bc1eede34c
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SrCWeG9C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FA1F1F000C4;
+	Mon, 16 Nov 2026 20:10:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794859815;
+	bh=DnZY0R4CFWaA841+h8c4OqRg9398Cp2ZyZRKUgM0LV4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=SrCWeG9CA1eAKSC/Tiu2df8H1SoSfnefW1/ZFb3AIH90QnNtE02+DN93168cqg+wz
+	 C1QOjXXky/ZPZztUmEeCRRBdbXE6me3o8RF292CDppPRFPtAfXtQBjp9GOmFEiNGWN
+	 VdNCL5T8GONGf19sCNQOI5a4GS19yRby73zsAXImG8fkrdFw+i03LRCUwGHRwi1mI1
+	 KO8oDtnTnnG3O68W9KCN75GOvxuF7P4lgZGHF02at51ByAgZdayqdP0aelKtJuVThH
+	 VXVvincUfF+kCDqY5AGJE7YL2BBGBcfV0Tr6/DsviVC+J3l0oSnx4LiopwTTfnyqMi
+	 TPQhuEAe0adDQ==
+Message-ID: <b58451d6-e90d-4aa3-afb4-13666953dd1b@kernel.org>
+Date: Mon, 16 Nov 2026 21:10:05 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,35 +51,160 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] mm/memory: do not report OOM if insert_pfn() races a
+ huge fault
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>,
+ Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>,
+ Roman Kisel <romank@linux.microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Naman Jain <namjain@linux.microsoft.com>,
+ Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>,
+ stable@vger.kernel.org, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
+ <20261115-huge-pfnmap-fault-races-v1-2-537605643f6f@kernel.org>
+ <998b00e3-bde9-450c-b50b-069e65d00c49@kernel.org> <avs6WWOurjIN-trm@gremlin>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <avs6WWOurjIN-trm@gremlin>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 13 Nov 2026, Rafael J. Wysocki wrote:
-> Applied as 7.5 material, thanks!
+On 11/16/26 18:21, Lorenzo Stoakes (ARM) wrote:
+> On Mon, Nov 16, 2026 at 04:59:35PM +0100, David Hildenbrand (Arm) wrote:
+>> On 11/15/26 21:58, Lorenzo Stoakes (ARM) wrote:
+>>> From: Eliav Farber <farbere@amazon.com>
+>>>
+>>> A driver that implements both ->fault and ->huge_fault must anticipate
+>>> concurrent use of both.
+>>>
+>>> This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
+>>> concurrent with faulting, as that only holds the mmap write lock and thus
+>>> does not exclude faulting threads stabilised by VMA lock.
+>>>
+>>> This is not currently safely handled by insert_pfn(), however, which
+>>> obtains its PTE entry via get_locked_pte(), and treats a NULL return value
+>>> as an allocation failure, returning VM_FAULT_OOM.
+>>>
+>>> The issue is that get_locked_pte() also returns NULL if the PMD entry is
+>>> not a page table which can happen if a concurrent huge fault installs a
+>>> huge PMD entry between __handle_mm_fault() observing the PMD entry to be
+>>> empty and insert_pfn() being invoked.
+>>>
+>>> This can result in VM_FAULT_OOM being reported incorrectly.
+>>>
+>>> Address this by proactively checking whether a page table allocation
+>>> actually failed, and returning VM_FAULT_NOPAGE if the NULL indicates that
+>>> we were raced instead.
+>>>
+>>> The same assumption is made in insert_page(), however only DAX implements
+>>> ->huge_fault and can reach it, and it serialises faults of different orders
+>>> with its own mapping entry lock, so it does not require a change.
+>>>
+>>> Target the commit introducing the first driver able to do this.
+>>>
+>>> Link: https://lore.kernel.org/all/20261112051440.16140-3-farbere@amazon.com/
+>>> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
+>>> Cc: stable@vger.kernel.org
+>>> Suggested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+>>> Signed-off-by: Eliav Farber <farbere@amazon.com>
+>>> [ ljs: rewrote commit message, trimmed comment ]
+>>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>>> ---
+>>>  mm/memory.c | 11 +++++++++--
+>>>  1 file changed, 9 insertions(+), 2 deletions(-)
+>>>
+>>> diff --git a/mm/memory.c b/mm/memory.c
+>>> index e03110906aa8..cff39eccfd42 100644
+>>> --- a/mm/memory.c
+>>> +++ b/mm/memory.c
+>>> @@ -2866,10 +2866,17 @@ static vm_fault_t insert_pfn(struct vm_area_struct *vma, unsigned long addr,
+>>>  	struct mm_struct *mm = vma->vm_mm;
+>>>  	pte_t *pte, entry;
+>>>  	spinlock_t *ptl;
+>>> +	pmd_t *pmd;
+>>>
+>>> -	pte = get_locked_pte(mm, addr, &ptl);
+>>> -	if (!pte)
+>>> +	pmd = walk_to_pmd(mm, addr);
+>>> +	if (!pmd)
+>>>  		return VM_FAULT_OOM;
+>>> +	if (pte_alloc(mm, pmd))
+>>> +		return VM_FAULT_OOM;
+>>> +	/* We may have raced a huge fault, if so let the fault be retried. */
+>>> +	pte = pte_offset_map_lock(mm, pmd, addr, &ptl);
+>>> +	if (!pte)
+>>> +		return VM_FAULT_NOPAGE;
+>>
+>> Same question, what if we would stumble over a PUD entry, how would we handle
+>> that today? I'd assume we'd also want to return VM_FAULT_NOPAGE instead of
+>> VM_FAULT_OOM.
+> 
+> It can't for similar reasons.
+> 
+> Actually changing this would require changing walk_to_pmd() a fair bit so it can
+> distinguish a failure to allocate from that, and I'm not sure it's worth doing
+> that at this point, better as follow-up?
 
-Thanks. Two small things in the applied commits, in case they are
-still easy to change:
+There are only two users in mm/memory.c right?
 
-1. Shuangpeng Bai reported the pfr_telemetry use-after-free in June. I
-   posted the tags on v1, but v2 did not carry them, so e788ea48810f
-   has none:
+I'd just make the whole thing less shaky right away, but whatever you prefer!
 
-Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Closes: https://lore.kernel.org/all/178144969601.60470.3508974301899957212@=
-gmail.com/
+-- 
+Cheers,
 
-2. The message of dacb7cef6f32 ("ACPI: pfr_update: keep the state until
-   the last file is closed") also contains my notes from below the ---
-   line and the diffstat. Two sentences there no longer match the
-   commit: "kzalloc() rather than kzalloc_obj() ... for the stable
-   trees" (the code uses kzalloc_obj()), and "No lock is added. A call
-   that passed the removed check can run during the unbind ..." (fixed
-   by c0ab3714e87a). Deleting everything after your second [ rjw: ]
-   line up to the patch.msgid.link Link: tag would drop them.
-
-If neither is worth a rebase, no problem.
-
-Chad
-
-This reply was drafted with an AI assistant (Claude Opus 5.5).
-
+David
