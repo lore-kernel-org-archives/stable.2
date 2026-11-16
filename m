@@ -1,98 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794855103;
-	b=NVXtn/BYrUHqHg+UDn6q4FdZ143LyziXE+xECFe4LKDtKVl+sLhJNMgVRQXO8R1oc7yd
-	 e+YRHFkjlJEBO0aH5u+U7Rsji/OE8cUCcwjuXojfluiSV833RxqCIvo33oYwT+mcAtV7R
-	 3/pYWpSDlFsZVf6wf6IPdXh8hVYzI0KKconYsuV1TgEH9l5kIYtXo8S8dEv2TdJUNIDz/
-	 +xKVEfOIKKZzaknVb2jrXbgFlI5uucOqe5sfNX+aGlXZkBCR2ees/N9zu2H7TysO9+gmz
-	 /5lnxphquySHChLZwt77b0cWeRfdogPjHlR9VcmprQSt910cvMair0nvrXxE56FdvDg==
+	t=1794855302;
+	b=mw3cc3mk+YbciTl9834U7HnubDKVxhePkXoGzLwHozRBcVQaUGnz0iY9/d64GAE5BIle
+	 YCqQ+dJnRJXgk2BCfP+n9/FzGuitUXhoas2hkhhZEtCrDUmUDUg7baTaNQlHGa6gLxQbO
+	 F5JfyXT+2VltNq/eFcy9plnInRymn795lOXWqWFJxPMda/Zvhmewv8+jlhW4Nn9su9sfp
+	 EmLUK6MpJv3/0M1oYnix8qFQ/K4odf6yedaCwTtFZI7kOTmQBnKV76fCMwq1scsUhLhIV
+	 h5LU5I6POcoTTF5gK3X7D952U0lk2VMABlS7oVAj8UtK4ZdSjZOpqUliyyiox8mAUuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794855103;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
-	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Received:X-Received:Received:Mime-Version:Content-Transfer-Encoding:
-	 Content-Type:Date:Message-Id:To:Cc:Subject:From:X-Mailer:References:
-	 In-Reply-To:X-DetectorID-Processed;
-	bh=AG7lrMTMdTpXJhWWHRqMPbdBjQM52sNir2Uelum3Q8s=;
-	b=liXqNGW1JA7TdCsLHrKfOqyctxM1RN6F7IMXaqYpCbiJ0JvXw6BGSNcUDbpHDOHzAAPb
-	 wHWV/tkO3h7yMVDEifJx6FL1lLhQUkuSwfnJ/GIeT7NZT1ajWNxO6L8INOavPMtRNDKOP
-	 HbpmxFHTFMDKD9I38hfsusPy0kQo7HIz96wv4lmrXC8Wy7xnana19T871gnL/uxdysmTY
-	 UIn7nQ8vphueUAHSqRYlfCoT/VyoShPitKU3FSgaynAQ6Si/46k2zbNu+H58IPdITRU5b
-	 NyB5MerG/PdizIFjdqQR0Pw+kRQQqnoLg8Z6BT5M+IiH4jVjFx2gXwpGZJ+Vd/Fj5Hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794855302;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=+HftUw/uUqd4jgUY6b3i56RpufOwZrQW8huZ8KLBZYk=;
+	b=hvMmCSOS7pYaFVAJPMdar1WVoBbOZ37XpO+Cpo+Bj26TbjUXfY6k7KPqlETzLeW8/hD/
+	 9O3zdEO2fpm8IbJGvaHnY1uRTPCVDQjVAc0zfp7k45JyDmxHkBEeMPR/AHYC/6RQzT/ZP
+	 88WeAfNJOR+PquBw+9ulzdGIdY2sRvIUfAXArkfhjUBFtp7KH1oDe8baNT9dG6n9KztYd
+	 Eloc1q+iLyq900vsH2bvoQ4giNIQ7gFJYwHbzaV6dNeeGvpByGgYzT7JWNRHwsGaMUk23
+	 Bfplp38NuKSlh60EjipiPBjuMfdoVUhXqeBdv9k1kRtlCIBghcCL7Wp1fquxh+OivIQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=broadcom.com;
-	spf=fail smtp.mailfrom=broadcom.com;
-	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Zsp22sJH;
-	arc=none smtp.remote-ip=209.85.215.227
-Received: from mail-pg1-f227.google.com (mail-pg1-f227.google.com [209.85.215.227])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="WckHz/bu";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB262606A323
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 18:51:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB262606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BAB606A31C;
+	Mon, 16 Nov 2026 18:55:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Zsp22sJH
-Received: by mail-pg1-f227.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso1571356a12.3
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:51:42 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794855102; x=1795459902;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:dkim-signature
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=AG7lrMTMdTpXJhWWHRqMPbdBjQM52sNir2Uelum3Q8s=;
-        b=hM1JoIK2T15yd6kmTJ3mI4FshsBuh/dHYebq56v0dToN/1kvEGxqI8KIHTL8+PR4/Y
-         mKO3y2D31Cy7G7XosF5Xoc1iTNbv1ZCjyNfN6RLPqo4p8xtA0iRCBnzXdMAagD2tckxR
-         VXEM77kx/0vPwlmUolhU1rvwYyjQX6wXEUq03wFpzNbhAHw2C97AyJCkxmZVbYIJP5AD
-         P4QKfA/4msfRbeHgZ63OO+gFrFBDOjsI3GMlDcxdaHq55i1ZpGOF1/BGqlW2ehCvOKuD
-         NlBff/G+wf2BqqN2t6TAfnYUzQlfPVTJF6BKuympyLKfgSwgUK2yivDA97z5hBDNH0i1
-         +tFw==
-X-Forwarded-Encrypted: i=1; AL+hErHM+dk81SYWDghz7O5sq1+sXB7QE6gQFvwhIYwN2e6/urrDxMU4gDK3TbzN1xj+2z4yvQkRMws=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9j+0/g2hTYBVOpcmB3ZrL0203Tgmw0tUsZphyIREGwR1AbNGE+
-	wwlZxkY06ijtlPPAY2xbw/sHqfRIiiQQbCGHwjDPeREd4PNDfSgDMeUiKbBBLkVhe/dR5GqgTWT
-	PssLrQX03CunsYqwyscgGV80AiMWU7lCI0PGOyPczwNEulD5CeQCrnEA/m6MewoCHjFRATj2oti
-	AUd1VUAt0FdKNGuR4qmUOQKCTONqKf9R9flTzUN02kjIR45TNRMXCboKWIN9kLEtoMNCvZVoOv1
-	xBT/FCZCbvRFMTU
-X-Gm-Gg: AZFdTZfzO3349NG/gwC0jemBYrtcK6ZpItOXFSd2a+ttJAU8c5BfE4tIlhMitoUAwfi
-	e1lXVVpiatB+q1XiG6W4bTOsSk2+dHHqeJCo6XLtVte7gOnWF3PHbIcgeb4EwDxteUGTl/ygXxy
-	fA2X88bFHYlCP6X63yGlJLp/hluRQElSiZiNmSs/+T8IhHNgeQ2OuXS91uWhVyobRNAht9Auk/v
-	/2IiBzv9GihSspbo9JdNyFEiZjYwGOLX8KcSLT3DfxwlCenvABSdG8VAWaSuua0L2B0eKJ9eisX
-	AMRYEDto1gyBB21x8pY3d24L0teddmH+EmLmOPLkmH1GZ02b1+LandLcWkIUxrvwkJO4J3+w1TB
-	TC6bAMO8o7Jqvl2hrHBIbjDYtxTVr8NB9sDCZPu095FGGdggYRZnOMOEn6Z2PJ/uWmpD7rbhSgz
-	liGURev27TC5aeSdYA3//8OzraEPIn3pUx+uWP8dpD/LI=
-X-Received: by 2002:a17:90b:52c5:b0:3b0:d551:ab2 with SMTP id 98e67ed59e1d1-3b1b0b5d61cmr11851768a91.51.1794855101803;
-        Mon, 16 Nov 2026 10:51:41 -0800 (PST)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-123.dlp.protect.broadcom.com. [144.49.247.123])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3b1b2654977sm4835642a91.1.2026.11.16.10.51.41
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Mon, 16 Nov 2026 10:51:41 -0800 (PST)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-91e8badc80fso52729526d6.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:51:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1794855100; x=1795459900; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=AG7lrMTMdTpXJhWWHRqMPbdBjQM52sNir2Uelum3Q8s=;
-        b=Zsp22sJH/vM6ZhuPtP1WiBHF8Oa5HKrOqSq8731aOZiQWwRZioeb83XYMhTo7CQ2vR
-         4qFJy9ZRRyXeTaORJ4kSyKVZdjzyIdrIhUoinuirgT4kpmrKJ3ZBVSJxwOCZ7k9R3kzX
-         RwxkGRdjMLN/mBs5AJkAdfXKUUcTGo4v9F/ts=
-X-Forwarded-Encrypted: i=1; AL+hErFHJorCy55xttmMjsjckWdHLY1mrjPAnkrpcEuikogwFoh1mch/AdaAVQWb/IitxnNvBUyEjJc=@vger.kernel.org
-X-Received: by 2002:a05:620a:7082:b0:93f:3219:835f with SMTP id af79cd13be357-9494bd2cae9mr1794631785a.81.1794855100586;
-        Mon, 16 Nov 2026 10:51:40 -0800 (PST)
-X-Received: by 2002:a05:620a:7082:b0:93f:3219:835f with SMTP id af79cd13be357-9494bd2cae9mr1794628685a.81.1794855100164;
-        Mon, 16 Nov 2026 10:51:40 -0800 (PST)
-Received: from localhost ([192.19.50.250])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9494c836079sm905381685a.18.2026.11.16.10.51.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 10:51:39 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WckHz/bu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51AE61F000CC;
+	Mon, 16 Nov 2026 18:54:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794855302;
+	bh=+HftUw/uUqd4jgUY6b3i56RpufOwZrQW8huZ8KLBZYk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WckHz/buWLBASZYRje/c8GkwldfZTdQyUi+xHS34PNbWqlPot/94Rhhfr4G1xf8/I
+	 tubaZVo0xDsZ6CmunU8fkZtwRNXTkyOj9HbaaW4yby4NbjwG02GgXb/H+3+wuBDuNV
+	 oeLW1mTWjU1BOG76ckHM7Xjsuk0MDclSbTkU/MCG17x8ZjC5Mm5mSARkY89uNyH7zt
+	 CLncMKBDY8Aeh/jCs58Sw6ZjNy4f337rBvBbYHK2xWTt6QNPPQbObPYlFQY79YtG5D
+	 qUxA8RIMlA035DPw5/IsFikf6ysO7ies5NK2FNnSY3q35dr10luZOz0Pe1jtPJoaFp
+	 rkiCwu4QxFcJg==
+Date: Mon, 16 Nov 2026 11:54:56 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
+	llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH] sched/topology: Avoid unsequenced accesses to jiffies in
+ sd_init()
+Message-ID: <20261116185456.GA1036399@ax162>
+References: <20261114-topology-wunsequenced-v1-1-686a36fe61f5@kernel.org>
+ <avtMzjJxIpFWkW-L@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,33 +65,26 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Nov 2026 10:52:57 -0800
-Message-Id: <DMWV25PKBWPA.O0T67JFNRN9W@broadcom.com>
-To: "Zack Rusin" <zack.rusin@broadcom.com>
-Cc: <dri-devel@lists.freedesktop.org>,
- <bcm-kernel-feedback-list@broadcom.com>, <ian.forbes@broadcom.com>,
- <yunfeng.li.nb@gmail.com>, <tomas@slax.org>, <stable@vger.kernel.org>
-Subject: Re: [PATCH 5/6] drm/vmwgfx: validate the framebuffer selected for
- cursor updates
-From: "Maaz Mombasawala <maaz.mombasawala@broadcom.com>"
- <maaz.mombasawala@broadcom.com>
-X-Mailer: aerc 0.17.0
-References: <20261027211729.646988-1-zack.rusin@broadcom.com>
- <20261027211729.646988-6-zack.rusin@broadcom.com>
- <DMMXFHCWWRFR.MUE8FPMJCZEG@broadcom.com>
- <CABQX2QNoumTwtyYwPSGJ+jCfcFgfMue9ESNH+ch7_GmU_JT57w@mail.gmail.com>
-In-Reply-To: <CABQX2QNoumTwtyYwPSGJ+jCfcFgfMue9ESNH+ch7_GmU_JT57w@mail.gmail.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avtMzjJxIpFWkW-L@google.com>
 
-Aah, I see, thanks.
+On Mon, Nov 16, 2026 at 10:36:45AM -0800, Nick Desaulniers wrote:
+> On Sat, Nov 14, 2026 at 09:19:52PM -0700, Nathan Chancellor wrote:
+> > +	sd->last_balance = jiffies;
+> > +	sd->last_decay_max_lb_cost = jiffies;
+> 
+> This pattern is going to wind up with two volatile (expensive) accesses,
+> (with potentially different values) rather than one access and the same
+> value by accessing `jiffies` once then storing the result in a temporary
+> local (before the designated initializer), then using that to initialize
+> the two fields in the designated initializer.
 
-LGTM!
+Thanks, I should have revisited this solution once I had a wider view of
+the scope of this warning (it was one of the first patches I wrote)
+because I definitely would have done that. I'll respin.
 
-Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
-
---=20
-Maaz Mombasawala <maaz.mombasawala@broadcom.com>=20
-
+-- 
+Cheers,
+Nathan
