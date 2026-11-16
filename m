@@ -1,57 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.194.254.142
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819346;
-	b=0aPMQLmU8/vG8eRu89kMARenn3tXXFTyVJYCSrCPWfhK4KwCkAwdkcz7RpKemxwWyFGI
-	 Axv0z1mJJ7q144MSFI5qV3lbKtijHE/IJZ/Pcf3w0q1VOpQ7LYbM70LBRx0orRZY0BIyi
-	 oJcEif8Qn3Iwle43cDIELQmOKRjYZv2pTA0bs6mK6IjJjMD4nqIyJVRT3JdF4WvFjC0lB
-	 W0U/ZPfUaWWb18rJb9Ju1F8w5CX4KpabBfyCMZBA8Kz9keEKya/pVAhwAUn0P0/p8/6eX
-	 zO2x8pXCd4WLO+wCHRNwdvWErG8iF6o3YsRnsrNs4bGJPamDyAOOh21oTEWELNCL6nQ==
+	t=1794819574;
+	b=y1W78t3Bdo191HXHjA0Tv0uXJt/riAnLkCIMNxHZRVCtg24L6EypfTVjxUmWAksVIkjI
+	 8cgGrbs5jnLtfw5P6uiATUn1vV1eKaIM6CrIMD3pz36TtuVW7gZ4FB3umBDl8AnV0Re5z
+	 pVG2sZNbj93H8AL1X4p1A6qULgBwq+i+qoUW4DMjjajJNccPkYAgtJTYs3zIWUWJf5swo
+	 6EYrVbiEzNXFGQ9UPeEn2SQ8uqmTll6Y/dbZWjAGpuVZksvLJkXQHNFUOiSiXcfvp2bMp
+	 JNvC+M7MlYbAtKIzQZ3ZhYr0adBkZQHdZKoaJmgfg1fdRiHd4pdygeG3cThaH2LN2Cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819346;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=M2Cd/fzl3O9NVYskbVZ05Fvon5yO4+XmeF/4IQ6BoUg=;
-	b=i5PLu/2xCiEFu6bnXVdBTVZbdLcc7xl7daEswXIl5s93KDHYrjzFfWXtQN9eKxIiS4HX
-	 ku6utO938y4HJb08eT/M+CeqLVMPmHV5N47sMuOhrhNWvmcXRTBPGwwCjwhgffQj4rAnx
-	 p3flys3JJX8uyOJpsouJCOjNY07XJTAp9ldr/8AThIMdcSSPVil2x3RPlJ8TXmTYUPEH7
-	 NjuslkBDk64AqCahK0yXe1LSjHEdXDpx0qSJAlQZoJEIp5QrWK308UcPzhFa/ePxxXnXn
-	 Dy6i0dDl6pKJryaFNYTdg10JNkxaq9FpSXbqsktKWcFxgjnlXgZCBS8niB9JRzfKI4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819574;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=TuAKrzSPoSNlrTFipnvv/aRbBCYjDWWseC2n8/QHZEA=;
+	b=JhZqdQHcl4DudCKTz9IKOwu58hdz5CT44DA+mpm0Ddj57jejV0sXuN2RkKkKgLcPZTO8
+	 vUgLpKPtgj3vdQ/kBVzyh1wAIj5oQRHf5HR0Y+5FYtV0PAflQudW+KmWlqGr9wm9bCCpS
+	 mpY1cf1GZyPltfNqXmsI8A9jTJ3eGNMa0iu4b831jjsnhR5++tD5mdDcwpPa2YrMPQJGi
+	 wkPHKT8SOILESf1lFBadjqYVH2UTPZK2PJXD6UK0Hjv2H8GOq5/7laajA9GwV5qq4Hi2V
+	 sHm69P/BppWNsaYUC9FF8gSpajuPb1CDamtlnvOxgUZDjzR2okEcohrVMkk2g2Y0VgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftMKqDkF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=PAPPHrZx;
+	arc=none smtp.remote-ip=18.194.254.142
+Received: from smtpbgeu2.qq.com (smtpbgeu2.qq.com [18.194.254.142])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B69606A31C;
-	Mon, 16 Nov 2026 08:55:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05FE606A89D;
+	Mon, 16 Nov 2026 08:59:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C05FE606A89D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ftMKqDkF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DE7E1F000C5;
-	Mon, 16 Nov 2026 08:55:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794819345;
-	bh=M2Cd/fzl3O9NVYskbVZ05Fvon5yO4+XmeF/4IQ6BoUg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ftMKqDkFwUM2mdn2SAzqG+kDZWGH5IN4dtt4m3yP7OAoaTSzn21ZQvwFrixoe40cS
-	 4D0CPxZSx0+rATBqa+/YLp7E9xkxW/w6ABTblYcHhqyFAH1lYh2jNT9AN4aqDxzgGK
-	 Xyyf/SqR91FkRxKpbCsoDoCNA4KHSmLrAw2D1oUNN2ggFNG90DvspbnLbxIqsHZlOT
-	 YOvteIiXkTc/Yu+ZC1o2cT20vjSuL7Nf4Ky1OlJpG9Z4o5uEKXyoHz87NeaJPkuFgm
-	 LNhbe+Amzq77BAXrLTcUfMKRtNujxfYI40C7imNZja6xUkzlzxSbnuTv3kuuTX6PlI
-	 iXVVihYhYEpGA==
-Date: Mon, 16 Nov 2026 09:55:43 +0100
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: phil.williams@advisoft.co.nz
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Mario Tesi <martepisa@gmail.com>,
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=PAPPHrZx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794819494;
+	bh=TuAKrzSPoSNlrTFipnvv/aRbBCYjDWWseC2n8/QHZEA=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=PAPPHrZxj3CFZ8G9WW3Rw/lFao7MSmCKqwaHL9Q0O1Bi3dsUqqJQWB7CpcMyzss89
+	 BRmpBJPoxP3vkin588vEjnk0llV9Wh4eUPPtYGO+P58FcDKhFPkfNzpGdzNW8SgikA
+	 COCEIWx5PK6a61NHvXoscNo1ALTQb/ARlSZmKSVM=
+X-QQ-mid: esmtpsz21t1794819476t3ef1bb7e
+X-QQ-Originating-IP: 12GrB/oDQs91PU3TksRCuKpU/lLXJOa7V+w289pH7NI=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 16 Nov 2026 16:57:54 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 8451285217138424674
+EX-QQ-RecipientCnt: 11
+From: raoxu <raoxu@uniontech.com>
+To: mchehab@kernel.org
+Cc: luiz.von.dentz@intel.com,
+	pengpeng@iscas.ac.cn,
+	hverkuil+cisco@kernel.org,
+	pmenzel@molgen.mpg.de,
+	brgl@kernel.org,
+	lgs201920130244@gmail.com,
+	raoxu@uniontech.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] iio: imu: st_lsm6dsx: fall back to 25 us/tick without a
- trim
-Message-ID: <avrFD8e4UlKOB4NB@lore-desk>
-References: <20261116-st-lsm6dsx-ts-fallback-v1-1-8ace30afbfb5@advisoft.co.nz>
+Subject: [PATCH] media: usbtv: Return zero on successful control transfers
+Date: Mon, 16 Nov 2026 16:57:52 +0800
+Message-ID: <4A73B66B67CF6E2E+20261116085752.2108903-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,102 +75,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="q4mxlm3H+1foX6aA"
-Content-Disposition: inline
-In-Reply-To: <20261116-st-lsm6dsx-ts-fallback-v1-1-8ace30afbfb5@advisoft.co.nz>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: Nr5N425iK0yrHVWnJdGlE+UDSFxClMUk4UF/yL1YTmOxt7NN8984qY0k
+	7v+pFm1qz87Olr6EQPvZI6tWvOrFMc0NYy2C0H10V5RbO8TVtSMvPCLxyP2zPZdnEMmOhDv
+	zI3xAtJdu4JRKV0bvXYuj9bCZXNuGmhYg6Z8ioUILMsFUIGLLqsnhSOy/reeQ09l00UQLTe
+	VaRhR7bHWdGpLZtGKsQzDXEOXu32SHOLEmN4jeQ4s53LUi23ut9HMDOo2S5g1kB0r93WmgB
+	3POKfnPPaFiZrREYKUNzZz1Ie+h//3vsADjM/ir+CYYY+S+nNTcaDbIVqr8AdmxGxRsQR74
+	eW3cro2jk0Iunxc1+yKX44f1ZkhL3GlPE8r8BWle81mAhadoSgPQK2P58369HHYaUbjvuVZ
+	lQp0pdD2yR/sTeg1vSkdjFMXElyzbEvRTCy+hpzvCIYDADMjRHsFMJJkLcpd6nwBtLXNbMD
+	nN3j7UNPkc6gSeY1TaRKjyVMj8wHgBU8McnJgcVnTHS1f2WV7VtjZgC2qNsQwNwGLr/3esz
+	+B/+IgMNC7peqUxR6d0fupI6JYd2O5hNRxJDAA4loOcygvCIuAHap5tQt71Qsp4l6Cxu37e
+	dYCsxTnJhVrBjTt3hOAXXEqUUW4ozPVmU/wTP8ImQH2vPAOKDN8aQ3UgtBbWrgMuDHFL+ND
+	MNLNvXUr7lM/OfDXLuEYk0gJ7ZwWe/RXG5erVlmyMwsL914CALbZhluu2nmgr04Z4mR8m5Y
+	gcKyku706+y0kveewgDMKTHV122ybrEds0XvK0QSBShAv+VwqZpKnn+gsWxim8unfFjIWkg
+	KTxHC3cB7qb/MskBom0ZVEsBICJ2Wqr5TbQBG7EjcZpDJkt/qEf/f2VWv7DNE8xZE2bpbpc
+	8qulb2Yz3U3EItSxczDlpyHYtU9cC3YKOI3x1bTxNpl9zaPpfoEDgq7tOVtk3kJb+edDkkz
+	yVMAJHDOCR/X2QYzVWskpW1AUS7PJH0Z3vxy2DG32IQ4dpbGbxFKl1WgFIl4APRRezRrZa/
+	zp4o8wuMEUgRezprb/XBL8Nxe9oaKVCuwJzWg52Mob8doLuCav
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
---q4mxlm3H+1foX6aA
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+From: Xu Rao <raoxu@uniontech.com>
 
-On Nov 16, Phil Williams via B4 Relay wrote:
-> From: Phil Williams <phil.williams@advisoft.co.nz>
->=20
-> Commit 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp
-> calculation") takes the FIFO timestamp scale from ts_sensitivity.
-> That field is only filled in for parts that have freq_fine. The
-> untagged-FIFO parts are left at zero:
->=20
->   LSM6DS3
->   LSM6DS3H
->   LSM6DSL, LSM6DSM, ISM330DLC and LSM6DS3TR-C
->=20
-> st_lsm6dsx_read_fifo() multiplies the raw counter by hw->ts_gain, so
-> every sample is published with the timestamp taken when the buffer
-> was enabled. The accelerometer and gyroscope values still update.
-> Userspace that integrates attitude from the timestamp delta treats a
-> stuck timestamp as dt =3D 0.
->=20
-> These parts have no freq_fine register, so there is no trim to apply.
-> Use the previous fixed scale of 25000 ns/tick when ts_sensitivity is
-> unset. Entries that already set it are left alone.
->=20
-> Fixes: 8abbf45fcda0 ("iio: st_lsm6dsx: Fixed calibrated timestamp calcula=
-tion")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Jonathan Cameron <jic23@kernel.org>
-> Signed-off-by: Phil Williams <phil.williams@advisoft.co.nz>
-> ---
-> Resending inline. The first copy went out as an attachment.
-> No code changes.
-> ---
->  drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c b/drivers/iio/i=
-mu/st_lsm6dsx/st_lsm6dsx_core.c
-> index 823f8ac66..98db90a30 100644
-> --- a/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-> +++ b/drivers/iio/imu/st_lsm6dsx/st_lsm6dsx_core.c
-> @@ -2525,8 +2525,14 @@ static int st_lsm6dsx_init_hw_timer(struct st_lsm6=
-dsx_hw *hw)
->  			return err;
->  	}
-> =20
-> -	/* calibrate timestamp sensitivity */
-> +	/*
-> +	 * Parts with no freq_fine register have no trim and leave
-> +	 * ts_sensitivity unset. Those parts used a fixed 25 us/tick.
-> +	 * A zero gain publishes every FIFO sample with one timestamp.
-> +	 */
->  	hw->ts_gain =3D ts_settings->ts_sensitivity;
-> +	if (!hw->ts_gain)
-> +		hw->ts_gain =3D 25000;
+usbtv_s_ctrl() returns the byte count from usb_control_msg() after a
+successful control write. The supported controls transfer two or three
+bytes, so the callback returns a positive value instead of the zero
+expected by the V4L2 control core.
 
-I guess the patch is fine but it seems a bit weird to set .ts_sensitivity to
-25000 for ST_LSM6DSR_* family in st_lsm6dsx_sensor_settings array and keep =
-this
-chek here. Is it better to just add the missing info in
-st_lsm6dsx_sensor_settings? (I do not have a strong opinion about it).
+As a result, try_or_set_cluster() exits without committing the new
+control value to its cached current value. VIDIOC_S_CTRL can therefore
+program the hardware while a subsequent VIDIOC_G_CTRL still reports
+the previous value.
 
-Regards,
-Lorenzo
+The positive return also causes v4l2_ctrl_handler_setup() to stop
+after the first control, leaving the remaining controls unapplied
+when video capture starts.
 
->  	if (ts_settings->freq_fine) {
->  		err =3D regmap_read(hw->regmap, ts_settings->freq_fine, &val);
->  		if (err < 0)
->=20
-> ---
-> base-commit: fa2933aac170dd19c6a7f0d7b81a8f537e40915c
-> change-id: 20261116-st-lsm6dsx-ts-fallback-cd21f1d1e30e
->=20
-> Best regards,
-> -- =20
-> Phil Williams <phil.williams@advisoft.co.nz>
->=20
->=20
+The regression was introduced by commit 62de7d99dcfe ("[media] usbtv:
+don't do DMA on stack"), which moved the USB transfer buffer from the
+stack to dynamically allocated memory but inadvertently changed the
+success return from zero to the transferred byte count.
 
---q4mxlm3H+1foX6aA
-Content-Type: application/pgp-signature; name=signature.asc
+Reproduced against the running V4L2 control framework using temporary
+video nodes with copies of the usbtv control callback and simulated
+successful USB transfers. The results were:
 
------BEGIN PGP SIGNATURE-----
+  brightness (448 -> 449):
+    original: S_CTRL returned 3, G_CTRL returned 448
+    fixed:    S_CTRL returned 0, G_CTRL returned 449
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCavrFDwAKCRA6cBh0uS2t
-rI/sAQCiCsNX173ffA9ITmOLAEYruHgF5MDT7ls3JNqzH5PuyAEA1eASHMyl7Ic0
-IVauaQku25XmnOGI5KyZdSXYeHjNUAM=
-=d7zS
------END PGP SIGNATURE-----
+  saturation (512 -> 513):
+    original: S_CTRL returned 2, G_CTRL returned 512
+    fixed:    S_CTRL returned 0, G_CTRL returned 513
 
---q4mxlm3H+1foX6aA--
+  v4l2_ctrl_handler_setup():
+    original: 1 of 5 control callbacks executed
+    fixed:    all 5 control callbacks executed
+
+Simulated -EPIPE and -ETIMEDOUT errors continued to propagate without
+updating the cached values. The test exercised the real V4L2 control
+framework, but USB transfers were simulated; no physical USBTV007
+device was available.
+
+Return zero for nonnegative USB transfer results while preserving
+negative errors and the existing buffer cleanup.
+
+Fixes: 62de7d99dcfe ("[media] usbtv: don't do DMA on stack")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ drivers/media/usb/usbtv/usbtv-video.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/usbtv/usbtv-video.c b/drivers/media/usb/usbtv/usbtv-video.c
+index 2a91af8d1e30..92c745d61367 100644
+--- a/drivers/media/usb/usbtv/usbtv-video.c
++++ b/drivers/media/usb/usbtv/usbtv-video.c
+@@ -865,7 +865,7 @@ static int usbtv_s_ctrl(struct v4l2_ctrl *ctrl)
+ 		dev_warn(usbtv->dev, "Failed to submit a control request.\n");
+ 
+ 	kfree(data);
+-	return ret;
++	return ret < 0 ? ret : 0;
+ }
+ 
+ static const struct v4l2_ctrl_ops usbtv_ctrl_ops = {
+-- 
+2.50.1
+
