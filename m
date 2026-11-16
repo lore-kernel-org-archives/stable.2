@@ -1,54 +1,117 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794826747;
-	b=15d5NbXct0GXd9X5QOja/lRxV5m+4HIBkcd1yx+geQWCTW+y3gO+GPG2DRFy8d5LdXmv
-	 vJF+pBYDu3334QIEgsWe/GX8Oiib+DaMqb3GDGBCe9kWouUewFz77oI3+3ztAME6yOtcq
-	 8q5NKHFlNAFTh5/x9tU39WjwYSiFXPoRObKASf2MY5vJ8X7tmPaAjLoXl2dBzDhMi6mpH
-	 U0yb/ss+FESSxCVOqZ2r/oXyW4FwUGnKpwEJdnUif9tTyYisAwVZaEzJOuL0ssXsBoQDk
-	 iGkL0Mi3X0G+c8XIuflsCF/fEc57cp3MqpAaMFffL3iD+OEiAYxBJf+HIVABsWpEaRw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794826747;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=H0/JMO0MVBV4Zw97lRkerZQkk83rH+m9BE4n2iCqH98=;
-	b=ZGZJ6ISMKRK8aNiksr1ZALXpy9JPqfePKHD2St6RyvTyFaNGCTeqMd4a4XQaMjbMD5Q8
-	 ndnumBKNyqdEYEZYX58RNlJhcnrT+F/KNyX+WSb+eEZ3dCVmrJwz4UWq4+/hySITDXQSL
-	 NIAo81QlPqa/E9tI7FjMjM/tmzh8aE3gfRqm+2v6Rh+ORaJufKSEyK6NzlbGV2BmP9pNT
-	 OxGR5YHYQYJe9fAxzNDYnPofs13677ks9eiWb5zE4Mt2DalJ+dEl6sBIulGvTsjR4cV+t
-	 ElCC9yrAUt+rpbZgvpgnWtAwzePdhx/1UN0lQIjG3mX8xUjtcQbfAKFoNI3j9pHVmog==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=gmYoRoB6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794826774;
+	b=3xDuY87Wzpw4TnvgFCtipQ3rxfOKLAx4hI2IFf8eCQ92rDFq50mCMEnzli8i6nK1Vs0Q
+	 mdT3hbDsmiZUzXS9C4GC76FaC5/n1cq7jBAC3s6rT/msc0H7z+gYHbX6TUqBLj//tYp1m
+	 NlD80B3+DI/SwBl62KlHc+/iTAahnQEdYWzCaGoBP653V+TBr1/eW+PT5o75qA08E5YGU
+	 HT3Qrv3cBNR28hYeazyXXzt2F4s65mMwdMg+bQg+4y+EDHqw4G5Sv1/A9hLCMTwiiLq3k
+	 PBXIWnBCTUMYdqJ86eP3b3JCfJyfGrXFUlBBTsopXYyVJP6Zpes70IWxB+yXrQqiQrA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794826774;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
+	 Message-ID:MIME-Version:Content-Type;
+	bh=mJaN0b3PvIpi2y0OVrA15M2BP9AXuuHR0w2trP7Mx30=;
+	b=qs3eSKyTZ6Ph+Qtsxs+lljMLPKvh6QbvVyFeRl7xnZNMFdj45BgHhgIYMH5vR4QP+hZD
+	 oo9eKmsda+PQQPIOnE7ar4m4QmqaENi9vM1ZKCnR1X0/BpvOKDD3IomQiqvWXg7DfdX6I
+	 sOThN00vh3/LBbqIkRFa4k6+5efRA8WqB9aYos+9iAC3w7m8j5YvsB4pNDQndgJ2egqZj
+	 e8V/+QXeLhZXTZt0VP0+I2IhSctnFNVYPZnWv+ddmXXbfi0DF5TIEyxaDKoOmMkn/ll+h
+	 /WDsp6xoOVIpJSIbSlmusOQCScH0T9ZGwm0HQgmrBrCXKOdJuWVsspEvrnfhCzWzOIQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YAGjUNnc;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dE9pU4lL;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586C9606A32F;
-	Mon, 16 Nov 2026 10:59:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 586C9606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90999606A32A
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:59:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90999606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=gmYoRoB6
-ARC-Seal: i=1; a=rsa-sha256; t=1794826723; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=U4di7FQLEGmh5daOcGk2o50RD1RZRFsdi9aQoA8ojjLbUX96S1kCd8uSWRqLueoimcp4P7JKDZYVX4oKgLEV/m4NJbcoxgPMOKNuFlJdap9YOtxhQI4CpqdulRa2+6yLW9XDDT6LA+V6n7yB6rZxRtrtm9AlpPztUPNZH/iOX2c=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794826723; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=H0/JMO0MVBV4Zw97lRkerZQkk83rH+m9BE4n2iCqH98=; 
-	b=NuORiU6iqRD+GYvbIZWS+GNV1E4TWx6iJwKNY9M37u/rLqNJNTyA0VjewG1qB1/Gg/wFrFqqTSUmOaDbwwBbfV+mHYJidjO1EadWsEmQwdNTuDk45z+w2eGVjdN6DYoifgNy2dlMbvUgXMPgFqM40ZQzrNmq8smMAyZuzac7doc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=gmYoRoB6F3PFZlpxFpHCOUFln6iGvF6CHYby8KvdogacxOk8YQW6aSHLgXr+P81MaTOah0JATWnZ+Tg1EMxoCPxQvonaD+Yyw0ZIpd0HqgXJNog5BEgjmh+aQAlpEQfkOMxAv4PNaPh4MfO/VvB6d5XZjrJgYDrFKtNArTSeU+g=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=H0/JMO0MVBV4Zw97lRkerZQkk83rH+m9BE4n2iCqH98=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794826721300634.623479738804;
-	Mon, 16 Nov 2026 02:58:41 -0800 (PST)
-Message-ID: <df61d7d2-7ad8-4b68-b3a0-7a03513ab5b7@collabora.com>
-Date: Mon, 16 Nov 2026 11:58:35 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YAGjUNnc;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=dE9pU4lL
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794826772;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mJaN0b3PvIpi2y0OVrA15M2BP9AXuuHR0w2trP7Mx30=;
+	b=YAGjUNncY3EDisBpWlxLEQsHYg3T7VMwzQpVc4S4grk78OS9qLzyt0GsAzCdRkuJqyuMuI
+	1I1FgizGndwYUuWbTMS0N1CaWlkwO5zpS4zXhvEburi5P/wNBHWLcNXi7rYwlU7/VHZ+nh
+	YMBPqePg2bWB/sVd42/pAgRkq5ROrhA=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-269-M0uODmmQNP6zWFtvNa154w-1; Mon, 16 Nov 2026 05:59:31 -0500
+X-MC-Unique: M0uODmmQNP6zWFtvNa154w-1
+X-Mimecast-MFC-AGG-ID: M0uODmmQNP6zWFtvNa154w_1794826770
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-4923b9fdd43so2367897f8f.3
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 02:59:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794826770; x=1795431570; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mJaN0b3PvIpi2y0OVrA15M2BP9AXuuHR0w2trP7Mx30=;
+        b=dE9pU4lLn+uj6JDxjwu2uledLA1yRp98d8PVwi78uar4h0XfPCiW2fPnvVjvIHEu5o
+         OBGF/awNMYRBwv9S5FywKBG0xzkQmb5vDmMU8uV2z/c0LflBpQsIyhBz4X9eJCm7R2tO
+         765xVe2Vc2TyZXfFqf6jYaCUUj4XIyTDqTVTcpU1CL0Qjrfq/Zi6csQmA0WfqIygIQmu
+         LNew0tgk0rKAGRuZ/jt8iHGdOugmCzuVxLsbptgJyzi3ECPudXnItUib/A4B9/JltMCm
+         Gn38qa0L9b9SdJOBfJDtBHNE9s6Af5vmM14WxBxb1rDCo8Sa8mH/VjRRRDjfjRbonOEh
+         Hgxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794826770; x=1795431570;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mJaN0b3PvIpi2y0OVrA15M2BP9AXuuHR0w2trP7Mx30=;
+        b=zIunlgjvD7+sdVfZ25diiwcmPyVxIugT5yYRyfWWiS7VO3gESzJ+LcTvlE6/tjdT5E
+         z9Gr5PKTC9MhLwY5spuqS5bBtf8zNAlCliTw1Ru2oKM4ZE1itInuZfhRi2QqQ492dL9B
+         CqnrnUx9NYgcfU1C1n5+tvA0qn2qZd1bvCoP0J+r3QBoEldwc3jEtqxmsGEVmVxpkeWd
+         Bp05IA1LMQ7gOm4I9HfmTcfKC9bznuTutHQOFa0fYOHq5AIdH8nGRHzu0FeB8BebPFtl
+         cM6oAkoPPkwDiRW5cUb/l6c9RsFY9BRY/7xfLbg9n6I9EYaoWiRnrqdolm9mmdE76c2E
+         kUDA==
+X-Forwarded-Encrypted: i=1; AL+hErFeub8x2cDG6cl/gxgOyBIlnMBG9g97/cZOrt2YahLvAGd5veHWva/XbTeX4CvYlsrC24+2pFA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6ut6LzjrzWp3eJUhcYnUNWrtQPh9Hd/1FB1SOHzSwVWvBiEIH
+	Rp5mfn2tHIZTgWcfXt9Lr7M096YMkaug/46LJGH57L2e6k8HhdD1ug5AbmdmUju85qAocGWiyAi
+	jV76hBje3rvqR3TnHfs8eCMXGrQsEGLGkvCGhrdeftkZyyg4buV7npbsXXg==
+X-Gm-Gg: AZFdTZdb8mjtP2O05yeOdvSrd8odGSRKUqJu8JZ5Wm8tMWgqRtGkJGYMzcS2eRqLYnS
+	xpmJF4SeThyQceFGSW90tCvInA/m5NzSTB7As1flcQZnL5vLCMd7oLjN5DL9RD4rcfDuz+Za1xW
+	AXxzBJyxjyYtY6giuKslufr4Vc/abWguRH1etmCEVz1RPdqMr6NOV9kegKExIto3YXIVxNVsbGy
+	hgzZ4hILSN3lAA+NgnNTpsmbRNv/XlNHMRWZ6IMy09JFoYFruXKIy+Vyc8h3r6ZS5lLGNgDnxlm
+	/1fTWh0ARvWXG4SM/yQhG4/84LOzAWES1L2BxQTEbzvpo9zxdIj+bHZyMwSVQCmgKSMelE65QT3
+	mSpi2gyn/tKu1squYU8Ak5ASH8+brP93Q0g1DrFHekZyFRpeqUxTmSZ4DsU0YQ5GMo55kmb75oi
+	INuBcNu3r1pkLBaGdM0MNkLvXz+gUk2EEk6H6fbqc=
+X-Received: by 2002:a05:6000:1614:b0:48e:7b12:aca5 with SMTP id ffacd0b85a97d-49c72e85eadmr15496739f8f.46.1794826769930;
+        Mon, 16 Nov 2026 02:59:29 -0800 (PST)
+X-Received: by 2002:a05:6000:1614:b0:48e:7b12:aca5 with SMTP id ffacd0b85a97d-49c72e85eadmr15496699f8f.46.1794826769302;
+        Mon, 16 Nov 2026 02:59:29 -0800 (PST)
+Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c6020bb0fsm20381961f8f.34.2026.11.16.02.59.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 02:59:28 -0800 (PST)
+From: Javier Martinez Canillas <javierm@redhat.com>
+To: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>, Ard
+ Biesheuvel <ardb@kernel.org>, Ilias Apalodimas
+ <ilias.apalodimas@linaro.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Borislav Petkov <bp@suse.de>, Simona Vetter <simona.vetter@ffwll.ch>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, Han Gao
+ <rabenda.cn@gmail.com>, stable@vger.kernel.org, Han Gao
+ <gaohan@iscas.ac.cn>
+Subject: Re: [PATCH] firmware/sysfb: Avoid simple-framebuffer behind DT PCI
+ host bridges
+In-Reply-To: <20261107-sysfb-dt-pci-efifb-v1-1-86d6c598671a@iscas.ac.cn>
+References: <20261107-sysfb-dt-pci-efifb-v1-1-86d6c598671a@iscas.ac.cn>
+Date: Mon, 16 Nov 2026 11:59:27 +0100
+Message-ID: <xlv1fqx1rqi8.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,108 +121,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] media: rockchip: rkcif: Don't reset the hardware
- in runtime suspend
-To: Mehdi Djait <mehdi.djait@linux.intel.com>
-Cc: linux-media@vger.kernel.org, paul.elder@ideasonboard.com,
- daniel@makrotopia.org, linux-rockchip@lists.infradead.org,
- stable@vger.kernel.org
-References: <20261112183208.2688580-1-mehdi.djait@linux.intel.com>
- <20261112183208.2688580-2-mehdi.djait@linux.intel.com>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20261112183208.2688580-2-mehdi.djait@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+Content-Type: text/plain
 
-Hi Mehdi,
+Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org> writes:
 
-On 11/12/26 19:32, Mehdi Djait wrote:
-> The reset in the runtime suspend also resets the VICAP IOMMU.
-> 
-> When the IOMMU driver accesses the IOMMU registers inside the delay window
-> between the assert and deassert, e.g. in rk_iommu_zap_lines() to shootdown
-> IOTLB entries, the system hangs.
-> 
-> Drop the reset and the now unused reset control.
+Hello Han Gao,
 
-I agree that the current situation is nothing more than a crude hack
-that happened to work in most cases. But I doubt simply removing the
-reset is the correct solution. Recently, I saw some downstream patch
-that makes the reset a shared one, which seems like the right thing to
-do here. What would you think about that?
+> From: Han Gao <gaohan@iscas.ac.cn>
+>
+> With SYSFB_SIMPLEFB, sysfb registers a simple-framebuffer device that
+> claims the framebuffer memory when it is added. On DT systems, the PCI
+> host bridge may probe later and then fails to claim its memory window.
+> On QEMU RISC-V virt with EDK2, a bochs-display and pci-host-generic
+> built as a module:
+>
+>   [    0.703813] pci-host-generic 30000000.pci: resource collision: [mem 0x40000000-0x7fffffff] conflicts with BOOTFB [mem 0x40000000-0x403e7fff]
+>
+> In that case, register an efi-framebuffer device instead. It claims no
+> memory before it probes, and commit 64c8a0cd0a53 ("efi/arm: Defer probe
+> of PCIe backed efifb on DT systems") makes it wait for the host bridge.
+>
 
-Best regards,
-Michael
+I think this is a workaround and it just works because sysfb does not add
+a resource (using the platform_device_add_resources() helper) when adding
+the platform data for the device.
 
-> 
-> Fixes: f53fb31a3889 ("media: rockchip: add driver for the rockchip camera interface")
+> Tested on a HiFive Unmatched with EDK2 and a PCIe graphics card, and on
+> QEMU.
+>
+> Fixes: 8633ef82f101 ("drivers/firmware: consolidate EFI framebuffer setup for all arches")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 > ---
->  .../media/platform/rockchip/rkcif/rkcif-common.h  |  1 -
->  drivers/media/platform/rockchip/rkcif/rkcif-dev.c | 15 ---------------
->  2 files changed, 16 deletions(-)
-> 
-> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-common.h b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-> index 4d9211ba9bda..38208e8b7b2d 100644
-> --- a/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-> @@ -237,7 +237,6 @@ struct rkcif_device {
->  	struct clk_bulk_data clks[RKCIF_CLK_MAX];
->  	unsigned int clks_num;
->  	struct regmap *grf;
-> -	struct reset_control *reset;
->  	void __iomem *base_addr;
+> In QEMU, efifb takes over with SYSFB_SIMPLEFB and efidrm without it.
+> With pci-host-generic built in, simpledrm is still used.
+> ---
+>  drivers/firmware/efi/sysfb_efi.c | 16 ++++++++++++++++
+>  drivers/firmware/sysfb.c         |  8 +++++++-
+>  include/linux/sysfb.h            |  6 ++++++
+>  3 files changed, 29 insertions(+), 1 deletion(-)
+>
+> diff --git a/drivers/firmware/efi/sysfb_efi.c b/drivers/firmware/efi/sysfb_efi.c
+> index 2338de73c62c..5c2cb87178ff 100644
+> --- a/drivers/firmware/efi/sysfb_efi.c
+> +++ b/drivers/firmware/efi/sysfb_efi.c
+> @@ -421,6 +421,22 @@ __init void sysfb_apply_efi_quirks(struct screen_info *si)
+>  		dmi_check_system(efifb_dmi_swap_width_height);
+>  }
 >  
->  	struct rkcif_interface interfaces[RKCIF_IF_MAX];
-> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-> index be3a174b9aab..dceabee2ecd6 100644
-> --- a/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-dev.c
-> @@ -10,7 +10,6 @@
->   */
->  
->  #include <linux/clk.h>
-> -#include <linux/delay.h>
->  #include <linux/interrupt.h>
->  #include <linux/mfd/syscon.h>
->  #include <linux/module.h>
-> @@ -18,7 +17,6 @@
->  #include <linux/of_graph.h>
->  #include <linux/of_platform.h>
->  #include <linux/pm_runtime.h>
-> -#include <linux/reset.h>
->  
->  #include <media/v4l2-fwnode.h>
->  #include <media/v4l2-mc.h>
-> @@ -201,10 +199,6 @@ static int rkcif_probe(struct platform_device *pdev)
->  	if (ret)
->  		return dev_err_probe(dev, ret, "failed to get clocks\n");
->  
-> -	rkcif->reset = devm_reset_control_array_get_exclusive(dev);
-> -	if (IS_ERR(rkcif->reset))
-> -		return PTR_ERR(rkcif->reset);
-> -
->  	rkcif->grf = syscon_regmap_lookup_by_phandle(dev->of_node,
->  						     "rockchip,grf");
->  	if (IS_ERR(rkcif->grf))
-> @@ -273,15 +267,6 @@ static int rkcif_runtime_suspend(struct device *dev)
->  {
->  	struct rkcif_device *rkcif = dev_get_drvdata(dev);
->  
-> -	/*
-> -	 * Reset CIF (CRU, DMA, FIFOs) to allow a clean resume.
-> -	 * Since this resets the IOMMU too, we cannot issue this reset when
-> -	 * resuming.
-> -	 */
-> -	reset_control_assert(rkcif->reset);
-> -	udelay(5);
-> -	reset_control_deassert(rkcif->reset);
-> -
->  	clk_bulk_disable_unprepare(rkcif->clks_num, rkcif->clks);
->  
->  	return 0;
+> +/* Returns true if the EFI framebuffer is in a DT PCI host bridge window */
+> +__init bool sysfb_efifb_behind_dt_pci(const struct screen_info *si)
+> +{
+> +	struct device_node *np;
+> +
+> +	if (si->orig_video_isVGA != VIDEO_TYPE_EFI || !IS_ENABLED(CONFIG_PCI))
+> +		return false;
+> +
+> +	np = find_pci_overlap_node();
+> +	if (!np)
+> +		return false;
+> +
+> +	of_node_put(np);
+> +	return true;
+> +}
+> +
+
+I don't think this that much. I feel that is adding DT + PCI logic that is
+platform specific. Instead, maybe what can be done instead is make the sysfb 
+logic consistent between "efi-framebuffer" and "simple-framebuffer" platform
+data setup.
+
+That is, not add a IORESOURCE_MEM to prevent platform_device_add() to add it
+to the global memory resource list. Instead, the framebuffer address + size
+could be passed to the simpledrm driver through the simplefb_platform_data.
+
+The simpledrm driver then could claim the memory at probe time, which is what
+efidrm does as well.
+
+-- 
+Best regards,
+
+Javier Martinez Canillas
+Core Platforms
+Red Hat
 
