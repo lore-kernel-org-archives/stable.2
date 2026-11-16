@@ -1,60 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794787349;
-	b=tigxMslloiGjN4dFSt90iTe8+YilpICDwnNnGVHg+BacvwMcqUBVDs+doBd/H6DMMPMM
-	 8moEHt+OswWBW6vcmQ4FDv/m0e6v3R32x7ehImb72l1iK9TJb4xtFAvNeQq3RQAVZNn/Q
-	 Vlp/UDX2KVAbUjtPrWL5C+TnPXjDVKJtGuYMarDb42p8JUJn713fH+X/DprS7svVvDSZx
-	 QMXdXHOnFhKPq3lK5yvSgNUKDZmOoBDkGIo0uq4+NN3VTt26DkvGQWdFMydnnLWA1oMM/
-	 u9MDq2XTZnuxQQ4o98pvAk8EjYxUXW4qsWgAC4iqMxaePsAM2/iL2xlEqz7ySqABlCA==
+	t=1794787543;
+	b=bxwl6psRAm5Oi4fWETGgzioHCmLxA+hz1R8wen3A6MWukkkUwXEnogvl7+RLw7H9DBN5
+	 GsJNIJ/Wkzp8wsrgBimatHAINdxrUbDhxrV/gUubMPhFpoefb356tcZi1jdpjn7mfnkXs
+	 AQIMs7DX43eKr2NmGLwHEa+O8Z4rF74XqoBCAnZj7rais5bBSu6CU/ZevywCTgz60Mtut
+	 1dB/vcOnAJNSi/QddYsGOfVe5dJzTLsqTbmf4LbPoeBdGz8zHJURkJ6yltultfYPPhb2Y
+	 A3HsVaTd/NL01Qs0P8wDWsIzl9Tbn9X9mtSK92BTK0FZlblzn1jw4zELua7qtSzYZOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794787349;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=0LiZaiovIoEgc2+KzKF9v3Bvxk8MU684up3WOQq16sY=;
-	b=geuFcUB7VQmuN3aBvSFS9sP5pTZOGRJ3GCX3pyqDSHQwPasETDJ534hgq9fZR5tQQW+E
-	 Bmk6NOYLueKiBq1RtQA7iwaHnmUqK+SaskLINxtzQ6R/9Q8q5G8243gpRqHfIhpzoklF4
-	 AsoSIya/rOudjGWkdlimhJO5Rk8utPkNFzINVIGF3yDnxNsMAzGlk6GcMJor57b63JQ7h
-	 pV4AitCHhy4f/pGNhebMvqK1VmklEkgS54Nvc2g2zuOsndKGfDNvjTMZs4nzgKHYinkkX
-	 WFCftugNK/EEVL/mUC/FJZ+vuNnFmniNfId90SDKIOjhmW9Vnagj4nVrxOQzDh+7OPg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794787543;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=mu33zRxTLj/T8n79JxXB0QUEhj/+4hEOSMdZCp71jRQ=;
+	b=UNOtd6cV3Gcb2Yqcwt+LZhxhfoVWj/KP2Rgs1AXj21ZwVNgRBEIobELsrNMiER0DTLT/
+	 OU0sRDRY3+DsR/L3O4wJxU+DpQ3O3CEDQZDSNGdceBsdNFfLBLtLj34YyHaJ0xrS2kWhN
+	 pWVSVPQ3AL32BpElVEVzrAMw/4JpH3TxZ4I7zsEA5dB8i6U0c5p463hN1kk92NHdXo/i1
+	 m9czlRAeJ83j7dUFx2K3aVRLtO/gP5UqIgWxdVsf9ZfX86dOLIbV5gPtOzcpTr76DNGMI
+	 G1DcRhJ99DQehi44QNkPqZiqYK6gxtB3CXMHYcodLPhvoaftBIyFPW0hN5KB1j4L82A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irUiT623;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z3yZ+C3Q;
+	arc=none smtp.remote-ip=209.85.215.180
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B7A1606A31F;
-	Mon, 16 Nov 2026 00:02:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36CD606A323
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 00:05:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B36CD606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=irUiT623
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517CE1F000C4;
-	Mon, 16 Nov 2026 00:02:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794787349;
-	bh=0LiZaiovIoEgc2+KzKF9v3Bvxk8MU684up3WOQq16sY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=irUiT623aRt32I4fhbQ5pqZjzskjxyj/oIiFf4X64UuBPVJnLFBEooSWi5qHOsejM
-	 0ZKXg1cLffpgEOkAWwjPWjzFyO9HkVK00eyymwk4FiQppgTiRCW1Yb0I520qBx0fcQ
-	 dYbAULLLkF2hV9Kr6IrqpHlQzn1SdqQU1TMcl8Bjwl8HdgtmIj9tdziztL9dEZEr3F
-	 DbfY1UjHUUzrqbwrvvzTg1ycDJbeDl909lCiOPYliWDTmAzUdh5RrEz5jwFQ13PZy4
-	 fpmxYxK0Z7vMoJlMLLeU6T3veq+IMlUytVbdariGyV9z52/5Ex5fUUNqasVzGRR88G
-	 p1Yhk/viXd7kg==
-Subject: Re: [PATCH net v4 1/2] tls: restrict device-down TX fallback to
- hardware TX sockets
-From: netdev-bot+sashiko@kernel.org
-To: rjethwani@purestorage.com
-Cc: netdev@vger.kernel.org, stable@vger.kernel.org, john.fastabend@gmail.com,
- kuba@kernel.org, sd@queasysnail.net, davem@davemloft.net, edumazet@kernel.org,
- pabeni@redhat.com, horms@kernel.org, tariqt@nvidia.com,
- alice.kernel@fastmail.im, linux-kernel@vger.kernel.org
-Date: Mon, 16 Nov 2026 00:02:27 +0000
-Message-ID: <179478734781.3136.1664474557678569331@kernel.org>
-In-Reply-To: <20261111232930.2532497-1-rjethwani@purestorage.com>
-References: <20261111232930.2532497-1-rjethwani@purestorage.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z3yZ+C3Q
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cd6acc50b8dso1279906a12.3
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 16:05:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794787542; x=1795392342; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mu33zRxTLj/T8n79JxXB0QUEhj/+4hEOSMdZCp71jRQ=;
+        b=Z3yZ+C3Qk3CDPvXN1vKdfJ8BvM371EFzMjM80P1CxjYY1iRxmdMBSe6JGD5Ab8CAIQ
+         ePvcKCO8Y8lM9S82GZqQNEHE+L84vMZmnHaRixdWUO185ZxDIUlOyZL2EeAA5pVlpXHA
+         flaYQw/yjSLTj5w7XEnkFh30j4zBNhx7FtONBAFXbYrEv5HW0tlqqprGST8OaDN1Hxbh
+         HI6PpBf12ovSbET6hFNTFbXxwjFZBpp3kfQ3M0xXkgzdBBD/mZ/VWNyiQw3KkbFF8x36
+         ugx/7XK2k47KC08hdGSqbMYM3mthr7sCT214Qs5xhf1Q0sSH0NT4EyvYGR8e+ISzNWEo
+         vXEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794787542; x=1795392342;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mu33zRxTLj/T8n79JxXB0QUEhj/+4hEOSMdZCp71jRQ=;
+        b=t1FCM+J6otwo4m6vMjjdYNcgecj/62hCF4RTaSGj094MGz0PmBiJSVuXJZrq8onuo5
+         c1SBg2GP4ldiluW42faMjbozC7Z9S6uZNmMpz7PnzFMr3il5sPpqPBhKF9bQdqCTTzwV
+         kughtfLZyOinGuEfNcZYF6m/OzIK1e5F9qbOTLQvTIX0nnYzkMw9K1VBtBYjjihyjwq9
+         VQVPGDTfRh72HdqG6nNoSW+J1vhAs7CjBDlU6wOPXaVyvYq/IzhMJAs476U2IwiBZqXy
+         tf/eB9PDZRezlk3gshWU0bdCHVJwfllm1IgIke3moiDdhiSnxJdPEyIEk7l2mCJ4Lcwe
+         aF4Q==
+X-Forwarded-Encrypted: i=1; AL+hErFj7OTVdYhJXSbbVb8nKtqSeUnOFKN+oVMz4zTywbuSPkeMv1gszTAyv6lVL6NFyTlzTHIc5y4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/P4LF20asHpDtmon6RoRZ0sG4/ysVG3Fu/sivuCI1ba8QHWRc3
+	01Fp7ll70TCmp7LooOdaQWnDbJecx8oDeYkKt0dEBup+u6PG/p7/w0TlPhF5bw==
+X-Gm-Gg: AYBFou2JfPaMPAN7w7ZCj/qeV50kdoHQen4V+4X7m8evoGjTbMBt8cuqKOFqPK5Sm5O
+	ujJmlotpoOkX1t5bu7gHzzrIswTiq+ZZ+K6qEtK349wjcvbQkGgZ9y/CvuiAGx09yoKM8DfH9YY
+	qo1YwJ4Mkl4Zav6Y9FxZM80tZP3pAQm/MrgYLylHNVCRmGE7pB3IE1qDS33jftUHE8ftd3WzD8Z
+	96fP4f1CjG5BAgkZoBMw4eH5cgkCS2foY9fZPABg/GH02WULgsmdg2jMKHT8Y/sYj3BvbKWW+8r
+	aFkexUSn4+9Ku4/jV6zSRhpg31ZHUbEjPu6g4A1VRqD5MsOVBJMkCiVO76zkf5xlzYQ/PlwomPi
+	9Ltwwn5cCBpY71hQcq0VRWoLxEk+YE8qNCjDYxc/SRl7lePlfgtEnlHgM4SCBDyCIt0zhNqsSLD
+	zmya291o3tNc/y45kSU8tcSmQamHICeqaKIkLX7DIyZKG+KYTv8jiDEEQMWKqwFaSyaV2FZeLGC
+	Pk8FY8EbATAjGmy88qPtqtH2fyk8n8Y9snYtMiMTWN0YF/4BVaXjhjwZrwdSmRSP8+7XPHCDas1
+	D9rPz0oIu2OJBCI4QDKoTmPFdrKGA86EXFT+JVTFxDA+ZHzcXmUJoWIz8s1tuU1zTLBODtFuPzR
+	De9/CG4Nq2/gV0TRwEjmWLGAiVsIgrDtycjvJxmJHyZTdDr8=
+X-Received: by 2002:a17:90b:5585:b0:3a7:8350:3f7e with SMTP id 98e67ed59e1d1-3b1b0b88263mr8081903a91.44.1794787541921;
+        Sun, 15 Nov 2026 16:05:41 -0800 (PST)
+Received: from f2fs-test.c.googlers.com.com (193.67.125.34.bc.googleusercontent.com. [34.125.67.193])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197c6c9c5sm18881187a91.1.2026.11.15.16.05.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 16:05:40 -0800 (PST)
+From: Daeho Jeong <daeho43@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-f2fs-devel@lists.sourceforge.net,
+	kernel-team@android.com
+Cc: Daeho Jeong <daehojeong@google.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] f2fs: don't skip the inode update for a size grown within a block
+Date: Sun, 15 Nov 2026 16:05:34 -0800
+Message-ID: <20261116000534.2303800-1-daeho43@gmail.com>
+X-Mailer: git-send-email 2.56.0.611.g1030f0b940-goog
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,115 +97,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+From: Daeho Jeong <daehojeong@google.com>
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+f2fs_skip_inode_update() lets fsync() skip writing the inode when
+FI_AUTO_RECOVER is set and i_size is block aligned, relying on roll-forward
+recovery to recover i_size from the position of the fsynced data block.
+However, do_recover_data() extends i_size only by a block that starts at or
+beyond the recovered i_size, so it cannot recover a size that grew within
+the block holding the old size.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+For example, on a 4KB block filesystem:
 
-- [High] In tls_device_down() (net/tls/tls_device.c), this patch decides
-  whether to call tls_dev_del(TX) from the result of…
+  write(fd, buf, 14KB); fsync(fd);
+  write(fd, buf, 2KB);  fsync(fd);
+  <sudden power-off>
 
---
+  - the first fsync() writes the inode with i_size 14KB.
+  - the second write() makes i_size 16KB in the same block. If it is in
+    the same timestamp tick as the first one, the timestamps do not change
+    and the inode is still clean, so FI_AUTO_RECOVER is set.
+  - the block is already allocated, so the second fsync() updates it in
+    place and writes no node. f2fs_skip_inode_update() skips the inode as
+    well, since i_size is block aligned and equals last_disk_size.
+  - recovery finds i_size 14KB in the inode from the first fsync() and has
+    no block to extend it with, so the last 2KB is lost.
 
-tls: restrict device-down TX fallback to hardware TX sockets
+Repeating a 2KB append and fsync() up to 16KB and then shutting down the
+filesystem left 117 of 1200 files with 14KB on a 4KB page kernel, and none
+with this patch.
 
-This commit changes tls_device_down() so the TX validator is switched to
-the software fallback only for sockets that use hardware TX. The cmpxchg
-result now decides whether the driver TX state is deleted. RX driver
-state is tracked with TLS_RX_DEV_CLOSED, which is set at context
-creation and cleared after a successful RX tls_dev_add().
+Set FI_AUTO_RECOVER only if the old i_size is block aligned, and clear it
+otherwise, so that fsync() writes the inode for such a size change.
 
-> diff --git a/net/tls/tls_device.c b/net/tls/tls_device.c
-> index 4cdfbb57ecff0..a42cbc89db2bb 100644
-> --- a/net/tls/tls_device.c
-> +++ b/net/tls/tls_device.c
+Fixes: 3a3a5ead7b6d ("f2fs: do not recover i_size if it's valid")
+Cc: stable@vger.kernel.org
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+---
+ fs/f2fs/f2fs.h | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-[ ... ]
+diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
+index 50a5f845176d..b328e678d295 100644
+--- a/fs/f2fs/f2fs.h
++++ b/fs/f2fs/f2fs.h
+@@ -3676,8 +3676,9 @@ static inline void f2fs_i_size_write(struct inode *inode, loff_t i_size)
+ {
+ 	bool clean = !is_inode_flag_set(inode, FI_DIRTY_INODE);
+ 	bool recover = is_inode_flag_set(inode, FI_AUTO_RECOVER);
++	loff_t old_size = i_size_read(inode);
+ 
+-	if (i_size_read(inode) == i_size)
++	if (old_size == i_size)
+ 		return;
+ 
+ 	i_size_write(inode, i_size);
+@@ -3686,8 +3687,16 @@ static inline void f2fs_i_size_write(struct inode *inode, loff_t i_size)
+ 		return;
+ 
+ 	f2fs_mark_inode_dirty_sync(inode, true);
+-	if (clean || recover)
++
++	/*
++	 * Roll-forward recovery extends i_size only by a block that starts at
++	 * or beyond the recovered i_size, so it cannot recover a size that grew
++	 * within the block holding the old size.
++	 */
++	if ((clean || recover) && !(old_size & ~PAGE_MASK))
+ 		set_inode_flag(inode, FI_AUTO_RECOVER);
++	else
++		clear_inode_flag(inode, FI_AUTO_RECOVER);
+ }
+ 
+ static inline void f2fs_i_depth_write(struct inode *inode, unsigned int depth)
 
-> @@ -1350,10 +1350,14 @@ static int tls_device_down(struct net_device *netdev)
->  	spin_unlock_irqrestore(&tls_device_lock, flags);
->  
->  	list_for_each_entry_safe(ctx, tmp, &list, list)	{
-> +		bool tx_hw;
-> +
->  		/* Stop offloaded TX and switch to the fallback.
->  		 * tls_is_skb_tx_device_offloaded will return false.
->  		 */
-> -		WRITE_ONCE(ctx->sk->sk_validate_xmit_skb, tls_validate_xmit_skb_sw);
-> +		tx_hw = cmpxchg(&ctx->sk->sk_validate_xmit_skb,
-> +				tls_validate_xmit_skb,
-> +				tls_validate_xmit_skb_sw) == tls_validate_xmit_skb;
-
-[Severity: High]
-Is ctx->sk still guaranteed to be allocated when this cmpxchg runs?
-
-The cmpxchg is in the second loop, after tls_device_lock has been
-dropped. The refcount_inc_not_zero() in the first loop pins only the
-tls_context, not the socket.
-
-The final reference on a hardware TX socket can be dropped from skb
-freeing, and that path does not take device_offload_lock. The socket
-destructor then sees the extra ctx reference held by tls_device_down()
-and returns early:
-
-__sk_destruct()
-  tls_device_sk_destruct()
-    tls_device_queue_ctx_destruction()
-        spin_lock_irqsave(&tls_device_lock, flags);
-        if (unlikely(!refcount_dec_and_test(&ctx->refcount))) {
-            spin_unlock_irqrestore(&tls_device_lock, flags);
-            return;
-        }
-
-The ctx survives, but the sock is freed. ctx->sk is left dangling. Each
-earlier context in the list adds a synchronize_net() before this one is
-reached, so the window can be fairly wide.
-
-If that happens, can the cmpxchg read and write freed or reused socket
-memory? There seem to be two bad outcomes:
-
-If the compare fails, tx_hw is false and tls_dev_del() is never called
-for TLS_OFFLOAD_CTX_DIR_TX. ctx->netdev has already been set to NULL,
-and the final refcount_dec_and_test() in tls_device_down() goes to
-tls_device_free_ctx(), which never calls tls_dev_del(). Would this leak
-the driver TX offload state?
-
-If the memory has been reused by another TLS socket whose validator is
-tls_validate_xmit_skb, the cmpxchg would switch that unrelated socket to
-the software fallback.
-
-The unconditional WRITE_ONCE() through ctx->sk in the second loop was
-already a use-after-free before this patch, so that part is pre-existing.
-What this patch adds is that driver TX teardown now depends on that
-unprotected access, where before it used the pinned ctx->tx_conf.
-
-The next patch in this series, "tls: fix socket use-after-free during
-device-down", seems to address this. It moves the cmpxchg into the first
-loop under tls_device_lock, records the result in TLS_TX_DEV_DOWN, and
-tests that flag in the second loop. Would it make sense to fold that fix
-into this patch, or reorder the two? Then this commit would not add the
-dependency on its own, which matters since it is marked for stable.
-
->  
->  		/* Stop the RX and TX resync.
->  		 * tls_dev_resync must not be called after tls_dev_del.
-> @@ -1370,13 +1374,14 @@ static int tls_device_down(struct net_device *netdev)
->  		synchronize_net();
->  
->  		/* Release the offload context on the driver side. */
-> -		if (ctx->tx_conf == TLS_HW)
-> +		if (tx_hw)
->  			netdev->tlsdev_ops->tls_dev_del(netdev, ctx,
->  							TLS_OFFLOAD_CTX_DIR_TX);
-
-[ ... ]
-
+base-commit: b9d7379d10d43386b59082da8c9a0b111e054781
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261111232930.2532497-1-rjethwani%40purestorage.com
+2.56.0.611.g1030f0b940-goog
+
