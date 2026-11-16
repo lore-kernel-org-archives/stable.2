@@ -1,62 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.58
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831987;
-	b=eZjlbOwpFMo37DVaKwQzkR63RrBN93RTPPF1qG+pSh075/SpKubVFDCUnptaxB1GlHp7
-	 ug60lZURV9SNK7EIb9AOey9mqrHDyJoY/f17oubo8Vzyk3QruddBWr/OrMpBQ5b/xLcpO
-	 OOP0Dp8Phyje8zz0cvzfl2+KI18vZ67ntcliQOGtc2qbLfUuZJcfCD/n42IGhLoCrjg47
-	 LC/IkwYtzbTZ/IfT1XlRrHgW057XFPZslshjcBko6M875/DqdquzC5n2hGdw6r0QgGd10
-	 GvyIjomfWMLc9krGYIS2blR1OPhhLfDsqinf1cKAKFgiFngnoTEj/H9a0BI2whS9gvA==
+	t=1794832021;
+	b=g/rpX0zd9sudGizVPnZ1Xnrr78fbiUAq+24sCeH+I0N4vkGX3k6Ui1DOs5J0JcF8hHix
+	 JtHE64cFJOmJwdqtLAttz5ZniNx9uI1J4AL6Qpca0qYduzCEdmnmq6dwnkbrwkrRNhM8r
+	 cJpEQ7Z1yNTH7R6MUxCZ+TlKPSSG4WpUMmK1mWN+rNaLxo3bxW14s+YIx5kbol3IVkPx0
+	 UR7fiNwel11H08MdKmD6LWzS5+iSy/1ZbDt5aoGUgo77bZQs/OnDn8nLfnfN+8eiOkX9n
+	 nnne7xx0c9b7AVuR+soY8b79yGZt9qaRBd7f5zml4CZps1SAs7WC2xBAMuQC+peZfnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831987;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=n0Epwbp8Lzi+kI0RuXeSMG9mic2jpFCzQkf5ONSBZoI=;
-	b=EcZQwt4hassPBRnFebNE7rdnO1tM3sqBATODrJea14FW5qxl/IiOHqMywm4IUc+s3mtH
-	 f77p8mzomslwrNaROBYe9FmvECKOoEHJRJBf2GqFkQbzK3lOGoCM42avNYhRnBVbYqB0/
-	 qMtFTtUjdEewzihGgSdqheeIbDH7Wuog8FkPNhObrc6PRvQC654gxW9gcg9ld6N7otfGF
-	 2fc0Sqepook/Fmm9nyK/RCCnh4cK9acUqwNqzzqzx9XgvhnhyvORYiSuc++VjWswbrgBW
-	 mLJjVl6vf3J8PbNxXoqgV+Fc8Zv+1wNwpdTQ69rb22csa+uYU/DK53ZOzG7+qFuG7mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794832021;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:
+	 Organization:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=LztVH/Br0K4gtRrkNgsVN8G2Ix17Zkmh6T5nMPGmD4I=;
+	b=rB+FAyl4/Jz15S+XncWWpAaScCwihnY20NQj1oQNy4Ynxwdc/GTV3ukmLdzeIPXkOV57
+	 CazfzZuJ6fa7FTDpsr/jTbKT7sN5sKFifJ41wEtl4O2X/NSfoOASMNL3kDtAy6+1kAdDC
+	 Qyb/7PBkrPSP0nmvg1ZCOcyHZynB8+gZnSwPh3FCFil47Emcy7SJdG2k+zFuexdFmTnGa
+	 EgQSrPwhHTxhrNQT9dfkZ9qcCNTIGUX6ZQST7ZEM/FkSdcem4RhiTcHm6pJ5fSXd5eoFZ
+	 8BcWUqilpyKhX7AEhNZgpY3LnSchkRjmQJwbftHCHSAtws+cextPrCt82CPcGusPFZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=m183Dq5B;
-	arc=none smtp.remote-ip=95.215.58.58
-Received: from mta1.migadu.com (out-58.mta1.migadu.com [95.215.58.58])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X2TwkGhS;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF1E606A331
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:26:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DF1E606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2997B606A31C;
+	Mon, 16 Nov 2026 12:26:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2997B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=m183Dq5B
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rMg7ePytN4P08Ni21SDstdH+iA+/lX/CBMDE9CVdeAk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794831984; v=1; x=1795436784;
- b=m183Dq5B40gCsbnSvIUkosvRDp6iNvFEUUsw90GCzmD/I37kr7iQWWMi9+IRDbHQteR0N098
- +x9eoH1deA6cLFgbIXIy/f4oKfAuxo0H60FrjjBWwS8oqosPt8kCGQo7aeCkFYaR51xVDIdYJ/K
- N+I+MVwehH7p5BmFQeUlyrsw=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 94ace7446f8399ec;
-	Mon, 16 Nov 2026 12:26:24 +0000
-X-Mizu-Trace-ID: 94ace7446f8399ec
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5c14bc5a743so9075e87.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 04:26:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFh3VYx9qODWjqtSrXsNcPKACZcJRzF0dnNXefN8hCM5T3gRiILlbcJoGFEarSzdj7hzRfgD0U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9p8bImQdlTh6+fgu0s+7yTkLan1QIjxOxAloE10TB59dlfUkSl
-	GqOpngh14hEGpgVogBnq02P3Kw+sVkN81ZS2gpbKK8jM3gsLv1V0azyXQxRsRI+lbbI6DjydwT1
-	3m7DZgLs6nrL4NWFGo16Z85553j+ml0nsyOqmX3ns
-X-Received: by 2002:a05:6512:3e22:b0:5c1:56f6:2f50 with SMTP id
- 2adb3069b0e04-5c17d6151bemr251895e87.1.1794831979748; Mon, 16 Nov 2026
- 04:26:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=X2TwkGhS
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794832020; x=1826368020;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cFOAVePZVgxrC8JkOnzlLlxAgWuxq2P3Pj4zDMgFhLs=;
+  b=X2TwkGhS/Q6d99fUCmP8WdNH+YSFnJuZ6JTGWQz+dqz6fw5WXhDIT9S5
+   KhQ1UJhQbJ8pvtVkwYwqSGu//YOphSKI7kXHuFbfIPgMXgdaAUYyUwvvL
+   gjPWSKT/oMbbTxNLBqX7j+OZHd6DvAVhalptld9k72d1q9uOEhJt6u+tn
+   eRauWhRbVd++HOIlLRAXivLAnmnH0jspJyXN/LO6Ui43nquKeVhlkGZ85
+   8FC+1c1iOQ1crF12pFvdw2G6ApaCDtaxF4lRwd68mHXIZisvLPNq1s2Dl
+   KF3mEcaX8CoaFdBhDt8CXMX8w07flMYzTxCne6eEdgYEYK/ssxki+l4YN
+   Q==;
+X-CSE-ConnectionGUID: NaABzIO2T+KZrfeQoi4fCg==
+X-CSE-MsgGUID: 3weAZLfjSQeBxj+XISluOg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3444669"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3444669"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:26:59 -0800
+X-CSE-ConnectionGUID: PpbZemL8SG2DHsPDCH0gZQ==
+X-CSE-MsgGUID: j+5TbJsdQlSLfmB3YkmOPw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9535089"
+Received: from hrotuna-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.87])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 04:26:57 -0800
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 3BB55121B5D;
+	Mon, 16 Nov 2026 14:27:00 +0200 (EET)
+Date: Mon, 16 Nov 2026 14:27:00 +0200
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Richard Leitner <richard.leitner@linux.dev>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Daniele Alessandrelli <daniele.alessandrelli@gmail.com>,
+	"Paul J. Murphy" <paul.j.murphy@intel.com>,
+	Martina Krasteva <martinax.krasteva@intel.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Bryan O'Donoghue <bod@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Gyula Kelemen <gyula.kelemen@advasolutions.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/8] media: i2c: ov9282: fix strobe timing and control
+ handling
+Message-ID: <avr2lDQxiFnv2Gq8@kekkonen.localdomain>
+References: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,52 +92,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116110549.1863653-1-fuad.tabba@linux.dev> <avro44jUWOARFzul@google.com>
-In-Reply-To: <avro44jUWOARFzul@google.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Mon, 16 Nov 2026 12:25:43 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTxWuiyjmUc3vH_KxRtS_3oX5w=CE76LdsLcrqC+RzLGfg@mail.gmail.com>
-X-Gm-Features: Aa3M54okcmr9MdJAy7XSmuEmAJr7gqz5micdc5fGZdFcC1JtmeOKxVLrP8oEceQ
-Message-ID: <CA+EHjTxWuiyjmUc3vH_KxRtS_3oX5w=CE76LdsLcrqC+RzLGfg@mail.gmail.com>
-Subject: Re: [PATCH] drivers/virt: pkvm: Zero and clean memory before sharing
- it with the host
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
-	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>, Mark Rutland <mark.rutland@arm.com>, 
-	Marc Zyngier <maz@kernel.org>, Mostafa Saleh <smostafa@google.com>, 
-	Suzuki K Poulose <suzuki.poulose@arm.com>, linux-arm-kernel@lists.infradead.org, 
-	kvmarm@lists.linux.dev, linux-coco@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261110-ov9282-fixes-v3-0-cb6df80cbc22@linux.dev>
 
-Hi Vincent,
+Hi Richard,
 
-On Mon, 16 Nov 2026 at 11:28, Vincent Donnefort <vdonnefort@google.com> wrote:
-[...]
-> > +     /*
-> > +      * The host can read the pages as soon as they are shared, possibly
-> > +      * through a Non-cacheable mapping. No caller relies on their contents.
-> > +      */
-> > +     memset((void *)addr, 0, size);
->
-> Are we sure we want that? The guest may want to setup memory and then share it.
-> I am not sure about modifying this API.
+On Tue, Nov 10, 2026 at 02:10:09PM +0100, Richard Leitner wrote:
+> This series fixes a set of related issues in the OV9282 strobe timing
+> and control handling code.
+> 
+> The driver updated exposure- and flash duration-related control ranges
+> in several places, but some of those updates used an incorrect timebase
+> or were triggered too late, which could leave the controls clamped
+> against stale values.
+> 
+> The series:
+> - checks the return value of the exposure range update
+> - drops the redundant vblank field
+> - converts probe error messages to dev_err_probe()
+> - fixes the 8-bit pixel rate (192 MHz instead of 200 MHz) and the
+>   corresponding line time calculation
+> - treats the strobe frame span as a line count and converts the flash
+>   duration accordingly
+> - fixes the flash duration range (min/max/default) and refreshes it on
+>   HBLANK changes, independent of the sensor power state
+> - refreshes the exposure and flash duration ranges on mode changes
+> - reprograms the strobe span when HBLANK changes
+> 
+> This series was tested with an ov9282 sensor on a vision components camera
+> module attached to an i.MX8MP mainboard in a defined (dark) environment
+> with a custom made LED flash pcb.
+> 
+> Any feedback is warmly welcome.
 
-Right! I wanted to fix the bug for the ITS property table, which is
-shared before it's initialized, and totally forgot that this is the
-path all sharing goes through... I'll drop this, and put that fix back
-in the ITS series.
+Can you fix the issues 0-day bot found? I think the patches seem fine
+otherwise.
 
-> > +     dcache_clean_poc(addr, addr + size);
->
-> I believe the hypervisor is already doing the cache maintainance when the page
-> is mapped back into the host. (see stage2_map_walker_try_leaf())
+-- 
+Regards,
 
-I don't think it does on this path. host_mmu.mm_ops doesn't have a
-dcache_clean_inval_poc() callback, so stage2_map_walker_try_leaf()
-doesn't do the CMO for a host mapping. On the guest's side,
-__pkvm_guest_share_host() only changes the software bits of the
-existing mapping, and the walker returns before the CMO in that case.
-
-Cheers,
-/fuad
+Sakari Ailus
