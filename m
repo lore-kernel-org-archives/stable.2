@@ -1,60 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794796810;
-	b=3PbWQswCGaYiezESTwtv1pBxmwUsmd/BwKsNDy1mjqYJ4G4Hx+60tDApqXc1SwHhqLuV
-	 eHIKuX68ULONzeaZFtYlD8tBWAVSp9v/MGF3yLsl1KSggLSRtXFdrUeBmpf5lXlbTWaCL
-	 lcytTLXgW66qhhwFC4tNjT2kzuVva1GpcXqfAvZgT5mx5DV5TefR76Fd6Kg/qu6zTMiGO
-	 brZgOdK1R8n153AKH5Om7e9ODPCGOBHRNGyEw2d2geRq6M62PXf9V8OLFLxAvkmrHIrzM
-	 idPXyJdbuywIsOjhzY6fnLEJvljZrRhDwBQx5jz7o5vC+KRvk0y8tuZJLNRaUJBlcOA==
+	t=1794796868;
+	b=wvPySFNbSjiYjOcLBBo5cX5LtT5kEOA6C00mOLgpg9qpvEBBwRPOkvJGLSLOMxdwoWpj
+	 BhN29OngWIVUOWS68diQNr5RRjCpHu6y6pKvD8wvvLz63z0iEjeAIWQRwZrmR0oHou2GZ
+	 vnkrSX44aCfMgwFqtqpslvhZwp3CEKCIqkJPdBP7c3w5n/RFa++T93xw/AGqIsrKYW3zE
+	 O3BgBpHq+0Rp8i3tYfeV8Qh3LNtLBGntE3MXYY3xeOOf7e5a1Ae1OiZFSZeQY8p4piP4j
+	 8SsS7J9vY89yADRhjIraqEhBuVmyYcv6odyuRNzvejV1QKiGZKm5aMCAQX+x8BItPNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794796810;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ZNAXlgmAqdbj8M748qwNcBn2E70EGcrFHX6OURkv0Z8=;
-	b=SfG/5tHMHo527b4ElVnTD0GPNhLuXUuUfmWSPIOrRvD9J+oMjKjmWd1HPBXe83Tt/HSO
-	 ZbXoDuPOrMzLERtcc+uxWr5SU1W9dZA+AfFiFqy8tLoZrULQvEVYVOz1HKO8Gz/Jdx9vU
-	 EHFtB87hDH49CEQTGAxaxBzelWs2F05MxRJfpULI9uZWckudZjXEDaqt/O/N80jk/kW5m
-	 McRDJJzZfjOOzcxoJCMHtlnNFRcTJrX2ItUxwaB2kXtdYa8vC7dmcdJP1XUpvzT0cv7yX
-	 xjyaS1FllbF9z/kvabx6yMMR5cJi7LcxCbNWi0uzV//S2QnO34dXeLt19rIJ7nkeNdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794796868;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=V2OEn9tAKSN4sXOsuonmkzU2ywS3aimW3cs+6O3cqU0=;
+	b=VXwajVmw1AaFoeTNC6G8aUtLxQzR73R5OCixvoRhcjPXHApqLYnmW4/HTE8wGCEOJKFe
+	 NhEYDdx59+iABpBIKF1afxmyZZAUhCEGEgSvAQhjWB12biN/pVTmicgRU2DLB2gV+Ao0a
+	 y5BRU1wXXRSkcvzRjypDixFhQKOTXdgIb/KgWXGYSZjKu3crt1NZNMGhQrh+JCsvVZeSi
+	 Olb0X/8xH0MQ8b6H+nX1wLqj/DP/91QgFbTcCKvlc5IDfyhV71XrbTdnUZ/ucfL4v02iC
+	 3ZGTBY4NlEwRhFvijgas0myevggA86WlvQ6PZ/APu19wKfvzzZXB7QWmauHhSXc76sQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Su1WPxRb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fu067Wwl;
+	arc=none smtp.remote-ip=74.125.231.130
+Received: from mail-oo2-f2.google.com (mail-oo2-f2.google.com [74.125.231.130])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B715C606A31F
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 02:40:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9715D606A31F
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 02:41:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9715D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Su1WPxRb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4312D1F000C4;
-	Mon, 16 Nov 2026 02:40:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794796810;
-	bh=ZNAXlgmAqdbj8M748qwNcBn2E70EGcrFHX6OURkv0Z8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Su1WPxRb4uW2JTmQgkBqQ5q6N4irjW61vcw2KaBnR6/xQkT4/m8MM4QUph4boa6jp
-	 EbSdjKAJi5uZHNf8LlaihCxDeZZ875Qg5WQOibJ+PIpzhvfVzcnryCysi0PnpCvu1m
-	 V4n0u8SwFTKtQdLT0L/8yqHP44TJbjoeTqhpnJZGZtnChudDuYCEchSAmhBVNXCPHg
-	 TxBeRm2VWu113+l0rMjl/sq+1DoAHsZ5iu8IlBKSmgajOOoNYI9zTzEXmV7HVVv5FE
-	 8sOsQJ3NgDvXEwUDdXCxtAShBxbvfJWNWEPNJe7h+Mj1svnctQ0rSFT6hBh4I2Uf2C
-	 tsbS0z/K6x6Nw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Chris Mason <mason@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	"Gregory Price (Meta)" <gourry@gourry.net>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Lance Yang <lance.yang@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] mm/khugepaged: preserve dirty bits when collapsing PTE-mapped THPs
-Date: Sun, 15 Nov 2026 21:40:07 -0500
-Message-ID: <20261116023942.2399755-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261109202751-failed-5.10-fe2817e3d5ea@kernel.org>
-References: <20261109202751-failed-5.10-fe2817e3d5ea@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fu067Wwl
+Received: by mail-oo2-f2.google.com with SMTP id 46e09a7af769-862a00144f1so513941a34.0
+        for <stable@vger.kernel.org>; Sun, 15 Nov 2026 18:41:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794796866; x=1795401666; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=V2OEn9tAKSN4sXOsuonmkzU2ywS3aimW3cs+6O3cqU0=;
+        b=Fu067WwlnNSDgeNFNMmXlAGr3qWf+wNIlIjF2/UUs3AZ8BqwuTRFwaVLXHoMHoitjQ
+         OmMHs8QjjIG/z7o5xJVKWU6KoZem/ZW4M6O4f/pOFff6k/kSbzm5+xMc+P5DgKzp2lrM
+         5xzY81eA0Pm0GWb57FNA/P65VmrDZkBmNaYBlCvhxUNUg4+9DfHuBCXEXJBWMSW7WYxL
+         2ZYuG+Txsf8zqwIpFd2WHnpd6YvQeh2EmkTDGvRGAFWhNRqeeZeFemYypUfXgNV4vsP7
+         CVq6WOVQ0m08vDz+xoOssyE3rQms0RWtsbprbqw91wGuEUVfBfVNwbZVYCFYdypjrAPx
+         v0og==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794796866; x=1795401666;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=V2OEn9tAKSN4sXOsuonmkzU2ywS3aimW3cs+6O3cqU0=;
+        b=lUgLIqfo9B37TI8wf2xeqKKHy9rtyMh5aizRKNM3pCc6on/UPC1X26mgNs5XMxz459
+         uFDHq2t6VFRk6YT8g5jhqlAPZsc3TGPiHLU9c/EhRh8plkliDMqD/QWaBa4i+tdCwwnH
+         oxLU1AmT1/6XZ+b3c+UiLZNh6aO+ymMYVeDtOeSu9MQdKqWVhdZqO1nQDRTgkkPce2Cb
+         z21rJIr8djGkJjVaD454S4gCfGrtZq2AXmUaMvkgMZwfwlCOJCgk10B0axfvbnNB0AqE
+         H548REuiaY2y6MMrETP3EY/4WH3IhXg3rvIGrR+RyOa320GJlJnn3govLBHJ9aXcTb1E
+         IJnA==
+X-Forwarded-Encrypted: i=1; AL+hErGuKaaE7Nm/KVkyMBN3H8Yo/kVDA6Fs3UENWP3JBMMFsEx8xqT5fkh27NkbOWFPWMOZ3zgudJ8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+/H1gks7WkabCX4cT7szxjVIYgcCxzX2zWTwtxWBEavXvU68uT
+	kkbc+5MZsBEiaDHSGjHtDnrPpbSD6DQobAt8E1mnn45Q+r1QpyJzOVoh
+X-Gm-Gg: AYBFou3VRmZTZhVx2EtTizBgHFibBzMZCqR1euIpdNUoQQBZfG+ijoDsOAd6adZUPNd
+	gi3valW+39QrTt6hNe2r1jtMGMJV+6guHvGmogag1IimKEbPPJ6kDefutrlq9KNdM8/2W3Y237n
+	iqsfzAbkpsbDw4BVJDraW6QB1fpz9vuCWi2d9lER4x35FhdwXb0JR088pWfIfUs1UwTfms/Xdxo
+	IbGQ2BeujY2fEEB+NUyNfoPLot1v0xaKWH9iPAcwSMr12HVgpBVD9G3WOlyKeNJYyVqAKpwlYK8
+	/8bcxTfbFFMo4Fs4mQJMIgNkcwUXqbZVgxKDei0x63dYR3wS3Bk+IsUJLZAgOBhZQHG+fzR2gRe
+	GWPDdLiyyYYrlcnkW0qQRyI+SpYHphvI+dYHvL1298b1900QuzOzIpZrHxOcEqUkjYGz5oUEJLi
+	VOpu5htINT7O/Qt0Q3DuwbrWD1zWV0cBKJ/M79XI2qDTRliiaIctc4CNfQ8wHxUXRGgaIU9Zi8/
+	+PvgwL5LEI4cN8QK4os/MXDY1NnlOJfEwS29JSmgYVeSh+5ui/usZT5ruQBGij/xF+nTukcKUX0
+	oVRYcmE2xHI0R69gc250+xDNuQAAT0r0xc4u66Q3ybW91V6XOC+s2tjxGXugNI2gy1Y=
+X-Received: by 2002:a05:6830:a21b:10b0:81c:a6c8:8a65 with SMTP id 46e09a7af769-86289905565mr5197772a34.25.1794796866535;
+        Sun, 15 Nov 2026 18:41:06 -0800 (PST)
+Received: from localhost.localdomain ([14.22.11.162])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862a82c4625sm5441937a34.22.2026.11.15.18.41.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Nov 2026 18:41:04 -0800 (PST)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Paolo Abeni <pabeni@redhat.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Stanislav Fomichev <sdf.kernel@gmail.com>,
+	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
+	Yuyang Huang <sigefriedhyy@gmail.com>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: fix uninitialized heap leak in multicast address dumps
+Date: Mon, 16 Nov 2026 10:40:56 +0800
+Message-ID: <20261116024056.1274402-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,67 +106,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chris Mason <mason@kernel.org>
+__hw_addr_create() allocates entries with kmalloc() and initializes
+only addr_len bytes of ha->addr. Dump paths emit entries using the
+current dev->addr_len, which can grow after the entry was created:
+tun's TUNSETLINK changes a device from ARPHRD_NONE (addr_len 0) to
+ARPHRD_IP6GRE (addr_len 16). Both the RTM_GETMULTICAST dump and
+/proc/net/dev_mcast then emit up to 16 bytes of never-written slab
+memory per entry.
 
-[ Upstream commit fe2817e3d5ea347214342c9a5cd8bcbff20c0574 ]
+This discloses leftover kernel heap contents to anyone reading those
+interfaces.
 
-try_collapse_pte_mapped_thp() clears PTEs without transferring their dirty
-bits to the folio. A shmem read fault can map a clean folio writable, so
-a later store only dirties the PTE. Losing that dirty bit allows reclaim
-to discard modified data.
+Zero the tail of ha->addr at creation time, so dumps can only emit
+initialized bytes.
 
-The assumption that regular files are read-only is also obsolete since
-commit 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse
-for writable files"). In any case, transferring PTE dirty bits to the folio
-when removing mappings (and while the folio is still mapped) is the right
-thing to do.
-
-Use get_and_clear_ptes() to collect the dirty bits and mark the folio
-dirty before unmapping it. Update the comment.
-
-This was reproduced with shmem using MADV_COLLAPSE followed by
-MADV_PAGEOUT.
-
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: 27e1f8273113 ("khugepaged: enable collapse pmd for pte-mapped THP")
-Fixes: 1b6444331bebb ("mm/khugepaged: enable clean pagecache folio collapse for writable files")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-[ david: adjust comment; simplify description; cover file-thp as well ]
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-17-d6437171ecc3@kernel.org
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: adapted batched folio handling to per-PTE clearing with page-based dirty marking ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: a748ee242681 ("net: move address list functions to a separate file")
+Link: https://lists.openwall.net/linux-kernel/2026/09/10/320
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
 ---
- mm/khugepaged.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ net/core/dev_addr_lists.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/mm/khugepaged.c b/mm/khugepaged.c
-index e523bb9381189..0b10b04f5f61f 100644
---- a/mm/khugepaged.c
-+++ b/mm/khugepaged.c
-@@ -1518,10 +1518,14 @@ void collapse_pte_mapped_thp(struct mm_struct *mm, unsigned long addr)
- 	for (i = 0, addr = haddr, pte = start_pte;
- 	     i < HPAGE_PMD_NR; i++, addr += PAGE_SIZE, pte++) {
- 		struct page *page;
-+		pte_t ptent;
- 
- 		if (pte_none(*pte))
- 			continue;
- 		page = vm_normal_page(vma, addr, *pte);
-+		ptent = ptep_get_and_clear(mm, addr, pte);
-+		if (pte_dirty(ptent))
-+			set_page_dirty(hpage);
- 		page_remove_rmap(page, false);
- 	}
- 
+diff --git a/net/core/dev_addr_lists.c b/net/core/dev_addr_lists.c
+index d827cc21867b..53a2dfa2706c 100644
+--- a/net/core/dev_addr_lists.c
++++ b/net/core/dev_addr_lists.c
+@@ -100,6 +100,11 @@ __hw_addr_create(const unsigned char *addr, int addr_len,
+ 	if (!ha)
+ 		return NULL;
+ 	memcpy(ha->addr, addr, addr_len);
++	/* Entries are dumped with the current dev->addr_len, which can grow
++	 * after creation (e.g. tun TUNSETLINK), so never leave the tail
++	 * uninitialized.
++	 */
++	memset(ha->addr + addr_len, 0, MAX_ADDR_LEN - addr_len);
+ 	ha->type = addr_type;
+ 	ha->refcount = 1;
+ 	ha->global_use = global;
 -- 
-2.53.0
+2.43.7
 
