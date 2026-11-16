@@ -1,80 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.245
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831640;
-	b=rJOEP64uXFX1c2gG0bVWfG86qIt/Ds3x2eveL3NwybkFnB+ZVVJmyLgpxfOFPiVG/Z3D
-	 MMLdzWMVYLNIIRE3/Tj3c6rVWZ3tqJNa3P27Yo3J+d3Ns+HVH+Tg4ou/ieviB4/Nj5FDU
-	 oiONEuLE2ftJGAo/nhlXtc4x5Z05yF31SS9SuXxWcSA9TVTsnW5PLvWrhaZiTBff0scLh
-	 nzn2a5ruFQmi5xUP/3Ou8DrsAyB134AjJGzUGT0bw7PPa0XWZHMkTc0XQIVYXvUQ6O6Hx
-	 jtv5N6wJsPGPAnZ8fgmf8jhCb6Fuw+Ox5g6g0s+yLu3lHfnLkO9pynrCwFHiMRUB1QA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831640;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 MIME-Version;
-	bh=4MCroR/sjsq4mO+nQ3f/SHJLqA9hA+O6cA4sBYcKkZg=;
-	b=b3uurwu9RNOAARMxLd1DiDihoYLuAF8mEL7VbS07/s/lUBHRUTpmMX5PPGlrjnU2JaiW
-	 JOKc549cDgneSamtc3crDlRdxVRQQm0t8hJM/pMeDW7lljLHLgE6pl+B1dOvzz33APMka
-	 lmuGHJCpdhGBN9ltRJ5HIESsqqcj/SCYSURgYH3piUJfFaizIo6m3iN2d5R73zaQfBFQh
-	 XRC8m2u8odsKRjsVuCekmmGPS7fHeGy99zZsL0KAxh+sjGw012WOpoarAXVewaQ6Ohm8t
-	 QvFnfK/pGll4RFcklLVim70hOOSfIfslO2GKrD9xGHdVzExxO3A+mv2n+1zJYz1he4A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="nF/UyUSR";
-	arc=none smtp.remote-ip=203.205.221.245
-Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794831923;
+	b=dI0FnvP8UAqs6U66w8u7q0QQPLFlvU9i6fUXpyaGrKVhbEokiqzMCD2Ij/aZmFYzUUim
+	 aXsWoCl1dgOuKwCEZ+X+knfF1VvuwgAew3cMJaYSlrFfrtG0OaPc6yvwp986LTTWoqb2Q
+	 Tf8b+Vgu8VjN7C5uk+oH+S5uxB1MaeDchcDoAty4D3452iDC51tJk/lckE5S6QPEtj2MC
+	 laG5jq9cJLalPaNCdWumtIbsgSNxEde19nUJDdJUHIlS0U0DeNdYaxHlB+Eorq1ZD0A4L
+	 kUKfF6ZeqvZoGCh6iJaLtOiMZ61IjHF6KsFcsekF2cd6ze3pywD+Edy7sWWq+UUDHsw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831923;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=/PiMcjQOkt2ak1BLcowjZuDxANqjoy7CFeucPyIKk0k=;
+	b=ZpjXNmuCdNHCvV6L2j6ALOkIdyLrF/rcmaOKPrB4roYhhACsfCbk3F7P2Q+/KHiRp/H+
+	 MnvZROg7T3Rcs9TCSa2kg7g+Ov1c6PcqgF3geudoXgEzFLzrG9qQQO3+dQam1hD7hUt2o
+	 aAmVM2LX83XVINV/qQzMMhCwWz6p/STCd+syb89yI4515ZkJf6V0pE/cy8jffB8LzcK1Q
+	 3Lup4WS7XrO14BKFvWG9emHxUg22jpKJRY1iiwMyJeO6GUfkjtNRbCAkvMfY13LAgnNSN
+	 VixmwCCj7wwF2WTwS0VGjmZIySy7WqOYm0MGDCIEaQwLw46pwgrpBEiV2evgnVKRIPA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Io6RcOzD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.174
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA37606A31C;
-	Mon, 16 Nov 2026 12:20:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEA37606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37718606A89E
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:25:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37718606A89E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=nF/UyUSR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794831630; bh=4MCroR/sjsq4mO+nQ3f/SHJLqA9hA+O6cA4sBYcKkZg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nF/UyUSR0bYZHL1EW8l3asisTFTPGviv8Eu5gqVRoo59ZrHeswUdya8UcQB1+pJO6
-	 lyAxJNB+Op2iDiXD3HFZ4lnBRenC7FvgLLtNFxaTPRTfP1W+GXrG9e4w4MXzRDcGir
-	 98O/MkCu6nKj8Qu7abPHlxZ50l5E14RedIKR4bIo=
-Received: from [127.0.0.1] ([2409:8d5c:8f0:65e5:2979:aa1c:9ec4:8698])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 5199FA81; Mon, 16 Nov 2026 20:20:25 +0800
-X-QQ-mid: xmsmtpt1794831625txwxrqa5i
-Message-ID: <tencent_5B7B9ECE9036BE72D331CB2A2E4AEC5F8909@qq.com>
-X-QQ-XMAILINFO: NC4p7XQIBeahMxe7Nis9QgS3xrmsPlhKDX17WXMQD2D8PIOyxhm1Gb53FHXytD
-	 4YzNWcq2zfLEL3ipFJGuhhitYhPI+x449ysiTJGcDUJuZaxDIUDAJArVe3MX5CLxEqc03cv6OlHI
-	 h2OywKU/9gLYeVck2/zsWvqglFzU8HRH6YtHmafnQQkvaQdFfL0qeEgBK2GCgU+RBMi6wY7S8Pmc
-	 iejgiTM7doW4zq4NVdbnSe707CfGZ8u44KMRhci5VXIPDFrpAFtqHUhhAaQlB59HlkBixCoaBeZI
-	 6EsSxbZwlZ/E8ebdJjGNSpA0nZCZ/yIOI7ZIv3jGOXh2n3J25ewX0uJNPxdExMN5Nobnk0nqSvR9
-	 rGGQ5+utxN+WifW+ZGQyXGeuY3H+78jgTtmhqYeiHB8EFLLIix0jccSKPYbeAjSz1LM70iJtTr/c
-	 f86bXmxjKq3K/g/j1Uee6sCMVJYfaKEeagxB3bg7sk37SzlcatPKQvKD8Ac5ZbIRqB+5IwsuAmG9
-	 F3smTEFUZOhQ93Bo9Ggrztx+C3YEYKrxEaY93Ootkc3sL91qYHMFwkQJxxp3MetEPm3TYOKEPUZO
-	 9lqI/70VxBYW9Y6T3DPY6wynJjV0N473wyveWP44fXnTJopKHKUjwN5ABNtjjju1jDm30kZCy8Xx
-	 lpGHle5g5QmIhiWnEdYkbAomPggm2BQJRNjF16krS3W6/u/ClgCKcdRSgSexjoiiekjFuh3owqsO
-	 5lWQc5bDj/jaZ6bqPf6mFg+DZqAwJdblrtBuvO/mTygc8M1O9aKZacg7aomeuyAcpHb9uBs+RKyk
-	 LV7lOoN9saLS6wdWuml54knc5SghDkQra0etDu81vMA/Hes/KiI6jtE8np7P2Um71SPRAvSkfuwn
-	 x+FV9jaQUF89ybMxaxV9UFPC1bL1rLdg/5oQHbAdE28otxHx6sVJ6kfjAFu6Qb0+u/R03kRjgxgq
-	 poTep0wR1rXt8uMeMOGdkt53nKZr8ZSm9lpm28SZ6VgekJC15d0j/Ukvj2ioeiutJMsW+RGY+Ke0
-	 s+DOceTR8MaxSMsg7lZmAW/TQH2cg06j92Y9ZLWAj66jrMQMz0dyKPLbtah+1re2iqQPbf7LrrKH
-	 Xj0wjW
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Hang Nan <2122295973@qq.com>
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, matttbe@kernel.org,
- martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- kuniyu@google.com, willemb@google.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, 2122295973@qq.com
-Subject: Re: [PATCH net v4 0/3] mptcp token hash ordering and token 0 lookups
-Date: Mon, 16 Nov 2026 20:20:25 +0800
-X-OQ-MSGID: <179483162524.42663.16445873285874492835@qq.com>
-In-Reply-To: <20261115155747.178858-1-2122295973@qq.com>
-References: <20261115155747.178858-1-2122295973@qq.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Io6RcOzD
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3acc7a0b558so30706841fa.3
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 04:25:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794831920; cv=none;
+        d=google.com; s=arc-20260327;
+        b=WQKqzTnIKEjFJKhtbPZUNxC7Y8bd8vBZx1IFZsg34aGLU6brVzW7cfNNtCoqMG5AZh
+         vV+JWeVo+xbkKfFzw2eJcDmD4DzjeZF+a6pOAXJCmL68RKh3LZL3zWirD5vU7erVJ6g7
+         KrGD6l7MmqCOn7TZHCmw341jh4QUDP+N6XYAo1aKd7MPswzhkGMY+SDceqiWEnodprsl
+         FVMG+YVPxFerVQZSzb3EHkOq8FMGaUKfXnmVKd3lzut1lmBFtvWrnwzRyTMUTBJOXfjy
+         baTlNiIFj7nUHKK97HT2NSk+N45XxsLJoMkm3CMqtn8inM21VB+6T7/CpltUqjV97VJU
+         96ig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=/PiMcjQOkt2ak1BLcowjZuDxANqjoy7CFeucPyIKk0k=;
+        fh=YI0GNbBo/9cb5JkbJo0ZIXauL51UW1Uj1FWaV+31MIs=;
+        b=IQ3gBke9y4VdwHs/EhldzJ+fU8C9lNS4/UiAg6IjFU5w/RDVKQaDO7MSYZGvL79eaj
+         F3aAgpz16cY66CFpezrF391togD5k/L3HmPz5l4FLdV4/XUdd+jQ7aJM0hHMkTh1jRqD
+         PfEFoF8hbluByC0ChB6EBLxMzDYRVXTA1I2uhmzpA2Q+ILOb+l9VaF3VNSdbWM25W6We
+         eLWYgPaVpJwoXAonkU6Cdfvsw4ryg8u9uufA0TLtKIz7vQ9CaOTAtT5FirHEYSPviOkh
+         Sk9USgGKmvMvFsviVdVbo3suEm/cpyYivP0tDBwsDoArH3Xl5QcvEc2/TNk2MspGiXeP
+         nY4A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794831920; x=1795436720; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/PiMcjQOkt2ak1BLcowjZuDxANqjoy7CFeucPyIKk0k=;
+        b=Io6RcOzDR0JwQSOMZ2h/dhataExRAczwSTQYM2gQGcvveSLFkoliJjGCFbhzZ99VwP
+         9xDPwkg0P3o4hEJS2bKPbWl/SIDSTT5vif+ZberzXGPC1gJ2yEZDQb+TVWFrP7aBagAM
+         RYdX+hW9Ys6Vx4eHmulxcgkFXEX7FzLwsnbKwoKQeQrQcqbGwro95zEANdjKwE2PWuPO
+         I27p838Yp1sAveGpu2sNwbQgbBkK3CP3eIenSSnNb5EWDY7e7UYKfhDUJw1t460K430F
+         P2ILgEKZwkxcbRYmPC5i4YfVKTbPg9BldMzn191ptyulfkn5XEb6Zl02u/O5HvzMmSqI
+         FM6Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794831920; x=1795436720;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=/PiMcjQOkt2ak1BLcowjZuDxANqjoy7CFeucPyIKk0k=;
+        b=1ulSdeVa+UpEEP/Oj+Ft5w798Wb6RZ03vllcOVoMcVpnU49JA9+e11g3rATcvSxYRL
+         h5VVuKavXOQ9BP4urNmeI8lVmDfajQ2eJ2SFs7uZOYAMk5odllENu2SKX0PKm91fFLxW
+         hni4w/OkGD9FH5vpSfFVyUeBqIyKpOAbenQlDlbKFiBrkwRizsQj80Lvka0iF/wz/bTY
+         nvEg4hDiAzOniQKYujzPxaz4sjzwSyW1IZVDfZM9SW3mF0T+9/J8xgnAaBG3gcAFu/o2
+         c/f2VdESZxEvRCdbitykuLKO7TT/Mr1Xj1ymJ5fxBQRfgUveK4eX12DOvIFLsbGRTk8Y
+         KsbQ==
+X-Forwarded-Encrypted: i=1; AL+hErF/FTvJZi3OlKQnOgPwXA3y9rGF5uieTDcEPTxSmW603jkl1SD30lExxump+6n5khy1rAUNyfU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AvuO6HDUEd9EmkbVQf9Ch9X9fvXf3DqosEjUCGUv5EK2WnSC8
+	xuukVrBy7fDIr/33Vj/OAPZbDUoTxakaUfkhrywcrxXkZfHFh+18ke8YGNn1b3N9uFGInStqcAx
+	JB359n5egJR4T2PXHxy0J/q6+Jcw4AaE=
+X-Gm-Gg: AYBFou0fFWgOQz+YxYl4aaDh91UqdrtN1Zwh1hYfB/+CEt/Jdm2UTX6DU1JEqN+0EW+
+	k3N2eEfTsC1ZAvixww+N0ghafCzCyBFVWVkT6j/uO1JNbuXeKfp6EJ/MAQSUeKepZHdzDgc+gEc
+	qgfrw55tcV3/mBmf1sQQ7DmCXkbrkoSvALZ15btEAdB9mM6erZbsxADnYz6H5F4cWAhpiKULpFo
+	HOIfmeQgKH5sDZe2aVVKBQdgeFpOjNS9KlCnlC/RTd9DGcTwtmdIi1oeVqp81mTs9P+iKZmp/e4
+	hJDpECqNwG5ysfGzEwzEPV65RzG+3mPR3Tokzi+6W6cK1yoM7OGuTXz6uhY3+3VKWR8Z++W6+Ow
+	YVBIU6EGdkGPK0pukYMURb+fpyZ2ipfd0SrvPTA==
+X-Received: by 2002:a05:651c:b2c:b0:3ad:fb2d:a757 with SMTP id
+ 38308e7fff4ca-3ae2b5302cfmr27450321fa.24.1794831920174; Mon, 16 Nov 2026
+ 04:25:20 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,47 +103,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261115210952.2140036-1-graypanda.inzag@gmail.com>
+ <20261115210952.2140036-3-graypanda.inzag@gmail.com> <CAOQ4uxhR=ERNBYsxQ06-sKGrTXvePpzv-xi+62oceNff6Mzzbw@mail.gmail.com>
+In-Reply-To: <CAOQ4uxhR=ERNBYsxQ06-sKGrTXvePpzv-xi+62oceNff6Mzzbw@mail.gmail.com>
+From: Junyoung Jang <graypanda.inzag@gmail.com>
+Date: Mon, 16 Nov 2026 21:25:07 +0900
+X-Gm-Features: Aa3M54r2Viw7fFeJwPagRzK9IYztsTnUnL-IHLph1k3bGx9UGsJ-OXrvkjOjw2M
+Message-ID: <CAO7ntTQvav7mhK6caZ82afGadP8jeOJ_thanAf8DXBMBboN14g@mail.gmail.com>
+Subject: Re: [PATCH 2/3] inotify: zero-pad event names after an embedded NUL
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Jan Kara <jack@suse.cz>, Matt Bobrowski <matt@bobrowski.net>, 
+	Gwanhyun Lee <gwanhyunlee@gmail.com>, fuse-devel@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Christian Brauner <brauner@kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>
+Content-Type: text/plain; charset="UTF-8"
 
-Thanks for the prompt.  Honest answer up front: none of the three patches
-has a runtime trigger.  All three are theoretical, and this is what I
-should have put in the commit messages.
+On Mon, Nov 16, 2026 at 7:32 PM Amir Goldstein <amir73il@gmail.com> wrote:
+>
+> On Sun, Nov 15, 2026 at 10:10 PM Junyoung Jang
+> <graypanda.inzag@gmail.com> wrote:
+> >
+> > inotify_handle_inode_event() allocates the variable-length event with
+> > kmalloc() without zeroing the name buffer, sets event->name_len to
+> > name->len, and copies name->name with strscpy().
+> >
+> > If a dentry qstr contains an embedded NUL byte (for example, via a
+> > crafted FUSE READDIRPLUS entry aliasing an open directory), strscpy()
+> > stops at the first NUL while event->name_len still covers the trailing
+> > bytes. copy_event_to_user() then copies event->name_len bytes to
+> > userspace, leaking uninitialized slab memory from the tail of the
+> > event allocation.
+> >
+> > This mismatch dates back to
+> > commit ce163918cd33 ("inotify_handle_event(): don't bother with strlen()"),
+> > which replaced strlen(file_name->name) with file_name->len, and remained
+> > in commit b8f2688258f8 ("inotify: Use strscpy() for event->name copies").
+> >
+> > Switch to strscpy_pad() so any trailing bytes up to event->name_len + 1
+> > are zeroed.
+> >
+> > Fixes: ce163918cd33 ("inotify_handle_event(): don't bother with strlen()")
+> > Cc: stable@vger.kernel.org
+> > Co-developed-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
+> > Signed-off-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
+> > Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
+> > ---
+> >  fs/notify/inotify/inotify_fsnotify.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/inotify_fsnotify.c
+> > index 6e3af6452dcc..78eb1e92a14c 100644
+> > --- a/fs/notify/inotify/inotify_fsnotify.c
+> > +++ b/fs/notify/inotify/inotify_fsnotify.c
+> > @@ -121,7 +121,7 @@ int inotify_handle_inode_event(struct fsnotify_mark *inode_mark, u32 mask,
+> >         event->sync_cookie = cookie;
+> >         event->name_len = len;
+> >         if (len)
+> > -               strscpy(event->name, name->name, event->name_len + 1);
+> > +               strscpy_pad(event->name, name->name, event->name_len + 1);
+> >
+>
+> I am not sure it is inotify/fanotify responsibility to hide awkward names
+> which filesystem emits.
+>
+> First of all, I think the solution should be consistent with d_path(), so memcpy
+> instead of strcpy here may be enough to avoid leaking uninit memory.
+>
+> If we want to be nicer to userspace, then we could for example pad the
+> garbage bytes with "???" for here and for d_path(), but I don't think
+> this is worth the effort and also don't think that hiding the fs flaky name
+> with strscpy_pad() is the best way to go.
+>
+> Thanks,
+> Amir.
 
-1/3 net: mptcp: take token lookup references with acquire ordering
-   Theoretical.  There is no syzbot report, no KCSAN splat and no
-   reproducer.  KCSAN cannot observe this class of defect at all:
-   Documentation/dev-tools/kcsan.rst is explicit that watchpoints are
-   only set up for plain accesses ("KCSAN never sets up a watchpoint on
-   marked accesses") and that "reordering of marked accesses is not
-   modeled", and the reordering in question involves a marked refcount
-   operation.  On x86-64 there is nothing to observe anyway: both
-   variants compile to the same lock cmpxchg.  The evidence is
-   instruction-level: on arm64 the CAS becomes CASA
-   (88a37c02 cas -> 88e17c43 casa), which I can attach if wanted.  What
-   I did confirm is only reachability of the lookup path from the wire
-   (mptcp_parse_option() -> subflow_token_join_request() ->
-   mptcp_token_get_sock()), which is a static reading, not a runtime
-   demonstration of the reordering.
+Hi Amir,
 
-2/3 net: mptcp: reject token 0 in mptcp_token_get_sock()
-   Theoretical, and found by static analysis while addressing a review
-   comment on 1/3, not by fuzzing.  The crash path I describe
-   (subflow_check_req() -> mptcp_pm_announced_has_ssk() walking
-   msk->pm.anno_list before mptcp_pm_data_init() has run) is argued from
-   code; I have not triggered it and have no stack trace or KASAN
-   report for it.  What is verified is the input side: the token is
-   copied from the MP_JOIN option without validation, and 0 is never
-   assigned to a live connection, so a lookup for 0 relies entirely on
-   the two comparisons that cannot distinguish it.
+Agreed, matching __d_alloc() and d_path() is cleaner than zero-masking
+the trailing bytes.
 
-3/3 net: mptcp: verify the token slot in mptcp_token_iter_next()
-   Theoretical as well.  Both consumers (mptcp_diag and the userspace
-   path manager) are netlink paths that need privileges in the target
-   network namespace, so this is not a remote attack surface in the
-   first place.
+For v2, I will switch both inotify (patch 2) and fanotify (patch 3) to
+memcpy(..., len) followed by an explicit '\0' at index len so the full
+allocated buffer is initialized. I will give others a bit more time to
+comment before sending v2.
 
-For 2/3 I will add a KUnit case to net/mptcp/token_test.c
-(mptcp_token_get_sock(&init_net, 0) must return NULL) in the next
-revision, so at least the guard has a regression test.  I am not
-reposting only for this message; if reviewers want the above folded into
-the cover letter, I will include it with the next respin.
-
+Thanks,
+Junyoung
