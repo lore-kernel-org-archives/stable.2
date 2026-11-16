@@ -1,101 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.101
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794861902;
-	b=Eo9cAskQrnEiOAqW+RVXC7C3hQBnMgVT5pl8DjWUC5HUen/4VMVKLZ4YbYLVQcwZZ6fn
-	 2YuNHt2iO/WNWWnJpDz1Bx+ZvfbmF014iWeyHu1CBK3cUQHOFZ021WmfgBM/XAAyNOkAZ
-	 srNeF0dCI1NW32S5Ze+/AMd5ktspCEQi2oG9e7pogkcoBK9bWZQWAEKqYNoCb6Txrd9lp
-	 Kx57S+ep4mx3axhQQiVqgBWU062aat3Vr9wBJI+HgHsHDZTmr8kpnjQf2PFAQMgvoV29i
-	 olhzCn34B0PDQzADt+WvU8+de6Qc/D2gfh71g7+tZht5IbOqKK3wbW7zCKF8Xvf/WFA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794861902;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:From:To:Cc:
-	 Subject:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:
-	 MIME-Version:X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=3J8dm3+9EEvG6cz1MmZihFTVWyAoYeeI2dUSBOJ11RQ=;
-	b=ZMCMsz9bLgFVeBC3paP5Kq1msHceSRYWqhZjwtPx8gDTSeBnEI7gV1QI2gj2fOj1iOgR
-	 4uNyTPYvMMf8UvL77Lv7PU6xFOXUsZm88+DKjg+pbo53XNyVTqh+6aFrKUCU87D7OX7bX
-	 xeYG+P/B1BBfuZN24KBAUsqNRSisPHkM/1M355Jtrg1XKWyLiVWDi0hVBsprE9W00RPOB
-	 hdpBT4SKdWJfzhyoSBz8BsSKlcx9MHy7DyI6rbDTxQdy3uUDPmASKIreLPsYhRqqWX8rl
-	 GCes8S0gaYTSJuvPMFPXbwimffnQjeyhNSK5MkAra2HCn1m6OoKO84N+pc9HY6puciw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=wQNB1mBI;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.196.101
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020101.outbound.protection.outlook.com [52.101.196.101])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794861921;
+	b=I4pZPZbewnimNxVJVlHGVazlnodo26wep33vOp/1qQykOqiDtupgGY7uaKefEjVEK6qa
+	 HUaQHVmZ0Q7uPNRLYMQhDTRM1YZDI3EETPipwMggIR8L8t5vGiHGrgXdZOS84T/Jin/K6
+	 j/ZsBL2ANmLnzgTWcH5/Ji4FMRP7fk2ur2/O1rICmC8oV1vm3aN6BmfTFRgEHbX+2Sk/V
+	 s9l297XT694RA2VX8qEbbsbH9z4fRyPox4URkJX/6meO8xUJIlXvv8KKXIE977x6CJffa
+	 fyk3eXHfDLo2he3M5iHvQsCTVXpF9AIx0swsRRUz9YmPNFbvxiru9lOH7Z9KJ7PIJew==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794861921;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=i74bkDZDW2utys7XBRaw8ZBdMRzIuwI/mGYldrQ8McI=;
+	b=xHKCadvZBDHGbA2ggI0Fx3jhlEl88QNtHJ7RbNdCvBqzLJbC6TTFsPMgTYe93YiVZmSH
+	 peHe7w/cBsxrfmabUejOVGpUGGY9h8v54MkN0LKPSUtbABuxrPvRgtrhZy+AKRU3QgJFd
+	 Bh7AHViuNhKzQFTjoj2/1ocf2oaeUJwja+bTn9qp3xnc7PLEi2gaKTGdZn1wujpHZK4tb
+	 6CB+tUAQBrThP2yJ7fTA2sMyMVFt7BXLo6IrBsyXfG8h17SNjEdJzGEdJPQV36UU9Psrq
+	 v1w1k8xb7BMqb+mgfbKpGYFEkPYVHqd4P3mKFjrwsnyYUgEcfaeB4G/1tysWozO3KNg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Topt6J5Y;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D20F0606A335;
-	Mon, 16 Nov 2026 20:45:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D20F0606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5970606A882;
+	Mon, 16 Nov 2026 20:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=wQNB1mBI
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g74Qpewb3MlSSl/k6abp/CTHV90Gbl/cbul1OKhzGJ3Odi6S4cA5X0M9yZiE3dhg3kfDdEpHjQh1sW6SPob0iQJgf9/qhD73d08sj7ij7SxNo8ZJHfB0MZ+6p4RKoql0Rd4TIziJWRi1BoU4vTwu3dg0+GY7sqCBGRshJ+cvmThbp2+nZHcPuBsXkb3nYnqmDkC2ZOYEtMZPahF1K7lkquuoQVGMp6SQWwVcM22sXiZBzpXWympU4EKlxKOQyI4ThUQ3IvZgPNZMzweLsl8mDn1neb8G0Q9XCKD8hwbYnwfTK+Giirc6Qz9fSATt0a3J1WKwhMHD4CHTYeLonDKcjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3J8dm3+9EEvG6cz1MmZihFTVWyAoYeeI2dUSBOJ11RQ=;
- b=ZKU1Jxh6goZz4ka7+1q+iOcLP5wwu98/4fsomLpGZ147M2VISXBpHOiYjRtCv/TyxiqtkoWdkz3x9/S+tn+pgFJVrwuyKzmtardRJkjKbitnoxsiLvQUGEHhg+3R1+xRsHl45gm95PhwME9sa/4W7UGXTnvXIc/Qbmj8MBpAU/L/oLdMXCVnjdeTVB+VcmwTOhsP0zfmj40lahGxU0iKrfaQgaAKZU3EWLsS/VMjlNybbj6Not1Alb2eaLHeB+MHQ6C1nPp4EWXiY4fkyoFr2R6MSgNCJKwdSmTI1i6KUx0AOYnuOXLLvYUhAz+0AdCmnNidLPgVp/tWHU+z0RY0hg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3J8dm3+9EEvG6cz1MmZihFTVWyAoYeeI2dUSBOJ11RQ=;
- b=wQNB1mBIs+rM2OhSwJpseq4JFepuLIWLApSY1rreuhKOl49ZPlD/weYS0kW/jnkPSwsQSWpqWp6KWc6R0d+RC1HTj8zpTnf0gcUz4XAnWSymeF3TqjZPuOn5TSQcUtGlg8hr3Gx2VjiOCQhNV2ggvo7VzGOlkYI9DDLhe1ecRkk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by LODP265MB577040.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4de::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Mon, 16 Nov
- 2026 20:44:58 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.013; Mon, 16 Nov 2026
- 20:44:58 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 16 Nov 2026 20:44:57 +0000
-Message-Id: <DMWXFWMTEWTQ.2UMH7J6HAX3OR@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Miguel Ojeda" <ojeda@kernel.org>, "Josh Poimboeuf"
- <jpoimboe@kernel.org>, "Peter Zijlstra" <peterz@infradead.org>
-Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <rust-for-linux@vger.kernel.org>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH] objtool/rust: add more `noreturn` Rust functions for
- Rust 1.101.0
-X-Mailer: aerc 0.22.0
-References: <20261114001708.80599-1-ojeda@kernel.org>
-In-Reply-To: <20261114001708.80599-1-ojeda@kernel.org>
-X-ClientProxiedBy: LO4P123CA0219.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:1a6::8) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Topt6J5Y
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079221F000C4;
+	Mon, 16 Nov 2026 20:45:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794861921;
+	bh=i74bkDZDW2utys7XBRaw8ZBdMRzIuwI/mGYldrQ8McI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Topt6J5YLjpoEdU0G7nd51NYyv9gldy85Wfl2RY+5bzO9TFA/nLEPSFGzVfVGII3u
+	 sYUZwD8bmbLiQQHcBBJE4NVQ/as9wlHsXad2eOP6NHdWGMr1+42PhKSRhqwuiqH4VO
+	 AMW+j9F0rbAExTOqhX+235UAe0vhGPjFQk5CXW+VvTXrwnAnApKDEcO/R6BK9ZZnVl
+	 4xAVMMx1HIb5XRVSIRqicT3ixlZpEyPLoxLUeUwmkVg8tLgN3+ebqeGptFQ1nIKcsJ
+	 72MEQYR18cDN5B1FRUHnqoTvVt9NlT7iwuTh/SezDln9X6RXAgvL/3+vOFfoeyIeTl
+	 mvAPrEZaBbA8A==
+Date: Mon, 16 Nov 2026 13:45:17 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-tip-commits@vger.kernel.org,
+	"Borislav Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
+ enabled when compile testing
+Message-ID: <20261116204517.GB1037705@ax162>
+References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
+ <avrPcQ4sOkgJPbkZ@gmail.com>
+ <20261116130159.GA1327949@ax162>
+ <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,109 +62,112 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LODP265MB577040:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4c992cba-ed03-41ca-cd89-08df44227a3c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|10070799003|1800799024|376014|7416014|10067099003|56012099006|261026121527099003|261026140227099003|261028144727099003|261021135927099003|261022075727099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	MGWAXp2PlNIX2a4Gm6RhkHKY7WG+MWW0pe+fEItNa5zummj8k7DJ0S2kq7Ss96N8voW4P6umtOzsxRzjotIZqaRtfNVfgbBOC/oRblWYZXe/LYJJ/4bIf8mOJkKq1DZ8I4tJH4sQnm9dLq/v1UubtXEcb5ART1NsJAsOy31L1VQI8yTlPyEZGqsSyfwZXT7OjP7kz+tc6+0pY6nWR/6E1Wr7epKagCyFoiRnThq9U9J+f3JY2mQGoESk2eKwApZjjnTnkarpMRETsAEkXlMuxfkqxQg/vRmYeTNVqaK3xmlO/gWa+01HBiyvBTub5sj/Lv87NW85EAyui2qz1ew+Rb3ajjJQMIBsgeKtOYFCQblv6lTV0pj/Aby2bPT3xGk0+brreCLyyzFs0wGd8i/jw8JLSwZHq1cXQhHwS2+3FPwHYmiqlIMJ48E75qDF4tVFbV+9s4FzsXmnInRSRD2ra5y7dIlOdMddsSwDEM2bPDSvoc6HUgv4UOkjhbIdLN5yEfm/JZSzdO9prNBBMxZpBECyTlEcSZlmWqnPzirxDr+Ab8c9xcBLsiVL1iFaO4RrGikAfgKD9A6A/6J5xUdyAJSt3JL/GQXUZpg1EmxdfHrcCVl+Q/cpRcEcY8Dt590zADiDvIeuk8RTHwa1/nTf3weEIPfERCj07ICCVk1PQzU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(10070799003)(1800799024)(376014)(7416014)(10067099003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261021135927099003)(261022075727099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SjRMSDdEb0lUMWFWdDJtL1I0bFhUTTdneEhXRnRjSHh4UGxjQXNEZ29GMWVt?=
- =?utf-8?B?ZzBaM21wczkwRGVJczkrYi91RHEzRlBxeXJCc2MrNEhHcHl6dXFvZ0VKWEdY?=
- =?utf-8?B?bUdmcEEyWWQybWN0R0wyVGhOS1JLZVJuV0J6Y0VTWURjbENERFd4aUFCeExB?=
- =?utf-8?B?OGpiUFpCMXFVc09GVW5IaENES3NSSGZqazZBb3FFSTYydWU0dGxPeEJrQ2JX?=
- =?utf-8?B?UzNnb2U0K2FlcU96dDdSYnVEVjJwT2NGRnoxWG9GUWhMRzF4d2tZcUMycHZx?=
- =?utf-8?B?dHRTYThDWGxZQnJJVGsxcnowNWcxb3RJUFk0eVZXb3RscUNuaGw4WVQraElN?=
- =?utf-8?B?ckNVdWFwclE5c2FRTHExWUVIb2E0bnJaR29PN0VRcGxLQ2FpM01ScDdVU3VX?=
- =?utf-8?B?MHdmNlFjZm5haXI5MjFHQjd6S0toTzhSbDg4Mk5Hckl2VHlFWEppRDlOYmpX?=
- =?utf-8?B?dFlTOUJEcTRnaTI2aStEUVBwM0M3OXNqZjF0Z2hPN3lHUkJ0Z2hhclRSa2Y3?=
- =?utf-8?B?a0NjMFBvVUc1ZjRGcGx2WXNFZmVIbStmUGZYMTlCbHRvK21uUCt0RGtnWDZl?=
- =?utf-8?B?SElmaElTYVY5ek40aCtqZU8xKytONFp0MmsxRUlMV0VhU09GVGIrWXNTV0ZC?=
- =?utf-8?B?UVcrUms5NlBNS3Mwb05MSEpLVTFCQVladHgzRzhxd01Yb0F3eDFnbzZheDJH?=
- =?utf-8?B?TldkUmxYYXVSMkxnZCtmU2ROVTJwNEUzZ2JPNXNUNWI3WCtCV2RDeTFzTWp4?=
- =?utf-8?B?T3pTZlNZdjkrNjVVNjJMNnFWMUR4Mi9iUXhYV0JZSUMwUUVMQ0hzOEdwYjdB?=
- =?utf-8?B?bW9neHAwUFE1UHF1TkpKaFg3bWdPUllXb1pYcTNtbWZNWlNERE95Zk0zUzV2?=
- =?utf-8?B?Vm1WaG1lcjhYK0lJMHQ0aFNhV21USVprS1JOb09VclhkbW9idW5MMHEyT010?=
- =?utf-8?B?VFZZRVFTcDdNdTdBKzhKRlBrUjVoMkJmZjRGazlvSzNrbDZGOEptM1V3cFdu?=
- =?utf-8?B?NmJYM3NZNGlsTXN5aVl6R0pqM2dSbk82ZnQ0bDVKVjBSamNjNE9nb3RWTktr?=
- =?utf-8?B?eHRFeFplVEFidkEvMXluTy9pL2d1UlZvT2tsZUtDRzlhakJob0FFVVFYcmtD?=
- =?utf-8?B?Nnp0OWczeVNuUGg2Z1VBemFvT1VZaXNiU2tSN2N6dFhSUTA2Z0U4WENKeUJU?=
- =?utf-8?B?T1hvV0dGMlFUY2ZjN01LdGZGRkhhVXFwNFhWbm1nVGxaUnJ4cjBLS3RZTGto?=
- =?utf-8?B?SUl6V1dETTdOV3lubEM0dmc4bGlvSlRERFBJM3BUYXJvQXZSZGFhbXhlSGpT?=
- =?utf-8?B?clNsK0RsZ01WWWlxeHo3eXJodTV2Wi9ZT0prMU9SRTI2Y1I5clM5aDJnYWVP?=
- =?utf-8?B?NU5xWGtWMVFYMnZ4SXBCcGNKNDlIY0thZm5OZGtCcjVFczdHZ1hqK0k3NU5J?=
- =?utf-8?B?MGdIMGlVK3U4ckFZc0xNYXFrNjI4cHI1Z1lWS0FFTVUzOE12WVdZTXNtdk1P?=
- =?utf-8?B?RlJFYzdUMEs3ejErSzFIeVdQNmVOK0pNaGx1QTNjRDNWcGsvaDdKS2g4bFBk?=
- =?utf-8?B?Q0dkVE5TazI1UWM0dFU0cHdPb2loemovZnE1VWNHUEJITG00bFZzbm53OGJ1?=
- =?utf-8?B?ZW5uYTJQc3J5U3Y1RENhcFdTRmVkOVl5WUtuV0tEYU42aGwvOGppVkFLekd1?=
- =?utf-8?B?VVc4Y1dwYWZqdnAvTzJsYW0xNjhoT2pUSDN4dU5DNFBIMmY0b3VXWWkxR0lD?=
- =?utf-8?B?UjNKZ3JXTVlBbkNpQWszeTlYYXNjZkFvYndXR25IZnpnWXlMSGtpd1NMTGhO?=
- =?utf-8?B?b2lSZjUwQnJueWRZc2N3d2hlcG93bTB4N01YUC82M3dhNlBJZGJUUVpxT09K?=
- =?utf-8?B?V3ZFQzRPMzNVbGNpbFdjTnY3YkFWSkkvbnh6MjNkMUV4U3MremIvQzRIeDV6?=
- =?utf-8?B?L1QyZUJlTHBmZUZOVjF1eWFxT2RNMjNHTSt4TFdBZEZxdTdZaU9oNkRpSHE0?=
- =?utf-8?B?b0NacVdqNTgyMWhQM0VUaDl4V2Ezak1wVjVsanFZcGZ5TE5Zek1sU21XWnIz?=
- =?utf-8?B?blp2UHJ0UXkwSlNWYWgvQzl1bCtxWVJiMkw4dDhXVHRZNVVEaU9RV2xuSjha?=
- =?utf-8?B?M1VHT2pQZDVOYUtWMnFIaDMvSEw2ajBySUE2bU83REkzcndKMDFxcitCa2lh?=
- =?utf-8?B?SVNVWlFaZFdlblZlR0pyWXVqVTd2TGV4SGdGNGthYk5DQ0NtdFBsWkxKdm5u?=
- =?utf-8?B?Q202TjNReDR5L0Eza1cwS0xhZllPNEdKOFRDbWowWnU4dG5XaXpMd1hIaFd1?=
- =?utf-8?B?MEpLZU9LZzJpYjR5RDdZV0IwY3JBV2xWbWZ2Z1ZkRCtKZHdtaXB6dz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4c992cba-ed03-41ca-cd89-08df44227a3c
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Nov 2026 20:44:58.2453
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: uklwEX4pT2KC4z4En1Awbg8RGBs9sIzJ5Z++O1havFoB4LGXudD9MAfcfr7k4+fIFyT3Kvez2YP0tmAzgdGTrg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LODP265MB577040
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
 
-On Sat Nov 14, 2026 at 12:17 AM GMT, Miguel Ojeda wrote:
-> Starting with Rust 1.101.0 (expected 2026-12-24), `objtool` may report:
->=20
->     rust/kernel.o: warning: objtool: _R..._6kernel3pci2ioINtB7_6DeviceNtN=
-tB9_6device5BoundE8cfg_size()
->     falls through to next function _R..._6kernel3oppNtB5_3OPP18from_raw_o=
-pp_owned()
->=20
-> (and others) due to calls to the `noreturn` symbol:
->=20
->     core::panicking::unreachable_default_msg
->=20
-> Rust now outlines the constant messages of the panicking macros [1],
-> thus `unreachable!()` (i.e. without arguments) calls that new function
-> instead of `core::panicking::panic`, which is already in the list.
->=20
-> The same change introduced the equivalent `noreturn` functions for
-> `panic!()`, `todo!()` and `unimplemented!()`, which lead to the same
-> warning when those are used:
->=20
->     core::panicking::panic_default_msg
->     core::panicking::todo_default_msg
->     core::panicking::unimplemented_default_msg
->=20
-> Thus add the mangled ones to the list so that `objtool` knows they are
-> actually `noreturn`.
->=20
-> See commit 56d680dd23c3 ("objtool/rust: list `noreturn` Rust functions")
-> for more details.
->=20
-> Cc: stable@vger.kernel.org # 6.12.x (Rust is pinned in older LTSs)
-> Cc: Josh Poimboeuf <jpoimboe@kernel.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Link: https://github.com/rust-lang/rust/pull/163766 [1]
-> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+On Mon, Nov 16, 2026 at 07:48:34AM -0800, Linus Torvalds wrote:
+> On Mon, 16 Nov 2026 at 05:02, Nathan Chancellor <nathan@kernel.org> wrote:
+> >
+> > On Mon, Nov 16, 2026 at 10:40:01AM +0100, Ingo Molnar wrote:
+> > > Can we just limit the feature to when host == target, ie. to not
+> > > work it around in such a crude fashion?
+> >
+> > That was my v1 but Boris didn't like it:
+> >
+> >   https://lore.kernel.org/20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org
+> 
+> Well, that is admittedly very crude and hacky.
 
-Reviewed-by: Gary Guo <gary@garyguo.net>
+I guess that's one way to describe it.
 
-> ---
->  tools/objtool/check.c | 4 ++++
->  1 file changed, 4 insertions(+)
+> Maybe we should have some config variables that depend on HOSTCC, and
+> detect it *that* way. It does appear that we don't have any model for
+> cross-compiling in the Kconfig setup, but maybe  we should..
+> 
+> I'd actually love to have support for making the compiler itself part
+> of Kconfig, so that the gcc-vs-clang could be *in* the .config file
+> rather than being an external thing to it.
 
+I guess you mean having CC and HOSTCC and friends as values in Kconfig?
+
+> I've mentioned that before, and the problem has typically been that we
+> end up depending on 'CC' outside of the Kconfig scripts and
+> independently of the current config.
+> 
+> The recent work to move the compiler flags into Kconfig itself may
+> have lessened some of those dependencies, but there's probably still
+> lots of small details.
+> 
+> But for the whole "cross-compile", maybe we can just say that
+> X86_NATIVE_CPU depends on '$CC' being the same as '$HOSTCC'.
+
+Unfortunately, that would not for the LLVM case that the commit message
+brings up since HOSTCC == CC (we switch targets using '--target'),
+
+> Or even do '$(CC) -v" and '$(HOSTCC) -v' and check for 'Target' being
+> the same, and having a CONFIG_CROSSCOMPILE thing for that?
+
+Hmmm, not a bad idea. That does seems to work based on my initial tests,
+which would probably be the most generic way to solve this? I am not
+sure I want to extrapolate '-march=native' out of x86 right now since I
+think architecture maintainers should have the option to support it or
+not. However, this would at least lay the ground work for generically
+abstracting it (hopefully making Boris happy) and allowing it to still
+be enabled in the allmodconfig case (hopefully making Ingo happy) while
+still resolving my original issue.
+
+diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+index 6e7a366f0798..4643b3482d94 100644
+--- a/arch/x86/Kconfig.cpu
++++ b/arch/x86/Kconfig.cpu
+@@ -217,6 +217,7 @@ config RUSTC_HAS_APXF
+ config X86_NATIVE_CPU
+ 	bool "Build and optimize for local/native CPU"
+ 	depends on X86_64
++	depends on !CROSS_COMPILING
+ 	depends on CC_HAS_MARCH_NATIVE
+ 	depends on !RUST || RUSTC_HAS_APXF
+ 	help
+diff --git a/scripts/Kconfig.toolchain b/scripts/Kconfig.toolchain
+index 2acbd40a38f1..ac2e3de50ac0 100644
+--- a/scripts/Kconfig.toolchain
++++ b/scripts/Kconfig.toolchain
+@@ -32,6 +32,9 @@ config CLANG_VERSION
+ 	default $(cc-version) if CC_IS_CLANG
+ 	default 0
+ 
++config CROSS_COMPILING
++	def_bool $(success,$(srctree)/scripts/check-cross-compiling.sh "$(HOSTCC)" "$(CC) $(CLANG_FLAGS)")
++
+ config AS_IS_GNU
+ 	def_bool $(success,test "$(as-name)" = GNU)
+ 
+diff --git a/scripts/check-cross-compiling.sh b/scripts/check-cross-compiling.sh
+new file mode 100755
+index 000000000000..fd1af38926a9
+--- /dev/null
++++ b/scripts/check-cross-compiling.sh
+@@ -0,0 +1,19 @@
++#!/bin/sh
++# SPDX-License-Identifier: GPL-2.0
++
++hostcc="$1"
++cc="$2"
++
++get_target() {
++    "$@" -v 2>&1 | grep -o 'Target: \([^-]\+\)'
++}
++if ! hostcc_target=$(get_target $hostcc); then
++    echo >&2 "Could not get target for HOSTCC!"
++    return 1
++fi
++if ! cc_target=$(get_target $cc); then
++    echo >&2 "Could not get target for CC!"
++    return 1
++fi
++
++test "$hostcc_target" != "$cc_target"
+-- 
+Cheers,
+Nathan
