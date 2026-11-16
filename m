@@ -1,101 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794868885;
-	b=V6K8YQQVjAvFU3YSHo/fRb3BQSj3QOFBlP8Eas50rIr9+pdYAThwaiHDxIgPU+dWnAbb
-	 OODk2MHp1bj9i5/KeZG37CiyTW7pQfUI6yZRscZ0R/bSzH+XQ+MlA3itaBTJiKeIDDyWs
-	 GAFaaWHYGu4bCYXYkovrybRp6hxOZnS/FxNI25r7E8XssI+1ymOufOFt0bwcKMd+SiUtM
-	 JmgATwRys+lH599BwaW+6VS2NxXZhgG1qQ9fG44shiF2JsZ7nwBx4n0ohpot2XzP5EBml
-	 65V9xPeaw0egszcMvO3BWNJFt17zGEDnkSzcAoPErU21wBpWLexPLtu6lrD5FOzovFw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794868885;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.72
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794868994;
+	b=TGiWUBLVkSh5u0Xr3hzQWOI7oJ5L7Q+5YgCxNQs+JyK2J9MsUb5lcaU8n5wbvSIFlkzl
+	 ZGqt25lklkGpaJ03bbxGjLYWlrM4KwySBioZDee0tNo6XyL500R7sWqtDOaJjDUVaCxa+
+	 Z9WZAd47BObpL0lorX6IFFxDyCFonOGGYVc2G2o/RdpXiMDE6dEQX9okXwi12wU4tXTvp
+	 vWX4spRrx+1oDzGwoVcqL/Xjum9w7eApxiFGdJ3dsTGLeN4PH09IGkS9rU8VwY/sQH76e
+	 GqcDsZxDP5bvH9AwgWmMKlTA80gtuaEIXb7Y55xHdt8fBA9/bkwg6GaM1Q8zR36eZyQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794868994;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=gpp9LcCSgKl2cI7lJtnwvTOl6rqLL+9p0xxnoRcf0oE=;
-	b=5lnIhVMr4SZ0fBDhp9BUsYY2ODtDZh3snFXn0me2GTmeL2PP9C0vULnij9pWHuVYyC8v
-	 jsnnjl37/V5rqBWmtsAeycbt4K5a27v5/RermXM+znl2tWPFd46g1zG5r8jZx2BbTsK19
-	 psHqPfPwwYt5uq71rtayAafQN0mrk7Qjq3Su08rxOLJkdtfWltyTyo3rHi6EAWvFO2L43
-	 EECps9UvBEpoPW+HDO2w9LP+Y93118qw0wGHjwCf+oBfsJaGgsE+C+cRUERc1WCyhkydC
-	 mVJjef61+olnWUkVCrEzQCimHpCTtlecoGTDSOCEmm+HWR/X3y0wVMVhx9eNMBXqqdw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jc5k7Grm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.182
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=kMpo0UJ75TruTVatPvi3CzUYgCxzkdWpyiDhvC9SSik=;
+	b=MGcziWuVR6RvAt7WnYY5xAhKlsS115Vb4/Ry4EMW0RGkmIdMt8lehB3otGgs9zqYfdMp
+	 Has1GTjeopWCFu158WF7Br9xt1RoJwK9KwwbU4QQMQPvjV+i4Url9ExwA1oiRjoHube7Y
+	 xN8gR+xze2NUKse4kLuiuiwhGTIGblaK/jb0ysXmGx/0rvCIilR/0+exbGDEWJS9faAiu
+	 AgyCL8OLXhVpVM46JrUoEgJDDooTxnD+SmzT5zM7acEpJTsUIaOlNWwY29BAFDgYhQaDH
+	 r0Xr0xjU3Gdh0ocWpXxByVpxAMiGlJJ0EqLyQQFe1SJQbfdRIObrNIeUdt611h1OWnQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--joshwash.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oWveBScb;
+	arc=none smtp.remote-ip=209.85.216.72
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5F11606A329
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 22:41:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5F11606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2E2606A881
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 22:43:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A2E2606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--joshwash.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Jc5k7Grm
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8b4c2da74c0so12869947b3.1
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:41:24 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794868884; cv=none;
-        d=google.com; s=arc-20260327;
-        b=co5POSnCPM4bj3bNgKYVYPW5IESDwI5Rk/d+J9lizg2BTw+KjzcBN/mziyKMk3xJe4
-         43hFEIlsEvLplXXY/K6BvBzGG0WhXouIqCWpldutG73cZQcFgbAjgd7D0TPMvw2V72dF
-         JCpIsDy+cFLRLED7hzBJWOdWpAHzbantdSGn+YvZOwdp/N8XkMESqaqFEobCdhe/Hrrt
-         Cp0XMQeDE9ffpiaNfLUvAsRhDN18kdAKiK9eZKeoFLNks6M9wviwxB9NldniVuykvsBw
-         BX/UrHqFlfa7T4OSPUB+dzROx4/BV2vjYuG+4FXPqRV3y0bpiyl5cGJQjKkrKBihcciT
-         IzcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gpp9LcCSgKl2cI7lJtnwvTOl6rqLL+9p0xxnoRcf0oE=;
-        fh=HissRdJ2BV80tagY2ZSvpwpJeyyUvZKTIf/wyEJ09sA=;
-        b=D9Iqi1XShqbrnMbVxpodHCe0cZ1Ddn2rE3zQHSYZ7WBg0HXF1v8YO+JZJLI9sJdr2F
-         NstZktkeFJO11I7MkgNv0qodarrLd9Q8Ue9lVE7KLrpii5cZ67W73uosigcOxq+oLBo+
-         kLeW6VFx1iyjFvCD5Zc8QtsGe47/8EUzHtjIYxaiUX4uCP5kTo6s11IhGBn+pIKROvDG
-         841A7xAiQA3LZQG/ube1w1VNjVtDFdBL3z2dAQranGHQBhJYqPO1gR28byy73k641tLy
-         Va5e3JuXNmJBk6NQoV+1ssXLIcMbRf+ySUG/Eou8JCaETgnG4dhsb/G8QW68mLyNWmeT
-         7Zlw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=oWveBScb
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3ae19907a31so299840a91.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:43:13 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794868884; x=1795473684; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gpp9LcCSgKl2cI7lJtnwvTOl6rqLL+9p0xxnoRcf0oE=;
-        b=Jc5k7GrmHEAmt0UUyFczLhxRSOuPWwl9lkXkjJO+coclp8jShxdCh0xiK40mf4cbI3
-         Lm6UzEYuK+CdmbE/GoMPm5HecHiE3W2LnDpQz1Jg2pXwCDQ6shRhgnna/3QVI01ZrgMQ
-         tdmUfTuugImvJHhXtOenDPHT7Dw0nkMM/7nsWp5HgtqJ3Weybze7/rW2HT1Ung5GdW/F
-         49yT89/xGe7x2mKOQxwzcL/2WXKpr59fYtbAYYg34WdvMFr0D73/sX9IhaPA4CGEUSch
-         ZExOKzyQGBB1/WNxnNWuCJGcF4H/+t/dEj8pLEuEInKLFiW1yGVrFLBrROLgP4UO6t1x
-         hU6Q==
+        d=google.com; s=20260707; t=1794868993; x=1795473793; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kMpo0UJ75TruTVatPvi3CzUYgCxzkdWpyiDhvC9SSik=;
+        b=oWveBScboc2GJ2HTXjp7u0w8uDrmAAwCZR47rxj1Lx3GEz2TG5/4cIUouXtOKtgz8h
+         2dXKlj5kAXkNT9v8j0rE7gieT80yiWm885QDC6j3oWtMytdrSuZRCtDir+3J6WukikJ2
+         /bwh4IpXpReXYnVeBt7l2Ve3czfLB0ySnz3tgfD5GeawNYVGVnttaerAgGTOD9EPkFLW
+         20mefIa6MM59Y5gZaLqCbtNNCojrJWlq4LaNDC6N7tXtECt07hsRJaN32CWpPmFi/2BE
+         LKRyWmjEuhaJuJ/XWQ4S5+lH0P+f1ApX91CgE10Y8G3uIPEfNuqFKss8c/n4kXENohNO
+         eYsw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794868884; x=1795473684;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1794868993; x=1795473793;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gpp9LcCSgKl2cI7lJtnwvTOl6rqLL+9p0xxnoRcf0oE=;
-        b=Tu2aSWfOwKjEZwAQ7uPzOZ9IgPcwoO+eRvcUtmCUFCmWp6kf41zgoTkT3+5JX70WwB
-         hRRjYTx6dpkUpnsO0H5EQKcvoHjYT+RiM5PIhACJbnKdtU4cMXzXJlbZH0SOvg3dgQ0F
-         lTp3tOvD/QmpAXC7ZTWObfyYKPhUFgqvVFxqw2XdHorH0A6ngJ1CvyzqnVnwf/lZZSfx
-         WPXtdHAP4SHENDg0GFzhGOJCFx08v7eE2NMUrP8EWOkPC38zXsMBofthxj4czYkmH9lp
-         AwlwCalErdIpj/cVZkzcpKzjlfPXD1eJeEDf8ZrsiuKSNc6DOwEXtD+YIfJoebgzyafH
-         lIKA==
-X-Forwarded-Encrypted: i=1; AL+hErFrJbzUmKIVu3AyLZcqebvMQOwHYX50uUYgepEOZsz/x4ku7y3Lutzx52CY+LO2dEmdgL+BtEI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8CFHylLeN5j4wSdxi58AdRe4YJy7QLGgka1NKyWg1LGwYtaJ8E
-	gTT97GkAa2pNqkLo6FJscWPuQHouyBdwibsJzy0xb/VtmpASjSN0dqCp+ROlSUIIiB9T3imJWLI
-	ugp2ZkwBGVOR8Mb61JeSuqnzJKnLLSoY=
-X-Gm-Gg: AZFdTZfKHJVY6aAyuudG1ebN6M7nqquck5aoS4RLMFe7nnwsxqieEN+LRxV7SNdJp+6
-	IxkbAeCUkG7o8LUWJmde41dUUnQUn/LVRt6aI24JInzxzUFtF3I1drHMWx8x+HyPBPygpfn6Jp6
-	d4dULqO9tddVUgBFdIdmE7VUb1ZXUeVp5+uPXSNt/4bMUWhxGPe7nTFKfpUVaLoNdS/QnSbHkkB
-	f0IURRaR0M/69TmUOwRVsd378C8j8iq9J/fak+XKD2Xq5AdtPPlaHVExv1T+0qpQyMaYyvEpyKp
-	dpD2VKF4imCy4Rpcs6Cy8LScRuvYKpD6EbcP46liGWD5ccm6nqlAFNbsh6asHm/YFhamUQHkcgd
-	N16Xj4vheckG38HQcbEI69S1dGZx1GeJBgnnC/D5vk23HQRQVSoa+z/NSAkvNixAFIMG6KqLHub
-	6jkFIMtt3UAfiXqB5p8fFxIZ+1RjwkgrbcZYrZlu+Ky2EG
-X-Received: by 2002:a05:690c:19:b0:8b3:7621:f691 with SMTP id
- 00721157ae682-8b4aa39510dmr61981927b3.58.1794868883895; Mon, 16 Nov 2026
- 14:41:23 -0800 (PST)
+        bh=kMpo0UJ75TruTVatPvi3CzUYgCxzkdWpyiDhvC9SSik=;
+        b=RJVDUsHGtnncBOihsRKaVeFgQnGNZRYOCSLyneA1a/189D9x0p5Y9wA6xwV2SS/eol
+         gkmsg/gbXhaj4j2qDsr3zvGiM4ShpcGiyUVbSSrhlHy4h3eH5z9ZyX7pn2OUAEbGH9lZ
+         4kyb0WVwcZipi0mLLkzC8BafDBsAvXmCC0KxP6nHZk9fqwSeIARjfESfF9WTWa5/M/8U
+         I6jK8KqsieiKxkLnUueDctU147I0hS3RnJ8o9S++WZYxfuGb3xzrGGsXpVMOn0j+Zo5g
+         RWGSOBK03N559CXsWm/mTxvapnIqYE+5zAhT1rpWXeLvzWYxf8tZdPDqHA/88fCq46GU
+         Pt0A==
+X-Forwarded-Encrypted: i=1; AL+hErG4eZcABYXEiJt1WN9OWmAZWsB29OX2k/fqPM9Zh2/L8z2laaKMgR+PEDvqMBnLJJWGm2gbulE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+kz9jRso/l8zuRBEgYWjHf8MvcgifdDsHXR5kQZWLPdWiIOb/3
+	PN600HXtfNQCSdBqGn9S8bi97lCEFvQA2VwAc82MOLYemApdp9c1sJEbf7c0FPzLEHOBWQNPhVC
+	8cZPix5YuilnYvQ==
+X-Received: from pjbgz6.prod.google.com ([2002:a17:90b:ec6:b0:3ad:9e7b:240f])
+ (user=joshwash job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a17:90b:3805:b0:3b0:e388:d9c9 with SMTP id 98e67ed59e1d1-3b3abb360a8mr465559a91.12.1794868992419;
+ Mon, 16 Nov 2026 14:43:12 -0800 (PST)
+Date: Mon, 16 Nov 2026 14:43:08 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,166 +75,213 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261114043522.48764-1-ozgunkultekin@gmail.com> <342f864c01c694acc0ec59b4d79f18e627a1ea24.camel@dubeyko.com>
-In-Reply-To: <342f864c01c694acc0ec59b4d79f18e627a1ea24.camel@dubeyko.com>
-From: =?UTF-8?B?w5Z6Z8O8biBLw7xsdGVraW4=?= <ozgunkultekin@gmail.com>
-Date: Mon, 16 Nov 2026 14:41:12 -0800
-X-Gm-Features: Aa3M54pYTt9GjzCqNOUVY3T7b3LZBifqVTCc5WOUnoDmeg9LkLB7qIWfc1SBSbc
-Message-ID: <CAP2AQ-AnKOvRguMAdxi6KhTw_XYME+8EqdeSpnbxWVRHwcC-=A@mail.gmail.com>
-Subject: Re: [PATCH 1/2] hfsplus: bound btree keys by the tree's max_key_len
- in hfs_bnode_read_key()
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: glaubitz@physik.fu-berlin.de, frank.li@vivo.com, 
-	linux-fsdevel@vger.kernel.org, Guikun Yang <yangguikun19@qq.com>, stable@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
+Message-ID: <20261116224308.986555-1-joshwash@google.com>
+Subject: [PATCH net v2] gve: fix checksum state and gso_segs of HW-GRO packets
+From: Joshua Washington <joshwash@google.com>
+To: netdev@vger.kernel.org
+Cc: Joshua Washington <joshwash@google.com>, Harshitha Ramamurthy <hramamurthy@google.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Jordan Rhee <jordanrhee@google.com>, Ankit Garg <nktgrg@google.com>, 
+	Tim Hostetler <thostet@google.com>, Willem de Bruijn <willemb@google.com>, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Praveen Kaligineedi <pkaligineedi@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Slava,
+From: Ankit Garg <nktgrg@google.com>
 
-Sorry, the commit message was too dense. Here is the issue step by step.
+With HW-GRO enabled, gve_rx_complete_rsc() turns a coalesced packet into
+a GSO skb by setting gso_size, gso_segs and gso_type, but leaves it
+CHECKSUM_UNNECESSARY with th->check as the device wrote it. Unlike
+tcp4_gro_complete() and tcp6_gro_complete() for a SW-GRO packet, it does
+not seed th->check with the TCP pseudo-header checksum or set
+CHECKSUM_PARTIAL.
 
-hfs_find_init() allocates one buffer for the search key and the found key:
+The GRO stack completes a HW-GRO skb itself only if it holds the skb for
+merging (since commit 5eddb24901ee ("gro: add support of (hw)gro packets
+to gro stack")). Otherwise the skb is delivered as is, e.g. with rx-gro
+off or for a packet that is flushed immediately (e.g. with PSH set). If
+such an skb is forwarded out of a TSO-capable device, netif_needs_gso()
+accepts it as CHECKSUM_UNNECESSARY and the device segments it with a
+bogus checksum seed, so every segment is dropped by the receiver. This
+blackholes forwarded TCP traffic on VMs acting as routers or NAT
+gateways and was observed on VMs in real use.
 
- ptr =3D kzalloc(tree->max_key_len * 2 + 4, GFP_KERNEL);
- fd->search_key =3D ptr;
- fd->key =3D ptr + tree->max_key_len + 2;
+Fix it in a manner consistent with other drivers with HW-GRO: set the
+network and transport headers and, for packets whose checksum the device
+verified, seed th->check with the pseudo-header checksum and call
+tcp_gro_complete(), passing gso_segs through NAPI_GRO_CB(skb)->count.
+skb->data points at the Ethernet header on the napi_gro_frags() path and
+at the IP header on the header-split and copybreak paths, so account for
+that when setting the network header. Since the header layout now
+matters, tell IPv4 from IPv6 by the EtherType, as qede and bnx2x do,
+rather than by the packet type.
 
-For the extents tree max_key_len is 10, so the allocation is 24 bytes
-and each key buffer is 12 bytes.
+The device does not coalesce VLAN tagged frames, so the IP header always
+follows the Ethernet header. The IP and TCP header lengths are read from
+the packet, so check that the headers are in the linear part before
+using them, and drop the packet otherwise.
 
-hfs_bnode_read_key() takes the key length from disk (for leaf records
-of the extents tree) and only checks it against
-sizeof(hfsplus_btree_key), which is 518:
+Also compute gso_segs from the TCP payload length. It was computed from
+skb->data_len, which is 0 for a packet that rx_copybreak copied whole
+into the linear part, leaving such packets with gso_segs 0 and a
+non-zero gso_size. Such small packets usually carry a single segment, so
+deliver a packet with at most one segment of payload as a non-GSO skb.
 
- if (key_len > sizeof(hfsplus_btree_key) || key_len < 1)
+Fixes: e637c244b954 ("gve: Advertise NETIF_F_GRO_HW instead of NETIF_F_LRO")
+Cc: stable@vger.kernel.org
+Reviewed-by: Jordan Rhee <jordanrhee@google.com>
+Reviewed-by: Praveen Kaligineedi <pkaligineedi@google.com>
+Signed-off-by: Ankit Garg <nktgrg@google.com>
+Signed-off-by: Joshua Washington <joshwash@google.com>
+---
+Changes in v2:
+- Check that the IP and TCP headers are in the linear part before
+  using them (Eric Dumazet)
+- Note in the changelog that the device does not coalesce VLAN tagged
+  frames (Eric Dumazet)
+- Do not mark packets with at most one segment of payload as GSO
+- Link to v1: https://lore.kernel.org/netdev/20261113195553.2220562-1-joshwash@google.com/
 
-So an extents leaf record with key length 514 passes the check, and
-hfs_bnode_read() copies 516 bytes into the 24-byte allocation. The
-check from bb5e07cb9277 protects the catalog tree, where the buffers
-are big enough, but not the extents tree.
+ drivers/net/ethernet/google/gve/gve_rx_dqo.c | 84 ++++++++++++++++----
+ 1 file changed, 68 insertions(+), 16 deletions(-)
 
-It is reached from hfs_brec_insert(), which calls hfs_bnode_read_key()
-on a key that was never validated (record 0 of the leaf when the tree
-has no root yet, or the first key of a new node after a split).
-Mounting the crafted image read-write is enough: hfsplus_fill_super()
-creates the private data directory, which extends the catalog file and
-inserts an extents record.
+diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+index 82ed5e48b00a..b4dbfb1ba39b 100644
+--- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
++++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+@@ -13,6 +13,7 @@
+ #include <linux/ipv6.h>
+ #include <linux/skbuff.h>
+ #include <linux/slab.h>
++#include <net/gro.h>
+ #include <net/ip6_checksum.h>
+ #include <net/ipv6.h>
+ #include <net/tcp.h>
+@@ -1000,13 +1001,34 @@ static int gve_rx_dqo(struct napi_struct *napi, struct gve_rx_ring *rx,
+ 	return -ENOMEM;
+ }
+ 
++/* Prepare a HW-GRO packet the way tcp4/6_gro_complete() prepare a SW-GRO
++ * packet, so that it can be resegmented by GSO or TSO if it is forwarded:
++ * seed th->check with the TCP pseudo-header checksum and set CHECKSUM_PARTIAL.
++ */
++static void gve_rx_fixup_gro_checksum(struct sk_buff *skb)
++{
++	int len = skb->len - skb_transport_offset(skb);
++	struct tcphdr *th = tcp_hdr(skb);
++
++	if (skb_shinfo(skb)->gso_type & SKB_GSO_TCPV4)
++		th->check = ~tcp_v4_check(len, ip_hdr(skb)->saddr,
++					  ip_hdr(skb)->daddr, 0);
++	else
++		th->check = ~tcp_v6_check(len, &ipv6_hdr(skb)->saddr,
++					  &ipv6_hdr(skb)->daddr, 0);
++
++	NAPI_GRO_CB(skb)->count = skb_shinfo(skb)->gso_segs;
++	tcp_gro_complete(skb);
++}
++
+ static int gve_rx_complete_rsc(struct sk_buff *skb,
+ 			       const struct gve_rx_compl_desc_dqo *desc,
+ 			       struct gve_ptype ptype)
+ {
+ 	struct skb_shared_info *shinfo = skb_shinfo(skb);
+-	int rsc_segments, rsc_seg_len, hdr_len;
++	int rsc_seg_len, hdr_len, nhoff, thoff, gso_type, payload;
+ 	skb_frag_t *frag;
++	__be16 proto;
+ 	void *va;
+ 
+ 	/* HW-GRO only coalesces TCP. */
+@@ -1017,20 +1039,11 @@ static int gve_rx_complete_rsc(struct sk_buff *skb,
+ 	if (!rsc_seg_len)
+ 		return 0;
+ 
+-	switch (ptype.l3_type) {
+-	case GVE_L3_TYPE_IPV4:
+-		shinfo->gso_type = SKB_GSO_TCPV4;
+-		break;
+-	case GVE_L3_TYPE_IPV6:
+-		shinfo->gso_type = SKB_GSO_TCPV6;
+-		break;
+-	default:
+-		return -EINVAL;
+-	}
+-
+ 	if (skb_headlen(skb)) {
+-		/* With header-split, payload is in the non-linear part */
+-		rsc_segments = DIV_ROUND_UP(skb->data_len, rsc_seg_len);
++		/* With header-split or copybreak, eth_type_trans() has already
++		 * pulled the Ethernet header.
++		 */
++		nhoff = 0;
+ 	} else {
+ 		/* HW-GRO packets are guaranteed to have complete TCP/IP
+ 		 * headers in frag[0] when header-split is not enabled.
+@@ -1039,7 +1052,6 @@ static int gve_rx_complete_rsc(struct sk_buff *skb,
+ 		va = skb_frag_address(frag);
+ 		hdr_len =
+ 			eth_get_headlen(skb->dev, va, skb_frag_size(frag));
+-		rsc_segments = DIV_ROUND_UP(skb->len - hdr_len, rsc_seg_len);
+ 		skb_copy_to_linear_data(skb, va, hdr_len);
+ 		skb_frag_size_sub(frag, hdr_len);
+ 		/* Verify we didn't empty the fragment completely as that could
+@@ -1049,10 +1061,50 @@ static int gve_rx_complete_rsc(struct sk_buff *skb,
+ 		skb_frag_off_add(frag, hdr_len);
+ 		skb->data_len -= hdr_len;
+ 		skb->tail += hdr_len;
++		/* napi_gro_frags() pulls the Ethernet header later. */
++		nhoff = ETH_HLEN;
++	}
++
++	/* The header lengths come from the packet, so make sure the headers are
++	 * in the linear part before reading them and writing th->check.
++	 */
++	if (unlikely(skb_headlen(skb) < nhoff + sizeof(struct iphdr)))
++		return -EINVAL;
++
++	skb_set_network_header(skb, nhoff);
++	proto = nhoff ? ((struct ethhdr *)skb->data)->h_proto : skb->protocol;
++	switch (proto) {
++	case htons(ETH_P_IP):
++		gso_type = SKB_GSO_TCPV4;
++		thoff = nhoff + ip_hdrlen(skb);
++		break;
++	case htons(ETH_P_IPV6):
++		gso_type = SKB_GSO_TCPV6;
++		thoff = nhoff + sizeof(struct ipv6hdr);
++		break;
++	default:
++		return -EINVAL;
+ 	}
++	if (unlikely(skb_headlen(skb) < thoff + sizeof(struct tcphdr)))
++		return -EINVAL;
++	skb_set_transport_header(skb, thoff);
++	if (unlikely(skb->len < thoff + tcp_hdrlen(skb)))
++		return -EINVAL;
++
++	/* With at most one segment of payload, this is not a GSO packet. */
++	payload = skb->len - thoff - tcp_hdrlen(skb);
++	if (payload <= rsc_seg_len)
++		return 0;
++
++	shinfo->gso_type = gso_type;
+ 	shinfo->gso_size = rsc_seg_len;
+-	shinfo->gso_segs = rsc_segments;
++	shinfo->gso_segs = DIV_ROUND_UP(payload, rsc_seg_len);
++
++	if (!IS_ENABLED(CONFIG_INET) ||
++	    unlikely(skb->ip_summed != CHECKSUM_UNNECESSARY))
++		return 0;
+ 
++	gve_rx_fixup_gro_checksum(skb);
+ 	return 0;
+ }
+ 
 
-KASAN on Fedora 7.3.3-300.fc45.x86_64+debug, mount only:
+base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
+-- 
+2.56.0.679.gc527c65306-goog
 
-BUG: KASAN: slab-out-of-bounds in hfsplus_bnode_read+0x39/0x360 [hfsplus]
-Write of size 516 at addr ff11000003a0e740 by task pool-1/1720
-Call Trace:
- __asan_memset+0x27/0x50
- hfsplus_bnode_read+0x39/0x360 [hfsplus]
- hfsplus_bnode_read_key+0x12b/0x230 [hfsplus]
- hfsplus_brec_insert+0x554/0xcc0 [hfsplus]
- __hfsplus_ext_write_extent+0x4fd/0x750 [hfsplus]
- hfsplus_ext_read_extent+0x7a7/0xaa0 [hfsplus]
- hfsplus_file_extend+0x862/0x12a0 [hfsplus]
- hfsplus_bmap_reserve+0x2e1/0x4c0 [hfsplus]
- hfsplus_fill_super+0x135a/0x1910 [hfsplus]
-Allocated by task 1720:
- __kmalloc_noprof+0x353/0x9d0
- hfsplus_find_init+0x18c/0x400 [hfsplus]
- hfsplus_fill_super+0x135a/0x1910 [hfsplus]
-The buggy address is located 0 bytes inside of allocated 24-byte
-region [ff11000003a0e740, ff11000003a0e758)
-
-The error path has the same problem: memset(key, 0,
-sizeof(hfsplus_btree_key)) clears 518 bytes of the same buffer.
-
-The fix checks key_len against tree->max_key_len + 2, the real size of
-each key buffer, and clears only that much on error. max_key_len is
-already validated per tree in hfs_btree_open(), so valid keys still
-pass, including the 518-byte catalog keys. With the patch the image is
-refused with "hfsplus: Invalid key length: 516" and there is no KASAN
-report. Normal HFS+ volumes still work (create, append into the
-extents tree, rename, delete, xattrs) and fsck.hfsplus reports them
-clean.
-
-Patch 2/2 is the same bug in classic hfs: there the extents key
-buffers are 18 bytes in total, and the check is against
-sizeof(hfs_btree_key).
-
-I can send the image generator, or a v2 with this text in the commit
-message if that helps.
-
-Thanks,
-ozgun
-
-
-On Mon, Nov 16, 2026 at 2:02=E2=80=AFPM Viacheslav Dubeyko <slava@dubeyko.c=
-om> wrote:
->
-> On Fri, 2026-11-13 at 20:35 -0800, ozgun kultekin wrote:
-> > hfs_bnode_read_key() reads the key length of leaf records (and of all
-> > records of variable-key and attributes trees) from disk and only
-> > checks
-> > it against sizeof(hfsplus_btree_key), 518 bytes. The destination is
-> > always one of the two key buffers hfs_find_init() allocates, each
-> > tree->max_key_len + 2 bytes long. For the extents tree max_key_len is
-> > fixed at 10, so the whole allocation is 24 bytes and a crafted leaf
-> > key
-> > writes up to 516 attacker-controlled bytes into kmalloc-32. The error
-> > path has the same problem: it clears 518 bytes of the 24-byte buffer.
-> >
-> > hfs_brec_insert() reaches this with an unvalidated key: when the tree
-> > root is 0 it reads the key of record 0 of the leaf it inserts into,
-> > and
-> > after a split it reads the first key of the new node. A read-write
-> > mount
-> > that extends the catalog (creating the private data directory), or an
-> > append to a file whose extents spill into the extents tree, is
-> > enough;
-> > no other file operation is needed.
-> >
-> > The 518-byte bound was added by commit bb5e07cb9277 ("hfs/hfsplus:
-> > fix
-> > slab-out-of-bounds in hfs_bnode_read_key"); it covers the catalog and
-> > attributes buffers but not the extents buffer. Bound the key length
-> > by
-> > the tree's own maximum, which btree.c already validates per tree, and
-> > only clear the bytes the buffer actually has.
-> >
-> > Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> > Fixes: bb5e07cb9277 ("hfs/hfsplus: fix slab-out-of-bounds in
-> > hfs_bnode_read_key")
-> > Reported-by: Guikun Yang <yangguikun19@qq.com>
-> > Closes:
-> > https://lore.kernel.org/all/tencent_F85118A9AFDF9B230D4E8FA672510A3E2F0=
-8@qq.com/
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: ozgun kultekin <ozgunkultekin@gmail.com>
-> > ---
-> > diff --git a/fs/hfsplus/bnode.c b/fs/hfsplus/bnode.c
-> > index 3a1a1fa..f414020 100644
-> > --- a/fs/hfsplus/bnode.c
-> > +++ b/fs/hfsplus/bnode.c
-> > @@ -84,8 +84,13 @@ void hfs_bnode_read_key(struct hfs_bnode *node,
-> > void *key, u32 off)
-> >       else
-> >               key_len =3D tree->max_key_len + 2;
-> >
-> > -     if (key_len > sizeof(hfsplus_btree_key) || key_len < 1) {
-> > -             memset(key, 0, sizeof(hfsplus_btree_key));
-> > +     /*
-> > +      * The key buffers come from hfs_find_init() and hold
-> > +      * tree->max_key_len + 2 bytes each, which is far less than
-> > +      * sizeof(hfsplus_btree_key) for the extents tree.
-> > +      */
-> > +     if (key_len > tree->max_key_len + 2 || key_len < 1) {
-> > +             memset(key, 0, tree->max_key_len + 2);
-> >               pr_err("hfsplus: Invalid key length: %u\n",
-> > key_len);
-> >               return;
-> >       }
-> > --
-> > 2.47.0
->
-> I don't quite follow to the fix. What issue are you trying to fix?
-> Could you please explain it more clearly?
->
-> Thanks,
-> Slava.
