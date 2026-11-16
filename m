@@ -1,54 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794851688;
-	b=SjJ8LI+PidFNC19IGfOUkeY+NvtB3+YbQVbUGJIeUReEiyLHCYxnXnzGqlhPaEnaPNiG
-	 sH9Zqi03detbiq7T+2xZg+iGV1SdFj4BK3iLppuXmNashI/L+Chy7J4nrcuqBBWoBU9wv
-	 me7Aori//sraVuWc/G/NziMFQ4tC0q1kDv0c4447Xw0FgkW0vlFTounmfSMQqUsJr+xLW
-	 RhZwX64viTwi7/h5v9dW+72Ko7Jq68dhQPkxC8FLr8awWxmm9U/Q+EpCBTuVLLWUTaeuQ
-	 jIgQiTQ1Tk8+A1I1+aD92xfTtVMRcty5QxFoqyBz1w/S6dzjOw07dDNwbQD8Pwykb+g==
+	t=1794851947;
+	b=WZ3Ip7bJCbm7ZWmVbiKpiiC+X1C97CTgdK7eYQz1ByiEuYRMgE468GgcJ3ad6BkKClDs
+	 Xts9RkhpDaxrNEs9NXZMAftfRhH3/yU4hUrzIp8wRRXs8w7enmbFCB4JVc/Vx9Z9GbYAu
+	 PYIWxmN5d+RhZtMeFTdlh0LpVckyRlb9eVE4NIdT1CMy8fiXhtZtLwrhsAqQVDTI8g918
+	 ZzlnJC451MqXCEC/63AygIswGtwxP7A/V7Hgtf1n8H/SP4dHAA0juXtzAMKInJKB/s9uS
+	 U9v2IhaEvbZ0Az4P5hfRSPRBHuF5lzTgwXan18IJWtfNhECMMUq6GaM8RJJjJMBuMXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794851688;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=BexiXxDoqI0E/gCNS3LAqWJ7uuhxAY02QSzzdUZk1WQ=;
-	b=xi3KRo7eqSLUL381d+8AMjyWyXJtXLCQA9cmew46X5agIqevNH+BlUsL6RJH+hbQ0EUk
-	 IYMKo0qU52VRrri+vIpORONJ252ClKXzoiCIFp1WpcWOg4ZghJ9zGiT8ZTnsskGwFFRaY
-	 GOqX46eEw6j/y5BT6KtbGQENFBCZGvHTPH19XZwBF1ueOpjJqNktvoYhdFGjO9kVDbJB5
-	 gbYk/5ujUlxUVmeKN4SSR5cMH/aaMSk9aLOpkTPXdmxgjCjEtRNSCs+k7Hn051LMGfPnn
-	 NP5haW24EOJmpMlOXMLElwgEyXN0m+dfQMa5ntTLnP58jLdiXsoC7jcOlZuNmbYi3tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794851947;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=fWBfn4U9/EenzJQH2Fcg3Ft/JofA1KPr66FsvYTQJQw=;
+	b=3E4Q/BSzYIlse2xus3Yd9+cnlQ6DtueDOrFl2wFX7svl8YMUd1OzMUrZVZ9avXLPQcQr
+	 Ax8MV7AeJ427tnOeNNue21GbschohzHBbtsha15AFx8ZO286Yxaa11ODflfx6oqDHlyYg
+	 FT/FqUX/AWZBGAT0A4uA2FNCYSqkg3Hc73SdEPErilvi0BCF2ulKsBaYt8UoS25PptgsQ
+	 IJ7hPTYUMF0en+rTy9LKaowLjcFArpR6flrNHbuK73Mw33By4vG8IBDV39L1bC5XISUDx
+	 mGBHql9eMVGfNsiOcZ6bpHmU5HmJzQBUpXK4bHw/WrECya1fcXSKTAo+yj6bho4+3bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C19D3606A334;
-	Mon, 16 Nov 2026 17:54:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C19D3606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=fPruq4pD;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CD9606A333
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:59:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75CD9606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=fPruq4pD
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a2761c69fbso5343626c88.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 09:59:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=BexiXxDoqI
-	0E/gCNS3LAqWJ7uuhxAY02QSzzdUZk1WQ=; b=a1HOpdCzlzIRK8XvtHzHMeW/b5
-	jHiKge8ooTBEcQ39iyCQV58sOWADJOBoaSMdvP+c+eNrRDNiw5NUl/5Om04axCBf
-	m3WDgbl9RhH/nkh2T8ONcgeb0EU9RauyAMjAabePsrYtOt7QTBRq/+BikFkJY5ZS
-	MXElTwifkrvMnACpY=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
-	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkB2nwVUQ_tqLZG7AQ--.61802S2;
-	Tue, 17 Nov 2026 01:54:30 +0800 (CST)
-From: 25031212351@stu.xidian.edu.cn
-To: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH] media: hdpvr: fix out-of-bounds read in hdpvr_read()
-Date: Tue, 17 Nov 2026 01:54:28 +0800
-Message-Id: <20261116175428.14540-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
+        d=kernelci.org; s=google; t=1794851945; x=1795456745; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fWBfn4U9/EenzJQH2Fcg3Ft/JofA1KPr66FsvYTQJQw=;
+        b=fPruq4pDK6CLAkHN8KaxHx5j34kpHQ8hjT+b9gaAQxpBaATeVMnYmxZBXuCccs4iSb
+         fqdXT5InhVfR39MK/tn1aKghdMiEs5xRZCrBT/jgSiGBZqjUjVsdUTzhS8SGL8B9B0+i
+         j+l4r5TKYZ/4Ku6CTl8a8jT6SE93ZL4N1mPoaK1j0Ks4SJhuOVoNXLVpEcTen+3QeRg8
+         ffLqMj1OCDIPrA0r1mOu0XQzeVUpCPaQZmH3egymhCZu3tn61rmjVH6GHsG1wJFQzxQl
+         OPF/oMlGrVMHjc4yYd7XhI3c3hH2cpeo5etGedGQh4mkKec8XynNH2A2+QdL+q7rghH+
+         XALA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794851945; x=1795456745;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fWBfn4U9/EenzJQH2Fcg3Ft/JofA1KPr66FsvYTQJQw=;
+        b=pguhgELrbiiNLmPd3h6y8dqRG2ACCBv9fVORmuNrHmloyfpzrgtWM3osDgLVnDcrCE
+         5MwwknQ6EvA5gQrKyrYLnW2RwdlIEQ9FN27PJTjlvelITZ55X1JHjyoQFJ+lfyEg0kt+
+         cAAbvsKpwS/SbV2j2slJP1bqzg387SRO3nXpNA/El8Zzdqb2JGrVLyz7E5XjzPvlq0e5
+         RKEuORyvjeqWOm7Hw+0e80c183Te/nnlJe+5uIVOR9ZpOsWc7HxJIcNIW9H5AzOMovkD
+         CyEaudK8rxYXT6rB4/q8hF7eN7nVQfio4u4qOAlV+yqYc/YapmTFmx0NDgTRoWiul2MY
+         DtTw==
+X-Gm-Message-State: APuU4Z9pGNO1v5zcLZBoRZcJUvM27JWJ1DxWzCJvx4f+wiyWy2c9INRm
+	wtyLfRHmvBuOY7Dav+KNa4TEKwggdVeEI/owzFPPxpBELyiZqavPrY/ejC43sbVeQjpyKk5f32s
+	ZNNKC
+X-Gm-Gg: AYBFou1+txjhhch9UM8HqWerTKVvFx44yupTe5i9J9BCUvZPenD8Dua5al8qkoDgx+5
+	64DnWPcoJH6sNn5WPTsCOD421/BoAaCOtePE+klG98eS8fe8VMZ4/wtm/gr8WuQDgNOD8QLeC/b
+	XA1HwTRMllazIkHRNeiBhJ2B//5wCVLYsNCYdCTTpFd8XqwEBIfYh2112te2+iRYJx9NWABeFdr
+	DBOReV3YbsoJAfU2RFH3u8DmCG/zHa/1F0Qa29lS2PogTMN/HhjtA37raUO3ZsK9tOiSnV7j1V8
+	jtG6t41DIWlvkfL8I7yeOIxI77vWzwabPW6Kb6CDW1L8NtkTGV0i7d9UBaWxSwZ333jMpDhqnmO
+	4xSIsE8Ivs6gRAz36P4WODI7vxpsp8K/sjrry3Q9sZOk7i1UlaEh6qui/fU/QSaIqKtIQMQfwOr
+	FGfNdQyiWopMaSjL0TWaj3tYjUfzcQZ0888MAN18+ybC2t1B9zRLOAM/MRk0YLy26u7iJXigCb3
+	GqiA1siXkOeI+dOQoZOS8uHFqy8NX0LSCKlT9V9eWVytSv0HIMNON2JuNIXWrOjQvNOz2mgqW6q
+	+uP84CWD4Gkz4H0jPwFDmQ==
+X-Received: by 2002:a05:701b:42c6:10b0:1b3:ba92:145a with SMTP id a92af1059eb24-1b503171008mr12148711c88.19.1794851945449;
+        Mon, 16 Nov 2026 09:59:05 -0800 (PST)
+Received: from 8439c401ee69 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031468b7sm39228776c88.5.2026.11.16.09.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 09:59:04 -0800 (PST)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,111 +90,61 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BrQMCkB2nwVUQ_tqLZG7AQ--.61802S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAF18ur4kWFy5Gw1Utw18Krg_yoW5KFWDpF
-	W3KayayryDXr9F9wsrGa1xXa1rCw1kCFW8GrW7Gasakr45XF1S9ryrtayjvFyrGr92vry0
-	qFZI9r95ua1UAaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBGb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2vYz4IE4I80cI0F6IAv
-	xc0EwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ew
-	Av7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY
-	6r1j6r4UM4x0Y48IcxkI7VAKI48JM4kE6xkIj40Ew7xC0wCY1x0262kKe7AKxVWUAVWUtw
-	CF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j
-	6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64
-	vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_
-	Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0x
-	vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07boT5LUUUUU=
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUTD2r7HFch0wAAsw
-
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-
-hdpvr_read() computes the number of bytes left in the current buffer as
-urb->actual_length - buf->pos and uses that as the length for
-copy_to_user(). buf->pos is a plain unsigned int that is not reset when
-hdpvr_cancel_queue() recycles a buffer, and it is not protected against
-concurrent readers of the same device.
-
-After hdpvr_stop_streaming() has killed the URBs, the buffers are put
-back on the free list with their old position, and the worker resubmits
-them with urb->actual_length reset to 0. If the next transfer completes
-with less data than the position a reader has already consumed, the
-subtraction yields a negative value. As rem is an int and count is a
-size_t, the comparison "rem > count" is then true, so cnt becomes count
-and copy_to_user() copies count bytes starting at
-transfer_buffer + buf->pos, which can be past the end of the 8192 byte
-transfer buffer. Two readers of the same video device can corrupt each
-other's position in the same way, and buf->pos is read twice, once for
-rem and once for the source address.
-
-A KASAN slab-use-after-free read of 4096 bytes was observed in
-hdpvr_read() with the source address 1281 bytes past the end of the
-transfer buffer; the pages following the buffer had been recycled as
-slab pages. A second report with a 42 byte copy was 25 bytes past the
-end of the buffer.
-
-Fix this by reading the position once, by handing a buffer whose
-position reached actual_length back to the worker, and by using min_t()
-so that a negative remainder can no longer be turned into a full-size
-copy.
-
-Fixes: 9aba42efe85b ("V4L/DVB (11096): V4L2 Driver for the Hauppauge HD PVR usb capture device")
+Subject: 
+ =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-7=2E3=2Ey=3A_=28build=29/tmp/kci/?=
+ =?utf-8?q?linux/include/linux/mmap=5Flock=2Eh=3A604=3A25=3A_error=3A_?=
+ =?utf-8?q?=E2=80=98struct_mm=5F=2E=2E=2E?=
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Reply-To: kernelci@lists.linux.dev
+Date: Mon, 16 Nov 2026 17:59:04 -0000
+Message-ID: <179485194441.205922.12481724883718062348@kernelci.org>
+
+Cc from: regression/stable-rc.yaml
+
+New build issue found on stable-rc/linux-7.3.y:
+
 ---
- drivers/media/usb/hdpvr/hdpvr-video.c | 25 ++++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+/tmp/kci/linux/include/linux/mmap_lock.h:604:25: error: ‘struct mm_struct’ has no member named ‘mm_lock_seq’ in arch/riscv/kernel/asm-offsets.s (arch/riscv/kernel/asm-offsets.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-diff --git a/drivers/media/usb/hdpvr/hdpvr-video.c b/drivers/media/usb/hdpvr/hdpvr-video.c
-index 4290b2367fa3..364a55dbdde8 100644
---- a/drivers/media/usb/hdpvr/hdpvr-video.c
-+++ b/drivers/media/usb/hdpvr/hdpvr-video.c
-@@ -415,6 +415,7 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
- 	struct urb *urb;
- 	int ret = 0;
- 	int rem, cnt;
-+	unsigned int buf_pos;
- 
- 	if (*pos)
- 		return -ESPIPE;
-@@ -488,10 +489,28 @@ static ssize_t hdpvr_read(struct file *file, char __user *buffer, size_t count,
- 
- 		/* set remaining bytes to copy */
- 		urb = buf->urb;
--		rem = urb->actual_length - buf->pos;
--		cnt = rem > count ? count : rem;
-+		buf_pos = buf->pos;
-+		rem = urb->actual_length - buf_pos;
-+		if (rem <= 0) {
-+			/*
-+			 * The buffer was recycled and refilled with less data
-+			 * than this reader already consumed from it, so there
-+			 * is nothing left to copy. Give it back to the worker.
-+			 */
-+			mutex_lock(&dev->io_mutex);
-+			buf->pos = 0;
-+			buf->status = BUFSTAT_AVAILABLE;
-+			list_move_tail(&buf->buff_list, &dev->free_buff_list);
-+			mutex_unlock(&dev->io_mutex);
-+
-+			wake_up_interruptible(&dev->wait_buffer);
-+
-+			buf = hdpvr_get_next_buffer(dev);
-+			continue;
-+		}
-+		cnt = min_t(int, rem, count);
- 
--		if (copy_to_user(buffer, urb->transfer_buffer + buf->pos,
-+		if (copy_to_user(buffer, urb->transfer_buffer + buf_pos,
- 				 cnt)) {
- 			v4l2_err(&dev->v4l2_dev, "read: copy_to_user failed\n");
- 			if (!ret)
--- 
-2.34.1
+Log excerpt:
+=====================================================
+                 from /tmp/kci/linux/arch/riscv/kernel/asm-offsets.c:9:
+/tmp/kci/linux/include/linux/mmap_lock.h: In function ‘vma_end_write_all’:
+/tmp/kci/linux/include/linux/mmap_lock.h:604:25: error: ‘struct mm_struct’ has no member named ‘mm_lock_seq’
+  604 |         if (unlikely(!mm->mm_lock_seq.sequence))
+      |                         ^~
+/tmp/kci/linux/include/linux/compiler.h:77:45: note: in definition of macro ‘unlikely’
+   77 | # define unlikely(x)    __builtin_expect(!!(x), 0)
+      |                                             ^
 
+=====================================================
+
+When fixing this issue, please attribute this report according to the
+patch submission rules:
+
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:692d4377bfb692ff787168227126528168bbc6cc
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  2a640ccd9d0b0927413e9778fa8970767b7d97d5
+
+# Builds where the incident occurred:
+
+## nommu_k210_defconfig on (riscv):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6afb3cb999c74e1a99619260
+
+#kernelci issue maestro:692d4377bfb692ff787168227126528168bbc6cc
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
