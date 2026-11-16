@@ -1,57 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=184.106.54.122
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794839703;
-	b=LT7rBCkFHFquo5jkfGxuGFQfrB68rhAzGODvkkJoajQbCFRQD5Isnkyu7OGlJGivO9Db
-	 eBQgQS+JgFAibds8NKMECLubYf8b7dysoOwgtdlSqIaV6pvEZ68DUDu65q6IL0T89nZWq
-	 HpVWhTLE6/bEikODKDF01i4i0N+dxRy4HxLgXZwTmCM1Y+6e7YYWWG/3LqjYskrOtQp4m
-	 Yv1t7Qbqc7aAgwL1dFZbQWQpNXdRWeQBNNWlgqIk3wAtixfaFkeveW36gFbBXa5+SpbL8
-	 Y9yfaUgOdiaZRAAI2ZblQy3W1la6rCn2tanjponaTg88c4e8o3Wg0HlcZNtnMFiioOg==
+	t=1794839854;
+	b=B6zGlPjKUfglcM4x2+3uMwuYGvlib7DlVYWlznv0z4/WMOwal/Mf2JAP2UGWfDHhTUrk
+	 OTjjBkEipGSO/4KDIgdIDA2QOcef4d78ivl8eJuj+9raZ08UhhaCQvyRhEe1GfDyNGV5Y
+	 YKA8gyIApn891AkK7Bt+78hMukxVrfeOPk43JPtTld3MmMMJwug/gaU2Ssjrxow04S6Y5
+	 8/f8oNZEwNDwdte1m+52OtrQSuxDbiIorm2SZsz7yjXDTLYnDVrTWqQ4StfeXVWJb3+MP
+	 rzIzsT5wRkEgJqt7DSN0TSFd0qVIfHL0CtJtn+CxPkkS8g/HTNqFHzhqTNirg+frf3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794839703;
-	h=DMARC-Filter:DKIM-Signature:X-Auth-ID:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Classification-ID;
-	bh=FB8PoxlB3pJztD1ooud7Vig2Sd3L2qeIF+Tki+fKhkE=;
-	b=biwR5JvELoTTerxGeq9AhSjIJH4Gh90iuROriEE3VTTciiePntDIv4/jsA6cQxcobeQq
-	 j8kQ18E2asIDy5zXTMBMw3amIRLDM1abMMyjpNdWFC8ZVFlbHC+AUnI7ysWdLnfdN0RDw
-	 si7AF/qZhsHhdvfakFYQxXo/UlYDNAPHbv9jvAkweXcPS6+Tw/2B7g0klDYI5UWR9ukRQ
-	 +ntoja8BrvNcExKt3TB7EWVEFGVpHKYIVMq3zWkGHV09Jg2NTbHZGXacVO1JLlI3MDMLH
-	 Yku1Q/s6O9Dvxo9SY+wu2JcfaHQSLvh3EK6u+dcQF4gmZBozFCIYTDc2TVkFAD/X2xA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794839854;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=mJeLQgSQR6c585+OnRTLrz3aLLmsqMPrzGqWlEQ9tMU=;
+	b=AuV/8xthwZF2kRoDIZubFZCxQD0SLephfuv9qfAqH4dKBkvidWQrduMrD8Z71OD0b2wi
+	 QagsFXE46w/tZGdbi7/NPAlEDzhqVBhIjR6EKvLjGy9JT02btO0P8afFSz9B1DCHUs43x
+	 h4drdC78iUzdQ+rQ+3ZdYqPSWjKGKuW0STH6/hAP00oeByQyIGcaHJJaqYOdanab3a9Vp
+	 yhrvpKQX6maWFweVdIthHqclP9fL9dCH1o1UqvcPXSBCNq4i5H/RtOxSxjbXM+NZpcbfe
+	 bIIv812JIy+kuvJLFiCgRELDTInRHj1lMhvtjFPhRJ7Gp2DZAZ0MugO5iyrpAsQYPJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mev.co.uk;
-	spf=pass smtp.mailfrom=mev.co.uk;
-	dkim=pass header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=WqyNR4mm;
-	arc=none smtp.remote-ip=184.106.54.122
-Received: from smtp122.ord1d.emailsrvr.com (smtp122.ord1d.emailsrvr.com [184.106.54.122])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kdPYqeFZ;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C577606A31C
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:35:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C577606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mev.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mev.co.uk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21519606A880;
+	Mon, 16 Nov 2026 14:37:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21519606A880
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mev.co.uk header.i=@mev.co.uk header.a=rsa-sha256 header.s=20221208-6x11dpa4 header.b=WqyNR4mm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mev.co.uk;
-	s=20221208-6x11dpa4; t=1794839702;
-	bh=Jj42YZgF+IDY0REQ6okrz/4FTGOhWUN74pIyJcWhK68=;
-	h=From:To:Subject:Date:From;
-	b=WqyNR4mmSjl0tSKCegAESXl5YEqCQ02UU/T8YQmHnwZpzYwLl+3y53Vy8HYJrm0o+
-	 ic2oBuj355sZeSyuhwUBcINXWdRPBygxAxh5oamXO53TgMS1mrrjpmhxj06BwOk2qT
-	 1xenmgA3OJwIvBwMctrXqfFz7YG+uhFl4zSDyJn8=
-X-Auth-ID: abbotti@mev.co.uk
-Received: by smtp8.relay.ord1d.emailsrvr.com (Authenticated sender: abbotti-AT-mev.co.uk) with ESMTPSA id 8A6B8C024F;
-	Mon, 16 Nov 2026 09:35:01 -0500 (EST)
-From: Ian Abbott <abbotti@mev.co.uk>
-To: stable@vger.kernel.org
-Cc: Pei Xiao <xiaopei01@kylinos.cn>,
-	syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com,
-	Ian Abbott <abbotti@mev.co.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: [PATCH 5.10.y] comedi: dt2811: fix shift-out-of-bounds in IRQ check
-Date: Mon, 16 Nov 2026 14:34:37 +0000
-Message-ID: <20261116143451.115557-1-abbotti@mev.co.uk>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kdPYqeFZ
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 6EB91C4EFD7;
+	Mon, 16 Nov 2026 14:37:35 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 7157A6023F;
+	Mon, 16 Nov 2026 14:37:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 478D611BC0BA0;
+	Mon, 16 Nov 2026 15:37:23 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794839849; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=mJeLQgSQR6c585+OnRTLrz3aLLmsqMPrzGqWlEQ9tMU=;
+	b=kdPYqeFZxICkUypT+YwqNpM0KDvu1zvvTu+50gtmxz4duKX6XyKrYBlAFeK7ZG9P1HlhKo
+	ep/qBBo/MqUXgWAJEVr/FeU/Gyb7bekwaj7zRsZjMKbZBSILKKQJrUvGKwnnL24lxd8Wr8
+	SYy4591p56rBsSToCPEMsAA2i5q18/b6Ep1FlRzPXA5MMjJgQRuLyxKH/ze5KJ13jZApVO
+	YnT6CjG4UPV/sAuWr8uaSBF9NeA/LduzIe4zVebqP+oBiUzmKxZeNnwvn0JCulzLv6bczf
+	MYfWqL/wqRU6XPtuEtai5IJzAS4mtIocYRp/vwMlwKh3n7UL2+Wlz1RgFt35uA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Kalpesh Solanki <skalpesh942@gmail.com>,  alex.aring@gmail.com,
+  stefan@datenfreihafen.org,  davem@davemloft.net,  edumazet@kernel.org,
+  kuba@kernel.org,  pabeni@redhat.com,  horms@kernel.org,
+  linux-wpan@vger.kernel.org,  netdev@vger.kernel.org,
+  linux-kernel@vger.kernel.org,
+  syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] ieee802154: nl-mac: validate device pointers before
+ dereference
+In-Reply-To: <776e6791-2677-4bd1-ac00-4eef07d5a4a6@lunn.ch> (Andrew Lunn's
+	message of "Sun, 1 Nov 2026 20:43:29 +0100")
+References: <20261101092219.1278751-1-skalpesh942@gmail.com>
+	<776e6791-2677-4bd1-ac00-4eef07d5a4a6@lunn.ch>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 16 Nov 2026 15:37:23 +0100
+Message-ID: <878q2ssuzg.fsf@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,51 +78,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Classification-ID: 5e85b5c2-a2b5-4719-abcd-6cc4906774d4-1-1
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Pei Xiao <xiaopei01@kylinos.cn>
+Hello,
 
-[ Upstream commit 471ce96a9c415b8a67bd5081ac2089a458cacc2f ]
+On 01/11/2026 at 20:43:29 +01, Andrew Lunn <andrew@lunn.ch> wrote:
 
-The IRQ number passed via comedi_devconfig->options[1] is a signed int
-that comes from userspace.  The check `it->options[1] <= 7` does not
-reject negative values, so a negative IRQ number reaches
-`BIT(it->options[1])`, which is undefined behavior and triggers a UBSAN
-shift-out-of-bounds warning:
+> On Sun, Nov 01, 2026 at 02:52:19PM +0530, Kalpesh Solanki wrote:
+>> A virtual network device (such as a TUN interface) can have its link
+>> type set to ARPHRD_IEEE802154 via ioctl(tun_fd, TUNSETLINK,
+>> ARPHRD_IEEE802154). However, such devices do not have an IEEE 802.15.4
+>> private context allocated (dev->ieee802154_ptr is NULL) and do not
+>> register MAC operations (dev->ml_priv / ieee802154_mlme_ops(dev) is NULL=
+).
+>
+>> Fix this by ensuring dev->ieee802154_ptr and ieee802154_mlme_ops(dev)
+>> are non-NULL before proceeding in ieee802154_nl_get_dev(),
+>> ieee802154_dump_iface(), and ieee802154_llsec_dump_table().
+>
+> Did you consider the other fix? Is there a use case for setting a TUN
+> interface to ARPHRD_IEEE802154? If not, maybe return EOPNOTSUPP, or
+> EINVAL?
 
-  UBSAN: shift-out-of-bounds in drivers/comedi/drivers/dt2811.c:570:31
-  shift exponent -251 is negative
+Sorry for the delay, I was away for two weeks, but I definitely agree
+that I (we?) never intended to add tun support for WPAN devices. I don't
+think it really makes sense anyway. So yes, preventing the 802154 "TUN
+type" is likely the way to go IMHO.
 
-Add an explicit lower bound check (`it->options[1] >= 0`) so that only
-valid IRQ numbers 0..7 are accepted before the shift.
-
-Fixes: f2975a9b2ab9 ("staging: comedi: dt2811: add async command support for AI subdevice")
-Reported-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/all/6ab21240.e548f532.1ca396.0018.GAE@google.com/#R
-Signed-off-by: Pei Xiao <xiaopei01@kylinos.cn>
-Reviewed-by: Ian Abbott <abbotti@mev.co.uk>
-Tested-by: syzbot+a4cedab706d0a8a3f988@syzkaller.appspotmail.com
-Link: https://patch.msgid.link/02c46315293a26169d2a3862a2047959a1651ef4.1790061387.git.xiaopei01@kylinos.cn
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Ian Abbott <abbotti@mev.co.uk>
----
- drivers/staging/comedi/drivers/dt2811.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/staging/comedi/drivers/dt2811.c b/drivers/staging/comedi/drivers/dt2811.c
-index 0eb5e6ba6916..68716c3b8d94 100644
---- a/drivers/staging/comedi/drivers/dt2811.c
-+++ b/drivers/staging/comedi/drivers/dt2811.c
-@@ -564,7 +564,7 @@ static int dt2811_attach(struct comedi_device *dev, struct comedi_devconfig *it)
- 	dt2811_reset(dev);
- 
- 	/* IRQ's 2,3,5,7 are valid for async command support */
--	if (it->options[1] <= 7  && (BIT(it->options[1]) & 0xac)) {
-+	if (it->options[1] >= 0 && it->options[1] <= 7 && (BIT(it->options[1]) & 0xac)) {
- 		ret = request_irq(it->options[1], dt2811_interrupt, 0,
- 				  dev->board_name, dev);
- 		if (ret == 0)
--- 
-2.53.0
-
+Thanks,
+Miqu=C3=A8l
