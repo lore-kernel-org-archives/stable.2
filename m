@@ -1,68 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.63
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794845452;
-	b=O0HBmueWHXY3qtrpp1x/+1qSMAQj7xk99M4LXyqSM9ywmmlc8SuL44ZOsXnSRVPXsBTy
-	 AY3vb1f8mMp8+hgaxTp/GBUV7Ib4IxoDztJZZ00b4cC+DS02kvsoHpSAiK5t+kPFoM/Vn
-	 AaQ8Dn0YD9RWKgGwNwIX5vL8pVNSWu3kGomIBy+wG6LqY0IiRxg9omV44ta8da8xV+3SX
-	 ybvnxwXyx0qHT2ufpt0Ujz/ms95lsPvLcAQjpiwn7GF+OtOCJWlF7PkKe7ppDWLThfRP8
-	 FhGVsjzXmP5hvmR+UUMbNBNZ08XvvtUIzaoKo+OIuZA7kjCWoySWPKsCkgNFgHN87ng==
+	t=1794845577;
+	b=b3HiWL5+/hMoJedS9KZ1kEIc10vwrIG1phonCE1dXtCT3dnSCks7VEvvd7VJe96thX3m
+	 gQv1fDeGR/iDL6x6fSINCq2pvJKuOpyAhqiygtuLqf6oAPs2sXZ6THuVSZK4FIP2e2f1X
+	 eI5uhlUhgrLN2+0f0GPRCGWYcE3zSMYyLzFfOWUHfdaqRZHFPJ1PzW1E0eFEkhD8FAPzr
+	 vNKaFIaJWwr13gRp6pxQrRbxfcNA2HGfPoirUhcjlTtYaHcdzZcoNVE6K6cZN+KhJ5qtW
+	 h1sl72vyhlZ15MCHqT3vLj5nJvnqHElf+gmY5k8vkE/Ofhr+q7OHWonA/r1J4rl13Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794845452;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Oadzkl3ORJ3wQkyJMXU/6qO7rxNx4uwgoabiDJ+Xsug=;
-	b=cjWKQU5euyIEkRJeqPo1+Ot3EudyWvuPisay1XD9pwbjJ8V1V3gNKW8w1Rf/KIB3N4Db
-	 zXLw2uXnLNvedGwMd7nQN1AdZTNP+hXTi8f9bGEjQi99R2r1NY7XPSHJ6uJSZGRTNfsCE
-	 fFROvz28fUp00jtBCnKU+o56E9pj9+4mLAPuZcVoiEJTEnlWB5o4BD2dcC2aS0NS23elB
-	 /KE/gJgGmOVSr2mx4sw4S5JvuzP1tiklpeVG/Y6RoxZchAcaT52hnfMgrrdQi059YanIF
-	 4HbeGLs7iJWuSe9bkZfaietirQC84tIFNyiGSTaihwgUjCtz4lo7ZUuldvNOpEpq6Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794845577;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=suChl27OKGiuh5BcLjNNgw2bXq7Ch2WUZFox//HhYTA=;
+	b=YJ2bVk0CkEkOXnQDO/B8doO0qHVakghS4WPyQPX9CanGnplRGUOmItTBykkIBWj5iDn/
+	 2aumCyRnOMkKs84faI6wdYALMbdjJICXOtezBZO72LAFo3weaWJVM1hvCHHL19gtTIXLl
+	 gRRuB+nbCe4usGyvc+clEvk8b8TnsA0bn8B4Sx+Q2SZNz+GENI6KXaF4XsXztrqa1vQnI
+	 QOIJmOC1K1T/8x08KFZxHPzlD4uHqVeqfWmTUX+0aYMi8fQDfpqpZNfZ+QNpZOmdBBVkA
+	 pQszgFNAaMD1SfkS/+0xM1EAH373uf2HiTCBdMnvT3lkMPYNmi23Arpy35/Ie96qI+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ONwX6dMP;
-	arc=none smtp.remote-ip=95.215.58.63
-Received: from mta1.migadu.com (out-63.mta1.migadu.com [95.215.58.63])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="OpAx/1s/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A8C606A330
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 16:10:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42A8C606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 910A1606A31C;
+	Mon, 16 Nov 2026 16:12:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ONwX6dMP
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=eCHYxBdwWeLQPnYgT+I0HAdi9TUCI4ucB5iF6HP0g60=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794845450; v=1; x=1795450250;
- b=ONwX6dMPf46nLT1v53fiElgDkjxy9Owao356TieVrST08i8VwXFPRKMbeA2jfCAdv22a0uCo
- HZs3SrUe13JBeeGk6yiGy/d40N5YXu58i2CVaYLnCZT3dUlP+VJgB9vfayu5ArHuQa1HRCNxIJ7
- +wnOkVEEOeLoApKlRanXhfho=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 266450e47dd57905;
-	Mon, 16 Nov 2026 16:10:46 +0000
-X-Mizu-Trace-ID: 266450e47dd57905
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 16 Nov 2026 08:10:45 -0800
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Yingjie Wang <x-professor@outlook.com>
-Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
-	Manfred Spraul <manfred@colorfullife.com>, Alexey Gladkov <legion@kernel.org>, 
-	"Eric W . Biederman" <ebiederm@xmission.com>, Vasily Averin <vasily.averin@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Michal Hocko <mhocko@suse.com>, Alejandro Colomar <alx@kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
-	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>, "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, 
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, 
-	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH v5 1/3] ipc/sem: account dynamically allocated sops
- arrays to memcg
-Message-ID: <avsq7s-CVIFiB8y-@linux.dev>
-References: <cover.1793250194.git.x-professor@outlook.com>
- <07d9034ec1fb5b6fd5eed2cf60ef3c84d5149e51.1793250194.git.x-professor@outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OpAx/1s/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F4081F000C4;
+	Mon, 16 Nov 2026 16:12:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794845577;
+	bh=suChl27OKGiuh5BcLjNNgw2bXq7Ch2WUZFox//HhYTA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OpAx/1s/5wH4OM5JjSJGcjlp72bx0oD0NP2bWzV3i4BQtEzUvm44I5J079IDTutdt
+	 VAPdJQwqGcTqS8HyH6noAbfd7uXjEAShxv+UTL28yFHmeigvPsBc0yzUimPEhQDeNl
+	 O9tyumg5tfADCHAvkrFJJPKhkgTharSkNN+h7JJmWaJuEJ4/29117IlP9dQk5uphUL
+	 2Y6EuHkgatgou8xh7JKUdxFIc6uvmgcBQjeYiNnPuVG7j/uU84gb7tZw5AGTxOfSPm
+	 alfdJFNPegx7rUgVRGWVwCsdj6leHMeWVTa7HAauFVqO+di6XoeVXXKNEJvG/SfGoe
+	 Q6gByuRAe4KyQ==
+Message-ID: <a1bb39d8-8a97-4b34-87f9-9d2639f27b88@kernel.org>
+Date: Mon, 16 Nov 2026 16:12:51 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,38 +51,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <07d9034ec1fb5b6fd5eed2cf60ef3c84d5149e51.1793250194.git.x-professor@outlook.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5.10-6.18] libbpf: fix cross-endian build with newer
+ libbpf
+To: Dominique Martinet <asmadeus@codewreck.org>
+Cc: stable@vger.kernel.org, Alan Maguire <alan.maguire@oracle.com>,
+ andrii@kernel.org, eddyz87@gmail.com, ast@kernel.org,
+ ihor.solodrai@linux.dev, daniel@iogearbox.net, memxor@gmail.com,
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, dwarves@vger.kernel.org,
+ bpf@vger.kernel.org
+References: <20261115200505.1494710-2-asmadeus@codewreck.org>
+ <7a931778-2a99-4b33-8d1e-97f9b061fb02@kernel.org>
+ <avryc0j9LwdUUGl7@codewreck.org>
+Content-Language: en-GB
+From: Alan Maguire <almagui@kernel.org>
+In-Reply-To: <avryc0j9LwdUUGl7@codewreck.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 29, 2026 at 05:03:25AM +0000, Yingjie Wang wrote:
-> Commit 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in
-> do_semtimedop()") removed accounting based on the assumption that sops
-> arrays would remain small, describing a maximum cost of two pages.
+On 11/16/26 12:09 PM, Dominique Martinet wrote:
+> Alan Maguire wrote on Mon, Nov 16, 2026 at 08:51:24AM +0000:
+>>>  	if (hdr->magic == bswap_16(BTF_MAGIC)) {
+>>>  		btf->swapped_endian = true;
+>>> -		if (bswap_32(hdr->hdr_len) != sizeof(struct btf_header)) {
+>>> +		if (bswap_32(hdr->hdr_len) < sizeof(struct btf_header)) {
+>>
+>> Thanks for the fix! A small suggestion; what about matching the upstream test instead; i.e.
+>>
+>> 		if (bswap_32(hdr->hdr_len) < offsetofend(struct btf_header, str_len)) {
+>>
+>> That approach is a bit more portable as the str_len field was the last field in the
+>> original BTF header, and it will work regardless of the size of struct btf_header.
 > 
-> SEMOPM is a UAPI default that can be changed at build time and through
-> the per-namespace sysctl. Commit 50ec499b9a43 ("sysctl: allow change
-> system v ipc sysctls inside ipc namespace") made that limit tunable by
-> IPC namespace owners without capabilities in the initial user namespace.
+> Thanks for the look!
 > 
-> do_semtimedop() keeps up to SEMOPM_FAST operations on the stack. Charge
-> every larger, dynamically allocated operation array to the caller's memory
-> cgroup. This avoids a second size threshold and prevents a configured
-> SEMOPM limit from expanding an unaccounted heap-allocation range.
+> I wouldn't expect the struct to change in stable trees and favored a
+> minimal patch; my opinion being that if someone does take the time to
+> backport layout section handling or another btf_header extension in old
+> trees then they can also fix the check properly...
 > 
-> In a 4-vCPU KVM guest, with the benchmark pinned to one vCPU in a leaf
-> memory cgroup, accounting raised the median time per successful semop()
-> call by 2.3% to 3.2% for 65, 500 and 1000 operations, compared with
-> unaccounted allocation. An invalid semid, which allocates and copies the
-> array before returning EINVAL, rose by 5.6% to 11.9%. The 64-operation
-> stack path changed by at most 0.9%, and successful calls in the root
-> cgroup by at most 2.3%. Each result used 21 samples from three boots.
+> I actually prepared a v2 with this, but then noticed the raw_size check
+> also ought to be updated if you want to handle struct btf_header changes:
+> ---
+> diff --git a/tools/lib/bpf/btf.c b/tools/lib/bpf/btf.c
+> index 9f141395c074..0ab11be8ebc5 100644
+> --- a/tools/lib/bpf/btf.c
+> +++ b/tools/lib/bpf/btf.c
+> @@ -229,14 +229,14 @@ static int btf_parse_hdr(struct btf *btf)
+>  	struct btf_header *hdr = btf->hdr;
+>  	__u32 meta_left;
+>  
+> -	if (btf->raw_size < sizeof(struct btf_header)) {
+> +	if (btf->raw_size < offsetofend(struct btf_header, str_len)) {
+>  		pr_debug("BTF header not found\n");
+>  		return -EINVAL;
+>  	}
+>  
+>  	if (hdr->magic == bswap_16(BTF_MAGIC)) {
+>  		btf->swapped_endian = true;
+> -		if (bswap_32(hdr->hdr_len) != sizeof(struct btf_header)) {
+> +		if (bswap_32(hdr->hdr_len) < offsetofend(struct btf_header, str_len)) {
+>  			pr_warn("Can't load BTF with non-native endianness due to unsupported header length %u\n",
+>  				bswap_32(hdr->hdr_len));
+>  			return -ENOTSUP;
+> ---
+> and at this point this isn't just a cross-endian fix anymore but
+> something that looks more like future-proofing, and with my other
+> downstream stable kernel maintainer hat (yay embedded systems full of
+> vendor patches...), I'm not too fond of these and would rather keep this
+> minimal as it's not like it would reduce further merge conflicts either.
 > 
-> Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
-> Link: https://lore.kernel.org/r/20261016152609.2528805-1-x-professor@outlook.com
-> Fixes: 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in do_semtimedop()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> But if you think it's better I can send a v2 with either the above or
+> just the bswap_32 check updated, I've checked it builds on 5.10 and
+> 6.18 so have no fundamental problem with either version.
+> 
 
-Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
+The only risk with relying on struct btf_header size is if the libbpf
+is compiled against system headers which for some reason have a newer 
+"struct btf"; that shouldn't happen, and these days the standalone libbpf 
+mirror carries its own uAPI headers, but just in case someone somewhere
+is doing something unusual in building libbpf it might be best
+to use the v2 approach. So for v2
+
+Acked-by: Alan Maguire <almagui@kernel.org>
+
+Thanks again! 
+> Cheers,
 
