@@ -1,61 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.126
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802715;
-	b=gg3PZytAlwaH0rYevx2lAZhST85Fe8hsiZ3Jv8NoIgzefJenvqLdTinVh1y5QGa8NCTN
-	 9VuT8/8z7da3JLz50FoE8oR/HbEX/P0iHJ229dRjdbdIGQsTSH9IvKo+KO3oMo+BlfgZH
-	 za8ID+OilHEM5cqIWNdBJJKrwEr8NsS5yr0lXG9LLMXTW8DtXcQ6a9FmgmEAxOJDqGD08
-	 fUIbIjL4f6lPt01yvHLw35ZJ8ZhvOrXrHJySN77t7YMLW0uh8ewyg3ceJEsZBMsXVOWMP
-	 sZb0Tsn+AcaGawhpLW8jp8i/FVgmsSNxIAxL4DmhqlRPP6DC78yTFSy/Ke0yKotQydA==
+	t=1794802759;
+	b=QKHR2N8xEjyp/adRqTyimmQhnP8t+mE/70of7iKVzvn9Pd8HzMOEhn8ocE1dmkbaI0/c
+	 n1hBuQacG1BTA2hN503IosjStySqhtbXrSrB9V2D9TjSH64dq+HGzhXhUbOL02X8MqD35
+	 7SizSl3SDLa8k/vUVqgLoZDrVJNSsUa41amYPQ70C94l37w3u7EgvtRXigOyqxrHdWjiw
+	 mysBHjNGoA885bi2Znxy/KbjRvQjoDfvE9b8SlITweNZuoLocABZifAOlfRbxRmRZBqRF
+	 qxW4pOHt/IPqOr4cnA4VzDojAgTQnNX9lyskdcILZgc/i16tlEAJZDQq6doCel6BBqQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802715;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=hYB9QxJ6y3l190KgAF2MxxG55ObWJ38ho5V5o8yjcbs=;
-	b=FRIDyKtrskqI/3I/tvkAP2HvxIF+ZLXE1C8BktA5mdkqPuy26uiLnkqefWpeCzPzziKQ
-	 PvFkmwI9vLIPUSQuvjRzMpybPhfHemtDwmNFDODGmNs3S+7tUeSN3xVWlsvoGczHYzKEN
-	 rn6a22u85EUtGs636Oaec6HgK8wv5Ho9meAiup5G+fdKAylTHcot4HRqEuIeHWicS7FWT
-	 /KvXDnw3bQAbB08drB5mJ/wVwEzXfkt3mYCj6ukWQLk8RqLv6YpMyxudssudXCeNJcdRo
-	 EJAxJoDHrn79NOBelNy/Wz3kRB0B35SX1NDTGCbTnwGX0PPKWHxnNdhdq6XZGIBJP/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794802759;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=n4CDV4ziRFU3xddHncpYnLzq3A+HLPidciJ1bfu5cIk=;
+	b=hGcm/GKLvtAUtAPdz6+7AlazpANLIX3LvU8hgngJmQ71CEfRX/SOjDESQvQJJwYvl35E
+	 eU1QsB0ppb9zRB3TAc+a9f2V8jpfBHllReQftciZKo1cE3PNPskAcnU40I/nQjlPlYElk
+	 D/FSWhx5erJuKNCtPcQnjHbRgexZXFfm6jAWin7lNF96TG3ksFwZjmdwagO3NmKKLAAA2
+	 qrhfLaEX6PXxrJfJgsELbOakbWCruY9NgEPAhp1Bh+lWoNgG0Pn4DExlsW8cxHalMqbjs
+	 6+/Jg/c9UBVLXSY79piPxn7tai1i3D886pR5ssSBmK0IjeRvUPxQjCoQTa91LvaykWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6Pk7AEX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Jw0iSV5Y;
+	arc=none smtp.remote-ip=95.215.58.126
+Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728E8606A339;
-	Mon, 16 Nov 2026 04:18:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AB7606A321
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 04:19:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5AB7606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g6Pk7AEX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 967421F000C7;
-	Mon, 16 Nov 2026 04:18:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794802715;
-	bh=hYB9QxJ6y3l190KgAF2MxxG55ObWJ38ho5V5o8yjcbs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=g6Pk7AEXjED/QcO0G++bBT6AgkKLtGQukfKho6mZ9cvqv1J2bM4C4+bq/EjG0CqQB
-	 OJ8FNH5L8lJaAiVAaEBbbV52cqH0qNU++NKKjY8ut+XsVKD3uxfwptbtEQvXXG3hpe
-	 E0u1bBJjtdD1jw9gxVI4hsuXwLYF2jVLe4qrkfqTVf/zq3u3e53ZFifEj3ST8HA6Vh
-	 gQ5hNhB59yVpAm/l3geTDFAKk0ve4MZNLECXtGYiFD+Qiwvsi5e7HL2sSGp6wDM0ji
-	 +E59WNz9Zh59RwsVNpwFueN1xWorAoB3263X9c1z+N4uB955g4mEBEp3RQz1vA/73d
-	 0TlVJA8Z4yKmA==
-Subject:
- Re: [PATCH can-next v7 6/6] can: gs_usb: properly shut down timestamp worker
-From: netdev-bot+sashiko@kernel.org
-To: mkl@pengutronix.de
-Cc: mailhol@kernel.org, pfink@christ-es.de, eric@evenchick.com,
- max@schneidersoft.net, wg@grandegger.com, kernel@pengutronix.de,
- linux-can@vger.kernel.org, linux-kernel@vger.kernel.org,
- shuangpeng.kernel@gmail.com, stable@vger.kernel.org,
- vadim.fedorenko@linux.dev, kuba@kernel.org
-Date: Mon, 16 Nov 2026 04:18:34 +0000
-Message-ID: <179480271415.3132.12503701210475918543@kernel.org>
-In-Reply-To: <20261114-gs_usb-fixes-v7-6-58b6341b1c08@pengutronix.de>
-References: <20261114-gs_usb-fixes-v7-6-58b6341b1c08@pengutronix.de>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Jw0iSV5Y
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=IjpKErh6Re8z+1/3lW8pFvWGsn41vSm3orTI4RjKMEE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794802756; v=1; x=1795407556;
+ b=Jw0iSV5Yzt7XlM7CPt8TBpBWyib0JnfRWnaLD39IkMnizBJ8ngyyPVR3ljoABA4N2yRb199j
+ 8QtSD2okD/RlDSshHDqP5dFxT5xPa9z+H75Hahv9tzUP+lT5D9pCDFtf++YjQ5NFdt6p2PdaPXw
+ QtW+ZinnBn3t3hBT/+TzKOmg=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 59a289117738f648;
+	Mon, 16 Nov 2026 04:19:16 +0000
+X-Mizu-Trace-ID: 59a289117738f648
+X-Migadu-Flow: FLOW_OUT
+Date: Sun, 15 Nov 2026 20:19:12 -0800
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Yingjie Wang <x-professor@outlook.com>
+Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
+	Manfred Spraul <manfred@colorfullife.com>, Alexey Gladkov <legion@kernel.org>, 
+	"Eric W . Biederman" <ebiederm@xmission.com>, Vasily Averin <vasily.averin@linux.dev>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
+	Michal Hocko <mhocko@suse.com>, Alejandro Colomar <alx@kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
+	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>, "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, 
+	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, 
+	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v5 1/3] ipc/sem: account dynamically allocated sops
+ arrays to memcg
+Message-ID: <avqD2Z3KJwPsCcVG@linux.dev>
+References: <cover.1793250194.git.x-professor@outlook.com>
+ <07d9034ec1fb5b6fd5eed2cf60ef3c84d5149e51.1793250194.git.x-professor@outlook.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,79 +72,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <07d9034ec1fb5b6fd5eed2cf60ef3c84d5149e51.1793250194.git.x-professor@outlook.com>
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+On Thu, Oct 29, 2026 at 05:03:25AM +0000, Yingjie Wang wrote:
+> Commit 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in
+> do_semtimedop()") removed accounting based on the assumption that sops
+> arrays would remain small, describing a maximum cost of two pages.
+> 
+> SEMOPM is a UAPI default that can be changed at build time and through
+> the per-namespace sysctl. Commit 50ec499b9a43 ("sysctl: allow change
+> system v ipc sysctls inside ipc namespace") made that limit tunable by
+> IPC namespace owners without capabilities in the initial user namespace.
+> 
+> do_semtimedop() keeps up to SEMOPM_FAST operations on the stack. Charge
+> every larger, dynamically allocated operation array to the caller's memory
+> cgroup. This avoids a second size threshold and prevents a configured
+> SEMOPM limit from expanding an unaccounted heap-allocation range.
+> 
+> In a 4-vCPU KVM guest, with the benchmark pinned to one vCPU in a leaf
+> memory cgroup, accounting raised the median time per successful semop()
+> call by 2.3% to 3.2% for 65, 500 and 1000 operations, compared with
+> unaccounted allocation. An invalid semid, which allocates and copies the
+> array before returning EINVAL, rose by 5.6% to 11.9%. The 64-operation
+> stack path changed by at most 0.9%, and successful calls in the root
+> cgroup by at most 2.3%. Each result used 21 samples from three boots.
 
-Low priority / nit picks for your consideration:
+There is no kmem accounting in root cgroup, do you know why there is an increase
+of 2.3% there? 
 
-- [Low] The commit message gives the wrong reason for the change.
-
---
-
-can: gs_usb: properly shut down timestamp worker
-
-This commit disables the timestamp delayed work at init time, enables it
-in gs_usb_timestamp_start(), and switches gs_usb_timestamp_stop() from
-cancel_delayed_work_sync() to disable_delayed_work_sync().
-
-> To avoid self-rescheduling of the timestamp worker, shut it down using
-> disable_delayed_work_sync() instead of cancel_delayed_work_sync().
-
-[Severity: Low]
-
-Is this reason accurate? cancel_delayed_work_sync() already seems to
-handle a self-requeueing work.
-
-cancel_delayed_work_sync() goes through __cancel_work_sync(), and that
-function always disables the work before it flushes. It only re-enables
-the work after the callback has finished:
-
-kernel/workqueue.c:__cancel_work_sync() {
-    ...
-	ret = __cancel_work(work, cflags | WORK_CANCEL_DISABLE);
-    ...
-	if (wq_online)
-		__flush_work(work, true);
-
-	if (!(cflags & WORK_CANCEL_DISABLE))
-		enable_work(work);
-    ...
-}
-
-Suppose gs_usb_timestamp_work() requeues itself while the flush is
-waiting:
-
-drivers/net/can/usb/gs_usb.c:gs_usb_timestamp_work() {
-    ...
-	schedule_delayed_work(&parent->timestamp,
-			      GS_USB_TIMESTAMP_WORK_DELAY_SEC * HZ);
-}
-
-The work is still disabled at that point, so the requeue is rejected.
-The kernel-doc for cancel_work_sync() also says it "can be used even if
-the work re-queues itself".
-
-The only other place that queues parent->timestamp is
-gs_usb_timestamp_start(). It runs from gs_can_open() under RTNL, and
-only when parent->active_channels == 0. Leaving the work enabled
-between stop and start therefore does not appear to be reachable as a
-bug.
-
-The enable/disable count added by this patch looks balanced across the
-init, start, stop, and open error paths.
-
-The parent commit, "can: gs_usb: fix hardware timestamp state for mixed
-channels" (Cc: stable), says this follow-up is needed to avoid
-self-rescheduling the timestamp worker. It also says it was split out
-to simplify backporting. Together, the two messages could suggest that
-stable kernels without this patch still have a live self-rescheduling
-bug. Older kernels also blocked the self-requeue during cancel, through
-WORK_OFFQ_CANCELING.
-
-Could the commit message describe this as cleanup or hardening, making
-the stopped state explicit, rather than as a fix for self-rescheduling?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261114-gs_usb-fixes-v7-0-58b6341b1c08%40pengutronix.de
+> 
+> Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
+> Link: https://lore.kernel.org/r/20261016152609.2528805-1-x-professor@outlook.com
+> Fixes: 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in do_semtimedop()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
+> ---
+>  ipc/sem.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/ipc/sem.c b/ipc/sem.c
+> index 5ec41de7e85b2..ea95cca5bb0ec 100644
+> --- a/ipc/sem.c
+> +++ b/ipc/sem.c
+> @@ -2234,7 +2234,7 @@ static long do_semtimedop(int semid, struct sembuf __user *tsops,
+>  		return -EINVAL;
+>  
+>  	if (nsops > SEMOPM_FAST) {
+> -		sops = kvmalloc_objs(*sops, nsops);
+> +		sops = kvmalloc_objs(*sops, nsops, GFP_KERNEL_ACCOUNT);
+>  		if (sops == NULL)
+>  			return -ENOMEM;
+>  	}
+> -- 
+> 2.43.0
+> 
