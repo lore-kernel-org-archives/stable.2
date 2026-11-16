@@ -1,96 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.245
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794831616;
-	b=4rjTEGfsuJSgw3xVApgC3PiTTL8IbdxVWcqrQz7CIdxzVcPvTRwfY+0YGUQ9IsXkrtrR
-	 ozeus8oPCHj/A8BvljMdIWzZ5KiSfRhfvoFvvfM6zZbeaJgPexA+8QKpAt/sgEuUffk/u
-	 hCVuyxKhZtsuYefdSgTy+QrLnSwM+QInxZMamaIaHdsPZIP2dnSHvyoCQi6LHi9muTHeS
-	 1RjzSD+P+ZbmjdimYjIuAkiBfc2PTYs0GUDRnCo1ClGgorKPkx7eO6xXUJ70Drh1WgJ0U
-	 6DXyP5Q+PIpaOCv6wn8CtsjUb0Fv6T9F5ChfPBGELoQDf9tW+sTh+nsDz4sVtmG4S2g==
+	t=1794831640;
+	b=rJOEP64uXFX1c2gG0bVWfG86qIt/Ds3x2eveL3NwybkFnB+ZVVJmyLgpxfOFPiVG/Z3D
+	 MMLdzWMVYLNIIRE3/Tj3c6rVWZ3tqJNa3P27Yo3J+d3Ns+HVH+Tg4ou/ieviB4/Nj5FDU
+	 oiONEuLE2ftJGAo/nhlXtc4x5Z05yF31SS9SuXxWcSA9TVTsnW5PLvWrhaZiTBff0scLh
+	 nzn2a5ruFQmi5xUP/3Ou8DrsAyB134AjJGzUGT0bw7PPa0XWZHMkTc0XQIVYXvUQ6O6Hx
+	 jtv5N6wJsPGPAnZ8fgmf8jhCb6Fuw+Ox5g6g0s+yLu3lHfnLkO9pynrCwFHiMRUB1QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794831616;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9l8aY4duwod5oh83bsEItxoT9PT8GG4ui0y9GtWOeCM=;
-	b=C8U3BS9WEVjCLHEBV91MYgbGZ9lyCuYiqhExFUNjPGwL1kxoljFrZjNu4VCTkwlluqC1
-	 lucQyUyoVduwHMIs9Q07iqhiaOsn55a3xRbzl3TfFZgfrnvS8xPPvQpbAjYsywptxY2vB
-	 I0dD/ZEEFoiXEhqfhadVlUFGM2xTx/Xi+62XhdGjTU2Ds8vxJT4Lb9xJrghZowEDtxpMs
-	 Oi9ex6f0RZk7mQ0ZdaZw8EutiArEv+2bzeRhyB8dSCdqCHr669kXSc0AvcouQXfdk6bQe
-	 uOJNqsmtdWvPF3dxwnatpwFQiO8RwXgUiXmedb+2y90naJgUk77dxCB1CLLot6OC0Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794831640;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=4MCroR/sjsq4mO+nQ3f/SHJLqA9hA+O6cA4sBYcKkZg=;
+	b=b3uurwu9RNOAARMxLd1DiDihoYLuAF8mEL7VbS07/s/lUBHRUTpmMX5PPGlrjnU2JaiW
+	 JOKc549cDgneSamtc3crDlRdxVRQQm0t8hJM/pMeDW7lljLHLgE6pl+B1dOvzz33APMka
+	 lmuGHJCpdhGBN9ltRJ5HIESsqqcj/SCYSURgYH3piUJfFaizIo6m3iN2d5R73zaQfBFQh
+	 XRC8m2u8odsKRjsVuCekmmGPS7fHeGy99zZsL0KAxh+sjGw012WOpoarAXVewaQ6Ohm8t
+	 QvFnfK/pGll4RFcklLVim70hOOSfIfslO2GKrD9xGHdVzExxO3A+mv2n+1zJYz1he4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lneGMFV+;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b="nF/UyUSR";
+	arc=none smtp.remote-ip=203.205.221.245
+Received: from out203-205-221-245.mail.qq.com (out203-205-221-245.mail.qq.com [203.205.221.245])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2972F606A32A
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 12:20:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2972F606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEA37606A31C;
+	Mon, 16 Nov 2026 12:20:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEA37606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lneGMFV+
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-ccca948203aso1477229a12.3
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 04:20:16 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794831615; x=1795436415; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9l8aY4duwod5oh83bsEItxoT9PT8GG4ui0y9GtWOeCM=;
-        b=lneGMFV+wKAhDHuklL7r7rmuDU1G+ohCB4sjR4HTq97HsrFQKSL142I0WnDGcBQ5Jz
-         94EuFbYp2+s4LFmZACzhLbPYf+qukzpoCka8VjJgJt8m8HC2jnpWNEpO/X0GkgA6nSzM
-         MyFWQKlhyLyJqaOlVooBax+FFG/fDHiwrfSESdWtwE6LbEZGRwHcBfep6TSro8LNuq/S
-         hhK1t8VTuafpoaG/SDyUysnkeqF3hMhKckXdh3PczdZwskyhB4IYd7gyiMJV4UL481lC
-         rPoOfeIRm9aj5jqgfambREQeMskvrfeHLlYf4g5yEhLuZZkJz1cuX27JSji/MJwyHQ/+
-         a3og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794831615; x=1795436415;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9l8aY4duwod5oh83bsEItxoT9PT8GG4ui0y9GtWOeCM=;
-        b=h+whTsRO9yvzkOhnS9h7G1y0njD+xvlT5W7v/Z7PO8YLaV4burS2clzCOeDKMNnEJ6
-         jFRwcRELk0ZDmrR9ah+IVBhdKcoAeyjLpXUCyikjYqhaq9xhR7IMDxDX6S5yC4eZVZmk
-         B02Qo/3qMSTgbtng/FG4vQn4WtWlpQg8YdD/jeq04GGAmFGUvThvjcXDKKIxO9KcfnyT
-         ykeUCqvspDNMyvWhZn3gnLa2bcqiHsvT/Je2eQu7Yz+s2i+IYBy1ZD41pig0Qdn4ViH0
-         W4ItOwC4Kc5vCWYrzw3nvkSaCam5qSaiwk8yKeikURs49QOSUpo7ez8KSJtwGXzNbmjz
-         3YKg==
-X-Forwarded-Encrypted: i=1; AL+hErFPr8WGKNVR9VcEhs30X1NLKXn6xhHvMZnd4WmcQeGaoxkv9ov9Q4C+AoqFA8oVYlWdHTCHUaI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9cJ7KLXlSLC4pXbXYxSXjOVktkm4FgHkg713ReP6HjUQRm7Irp
-	Kvau1HZ9KWLHhgna491WD1knrZbMU7t/6u/96aTHYSPBMSga9ONoPA4c
-X-Gm-Gg: AZFdTZcPXoarWNTeQMGoHGVFgIVkYhBwmzOuwenRAkmHJ2QVkI+vigtYLtujGLgkaoD
-	okZLb4epWMxgql3eDxtvwrZShcDZaUpQZ75cAmOFgSQreehgpPFI6yF+f1byPTt5mNiZ6lCyuNy
-	zgGFtJb/6T2zmDTBDY1QXODGE11VHmC5+AOa1UCPR9UoeN3zubDy+sPOD9VC594LPoSNDGqa2k/
-	fmxlf4YShqBEaKM5gA8SqzSO4xMaqkPV0FRuukZby9zA1/BULjWwx0/5AalyPlMQn5WdtnaD/oA
-	cz50iEJgHMOCcN0RIt2QdMpdOfx98/THBSLCB4Sv8TSqzXdWhJs3RUc9yO+cx+h3Elc9krq2kUc
-	GDb1posPjt7t1075R9D+bvrhJBTWMCxjllkSpX6mMWhEYZY+2ZabviCH7Pxma6lJM7RSiZqWnyp
-	crtV9bZ9GBSTmw2iuQunXvgfECveaGQ5yBDP1Dl0OdStJZLd2Je5Y9mvVdixiEm1we3PKXlJd3O
-	APJZnQtUc4vgfdZ6BpBUu2x5sVo4YtjoMjN8GeZ43+PNFhDm/KGpFgMH2iZT6n2dqnr9MFlhoM7
-	uHvRtVJ3fZNAWZ5nyu1s2j+olPnK2jnkRj6TBTDRYwV0c8FY
-X-Received: by 2002:a17:90b:1d03:b0:3ab:c80:9365 with SMTP id 98e67ed59e1d1-3b1b0b4cdf7mr9314366a91.42.1794831615263;
-        Mon, 16 Nov 2026 04:20:15 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b197d35525sm21783990a91.16.2026.11.16.04.20.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 04:20:14 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Derek J. Clark" <derekjohn.clark@gmail.com>,
-	Rong Zhang <i@rong.moe>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH v3] platform/x86: lenovo-yoga-tab2-pro-1380-fastcharger: cancel work on teardown
-Date: Mon, 16 Nov 2026 21:20:01 +0900
-Message-ID: <20261116122001.3096223-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=nF/UyUSR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794831630; bh=4MCroR/sjsq4mO+nQ3f/SHJLqA9hA+O6cA4sBYcKkZg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nF/UyUSR0bYZHL1EW8l3asisTFTPGviv8Eu5gqVRoo59ZrHeswUdya8UcQB1+pJO6
+	 lyAxJNB+Op2iDiXD3HFZ4lnBRenC7FvgLLtNFxaTPRTfP1W+GXrG9e4w4MXzRDcGir
+	 98O/MkCu6nKj8Qu7abPHlxZ50l5E14RedIKR4bIo=
+Received: from [127.0.0.1] ([2409:8d5c:8f0:65e5:2979:aa1c:9ec4:8698])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 5199FA81; Mon, 16 Nov 2026 20:20:25 +0800
+X-QQ-mid: xmsmtpt1794831625txwxrqa5i
+Message-ID: <tencent_5B7B9ECE9036BE72D331CB2A2E4AEC5F8909@qq.com>
+X-QQ-XMAILINFO: NC4p7XQIBeahMxe7Nis9QgS3xrmsPlhKDX17WXMQD2D8PIOyxhm1Gb53FHXytD
+	 4YzNWcq2zfLEL3ipFJGuhhitYhPI+x449ysiTJGcDUJuZaxDIUDAJArVe3MX5CLxEqc03cv6OlHI
+	 h2OywKU/9gLYeVck2/zsWvqglFzU8HRH6YtHmafnQQkvaQdFfL0qeEgBK2GCgU+RBMi6wY7S8Pmc
+	 iejgiTM7doW4zq4NVdbnSe707CfGZ8u44KMRhci5VXIPDFrpAFtqHUhhAaQlB59HlkBixCoaBeZI
+	 6EsSxbZwlZ/E8ebdJjGNSpA0nZCZ/yIOI7ZIv3jGOXh2n3J25ewX0uJNPxdExMN5Nobnk0nqSvR9
+	 rGGQ5+utxN+WifW+ZGQyXGeuY3H+78jgTtmhqYeiHB8EFLLIix0jccSKPYbeAjSz1LM70iJtTr/c
+	 f86bXmxjKq3K/g/j1Uee6sCMVJYfaKEeagxB3bg7sk37SzlcatPKQvKD8Ac5ZbIRqB+5IwsuAmG9
+	 F3smTEFUZOhQ93Bo9Ggrztx+C3YEYKrxEaY93Ootkc3sL91qYHMFwkQJxxp3MetEPm3TYOKEPUZO
+	 9lqI/70VxBYW9Y6T3DPY6wynJjV0N473wyveWP44fXnTJopKHKUjwN5ABNtjjju1jDm30kZCy8Xx
+	 lpGHle5g5QmIhiWnEdYkbAomPggm2BQJRNjF16krS3W6/u/ClgCKcdRSgSexjoiiekjFuh3owqsO
+	 5lWQc5bDj/jaZ6bqPf6mFg+DZqAwJdblrtBuvO/mTygc8M1O9aKZacg7aomeuyAcpHb9uBs+RKyk
+	 LV7lOoN9saLS6wdWuml54knc5SghDkQra0etDu81vMA/Hes/KiI6jtE8np7P2Um71SPRAvSkfuwn
+	 x+FV9jaQUF89ybMxaxV9UFPC1bL1rLdg/5oQHbAdE28otxHx6sVJ6kfjAFu6Qb0+u/R03kRjgxgq
+	 poTep0wR1rXt8uMeMOGdkt53nKZr8ZSm9lpm28SZ6VgekJC15d0j/Ukvj2ioeiutJMsW+RGY+Ke0
+	 s+DOceTR8MaxSMsg7lZmAW/TQH2cg06j92Y9ZLWAj66jrMQMz0dyKPLbtah+1re2iqQPbf7LrrKH
+	 Xj0wjW
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Hang Nan <2122295973@qq.com>
+To: netdev-bot+sinfo@kernel.org
+Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, matttbe@kernel.org,
+ martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ kuniyu@google.com, willemb@google.com, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, 2122295973@qq.com
+Subject: Re: [PATCH net v4 0/3] mptcp token hash ordering and token 0 lookups
+Date: Mon, 16 Nov 2026 20:20:25 +0800
+X-OQ-MSGID: <179483162524.42663.16445873285874492835@qq.com>
+In-Reply-To: <20261115155747.178858-1-2122295973@qq.com>
+References: <20261115155747.178858-1-2122295973@qq.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,98 +84,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-fc->work is scheduled from the extcon notifier callback
-yt2_1380_fc_extcon_evt() (and once from probe), but it is never cancelled.
-The containing struct yt2_1380_fc and the extcon notifier are both
-device-managed on the serdev device, and the serdev driver has no
-->remove callback, so teardown happens entirely via devres unwinding
-when yt2_1380_fc_pdev_remove() calls serdev_device_remove().
+Thanks for the prompt.  Honest answer up front: none of the three patches
+has a runtime trigger.  All three are theoretical, and this is what I
+should have put in the commit messages.
 
-devm_extcon_register_notifier_all() unregistering on teardown only stops
-future notifications; it does not drain a work item that the notifier has
-already queued. A fast-charger extcon event that races device unbind can
-therefore queue fc->work just before teardown; the work then runs after
-devres has torn the device down. yt2_1380_fc_worker() dereferences not
-only fc itself but also fc->pinctrl (pinctrl_select_state()) and the
-serdev (serdev_device_write_buf()), so it must be drained before those
-device-managed resources are released, not merely before fc is freed.
+1/3 net: mptcp: take token lookup references with acquire ordering
+   Theoretical.  There is no syzbot report, no KCSAN splat and no
+   reproducer.  KCSAN cannot observe this class of defect at all:
+   Documentation/dev-tools/kcsan.rst is explicit that watchpoints are
+   only set up for plain accesses ("KCSAN never sets up a watchpoint on
+   marked accesses") and that "reordering of marked accesses is not
+   modeled", and the reordering in question involves a marked refcount
+   operation.  On x86-64 there is nothing to observe anyway: both
+   variants compile to the same lock cmpxchg.  The evidence is
+   instruction-level: on arm64 the CAS becomes CASA
+   (88a37c02 cas -> 88e17c43 casa), which I can attach if wanted.  What
+   I did confirm is only reachability of the lookup path from the wire
+   (mptcp_parse_option() -> subflow_token_join_request() ->
+   mptcp_token_get_sock()), which is a static reading, not a runtime
+   demonstration of the reordering.
 
-Initialize the work with devm_work_autocancel(), placed after the serdev
-is opened and pinctrl is acquired but before
-devm_extcon_register_notifier_all(). Because devres runs cleanup in
-reverse order, teardown then unregisters the notifier first (so it can no
-longer queue the work), next cancels the work while fc->pinctrl and the
-serdev are still valid, and only then closes the serdev, releases pinctrl
-and frees fc. This closes both the re-arm window and the use-after-free
-of fc and of its sub-resources in the worker.
+2/3 net: mptcp: reject token 0 in mptcp_token_get_sock()
+   Theoretical, and found by static analysis while addressing a review
+   comment on 1/3, not by fuzzing.  The crash path I describe
+   (subflow_check_req() -> mptcp_pm_announced_has_ssk() walking
+   msk->pm.anno_list before mptcp_pm_data_init() has run) is argued from
+   code; I have not triggered it and have no stack trace or KASAN
+   report for it.  What is verified is the input side: the token is
+   copied from the MP_JOIN option without validation, and 0 is never
+   assigned to a live connection, so a lookup for 0 relies entirely on
+   the two comparisons that cannot distinguish it.
 
-Found by static analysis / code review; compile-tested only, not
-reproduced on hardware (requires the Lenovo Yoga Tablet 2 1380 charger).
+3/3 net: mptcp: verify the token slot in mptcp_token_iter_next()
+   Theoretical as well.  Both consumers (mptcp_diag and the userspace
+   path manager) are netlink paths that need privileges in the target
+   network namespace, so this is not a remote attack surface in the
+   first place.
 
-Fixes: b2ed33e8d486 ("platform/x86: Add lenovo-yoga-tab2-pro-1380-fastcharger driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
-v3:
- - Use devm_work_autocancel() instead of a hand-rolled
-   devm_add_action_or_reset(cancel_work_sync) (suggested by Ilpo Jarvinen).
-   It is placed at the same point in probe (after devm_serdev_device_open()/
-   devm_pinctrl_get(), before devm_extcon_register_notifier_all()) so the
-   reverse-order devres teardown still drains the work after the notifier is
-   unregistered but while fc->pinctrl and the serdev are still live. Moving
-   INIT_WORK() down into devm_work_autocancel() is safe: fc->work is only
-   scheduled from the extcon notifier and from the probe-tail schedule_work(),
-   both after this point.
- - Add Cc: stable (this is a use-after-free fix).
-v2:
- - Move the work-cancel registration from right after INIT_WORK to after
-   devm_serdev_device_open()/devm_pinctrl_get() and before the extcon
-   notifier, so devres (LIFO) drains the work while fc->pinctrl / serdev are
-   still valid rather than after they are released.
- .../x86/lenovo/yoga-tab2-pro-1380-fastcharger.c    | 14 +++++++++++++-
- 1 file changed, 13 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-index 8551ab4d2c7d..c2fe919a3ce9 100644
---- a/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-+++ b/drivers/platform/x86/lenovo/yoga-tab2-pro-1380-fastcharger.c
-@@ -8,6 +8,7 @@
- #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
- 
- #include <linux/delay.h>
-+#include <linux/devm-helpers.h>
- #include <linux/err.h>
- #include <linux/errno.h>
- #include <linux/extcon.h>
-@@ -160,7 +161,6 @@ static int yt2_1380_fc_serdev_probe(struct serdev_device *serdev)
- 
- 	fc->dev = dev;
- 	fc->nb.notifier_call = yt2_1380_fc_extcon_evt;
--	INIT_WORK(&fc->work, yt2_1380_fc_worker);
- 
- 	/*
- 	 * Do this first since it may return -EPROBE_DEFER.
-@@ -209,6 +209,18 @@ static int yt2_1380_fc_serdev_probe(struct serdev_device *serdev)
- 	serdev_device_set_baudrate(serdev, 600);
- 	serdev_device_set_flow_control(serdev, false);
- 
-+	/*
-+	 * Initialize fc->work with automatic cancellation on teardown.  This is
-+	 * registered after the serdev is opened and pinctrl is acquired, but
-+	 * before the extcon notifier: devres unwinds in reverse, so teardown
-+	 * unregisters the notifier first (no new work can be queued), then
-+	 * cancels the work while fc->pinctrl and the serdev are still valid, and
-+	 * only then closes the serdev and releases pinctrl.
-+	 */
-+	ret = devm_work_autocancel(dev, &fc->work, yt2_1380_fc_worker);
-+	if (ret)
-+		return ret;
-+
- 	ret = devm_extcon_register_notifier_all(dev, fc->extcon, &fc->nb);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "registering extcon notifier\n");
--- 
-2.43.0
+For 2/3 I will add a KUnit case to net/mptcp/token_test.c
+(mptcp_token_get_sock(&init_net, 0) must return NULL) in the next
+revision, so at least the guard has a regression test.  I am not
+reposting only for this message; if reviewers want the above folded into
+the cover letter, I will include it with the next respin.
 
