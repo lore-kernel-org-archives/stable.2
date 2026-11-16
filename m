@@ -1,70 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794812440;
-	b=yZkpF6e0dPucHnRQ/PxS/UO2K6RuPpNpNcUINwiZnY0xg2B2m5Bvro96Qtd1lBM3BrGN
-	 INOd0iwG9xesw1Uc01C0BrBsJaRLPG19NZOoxaazfCMBOXiHk7F7LH/vtiMx43LZH1FjQ
-	 8C9RV+GBX5ClnKqdnX1oQRU1GyT6cuAeguCGHJ9QQGJgIcRT2urPkXccLz04bmENW1/A6
-	 UG3UQSbY9lYk39N6g3wf5sqHKwD7Fj7zj/nG1Jael6nlvfnHKLiAXejB2TgWoIicbiduh
-	 y+S7wg7k+L/TNjaLLGAPuuzuoMBylfhW45VtO/IMloh4bwjLmJIe9gQQ/pyZM4wNsKQ==
+	t=1794813002;
+	b=EsSMwAMucpT2sOvnzd6WfuXqMil95z/PAzJTTufH/VcbQ8Ucy5Uk2K2x2YlEURlEias0
+	 CikifsC20rpvb9rOxxZCA6AeudPCslYH3UK8q4JW5uNhIFqOV5Js6alGOdzrEnKjLGQbP
+	 duc5oQIf/JX0YJ8DQRWBEyRhuJk6rTMMbmwLlTTi7ZMANT2gwFQDc/9r1TqntmwDKgzdC
+	 /ZKW3F5i/RkLtbZHanK/ToPnM0lxORZuuLZfE1NFuHgJxBif8kZHwIGzexgR1DAKSI/x7
+	 IoM1rPDHjxX0ELL8JktMCzjBfklXvGXAVy4WRGzjcic590E1FXoaTTxCPDFUCUnj0Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794812440;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=xB+BFyiBhg43vKmSg8qYqtNW6BXxNZFsoZ8jrkcXKtI=;
-	b=gBgium7XVFYTBKjRbzVT29VkAr526eYJThCj+PkRWClHJ7PGUuTqa/RtU1g+MVoixvC5
-	 RdArw1XhLev3CDOS6eCWEHrJw7pTc9VlDI5D/2D2VAboiVnj66XrUaWMZkxFMtWrB8KN6
-	 1Lg7fRDZXBjS3sDzg0Hh51oDvDCMeViKxjT39EjcCDL3Exab9sBQAAWd5tITqPGu90bhr
-	 V8NRrwR9PGVOFw0ia66zb7EiLHGGhd6EZs7z4qg/CoJUl3TuF5Cvcfo3hKV3DhXY2nB2l
-	 qgzwY0yUPGWFDhHuChPlX1qFiG+4C/KJr/mUIoxIKOo5g0b+I0rb61eEg+ZgoZ/BuTA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794813002;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=HgNH1ksBGX98CE2bH1jPY9l/0FuthN2fRlNKJOzVZwA=;
+	b=aj+F3jrrWShkLzvgQGHSCW/uJsEDYq8hfs+uLx03fXfs1Y4JTQLvmmqSw5yc14Gn3XE6
+	 Ap+2rVx96I6Jvo94wHidz6T/h7209x6pkE7ZUqEwkk+zMHfn9Gygk/oLGeqbMplz4eNLE
+	 Tt1JlbF+gpunJwEU3GXpEzNbgrPjrTCGkGPD39PMfggFGSQALSG3+4l9S29QR4G0AR6Uk
+	 mXSEfr3zlJ0D8mKFOZyXhVOmUFhfFUPHIcmPwiL5k9xkC/VtsIJizjl+SHPLyU5XjaNkS
+	 Zuk7Z8oUiTL4KR1RZTz+HbggZv/J+xDf8Lq77MDsY5nMjJkLHjr5EeTGidTHpIVQzKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=URK1A+aN;
-	arc=none smtp.remote-ip=54.254.200.128
-Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N6jU7FA7;
+	arc=none smtp.remote-ip=192.198.163.16
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F70606A323;
-	Mon, 16 Nov 2026 07:00:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30F70606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACDA606A323
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 07:10:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CACDA606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=URK1A+aN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794812399;
-	bh=xB+BFyiBhg43vKmSg8qYqtNW6BXxNZFsoZ8jrkcXKtI=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=URK1A+aNbgmqzkfebTJo/cSldfDMGgGTXjXKBe0NseRqgSu8UhEL+eiAy/X+tALX9
-	 oGPiRdmGou/miOqacsumQ7H0w9o17QYJRNujBv7rHvvqkMV7L5/ntUb6Epsjy8FBVc
-	 gH6vsa5RiWxbRZ3XzXjPTPyGVIn6aqU4MWLQfYYo=
-X-QQ-mid: esmtpgz13t1794812381t4041da20
-X-QQ-Originating-IP: n004XmxgKogGDXiilDcoOCabJnUIn8l5kAG3eSkS40M=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 16 Nov 2026 14:59:39 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 13267101832186099259
-EX-QQ-RecipientCnt: 10
-From: raoxu <raoxu@uniontech.com>
-To: mchehab@kernel.org
-Cc: luiz.von.dentz@intel.com,
-	pengpeng@iscas.ac.cn,
-	pmenzel@molgen.mpg.de,
-	brgl@kernel.org,
-	raoxu@uniontech.com,
-	sakari.ailus@maxwell.research.nokia.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: v4l2-event: Unblock DQEVENT after device unregister
-Date: Mon, 16 Nov 2026 14:59:38 +0800
-Message-ID: <C882A5D3FC331B7A+20261116065938.2035746-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=N6jU7FA7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794813002; x=1826349002;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=f2FoQxrzWoSx2bDTdb3gWUp/L3kL9UPOZIPpU94A6x0=;
+  b=N6jU7FA7kE1AHN/TKxWOw2+o3+HHpENIZCj/qVwlejEyRQGgBSOXi/B3
+   fco7YJi1N06ljpjXJSFmvD5dZ+u5w5FTCXlL6kRGOPF+QA4h+zPGY9F2i
+   OSP5eNU6cgSUpzU07Gv3t5iIZaPcIaUFjUsIkCONANr0v32TxEFa6krpS
+   5JpR5r8MGo61H7zMVTM77bJJOlcaJq2XyEgEyqKpxGuX3u2+jo6Fbe4JH
+   uQGaN3z8D2JQ36/AuuBzyubgKkVcyJjXMFkHpp9wYKbnkpA0VNPvQ9OKx
+   emu/KBtUQGueR6cwdOuj+oedyQa9Jle8+xiY/IkICWv95tPLdm6VN7T2Y
+   Q==;
+X-CSE-ConnectionGUID: O3sus+laQJuz1juxj+ztjw==
+X-CSE-MsgGUID: EMY8dMP2SOCtIw8sP1kDFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3577667"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3577667"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 23:10:02 -0800
+X-CSE-ConnectionGUID: YcVgVu1AT3mxZpR4pyPdsQ==
+X-CSE-MsgGUID: 4xjtn0sJTMS2Mup/uf9NXA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9280860"
+Received: from unknown (HELO [10.217.180.38]) ([10.217.180.38])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Nov 2026 23:09:59 -0800
+Message-ID: <3f41d55a-1e7a-452f-ac9c-04703a600ffc@linux.intel.com>
+Date: Mon, 16 Nov 2026 08:09:57 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,119 +72,152 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] accel/ivpu: Defer recovery until probe completes
+To: Toast <swizzguy76@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ dawid.osuchowski@linux.intel.com, stable@vger.kernel.org
+References: <20261110121534.3566028-1-karol.wachowski@linux.intel.com>
+ <CAHBKUQaxYcVQvUc336wCOZzpS+GDw7yEbmAWvpT8CEUSg+cK2w@mail.gmail.com>
+Content-Language: en-US
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+In-Reply-To: <CAHBKUQaxYcVQvUc336wCOZzpS+GDw7yEbmAWvpT8CEUSg+cK2w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NPwdxSKNG61XtVeQFjBCp05K8CqgXIRWlm6XVis33V7IWi6PKn5OYXNR
-	QQKEC84XfmYMLshtdEtbHzGKtTPMyutZXz5zaUBGaZvOgtTumOSc6M0JjKJJpGwk8+I4I2C
-	d5YamO9RM8ptrk2NR6u0KfcO5zz3KOJ/tGDgjmGIzfTQa28jbpZ9FRqgXpdlMCZ0+QewdHk
-	B0sZeD3kLw/3J8IKzmq5YzKgKSu8a+XFsJcgUWal8cNco+oY9zokd2fjvDScJJjfWoF+wlO
-	hBF1FAJmd2K8IqYLV02dKyOBBR1AjPVQAIoBMEKpXLfcDkaYD6uJNEgS5i8BIWMRjA2hzXZ
-	FY6Y/xhf66DXv3aHo+ubSaT1qxZM53EOjiAB/r20VpuEJYyM0nNNbv1Q86gZm1lLGwTgmfe
-	QtZaBE/cND9q4S/JR2nWQH1/AKDmFo7+EKgXsk+oSBFff9q4lb3HRXpefGHbZViGNbt61lm
-	NMfj7cWB8+QKPdJsAWHzkZbKR00ClWKg2NBNUwYQDVPaYskr9aF81NK22tceCb2poUk0fOQ
-	2Pi2UaViDyLwfroxpGZwCoFsGBHpMpF1bHo+1ALlAxXYwLsqH14/XctWnPpg84uUAzwjHT6
-	hGOqrBpB/qjeJEqpULYBF9fet4ZKZuQeZjWwM3u5YltxUSZiI1LTHbJeQm3hAnj+bRzCTrN
-	pnRD2FKkGq3bPjr3vShzvcblQLu4MBxROODTFT69Qi+dRkPAEa2ygUBu9S3BY6P+/Vw5bsL
-	IuXeXiN7tL09/w3QJiIvQIw95xTMlnXESLitKMPTv45p177PPNJYJ4UZ+VVYf9A+R7v+R66
-	F3i5FNT3NmDZrZR4mIGa/4+kw7BZMlPiFot/yNoie/K9KgvlX7hiMhuVtOOhI7EvC0nJdqz
-	XdRN2wOs7HzwYNtkz9LvHxV5T4NwHJ6vvZsX/rlCVVT/yvWp60n3H0vOyVKXdgB23upmFkC
-	BEaQJUZfoe0xfp3LW9bWvjkeJVKL+gkZGsDqgpmo7Pxd2SIKYBblDnV0QP6V8W1k0F8i7Ky
-	bjH5WbRJOIjxlbQuflvm4TSa2EA2wApY6O4w6ovw==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-QQ-RECHKSPAM: 0
 
-From: Xu Rao <raoxu@uniontech.com>
+On 15-Nov-26 16:24, Toast wrote:
+> Tested v3 on Meteor Lake (Core Ultra 5 125H, vpu_37xx firmware 20260219)
+> on top of v7.4-rc1 (d48723711bae):
+> 
+> - 4 kexec runs with the NPU runtime-suspended (one from a 7.0 kernel,
+>    three from 7.4): every run hit ATS_ERR during probe, recovery_work was
+>    not queued, probe failed with -ETIMEDOUT, and there was no oops
+> - FLR plus rebind brings the NPU back, and it autosuspends afterwards
+> - debugfs force_recovery after a successful probe recovers the NPU, and
+>    it returns to runtime-suspended
+> 
+> None of the runs had probe succeed after the error IRQ, so the deferred
+> recovery in ivpu_pm_enable() isn't covered by this.
+> 
+> One question: v2 had"Cc: stable@vger.kernel.org # v6.10+" and v3 dropped
+> the annotation. disable_work()/enable_work() only exist since v6.10 and
+> the Fixes: commit is in v6.3, so should the "# v6.10+" come back?
 
-A blocking VIDIOC_DQEVENT can remain asleep after its video device is
-unregistered. video_unregister_device() clears V4L2_FL_REGISTERED and
-wakes event waiters, but v4l2_event_dequeue() only waits for a nonempty
-event queue. A removal wakeup with no queued event therefore sends the
-caller back to sleep, potentially indefinitely in the absence of a
-subsequent event or signal.
+Thanks for testing, and good catch. I added "# v6.10+" to the stable tag 
+when applying.
 
-Reproduce this by opening an event-capable node, subscribing to an event,
-draining pending events, clearing O_NONBLOCK and entering DQEVENT. Once
-the task is asleep in v4l2_event_dequeue(), unregister the node from
-another process. The ioctl must already be in progress: a new ioctl
-after unregister is normally rejected by the outer V4L2 file operations.
-Losing an input signal alone is insufficient if the node stays registered.
+Applied to drm-misc-fixes.
 
-This is reachable during legitimate use by an application with a thread
-blocked waiting for device events when the device is hot-unplugged or
-its driver is unbound. It does not require malformed input. Applications
-using nonblocking dequeue do not sleep at this wait point, and an event
-or signal can mask the problem. The frequency in real applications has
-not been measured; the runtime test below uses driver unbind rather than
-physical unplug.
-
-This was reproduced with an ov9734 UVC camera (0408:1040).
-Subscribe to V4L2_EVENT_CTRL for
-V4L2_CID_BRIGHTNESS on /dev/video0, then unbind the camera's uvcvideo
-interface. Both video nodes disappear, but the blocked ioctl does not
-return. A representative trace, collected from the test program and
-/proc/256634/{status,wchan,stack}, is shown below (timestamps omitted):
-
-  DRAIN_EMPTY errno=2 type=3 id=0x980900
-  UNBIND_COMPLETE nodes=[]
-  # About three seconds after unbind:
-  Name: dqevent_test
-  State: S (sleeping)
-  wchan: v4l2_event_dequeue
-  [<0>] v4l2_event_dequeue+0xbc/0x140 [videodev]
-  [<0>] v4l_dqevent+0x20/0x30 [videodev]
-  [<0>] __video_do_ioctl+0x1cc/0x4b0 [videodev]
-  [<0>] video_usercopy+0x15d/0x700 [videodev]
-  [<0>] video_ioctl2+0x15/0x20 [videodev]
-  [<0>] v4l2_ioctl+0x50/0x60 [videodev]
-  # Only after the test sends SIGUSR1:
-  ret=-1 errno=4(Interrupted system call) signal=10
-
-All three original-handler trials needed the test signal to finish.
-There was no Oops or hung-task report: this is an interruptible wait.
-With the changed dequeue handler temporarily installed using livepatch,
-the same unregister test returned without a signal in all three trials:
-
-  UNBIND_COMPLETE nodes=[]
-  ret=-1 errno=19(No such device) signal=0
-
-Disabling and unloading the livepatch restored the original behavior.
-This comparison used the running test kernel, not a newly
-booted mainline kernel.
-
-Include the registration state in the wait condition. Attempt to dequeue
-an event after waking and return -ENODEV if the queue is empty and the
-device is unregistered. This also handles another waiter consuming the
-last event first. An in-flight call can still return a pending event;
-nonblocking calls, signal handling and mutex reacquisition are unchanged.
-
-Fixes: c3b5b0241f62 ("V4L/DVB: V4L: Events: Add backend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/media/v4l2-core/v4l2-event.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/v4l2-core/v4l2-event.c b/drivers/media/v4l2-core/v4l2-event.c
-index 9dd2aaa95a67..17d3c53c0d93 100644
---- a/drivers/media/v4l2-core/v4l2-event.c
-+++ b/drivers/media/v4l2-core/v4l2-event.c
-@@ -70,11 +70,14 @@ int v4l2_event_dequeue(struct v4l2_fh *fh, struct v4l2_event *event,
-
- 	do {
- 		ret = wait_event_interruptible(fh->wait,
--					       fh->navailable != 0);
-+					       fh->navailable != 0 ||
-+					       !video_is_registered(fh->vdev));
- 		if (ret < 0)
- 			break;
-
- 		ret = __v4l2_event_dequeue(fh, event);
-+		if (ret == -ENOENT && !video_is_registered(fh->vdev))
-+			ret = -ENODEV;
- 	} while (ret == -ENOENT);
-
- 	if (fh->vdev->lock)
---
-2.50.1
+> 
+> Tested-by: Daksh Sahni<swizzguy76@gmail.com>
+> 
+> On Tue, Nov 10, 2026 at 5:45 PM Karol Wachowski
+> <karol.wachowski@linux.intel.com> wrote:
+>> An error IRQ that fires after ivpu_boot() enables interrupts queues
+>> recovery_work during probe. If probe then fails, the device is torn
+>> down while the work runs, and the work faults on the unmapped BARs:
+>>
+>>    BUG: unable to handle page fault for address: ffffcfc6680200f4
+>>    Workqueue: events_unbound ivpu_pm_recovery_work [intel_vpu]
+>>    RIP: 0010:ivpu_hw_ip_ipc_rx_addr_get+0xc/0xb0 [intel_vpu]
+>>    Call Trace:
+>>     ivpu_wait_for_ready+0x155/0x220 [intel_vpu]
+>>     ivpu_boot+0x9e/0x270 [intel_vpu]
+>>     ivpu_resume+0xa4/0xd0 [intel_vpu]
+>>     ivpu_pm_reset_complete+0x2c/0x90 [intel_vpu]
+>>     ivpu_pm_recovery_work+0xf6/0x140 [intel_vpu]
+>>
+>> If probe succeeds, the recovery runs concurrently with the rest of
+>> probe, and its pm_runtime_disable() discards the initial autosuspend
+>> request, leaving the NPU active until first use. Any recovery that
+>> starts while the NPU is idle loses the pending autosuspend the same way.
+>>
+>> Keep recovery_work disabled from ivpu_pm_init() until ivpu_pm_enable().
+>> A trigger during probe still runs diagnostics and masks interrupts, and
+>> ivpu_pm_enable() runs the deferred recovery before the initial
+>> autosuspend request. A trigger racing with ivpu_pm_enable() can cause
+>> a second, harmless recovery. Request autosuspend at the end of
+>> ivpu_pm_reset_complete() so the NPU suspends again after every reset.
+>>
+>> Fixes: 852be13f3bd3 ("accel/ivpu: Add PM support")
+>> Cc:stable@vger.kernel.org
+>> Reported-by: Daksh Sahni<swizzguy76@gmail.com>
+>> Closes:https://lore.kernel.org/r/20261107174215.15818-1-swizzguy76@gmail.com
+>> Signed-off-by: Karol Wachowski<karol.wachowski@linux.intel.com>
+>> ---
+>>
+>> Notes:
+>>      v3:
+>>      - Request autosuspend at the end of ivpu_pm_reset_complete().
+>>        pm_runtime_disable() in ivpu_pm_reset_begin() cancels a pending
+>>        autosuspend request and pm_runtime_enable() does not re-issue it, so
+>>        a recovery racing with the initial autosuspend request in
+>>        ivpu_pm_enable() left the NPU active until first use (Sashiko).
+>>        A trigger racing with ivpu_pm_enable() can still queue recovery
+>>        twice. The second run is a full reset that leaves the device in a
+>>        consistent state, and autosuspend is now re-requested after each
+>>        reset.
+>>      - Replace pm_runtime_mark_last_busy() with pm_request_autosuspend() in
+>>        ivpu_pm_reset_complete(); it marks the device busy itself.
+>>      - Shorten the commit message.
+>>      - v2:https://lore.kernel.org/r/20261110085003.3527014-1- 
+>> karol.wachowski@linux.intel.com
+>>
+>>      v2:
+>>      - Rework of Daksh's "accel/ivpu: Disable recovery work on probe failure":
+>>        https://lore.kernel.org/r/20261107174215.15818-1-swizzguy76@gmail.com
+>>      - Keep recovery_work disabled from ivpu_pm_init() until ivpu_pm_enable()
+>>        instead of disabling it on the probe error path, which is too late as
+>>        recovery may already run concurrently with ivpu_boot() (Sashiko)
+>>      - Run a recovery requested during probe from ivpu_pm_enable() and wait
+>>        for it before the initial autosuspend request, so the NPU is reset
+>>        before use and the autosuspend is not lost when probe succeeds
+>>
+>>      v1:
+>>      - Link:https://lore.kernel.org/r/20261107174215.15818-1-swizzguy76@gmail.com
+>>
+>>   drivers/accel/ivpu/ivpu_pm.c | 9 ++++++++-
+>>   1 file changed, 8 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
+>> index aa813262253e..e4b79c946ca0 100644
+>> --- a/drivers/accel/ivpu/ivpu_pm.c
+>> +++ b/drivers/accel/ivpu/ivpu_pm.c
+>> @@ -150,8 +150,8 @@ static void ivpu_pm_reset_complete(struct ivpu_device *vdev)
+>>          up_write(&vdev->pm->reset_lock);
+>>          atomic_set(&vdev->pm->reset_pending, 0);
+>>
+>> -       pm_runtime_mark_last_busy(vdev->drm.dev);
+>>          pm_runtime_enable(vdev->drm.dev);
+>> +       pm_request_autosuspend(vdev->drm.dev);
+>>   }
+>>
+>>   static void ivpu_pm_recovery_work(struct work_struct *work)
+>> @@ -415,6 +415,7 @@ void ivpu_pm_init(struct ivpu_device *vdev)
+>>          atomic_set(&pm->engine_reset_counter, 0);
+>>
+>>          INIT_WORK(&pm->recovery_work, ivpu_pm_recovery_work);
+>> +       disable_work(&pm->recovery_work);
+>>          INIT_DELAYED_WORK(&pm->job_timeout_work, ivpu_job_timeout_work);
+>>
+>>          if (ivpu_disable_recovery)
+>> @@ -439,6 +440,12 @@ void ivpu_pm_enable(struct ivpu_device *vdev)
+>>   {
+>>          struct device *dev = vdev->drm.dev;
+>>
+>> +       enable_work(&vdev->pm->recovery_work);
+>> +       if (atomic_read(&vdev->pm->reset_pending)) {
+>> +               queue_work(system_dfl_wq, &vdev->pm->recovery_work);
+>> +               flush_work(&vdev->pm->recovery_work);
+>> +       }
+>> +
+>>          pm_runtime_allow(dev);
+>>          pm_runtime_put_autosuspend(dev);
+>>   }
+>>
+>> base-commit: 54d3ff1b5ac08d0e28029b93a1719ddd9ff670a4
+>> --
+>> 2.43.0
 
