@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794855970;
-	b=tVQBHom6A0E3utqX0lE/4zMEWWPRCnwoUc8Kfz8CPB/Hz2lUHip09wOrKXXKUs3fn5fG
-	 VcKCRc9gkwTonfq+IL0hiUImUGQDGX6G0+0ppnWrjgsjUPNc3RJ4KYCPTGhvS22lvyCvA
-	 RKF6G2uJgzwqiS/meCkgg57/RdUyG8HMUay7otacFL3p+mXP7Wm4ubkjVVdM/2VfsfEKI
-	 waA+YRCaNFrpDBNucNpOgJJ4aVXGg91JEYQL8+RtZGNxf+ip9sZfRThbx+vWwZG3ADamo
-	 HQ9/LfcqRyXNBSGW6AoUNz5jcMSGvZpBr0A8wrfkw3OBqYOnk0drIc6nLJ93ztk08FA==
+	b=5hI/SG8g3+ydoKOh3YZoFq3HecnWLjeh1kWrExaGwT6WSD5fmSvmQV2y9O6xxUpJsx/H
+	 ZVLREiDi8ss+/W6jJHFyRSNXDhwfjU78NTB1WKrIl0sA3oyrNhp/sayRQxDLsUAT5p3+W
+	 hL8D3lWwXbSk4xwpiCOxRntq6oBXEsNXNsaey9Vxn0DcdljaNim3FKtp300wopqoozwCa
+	 sRZnQqmkfllGRCgyO7CLIzmD0Asr304bmdO2uwFAuW+EpIPrRni1DnLMI7/QWbroVIZsc
+	 AWZY8gVe3qYDGKA+xHIoPQtUMbxCEP4x8N8oCMPF2R51YlKuvmI/gOaAYouK+WNOyZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794855970;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=5GdNYKHtbggdeH/PSiTG08XEZjI27VRLEXKyaaPcMCk=;
-	b=EttuhhHbjhZwltdPn42Iual5NfbOGsJGKhG94ZGhjA8/3Fzs9uXbNXJoIIeoF4Cw47Q7
-	 5o4iaTNQVsLNgdgXFYu5oWWaauQjcJMSNKd+j70nd9ssn986nLwqc3v/RQ0/XBWGvXPu7
-	 9X4qE31e8WoEZqBXJZIRWUI8ZLtuNnsqSgzeiUAkA4x2BZYnQlO/qIWRornEC5H0aDX5B
-	 Ui5xUhWHQ5tM+iFRh8gMpZwGh0UXM9gJIbIY/Lvt1lHU2ZzTY//Nt+3QTxms8LyeUcgYa
-	 4Aty987IlbLW9dXTsrOvhwzhpQpMjia23aYXHC5uNQ1pd/eJjOPisBV0JJII7aNMx0g==
+	bh=CewvABXbciGJVQcqqR61AyfK9UpxpPEaIIe1bjYIC08=;
+	b=VGqp2l/GhHkuTZQVGy5m4gMLJ+uyoW6nKAmKj0fjstq9d2tPl/lkQukFDyDwKEyMd8+b
+	 pS+VcaVXa8p25vNdUBgv8UcwyHJT05yBQcfVsmLUOzjZv7tcBjLvOtk6LtHj0qMqsoezZ
+	 Bp82uQoRhtUM2feXuji1onmAItvbJBEZMuARTYoGh9aiTBwc5Asq3F9Bs7fmuFJ19D9wr
+	 a16eF4BNUjyxWevhJmyhiKmQNL3fsl7QLTDlIuWYfESjaR0OB7Gy+P5MVGpgQMK8QoVzb
+	 dizZ5zlqCLmOag/U+dBPCGEInOu07KSeuvli/SnlmRaJfYeb0N9BIhHcDb+nuwBaEeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=SHobBh0I;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=kfej3n2j;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1C760A380E;
-	Mon, 16 Nov 2026 19:06:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D1C760A380E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C7460A380B;
+	Mon, 16 Nov 2026 19:06:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50C7460A380B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=SHobBh0I
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=kfej3n2j
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1794855956;
-	bh=5GdNYKHtbggdeH/PSiTG08XEZjI27VRLEXKyaaPcMCk=;
+	s=smtpout1; t=1794855959;
+	bh=CewvABXbciGJVQcqqR61AyfK9UpxpPEaIIe1bjYIC08=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=SHobBh0INsRbR5cAac3VNIyYKUTw9UEcv6paJn6hQrMEZ/4QzCScuDFjzGWrprrqk
-	 3PumitAJKXWYmGsftUDXewTOMF9RYNM3gkZcO58BguscqqWEFzOBDCL9nrF/H2tgpd
-	 DIgd/W/UF4NYEJcrmnh1mF+hfBBlJeCwLEB6xjRFKYxM5DuN5HVcnS2vKTPydnDE2j
-	 Joxej7lvxoB8LYpPHoWmYH2uqU0pkd/2GJTAisRH6xci1JJ40MKhw6t1jCzlBdSUCW
-	 wMOCrotPNQTN1cNwVfZvhzd3jGUzqjtTsxEbeIumaNiKvasWIxj6p59GrO1VtGzViS
-	 yEGFdAQyJyOpg==
+	b=kfej3n2ju94tSynC8ZtXH497MYUFfOpTSNuK73gRyniZKI5oAKQ16xO3Nw1ilqUMt
+	 QasfHsQjXW6jzYAwhWPZ7OimhB+PZFjum7T/Yl6Bd1smaSc2dRV/5J3511CMeDmFyk
+	 NRO6rfSt7ZiTRSHnbW3RSYO8JfivdK37jWZ14tE4WOmzy0c3OQqiM47CpM1UbHFtid
+	 pOtTkTcHF1aKxcK5b+mEadyB2qEqyH/mHQggOGMr8kbLlf7A0qZzropO/Ivr5cdYJR
+	 T5uRL/VVmmgkJGmi7d6IzpCl2qNYGMBBGKt2D2Z2nOYdmi1W9j3PfY0TPZepeltlhT
+	 LUmxtq8AKHcaw==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jSy4h5nrhzR7L;
-	Mon, 16 Nov 2026 14:05:56 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jSy4l4YhRzQtl;
+	Mon, 16 Nov 2026 14:05:59 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -80,9 +80,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v6 17/37] sched/deadline: Leave a dying task out of a rebuild of the accounting
-Date: Mon, 16 Nov 2026 14:05:29 -0500
-Message-Id: <20261116190549.230119-18-mathieu.desnoyers@efficios.com>
+Subject: [PATCH v6 32/37] sched/deadline: Check the runtime of a task that comes back runnable
+Date: Mon, 16 Nov 2026 14:05:44 -0500
+Message-Id: <20261116190549.230119-33-mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
 References: <20261116190549.230119-1-mathieu.desnoyers@efficios.com>
@@ -97,88 +97,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A rebuild of the root domains' accounting takes the pi_lock of each
-deadline task, not its rq lock. A dying task past its 0-lag time
-releases its bandwidth at its last schedule. It holds its rq lock there,
-not its pi_lock. Then it clears dl_bw. The rebuild can find the task
-between the two steps.
+Commit a649f237db18 ("sched,dl: Fix sched class hopping CBS hole")
+keeps the runtime and the deadline of a task that leaves
+SCHED_DEADLINE. A task that comes back before its deadline goes on with
+them. So leaving the class and coming back gives no new runtime.
 
-In this diagram, T is a deadline task that exits on CPU 0 past its 0-lag
-time. bw is its dl_bw. CPU 1 rebuilds the accounting:
+But the task can come back with new parameters. If it is asleep, its
+wakeup checks the runtime left against them, with dl_entity_overflow().
+If it is runnable, enqueue_dl_entity() starts a new period only if the
+deadline has passed. The runtime left is not checked.
 
-  CPU 0 (T)                                  CPU 1 (rebuild)
+So a task can come back with a smaller runtime, and still run on the
+old one. Admission control counts only the new one. Juri Lelli found
+this case. On v7.4-rc1, a task of 50ms every 100ms came back through
+SCHED_OTHER with 10ms every 100ms. It ran 39ms of the next 100ms.
 
-  do_task_dead(): TASK_DEAD, under pi_lock
-  __schedule(): T's rq lock taken
-    task_non_contending(T)
-      dl_task_release_bw(T)
-        total_bw -= bw
-        dl_bw_gen recorded
-        record cleared
-                                             dl_rebuild_rd_accounting()
-                                               dl_clear_root_domains()
-                                                 dl_bw_gen++
-                                                 total_bw reset
-                                               dl_add_task_root_domain(T)
-                                                 T's pi_lock taken
-                                                 dl_bw != 0, dl_bw_gen old
-                                                 total_bw += bw
-      __dl_clear_params(T): dl_bw = 0
+Fix this by applying the wakeup rule to a task that enters the class
+runnable, with update_dl_entity(). It starts a new period, or reduces
+the runtime of a constrained task, if the runtime left does not fit the
+new parameters. The task gets no more than a wakeup would give it.
 
-dl_bw_gen does not help, since the release came before the rebuild. The
-rebuild would count a bandwidth that nothing releases again. The root
-domain would then refuse deadline tasks it has room for, until the next
-rebuild.
+The return_running_new_params case of deadline_bw_test, added later in
+this series, tests this. It fails on v7.4-rc1 and passes with this
+patch. The return_asleep_new_params case tests the wakeup, and passes
+on both.
 
-Fix this with the record of the bandwidth, dl_bw_cpu. The release
-clears it under dl_departed_lock, which the walk holds. So leave out a
-dead task with no record. A dead task with a record has not reached its
-last schedule. The walk counts it as a live task. That schedule then
-releases the bandwidth, or puts the task on the departed list. A dead
-task on the departed list keeps its bandwidth until its timer, and the
-rebuild counts it as before.
-
-The Sashiko AI review of v2 of this series found this window. Its review
-of v4 found a gap in the first version of this fix. That version also
-left out a task between TASK_DEAD and its last schedule, with its 0-lag
-time ahead.
-
-This patch completes "sched/deadline: Rebuild the root domains'
-accounting from the task list". The walk of that patch finds exiting
-tasks, which the cpuset iterator skipped. The fix needs the record
-that "sched/deadline: Record the root domain holding a task's
-bandwidth" adds. The three go to stable together.
-
-Fixes: f9a25f776d78 ("cpusets: Rebuild root domain deadline accounting information")
+Fixes: a649f237db18 ("sched,dl: Fix sched class hopping CBS hole")
+Reported-by: Juri Lelli <juri.lelli@redhat.com>
+Closes: https://lore.kernel.org/all/avHvPjz4dL0zNyGb@jlelli-thinkpadt14gen4.remote.csb/
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
 Cc: stable@vger.kernel.org
 ---
- kernel/sched/deadline.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ kernel/sched/deadline.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 44db625bffc3..75fc9314da67 100644
+index ffa8b946e804..b47c13c8714d 100644
 --- a/kernel/sched/deadline.c
 +++ b/kernel/sched/deadline.c
-@@ -3767,6 +3767,17 @@ void dl_add_task_root_domain(struct task_struct *p)
- 		if (recorded < 0 || !cpu_active(recorded))
- 			goto unlock;
- 		cpu = recorded;
-+	} else if (READ_ONCE(p->__state) == TASK_DEAD && p->dl.dl_bw_cpu < 0) {
+@@ -2723,6 +2723,14 @@ enqueue_dl_entity(struct sched_dl_entity *dl_se, int flags)
+ 		update_dl_entity(dl_se);
+ 	} else if (flags & ENQUEUE_REPLENISH) {
+ 		replenish_dl_entity(dl_se);
++	} else if ((flags & ENQUEUE_CLASS) && !is_dl_boosted(dl_se)) {
 +		/*
-+		 * Count nothing for a dead task with no record. Its last
-+		 * schedule released the bandwidth under its rq lock, and has
-+		 * not cleared dl_bw yet. The release clears the record under
-+		 * dl_departed_lock, which this walk holds. A dead task with a
-+		 * record has not reached its last schedule. Count it as a
-+		 * live task. That schedule then releases what the walk
-+		 * counted, or puts the task on the departed list.
++		 * The task enters the class runnable. It may come back before
++		 * its deadline, with the runtime left from older parameters.
++		 * Check that runtime against the new parameters, as a wakeup
++		 * does.
 +		 */
-+		goto unlock;
- 	}
- 	rq = cpu_rq(cpu);
- 	dl_b = &rq->rd->dl_bw;
++		update_dl_entity(dl_se);
+ 	} else if ((flags & ENQUEUE_MOVE) &&
+ 		   !is_dl_boosted(dl_se) &&
+ 		   dl_time_before(dl_se->deadline, rq_clock(rq_of_dl_se(dl_se)))) {
 -- 
 2.47.3
 
