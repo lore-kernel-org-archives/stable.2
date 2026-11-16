@@ -1,69 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.128
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794809153;
-	b=nv3aLjaOaskDoE7yLOr6OBYf7fRJ0UmDXEzJMKd9GDR3mmSDbjPTeidq1SZff/eFa5eQ
-	 BREBsHvrSL4/RXh77dp/+/5bFXw1Cw3MUq/9MkkziBy/EOFyFyGQz3NXNV2CIgCGMvdxA
-	 jDnu6rQec8UnjHkWvnurbRp5nHBBpOuppgmamNd2MjxVZH2weIXEAb09G9b9ZEtog6so1
-	 TYN6FDLUJooFd+zTwl7NJjZmWiT1TFWCUIHI6+UVQkDZ2jFM6spFyKjrgFNWLGZRW4Kci
-	 ygyFTFMTVLFzoHRTbztjeMSFD2x8V1xQYLRm4JD75IxxCUY5F0QD9vLpN9iLyJxEzDw==
+	t=1794809267;
+	b=Fis+x7hXGaRlJKZGluSvfRHg1pByyz6+Tm+IiIeKSBQfyOMFjScrPHIJ+2589oebzQlo
+	 I3h2bM5j+g9/OtrxUCLXu8k34so0Jp6QMwPnAPet5p/Uc8NXV8YznV/08sLCVKIl87TOO
+	 ekX4F5j5gUoIJdXyByCOROsrl1rU4vUDAswb9l1N3i5LTNiNjRabqSipYTKArKuYHOoQ0
+	 69zjnJXdWqCaHUkP8wMTH40JEQs0Ouwuw2K8qchbFTrkenGtKg/QuDXg/yHIfgsuMFz2o
+	 0FCNBlTkZNJWO4jzFrWTKKpCdj1fi7onhzW8saacNBrmyew0dDpwnZs0768NNDKdpsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794809153;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:Sender:Reply-to:
-	 To:Subject:Cc:MIME-Version:Message-ID:Robot-ID:Robot-Unsubscribe:
-	 Precedence:Content-Type:Content-Transfer-Encoding;
-	bh=O198CPW1uAaL8ZuxNOIKDhpKphZLHhNKDxw7j7vMfOo=;
-	b=Z1zJ0sHc8Tt4SfFwkD3Di0BcZUCVeeX9LBnzV56D967Egc/VnpJXqnG3CqaZs02WwxlE
-	 2YIgxIO4djdPFjRPWsSQcQJY+V511dF3Zqzg7/P7bdkMdbwaUTwyUPC5kcnFyHdrvli3Y
-	 vrRUr2BBcdcUGE34KmLtPcrUP7DfSP3GhFEsCkOLiTDhqvIWAhwWitfOVrP7W+NomSoeG
-	 YqFmCQL+YMWLVxf9ySer6eNEH8Hvu1yMWN8u23b+H8nMBLExRGFM2JVk1G8kxXeDaV4D9
-	 9MrXNyrB+inXcP29fVIHc+S/A1gb9zbPAg7S8471WpOiA9RAScmdK5eC0GFWFJgRB8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794809267;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ohY8oBfL9HsIxJ4pthQEE7H8EctHPP05752yO5BuBs0=;
+	b=ut3G3uE11OMlsbP/UfTunBc4hUeTg6P5sA9Tw2hzGrgjzh3058vCVRjgaW4um76BxDaU
+	 ffN/p7OwozIzkw4hyL52Keg3C9lgLt+m/gXbBXj8eHQKaTfwJgp8nhDbRxqzaqNUAuRuU
+	 P612vos+OeuKxpS8yi+gVFQ1gtxthGDOXkJwq1LckbCTSMrugZ82jVqzYuCpyy9r5S7Fr
+	 g95Aedk+dfhB6IlDNJtkpQBcpioZzziNwk+nqk3T74eoTrqypkLX0tdx9DZ4EpnEKVuAk
+	 ep/ShS83mvt0Jpw1s0BxQI/UKwHKCuXWD/v96xnyhbsNGGK/7FzH4tNiwW2LurnnZeg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=yLgzdbZL;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b="uYm9K/rO";
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=justthetip.ca;
+	spf=pass smtp.mailfrom=justthetip.ca;
+	dkim=pass header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=U5FfbXae;
+	arc=none smtp.remote-ip=95.215.58.128
+Received: from mta1.migadu.com (out-128.mta1.migadu.com [95.215.58.128])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 730AC606A89D;
-	Mon, 16 Nov 2026 06:05:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 730AC606A89D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28153606A882
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 06:07:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 28153606A882
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=yLgzdbZL;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=uYm9K/rO
-Date: Mon, 16 Nov 2026 06:05:43 -0000
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794809144;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-	bh=O198CPW1uAaL8ZuxNOIKDhpKphZLHhNKDxw7j7vMfOo=;
-	b=yLgzdbZLo6s4eX0dYmJgnFHNgOgkmg+6Uy9Y369zL4hMf1h9EONOX8SYw+K9l4WRDvX7jQ
-	cRboULpnu4gYpsFDTYKaiEcROPyFsbeG3Vsa87crbIY1qsbo3/suMdLfCodx6Y7zTETi/X
-	tYdpsq7vJgE9oLIfE68kSF/iyAnk8a/AsDVNh8gIIHX4B/YhS9cEfJqFsTduR0sCe8jSgY
-	Fk1scsT3rS0QYeoAIKGmT91zkGFB0OZN3/DAu/Nt4az/rZIGaF/5gPVtxixnKoGQalKck3
-	EvzHkZ0SnJx8I72d+D7PMYrSoQAs3+FVDcIUGl7VdP9ddt1DxIxV4BRBj+EbiA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794809144;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:  content-transfer-encoding:content-transfer-encoding;
-	bh=O198CPW1uAaL8ZuxNOIKDhpKphZLHhNKDxw7j7vMfOo=;
-	b=uYm9K/rOnJDc8qlYX6z+HlrUs7vZHVhITkDOaFNpzr8+bufoxacZwrLqM/jjoyvtKpbxx1
-	j6Uuz70Fk4vgqXBQ==
-From: "tip-bot2 for Nathan Chancellor" <tip-bot2@linutronix.de>
-Sender: tip-bot2@linutronix.de
-Reply-to: linux-kernel@vger.kernel.org
-To: linux-tip-commits@vger.kernel.org
-Subject: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
- enabled when compile testing
-Cc: Nathan Chancellor <nathan@kernel.org>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org,
- x86@kernel.org, linux-kernel@vger.kernel.org
+	dkim=pass (2048-bit key, unprotected) header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=U5FfbXae
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=zjZz3AvtYv5pnFEpIMQaU/5mq50DMy49MjdfgWYYMaI=;
+ c=simple/simple; d=justthetip.ca;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794809255; v=1; x=1795414055;
+ b=U5FfbXaeU+jYNMF0KT9tv0gGfHx6hLcpNHpi5D/znDQVLceXQCShfwamWP0xjpWWZqMXJaen
+ +ovZN57sWfFS8DEn6jzGGjr6WXhVrLt8CULp+Kq7jZyDdhOhQfv0JTfJD5AaBcoL3GppH344MYw
+ 9aGidJTYodMZvX3tHhuS4MXfC2HExYYVxwyQjePkPbBjqSnU0wsw6z/umfswkGIjDe0gIGSlpHs
+ Nd/Nb0rKU0ZFF6KbjgwrncgBn1MYe9Bm1eHCUm7C7/tSbJk8g84JTwQS3f9HNmjvmHi78Yo6poD
+ 0pd2MKQanBI1wVwTtrN19j8QhbBzEkoUdO3zarn52ThDQ==
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 3c946c982c1bf979;
+	Mon, 16 Nov 2026 06:07:35 +0000
+X-Mizu-Trace-ID: 3c946c982c1bf979
+X-Migadu-Flow: FLOW_OUT
+From: Devin Wittmayer <lucid_duck@justthetip.ca>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Martin Moosbauer <martinmoosbauer@vivaldi.net>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH wireless] wifi: cfg80211: don't call CRDA for a country regdb lacks
+Date: Sun, 15 Nov 2026 23:07:23 -0700
+Message-ID: <20261116060723.37130-1-lucid_duck@justthetip.ca>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,90 +67,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
-Robot-ID: <tip-bot2@linutronix.de>
-Robot-Unsubscribe:
- Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
-Precedence: bulk
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-The following commit has been merged into the x86/urgent branch of tip:
+Connecting to an AP that advertises the country "EU", seen on
+Vodafone routers, looks up a country that isn't in regulatory.db.
+The lookup falls back to CRDA, nothing answers, and the CRDA timeout
+then restores the world domain and drops the user's setting.
 
-Commit-ID:     2946884aff3d0e67227df3b4d3bcd9c3357a3b78
-Gitweb:        https://git.kernel.org/tip/2946884aff3d0e67227df3b4d3bcd9c3357=
-a3b78
-Author:        Nathan Chancellor <nathan@kernel.org>
-AuthorDate:    Sun, 15 Nov 2026 21:30:43 -07:00
-Committer:     Borislav Petkov (AMD) <bp@alien8.de>
-CommitterDate: Sun, 15 Nov 2026 20:43:50 -08:00
+CRDA has the same data, so don't ask it for a country that the
+loaded regulatory.db lacks.
 
-x86/build: Do not allow X86_NATIVE_CPU to be enabled when compile testing
-
-When cross compiling x86_64 from an aarch64 machine using clang with
-CONFIG_X86_NATIVE_CPU enabled (such as when using allmodconfig), there may be
-a slew of warnings from each .c file, which makes it nearly impossible to find
-real issues.
-
-  '+crc' is not a recognized feature for this target (ignoring feature)
-  '+fp-armv8' is not a recognized feature for this target (ignoring feature)
-  '+lse' is not a recognized feature for this target (ignoring feature)
-  '+neon' is not a recognized feature for this target (ignoring feature)
-  '+sha2' is not a recognized feature for this target (ignoring feature)
-  '+sha3' is not a recognized feature for this target (ignoring feature)
-  '-rand' is not a recognized feature for this target (ignoring feature)
-  '-sme' is not a recognized feature for this target (ignoring feature)
-  '-sme2' is not a recognized feature for this target (ignoring feature)
-  '-sve' is not a recognized feature for this target (ignoring feature)
-
-Internally, clang expands '-march=3Dnative' into a list of target features to
-enable based on the detected CPU. The x86 part of the clang driver notes
-
-  // FIXME: Reject attempts to use -march=3Dnative unless the target matches
-  // the host.
-
-which was first added by the initial '-march=3Dnative' support in clang in 20=
-09=C2=B9
-(other architecture drivers appear to have a similar problem).  Due to the la=
-ck
-of validation that the host CPU is an x86_64 CPU, '-march=3Dnative' is expand=
-ed
-using the aarch64 host CPU's target features, which are unrecognized by the x=
-86
-backend.
-
-While this should obviously be fixed in the compiler, this does not help
-currently released toolchains that have this issue. As a simple workaround th=
-at
-makes sense regardless of the toolchain issue, only allow CONFIG_X86_NATIVE_C=
-PU
-to be enabled when CONFIG_COMPILE_TEST is not set (i.e., the user intends to =
-run
-the kernel, not just build it), which will exclude it from allmodconfig.
-
-  =C2=B9https://github.com/llvm/llvm-project/commit/e13ada6a3b236f505b24501d4=
-56dec2518e4944c
-
-Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to =
-locally optimize the kernel with '-march=3Dnative'")
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Fixes: 007f6c5e6eb4 ("cfg80211: support loading regulatory database as firmware file")
+Reported-by: Martin Moosbauer <martinmoosbauer@vivaldi.net>
+Link: https://lore.kernel.org/linux-wireless/8db36875c56cd9703dee42c7a00b81c9@vivaldi.net/
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20261113-x86-no-march-native-on-non-x86_64-v1=
--1-cbc8b096d1c4@kernel.org
+Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
 ---
- arch/x86/Kconfig.cpu | 1 +
- 1 file changed, 1 insertion(+)
+Connecting to an AP whose beacons carry Country "EU", with a user
+country set:
 
-diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
-index 6e7a366..32d22cb 100644
---- a/arch/x86/Kconfig.cpu
-+++ b/arch/x86/Kconfig.cpu
-@@ -217,6 +217,7 @@ config RUSTC_HAS_APXF
- config X86_NATIVE_CPU
- 	bool "Build and optimize for local/native CPU"
- 	depends on X86_64
-+	depends on !COMPILE_TEST
- 	depends on CC_HAS_MARCH_NATIVE
- 	depends on !RUST || RUSTC_HAS_APXF
- 	help
+  kernel                             card          before          after
+  7.4-rc1                            MT7925, USB   world after 3s  kept
+  7.3.4 (Fedora)                     MT7927, PCIe  world after 3s  kept
+  6.18.52, 6.18.63 (Arch)            MT7925, USB   world after 3s  kept
+  6.12, 6.6, 6.1, 5.15, 5.10 (Arch)  MT7612, USB   world after 3s  kept
+
+"iw reg set EU" did the same and is now ignored, with no CRDA
+request. A CA element is still applied, and with regulatory.db
+missing or broken, CRDA is asked as before.
+
+Before 7.4 the database pointer isn't RCU protected, so stable trees
+need the plain pointer in the check. That form is what ran on 7.3 and
+older above.
+
+ net/wireless/reg.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/net/wireless/reg.c b/net/wireless/reg.c
+index 5cd3880ee384..cf79059b9992 100644
+--- a/net/wireless/reg.c
++++ b/net/wireless/reg.c
+@@ -1125,9 +1125,16 @@ int reg_reload_regdb(void)
+ 
+ static bool reg_query_database(struct regulatory_request *request)
+ {
+-	if (query_regdb_file(request->alpha2) == 0)
++	int err;
++
++	err = query_regdb_file(request->alpha2);
++	if (!err)
+ 		return true;
+ 
++	/* CRDA has the same data, it won't have this country either */
++	if (err == -ENODATA && !IS_ERR_OR_NULL(rcu_access_pointer(global_regdb)))
++		return false;
++
+ 	if (call_crda(request->alpha2) == 0)
+ 		return true;
+ 
+
+base-commit: 831e33ad02ff884ecc793c07a9c9bd9e06941fe5
+-- 
+2.56.1
+
