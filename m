@@ -1,100 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794825230;
-	b=44DomoE85sFjhQtH8NSD9w59DRbr7GwtEv4tLoTb7wbXY1bncSyMV7A1Z5tNRlmtbj1+
-	 H4D2plHNQfWSgbQktCnehfQNNHtOCWgxn/3FftxvhssXEqlPdaEbN0CKWRLUnWQMlXBDj
-	 /KRhYMI3sbaBZvv/Vb/1Vn0K3m9Rgg1BnSPS5M1j3DNGxu+hrbMd9tvPj6W2UxKSb9eoq
-	 ogVrQNtXgK6NGfm/gNxaKGdxJJuwZauqDY/IfWenDo0d57W/6IW/fC/X2aM7HybYDVMSu
-	 3sST3Nb9zMfk3MDRucJcw1o5mglcqbVZi2st+MRFzNvi1lOeHW5kl+v4GG02tr2irWQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794825230;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794825322;
+	b=pMRCgOK5Qy3Xf26murS46pawIqPXFn/sHeW8lC9qjXAX3wbPTh3ZOS0fNQZj6ZrpOvKm
+	 jKRkeDObQM2Up9S2WtoiH3PLJhj0HHZC0/nBkJp18wJZz5lojb6O2vpub4HFzLrv01axv
+	 secQoyeSRsZB90eIjcy9sSl89xeu+Pb4cCaW2n46qMjLrTgtyCTmFkCv+x9ByqeWJm/8B
+	 g9sMxLsMDZBKDl91yJTSw1w0o++spWWrp6sx/N5Mjf4UXHbOYx01fx/uk1en84AIB7wdv
+	 JcOGbjanwbakOeLRrsevxZH1PCM6gS1LwvYHitAl5N0zdfhvVTTV3dbAnJCfOpnYttQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794825322;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BcX26cyIolLDGV7RzmSSpE6fHAk7h/NEUs+iaS9LpDg=;
-	b=TON9CFQjkmCcmVklyM6ftPvfZBRQk9y02mCZAxIrpdOknXwEhzrfHPkTyXCyYySZRzWx
-	 jYDn39nDB6YUelFOuBOmNeSbwE+EPHj46B7MLkvfpiurnI4krkoWPmkWMad25vVqVakfE
-	 DBBIbXux31Wl2TJlBmtgcd7boMcdZYBzbTLtPCRHHScYbtNMcf4YEajcF0iYi4t4FxyYl
-	 VKNPZ6JnctHf4efcROOI3pgp80qXRJ4co88qgIZbO2oxHonLDUkSjX0eyX5joJj/ad2A7
-	 33DueTrwAPXK035WM5A7Jg6XliJ5xVrWoPVEsto0ms2VI6yh6cHDHgyAdxf+p7i4DhA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=iyaQZx4YaB2JOzxstluIUEtBMcc33AW6Ym2vysf33mM=;
+	b=iI1ohg1xVkf0P5chk8RFeyzr1F7BhHSUxAVXrCGryonJ767rnRDBr7qpHD1o+5EKmWcu
+	 Roo5psuQIQBkIg6ZIkRZkgXtgVKGY5o+wkrdOV4sczN9vhyJOGVqPcM4PiOF0ajsXjRf0
+	 wVdzyLwrVYONVPes1darjPQ3FMIlnTmuoJQ1gj22GOQ537z2whZnx2jHwyuaM5/F8NEAr
+	 O3hTIp+RKWWQ7PB5OPDkH9ka9dx7y1apQ70u6yfsG/JKdB8sTpR4AAkVgYQDKDy4Sgvo4
+	 NyT8pgUUZmR/2xXdabuYDFcFvpoYTRgp7SkxyCGRG/eFXwzt3+/53/YzVbzjrVgJBUA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cMA7Ex2A;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HPBhVP3o;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2759606A32C
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:33:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2759606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633A7606A329
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 10:35:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 633A7606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cMA7Ex2A
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b5973a4b4cso4354522a12.2
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 02:33:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794825228; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LxXS5ToRxLCDWPNwTMMeGGqeofbBaNJwx4kUfxvwu/pDjt46iyl3txLZKGzQaYhLXA
-         pCGVnfx//utEL7dts4u+FkJIK4blpbCYX+C++9ZrAIQE09H8I/wm2tJfOlaAgKP5lJZR
-         Tg4ecT9I8KNyIcX2cBAGYQTaxFqaDacv8zYK4bHmwndncQ1z/6xFWos9Iqsv6fk9zZ+7
-         vFqbi3imtpdZGrEEwN7EgRVqTzJXoMLKnZ3YylZS3q//VdFRdhFvVfd418xXeuh0gt3i
-         Xi8W8FA9x2c0RcrsRLFt048F7+Axas3wR+kdj8hwOft9gj7aKE/2k35/5kJF5rzcauCz
-         eiEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=BcX26cyIolLDGV7RzmSSpE6fHAk7h/NEUs+iaS9LpDg=;
-        fh=GpI0qjwONDeoLC1So9JTFtn01HCEngF2qPWQ7znfohU=;
-        b=DyMWmrMEP+ezQGaDPFuyRmsH0BfKlQvkCFUiLv6eNcl9UJ/GJgPDZZjbbajYS75Wec
-         n6wiWNOHyYt7mbOrVfHDOgkBWJTzj3h0+i9tcwHhQdh8nWn9qtEYHTSQyAF3qBarn2wX
-         7G4RPgrjwUTprxzu51k2LmlbsevJAVxDc8M2XY+OtfSCAMg6MhF2JEeIbZB0GDU6hWzo
-         vpYnwR+f4x/K+h+zJitlrLu9LaOMZqz+EZoQUQux1NQ2Sm9mtyAaM5FmdYr+Q+j5bwgf
-         FgNDu5dmE4LbJktt9AO32hV7+7XqXpMZ7hB16INh44qKyb65J8hqMRRc5k/fsCpKHPLQ
-         +9eA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HPBhVP3o
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4910b863b84so2365453f8f.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 02:35:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794825228; x=1795430028; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BcX26cyIolLDGV7RzmSSpE6fHAk7h/NEUs+iaS9LpDg=;
-        b=cMA7Ex2A6a8giwsic57JQmQVBX4z19O1dwTosopkucFyXilbY7y4KQvBgOiVlUfQHV
-         HhAjKnQP4IMUT/2RcGEYQBbPdsrbJdKU7BxmvDzSFaQwhUskc5hS0PDmx1g/X6+As05o
-         vBd0pxF0KsB6gB8C+ujKBTAPYJQPLmSf+FNlku+Fk+liGCRRjB6FtAr8GiqsV8qilknA
-         4otgmDh0sj2x+FLoPTxCPf09e+9/mAFOVzJuMeIZKZyVKGLFzy7WnmxFpwsKwACWKYjq
-         u/mzVKhZpQMIjHbuhHuLVWetNaA9FSK4x0zkK1a2lA64X50eyJSpw2S+gM4Z3AshUNqu
-         TiOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794825228; x=1795430028;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794825321; x=1795430121; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=BcX26cyIolLDGV7RzmSSpE6fHAk7h/NEUs+iaS9LpDg=;
-        b=DCBeT8h+Job45oEgZhRSITWdeZ3u1BVldtZDDwZuv46Tsq4hr6l+4URRxmXbd7p5sq
-         qe2VoiquLyO6GFKxAikMKu6Stf5zZ5/3ZFeuFgl+npcIztuSNyTeXgvq/WNWg8b2wTKE
-         d010L9WhE6LV37FMEzOjFDq/6cLgyTtbiI7NWDRGMLBtu7n0bqE7Jl4XgxGbmfXZfDv2
-         fLylz0/OPnGInCooLe63tZkWdf6rROkhkUlC6tRce1s4u+PtxeXN5vwGRXfsk5lyFRSU
-         BXC7BXNQ51np3PPVvVx/DwKrPqbL97wL5RsvBGhz+iM1PKIf0VtlHt7RcopwEGWjdsJk
-         Ir+w==
-X-Forwarded-Encrypted: i=1; AL+hErFwatjdbYvTEPJeS/SNmzqFUgw/CqQTT5HAQoDfK+abUnSMSmcoUlVO3OKoOZ6/bEJlvJFHcVI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/FmlP4MZ8QB1VR/pfn+HYEHAkJMepgGWouKFZdGE5xWSLcHOnI
-	hqdvk7fVM0l6gWEGbERIdVKPArCfNnXwDy/6Y9nO+VRBCNO5GAR6G1A8cqlgUOoRIn4rpx2lGBi
-	onWKzWIpckRiXfRrPpm6VUP5V0PyDaZI=
-X-Gm-Gg: AYBFou0hGrOSBdZ+rW1viaPF3hzzyRoTCq2oJhRh09CBdN2WsD1zZveHV7e0kJRxE7P
-	qY61KL8XGGkOVF2z0aFR3s1Rgt80QjW9M23OX+qKt++AGRgMNerEhwpoy1PfqeZykJ4pVaZhlQF
-	wRTIXsXA4f6VC2WnEWFT+l5KutCtMmFTHZM7HtShh+VdS7P7Hk+ynzLEXIKV9Gd0dcNTSSdGthf
-	ISWLNZCrHxmJYo4RlgXd26eMPOS+lrvpn2oII/NPb41YNNCcQsyrFI68H5xSNPio1N9MyFL4if8
-	Qq0vWJOtqQ5MK8tFYHt+mxNvZhowdtY4W8khRnQcu/pwPxxksmblAm3pVyDAZgmZ3nAOZzfGWN6
-	VbXuuS6rmdGhG7UiKDvfVrJLp0ZfH7zuTfSsPcnFIX2BdAu9BQY0n7Xu6/LYyGHnxkk2rHw==
-X-Received: by 2002:a05:6402:44d2:b0:6b4:59d0:7294 with SMTP id
- 4fb4d7f45d1cf-6b7c0c7fc57mr6737947a12.31.1794825227756; Mon, 16 Nov 2026
- 02:33:47 -0800 (PST)
+        bh=iyaQZx4YaB2JOzxstluIUEtBMcc33AW6Ym2vysf33mM=;
+        b=HPBhVP3opbkndZbX/Njn+mhPHqIItUqxsBMit4KhMA7OxLH9lvreIW6onmS0+qbsFZ
+         qo6ic04s2pX1PpDsHyk8Ryzhsl09JF5tbU7BvwHPN6X7RNbmE+sydbvmFCazqA3wizZ5
+         8MlrMaFC00CNNoJY8Zf9QY7fG+zrAnQeopEJrL7vLiKU05gOadWRDbkR80JvwPQHKXD1
+         vvnPbRiFagghTyBYC5VFRim1WBxUGE2YXmlDACBgNm9+BQsBHLfxLCGcK887RJNgGWt1
+         Xi/v06icK3D/0RvVfndeM5GgGfU3sEeM6PdHMWuVMviXpmW0Y7p2DjayIvrtg6NP9TxF
+         C4Fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794825321; x=1795430121;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iyaQZx4YaB2JOzxstluIUEtBMcc33AW6Ym2vysf33mM=;
+        b=1KqBb5En3H6swwnwzvxtBjLiQlDS4DrEsErzmQqz7yBN82nR521o5sGwJHa/0ZS34L
+         nO04KHFEzeGqPAkYO0Chc/F8UP7Xf5OnEzvEmJ49N2xAxpItFNQ4Yp/c7/i9Rw0MUFsY
+         PkNweAUl4xLF2bHpn+0RPe38u17CJW0QAZ72O1364bTZYrQN3mG6khX+yqAH8zrTQIX8
+         42alO/ZYx70z7Pl872WR/Sb6j4iCwpY2agFZOsfkHCvDlGoFvxbBShrWHiFIH1VcD2/5
+         LsV1uyd2Jmuw8cm+xY6beiwRkpNz6ZvPuFfQnVEFTe8Pp83vBi2bqdt4Wj2f910dDpRx
+         zfHw==
+X-Forwarded-Encrypted: i=1; AL+hErHHqLlseGgCazWA1JO7SMthIWoy/+VSJ/VjXt/N3wCGlrrbp58vrCab7TFMndi5nybynPd3+B4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9CfIAlpjFUCkXPnosY42vssXG5cDnrudmi4UezLxhy9fhp1YAm
+	PnbeSiioEQTYhGRoSY5xDP7wJ937M7lFeF5gVfotdHuowltsGxMR5f+w
+X-Gm-Gg: AYBFou1JUsHUqw5NnzYK6+8TRd8+xim2RDHyI3QXsmf2g49idfe5bnGoKCw37C/K90N
+	I06QJ4RiaCoc0KS/Kd/Re+RNVQeIvwxIPau1AIeNsFwOTPl73yDck47omHW074gg/LjWTm5iSyg
+	qp11qzKqwwrHEGYQtnu3Qo0t+hI6WkWyiQ+6GBb8JAZ9C7T6k9D3QIUnMWK2Q5NMkLiPf/VrsTR
+	OLBE069Z9ziojz4eU76hojSx7Goquv/IFOjGSEH9YwBSqF99sXkF94cswh1FG0fEXOB5WGeunY2
+	xHTbGawKtiBcXeKofkMVj0g34HzG5G89AnhfcnmgB3Bj8kVjdTXZAA3Yiz+xL+pMN4S8F3AHQRx
+	o5VEcau2vi3TIuGOfDzQmU6bHEFe1kdkHXw6fVdGbFn7nwsvadNPl/yInm0yGb7fBSTYWl9mFhW
+	PCVj3csfMXdbEYMSLOTMcGfMTf3nt6ppb2+uauveCSEcYIYKYerCtlLWK5CGJNcRrpDXmYXes8u
+	Y3b9VD36KJPrAUBHFzn74YtKD3k0FZZ6frUCs+IS0M/h4TlIy+bFE6FoVhUyxD+p5u5EwPBbPl5
+	J+dXhDwKufVkYZmMTLOkFnLDAQ==
+X-Received: by 2002:a05:600c:4f86:b0:4bb:5fd1:92aa with SMTP id 5b1f17b1804b1-4bb5fd19428mr160740475e9.15.1794825320590;
+        Mon, 16 Nov 2026 02:35:20 -0800 (PST)
+Received: from [192.168.1.22] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb675200e4sm118113715e9.0.2026.11.16.02.35.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 02:35:20 -0800 (PST)
+Message-ID: <b3183fe8-5e7f-40c2-a534-c643d0fd2bed@gmail.com>
+Date: Mon, 16 Nov 2026 11:35:18 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,84 +92,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261115210952.2140036-1-graypanda.inzag@gmail.com> <20261115210952.2140036-4-graypanda.inzag@gmail.com>
-In-Reply-To: <20261115210952.2140036-4-graypanda.inzag@gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Mon, 16 Nov 2026 11:33:36 +0100
-X-Gm-Features: AclHuK-NMHGmo8BvWWPeGRhVs7Os08I_QBobJYDFHOlrsGgrh13rxr7aQnEhSTs
-Message-ID: <CAOQ4uxibz=iM4Xg6qmRmqKB25w=Z9AaaqnMqc-L2d27G632hyw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] fanotify: zero-pad copied event names after an
- embedded NUL
-To: Junyoung Jang <graypanda.inzag@gmail.com>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Jan Kara <jack@suse.cz>, Matt Bobrowski <matt@bobrowski.net>, 
-	Gwanhyun Lee <gwanhyunlee@gmail.com>, fuse-devel@lists.linux.dev, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] mm/memory: remove racy huge PMD assertion from
+ walk_to_pmd()
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
+ <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>,
+ Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>,
+ Roman Kisel <romank@linux.microsoft.com>,
+ Saurabh Sengar <ssengar@linux.microsoft.com>,
+ Naman Jain <namjain@linux.microsoft.com>,
+ Michael Kelley <mhklinux@outlook.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org
+References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
+ <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, Nov 15, 2026 at 10:10=E2=80=AFPM Junyoung Jang
-<graypanda.inzag@gmail.com> wrote:
->
-> fanotify_alloc_name_event() sizes the variable-length event buffer from
-> the qstr lengths and allocates it via kvmalloc() without zeroing.
-> fanotify_info_copy_name() and fanotify_info_copy_name2() record
-> name->len in info->name_len and info->name2_len, but copy the strings
-> with strscpy().
->
-> If a qstr contains an embedded NUL byte, strscpy() stops at the first
-> NUL and leaves the trailing bytes of the allocated name buffer
-> uninitialized. copy_fid_info_to_user() then copies name_len + 1 bytes
-> to userspace, leaking uninitialized kernel heap memory.
->
-> This mismatch dates back to
-> commit 929943b38daf ("fanotify: add support for FAN_REPORT_NAME") and
-> remained after commit 0fdbe845534f
-> ("fanotify: replace deprecated strcpy in fanotify_info_copy_{name,name2}"=
-).
->
-> Switch both helpers to strscpy_pad() so any trailing bytes up to the
-> recorded length are zeroed.
->
-> Fixes: 929943b38daf ("fanotify: add support for FAN_REPORT_NAME")
+On 11/15/26 9:58 PM, Lorenzo Stoakes (ARM) wrote:
+> From: Eliav Farber <farbere@amazon.com>
+> 
+> walk_to_pmd() asserts that the PMD entry it returns is not huge, but does
+> so without holding the PMD lock, so the assertion is only valid if nothing
+> can concurrently install a huge PMD entry in the range.
+> 
+> This is not the case for a VMA whose driver implements both ->fault and
+> ->huge_fault and which invokes vmf_insert_pfn() from the former.
+> 
+> The existence of prctl(PR_SET_THP_DISABLE) is problematic here, as it only
+> takes the mmap write lock and faults taken under the VMA lock are
+> unaffected by this.
+> 
+> This can result in two concurrent threads faulting the same thing
+> disagreeing as to whether to attempt a huge fault and thus ->fault and
+> ->huge_fault running at the same time and triggering this assertion.
+> 
+> So just remove the assert.
+> 
+> Target the commit which introduced the first driver able to do this for the
+> fix - vfio-pci. DAX also mixes fault orders within a VMA, but serialises
+> them using its own mapping entry lock.
+> 
+> Link: https://lore.kernel.org/all/20261112051440.16140-2-farbere@amazon.com/
+> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
 > Cc: stable@vger.kernel.org
-> Co-developed-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
-> Signed-off-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
-> Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
-> ---
-> Note: default FUSE mounts report a zero fsid (-ENODEV on fanotify_mark()
-> with FAN_REPORT_DFID_NAME), so this patch was runtime-tested on tmpfs
-> with FAN_REPORT_DFID_NAME create and FAN_RENAME events.
->
->  fs/notify/fanotify/fanotify.h | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/notify/fanotify/fanotify.h b/fs/notify/fanotify/fanotify.=
-h
-> index c25cf5c1fc70..4a1f14aa4974 100644
-> --- a/fs/notify/fanotify/fanotify.h
-> +++ b/fs/notify/fanotify/fanotify.h
-> @@ -225,14 +225,14 @@ static inline void fanotify_info_copy_name(struct f=
-anotify_info *info,
->                 return;
->
->         info->name_len =3D name->len;
-> -       strscpy(fanotify_info_name(info), name->name, name->len + 1);
-> +       strscpy_pad(fanotify_info_name(info), name->name, name->len + 1);
->  }
->
->  static inline void fanotify_info_copy_name2(struct fanotify_info *info,
->                                             const struct qstr *name)
->  {
->         info->name2_len =3D name->len;
-> -       strscpy(fanotify_info_name2(info), name->name, name->len + 1);
-> +       strscpy_pad(fanotify_info_name2(info), name->name, name->len + 1)=
-;
->  }
+> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> [ ljs: rewrote commit message ]
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Same as for inotify patch I prefer that we are consistent with d_path(), fo=
-r
-example by using memcpy().
+LGTM:
 
-Thanks,
-Amir.
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+
+-- 
+cheers,
+jose a. p-a
