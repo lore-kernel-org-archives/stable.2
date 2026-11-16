@@ -1,55 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794837766;
-	b=d/zQhzYDclwOM2dop4D0g/mgMquebVmhAqcwXQhgedLTzIulZHN66xbs9KcaXkiyQqMt
-	 aQGUIBSt+mbSYd2MEdrcwoJXzfCRWRGYhzek/URcJ55Rddpy5HPYpRLhd4wVFzL3GX5jH
-	 yShe/jseshQE6+RdYWBX3qC+ZxuywtCrEtC702Lc2xBRi1iJkjFlSpefICUNL9if+KtZ7
-	 Qc6YO06hDA+wiSke9ySFt07h98es+SRellQNyS5DHskhR/KWPkb6djlkG4nEjKSjqCZlC
-	 uBWwgloReaYbOdLC+SbnSe3jX2QAzhvCnCJYw/JMtvGF6jlnGp0k7b4t8ofhcO6BKrQ==
+	t=1794837884;
+	b=2VgPkhFOwLsuNj+OfLOeAJ9SWC9i9pulBbNBoVtq82TddmkE3sCDrrjDZX6+7WhOi8mX
+	 Kreg/pRtHVBim+KAupdCxIn2SL+PusWrUWB8dJu4y9VkPy9Wx5DD3hL7G6PoIEm9aueWX
+	 U7bIj+uNI5TjwyAIFLjxtK/zzHfytcyW8qdcYz5P4tkFM197d30Q4LhCoEqlXWGBUO59F
+	 WOneVoPZZ+iuTz2DZDVS07/qGvC5+DclBXULxfX4IydodZwvRDNaCmJDaxxTaUYazuc8e
+	 nzLxvfV2gok/a7TXLsR5s05iJkrx4PEfyYXv5v7YGlx1W+4uD/radyjFiRk0IqXIDHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794837766;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=TJmPcX0jlQEhCukA/l5pSJzFcBRF+gLl1xeZVV+XUyc=;
-	b=1s76mrkSebXACrZUATpk+LxE2Hi6AfN42X1zqVFeOqxStbBCSAwBlSHPcOAb4VpNGxFC
-	 bspiiK/jxQ0RMG4aCPKdyYmZhnRuRo2JHOFfq/sxTayzTqwQlvXKdTUtqoFnwwJOLlWV0
-	 gGv24SSqww8MucWJoKNDiM85WJR8UN+tQqVLI1LPsq389b5YsBnHGare4gxO3n2VobCSb
-	 6TZwWOA/HomEloZs2Gflwmg05f/94GjSIiTP20hpFdgRUuP6PRq/XiKefkxs1dZsy+tjE
-	 +NLUY4UxlDEf7Gp0ibWKL2aN8Vpmirixtn1IEtBdhTgvA81jUfxivF5bhK1gYRxWOVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794837884;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=S/rwSMYRmKycQT+Q+WaK4Jt3aNV8OhLQHxBDEKKQbT4=;
+	b=XFYPgfztU0XuQoC3GEBp2mtV1EgxtALch0y+qbdyitfV28Rv0xpiSZYlxoP5u5o+b2LS
+	 q7BjMB9+ZEMR3BxChDknuMGHFWyy/WnnvgjtzWU2lTTESHNpdmYCw3ZE+fhrdtrk/puI8
+	 8gAwDu4x+uNVgaVEHQKhbxZSnwfiVuGVwQdVsx+y2Jv6GjRQaXUfh65cLTMasdPAe/y1y
+	 b0UXUkc/547OHrLuf1bKN1Noy9DODpgc9lrbLaOOOm0T2QjPfOnXdJrjWNBrQnPJlEXQw
+	 T7HcVZBspfU6TWpZ4xBBmBrqiy3PjBQjbM7Rz25ebIazry3sgbiwNgzPpcDaaI/v+QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=US+yckQj;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iMDzRrq0;
+	arc=none smtp.remote-ip=209.85.167.42
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23547606A329
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:02:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5158E606A329
+	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:04:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5158E606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=US+yckQj
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25711F000C5
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 14:02:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794837765;
-	bh=TJmPcX0jlQEhCukA/l5pSJzFcBRF+gLl1xeZVV+XUyc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=US+yckQjfPhoBBZ2NFnM888mUhXibQLMeBwiTob/UcxyTEIWr4F/3I/OR9+eF97xo
-	 7OgYsGjkTmrTN8KrZxswFtJgnxMU5JB0q/jSr69JajFA+8i+gMeIl1RoKOgDD363Jo
-	 VnjMYpi9xMCAZs9CAdMtHHP1JFssgSlAW31NCHR2l0TU1oDx8DmeNA5lxnM52hCIJQ
-	 cCqkbkpVmXxUBK68rlUMjr5HLLs6BD8tCMcJNYy9CvpncG4bXs9G+HypRNQ2KnvwPe
-	 lonjPrv9OtCaSeBVh22DvP4VZ6AwR9gepfxZrEnNZX8uF+hPx+LajBNaMeGMUx4tuf
-	 T2a1aVYNr8mFg==
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-67da564d9f2so1810630d50.1
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 06:02:45 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFNOrFs8LTjIb/OCgYKr+Fe6TjO3g6Q4dRzTAYPezQ98K6xwseeq2E2yPFW6yNk8KEerM7RP+8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9EO3wwyNnuqvdzSqu4BYxvO4k9c1ZbR7+yytKbiqofHQKY6oSg
-	Aq2SXgbfPdFYz7JuArlJxwY7BzUeS+xFB5CAzhq4UlIb4MndSIsSgSzefNED4AjnhMKXvEEZ7tD
-	jTyeLI2lPXtoccttWm9nGak6MCgYT1rk=
-X-Received: by 2002:a05:690e:bc4:b0:67d:ae02:45fc with SMTP id
- 956f58d0204a3-67dae025d9cmr2328051d50.45.1794837764984; Mon, 16 Nov 2026
- 06:02:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=iMDzRrq0
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5c148d4dbfbso3672143e87.3
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 06:04:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794837882; x=1795442682; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=S/rwSMYRmKycQT+Q+WaK4Jt3aNV8OhLQHxBDEKKQbT4=;
+        b=iMDzRrq039OpnwA08q8wxpS5ic9JrpGL8KQy/z358OVtcUiZ54zbGwg8H+DBTz2TUa
+         pv7vbxKyzddHqzhLP12j4t1DO+7iKl/0/M9BHiuLRIyxxj++IfynpWG6k38Gsj2NpTRT
+         lnNmpMTz6kojOLl+rxFtA6JsOHtgODkqvBayqBMVmN1im/h4vh7rPe7aLetErqimSCrH
+         j3Ti26DTCPJgzhUIndG/qgGDIGZTr4nnqcUKOg9RcAPAGee+qie0GBa166KTYMq1728p
+         NWGKLrYv7vYNUbG4/r76nfnL2eLkmsx98ZMIxoE/YwRqTkcYqFkzWBP3UDHylAVc9LRY
+         c5lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794837882; x=1795442682;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S/rwSMYRmKycQT+Q+WaK4Jt3aNV8OhLQHxBDEKKQbT4=;
+        b=pdNpAP9nc/H9IMEaT3oEO4em13k472NuG1VedlLeoycGvHnfKHF7oGBjNGjLPkOKSI
+         j3QzBgMRc2R3sNkIZcHJkN5l/KJCO2nGtmAb7aZTVXnO+7MfOIET3QkIlpbVb5Rsc1Rg
+         vlcs9Wt+0SB8NMONsyvTm8uUSjfmwLTSW2M9+9IC6jAsJzMbNxBrZsL1kXwV5OmHldgU
+         mihqN/tsVZwjpmHxjwIUIzPPKS3TK8THDqhqQNcQXztWj3maSJqvKMnRWdVAbt9tU53f
+         4kLi8pXUBRMBCPQySOeoSj+iIaiCfc4W2dXdK+j88J1zGCWuLg+D+LLnJ6o0Jo3qlSpS
+         67zw==
+X-Forwarded-Encrypted: i=1; AL+hErFYLnXVzww3t3gPADhB1L8f+H/bBqvbmxhEEziWSSJIGk7lvy8Xo+Vn2xsPuWvJ+WEAbuXY4Aw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yF7XcHinQr8ckkyiWPXhkVUp0/Bv2GSEwbfIV0qOzJySyJvsx
+	jZqnUdZR+Dn4hvyXvQvNjuLw0atgvPZbxqQTpwuZI2OHHXNBSZvKUVo0ZP4Z+MKirg==
+X-Gm-Gg: AYBFou35ZeqW8XigLOXzsInxEhCJeVEeWf43VenGFErxHQ58RrRdYeGhJbG/FoIEr4W
+	SSMN787UuNtIOn6KJzq/MxNfhORHdDhRS1T0vD+1fJBPhvXioxyuLnusMEQ8a27ki83pwFUNZAa
+	ZhONM0ZjDIKEvGalEzDfyXamkoLaCabho0s92BPTFZMi2KHXN609OGjv4XCgg2l6mNH/GhHcp20
+	kn3jHwNadrJfM46gSkaQ0ZLYzv/v7ABS0BI7ZENsuN+khN6nWKhX4mwSnXJ4UR52YoQLW0/Gf5D
+	WQGRhOgzHP1BKrwPaYLL7vDwao18s9c9jrjk4uQDeZ6ySDE1Hgk0+O0BZ3OjwVPH0uRxiVwkEVk
+	5MrFvEjS1MLHT+IRvcWPxudPVc5zb4EjGPzTmgtHYFlj4/AN+OrIEVmn0jTEuUscHsZzFKA39FA
+	c7LsqoK5ACX2FP74NUClO1n554vDbZ/YWyvYNVykMoJWjhsPnEovjrZf7h0YOzl5+ueLdoUbSpq
+	sJbFCAtwkD7EbD7XxP+/WWG3YGuww788zpSHOZyM715Eds+e97aAWJHdu16ym0ZNI8mbgsCwk9b
+	suVutE1By2E1aNGNLoAPRuVPABMwgakI/3VAoSkzzs/hXR+B/wGWxOuLJI2xMsAeqw==
+X-Received: by 2002:a05:6512:2208:b0:5c1:5970:ae1f with SMTP id 2adb3069b0e04-5c170a25d42mr3870536e87.63.1794837881958;
+        Mon, 16 Nov 2026 06:04:41 -0800 (PST)
+Received: from google.com (0.182.34.34.bc.googleusercontent.com. [34.34.182.0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8d66esm20599601f8f.57.2026.11.16.06.04.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 06:04:40 -0800 (PST)
+Date: Mon, 16 Nov 2026 14:04:36 +0000
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	"Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
+	Mostafa Saleh <smostafa@google.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-coco@lists.linux.dev, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] drivers/virt: pkvm: Zero and clean memory before sharing
+ it with the host
+Message-ID: <avsNdPissIDAb1hA@google.com>
+References: <20261116110549.1863653-1-fuad.tabba@linux.dev>
+ <avro44jUWOARFzul@google.com>
+ <CA+EHjTxWuiyjmUc3vH_KxRtS_3oX5w=CE76LdsLcrqC+RzLGfg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,41 +106,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116124441.2521447-1-icb@fastmail.org>
-In-Reply-To: <20261116124441.2521447-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Mon, 16 Nov 2026 23:02:29 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-RabFCYgURT4jcAuOPRUYqUfD443Y4+g5-bzjYnsLyyA@mail.gmail.com>
-X-Gm-Features: AclHuK9Caz4wzvgmBauJMGfLXbVcdLp4mgFdfHci7iv10rOa0L_5dZXULXUOFAU
-Message-ID: <CAKYAXd-RabFCYgURT4jcAuOPRUYqUfD443Y4+g5-bzjYnsLyyA@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: read create context data at its DataOffset
-To: Ian Bridges <icb@fastmail.org>
-Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CA+EHjTxWuiyjmUc3vH_KxRtS_3oX5w=CE76LdsLcrqC+RzLGfg@mail.gmail.com>
 
-On Mon, Nov 16, 2026 at 9:44=E2=80=AFPM Ian Bridges <icb@fastmail.org> wrot=
-e:
->
-> ksmbd reads most create context data at a fixed offset instead of the
-> client's DataOffset. When the data starts later, ksmbd reads padding or
-> other bytes. For a security descriptor, zero padding can be parsed as
-> having no DACL, so CREATE succeeds without applying the client's
-> descriptor.
->
-> Use DataOffset for security descriptor, extended attribute, lease,
-> durable handle, POSIX and allocation size contexts. The context lookup
-> already validates DataOffset and DataLength. Check each payload's
-> minimum length and keep the existing parser checks. Add
-> smb2_context_data() and a structure for the durable reconnect data, and
-> remove the request structures that no longer have users. Contexts using
-> the usual offset behave as before.
->
-> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-> Fixes: c8efcc786146 ("ksmbd: add support for durable handles v1/v2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ian Bridges <icb@fastmail.org>
-Applied it to #ksmbd-for-next.
-Thanks.
+On Mon, Nov 16, 2026 at 12:25:43PM +0000, Fuad Tabba wrote:
+> Hi Vincent,
+> 
+> On Mon, 16 Nov 2026 at 11:28, Vincent Donnefort <vdonnefort@google.com> wrote:
+> [...]
+> > > +     /*
+> > > +      * The host can read the pages as soon as they are shared, possibly
+> > > +      * through a Non-cacheable mapping. No caller relies on their contents.
+> > > +      */
+> > > +     memset((void *)addr, 0, size);
+> >
+> > Are we sure we want that? The guest may want to setup memory and then share it.
+> > I am not sure about modifying this API.
+> 
+> Right! I wanted to fix the bug for the ITS property table, which is
+> shared before it's initialized, and totally forgot that this is the
+> path all sharing goes through... I'll drop this, and put that fix back
+> in the ITS series.
+> 
+> > > +     dcache_clean_poc(addr, addr + size);
+> >
+> > I believe the hypervisor is already doing the cache maintainance when the page
+> > is mapped back into the host. (see stage2_map_walker_try_leaf())
+> 
+> I don't think it does on this path. host_mmu.mm_ops doesn't have a
+> dcache_clean_inval_poc() callback, so stage2_map_walker_try_leaf()
+> doesn't do the CMO for a host mapping. On the guest's side,
+> __pkvm_guest_share_host() only changes the software bits of the
+> existing mapping, and the walker returns before the CMO in that case.
+> 
+> Cheers,
+> /fuad
+
+Ha yes of course, that's the host s2 we are mapping into. And on the guest side,
+we are only changing the software bits, so no CMO. Actually I should have read
+the comment in stage2_map_walker_try_leaf() more carefully.
+
+That said, I wonder if that shouldn't be handled by the hypervisor, just like
+hyp_poison_page() do the cache clean.
+
+That would be slightly slower than letting the guest (who has a mapping already)
+do it, but pKVM is enforcing isolation between host and guest, and it feels like
+it should do it by default no matter the memory transition.
+
+-- 
+Vincent
