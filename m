@@ -1,89 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794819872;
-	b=b3SchAc3kFefSM/VA5xUwypZlPMiSCYP7TpsMEtGr07bDz+qXoaELP0e1pjQZ2UdZsXW
-	 hqHyZRySj5lRlUl+mcmpb0RP7BEa6mANP0agYi+HeG29k4xy2Hvy2AeKibo6xZof989uO
-	 itLDt4gOSgDZzo7bBY9JhaxWOPRAdbC/8pva7zhjSb00MFte6h0/5uxenPJVnAUeCKb6Y
-	 2RQVdNb5uYiBwux2M3IxMmVEnHoyTJ1Gkxa9V3x9zS3c9AKF6606yY0aXCA70suLn1GS5
-	 dsFtZPqWXR9StbkZk6zf5upukGZI1u+mJC5jV4O2wTnyy9TDwRjFFNpuUFXTJScwiTw==
+	t=1794819906;
+	b=KZZCwuXmHc4d3MOJvLoHO40qIfTppbRFWrwxY4yrN/qP5HVowE+o5l9Hu/S5CalJR96G
+	 N9YSZukVkBpqQxe4PkzVdg2tN7RAILR2RKUbMLm/5Uns/vg3uK5OQSkaBVq1WxtvI5Kje
+	 2XlO3Ityl7DR4SSvdbQLCSYCaXEQ41kf3/knGRFLDvJDcyTP8P+m3kcAcT7a2RxVKUVzl
+	 2nZZ9s02HhBbvZmG4mANYWDWgNlb8/owsQYgwJQygDen/c9romliz9p3SuqEmU3O+1d4K
+	 i/fyk+Nr3q4JfwD+GL2AyDONPjKxIDeDhRW3p1aMPeLxgj2caTrhtAk/ugKF8exCUKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794819872;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Reply-To:Subject:To:Cc:
-	 References:From:Content-Language:Organization:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=WyPsK1iObrDROZAGJ0P1ZBjLWJj9SOCV8oqzrE6Bv9Y=;
-	b=fenO73eAl1Zvte4+Fc2CfBrtswfIlUEkjLhErYtgFe5ETT+tor4e3egaojog6kpJaBbD
-	 tM4GQcHyWo/izin13bXpZcPPoYOTNEYUQ96OSEFk5DUR76XzzOZIPObSC0bSC/ryKyOTo
-	 jCO72W8rO+Gz32rveoND4L7EbFY9/KGjOFCBC48zlEu05Bj3PmHyd/uRxLiUdIbvWurN4
-	 m0mJKMHBi37hGDyKMm6Ren17cNcOAKgPi86qlBrk/b7haA4qRgZa6MFnj+HxSgYRyJkUh
-	 4BkltmscRbPSmb0SonVY6RGp3VQGNu+PNNDVcAQ3veaAmJP/7F1LjDWcLZTSOEazEHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794819906;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=S/BVf+wCPpxgbONwK8YVViVJ5dU2RaSmQAyYCoDGIfw=;
+	b=U7Q+KHkrVA4CJCUsm2UmaGFAjLpL0GIdCnDA2UkK9TG0WD5nysU3H6ModsnAr+i5gXHj
+	 SGn5h7do9WAnOUEggFXUYSy7EysRhaVhDKdDevdT6deOKVnpDYiTTGIOxi8uTXVWWgbFX
+	 wr3+6IwCXYegCI0fVJTxGgYbVOB7Lbcw0DtIBXRRmrHhT8rhyud8NRG3R1SJaB97GWoTm
+	 PV055EM28vJiZp3VdMRJF5NxB/uvn72HJXJyPC1BiOgG0G6c9uURoS/E8kbJJMzmi+Yv1
+	 9xPVuDCOPqUZZ3Cq4POUPbeuVweDywKittiAE5aqFNxjMfraMZlPeX6wwdAO/RoG+bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=6wind.com;
-	spf=pass smtp.mailfrom=6wind.com;
-	dkim=pass header.d=6wind.com header.i=@6wind.com header.a=rsa-sha256 header.s=google header.b=XHJL8met;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Re5a36VI;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB11606A31C
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 09:04:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DB11606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=6wind.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=6wind.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D99606A323;
+	Mon, 16 Nov 2026 09:05:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4D99606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=6wind.com header.i=@6wind.com header.a=rsa-sha256 header.s=google header.b=XHJL8met
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4bb76bb36c7so96235e9.3
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 01:04:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=6wind.com; s=google; t=1794819870; x=1795424670; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WyPsK1iObrDROZAGJ0P1ZBjLWJj9SOCV8oqzrE6Bv9Y=;
-        b=XHJL8metE6vh0GlQjKnJHCFZZ9z6Lxjc+BBbYYp5w7ESej30ltDmvr2FydmuA+ZvRu
-         s559RPBEhiNjyJP0RbryivsvgdcKgUi6FT1NFwTrynpqvHnnnAbK9NaaNVqEIdwAXE39
-         4yI/bQhxd1IrUU9PHK81XwOyLpz1jSJARFnxnxla9NlrCTM/W0bTUxQOktLuugi4HIJQ
-         RPT0cz7fq4K/4FGEHS3zWZdi2j5MvAZ5wdTo6/lP+qNLY7BvH8mj+ipVKXw+VsYpAXyM
-         OMdMWrMCQbcR1tGx0GCVoSYm7RCrx3k4Cf0C/k8chEx12ZJic6P9bhXmJI0jCQPCNN/m
-         r6hA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794819870; x=1795424670;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :content-language:from:references:cc:to:subject:reply-to:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WyPsK1iObrDROZAGJ0P1ZBjLWJj9SOCV8oqzrE6Bv9Y=;
-        b=fKqxZLKBXB7lRRUreEPIahnBfdIksgqUo5K4eMYPMnYByNRJpMekqktI1DLsZm9PYA
-         fLAC47MPEq8b2nzXhp+d+mO+5r/0PWY923NqtSiHqfi93elAoL1bveCW0hJ1/yKbvsfg
-         0b8Af5MhlK6hkd/9XOzXXpsrlUl/Yy2fzlyp1nXEYL8Annus5mUG0XxxvoYkbVxVXIpo
-         SWD/jElQdLHYKt+H1qprBKN1Y1xvtRjuCelxvlL/Y8sf8kj5g0ZT8kOl6rfvO5pwWcj4
-         2PTvL2REAhPxMYhVtUE4O+cv5hFUrwWhkhD3LdbUFT2vcsAoSJRZ+yXbNbSYIfbf+Srj
-         8p2g==
-X-Forwarded-Encrypted: i=1; AL+hErG5DVNgzvyNMVAn6Ec0XEIZF2ibdRhVOy7M6Oa6M+B5mZ1+qKY/KjqTKn1i8vzDmdveRjWHYnc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/end8vWkab9N+7RQJUTnRn8PvyAQPVlT/CEpsfeZrrpJdM6cAG
-	oARA1iwQYh6QI1ENOXmlaVLVQMg8vv0gG4lZS1kQHittlz/BliGchpn6TX9t9mpSwXM=
-X-Gm-Gg: AYBFou3yc7Q0vuueubytMi3CVS1jZBIqwE07ji4TADE1OIdAjPKBOfZRjwefhnHZGDq
-	NwVXDgwpT434DBxEhVgFIWJ+6L9dljwiateWjzwYw0bMOe2W+GcfDIDzC4D48nlLKuTPxsyrq0y
-	WsffvKKz0EugEt+7MaEU/NHqtAjnfdclbVWgKad4POuiVaE0TTSo9OiYD3wpSSS+3KBvywOdRgU
-	ldwfhZvoyqO02X/q3QclzFbA53LFkyVQIc20B4Y8zCH3rAWsNxlPjZwAwkpxQzG8yleH+E3Xgo5
-	pl1roTSQKXkMxfPtenKovgVX/AUTjKxtB/Xf0cfEygpGAEkukbt3Ya5LZq1S9w+2vGZDzagEIat
-	d/ake+mzMBPExJu4DJO3fZFWfzcQzbHc1koFvUZcSZrFAdlQTgTHu3UiUTZhf0bbbLleq0lpZFO
-	WvAUY4ycY4NFpA/Uu3L4ojdCdw3vMUEPE6tweYdaVmhpozs3GItq9qcb2nTd1nheMYSCtpbIEqa
-	jzi5b2H+zU1+B+09MjpC4BHT0pVtO7hPYoGkkcg+dCy0nxDOgcjnpp3Vq7WmZVYrJrk3VkbwoY/
-	f1DwpD9gqqq986o+ZBOo+tsZBQKBfl/xY9OowP6hTVDVgievVo1HxNDWEYwhe3mHQgJ8HSRAKpo
-	Ykf4ZbA==
-X-Received: by 2002:a05:600c:6c4e:b0:4bb:68ed:a356 with SMTP id 5b1f17b1804b1-4bb68eda491mr65161595e9.1.1794819869714;
-        Mon, 16 Nov 2026 01:04:29 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:ab7:2110:6a1d:efff:fe52:1959? ([2a01:e0a:ab7:2110:6a1d:efff:fe52:1959])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c81a63b1csm20157980f8f.4.2026.11.16.01.04.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 01:04:29 -0800 (PST)
-Message-ID: <e45eaa64-08e6-4ad4-845e-f844150f3542@6wind.com>
-Date: Mon, 16 Nov 2026 10:04:28 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Re5a36VI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794819906; x=1826355906;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Y/DPPHEqSVMRWKFHVM9/QU1bU+d1l3ZEah+OesLhmls=;
+  b=Re5a36VIpWmPdH5Upho8POT2bTiJqxW0NKznw+Q9v7TorW6JGn0wnhQX
+   tFCLcp1KX+vO5UjX/W2ei3frfWSPaxYdXdo046yTyhikoX7EX8T8jT9GO
+   G447q1JUVKlYU8wmOC489uCJQXt0/5xzJvfMScs1M31dl7+Xvx7zd9qh/
+   o5kWMNEZEfjm2uPtzsJl/1lILHLTXZfvsubAPe5zrP+ZXnBNY0H8g5jEP
+   erDblLxsjrONSO2VEGUiy7WZiGOIXb6OBIUJgLxlew1xreottHknKoCMv
+   u2KgfhIoxALTcd3aKWSZ19hN7eZ3Tqt0Lw371OC0VvhkNC25sspJJ7R1+
+   g==;
+X-CSE-ConnectionGUID: 8X9rc4NwQSG67fQPD4Meqw==
+X-CSE-MsgGUID: DFUW/vNhRmKSAXlzpFhLmw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11967"; a="3590349"
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="3590349"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:05:02 -0800
+X-CSE-ConnectionGUID: fjTKKebzQ/2t8qyYxsLWTA==
+X-CSE-MsgGUID: GWux2NoqTu2G/M9FPUMXMg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,216,1787036400"; 
+   d="scan'208";a="9824387"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 01:04:58 -0800
+Date: Mon, 16 Nov 2026 11:04:56 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Viresh Kumar <vireshk@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>, Dan Williams <djbw@kernel.org>,
+	Serge Semin <fancer.lancer@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	dmaengine@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, stable@vger.kernel.org,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v7 00/10] dmaengine: dw: serialize completion and
+ termination
+Message-ID: <avrHOJ-fVZOO32bI@ashevche-desk.local>
+References: <20261115-submit-dw-dma-synchronize-v1-v7-0-8d58f3d49e4d@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,44 +87,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Reply-To: nicolas.dichtel@6wind.com
-Subject: Re: [PATCH] net: fix uninitialized heap leak in multicast address
- dumps
-To: Henry Martin <bsdhenrymartin@gmail.com>, Paolo Abeni <pabeni@redhat.com>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
- Yuyang Huang <sigefriedhyy@gmail.com>,
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261116024056.1274402-1-bsdhenrymartin@gmail.com>
-From: Nicolas Dichtel <nicolas.dichtel@6wind.com>
-Content-Language: en-US
-Organization: 6WIND
-In-Reply-To: <20261116024056.1274402-1-bsdhenrymartin@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115-submit-dw-dma-synchronize-v1-v7-0-8d58f3d49e4d@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Le 16/11/2026 à 03:40, Henry Martin a écrit :
-> __hw_addr_create() allocates entries with kmalloc() and initializes
-> only addr_len bytes of ha->addr. Dump paths emit entries using the
-> current dev->addr_len, which can grow after the entry was created:
-> tun's TUNSETLINK changes a device from ARPHRD_NONE (addr_len 0) to
-> ARPHRD_IP6GRE (addr_len 16). Both the RTM_GETMULTICAST dump and
-> /proc/net/dev_mcast then emit up to 16 bytes of never-written slab
-> memory per entry.
+On Sun, Nov 15, 2026 at 12:19:33AM -0700, James Hilliard wrote:
+> Keep client callbacks in the controller tasklet while preserving polled
+> completion. Serialize descriptor ownership across completion, error
+> recovery and termination, and wait for callbacks before a client reuses
+> its resources.
 > 
-> This discloses leftover kernel heap contents to anyone reading those
-> interfaces.
+> The series first serializes completion, error recovery and cookie
+> accounting with termination. Separate patches extract hardware-LLP
+> residue calculation, calculate it in the status getter, simplify completion
+> handling and report queued residue. Channel release and
+> device_synchronize then gain tasklet draining before the final patch
+> adds deferred notifications and shared completed-descriptor cleanup.
 > 
-> Zero the tail of ha->addr at creation time, so dumps can only emit
-> initialized bytes.
+> The series adapts Serge Semin's channel-restart and callback fixes [0-2].
+> Polling continues to advance cookies and software-LLP blocks, while client
+> notifications run from the controller tasklet. Synchronization preserves
+> pending tasklet runs from other channels.
 > 
-> Cc: stable@vger.kernel.org
-> Fixes: a748ee242681 ("net: move address list functions to a separate file")
-> Link: https://lists.openwall.net/linux-kernel/2026/09/10/320
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> Based on dmaengine/fixes at 6628e7d4c6b2.
 
-Reviewed-by: Nicolas Dichtel <nicolas.dichtel@6wind.com>
+Most of the patches refer to Fixes tag as an initial commit 3bfb1d20b547.
+But some are not. I think the Fixes tag(s) in many patches in this series
+is (are) broken and/or incomplete.
+
+Another question, wouldn't move this driver to use virt-dma infra be helpful
+to begin with?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
