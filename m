@@ -1,68 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.126
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794802759;
-	b=QKHR2N8xEjyp/adRqTyimmQhnP8t+mE/70of7iKVzvn9Pd8HzMOEhn8ocE1dmkbaI0/c
-	 n1hBuQacG1BTA2hN503IosjStySqhtbXrSrB9V2D9TjSH64dq+HGzhXhUbOL02X8MqD35
-	 7SizSl3SDLa8k/vUVqgLoZDrVJNSsUa41amYPQ70C94l37w3u7EgvtRXigOyqxrHdWjiw
-	 mysBHjNGoA885bi2Znxy/KbjRvQjoDfvE9b8SlITweNZuoLocABZifAOlfRbxRmRZBqRF
-	 qxW4pOHt/IPqOr4cnA4VzDojAgTQnNX9lyskdcILZgc/i16tlEAJZDQq6doCel6BBqQ==
+	t=1794803456;
+	b=otEYTUUrG5SIS4LgIDK9IInCje8gfKtx9fGAF2IU3IC1mXLZ/I0cT7PSxNw4WOdAJx2y
+	 sA9HJ5CUCPTuC0o2UFmPVL2wm5aEl3NN6q9vT23tUto4VTcyoibWpM4TqJc28DkYvrDkf
+	 G6PhtmZiatsvKYOmhlQ919c5gHGqqZtbutVWnM519lm1L1X8PpgWNXm5++W4HQeFot9Jn
+	 XSrKJ6NPGQcp/gJVW7LwU1aMD6pW6F23508GsoV7x17Y6JtGp6xGgSdpPBJZw5c+4B6oS
+	 kRAaNxjUT0S9HVb3dbpxn1wC/ue/dH8Bq8YPUSM1nR0rbvXJdBpj73INxGamGdiSISg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794802759;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=n4CDV4ziRFU3xddHncpYnLzq3A+HLPidciJ1bfu5cIk=;
-	b=hGcm/GKLvtAUtAPdz6+7AlazpANLIX3LvU8hgngJmQ71CEfRX/SOjDESQvQJJwYvl35E
-	 eU1QsB0ppb9zRB3TAc+a9f2V8jpfBHllReQftciZKo1cE3PNPskAcnU40I/nQjlPlYElk
-	 D/FSWhx5erJuKNCtPcQnjHbRgexZXFfm6jAWin7lNF96TG3ksFwZjmdwagO3NmKKLAAA2
-	 qrhfLaEX6PXxrJfJgsELbOakbWCruY9NgEPAhp1Bh+lWoNgG0Pn4DExlsW8cxHalMqbjs
-	 6+/Jg/c9UBVLXSY79piPxn7tai1i3D886pR5ssSBmK0IjeRvUPxQjCoQTa91LvaykWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794803456;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=C2F8XmMQBpvU9tOSLyw0S9t+s3HjR8DCgLXTbQAMCKc=;
+	b=DMw85+gqK+mG0yNxkdZVumNBOnlfyod+DOOUrJG+yAUMiKkr9Nklhoq3tO38xD+SmqqF
+	 Uz9dTyXj1Y4UdlKAPeAxG5EqiIoG4NdDgfw48ONLtV5GhQFf5JSTvCYMbUkfWXA0AaRUw
+	 vI6TvbmKqyeobtaxi541OkIU+O9lES/45Nd1OJJhGFAnAwikNO5hbgDt67v8JT5ScHHBg
+	 aV0c29t4F9CKOt5mhxviZh6Y2uuHXdI1Eys9rsjmrjq3cl5uujzvFflHfANAvliHkwbKG
+	 Y3WIoKtZDAG98R6lqcS0axoM4SesO7uEF9xaH0hsb36Q0q2LVUbtWfz9ceIZHklDdsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Jw0iSV5Y;
-	arc=none smtp.remote-ip=95.215.58.126
-Received: from mta1.migadu.com (out-126.mta1.migadu.com [95.215.58.126])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eTyw/UfJ";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AB7606A321
-	for <stable@vger.kernel.org>; Mon, 16 Nov 2026 04:19:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5AB7606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E26D606A31F;
+	Mon, 16 Nov 2026 04:30:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Jw0iSV5Y
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=IjpKErh6Re8z+1/3lW8pFvWGsn41vSm3orTI4RjKMEE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794802756; v=1; x=1795407556;
- b=Jw0iSV5Yzt7XlM7CPt8TBpBWyib0JnfRWnaLD39IkMnizBJ8ngyyPVR3ljoABA4N2yRb199j
- 8QtSD2okD/RlDSshHDqP5dFxT5xPa9z+H75Hahv9tzUP+lT5D9pCDFtf++YjQ5NFdt6p2PdaPXw
- QtW+ZinnBn3t3hBT/+TzKOmg=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 59a289117738f648;
-	Mon, 16 Nov 2026 04:19:16 +0000
-X-Mizu-Trace-ID: 59a289117738f648
-X-Migadu-Flow: FLOW_OUT
-Date: Sun, 15 Nov 2026 20:19:12 -0800
-From: Shakeel Butt <shakeel.butt@linux.dev>
-To: Yingjie Wang <x-professor@outlook.com>
-Cc: "akpm@linux-foundation.org" <akpm@linux-foundation.org>, 
-	Manfred Spraul <manfred@colorfullife.com>, Alexey Gladkov <legion@kernel.org>, 
-	"Eric W . Biederman" <ebiederm@xmission.com>, Vasily Averin <vasily.averin@linux.dev>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Michal =?utf-8?Q?Koutn=C3=BD?= <mkoutny@suse.com>, 
-	Michal Hocko <mhocko@suse.com>, Alejandro Colomar <alx@kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-mm@kvack.org" <linux-mm@kvack.org>, 
-	"cgroups@vger.kernel.org" <cgroups@vger.kernel.org>, "linux-api@vger.kernel.org" <linux-api@vger.kernel.org>, 
-	"linux-man@vger.kernel.org" <linux-man@vger.kernel.org>, 
-	"linux-hardening@vger.kernel.org" <linux-hardening@vger.kernel.org>, "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH v5 1/3] ipc/sem: account dynamically allocated sops
- arrays to memcg
-Message-ID: <avqD2Z3KJwPsCcVG@linux.dev>
-References: <cover.1793250194.git.x-professor@outlook.com>
- <07d9034ec1fb5b6fd5eed2cf60ef3c84d5149e51.1793250194.git.x-professor@outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eTyw/UfJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6544E1F000C4;
+	Mon, 16 Nov 2026 04:30:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794803455;
+	bh=C2F8XmMQBpvU9tOSLyw0S9t+s3HjR8DCgLXTbQAMCKc=;
+	h=From:Date:Subject:To:Cc;
+	b=eTyw/UfJ/KiNzafSsG0UnX1Oa0ESGdI8qkbO8u+ZrQxYmdu+GfnDIG27Wqh+TWjc/
+	 R2bFpLAVNpEqFD7vIoIjh8H3+WoowH7a+mHQUD9AMwTas+GfUGluRrdPRFaBpL1Mzc
+	 Tqe0IjiZ+M6Fx2F15VC3IEHba8U4m309PfpTgFl9vUpERXN35K9nIJfpZNm2ZmPBN6
+	 29G04BuIwjv59HislwBXaO4/onFY/6gHjJDopV+GxKlU+DHhAOvYeg69SzOGpGLEzI
+	 Af9IdmsAVQt/HDli2+6GSz52s6bvkcsWJb/ecXI4YRez+bLw1oRas9lnwDq25xGhlr
+	 Oln7L69dEvl0Q==
+From: Nathan Chancellor <nathan@kernel.org>
+Date: Sun, 15 Nov 2026 21:30:43 -0700
+Subject: [PATCH v2] x86/build: Do not allow X86_NATIVE_CPU to be enabled
+ when compile testing
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,59 +53,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <07d9034ec1fb5b6fd5eed2cf60ef3c84d5149e51.1793250194.git.x-professor@outlook.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261115-x86-no-march-native-on-non-x86_64-v2-1-fb3f9634b1bc@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/5WOTQ7CIBSEr9Kw9plCG4quvIdpDNBniz9gAElN0
+ 7sL9QQuv5nJzCwkoDcYyLFaiMdkgnE2A9tVRE/SjghmyExYzTiltIFZcLAOntLrCayMJiE4myV
+ brAtvQQjWNKoVshs6knteHq9m3jbO/Y/DW91Qx1JcEpMJ0fnPdiLRkvtnL1GgoJUWqj7wger2d
+ Edv8bF3fiT9uq5fBmweJeUAAAA=
+X-Change-ID: 20261113-x86-no-march-native-on-non-x86_64-88233b48a7d7
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>
+Cc: x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Nick Desaulniers <ndesaulniers@google.com>, 
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
+ linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org, 
+ Nathan Chancellor <nathan@kernel.org>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3262; i=nathan@kernel.org;
+ h=from:subject:message-id; bh=axCYzJiLRr+d6BQAO+BEztS8pV1010PYKmReuIhKqzQ=;
+ b=owGbwMvMwCUmm602sfCA1DTG02pJDFm/2r4L+Fp/k3ax01kTtV/3bHmUhMV+/Tp+/9Sy3m3q3
+ 1V/+TN3lLIwiHExyIopslQ/Vj1uaDjnLOONU5Ng5rAygQxh4OIUgIlYhDH8j1Gvk077unKuauft
+ zCymBT+/+mTGPTqwzEfPItzwavrMvYwMLellt9UY+Kau3c51XlLgT1jw/rPzK1Vn1u9Y065tzT+
+ bDQA=
+X-Developer-Key: i=nathan@kernel.org; a=openpgp;
+ fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
 
-On Thu, Oct 29, 2026 at 05:03:25AM +0000, Yingjie Wang wrote:
-> Commit 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in
-> do_semtimedop()") removed accounting based on the assumption that sops
-> arrays would remain small, describing a maximum cost of two pages.
-> 
-> SEMOPM is a UAPI default that can be changed at build time and through
-> the per-namespace sysctl. Commit 50ec499b9a43 ("sysctl: allow change
-> system v ipc sysctls inside ipc namespace") made that limit tunable by
-> IPC namespace owners without capabilities in the initial user namespace.
-> 
-> do_semtimedop() keeps up to SEMOPM_FAST operations on the stack. Charge
-> every larger, dynamically allocated operation array to the caller's memory
-> cgroup. This avoids a second size threshold and prevents a configured
-> SEMOPM limit from expanding an unaccounted heap-allocation range.
-> 
-> In a 4-vCPU KVM guest, with the benchmark pinned to one vCPU in a leaf
-> memory cgroup, accounting raised the median time per successful semop()
-> call by 2.3% to 3.2% for 65, 500 and 1000 operations, compared with
-> unaccounted allocation. An invalid semid, which allocates and copies the
-> array before returning EINVAL, rose by 5.6% to 11.9%. The 64-operation
-> stack path changed by at most 0.9%, and successful calls in the root
-> cgroup by at most 2.3%. Each result used 21 samples from three boots.
+When cross compiling x86_64 from an aarch64 machine using clang with
+CONFIG_X86_NATIVE_CPU enabled (such as when using allmodconfig), there
+may be a slew of warnings from each .c file, which makes it nearly
+impossible to find real issues.
 
-There is no kmem accounting in root cgroup, do you know why there is an increase
-of 2.3% there? 
+  '+crc' is not a recognized feature for this target (ignoring feature)
+  '+fp-armv8' is not a recognized feature for this target (ignoring feature)
+  '+lse' is not a recognized feature for this target (ignoring feature)
+  '+neon' is not a recognized feature for this target (ignoring feature)
+  '+sha2' is not a recognized feature for this target (ignoring feature)
+  '+sha3' is not a recognized feature for this target (ignoring feature)
+  '-rand' is not a recognized feature for this target (ignoring feature)
+  '-sme' is not a recognized feature for this target (ignoring feature)
+  '-sme2' is not a recognized feature for this target (ignoring feature)
+  '-sve' is not a recognized feature for this target (ignoring feature)
 
-> 
-> Suggested-by: Shakeel Butt <shakeel.butt@linux.dev>
-> Link: https://lore.kernel.org/r/20261016152609.2528805-1-x-professor@outlook.com
-> Fixes: 6a4746ba0619 ("ipc: remove memcg accounting for sops objects in do_semtimedop()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yingjie Wang <x-professor@outlook.com>
-> ---
->  ipc/sem.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/ipc/sem.c b/ipc/sem.c
-> index 5ec41de7e85b2..ea95cca5bb0ec 100644
-> --- a/ipc/sem.c
-> +++ b/ipc/sem.c
-> @@ -2234,7 +2234,7 @@ static long do_semtimedop(int semid, struct sembuf __user *tsops,
->  		return -EINVAL;
->  
->  	if (nsops > SEMOPM_FAST) {
-> -		sops = kvmalloc_objs(*sops, nsops);
-> +		sops = kvmalloc_objs(*sops, nsops, GFP_KERNEL_ACCOUNT);
->  		if (sops == NULL)
->  			return -ENOMEM;
->  	}
-> -- 
-> 2.43.0
-> 
+Internally, clang expands '-march=native' into a list of target features
+to enable based on the detected CPU. The x86 part of the clang driver
+notes
+
+  // FIXME: Reject attempts to use -march=native unless the target matches
+  // the host.
+
+which was first added by the initial '-march=native' support in clang in
+2009 [1] (other architecture drivers appear to have a similar problem).
+Due to the lack of validation that the host CPU is an x86_64 CPU,
+'-march=native' is expanded using the aarch64 host CPU's target
+features, which are unrecognized by the x86 backend.
+
+While this should obviously be fixed in the compiler, this does not help
+currently released toolchains that have this issue. As a simple
+workaround that makes sense regardless of the toolchain issue, only
+allow CONFIG_X86_NATIVE_CPU to be enabled when CONFIG_COMPILE_TEST is
+not set (i.e., the user intends to run the kernel, not just build it),
+which will exclude it from allmodconfig.
+
+Cc: stable@vger.kernel.org
+Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
+Link: https://github.com/llvm/llvm-project/commit/e13ada6a3b236f505b24501d456dec2518e4944c [1]
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+---
+Changes in v2:
+- Rather than checking if host == target, just make X86_NATIVE_CPU
+  depend on !COMPILE_TEST, which makes sense anyways (Borislav)
+- Link to v1: https://patch.msgid.link/20261113-x86-no-march-native-on-non-x86_64-v1-1-cbc8b096d1c4@kernel.org
+---
+ arch/x86/Kconfig.cpu | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+index 6e7a366f0798..32d22cbf55bf 100644
+--- a/arch/x86/Kconfig.cpu
++++ b/arch/x86/Kconfig.cpu
+@@ -217,6 +217,7 @@ config RUSTC_HAS_APXF
+ config X86_NATIVE_CPU
+ 	bool "Build and optimize for local/native CPU"
+ 	depends on X86_64
++	depends on !COMPILE_TEST
+ 	depends on CC_HAS_MARCH_NATIVE
+ 	depends on !RUST || RUSTC_HAS_APXF
+ 	help
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+change-id: 20261113-x86-no-march-native-on-non-x86_64-88233b48a7d7
+
+Best regards,
+--  
+Cheers,
+Nathan
+
