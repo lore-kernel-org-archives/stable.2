@@ -1,74 +1,74 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1794837046;
-	b=qFR56MOogjzflGCQMB9lbACkqr1K/45b/0YBPKySWJgubxwagRmF8CnlC3YKoLi3GCb8
-	 DzZ7fW4aTYKv4ZI0hzNSpqElKPifh+LFSrLY9F7Cs5jF0lbpvYyQ108uV4xOJc3EjbcPR
-	 R465us6AsR6hi8hY+Lm24k02fN9fhl5QrqeVy1iQ0EikRd9fJrsGc9m0K4OhR89QwIMwv
-	 GIxS+7UAb67K/Xfnjx6H8r7t0P7DpB6iKbObzsYPLsXvZ2YxcwR00ayLB01EZb7ti2/Y1
-	 ObBB/f0rkBGgKmxZZCWk3aPDcUMjeGUpsTCmhK56+VrtL1be/mykHapncUTYbz2Ghsw==
+	b=GB32Av8INi95sLIOX/E6Shqf/yxLlm44yAr4B3l9pCZP+k/rNU6+BlXHRm1YPkMbZyDg
+	 9qz4nvNDKgtALxThQUB/MiCSqaxe4UAbycwt1M2dL9lMMosBnIdV0c87ei8pIatBCcuWP
+	 stt+SRh0EFOUQpSHCNJ5jUzt7TzkUJk/VXNPdSsdvDy6RURAsC38WBwY3iimpFTEJN57U
+	 by0gWbAWqjiELup9HjH5W4iFwku+epqdO4b7ax/anpZUty5kUjzA7LUZxWrzqdXFKL6vI
+	 XDKa9eTbGyOKczl0hDM4kYewyWMaPhjwx1UfKNvMGyed9LBftZ9svDZwavKaUOW9Tag==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794837046;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
 	 X-Endpoint-Received;
-	bh=i7PvEL50DB4zsMyJWTI1yh5Wc4DVj1sntUbGWGamxxk=;
-	b=WSquvkclXxj0RHV9Lrz3vqkJGgOQeyKgMqm8+2MLOSe8xn49hbC2VwmaQ8+7qcxeNuwT
-	 B8Jtanrtfxbd6dwHBgH/xMP5fWBExVeDWdETfiKxdIAWCnTLCYnswWLlfD8LAwhi1Xl79
-	 dT+H4Zc8kJZNAP32VW2pfdo06vexH8hwcnV7t+UqXRMF7534tzVZKSw36cjGixmrvFTb1
-	 E8Wvls2x57Y8057lsh9DvGTU4jz/FIufWZTjyY2ubKMaUFgfe6h8CGvapAK0KQN+xtnIz
-	 ZuoWY8Y2lhLF3DJ40I9Qt33+sCD2kUIakwTue4RiGSDODaqx42XSKrd01jaafaYoRQQ==
+	bh=20IET9pgYdDyW8Su9jrMv2OSIeV4Re/A8yVm8spud4E=;
+	b=WP0fSSdLwmtI3zIUKBlezH9Vmge0pZVptyoB5kFH9e59yCpwj7/CtaeGoKzGUuZqUUt2
+	 BDMszv3iA2hc8GfJJl9f3W1XWEzd2ErwjMpTQOEvxMD9UvIC7OQcYyHUiKkREGMoXsEsO
+	 0Jfk0deDEbdCYH0bz0ubcKWn1gIf0BaBMJnttA3a9Udq/PWVBpdR7epZSfs/izTXSwD7y
+	 GoQGItifSAGunH6mGBKGpHICP4HWv3PuGRzSHmVkuUTnkgNRncYRhkGFNLuK9208Wn15i
+	 adUW/Mak/6XhjEKQKhoXdl4Dw27k6aYkOa9+F+mSqrAj9V5iAPDhY2B2zw4GEKOyhkA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=RfVlJbGo;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=vNwEJVkD;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89063606A8A6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCBEC60A2623;
 	Mon, 16 Nov 2026 13:50:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=RfVlJbGo
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=korg header.b=vNwEJVkD
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1794837046;
-	b=TBHYeh4SlHt1Rl57g7V84hybch2EgZBD+MhoMYfbaarYf4opH8XraZBIx7XyBdkdkgfD
-	 59sgomIEzhN9kYbi6biNlQAgkiLzwVRbq7zLQsdgk6d4bGz6d23qc/cgjY4Or98C2oy/T
-	 NWfPn2srhaid5OniuU6PdaQKMEkNuOeJ0HgIJv3FqhdO9lsaQ8HRnPbQz3gBF+PIOdcAE
-	 DPwleUnxH9xZ3cwGantvPr/DaSMvVZ5ErG8DS8407eIFz5lvEi2fA7UsINaruHfTjOghb
-	 o1euwoAsTJnfpIBe8y1pvnpohHsoUYBe+ZU+F2lvqsy+y5f9XHgDWhSePKVETKQ7NRA==
+	b=vqm0O8VuL0OPsCXF/sdUDAVraVWZWPDDKY8UJWJgfffFhommCumt6AZNKCVGNXRg0ssP
+	 GOD9Q/yLMEK5ZLAxCkZkwbcWyNMnWk0zc29H/AbCLgd4UO8Z7A3fg1F5UK2DwrR6CyLuW
+	 nCtzraY5hSU7GKIs83HqIHn3GwlQYuOZw6jJ5lKohiGJEaDZ0FYvXmQOvHhHUvShJY3Ub
+	 nsm380fcNpdh5Crw73i4+XjyIW6wlJ2Pe8ge248IGUYnUwMXrTJdJ2Q3GhvGVznsKzR/z
+	 POee8YQ0A6YjEJL2gE4VGGrfMfHEC+K8ef4fIRFXaWdSUKIkAUNyzfqNNUdiIpn2J2Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1794837046;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received;
-	bh=i7PvEL50DB4zsMyJWTI1yh5Wc4DVj1sntUbGWGamxxk=;
-	b=C57arwm5HcVG4sYpnVUUBKUb/yyjhTcyHoxCT+xBsF2Ac4qad2J+AMF6gkqMkSBlxcad
-	 4Hwmij6zioFCIONlj77dTt63f01TZs7BJwot9G/PahKH+8gCx08TwjUTTIMr2RkEhmboP
-	 mqrPCiIai9lrne/6+XAdJAhvtTHRBwF4KzqnPudaNnHyo5f9HH4ErkGBUuer50KQ8omyc
-	 /b3rAWMqHZ2mak1DOYVKmJbJfEFF1GFZ4Wx010zvWRTgHe7E0ayJnAUWlgSDV03I0Ir/V
-	 uiLwIuRRiUTp0cirqK22/Hu82S1H0TnfbJnNEuQniG1TYon1c7gcle2cNQlHHBLL3Tg==
+	bh=20IET9pgYdDyW8Su9jrMv2OSIeV4Re/A8yVm8spud4E=;
+	b=YKCoDOMmxsuWUSIo0IKhAhuDcrMlCNhBqWL8sUXKSJLfMlORUTQFNSY1O85QYe3OnJ2L
+	 LF00uY9iY7FcwfkX/og9DOqtO7RVqyK7n/VsVDyUHTE6clHH5cepsqJ01i4UGm62oiYlU
+	 0MTH3O0t6YpMKbkn9JRLF6u/7DsEBBtS5CFt6PO03mf887nnzDhH8bWzYR9dpyNtl5lzi
+	 fIPMEk2ZKsp8GnY9T+GY2JxN02FNpTAqG2kWLLMZEQDmJO7LwyjPcg9aPYS3CroUjrr23
+	 4RAQC8+c8NnLiz29xZWCgAeoeYNMKWwqgGfYRY//BTSwftzW8FERi9ySkW2X17BwA6w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8766E1F000C6;
+	by smtp.kernel.org (Postfix) with ESMTPS id 8B4191F000CA;
 	Mon, 16 Nov 2026 13:50:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=korg;
-	t=1794837046; bh=i7PvEL50DB4zsMyJWTI1yh5Wc4DVj1sntUbGWGamxxk=;
+	t=1794837046; bh=20IET9pgYdDyW8Su9jrMv2OSIeV4Re/A8yVm8spud4E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=RfVlJbGo6U1pnJDyytf9vl5iB3I9EwUmSMKQzhjNM2n2edBE+2ZECdAuFalEpJ1ho
-	 W0q1zyjZdSp2p2Ry1Izg3rJVgbUyhMecy3+9dlVWCbA4paFY5BUypp+RIfvMAPZY3j
-	 5scfZy8lsuQow8ZmpGWW/vElz7M+aBHk6S4+9uFk=
+	b=vNwEJVkDTnP+5xPtBo05xr5T4atuk+Q/bYXQERiGe+dxjgVpwTwfCqw9KzvaqH9L8
+	 Gj/t+ZsLoKIjezz1YAJYZhDHE1NUdngBvsYaKsyY0dzfh3+PjJ4YvOaKYkDRMxdpJv
+	 wA1AnKtNmFjpovoKYDOLxYMEQWumaDogcm+ocYmM=
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1E7954A4A3;
+	by lkml.kernel.org (Postfix) with ESMTP id 340674A4A7;
 	Mon, 16 Nov 2026 13:50:44 +0000 (UTC)
 From: Richard Leitner <richard.leitner@linux.dev>
-Date: Mon, 16 Nov 2026 14:50:26 +0100
-Subject: [PATCH v4 5/8] media: i2c: ov9282: add refresh of additional
- ranges on a mode change
+Date: Mon, 16 Nov 2026 14:50:27 +0100
+Subject: [PATCH v4 6/8] media: i2c: ov9282: recalculate strobe span on
+ HBLANK change
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,7 +80,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261116-ov9282-fixes-v4-5-f78e5d415c6f@linux.dev>
+Message-Id: <20261116-ov9282-fixes-v4-6-f78e5d415c6f@linux.dev>
 References: <20261116-ov9282-fixes-v4-0-f78e5d415c6f@linux.dev>
 In-Reply-To: <20261116-ov9282-fixes-v4-0-f78e5d415c6f@linux.dev>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -97,93 +97,64 @@ Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
  linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794837042; l=2624;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794837042; l=2105;
  i=richard.leitner@linux.dev; s=20250225; h=from:subject:message-id;
- bh=19i3mXRY4OPZMcWqP5Atkb/EaIzksmT9Fb3ItOX1MCE=;
- b=W93NFu6Hl2s9eyQlET+Vf75MR+AIiVHWVxqtWuCTt1hghbav11ugdEfYKQuiNnfUdmN8E6mtn
- EDtDRBqfIlHDspsOdWCcA9fE6ajfoLaf02OPcn6QRC31SOhnK1qm10W
+ bh=/l5WuxKbk3bXJ+Xikq+YkzOd91d/fG0BrABoO/lILgA=;
+ b=Cy4yJ7dROacvOoCnvd5M+6Mxr8Pl2KmVoLxOli8WAMGqyQRBEtkIL7sIGPr05UPMz/I5K/bxZ
+ VPM/kIq7MAPB7FNZf2PR8VcgZWRFC3Fw0HgOfsGL6JR/HRZ0UqtfPsN
 X-Developer-Key: i=richard.leitner@linux.dev; a=ed25519;
  pk=8hZNyyyQFqZ5ruVJsSGBSPIrmJpfDm5HwHU4QVOP1Pk=
 X-Endpoint-Received: by B4 Relay for richard.leitner@linux.dev/20250225
  with auth_id=350
 
-ov9282_update_controls() updates the pixel rate, hblank and vblank, but
-currently misses the exposure range and flash_duration.
+When HBLANK changes the line time changes. This means the time base for
+the strobe duration calculation changed. This results in the v4l2
+strobe_duration control value and the strobe_span register value being
+out of sync.
 
-Refresh both, and commit cur_mode and code in ov9282_set_pad_format()
-before the call so the refresh and any nested s_ctrl see the incoming
-format.
+Fix this by recalculating the strobe_span register value on HBLANK
+writes using the currently configured strobe_duration. This results in
+the strobe_duration configured by userspace being kept, but the
+underlying register value being changed. To ensure the values are
+applied on the same frame guard the writes with OV9282_REG_HOLD.
 
-Fixes: 14ea315bbeb75 ("media: i2c: Add ov9282 camera sensor driver")
+Fixes: 84ec7597ae1af ("media: i2c: ov9282: add strobe_duration v4l2 control")
 Cc: stable@vger.kernel.org
 Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
 Signed-off-by: Richard Leitner <richard.leitner@linux.dev>
 ---
- drivers/media/i2c/ov9282.c | 36 +++++++++++++++++++++++++++++++-----
- 1 file changed, 31 insertions(+), 5 deletions(-)
+ drivers/media/i2c/ov9282.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/ov9282.c b/drivers/media/i2c/ov9282.c
-index df38ca6de4124..d13a1adc35e85 100644
+index d13a1adc35e85..d18fee6730990 100644
 --- a/drivers/media/i2c/ov9282.c
 +++ b/drivers/media/i2c/ov9282.c
-@@ -548,6 +548,7 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
- {
- 	u32 hblank_min;
- 	s64 pixel_rate;
-+	u32 lpfr;
+@@ -625,6 +625,7 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+ 	u32 exposure;
+ 	u32 lpfr;
  	int ret;
++	int ret_hold;
  
- 	ret = __v4l2_ctrl_s_ctrl(ov9282->link_freq_ctrl, mode->link_freq_idx);
-@@ -568,8 +569,20 @@ static int ov9282_update_controls(struct ov9282 *ov9282,
- 	if (ret)
- 		return ret;
- 
--	return __v4l2_ctrl_modify_range(ov9282->vblank_ctrl, mode->vblank_min,
--					mode->vblank_max, 1, mode->vblank);
-+	ret = __v4l2_ctrl_modify_range(ov9282->vblank_ctrl, mode->vblank_min,
-+				       mode->vblank_max, 1, mode->vblank);
-+	if (ret)
-+		return ret;
-+
-+	lpfr = ov9282->vblank_ctrl->val + mode->height;
-+	ret = __v4l2_ctrl_modify_range(ov9282->exp_ctrl, OV9282_EXPOSURE_MIN,
-+				       lpfr - OV9282_EXPOSURE_OFFSET,
-+				       OV9282_EXPOSURE_STEP,
-+				       OV9282_EXPOSURE_DEFAULT);
-+	if (ret)
-+		return ret;
-+
-+	return ov9282_update_ctrl_flash_duration(ov9282);
- }
- 
- /**
-@@ -833,10 +846,23 @@ static int ov9282_set_pad_format(struct v4l2_subdev *sd,
- 		framefmt = v4l2_subdev_state_get_format(sd_state, fmt->pad);
- 		*framefmt = fmt->format;
- 	} else {
-+		const struct ov9282_mode *old_mode = ov9282->cur_mode;
-+		u32 old_code = ov9282->code;
-+
-+		/*
-+		 * Commit before refreshing the ranges. ov9282_update_controls()
-+		 * and the nested ov9282_set_ctrl() calls it triggers derive the
-+		 * frame length and the line time from cur_mode and code, so
-+		 * they have to describe the incoming format, not the outgoing
-+		 * one.
-+		 */
-+		ov9282->cur_mode = mode;
-+		ov9282->code = code;
-+
- 		ret = ov9282_update_controls(ov9282, mode, fmt);
--		if (!ret) {
--			ov9282->cur_mode = mode;
--			ov9282->code = code;
-+		if (ret) {
-+			ov9282->cur_mode = old_mode;
-+			ov9282->code = old_code;
- 		}
- 	}
- 
+ 	switch (ctrl->id) {
+ 	case V4L2_CID_VBLANK:
+@@ -677,8 +678,14 @@ static int ov9282_set_ctrl(struct v4l2_ctrl *ctrl)
+ 				      OV9282_FLIP_BIT, ctrl->val ? OV9282_FLIP_BIT : 0, NULL);
+ 		break;
+ 	case V4L2_CID_HBLANK:
+-		ret = cci_write(ov9282->regmap, OV9282_REG_TIMING_HTS,
+-				(ctrl->val + ov9282->cur_mode->width) >> 1, NULL);
++		ret = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0x01, NULL);
++		cci_write(ov9282->regmap, OV9282_REG_TIMING_HTS,
++			  (ctrl->val + ov9282->cur_mode->width) >> 1, &ret);
++		cci_write(ov9282->regmap, OV9282_REG_STROBE_FRAME_SPAN,
++			  ov9282_us_to_lines(ov9282, ov9282->flash_duration->cur.val),
++			  &ret);
++		ret_hold = cci_write(ov9282->regmap, OV9282_REG_HOLD, 0, NULL);
++		ret = ret ? ret : ret_hold;
+ 		break;
+ 	case V4L2_CID_FLASH_STROBE_OE:
+ 		ret = cci_update_bits(ov9282->regmap, OV9282_REG_OUTPUT_ENABLE6,
 
 -- 
 2.53.0
