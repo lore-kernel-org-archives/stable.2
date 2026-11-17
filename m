@@ -1,52 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920287;
-	b=p9SDIBykItWe5HH04/J3euKJtot+1H9PRvAcKVGCmRmhJ7ezVP4kSVscqitq2aQ5momC
-	 ko7LKL9+MU7ADiAEk0P22nCbVJ5zvEtxAf2mfkn+bXG6P6LIVo3RUnHiXjtwDewMbhOyq
-	 Zbiug7OVYp+bEMbwHmoKuR5WY2iw7nIJhSs303uwR3A55bwxwjPQQV2fJVCySTWlQSuUi
-	 DaibadI9bLkDgkiKpwZDs6rIjusZc3q1CTtuwAjXASZOwzaEjjCa0K/H2dgPh9mjyrVLE
-	 SskKgCRsEWfXqj68nv7nsuvOEycCjs1tmFXzNLJd41EAQmsW9FyHMLgto/6FFItDs1w==
+	t=1794920344;
+	b=0sdPQcWl01NUTlQSoXBhncKc+ykT6eaLq4aXOJXN0GmAKAE7IaF9H20VboG5c/mR5jm/
+	 l+hN8mTHG5ufsPRINaPrgOKKSSJ2fsjgOTEVckDQKkTvEhRb6hHsVeU3sgiz9KF4zZlig
+	 shxWxtkov9Y5FLfD0DWN36huO7ZlvTx54BUIxnBk2d+ZJ1l7FwqS/TEzzYz8Xs/SjjCA1
+	 zyCthK6g/VrXE0gZWFZNNlnI7jhANqNYIcvUfJVC3ce8f3z3/jiB6HvWqdApf8N5enp7A
+	 07iwuBk0CzGME0y61ocPuGjLZ3OlGSEr8gofD6lIOqeqx2FLU8cefHYS706GWkGyytQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920287;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=sfv/f/vchDZjJlFU/9RbAGG/Cj5/tePf3TPbDwMuMhU=;
-	b=baBHsAsy//yOe4JG6jZZOpaDENAVOAZxfvI2P6rOoMMDFntek/LLP9+tVSBTUc66XYzL
-	 1YmFNliSgu6B0PVbINtiz2OOW651oGHms/+CSiRh5MO+CQT9nruUlY+hnAYoihck72mFd
-	 B+GOxB+DDj7OPimHqOxNupcTd7XzrzeDIpXAzUf3YYN5aFIUpgQVUQypgzidQeoxcZ20q
-	 mO/GCIgDkTrhvlYyme5jx/LmklMFWbM85k5em0z/yi3Pb8vokzKS1PDPAzUoAEOpA9Kzo
-	 W6sbgI21pPCTHyu6pMS/l4f9s29hbggocGm1MwUVQlCvL4UTQ4p5ctj2MFD4AUYt6eg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920344;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=P/iIhIHbJi0Ry1aV+mvg4mIMdsNQGqRfT0aLhVEY/6g=;
+	b=JISwqcXRX1vHoLHMc53m12ZiPomq6U4x2yFNfChPgSDTXBXqo6hle4cCvmPS+l4zA844
+	 YRO/fSFD5pBFJjVI79UJATjATt2p79Ix7C3YYvZDsydlQiJQdJOvLECEBxHUNn3c04cbW
+	 JIO0ql+0E2PKWCNBYtS4eKj4EdDXh7fjswsFP6LxMSwcIcSKhvk2vISD0IfAEtnlZT/VQ
+	 tIHZY24D5hGwGzIC3TJT1YkXwLIc9h4xX7+dIxLeuXFZx750FqqXCDns0V/kkmCJWubmv
+	 hJEm5Hn+bY2WpfHhNUWhBL6ZrIfuoLqDWaVTazPePYWqOQkDHwNcoOBcH0lyy6IV0tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=hXnyKZ14;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPAeyU1b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75196606A88F;
-	Tue, 17 Nov 2026 12:58:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75196606A88F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601D9606A89E;
+	Tue, 17 Nov 2026 12:59:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=hXnyKZ14
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 42ACD10F66A;
-	Tue, 17 Nov 2026 13:57:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1794920274;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=sfv/f/vchDZjJlFU/9RbAGG/Cj5/tePf3TPbDwMuMhU=;
-	b=hXnyKZ14J+nWW0YrbDpIWs9jqXVTavLp1/qK2ylamt/dv7WMrB1ssnEBxTsjCdRu7guSR5
-	jUbygR+P9J8dhDVV+vuFXGv7g+goRBxe57omA7T88FLkAJ4pu/br/iglvuR6yTgosnVJfU
-	Dt8+NtxYPWL0HlKWljl64ewtV1Kd2A0Tbbtu2XVB2lBz3jvX2BAXfCIZuodu2OXWcSx0xK
-	nDjoWZVhs0JLaL01YDuYFJBnsaf3aBEDlO8jbLEwPO4t8IJxr1FdUih6aN0CqUWbTnILaz
-	/atKxrJVQ1nvovHN2wV6c8RGwhMwSBjGlNPphlCMLrjFiiQJAdEf5fSi9ScPsQ==
-Message-ID: <2814f5f9-8f66-4fe3-9e31-a397bc39b004@nabladev.com>
-Date: Tue, 17 Nov 2026 13:57:49 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OPAeyU1b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE5D71F000C6;
+	Tue, 17 Nov 2026 12:59:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794920344;
+	bh=P/iIhIHbJi0Ry1aV+mvg4mIMdsNQGqRfT0aLhVEY/6g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OPAeyU1bcr8bRfKjvwodvxzewD4ztke+RkTghZNG3xec746dQSVKR7e0AMI3CSvEk
+	 9MAxhAYnGHoa99PgtFgvEXOVzdccfvGUD7QS+NXoB79vjmvesVpd0UjcH3UYh/a316
+	 a5hyqbDa3FjuJlJr3dWTM4tpzZvSGLBEidzJ35Qj9M5D1Vnm/XGLKNqqPP9vFFeX32
+	 lNwMB8odTs7mnL/1cGCIpLi5K4j/5nKf6MVoKPCQspaCwvO4g6sCFt9s57Os3JUeAZ
+	 UM2Qnqmj3HyMgYutVzKEMXSVOtf0WDQhoI2ICzWRK1WepJcHnvDfYTj7WcuikOAmYT
+	 rSBM+RpWMoDCg==
+Date: Tue, 17 Nov 2026 07:59:02 -0500
+From: Sasha Levin <sashal@kernel.org>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
+	Yufan Chen <yufan.chen@linux.dev>, dev@rebasedinc.com
+Subject: Re: io_uring/eventfd: registered eventfd signals only once after the
+ cd305ee3633a backport (6.18.y, 6.12.y, Ubuntu 26.04)
+Message-ID: <avxPlrd77WiXagvs@laps>
+References: <oMhla8VwCWoihfrmgn8znIy60W1QXI8g_v2OyB9i6sWESIDlVJlwoGGOLylJgIHRARNoieXUVRGqzeB__KvHMdXgnCfPPovs8vLMOzaMPEw=@rebasedinc.com>
+ <draft-agent5-0001-re-eventfd-signal@kernel.org>
+ <5d92861f-9a4d-4810-8700-b9e457ed9c86@kernel.dk>
+ <2026111605-deskbound-clobber-a4a1@gregkh>
+ <07947062-2974-4630-90db-1556e25b50bb@kernel.dk>
+ <avxLtZ2YLHdbeZxC@laps>
+ <8e6c1d69-9910-4c89-832a-34ecd65a0ca7@kernel.dk>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -56,171 +65,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/mxsfb: Complete page flips only once the new buffer
- is latched
-To: Christian Gmeiner <christian.gmeiner@gmail.com>,
- Liu Ying <victor.liu@nxp.com>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Christian Gmeiner <cgmeiner@igalia.com>, stable@vger.kernel.org,
- Stefan Agner <stefan@agner.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Emil Velikov <emil.l.velikov@gmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-References: <20261108-mxsfb-flip-latch-v1-1-ad816b23b646@igalia.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20261108-mxsfb-flip-latch-v1-1-ad816b23b646@igalia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <8e6c1d69-9910-4c89-832a-34ecd65a0ca7@kernel.dk>
 
-On 11/8/26 1:12 PM, Christian Gmeiner wrote:
-> From: Christian Gmeiner <cgmeiner@igalia.com>
-> 
-> The controller copies NEXT_BUF to CUR_BUF at the end of each frame. When
-> a commit writes NEXT_BUF just after that point, the new buffer is only
-> scanned out one frame later, but the event armed in atomic_flush is
-> still sent at the next frame done interrupt. Userspace then renders into
-> a buffer that is still on screen, which shows up as half drawn frames
-> when a compositor renders directly into its scanout buffers.
-> 
-> Keep the event in the driver and send it from the interrupt handler once
-> CUR_BUF matches NEXT_BUF, and AS_BUF matches AS_NEXT_BUF for an enabled
-> overlay. On i.MX8MQ about 2% of the flips completed one frame early
-> before this change, for both planes.
-> 
-> Fixes: b9f5937680a8 ("drm: mxsfb: Enable vblank handling")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Gmeiner <cgmeiner@igalia.com>
-> ---
->   drivers/gpu/drm/mxsfb/mxsfb_drv.c |  2 +-
->   drivers/gpu/drm/mxsfb/mxsfb_drv.h |  3 +++
->   drivers/gpu/drm/mxsfb/mxsfb_kms.c | 47 ++++++++++++++++++++++++++++++++++++++-
->   3 files changed, 50 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.c b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> index 641691fc92c8..d21f12074a81 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.c
-> @@ -166,7 +166,7 @@ static irqreturn_t mxsfb_irq_handler(int irq, void *data)
->   	reg = readl(mxsfb->base + LCDC_CTRL1);
->   
->   	if (reg & CTRL1_CUR_FRAME_DONE_IRQ) {
-> -		drm_crtc_handle_vblank(&mxsfb->crtc);
-> +		mxsfb_crtc_handle_vblank(mxsfb);
->   		if (mxsfb->crc_active) {
->   			crc = readl(mxsfb->base + LCDC_V4_CRC_STAT);
->   			vbc = drm_crtc_accurate_vblank_count(&mxsfb->crtc);
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_drv.h b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-> index bdc47ce5be79..9264ca53999d 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_drv.h
-> @@ -49,6 +49,8 @@ struct mxsfb_drm_private {
->   	u32				bus_format;
->   
->   	bool				crc_active;
-> +
-> +	struct drm_pending_vblank_event	*event;
->   };
->   
->   static inline struct mxsfb_drm_private *
-> @@ -61,5 +63,6 @@ void mxsfb_enable_axi_clk(struct mxsfb_drm_private *mxsfb);
->   void mxsfb_disable_axi_clk(struct mxsfb_drm_private *mxsfb);
->   
->   int mxsfb_kms_init(struct mxsfb_drm_private *mxsfb);
-> +void mxsfb_crtc_handle_vblank(struct mxsfb_drm_private *mxsfb);
->   
->   #endif /* __MXSFB_DRV_H__ */
-> diff --git a/drivers/gpu/drm/mxsfb/mxsfb_kms.c b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> index bbc2a2df9f16..c7e516758a1a 100644
-> --- a/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> +++ b/drivers/gpu/drm/mxsfb/mxsfb_kms.c
-> @@ -328,6 +328,7 @@ static int mxsfb_crtc_atomic_check(struct drm_crtc *crtc,
->   static void mxsfb_crtc_atomic_flush(struct drm_crtc *crtc,
->   				    struct drm_atomic_commit *state)
->   {
-> +	struct mxsfb_drm_private *mxsfb = to_mxsfb_drm_private(crtc->dev);
->   	struct drm_pending_vblank_event *event;
->   
->   	event = crtc->state->event;
-> @@ -338,12 +339,54 @@ static void mxsfb_crtc_atomic_flush(struct drm_crtc *crtc,
->   
->   	spin_lock_irq(&crtc->dev->event_lock);
->   	if (drm_crtc_vblank_get(crtc) == 0)
-> -		drm_crtc_arm_vblank_event(crtc, event);
-> +		mxsfb->event = event;
->   	else
->   		drm_crtc_send_vblank_event(crtc, event);
->   	spin_unlock_irq(&crtc->dev->event_lock);
->   }
->   
-> +static bool mxsfb_crtc_buffers_latched(struct mxsfb_drm_private *mxsfb)
-> +{
-> +	if (readl(mxsfb->base + mxsfb->devdata->cur_buf) !=
-> +	    readl(mxsfb->base + mxsfb->devdata->next_buf))
-> +		return false;
-> +
-> +	if (mxsfb->devdata->has_overlay &&
-> +	    (readl(mxsfb->base + LCDC_AS_CTRL) & AS_CTRL_AS_ENABLE) &&
-> +	    readl(mxsfb->base + LCDC_AS_BUF) != readl(mxsfb->base + LCDC_AS_NEXT_BUF))
-> +		return false;
-> +
-> +	return true;
-> +}
-> +
-> +static void mxsfb_crtc_finish_page_flip(struct mxsfb_drm_private *mxsfb)
-> +{
-> +	struct drm_crtc *crtc = &mxsfb->crtc;
-> +
-> +	drm_crtc_send_vblank_event(crtc, mxsfb->event);
-> +	drm_crtc_vblank_put(crtc);
-> +	mxsfb->event = NULL;
-> +}
-> +
-> +void mxsfb_crtc_handle_vblank(struct mxsfb_drm_private *mxsfb)
-> +{
-> +	struct drm_crtc *crtc = &mxsfb->crtc;
-> +
-> +	drm_crtc_handle_vblank(crtc);
-> +
-> +	/*
-> +	 * The controller copies NEXT_BUF to CUR_BUF at the end of a frame. If
-> +	 * the commit wrote NEXT_BUF after that point, the new buffer is only
-> +	 * scanned out from the next frame on. Complete the flip only once the
-> +	 * hardware has latched it, otherwise userspace gets back a buffer that
-> +	 * is still being scanned out.
-> +	 */
-> +	spin_lock(&crtc->dev->event_lock);
-> +	if (mxsfb->event && mxsfb_crtc_buffers_latched(mxsfb))
-> +		mxsfb_crtc_finish_page_flip(mxsfb);
-> +	spin_unlock(&crtc->dev->event_lock);
-> +}
-> +
->   static void mxsfb_crtc_atomic_enable(struct drm_crtc *crtc,
->   				     struct drm_atomic_commit *state)
->   {
-> @@ -425,6 +468,8 @@ static void mxsfb_crtc_atomic_disable(struct drm_crtc *crtc,
->   		crtc->state->event = NULL;
->   		drm_crtc_send_vblank_event(crtc, event);
->   	}
-> +	if (mxsfb->event)
-> +		mxsfb_crtc_finish_page_flip(mxsfb);
->   	spin_unlock_irq(&drm->event_lock);
->   
->   	drm_crtc_vblank_off(crtc);
-> 
-> ---
-> base-commit: 19e67d977d3d4d0c54f03906ef578578190db9e1
-> change-id: 20261108-mxsfb-flip-latch-ef53c4526ba6
-> 
-> Best regards,
+On Tue, Nov 17, 2026 at 05:45:53AM -0700, Jens Axboe wrote:
+>On 11/17/26 5:42 AM, Sasha Levin wrote:
+>> On Mon, Nov 16, 2026 at 07:21:38PM -0700, Jens Axboe wrote:
+>>> On 11/16/26 2:52 AM, Greg Kroah-Hartman wrote:
+>>>> On Sat, Nov 14, 2026 at 11:12:40AM -0700, Jens Axboe wrote:
+>>>>> On 11/14/26 10:42 AM, Sasha Levin wrote:
+>>>>>> On 2026-11-13, dev@rebasedinc.com wrote:
+>>>>>>> If this is correct, a backport of 04fe9aeb4f3c to 6.18.y and 6.12.y looks like the right fix; it keeps the CVE-2026-80920 fix in place.
+>>>>>>
+>>>>>> Queued for 6.18 and 6.12, thanks.
+>>>>>
+>>>>> Yet another bs CVE - Greg, please invalidate this one too, it's NOT CVE material.
+>>>>> Getting a little tired of chasing these.
+>>>>
+>>>> Now rejected, sorry about that.
+>>>
+>>> Not sure how we improve on that, it's really annoying to catch these bogus
+>>> ones after the fact?
+>>
+>> Hi Jens,
+>>
+>> Since some of our reviews are LLM based, I was looking to see why this one was
+>> flagged as a security issue.
+>>
+>> From the explanation, and looking at the code, it seems that we can register an
+>> eventfd with io_uring, then have epoll watch that same eventfd. When something
+>> wakes the epoll, the kernel is holding epoll's wait-queue lock. That wakeup
+>> runs io_uring's poll handler, which signals the eventfd, but the eventfd is
+>> watched by the same epoll, so it tries to grab that same lock again on the same
+>> CPU. The CPU spins forever on a lock it already holds. One core is dead,
+>> followed by RCU stalls, machine wedges. Any unprivileged user with io_uring
+>> access can do it.
+>
+>I think you're looking at the parent of that, not the followup. Yes the
+>parent is a real fix, it's similar to the eventfd fix in mainline as well
+>for that exact issue.
 
-+CC Liu
+If by followup you mean 04fe9aeb4f3c ("io_uring/eventfd: reset deferred signal
+state") then yes, I don't think it's security relevant, and it never had a CVE
+assigned.
 
-It looks good to me, thanks !
+cd305ee3633a ("io_uring: defer eventfd signaling when queued from a wakeup
+handler") is what had the CVE assigned to it, and what Greg rejected earlier.
+Should the rejection be reverted then?
+
+-- 
+Thanks,
+Sasha
