@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794950818;
-	b=hkNbNtv4zqp7dRNfNzEVpnfl+JX8B/J38ig2gwgS/XRGK4f1Mpe0tWa6IJu1dyWvmabs
-	 maZcOTFG8k3nsc+G/dFO9+gcDRxBOQqQtxyBUYrwHM3+Kip78g7GKUB4JK2Kbij20MwZ7
-	 njB4uwgtO2zIQqsrAkHS2if+90R57G3rjFA4IzAWLliaung181ygzQjY9uHrOlFqhwqGo
-	 3FNnie+EzdCKz6I4a97fXj/DGMLWrd1KvDIuAOT9uzVypq9PlCb18qtyiqHQGns4d4IM9
-	 +r/ZKVKqj3RQ7V4FBxeIf51tf2Bxl6ATZNfPI+6dao3C8+mUFIeBCrbBFZBLNDAB9vg==
+	t=1794950906;
+	b=zM8lSjWaCuRb4XCSwJVqaW0RxkyqxsVEuwMpovroN3BcVGqN22tfo9yvL1l1HZ926o49
+	 qM3ekXn5e9Y4HbcyLMxUidBSBH2oYm332jKfP4i8qNfsZU3Hyukqcr6AXdJuGUlzlSeC4
+	 L3YVkmusvQvmIBDZV58vU6tRzkSZPMo+OB9e0wEiymdvLk24UR9iAl0zgkTaFN/WWDdDi
+	 h7cOZYQh46UNozeStjkljEQZEELuQpUSJjLk+i6yPmuGPYHqx61OkM//BB+b1qKXpM1S+
+	 OjYU4iO1wUum0PYSKn30NJWx4HCv72nKlmCC+LZ1Xq/reOB18wVpdNnvYMHLPBHaWnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794950818;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794950906;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=EpCOPggCWDAUfqUiJVhLMHoBzHXEidiolBoE7MTTYIo=;
-	b=FYpKs/HOenBhb4YNWl2ILHiQkN5zigHdDvrescREPaaqkMYs5NXPLPqvawPviNpIqtmw
-	 Po5sLLVbjzFyD+b6HVXRzKgkzhbR8SUpc46iG27To1+whjI1//w2Wvw2xXDZe1LrhOr6K
-	 NxKD5cMG0OKvObVAP0M3czhlyd6EjXnsDpWOHqgZ5z12sg/2DrFPhQ/dnz6dLZJTa82PP
-	 yZMEPycEDXSlEy8rNXTMn0+39c4o8L4rKEQhXHypN4MZBd28+XZjZVI8RIDs4XU21yFLR
-	 tKFFqlH/OafmKg5UXDRuN8yEBsnuqbAPI6KrhyVHPJcGXx9TcGDBtweLX8YQskJxRHw==
+	bh=NaS7S2i9wbUWkDygLxultNfv//P9X5dElhkF+EFEXrU=;
+	b=RPjAiDwHSNjFgy7BEClGzxIdZi66bwnTa2lEqYEVG1+7yvKHJqodC/EaL5LsWi1XjLmA
+	 Q0Qot8GCuvSzHyI8qly4q/Uj/59ndVY0Jz+/body3BDMD8lTq3VtyCofFBi8GGPAYgDxm
+	 zcf/NX3n5XWr2nrVwjQUD57TzgFH/V+detXzB3tbm6rnPQpHEgJ6xosIU74dLCNocS0Fn
+	 vEHtIlgWyxscD0GvZklMkiTknkJaDtFM2mu7DDOCwwMz6EQE53o0GqEbdGs5CezEycB1/
+	 nfoF0rzgvG1m+F5OapzIx63Wz+szvcPtXLnJH8kJAYGwvPDaNxAi92GR2vzLAHzK6qQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZ+5BXur;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kWzwXqD3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288BD606A31C;
-	Tue, 17 Nov 2026 21:26:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77365606A31C;
+	Tue, 17 Nov 2026 21:28:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UZ+5BXur
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED241F000C4;
-	Tue, 17 Nov 2026 21:26:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kWzwXqD3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D00231F000C4;
+	Tue, 17 Nov 2026 21:28:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794950817;
-	bh=EpCOPggCWDAUfqUiJVhLMHoBzHXEidiolBoE7MTTYIo=;
+	s=k20260515; t=1794950906;
+	bh=NaS7S2i9wbUWkDygLxultNfv//P9X5dElhkF+EFEXrU=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UZ+5BXurcU5jR0IslP0SCsC3k7KR1KUTfOl6LP3yyr5iFoarRW/VTYdAg0yTU1sJ+
-	 iEwEviaV+C6Erp2NrTcrRX5AQP33QzvWfDcc/IUfrltPr+qwlungFvmgiJXja4FasW
-	 f832n8DxgPWIyD1cE7R8sRogh1BajMiyMNPVrFHfPr1SKM/PEbUgJma2H4rtjE6YlJ
-	 mHcAtEVM4O+WAO88OfDfxFyRUfOfwrge+sVjpGIo9XbLIP3mNRI4XymEJ5CdbzP5KO
-	 ATeEscM658gFCvB3PxhaNvduz3rrlIhOHHqxK4DNCEVpJEpo13z+RYB8Xbtb+uwcI0
-	 2dS8cTsGjXbPw==
-Message-ID: <fb021aeb-42df-43d4-9181-5e6d730ed60b@kernel.org>
-Date: Tue, 17 Nov 2026 22:26:46 +0100
+	b=kWzwXqD3Eo62UyU5LJneyqs/4BiqrMP5vyVJIJ90uwA8QOaivNCxESFkelLVHu0BI
+	 KD/cKPSJs4oMOOa10DbX0THHD6BDDsKCxCk3O95Av7J7C0bwuNWYjtWXorIJUP7Fhu
+	 geVlCztMmGiU3VGO1EpxEeST59BuABXizwbyvIH1LzmhbnPNKVEjMCKOKMajv6s2uQ
+	 i6C24B0fSZFEhVyhqSf9kcnISPCdNNnzusGVxEWPTujoN7kwxz3hyc57ztbSUi4Q0E
+	 tAO/i2ZgcahbiX38cARQsUy4S72jjIFnwxDQbjXIqHZkNiIeX2ifT1qO6cvKzUXabP
+	 QcwE8bcZ4sMlA==
+Message-ID: <87a81131-5d3f-45e3-8c7a-ecb46d271ed1@kernel.org>
+Date: Tue, 17 Nov 2026 22:28:12 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,8 +52,8 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] mm/memory: remove racy huge PMD assertion from
- walk_to_pmd()
+Subject: Re: [PATCH v2 3/4] mm/memory: do not report OOM if insert_pfn() races
+ a huge fault
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Andrew Morton <akpm@linux-foundation.org>,
  "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
@@ -71,10 +71,9 @@ To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
  Michael Kelley <mhklinux@outlook.com>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
  Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org,
- "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- "Gregory Price (Meta)" <gourry@gourry.net>
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
 References: <20261117-huge-pfnmap-fault-races-v2-0-276007e73bcb@kernel.org>
- <20261117-huge-pfnmap-fault-races-v2-2-276007e73bcb@kernel.org>
+ <20261117-huge-pfnmap-fault-races-v2-3-276007e73bcb@kernel.org>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -121,45 +120,80 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261117-huge-pfnmap-fault-races-v2-2-276007e73bcb@kernel.org>
+In-Reply-To: <20261117-huge-pfnmap-fault-races-v2-3-276007e73bcb@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 11/17/26 19:31, Lorenzo Stoakes (ARM) wrote:
-> From: Eliav Farber <farbere@amazon.com>
+> A driver that implements both ->fault and ->huge_fault must anticipate
+> concurrent use of both.
 > 
-> walk_to_pmd() asserts that the PMD entry it returns is not huge, but does
-> so without holding the PMD lock, so the assertion is only valid if nothing
-> can concurrently install a huge PMD entry in the range.
+> This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
+> concurrent with faulting, as that only holds the mmap write lock and thus
+> does not exclude faulting threads stabilised by VMA lock.
 > 
-> This is not the case for a VMA whose driver implements both ->fault and
-> ->huge_fault and which invokes vmf_insert_pfn() from the former.
+> This is not currently safely handled by insert_pfn(), however, which
+> obtains its PTE entry via get_locked_pte(), and treats a NULL return value
+> as an allocation failure, returning VM_FAULT_OOM.
 > 
-> The existence of prctl(PR_SET_THP_DISABLE) is problematic here, as it only
-> takes the mmap write lock and faults taken under the VMA lock are
-> unaffected by this.
+> The issue is that get_locked_pte() also returns NULL if the PMD entry is
+> not a page table which can happen if a concurrent huge fault installs a
+> huge PMD entry between __handle_mm_fault() observing the PMD entry to be
+> empty and insert_pfn() being invoked.
 > 
-> This can result in two concurrent threads faulting the same thing
-> disagreeing as to whether to attempt a huge fault and thus ->fault and
-> ->huge_fault running at the same time and triggering this assertion.
+> This can result in VM_FAULT_OOM being reported incorrectly.
 > 
-> So just remove the assert.
+> Fix this by introducing and using __get_locked_pte() which returns -ENOMEM
+> if a page table allocation fails or -EFAULT if raced.
 > 
-> Target the commit which introduced the first driver able to do this for the
-> fix - vfio-pci. DAX also mixes fault orders within a VMA, but serialises
-> them using its own mapping entry lock.
+> This allows insert_pfn() to return VM_FAULT_OOM only when an allocation
+> fails and VM_FAULT_NOPAGE otherwise so the fault is retried.
 > 
-> Link: https://lore.kernel.org/all/20261112051440.16140-2-farbere@amazon.com/
+> The same change is applied to insert_page(), which only impacts DAX (which
+> has its own locking).
+> 
+> This means that insert_page() now propagates the returned error, so -EFAULT
+> in the case of a race. It's not possible currently, but guards against that
+> changing in future.
+> 
+> Similarly, update walk_to_pmd() to return -EFAULT if it encounters a huge
+> PUD leaf.
+> 
+> Target the commit introducing the first driver able to do this.
+> 
+> Reported-by: Eliav Farber <farbere@amazon.com>
+> Closes: https://lore.kernel.org/all/20261112051440.16140-3-farbere@amazon.com/
 > Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> [ ljs: rewrote commit message ]
-> Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Suggested-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
 > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 > ---
+>  mm/memory.c | 48 ++++++++++++++++++++++++++++++++++++++++--------
+>  1 file changed, 40 insertions(+), 8 deletions(-)
+> 
+> diff --git a/mm/memory.c b/mm/memory.c
+> index 20b818bcdfbc..04a518d6059f 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -2383,19 +2383,48 @@ static int walk_to_pmd(struct mm_struct *mm, unsigned long addr, pmd_t **pmdp)
+>  	pmd = pmd_alloc(mm, pud, addr);
+>  	if (!pmd)
+>  		return -ENOMEM;
+> +	/* We may have raced a huge PUD fault. */
+> +	if (pud_trans_unstable(pud))
+> +		return -EFAULT;
+>  
+>  	*pmdp = pmd;
+>  	return 0;
+>  }
+
+[...]
+
+> + */
+> +static int __get_locked_pte(struct mm_struct *mm, unsigned long addr,
+> +			    pte_t **ptep, spinlock_t **ptl)
+
+I'd fix that up when applying :)
 
 Reviewed-by: David Hildenbrand (Arm) <david@kernel.org>
 
