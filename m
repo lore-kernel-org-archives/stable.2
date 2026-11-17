@@ -1,65 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.0.225.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794915546;
-	b=3NOdF7LXLgBXBykXGmtv1mn6u7pULVWvME2y4CoTzOemX887vBO5dnwnqyi19PD2tuPC
-	 C0OAAmHPg+MS8izFCF2J3T0DQLgoIzItF81zF5FsbsvVLBELQs+qevetULP0JUiG6bgJl
-	 aexPF9/o2oXsuxTUHlvOXpZ4b/4N3R20UDOkIiBgcYNDpe0KBLfBil02zXQkPrifZBxiL
-	 XuoamqH1Q+AVvbmF8to3AT//CLYzWj8mBwD6VkxXaGv5Gk65AX/OrQZisNXkO9jCktErw
-	 Kd/RKPMRkV3kmBVIW1HZ4QBeE71WLJ/l9gw8yyKXu63ianQPjty6K/5GymQ4Rf7NDcg==
+	t=1794915855;
+	b=KtZ0tQpi7nlt1fE1Un8cYkBWJjbuX7r+mNKzDEkh1kv1/T/v0uB8lKAoUCmANjU5q1I/
+	 K+wrpeKBS/145P5xzvH0xtusmlVZysICpLBbN/ndY14ztC5UPXoDLrJjWNPmd8vyS0kze
+	 PI8zh6CsHN0RVk32fEmF982jJOvBCHNAlCn8u2yf3ElkRM+i7Un8jH4umedWDjvcov5SD
+	 3gELWMBzsOpRWxtGhieIVkTV7TcWKbKxqHHTG/2LrNUlggd1kC5jFXMvJ6Rp8Lxb1zx/n
+	 FcAHNdu887qPJVqR7RAP6xQVn2Qpc0MAptMqznzr9LTUGFQAswXLRu55nqEEpJNyNYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794915546;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=5QFm4/7llb/j/07OzcUIgHm6qGl30pGitU6RrQ/neVs=;
-	b=jaV07fCBMSE2Pvoy/RZPgYWw0M4/0J+D0uA+/6QG5FoKJcEhQ4V5CBO3H1gjQ0b4knoT
-	 QKwCiK4+Dn5YDbZjsWuX0GYQhQB0ElgVGA1aCC9lCjmr8/wsww8weZVWG+s2WqmRimeVa
-	 FNKPWFcU9SWqn0dBGgiph3reXcJf0Wl5SSU/Rszn7XuDQMNWW6I855p8VhhTl7Ng7SxYw
-	 10QibykqWR90ucFKqs5cgs5PYvfCs7JXmoGMQekmiLSwyGN0CZc21okYl/Y7hqqtkFwam
-	 4RcHah/rFpTZWrQUvXHsn01hgrGzswZosW8MAmuFr5jqaL393ZOymhZUfJRuaEwQPOw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794915855;
+	h=DMARC-Filter:Received:Received:Received:X-Eyou-Smtpauth:
+	 X-Eyou-EnvelopeSender:X-Eyou-From:From:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Eyou-Sender;
+	bh=CnFWtmTzB6e1lCB3/JvbUr6eRBMHKOdxJBcATu0Xry4=;
+	b=aznc3XqL5RPT1DKItsPLyIl7DZ2lxdMo53iaMGFK8iZLRfnwh4bTzKXhT67nOQfRNwfR
+	 CvXg/Lsu7s5XrkOQ4yzdR2FIr9I28lKxB24hOusxPzTnUzu+ZKR0rxjBgiI84GDExKYwZ
+	 cMfI82HsoaNe62DmPIKZ2HB96oWJ27LSzBY3PqFRIIzFXhSBcGwS/ClxD4Rxd8aOx9FLw
+	 uoP3b9KvwhjuzBVlZssQn30NCb7CWF6gGG3oPlTKpyILPatueC4/krz1xQzL8KFOlw0kd
+	 Dy2KRYLCibcboLID9DINcHAURvWFaQd8fH0H1a0hQBLE41iycvDhldcoB0RxZrgqs0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=boo9cVih;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AB3606A31C;
-	Tue, 17 Nov 2026 11:39:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4AB3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=boo9cVih
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1794915520;
-	bh=5QFm4/7llb/j/07OzcUIgHm6qGl30pGitU6RrQ/neVs=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=boo9cVihgo6Jqix1XpEmeBcSaPct7Zl8kp/6/kRmzPjlZikfkvpWC5nAvJ+7RuW1n
-	 Yx0ijCDK5lSvC1bryXQIPCr2Wej9dGWLQfk7+xqlQvhDkyx6gZubrpWDzH9OgS7sAm
-	 pUHfW6V5frSFPHrWise+3eq7eVMNbwTD19xiOUWg=
-X-QQ-mid: esmtpgz13t1794915515t6b445356
-X-QQ-Originating-IP: eG9PVL/S70p3ZY5sbdOW2QvStsmEFfLnDmJFGp9BGaI=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 17 Nov 2026 19:38:24 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 17527824163099040394
-EX-QQ-RecipientCnt: 5
-From: Siqi Chen <chensiqi@uniontech.com>
-To: Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Siqi Chen <chensiqi@uniontech.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] hwmon: (pcf8591) Propagate channel access errors
-Date: Tue, 17 Nov 2026 19:38:19 +0800
-Message-Id: <20261117113819.3336050-1-chensiqi@uniontech.com>
-X-Mailer: git-send-email 2.20.1
+	dmarc=none header.from=zhaoxin.com;
+	spf=pass smtp.mailfrom=zhaoxin.com;
+	arc=none smtp.remote-ip=210.0.225.12
+Received: from mx1.zhaoxin.com (MX1.ZHAOXIN.COM [210.0.225.12])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1D624606A31C;
+	Tue, 17 Nov 2026 11:44:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D624606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zhaoxin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zhaoxin.com
+Received: from zhaoxin.com (unknown [127.0.0.1])
+	by mx1.zhaoxin.com (MTA) with ESMTP id 4jTNDL0wN3zb0pbW;
+	Tue, 17 Nov 2026 19:44:02 +0800 (CST)
+Received: from zhaoxin.com (unknown [10.28.140.201])
+	by mx1.zhaoxin.com (MTA) with ESMTP id 4jTNDK4Yq0zb0pbW;
+	Tue, 17 Nov 2026 19:44:01 +0800 (CST)
+Received: from [10.29.8.50] ([10.29.8.50] [10.29.8.50])
+	by zhaoxin.com (8.30) with ESMTPa7a6895ed00357bec528d64555ac5126
+	Tue, 17 Nov 2026 19:44:01 +0800
+X-Eyou-Smtpauth: weitaowang-oc@zhaoxin.com
+X-Eyou-EnvelopeSender: weitaowang-oc@zhaoxin.com
+X-Eyou-From: zhaoxinweitaowangoc <weitaowang-oc@zhaoxin.com>
+From: "=?UTF-8?B?V2VpdGFvV2FuZy1vYw==?=" <weitaowang-oc@zhaoxin.com>
+Message-ID: <455b3899-386f-4731-8508-afcecff1a90c@zhaoxin.com>
+Date: Tue, 17 Nov 2026 19:44:00 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,123 +52,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: OD6FFkn240CDbIOb/5HyV7pBJQyRknUwa5fQvDWGhHvSgtwW4OITrtOk
-	HTDoj9cyyNQOBCBCAjDPTe93Aa12fxh2SyWoXzd4mJo/BNuAyLYczCvAtBpa84NsS+TorL4
-	lJNDmYTxJePGBlnHTLgJYWiqtMJuboQN+1K1+e85qMud/tWgFIDBRxM8EU+U5yZReeKt6Aq
-	bvDjDFO9cTBvj+5uiXT9kwOvPZIl7B6y52TinYGI+pJJB9K1PTcHU09C7nzDFG5aQPxdRFy
-	uD71zxx7BVGnREneIjX41SGgb6Twt8oSQCknvtVU+jBkm5n8VnOOtZ1INUfENIuMHJ6iIer
-	xureP0klczkOMi/cuJbN4cENZYJf7pmdFjA6sNiosZ8fsEgJtOPP4oDqVaEWwptupusVxKc
-	4p3lCkIswkpcx0ZCOXr/zor7tp1OXsN/8UA7PUSFNAJMmIT7Oz/kJywmtbEWzI5DTYQLZlU
-	3iwspNrLatqQeZZjNU2owsagQsVRO9TeJcl8uIqOqbG+2Z0zGgqW77Lt5bVVW9uE3EZdpV0
-	YH/uphu9Z/lpvIybsCJftIAq5fxgtpMWHOMyWy1Dfx+bXtDUlu14ffbPYvFHnuob0ML5v62
-	umbPfhb3DuE7Epkmcc03waTncZ6kLzaeGVlSPUv+AD9lSyWRtAg+8ekKOeIn/hbkFU/ajH8
-	dDvCmYsE2zapGKhD9vkleIRIrYEUsnCCtuXNIoryWZwHEJcXfR8G7gZeCmiJEaFVJ2EWeww
-	kOY06OsGeDn+I9q5rHJNO9E3h8sx4UnAFLD7l1NYWSJMkNNW99c0rEuhuQv2TUpkZ/OQMW6
-	PhA01TFum1Vtr3nytBqcr2u1BUf28E+cZcRCEzdR4D4BYNbIInxGZUsnIOtaq6JYnR5oHGy
-	HD8riWmn3+OAD1EOkq8WhMcPEYzEaSe98rrnNFad7IJno6eHbKu65UrR9ydFa+ui4lyaf2B
-	7/1W6KNGpawHtLy89sS9f0oBS97+qpPU4++b47HnJFNeTYn3zGynwH8RWKL7M0wH4B//hkr
-	mLWu/mev+nGcv/ZXoFbyOjXGsHYL9xLP3epd6bwCbjUPWmAJFs
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-X-QQ-RECHKSPAM: 0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] x86/apic/msi: Fix MSI interrupt affinity configuration
+To: Thomas Gleixner <tglx@linutronix.de>, Koichiro Den <den@valinux.co.jp>
+Cc: mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+ x86@kernel.org, hpa@zytor.com, linux-kernel@vger.kernel.org,
+ WeitaoWang@zhaoxin.com, wwt8723@163.com, CobeChen@zhaoxin.com,
+ stable@vger.kernel.org
+References: <20260928164839.6381-1-WeitaoWang-oc@zhaoxin.com>
+ <6mg2eqdehsmb5fh6hf7icsha2547xfdfvulnycawiit2czhhmh@6bbmicaoz2zd>
+ <87jynid352.ffs@fw13> <316900d3-2ce8-4391-ad8f-556bb5540c2a@zhaoxin.com>
+ <87bj8uc7rv.ffs@fw13> <a6c0d634-f16b-4999-9e04-f13b123d195b@zhaoxin.com>
+Content-Language: en-US
+In-Reply-To: <a6c0d634-f16b-4999-9e04-f13b123d195b@zhaoxin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Eyou-Sender: <weitaowang-oc@zhaoxin.com>
 
-The SMBus channel operations return negative error codes on failure.
-The final read result is stored in a u8, causing an error to be
-truncated and exposed through sysfs as a valid ADC value. Errors from
-the channel selection and dummy read are also ignored.
+On 10/16/26 19:58, WeitaoWang-oc wrote:
+> On 10/16/26 17:30, Thomas Gleixner wrote:
+>> On Fri, Oct 16 2026 at 11:36, WeitaoWang-oc wrote:
+>>> On 10/16/26 06:12, Thomas Gleixner wrote:
+>>>> On Wed, Sep 30 2026 at 01:29, Koichiro Den wrote:
+>>>>> On Tue, Sep 29, 2026 at 12:48:39AM +0800, WeitaoWang-oc wrote:
+>>>>>> commit b56ebe7c896d ("x86/apic/msi: Fix misconfigured non-maskable MSI
+>>>>>> quirk") try to fix the issue of misconfigured non-maskable MSI quirk.
+>>>>>> For non-maskable MSI interrupts, use the slow path to fix the MSI affinity
+>>>>>> race. Maskable MSI interrupts use the direct path to update configuration
+>>>>>> info. However, the current code logic is the opposite as only maskable
+>>>>>> MSI interrupts will enable reservation mode.
+>>> Thank you for the suggestions. I realize the problem description in my
+>>> previous patch needed to be more precise. Before posting v3, I have
+>>> updated the change log as shown below. Could you please take a look?
+>>> If this looks good to you, I will send out the next version.
+>>
+>> Looks good
+> Hi Thomas,
+> 
+> I've reworked the changelog as you requested. The correct version is
+> the v3 sent at 18:10 UTC (Message-ID:
+> 20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com,
+> https://lore.kernel.org/20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com/),
+> which includes the changelog and Cc to stable. Please ignore the
+> earlier v3 from 18:06 UTC. Sorry for the noise.
 
-Check all three operations and propagate their errors through sysfs.
-Keep the cached channel invalid until both channel selection and the
-dummy read succeed so that a later read retries synchronization after
-a failure.
+Hi Thomas,
 
-An AI coding assistant was used to identify the issue and help develop
-the fix.
+A gentle ping on this patch. I sent the corrected v3 on
+2026-10-16 18:10 UTC (Message-ID:
+20261016181016.3850-1-WeitaoWang-oc@zhaoxin.com),
+with the reworked changelog and the Cc to stable you asked for.
 
-The change was compile-tested with W=1. No hardware testing was
-performed.
+Is there anything else you would like me to address before it
+can be picked up? I am happy to respin it if the current v3 no
+longer applies cleanly, or to adjust the changelog further if
+the wording is still not what you had in mind.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Siqi Chen <chensiqi@uniontech.com>
----
- drivers/hwmon/pcf8591.c | 32 +++++++++++++++++++++++++-------
- 1 file changed, 25 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/hwmon/pcf8591.c b/drivers/hwmon/pcf8591.c
-index ec98e6b66c49..602d0caeaced 100644
---- a/drivers/hwmon/pcf8591.c
-+++ b/drivers/hwmon/pcf8591.c
-@@ -68,6 +68,7 @@ struct pcf8591_data {
- 	struct device *hwmon_dev;
- 	struct mutex update_lock;
- 
-+	bool channel_valid;
- 	u8 control;
- 	u8 aout;
- };
-@@ -81,7 +82,11 @@ static ssize_t show_in##channel##_input(struct device *dev,		\
- 					struct device_attribute *attr,	\
- 					char *buf)			\
- {									\
--	return sprintf(buf, "%d\n", pcf8591_read_channel(dev, channel));\
-+	int value = pcf8591_read_channel(dev, channel);			\
-+									\
-+	if (value < 0)						\
-+		return value;						\
-+	return sysfs_emit(buf, "%d\n", value);				\
- }									\
- static DEVICE_ATTR(in##channel##_input, S_IRUGO,			\
- 		   show_in##channel##_input, NULL);
-@@ -255,27 +260,40 @@ static void pcf8591_init_client(struct i2c_client *client)
- 
- static int pcf8591_read_channel(struct device *dev, int channel)
- {
--	u8 value;
- 	struct i2c_client *client = to_i2c_client(dev);
- 	struct pcf8591_data *data = i2c_get_clientdata(client);
-+	u8 control;
-+	int value;
- 
- 	mutex_lock(&data->update_lock);
- 
--	if ((data->control & PCF8591_CONTROL_AICH_MASK) != channel) {
--		data->control = (data->control & ~PCF8591_CONTROL_AICH_MASK)
--			      | channel;
--		i2c_smbus_write_byte(client, data->control);
-+	if (!data->channel_valid ||
-+	    (data->control & PCF8591_CONTROL_AICH_MASK) != channel) {
-+		control = (data->control & ~PCF8591_CONTROL_AICH_MASK) | channel;
-+		data->channel_valid = false;
-+		value = i2c_smbus_write_byte(client, control);
-+		if (value < 0)
-+			goto out;
- 
- 		/*
- 		 * The first byte transmitted contains the conversion code of
- 		 * the previous read cycle. FLUSH IT!
- 		 */
--		i2c_smbus_read_byte(client);
-+		value = i2c_smbus_read_byte(client);
-+		if (value < 0)
-+			goto out;
-+
-+		data->control = control;
-+		data->channel_valid = true;
- 	}
- 	value = i2c_smbus_read_byte(client);
- 
-+out:
- 	mutex_unlock(&data->update_lock);
- 
-+	if (value < 0)
-+		return value;
-+
- 	if ((channel == 2 && input_mode == 2) ||
- 	    (channel != 3 && (input_mode == 1 || input_mode == 3)))
- 		return 10 * REG_TO_SIGNED(value);
--- 
-2.20.1
+Thanks for your time,
+Weitao
 
