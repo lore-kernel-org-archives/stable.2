@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=46.14.198.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794956131;
-	b=l9CxfXc6iUk6PWawcHufChZePGFladh7nM8JUmStRjsgdiuPX1gjhr2VAofrtQH4Pqj0
-	 eCQe80Tkk15gA6uhxekOMtB6LXwFEV0/dBjuwKTJKxHW54Fpnpv6lnThdoTIwUE6AMnM+
-	 sSmdDZZ8lFcv1dAIyoVClSsVFe3aQwFBJIzOLBBFS5kwnDTeYVuOaWm9q1LsRTglLFHsh
-	 3HPf+8A+11RD9iL4j0OudJocTssCzIeTaMXnW17mM/p6aumSoimI23xOetQJgV+lxuN2T
-	 +ddvH/roB7Sl9sUjdzpDyh4kPKI297InCz/+Qv4cOPtTOIkovCM7S+IPMchwY9J7rmA==
+	t=1794956179;
+	b=4frrPldKrhdhf8jmLckvXXpSmmKTBUh3Dj/1c8TdDBmU+vUoHsLPPD35eq2myDRnfJFs
+	 Xp4y5BsSMG1KV38Vnu93eZ94Ercm5JEyyPsO4ONQKz4wtLjU1160RtwsSFcV+kkIuL/Xg
+	 BTbu4l9ITkP+ZhGGJT8mxiD2ukr8xXGXqzVqnBRG9sbJQSHJbo+5YXIOKeaCrcVZKPAC0
+	 x4/hXlaql8WkDXDR23KVlXdDfibOqpt1RadSgcuLCofVi/k344vyq1Muf+DVKtFW7vUiI
+	 nZhvq5txOsWOTnuuP0sAETUcFWZImrHRdX0b4HBdD1jAHR1CENmyPVUrZ0yBiwltQsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794956131;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794956179;
 	h=DMARC-Filter:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Received:
-	 DKIM-Signature;
-	bh=p1d3Y2CLMAz4CqU2eQsHo73W9hHZXrd7SctRraH/gy8=;
-	b=c4ldBcHnQEt5clOxO3bji76/nI5rrl+3M7SoyiwZsY5Becb2QcKzAUSYiyZD0ii5KRvL
-	 Q8ZqkgQiYxcm48XxiuJpB/6sWI1SalFILQ9niyYhZ8FMyyUyxsY3h5ey1py1wj1hTuYzO
-	 dtixB9HUnNOx61HbTgltbtD1y50/061UdU2ACdIfhfl/gLURROglH51lnfQpphJpkz2de
-	 NY+Hfvnqkb8ozaGq3BCHfeV5wtE9H64jI092mgMuc6UJiGB3oPF6h/P0WZNSxpB9jTdI+
-	 vyOURZd12pXVqU6E5QDzg442+sFUWShBXuKxAp1TvC99GeRKp1ORtiCSW8BbuXMmh1g==
+	 References:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Received:DKIM-Signature;
+	bh=IoWcfpKKd2a3SOxxIECXvR8BBWpdj9i8qCmd2x6xdaw=;
+	b=i8Bhg9Nm/4pq3P8F/zTp/7Gu6/zVedbXtPmYXo9KrbANR00BKhtKu8chG8ab99dJO1g6
+	 zu/OFtFz1FW89l5+oZ5eBocpObjKXudz1AradY1b3b5fKw7rulxU2WHjS4nAFEt7moZ3Z
+	 42kUT+G8kwKk5Oeoz1lA4OxHsKWilxDRWDOUgiOhyxcCqWH4GoGqaHkyQR3XJI1eb22Ww
+	 CE1k6nmg7uyUVBILcRN0/7bLHLaaOR3Xi1Lxi38dTR+dFLOnIDrS85gpZLovxUk5jCec1
+	 RviPo+yuLwAwbaC8vvVKHfBbsJ0KUUVvXmNPKqXenQTXL+puI2nOX2H6rrWa0Jy4iKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=rimpianto.com;
 	spf=pass smtp.mailfrom=rimpianto.com;
-	dkim=pass header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=erqVDgpd;
+	dkim=pass header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=hkJ9umYs;
 	arc=none smtp.remote-ip=46.14.198.178
 Received: from mail.rimpianto.com (mail.rimpianto.com [46.14.198.178])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474E6606A31C;
-	Tue, 17 Nov 2026 22:55:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 474E6606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B372606A31C;
+	Tue, 17 Nov 2026 22:56:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B372606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rimpianto.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rimpianto.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=erqVDgpd
+	dkim=pass (2048-bit key) header.d=rimpianto.com header.i=@rimpianto.com header.a=rsa-sha256 header.s=s20260314391 header.b=hkJ9umYs
 Authentication-Results: mail.rimpianto.com;
 	auth=pass (plain)
 From: Federico Musto <federico@rimpianto.com>
-To: Chris Snook <chris.snook@gmail.com>,
+To: netdev-bot+sashiko@kernel.org
+Cc: Federico Musto <federico@rimpianto.com>,
+	Chris Snook <chris.snook@gmail.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Federico Musto <federico@rimpianto.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net v4 2/2] net: atl1c: free the RX buffer when the descriptor reports an error
-Date: Tue, 17 Nov 2026 23:55:21 +0100
-Message-ID: <20261117225521.19689-3-federico@rimpianto.com>
+Subject: Re: [PATCH net v3] net: atl1c: free the RX buffer when the descriptor reports an error
+Date: Tue, 17 Nov 2026 23:55:11 +0100
+Message-ID: <20261117225511.19650-1-federico@rimpianto.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261117225521.19689-1-federico@rimpianto.com>
-References: <20261117225521.19689-1-federico@rimpianto.com>
+In-Reply-To: <179410255769.994134.16589271793081668306@kernel.org>
+References: <20261103225218.19206-1-federico@rimpianto.com> <179410255769.994134.16589271793081668306@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,232 +62,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 Received: from localhost (Unknown [127.0.0.1])
-	by mail.rimpianto.com (Haraka) with ESMTPSA id 1A751935-FDFB-4345-9147-8CBB6C5D7B43.3
+	by mail.rimpianto.com (Haraka) with ESMTPSA id 72409802-4A8B-4BA6-8392-E6D007D5C986.1
 	envelope-from <federico@rimpianto.com>
 	tls TLS_AES_256_GCM_SHA384 (authenticated bits=0);
-	Tue, 17 Nov 2026 23:55:22 +0100
+	Tue, 17 Nov 2026 23:55:11 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rimpianto.com;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=s20260314391;
- t=1794956122; bh=p1d3Y2CLMAz4CqU2eQsHo73W9hHZXrd7SctRraH/gy8=;
- b=erqVDgpd5tu44G6/WgRfklXGQhAzSCOJqQL0CMldSlIIfeFxiXfMm2VppPV90/Zp70j67RrpG
- 3QMEn7BsNLDrLC2s9uyWI4YpSb3suC+lAJ/BSDNvSdprsDxgVtF3pVEt4AKWxYAAaxeue1uGusF
- 0Lr3Rm/mN6kd+6PW0aAdIRgPI69rATssKzIg/4Q3ePc7ppEV4w8fQxZbMhawhSV+JapeVig22vP
- BqxOPR9rTjvX4mMBXG605Dk2yTvTDl4/Ff0ntn078TQLXNIZRe3hnoHk59XV6PkMyjbIJDLKxjc
- mZVSeXa2ZhYZ8MMqReH5PQnjDS43fjKZ783/WTPmvrEQ==
+ h=Content-Transfer-Encoding: Content-Type: MIME-Version: References:
+ In-Reply-To: Message-ID: Date: Subject: Cc: To: From; q=dns/txt;
+ s=s20260314391; t=1794956111;
+ bh=IoWcfpKKd2a3SOxxIECXvR8BBWpdj9i8qCmd2x6xdaw=;
+ b=hkJ9umYsY89JZ22TWAjcPQAY6KUnSS3SjCNUOXYtiHrLxPnpCfxr9SLmVp1UREAwe5QK8x7qu
+ V7/aoAWiF5F8so7q38W+wEjUgvhtzb99c5mZsgBmGMnUYMq4+rGQiwIzudS4KTgdvyGqHlUJQJz
+ k6BbZuCR7KUZnmHhGcGz9wLCyvdpfpwg97ho9lR29b/O3dSq45NSw5RgZwXRtzV/PCZgSXTUCcJ
+ Q5UpuWM+vrFKpy9DT4flk+Ps/MP3MjEA19x8TF52zh+GItHuf/vXIN0lLKJ+9h0cuVv0MsYH2Wo
+ 9Aqh5heURseluiGKAwcJaE7eg+Xn1lYA5Qw4QfZUJJ3Q==
 
-atl1c_clean_rx() drops a frame whose return descriptor (RRD) carries
-RRS_RX_ERR_SUM or RRS_802_3_LEN_ERR by calling atl1c_clean_rfd(), which
-only marks the RFD free and clears the skb pointer. Nothing unmaps the DMA
-mapping and nothing frees the skb, so every errored frame - CRC, alignment,
-truncation, runt - leaks one skb and one DMA mapping. The driver uses a
-32-bit DMA mask, so on a host without an IOMMU each of those mappings also
-pins a swiotlb slot.
+Thank you for the detailed review. The findings are addressed in a
+two-patch v4 series.
 
-Unmap the buffer and free the skb before the RFD is recycled.
+The new finding on the device-written RFD count and index is valid. Patch
+2/2 now requires rfd_num == 1, rfd_index == rfd_ring->next_to_clean and a
+non-NULL skb in the expected slot before unmapping or freeing anything.
+On a mismatch it leaves all buffers alone and schedules a reset, following
+alx_clean_rx_irq(). Both the good and error paths then use the software
+index. The multi-RFD free loop from v3 is removed.
 
-Freeing makes the RFD index and count found in the RRD matter more than
-they did. Both are written by the device and neither is checked: the index
-field is 12 bits wide for a ring of 512 entries, and the count can be 0 to
-15 while one RFD per frame is all the driver handles. A wrong index used to
-leak a buffer; it would now unmap and free one the device still owns, or
-one outside the ring. So validate the RRD first, the way
-alx_clean_rx_irq() does for the same descriptor layout: the count must be
-1, the index must be the one the driver expects back next
-(rfd_ring->next_to_clean) and that slot must hold a buffer. Otherwise touch
-no buffer and schedule a reset through ATL1C_WORK_EVENT_RESET, as the
-interrupt handler does on ISR_ERROR. After the check the slot is addressed
-through the driver's own index, in the good receive path too, which took
-the unchecked index from the descriptor in the same way.
+The same validation also rejects rfd_num == 0, so an errored descriptor
+with a zero count can no longer be re-read indefinitely.
 
-The check also covers two cases the count was left to cause. An RRD with a
-count of 0 was never consumed and RX stalled on it, in an endless loop
-inside the poll when it also had an error bit set. A good RRD with a count
-above 1 was consumed without recycling its RFDs.
+The pre-existing link-down reset race is addressed by the new patch 1/2.
+After netif_carrier_off(), it waits for RX polls already in flight before
+resetting the rings. Polls entered later see the carrier off and return
+without touching them. napi_disable() is not used because the work item is
+not serialized against atl1c_down(); a second disable can deadlock against
+the first caller's napi_enable() while holding the netdev instance lock.
 
-Count an errored descriptor as work, so that the refill runs when a poll
-sees no good frame. Clear the RRD ring on reset: the RRD and RFD rings
-advance in step, so an RRD left over from before a reset would pass the
-check above and release a freshly posted buffer the device still owns.
+The missing dma_rmb() between the valid-bit check and word0, and the
+pre-existing raw word3 endian accesses, remain outside this series. They
+are independent issues and are left to a separate change rather than
+expanding the leak fix further.
 
-The hardware already counts these frames in its own error counters, which
-atl1c_get_stats() reports, so no software counter is added here.
+Validation on netdev/net:
+- git apply --check and git diff --check pass;
+- checkpatch --strict reports no errors, warnings or checks;
+- baseline and patched W=1 + Sparse builds succeed with no new warnings.
 
-Found by code inspection; the error path has not been exercised on
-hardware.
+The candidate was also tested with diagnostic instrumentation on a
+MikroTik CCR2004-1G-2XS-PCIe, which exposes emulated AR8151 functions.
+More than 1.5 million RRDs passed the count and index validation in one
+traffic run without a mismatch. The candidate survived more than 15
+MTU-change resets without a poll-wait timeout, deadlock, Oops or warning.
+The errored-descriptor path itself was not exercised, and this is not a
+test on a physical AR8151 controller.
 
-Fixes: 43250ddd75a3 ("atl1c: Atheros L1C Gigabit Ethernet driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Federico Musto <federico@rimpianto.com>
----
-v3 -> v4, after the Sashiko AI review of v3:
- - validate the RFD count and index of the RRD against
-   rfd_ring->next_to_clean, and that the slot holds a buffer, before any
-   buffer is touched; reset on a mismatch, as alx_clean_rx_irq() does;
- - address the buffer through the driver's own index in the error path
-   and in the good path; atl1c_clean_rfd() takes nothing from the
-   descriptor any more;
- - drop the multi-RFD loop added in v3: a count other than 1 resets;
- - a count of 0 no longer leaves the RRD unconsumed;
- - new patch 1/2 for the link-down reset race.
-
-Pre-existing and left to separate patches: there is no dma_rmb() between
-the test of the RRD valid bit (word3) and the read of word0, and word3 is
-__le32 but is read without conversion.
-
-v3: https://lore.kernel.org/netdev/20261103225218.19206-1-federico@rimpianto.com/
-v2: https://lore.kernel.org/netdev/20261102215253.68185-1-federico@rimpianto.com/
-v1: https://lore.kernel.org/netdev/20261027115156.17128-1-federico@rimpianto.com/
----
- .../net/ethernet/atheros/atl1c/atl1c_main.c   | 97 ++++++++++---------
- 1 file changed, 52 insertions(+), 45 deletions(-)
-
-diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-index e9baee8fa7e5..5d00f2489d15 100644
---- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-+++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
-@@ -933,8 +933,9 @@ static void atl1c_clean_rx_ring(struct atl1c_adapter *adapter, u32 queue)
- 		buffer_info = &rfd_ring->buffer_info[j];
- 		atl1c_clean_buffer(pdev, buffer_info, 0);
- 	}
--	/* zero out the descriptor ring */
-+	/* zero out the descriptor rings */
- 	memset(rfd_ring->desc, 0, rfd_ring->size);
-+	memset(rrd_ring->desc, 0, rrd_ring->size);
- 	rfd_ring->next_to_clean = 0;
- 	rfd_ring->next_to_use = 0;
- 	rrd_ring->next_to_use = 0;
-@@ -1866,23 +1867,16 @@ static void atl1c_clean_rrd(struct atl1c_rrd_ring *rrd_ring,
- 	}
- }
- 
--static void atl1c_clean_rfd(struct atl1c_rfd_ring *rfd_ring,
--	struct atl1c_recv_ret_status *rrs, u16 num)
-+/* Recycle the RFD the driver expects back next.  The caller owns the skb. */
-+static void atl1c_clean_rfd(struct atl1c_rfd_ring *rfd_ring)
- {
--	u16 i;
--	u16 rfd_index;
--	struct atl1c_buffer *buffer_info = rfd_ring->buffer_info;
-+	struct atl1c_buffer *buffer_info;
- 
--	rfd_index = (rrs->word0 >> RRS_RX_RFD_INDEX_SHIFT) &
--			RRS_RX_RFD_INDEX_MASK;
--	for (i = 0; i < num; i++) {
--		buffer_info[rfd_index].skb = NULL;
--		ATL1C_SET_BUFFER_STATE(&buffer_info[rfd_index],
--					ATL1C_BUFFER_FREE);
--		if (++rfd_index == rfd_ring->count)
--			rfd_index = 0;
--	}
--	rfd_ring->next_to_clean = rfd_index;
-+	buffer_info = &rfd_ring->buffer_info[rfd_ring->next_to_clean];
-+	buffer_info->skb = NULL;
-+	ATL1C_SET_BUFFER_STATE(buffer_info, ATL1C_BUFFER_FREE);
-+	if (++rfd_ring->next_to_clean == rfd_ring->count)
-+		rfd_ring->next_to_clean = 0;
- }
- 
- /**
-@@ -1896,6 +1890,7 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
- 		container_of(napi, struct atl1c_rrd_ring, napi);
- 	struct atl1c_adapter *adapter = rrd_ring->adapter;
- 	u16 rfd_num, rfd_index;
-+	u32 rrs_word0;
- 	u16 length;
- 	struct pci_dev *pdev = adapter->pdev;
- 	struct net_device *netdev  = adapter->netdev;
-@@ -1914,47 +1909,59 @@ static int atl1c_clean_rx(struct napi_struct *napi, int budget)
- 		if (work_done >= budget)
- 			break;
- 		rrs = ATL1C_RRD_DESC(rrd_ring, rrd_ring->next_to_clean);
--		if (likely(RRS_RXD_IS_VALID(rrs->word3))) {
--			rfd_num = (rrs->word0 >> RRS_RX_RFD_CNT_SHIFT) &
--				RRS_RX_RFD_CNT_MASK;
--			if (unlikely(rfd_num != 1))
--				/* TODO support mul rfd*/
--				if (netif_msg_rx_err(adapter))
--					dev_warn(&pdev->dev,
--						"Multi rfd not support yet!\n");
--			goto rrs_checked;
--		} else {
-+		if (!RRS_RXD_IS_VALID(rrs->word3))
-+			break;
-+
-+		rrs_word0 = le32_to_cpu(rrs->word0);
-+		rfd_num = (rrs_word0 >> RRS_RX_RFD_CNT_SHIFT) &
-+			RRS_RX_RFD_CNT_MASK;
-+		rfd_index = (rrs_word0 >> RRS_RX_RFD_INDEX_SHIFT) &
-+			RRS_RX_RFD_INDEX_MASK;
-+		buffer_info = &rfd_ring->buffer_info[rfd_ring->next_to_clean];
-+
-+		/* The RRD is written by the device.  Its RFD index field is
-+		 * wider than the ring, and only one RFD per frame is
-+		 * supported.  Check both against the driver's own ring state,
-+		 * and that the slot holds a buffer, before anything is
-+		 * unmapped or freed.  When they disagree there is no telling
-+		 * which buffers the device still owns: leave them all alone
-+		 * and reset.
-+		 */
-+		if (unlikely(rfd_num != 1 ||
-+			     rfd_index != rfd_ring->next_to_clean ||
-+			     !buffer_info->skb)) {
-+			dev_err_ratelimited(&pdev->dev,
-+					    "RRD out of sync: RFD count %u index %u, expected index %u%s; resetting\n",
-+					    rfd_num, rfd_index,
-+					    rfd_ring->next_to_clean,
-+					    buffer_info->skb ? "" : " (no buffer)");
-+			set_bit(ATL1C_WORK_EVENT_RESET, &adapter->work_event);
-+			schedule_work(&adapter->common_task);
- 			break;
- 		}
--rrs_checked:
--		atl1c_clean_rrd(rrd_ring, rrs, rfd_num);
-+
-+		atl1c_clean_rrd(rrd_ring, rrs, 1);
-+		dma_unmap_single(&pdev->dev, buffer_info->dma,
-+				 buffer_info->length, DMA_FROM_DEVICE);
-+		skb = buffer_info->skb;
-+		atl1c_clean_rfd(rfd_ring);
-+
- 		if (rrs->word3 & (RRS_RX_ERR_SUM | RRS_802_3_LEN_ERR)) {
--			atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
- 			if (netif_msg_rx_err(adapter))
- 				dev_warn(&pdev->dev,
- 					 "wrong packet! rrs word3 is %x\n",
- 					 rrs->word3);
-+			kfree_skb_reason(skb, SKB_DROP_REASON_NOT_SPECIFIED);
-+			/* The RFD has been recycled, so count the drop as
-+			 * work: the refill after the loop only runs when
-+			 * some was done.
-+			 */
-+			work_done++;
- 			continue;
- 		}
- 
- 		length = le16_to_cpu((rrs->word3 >> RRS_PKT_SIZE_SHIFT) &
- 				RRS_PKT_SIZE_MASK);
--		/* Good Receive */
--		if (likely(rfd_num == 1)) {
--			rfd_index = (rrs->word0 >> RRS_RX_RFD_INDEX_SHIFT) &
--					RRS_RX_RFD_INDEX_MASK;
--			buffer_info = &rfd_ring->buffer_info[rfd_index];
--			dma_unmap_single(&pdev->dev, buffer_info->dma,
--					 buffer_info->length, DMA_FROM_DEVICE);
--			skb = buffer_info->skb;
--		} else {
--			/* TODO */
--			if (netif_msg_rx_err(adapter))
--				dev_warn(&pdev->dev,
--					"Multi rfd not support yet!\n");
--			break;
--		}
--		atl1c_clean_rfd(rfd_ring, rrs, rfd_num);
- 
- 		/* A link partner whose l2mtu is larger than ours can hand us a
- 		 * frame that does not fit the buffer the hardware was given:
--- 
-2.47.3
-
+pw-bot: cr
