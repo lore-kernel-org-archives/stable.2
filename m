@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794880477;
-	b=LducPjVFn1nB9dEW1nhuXlke6vfQ0U8YBquaK4g2HEqcAoFhMWnY/XsfJ32yuV61P5sd
-	 2k/2jMYHZFFfCDgfdC7++9Zt+w3nNXoXYHmDQSRDhqEc5L+hU0L9nN8J/cpnOEbcihxD+
-	 eI2S5ZnLOTlHs4izySN99bc9hwRMyJ5bPMEYCpMJto+FphqtXxWXumaezi9XvhpJnLsSY
-	 WOdawHMWF7g8yqxrBTAGd/+xcO3YSSFUXLCTZv16UqzMXh+tH4qq8t2Ybyb0wnwwxXYdW
-	 dxu/lv2kIvfpQibmmm6HpIwlvufUVq5ykGgZJ+w/j9CZyZ74+QS4IDsCWC0+76pwsQA==
+	t=1794880485;
+	b=qdDvRZrBgexp6hrJhFSRzZsYfj/vJBoHt8iHzoaG5vFQQfcVOmilapCxRDYONksKAlHu
+	 7MxXUng4w+A4eXrD1VPercaqCKAaGafzh/FshzsbabaLsqyRnlsiv+fvmuf+o6+lq6OpQ
+	 yn2THcBkg4wI/QI5SApxvDJXtc2C3s0rWvnH43JvwNSxa8snHWSyda5CnRukbHhBbiok5
+	 Fe4u2mduLqg9MihLUzOTcZ7slD+b1sxDd7w+jEjyaHDXPjOBEJnqkAVJvq5eTJWvQ4bz/
+	 N4NF+bt0Avf5NX31+Vqa2K65Cnk20cSbD0X3juI3/sJjcgDcT1RuEEXkie+aMPxBwuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794880477;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794880485;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=FE3DBp52FZtyFrsv/66l4xMtsZMQ5Rhcv6bIeoPewWE=;
-	b=IHP7OjvDYNWzC5yN14k2DbF2chkAFVeJ+RDNJ81Awue72F7FCL5TRVNAkjRHVFf1aef5
-	 BHFDclxNtogQEFqjCk7nj+5EsKCtj08XliivL0RXHDFZpPiQHbHZln6SptGIoQoMZ3LSP
-	 2qSXthanDKrge9m/mBHlTMuLrb3EgLrBy/F+1lCoP59mKyZfkOF0qadOjAf9H7Y85SSp8
-	 I/9v+Qsd09RbUZFdPRRogJSThNdbnlhJ+GILCGVQ9hAvDhH0FaQLX0VOEZfxWup2BHjtY
-	 9M7p5N+Sw7YkIdAi81bLbF4suHSL1FSUsbTfE/pN3b3Qvg9SP3gMEzQifAkBXDJ3qHg==
+	bh=elkgCBj7aFay/OU9BHM3KC6ZUvNspwV9FYqesvpWo0I=;
+	b=h296CzbCV8UWVnQpX5VJBL+QHM/PXp3voNRDQ7nS6A6giwJgb8kdFcZ/rpYL45LgcJoM
+	 m/8MaT2J358hI9PIMeQFV3W3BI3cIa7BQhyhCHb7ESaw+/KsZbkPtA4CqZjctpRcmHtoA
+	 1SEyA9VFARK5LRq8+QAuyPulPJeaBHM35g9VjevMF3TP0R/J8oz+3resofSoQ5+tGTW2U
+	 nLZZGyo5eeQrReAUmlTIzLd5ErQHEXxPdQEg7lA38ImJCP1Lj930TCKGKm31lcraij5zZ
+	 XWPNa0kX8YviIztd4tjK9nD2Bml/4fDoxXiK5/UC501qttTalQ0zGFLiNddEzbhIb1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IrmUa9eo;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hIBv2MBd;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA7A606A32C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:54:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CA7A606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00BA606A32C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:54:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B00BA606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IrmUa9eo
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36dc4797082so464379eec.2
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:54:35 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hIBv2MBd
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3719e3cb82bso447343eec.3
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:54:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794880475; x=1795485275; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794880484; x=1795485284; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=FE3DBp52FZtyFrsv/66l4xMtsZMQ5Rhcv6bIeoPewWE=;
-        b=IrmUa9eoYFeis8Esr7n25k4HrHbH/LcZHw0yYRdA4sj2+6Sr4caNhM3N60DO9Idurf
-         uaIQFZgDZ1nFpxlOtNV3svg8ufAjuBIK7Np/QULiysSmdJwilQ4I29EhJUxmSTbcKbbA
-         FCYscG1G361lIP9MeS+QBhWN4J0twWh0CRrYVjCRAh1upb1dSQ4KEIWy2IL6ldo8LLdt
-         u8sOeaVFih6h6glJ1J45c2rrGOuXVDsV/6VIUbLoGMjcs4bFVuw68IKqpeUBNhwLnEME
-         NfuRu0zv+bznSdKP1MiTf+5Oyj+SAkZJQFcX4763W1M0JSftpMQz8t8NkVevvtCeWTYw
-         yyXA==
+        bh=elkgCBj7aFay/OU9BHM3KC6ZUvNspwV9FYqesvpWo0I=;
+        b=hIBv2MBd2fvE4Vyu417yPTLhgJkc40FmC1Wfo8/CALgriSL3fwBkrdtox5K//HFBrV
+         CWJWLcx9M5xKuerupLWV7hYNFfmn32P9nwEvjTqM8lT4WO+rxTlf+rXw6EmRsACvbW49
+         z1rfEL7tp3z/eTwcQWdUx+rvencAzjXAaJgt45glo8joyDhHc4EzGg6SWhYgLSgIdeFZ
+         0VFRNQnCYl2AJ0q/eZgaN5/R4xMhbtO2ioaFhiUichv2RFJlJtSTpQlZuKK0dtG25+My
+         mScA4X0JmVwDgaSu0fcjTblhJ27H9Bb78LIEVc7wMHYoYiRTKdaRyqFunaVnvkySEFmp
+         36Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794880475; x=1795485275;
+        d=1e100.net; s=20260707; t=1794880484; x=1795485284;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FE3DBp52FZtyFrsv/66l4xMtsZMQ5Rhcv6bIeoPewWE=;
-        b=J6Bf6ZTfCvTe12V59F53OaoVTQFfpmKjU6jOfc1BqUgBjpZHM3SfOZymvgMKa0usP0
-         AUUwLZezgjtThz0J7k+QSCFLhk8NGlyXeR66gMEY0xemi/t/NOLGu2PMp2hjFfkwDA19
-         EoK+clPq5ExFcQEsav0bSqCY64jJKuv+R9V7YBrCQ6DEC1tnuBdUU84r2q/dn2uZLR4X
-         d3VUS4Wnw8rwUnFgEQIJQQPbOB+P3dGhx3/rzAIn5Lpe6A2DPWBbNk7/NH3aJJIuk62C
-         /vJLwsW2vVO70JavqKnpgMIuh3kcNrkAWu9DlYMRaBVQkAu59VKyytLqo7d/OM+JQQ90
-         AH2Q==
-X-Forwarded-Encrypted: i=1; AL+hErHOfRUd8tsvhywUGMlg1YvbKgyJUgY+ioce9Hz805B2itSJcZgxo5Hn/gR5PVBT1/k6dQW6Kmw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8AQbHnBU/Bzh1AavksiuEzkX2763j7iKsuMk7h9mXQmpy+JBrx
-	KW+V5SgfRLKdny060PfvbwU3YazT/arrZ8bvdtpnbqhhYdzWr3oEsFbg
-X-Gm-Gg: AZFdTZdf8Uxfd6NXRPwi5KaYTjw96YkeWEf44W7KDNskuwxNKxcJk2Bt04+rm2/TLZ8
-	qtMXJEC4uzV6TVxBEM1WGY0+jaVJ8+H4mTrRXRvEDAAmSees742Qhy0QM4x0tmp2MVHaqw/XsOk
-	lmUgtPbXTfQSXRiMCmyyBAKopytrmDYEn7Wk2SFlGekJKPFLUElER+z55HAGwS52nZ7gmvQOiXs
-	pd4ekAyI6R/zvldgYGGTrGZ+nEJhYA7P98KMksuHTLPqhoG1GRL40wMWi43tUmwuFLdz15zuz2m
-	srkrKEttCiO4tfFosnIuciYMwZmeRQfxkjo2vsNq7BkA7ols04tvEx3ySYauATmVJqCm7GesiCk
-	C2iudUzwm3+657lUdVEkDPyIFDwrKgQf1hpFIrlQHqFqxSce5xbQ+BaFXes61uHfZV6x9jdjkGG
-	Zch8YavXaK6dT8+odWtmIs5Q8OGNN2sTCbqbTbDZy18ohObWFn8FO/PHTSlPuAa9y1TmDVlqo3q
-	aj2S1nJSAX32gVC8Z5WGthfiJR3eGOWbiAfbUNisBeXuC51TTS9XmexZsf6YA1FSI0GsTBvLtwu
-	EFCHsYBe8BGk1M3CdFxqejLhMEf4ArkGmZ1dfYqQpjR4aV9Y3v7aPw88x/WKSUiz+QFKQsN0QrP
-	VOnd4rKPJJo/5514yo2s=
-X-Received: by 2002:a05:693c:881a:20b0:36e:66d8:1424 with SMTP id 5a478bee46e88-3796047ff23mr17786935eec.0.1794880474975;
-        Mon, 16 Nov 2026 17:54:34 -0800 (PST)
+        bh=elkgCBj7aFay/OU9BHM3KC6ZUvNspwV9FYqesvpWo0I=;
+        b=H8xyNklZEEV0Ot+LcALwGZgx95PFeaIocbixcyOIvKIiq2YO/AgUNuQ61UE2WZ8lPj
+         GzSW4z45RK0SN67hZS7mIerrUI/r2kJde6s3+9ky91KyLs7WlbbegUr3gkEo1Nuc8dTK
+         MWq2AGPwtsyhZgVr3JJXUTlngzrHUaMffBckCDRQanZpT6UJA9Eu0Vw4abCY74YC7497
+         AUV085XAJi+RhcY5iDbTZMKVSH6SIsT51456fL3bgck9bBmcj5zWc7zS2km65Xg3B9S8
+         74O5MWC+ezLfvbnEVnbEGdhVToCt0lM2aX/HTJS7bqPLgiUtL49E0sLSE2EkCYWQyfld
+         SDsQ==
+X-Forwarded-Encrypted: i=1; AL+hErEG1M2wMZoJ+aLWO5ExKz1FkPD0vtcfu/cK6PACBsdDpE0BF0zaxs6JhVIg0kw1eoSbqy3+nOQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9hioq5JGzAedmrZ/zTXwlIHBf/QdU/+lOwjLgO2vEYmBa44vh6
+	f6J6NNUIMdX6yvwZVwGC2Q4rSMlDIdoDcL8z8rWoQeZMcHEGxR5kLPiz
+X-Gm-Gg: AZFdTZepE0isPG/JqT/ZdmB24tOEBSX6fq4fNxgoD0m/rneuSt65E5adYnr+GzE5OWY
+	hCEaKLwlEahiS4++0CgOX2vEhPf+E9S8d1Xd4f0CemkJgbT3OciX8iIMIeMYhbC8TK/pY5wBpJq
+	qgSBBXdkXSREmlb1VQc+E7c9idxi6Rq8zAL+UxwgMwY+XcclFFqM/uPoB9CKSYQDlDiexMtYQVW
+	iS9Jn64/FrqB/2ObF8q3lYPzW+kMAtQ008ruiTQWBAqLid8yXxK7GgOW499xJezyYJKXeoSwoL6
+	zLnvBZnR6kL0eqYDY4I8xb4bq2porFt4wE9Fk6X50WM3tSgMWizIbFRvJf+SD6o/0WysSg2MZiA
+	4eQqivSYNLeo9W8dOGbr9AmlkGVB8LI2lUyn9Mv6zHtfZqHQgllLkTWJvYC5VKkX7hRZ5bIAvKd
+	2T9l+oqZOG/gHaCN5DADJsvVhEJHBXvsjQbsIjhu067EjNawZsfGitmrjPWM6D919JCOj6xc0YW
+	mKa5l4VeBcU190qql69OhQTPuP4Ju8H4BXdEn/g+10oxviTZpPfhQAWd97gajalGT61nqLPwZ+y
+	B9JtmsNMst6J2tMyEb5MI51rF/qHaH8vfM1+Tau1OU9E4sEOAMuDTgjzy2bj0Uxtp5C5/krKIWn
+	kH4Aou/HMcR6EISb55qE=
+X-Received: by 2002:a05:7300:c00e:20b0:35e:d21c:f33e with SMTP id 5a478bee46e88-379651ecb3emr20450412eec.1.1794880483783;
+        Mon, 16 Nov 2026 17:54:43 -0800 (PST)
 Received: from localhost.localdomain ([188.253.120.78])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332a77sm34139971eec.4.2026.11.16.17.54.28
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332a77sm34139971eec.4.2026.11.16.17.54.35
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 16 Nov 2026 17:54:34 -0800 (PST)
+        Mon, 16 Nov 2026 17:54:43 -0800 (PST)
 From: Qihang <q.h.hack.winter@gmail.com>
 To: Joerg Roedel <joro@8bytes.org>,
 	Will Deacon <will@kernel.org>
@@ -87,9 +87,9 @@ Cc: Qihang <q.h.hack.winter@gmail.com>,
 	iommu@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] iommu/io-pgfault: unlink partial faults before freeing them
-Date: Tue, 17 Nov 2026 09:54:08 +0800
-Message-ID: <20261117015409.25492-2-q.h.hack.winter@gmail.com>
+Subject: [PATCH 2/2] iommu/io-pgfault: reject partial faults after the device is removed
+Date: Tue, 17 Nov 2026 09:54:09 +0800
+Message-ID: <20261117015409.25492-3-q.h.hack.winter@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20261117015409.25492-1-q.h.hack.winter@gmail.com>
 References: <20261117015409.25492-1-q.h.hack.winter@gmail.com>
@@ -104,45 +104,93 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-iopf_queue_remove_device() frees the pending partial faults without
-unlinking them, so fault_param->partial keeps pointing into freed
-memory.  A report that is still in flight can then list_add() through
-those dangling pointers.  The unlink has been missing since
-iopf_queue_remove_device() was first added, but the race only became
-reachable with a74c077b9021, which made the fault parameter
-refcounted and able to outlive the removal.
+A report that already holds a reference to the fault_param can still
+reach report_partial_fault() after iopf_queue_remove_device() drained
+the partial list.  The node it queues there leaks: the parameter is no
+longer on queue->devices and its final put does not free partial
+faults.
 
-Unlink each entry before freeing it, matching
-iopf_queue_discard_partial().
+Reject late partial insertions under fault_param->lock: add
+fault_param->removing, set it in iopf_queue_remove_device() before
+the drain, and test it in report_partial_fault() under the same lock
+that the insertion takes, so "check" and "link" cannot be separated.  A
+partial is then either drained or rejected and freed by
+report_partial_fault() itself, which returns -ENODEV; as for any
+non-last request, no response is sent.  removing is never cleared,
+since IOPF re-enable allocates a new fault_param.
 
-This fixes the dangling-list access only: a partial that arrives after
-the drain now leaks, because the parameter is no longer on
-queue->devices and its final put does not free partial faults.  The
-next patch gives such a partial a defined fate.
+This only protects partial-list admission; callers must still quiesce
+reports for the remaining lifetimes.  It is not a general teardown
+fix; the cover letter lists the paths it does not cover.
 
 Fixes: a74c077b9021 ("iommu: Use refcount for fault data access")
 Cc: stable@vger.kernel.org
 Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
 ---
-iopf_queue_discard_partial() cannot be called directly from here: it
-takes queue->lock, which iopf_queue_remove_device() already holds.
+This applies on top of "iommu/io-pgfault: unlink partial faults before
+freeing them".
 
- drivers/iommu/io-pgfault.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/iommu/io-pgfault.c | 12 ++++++++++--
+ include/linux/iommu.h      |  3 +++
+ 2 files changed, 13 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iommu/io-pgfault.c b/drivers/iommu/io-pgfault.c
-index c16ff1f..55a3c29 100644
+index 55a3c29..51d0d1a 100644
 --- a/drivers/iommu/io-pgfault.c
 +++ b/drivers/iommu/io-pgfault.c
-@@ -479,8 +479,10 @@ void iopf_queue_remove_device(struct iopf_queue *queue, struct device *dev)
+@@ -64,6 +64,7 @@ static int report_partial_fault(struct iommu_fault_param *fault_param,
+ 				struct iommu_fault *fault)
+ {
+ 	struct iopf_fault *iopf;
++	int ret = 0;
+ 
+ 	iopf = kzalloc_obj(*iopf);
+ 	if (!iopf)
+@@ -72,10 +73,16 @@ static int report_partial_fault(struct iommu_fault_param *fault_param,
+ 	iopf->fault = *fault;
+ 
+ 	mutex_lock(&fault_param->lock);
+-	list_add(&iopf->list, &fault_param->partial);
++	if (fault_param->removing)
++		ret = -ENODEV;
++	else
++		list_add(&iopf->list, &fault_param->partial);
+ 	mutex_unlock(&fault_param->lock);
+ 
+-	return 0;
++	if (ret)
++		kfree(iopf);
++
++	return ret;
+ }
+ 
+ static struct iopf_group *iopf_group_alloc(struct iommu_fault_param *iopf_param,
+@@ -479,6 +486,7 @@ void iopf_queue_remove_device(struct iopf_queue *queue, struct device *dev)
  		goto unlock;
  
  	mutex_lock(&fault_param->lock);
--	list_for_each_entry_safe(partial_iopf, next, &fault_param->partial, list)
-+	list_for_each_entry_safe(partial_iopf, next, &fault_param->partial, list) {
-+		list_del(&partial_iopf->list);
++	fault_param->removing = true;
+ 	list_for_each_entry_safe(partial_iopf, next, &fault_param->partial, list) {
+ 		list_del(&partial_iopf->list);
  		kfree(partial_iopf);
-+	}
+diff --git a/include/linux/iommu.h b/include/linux/iommu.h
+index ef50437..5d56e66 100644
+--- a/include/linux/iommu.h
++++ b/include/linux/iommu.h
+@@ -846,6 +846,8 @@ struct iommu_device {
+  * @partial: faults that are part of a Page Request Group for which the last
+  *           request hasn't been submitted yet.
+  * @faults: holds the pending faults which need response
++ * @removing: the device is being removed from the queue, no new partial
++ *            faults may be queued
+  */
+ struct iommu_fault_param {
+ 	struct mutex lock;
+@@ -858,6 +860,7 @@ struct iommu_fault_param {
  
- 	list_for_each_entry_safe(group, temp, &fault_param->faults, pending_node) {
- 		struct iopf_fault *iopf = &group->last_fault;
+ 	struct list_head partial;
+ 	struct list_head faults;
++	bool removing;
+ };
+ 
+ /**
