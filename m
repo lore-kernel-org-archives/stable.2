@@ -1,59 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914547;
-	b=Zqo7kE2Sw/RVqm6TtlEMCpL6prsrUrfb47/NfdHjGX83sK7KRGbnKIUTaekCxoS0Misb
-	 DZd47T1VWR67xzzASaP1v5HJyqC9dppHpu3ISJ7v/Gbxxt/rRMKG+oF5mmY5Bei+dxnD5
-	 UMrMKjsmCjmcxbaIXQQVYkDxbSzBZqjKP5UcGcAfFgb8RuN/7eAIG/YresGXbbkKJh9dW
-	 gQucHPwpS8s2yDcdLAZFvzr0Am6Q/MSZ9nfEuIuPDZhvOXGoP6DsMseHsTS94LxpQOfOs
-	 NytWk9nVDh1WbSpty+eHptOfpWdjurakY3qQJvF65m53Ywp4vbt4WI90CDqD6skuuSg==
+	t=1794914546;
+	b=HQalZ1kEXls9hCD9Ym4GLpBRqvIuBQFOY7WtNHd5C4rpvQElsaio5A2UW23LuxjfA2rw
+	 +3J1ONkRixGZ5HykMB/hY+xpmW4Q3WXpPb6e9J8dXiy7Mz8HNLQLeiE1YDDI8OD/FWaQc
+	 infxwkmLl/vCffn5Ahu4eEb80GRaUayvS4uhTHcgV8+Ts6l7x8LRCmy6d0+hsarg3wYFe
+	 DbtbYAM4GV3Zcr5axUYRJyyo3grfODz28AXQRm2CsE7aY1ZTRMcEf6wKX3HJqBKcwSycl
+	 HYdowSuUiqKLxOJyfVO54r6kD9N8GisYQ47mmXgERye4nhdR+UafZ6CaDYncYlJrhEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914547;
-	h=DMARC-Filter:DKIM-Signature:X-Lms-Return-Path:Date:Message-Id:
-	 User-Agent:X-Original-From:Content-Type:Cc:From:Mime-Version:
-	 References:To:Subject:In-Reply-To:Content-Transfer-Encoding;
-	bh=qgcXr3Kfe2i/grQTzX0p6YOpmAeo7+UNA6FacQY2sPU=;
-	b=f6cy1V5Dw2ZR/YQJnhSXmi697Rb+vHSVnetOMsjWj5jWpf9O1v93+PSnKfzaUpM1XyeU
-	 JuPCujb0eDZ2jEOkU5EeJAVs7Qzr6Yik9TQmAAyiJJrxbwv5dhSF+B799yXUr5g2fmHQK
-	 m/WnBeHcX1W+XZFOHXkC/yeHH885WvS7mQlpw6fo2qaBxjA5SxS7UNy5i7Po3Wfi1G3TD
-	 N7Vb7PfAbTLfG2WO3u3EbXSOwbqGOlINcBHlBPMij9G630pl4DioZJEoeyUhIaZeA3qow
-	 TAcugF52U3PPmqpwDL5XBlK8ldS3597IhIHUXPB6qvAi8v9Vh9kGM13h3Dd+4yj5BUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914546;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Vaxj0UCX/u2B7vVUjGyn07SoS8L42PJgRkivrLerX2E=;
+	b=seDbReonGnfsjsVu0HXLl7OurEebKY6XnPBPBGf2wnqhBxyk5pbR1bhpChrunWAU6KqK
+	 +EeUcBjWsbhlBd7UWAbiA7ejxtbR1elXNVc/CdHxCg3loWHdZrvIqImFW5SrW2fxQer4G
+	 N787nP0tGf8VlntzzYRLHOnhyV0CIBh9iA2jvfoDQAb4sTefO1EX/AgxH9T3X4M0P+1e2
+	 eL2ED5ZXpqMafjRKFVjP0DaMvu6nKV5MWw5iKoq445Xhmaiij5WzYyXG2bLTM0pi4zm9H
+	 7iSD4vuzuGHLEPifZyqLHSK35TVece/nCu4tN9tGbLSjz/YDHNMQOgFJC/ERgFUqayA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=AdL89ub8;
-	arc=none smtp.remote-ip=209.127.230.112
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9wRjb2c;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E4D0606A323
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 11:22:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E4D0606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15EF606A332;
+	Tue, 17 Nov 2026 11:22:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=AdL89ub8
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1794914541; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=qgcXr3Kfe2i/grQTzX0p6YOpmAeo7+UNA6FacQY2sPU=;
- b=AdL89ub8AgKPW4E9xn6q9Op0Zl67JYr7g9NMx1mEM9/TMFCvEwVoibj7TTAAx9ePBQSn09
- hS2Yax2fGIMGz/ALuKv52X6mHHGK8j32XlCg6ZD39v1mQszmYz2aubDo1IYAhPGO0237nM
- HgOoBx+oBeO2//iwJodiJj3Hardm9i1vCwjraomK+wd1vRwEB1al3GDSOdPxwXNsAsUetA
- IJs6WnMfy5f9VuruTZeQf/AWovVkq1RGvHQsL7P7QcrLuYa8I5cEk2iGU4t56jgAOexe9p
- s3FNLpGd1lHVtOvodiaf+G1Wyo1CJMq9JifrgVSJVu3tmyLqKSBZIIQtFzP1fQ==
-X-Lms-Return-Path: <lba+26afc38eb+1aac54+vger.kernel.org+qirui.001@bytedance.com>
-Date: Tue, 17 Nov 2026 19:22:03 +0800
-Message-Id: <c6cc9216-147d-41dc-8139-690fac6f6015@bytedance.com>
-User-Agent: Mozilla Thunderbird
-X-Original-From: Rui Qi <qirui.001@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Cc: <will@kernel.org>, <mark.rutland@arm.com>, <ardb@kernel.org>, 
-	<song@kernel.org>, <dylanbhatch@google.com>, 
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>
-From: "Rui Qi" <qirui.001@bytedance.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d9wRjb2c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C201F000CB;
+	Tue, 17 Nov 2026 11:22:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794914546;
+	bh=Vaxj0UCX/u2B7vVUjGyn07SoS8L42PJgRkivrLerX2E=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=d9wRjb2cUN5O2n31CYOp+Q7QuDNIj2jY99zp8Cufo+HkSzSmsVZXnq84Xz660Fntp
+	 AuK3AU296/0Sg3etAh9l+8TVvriZBj/G2Il0onttrF7xG3ebquM2U0TiHM9YR5jTjq
+	 Gbhvzst8XC+4jrDaVUak98C7XXWV1Lf1viDquUcTYn0cvLKafc0SbfzQTfwXwOOBIk
+	 pgi/JbClXiTE5nhCRuMmazFDHdtOiePllomdx7ug051iB4ICd8f6tm2kWs4lRtEsmj
+	 n9bnmJp8WGveEhmScqtHFjkGVGh9Qnz2hvO5JR1suVYrJKvjtGLBOrXhXFLgQXPATq
+	 m022Bchpe+K+g==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,124 +48,93 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261111073906.652400-1-qirui.001@bytedance.com> <avdVsAOC_fpoDNDr@arm.com>
-To: "Catalin Marinas" <catalin.marinas@arm.com>
-Subject: Re: [PATCH v2] arm64: module: Use text-poke for late PLT/veneer emission
-In-Reply-To: <avdVsAOC_fpoDNDr@arm.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v5 1/2] media: venus: hfi: disable IRQ before freeing
+ HFI device
+From: bod@kernel.org
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org, 
+ Ijae Kim <ae878000@gmail.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <20261023223635.3c895c4752c4-2-mhun512@gmail.com>
+References: <20261023223635.3c895c4752c4-1-mhun512@gmail.com>
+ <20261023223635.3c895c4752c4-2-mhun512@gmail.com>
+Date: Tue, 17 Nov 2026 11:22:21 +0000
+Message-Id: <179491454156.2846709.7627811261842181926.b4-reply@b4>
+X-Mailer: b4 0.17-dev-e3fc9
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1890; i=bod@kernel.org;
+ h=from:subject:message-id; bh=QHLVTW5WgvoZKjE8jvdQa8cL7Ssb/MMwEdpwX3np+ZQ=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/DjtFE9cjyvBSIPcRvdaYN2o6n6DWC6d1WxDq
+ yBFh8ilnUiJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCavw47QAKCRAicTuzoY3I
+ Oi5/EACvWim5m8wuRUPv0aEXtPx3UbsuFYfnQLqYEvlbYdDbdz6mwRw1oSarF6xbExNAgfJ+J3t
+ GBvBqeoBT3MWKAhJtkP5O+NaA+wubvLdUPR1S82c52XVVk1+aQMhHmdjgnWvd/epF8NsNKGaxbh
+ X1m7l3nmpMJt0xR/gl8cMSsy6aN3rwhHgsmFZgGh0GvlHIG/iJOvJcQSbWa93DIL9McwkCaACB2
+ QhgMtbAichYhypJ/emahQ5Rhq6AWgIlz9/vnWSiE8PmaVMOOigoY8RoRPU89+Pr82J9v0w+qZ//
+ crr7bCcFuNy23URU7RYG+kCnCkVR9u9lYCzQ9q+AgW9BiYb4BbrGB7lYT0Dy8yI/v1GPtjZurqR
+ +3OT4hFwP/uv+Rrp+Ne5zQo163vi9Gk/S6IJLaf7x/piZgrGhCS+aUe6Kjo3sHWrbU+E3eEq/sf
+ Yvh89/mIzsNkLgCytbHGYnOrW5Vy9gHdzR5vntfOkvs9mGcP1O4u8JxKTOWKsXcfmoPMAapjw+T
+ enHR8moAg50IGFqCHM5wgnn3xweGSDYNovfbz50IuYnAZkDF8x6gOGsV8RZzWmdlsgkZAyY+2C7
+ Wd4HviL7QMxsMSOEItlS/2y8jo4GiZgMd4wugE1AYN679BDICCdQWFgvaB1lmenGiGv3sv6VOk+
+ TZHs7fYKsSo0q9g==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On 11/14/26 2:23 AM, Catalin Marinas wrote:
-> Thanks Rui for respinning.
+On 2026-10-23 22:40 -0400, Myeonghun Pak wrote:
+> venus_hfi_destroy() frees hdev and its interface queues before disabling
+> the IRQ. A handler that already loaded core->priv can therefore access
+> freed state even after core->priv is cleared.
 > 
-> On Wed, Nov 11, 2026 at 03:39:06PM +0800, Rui Qi wrote:
->> diff --git a/arch/arm64/include/asm/module.h b/arch/arm64/include/asm/module.h
->> index fb9b88eebeb1..4a1a47f8ba1a 100644
->> --- a/arch/arm64/include/asm/module.h
->> +++ b/arch/arm64/include/asm/module.h
->> @@ -6,6 +6,7 @@
->>  #define __ASM_MODULE_H
->>  
->>  #include <asm-generic/module.h>
->> +#include <asm/text-patching.h>
->>  
->>  struct mod_plt_sec {
->>  	int			plt_shndx;
->> @@ -29,6 +30,21 @@ u64 module_emit_plt_entry(struct module *mod, Elf64_Shdr *sechdrs,
->>  u64 module_emit_veneer_for_adrp(struct module *mod, Elf64_Shdr *sechdrs,
->>  				void *loc, u64 val);
->>  
->> +/*
->> + * Write a relocation value to @place within a module.  While the module
->> + * is MODULE_STATE_UNFORMED the destination is writable and a direct store
->> + * is used; once the module is fully formed the region is read-only and
->> + * executable, so the write is routed through the text-poke API.
->> + */
->> +#define module_write_place(place, val, mod) do {			\
->> +	__typeof__(*place) __val = (val);				\
->> +									\
->> +	if (mod->state == MODULE_STATE_UNFORMED)			\
->> +		*(place) = __val;					\
->> +	else								\
->> +		aarch64_insn_copy(place, &(__val), sizeof(*place));	\
->> +} while (0)
+> Move disable_irq() before clearing core->priv and releasing HFI state so
+> both the hard and threaded handlers have completed before teardown.
 > 
-> A nit here, I'd move this macro to asm/text-patching.h since
-> asm/module.h is pulled in by linux/module.h. Even better if you could
-> make this a function (either static inline or out of line).
+> Fixes: d96d3f30c0f2 ("[media] media: venus: hfi: add Venus HFI files")
+
+Fixes: 640803003cd9 ("media: venus: hfi: explicitly release IRQ during teardown")
+
+No need to resend, I'll fix this tag too.
+
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/all/20260612103333.5585D1F000E9@smtp.kernel.org/
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>  drivers/media/platform/qcom/venus/hfi_venus.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-
-I'll replace the macro with an out-of-line function:
-
-    void module_write_place(void *place, const void *val,
-                            size_t size, struct module *mod);
-
-I'll declare it in asm/text-patching.h with a forward declaration of
-struct module, and define it in arch/arm64/kernel/module.c.
-
-Keeping the implementation out of line avoids adding a dependency on
-linux/module.h to text-patching.h. The header only needs the module
-pointer type, while access to mod->state and MODULE_STATE_UNFORMED
-stays in the .c file.
-
-
->> --- a/arch/arm64/kernel/module-plts.c
->> +++ b/arch/arm64/kernel/module-plts.c
->> @@ -76,11 +76,13 @@ u64 module_emit_plt_entry(struct module *mod, Elf64_Shdr *sechdrs,
->>  	int i = pltsec->plt_num_entries;
->>  	int j = i - 1;
->>  	u64 val = sym->st_value + rela->r_addend;
->> +	struct plt_entry entry;
->>  
->>  	if (is_forbidden_offset_for_adrp(&plt[i].adrp))
->>  		i++;
->>  
->> -	plt[i] = get_plt_entry(val, &plt[i]);
->> +	entry = get_plt_entry(val, &plt[i]);
->> +	module_write_place(&plt[i], entry, mod);
+> diff --git a/drivers/media/platform/qcom/venus/hfi_venus.c b/drivers/media/platform/qcom/venus/hfi_venus.c
+> index bd82066bb6e77f68ac3fe1440a8b5429ad62a192..e7e4e78a186adaa7fd80deeb094ed53d54f27ba6 100644
+> --- a/drivers/media/platform/qcom/venus/hfi_venus.c
+> +++ b/drivers/media/platform/qcom/venus/hfi_venus.c
+> @@ -1689,11 +1689,11 @@ void venus_hfi_destroy(struct venus_core *core)
+>  {
+>  	struct venus_hfi_device *hdev = to_hfi_priv(core);
+>  
+> +	disable_irq(core->irq);
+>  	core->priv = NULL;
+>  	venus_interface_queues_release(hdev);
+>  	mutex_destroy(&hdev->lock);
+>  	kfree(hdev);
+> -	disable_irq(core->irq);
+>  	core->ops = NULL;
+>  }
+>  
+> -- 
+> 2.53.0
 > 
-> Sashiko reported PLT exhaustion/overrun and ADRP corruption when
-> relocations are reapplied after unloading and reloading a target module:
-> 
-> https://sashiko.dev/#/patchset/20261111073906.652400-1-qirui.001@bytedance.com
-> 
-> These look like existing problems, only exposed now because we no longer
-> get the ROX fault. I think they can be addressed in separate follow-up
-> patches. This patch still fixes the fault on the first application.
-> 
-
-Agreed, pre-existing.  I checked: plt_num_entries is only reset to 0 in
-module_frob_arch_sections(), i.e. once at load.  livepatch reapplication
-(klp_apply_object_relocs() -> apply_relocate_add(), e.g. on target-module
-unload/reload) doesn't reset it, so module_emit_plt_entry() keeps emitting
-past the original entries and overruns .plt; before this patch that path
-died on the ROX fault first.  I'll send a separate follow-up.  The .plt
-section is shared across target objects, so the fix is more than a count
-reset.
-
-
-> However, could we include a bounds check before writing the PLT entry,
-> maybe with a WARN_ON_ONCE? Once late writes use text-poke, retrying
-> after slot exhaustion can overwrite memory beyond .plt.
-> 
-> Thanks.
 > 
 
-Yes.  The hole is in module_emit_plt_entry(): the write runs before the
-existing WARN_ON, so on exhaustion text-poke corrupts past .plt before
-the check fires.  module_emit_veneer_for_adrp() already checks before
-its write (and returns 0 on exhaustion), so it isn't affected.
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+bod
 
-I'll add, after the is_forbidden_offset_for_adrp() bump and before the
-write:
-
-    if (WARN_ON_ONCE(i >= pltsec->plt_max_entries))
-        return 0;
-
-This is the same condition as the post-write check -- num_entries becomes
-i + 1, so (num_entries > plt_max_entries) <=> (i >= plt_max_entries) --
-just evaluated before the write.  The caller maps a 0 return to -ENOEXEC,
-so exhaustion becomes a clean load failure instead of corruption.  The
-post-write WARN_ON is then redundant and I'll drop it.
-
-v3 to follow.
