@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794909067;
-	b=MaWZYSOwROikQzxPh+Es+X49+m+nD1xUEDcG7uObDRKqjsiUaIh/l6yWdtXi5X4TyObe
-	 +NeS3XXrWplmfN2V6dBnFmsMFi9zsg8DV5JvU9l33/HG5clL+Z1vrO8EdTUGoFnavNgm7
-	 k0Az1Fg2e1xaOzWK7Iy4nOk2LV62jmC8d/mAI25QlDrl00EntTIVRD2R2xwpVbNoKSwmD
-	 KYwsy7dsomYnTUqc5S8XDoL3dJwMDfGxFvvrVqOxHD1H6Zg5tSnS0BkQvva3Fb1E15xN9
-	 U5yLorBmAuAf+ymOhfdTGu3vCXV0bsYvrDcbnMz8aItFVbfUgjpZ2fJLUbpVLo9Z8sA==
+	t=1794909318;
+	b=c/lT4Zgj4VVtIlrc8K7teLVbVvfqe3u1oHSLfHyknzaYtG8qi/GC0811RTKROClr9Uaa
+	 jKJqo17usF/r44JYQe9TNVE/uVA3hBhHKA/hdNBJsM7egRZ5t/aBPv8ZKQvtvLVrIPD3i
+	 3o6Z3oGtlbnrA8rCr5RhxJFcap0HOAoMLMwtUr0CLK3EaOFn4zjV/M+S37Lv9Vf7tizxP
+	 6hxdGQOo09VpibSQpuPchPiLohVpZh0LG4njqZQnxfSSABDzsLqlqNNOBVqmFUtQvqrdk
+	 aw1GYygCkuQ7aerlgY/HQ+RNqdFeS0X5B740YMXecegVYDYwn7mcQcl1uBMkzNnOH8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794909067;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794909318;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=4bnvV/rZOOVemDT1lJ51Ywsx5XqM+V1JviPyoiLh9SU=;
-	b=yg50+OvXexaJZLGPcWc9FqpZkXPEfY7Qadifx8DyV0qWH4zY5V6HaX74nbBv83wWa22I
-	 x9Ef+9Zuqjev8BtJYRsdcIX9mg+6IH/e9D2lsaJFWjVmcPwfJqtrDMlfIszlssCFMMICE
-	 VV0cYvCTrd4GRSoe3vjSq+a5Hl3+axYH85biOiaE5BvDTvs+3VqVjNcg7ulNYsnM/5qyV
-	 +rAhuHZ4l4fZSRGbN9u/Vgtp8eyEPn7lizzysyGqMApwHOVJ4UDo7w6Ghpd2mU3BcYmP9
-	 bQjmdd2aAo/cVXnVFtL9ogeBljd8cLR5wfvtZA8pyJnPr+pPit6EaTlHg6OPpOv9Fjw==
+	bh=DMyC1okRsySQAgoBesJDfyI8sBJ6WUZdUoOx84UiPvI=;
+	b=zt64L42RdF0KTLYCCH7g5RxGSgovAjoLpuiSb8aNhek786huf50gUKk6kNtgvW8WaWT9
+	 HWWd72ZwIX9I2S5KKmRYWCnH434TxCOWwlnZZY11m6jFiEscR18GZv9IaLPT1r+leWiez
+	 3tjblyaV9dpIP+9QOeHjwRh46uBu8rZKfSlrG46VGXCaqkHi+s2zStOsgkESEsToSg50q
+	 D755+xwQDwCPhGEuP8bie5FiPZ8stdVjVIRl/woeg2BE5w7ydN2N4tWzsGicxNNv3vQQz
+	 k/8IAF1y5P6CYt2N8qpgPiUhuDx/LPOZ+HpZk6jtVCWJtTZiO9UpLAZArG1ctKRW7KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZDR6uB5I;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSS+QgSD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8696606A32C;
-	Tue, 17 Nov 2026 09:51:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A966B606A329;
+	Tue, 17 Nov 2026 09:55:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZDR6uB5I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E7E31F000C6;
-	Tue, 17 Nov 2026 09:51:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kSS+QgSD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 363781F000C4;
+	Tue, 17 Nov 2026 09:55:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794909067;
-	bh=4bnvV/rZOOVemDT1lJ51Ywsx5XqM+V1JviPyoiLh9SU=;
+	s=k20260515; t=1794909318;
+	bh=DMyC1okRsySQAgoBesJDfyI8sBJ6WUZdUoOx84UiPvI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ZDR6uB5IRhncOd0eEWhNfPwu/dfUeJOq/EMTmFTLrYpSAG/2nRkZ7wN7bIGFIb+uv
-	 h2al1hZqRTZ1ZknB2rhHxDuIwYYy7ZVHBk4uoX6TCV7D9h79tiL60E9XAe0O0GWOy2
-	 FRnHqh+M8L+k5y/ubGQWcOreFh/sYWjoZw/wyWYqih/NmubKDRkAUux9bOa7m+4Ugi
-	 f5ZE+D3sxPc4/1qia22+B98S25i5U6GPRtAUwWv2hby+9KyWOKCOXyiFI/d5r/5H4i
-	 3JHP2cHQeKu0ZjG7yosoxew6tDXK6+PuHyIYcMfVQn+ZXOv9ghCCm2J3/eA1SsevmC
-	 ppDoCzwOue1DQ==
-Message-ID: <e971c3f2-e8cf-4eb0-ae25-e7e4d9ea02ee@kernel.org>
-Date: Tue, 17 Nov 2026 10:51:02 +0100
+	b=kSS+QgSDcTUl16LXaAccAGAtSJWS8GLOIOkgE2Y0+d6R9641Soo6Xl21m9f/jCW1k
+	 3LYpbiG0JVOPzz4VL3kFi12qz0OwAzqZSmiycveqnqcJaMVafYVzaTeaC/B6nIIenm
+	 yE9lS9dgTHpwbWMBXNQHYFBh/c9LLc9DOU+dzjHqZb8pN9wFJkTQg6/AMNFzfqZ8k1
+	 k2M+f93TRRuhjI1IeVSqi0f6Sd3sGHcWUhCkK06wXQ2J5/vFLDlNihYvvcEedrKyJC
+	 3ZK1uBspRA1nP76uzjEdkH0gZbch/6zJkQC6PaqtirJqnWjiMQ9pyZtJ4l9DKLJuvl
+	 ygHXpMG83BV3Q==
+Message-ID: <91aadb5b-53a7-41eb-a0fa-4fce804a35e6@kernel.org>
+Date: Tue, 17 Nov 2026 10:55:05 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,14 +52,36 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/ksm: do not inherit ksm_zero_pages counter or PTE
- markers on fork
-To: xu.xin@linux.dev
-Cc: Donet Tom <donettom@linux.ibm.com>,
- Chengming Zhou <chengming.zhou@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261117081821.7211-1-xu.xin@linux.dev>
+Subject: Re: [PATCH v2 1/9] userfaultfd: use anonymous memory for
+ UFFDIO_ZEROPAGE on private file mappings
+To: Tal Zussman <tz2294@columbia.edu>,
+ Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
+ Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
+ Andrea Arcangeli <aarcange@redhat.com>,
+ Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
+ =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+ Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
+ Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+ =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+References: <20261116-uffd-state-fixes-v2-0-4397a0196479@columbia.edu>
+ <20261116-uffd-state-fixes-v2-1-4397a0196479@columbia.edu>
+ <cc865bc8-b96f-4385-97b1-976de4465ca1@kernel.org>
+ <eba4fb71-6baa-455f-8899-87567af898aa@columbia.edu>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -106,104 +128,100 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20261117081821.7211-1-xu.xin@linux.dev>
+In-Reply-To: <eba4fb71-6baa-455f-8899-87567af898aa@columbia.edu>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 11/17/26 09:18, xu.xin@linux.dev wrote:
-> From: "Xu Xin (vivo)" <xu.xin@linux.dev>
-
-Hi,
-
-thanks for the report.
-
+On 11/16/26 23:27, Tal Zussman wrote:
+> On 11/16/26 3:16 PM, David Hildenbrand (Arm) wrote:
+>> On 11/16/26 21:02, Tal Zussman wrote:
+>>> If the mm cannot map the shared zero page, UFFDIO_ZEROPAGE falls back to
+>>> mfill_atomic_pte_zeroed_folio(), which allocates a zeroed folio and
+>>> installs it through vma_uffd_ops(), no matter what kind of mapping it
+>>> is. An s390 KVM guest with storage keys or protected virtualization is
+>>> such an mm.
+>>>
+>>> For a MAP_PRIVATE shmem mapping, that adds the zeroed folio to the page
+>>> cache of the file. That is wrong: a private mapping must never modify
+>>> the file it maps, and the file might even be mapped from a read-only fd.
+>>>
+>>> The ioctl can also fail where it should succeed. A missing fault is only
+>>> delivered for a hole in the file, but UFFDIO_ZEROPAGE can be called on
+>>> an address that did not fault, or can race with a write to the file. If
+>>> the file has a page at that offset by then, inserting the zeroed folio
+>>> fails and the ioctl returns -EEXIST although nothing is mapped at the
+>>> destination address.
+>>>
+>>> What we want is what UFFDIO_ZEROPAGE does on a private mapping when the
+>>> shared zero page can be used, and what UFFDIO_COPY does: only check that
+>>> nothing is mapped at the destination address, map zeroed memory there,
+>>> and leave the page cache alone. The zeroed folio path did that before it
+>>> was moved to vm_uffd_ops.
+>>>
+>>> To fix it, pick the ops in the common folio path, as
+>>> mfill_atomic_pte_copy() did for UFFDIO_COPY: anon_uffd_ops for a private
+>>> mapping, the ops of the VMA otherwise. That makes
+>>> mfill_atomic_pte_copy() and mfill_atomic_pte_zeroed_folio() redundant,
+>>> so remove them and rename __mfill_atomic_pte() to
+>>> mfill_atomic_pte_folio().
+>>>
+>>> UFFDIO_ZEROPAGE no longer modifies the file, and only fails with -EEXIST
+>>> if something is already mapped at the destination address.
+>>>
+>>> Fixes: f74991b4e383 ("shmem, userfaultfd: implement shmem uffd operations using vm_uffd_ops")
+>>> Cc: stable@vger.kernel.org
+>>> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>>> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+>>> ---
+>>>  mm/userfaultfd.c | 46 ++++++++++++++++------------------------------
+>>>  1 file changed, 16 insertions(+), 30 deletions(-)
+>>>
+>>> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+>>> index d65184d9a480..61a712e1f9f5 100644
+>>> --- a/mm/userfaultfd.c
+>>> +++ b/mm/userfaultfd.c
+>>> @@ -531,15 +531,27 @@ static int mfill_copy_folio_retry(struct mfill_state *mfill_state,
+>>>  	return 0;
+>>>  }
+>>>  
+>>> -static int __mfill_atomic_pte(struct mfill_state *state,
+>>> -			      const struct vm_uffd_ops *ops)
+>>> +static int mfill_atomic_pte_folio(struct mfill_state *state)
+>>>  {
+>>> +	const struct vm_uffd_ops *ops = vma_uffd_ops(state->vma);
+>>>  	unsigned long dst_addr = state->dst_addr;
+>>>  	unsigned long src_addr = state->src_addr;
+>>>  	uffd_flags_t flags = state->flags;
+>>>  	struct folio *folio;
+>>>  	int ret;
+>>>  
+>>> +	/*
+>>> +	 * The normal page fault path for a MAP_PRIVATE mapping in a
+>>> +	 * file-backed VMA will invoke the fault, fill the hole in the file and
+>>> +	 * COW it right away. The result generates plain anonymous memory.
+>>> +	 * So when we are asked to fill a hole in a MAP_PRIVATE mapping, we'll
+>>> +	 * generate anonymous memory directly without actually filling the
+>>> +	 * hole. For the MAP_PRIVATE case the robustness check only happens in
+>>> +	 * the pagetable (to verify it's still none) and not in the page cache.
+>>> +	 */
+>>> +	if (!(state->vma->vm_flags & VM_SHARED))
+>>> +		ops = &anon_uffd_ops;
+>>
+>> Oh, but one comment: why not check for actual cow mappings?
+>>
+>> 	vma_is_cow_mapping()
+>>
+>> is your friend :)
+>>
 > 
-> As documented in Documentation/admin-guide/mm/ksm.rst, ksm_zero_pages
-> accounts only for zero pages actually placed by KSM.  However, the
-> current implementation wrongly accounts for forked zero-page PTEs as
-> KSM's contribution, inflating both the child's per-mm counter and the
-> global ksm_zero_pages counter.
-
-But ... they were placed by KSM?
-
-Just like any other KSM folios deduplicated before fork and then shared with the
-child?
-
-So won't there be an inconsistency when MADV_UNMERGEABLE?
-
+> Probably because I didn't know about it :)
 > 
-> Originally, commit e2942062e01d ("ksm: count all zero pages placed by
-> KSM") marked KSM-placed zero-page PTEs with the dirty bit for unmap
-> accounting, but forgot to clear this marker during fork().  Later, to
-> prevent ksm_might_unmap_zero_page() from underflowing the counters on
-> child exit[1], commit 4d6fc29f3634 ("mm/ksm: fix incorrect KSM counter
-> handling in mm_struct during fork") kept the child's inherited per-mm
-> counter and added it to the global counter.
-> 
-> Instead of inflating the counters, fix the root cause by resetting the
-> child's mm->ksm_zero_pages to 0 in ksm_fork() and clearing the dirty
-> bit marker via pte_mkclean() when copying a KSM zero PTE in
-> __copy_present_ptes().  With the marker cleared,
-> ksm_might_unmap_zero_page() will not decrement the counters on child
-> exit, MADV_UNMERGEABLE in the child will not unnecessarily unshare
-> inherited zero pages, and the global counter remains untouched.
-> 
-> [1] https://lore.kernel.org/all/53a7bf3d-843d-4e19-b0a3-cc6852fe72c1@redhat.com/
-> 
-> Fixes: 4d6fc29f3634 ("mm/ksm: fix incorrect KSM counter handling in mm_struct during fork")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xu Xin (vivo) <xu.xin@linux.dev>
-> ---
->  include/linux/ksm.h | 8 +++++---
->  mm/memory.c         | 8 ++++++++
->  2 files changed, 13 insertions(+), 3 deletions(-)
-> 
-> diff --git a/include/linux/ksm.h b/include/linux/ksm.h
-> index 93793ca6bcc4..3c6db19d825e 100644
-> --- a/include/linux/ksm.h
-> +++ b/include/linux/ksm.h
-> @@ -56,11 +56,13 @@ static inline void ksm_fork(struct mm_struct *mm, struct mm_struct *oldmm)
->  {
->  	/* Adding mm to ksm is best effort on fork. */
->  	if (mm_flags_test(MMF_VM_MERGEABLE, oldmm)) {
-> -		long nr_ksm_zero_pages = atomic_long_read(&mm->ksm_zero_pages);
-> -
-> +		/*
-> +		 * Child's inherited zero-page PTEs are unmarked on copy and
-> +		 * were not placed by KSM in the child, so reset its counter.
-> +		 */
->  		mm->ksm_merging_pages = 0;
->  		mm->ksm_rmap_items = 0;
-> -		atomic_long_add(nr_ksm_zero_pages, &ksm_zero_pages);
+> This is already equivalent since uffd registration rejects VMAs without
+> VM_MAYWRITE, but I can switch it over for consistency.
 
-So I think there is definitely a BUG int he existing code when we skip copying
-some VMAs during fork. We should have instead adjusted the counter as we
-duplicate them into the child process.
+Yes please. We need to convert all of that code to not check fiddly VMA flags.
 
-> +		atomic_long_set(&mm->ksm_zero_pages, 0);
->  		__ksm_enter(mm);
->  	}
->  }
-> diff --git a/mm/memory.c b/mm/memory.c
-> index cf075fcec3c5..7dce96af2a51 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -1160,6 +1160,14 @@ static __always_inline void __copy_present_ptes(struct vm_area_struct *dst_vma,
->  		pte = pte_mkclean(pte);
->  	pte = pte_mkold(pte);
->  
-> +	/*
-> +	 * Clear the dirty-bit marker on KSM-placed zero-page PTEs in the
-> +	 * child so inherited mappings are not accounted against the child or
-> +	 * unshared by MADV_UNMERGEABLE.  Special PTEs always have nr == 1.
-> +	 */
-> +	if (is_ksm_zero_pte(pte))
-> +		pte = pte_mkclean(pte);
-> +
->  	set_ptes(dst_vma->vm_mm, addr, dst_pte, pte, nr);
->  }
->  
-
+Cow mapping in uffd -> anon folios only.
 
 -- 
 Cheers,
