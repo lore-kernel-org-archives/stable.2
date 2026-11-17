@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933543;
-	b=TWp3NzUozlXM2WwCI0W4uYwUKOyxCnZUFSh1DCvc7AXI2KxzE5nC2fQrIfeVgtUlnbB7
-	 iZkcX3l0uoI5ULIfT7DCN7UEpX9caIWUw0YznLK5wNUWmCgExJTGej3lbbuEMZ/cz8g1R
-	 5vo2kV8twzprXqpysSkJfuONPCl3toVp7anaP1HFIh4EYqF7s8dqIgo0UFcBmO2yOnN2W
-	 VQDGyCNJJxirOs2j9u0pkhWffN5PfB4T4IcN0yFLe9DpupWVyNy/GON3aHBcnRYK5dNSs
-	 t//kyO4UA9Oyw3fX4Zs75Cq7ccRCEH+y+aNItYiIvKnoSPU6y1w423mYpDQFNxs4V3A==
+	t=1794933550;
+	b=4Vgw7c0LEVMLbCuiB+lO9cY3HQlWPk+5bSB/qgaRzwJMtexRjTAl7/O5fwA4UHq3sdaH
+	 wAOJ+cjvbetR2o+jzYc30U12bOMOd0DsaT29nbQFbyvbZpXbvvulqE0Y5wigd+HZDfxBs
+	 Op/4kHfYrCYp7SpAmKlxGpV408nPZJWnO41wxFsL8aMXGqLjB7xwJ3RMqA5aQJQJG7dew
+	 ce/WkVgVjccENixvoV8Juyo3ZE2VI2/ZGYE4vfYvV3TDVfHhKcSO7osMexFXcOOMqmL64
+	 vyCHJa9FV64pY6RsiNiVGbx4M5p5nV1iCwPIpS30NzqVakZQRNrXJg/5fQGbIqlHHAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933543;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933550;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Pfmnvxj9CbfQ1DpBEMDbGnnfXt+Q39t2/T0T0Pu6Ftc=;
-	b=n6WIeqigNJo1At9W+QKjNyctwD+icPNGPHGjlaVKheAyZs6s60I8RPqM13mK2gc5jwZS
-	 UGm6MBzTgrYACAdIDSEUtjQ3vkXoYi4UIZTQimFaYQddDd7S2S9zdPXC7G9OVxUPqJyoY
-	 XKpmf8Nc6lYrz1GUvpkZj07IwnWQij6UunpQfTzjpdbOEEhGHcTydZQ2TuGcHQbxFpM9J
-	 Vhu1kTdhzgSqm272MiZwXfLlphiNokazuqOHB+ZS7IolQPQZWJtbUyX2X/57pQAecTQ5d
-	 gL0CyUj7hU9Xho7kEZUZkJKS1XRzmCNjuypeo9VKJfPhLh7OZhULy6eLjN4jOOUWcqA==
+	bh=Jid4wZhSaEhGIgM1uFhcH9xtWnWfBCXJVXpzzKBsbxg=;
+	b=xHpjjFcDcV4c1a41759XocYIVR5WGH1hMm5Ng4rR8tDitOI0Z/U8nej1BNC/F51bXse2
+	 NBVE4y2ySpbXkqxA/UlVO/fFp4Y8Am8jZS0a4NQ/OFZ5v54zcTwbTke4pO+IFjKlEQEDm
+	 mRyptgB36Jw0eRFratqQMFG5aJQZ6y3LT9FYCwt5maYbxY8JGsesQWkv7vTUvSseArAeR
+	 MipD5wtUJ8Vy5FGmSLjEnNpceeuvnCQdoevziU1PKpx+6BMRI7Iqu+up7lSSFIGrzY2b3
+	 mO3cUUT2YbHE5JKGyrWjeY65ibz8p4uE82zJK7UKEh5HLLOl47J1OrDRiSlZm99Yh9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cMuQJ9FK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IT8nOVgd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85E6606A330;
-	Tue, 17 Nov 2026 16:39:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C491606A32F;
+	Tue, 17 Nov 2026 16:39:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cMuQJ9FK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5151F000C4;
-	Tue, 17 Nov 2026 16:39:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IT8nOVgd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E1601F000D0;
+	Tue, 17 Nov 2026 16:39:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794933543;
-	bh=Pfmnvxj9CbfQ1DpBEMDbGnnfXt+Q39t2/T0T0Pu6Ftc=;
+	s=k20260515; t=1794933550;
+	bh=Jid4wZhSaEhGIgM1uFhcH9xtWnWfBCXJVXpzzKBsbxg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cMuQJ9FK1PHznyu4NZPRUAJ4VOHdcaqMcn2LHbIAcspA0Jn+nJyNCZ0gTsLKwf8jX
-	 4ll6OimP/Cx450xqbmlmw7SiXpEyRzzU2PZ/oUjKybiqRG/GzjIVOWX4r328I0lEOk
-	 tUoTDGkaFL3kjuJrpi/tyANJvtivxjA0ySxUP4g2SC9vG/M5CoPLn10OzYdXhByYKW
-	 taU8JTxpwGudZGRLlmTZP3fzgJHi1V3251d9OwSztxyJL38KXbbJtZCQnkr+QRjLID
-	 YFqoP5jhB7iASLudc4UgwxZMTdnjPwHCvXTlVMy7BrlUUidZbkvPDBgP1kD3PzUZbH
-	 PSWlDY739hPow==
+	b=IT8nOVgdXAtSdWbzG7cgl+pyboXrd0FKFO0LawBaxE4zHCnjZ4tHWpB8u0+6t+qCD
+	 ocAmZEKkX8DStWPNyh9zploDu0Z3g3QGc+TGfgWfPejscoGyhzLr35XGvSsqf6xKEd
+	 /LXKCjU4YGB8WPJOJSVkbYkzH8yKkILdZLYjtwSKzbOdEMcalTY9/qTfW6jcFceWPz
+	 0wxexa8St69tRB77j3Un6v+6yn8ErcuJFgbDLJukQF0CDYtsskszlE2jHXoKNzjQbR
+	 UPIx27+KJzy5HuxDOiBC+bdEiO2W5ua3O4rpU/kJO2/xPl8DXMgb4eDA2WFWW8fiNA
+	 NjzM+E8fo1znA==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Xianwei Zhao <xianwei.zhao@amlogic.com>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
 	Vinod Koul <vkoul@kernel.org>,
 	Frank Li <Frank.Li@kernel.org>,
-	linux-amlogic@lists.infradead.org,
+	Robin Murphy <robin.murphy@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
 	dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 06/11] dmaengine: amlogic: Destroy free_wq after devres DMA device unregistration
-Date: Tue, 17 Nov 2026 16:37:07 +0000
-Message-ID: <20261117163809.622249-7-lee@kernel.org>
+Subject: [PATCH v2 07/11] dmaengine: arm-dma350: Query dma_cookie_status() under vc.lock in d350_tx_status()
+Date: Tue, 17 Nov 2026 16:37:08 +0000
+Message-ID: <20261117163809.622249-8-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
 In-Reply-To: <20261117163809.622249-1-lee@kernel.org>
 References: <20261117163809.622249-1-lee@kernel.org>
@@ -65,50 +67,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-aml_dma_probe() registers the DMA device with
-dmaenginem_async_device_register(), so dma_async_device_unregister() is
-deferred until devres release after aml_dma_remove() returns.  However,
-aml_dma_remove() destroys aml_dma->free_wq directly, causing
-aml_dma_free_desc() to queue work onto a destroyed workqueue when
-channels and descriptors are released during devres teardown, and early
-error returns in aml_dma_probe() also leak aml_dma->free_wq.
+Calling dma_cookie_status() before acquiring dch->vc.lock in
+d350_tx_status() races with d350_irq() completing the active descriptor
+and starting the next queued transfer, causing d350_tx_status() to
+observe a stale DMA_IN_PROGRESS status and falsely return DMA_ERROR.
 
-Allocate aml_dma->free_wq with devm_alloc_ordered_workqueue() so it is
-destroyed on probe failure and after dmaenginem_async_device_register()
-unwinds on removal.
+Move the dma_cookie_status() call inside the dch->vc.lock critical
+section.
 
-Fixes: b84b5197e344 ("dmaengine: amlogic: Add general DMA driver for A9")
-Closes: https://sashiko.dev/#/bug/linux-c216084a-f89a-48d5-bdea-584522d1bdda
+Fixes: 5d099706449d ("dmaengine: Add Arm DMA-350 driver")
+Closes: https://sashiko.dev/#/bug/linux-524816d7-ed1c-4f2b-b4c3-65a7e8bb45a3
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 
 v1 => v2: No changes
 
- drivers/dma/amlogic-dma.c | 3 +--
+ drivers/dma/arm-dma350.c | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
-index 684121d13fca..791bd82743d3 100644
---- a/drivers/dma/amlogic-dma.c
-+++ b/drivers/dma/amlogic-dma.c
-@@ -620,7 +620,7 @@ static int aml_dma_probe(struct platform_device *pdev)
- 	if (!aml_dma)
- 		return -ENOMEM;
+diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
+index 52f5242ea332..8c1725588f1d 100644
+--- a/drivers/dma/arm-dma350.c
++++ b/drivers/dma/arm-dma350.c
+@@ -381,9 +381,8 @@ static enum dma_status d350_tx_status(struct dma_chan *chan, dma_cookie_t cookie
+ 	unsigned long flags;
+ 	u32 residue = 0;
  
--	aml_dma->free_wq = alloc_ordered_workqueue("aml_dma_free", 0);
-+	aml_dma->free_wq = devm_alloc_ordered_workqueue(&pdev->dev, "aml_dma_free", 0);
- 	if (!aml_dma->free_wq)
- 		return -ENOMEM;
- 
-@@ -712,7 +712,6 @@ static void aml_dma_remove(struct platform_device *pdev)
- 		if (aml_chan)
- 			tasklet_kill(&aml_chan->vchan.task);
- 	}
--	destroy_workqueue(aml_dma->free_wq);
- }
- 
- static const struct of_device_id aml_dma_ids[] = {
++	spin_lock_irqsave(&dch->vc.lock, flags);
+ 	status = dma_cookie_status(chan, cookie, state);
+-
+-	spin_lock_irqsave(&dch->vc.lock, flags);
+ 	if (cookie == dch->cookie) {
+ 		status = dch->status;
+ 		if (status == DMA_IN_PROGRESS || status == DMA_PAUSED)
 -- 
 2.56.0.679.gc527c65306-goog
 
