@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.184
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.190
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908066;
-	b=0klbQM5EGzEifjPtdrm7pegK0m9qJ3SZNiPzfKnNloiykzmwKwTAklWwuQR5lUcAwOy8
-	 4dS8O09rlaHAa2U/XuB0DLYir0hob76FOcHKVackHv3yJ2GaCYC5QAIOvvXxillmHexFQ
-	 PqRsSN7MUzuMLVYKTzZnLByh5G9QnY/JSFOh+uAHpsl7AwJHzY6LUNVJkdvPPZPSc/Jys
-	 mDvT6wnsbGAWrjRPpsQVtOWOg+E4owk3MO5oHLy342DIpTPe3Bfe7/QjJhPUOXv2Q5lO/
-	 zdcYrc9+NpJkiNo1XyqnPMOvwTrWAPJwhp77faUhFCauQvH2ICWOKBy7olKj1pNU48w==
+	t=1794908073;
+	b=5CFaWUehC0R1430j03DgpazUyzBKesqzCdFoXUxwMOHxMR60wyDpNAImb8R7MmjBeoET
+	 4sB53wSPcNOyeaCyy1gklJcAzc0AspkJGyHIrhWamJsF7F8IAAPAq1fnRirmYfpj4vlxE
+	 xlKAhhuZhPzIFy2dK6UF35M9wATA9EZAczndhzLA7rgO8iOCorrhKsquKkvzaFsVb+7fn
+	 yg3vGVlE8gBvwN5qY9md5bZGT3S+VHTKHm5k1q1pVv40JRyV6RvSKF+lar5UJxpJrpXHZ
+	 jmg1UUIyvJCaD/0lRv7i92E498vGHDfVY7zYRS5Cs1ZlkJtj9Gp7GHq7NXW2o5BqZeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908066;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908073;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=VVjEArGpfzLKglvqc3YXGN4z2hsAIb4Ii6LC+8XEfek=;
-	b=sRgtdHpxuHwgqW+NjOFFNRLopXlqO/NCHDY2y+k43ho+v/Uy/4JynmtI4WAiPcboIHWz
-	 ESAhNqsfxROpuNytjke8ChmEKpx58ZYXldmWW+Bn24NBZe/0uSME6zvInxTklqQsfXiwH
-	 7dGKlCUTw0TQzLjgU6gU6c4MytDeN4rEkZW57dzvhwQ2jhm0eBC0EeC31d8cYD2NnxoK/
-	 hMPjtNsuPr5LthPcTCPoKuskhhPv9g+VmOcZRnJgRKYuIXWe6PPgm2DWNSiOWiro6j4DM
-	 QUeEWt4wPAg80ejm3lB5kimmMR+ytZke/Z+piJd/UhyoY7kprR+k+bq/lfYprL6Hr8Q==
+	bh=Pabw/uWm1cjpx9kdTQH80s4Ttm/z+LkqjaBTBCm9M1Q=;
+	b=tgMy6kdP44b5FTLCbbbZFHwHNaw8OSpI75N7pRsjfV7WHVV64T3ziIAX2XA2DXW8bAhS
+	 SnJAEmiE2wIkQ5Edsu9B8w6T3o9/OXsksFdhLYxqlOeXpro3T5SWPFAlwVTTrzIc2CT+e
+	 QOZRQIRbaGYoMm+mJ4jPuaK/Ei6Vb+BdTl/lheMIK3wIRaCGZ8hz8YwfT2PnX+R96lLd/
+	 ViZrrSrfXFY0rlurjXutCS2zOYh6ScYdt7bO7d4BlySGI17GVgufU5bUGbftj7EDj8Z4i
+	 6AdwfBIaVpv7RfAW/hCjWw7uoL+vp2NuSyC9WQJWUlA1VJQAqnwSAZRN8OS8BogtVqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=H2rKIAAl;
-	arc=none smtp.remote-ip=91.218.175.184
-Received: from mta0.migadu.com (out-184.mta0.migadu.com [91.218.175.184])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=saYThnMd;
+	arc=none smtp.remote-ip=91.218.175.190
+Received: from mta0.migadu.com (out-190.mta0.migadu.com [91.218.175.190])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CED606A334
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:34:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89CED606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0DFC606A32F
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:34:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0DFC606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=H2rKIAAl
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=saYThnMd
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=osMdup1XthVBj9dZj7BkFJdDR3+5E/Rv1rSyQcK8Jac=;
+DKIM-Signature: a=rsa-sha256; bh=ILUpJ4Ob0pNFnAX2ltHw4R7fKp4fmf8Un2vNiqYU0SU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794908063; v=1; x=1795512863;
- b=H2rKIAAlMQX+xCzh2f7B3coiICfjjHHD74cFy+vvnGy5/4q/lmZmoa4yltUK/6GmZoxcZBKv
- snRvvjpQNA05gJ+5hYvefGvVT4s9VH4pZQdVzDgGWD7HpfwmbVq4UAq3ZEKB4Bo/QR25Cq6dr3M
- QggjyDxujfcWLPz/zqmUAbYM=
+ t=1794908070; v=1; x=1795512870;
+ b=saYThnMd25FwYHaO2dELkyNcwQBLYWupj19AW6inLkyGWKuqxuwnJ7ByyqAK4RKHv5kR4OdX
+ Yhthf3WKRsuyJF/YVmDE/nUeZdzdiTEoE6/ot9JYdsNoQUFHSzDvn9QLDFjMJUAbiyip/DfJkfK
+ juSSztSXah+aHs3j+DHUY7HQ=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e2236bfef0a0d9fc;
-	Tue, 17 Nov 2026 09:34:23 +0000
-X-Mizu-Trace-ID: e2236bfef0a0d9fc
+Received: by smtp.migadu.com with ESMTPS id 81f6557a191836e0;
+	Tue, 17 Nov 2026 09:34:30 +0000
+X-Mizu-Trace-ID: 81f6557a191836e0
 X-Migadu-Flow: FLOW_OUT
 From: Qi Zheng <qi.zheng@linux.dev>
 To: muchun.song@linux.dev,
@@ -58,10 +58,11 @@ To: muchun.song@linux.dev,
 Cc: linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org,
 	Qi Zheng <zhengqi.arch@bytedance.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v5 2/3] mm: gup: allow long-term pins of CMA-allocated HugeTLB folios
-Date: Tue, 17 Nov 2026 17:33:58 +0800
-Message-ID: <295af6601ce79f2c2b3dc4352a3279f0e6ac513e.1794907279.git.zhengqi.arch@bytedance.com>
+	stable@vger.kernel.org,
+	"Oscar Salvador (SUSE)" <osalvador@kernel.org>
+Subject: [PATCH v5 3/3] mm: hugetlb: fix GFP mask propagation to CMA
+Date: Tue, 17 Nov 2026 17:33:59 +0800
+Message-ID: <990efc61c4c3b2a4186cd578a56c6a74348fcdb1.1794907279.git.zhengqi.arch@bytedance.com>
 X-Mailer: git-send-email 2.48.1
 In-Reply-To: <cover.1794907279.git.zhengqi.arch@bytedance.com>
 References: <cover.1794907279.git.zhengqi.arch@bytedance.com>
@@ -78,115 +79,81 @@ Content-Transfer-Encoding: 8bit
 
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-Long-term pinning rejects HugeTLB folios explicitly allocated from CMA,
-causing unnecessary migration or pinning failures. These folios already
-own their CMA memory and do not need to be migrated out for future CMA
-allocations.
+cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
+during the first MPOL_PREFERRED_MANY allocation attempt even though
+the caller clears __GFP_DIRECT_RECLAIM.
 
-Add cma_folio_is_longterm_pinnable() to recognize these allocations
-through HPG_cma. Allow them to be pinned even in ZONE_MOVABLE, since
-memory blocks overlapping boot-time CMA areas cannot be offlined. Ordinary
-movable allocations that borrow CMA memory remain unpinnable.
+Pass the caller's GFP mask through the helper so CMA respects its
+reclaim constraints when trying the preferred nodes.
 
-Fixes: cf11e85fc08c ("mm: hugetlb: optionally allocate gigantic hugepages using cma")
+Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
 Cc: stable@vger.kernel.org
-Suggested-by: Muchun Song <muchun.song@linux.dev>
-Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Oscar Salvador <osalvador@suse.de>
 Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Reviewed-by: Frank van der Linden <fvdl@google.com>
+Reviewed-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
 ---
- include/linux/cma.h |  3 +++
- include/linux/mm.h  |  9 ++++++---
- mm/cma.c            | 11 +++++++++++
- 3 files changed, 20 insertions(+), 3 deletions(-)
+ include/linux/cma.h |  2 +-
+ mm/cma.c            | 10 ++++++++--
+ mm/hugetlb_cma.c    |  4 ++--
+ 3 files changed, 11 insertions(+), 5 deletions(-)
 
 diff --git a/include/linux/cma.h b/include/linux/cma.h
-index 8555d38a97b1a..d829fd0355bae 100644
+index d829fd0355bae..d6e97e831d970 100644
 --- a/include/linux/cma.h
 +++ b/include/linux/cma.h
-@@ -21,6 +21,9 @@
- #define CMA_MIN_ALIGNMENT_BYTES (PAGE_SIZE * CMA_MIN_ALIGNMENT_PAGES)
+@@ -56,7 +56,7 @@ extern bool cma_release(struct cma *cma, const struct page *pages, unsigned long
  
- struct cma;
-+struct folio;
-+
-+bool cma_folio_is_longterm_pinnable(struct folio *folio);
+ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+ 		unsigned int align, bool no_warn);
+-struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order);
++struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp);
+ bool cma_release_frozen(struct cma *cma, const struct page *pages,
+ 		unsigned long count);
  
- extern unsigned long totalcma_pages;
- extern phys_addr_t cma_get_base(const struct cma *cma);
-diff --git a/include/linux/mm.h b/include/linux/mm.h
-index daf5c5b567ebc..e71aae8001831 100644
---- a/include/linux/mm.h
-+++ b/include/linux/mm.h
-@@ -38,6 +38,7 @@
- #include <linux/bitops.h>
- #include <linux/iommu-debug-pagealloc.h>
- #include <linux/kcsan-checks.h>
-+#include <linux/cma.h>
- 
- struct mempolicy;
- struct anon_vma;
-@@ -3015,15 +3016,18 @@ static inline bool is_zero_folio(const struct folio *folio)
- 	return is_zero_page(&folio->page);
- }
- 
--/* MIGRATE_CMA and ZONE_MOVABLE do not allow pin folios */
- #ifdef CONFIG_MIGRATION
-+/*
-+ * MIGRATE_CMA and ZONE_MOVABLE folios cannot normally be long-term pinned.
-+ * CMA may allow pinning folios explicitly allocated from its areas.
-+ */
- static inline bool folio_is_longterm_pinnable(struct folio *folio)
- {
- #ifdef CONFIG_CMA
- 	int mt = folio_migratetype(folio);
- 
- 	if (mt == MIGRATE_CMA || mt == MIGRATE_ISOLATE)
--		return false;
-+		return cma_folio_is_longterm_pinnable(folio);
- #endif
- 	/* The zero page can be "pinned" but gets special handling. */
- 	if (is_zero_folio(folio))
-@@ -3042,7 +3046,6 @@ static inline bool folio_is_longterm_pinnable(struct folio *folio)
- 
- 	/* Otherwise, non-movable zone folios can be pinned. */
- 	return !folio_is_zone_movable(folio);
--
- }
- #else
- static inline bool folio_is_longterm_pinnable(struct folio *folio)
 diff --git a/mm/cma.c b/mm/cma.c
-index 9ec1d1fd5dff5..fea5d1015319d 100644
+index fea5d1015319d..225e3bbaecf9a 100644
 --- a/mm/cma.c
 +++ b/mm/cma.c
-@@ -29,6 +29,7 @@
- #include <linux/highmem.h>
- #include <linux/io.h>
- #include <linux/kmemleak.h>
-+#include <linux/hugetlb.h>
- #include <trace/events/cma.h>
+@@ -944,9 +944,15 @@ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+ 	return __cma_alloc_frozen(cma, count, align, gfp);
+ }
  
- #include "internal.h"
-@@ -38,6 +39,16 @@
- struct cma cma_areas[MAX_CMA_AREAS];
- unsigned int cma_area_count;
- 
-+bool cma_folio_is_longterm_pinnable(struct folio *folio)
-+{
-+	/*
-+	 * Explicitly allocated CMA folios own their CMA memory and can be
-+	 * pinned even in ZONE_MOVABLE, as CMA memory cannot be offlined.
-+	 * For now, only HugeTLB tracks these allocations with a folio flag.
-+	 */
-+	return folio_test_hugetlb(folio) && folio_test_hugetlb_cma(folio);
-+}
-+
- phys_addr_t cma_get_base(const struct cma *cma)
+-struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
++struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp)
  {
- 	WARN_ON_ONCE(cma->nranges != 1);
+-	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
++	/*
++	 * The only caller of cma_alloc_frozen_compound() is hugetlb, and
++	 * hugetlb constructs its gfp mask via htlb_alloc_mask(), which already
++	 * sets __GFP_COMP. Check here for usecases bypassing htlb_alloc_mask().
++	 */
++	if (WARN_ON_ONCE(!(gfp & __GFP_COMP)))
++		return NULL;
+ 
+ 	return __cma_alloc_frozen(cma, 1 << order, order, gfp);
+ }
+diff --git a/mm/hugetlb_cma.c b/mm/hugetlb_cma.c
+index cd6f64da31a2c..1eb9d8d8732ba 100644
+--- a/mm/hugetlb_cma.c
++++ b/mm/hugetlb_cma.c
+@@ -71,14 +71,14 @@ struct folio *hugetlb_cma_alloc_frozen_folio(int order, gfp_t gfp_mask,
+ 	}
+ 
+ 	if (hugetlb_cma[nid] && node_isset(nid, *nmask))
+-		page = cma_alloc_frozen_compound(hugetlb_cma[nid], order);
++		page = cma_alloc_frozen_compound(hugetlb_cma[nid], order, gfp_mask);
+ 
+ 	if (!page && !(gfp_mask & __GFP_THISNODE)) {
+ 		for_each_node_mask(node, *nmask) {
+ 			if (node == nid || !hugetlb_cma[node])
+ 				continue;
+ 
+-			page = cma_alloc_frozen_compound(hugetlb_cma[node], order);
++			page = cma_alloc_frozen_compound(hugetlb_cma[node], order, gfp_mask);
+ 			if (page)
+ 				break;
+ 		}
 -- 
 2.54.0
 
