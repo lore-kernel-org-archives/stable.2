@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794940020;
-	b=E56vdQUxbpGI8O3Sfe08IAS06/0+xw1fuFZpICHXAHgRFL7kBSTlCRNV+gE9QUYo96Mg
-	 cBLsePLw21sABQ4zwcaLyT+62jOo9uFOIiaLdn4TucQpYrCEMxHF3ZGepMJn0mpOyNiGx
-	 xqLx73dKf4LmB3Y8ryzo8cmRLC7Jtbj2nE/pzohaHDp7j6hf1E0bdcRa3Jtq4t7nTv9Qq
-	 26Rn7slAsXKbzkRDSwmXnIoQO8/tAZ1CjynR7O0f3DjjsIGsgoM2koFW6ayxxhBp+a2KX
-	 9QzwXUTmwjswpe038AfLGfb7KCcQVbC71+3tLfSiGBoDGxfPqJ6NW96cLTu95ZTgV7g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794940020;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LYF4CVJ8Ghw+qIezDl/HP0zE+7oi4oU+1Q0nPJmIKVI=;
-	b=bAWEqaOwQrdkH616HQft79FYbRgKT7ON5a95mD5DzZeon8J7UfZ4028+MzZ0mKw6QGsQ
-	 /PcaA9NgeHSz6RydCQzzZy7dK+OWndvLdwAH4mwgjpW5w2AnBgrAB/9VcSCjZkRoKSvEh
-	 O9xl7B0SIa0osRZ+sUls9dULJWQjKjtMBklAFM3gMsRN3QMLBiQfYu1jOPH6L+QqlY7R2
-	 E5LkiKBYzsn4xnWQUhCt1+iy59tCLrOYLls3EtEbJTthyoSHHWJlWHhLaRoPWY972ZhM7
-	 okOH1GUvEnLQEgskJ0eWsPEvF6aCJUDivuyeiaP3ETDUdmxbHsQq+KG+r2NSSutz9ug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7HJbh0k;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794940075;
+	b=brrqgyFpcrD7pECYbsjDkSvCWKbrc03B2dP1fXJj+6odGRDpCZQZThXXcuPXOHg7aTiO
+	 ixuiN3frBc9gtr1dZPk7WPRsCRxNvyrf2U4sAgxCCuquO+NI9geZ2cCGCFVMRXgirrltt
+	 c+kwYHqK6zQVIOTc79wm0QSb9qgTMwiu56taMouAvNzeBA0D5TPTcpzz/MxxiZHE2u/81
+	 2jV41StnJxadeiGOR2g8qIlfiaTypSHdT/D7TJ89s9NbLUAvRrjcceUXT0YzPcg+qIomF
+	 nWf9r0GknEKp6ZxCYw4/4Uxic0EWJGCheWu6/yfWswqIEUIK/Z5J3ITG9DnYePcwneQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794940075;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=d2xN15dj3gCvbJHEB+TEBgOrVQFIeke+Q9K2cfCpikA=;
+	b=iidXHr6dMeABWU2MOsAkIufbLr8Nywdu5CJfUp0kbfrmlu+ebdOp5UGkxjxukGMLFjs0
+	 mBgjs+7Sbc1NsVyYS/vzpn43LUGxL8D8xAFlv5EHPF6vNqEm7k5BV5888osH7Vfr+T6M2
+	 xo9856FVnsivpUBSM36nhHkRXMKk+fMOC0jBPdI0TTHu1vRt6IwBrMYx46eLUEock1WVl
+	 FI8RBU6YJauz3RhF9GTxkhlB11n36QHAKFnoYTj5uuUbpddHG0bQ2zXSg6CvI2oMpmK2Z
+	 aciTHeiqnyytjz56f5u+VYU2b/v+HUKE0svCuWGtlNkGW1D8Dd+RJ5wPxOokUsORd1A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqULsYEt;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FFCB606A32C;
-	Tue, 17 Nov 2026 18:27:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9424B606A31C;
+	Tue, 17 Nov 2026 18:27:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g7HJbh0k
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794940019;
-	b=eG+oD5KYzurahi/cOjG0ZlUuBQsUDEqGr1mvthB+bEMSSWXicrUnM/o/kBMuvDyyVdWo
-	 vySkJz+5FHPQv3QZ6obbH+8N81nUeRIjk7g0+9bq2IM1+e5oOV8tkZYbTIWElCKMaRcp4
-	 RFZasi0UKh6PKBfKnLvkARsOpIZxVzLHdFrNBG+HuAueVb61aNJtNtXMUnhUFiaNRWaSM
-	 bMQUPqgPNIX+fXi3qKKIhTTG1S5Nvv5u/pGWDqNHK7AiOBK87VE6GaX2Nv9lPlL+Z8P1F
-	 TC8Z2QbRm1AcadOp6NHfzC0exfK+Zuxh9h13ysVd5kxDfkkvNsfMBVCm/gkUgroRdDA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794940019;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=LYF4CVJ8Ghw+qIezDl/HP0zE+7oi4oU+1Q0nPJmIKVI=;
-	b=lBfaYejngNCGQGxwwXtjHGqfXvmmRm5JHV0VYrq1/P7O9eRWo+csStf4PysMl4CP74wj
-	 89MECEJpYqVFOCAUKdXqtIAU8YTIVrBXUR9cC/kpG+6GQEht8K6YN1b9G5cCWKLfR47oK
-	 1A5vKamUP3HLTGHmh3ar7fvcjc0WUSuHdWpdJD7DE602VqsvtGfeVK5MT19+fpGYvwD46
-	 jgKtXmJUk5GOjzd3wsKM+3t5Mq6TwG4ZHfhGxRnQOErDAgWDLonq9z8YCQnRzw7SfvQrJ
-	 mqZIShvQke3epArtgdwlbXLgegBe0bm8wgbALpViuI+B3mwIKsHvpl6pjSa8U6/XtVQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 612B31F000C6;
-	Tue, 17 Nov 2026 18:26:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dqULsYEt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340431F000C4;
+	Tue, 17 Nov 2026 18:27:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794940019;
-	bh=LYF4CVJ8Ghw+qIezDl/HP0zE+7oi4oU+1Q0nPJmIKVI=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=g7HJbh0kJ1bbXjsJNG3sCw7etceijrEgdVZSC2Kq8xlw/FtXk3zQNSy/zxmDYL90Q
-	 D+9RzEyl5/Fzh6uWWGg6u6zwCFFdTpBcw+XjAdwiQveWTja17FrxniyAapUMFX1+71
-	 oL0m2J3TvSOk3biEEFmhjujOxe0k7F5a9AdxJTkUAe+yBG+mK+WMm4fIOnZEivNvp1
-	 PYUNCIihea0jJg2FUrWDYqn0TPL0exmmMlJkescJdD55TNZTSw12U6VFrM0SPMyfyb
-	 F515IaYXaQowewNmWb6m4zfpx1kK0JuscXRGs2mZQAxrBjzGZdytRK/CrNnrH80tio
-	 uyqZlQb/2ZY+w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id BAF8B4AA16;
-	Tue, 17 Nov 2026 18:26:58 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Tue, 17 Nov 2026 20:26:26 +0200
-Subject: [PATCH v2] drm/mediatek: mtk_dsi: do not enable HS clock in
- pre-enable for LPM panels
+	s=k20260515; t=1794940075;
+	bh=d2xN15dj3gCvbJHEB+TEBgOrVQFIeke+Q9K2cfCpikA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dqULsYEtt6CVaxlO9mQ6ePjg54L1qfwjVAX9O2MIZTa/dE0PKcBqvpx05FKgSVh5+
+	 8JYLEdhpMkz5k2XlhWPYRuija2Xqm8oC/Wmg110tvZCjq2JqblBUP5aLUrY/z7J1LR
+	 i4T7gU3FFD5E7EQpxZ7b15/60fdvrPCatwaKUO7PZ1QCWW3esoGE960t8aoT2vn/Sp
+	 etj5+atmpx4h2AyUYebq5tPIl49tk4Z9pZ9os1a3dib+Uan4/Yy2jly+jjdkp5os/z
+	 wq2Pr4qCj7UcJB17/2DLrYP9+UnmHZOxg5SmSrmnYUoy4dyX7imNgrprxXTJd3TLXr
+	 8Hlx2DJdXTB9w==
+Date: Tue, 17 Nov 2026 18:27:52 +0000
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Cristian Marussi <cristian.marussi@arm.com>
+Cc: Chengyu Liu <lui2012qwq@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, arm-scmi@vger.kernel.org,
+	philip.radford@arm.com, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] firmware: arm_scmi: Fix deadlock between reboot
+ notifier and forceful work
+Message-ID: <20261117-hypersonic-beautiful-perch-bd4fcf@sudeepholla>
+References: <20261116084211.3066460-1-cristian.marussi@arm.com>
+ <20261116084211.3066460-2-cristian.marussi@arm.com>
+ <20261116-astonishing-urchin-from-jupiter-838cfc@sudeepholla>
+ <avw5o7sTyriZ2ZiX@pluto>
+ <20261117-prodigious-limpet-of-fame-3d72e6@sudeepholla>
+ <CAE=Q7=4+HMtqbiK9v3jw4t31TQOYUfRXKRurZ7KcMi7GTi1v2A@mail.gmail.com>
+ <avyS2OLs3XGcKXXn@pluto>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,98 +65,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-6768-dsi-fix-v2-1-6654a072884e@protonmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNwQ6CMBBEf4Xs2TW0ShFO/ofh0JZF1gglLRIN6
- b9b8OzxTWberBDIMwWosxU8LRzYjQnkIQPb6/FOyG1ikLlUIhcVqlJdsA2MHb+x6nIrrZZGVx2
- kyeQpxbvu1vw4vMyD7Lw5tkbPYXb+s/8tYuv9US8CBZ6oUEKZc6FVeZ28m904aH4erRugiTF+A
- cIkbcS/AAAA
-X-Change-ID: 20261019-6768-dsi-fix-9f0c2ca2ba9f
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- CK Hu <ck.hu@mediatek.com>, Gary Bisson <bisson.gary@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- stable@vger.kernel.org, Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794940017; l=2543;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=Lmo+5kbfdhXSBeVl18KCMC7yQm1ZpbbeRqyQNhndmfM=;
- b=4cctPZqiPYOTFYm5f9KbX1qIbmrwgUMDZn5C/SCuCPWiGSIZMBOn7/6+BS55Ty8Nx2qdytxty
- JuVKDlt1HbEC3rtQF+GQg2mYKfyvj0w8F68zYms8tni4BT2lDZtX7Hz
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <avyS2OLs3XGcKXXn@pluto>
 
-From: Roman Vivchar <rva333@protonmail.com>
+On Tue, Nov 17, 2026 at 05:46:00PM +0000, Cristian Marussi wrote:
+> On Wed, Nov 18, 2026 at 01:35:04AM +0800, Chengyu Liu wrote:
+> > Hi,
+> > 
+> > I think the current v2 may have reintroduced the second deadlock
+> > described in my original commit message.
+> > 
+> > scmi_forceful_work_func() still calls unregister_reboot_notifier()
+> > while holding sc->state_mtx. Could you also check the potential lock
+> > inversion between state_mtx and reboot_notifier_list.rwsem?
+> > 
+> > The reboot path holds the rwsem read lock while executing the notifier
+> > callback, which then waits for state_mtx. Meanwhile, the worker holds
+> > state_mtx while trying to unregister the notifier, which requires the
+> > rwsem write lock.
+> 
+> Yes indeed Sashiko complains about the same and the second part of the
+> issue on the rwsem is unresolved and will need more work.
+> 
 
-Commit 76255024cadb ("drm/mediatek: mtk_dsi: enable hs clock during
-pre-enable") moved HS clock enablement from mtk_output_dsi_enable()
-to mtk_dsi_poweron(). Later, the commit 3e191eddbdcb ("drm/mediatek:
-mtk_dsi: Enable HS clock only at pre-enable") moved the call to the
-mtk_dsi_bridge_atomic_pre_enable().
+That's what I was referring when I said
+" ... re-evaluate needs_forceful again here after un-registration before
+  calling below forced transition ?"
 
-However, mtk_dsi_lane_ready() explicitly sets mtk_dsi_clk_hs_mode(dsi, 0)
-so that DSI panels with MIPI_DSI_MODE_LPM can transmit initialization
-commands in Low-Power mode during their prepare() callback. Enabling the
-HS clock unconditionally in mtk_dsi_bridge_atomic_pre_enable() overrides
-this before panel prepare() runs, causing command transmission to fail.
+But then your response somehow convinced me that it is not needed 😉.
 
-Only enable the HS clock in mtk_dsi_bridge_atomic_pre_enable(), when
-MIPI_DSI_MODE_LPM is not set, and restore mtk_dsi_clk_hs_mode(dsi, 1) in
-mtk_output_dsi_enable(). This is a no-op for non-LPM bridges.
-
-Fixes: 76255024cadb ("drm/mediatek: mtk_dsi: enable hs clock during pre-enable")
-Fixes: 3e191eddbdcb ("drm/mediatek: mtk_dsi: Enable HS clock only at pre-enable")
-Cc: stable@vger.kernel.org
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
-This fix was tested with the Tianma NT36672A panel on the mt6768 platform.
----
-Changes in v2:
-- Call mtk_dsi_clk_hs_mode in mtk_output_dsi_enable only for LPM bridges (CK Hu)
-- Minor commit message grammar fixes
-- Link to v1: https://patch.msgid.link/20261019-6768-dsi-fix-v1-1-3e5616b45a67@protonmail.com
----
- drivers/gpu/drm/mediatek/mtk_dsi.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/mediatek/mtk_dsi.c b/drivers/gpu/drm/mediatek/mtk_dsi.c
-index 7961139333ad..2108b2eeadd0 100644
---- a/drivers/gpu/drm/mediatek/mtk_dsi.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dsi.c
-@@ -794,6 +794,8 @@ static void mtk_output_dsi_enable(struct mtk_dsi *dsi)
- 		return;
- 
- 	mtk_dsi_set_mode(dsi);
-+	if (dsi->mode_flags & MIPI_DSI_MODE_LPM)
-+		mtk_dsi_clk_hs_mode(dsi, 1);
- 	mtk_dsi_start(dsi);
- 
- 	dsi->enabled = true;
-@@ -858,7 +860,8 @@ static void mtk_dsi_bridge_atomic_pre_enable(struct drm_bridge *bridge,
- 		drm_err(drm, "failed to power on dsi\n");
- 
- 	mtk_dsi_lane_ready(dsi);
--	mtk_dsi_clk_hs_mode(dsi, 1);
-+	if (!(dsi->mode_flags & MIPI_DSI_MODE_LPM))
-+		mtk_dsi_clk_hs_mode(dsi, 1);
- }
- 
- static void mtk_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge,
-
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261019-6768-dsi-fix-9f0c2ca2ba9f
-
-Best regards,
---  
-rva3 <rva333@protonmail.com>
-
-
+-- 
+Regards,
+Sudeep
