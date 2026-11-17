@@ -1,86 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794909983;
-	b=z+Ix2U7BMEal1NtkKV9EG+kzXaUntlRmAxy6EpJuiezBYam1RirhEgpCaWGgqkt75u9g
-	 g86swYQi/H1mNN8naysq4EswwLG0xluT7vhZpF89yF+8HU7JCXQboKRsKP3u3t6goj+BN
-	 9RwATrmyp6hmne3RUYFHRznbpYyvG+OEMl014af9MPrsKJRMQAZgIf+CSR19ZOIREu0u4
-	 0g1rR3ImkX9iHVSKj99bpAMDtWLlkDE/1e6xTkYJA3aYCxkPpSntVroDjBIZCB8Vf4BGJ
-	 Je/pvMzROOXpxQXHQ2aeQFlBJ1QetSZng/vCUftv1W79ejO0ara9sFK2rzJoGNdJOGg==
+	t=1794910003;
+	b=Wq5ei3EDB8CPt1DbNSqCoouHLJ9L2Y9PBtNB+OQyH1K9gJ+4Ri6tZhM4lhjVXIeI1Rhh
+	 vMY3Hw8mO23V2Krj6nzq+iQM2oJlmysIrkkZPnvtUwHKzNaz1zslhMXGE2DFAMOG1mhm0
+	 DzW28iX3n5s3BfiLmi255oKc31IH8BsjSXroWM0nuRgz6fPnFGNV5b7casXUombxs8Sum
+	 ceypVMCbZU2ftkvIisyxOZ2oid5ji9Wz3lJ/fqHYkfRvWQeqmFQ9Tkm1qYrtNfp2Ou7Rr
+	 QRJOBHxlmlxb1YVeniD+C8fP9OFVg/ognSZaoNevisxn60W+rbGURFJyDS44ce4kE7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794909983;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910003;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rI4LasV5b++IgM0KeqrCTlvPABydB8GrsEj8qvf7nig=;
-	b=M+HfOW7u8pnHGQiSBxEQFQSZA0zHIBjx2AaQ8gj4lYuugIyIMXwnmwCbZt8ZfDfzwV+o
-	 H1UH4vulIkY9IPZa0GvMRzJ3EXYkggmiuGwG978jeKy+b+wAwF1BGbmaqnBK/2JaiL0lz
-	 CjX+5PHRGS7MA3Z3hRka5P7ZZzlc93WFK14ilIIREL7bCv/TZimoT3D2NogqbI3VFKcUL
-	 2HcF1ozQQb+Pjyem+0kCZ9dJJ7hBeVCbJigNfIMy+dS/JGlcFxgKkX0jZnzwKXbdQ6nF1
-	 TPPCNahnFXYAtfzpPq712EO5bDM1tMlggMcfY/KWxTKuT+uKu32TX/BnhF0fdL7m7qA==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3ahOovwjDlDqMNZ2Yyn08XyrzZ+sm+Yb+nsv1sSKI48=;
+	b=bOIlKBpQHd2zxd1TdQp6BaOVI1Ofh4ChM3GIdQ6K8W0n5STtfTBV+V20IZuaveXcBxT7
+	 VvidHjgS5T4Q+v+tnjGzyPRlMzLxpcDQGCZfNAOlvtWBiBmKQLP8O3R8M4Wo+eEiYgzNw
+	 j5P2TOMB/XHMpvZUi3d2ROZ0cDYiFnxnyqIQtv01sN8z6LT5EyHJb+Iy7QACuxGGFsDqk
+	 HCEaMcAHItJQVAnJ8Uzr2yTTEh08grHEmyfaLpn8aoTaZnZBFJiXqRgF0B8bbKY/Ebehk
+	 N6y0RgV5tv/WtToYZoPe9Wue23SnPMjaMtSVhk1O3Z5R5kEMrWrxrFQ/zUIIeY2Q3Ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qxv9jBgr;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="A/oX0UGA";
+	arc=none smtp.remote-ip=209.85.210.174
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C61606A323
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 10:06:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06C61606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3FBA606A323
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 10:06:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3FBA606A323
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qxv9jBgr
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a06cc097c7so3721157b3a.0
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 02:06:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A/oX0UGA
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8b5e5e64494so2717347b3a.1
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 02:06:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794909982; x=1795514782; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rI4LasV5b++IgM0KeqrCTlvPABydB8GrsEj8qvf7nig=;
-        b=qxv9jBgrMfukboKyv7rMfU0CRJtV7gusvERDhwg5BfQidZfaSNFmoCgVDYV5+KawKG
-         A+g9wnY8xkRgzR8DfqKm1NUUgy4dW5ZvMv9Swp+lsbmwof3PDIO5WNc5xNX3Yc+RZj2f
-         LIek1j276h4dfUO8eWmtCxwxgq/rzQGWEPtgUrKKfcKMJS+JoCxutWpyoPOgiDew2p4q
-         GMtIrO/Nd83auNzlmLnbH2tBOb9T5ADDVO3R/eS0FcDYiB/alU0NTh6PRI6fqWuErplY
-         oi7RigbC+vvQ6godEP3zSZ3YSsKCsfTX1rcImmxv+4/EaKThBRN2B9q2xRkcXtCYbp/3
-         L9SQ==
+        d=gmail.com; s=20260707; t=1794910002; x=1795514802; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3ahOovwjDlDqMNZ2Yyn08XyrzZ+sm+Yb+nsv1sSKI48=;
+        b=A/oX0UGAjiQUMW/uHe4FAKYp/rapBHq8Tyxdw6UZ+gBxrxtAI3PfS7VDGLBkS6lAYQ
+         D5CPvf+FkTgRQAS8ykBj0Vugq0WHVlvkPSN9mf2Sezh0Sspcf9Ci8IagyeqRVo3qgCqg
+         oRKUia+PhUgTH6cetMzY1GGYcAkmx7cFvobW6z35XjmGohNhnwHG3XEvuOW8klc33110
+         BbAVizGupRMtP99zsyUFXFIs8XGHjIXClm2axID+4jREMsJPtGSqbGB2BR7bi4C8akrD
+         UMxk3NBU/XHMloUaiehf6ru3kkPjBppTOpjNpflrvgZpY1usm9St8qgEYhHNNQ/cirdf
+         1Fww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794909982; x=1795514782;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rI4LasV5b++IgM0KeqrCTlvPABydB8GrsEj8qvf7nig=;
-        b=LXKo+/7gkOUHe02+uip+W2qpb9aWqfnOEyhjFoY+3vEAXvqlMNz5xPIvTFy+W9kvBx
-         s0ru1B9n/asZgcb20U+NDM+u8yrH4rg5YtRXNGkJAW1TxdgtAJgSiLBb3mYqHvdmMLI9
-         pTM3UvIz/MZJA+Irny70tTHjIcFZ/T7KNmcY1anf053YiEtB2q7zMIpDQ/lVNA+A97K6
-         5mEK9cRc50//u+GDqLnxJQdbGYKF1lLIXHK84Tw+O7ZrAKtEq9e2mKG5b0Hl2YeiA/mW
-         +HDc3bf8SR0xYe7j/hc/CnQHry0M0sNyt10EKEgF6L05xnbTzCco9PFWxBQT68CKudiq
-         h6Lw==
-X-Forwarded-Encrypted: i=1; AL+hErE3zKagLpmVO+HBa18QP0klnfRNk80pngg/oWqP5MMxz8RktkcLOBrj/F+Clh0teiuC5JgMjGA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6odcI4TJ2vHj6ERMMgbCdvRn++XyIZxKehIbosECEEicsU8+J
-	ZyX7dmEkir7YmD9GLqUtjiHj0qrOA028VjGzPB1PT64M3ZSmiAMW43PW8u2UA+4LlraVp3Hu
-X-Gm-Gg: AYBFou30u5cZsvBd5e4L7uhqsxwBQARUjZLBhDnCSsMLwS5R1Qf+kgxGaOgidBsqXb8
-	B/zrB140IgbqvldTNkg331RLdTTeHamTCNnUQlgnI7Lb7dKMjLvXy61TMIrM8NSMtbvnI/G/J4K
-	nJRiuW/XU/Idj0N2f2gFd4mxkbMYZnvI7rgj9F77HDHisv9nVe1ClH0rFNYIRYCM2s9BHlOzB9I
-	B9NTXXIgDmzQn6nu+RSs2ihY+PPdYv/LzN+7utIkq1h27sfwc3zetQA8bzuVxJwOsITEKZ+ebbn
-	lYGC+qSTfDHvSyyvJnSrXAKzo8Lz3A2TIm5Eyry4E4K65IwNcDom3uDItfR/uk8zEOtbps3X9Su
-	gfc2N8M1atvlaXfhrscgYMzHVgrvmkdS/39l/al6ke3X6EAPgw7SHHAc2KIa01qJCC7Rl1C8erU
-	+1B95m8i9RGFU/wtPxScg/hmdc8fF09COzYQAFuRBazxn55OPUqkelgFrnulXOy/WqVUG2N3ZAg
-	nTUZd45Pt1tovn9WxWsMEZKM+mc/Bnoa6vVftB0/Sd8ts3O46hrhhkbaIlGrtyxigAX+uRdwPY/
-	M1yswjg2RfxriQItUTbOkqxCmkO+/wOLN8ilmAguAKxqJuDfBodR8RATbRNpTNxzvBpj/l6YJFP
-	rkaDTXRt4WZ+jFjY3uFaanUltPgfdaW2MU1HQhij4teEe2Q/8mIZ9RVUuvSDO92ID7CtuOrwPCN
-	DNpXznjSXJQvBiIFMvThjZ422kR1CeRgGWyP4xoGemzOW1J1KG208c9r50hlD8pBw2KAjZc7UDw
-	Qq9Y6C0zIiUc9eK31DQ7MBuEOcaPVKkClMpiGwwn3iTehbD2xwF22iUJFoeqlRj
-X-Received: by 2002:aa7:9ec2:0:b0:8bf:e028:7864 with SMTP id d2e1a72fcca58-8bfe02879c7mr6741005b3a.0.1794909982190;
-        Tue, 17 Nov 2026 02:06:22 -0800 (PST)
+        d=1e100.net; s=20260707; t=1794910002; x=1795514802;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3ahOovwjDlDqMNZ2Yyn08XyrzZ+sm+Yb+nsv1sSKI48=;
+        b=tZWapaVmO365M/AS/OMPyWj4RI3WwluFcY7DbXvnk2ytmHmgH+ABEDjMBvMqZZPHKX
+         Ml6UIFN7MCeNsn9yyztqHuK64TtF1D1Tbp62SUvJRigwxs8f7OnwIa3OqeHhuOOTdzfd
+         Honu70L/xC2GYvxzrunpxi5WCwUT2BFD4EDc++0kQzZoHDOFrUEyVrDrQDbT21AROO6e
+         ViLGPPbQrE3BDl2bduoC8Rp1FpgqcZrmjuhO0Uawcail6zRyU3BbpBy7NR04VzZ+o1mv
+         n5yu5M93X8kZrqDayTMsXdSp5aNU5rIkRW+D2SeociPcy7mqXpNoCwCerlgKjOt+/2c/
+         vZOQ==
+X-Forwarded-Encrypted: i=1; AL+hErEoLnSglou7M1yoPGuoFSgcELwAnKxx48cq/9noX6cSTcsyJlruR3meCZ3zJkrTa8ginxg7Fro=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9uYtbWfQm4YrT9dU0KasU2YBSbDCJozdmWiGC2TT1d8cnCuCTi
+	KsOpheVQlek62ZYtCXt2vT7+3+xs8QgzNgB0Oiu/YkZrVHoyYz25ILt+
+X-Gm-Gg: AYBFou1V+teyT9OuxxSQ1T9tX3DPxRnFNKp7HyffUm5inPk0y3TPVFWM7utFTKX3FJ1
+	yysMXkbtrb+LclBn8+TdFN3NbOX2uYQPz1SPSYFw1uE887OFJ0qyLyyVAUsRBmSb/uf9BC0qla2
+	zPMpXarv1jAbaEmUCJurD/TvdZuytEFPZ1CGWIsyxLIMD6YNqTpPtjBrQmRC7zK7OqjbITUbd64
+	7BTtkgrXusD/uM8E8HdzEyqTy72TXYndnSvEueqApz8xk+sPc8yzSgFX7aNoDeEcl9kqYqpOU03
+	HCHf/hi3QtcTDP0Qy41XMmTQB5UHmrCI7hFixdBpY/E25u+zxSZDNyKlKSFpFd4zeec3ZJaknDT
+	8MRH3gICjZh0sFJNgZg/gXaaKOok+NeY4UaeqwroNDgd5jwGa29bUO/xwktsucZ6lKShcUQNIea
+	P8s3OvO940naQdOTxDPro1QmCF86jrMAn5MGaNWWYUXu1U3dvUtW7FcoAjYBoJXEdQYAIWMJPHt
+	b1PDL21SKVIiUuNQXlDxoSEAXxZa+MqNZ+UvVmRSz5EbH5oOSTq57g75t5zA49GGEQ0ssvlDzPs
+	jcmQa+idKHSfpsuNIPgYK8FyQH5wlQ/MHwbhGofBLwtS8eQw+yG2oTY06gUQpwRBSxwki1Iaeua
+	X5d+/b8WqT21Jfnk+OAsdB2nj7yWRhv7pjDP18KZ131cQ1FgOu+2/VedDRS1AsI4Jnzvc3kPpnX
+	ESu64ej5b4+6ZtqpxPV9zVzYoGdMYEt9yReceM03uOBju40joNgw5Ni5r8JOVbq4Eg35GP8ugim
+	ayg/YEsKQIZA6VgJNKFCD0jVvmihZ2UXL8WfGoSbleTFFzdnyzd2Err6XTeIc3R
+X-Received: by 2002:a05:6a00:13aa:b0:897:d037:f3ef with SMTP id d2e1a72fcca58-8beb7d1cd51mr11380228b3a.30.1794910002249;
+        Tue, 17 Nov 2026 02:06:42 -0800 (PST)
 Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed263b354sm4752612b3a.47.2026.11.17.02.06.17
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed1d6207fsm5213337b3a.32.2026.11.17.02.06.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 02:06:21 -0800 (PST)
+        Tue, 17 Nov 2026 02:06:41 -0800 (PST)
 From: Daniel Wade <danjwade95@gmail.com>
 To: David Hildenbrand <david@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>
@@ -93,12 +92,10 @@ Cc: Lorenzo Stoakes <ljs@kernel.org>,
 	stable@vger.kernel.org,
 	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mm/memory: mark unshare copies dirty to fix MADV_FREE data loss
-Date: Tue, 17 Nov 2026 20:36:02 +1030
-Message-Id: <20261117100602.797-1-danjwade95@gmail.com>
+Subject: [PATCH v2] mm/memory: mark unshare copies dirty to fix MADV_FREE data loss
+Date: Tue, 17 Nov 2026 20:36:22 +1030
+Message-Id: <20261117100622.807-1-danjwade95@gmail.com>
 X-Mailer: git-send-email 2.39.0.windows.2
-In-Reply-To: <c7c8ba0f-49ff-4b22-bd24-20fc394b1e36@kernel.org>
-References: <c7c8ba0f-49ff-4b22-bd24-20fc394b1e36@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -110,26 +107,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, 17 Nov 2026 09:55:24 +0100
-"David Hildenbrand (Arm)" <david@kernel.org> wrote:
+wp_page_copy() only calls pte_mkdirty() for write faults, so the copy it
+makes for FAULT_FLAG_UNSHARE comes out clean. Nothing marks the folio
+dirty either and there is no swap entry.
 
-> We should always prefer setting the pte dirty, not the folio, as the latter
-> needs atomics.
+Unshare faults come from R/O GUP pins, like process_vm_readv() on a page
+shared with a child. If the process forks after the pin is gone,
+MADV_FREE in one of them marks the folio lazyfree and reclaim frees it.
+The other process then reads zeroes.
 
-Will do a v2 with your version, thanks.
+Mark the copy's PTE dirty. pte_mkdirty() also sets soft-dirty on x86, so
+take soft-dirty from the old PTE in both directions.
 
-> numa_maps does not show any such data. Did you mean smaps_rollup ?
+Side effect: smaps and numa_maps count an unshare copy as Private_Dirty
+or Shared_Dirty rather than _Clean.
 
-It does, gather_stats() ors the pte bit with folio_test_dirty(). So I
-kept it.
+Fixes: c89357e27f20 ("mm: support GUP-triggered unsharing of anonymous pages")
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Cc: stable@vger.kernel.org
+Signed-off-by: Daniel Wade <danjwade95@gmail.com>
+---
+v2: set the PTE dirty instead of the folio, as David suggested. No atomic,
+and the dirty bit then also survives in the other mappings.
+v1: https://lore.kernel.org/all/20261116111245.28871-1-danjwade95@gmail.com/
 
-> A more future proof solution would be to only allow MADV_FREE if we are the
-> exclusive folio owner, checked under folio lock.
+Tested on mainline b3dfbde62cf1, x86-64 with KASAN and PROVE_LOCKING, as
+uid 65534. The test gives an unshare copy to a child, has the parent
+MADV_FREE it and a control page it alone maps, then waits for reclaim.
+Without the patch all 4096 bytes come back wrong in the child; with it the
+child's page is intact and the control page is still discarded. Same on
+v6.12.117.
 
-Makes sense to me, it kills the whole class instead of one producer at a
-time.
+ mm/memory.c |    3 +++
+ 1 file changed, 3 insertions(+)
 
-One thing though, that takes the folio lock on every folio. Right now a
-clean exclusive one doesn't take it at all. If the lock is busy you skip
-the folio, so jemalloc freeing a big range would leave some of it
-behind.
+diff --git a/mm/memory.c b/mm/memory.c
+index ec3d9d99ccee..113b305854d5 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -4130,8 +4130,11 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
+ 		entry = folio_mk_pte(new_folio, vma->vm_page_prot);
+ 		entry = pte_sw_mkyoung(entry);
+ 		if (unlikely(unshare)) {
++			entry = pte_mkdirty(entry);
+ 			if (pte_soft_dirty(vmf->orig_pte))
+ 				entry = pte_mksoft_dirty(entry);
++			else
++				entry = pte_clear_soft_dirty(entry);
+ 			if (pte_uffd(vmf->orig_pte)) {
+ 				entry = pte_mkuffd(entry);
+ 				if (userfaultfd_rwp(vma))
