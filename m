@@ -1,91 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927347;
-	b=sLDlbhb6xALY2bVyNgVe5ub5AQB/0/sziPElNiJwnojALTLTxT//qL2lrOxyrloejxEY
-	 ivTADBPm3YXnX/9R78i1MuQV2ImcajWlNB6zZP/xaASZLGGc7OuOPQAhMHiW2PtOcRLal
-	 T4lryh8xvgR3MOFDl/c/Owy0YhQvIsqWvbnMFiQBxuzUcVbwyQ9x3jAUaAuyJ+622yzRN
-	 JEPxchr/OrAJXDcoLrQbherL+Khx48xNm8cU9sfbH3YKR5shT8BIbWm9xb3W1Ozyt8nLP
-	 6jAbv4WN8ifp9nNNX6nuV+Y1UuSDQtZPuk6n4PcXb3KkZKAsMO749nxiw1pqzHe92AA==
+	t=1794927421;
+	b=SKS1E6ioMOjakt/kTWBQifUo5P1lRrHMoKtscs70nE7yJSuv3Wqr03SJrVNndiqZiWSe
+	 Hm9GBysWBDBSmqiqAjs0gla3LDtQYAPMz2NAq2LXe09vZBG4FHt5fpyQGcXKnlZPrMV1G
+	 Pr3b8oQDbU/9wYK3T8ksBtRlfY4de7pd7BcRXpSKJTn+0kOJzeybY8QXtDvlUP6Zb/oVi
+	 MHy6SGhVbr1EDmhHYoeFXM2Jrs3MeUYlOL5k/WWbg9FsJI6yR6k+8jLR2t2JVSAVqY3rB
+	 oM8iAI9iXqLRNnHidg431DSgBMCBWkrG1cHaKoLNL+CoR/hNxqd/lOAGYRNKffBMLbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927347;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4bmBEUjCAH97zZ5eFmCOxc2ZpUnaRfqp6CNkOUudcic=;
-	b=UUznNLKzg7C4O6HPAaj61zHTnaR8ZQuOi+39je9EZKoALIPa3BQGB4Oj3TWZDS0WpAko
-	 XH4dKgK0LjnAYq7bWe3IGoXxNKeF2sI7Uc566apVJ4L5rqcEf9hbj8T3RkaoAkh4Rc2CW
-	 bpmbbGquA34M5QOKFC66NbilCjMJ3oGSaKLXsKS6Sglui4ddtmTm/6SbJT0qyzPhZfyw3
-	 QWg01dMRcD6YCM7gzmJV5CWk99fCnL+RCFFSLj4etMChILlbO7scSJ8J951ZJR/oMULCy
-	 tmdetcDMGXp00kV6vkfRCvoXEdqIIJwn3X44TPiabMjDdNWylssHn8I8VxciMw2wiKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927421;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=BYDghbSSGp8ajBj0SqwqioXz4gab4WkH6tR1bMEa1MY=;
+	b=ORvJex2CxWNxih14lSQh9qdYfPURd0GJKdlLXxJm+boYxvd38RUMPqjYQMuOrlSLY5Ej
+	 +idzk8nSGzcsu8HuVfddfBjtsFoGCm1F/n/gzD8vRZosbbgz3jwGVO/WYY1HfNr5VH5KN
+	 1f6oZGnmaU7oRTVRF1mvhr4K2TUo8CdUdINT5uMEQh9HH5SlU5TiKKIE94bg2Cycgngu5
+	 uSyHAszLJrAKQOYTtY7a3w9C/NYLun47D8UdwmjYFsfGSgZ5+vfzBhJdKaXqLv0XSkT9e
+	 kUZ8y0RKnyrn3dq8j2ZQ3BS/zu9X0VyTDlNcdnMZskyPC1rMhudW6azE/5Lviz7zcyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hns6Y2T3;
-	arc=none smtp.remote-ip=209.85.215.175
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ckKFsnPO;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4382760A2624
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 14:55:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4382760A2624
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DCC606A332
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 14:57:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4DCC606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hns6Y2T3
-Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-cd69954c755so4040092a12.3
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 06:55:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794927346; x=1795532146; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4bmBEUjCAH97zZ5eFmCOxc2ZpUnaRfqp6CNkOUudcic=;
-        b=hns6Y2T3Gzz7D9tz3SxJFcPjAq11f5XQpUY04kWWVULL2becN13eC6jPxheo1WvHDk
-         rqdXYtl10p6n+CpxL7cbLZsiZm6G+FSXIxSrTnLNCVJ2otTOPOmRi10NJkbXX33TXLSz
-         +2FjRT6U1uGrGMv8c0BvyiXE1fE6YwbKdAdv/qb81tBKBeIBxOkOf/lmo+7B7nHo1br2
-         k6H4cd8xH1niSpXsf3COVLhg5rYPgaOEa21pmcPMR1wUlF5acNv7TjT9xyyVjGPI+4Ub
-         +2hfxD67eXfWgCIFzcd+vF9i08bOFpk8BymoHi8gz/ZwYdSfluVLiZRfXyLwvdwPnn8C
-         19uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794927346; x=1795532146;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4bmBEUjCAH97zZ5eFmCOxc2ZpUnaRfqp6CNkOUudcic=;
-        b=DoPVpLJTZwVOTBDW2krzg3GgD9IpdNXcTsac4OXJxJAPLOEP/hW4P04fTdp4qYg3D3
-         D6UqjdEpOWlZGWa6Wr5CtIf8so3Sz41gd/u0JNnDA1o/1/A4CXIi/wk7u8vTKjLEjLil
-         wEtwPV6saryq/aHbsD8MgXPh2mHejJDVqkkZN6AWy2LOiHYm/9OIZHl2NAaX+HU/GlBV
-         LA/MSgQLC+BQudxsmHHYUe6qHntlprlKE1w77JCdShLxDFtOS1czF+GRF1aQw8MrBhYW
-         fFpDEjGVaPSO1Rn/eW9aNvmSLOgW84JTGitmfUe58O9ZMUe+fhjfDGBbL0Fsc6573JrY
-         n3qg==
-X-Forwarded-Encrypted: i=1; AL+hErEWQMf5AqSrFcqFhwOf3q2RN22zQjbK85uM5e232LvxbrTeJxr/AwmGttaHKrFi2FiZPaWKkSY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+L+qgSOU8E0Hh1wfm5OqMFL2Zc2rjCucCSTQP3p7OqbhsZGm6o
-	H4Rw7x9tyo/9j97D3cbw2H6QvxR0zhtOu2fI4l26JUKJweUxs6kvivg0
-X-Gm-Gg: AZFdTZeoVDQCd8QgTOYoZt9+bWfo8IcPlqSgsmYf7oHWEdEG7MVsYUFR9OhAaS3Fl7E
-	Cn8AfChnGl3sap22jMGjVLePoo6tuikH5xhEuiZkdthxZcRDldgcThi+ATUDICTSu+AIcRf6003
-	Bou73XDKSBVIGJC4YwIG0lrvPIW6MdD6Z6LUi9oyR5Qz0YsFGJIoqBhh0o7J83cfqqaz+dyn5Qi
-	QpR86rS8AbFbXVA24P4yPFm5QGgCsWood+mnkYV+eCP2cBqcYKQzXmTnYQk3PGcEnh6uhthZVmS
-	OphJOAjIjCwg0rx0Qdx3YiIe3LyQvf7Mzl1hDwON9IUDWsZAqHB8QC8Mh/hIZU9IVgRsjhNmFYa
-	VB98rGYBAl/XHdBia+zA/wC+Ufhhqu7JwYxqkPu6W9B234uJXdQtkPNwYEmdcdCs97BpAInK0Ou
-	8c1uf5kqf/FSY0vqfj9c6Lr3uQQyERme9oWYT7Qa3l31DXvKP/5h0e3mkSIaAstv3a68305dEVP
-	Id8fl6B8p4VMMOzqIM23Nsi2wh/UJi2S1Ze+9RVqHxw0M83R426jpmnDJYNYVAk3lYEsC7/kmr2
-	Qh7JbQIu7hj7/v4pZoPrwxocboJ2W74rqC+x/PZGw4NhRx02AZ2czQ==
-X-Received: by 2002:a17:90a:c88b:b0:3ac:3588:b548 with SMTP id 98e67ed59e1d1-3b1b09e69c6mr14655656a91.13.1794927346406;
-        Tue, 17 Nov 2026 06:55:46 -0800 (PST)
-Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7a11c4asm17186465ad.22.2026.11.17.06.55.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 06:55:45 -0800 (PST)
-From: Maoyi Xie <maoyixie.tju@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Christian Vogel <vogelchr@vogel.cx>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] w1: ds2490: bound the search results to the found_ids array
-Date: Tue, 17 Nov 2026 22:55:34 +0800
-Message-Id: <20261117145534.755665-1-maoyixie.tju@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ckKFsnPO
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 4AACB4E4157D;
+	Tue, 17 Nov 2026 14:56:59 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 208C95FD6A;
+	Tue, 17 Nov 2026 14:56:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BD32711BC0039;
+	Tue, 17 Nov 2026 15:56:49 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794927413; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=BYDghbSSGp8ajBj0SqwqioXz4gab4WkH6tR1bMEa1MY=;
+	b=ckKFsnPOv0NWmOIZtDjV4G8YpEPKa48eiB5p5OyeEE5Idd7Cl3q2mCJFAzgSG2pDRTXU74
+	YgTwk7KCcawBZN4VG6jzjFZv8DBpoXJE5IIQBu527JZps6qPQgxFp731qDHduX23lGOy5l
+	WlDmrzk0pFKeKKUnljc4Y7fwSMW0OCUd/gzXamxydWs0xqoqvEroD3UIz/H5OESx42upZv
+	XaL1TzqXNL+TjyZ7z7ZIYUKqtdGVno5+hTRJ3JnkcL1UhqZs/BJhC7MwnJ4PFqKatiSZrX
+	EUGZJpFHqxTdi2+V7LPnCT0+gso8C/e3ded9Kfn3ukx3HgwZxQDcGoBgQGZoWA==
+Message-ID: <5231b964-215d-481d-87b3-86ff99829eba@bootlin.com>
+Date: Tue, 17 Nov 2026 15:56:49 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,91 +62,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v3 2/3] net: stmmac: dwmac1000: don't discard frames
+ with only a checksum error
+To: Christian Schmidbauer <opensource@grische.xyz>, netdev@vger.kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, Oleksij Rempel
+ <o.rempel@pengutronix.de>, stable@vger.kernel.org,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Aaro Koskinen <aaro.koskinen@nokia.com>,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20261114133640.3285413-1-opensource@grische.xyz>
+ <20261114133640.3285413-3-opensource@grische.xyz>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261114133640.3285413-3-opensource@grische.xyz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-ds9490r_search() queues the ids from the DS2490 in found_ids, which has
-max_slave_count entries. max_slave_count is also the search limit. With
-more devices than that on the bus, the DS2490 sends that many ids and
-then a discrepancy value, as the comment in the function says.
+Hi,
 
-The break at the limit leaves the loop over the current bulk read, but
-the outer loop keeps reading until the device is idle. A discrepancy
-value in a later bulk read is then stored in found_ids[max_slave_count],
-one past the end, and the callback loop reads it back as an id. If the
-device sends more values, they are written past the array too.
+On 11/14/26 14:36, Christian Schmidbauer wrote:
+> On dwmac1000 with enhanced descriptors, the hardware sets the Error
+> Summary (ES) bit of the Rx descriptor not only for L2 errors but also
+> for an L3/L4 checksum error. enh_desc_get_rx_status() returns
+> discard_frame whenever ES is set, and since commit 1b746ce8b397 ("net:
+> stmmac: don't overwrite discard_frame status") the checksum status is
+> only evaluated for good frames.
+> 
+> Return discard_frame only when ES comes with one of the L2 error bits.
+> A frame with only a checksum error is then reported as csum_none and
+> reaches the stack as CHECKSUM_NONE, so the stack verifies the checksum
+> itself. This matches dwmac4, whose Error Summary bit does not cover
+> checksum errors.
+> 
+> RDES0 bit 7 is not in the mask, because depending on the core and on
+> Rx checksum offload it reports a timestamp, an IP header checksum error
+> or a giant frame, and enh_desc_get_rx_status() cannot tell which. In
+> threshold Rx mode, a giant frame that fits one buffer therefore reaches
+> the stack with a verified FCS.
+> 
+> Also remove the pr_err that enh_desc_get_rx_status() prints when bit 7
+> is set. Once the MAC stops dropping checksum-error frames, any host on
+> the link can flood the kernel log by sending frames with a bad IPv4
+> header checksum.
+> 
+> This prepares for setting DMA_CONTROL_DT, which makes the MAC deliver
+> checksum-error frames instead of dropping them in its Rx FIFO.
+> 
+> Fixes: 1b746ce8b397 ("net: stmmac: don't overwrite discard_frame status")
+> Cc: <stable@vger.kernel.org> # 6.6.x: ee0aace5f844: net: stmmac: Correctly handle Rx checksum offload errors
+> Cc: <stable@vger.kernel.org> # 6.6.x
+> Assisted-by: Claude:claude-opus-4-8
+> Signed-off-by: Christian Schmidbauer <opensource@grische.xyz>
 
-Store an id only if it fits and pass at most max_slave_count ids to the
-callback. found can still reach max_slave_count + 1, so the check after
-the loop sees that more devices remain. Use one local copy of
-max_slave_count for the allocation and the bound.
+I was able to test that on Altera Cyclone V, and it works. 
 
-I found this with a static analysis tool that we are developing. A
-userspace harness runs an unmodified copy of ds9490r_search() from
-v7.4-rc3 against a fake DS2490. With the default max_slave_count of 64,
-AddressSanitizer reports an 8-byte write past the 512-byte array. I do
-not have the hardware, so the fix is only compile-tested with W=1 and
-checked with the harness.
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-Fixes: e3fe0e89fec6 ("w1/masters/ds2490: queue up found IDs during scan")
-Cc: stable@vger.kernel.org
-Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
----
- drivers/w1/masters/ds2490.c | 12 +++++++++---
- 1 file changed, 9 insertions(+), 3 deletions(-)
+Thanks,
 
-diff --git a/drivers/w1/masters/ds2490.c b/drivers/w1/masters/ds2490.c
-index 3cbff88c339e96..0c792714add874 100644
---- a/drivers/w1/masters/ds2490.c
-+++ b/drivers/w1/masters/ds2490.c
-@@ -697,6 +697,7 @@ static void ds9490r_search(void *data, struct w1_master *master,
- 	u16 value, index;
- 	struct ds_status st;
- 	int search_limit;
-+	int max_slaves;
- 	int found = 0;
- 	int i;
- 
-@@ -718,7 +719,8 @@ static void ds9490r_search(void *data, struct w1_master *master,
- 	 * We are holding the bus mutex during the scan, but adding devices via the
- 	 * callback needs the bus to be unlocked. So we queue up found ids here.
- 	 */
--	found_ids = kmalloc_array(master->max_slave_count, sizeof(u64), GFP_KERNEL);
-+	max_slaves = master->max_slave_count;
-+	found_ids = kmalloc_array(max_slaves, sizeof(u64), GFP_KERNEL);
- 	if (!found_ids) {
- 		kfree(buf);
- 		return;
-@@ -733,7 +735,7 @@ static void ds9490r_search(void *data, struct w1_master *master,
- 
- 	value = COMM_SEARCH_ACCESS | COMM_IM | COMM_RST | COMM_SM | COMM_F |
- 		COMM_RTS;
--	search_limit = master->max_slave_count;
-+	search_limit = max_slaves;
- 	if (search_limit > 255)
- 		search_limit = 0;
- 	index = search_type | (search_limit << 8);
-@@ -760,7 +762,10 @@ static void ds9490r_search(void *data, struct w1_master *master,
- 			if (err < 0)
- 				break;
- 			for (i = 0; i < err/8; ++i) {
--				found_ids[found++] = buf[i];
-+				if (found < max_slaves)
-+					found_ids[found] = buf[i];
-+				if (found <= max_slaves)
-+					found++;
- 				/*
- 				 * can't know if there will be a discrepancy
- 				 * value after until the next id
-@@ -798,6 +803,7 @@ static void ds9490r_search(void *data, struct w1_master *master,
- 	mutex_unlock(&master->bus_mutex);
- 	kfree(buf);
- 
-+	found = min(found, max_slaves);
- 	for (i = 0; i < found; i++) /* run callback for all queued up IDs */
- 		callback(master, found_ids[i]);
- 	kfree(found_ids);
+Maxime
 
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.34.1
+> ---
+> v2:
+> - Drop RDES0_LENGTH_ERROR from the mask of Error Summary bits. The
+>   length check further down already discards such a frame.
+> - Explain in the commit message why RDES0 bit 7 is not treated as an
+>   L2 error.
+> v1: https://lore.kernel.org/netdev/20261020190319.884375-1-opensource@grische.xyz/
+>  drivers/net/ethernet/stmicro/stmmac/enh_desc.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+> index 7ece8d4157a8..d0622f2605aa 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+> @@ -216,9 +216,6 @@ static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
+>  		if (unlikely(rdes0 & RDES0_OVERFLOW_ERROR))
+>  			x->rx_gmac_overflow++;
+>  
+> -		if (unlikely(rdes0 & RDES0_IPC_CSUM_ERROR))
+> -			pr_err("\tIPC Csum Error/Giant frame\n");
+> -
+>  		if (unlikely(rdes0 & RDES0_COLLISION))
+>  			x->rx_collision++;
+>  		if (unlikely(rdes0 & RDES0_RECEIVE_WATCHDOG))
+> @@ -230,7 +227,10 @@ static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
+>  		if (unlikely(rdes0 & RDES0_CRC_ERROR)) {
+>  			x->rx_crc_errors++;
+>  		}
+> -		ret = discard_frame;
+> +		if (rdes0 & (RDES0_DESCRIPTOR_ERROR | RDES0_OVERFLOW_ERROR |
+> +			     RDES0_COLLISION | RDES0_RECEIVE_WATCHDOG |
+> +			     RDES0_MII_ERROR | RDES0_CRC_ERROR))
+> +			ret = discard_frame;
+>  	}
+>  
+>  	/* After a payload csum error, the ES bit is set.
 
