@@ -1,97 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.26
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794886502;
-	b=Im8pmRga/b4X9sECkUlSyBhx2Y3wX6AGndTOg6sKgXfGluyHFiIAwsKAsr/ow9ywG3vH
-	 ZKLJMoWNpgBSRm4SceX9eOjnIA5cBfzZ7G/97bIMlN3bVEjPCGsN/hEUXENiIpNiesYZC
-	 XdcTKyeN4VwW8/lFwF/b0BxNILAkEodXwNjXZb5Mgv+fZ2+2ZJoNLaDkSAbgSpW1UMsRk
-	 4ewKVvdCWEBEUqtZbAt/16ECS1ZfDPyNiKxcHHhcK7SorJeSu2f/k4HX+DqHKBsQmDLxz
-	 /XrFKxLBrOMb9i2IUK//ZsDFRTcxnWBcbWoyrAgRjHakcRnWOE9KzdLOyKt1a6nfnfQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794886502;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=bl5qGGbw/T9alykmySoTq0ETNQVOHYwTYYyg5gbSfdY=;
-	b=WnyLpbiOzkogDra6ul8OZKq3WcCdooDvfNyE7lu9PrtV2cHOiH+vxmqNAj7zBSyEbQWF
-	 0GtIc533dFDnRLyNyMbyerbPznwgmJexVxGGjzRTvy6uhaYf20BztkcBplITBuRKdiWJy
-	 IHd4ByHixrmyb6zjrzuLw4ZHKBynzqbzOU765MPGdA2QYWKae9xPgaMMRDlAghYrMWeYz
-	 dX6UzL3dILfZbcBiguDiI7+Me+iyizKFowOz4GQj4dPc5p5FN4btWuaZYUoLCXRwH3D+g
-	 c3X7lwhjeCqF3DE5fOPy2qTgqIab2RK0WUGzOGOPgHDkPXfEpc3+l8XmY5wEiH1OQ8w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=m7Z3wBeQ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.26
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013026.outbound.protection.outlook.com [40.93.196.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794886810;
+	b=a17awecIod9GE57v6YhmAI8fw+zXajNHe91Rp7rIgbYXZtb83KLVkNtEA/rcoXBjnMZo
+	 k5EHrViwz8EDPT4feO0UtuZSKvo4pTC8DmbEFTIFH7IFH4mpzitzwkEgA+ipIrf0K4f5k
+	 +9Pws8OS0WAU8hE5Ar2c+tKZe3D+kWE3jtW+IfyG9Ndi1imzWYu02t+GB2zLe7kIRtRtI
+	 sTyJwqcBCrc/4lhq6fwIpBFOgm2UgjFA07hBcn27NH2ET3P85bscxRM7hkvOtFIT+WQ9b
+	 Yt08/fUgxQcVN6XnI5HjVN+kDlV8/e+k54lTlAe7vkol18VBqxnMb/Zymn5I8XDZpcg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794886810;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+h+jlzE5c2hq2F/rPSQq3Xc262XJEaUM8Jil9/WOXYs=;
+	b=yzz99l7xRjYBAft6U0/w5jjtsMC6dn7i7NgFH2s0AEzOB87C4r50R/F8uSQ9bqNKa+B3
+	 2DQVrl6dm30NP/QvR9elrhEp5HY3z90ARE0UY/UbTke8BnLOKkQgmuz78mp9VK5TvQWH2
+	 KYHxeQ/v8omhGnn4dLb0fPRfx0egPvNuB56xCQGnAVegDIAHYLqFutc8d+tcsyMCUFiXw
+	 jqyKbTtU3/QLUNnUa/DonM09XwrQKz6supkfto7rS1WXkieLfJU5aNPsf6DBV9AKM9w/2
+	 jwwbCiMFN7iw45/BYYulK6OL2lxC9W3y1U22hqsVozna1m8JUY77V2h6nNNR0X7rVRw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=nAzCw2J+;
+	arc=none smtp.remote-ip=162.62.58.216
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A2D606A31C;
-	Tue, 17 Nov 2026 03:35:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8A2D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BDF606A323
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 03:40:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82BDF606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=m7Z3wBeQ
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=L9By7uOvEgf35n7gKdDFubasD+mwRp+6jslhDsqCT53psS/4YxduV7qFFCw2HTq72Qs9PiLmNup8qlymNXd1tI76uzm9wucdnS0UXK87aSqVYSQ7w11BZoo4eZH3yOXczjKNd/EDAIQGpC1+7tx6pHM9Z0PQ5VDucYrdxKliqnfBfmE9HHfhlPF89mMnP30xKUR7ESVt6Dmww1kjFsKpQmDkMSV4EJoF8Odf3eBV628u3yYtqCTKe9ygKHRyrjVB8ex62bWkzXZ1IVzEgx5sdqjSjH7gvpZLRsRnN+hUA2Voh/uIYwSxJt8SJWhDRgPsl1vY3pKTost3QYI0OhvWDA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bl5qGGbw/T9alykmySoTq0ETNQVOHYwTYYyg5gbSfdY=;
- b=i250CUJ/NzuNSOT2w3bTteQzw0Ok/l3gC0KKCklQCnSiGDmMUE6lvfyiFEMQyiNGsiZPGNz6hADMa/S/3ujeQCPU4uK0Gv67wLhv8cz0R40MvjlDh1Vfit7c4AeOizyKeYdMOd8EQjZNOELqex0DB8NKW4dxmWoERpCcdHovOmiFw/GbfLw3lJDCgD8/CYUOeOZ4oo3qTCLT6DucnxQucdOUT6fyGyADqPUrLIG94LAg83BZLZrh+hMaexp2K6NSItt9bIB8Ne1foZ9GBZV/qTATciBhKBWUcXimkqNvmteSVkXasEAudwxjMt0x/NeWnlbkGsK8sOGc4VhBJPSceg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bl5qGGbw/T9alykmySoTq0ETNQVOHYwTYYyg5gbSfdY=;
- b=m7Z3wBeQqSYMxc5FvJI9iybP9k6/tP/y6oVFUNfo5QweAVa76vbnDEoX84d337AR9/3uUJKACsv6XOlGZqHrjwKjOB8ynqteTbb6ClloRoHDbUH52AUdHlBihjJBU6S6HzveANZ5ElYTy8n2E7mBaug6Di5cCNchHjcdyGE9aGk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB6188.namprd12.prod.outlook.com (2603:10b6:208:3e4::6)
- by PH7PR12MB7425.namprd12.prod.outlook.com (2603:10b6:510:200::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 03:34:57 +0000
-Received: from IA1PR12MB6188.namprd12.prod.outlook.com
- ([fe80::e933:4d1e:8759:e9a0]) by IA1PR12MB6188.namprd12.prod.outlook.com
- ([fe80::e933:4d1e:8759:e9a0%2]) with mapi id 15.21.0615.009; Tue, 17 Nov 2026
- 03:34:57 +0000
-Message-ID: <54e24f60-bd59-4609-aad7-902c93c38f79@amd.com>
-Date: Tue, 17 Nov 2026 09:04:51 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] crypto: ccp - unwind PSP sub-devices on partial
- psp_init() failure
-To: Mario Limonciello <superm1@kernel.org>,
- Kim Phillips <kim.phillips@amd.com>, Tom Lendacky <thomas.lendacky@amd.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- "David S . Miller" <davem@davemloft.net>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20261116203622.615371-1-kim.phillips@amd.com>
- <c99b891f-05fb-4629-b439-ac3828a4ea0a@kernel.org>
-Content-Language: en-US
-From: Rijo Thomas <Rijo-john.Thomas@amd.com>
-In-Reply-To: <c99b891f-05fb-4629-b439-ac3828a4ea0a@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA5P287CA0358.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:219::17) To IA1PR12MB6188.namprd12.prod.outlook.com
- (2603:10b6:208:3e4::6)
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=nAzCw2J+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794886804; bh=+h+jlzE5c2hq2F/rPSQq3Xc262XJEaUM8Jil9/WOXYs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nAzCw2J+eEuv5mbKHzo9zpFhy5GIBR22I3c0pFjpVjPlrgP3LoMeQMytcempqKyWD
+	 PD9UAtXV0ZyqWOvkqRh2Pu++d/66SqETBAq262kJlEWo+31NeFhTlhB/vaFgX+XLjB
+	 Y/jedavY52a3Ux1Qs72B2JvG7M+eI/ny9EqVXZKI=
+Received: from ikun ([221.176.157.242])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 9E739AA0; Tue, 17 Nov 2026 11:39:39 +0800
+X-QQ-mid: xmsmtpt1794886779tz88pafb6
+Message-ID: <tencent_58D8BEFB60308A7011D26F6F7E8C941C2A09@qq.com>
+X-QQ-XMAILINFO: Nz6nvCBXF1ZF+liHtZ5KaBB1jAMuEmW62PPcaZrO1dDpv50pUZFR1GpWAtyoxQ
+	 vlgvZN7BlXnxPhT07NQcF/LUE9ArqcbR/iUyTkbn2OPxDmMcsyStuFsoR0srywvxWWH4v875As3n
+	 l4A7TbRh6SdnkSmCWpfntaCouCGNDd7AMP5jgXrZd7M4ii852CB87RG2RXcEZyr9PT1LDyK799cx
+	 Lh0SWn/cbHwOgjNOqQwSs15DUEQd8tb6uWiVoIgHwvCXbows4oGcGGvKD3uUPRZQzItygyEfSiTr
+	 +sY7VjkIEnAmBjlZyKGBP0zKbe6AJ88pH6y1Mrf9N3kymx+qVB394dJMBn36ik2vB8xFuDQ6zD7A
+	 BbaeZD+Y93wb+cDMZf4VGR0iKiirmPcSTrFWLd7S7SgBoMYCKBSp96HAeQp6fkjVmy+mN9eys2Of
+	 x3U5jdU6BRNxFZGDLJlbnZBhgtpKOqD92WoMCdDw7cn5KluDP5EoRuoZ8NqLCtyd5LOxEy/x1JTV
+	 9HTSbFYaiEU0B8DQMlsi+1ewGR8tW/1l26Ecm8utSclIBH6bFOqF41oHNAp1tNAqkEVO9c76qa7a
+	 GKTy65JIbyJ430sh7Dd8MPhHUl3IsfsKBsDeoLNm32Hdm+K7PYtC2mR4IAxxyM2EJAQI2kDjyYWz
+	 xPAAGscnvhu625sDdjBwyzTHv68LJstsBT6CrKWUgGIL5DAssZGNRkclN4HyV4SmakusMxLqWS7G
+	 97/RseH/or7hiUdvhMhTDpL20Bw+siLaJ+Hn1iH9BLLBMujK5BURcjqGTqFfYe6oA+XbzyEmC/41
+	 pgoXnrBmzVcd18BWhUeP8MrsPUxAKRt8VBZ56q+mrq8WhvBNUGHVhXIUL7AovuJYJuVTC7PbPAbD
+	 I4p34/olG4zXWknV/asJ34s74tPrOcEzrxQ+Wc2HTPnLlNK4XX3YrJ1ATIulXV9h634fTz41pUKP
+	 D8hAoGGkmn9/Ev61r6GASPebm69ZoRAZLpBtcn2g+jXRAs8fAUeearcXqVgvIHfMDBWU7sBx0R7J
+	 KYEwA0mg==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: Alan <3164729207@qq.com>
+To: tytso@mit.edu
+Cc: adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	harshadshirwadkar@gmail.com,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ext4: reserve inode write access before unlinking entry
+Date: Tue, 17 Nov 2026 11:39:38 +0800
+X-OQ-MSGID: <20261117033938.4578-1-3164729207@qq.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <otvuclstcoaysrnywzdttapxbxg7hq3p7lp3iexy7u5cuj6plx@waqfsi2dg2p4>
+References: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com> <tencent_69B311F4356254E166A5EFDC981AA138D80A@qq.com> <otvuclstcoaysrnywzdttapxbxg7hq3p7lp3iexy7u5cuj6plx@waqfsi2dg2p4>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,168 +87,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB6188:EE_|PH7PR12MB7425:EE_
-X-MS-Office365-Filtering-Correlation-Id: c27b8f74-e665-4053-ca46-08df445bc076
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|261028144727099003|261026121527099003|261102123227099003|261026140227099003|261022105027099003|261021121427099003|261021123027099003|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003|261009223027099003|261009221227099003;
-X-Microsoft-Antispam-Message-Info:
-	sL1FaG8cSWlzn0tZkWBiOXaF2uqoouejeI+flx4cJ3WoUr2n48c/ZXrFjO7JhEaTiTTTJtsyRfY2sLGf8Lnhn54teVW2LSRikD4qo0ciRCwRlWtDwCnzXlMatcClzq5fkarad6kCUvnGMEHPwiiMaHMUu0iPKDePbQ/zPIJC74BswjAOf8LknsPupLLCKJBvnxZAE4tZ4VNiu2dp6NfyL7/TpidVNnNUXlB1a6cgzJpSVQLrN32wisZCrR4kFPOU4cED8UxoBRPStXTeV8qPI5Co61VIcsGlOja+1UMnm4wiso5b6dXBPUkmXdh2bAPWdqXXkeoq6Ke+xyfbq1mroCgrhNTA9oGaqoDawIetwKDIAUABMv9ipp3Pej2FRdUApj81H9DDVFWBYAaH75qnU1Qs7Y0t+JL0ZlB/Ufqx+8FFahL5EWCdB3ehsNpZrx/gVZv4w03tI3rAdsUgxQ85A0a9vz7SwiYILKZLPbRcC688Y9A1ThALnb7nlfZOPnQS0bNDdB7iAwROT3tLik3i7X97+mBL5tkSRmIfU0khGTy3K/HlS5+ozYF8wAj571JZgWPTLE65yOC/g1U8UqZPF/QdfcvTPvzSBryLo943reg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB6188.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(261028144727099003)(261026121527099003)(261102123227099003)(261026140227099003)(261022105027099003)(261021121427099003)(261021123027099003)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003)(261009223027099003)(261009221227099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cW5XS3pmSER6U2VuaFJkME9mSzJJMGNoRDJNdDA1QUh6eGVjWnBpaUM5MW1K?=
- =?utf-8?B?RG44TFlYUE5rWllTY1NRckZKZExlbG5xTHI3cjlaaWlIK0pFRUpsM2VwN3RF?=
- =?utf-8?B?RzJ3YmRPQ3k5QVNPekdBWkpRVUxabjh6R0NMUWhaUStLRTJ5Nld5eHpsSlVv?=
- =?utf-8?B?a1BwUE02RElsaHF0OHYxbVB1UjBJeFFRWmlmYWRDTlRxMmt2TW82VWJRaEhK?=
- =?utf-8?B?RDR3UDc3b2lkODZVUzNTeVpVWXFmUjlWVU1lM0FmUXdvc1l0Z2hHbEhEeWtP?=
- =?utf-8?B?ZjlZSkoxWitBY3dMMllkeEVpZ3RNV3lNcVo2V3dZWGdlU1VQZ2E0UGFVOHQ1?=
- =?utf-8?B?aU9aYWwrSm9xMno0VXB2TWxyVWZaOG5WbW9mU21IR1lUckdYOEFJcngrTVF2?=
- =?utf-8?B?anFSREpyMFlBaVpINkFXejNCUU1RYzVyRHdOU05qRXlzVVQ1Ui9aWktKVVZu?=
- =?utf-8?B?VnFOUjRjWE51RS9vUTZ5U2c5NnI4LzRRbnlwNTJtU1BqbWZJQ0QveWFtRzk1?=
- =?utf-8?B?N0JoMXVlQnh1R0MrYnFraTNKQVJaSmQ5d3dTQ0hTYXIrYzhhbHBlLzl2MERY?=
- =?utf-8?B?YWl5MGNYOGZDV08ycFNHdXQ4M1hJMFhDZEFPVkh4YXhPY0tXS3dsUFNmVHVS?=
- =?utf-8?B?SGlTOG1mUU9zT1gvSGsrcnBEcTBya2FPRFdNTU5BemNsbXdIOHRJaHBhcExp?=
- =?utf-8?B?c0w4N0k2akJybkt5UTEwRHhMOEZLSFRuYUlpeldTRWV0ejh1d01mVjBzZkt4?=
- =?utf-8?B?dnNtSE1JYmdoVGIwQVVDQ0VWVzZhS3J5VUZSVmFIaU1kTzUvMjBDdVVpUXkz?=
- =?utf-8?B?SElLVm1vZHd4UEtEbXhPRVdkWTlJOHZSdVZVRDBHWm9qc2g2RFR0T3AweVlP?=
- =?utf-8?B?b3dsL1Q2bks4aWkzejlldzlXWisyV3JqVWF1SStYNTJRRDNONDArdUpvRWdu?=
- =?utf-8?B?aXVCemRBazMzT2JBdXBpK2diTXNIbVJKVVBoVFU3OXZPb2YwVDFJOFV5OGRB?=
- =?utf-8?B?eTVycU16eXZWcXRwV2FqdEFoQmtTcER2WHk3Zks1aDdqWDdDbGUxVVJGV1Nn?=
- =?utf-8?B?eUNhOGZPb2Y2Sm1OVWpXdVBEYURsempvejdDcisxeGMxb1B6YzZsbytCbmYx?=
- =?utf-8?B?a0pKZ1pxbng0WXFLN0ZtbWdPckpoT2xwYkVHcGQwYmhkWHl0dXYra0V5dDZY?=
- =?utf-8?B?cXptL1plMU9nQjhYaWtaMWdMSjMyZ0xSVytvTitvcHczQUpJMXFRTW11UHBZ?=
- =?utf-8?B?eGw4am9abmNTV2Y0U3ZjN0pBdlJLVEJYVURkcGZvbGFjMGRhRks3RGNZbU5R?=
- =?utf-8?B?R3BIN0JsV1I5MkFCa2tJczlrTUVPSVpvNmtUWTAvMmFHTWh4UjJJcTN2dHh1?=
- =?utf-8?B?aUhteFZZTUR6SVBBUlNjM2VPUmdYZzVKa0NsY1hSN1dhdW1nMXBEUVJwU01Q?=
- =?utf-8?B?UkZOVGVOQ3lFSk04aVg3aStYN3J0NFJnV3J4MkdKenN4MC83U2NYNzJTdElO?=
- =?utf-8?B?NFVUaFk0YmFZKzV4UVROVGVlaGIvWFVKK3hjdi9MbURTVFQvUmJvbTZ6aFpv?=
- =?utf-8?B?am1ZeVJWeEVsaFZzVE0yWVBPWkovZnVrS2lobjNWZFJjN3hGMkp0YWVuRERZ?=
- =?utf-8?B?S0VqcDQ5dE81NFpMenlOYVdhUnlPbGM1aDdXaXY0cXBrU2JYZ1ZiK0Rycmdk?=
- =?utf-8?B?THV5MHQvWUxnZDVRSWZ6T2cxUDc1cTBOcExKdnRKTGJZOHQ2TUZWS2hzNW8y?=
- =?utf-8?B?V2pxM1RlWXQxanl1OGdaK05kNkw3NTJPL2c2NlZZM2doSjVZMDA0UVY0bDZE?=
- =?utf-8?B?U1BlZnY3T2tmcjBSZDZDR3VaSTJGRm4wN1NIdXdYMkFQd0RhM1NnTkhzVTd1?=
- =?utf-8?B?NnljajJ6d1Rod2wxcTFISjdSbGQ1R2ZjS2VqQWxxWWYxSFk2dHZHWVNPMUQv?=
- =?utf-8?B?WHAwQWdubzlmTGZYbEkwdm1iL0UvaURYOFFrQUcyMk41bDdweEc2QktWRjU2?=
- =?utf-8?B?OStkcUtrYzFPQit3blE4Zk5qNlVhUDBXYmpqd2hTdnY3T0hqMkRSdVRTN0Vv?=
- =?utf-8?B?ejlya01XbkQraTVMWmVzWDFhL0NXRUVYNHczcjZDUEVmZ2lqQy9ITS90Vysr?=
- =?utf-8?B?UVZ5MG9XL1RUMlZrTE9nSG5Dc2lyU3hNcmNwYWg2aDE1R00xT0RPOUZOSEUz?=
- =?utf-8?B?Yzl5T3dqSjZ1aHhFelkreGVkTUZqTTNUZWpmUjQySlZqZTk0czQwOHE1dXd5?=
- =?utf-8?B?cjFGN2tLOTNiSkxRU2ExT3U1WlJhb3JUY2N6VTY3SE1VcXBwKzd1bnh6cEZm?=
- =?utf-8?Q?QIwIVtePYkaSjowAMo?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c27b8f74-e665-4053-ca46-08df445bc076
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB6188.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 03:34:57.5841
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /aM/WJ2zjSL3cr6Xw3lC2lRTy+Lu6ygZ/yZYDLxzQWKQd94YiSJUAuircUH4S1UHDtiVne6lnJbctol6DC6PuA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7425
+Content-Transfer-Encoding: 8bit
 
-On 11/17/2026 2:54 AM, Mario Limonciello wrote:
-> 
-> 
-> On 11/16/26 14:36, Kim Phillips wrote:
->> psp_init() initializes sub-devices sequentially but returns immediately
->> on the first failure, leaving earlier sub-devices registered. Its caller
->> psp_dev_init() then sets sp->psp_data = NULL, so the later
->> psp_dev_destroy() on unbind bails out early and never unregisters them.
->>
->> Non-devm resources such as the /dev/sev and /dev/dbc character devices
->> stay globally visible while their devm-allocated backing structures are
->> freed by the driver core, giving a use-after-free if userspace opens the
->> orphaned device.
->>
->> Add reverse-order unwind labels to psp_init() so each sub-device is torn
->> down before the error is propagated. Every *_dev_destroy() is already
->> NULL-guarded on its own psp->*_data pointer, so skipped or unreached
->> sub-devices are no-ops.
->>
->> sp_init() continues to ignore the psp_dev_init() return value on
->> purpose: a PSP failure must not fail the probe, as the CCP can still
->> initialize successfully.
->>
->> Fixes: 33960acccfbd ("crypto: ccp - add TEE support for Raven Ridge")
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Closes: https://sashiko.dev/#/bug/linux-0de87f0c-0f5a-4dad-8ef1-f49844eb4cce
->> Cc: Tom Lendacky <thomas.lendacky@amd.com>
->> Cc: Rijo Thomas <Rijo-john.Thomas@amd.com>
->> Cc: Mario Limonciello <mario.limonciello@amd.com>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Kim Phillips <kim.phillips@amd.com>
->> ---
->> v1: https://lore.kernel.org/linux-crypto/20261021215716.1076732-1-kim.phillips@amd.com/
-> 
+__ext4_unlink() removes the directory entry before decrementing the target
+inode's link count. It then dirties the parent inode. If the parent
+inode-table block cannot be read, parent inode dirtying fails after the
+entry has been removed, and unlink returns without dropping the target
+inode's link count. With errors=continue, this read error need not abort
+the journal transaction, so the directory update can be committed without
+the corresponding link-count update.
 
-Looks good to me.
+Reserve the inode locations and journal write access for the parent and
+target inodes before removing the directory entry. This makes inode-table
+read and access errors fail before the namespace is changed. Keep the
+existing namespace and link-count update order, and release the inode
+location references on every exit path. Fast-commit replay can skip the
+parent update when the directory entry does not match the target inode, so
+reserve only the target inode in that case.
 
-Reviewed-by: Rijo Thomas <Rijo-john.Thomas@amd.com>
+The original source-derived injection at the journal write-access boundary
+is not evidence for a committed inconsistency: an error after the journal
+has already aborted cannot establish a committed transaction. The relevant
+failure is an actual inode-table READ EIO before journal write access.
 
-> Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> 
->>
->>   drivers/crypto/ccp/psp-dev.c | 23 ++++++++++++++++++-----
->>   1 file changed, 18 insertions(+), 5 deletions(-)
->>
->> diff --git a/drivers/crypto/ccp/psp-dev.c b/drivers/crypto/ccp/psp-dev.c
->> index b14ce51065d5..3d9341c2876d 100644
->> --- a/drivers/crypto/ccp/psp-dev.c
->> +++ b/drivers/crypto/ccp/psp-dev.c
->> @@ -207,19 +207,19 @@ static int psp_init(struct psp_device *psp)
->>       if (!psp_check_tee_support(psp)) {
->>           ret = tee_dev_init(psp);
->>           if (ret)
->> -            return ret;
->> +            goto e_sev;
->>       }
->>         if (!psp_check_sfs_support(psp)) {
->>           ret = sfs_dev_init(psp);
->>           if (ret)
->> -            return ret;
->> +            goto e_tee;
->>       }
->>         if (psp->vdata->platform_access) {
->>           ret = platform_access_dev_init(psp);
->>           if (ret)
->> -            return ret;
->> +            goto e_sfs;
->>       }
->>         /* dbc must come after platform access as it tests the feature */
->> @@ -227,15 +227,28 @@ static int psp_init(struct psp_device *psp)
->>           psp->capability.dbc_thru_ext) {
->>           ret = dbc_dev_init(psp);
->>           if (ret)
->> -            return ret;
->> +            goto e_platform_access;
->>       }
->>         /* HSTI uses platform access on some systems. */
->>       ret = psp_init_hsti(psp);
->>       if (ret)
->> -        return ret;
->> +        goto e_dbc;
->>         return 0;
->> +
->> +e_dbc:
->> +    dbc_dev_destroy(psp);
->> +e_platform_access:
->> +    platform_access_dev_destroy(psp);
->> +e_sfs:
->> +    sfs_dev_destroy(psp);
->> +e_tee:
->> +    tee_dev_destroy(psp);
->> +e_sev:
->> +    sev_dev_destroy(psp);
->> +
->> +    return ret;
->>   }
->>     int psp_dev_init(struct sp_device *sp)
->>
->> base-commit: 26ca5f34841f0a86d0883664a1c13be89a01d351
-> 
+Tested on Linux 7.4-rc3 (torvalds/linux commit
+aebb7274476403040d582c61478df8f4a7bf9cd3) with QEMU blkdebug and
+errors=continue. On the unpatched kernel, the READ EIO leaves the directory
+entry removed with Links: 1 after normal unmount; the JBD2 trace shows no
+journal abort and records the transaction commit, and e2fsck -fn reports
+an unattached inode. With this patch, the same error is returned before the
+directory entry is removed; the file remains present with Links: 1 and
+e2fsck -fn passes. No-fault controls pass on both kernels. Also built
+fs/ext4/namei.o with W=1.
+
+Fixes: 4209ae12b122 ("ext4: handle ext4_mark_inode_dirty errors")
+Link: https://lore.kernel.org/linux-ext4/tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Alan <3164729207@qq.com>
+---
+ fs/ext4/namei.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+v2:
+- Clarify that the committed inconsistency is reproduced by an inode-table
+  READ EIO before journal write access, not by an already-aborted journal.
+- Revalidate the unmodified and fixed paths on current Linux 7.4-rc3 mainline.
+
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index 354fc2d22df1aa..4c16aa9ad78176 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -3233,6 +3233,7 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
+ 	int retval = -ENOENT;
+ 	struct buffer_head *bh;
+ 	struct ext4_dir_entry_2 *de = NULL;
++	struct ext4_iloc dir_iloc, inode_iloc;
+ 	handle_t *handle;
+ 	int skip_remove_dentry = 0;
+ 
+@@ -3269,6 +3270,22 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
+ 	if (IS_DIRSYNC(dir))
+ 		ext4_handle_sync(handle);
+ 
++	/*
++	 * Read the inode-table blocks and get journal write access before
++	 * removing the directory entry. Otherwise, a read error while updating
++	 * either inode can leave the name removed but the link count unchanged.
++	 */
++	dir_iloc.bh = NULL;
++	inode_iloc.bh = NULL;
++	if (!skip_remove_dentry) {
++		retval = ext4_reserve_inode_write(handle, dir, &dir_iloc);
++		if (retval)
++			goto out_handle;
++	}
++	retval = ext4_reserve_inode_write(handle, inode, &inode_iloc);
++	if (retval)
++		goto out_handle;
++
+ 	if (!skip_remove_dentry) {
+ 		retval = ext4_delete_entry(handle, dir, de, bh);
+ 		if (retval)
+@@ -3293,6 +3310,10 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
+ 	if (dentry && !retval)
+ 		ext4_fc_track_unlink(handle, dentry);
+ out_handle:
++	if (dir_iloc.bh)
++		brelse(dir_iloc.bh);
++	if (inode_iloc.bh)
++		brelse(inode_iloc.bh);
+ 	ext4_journal_stop(handle);
+ out_bh:
+ 	brelse(bh);
+
+base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+-- 
+2.53.0
 
