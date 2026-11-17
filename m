@@ -1,60 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.155.198.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794956677;
-	b=ra6QiHhgDI7RkJ7sSwXqf8IHgfBBUb0VsooEURUpqN1w9VyErDLH8gSosPK8AvMHuVTg
-	 mtkfbAn4bRGFWb2jjq/DHLB2kjZRXh21SfC4H+L/5+YEP4T2XzXQXbn0PxT1m1TbwUBSW
-	 r0ZNMv6pLdmJDPQQhc1lz3/41uw7z0R9T8gWPsb2HMWaONhbYftyq+RlcEW5IAAPvs6g4
-	 qx4n2Tvio2cPIs1zrQec5Fj6/6IcaXAfUC/uiH6nQLWB/L6bGaETZx0Icse4GRDU2VIlW
-	 GGnfqjuMQK8Lcnvk8v2unN1LYAWU6sNUiL9PA+rtN9+BxdnGSS2cdJ5f0mYFGpIJIyA==
+	t=1794957798;
+	b=If6+EpC/38S74ghlXyJl8nnk6O8yLqTW4hGuFaV1w2xluNQIZMPAlarxFeI6QjTmC7cF
+	 uJD6kvbpVwWlqxr1A4ZgKNLq7zamXv6nybvfiTSpNs9gwOZQE8SF5/lI16p3GndT9qVv8
+	 LoqGW1/vLooarcS8/MYNt7zjpbcLaskBCliiz7KV9D6mc45nCu8aKbf0xFsyM0FNbFJzh
+	 Up4ZlilvSeowAWExu+sBYnfSzI1JulEu2DmhzSnjnveTFVfPdP/2dT3AVX+xmhoqmR9fU
+	 IxQxOM3frD2QGwjEuGWwNGysIVuDr0zMkLVU4hP85s4uq1BudzC8HqLp1LjWRg0gMyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794956677;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=NpQhc381XiJQ2fH83GjkO0QvX8xd4FEwf5E14MxfCaY=;
-	b=joRgk1h4Z+LjWJRIMKK13yic/P057jyFimPaVhKdtiMBoopm1oFZN9lW+GX2tEjIf5m4
-	 cxyoIP2bJLkfG9rGfuCS5gcZtLzycLfRfRUF7akpGfNKsKKjcFkh8BqCcbZVOfqM+H1za
-	 IsoRwJaCjnLwa3KtZoCnwzRyE1lvqJqZU5G4LnrpwIhBjz6QLg7oe+4Ii7mc7GJ6MoI31
-	 cxt0dd94UQ2zC61fx829Hv6sQVTjBVWL/F58h943nlyKoi5ZjuHdi0bo0lAy93hzTmZjv
-	 6gfubuQPVUfvH8NI0mAqV1HXwM1D3FRSLzouAw8CSx19z4ty7XobQx8kThR2g1414Tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794957798;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=Oj27ZoZRGO6f9l0rOjkFlS9AJ/pIHpImGA5GqGadkpg=;
+	b=VjStCJXbDagxXshR4BvyOPOvUNlhU9Lrd/QCTBthbOwBY/w0AbMcYR9ACPvgHvJK1CO4
+	 dAWWlHLip10Op56xCTzTommc8sIbEyK+4k1XC9z3J53tsG2+Dv0yKmksEwYEa3ieSOnFN
+	 9n0XY1Lc1B4Zm6YYev6mVQJvzAA4V7zwX1a4BmfkAnNdTsin9B95d1JiCe/DRcxKZ1EyS
+	 OVWQjn5ulbOOg8iMX9CkABegJdGBo+zqA5XXBTOpuDfjUqObrs7bG/JOQDqEVTOiyF5ss
+	 NW03n5cxdX7+9mGjPYSFU9Kht1rOh9H/XbNb3OajeFcDz4s0qMUNkRvXsVFSd+njjUw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YbWhNvws;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=amazon.com;
+	spf=pass smtp.mailfrom=amazon.com;
+	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=a4PCjkNI;
+	arc=none smtp.remote-ip=35.155.198.111
+Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B8A606A31C;
-	Tue, 17 Nov 2026 23:04:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2946F606A8A5
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 23:23:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2946F606A8A5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YbWhNvws
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 369851F000C4;
-	Tue, 17 Nov 2026 23:04:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794956677;
-	bh=NpQhc381XiJQ2fH83GjkO0QvX8xd4FEwf5E14MxfCaY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=YbWhNvwsaIj18DW+pogt8GI+vju6DCg1lXO2FTzH/nE6fSIKoHigtpnAIdMxLT2Oq
-	 JSmwFacANLecgpfE7voYDdkBpgXXHjXlZlCJsaEvEvFwIC/oZnL43q35NZuQBp25V5
-	 Ymfzf2YtGR2VNHXJHgbqE+P9YfTn+M5mYN2oLvENQKiy5fTjSRkVJwEPcXzzdt9OTu
-	 fI/GQfCwVr85map0ftHa71RMA+jNCaU8pAUSzz5mLt8AQdKd9rVMDEJxcW90GPg9Ug
-	 S+uHMOz8LsrB9x/yldB2137mAB+p0fslaAle3Wwy2N1VDXUKrRRaWUU9H6tJZbl80O
-	 VppkNUiQdg4BQ==
-From: Mark Brown <broonie@kernel.org>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
- Marc Herrero <marcht@proton.me>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-In-Reply-To: <20261116-q6apm-fixes-v2-0-ea89fb43316a@proton.me>
-References: <20261116-q6apm-fixes-v2-0-ea89fb43316a@proton.me>
-Subject: Re: [PATCH v2 0/2] ASoC: qcom: audioreach: fix S24_LE playback and
- route mixer disconnects
-Message-Id: <179495307219.2707353.8339502612153999902.b4-ty@b4>
-Date: Tue, 17 Nov 2026 22:04:32 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=a4PCjkNI
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1794957798; x=1826493798;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Oj27ZoZRGO6f9l0rOjkFlS9AJ/pIHpImGA5GqGadkpg=;
+  b=a4PCjkNIv1CM+14/3cN5TYjvm2HBx5FbKpcxZD1ZFEp5z87yIRwQp1Wq
+   nlbLTl7wFd4e7A+GTJmg/FU5n0woPshZC3r4gsWXhpgf74bAQd7qYkWOi
+   2kDzzH7loNa0EtFjLCgYTjhgAjpOMvS+6PCS1EEgxmePtucHOt/xGMlDz
+   g8L7gw3D8ZgTZY7dHezw2bOpaH4KNdMahGyUw7ntZEYP1F4/6HqfHsJ+u
+   /3Ho07+N2umxRUJao5WWA7f4p01FFTOw2nYh5n8nqIQovRCj/LS/9/ax3
+   dCvCtwfqLAijyHsLaywi6m6Rzn8nMKGmIE/EFf7nXtUBD9jzOpgHcHkfT
+   Q==;
+X-CSE-ConnectionGUID: /fwtF/K2R+uUzWmYwALDxg==
+X-CSE-MsgGUID: e92UkxRuSTGqUnTaUeRW1A==
+X-IronPort-AV: E=Sophos;i="6.27,218,1787011200"; 
+   d="scan'208";a="34322343"
+Received: from ip-10-5-9-48.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.9.48])
+  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 23:23:17 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:1072]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.10.61:2525] with esmtp (Farcaster)
+ id d98e8a6b-44ce-404c-909c-3b94ddf398f7; Tue, 17 Nov 2026 23:23:17 +0000 (UTC)
+X-Farcaster-Flow-ID: d98e8a6b-44ce-404c-909c-3b94ddf398f7
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Tue, 17 Nov 2026 23:23:17 +0000
+Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Tue, 17 Nov 2026 23:23:16 +0000
+From: Mark Bundschuh <mkbund@amazon.com>
+To: <stable@vger.kernel.org>
+CC: Mark Bundschuh <mkbund@amazon.com>
+Subject: [PATCH 6.18.y 0/2] netfilter: nft_ct: move custom expectation support to helper
+Date: Tue, 17 Nov 2026 23:23:05 +0000
+Message-ID: <20261117232211.stolba-3679da4ad8be-linux-6.18.y-v1-0@amazon.com>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,57 +81,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1652; i=broonie@kernel.org;
- h=from:subject:message-id; bh=5Z8ABWEC5xPS6lG2iuk9aWLFYo/9y6R9jHXMcCTNkGY=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL+3G3c+c7UXefvnCbtL94ti33Y6pveJDDN/S5tNE0nZ
- Z5Us9GVjlIWBjEuBlkxRZa4LO6X9SWv1/AdXNgGM4eVCWQIAxenAEykKI/hF5OTu1DCuULzpLZp
- aTceVL9a8uf/m+aVHcu2Lm4TvZq6houR4YjCteNXZny7tmzHx7cfrAu6RIRnzDq2puuyug2v+dK
- U/wwA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Mon, 16 Nov 2026 20:16:19 +0000, Marc Herrero wrote:
-> ASoC: qcom: audioreach: fix S24_LE playback and route mixer disconnects
-> 
-> Two AudioReach fixes found while bringing up 24-bit headphone playback
-> on the Radxa Dragon Q6A (QCS6490, sc8280xp machine driver, WCD9385).
-> 
-> Patch 1: S24_LE was described to the DSP as packed 3-byte samples, so
-> the ADSP audio_process crashed as soon as an S24_LE stream started.
-> Using the 32-bit container size makes S24_LE work.
-> 
-> [...]
-
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
-
-Thanks!
-
-[1/2] ASoC: qcom: audioreach: use a 32-bit container for S24_LE PCM
-      https://git.kernel.org/broonie/sound/c/feb416ba626e
-[2/2] ASoC: qcom: audioreach: only disconnect the route a mixer control owns
-      https://git.kernel.org/broonie/sound/c/562b2cc2aa88
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+Also in this series:
+  - 6fb421bd07f1 ("netfilter: nft_ct: expectation timeouts are passed in
+    milliseconds") from v7.2-rc1 is included because it fixes the
+    timeout unit bug this branch has, and the fix's moved code uses its
+    jiffies timeout.
