@@ -1,47 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794903196;
-	b=gvNGKIOoXLnM5rm3CBZIACAe6vjUVpfB5pUy3KgdufhwUNOgSvO/SRzQuOnoLcCQzvdm
-	 OSSZ7O8kw91q6V0hkG9f7P6vO1Ojzvii7x6Pv6wRdZCUHH+mrROCr7cUMQ80rA8vAXu2G
-	 joOgRR+hK/XT4oytrH67Z+Ec4zW7xeN2lJwSjrv1h6Vosr3NvXVQH1cKg7G7nknbNegN/
-	 +so2asAmbqJFkivtSzcjQ2F2Jo6dEqGic/MpgLa1paNMZT1F64Lrdy1c9Vf6wJvlnhuFV
-	 IZFwThzSY2flzEvx7PymQ619ic2IPdj6ug/sMOiPgsGIUbed2XVY8VZLX7giBuNJAaA==
+	t=1794903449;
+	b=WSyLrtWeZw8pRS596rdBvckxzC9vnhwV+2+tcq8sCVjthb4e+jmk3Wo+jJ8/4xLBXpBD
+	 dZz7gDYO4kJ6BwdnYy/4uJJyYHpimvvvvKRGhPnHxyfXb/5k/mC5u/08BkDCvJ7orM5QH
+	 3C8dc8VS9vAzLDxKt0F5zSAyOpehuSweDlF1+xRv0pMTNAObz78ZEFd/q0qucVEc5AF1J
+	 OlE2WwxN8H0I0En/MMfAG5506rTHEJ5qFkFUH4vUx6cbqvBu7sqRWnb7SnhYCBMi6vtLQ
+	 8l850oiYDuot5w6vwpmWllpNxYEFm8TipmHPYAtn49FgyKf1gW9nUzmrM2kEaQMORBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794903196;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=IBXUdSjPv3St/AeuB5N6wFkUoCBcAH66OSGEhKqTT3g=;
-	b=AgIO4/xZ6GTlvUy6u1ncXHP2m5kC1sPk34z2snHhDOJ9a3fHMUFbxHe85dNtgtq7Vndw
-	 U5WYk2Pev6k0nlJu0k+GWs/Nx7yh9tYwzSpyEV+ML+rA9rJVDcyWLxHupL/hsUea6yV25
-	 CGJh7nsfF+63mWIimYDAiOuYHUb/cOwxsXmTGhmKASZpg967tm4RK8aZOhm2H4ZEDiFdj
-	 LdnkFpkDCeg7WemMuDTN9zWbxGaiRQbS0u5WPyySAvKcblF4osJoXTyCZzHCnjBGxaqB6
-	 bCeO0pTGb0S4aeJIawrBpDNQiGNJrSEjEE8isVV30xyoK/iK/bJuHAmGCASYq/G+c4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794903449;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:Content-Language:To:Cc:
+	 References:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=VnUxqPmAnyktQW8ngvTXIcHsZ0VltHWVTOS3IQEC3CA=;
+	b=LO8g4yn39qSGf4731LPMo9ospegqoM2+XXXBrsqdMsY4tcb3cNQDqVH4QryF1zIV/Loy
+	 KPkdDoqKe/JDhCUks0SXWIQeATqolscOrM+tf2jHa7A57T6e5Ik/2IHHCWHn8YX7h2Z/F
+	 WH5z/H5tXGICISgKGDs/EI5KU3Gp48/sSbHWEn/76xt8jy3KCiQtypTwGGp0tB1LAA4gw
+	 XyLVh+rTx7IxRTmfVzuZzqvzQ9dBA+5kTKb13H+RQen6yhfBmo4Yfelh6f19Xnq57j0Fs
+	 mUlAJbG45MVbmOrX6n9EbBscMauMi8LIGNFBX3NyEwXg1+lePwBLCzRHWisiy8E6+9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hlyAEWxi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=loOySJJL;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PsYUXt3B;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFE3606A31C;
-	Tue, 17 Nov 2026 08:13:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CBDB606A329
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 08:17:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CBDB606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hlyAEWxi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F23A81F000C4;
-	Tue, 17 Nov 2026 08:13:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794903196;
-	bh=IBXUdSjPv3St/AeuB5N6wFkUoCBcAH66OSGEhKqTT3g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hlyAEWxiuklLcW8fzBZVgxRgIwA1STK2mCOg4xpyew9l5sw6uHHG4GUa2esbOCYyR
-	 gWKY7aebdDYx4tQ134Pd/mA9ZSascY77fjfxf+8tHph7RJZwnUQxmbd7Vadjlp03PB
-	 RNrBxLdB4INA9J5n4eCN8l0/HM1BLIEee3UGNu1EQN6nZ01iflmnECFgmgq54XrtB1
-	 JsXeeobeiOizwedOp7h4cIHeq87rET3qPSz3+VkiGULZ9mugtd+znJxTMH4/8NV91B
-	 jbDVAA5MDAyYBIqfEy1dX4KdSKVNshyJa6p2RyLVZdP/Gqx/GUbyHbKR9JJRivERy1
-	 PZ4c2J3bY56LA==
-Message-ID: <dfbf361e-8125-4f8e-9567-65e80996e2d4@kernel.org>
-Date: Tue, 17 Nov 2026 09:13:09 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=loOySJJL;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PsYUXt3B
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH2aBD63624145
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 08:17:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VnUxqPmAnyktQW8ngvTXIcHsZ0VltHWVTOS3IQEC3CA=; b=loOySJJLdkkjQ5T1
+	Q8tq73YjFGgr1oB2njcFGFzehW3yTonyFFkHLOsTpcbNcVSIC5xeGlBaL+RvsuIW
+	fEDWCNXm6ItAA9Ora6R35NVQgpqBcGiCdCbn0bSC3BshceC9nttMm1Mg1aFf2TG8
+	+VnpBmzSDilLgn9Yqk0hmo7MCWRVp9TMhUqmGWTPROLd3jik36+oRbYEfxKlJcXU
+	MVkFJNgiQTR2PGrbdL2IcJjYreQt7wsyQfDQ5dz8zYZRs5lkElY7yGm45mxNTAMs
+	gO/uMz/uwQodnby7CG7HpDYnOGvKrlszkjqUC8B1lAJpVTWgDqEH/5cCP3XJ8Z6T
+	1qh2pA==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j07rejjcf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 08:17:28 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-375f0fd31f4so2980479eec.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 00:17:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1794903448; x=1795508248; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VnUxqPmAnyktQW8ngvTXIcHsZ0VltHWVTOS3IQEC3CA=;
+        b=PsYUXt3BZH0zqWeZsyamgIJMkRULCPOYJtgZBaUObipB/VuIcTgQ3sFXZR06Z6J16l
+         1E4cokHrI0yAEKKmuSuYgbwbO/hz1UIWslwpeI6/XXSNWaZlWCD9uIYNzKmk/WsA4dUZ
+         G1jck+jCOGYWhMj2eWoo0rwSjeD+Sk4SiY7NE5HRKaAJj2PRkl3KJlsFjobeTk/gU/HO
+         PUEjR+ChQ9lDCao8Wyw4lf4mo8MWeWcp0+dT/NeQqqWYeprANFp5pT7dUliy/jxBtan9
+         /RD+SeOYsqHKgr6yNdPG50DYB2kHy0GnkNnuLOdF5TvH+3eAu5s6eUYtimqi/QUptZVl
+         aI/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794903448; x=1795508248;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VnUxqPmAnyktQW8ngvTXIcHsZ0VltHWVTOS3IQEC3CA=;
+        b=WH67CbYz0C2QTIbNaDr41arWdThb+VnNyW/qKzC/N/jnUizU2naT29QD1jJ+COd4Rl
+         fMdpGEDH0Tw39wHHGVBoAEgegYx3JNGBG2xtaKweLp2UH6TB7ne/cO4ySe2c/Pu+W3Qb
+         uOXICw2iJjDstdhg3n2tmUlHar6eVnIeTCVwmhVlg8aqIBPixrbKXGWdggrxTWU0v1kO
+         lA6Lna9nZ4dCbhlV0cJ0zaj3CXY1moJw4aGgCGjFT9oYbTQsV2zmTUL8BS5g8f4LHDVA
+         MgxcSM/ALVYvVfmJZspBMZsvUyT7hAWTBt1o3HDx6MgPozTyQ6em3T4gN6bjZaOvIoQj
+         t84g==
+X-Forwarded-Encrypted: i=1; AL+hErGA8TVG/95ESdEU1xxgrmqOj+HW7KbS+MAJ9JF/rLUS4upAu4AQVgp7lcSJGOgNv9hPdX+fS4s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+gnq2kjwqDpUHqLa8ZJ+kb7HDYZ1nvDAfqW/4Wj/c2vDOBQd3c
+	y1Vmsdu0ww2Mi83VmqJ5lfVWV09JbZraR9ZR/mmgQhGwVHvJr5oe1GiVSWzZ+XiuvcF8doCNSFV
+	MZrjLzl5uRPsdflHoW81H7HG6xXWKSG+YPEiiM2azxwJje26rWlAcV6prfiI=
+X-Gm-Gg: AZFdTZeMqgVhcuPT4rGYDOcmGrFk7IVTcdM23U3hO+LKnVTNWlWE+BHcaOMv/Uqqjhw
+	a2qUIG2/26j16T0ZmGIkzuLGKo61tFL9rEtS+NQaNYSalF1w3pj11WFFJU0C46/OjmC7+hvOdyL
+	Imq8DzHkw0D8LYAfVu02vExFt+OMMjAgIP3yxef0+jGkB2TLojfWF3DCHk2ry8gouWk1QDhWqOn
+	xhqjMUXRNU452UeB8p67P6x5ibVPStEoeNBgjFF5NMwkGi21cnn3YmuEoldWsS5LUq3USXbL0SJ
+	dMnrgAzOCM8lJTEyLkY9JNUDfARCiZe5Gj+lSTpPVx9rXGti0Nnwr9Itd0pBMa1G5Uw3zLGg8p/
+	3N4AaTAOuiL5EdLQIXnxsZX48ueR2b9YNq3fi1dj0uYPOa+RNvYdH9lqnAwduq+NGEWJDbdikS8
+	zqywsE
+X-Received: by 2002:a05:693c:4153:10b0:36c:9af3:22eb with SMTP id 5a478bee46e88-379681c99b3mr15052245eec.34.1794903447616;
+        Tue, 17 Nov 2026 00:17:27 -0800 (PST)
+X-Received: by 2002:a05:693c:4153:10b0:36c:9af3:22eb with SMTP id 5a478bee46e88-379681c99b3mr15052203eec.34.1794903447055;
+        Tue, 17 Nov 2026 00:17:27 -0800 (PST)
+Received: from [10.204.100.41] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332ae7sm63388577eec.8.2026.11.17.00.17.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 00:17:26 -0800 (PST)
+Message-ID: <b4a641c5-2e22-6216-7cad-ffeb270125a7@oss.qualcomm.com>
+Date: Tue, 17 Nov 2026 13:47:20 +0530
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,139 +114,182 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/khugepaged: mark a collapsed mTHP dirty
-To: Daniel Wade <danjwade95@gmail.com>, Zi Yan <ziy@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R . Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261117075246.61336-1-danjwade95@gmail.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v2 2/3] media: qcom: iris: Wait for threaded IRQ
+ completion during power-off
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261117075246.61336-1-danjwade95@gmail.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Hungyu Lin <dennylin0707@gmail.com>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Joonhoe Kim <26rote@gmail.com>, Birk Skyum <birk.skyum@pm.me>
+References: <20261111-fix-disable-irq-safely-v2-0-8e13f68c2ef9@oss.qualcomm.com>
+ <20261111-fix-disable-irq-safely-v2-2-8e13f68c2ef9@oss.qualcomm.com>
+ <c5444a64-ad14-403e-8453-0bb0a16dcfa8@linaro.org>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <c5444a64-ad14-403e-8453-0bb0a16dcfa8@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAzMiBTYWx0ZWRfX4EKKvxoPe2/q
+ 4GV6HMVFsnkgPcYedqBEcmhDf5+/9U4eD5FRBy5zc6zQL67Dcmxm+Voq8L7rNkWuv9srfNnYDJ8
+ 9FiSdpV9f0Mp4mrPl566PnkshHSzCmo=
+X-Proofpoint-ORIG-GUID: Uaa8XX16I7IyFLXVFgKn9QFFZbZ-Vv4Q
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAzMiBTYWx0ZWRfX6wjl72nPpRz5
+ X8mpeaLOkVaixtbqPqpRpBLvPmtKzLhk4guNPzMGOnNF4jZdjczyeElfd+VACrMTw6bow2hqBSl
+ 01TYuSQ/06rI8XMca0TQ2tYqWW0UyIh/xigQh+X+uxS2BVn0h5t6uBYPx5MOJ8UANEIIb6Z6g93
+ qooQHL56fi8c2n7VszYk1mQQc2/Nja2fZkGJfU1kDVms8vprAhN7wObSVdXzNOxf+e6ifFtSTVo
+ ediGuA38BsABJfjtQuS2Y5kQM/RZ8IlwALBncMhzFZ8WvBGFhiiq4XuS6r/fqKquNDR+wjjKZp4
+ zLJjNsse/AvqaFk3ug5zeyIZ9rFWTVnFFKgprJK2HE4p2fq3ZAykN01ItQHCLOqbRXlAw+oj8QS
+ pnXWqeTBoEgzizdzT4mpg3r7dKjy51Wfo8XtdXFEd4pMTSmCPi/xpqinqyeWJYIEZ76ai1rVbFA
+ FklfcmkX53gB9bX4APA==
+X-Proofpoint-GUID: Uaa8XX16I7IyFLXVFgKn9QFFZbZ-Vv4Q
+X-Authority-Analysis: v=2.4 cv=R9uWitRX c=1 sm=1 tr=0 ts=6afc0d98 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=M5-Xm-TX60NQkl0miT8A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 malwarescore=0 phishscore=0 priorityscore=1501
+ adultscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170032
 
-On 11/17/26 08:52, Daniel Wade wrote:
-> When khugepaged collapses an anonymous range into a folio below PMD
-> size, collapse_huge_page() copies the pages in, but
-> map_anon_folio_pte_nopf() marks the PTEs dirty only when the VMA has
-> VM_WRITE and nothing marks the folio itself dirty. After
-> mprotect(PROT_READ) the folio therefore holds the only copy of the data
-> while looking clean, so MADV_FREE in one mapping marks it lazyfree,
-> reclaim frees it, and another process that maps it reads zeroes. Mark
-> the folio dirty before mapping it.
-> 
-> Found by static analysis with an AI coding assistant and reproduced with
-> a test program on an unmodified kernel.
-> 
-> Fixes: e22f2fe72c74 ("mm/khugepaged: generalize collapse_huge_page for mTHP collapse")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Daniel Wade <danjwade95@gmail.com>
+
+On 11/13/2026 6:25 AM, Bryan O'Donoghue wrote:
+> On 11/11/2026 09:05, Vishnu Reddy wrote:
+>> +void iris_acquire_core_lock(struct iris_core *core)
+>> +{
+>> +    mutex_lock(&core->lock);
+>> +
+>> +    while (READ_ONCE(core->irq_disabling)) {
+>> +        mutex_unlock(&core->lock);
+>> +        wait_event(core->irq_disable_waitqueue,
+>> !READ_ONCE(core->irq_disabling));
+>> +        mutex_lock(&core->lock);
+>> +    }
+>> +}
+>> +
+>
+>> +static void iris_vpu_disable_irq(struct iris_core *core)
+>> +{
+>> +    WRITE_ONCE(core->irq_disabling, true);
+>> +    mutex_unlock(&core->lock);
+>> +    disable_irq(core->irq);
+>> +    mutex_lock(&core->lock);
+>> +    WRITE_ONCE(core->irq_disabling, false);
+>> +    wake_up_all(&core->irq_disable_waitqueue);
+>> +}
+>> +
+>
+> Ouch, this is some mad amount of jumping through hoops.
+>
+> As General Pierre François Joseph Bosquet said of the Charge of the Light
+> Brigade in the Crimean war "C’est magnifique, mais ce n’est pas la guerre" -
+> It is magnificent, but it is not war.
+>
+> Why do we have to hold core->lock over iris_vpu_power_off() at all ?
+>
+> - What is the data-structure or
+> - Logical state (the state variable I suspect)
+> - Or guarantee of atomicity
+>
+> We are providing holding that lock ?
+>
+> These are pretty much rhetorical questions - the above locking scheme can't be
+> right. It implies we are doing something wrong and not really fixing that
+> wrong thing.
+>
+> Holding the lock across power_off() seems to be that wrong thing.
+>
+> disable_irq_nosync() seems to be a correct fix - so if our locking is so
+> muddled we have to go to the above - there better be a fully reasoned and
+> unavoidable reason why.
+>
+> Perhaps I'm being overly reductive here but - why not "just" refactor the code
+> so that the power-off comes after the piece held in the lock ?
+>
+> i.e. push that into a worker and then do a synchronous wait on the worker ?
+>
+> The chatbot told me I was wrong about the worker because "it would deadlock"
+> and I can't be bothered burning the tokens to tell it "I didn't mean hold the
+> lock in the worker"
+>
+> It did make the point that it thinks the only thing being protected by the
+> lock is
+>
+> intr_status = readl(core->reg_base + WRAPPER_INTR_STATUS);
+> ...
+> writel(CLEAR_XTENSA2HOST_INTR, core->reg_base + CPU_CS_A2HSOFTINTCLR);
+>
+> Which venus does like this:
+>
+> static irqreturn_t venus_isr(struct venus_core *core)       /* hfi_venus.c */
+> {
+>     status = readl(wrapper_base + WRAPPER_INTR_STATUS);
+>     ...
+>     writel(1, cpu_cs_base + CPU_CS_A2HSOFTINTCLR);
+>     return IRQ_WAKE_THREAD;
+> }
+>
+> i.e. power off in the IRQ.
+>
+> Perhaps even simpler - just do the power-off directly outside of the locked
+> section... once the IRQ is quiescent ?
+>
+> Either way I don't think we have a good reason to hold this lock and can
+> certainly find a way not to hold it - assuming the only thing we care about is
+> kicking that register - do it in the IRQ why not else do a worker with a
+> rendezvous or even more straight forward.
+>
+> void iris_core_deinit(struct iris_core *core)
+> {
+>     bool power_off = false;
+>     int ret;
+>
+>     ret = pm_runtime_resume_and_get(core->dev);
+>
+>     mutex_lock(&core->lock);
+>     if (core->state != IRIS_CORE_DEINIT) {
+>         iris_fw_unload(core);
+>         power_off = !ret;
+>         iris_hfi_queues_deinit(core);
+>         core->state = IRIS_CORE_DEINIT;
+>     }
+>     mutex_unlock(&core->lock);
+>
+>     if (power_off)
+>         iris_vpu_power_off(core); <- this ?
+>
+>     if (!ret)
+>         pm_runtime_put_sync(core->dev);
+> }
+>
+
+Thanks for your review.
+
+Moving iris_vpu_power_off() out of the core->lock section can lead to other
+issues:
+- A queued threaded IRQ handler can still access the registers while the VPU
+is being powered down, as disable_irq_nosync() does not wait for it.
+- A concurrent iris_core_init() can run while the VPU is still powered, and
+the delayed power-off then shuts down the freshly initialized core.
+
+I will rework this in the next revision, using your IRQF_ONESHOT suggestion
+as well.
+
 > ---
-
-I have a different patch on my queue here that fixes this as well I think. Please review.
-
-
-commit b835defd5b9b0fb8cd89997fd4a11c27b28bbef7
-Author: David Hildenbrand (Arm) <david@kernel.org>
-Date:   Wed Nov 11 21:09:26 2026 +0100
-
-    mm/khugepaged: do not lose soft-dirty in an mTHP collapse
-
-    An mTHP collapse can lose soft-dirty PTE bits if pages were written and
-    the VMA was then made read-only.
-
-    Collapse does not preserve the soft-dirty bits of the old PTEs, so the
-    new entries must be marked soft-dirty. map_anon_folio_pte_nopf() relies
-    on pte_mkdirty() to do that, but only calls it if the VMA has VM_WRITE.
-
-    In map_anon_folio_pte_nopf(), call pte_mkdirty() unconditionally, just
-    like map_anon_folio_pmd_nopf() already does with pmd_mkdirty().
-
-    Consequently, we always mark these PTEs dirty (including soft-dirty) but
-    only set them writable if the VMA has VM_WRITE.
-
-    This essentially reverts Hugh's commit 1ac0cb5d0e22 ("mm: fix anonymous
-    dirtying") that back then touched do_anonymous_page() to avoid forcing
-    clean anonymous pages through swap instead of discarding them. This no
-    longer applies as shrink_folio_list() allocates swap for ordinary
-    anonymous folios and unconditionally marks them dirty before unmapping,
-    regardless of PTE dirty state. Keeping their PTEs clean does not make
-    them discardable.
-
-    This now also marks fresh anonymous PTEs dirty and soft-dirty in read-only
-    VMAs when page faults allocate real pages.
-
-    This has low urgency.
-
-    Fixes: e22f2fe72c74 ("mm/khugepaged: generalize collapse_huge_page for mTHP collapse")
-    Reported-by: Chris Mason <mason@kernel.org>
-    Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-diff --git a/mm/memory.c b/mm/memory.c
-index 24144892c2803..8b4a62722a0b1 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5518,8 +5518,7 @@ void map_anon_folio_pte_nopf(struct folio *folio, pte_t *pte,
-
-        entry = pte_sw_mkyoung(entry);
-
--       if (vma->vm_flags & VM_WRITE)
--               entry = pte_mkwrite(pte_mkdirty(entry), vma);
-+       entry = maybe_mkwrite(pte_mkdirty(entry), vma);
-        if (uffd_wp)
-                entry = pte_mkuffd(entry);
-
--- 
-Cheers,
-
-David
+> bod
