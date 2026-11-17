@@ -1,120 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794904396;
-	b=kLV+9OTYwF6QRcD5C0FblAPqQ9u7uoLr0L4XNKDa4IXyQdRbDht5sUCBVUQ08Rlz0HIt
-	 Cjm9Cqlacw8of2J+YWq0Ji50RABSWTDt4jAH+HlGLk0Jfdwcd5MAank4e7HRzUvSmzfvI
-	 6p2zibHjpoCbT59M8m6TB6TsrbD0oEwB4EREZxZlbEcAmzbtT/VDSLftdlvbWdTnG47dq
-	 N8xavmnGVY7ySkaBSb957S/c72Vh+4FOGAi7vf+vIwmrwMZ5M0283ui7W47e94uZwsWfJ
-	 JWxlYJkF8oBjAT+Fcvv2ZPCMo81oqq1rCeWVbFH2JzoY0IW++4z3QVzE7+xgr/oK8Sw==
+	t=1794904825;
+	b=sS5LCILFGlQS2T036WXvlFgU4i/taOb7OtW/M9q3LQjSWuhSiSaShvqgQLzEr8g2Uc6C
+	 1cOdt2rKtS9BtTG1SORYwIFQIKkgqNvZU3f7T9r6c84fI6u3iGPwN47TpOcO/Gxcb7xES
+	 HAGC+eHTw0lxtNEEpiO3xHGYSE4A6cUswmpSxxBa8pj8YTfepcsTfpsotz9VS4yTgt0Bh
+	 /4yXmG+w/0bHwS2NMIQ5RPuFABO03CMyyskAQXZfUA9RQQfNXXAKw5SX0NtTkxSP4GUqs
+	 JuxKQsZDzTtBvofsGpSByAVQ0Erl4/xe1T5vbmqZXocSAiMy0KiwBoBrwfX7Yiv9e8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794904396;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=qTaPbmNErXBwiuOezragKKQVbgX59r+D/qqn57oH2Ak=;
-	b=WqhoVF8rOuf4K/Qku3JMxuBVZbhRjCVSeo4gSi1+g1s8L6u1eym8o/QAunL/3rbyR9qs
-	 VseRDchFhMp51j69Y1VSogTcFYLOEkICdDlihcPMzdccl2mCdiyZuTU5poPMoehQ2tGiO
-	 DjdTG23ayscCo66IsMVS/MYvCtvdLJLGIu3Dw3USGKUwXJ6uEEXbHzlmhF/sxZ0wfM6Ux
-	 r6qkd3aGXYu33BecM2sBIeMxteKJXP0GwoHNDitswwXhRJgAsRk2TDskfh4hwl2pex6rs
-	 ZY7Y3Lk3JC7XR+SRdNM7DhARzT32y047EMxh2RmuNBiW8MHjuDaBWlZmfNBcYEsYQ+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794904825;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=BFwuB1GrvKDcDRsKDjLKgNhQsOcb8aL9tjPBBhahvGo=;
+	b=z+y9Xns3vhd5xUR6mne53TyuhPm2M87qoAUpReNWNem3JgFM+bT+S0gxzpXyWZpjdAzc
+	 6TNRnnga00mWUm/cxb/o0rwQ8btqFuF45MSkMoNcHEbn4WMmjQgi3LYSUqYHVlUmtq4/E
+	 +ENThp4mUIhpBKn+UCMVnphCeLnzHMaX5u1QQSsO47bUD1t81reyW+Fmby20JNg85qtOF
+	 lJGvg5abRXVTrV+NoFOVFXZCnvFQIYEnQTqgWheFpsTa2WdzRCUOEW6LOZMFaJl2lq7aQ
+	 PAarcXNN6Dcr9hhkHRbU+ddAZ9nxdLoQYcqULRgMVCLF5J8VUP+R3H413EElIo0EJWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JlcKKq8s;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OMHntUea;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=YhVyptiT;
+	arc=none smtp.remote-ip=54.206.16.166
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B18606A8A6
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 08:33:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1B18606A8A6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D2A606A89A;
+	Tue, 17 Nov 2026 08:40:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9D2A606A89A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=JlcKKq8s;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OMHntUea
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH8WDwQ3407575
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 08:33:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qTaPbmNErXBwiuOezragKKQVbgX59r+D/qqn57oH2Ak=; b=JlcKKq8sGs60RAQo
-	yoWKJ/Mh7qfqqXU0Hw3Mersbr/hZLvG8eTW+duvHiA0cPb9qpcaPIt7dkPwLVqsN
-	/lAMNtPd1RAIwDQalhBTEk3BefKtWfequ+oihB4lBXpK/MYFp3euoYQhNki1sulM
-	JXb1OR/l86Jo/yozADRutrfStKrkdBy5ZZKfPFoTEJ8JT7UHsjjzIOIjs/+4MOmE
-	psDApJkJMtjZE1SYWM1Ji96M/SPI9eGUMfOg9fS12auqD7U/AlbxfsDwakatC8w6
-	Jg7Jtm0NUbhcvCs5HcQ8vTt8jh+ssuY7H77JLcLJRV35NDtQ/uIc42ldqHaER7PY
-	Y6Vv7g==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j09htj5k0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 08:33:13 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-9495dd0f07eso758956685a.0
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 00:33:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1794904392; x=1795509192; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qTaPbmNErXBwiuOezragKKQVbgX59r+D/qqn57oH2Ak=;
-        b=OMHntUeaNhpVYlWuzU5G2GuPCSHURdW/7DR8u2UUXC9VbUvu01Vd70ZVIvhizGWp+p
-         Pd3Uikfvl6ITMkmxbCKHR/e63MMGjD43PjMqkC/BwgnmFeQApFxKoR9Bg4f4Jgo76r4s
-         gRB/8JcCwbPwet4g/TcusqmnIivtRjLQk6/MQrxe0Ul+f/LyG9nIOQmp+O4z4It1CP2z
-         yzbs6W/TguPZ0rNb3OQ009ViehRDylIpDj3NdKkTod+mPx8b8xllxe70FGFWttjAa3M/
-         OGTXfB5qUj53UVOYWnp6w9J3mFMi+UfH5hPTKsGc35PJpspBiVuG0+4ExM97FAb2fLfv
-         BEHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794904392; x=1795509192;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qTaPbmNErXBwiuOezragKKQVbgX59r+D/qqn57oH2Ak=;
-        b=0TFalqzWuYLHY6sUVKFbDhYKeWB4aQNnb8im3VhQ9mt46jC6hL2nqC9WkNpZkUbOX9
-         wegWqfCA9fBmM30NrB5xidHL6lu/e4UcR3KkdwaDiDnZjVz4N7TIZtOpouFxkG5dAA2U
-         TWNsNd4+tQROGlUh2eQ6jJ/bwmIAncEcZbCH4EJ/l+bSKzTqyW0hEHakFBAMARKgMWUx
-         DBApXLFdZ+9W6iKlCJbypgynKTrY97SI74eYe7TTDMx40BimP1pRHXxyn7FvTd0tpBTz
-         aao2s8Y/ojWloQ22DEqa4BHRHeuGp0fA67sEnByhdAL6OymuDIqjNFlcbLxh0OwhMwy0
-         8zzA==
-X-Forwarded-Encrypted: i=1; AL+hErEw5jzTIr5rnFJh2qyiciTUurBMzjh4X/tRlB5EymROcdJXAM3EVkgHhkiAT+G1sgwD25aEwI4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vUXwVV5viexQOfTB8gFvV6TiwdQqMRB00dhPJ9Xej+c9JtIXP
-	HQPwtH8xqn59rFBdh8+24WijvuIvhfj05CmLwrqUScQEOpNru3+DmaWkTRb3H75m2dxlUOav3V2
-	GjphEiygr3/7K55Hnwbv+rxPrRrgA7hl8fS6m41es6BM0EKxV9NaKHFYVpR4=
-X-Gm-Gg: AYBFou21jIfeqFM6mFhLI0oBlWxoFIZeA6BwtoAFVy5DdrFBnLkvm2zVcPMZTXXYrhk
-	jcCUSjyrRetTnEM7zRpiyxwe2tV1DrAN/vf6B84Gpek0pmnGBEcjuArFMtuNmP1w1AHH+DaDzIn
-	CAqqSUYhyfh1zDndcCDUx2zq4KY9tZzy6tHyJrezvp50pXVnBqf4VL5N6F+eJ2g4n2rLA57Y1LI
-	5fsu1DDmYcYW9SZUL0eisOg3K1UUsx4xooTmiH/aOoZWKjfmPvoCnelZN8vxtMe8jq8cbV/SYU4
-	ubw23fmrhp610x5UvRcCpYkQgBMNiH7Q3H0PCOC0TvRdUXLfao587az6vazMJ6QQkvOjvp8UuWX
-	dtsHRvGLTgspRDFykbZwfM3RzH2tuyhoaU7LKPlg4hMgI/cN6qGAosKYq3AbjaLQi/D5T+Va0wT
-	8=
-X-Received: by 2002:a05:620a:4693:b0:949:6e15:e1db with SMTP id af79cd13be357-9498b875f48mr363268485a.73.1794904392266;
-        Tue, 17 Nov 2026 00:33:12 -0800 (PST)
-X-Received: by 2002:a05:620a:4693:b0:949:6e15:e1db with SMTP id af79cd13be357-9498b875f48mr363266385a.73.1794904391831;
-        Tue, 17 Nov 2026 00:33:11 -0800 (PST)
-Received: from brgl-qcom.local ([195.50.164.66])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb571d7e87sm246783055e9.3.2026.11.17.00.33.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 00:33:10 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>, Kent Gibson <warthog618@gmail.com>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH v2] gpiolib: keep the line state workqueue alive until device release
-Date: Tue, 17 Nov 2026 09:33:08 +0100
-Message-ID: <179490438637.15815.8754565205390800066.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261110-gpio-line-state-wq-uaf-v2-1-ce6d8266656e@oss.qualcomm.com>
-References: <20261110-gpio-line-state-wq-uaf-v2-1-ce6d8266656e@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=YhVyptiT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794904778;
+	bh=BFwuB1GrvKDcDRsKDjLKgNhQsOcb8aL9tjPBBhahvGo=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=YhVyptiTVn9oJwU1o14brPOvhwDpWyM23LMbK61NsRiVBVIh73HEJyUbC9eDdDXqF
+	 E135itEc+DG/CdiYa7INh8M4iPF+WHKuYUfrCNJN/mp/g6XEq86dGQK8RhgsykOoKd
+	 VeCJygKl15YCq4KqGuVWoul6s5VuSjyr+lwJPsxc=
+X-QQ-mid: esmtpsz18t1794904773t426700f8
+X-QQ-Originating-IP: qHeq2V/ZLD2p2YoBBFsSIpmiLg33Ldlt4VVwdnZEFJs=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 17 Nov 2026 16:39:22 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 6951036732220354189
+EX-QQ-RecipientCnt: 8
+From: Siqi Chen <chensiqi@uniontech.com>
+To: Lukas Timmermann <linux@timmermann.space>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>
+Cc: Griffin Kroah-Hartman <griffin@kroah.com>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Siqi Chen <chensiqi@uniontech.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] leds: as3668: Propagate chip ID read errors
+Date: Tue, 17 Nov 2026 16:39:17 +0800
+Message-Id: <20261117083917.3304865-1-chensiqi@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -124,52 +72,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAzMyBTYWx0ZWRfX2j7aTS8LCHWq
- 66UYd1thEUF3ucOns0+Q3KiBm69oCIGQ+3qOVS0PYn8AFRqrXsXOp75htA826O/m/GQqF96orGg
- F4bGWNHF2/zct0ibbnp3gRzqW4tCaEg=
-X-Proofpoint-ORIG-GUID: 4tfnmt5Hg--0TLNz-KxhI9jECO5GYTul
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAzMyBTYWx0ZWRfX0BrXSaaFJ5rv
- B0Fj1qpovraBMaO6UcWTRM1nogbAxp1SP+ons6KHkJcctUR3fciR4tSo6BVACTCDs9hCX945h1z
- /bF/twxv71w75vd9kFM+j/Dw++cHkWJyHr1695jNHzvqlXOgbJfOU/b8lnsbn7/x/i7ZGSrkDvO
- OyGkpaVce5KQnEFc+Wu6RKU8P02/KQ/TYMXYqlIIzHtKilRf16DKCbaTnh+xqcen4+t2wmxPBe8
- qm0X7DS/X/elEBqIYgnBYyb2RbgMclbHzLhy9ru7ktF0Yieacduo40kXuPExArB2wNs2c1OjSkp
- f6rWRYvKsYVpHyabbCRLsXQlNjf4htFb/2Q7b5XQVfikECFjEp/CyMa8PVE3HMMdJT/yVbKeK2T
- Vvu8wiJj+4X6+iPOYwVRnCd7nXa3aU+Skj7Ors0n/Z3tCcZ4vrX3UiCy3ss/L7U1s3OIssgNwYN
- eMx/VT5V47G2wlQhiiw==
-X-Authority-Analysis: v=2.4 cv=K963jCWI c=1 sm=1 tr=0 ts=6afc1149 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=IXciJTxnJKSDCwE9BYQA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: 4tfnmt5Hg--0TLNz-KxhI9jECO5GYTul
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 suspectscore=0 clxscore=1015 priorityscore=1501 phishscore=0
- lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170033
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: M+HBeokw/bUUu1ofZVCU8DkQfTPtk2ih1uRaoKsG0l0HpeXowSWaFigf
+	xtVwvrISo2ojiXM34/Ns7paoZhkKnNwWZvFvjP4orz/e0NsJSEU3PZkse29dGzwM/optoFu
+	s23oXEm1xLZ3aN/U3O7cBX5OlVRT3BdUeptHUxoB3rKokQIElOGpXVL02oKEMdy1efzCfCf
+	U5Jx0eSt5Noeo6JZ1lp8Lkyc+KOipkEoWHb8BGkDXRxm9/wxZUyp0lHNRVznNBCl+FlCclY
+	sVuX/J9/S53+vyOoveZyzt2/b9ungH89E+W/MC0DiRWnarFxWiT3tRlFN9LAV/LCVki0/Hi
+	lSMvUvf+UXhbdtSV0hj4JxL7s9/wXzOipU9+eXvYb2YkIWidIJb66Nph4u+tPJ0LWvlt0j2
+	yhByNuIYQEz+d6x62j9W25lPlSnHYOFyJAmV3USzIxs5lJe67Klv+RRVEs4C5I4tH6xrQXs
+	pzSHw89Qi6Ne1UzgRJZEnHjp5dy/2QYsuA6RlYg5//vegPu7XMfOUXXgNouQ2JHf0RpeLSP
+	DfUFH5OrlCnmZTksbOaHoo33a2TDKI7weqVGlNqS5ZCwq3c2W/YnvCDZvOL/1Wod0ZequX3
+	YBn8oW4bATPXPHtk4cSF2M10eY/HTMM1TQK7+nHuTjj4WYkdcPwTxnGjKFjOqgHo2PRjKUX
+	aAsK/XFKH1CnK1hXlUwLX7Rb6SLH+rHy1jc4yQdpOefrP8UsZ0cVnZONmYvImIsrul8l/tF
+	J7qoVJHECdXf59zpq6GTW63Z389rE8SjjtW38ZfTvtGfYHTnctYVmetmv0nOuCnDCVD6tKx
+	r/B8LWT2KiF+e4B4G8IMX/bR89OG4J/TtWHCM/EXg87a9sKn9/Le5EJ9Z6UCVTLheo9XlaB
+	HopoH6k5wo7kyPdP3ijn4/690Q/JanVmLpNgTYvEQY7z2SFdNVYZM+okSd9QkBdWoehUkSt
+	h1YOH3TUY0S4qPWUMGz1p1cdcc24A6i1TUuI4wVzcyDEMZFg4wrK3jopDRMo6GMXOlhHLSN
+	P1akYIGzXPghmqNB2yDOm996kyLgOgmzODcMIz9HVOZSft4TAV9mPd86OHKc00aFmr4SkR4
+	p0yCjSdopqcwPgfaQjTocQ=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
+i2c_smbus_read_byte_data() returns a negative error code on failure.
+Storing the result in a u8 truncates that error and causes probe to
+report a bogus chip ID and return -ENODEV.
 
-On Tue, 10 Nov 2026 10:29:34 +0100, Bartosz Golaszewski wrote:
-> gpiod_line_state_notify() races with a concurrent gpiochip_remove() which
-> unconditionally destroys the line state workqueue causing
-> a use-after-free situation where queue_work() can schedule a work on a
-> freed workqueue.
-> 
-> Keep the line state workqueue alive until GPIO device release.
-> 
-> [...]
+Store the result in an int and propagate read failures before checking
+the chip ID.
 
-Applied, thanks!
+An AI coding assistant was used to identify the issue and help develop
+the fix.
 
-[1/1] gpiolib: keep the line state workqueue alive until device release
-      https://git.kernel.org/brgl/c/2e002a1d05b1979006f3c46eb6cb5cc36e5630ac
+The change was compile-tested with W=1. No hardware testing was
+performed.
 
-Best regards,
+Fixes: c7dd343a3756 ("leds: as3668: Driver for the ams Osram 4-channel i2c LED driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Siqi Chen <chensiqi@uniontech.com>
+---
+ drivers/leds/leds-as3668.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/leds/leds-as3668.c b/drivers/leds/leds-as3668.c
+index 46427fe752a8..6e4b6ad59059 100644
+--- a/drivers/leds/leds-as3668.c
++++ b/drivers/leds/leds-as3668.c
+@@ -131,10 +131,13 @@ static int as3668_dt_init(struct as3668 *as3668)
+ static int as3668_probe(struct i2c_client *client)
+ {
+ 	struct as3668 *as3668;
+-	int err;
+-	u8 chip_id;
++	int chip_id, err;
+ 
+ 	chip_id = i2c_smbus_read_byte_data(client, AS3668_CHIP_ID1_REG);
++	if (chip_id < 0)
++		return dev_err_probe(&client->dev, chip_id,
++				     "failed to read chip ID\n");
++
+ 	if (chip_id != AS3668_CHIP_ID)
+ 		return dev_err_probe(&client->dev, -ENODEV,
+ 				     "expected chip ID 0x%02x, got 0x%02x\n",
 -- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+2.20.1
+
