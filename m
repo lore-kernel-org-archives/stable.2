@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794888794;
-	b=CV6VIHYo5siGVWGAzCDjdcRXuBneKVmuSwz1YspuB3EEiA7G8w/VivKWy2iE+wyad/nV
-	 Z14OTQ7UDTbiN/CI2ED7Ol9YWLFq8RE2yNIfBTahH1UIzJOPNisMPlGmgdnZ57exqgqFK
-	 n/60ntUXGyocwetcUrcVRcKThRWNZh2Dyz1JenGCsjK7WooShLL35nIVuJDK3tupMknBi
-	 GnZNrL3EmxnLfHTFyzHK9epBtuMe80bB4giZN4dYnpvjo8PSQha9AgLr0Laos5cW5WHMe
-	 5oy5kouiDIkJTgg/e/VsNrTPb7+7oE5TS+rXYfedFLj4AdKWXGwFiHwU0/0YrxxaYkg==
+	t=1794888799;
+	b=rJ0fJd7EfmCN+RGakyT+5GA7I1L7TxM8i1S9A+r3chgVzwgeGJi5+vrirDaVHeTewqEg
+	 O4TidBk7v5TOREWccITaNiTlg1RziqqmFzojeQU9T+P6kJDd0+ZLjRUfDFt5w11Ml6WcK
+	 ist1bjuicPjhANyUPo9RqB+vlqEpqtMIhQuxUgtitteXADsb10kzt9iELkZmrPoCUyYnk
+	 nNszArgX+jcYHdRZfLAeNA43v0T/RmuPODZIimPZKWu06OzCktIgzghDlcDPHdyhv/At1
+	 wDEj+Y0hU2IPryJ0KRElhZLQrS6Ya0jytyyFSdOht4qmFctQKZ6BvjPYwDtLynup9BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794888794;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794888799;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=AK+gHSxZdcAvKZ7cQ385RlBq7MDtihQM1tWGeZNK/Ig=;
-	b=kJoGluNgueGLyTk7nQz/xLDaq0Z69XDXe99bx6ZMzAC/Fl3MIIzjXu5JThcluI/RajF9
-	 Xgexg7wNR6s9e9STTmqPDpmzwxFRFR7d/uSS5fPTC6N1Fke9xZW//ArtseGpOQmeUUk9t
-	 dn53fcrm9uQgOC4U3YObcMNjbhS6O5tkoykNdwQ+LlSgBDK/Bm6dbUHaPThM7qiBLv6yW
-	 /mIGm2nn/rwvg0jikE8FhHj9qQHW+Ae+PYHF65qLAbRfWl0OpO/6FqI+syBoc7FTSBSjH
-	 TsYKf5/25jSNg0NapER7+2bAO25xXDBrWoLdI4WsC8TFClVtrfdNd9KwKOOKULZ9HEw==
+	bh=IlsaCHEk58qGFGAb0OAbGJOtQIRxROfDzkwINL2H/Is=;
+	b=VDh9dwK+TriVyJIQ2ZbfLvzFZN3xeiEvWRCmCduJFUdwtQ+xV9MLtS9Y2u6iBns/GT3N
+	 /+Z+wYhtbWolctLSFyNzSUrvfZD4V2SMNdSkazATIu6/0NK2ofuZY/bDM8CIVTSKlara9
+	 wsit3heC6uA3km85NaM+U9tNr8P8bNR5btVFrK4HQkPekQaJsWjspAs/JM17LeD4VWXV1
+	 dSkr5EqX/WdXGiE3537zipJSHaMxzrMGcCOF9e6ZP2pg1jdU11eCPJfDQ/owc+UMjHPMw
+	 /X2hDvzmhwdO6IZsdMwpZnGFbSsoZ3mjQyCQZqSrCvLfxslDTdsJVgqSDHaWQkMMOqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lG5AZuII;
-	arc=none smtp.remote-ip=74.125.82.41
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iyJfoHnU;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81E73606A32C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 04:13:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81E73606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3E4606A31C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 04:13:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D3E4606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lG5AZuII
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-1a2761c69fbso425009c88.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 20:13:14 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iyJfoHnU
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b3ada81853so3884585c88.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 20:13:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794888794; x=1795493594; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794888799; x=1795493599; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AK+gHSxZdcAvKZ7cQ385RlBq7MDtihQM1tWGeZNK/Ig=;
-        b=lG5AZuIIJascP0svvooQZmTYuY69JAc+MnpbSEymeWQf5XhceIUDTTHQGiU/todZQZ
-         itCV+tHmyjyEcTXcpWByzYtRaYH39ygujEIov8l7JKhqzr8SitKV9AHZyADR0VB9ksWR
-         XdEp5b5D6hnkxeMMWOosLyTUmJXJGMo1TzwvI8SzzNxli3izP19JBn0yEsk09wwY1lSf
-         F56vqXeQP/MN5qPHW6Hn1ogyjGUVvo0EqJcftZs0M69WMVP8BwjxvdrC6sbEKWONOdKL
-         FwHior7IgMA9ZbJPehFyDB+MjrqvvIs4mbl7kqn0zQ9iA3/zVMfLe5khvXmGzm0XcmYV
-         wKng==
+        bh=IlsaCHEk58qGFGAb0OAbGJOtQIRxROfDzkwINL2H/Is=;
+        b=iyJfoHnUTBykVGNRk/qWghsqblBAOEcjQgETQqN6NXMfhMNtYHZDaTlfcAnGCioN9v
+         3HZBUEIZRfGpt3Iuu/d0m9NJmxBgbtWJuDRJ/TSLORhOdxrw9q6Cgp1tlM9Z5SKAyAGD
+         VZIxrCVgTH2XbQSfV3oFuvNicN0Tg5qU4GBBrYU7lFS6tUja2Sr5mRlEhpCWvpLjTgyu
+         xfvQ8jAXcYOzDSZw3AOZdMWRzMvBcTgCEUBlEOR8si1ex7ik1vDivlVcqbTS2HI02THf
+         bKS4X6by9bvwhE9pXV5Cxbf/a6NBmlHCO1TUtDnDobV2u0BypC2pqHAv9JcOa4NUghVd
+         93iQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794888794; x=1795493594;
+        d=1e100.net; s=20260707; t=1794888799; x=1795493599;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AK+gHSxZdcAvKZ7cQ385RlBq7MDtihQM1tWGeZNK/Ig=;
-        b=VhKF/PTgLDi1ZwN0w4IUpNzOVVMBGR5kvWjnhPMC2qnaY2do0tQ7ws1fcDa8bzhA/R
-         HqSc7QZU4Twr6PDzH2Muq4RpFGJO9tbwxT07+6pE5GisShqgZgf++smKtM4LZYHaARh5
-         AECHcSrxX6eaUeZ59Dc2By+aEo/5Z44hXtATT3xTooBfizdyA6jCmNcmdxxTtn9igSsC
-         F10kf3tN1u73Uod8at0QPaT4cXOWCZRT1qLBQnt85PzqYnIYPvfrmJuCMNGLjsJUh9bY
-         0sRpUavQkSv9G3PFUd3i2hkd8ZValmciXMoA5HjYELz2p2fP7h3tJxXHP1K+YjCOsjsr
-         LVsg==
-X-Forwarded-Encrypted: i=1; AL+hErF8O0EVgmztqFYeer7zrfb/KWYFaG4SD/7ubVI++6u+GtiWVU3d3SSV6g3MhbAg/prsW+9z4l8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+6Cwf4Zc2UE5W72aXEiGWWJ65j4Zoj+Y0jYBBL8y2dq4QjC+sD
-	R+VIhTukWEy+8nqtHWgz3wbaapOk5ideARM04c/HnaUvJx4YhnEgi8PpVE2SM7Af
-X-Gm-Gg: AYBFou2a8W/AFx71+8PCsw+vwV/uwpe3JRP1KJa5prJghUYiXU3UgjAeqFayS3ZwHxM
-	RdWnVT4XxQYSNo9BiNQ4Maqv1QfyMM7CC0HnejH4WfR/NPINJwZZUKkfqkZfY1Xr943l3iTxLxa
-	6tJDFcEpPA8dOyZMaqRc57R8oU/qmvMDfBORKF/6NychOegFuT/0s7mY2mQ1zMdMGYQhiR/A/W4
-	Nfc0DK6GmGVRC5BqkNdmZyyyhlMwed8vVwHADGQ0e9lD4cv9XQq8TkZuxQygfxDWNwN8RPhXXtg
-	20UvR8vaMoypMZiymb5IdGTjV6p9mrvRLQkPwKHXssKYFaMSeaqEoFIi3StNv151OAa6Bqqrj+4
-	YkaKBRfjHWGMt9Hjn6xSb+z61z+wZuSWKIzMKNHPb26lppigK7cVn8E2put0T0Rguy3jMOHNQwj
-	o6PS5/y1KZPSPozgw9a09hUY4z8C0AfRx3hvcNJ12Lqlx9FL2PuXPfYTQ8pYBbis4+09Cune974
-	WH4/TSy8+wSbEHGX2i4a5+qOxnmtYVWIIFc4jLmuhX3tuTMLVN9Z1jiUqqHGtLjU+LWKDsk+2wp
-	jUfqSCjjp4/tcC96qUtDeH0lQbkGfBkXWBfIN8Z57GfbOK7fmPg+dnQ=
-X-Received: by 2002:a05:7022:2529:b0:1b4:fa58:9d8 with SMTP id a92af1059eb24-1b5031759b2mr18176689c88.20.1794888793525;
-        Mon, 16 Nov 2026 20:13:13 -0800 (PST)
+        bh=IlsaCHEk58qGFGAb0OAbGJOtQIRxROfDzkwINL2H/Is=;
+        b=cqHcGNId8+u+ZNlgD5dkk1y7yaGfN+UUJiogRpzMtsqs3ylLw/BVnyIq1dVB3Etrny
+         RmX0C8T6LePiYBPzwBzOs4HDRbfkgmTRs1XqViFM6RZymSWCGWcylL5TTGKNjYks7btc
+         7Xxvb+hxRghvliZJ8bwQ2BcMI/2TzyXXLqO3PU6qH+xUNbVcrV5C2+KSpS2O4E0GF7Kf
+         PadPcT69Q5MHGAlQi8qj0rNXyjf6NQYFBjsti86t6qCGN1QegZGB1OLGY07mCRyJqUHj
+         JBLX7bh+OAMkxIGNGhmVmerZ9ftxQqpb+kTAOpNnmhYQvmuWeGDhwINP+pDX9F5n0OPo
+         73Dg==
+X-Forwarded-Encrypted: i=1; AL+hErFsp2D3soa1+9F+kEmv3uthq2n6BX10OKJ6uZim6Fbj6IEvkaKwEX6POQ4KfoV/675oNBO8BaM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+MY/AyJWCepsrOUEiFakJt6tM49+hrUkMQK8gKkaw6vkq6W2yw
+	hDlvwFo4WOpX7fa1hcV1bHqWsXjmb+Pgh9fMaJMgn89mn75EkK91GLfB
+X-Gm-Gg: AYBFou1uE1rwKbInHQg9JQltmL+Tu1fjs21nO6bKXY3a11fdImnldZ4P5ILS20FRTQc
+	d4gqyrz18N4EBXy9UIdliI1VVHaZaGbeu4qKknZic/APy2TYi06hldit+uuL6pKAVMyyi6Ao9GM
+	CWBP49joJ96y72qUyx1wgOFqzCxLyH7s+Ud2z8iouXxCjjMT4OW0duc5A9ZOyHjpJYxpdpFQLIs
+	TgpOvf4Wx/dQda0e7/Grv3dUxj6h+MikOzRa2udBpHKvl5dxjnBI0W1CWI+elqICLwhc/yuTyqo
+	sunKWaSjqs9u9X3DFH8WoOROfD9SdX4WjUfv8xRT/8A/f8Q6MCHTm/SGY6iF0IDACToUeqBeCjP
+	tXWycep1c3lrzlVMKt5XtpMJztm3VGNiQMvhbM17Ej42Sb93KEel8zktZdChMyhIPYY5Rvcq3dE
+	bMGouA8h8lNPY/IT6AyhEhx56rQazmxkLmOGldq4xKAk29MuFJL1ZsHptKzOhMoBdoaDfb1YcB1
+	hNDknMQvKdUsufJZIU3IgPdOiSJQ4vViWSUCSnlJj0rZDD5Fa5V1LyJVcpBwk32S9l0YW4HTzuf
+	P9AU8zopQS310o2nwdb7M1/OGoYuiT9iiQ==
+X-Received: by 2002:a05:701a:cccc:10b0:1b5:3616:599d with SMTP id a92af1059eb24-1b536165bffmr2485931c88.35.1794888798411;
+        Mon, 16 Nov 2026 20:13:18 -0800 (PST)
 Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b98e5sm40433851c88.14.2026.11.16.20.13.09
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5031b98e5sm40433851c88.14.2026.11.16.20.13.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 20:13:12 -0800 (PST)
+        Mon, 16 Nov 2026 20:13:17 -0800 (PST)
 From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
 To: linuxppc-dev@lists.ozlabs.org
 Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
@@ -90,9 +90,9 @@ Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
 	Mukesh Kumar Chaurasiya <mkchauras@gmail.com>,
 	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 2/3] powerpc/kvm-hv-pmu: Don't allocate gsm/gsb GFP_KERNEL allocations under spinlock
-Date: Tue, 17 Nov 2026 09:42:52 +0530
-Message-Id: <871eecaace022e3d49e5afbbeadf0b26d16f10dd.1794887659.git.ritesh.list@gmail.com>
+Subject: [PATCH 3/3] powerpc/watchdog: Disable preemption in arch_touch_nmi_watchdog()
+Date: Tue, 17 Nov 2026 09:42:53 +0530
+Message-Id: <a2ce5073c33127d04aed012e586b2ba708d7ff26.1794887659.git.ritesh.list@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1794887659.git.ritesh.list@gmail.com>
 References: <cover.1794887659.git.ritesh.list@gmail.com>
@@ -107,126 +107,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kvmppc_init_hostwide() takes lock_l0_stats with spin_lock_irqsave() and
-then allocates the guest state message and buffer with GFP_KERNEL. On
-a nested API v2 host with DEBUG_ATOMIC_SLEEP this warns at boot:
+touch_nmi_watchdog() can be called from preemptible context, e.g.
+sysrq-w via /proc/sysrq-trigger. The powerpc implementation uses
+smp_processor_id(), so with DEBUG_PREEMPT we get:
 
-  BUG: sleeping function called from invalid context at include/linux/sched/mm.h:322
-  in_atomic(): 1, irqs_disabled(): 1, non_block: 0, pid: 1, name: swapper/0
-  preempt_count: 1, expected: 0
-  RCU nest depth: 0, expected: 0
-  locks held by swapper/0/1: 1, on CPU#0:
-   #0: c000000004ad95b8 (lock_l0_stats){....}-{3:3}, at: kvmppc_register_pmu+0x50/0x270
-  CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 7.4.0-rc2-00028-ge5a8bf3a3ee9-dirty #124 PREEMPT
+  root@buildroot:/# echo w > /proc/sysrq-trigger
+  sysrq: Show Blocked State
+  BUG: using smp_processor_id() in preemptible [00000000] code: bash/238
+  caller is arch_touch_nmi_watchdog+0x3c/0xd4
+  CPU: 0 UID: 0 PID: 238 Comm: bash Not tainted 7.4.0-rc2-00029-g7664547149ae-dirty #126 PREEMPT
   Call Trace:
-   dump_stack_lvl+0xe8/0x150 (unreliable)
-   __might_resched+0x190/0x30c
-   __kmalloc_cache_noprof+0x4dc/0x760
-   kvmppc_gsm_new+0x68/0xcc
-   kvmppc_register_pmu+0xd4/0x270
-   do_one_initcall+0xac/0x48c
-   kernel_init_freeable+0x3cc/0x7f0
-   kernel_init+0x3c/0x274
-   ret_from_kernel_user_thread+0x14/0x1c
+   dump_stack_lvl+0x138/0x150 (unreliable)
+   check_preemption_disabled+0x120/0x158
+   arch_touch_nmi_watchdog+0x3c/0xd4
+   show_state_filter+0xf0/0x338
+   sysrq_handle_showstate_blocked+0x24/0x38
+   __handle_sysrq+0x134/0x3a8
+   write_sysrq_trigger+0x178/0x22c
+   proc_reg_write+0xf4/0x150
+   vfs_write+0xfc/0x71c
+   ksys_write+0x8c/0x150
+   system_call_exception+0x310/0x590
+   system_call_vectored_common+0x15c/0x2ec
+  ---- interrupt: 3000 at 0x7ffd01755b98
 
-The lock is not needed for the allocation of gsm and gsb buffers.
-Allocate and fill the message and buffer without the lock and only take
-it to publish the two global pointers.
+Unlike the generic version, which only sets a flag, we update the CPU's
+timebase stamp and its SMP watchdog pending bit, so a migration in
+between touches the state of a CPU we are no longer on.
 
-Fixes: f0c9c49c5067 ("powerpc/kvm-hv-pmu: Implement GSB message-ops for hostwide counters")
+Disable preemption across the update. While at it, let's also mark the
+function as notrace (since we might be within a tracer when this
+function gets called).
+
+Fixes: 2104180a5369 ("powerpc/64s: implement arch-specific hardlockup watchdog")
 Cc: stable@vger.kernel.org
 Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 ---
- arch/powerpc/perf/kvm-hv-pmu.c | 65 ++++++++++++++++------------------
- 1 file changed, 30 insertions(+), 35 deletions(-)
+ arch/powerpc/kernel/watchdog.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/arch/powerpc/perf/kvm-hv-pmu.c b/arch/powerpc/perf/kvm-hv-pmu.c
-index aa72b96b5a8c..a58634f656e9 100644
---- a/arch/powerpc/perf/kvm-hv-pmu.c
-+++ b/arch/powerpc/perf/kvm-hv-pmu.c
-@@ -314,53 +314,48 @@ static struct kvmppc_gs_msg_ops gsb_ops_l0_stats = {
-
- static int kvmppc_init_hostwide(void)
- {
--	int rc = 0;
-+	struct kvmppc_gs_msg *gsm;
-+	struct kvmppc_gs_buff *gsb;
- 	unsigned long flags;
-+	int rc;
-
--	spin_lock_irqsave(&lock_l0_stats, flags);
--
--	/* already registered ? */
--	if (gsm_l0_stats) {
--		rc = 0;
--		goto out;
--	}
--
--	/* setup the Guest state message/buffer to talk to L0 */
--	gsm_l0_stats = kvmppc_gsm_new(&gsb_ops_l0_stats, &l0_stats,
--				      GSM_SEND, GFP_KERNEL);
--	if (!gsm_l0_stats) {
--		rc = -ENOMEM;
--		goto out;
--	}
-+	/* allocate the Guest state message/buffer to talk to L0 */
-+	gsm = kvmppc_gsm_new(&gsb_ops_l0_stats, &l0_stats, GSM_SEND,
-+			     GFP_KERNEL);
-+	if (!gsm)
-+		return -ENOMEM;
-
- 	/* Populate the Idents */
--	kvmppc_gsm_include(gsm_l0_stats, KVMPPC_GSID_L0_GUEST_HEAP);
--	kvmppc_gsm_include(gsm_l0_stats, KVMPPC_GSID_L0_GUEST_HEAP_MAX);
--	kvmppc_gsm_include(gsm_l0_stats, KVMPPC_GSID_L0_GUEST_PGTABLE_SIZE);
--	kvmppc_gsm_include(gsm_l0_stats, KVMPPC_GSID_L0_GUEST_PGTABLE_SIZE_MAX);
--	kvmppc_gsm_include(gsm_l0_stats, KVMPPC_GSID_L0_GUEST_PGTABLE_RECLAIM);
-+	kvmppc_gsm_include(gsm, KVMPPC_GSID_L0_GUEST_HEAP);
-+	kvmppc_gsm_include(gsm, KVMPPC_GSID_L0_GUEST_HEAP_MAX);
-+	kvmppc_gsm_include(gsm, KVMPPC_GSID_L0_GUEST_PGTABLE_SIZE);
-+	kvmppc_gsm_include(gsm, KVMPPC_GSID_L0_GUEST_PGTABLE_SIZE_MAX);
-+	kvmppc_gsm_include(gsm, KVMPPC_GSID_L0_GUEST_PGTABLE_RECLAIM);
-
- 	/* allocate GSB. Guest/Vcpu Id is ignored */
--	gsb_l0_stats = kvmppc_gsb_new(kvmppc_gsm_size(gsm_l0_stats), 0, 0,
--				      GFP_KERNEL);
--	if (!gsb_l0_stats) {
-+	gsb = kvmppc_gsb_new(kvmppc_gsm_size(gsm), 0, 0, GFP_KERNEL);
-+	if (!gsb) {
- 		rc = -ENOMEM;
--		goto out;
-+		goto free_gsm;
- 	}
-
- 	/* ask the ops to fill in the info */
--	rc = kvmppc_gsm_fill_info(gsm_l0_stats, gsb_l0_stats);
-+	rc = kvmppc_gsm_fill_info(gsm, gsb);
-+	if (rc)
-+		goto free_gsb;
-
--out:
--	if (rc) {
--		if (gsm_l0_stats)
--			kvmppc_gsm_free(gsm_l0_stats);
--		if (gsb_l0_stats)
--			kvmppc_gsb_free(gsb_l0_stats);
--		gsm_l0_stats = NULL;
--		gsb_l0_stats = NULL;
--	}
-+	/* setup the Guest state message/buffer to talk to L0 */
-+	spin_lock_irqsave(&lock_l0_stats, flags);
-+	gsm_l0_stats = gsm;
-+	gsb_l0_stats = gsb;
- 	spin_unlock_irqrestore(&lock_l0_stats, flags);
-+
-+	return 0;
-+
-+free_gsb:
-+	kvmppc_gsb_free(gsb);
-+free_gsm:
-+	kvmppc_gsm_free(gsm);
- 	return rc;
+diff --git a/arch/powerpc/kernel/watchdog.c b/arch/powerpc/kernel/watchdog.c
+index 44f178e07531..61b67dde04f2 100644
+--- a/arch/powerpc/kernel/watchdog.c
++++ b/arch/powerpc/kernel/watchdog.c
+@@ -456,12 +456,16 @@ static enum hrtimer_restart watchdog_timer_fn(struct hrtimer *hrtimer)
+ 	return HRTIMER_RESTART;
  }
+
+-void arch_touch_nmi_watchdog(void)
++notrace void arch_touch_nmi_watchdog(void)
+ {
+ 	unsigned long ticks = tb_ticks_per_usec * wd_timer_period_ms * 1000;
+-	int cpu = smp_processor_id();
++	int cpu;
+ 	u64 tb;
+
++	/* Callers may be preemptible. Stay on this CPU for the update. */
++	guard(preempt_notrace)();
++	cpu = smp_processor_id();
++
+ 	if (!cpumask_test_cpu(cpu, &watchdog_cpumask))
+ 		return;
 
 --
 2.39.5
