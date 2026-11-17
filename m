@@ -1,72 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.125.139.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794918993;
-	b=tmy4EvurqyAC+ygm84tb5qY4FlKx5exQzIGQ4bX2fYELqPE1caZIh0tcEqzPILtjBEFn
-	 pKO8PFweKeA96K6lXFoam24YE2UTw+LRYrFbxFAbvRNMycdOm3iUwvHZea8g2qDXeSOlX
-	 B5TZGxZh52NJNdrwAVCuQ1XK3k3gDCB1U+nHQgu43lVpg/dfXAIp70SNKUYIv38Z4T4FN
-	 VpALbqXhjBUJt9sP3vcSBxjWk74JLAfl0qV/333r2Kxjy3JK3OZiLPiYIikHNsd4m7yEn
-	 8ZsgvM0mkoztsS2dCRwJep6mkDdMi8OWBHhgZaKi0eG1hOaOnvr8S+10cEQ3PUzn+8Q==
+	t=1794919086;
+	b=hJlWAgZwnhNmTweGUksVyezP7CM0CGqLCmSkzUIZsYp7LjNUjX1UPbCVk0JwVu4RltQA
+	 hzbyakM/8TqUfBDHxWfr+VpXY/NMCrDjGendbAvWdt/I+J285e6pV3oF6fwe7h2nxpPLh
+	 VZ7BypzcBQHtrysvmL5v3spxusZ/GonHxxrb5UgEbPJ313Fkmn53oVgYcW4YQ+VzdGjua
+	 NiOjxqAQOEAALB/l/e2CCQDgrZgtMxyayeKs1EmGiOF7VSCoJEau8aQXTWAo/o/gVE9PB
+	 cMPjRjqGiq5TzN2+pafm86JqgAALBJLiLlFu2em17qIZXgb74eC1n5lCCkLmvl6CltQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794918993;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 Received:X-CSE-ConnectionGUID:X-CSE-MsgGUID:X-IronPort-AV:Received:
-	 Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition;
-	bh=YCCwTw1b8nC/676mldMf21YbE+d2YXPgrhLxfHmgduQ=;
-	b=cozqWdW1pdpNX1G1XAxDH97myVp8KUaNCUEfboP7aONsnjGt59YL8AUcv5dT2blFG5j9
-	 KGgweR32u7QmcyZ8SDHqKRvANPhyhS0mP7wjBNSwPQmrMRB0HoNueg0TrZpEcF36UadSG
-	 ZFnyuNphhQX1FzSFZNmGa6AkdGcge26Y1X3DCwsc+3Cp8C/xl02Uh3EQgSmI8hQlZ7PPW
-	 dFboixZihM00KH8QPCbCmGGmrHqGfFZPkjeQJjIUZLycv5g0vFZBfvEZ58M5ZlN+SGvaK
-	 grdfkLF8QYKJ6kwj2a8FoMdBqIbG3i1UqFAc59XRfDsZfA+Dcabm5o50Ek5tvmxpMpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794919086;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=O3Eobrwyq5oOakeAIYkUyc+GNwviFP9RCRghw5eCfbo=;
+	b=Iw5c6kELl+ACMUHsHSIIPturJsqMqAUuqP9xjPeh6iQjVjuaojX/euDeoFLmfMAU1QHJ
+	 yMyvI4I8VhUbxg0yl53zy+Uk2UvGxiFXC+yD2Jf9njCXqIGIgxr8oUnMM88xMlIKLgv7k
+	 GV/ldEykTKrL1epNkNa7jeb4FjttLJa7R/xmaACEPZT0h9kTwG3gC5R/Dc9UYbXJK0MI4
+	 8boYO46F6Fb9/AL/nBfKA7yOjFuNG+89UClfhxKrXlSlrMaY0sLjgojfhiOYTzNEnZS6X
+	 jSugzMm8p6d2UbzXkUkY7i/zuAP9aiSZZme8zQwNQuZd/wPyTgfQbIsf6L0FrwxpaUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sony.com;
-	spf=fail smtp.mailfrom=sony.com;
-	dkim=pass header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=s1jp header.b=h3qUNoQC;
-	arc=none smtp.remote-ip=211.125.139.72
-Received: from jpms-ob02-os7.noc.sony.co.jp (jpms-ob02-os7.noc.sony.co.jp [211.125.139.72])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7fOeIOI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D64B606A33A;
-	Tue, 17 Nov 2026 12:36:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D64B606A33A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=sony.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 69551606A31C;
+	Tue, 17 Nov 2026 12:38:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sony.com header.i=@sony.com header.a=rsa-sha256 header.s=s1jp header.b=h3qUNoQC
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=sony.com; s=s1jp; t=1794918988; x=1826454988;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=YCCwTw1b8nC/676mldMf21YbE+d2YXPgrhLxfHmgduQ=;
-  b=h3qUNoQC2k/Ugu6nTx6uMRmUlB9VRSnRo26jvezJ9ljrdScbouKa7Mlo
-   Kdsdfo+qzHfVrGwFoLYHMQd7PFvF7Yk1F7gTCpr+jV4FeF2aKsquqVsR/
-   DQN/bGVff3KypnNk8EL3T+hG3bSZzk7d+u0Hdq3yHNhssHTQLrwlLWdAa
-   zwgiavZBpmpu2cBl0YGss7gkWDbQ6ULKl3BzBbe62nrQAiVBgHTwhrKnU
-   fxNF+J6OV72XHmwlsjFSuxzW3PPbR1I6Eb7Li4qhxNSy3Tk+/N7bJmQye
-   wKfOw4PFi8wSkTQMrxDgf7iEAcXajOUlEVMaZVwPMUbR/8X9mUoEosEHu
-   w==;
-X-CSE-ConnectionGUID: NzDsvF0pTD+V0+fCneLbPQ==
-X-CSE-MsgGUID: YEQsx7mPTEqfWnEV8HRiSA==
-Received: from unknown (HELO jpmta-ob02-os7.noc.sony.co.jp) ([IPv6:2001:cf8:acf:1104::7])
-  by jpms-ob02-os7.noc.sony.co.jp with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 17 Nov 2026 21:36:20 +0900
-X-CSE-ConnectionGUID: JZ/D7hrhQVaD8UBQVwoXlw==
-X-CSE-MsgGUID: bMIQcZ8yTwmfVY+55+JU9w==
-X-IronPort-AV: E=Sophos;i="6.27,166,1786978800"; 
-   d="scan'208";a="71116498"
-Received: from unknown (HELO jpc00229873) ([IPv6:2001:cf8:1:519:0:dddd:790b:411f])
-  by jpmta-ob02-os7.noc.sony.co.jp with ESMTP/TLS/TLS_AES_256_GCM_SHA384; 17 Nov 2026 21:36:20 +0900
-Date: Tue, 17 Nov 2026 21:36:10 +0900
-From: Naoki Matsumoto <naoki.matt.matsumoto@sony.com>
-To: stable@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	chenchangcheng <chenchangcheng@kylinos.cn>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>, Sasha Levin <sashal@kernel.org>
-Subject: [REGRESSION] 5.15.y, 5.10.y: media: uvcvideo: please backport
- 5b9c75c794ce
-Message-ID: <avxKOmxCBLF+7qdT@jpc00229873>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R7fOeIOI
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id B754D1F000C4;
+	Tue, 17 Nov 2026 12:38:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794919086;
+	bh=O3Eobrwyq5oOakeAIYkUyc+GNwviFP9RCRghw5eCfbo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R7fOeIOIRPoY8+oP7zpF/On0647DP/j0922IzQS0EGdYL7zviM3kw2GpZmpgSM4MH
+	 xqMr4EnOqxDCoVs7I5IpabgXmVCB593y4wvmknU6ssJc5hMgA8pHdxhnTgyhrU4A+5
+	 JFs3VjlHQ9F5qxJoW2/sFS1KlV2d91w9yfbTBx88kZo+4Oi3RFs3zDFkBN5OzjT6D2
+	 Vp3WEA+o5Ce3NmNgpGkgg4Ao1lSVo3wDQRhpYtzjmVqWMX+nK62RMuy50NbWYpaQs3
+	 Nm++vzc+Q4THgxLWfn5GOSxG7FoEVBaE3yFe1Ez4kgz5c/KBZKxUgo8fI8/sHRkK9V
+	 GGLaP1WTFQrkg==
+Date: Tue, 17 Nov 2026 14:38:02 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Rustam Mustafin <rmustafin@cloudlinux.com>
+Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Jaewon Yang <yong010301@gmail.com>,
+	Tadeusz Struk <tadeusz.struk@intel.com>,
+	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] tpm: track the response read position internally, not
+ via the file offset
+Message-ID: <avxKqn-PlzJyxVdK@kernel.org>
+References: <alvD5nOP15O5B8Ai@kernel.org>
+ <20261117104838.2650999-1-rmustafin@cloudlinux.com>
+ <avwzid1Ovl4ACkaQ@kernel.org>
+ <avxJ9MxZ0PoWbQTc@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,31 +65,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <avxJ9MxZ0PoWbQTc@kernel.org>
 
-Hi
+On Tue, Nov 17, 2026 at 02:35:04PM +0200, Jarkko Sakkinen wrote:
+> On Tue, Nov 17, 2026 at 12:59:25PM +0200, Jarkko Sakkinen wrote:
+> >  ...
+> 
+> I think this would be more feasible:
+> 
+>         if (current->flags & PF_IO_WORKER)
+>                 return -EIO;
+> 
+>         if ((current->flags & PF_KTHREAD) && current->io_uring)
+>                 return -EIO;
+> 
+> I.e., block io_uring entirely.
 
-I use a UVC device of USB3 at v5.15.y. I found the frame rate down with
-the below message after updating stable version.
+And kselftest can then be extended to address this case (as a
+separate patch) making this two-patch patch set.
 
-    uvcvideo 2-3:1.3: UVC non compliance: the max payload
-    transmission size (1729) exceeds the size of the ep max packet (1024).
-    Using the max size.
+Short summary would be e.g. (or use your imagination):
 
-This message is from by eb6059474e70 ("media: uvcvideo: Fix bandwidth issue for Alcor camera").
+"tpm: Do not allow io_uring for /dev/tpm{,rm0}"
 
-    5.15.190: eb6059474e70
-    5.10.241: 3eaf16ff8165
-
-kernel-5.15 supports usb3 of course. This problem is stream->maxpsize is
-not support usb3. Since this function parses it directly, USB 3 support seems 
-to have been overlooked. I found the patch at v5.19
-
-Please apply 5b9c75c794ce ("media: uvcvideo: Undup use
-uvc_endpoint_max_bpi() code") to 5.15.y and 5.10.y.
-
-I confirmed that it cherry-picks cleanly and fixes the problem on 5.15.
-
-#regzbot introduced: eb6059474e70
-
-Thank you,
-Naoki Matsumoto
+Br, Jarkko
