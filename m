@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.193
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.194
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794937240;
-	b=JZYhau+WkL1BdZ4TcNPikI7m6Pr72h7xKOq5Js+3JuqrGJ/yWctAGM0RbsIU33PwBn9+
-	 jDjOHGvB+rEl6s/5jGUH9HwdDj2xGev8PPyKKezCjhTzGW3HrA2o1MJhbXXEtAIdCvl3o
-	 4UPJxQXomjRV5u3T68kZLb+WKW7+QOZHRqh//xMacxRpuXJrCnJmNXWgOHZ10Q0DfHi1W
-	 H+9DQysYDxMk2nr8XGXo/1s4n7IwiBSSsOUXNT82tho41OKM+n7KFdXWQPSgk89IXbmPx
-	 t8Xvu8cblACRpkXrZMs061VV7a7zyKXdCOv0AfKdbPGkcNWjC/Dn+GCyJa2RE64OD5Q==
+	t=1794937238;
+	b=whlLU3yZnwlf2yqJ6wdvuNHH4mkHRDYI0b2nTyuzWQmh2o3M1yiS6/6Qe6frJNwt9BKr
+	 O2HlPnPdlcf2u0zP6rLBMjK/xzWLGHv5wobN42M/PvSABA7u0dcWWvejHC3lV3FwZLao8
+	 5ZvNIkv8pIw9WrbwnyoH2iD2PTDKzQc3VTSbNSuGlwuSTSp2tiZcqw2qrLmu1uqNeObfU
+	 2GSruBvg3xqEZYJW0ZT8t+lo5wxN2kZPOdBu6Nf7mZjHb2Dk0DGfaobsJfTK5wsbFlZyE
+	 oBoPR8Rh2WkjwYZVWwNzFS2sReU/hYVuqNjozalGNHsCn0ij4Lsyt+ehxUig9UusubA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794937240;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794937238;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=AyZSPZSAoyu0XMTrk6TSL45fPCkVoxP9QhoH2Zd6Zfo=;
-	b=1QAgmX2yPW6txjQz4MEuESeZEy1V4FawwW+2MLbMXLvlQ4jre/FbLaGfozvRdM9pM1/3
-	 i5jYf7+tFmPyG8tHk8Tbvln0FvCIQy3UoGoapJCd+ce6M77+V6CSzYgQAze4NN6sDjkV1
-	 w8dyd6/giRFZKRYPkCn5FmzkU+D/1h0McSk+Lagd4h3p7v4bAC1GCYqw4o9JKYIIEZvqM
-	 iKql+ARsnn4EiUwlPVhLpvN08jm2Qpk1uW+F00VyVsRWWFbOE626uVowrU/vLSXyyq8SA
-	 JaOBADPI+GHrWIRRyJBfxNQXE4PdR7SMPM+JXJY81toCEsfrB6wsNutPJbrfs0704Ag==
+	bh=gdGXhDc04esq8UKmQV0Kr8mQHHzjU1OgZnFCkRowno4=;
+	b=XSiI2fBqx3m5laGnDuYA0oA2UbifhN8RG72Lgw1wRnJX+IhGLaAiYf8C5iUYWLNupe1c
+	 6/+i1RTn0geQlYhYEXwiMYltli8xQBfpA1W0H075TFJVS/pBhWHYm/0xFXqb8xeTENjzU
+	 L6A5u66ji4NmovCPMPLL5/Vfln5RpzWskXWL18z4UpKRbe+ZpAkvGyMwnkn4i7mJwRoME
+	 D93gWsqAVGCBfR+ZUZXfYbedX94iFDqqV9cVjErYrNAzhwttRKamIzB4F3+qGFJLGJsdn
+	 Pkfa8WLikHpANxksshQf2DFZJsoZUCMBo/xz9jRcErfeuzCquDG30B/VfMLz2xycYGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=xiaopeng.com;
 	spf=pass smtp.mailfrom=xiaopeng.com;
-	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=oEj6iO0S;
-	arc=none smtp.remote-ip=115.124.28.193
-Received: from out28-193.mail.aliyun.com (out28-193.mail.aliyun.com [115.124.28.193])
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=E7kKFkhy;
+	arc=none smtp.remote-ip=115.124.28.194
+Received: from out28-194.mail.aliyun.com (out28-194.mail.aliyun.com [115.124.28.194])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC415606A881;
-	Tue, 17 Nov 2026 17:40:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC415606A881
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A0D606A335;
+	Tue, 17 Nov 2026 17:40:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90A0D606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=oEj6iO0S
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=E7kKFkhy
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1794937231; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=AyZSPZSAoyu0XMTrk6TSL45fPCkVoxP9QhoH2Zd6Zfo=;
-	b=oEj6iO0Sl5CVpj/UQ7ndG2z/a5wWp3vmFtuZld8I7zgzi4QQZenpxkuAuCLj5rqQEqVOX8uFWjkcKqFjC38P+Js7vzdldLxXROZLoMKxvjYPhh4yy+L2rI1V9+d+E54y0HSGKKDYa05mv9MAiU6BDU9pwNCRuq+BSZ5+RXUiYY8=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.05785682|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00349499-0.00128547-0.99522;FP=11296192970068365024|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037032112;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.k4BATKx_1794937229;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.k4BATKx_1794937229 cluster:ay29)
+	t=1794937229; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=gdGXhDc04esq8UKmQV0Kr8mQHHzjU1OgZnFCkRowno4=;
+	b=E7kKFkhy5j01OR3taQTOPOHfS8IdQv4hhqh6a8l3QvbdkV/4uagbhlg11gHWK1Nk57MNZ3co/DXGTVWlZM9NdM06dskoVePUFbsw8mafbMSUBSoDfZ+5XkgO3w8pSDhqdEpx6YFNY1SyS0cZrPpRjEm+sSApsKKofvbrdmS/1wY=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04441534|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00516513-0.000828919-0.994006;FP=15856795541377683968|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=14;RT=14;SR=0;TI=SMTPD_---.k4BATFD_1794937220;
+Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.k4BATFD_1794937220 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Wed, 18 Nov 2026 01:40:30 +0800
+          Wed, 18 Nov 2026 01:40:28 +0800
 From: Fang Xieyan <fangxy@xiaopeng.com>
 To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
 	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
@@ -55,10 +55,11 @@ Cc: "David S . Miller" <davem@davemloft.net>,
 	Johannes Berg <johannes@sipsolutions.net>,
 	Maoyi Xie <maoyixie.tju@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v2 2/5] net: wwan: iosm: validate the ADGH datagram length
-Date: Wed, 18 Nov 2026 01:39:37 +0800
-Message-ID: <20261117173940.34970-3-fangxy@xiaopeng.com>
+	stable@vger.kernel.org,
+	Guanglei Zhu <zhugl3@xiaopeng.com>
+Subject: [PATCH net v2 1/5] net: wwan: iosm: validate the MUX DL block length
+Date: Wed, 18 Nov 2026 01:39:36 +0800
+Message-ID: <20261117173940.34970-2-fangxy@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 In-Reply-To: <20261117173940.34970-1-fangxy@xiaopeng.com>
 References: <20261117173940.34970-1-fangxy@xiaopeng.com>
@@ -73,44 +74,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ipc_mux_dl_adgh_decode() takes adgh->length from the device and hands
-adgh_len - packet_offset to the network stack as the payload size of
-the cloned skb, without bounding adgh_len. A length below the header
-plus its negotiated padding wraps the subtraction, skb_trim() keeps
-the clone unchanged and the stack gets the whole rest of the block. A
-length equal to packet_offset yields a zero length clone that
-ipc_wwan_receive() still reads skb->data[0] from.
+The received length of a DL MUX block is supplied by the device and can
+be shorter than the header its signature advertises. ipc_mux_dl_decode()
+reads the four byte signature and then lets the decoders index their
+header structures without checking skb->len, so a short block makes the
+driver decode past the received data.
 
-Require the datagram length to exceed packet_offset and to fit into
-skb->len, and drop the block otherwise.
+Check the signature before reading it, and check the header size of the
+ADGH, FCTH and CMDH branches before dispatching to their decoders. The
+ADB branch already validates its own headers, and the ACBH branch is
+covered by the bounds checks of its command chain walk. A block too
+short to carry its signature is dropped on the way to the single free.
 
-Fixes: c34ca4f32c24 ("net: wwan: iosm: fix incorrect skb length")
+Fixes: 9413491e20e1 ("net: iosm: encode or decode datagram")
 Cc: stable@vger.kernel.org
+Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
 Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
 ---
- drivers/net/wwan/iosm/iosm_ipc_mux_codec.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/net/wwan/iosm/iosm_ipc_mux_codec.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
 diff --git a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-index 5c33171ca701..65421f6b4c91 100644
+index 0bbd41263cc2..5c33171ca701 100644
 --- a/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
 +++ b/drivers/net/wwan/iosm/iosm_ipc_mux_codec.c
-@@ -473,6 +473,15 @@ static void ipc_mux_dl_adgh_decode(struct iosm_mux *ipc_mux,
- 	if_id += ipc_mux->wwan_q_offset;
- 	adgh_len = le16_to_cpu(adgh->length);
+@@ -696,6 +696,11 @@ void ipc_mux_dl_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
+ 	if (!skb->data)
+ 		return;
  
-+	/* The device supplied length bounds the datagram. It has to
-+	 * exceed packet_offset and fit into the received block.
-+	 */
-+	if (adgh_len <= packet_offset || adgh_len > skb->len) {
-+		dev_err(ipc_mux->dev, "invalid ADGH length %u, skb len %u",
-+			adgh_len, skb->len);
-+		return;
++	if (skb->len < sizeof(signature)) {
++		dev_err(ipc_mux->dev, "invalid MUX block length %u", skb->len);
++		goto free_skb;
 +	}
 +
- 	/* Pass the packet to the netif layer */
- 	rc = ipc_mux_net_receive(ipc_mux, if_id, wwan, packet_offset,
- 				 adgh->service_class, skb,
+ 	/* Decode the MUX header type. */
+ 	signature = le32_to_cpup((__le32 *)skb->data);
+ 
+@@ -704,15 +709,24 @@ void ipc_mux_dl_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
+ 		mux_dl_adb_decode(ipc_mux, skb);
+ 		break;
+ 	case IOSM_AGGR_MUX_SIG_ADGH:
++		if (skb->len < sizeof(struct mux_adgh))
++			break;
++
+ 		ipc_mux_dl_adgh_decode(ipc_mux, skb);
+ 		break;
+ 	case MUX_SIG_FCTH:
++		if (skb->len < sizeof(struct ipc_mem_lite_gen_tbl))
++			break;
++
+ 		ipc_mux_dl_fcth_decode(ipc_mux, skb->data);
+ 		break;
+ 	case IOSM_AGGR_MUX_SIG_ACBH:	/* Aggregated Command Block Header */
+ 		ipc_mux_dl_acb_decode(ipc_mux, skb);
+ 		break;
+ 	case MUX_SIG_CMDH:
++		if (skb->len < offsetof(struct mux_lite_cmdh, param))
++			break;
++
+ 		ipc_mux_dl_cmd_decode(ipc_mux, skb);
+ 		break;
+ 
+@@ -720,6 +734,7 @@ void ipc_mux_dl_decode(struct iosm_mux *ipc_mux, struct sk_buff *skb)
+ 		dev_err(ipc_mux->dev, "invalid ABH signature");
+ 	}
+ 
++free_skb:
+ 	ipc_pcie_kfree_skb(ipc_mux->pcie, skb);
+ }
+ 
 -- 
 2.50.1
 
