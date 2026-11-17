@@ -1,48 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794909460;
-	b=jU8JA3iOmFy0dp3VgzyI02NG74IFqfv9hAKI54MmWm2AEqFUxo3UtDh1b4kGjRpY8Uxd
-	 iOjMeSHyMIOcMLvNuaLcL4nLssLFj+pPKetteetbU3Y5Wsy1a4fxQDvobBi8KSLOu0m61
-	 AdcJtN8OrBNiympQlDzezpFrXE3Hs6PhhFgFBSaRnj9bAk5peZmGhI2bo+epTHbOmEOwu
-	 xBeGXQyzKKcXyr68FBnsSWzxDlxj3qJ8B5Nr3nihNRb2M1RO6eUekqeMVEpB2tZMuyc9I
-	 XmxdmmdcCVa7kGBLZBmky5igpH76Z21tJHWfHejhApQ5vSMRfgfbxmD1eHGFsE+4JIQ==
+	t=1794909472;
+	b=Uek32839yZyHXcabLC2X91TzQMyoKuPrUvkqGj4BVKz+RFsxk6f6z5RgEe4Gdi4l5Nur
+	 kAg4DlAIQ1gqU2dRClc+4RtNF0sGRYfKZ6oSXe8VXs+wbr58UUfKFL61MVgptOIzAUuBN
+	 For25aF3KIavWeCcWeK7ylTagOT+0z413Q2O9ilh9TYi4NiiuFq4i65FUenubPalaFsjZ
+	 3Vin8jt15bNsnEG0MxOrFJ+QVqdxXkqgvaQR+1cGnE4Y0/f53MPSl5BtL3W4GQWvuodAC
+	 LjB55KW6OWAWizql1A60R9/TSndWe9048p8RMwK1ySXdW+ALUQ8d3ZAzZxI7IlMjV8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794909460;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794909472;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=0JQJMqQZzEMkF+mY1cPTdcvEu+ZkGmV0o5FbiuBHi+w=;
-	b=5WWu34lMcCOj1ufQgpqG8B9F2NCwbqZQKh9x4gQ2pL3nt3/Ojug/mCbzCTQN/GRMyDnz
-	 2GP3fpoxGi2fEh5EJ7hDGxfsbBjZa/e4acUJ6YxtbduR4bljTS7wlE2Ve9ZgwDvJzUAhB
-	 wn2ORWkrXUAFVHKwZlztvBh/KBwhp6Lo7j7MIOFH34EWH/NJCzVj+pwlB1rngbxee68E1
-	 hpHCs4DR8/VT2VqdznA2jTauXX9icesLEcekf7dThP9msMoYCeVp1EJfF1AqXFSz8J9eE
-	 xRIDAd6dV8AfhnPPYp3dwLkQYZwU34RLKqEmtO1TaNxws48ff24fJoD/RxJbq1nK+Gw==
+	bh=NPBCRni7dqPhXV3m0qj8RnZnSgSXxrY9Otftjlz4nOo=;
+	b=oNbNN6LypXBKl7QmIJyAxL8TObf4AeVtw4Ak7y1PAYbNlw/b4FilCk1INhhlG1MJOSI+
+	 MOnJwK9nonx8Csf8hR5bhbWZccHHY3y2FTR56WHEg4CExX4ITF3abvSA0JBaOBbUSQn05
+	 a0KMD8oJ2KT5dCInL5owuzgYcC8zchRuZ7kyHZpin8qOCWIzr08cuOrQoXA9MyfTeWaGa
+	 eX+dK3FU9PmLZKhU+RcGNQtVSZrrvB+WEKbc/CxPX4JMDIbIzMYZBtwVKqF+amagUnBpd
+	 6HyVNbrmAu9VwaPOy7x/lJXc5pFEOsfir0wBPLmTF8JWyrRZFyFISWj0q58LZH3dHaA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BhSj4ci+;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U2b2zNJG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B48606A31C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:57:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC7E606A31C;
+	Tue, 17 Nov 2026 09:57:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BhSj4ci+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72EBA1F000C6;
-	Tue, 17 Nov 2026 09:57:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U2b2zNJG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B51651F000C5;
+	Tue, 17 Nov 2026 09:57:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794909459;
-	bh=0JQJMqQZzEMkF+mY1cPTdcvEu+ZkGmV0o5FbiuBHi+w=;
+	s=korg; t=1794909472;
+	bh=NPBCRni7dqPhXV3m0qj8RnZnSgSXxrY9Otftjlz4nOo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BhSj4ci+4wdPPDd+7646E5USh2EVBNXa27jfAcY3X4Ml/ujkLp/MA+DfLYQ77bIU2
-	 Hsz3qNikgOwHXqIgb3SHslMfG3J5gkbfyh0Rw9lYWoo8GdMsZIYDJnRuAtRB+J3wIW
-	 yV0QOsHbqs3oFtnB0NpYO3FfUmlG3V83kIV+gQ9Y=
-Date: Tue, 17 Nov 2026 10:57:23 +0100
+	b=U2b2zNJGNI4HHyq2IiKuNP5On/KDos2GxvOOzL7wzeD/LOkKB+XKZkjk34oQ7gohm
+	 CFLWgzBRnzY/Ba8Wa6c+J4OsIregkPa8Osw7EnAnV/h629VFJ+uWxftT+NE+jl8nuW
+	 zS4qZ9xKBXp4zRjb6KCFryymTUYItGntvHsJPI10=
+Date: Tue, 17 Nov 2026 10:57:38 +0100
 From: Greg KH <gregkh@linuxfoundation.org>
 To: onLeaf <onleaf322@gmail.com>
-Cc: stable@vger.kernel.org
+Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, kadlec@netfilter.org,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org,
+	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
 Subject: Re: [PATCH net] netfilter: ipset: exclude add-path GC during resize
-Message-ID: <2026111712-unharmed-lugged-b601@gregkh>
-References: <20261117092631.14530-1-onleaf322@gmail.com>
+Message-ID: <2026111728-deduct-chastise-eac8@gregkh>
+References: <20261117092731.14656-1-onleaf322@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,9 +59,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261117092631.14530-1-onleaf322@gmail.com>
+In-Reply-To: <20261117092731.14656-1-onleaf322@gmail.com>
 
-On Tue, Nov 17, 2026 at 06:26:31PM +0900, onLeaf wrote:
+On Tue, Nov 17, 2026 at 06:27:31PM +0900, onLeaf wrote:
 > mtype_resize() copies elements to the new table including their extension
 > pointers. Garbage collection of an expired element in the old table after
 > the copy therefore frees an extension still referenced by the new table.
@@ -87,39 +92,5 @@ On Tue, Nov 17, 2026 at 06:26:31PM +0900, onLeaf wrote:
 > Fixes: f66ee0410b1c ("netfilter: ipset: Fix "INFO: rcu detected stall in hash_xxx" reports")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: onLeaf <onleaf322@gmail.com>
-> ---
->  net/netfilter/ipset/ip_set_hash_gen.h | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/netfilter/ipset/ip_set_hash_gen.h b/net/netfilter/ipset/ip_set_hash_gen.h
-> index 80ca523f304b..70f768ba7b44 100644
-> --- a/net/netfilter/ipset/ip_set_hash_gen.h
-> +++ b/net/netfilter/ipset/ip_set_hash_gen.h
-> @@ -1009,8 +1009,12 @@ mtype_add(struct ip_set *set, void *value, const struct ip_set_ext *ext,
->  	maxelem = t->maxelem;
->  	if (elements >= maxelem) {
->  		u32 e;
-> -		if (SET_WITH_TIMEOUT(set))
-> -			mtype_gc_do(set, h, t, r);
-> +		if (SET_WITH_TIMEOUT(set)) {
-> +			spin_lock_bh(&h->gc.lock);
-> +			if (!t->resizing)
-> +				mtype_gc_do(set, h, t, r);
-> +			spin_unlock_bh(&h->gc.lock);
-> +		}
->  		maxelem = h->maxelem;
->  		elements = 0;
->  		for (e = 0; e < ahash_numof_locks(t->htable_bits); e++)
-> -- 
-> 2.43.0
-> 
-> 
 
-<formletter>
-
-This is not the correct way to submit patches for inclusion in the
-stable kernel tree.  Please read:
-    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
-for how to do this properly.
-
-</formletter>
+Real name please.
