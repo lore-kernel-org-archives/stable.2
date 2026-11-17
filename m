@@ -1,108 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906642;
-	b=ibvzfi3QUPCosTDhlestfnHUcyXnqibhYLd2K7DaLtRUVmaP1khWKACukmyrvZpDiPNI
-	 aObblW3hP5/sOkR/EWu4VtXm7x3T3Kg2aJYpuHrDgezIpTM0lKk+nzVhzGN6oWGenb/DL
-	 ntw1kC2Fhlx1Tbh+SIuylEjZ40pDrEOcyZdDRiaap1/nsjv5abUmReMFkYalumUzU6Abo
-	 RHt3X2HD9vuF/gqv/5QB+cFbYh9vnn5f706AZb0dHD6IS1vhxICA7Y+BMAqybhojyyGD4
-	 r5O0R1GFpB7xJCGhSZ7TZi1NesvyqfqujwZSFKl6Pl0BUwDWNTNCs2/oiRP+WPRcpAg==
+	t=1794906785;
+	b=LE6a7x70YDqSsTL0Q7WxjNmDjYVD+r3stkALKEJQX+Qa+YisHxS8dav7y75b84EClDvH
+	 jgP4cjCBamVZPJJkAAJ/9/Hw3UwnD8fwTS7bBqang5LyDFe5pKu3rdDGrE3mFK4Lu/NKX
+	 jHhamV7okl71fZEG9Pp4gG3CPCPZ7Sh3rfi4v4t1edUHao3IuVXLhOJ9pDqZSL14M62M5
+	 FFHrSiG+MC3lUmJUouxi6SnJOWev/nrEB3uXVPycO8ZO7k9vqLDLf0VT0BQ00FkAs4gVd
+	 naEUhBG1baLERrgSqAa80mULWgHr/p3QJx07gejb8nfpQWmxBpGVWDiQLWGG+rwdrHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906642;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qU+9OGvRfJV1audZnO5SC1P0nvA1K8+fKrFIUfplFUM=;
-	b=5nbFb9Wmgtj4p4+l6h/M6mfHAVJwbKaSNX+65cbH2Y6sq25kdbJzB6hrSi9FdyWHZJCJ
-	 WHHbodTnmQ+AecMB3rltjj3UILtO3mxmt/d/wavvmmB8MYqLVsifNtvXq6ow9CJKQJ6Tp
-	 jsjhHViWWF7nNSe/x/G47qA8dU8VdwbdN4YojKFiEVj5EzOnk1bdNND5hrfFdYYIoUI39
-	 0SxAnIuWbu0tenfvosF8v7ylLHgbXHVfDnXe2qEsqR+G2SPQip0iIpUO6wR2S7t8JKtKa
-	 y3xLPpvY5JPDIiTQmO2zvpgeSnASh3DlhJetHerx5EemEBCqrG1kas5Dh+YRuN/+bxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906785;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=jHmFKQcEpErH6yTd+BcsBpSAeqJz4+fdKXvQPpS1SzY=;
+	b=UGVJOFWRDro3tCMpms7mEfr3811YP1CCl/WVS6pbyumahnDQM4W7jnO+R4F5fu2e3X5Z
+	 Kl+8CFxwQVHs5VBxMhthdAjQbvnT1FpHjziRIC8ZnBWpndI5T6F6j/8+gLa5VKIwCE6nQ
+	 as1u29Jy7iu9s92RExOe8U4bKKhS6QwyfQRVVlJfjyJXZvbOqg6PR3TW1pKmrZnuZkn5H
+	 /h3IAKp9WJPFRAe+eGrQkuR8casHERjVdZfSJGUSN02pZIowJaceUolnKQk9d86XQ7c4O
+	 vD/gxNvXjseNo8CCgadYC7+8T/bYrp6GM4y0f8n1voKPeQshuY/ARBX5+sl9PLVCBRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IY7t+LAO;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QohGgGDT;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A618D606A32F
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:10:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A618D606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61D9606A31C;
+	Tue, 17 Nov 2026 09:13:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A61D9606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IY7t+LAO
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2efd7259872so5856285ad.2
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:10:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794906641; x=1795511441; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qU+9OGvRfJV1audZnO5SC1P0nvA1K8+fKrFIUfplFUM=;
-        b=IY7t+LAOb6XWNzzWCVC75cn46512CDirFSZ595tS/vBxXvnW7VtypiCoemppHn65KE
-         r5+0Gx13IgBFWk6VdV6iXgguyZULkmTxv/+C2nu1Yy5NhSns3nkNERhjl0cAtGLXPs7q
-         brRFF+CZ5Fub+hRiQi3FtrJmKx55qqvw6sNGdqGec6MDnoAVpdtvsAeZguNFA2iXBDMP
-         00IuewHX28K7FfJEeWyncTcxAbtwbD5h/mfHKy9n7r0n2G9cRHdRn17TVLpP2kelvj/F
-         xsyWK/gxkRy0nGi/7BaPeJUhZHqRlIU3dG/tc3vR9oOVniNjB0wJWZCBSNl/Kc3l0f5H
-         IyZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794906641; x=1795511441;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qU+9OGvRfJV1audZnO5SC1P0nvA1K8+fKrFIUfplFUM=;
-        b=k4iZSQiR1Xi4xE6fImLQ/6KcNo4zXlRchuBisAe2xZlLL1ENj2v4usmBGy/f6pGBsL
-         tcIXWwMP3HBW0ZT6ciCNVSA/IlvQJFGC4HoQrjAlTETcL2BP4Ne8KoaZIwTt+/I2qmB3
-         UuKL8pkj+idvDWx21R77BzGsoywuab3nEo17P8GfiZIXaAuvzgpmi2utmDSrdMScaH8V
-         r0XImhJG37JOhqFnYWad9tqkGmhQv/H7otm/0F+ctkUxcckvdBCL7Ius9fkA0hQu3sF0
-         Mulc/99e7g2wBLRpgnoE1aG+aByf+LxUuAaSvlszkViRAEQjUjdOu0R3yNvOdKiethBo
-         taRg==
-X-Forwarded-Encrypted: i=1; AL+hErEwXMvtyUYccoMzD0en0oYCeqwqsAMIJpMBsYM+5GULPoRfiI8XLdMiPsFbX2vmIjFnNuCN05c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9gIFPgHilDzBfnF94cn035btYjxMpNsB5xmoAmj2qaR+1vr8D
-	im+6OC3f9hDB2j5JiwhgqMuQJ+M5Bfj9bmDMdPNhWT2AKR678BNHpoE3
-X-Gm-Gg: AZFdTZcvvtqgtFh+tzfmaG0Hkv5kdyC9SskC3xpC18isnsf8k87qdGO4/C+IQ3s0zwb
-	XqiuMEAiTwJg83hpNucqxSFrRLLeQrbj1pnSmSYFXkhKtiv86Qi2ckKlfgQtYztyk9VxsbNthAf
-	DjDfHjsZvrxYayFpphTdNpwMrXRJKsAipOmdeakPNbsOzDAPTC8osqFdXhchBIOM5g9etBiztDN
-	Os1nC9MC6kj9NETMb8+ZuUmvFGp0dc3HLsMOzOR77oTx1hz0nKYWPFNuhjpz+vh4Cd2f0eZ9Wb2
-	e6spLFkzLpZ63tSgoYk8KVeN0ls9tzsACnzA0PwlFTkxvsy8jH6ZfQbNSJ2ET1xpNYBCpIVH5TE
-	EoYyW8YsmRFxfWRh9E/kWIJCLk4VfWZ/qLZ3r0exrTGKul5rWr4Z4+kfeDf5axVADrN9Yj2xYsb
-	Wq30kYN9I2uWBYoIOrLqWidqHSSW1xSDjYrj5LuwRe3CUYiKyOWD+8roPnV8aFbUCAk10a92XZU
-	r0wZDD7jsSRvhjV2qc1Z/C9Gch4lBsjDi0KfQFjBTekxTnqu1N72gV8MIEclhWsB+3556P5eCyH
-	U+wIAsmQwziEw6KY4tJfXLHNA3DtoqyoUFMMZ5dMOGg7VRuWh9Uio+3Lc7r4hIpb4QLBHaFAeVq
-	rDOxo6PIPdJbau81qbThc6u83R0QN8uOzzR/NHWMKnmWZAm6GuOMTaL9UkZAXNKo+5CHPgLPSnM
-	M1qTB/IU6ezVf4xlbxfc87O9GXntjkSN3Km4RuoKfMVmAoe45lfpYX+IZuiRCrXWEXXv1v0Ec1+
-	2gv/6XYXZ+B5/y//7ZjHfy3BJdExqz9/Ar5JS19C4MpL78wvJp6dJ9u81nZZyer
-X-Received: by 2002:a17:903:390d:b0:2e9:5507:b532 with SMTP id d9443c01a7336-2ee0dc5d126mr124593155ad.43.1794906640821;
-        Tue, 17 Nov 2026 01:10:40 -0800 (PST)
-Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd7aa8049sm11241175ad.68.2026.11.17.01.10.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 01:10:40 -0800 (PST)
-From: Daniel Wade <danjwade95@gmail.com>
-To: David Hildenbrand <david@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	"Liam R . Howlett" <liam@infradead.org>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>,
-	Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/khugepaged: mark a collapsed mTHP dirty
-Date: Tue, 17 Nov 2026 19:40:18 +1030
-Message-Id: <20261117091018.63639-1-danjwade95@gmail.com>
-X-Mailer: git-send-email 2.39.0.windows.2
-In-Reply-To: <dfbf361e-8125-4f8e-9567-65e80996e2d4@kernel.org>
-References: <dfbf361e-8125-4f8e-9567-65e80996e2d4@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QohGgGDT
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id E715A1A151F;
+	Tue, 17 Nov 2026 09:13:02 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B28265FC81;
+	Tue, 17 Nov 2026 09:13:02 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6D7C611BC0493;
+	Tue, 17 Nov 2026 10:12:55 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794906781; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=jHmFKQcEpErH6yTd+BcsBpSAeqJz4+fdKXvQPpS1SzY=;
+	b=QohGgGDTtw8azbIR//VvfGrlr4V+zs72XDzrDyoJRb0V8W2WTIhMsS3Om45in7H2LQEW79
+	y5ssLoKHMOcRF/+IV5057ZnzwjPoUzMav9cVjrADQiDTi/ngtIi9W0tDHEewPhs5aHjR6w
+	e54Y8nkGdm8O0wjLBZUwxszXdEB+Ki+9uTLld22EhInWUrVgQGF8K5kfgDzvE/t+azc1oQ
+	XEvKOOiOer6Uvhtd+3T59zk6YyyeWOZ7RbGJlmmIAix6Xe7iS2HWD+uXi4/dM9a3KjopYJ
+	8gb8TbQdW9aL++PfMCZtctJXUqPtztwaNOaUWyr6BdJvb/ff8yfekox+qYfnLA==
+Message-ID: <a0b1ea81-97bf-4a16-895f-5b6820a46c61@bootlin.com>
+Date: Tue, 17 Nov 2026 10:12:54 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,19 +62,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: stmmac: re-enable on-chip parity checkers for
+ XGMAC ASP 0x2
+To: Zxyan Zhu <zxyan0222@gmail.com>, andrew+netdev@lunn.ch
+Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ horms@kernel.org, 0x1207@gmail.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261114015554.2187341-1-zxyan0222@gmail.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <20261114015554.2187341-1-zxyan0222@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 17 Nov 2026 09:13:09 +0100
-"David Hildenbrand (Arm)" <david@kernel.org> wrote:
+Hi,
 
-> I have a different patch on my queue here that fixes this as well I think. Please review.
+On 11/14/26 02:55, Zxyan Zhu wrote:
+> Commit 669a55560e4b ("net: stmmac: Check more MAC HW features for XGMAC
+> Core 3.20") made dwxgmac3_safety_feat_config() bail out early for
+> asp == 0x2, assuming that configuration has no parity protection.
+> 
+> Per the DWC_xgmac databook, the ASP field of MAC_HW_Feature3 selects:
+> 
+>   0x1 (AS_EPPE):  all automotive safety features, with ECC and parity
+>                   ports on the external application interface
+>   0x2 (AS_NEPPE): all automotive safety features, without ECC or
+>                   parity ports on the external application interface
+>   0x3 (AS_PPE):   all automotive safety features, with parity ports
+>                   on the external application interface
+> 
+> The reset value of the field is defined as:
+> 
+>   (DWCXG_ASP_ALL && DWCXG_ASP_PPE == 1) ? "3"
+>   : (DWCXG_ASP_ALL && DWCXG_ASP_PPE == 0) ? "2"
+>   : (DWCXG_ASP_ALL && DWCXG_ASP_PPE == 2) ? "1" : "0"
+> 
+> so ASP 0x2 implies DWCXG_ASP_ALL = 1, where the internal FSM state
+> parity and timeout (MAC_FSM_Control) and the on-chip data-path parity
+> (MTL_DPP_CONTROL) features exist; only the ports on the external
+> application interface are absent.  The early return therefore skips
+> enabling safety checkers that are present in the hardware.
+> 
+> Drop 0x2 from the condition so the FSM and data-path parity checkers
+> are enabled again.
+> 
+> Also update the safety feature descriptions printed by
+> stmmac_dma_cap_show() to spell out that ASP 0x1/0x2/0x3 differ only
+> in the ECC or parity ports on the external application interface; the
+> previous wording, "All Safety Features without ECC or Parity",
+> suggests the on-chip checkers are absent from an ASP 0x2 device.
+> 
+> Keep the early return for ASP 0x4 (EASP), which selects only ECC
+> protection for external memory and has no on-chip parity features.
+> 
+> Tested on XGMAC 3.10 and 3.40 cores.
+> 
+> Fixes: 669a55560e4b ("net: stmmac: Check more MAC HW features for XGMAC Core 3.20")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zxyan Zhu <zxyan0222@gmail.com>
 
-Yep had a look and yours does fix it.
+Seems correct to me, couldn't test it but this matches the datasheets
+I have.
 
-It's more than soft-dirty though. If the folio gets dropped while
-another process still maps it that process reads zeroes, I had 64K of a
-child's memory come back wrong. So might need a stable backport.
+Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
 
-Dropping mine, yours obsoletes it.
+Maxime
 
-Reviewed-by: Daniel Wade <danjwade95@gmail.com>
