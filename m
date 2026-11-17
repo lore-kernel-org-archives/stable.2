@@ -1,89 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794911436;
-	b=Cs1JDK6DwBo1TseKqiaCZ2/s1gKijpwCP4Vh3KzUfRY98bJQl0mHXFfS4lLM3LGIvjEo
-	 Z82nsBBsKJg0ODotXUa/S6W2TDsF8YHGC3dQPBjqU/R0iCdztuMNq154nMRwmggrlmYhk
-	 NKAkQ2+q3k9sZQxCQ9LzmqD9JcskF0F7r0Gr9FkPawNymovrCE0t4zeNByHi/JLs2Z4nR
-	 qAggoJ4wPr89tao69AjrHwi7SCyvCuC3hPEkyzR3GMsJk75Gr1nWgX6wEKwzz3SkODHGB
-	 L+VDfzoSX4CbKsO4V2PG3E/EdxaJKQdprswiqeMBJAr1C6LHD51EPOH8iHDbpzoC9wQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911436;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=G58POVnkJOmscsV/mcbbCJVGrHCnzQeug7Sy0k1+jsI=;
-	b=lxDQL4OmH51v3nnWPPXgwLUqUtVZov77XQVOiz5DYsMTTuAnuzWvWsUADbLrfTQS/fDJ
-	 00ul1uG0wco9wmqvDsUJOYpwyB40FiXEcdnSxi08plVmzyBWNfJIKo7u17j0zL5E4bmtS
-	 6Y+P40vnsu9sYn7ARNQ/9HZcGPLNcAQrOnMjBVcrja/XgQT6RhsyvTcHFJ+2ljZwVzQ7D
-	 aN60lNRNeIrMbrS0VP4DQJud1ujebUwSdqBm2vKYybHbSlTlZOP28nmTi5TacCgnaZyss
-	 bJ3I6atAd9rZVbthUe95xSRiCtdFUnDxruxb8X2puExInGiVFA2Rp1Xkp79hxtkY+IA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=W4gtE8pM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.87
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794911467;
+	b=BS8q1ERR1VDqz4qdnijNtR3P9xanUqqYrPrdmvqOI2m6gOHXdm+yNnXnZqilpYQZx50k
+	 d7csotV63OxAdD70NxOwujfziOXdtaAqSMjwCRnW0qiVnIhIPWYTOwbqOGNLZy2yTUjT8
+	 fOcyzatsgyJUglnbPK5p3Rsk6MuwcUcQcxJKc5lC0ECia64bo63SQN5SQMlemMCFGB/lI
+	 JeXK351UjjhdSBbA10rbsGb1BZT1dSH9QCrealVemEGx8JR93UW3J2t8jQV4tQb1ku9jh
+	 aWJEns7rfsCzUYPzPVRLpOzr0nHso1ovk0LuFMR6pxDANlI7PB9JdOi3eqFtnYdfDjw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911467;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=fzwQ41gXbzBWFQOuSJndmRr1Y/hEGkuQs9i/J8SJwWI=;
+	b=yPZhx1WSpxdXno53+uELcW9Y347ZyEb7FlWcND0zGSGUBRm/wIumH5YurE+zDMHc6iBl
+	 lfCvlviKwV+ZG5jTl87LOKuGZV/uz9QiMGgursBeVsOeYqaN1G/92txdWobcJB8B6QBwN
+	 8/YTM0XQu+h8u1/z7gtDzTQS1whVU+mmW1Luewsb5NTEMLk4xlBxrjbbcqAs6k2GUFVkB
+	 /hlEYoQ5oq9RdlDf9vTMaIdtxhWFow3iX6ZehLKLGwuk+8SYBENd+wygjVFm9UCc7BPpe
+	 Cvi0X34/PiSBWoaE2THMRsKXJLafZ5i1te+U5yfTe6XW9z8zDH3bW13FSotNMFhy9Ow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="dAn/9qq8";
+	arc=none smtp.remote-ip=91.218.175.87
+Received: from mta0.migadu.com (out-87.mta0.migadu.com [91.218.175.87])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2701606A336;
-	Tue, 17 Nov 2026 10:30:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2701606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42F0606A329
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 10:31:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B42F0606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=W4gtE8pM
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A9D5C205A24;
-	Tue, 17 Nov 2026 11:30:32 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794911432;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G58POVnkJOmscsV/mcbbCJVGrHCnzQeug7Sy0k1+jsI=;
-	b=W4gtE8pMZomiTiEb1X8WBuBz86BHGZrtjOcLclJ6qFhovPKZlh9Y2jVciUzitvVBeSWX5p
-	Bd+aJ1tXqOdm/AzSI5hK++AEKk6w0kMAVDd1nUIHTcd9PrQgyXtsiRDYDf0mvyaMqsFe0I
-	u0b2f+vElweEzhFpzyTiUaj54DmXm9iLxFnwcSJbTvTIhqGeFhOcwARILC59iiQPx6p4Eh
-	GMtdnZgmDtEqxhFaFZn3JyRKRM9tL0AoW2S3rEQyEHGy3OgOcqZbdJBqpwPov5iT4Zlfy2
-	1ILSaRxZ1ljU/GzyyxBnJdatNXBp7t9fzy/j1mHWvQjg+R4DvH1WHt1ml7RpVQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794911432;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=G58POVnkJOmscsV/mcbbCJVGrHCnzQeug7Sy0k1+jsI=;
-	b=W3iIj+nPXk0H18gn62QQU4jfz5mb382W+lvbguFdL4v1mPhau8H04UA48ntRsAPNs+7Gn6
-	tvev2YD/upM9FYosc6U1cVYU66GgM7woJdCDJM60xPhwE9RpDT+K8rjuHZNmsRY1ENdYWe
-	Vte6Hz1bP0TCsKZzocS89TkmIP03mkSSzBuREJPNlQQQgRy1bUM6InXe6BzwuGgz3KmfdP
-	KG7n7JVIQNsO56BKRl72oz3BwqoxX49g6cVAPmCyq7OAOG2LTGmnoolcmHuY6nCG6EPo7I
-	mdnv+H5oQLdxXfXypH8uYtSzIyrVTy/AHGDPoQjXU6x/kBujdOQY99QNSvXEgQ==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794911432; a=rsa-sha256;
-	cv=none;
-	b=VskqGrQI8gPVke0LpwNrcyq/K8rzv0aNOb7ONxYBTCpx0Nj/HWel2/cktRPG2NyY18rrYh
-	qU5aPzx8rI4VSEP+QD7ue8IYMvz8jDWr9fi5Kq9WaYYxBvO4Owv3s+24MJpXhzXNJ2omQA
-	QhiRwKZ9Bg+fUxx5fJNWOto5uyVjQehvpf+CAIk26Te4jMjolAiZyq0FVva44xOTsjCnoL
-	jAWai647xLkj7/nU3/v5KdlEOrC9GH7gIQJhgmDTioohsaQZGWFRm3l1opO6LwSH99B1ij
-	xS7J5x25DjGLhq9zRzMh78GnZYFGxh+U1LFP27Ef+CZAiSjvkKmjg4RePLVf1Q==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-Message-ID: <b9ca3ed2dfa418145eb84ca12889bb16540f4342.camel@pengutronix.de>
-Subject: Re: [PATCH v2] reset: core: honour optional resets when the GPIO
- fallback returns -ENOENT
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Yang Siyuan <hsyysy@163.com>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 17 Nov 2026 11:30:32 +0100
-In-Reply-To: <20261117095503.14115-1-hsyysy@163.com>
-References: <20261117092008.12130-1-hsyysy@163.com>
-	 <20261117095503.14115-1-hsyysy@163.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dAn/9qq8
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=uCrQmHHENcsF63rBxoHbkw+a1E1fsr2NdawTnDnGVyg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794911464; v=1; x=1795516264;
+ b=dAn/9qq853Gn8sYg6XRGqGK0buph+wsvKO3u022wCZf+hyH9WasdSbaRVyoFBOkfvh/8nxYj
+ oZNAsuyfvJ3K8ZSyjqBE0r0f+R6WVzcO8aLxItsaAsnEiEipA0Q9PGzSFrtgfgrgzIg67cH+FUz
+ jebcd3gSh1x0puhJTpcL9Rqo=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 61d688c623486c17;
+	Tue, 17 Nov 2026 10:31:04 +0000
+X-Mizu-Trace-ID: 61d688c623486c17
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <17cc4251-04ae-41a7-a872-fc5cf525b58f@linux.dev>
+Date: Tue, 17 Nov 2026 19:30:49 +0900
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,36 +58,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] netdevsim: fix devlink rate node leak on
+ devlink_free()
+To: xietangxin <xietangxin@h-partners.com>
+Cc: Dmytro Linkin <dlinkin@nvidia.com>, Vlad Buslov <vladbu@nvidia.com>,
+ Jiri Pirko <jiri@resnulli.us>, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ syzbot+bbd81e1e2276c534dea1@syzkaller.appspotmail.com,
+ gaoxingwang1@huawei.com, huyizhen2@huawei.com,
+ Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>
+References: <20261117063237.865953-1-xietangxin@h-partners.com>
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+In-Reply-To: <20261117063237.865953-1-xietangxin@h-partners.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Di, 2026-11-17 at 17:55 +0800, Yang Siyuan wrote:
-> __fwnode_reset_control_get() honours RESET_CONTROL_FLAGS_BIT_OPTIONAL by
-> returning NULL when the requested reset is not described in the device
-> tree.  The reset-gpio fallback breaks this: when
-> __reset_add_reset_gpio_device() fails with -ENOENT, the error is returned
-> even for an optional reset.
->=20
-> This is reachable on Allwinner SoCs, whose pinctrl uses three-cell GPIO
-> specifiers.  The reset-gpio fallback only supports two cells, so it
-> returns -ENOENT and a consumer asking for an optional reset fails to
-> probe instead of falling back to its own GPIO handling.  mmc-pwrseq-simpl=
-e
-> on the Anbernic RG35XX family hits this: its wifi_pwrseq node has
-> reset-gpios but no resets, so the SDIO WiFi adapter never probes.
->=20
-> Return NULL only for -ENOENT when the reset was requested as optional.
-> A reset that is described but cannot be used is still an error, so
-> -EPROBE_DEFER and all other failures are propagated.
->=20
-> Fixes: c721f189e89c ("reset: Instantiate reset GPIO controller for shared=
- reset-gpios")
+On 2026/11/17 at 15:32 xietangxin wrote:
+> netdevsim allows switching the eswitch mode to switchdev with zero VFs
+> and creating rate nodes on such a device. However during device teardown
+> nsim_dev_reload_destroy() only drops the eswitch back to legacy when VFs
+> were configured, so the rate nodes are never destroyed and trigger the
+> WARN_ON(devlink_rates_check()) in devlink_free():
+> 
+>    WARNING: net/devlink/core.c:544 at devlink_free+0x18c/0x26c, CPU#2: bash/5032
+>    Modules linked in: netdevsim ...
+>    CPU: 2 UID: 0 PID: 5032 Comm: bash Not tainted 7.4.0-rc3+ #77 PREEMPTLAZY
+>    Call trace:
+>     devlink_free+0x18c/0x26c (P)
+>     nsim_drv_remove+0x9c/0xb4 [netdevsim]
+>     nsim_bus_remove+0x10/0x1c [netdevsim]
+>     del_device_store+0x110/0x190 [netdevsim]
+>     ...
+> 
+> Evaluate the eswitch mode check unconditionally, so rate nodes are
+> destroyed whether or not any VF was ever configured.
+> 
+> Reproduce by:
+>    $ echo "10 1" > /sys/bus/netdevsim/new_device
+>    $ devlink dev eswitch set netdevsim/netdevsim10 mode switchdev
+>    $ devlink port function rate add netdevsim/netdevsim10/n1
+>    $ echo 10 > /sys/bus/netdevsim/del_device
+> 
+> Fixes: 885226f5680e ("netdevsim: Implement support for devlink rate nodes")
 > Cc: stable@vger.kernel.org
+> Reported-by: syzbot+bbd81e1e2276c534dea1@syzkaller.appspotmail.com
+> Closes: https://lore.kernel.org/netdev/6af9824c.920b2b3a.148c65.0009.GAE@google.com/
+> Signed-off-by: xietangxin <xietangxin@h-partners.com>
+> ---
 
-This won't apply on top of c721f189e89c. The surroundings have most
-recently been touched by commits 1f10008aff71 ("reset: use lock guards
-in reset core") and 9035073d0ef1 ("reset: convert reset core to using
-firmware nodes"). I suggest you drop the Fixes: and Cc:stable tags.
-You can provide a backport if you need this on v7.0 or older.
+The rate nodes are also left behind on the reload path. I reproduced this
+locally on 7.3.0 (net/main)
 
+  WARNING: net/devlink/dev.c:437 at 
+devlink_reload_reinit_sanity_check+0x178/0x1c8
+  Call trace:
+   devlink_reload_reinit_sanity_check+0x178/0x1c8 (P)
+   devlink_reload+0x298/0x2b8
+   devlink_nl_reload_doit+0x5cc/0x870
+   genl_family_rcv_msg_doit+0x15c/0x1f0
+   ...
 
-regards
-Philipp
+Please mention reload in the changelog, as it now also resets a zero-VF
+switchdev device to legacy mode, like the existing VF case.
