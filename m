@@ -1,119 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794936787;
-	b=eIFRKZs+gsQAMqPGpLugX3MEjU64i1xIOUszqSh2oKb85xTwS9GRloCngMvwt4kQGVfN
-	 PB0t+chERIOVP0vjNXlnIRPw6B/tBFZL7G2zBkH6fL6Y4iKqHyrC+R5rr2ZoJasUKJuUg
-	 NRDoV4dw/obEzaEt8MnA/jz7deEVFzMkKtMZN7XOvtIZVbpduq8qyzK3dFuHvmRfeWV4d
-	 KYV03LHpjRTZN1vyEDd8KaDWOjMvHRuYx2o3CG66mkGDJnG5Q66xvO7rWQJgCZE0cHOEE
-	 +uRVwj+5pckOHlf7BLtSHPddkYsLjfv9l4sUSlRYTjXc9Xdh7OFWMBiHKwGJSs0/64Q==
+	t=1794936917;
+	b=A6wP3GhEnho/obTU/LNHRWDNchJ/XxxL5zbdlyO7o+0Yf/RJ0qYHwrZyS2WqWIiWEEXB
+	 VwhXshzDWNa1ltHI9WSHkJx8iZob5071ko1jOIQIqc0Vn0ajnyZvwQ+ID8UWefmW7uIzk
+	 KTxNZo+m5uuUmkCCyfVhXiF+pYYnVQDDO656y4K/jN92vLHGiVrG1y5E0Ap+lQNSvOJfv
+	 4UHeh7LXMulYRMKV3XNzbtmsQ9BIu6vvohes9Szqr/KUZB4C7Sz9LRQ+f/eSn98kl4Tma
+	 R9/VO1XCqokz+Ck/aSgJpfhQ5KE+OqStWqgaWZjSSjMVK9Nj4px5Mej+oQLx05LFnxA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936787;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding;
-	bh=a82dlEFENLIW4sgoVBtYD60lkUHWQf9Lza6blcAb4ZU=;
-	b=BFDRe7wODVG+gQS8hcnWNT3dTbCYexlojM2UdMjQUsF6bUPgcx1YdDyRUPG/RCV8r8Dr
-	 TuO39tmjhY4L/9lhoYUhdaVs/sV9roAYQVBj7gsduaU/bD0DBbPAVjZnncWDKqPyxrjA5
-	 xH9KBFx3l6k4GCWMI4eFkdfVye8ERpvNBJ9uCgue7Xj0zXNEgkmbw1dgZZAxhgj43jGAL
-	 kZ+X3DXHHffjI5skfl99vusUO/A6FkJl8dxPZqV9EZG3IBR9Szz05ZsiKqcjLIY1pGbcp
-	 NKQFiieBKp8tfcet/guEwuMC6NtgRnx8PDvnWFSlCzqZ5gBlOWDoNALQOyediBcieCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936917;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=+iEPT4fOLUy2C57JftfFB6MsPWk0QDV4EEMGYI+go7Q=;
+	b=cky2HX03f30da48yqVKmBQrWKkCSv1xF6qFJAR8SLmQC/ioYNG/RgGLHvBpBp8OejMoP
+	 62X5sqQOZoEp5RNcCZGDR9Rewt3mfATlPHqEXMxsxN5NxmzbEF/UPZmzqq0K+0BuCBu6G
+	 FGK7DvXgO82g11QY+qHwoigBwXHlSSsidWHMGOx95faPwa1sPWLHvbLHusXRNIk4HKEZG
+	 /7GUhR1PIFiTxlqbXnGN1cspyo6P4ZJDgjOJ9IOKJNRDdwLnz5N8+V/rEqYrmamARQ5OE
+	 BpX8tmAj7t8iAyM+rT7qyvM+uHlf4urjIWGNfaDxT0COmSp6ZXfjj1qPYSq2r4aUgcw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XUNOpCAc;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=NtPJplwP;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YPiE5lyO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.214.176
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE309606A32A
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:33:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE309606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D4BE606A31C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:35:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D4BE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XUNOpCAc;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=NtPJplwP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794936784;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=a82dlEFENLIW4sgoVBtYD60lkUHWQf9Lza6blcAb4ZU=;
-	b=XUNOpCAc+l6ScA4c6d68P/A2kIkYHn7Dc9Wzbv/1QfiVu8oIBETeDOW/vLgsDk2pWTTo8Z
-	TenvgY9MGe9D6JKSsoOyy6k/CBD5ejvtimXZRhB6ViWtTW+ssvPDRv1X9V8BunwPLtJNTF
-	eQSzwwKCJkD3n5VdzsUwRH6KOgbsbew=
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
- [209.85.217.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-331-LR-cG8vkNQqK7QXkh2TmIQ-1; Tue, 17 Nov 2026 12:33:03 -0500
-X-MC-Unique: LR-cG8vkNQqK7QXkh2TmIQ-1
-X-Mimecast-MFC-AGG-ID: LR-cG8vkNQqK7QXkh2TmIQ_1794936783
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7d64f59c80aso847069137.1
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:33:03 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794936783; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YPiE5lyO
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2ed3df47bc7so14105ad.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:35:17 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794936917; cv=none;
         d=google.com; s=arc-20260327;
-        b=owsVOoR2T4QIQYZf6lEdaNW0a69eDLe2g0bagWtRQ8IA3qKjybWpxpcKYUWTwQiPAf
-         uWgfqUOATdLwhXzs4so+GU8j6KE54AK/luT1iE8Y5nsVnGPbWRPv6i3ugVdk+MYL0mJQ
-         HyninNrmMp4cWDZ6dsQO876GFbqRv2ypnSZhsJ6oOriHUD1w7oOSaGtbfwSGlWEEzM0Y
-         rq8ttNtvhMVX7IDuQWPGCKabXixXaAEH/zr+xySNdbi469C16lnEbWWmdhCrJrRjZnmI
-         amOXEbXSnui4RQqVZwKFdOq1DWFKwyoSPuJla7Qyug4ZQMdZkjKMzosYj5b0JqoG4kvw
-         EXow==
+        b=nG0uitwQW8csrwOp28Gmy3DGKSkitwmRe0LlIsaqRd8HFXEFTNQVAELP1h7NiN10UW
+         FnZXVF7zjsHzzPycfvx64WbBaRqTeitGJZe4azNRATBcLpFYJ864hnykh5uSAg9jhDl1
+         v9JMh4sJBuN8UNGI/+TSbH75MdsQr7I+Jndk6or6rZECaVTpCwKa5XqLWOTBLQq8SOwJ
+         Tz/tcuwp82Yw+DsXWocPAJeESW1dMuShfd2EvMrh+CX8eEBMf2OITpt6qGSVuQBvWThN
+         tiDUj5JX4gD8w+AMnBsuXhV5UBDpKEj8ybDB9EUK6NWfJ7BZo6ctZmxc2Ag7MbE1RxPo
+         WPLg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=a82dlEFENLIW4sgoVBtYD60lkUHWQf9Lza6blcAb4ZU=;
-        fh=YLq+DSaV8z3/rwClu3BhYsdSUPBAWhsRkfyDnodBM5s=;
-        b=B6ytEmBLgOVji4b0eMNInfJNpZfRKTGjiu0Q+NMj0getgLRbejLuTfAFspM9KbWRcG
-         8QfIobGcA04U1owEEIBx4xci6atXQMCOfURXMYr9tVAdUZGJHQD2CrmiQsH9VcWDNzuG
-         3fRqKBYDr0p1Vux/b9jWYju7XK6YnIGuJcUHurucCCeIUrm07cT8FcMG7Eu7hKE+bkAp
-         r6hay4oDSJhwLfSuI3bOy1laFMeKOTJweW4Pb8ZINZ07C332wegBCS1bLwmEzxwLMq7H
-         BcYZUoan3Y6gHplI8/NreD9FzbpbfrKnPGEHZ1IV2PyuZjjctp/oAUjyDmKUb0FByJsk
-         VwZA==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=+iEPT4fOLUy2C57JftfFB6MsPWk0QDV4EEMGYI+go7Q=;
+        fh=DNVq1EVG/udUJr07XSQuh2F04xhwV9GnAAwLWTeWl9E=;
+        b=MKzYwLyXoWRnBksUHuUx+FddujI+kEGq6FcKEBZGNnXIWfmCLeFL/1Q1l2+l6LHh2u
+         DUC1AdGSFwMka6B+SDj8DxdUxKFFm3Z7EqQBG2T/5bLlWP3BOS217J7D/PgA6fjmKfhU
+         dEBrxlk6hKqjFQ2UxDsfPhJ1OoU63PORbaEYevyY5m3puOhlaIqNLjcv53BxMrzxGlVu
+         I1znTEnJlSe4O9DiiC3OZ5dTXKDOyN+ghyA5JYQrVSkUyeALjrEUBGgoRQQJSvp575Bi
+         XU07OV0arXwjTk8r+gjZEhSpp8aNv/yzCvlf9sxNc6b0mZRglqozfhhblF8l2K0N9cN7
+         2+WQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794936783; x=1795541583; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=a82dlEFENLIW4sgoVBtYD60lkUHWQf9Lza6blcAb4ZU=;
-        b=NtPJplwPQZ4W6lKofSmxFRiTWuEnftiTGr8tNd1ejlNXJ6q8twRZCpgNEiucEOLMVE
-         R5zdEbhQe+TxAxZTlJEPWxkdVL+Dd6Nq6wJXOwAuv4xiWaDSnL/aGTGXxuNowibhtiHD
-         NOVIrCLWSmWqj4k/BCbE38UG1+JnYelIcvric03UCzFwreqt6G1H5pp5izNbv41KBDyc
-         npdVzL4KjQnveZ0KBR9z7P6hyThG9ifut1qFpGngh4kK8DzrH82cWpROSx6BQUWQxa57
-         CIJSmMsTwzDKu3sfHvuiZgnbVAlA4joirXfoHMyj4yw1UMOLP5TibKI5r4LpP2F5s50T
-         p7WA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794936783; x=1795541583;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1794936917; x=1795541717; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=a82dlEFENLIW4sgoVBtYD60lkUHWQf9Lza6blcAb4ZU=;
-        b=XoYNyRIUDiU2lrlExXIoFsgmBtXcFgpO9CbOLpe0OcfNOY0fAYiuT7h7/3XREs5u6l
-         zg7j9ByCnXbxlU0LKmCCdn6y+sJeXmarqgUMJ+myGvvH8ARMEXFClPAXOwAGQ2G1r87A
-         lKEsRSonsZyc7azkldyWvf7wQmjhY/5hje32NKi+jlNEdPJqaHi+k8GKgqntuUPabrVM
-         25ytYVv4YiCp2atieQjSptsEDQ5c8GR7tf/8w9FLvvoh83/I94ON09XYXgiOpOROmsJO
-         oVSjOrT1rR1mbeS9F6JpO/6BVB3jCYxSoh0n1x7yz/CdefzB8YZl1j8O84W7Uo7projS
-         pRIg==
-X-Gm-Message-State: APuU4Z+Q1FCLv1j5w8eFUUWif9RVKCEYnFcmHRzXXxMKxmBuE7y0MWCq
-	Au45EhmIxMSw2j7AoCmibMWARx8/GmwIjDUMO2LwfgsKlczJJ8udn8Hhr1jXpBoRjjN3o6XDXcr
-	lkZioMkckGhpeOb/70oQm3OWaJLLoIs81aShLarVoOgEse+RhjLk1x8VwXCHcu/Jo4mnenwLCh6
-	8FEfSw5km42iwY2bK+X+OZU/x+V5rO5q9cDSNxJI5iQrY=
-X-Gm-Gg: AYBFou2bBDT7TiDdYH304xTBu1Xz6l5A4L+cFgYOn5mMjWSMbab4bz0Reppct42oQ18
-	79TFjblNT0N6p6qPoxnuY+ZWK5Va6ULShUa3ZYAgq93J/H4yGRqO+7FEfilN8v+eeE6Mk5dqBAY
-	zChfuG96WkPOyj5gzTyvIl0e2yrC6iDEX4rise4y066ieLSnNQMaMboNrwVCkzvzasr2kodSfFK
-	pa+RIa93ZOChoY0jjSv0qem6qiK2WWzkeVHM8gqDPtp
-X-Received: by 2002:a05:6102:d8e:b0:7cb:91a5:7cb1 with SMTP id ada2fe7eead31-7d69f8700cdmr1152615137.39.1794936782781;
-        Tue, 17 Nov 2026 09:33:02 -0800 (PST)
-X-Received: by 2002:a05:6102:d8e:b0:7cb:91a5:7cb1 with SMTP id
- ada2fe7eead31-7d69f8700cdmr1152606137.39.1794936782281; Tue, 17 Nov 2026
- 09:33:02 -0800 (PST)
+        bh=+iEPT4fOLUy2C57JftfFB6MsPWk0QDV4EEMGYI+go7Q=;
+        b=YPiE5lyO+qDn7QvlOgjPIJqviO6zK9UEeMs074eOxfruV0I9O7vf/ajZk7U7508YXN
+         OfChmUxxF51tf/PwQbFetcAv0Xr14ORMQFEwzlFU87wl66TfB9uo1zd1MSt0F1Wt49xs
+         nkgCqN7PdNwCOJv0j1zetrtDFKLhZO2nzwxVC+M7ZQ6TWvRqJqAPtgGEK3Gt3GpA1Sc2
+         oBnXRXeEy+RuUJmt60z/EPZfT8jj4nR7TxTVGUesPbJKkNB8zOZK9qg3rnYHAh5l1rMf
+         wb8zBzrske8iwbuOFhcUyimAE7SYNsKZd8CQLXrqVIyLIJA6TKtYLF4uFrhW9Ax5X5qv
+         gurg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794936917; x=1795541717;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+iEPT4fOLUy2C57JftfFB6MsPWk0QDV4EEMGYI+go7Q=;
+        b=MRrLOkyoGdsgKfSKXQEFJ2mhLxKLMyBfKbbqotJWljlcrgLBWhwAZfY2JPRjnw2nk0
+         41tmBgFT20Pkeub1Hw5KFusi3Iq7NaWQ+s17eMep+Pj9q6YiwpapyzUb3N9NmMxkZ0Bv
+         NThU6h/qLBbtsxmRN79zLfZ/GMKw2/if0esF+he8Mq+o9CtKN/8O92tZWiqk7ISqoN4O
+         U3PiR6WbhHWwfukKq/IPdkfaLxAkUsCj6ua7U2G9GvhOZ+UagR5Nc0m+TRH6UmuaeBa1
+         mZxVSFwhcxFgT5h+AkZwbcb9CTOoHAKK0tBgMHPYS6Ts1+8TYy04MLPr4853/ajnXo2L
+         KxCA==
+X-Forwarded-Encrypted: i=1; AL+hErGgxSb6yRnnshSK1vsNHpziA/7V6lgXqD9PxICsES9dlDEmVIqI7wTAMv9eiVcRUUepsZJcKNY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8VnoVohASl60E4uOrXNzL82pSGuk4K4mLgOV4mTNb/Qov5OGKA
+	AE8D+55B397etn168oBDM0EVhJeqXowcSDe1V/WGPUWjqtIa52544meWMOvloBgGaMWIusdt7p9
+	a5DMpSLe7sLQNVo0NuvwYkGPcynpzYeU=
+X-Gm-Gg: AZFdTZcaFYdlbHx1YbrgUifCDQE/jWUVCUX0W75PCVypqmfjzX2UjrpM4nINsL6DYud
+	Qvpmip7337M4jhwYpR6vGM6xErtQtBNoNs31RHXdUAXz7Th824nnAX81YopkSJbLfa+TWUJwraM
+	o0SNMHvRqcWpBxX3ED7EX5pGdaPkYUSS7wtdaI4ot2vWtwMF8JIv+oJ0eci9/G1wHCZCR/fCDSU
+	Mdue5vQVcPMenj3Cz9zHUZj+j7E3S/tDZ2ggKwvCJMZGgSwssTemqEZRBr1LGEAilvW8ceYp6/v
+	c6X7cypofAVIP6rRrjKuC+3042lNbVNXX/K9WvIX0rLcdM4QF0UuLvk+0/ndpJQMohYKrpf4e8a
+	5kSIYlLgLFYwb98PEbFYANH9N1vWhGL34qrbdNg==
+X-Received: by 2002:a17:903:41ca:b0:2df:8ab7:fe3a with SMTP id
+ d9443c01a7336-2eff751fc0cmr213765ad.4.1794936916611; Tue, 17 Nov 2026
+ 09:35:16 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -123,193 +103,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117172636.2142261-1-sashal@kernel.org>
-In-Reply-To: <20261117172636.2142261-1-sashal@kernel.org>
-From: Charles Mirabile <cmirabil@redhat.com>
-Date: Tue, 17 Nov 2026 12:32:51 -0500
-X-Gm-Features: AclHuK_ybCjuryCHfxfRYMob6J2idAlIf0-rGM_aBnOtmSqebtyX73TvIBCQ3-U
-Message-ID: <CABe3_aG74Df8S+c9Mis4-dvd5LJzyJL9KQkHhV61yBFAPfi5Vg@mail.gmail.com>
-Subject: Re: Patch "irqchip/sifive-plic: Cache the interrupt enable state" has
- been added to the 6.12-stable tree
-To: stable@vger.kernel.org
-Cc: stable-commits@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>, 
-	Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>, 
-	Samuel Holland <samuel.holland@sifive.com>
+References: <20261116084211.3066460-1-cristian.marussi@arm.com>
+ <20261116084211.3066460-2-cristian.marussi@arm.com> <20261116-astonishing-urchin-from-jupiter-838cfc@sudeepholla>
+ <avw5o7sTyriZ2ZiX@pluto> <20261117-prodigious-limpet-of-fame-3d72e6@sudeepholla>
+In-Reply-To: <20261117-prodigious-limpet-of-fame-3d72e6@sudeepholla>
+From: Chengyu Liu <lui2012qwq@gmail.com>
+Date: Wed, 18 Nov 2026 01:35:04 +0800
+X-Gm-Features: AclHuK-3dP_RVRp9S7UU3KZcH-t0O4kwljf1AMinJpV8gpEOTdKcRjWE-9zLE7Q
+Message-ID: <CAE=Q7=4+HMtqbiK9v3jw4t31TQOYUfRXKRurZ7KcMi7GTi1v2A@mail.gmail.com>
+Subject: Re: [PATCH 1/2] firmware: arm_scmi: Fix deadlock between reboot
+ notifier and forceful work
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Cristian Marussi <cristian.marussi@arm.com>, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, arm-scmi@vger.kernel.org, 
+	philip.radford@arm.com, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi All=E2=80=94
+Hi,
 
-On Tue, Nov 17, 2026 at 12:26=E2=80=AFPM Sasha Levin <sashal@kernel.org> wr=
-ote:
->
-> This is a note to let you know that I've just added the patch titled
->
->     irqchip/sifive-plic: Cache the interrupt enable state
->
-> to the 6.12-stable tree which can be found at:
->     http://www.kernel.org/git/?p=3Dlinux/kernel/git/stable/stable-queue.g=
-it;a=3Dsummary
->
-> The filename of the patch is:
->      irqchip-sifive-plic-cache-the-interrupt-enable-state.patch
-> and it can be found in the queue-6.12 subdirectory.
->
-> If you, or anyone else, feels it should not be added to the stable tree,
-> please let <stable@vger.kernel.org> know about it.
+I think the current v2 may have reintroduced the second deadlock
+described in my original commit message.
 
-Same concern as 6.18 stable=E2=80=94this patch makes quite substantial chan=
-ges
-to the driver. I don't think it makes sense for stable.
+scmi_forceful_work_func() still calls unregister_reboot_notifier()
+while holding sc->state_mtx. Could you also check the potential lock
+inversion between state_mtx and reboot_notifier_list.rwsem?
 
->
->
->
-> commit 93c071c13839d60f69c7dbd6b1857d3b8d13c433
-> Author: Charles Mirabile <cmirabil@redhat.com>
-> Date:   Fri Oct 24 09:36:42 2025 +0100
->
->     irqchip/sifive-plic: Cache the interrupt enable state
->
->     [ Upstream commit 14ff9e54dd14339776afff78e2d29e0edb3a4402 ]
->
->     Optimize the PLIC driver by maintaining the interrupt enable state in=
- the
->     handler's enable_save array during normal operation rather than only =
-during
->     suspend/resume. This eliminates the need to read enable registers dur=
-ing
->     suspend and makes the enable state immediately available for other
->     purposes.
->
->     Let __plic_toggle() update both the hardware registers and the cached
->     enable_save state atomically within the existing enable_lock protecti=
-on.
->
->     That allows to remove the suspend-time enable register reading since
->     handler::enable_save now always reflects the current state.
->
->     [ tglx: Massaged change log ]
->
->     Signed-off-by: Charles Mirabile <cmirabil@redhat.com>
->     Signed-off-by: Lucas Zampieri <lzampier@redhat.com>
->     Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
->     Link: https://patch.msgid.link/20251024083647.475239-4-lzampier@redha=
-t.com
->     Stable-dep-of: 0f214e5bbee5 ("irqchip/sifive-plic: Avoid signed shift=
- in interrupt enable mask")
+The reboot path holds the rwsem read lock while executing the notifier
+callback, which then waits for state_mtx. Meanwhile, the worker holds
+state_mtx while trying to unregister the notifier, which requires the
+rwsem write lock.
 
-Consider this altnernative version of 0f214e5bbee5
-("irqchip/sifive-plic: Avoid signed shift in interrupt enable mask")
-which applies on v6.12.118
-
-diff --git a/drivers/irqchip/irq-sifive-plic.c
-b/drivers/irqchip/irq-sifive-plic.c
-index d57e9b25d0b4d..b061062f47c58 100644
---- a/drivers/irqchip/irq-sifive-plic.c
-+++ b/drivers/irqchip/irq-sifive-plic.c
-@@ -97,7 +97,7 @@ static int plic_irq_set_type(struct irq_data *d,
-unsigned int type);
- static void __plic_toggle(void __iomem *enable_base, int hwirq, int enable=
-)
- {
-  u32 __iomem *reg =3D enable_base + (hwirq / 32) * sizeof(u32);
-- u32 hwirq_mask =3D 1 << (hwirq % 32);
-+ u32 hwirq_mask =3D BIT(hwirq % 32);
-
-  if (enable)
-  writel(readl(reg) | hwirq_mask, reg);
-
-Again, forgive me that it is not a proper patch for git am, it is a
-one line diff.
-
->     Signed-off-by: Sasha Levin <sashal@kernel.org>
->
-> diff --git a/drivers/irqchip/irq-sifive-plic.c b/drivers/irqchip/irq-sifi=
-ve-plic.c
-> index ca70641982ed6..2056a4d45656a 100644
-> --- a/drivers/irqchip/irq-sifive-plic.c
-> +++ b/drivers/irqchip/irq-sifive-plic.c
-> @@ -94,15 +94,22 @@ static DEFINE_PER_CPU(struct plic_handler, plic_handl=
-ers);
->
->  static int plic_irq_set_type(struct irq_data *d, unsigned int type);
->
-> -static void __plic_toggle(void __iomem *enable_base, int hwirq, int enab=
-le)
-> +static void __plic_toggle(struct plic_handler *handler, int hwirq, int e=
-nable)
->  {
-> -       u32 __iomem *reg =3D enable_base + (hwirq / 32) * sizeof(u32);
-> +       u32 __iomem *base =3D handler->enable_base;
->         u32 hwirq_mask =3D 1 << (hwirq % 32);
-> +       int group =3D hwirq / 32;
-> +       u32 value;
-> +
-> +       value =3D readl(base + group);
->
->         if (enable)
-> -               writel(readl(reg) | hwirq_mask, reg);
-> +               value |=3D hwirq_mask;
->         else
-> -               writel(readl(reg) & ~hwirq_mask, reg);
-> +               value &=3D ~hwirq_mask;
-> +
-> +       handler->enable_save[group] =3D value;
-> +       writel(value, base + group);
->  }
->
->  static void plic_toggle(struct plic_handler *handler, int hwirq, int ena=
-ble)
-> @@ -110,7 +117,7 @@ static void plic_toggle(struct plic_handler *handler,=
- int hwirq, int enable)
->         unsigned long flags;
->
->         raw_spin_lock_irqsave(&handler->enable_lock, flags);
-> -       __plic_toggle(handler->enable_base, hwirq, enable);
-> +       __plic_toggle(handler, hwirq, enable);
->         raw_spin_unlock_irqrestore(&handler->enable_lock, flags);
->  }
->
-> @@ -252,33 +259,16 @@ static int plic_irq_set_type(struct irq_data *d, un=
-signed int type)
->
->  static int plic_irq_suspend(void *data)
->  {
-> -       unsigned int i, cpu;
-> -       unsigned long flags;
-> -       u32 __iomem *reg;
->         struct plic_priv *priv;
->
->         priv =3D per_cpu_ptr(&plic_handlers, smp_processor_id())->priv;
->
->         /* irq ID 0 is reserved */
-> -       for (i =3D 1; i < priv->nr_irqs; i++) {
-> +       for (unsigned int i =3D 1; i < priv->nr_irqs; i++) {
->                 __assign_bit(i, priv->prio_save,
->                              readl(priv->regs + PRIORITY_BASE + i * PRIOR=
-ITY_PER_ID));
->         }
->
-> -       for_each_present_cpu(cpu) {
-> -               struct plic_handler *handler =3D per_cpu_ptr(&plic_handle=
-rs, cpu);
-> -
-> -               if (!handler->present)
-> -                       continue;
-> -
-> -               raw_spin_lock_irqsave(&handler->enable_lock, flags);
-> -               for (i =3D 0; i < DIV_ROUND_UP(priv->nr_irqs, 32); i++) {
-> -                       reg =3D handler->enable_base + i * sizeof(u32);
-> -                       handler->enable_save[i] =3D readl(reg);
-> -               }
-> -               raw_spin_unlock_irqrestore(&handler->enable_lock, flags);
-> -       }
-> -
->         return 0;
->  }
->
->
-
-Best=E2=80=94Charlie
-
+Thanks,
+Chengyu
