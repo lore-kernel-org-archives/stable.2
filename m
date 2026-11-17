@@ -1,78 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.183
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794901479;
-	b=ZPKftCHZv7drhaaChXreJnUW063Wl0aHoy8VNjN0UPRv5XGz2bs5c7/A5iIZEvpjRgSw
-	 G4AhaKzPMNDGzI90cnLJDlg2xMGi6bvkCLuxygcW6iqC1AajW1UqaEisxV1KcFf9T9Ab+
-	 +Wy6e/W0aKAOJ6zCh0ABY2Rxdg1RtDxGgIV5ShbYfMC2mRsErLsk6PuOre1d7U7Bo22Qr
-	 J72LnqMJw4+GOnzCgZFE/JqfTJVRXXfbKkJhCVvkRFJwovxMkKRw4kSwJ0Vx5ZTb6Klna
-	 ALuEGLA3Rr/0asUcTu5baVdrzHiq/dZeZ7AAYuOIBQyEQIu3iQrX2a6ZyBb3XN9OPhw==
+	t=1794901989;
+	b=VBCkIM1WH5WA2H+hwARcvgQbix4ag4WCY6BiZH9cjSGIzRbmuiojLJzLdKEuI2Jw1+cj
+	 FbDABHIrb4xGN35dYUgRXAZ2i3ouMBHlCpTwMxB2rX5GjweMcREBGOcykOqQnJw/Nv0vc
+	 6QsALqlD1pM30KzPmlYP6kLC7qGJhkZix6EMK5D3z1uE+zsIW2eNqfjqpaDgj5Kcrh2Kh
+	 Lx823MCfWJjoxZYLj7CXI+m09PeM8m/kiuPwTgAIfRNBXGyJRX6Rz2juVEeCB9yrERBLy
+	 gg4SCPJZcUe/2XQ8AlmWnrD1yG74IJwQSVWzyP1DNuSGauO4nPLkMzAN18XJaQy98dw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794901479;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794901989;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Rl4xRoRlviJF83L8a++G0tQD5YC9ot3wz0cKjEEe7IY=;
-	b=vSPLnxFR9dbvMyKqnvxu1i3fXj6yuFqMhKDB1Q7gV1TjYpBlNNixYSr+b+dOGfCcwhq9
-	 2rjRaEWEdSIZhZxVH8iyOKTqKrQSGkvNtptg6WPE/RtkYn3A3/Qf3LT3v7CDUdfcjhba9
-	 tRL5sn7zQKsLUirAjq1a+qWeciR+JOyeb2U+jRJXGiNuPdR3kp/NAEn7a9LP4ucOTxc71
-	 MDM395YjVPGGp3wZ+ZMtol911xEGCCPOuqa6e3bhdTVZHhttx4A1CEGFleTAPGbwN2D4b
-	 wEUCHB4xZs711QyCNIAMIoLJKY6UCfJu+XoYhppWntMNE+O4NFSXgPG6+6MLfrWy5Ww==
+	bh=bIaB3xViS8vRwH7p7m0nqayQxCVJVBaNFTxNi69Cb5s=;
+	b=AARsg0LX7vxNi07QRzU6LcCpqw4O/2njNHYITkciOz7S6ptlL8oHYUy6Xa90jZhV0g9s
+	 Bvmx9+hY5UX560lX+7uvlGOt2JCj/q+g1qtsnMZSiKlGBgjQrQjhoAzC82q0eCWI+KpUh
+	 LXtBdqp72ny1soiLAmb7LBWfel6JS4u9hwYepQcQ4kU1SauS8YwH7rT+xfAK90+bsm8jb
+	 w2hRfITEZOz1vPf3P5fBE2HjC4OAO59SKqJpQx2b7rvJx7zsgYYFR7/mBx6hh5AE2R7bq
+	 Hu+iAM1uR3fZT0aQ7ir6dMex9/Lb8nhRmjHMgDErMEs5xGcoubZ7wMV1hm1vD8cDrRA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ri9HY3+5;
-	arc=none smtp.remote-ip=91.218.175.183
-Received: from mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pE1wQF+f;
+	arc=none smtp.remote-ip=209.85.216.49
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25983606A33B
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 07:44:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25983606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61CB5606A323
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 07:53:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61CB5606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=ri9HY3+5
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=9BrR57hqg/zFL8xuQddS4bc5O1Q7cExjeJpeA9SlXoQ=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794901476; v=1; x=1795506276;
- b=ri9HY3+5c4WUbrUk9G9uH2UiphPaqM8sZFV47rQp55xCD3GfWb9Ek1RVxGLmIigeGG5fJ7jB
- nKudNa5RrRiq3G9P4/fuLsbtgXet6c6nD1eV9QgRd8D9DUi4GXxbTH1V2QpwHsvUYBPAHQE45CZ
- xJr5IE5Y9zFPCMltgMZzItd8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 89916f160498b322;
-	Tue, 17 Nov 2026 07:44:36 +0000
-X-Mizu-Trace-ID: 89916f160498b322
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Paolo Bonzini <pbonzini@redhat.com>,
-	Sean Christopherson <seanjc@google.com>
-Cc: kvm@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-doc@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pE1wQF+f
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3b37951a397so2135710a91.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 23:53:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794901989; x=1795506789; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bIaB3xViS8vRwH7p7m0nqayQxCVJVBaNFTxNi69Cb5s=;
+        b=pE1wQF+f0cxdZaR+U+ZOkQyj3e4yuQVMr1T5T6YWyv9LVF6myLSDjq/7ZAotA8+OTa
+         ED0jpGyxM1pkNhqNZeQPfRoPfywRymYhMEmW40BAjbcP6hqICKAvZQizypmkTgmG36Xb
+         ifhmARwDauooTrtB3NZ9og9Kvy0xWMND8+h7mIVhPQterIo2P5MDCYmD76RwAZMbtAFZ
+         HJGgVHnH0+7C+1LpkG3mIoHdQbXHXqQUydQoeUuh2jLuYEtEfiTm7oKlLB2vivcBTYN1
+         633SujJnFAAYJ9VfZSt56fJWtUvKLtlnVLb7vbTMaoMqmioG0z/RzZD3QK1LH/ZvagT0
+         EhTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794901989; x=1795506789;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bIaB3xViS8vRwH7p7m0nqayQxCVJVBaNFTxNi69Cb5s=;
+        b=NJg4JGrLwop4q4OqQP2K92inLUtosgFZjqN64mun3ExNuQN1sYm8dBxgHIlYpIzCQW
+         tixnPrs/XrqREGLNevWcZzsbiSQg2bXFqLJ0XK1VfFe/dIdI/Qu/B4x+obQaDn2SRQ/+
+         7bKjj4iWarwz62A9zkN8ZWfvH8IIWLhteJLrzq8o+ydooeZZINHTCJYaHPyA8ngH1A+F
+         y50HJdmGQ+UOXvzOXlrRIrjtB3j6osCDpBIGGfR23EScHVIubUtxHdr0slhxa756Zzfa
+         SPcct8fB1FE/l+tJFaduksChSLYkpdad9JPesUbBPHs47u79tLzrFL1Pe2PzNJM6Z2sh
+         eQWA==
+X-Forwarded-Encrypted: i=1; AL+hErFkggUc4tOUuPT5OX76jhb9V4cy/K7FWgjyJl4Kt3cDA3HemWxnCFPB90Yk8f7fRFrqtOJNQ8o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8TNzS43CtuhhHd/+Q/2VFGeYLhIGOiZkTj0R1PcM3B/Ed3jvGm
+	/Z4oZrFIH8QH+nY1hJpimWFR5sfeOEH+BlKfF3TCMxr8RHQHCJ3J6baHMWlqeGhBaw3rN9Mq
+X-Gm-Gg: AZFdTZenvSSVj0uH/8XFxIIJGj9nU21JFF24Hk6e3z9MhbF6mPYsewosOBNuKG9snFw
+	gAFpYyalPAM7eTmjjlKCCKGzbDeI6VqBrh4loJuS0TrrUzqvAkj6nGEJ2h5u26uOnOYumIbEx8R
+	uS7LSLoG3gKdqTaJreW9Xk8SQ0sOEn6kphqlQIcyxU/FvP1+HlZWuLsz6RQw1Lbnld3npsQlY9n
+	/YkPh+WFjzsqtw4OZrIUYb+iOhNhFBgmwAgrn+61d546cMP5ruRuakAXqMVlySrEvLu//TXr3zX
+	YpONWZVYbXOzbK4kIoe08I2Tq9w2csMdv9LYIoUJRGWiqrmfeIQ9qyu+clFX4xKjWTFejbqGhg9
+	7JSLA7cLa0+etL+d51yzTKKBVWqk+I0TdNLulYjVV/6HryuAoxt2101Jeaf9MWOZNY+FnFp2Lwu
+	TisqaiB6hLroFbEe9D4pm0mKYWAklED0orRxa6aeVCu2oxjy6seDxu6e3j0GloxIIOrysVisOZc
+	Aj/6Bk9b9J+deQr+VU07XBBDGHi+iXbnuenDpMdrT/8ydlrz1+BHYUdkkxLbKVGrh7HXDEzg475
+	hKTBxyZQrxYWuGmJrFeIiQpHanC8uWErTuEshKySOrxutZkRWWCiVlE16udnR18Wlj796ejGwGK
+	PPRO6e3HajUtEsJB3Qvf0Auh33hcOs5KfwvKwuOAJkxELxsZFqpNYtfP0dRSjkcLJxkcPsQygkp
+	zHraCTSrlAW71qgYGZhuvnsnF4qmEKlhtwDL4RrbKb6e8yp4FhnRTtYwOI9NgMzDP+wYSWAqSzZ
+	DyuMedAcVioiDtNkhAe6qCI/R5TvnsAUPEkTHwtBbrMtWq0QzCUuHiaadHQwR8j
+X-Received: by 2002:a17:90b:17ca:b0:3b1:fad:b1bc with SMTP id 98e67ed59e1d1-3b1b0d77ad2mr13468030a91.63.1794901988543;
+        Mon, 16 Nov 2026 23:53:08 -0800 (PST)
+Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3abe77179sm2791862a91.11.2026.11.16.23.53.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 16 Nov 2026 23:53:08 -0800 (PST)
+From: Daniel Wade <danjwade95@gmail.com>
+To: David Hildenbrand <david@kernel.org>,
+	Zi Yan <ziy@nvidia.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>,
+	Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	linux-mm@kvack.org,
 	linux-kernel@vger.kernel.org,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Isaku Yamahata <isaku.yamahata@intel.com>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Alexandru Elisei <alexandru.elisei@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>,
-	kvmarm@lists.linux.dev,
-	Wei-Lin Chang <weilin.chang@arm.com>,
-	Will Deacon <will@kernel.org>,
-	Fuad Tabba <tabba@google.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's dirty ring is full
-Date: Tue, 17 Nov 2026 07:44:27 +0000
-Message-ID: <20261117074428.7544-2-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261117074428.7544-1-fuad.tabba@linux.dev>
-References: <20261117074428.7544-1-fuad.tabba@linux.dev>
+Subject: [PATCH] mm/khugepaged: mark a collapsed mTHP dirty
+Date: Tue, 17 Nov 2026 18:22:46 +1030
+Message-Id: <20261117075246.61336-1-danjwade95@gmail.com>
+X-Mailer: git-send-email 2.39.0.windows.2
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,111 +111,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Pre-faulting can map a dirty-logged page writable, which pushes it to
-the vCPU's dirty ring. KVM_RUN exits with KVM_EXIT_DIRTY_RING_FULL
-before the ring overflows, but the pre-fault loop never checks it, so
-one call can push more entries than the ring has free, which trips the
-WARN in kvm_dirty_ring_push() and overwrites entries userspace hasn't
-harvested. On x86:
+When khugepaged collapses an anonymous range into a folio below PMD
+size, collapse_huge_page() copies the pages in, but
+map_anon_folio_pte_nopf() marks the PTEs dirty only when the VMA has
+VM_WRITE and nothing marks the folio itself dirty. After
+mprotect(PROT_READ) the folio therefore holds the only copy of the data
+while looking clean, so MADV_FREE in one mapping marks it lazyfree,
+reclaim frees it, and another process that maps it reads zeroes. Mark
+the folio dirty before mapping it.
 
-  WARNING: arch/x86/kvm/../../../virt/kvm/dirty_ring.c:225 at kvm_dirty_ring_push+0x7a/0xd0
-  Call Trace:
-   make_spte+0x2cc/0x450
-   kvm_tdp_mmu_map+0x5e1/0x7f0
-   kvm_tdp_page_fault+0x12c/0x1b0
-   kvm_mmu_do_page_fault+0x181/0x250
-   kvm_arch_vcpu_pre_fault_memory+0x136/0x1d0
-   kvm_vcpu_pre_fault_memory+0xcf/0x180
-   kvm_vcpu_ioctl+0x455/0x770
+Found by static analysis with an AI coding assistant and reproduced with
+a test program on an unmodified kernel.
 
-Stop the loop once the ring is soft full, with the check KVM_RUN makes
-before entering the guest. Return the pages already processed, or
--ENOSPC when there aren't any, since a retry can't succeed until
-userspace harvests and resets the ring. s390 has the ioctl but no ring,
-so give kvm_dirty_ring_check_request() a stub.
-
-The check also sets run->exit_reason, and arm64's KVM_RUN completes a
-pending MMIO exit only if exit_reason is still KVM_EXIT_MMIO. If a
-pre-fault stops on a full ring while an MMIO exit is pending, the next
-KVM_RUN doesn't complete the exit and the guest repeats the MMIO
-access. Userspace can avoid that by completing the exit with KVM_RUN
-before it pre-faults.
-
-Fixes: bc1a5cd002116 ("KVM: Add KVM_PRE_FAULT_MEMORY vcpu ioctl to pre-populate guest memory")
+Fixes: e22f2fe72c74 ("mm/khugepaged: generalize collapse_huge_page for mTHP collapse")
 Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+Signed-off-by: Daniel Wade <danjwade95@gmail.com>
 ---
- Documentation/virt/kvm/api.rst | 9 +++++++--
- include/linux/kvm_dirty_ring.h | 5 +++++
- virt/kvm/kvm_main.c            | 5 +++++
- 3 files changed, 17 insertions(+), 2 deletions(-)
+Claude (claude-mythos-5-2) found the bug and wrote the fix, this
+description and the test program, which is available on request.
 
-diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-index e95c9cda085d9..89eb6be9bc6e3 100644
---- a/Documentation/virt/kvm/api.rst
-+++ b/Documentation/virt/kvm/api.rst
-@@ -6544,6 +6544,7 @@ Errors:
-   ENOENT     The specified `gpa` is outside defined memslots.
-   ENOEXEC    The vCPU has not been initialised (arm64).
-   EINTR      An unmasked signal is pending and no page was processed.
-+  ENOSPC     The vCPU's dirty ring is full and no page was processed.
-   EFAULT     The parameter address was invalid.
-   EHWPOISON  A poisoned host page was encountered.
-   EOPNOTSUPP Mapping memory for a GPA is unsupported by the
-@@ -6588,7 +6589,9 @@ case, the ioctl can be called in parallel.
- 
- When the ioctl returns, the input values are updated to point to the
- remaining range.  If `size` > 0 on return, the caller can just issue
--the ioctl again with the same `struct kvm_map_memory` argument.
-+the ioctl again with the same `struct kvm_pre_fault_memory` argument.
-+If that fails with ENOSPC, the vCPU's dirty ring has to be harvested
-+and reset first.
- 
- On x86, shadow page tables cannot support this ioctl because they
- are indexed by virtual address or nested guest physical address.
-@@ -8957,7 +8960,9 @@ Therefore, the ioctl must be called *before* reading the content of
- the dirty pages.
- 
- The dirty ring can get full.  When it happens, the KVM_RUN of the
--vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL.
-+vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL, and
-+KVM_PRE_FAULT_MEMORY on the vcpu will process no more pages until the
-+ring has been harvested and reset.
- 
- The dirty ring interface has a major difference comparing to the
- KVM_GET_DIRTY_LOG interface in that, when reading the dirty ring from
-diff --git a/include/linux/kvm_dirty_ring.h b/include/linux/kvm_dirty_ring.h
-index eb10d87adf7d5..729615ae0cf4d 100644
---- a/include/linux/kvm_dirty_ring.h
-+++ b/include/linux/kvm_dirty_ring.h
-@@ -60,6 +60,11 @@ static inline void kvm_dirty_ring_push(struct kvm_vcpu *vcpu,
- {
- }
- 
-+static inline bool kvm_dirty_ring_check_request(struct kvm_vcpu *vcpu)
-+{
-+	return false;
-+}
-+
- static inline struct page *kvm_dirty_ring_get_page(struct kvm_dirty_ring *ring,
- 						   u32 offset)
- {
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index cf4cb586f1407..ac8b94a386e4a 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -4461,6 +4461,11 @@ static int kvm_vcpu_pre_fault_memory(struct kvm_vcpu *vcpu,
- 			break;
- 		}
- 
-+		if (kvm_dirty_ring_check_request(vcpu)) {
-+			r = -ENOSPC;
-+			break;
-+		}
-+
- 		r = kvm_arch_vcpu_pre_fault_memory(vcpu, range);
- 		if (WARN_ON_ONCE(r == 0 || r == -EIO))
- 			break;
--- 
-2.47.3
+Tested on b3dfbde62cf1 with KASAN and lockdep: as uid 65534, write
+64 KiB, mprotect(PROT_READ), wait for khugepaged, fork, MADV_FREE in
+the parent. Unpatched the child reads 65536 wrong bytes; patched it is
+intact.
 
+ mm/khugepaged.c |    5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/mm/khugepaged.c b/mm/khugepaged.c
+index 4bbe319..8a81cab 100644
+--- a/mm/khugepaged.c
++++ b/mm/khugepaged.c
+@@ -1422,6 +1422,11 @@ static enum scan_result collapse_huge_page(struct mm_struct *mm,
+ 		if (pte_ptl != pmd_ptl)
+ 			spin_lock_nested(pte_ptl, SINGLE_DEPTH_NESTING);
+ 		pmd_populate(mm, pmd, pmd_pgtable(_pmd));
++		/*
++		 * The PTEs are clean in a read-only VMA, but the folio holds
++		 * copied data: mark it dirty so reclaim cannot drop it.
++		 */
++		folio_set_dirty(folio);
+ 		map_anon_folio_pte_nopf(folio, pte, vma, start_addr,
+ 					  /*uffd_wp=*/ false);
+ 		if (pte_ptl != pmd_ptl)
