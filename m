@@ -1,112 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794897431;
-	b=MuzuxEhkLJ3wMYc2lrQqPpSBidesPK/gDq6J4xujollxWLYRmMm0X0b5eNPFoYbUKIWS
-	 POe1KL2r7Czq4UTrBFtzji5eeXydlp7djCpEqF47h1YA6M0GNX7bHFp362VkbgQOq6nFh
-	 aTH9CwLFClb5S2xxXDzw2Em65eZ7bO9WI+snWrVtAYTB6xenhxqzCYsOTm+Vtn2R0XCno
-	 IlyldtW2oRzqeGinER6yfKS7IL5uEOz0tQMa0MEI3Yi3fN6eLS8sLv87VHWN0VYF0VBUs
-	 8k3RKrYGJZOI2PvfnTeWeYosYw5m5i0xyQL8ItGM9hP25e0uTcpizDlrGAIt5z2Eejg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794897431;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=DOsBTsM8HzI17SPUr1ak/9a9bMUvOh6RzD9t7xsTYQU=;
-	b=yRStayWYUQpKZRQv3Kec7n+GYmKuA1GUpYd/VV7VeD3iFRv96QPchXKsL/LMmquGWfVc
-	 lqWsz7IXC7d9j6Zkol0TUW8bvW+c7Aij5AW0kheUfRYLxtw19C7FrUxpB0QYt+4BrAxHw
-	 h+tPVZXNitoCV0b3ZKEH6oicJsXM/lQjVgT+d/c0AN6SVnKoNnElwpPz/4JMhOF0dVh8p
-	 UCCrRe0yCglR81C5hrkGe3pw2yYNRA8GxjutFm9AD2myAR47ZCAFQMh9MZSSuJ6rDz7sn
-	 hTC7gq/AJvJ+IpfPLjAcCKc9ZYEjp+zxweVfV9mgyF8zIl5Pqo/zMmAOTu3SuOpdNRw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=MauZHBO0;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=NAacnamq;
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794897466;
+	b=DEPZmaEKfPPExtewXfRcN2QRIZ3NWvm9/oyrfNFgppaW0qukMDxJW0hX1Dnf+N5Haqcn
+	 qK6DrSA8eMsrRQyHih4kQMHnxBcAhyqWWAcN3Lghq4ivMMoCGao+rndUmuIIykITlHVRz
+	 BctFGM9H03VfUhKTXra0fRyGpZlvK73Nuv+TkJiCTWgfk7oIUX1hGWnYmHzFyT3A9PDg0
+	 4plqzOkWAPVkSwOrLt9nAYRzyFuDCU9UD+pWngLtGnovAT2mOw3HVtO2ZHMI/1VozOz/b
+	 frqZidcMb6R7FNRvlfBYSVpzzVvwy5lV5i5wKPIbkqgyfvgLOwOCXjs5ikzwhlNo2cQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794897466;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=YUlK9ZNpvQHltexnJRlNgEioE8zAmE1eGzod1N8ItX8=;
+	b=IAMWcTZNoftBKIKIwBG1LFHVwsyW6V/1PnhzdaPMFXhkOVI+3BQVYq8lJ613bN6u8bGi
+	 uUbSNiriULP7/TvktssJ5g5awz8QhdOxJOCYJTkfmbF+D4VFcGjlUhDPpBl8RchFM3URK
+	 Dj523Nd0W+gdEg7EemX28DqaMuMICCUV9QK8eL9LRVj6vE+Olcs7h6Fa77fqNG+b2XmUg
+	 w4TITw7Ay1rrKPsqOsEdXiuPqGMED0T8MihIZgLyIUQLNZpItfj/Ez8RIHQ5LZqCDrVml
+	 in1v0WFtnLlN5tWv1hnVwSWIYzJd50U4UBUPJv36SXIpElYP/AtkP8ljLQtz5cLp7tg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TRk53iVx;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.47
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A560F606A329
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 06:37:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A560F606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2DE7606A31C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 06:37:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2DE7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=MauZHBO0;
-	dkim=pass (2048-bit key) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=NAacnamq
-Received: from pps.filterd (m0167075.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH5jMf4621386
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:37:08 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=DOsB
-	TsM8HzI17SPUr1ak/9a9bMUvOh6RzD9t7xsTYQU=; b=MauZHBO0QHOwDKA+XX+b
-	5NPgYZ4th7Jzs/pn2qwSByCnGvBsaSJc5coSVdGgWEdboi7jundzHOOM5HiM42WB
-	w0OyBmo17RGT7CtiNHkic9OwrbhIuAIOKMz1xyVIP0oacCdQoPCmhkkn2AmamZC7
-	mBeSrbxoXB6igxp5uzLLa4D2IFme7QvqvquEjuxdUxnBQA6/IHFDWpw05cjVR1nA
-	6pqKykASzKK8FkuSYbOtbsrqtnG1wjANodQW1tQeKxZrnFbvlYJ/Evk7urX0feCD
-	FDfewHX0Jj2Ys1Zg/kZOA96usAUZAlS01YBpxaYovi/Ep2sJWUyQKe5egD9ZDAKN
-	/g==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4j0fc5gd5c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:37:08 -0500 (EST)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-94970ad532bso377595385a.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 22:37:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TRk53iVx
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5c14edde59eso264438e87.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 22:37:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794897464; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jTT0jRGsKD6KcrjrF4z0UFH1sv3JzrsHeVfOzuYmPyPbmHdp/5AnHYoFtCu+/+enuV
+         7uMKlFzuMUm9qfYr6KFCgEDNvgjTk06TsQbDUddrHOYBeyQ5hAz+7UWC3/bWjNG67J6Y
+         rgn+nNEtD9qyPosidEf8yZ/AnpdVjzSzqwEaM1t08gU+xeypVrZJf6yFzcNI0AEz/iND
+         jl1MTw5EEm/z8XMpP2XFbfFR2o/KPdU/x40Xa5w83h/qU84HFCL981lOSbKGDdCK8NgL
+         yND7GwfnXO7ujrt62DL4dnyu6Br8EvLJLHHTwOMq/xRe9ZyedrIqbu4cLfIiozG1RLcW
+         iGTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=YUlK9ZNpvQHltexnJRlNgEioE8zAmE1eGzod1N8ItX8=;
+        fh=ykjlsy0963WoQovlCP/PTfNC55O/VPmQGqesgDYutpw=;
+        b=kLkT+N2T4zi2mp6t2UUp6O7YtaodKWF8t2NFo+rA5h+5PMNC67Ib3XbzdD28KeX5f4
+         JQpjGy0uL4CgmUZdSdQa/3dV3STvyGFIpDqw7b7yMyB4ltK54RZSQlegrVunKiUke0ff
+         DMP+7OuI1PzydF21ahatXBhQSgKNjYrU9dHMwQiqKacrfLDE0QhvPxn7FGjqZ9A8O7C9
+         lFm2XjAlIIL3r9LRrpA2UgXfvpCIrMyKjY4+aiUdLEC5z0hfOo6oqQpxSZoIPQyQSiVo
+         S3yIsixOZDIfM++j1Zy7lmTC7zkeSPP4OArF7GJ+WN3jYR0VBuuk9xSK9KoQWmTHG5P6
+         tSZQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1794897428; x=1795502228; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DOsBTsM8HzI17SPUr1ak/9a9bMUvOh6RzD9t7xsTYQU=;
-        b=NAacnamqM/fJxKIaGIq/+aJuJkRwcvSvNe3PsFCVhJHtQPEw3GkpqTnt/Zu7OcjRdT
-         UYcULCikl0UsUFK7F/oizAEr6LQbCZxFxLsrE3/+DL+AZabmY1fPMMPxnaXOARdgk/kS
-         7FtXohksQSwnIhBJD5Q8vUjq+2XaUxgZRXz6ABlYlAtyOqPqJ+qXEiV/mxrLFh7IL+BW
-         E66PCqzKKXM39dzvJG/5vQAY4Q6GKslyig7ktMrD2pnKs4TlqnVcjZCIBAfXpjDDi9UA
-         M9ZTTlfkok64SL9B1bjUUd1NbcwDazSidl81OPTvoUZ6uQZ8PhzakvysmIFfAwRy8gLV
-         KMug==
+        d=gmail.com; s=20260707; t=1794897464; x=1795502264; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=YUlK9ZNpvQHltexnJRlNgEioE8zAmE1eGzod1N8ItX8=;
+        b=TRk53iVxMjHe1ufTUpvhFZmlnus9n5cPzA7hFGRgZ5zqWCTfOgVQK5KSnI8vSKPJlE
+         ukFAbEuPQF/yXgcY/qt9ZJN0KpFwdGlgeExtkh1pYvcP6PLieL/a4OoxyoQ5PNBT+o2v
+         7IsAhe8+acOmTWANcROXa3ESAycHuTDowzl2C5V6fm2/zqopQ/Z1gxkWFf++CtrQOXMj
+         GmWh3rsB0wf68j31nRC+Qvskxra4SwHzfVH7v1Ecr3E7i5Ot408eEWaFpzWelaoNmVYA
+         QRSFodTIi55dykMLm54oglVr0t6Wa46zWtXTABtQddyPVH4D82+YYwg46K5tlEL9xMcq
+         sgjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794897428; x=1795502228;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DOsBTsM8HzI17SPUr1ak/9a9bMUvOh6RzD9t7xsTYQU=;
-        b=mAKKmIt4Sqb92KdBlU/uJS03rMMc/AMYYZn6zg/m6/XyXdoCXyZQS7UUrx5Pe7r3Gw
-         uggfAx8K8w/zKgDUt5urchEsRFDbLJpth4dmL9/8xUkTPRIK7EeaznXqGEciUpbY4Tdu
-         it88y/UolMI+4qE+ptv7l8PLVo0F8Sn0sQlrsaomqbYh8hTpbmNG2PcxKrGIOA3wMyEx
-         Tnfhb90Lw7PJyfbIdYH04n2yFLV788toIkVx8ilNtQl6kjpzCb63kAcBgYdL0WpfIrrV
-         H5FRCGxmcl0cyaeIyzX3LQbi6tBqdpz+hCRlpW434QSQKRwTDRUdjYzBPbSbJr1mq4FW
-         8I3w==
-X-Forwarded-Encrypted: i=1; AL+hErHWi+cLZeY5Ixo/HUJGvVvCd83xcQLSuB1t+XGXp49UG69rhEqpCfVS6C8pHL/Z+7JWCiSBu20=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/p6YxjnF9kogjcH48ZzoUutEz8u/ueYnKCX2qz4JUBQj9LAheG
-	u3yueHQtZmYRmvJhYLPSjxztrcIYMvfUXeR3Jr1gbMmrcpokJJqt5+2ju+afBkz2wzvSD4OK2fL
-	5piKItN7qPHV3ib5loFNv13qn2+7bop6P+4N3rjf7l8lhL8Ligd1VAAf7p3Dr5A==
-X-Gm-Gg: AYBFou3VjYCBwJcHBMyB5Dwl6Stnd34Bk/dSfkC9E+/N0lFtRyK1X627sMW7Y2UxcXx
-	uixjEzYufoc7au9YCgyLLtO/y1egRE0wnZa6OVLqItHNdDtwrpxEvD3hChYLaPFgMz3MCaDVesC
-	Yauroa/5qcH27A4cn4AZFELuwqeSUdtZjxcAvbKv99u8a7URoOAjWkyOaks5CAKW7nzj8OwOXGy
-	S/z9Tk2P8A1waZnpdP8BfVcd3xCSn6geI/BiSrJZZ3ban7A+jmA3N/tI9kWv2P7umWLoWPB5tD7
-	OIYYxhi4jiSmPAM7roLMy57sMOqHcyHeslib32uODsFy7e8tKAuibtPlipVRdj4aJiWOkLN2rcV
-	/nXZQDhPmyPEauvyAoInbPhMWvNBPKvy43oVw1VsiGsBUvENKAPj2f3UwMx8lAl/h8108RVNZrp
-	BTHAJMqv17aKR1JHlXom5SOQ==
-X-Received: by 2002:a05:620a:2b46:b0:949:6898:2e4b with SMTP id af79cd13be357-94968982e92mr1269464485a.66.1794897427873;
-        Mon, 16 Nov 2026 22:37:07 -0800 (PST)
-X-Received: by 2002:a05:620a:2b46:b0:949:6898:2e4b with SMTP id af79cd13be357-94968982e92mr1269462185a.66.1794897427441;
-        Mon, 16 Nov 2026 22:37:07 -0800 (PST)
-Received: from [192.168.1.62] (dyn-160-39-33-242.dyn.columbia.edu. [160.39.33.242])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91f23d614b4sm104980356d6.18.2026.11.16.22.37.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 22:37:06 -0800 (PST)
-Message-ID: <8092de9e-3146-4fe7-a235-01ea8efab08c@columbia.edu>
-Date: Tue, 17 Nov 2026 01:37:06 -0500
+        d=1e100.net; s=20260707; t=1794897464; x=1795502264;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YUlK9ZNpvQHltexnJRlNgEioE8zAmE1eGzod1N8ItX8=;
+        b=vImBRvmMZRx6SJOeUTpbNMUlf8vQ8XbF7yJfmj0324xJ4H+TSsn9ZUzS7r/pL5nRMO
+         nuCScbLN5cKsrKQh5uZzoGUwYsm4GC1JkbT0JRh2D3saU4JbzRk0C28P6SNimfeaRit3
+         +ysO75ylPboCtG5NJa5Yh7yNy6TWnrwamD0bUcxVxoCwbKHaZQZdsYjGi8QwJ39CvPRV
+         n0Z/ItfdqI3bLDP5Fgkjxy27vKsa4m3KP16u9SrBV32NRFpOZe/HPZbH06xguFjLwJ0p
+         q/69k9ZVxhs0A13H6zA1+YwduIZjTil9KkOXSd3fnE3fqL0eR4kgNaDa08okCAE/3Te5
+         GhUg==
+X-Forwarded-Encrypted: i=1; AL+hErEH8vjOiOh8/2abIMm6cQSlAdWUcUXXY5wuKn2ZHpF/z82lPq2t2ejNcyRzsa4HYpdFFWa/8WU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+KlpgrCOqzid0ZfwLGCnv2u0l5UvBON8GP3cKodX/aXNPu7Ics
+	U2hRTX6mr8fln5JlLY2KjT6oSy9TERaT7zdEIwebNkgaDBwwuIdEnjP1sj9wKIdFb6HnUKBZgzv
+	1EfPPSNsk52F/LBfQAe0lOKPjIDW8aVU=
+X-Gm-Gg: AYBFou0NZbMJuIa5bIoUC13OFqIGxPvJdapVJCRMcSAQ9fAUXXaTlXvGq/R0xMNMPkQ
+	F2NTx8qBtaXmvP/alwkdAAOVcG3couL4tjPFjVvdmEJE/6/aF7YVnJkisdfOcL8Ut33Eo+g5vZa
+	zJK4RnpnIDnP0GS0Ts6TICxOd4kMR1sLfF0WAABizizleqqM0WboJqEwC07GONaojfjBUj7dXAX
+	PnNk0XUk2bsv7LwNfv+qghhHg8q/WVMXjF+PfnXD0tm9Xx+KX22OiFZXOTcT2ZMUBAX0YKpy3lc
+	4MyIRopeGUYv2nj7F++hv5NonWKCsc8aRNllwcW88KfvqehjtDUVl25ZUZ5tWy1+YZomqQjxtvW
+	DWio07Wl62zlrmU8LV98T8PSON/NdonH6NuaVMQZiKjK85uQefCy8u/T9V5VPb0YaPU4ELucpMa
+	k5CybreDGjK3FmCRGjx6Iq2xP6obTtpdGLjiUTf17GvRSh7/Xh3pnD2a5oRtDTAI53glOYsnCBX
+	hao4JlSy3uX17SDAlK2iRcmV/KpJjgxB0fLfHv/9GnmZByqu7qxGq1e/7fQdy6TNLHvl6xgSQ==
+X-Received: by 2002:a05:6512:3d0f:b0:5bf:e6a1:3115 with SMTP id
+ 2adb3069b0e04-5c170771fabmr5742091e87.2.1794897463748; Mon, 16 Nov 2026
+ 22:37:43 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,105 +106,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/madvise: zap markers from guard regions
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-        Andrew Morton <akpm@linux-foundation.org>,
-        "Liam R. Howlett" <liam@infradead.org>,
-        David Hildenbrand
- <david@kernel.org>,
-        Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-        Mike Rapoport <rppt@kernel.org>,
-        Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
-        Shuah Khan <shuah@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-        linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-References: <20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org>
-Content-Language: en-US
-From: Tal Zussman <tz2294@columbia.edu>
-In-Reply-To: <20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDAyNSBTYWx0ZWRfX4z/upHGYQIQq
- 8oUiwhKi9zui/9HOSCZoXHvzYjnbGxxr8h67jo/7UinDM6nyBqbfymOqopGzdkzkRnGNSi+k83B
- 7K9T4nL3zelP/eAKVCc4Fl+z9rAaHdlelTWQiYfDdNgWlDz4E5ueAwuzekeDww6plqTKp8XANEi
- Dxqs/DYhy2pPf+wlLv4ILYaua8hztVAaHFvpyP+OggH9z0AORQelkxuOlRm+DC27lQZx8pz+/As
- N8d/W3DafrUzyTPz2HBrXHzxV8So9FjMGskdUS2sY9Yi55eu6KJ8iWSbsxbCutpX7MrrKuA1WyK
- DBH8B9wIlYGvoeUk27je9eXjsZeAdzmQmUYO9N/kFrti7GZ+YcySunXD4U35r4bSkCCk7WwBWVJ
- cTpcAogD1v+GiMZFxqnEaMwdSGLTSDkQY5qFGEae4pz72RXW4rssG/uRSe/H9wEcriMQ26cl9PY
- Tw1UQ2ilf/C4/0hG35Q==
-X-Authority-Analysis: v=2.4 cv=e8CT2qp/ c=1 sm=1 tr=0 ts=6afbf614 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=GaPK54s0Se3oFqK5NkZy0g==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=HpS3TJQ9O3Ob1ozEcmik:22
- a=nc3XcxN3xHuRbhElZrYA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: SNSpRAqUFlK4BXh6i87YYqUHf4nMI218
-X-Proofpoint-ORIG-GUID: SNSpRAqUFlK4BXh6i87YYqUHf4nMI218
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDAyNSBTYWx0ZWRfX/5zO2hC9hFXx
- UJqDVusb0GXTQFTU51fPVaHXDbFfGmO2YW1MrDmZj7iR5P3facEiOtX7QWGd6RWUCalmzneaX2r
- 370A5CKBrpFYjRu5SgjY/h2I2JQMKlGQwqScK/nwgtJc/UsnW0+N
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11968
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 impostorscore=10 lowpriorityscore=10
- adultscore=0 bulkscore=10 spamscore=0 malwarescore=0 phishscore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611170025
+References: <20261114001708.80599-1-ojeda@kernel.org>
+In-Reply-To: <20261114001708.80599-1-ojeda@kernel.org>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Tue, 17 Nov 2026 07:37:32 +0100
+X-Gm-Features: Aa3M54pSxBLoIp39ohV3UVQZCVKgqxmPHHIMH-JZdEmZB-mCRyeG6lnfgzwCdDc
+Message-ID: <CANiq72=+ZC7DBx3rwTHQaKOL3JfV-bC7vUq5dsy3itEgoLiXxA@mail.gmail.com>
+Subject: Re: [PATCH] objtool/rust: add more `noreturn` Rust functions for Rust 1.101.0
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
+	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	rust-for-linux@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/13/26 4:04 PM, Lorenzo Stoakes (ARM) wrote:
-> In order to establish guard regions, guard markers are installed in the
-> page tables of a mapped VMA.
-> 
-> However, problems arise when one tries to combine this with registering a
-> VMA for userfaultfd, as such operations may themselves need to install page
-> table markers such as uffd-wp.
-> 
-> When the installation is attempted the guard marker prevents these markers
-> being applied, which can lead to unexpected results (especially if the
-> guard regions are later removed.)
-> 
-> This is especially problematic because guard region installation causes the
-> regions to be zapped first, meaning that the removal of userfaultfd-tracked
-> ranges will not be logged in this case.
-> 
-> Additionally, the uffd-wp page table marker will be propagated regardless
-> for file-backed mappings as the zap being performed does not clear these
-> markers.
-> 
-> This is problematic, as it can cause repeated failure to install guard
-> markers resulting in an infinite loop.
-> 
-> Therefore, update guard region installation to invoke the zap with the
-> ZAP_FLAG_DROP_MARKER flag applied.
-> 
-> Both before and after this change, uffd remove events will not trigger on
-> guard region installation, nor will write protect state be propagated after
-> guard region removal.
-> 
-> This makes sense as conceptually, guard regions mark a part of a VMA as
-> effectively unmapped at the page table level, and removing the markers is
-> like mapping the VMA again, over which operation uffd markers would in any
-> case be lost.
-> 
-> A survey of open source users indicates nobody is relying on installing
-> guard regions in uffd-armed VMAs. Software including glibc, android,
-> tcmalloc and CRIU were checked.
-> 
-> This change means that any already established guard regions are removed on
-> zap. These will be overwritten with the newly installed guard markers on
-> success.
-> 
-> However, if this fails for some reason (fatal signal likely the only
-> reasonable cause), guard regions may remain removed, and concurrent faults
-> may succeed in the interim in the range.
-> 
-> Since the installation failing guarantees nothing about the range being
-> installed into, and since success overwrites with guard markers, this isn't
-> an issue.
-> 
-> Since MADV_DONTNEED does something similar, abstract the zapping to
-> zap_range() and call it from both places.
-> 
-Reviewed-by: Tal Zussman <tz2294@columbia.edu>
-Tested-by: Tal Zussman <tz2294@columbia.edu>
+On Sat, Nov 14, 2026 at 1:17=E2=80=AFAM Miguel Ojeda <ojeda@kernel.org> wro=
+te:
+>
+> Starting with Rust 1.101.0 (expected 2026-12-24), `objtool` may report:
+>
+>     rust/kernel.o: warning: objtool: _R..._6kernel3pci2ioINtB7_6DeviceNtN=
+tB9_6device5BoundE8cfg_size()
+>     falls through to next function _R..._6kernel3oppNtB5_3OPP18from_raw_o=
+pp_owned()
+>
+> (and others) due to calls to the `noreturn` symbol:
+>
+>     core::panicking::unreachable_default_msg
+>
+> Rust now outlines the constant messages of the panicking macros [1],
+> thus `unreachable!()` (i.e. without arguments) calls that new function
+> instead of `core::panicking::panic`, which is already in the list.
+>
+> The same change introduced the equivalent `noreturn` functions for
+> `panic!()`, `todo!()` and `unimplemented!()`, which lead to the same
+> warning when those are used:
+>
+>     core::panicking::panic_default_msg
+>     core::panicking::todo_default_msg
+>     core::panicking::unimplemented_default_msg
+>
+> Thus add the mangled ones to the list so that `objtool` knows they are
+> actually `noreturn`.
+>
+> See commit 56d680dd23c3 ("objtool/rust: list `noreturn` Rust functions")
+> for more details.
+>
+> Cc: stable@vger.kernel.org # 6.12.x (Rust is pinned in older LTSs)
+> Cc: Josh Poimboeuf <jpoimboe@kernel.org>
+> Cc: Peter Zijlstra <peterz@infradead.org>
+> Link: https://github.com/rust-lang/rust/pull/163766 [1]
+> Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+
+Applied to `rust-fixes` -- thanks everyone!
+
+Cheers,
+Miguel
