@@ -1,100 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794926018;
-	b=ruIRbY9OBbDxNiwtdZQGtsTqGCt/S9+fBSh/V4p0aklbYiM138aWXgK4qyzW0THXDBAc
-	 7cIAHeDciEDmCS4+4F4yyqxzz7srVlmHbpeSKhDLMnzhPoIIWL3SUvC+N82JpBhTk2Yo1
-	 VdrrF6x7HzP+PgTDQyrWN+LVcuDZtykzY3ptlpewcciBq8XiReRtjDQvAex2fkbYvk5LY
-	 0aYiQD2YUcr1CRoyopNl1wuG6Bz/ffwKiVkpn9VxZY6wNMuvr26VfOaVPCPK72FUN1i5s
-	 OiaYVVVv1edYM9bLf4hw/gvUgxo7XqIxevpzuABM6JxQObhOPE1E5dPo/tNadq6N5gA==
+	t=1794926136;
+	b=JcqKgRo2t7WmweUOqJsS3mI1tsBsaHxe5yEtahPx5sgSkuYCBsFNYcv05jl6EceGSfB7
+	 dg3pYdzpUAwFtSmDQ8M7UsWfJG8fZbfYyVX3LkutcoThJYqVzHC9zTXoIPci1z68S5KVy
+	 ZBGzsBdet29NgR3rDrVygrzcFfVJqiDEi8gUfBk7WbvVQ5YJlwUPmz+xQEs46IfYzOVHg
+	 d4gujPcSR0FNjGTy18p1p80UnOXo5OkFnSLLKgeYOd/c8kMT0jE1xancH8oKLzYjeU6ky
+	 UUwfbwRu/KmlxppuypXQbF65wB7wJXJMtX63aAQaEwTnxCcDO26uCjaltipvooph1CQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794926018;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794926136;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=qYqqunDmmSSST3DA/CdKBNtQiNEx8lMxFK8nZ1VqJzo=;
-	b=VtrTY3QcSIWmnfKcW9kmB8SahJnKBiM4NhBLWsFod83U/k6uJcqlktUDb0A5aOHqFl6M
-	 1BQYS0EeAcys+QeD52e67USXAsz8XsJnCDJODXmiqoOGJv8Q7d2cnd9C0W/oNgc/4fXbH
-	 JFMCDRMad4OAyiVG4xS+laDH3zV1dmHAGMCM/v9/YiuFzYn3TApFLytXbY1FiZN8d0EN7
-	 QDjB07aSaOKtMIZe/YdHK+V1yFMMiI3FEMwfrL2yhY5YwKIHaMyujjHAe7xpuoSwTxX5c
-	 Okc3VwfbbD/AV8O0RqorrlY0L2oRbILsdbrLjCMCG1C4Ts8hl7eBWPL+qmpte8aIorg==
+	bh=Z8Nm8FHzKmIfnRj5B6yPP5eTVD3vNbmx6rL+eezv180=;
+	b=5WbId/HzWWcgx+nH4D8usEkLEolsBmyvWKUaTaHQ/G0EycRrAjCgZYHCYclncvQbWm7n
+	 oiK/uswPOGHMkghfU2E3nZHVVTs0/za32X4OZ2Kxqr1HfqKke63oQG29bx9V6GCzvtnLl
+	 H/MfkW8sYRl6lN7hu8dTXQmd0QueQA6Ea7nOSPydDKQlaGGlC65VXqF5yjYlvdEfQgZAX
+	 ip8Fuq70SpnEW6sgQ7GRdUtgEMglTSSRFu9yx5hZ4orHsJcEYLO9HcCHQpisFyPXsevmn
+	 X1XsT5yADXx8qBOQUCBmRxepg/SHpuPb6nebQAywwBdAsGfBjzOrIb8at3tqf5rqSOw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0mNVNXfi;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=URmfsKnN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 827F8606A331
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 14:33:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 827F8606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D82F606AF58
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 14:35:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D82F606AF58
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0mNVNXfi
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b87a240de3so622339a12.1
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 06:33:37 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794926016; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=URmfsKnN
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b87a1a2babso725326a12.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 06:35:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794926134; cv=none;
         d=google.com; s=arc-20260327;
-        b=gC9Z5mN4cKRiNqWeRgrpXMFXbjvL2Lywm9aMWTJLLj0SPHS0wE9earJ3w+L2+Gkg8Y
-         u+NdWnhWF2Tjhxx+0nfPHcQ2zavjPfz9P9SJuEOS2bPcCH36jkDfrImVsjsaXxjbZi9W
-         AITY6Py+xp/+qoUgmbWjiTSXrV9vgj+7TINbMxe5piOJvd9Z4qYG7NiLC1GmuuycC4EX
-         xa3oxdskgqwRTOh1ehReKBGLsSznS9qPxGJnZ3W6nKDK92lWbj1x4/EFT1ruzYU3UyUE
-         wF+WYG0vvmU9g5zSRB4fLx+B9/zaedGc0indbPqLY5t/ZsB2tPLQ3DQCWsC+Kn3yq22s
-         VkvQ==
+        b=Dynk+qYTgEJGnOJnn4iri5jZO5r3QUhdY7j8tZ6km6oeqImoKdhHXnZBWl9OuFxpu3
+         IyYqtb3T5emZr4Qnd3PnQxreI3jThWP43DUbKnEbXQDgt5tRKJeYmVLR6ZhuxhzfvWp7
+         gt/yPDKk0JX1IJQFAWRWIDsrKXGK3+NiDrMcsFMUUu4mrECvTr5/umT7a/BmMBowkJFu
+         xJdxbIbr05BxPeY67dt9+QQDXZyElL0+xfdYBSLRADWkK15pgvklNv/9N57a11MYEUz2
+         +xm/4PnEebuDILnk6mJTxBp4bY0Jm0t8zKyoGYulItmqa+EJWz5HHjw9vBcsNHIYIhtU
+         KreQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=qYqqunDmmSSST3DA/CdKBNtQiNEx8lMxFK8nZ1VqJzo=;
-        fh=0+Mgoyy3ME/mBeBBpdh+QoHC1apdNb7VyVnEKuS838g=;
-        b=JJqVuXonR2Sebgb3dd+CudxOK7Yx4ttG44FjI4B8UYmcjmMEGk5tR2onl6dUFu0lyv
-         cx96DnWJZgW0RXA35qww4Olgw24RrrsLHr9RQoVk04mjixrdZX44kvyjNUP5WqqGhU3q
-         a4dTKHHfuaHQjhe1h50SQd5wqXJFEfBG6wDJN0Wbb5h5YAEppD4SVuXmU6Dj+xaYLfuk
-         mtBl4TyNCiUnFKufn8EJqc5I5U5ko+IrmYGvSX5HphngWcWmUf2mzm/7ovI33TT24+yz
-         YLssWkAen957nt4xKR+3hMbEZLMMdXurp1ZgsiMkiQ2i133zz+56zuibRaHQJNNLT6sC
-         D61Q==;
+        bh=Z8Nm8FHzKmIfnRj5B6yPP5eTVD3vNbmx6rL+eezv180=;
+        fh=Sv//VvSKF2Dy4eQzalG4+o1lwIJeRA7zwi2H04g5zhM=;
+        b=PMLnZvLr1pot9yNHwwy3bNaC13KCK6shW21TxJ8+tn+zf5OJqG+r0F2tHSKnON+t2J
+         g4YF9NZDs4tkarLY15EGTMphAuya2olRcDQ+NCi/uv6ZpN/WGW3/iILrNqqHR1C/gqjo
+         GXUMW6YxPB1GhEh4Zl/LQESsh1CFDvbgF6SqV7vziacsGhg7J6lteNIwJijcLFwmcCra
+         ytNcuNHOAKrE6uptp/u9J/tz0RR1bgLmsCsMLNhLBiCPEjaawXCqMZ7L1CCylc0wrxkj
+         BHk7mC5O4b8nx9zfpRYIN8wSytkSpMkQ381OCfj0ZMBJe48lS1I3qtF0NazraPtts+p6
+         LQzw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794926016; x=1795530816; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1794926134; x=1795530934; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=qYqqunDmmSSST3DA/CdKBNtQiNEx8lMxFK8nZ1VqJzo=;
-        b=0mNVNXfiQQ9XqB1g8J5uwr05zLt8Zy9JB1kORj6uu9v/Enc/dwdj2h+ayrhTSnTLAM
-         mzSIM7IlSWTsQWSwG1nSKV+JX+YoMc50pW67PftdsGvCL2im4XdFKBZivszLqUn5ifMb
-         iH3f2/7XZjvbWh1tovAcbMkickWuKZqmp0xyfK5/w6rP9fyMSHqn+X+uzyrboAH+kzxD
-         Dvt+ZOisKHzi55lVGVTz8HWUpjQrVbOcU0sq5d7HwzKIGDihFUI2iwA5JEJ4wMzXO/BL
-         2xs/lUipTtlGQNL9Gm4g6O+r0pYP7bLhEUwD/qTqeTMVCjDHNKwne3jD4ItWcO+ziZ4A
-         DDxQ==
+        bh=Z8Nm8FHzKmIfnRj5B6yPP5eTVD3vNbmx6rL+eezv180=;
+        b=URmfsKnNWJSODYZrfj3c/NpMWLpE9pLm6rNI2X3ysZ7qIqhaoJiC5GieCaPi82mGtn
+         cmALgIGRweZqbcX/4nSU9t5Sd7yGAyeSwUC00OBDXLEMsXK09GQO8t4Zo29ULjvYi6Al
+         HK6l+S+GA+7vyo/WpBUEBAjaR3tv2GRNzV7JewrMFxQAevi0dZe9mFKoopmgsdpdOVGU
+         BnOFpK0SUSQoJLXkIya5t79OX3bvHHrYXeIbSXVVmE8Dm5fXT2Z3W+RyHevDV30pL6oY
+         ZhwD+uuaXvPO8SrEnbM11zfysNQhVTeKAJQ3IsfySXy0eu306VggRaS6EYvoJLP0BY6B
+         sIWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794926016; x=1795530816;
+        d=1e100.net; s=20260707; t=1794926134; x=1795530934;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=qYqqunDmmSSST3DA/CdKBNtQiNEx8lMxFK8nZ1VqJzo=;
-        b=jIy28I4Dv3q/Nx01lMtqt3vrmvMyPEw8dIp4kXzv7WnHjcYM/RLj+LAtITNbDujJKm
-         ciHgm5d6wTKGmt+rfknRkaQ+GdDmZpgc6rC+Xn70mdOjhw2wSNSuV0loHplnSiKG8OBA
-         /2b7amZuom/9SOdzbuJUZOre22YyuMcXMlTlOYfqtI4rrqGMdwYqcMKKGiYCui9Jq3NR
-         Tm0SWvC5lwOlubPx4m2vbIHZXRr8lQrTAv6LHRhrIL9HlbmX6XXdTJyxzCNsv7fzyX7u
-         0DmlFtruU6mZ9rXDF+EijquF29K06GvQpfmWz7DXRqv1FfPedQgRjbvMHo1+zrW6Pf8g
-         nHSw==
-X-Forwarded-Encrypted: i=1; AL+hErGiVEHHYfrYNXP5KFlZUcCx8dD64qJv+JuHIX6aaWiwvg0nN0QYwiwmjLmaH437cO6Gg0FeqkY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9kTNulDjogcDxXCGz2ibpj5zjr9HSSE1rf2eXYdhtS3ZSSat7X
-	gSlWxmB6sCAARP0odFQdQQs4gSMxtmbFu3iDR6znBKiXIPvHHeITjgT59IoPuhVstr1frzJTY40
-	VPXTnVsJVBYN1g7eaXuYkJEDstjaQ7X4=
-X-Gm-Gg: AYBFou1ukcsgdWYDI5kba2rBYuQs6Ytk+dE3YdaqvyaRs5AYtxMb4PbVWJWpSIaDQhb
-	6z506bM5Chqv0RqxG9FDoXxtJzVxbvO0R9TXbRUqSP7cjxRIbSyGdpL8qyFCkNn/j4szxFU/aFw
-	yUFl23xCIjoWn/9q1F5wVkmJQHb8Ih/+Ek8USjtkH1pVGgiFpdUH6Nj2SKq1AY/86Q3iXZNwlgK
-	zvq6np+ms2eSdgLP6SSjWT152MQBp4IMCcq+ENvqmoa6pJpHfbFkKa071BDZuzjZAvj1DnSSc9y
-	qhT19TqOfAVW5J0Cme7QmPwYP0QRM4qMyFgwL5jtidku8xuBpspoghJvQ7s57sqFboUSgFu2tSh
-	5rJ2NMpaDa4zgrgLv5TliNohGy7RLo3Dc9c6qd83+tzJ/i5HcsOyt+Buz/0hJ3/S6XcDkSQ==
-X-Received: by 2002:a05:6402:c51d:20b0:6b7:749:4bff with SMTP id
- 4fb4d7f45d1cf-6b7c0bc3facmr7573789a12.26.1794926015815; Tue, 17 Nov 2026
- 06:33:35 -0800 (PST)
+        bh=Z8Nm8FHzKmIfnRj5B6yPP5eTVD3vNbmx6rL+eezv180=;
+        b=XWMsCiVvzZhZ7QseQ+1WeqBBmWVZDSBDtwfQiP49pjw6uQU9tpFU+wEipTRdJVTrIZ
+         vn4KBY9BpHNa+zkxtcf6kkayAaLbTsX3M2xvtmQNlpgY1I/3QlC6AUNTmW8rUG60+H40
+         uO7nTKG6JpvEjL7glGOOfTlbcflI3U+X4oLteIAnefmAf+ucbhsPyi+wWE2hnfRWBSpG
+         v1umR+d6ylpOLnRuHZDOmpFV+3vgcDAC3heGeNDtIrmVabec3Yu6l8Yj5UBM8nsHBkT0
+         gEcmbnrOJ6ePRNZs0Wo/nw7eEtY2/PKTvcvz16wKZOny0PO6i/McRyDda+ppgox7xdbG
+         NNpg==
+X-Forwarded-Encrypted: i=1; AL+hErG0GSKFZVREarRse5l9JsqhMMe1baPGb/XrgjpbsJzgVIKOslkYMxxIGyZ9z8HAAsAav5IXAsQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9RFoKCOBY3Uj5y3PtMpG4Prl+4/F/vFlzg0d70YHhabEatk5F/
+	oopFDe8KdMlkOUpQnHapdFR9Hb0KkfEOneCdoV4lqZQn+zX15a09T5eGxDgDYphFvb0cosXg8EF
+	vYcT6nn5xClySbIrG7GgUdLoVk+WhUNs=
+X-Gm-Gg: AYBFou3da0XoljkIul1d2tWKt6DRn4Wx22PdsEyAKBpcLbRPEY5bRFYm/wXKaTeOVNb
+	ma9FzyCKBEfcQuiL3ni+wM453kAhB/JYdkWHQPOhZ7dFDCUkw89qMKi3eQgyzG0z60Bx47Qho7+
+	/5ap4SU3HaaZdkFXF3L3cJT5XIHks9+mlDQ2YKG/NkHa021gtlBTCqkl4JV9+uCXimxMdw9qLZb
+	xNUdr5itzD3r/JilFsCIyOaztPkdl+gYUK1NSl3HpwcKYls13a7NUuq+HuaCD1BqPkF1N5CJ95m
+	0imgAY0SQG5kK9ZglgnUgo7JCUTbm0xGbLzZpMR7wF/FvOndIAXLPMdIp/RVqp+AsO5REIxL4tI
+	lk/DOEjN/Unasfavre1AihKV048UbmFruHhB/dByr8UdK0c/ZNBrbV5ds2+J5WwRhuEDzOV1dJX
+	vzbY4UAhD4fzvpYhA=
+X-Received: by 2002:a05:6402:2b91:b0:6b4:1eed:b9f2 with SMTP id
+ 4fb4d7f45d1cf-6b859739689mr2260195a12.10.1794926133831; Tue, 17 Nov 2026
+ 06:35:33 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,13 +105,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117135146.3174252-1-graypanda.inzag@gmail.com> <20261117135146.3174252-4-graypanda.inzag@gmail.com>
-In-Reply-To: <20261117135146.3174252-4-graypanda.inzag@gmail.com>
+References: <20261117135146.3174252-1-graypanda.inzag@gmail.com> <20261117135146.3174252-2-graypanda.inzag@gmail.com>
+In-Reply-To: <20261117135146.3174252-2-graypanda.inzag@gmail.com>
 From: Amir Goldstein <amir73il@gmail.com>
-Date: Tue, 17 Nov 2026 15:33:22 +0100
-X-Gm-Features: AclHuK-oqTtDNy1F_dD-TE8gCQJwenfN41foadOCG31m2aii0fr_9cwaA2IqUTU
-Message-ID: <CAOQ4uxjO-eQPk3OS0iCTRqyFgFSRtVMFywCiPdgWGHkmRBuAUQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/3] fanotify: copy full qstr length for copied event names
+Date: Tue, 17 Nov 2026 15:35:22 +0100
+X-Gm-Features: AclHuK8C4CURJWV2PAqKHkl0J2MOz_Ngu3IxgsUB1ZW-CuNtY3L1YeTqpgF395s
+Message-ID: <CAOQ4uxjMNxS-jtBt7w4nwJpMQXFraec2UFDRoiXoQqs9eoq2gw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] fuse: skip dcache instantiation for readdirplus
+ names with embedded NUL
 To: Junyoung Jang <graypanda.inzag@gmail.com>
 Cc: Miklos Szeredi <miklos@szeredi.hu>, Jan Kara <jack@suse.cz>, Matt Bobrowski <matt@bobrowski.net>, 
 	Gwanhyun Lee <gwanhyunlee@gmail.com>, fuse-devel@lists.linux.dev, 
@@ -122,18 +124,24 @@ Content-Transfer-Encoding: quoted-printable
 On Tue, Nov 17, 2026 at 2:52=E2=80=AFPM Junyoung Jang <graypanda.inzag@gmai=
 l.com> wrote:
 >
-> fanotify_alloc_name_event() reserves name->len + 1 bytes for each
-> copied name in a kvmalloc() event.  fanotify_info_copy_name() and
-> fanotify_info_copy_name2() use strscpy(), which stops at an embedded NUL
-> and leaves the remaining name bytes uninitialized.  With the original
-> length stored in info->name_len or info->name2_len,
-> copy_fid_info_to_user() copies name_len + 1 bytes to userspace, leaking
-> uninitialized kernel heap memory.
+> FUSE READDIRPLUS can pass a length-bearing qstr with an embedded NUL to
+> d_splice_alias().  Unlike verify_dirent_name() in fs/readdir.c, this
+> path can create a dentry whose d_name.len extends past the NUL.
 >
-> Use memcpy() for the full qstr length and write the terminator
-> separately, consistent with __d_alloc() and d_path().
+> For such a name, strscpy() in inotify_handle_inode_event() and the
+> fanotify name-copy helpers stop early.  The kmalloc() and kvmalloc()
+> event-name buffers retain uninitialized bytes within the recorded name
+> length, which copy_event_to_user() and copy_fid_info_to_user() can expose=
+.
 >
-> Fixes: 929943b38daf ("fanotify: add support for FAN_REPORT_NAME")
+> Some FUSE servers include a terminating NUL in namelen.  Follow
+> nfs_prime_dcache() in commit 78d04af4995a1 ("NFS: nfs_prime_dcache must
+> validate the filename") by skipping dcache instantiation without
+> failing getdents().  Return -EIO from fuse_direntplus_link() so
+> parse_dirplusfile() sends FUSE_FORGET for the unused lookup reference
+> and continues readdir.
+>
+> Fixes: 0b05b18381ee ("fuse: implement NFS-like readdirplus support")
 > Cc: stable@vger.kernel.org
 > Co-developed-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
 > Signed-off-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
@@ -143,48 +151,23 @@ Reviewed-by: Amir Goldstein <amir73il@gmail.com>
 
 > ---
 > Changes in v2:
-> - Use memcpy() for both copied names, as suggested by Amir Goldstein.
-> - Write each terminator explicitly without reading past the source qstr.
+> - Keep FUSE READDIR and READDIRPLUS getdents() behavior unchanged.
+> - Skip dcache instantiation only in fuse_direntplus_link(), following
+>   Amir Goldstein's NFS precedent; forget the unused lookup reference.
 >
-> FUSE fanotify mark setup on a zero-fsid mount returned -ENODEV; the
-> normal-name FAN_REPORT_DFID_NAME and FAN_RENAME paths were tested on tmpf=
-s.
+>  fs/fuse/readdir.c | 2 ++
+>  1 file changed, 2 insertions(+)
 >
->  fs/notify/fanotify/fanotify.h | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
+> diff --git a/fs/fuse/readdir.c b/fs/fuse/readdir.c
+> index 1f6cf565477f..6b2468b575d9 100644
+> --- a/fs/fuse/readdir.c
+> +++ b/fs/fuse/readdir.c
+> @@ -191,6 +191,8 @@ static int fuse_direntplus_link(struct file *file,
+>                 return -EIO;
+>         if (fuse_invalid_attr(&o->attr))
+>                 return -EIO;
+> +       if (memchr(name.name, '\0', name.len))
+> +               return -EIO;
 >
-> diff --git a/fs/notify/fanotify/fanotify.h b/fs/notify/fanotify/fanotify.=
-h
-> index c25cf5c1fc70..2d6b5c2c6f25 100644
-> --- a/fs/notify/fanotify/fanotify.h
-> +++ b/fs/notify/fanotify/fanotify.h
-> @@ -221,18 +221,26 @@ static inline void fanotify_info_set_file_fh(struct=
- fanotify_info *info,
->  static inline void fanotify_info_copy_name(struct fanotify_info *info,
->                                            const struct qstr *name)
->  {
-> +       char *dst;
-> +
->         if (WARN_ON_ONCE(info->name2_len > 0))
->                 return;
->
->         info->name_len =3D name->len;
-> -       strscpy(fanotify_info_name(info), name->name, name->len + 1);
-> +       dst =3D fanotify_info_name(info);
-> +       memcpy(dst, name->name, name->len);
-> +       dst[name->len] =3D '\0';
->  }
->
->  static inline void fanotify_info_copy_name2(struct fanotify_info *info,
->                                             const struct qstr *name)
->  {
-> +       char *dst;
-> +
->         info->name2_len =3D name->len;
-> -       strscpy(fanotify_info_name2(info), name->name, name->len + 1);
-> +       dst =3D fanotify_info_name2(info);
-> +       memcpy(dst, name->name, name->len);
-> +       dst[name->len] =3D '\0';
->  }
->
->  /*
+>         fc =3D get_fuse_conn(dir);
+>         epoch =3D atomic_read(&fc->epoch);
