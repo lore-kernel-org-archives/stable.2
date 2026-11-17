@@ -1,90 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913373;
-	b=HHr82lUSaX09Ps+hUkdHKkMLCfPmFM3D7MFpyzZKmlgYdNTwjnjC1+rz/XLD+o/hEVr7
-	 TZlSS1LLVKh4i6jEtD7O0SErHrfOcoe1yaUxG/wXyxy8i/h+qzUHQJP+Fu0z9cxUyrenn
-	 vOdlYnlI9aEuncAwLSc0mO5onTGQjqe6VDhVQ5Ud+tQ4+0qkE0XzHKCH6b0oAInCkUMb/
-	 EiATE04CqjT8G/Kuw4wsAqltWBU0JaXFTZUjz4Lv9nRBpHYCJGVZbHiXywRmnJaJHnojQ
-	 fZKn127EqZ3vR4b84E00OWwP65X3L3YQvoC6ODevzVscDpNpxayzZmQ3M5EhEMvy40w==
+	t=1794913510;
+	b=f1dgJ69S9jRMYsnNI9r6NkZbdZ/nz/FgmJw1VkGTwbmtpyol5bEjvhDmD5i/L+gwQR6x
+	 WQ0/qVYr9/fj0HzUIv1xx+CjL9fgcoDPtlXJoY1DPgqKmVxjAud6tadN2naYH2KKzXd/6
+	 BeG2dMTpPeG42qrmMY6ksq0itqkpa0gWRv3Y1f+aJ9MDfDsBCjkzW9YC9WCRATKBF4dCv
+	 8d33ngZk9vO7MxqQ18CR+PXOAa8sks0PS3ncAIWeXCaMlDhTkNL/8nxDC0nNsdss+IlqG
+	 oj9osPzfvvEWyIELld/8R+2c62Gty2Tv5CC3s27vCwvzMWUUI3b5XbaNfXTnVMsL/4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913373;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=crEmioOjMzsnzH6L7JboWvkyCFcBX6fDyVf9lGMy6eg=;
-	b=lC0CC8ihbBYNfsjWegm8nC4ddg010FAGzl3YRlmOAGOPrQLDZ8zVD/lGM+qSZP26kaoy
-	 om9ln42rpxn5IX/iGhyoX0epjQ1kQmrU7rXB11jVUqk7wwPHfJ2BAtZNvCV8B/UGlgpWa
-	 6E66iB0kbBcojoKesJsdCUnQEag4G6j5tw74Xckr0b8US9HRqwm8B8VjaKhUidYW/CsiJ
-	 eQCziEp7nBB9gzYaPNHPvLBr7+mbm4vAMh/B70vAOTOKnVRMb6d7BgrW3Z3wxKdCdvpSM
-	 fvmRI0PJxKcSHGcIXtUZNCQSmLMent7kmenPVvjFiS5wFsVgzpVWKZQTUNrb9ZByE5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913510;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:In-Reply-To:
+	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Mailer;
+	bh=Ed7lLF0CP7JeqyIekPCZLpbtKsM3+dJiy8vZ0Ay8D/w=;
+	b=vZ2Kw1FZsarVP8ScXdx4anRghvqhiNLAfJAYOB8L6sCitat2E2YkfuuEhnBPKMKMnMkF
+	 fahhQrxbGSivnIIEFg90qfFc6E7BU8Zbe4rdDNgmoYzPPaPYPg67s9CyFibWFDgfH54Ir
+	 Qi6bwBQZOvYEjgg7OxVk4l1J3Zaskm+MBPI5WTm89HPPmUxy+Ug/DHkQIFZEU75qRSGzl
+	 e30rlEOk7FZmsuZS4s5Y2VysS5ep9umwmuOdieNPmR92NJ53nVjoBrnAeM4K6E90QZlnW
+	 UsdnL/484ZePHfxPkwdpBA8+AdqJweY7g9QUx9RKNPfjeJA/smR3BN2p4ITZBqdccaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jD9TEQPU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="AlhkpnS/";
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55F3606A33B;
-	Tue, 17 Nov 2026 11:02:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBE1606A329;
+	Tue, 17 Nov 2026 11:05:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EBE1606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jD9TEQPU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 862FA1F000C9;
-	Tue, 17 Nov 2026 11:02:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794913372;
-	bh=crEmioOjMzsnzH6L7JboWvkyCFcBX6fDyVf9lGMy6eg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jD9TEQPUGxO+mI/+inKff7uoSP7g0a0erFOtxFVtDkPnPMTbL0D081VhE33DJxbG8
-	 5dVj5e9HYeiDdT8hAL5IpDQbEHbuCC69/sE82COwPzr+ih+zjcYgUBHZT8A1r02nBI
-	 je2u94IG20Y4QpFov792FdB8+HkE3G8nSGn/QCZFfy+Mcm0IRMyqEDOk0Cp1XsOY56
-	 dEtCmev7DxnVFDk0RBErzUsr70H3zpp8qfYD3s2eFGhB8qrSfj6YeG1ESbpaS5zMYQ
-	 fdYqYoUIreWD8guOCclZ13kkzJn+IAD5y2yxDBES7ERoEjpEkNFJ98Gruwt+OvGW9c
-	 nP/F+RKLvJHAg==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 0A46D198004A;
-	Tue, 17 Nov 2026 06:02:43 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Tue, 17 Nov 2026 06:02:49 -0500
-X-ME-Sender: <xms:UzT8ajzhIRDuZQmR1yXTDLuGA3b1U0tuSaourJSyrLDTrQ_Um2nlVA>
-    <xme:UzT8ah-gVHw4IntEVOfc5Z14VjjzN7T7Q8B2FvFR5VBoen7b-HPD3m7hBY_KVQkTE
-    lA5xwY_Wo0lHo-IJ34H8B5KdKsLoJFuxG9Et2vFBrnNw5WdWVHCbak>
-X-ME-Received: <xmr:UzT8ahxcJlhvBNfVqovWJPHAn97L8-HJYkti8PJU_65bhna8ykiR1lDXN20>
-X-ME-Proxy-Cause: dmFkZTEdL3a0Ww8UBR3R2vq6MmLMcrG/RZX5swqKljzNR9iQbYhJjAbY7PI1ciZ9LK7lxN
-    G/X6ntG0iaY30AQsAjEuf57i6CZYjfm+meUK3SNiYXmeCWWUJ6eJZs3up8jphiYl4q8gjl
-    jx/Ahq1GKe6I/bXKrTuw70GcxIwNT2jp4gfkCI76UMri6prm91X5ZHCpQ0CSw70eKatw9o
-    W897R67TYQMC9tdclNiHUmVbeQonLxDDsNNr0tVhsGpDu129aHDLPo6xC+ZTyK9ZM6Qnnt
-    MYuzQ4L/hdyqL+ol7coGPamA67VuEepBf0wI/8gPf+rreyi3dAUVv7YzP/OCpkMvoNRZhV
-    YgsKbRCIilSfSP7pZVhBNK5pp+l4zUFWKPr0XsF4c/Rmq0cqJXBoQeoSNFwc2DiFDWZFSg
-    NfO+shv886RE5kd2tAFT+FTIarUIaRL9KRbOP0qtmfBkRi5y8jE6SPjvymtIKQCEHqK1h3
-    RYgAGGj/RxAuRRjdSRPlvRnDYhwbkOoHHLBugCLRdy6igxtIkdJ8SsiOfdaC9wZow2EeCV
-    Ejy4XNZF76vFloczn0M2QIsslwD2xaCsTZRX1OSP+ZOi7OtUBkmhno/iE/fXq03rTXkSbw
-    do3CK6UiTx4ST1p3Q59hLB+vj8psXH2OMMFeeHtUpnx+YFCTloQa9ChJJNoA
-X-ME-Proxy: <xmx:UzT8aruuJmQ7dDiwarHdYjVtP70RG52TxChOPLKFH7afF7h6-akdFg>
-    <xmx:UzT8aryVAcVUMmv2aTlcVJcYor6UcfL9P1w1L0anMWhtGRDIctF4jg>
-    <xmx:UzT8altjzJNLBNiYpIhGi_vWWH7VmxarJzm-N-JcvvJ1fgUMEfeHjQ>
-    <xmx:UzT8aljV0jDctEZAsJHbv0Ypfdw61mWX4M9wO2EfhtqHNe0Af12BHw>
-    <xmx:UzT8atCXyMGt2Yq-MlBZYadsi_cXIiTQmqxJmcETVf2oWtX0YRICrq70>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 17 Nov 2026 06:02:42 -0500 (EST)
-Date: Tue, 17 Nov 2026 11:02:41 +0000
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Usama Arif <usama.arif@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com, 
-	byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com, 
-	joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, matthew.brost@intel.com, 
-	mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org, surenb@google.com, 
-	vbabka@kernel.org, ying.huang@linux.alibaba.com, ziy@nvidia.com, hannes@cmpxchg.org, 
-	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com, 
-	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, 
-	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] mm: don't PTE-batch a swap-in of a folio with a
- hardware-poisoned page
-Message-ID: <avwwMyk462raQFy2@shutemov.name>
-References: <20261116063624.1382944-1-usama.arif@linux.dev>
- <20261116063624.1382944-3-usama.arif@linux.dev>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AlhkpnS/
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1794913508;
+	bh=qD+A+5r0Pu5rX+NsDc5YpHGQypt4R2BcA7Y/dGhVwQ4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
+	b=AlhkpnS/onVNimPbPrBmaOEMj9/lUaCy+YIcEnteLP6km+nmS2zpGCFDaFacNKq7u
+	 5ZoOl1s6+XQKXzkVpzK9842JDliGu+WXMyccOEKN002T0d+7zrv06j9n1AjKqjHdVw
+	 T8y7JuGrpYakX3f8g5DrYedooFL9pi5Q9CtXWXG+qiJx5hUcsjKn4BzV4W7mGwcaow
+	 piZxWPhGnzCBR8u4ECs3dp0WSN1113Gz1AM/XS03kG3q3zSnMefRoctr3amQjvmusQ
+	 vcHtFyMe+NYLPm6lK0hwRZ901d+nn1kE2b7zilGaJJjEwSf/zQZqkzA2b8U4WB3V1O
+	 Q+fJM/Rje8Gow==
+Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 38C1617E07EC;
+	Tue, 17 Nov 2026 12:05:08 +0100 (CET)
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+To: Matthias Brugger <matthias.bgg@gmail.com>, 
+ Chen-Yu Tsai <wenst@chromium.org>
+Cc: linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
+In-Reply-To: <20261030103418.2355854-1-wenst@chromium.org>
+References: <20261030103418.2355854-1-wenst@chromium.org>
+Subject: Re: [PATCH 1/3] arm64: dts: mediatek: mt8192-asurada: Add
+ ramp-delay for MT6315 regulators
+Message-Id: <179491350817.164578.3923681659802112857.b4-ty@b4>
+Date: Tue, 17 Nov 2026 12:05:08 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,69 +70,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116063624.1382944-3-usama.arif@linux.dev>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-On Sun, Nov 15, 2026 at 10:34:56PM -0800, Usama Arif wrote:
-> do_swap_page() checks PageHWPoison() on the faulting page, but the
-> large-folio batching path then maps the rest of the folio without
-> looking at its other pages. A poisoned page that is not the one being
-> faulted gets mapped anyway, and the fault that would have reported it
-> never happens.
+On Fri, 30 Oct 2026 18:34:15 +0800, Chen-Yu Tsai wrote:
+> On Asurada, the MT6315 buck regulators (Vbcpu, Vlcpu, and Vgpu) are
+> missing the regulator-ramp-delay property. Without the slew rate
+> specified, voltage increases may not have settled before switching CPU
+> or GPU to higher operating points, risking undervoltage crashes.
 > 
-> Skip batching for such an anon folio and let each page take its own
-> fault, where the existing check catches it. do_set_pmd() already backs
-> off the same way.
+> Add regulator-ramp-delay properties matching the slew rates configured
+> by firmware, with values provided by MediaTek: 8000 uV/us for Vbcpu, and
+> 4500 uV/us for Vlcpu and Vgpu.
 > 
-> Leave a freshly read folio alone: it is not anon yet and can only be
-> mapped as a whole, and falling back would free it with the poisoned
-> page still in it, which the retried fault can then get back from the
-> page allocator.
-> 
-> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Usama Arif <usama.arif@linux.dev>
+> [...]
 
-With the check moved up as David and Zi suggested:
+Applied to v7.4-next/dts64, thanks!
 
-Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+[1/3] arm64: dts: mediatek: mt8192-asurada: Add ramp-delay for MT6315 regulators
+      commit: 9c9f83e3368d27d1e0ba55827a171ebf551c3d0c
+[2/3] arm64: dts: mediatek: mt8195-cherry: Fix ramp-delay for Vgpu
+      commit: 04560888cde5fd8adc325a6ce47466f80b8c668f
+[3/3] arm64: dts: mediatek: mt8186-corsola-voltorb: Add MT6319 ramp-delay
+      commit: 929638df9f3b36665efd60ac71f1eed4ba36a0a5
 
-Do we have the same problem on the file side?
+Cheers,
+Angelo
 
-If memory_failure() cannot split a large file folio, it stays in the
-page cache with the poisoned page in it.
 
-Consider a write fault through MAP_SHARED on a good page of that folio:
-
-  do_shared_fault()
-    __do_fault()
-      PageHWPoison(vmf->page)
-        // checks the faulting page only
-    finish_fault()
-      do_set_pmd()
-        folio_test_has_hwpoisoned(folio)
-          // backs off with VM_FAULT_FALLBACK
-      set_pte_range(vmf, folio, &folio->page, folio_nr_pages(folio), addr)
-        // maps the poisoned page as well
-
-Possible fix is below. I can post a proper patch if the analysis looks
-correct.
-
-diff --git a/mm/memory.c b/mm/memory.c
-index fb76d8922e37..25b53847943f 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -5893,6 +5893,10 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
- 			return ret;
- 	}
- 
-+	/* A poisoned page must take its own fault */
-+	if (folio_contain_hwpoisoned_page(folio))
-+		needs_fallback = true;
-+
- 	if (!needs_fallback && vma->vm_file) {
- 		struct address_space *mapping = vma->vm_file->f_mapping;
- 		pgoff_t file_end;
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
