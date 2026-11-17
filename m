@@ -1,57 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794877391;
-	b=C2OVRZhOgTv39k+ttBwPJjbu5IqvW+8Vctwp53fexz36GFMuay83/+4uUwHsFO/IUBO5
-	 iWiLCExRnLfk2Jhu2NVtGKABlr0X6F7C29fvYPBxhh7AVTy60UsTmNqcswkv7lIp+euDW
-	 sRvKOHGF97Iyr9Sn3wq+xO0HbmwSvTQ+On2+mev7RPi75blybM/1W/Uub3nTKGB3f+AAt
-	 4RndmtcaM1Xzg7T9WQVlagfIR4k4YIlqeaLBZyHm9aNC/qCCBeDYM1Tip23O1JTxOFZyo
-	 kR1tVFDKlJk9rdOE9Ha+1WGIJvrQQA4dz1ahEoPw3IOULz8Ja/ngZfdrF9zgVqpFhhg==
+	t=1794877392;
+	b=0BFhZtgAZyWMZfLbsLS8Jzm++MrqpwbLtQe6daDgHHmpBRCj7d4YEyVhyxag0r3h/rJz
+	 lpJrfrI1DVn4Y06ZDwF2l9uDTp9aIWzJ0Zj1oHw6RQiskLVShszBk8Cu9lydMODqChjnZ
+	 UePCO+dsePJ5CYg42JVE0+TgWnMtnwHd4T4JRtvdDyFOaoJ8iqgF3WehXeFxVTqk0xnd2
+	 dlQ+15AT4NaSXlB6ZopDQfr05kGgYEW0e2G/16zrUKByvURsDPLKx5C5xR01Ey2wgR3BD
+	 hKjRUsj2kHXcS7sQM21ApiXM2EG4goxGBY9L+v353gkBIPsHedtueEBCTC1HKiNsAsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794877391;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877392;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=VSsxVqIpPocHwXdbYnDV3IVSPQ59g639wPhtS/DpJuc=;
-	b=2aGBrfwTxK/sOut+lPHv9hWgOFdlE1Xq3CTX+jtjAw5xooKocXOt5XhzCplM9EBP5q0b
-	 Z2AXBVISwcEL8KKBnt2fkC5+s8YkKsk7MXzL/X+22rj6tCrl5iEMb3O79207Kar8sZ7Qj
-	 e1mBIuUubFDG3At0xDJAbNsGsaWbD/Cv2cmF19Of18YmcD2SIqA2sR67jZYM465sGmPT4
-	 YS9IS+ca5W1/Tq7qTwf1TId6dakd07jyutnv1CatAH834WKB2aTe+BhxJV96FIj6ytgiT
-	 PUZAOSsBw3D7YsqZ1sZ1FhwcStYv1ovNuQE3SG9hhZnub7F/3ac0BhWRC4nD05OLEVw==
+	bh=LyJpGAqYFioiro4apH54eAeedZMDD6x6P+0TzzXpvFE=;
+	b=GP7/gfGR84MVNErvVuKDq2ngtW578GcxpPNRxpjMEt9WLxZL6uvO1FXktGj97hMD3/57
+	 mjw85gD+gVW30OtgKnH61nAAUJRTT1BwcZLHxLrjbodmJ7SYxADC4RYCloiVzOjXh7ZJQ
+	 Uy29A16EVlNa/fw3a2oILojRrbvaKb4eeC6kQkvdwNcFbtaaevHQKwE0yBNck6UemegWZ
+	 lvfNyvg+9P5FtJT1X6AyTwU73vXhgfpYAGoC/jWxb/hbGJ/QwHDG3Ww4XIn4cr1KKWkXx
+	 Xyo93T5KVARVrGkqXsXIuqCst/Tn60RiFDqd95wej+CQ20NFL1UXVfTl5EbGsAuvlSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DH7Q9ors;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UzfQr4W3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4223606A31C;
-	Tue, 17 Nov 2026 01:03:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75FB1606A329
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:03:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DH7Q9ors
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A03FD1F000C4;
-	Tue, 17 Nov 2026 01:03:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UzfQr4W3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EAB91F000CA;
+	Tue, 17 Nov 2026 01:03:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794877391;
-	bh=VSsxVqIpPocHwXdbYnDV3IVSPQ59g639wPhtS/DpJuc=;
+	s=k20260515; t=1794877392;
+	bh=LyJpGAqYFioiro4apH54eAeedZMDD6x6P+0TzzXpvFE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DH7Q9orsMuxRWex72emEAe5XG5nw2FYKjuzMoTSK3GfjJJmkEC1WQLP5Y5+Gtv+6l
-	 QnvNmptz+7X9hjjGEkGdgJaaJTaF6AAGSSa3FM1Cx0iC6Z9D4k1NIjzMoHsFJL/BkF
-	 UN0ZnAPzeUi0k6ITsflSZi16v5vdjrEZbrpCxjFp6/EXdbojvsAkKDJgzaVyyFJVVt
-	 UndfjfDpKDm+uXMxPmssB7a01LPbAwGLyVsHfUckcHaBqxY4aIAnKiqqht9tDfS0hC
-	 +iyjI2nEVE2gA0Fkd9oDqdLj99f+wiQBmPB0ltOLzDDzYZQVnwKbgI8jjX7iXsVFQV
-	 nKPrt+NXjTfKA==
+	b=UzfQr4W3A27gmgc9s8C4xNHICDCikwdSww3UFg8SN53n/SAupGlHNTxLpSSvOuJYB
+	 ODJBv0hbEawWPG/1ricUbd85WiZeLC+vocdBDY3Pz3Bz916q2jowjEH9xGOHWLwz32
+	 KFRN3cXFgyY4dgxvlrv4fuNwqKgBFLKDBcc8K8+zIVx32G4UJcaYS96fXMjBU4aoun
+	 y+3Z99XDKPspxydGuDdMRjM4lI6HKqpxs9Tzbyh/6+D5N+AEspN7UvV2x3hV06J5os
+	 P+uiQB5CVWB3M0eXzS0TVRwZImrUbVCRv6ZfjaDqJX3iFb+YzCNnEX1d+FetB3dqPa
+	 v2UKQXN9a9A1A==
 From: Sasha Levin <sashal@kernel.org>
-To: florian@wagner-flo.de,
-	stable@vger.kernel.org
+To: Greg KH <gregkh@linuxfoundation.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	regressions@lists.linux.dev,
-	linux-acpi@vger.kernel.org,
-	"Rafael J . Wysocki" <rafael@kernel.org>
-Subject: Re: [PATCH 6.18.y] ACPI: button: Enable wakeup GPEs for ACPI buttons at probe time
-Date: Mon, 16 Nov 2026 20:03:01 -0500
-Message-ID: <2026-11-16-2-daily-reply-0005@kernel.org>
+	Borislav Petkov <bp@alien8.de>,
+	Andrea Mattiazzo <amattiazzo@suse.de>,
+	cve@kernel.org,
+	Petr Tesarik <ptesarik@suse.com>,
+	stable@vger.kernel.org
+Subject: Re: 098bcea71b8d security relevant
+Date: Mon, 16 Nov 2026 20:03:02 -0500
+Message-ID: <2026-11-16-2-daily-reply-0006@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116181104.7297-1-florian@wagner-flo.de>
-References: <20261116181104.7297-1-florian@wagner-flo.de>
+In-Reply-To: <20261116114902.561ada6f@mordecai>
+References: <20261116114902.561ada6f@mordecai>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,10 +64,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> That causes function keys to stop working on some systems [1] and there
-> may be other related issues elsewhere.
+> It is fixed with 098bcea71b8d (by correctly updating the AP microcode).
+> I guess the commit should be included in stable branches even if it is
+> not a security fix.
 
-Queued for 6.18, thanks.
+Queued for 6.12 and 6.6, thanks.
 
 -- 
 Thanks,
