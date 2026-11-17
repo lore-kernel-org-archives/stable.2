@@ -1,60 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794926737;
-	b=VDXhCGxtWhcKx8vcjgrg+jE6zN0zEoa5PGllj5BTCPATT+6c5z7DnhIXO9aLRtfB0oKN
-	 1mjP/Y/P7YB+eQ9uQPrVuBQe6gNbSI18XmZhoKSq8/dDamoMvnXDYixYaZCcOCdR53cu5
-	 L2yU7Ipe6YTo34ySmwsWfo67K2LshrYNTUqevGO793aGKjWkqjqLjBseW5PCQbv4LHYzO
-	 k8aGcSasCG6YfJyKsCA5vUPVteJCE58b5pBn8GGZU66SFbEIPDxYFkWvpWThy/Ro31Y9t
-	 2FCkWnhkLGkpAp2+wy+dclbzS1hPLZki2xufxUGSesGFuKHGwL9gcaVyvgzeyR22Fkg==
+	t=1794926989;
+	b=lh8ZLKeMdv8d4O9x4lMH8jyITdBYTGafvaW9/7QaVaPj3laObMoOpmHph3blRVEzz/I1
+	 SBKmIo6DOHp4HI2xF5SmB2m1X3UQxg/tVBQA95xzMHov813qAuwX9mrgvOqiO8mtsF01o
+	 HQbfmpKF29hOPwgr0G1hivtVTMB+M1Xzpygo/uTTmW7xAwKFiulkh7RjXuYCSLpy2niTm
+	 exWQad7VCk4OtnFNnrhgg/Lbe3a05uwNWh/7BpV6IYZ5g25BGUjmYcyouUWUD5+V5pTaL
+	 3tT8z/MNiHhGdIR1YXLPnMEjt0JF7gCnLEhZRgaaZjF4Q/tg7IHerNtUZDkGb/de4Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794926737;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=AhzMQ2E3g/vRFX15pwJIjwTP95X1ccIWcj1om489vX4=;
-	b=dFs401V+1gjx6T86+xuvG6rXTwKTxejnRAWe4CluR/5hLk9Bn0E9Bf6Z8ojKJym14LOH
-	 RFNJJZ0BXUhWuPy7ybqqPLaHQqMtlgY/q9tEusN/+iqDnh8FJr3447DujbkhxOfh9kHiN
-	 esQ24DQkWRrBhVzJxxfhDG4/6g6Wrv2OY15zw18f+wPWRvyA74T3Nnj1wWe1Up1RvrD+j
-	 Fro+P+A6Pcrq/68yGJGSgQHAPFFFvulevaT5BsY59xa/ZdXhvlpAUKFxAOJ0efYh44jAG
-	 OAOSnA0JgWua5CnqIi/dyn9JgNEaG14niqiUZSqWRVDBZxZHMgg+YprWHbsaeeaLBzQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794926989;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=HQU7Zc5/d9vE5Fp6P6RKgPNaKUT8ZRu2XkxGJFG1JBY=;
+	b=S0SRXzEK9Vm2mBawbdnvENFRlMkMzocEk7pQkHviSvn7l8cL14BxMkegG5FIAmJic4Ef
+	 qD8CF+adL4+WMeNQCDkkG/Rh7bEzgYFYgjis6q+CKQDsjwD4bOCmtROWXOFvRmCJalNsl
+	 p8KeurEjVPhS3EF57EdKbQIwsV8tmN7ZKcirrs7FOWzzWNw6yBRsaU6lOUsnF0o6Mkb3c
+	 nIN7sZRHSprivhW9UIJS7kUlNe3GyGiNiKRq6zBmNPkgx2PXYngu9MpiSgKoObpGHdM3/
+	 r04A90krs0lnYS5UWqcJGck/Rfs9p5PlfkVmS8z4J7r/ONiTXNAazmIjiclnIq2IdgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=eWWleW+P;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=SZsUabxG;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 232BC606A330;
-	Tue, 17 Nov 2026 14:45:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 232BC606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D992D606A323;
+	Tue, 17 Nov 2026 14:49:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D992D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=eWWleW+P
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 55020e792;
-	Tue, 17 Nov 2026 22:45:20 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Boon Khai Ng <boon.khai.ng@altera.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Michal Simek <michal.simek@amd.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=SZsUabxG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1794926988;
+	bh=HQU7Zc5/d9vE5Fp6P6RKgPNaKUT8ZRu2XkxGJFG1JBY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=SZsUabxGuJOPv6V8cOVFUGneQfTNEJ58JSgGVQl1iAoqr+43t+r/RUB5RcvCwB1Bo
+	 j1XcTnWfa4yqiwHVxO6npRxcWU32J72vmmfdb/s4KH1YMeYtlWzgWEyugYz0eUgL97
+	 tzwjCNIYljpb3h+8r3mr/SXHP2GqxGirWfKfCuWDvn5z+WD8cJj07CM+zAxNgYVYUt
+	 vvcVZ/O8Q9HbdHp7Y91H6cG65NgtN1PZMpPKTLqQdY5B2oSBOFu0ctgTzDkNij4pqD
+	 yJ/EtDxnpLBjvzUhvkAcWeot+wuIbDzs9/B2hR41Fxm/mYkAn8/vv1+wi+CCFQFhbA
+	 FDJlm//c6dqZA==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jTSLh0HGFzRZT;
+	Tue, 17 Nov 2026 09:49:48 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
 	stable@vger.kernel.org
-Subject: [PATCH net 2/2] net: emaclite: Fix potential use-after-free during removal
-Date: Tue, 17 Nov 2026 22:45:18 +0800
-Message-ID: <20261117-571e631490-net-2@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117-571e631490-net-0@mail.sdu.edu.cn>
-References: <20261117-571e631490-net-0@mail.sdu.edu.cn>
+Subject: [PATCH 1/2] sched/deadline: Fix an overflow of the 0-lag time with long periods
+Date: Tue, 17 Nov 2026 09:49:44 -0500
+Message-Id: <0863470611fb7fda03d12c4c12cc8e715476d9ae.1794926626.git.mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1794926626.git.mathieu.desnoyers@efficios.com>
+References: <cover.1794926626.git.mathieu.desnoyers@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,58 +76,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1e9f8329d03a1kunm6b1ed508156203
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZT05MVkoZT0tKSkIfHkweS1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
-	NMVUpLS1VLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=eWWleW+Prxyyl6CPBnxsU9TR71Ot0NZcypj/qxve1DKhKKW2H/JHeYZLe7vD/CyQkXjFnOn7YAoYMQIpTpQbD7k2QrQPX5lkhA4luIo5z1ogKSC+1sDVt+fJ3cCvlsHs6n/0W7c3eEKbO0vFLJYwItp+K0Jaf4JyCxPnF4nVwTw=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=AhzMQ2E3g/vRFX15pwJIjwTP95X1ccIWcj1om489vX4=;
-	h=date:mime-version:subject:message-id:from;
 
-xemaclite_of_remove() frees the MDIO bus before unregistering the
-network device. If the interface is up, unregister_netdev() calls
-xemaclite_close(), whose phy_disconnect() still accesses that bus.
-This can cause a use-after-free during PHY detachment.
+When a deadline task blocks, task_non_contending() computes its 0-lag
+time:
 
-Unregister the network device first so that PHY detachment finishes
-before the MDIO bus is unregistered and freed.
+  zerolag_time = deadline - runtime * dl_period / dl_runtime
 
-This issue was found by our static analysis tool under development.
+A task that ran at its reserved bandwidth would use up its runtime left
+at that time. Until then, the task still counts in running_bw. A task
+that leaves SCHED_DEADLINE also keeps its bandwidth in total_bw until
+then. This comes from commit 209a0cbda7a0 ("sched/deadline: Improve the
+tracking of active utilization"), which adds the inactive timer of the
+GRUB algorithm.
 
-Fixes: 27cad0084066 ("net: emaclite: Fix MDIO bus unregister bug")
+The product runtime * dl_period is computed on 64 bits, then divided as
+an s64 by div64_long(). With a period of 4s, it passes S64_MAX once the
+runtime left is above 2.3s. The default limit on the period is about
+4.2s, so this needs no sysctl change. The quotient is then negative, and
+the 0-lag time lands after the deadline.
+
+On 32-bit, div64_long() also truncates dl_runtime to an s32. A
+dl_runtime above about 2.1s then gives a wrong 0-lag time too. If root
+raises the period limit, a dl_runtime that is a multiple of 2^32 ns
+would divide by zero. This was found by reading.
+
+The bandwidth is then released seconds late. Until then, the root domain
+refuses deadline tasks that would fit. I tested this in an x86-64 guest
+with one CPU. A task took a reservation of 3.1s every 4s, then went back
+to SCHED_OTHER at once. A second task that asked for the same
+reservation got EBUSY for 5.95s, in 6 tries of 6. That is the deadline
+at 4s, plus the 1.95s that the wrapped product adds.
+
+Fix this by multiplying on 128 bits with mul_u64_u64_div_u64().
+cputime_adjust() uses the same helper. Its operands are unsigned. So
+take the magnitude of the runtime, which is negative after an overrun,
+and add or subtract the result. With the fix, the second task got its
+reservation at once.
+
+Fixes: 209a0cbda7a0 ("sched/deadline: Improve the tracking of active utilization")
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 ---
- drivers/net/ethernet/xilinx/xilinx_emaclite.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/sched/deadline.c | 17 ++++++++++++++---
+ 1 file changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/ethernet/xilinx/xilinx_emaclite.c b/drivers/net/ethernet/xilinx/xilinx_emaclite.c
-index 4719d40a63ba..008e3d1e2981 100644
---- a/drivers/net/ethernet/xilinx/xilinx_emaclite.c
-+++ b/drivers/net/ethernet/xilinx/xilinx_emaclite.c
-@@ -1189,6 +1189,8 @@ static void xemaclite_of_remove(struct platform_device *of_dev)
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index f1d259df8f2a..8c0c982810c1 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -693,9 +693,20 @@ static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
  
- 	struct net_local *lp = netdev_priv(ndev);
+ 	WARN_ON(dl_se->dl_non_contending);
  
-+	unregister_netdev(ndev);
-+
- 	/* Un-register the mii_bus, if configured */
- 	if (lp->mii_bus) {
- 		mdiobus_unregister(lp->mii_bus);
-@@ -1196,8 +1198,6 @@ static void xemaclite_of_remove(struct platform_device *of_dev)
- 		lp->mii_bus = NULL;
- 	}
+-	zerolag_time = dl_se->deadline -
+-		 div64_long((dl_se->runtime * dl_se->dl_period),
+-			dl_se->dl_runtime);
++	/*
++	 * The 0-lag time is the deadline minus the runtime left, scaled by
++	 * dl_period / dl_runtime. The product of the runtime and dl_period
++	 * can overflow s64 with periods of a few seconds, so multiply on 128
++	 * bits. The runtime is negative after an overrun.
++	 */
++	if (dl_se->runtime >= 0)
++		zerolag_time = dl_se->deadline -
++			mul_u64_u64_div_u64(dl_se->runtime, dl_se->dl_period,
++					    dl_se->dl_runtime);
++	else
++		zerolag_time = dl_se->deadline +
++			mul_u64_u64_div_u64(-dl_se->runtime, dl_se->dl_period,
++					    dl_se->dl_runtime);
  
--	unregister_netdev(ndev);
--
- 	of_node_put(lp->phy_node);
- 	lp->phy_node = NULL;
- }
+ 	/*
+ 	 * Using relative times instead of the absolute "0-lag time"
 -- 
-2.43.0
+2.47.3
 
