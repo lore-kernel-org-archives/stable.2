@@ -1,65 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925595;
-	b=3d7QvVaGHc5zP7ZIQXUhJ52f/jO56hZ8ysYV40+1YnlqBDjDrOSBMoM8m2JUzZ9OW/PJ
-	 AhtZJiw0e1fT9naHcGtc9me1JuiGDP3T0Mbjb+9PXOq8+WTJFtuyJBQeirUfZQ3UuxCFS
-	 LHefJ5oYsL9OLaTYBWPz8JTmw2UnFOjp0K2wkykth46M73JQip43qUgdfMZTrzB416rDw
-	 K69gPWxb+DP4A+oDj7ehdGLd714ExJQocG4wzC8FUsX85xjvFGKx7AG8NLEp3krglDO2A
-	 jLSaqaO3CNinlXTHbLfvMKuI8sEe9smcmQM25lwk6Nu9LfPPmLobtjh9Vwo9ZfxSSOg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925595;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=rlQlNnIZ/8+czgBS03uRUWP6VlvdPXDkWQ0M5ulQFY4=;
-	b=km0KasFB5qQ2sFW6nokaro/KbjTklV5XX/PD932hjwkwmKuAwLpqEmEWaUpqXaehOK/R
-	 SwAIyKdU6H4QSuxLnSOOgKdTWnI8cUHmloEvpLgguXiBWbbs1pUg313B8sphfaOTXbm1+
-	 VfPpiT8TFeEIbF2JrGIYCRrG71wbrwiXMdqoo3Ex9PpOc+x0OrCnEYd2TMEIHodMeWcD/
-	 KUDuHhsQCBVqdQm6+EHYd/k/QJyxcBIYTAn47XULsEk9kHfDYutHwQZiJ+hNFs67iL14m
-	 5tJou0fMlHHCcwDD507o28vbVdVBSFluKeLTS0U6BzMZ+/yMGSzruGGcr+W8dGBhb8g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a786Rfbu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794925910;
+	b=jixFBBxtInzMFUuznulkzGQeEDJhPmNbb9o32f5bIyo6/QBT9W2lhoKneTIQhQ8m5iSF
+	 o5rV3E0OTBKUJlUuDDbg9PxXq53V6G4E5s9o9Cwg6wESVRb8qrD4VndI1AYBUBvOiMDZx
+	 KM1Ne+N3CYZK5IsHamYeM1L1ZVeiQAApKv3o7/fm3Z1t3Wx/y5zIsZ2QH6mJ1KGDyxcX0
+	 n9omjipGJhZuAYGQaNeyX+b1Qenli4mQEDhTP5DTNcL95I7+zeLL2ThOOjc8PBN3wRbJ+
+	 WWB9OInt+drseR9emURP733DI5kntmPjhzwXVG8HFW9dy95eg1MwcSW2NSud2fYp8Fw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925910;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=J8J/dU+jQllMyvNevSPXlfSxT9AbwROgLjn7O3WN4IA=;
+	b=ZtVNSiOMxT7iIATA+N8cntQvnR5rfMdAP1hQpyBUgKbHulypdl6J/t87edk+KAgNecLu
+	 BqUbEEHqlVr7BQ/RUTWDZ+A30qsTRZ8fYDoPbXTWarlQbsXzW17w8q9kHywcqii6B1srX
+	 09zbh9uI8cEzslADfT/2hhsK/JJ1MaWJMpbOeviL8JJBbRLSJaY/bpoMHxMwHR3yKahR+
+	 lNSzlmniSmQ6AGdeQQBBMVevr969pYiWzF/sudzDJGbj4QQTNfYc4+OzbdP3KKhxqhNT3
+	 Fwo0aAMdjvEps/mB+YzJP9Ol6nRYkWohNI4uF2AOR2rIH2QFBkPAe5/z6wNpZVVkoew==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wtKGVGn0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62555606A323;
-	Tue, 17 Nov 2026 14:26:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B266606A332
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 14:31:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B266606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a786Rfbu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D97441F000C4;
-	Tue, 17 Nov 2026 14:26:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794925595;
-	bh=rlQlNnIZ/8+czgBS03uRUWP6VlvdPXDkWQ0M5ulQFY4=;
-	h=From:To:Cc:Subject:Date;
-	b=a786Rfbua0e0KJuPtqYPrAIOolUAlNtoH1SVZATqAvSLv5QCYzTn6e5ZZA3a3CXny
-	 cfYU2pdCDUr+8PSpqVQH45cyGXtnH0KcTKXZChHeqW3yCdz2yvjSv3dER9ldKvWinU
-	 pRybFcIIIcJ1x1gVcDse8TFcN3hO2F6bLrYBQvCAo6D7TOleOtwQ53V5oGlr7EKEM0
-	 kK5eXgT7ULE0fn5gQuNToj51Fn2ORWLRIoFLkaNQ4ZmXOovexDaF5bhF8n25xErblJ
-	 uVZYrvqMo9ETwQcBDzyZjuDO+zGRShjt5/qw3N8oqLjMr8+LEV7EHw19Fgm3n0obgH
-	 2R7eQdFuYIeTQ==
-From: Arnd Bergmann <arnd@kernel.org>
-To: David Hildenbrand <david@kernel.org>,
-	Gregory Price <gourry@gourry.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Arnd Bergmann <arnd@arndb.de>
-Cc: larips <larips950@gmail.com>,
-	stable@vger.kernel.org,
-	Zi Yan <ziy@nvidia.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Brendan Jackman <brendan.jackman@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Jackie Liu <liuyun01@kylinos.cn>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] mm/mempolicy: fix copy_nodes_to_user() for odd inputs
-Date: Tue, 17 Nov 2026 15:25:53 +0100
-Message-ID: <20261117142628.3931151-1-arnd@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wtKGVGn0
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c50715c2757so624499166b.3
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 06:31:50 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794925909; cv=none;
+        d=google.com; s=arc-20260327;
+        b=IpdIvIpaEQ5sJZq5F2LAL5pRH3nHyB1IFIWDkqXJOEldMX4wfZdVCKVceHmMqLvPtG
+         sLJt1KK2DQRtTcptdFnYIYSnZJOhhZmVW0kje2tc4K/44ucx/67/63DTKpLSBp1dbxYh
+         2pnqoDfJ57cMZd5HM1RS1CtIWKohpok3rsZFZvbnyNGDY6CLE/toPaNgk11HicS1hVVh
+         4YJDDIb/gLtRDxRb3lBwecOsvMybUpdkwY7hnEfqQgBOm7cuyr+Js0MtGtcVDgwSH1zq
+         7QqvdQZ8zL4ly0yish3Kpy4gBq1EcDw+ieJMi0R0koRxWF2soh5CRaprXLWLhHOa5uMF
+         glmw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=J8J/dU+jQllMyvNevSPXlfSxT9AbwROgLjn7O3WN4IA=;
+        fh=btu/Lsl0CpMjE8Tb98e502E8mpJYhnuKjMaqKZCLrZs=;
+        b=ZzHE2riKZFqZ2xI0XnMlm9eeIBtkI/5wdVFFL8GztXtwEkaYz23uMyn6d0MpMU2n63
+         Rb+xdACndrYDnZ9+ZaG+6LbA1VSvJVtGpry0XJoNyFOQfyvfzbQr+tSJOfvq5RilpuLX
+         F9ha8OyA9XCSMCQ0dhzSmxgfRcNqIS7UuK2NFCsUAOrJEnUG5J2Jed8rtYLRHbGqALe7
+         9gcr8tO1K019Kmhft3PdXqpGHd5XJZPRb/nLgmg5PfzqLqUlT40zNvu/zzVM8ad2LhSf
+         NWpioRDyVDK3aHxcVuniCC2fggc1Prds8bkh4SFZFgmuO03/czJHde35L80lD3oCMDcx
+         1QPg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794925909; x=1795530709; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=J8J/dU+jQllMyvNevSPXlfSxT9AbwROgLjn7O3WN4IA=;
+        b=wtKGVGn0xuIg9f8ztH4vispZRzPrxenA19/h1TAjvBuP+4Fvd0WIB2CcOZkuGudL4d
+         xJnId+eqSALHeE3/PkEg8uVqqyd/tDX+Rr6RjCJFiJQ0ZihepHK14fGjEyRnp1Bvnf/O
+         UwdgI8ifrlGm6EIA4NcgTSX7GZg5H/tSmlInPjG8WAPqy5PdauGM2qUrjTnr2LnFLCzj
+         a94as4JAHrR1uf+TAp3KypwkaLHmK/oeHEncKbjRxf6usPeFL3l9vdD63fSOIJTVzEt1
+         xb9IPXG7EwjHpE/cfjzmkoTUVNFaEgi+eSC6PJer7I22OucBiZvkaMoO/FWaAbtcpSqT
+         UHHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794925909; x=1795530709;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=J8J/dU+jQllMyvNevSPXlfSxT9AbwROgLjn7O3WN4IA=;
+        b=HrSDsKvqlnWpzhR4539sRDml8O7IsVgJ778hs+QiujN/ZYlcUIq9d4BoWRcTX3ihBg
+         qbU60Jg/KZGZvG4IcLO03oXDupfHuHHBTP7536bXYkT6JioUAJOHee9YR50L06KfZy4A
+         XOEJ24yznSMOQyR61sowaVGsmkv8I3KygNm3qQdfNQap4OEWzbDQt20gqMveUNdak5cN
+         B0Vf43VjzkVcqiRzsnvOlW0HmxswxokWwSFYTjSoxv5pbr052tzuCkNiFk8reusbFE21
+         /LEjJXg+Kz5QD0P+p2Y9P0vTXIVFhGTwTftkYtpQpY+TujJ9ps5BZW2sZStPELrGTC43
+         kJ5Q==
+X-Forwarded-Encrypted: i=1; AL+hErG7FCNPenwVCV4Ptr0r5E+maUsjuN5BC72t74kOOf+XsbFfFphmt7n7JhL/8n0zzXvtzadf13I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+cLotzlheskQar0sVAWwr75LitOGE7iBfGUGkdXJRBf4EJ/8A1
+	2XtnXB8ruTcX9FrOeNpItpdi8vJpX9qEv/gDu6tz9SedOH692P44DSbO/SsxO++jl0fqSjNvklg
+	RQg7A81xsxY+hu6NBVZsDnTOAQpYXbp4=
+X-Gm-Gg: AYBFou2KLISK9id5j9J2R1xfny3SvEfxgg+yGPhWEU6wP5mV6NMj6EhBf+BwvbBZeb4
+	HnZzHsu0Nx5tlb4sMlCcQLEKOczXAc0If5Mnj4aUTzZ7/y6jNPEiRqU7RFpM1+G/6APVVmDoicm
+	Hwbw3UmbsUjTAldBCZRWMnOsg+Nas8WKJ9dxpOFEf7/SYtSwnankKTm1pLGQGGn4ve0aAYJUEEv
+	VlSGk1g29gwdoXX3jkLm2GzvlUf4J7e2IXVF0XJeT7xfzkcoYLJNWDz8xA2MJmL6gkGgb1pK8XA
+	4dnidCrYNBKePZDUJvaXaWxdSfh8BvY1EejSQJS6DBzmsvQXW630C6YGfHF4ye0w0KwVhw/fm9/
+	tiw/pH5lIgilcvOvHFSYxHGOdnuqXRHgzQsOms5Tm1VtlyOQ8jRu/hVpIaNuu67yohISfZlpk0e
+	MpYebiHYL5F2iH27Q=
+X-Received: by 2002:a05:6402:1f49:b0:6b1:cd52:5798 with SMTP id
+ 4fb4d7f45d1cf-6b7c0d2476dmr11277202a12.42.1794925908479; Tue, 17 Nov 2026
+ 06:31:48 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,69 +105,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261117135146.3174252-1-graypanda.inzag@gmail.com> <20261117135146.3174252-3-graypanda.inzag@gmail.com>
+In-Reply-To: <20261117135146.3174252-3-graypanda.inzag@gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Tue, 17 Nov 2026 15:31:36 +0100
+X-Gm-Features: AclHuK-1tfZhKwrVCdjfTj54iWvStsZEppahje6OeA9duQdnuQ1FrAmDZgLv9Zg
+Message-ID: <CAOQ4uxiTpRO9ZOFpKRHjGakB03X=8HWEhpMxj_xcMp5yc4tMUw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] inotify: copy full qstr length for event names
+To: Junyoung Jang <graypanda.inzag@gmail.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Jan Kara <jack@suse.cz>, Matt Bobrowski <matt@bobrowski.net>, 
+	Gwanhyun Lee <gwanhyunlee@gmail.com>, fuse-devel@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Arnd Bergmann <arnd@arndb.de>
+On Tue, Nov 17, 2026 at 2:52=E2=80=AFPM Junyoung Jang <graypanda.inzag@gmai=
+l.com> wrote:
+>
+> inotify_handle_inode_event() allocates the variable-length event via
+> kmalloc(), reserving name->len + 1 bytes for event->name, and stores
+> name->len in event->name_len. strscpy() stops at an embedded NUL in
+> name->name, leaving the trailing name bytes uninitialized.
+> copy_event_to_user() copies event->name_len bytes from that buffer to
+> userspace, leaking uninitialized kernel slab memory. The terminator
+> and alignment padding are zeroed separately in userspace.
+>
+> Use memcpy() to copy the full qstr length and write the terminator
+> separately, as __d_alloc() and d_path() handle length-bearing names.
+>
+> Fixes: ce163918cd33 ("inotify_handle_event(): don't bother with strlen()"=
+)
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
+> Signed-off-by: Gwanhyun Lee <gwanhyunlee@gmail.com>
+> Signed-off-by: Junyoung Jang <graypanda.inzag@gmail.com>
 
-The ALIGN(maxnode-1, 64) check has an off-by-one error that leads to
-rounding down too much, and ends up not copying the last word when
-userspace asks for one bit over a multiple of 64.
-
-For compat syscalls, the effect is worse, as the actual calculation for
-the size does include the extra word, but the check for the input size
-does not take it into account and can leak a word of stack data.
-
-In addition, the size calculation rounds up to multiples of 64 bits
-instead of multiples of word size as documented in the man page and
-expected by numactl.
-
-Fortunately numactl always passes multiples of 64 here, so none of
-this affects userspace we care about. Finally, the 'nbytes' calculation
-for compat mode makes no sense since that is the size of the kernel's
-internal representation, not the userspace side.
-
-Fix the 'copy' calculation to address all of the above. Note that the
-off-by-one error has been in there since the beginning, but commit
-e130242dc351 ("mm: simplify compat numa syscalls") is where we starting
-copying the wrong data.
-
-Reported-by: larips <larips950@gmail.com>
-Reported-by: Gregory Price (Meta) <gourry@gourry.net>
-Fixes: e130242dc351 ("mm: simplify compat numa syscalls")
-Link: https://lore.kernel.org/all/20261117101910.1820066-1-gourry@gourry.net/
-Cc: stable@vger.kernel.org
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
----
-Please double-check the calculation and retest this with the original
-reproducer. The off-by-one error does explain all of this, I'm still
-worried about getting this version wrong again as everyone including
-myself seems to have missed this in the past 25 years and there may
-still be additional subtle issues around it. Apparently we had many
-instances of the same off-by-one in this file but all (most?) others
-got fixed inadvertently by other changes in the past.
----
- mm/mempolicy.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 6d662a9a8c74..f318e1155770 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -1749,12 +1749,12 @@ static int get_nodes(nodemask_t *nodes, const unsigned long __user *nmask,
- static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
- 			      nodemask_t *nodes)
- {
--	unsigned long copy = ALIGN(maxnode-1, 64) / 8;
-+	unsigned long copy = ALIGN(maxnode, BITS_PER_LONG) / 8;
- 	unsigned int nbytes = BITS_TO_LONGS(nr_node_ids) * sizeof(long);
- 	bool compat = in_compat_syscall();
- 
- 	if (compat)
--		nbytes = BITS_TO_COMPAT_LONGS(nr_node_ids) * sizeof(compat_long_t);
-+		copy = ALIGN(maxnode, BITS_PER_COMPAT_LONG) / 8;
- 
- 	if (copy > nbytes) {
- 		if (copy > PAGE_SIZE)
--- 
-2.53.0
-
+Reviewed-by: Amir Goldstein <amir73il@gmail.com>
+> ---
+> Changes in v2:
+> - Use memcpy() as suggested by Amir Goldstein and terminate at name->len.
+> - Copy only the valid qstr bytes to avoid a one-byte read past name->name=
+.
+>
+>  fs/notify/inotify/inotify_fsnotify.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/notify/inotify/inotify_fsnotify.c b/fs/notify/inotify/ino=
+tify_fsnotify.c
+> index 6e3af6452dcc..ecbfc9b4e99c 100644
+> --- a/fs/notify/inotify/inotify_fsnotify.c
+> +++ b/fs/notify/inotify/inotify_fsnotify.c
+> @@ -120,8 +120,10 @@ int inotify_handle_inode_event(struct fsnotify_mark =
+*inode_mark, u32 mask,
+>         event->wd =3D wd;
+>         event->sync_cookie =3D cookie;
+>         event->name_len =3D len;
+> -       if (len)
+> -               strscpy(event->name, name->name, event->name_len + 1);
+> +       if (len) {
+> +               memcpy(event->name, name->name, len);
+> +               event->name[len] =3D '\0';
+> +       }
+>
+>         ret =3D fsnotify_add_event(group, fsn_event, inotify_merge);
+>         if (ret) {
