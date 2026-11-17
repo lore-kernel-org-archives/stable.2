@@ -1,75 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794915436;
-	b=Mh4OZTHH22oZPwMLjkfI8O8qXI39Uu6JCMv0leRoepwnNBdRi3OxAmSo2fSBBlCWR57+
-	 XzMWfp1OZixDvAhvn68ONA4EOYLZO8z/SyHBPgn/cZ5XpUo84vC3+JSjRhaPIgcvaIOLx
-	 vuK+raHZ7FZ/9S2kOA7tZzoI5VcKQX24aN84uPEAbCvvfZIjZ1Q6KJDRJbf447ndfNnTn
-	 cDMuRrYPciAK7IqQpNPfErhwXtS6wcuTSWU+1S4NjLzA0npNt08dtSCOzcAx8vD5YOY1h
-	 +vakWOhHabD2SlSnuLhQsOdZuGI5BSZAGmaOnjVdFQsMpj8hRlYgjk/z3icpHM1P3aQ==
+	t=1794915546;
+	b=3NOdF7LXLgBXBykXGmtv1mn6u7pULVWvME2y4CoTzOemX887vBO5dnwnqyi19PD2tuPC
+	 C0OAAmHPg+MS8izFCF2J3T0DQLgoIzItF81zF5FsbsvVLBELQs+qevetULP0JUiG6bgJl
+	 aexPF9/o2oXsuxTUHlvOXpZ4b/4N3R20UDOkIiBgcYNDpe0KBLfBil02zXQkPrifZBxiL
+	 XuoamqH1Q+AVvbmF8to3AT//CLYzWj8mBwD6VkxXaGv5Gk65AX/OrQZisNXkO9jCktErw
+	 Kd/RKPMRkV3kmBVIW1HZ4QBeE71WLJ/l9gw8yyKXu63ianQPjty6K/5GymQ4Rf7NDcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794915436;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=FIq/acdz95vjbYoS5MNj8HtOBDIDNoJ60+7a7u5rlJg=;
-	b=OJ9LEjw5tXNvryfrqnyc52+CXjmt4P/L4sWMZWFstA4XH/i3BIERgDBJXLIx0lZHxUBp
-	 286dz+uQBdlfZAI/AbjdhQGBme/7L5dgRD3dncZDf/Z8PuId/sn0b2zRjabyWXcz0qLTe
-	 gIXhS72IY7CfBGHKb1m9hw+5Vy4wN545bLH9N7xmlq3OLj7luuDJzr3LP/2de/PjjVHzu
-	 Bnl6zKAVHTpRQuZWvW8Y2lthhHYkc6bVLU59kN9vtluvx89qMWgTMLL0NM7b0jnCd4V/b
-	 D5t4/nBJ9rgCEcvk7pe76CQv/Q1WYak8TiZxaqkfBsFS6VxFIB8wl14TA6JEcvgGEVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794915546;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
+	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=5QFm4/7llb/j/07OzcUIgHm6qGl30pGitU6RrQ/neVs=;
+	b=jaV07fCBMSE2Pvoy/RZPgYWw0M4/0J+D0uA+/6QG5FoKJcEhQ4V5CBO3H1gjQ0b4knoT
+	 QKwCiK4+Dn5YDbZjsWuX0GYQhQB0ElgVGA1aCC9lCjmr8/wsww8weZVWG+s2WqmRimeVa
+	 FNKPWFcU9SWqn0dBGgiph3reXcJf0Wl5SSU/Rszn7XuDQMNWW6I855p8VhhTl7Ng7SxYw
+	 10QibykqWR90ucFKqs5cgs5PYvfCs7JXmoGMQekmiLSwyGN0CZc21okYl/Y7hqqtkFwam
+	 4RcHah/rFpTZWrQUvXHsn01hgrGzswZosW8MAmuFr5jqaL393ZOymhZUfJRuaEwQPOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fEjtek8B;
-	arc=none smtp.remote-ip=91.218.175.219
-Received: from mta0.migadu.com (out-219.mta0.migadu.com [91.218.175.219])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=boo9cVih;
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CF4606A32A
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 11:37:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30CF4606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4AB3606A31C;
+	Tue, 17 Nov 2026 11:39:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4AB3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fEjtek8B
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1c0H7lzsrOLvPgIaEgNX/VBYlRpSEzqvqTJWZfntygs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794915433; v=1; x=1795520233;
- b=fEjtek8BsUI4xWPpUqbNZFhH/ighpcAaON8N8vgwoQDHr+DXcSZ/NtEr9kBvqsykxPpJDysS
- ny7ld8ldQvtiv3gU5NNkhI/AiXgwE8S1zS1MO3yh7d3oV9s0onqWDa/U4XAXTkLZy6foghdNcFs
- wamZ869X+UZmGjT5BYnmNquY=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d92e4996c9b348da;
-	Tue, 17 Nov 2026 11:37:13 +0000
-X-Mizu-Trace-ID: d92e4996c9b348da
-X-Migadu-Flow: FLOW_OUT
-From: "Hui Zhu" <hui.zhu@linux.dev>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	Kairui Song <kasong@tencent.com>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Harry Yoo <harry@kernel.org>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org
-Cc: Hui Zhu <zhuhui@kylinos.cn>,
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=boo9cVih
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794915520;
+	bh=5QFm4/7llb/j/07OzcUIgHm6qGl30pGitU6RrQ/neVs=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=boo9cVihgo6Jqix1XpEmeBcSaPct7Zl8kp/6/kRmzPjlZikfkvpWC5nAvJ+7RuW1n
+	 Yx0ijCDK5lSvC1bryXQIPCr2Wej9dGWLQfk7+xqlQvhDkyx6gZubrpWDzH9OgS7sAm
+	 pUHfW6V5frSFPHrWise+3eq7eVMNbwTD19xiOUWg=
+X-QQ-mid: esmtpgz13t1794915515t6b445356
+X-QQ-Originating-IP: eG9PVL/S70p3ZY5sbdOW2QvStsmEFfLnDmJFGp9BGaI=
+Received: from localhost.localdomain ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 17 Nov 2026 19:38:24 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 17527824163099040394
+EX-QQ-RecipientCnt: 5
+From: Siqi Chen <chensiqi@uniontech.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Siqi Chen <chensiqi@uniontech.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] mm: mglru: reset the mm iteration cursor in try_to_inc_max_seq_nowalk()
-Date: Tue, 17 Nov 2026 19:37:00 +0800
-Message-ID: <20261117113700.453044-1-hui.zhu@linux.dev>
-X-Mailer: git-send-email 2.53.0
+Subject: [PATCH] hwmon: (pcf8591) Propagate channel access errors
+Date: Tue, 17 Nov 2026 19:38:19 +0800
+Message-Id: <20261117113819.3336050-1-chensiqi@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,102 +70,122 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: OD6FFkn240CDbIOb/5HyV7pBJQyRknUwa5fQvDWGhHvSgtwW4OITrtOk
+	HTDoj9cyyNQOBCBCAjDPTe93Aa12fxh2SyWoXzd4mJo/BNuAyLYczCvAtBpa84NsS+TorL4
+	lJNDmYTxJePGBlnHTLgJYWiqtMJuboQN+1K1+e85qMud/tWgFIDBRxM8EU+U5yZReeKt6Aq
+	bvDjDFO9cTBvj+5uiXT9kwOvPZIl7B6y52TinYGI+pJJB9K1PTcHU09C7nzDFG5aQPxdRFy
+	uD71zxx7BVGnREneIjX41SGgb6Twt8oSQCknvtVU+jBkm5n8VnOOtZ1INUfENIuMHJ6iIer
+	xureP0klczkOMi/cuJbN4cENZYJf7pmdFjA6sNiosZ8fsEgJtOPP4oDqVaEWwptupusVxKc
+	4p3lCkIswkpcx0ZCOXr/zor7tp1OXsN/8UA7PUSFNAJMmIT7Oz/kJywmtbEWzI5DTYQLZlU
+	3iwspNrLatqQeZZjNU2owsagQsVRO9TeJcl8uIqOqbG+2Z0zGgqW77Lt5bVVW9uE3EZdpV0
+	YH/uphu9Z/lpvIybsCJftIAq5fxgtpMWHOMyWy1Dfx+bXtDUlu14ffbPYvFHnuob0ML5v62
+	umbPfhb3DuE7Epkmcc03waTncZ6kLzaeGVlSPUv+AD9lSyWRtAg+8ekKOeIn/hbkFU/ajH8
+	dDvCmYsE2zapGKhD9vkleIRIrYEUsnCCtuXNIoryWZwHEJcXfR8G7gZeCmiJEaFVJ2EWeww
+	kOY06OsGeDn+I9q5rHJNO9E3h8sx4UnAFLD7l1NYWSJMkNNW99c0rEuhuQv2TUpkZ/OQMW6
+	PhA01TFum1Vtr3nytBqcr2u1BUf28E+cZcRCEzdR4D4BYNbIInxGZUsnIOtaq6JYnR5oHGy
+	HD8riWmn3+OAD1EOkq8WhMcPEYzEaSe98rrnNFad7IJno6eHbKu65UrR9ydFa+ui4lyaf2B
+	7/1W6KNGpawHtLy89sS9f0oBS97+qpPU4++b47HnJFNeTYn3zGynwH8RWKL7M0wH4B//hkr
+	mLWu/mev+nGcv/ZXoFbyOjXGsHYL9xLP3epd6bwCbjUPWmAJFs
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-RECHKSPAM: 0
 
-From: Hui Zhu <zhuhui@kylinos.cn>
+The SMBus channel operations return negative error codes on failure.
+The final read result is stored in a u8, causing an error to be
+truncated and exposed through sysfs as a valid ADC value. Errors from
+the channel selection and dummy read are also ignored.
 
-iterate_mm_list_nowalk() and try_to_inc_max_seq_nowalk() both advance
-mm_state->seq without walking the mm_list, but only the former drops the
-cursor. When the latter races with an ongoing page table walk, head is
-left pointing into the middle of the fifo.
+Check all three operations and propagate their errors through sysfs.
+Keep the cached channel invalid until both channel selection and the
+dummy read succeed so that a later read retries synchronization after
+a failure.
 
-The next walker reads that as "this generation already started": it skips
-reset_bloom_filter() and resumes after the cursor. Every mm before the
-cursor is skipped, and none of them have bits in the filter being read, so
-walk_pmd_range() descends into none of their PMDs and harvests no accessed
-bits. try_to_shrink_lruvec() ignores the failed try_to_inc_max_seq() and
-keeps evicting, so those hot folios become reclaim candidates and refault
-in the parent memcg, until head wraps around a generation later.
+An AI coding assistant was used to identify the issue and help develop
+the fix.
 
-Factor the pattern into skip_mm_iteration(), which carries the rationale
-that used to sit in a comment in try_to_inc_max_seq_nowalk(), so the two
-callers cannot drift apart again. The wrap-around in iterate_mm_list() is
-left open-coded on purpose: there head is already back at the fifo, and
-tail has to survive for the force_scan test. Dropping the cursor is safe:
-get_next_mm() holds an mmgrab() reference, and a concurrent walker bails
-out at "walk->seq <= mm_state->seq" before touching head again. The
-unwalked part of the fifo restarts from the head next generation, as
-iterate_mm_list_nowalk() already does.
+The change was compile-tested with W=1. No hardware testing was
+performed.
 
-Only reachable from memcg_reparent_objcgs() -> max_lru_gen_memcg(); not a
-memory safety issue, since lru_gen_del_mm() repoints head and tail under
-mm_list->lock.
-
-Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+Signed-off-by: Siqi Chen <chensiqi@uniontech.com>
 ---
- mm/vmscan.c | 23 +++++++++++++++--------
- 1 file changed, 15 insertions(+), 8 deletions(-)
+ drivers/hwmon/pcf8591.c | 32 +++++++++++++++++++++++++-------
+ 1 file changed, 25 insertions(+), 7 deletions(-)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 6a1af9b92349..0dc4017b87e4 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -3235,6 +3235,7 @@ static bool iterate_mm_list(struct lru_gen_mm_walk *walk, struct mm_struct **ite
- 	do {
- 		mm_state->head = mm_state->head->next;
- 		if (mm_state->head == &mm_list->fifo) {
-+			/* head is back at the fifo; keep tail for force_scan below */
- 			WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
- 			last = true;
- 			break;
-@@ -3263,6 +3264,18 @@ static bool iterate_mm_list(struct lru_gen_mm_walk *walk, struct mm_struct **ite
- 	return last;
- }
+diff --git a/drivers/hwmon/pcf8591.c b/drivers/hwmon/pcf8591.c
+index ec98e6b66c49..602d0caeaced 100644
+--- a/drivers/hwmon/pcf8591.c
++++ b/drivers/hwmon/pcf8591.c
+@@ -68,6 +68,7 @@ struct pcf8591_data {
+ 	struct device *hwmon_dev;
+ 	struct mutex update_lock;
  
-+/*
-+ * Advance mm_state->seq without walking the mm_list. The cursor must be
-+ * dropped as well: iterate_mm_list() resumes from head, and resets the Bloom
-+ * filter only when head == &mm_list->fifo.
-+ */
-+static void skip_mm_iteration(struct lru_gen_mm_state *mm_state)
-+{
-+	mm_state->head = NULL;
-+	mm_state->tail = NULL;
-+	WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
-+}
-+
- static bool iterate_mm_list_nowalk(struct lruvec *lruvec, unsigned long seq)
++	bool channel_valid;
+ 	u8 control;
+ 	u8 aout;
+ };
+@@ -81,7 +82,11 @@ static ssize_t show_in##channel##_input(struct device *dev,		\
+ 					struct device_attribute *attr,	\
+ 					char *buf)			\
+ {									\
+-	return sprintf(buf, "%d\n", pcf8591_read_channel(dev, channel));\
++	int value = pcf8591_read_channel(dev, channel);			\
++									\
++	if (value < 0)						\
++		return value;						\
++	return sysfs_emit(buf, "%d\n", value);				\
+ }									\
+ static DEVICE_ATTR(in##channel##_input, S_IRUGO,			\
+ 		   show_in##channel##_input, NULL);
+@@ -255,27 +260,40 @@ static void pcf8591_init_client(struct i2c_client *client)
+ 
+ static int pcf8591_read_channel(struct device *dev, int channel)
  {
- 	bool success = false;
-@@ -3275,9 +3288,7 @@ static bool iterate_mm_list_nowalk(struct lruvec *lruvec, unsigned long seq)
- 	VM_WARN_ON_ONCE(mm_state->seq + 1 < seq);
+-	u8 value;
+ 	struct i2c_client *client = to_i2c_client(dev);
+ 	struct pcf8591_data *data = i2c_get_clientdata(client);
++	u8 control;
++	int value;
  
- 	if (seq > mm_state->seq) {
--		mm_state->head = NULL;
--		mm_state->tail = NULL;
--		WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
-+		skip_mm_iteration(mm_state);
- 		success = true;
+ 	mutex_lock(&data->update_lock);
+ 
+-	if ((data->control & PCF8591_CONTROL_AICH_MASK) != channel) {
+-		data->control = (data->control & ~PCF8591_CONTROL_AICH_MASK)
+-			      | channel;
+-		i2c_smbus_write_byte(client, data->control);
++	if (!data->channel_valid ||
++	    (data->control & PCF8591_CONTROL_AICH_MASK) != channel) {
++		control = (data->control & ~PCF8591_CONTROL_AICH_MASK) | channel;
++		data->channel_valid = false;
++		value = i2c_smbus_write_byte(client, control);
++		if (value < 0)
++			goto out;
+ 
+ 		/*
+ 		 * The first byte transmitted contains the conversion code of
+ 		 * the previous read cycle. FLUSH IT!
+ 		 */
+-		i2c_smbus_read_byte(client);
++		value = i2c_smbus_read_byte(client);
++		if (value < 0)
++			goto out;
++
++		data->control = control;
++		data->channel_valid = true;
  	}
+ 	value = i2c_smbus_read_byte(client);
  
-@@ -4686,15 +4697,11 @@ static void try_to_inc_max_seq_nowalk(struct mem_cgroup *memcg,
- 	DEFINE_MAX_SEQ(lruvec);
- 	bool success = false;
++out:
+ 	mutex_unlock(&data->update_lock);
  
--	/*
--	 * We are not iterating the mm_list here, updating mm_state->seq is just
--	 * to make mm walkers work properly.
--	 */
- 	if (mm_state) {
- 		spin_lock(&mm_list->lock);
- 		VM_WARN_ON_ONCE(mm_state->seq + 1 < max_seq);
- 		if (max_seq > mm_state->seq) {
--			WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
-+			skip_mm_iteration(mm_state);
- 			success = true;
- 		}
- 		spin_unlock(&mm_list->lock);
++	if (value < 0)
++		return value;
++
+ 	if ((channel == 2 && input_mode == 2) ||
+ 	    (channel != 3 && (input_mode == 1 || input_mode == 3)))
+ 		return 10 * REG_TO_SIGNED(value);
 -- 
-2.53.0
+2.20.1
 
