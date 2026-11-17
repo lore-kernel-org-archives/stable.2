@@ -1,70 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933732;
-	b=yZVWZ7HfpSSnJTUYXZmo2T/ZDUozS5pbYX8EPBOMkFweWnLOhZM0rLad5tRZhQ1Te3Ou
-	 94tgfoYvOJDfJqop89hd0kzUddnHzi4B8BW35uUhjzTdIfA3V4PnGZVhIKpnxXzLJTOAC
-	 l8vhOjNGnG4dUn9z17evkUI71gWKUmnEkoyZUh6kyz91+CLk7Llhsqm2kJ2c8/x6HrOLz
-	 MQoK/4gZFe327QHF0KWDIfF+yGv99gptgcqzdzNfLxDfJ5oTDJpJtsVnVKDUkmgfLGnQY
-	 X+1Qg34RQXcD1A9JLdIi4PHueJFbbJg1Q8V8WiZbA/kuo0GCIW4fLBRA9AhkZti4beg==
+	t=1794933867;
+	b=aKXtM73Tf62lerK9MYnTO+WdeMD6Z0F0jx/R1zRXDYQQm+4txhYQFgFu1wxOOvZ1DxjW
+	 9hlUE/X+Jlhfi3g1UbKYqc1JBdwLJecOWh8QJgfvcHiN0vnzgNSKhoJ5oRFhzpVAXBtEp
+	 GmtHNqFcCj+cmEBQuhhCUD2Zk6HBOnNUfvwaWon+q44leSVQdLCRt2Cfz2JjmpcGazqe8
+	 frExBHktZbKHFF7/ys+F504S3nbIK9pJvxVoUlpz0xkVAYa3wjruA5HP0cJFeTXj6mrTv
+	 3CkqK+2Y8nbTEHM0nTBpW3JQxPTsl6noIeFINtOtBA4suJiVI+bRFsDNVADkb4zKHCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933732;
-	h=DMARC-Filter:From:DKIM-Signature:DKIM-Signature:To:Cc:Subject:
-	 In-Reply-To:References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=IKS8d1lnRAIIiWYQsxJ4cN5ocNc8d6MdfDg7P9xpAdQ=;
-	b=SUGtv1VcLmJIH6M735G81cLr9dC4bWpfFo2/nMq2HhzYfVa0i2V3F7pDfIMksPvImy33
-	 mD/6z2vxmfHvZfkJ7Cp9m1OxvIWT5XEr5h/QCM7EQDH++N0/rjO4jHDDhC3XQLvbHWVXU
-	 wxw74X9kTDwjUhLjnrpooE1HlC1auOzT4MqOt5oJSmaD3ZYql5nFxaCv5SpWvmSCoar9D
-	 qZ5/Yb8H0s8lS7Dc8Z/4F2pVS7cpeX+7NCL4ayvtqKESql5hxPR6d9PbsUH50I6QnjPSg
-	 O6AmOmgkt97RfrVi41M4zR09uc7Ko/xJ4OTlMFFazmFn/jNRYbR5XEvSTXhdVIBQ5yg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933867;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=50vjl9YBE66T7lj1HBlqK2opc1YN0lcdlSAPe79oVN4=;
+	b=gtpsZE5wBtFiGjB2kzQQHqQ5NmjqKPy15N9Jl+0fLlR5KxeNkaEroZx7O4vUJaW7o1Sv
+	 EJ/cMDqPaNbh2Kevqw/DoxY3tFk20R/VI4iN17yBsPQln4GEzfNQHl472UeFhOmODVa3i
+	 pH+vMzOI0sf+pmsWimhhvviiqikKZcqhxRq/xWD3xAqAS3zvIq4TVsIU0QT+P8KuigMhO
+	 icx5iz7q+HLscBDTVtjb4j4x1aod5vFEsHBXCiohT8p3LE3FGBZwY0+ZyS8Po6d7auYzm
+	 CqdDe6g9yatQr8lslCGbEw3OfXvY7BKh1oY+En2hvR+sga3a+0gQbXi21L789b5p0Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=duhHs80G;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=snfZGNnA;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=SnlMuzxZ;
+	arc=none smtp.remote-ip=209.85.218.48
+Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EC73606A33B;
-	Tue, 17 Nov 2026 16:42:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EC73606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C21606A31C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 16:44:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C21606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=duhHs80G;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=snfZGNnA
-From: John Ogness <john.ogness@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1794933724;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IKS8d1lnRAIIiWYQsxJ4cN5ocNc8d6MdfDg7P9xpAdQ=;
-	b=duhHs80GoTBIqqx2VP76PUy6V1f3MImQZeIjE2f/ZpNnVonmOxt/Oeq0IeAcLparufgcfV
-	aehAP6fpjWC28wAsOdA09XOSXUwiOxr56bCPrba8UjqWPqdv6KvhIaj1/6bsF2Il3lxy/j
-	xLLiyvWUU4dQ2IyiuZP9c1jcfruQythTnjUn7e5nBDNg9+pyVM4N+4eJNk+S7BNjPh1e/p
-	HBmg8U3xiGYnAW9pZphseYrFcZLh9ZRAiNWEBUmmo7/E3FW3Vfukcfax7g2VZoP7ctuPCD
-	a0qm9dlx1TR6LTzd6AXK/WHBHF5sVomyVUzlq23n8bBGvO+r/dCQ3WMOinzdzw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1794933724;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=IKS8d1lnRAIIiWYQsxJ4cN5ocNc8d6MdfDg7P9xpAdQ=;
-	b=snfZGNnAosdgnTcIjGPEZGqw1ZDlfd07Y+JF5ZRXAqZbwAVc1/JlekH50kEq7nRScGwBnt
-	7zoMKyS2RPHE2mCw==
-To: stable@vger.kernel.org, stable-commits@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby
- <jirislaby@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Ilpo =?utf-8?Q?J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>
-Subject: Re: Patch "serial: 8250: Switch to nbcon console, take 2" has been
- added to the 6.18-stable tree
-In-Reply-To: <20261117154343.1812289-1-sashal@kernel.org>
-References: <20261117154343.1812289-1-sashal@kernel.org>
-Date: Tue, 17 Nov 2026 17:48:04 +0106
-Message-ID: <87a4n79zqb.fsf@jogness.linutronix.de>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=SnlMuzxZ
+Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c40f29667e6so862580866b.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 08:44:26 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1794933865; x=1795538665; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=50vjl9YBE66T7lj1HBlqK2opc1YN0lcdlSAPe79oVN4=;
+        b=SnlMuzxZh4VfuZWh6kz2B5O3Ua3a933UaiFL8Dz8SyFzR/MgkyDq6xzYAuD09bdUX4
+         q6THxcLkgjSD2prJn42xdZTNWM7jy5ZvlAun+ci8P/opXJ6cuYF2i6T9xGorKldQYC6V
+         WGy9OsgLAz+/HwVu+LRxrogHRlvM478t1vO7s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794933865; x=1795538665;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=50vjl9YBE66T7lj1HBlqK2opc1YN0lcdlSAPe79oVN4=;
+        b=i2lU+Bvq0mtDd1EVs8n1APhD2Gi0PFuolXCz3WaDy6u+pXKcrmCB51/wQn8Q/1vZsY
+         fDiFIQFdUEZXSiRIP50cxAqyCYnORMkRG/CH7qJYCzdGysH6qKQtcWPufNkGUuPnDrb8
+         qFIpnvv3M+9GhGpHraKAg4tATHFWV0xPhrMDSiLZb6zddlnUk5TohrtY86BxQgySQcT4
+         YvvvtIwJNdInk+VkE7h4hBS1Sb9Il7Jc5LjTu+dTvFduCODNTOVMBNIZHQblvKIHkRMj
+         VxCzgVsYv4UK7y/vhORu75BoFcJDdsyWw2ZtvDZEEhxokgH2JyXyyu0v0mwqb5CCWS4F
+         micQ==
+X-Gm-Message-State: APuU4Z8lWLrv5ZcTGLsm2kL6E2ifBiHRr3VVovhi+GoBrVPMJMC1QdoM
+	kSEe1rfZpgTpXCAkVkBKmUBHpaKPqLVTxQnUVoDWbjbp+8VUPPRpTB/Pr0OMSvBjmJ+lhJMqj/u
+	U8ytz/lu0fQ==
+X-Gm-Gg: AYBFou15ITh5z5IEldT3Skv0grfCDrlS3q2kjoPljI8YPUQBK+nvzRP976EfaJKJOS5
+	YAjFtQERvE/txMfhuYVpe9Y83ptQqBeA9q9ySq07P+Y/V4oVZ3R7WFSkY8xAq1DGj7HYG73SyxT
+	YMQ3fEtXk4mRHoChprm5v47+YU9lcPJSOSF3hTaoe4b1ODzYUKE6MfI3KQc6mA8ISXYYkUxP+wM
+	o4AauDwIdi79aBHrOgXuncuhxG01KyyyYb4yT21Lcr/Yy5gO+SaSM/n5aBUfWURHt/gVO3L7O8t
+	U/Hjz3MQbzfrPXeFKlxGjy8MYrnZG8I0QOvXbV5WRw3iPv/cRXQQcFGnH4EjXgUWgVAqO/V0yhO
+	2I8pAnIIM9W7QaiXBObcZykL9VWNMkAdQGS7tJwgjU0JSKRjquIBx3iIGQrSuDYZMJtQbEIT8Ls
+	CEhaSOqjAb+2S9huor0gX0hNA+hfjTfpXjoirORqlGtT57D8PpaFSAs0Qn8eyFZXiFDTE3ajpEf
+	EZ8zoa7qHyApiW9XiCDyqh385jS+desDYBE5EiJQCVyt0bPcCIX30xZqc4ZtPYkiWxF13FqOEjT
+	XmBoCYBRBtxrx0r3seycHrfSU//mVIBchR3+HrsLTsJvxaufG5Jo4PHpNPsAolZrx8XHlAs0OjN
+	NOsY=
+X-Received: by 2002:a17:907:9609:b0:c51:638:7838 with SMTP id a640c23a62f3a-c510638795cmr156647166b.33.1794933864483;
+        Tue, 17 Nov 2026 08:44:24 -0800 (PST)
+Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com. [209.85.218.46])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c510cab3000sm3040866b.56.2026.11.17.08.44.24
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 08:44:24 -0800 (PST)
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c247f6687dcso855275266b.2
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 08:44:24 -0800 (PST)
+X-Received: by 2002:a17:907:3f88:b0:c3f:153a:865f with SMTP id
+ a640c23a62f3a-c509643ad99mr1256401466b.40.1794933859001; Tue, 17 Nov 2026
+ 08:44:19 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,49 +92,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+References: <20261117162917.1995578-1-sashal@kernel.org>
+In-Reply-To: <20261117162917.1995578-1-sashal@kernel.org>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 17 Nov 2026 08:44:02 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjJ80Ajzu6vd6TOjaV1jSVgvBJ04nMT0qK3igvqgu_Oxg@mail.gmail.com>
+X-Gm-Features: AclHuK84ySXrkusJ_FYpHt2_yWmDfNJ_gb_Catm6HC7iJGneVbaJvw33-ejJBsc
+Message-ID: <CAHk-=wjJ80Ajzu6vd6TOjaV1jSVgvBJ04nMT0qK3igvqgu_Oxg@mail.gmail.com>
+Subject: Re: Patch "vhost: vringh: use get_user()/put_user() for IOTLB 16-bit
+ accesses" has been added to the 6.18-stable tree
+To: stable@vger.kernel.org
+Cc: stable-commits@vger.kernel.org, "Michael S. Tsirkin" <mst@redhat.com>, 
+	Jason Wang <jasowangio@gmail.com>, =?UTF-8?Q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
-
-On 2026-11-17, Sasha Levin <sashal@kernel.org> wrote:
-> This is a note to let you know that I've just added the patch titled
+On Tue, 17 Nov 2026 at 08:29, Sasha Levin <sashal@kernel.org> wrote:
 >
->     serial: 8250: Switch to nbcon console, take 2
+>     vhost: vringh: use get_user()/put_user() for IOTLB 16-bit accesses
 >
-> to the 6.18-stable tree which can be found at:
->     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+>     [ Upstream commit 95a214f31a3b1ef40034f1e1cb3b9d758a374f01 ]
 >
-> The filename of the patch is:
->      serial-8250-switch-to-nbcon-console-take-2.patch
-> and it can be found in the queue-6.18 subdirectory.
+>     getu16_iotlb() and putu16_iotlb() use __get_user() and __put_user() when
+>     the IOTLB maps to user virtual addresses.  Nothing nearby checks the
+>     translated address: that relies on the mapping having been validated
+>     against the user's VMAs when it was set up.
 >
-> If you, or anyone else, feels it should not be added to the stable tree,
-> please let <stable@vger.kernel.org> know about it.
+>     Use get_user() and put_user(), which do the same single, untorn access
+>     and also check the address.  The only atomic-context use, the vdpa
+>     simulators' notification check, now disables page faults around it, so
+>     the might_fault() in the checked accessors stays quiet there.
 
-Is this patch really needed for 6.18? The conversion to nbcon was
-initially reverted for 6.14. The reason was it brought various serial
-and 8250 issues into the foreground. It wasn't until these issues were
-resolved (in 7.2) that it was allowed to convert the 8250 to nbcon.
+Note that the "now disables page faults around it" is not true in
+stable kernels unless you also take the previous commit:
 
-If the 8250 nbcon is really needed for 6.18, then the set of uart/8250
-fixes also need to be included. They probably apply, but it is a lot of
-changes to put into stable if it is not explicitly needed.
+  05fb07c40e00 ("vdpa_sim: disable page faults around
+vringh_need_notify_iotlb()")
 
-The pre-requisite commits I am referring to:
+and I didn't see that being sent out, so it looks like you didn't (but
+I didn't check your queues, I only looked at my own inbox, which is
+the same disaster area it always is)
 
-9c7eb1c9c3e3 ("serial: core: Add dedicated uart_port field for console flow")
-bf558715d91c ("serial: Replace driver usage of UPF_CONS_FLOW")
-f69ec492244d ("serial: 8250: Set cons_flow on port registration")
-39d307074f91 ("serial: 8250: Check LSR timeout on console flow control")
-5e6dfb87b191 ("serial: 8250: Add support for console flow control")
-302fbbb4fcbd ("serial: 8250: Ignore flow control on suspend/resume with no_console_suspend")
-
-And then there were several fixes needed after the nbcon conversion:
-
-560f4deda327 ("printk/nbcon: Change nbcon_irq_work to IRQ_WORK_LAZY")
-37aba16e7943 ("serial: 8250: Change console_msr_work to IRQ_WORK_LAZY")
-5f339c46f153 ("printk: Postpone kthread startup")
-
-Let me know if I can help with any of this.
-
-John Ogness
+               Linus
