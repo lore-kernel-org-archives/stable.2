@@ -1,78 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794908872;
-	b=HZ766RV4j9EcXE/iPYCiEEA0aQqwRgC6Lok5TRwcmUF94xAj5kXn0VvYLozJATwhFJ4j
-	 eJQ1bqBJYcZMnxup1azgKJeVvdSAbPZ56POXeqCzlI2KMTzVw+b5y2Tze3PImr/SYopY8
-	 9fmrRkMTfSOu4TLlxvh3LZg/eBwql8LjZNJV3hF66ucH7GfMeyG1qZ7mhyMRpLwtqxkfb
-	 ygGrRVM1Pngp85Uha+8OUvg26UXMvIpX207VFyy2HmASdbrGSYTrf0joK1gUiXAKHvlBC
-	 ERJVhEMDs+H+F5XAwgBI9csyW6dgOtoo7VvWfW+D6YmTvpE3oGKXhKc6Pehl7Ijz2gA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908872;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XNWKjNP0ylTMFqS5R4s7agStVoLlbB3dV3UE5VmDOlE=;
-	b=jRSGRk3ZecMi1kRS1AaRYKEE/jaD2kUeEt5o3wPBKPckD6DQ51b8Wgyby4k/rv8+KAAH
-	 HeoCQOdCUON8xRsvh10oQmon5cfKWEAMutkjSrhX90sl4tSLDTQuzKKUYxKFxNk4K1EfP
-	 LGNg5r/zyuu7TGUMqaUOgKcqTstc9kxQ+ApPBOYWYXuBvEQmgQUResv9SMFpPA0pG6ssR
-	 msMjY3gmsI+TTe3E2xcB0WENlDuDXogQEpWGBI1b2ivr4X5IfZrHyx13G4bLOpOCKrV9A
-	 G2iW6wTZIc4EuvAZoeGZT67VXHqtZ7BkvUTKq7DkZl54JvCWI01jxCSibiWdQ8ke1Ww==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eukyEsXJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F73B606A329;
-	Tue, 17 Nov 2026 09:47:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eukyEsXJ
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794908872;
-	b=yFwbkhtYib77j6dtQDMc57auIPm3DqvPI66X7wUAvkgStLZ9WwOOGTt/UIULIectPfxo
-	 eE0QpJVAJcjGpi4v6y9UsfYI/Ck7DShhyAmRZaMZ/BJ0kMyK5mlq5zpr8A9OAPgm20WO9
-	 03vuYbk9Pu+V2zJmg2T/92RJKEfYTXHFdynWx2wX3K7V63adUN5k1SJsCfZeLu/HkS1AT
-	 MwVpcLWQSSiv2yaQGojudXNDOn7Q2hxeUUMTpCnxJY0JZP3ISMFu7iTCXNBpcgFdPa/A6
-	 Srextx/u6EWlmfzOXhWD3iAMYPPAtwn0UjMfT0dLjFpyatsQURhLLzbg7AIt3bdnlZA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794908872;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=XNWKjNP0ylTMFqS5R4s7agStVoLlbB3dV3UE5VmDOlE=;
-	b=NjUEWb1SCK0aBtWhsY0SXkhHA3pFmD/lPm/hhrNM/j558/shPSRBkayPzoQyoHdrhW7A
-	 US5CYDuK/2CXaG11k0iaBig3/gQgaKbyYSMZFQaBDGqgiVNLbDZlrpwfXy/QEZxcjh+jO
-	 AZHRStG+CPpd13FGIl1lmHnb7zNwaHgO/cQQZRF1rMbvR+fSjnQNJqhENiMn4aJXaPenI
-	 96i0AxRKRzu5HF2tQM4OYUvfH6eCaghIluS/4RkaDHO6D5VczWB5VNMMN+THRs1Ma82tk
-	 2VjI0dwpNIenqVmurnV0dCoI8Nh/J85QG8i4bc+i438VFZWLOsNWVzf4oIWW7gA51xQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794908875;
+	b=rl6ibb3GydxYABmcBnWV+0JfeXVwHhM13LdtYtOlpNCbY/8fsq76kIMrGbXXzjyCFTp2
+	 BkiCEbzwvG6+mzQLqFh1zDS0C3maNgDOezreo1FfC4yffrv1DtJkVLsKPG84tDeOhaSIm
+	 LhTD5oGy3Y0iVvsorXo2cTt0hOKDGd81OwhElPN+tF0a/Cdu1qppThJuqVbOzYq00VWs4
+	 nTgCEJk+kwXxbrwRlbgQdo9DKmYjNz2eSI0vveJuXpLWejewh6ulcylmO0J4Y9i7wuynG
+	 GWGmDAPmf1x8Cbg5Q8KyBvy1D68HKEIzpIN7ozSch3nT6h+XB0iGrxWTbCMIEFjJdhQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908875;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=8vbPJqTbumBhqNcCMW5mlvCQlbvHbLgn8cK4HAuHvjk=;
+	b=uYf3w3/tFxDLTiHLuH28AO2e6oN/XQ6V9WWFVn/cSvWwYzGV+cgbU9wRSkwZ8mUc8Ih5
+	 cCmE0t0+Yg/bqw6l2IGvgUgngd9rGzfut+3eNzXbkFK/ylAHJP25X5aIwTRUE7iKTODwn
+	 r/NcwkTtejNvLdSuaePc0Me4WFU5PIengY4uI6b+ubYycLYPjvhb97oL9POACgEPTDeoB
+	 I2GkzkJI5Nf74bS9sRITq3cCl+OAr7yBJwx+LpCgT1pTe33A1ltWyff+DjzsDm6oh2m5g
+	 hoT2JNcKfia9OefGZXzopRr5VZIUqeygOrU6zcNdRcvAB3q78PisDarHUSP9VIwHMLg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1XoXPsti;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9899C1F000C5;
-	Tue, 17 Nov 2026 09:47:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794908872;
-	bh=XNWKjNP0ylTMFqS5R4s7agStVoLlbB3dV3UE5VmDOlE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=eukyEsXJqU0/4gLBim9oDaQp85TGKZh6EXzX3C7aB/u+feriK4bokpaBM42f0DkiS
-	 ucKKRLJ1QFNV55A3oehEzqmbX8OamJFtjV/OeW4mkjjSzxDWnkZsR0oMyMBKzVknOK
-	 tZnagItasZE7oc4RI/TjYepIpLCpv1KF5wv85Yclf2kcXABgLhzN0JaccdCy2ezCZF
-	 uXemzZh/2TlVX8KhfJNTdhnvLR6AZ6930x77qkQppelUhtG2SetmHCCww/tD5ce0qc
-	 J+/HCUU4dzj5LkJ50VGnLeWOTTXfBp5kS0OYT3XDwSkQk6mUWidq8YS5BKXG+YTjWi
-	 vuEinKoPyqFhA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 132BA4A793;
-	Tue, 17 Nov 2026 09:47:51 +0000 (UTC)
-From: Peder Bergan via B4 Relay <devnull+peder.bergan.gmail.com@kernel.org>
-Date: Tue, 17 Nov 2026 10:47:51 +0100
-Subject: [PATCH] rust: str: tie Formatter to its backing buffer
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EC6606A330
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:47:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3EC6606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1XoXPsti
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 50197C4EDB9;
+	Tue, 17 Nov 2026 09:47:57 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F2D665FC81;
+	Tue, 17 Nov 2026 09:47:52 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6C30C11BC02EE;
+	Tue, 17 Nov 2026 10:47:50 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794908872; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=8vbPJqTbumBhqNcCMW5mlvCQlbvHbLgn8cK4HAuHvjk=;
+	b=1XoXPstiMASE/2Ht/XAH8uj7y+0eHm/trDe6kLhxppdWsouVBe3USv/55J9g2f+5k2frgY
+	b+4ckrimuue2cXzlmcdjPraqb6AD5i0FIF3JdTZpC3mD6WWeA2ouYw8U1G6Bp3+2Ghyu40
+	5enPjzGTC9JezGf+W1U/IODJNASuuCVKiJHa8rZw2SJXrEMtohruayXrjrEDzFmiyuKFOG
+	yV4e9sbhH2d3k1tponcV2XPY7Gh/unYdHQZmmIpEPJo2OAb+UH6HNcw1E993YuyS/2Wh7S
+	3lYMjZT3PwxKQAmMb1zT4O75wDjk9mV89XO87DZEuX2bkzYF5b8oTQdV/OLbpg==
+From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
+Subject: [PATCH v6 00/10] Congatec Board Controller: Add storage devices
+ support
+Date: Tue, 17 Nov 2026 10:47:40 +0100
+Message-Id: <20261117-cgbc-i2c-storage-devices-support-v6-0-bb070ad3e9aa@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,110 +64,96 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-formatter-lifetime-v1-1-9d7f38686552@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAMYi/GoC/yWMQQ6CQBAEv0Lm7CSuGlG/Yjws0CtjZCEzgyEh/
- F3QY3W6aiaDCoxuxUyKj5j0eYWwK6huY36CpVmZDvvDOYRQcuq1i+5QfkuCSwc+XY7XgKaMKTW
- 0ioMiyfSL3h9/trF6ofattD2qaOBKY67bbRoHc0XsWEdzzpicluULhAGl9psAAAA=
-X-Change-ID: 20261117-formatter-lifetime-48391ed7affd
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Georgios Androutsopoulos <georgeandrout13@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794908870; l=2702;
- i=peder.bergan@gmail.com; s=kernel-contributions;
- h=from:subject:message-id;
- bh=c2EXF63mEwnQnsVVyx1xUR6wHcOb7PHcB7oVHC4kogc=;
- b=cmJf587r8vKEHlsRLXxBys9PRoJzmqc7PY99ABcGPBG30A/U+CR4NFqDkHVTlCpCiZjZyEmEh
- B0zCJRZLbAaAGYDmROGMsitdX3LRLm5XVeeEoCJThHNaAH++9pnec/m
-X-Developer-Key: i=peder.bergan@gmail.com; a=ed25519;
- pk=39790pn1YZCulHBoUG1uiQI1Hm01EvhBEa2zVrS/yN0=
-X-Endpoint-Received: by B4 Relay for
- peder.bergan@gmail.com/kernel-contributions with auth_id=1395
-X-Original-From: Peder Bergan <peder.bergan@gmail.com>
-Reply-To: peder.bergan@gmail.com
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43Oy07DMBAF0F+pvMZoxo88WPEfqAvbGbeWIA52G
+ hVV+XecViKgLMjyzmjOnRvLlAJl9nK4sURTyCH2JVRPB+bOpj8RD13JTICooMaau5N1PAjH8xi
+ TKfuuXDnKPF+GIaaRW0lUOzJSCmCFGRL5cL1XvB0fOdHnpTSN6/AcFu7r/saEy/TR2ID6v3FCD
+ txTJxuNUNXoXm2M43von138YAs/iV8k4g5SFFKSN23bEJDXW1KuZLuLlIXUrbJaeus0mS2pfkg
+ EEDtIVUiyShB47Lxut6ReSQS5g9SFNA7RC+kNafxLzvP8DY3eRXgzAgAA
+X-Change-ID: 20260717-cgbc-i2c-storage-devices-support-b3ee7cea3320
+To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>, 
+ stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-From: Peder Bergan <peder.bergan@gmail.com>
+This is the 6th iteration. As discussed with Lee [1] I just picked his I2C
+patch [2] (to handle the conflict) and rebased the series on top of
+next-20261116.
 
-Formatter::new() returns a Formatter whose lifetime is independent of the
-borrow of its backing buffer. Safe code can therefore drop the buffer and
-then write through the formatter, causing a use-after-free.
+[1] https://lore.kernel.org/all/c9d26395-93f8-4e63-9cd0-586ce913931b@bootlin.com/
+[2] https://lore.kernel.org/all/20261027093306.2812695-27-lee@kernel.org/
 
-Tie the buffer borrow to the formatter's lifetime so that the borrow
-checker rejects such callers and prevents overlapping mutable access.
-Add a doctest showing formatting into a borrowed buffer.
+Best Regards,
+Thomas
 
-Fixes: 87482d6d9104 ("rust: str: allow `str::Formatter` to format into `&mut [u8]`.")
-Cc: stable@vger.kernel.org
-Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-Closes: https://github.com/Rust-for-Linux/linux/issues/1261
-Signed-off-by: Peder Bergan <peder.bergan@gmail.com>
+Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
 ---
-I compiled the in-tree callers with Clippy and ran the string tests and
-kernel doctests under x86_64 QEMU. Three borrowing probes compiled before
-the fix and failed with the expected borrow-checker errors after it.
-Rust documentation and formatting checks passed.
+Changes in v6:
+- rebased on top of next-20261116.
+- add Lee's I2C patch (PATCH 2).
+- Link to v5: https://patch.msgid.link/20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com
 
-OpenAI Codex assisted with coding and testing.
----
- rust/kernel/str.rs | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+Changes in v5:
+- mfd: fix error message in case we fail to get session handle.
+- fix I2C bus names earlier in the series.
+- Link to v4: https://patch.msgid.link/20261002-cgbc-i2c-storage-devices-support-v4-0-eb42e0f1df59@bootlin.com
 
-diff --git a/rust/kernel/str.rs b/rust/kernel/str.rs
-index 644b4279a..6222faacf 100644
---- a/rust/kernel/str.rs
-+++ b/rust/kernel/str.rs
-@@ -645,7 +645,7 @@ impl fmt::Write for RawFormatter {
- /// Fails if callers attempt to write more than will fit in the buffer.
- pub struct Formatter<'a>(RawFormatter, PhantomData<&'a mut ()>);
- 
--impl Formatter<'_> {
-+impl<'a> Formatter<'a> {
-     /// Creates a new instance of [`Formatter`] with the given buffer.
-     ///
-     /// # Safety
-@@ -658,7 +658,23 @@ impl Formatter<'_> {
-     }
- 
-     /// Create a new [`Self`] instance.
--    pub fn new(buffer: &mut [u8]) -> Self {
-+    ///
-+    /// The formatter exclusively borrows `buffer` for its lifetime.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::fmt::Write as _;
-+    /// use kernel::str::Formatter;
-+    ///
-+    /// let mut buffer = [0; 4];
-+    /// let mut formatter = Formatter::new(&mut buffer);
-+    /// formatter.write_str("test")?;
-+    /// assert_eq!(formatter.bytes_written(), 4);
-+    /// assert_eq!(&buffer, b"test");
-+    /// # Ok::<(), kernel::error::Error>(())
-+    /// ```
-+    pub fn new(buffer: &'a mut [u8]) -> Self {
-         // SAFETY: `buffer` is valid for writes for the entire length for
-         // the lifetime of `Self`.
-         unsafe { Formatter::from_buffer(buffer.as_mut_ptr(), buffer.len()) }
+Changes in v4:
+- Fix struct cgbc_i2c_platform_data comment (kernel-doc warning)
+- Move struct cgbc_i2c_platform_data from linux/platform_data/i2c-cgbc.h to
+  linux/mfd/cgbc.h
+- Use MFD_CELL_NAME macros.
+- Link to v3: https://patch.msgid.link/20260911-cgbc-i2c-storage-devices-support-v3-0-594b53fbc5ea@bootlin.com
+
+Changes in v3:
+- rebased on v7.3-rc2
+- use PLATFORM_DEVID_AUTO for child devices
+- move I2C bus and I2C device definition in the MFD driver
+- Link to v2: https://patch.msgid.link/20260811-cgbc-i2c-storage-devices-support-v2-0-3efa998e0ef5@bootlin.com
+
+Changes in v2:
+- i2c: fix typo in CGBC BIOS EEPROM label.
+- mfd: make cgbc_devs const
+- Link to v1: https://patch.msgid.link/20260804-cgbc-i2c-storage-devices-support-v1-0-fed38510671c@bootlin.com
+
+To: Thomas Richard <thomas.richard@bootlin.com>
+To: Lee Jones <lee@kernel.org>
+To: Andi Shyti <andi.shyti@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Cc: Werner Gartner <Werner.Gartner@congatec.com>
+Cc: mfd@lists.linux.dev
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-i2c@vger.kernel.org
 
 ---
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-change-id: 20261117-formatter-lifetime-48391ed7affd
+Lee Jones (1):
+      i2c: cgbc: Propagate hardware errors when polling read status
+
+Thomas Richard (congatec GmbH) (9):
+      mfd: cgbc: Fix use of negative error code as valid session handle
+      i2c: cgbc: Use real I2C bus names
+      mfd: cgbc: Add I2C platform data
+      i2c: cgbc: Use plateform data to get bus ID and adapter name
+      mfd: cgbc: Use PLATFORM_DEVID_AUTO for child device registration
+      i2c: cgbc: Add support for fixed frequency buses
+      mfd: cgbc: Add virtual I2C bus support
+      mfd: cgbc: Add virtual storage devices on the virtual I2C bus
+      i2c: cgbc: Register known I2C devices on the bus
+
+ drivers/i2c/busses/i2c-cgbc.c | 135 ++++++++++++++++--------------
+ drivers/mfd/cgbc-core.c       | 187 +++++++++++++++++++++++++++++++++++++++---
+ include/linux/mfd/cgbc.h      |  16 ++++
+ 3 files changed, 265 insertions(+), 73 deletions(-)
+---
+base-commit: 749a4de370409464cf8501ec5b2451df45c84eb4
+change-id: 20260717-cgbc-i2c-storage-devices-support-b3ee7cea3320
 
 Best regards,
 --  
-Peder Bergan <peder.bergan@gmail.com>
-
+Best Regards,
+Thomas Richard
 
