@@ -1,54 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794931980;
-	b=2C6/hpiDRaQaSYFFSpdylwOSrRprWgXvlktUdJRTGISuBxfPP5Bk+FBngYM0sxnlmjK5
-	 efnRp1mhIQHnQp8ETR/UMt7/5/FkKr6bFen+YHH6pbDGEH89VbhVohgTGD78DTg0X21US
-	 joUuCbpueN/U/d8v6WS2k5lz4mtcpJlOIWM1zdewxjGfi2LLHVxWf7mCUa0aBQzaN3VKJ
-	 ZUco0SvkLGFpBC8WKz+oq5xTiM0hFWc4vlkm3mCGQqdwS7PDk+WKxgNStSXdSiOB96L7r
-	 ht8QWG+53nW6v8rkvhAPXn2IJVNXD8PEmKsZYc/BwpT9YwjYM8AJgDwQdWVPhLc5wCg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794931980;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ZohoMailClient;
-	bh=BytRtfaLGfvvVXgsafcGA/NpSLeZVUmNdMkFX+1ckpo=;
-	b=GtngPoPtkWlhAIxVn0ja4pg1F+SpbK6xya+YWhP7UCbjlEVCsRJDRjYhjODJby3MLPzs
-	 cROvHnMR8JQTNkfjCKt5qyp/0Oej4k/MJh3SW5eiFd/Em9VRcvEfbZEARhqcbOb/RxvQ0
-	 dNZRpectRFflPHl51DZ5W+RglfZegTb8O1SPCaUM0XwaNpnWCp37mjJT1nttx8Gbl5MVS
-	 H1A5Vu2tKJdPuW90pIxpZeitM39YpRO079NMGf5BQJi4bYuq4mC4GQnqy/vqsrIfI31zF
-	 3/JwrW/A6gHKn+JA8bc8AGZVT04prJSys1URsJkgoap1czxDLke8FVRTCbcv1f+71iQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=KEiFQFik;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794932078;
+	b=uCBQSR4baZL1tUm+Ye83qNR9rdbwJXqZybVp9hIVpiF8IafWdKvax2QJybT6LkI3TfNh
+	 CLJPTch7UOKq18yMAzdVvxngJnx3XbuXWrdoegAQpTxUd//XqRiXIFeklS/CxQLK1q8s/
+	 JT2s1fix4yRMOK48jEKAg3NkMqH9YQR65z305ky54SN+BK6kDqQ5M+Hi743d1k2mo+sR6
+	 KoKgDHjvVb5CELTY2r9R4PERFq85Cyl0mU4OPOxwP8nv1MtpLSGynAH35SZBu5NgawWKq
+	 Bx2r2Rhqx03yTuJV3r0GuqRD9lof5fjX/FBpehFCiqgxulOoxKu+b9Q9s8s6eKAqH3w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794932078;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=MR1xRYnj436fLp3aLgKX27ILFiGpovdg1sC0kRmzkQI=;
+	b=hIPOOh32SuIY6SEMKpX/U9SrN+kfHpZDBqmq2Aaz4wKarE2gf6QUhbLw6mMQdtF/KCGk
+	 Zgr6mFewcTB0/b94TzbIqqfOP5YFiB9+BXYCDea+PpLxnNoq176za+ypYTy/NRIMyRDcT
+	 oJvxkZikyg8poXgx3JU0i4Qq39w0lIUzOWfwPmWrn7F/dyM9PpyDONa8M46hWKUooe0um
+	 CZXfIY3L1XZg5bDwrhLUqO+UwS4z+RpSntsCC6+vamyumu0yHstPmpt/mzXc2AnJNyS4p
+	 5n+fMBkHvWEpNkcHMwjxJOktLaBV9cx1OiyPRL2v09hyzYViou7o5VxwIDiQelii8MQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmXdPsoM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C508606A31C;
-	Tue, 17 Nov 2026 16:12:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C508606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0268606A31C;
+	Tue, 17 Nov 2026 16:14:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=KEiFQFik
-ARC-Seal: i=1; a=rsa-sha256; t=1794931963; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=MgOHWAj5XE8K0ZM4dpF5XMNexXAnmpIJ22CkRU12AZeaADrNwrf8OuiBkMan97v+4uLxTDfvqT6rnk/gbSImUycf8qN1CEj58Te1Vg07vKVkf//wG3p1blxQMTYZtHG38XhdMHQ+LC00sc/Dmf/cLeyh3mR/nmYY64N9aEVv2So=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794931963; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=BytRtfaLGfvvVXgsafcGA/NpSLeZVUmNdMkFX+1ckpo=; 
-	b=PXEqmBBfDhf1y20KZ3gHWk099aQV7Ep39Dz+i1nsayC2euMeIn+J38/3wj9CjOixOs6JxeJ1hAoFAAvNMZAoVlskrtpinLSlfNXvrdj4N5REr/uELqCcBBm0TzKbSwA8ftJXP9oDu8vpzoBXQUSsoTpGp4HgdU/UTBpBtA3qAmk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=KEiFQFikCfWia1pepdG0mMUms+RTrMzQX4TKoDM56XmjS0YO7p7BWj4r1QpnapnWZkmFfesqh60i0aDy/sy82KlTjfXJ2F/B7sCGIpjjNKmuPWcd464PqsItpwS+KTtYWs6wWZZNAXkdcqQpP8U3zLmbdWP7L7nVQztmoU4TQz8=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=BytRtfaLGfvvVXgsafcGA/NpSLeZVUmNdMkFX+1ckpo=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794931960251635.8971346252681;
-	Tue, 17 Nov 2026 08:12:40 -0800 (PST)
-Message-ID: <55886a47-47a5-4f52-97d8-69b5142ecb28@collabora.com>
-Date: Tue, 17 Nov 2026 17:12:36 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cmXdPsoM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B27FA1F000C5;
+	Tue, 17 Nov 2026 16:14:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794932078;
+	bh=MR1xRYnj436fLp3aLgKX27ILFiGpovdg1sC0kRmzkQI=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=cmXdPsoMbsw9UNICW1NDgSR0etn2+menqMAWnT2/DPxH1t82SIcS3YKhQVne5aUd6
+	 +ZsxbSByf4u1g4b+rDCY1SJg0rsudPsxQF467Pm/T5VGc68caaAlLeGJdSaiGBbKVE
+	 CFA9B09B0zx+JWHd00CXJPB0x/rVZ/L1hHA2xDxte4QLAuH/FwWTc0y3hRUids7JZz
+	 6voI1zd/6rdF9wjqhxGYtXjjk5HqnatnPt1MEMllN2JImFRiTGK5ZN+7w7ofkYDMuE
+	 7wT6zGRelR4IYfi7wyw9pHFQyJ/mL9XsA9tpIMOjjdVacvPBzMZaEtIvNmCtGsRQBB
+	 /E4VTQUwVGL9Q==
+From: Mark Brown <broonie@kernel.org>
+To: Vijendar Mukunda <Vijendar.Mukunda@amd.com>, 
+ Venkata Prasad Potturu <venkataprasad.potturu@amd.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, "Nicholas E. Andrade" <sdnick484@gmail.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org
+In-Reply-To: <20261109-for-next-v1-1-54a06f391bda@gmail.com>
+References: <20261109-for-next-v1-1-54a06f391bda@gmail.com>
+Subject: Re: [PATCH] ASoC: amd: acp: fix PDM ring buffer address on ACP7.x
+ resume
+Message-Id: <179492850122.77896.9729881633236440429.b4-ty@b4>
+Date: Tue, 17 Nov 2026 15:15:01 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,75 +62,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] media: rockchip: rkcif: Don't reset the hardware
- in runtime suspend
-To: Mehdi Djait <mehdi.djait@linux.intel.com>
-Cc: linux-media@vger.kernel.org, paul.elder@ideasonboard.com,
- daniel@makrotopia.org, linux-rockchip@lists.infradead.org,
- stable@vger.kernel.org
-References: <20261112183208.2688580-1-mehdi.djait@linux.intel.com>
- <20261112183208.2688580-2-mehdi.djait@linux.intel.com>
- <df61d7d2-7ad8-4b68-b3a0-7a03513ab5b7@collabora.com>
- <avsBed-E2RPJnZ6k@mdjait-mobl> <avwZpcF8fti2vVI9@mdjait-mobl>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <avwZpcF8fti2vVI9@mdjait-mobl>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1145; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=XLdVceKGMkefgP7qnEm3Yg0rwyp54kMlJBBcemDLiUE=;
+ b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL+1GYVXpM72vtRdPmmFwEPRFofTj+r9uaL87dg3+MM+
+ z31GiIiO0pZGMS4GGTFFFnisrhf1pe8XsN3cGEbzBxWJpAhDFycAjCRB5EM/yzumRSvPjQ18Vi6
+ yInjTpMXurR2La2quMBidf9HUF3RAnOG/zE7yxo62A0X/Pld0pJ9V62XIbfxQeeF38+2HL7Z4Wq
+ wjAEA
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hi Mehdi,
+On Mon, 09 Nov 2026 10:22:35 -0800, Nicholas E. Andrade wrote:
+> ASoC: amd: acp: fix PDM ring buffer address on ACP7.x resume
 
-On 11/17/26 10:09, Mehdi Djait wrote:
-> On Mon, Nov 16, 2026 at 03:30:33PM +0100, Mehdi Djait wrote:
->> Hi Michael,
->>
->> On Mon, Nov 16, 2026 at 11:58:35AM +0100, Michael Riesch wrote:
->>> Hi Mehdi,
->>>
->>> On 11/12/26 19:32, Mehdi Djait wrote:
->>>> The reset in the runtime suspend also resets the VICAP IOMMU.
->>>>
->>>> When the IOMMU driver accesses the IOMMU registers inside the delay window
->>>> between the assert and deassert, e.g. in rk_iommu_zap_lines() to shootdown
->>>> IOTLB entries, the system hangs.
->>>>
->>>> Drop the reset and the now unused reset control.
->>>
->>> I agree that the current situation is nothing more than a crude hack
->>> that happened to work in most cases. But I doubt simply removing the
->>> reset is the correct solution. Recently, I saw some downstream patch
->>> that makes the reset a shared one, which seems like the right thing to
->>> do here. What would you think about that?
->>
->> Do you have a link for these patches ?
+Applied to
 
-Unfortunately they are not yet public, but I presume I have to address
-that issue anyway soon. May I ask you for a bit of patience?
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
->> I also agree that this patch will not be the solution that will go in
->> but the situation needs to change.
->>
->> The VICAP_GLB_CTRL register does expose this:
->> reset the VICAP(except MMU/AXI MASTER/REG FILE)
->>
->> The Rockchip-bsp kernel exports the disable and enable functions of the
->> iommu driver and calls them in the rkcif driver, see:
->> https://github.com/rockchip-linux/kernel/blob/develop-6.1/drivers/media/platform/rockchip/cif/capture.c#L7269
->>
-> 
-> I mean, I of course don't think this is a solution to be considered, but
-> this is what I found for now..
+Thanks!
 
-Yeah I wouldn't really like to go in *that* direction unless it is
-absolutely necessary...
+[1/1] ASoC: amd: acp: fix PDM ring buffer address on ACP7.x resume
+      https://git.kernel.org/broonie/sound/c/a3d8527ed469
 
-Best regards,
-Michael
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-> 
-> --
-> Kind regards
-> Mehdi Djait
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
