@@ -1,72 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794958336;
-	b=c25Ph6+Is6g1/ynoxhpTakWYreRfGQdwvjAUOpSiFCsdNByID4zBapJdiIvQ4gwK4Prf
-	 gEzn/RCirpJy1p2O0zHYXXFFrWUqbHegiNwKvMvhIiO1KIUuggQi4Umka3ir3P3GNxmI6
-	 ov1aJFKAsHnjhOw9Z0qmL0+xFmRY71adPUB0f1rZFQQHnznyNVOzCwx6WCRYT510vM7u/
-	 XmzSzSZNWMRnFuc/AiYrSa+TtUBWv6nMaHanBWsTmarw/GGquXHg/ciP779Xt+n0DktXh
-	 fA8aPY3kQUd3JggfZ3Fb3UVQNKcTwPUedqzrr22h6FfmtmH+vMiq5Vub+jsWcQHJ+CA==
+	t=1794958360;
+	b=uT39qBCXzpsvat9z/mjGANZHR6o+i59R9PbKsvMJXHRXvj8mqrUR70z6/M7IqRe+o4RI
+	 dhRVbVKn6SzClYlAXQl4pyOsfQN/VKrWZLuiSmoFTJ6hQyMHJjKVqJSl5FuGR/i/FDgOH
+	 J2RF+F1GGEeg3yb+GmbmqeHcgtcg8QQxcr7jILIYY/NbiMZWjef7jevrGqPhJFP3nSUCn
+	 K+PC9ZDvNextCa8yNCW71cwofMR64bbW3d69miCpnNXUy8Bcf6ZqVyaKxWwbRdEkPMrNk
+	 cQdZE9+GHNDUXrNamtl0XHfAh/gvJj6Ef1lnGyuWP57Kk0jwu4PHgEXZIQEaOBTZMTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794958336;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=9IwyFV8Hw/ru2qtr97qIXUT1MpN5o8lRiFBBmhPx1J4=;
-	b=g+xOANm9dgh2/ua3VoE5D4AYasrt7xdhIVKWdW3VL2/RYRpxOoSbhaQI6SY2zY/dkXvP
-	 awfIeGoW6U/CTmqLoqtHpFm8sYIehXI0CIMSzmFAfcSU0fw5sm+gKDX4ZPpW5Fo1Xt/h8
-	 HRY4JYenWKn985DSnRnN6bgYJ6foZsoH7cYYzwypbxqNAg5MMHZA+azQiszi7qpsKqbjh
-	 oQ83xKgt31i+xXUkQZPKwZ0QIRq9x73zoYnrNBrZ8AzttHt7xzLQjKGnkgmhH7jmDX2lI
-	 than7pGRHiMaUzz1sTwunTz+p4lDBvumjstcFlfLGE7z4SvFr9a5CSPTyirljSKKEsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794958360;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=WiVbIaTi7dNlw1LohPd/8u8xB8/i9d/jmzm4Z28McPg=;
+	b=Um91oQnqTSRGnj/wkj9z+G9/QuwSmQ+9f9VDMXPUIHH3G+lK17ledkfiaVzP/z8s972U
+	 ZKtW3HZXRkRF+lUvUM9cTdyXBv1DOmPncUJdUw2JZTZHzkL18d3vzliAMqr9XXUKXPWRS
+	 QNVHEAwyUinE7n4JzmD3p8Qm5emseslHy0E+1EuoodUihWLxMuwUMF8wAlLwX+o9ixx17
+	 iV0cbw8sSoSug6L4UgeZQKWv2dgTx9YQJqm71k+wW7/Rusjl+SDZ3Kh4FnEl/2p9yjPRX
+	 7lNlf03UqoW6pq1FNpLH96xvZaPjuv64pC4LiXPZZ/Y75sRlnlipno2hkQm3trRIWLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--dhavale.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TUo6PzlP;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X7imiGXE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2721606A32A
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 23:32:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2721606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dhavale.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D9C606A32A;
+	Tue, 17 Nov 2026 23:32:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TUo6PzlP
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-37549877380so422954eec.0
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 15:32:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794958335; x=1795563135; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9IwyFV8Hw/ru2qtr97qIXUT1MpN5o8lRiFBBmhPx1J4=;
-        b=TUo6PzlP5dL8VHJ9DgzpoZViMJDHHEPNybIHHFYBOgad610mKaA8Rj7f51hafkpoC6
-         rHPh/OBeghn/8Hxs4kO/Tx9enk8Cy5lJUJDC4MgRoUJklYtTsX5aTV75zMZlX2WSvJNC
-         Cm8Zugb0y1MTOHa/ceqlkL5FNv3kuiWOPX74nMEf5eu80ZQlUnYexoyH6t/ju39o5DVo
-         GDCi1kNGqC24pvH4KxQPJ0Xh5IFJs65crMCjTYaz/4ixsEH+Qu3wLuTPXeTC9b4WzZdw
-         OyarLpRAa3XKZb+R+TAor6A61olaeZh2UXVhy0xSj6vFuSd4XCzHtXmyAusPiEU7oomY
-         oH3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794958335; x=1795563135;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9IwyFV8Hw/ru2qtr97qIXUT1MpN5o8lRiFBBmhPx1J4=;
-        b=Nx/nAmH9zD8gxAUMjXE9UUUZg9upU0c/kbjk6rZbvQBA39MLijNof9J0Ap5Vnu84NQ
-         2iPNTriyLyQbEm61fUOv2MHUMMCViC41XiYgR4iW9yb4eegvxePpgxnR7JQvG8Oxftkz
-         u35B6awiZWyaDQdbm/L/L8cLxQmQ84i4ILqSYQBGkqEwRz3thmDvskPpfUBtk04dkw5W
-         rn2G0Xz68ENBfY9HdAXwx9vkmgIzZRihwn3wHP1vSadF2qeLWYxArCQtWlITZu6FXv4U
-         cszAgf971bU0qC1uwFbLNDgIJNQylPyiMG71vD6RpzVaRVIPQGxRslwLsO8Xz0SECyIR
-         8f3w==
-X-Forwarded-Encrypted: i=1; AL+hErHqWDxnGA3OxDF4Q+Dl9/itth+qk9hlrLHEIQtC6m9ZegGGuIXi8MkOidj7aQceWpCFP+BElAA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lxvPaM5lk4ATv76TVb3W1yzgDanv2izrtpFRTqstgMxnokgkN
-	aMExkZSMPscGGuhOCwX1QpJtuTiM1Ad95VkKDUxeChJrdzR7ux8AyN44n76Bs8Qzvz4eiXLb7iU
-	b0mKBAn4P6w==
-X-Received: from dybtv21.prod.google.com ([2002:a05:7300:f495:b0:381:935d:2548])
- (user=dhavale job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:42d0:b0:381:fe77:7d31
- with SMTP id 5a478bee46e88-38281020598mr858985eec.12.1794958334280; Tue, 17
- Nov 2026 15:32:14 -0800 (PST)
-Date: Tue, 17 Nov 2026 15:32:06 -0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X7imiGXE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D2971F000C4;
+	Tue, 17 Nov 2026 23:32:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794958360;
+	bh=WiVbIaTi7dNlw1LohPd/8u8xB8/i9d/jmzm4Z28McPg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=X7imiGXE04bl+5J2D1ZvA2f8N3woFr8c2H2fMrDINAdSEPFAlk49xrc+PA8eKxsZ1
+	 pkK/8K4UKFWZDBQgqwlycK7M4Zf9n6AZEQrC83ja7qu0TSlHdysxDtYu0RLQIu1dB6
+	 lClCZey5y50Y4KcMKU2uHo7dKvFMXxQg8fomqAXPeGR9aoDH7EaC1Q504/PjhukKSW
+	 zlHw9QGvshfMeuz8+iGq0zE8i9wxHYt9cSqaad1omXEjfBDEHJBBbZxmPdRw2IWw3v
+	 yiHZKr2m1FKbL7UhytmZ4YM8RhIXDlFZaQvxxmwr9urj3ESKRY4bFE8UazXVN8MVY3
+	 7TbIsNFuP4fMg==
+Subject:
+ Re: [PATCH net v2] gve: fix checksum state and gso_segs of HW-GRO packets
+From: netdev-bot+sashiko@kernel.org
+To: joshwash@google.com
+Cc: netdev@vger.kernel.org, hramamurthy@google.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ jordanrhee@google.com, nktgrg@google.com, thostet@google.com,
+ willemb@google.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ pkaligineedi@google.com
+Date: Tue, 17 Nov 2026 23:32:39 +0000
+Message-ID: <179495835918.3136.2006086240050992361@kernel.org>
+In-Reply-To: <20261116224308.986555-1-joshwash@google.com>
+References: <20261116224308.986555-1-joshwash@google.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,100 +64,135 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
-Message-ID: <20261117233208.72628-1-dhavale@google.com>
-Subject: [PATCH v2] ext4: fix race between inline dir conversion and folio read
-From: Sandeep Dhavale <dhavale@google.com>
-To: "Theodore Ts'o" <tytso@mit.edu>
-Cc: kernel-team@android.com, liuderong2022@gmail.com, 
-	Sandeep Dhavale <dhavale@google.com>, stable@vger.kernel.org, Jan Kara <jack@suse.cz>, 
-	liuderong <liuderong@xiaomi.com>, Andreas Dilger <adilger.kernel@dilger.ca>, 
-	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
 
-Commit 90f097b1403f ("ext4: refactor the inline directory conversion and
-new directory codepaths") moved directory block initialization in
-ext4_convert_inline_data_nolock() into ext4_init_dirblock(), unlocking
-data_bh before setting BH_Uptodate.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-When block size is smaller than PAGE_SIZE, multiple buffer heads share a
-single block device folio. If a concurrent read on that folio runs via
-block_read_full_folio() while data_bh is unlocked and not uptodate, it
-locks data_bh and submits a disk read for the uninitialized block.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Because ext4_init_dirblock() initializes bh->b_data without holding the
-buffer lock, the disk read races with and overwrites the initialized
-directory entries and checksum tail, corrupting the directory block:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-  EXT4-fs warning: ext4_dirblock_csum_verify:375: inode #...:
-    No space for directory leaf checksum. Please run e2fsck -D.
-  EXT4-fs error: __ext4_find_entry:1626: inode #...:
-    checksumming directory block 0
+- [Medium] gve_rx_complete_rsc()
+  (drivers/net/ethernet/google/gve/gve_rx_dqo.c) works out where the TCP…
 
-This issue was reported by an Android partner encountering kernel panics
-in ext4_dirblock_csum_verify() ("No space for directory leaf checksum")
-on 16KB page size kernels mounting a 4KB block size ext4 filesystem.
+--
 
-To fix this, mark data_bh uptodate before unlocking it in
-ext4_convert_inline_data_nolock(), just like the regular file path
-does. Additionally, hold lock_buffer(bh) in ext4_init_dirblock() while
-populating the directory entries and checksum tail so any buffer
-modifications are properly serialized.
+gve: fix checksum state and gso_segs of HW-GRO packets
 
-Fixes: 90f097b1403f ("ext4: refactor the inline directory conversion and new directory codepaths")
-Cc: stable@vger.kernel.org
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Sandeep Dhavale <dhavale@google.com>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Tested-by: liuderong <liuderong@xiaomi.com>
----
-Changes in v2:
-- Rebased onto ext4-tree/dev (7.4-rc2).
-- Moved the real-world impact paragraph into the commit message per Jan's
-  review comment.
-- Collected Reviewed-by from Jan Kara and Tested-by from liuderong.
+This patch makes gve_rx_complete_rsc() set the network and transport
+headers on HW-GRO packets. For device-verified packets it also seeds
+th->check with the TCP pseudo-header checksum and calls tcp_gro_complete(),
+so forwarded HW-GRO skbs can be resegmented correctly. IPv4 and IPv6 are
+now told apart by EtherType, and gso_segs is computed from the TCP payload
+length.
 
-Link to v1: https://lore.kernel.org/all/20260918025416.604297-1-dhavale@google.com/
+> diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+> index 82ed5e48b00ab..b4dbfb1ba39b0 100644
+> --- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+> +++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
 
- fs/ext4/inline.c | 1 +
- fs/ext4/namei.c  | 2 ++
- 2 files changed, 3 insertions(+)
+[ ... ]
 
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index ceee69a66482..0aa14cee3310 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
-@@ -1167,6 +1167,7 @@ static int ext4_convert_inline_data_nolock(handle_t *handle,
- 		error = ext4_handle_dirty_metadata(handle,
- 						   inode, data_bh);
- 	} else {
-+		set_buffer_uptodate(data_bh);
- 		unlock_buffer(data_bh);
- 		inode->i_size = inode->i_sb->s_blocksize;
- 		i_size_write(inode, inode->i_sb->s_blocksize);
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 354fc2d22df1..69580e54455f 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -2933,6 +2933,7 @@ int ext4_init_dirblock(handle_t *handle, struct inode *inode,
- 	if (ext4_has_feature_metadata_csum(inode->i_sb))
- 		csum_size = sizeof(struct ext4_dir_entry_tail);
- 
-+	lock_buffer(bh);
- 	de->inode = cpu_to_le32(inode->i_ino);
- 	de->name_len = 1;
- 	de->rec_len = ext4_rec_len_to_disk(ext4_dir_rec_len(de->name_len, NULL),
-@@ -2965,6 +2966,7 @@ int ext4_init_dirblock(handle_t *handle, struct inode *inode,
- 	BUFFER_TRACE(dir_block, "call ext4_handle_dirty_metadata");
- 	set_buffer_uptodate(bh);
- 	set_buffer_verified(bh);
-+	unlock_buffer(bh);
- 	return ext4_handle_dirty_dirblock(handle, inode, bh);
- }
- 
+> @@ -1049,10 +1061,50 @@ static int gve_rx_complete_rsc(struct sk_buff *skb,
+>  		skb_frag_off_add(frag, hdr_len);
+>  		skb->data_len -= hdr_len;
+>  		skb->tail += hdr_len;
+> +		/* napi_gro_frags() pulls the Ethernet header later. */
+> +		nhoff = ETH_HLEN;
+> +	}
+> +
+> +	/* The header lengths come from the packet, so make sure the headers are
+> +	 * in the linear part before reading them and writing th->check.
+> +	 */
+> +	if (unlikely(skb_headlen(skb) < nhoff + sizeof(struct iphdr)))
+> +		return -EINVAL;
+> +
+> +	skb_set_network_header(skb, nhoff);
+> +	proto = nhoff ? ((struct ethhdr *)skb->data)->h_proto : skb->protocol;
+> +	switch (proto) {
+> +	case htons(ETH_P_IP):
+> +		gso_type = SKB_GSO_TCPV4;
+> +		thoff = nhoff + ip_hdrlen(skb);
+> +		break;
+> +	case htons(ETH_P_IPV6):
+> +		gso_type = SKB_GSO_TCPV6;
+> +		thoff = nhoff + sizeof(struct ipv6hdr);
+
+[Severity: Medium]
+Is it safe to assume the TCP header comes right after the fixed IPv6
+header here?
+
+Nothing checks ipv6_hdr(skb)->nexthdr == IPPROTO_TCP or desc->ipv6_ex_add.
+The IPv4 case above also uses ip_hdrlen() without checking
+ip_hdr(skb)->protocol == IPPROTO_TCP. The only sign that L4 is TCP is the
+ptype.l4_type check at the top of gve_rx_complete_rsc().
+
+The descriptor suggests the device does parse IPv6 extension headers:
+
+gve_desc_dqo.h:
+	/* Set when IPv6 packet contains a destination options header or routing
+	 * header.
+	 */
+	u8 ipv6_ex_add: 1;
+
+gve_rx_skb_csum() only holds back CHECKSUM_UNNECESSARY when that bit is
+set:
+
+	} else if (ptype.l3_type == GVE_L3_TYPE_IPV6) {
+		/* Checksum should be skipped if this flag is set. */
+		if (unlikely(desc->ipv6_ex_add))
+			return;
+	}
+
+So an IPv6/TCP packet with a hop-by-hop header and a device-verified
+checksum would still be CHECKSUM_UNNECESSARY when it gets here.
+
+Suppose the device coalesces such a packet, or a tunnelled packet whose
+ptype reports the inner L4 as TCP. Then thoff would point into the
+extension or tunnel header, and tcp_hdrlen() would read doff from the
+wrong bytes.
+
+gve_rx_fixup_gro_checksum() would then write the pseudo-header seed at
+that offset:
+
+	th->check = ~tcp_v6_check(len, &ipv6_hdr(skb)->saddr,
+				  &ipv6_hdr(skb)->daddr, 0);
+
+tcp_gro_complete() would also set csum_start, csum_offset and
+CHECKSUM_PARTIAL at that offset.
+
+Wouldn't a forwarded packet then leave through TSO/GSO with a bad
+checksum? That is the same blackholing this patch sets out to fix.
+
+The destination-options and routing cases are CHECKSUM_NONE, but they
+still hit the wrong doff. That could drop a valid packet with -EINVAL or
+give it a wrong gso_segs. It could also take the new early return:
+
+	payload = skb->len - thoff - tcp_hdrlen(skb);
+	if (payload <= rsc_seg_len)
+		return 0;
+
+and deliver a multi-segment coalesced packet without gso_size.
+
+Before this patch the RSC path never read or wrote the TCP header, so
+this assumption is new. The changelog gives the VLAN guarantee ("The
+device does not coalesce VLAN tagged frames"), but says nothing about
+IPv6 extension headers or encapsulation.
+
+For comparison, bnx2x_set_gro_params() documents the matching hardware
+guarantee ("TPA aggregation won't have either IP options or TCP options
+other than timestamp or IPv6 extension headers"). The mlx5 SHAMPO path
+checks ipv6->nexthdr == IPPROTO_TCP.
+
+Could the device guarantee be documented in the changelog and in a
+comment? Alternatively, could this check ip_hdr(skb)->protocol and
+ipv6_hdr(skb)->nexthdr against IPPROTO_TCP (and ihl >= 5), and skip the
+GSO and checksum fixup otherwise?
+
 -- 
-2.56.1.703.gf848ed807c-goog
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261116224308.986555-1-joshwash%40google.com
