@@ -1,59 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794924368;
-	b=OhiVkiyHtFtrp4Xgi2Zy4u7l3dap4Mf71gBm3mbB6ygNkSWQAcx9JUPwISQwkhmequvM
-	 SHmew/DEfGHUW19sRFCeR7TbVkMJb9wZSyvmF2QqDhrnp1hwx5SHdEi0/UFvcEKf+9gW5
-	 RDr0tpADl/J86MO1QIgX45AYwyDYn5TySDupiC6F0huzdRWvlT+X3yawL6va9SxsPMTl0
-	 UfHL10OP4btiXUY6ULA0Ng3KqBXbY2A+cidPzYf4ac5A3u157uPUOpLMyCA8MJcnX+Hxv
-	 mLGJ4aa1HZMsu4ixsZe0I4KknARSrGwVqcLaRjh48N4bcp/DGluwixKQu0jBZHZK0HQ==
+	t=1794924666;
+	b=kJFNyGU2A1CuESBe3GQShZEuglfIOgiESeIEurLycUxPZC2GIvMfc+Efjpf5Pnt9/nUF
+	 ZXmIkywjw1ojzdeL5oXHhpeNEGiO44Cdze4sD/qkdTmqs3bNlHta1fqI7x57Up0VKsZQS
+	 iZ31oAN/HLZes2/K/533Y6VnZtJ87y61GXI5d96VTFSlzzxOtUeaWNHdZyuZBmOg+1dUC
+	 xhw1UEUzG4Ii/pApaRX/V9L0P9PKaIFXc3gD0g8fyDJRuE7Es0glAICxHRyw0WA2T1OFw
+	 QOgIMb8EG3PhFqcMH2DKlW/3Ge+H0p/hqDhZNWPQvuhzE/QvobLgbrocbVPeuPUDoIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794924368;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=bJVwrQqa8l7JgzWCKogPwHHXJ/PZMAHNz4aWA78CpQ4=;
-	b=xZgMtQxwgROhkLR1xedvzpgrPU1HscXGohQGSiS+q8CDfJRZoEDC2oZknnWCLkrbIIC4
-	 3n+zMU9NVR6jB+iEOtkMyJXQTZjbqrMRkpwp9fQk+ryGqrD5CkIJHaYF6WB1h6vACU8ud
-	 6vLKkMOwnaEOy6D0FxjY7He0JWLoGYcNVCBAe3es/Q34r9Mha8S2+7sr69WvWYtTfowDh
-	 PtPBpl7UtpfbAsqn1o/Med71g2zFmLY+h7OczhOoOJ1CKBS5UMCbXmOqSCp8lcPbbMEeE
-	 XnpKb2TgEtMEb5Y+uPTwZGvuhZ9H4HN6O//NmmueNza7qta6PEk0mhdeBME7yE1MjHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924666;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=a2laB5Z/b4kFpFI9PoM2Hxcu0dgy2z7u3frPRDg0JK4=;
+	b=lwz9pMy2DZx0mlktQtRHm2rxslNXNaEW+VQ7a2nQnwmZnJkIruRVLiXufnaP0V2ePKj5
+	 edWvcKC3PgDt0+fM2uY0G0deZU9F+I9cjGpoJeeAfHPuRVi7xW2uOLuP2ho11+qIln9V9
+	 doO0BksurLr9yTHn1WIwVU9oj0DAgfElgpg8u5C1f5hLfeeVj/M2idFFo6IBby+GV7SZB
+	 i0CniQhLLp1NoBFp8C374dU/JoOdXJwObnK3jT3rHV42EPUJIuA282L5O6/iaQ5w9moxE
+	 4MH6EkoL1uW+qJA98qgaI6bDTuWhLv67KELOcOqcqp4qW4rHfk+wurhcJdw4P8VI/1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi+tKxi9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=STgzm7VD;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22F83606A31C;
-	Tue, 17 Nov 2026 14:06:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC57C606A333;
+	Tue, 17 Nov 2026 14:11:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BC57C606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pi+tKxi9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 955621F000C7;
-	Tue, 17 Nov 2026 14:06:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794924368;
-	bh=bJVwrQqa8l7JgzWCKogPwHHXJ/PZMAHNz4aWA78CpQ4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Pi+tKxi9kmMuTZhjTUoxbJeEVUTg2VvCUhWTqFt1mB6L78yNYqlOsWqxLYARFXVoA
-	 Yri51wSF7FCoK6pZok1+2vZSlPdEeE9AbaelnR16LgTyct5RGTyACpNJhzRupF235S
-	 6mJDych6WLvoIYyItiTIT/dKkqOYod4KRkwiesPz19DYLHyebZLtIGTjZnXU1TJG44
-	 IckbfCIDcpUHjybzvYG86Pzea+WPkZSHyHkDMryi9W6O9fE5WnDvMU03VsbJV/iHQI
-	 woROMR7CJ/FU+E20NB/HaiAZW3JPcy1wknGP4C+HZ7SMp0jtfn4h7MWH7dFPxaqipT
-	 Y2/2/xzvj11Ng==
-Date: Tue, 17 Nov 2026 14:06:04 +0000
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Cristian Marussi <cristian.marussi@arm.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	arm-scmi@vger.kernel.org, philip.radford@arm.com,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Chengyu Liu <lui2012qwq@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] firmware: arm_scmi: Fix deadlock between reboot
- notifier and forceful work
-Message-ID: <20261117-prodigious-limpet-of-fame-3d72e6@sudeepholla>
-References: <20261116084211.3066460-1-cristian.marussi@arm.com>
- <20261116084211.3066460-2-cristian.marussi@arm.com>
- <20261116-astonishing-urchin-from-jupiter-838cfc@sudeepholla>
- <avw5o7sTyriZ2ZiX@pluto>
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=STgzm7VD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1794924664;
+	bh=a2laB5Z/b4kFpFI9PoM2Hxcu0dgy2z7u3frPRDg0JK4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=STgzm7VDiuvTbLZYs/IUB35T+skALHkxAgnFCvPovZMPkwL9I8Q8Mnbdjp7drYaqM
+	 NR0Lx0h46X959A/LPGbN4uaVmWi18uoDEtzKDqFQlxgNtTjc92jV8AsCgdn4NpazRV
+	 ipOS1ALzc6lYK1+KifPeuMpE6SapzAYJfQ1zyIBQOQrYYBe6nTPcQl/CkYyDjEod96
+	 kn1QJ0aeGeUE8tqpYHnjJjX/yuDbOy8hoyl43hoDUluOZyxTXRsvi7dbH/dRWApK2B
+	 NAKA+ZOwVinl9atznkNPdMxAjm/fAmzCjY8N3MDXo57pLuYe1I/6l/hSqyXv6DOeqU
+	 BiK2Vfa34muXA==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jTRV06G8kzRgq;
+	Tue, 17 Nov 2026 09:11:04 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	tglx@kernel.org,
+	will@kernel.org,
+	boqun@kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v7 04/40] sched/deadline: Do not divide by zero active CPUs of a root domain
+Date: Tue, 17 Nov 2026 09:10:25 -0500
+Message-Id: <31f723a7dab4d58045cc60fac0fea09ea1841c7b.1794922146.git.mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
+References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,48 +95,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <avw5o7sTyriZ2ZiX@pluto>
 
-On Tue, Nov 17, 2026 at 11:25:23AM +0000, Cristian Marussi wrote:
-> On Mon, Nov 16, 2026 at 06:25:52PM +0000, Sudeep Holla wrote:
+__dl_sub() and __dl_add() divide by their cpus argument. Most callers
+pass dl_bw_cpus(), the number of active CPUs of a root domain. That
+number can be 0, and the division then traps.
 
-[...]
+Commit daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl
+tasks") added extra_bw, the bandwidth that deadline tasks can reclaim
+on a runqueue. A change of a root domain's total_bw is spread over the
+extra_bw of its active CPUs.
 
-> > > @@ -188,13 +197,16 @@ static void scmi_forceful_work_func(struct work_struct *work)
-> > >  	dwork = to_delayed_work(work);
-> > >  	sc = dwork_to_sconf(dwork);
-> > >  
-> > > -	dev_dbg(sc->dev, "Graceful request timed out...forcing !\n");
-> > >  	mutex_lock(&sc->state_mtx);
-> > > -	/* avoid deadlock by unregistering reboot notifier first */
-> > > -	unregister_reboot_notifier(&sc->reboot_nb);
-> > > -	if (sc->state == SCMI_SYSPOWER_IN_PROGRESS)
-> > > -		scmi_request_forceful_transition(sc);
-> > > +	needs_forceful = sc->state == SCMI_SYSPOWER_IN_PROGRESS;
-> > >  	mutex_unlock(&sc->state_mtx);
-> > > +
-> > > +	if (needs_forceful) {
-> > > +		dev_dbg(sc->dev, "Graceful request timed out...forcing !\n");
-> > > +		/* avoid deadlock by unregistering reboot notifier first */
-> > > +		unregister_reboot_notifier(&sc->reboot_nb);
-> > 
-> > And re-evaluate needs_forceful again here after un-registration before
-> > calling below forced transition ?
-> >
-> 
-> If all of this is locked as it was originally there is no need, the two
-> threads should just sync properly...
-> 
+During hotplug, a CPU sits in the default root domain, which can then
+have no active CPU. This lasts from the rebuild in
+sched_cpu_deactivate() to the offline, and from the online to
+sched_cpu_activate(). A debugfs write to the runtime or period of its
+fair or ext server divides there. A write of the current value passes
+admission in the window. In 8-CPU VMs of v7.4-rc2, a loop of such writes
+oopses at the first offline and online:
 
-Fair enough!
+  Oops: divide error: 0000 [#1] SMP NOPTI
+  RIP: 0010:dl_server_apply_params+0x335/0x380
+  Call Trace:
+   sched_server_write_common.isra.0+0x1c0/0x260
+   full_proxy_write+0x58/0x90
+   vfs_write+0xcb/0x550
 
-> Let's see what Sashiko thinks..
+By reading, two other paths would divide by zero:
+- inactive_task_timer(), for a task that left SCHED_DEADLINE or died,
+  if its CPU went offline.
+- sched_setattr(SCHED_DEADLINE) on a task asleep on an offline CPU,
+  with admission control off.
 
-🤞
+Fix this by changing total_bw alone when the root domain has no active
+CPU.
 
+With this patch, the reproducer survives 20 rounds with no warning.
+
+Fixes: daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl tasks")
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: stable@vger.kernel.org
+---
+ kernel/sched/deadline.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index dfae08625342..b614d5fc1a1a 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -189,18 +189,25 @@ void __dl_update(struct dl_bw *dl_b, s64 bw)
+ 	}
+ }
+ 
++/*
++ * Spread a change of total_bw over the extra_bw of the active CPUs of the
++ * root domain. @cpus is their number. With no active CPU, as can happen
++ * during CPU hotplug, change total_bw alone.
++ */
+ static inline
+ void __dl_sub(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+ {
+ 	dl_b->total_bw -= tsk_bw;
+-	__dl_update(dl_b, (s32)tsk_bw / cpus);
++	if (cpus)
++		__dl_update(dl_b, (s32)tsk_bw / cpus);
+ }
+ 
+ static inline
+ void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+ {
+ 	dl_b->total_bw += tsk_bw;
+-	__dl_update(dl_b, -((s32)tsk_bw / cpus));
++	if (cpus)
++		__dl_update(dl_b, -((s32)tsk_bw / cpus));
+ }
+ 
+ static inline bool
 -- 
-Regards,
-Sudeep
+2.47.3
+
