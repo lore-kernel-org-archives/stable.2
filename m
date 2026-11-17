@@ -1,61 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794946318;
-	b=x1Jp7TdjT1MyaP1VOEYis2XUtArF67/QWHsCk8ZBuAul9fY1WvG6XgvAFy8X5GlcRJsP
-	 sT8inVroDRwDaPX7SgtSDV3XHLQwvGGBzMKlLNh3v84eStHfKEzvQFeTwgtXZeZ53KaAO
-	 O2ujdoi2JiYE0jASXGE6AQScUaexTYzvxwUuDh34uMUN8iM8tNdmc3AOqFgkWA9G2l3LN
-	 eiCxfbHBaV+doqmOW7fZYUUMWV41NxiDlnigno5V3OPglgs6py1WszB1bHJig9XP7yWky
-	 Pf3k16oI8iE0Xt5nSGEiOqAE8Tksv3kk9AxYtDkJ5NaJ4e2sEn+NBiQXRbH9ugb38Ag==
+	t=1794946575;
+	b=PPjt5F8jinJgbX+I2m6ja2KCo5KRZeAk/OKXeLvQLfBZpeDS7QdEHWUzFfoL4wGn6sy+
+	 AsHsBkj47+xFPZRN1q8G3xSFnmNDk0UvZ6ambWdw7eLnDx0OUC7kjgoRXAmuAyTPltcB7
+	 GkZe8ckCbfD4GIB/rSL8LjpT474pUCT20meMaqFkJASf6UUnTh2XMUi7WkQCyqfYkvJ4o
+	 HhbgPlqN5BJuJ40chN1Q31vXXDM0o7nF95FCQ1FUEdV+Jxnq5k/prJnnpKvAN3VljIYws
+	 u8Fx1ZbMdEd6/nAjCcic74w7v6qm2I0VHi7BAYGAb8A59frRv1C4xRS0CVn4VwVF19A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794946318;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=0Xw7sicO49xx1e53p8DOzr3TxFtSjf8C10oK/0OkufU=;
-	b=u4MJ1OW97AOikRw6Zeb5QaEbzWrhHD4ZZHALNJb70fCcRtGElPbmoGgirt5HS5U7TfYT
-	 Ilj35G2CDzEtjpT124w0RNSASOjGG+cdjf1CqEc8KZh6kpVf/zxM5F1dZ5ZLdke77LoRC
-	 iYesNH6Dtc0bIjxChmo0z5qZnNWzKlWdRZcXd9OnSaVm38iLvkSEhFKDiI1q6+RIq6hG6
-	 GuFSrwrVUNiLyvo/mDNUR71GvwNsslSu+H5IaUDL1G8KMcAk4c+6Bg25tNWTtWVdbGl8w
-	 dCy/M5pazhQhUbyg7TUwCfpTVmuzS/OwPaY3rFYdc7+Y0woOkSRpJDQCl+K3hkNXa9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794946575;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=4gHgyZkJ85ljmtbUfZ2ppvyzZiHy8Yza2XSe4CtHOfc=;
+	b=4nbq2/vi98Trlx41lHiCeFyXHg/tlXoOdZLmjKldvkRET2nv6CJLs+PnQgH+4u58xFPC
+	 OZsHUGzQHQfFTEtS94b+1TDs6MRrhXLvCY4NmgQ6UcvDktVxnO4sLfvObFYQCVhmzHs1V
+	 6vUALLScmEA8OrWjCZozXJ5QG9W4xfmvKlUrUubas9s89hU9glC4YdN6aJUwJ826WGbcP
+	 eIuWE2wpjtk/36ML3pQI6vmKFwWkStwQVggwxQylK2neI5bzEV2rWAyh6csmuYfUfHmTE
+	 x5kzdHeTn/QT1LWsZAO3Y02/zZrZZ8dEWsvINYQQhOq+8XK5OsfPi7f+izU0u39ge7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=leN1kErd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=nTPalYv2;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=f0kVEqZJ;
+	arc=none smtp.remote-ip=103.168.172.156
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F016606A32A;
-	Tue, 17 Nov 2026 20:11:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E952A606A32F
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 20:16:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E952A606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=leN1kErd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C9E51F000C5;
-	Tue, 17 Nov 2026 20:11:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794946318;
-	bh=0Xw7sicO49xx1e53p8DOzr3TxFtSjf8C10oK/0OkufU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=leN1kErd7AFeG7YXpOD96U2cg+fIBtINU274Mx04HZ/geophLs7lCkc8WQ9WrxJUc
-	 mODjQO/CCsESD4IxLhuD0SKgg7dWVxKkKkzpzKkXdmbhFpIVmYDoQFgaLkh5EutAr/
-	 2J0B3RsuLDlrGOYoWiiEbJ0mw8yik8wpToAaZBR3kRoLh7oTiOeyaBU1TrPEUbivIi
-	 bKfAFVTYJ+0vL6ccyZHNOmcRbcKV6qvDzZUQ6mdwZd2Rieg12IivDycdbeZjcPhJPB
-	 xRC4j8FCj/FLQhIAuJWH5qmOqQd9JcJxLgI2FrgwFEykKP8QYVMMmCUTPuKBlpLH9i
-	 /CA4uPtvuwI9A==
-Subject:
- Re: [PATCH net] gve: fix checksum state and gso_segs of HW-GRO packets
-From: netdev-bot+sashiko@kernel.org
-To: joshwash@google.com
-Cc: netdev@vger.kernel.org, hramamurthy@google.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- jordanrhee@google.com, nktgrg@google.com, thostet@google.com,
- willemb@google.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- pkaligineedi@google.com
-Date: Tue, 17 Nov 2026 20:11:56 +0000
-Message-ID: <179494631679.3136.4477194401214815440@kernel.org>
-In-Reply-To: <20261113195553.2220562-1-joshwash@google.com>
-References: <20261113195553.2220562-1-joshwash@google.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=nTPalYv2;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=f0kVEqZJ
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 0EF4414001A2
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 15:16:13 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 17 Nov 2026 15:16:14 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794946569;
+	 x=1795032969; bh=4gHgyZkJ85ljmtbUfZ2ppvyzZiHy8Yza2XSe4CtHOfc=; b=
+	nTPalYv2nLevYvXXnrmzznDZ8pPmmR76R6bCrbWXO537SkU607/FvckQoAQKoOnK
+	z2grOXjDj1uQZE925GpNZkZf8PSHjMG1QkyCHUzZI9v6H2GjQUjMogWAYhFmtVUu
+	bje3shbY1dXtpjvLBLWmZLH5lzJmhBLmgjR2Oo90dcgG1nZCYzvSgN85jC+pkfoc
+	vMTaQtUajGNopRUR/C8UIL9fhgncrAZEXTZqdwahotoZ1//ra93mBlOHeTUODGeI
+	Vb5VOdmyVzaKufyDopul2zGqTEwXvBcQG56AgBHrI9Bo45sYCwJKj9FGeWwCeIjk
+	H8Rj4smUeYHt3ataeT/mug==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794946569; x=
+	1795032969; bh=4gHgyZkJ85ljmtbUfZ2ppvyzZiHy8Yza2XSe4CtHOfc=; b=f
+	0kVEqZJZCzAmcw1UrJqBJOotuvtgTXTC6vJaS2saQYcpuYleZj3LcorPC9LuUPB6
+	0N4E/yCdfN1M4iernSVIB2pFQPk0zC4AnZNDWicXXtKuCzhJBsNtpbiDaZ3jKt/1
+	M+fx2RiyDTT82sddphx1oXAEv10i5SIEBPis6Zf4UxSc8fQgt1T0iWdLl0c0/1CV
+	v1xvVs5SaLMnxA0wlHAu8b6yTv9IsTOyZgwgXcL47MQx8a2Wg17Am6Ve2cAPP/Lk
+	GIQAfdn4uozW6tdxK5H05dipZMQZPyQyZqpjEfIVnpQBauhoGPz19VqZ85YGuqLw
+	UaJEobjkJU0wz4SjrL+Kg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794946569; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+; rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:eGGfoUbI3H46twLudiv/3EEQdY6JDMB3SGu3fPll6eQtaQc
+	Hz5eBbmDz0AVC954ei3C9jQfmbTbpKdn85jUJ8fzRZ69MDS6NzDcEbxeaJzO/7am
+	tbhYAbDC7PrBBfFSd0/zG1MF4H/5hWmgX9BX6WRn7ZTRlqh033wyK2wvHITB6uJt
+	EWI/Hk5G+ZXORMtFVVN3H4/zqMowMW8aSnY4X5QYGDOQGgh6+D7xLzgIHpmCcIUc
+	a/VNYsYwDR+JARdfC+jPG6ts9VMhU2NTX01ImF+QAQ/kdpM5lQn+z13TOjltVllY
+	Vu2YAzOhmPrJvf3oW5/wUpRjYVXAIo72nJYucKg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:H35lYAFWjzt/PT3JDB+srzKd9F4jY5coVqosVXJaKWk=:zqY97fITSSBwgO6NYdHi++FrGLhlw1V/CK2RmFngirI=;
+X-ME-Sender: <xms:Bbb8an4eD7Mxjhr5xuNgow9-719Ddu-H-Q4KUYRGxZAisBwy7FQnWQ>
+    <xme:Bbb8ansDjA7lMOPcIA_7XRB4G0YH88GTgtLbBk3YlA1iN9F0oxEYv1uocMejPIJgU
+    aQSeiA4oFgrcMQATc9tzuQqcrhnpdLVkau1XTMjfgrlC10EJLBbyPeW>
+X-ME-Proxy-Cause: dmFkZTGX2j4tdhEBXhp83Wtai7HDzbSZhK2/icwqvbj+jNBIKYl/6qaWMH/EcTsxxUlklJ
+    FNt+NRsGh1upWKnRORMCx6dBMm2QYj9qBwd4ricE+t/KALMLiZ9o7Yl+B59U9A/yxR9OLE
+    67asVz2quecKhYHK390xyT1823BrDUYaGlNNeFaZKFGyM0h5+LXQ9PSuvPVGkQCJkFAQXK
+    ueawkHayc3c3ayWIXL/EFvTnjjQo/rCTXVmsEsnwr6RIdyySbeaqeYl5kcuskh2vbAG/l0
+    WXrM25oWjRxRVxANUnucFb4sGX/a6DOwrkYOEqjFY8ZQb8yP4FdsEjSMZD1hC2+cBzQVdu
+    ktAHaYiHkGQ0CUZkmsHs8uSta9pGY4VmEM7JiqM0mN3bqLKyWT9d/pCblc+lK74Y+xstca
+    PxshXGWJwpQKF3k6m3WXY6msOd11AVRzJ7hHtJg5mju0oKJaXS/sVOBxLwOS9/qe6RBK5H
+    dUeZ3b+RqbYcAELEWjfm1lh2IpgMgvGWCqj14/G9A7PoinZm1Q+yemlQSVNLIJyttQaJD7
+    T3bvucWtVNSGnxrFH7ifXNDQv9JIkxkzqdgN5iYh2MbQD4KGRcixouQkKYIdNYortMElj/
+    8EkrfTNgnlGLi0kazarXtWeaCQncBdaeD2gQwIUPl26YuoUyrK5/rJrW3OFw
+X-ME-Proxy: <xmx:B7b8avlo4EsGZDqFpvRGJQgbdrap5yCA03GNkiqRun18Eem0bnij8A>
+    <xmx:B7b8akZkb2ndM2tuNoNasGmNQVrpVA2v2N4Qa-EZAQ0GESwNx8JvBw>
+    <xmx:B7b8ar982JRLWxMT0g6xBo81gzkr03Ffp-mtrZStxnzcQLXpi_O65w>
+    <xmx:B7b8ajbw-vWr4UGj9pHRcGbYD0xt0PZPI0CfnfANv7fWuqIthtxW2A>
+    <xmx:Cbb8ahpWMpy65Kxk3-1n1DEqaAmlrHVo6ojZ0Ct17citMsykrpd0dK1s>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id C96C432A0099; Tue, 17 Nov 2026 15:16:05 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,176 +114,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-ThreadId: AfIw-mqhlrh3
+Date: Tue, 17 Nov 2026 21:15:45 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: stable@vger.kernel.org, stable-commits@vger.kernel.org
+Cc: "John Stultz" <jstultz@google.com>, "Thomas Gleixner" <tglx@kernel.org>,
+ "Stephen Boyd" <sboyd@kernel.org>, "Miroslav Lichvar" <mlichvar@redhat.com>,
+ "Anna-Maria Gleixner" <anna-maria@linutronix.de>,
+ "Frederic Weisbecker" <frederic@kernel.org>, "Ingo Molnar" <mingo@kernel.org>
+Message-Id: <101777e2-a6fe-4d1a-9a9e-7179ce89bd65@app.fastmail.com>
+In-Reply-To: <20261117200127.2399332-1-sashal@kernel.org>
+References: <20261117200127.2399332-1-sashal@kernel.org>
+Subject: Re: Patch "timekeeping: add CONFIG_LEGACY_TIMER_TICK" has been added to the
+ 5.10-stable tree
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Tue, Nov 17, 2026, at 21:01, Sasha Levin wrote:
+> commit c3738bb0ab2025492e5c66b7dcc89bacab4af79d
+> Author: Arnd Bergmann <arnd@arndb.de>
+> Date:   Thu Sep 24 15:21:43 2020 +0200
+>
+>     timekeeping: add CONFIG_LEGACY_TIMER_TICK
+>    
+>     [ Upstream commit b3550164a19d62e515af6cacb5a31f0b2b3f9501 ]
+>    
+>     All platforms that currently do not use generic clockevents roughly call
+>     the same set of functions in their timer interrupts: xtime_update(),
+>     update_process_times() and profile_tick(), sometimes in a different
+>     sequence.
+>    
+>     Add a helper function that performs all three of them, to make the
+>     callers more uniform and simplify the interface.
+>    
+>     Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
+>     Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
+>     Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+>     Stable-dep-of: 2927f7ca7844 ("time: Prevent time64_to_tm() day 
+> truncation on 32-bit")
+>     Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+I don't see how this is a dependency of 2927f7ca7844, it looks
+unrelated to me, and the patch only adds an unused function.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Also, while 2927f7ca7844 is correct, I don't think we
+really need to worry about overflowing day numbers in
+stable kernels.
 
-- [High] Regression: HW-GRO packets in VLAN-tagged TCP flows are now
-  dropped.
-- [Medium] For IPv6, gve_rx_complete_rsc() assumes TCP always starts
-  right after the fixed 40-byte header: `thoff = nhoff + sizeof(struct…
-
---
-
-gve: fix checksum state and gso_segs of HW-GRO packets
-
-The patch makes gve_rx_complete_rsc() set the network and transport
-headers for HW-GRO packets. For packets the device verified, it also seeds
-th->check with the pseudo-header checksum and calls tcp_gro_complete() so
-the skb becomes CHECKSUM_PARTIAL. It also tells IPv4 from IPv6 by the
-EtherType instead of the device packet type, and computes gso_segs from
-the TCP payload length.
-
-> diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-> index 82ed5e48b00ab..58696d26c6986 100644
-> --- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-> +++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-
-[ ... ]
-
-> @@ -1017,20 +1039,11 @@ static int gve_rx_complete_rsc(struct sk_buff *skb,
->  	if (!rsc_seg_len)
->  		return 0;
->  
-> -	switch (ptype.l3_type) {
-> -	case GVE_L3_TYPE_IPV4:
-> -		shinfo->gso_type = SKB_GSO_TCPV4;
-> -		break;
-> -	case GVE_L3_TYPE_IPV6:
-> -		shinfo->gso_type = SKB_GSO_TCPV6;
-> -		break;
-> -	default:
-> -		return -EINVAL;
-> -	}
-> -
-
-[ ... ]
-
-> @@ -1049,10 +1061,35 @@ static int gve_rx_complete_rsc(struct sk_buff *skb,
->  		skb_frag_off_add(frag, hdr_len);
->  		skb->data_len -= hdr_len;
->  		skb->tail += hdr_len;
-> +		/* napi_gro_frags() pulls the Ethernet header later. */
-> +		nhoff = ETH_HLEN;
->  	}
-> +
-> +	skb_set_network_header(skb, nhoff);
-> +	proto = nhoff ? ((struct ethhdr *)skb->data)->h_proto : skb->protocol;
-> +	switch (proto) {
-> +	case htons(ETH_P_IP):
-> +		shinfo->gso_type = SKB_GSO_TCPV4;
-> +		thoff = nhoff + ip_hdrlen(skb);
-> +		break;
-> +	case htons(ETH_P_IPV6):
-> +		shinfo->gso_type = SKB_GSO_TCPV6;
-> +		thoff = nhoff + sizeof(struct ipv6hdr);
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-
-[Severity: High]
-Could this cause HW-GRO packets from VLAN-tagged TCP flows to be dropped?
-
-gve sets no NETIF_F_HW_VLAN_* features, and struct
-gve_rx_compl_desc_dqo has no VLAN tag field. A tagged frame therefore
-arrives here with h_proto (or the skb->protocol set by eth_type_trans())
-equal to ETH_P_8021Q or ETH_P_8021AD. That value hits the default case and
-returns -EINVAL. The error then ends up as a silent drop:
-
-gve_rx_poll_dqo()
-  gve_rx_complete_skb()
-    gve_rx_complete_rsc()
-      return -EINVAL;
-  gve_rx_free_skb(napi, rx);
-  rx->rx_desc_err_dropped_pkt++;
-
-Before this patch, gso_type came from ptype.l3_type, which does not depend
-on the L2 layout. These packets then went on to napi_gro_frags() or
-napi_gro_receive() and were delivered.
-
-The fixed nhoff of 0 or ETH_HLEN also assumes there is no tag. Adding the
-VLAN EtherTypes to this switch alone would leave the network and transport
-headers pointing at the tag instead of the IP and TCP headers.
-
-The commit message says:
-
-  "tell IPv4 from IPv6 by the EtherType, as qede and bnx2x do"
-
-Both of those drivers strip VLAN tags in hardware. For example, qede sets
-NETIF_F_HW_VLAN_CTAG_RX. Also, on an unknown protocol qede_gro_receive()
-only logs an error and still delivers the skb.
-
-Would it be better to keep using ptype.l3_type here? Or, for an
-unrecognized EtherType, deliver the skb without the fixup instead of
-returning -EINVAL? The patch is also tagged for stable, and the commit
-message does not mention this behavior change.
-
-> +	skb_set_transport_header(skb, thoff);
-> +
->  	shinfo->gso_size = rsc_seg_len;
-> -	shinfo->gso_segs = rsc_segments;
-> +	shinfo->gso_segs = DIV_ROUND_UP(skb->len - thoff - tcp_hdrlen(skb),
-> +					rsc_seg_len);
-> +
-> +	if (!IS_ENABLED(CONFIG_INET) ||
-> +	    unlikely(skb->ip_summed != CHECKSUM_UNNECESSARY))
-> +		return 0;
->  
-> +	gve_rx_fixup_gro_checksum(skb);
-
-[Severity: Medium]
-For IPv6, is it safe to assume TCP always starts right after the fixed
-40-byte header?
-
-	case htons(ETH_P_IPV6):
-		shinfo->gso_type = SKB_GSO_TCPV6;
-		thoff = nhoff + sizeof(struct ipv6hdr);
-
-Nothing checks that ipv6_hdr(skb)->nexthdr == IPPROTO_TCP, and
-desc->ipv6_ex_add is not checked here.
-
-gve_rx_skb_csum() withholds CHECKSUM_UNNECESSARY only when ipv6_ex_add is
-set:
-
-	} else if (ptype.l3_type == GVE_L3_TYPE_IPV6) {
-		/* Checksum should be skipped if this flag is set. */
-		if (unlikely(desc->ipv6_ex_add))
-			return;
-	}
-
-According to gve_desc_dqo.h, that bit only covers Destination Options and
-Routing headers. Suppose the device coalesces a TCP flow that carries, for
-example, a Hop-by-Hop header. The transport header would then land on the
-extension header, and tcp_hdrlen() would read a bogus doff, so gso_segs
-would be wrong.
-
-gve_rx_fixup_gro_checksum() would then write the pseudo-header seed at
-thoff + 16. With an 8-byte Hop-by-Hop header, that offset is the upper
-half of the real ack_seq:
-
-	th->check = ~tcp_v6_check(len, &ipv6_hdr(skb)->saddr,
-				  &ipv6_hdr(skb)->daddr, 0);
-
-tcp_gro_complete() would also set csum_start and csum_offset from the same
-wrong offset.
-
-When ipv6_ex_add is set, the checksum write is skipped. The transport
-header and gso_segs are still set from the assumed offset, though. Before
-this patch, the RSC path did not read or write the TCP header.
-
-The driver doesn't show whether the device's RSC engine ever coalesces
-IPv6 packets with extension headers. qede and bnx2x make the same
-fixed-offset assumption. If the device can do this, should the code check
-nexthdr, or skip the fixup when nexthdr is not IPPROTO_TCP?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113195553.2220562-1-joshwash%40google.com
+     Arnd
