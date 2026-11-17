@@ -1,55 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794916012;
-	b=YS9tmXJ9DpmykObSyxE8hvJ/1GA7egAJ2ac5PwmRg88dMU0CmBAiD3JNHjfpQuh62L6a
-	 lGQ0fhQO7/KCsoCurtNhQlCoipUY4G3eovPKFmVlsu2ETegV5a3lS59a8wBx2G9ZdcWdu
-	 eZn7w5/7cDEwYnciKgDIFM3i7ZoNJgqlnXsujuUFxhw2DxgkansUTop9twjrRITrffFSx
-	 TYo2iYWLzlw3qt35R+CPu3IisxKQ9m7zWE5is7c+HlNGTFYPtFvoEDXdkh+rD95bX5UvI
-	 VW/bR6wuzg3h4Oaf1EzL1wCr3+cJtQMawHcfvuVnB0C6amyVzmQFI7FLayHbCwVAyMQ==
+	t=1794917405;
+	b=lXbvW7fUq5I6VQ6tix+CJlKp/HY0TA2Xa4obrIZ+02Jme3YOnGRvktG/NInfSOusluqC
+	 CelO4eTNUlUNxM/nNve5r/pdctfr8jtg8MxCGf8hFZUY5x8VfpBeiqJvfodATYjQxKdCU
+	 FrnhAXU77P55xq/VTNFpAfa8X+NfPC87Rtn9GutAsuA5qfiS/9iY1RhcPZ//4bBcxQqtr
+	 NDSh9ZNZO2mpj3fWiDvF0qJNTK9V/QjEmYkYP/RJEmuCZdlaY2RO94zJxzwMTX9ijSOFa
+	 LBUyJw+6RGAnpJ7Ubt4gXGdlH+f3PBK1KDzp92QmOI6GzBeU6qGQr0iXpwhhUXbdyIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794916012;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917405;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=fWcihZsanqAN6UicgEb68MCZ/IaT3uQaNUiiRypTwdM=;
-	b=gnYOmWx0SNEP38ZR1vvtLRpRyTltACPnMO58bn1ehXptXUY8FFCCq/huN/aIrw4tGxyr
-	 la98PpykqyBv+lug2qGAIBvpfVy2ZbdSoKIzdov936FGchgg9Dys5Eb7dBbGQRSYb+Hke
-	 v2CSdni3G1uVF+WGhLLohV5/9ei5IxEXoLPwCXxb51vWYsxZ3inYKQUUm7qzE4IDVFP2l
-	 GUCRQ7rtau7pQligEU82sPQBh54oIhhZAHIRSk2libbsYcJx1ZNeWixRvXUZAi6gELbH3
-	 wXq5a2Z9Q72L8dkPI2BS354FutMb0FRIzMD1mm2HDg1Xf/eMomqdxQVjC3iIY27eKow==
+	bh=z23KUivcgsPQdbsSbdcK9l9mI4AN6C05hWnHHj+0i8s=;
+	b=5kgxD1NeBlvB6KMTq2rXkVRZsJbDn4LSfb+LHvd8pSWmtonyfY+bpRwkSeGiWMWNPm1d
+	 40d0PbqHIPmsssSCfgnOB9JZzpHgSHmrZ4SAdN8YXoVvD9PDfgpovJMDHkfizhru/R5O+
+	 zEoAzjQu/YBbsevfXXmXF6YJ0fvgziFqBs4xbwMEGSi5irdhJUB8Y0lDihg1YErS+0DtY
+	 Lu/UrkI5t759cFEICgeXGdWeTVgo+303lcm3vd1cex0ay9QRMjaay7sTinPT7npkXkgIm
+	 g+HlTkvQvtBo7SXdRd0LA9/hdISlBCgiL5wEBrgbj4tiBOlDjV5xzFp8WJg1N25VHXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+ZHZuc6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f84GBbx3;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5102F606A323;
-	Tue, 17 Nov 2026 11:46:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A298D606A31C;
+	Tue, 17 Nov 2026 12:10:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i+ZHZuc6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999151F000C5;
-	Tue, 17 Nov 2026 11:46:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f84GBbx3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379C31F000C6;
+	Tue, 17 Nov 2026 12:10:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794916012;
-	bh=fWcihZsanqAN6UicgEb68MCZ/IaT3uQaNUiiRypTwdM=;
+	s=k20260515; t=1794917405;
+	bh=z23KUivcgsPQdbsSbdcK9l9mI4AN6C05hWnHHj+0i8s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=i+ZHZuc6vDULVrPpnArR0cIZeGz8/FIqQ73jgKLCgwh2E7dlVbhVfCgnvg0MULcMR
-	 nv0RovCCsOtqy62mN7v4FoQTtOJlMr5FZg2vwwzPzOiR6cqwSWQKXZ9eHZkRgzrGTA
-	 E2xFeeFWxCEWoR0TGL5frX3eHXuxlhZbNNmAHUj86hnnP/vFRWfep3uK6iWfhbFmKw
-	 SZog8O1OLsMgUwwNE5xo78ucAlzidy93dhqJBHa8JsQ5Y///egKJjZcqSzDfD/Ue/G
-	 hqnMmXL/rLdZT4KmEGPW8GEMCBsHLbzn+/fLFQfHzkX2tXNv+S2qLlT8y+mhD5sdIX
-	 SuElDDLPArnxg==
-Date: Tue, 17 Nov 2026 12:46:49 +0100
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Lee Jones <lee@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Aaron Kling <webgeek1234@gmail.com>, linux-gpio@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 02/10] pinctrl: tegra186: Fix out-of-bounds register bank
- index for AON drive groups
-Message-ID: <avw8tOcBNMPwS_z5@orome>
-References: <20261103213002.1673560-1-lee@kernel.org>
- <20261103213002.1673560-3-lee@kernel.org>
+	b=f84GBbx3MvXsoiFV4Ab0bKtjj1R6VPH/xR0oaGsFWFwlKLP9N2cgR+ROtnh+V5acF
+	 EWXaZM89jnxscfUCsQZydqsGilgF+QXVyXKSNNsqlP6SLsPITGvtBca1Bask0U1xcU
+	 UkEACo2J7VxwjW1VocqgCnya0SPgg/eLtPlleGQYNAda33X9XqLmMDBe+DOFC7e/7M
+	 n0kk4emJdBmM3i0S09CNdjQbcPHKLvW5XpPA2q/rMAMT53ZVTalPfBsk+RONOqklDU
+	 vb7d1/HEE6uFDFX9pIVCDOTYIwfdR4rKKgvt2fbnYS4JeD64/LmFWK1KeSTJJEkprE
+	 RQ6ofso9fHDxw==
+Received: from johan by xi.lan with local (Exim 4.100.1)
+	(envelope-from <johan@kernel.org>)
+	id 1xTI0g-00000004A4M-2IOB;
+	Tue, 17 Nov 2026 13:10:02 +0100
+Date: Tue, 17 Nov 2026 13:10:02 +0100
+From: Johan Hovold <johan@kernel.org>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] software node: make swnodes hold their own references on
+ parents
+Message-ID: <avxEGiacULc2eciv@hovoldconsulting.com>
+References: <20261106-swnode-kobject-parent-ref-v1-1-77dbd7213dd0@oss.qualcomm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,64 +71,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="i3edntsruv6eha4u"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261103213002.1673560-3-lee@kernel.org>
+In-Reply-To: <20261106-swnode-kobject-parent-ref-v1-1-77dbd7213dd0@oss.qualcomm.com>
 
-
---i3edntsruv6eha4u
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 02/10] pinctrl: tegra186: Fix out-of-bounds register bank
- index for AON drive groups
-MIME-Version: 1.0
-
-On Tue, Nov 03, 2026 at 09:29:07PM +0000, Lee Jones wrote:
-> The Tegra186 AON pinmux controller has only a single register bank
-> (nbanks =3D 1, indexed at 0), and all PINGROUP entries in tegra186_aon_gr=
-oups
-> accordingly specify bank 0.  However, all 51 AON drive_* macro definitions
-> pass drv_bank =3D 1 as the final argument to DRV_PINGROUP_ENTRY_Y, causing
-> any drive configuration read or write on an AON drive group to index
-> pmx->regs[1] out-of-bounds.
->=20
-> Update the AON drive_* macro definitions to use register bank 0.
->=20
-> Fixes: 542baf77f092 ("pinctrl: tegra: Add Tegra186 pinmux driver")
-> Closes: https://sashiko.dev/#/bug/linux-a9a7165c-c5eb-463a-b7b1-24a30416b=
-33b
+On Fri, Nov 06, 2026 at 12:13:28PM +0100, Bartosz Golaszewski wrote:
+> In swnode_register(), swnode->parent is assigned before calling
+> kobject_init_and_add(), which normally acquires a reference on
+> parent->kobj via kobject_add_internal() that is held until after
+> software_node_release() completes. However, if kobject_init_and_add()
+> fails before acquiring the parent reference or drops it on error in
+> kobject_add_internal(), swnode->kobj holds no reference on parent->kobj
+> while swnode->parent remains set.
+> 
+> With CONFIG_DEBUG_KOBJECT_RELEASE enabled, the random delay in
+> kobject_delayed_cleanup() may create a situation where - when
+> unregistering the child node and then the parent - the parent object
+> gets released before the child who's left with a dangling pointer.
+> 
+> Acquire a refernce to the parent swnode when registering the child and
+> drop it on child's release.
+> 
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
+> Fixes: 59abd83672f7 ("drivers: base: Introducing software nodes to the firmware node framework")
+> Closes: https://sashiko.dev/#/bug/linux-82933c14-d212-49f1-bd2f-d4ab1e16fed7
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 > ---
->  drivers/pinctrl/tegra/pinctrl-tegra186.c | 102 +++++++++++------------
->  1 file changed, 51 insertions(+), 51 deletions(-)
+>  drivers/base/swnode.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
+> index 84a77ffa3dc4bbcca62bbe67c3390693500b01ea..986dcb933d2c9274e9000968f115d7fccc2d103f 100644
+> --- a/drivers/base/swnode.c
+> +++ b/drivers/base/swnode.c
+> @@ -843,11 +843,12 @@ static void software_node_free(const struct software_node *node)
+>  static void software_node_release(struct kobject *kobj)
+>  {
+>  	struct swnode *swnode = kobj_to_swnode(kobj);
+> +	struct swnode *parent = swnode->parent;
+>  
+>  	fwnode_links_purge(&swnode->fwnode);
+>  
+> -	if (swnode->parent) {
+> -		ida_free(&swnode->parent->child_ids, swnode->id);
+> +	if (parent) {
+> +		ida_free(&parent->child_ids, swnode->id);
+>  		list_del(&swnode->entry);
 
-Yeah, looks correct. It looks like this wasn't tested at all since the
-time this was merged. I'll add this to the list of things that need to
-have a test added.
+Why not simply
 
-Reviewed-by: Thierry Reding <treding@nvidia.com>
+		swnode_put(swnode->parent);
 
---i3edntsruv6eha4u
-Content-Type: application/pgp-signature; name="signature.asc"
+here?
 
------BEGIN PGP SIGNATURE-----
+>  	} else {
+>  		ida_free(&swnode_root_ids, swnode->id);
+> @@ -858,6 +859,9 @@ static void software_node_release(struct kobject *kobj)
+>  
+>  	ida_destroy(&swnode->child_ids);
+>  	kfree(swnode);
+> +
+> +	if (parent)
+> +		swnode_put(parent);
+>  }
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmr8PqcACgkQ3SOs138+
-s6H1nw/9HNOxm8X4P1MUJzierJCZCidCUXihoGxwFxahWDDG7Ctif5w7tlMyKfg8
-rlkplkwz2xi8rm0j/w3icKQ50yx3JH6eVNAUkaAcdQRw3j/uVCwnW1JlZ7S3ilzA
-8YrklDsup5I7asUAsTRB8b8Ty4Wiv0wpQ2eWV5iFcmzsEawP9vCuW5cTIDERCzvh
-scBQR3F9kbPWHShwLn5C7eUtWU4lYviqrmgVE+WUtDhBlhTU0qH8o5xrX8Vryv2n
-p7FzCDXDgJWzdyPQLkOx7Lr6bodM7EJ5iYbOKuOU0WORP0NwXSECjAidJMkTbI3i
-mtw5YIGYCZ1Ff7uOPSJ/2399CWEfrgi8qYLvKiUUpZvfDF0ZklRDyhNHxWBz791M
-HmK59v0ouBF0TEwmEyzF6SfwlLJXNP7xSr4dPsi606w0BbQSCbqBvCaRaQDisp6+
-/r+0wvs4X+TZum+8sXVNhztXtlhRfQjXxm+nFvvPJi/l9PWQnSmPvnHqjWphUgSP
-wCzmAsZhBqPuEQ30+FTggPQk+NS/xXS7jgmFx+wBIGXcy0VpAUyJKSvPiJtHzeGd
-Xe0wxcFqO2PjNVm+4Y4Y3fGgN+G8JEm0aTCPgWMOe6+NrZj0PfpkirRX7zsfOJfM
-h40AamWBMEoCPsRQn/SOfhZHLFztJc2yVczsCT+8gDXIRYJvuMU=
-=q8RY
------END PGP SIGNATURE-----
-
---i3edntsruv6eha4u--
+Johan
