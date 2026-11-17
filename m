@@ -1,45 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794923764;
-	b=NowgX4uwZnAsv5aXr18fAcbOCv0nYbbYgYnH2N5askMUwfnRoa5Gvi9cvxpNKe5uPzOq
-	 5qD4cCs+1fqjY0EPkY8iIuZHQ2Y8NiNENYM2uqLavKlFxEwnFEBAe0z9IsWOhCkgbzgyV
-	 f9ijm1IUdg/lMzqhQte9j8+LtgyOMMFWmUr8Ysdqp7c0PPhG9rpXCmdcrUSByLFkZEtGF
-	 9idMMjZAMfDdoX+Wepi0ZnPjHIOM4dRFUq3EBCMkA6lpo1OzBG1BZZOdG4SjoyrgqbwpJ
-	 cP9LD1WQLMTt9zJufaHUlhebz4/yGa+ofpJ4SQevsuEvCukDLOCAbVX5hKSu/3/PrQw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923764;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=7Q2L8jjilb/GpNsWuFpT/b1KRGx6wj/KhSu95qexhro=;
-	b=os34c7pcWChhq3fJBvHMZTRUPXt3DoEAyMEvZvH+Dw9f0+ReA3vQANGrbmrZ15JrcYUf
-	 3WSfIO/N/fNF5OUdN46PfWkJgLrfkh+lYagiHFE42rs1WT8sw870takVzpyWcc3ScxmfA
-	 fe63RWPa80EIq/XHx53myX/u5CfzVr+o/3YXUcnVeyliNZm+JLL1+vVXtwrBtRnN3qamt
-	 pdHsR7jewQ3VtR1X5fyR9SPjoYQA6u1UaUx/euogq2KcCr3RXBJtHzxhvZHzvJCZ2GYCl
-	 09HP5g8MtNRC9mCORFxlfdojlwdlqierT7Gmx8owrphHIkdz9iHCU8Fk7Uggc3PANIw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U36rQmZv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794924219;
+	b=BpiiMT/StdWT+j2i8wh3ShJtcz6qUwOr6EpkaHJEsHULzYHMc2Z2D6RAEfrslt7kHjaf
+	 /Wd97xrKJbtOa6WWdpwTEyoucDmi8kLEJFMy/lpGIq45FcW0je+E4Hie0OuycG3NHwsXx
+	 muUODWTMTX9381eiS634F95bdwDwFOZoYVGVM3s7I4bxmzG+hCR7IBMtD7UqPxhH8w6zs
+	 2iL82JxKLl3G+h0vhaaJkyNBEKWfOq/DC5TckDhc31gUfdB6d9CBnvmlkAYqm7bWJQ2Ua
+	 wvlf90xfbeK0qexrEYY7CIjZq4PVmw/8LqcsR5GDCuWP1E9vRdY/9gwhiTCWUVjbS6w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794924219;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=alFbhvhmLX/J2fLZw0YpZ2rT70ZCayDvSm7eBC/5SBs=;
+	b=uxE6mBpmqSRUzoIQnDtnEa5LlUNi/z5RFCOtjkzQUzPsZ9hDf7huIYPzjMhOZFlv3v9C
+	 28bwdrx4FUyI1Tz15aAiLSUrfyo551inTrnIktpswL/JlIj5HKwsHs5HRYoknjpq7E47E
+	 xmOz0/MavHJzc22mc1u6o3pTAExJWE9LADbwSsWksjpB9AeiBm49J/3QGnPZUMKpvt5m0
+	 McHDI+nOQ4Tlxt8f2nlxc1Fqvs5SXQgUX5Yzu48naIRW/8MrYtmsRul83KhM2VGKA59DG
+	 YvaxgABtLKLLFK8QXcxETCMCpwheZ4Qfgk7b6G4ampzscsHv4tCvFueyKNA1OpYzcAw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=szeredi.hu;
+	spf=pass smtp.mailfrom=szeredi.hu;
+	dkim=pass header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=rAazOPve;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.182
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44913606A329;
-	Tue, 17 Nov 2026 13:56:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04684606A32A
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 14:03:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04684606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U36rQmZv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57851F000C5;
-	Tue, 17 Nov 2026 13:56:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794923764;
-	bh=7Q2L8jjilb/GpNsWuFpT/b1KRGx6wj/KhSu95qexhro=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=U36rQmZvQJZraztVobO19/Jn/B5zdB3FWdeiAGrQTzC0vhfUeKlOTYp2pysaKxXSF
-	 2+k1M0IPXaBzLMjvaMtx6SYCB8C/w+IGAd/WtDwqtptCUg7z98iJbZBeM/gBB9Pq2C
-	 j3Gig/HFuBJOrqYhKgCJEEcpwNTO37qC7PTbRgqVrsMlMnuybXFZPpvbMUGdbFqwcr
-	 pqoFleR1tSqpz9FPo4OmrCBddyxkA6mL1RPeVxL9lhQEMSwOjCQoY8xhp4sbF1ahwl
-	 IvdKyz8lfSIv69vd9eEfZQWV1L+5me6a/N/KtGh0GEqDUTfAKg7EU7JNEaXU3m5MUe
-	 tgqws+2enkaQw==
+	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=rAazOPve
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5430f70c827so63305211cf.2
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 06:03:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794924218; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZFM1LKmo20Vx3HmkVRit8lImPoeiOuceFSfM42jBT8sqeXY3FxSpD+sd+GWYMTLlIk
+         XN8CiX5Q6dpMeuep73lCjy77pClLnFu3MCH7NNPVtzkJjGMeERyWj99u+pOnnisc5Jux
+         YFqP9uRCmEaBLFJpjyEU4RQq/cSrWJ5iRytQ7V5MYUpUZ7GQ8X5lCdw4G4xDnsG2i0Wu
+         NuDpxlBfxmc5WK55tEGjPIqViXODdQZ534AJWZVd39YpSVAoOT4Yhw7lGn6r2nYws5zy
+         t2vUaOJIziwSiGIQSYjAa7E+ggvPdXp7JSmkyfbH1uwSlYxY0gqneLBTXETa/9/MOdb0
+         IqnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=alFbhvhmLX/J2fLZw0YpZ2rT70ZCayDvSm7eBC/5SBs=;
+        fh=6rqH6B6Pg79Y3pXaH4Bq7FkWRZmKMjVVJveWf3i8/rI=;
+        b=M1WIK2h3GeVc6w7UDlqtShTMZXsXVZ8zB9418QM6dm2f/FThd8dh28q0W+QZGlk33X
+         ChsvvpL/TCkSfvEyArpzOGrz2lTJmhT6qAKEUM7N7HvbvSjFD/ShD8E9jfEUwDppWbY9
+         koNm0+QfDFiImdd/zytIF3YxwXVnQnummYVMims9KK1jnmq1dmLsA/LIUVOO1RFD7FvD
+         jM1zKx6mfeUWCKrqpWgfauCLeRB4ezbnYA5Dix+d/KfnryI9UPH69KTZ+jaX4ZzBX1CV
+         BdXuQLk++giJt+2pLcaLn+1jm4TamrusJpZs5RrO7WO4pGVgl1fXPQ1lie8Y7HYXyiaW
+         gW1g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1794924218; x=1795529018; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=alFbhvhmLX/J2fLZw0YpZ2rT70ZCayDvSm7eBC/5SBs=;
+        b=rAazOPveQZBeHP7/PYw4cGVuGw/93Af91SiR8gE29Oyag17JAwG5+zyIwcDHwgv7c5
+         MQfGdzJdI40chKAxdlzV1wb6vkgBzsrCiIh3zFteiBbL8A1SKzbeCaTlmXGZ9+qPfdjj
+         ArZCGgbNAkpsnhMIgf7Wi7Xc9XKZx8xniLRy0=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794924218; x=1795529018;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=alFbhvhmLX/J2fLZw0YpZ2rT70ZCayDvSm7eBC/5SBs=;
+        b=CltwmLn06JaiM2qhkBLvJExQq1sXYqOXkACMTjHck8kgg+7/msgH52ad//kdgDYDcj
+         sSK5VNekwvSPBJZGvbESa6ZTf3XsW0XiFghh9vGZoTpfcXN7rY6+98WglgXyBz2asS9V
+         QGxLIEfbIWUqjvio/l+tV3IdNS0+akxr5xeUwVD9E7391sx1YaCduAa/TZ3BF2Mjz+4o
+         RIw/gsJrUr3tcuudKQiZHycr/rOQ6A+b7Bj890UUmCDCrMLoiw46YeAQPmQy1NTZsR0+
+         6mhIWDAQBp9UxU2O3XQ/2ZebDahYS2PxdkY/7vAmMUqYlencgTEJap1V4SLpGJqSh2SL
+         kSWg==
+X-Forwarded-Encrypted: i=1; AL+hErEvt+v4ZklBA2RC0KMjjfyZzgFc36DgoJSXeSM776XWw8VKDRE4ITzEMmcitiNPdWhZwfTed70=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82+m5G7Nv3AK7maM1fvDKDROhTIWan3qcK1MdthKhLOk2hxDL7
+	pUwAaG0gBNzRxvZV8+3ltetrnvPKZw3xW0VBHPevaX7rokx1rcXLe/cqVHf7AhSF0qM//tUiWxI
+	KASm3w+skA4yLlQppQGTFBPDsXsVgTxGGjZk3TW0EZw==
+X-Gm-Gg: AYBFou1WJNTcDM3X2CPHuSOpJeERwmNf4R+H4ohZTTYMSngCmDXvKjfQwbg9WgbnyOf
+	lRpNKTHX3PP6ZFEqWByCTMtXH8O/RYbiM6STMT4dX2DV0ObVt8sswutphgYHLHHmKjSnTIKpQfd
+	0zV/lEwZvlMhzkycjU5kxMhmYFPtJiNTMWUkBlLRYaAv+ANBP8MOTb3Ee+9mNGnNXdcPAWBfec7
+	sVBmuttA/w0sV8h5PIFLW5ZaNY1Tx8XLW/WShSxJiJW+ceWND8aomhnsiKSfZtSE3LR2593F2ZY
+	Tb3wIj/kHBPXMwat1RJfqe4GRYOwqP0BIl6UPsnlOECvePzSwH/gclDmH2qPNLrK7e1IjFrBgZt
+	ItJcaiBPB4NiSathMukBZ0a7DXMw4BrZCzAGc3/gFIKwj8gXkfEBue2zzAXi1fR1MEl+B3ffDdZ
+	bN8p63qYfHwac=
+X-Received: by 2002:ac8:5ad3:0:b0:535:2047:6363 with SMTP id
+ d75a77b69052e-55ac448c12dmr221360331cf.6.1794924217487; Tue, 17 Nov 2026
+ 06:03:37 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,57 +101,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 1/3] media: iris: Skip redundant decoder input config
- params
-From: bod@kernel.org
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Vedang Nagar <quic_vnagar@quicinc.com>, Hans Verkuil <hverkuil@kernel.org>, 
- Stefan Schmidt <stefan.schmidt@linaro.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, 
- Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>, 
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- stable@vger.kernel.org
-In-Reply-To: <20261031-fix_dec_seek-v1-1-cfedf0c267ee@oss.qualcomm.com>
-References: <20261031-fix_dec_seek-v1-0-cfedf0c267ee@oss.qualcomm.com>
- <20261031-fix_dec_seek-v1-1-cfedf0c267ee@oss.qualcomm.com>
-Date: Tue, 17 Nov 2026 13:55:58 +0000
-Message-Id: <179492375803.2846709.17266637550647614190.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e3fc9
-X-Developer-Signature: v=1; a=openpgp-sha256; l=658; i=bod@kernel.org;
- h=from:subject:message-id; bh=7Q2L8jjilb/GpNsWuFpT/b1KRGx6wj/KhSu95qexhro=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/FzuQUtuXyJFgJTPQ9BF7I2rHvKqSuO+HB0zL
- Jm8xkCmnTCJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCavxc7gAKCRAicTuzoY3I
- OkhyD/9CbN6TAojopt3QE48PMtLqCQ+tGlmI+b5oXoFbPhVxnUDxh428z+aeWwN4bZuqK7dVd+k
- NtsVDCCJxzlwZG+ogMBqS/zJLg39HdCqnTcBCl/5yEVMMTKG1nsMthpVJ8s5xC0ScGn4UPQbvaD
- J5k2pR+uin62Rq+oMOP+iUy1zTygWaA6QWcIsCzsDDH+gcLrhggPwsgsJnx59mVa7p0dQmw7YXN
- 7ZR839kWBocHpKg47NMzXr7UIRZgj0YtLopm1uHnE0DGPbhjXBHBJ+fnoNWkmWh6/Ko2sKzBn4t
- R1X8glIwP5na9A93tTFMyo7WhedflVGLAz2an8mSgj97HfiB7AdBB29eS/2jBsD06nNdPlkvmle
- SYuDQ6BzxSgNfOqOKgp4AP1NZrG+GK6yf7hLdEIc/thrgCbs1TkhEerN6puj6HzDB0z6dsFAB00
- O8w65xz8H4Mp6DLoq9hZ5K32a7D7PDe0Jzf3rMrYj75yBf9lm+chkYvtILXe+MzayXZ5c9T4iZ8
- /wGChVvbx25e9HMV7fBtnjq4YmmV3Jim+KYTFKIe4D7pFdZAApGMChYfDOTRpmmZ/StVRUN+zbC
- 8nxnaz8qO9eme3+fpzagYhY0u58TNHxUUC2MRLrlJNnDaNqDoWyRgx6bkF1uNTLsA5c08PsuST8
- eYc84NMs9gaUulg==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+References: <20261110150250.71520-1-ekffu200098@gmail.com>
+In-Reply-To: <20261110150250.71520-1-ekffu200098@gmail.com>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Tue, 17 Nov 2026 15:03:26 +0100
+X-Gm-Features: AclHuK-p32xS9Ymw_ghXNjlBRtB_UAl6rx4OxdJZvic7C_w4sxAcHG3mT5pB1sc
+Message-ID: <CAJfpeguXcXTPpYshszCDM=Va7Rx5VZiMStFbSi66R1NjB566+w@mail.gmail.com>
+Subject: Re: [PATCH] fuse: defer dentry_tree_work until fuse_dentry_tree_init()
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Luis Henriques <luis@igalia.com>, Miklos Szeredi <mszeredi@redhat.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-10-31 01:49 +0530, Vishnu Reddy wrote:
-> The decoder input configuration parameters are sent to the firmware every
-> time the output plane is streamed on. This includes streamon after a seek.
-> Resending these parameters generates a port settings change (PSC) event
-> even when the input configuration has not changed. The client then
-> receives a redundant resolution change notification on every seek. A seek
-> hang was observed when redundant PSC events were generated for the same
-> configuration.
+On Tue, 10 Nov 2026 at 16:02, Sang-Heon Jeon <ekffu200098@gmail.com> wrote:
+>
+> inval_wq_set() schedules dentry_tree_work when inval_wq is enabled.
+>
+> But inval_wq_set() can be called at boot or module load before
+> fuse_dentry_tree_init() initializes the work, so __queue_delayed_work()
+> warns and the work never starts.
+>
+> So defer scheduling the work until fuse_dentry_tree_init() sets it up.
 
-Its not clear reading the git log here where that hang occurs. Userspace,
-kernel, firmware ? I think you should specify that.
----
-bod
+Please add locking as sashiko's suggested.
 
+Thanks,
+Miklos
