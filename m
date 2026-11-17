@@ -1,56 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794919965;
-	b=v7kqHsV+xjONblAZRsN4Hq2+JOzbHULMDPrWR/vx7w9Sq4tCCSnHLEbw6Mjw5CaHtCg+
-	 t3XF6yVRDNmyE1L67OGzRw1irXQHzXfJHDHcmTOiqnK1rNuNX7yFEMS8kN16J3iv+zC24
-	 fQY3Jsak245IvtwbKjTau32sVmMmPKU4XBXf0B9L3VUlyiTh7YfgkId5z90M4VtbGIkum
-	 ZayG3DGeuhfhCupTXyTCIUttKWoSR3LghAEQYAgaV8LF1aKmQ3U/VVj/OJF5ScrL/WOau
-	 5bqy0LeRIIkoj/1dSh9k8Ml82uDXqAF2M0EQRDkqoMmBTvO9963LrhQL21QlHQVO3Tg==
+	t=1794920125;
+	b=W3dVV2+ZL8fGihuRkseMNAsYE81YNSHDk0C4tkJp9HhwB70f3RzraE7ek4vdQpegjn65
+	 l5M9Tm59dRU+/kBuSVTLTA/Gz++/+noDrVJQ7lFkyWP5P3DETAUny4j2VuYLE0xuzHT6H
+	 rf71Ak3G9j+OOWkqw8XfxJ6k4dRVohofUk1maT1CkBYnMiH5IgN9EU04+13Wl+rTX9Dj4
+	 s7xkba2yma+7pd8NC45NG2iwz+NcMuL0YUK2PsVJeSlZdJx7pTUCFXBQMbFw3laeAfO1k
+	 bBoA5bDbcQy/7WVC6osVFZ0kz1CVRwEPN3uW9A+9MuoMYxQ1mxtj68S3TRC50bRnSCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794919965;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794920125;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=j7R552vhrndcKJ2DIVa+rxbZ26W4ZP4jTvhYdj1Ck8U=;
-	b=u/4zkjS66IwfR1Rco1FAwH6GnM1lenUFkJ/tGJ9XsALFIJk1pxxqoRJB1dqSOKMHXZF2
-	 YHBg6wqJANGVUSBMuUS1oPZeKPnypBKuRzQymh90h1nJK5O1H2r9hpGB124yDfR/2oLyW
-	 GBd8qT1s69Z3tBgO2oiWBIAHPTO1719Rx63RAuxI8+FWOqv/yWd/J/b8IKlt66GvrNi64
-	 NqK3a+kKmMvZkH3tBj+Xt/pAufdDN33LsKO7vs1qi0v0fCtiX/rgqKApanx+tTnfoJt3a
-	 sBsIMbETV2SDVwITdl0y7AJhR5SwZKcDDJXONErbxhQAAEMhIoT5fxOZ+C9HN770nFw==
+	bh=eMdm5R6kr9FBKHBQZ//DR8je0iHDg73uHiHu/KHyhUU=;
+	b=dI9slvKdF+iYxWY3L+HYeBAD44e4rdlYCH9d0+MJz74vnsJm7A08wgftyea6RKWY+oQk
+	 3a0cEnNwra/YDuxxTK1k61vJRXhclHUauD/KMzdQ7JiN8gA/iDMTew/fNIggk59M/u7Zf
+	 9SivlcXhCXuNbigMmZJlsroQop+nsxPNCBwwRsoRgeX356SwvDSOyye7tN/rwtqBlXOaf
+	 f1j1IeTKnt6It97YHJpMIYKbo1IUjpO7AJ+tkHmay+X6hTV/auoMJdnmFt5w+srUE3tQ+
+	 Br/tB0PEK3pJ+nOMxrS4pVTs8t0br3CLQQcLanPkBjpaZA6qQacje0yYV1c85br3qsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H0DPFISB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ghSrE+Kb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 34D37606A323;
-	Tue, 17 Nov 2026 12:52:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85B19606A32F;
+	Tue, 17 Nov 2026 12:55:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H0DPFISB
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 4FBA21F000C5;
-	Tue, 17 Nov 2026 12:52:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ghSrE+Kb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C05F21F000C4;
+	Tue, 17 Nov 2026 12:55:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794919964;
-	bh=j7R552vhrndcKJ2DIVa+rxbZ26W4ZP4jTvhYdj1Ck8U=;
+	s=k20260515; t=1794920125;
+	bh=eMdm5R6kr9FBKHBQZ//DR8je0iHDg73uHiHu/KHyhUU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H0DPFISB9pfAXa9ZwZmYO7w9syYXQsvCH3FiADizmrmYdr5DaoDmUq/TJTJsrIjZE
-	 A4BhdujBFesuWynrsPcTNoJQ6ylxFk32r3MRA3Qm2zmHeiGGrAGs87jqvAtRWoqfVD
-	 KYTrlzWbrqg7aRuorxkC5CVzUKZJHbuEXIrD8ZNJcvLhPfZFzba5xDmzXG/h0HyICq
-	 2OD7Iara0PSS0DrcW5LptRruzNKItQxD2CY/k1bGv+1BqgzzPP+E3RfBuFlVcCzWr/
-	 j4YPpQ8ZKeGgC9D6+xswGqIbaLcrWjyqypw4PFHYwp46shKYAcJXhN514YHYMQF0Gv
-	 6WvlRh1fI5Beg==
-Date: Tue, 17 Nov 2026 14:52:41 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Sinan Turunc <enscrpt@pm.me>
-Cc: David Howells <dhowells@redhat.com>, paul@paul-moore.com,
-	jmorris@namei.org, serge@hallyn.com, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] keys: serialise key instantiation against
- keyctl_chown_key()
-Message-ID: <avxOGQOBm5p24nzQ@kernel.org>
-References: <20261117123353.1822-1-enscrpt@pm.me>
- <avxNd7uCbLiUAi3A@kernel.org>
+	b=ghSrE+KbMEoLJMEAyMAz01tGCL/ewJ8Ly84wLkOtBOCzWOcKNdKdT5/FtCixN+/NX
+	 OewAjrdv4UDBxYRE1K8IhBiTXM2mpUihYbG/CNsUEx0dRg0xak+hoah9PesLLTaEqX
+	 lr+iQDN8D/gVvJNqSBg/EH4z/IKISX4LUpjCEmuTy9UcX03nOm+eGF6UzwSMWsH0VS
+	 BN2GdyyDAWE1Qy23RF4E1AA5IXeyOPR8ZhVFgizvqH//sXFlg07lFnxA9NI12HaeVL
+	 ERTUG8VLY9Eq0gtYaDv4E5VerKtnxqFSCSdAo1NjooOCi3ywFvvi4MZ3F43OcjcwSX
+	 URNHic/rdHS3A==
+Date: Tue, 17 Nov 2026 13:55:19 +0100
+From: Niklas Cassel <cassel@kernel.org>
+To: Damien Le Moal <dlemoal@kernel.org>,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
+	"Martin K . Petersen" <mkp@kernel.org>,
+	John Garry <john.garry@linux.dev>, Hannes Reinecke <hare@suse.de>,
+	Jens Axboe <axboe@kernel.dk>, linux-ide@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Justinien Bouron <jbouron@amazon.com>
+Cc: Gunnar Kudrjavets <gunnarku@amazon.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] ata: libata-core: Add max sector quirk to INTEL
+ SSDSCKKB240G8
+Message-ID: <avxOtx5ueJXmYMlz@ryzen>
+References: <20261116205430.44305-1-jbouron@amazon.com>
+ <179491952051.3464613.10156120067978467700.b4-ty@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,25 +64,30 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <avxNd7uCbLiUAi3A@kernel.org>
+In-Reply-To: <179491952051.3464613.10156120067978467700.b4-ty@kernel.org>
 
-On Tue, Nov 17, 2026 at 02:50:03PM +0200, Jarkko Sakkinen wrote:
-> > An AI tool assisted with finding the race, writing the four-line fix and
-> > the reproducer, and running the tests. I reviewed the kernel source and the
-> > test logs and wrote this commit message myself.
+On Tue, Nov 17, 2026 at 01:45:20PM +0100, Niklas Cassel wrote:
+> On Mon, 16 Nov 2026 12:54:30 -0800, Justinien Bouron wrote:
+> > INTEL SSDSCKKB240G8 with firmware version XC311102 runs into FPDMA
+> > timeout errors when queue/max_sectors_kb is set to
+> > BLK_DEF_MAX_SECTORS_CAP = 4096KiB / 8192 sectors. Similar to model
+> > SSDSC2KG480G8, the issue disappears when setting this max size to 8191
+> > sectors, thus apply the same quirk.
+> > 
+> > Firmware version X5A1ME59 for SSDSCKKB240G8 is un-affected by this bug
+> > thus keep the quirk specific to firmware XC311102.
+> > 
+> > [...]
 > 
-> Irrelevant in the commit message as metaphorically it is now a tool just
-> like text editor is a tool.
+> Applied to libata/linux.git (for-7.5), thanks!
 > 
-> I can write a horrific 4chan post with a text editor but if I send it to
-> LKML and call it a kernel patch, I don't make claims that it was assisted
-> by a text editor and reviewed by me.
+> [1/1] ata: libata-core: Add max sector quirk to INTEL SSDSCKKB240G8
+>       https://git.kernel.org/libata/linux/c/3dccf22a
 > 
-> But yeah, I get the commit message better now, thank you.
 
-And on softer side: making a mistake is not a mistake ;-)
+I moved this to for-7.4-fixes instead, because of the severity of the bug
+and that it is quite recent.
 
-This is all about standing behind whatever you submit; not so much about
-"performance". I make mistakes all the time.
 
-Br, Jarkko
+Kind regards,
+Niklas
