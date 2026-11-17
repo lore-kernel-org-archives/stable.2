@@ -1,58 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927275;
-	b=AXtqdXAl+SkbPCYE3ir+8oOTDm6QbxS2NwjVgpmVu5CwPuCSBAvPPw1PWqaLAHS0pEhV
-	 l8RI1rVxUBojOd43ltbn2jSlK1OZPb1zNLdDIRZEcX+i5RR7rp87QP6q4Joa/5SKfMFBj
-	 CxWuBgxsGOAtn6tsxlEV1EFzbo0pr7+fKdSRSo8YUH99RQA0dzeKG/a0QSSTC+IOsgozK
-	 BFIahHhlVsExzRWbr+bV4Aq+JJt2m2BxJCJ17KFk7FbNYac8Hq08Re/DQuadfzjELLpJL
-	 9yLMddpe8cavulPxqpWiqiKPyKEnw6uXrT3b6XH7cnW5k5MMjlFW2cNecRh9m5dpvxA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927275;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=2Wq9AE25iea427W8wiH0e2Ewq13PobRIAnClSSphGUw=;
-	b=PKmQNH6IIFizgIwlh6tL75QJGKHKabViGqitq3j2jbqYiaK3Ly6Wa17ENFSqrNfsXlLC
-	 DiT/mlRsNTzQdiyhiPzY9FcMDOF+bDlszNneVdkh+zxdyxh0RAtGM+UboVwdGxDy67Io8
-	 c3EgHYKCzkuGRfvJ7XHiZPgjngMBiAUX/ZS4I66k11JJeDPXVExt5rQf6tkE/SoXSCt+6
-	 iZhdlNUCirh021tXgcC+DbuvI5s8TY67vtWwYlwMVqLZgPCvjJnJsMOIB4YQ1NULlUy9/
-	 OkeRpuYsf7qtv98KyeFytfi50OOF5Z0YfvlKQRgezKMN1F1AHY7hX8jZdzIV18g6vhg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RldvSNBi;
-	arc=none smtp.remote-ip=185.171.202.116
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794927329;
+	b=uE/BFvobsEsFt2qywlBtWfF/TZFns2bDDr3Jy6N6Rvws5w5hAiU6v6qWcE99b/+W6zhw
+	 3rRFNL7K1wqKmqI/s/STrrmOtb+h9lBuynN4PNZOIOll28rI5+E+WijC20OaasEOAvpLS
+	 g3QQxqHx2s2hC/z6F6rsbJGcpjRo1I7OwMiQ7acrfzggPt6IBXFb6RMJST11zVyly/bqD
+	 fpEoKZt6ZHZp+ZSr8IF4maz5q9RG1eapHbCjhW11bQ3/kTWj48SFNZs1zeWiCBxvXNHjZ
+	 txJOEozyVb1y+WNYNShitPgRy5ejOn5zRa2Zr3H3HQYHyQ+gweT1oMx5XuXnPrar3gg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927329;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=fsboG2mhQ8Bs8gKCnM/fcad38tCKQhkoW7tEGPb1fzo=;
+	b=H/i8DZfGtNTOfDvbzhYofKVegMsHTyRdQShJJ5+B1TmfNJ0SX+zsJDSDSqoAD8nv2in4
+	 XbHSTax1V50p6dwu+o7UL620xjFQXEbZKL4bjO3IyRZIVsHlm4UMKfidrAtVDm6l7YnGA
+	 1blJRz0EPqbH+tfS4farWWahZZZjkGjVBF+XquV/Ts9ybr+eT5ZxYtl32GV/4grn/sNvF
+	 P5U9sB2FnkunRdaAyDsGJnxyOPajwj9y9aWm81QdisJzu7FEuX4QDbUk2fqTIuC2pCm+o
+	 x1JQb+R+jp0RsbcGK5PeSrpB06myc2EOcXR48odntdUwwmkLoLJ66dvIvliKo+WSC9A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=c3kTp4Nc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.51
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013051.outbound.protection.outlook.com [40.93.201.51])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B29606A336
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 14:54:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66B29606A336
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F159D606A32A;
+	Tue, 17 Nov 2026 14:55:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F159D606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=RldvSNBi
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id D4D73C79A9B;
-	Tue, 17 Nov 2026 14:54:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 49E9E5FD6A;
-	Tue, 17 Nov 2026 14:54:33 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D187511BC0026;
-	Tue, 17 Nov 2026 15:54:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794927271; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=2Wq9AE25iea427W8wiH0e2Ewq13PobRIAnClSSphGUw=;
-	b=RldvSNBih/YepnuGq2MmKOY6A9rIpEumELC0ddV1Qgq3r8IhTrV9lLpBVSihJHenq/I5Vm
-	nd/D9MLgGB234C7uQ88P5bQwFSTY+e4TDToHLYcXFPrmuKPTqcBi7dLVsJw32RGbjuDYJq
-	DSpyU8dNw+tl5D0GFkjGBp4MDLolXdsuoCK7TJlQvzelGr+QaF4TV9f8tpXJQK6ktyC3U1
-	ZIIWLKrlz+S+q7+hhl7LD9tk/gm5zD17LNzTyrGIkcrpSZqz3fehRtbOjXHyJO9Z+zne/f
-	+TVHU/jYSpNFMwbDgip6SnNlQIpAKn1oCFtg8VOPxoboHaMQCZd36nFYvjiQvQ==
-Message-ID: <d06c6f0c-a0cc-4b6c-a0ec-eb459ea0eaef@bootlin.com>
-Date: Tue, 17 Nov 2026 15:54:22 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=c3kTp4Nc
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=W2+Ny66FRkrWBF9e7iaePzUaNWpWpPqtFVLc+A3qQcIeuSvnruye5rc3P0WpKrne+cHOZ1SP9dIjOhMZ1lF5Yio3DM3mwGmwOh8oipsV1O7e3+dphlkDp+VmcyhUqZKvPrg06uZE5c4CINk66I8qxrKq7x6BGdhVzS/U6uiV+WzYB+TbygFM8FHS69LK3eHBAfUvxBjooayCWZVklkcrqIRyN0rsKlQLu477GeN9nocOQStfKUE3eDRrhORDZx8Dd/96/kAqKZEyf/ZzCZzjIQbVZbosU7K7yRSsSosWAq6YA1p8cZ/DMCSaLbHMD221ZoqnhNURoPbl6qIiWBpjBA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=fsboG2mhQ8Bs8gKCnM/fcad38tCKQhkoW7tEGPb1fzo=;
+ b=zILwNiaKV3GTRmRieHt85a1Z8WxHiq+1sekCRUmt/Vfw6cEQ1ITQhPxQVldC5DRQyK125UYZWYx+IXSFcqTUlKCfFZDdGbvcgrNkg2dZo4qWzT3lmD4WY1BK07I5Yr8eN+pdWeWj9GLsFefD9vd20tRJ3qQKlwkhalo2yqRJ7LMGt7bQpp4VqYMBE2izZiekfGt7FYoCLnc+Z2rSXDGGJswwMU/a8OFzu5basmzjiejPiRH9KZrkGXdYJV5AgJIkk0Sf97lhGyzUJiKCANtwXfcQ3xn2dUKTuKhGJfAYejI6/kpaCGuC4HJ7NJ+3vUq2klI/IfyskIQ/QhuWiHkq4g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=fsboG2mhQ8Bs8gKCnM/fcad38tCKQhkoW7tEGPb1fzo=;
+ b=c3kTp4NcCmL+k5juXel3URtGHJ11vh1JlYnxc4oxNEPWtkTlPWCXmTZMYKeIO6jpUIr7gACKObTpWa7IIs01OQSke9dRL2evDuXe51HgBH73hElikGYsLfb33wjxMbwi73j5t9JA4RZYVFVgcON+n+kbSprY43gVWxFkbf88TTE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SJ1PR12MB6145.namprd12.prod.outlook.com (2603:10b6:a03:45c::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
+ 2026 14:55:24 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
+ 14:55:24 +0000
+Message-ID: <efce5fe0-6e7d-417c-93a3-35247b431448@amd.com>
+Date: Tue, 17 Nov 2026 15:55:07 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] dma-buf/dma-fence: Prevent misordering for error checks
+To: Philipp Stanner <phasta@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Chris Wilson <chris@chris-wilson.co.uk>, Danilo Krummrich <dakr@kernel.org>,
+ Gary Guo <gary@garyguo.net>, Alice Ryhl <aliceryhl@google.com>,
+ Daniel Almeida <daniel.almeida@collabora.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261117090144.581909-2-phasta@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261117090144.581909-2-phasta@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR4P281CA0166.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b7::17) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,91 +101,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 1/3] net: stmmac: honour Rx checksum errors in the
- AF_XDP zero-copy path
-To: Christian Schmidbauer <opensource@grische.xyz>, netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, Oleksij Rempel
- <o.rempel@pengutronix.de>, stable@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>,
- Jesper Dangaard Brouer <hawk@kernel.org>,
- John Fastabend <john.fastabend@gmail.com>,
- Stanislav Fomichev <sdf@fomichev.me>,
- Ong Boon Leong <boon.leong.ong@intel.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- bpf@vger.kernel.org
-References: <20261114133640.3285413-1-opensource@grische.xyz>
- <20261114133640.3285413-2-opensource@grische.xyz>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261114133640.3285413-2-opensource@grische.xyz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SJ1PR12MB6145:EE_
+X-MS-Office365-Filtering-Correlation-Id: a9717fbd-cf72-426f-2dd7-08df44bacf68
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|7416014|18002099003|22082099003|261009223027099003|11063799006|56012099006|261028144727099003|261022105027099003|261026140227099003|261026121527099003|261021121427099003|261021123027099003|261102123227099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	3AIaR8n8DjXJtpdw7nEFf+/PEXcaeNiqi4aw/lP3xHr1ldcURnzgvVOS/Hc3zDaZTwPkaN6aSXqTTmFGGaWoqLfLdR4Xz8TQetkP2UDhIJ2PaN6LUGaekaWwplw5486bW2dWrw7xiYQrwegdyz2zcEBg0IEtyledlM/goVDWxC6pHJSU23GT0fnNuvilFAQoEXcvxDT9eNvIlSrElZm9LuL3IiDUiaBkWQj2X7eguAoNx0El7qTriTnoNpfQBj5KjIBMoInUqYyb2HE2s+jEawwWsM2SD34bMmXw5XIi/kkaoxmF/ACJHTNWGKIVuSZPgqKR5+z6jF/BBYpOUuNnzIdfY7kqkijq5Znatqq3gTV8wNPfmh1nxye6UjynYbkq11Fpdy0pSUwNDu7G6LS/ctvm7NJiqBRSlyr849nC4l4qYV1f3hN1X46k7dxYWpAgHr0ffV75k+CyEXrSxlbWINccMvMSPNLvlx3/j7UTlSDMs5AOhsA65C0latLzKSP8pJ94UP17QaBd4yPCIrb6gMtypSpxAtUrPfte8UgOeq6t+65k4E5ss/RcOzdVuxG6hWCt1is3DyMqT4nvcvF2Gm5gd4uOpgVu3wqaQdxQNiR2t2Htiyd6EHh7uJbjTAnFOkNOWnpy0XwydhxLQhuPJnJObTs1mtCvVvAhICNrDh4=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(7416014)(18002099003)(22082099003)(261009223027099003)(11063799006)(56012099006)(261028144727099003)(261022105027099003)(261026140227099003)(261026121527099003)(261021121427099003)(261021123027099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U0x2WnBoaG5jVklDUmR4VEZhTFdLdEdTa3c1cyt3SkZ2RjI0LzRqYkxlcENE?=
+ =?utf-8?B?cUxrU1dXUUlLTWFmTjlPMjA2WWM1Rk9yZHNaMFZrS1FiR0ExWHRmdm9oVC9U?=
+ =?utf-8?B?Qlg1eGN5c1dsYUxFeFAwWTlHejBtUWJ6dGhOWm5PNzREWmVPbEY5bzVHNjFt?=
+ =?utf-8?B?SU9PaVNiRVVhWS9jb2FMTEwyMWlJK3hpTlhGZkV1bmJJcFBDUFNuQ2xPTWVu?=
+ =?utf-8?B?c2VpY2FTTVVaTld0Tlk0NUNLQkhjb0gzSnNWSlk0VW1WSUhYdG9rUUZ2Q3Ja?=
+ =?utf-8?B?QWVoaFNkTERVdHpuUEZQc08rZ0MzUkhmcEl1V3NZcldTRVQwUFBaNUNCaHRm?=
+ =?utf-8?B?elB6Y0tYak0vZHFYK1U4bVkwc3greWNPUmtJY1B6TXVQaHIwS0x6bjFzMnZ6?=
+ =?utf-8?B?dWR1N0pxMHNETGx6eXRIRm1wMVZwcnE3SSt5VDRaYlRXTVM3RDBEQUd0MmdS?=
+ =?utf-8?B?Ykk4S3lJSXUrN3VsV2ZhaGFSUkJMK3cwaU9hOVVYS1FzcWFPRlM0cERQangv?=
+ =?utf-8?B?NlNUaWNCblhWMEVFUWJIWnVtdXdWS2lCODhGeXQ0d3hORlpGYlQ3WUFJYXBu?=
+ =?utf-8?B?a1cvbXc0c0g2aGgvNnY1VlhWdUcxUTVKWmdsMS9hOERCVnZPRFowNXpVcHJN?=
+ =?utf-8?B?eSt3RWRPaXc2ZU1WSjhKUGdxUTJlWG9CcWpPWDJSRG52dXlBQjYrN0JoMnNn?=
+ =?utf-8?B?OXhEd1ZTQStLRERMR0dzMkphZUZzUXhwVVRRSXR3WlBuVk1raTJRS2swMVQy?=
+ =?utf-8?B?bWF4cXFUL1k0RjdydVY4Z2JENEl2NlFYYmo3RklPY1h1b2orVWJSaTBTS240?=
+ =?utf-8?B?OEtvSks3emZQSVJNemllVnk1dVRzSjMrUXowdUd3V2FxUVVSREZyUHBmOU9m?=
+ =?utf-8?B?b3NpSnJ1bXlya3lBaTRwaWgxa1JhZWxUemFEU3owaGF3MXFzRFE1UTBvdHpI?=
+ =?utf-8?B?eFlENUZlYUpjU09iOXBJTS8zTlpVeUwyLzFBQjlIWXhRcGk3S1ZxemxKRUV3?=
+ =?utf-8?B?dkJmYThuYUV1RHhkdUNwK1ptUmpUQ0d1ZG5tZTJUS2xNTlVDQ0xLSXpqblRK?=
+ =?utf-8?B?TUdsUmRuZ2ZlTUlVb2Nadk8rRitIWWwvcExEYjBPeExZd3JCV0hZWmZMRUJh?=
+ =?utf-8?B?dmU1UllTbHoxc0F6SDNXYjF1aGxqdXRxTG11WmVGVDNrbldZZ0VycHZ6TkNv?=
+ =?utf-8?B?TW9IM2VmNmIwWlVBSWhmVUwyT2VaektEY0lBTWQ0MFRMWktCWWxsQ3NvbHl5?=
+ =?utf-8?B?ZXdqbUNqa1VKYm9BMnBIaFBVelp5NGdHd0VHdFgrSnErU0lGb25wdjlCZHVy?=
+ =?utf-8?B?QXcwam1zR0poWllhSFlNbEZtL0JQcnNYWEliTGpibk1Xc3EwN0pSby92UkpY?=
+ =?utf-8?B?eEc3QTlkaVkvcU5TajVCYkFKS1plNjhwQzUyVFg0bnF2SEdmRFFLYjQyVDk4?=
+ =?utf-8?B?Q3diSy81VEdTVnFhbGl1ay9Bc2huVW8wMXpIczRMRmphMFVLcTIwN2NlVkZy?=
+ =?utf-8?B?emZ2ZUVuT0Mvb3p4TXFxb1I5QWt6Y3VicklRNXV5dEhNSytxOUJpUTd1aVVa?=
+ =?utf-8?B?Z0xVNG9PSGNoZTl1QlBHNzdaZFYvOXhjWm43REZvTWJ4b1NsRlJoc2t2UzVE?=
+ =?utf-8?B?UndzSTlVZm1FUitwYVdpZFptWWdlaTB6TnpnMnF3TnhaNDI4VmJpbE5jd2JP?=
+ =?utf-8?B?djFyNEZCd3ZKOGoreGIrcW8vZHJka1JkTTZNRHozYy9CNDNJL3ZidDZBUTBu?=
+ =?utf-8?B?Y0pMeE5Tb2Y2OGtHbkRQK1Z6NEFVYzZrYlJLSzdiSEp5a1FIYnR4NnBUU2sy?=
+ =?utf-8?B?ay9WRmFBVTB3M01ySitoWGV6U25OSnJjejNhNDE3dTFWY2JLT3hodWZpVjFC?=
+ =?utf-8?B?Z055enFGbE4yMzkzL1N1SnlyU3ZFUDh4a09DVUU4ekxrRWNQVXZoNWhaZmFD?=
+ =?utf-8?B?TVp2TGtDS250cFQ5WnNHQnd1azdvUCtNR0lYZTNuQ1M2REpIREFsMy9JQWYz?=
+ =?utf-8?B?Z0tYQmZ0V1dvQ0p6MFhBUEhKa1NiOFRESG9VU2FveFNrdEJyOFltRkZRZE5w?=
+ =?utf-8?B?R0dQWE5CWWZmZXdiS1hHSlhOMW5HTVFsMU1VRU1xZTJPWHZ6WXluOEMzaEZJ?=
+ =?utf-8?B?TVpRcmhnT29lZktEV0ZyQ0lQQlVabTBCWXBtOUsrOWVpYm91ODlwL2FsaWlP?=
+ =?utf-8?B?TmpQRVNjd01KQmZ6ajVhSGswM1RJd3ROZ0d4VEU0YTZYZG9QTllCVTkzWnAy?=
+ =?utf-8?B?WFJWaytubm40TlN6Z2U5d0I1d3lzb2p5anFSR2JtWWs0SmhEd3ErOUNvY1RH?=
+ =?utf-8?Q?hRmnP6TIB5zej3CJR0?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9717fbd-cf72-426f-2dd7-08df44bacf68
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 14:55:24.8036
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: SvvUnrAXiLapzqnvdcTvDSlvWSeOna//VG+WgMFLRzSAv0vWabhB0UHPBkECpWy2
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6145
 
-Hi,
-
-On 11/14/26 14:36, Christian Schmidbauer wrote:
-> Commit ee0aace5f844 ("net: stmmac: Correctly handle Rx checksum offload
-> errors") taught stmmac_rx() to honour the csum_none status, but
-> stmmac_dispatch_skb_zc() still ignores it and sets CHECKSUM_UNNECESSARY
-> for every IP frame whenever the checksum offload engine (CoE) is
-> enabled.
+On 11/17/26 10:01, Philipp Stanner wrote:
+> Many users of dma_fence do things like:
 > 
-> Since commit fe4042797651 ("net: stmmac: dwmac4: stop hardware from
-> dropping checksum-error packets") dwmac4 delivers such frames instead of
-> dropping them, so this path receives them.
+> // Thread A
+> dma_fence_set_error(f, -EINVAL);
+> dma_fence_signal(f); // <- Takes lock, which orders against the above.
 > 
-> Mark the skb CHECKSUM_NONE when csum_none is set, as stmmac_rx() does.
+> // Thread B
+> if (dma_fence_is_signaled(f)) // <- Does test_bit(), no ordering.
+> 	pr_info("err: %i\n", f->error); // <- Can be loaded first.
 > 
-> Fixes: bba2556efad6 ("net: stmmac: Enable RX via AF_XDP zero-copy")
-> Cc: <stable@vger.kernel.org>
-> Assisted-by: Claude:claude-opus-5-5
-> Signed-off-by: Christian Schmidbauer <opensource@grische.xyz>
-
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-
-Maxime
-
+> There is no memory ordering between reading of the signaled-bit and
+> reading of the error code. This can result in outdated, wrong error
+> codes being evaluated by the user.
+> 
+> Though dma_fence_get_status() does take the fence lock, it is equally
+> broken because the misordering can simply happen within the critical
+> section.
+> 
+> It's not entirely clear since when this bug exists, but at least since
+> dma_fence_get_status() was added, which is why its birth commit is
+> marked as the Fixes commit here.
+> 
+> Ensure ordering for everyone evaluating the error code centrally by
+> using test_bit_acquire() in dma_fence_test_signaled_flag().
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: d6c99f4bf093 ("dma-fence: Wrap querying the fence->status")
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
 > ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 +++++---
->  1 file changed, 5 insertions(+), 3 deletions(-)
+> Changes since the RFC:
+>   - Order with test_bit_acquire(). (Gary)
+>   - ^ also makes it easy to backport this for now.
+>   - Try to document roughly what is even going on.
+> ---
+>  include/linux/dma-fence.h | 11 ++++++++++-
+>  1 file changed, 10 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> index 7ffed295eb14..3e5803db19b4 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-> @@ -5547,7 +5547,7 @@ static struct sk_buff *stmmac_construct_skb_zc(struct stmmac_channel *ch,
->  
->  static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
->  				   struct dma_desc *p, struct dma_desc *np,
-> -				   struct xdp_buff *xdp)
-> +				   struct xdp_buff *xdp, int status)
+> diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+> index dd07d128adc3..a8d23fed70b9 100644
+> --- a/include/linux/dma-fence.h
+> +++ b/include/linux/dma-fence.h
+> @@ -496,7 +496,16 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
+>  static inline bool
+>  dma_fence_test_signaled_flag(struct dma_fence *fence)
 >  {
->  	struct stmmac_rxq_stats *rxq_stats = &priv->xstats.rxq_stats[queue];
->  	struct stmmac_channel *ch = &priv->channel[queue];
-> @@ -5575,7 +5575,8 @@ static void stmmac_dispatch_skb_zc(struct stmmac_priv *priv, u32 queue,
+> -	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+> +	// Best-effort ordering of the locklessly evaluated signaled-bit,
+> +	// especially so that reads of fence->error are not misordered.
+> +	//
+> +	// The release counterpart is typically ensured like this:
+> +	//   a) Error codes must only be set before a fence signals and
+> +	//   b) The fence's spinlock's barriers effective in dma_fence_signal()
+> +	//      ensure ordering.
+> +	//   c) For users of dma_fence_signal_locked(), the barrier implied in
+> +	//      test_and_set_bit() should do the trick.
+
+That should probably be a C comment, e.g. /* ... */.
+
+Apart from that really good catch.
+
+Regards,
+Christian.
+
+> +	return test_bit_acquire(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+>  }
 >  
->  	skb->protocol = eth_type_trans(skb, priv->dev);
->  
-> -	if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb))
-> +	if (unlikely(!coe) || !stmmac_has_ip_ethertype(skb) ||
-> +	    (status & csum_none))
->  		skb_checksum_none_assert(skb);
->  	else
->  		skb->ip_summed = CHECKSUM_UNNECESSARY;
-> @@ -5789,7 +5790,8 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
->  
->  		switch (res) {
->  		case STMMAC_XDP_PASS:
-> -			stmmac_dispatch_skb_zc(priv, queue, p, np, buf->xdp);
-> +			stmmac_dispatch_skb_zc(priv, queue, p, np, buf->xdp,
-> +					       status);
->  			xsk_buff_free(buf->xdp);
->  			break;
->  		case STMMAC_XDP_CONSUMED:
+>  /**
 
