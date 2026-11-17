@@ -1,61 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908633;
-	b=sLoSPBMoFI26SC7LbnPK3agEhPYmF7E6rGbinNQqswa/UibLMEcXkCbDvoaWX+pZljcJ
-	 GBbYFnpVpuWc7wKa7nMduITar/rnPhTuM0tqvklP9Xh7Bs8baMXgPwyFxvX4BCxELdDMe
-	 pDtRAlJluEQJlxOWljBfzdKnuGjwotnOAV9Xs+ZnYQRGbF+qFrgJulQb3trytqx9Sy2XC
-	 iDbZBQWvuts2ntQOx2i/u+OCNdCwaSoihU3D3JIILxitTSHfD5BpR7ErNJ2Zx2S0r/0Qa
-	 3TY0xfQXvMGetQvvHGFyTOGvr3dJkebkNGZ7Wis0nMceu0/e/28zf7gy+G1aWtzYGbw==
+	t=1794908678;
+	b=G7v5K16z2PuCAQcCY2JNxR1fmpEqyLNeSNn5R0URPDkgsYvGj9yr5iay69Pn9vdAAqJw
+	 ZLpRjaXWaIg2UU1s4QFgyoctvzcH5JH8dUPAZKIJ5Hp+UF61U2Ui82T8afMujB8ZZ+dFo
+	 b2vC/aMariI8BAOmVg3KbjPgRdYg4VXDAmc3Hk0UHBr6qX3uFhYDJ9EUs5SPtNWEdFKa4
+	 hGOfEcsgcRWzx3gUxkcKaUPE979tz5XtUNRav4ewn/b/XDkK1G3cRtrSJpVJyYCePBwMF
+	 9XrN6CcCjh/XguVDjC9/DOM35Q8I1XBz3Nbsyu3uGsx8umo4IFUbDYVQRPMKBbXCJjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908633;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=7qo4pDApg6kPCIqnGxTspkdPI4s3aZYTTCU9JPkaMZI=;
-	b=N/lfUL2DLBv2DqICWbopnX60KSfEpZDFWOjxkOtGKAKxZ+ZzYs/y2qlrtLqqrMyj1vFz
-	 0nsSstrpC0pcxob52ABNGld9K38m0lfulgCjxSEecCnO3Bu3/SFQedIWvbmBhPtTyQd/5
-	 pG9GJZ+wyj4+1EL7Tmydt3yoyg3ZTBrUcUPVSFa7PrvqRgZVVO/lpAq/RV5cXcpJ/Jn5G
-	 iThpklaQNnHd+NoM2vynP2HmiMgI6LP+EvJqTE/Tlq9WZvxgngXeScTjBNM1Kwbm0CUja
-	 euuKTA8n8pbTCRQPRwGMALN4TMZpcfGvZQhQgHSJisdNBbiEKNQyAzqpmywxtOSUWbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908678;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=bpVBOHCqTNlmSYDRormllaIQWrWpuayTwUPbDNGy6w0=;
+	b=pFLV8hXBFS/VIxvjipRryL37C45geVJNGHMs7pXKn/QWfqqCDSwPaE4iWAuwD+tbeXG1
+	 pC9YkqD2+cQ/kaXVzNXJdo0g0VAUd8DvQjVVuqU3OqI2o56x1q1xaSXxEJe6UubGS1OLZ
+	 cDCGpeccvNCbsdJV68DyQJG72YN4/9bcUprLckda750AqpbTrnQsODHYIwDmfj44dlUIp
+	 AVuzj3YzePIDVf4MOjVwB8nvwMr7ADQ3a8U7XnH4fUagZfE2B6m8QY7xCsdtgvRdyJgiM
+	 4/YYZz18qWTae45oBRJCPQmT8qy5qU7k8gaTaJuB74HJspHYsmO+RllBunfEGHitC2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UH4+ZZ5P;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ibn59nDn;
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4D3360A5BDE;
-	Tue, 17 Nov 2026 09:43:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1402606B5AA
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:44:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1402606B5AA
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UH4+ZZ5P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5379E1F000D2;
-	Tue, 17 Nov 2026 09:43:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794908633;
-	bh=7qo4pDApg6kPCIqnGxTspkdPI4s3aZYTTCU9JPkaMZI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UH4+ZZ5PArpyN3to+x7MhXhi/KR1/pe4KrrPG9HYENuJWzlqDvQJWuuhZN69+oQ7g
-	 bpUQo34ZZgVvT3Aqk1kBjMmzf82t9KbbEIMK97p3FGzvjRXoa4pafMpVZ8thxLFOzk
-	 dO2eTsu0WyRnG+I3NFzttsncqUiOUKJK8/huCLpFucCpJxJvcR4tTN3om9vByrbjhm
-	 XoZ8ScrJiDIunhTqIUf7WhjJ7DEZbgTLDolS3u2lg6JU4gWqVNX1xpQ49PfT810m5i
-	 8VHyvc4o4DVy7nQ+gkFs/N/h/OXKboRDInXVOFJvvlUfz0ZSQIcynrVvrhAsECB2gl
-	 O9HMUSZMOHrQA==
-Subject: Re: [PATCH net v4 1/3] net: mptcp: take token lookup references with
- acquire ordering
-From: netdev-bot+sashiko@kernel.org
-To: 2122295973@qq.com
-Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, matttbe@kernel.org,
- martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- kuniyu@google.com, willemb@google.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Tue, 17 Nov 2026 09:43:51 +0000
-Message-ID: <179490863184.3133.11284908359551272618@kernel.org>
-In-Reply-To: <tencent_D0DCF4B132B20B70FB5AE2D9272AA4AEAF07@qq.com>
-References: <tencent_D0DCF4B132B20B70FB5AE2D9272AA4AEAF07@qq.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ibn59nDn
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso27501305ad.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:44:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794908677; x=1795513477; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bpVBOHCqTNlmSYDRormllaIQWrWpuayTwUPbDNGy6w0=;
+        b=Ibn59nDnajmbpxSmVCbdMujxlpU2xp7zr+ALPIpdphgEd4gO4RRUzcqnftOFGrxtmQ
+         DnP1qix7dGJ505+2a69wh2drHmZ+6mHExhJ6xa6j9T+ef1h3z4jFJ17RhJxFPOwmj7Tq
+         ceoQHZI8h38rpyuKLlNGko9rrljwHvmJT1EBq3TGs7glnozjV5T+FJU00kKEP/RajDAU
+         U7MGTihjuOdOrtLOGN8DCOOWQEZcQwBONbWvOcWmJjJQ+d6xskQ0eN6keqbQf5H0KUSH
+         w9LQBYUPigMAlbp9T+3ozAWQoLyyhTlloN2bWEzXpsylC3GCGDBDlWs2ORejIGjPXMU6
+         B1pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794908677; x=1795513477;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bpVBOHCqTNlmSYDRormllaIQWrWpuayTwUPbDNGy6w0=;
+        b=lHi8Z+b27jfwlgHofgr9TpZuztBrtPMPU2oSy4BXtwEK319Drhm1xbLET0adBqWa/z
+         ywpbYFMD/498x53+Q9TgWdi9QeH+QIALAN6CkfhIZykqGIOjDAvZMMTyhS2XPwRKuFEW
+         sFqIhBMQPtv0Vs0x+zDNvmlOfRrSpGM9BwsSwjrLfVvRDms5T3ugEqrnv47aClRSGeU1
+         SG4FR2HaBYBUasSJmXih5MIw4jfaYQLbujJaF5f3zsjeiVBJMY6Ayf0gx4geSdqQbvKn
+         6lKtgv5lAVqpa3M2Gi//OYibaOgs4GC4VT0nrd8ohq3uspDHu+jku4lTYchJhD59iIot
+         UcIw==
+X-Forwarded-Encrypted: i=1; AL+hErFfzHvf/GFX1LMYVU3PN7gwLpNbyRet4/FIKnYShod2l6kHkLkY24FSMh2nnWjsejelGnPM9T0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BO0ZN9116bbmsdH+mj2lnIEGn+jewNvSXAn64GC0vsAKtAijF
+	EpOjr2HsKIjmgZaEYVQhDQvjO9FbNjKEYQbmHMyEHyBwEFld1pJLkS0F
+X-Gm-Gg: AZFdTZfJaQ9hOomhAdGEM1Prt8h3YLHkWOjNH2u7GF/qu82mmHbA79fENCOzI/3cKux
+	Hnv7/qPZCADTJXETZ6pefzXjxNQAHTWibEPvJ2y+b9PQ1slml2KLhJeF+Ppwyv8LIh7slQecRYW
+	eZEnmNcGG1oAJkUgzj0V2eFbVRsQ7Ws6ZDXXRYTWH0QC7LCae/KjyzkDs7gHouLKYp13Boe+cLP
+	q7zBmzrc1d0+xNOi1nN8KRMmtRW/vqVXnHY67MVV9u0XNDWCJJrVaQVrjoGoVb4HH1XH8mPclzO
+	o0xuLQl+SGuXvcT4jw27xwYFq4ltQ/xaO4x1X58pE3G2KU3MECfyQABXwkjwbl64wss4anFuSr4
+	kaYzaREqETXoSZKq3qQLu9vrs5r5esNZt71u16G9eSIUlcjneEvcpyxbbgFI7rYOJkFCyYDCuxk
+	hOI/oumFagItWfGlOlz4c95S4pYj8DezCk8JZGY3YIMO2k4Co7N/bYdQekAXTU5oxwqwrPXNRmC
+	9TQuwf57FEvLVv5+6N309wVhhOfaExLtwIM0z2DRutcZ6OZL4QJhHj4SpPJ4h6uwaJGqz5cTrWy
+	VzO0wnz7XgWYj3yJCVW69V3OUfAQe66cOHXzsUHx9d4OUr/E
+X-Received: by 2002:a17:903:3887:b0:2e9:528c:ba02 with SMTP id d9443c01a7336-2ee0dcca259mr118714855ad.60.1794908676979;
+        Tue, 17 Nov 2026 01:44:36 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd76db218sm12114815ad.3.2026.11.17.01.44.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 01:44:36 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Tim Harvey <tharvey@gateworks.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] media: i2c: tda1997x: fix out-of-bounds read with a one-block EDID
+Date: Tue, 17 Nov 2026 18:44:23 +0900
+Message-ID: <20261117094423.193684-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,153 +98,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+tda1997x_set_edid() accepts one or two EDID blocks, but always reads
+256 bytes from edid->edid: once when programming the CEA extension
+registers and once when saving the EDID in the driver state. For a
+one-block EDID the buffer allocated by the V4L2 core is only 128 bytes,
+so VIDIOC_SUBDEV_S_EDID with blocks = 1 reads 128 bytes past the end
+of it and writes that data to the chip.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+Copy only the blocks that were passed in, zero the rest, and program
+the chip from the saved copy.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Fixes: 9ac0038db9a7 ("media: i2c: Add TDA1997x HDMI receiver driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ drivers/media/i2c/tda1997x.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-- [High] The fix is incomplete on the passive-open (sk_clone_lock)
-  allocation path.
-- [Low] The patch is tagged `Cc: stable@vger.kernel.org` with Fixes: tags
-  pointing to v5.8-era commits (2c5ebd001d4f, 96d890daad05).
-
---
-
-net: mptcp: take token lookup references with acquire ordering
-
-This switches the refcount increments in mptcp_token_get_sock() and
-mptcp_token_iter_next() to refcount_inc_not_zero_acquire(). The re-check of
-msk->token and sock_net(sk) is then ordered after the reference is taken on
-a SLAB_TYPESAFE_BY_RCU socket that may have been recycled. It follows what
-commit 5b5d8f351dd9 did for the IPv4/IPv6 established lookups.
-
-> Fixes: 2c5ebd001d4f ("mptcp: refactor token container")
-> Fixes: 96d890daad05 ("mptcp: add msk interations helper")
-> Cc: stable@vger.kernel.org
-
-[Severity: Low]
-Will this build on the stable trees these Fixes: tags reach?
-
-refcount_inc_not_zero_acquire() was added to include/linux/refcount.h by
-commit 7f8ceea0c580 in 2025. Both 2c5ebd001d4f and 96d890daad05 date from
-v5.8. LTS branches that don't have 7f8ceea0c580 also don't have the helper.
-
-Could the stable tag name the prerequisite, for example:
-
-Cc: stable@vger.kernel.org # depends on 7f8ceea0c580
-
-> diff --git a/net/mptcp/token.c b/net/mptcp/token.c
-> index e0f2823f92efb..3429b43a9f7c3 100644
-> --- a/net/mptcp/token.c
-> +++ b/net/mptcp/token.c
-> @@ -309,7 +309,7 @@ struct mptcp_sock *mptcp_token_get_sock(struct net *net, u32 token)
->  		    !net_eq(sock_net(sk), net))
->  			continue;
->  
-> -		if (!refcount_inc_not_zero(&sk->sk_refcnt))
-> +		if (!refcount_inc_not_zero_acquire(&sk->sk_refcnt))
->  			goto not_found;
->  
->  		if (READ_ONCE(msk->token) != token ||
-
-[ ... ]
-
-> @@ -370,7 +370,7 @@ struct mptcp_sock *mptcp_token_iter_next(const struct net *net, long *s_slot,
->  			if (num <= *s_num)
->  				continue;
->  
-> -			if (!refcount_inc_not_zero(&sk->sk_refcnt))
-> +			if (!refcount_inc_not_zero_acquire(&sk->sk_refcnt))
->  				continue;
->  
->  			if (!net_eq(sock_net(sk), net)) {
-
-[Severity: High]
-Does the acquire ordering also cover the passive-open allocation path?
-
-The commit message covers the sock_init_data_uid() path. On the clone
-path, every MPTCP-specific store happens after the refcount is already
-live. That includes the token the readers re-check:
-
-sk_clone_lock()
-  sk_clone()
-    smp_wmb();
-    refcount_set(&newsk->sk_refcnt, 2);
-
-mptcp_sk_clone_init()
-    __mptcp_init_sock(nsk);
-    ...
-    WRITE_ONCE(msk->token, subflow_req->token);
-    ...
-    mptcp_set_state(nsk, TCP_ESTABLISHED);
-    WRITE_ONCE(msk->first, ssk);
-    list_add(&subflow->node, &msk->conn_list);
-    ...
-    mptcp_copy_inaddrs(nsk, ssk);
-    ...
-    if (!mptcp_token_accept(subflow_req, msk)) {
-
-The SLAB_TYPESAFE_BY_RCU comment in include/linux/slab.h says "the newly
-allocated object has to be fully initialized *before* its refcount gets
-initialized". This path doesn't do that.
-
-Take a reader such as mptcp_diag_dump() walking bucket S through
-mptcp_token_iter_next(), holding a chain pointer to msk A. A is closed and
-freed, and a clone B for a new incoming MPTCP connection reuses its memory
-right away.
-
-refcount_inc_not_zero_acquire() then succeeds on B's refcount of 2. The
-following READ_ONCE() of the token can return B's new token simply because
-that store has already happened. This is a timing issue, not a reordering
-one, so strongly ordered CPUs are affected too.
-
-Even with the later patch in this series ("net: mptcp: verify the token
-slot in mptcp_token_iter_next()"), this is the only check after the
-increment:
-
-	token = READ_ONCE(mptcp_sk(sk)->token);
-	if (!token || (token & token_mask) != slot ||
-	    !net_eq(sock_net(sk), net)) {
-
-If B's token hashes to slot S, B is returned while it is on no token chain
-and is still being built in softirq. Its sk_state may still be the
-TCP_LISTEN copied from the listener. msk->first, conn_list and the
-addresses may not be set yet. On weakly ordered CPUs, the
-__mptcp_init_sock() and pm init stores may not be visible either.
-
-That looks like the "or one that is not initialised yet" outcome the commit
-message says this change removes.
-
-mptcp_token_get_sock() seems to have the same gap when B's token matches
-the token being looked up. One example is a peer that sends an MP_JOIN for
-that token right after its MPC ACK, while a reader walks a stale pointer to
-a recycled object in the same bucket. The lookup then returns B before
-mptcp_token_accept() has hashed it. The later "net: mptcp: reject token 0
-in mptcp_token_get_sock()" patch doesn't change this.
-
-The precedent cited in the commit message, __inet_lookup_established(),
-also rejects unhashed sockets after the acquire increment:
-
-	if (unlikely(!refcount_inc_not_zero_acquire(&sk->sk_refcnt)))
-		goto out;
-	if (unlikely(hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) ||
-		     !inet_match(net, sk, acookie, ports, dif,
-				 sdif))) {
-
-sk_clone() calls sk_node_init() before it publishes the refcount, so that
-check would reject B.
-
-Should both mptcp sites also re-check
-hlist_nulls_unhashed_lockless(&sk->sk_nulls_node) after taking the
-reference? Alternatively, could the clone path publish its refcount only
-after the MPTCP identity is set?
-
+diff --git a/drivers/media/i2c/tda1997x.c b/drivers/media/i2c/tda1997x.c
+index 30dfd8a7b42b..a523fc2b2b71 100644
+--- a/drivers/media/i2c/tda1997x.c
++++ b/drivers/media/i2c/tda1997x.c
+@@ -1891,17 +1891,18 @@ static int tda1997x_set_edid(struct v4l2_subdev *sd, struct v4l2_edid *edid)
+ 
+ 	tda1997x_disable_edid(sd);
+ 
++	/* store state */
++	memset(state->edid.edid, 0, sizeof(state->edid.edid));
++	memcpy(state->edid.edid, edid->edid, edid->blocks * 128);
++	state->edid.blocks = edid->blocks;
++
+ 	/* write base EDID */
+ 	for (i = 0; i < 128; i++)
+-		io_write(sd, REG_EDID_IN_BYTE0 + i, edid->edid[i]);
++		io_write(sd, REG_EDID_IN_BYTE0 + i, state->edid.edid[i]);
+ 
+ 	/* write CEA Extension */
+ 	for (i = 0; i < 128; i++)
+-		io_write(sd, REG_EDID_IN_BYTE128 + i, edid->edid[i+128]);
+-
+-	/* store state */
+-	memcpy(state->edid.edid, edid->edid, 256);
+-	state->edid.blocks = edid->blocks;
++		io_write(sd, REG_EDID_IN_BYTE128 + i, state->edid.edid[i + 128]);
+ 
+ 	tda1997x_enable_edid(sd);
+ 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/tencent_D0DCF4B132B20B70FB5AE2D9272AA4AEAF07%40qq.com
+2.43.0
+
