@@ -1,61 +1,87 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914313;
-	b=dSY00H6bnL+8gd74usTi3PInAku05ju5zdH9p7UljbAmZQmJQ43fZ9ut73Fkggo/dQjx
-	 y9kSespgLv9hxXYCwDro/krSztRbu1RH5J1UaGNHlEXLKJXWRmYxmpNndZy1hWilf/rQI
-	 76T5QgzI9xzRb0paJ3JcU4RWnaxoIDWmVcSuxkC8ERml4Bpq+CqTQ4OztT2dMBl1h+OQn
-	 yaPxcPKUqhVjUc7rUQLUgo0Sxg/Rlh9yvXPeGYlUvMUUrZSC4fZEo3J35yofsxsl98aDd
-	 T64xvVz2g7QIPsv/OMq8e9QawpSS54zb3RfbJzN1vPeYLd4+1S8/5zF4MEZGMk2QBVg==
+	t=1794914367;
+	b=hnyVAEs0JkhGfhhxmSohWo+gzzhOFJpR25CxkecwOX63020GOGQHpIFexZzNLob/L6Fd
+	 95ll+aaI+vs6C0XRlXaB/j7utEVJdGHJe/JbZZgRMmjXeNn1XonoTgc786tK0QHrPEOw2
+	 7suLQ/cDpd7wjHSFxdP8l5jdvdJkIAgiR2XFKRm7rPGwIhNgiKfFgP2whjomRyYNYT+c6
+	 44wsH+A66ZILTvXWREIi9HC1Rg6F8u7aE0fpeWohY4h5Ft8A7eQzGIEs2fhqK/uDoUmkJ
+	 9PH+xipYTO4nSVLTkB9j35hH77lL6dK2wemkcLnvHwKpYjJ1Nlp/f2Bw/vue4HY2IgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914313;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=k+kIo9jpV5KFdYWHjuEUw/DWKQDI9aOHBv+v3db2R3c=;
-	b=Nm3etkqxZ0L7kiH4qBTnCgNMNkbX5VOASX9Hs9jfDChsa39gn1BLygKcrLZ32wTlhypv
-	 s9QCxjGGCZfueTJDxcwa9YzGzj7hL0vdAlOaQTEZC2OUXjiue3RMULFeKJt8X30qV6mmB
-	 no3kXaN/+r4Bd53PbBE5GNd8+2ioVwIOl64cwE6pPDseNWppMorpIOVQArH+6pVu/ihL1
-	 ybJbfhqjkrqi762Ct9n3UC5p/biEHpgZsBj/7FRdoSh+65cNr7xRi5+rGFE9E6vFDryBW
-	 oIFuRSc//jbHeaMX5GBS1+vmFvYPiB8N84qShuH1yyD2LYiyr2s/56Nj8gKpwgfb4Kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914367;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=jmRxQPVUK3jeDTIVGHnBZg9JSxo3fE9mQz3Nh8K4I5U=;
+	b=hTjE0TKr4eqluaR9TapX6AdfEK11QqL8Ca4+ax6UkW1PldNBcNXnjcymShg0QoXlrvZf
+	 FnPLEXMlBb+2FTJpRu2STMwA93FSGUTxbnHfs8lQCVBpOEVaIZtDm48Xo/fiJDuszoJ/9
+	 EL1v2fF5f1OaGvrMrVYPvC3L3x7lnKH4FG4QZHfiAivzcvZapcIlu0jp2NAnlb2/1vDFE
+	 hVu2/sqVr2jVvynzwNtLf2zKwV9pZjzHrxKFvENFFQgtXWHAQDylaXkRwpU5SXfHvS7qv
+	 hlAB5UolOT1tifpYIwLBCkfJ/NirMjGnK7vPuAxvds+iZ18oK9ceHbPsCN0J0r6aAMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=odhwX6PN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EE5y8BbO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 526FF606A336;
-	Tue, 17 Nov 2026 11:18:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F91606A31C;
+	Tue, 17 Nov 2026 11:19:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=odhwX6PN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 329991F000C8;
-	Tue, 17 Nov 2026 11:18:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EE5y8BbO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 633921F000C4;
+	Tue, 17 Nov 2026 11:19:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794914312;
-	bh=k+kIo9jpV5KFdYWHjuEUw/DWKQDI9aOHBv+v3db2R3c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=odhwX6PNDqnSOGmkajWFLLggKYsk1XXV6+pRNcyjje7CTi+d5WH1/dkHak2sQPRz8
-	 Z1cKs/ThKki9H1NyHKgq896L5QtXa5usT6J0ZlEGol0oth06EudyYAw3h5M8qcjLc4
-	 16hk4ejhvuC8sHMYO+OfRsqbrDyL3/8nyfTIuGEjHq2WhSa7J9Gr/ktRxBR6f9quW6
-	 nBl1xbeZNr0opqe1pM5Ai8pU6CWOMZ8HiMfteoQtFLaNbSL855YdnzxLjWD+Kx/Iy8
-	 03l0KGv61my8wT0O+2P7Kad7DDNBbzkgcQKtoIeQsrmT6l3mKXWCdQ1LkvmD//fCkU
-	 33PHvxZW65N1g==
-Subject: Re: [PATCH net 1/3] igb: fix RTNL assertion when resuming from
- runtime suspend
-From: netdev-bot+sashiko@kernel.org
-To: antonio@mandelbit.com
-Cc: intel-wired-lan@lists.osuosl.org, anthony.l.nguyen@intel.com,
- przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- zheng.z.yan@intel.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Tue, 17 Nov 2026 11:18:31 +0000
-Message-ID: <179491431170.3136.416423016654830307@kernel.org>
-In-Reply-To: <20261113105835.3821433-1-antonio@mandelbit.com>
-References: <20261113105835.3821433-1-antonio@mandelbit.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1794914366;
+	bh=jmRxQPVUK3jeDTIVGHnBZg9JSxo3fE9mQz3Nh8K4I5U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EE5y8BbOm8OvZCB0Dah2qA1gwILUqNYMmrizrbU1YH9mbsRr8Tluhiz3XAfeVEpfl
+	 TC+VkLiFOOftBWtpkiJylymZkbg8zMJXjdvrgXVmJu5NAZ2CwVTIfbHQ/E9dH03rR8
+	 heYzjpTRv4lcel0NgF0Y66YhPt+0dp3LevYRHVMZ+HujsjwFez7YARUziMXHOpRwa1
+	 YHuhdm+rUPHZ669DeNRLezXZOs3mfux53dWjtxwn2ssxWZo/gXbUaDqmlMKUwu/f3P
+	 6sWcKYaWp+eZGub8XNsfsKzsRVbjxSAlc2zQ2eSMp8jIjG7BpTxihF2Wvt85vvDGvw
+	 GwdISJ6ylbWvA==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 7DE3D198004A;
+	Tue, 17 Nov 2026 06:19:21 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Tue, 17 Nov 2026 06:19:23 -0500
+X-ME-Sender: <xms:ODj8asmjZARLlX3WpTJJuVqsPob6BMBBoFDeyMr_4vl6iQXvaDClBA>
+    <xme:ODj8ajlG0kRVxiXQZPQ590s70WvKtqzqusjwyZz96ZUMU2A741QhbqFBrgaD7Px1G
+    jcdVJNDxNP09I9EcWql0uEajLj7TiI32bb-IPYigLq0XMpLwmjms4fy>
+X-ME-Received: <xmr:ODj8apNCnUYvlo-8rdzb5No25ufJ_nmNlfUCIvbretlYp1zmfopiQTdPSSM>
+X-ME-Proxy-Cause: dmFkZTFUPiINActD0mDIlZFNb+WeDPVf8Y0W59PjGpKdeovC1oExoWyA7gCtP4JbTeIA1q
+    +22xWFGwJcPngXKrCApIQ2f8vk3rGH9HSFNq4esX30kP89EjM27GtzUYiW1B3kU3Y1fyuG
+    X9qiWQH9BmDOSudlhjd9tPIRZYCBXG2Rh/l09ZqHR7gz6sJv9eg4j4KMMXUDrJQaPdDpj1
+    +JTsoTCvbnfwodM5GhfGE0jEUfvdcNmLHB6euiUvH07IObIDhPq8MOYCYfHrUDEBFjxLZs
+    /uy9Yo3FaoZN1mopb9H1+8QNWXHtZUurIGBbMwOmjwAvyIT87LF0X7jBEDiQwTgisY1fmT
+    5gUswFuCj1QdGKf+AarXgZnFTVchUh5I6J9xbPswT4c8f1HE7EvbmJeEjjs+Y4O7rL3iZN
+    wFu4LLr5G672SSV49Tfke4Z2lyE8wdFSttiGeHj6GVlnolnwjV3dGal8Rricmtx8+uMc3P
+    AKabHWZTxt6BtWMp+rUN8dxqW1Gnp15VxHT2QmfpauEKENl/7Ka6ePGarayix6VrVHs12i
+    gWjRst9LVYotb4FpOriAyCaLpAUy74KEO2iq5pm3HTD15otJzrVIeVudAG0OKySi8b6Ayi
+    Ykc/zdHeHUYs6gx6wU5gP7zDwVg6Oh50mbvQJObQkMp3cOmC2frM3+h9hnVQ
+X-ME-Proxy: <xmx:ODj8ai5s3C1EvoiVSPnRF_dzviMywBC6wuPhpvk1bCbKxYmeqomtfw>
+    <xmx:OTj8ausONLptqI0PNztWPZDRBSwyXfG6RfEZVXuIxbQHbUecl2dzpw>
+    <xmx:OTj8akOFqNm3O7GRfCu56cEQxlIQRSWoms3BjSJ1HfbPv8a8tKt3oQ>
+    <xmx:OTj8aiofBDZ6Y7EgzpJFz98dYo6InaP3PFWg5ISTFIzPPBDoTeekJA>
+    <xmx:OTj8ahGXFyAkbGMD2MRtCEHEFa1bnGHoyYVGREuF1MaCRcM9ja-pUT-u>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 17 Nov 2026 06:19:20 -0500 (EST)
+Date: Tue, 17 Nov 2026 11:19:19 +0000
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
+	Nico Pache <nico.pache@linux.dev>, Lance Yang <lance.yang@linux.dev>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+	Daniel Wade <danjwade95@gmail.com>
+Subject: Re: [PATCH] mm/khugepaged: mark ptes dirty and soft-dirty on mTHP
+ collapse
+Message-ID: <avw4J0mBLJQMzdMc@shutemov.name>
+References: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,181 +91,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issue(s) to consider.
+On Tue, Nov 17, 2026 at 10:28:18AM +0100, David Hildenbrand (Arm) wrote:
+> An mTHP collapse can lose soft-dirty PTE bits if pages were written and
+> the VMA was then made read-only, and not setting the PTE dirty in
+> VMAs without VM_WRITE can interact with a later MADV_FREE on a COW-shared
+> page such that all processes lose the data even though a single process
+> MADV_FREE'ed it.
+> 
+> Collapse does not preserve the soft-dirty bits of the old PTEs, so the
+> new entries must be marked soft-dirty. map_anon_folio_pte_nopf() relies
+> on pte_mkdirty() to do that, but only calls it if the VMA has VM_WRITE.
+> 
+> Further, after CoW-sharing such collapsed folios later, all PTEs will be
+> clean and the folios will be clean. One process doing a MADV_FREE can mark
+> the folios as lazyfree and result in all processes sharing it losing the
+> data once memory reclaim zaps it.
+> 
+> In map_anon_folio_pte_nopf(), call pte_mkdirty() unconditionally, just
+> like map_anon_folio_pmd_nopf() already does with pmd_mkdirty().
+> 
+> Consequently, we always mark these PTEs dirty (including soft-dirty) but
+> only set them writable if the VMA has VM_WRITE.
+> 
+> This essentially reverts Hugh's commit 1ac0cb5d0e22 ("mm: fix anonymous
+> dirtying") that back then touched do_anonymous_page() to avoid forcing
+> clean anonymous pages through swap instead of discarding them. This no
+> longer applies as shrink_folio_list() allocates swap for ordinary
+> anonymous folios and unconditionally marks them dirty before unmapping,
+> regardless of PTE dirty state. Keeping their PTEs clean does not make
+> them discardable.
+> 
+> This now also marks fresh anonymous PTEs dirty and soft-dirty in read-only
+> VMAs when page faults allocate real pages.
+> 
+> This has low urgency.
+> 
+> Fixes: e22f2fe72c74 ("mm/khugepaged: generalize collapse_huge_page for mTHP collapse")
+> Cc: stable@vger.kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Reported-by: Daniel Wade <danjwade95@gmail.com>
+> Closes: https://lore.kernel.org/all/20261117075246.61336-1-danjwade95@gmail.com/
+> Reviewed-by: Daniel Wade <danjwade95@gmail.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Critical: 0 · High: 2 · Medium: 1 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] Commit "igb: fix RTNL assertion when resuming from runtime
-  suspend" moves netif_set_real_num_queues() out of __igb_open() and…
-- [High] The commit message says "The queue counts only change on paths
-  that re-open the device under RTNL (ethtool -L, SR-IOV…
-- [Medium] Concern (baseline decision: false, resolved later in the
-  series).
-
---
-
-igb: fix RTNL assertion when resuming from runtime suspend
-
-This patch moves the netif_set_real_num_{tx,rx}_queues() calls out of
-__igb_open() and into igb_open(). The runtime resume path runs without
-RTNL, so it no longer triggers an RTNL assertion. igb_open() now publishes
-the queue counts with netif_set_real_num_queues() before it calls
-__igb_open().
-
-Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
-
-> diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-> index 131df3e09ba14..028cdd90522cb 100644
-> --- a/drivers/net/ethernet/intel/igb/igb_main.c
-> +++ b/drivers/net/ethernet/intel/igb/igb_main.c
-> @@ -4178,17 +4178,6 @@ static int __igb_open(struct net_device *netdev, bool resuming)
->  	if (err)
->  		goto err_req_irq;
->  
-> -	/* Notify the stack of the actual queue counts. */
-> -	err = netif_set_real_num_tx_queues(adapter->netdev,
-> -					   adapter->num_tx_queues);
-> -	if (err)
-> -		goto err_set_queues;
-> -
-> -	err = netif_set_real_num_rx_queues(adapter->netdev,
-> -					   adapter->num_rx_queues);
-> -	if (err)
-> -		goto err_set_queues;
-> -
-
-[Severity: High]
-The commit message says:
-
-  The queue counts only change on paths that re-open the device under
-  RTNL (ethtool -L, SR-IOV reconfiguration)
-
-Does that hold for suspend and resume? Every suspend goes through
-__igb_shutdown(), which calls igb_clear_interrupt_scheme(). That frees
-the rings and sets num_tx_queues and num_rx_queues to zero in
-igb_free_q_vectors().
-
-On resume, __igb_resume() rebuilds them:
-
-__igb_resume()
-    igb_init_interrupt_scheme(adapter, true)
-        igb_set_interrupt_capability()
-            pci_enable_msix_range() fails
-            msi_only:
-                adapter->num_rx_queues = 1;
-                adapter->num_tx_queues = 1;
-                adapter->num_q_vectors = 1;
-    __igb_open(netdev, true)
-
-Before this patch, __igb_open(netdev, true) updated
-dev->real_num_{tx,rx}_queues after that. Now only igb_open() does, and the
-resume path never calls igb_open(). The same is true when the MSI-X to MSI
-fallback in igb_request_irq() runs inside __igb_open(netdev, true).
-
-In that case, can the stack keep a larger real_num_tx_queues while only
-tx_ring[0] exists? igb_tx_queue_mapping() folds the stale indices onto
-ring 0:
-
-	if (r_idx >= adapter->num_tx_queues)
-		r_idx = r_idx % adapter->num_tx_queues;
-
-Each stack txq has its own _xmit_lock. Couldn't several CPUs then run
-igb_xmit_frame_ring() on tx_ring[0] at the same time, racing on
-next_to_use, tx_buffer_info[], the tail write and the BQL state of txq 0?
-
-__igb_maybe_stop_tx() and igb_clean_tx_irq() also only stop and wake
-subqueue 0. real_num_rx_queues would likewise stay larger than the single
-configured RX ring.
-
-Runtime resume happens on every link-up after a cable unplug, and each
-cycle releases and re-acquires MSI-X, so this can happen more than once.
-
-On system resume (rpm == false), __igb_resume() already holds RTNL around
-__igb_open(). Did that path need to lose the update to fix the assertion?
-
-[Severity: Medium]
-Will runtime resume still hit an RTNL assertion with this patch applied?
-Later in __igb_open(), igb_set_queue_napi() is still called
-unconditionally:
-
-	for (i = 0; i < adapter->num_q_vectors; i++) {
-		napi = &adapter->q_vector[i]->napi;
-		napi_enable(napi);
-		igb_set_queue_napi(adapter, i, napi);
-	}
-
-igb_set_queue_napi() calls netif_queue_set_napi(), and that calls
-netdev_assert_locked_ops_compat_or_invisible(). For igb, that check is
-ASSERT_RTNL(). __igb_resume() only takes rtnl_lock() when !rpm, so this
-chain runs without RTNL:
-
-igb_runtime_resume()
-    __igb_resume(dev, true)
-        __igb_open(netdev, true)
-            igb_set_queue_napi()
-                netif_queue_set_napi()
-                    ASSERT_RTNL()
-
-It also updates the queue napi pointers without RTNL.
-
-The next patch in the series, "igb: link queues to NAPIs under RTNL after
-runtime resume", fixes this. It calls igb_set_queue_napi() only when
-!resuming, and links the NAPIs under RTNL from a new igb_queue_napi_task
-work item. So the problem is gone by the end of the series. With only this
-commit applied, though, the "RTNL: assertion failed" warning from the
-commit message still looks reachable on runtime resume.
-
-[ ... ]
-
-> @@ -4241,6 +4228,17 @@ static int __igb_open(struct net_device *netdev, bool resuming)
->  
->  int igb_open(struct net_device *netdev)
->  {
-> +	struct igb_adapter *adapter = netdev_priv(netdev);
-> +	int err;
-> +
-> +	/* Notify the stack of the actual queue counts. */
-> +	err = netif_set_real_num_queues(netdev, adapter->num_tx_queues,
-> +					adapter->num_rx_queues);
-
-[Severity: High]
-Can the queue counts still change after this call? __igb_open() calls
-igb_request_irq(). If igb_request_msix() fails, it falls back to MSI and
-rebuilds the interrupt scheme:
-
-drivers/net/ethernet/intel/igb/igb_main.c:igb_request_irq() {
-    ...
-		/* fall back to MSI */
-		igb_free_all_tx_resources(adapter);
-		igb_free_all_rx_resources(adapter);
-
-		igb_clear_interrupt_scheme(adapter);
-		err = igb_init_interrupt_scheme(adapter, false);
-    ...
-}
-
-When msix is false, igb_set_interrupt_capability() takes the msi_only path.
-That sets num_tx_queues, num_rx_queues and num_q_vectors to 1.
-
-Before this patch, the netif_set_real_num_{tx,rx}_queues() calls ran after
-igb_request_irq() and saw the reduced count. Now dev->real_num_tx_queues
-keeps the value set here (for example 4 or 8), while only tx_ring[0]
-exists.
-
-Would igb_tx_queue_mapping() then fold txq 1..N-1 onto tx_ring[0]? Each of
-those stack txqs takes a different _xmit_lock, so igb_xmit_frame_ring()
-could run concurrently on the same ring. real_num_rx_queues would also
-stay larger than the single configured RX ring.
-
-[ ... ]
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113105835.3821433-1-antonio%40mandelbit.com
+  Kiryl Shutsemau / Kirill A. Shutemov
