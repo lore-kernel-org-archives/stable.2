@@ -1,58 +1,68 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922567;
-	b=lnoi/O4WqgFNfs/K5w2rSpJuX5MQD1id4ezJghqXPz7t0u0qAf/yjG7KTyLN+EaBjUB1
-	 vevYdDtS4wizXL2/Vr9bCAF0lvw2E3UVyoAXcuIP7M3AqQ9HsVuTEbfEuFxGxvgp3a7DJ
-	 6CtWZaLkWZcujvSOjcrP0+gBACnSIVbTwXBbMpotFaHk6p87L6cKO7iLe8SP5Gm640AlS
-	 wsGK9cW2wNe2oQElmEkdvCSHor4QnC3qT+Y1Yr52x1L/6BvjothLF2x/Rc0x9ruNxD7uP
-	 zAOeeg7GM1E3X+FKA090HCnJOIUQJL2AA45jrLSY5T2szOwsfMTMqFz2CcnbNq4MbZg==
+	t=1794922636;
+	b=qklMY/iQt52+k6aRGG8PrxhBRlwh03aEGSFAOIRn/7smA20NEAO+jCOTLBv+UoDqLguy
+	 mHvJrhum+OGFpQLugIj/QXHXhkwF0IPoiyNYlfmghLjN5E5w8Md+b30C2WqSKqXXp61VF
+	 0fDORkr1Bm4aYiz8OdrIzWC19EYNOsS9IvGgXp9Kx/QlBpD5TbYK6Q4uKm/kr2DgCyCam
+	 Rr1UnzGg/HreO3I7ULLuxmyMQzyD+Gp8/MCURpA5oWwgqHLoP7jAc5VSzJrzsdUK0YZsA
+	 VR0U1llgVpC9U76vVvxeorPVLYGs0ZY5wWfcWR7fwhg+uJl0IfNMrdZXKAx9FAnxqRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922567;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922636;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer:
 	 X-Last-TLS-Session-Version;
-	bh=zrjNaK2BMmlXskrm0KIplH9eRZPk+1mRx+s4P8jKOWE=;
-	b=p6vY0AnZWp1ofu+ZsUff8mEC6r63tbpw08+bZOUImBYNIcozYbdq/sGHgi1F/nCUhZ53
-	 QFHxXli6FiT9i4jRSj8gOmiD/5g9SiAi3jBhr1uj9m0ykIRH+VeTSdxbl0aNwCCm72J5l
-	 /40HELYcT4Y+ryRnxBMGzUP7RTksr7qVtWvlWlBfHXWErM4TUZZy/YNtEElo3QQQSEZMT
-	 NPTDluITaoxweOC0oIgekB+debAk4WpxEnQyFRF9VbgIwbEtyMdMTI4z1aHBiHTbXLTFE
-	 X/jzJvJJrqcSioSZwexJzf3bVL6FZyHIYBfeQTeI4dcc+cpUFpx5B8iZwRCJ81t1Z5g==
+	bh=xEFuU2qKV+v5WtO97lVqT1rvBSUmDGK6lfnCTwEgqX8=;
+	b=Ni4hqltK/IppVPfCz1YPERIdF+qt357flWX87mpKgia7rzMAZTQwgUD/DwS3RW0nIwEu
+	 37Tqg6DbSSyyaRNlbx7xGofRS8l3gptIheA7pFSwqbflMfwHR86Mh/YghB9d99ndTY3A8
+	 Ov78Z8ElhlNXmokDqzxEBe5OGncnqpWMepEj6zphBJ//zIRZ5pvTJJRDeU5rf0a7b9100
+	 2QdsdthrGBoa6pnDDzj+xOp8duP6IYAH5OKZFqAkK42n8dNTZOU0UO23czXdWgQBmza+B
+	 oCbqGeHFqiSbueSlTDYlBxs87KYZe8TydYYrdrrpzqGWYh3ibRsyUCOHzjqP7cqy7/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bootlin.com;
 	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lyyzifHP;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WDICBJN3;
 	arc=none smtp.remote-ip=185.171.202.116
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CC7606A31C;
-	Tue, 17 Nov 2026 13:36:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8CC7606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0207F606A31C;
+	Tue, 17 Nov 2026 13:37:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0207F606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=lyyzifHP
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=WDICBJN3
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 934F6C79A97;
-	Tue, 17 Nov 2026 13:36:09 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 46BBAC79A97;
+	Tue, 17 Nov 2026 13:37:19 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 25CAD5FC81;
-	Tue, 17 Nov 2026 13:36:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D9E8811BC0008;
-	Tue, 17 Nov 2026 14:35:53 +0100 (CET)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D97505FC81;
+	Tue, 17 Nov 2026 13:37:14 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 65FF911BC0024;
+	Tue, 17 Nov 2026 14:37:07 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794922560; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=zrjNaK2BMmlXskrm0KIplH9eRZPk+1mRx+s4P8jKOWE=;
-	b=lyyzifHPUW/TF25iVGcxxozdbgkY/qmW1+lpBdGXZzGqQBZBIxE9ZXOrdLz16IlpxWvZAk
-	e3266PE7euLObTyJBNNOD797XSiUMy+84nhboxxypsKcu5qqeCH+AMH8pXUbz7yQIOFi4m
-	SaWzef4Ie2MByykrYRur3B+bdJc6V5dqFAfpqMamQs7QDl4nqcqBC+BSxjqGrt5p/Ofweb
-	bXxizpY1Ry07WMp2HJIXA8/jPSrSjJC/q2QZ72HJvH3QYlAcD0LHnTLH+PFyxi9O5KdQFf
-	My8aknE77tEPjHyXg5TFzJ3Vqdwj5lkD7lGsu+sQypAq3Y72ZkyBr6VTHnsgag==
-Message-ID: <613e303b-635c-4751-8988-2687f8f39c4b@bootlin.com>
-Date: Tue, 17 Nov 2026 14:35:52 +0100
+	t=1794922629; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=xEFuU2qKV+v5WtO97lVqT1rvBSUmDGK6lfnCTwEgqX8=;
+	b=WDICBJN3kRw4+uumCgAT0kHX5Ps8gFDMmX4/WlFuqgKgNrKYw7plz2du8wU1V02YlcUtKX
+	z5efsHsoPvaevgEJmw9ICVgyguG2AM6BHF88/nbuCIQl8r92d8UtM5QBxeeyWbC+sNMfqV
+	t/M7QmsnT9/I1c5GNkeGD/3teAzJyxDKBcAhgoGuPNCGdUoKE7tO3Incj+zrgn4vVFBteP
+	pHXNfQUOXh8HAHZ7n/Av2eNJrQKDIU30wXsoIMije55ovhn8TpQkI2L0obohKYKuA3PK0o
+	TNxGJ8nfsXZQr/2zswVUsbl81LvX26k7sTVKFCteVuZuKzJZ+Y8Ra3wHw9YAWw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: joern@lazybastard.org, richard@nod.at, vigneshr@ti.com, 
+ Palla Raghunath <raghunathpalla.0209@gmail.com>
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ shuah@kernel.org, me@brighamcampbell.com, 
+ linux-kernel-mentees@lists.linux.dev, stable@vger.kernel.org, 
+ syzbot+c9d8bc9f8ccc03799e1f@syzkaller.appspotmail.com
+In-Reply-To: <20261017235733.14667-1-raghunathpalla.0209@gmail.com>
+References: <20261017235733.14667-1-raghunathpalla.0209@gmail.com>
+Subject: Re: [PATCH] mtd: phram: fix name leak when phram_setup() fails
+Message-Id: <179492262721.2237190.13662832198672004023.b4-ty@bootlin.com>
+Date: Tue, 17 Nov 2026 14:37:07 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,51 +72,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: stmmac: drop the rest of the frame when
- napi_build_skb() fails
-To: aiyengar1990@gmail.com, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Jose Abreu <Jose.Abreu@synopsys.com>
-Cc: Lorenzo Bianconi <lorenzo@kernel.org>, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>, stable@vger.kernel.org
-References: <20261113-stmmac-rx-skb-fail-v1-1-fcaae89f2d2c@gmail.com>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261113-stmmac-rx-skb-fail-v1-1-fcaae89f2d2c@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.14.3
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
-
-On 11/13/26 18:13, Arun Iyengar via B4 Relay wrote:
-> From: Arun Iyengar <aiyengar1990@gmail.com>
+On Sun, 18 Oct 2026 00:57:33 +0100, Palla Raghunath wrote:
+> parse_err() is a macro that prints the message and then does "return 1".
+> phram_setup() still uses it after parse_name() has allocated the device
+> name, with a "goto error" right after each call. That goto is never
+> reached, so the kfree(name) under the error label never runs and the
+> name leaks every time one of these checks fails.
 > 
-> If napi_build_skb() fails on the first buffer of a frame that spans
-> several descriptors, stmmac_rx() drops that buffer but goes on with the
-> next descriptor of the same frame as if a new frame started there. The
-> rest of the frame is then passed up the stack as a frame of its own. A
-> frame spans several descriptors when it does not fit in the RX buffers
-> of one descriptor.
+> syzbot hit this by writing "p0,0x8000000000000000,0" to
+> /sys/module/phram/parameters/phram. The zero length fails the
+> erasesize/len check and the "p0" string is leaked.
 > 
-> Mark the frame as errored instead, so that its remaining descriptors are
-> discarded like those of a frame with a receive error. The frame is
-> counted once in rx_dropped and once against the NAPI budget.
-> 
-> Fixes: ec222003bd94 ("net: stmmac: Prepare to add Split Header support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> [...]
 
-As you say, this only makes sense until Lorenzo's work makes it, this
-should be suitable for net.
+Applied to mtd/next, thanks!
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+[1/1] mtd: phram: fix name leak when phram_setup() fails
+      commit: 705a7ed4cc921060854da406a803d688c8aaa52c
 
-Maxime
+Patche(s) should be available on mtd/linux.git and will be
+part of the next PR (provided that no robot complains by then).
+
+Kind regards,
+Miquèl
 
