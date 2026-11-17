@@ -1,36 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.145.95.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794911249;
-	b=v1BbJ1TdMJoXHQw9bXpwqWVtSjjA6XLNqD76Aaz9Vvk3If+Zoduf/NNuOLQ+EhWFNzUB
-	 Ob+XHpL5aIpHZ7G1vY0I2DP5byHIIjL7JttLM2FqwryzU+BnJXzgqDhtNLaGHU+R7sJ5/
-	 06wO7LFGYXlMf8jyfqM5WLHGO+jBFtnst33Xvhp2qDmIzzcIYeWnAJVSRVfg/lPgXP15s
-	 cxdrBtPuLKMiAXODthqqiJlUWAZzDurC/stxyzccILuK+e0AjzOCNWBhPrRnsCOz5xxwz
-	 tSZgBi3KgwV+aObhqEvvZz+I3ezwnnj9IbFI+VD2PwFSJTSxT3ThzXutTiaJ6xghGLg==
+	t=1794911380;
+	b=V2yoEl6mq2PA4Ki3a3J6UPnHcT9p7d+YtxJqvf8R2Ak39YLzhM3LBXSstfscV1xqQr3X
+	 H6aMVtv5U1AkovH4ruTGEVR6NOGvsErwmnArpX5sw9K8nXgHkTVI1SKewPLS1U/BGzx+l
+	 VjZjNgd9wQ2t69t3QMcs2RjEwqIWMuSMoDKNLvIXAc0+n71Kmw6Fil8acRVpCbPL2yJ+A
+	 dtHXreUkQKX7+vXtbYMZm9MY3bnCUK40qUOfMfRC3UG5BkN0p3RaFx6bAOU35zl2XRLGv
+	 wVHNHyWPircbfve/NJophayNO61iJj6Nyqco+TbQTTLubddi4ZamjYzZOMfg/cO/LtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911249;
-	h=DMARC-Filter:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Subject:From:To:Cc:In-Reply-To:References:Date:Message-Id:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=62+gGKMaygG1k5qNn2ymzEQraurA9BoCu7JFO4e5HG4=;
-	b=AbxAbe7Vblda25f88yXehIY31xcXeatAZVrIteBCWKr+XuAIzThN0SMbkLycMBidWvPL
-	 +iNZAgFywNE/q0ZG+U0EesJ2DRCMVLy9dCTTOIBci5EnHEnrcjy/j+xU+SoA7nhNPOEwj
-	 yeTEnBJP3D/V+6F0Sph82yIMdBQB1RR7fp4rs1np5QhkMJAq+otKFMCoe/ESqbnl4EB6a
-	 z65RDe+LklvpyzVQeTsOjFLOYzwgY3/AWBQbf6ZQETJk3/qEljSEBQhdkI/yx0uof5LDT
-	 f84val3GDSjjcLq/fnHcexO+DMx8OPLomSkprZbNC5G1XE5yfCdFXhRkhgHz6diNG5Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911380;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=5xd4kH02h2/RHBixGr9Rh7KR37RCKshv/F2OBniMhWQ=;
+	b=PUFPYTcTc7MY625eCYeC4qUM8J/wtNbAoyaOOYnq8R/jXcwqjFU7L5B5/Zwk7FimmbsK
+	 W7o+YmJXCW37l8VJc3nL+F2d8yBxKFIWNVdx8ie9/h6t9scyL5XogFEavuN5YAu2+ja7W
+	 FHj7YaYSZ1x9CGUM8sfc9U63PkI6qHcpljioiDcM0rp39MlXjJ3gevJj1FVMXbBHGgfXL
+	 EucCCMjU2awdOqTMtf3Lk1NO9Ox266PL4huaRmJBYYKn7AJv+G8/eB8CcCJZ+1tyZzEUx
+	 t/FtiNLhpzNkTZ+KQ4oolOEzfXnDEmfvtHmyVgSaxrrFXbM23PQzyDjrVCHOySvTCxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=toke.dk;
-	spf=pass smtp.mailfrom=toke.dk;
-	arc=none smtp.remote-ip=45.145.95.4
-Received: from mail.toke.dk (mail.toke.dk [45.145.95.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nGl0PMKr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E96606A32A;
-	Tue, 17 Nov 2026 10:27:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5E96606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=toke.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toke.dk
-Authentication-Results: mail.toke.dk; dkim=none
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5EB606A883;
+	Tue, 17 Nov 2026 10:29:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nGl0PMKr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EFEB1F000C4;
+	Tue, 17 Nov 2026 10:29:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794911380;
+	bh=5xd4kH02h2/RHBixGr9Rh7KR37RCKshv/F2OBniMhWQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nGl0PMKrFNzmEF2BOR91pPrc/W8Z37D0KlbhQz16W2M5WXKx0P28v6EFJFsxZjHdP
+	 WzoR40aWQ7oFNbp3kQpkcI3S9JG4kxjcvWPr8vQGSifi4qQ7BLznI3WQDnvx27V7XP
+	 UuiNMSAP++eI3vrHz0Vvo7cP55LwH1GIH5xt7nGwL1qeluQSMdfGr3heGCbUaHij5l
+	 ILtcQjiosvjoqfGiSlbuEuRkENr2+1iJjcdTueyLNfE4CcEWCJ8/zuQ19dc5xP07Js
+	 Mz9nJdkqUVU+uguT/oouZnicCApxQw8uk/85KA7kTJ916TYYiv/9cKjQ+G5xXvYxyU
+	 lqIh1/NsdIG8g==
+Date: Tue, 17 Nov 2026 10:29:34 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm/madvise: zap markers from guard regions
+Message-ID: <avwsiDm5bM0OCNIg@gremlin>
+References: <20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org>
+ <8092de9e-3146-4fe7-a235-01ea8efab08c@columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -40,78 +61,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] wifi: ath9k_htc: fix use-after-free of tx cleanup
- timer after failed start
-From: =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>
-To: =?utf-8?q?Miko=C5=82aj_Pisula?= <mikolaj@pisu.la>
-Cc: =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>, 
- linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20261116162702.15393-1-mikolaj@pisu.la>
-References: <20261116162702.15393-1-mikolaj@pisu.la>
-Date: Tue, 17 Nov 2026 11:27:17 +0100
-Message-Id: <179491123717.208602.16662402283759581420.b4-review@b4>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2184; i=toke@toke.dk;
- h=from:subject:message-id; bh=Fbd3NbIdXqid/5YIFQkP8t9IJV5HYiWRc5N5DPMBTMI=;
- b=owGbwMvMwMHoHCeQ8/XXa3/G02pJDFl/dLg3tgj/ZLq8sf6nvZQsQ05uBF/kZemewB0/jD1Ul
- 2kdcTneyWjMwsDIwSArpsgisElY2CCoqKg268JsmEGsTCBTGLg4BWAi3fIcDIs0dAo3ax/3aOHi
- ba/doz7P1/yeoqNnZMpKxi3s0ju2MbhwSunEc/hciGG57V3rdMDWkGuHaYK9g8n0PW/Kv5V1H3g
- SVfbm1bLfS8Rqiid87bXTeFT2Mz8l4Efai50rww3M2erPSiUtUlJdzueWEhSmYn14ataJCm1nXo
- 6EMDHWzwuUFtxJMrzzVlP2xWox29l2P9g8SpgrV8nsmW+8RWLfs4oMxpjpp08E3bZevuvL4veOr
- fyhN0Q3a5hOmKxiKZwXcGiZ9/7uvKnvTlvOiv3IcGw7u0lZemBE5L5TedJ+SwI+/k3NuO//U/jd
- AWGnnKQ7R4pqpY9vWFmySF7E5PLZLbNKdm9cr7rAzWEfAA==
-X-Developer-Key: i=toke@toke.dk; a=openpgp;
- fpr=DE6162B5616BA9C9CAAC03074A55C497F744F705
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <8092de9e-3146-4fe7-a235-01ea8efab08c@columbia.edu>
 
-> ath9k_htc_start() does not treat a failure of
-> ath9k_htc_update_cap_target() as fatal: it logs it at debug level and
-> goes on to clear ATH_OP_INVALID, starts HTC, wakes the queues and arms
-> priv->tx.cleanup_timer. It then returns the stale error code.
-> 
-> mac80211 takes the failed drv_start() to mean the interface was not
-> opened and never calls ath9k_htc_stop(), which is the only place the
-> timer is deleted. The timer re-arms itself, so it is still pending when
-> the device is unplugged and ath9k_htc_disconnect_device() frees the
-> ieee80211_hw:
-> 
->   ODEBUG: free active (active state 0) object: 000000002df157c8 object type: timer_list hint: ath9k_htc_tx_cleanup_timer+0x0/0x770 [ath9k_htc]
->   WARNING: lib/debugobjects.c:629 at debug_print_object+0x1a4/0x3b0, CPU#2: kworker/2:2/110
->   Workqueue: usb_hub_wq hub_event
->   Call Trace:
->    debug_check_no_obj_freed+0x44c/0x5b0
->    __free_frozen_pages+0x724/0xed0
->    device_release+0xcf/0x390
->    kobject_put+0x19e/0x530
->    ath9k_hif_usb_disconnect+0x371/0x540 [ath9k_htc]
->    usb_unbind_interface+0x1a0/0x860
->    device_release_driver_internal+0x35c/0x560
->    bus_remove_device+0x28a/0x540
->    device_del+0x371/0x930
->    usb_disable_device+0x2ad/0x6a0
->    usb_disconnect+0x27f/0x990
->    hub_event+0x1bd5/0x3ad0
-> 
-> Without debug objects the timer core later finds the freed timer in its
-> wheel ("WARNING: kernel/time/timer.c ... !fn" in __run_timers()).
-> 
-> The device is fully started at that point, so return 0. The interface
-> then goes through the normal stop path, which deletes the timer.
-> 
-> First seen with a TP-Link AR9271 adapter whose interface open failed.
-> Reproduced on v7.4-rc2 with a USB proxy that withholds the reply to
-> WMI_TARGET_IC_UPDATE_CMDID and then disconnects the device; with this
-> change the same sequence produces no report.
-> 
-> Fixes: 859c3ca1e460 ("ath9k_htc: Add a timer to cleanup WMI events")
+On Tue, Nov 17, 2026 at 01:37:06AM -0500, Tal Zussman wrote:
+> On 11/13/26 4:04 PM, Lorenzo Stoakes (ARM) wrote:
+> > In order to establish guard regions, guard markers are installed in the
+> > page tables of a mapped VMA.
+> >
+> > However, problems arise when one tries to combine this with registering a
+> > VMA for userfaultfd, as such operations may themselves need to install page
+> > table markers such as uffd-wp.
+> >
+> > When the installation is attempted the guard marker prevents these markers
+> > being applied, which can lead to unexpected results (especially if the
+> > guard regions are later removed.)
+> >
+> > This is especially problematic because guard region installation causes the
+> > regions to be zapped first, meaning that the removal of userfaultfd-tracked
+> > ranges will not be logged in this case.
+> >
+> > Additionally, the uffd-wp page table marker will be propagated regardless
+> > for file-backed mappings as the zap being performed does not clear these
+> > markers.
+> >
+> > This is problematic, as it can cause repeated failure to install guard
+> > markers resulting in an infinite loop.
+> >
+> > Therefore, update guard region installation to invoke the zap with the
+> > ZAP_FLAG_DROP_MARKER flag applied.
+> >
+> > Both before and after this change, uffd remove events will not trigger on
+> > guard region installation, nor will write protect state be propagated after
+> > guard region removal.
+> >
+> > This makes sense as conceptually, guard regions mark a part of a VMA as
+> > effectively unmapped at the page table level, and removing the markers is
+> > like mapping the VMA again, over which operation uffd markers would in any
+> > case be lost.
+> >
+> > A survey of open source users indicates nobody is relying on installing
+> > guard regions in uffd-armed VMAs. Software including glibc, android,
+> > tcmalloc and CRIU were checked.
+> >
+> > This change means that any already established guard regions are removed on
+> > zap. These will be overwritten with the newly installed guard markers on
+> > success.
+> >
+> > However, if this fails for some reason (fatal signal likely the only
+> > reasonable cause), guard regions may remain removed, and concurrent faults
+> > may succeed in the interim in the range.
+> >
+> > Since the installation failing guarantees nothing about the range being
+> > installed into, and since success overwrites with guard markers, this isn't
+> > an issue.
+> >
+> > Since MADV_DONTNEED does something similar, abstract the zapping to
+> > zap_range() and call it from both places.
+> >
+> Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+> Tested-by: Tal Zussman <tz2294@columbia.edu>
 
-The Fixes tag is wrong - this was introduced with the commit that moved the code
-(which indeed didn't react to the ret value before):
+Thanks! :)
 
-Fixes: 1057b7503908 ("ath9k_htc: Unify target capability updating")
 
--Toke
-
--- 
-
+--
+Cheers, Lorenzo
