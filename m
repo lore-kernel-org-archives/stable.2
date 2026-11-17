@@ -1,49 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.146
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794932775;
-	b=dEvt/KqFyGGfKew+pA5YJ0e1pWJbDmerxurHXI4cy5ObCykY+7N/Fu6m2/NJsjllt3sk
-	 +JmDAbbM//m7h3FXFhZKljvfA//FSKGeCgUHWUprW3UfzHgQs0dFv5bWCRH4Muv4rmoT3
-	 +c8tfqlRyajfsZoUXVschj6qbNetCahZvCJwCm6xLAEWdunudpyZ4qxOQm4//WWoTzdTH
-	 2FO4LuEKTMtFZOLYlwbyg4W4V9Jl8K3+x9l3RWHVmOq+CN1JfeVuEzGDyig+zPfn6gdrh
-	 vnziJV1NjxhYftdkJvSFWEM4MY9dXy1XyyjUaxR3MhVaKialzEP0R/5NP08mPeJX8YA==
+	t=1794933274;
+	b=N5ZBKPSNocFuxthQNqoe6Uar2GdfjGCqF1wYrFW36RApWj+98Oqx9J8aspbc654iVbsf
+	 k5OMtiDSy7a3Oexr4g3C2PgLK5pTdfZcT5+yABbTIToTHg7mekw5YFZ1vkLQIjat/8V7M
+	 d+bUxAJAwpJ+1i+Q90uEOBiGjxRVqF+OBYw48eW6noL2FuraekxjqmbB8GA0/ADDn/dUw
+	 CH51ORDZWKixB34m4S5e383jHvC77D6fYf+0Ha0WlcTMPlxxjKJMvEnZBKjGAXIZjm5VX
+	 V2hQFfnEF2Z/nbRdLRBtG+wXRXyImw1FHr7wiX9JmY8pXlB7Uvt0GeVxi46vALlXkIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794932775;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=a4gjRdu3o+vVl5H2q8lXRC3wVpAmReSzbcYychrcUo8=;
-	b=n5z/y0ipaHvTXFLFoXT1mEdA2veKh+0YMkBQpARtJSw9rgvfuzj6MhS8Ligk+ZrWw6fq
-	 SVAmPfl+RP8jCYsSQBgR6ZBRlzv7NLam+AnoHoWaGRyvVyU7ohB818f2C9jvXRDAFcfqc
-	 Ub3Q+XjRl70eNYNPfVCdLVFz6Ksob6MoQTcYMnMWKmevpvBXzqYvy6BzneyOXtR28sC9G
-	 Dio17Osygp+kN5MvhqB77d1WKrJ0ha6nndmRuS2Z0VrWubsYBY5xg6D7E+fP1sDJAX73U
-	 ZVIuOpT7t4xgUWDlGIlzTNeQnn5er7uHiXdw9KkWIbsgO/GPHvPjjuTcDJeQJxNwnXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933274;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=JEEmq1dY81wdbCeTX7SttAeKu8NSqyPmmLobfOaFWuo=;
+	b=lDbRlYwGVPUQr3wiRbpuDjxPOGdIPM5cFNbyqSJMDqw0VXquGMe5AvIwCrvOS2VzVRs8
+	 NACXFl7VUv3pq8vBK4yGuSb1T7xuPBF9pRKY7GIKq08Ktyu8syErReOw7X+ml1OY5AQqX
+	 5quw6UdKuM+Mk6+1wN7y2iHaWU064M/3wpv7sKZGKoaQlOTxa3Y7BFoxJm8jCwxN+nLPB
+	 CJ3UfjLkZc3S2gJyzFyN2FKf5TYniYLVo69bk0eNN+AEoOC4adOHyUTNMr+APp7jMCHJN
+	 k0gcc+4lnmwMczDQ8E5aFJfxSPwt+DvLzAJ4GuAL7SOsiXnZPSDIOA5iTuVHOROIoQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IfpL3SzR;
+	arc=none smtp.remote-ip=95.215.58.146
+Received: from mta1.migadu.com (out-146.mta1.migadu.com [95.215.58.146])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A881606A31C;
-	Tue, 17 Nov 2026 16:26:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A881606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <c9f9b41ff36254ce0dd968ed190e265b1d2eb906.camel@crapouillou.net>
-Subject: Re: [PATCH 09/10] dmaengine: jz4780: Fix descriptor cleanup on
- hwdesc setup failure
-From: Paul Cercueil <paul@crapouillou.net>
-To: Lee Jones <lee@kernel.org>, Vinod Koul <vkoul@kernel.org>, Frank Li	
- <Frank.Li@kernel.org>, Alex Smith <alex@alex-smith.me.uk>, Zubair Lutfullah
- Kakakhel <Zubair.Kakakhel@imgtec.com>, linux-mips@vger.kernel.org,
- dmaengine@vger.kernel.org, 	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Date: Tue, 17 Nov 2026 17:26:01 +0100
-In-Reply-To: <20261111215349.1983909-10-lee@kernel.org>
-References: <20261111215349.1983909-1-lee@kernel.org>
-	 <20261111215349.1983909-10-lee@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA914606A32C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 16:34:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA914606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IfpL3SzR
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RJgmEkz4jSKky+L1Q1MlhqmjHI4xCv6x+BFHapl0q5g=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794933271; v=1; x=1795538071;
+ b=IfpL3SzR7Nvihq9US39Oqm3zkEnRicLRID6CM6pD9965dMcj8R+v8Pg6U6oppvPgNyt/bCoO
+ 4ao82qHM39cCYvBWukc+QdjG4GgGFyXkLMMzDeysMwKkJyNztktyJfXVGjV+hiqRWDIN/3rlE59
+ dUdRes882EQpHe6tLSNPhUH0=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 60d8652a3546647f;
+	Tue, 17 Nov 2026 16:34:31 +0000
+X-Mizu-Trace-ID: 60d8652a3546647f
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a852dce9-4ece-4508-8e07-89768cf6713e@linux.dev>
+Date: Tue, 17 Nov 2026 09:34:23 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,71 +58,103 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/khugepaged: mark ptes dirty and soft-dirty on mTHP
+ collapse
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Lance Yang <lance.yang@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>, Daniel Wade <danjwade95@gmail.com>
+References: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
+Content-Language: en-US
+From: Nico Pache <nico.pache@linux.dev>
+In-Reply-To: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Lee,
 
-Le mercredi 11 novembre 2026 =C3=A0 21:52 +0000, Lee Jones a =C3=A9crit=C2=
-=A0:
-> When jz4780_dma_setup_hwdesc() fails in jz4780_dma_prep_slave_sg() or
-> jz4780_dma_prep_dma_cyclic(), the error paths pass &jzchan->desc->vdesc
-> to jz4780_dma_desc_free() instead of the newly allocated &desc->vdesc.
-> This leaks the newly allocated descriptor and either dereferences NULL
-> when jzchan->desc is NULL or frees the currently active descriptor while
-> it is still in flight.=C2=A0 Furthermore, jz4780_dma_desc_free() derives
-> jzchan from vdesc->tx.chan, which is not yet initialised before
-> vchan_tx_prep() is called.
->=20
-> Initialise desc->vdesc.tx.chan in jz4780_dma_desc_alloc() and pass
-> &desc->vdesc to jz4780_dma_desc_free() in the preparation error paths.
->=20
-> Fixes: d894fc6046fe ("dmaengine: jz4780: add driver for the Ingenic JZ478=
-0 DMA
-> controller")
-> Closes: https://sashiko.dev/#/bug/linux-b39121ef-5ffb-401a-9d04-0afccd467=
-bde
+
+On 11/17/26 2:28 AM, David Hildenbrand (Arm) wrote:
+> An mTHP collapse can lose soft-dirty PTE bits if pages were written and
+> the VMA was then made read-only, and not setting the PTE dirty in
+> VMAs without VM_WRITE can interact with a later MADV_FREE on a COW-shared
+> page such that all processes lose the data even though a single process
+> MADV_FREE'ed it.
+> 
+> Collapse does not preserve the soft-dirty bits of the old PTEs, so the
+> new entries must be marked soft-dirty. map_anon_folio_pte_nopf() relies
+> on pte_mkdirty() to do that, but only calls it if the VMA has VM_WRITE.
+> 
+> Further, after CoW-sharing such collapsed folios later, all PTEs will be
+> clean and the folios will be clean. One process doing a MADV_FREE can mark
+> the folios as lazyfree and result in all processes sharing it losing the
+> data once memory reclaim zaps it.
+> 
+> In map_anon_folio_pte_nopf(), call pte_mkdirty() unconditionally, just
+> like map_anon_folio_pmd_nopf() already does with pmd_mkdirty().
+> 
+> Consequently, we always mark these PTEs dirty (including soft-dirty) but
+> only set them writable if the VMA has VM_WRITE.
+> 
+> This essentially reverts Hugh's commit 1ac0cb5d0e22 ("mm: fix anonymous
+> dirtying") that back then touched do_anonymous_page() to avoid forcing
+> clean anonymous pages through swap instead of discarding them. This no
+> longer applies as shrink_folio_list() allocates swap for ordinary
+> anonymous folios and unconditionally marks them dirty before unmapping,
+> regardless of PTE dirty state. Keeping their PTEs clean does not make
+> them discardable.
+> 
+> This now also marks fresh anonymous PTEs dirty and soft-dirty in read-only
+> VMAs when page faults allocate real pages.
+> 
+> This has low urgency.
+> 
+> Fixes: e22f2fe72c74 ("mm/khugepaged: generalize collapse_huge_page for mTHP collapse")
+
+I was just thinking yesterday: "Im happy the mTHP collapse stuff 
+survived this AI wave". I guess I spoke a day too soon ;P
+
+LGTM!
+
+Reviewed-by: Nico Pache <nico.pache@linux.dev>
+
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Lee Jones <lee@kernel.org>
-
-Reviewed-by: Paul Cercueil <paul@crapouillou.net>
-
-Cheers,
--Paul
-
+> Reported-by: Chris Mason <mason@kernel.org>
+> Reported-by: Daniel Wade <danjwade95@gmail.com>
+> Closes: https://lore.kernel.org/all/20261117075246.61336-1-danjwade95@gmail.com/
+> Reviewed-by: Daniel Wade <danjwade95@gmail.com>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > ---
-> =C2=A0drivers/dma/dma-jz4780.c | 5 +++--
-> =C2=A01 file changed, 3 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/dma/dma-jz4780.c b/drivers/dma/dma-jz4780.c
-> index ac2094e65ecf..c3974c825ba7 100644
-> --- a/drivers/dma/dma-jz4780.c
-> +++ b/drivers/dma/dma-jz4780.c
-> @@ -248,6 +248,7 @@ jz4780_dma_desc_alloc(struct jz4780_dma_chan *jzchan,
-> unsigned int count,
-> =C2=A0		return NULL;
-> =C2=A0	}
-> =C2=A0
-> +	desc->vdesc.tx.chan =3D &jzchan->vchan.chan;
-> =C2=A0	desc->count =3D count;
-> =C2=A0	desc->type =3D type;
-> =C2=A0
-> @@ -379,7 +380,7 @@ static struct dma_async_tx_descriptor
-> *jz4780_dma_prep_slave_sg(
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 sg_dma_len(&sgl[i]),
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 direction);
-> =C2=A0		if (err < 0) {
-> -			jz4780_dma_desc_free(&jzchan->desc->vdesc);
-> +			jz4780_dma_desc_free(&desc->vdesc);
-> =C2=A0			return NULL;
-> =C2=A0		}
-> =C2=A0
-> @@ -426,7 +427,7 @@ static struct dma_async_tx_descriptor
-> *jz4780_dma_prep_dma_cyclic(
-> =C2=A0		err =3D jz4780_dma_setup_hwdesc(jzchan, &desc->desc[i],
-> buf_addr,
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 period_len, direction);
-> =C2=A0		if (err < 0) {
-> -			jz4780_dma_desc_free(&jzchan->desc->vdesc);
-> +			jz4780_dma_desc_free(&desc->vdesc);
-> =C2=A0			return NULL;
-> =C2=A0		}
-> =C2=A0
+>   mm/memory.c | 3 +--
+>   1 file changed, 1 insertion(+), 2 deletions(-)
+> 
+> diff --git a/mm/memory.c b/mm/memory.c
+> index d2f48d78b0d7b..45875d1d3b3df 100644
+> --- a/mm/memory.c
+> +++ b/mm/memory.c
+> @@ -5522,8 +5522,7 @@ void map_anon_folio_pte_nopf(struct folio *folio, pte_t *pte,
+>   
+>   	entry = pte_sw_mkyoung(entry);
+>   
+> -	if (vma->vm_flags & VM_WRITE)
+> -		entry = pte_mkwrite(pte_mkdirty(entry), vma);
+> +	entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+>   	if (uffd_wp)
+>   		entry = pte_mkuffd(entry);
+>   
+> 
+> ---
+> 
+> base-commit: 1c2962a57377c9878cbefb747488324d4e678982
+> 
+> change-id: 20261117-khugepaged_mthp_dirty-067f734d38aa
+> 
+> --
+> 
+> Cheers,
+> 
+> David
+
