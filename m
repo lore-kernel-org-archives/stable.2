@@ -1,55 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794934210;
-	b=HpmBllfWMHm+Cz/5IIthWfarbfQ2Ei0Hv/s4BRi3Sx8wDXm1Qfceq1RqHHO1YwZWV9tg
-	 rETmBlIzPmcqU/MTWNICYbMyTEVv91j5C5kNO12e+485tZSLkyt3EKU4xjoC4GYpge617
-	 eGTSn6RhJbgUBXIOkGWsaY0BVUDA5HKKMFrO+vKpVF4W6/TYqczqkZE6f3/ycXh3O+BGr
-	 DlMDwEvr+NokebSJ+S6TewiKi2YgXx71SEY1X0rVKG7WUc7ARkcsPU/y3hBLxGBSYbmIa
-	 R14bVByvqeMG/WXBIpixOkLv4XrzfHZUOluNbEfisyha+f6NUPutK0Y1VkDm2oSPP1Q==
+	t=1794934279;
+	b=2GJxAFXiiOuS4Zk6pxk3W7AYDbDb4VLh1Ye5eL3HyNbEcmKEHkQvCnFqK3GGQdwpkIPw
+	 QGRTxgn3YUNGHvt94ILBGdyoxUs5Okf9+oZPYw/VnWIJkMlZ1Bt1+SE0zFcED8wyskqko
+	 ctiGD4Q1QGju8LC15DCvZ84XIH7O+5+TDFiFQbSUkxMNpJq7JD5qXbPLFdwG1YakV27wR
+	 vwAInXozfQ2zsdSklpwBa2wGrs9OKAc1anGMOappIr4LQSBR9n/y3Zb2DWFaBOJBsop2T
+	 42rmv+NdUa/N8Y0vm2i1HIeC9tpY9w44yfoM89+d/iKEuSYa7Syo+nSyBNxS6LDvvkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794934210;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=QkvX4elFR9Vic1Ho+taO35n2YuvBLAyPlVWWxJZnQJI=;
-	b=KQRYPbgDN/yhrvaHm7GLZ2HbTaQ2PDgNeIYMYLefHSou9dBM0rAb/7q8+nDC6sl9GIg/
-	 1Y9v76kOYQMqiHtDiSWnHURFycDhcm3r8zeqrFxk9WQlvNGrNtC6ZhnoUPBF0S3s/i7Cc
-	 kCgJ0HoYYWJJLgA81kU+Nq1b8YgPCuI+3s7sSwWNm0nHO1j6q3yjL1Dwqxc9gMNcs121f
-	 MmHXx93dGPh6TJzUBhQN5sq23N8r4wIRpvdkotBrFX/NKMvBsh6O+G4PZWQqhdCSnFc66
-	 o9N8ZMo388tHJghOdIBcB4OnMQ1JG3txidH+oU8dSsR0igiPAxbsDQeF81ll35+R2fA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794934279;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=RT4X/T0EuH0TmEYOt+HYB/RGMpJQFe8/Bu+i4DTLK/k=;
+	b=4586PEhnzQw8FBQ8IKmOkogSk19Yc9qbyG7O69E0sNEJBwjJ536SzZqlqqQdOtcrpF5G
+	 IosVAsVOM8fNNYBPkQy8gP1gXTDSKnB14TdghKnuMN0GetVfNbfpN1iLdTbJBl4D0C4jI
+	 vzpoPkWtcdX888B7EkXeUQjcgNIKbYke+2a7RcFjXJaNakWILZmaehHgmW6Jbpro5GEos
+	 Cf++kYzMQBdYxvIRibg0qh1IPN1oKO/Pt4JR8nRgSMnIAf8bxLBnD6L3FJI72j3S9xaLL
+	 4CSSE51QCs241niJsWT6Svl80zvgcCcntB9pLUJ7pifRWEh2fdw+V7DdQQeXqCjD4Bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ipKYnhkR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BdqVL2gN;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F703606A31C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 16:50:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5CA3606A31C;
+	Tue, 17 Nov 2026 16:51:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5CA3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ipKYnhkR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B2561F000C7
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 16:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794934210;
-	bh=QkvX4elFR9Vic1Ho+taO35n2YuvBLAyPlVWWxJZnQJI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ipKYnhkRlHelaOjj9rxT0k7fbDKABqeB8R8g3tw1tNMBc7CDD/sICLztHWcdzlchT
-	 EEsTOqSXcqOb582JTfjuKXoGBs5RXcpkxJSpNOfoBUYmVo+35bycqnpy2GPtqVFgDA
-	 IMJI7Gfz7hyHacJfsHr5efCXeEgAqVuETxYWjcu3oYTTItUff3GEmJ/Qc7QMxwl51R
-	 Dsdww5KJBiKtXZtUzD9H/OnKcj5wdUkogAUMRtGYqbQfADiapX0llR3kqARhdgFXah
-	 YfKjnCkD+tpNDCXa4no5+jptcFEn9fCONInJN+Z3XfXt/f4G691V/O8r21DYF1aFxL
-	 Ng25UV7yvcgWw==
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7777fa8f1ccso1548989137.3
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 08:50:10 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErHXyKIYVxKp8PVOt7HX0IthgGbq/UogGby9V6EWrB12BW26Xzwtm9F34hbyiWVLLdPbq2a0DO0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jcGl5KB6aMtGGnbR/51f4XszSdyJzGNAroYwGyQOBF7mi7vDP
-	m/PibByn+rZ8XqhU6XAHJBiEiK6aDocsThpuAANGMTFWs8HGYNFVJxKt+qmKthntZeCfLepr0Cv
-	CSjSMF8s6z/bpIXZ8S8e180kwpNhc57o=
-X-Received: by 2002:a05:6102:e08:b0:7cc:9d47:9c9 with SMTP id
- ada2fe7eead31-7d64d8e11e0mr4550359137.35.1794934209294; Tue, 17 Nov 2026
- 08:50:09 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BdqVL2gN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794934279; x=1826470279;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=XgS/tf3vpO0tulClCI8eLPUH78J7AQTbpyP5VYST+vU=;
+  b=BdqVL2gNRomceLMKaZ8A7prEFqHT1Ae5Ex0herHaKl2tccJLESw84b0M
+   OWpSJbaZPyjJdtxV0mLOOZHYwiG9ga+4yi+fzNik4dQWVq6cTiqg30wpE
+   rAqeAGC2TzEgNk8Oai6w8uF+JeVPYMkI7cumUskBmU76vF0qFepdtvPes
+   S7/ZZoQpecyejlGZbbsmkRNkj8MK3HlPThNiu1znu4uCSDatI5iu7NfGc
+   CVC3NG/tHumNbVqUCJaM56DX77aMBisFk6eJk+DD/B86tspeiORUNnScC
+   irTgMbpNMUdhD6VBWLL2i2v76L7Wcu4n+0dXcB1OLpAL/sPxxWI9XfMwq
+   A==;
+X-CSE-ConnectionGUID: gUDXsM4HTw+LMT8mcPuhMw==
+X-CSE-MsgGUID: WKfj5ytfSiezVGz5AHe3TQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3604023"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3604023"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 08:51:18 -0800
+X-CSE-ConnectionGUID: O0tcxq0VQeyK+L9Lp1UEoQ==
+X-CSE-MsgGUID: uCw/BAsQQmWYgbRaBlw6SQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9732926"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 17 Nov 2026 08:51:16 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xTMOn-00000001C4R-1v7l;
+	Tue, 17 Nov 2026 16:51:13 +0000
+Date: Wed, 18 Nov 2026 00:50:17 +0800
+From: kernel test robot <lkp@intel.com>
+To: xu.xin@linux.dev, David Hildenbrand <david@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, Donet Tom <donettom@linux.ibm.com>,
+	Chengming Zhou <chengming.zhou@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Memory Management List <linux-mm@kvack.org>,
+	linux-kernel@vger.kernel.org, Xu Xin <xu.xin@linux.dev>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/ksm: do not inherit ksm_zero_pages counter or PTE
+ markers on fork
+Message-ID: <202611180030.dC8BHX2Z-lkp@intel.com>
+References: <20261117081821.7211-1-xu.xin@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,372 +87,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1794867985.git.wqu@suse.com> <51527ea5f9f456a7ebe70b7fcaf626fac3dab945.1794867985.git.wqu@suse.com>
-In-Reply-To: <51527ea5f9f456a7ebe70b7fcaf626fac3dab945.1794867985.git.wqu@suse.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Tue, 17 Nov 2026 16:49:32 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H6xiDZVeWmS2K64KmKLLa=9yWBt9JTgk-BsfdASmqjrhg@mail.gmail.com>
-X-Gm-Features: Aa3M54otklqmyjuiqPETTuLmAR1yAHFWg6zaYtAGhR1ghAuYv4TK9wYjR_Cc8ns
-Message-ID: <CAL3q7H6xiDZVeWmS2K64KmKLLa=9yWBt9JTgk-BsfdASmqjrhg@mail.gmail.com>
-Subject: Re: [PATCH 2/2] btrfs: scrub: fix use-after-free when waking up the
- stripe I/O waiter
-To: Qu Wenruo <wqu@suse.com>
-Cc: linux-btrfs@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117081821.7211-1-xu.xin@linux.dev>
 
-On Mon, Nov 16, 2026 at 10:34=E2=80=AFPM Qu Wenruo <wqu@suse.com> wrote:
->
-> The scrub_write_endio() can race with scrub finishing, which can lead to
-> use-after-free:
->
->  CPU0 (write endio)                  CPU1 (scrub)
->  scrub_write_endio()                 flush_scrub_stripes()
->  |                                   |-wait_scrub_stripe_io()
->  |                                   | \-wait_event()
->  |                                   |   ^^^ checks the condition without
->  |                                   |       taking io_wait.lock
->  |-atomic_dec_and_test()             |
->  | ^^^ pending_io hits 0             |
->  |                                   | ^^^ sees 0, doesn't sleep
->  |                                   |
->  |                                   btrfs_scrub_dev()
->  |                                   \-scrub_put_ctx()
->  |                                     \-scrub_free_ctx()
->  |                                       ^^^ stripe freed
->  |
->  \-wake_up()
->    \-_raw_spin_lock_irqsave()
->      ^^^ io_wait.lock is in freed memory
->          Too late.
+Hi,
 
-I have the same comment here regarding the diagram.
-It confuses me, it gives the wrong idea that flush_scrub_stripes()
-either calls btrfs_scrub_dev() or that they are called from the same
-function.
+kernel test robot noticed the following build errors:
 
-This can be clearer by using indentation and not skipping functions in
-the call chain:
+[auto build test ERROR on akpm-mm/mm-everything]
 
-btrfs_scrub_dev()
-   scrub_enumerate_chunks()
-      scrub_chunk()
-         scrub_stripe()
-            flush_scrub_stripes()
-               wait_scrub_stripe_io()
-                  wait_event()
-                     (...)
+url:    https://github.com/intel-lab-lkp/linux/commits/xu-xin-linux-dev/mm-ksm-do-not-inherit-ksm_zero_pages-counter-or-PTE-markers-on-fork/20261117-161821
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-everything
+patch link:    https://lore.kernel.org/r/20261117081821.7211-1-xu.xin%40linux.dev
+patch subject: [PATCH] mm/ksm: do not inherit ksm_zero_pages counter or PTE markers on fork
+config: arc-allnoconfig (https://download.01.org/0day-ci/archive/20261118/202611180030.dC8BHX2Z-lkp@intel.com/config)
+compiler: arc-linux-gcc (GCC) 16.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261118/202611180030.dC8BHX2Z-lkp@intel.com/reproduce)
 
-   scrub_put_ctx()
-      scrub_free_ctx()
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611180030.dC8BHX2Z-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   mm/memory.c: In function '__copy_present_ptes':
+>> mm/memory.c:1168:13: error: implicit declaration of function 'is_ksm_zero_pte' [-Wimplicit-function-declaration]
+    1168 |         if (is_ksm_zero_pte(pte))
+         |             ^~~~~~~~~~~~~~~
 
 
->
-> Fix it by waiting with a completion instead. complete_all() wakes the
-> waiter under the completion's lock and does not touch it afterwards, and
-> wait_for_completion_io() returns only after taking that lock, so the
-> stripe can be freed as soon as the wait returns.
->
-> There are locations that we submit multiple bios in one go, with extra
-> care the pending_io can reach 0 during the submission, to address it:
->
-> - Re-arm the completion when the first pending_io ref is taken, in
->   scrub_stripe_get_io(). Any previous round of IO is waited for before th=
-e
->   next one starts.
->
-> - Hold one extra ref for batched submission
->   This includes:
->   * scrub_write_sectors()
->   * scrub_stripe_submit_repair_read() for non-zoned cases
->
->   This is the same pattern used in other scrub path.
->
-> The completion is initialized as completed, so waiting on a stripe withou=
-t
-> any pending IO returns immediately as before.
->
-> This is the same problem fixed for the RAID56 rbio in commit
-> 26eb4d70f96d ("btrfs: raid56: fix use-after-free when waking up the rbio
-> I/O waiter").
+vim +/is_ksm_zero_pte +1168 mm/memory.c
 
-Just like for the previous patch, I have the same comment regarding
-the commit ID not being stable here; it can change after rebasing and
-so on.
+  1123	
+  1124	static __always_inline void __copy_present_ptes(struct vm_area_struct *dst_vma,
+  1125			struct vm_area_struct *src_vma, pte_t *dst_pte, pte_t *src_pte,
+  1126			pte_t pte, unsigned long addr, int nr)
+  1127	{
+  1128		struct mm_struct *src_mm = src_vma->vm_mm;
+  1129		bool writable;
+  1130	
+  1131		/*
+  1132		 * Snapshot writability before the RWP-disarm rewrite below: when the
+  1133		 * child is not RWP-armed, pte_modify(pte, dst_vma->vm_page_prot) can
+  1134		 * silently drop _PAGE_RW from a resolved (no-marker) writable PTE,
+  1135		 * so a later pte_write(pte) check would skip the COW wrprotect and
+  1136		 * leave the parent writable over a folio shared with the child.
+  1137		 */
+  1138		writable = pte_write(pte);
+  1139	
+  1140		/*
+  1141		 * Child is not RWP-armed: restore accessible protection so the
+  1142		 * inherited PAGE_NONE does not cost a fault on first read. Gate on
+  1143		 * pte_uffd(pte) so unrelated PAGE_NONE markers (e.g. NUMA balancing)
+  1144		 * are not normalised away.
+  1145		 */
+  1146		if (!userfaultfd_protected(dst_vma)) {
+  1147			if (userfaultfd_rwp(src_vma) && pte_uffd(pte))
+  1148				pte = pte_modify(pte, dst_vma->vm_page_prot);
+  1149			pte = pte_clear_uffd(pte);
+  1150		}
+  1151	
+  1152		/* If it's a COW mapping, write protect it both processes. */
+  1153		if (vma_is_cow_mapping(src_vma) && writable) {
+  1154			wrprotect_ptes(src_mm, addr, src_pte, nr);
+  1155			pte = pte_wrprotect(pte);
+  1156		}
+  1157	
+  1158		/* If it's a shared mapping, mark it clean in the child. */
+  1159		if (src_vma->vm_flags & VM_SHARED)
+  1160			pte = pte_mkclean(pte);
+  1161		pte = pte_mkold(pte);
+  1162	
+  1163		/*
+  1164		 * Clear the dirty-bit marker on KSM-placed zero-page PTEs in the
+  1165		 * child so inherited mappings are not accounted against the child or
+  1166		 * unshared by MADV_UNMERGEABLE.  Special PTEs always have nr == 1.
+  1167		 */
+> 1168		if (is_ksm_zero_pte(pte))
+  1169			pte = pte_mkclean(pte);
+  1170	
+  1171		set_ptes(dst_vma->vm_mm, addr, dst_pte, pte, nr);
+  1172	}
+  1173	
 
-The code looks good.
-Thanks.
-
->
-> Fixes: 9ecb5ef543d3 ("btrfs: scrub: introduce the main read repair worker=
- for scrub_stripe")
-> Fixes: 058e09e6fe7c ("btrfs: scrub: introduce a writeback helper for scru=
-b_stripe")
-> Cc: stable@vger.kernel.org # 6.4+
-> Signed-off-by: Qu Wenruo <wqu@suse.com>
-> ---
->  fs/btrfs/scrub.c | 97 ++++++++++++++++++++++++++++++++++--------------
->  1 file changed, 69 insertions(+), 28 deletions(-)
->
-> diff --git a/fs/btrfs/scrub.c b/fs/btrfs/scrub.c
-> index 4b37ae143f61..a8c62a3aea0c 100644
-> --- a/fs/btrfs/scrub.c
-> +++ b/fs/btrfs/scrub.c
-> @@ -149,7 +149,9 @@ struct scrub_stripe {
->         atomic_t pending_io;
->         /* From btrfs_chunk_map::stripe_len. Should not exceed BTRFS_STRI=
-PE_LEN. */
->         u32 stripe_len;
-> -       wait_queue_head_t io_wait;
-> +
-> +       /* Completed by the last endio when pending_io drops to zero. */
-> +       struct completion io_done;
->
->         /* Completed when the read-repair is finished. */
->         struct completion repair_done;
-> @@ -357,9 +359,11 @@ static int init_scrub_stripe(struct btrfs_fs_info *f=
-s_info,
->         stripe->stripe_len =3D BTRFS_STRIPE_LEN;
->         stripe->state =3D 0;
->
-> -       init_waitqueue_head(&stripe->io_wait);
->         init_completion(&stripe->repair_done);
-> +       init_completion(&stripe->io_done);
->         atomic_set(&stripe->pending_io, 0);
-> +       /* No pending IO by default, thus nothing to wait. */
-> +       complete_all(&stripe->io_done);
->         spin_lock_init(&stripe->write_error_lock);
->
->         stripe->buffer =3D kvmalloc(BTRFS_STRIPE_LEN, GFP_KERNEL);
-> @@ -381,9 +385,25 @@ static int init_scrub_stripe(struct btrfs_fs_info *f=
-s_info,
->         return -ENOMEM;
->  }
->
-> +static void scrub_stripe_get_io(struct scrub_stripe *stripe)
-> +{
-> +       /* The first pending IO re-arms the completion. */
-> +       if (atomic_inc_return(&stripe->pending_io) =3D=3D 1)
-> +               reinit_completion(&stripe->io_done);
-> +}
-> +
-> +/* Drop one pending IO, return true if it was the last one. */
-> +static bool scrub_stripe_put_io(struct scrub_stripe *stripe)
-> +{
-> +       if (!atomic_dec_and_test(&stripe->pending_io))
-> +               return false;
-> +       complete_all(&stripe->io_done);
-> +       return true;
-> +}
-> +
->  static void wait_scrub_stripe_io(struct scrub_stripe *stripe)
->  {
-> -       wait_event(stripe->io_wait, atomic_read(&stripe->pending_io) =3D=
-=3D 0);
-> +       wait_for_completion_io(&stripe->io_done);
->  }
->
->  static void scrub_put_ctx(struct scrub_ctx *sctx);
-> @@ -891,8 +911,7 @@ static void scrub_repair_read_endio(struct btrfs_bio =
-*bbio)
->
->         scrub_read_endio_common(bbio);
->
-> -       if (atomic_dec_and_test(&stripe->pending_io))
-> -               wake_up(&stripe->io_wait);
-> +       scrub_stripe_put_io(stripe);
->  }
->
->  static int calc_next_mirror(int mirror, int num_copies)
-> @@ -941,6 +960,18 @@ static struct btrfs_bio *alloc_scrub_bbio(struct btr=
-fs_fs_info *fs_info,
->         return bbio;
->  }
->
-> +static void scrub_submit_repair_read_bio(struct scrub_stripe *stripe,
-> +                                        struct btrfs_bio *bbio, int mirr=
-or,
-> +                                        bool wait)
-> +{
-> +       ASSERT(bbio->bio.bi_iter.bi_size);
-> +
-> +       scrub_stripe_get_io(stripe);
-> +       btrfs_submit_bbio(bbio, mirror);
-> +       if (wait)
-> +               wait_scrub_stripe_io(stripe);
-> +}
-> +
->  static void scrub_stripe_submit_repair_read(struct scrub_stripe *stripe,
->                                             int mirror, int blocksize, bo=
-ol wait)
->  {
-> @@ -953,15 +984,19 @@ static void scrub_stripe_submit_repair_read(struct =
-scrub_stripe *stripe,
->         ASSERT(atomic_read(&stripe->pending_io) =3D=3D 0,
->                "atomic_read(&stripe->pending_io)=3D%d", atomic_read(&stri=
-pe->pending_io));
->
-> +       /*
-> +        * Hold an extra ref during submission, so the IO can not be repo=
-rted as
-> +        * finished before all bios are submitted.
-> +        * If we wait for every bio, no extra ref as it would block the w=
-ait.
-> +        */
-> +       if (!wait)
-> +               scrub_stripe_get_io(stripe);
-> +
->         for_each_set_bit(i, &old_error_bitmap, stripe->nr_sectors) {
->                 /* The current sector cannot be merged, submit the bio. *=
-/
->                 if (bbio && ((i > 0 && !test_bit(i - 1, &old_error_bitmap=
-)) ||
->                              bbio->bio.bi_iter.bi_size >=3D blocksize)) {
-> -                       ASSERT(bbio->bio.bi_iter.bi_size);
-> -                       atomic_inc(&stripe->pending_io);
-> -                       btrfs_submit_bbio(bbio, mirror);
-> -                       if (wait)
-> -                               wait_scrub_stripe_io(stripe);
-> +                       scrub_submit_repair_read_bio(stripe, bbio, mirror=
-, wait);
->                         bbio =3D NULL;
->                 }
->
-> @@ -973,13 +1008,10 @@ static void scrub_stripe_submit_repair_read(struct=
- scrub_stripe *stripe,
->
->                 scrub_bio_add_sector(bbio, stripe, i);
->         }
-> -       if (bbio) {
-> -               ASSERT(bbio->bio.bi_iter.bi_size);
-> -               atomic_inc(&stripe->pending_io);
-> -               btrfs_submit_bbio(bbio, mirror);
-> -               if (wait)
-> -                       wait_scrub_stripe_io(stripe);
-> -       }
-> +       if (bbio)
-> +               scrub_submit_repair_read_bio(stripe, bbio, mirror, wait);
-> +       if (!wait)
-> +               scrub_stripe_put_io(stripe);
->  }
->
->  static void scrub_stripe_report_errors(struct scrub_ctx *sctx,
-> @@ -1242,8 +1274,7 @@ static void scrub_read_endio(struct btrfs_bio *bbio=
-)
->
->         scrub_read_endio_common(bbio);
->
-> -       if (atomic_dec_and_test(&stripe->pending_io)) {
-> -               wake_up(&stripe->io_wait);
-> +       if (scrub_stripe_put_io(stripe)) {
->                 INIT_WORK(&stripe->work, scrub_stripe_read_repair_worker)=
-;
->                 queue_work(stripe->bg->fs_info->scrub_workers, &stripe->w=
-ork);
->         }
-> @@ -1269,8 +1300,7 @@ static void scrub_write_endio(struct btrfs_bio *bbi=
-o)
->         }
->         bio_put(&bbio->bio);
->
-> -       if (atomic_dec_and_test(&stripe->pending_io))
-> -               wake_up(&stripe->io_wait);
-> +       scrub_stripe_put_io(stripe);
->  }
->
->  static void scrub_submit_write_bio(struct scrub_ctx *sctx,
-> @@ -1283,7 +1313,7 @@ static void scrub_submit_write_bio(struct scrub_ctx=
- *sctx,
->                       stripe->logical;
->
->         fill_writer_pointer_gap(sctx, stripe->physical + bio_off);
-> -       atomic_inc(&stripe->pending_io);
-> +       scrub_stripe_get_io(stripe);
->         btrfs_submit_repair_write(bbio, stripe->mirror_num, dev_replace);
->         if (!btrfs_is_zoned(fs_info))
->                 return;
-> @@ -1322,6 +1352,15 @@ static void scrub_write_sectors(struct scrub_ctx *=
-sctx, struct scrub_stripe *str
->         struct btrfs_bio *bbio =3D NULL;
->         int sector_nr;
->
-> +       /*
-> +        * Hold an extra ref during submission, so the IO can not be repo=
-rted as
-> +        * finished before all bios are submitted.
-> +        * For zoned, we wait for every bio, no extra ref as it would blo=
-ck the
-> +        * wait.
-> +        */
-> +       if (!btrfs_is_zoned(fs_info))
-> +               scrub_stripe_get_io(stripe);
-> +
->         for_each_set_bit(sector_nr, &write_bitmap, stripe->nr_sectors) {
->                 /* We should only writeback sectors covered by an extent.=
- */
->                 ASSERT(scrub_bitmap_test_bit_has_extent(stripe, sector_nr=
-));
-> @@ -1340,6 +1379,8 @@ static void scrub_write_sectors(struct scrub_ctx *s=
-ctx, struct scrub_stripe *str
->         }
->         if (bbio)
->                 scrub_submit_write_bio(sctx, stripe, bbio, dev_replace);
-> +       if (!btrfs_is_zoned(fs_info))
-> +               scrub_stripe_put_io(stripe);
->  }
->
->  /*
-> @@ -1786,7 +1827,8 @@ static void scrub_submit_extent_sector_read(struct =
-scrub_stripe *stripe)
->         int mirror =3D stripe->mirror_num;
->         int i;
->
-> -       atomic_inc(&stripe->pending_io);
-> +       /* The extra ref is dropped after all bios are submitted. */
-> +       scrub_stripe_get_io(stripe);
->
->         for_each_set_bit(i, &has_extent, stripe->nr_sectors) {
->                 /* We're beyond the chunk boundary, no need to read anymo=
-re. */
-> @@ -1798,7 +1840,7 @@ static void scrub_submit_extent_sector_read(struct =
-scrub_stripe *stripe)
->                     ((i > 0 && !test_bit(i - 1, &has_extent)) ||
->                      bbio->bio.bi_iter.bi_size >=3D stripe_len)) {
->                         ASSERT(bbio->bio.bi_iter.bi_size);
-> -                       atomic_inc(&stripe->pending_io);
-> +                       scrub_stripe_get_io(stripe);
->                         btrfs_submit_bbio(bbio, mirror);
->                         bbio =3D NULL;
->                 }
-> @@ -1844,12 +1886,11 @@ static void scrub_submit_extent_sector_read(struc=
-t scrub_stripe *stripe)
->
->         if (bbio) {
->                 ASSERT(bbio->bio.bi_iter.bi_size);
-> -               atomic_inc(&stripe->pending_io);
-> +               scrub_stripe_get_io(stripe);
->                 btrfs_submit_bbio(bbio, mirror);
->         }
->
-> -       if (atomic_dec_and_test(&stripe->pending_io)) {
-> -               wake_up(&stripe->io_wait);
-> +       if (scrub_stripe_put_io(stripe)) {
->                 INIT_WORK(&stripe->work, scrub_stripe_read_repair_worker)=
-;
->                 queue_work(stripe->bg->fs_info->scrub_workers, &stripe->w=
-ork);
->         }
-> @@ -1877,7 +1918,7 @@ static void scrub_submit_initial_read(struct scrub_=
-ctx *sctx,
->         /* Read the whole range inside the chunk boundary. */
->         for (unsigned int cur =3D 0; cur < nr_sectors; cur++)
->                 scrub_bio_add_sector(bbio, stripe, cur);
-> -       atomic_inc(&stripe->pending_io);
-> +       scrub_stripe_get_io(stripe);
->
->         /*
->          * For dev-replace, either user asks to avoid the source dev, or
-> --
-> 2.56.0
->
->
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
