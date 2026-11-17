@@ -1,58 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794927421;
-	b=SKS1E6ioMOjakt/kTWBQifUo5P1lRrHMoKtscs70nE7yJSuv3Wqr03SJrVNndiqZiWSe
-	 Hm9GBysWBDBSmqiqAjs0gla3LDtQYAPMz2NAq2LXe09vZBG4FHt5fpyQGcXKnlZPrMV1G
-	 Pr3b8oQDbU/9wYK3T8ksBtRlfY4de7pd7BcRXpSKJTn+0kOJzeybY8QXtDvlUP6Zb/oVi
-	 MHy6SGhVbr1EDmhHYoeFXM2Jrs3MeUYlOL5k/WWbg9FsJI6yR6k+8jLR2t2JVSAVqY3rB
-	 oM8iAI9iXqLRNnHidg431DSgBMCBWkrG1cHaKoLNL+CoR/hNxqd/lOAGYRNKffBMLbg==
+	t=1794927494;
+	b=EdNh9l9PKb4kWeY/YIORMb/Z/5+Q6jR0L42vFaKuUp7fHOoGuiKPwn14PoIZoxzucn5i
+	 f1zdKHmIZ9o9rhy8MYy2FHVqHJHpibRxRkyU/SPYeMd/6pAv1tW58Y6Z4U//wvTPcQLZJ
+	 Y3NPqbUPD5dVwNRmBA7WxJyZub9Uwl8IfzLgogNqRG+TOYNd01wWQLRZbtDI3MITa5tpe
+	 0mCrLluUO1lfQTOtJc+HfZTkyh1ax02kjG3Dxro37yxH05yiESZi0K2nigDvTfivbAir0
+	 kltaJhR0gtFY7avR5IlHqTYTbuXYoWabiRPVNm+uyy/QWaQZbBdEDDK5IvL7JH4H3lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794927421;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=BYDghbSSGp8ajBj0SqwqioXz4gab4WkH6tR1bMEa1MY=;
-	b=ORvJex2CxWNxih14lSQh9qdYfPURd0GJKdlLXxJm+boYxvd38RUMPqjYQMuOrlSLY5Ej
-	 +idzk8nSGzcsu8HuVfddfBjtsFoGCm1F/n/gzD8vRZosbbgz3jwGVO/WYY1HfNr5VH5KN
-	 1f6oZGnmaU7oRTVRF1mvhr4K2TUo8CdUdINT5uMEQh9HH5SlU5TiKKIE94bg2Cycgngu5
-	 uSyHAszLJrAKQOYTtY7a3w9C/NYLun47D8UdwmjYFsfGSgZ5+vfzBhJdKaXqLv0XSkT9e
-	 kUZ8y0RKnyrn3dq8j2ZQ3BS/zu9X0VyTDlNcdnMZskyPC1rMhudW6azE/5Lviz7zcyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794927494;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=A5dpDNhKfcFR3dAeXSkWJDaG6QMB3ddxqUaR/wnhQYA=;
+	b=BjL7KtaN572CWxqQ4tvmWjM/4jdtbm0qHbL2h0xRb/nKtaaOWTtYscPvuIjVv/8d44at
+	 lD+uzbCejstRreEhFMxB21sZioeLVmzeOksUBL1BlibmAO3VWYliyhhOGI8dGuF7WX+Se
+	 FU/ly2tPxYpEePnpxTkNjXhzylbMcQV98RH4P9gdX3OuiaAI4kgOaiWPgpsmK+InPnhDP
+	 6JscPqupr7c22n6KXJCy7DjUQmg6PhcDgPygZE0Up4HrH5Hx3cVLA/WKET5u3cM1t8WRk
+	 si9NVDj+XbU8v6o1ubb4B1hYL21cx27/3rJjZyP7yxHvTvDmjM58u0qeVXqaQW99v7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ckKFsnPO;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrsME+Ti;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DCC606A332
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 14:57:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4DCC606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E915606A337;
+	Tue, 17 Nov 2026 14:58:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ckKFsnPO
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 4AACB4E4157D;
-	Tue, 17 Nov 2026 14:56:59 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 208C95FD6A;
-	Tue, 17 Nov 2026 14:56:59 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BD32711BC0039;
-	Tue, 17 Nov 2026 15:56:49 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794927413; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=BYDghbSSGp8ajBj0SqwqioXz4gab4WkH6tR1bMEa1MY=;
-	b=ckKFsnPOv0NWmOIZtDjV4G8YpEPKa48eiB5p5OyeEE5Idd7Cl3q2mCJFAzgSG2pDRTXU74
-	YgTwk7KCcawBZN4VG6jzjFZv8DBpoXJE5IIQBu527JZps6qPQgxFp731qDHduX23lGOy5l
-	WlDmrzk0pFKeKKUnljc4Y7fwSMW0OCUd/gzXamxydWs0xqoqvEroD3UIz/H5OESx42upZv
-	XaL1TzqXNL+TjyZ7z7ZIYUKqtdGVno5+hTRJ3JnkcL1UhqZs/BJhC7MwnJ4PFqKatiSZrX
-	EUGZJpFHqxTdi2+V7LPnCT0+gso8C/e3ded9Kfn3ukx3HgwZxQDcGoBgQGZoWA==
-Message-ID: <5231b964-215d-481d-87b3-86ff99829eba@bootlin.com>
-Date: Tue, 17 Nov 2026 15:56:49 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WrsME+Ti
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D6811F000C5;
+	Tue, 17 Nov 2026 14:58:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794927494;
+	bh=A5dpDNhKfcFR3dAeXSkWJDaG6QMB3ddxqUaR/wnhQYA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WrsME+Ti30OxO9d1ncobzgvePZVCcUY3wu5KHkx2tB2tiVajRdUe8lECvliM9EQPj
+	 vjb5ZYffNuixNXr94NS0x8v0jj/pCRvFjJ2fExlkBBc8hK+nEJQf7BEXbyBHBi7PA9
+	 PnNyvLTlcQ+YMFzx61YZoJ6SrQVUnq+45bsD4OXVSCurFX8aHHRLYTbWJfwdT2PEK6
+	 Kn7Es+ndRZsTpxS92WW5lwxUCg5FCrsaqZg/yeuffc1LHHe3nfEk3YP6IyXCqMfir3
+	 BP5HPfFlK7oiLoQTbfPxd1kjQB1qNbpY/tvY12SFMhCwMNxKOCKT/2+Eg6w956/zMy
+	 vTrQ8rYQEMssg==
+Message-ID: <51570131-ef39-4571-8ef0-22cf94ee5ca6@kernel.org>
+Date: Tue, 17 Nov 2026 15:58:10 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,105 +52,89 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 2/3] net: stmmac: dwmac1000: don't discard frames
- with only a checksum error
-To: Christian Schmidbauer <opensource@grische.xyz>, netdev@vger.kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, Oleksij Rempel
- <o.rempel@pengutronix.de>, stable@vger.kernel.org,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Aaro Koskinen <aaro.koskinen@nokia.com>,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261114133640.3285413-1-opensource@grische.xyz>
- <20261114133640.3285413-3-opensource@grische.xyz>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Subject: Re: [PATCH] w1: ds2490: bound the search results to the found_ids
+ array
+To: Maoyi Xie <maoyixie.tju@gmail.com>
+Cc: Christian Vogel <vogelchr@vogel.cx>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261117145534.755665-1-maoyixie.tju@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
-In-Reply-To: <20261114133640.3285413-3-opensource@grische.xyz>
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261117145534.755665-1-maoyixie.tju@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
-
-On 11/14/26 14:36, Christian Schmidbauer wrote:
-> On dwmac1000 with enhanced descriptors, the hardware sets the Error
-> Summary (ES) bit of the Rx descriptor not only for L2 errors but also
-> for an L3/L4 checksum error. enh_desc_get_rx_status() returns
-> discard_frame whenever ES is set, and since commit 1b746ce8b397 ("net:
-> stmmac: don't overwrite discard_frame status") the checksum status is
-> only evaluated for good frames.
+On 17/11/2026 15:55, Maoyi Xie wrote:
+> ds9490r_search() queues the ids from the DS2490 in found_ids, which has
+> max_slave_count entries. max_slave_count is also the search limit. With
+> more devices than that on the bus, the DS2490 sends that many ids and
+> then a discrepancy value, as the comment in the function says.
 > 
-> Return discard_frame only when ES comes with one of the L2 error bits.
-> A frame with only a checksum error is then reported as csum_none and
-> reaches the stack as CHECKSUM_NONE, so the stack verifies the checksum
-> itself. This matches dwmac4, whose Error Summary bit does not cover
-> checksum errors.
+> The break at the limit leaves the loop over the current bulk read, but
+> the outer loop keeps reading until the device is idle. A discrepancy
+> value in a later bulk read is then stored in found_ids[max_slave_count],
+> one past the end, and the callback loop reads it back as an id. If the
+> device sends more values, they are written past the array too.
 > 
-> RDES0 bit 7 is not in the mask, because depending on the core and on
-> Rx checksum offload it reports a timestamp, an IP header checksum error
-> or a giant frame, and enh_desc_get_rx_status() cannot tell which. In
-> threshold Rx mode, a giant frame that fits one buffer therefore reaches
-> the stack with a verified FCS.
+> Store an id only if it fits and pass at most max_slave_count ids to the
+> callback. found can still reach max_slave_count + 1, so the check after
+> the loop sees that more devices remain. Use one local copy of
+> max_slave_count for the allocation and the bound.
 > 
-> Also remove the pr_err that enh_desc_get_rx_status() prints when bit 7
-> is set. Once the MAC stops dropping checksum-error frames, any host on
-> the link can flood the kernel log by sending frames with a bad IPv4
-> header checksum.
-> 
-> This prepares for setting DMA_CONTROL_DT, which makes the MAC deliver
-> checksum-error frames instead of dropping them in its Rx FIFO.
-> 
-> Fixes: 1b746ce8b397 ("net: stmmac: don't overwrite discard_frame status")
-> Cc: <stable@vger.kernel.org> # 6.6.x: ee0aace5f844: net: stmmac: Correctly handle Rx checksum offload errors
-> Cc: <stable@vger.kernel.org> # 6.6.x
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Christian Schmidbauer <opensource@grische.xyz>
+> I found this with a static analysis tool that we are developing. A
 
-I was able to test that on Altera Cyclone V, and it works. 
+LLM is not static analysis.
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Tested-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Just say you use Claude or other LLM in changelog, not commit msg.
 
-Thanks,
 
-Maxime
+> userspace harness runs an unmodified copy of ds9490r_search() from
+> v7.4-rc3 against a fake DS2490. With the default max_slave_count of 64,
 
-> ---
-> v2:
-> - Drop RDES0_LENGTH_ERROR from the mask of Error Summary bits. The
->   length check further down already discards such a frame.
-> - Explain in the commit message why RDES0 bit 7 is not treated as an
->   L2 error.
-> v1: https://lore.kernel.org/netdev/20261020190319.884375-1-opensource@grische.xyz/
->  drivers/net/ethernet/stmicro/stmmac/enh_desc.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> index 7ece8d4157a8..d0622f2605aa 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
-> @@ -216,9 +216,6 @@ static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
->  		if (unlikely(rdes0 & RDES0_OVERFLOW_ERROR))
->  			x->rx_gmac_overflow++;
->  
-> -		if (unlikely(rdes0 & RDES0_IPC_CSUM_ERROR))
-> -			pr_err("\tIPC Csum Error/Giant frame\n");
-> -
->  		if (unlikely(rdes0 & RDES0_COLLISION))
->  			x->rx_collision++;
->  		if (unlikely(rdes0 & RDES0_RECEIVE_WATCHDOG))
-> @@ -230,7 +227,10 @@ static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
->  		if (unlikely(rdes0 & RDES0_CRC_ERROR)) {
->  			x->rx_crc_errors++;
->  		}
-> -		ret = discard_frame;
-> +		if (rdes0 & (RDES0_DESCRIPTOR_ERROR | RDES0_OVERFLOW_ERROR |
-> +			     RDES0_COLLISION | RDES0_RECEIVE_WATCHDOG |
-> +			     RDES0_MII_ERROR | RDES0_CRC_ERROR))
-> +			ret = discard_frame;
->  	}
->  
->  	/* After a payload csum error, the ES bit is set.
+You need to test linux-next. There were several fixes for w1 recently.
 
+Best regards,
+Krzysztof
