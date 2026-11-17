@@ -1,57 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794911380;
-	b=V2yoEl6mq2PA4Ki3a3J6UPnHcT9p7d+YtxJqvf8R2Ak39YLzhM3LBXSstfscV1xqQr3X
-	 H6aMVtv5U1AkovH4ruTGEVR6NOGvsErwmnArpX5sw9K8nXgHkTVI1SKewPLS1U/BGzx+l
-	 VjZjNgd9wQ2t69t3QMcs2RjEwqIWMuSMoDKNLvIXAc0+n71Kmw6Fil8acRVpCbPL2yJ+A
-	 dtHXreUkQKX7+vXtbYMZm9MY3bnCUK40qUOfMfRC3UG5BkN0p3RaFx6bAOU35zl2XRLGv
-	 wVHNHyWPircbfve/NJophayNO61iJj6Nyqco+TbQTTLubddi4ZamjYzZOMfg/cO/LtA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911380;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=5xd4kH02h2/RHBixGr9Rh7KR37RCKshv/F2OBniMhWQ=;
-	b=PUFPYTcTc7MY625eCYeC4qUM8J/wtNbAoyaOOYnq8R/jXcwqjFU7L5B5/Zwk7FimmbsK
-	 W7o+YmJXCW37l8VJc3nL+F2d8yBxKFIWNVdx8ie9/h6t9scyL5XogFEavuN5YAu2+ja7W
-	 FHj7YaYSZ1x9CGUM8sfc9U63PkI6qHcpljioiDcM0rp39MlXjJ3gevJj1FVMXbBHGgfXL
-	 EucCCMjU2awdOqTMtf3Lk1NO9Ox266PL4huaRmJBYYKn7AJv+G8/eB8CcCJZ+1tyZzEUx
-	 t/FtiNLhpzNkTZ+KQ4oolOEzfXnDEmfvtHmyVgSaxrrFXbM23PQzyDjrVCHOySvTCxA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nGl0PMKr;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794911436;
+	b=Cs1JDK6DwBo1TseKqiaCZ2/s1gKijpwCP4Vh3KzUfRY98bJQl0mHXFfS4lLM3LGIvjEo
+	 Z82nsBBsKJg0ODotXUa/S6W2TDsF8YHGC3dQPBjqU/R0iCdztuMNq154nMRwmggrlmYhk
+	 NKAkQ2+q3k9sZQxCQ9LzmqD9JcskF0F7r0Gr9FkPawNymovrCE0t4zeNByHi/JLs2Z4nR
+	 qAggoJ4wPr89tao69AjrHwi7SCyvCuC3hPEkyzR3GMsJk75Gr1nWgX6wEKwzz3SkODHGB
+	 L+VDfzoSX4CbKsO4V2PG3E/EdxaJKQdprswiqeMBJAr1C6LHD51EPOH8iHDbpzoC9wQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911436;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=G58POVnkJOmscsV/mcbbCJVGrHCnzQeug7Sy0k1+jsI=;
+	b=lxDQL4OmH51v3nnWPPXgwLUqUtVZov77XQVOiz5DYsMTTuAnuzWvWsUADbLrfTQS/fDJ
+	 00ul1uG0wco9wmqvDsUJOYpwyB40FiXEcdnSxi08plVmzyBWNfJIKo7u17j0zL5E4bmtS
+	 6Y+P40vnsu9sYn7ARNQ/9HZcGPLNcAQrOnMjBVcrja/XgQT6RhsyvTcHFJ+2ljZwVzQ7D
+	 aN60lNRNeIrMbrS0VP4DQJud1ujebUwSdqBm2vKYybHbSlTlZOP28nmTi5TacCgnaZyss
+	 bJ3I6atAd9rZVbthUe95xSRiCtdFUnDxruxb8X2puExInGiVFA2Rp1Xkp79hxtkY+IA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=W4gtE8pM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5EB606A883;
-	Tue, 17 Nov 2026 10:29:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2701606A336;
+	Tue, 17 Nov 2026 10:30:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2701606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nGl0PMKr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EFEB1F000C4;
-	Tue, 17 Nov 2026 10:29:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794911380;
-	bh=5xd4kH02h2/RHBixGr9Rh7KR37RCKshv/F2OBniMhWQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nGl0PMKrFNzmEF2BOR91pPrc/W8Z37D0KlbhQz16W2M5WXKx0P28v6EFJFsxZjHdP
-	 WzoR40aWQ7oFNbp3kQpkcI3S9JG4kxjcvWPr8vQGSifi4qQ7BLznI3WQDnvx27V7XP
-	 UuiNMSAP++eI3vrHz0Vvo7cP55LwH1GIH5xt7nGwL1qeluQSMdfGr3heGCbUaHij5l
-	 ILtcQjiosvjoqfGiSlbuEuRkENr2+1iJjcdTueyLNfE4CcEWCJ8/zuQ19dc5xP07Js
-	 Mz9nJdkqUVU+uguT/oouZnicCApxQw8uk/85KA7kTJ916TYYiv/9cKjQ+G5xXvYxyU
-	 lqIh1/NsdIG8g==
-Date: Tue, 17 Nov 2026 10:29:34 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, David Hildenbrand <david@kernel.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Shuah Khan <shuah@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/madvise: zap markers from guard regions
-Message-ID: <avwsiDm5bM0OCNIg@gremlin>
-References: <20261113-disallow-uffd-guard-install-v2-1-9d0063c70542@kernel.org>
- <8092de9e-3146-4fe7-a235-01ea8efab08c@columbia.edu>
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=W4gtE8pM
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id A9D5C205A24;
+	Tue, 17 Nov 2026 11:30:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794911432;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G58POVnkJOmscsV/mcbbCJVGrHCnzQeug7Sy0k1+jsI=;
+	b=W4gtE8pMZomiTiEb1X8WBuBz86BHGZrtjOcLclJ6qFhovPKZlh9Y2jVciUzitvVBeSWX5p
+	Bd+aJ1tXqOdm/AzSI5hK++AEKk6w0kMAVDd1nUIHTcd9PrQgyXtsiRDYDf0mvyaMqsFe0I
+	u0b2f+vElweEzhFpzyTiUaj54DmXm9iLxFnwcSJbTvTIhqGeFhOcwARILC59iiQPx6p4Eh
+	GMtdnZgmDtEqxhFaFZn3JyRKRM9tL0AoW2S3rEQyEHGy3OgOcqZbdJBqpwPov5iT4Zlfy2
+	1ILSaRxZ1ljU/GzyyxBnJdatNXBp7t9fzy/j1mHWvQjg+R4DvH1WHt1ml7RpVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794911432;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G58POVnkJOmscsV/mcbbCJVGrHCnzQeug7Sy0k1+jsI=;
+	b=W3iIj+nPXk0H18gn62QQU4jfz5mb382W+lvbguFdL4v1mPhau8H04UA48ntRsAPNs+7Gn6
+	tvev2YD/upM9FYosc6U1cVYU66GgM7woJdCDJM60xPhwE9RpDT+K8rjuHZNmsRY1ENdYWe
+	Vte6Hz1bP0TCsKZzocS89TkmIP03mkSSzBuREJPNlQQQgRy1bUM6InXe6BzwuGgz3KmfdP
+	KG7n7JVIQNsO56BKRl72oz3BwqoxX49g6cVAPmCyq7OAOG2LTGmnoolcmHuY6nCG6EPo7I
+	mdnv+H5oQLdxXfXypH8uYtSzIyrVTy/AHGDPoQjXU6x/kBujdOQY99QNSvXEgQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794911432; a=rsa-sha256;
+	cv=none;
+	b=VskqGrQI8gPVke0LpwNrcyq/K8rzv0aNOb7ONxYBTCpx0Nj/HWel2/cktRPG2NyY18rrYh
+	qU5aPzx8rI4VSEP+QD7ue8IYMvz8jDWr9fi5Kq9WaYYxBvO4Owv3s+24MJpXhzXNJ2omQA
+	QhiRwKZ9Bg+fUxx5fJNWOto5uyVjQehvpf+CAIk26Te4jMjolAiZyq0FVva44xOTsjCnoL
+	jAWai647xLkj7/nU3/v5KdlEOrC9GH7gIQJhgmDTioohsaQZGWFRm3l1opO6LwSH99B1ij
+	xS7J5x25DjGLhq9zRzMh78GnZYFGxh+U1LFP27Ef+CZAiSjvkKmjg4RePLVf1Q==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <b9ca3ed2dfa418145eb84ca12889bb16540f4342.camel@pengutronix.de>
+Subject: Re: [PATCH v2] reset: core: honour optional resets when the GPIO
+ fallback returns -ENOENT
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Yang Siyuan <hsyysy@163.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 17 Nov 2026 11:30:32 +0100
+In-Reply-To: <20261117095503.14115-1-hsyysy@163.com>
+References: <20261117092008.12130-1-hsyysy@163.com>
+	 <20261117095503.14115-1-hsyysy@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,70 +93,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8092de9e-3146-4fe7-a235-01ea8efab08c@columbia.edu>
 
-On Tue, Nov 17, 2026 at 01:37:06AM -0500, Tal Zussman wrote:
-> On 11/13/26 4:04 PM, Lorenzo Stoakes (ARM) wrote:
-> > In order to establish guard regions, guard markers are installed in the
-> > page tables of a mapped VMA.
-> >
-> > However, problems arise when one tries to combine this with registering a
-> > VMA for userfaultfd, as such operations may themselves need to install page
-> > table markers such as uffd-wp.
-> >
-> > When the installation is attempted the guard marker prevents these markers
-> > being applied, which can lead to unexpected results (especially if the
-> > guard regions are later removed.)
-> >
-> > This is especially problematic because guard region installation causes the
-> > regions to be zapped first, meaning that the removal of userfaultfd-tracked
-> > ranges will not be logged in this case.
-> >
-> > Additionally, the uffd-wp page table marker will be propagated regardless
-> > for file-backed mappings as the zap being performed does not clear these
-> > markers.
-> >
-> > This is problematic, as it can cause repeated failure to install guard
-> > markers resulting in an infinite loop.
-> >
-> > Therefore, update guard region installation to invoke the zap with the
-> > ZAP_FLAG_DROP_MARKER flag applied.
-> >
-> > Both before and after this change, uffd remove events will not trigger on
-> > guard region installation, nor will write protect state be propagated after
-> > guard region removal.
-> >
-> > This makes sense as conceptually, guard regions mark a part of a VMA as
-> > effectively unmapped at the page table level, and removing the markers is
-> > like mapping the VMA again, over which operation uffd markers would in any
-> > case be lost.
-> >
-> > A survey of open source users indicates nobody is relying on installing
-> > guard regions in uffd-armed VMAs. Software including glibc, android,
-> > tcmalloc and CRIU were checked.
-> >
-> > This change means that any already established guard regions are removed on
-> > zap. These will be overwritten with the newly installed guard markers on
-> > success.
-> >
-> > However, if this fails for some reason (fatal signal likely the only
-> > reasonable cause), guard regions may remain removed, and concurrent faults
-> > may succeed in the interim in the range.
-> >
-> > Since the installation failing guarantees nothing about the range being
-> > installed into, and since success overwrites with guard markers, this isn't
-> > an issue.
-> >
-> > Since MADV_DONTNEED does something similar, abstract the zapping to
-> > zap_range() and call it from both places.
-> >
-> Reviewed-by: Tal Zussman <tz2294@columbia.edu>
-> Tested-by: Tal Zussman <tz2294@columbia.edu>
+On Di, 2026-11-17 at 17:55 +0800, Yang Siyuan wrote:
+> __fwnode_reset_control_get() honours RESET_CONTROL_FLAGS_BIT_OPTIONAL by
+> returning NULL when the requested reset is not described in the device
+> tree.  The reset-gpio fallback breaks this: when
+> __reset_add_reset_gpio_device() fails with -ENOENT, the error is returned
+> even for an optional reset.
+>=20
+> This is reachable on Allwinner SoCs, whose pinctrl uses three-cell GPIO
+> specifiers.  The reset-gpio fallback only supports two cells, so it
+> returns -ENOENT and a consumer asking for an optional reset fails to
+> probe instead of falling back to its own GPIO handling.  mmc-pwrseq-simpl=
+e
+> on the Anbernic RG35XX family hits this: its wifi_pwrseq node has
+> reset-gpios but no resets, so the SDIO WiFi adapter never probes.
+>=20
+> Return NULL only for -ENOENT when the reset was requested as optional.
+> A reset that is described but cannot be used is still an error, so
+> -EPROBE_DEFER and all other failures are propagated.
+>=20
+> Fixes: c721f189e89c ("reset: Instantiate reset GPIO controller for shared=
+ reset-gpios")
+> Cc: stable@vger.kernel.org
 
-Thanks! :)
+This won't apply on top of c721f189e89c. The surroundings have most
+recently been touched by commits 1f10008aff71 ("reset: use lock guards
+in reset core") and 9035073d0ef1 ("reset: convert reset core to using
+firmware nodes"). I suggest you drop the Fixes: and Cc:stable tags.
+You can provide a backport if you need this on v7.0 or older.
 
 
---
-Cheers, Lorenzo
+regards
+Philipp
