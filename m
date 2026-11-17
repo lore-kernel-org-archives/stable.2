@@ -1,97 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.160.172
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1794934031;
-	b=tMRo2INCvQ2aQwHJiwTqTQun9fBtKjWub/PRdFok6Ya1YvLHdKmviLJ+hvosZ6nDfoqK
-	 2OqPkwK0dRwh0Zy50jwIyZr6UH5Tmac2PNZUi4t/iuqJ9c1BLehQBio3v/6zjygtd1WTy
-	 3gegbB8juLZZkxeOaPHHKeZfYxoll3+NtOkChBSEwSK/ux0xIFa3Aap0h8OCJ7DhBes+k
-	 qOy6QJhEymE37YXhIJGUNwf0FaXEARLF72YJ0FoPzmRCeAQpNLKgFRbZYAS/UOZssDHkg
-	 0JHf0e1V4hrAcUa0vnnvDH99vb3BANV7i0giSQV+R0Um39r7QzvU4uc8eGvrMyE9DkQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794934031;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=jd6+ZfKNXNj4bzpM1N39t1xeNHZL6yxdxFvAuL1XklQ=;
-	b=D50uJmqnfqjYnRxMzR/mM0z25tkSmiKeylrfNiT0pwqsnkB5r93m3H1WhQ64nuYzAvbK
-	 yxPWdrEeAJTm98UGpf+ip+qegyKcshmZHuSCpPU2pkjarp4Q0edy0OOkM8PN8Clbfmhvc
-	 GVZL5VLSlNLgsgtXzodP4jifSfOpXMjx9hH9R4ZJ+0DFsUWKg0FHYIDpqBEcH0w+TD8Bk
-	 c9WAzqiL4hvVh4Z4e4GkkDffFf0croUpb6HrgqGcp+hoVrrVBVj27e5mU/NdKUBvqQAK5
-	 utsVoQjRGHvxU5G1CWg9u4NtrgBbgQJ7sT0j0KQLYsRPOMN2b+vECvJ9aNkph3XcmiQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=szeredi.hu;
-	spf=pass smtp.mailfrom=szeredi.hu;
-	dkim=pass header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=ivkn2Tcm;
-	arc=fail smtp.remote-ip=209.85.160.172
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF3C606A893
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 16:47:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DCF3C606A893
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794934076;
+	b=5ioPO8IzQPGxPVdhwOw8S/Ym8rOTDaFI4q3tvIEF7BnrNS6R6qdQJtTNMawMR06vWISA
+	 m433YbFKWGgVltvJb7MQcYxRfwopb/y9Edad54+QGNIWBlNg40LBFlFrjG1QKzaJnq6VQ
+	 6KGSjFLKs5oyUoZcamQ7h7ohyBfzzPBGzUJahvMDZvXwcD1qwgvbvAAN6+RZFDq2lxIFc
+	 RoCmS2tVmuGi69rnBP4zBZagtRKcaG6Mx2gBtbpRDYnlgPNErT6b/12CYt2ehJKPe3Bgo
+	 3LHk+uus8y+10GSyXMmMmvbPFhBdpVDw9B65HoB/vX9pTbTVQ9jrfvfNqi+Iy6dh2jA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794934076;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=D3/vgLPlrSg9zs2aU4UgzIOsPdSBVr1N3cUw9y3QJNE=;
+	b=F4mGhx96XIMed6aq/FbTKsGhnhNwZIS8tAjO8zSM1GCz9WUOhtDV69R5xmudcp+gMzr1
+	 NKo52unFm7FniLDUM0pd8wwoJpXwm/RkAmQmlPlC7NHvXIr0zKFFzNwba3vBsFE4uMOk1
+	 ZN7Nb6vEEQPucH3nWKYfuJpmHFGiQq21PmvUUdWD3H/Zx5UsvodmiQFv1uQ7WJw7p0p6Y
+	 qzGc5iyusgBQZvQ6eL67GiIjPS72vfgSrSOrCRUVdGrmdWF//TCgy4cEvDkOVY/FMN6oN
+	 JY0zVP4QQtZwvyLs4z5XThB2MHtfxf0gxYoxqBT7yMs+/i4waHMbiQ8Wl7zN0a7VQRQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=s8oo62k8;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E0D18606A330;
+	Tue, 17 Nov 2026 16:47:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0D18606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=ivkn2Tcm
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-55c48582654so93801cf.0
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 08:47:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794934030; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NyoVkGj3mS26EP+Dtri8F/UUyZPAZIeLv01lCInXaZOMNlMMlFuCLvzXW1US5AeJzd
-         VeAbu+AgIi1vXpMRVMZv2/vQec8jn1oJpeNs/JKTKvV0qnctinsLjZoDh49lyFRLbjQb
-         mNnBepOgvHEGhq42Tzo67wUla6aYAe6z1WDhROEemoHmJAaBTbJyizV6raoISHUvnN8F
-         rawMsi+00wR1JlvqiZXJbc+lkmZ6UQ5wRd4ImJ2EVe4pCoHGbZcmw29J4Zq6RFM6uFSz
-         Z/YuTVa4ZIsQmGsolBbNubK5OfVzbsSkpK9dupC7cPpqTy9orpwQ9snGON/+Q7Vi9QEz
-         +zbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=jd6+ZfKNXNj4bzpM1N39t1xeNHZL6yxdxFvAuL1XklQ=;
-        fh=+xLXQqRhL958B5PszXtM6lJ0uSEp+PkwItr9vgITOGA=;
-        b=T5ykAxlUup908DQNHPDx/58+7//tj/t4L9NWd0Os7QmiXo5xVse3xGRpuYqSjJs/Q6
-         n72XQAdgayIIN7o/ubWDcZmOPFbt8Am0Ej2SJ1C4Cb+3u+2/BIW05taM1NwH7ksojaDO
-         HO2RpX/4ONqrOvxoD9JJtomzwsFVUMfOKGPPUvGGp0g4nXdrfGOtcfxfGc1bQa/pKaFg
-         EOFtYUSQ03TmwafHgiROhy9kTCKrZC0DN3g4oE5FP8Y44UGQHIOXopxfM6wrb42h4cte
-         zHTeyKBEbQ93N/imvKZWlgcrjDaPtanfQzziB/1HOq87lLfLYThaIYXn/itF0Nwaeetj
-         umww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1794934030; x=1795538830; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jd6+ZfKNXNj4bzpM1N39t1xeNHZL6yxdxFvAuL1XklQ=;
-        b=ivkn2Tcm0phLkCKz0qlD1qdYjHEfiiI7DmcQf1gfgzzqFU8tgtZ0s/1PPpbxxRFqnl
-         5JfkZ8gM0KTbYDR1UDcx3Xs6JZcu+F47AO5PQoYtjfXiMBtl6fbWPHOc4rsLezSH6JMD
-         yCbL+pT0ioAZgnStS2CJ0cqj3YZVmsfSewXMY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794934030; x=1795538830;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=jd6+ZfKNXNj4bzpM1N39t1xeNHZL6yxdxFvAuL1XklQ=;
-        b=h2/fHtCIZLtzVPGnxmXyFLzNuc6KcD/nqeHQhAAdxhos2soKEQhz+dehiQ2EW8pf3J
-         Kqi996tiXkbuy0xgFlm9NHdYelw9CyvPH3akhTUdUZ3mYCFdM6CZ91ZNUCA0jqLCm+kz
-         vrBhzIJxX+Y2LPan8EAygltPoz340jqz/gCinFiiKi7GErq+sIX7TndGbI8YhIq9wjz/
-         h2m3J+oaBaG4/FQYTzOvVSsdPPtK2GK5Zlt1ag7GJKrzFd/tTIoMEW1/ZkW4QTGE1R6D
-         aDowLnf4fMGwSaidVpfTZhM3xRAty4SYdYz2TiIS7D0OIFyHf+RKV62SYb5mr5K0ms7C
-         nCBg==
-X-Forwarded-Encrypted: i=1; AL+hErFM/LKZUEV9Wc/QoLo/h2/ePb+A9jrDnPMMZoC0UpkaM5WA9Bc6zWOTAXda+Wodv3uX+d9EBos=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BARQIAfRRQeRaSDQNHsQ6xZsSr9YAvkp2NT2oKuoX44rCCoho
-	WSk09oX8pbbqgEsap6oiB06G2bpUuLutOOvp+6TghPxOBielxvxMhdvjoqeXeV49v9K7Eeh5aSa
-	HNI86jFdk8qMe5oZKuO+TBvDmUqlqphhZfxU2xlsMwA==
-X-Gm-Gg: AYBFou3YNgXlIz8rD17Ih3n4zHpfEuIEFG4lxQY9aygluvuU0EyYlDMl1dNbwKe27vY
-	Ebdh16x3ZGENPrk8ss/5/NpnNHfIWGhWJ8dtHDqztNKQUjN114TJRyEBSD9iOwLvvlhCxju7Sj5
-	FMBXHaRFR9TT94+lH2q8x20hXoybeg+JjMo8AFtaM66kcSxy2ultQU7ZmNrIa7SQmQSt0i044ZV
-	sP2puEBfvslt+2WzmYWeOr5mL9GucD5i8c/Mx1QqlEeZsQsRO6KDeTErg8kPH6xkxC3MEZhymkA
-	c8OL0qBKqksDwuZaUxGfnHHgu+diYDXrQVxAz0vpfNOTgkLonITJnprGE7inHaRCqObJiLERAoa
-	GSVZd3+pmrVkEfIFiZTSmTyS6soS+LZ3vOw126NBZTfziZxiN2maBkck5lzxNDIObWPzts9Ba4p
-	DL/EoRH8HgTm4=
-X-Received: by 2002:a05:622b:c9:20b0:55d:36cb:d2f6 with SMTP id
- d75a77b69052e-55d36cbd522mr82984791cf.8.1794934029641; Tue, 17 Nov 2026
- 08:47:09 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=s8oo62k8
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 40B041BD0;
+	Tue, 17 Nov 2026 08:47:52 -0800 (PST)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E08503F632;
+	Tue, 17 Nov 2026 08:47:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794934075; bh=hdBSUeY/1rO/4VdttMZo+o2He2xIbVxh37/TCKARc+o=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=s8oo62k86uHv47Tke80jkm3ydJcWrr3ZKg9f0QoZij6y5A6+KdfpQsRnK7SLGiOTb
+	 RgkhRilpu/H+O5r+3Z8t7D39RkjA57IzV0yq8MGmTZ2lv3XMxWzEqMds02gD+2hLi9
+	 rbiR27wBYvL0ME6dLGEUSxxhWoBqxZkEMmhXEpHQ=
+Message-ID: <ab81e90a-fdc4-426b-8da7-45b1a80e88f0@arm.com>
+Date: Tue, 17 Nov 2026 17:47:51 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,26 +53,530 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261017094601.3434882-1-hengyul@cs.unc.edu>
-In-Reply-To: <20261017094601.3434882-1-hengyul@cs.unc.edu>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Tue, 17 Nov 2026 17:46:57 +0100
-X-Gm-Features: AclHuK8wmcKKsdp4Cx0Jb35BfV53xmf2JhwPHldvoPOcuRVA7GxYXeCz_kxkfRg
-Message-ID: <CAJfpegtmi=SFYeX5YSq-Lch+FbkP4NszUTnnuwj9Mr9A11=eDg@mail.gmail.com>
-Subject: Re: [PATCH] fuse: preserve ENOTCONN after failed initialization and disconnect
-To: hengyul@cs.unc.edu
-Cc: fuse-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: Patch "arm_mpam: let low level MSC accessors return an error" has
+ been added to the 7.3-stable tree
+To: stable@vger.kernel.org, stable-commits@vger.kernel.org
+Cc: James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
+References: <20261117143200.1638480-1-sashal@kernel.org>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261117143200.1638480-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, 17 Oct 2026 at 11:46, <hengyul@cs.unc.edu> wrote:
+Hi,
 
-> Record INIT failure in the channel before publishing initialized, and
-> check it in fuse_get_req() after waiting for initialization and checking
-> for disconnection. This preserves ECONNREFUSED for failed INIT while
-> the device remains open, and restores ENOTCONN after disconnection.
+On 11/17/26 15:31, Sasha Levin wrote:
+> This is a note to let you know that I've just added the patch titled
+> 
+>      arm_mpam: let low level MSC accessors return an error
+> 
+> to the 7.3-stable tree which can be found at:
+>      http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-Applied with minor tweaks.
+There is no point in doing this. The reason for this patch is that the 
+MPAM-Fb feature, introduced later in the series this patch sailed in, 
+requires error checking. Without MPAM-Fb there is no error reported, 
+both the read and write wrappers always return 0, so this patch on its 
+own is moot.
 
-Thanks,
-Miklos
+I guess this is triggered by a patch that has a Fixes: tags, presumably 
+197a7a41e6e0? Which is based on v7.4-rc1, so formally depends on this 
+patch here?
+Instead of back-porting this patch too, we can just drop the (pointless) 
+error handling in this fix patch. Happy to provide an explicit backport 
+patch if needed, just let me know how to best handle this.
+
+Cheers,
+Andre
+
+> The filename of the patch is:
+>       arm_mpam-let-low-level-msc-accessors-return-an-error.patch
+> and it can be found in the queue-7.3 subdirectory.
+> 
+> If you, or anyone else, feels it should not be added to the stable tree,
+> please let <stable@vger.kernel.org> know about it.
+> 
+> 
+> 
+> commit bcd4b642282a3429603900a97a95baf5372b8c8b
+> Author: Andre Przywara <andre.przywara@arm.com>
+> Date:   Thu Oct 1 17:34:26 2026 +0200
+> 
+>      arm_mpam: let low level MSC accessors return an error
+>      
+>      [ Upstream commit 84e8795c271a6a44c3a477e43fef0a05403ddfec ]
+>      
+>      The upcoming MPAM-Fb support does not use MMIO primitives to access an
+>      MSC, but employs a shared-memory/doorbell based firmware protocol.
+>      Its complexity means that it must be able to handle errors, whereas we
+>      always assume an MMIO based MSC access succeeds today.
+>      
+>      Change the __mpam_read_reg() low level accessor function to return the
+>      requested data through a pointer, and return an error code instead.
+>      Also change the __mpam_write_reg() accessor function to return an error
+>      code. At the moment this is always 0, so all error handling paths are
+>      not exercised at the moment. This will change later when alternative
+>      MSC access methods like MPAM-Fb are activated.
+>      
+>      Change all direct users of those MSC wrappers to comply with the new
+>      prototypes, though the errors are not propagated all the way up yet.
+>      
+>      Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+>      Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+>      Reviewed-by: Ben Horgan <ben.horgan@arm.com>
+>      Reviewed-by: Gavin Shan <gshan@redhat.com>
+>      Tested-by: Gavin Shan <gshan@redhat.com> # on NVIDIA Grace Hopper
+>      Signed-off-by: James Morse <james.morse@arm.com>
+>      Stable-dep-of: 197a7a41e6e0 ("arm_mpam: On saving mbwu state read the monitors before clearing CFG_MBWU_CTL")
+>      Signed-off-by: Sasha Levin <sashal@kernel.org>
+> 
+> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+> index 30d08d1634a2b..b20152c3c67ee 100644
+> --- a/drivers/resctrl/mpam_devices.c
+> +++ b/drivers/resctrl/mpam_devices.c
+> @@ -177,59 +177,68 @@ static void mpam_assert_partid_sizes_fixed(void)
+>   		WARN_ON_ONCE(!partid_max_published);
+>   }
+>   
+> -static u32 __mpam_read_reg(struct mpam_msc *msc, u16 reg)
+> +static int __mpam_read_reg(struct mpam_msc *msc, u16 reg, u32 *res)
+>   {
+>   	WARN_ON_ONCE(!cpumask_test_cpu(smp_processor_id(), &msc->accessibility));
+>   
+> -	return readl_relaxed(msc->mapped_hwpage + reg);
+> +	*res = readl_relaxed(msc->mapped_hwpage + reg);
+> +
+> +	return 0;
+>   }
+>   
+> -static inline u32 _mpam_read_partsel_reg(struct mpam_msc *msc, u16 reg)
+> +static inline int _mpam_read_partsel_reg(struct mpam_msc *msc, u16 reg,
+> +					 u32 *res)
+>   {
+>   	lockdep_assert_held_once(&msc->part_sel_lock);
+> -	return __mpam_read_reg(msc, reg);
+> +	return __mpam_read_reg(msc, reg, res);
+>   }
+>   
+> -#define mpam_read_partsel_reg(msc, reg) _mpam_read_partsel_reg(msc, MPAMF_##reg)
+> +#define mpam_read_partsel_reg(msc, reg, res) _mpam_read_partsel_reg(msc, MPAMF_##reg, res)
+>   
+> -static void __mpam_write_reg(struct mpam_msc *msc, u16 reg, u32 val)
+> +static int __mpam_write_reg(struct mpam_msc *msc, u16 reg, u32 val)
+>   {
+>   	WARN_ON_ONCE(reg + sizeof(u32) > msc->mapped_hwpage_sz);
+>   	WARN_ON_ONCE(!cpumask_test_cpu(smp_processor_id(), &msc->accessibility));
+>   
+>   	writel_relaxed(val, msc->mapped_hwpage + reg);
+> +
+> +	return 0;
+>   }
+>   
+> -static inline void _mpam_write_partsel_reg(struct mpam_msc *msc, u16 reg, u32 val)
+> +static inline int _mpam_write_partsel_reg(struct mpam_msc *msc, u16 reg, u32 val)
+>   {
+>   	lockdep_assert_held_once(&msc->part_sel_lock);
+> -	__mpam_write_reg(msc, reg, val);
+> +	return __mpam_write_reg(msc, reg, val);
+>   }
+>   
+>   #define mpam_write_partsel_reg(msc, reg, val)  _mpam_write_partsel_reg(msc, MPAMCFG_##reg, val)
+>   
+> -static inline u32 _mpam_read_monsel_reg(struct mpam_msc *msc, u16 reg)
+> +static inline int _mpam_read_monsel_reg(struct mpam_msc *msc, u16 reg,
+> +					u32 *res)
+>   {
+>   	mpam_mon_sel_lock_held(msc);
+> -	return __mpam_read_reg(msc, reg);
+> +	return __mpam_read_reg(msc, reg, res);
+>   }
+>   
+> -#define mpam_read_monsel_reg(msc, reg) _mpam_read_monsel_reg(msc, MSMON_##reg)
+> +#define mpam_read_monsel_reg(msc, reg, res) _mpam_read_monsel_reg(msc, MSMON_##reg, res)
+>   
+> -static inline void _mpam_write_monsel_reg(struct mpam_msc *msc, u16 reg, u32 val)
+> +static inline int _mpam_write_monsel_reg(struct mpam_msc *msc, u16 reg, u32 val)
+>   {
+>   	mpam_mon_sel_lock_held(msc);
+> -	__mpam_write_reg(msc, reg, val);
+> +	return __mpam_write_reg(msc, reg, val);
+>   }
+>   
+>   #define mpam_write_monsel_reg(msc, reg, val)   _mpam_write_monsel_reg(msc, MSMON_##reg, val)
+>   
+>   static bool mpam_msc_check_aidr(struct mpam_msc *msc)
+>   {
+> -	u32 aidr = __mpam_read_reg(msc, MPAMF_AIDR);
+> -	u32 major = FIELD_GET(MPAMF_AIDR_ARCH_MAJOR_REV, aidr);
+> -	u32 minor = FIELD_GET(MPAMF_AIDR_ARCH_MINOR_REV, aidr);
+> +	u32 aidr, major, minor;
+>   
+> +	if (__mpam_read_reg(msc, MPAMF_AIDR, &aidr))
+> +		return false;
+> +
+> +	major = FIELD_GET(MPAMF_AIDR_ARCH_MAJOR_REV, aidr);
+> +	minor = FIELD_GET(MPAMF_AIDR_ARCH_MINOR_REV, aidr);
+>   	/*
+>   	 * v0.0 and >v2.x aren't supported, but anything else should be backward
+>   	 * compatible to v0.1 or v1.0.
+> @@ -242,25 +251,41 @@ static bool mpam_msc_check_aidr(struct mpam_msc *msc)
+>   	return true;
+>   }
+>   
+> -static u64 mpam_msc_read_idr(struct mpam_msc *msc)
+> +static int mpam_msc_read_idr(struct mpam_msc *msc, u64 *res)
+>   {
+> -	u64 idr_high = 0, idr_low;
+> +	u32 idr_high, idr_low;
+> +	int ret;
+>   
+>   	lockdep_assert_held(&msc->part_sel_lock);
+>   
+> -	idr_low = mpam_read_partsel_reg(msc, IDR);
+> -	if (FIELD_GET(MPAMF_IDR_EXT, idr_low))
+> -		idr_high = mpam_read_partsel_reg(msc, IDR + 4);
+> +	ret = mpam_read_partsel_reg(msc, IDR, &idr_low);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (FIELD_GET(MPAMF_IDR_EXT, idr_low)) {
+> +		ret = mpam_read_partsel_reg(msc, IDR + 4, &idr_high);
+> +		if (ret)
+> +			return ret;
+> +	} else {
+> +		idr_high = 0;
+> +	}
+> +
+> +	*res = ((u64)idr_high << 32) | idr_low;
+>   
+> -	return (idr_high << 32) | idr_low;
+> +	return 0;
+>   }
+>   
+> -static void mpam_msc_clear_esr(struct mpam_msc *msc)
+> +static int mpam_msc_clear_esr(struct mpam_msc *msc)
+>   {
+> -	u64 esr_low = __mpam_read_reg(msc, MPAMF_ESR);
+> +	u32 esr_low;
+> +	int ret;
+> +
+> +	ret = __mpam_read_reg(msc, MPAMF_ESR, &esr_low);
+> +	if (ret)
+> +		return ret;
+>   
+>   	if (!esr_low)
+> -		return;
+> +		return 0;
+>   
+>   	/*
+>   	 * Clearing the high/low bits of MPAMF_ESR can not be atomic.
+> @@ -268,44 +293,59 @@ static void mpam_msc_clear_esr(struct mpam_msc *msc)
+>   	 * lower half prevent hardware from updating either half of the
+>   	 * register.
+>   	 */
+> -	if (msc->has_extd_esr)
+> -		__mpam_write_reg(msc, MPAMF_ESR + 4, 0);
+> -	__mpam_write_reg(msc, MPAMF_ESR, 0);
+> +	if (msc->has_extd_esr) {
+> +		ret = __mpam_write_reg(msc, MPAMF_ESR + 4, 0);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return __mpam_write_reg(msc, MPAMF_ESR, 0);
+>   }
+>   
+> -static u64 mpam_msc_read_esr(struct mpam_msc *msc)
+> +static int mpam_msc_read_esr(struct mpam_msc *msc, u64 *res)
+>   {
+> -	u64 esr_high = 0, esr_low;
+> +	u32 esr_high, esr_low;
+> +	int ret;
+>   
+> -	esr_low = __mpam_read_reg(msc, MPAMF_ESR);
+> -	if (msc->has_extd_esr)
+> -		esr_high = __mpam_read_reg(msc, MPAMF_ESR + 4);
+> +	ret = __mpam_read_reg(msc, MPAMF_ESR, &esr_low);
+> +	if (ret)
+> +		return ret;
+>   
+> -	return (esr_high << 32) | esr_low;
+> +	if (msc->has_extd_esr) {
+> +		ret = __mpam_read_reg(msc, MPAMF_ESR + 4, &esr_high);
+> +		if (ret)
+> +			return ret;
+> +	} else {
+> +		esr_high = 0;
+> +	}
+> +
+> +	*res = ((u64)esr_high << 32) | esr_low;
+> +
+> +	return 0;
+>   }
+>   
+> -static void __mpam_part_sel_raw(u32 partsel, struct mpam_msc *msc)
+> +static int __mpam_part_sel_raw(u32 partsel, struct mpam_msc *msc)
+>   {
+>   	lockdep_assert_held(&msc->part_sel_lock);
+>   
+> -	mpam_write_partsel_reg(msc, PART_SEL, partsel);
+> +	return mpam_write_partsel_reg(msc, PART_SEL, partsel);
+>   }
+>   
+> -static void __mpam_part_sel(u8 ris_idx, u16 partid, struct mpam_msc *msc)
+> +static int __mpam_part_sel(u8 ris_idx, u16 partid, struct mpam_msc *msc)
+>   {
+>   	u32 partsel = FIELD_PREP(MPAMCFG_PART_SEL_RIS, ris_idx) |
+>   		      FIELD_PREP(MPAMCFG_PART_SEL_PARTID_SEL, partid);
+>   
+> -	__mpam_part_sel_raw(partsel, msc);
+> +	return __mpam_part_sel_raw(partsel, msc);
+>   }
+>   
+> -static void __mpam_intpart_sel(u8 ris_idx, u16 intpartid, struct mpam_msc *msc)
+> +static int __mpam_intpart_sel(u8 ris_idx, u16 intpartid, struct mpam_msc *msc)
+>   {
+>   	u32 partsel = FIELD_PREP(MPAMCFG_PART_SEL_RIS, ris_idx) |
+>   		      FIELD_PREP(MPAMCFG_PART_SEL_PARTID_SEL, intpartid) |
+>   		      MPAMCFG_PART_SEL_INTERNAL;
+>   
+> -	__mpam_part_sel_raw(partsel, msc);
+> +	return __mpam_part_sel_raw(partsel, msc);
+>   }
+>   
+>   int mpam_register_requestor(u16 partid_max, u8 pmg_max)
+> @@ -774,13 +814,13 @@ static bool mpam_ris_hw_probe_csu_nrdy(struct mpam_msc_ris *ris)
+>   	mpam_write_monsel_reg(msc, CFG_CSU_CTL, ctl_val);
+>   
+>   	_mpam_write_monsel_reg(msc, MSMON_CSU, MSMON___NRDY);
+> -	now = _mpam_read_monsel_reg(msc, MSMON_CSU);
+> +	_mpam_read_monsel_reg(msc, MSMON_CSU, &now);
+>   	can_set = now & MSMON___NRDY;
+>   
+>   	_mpam_write_monsel_reg(msc, MSMON_CSU, 0);
+>   	/* Configuration change to try and coax hardware into setting nrdy */
+>   	mpam_write_monsel_reg(msc, CFG_CSU_FLT, 0x1);
+> -	now = _mpam_read_monsel_reg(msc, MSMON_CSU);
+> +	_mpam_read_monsel_reg(msc, MSMON_CSU, &now);
+>   	can_clear = !(now & MSMON___NRDY);
+>   	mpam_mon_sel_unlock(msc);
+>   
+> @@ -800,7 +840,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>   
+>   	/* Cache Capacity Partitioning */
+>   	if (FIELD_GET(MPAMF_IDR_HAS_CCAP_PART, ris->idr)) {
+> -		u32 ccap_features = mpam_read_partsel_reg(msc, CCAP_IDR);
+> +		u32 ccap_features;
+> +
+> +		mpam_read_partsel_reg(msc, CCAP_IDR, &ccap_features);
+>   
+>   		props->cmax_wd = FIELD_GET(MPAMF_CCAP_IDR_CMAX_WD, ccap_features);
+>   		if (props->cmax_wd &&
+> @@ -823,7 +865,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>   
+>   	/* Cache Portion partitioning */
+>   	if (FIELD_GET(MPAMF_IDR_HAS_CPOR_PART, ris->idr)) {
+> -		u32 cpor_features = mpam_read_partsel_reg(msc, CPOR_IDR);
+> +		u32 cpor_features;
+> +
+> +		mpam_read_partsel_reg(msc, CPOR_IDR, &cpor_features);
+>   
+>   		props->cpbm_wd = FIELD_GET(MPAMF_CPOR_IDR_CPBM_WD, cpor_features);
+>   		if (props->cpbm_wd)
+> @@ -832,7 +876,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>   
+>   	/* Memory bandwidth partitioning */
+>   	if (FIELD_GET(MPAMF_IDR_HAS_MBW_PART, ris->idr)) {
+> -		u32 mbw_features = mpam_read_partsel_reg(msc, MBW_IDR);
+> +		u32 mbw_features;
+> +
+> +		mpam_read_partsel_reg(msc, MBW_IDR, &mbw_features);
+>   
+>   		/* portion bitmap resolution */
+>   		props->mbw_pbm_bits = FIELD_GET(MPAMF_MBW_IDR_BWPBM_WD, mbw_features);
+> @@ -860,7 +906,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>   
+>   	/* Priority partitioning */
+>   	if (FIELD_GET(MPAMF_IDR_HAS_PRI_PART, ris->idr)) {
+> -		u32 pri_features = mpam_read_partsel_reg(msc, PRI_IDR);
+> +		u32 pri_features;
+> +
+> +		mpam_read_partsel_reg(msc, PRI_IDR, &pri_features);
+>   
+>   		props->intpri_wd = FIELD_GET(MPAMF_PRI_IDR_INTPRI_WD, pri_features);
+>   		if (props->intpri_wd && FIELD_GET(MPAMF_PRI_IDR_HAS_INTPRI, pri_features)) {
+> @@ -879,7 +927,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>   
+>   	/* Performance Monitoring */
+>   	if (FIELD_GET(MPAMF_IDR_HAS_MSMON, ris->idr)) {
+> -		u32 msmon_features = mpam_read_partsel_reg(msc, MSMON_IDR);
+> +		u32 msmon_features;
+> +
+> +		mpam_read_partsel_reg(msc, MSMON_IDR, &msmon_features);
+>   
+>   		/*
+>   		 * If the firmware max-nrdy-us property is missing, the
+> @@ -892,7 +942,8 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>   		if (FIELD_GET(MPAMF_MSMON_IDR_MSMON_CSU, msmon_features)) {
+>   			u32 csumonidr;
+>   
+> -			csumonidr = mpam_read_partsel_reg(msc, CSUMON_IDR);
+> +			mpam_read_partsel_reg(msc, CSUMON_IDR, &csumonidr);
+> +
+>   			props->num_csu_mon = FIELD_GET(MPAMF_CSUMON_IDR_NUM_MON, csumonidr);
+>   			if (props->num_csu_mon) {
+>   				bool hw_managed;
+> @@ -915,7 +966,9 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>   		}
+>   		if (FIELD_GET(MPAMF_MSMON_IDR_MSMON_MBWU, msmon_features)) {
+>   			bool has_long;
+> -			u32 mbwumon_idr = mpam_read_partsel_reg(msc, MBWUMON_IDR);
+> +			u32 mbwumon_idr;
+> +
+> +			mpam_read_partsel_reg(msc, MBWUMON_IDR, &mbwumon_idr);
+>   
+>   			props->num_mbwu_mon = FIELD_GET(MPAMF_MBWUMON_IDR_NUM_MON, mbwumon_idr);
+>   			if (props->num_mbwu_mon) {
+> @@ -945,8 +998,11 @@ static void mpam_ris_hw_probe(struct mpam_msc_ris *ris)
+>   	 */
+>   	if (FIELD_GET(MPAMF_IDR_HAS_PARTID_NRW, ris->idr) &&
+>   	    class->type != MPAM_CLASS_UNKNOWN) {
+> -		u32 nrwidr = mpam_read_partsel_reg(msc, PARTID_NRW_IDR);
+> -		u16 partid_max = FIELD_GET(MPAMF_PARTID_NRW_IDR_INTPARTID_MAX, nrwidr);
+> +		u16 partid_max;
+> +		u32 nrwidr;
+> +
+> +		mpam_read_partsel_reg(msc, PARTID_NRW_IDR, &nrwidr);
+> +		partid_max = FIELD_GET(MPAMF_PARTID_NRW_IDR_INTPARTID_MAX, nrwidr);
+>   
+>   		mpam_set_feature(mpam_feat_partid_nrw, props);
+>   		msc->partid_max = min(msc->partid_max, partid_max);
+> @@ -970,8 +1026,9 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
+>   
+>   	/* Grab an IDR value to find out how many RIS there are */
+>   	mutex_lock(&msc->part_sel_lock);
+> -	idr = mpam_msc_read_idr(msc);
+> -	msc->iidr = mpam_read_partsel_reg(msc, IIDR);
+> +	mpam_msc_read_idr(msc, &idr);
+> +	mpam_read_partsel_reg(msc, IIDR, &msc->iidr);
+> +
+>   	mutex_unlock(&msc->part_sel_lock);
+>   
+>   	mpam_enable_quirks(msc);
+> @@ -985,7 +1042,7 @@ static int mpam_msc_hw_probe(struct mpam_msc *msc)
+>   	for (ris_idx = 0; ris_idx <= msc->ris_max; ris_idx++) {
+>   		mutex_lock(&msc->part_sel_lock);
+>   		__mpam_part_sel(ris_idx, 0, msc);
+> -		idr = mpam_msc_read_idr(msc);
+> +		mpam_msc_read_idr(msc, &idr);
+>   		mutex_unlock(&msc->part_sel_lock);
+>   
+>   		partid_max = FIELD_GET(MPAMF_IDR_PARTID_MAX, idr);
+> @@ -1033,24 +1090,24 @@ static u64 mpam_msc_read_mbwu_l(struct mpam_msc *msc)
+>   {
+>   	int retry = 3;
+>   	u32 mbwu_l_low;
+> -	u64 mbwu_l_high1, mbwu_l_high2;
+> +	u32 mbwu_l_high1, mbwu_l_high2;
+>   
+>   	mpam_mon_sel_lock_held(msc);
+>   
+>   	WARN_ON_ONCE((MSMON_MBWU_L + sizeof(u64)) > msc->mapped_hwpage_sz);
+>   	WARN_ON_ONCE(!cpumask_test_cpu(smp_processor_id(), &msc->accessibility));
+>   
+> -	mbwu_l_high2 = __mpam_read_reg(msc, MSMON_MBWU_L + 4);
+> +	__mpam_read_reg(msc, MSMON_MBWU_L + 4, &mbwu_l_high2);
+>   	do {
+>   		mbwu_l_high1 = mbwu_l_high2;
+> -		mbwu_l_low = __mpam_read_reg(msc, MSMON_MBWU_L);
+> -		mbwu_l_high2 = __mpam_read_reg(msc, MSMON_MBWU_L + 4);
+> +		__mpam_read_reg(msc, MSMON_MBWU_L, &mbwu_l_low);
+> +		__mpam_read_reg(msc, MSMON_MBWU_L + 4, &mbwu_l_high2);
+>   
+>   		retry--;
+>   	} while (mbwu_l_high1 != mbwu_l_high2 && retry > 0);
+>   
+>   	if (mbwu_l_high1 == mbwu_l_high2)
+> -		return (mbwu_l_high1 << 32) | mbwu_l_low;
+> +		return ((u64)mbwu_l_high1 << 32) | mbwu_l_low;
+>   
+>   	pr_warn("Failed to read a stable value\n");
+>   	return MSMON___L_NRDY;
+> @@ -1114,14 +1171,14 @@ static void read_msmon_ctl_flt_vals(struct mon_read *m, u32 *ctl_val,
+>   
+>   	switch (m->type) {
+>   	case mpam_feat_msmon_csu:
+> -		*ctl_val = mpam_read_monsel_reg(msc, CFG_CSU_CTL);
+> -		*flt_val = mpam_read_monsel_reg(msc, CFG_CSU_FLT);
+> +		mpam_read_monsel_reg(msc, CFG_CSU_CTL, ctl_val);
+> +		mpam_read_monsel_reg(msc, CFG_CSU_FLT, flt_val);
+>   		break;
+>   	case mpam_feat_msmon_mbwu_31counter:
+>   	case mpam_feat_msmon_mbwu_44counter:
+>   	case mpam_feat_msmon_mbwu_63counter:
+> -		*ctl_val = mpam_read_monsel_reg(msc, CFG_MBWU_CTL);
+> -		*flt_val = mpam_read_monsel_reg(msc, CFG_MBWU_FLT);
+> +		mpam_read_monsel_reg(msc, CFG_MBWU_CTL, ctl_val);
+> +		mpam_read_monsel_reg(msc, CFG_MBWU_FLT, flt_val);
+>   		break;
+>   	default:
+>   		pr_warn("Unexpected monitor type %d\n", m->type);
+> @@ -1199,6 +1256,7 @@ static u64 mpam_msmon_overflow_val(enum mpam_device_features type,
+>   static void __ris_msmon_read_locked(struct mon_read *m)
+>   {
+>   	u64 now;
+> +	u32 now32;
+>   	bool nrdy = false;
+>   	bool config_mismatch;
+>   	bool overflow = false;
+> @@ -1258,9 +1316,9 @@ static void __ris_msmon_read_locked(struct mon_read *m)
+>   
+>   	switch (m->type) {
+>   	case mpam_feat_msmon_csu:
+> -		now = mpam_read_monsel_reg(msc, CSU);
+> -		nrdy = now & MSMON___NRDY;
+> -		now = FIELD_GET(MSMON___VALUE, now);
+> +		mpam_read_monsel_reg(msc, CSU, &now32);
+> +		nrdy = now32 & MSMON___NRDY;
+> +		now = FIELD_GET(MSMON___VALUE, now32);
+>   
+>   		if (mpam_has_quirk(IGNORE_CSU_NRDY, msc) && m->waited_timeout)
+>   			nrdy = false;
+> @@ -1278,9 +1336,9 @@ static void __ris_msmon_read_locked(struct mon_read *m)
+>   			else
+>   				now = FIELD_GET(MSMON___L_VALUE, now);
+>   		} else {
+> -			now = mpam_read_monsel_reg(msc, MBWU);
+> -			nrdy = now & MSMON___NRDY;
+> -			now = FIELD_GET(MSMON___VALUE, now);
+> +			mpam_read_monsel_reg(msc, MBWU, &now32);
+> +			nrdy = now32 & MSMON___NRDY;
+> +			now = FIELD_GET(MSMON___VALUE, now32);
+>   		}
+>   
+>   		if (mpam_has_quirk(T241_MBW_COUNTER_SCALE_64, msc))
+> @@ -1713,9 +1771,8 @@ static int mpam_save_mbwu_state(void *arg)
+>   		mon_sel = FIELD_PREP(MSMON_CFG_MON_SEL_MON_SEL, i) |
+>   			  FIELD_PREP(MSMON_CFG_MON_SEL_RIS, ris->ris_idx);
+>   		mpam_write_monsel_reg(msc, CFG_MON_SEL, mon_sel);
+> -
+> -		cur_flt = mpam_read_monsel_reg(msc, CFG_MBWU_FLT);
+> -		cur_ctl = mpam_read_monsel_reg(msc, CFG_MBWU_CTL);
+> +		mpam_read_monsel_reg(msc, CFG_MBWU_FLT, &cur_flt);
+> +		mpam_read_monsel_reg(msc, CFG_MBWU_CTL, &cur_ctl);
+>   		mpam_write_monsel_reg(msc, CFG_MBWU_CTL, 0);
+>   
+>   		cfg->mon = i;
+> @@ -2512,7 +2569,7 @@ static irqreturn_t __mpam_irq_handler(int irq, struct mpam_msc *msc)
+>   					   &msc->accessibility)))
+>   		return IRQ_NONE;
+>   
+> -	reg = mpam_msc_read_esr(msc);
+> +	mpam_msc_read_esr(msc, &reg);
+>   
+>   	errcode = FIELD_GET(MPAMF_ESR_ERRCODE, reg);
+>   	if (!errcode)
+
