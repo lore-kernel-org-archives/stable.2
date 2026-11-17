@@ -1,69 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794931919;
-	b=H5HoCYTwE8ISFk3ABpYMMKfpmx4ahJkA6tpe1tMFBWJonvIazFFsyfhZDccK2u4p8phx
-	 rumqvlfmIv8xAhgp77vS+x4Z0JbsqI4FxLWV3X7gSXXaoWaAXxNYhp4aAfZ2e03sO4Pfw
-	 LyZDgesPBrYQnO+T76xoyHi2DQTGb4mJPbjS1zFizNAgz7P2yQA/v+BQ8P+IV7Dzndj3P
-	 2fGBLoy49tHj97DNiHqGcrhkwBhHLac9fooHi6PA5dUUcZMaM/DgsvE31lTmH5vou3pMc
-	 LRWbtIqtjIAwmyIqsu2Xo8zFKez1JYsb5Hdkf91vHIxfERntbDaCT+oogy1Y2pKMPfQ==
+	t=1794931959;
+	b=t5JZGrohVO+48yP9Sn1gc2dZ2HcgIexTuCKc5nyIuV32kxWbhoQBTZgZHuCt7DEXf+M2
+	 TeBjWMvwwyJCGVh+pBMj83JW2NhxW75+LXBw65+RvGxE7361Tb68hXEC36jLgTpduTb/8
+	 ONmstP4g4k1hnUmvFusE9Vv7P3dYK586J412OHjlOppzpQ86OdIKULJGRG/CSRR4p/HFd
+	 7+AdbnE3n9RWI/Zv+NHVJAL5yvBtlgBVN+7EnQfOYNG3qcVyLFHNdC7VEdi2CCmTlSX1+
+	 +f4HSDizKcQrFC0GuCyBu9ZB5ZeVp+N7JaqB3wgbhUNgv0KaQA7kKohpW638af8QNtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794931919;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-MBO-RS-ID:X-MBO-RS-META;
-	bh=C+/AUdfsu88FZdOzB3Ceivm92YN7hPUaaH2hshhL5s4=;
-	b=fIhKH0Mqenas2TYDqBBFFOGzgvwXYo8aVgEROCBnbZ/7dDyt62QggiKtdMAvuXzQARV/
-	 TB3Th/NOHId1phWlQkX6mtZzTszOn+BU9yvPxU2IXOP4/ZgOPk3VHlx0Npq9kVX5IqT4X
-	 m8am/PV6KTo8ymfODpwhdw8WqBNDJUvf75zQID4rs46hDjPePdPo2GXhVg5xeJ4zuEP8F
-	 I8ug4atORmppYrrjU/bum6FAze2raF7Cegn+LvHmeAPGaR9Srz71S5kNrczf8eO+693Jk
-	 +JOj0Nr1vHCbL4X9jhmg6M+VIKAWFxRP2pcl5P9ScRVUgMAJI++CGfQx2SjP4H0qTng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794931959;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=f+/6cPyVL7K4OQJ17M0iF+OL3WNe7td3ln+qN/9TMlU=;
+	b=l+07wxUYjuj9g0Yl4ccsLwlvk2JXWzQLNthFX35hrxzXoSr/sD55N2hZkEXe7UqXtXHb
+	 4H+t76PitdHx0IFTT0DkydbYhCwu0Rf+pjJBsO7g7LBAk+89CoiMuec4upEpCY7ZQhUOG
+	 fd+cAcb1O92v2slPxUgcfTQBPTw6jS7kRdOSzMeV93fyO9Wk86ri39khnZqiVkeNqT1vw
+	 sVxPDFgEjB9hnORP4uVNJXyRAnw4hg0Jwx6PNlFUSPye7788fM98n/itXycpISNVdPyJ5
+	 fR2pK5ZWj7s71H6+yVpqCuoItSfuFjCSq7oiWj6MgFH2IJPPMH3XVw2l496RzGVYaMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=FVyhBiuk;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="O5Q+/YvM";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 718D4606A31C;
-	Tue, 17 Nov 2026 16:11:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 718D4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08A17606A31C;
+	Tue, 17 Nov 2026 16:12:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=FVyhBiuk
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jTV9Q3wlnzKsYR;
-	Tue, 17 Nov 2026 17:11:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794931914;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C+/AUdfsu88FZdOzB3Ceivm92YN7hPUaaH2hshhL5s4=;
-	b=FVyhBiukjGN0IChfrbeKrW5gFydhU7beNSxvrLN+l68O489LClCTJg27UQvBIEdYrcv5wK
-	W2LT38F7gf54a2gObCMokR5eC+Cxwb6oivgWZAbsPDYV/tnbz3i+OF04A8e0urKL8zy49u
-	MVHteKBOiOoSjpzngWzJvqj97oAwZsTncouJqcFfuZ7HdGoa+5OvJF3Aq9Ofz6QnLT8WCs
-	3E65iZpipOWiF3kNnaGPKKNGdx8GIoPwUbOGrVcmY3kTwdZKDyVptT8P76TXQk11Yxjaem
-	0CjL5j+1FB6NVSUVMZ+pxJuMijyilEidzX6SplpTKeNaiKv7wU5Wco1/2gQQmQ==
-Date: Tue, 17 Nov 2026 17:11:47 +0100
-From: Lukas Beckmann <lbckmnn@mailbox.org>
-To: Shuah Khan <skhan@linuxfoundation.org>
-Cc: Thomas Renninger <trenn@suse.com>, Shuah Khan <shuah@kernel.org>,
-	"John B. Wyatt IV" <jwyatt@redhat.com>,
-	John Kacur <jkacur@redhat.com>,
-	Dominik Brodowski <linux@dominikbrodowski.net>,
-	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] cpupower: fix use-after-free and stale limits in
- frequency-set
-Message-ID: <avx8wwQBBu5n8z9f@lukas-arch>
-References: <20261115-cpupower-freq-set-use-after-free-v2-1-6b91f1630165@mailbox.org>
- <94e8f3c9-5162-4717-8063-f5c2b4828456@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O5Q+/YvM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0249E1F000C4;
+	Tue, 17 Nov 2026 16:12:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794931958;
+	bh=f+/6cPyVL7K4OQJ17M0iF+OL3WNe7td3ln+qN/9TMlU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=O5Q+/YvM44QUk3wBqsXYQ26kDyelxtYbP2AvDJgP4Icc/O+WTKurgKpLEx1KD7NA8
+	 tPenRS3dAbuIf+ZA0sVhuKWsb0thB07Tj4fdspfYaeKZccr5Z4VNt7eBiDxYP0gUH9
+	 hACBTwj/SuWTmcHINjid+6p6xgMetH4SlRfegPdhSprjLRGO8vpDql5MSFeBrMXjuR
+	 s/4+X5HfeD4LNzr7DxslN5CaxeWh8xKzYCE2VAor1bkNJ72Q9/Yj1O5nx/G+BPUDs3
+	 Y8P5WOBKpRS8WFFLctyKlgqQ+hAOa2kzz3OklN9BaYLZio7xB169v6rkmlY0aXC/eS
+	 F3ZTrVkwWBo5w==
+From: Mark Brown <broonie@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>, Mark Hasemeyer <markhas@chromium.org>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ kernel@collabora.com, Alexander Shiyan <eagle.alexander923@gmail.com>, 
+ stable@vger.kernel.org
+In-Reply-To: <20261110-spi-runtime-pm-fix-v1-1-8601ebb2f6a8@collabora.com>
+References: <20261110-spi-runtime-pm-fix-v1-1-8601ebb2f6a8@collabora.com>
+Subject: Re: [PATCH] spi: Fix runtime PM imbalance on pump transfer message
+ error
+Message-Id: <179492736789.77896.11207792576309707845.b4-ty@b4>
+Date: Tue, 17 Nov 2026 14:56:07 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,43 +62,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <94e8f3c9-5162-4717-8063-f5c2b4828456@linuxfoundation.org>
-X-MBO-RS-ID: d93b12a79ef357f0894
-X-MBO-RS-META: 4pfju86zrmigpnp5oohjoqxi7srbiozz
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1139; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=GPDZObiCK6E7h0QOgxLM+QhPzWZiBmUAKR9S9vrKWUY=;
+ b=kA0DAAoWL+9zsLPQOIkByyZiAGr8fPPI7inKTe2wtGgZeTG4r2RF9kW8nGMEgXFbp+eQObqro
+ 4h1BAAWCgAdFiEEXmoL6X9066wOwaGGL+9zsLPQOIkFAmr8fPMACgkQL+9zsLPQOImb3wD/Whxe
+ fbfRYX67y/ghbpoJ3vURtSdkY1/y/tSBKKYneZsBANtXLZCDy3LmaNxdZU9ahvCM+nBfEhqwv0l
+ JVvHp5QMN
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Mon, Nov 16, 2026 at 04:30:10PM -0700, Shuah Khan wrote:
-> On 11/15/26 03:03, Lukas Beckmann wrote:
-> > @@ -141,9 +141,10 @@ static unsigned long string_to_frequency(const char *str)
-> >   	}
-> >   }
-> > -static int do_new_policy(unsigned int cpu, struct cpufreq_policy *new_pol)
-> > +static int do_new_policy(unsigned int cpu, const struct cpufreq_policy *new_pol)
-> >   {
-> >   	struct cpufreq_policy *cur_pol = cpufreq_get_policy(cpu);
-> > +	struct cpufreq_policy temp_pol;
-> >   	int ret;
-> >   	if (!cur_pol) {
-> > @@ -151,16 +152,22 @@ static int do_new_policy(unsigned int cpu, struct cpufreq_policy *new_pol)
-> >   		return -EINVAL;
-> >   	}
-> > -	if (!new_pol->min)
-> > -		new_pol->min = cur_pol->min;
-> 
-> Why can't you leave this logic as is and set temp_pol fieds,
->  if (!new_pol->min)
-> 	temp_pol = cur_pol->min;
->  else
-> 	temp_pol.min = new_pol->min;
-[...]
-> 
-> Same for all of the above. Make just the minimum changes
-> to fix the problem instead of changing the logic
-> 
+On Tue, 10 Nov 2026 01:41:58 +0100, Sebastian Reichel wrote:
+> spi: Fix runtime PM imbalance on pump transfer message error
 
-I did it this way because I found it easier to read. I will keep the
-original conditions in V3 to keep the diff smaller.
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
+
+Thanks!
+
+[1/1] spi: Fix runtime PM imbalance on pump transfer message error
+      https://git.kernel.org/broonie/spi/c/bb5caf7a2e0b
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Lukas
+Mark
+
