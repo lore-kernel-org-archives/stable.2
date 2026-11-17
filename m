@@ -1,72 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794950523;
-	b=x3Gn7V/cWA3uSGZl7Tt3dYVgmOk89QKCxffbvVILZ5Reemid2jkzlXEAOlkKQZ6uVgBY
-	 ZdvI9qQh6gN7iEYeVy9lasA8U5K4O0rWGcU41Gp3Ke21sd/MVs4o7WlDNNIELoNofm1bg
-	 sPGu7lU9IqS6R5X1CG0MHXakpLvAn4QkJPDDWrE6olvomjnV3knk6vE/J6dl1DFIsQWZL
-	 s/eRzdoRKZu3rFvsMoTqi/pwPattbZDNC65vwUcjKuanJofZnFQhdeNqZ3mB3cr0UVMvf
-	 xHj5lDqwOTCPl/yW7ubAMyYyZb5G+Z7K+T03YtehKmRiHNvDE+VgDzi7T1+/1SSE41A==
+	t=1794950538;
+	b=Py64zDlw6PjEOJ6wccro56ENmZph+1Phmhm7aZZNaw38wQcEiAI1U3rVqQYutYAU8UDk
+	 ly5gppJ6dvKmYtUiBnj+EdlHpFn1z1IuCicNCZ2SABA/X/QZ/5SzIYsi0juiWwLfIsO4W
+	 H4QOw8oHSFUPYPm3iPi7ydso0Ik0nN8W4iyYNp+RjBysJhwpr09j4k4GUeDKcB4VZJP4r
+	 l4LhsBgRkqj3MOoZBERYv9t4He9OzE4ljuKnL/QlFnre2YhX8ZENVO/4DO/62fubqKTFH
+	 bn2q128t+0Cxl2AqwAcXH2FHByuS4Q7X5cWdv3T5Yi1y+NnltTt49XxP1mXnu9d3xMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794950523;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AS+LdjAZ9uLUysJ7yrvtODB4cFmFqghPvSXSI4kogDk=;
-	b=dmjGUaqo1/kuHiEahY9Ae7mjAyl+LQ3PQrA/yzjKM8DKsjiRbyNU6u6K0o4+KFffOOoR
-	 g5sJf4phh1VmecU2pvFTRqYzr3ssftG3MBjAwz/w2dlDH3lgW6CSG61hW2arxYTiGdjpO
-	 T7aaW9rR1PW3l1oHgYjwROYXXfFWLImMDwjyZNDNy+6jNziKhWIxEd+2uLTlBn7VBxOzz
-	 MI1n1Y0mV0aFbi1jzfDx41Yn+qVTyTfb4LM2AQ5rplejM9SxlWhLhZOiELmzzJA9JjTE0
-	 pldbnUMi0Ad+n8XsUSgzi+vk5DIlneOjrzsOlLo4WZyRGd5TdEtyNOIXcK1G4ubDs0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794950538;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=FeCT63aSkz/VhoJT6891eWVwy4XaOtOt1ms2iF5hk/M=;
+	b=wFhDMhpuiHe9xxcY0W69qWj0oQQ6teCvOIGCa8RBHBc4zygD+ZlNIAPaO9W/ONaRTn+0
+	 /+bTIZwBFy2QR6Zk86OdZpWPwCHtfd51ZC2cto/89VGCHU3PXfe3mFicwFx/EITW8pcv9
+	 cUNQrg1db99JZ6EHk/QrfcIEY8lXoD1Q6KvDIRStZ73j21sdF692GfR2xr9KCuL396b2l
+	 6Q9E+u4yFz5T/rk5VKOnwQnoU+tE7SnDdgoxrarFkX6XYLHBtlL3MJFL+gfyHHKMjBADe
+	 G4lTebsJHb46tYTRd2BOpVsr4qkaNpwm/UiujGE9OI0WliVXAVAGHl7stX+QfcZKVAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=e6me1UNL;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C26y9o1+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8E2606A32F
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 21:22:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD8E2606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B436E606A31C;
+	Tue, 17 Nov 2026 21:22:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=e6me1UNL
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=AS+LdjAZ9uLUysJ7yrvtODB4cFmFqghPvSXSI4kogDk=; t=1794950522; x=2110310522; 
-	b=e6me1UNLvbZJFjO6MuL7Xsx/iAswrigcDyr8uQHe5Z8n/Wg6Jq6V0y846qzK4YQupu23kP5T32q
-	va2Ps2jUYfbOs9oqxPNRpgWD0a6tnTLhANEEoRWpwwren0bIhSQkkeTOWvhhR6wLvNPqcajrMP7/I
-	dQ5E4ksQiySbeBrzwOgBp/kUHm/tqhDMMVS/yEbT4m6uc2i7X3YSDBjpUfxivelKrJe+3A8aRgtY5
-	wGtnrQB/vt1BXlxlqh+kRcvBvEyvxCcaeEbsYhQJo5THicsaW4XWteWMP7ait0KWO3ARMwFWv96Bb
-	ZNz7JaRFYiu06N5aHqGZ80ChqzS8W/7RIOzw==;
-Received: from [179.105.94.163] (helo=prince)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xTQck-00000000kvm-278V;
-	Tue, 17 Nov 2026 22:21:55 +0100
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Iago Toral <itoral@igalia.com>,
-	Melissa Wen <mwen@igalia.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Cc: kernel-dev@igalia.com,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] drm/vc4: Fix async page flip completion
-Date: Tue, 17 Nov 2026 18:21:17 -0300
-Message-ID: <179495047310.1852768.467440424263871082.b4-ty@igalia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261114-vc4-async-flip-fixes-v2-0-d33cbe99ed5d@igalia.com>
-References: <20261114-vc4-async-flip-fixes-v2-0-d33cbe99ed5d@igalia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=C26y9o1+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8BCA1F000C4;
+	Tue, 17 Nov 2026 21:22:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794950538;
+	bh=FeCT63aSkz/VhoJT6891eWVwy4XaOtOt1ms2iF5hk/M=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=C26y9o1+nWX5rbIxEPoTXu6eAf4pOY/zxhGIIxnY9lboROWO9mDJvV1O4TONfP/pZ
+	 QqXdWdHGUxi1GCKV5ysDzii9d0HhWEINL2pff3pA3lj7kIwRGo0yji4nVz2ewPSDVY
+	 TEz/gfWJfuY7IqmG80r1CmprsRmkoDkbUVWVRzILMQqjm9YXd+vNUV9hRQiSit3pIG
+	 pbY/VvZLcp7UOs5XpARuNFnsO05dcz0v4nMEw3YfRSdc+d73XC8zvUwjgqOm+s7TfC
+	 Oh63dpOURFQ3sRV9KMKcXACtnQzqUNdbIxidyBqn9780GD++3ohF25r2kIM/Q8gsVl
+	 OskHUcArEm3Wg==
+From: David Hildenbrand <david@kernel.org>
+To: Will Deacon <will@kernel.org>, 
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Nick Piggin <npiggin@gmail.com>, 
+ Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Hugh Dickins <hughd@google.com>, 
+ Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>, 
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+ Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
+ Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Jan Kara <jack@suse.cz>, 
+ Ross Zwisler <zwisler@kernel.org>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-arch@vger.kernel.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ Chris Mason <mason@kernel.org>
+In-Reply-To: <20261116-dirty_file_pmd-v2-0-571883053174@kernel.org>
+References: <20261116-dirty_file_pmd-v2-0-571883053174@kernel.org>
+Subject: Re: [PATCH v2 0/2] mm/huge_memory: flush dirty file PMDs before
+ removing rmap
+Message-Id: <179495053051.3499.18428844631976887655.b4-ty@b4>
+Date: Tue, 17 Nov 2026 22:22:10 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,30 +75,37 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
+On Mon, 16 Nov 2026 16:06:57 +0100, David Hildenbrand (Arm) wrote:
+> Details in #2. Now includes a fix for a preexisting issue on UP in #1.
 
-On Sat, 14 Nov 2026 16:16:49 -0300, Maíra Canal wrote:
-> VC4 implements async page flips with a custom code path that waits for
-> the BO fence before completing the flip. On VC4_GEN_4 (RPi 0-3), the
-> completion also decrements the usecnt of the old FB's BO. This series
-> fixes three bugs in that path.
-> 
-> Since commit e8941ac97f28 ("drm/vc4: Remove BOs seqnos"), the completion
-> runs from a dma_fence callback. VC4 signals that fence from the render
-> job IRQ handler. As vc4_bo_dec_usecnt() takes a mutex, running an SDL
-> application with SDL_VIDEODRIVER=kmsdrm on the RPi 3 triggers:
-> 
-> [...]
+Applied, thanks!
 
-Applied to drm-misc-fixes, thanks!
+tree: mm/core.git
+branch: for-next-fixes
 
-[1/3] drm/vc4: Drop BO usecnt before releasing the old FB
-      commit: 43b85636ea0d33152bf16816b7601e785723596d
-[2/3] drm/vc4: Complete async page flips from an ordered workqueue
-      commit: 12a321af56c436e299414d8c276457dcf387e0cf
-[3/3] drm/vc4: Look up the async page flip fence before committing the flip
-      commit: f9fc6da01a290609428d308033143f1d96ab658f
+Applied patches will appear soon in mm-next, followed by linux-next.
 
-Best regards,
-- Maíra
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
+
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/2] mm/mmu_gather: delay rmap removal on UP as well
+      https://git.kernel.org/mm/core/c/7faf889c
+[2/2] mm/huge_memory: flush dirty file PMDs before removing rmap
+      https://git.kernel.org/mm/core/c/5a1f5d89
+
+-- 
+Cheers,
+
+David
+
