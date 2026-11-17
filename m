@@ -1,89 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.52
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794953388;
-	b=YyWxjr0twyMLOtejq3shnsFz/Whlkg1jUUURpg5LrYr0kGV9r4ujoh3hGlFHBrY2X4iV
-	 uuC2oOxoaH4qsaU5KZcbYgkeJWPxf89gE/uXUXJU9RQLBzfiMqJTulKNeqWvT7nZD+X+r
-	 Ueg8TSn9zeqVau7eDppV8IeCzxWFmdDG/4+gljKWpYqS81hgaa0AbyPbzeFKY3zjbLBnt
-	 5beOZi2Jui5FHO4TAl/LiQ9w7fg8hX66zZ7yNzixnDr2PmokExFW15EE2Q6fJb5NIRY5i
-	 smQpCUmBj1TTt3Ju/XbE23uUn1/80v6c/TiW2KRbU+7BgOUXzZHnRREu/jxi+pGD9lw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794953388;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=Nx7Fnx8ynrYtRU2zfFFoevS3m3nHQ2OljJrgCdTaFks=;
-	b=zEEsWlEU82zUBR2W/j1cbpbFj5UcQhzmqp3lQo/RqOekbR/0LomgwQnGarvHcuQKV84O
-	 BzqgUKEcBswDPasMLQiaBhIsJ8o+EmeXYr0HtSmNZGD8u2AavFCpc+1GDBXB1lX/ZJRPU
-	 JtGDrQ6KJJbr6+a5k28FIduWmHRWTRN9f6O3Z5iVtaHBpNl6opLFjgUa6UFCNa0InKt6a
-	 qVGH9DQfGw1+5z47Q0f+MDljh/VGA8sACd8+c/eYsvdkBXqco7DcUy4Z/e15UKKAARfAr
-	 UWKbdPGlgE+zFRQeMAnzxkiNwysbQ3nAu9owWfrFXs9f7n3bj8nLH192azjXn/voV4A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v8aAKYAr;
-	arc=none smtp.remote-ip=209.85.161.52
-Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794953406;
+	b=3tx0IKQkVl1aTdmzrlfWIoMcB4M0+uBG/VrTakpO0hyQNoFMDWtDf55b1m0g5lFTQhr4
+	 QIBuRE4gbPnZ3xozOPSVEeqZlmdw53jTCl1SUCHv+p9mKSVm6F0hUVws93ukIhziV43F4
+	 mNJYL6th78iu+oYdnSrLA/auZZoJ1BCZIxogQoNUghpdqSfa7W9LTuQ74LkxLZ+hqTGDx
+	 wpSPHPJew++NYIVo0tV+dTLoucM2aJHjW60UxxVCESbyk0hpVqVzbfPQVSBXASn5MVyLm
+	 6TKgVTO5Pd4QvdzAtTxUCoHPoGrQL7T3Wbs1Nzy2MVTFUvQfCgoQAQ5eBlIVyGnRIPg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794953406;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=pokTu+l1vM7o6Eh7om7s7KcxHn5AkgfsRI7hSQoz1Lc=;
+	b=lkXQqzt9CpG09A4+Tf1TJnJNjTMopdAvUxrh9zz1qfCk0vMLDMXpiodwFgl4wYSHnnRc
+	 iBAjUN1FE8dk0B3EjI9cXVlNs/JmFLzqgNhqVgbczYMmY3M+7W3OPMPt37Qcz0gdLnm6I
+	 HeFSv61LRwjSMEncKt3zqGyspsZbpxG6XQrC7KTYehS2xIqfZV9T1rzCPNvaqL+pecNDD
+	 HlhpFPIhQ5D0H8RKYw36ZdqagIZU0+u0QP9rjjk0Rmw+cP8MxCCLHpyBcITK/pxquZRqJ
+	 xevpepUTPpIN/0EruEEWOUhOHHe0yUHNVc65hXKMhHa1jeVzVEIE0poMGgnFGE6AxRA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NFaAhP4+;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB66606A31C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 22:09:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BB66606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7E5606A31C;
+	Tue, 17 Nov 2026 22:10:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A7E5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v8aAKYAr
-Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-705cb6ceebaso287389eaf.3
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 14:09:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794953386; x=1795558186; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Nx7Fnx8ynrYtRU2zfFFoevS3m3nHQ2OljJrgCdTaFks=;
-        b=v8aAKYArq1OAS+FF6szcxGbtJtsS91acry/6yUfzoaWscwk+57mz+m/xrLwcmMGSEs
-         +c7JxLAFU6FKeZHP+06tRRVH97w/8Uk425la/D5v7BPqOCdQ1p/By2sL3EztQGkMllgM
-         F9lvM7KZw57BGP0dwbuYIUpVtSsT6LciRKnAyehHhjt77ebvbR0rewdtsfeEdFcxI3Y2
-         WsxcFLPxvS8y1tTCInSRx+8Kd7sAsgBcn7AwRUBlzFIxnQezNSnUABJ6zGp0O+EoUTWV
-         JCjpRr1xCV738AuzT4G39rCTr6Y2JaEZ0BFxsrJsXwzvoJZ+ABHkHpzvtIB/eTK3+Ngp
-         dGiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794953386; x=1795558186;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Nx7Fnx8ynrYtRU2zfFFoevS3m3nHQ2OljJrgCdTaFks=;
-        b=G1IARFoFz3dpR7/SEN73ZDXO83sxQGsxzI7x3DBv12AU0YzRCcEHzHnpXGv6Fhssi7
-         r5IeGDgocw61sP0vv9+lNv1QRfWRh24SppKfEowOXPgq8zgHF8zic/ohIN5jcWG7P29h
-         Ks/nDrYgajby3MfVbCOpB9qXvTrohIQIpfK+GdztVvr2CpHDhajMs9yu2UtUmcgcZ9cJ
-         VBI+kDTMrEAPijLWCZa51y8/bE4YbkPobajGB9D0ISYGU9ejiNiyRB2YvXs+i7pYSLd8
-         gxlkLw9YfNE8xfuoocANkvKaJcyutbg9e368YvIeqR1eUDNskp27JbkrH157NAJ4aIE2
-         TK9A==
-X-Forwarded-Encrypted: i=1; AL+hErGurymoYrGsRHn53JoUwnRQJrqgZxQkXYcHYipjPgJhOp3qJDj+i6f1RIXWpjsk7SEZiKTvxRk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8YZJ6pZV936LXxBvXHG5pb2UX8GUnB04zuXCU9QpntFw1Qh3H6
-	fCx6+7sjD3LPprMyqHD9na6Znszto4lLCufHG3jn1yU28OD+XA1E5WI5
-X-Gm-Gg: AYBFou0lMXAyrmofVt1WYGdiU34TY5YemTlJYk9mHqq30hUqGae7Dyurv7Rz7nE21wi
-	Qej0Y5FRZRglnxvUk9LHi+GFM3XKU62B9S9b0YNecY9LvGbrp8jGamhwUcq29C/aOYWDWubTv+D
-	bWrlfiB97tbCgnzMC4yL2nG2ttb3Z8v8icocxgTdN8O0CG7i11RECROatjyJ+Y/T/IqGXYemEwV
-	JUGy8eIgrLEdbUkX6FfChRqZ+5l7rvRU3ML2YBeCTL+Hx7yIVDSNaF6I08I1S8HjhZwZ8UfJgWv
-	RbQl1vhUl1rjXnv0b6DmgZB6fSXA+spWiiTHB7Ke6Fizxwpw624hdcKJMi2s/ep3Ihh6sP+LRVq
-	qmainpfd926ybqvvTSfRJI9g5e/imyYBjkl2ku+KzdH5ov0cvkDmiKNYV90M4liKY92s/GGTAtS
-	0pTC9Xa+dPnlTNMV7pVD1hCKB8/4dktp4zr10T3fvlw69qiRdpfnKCXA2+mYAm5/sVAsjk1UpYW
-	I5rKxKYbw5urrz4THGBR8l3Z6WpixbFjaBJW9/CScaSH6uBhZQeFU7TBTDBoFZGZm8Yzv1B1B82
-	tst1P+741Q0gwbg1h5brbnmYJxZ46g2+Onb38M5/0yytRQai+ipBQ+tsmOAn1IfFIhnzBv7iVou
-	cXCQEHeym3WUpJsIy2hZNZVrxFSjG6Bt8v9dl6ohLaSR//aqes+Wm8QxIgwHWjYX98jnbArd2KV
-	vOhVCpoW0RoADjF3h6Ue5qtTRmSufASUzQFBHmylHzKiAqJ9iIsoHC
-X-Received: by 2002:a05:6820:3414:20b0:6fc:4051:d2d7 with SMTP id 006d021491bc7-71b184d9724mr449895eaf.38.1794953386149;
-        Tue, 17 Nov 2026 14:09:46 -0800 (PST)
-Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862f01381f5sm559629a34.3.2026.11.17.14.09.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 14:09:45 -0800 (PST)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Tue, 17 Nov 2026 15:09:08 -0700
-Subject: [PATCH] nvmem: keep write protection disabled while writers are
- active
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NFaAhP4+
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C900E205A36;
+	Tue, 17 Nov 2026 23:09:59 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794953399;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pokTu+l1vM7o6Eh7om7s7KcxHn5AkgfsRI7hSQoz1Lc=;
+	b=NFaAhP4+8dQJOdtUfwiN3FQBbrN6QihGC0LF4S+rgjvrxvK8Lu5ZKh9pZDUz+nU4w+chWM
+	65ZnoTsFZOW8mlY8mdzc82yi8N2rNZdYC2hdlHd3D95+Eieo5W1MCFcqUEv9jJVKPrPlDF
+	leBr3c8+Qf2D+vjYUF4b6x342izDhJ7EhOUQVNmLTFT72c3plSKVqVnLcHEUGmPhQKOzzR
+	77c993IHJLyQ8SxlknxpbNaVodf+TJ3qPbfIVupSVsh2H5jMWwJD79luTIZ73Pj6hJqZCE
+	4TBwdVnMZJt2H52+nsbiNBuUEmsIUEI3eCjg9gT/55K0qfOy4PMUk3w0XINHbw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794953399;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pokTu+l1vM7o6Eh7om7s7KcxHn5AkgfsRI7hSQoz1Lc=;
+	b=dp2J36DVo+VCqbIfRAJ6dJLgDhM82qDJ61q0m/f3VUS6//BfBsMGYSZg0YLrv04RQNxAsC
+	JOWTk/67rjVAlqX6OqpuPbbHbbqHtYLf78DhryXpJ5DgHXsUf7JIZnP2zFvAVizPNNeuG0
+	Bsno6XrSfHqrMfhAfsfggfSyKUcBT2V0aXuUUcnYMYHNO3bVXP6R8eWDdRfClpjuF+/Tc8
+	ADLf6A7iuPdUwsnnWzIaJQ5MpF0qv5RtYSXRb5ydJe21AALbby3WqG/prfpM+xrfwtpqcG
+	1OdbS0KgMJWdqQtvckQE58L+IZZ7ugqvocSx7VAeR5zmOlGAUCqLpsQznTcRDA==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794953399; a=rsa-sha256;
+	cv=none;
+	b=ASW0Y/XrvEDUV9heuI+zeFjJQ+Ck7hUJ4m+OKVutqdBiaZIf6efkj+VBvd5FFLr1Ll3pi4
+	nHo18ntZJ/XYMfT8h2GzvZ65S1/x726PmILwZRC3lfo109K529u+SvAASDMg38VifsNkAe
+	T6B0ytPlyWqYKUHXE6pjC1RrIwmgmdJ3B+1zRB7Whan6vclvgI+ZBYso0vjXtbXcwrhgaR
+	1DeJrmLTbmsI1gECV42gZqumTMLvzuK3uUNTmzcpEFBhc3eWwW+jCMrcz7TJlh8vm5pwt7
+	JYHTEGGQ4K8tVJmoi178oofBm8rM29WNfPICsRz4JWLlJonP7BAYkCCdvHrqPA==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xTRNH-000Fmy-0g;
+	Tue, 17 Nov 2026 23:09:59 +0100
+Received: from blackshift.org (unknown [192.145.8.164])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 506C75EDA2C;
+	Tue, 17 Nov 2026 22:09:59 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	linux-can@vger.kernel.org,
+	kernel@pengutronix.de,
+	Zhu Ling <zhuling0805@qq.com>,
+	stable@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: [PATCH net 09/11] can: netlink: fix IFLA_CAN_BITRATE_MAX attribute sizing
+Date: Tue, 17 Nov 2026 23:03:14 +0100
+Message-ID: <20261117220818.1142581-10-mkl@pengutronix.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261117220818.1142581-1-mkl@pengutronix.de>
+References: <20261117220818.1142581-1-mkl@pengutronix.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,125 +109,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-submit-nvmem-wp-serialization-v1-v1-1-539d121f8f5e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2O0RJDMBBFf8XkuStiVI1f6XhAF9sS6SbU1Pj3B
- n08s/fes6uwyIRW5MEqGGeyNGoP6hKIuit1i0APzyKO4lQpdQM7VQM50POAA3wM7P2yp2/pfBN
- mBZgkVZpF1yxTifAzhrGh5VDci5P9xhNrt+/+E4zvybvdGRNVaREcI+ZB55yxuZQtufCFrLEPR
- 26lmSpp60H2pKdFnoc9Iy2TJnm8F3oOmpHh9Bfb9gO/Cd7R7wAAAA==
-X-Change-ID: 20261117-submit-nvmem-wp-serialization-v1-e44b68058814
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Khouloud Touil <ktouil@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
- Linus Walleij <linusw@kernel.org>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- James Hilliard <james.hilliard1@gmail.com>
-X-Mailer: b4 0.17-dev
+Content-Transfer-Encoding: 8bit
 
-The core deasserts the WP GPIO before calling the provider and asserts
-it again on return. Two concurrent writes can both deassert WP before
-the first one finishes. That writer then protects the device while the
-other is still writing or waiting for the provider lock.
+From: Zhu Ling <zhuling0805@qq.com>
 
-Count active writers per device under a mutex. Only the first writer
-deasserts WP and only the last one restores it, including on provider
-errors. Keep the mutex outside the provider callback so providers that
-forward writes to another NVMEM device can still nest.
+can_fill_info() emits IFLA_CAN_BITRATE_MAX with nla_put(), which consumes
+space for both the attribute header and its aligned payload. However,
+can_get_size() accounts for the payload only. The resulting underestimate
+can make filling the netlink response fail with -EMSGSIZE when the skb has
+no remaining slack.
 
-Fixes: 2a127da461a9 ("nvmem: add support for the write-protect pin")
+Use nla_total_size() to account for the complete attribute.
+
+Fixes: 2290aefa2e90 ("can: dev: Add support for limiting configured bitrate")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/sashiko-outbox-219526@kernel.org/
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Signed-off-by: Zhu Ling <zhuling0805@qq.com>
+Reviewed-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Link: https://patch.msgid.link/tencent_D1C873B86B0E92011A264B0E196B911D5308@qq.com
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-3924d490-baed-49dc-880a-6fd1163cf08d
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
 ---
- drivers/nvmem/core.c      | 35 +++++++++++++++++++++++++++++++++--
- drivers/nvmem/internals.h |  2 ++
- 2 files changed, 35 insertions(+), 2 deletions(-)
+ drivers/net/can/dev/netlink.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
-index 7d4cce8e2742..c0da902d909b 100644
---- a/drivers/nvmem/core.c
-+++ b/drivers/nvmem/core.c
-@@ -70,6 +70,36 @@ static int __nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
- 	return ops->reg_read(nvmem->priv, offset, val, bytes);
- }
+diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
+index 521e2496e2cc..10e7ccaf40fb 100644
+--- a/drivers/net/can/dev/netlink.c
++++ b/drivers/net/can/dev/netlink.c
+@@ -833,7 +833,7 @@ static size_t can_get_size(const struct net_device *dev)
+ 	if (priv->bitrate_const)				/* IFLA_CAN_BITRATE_CONST */
+ 		size += nla_total_size(sizeof(*priv->bitrate_const) *
+ 				       priv->bitrate_const_cnt);
+-	size += sizeof(priv->bitrate_max);			/* IFLA_CAN_BITRATE_MAX */
++	size += nla_total_size(sizeof(priv->bitrate_max));	/* IFLA_CAN_BITRATE_MAX */
+ 	size += can_ctrlmode_ext_get_size();			/* IFLA_CAN_CTRLMODE_EXT */
  
-+static int nvmem_wp_write_begin(struct nvmem_device *nvmem)
-+{
-+	int ret;
-+
-+	if (!nvmem->wp_gpio)
-+		return 0;
-+
-+	guard(mutex)(&nvmem->wp_lock);
-+	if (!nvmem->wp_writers) {
-+		ret = gpiod_set_value_cansleep(nvmem->wp_gpio, 0);
-+		if (ret)
-+			return ret;
-+	}
-+	nvmem->wp_writers++;
-+
-+	return 0;
-+}
-+
-+static int nvmem_wp_write_end(struct nvmem_device *nvmem)
-+{
-+	if (!nvmem->wp_gpio)
-+		return 0;
-+
-+	guard(mutex)(&nvmem->wp_lock);
-+	if (--nvmem->wp_writers)
-+		return 0;
-+
-+	return gpiod_set_value_cansleep(nvmem->wp_gpio, 1);
-+}
-+
- static int __nvmem_reg_write(struct nvmem_device *nvmem, unsigned int offset,
- 			     void *val, size_t bytes)
- {
-@@ -84,13 +114,13 @@ static int __nvmem_reg_write(struct nvmem_device *nvmem, unsigned int offset,
- 	if (!ops->reg_write)
- 		return -EOPNOTSUPP;
- 
--	ret = gpiod_set_value_cansleep(nvmem->wp_gpio, 0);
-+	ret = nvmem_wp_write_begin(nvmem);
- 	if (ret)
- 		return ret;
- 
- 	wr_ok = ops->reg_write(nvmem->priv, offset, val, bytes);
- 
--	ret = gpiod_set_value_cansleep(nvmem->wp_gpio, 1);
-+	ret = nvmem_wp_write_end(nvmem);
- 	if (ret)
- 		return ret;
- 
-@@ -930,6 +960,7 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
- 	nvmem->dev.bus = &nvmem_bus_type;
- 	nvmem->dev.parent = config->dev;
- 	INIT_LIST_HEAD(&nvmem->cells);
-+	mutex_init(&nvmem->wp_lock);
- 
- 	/*
- 	 * Must happen before we assign the release() callback in
-diff --git a/drivers/nvmem/internals.h b/drivers/nvmem/internals.h
-index bc7a99f5aefb..aab2ee4f9329 100644
---- a/drivers/nvmem/internals.h
-+++ b/drivers/nvmem/internals.h
-@@ -34,6 +34,8 @@ struct nvmem_device {
- 	const struct nvmem_keepout *keepout;
- 	unsigned int		nkeepout;
- 	struct gpio_desc	*wp_gpio;
-+	struct mutex		wp_lock;
-+	unsigned int		wp_writers;
- 	struct nvmem_layout	*layout;
- 	struct nvmem_operations __rcu *ops;
- 	void *priv;
-
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-base-tree: https://git.kernel.org/pub/scm/linux/kernel/git/srini/nvmem.git for-fixes
-change-id: 20261117-submit-nvmem-wp-serialization-v1-e44b68058814
-
-Best regards,
---  
-James Hilliard <james.hilliard1@gmail.com>
+ 	size += can_data_bittiming_get_size(dev, &priv->fd,
+-- 
+2.53.0
 
