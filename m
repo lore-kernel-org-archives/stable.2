@@ -1,103 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907663;
-	b=aKKvRjvWkh6dUZxFkcaddHrFLXdA37Y40Heq4CHwumwgkbH4ky7VJ8WEfBfmgsXHm7nH
-	 lnBtkocfBCCtkPx7NdEaO5zdkmT83wNfA6pL3MggYdTcSMua3zoBARxXspsI+9K9Mlb+s
-	 5a07gpGpyN0KHMrYOfD5ojsoF6qcEEenZRC+EDTR8nEmBJLfD9vwvLsD2zmMNzNiq8uMs
-	 I56HDWHn8O27rvFCnnTeSUFagrMqhhFvFz5PlzjE8C36sFh1wZ3ZMVglrbdS0MZiHU/Ny
-	 zhaeul895wURUm6d0C5GO3Iwpt+WG+aQNjjfGyzmjk/T/vYo9HTns1d35BGrmTgh7/g==
+	t=1794907706;
+	b=lsLLavTO00ryJ1l/hwYNceR0TWY3oG8Ms+1https9PDPhLkA2lMhrErFE4d9ed3qCAFt
+	 AeWnA84KtoWPuorAO8fgAnvuX1OrtbO0vTOVIJiDv2Bh0JPFD7/EstShcONFny2r5x1Gf
+	 U/PjkNSbbxGtBMUxH1MhRCvv7QevcGdYuDUJPTpfgLhpqNkZfED5GQ4HetJSG/tgHTn7C
+	 zZP0RteP/nkooRfjmCQ2t1yDSOA4H/8/qv50Oy6n2/gz2FJKr06DLeg7jWMxbJi0uSH03
+	 1ENwqEjIMSIy+rV+coyUtk7q4S2oEvKEOb1hkemzLdBjj5BoeHRBVlvPjrbsCP/Q0Uw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907663;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=aDSdHKsmTGGWkDOKCvZtMPEPFRR2Z2wRDeQx9ZQTN3o=;
-	b=OSxE79dIY3JUgMZmiuo6WHUwcKHzFn5kvfz0ELOQ+/HTrZg/00pNcJMYuzSMRRhlDlUy
-	 TNEPyF1iTzJW9Dmxes7lZz2HaVfv8kHyl+kX+EVlO8PF7VmU4NuR8+DBlnY3u3r5ydKIJ
-	 EgLevSrIeN1T/9pt42K9FkQhI1ONb4DN/W3pt3aI/+rRm4P54kcXjZwPuHQWAeQ6JzFRY
-	 cK4mIC8B1UIgBa9c+LKpSt0knpS3XZbAxKOBse3wHefl1QabaPtDrp1Ai629boDsWUXtE
-	 qsmQI1uQi5wakNYJfoBP8RdtO5LGxMr0Aqt5plFo/JaKdTrwg1f6av0n9UCGK4l0/8Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907706;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=JWFRXkfma6kJ/DdhTdP8QnpGxO6I9Q72iA/ysnVQGz0=;
+	b=n+XwPR0YaNKZJy30PZWgMxi9znYtfWVIMurMcG9sT2i1E36TBGCrLFNKT+HBAmOqntAA
+	 fVFW7U0MgtfOHhnlOa/DKOG+xC5NResYVlsiKFemLe0SZpEZgyXyuynKobdy/Rpy+hpOa
+	 ltCZHuDe/VyYgOnNBkgXQnFqZIgSBchpAJNcT8GsipVFEkdrGFFut/4Nn/0vUKysSqKLV
+	 zViVZiKz6Nj9WEcAZ/YFgey9v8LcuF6D6SMR1vDcRbFq3dOoPQD64GXGlnhpzSs+18GE8
+	 SiTr37abt996p5bYGsMZAuKRoi7gI2yr+pnb+95OqxC96FKjXyMUNaQnk4PlpeIvpIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="0SeRLO/C";
-	arc=none smtp.remote-ip=74.125.229.131
-Received: from mail-dl2-f3.google.com (mail-dl2-f3.google.com [74.125.229.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jbvSV1cj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F278606A329
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:27:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4F278606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EEF2606A323;
+	Tue, 17 Nov 2026 09:28:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0SeRLO/C
-Received: by mail-dl2-f3.google.com with SMTP id a92af1059eb24-1521c45a248so3040300c88.0
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:27:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794907661; x=1795512461; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aDSdHKsmTGGWkDOKCvZtMPEPFRR2Z2wRDeQx9ZQTN3o=;
-        b=0SeRLO/Cu/Z7fD38T1aAPibopqP6aQGUmhp1Bo9C+KNJ0zCPPS4ridEDVsmduTWVMB
-         IcSiChIYc5OtxT7LxawZZwt+I4vRJx+Vqq/qgo8Z8FQoveqYdA9YRJcwE/sXvxSDpMRr
-         xicb0QeRwgjZ9gDwefSkUvHASJVJQlsYzMLlQ4EAKa7se1CKQDlqSiZO4Xwi4Wnc/QC2
-         VNJwxXOQsdQW6+6QcfmItcKP+zjvb/hOjtnhCrZe6LlBjJf4dHf/HEeX6Tndo67/JG2A
-         sGSH6TS8rkRN0Xbzr2uiSUXWh7FLBkPXcSgHu7bfSdxyrlnkvQ/DQ6n04bjGVmj+umb1
-         eyZg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794907661; x=1795512461;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aDSdHKsmTGGWkDOKCvZtMPEPFRR2Z2wRDeQx9ZQTN3o=;
-        b=xmiEZJsSsGhH0Kq5zFicjkbf0faHxpD0oiTjwurOay5aQkp+9iVxvvUd+RkRBaL6ha
-         c5egfoEVlcy+OMbZC4uWHDzwqQiJNo8EssdpN61e2RicjO83LjDhaM1ho1BAkaBsbH4B
-         tbciv4f1oydFlHPDwT6OPDMFWUUT4qbLDC45xxox52LUtP6U0S8/jdBoIsYjo/BvWoul
-         1HMa2sx8HaFEpymJNoJsszlhg3IOvWz9mg6lYCX8CjsmUeMkZTveX/Ibcn+m0YYVWsoG
-         gW8rOTdT6H1SLDlkE0RsOf3rFMiTR/s9UReBxcZ4Bu6Jtx6nUoPsfJLIA2CSgPErgZ5H
-         1mZg==
-X-Forwarded-Encrypted: i=1; AL+hErFG1VD+XZewNRuIRIZX95L2QQiO6MPBwabcXJUWMwbuZTBKBuo9NA/hbnGs4nhj+xoLbK2nNLU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8S5a4mp6ndPXYIrvEMdGdzvg8hyNAdjuBeD4nWIknuC6d4YFAX
-	QftHD5ubbuSQia0izoiiY8/U6oO39iOKeYgLKw+toD7HwBp+GPaFRkv6
-X-Gm-Gg: AYBFou3PTSacNuTpt9MrdOlBOCYjmBBX8YP/rvjFwuglnXhTBnBJI3FsFloIQs3iRDa
-	DzQ3/L/maWVoEDSN+44UPQco20M54AD1cBVgK9hoShq5oK+B4WAUvhZmyxlG1JG8tGDAYIQFuDE
-	a9ZoZimsxcv1mEQshR9Sj40l5mJuvxJJEYqC3RJKzTvXCmkNZcFgwDUzMcA4iqViITm2UI3gYJp
-	qMf/8VHd7ljFgIr9+qIfYktTMMSl/S7eEvYi5HjzTN6XBSsUtEy3kS6FRxfd0N0UP+C8s+AgdYA
-	1XAUhMBlfNiohmR6r727oAJR9Gw8VagJHMsKg+0cR7/29zpLSajTn/WzAfeTiqndKMSonxiHn5e
-	MDr8zj04OWfv0ebcYHJevf3h+bXJlt5bRYwbacIqq/Kv84thWDgrxn4/Uz4Myq5vgOgrfiewvTA
-	6CmSOhYHrioMJn8cbZPcWBScMgZOkQpLu9LCaY5pWnTX6bLM+VwZLry7kMzgklNDK/rvhKQU5wN
-	PWnyn8vuoTCiPQ+GcqThwqSwHoorvv5MyHNx0iPHE2C06JtCvyJ6F8LtZXoKY0DM7b3ProcaSuM
-	ExeqH80hJ64UPzKtuyL+0m/DOGOtVgGIVWpXX3iIyFK+EEG+22fbtOOqtmqWfKprUJxNoLE4nOm
-	0eg==
-X-Received: by 2002:a05:7022:438e:b0:1b2:539b:496c with SMTP id a92af1059eb24-1b503175d03mr21231997c88.35.1794907661127;
-        Tue, 17 Nov 2026 01:27:41 -0800 (PST)
-Received: from DESKTOP-GSNRJ5L.tail4a8ad8.ts.net ([104.28.223.11])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b50309b27dsm38381531c88.2.2026.11.17.01.27.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 01:27:40 -0800 (PST)
-From: onLeaf <onleaf322@gmail.com>
-To: pablo@netfilter.org,
-	fw@strlen.de
-Cc: phil@nwl.cc,
-	kadlec@netfilter.org,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	onLeaf <onleaf322@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] netfilter: ipset: exclude add-path GC during resize
-Date: Tue, 17 Nov 2026 18:27:31 +0900
-Message-ID: <20261117092731.14656-1-onleaf322@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jbvSV1cj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BEFC1F000C4;
+	Tue, 17 Nov 2026 09:28:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794907705;
+	bh=JWFRXkfma6kJ/DdhTdP8QnpGxO6I9Q72iA/ysnVQGz0=;
+	h=From:Date:Subject:To:Cc;
+	b=jbvSV1cjrsKP/qSvWAPv1cKLjYo68GOAuhqUUV+X/UaBiE3CC38LaQywuesl+u699
+	 8pLOs4l0099QmrGyfF4j1f83xVpk8ybz/nkh/1PZ51zaWUqRIIzTmu91GvCz9TSGQB
+	 o6zO0hZW7q7Cns6vMwZqtwN24y/wJ//KrCwBtrEgY2FBA3zpaFAYjXtu97262VEYlk
+	 Z0vVyNxumCUY/QaoKqluttIEUs+12PVNJMx3JKqzcEzPgi+r8mLnctXmqC8SWGllZq
+	 CrOJrpFR8+Lo1DCTgAuEOwkD3JxsLbw+Qc7IvX2K4H3ppjELK1X4thD+GKJtIbA6Z0
+	 DY7FduHR37bsQ==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Date: Tue, 17 Nov 2026 10:28:18 +0100
+Subject: [PATCH] mm/khugepaged: mark ptes dirty and soft-dirty on mTHP
+ collapse
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,61 +53,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
+X-B4-Tracking: v=1; b=H4sIADEe/GoC/yXM0QqDIBSA4VeRc52QFjl6lYhwedKzUYna2IjeP
+ WuX38X/7xAxEEZo2Q4BPxRpXTJEwWB0erHIyWSDLGUjhFD87TaLXls0w5ycHwyF9ONloyZV1aZ
+ 6aA259QEn+t7frv87bs8XjumawXGcML2iXHkAAAA=
+X-Change-ID: 20261117-khugepaged_mthp_dirty-067f734d38aa
+To: Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Andrew Morton <akpm@linux-foundation.org>, 
+ Nico Pache <nico.pache@linux.dev>, Lance Yang <lance.yang@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
+ Daniel Wade <danjwade95@gmail.com>, 
+ "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2705; i=david@kernel.org;
+ h=from:subject:message-id; bh=pWmy/78IyBmo0DcIlSiiIb0hh8w6aq2PIN74mUuISOk=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLL+yJle8vm29ZbDB5mXOqzSq4v0nv1+uePGacMHyot+x
+ ESKsBoc7ihlYRDjYJAVU2QJCr5v8PLlutpqNz5mmDmsTCBDGLg4BWAim+4wMjxSW9adcfTTLlmz
+ U1O+RD09Gr9P5NT/tSw6Xio8L606S74xMpw/VV/LWcrw/kiGmML8eWbP7kftKlko17Yz+eXZqwv
+ dNnAAAA==
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-mtype_resize() copies elements to the new table including their extension
-pointers. Garbage collection of an expired element in the old table after
-the copy therefore frees an extension still referenced by the new table.
+An mTHP collapse can lose soft-dirty PTE bits if pages were written and
+the VMA was then made read-only, and not setting the PTE dirty in
+VMAs without VM_WRITE can interact with a later MADV_FREE on a COW-shared
+page such that all processes lose the data even though a single process
+MADV_FREE'ed it.
 
-Commit cffcf57bf03c ("netfilter: ipset: exclude gc when resize is in
-progress") prevents the delayed-work collector from running during resize.
-However, mtype_add() also invokes mtype_gc_do() directly when its target
-region is full. The packet path can enter this call while a userspace
-resize is copying the old table. It then frees the old copy's comment, and
-collection of the published copy queues the same object for freeing again.
+Collapse does not preserve the soft-dirty bits of the old PTEs, so the
+new entries must be marked soft-dirty. map_anon_folio_pte_nopf() relies
+on pte_mkdirty() to do that, but only calls it if the VMA has VM_WRITE.
 
-An unprivileged process can reach packet-side ipset add with CAP_NET_ADMIN
-in newly created user and network namespaces. The resulting duplicate free
-was reproduced with KASAN on x86-64 and exploited from UID 1000 to UID 0 in
-the initial user namespace on a non-KASAN build.
+Further, after CoW-sharing such collapsed folios later, all PTEs will be
+clean and the folios will be clean. One process doing a MADV_FREE can mark
+the folios as lazyfree and result in all processes sharing it losing the
+data once memory reclaim zaps it.
 
-Serialize the direct collector with the same GC lock and honor the pinned
-table's resizing flag, just as the delayed-work collector does. The table
-remains pinned by uref while the lock is held.
+In map_anon_folio_pte_nopf(), call pte_mkdirty() unconditionally, just
+like map_anon_folio_pmd_nopf() already does with pmd_mkdirty().
 
-The issue was found through AI-assisted source review. On the fixed kernel,
-the same copy/old-GC/publish/new-GC ordering completed without producing a
-duplicate object; /etc/passwd remained unchanged and the test ended in
-LPE_FAIL.
+Consequently, we always mark these PTEs dirty (including soft-dirty) but
+only set them writable if the VMA has VM_WRITE.
 
-This change was prepared with assistance from OpenAI Codex.
+This essentially reverts Hugh's commit 1ac0cb5d0e22 ("mm: fix anonymous
+dirtying") that back then touched do_anonymous_page() to avoid forcing
+clean anonymous pages through swap instead of discarding them. This no
+longer applies as shrink_folio_list() allocates swap for ordinary
+anonymous folios and unconditionally marks them dirty before unmapping,
+regardless of PTE dirty state. Keeping their PTEs clean does not make
+them discardable.
 
-Fixes: f66ee0410b1c ("netfilter: ipset: Fix "INFO: rcu detected stall in hash_xxx" reports")
+This now also marks fresh anonymous PTEs dirty and soft-dirty in read-only
+VMAs when page faults allocate real pages.
+
+This has low urgency.
+
+Fixes: e22f2fe72c74 ("mm/khugepaged: generalize collapse_huge_page for mTHP collapse")
 Cc: stable@vger.kernel.org
-Signed-off-by: onLeaf <onleaf322@gmail.com>
+Reported-by: Chris Mason <mason@kernel.org>
+Reported-by: Daniel Wade <danjwade95@gmail.com>
+Closes: https://lore.kernel.org/all/20261117075246.61336-1-danjwade95@gmail.com/
+Reviewed-by: Daniel Wade <danjwade95@gmail.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- net/netfilter/ipset/ip_set_hash_gen.h | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ mm/memory.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/net/netfilter/ipset/ip_set_hash_gen.h b/net/netfilter/ipset/ip_set_hash_gen.h
-index 80ca523f304b..70f768ba7b44 100644
---- a/net/netfilter/ipset/ip_set_hash_gen.h
-+++ b/net/netfilter/ipset/ip_set_hash_gen.h
-@@ -1009,8 +1009,12 @@ mtype_add(struct ip_set *set, void *value, const struct ip_set_ext *ext,
- 	maxelem = t->maxelem;
- 	if (elements >= maxelem) {
- 		u32 e;
--		if (SET_WITH_TIMEOUT(set))
--			mtype_gc_do(set, h, t, r);
-+		if (SET_WITH_TIMEOUT(set)) {
-+			spin_lock_bh(&h->gc.lock);
-+			if (!t->resizing)
-+				mtype_gc_do(set, h, t, r);
-+			spin_unlock_bh(&h->gc.lock);
-+		}
- 		maxelem = h->maxelem;
- 		elements = 0;
- 		for (e = 0; e < ahash_numof_locks(t->htable_bits); e++)
--- 
-2.43.0
+diff --git a/mm/memory.c b/mm/memory.c
+index d2f48d78b0d7b..45875d1d3b3df 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -5522,8 +5522,7 @@ void map_anon_folio_pte_nopf(struct folio *folio, pte_t *pte,
+ 
+ 	entry = pte_sw_mkyoung(entry);
+ 
+-	if (vma->vm_flags & VM_WRITE)
+-		entry = pte_mkwrite(pte_mkdirty(entry), vma);
++	entry = maybe_mkwrite(pte_mkdirty(entry), vma);
+ 	if (uffd_wp)
+ 		entry = pte_mkuffd(entry);
+ 
+
+---
+
+base-commit: 1c2962a57377c9878cbefb747488324d4e678982
+
+change-id: 20261117-khugepaged_mthp_dirty-067f734d38aa
+
+--
+
+Cheers,
+
+David
 
