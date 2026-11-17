@@ -1,73 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794937714;
-	b=xGVBqM2dWMqOROlcC8Qjw1nF5ps0ek70cGPhYridUu2DM+0if8+fPyHh8lVcG41I4EDY
-	 4jUagq7TESf29t9fm8naSvDSsXcO5RXI1jPc7DOPug5wi/w/wkzYlZWAYMZMICA5jPb6x
-	 9PBAoSixr+qDgzEN7EswofIggOZ8s1qVUBvMPPIy20mWyeBCj0eMaR9QAGPxtL8tgZnGT
-	 I836w1a671ys4ds405jHyNR+RgBjMyFsoNJ1CynzpWguPx2YP8HUyXwDrmY9lm3XAKzpq
-	 cd7ve6b4ek3s7inMn57kf5LyCys+/5dCqTooa2JIaNssOPIVmIyEiLP98krC0mjzPaQ==
+	t=1794937834;
+	b=OCoEBKyYWQcPTC8phF85LX/wARq4uWKEo7Paa1rKmgXgesDfm2yTtwPrfKhBrxHKV7Cj
+	 2VVcKBlGGZNrL1DhUYoiRJZDw/5pXp+rqXOHQzdjoz2CvBd+QBULFsI3c9Tpgc2g7r0l3
+	 68p6O++3tAoD6ftdOwnba7kIo+E6gX3rf5aXxw+U1cEzjMgkIu7tzfMXeJQxsjEi7XeoK
+	 YALdx6xRkVZrG8lheawClftSl0d/+mRHGGDEnk9T4fiG/ZWokYlGlTpJ98pog9fcJkUG7
+	 cHfgIlbUEThP3ooFDi3P7DWiPRGe3F5qHOa4vDp0UdWpZYVVzkDJAokGUF+anMnZBmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794937714;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IM4foyJ0RX5Ci1v11jEYSe5L3PTEKXroDVN0F6QK9y0=;
-	b=g2QnZhEGnDJ81DZyKhHnJEgwva/B5voFPVj2JqiqaTDaTKX6EF6XZhFt+AcIiX0p50lM
-	 a9IMN4AOQAj30f1agePvASSsu1P0iexQdzf4E/LE5piht89jmkt+k02/kACwhayLfBbRs
-	 LOJKaeHyzNzGcT1ZiuFoqIxVmliqSw1Lh6lCS8UqhpaHRHK+YxokkhkSAv0v/b+BVtqI9
-	 dR4+NqyLPSdJI1JcGgHHMzTBY8Mtxhen3mi22dhMVTb1h3JbLrXzCnBAqzEX3LFJLfIOg
-	 Ro9haqDJB0w02/VZYyeXyl7dAZgi23zYMuihT8I7ZWRSWbd8Onyq38PuKxsz36wqBOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794937834;
+	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=QSfDtUjV5sqY0+clyuRqoFT0vPZQTGXQ5UrYyD4RvTg=;
+	b=pHvvLQ0lAZIIXICoLdHRgvuKno/DJXidyxpvr0/gopAXKzNw2RBzgqHRCdtdL45SoOQe
+	 kUW8dSDPRwA7I/SRSJUSaRyUmus+r6kK6uDnmiAlsk0hp1UZZQ8hlRSettRndxYU04NO+
+	 9T6agqgF2x+kXW5tVrJKEO08LGlMCEYqWshRMKkbuov54gK6PQL8cuPwCNgsQYQkarTTF
+	 xNoOxPIPnMl9lz3NY213x6VeLvKxibHg36GDWnKV2/bQNqZnDmuEuF8DUks3/37NoWnLp
+	 G9RU0tH55/hDwlx7zepExO27q9tM3n/fkip9me6wospdEaRpK0mNFVPbFdg4um4f2Hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=W80ozK6q;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id B77CC606A331;
-	Tue, 17 Nov 2026 17:48:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B77CC606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=linux.microsoft.com;
+	spf=pass smtp.mailfrom=linux.microsoft.com;
+	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=SroCFnag;
+	arc=none smtp.remote-ip=13.77.154.182
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A316606A31C;
+	Tue, 17 Nov 2026 17:50:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A316606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=W80ozK6q
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3D83E1BF3;
-	Tue, 17 Nov 2026 09:48:30 -0800 (PST)
-Received: from e137867.cambridge.arm.com (unknown [10.2.213.11])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 6208C3F632;
-	Tue, 17 Nov 2026 09:48:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794937713; bh=m6Izyk+wSH9EmsRBLf1kAV+ngPwW2rElHVDya5kr/XU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=W80ozK6qH8+2siXD/pkKOHzm8JeX3dgkeyd6HpFs8zzRkcYPCRICTWQYLpmZcqIXx
-	 uAI6FFz4gOt/HbZLJj0KQURCWfNvn8YrOKwPnowgxGDUdAS0ik5dwWih8HGV5ICeqo
-	 UUsE3LE1XtF5pwLenxOtQVKDPMqh6pc/0wYnF8HE=
-From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-To: linux-arm-kernel@lists.infradead.org,
-	Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Catalin Marinas <catalin.marinas@arm.com>
-Cc: Vladimir Murzin <vladimir.murzin@arm.com>,
-	Marc Zyngier <maz@kernel.org>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	Jinjie Ruan <ruanjinjie@huawei.com>,
-	Doug Anderson <dianders@chromium.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Thomas Huth <thuth@redhat.com>,
-	Dawei Li <dawei.li@linux.dev>,
-	mrigendrachaubey <mrigendra.chaubey@gmail.com>,
-	kernel-team@meta.com,
-	linux-kernel@vger.kernel.org,
-	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/3] arm64: head: set __entry_task along with task setup
-Date: Tue, 17 Nov 2026 17:48:14 +0000
-Message-ID: <20261117174814.95936-4-ada.coupriediaz@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261117174814.95936-1-ada.coupriediaz@arm.com>
-References: <20261117174814.95936-1-ada.coupriediaz@arm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=SroCFnag
+Received: by linux.microsoft.com (Postfix, from userid 1127)
+	id 6CB0720B716A; Tue, 17 Nov 2026 09:50:33 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6CB0720B716A
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1794937833;
+	bh=QSfDtUjV5sqY0+clyuRqoFT0vPZQTGXQ5UrYyD4RvTg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=SroCFnagoyusRmhlZo6m9GftCHWq+YhL/E79SWH/qWGYRAQED7VT3/q+1x5LEAcM5
+	 oJ+LKM91Ab05v6Lc9L2L49kvxk72M9ryYm+Dqwf4BCWuur+irnO9FkSOoOl2u4gVbN
+	 2I+jWmMF5VkZsgLFY1eXHjoLJdspUrPZflR97op8=
+Date: Tue, 17 Nov 2026 09:50:33 -0800
+From: Saurabh Singh Sengar <ssengar@linux.microsoft.com>
+To: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+Cc: dri-devel@lists.freedesktop.org, Dexuan Cui <decui@microsoft.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	linux-hyperv@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] drm/hyperv: wait for flip_done instead of vblanks in
+ commit tail
+Message-ID: <avyT6Zop6s5G5qwu@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <20261112184553.1595055-1-hamzamahfooz@linux.microsoft.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,59 +62,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="f/9VFZI3/4cqostW"
+Content-Disposition: inline
+In-Reply-To: <20261112184553.1595055-1-hamzamahfooz@linux.microsoft.com>
 
-`__entry_task` is only set after the first `switch_to()`, despite
-a proper task being set up in SP_EL0 as soon as CPUs go through
-`__{primary,secondary}_switched()`.
 
-As SDEI can interrupt execution at any time, it can interrupt before
-the first `switch_to()` and use a null `__entry_task` to set
-its current task.
+--f/9VFZI3/4cqostW
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Set `__entry_task` as soon as we have a proper task set up in
-`init_cpu_task()` in case we get interrupted before switching threads.
+On Thu, Nov 12, 2026 at 01:45:53PM -0500, Hamza Mahfooz wrote:
+> Since commit 52e6b1988334 ("drm/hypervdrm: Use vblank timer"), the
+> driver's vblanks are generated by an hrtimer, and the default commit
+> tail waits in drm_atomic_helper_wait_for_vblanks() for that timer to
+> fire. In a VM, a timer can fire arbitrarily late, for instance when the
+> host does not run the vCPU that the timer is queued on while the
+> committing task keeps running on another vCPU. If the delay exceeds the
+> helper's timeout, it warns, even though the display works fine:
+>=20
+>   [CRTC:35:crtc-0] vblank wait timed out
+>   WARNING: drivers/gpu/drm/drm_atomic_helper.c:1921 at drm_atomic_helper_=
+wait_for_vblanks.part.0+0x212/0x230, CPU#30: setfont/559
+>   Call Trace:
+>    drm_atomic_helper_commit_tail
+>    commit_tail
+>    drm_atomic_helper_commit
+>    drm_atomic_commit
+>    drm_client_modeset_commit_atomic
+>    drm_client_modeset_commit_locked
+>    drm_fb_helper_pan_display
+>    fb_pan_display
+>    bit_update_start
+>    fbcon_switch
+>    redraw_screen
+>    fbcon_do_set_font
+>    fbcon_set_font
+>    con_font_op
+>    vt_ioctl
+>=20
+> This was seen intermittently on Azure VMs during boot, when setfont
+> redraws the console right after hyperv_drm has taken it over.
+>=20
+> Cc: stable@vger.kernel.org
+> Fixes: 52e6b1988334 ("drm/hypervdrm: Use vblank timer")
+> Signed-off-by: Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>
+> ---
+> This is inspired by VKMS (which also uses DRM's vblank timer), wait for
+> the commit's flip_done instead. It completes once the vblank event that
+> drm_crtc_vblank_atomic_flush() armed has been sent on the next timer
+> tick.
+> ---
+>  drivers/gpu/drm/hyperv/hyperv_drm_modeset.c | 24 +++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c b/drivers/gpu/dr=
+m/hyperv/hyperv_drm_modeset.c
+> index cc5c5fbc8..8e5036051 100644
+> --- a/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> +++ b/drivers/gpu/drm/hyperv/hyperv_drm_modeset.c
+> @@ -504,6 +504,29 @@ static const struct drm_mode_config_funcs hv_drm_mod=
+e_config_funcs =3D {
+>  	.atomic_commit =3D drm_atomic_helper_commit,
+>  };
+> =20
+> +/*
+> + * Like drm_atomic_helper_commit_tail(), but wait for the commit's vblank
+> + * events rather than for the vblank counter to advance. The host can de=
+lay
+> + * the vblank timer for longer than drm_atomic_helper_wait_for_vblanks()
+> + * waits before warning.
+> + */
+> +static void hv_drm_atomic_commit_tail(struct drm_atomic_commit *state)
+> +{
+> +	struct drm_device *dev =3D state->dev;
+> +
+> +	drm_atomic_helper_commit_modeset_disables(dev, state);
+> +	drm_atomic_helper_commit_planes(dev, state, 0);
+> +	drm_atomic_helper_commit_modeset_enables(dev, state);
+> +	drm_atomic_helper_fake_vblank(state);
+> +	drm_atomic_helper_commit_hw_done(state);
+> +	drm_atomic_helper_wait_for_flip_done(dev, state);
 
-Remove the second paragraph of the comment on `__entry_task`, as it has
-been incorrect since the introduction of SDEI, and even more so
-with this change.
+Thanks for the patch. Below are my thoughts:
 
-Fixes: f5df26961853 ("arm64: kernel: Add arch-specific SDEI entry code and CPU masking")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
----
- arch/arm64/kernel/head.S    | 3 +++
- arch/arm64/kernel/process.c | 3 ---
- 2 files changed, 3 insertions(+), 3 deletions(-)
+Since flip_done is normally signalled through the same vblank timer,
+this change does not remove the dependency on that timer. However,
+drm_atomic_helper_wait_for_vblanks() has a 1-second timeout, whereas
+drm_atomic_helper_wait_for_flip_done() waits up to 10 seconds.
+Could you clarify whether the change resolves the reported case because
+of the longer timeout, or because it avoids waiting for another vblank
+after the commit's event has already completed ?
 
-diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-index d6ba3c0af811..e53a9c6fec83 100644
---- a/arch/arm64/kernel/head.S
-+++ b/arch/arm64/kernel/head.S
-@@ -209,6 +209,9 @@ SYM_CODE_END(preserve_boot_args)
- 	ldr	w\tmp2, [\tsk, #TSK_TI_CPU]
- 	ldr	\tmp1, [\tmp1, \tmp2, lsl #3]
- 	set_this_cpu_offset \tmp1
-+
-+	adr_l	\tmp2, __entry_task
-+	str	\tsk, [\tmp2, \tmp1]
- 	.endm
- 
- /*
-diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 42b15b0c069f..c3d194676efc 100644
---- a/arch/arm64/kernel/process.c
-+++ b/arch/arm64/kernel/process.c
-@@ -584,9 +584,6 @@ static void ssbs_thread_switch(struct task_struct *next)
- /*
-  * We store our current task in sp_el0, which is clobbered by userspace. Keep a
-  * shadow copy so that we can restore this upon entry from userspace.
-- *
-- * This is *only* for exception entry from EL0, and is not valid until we
-- * __switch_to() a user task.
-  */
- DEFINE_PER_CPU(struct task_struct *, __entry_task);
- 
--- 
-2.43.0
+This seems relevant to other timer-backed virtual DRM drivers as well.
+The older wait_for_vblanks helper also predates flip_done tracking and
+has previously been described as an interim solution [1].
 
+We already have a vblank timeout increase [2], and Thomas's timer
+reliability series [3] also discusses delayed vblank handling triggering
+DRM checks, although it is not clear whether those changes address this
+particular case.
+
+Using flip_done is consistent with VKMS and seems reasonable. However,
+rather than duplicating the default commit tail in each affected driver,
+could we consider a common DRM solution for all ?
+
+It would help to identify the precise condition causing the hyperv_drm
+warning and explain why the existing generic timeout increase is
+insufficient. If this is needed as a targeted stable fix, please document
+this in the commit message and as a comment in code.
+
+[1] https://patchwork.freedesktop.org/patch/318967/
+[2] https://git.kernel.org/linus/79ae8510b5b81b9500370f89c619b50ca9c0990f
+[3] https://lore.kernel.org/dri-devel/20260601141922.91498-1-tzimmermann@su=
+se.de/
+
+- Saurabh
+
+--f/9VFZI3/4cqostW
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQSOqWrMiH3/c1LKmklbHLbp+maJpgUCavyTqgAKCRBbHLbp+maJ
+ptX+AQCvqs8s3A/QiOZyMW2rQ0axdEX4xRC69UVxuJY95Ybr1wEAvwl8h2YH2o8b
+8BdsJIyonDy+BrA6EAXg95J+LL58cg4=
+=bI4E
+-----END PGP SIGNATURE-----
+
+--f/9VFZI3/4cqostW--
