@@ -1,99 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794942478;
-	b=F1N/GGxBUGcSnK6dh3jDhR2JyaGKPX3DcfI8qNsoG0ZOsRpvqX8RLKY6Ksc4I4w8avNn
-	 9Mi7i9f7AP/OswzjaTjnrv7n0HamCEf+iKr35nrPuFGJTB2ldFH1F1wUnTuKtXNKnCiBr
-	 jlUzGlbcCYGwtb9UcJxI6rUJue78b6/9ydK0OOfhKQ9porpiJkiPfPGoC7olId+DYhBMc
-	 DsJxLEbVXtH+pdkHIPd2ocozjlO1XYe1CmDx8XxcjBpiJJgpq7QX9vNnweGGKklYuGdWo
-	 CdZiRAwZRajtkprLGm/m9pD9qZ8Ld1i7tHYf8yZT2kSUw90GTWxHwfHLqLKE7UilO4g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794942478;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794942743;
+	b=d1FpQsDpIzrCsVjvxbvwmVF/h+veCZCckVAm21WQX1U8lhDmFTD+qDTeF0JDfwmDofDi
+	 5D7mooiS2JqwTV6B9b0cUVW0j5tnHaI458x/79lwgp3CXMj9mglYB9GvkCNoGe8CpNuke
+	 hse8Q9UadEuEFQN1Upl9FNzp3TwKLSD+aUF9prvXThdyCtas/AwE6LP8CFbGvIGSLDIh3
+	 UDzCu/iV6gztT4Urq9vJYm8bfCSItfmIP+Ycic49+/9TpTXaLFcOfNl+9OZarvqm+RGt3
+	 NKDF/BQFi7sUuebVKILgjego6EIewmDaqKBymSROU6Dj4lgYplgU1lGE2+PX4YrTANQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794942743;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=d4mLDd/uQdN7bY/YPYFedZvFpypXkiop92AccgpkyLI=;
-	b=LvCf5oDpXEDSoq7ZIAUO+3jenV86ewYUIaPxA1jPCprk0Mo5YyEv2PGugaabdnkK84B2
-	 G2Jeds6z2fDfJNOvbZ2BEo4hjLoVvdhS8Y+0RqG8tZIgcVjb+FSJY66yqw1QqAfmmHTtS
-	 MPTwf/irHZ1d4moI1nupK/a24dTBnV67o6D4B1TxBghGcOEf4nkA7KxOd421Y12nwVdaI
-	 HU8eQJmTKqd9Or2FneaolklgUteT7e2sU/TxgSMIw+yiEH0Lxye3A4w04WHNBK7B61LFM
-	 kHomimjsJDbtDIvxSUK879FCSol+6dQ7WtM+gCAPGdZFzqkzm7zN1ClopSIN1JH3BSQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CWEDb1yh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	bh=fEyRTCIvFn0qfVWEf26UkSN1N6cLWQriDiBDA0wCb/Q=;
+	b=YO40BEx1wAJ+guz4QV7jpJQ1OAk4Hsh+79Xrh5coACyfP+NlUbLfVFK7BgPJ6Sh8HCB+
+	 /fkGJ37cmRrdcUp2/OzjIAUlf47UPhX+asOL+sCq6EaFKjfnWOU7Jv2aTjxcRRCG88xFQ
+	 8HQjlIQZykYG4ZfjpdKtL83UmGnqNFwHJ7clnhc1Umzqjkq6M3BjLchLQuI+Onn0WpcG+
+	 u7phBv52d1yFRkH6mm/ifLINRYqZnlX3opnjg7KwYEtWO9kyP491BmjS09GgIGEPZx9Pr
+	 nhOIIF6oOnrQ9GxlcjuyjZH/G87/wbsVXLaET8oTzd+ZISDsI83onwYN9c1en/Swm2A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=C3aPZAG2;
+	arc=none smtp.remote-ip=209.85.218.51
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E873606A32C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 19:07:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E873606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F248A606A31C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 19:12:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F248A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=CWEDb1yh
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b7bffb5b8fso244184a12.3
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 11:07:57 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794942476; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rbWOmxu2Yft7PO0VuMrcEp9RqFLlcn5AqzNjP4ROVKEc4McyM1PmuzYm4oX9LPZ6H/
-         ftFuC+Kd5/znFQ3GI0xH/TEu7l8/0eUF1Z59ugOGN7E10CBKScCAWFvNA6Jn/hZcq6UJ
-         KCiOdlTko/dwsPV5aQJTcVs6wbkecbK1bDoAtiX0pPf11vb1quV/QNMahaHDrQBeKkvf
-         KPRIBRMC7Lsa6PTku32EuyzCLWzHtFpvzS7xXdTRdOMx78aYpSkxREU4PhPl9D6v5Ukf
-         aXJdjX+PKfKt5GP0/QctpHpYoC94yLBrKFL4vQVygNIjlRlswh7k7wz7VEo1JZDceqBv
-         aYZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=d4mLDd/uQdN7bY/YPYFedZvFpypXkiop92AccgpkyLI=;
-        fh=2ciEgnaKmEkuHKzhZCpIfibrrnU7OKrNl37Q9S/LdS4=;
-        b=dYgU19jRka1HrFrvP3lbxPo4jOi6QaKBKIxdyKUYfWYgOMONEHC05zkPeORV5gPPz/
-         hIio5Qgxz1MGp/YSHxKdnB7kdHMV8Yy+/Mam/sKg/vkxd/CILxwEJY9Ik165km6QsGgs
-         m5LgchLhx1eWoRo/1y847Ma9T0z3aTGeK7bL0IShfIrWqNCB4mIRpH/TL94itDOKxL4J
-         FCNqPGaaxaNBY5k/ob++AkuGU4To+mxSd+e59zKzoiECcNQ1Y1/HrVzkxq9LVLAP/1KC
-         TYQKnVvx99WiEQR9ilNVY88FpE62rZMCzH12EhwABmi858G5RiaB6JuJ/Vv4z9yj6n1L
-         0UnQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=C3aPZAG2
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso6473266b.2
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 11:12:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794942476; x=1795547276; darn=vger.kernel.org;
+        d=linux-foundation.org; s=google; t=1794942740; x=1795547540; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=d4mLDd/uQdN7bY/YPYFedZvFpypXkiop92AccgpkyLI=;
-        b=CWEDb1yhsbiFDT5/IZ7/+ZOPrREOd7QYymfn4mn6Q3O4M/XOPJQqPTJGnqB58RMoTK
-         d51OjAwbUOQEm/An9tEkboKSQwfKtTb8W+xK6KBYiwTpDVtsT1Fn+G8BinE+hThL6m8s
-         tLj33Jhkm01QTnfdykjmupghPb+SK9MpqJefbIjMr+4rGizgja6sZXviI8I3ITtFJzhw
-         rL3zqAoAwzgrDWNi/SI5ETV2c0I4Z8dFBV/4wDWA3foDkVfxfPgNHHfYUqQgP3e1xJKf
-         diZXa1wC79ggb6lRGQq65T2e2E0DuixcvtCunKoSzhLcGv4GlAB1MlHlX3Uao4m1tb0D
-         2GOw==
+        bh=fEyRTCIvFn0qfVWEf26UkSN1N6cLWQriDiBDA0wCb/Q=;
+        b=C3aPZAG2dTLoBFYlxxrQq6KwJnmdhms1ucgWVIjZ02zpCV2jhSVlbpMpZ1cXxKCqhP
+         WScDxiriOBEoyPYHx660SiQKdRU4kGvMXXUAu4XFNCq+UNP512t5U5F5yJ6kyE9HvpSS
+         uYa7IUMAAemFHtwZGl6efYIAsTzlkFqhu7geE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794942476; x=1795547276;
+        d=1e100.net; s=20260707; t=1794942740; x=1795547540;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=d4mLDd/uQdN7bY/YPYFedZvFpypXkiop92AccgpkyLI=;
-        b=mBkas0ILS1ouEJxOwQbnvkKtGDY6SygMd/5X8V2PkQucjyg7/mV24l2liqMGCLtP6j
-         KNHNADciakj8j983lKUMMGvjUqc21lexoS/9V28LBq5KKnnuae0zetCnmzcPCxO39tNv
-         o2jjdPgp0VCa4zRL7ufOq/DqyPFe2jpic9Uqg/P3QA0xeE6YWW8WBQDkh07JKz++lQB0
-         MMzLeGYqI48qWumybPUN5Rkinr1BbQ9t3EiPkFrKVhcC+Xg3TZnyK7dulrvi9ArOj5Z8
-         LBQA6zo/clfOC0/+9YGvIIMD3c8jUuo5OYxJgsjiKO0SUh2WAyGndnM4R+EizbSzgbI7
-         QB4A==
-X-Forwarded-Encrypted: i=1; AL+hErHTMf28MllVJEa9XK3QbmBexZzuxtEyIdqA5PrOrztFPBQNAec2RNl2bk95l4vjkD3bXj9OAcA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/f3BwqSzo4K6lyasEuktGAa2qg29RWHYROy3zQI4DJg161ODX9
-	eo3qKWpRInp/oIy6N6iO5c5iaR0jX50iO/jr2pWucbx3G45GctCFlmwkoxTra+d+ZOBkJhM/Pfl
-	RbwB9P7R/aLCVwouDaLnIKEKHdwP+A1YfBowUZnAt
-X-Gm-Gg: AYBFou3I9BwKJUbQ3SYPXaMs82iNscfCLGlgo7g0P4YeTIpO7C8X1qWGYX61mLHnIeB
-	hjEai0KeB1fRxdIK9I0h7/tvEU2qgyk7zo5PTd7WJujAKXtTdo5nUiKMurXui5zyPLM1iOXSM/1
-	ghxT89HOBFbSGvTARlV2y5sM6D+Dd1YV9nUn7/urXTkkfnuLGCz1MPSEiHnf4nG+5cdtlqpvbw7
-	6fJCGBbREsHedUEM06bZcGHtewaIBW7bBcltv4D89leJFr46XNosdwiBiw0SrYKnAW13JRiAI8q
-	NU5qYq3UIJB9PNOxgTScwXaOOV/84nw3pP7vxBoO+VkAFBqh0h5R5VI2Pp1iDR0hBHgBaMK9moK
-	CEkOBBJc78CJPQQ8v1i5sDrzBfnAXoQd0glp29OtNrnNVlgI/HJ7P5nspGwRXGOf2V1s=
-X-Received: by 2002:a17:907:2d13:b0:c40:b477:dfa0 with SMTP id
- a640c23a62f3a-c510e1e90f1mr20057266b.18.1794942475932; Tue, 17 Nov 2026
- 11:07:55 -0800 (PST)
+        bh=fEyRTCIvFn0qfVWEf26UkSN1N6cLWQriDiBDA0wCb/Q=;
+        b=oNhpK2KWwHRHucfDeqariJQdCiozUc9HdarC2TVOwQkvohhst7wQZFQBK+yNCgdtn3
+         1+alAxJoJ6GIvlIUToxFcly7VYhz6Xsvt1q/+DOu4rdb0UzpQ0K/qGGl9ZKjQg7S+Ky6
+         lnDb/mrwbk4ewiRg+z8vDv4J+ycBUPFHPVpA2bwpNF3U7EczJYvERaagzcU0djrMFJh1
+         iDk+81iMfwNyTSJcJkwwlBuyxIgy25PsnH2CXfgezyaOY5czx6WRG1JISWeOke2Nyb8r
+         20+5uriv8uHepMzN8rsVdSoICOLzjs4dVSTNNDvZTlMvsCQE9mbqcPhQQ5Z0I4jKspg1
+         o3Nw==
+X-Forwarded-Encrypted: i=1; AL+hErHowNvkyOgjY3z7jLHFNraE2rkq+KqmrKpAksx343+ZimDC2BwkKOPUzp0Cy+VynwwaWbpaoOk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z92+x3zI5vERQv9opuyla1cN4O7A0gfIhFYs+OMV9LDv0uSyFVL
+	9EfGshaBNia9dCCtEDamJzKaACAVlaMwpFvZNCX/Xhvd15Bd6eZtSczkIBjhFhOUx2fQ2sbaIHX
+	WfqNrRlZZ7A==
+X-Gm-Gg: AYBFou1vgtYglQVfuZQrg92pMCy2W9DjUz3urBn0dedtw4DhnmbB6DDtf1G42CwwQcv
+	f2aepS/mVd/AuXFEy9UeYC7QGd7XE1X8eITrsLZUEeeP6IcVHbuq45WWW9vO+G+HxQABbGDVupr
+	Dq8i19LQzltHoYAZ94IGWRiu87svmud3G32tYcjGzKbanNK22lz6caNd0sLm05LS5/xM7MrRuNr
+	iJ8SLLonguLpgHxhgRINWB17sP0K5XYRP88AU9D6Cc5ZRiy41oOaqNl41WjdYOBEOBPnNjli/Za
+	ljKYdrCvmqgaJxmv8EXiw850XBlyoSa2bze4/8E6DY9yflsUgGG+N/yDJMMNR5BfQdRm1K3DAKA
+	NujlS+WTeuA2iLTRXDGFBRw+4KDAEqvXv2FclU9/pvTgjeUjzudemxoxAYwCDOSgqF65qOQYjM4
+	C4f4+6fPm4/vESq+iFfy64BL3t5wfXBW17smXY/xLZpv+UDtu9lH40EdookjzwE1Gm0INmmS5q+
+	LiP1dHbYhJdbF5v8VVqGyr5W8TL9ddVHaiErb9tlA4HujTis3zJHn+VFO7enjhp01O99xcaDDw6
+	MlqVu+xisfUu8465YATqQ3rM2R3AhRfgKq/QkSKE8r6LGgPshxB721YnW2MF0HjdhnhVBI9CSSe
+	4Txs=
+X-Received: by 2002:a17:907:3e0c:b0:c41:5a0e:3356 with SMTP id a640c23a62f3a-c510e39ca9amr19244766b.41.1794942740432;
+        Tue, 17 Nov 2026 11:12:20 -0800 (PST)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com. [209.85.218.42])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b888ef94a5sm30814a12.4.2026.11.17.11.12.19
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 11:12:19 -0800 (PST)
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c505186727fso6336466b.3
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 11:12:19 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFm8tcTyGGWKrU+ZpdnMmeEcETp4SNyW6l7ZZeGLhBrKce+KC/1cc/jmyNWk4agFV1yEo+OONE=@vger.kernel.org
+X-Received: by 2002:a17:907:d409:b0:c40:3a99:3f96 with SMTP id
+ a640c23a62f3a-c510e162740mr19765066b.10.1794942739071; Tue, 17 Nov 2026
+ 11:12:19 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,49 +94,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261112-blk-plug-fix-v1-1-7fa2a6215b8d@mediatek.com>
-In-Reply-To: <20261112-blk-plug-fix-v1-1-7fa2a6215b8d@mediatek.com>
-From: Sandeep Dhavale <dhavale@google.com>
-Date: Tue, 17 Nov 2026 11:07:44 -0800
-X-Gm-Features: AclHuK8_K-iJgh8nbeVlichavK0zIZlG8B8U4MkOUyaGlS8RKuiq1rZzu30675Q
-Message-ID: <CAB=BE-S68WquuwZ506RriJctggHCebbNnhX+EYMWjxZxMqRDMg@mail.gmail.com>
-Subject: Re: [PATCH] block: fix PF_BLOCK_TS/current->plug ordering in blk_finish_plug()
-To: Zi-Hao Huang <zi-hao.huang@mediatek.com>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Chao Yu <chao@kernel.org>
+References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+ <avxWKI795DthE8Sb@redhat.com> <CAHk-=wjOq+G=6gte4vX_YxOD_VfE1uZh7=+KHs8N0wU75xyHEg@mail.gmail.com>
+ <avyODoFhZ_M7YDU5@redhat.com> <CAHk-=wgcBSBtHE+3ceKGjq1jyF64OyoEqf5JPpixowAa80GqNQ@mail.gmail.com>
+ <avyVwg-5ef-pXZkG@redhat.com>
+In-Reply-To: <avyVwg-5ef-pXZkG@redhat.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Tue, 17 Nov 2026 11:12:02 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wjJF8uZLfVbbqei9-fhs9K70i2OnVreCV-rQF9EGKAxJg@mail.gmail.com>
+X-Gm-Features: AclHuK9dpUSJoar-8-Rd_ibx448sJ7TbrjnfHX7r-45ghAgtBLw1mawjEAbP-so
+Message-ID: <CAHk-=wjJF8uZLfVbbqei9-fhs9K70i2OnVreCV-rQF9EGKAxJg@mail.gmail.com>
+Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>, 
+	Breno Leitao <leitao@debian.org>, Christian Brauner <brauner@kernel.org>, 
+	Mateusz Guzik <mjguzik@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	tz2294@columbia.edu, stable@vger.kernel.org, 
+	Mani Tofigh <mt4022@columbia.edu>
 Content-Type: text/plain; charset="UTF-8"
 
-Cc: +Chao Yu <chao@kernel.org>
+On Tue, 17 Nov 2026 at 09:58, Oleg Nesterov <oleg@redhat.com> wrote:
+>
+> On 11/17, Linus Torvalds wrote:
+> >
+> > So what we could do is to just make the pipe code open-code its own
+> > wait event logic, and add its waiters at the head.
+>
+> perhaps... and we already have WQ_FLAG_PRIORITY, but we can't re-use it
+> without more changes...
 
-> Fixes: 06b23f92af87 ("block: update cached timestamp post schedule/preemption")
-> Cc: stable@vger.kernel.org # v6.9+
-> Signed-off-by: Zi-Hao Huang <zi-hao.huang@mediatek.com>
+Ok, I looked at this, and it gets ugly, and I'd worry about the
+unfairness. Yes, the unfairness probably helps throughput, but every
+time we've doen that, it ends up being a starvation issue for some
+case.
 
-Note that Chao independently hit and posted a fix for the same panic a
-few days later [1], placing barrier() at the end of __blk_flush_plug()
-instead. Placing barrier() here in blk_finish_plug() looks slightly
-cleaner since blk_finish_plug() is the only caller of __blk_flush_plug()
-that clears current->plug.
+I think "ignore it - bad epoll actors get to use both broken pieces"
+issue unless somebody comes up with something nicer.
 
-One correction on the Fixes/stable tags (which Chao's patch got right):
-06b23f92af87 checked `if (plug)` in blk_plug_invalidate_ts() and only ran
-from sched_update_worker(), so this preemption race and NULL dereference
-was introduced by
-fad156c2af22 ("block: invalidate cached plug timestamp after task switch"),
-similar to
-691b052139c9 ("block: fix race in blk_time_get_ns() returning 0").
-
-So the tags should be:
-
-Fixes: fad156c2af22 ("block: invalidate cached plug timestamp after
-task switch")
-Cc: stable@vger.kernel.org
-
-With the updated Fixes/stable tags:
-
-Reviewed-by: Sandeep Dhavale <dhavale@google.com>
-
-- Sandeep.
-
-[1] https://lore.kernel.org/all/20261116000723.934826-1-chao@kernel.org/
+             Linus
