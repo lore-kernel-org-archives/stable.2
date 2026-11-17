@@ -1,57 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933532;
-	b=MQ+uM7HGNncM3JUGP50A0qhmWGfeCLwZBOXR4qQmzUa8j6regsBqMMCLcvWbyQmkoPNd
-	 UIoFKujXVQFJXcJuhzuU6FnefrOMBp3Af4vxId0pijvEbEzeekB4VjRX5qwjNSwy6E814
-	 cBlhWcsZXlT2Sv8wxATNjhYPAUy50Ituh6Y/nH//43K/IQ0jl3k2/fTirgFuA0WEMH5uv
-	 jo+586exxrP32MJCnw984yhk8yVvPaad5AEqX0twUR54X9cSovKREUUr4UcGnlx3iX/YI
-	 T/j0urESxxj5Vq6U2hCFD4z56WZ6rM3Ygc1Z3kPomy7NqeMLsagXQORhi6Rx3HYHWjg==
+	t=1794933543;
+	b=TWp3NzUozlXM2WwCI0W4uYwUKOyxCnZUFSh1DCvc7AXI2KxzE5nC2fQrIfeVgtUlnbB7
+	 iZkcX3l0uoI5ULIfT7DCN7UEpX9caIWUw0YznLK5wNUWmCgExJTGej3lbbuEMZ/cz8g1R
+	 5vo2kV8twzprXqpysSkJfuONPCl3toVp7anaP1HFIh4EYqF7s8dqIgo0UFcBmO2yOnN2W
+	 VQDGyCNJJxirOs2j9u0pkhWffN5PfB4T4IcN0yFLe9DpupWVyNy/GON3aHBcnRYK5dNSs
+	 t//kyO4UA9Oyw3fX4Zs75Cq7ccRCEH+y+aNItYiIvKnoSPU6y1w423mYpDQFNxs4V3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933532;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933543;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=inYPwFWtz6Fhbb0Ds7p/Mg4vtxJtzdBV5nXwHlDvwmI=;
-	b=XCgnRy4biL/IaqAQ1UTx6UCro1Uk8CJkNAZ0j2k5MhBsKhywD9GXVs9/8a9X4Qy0EoXk
-	 COUCNM1QxBVpH21mI5GosSPIG/efktmeM0oq6m8lfV3PnixHqr/kJwN4Pr9Eb8V3AOdZ4
-	 DDeEiGbUkJWTygrrEB1zRk5pTZLUIBUeyoEog6YXQzJqCt7MEDpHrM4OrPOdpdKN2iH98
-	 H77Q3yEyJ69En4abcpeymtApCrsPg/b5tAsev/zsXkLa9w11PgHuaF5M3lRAqLelh5vgo
-	 mkibI7beT55vUAIUJnk2aJXcHMUvqDr0p7dOQE7Xi6QBTRz18k4grNeqhD12JLAwQPQ==
+	bh=Pfmnvxj9CbfQ1DpBEMDbGnnfXt+Q39t2/T0T0Pu6Ftc=;
+	b=n6WIeqigNJo1At9W+QKjNyctwD+icPNGPHGjlaVKheAyZs6s60I8RPqM13mK2gc5jwZS
+	 UGm6MBzTgrYACAdIDSEUtjQ3vkXoYi4UIZTQimFaYQddDd7S2S9zdPXC7G9OVxUPqJyoY
+	 XKpmf8Nc6lYrz1GUvpkZj07IwnWQij6UunpQfTzjpdbOEEhGHcTydZQ2TuGcHQbxFpM9J
+	 Vhu1kTdhzgSqm272MiZwXfLlphiNokazuqOHB+ZS7IolQPQZWJtbUyX2X/57pQAecTQ5d
+	 gL0CyUj7hU9Xho7kEZUZkJKS1XRzmCNjuypeo9VKJfPhLh7OZhULy6eLjN4jOOUWcqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DQ4ILVz9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cMuQJ9FK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F925606A332;
-	Tue, 17 Nov 2026 16:38:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85E6606A330;
+	Tue, 17 Nov 2026 16:39:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DQ4ILVz9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B688B1F000C6;
-	Tue, 17 Nov 2026 16:38:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cMuQJ9FK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D5151F000C4;
+	Tue, 17 Nov 2026 16:39:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794933532;
-	bh=inYPwFWtz6Fhbb0Ds7p/Mg4vtxJtzdBV5nXwHlDvwmI=;
+	s=k20260515; t=1794933543;
+	bh=Pfmnvxj9CbfQ1DpBEMDbGnnfXt+Q39t2/T0T0Pu6Ftc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DQ4ILVz9dlD4rNMm1TFFLMK0m98Qy/YwJIh9ac+prQe9HGnH30DP99R5WKNfzuXY3
-	 o0gtxbIM7sngwXJaO1H8rLXIZ6Kih+puCmU1wtwvwnFjibhM+xbDCbivkOiF+0xC5a
-	 gK5AIxx9rlMA3l5Lap4rLaiBwmv6M6o8BotuwI7OglZI+Cc+J6dZwjrCRVEylrENhR
-	 PP6zqXuDUXe2KpLa1C/SYJK29lkOSZpFA/XQudDrNV11w3hSdb4PgV5M3+fHQqkmfM
-	 KWJtfLTYKDLD9qPu+I7Wrh6ShgWEB9puOKEegdUIQUKfTW/9tZ/RCs/lUFnJhMdwBg
-	 VKLaRH8dJMlUQ==
+	b=cMuQJ9FK1PHznyu4NZPRUAJ4VOHdcaqMcn2LHbIAcspA0Jn+nJyNCZ0gTsLKwf8jX
+	 4ll6OimP/Cx450xqbmlmw7SiXpEyRzzU2PZ/oUjKybiqRG/GzjIVOWX4r328I0lEOk
+	 tUoTDGkaFL3kjuJrpi/tyANJvtivxjA0ySxUP4g2SC9vG/M5CoPLn10OzYdXhByYKW
+	 taU8JTxpwGudZGRLlmTZP3fzgJHi1V3251d9OwSztxyJL38KXbbJtZCQnkr+QRjLID
+	 YFqoP5jhB7iASLudc4UgwxZMTdnjPwHCvXTlVMy7BrlUUidZbkvPDBgP1kD3PzUZbH
+	 PSWlDY739hPow==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+	Xianwei Zhao <xianwei.zhao@amlogic.com>,
 	Vinod Koul <vkoul@kernel.org>,
 	Frank Li <Frank.Li@kernel.org>,
-	Sanjay R Mehta <sanju.mehta@amd.com>,
-	Gary R Hook <gary.hook@amd.com>,
+	linux-amlogic@lists.infradead.org,
 	dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 05/11] dmaengine: ptdma: Remove completed descriptor under vc.lock in pt_cmd_callback_work()
-Date: Tue, 17 Nov 2026 16:37:06 +0000
-Message-ID: <20261117163809.622249-6-lee@kernel.org>
+Subject: [PATCH v2 06/11] dmaengine: amlogic: Destroy free_wq after devres DMA device unregistration
+Date: Tue, 17 Nov 2026 16:37:07 +0000
+Message-ID: <20261117163809.622249-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
 In-Reply-To: <20261117163809.622249-1-lee@kernel.org>
 References: <20261117163809.622249-1-lee@kernel.org>
@@ -66,44 +65,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pt_cmd_callback_work() drops chan->vc.lock before calling
-list_del(&desc->vd.node), racing with concurrent virt-dma list
-operations such as pt_terminate_all().
+aml_dma_probe() registers the DMA device with
+dmaenginem_async_device_register(), so dma_async_device_unregister() is
+deferred until devres release after aml_dma_remove() returns.  However,
+aml_dma_remove() destroys aml_dma->free_wq directly, causing
+aml_dma_free_desc() to queue work onto a destroyed workqueue when
+channels and descriptors are released during devres teardown, and early
+error returns in aml_dma_probe() also leak aml_dma->free_wq.
 
-Move list_del(&desc->vd.node) inside the chan->vc.lock critical section,
-matching pt_handle_active_desc().
+Allocate aml_dma->free_wq with devm_alloc_ordered_workqueue() so it is
+destroyed on probe failure and after dmaenginem_async_device_register()
+unwinds on removal.
 
-Fixes: 656543989457 ("dmaengine: ptdma: Utilize the AE4DMA engine's multi-queue functionality")
-Closes: https://sashiko.dev/#/bug/linux-55f1563b-5563-492a-a291-1a5b772ffd42
+Fixes: b84b5197e344 ("dmaengine: amlogic: Add general DMA driver for A9")
+Closes: https://sashiko.dev/#/bug/linux-c216084a-f89a-48d5-bdea-584522d1bdda
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 
 v1 => v2: No changes
 
- drivers/dma/amd/ptdma/ptdma-dmaengine.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/dma/amlogic-dma.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/drivers/dma/amd/ptdma/ptdma-dmaengine.c b/drivers/dma/amd/ptdma/ptdma-dmaengine.c
-index a0a1c7ec2ae5..a75a9a316e83 100644
---- a/drivers/dma/amd/ptdma/ptdma-dmaengine.c
-+++ b/drivers/dma/amd/ptdma/ptdma-dmaengine.c
-@@ -365,6 +365,7 @@ static void pt_cmd_callback_work(void *data, int err)
+diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
+index 684121d13fca..791bd82743d3 100644
+--- a/drivers/dma/amlogic-dma.c
++++ b/drivers/dma/amlogic-dma.c
+@@ -620,7 +620,7 @@ static int aml_dma_probe(struct platform_device *pdev)
+ 	if (!aml_dma)
+ 		return -ENOMEM;
  
- 		dma_cookie_complete(tx_desc);
- 		dma_descriptor_unmap(tx_desc);
-+		list_del(&desc->vd.node);
- 	} else {
- 		tx_desc = NULL;
+-	aml_dma->free_wq = alloc_ordered_workqueue("aml_dma_free", 0);
++	aml_dma->free_wq = devm_alloc_ordered_workqueue(&pdev->dev, "aml_dma_free", 0);
+ 	if (!aml_dma->free_wq)
+ 		return -ENOMEM;
+ 
+@@ -712,7 +712,6 @@ static void aml_dma_remove(struct platform_device *pdev)
+ 		if (aml_chan)
+ 			tasklet_kill(&aml_chan->vchan.task);
  	}
-@@ -373,7 +374,6 @@ static void pt_cmd_callback_work(void *data, int err)
- 	if (tx_desc) {
- 		dmaengine_desc_get_callback_invoke(tx_desc, NULL);
- 		dma_run_dependencies(tx_desc);
--		list_del(&desc->vd.node);
- 		vchan_vdesc_fini(vd);
- 	}
+-	destroy_workqueue(aml_dma->free_wq);
  }
+ 
+ static const struct of_device_id aml_dma_ids[] = {
 -- 
 2.56.0.679.gc527c65306-goog
 
