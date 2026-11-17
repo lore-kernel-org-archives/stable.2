@@ -1,96 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794923732;
-	b=TZRuRAzVEVT2xrPNz+Nuk/rQbFP2GbDWm+CpH1Zafj4PqT+Mkkf4V8THW67dX+6MaScj
-	 cbYuAWj2mV59PHqzMKrpR3t9tm6iAp7lKUuS3xjVSKSbKIrf++HEWu6xJpttKrHHeJoyY
-	 Hbd0oPdml2y3hEt1vX5rTC5Fm0+V04urZGHZN6O89ZiuWe1Irgb9weYWptSQUrpOqdTJ5
-	 4Rneq38CFWeokfMloGDerTvS9GJqcXovHJa1KVCm9GYKolc8i+Q3bAmKLUVBJy4cEDNWg
-	 VSQIjkAFkIgrPwY0EUJFaLSnyzcFgwbkOUbi03RNRn69uSCVfbz9V3ZYqkWlCgi/Uiw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794923732;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=PCMFhWYNetgcqgqSD3/UH0RoHtSUqDu9dzIGNxeEMr4=;
-	b=y8T7Vywc/ysn4Jn5QCcJwKksinDoardo+hxtpjH4kRQnG/mm8j2lNj3xypfI1g0iwcw2
-	 amRZyCm1d9nQiY5O2hzpmBMAbDBIfgF+feP2iWbhARUuwIf9F1Fu53dit/Dz45GxFWx9s
-	 bqrQSGKKLcKYmveXVcR+xzKQ4neiOTeCoYHaHrDw+KOsTWIQ7s/0i/nVmVBkvHGXklswL
-	 Yua3KW3y8pjTwWxxn3MBFXfBfK4hH6DxJpSCfIfgVpfa0BPoESLZ80dCmF9U1WDZKsN5u
-	 mbxwxL62/NtMXqdm0USKgYlk0vIKxuP5JNNDpcTzsDd5m8Muy2sOkUAynq0mVn1XTqQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=szeredi.hu;
-	spf=pass smtp.mailfrom=szeredi.hu;
-	dkim=pass header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=SH7KLr12;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.170
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794923739;
+	b=1o4BesyL1bg2bBXAJF/DL+5YY8n3Q6OCjbiED7/EOHo7E++WcBLCjurjBdMu0UlQKbLR
+	 nuVemdDU1VS03kUcyDFOMRmjsAe8t+gypvjRfMG56xSX2ipnTlpe4zNkWG3dsNiwdJtF7
+	 tBcIzn9mcM0ssgHUiOwkghc5H9qMoKh9rXR6yHThYKP2SKkgxMn2CWwLIaD40RA4B87HL
+	 tmfGnhh5yDHkA8NZ5ePhOlmX5PPVEexVUemtyBx/WRZDYQgDNaODcfPxFJwcfi8YHKNw+
+	 Dg7MZVQwi374p6akugqTU7KHcaKEJs9Q8vTP6+hMOLKvWnFzum9tqwyPS1purnLj6cA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794923739;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=70rfcJx4ppckiFBPTRygMuzYZpbn/QbilZ5teuDYXJQ=;
+	b=ITN7v1vWKTU1bODsmR532Hz0uWqPcQcJkF81opWkShSMW/ZZ4egyZh0RCvJk1VbyubJd
+	 MfQ1pJZL6OalB7Ak0E2xVlGpDpWHvdXldu8+IZ3aG8TBiEk7lgARTkyge8hKoOV5d075J
+	 j7DCXECp7BumreWYWOn+wPSgtOttpii7yuTWe/7YtVr87cwEDyoYIg8ibopAvr3ixaOel
+	 Y3GBleiU/eirNQrF3V+UdnrmKz/yc+brinJhy4HiL6COe1dIRAvKixfNvU4L+MiaKMiSc
+	 LyBxAkk2TA4Kh0lUCfDfImV+2ITYRxpim+o+qDsW9YHSxbOv1KNHEujND5gQRGyu2Fw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cq1gMyW3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40FFD606A323
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 13:55:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40FFD606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21816606A323;
+	Tue, 17 Nov 2026 13:55:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=SH7KLr12
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-53665358476so54353221cf.2
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 05:55:30 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794923730; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rbkpIRHQNF24Qa41xvJ7e4IcSTYfJG6rPj7kcXIV5MsB30L+1bFT1dMa2RLXaJ6YPy
-         Aorp2disfO/KDt4CxX65HSQUWVNkShwA879QlZGhPvHzH8t7qjmXjXpwa0ud/YXeFcN/
-         vSXgHHkSXQDChifKystlErY13n0irgaKQQ9i0dAQnoi2SU27vhgZv5orBxkoyHcWvatQ
-         rJFck4QedKr8VdNmwzI5eN+UyTYIBpaZpvHzzXGY02zik8HBQX9A5qRxzvXueXOGke8A
-         UuggCIDFlp0GEFwHiHwEE9APRLqwKSYAeCJdeUTrTKK4/A5mj1xY4m8t3rl4eOrQgikT
-         0Spw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=PCMFhWYNetgcqgqSD3/UH0RoHtSUqDu9dzIGNxeEMr4=;
-        fh=z3xHA4VM5up4Jr/ByL/9Ds3gMahSyhXcrmrS18bbT2A=;
-        b=Kp+U0qW79yJi3KRl4DXnMKJ8QL09DX6LuimYWaoJVFMbQAQn+v66yhs+1eCJtKXiRQ
-         IS2MVn9L0iiUpWllxr71RArGB98ttf3UhI9I+wDvI9g+TAN1GbmwcwJGLOJZeq5WSAGQ
-         IsSnDwMpuZK98in72T1QYmOOq05ucNeNhQG39VIYvfnEv0EwDZ692NExpBdBSFgT+FlA
-         4rBZgdcZVkMEWmo599HJmpr4KKsTV59pcNwzIGToR7tWhMHH1N0co6FhOSQYiDxMKidd
-         WpRhnxbYSAc5PHVpCGjymQeuONaGoDuerdf45XvlmLgMMXLjK8OeHTEVO3VxBjDwtmvl
-         4IaA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=szeredi.hu; s=google; t=1794923730; x=1795528530; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=PCMFhWYNetgcqgqSD3/UH0RoHtSUqDu9dzIGNxeEMr4=;
-        b=SH7KLr12oFVQlGQu23gMnVbVU965VwERVkakgZt9pLWsAylpgYXB/mGouBKpUsgfOD
-         Oi6VrUvTVvnr5h9x98HM+b7x+RuLo6N7E5W+WYGtMJKnY22ljV3ehYyNxJeOyzpzyEYt
-         dQ1tKCwK3fIt7khNRP7wsWfQMc+9tMtznrE9A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794923730; x=1795528530;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=PCMFhWYNetgcqgqSD3/UH0RoHtSUqDu9dzIGNxeEMr4=;
-        b=gmHPDcMGnhMQW7+TwuXfj0+lrZRSxXiNPPbOIcrompvNu4Ur35mI8ZVsDovPLEPe4X
-         rbB7USI+rHZRMpL7RxMnBuSLI4KmebZu3l0V0ZhCScPlLdzxWFDeGi0vJvc8axErL/c5
-         PFRMX+DHwZSTALEWMk387NEafdqjwed088te7vhoKFTApqiu9moiuW9AlUBFdyIdk/vx
-         /FroaxICdwH13d2AtTuLhgaQYtk1LVA7dAnoempoJEacTW0/ltcboX/oMrJhTUYYHccv
-         TuS550gC7gYk9edv4U6fdaqrSOwHCTVk7sPP69wy8phQ7Mz5DZooJi5HnWEYgYCXefnG
-         rNfQ==
-X-Forwarded-Encrypted: i=1; AL+hErG3uBQrxT7bTaLumX4lXsfFU7do2xSq3y5PuLm6WRiSoDhH6Rje4ODK+e30l9m8/OMSO62Lv+8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xlm22Lt4m+7xQMcMAIezkvj9/2R5WIrkLeKEhektKGtW5SDG9
-	WgOe5fiG84NpGkLJcf6GdohHcxjirK+k0ETyZ8eBDyBpSgt0NuKBTsTzbLVLJdPjrzudPorA8IC
-	FNsHeoCV2ThH1hTp0QLzle+1EiDzvgry1zDPZ0aaRyg==
-X-Gm-Gg: AYBFou03llUmB89jmGVgaB2eF8/CcEKLEYsSocyvv7TeBTnl4tPTiky96xbvzwy1kF8
-	yuCG9C90BL5eUWwY5FTthovo2qqPpwCgalefqx33B5pt+TsqbKOlpyWZqBfmueYKJPmm/Axo4KX
-	NXAdtDKJAkMeduVmjIGwWmvgYIfzFl8svSod0sBJzO0aTt+kXKQ+edPqhleRK3vO9XiVA2LvAHf
-	ETr/6y6c4TEj1Ut/YjSipqyo0ZVBsBBBILKcUr48EiRHvCOjrNqvFWT9X40BEvoA7UldB5Wg/xH
-	mvX6rjHD6QTg1E83/mNWqHuldh4BNiGvJhFVUk+pt2vvMmmwpkERp41bCBuKLmaYKDU4blZdZQI
-	XGfq5NuB+Yvh/gos9qdlZPPVGFvPNk3ez7oBY7JT9J+qkF+TjCNAZ9+XpXa5fy063sg==
-X-Received: by 2002:a05:622a:1649:b0:535:8509:3138 with SMTP id
- d75a77b69052e-55ac366a4a7mr228951361cf.11.1794923730002; Tue, 17 Nov 2026
- 05:55:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cq1gMyW3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 603B81F000C4;
+	Tue, 17 Nov 2026 13:55:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794923739;
+	bh=70rfcJx4ppckiFBPTRygMuzYZpbn/QbilZ5teuDYXJQ=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=cq1gMyW3B/17uRd16MqBTJQARqK4AQkyVxzdXhwPf/ADQG95sL+i6Id5F1aGXXHk4
+	 vXii/bZkq9eHrmHzFoInhJ4Typ8l9y8WnVLUVl+RQjTWzvTldzgoP3Dmdrjqc+Qrca
+	 1dko5XDFSP2kAQjZS7XRj/FLJqs/DZW4RCJpBL4m0qd06cQBbH0cKJafs9wJBbMtiA
+	 L85T+F7qVSbmhnF7eCD3Z85y1spfeE5y7hH/T6qhtCJUnLMrIJPkLk0ac9ZQg3AKqr
+	 fJe8XEOamTyiFIhzVc6X7PbgMSzltpE+uaI+rIHZ7VjnRLl6pYLJK1g34ON0E7mA8a
+	 k4Mp9TFN+3CeQ==
+Subject: Re: [PATCH net] ieee802154: hwsim: free PIB after hardware unregister
+From: netdev-bot+sashiko@kernel.org
+To: chenyichong@uniontech.com
+Cc: alex.aring@gmail.com, stefan@datenfreihafen.org, miquel.raynal@bootlin.com,
+ linux-wpan@vger.kernel.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, zhanjun@uniontech.com,
+ syzbot+8a8482d4c33cc58babb4@syzkaller.appspotmail.com, stable@vger.kernel.org,
+ kuba@kernel.org
+Date: Tue, 17 Nov 2026 13:55:37 +0000
+Message-ID: <179492373789.3136.2399679338709401263@kernel.org>
+In-Reply-To: <0D7C088B45E7283A+20261113134141.2626113-1-chenyichong@uniontech.com>
+References: <0D7C088B45E7283A+20261113134141.2626113-1-chenyichong@uniontech.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,26 +64,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029033700.273707-1-leonming@meta.com>
-In-Reply-To: <20261029033700.273707-1-leonming@meta.com>
-From: Miklos Szeredi <miklos@szeredi.hu>
-Date: Tue, 17 Nov 2026 14:55:18 +0100
-X-Gm-Features: AclHuK864qzqHSTrfZsL886LInnKNh2XiAhmdPhsQx2jCLEfINY9UG0itbitE0I
-Message-ID: <CAJfpegsKJCzdBGmQmbHt-Hxhe-b9cs4z5s-uDBMHDx3ZsnHQFQ@mail.gmail.com>
-Subject: Re: [PATCH v2] fuse: set dentry epoch before making the dentry visible
-To: Leon Ming <leonming@meta.com>
-Cc: fuse-devel@lists.linux.dev, linux-fsdevel@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Luis Henriques <luis@igalia.com>, 
-	Joanne Koong <joannelkoong@gmail.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 29 Oct 2026 at 04:37, Leon Ming <leonming@meta.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-> Set the epoch before the dentry is published, and keep setting it on
-> any alias that d_splice_alias() returns; the dentry that loses to an
-> alias is dropped without ever being visible, so setting it too is
-> harmless.
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-Applied, thanks.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Miklos
+- [High] The patch fixes the stale-PIB double free in hwsim_del(), but
+  the error unwind in hwsim_add_one()…
+
+--
+
+ieee802154: hwsim: free PIB after hardware unregister
+
+This patch reorders hwsim_del() so that ieee802154_unregister_hw() runs
+before the PIB is freed. The current phy->pib is then detached under
+pib_lock with rcu_replace_pointer(), and only that object is passed to
+kfree_rcu(). This avoids a double free when a scan abort replaces the PIB
+during teardown.
+
+Closes: https://lore.kernel.org/all/6af5f575.b350cda4.2b6a63.0000.GAE@google.com/T/
+
+> diff --git a/drivers/net/ieee802154/mac802154_hwsim.c b/drivers/net/ieee802154/mac802154_hwsim.c
+> index a9bd1555d2dc7..a65ae2afb789b 100644
+> --- a/drivers/net/ieee802154/mac802154_hwsim.c
+> +++ b/drivers/net/ieee802154/mac802154_hwsim.c
+> @@ -1008,12 +1008,16 @@ static void hwsim_del(struct hwsim_phy *phy)
+>  		list_del_rcu(&e->list);
+>  		hwsim_free_edge(e);
+>  	}
+> -	pib = rcu_dereference(phy->pib);
+>  	rcu_read_unlock();
+>  
+> +	ieee802154_unregister_hw(phy->hw);
+> +
+> +	spin_lock_bh(&phy->pib_lock);
+> +	pib = rcu_replace_pointer(phy->pib, NULL,
+> +				  lockdep_is_held(&phy->pib_lock));
+> +	spin_unlock_bh(&phy->pib_lock);
+>  	kfree_rcu(pib, rcu);
+
+[Severity: High]
+This fixes hwsim_del(). Does the error unwind in hwsim_add_one() still
+have the same stale PIB problem?
+
+hwsim_add_one() keeps the original PIB in a local variable and frees that
+pointer directly on failure:
+
+drivers/net/ieee802154/mac802154_hwsim.c:hwsim_add_one() {
+    ...
+	rcu_assign_pointer(phy->pib, pib);
+    ...
+	err = ieee802154_register_hw(hw);
+	if (err)
+		goto err_reg;
+    ...
+err_subscribe:
+	ieee802154_unregister_hw(phy->hw);
+err_reg:
+	kfree(pib);
+err_pib:
+	ieee802154_free_hw(phy->hw);
+}
+
+After wpan_phy_register() runs inside ieee802154_register_hw(), driver
+callbacks can replace phy->pib through hwsim_update_pib(). That function
+calls kfree_rcu(pib_old) on the original object. Some of the paths that
+get there:
+
+  NL802154_CMD_SET_CHANNEL -> ieee802154_set_channel() -> drv_set_channel()
+    -> hwsim_hw_channel() -> hwsim_update_pib()
+
+  interface open -> drv_start() -> set_promiscuous_mode / set_hw_addr_filt
+
+  scan abort inside ieee802154_unregister_hw(), which is the path the
+  commit message describes
+
+On the err_subscribe path, ieee802154_unregister_hw() runs first and then
+falls through to kfree(pib). This happens when hwsim_probe() calls with
+init set and hwsim_subscribe_all_others() fails with -ENOMEM.
+
+The HWSIM_CMD_NEW_RADIO path can also reach err_reg, when
+ieee802154_if_add() fails after wpan_phy_register() has succeeded.
+wpan_phy_register() drops rtnl before ieee802154_register_hw() takes it
+again. A SET_CHANNEL request can run in that window and replace the PIB:
+
+net/mac802154/main.c:ieee802154_register_hw() {
+    ...
+	rc = wpan_phy_register(local->phy);
+	if (rc < 0)
+		goto out_mac_wq;
+
+	rtnl_lock();
+
+	dev = ieee802154_if_add(local, "wpan%d", NET_NAME_ENUM,
+				NL802154_IFTYPE_NODE,
+				cpu_to_le64(0x0000000000000000ULL));
+	if (IS_ERR(dev)) {
+		rtnl_unlock();
+		rc = PTR_ERR(dev);
+		goto out_phy;
+	}
+    ...
+}
+
+In both cases, wouldn't kfree(pib) free an object that is already queued
+for kfree_rcu()? Wouldn't it also leak the PIB that is currently
+installed in phy->pib?
+
+The commit message says the change "avoids freeing a PIB that was already
+replaced during teardown". Should the hwsim_add_one() unwind follow the
+same sequence that hwsim_del() now uses? That would mean detaching
+phy->pib under pib_lock with rcu_replace_pointer() after unregistering
+the hardware, and passing the result to kfree_rcu(), rather than calling
+kfree() on the saved local pointer.
+
+>  
+> -	ieee802154_unregister_hw(phy->hw);
+>  	ieee802154_free_hw(phy->hw);
+>  }
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/0D7C088B45E7283A%2B20261113134141.2626113-1-chenyichong%40uniontech.com
