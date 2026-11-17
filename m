@@ -1,85 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794945580;
-	b=pZu+rBxrc8NZtE/qU8OgyxMtr4UlqCasA+7E7u+i8D4NRLL9Ybw2Y6u6XTNWep/NZUfk
-	 g9V16elh8W2r65B2nI/jF138GXnX7ucC7J6xG/W33I5EIqkKp00aPSt3i8K7Y1ofCztjl
-	 uWKRk3NaPSTq3fhsejJwVEy9jod+otajEQ0UFfDL5Ox6Dyjy1xX8RMW7PlWwokBd/huHV
-	 qqxyJQssPSI94V2so0y0PMOsckfE6af1YxpSMXssoicqQ52ml7bYONBBcwIJuWmYInihk
-	 B9UnSnrmqlwV5IRI98NSn59pChOsaZ8w2NauPEpN5pDN2cF/XHxbV1MmcR7PbMwea4g==
+	t=1794945848;
+	b=0GwvikqBHF3gd6E1qsQdpqkWDOKYBNLvTUoDVlqnhSnE2t3IyVMvasn0IKNmU8iOGDH6
+	 Mb4fD/uQCKPJUlur11C5SVuk+eRbBxLgA2Owzt8eLtojBfbxTKZK+qxsUwHeRW4WisZBo
+	 ASHSlP8ZNy/97zAZZ1f187XTD5DFKo88FdM/ayhYVZ+epRnF02yIET38bgLTd3fZhLi0o
+	 5PLCx23K1QT9o9uA5eJgYiyu1GQRf2x3CrmM6HxoOTHDZZssoEGCeZPxoITeS8PwCsTPJ
+	 myMqREB0hmhkRovl9jOp4klMc65xk9q8nMod07zczrXjSnIaDMiUY1daI4VtGoMcYVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794945580;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
-	bh=n+3lEqZFrEAIaz6BaymSj2rnmWToXuf3nkXT7gTYNKk=;
-	b=wpDKt7gCakywQ17KORSm3SybAyvI0A0rmUWgkoephTsf+wlp+p8oCqxQIrwp4DvWuFHz
-	 OmvMUP+ogXdDzru6N44Jei8SlSUzE/H9b/9sPNUS5AZQyMTle26UZRJ7J+zklZSxbvDcR
-	 n2JvNEeaoilwoNnZaMy1N6q6NzqZXjHpSH9fWGa08TgRc8j2A1hN+bpQS73Uq4NWmXm3G
-	 wKJYWWuZ+KVSR23UeCWXGAYX6t0VXUpirVXaB/8pkpCOtweBgPM1kmEh0AMymYbwrO657
-	 VCHfkdoruLFFyZd43LkWJJ6wiP+frHXhHLnxVvozb5xLdAAec58S3zvpWRPP5HXEaCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794945848;
+	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
+	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
+	 UI-OutboundReport;
+	bh=uRNxcjpQEw4wGX6lb4GjIXNjzICXinkQUxN0vSMlFso=;
+	b=fP3UviQDd9jnX3EiBHs5U99fY9h2wu1sEmy6mcpM32wRybmUdpIqrD0k13q6CYv+Efn3
+	 IbU1eSVY4DAw/h4FYOZTOzfElvTQG7OMf11QDQ4HTC+sW00TV0hvnaIShrBZL4HdMJruz
+	 vn1qAHHsxV/1Vcsrqfl6OEbG/F0XKG7LIz+AAltmUrQgb7My15BoL+vEd1u1pVl8CUKMS
+	 Puq1cd6sdqBnYWyMJ55pTymSYusVIZfPEWfx6BfUaYUmcWgmZfXlExOhM4l/wWAWpC6hx
+	 gEh+Ney2YEqp5IwVCySVGXdVfwdiEyotwaju6o8DAnDQzsrFmFHeP8xiDSoXby0TL2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=b8Q2Z1mD;
-	arc=none smtp.remote-ip=209.85.160.177
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmx.com;
+	spf=pass smtp.mailfrom=gmx.com;
+	dkim=pass header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.a=rsa-sha256 header.s=s31663417 header.b=rJEOm3wW;
+	arc=none smtp.remote-ip=212.227.17.20
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254F9606A31C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 19:59:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 254F9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED73B606A338
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 20:04:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED73B606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=b8Q2Z1mD
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5430f70c827so2553981cf.2
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 11:59:39 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794945579; x=1795550379; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=n+3lEqZFrEAIaz6BaymSj2rnmWToXuf3nkXT7gTYNKk=;
-        b=b8Q2Z1mDd9Ew9x0d0evx5Z12+mhfwIFhgT2R7dOlwUZNhmA+2RT02nyRB0HDif8wXG
-         LuRjZ1DavmvUn6xleG+3EgHgDA3omZbsrFMReVF1RItU+Inon9IGdndsfV9jrH//4tok
-         QrwUWDBKn2ZiFQLWSubkdN15qQJQJND0RF0XGBBL+A6Y0bDeScMyJjitxoEZO5mXfxmx
-         j2P6UBe+qzU4UjmKGXPecd5Vx4ahHN3WDZ0sosYlFcTxJ5QyDBeu40+aCYUpov/I9++a
-         2dSTRT8YYhU3JE1s0U4xQv+3hMkIaPz55IEbJNtwIQjjrTfp5vyZ8MsLA7WWHdfkOAk8
-         pOGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794945579; x=1795550379;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=n+3lEqZFrEAIaz6BaymSj2rnmWToXuf3nkXT7gTYNKk=;
-        b=hk87pHguTRorrFJOuED/EqqTfQhpfJWvk1aW/OIbWN0d1+oWpseqJFs0YYLzS8h1DV
-         fmTQQqN3rONFLsRBcTJ7OoC1i64t3b7guCkWxczSMrsmdzgfAltrRDxOU/ZEZE9Skisf
-         NzpkRrx3eX0IxzeVGO5Z0obfoYGMQGgtm7dmt+U3BgP3WuXeAK2NRtu6kWgM3k5vp3r6
-         ea2BUsOAbkzh0SvJvJH8dRsjKfpROLasGmamfcipFOWlcu27JhWVnjOiK4RZ3k2QOtTK
-         Ua4lvWSOCoSxEy6er3BcfQv8jPMhfmZ7/eeQL/ZJwZ89IvC23cy5xR5V2ZGyDXz9q6qE
-         lfjA==
-X-Forwarded-Encrypted: i=1; AL+hErHG0jnAwK/TTQ3ebuBjUi5EqqbEOYiAqoDexLDR5bvGUYUfu9gmb61duGxpnMqWwCC4t936h20=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+R8ak5mnfRpgAEmZXLIGgQ2Cy/12Y5PtTfIEzf4Xw5jaV58T/R
-	++eMLBJIiFPwsj4kZWl2HnmAAqQR6BYKweeTLPMzy+VWVHU2fEV0kCGYe/hjoknDLac=
-X-Gm-Gg: AYBFou0tYJtgQg7kE/Wxm/E48Seum/vhmOuzsvqvySLhk7XcEIJWfyjYesrQVarWf3z
-	lSD5bPIPa/16+KkPF/2/DOPVv0xWGj8O/20POFRdykFAWQT9A7LXRdl8Nqe8phcpfTx7hKz6AmR
-	APHNhgNApIBqommnlLvvfiwv4vDQRyJdEPx6gXcUERVdEzpvgwiz8ZJFCJt7uwO2EuC8pmOGhjS
-	bw72URXP7XlrV/2Cr/JELtm/z+WifncRMnNXLqqd1Dv/U97O7XyxLf6qEnntuq+3THUQpoJUBoY
-	owG2WZTU+kTVACKCpQqW4IqlOzS/aaZhZahAGSo5nDcwt1VNRoWAYjstnBkiQBdZzZIShcf4CyP
-	7JA5PMnhnVVbfIusC6o4Ruamws4hx5unD+I3pvFqHuq0HX1boxQOxiip8CZi3rY0oD/lM4dhdtT
-	EZmoU13Ucm6v1wJUVlaGNVIckNAkw/aLWABTAdLeOR1xgoiIVTTGxkwYbDS/vsYSwYuQtdDFnqz
-	hAEdg21WuronEAfGNCUy8xIg5v5r3OgZma1JkVj0mUBYqVG5qm5W31sTHJqCp0OmBUbZigAow0J
-	EEF8nbuBTYp2uJ2x3IBfDp0uFGEzB864TwUKi2IO5UUu3Qpg3LPUxP9Ter5fCmKYw7ObeO70HpM
-	e/rwc0Yblc2GEPsJPrxOosmgAV7P5
-X-Received: by 2002:a05:622a:480d:b0:536:72b4:b84c with SMTP id d75a77b69052e-55d5a4d0b40mr5934331cf.27.1794945578703;
-        Tue, 17 Nov 2026 11:59:38 -0800 (PST)
-Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d59035c81sm4825961cf.12.2026.11.17.11.59.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 11:59:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmx.com header.i=quwenruo.btrfs@gmx.com header.a=rsa-sha256 header.s=s31663417 header.b=rJEOm3wW
+DKIM2-Signature:  i=1; m=1; t=1794945845;
+ mf=PHF1d2VucnVvLmJ0cmZzQGdteC5jb20+;
+ rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+ d=gmx.com;
+ s=s31663417:rsa-sha256:ApvDLSvdd4fCY5MvTrxWyT1vDHjM
+   IGuNJMypdIGzJye6xmrzVGVVDNWa2D70HxxWQyWk6/w0q349yNveqh65XtUEjQGI8Hc5t6LOs9K
+   JG78iMYWqEh8CtqxMJ0VD6Yk6Te3iGmakTJ7/kjAcasKq8g4+njMFqO0CM7WpH2MjNyuN8RLC68
+   dLC0XSEAYR+wIFHYO5nMx12t5fujyBNKe9NpLto+LHxpGlw6EARe6UfEsFoPuQBlTPYCr3d5ou5
+   RrmQSeMij8012Ej9WbrArviP3P3xs/+it9Ty/6SJlQapRFMVGu7M+Fjitgc5CQTR5lWwaVutzbj
+   mZMaU3YtsjALjA==;
+Message-Instance:  m=1;
+ h=sha256:
+   k+ochP0Y2+VGh0JoB8T7bJdjpNjYQI75d99UVZdDVvU=:
+   j9MKYaQfZ8//PLj9bHjYaf9mSfKguGoxv9CYWnw7jWE=,
+  sha512:
+   0HEQqGCeG0VNZWpmZDAOqf8bMS4vXKb7FL6IZc8JOOLg4JFrCxBM3i+bdqcOkvB8dKsc4jsgTEj2osZP7FI4JA==:
+   AekFhEacIuxeNJSooG3vU5a8rpliU2KoTRFKWcV3Nv/67/GhQYo2hVotiFzKN25RMBWmWtykvUF5zuQ2JALgig==;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
+	s=s31663417; t=1794945842; x=1795550642; i=quwenruo.btrfs@gmx.com;
+	bh=uRNxcjpQEw4wGX6lb4GjIXNjzICXinkQUxN0vSMlFso=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=rJEOm3wWD0/ERDyEm4Y70UZ5bJ+53Nwat0zPAlDYIWSdPKW9p3BsD7i2AZQkSCSJ
+	 ZCMtzpid2r5hE9vBmMJEl/B5Lxd8DouqkU3InMgOn5LXjTvaNzrxXVR0wf/u0tbTV
+	 gZEm9YGCTZ3g6hBNsfLxWTDX0m9UEi2xgVP1OVdbrM6SWSt1E3fCJMx031oe8aziM
+	 kFvHM5msRUgiM+FLgXSejWKSg5yLTZV/xnYY3hs7c60D4BNlZ02Cbr7dCaV4zPMGZ
+	 85b84B8xx2HOiSNbkPAlyRpc2OLhAQsNmDAEotPlYwxix4wqpcYlolsq600lkyiCI
+	 0zpHCT/hD1LBgY9MNA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1MatVb-1wshkQ3wuh-00oGCs; Tue, 17
+ Nov 2026 21:04:02 +0100
+Message-ID: <1b0550a5-6200-4f2d-9731-f9c984d23707@gmx.com>
+Date: Wed, 18 Nov 2026 06:33:59 +1030
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,204 +81,340 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] mm/mempolicy: fix copy_nodes_to_user() for odd inputs
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, Arnd Bergmann <arnd@kernel.org>, 
- "David Hildenbrand (Red Hat)" <david@kernel.org>, 
- Gregory Price <gourry@gourry.net>, 
- Andrew Morton <akpm@linux-foundation.org>, larips <larips950@gmail.com>, 
- stable@vger.kernel.org, Zi Yan <ziy@nvidia.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Rakie Kim <rakie.kim@sk.com>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Brendan Jackman <brendan.jackman@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, Jackie Liu <liuyun01@kylinos.cn>, 
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-In-Reply-To: <avx0Ci5uPW_hF0Jk@pazuzu>
-References: <20261117142628.3931151-1-arnd@kernel.org>
- <avxnIQTcFni9G4IN@gremlin>
- <541a67af-3b45-4d5d-ac4b-c741850f92e1@app.fastmail.com>
- <avx0Ci5uPW_hF0Jk@pazuzu>
-Date: Tue, 17 Nov 2026 14:59:37 -0500
-Message-Id: <179494557732.482102.7719202079181127037.b4-reply@b4>
-X-Mailer: b4 0.17-dev
-
-What about the following:
-
---- 1/2 mm/mempolicy: convert maxnode to a bit count in copy_nodes_to_user()
-
-Converts maxnode to a bit count on entry to copy_nodes_to_user() and get_nodes(), fixing the compat KASAN stack over-read and stack leak. Fixes e130242dc351, Cc stable.
-
-
-Subject: [PATCH 1/2] mm/mempolicy: convert maxnode to a bit count in
- copy_nodes_to_user()
-
-Whenever maxnode - 1 is a multiple of 32, compat_put_bitmap() reads one
-more compat_ulong_t from the kernel nodemask than the caller asked for,
-and writes it past the end of the caller's bitmap.
-
-When the kernel nodemask ends there, that read goes past the on-stack
-nodemask_t in kernel_get_mempolicy(), and its low 32 bits are copied
-to userspace.
-
-With CONFIG_NODES_SHIFT=6, 64 possible nodes and a 32-bit caller
-passing maxnode=65:
-
-  BUG: KASAN: stack-out-of-bounds in compat_put_bitmap+0x122/0x130
-  Read of size 8 at addr ffff8880150d7ec0 by task mpoltest/241
-   compat_put_bitmap+0x122/0x130
-   copy_nodes_to_user+0x14a/0x250
-   __ia32_sys_get_mempolicy+0x1b0/0x2b0
-
-Convert maxnode to a bit count once, on entry, and use only that in the
-rest of copy_nodes_to_user(), so the compat path gets the same size as
-the native one. Do the same in get_nodes().
-
-Fixes: e130242dc351 ("mm: simplify compat numa syscalls")
-Cc: stable@vger.kernel.org
----
- mm/mempolicy.c | 36 ++++++++++++++++++++++--------------
- 1 file changed, 22 insertions(+), 14 deletions(-)
-
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 4da1cb8777f68..390a31a99b4ff 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -1673,15 +1673,22 @@ static int get_bitmap(unsigned long *mask, const unsigned long __user *nmask,
- 	return 0;
- }
- 
--/* Copy a node mask from user space. */
-+/*
-+ * Copy a node mask from user space.
-+ *
-+ * The nodemask syscalls take maxnode as the size of the user bitmap in bits
-+ * plus one.  get_nodes() and copy_nodes_to_user() take it as passed and
-+ * convert it to the bitmap size, nbits, on entry.
-+ */
- static int get_nodes(nodemask_t *nodes, const unsigned long __user *nmask,
- 		     unsigned long maxnode)
- {
--	--maxnode;
-+	unsigned long nbits = maxnode - 1;
-+
- 	nodes_clear(*nodes);
--	if (maxnode == 0 || !nmask)
-+	if (nbits == 0 || !nmask)
- 		return 0;
--	if (maxnode > PAGE_SIZE*BITS_PER_BYTE)
-+	if (nbits > PAGE_SIZE*BITS_PER_BYTE)
- 		return -EINVAL;
- 
- 	/*
-@@ -1689,31 +1696,32 @@ static int get_nodes(nodemask_t *nodes, const unsigned long __user *nmask,
- 	 * if the non supported part is all zero, one word at a time,
- 	 * starting at the end.
- 	 */
--	while (maxnode > MAX_NUMNODES) {
--		unsigned long bits = min_t(unsigned long, maxnode, BITS_PER_LONG);
-+	while (nbits > MAX_NUMNODES) {
-+		unsigned long bits = min_t(unsigned long, nbits, BITS_PER_LONG);
- 		unsigned long t;
- 
--		if (get_bitmap(&t, &nmask[(maxnode - 1) / BITS_PER_LONG], bits))
-+		if (get_bitmap(&t, &nmask[(nbits - 1) / BITS_PER_LONG], bits))
- 			return -EFAULT;
- 
--		if (maxnode - bits >= MAX_NUMNODES) {
--			maxnode -= bits;
-+		if (nbits - bits >= MAX_NUMNODES) {
-+			nbits -= bits;
- 		} else {
--			maxnode = MAX_NUMNODES;
-+			nbits = MAX_NUMNODES;
- 			t &= ~((1UL << (MAX_NUMNODES % BITS_PER_LONG)) - 1);
- 		}
- 		if (t)
- 			return -EINVAL;
- 	}
- 
--	return get_bitmap(nodes_addr(*nodes), nmask, maxnode);
-+	return get_bitmap(nodes_addr(*nodes), nmask, nbits);
- }
- 
- /* Copy a kernel node mask to user space */
- static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
- 			      nodemask_t *nodes)
- {
--	unsigned long copy = ALIGN(maxnode-1, 64) / 8;
-+	unsigned long nbits = maxnode - 1;
-+	unsigned long copy = ALIGN(nbits, 64) / 8;
- 	unsigned int nbytes = BITS_TO_LONGS(nr_node_ids) * sizeof(long);
- 	bool compat = in_compat_syscall();
- 
-@@ -1726,12 +1734,12 @@ static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
- 		if (clear_user((char __user *)mask + nbytes, copy - nbytes))
- 			return -EFAULT;
- 		copy = nbytes;
--		maxnode = nr_node_ids;
-+		nbits = nr_node_ids;
- 	}
- 
- 	if (compat)
- 		return compat_put_bitmap((compat_ulong_t __user *)mask,
--					 nodes_addr(*nodes), maxnode);
-+					 nodes_addr(*nodes), nbits);
- 
- 	return copy_to_user(mask, nodes_addr(*nodes), copy) ? -EFAULT : 0;
- }
--- 
-2.56.1
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] btrfs: scrub: fix use-after-free when waking up the
+ repair waiter
+To: Filipe Manana <fdmanana@kernel.org>, Qu Wenruo <wqu@suse.com>
+Cc: linux-btrfs@vger.kernel.org, stable@vger.kernel.org
+References: <cover.1794867985.git.wqu@suse.com>
+ <217e66b15e1646812cc86be582be67b7e558b270.1794867985.git.wqu@suse.com>
+ <CAL3q7H4Q1pEzYnXf16sNR2JSwj=V0nbMf2YE2iwrQPEKuPJ2WA@mail.gmail.com>
+Content-Language: en-US
+From: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Autocrypt: addr=quwenruo.btrfs@gmx.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNIlF1IFdlbnJ1byA8cXV3ZW5ydW8uYnRyZnNAZ214LmNvbT7CwJQEEwEIAD4CGwMFCwkI
+ BwIGFQgJCgsCBBYCAwECHgECF4AWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCat7o8gUJFKS8
+ OQAKCRDCPZHzoSX+qAogB/9C5ErH7KGAGpcLPte3Wcfdt3acCkGAuMpCjqOt8BVw30mX0kmF
+ SRo2nODjz8YsYhWR1T8L3ylANAS/IGIJ64idBmObaqGHQn845nXLIvG33LqMsAGXmOJdRgTT
+ BnBA+QFCEIZpo7L9Qt1dOQdHSpHT31Ta1kKsbDm582KPVBl6KRcJJBnjudIerOA1/L/zEyDa
+ YjIfHIcvuM3Xm8AS00iBpsmc151QgCPljqnSRXBiup9C1oMgVlaROhY1iDam4UIQB6glkHQs
+ LZhUmFDNimX5LxfOzi2pFJSjJvPclRZVX7Sq6XhK/OFb6IvswN7i0nUYZMQfuGDNqGn70ic3
+ AQImzsBNBFnVga8BCACqU+th4Esy/c8BnvliFAjAfpzhI1wH76FD1MJPmAhA3DnX5JDORcga
+ CbPEwhLj1xlwTgpeT+QfDmGJ5B5BlrrQFZVE1fChEjiJvyiSAO4yQPkrPVYTI7Xj34FnscPj
+ /IrRUUka68MlHxPtFnAHr25VIuOS41lmYKYNwPNLRz9Ik6DmeTG3WJO2BQRNvXA0pXrJH1fN
+ GSsRb+pKEKHKtL1803x71zQxCwLh+zLP1iXHVM5j8gX9zqupigQR/Cel2XPS44zWcDW8r7B0
+ q1eW4Jrv0x19p4P923voqn+joIAostyNTUjCeSrUdKth9jcdlam9X2DziA/DHDFfS5eq4fEv
+ ABEBAAHCwHwEGAEIACYCGwwWIQQt33LlpaVbqJ2qQuHCPZHzoSX+qAUCat7pCgUJFMw7KQAK
+ CRDCPZHzoSX+qEjbB/9crFFjips2NKxkt2XUutUIKjBoUlg/xCeFIj8PsTuJePhrV9HzgKsa
+ rJgSqo3t78oQWmeaP9WPoDYjfhOkQXEs+G9UwHe/LENm70+Q1jrwY3nlcR3YrkDCJ+EvMZOW
+ ackgcOYn46Iri9DN91FbSTszPMnwHi/nf0aeJXicO9krrY5C8mUxv4CSKeKSRg/5BR59uDiy
+ 9CMRHDtIDnpDWaLOXtUeowCdiC5O/jA571PMFx3Aolc7g4SSyNbYodblCBOdJrh0CVm2LlQW
+ 3SXrvFpSAw7LMVDgsS8pTRt4A11eTIS7mz0zqafTohXP1wt+575IBHK5ZpThQb+PzSQmxAqa
+In-Reply-To: <CAL3q7H4Q1pEzYnXf16sNR2JSwj=V0nbMf2YE2iwrQPEKuPJ2WA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:/s3+RzUWZdHumFalPfYDHkTQCJ99bm70i3OyIOvOrXkcB1ECt8g
+ XVh1N0KF2aCJPTIaAPT4DxVKuPxhQo3p1gNwQ5vA5eGq8u6y9jq50Le7qF67mTwne7Liodo
+ LmTX+djY53JTcdqr5mOP+sR+vsCSFnfuCon9wqinz5x+Dr6mNXSRk+O764lBdYbI1VYtUOR
+ o5UiYg0HiK3EbEav1mCww==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:eDLA9NYXykg=;Fsc1Ll/EubI17RuWStFrs7zoeKd
+ 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
+ 8l3fqZ5pg==
 
 
 
---- 2/2 mm/mempolicy: size compat get_mempolicy() copies in compat words
+=E5=9C=A8 2026/11/18 03:06, Filipe Manana =E5=86=99=E9=81=93:
+> On Mon, Nov 16, 2026 at 10:34=E2=80=AFPM Qu Wenruo <wqu@suse.com> wrote:
+>>
+>> The read-repair worker of a scrub_stripe can race with stripe freeing:
+>>
+>>   CPU0 (repair worker)                CPU1 (scrub)
+>>   scrub_stripe_read_repair_worker()   scrub_raid56_parity_stripe()
+>>   |                                   |-wait_event()
+>>   |                                   | ^^^ checks the condition withou=
+t
+>>   |                                   |     taking repair_wait.lock
+>>   |-set_bit(REPAIR_DONE)              |
+>>   | ^^^ the waiter can see it now     | ^^^ sees the bit, doesn't sleep
+>>   |                                   |
+>>   |                                   \-scrub_simple_mirror()
+>>   |                                     \-...
+>>   |                                   scrub_stripe()
+>>   |                                   |-release_scrub_stripe()
+>>   |                                   \-kfree(sctx->raid56_data_stripes=
+)
+>>   |                                     ^^^ stripe freed
+>>   |
+>>   \-wake_up()
+>>     \-_raw_spin_lock_irqsave()
+>>       ^^^ repair_wait.lock is in freed memory
+>>       Too late.
+>=20
+> There's something odd and very confusing with the diagram.
+> The way it's structured it gives the idea that
+> scrub_raid56_parity_stripe() calls scrub_simple_mirror() for example.
+> But it's scrub_stripe() that calls scrub_raid56_parity_stripe() and
+> scrub_simple_mirror().
+>=20
+> I also find it confusing the mention of scrub_simple_mirror(), since
+> it doesn't add any value.
+>=20
+> Something like this instead (the indentation may be screwed up by gmail)=
+:
+>=20
+> scrub_stripe()
+>      scrub_raid56_parity_stripe()
+>           wait_event()
+>              ^^ ...
+>      release_scrub_stripe()
+>           (...)
+>=20
+> This way, the flow is clearer.
+>=20
+> Also, the notation you are using is confusing.
+> On the left side set_bit() and wake_up() are called by
+> scrub_stripe_read_repair_worker(), but one if prefixed with |- while
+> the other with \-.
 
-Rounds the compat copy size to BITS_PER_COMPAT_LONG, so 32-bit callers
-no longer get 4 bytes written past odd-sized masks.
+|- is for cases that there are other sibling calls.
+\- is for the last sibling.
 
+That's kept consistent.
 
-Subject: [PATCH 2/2] mm/mempolicy: size compat get_mempolicy() copies in
- compat words
+I'll update the race chart to make it more clear though.
 
-copy_nodes_to_user() rounds the size of the user bitmap up to 64 bits
-for compat callers too, whose bitmap is an array of 32-bit
-compat_ulong_t.  
+Thanks,
+Qu
 
-When the caller's bitmap holds an odd number of compat words and is
-larger than the kernel's nodes, the clear_user() of the tail writes
-four bytes past its end. 
+> On the right side,
+>=20
+>>
+>> The same applies to flush_scrub_stripes(), where the stripes are freed =
+by
+>> scrub_free_ctx() at the end of the scrub.
+>>
+>> Fix it by waiting with a completion instead. complete_all() wakes the
+>> waiter under the completion's lock and does not touch it afterwards, an=
+d
+>> wait_for_completion() returns only after taking that lock, so the strip=
+e
+>> can be freed as soon as the wait returns.
+>>
+>> The completion is re-armed by scrub_reset_stripe(), which is called
+>> before every refill of a stripe, i.e. after the previous waiter has
+>> returned. The SCRUB_STRIPE_FLAG_REPAIR_DONE flag has no user left, remo=
+ve
+>> it.
+>>
+>> This is the same problem fixed for the RAID56 rbio in commit
+>> 26eb4d70f96d ("btrfs: raid56: fix use-after-free when waking up the rbi=
+o
+>> I/O waiter").
+>=20
+> We can't place the commit ID here, it's not stable yet since it's in
+> github's for-next only and will change as it's rebased and so on.
+>=20
+> The code itself looks good.
+>=20
+> Thanks.
+>=20
+>>
+>> Fixes: 9ecb5ef543d3 ("btrfs: scrub: introduce the main read repair work=
+er for scrub_stripe")
+>> Cc: stable@vger.kernel.org # 6.4+
+>> Signed-off-by: Qu Wenruo <wqu@suse.com>
+>> ---
+>>   fs/btrfs/scrub.c | 19 ++++++++-----------
+>>   1 file changed, 8 insertions(+), 11 deletions(-)
+>>
+>> diff --git a/fs/btrfs/scrub.c b/fs/btrfs/scrub.c
+>> index 98362c91bce4..4b37ae143f61 100644
+>> --- a/fs/btrfs/scrub.c
+>> +++ b/fs/btrfs/scrub.c
+>> @@ -80,9 +80,6 @@ enum scrub_stripe_flags {
+>>          /* Set when @mirror_num, @dev, @physical and @logical are set.=
+ */
+>>          SCRUB_STRIPE_FLAG_INITIALIZED,
+>>
+>> -       /* Set when the read-repair is finished. */
+>> -       SCRUB_STRIPE_FLAG_REPAIR_DONE,
+>> -
+>>          /*
+>>           * Set for data stripes if it's triggered from P/Q stripe.
+>>           * During such scrub, we should not report errors in data stri=
+pes, nor
+>> @@ -153,7 +150,9 @@ struct scrub_stripe {
+>>          /* From btrfs_chunk_map::stripe_len. Should not exceed BTRFS_S=
+TRIPE_LEN. */
+>>          u32 stripe_len;
+>>          wait_queue_head_t io_wait;
+>> -       wait_queue_head_t repair_wait;
+>> +
+>> +       /* Completed when the read-repair is finished. */
+>> +       struct completion repair_done;
+>>
+>>          /*
+>>           * Indicate the states of the stripe.  Bits are defined in
+>> @@ -359,7 +358,7 @@ static int init_scrub_stripe(struct btrfs_fs_info *=
+fs_info,
+>>          stripe->state =3D 0;
+>>
+>>          init_waitqueue_head(&stripe->io_wait);
+>> -       init_waitqueue_head(&stripe->repair_wait);
+>> +       init_completion(&stripe->repair_done);
+>>          atomic_set(&stripe->pending_io, 0);
+>>          spin_lock_init(&stripe->write_error_lock);
+>>
+>> @@ -1234,8 +1233,7 @@ static void scrub_stripe_read_repair_worker(struc=
+t work_struct *work)
+>>          }
+>>
+>>          scrub_stripe_report_errors(sctx, stripe, &errors);
+>> -       set_bit(SCRUB_STRIPE_FLAG_REPAIR_DONE, &stripe->state);
+>> -       wake_up(&stripe->repair_wait);
+>> +       complete_all(&stripe->repair_done);
+>>   }
+>>
+>>   static void scrub_read_endio(struct btrfs_bio *bbio)
+>> @@ -1762,6 +1760,7 @@ static void scrub_reset_stripe(struct scrub_strip=
+e *stripe)
+>>          stripe->nr_meta_extents =3D 0;
+>>          stripe->nr_data_extents =3D 0;
+>>          stripe->state =3D 0;
+>> +       reinit_completion(&stripe->repair_done);
+>>
+>>          for (int i =3D 0; i < stripe->nr_sectors; i++) {
+>>                  stripe->sectors[i].csum =3D NULL;
+>> @@ -1960,8 +1959,7 @@ static int flush_scrub_stripes(struct scrub_ctx *=
+sctx)
+>>          for (int i =3D 0; i < nr_stripes; i++) {
+>>                  stripe =3D &sctx->stripes[i];
+>>
+>> -               wait_event(stripe->repair_wait,
+>> -                          test_bit(SCRUB_STRIPE_FLAG_REPAIR_DONE, &str=
+ipe->state));
+>> +               wait_for_completion(&stripe->repair_done);
+>>          }
+>>
+>>          /* Submit for dev-replace. */
+>> @@ -2236,8 +2234,7 @@ static int scrub_raid56_parity_stripe(struct scru=
+b_ctx *sctx,
+>>          for (int i =3D 0; i < data_stripes; i++) {
+>>                  stripe =3D &sctx->raid56_data_stripes[i];
+>>
+>> -               wait_event(stripe->repair_wait,
+>> -                          test_bit(SCRUB_STRIPE_FLAG_REPAIR_DONE, &str=
+ipe->state));
+>> +               wait_for_completion(&stripe->repair_done);
+>>          }
+>>          /* For now, no zoned support for RAID56. */
+>>          ASSERT(!btrfs_is_zoned(sctx->fs_info));
+>> --
+>> 2.56.0
+>>
+>>
+>=20
 
-Example: a 32-bit task asking for a 32-bit mask (maxnode=33) on a
-2-node system gets 8 bytes written.
-
-Round the compat copy size to BITS_PER_COMPAT_LONG, so it covers exactly
-the words the caller passed.
-
-
-Fixes: e130242dc351 ("mm: simplify compat numa syscalls")
-Cc: stable@vger.kernel.org
----
- mm/mempolicy.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 390a31a99b4ff..cddca1db3d9a1 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -1725,8 +1725,10 @@ static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
- 	unsigned int nbytes = BITS_TO_LONGS(nr_node_ids) * sizeof(long);
- 	bool compat = in_compat_syscall();
- 
--	if (compat)
-+	if (compat) {
-+		copy = ALIGN(nbits, BITS_PER_COMPAT_LONG) / 8;
- 		nbytes = BITS_TO_COMPAT_LONGS(nr_node_ids) * sizeof(compat_long_t);
-+	}
- 
- 	if (copy > nbytes) {
- 		if (copy > PAGE_SIZE)
--- 
-2.56.1
