@@ -1,101 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910759;
-	b=Z/yNW5MRRDJuhIa/NTnlBbNKQ0fm/SaLdqXppSLJN9EY5BreRaETwKfFW8A+cMFpW1+b
-	 qcNWK1FdHjm98BoOY2DZoPZumqylmWlK1/NTEw7Up6aqu6GFxAlw8QPxPJRc+83E4DIuN
-	 eQbB9KwMqbNz9r3s8Dqr9nzuf300usy5lBYVLVUGqGNXL5aXdTzjH6xzGQwiFAFY9JGHT
-	 fnzmeXyd4q1AE6a4KcwdVivua3GGxS57hDrf7kZMpzcmLRTQ32Czr5A+8IYr5MQ+2KUxM
-	 F2OvAqYIal/MR7JO3QfnC5wLW/NfagaTYrjS7y7pnzv6Hhp7D7/Vk+kPfjr7Ux18aqQ==
+	t=1794910854;
+	b=5iwDxqMEWw7T5hiv3WTr8WTHllbHt44hO2vRqnvxA5PlNI7mEvN0QoE4G/YZUYCROseR
+	 SFJtDLiZEC1oKx+eAguXXYd9rt7CYPMviLQB/rjz5cjqYYIiNscvcvWg3PAHD90WUe2gV
+	 2dUzK4crgvKz4uHnYQNta37M7rYhuYSIbc2wNi8naYyQPs6/Y5gsv7BAoNQ3Q2NHbxru/
+	 qIuPQT1h30tAes+iHpCzXH9JUEtI51QNlEHtu1d3AaQXQGOV3hthgBkyfQ+ppGb1CvpS1
+	 //Dg2s3o3n+siBp5YOQF4rgZeTAvh9LdU3vkDsHjJWCTyDN4ka4lpBd4co04o6vBOPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910759;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=6tYUDeaUmXci4DtaZ3KGPX6vHUKyaaYpdht15nvdlEk=;
-	b=aV5hBQ2OQRg9NX8NJ2J4ohdppzh3T7Z8mON0L9qu9csoy0BonpJIE0bgj+xncyocHq5O
-	 mWO9lUnaqNwljHtihXRdYafR0PW8a/56olLD91sx54h/TumZAnMH/OTuMmY2AZgJKTaf9
-	 /4NqavyIjATg0d31HmwWuIbkq8smao8RBnoF2EpE91tU9rwozHYUH6Ujkg0Btowz+sNWe
-	 f6um03bW+IdzqxhKzqdfxvjilhDpUAzvUejU1n8OzFZuXjUMNhKJji045iZJKvGQ25v1u
-	 7P1shm2i5e5sX64x0j6XniOQrYceFZrujvkjdJUwz4IlZj+z77cwtjU6hOWMxP4M5Ew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910854;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ilGgLF8asMhieoRjJnaDA152krpezAwFlFx6D0TT66g=;
+	b=LQiCfUDI7ivB5edjF3r6FYMBQ8MwyiqQGnIom/cgttd/kINIsSqlvOU7Yr5f1CRqJ70i
+	 lheWbLyMlbyLJiO0WyurGT7tJiWq++rIVgjWSSZmNYtFTmVyOmf0S8QFVS6cZLujRAj7k
+	 I8FA86EDiNoJNJUIwrywVa+R9V612kgWp1z62NmjC/GRqteNmhPSIJc4N6q12iKj2WKTd
+	 gKY9vaVXNzZSCrxRYhWAqINh2gFZy9mnCSypAM9nWRniQJLjpVyzlwLOU8+wJkgOnptsk
+	 jm5c6ekcACEiJOTkEgzikepWZQPKemudwbaqIio4Ejt66pyc0/wTiYZI23aVmYiACmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gourry.net;
-	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=hq3XZ0Sw;
-	arc=none smtp.remote-ip=209.85.222.179
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g94MOWNz;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XjODMonJ;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86A81606A323
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 10:19:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86A81606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E0DD606A31C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 10:20:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E0DD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=hq3XZ0Sw
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-949664ee41cso324985485a.3
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 02:19:18 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g94MOWNz;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XjODMonJ
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AH6f1GM2998618
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 10:20:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ilGgLF8asMhieoRjJnaDA152krpezAwFlFx6D0TT66g=; b=g94MOWNzth+xBunp
+	hOmkSpvC0JgQ6l3J4MLRkj++1Aj3Iob5oQovsEtW/rMKc+iynR1k56o2ngfn1sH3
+	vFQA08z5vD9negODGIgxfl+5WF3jA1PGgCUYTX+nSAmfit/62phKuKqcC6P7GE4e
+	+MtQjH+dvKjOLYUUSLcKrkJsCXWEduS5SL+ZS4L2llzptj2ReP1OmQsCptlWS/54
+	4q6Jz12yReAngkZgMpRZfEOsZPIp8KSJSYRAegwpWG371C9fooXkxEvbWqKJTwG4
+	+CLaNS4Dra+DQm7j2s+3LVgeJsHDfFmAm1RG0T9ZVZVf+2yA1mp7+iHDPPrce5/b
+	8vCRxQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0hve0w18-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 10:20:53 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-94967c6d4f4so291976685a.2
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 02:20:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1794910757; x=1795515557; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6tYUDeaUmXci4DtaZ3KGPX6vHUKyaaYpdht15nvdlEk=;
-        b=hq3XZ0SwNMPqXAAFptW06QVzSro3dwLjHjkyW+FcJdX8JacGeM+g0F1PVT0NcnNGLR
-         pWIqnoRkRLpX6uT704N9lgLnJZMOXKtfyZAEfepQLPYgdPALZ8exgL8o6AtB8o2dJmoR
-         SKoc3SHsCyYtbybxCpm9+/Wlz1hWI9LfcnNS9DyKSNFe7SwwIUMZ2JZGoPpI39/iaaSj
-         NXv0MDLiflmcZEdKELJJjgKVXCGHpl4mQOY0L85DyFSj+WTjWsHWS+D7Op7kulJ1s8aj
-         W5u5c5MedZ8rtI3CtmQH0CzGl1ejvYoFEpFtBR5+ojk6BamBB1BZQKfJf6B2vQtRhnbV
-         0iyA==
+        d=oss.qualcomm.com; s=google; t=1794910852; x=1795515652; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ilGgLF8asMhieoRjJnaDA152krpezAwFlFx6D0TT66g=;
+        b=XjODMonJHXxpwmhfHq4jCOgmc+C0k0FJ/3tCgftZn7xoWqq5O7W1TMTD9y3lktpiHb
+         qrqbkg66GQ/69oU7KRmgsTxj3zPEB7v3Coe/hL1h6Q6QvkOTNeSmfq34hmJR1BqT9URR
+         d4qWJO7oZqPbqZkX03vUekMTwneoMpXkW1WyBHlOsDKwQQMR9eCiSGhwNQ5aO/gtLKgm
+         XqJyy0salEvlvGVWTy6xaKmwYnQSOAzwDpTJRe7RDvrfb/vcMaQ1qkH2U7pe/1a3XjPg
+         APZskAdmn7AM1+J/yJ6pqTs5CePLMQ65fY5FWE+QnLhMTImzMjVoI6FM1NQzY/6NB4Mb
+         bDfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794910757; x=1795515557;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6tYUDeaUmXci4DtaZ3KGPX6vHUKyaaYpdht15nvdlEk=;
-        b=mJmO3D9coFO+yFjPFc5fpT/qV8HgOHE5CXxG5+3U3IttEsz63H6I0Bpuaj+ioCjTJt
-         NCaGqlnjak58KlUplCwiI1mbRnIUz7mlG64oZfnAW5ArWkc1NK66rG1opbD/zx+vSsXt
-         qpyZhgIaVH06lM88murRdst8XbnHyh5dVqVZgGTamj4rKwsRo3gCuAg1VaQt7qBTlzTB
-         nW4hr3q35wtN+I0IXXDYHWWdEaabtMHms1pSqQdenorrJzAfT6Hsjm/K/3pDEMCLkC2d
-         LBiSGMTqMb3RcuMyCYJku+G8knjPDli+CWOu9Jv1j/At92ZIaMnN9oY/sw34Xb+rpiYf
-         Qxnw==
-X-Forwarded-Encrypted: i=1; AL+hErEH/q7Rkc9vpaOcEG78s279A7aAVABqAdvLF+4wcIuk/WHMh8vodmDLFRpvdPdbIeduaPT75Vo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+D+9Xc4RyD2RpPBR0yiSO+iW1R2FGf9TUxnBCTKftVtxFpuM+4
-	ko3ihmU0Ufjvp6AVUnT52nqq2q00CF/iP3G0UQOSfearwYxUl0ODyzEqMPidTvq6+U4=
-X-Gm-Gg: AYBFou3grXMt98G+2ae5nbA/NRqkllPBIC3JYmQrH16wmdjqJnzIPHtopyK/ZpVZ0mX
-	f712jVDOQYnafyXppKQBVQO4XWaPgHrgZLo3ODbmdhADzdneSFbo3caFBNuxSL4dIASZx5zlZ1F
-	BxR8JzYsQWve42fql9iXbzUVqgqxeO5OPHZSFpIHu6DiNztC6+9zqcc/I2sewY57kv7DipZQyPX
-	MKDrK0W9WZLQePwNekK4/jUWleFfQvbGb53h6PPifbJM5eYTi7BierCHawilJ4Up4xhO6yrBX+7
-	Gwc5I/pcKSsQFilFI1MCP10oJlFGSqP3FqgTGkKJL3IZ9z/CPr+4444EXv5C6RC2gyjOjuya9wY
-	7QOIpi7isFfevdoXe7fKEYfw050cBO7a1EtzT4XmSr3JGRKxtjpXTxFBME+Y8+8DczYCaZ1TXEt
-	1wZAwxgQ1I494STbrN3qY4RzE6eT+UWdRhG02Jl/+AatBTceRzy/6anQU2+USHehU/4fcAkvEIS
-	T8DmrwORX2mZXWRkFVaA7HXZ4gEtwjciEOarniTL7aIw61rZgpijpzDGBJOCi2CDrL5UGV89xnT
-	510prMuen374M1NGg/qZwuGZ2Z28gVC7Am6j6PdK4ASe+YBVtrHkvXFMG9OF4A9vcQElMtWtvVw
-	8JvETwP54fsFKO8w=
-X-Received: by 2002:a05:620a:4048:b0:93f:dea:3b7e with SMTP id af79cd13be357-9494baf6928mr2132633385a.24.1794910757471;
-        Tue, 17 Nov 2026 02:19:17 -0800 (PST)
-Received: from gourry-fedora-PF4VCD3F (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9496bfb7fa0sm719926685a.34.2026.11.17.02.19.16
+        d=1e100.net; s=20260707; t=1794910852; x=1795515652;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ilGgLF8asMhieoRjJnaDA152krpezAwFlFx6D0TT66g=;
+        b=b6BPWKuhHFp4fUpE7D5CNyvbBenwcJUZ97KWiTk7ZWGLXU5rM63fEaEqqh+Gqhx4Wv
+         mRQsaHg6x0pXy9u0SQXaNUKjqht3Hic2jzbZ2Lxgto4gQw5o5q9IXrN6zYIFFoFY4qDW
+         0itnfUw5wxNYB/pRT56GeLf8MS/H0h02HV9qNAWdaMSys15/WGG/b8mXMslpZLm7PcXU
+         bABy954FSNnyE2pRHvko7Rewevriit3NBd06kS7V9mp57R1EbCC5UjntJ6GvXW1ACIrj
+         1U5ejOgYVUtX5JlYzVON5eQWLpl/16DZBWJQC+bYx10M7z3tLt6nI8HVv3E1DHkZONWC
+         8VEw==
+X-Forwarded-Encrypted: i=1; AL+hErFcLouOX9958xO9jLqcltIziH6KdRN/MlqI/S/gr9PIWy3w/S13FTaXdYomGbHTwzhTzIt4C5E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/zuHw1OaEZrVp7Qv2wTf15GeyP8WrY56bbAhurKDrvuUz/MLup
+	SaxT3jybEQ/i+/rj+KNRKpw8hX7JiF9SDhuiu1HPfl+O2B71vzp44+kOO7zcMZvdpMK1yPp4oKv
+	JfEoo2Iw34mvFfydHpK8R77lTT5pe6M1bs2dn7OW4rEPzBxQ4mSylcKbLacI=
+X-Gm-Gg: AYBFou25WIFe/M3xNX5dVUzWwoSPRCr/l02UCoDGWwFDFXy2hccW98EdJbR76rV5q0l
+	2KpGo8DzpYw8nv7HLkzXQWrVrVqbfJLm7j7AUj6j0ZjjyI2MaXXprqQpQ30HYkhFBsHQKExyUQl
+	X25n9PeGb97teWPEryavbHzUCEJAxJdviX6LQGCTAwo8uKcuEGRl8JpTYYMCV4un4KyVi1fnR16
+	q7sG0IF1hTsFadiM7sZHPYUCwqVlpzTras4RLzH0y3YvtBQGAnO2ILTKWSch6ybMmKeZWgFq9u/
+	BAFrtwxS9iZ0TEy41xIb+83ZFfF8K8E1scVA+g+mPFshn6rIvKn+4iU+mYfw77duWIcVX+sVdmv
+	03P4R4zRJdKTpKYmn2Z5dt/OwC8iGj4BMA9OudTTjMRcbg8dJQQtfXsBx6lEZHjDKYK2ynkaVSK
+	Y=
+X-Received: by 2002:a05:620a:4592:b0:93e:e2ec:3bf with SMTP id af79cd13be357-9494bcc9ef9mr2151887285a.78.1794910852024;
+        Tue, 17 Nov 2026 02:20:52 -0800 (PST)
+X-Received: by 2002:a05:620a:4592:b0:93e:e2ec:3bf with SMTP id af79cd13be357-9494bcc9ef9mr2151884985a.78.1794910851460;
+        Tue, 17 Nov 2026 02:20:51 -0800 (PST)
+Received: from brgl-qcom.local ([195.50.164.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783854cesm90386485e9.1.2026.11.17.02.20.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 02:19:17 -0800 (PST)
-From: "Gregory Price (Meta)" <gourry@gourry.net>
-To: linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	david@kernel.org,
-	gourry@gourry.net,
-	ziy@nvidia.com,
-	joshua.hahnjy@gmail.com,
-	rakie.kim@sk.com,
-	ying.huang@linux.alibaba.com,
-	akpm@linux-foundation.org,
-	arnd@arndb.de,
-	larips <larips950@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/mempolicy: limit compat bitmap reads to the source nodemask
-Date: Tue, 17 Nov 2026 05:19:10 -0500
-Message-ID: <20261117101910.1820066-1-gourry@gourry.net>
-X-Mailer: git-send-email 2.56.1
+        Tue, 17 Nov 2026 02:20:50 -0800 (PST)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Lixu Zhang <lixu.zhang@intel.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Linus Walleij <linusw@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Haotian Zhang <vulab@iscas.ac.cn>,
+        Alexandre Becholey <alex@becholey.ch>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org, linux-gpio@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] gpio: ljca: Validate the pin index of interrupt events
+Date: Tue, 17 Nov 2026 11:20:48 +0100
+Message-ID: <179491079451.28213.15188778805240746031.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261113144432.1354180-1-alex@becholey.ch>
+References: <20261113144432.1354180-1-alex@becholey.ch>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,50 +128,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA0MSBTYWx0ZWRfX6+Pz/mZ1J44V
+ /v3y5UTYkYeKZ8DRSEHYjLiTBRvleXxvWc9GMhat9rHfq0bWomhxRvSK88bZrJYh4avPzbP38+C
+ OUKDJtQzRU1LNR/S+YVKLSJHBX7N+8Q=
+X-Proofpoint-GUID: Fk8woe0zwTmao4J37yLF2XPLhiogALy8
+X-Proofpoint-ORIG-GUID: Fk8woe0zwTmao4J37yLF2XPLhiogALy8
+X-Authority-Analysis: v=2.4 cv=dqhOmFg4 c=1 sm=1 tr=0 ts=6afc2a85 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Jk2/TV77q6/E6wQq2oQJxQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tYqXyjVJoe5DErGjTNgA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA0MSBTYWx0ZWRfX9tDJqY6uNwwH
+ mtIDzVi1r4ko9SnFwY1PHH8qqqecGbGmABqcS6cE5jmMlElIZ4kQXioKrH4AcqxbYFKFZYYtb2l
+ fiUIOXopoqitwrRY9yrgOJmUuBuoQJQfEYeSDvtoUe8uKqtTDHvqZoV8TY8gvAWomjkO5Y9dT91
+ UqfrOo1xXg5TkpEhcDS7rgkBLYKw/rAK3h36wmO2uy26V1Ge3l4HuznLqTVsE1nR7JzGr+ozprJ
+ nriNLRJcCpCW9GkRWiaQ0oH0AbHBIAcvIMURThB1qoXdJJGSNRda8WVgDHlegXOmBbziJhtk7Bv
+ pK7+SULWTGx2aNaBugWjTZTMi6Xrn6ozzrNPVKgR9Psr7/kS4PqxI4fglIMu3fsHCQVexYqlBB8
+ gWxSfWRBggCRtviwqjaGtVI4w+IvF7CaUPdhPwKAtrx8Ed3nPr3wJ25mn4J7JAlahTPFtjZbXCN
+ hIHUbNOAhNRKnDhSwnQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_01,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 lowpriorityscore=0 clxscore=1015 phishscore=0
+ bulkscore=0 malwarescore=0 adultscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611170041
 
-A 32-bit get_mempolicy() call can read past the kernel's stack nodemask.
-With 64 possible nodes and maxnode=65, copy_nodes_to_user() computes an
-eight-byte copy, but compat_put_bitmap() reads two native words.
 
-A kernel built with CONFIG_NODES_SHIFT=6 reports:
+On Fri, 13 Nov 2026 14:44:58 +0000, Alexandre Becholey wrote:
+> ljca_gpio_event_cb() takes the pin index of every item in a GPIO
+> interrupt event from the device and passes it to set_bit() on the
+> reenable_irqs bitmap, which is only LJCA_MAX_GPIO_NUM (64) bits long.
+> The index is a u8, so a malfunctioning or malicious device can set
+> bits past the end of the bitmap, in the members that follow it in
+> struct ljca_gpio_dev: the output_enabled bitmap, the connect_mode
+> pointer and the irq_lock mutex. connect_mode is later dereferenced and
+> written to by ljca_gpio_set_config() and ljca_irq_set_type(), so the
+> device can flip bits of a kernel pointer that is then used for a write.
+> 
+> [...]
 
-    BUG: KASAN: stack-out-of-bounds in compat_put_bitmap+0x113/0x120
-    Read of size 8 at addr ff110000099afeb0 by task mpol32/246
-    Call Trace:
-     compat_put_bitmap+0x113/0x120
-     copy_nodes_to_user+0x137/0x200
-     __ia32_sys_get_mempolicy+0x1a6/0x280
+If you have an LLM write the commit messages, please ask it to be more concise,
+half the stuff in this commit message is just slop.
 
-Bound the compat bitmap read by MAX_NUMNODES.
+Applied, thanks!
 
-Clamping every call to nr_node_ids would remove the extra userspace
-word when the kernel nodemask is large enough to contain it, but this
-keep that existing compat behavior while preventing reads beyond the
-source allocation.
+[1/1] gpio: ljca: Validate the pin index of interrupt events
+      https://git.kernel.org/brgl/c/e6e2181c6920ff59ded349a100f80cf85d074601
 
-Reported-by: larips <larips950@gmail.com>
-Fixes: e130242dc351 ("mm: simplify compat numa syscalls")
-Cc: stable@vger.kernel.org
-Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
----
- mm/mempolicy.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 79053ece02cd4..d9177c5504879 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -1715,7 +1715,8 @@ static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
- 
- 	if (compat)
- 		return compat_put_bitmap((compat_ulong_t __user *)mask,
--					 nodes_addr(*nodes), maxnode);
-+					 nodes_addr(*nodes),
-+					 min(maxnode, MAX_NUMNODES));
- 
- 	return copy_to_user(mask, nodes_addr(*nodes), copy) ? -EFAULT : 0;
- }
+Best regards,
 -- 
-2.53.1-Meta
-
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
