@@ -1,78 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794917805;
-	b=5q6OV62TpXdXa0mXNoZP2P78EAOtfF4BMqmG8Z8uN614RXN0rWkbYvt2pGQCwUymYb6L
-	 CeQuKfca4d1jpmS59TbJeExNmfC/+8JbuJszjkYvuB3cM0uKS4GE1MRtNIV4m4ZKF5Ou6
-	 oGOY99ZpxNzHVj42VanDeUku/f4t5hs/Le7085/hz3IszIbuNwr2N7zUkSs95QX1MGM0m
-	 GxwsFZ3/8qtiQmqIE/DYgQ79R0lAjWqWdGyxrf5Dr1bleIQv+I9qrmOuX3LLPbS0FjhxH
-	 x4ith857AOHG/USh/+3BMvlfDI4Z+goNNrUBHfc1hxnLhgc73q8tPFmoHAXDg9tKkVA==
+	t=1794917925;
+	b=OvIk+yyohyUi57e/QlBhT9RatGGQopsBwH9dljvJXW6NiIZt2h2q79qhdItyNYrM60oV
+	 prn9MuaMKtJsOu60Cg2ZjQubqhSFmEFA+qopfPP/sDgYecKqmpyaxf5jK+vcJP9jrwsde
+	 528antsMOzzEAAh22gH5Q/pJdPOlEO68W8q+9oOKncoAwzOTr14SJcB6+S2xQIA3aJ6lr
+	 fKzeyIH+XymYz8Cl+Uh3Pw1HhbBrzN97nvYkuAVOBIp5vR3G7MfmTeW5cJUmVOONZlcWL
+	 QsBOeAOWvjAvcMad0z3RXV0lm9T4hhbWcbjWuLwMNVBt9ekqiqIEotprXZv2kkQLxVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794917805;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=xHhwduXYjZsTcrueRZeatOj1/QPkxm9HvyXxSX48zKk=;
-	b=eC35wXaicdBQPmhIHcRZ78BxIeu64eacBHM31ALls+J7sabqEQVy7nRi2lfdGe1dnMTT
-	 k626qwTkJY8Mb5rADwbKSjzfwh9Pu113kCGqbtrkkNrga6GPOsI/VcKIBs+U3mM0gYo6C
-	 jgL29EogZX5Bd2oJbrFi/cOtdG4qc8VRbb6VjgXlXQEVPQketE4fagWkmUXTafReiXJSx
-	 HXtClbgJ+visKZY5j/1PY/MbAOdWnAJpCCY+IK8TisKTs3+oychm5MDbkAFPox28q7IkT
-	 lGxblYS0RFeZ6xlbaZ9nvznpPi0/njVdP1bujmr+VFwL0BK2zZrrehuXzyP54UdfG8g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794917925;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Saf3SetBsCoiktrO+qd7rI13GSO6x+2RpySl+aH8Vbs=;
+	b=a4zKbfS8gWmqis1h67Nz8EFbi7XkzY8vxZOivxRI9v6W5xq+X81Sc25twpScnoG0S3in
+	 mb79qJGDoKzitX4r5LWgd+9NJ/uZCbVtvkqjVMakARohXmasHFgOpubIfRG6WdInpMGFY
+	 XsREKqhtztp7XI/wuiuEBLsJDCdkT52WD1jQihtERw7kO8vDpaVeqTUg28yPuZdC+BOU2
+	 xI7wAI/An3qk69QuOg2B2tvcNMPWDIcYaZ840JPoK5R/vNNzYjJmpOzW52ANnGKRyNe1e
+	 SyN8bVUk7eL7bE2PGAajeLfe23xTT1sOwopEn3VgzUdZoMA2jXeU711aNI1MpBlqLFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=vYJYhTBL;
-	arc=none smtp.remote-ip=203.205.221.173
-Received: from out203-205-221-173.mail.qq.com (out203-205-221-173.mail.qq.com [203.205.221.173])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YCwEQiFW;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DJte1cMB;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EF4606A32C;
-	Tue, 17 Nov 2026 12:16:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69EF4606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD15606A323
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 12:18:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFD15606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=vYJYhTBL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794917794; bh=xHhwduXYjZsTcrueRZeatOj1/QPkxm9HvyXxSX48zKk=;
-	h=From:To:Cc:Subject:Date;
-	b=vYJYhTBLfWhmHVROHVOV6S4IpaR1DlHP39ikL7rIeTbcLR6eqatJg6+pMU3MTN3LW
-	 0M/92VYt/4YjrABwRe1i+gy03Pi1/WLCV3ldagNjUjuu8EEHejt2lATeXQjx8zJh37
-	 fC7F7NQSzE6M2zVM+bvM1CdoMSRqA3h7p76P204Y=
-Received: from DESKTOP-6LNKCJL.localdomain ([114.245.39.251])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 41B01800; Tue, 17 Nov 2026 20:16:27 +0800
-X-QQ-mid: xmsmtpt1794917787ts32msj22
-Message-ID: <tencent_1B8BBAF215484255F04168752D9BA778EE08@qq.com>
-X-QQ-XMAILINFO: Nx5J06Esz7r7tOdMo4oLhcU1HEvq6piSmNZYgze6EELdW4f4Dk9mRfb2x4T8Xl
-	 9ctfO5b2/AZffMmxAo7EgJG1/lOiz1h3R46i2psvEfjh0ssoBPYjaSBptlp3JCaEJ1aeAEOQizG/
-	 n56t8jOOcvqNK0+DjPsAqIuo7lxd5bA6S/U93XSK3EYLQF0Ttkarh0UTfsIWk6v4LmZ49FaBjcNJ
-	 xkAE4423kkrzGty/5lEn44ODq0YpwM4NpfJmoC4781cv7OEJ9+Qly0GFlfXZJGH4EdHI0T25wCyW
-	 ts0enf5OsxAk0lUrWToNja8MOzIe0xInipZCvnmU35FZQJ5bzxut1PnmhCFt0RqpFd/yn9tjeImG
-	 LC2VaNq3gPTBpBYFElsYvLH8l3zDfisQvS3fSR8J6BEgUMDG0SpS+mjlq7Cp+riYGGco+diVZS8p
-	 aiPJhxOpOjAqlX1omY0XGt94k8oAr8UfdMoUFseLx+Q7LOc9kwN5Rb7BZt8atI93XBrXi0TgvI3E
-	 cxRl3aF4COHXMeTVK6nP6LXY0uPvECxANe1DxUC7QpzuNJVPy3H0/jrXGn9NvfrzoNLjkiebE4HK
-	 75oMrkvlUFg0FOeppkESVTmsRDIleD7AHKcURwfzB7MYdo/Xurme5okgtxV3fzfYM98hHiutVtGw
-	 6PLg588TkomDuLLweuEL06EzjfEhXJaW9AzsE4de6qVoeb1WGPxcY2SfX8Nt2Km2gfiwEiqqTbma
-	 krH2mfPRFT0X3zNqMndSJS1/tkv8p570KYsbZ0cwH8ayEEs6AvtU9IyIdWZXaMLllAjr1rurNRQb
-	 99xvatiOArzF4KbSzFH+IQnyqrfJPRuRqMFLNOmOwMh8amv9WL441u9k3zjuj+xcG8kK2lf/PhRg
-	 hDH5RlMgVy/TDhUdFr4b94GkqGF+UUr1azMBYBEb6YMnCspQE1eT+fRZb3mJEp92tn3Lhf1agGXa
-	 su7xHHr6OawkJm1oZjlSikQmUKKagBzKqFZwC9uue+dv/XaayOWviyC0rUtY6yAA0MtHVejgATAK
-	 OWlqvNTBBLICkuwVBBnGi1Ra1C/DEz3o6/tGhGfYIYjPL7vGLMEE03GUFITK5nVNQ8alXccm0mdw
-	 81iKfTyVE6rUFFwZIAHRpayDk2dBv+kVb5Xowu
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Jingyi Sun <1045704958@qq.com>
-To: Hugh Dickins <hughd@google.com>,
-	David Hildenbrand <david@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Luiz Capitulino <luizcap@redhat.com>
-Subject: [PATCH] mm: shmem: limit forced anonymous shmem huge orders to MAX_PAGECACHE_ORDER
-Date: Tue, 17 Nov 2026 20:16:26 +0800
-X-OQ-MSGID: <20261117121626.1058-1-1045704958@qq.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YCwEQiFW;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=DJte1cMB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794917924;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Saf3SetBsCoiktrO+qd7rI13GSO6x+2RpySl+aH8Vbs=;
+	b=YCwEQiFWTbHWjsu4OneJltDqPuD8WqAFmntn7iNlZdoEcXO1a5+N7SavRmrCj7JpCuPIgC
+	lSbQTrCvQ0xGw5Qv+3gxoLAFMfu1mq0rFZRmYbWL/xEwq9F4MI+UBaF3juikYDjpDmalrp
+	fBl3FWhHUFUc9QJ6TU7Wfnj6TO3pOX0=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-299-2aTLEYfxNrKDfvqlFbcM8Q-1; Tue, 17 Nov 2026 07:18:42 -0500
+X-MC-Unique: 2aTLEYfxNrKDfvqlFbcM8Q-1
+X-Mimecast-MFC-AGG-ID: 2aTLEYfxNrKDfvqlFbcM8Q_1794917922
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-492d47f142cso671064f8f.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 04:18:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1794917922; x=1795522722; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Saf3SetBsCoiktrO+qd7rI13GSO6x+2RpySl+aH8Vbs=;
+        b=DJte1cMBLW/T3asfyNnXTB+vA5G9FF+RNsu4vwogkvGIEHYRHVpKqmVws/WwX+p95h
+         HGvglrfAdKzPcUqv2lAAMJfRHhALVdD/odsplvtS2KAITQiD4gcCWy9w+czokKWRl3H4
+         ypNtXk6xqSnY5KhxiZsapLW4XxKcyyHbEQsqBAcrVLwPaBgZQgrGNMfWJtjSd6OHHHEN
+         AsgDnO+BobaSLhnmWr3TQXod4Lb/GP2zqDVEuUMw9ACS1nzs0kUXrLDiYz8yn3O3vAJy
+         2T/7tZnvia9nrSUYyF1UxUxZkEq0Bo8pT31vI0mYahZT+ijuLOkI5khCirO2kqEwd9QL
+         Xr2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794917922; x=1795522722;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Saf3SetBsCoiktrO+qd7rI13GSO6x+2RpySl+aH8Vbs=;
+        b=t0xwi0pyASvAnKYiDT1JPfYrRHoC4mAnrt+UYh5IihhL2FSCs0N5JrYkv6iZp39sae
+         fscZe8qa782u9PqH1YRQrzGuKyVtTdWR67QXW2E3HFhz7k+mGyhKirHzs+q0Bye2NwFw
+         wx9/GoVPBcEkhduNphhQbRWkSRTeQX4uh86t9DO8dtfF8k5J3Btv9lZAgAU504j0QnUN
+         3M8k3I8wZDDncmB2X9WpWOS//Qtuhh4PTFszS8GrM/TmyrUcx0VITuhurRJULMl6x5jR
+         ISJ6l01iR2GpeMH/04DdL0VvGY+PToXaOUqmp+DB+cYvsNnabrIVyKNXxP1MYZoE9VYq
+         BrCQ==
+X-Forwarded-Encrypted: i=1; AL+hErEpvw8xFOvlvoYV156/bMNd9+GvXMyU7VBBdp1P72Njo5h3r80VtigNRwZL5k0Wt5B1nDnm4uk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HHN3UHqnbqr2eLCD12a7QWNlJC1HHhjUqB/eSyZVGTyu+mBPz
+	nK+Uv/zQ9F1tbmm6a7QymE2LLOlGQDKwZJDMQ/yPF6owDFYfR1f8Y6ss7nyMecb78H5T7CJRxNo
+	Gn82iGa5iTSjKUuHMfTMLB1SGkPYiv2Ie0w3IK8+S8t2NI3rkJwnDSTlSfA==
+X-Gm-Gg: AZFdTZfTzY8VLpr3WcedAlJok4b3cNO1T9u6x0XrYQfyawm5xEPWxTtJB7gAzcVb4D0
+	5zsHjaVv9iSOv1/rfusO+uvHroyVs1PZANjelRxrI4DlQ96lCTIMLmAy62KPGy0sSz0qk+L5+jS
+	IyUyNDs5Xp+Z+lof09MysdXclAXC+e4zmyCX1qwnqARWFW3zaxPFKsnUj7kMrtGneb1t0er+Yi/
+	nwEl2PWvJzws0PcjQK98tWrrPdBbacpxgmuFrB5gK6Eh2T5EgM1VJkbhS7qAIBViubRBXLtSU4u
+	rfybIrEcquFVU3duu3l05kxs0DoLmOuTIhFL9eKaj8RjBgKZDxXRj1rMH93jjeYyfwVSNoNX1tJ
+	+7hKG5CwqINSZthls9Fzy05S+dSIPDVRLpYA2DbCtojcfw8OsVrcgSvVWQm0KvOMpL8dIDtX2xN
+	xUl9zepN4rUinUwyUNmUqR1wB2L5VQDvoIlpOY+8S5vxV6
+X-Received: by 2002:a5d:64e6:0:b0:499:527f:ce55 with SMTP id ffacd0b85a97d-4a377c71e8amr6033014f8f.27.1794917921215;
+        Tue, 17 Nov 2026 04:18:41 -0800 (PST)
+X-Received: by 2002:a5d:64e6:0:b0:499:527f:ce55 with SMTP id ffacd0b85a97d-4a377c71e8amr6032937f8f.27.1794917920728;
+        Tue, 17 Nov 2026 04:18:40 -0800 (PST)
+Received: from [192.168.88.30] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-49c60f8d615sm28246035f8f.56.2026.11.17.04.18.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 17 Nov 2026 04:18:38 -0800 (PST)
+Message-ID: <f781b15a-a731-4698-8161-d384af5bb535@redhat.com>
+Date: Tue, 17 Nov 2026 13:18:37 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,76 +112,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: wwan: mhi_wwan_mbim: fix dangling links on
+ registration failure
+To: Xia Yan <yanxia@cmss.chinamobile.com>, netdev@vger.kernel.org,
+ loic.poulain@oss.qualcomm.com, ryazanov.s.a@gmail.com
+Cc: johannes@sipsolutions.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, yana06070@163.com
+References: <20261111113213.280066-1-yanxia@cmss.chinamobile.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261111113213.280066-1-yanxia@cmss.chinamobile.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When the top-level shmem_enabled knob is set to "force",
-shmem_allowable_huge_orders() returns huge_shmem_orders_inherit for
-anonymous shmem without masking it with THP_ORDERS_ALL_FILE_DEFAULT,
-unlike the other return path at the end of the same function.
+On 11/11/26 12:32, Xia Yan wrote:
+> mhi_mbim_newlink() adds the link to mbim->link_list before calling
+> register_netdevice(). If registration fails, the caller frees the
+> netdev without removing the link, leaving a dangling list entry that
+> RCU readers such as mhi_mbim_rx() can access after free.
+> 
+> Register the netdev before adding the link to the list so that failed
+> registrations do not publish a link.
+> 
+> Found while reviewing newlink error paths. A UML/KASAN test module
+> using driver wrappers and a fake MHI context reproduced the use-after-free
+> in the driver's RCU lookup. The fix passed the registration-failure and
+> create/delete tests. Both UML builds passed with W=1.
+> 
+> Fixes: aa730a9905b7 ("net: wwan: Add MHI MBIM network driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
 
-huge_shmem_orders_inherit defaults to BIT(HPAGE_PMD_ORDER). On arm64
-with 64K base pages HPAGE_PMD_ORDER is 13, while MAX_PAGECACHE_ORDER
-is 11 because of the xarray split limit. With shmem_enabled=force, an
-anonymous MAP_SHARED mapping can therefore get a 512M (order-13) folio
-in the page cache. Splitting it later, e.g. on swap-out from
-shmem_writeout(), triggers
+This is not 'net' nor stable material.
 
-  WARNING: lib/xarray.c:1051 at xas_split_alloc
-
-and the split fails, so the folio can never be swapped out.
-
-This is the same problem that commit 9fd154ba926b ("mm/shmem: disable
-PMD-sized page cache if needed") and commit b66b1b71d7ff ("mm: shmem:
-avoid allocating huge pages larger than MAX_PAGECACHE_ORDER for shmem")
-fixed for the other paths; the force branch was left out. Mask it with
-THP_ORDERS_ALL_FILE_DEFAULT as well.
-
-Reproduced on v7.3-rc2 in QEMU (arm64, 64K pages, -cpu cortex-a72,
-4G RAM, zram swap): with shmem_enabled=force, a PMD-aligned
-MAP_SHARED|MAP_ANONYMOUS mapping of one PMD size got a single
-PMD-mapped folio (ShmemPmdMapped: 524288 kB) and MADV_PAGEOUT
-triggered the warning above in 3/3 runs. With this change: 0/3.
-shmem_enabled=always and 4K pages did not show the warning. The code is
-unchanged in v7.4-rc3 and in mm-unstable, but the test has not been
-re-run on those trees.
-
-The issue was found with a research static analyzer for
-cross-architecture dependency bugs and confirmed with the QEMU
-reproducer described above.
-
-Fixes: e7a2ab7b3bb5 ("mm: shmem: add mTHP support for anonymous shmem")
-Cc: stable@vger.kernel.org
-Cc: Luiz Capitulino <luizcap@redhat.com>
-Assisted-by: LLM
-Signed-off-by: Jingyi Sun <1045704958@qq.com>
----
-Note: this touches the same line as "mm: thp: always enable mTHP
-support" (Luiz Capitulino, v8 14/14), which is still under review. That
-change masks the force branch with ~disabled_orders but does not add
-THP_ORDERS_ALL_FILE_DEFAULT either, so it does not address this issue.
-Happy to rebase on top of that series if it lands first.
-
-Link: https://lore.kernel.org/all/752f528f0fed5cdc9de12b54260b0495d4e5a6cb.1789695931.git.luizcap@redhat.com/
-
- mm/shmem.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 10cef89b00b0..41bb3f2c6b63 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -2114,7 +2114,8 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
- 	 * means non-PMD sized THP can not override 'huge' mount option now.
- 	 */
- 	if (shmem_huge == SHMEM_HUGE_FORCE)
--		return READ_ONCE(huge_shmem_orders_inherit);
-+		return THP_ORDERS_ALL_FILE_DEFAULT &
-+		       READ_ONCE(huge_shmem_orders_inherit);
- 
- 	/* Allow mTHP that will be fully within i_size. */
- 	mask |= shmem_get_orders_within_size(inode, within_size_orders, index, 0);
-
-base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
--- 
-2.43.0
+/P
 
