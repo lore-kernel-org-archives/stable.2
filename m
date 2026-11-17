@@ -1,100 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.195.115
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794914850;
-	b=0OVT2y7wgC6N3aI8stJY/mHy1nlWI2Gv9UxlY40PpCLBppJgQg8OmDzEUFZ6XmwKOxJ/
-	 7WmR/T9vP7EJKBtpSSR+ZTtMhr1ABajTb+Z/3LBzYKgkdCDw+2kmp+E5R90Zq4qysR03d
-	 9ePnSWhyYw3KQbZsqOQf7WRzxsIykoB38cxMRUVz2rbwZCsWAkTT4RAxFIuBWhINGeTT/
-	 2VrPj7F6VLVRJaoFCc5VZsFuyLaK6tB74ETEse9EMnm83R6YL57B6PUs6vr4ELA1eEnJe
-	 lp+ZZr3AZ7eNv9+kUN4akyu0ZaGUy6HKh+4juC4NNswygN7srLH4gt23CVEBdgCjL/A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914850;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:To:Cc:Subject:
-	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Wqxu/HsWobdFl32BaPJZM1XnlJpY9KZSoiXKb13je6g=;
-	b=ksQeGiEF8YQhDKZLuoQtqp3Jp78yvDdfsfPNRXMw2ZfYjZiJ+oOWwJbgP5cGhd0zH1nl
-	 D8WIps/IbogiMXUOxLqP7hsPVCN62ejavWlmAB++jSrMZG9n0bblx2LNXxvRlFYR6f2po
-	 EeJL1DvpNw5kvOfjVxpjWPRF5zNiE0Fh3qB806iWPUkkcbvth80+m+LUdiONvqd/KkzcA
-	 BUwBcX210qvNbUId+r9TVsBsKGiU0xlu2IKAZCSbiMseNImSHtou7tNtuvQZA212HzNU6
-	 wbKm5ceuAMocU/7j1GU9zZ1K+sTk85C/mdJR+DdYgj3h2UuJgRsxUj6TfFqsIETCw+w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=garyguo.net;
-	spf=pass smtp.mailfrom=garyguo.net;
-	dkim=pass header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=UtOltTdz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.195.115
-Received: from CWXP265CU008.outbound.protection.outlook.com (mail-ukwestazon11020115.outbound.protection.outlook.com [52.101.195.115])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.111
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794915363;
+	b=R6OCLAVEtb72R9hYpZ7bj6goo5dEQTwGT+TFjJ5HkwcLB+PfHDvta5Vazw5oQXPTxD3n
+	 cORkRnM+mcPURk2FI0v7t8JMRVLWBx13JvPLCgJC/qJWPYw26tddHcwY786OqUBKauwT9
+	 /xA7JCwf8RAm3d36CMGIOWKCUrh5D4vY7EOT8hhPX4iDjsq5GKo/qZxhAPf1dfczptXcX
+	 PaMmR6A4b9jUSXZnLG6jYEN+U0lxO1Pv2c5bquPl/q5vh4YQ/Z2io4cagRTFqzDYAgzT3
+	 S4DEg6Qj1j7axqQdaFNZn7SWGh0eO6acJp60BmAabiu+Wf1KY2WVHU/o+V6+TvVq25A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794915363;
+	h=DMARC-Filter:DKIM-Signature:X-Mailer:From:Date:Message-Id:
+	 Content-Transfer-Encoding:To:Cc:Subject:Mime-Version:X-Original-From:
+	 X-Lms-Return-Path:Content-Type;
+	bh=mj2r4cIuKc2qJcTEco5uEZ1BXmGp0wRkfe/FJDaNSco=;
+	b=rL+kCjqp/rGdE1Zx05dJNVaQYFlejkOk3QZVl9UubzYEYr8fyzX2Ok5jmDivk0xtmINr
+	 7z3kt58n33UKbPWimKhloiW8IxrY5Xvj6iEl33rtMyL64iJ8eMzU7V+7hM9Q/ZYGlllSM
+	 l6Ws/pcFModk+viMeXXWm/nmivsNWXs6zhzHPV6tya588jM1L1W3I5R9UOnXg6lhm6mBu
+	 t5qRdFUAvAzejZOAWfQvJEtXKOR/2GB0oSrXBzN+j9YiorCmYzkRhhGsoG8cHeJj1Y89Q
+	 zL8mm3vSQccKnmqbW+/hF/7b7ka+/Or8x2B6sVk9BWZ9IhUgFNr1rIjnCtXhWvJFN5A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=WYtKa8sh;
+	arc=none smtp.remote-ip=209.127.230.111
+Received: from va-1-111.ptr.blmpb.com (va-1-111.ptr.blmpb.com [209.127.230.111])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E496606A31C;
-	Tue, 17 Nov 2026 11:27:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E496606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C0A606A323
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 11:36:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83C0A606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=garyguo.net header.i=@garyguo.net header.a=rsa-sha256 header.s=selector1 header.b=UtOltTdz
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JuroqnnUoyBcKswXpeOoVdk9WufzcRuX6Qec0W4mnIb959hsy7dBW6irXUGGeMWRx18vYSr6HdQamHqF8RZVwP2KBsZ5oBtoykduQFAYg+ZP0MegaXnNGo9sUTCojhGUkEqpkjDcStkPjWs6txEiI+OnhsSMfIKqqUOxIX/5GA9CMiTU1DcNG1IYecTMy4TOHT5I6anWFblBUODjaq8X6I3n//ZEgx/hBKop4g1JaAJyDzauUaOnEDx78z9cgszE5ztyMeSuUwpelSdmU2dHwdFVGOREmMQgWRy3hvh2rf7Uu9gbqNEzC1snaRSO/S8DdeZIbvijkSAMyNiazcbpSA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Wqxu/HsWobdFl32BaPJZM1XnlJpY9KZSoiXKb13je6g=;
- b=fRcXEVClaL2FmTE23KgL+4UW9Skkw7HTWLHiOnmrJ7z6wAeBKWjA4NUuw7tOGmPHaggyujHfP/T0mLn5eRpKpNc1eiPnHtOtxhS3gyNOOq3rhuOUdsL0YyqNeTWBc/A/mDoFELRy8K3Wny+E7Wxm2hEEm7mwqsonwsOal77fVfQ7xwST70q6IMScZC0ICssSj2pKoTfpcpvf0oXk4wUp4+KNKX5ejumoR2iByh/hsq4d2Wei9P7WIzj00UOlljN9BK9y8eX/k3cEYKbZXhLJXAUhLM5A8hBKq4FRUiIghjj301/qICS4G618oFOvUz6OVfmuolH76l1zrJFLxvBI0A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Wqxu/HsWobdFl32BaPJZM1XnlJpY9KZSoiXKb13je6g=;
- b=UtOltTdz8MCrQ8CLh+ye8zOfRsHk4dUkp3ri+XgHe6F0nESeIlACNO/n8LxvejEr2n8KdSL8lvdZdjZ2tSs0ERuFXHXsBDkRQneT+YFS6Uwp1SsNbU5RXJHFAjGKT4WlR6Sr5t/9YHd7tm789ZRWT3Ql8QK45usg8tdC8E2TFmk=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM (2603:10a6:400:1cb::9)
- by LO2P265MB5398.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:259::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 11:27:26 +0000
-Received: from CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3]) by CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- ([fe80::55f6:f98b:7fad:c6e3%2]) with mapi id 15.21.0615.013; Tue, 17 Nov 2026
- 11:27:25 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 17 Nov 2026 11:27:24 +0000
-Message-Id: <DMXG7K9AMK2E.1QL8P4O7L8RFX@garyguo.net>
-To: <peder.bergan@gmail.com>, "Miguel Ojeda" <ojeda@kernel.org>
-Cc: "Boqun Feng" <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Danilo
- Krummrich" <dakr@kernel.org>, "Daniel Almeida"
- <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
- "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
- <work@onurozkan.dev>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, "Georgios
- Androutsopoulos" <georgeandrout13@gmail.com>
-Subject: Re: [PATCH] rust: str: tie Formatter to its backing buffer
-From: "Gary Guo" <gary@garyguo.net>
-X-Mailer: aerc 0.22.0
-References: <20261117-formatter-lifetime-v1-1-9d7f38686552@gmail.com>
-In-Reply-To: <20261117-formatter-lifetime-v1-1-9d7f38686552@gmail.com>
-X-ClientProxiedBy: LO2P265CA0501.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:13b::8) To CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:400:1cb::9)
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=WYtKa8sh
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1794915358; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=mj2r4cIuKc2qJcTEco5uEZ1BXmGp0wRkfe/FJDaNSco=;
+ b=WYtKa8shKaPTVmRoVIIRUt7dv/8VVz2z5RH2O4m8b/DsEf4JX4qcCmpyYygfj7dOCfMIzt
+ 49BR3iw8y6UhQVK/85KAxmX/hI5t3M/0JnwUXEqMqSkCYVDHhnjgWMSrzZ/lkbI6GFqHth
+ LBUnjmIG90cgwUtD49gY5taZG2707rT2Ab23vyE61XRqG6uN8mmaRaIRDMmaXfr8SwmfB9
+ 9S+q0JCK427PXV5FAUyWE/lZ5yL+ewuaul2gLG1SAqmAFvy2UeWHy1rwRDazU32wnnHadH
+ Lg2EF5lvK5eoXq9fQ90sKVGIH8+Kn39lh7KSV4DdtjznqGmcTTE3znexIGkPrw==
+X-Mailer: git-send-email 2.20.1
+From: "Rui Qi" <qirui.001@bytedance.com>
+Date: Tue, 17 Nov 2026 19:35:35 +0800
+Message-Id: <20261117113535.399407-1-qirui.001@bytedance.com>
+Content-Transfer-Encoding: 7bit
+To: <catalin.marinas@arm.com>, <will@kernel.org>
+Cc: <mark.rutland@arm.com>, <dylanbhatch@google.com>, <song@kernel.org>, 
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>, 
+	"Rui Qi" <qirui.001@bytedance.com>, <stable@vger.kernel.org>
+Subject: [PATCH v3] arm64: module: Use text-poke for late PLT/veneer emission
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,153 +61,299 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CWLP265MB6051:EE_|LO2P265MB5398:EE_
-X-MS-Office365-Filtering-Correlation-Id: 33c471ba-ad06-4034-6283-08df449dc13a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|1800799024|366016|376014|7416014|6133799003|22082099003|18002099003|261009223027099003|56012099006|261102123227099003|261028144727099003|261026140227099003|261021121427099003|261022105027099003|261026121527099003|261021123027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	wdTIk00QNd+5VYTyH39tztjkSZ1z3e47kS8fewXe2rmw1xXJmIBlr9u6x/o8PK4MQ3uocPyieUGGNa4YM2DAFjoQ/j2NZCQwK8j/qBVpgfFoAURXAL6l9PJK7yNIOxgDhLrhrLweNirPa5qykS9nj8/5i1gFq9MQlewdNV9QkEYI836AomWrSn9j11y2K4QbaG1AJpIRUefn/U1jn3PJhxgbWjrXcjv6d+7KppVJnBpRfmb6aCsvKFIs7st+GUYF68sFu4NXUwz6c3atrWBmOhpyXRlZ4hZCK785uYEmMSE2NrsYzPHaxFPU795QiGMydMufSq/FK4fTf/3b2X4niHKLf99QZ5ZZpdwGk4RUiS2nWGzZUxr5kxWcnJMpfA7JIugi3rcm9RNkythpqNW5nv6scNTwuq9W8WK+ciWC7Ae2j4xjAaGgDootdPFeT8KEgOHibEwSEYQP7Z+bGID7p+/cjilyxyaPvErJM8EnYaMG+6WT3/QPOxfMOj8mE+wTfHyuRkCMv/b2YJsWYNhEqPaG3gaZaKjzerOUqiD6btCEDM3DSqopgjtJiMVeQAzEfFHIKNBMhbNiKkPT4Ip36xgANyvDjnKwxf8l5jdyNPcbvDY7zRXXy7cTPFQyrSVytMuxUD9iof5jd1dZ83VarrV+Pt/9AOm8C39qKIjJkfU=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(1800799024)(366016)(376014)(7416014)(6133799003)(22082099003)(18002099003)(261009223027099003)(56012099006)(261102123227099003)(261028144727099003)(261026140227099003)(261021121427099003)(261022105027099003)(261026121527099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?UElrVmxRNlg3SUYwLzR2TWY2ZzhFa3pRU0EyWDI1TGFVS2ZyamdSQ210aGpE?=
- =?utf-8?B?TUtHUWU3ZGFrK1krZS9DVW90ZjFwQTByUWRyTU9UVmpKbkw0aEFuRmJFZTJX?=
- =?utf-8?B?cFNJQ2FmNG9LQWtYcU1lV0MzYlBGUnQyL1ZUZmtyTElFNS9oc1pORlZXNmho?=
- =?utf-8?B?MXpwaUw1SnpuQlpKemI0eUdaczhoR2VIUUh3ek00VzBIVHRZTnFyeVdEcmJG?=
- =?utf-8?B?RCt2QmtDVXUrbUlHQlpqOGJLYVpFYWxQeDJsaEtnNHovYTNJMkhsRHNoblNU?=
- =?utf-8?B?NjVUTHAxVmltTERRQVVJWWplL1EzdkdVWUk0NFY2WlF1Q0NBVGdwUklyTUFs?=
- =?utf-8?B?R003TnhIeUVQQXdpRzNHc0F1YzB2dTFrdHhVSnhDNkk4ZHpuOERVNnlKMTNp?=
- =?utf-8?B?MlFmZW5FWXliUk9lRDNGWnBCb1JKQVEzaTVDckYrRVQrSVdkOVRXbUo4aGxD?=
- =?utf-8?B?S2Qrc3lJRmpKTjRnV3JQeVRjdXN2aVJvR3BraGZTRVlaaHRnR0tsa2NINjIz?=
- =?utf-8?B?OXlaWWhtT21iOGM4MXNJU21qRlN3cEwrcFlBVlpvWFJhdC95TWgyaHk0eDVX?=
- =?utf-8?B?bVB1SnFSK3k5emZUaUFBMU0rKzFrUDBkcUtmUS9MUEJ0QjZwVEMxdG9vQ2dV?=
- =?utf-8?B?Mk8rcU1QbXBkVXVVUGdSZ3JXbFhqd25rbDJnYTlIK3R6MHYwUkE3TTZBOEdQ?=
- =?utf-8?B?YXJBYVVKK2RPaXVnamQyeWN6Q25CZkN3OEdYK2VmWWMrRTU2Z05OWDhvSW5q?=
- =?utf-8?B?VGFDMTFqcmRneUpKWC9sa2E3TVFQOUlvWUVPdkM1WXUzMnJkMVhJeUdpVmQw?=
- =?utf-8?B?dTk0bEZRZkRyMjBiZHdtSGZmQ0wwOUZPMUdNOUJmcFBPZWMyM0QrenpWbWww?=
- =?utf-8?B?dUZFcUswckYvZjBkbjZWMzlMOHIxNFdYQ295a0t4M281MERrZlVtNGdRdHY0?=
- =?utf-8?B?WXdTbE5YMVdPYUJXbi9EazFTSjliZ0pVM1hGbi83cjk2NnlXNlVyRWgycFIv?=
- =?utf-8?B?Yi9jMStLYmU4d04rRXJ2VGRpeUdXcUZlQjVodGpWaThtdXVHTC9ZUnV6dmI4?=
- =?utf-8?B?ZytVc1BxM1VkdU9sTlpkVG9YVXUvUXlDaWpXSEJEdDZXc2RkWW5Kd0pRbzhJ?=
- =?utf-8?B?VHRuWlE5N3RUWFJzY0VnU3g4WEtISklLeU9VOUI4RG5VWVgzZVJnK0U5RkxV?=
- =?utf-8?B?RUhTdFlLcXd6N3VKNmxPempZRURwUGdpRkZ3WURrSGt0TTZ0U3FmcVJHdTJU?=
- =?utf-8?B?clFsTFZhWkErbUhJaVExQ0lJVGxMOHhabHQrRmVLYkpEeHhJTEJvWjY0YWRT?=
- =?utf-8?B?Z1Bna0Y3WVl0UnlTeWpodGxROTUxSHhLNFNkWjd5c1VRSGk4MWhqT3loSUds?=
- =?utf-8?B?UEFva1pGU0dXcEU1Rlk3dFZ1SzZINWtBT2sxaW55M3M4czBzRXJTTThkcXVU?=
- =?utf-8?B?UThKU2p0U3dzMGFVNDJYSUhjQnlnb2J6d1JOQ0R5UG9WYXVZYVB6cldRNUVh?=
- =?utf-8?B?YTZQVzZwSmlEU0R3NXBFSGJ1TFpuQjJ6SzUxdW03MEdTQ2JlNEo5MkxqaExM?=
- =?utf-8?B?eElGNEtnSHFZVktNVTF1WVdJcmZsMndLQ3RJYVpVcEQyY2R2LzlrRWd4Wm1o?=
- =?utf-8?B?LzJsN0hDNWdtVGRISXk0azY2cUxNUUpkMlZTY0NXVFkzME54R0lBanFLVmJm?=
- =?utf-8?B?R1A1YVhFTVdjN3FrZ3FlSUcrN0EvbE1MNzJVbEd4ZHZsaXREVm1hdmtjQTRB?=
- =?utf-8?B?Yi9FZ21IcHJXWHBJdmZQdlJJOHJ3V29yR2xZZFB6eGZWSDgwOVdLTXN5ZWZt?=
- =?utf-8?B?Szd6UkdYUFg3Q2JIUG9CbUZDWURURW5BZFRncFl3ZEFrVTkrQ0h5NW9nQ1lR?=
- =?utf-8?B?SFpoV2NJbTMvbFRicGlCRDNsblNpaTZvTHVVVHZOYlphWmFVRDNPeWZpTEtz?=
- =?utf-8?B?THlYanBxMEkwTGFSa1NDcHdjZTdCSmxXbzJEb1AvaXJRMjlvSGVDcFJCRHpO?=
- =?utf-8?B?TkNNUDBCUUtIZHVaSGVMYU9yQlBBUGsvQVQyVWlGcE5zYk9RVWdlYk9zQU4r?=
- =?utf-8?B?YXNIam9sblZsYUVESFVxTHdpZDVRdnRwR2w5amRUNGd6ZUxGSGFsZmcxSmts?=
- =?utf-8?B?OW9NUWxPUVVjN2RrMVdzNFZrSVBxZ1ZVZXpHb2E4NVZwV3ppa1RhWlhNT2dt?=
- =?utf-8?B?eDVBZkQ5SkJmL0R2ZGgyOUpHYlJVNXdpRWhQNkdQWDJZaWxzZVJBaVRVelVy?=
- =?utf-8?B?V2N2bVY4THIrenU1bEFBZUhTOENFc1hnZStPMFE2M2dtZXVhRllueG1YZ3RP?=
- =?utf-8?B?Yi9TYm1EaHdjQXVSamNGN2RUNE94dE55NldjVW9sZ2QxTHdzWGVOQT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 33c471ba-ad06-4034-6283-08df449dc13a
-X-MS-Exchange-CrossTenant-AuthSource: CWLP265MB6051.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 11:27:25.4017
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: O/vGon87mDkK0cB1/FFymHlWo24fSIr+qla8UiH1M/vV3mRKsNA/zvQkHoNCrce+1VfCKeanmTEHKoucsWGicw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO2P265MB5398
+Mime-Version: 1.0
+X-Original-From: Rui Qi <qirui.001@bytedance.com>
+X-Lms-Return-Path: <lba+26afc3c1c+8fa5f1+vger.kernel.org+qirui.001@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
 
-On Tue Nov 17, 2026 at 9:47 AM GMT, Peder Bergan via B4 Relay wrote:
-> From: Peder Bergan <peder.bergan@gmail.com>
->
-> Formatter::new() returns a Formatter whose lifetime is independent of the
-> borrow of its backing buffer. Safe code can therefore drop the buffer and
-> then write through the formatter, causing a use-after-free.
->
-> Tie the buffer borrow to the formatter's lifetime so that the borrow
-> checker rejects such callers and prevents overlapping mutable access.
-> Add a doctest showing formatting into a borrowed buffer.
->
-> Fixes: 87482d6d9104 ("rust: str: allow `str::Formatter` to format into `&=
-mut [u8]`.")
-> Cc: stable@vger.kernel.org
-> Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-> Closes: https://github.com/Rust-for-Linux/linux/issues/1261
-> Signed-off-by: Peder Bergan <peder.bergan@gmail.com>
-> ---
-> I compiled the in-tree callers with Clippy and ran the string tests and
-> kernel doctests under x86_64 QEMU. Three borrowing probes compiled before
-> the fix and failed with the expected borrow-checker errors after it.
-> Rust documentation and formatting checks passed.
->
-> OpenAI Codex assisted with coding and testing.
-> ---
->  rust/kernel/str.rs | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
->
-> diff --git a/rust/kernel/str.rs b/rust/kernel/str.rs
-> index 644b4279a..6222faacf 100644
-> --- a/rust/kernel/str.rs
-> +++ b/rust/kernel/str.rs
-> @@ -645,7 +645,7 @@ impl fmt::Write for RawFormatter {
->  /// Fails if callers attempt to write more than will fit in the buffer.
->  pub struct Formatter<'a>(RawFormatter, PhantomData<&'a mut ()>);
-> =20
-> -impl Formatter<'_> {
-> +impl<'a> Formatter<'a> {
->      /// Creates a new instance of [`Formatter`] with the given buffer.
->      ///
->      /// # Safety
-> @@ -658,7 +658,23 @@ impl Formatter<'_> {
->      }
-> =20
->      /// Create a new [`Self`] instance.
-> -    pub fn new(buffer: &mut [u8]) -> Self {
-> +    ///
-> +    /// The formatter exclusively borrows `buffer` for its lifetime.
-> +    ///
-> +    /// # Examples
-> +    ///
-> +    /// ```
-> +    /// use kernel::fmt::Write as _;
-> +    /// use kernel::str::Formatter;
-> +    ///
-> +    /// let mut buffer =3D [0; 4];
-> +    /// let mut formatter =3D Formatter::new(&mut buffer);
-> +    /// formatter.write_str("test")?;
-> +    /// assert_eq!(formatter.bytes_written(), 4);
-> +    /// assert_eq!(&buffer, b"test");
-> +    /// # Ok::<(), kernel::error::Error>(())
-> +    /// ```
+module_emit_plt_entry() and module_emit_veneer_for_adrp() write PLT
+entries into the .plt section by direct assignment.  Once a module is
+fully formed its .plt is read-only/executable, so a late (livepatch)
+relocation that falls back to PLT emission -- an out-of-range
+R_AARCH64_CALL26/JUMP26, or an ADRP under CONFIG_ARM64_ERRATUM_843419
+-- triggers a synchronous Data Abort and panics.
 
-Please split the doc change to a separate commit and leave fix as a fix onl=
-y.
+This is the same ROX premise that commit 91b89a634487 ("arm64/module:
+Use text-poke API for late relocations.") handled for the relocation
+writes through WRITE_PLACE(); the PLT/veneer emitters were left using
+direct assignment.
 
-Best,
-Gary
+The late path is reachable without remapping: klp_write_section_relocs()
+applies .klp.rela.* sections through apply_relocate_add() with the patch
+module already MODULE_STATE_LIVE, so .plt is ROX.
 
-> +    pub fn new(buffer: &'a mut [u8]) -> Self {
->          // SAFETY: `buffer` is valid for writes for the entire length fo=
-r
->          // the lifetime of `Self`.
->          unsafe { Formatter::from_buffer(buffer.as_mut_ptr(), buffer.len(=
-)) }
->
-> ---
-> base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-> change-id: 20261117-formatter-lifetime-48391ed7affd
->
-> Best regards,
-> -- =20
-> Peder Bergan <peder.bergan@gmail.com>
+Route the emitters through the same text-poke write path the relocation
+code already uses.  The write helper is moved from asm/module.h (which
+linux/module.h pulls into nearly every translation unit) to
+asm/text-patching.h and turned into an out-of-line function; a static
+inline is not possible there because it dereferences mod->state and
+would require linux/module.h, which is circular (linux/module.h ->
+asm/module.h -> text-patching.h).
 
+Once late writes go through text-poke they no longer fault on the ROX
+mapping, so PLT slot exhaustion -- e.g. when livepatch relocations are
+reapplied without resetting plt_num_entries -- would silently overwrite
+memory beyond .plt instead of faulting.  Add a bounds check before each
+write so exhaustion fails cleanly with -ENOEXEC instead of corrupting
+memory.
 
+Fixes: 91b89a634487 ("arm64/module: Use text-poke API for late relocations.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Rui Qi <qirui.001@bytedance.com>
+---
+Changes in v3 (feedback from Catalin Marinas):
+- Move the module_write_place() helper out of asm/module.h (which
+  linux/module.h pulls into nearly every TU) into asm/text-patching.h
+  and turn it into an out-of-line function.
+- Add a bounds check before the PLT write so slot exhaustion fails
+  cleanly with -ENOEXEC instead of overwriting memory beyond .plt.
+  module_emit_plt_entry() previously wrote before its post-write
+  WARN_ON; the check now runs before the write and the redundant
+  post-write WARN_ON is dropped.  module_emit_veneer_for_adrp() is
+  restructured so its single check covers the erratum forbidden-offset
+  bump as well.
+
+Changes in v2 (feedback from Catalin Marinas on v1 patch 3):
+- Unify the PLT/veneer write helper with the relocation WRITE_PLACE()
+  macro into a single module_write_place() helper in asm/module.h,
+  used by both module.c (relocations) and module-plts.c (PLT/veneer
+  emitters), instead of a separate plt_entry_write() helper.
+- Drop the redundant !aarch64_insn_copy() NULL check: the destination
+  is always 4-byte aligned for struct plt_entry, and __text_poke()
+  never returns NULL, so the check guards an impossible condition.
+- Drop the big-endian byte-order fix patches (patches 1 and 2 of the
+  v1 series); arm64 big-endian support is being removed.  This patch
+  is now standalone.
+
+ arch/arm64/include/asm/text-patching.h | 11 ++++++
+ arch/arm64/kernel/module-plts.c        | 23 +++++++----
+ arch/arm64/kernel/module.c             | 53 +++++++++++++++++---------
+ 3 files changed, 62 insertions(+), 25 deletions(-)
+
+diff --git a/arch/arm64/include/asm/text-patching.h b/arch/arm64/include/asm/text-patching.h
+index 587bdb91ab7a..b728a1e82a5c 100644
+--- a/arch/arm64/include/asm/text-patching.h
++++ b/arch/arm64/include/asm/text-patching.h
+@@ -14,4 +14,15 @@ void *aarch64_insn_copy(void *dst, void *src, size_t len);
+ int aarch64_insn_patch_text_nosync(void *addr, u32 insn);
+ int aarch64_insn_patch_text(void *addrs[], u32 insns[], int cnt);
+ 
++struct module;
++
++/*
++ * Write @len bytes from @val to @place within a module.  While the module is
++ * MODULE_STATE_UNFORMED the destination is writable and a plain copy is used;
++ * once the module is fully formed the region is read-only and executable, so
++ * the write is routed through the text-poke API.
++ */
++void module_write_place(void *place, const void *val, size_t len,
++			struct module *mod);
++
+ #endif	/* __ASM_PATCHING_H */
+diff --git a/arch/arm64/kernel/module-plts.c b/arch/arm64/kernel/module-plts.c
+index 7afd370da9f4..66680a1f46ea 100644
+--- a/arch/arm64/kernel/module-plts.c
++++ b/arch/arm64/kernel/module-plts.c
+@@ -10,6 +10,8 @@
+ #include <linux/moduleloader.h>
+ #include <linux/sort.h>
+ 
++#include <asm/text-patching.h>
++
+ static struct plt_entry __get_adrp_add_pair(u64 dst, u64 pc,
+ 					    enum aarch64_insn_register reg)
+ {
+@@ -76,11 +78,16 @@ u64 module_emit_plt_entry(struct module *mod, Elf64_Shdr *sechdrs,
+ 	int i = pltsec->plt_num_entries;
+ 	int j = i - 1;
+ 	u64 val = sym->st_value + rela->r_addend;
++	struct plt_entry entry;
+ 
+ 	if (is_forbidden_offset_for_adrp(&plt[i].adrp))
+ 		i++;
+ 
+-	plt[i] = get_plt_entry(val, &plt[i]);
++	if (WARN_ON_ONCE(i >= pltsec->plt_max_entries))
++		return 0;
++
++	entry = get_plt_entry(val, &plt[i]);
++	module_write_place(&plt[i], &entry, sizeof(entry), mod);
+ 
+ 	/*
+ 	 * Check if the entry we just created is a duplicate. Given that the
+@@ -91,8 +98,6 @@ u64 module_emit_plt_entry(struct module *mod, Elf64_Shdr *sechdrs,
+ 		return (u64)&plt[j];
+ 
+ 	pltsec->plt_num_entries += i - j;
+-	if (WARN_ON(pltsec->plt_num_entries > pltsec->plt_max_entries))
+-		return 0;
+ 
+ 	return (u64)&plt[i];
+ }
+@@ -107,13 +112,14 @@ u64 module_emit_veneer_for_adrp(struct module *mod, Elf64_Shdr *sechdrs,
+ 	int i = pltsec->plt_num_entries++;
+ 	u32 br;
+ 	int rd;
+-
+-	if (WARN_ON(pltsec->plt_num_entries > pltsec->plt_max_entries))
+-		return 0;
++	struct plt_entry entry;
+ 
+ 	if (is_forbidden_offset_for_adrp(&plt[i].adrp))
+ 		i = pltsec->plt_num_entries++;
+ 
++	if (WARN_ON_ONCE(pltsec->plt_num_entries > pltsec->plt_max_entries))
++		return 0;
++
+ 	/* get the destination register of the ADRP instruction */
+ 	rd = aarch64_insn_decode_register(AARCH64_INSN_REGTYPE_RD,
+ 					  le32_to_cpup((__le32 *)loc));
+@@ -121,8 +127,9 @@ u64 module_emit_veneer_for_adrp(struct module *mod, Elf64_Shdr *sechdrs,
+ 	br = aarch64_insn_gen_branch_imm((u64)&plt[i].br, (u64)loc + 4,
+ 					 AARCH64_INSN_BRANCH_NOLINK);
+ 
+-	plt[i] = __get_adrp_add_pair(val, (u64)&plt[i], rd);
+-	plt[i].br = cpu_to_le32(br);
++	entry = __get_adrp_add_pair(val, (u64)&plt[i], rd);
++	entry.br = cpu_to_le32(br);
++	module_write_place(&plt[i], &entry, sizeof(entry), mod);
+ 
+ 	return (u64)&plt[i];
+ }
+diff --git a/arch/arm64/kernel/module.c b/arch/arm64/kernel/module.c
+index 24adb581af0e..a8219e604f55 100644
+--- a/arch/arm64/kernel/module.c
++++ b/arch/arm64/kernel/module.c
+@@ -18,6 +18,7 @@
+ #include <linux/moduleloader.h>
+ #include <linux/random.h>
+ #include <linux/scs.h>
++#include <linux/string.h>
+ 
+ #include <asm/alternative.h>
+ #include <asm/insn.h>
+@@ -49,14 +50,14 @@ static u64 do_reloc(enum aarch64_reloc_op reloc_op, __le32 *place, u64 val)
+ 	return 0;
+ }
+ 
+-#define WRITE_PLACE(place, val, mod) do {				\
+-	__typeof__(val) __val = (val);					\
+-									\
+-	if (mod->state == MODULE_STATE_UNFORMED)			\
+-		*(place) = __val;					\
+-	else								\
+-		aarch64_insn_copy(place, &(__val), sizeof(*place));	\
+-} while (0)
++void module_write_place(void *place, const void *val, size_t len,
++			struct module *mod)
++{
++	if (mod->state == MODULE_STATE_UNFORMED)
++		memcpy(place, val, len);
++	else
++		aarch64_insn_copy(place, (void *)val, len);
++}
+ 
+ static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len,
+ 		      struct module *me)
+@@ -76,8 +77,10 @@ static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len,
+ 	 */
+ 
+ 	switch (len) {
+-	case 16:
+-		WRITE_PLACE((s16 *)place, sval, me);
++	case 16: {
++		s16 v = sval;
++
++		module_write_place(place, &v, sizeof(v), me);
+ 		switch (op) {
+ 		case RELOC_OP_ABS:
+ 			if (sval < 0 || sval > U16_MAX)
+@@ -92,8 +95,11 @@ static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len,
+ 			return 0;
+ 		}
+ 		break;
+-	case 32:
+-		WRITE_PLACE((s32 *)place, sval, me);
++	}
++	case 32: {
++		s32 v = sval;
++
++		module_write_place(place, &v, sizeof(v), me);
+ 		switch (op) {
+ 		case RELOC_OP_ABS:
+ 			if (sval < 0 || sval > U32_MAX)
+@@ -108,9 +114,13 @@ static int reloc_data(enum aarch64_reloc_op op, void *place, u64 val, int len,
+ 			return 0;
+ 		}
+ 		break;
+-	case 64:
+-		WRITE_PLACE((s64 *)place, sval, me);
++	}
++	case 64: {
++		s64 v = sval;
++
++		module_write_place(place, &v, sizeof(v), me);
+ 		break;
++	}
+ 	default:
+ 		pr_err("Invalid length (%d) for data relocation\n", len);
+ 		return 0;
+@@ -130,6 +140,7 @@ static int reloc_insn_movw(enum aarch64_reloc_op op, __le32 *place, u64 val,
+ 	u64 imm;
+ 	s64 sval;
+ 	u32 insn = le32_to_cpu(*place);
++	__le32 v;
+ 
+ 	sval = do_reloc(op, place, val);
+ 	imm = sval >> lsb;
+@@ -157,7 +168,9 @@ static int reloc_insn_movw(enum aarch64_reloc_op op, __le32 *place, u64 val,
+ 
+ 	/* Update the instruction with the new encoding. */
+ 	insn = aarch64_insn_encode_immediate(AARCH64_INSN_IMM_16, insn, imm);
+-	WRITE_PLACE(place, cpu_to_le32(insn), me);
++	v = cpu_to_le32(insn);
++
++	module_write_place(place, &v, sizeof(v), me);
+ 
+ 	if (imm > U16_MAX)
+ 		return -ERANGE;
+@@ -172,6 +185,7 @@ static int reloc_insn_imm(enum aarch64_reloc_op op, __le32 *place, u64 val,
+ 	u64 imm, imm_mask;
+ 	s64 sval;
+ 	u32 insn = le32_to_cpu(*place);
++	__le32 v;
+ 
+ 	/* Calculate the relocation value. */
+ 	sval = do_reloc(op, place, val);
+@@ -183,7 +197,9 @@ static int reloc_insn_imm(enum aarch64_reloc_op op, __le32 *place, u64 val,
+ 
+ 	/* Update the instruction's immediate field. */
+ 	insn = aarch64_insn_encode_immediate(imm_type, insn, imm);
+-	WRITE_PLACE(place, cpu_to_le32(insn), me);
++	v = cpu_to_le32(insn);
++
++	module_write_place(place, &v, sizeof(v), me);
+ 
+ 	/*
+ 	 * Extract the upper value bits (including the sign bit) and
+@@ -205,6 +221,7 @@ static int reloc_insn_adrp(struct module *mod, Elf64_Shdr *sechdrs,
+ 			   __le32 *place, u64 val, struct module *me)
+ {
+ 	u32 insn;
++	__le32 v;
+ 
+ 	if (!is_forbidden_offset_for_adrp(place))
+ 		return reloc_insn_imm(RELOC_OP_PAGE, place, val, 12, 21,
+@@ -224,7 +241,9 @@ static int reloc_insn_adrp(struct module *mod, Elf64_Shdr *sechdrs,
+ 						   AARCH64_INSN_BRANCH_NOLINK);
+ 	}
+ 
+-	WRITE_PLACE(place, cpu_to_le32(insn), me);
++	v = cpu_to_le32(insn);
++
++	module_write_place(place, &v, sizeof(v), me);
+ 	return 0;
+ }
+ 
+-- 
+2.20.1
