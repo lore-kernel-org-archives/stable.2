@@ -1,78 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794938227;
-	b=SnePY8x9MZZUXjE3aeJeydiAPHBvGN53DsZFs8AAAauqqKsG7DBOKOuw7IbARb97cKKg
-	 B4mkZjVH4eGC7L1swpx2JGVbJ2ur3JXEmwRQx2adDoZxnsq2nMuHCvTJY0Z0zWlx1iUet
-	 RSTxsq5tY6FPToDzPz85FroQ9pSmoTo4BSx91rFWLRSf5tQAsBkc2wxPgodnm0q23vNeK
-	 AxV+wu+bptC8EQltQk2N1D865bd42sSXrBzHUnovSHZ2HmekHbVnhNwSGYZma2vfRUlgD
-	 g2sAiuh2eiKo4S0enGa5LP3tdmQnZ041q2maXXqXxZ/Z/8YRwj/5EEpSpa6l2uohWoA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794938227;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=iZm8gP5NtzWpDu5Ec9bghesRJyGcuypRk9ToYfTJBbQ=;
-	b=zMzDU98YC1xp12MTqvDVkKX6pBE2ISuHa9FrnGBd8MD0OtRn8EaZxkFZ4p4+S5yJ7x8t
-	 /LzikeMughkkYWN+8FRtdZybpnaMM7EPQWHi+8xgXJaO6hMNbfTm9x1ZuswphzffGMqCP
-	 i+3pM1OP5urOdp77GgGnEk8wgC0XZOGAdgrLH1OX9RPtVxgFjpbPHCnkitWPnaeCTqHMI
-	 8vi+56/IGgIkkm1UK4rA5VN7SkpooBPwyX5Ik0oozMVSB+L8JO5PAqMIuquW9Bw/PBut5
-	 QAMuTporgL7i7h+z3Xlq463LKq9m4n78kij8wGQfFWUdPbX0umiJ/FU4ClOfT+j94jg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OnCknJVH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 615DA606A33A;
-	Tue, 17 Nov 2026 17:57:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OnCknJVH
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794938227;
-	b=I40bQVC3IsoyRHPyTKWNtyz3wcUuLqMh7AA3vQIOW8BeiSIn7+QL/lN9zGr4xeikZuy6
-	 fWghAelu5D6opkRZs+ElnMovGzcejm5R49hizc+OySW2AA2lA3K1ZUG0jGOJ5midBqfxE
-	 c/x+ia+Dzkv6jj+grzi+f7tdsl7hDSDzyEcyDdCYFKa4XPLMwb+Hm6AkxQBlEFXj9DeTL
-	 gdowUh2yAU+r4iEgh1eY+RCoy1Rx9OcSGBZOYX8xrB7LN4KqU4pthOfSsinnCBOdfZmuQ
-	 pEoEXAyivhqSIa4UEd7cV6EsEKukqS1QmJd2phCiPYnGONQ81G9sjEVSDdnLil5mFng==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794938227;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=iZm8gP5NtzWpDu5Ec9bghesRJyGcuypRk9ToYfTJBbQ=;
-	b=UVGDI/4UfzavKV9tfp96Y629sP68FwwM368zbA8T143hyG3zlSxzZmMULw2sDaGs2086
-	 0FZ/IvNUzb+kO7d4AEt9VCzQsm7/rEVSr9s5OmkQbjAR/DH4NEAInOBERh8OYL29cTb51
-	 5VTJEXnJt69GmqVVyftLge0J7poP9VijvRtRvkuKa6k3DDV7eIq3yQLS96I3S/yNynrqG
-	 M9cD+3SsJSqw8jHhDbSZvWIFp8nqAoR4CYnLiFnOi5+0pXfsLN3i9kjF/DmvG/r+ozkYl
-	 oSzpMDcZkXDF57CqXW+3OCbHaAfM4j0UVfDMbYuYu/RUDVw3I4j5w4HeWQOm3qDifVQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794938321;
+	b=zdeM9VRrtKymjNBuntCU2ksaAN8ELNHNdLnKvNPB8G06tjVcDZ6fb/t7GXcGg/Dkdri8
+	 +qs5Td+bTBIk6yiJFmr3N+Quz/dw9+eK3ywK7ld3YC3SWC6YFATdJ0vDZomFpmYFCfEAu
+	 4cV8gyqi3EDawHltRR8cF/pifDmjw4aH0qMI+B+VSrKBMx4sl3B6cMt2CyOO7CQR7s/35
+	 nEArQvEI1sgyng/E8SwAB3xg04oQjskNKb4x0oBR0E32+G/xZKhLuPS7jxIfRoZK+/B1L
+	 aazfrJzKXePp/mZswWYNmjHZ12i0L55h35LJMWGGDcsMMCwAj0LmZOs6YSWLp4y6+Yw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794938321;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=fDNSNdtJiNjajmSbnTodRJEXL2NvDP17/w+5CLNocfY=;
+	b=QoTMcZ06fivfeXhTri4nO7AAWdx/p/xkbJRSEw5fF2hpusGZiQDh5qcMMJCB0WPLBa8A
+	 h6NWQUD9GYqbgcwvWDNSMkbrP5yrB29yyR30Sc/64q7vKj1rPUSfura30AAZisH5TIlYr
+	 X4ljORuUgcb+Yh9fJ7M27BAm7UaNt/1cluVbwZ/sQ0+R0WaLtFwA2q0vdzKRwaTwqIqz3
+	 ETCQUZq8Wn0FumiZx+GY1dacammHLYF2dqMP3NsOMGm+bLRCyugNY1gjlc6lYWNAcLEl2
+	 LgPWzV++H6NbC439nzacLcF8Gblurki1qhBGsuycOXyL+c9ei1Tj4wHveHwuXXGlTBw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RQUAWyu+;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 6A0AF1F000C5;
-	Tue, 17 Nov 2026 17:57:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794938227;
-	bh=iZm8gP5NtzWpDu5Ec9bghesRJyGcuypRk9ToYfTJBbQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=OnCknJVHin6QecJz28X4FFapTRTEjGcyLiea8XvZyPjLbXPbr4XME/w6zWK1WgB58
-	 WAAd8IwD4IglMaCzjrTDkSbx5rdVTnd0UcTPqJnaVpVV0qvlu9QYSeRS9JMwaGSHPk
-	 yOre/e1Ewzr/6BBhbM1H5QuKUX5a3gheeAY8FxtOHAgmIkn0XD9VZ0i82wLPZpXVJY
-	 r889Gk/e3TohsZDe53kdBcvt1Z7586HA4MpTcMlJqzt379ZPBz7Mg9lNjHVmSTYQlx
-	 NgxtTG4Lx7T4EBkzFzBM3yNbsNl7Wp5hXjeL3utL1RToTJ/qJBnNtmgyHJNu9COEwA
-	 7QySYf/I6h3ww==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id EBB7F4AA30;
-	Tue, 17 Nov 2026 17:57:05 +0000 (UTC)
-From: Peder Bergan via B4 Relay <devnull+peder.bergan.gmail.com@kernel.org>
-Date: Tue, 17 Nov 2026 18:57:07 +0100
-Subject: [PATCH v2 2/2] rust: str: add an example for Formatter::new
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4C8606A33A
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:58:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E4C8606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RQUAWyu+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794938320;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=fDNSNdtJiNjajmSbnTodRJEXL2NvDP17/w+5CLNocfY=;
+	b=RQUAWyu+mlNTWbq6u08wfFosdmF1UAXwNZ31ZDwaIp78fYyNaAkCIMeX4BAVggCaxtPhuu
+	s+dDN/75KhqYeju6jMVys0GnbhuJRffAuTyDHKXpmiNJpyvDy3b0qhP0tusB8vB2CJImYx
+	B1I9bLLxaz9nUaguGt9CPGtjaSXb/00=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-207-NzwzltnfOmmdHu5W3N7H9A-1; Tue,
+ 17 Nov 2026 12:58:34 -0500
+X-MC-Unique: NzwzltnfOmmdHu5W3N7H9A-1
+X-Mimecast-MFC-AGG-ID: NzwzltnfOmmdHu5W3N7H9A_1794938312
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id EAD5E195608F;
+	Tue, 17 Nov 2026 17:58:31 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 2D765588;
+	Tue, 17 Nov 2026 17:58:27 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Tue, 17 Nov 2026 18:58:31 +0100 (CET)
+Date: Tue, 17 Nov 2026 18:58:26 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	tz2294@columbia.edu, stable@vger.kernel.org,
+	Mani Tofigh <mt4022@columbia.edu>
+Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
+Message-ID: <avyVwg-5ef-pXZkG@redhat.com>
+References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+ <avxWKI795DthE8Sb@redhat.com>
+ <CAHk-=wjOq+G=6gte4vX_YxOD_VfE1uZh7=+KHs8N0wU75xyHEg@mail.gmail.com>
+ <avyODoFhZ_M7YDU5@redhat.com>
+ <CAHk-=wgcBSBtHE+3ceKGjq1jyF64OyoEqf5JPpixowAa80GqNQ@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,78 +88,26 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261117-formatter-lifetime-v2-2-e216d86ffb57@gmail.com>
-References: <20261117-formatter-lifetime-v2-0-e216d86ffb57@gmail.com>
-In-Reply-To: <20261117-formatter-lifetime-v2-0-e216d86ffb57@gmail.com>
-To: Miguel Ojeda <ojeda@kernel.org>
-Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Georgios Androutsopoulos <georgeandrout13@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794938225; l=1243;
- i=peder.bergan@gmail.com; s=kernel-contributions;
- h=from:subject:message-id;
- bh=cXnDKX6DUJYzotZgM4eodRj9988SY5vag/57CgAxefA=;
- b=ftlkleDiJFBrpP5Go7Zmk+scHV6bzIGVdtrSzMBuq71SDPvACTVvj4xa0XhOcRCoa6bVKLGMp
- tn8Qq+MxRm8A7huSNZqHvGsypCZTXzVQX9Iuo9O0dTqDGEF8niqOGRZ
-X-Developer-Key: i=peder.bergan@gmail.com; a=ed25519;
- pk=39790pn1YZCulHBoUG1uiQI1Hm01EvhBEa2zVrS/yN0=
-X-Endpoint-Received: by B4 Relay for
- peder.bergan@gmail.com/kernel-contributions with auth_id=1395
-X-Original-From: Peder Bergan <peder.bergan@gmail.com>
-Reply-To: peder.bergan@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wgcBSBtHE+3ceKGjq1jyF64OyoEqf5JPpixowAa80GqNQ@mail.gmail.com>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-From: Peder Bergan <peder.bergan@gmail.com>
+On 11/17, Linus Torvalds wrote:
+>
+> On Tue, 17 Nov 2026 at 09:25, Oleg Nesterov <oleg@redhat.com> wrote:
+> >
+> > So. Do you agree that we can "ignore" this report from Mani for now?
+>
+> I think we can ignore it, but I also have a cunning plan.
 
-Document the exclusive buffer borrow held by Formatter::new() and show
-formatting into a live buffer. Check the number of bytes written and the
-resulting buffer contents.
+Good. this was my main (the only) question.
 
-Signed-off-by: Peder Bergan <peder.bergan@gmail.com>
----
- rust/kernel/str.rs | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+> So what we could do is to just make the pipe code open-code its own
+> wait event logic, and add its waiters at the head.
 
-diff --git a/rust/kernel/str.rs b/rust/kernel/str.rs
-index e5fe84eeb..6222faacf 100644
---- a/rust/kernel/str.rs
-+++ b/rust/kernel/str.rs
-@@ -658,6 +658,22 @@ impl<'a> Formatter<'a> {
-     }
- 
-     /// Create a new [`Self`] instance.
-+    ///
-+    /// The formatter exclusively borrows `buffer` for its lifetime.
-+    ///
-+    /// # Examples
-+    ///
-+    /// ```
-+    /// use kernel::fmt::Write as _;
-+    /// use kernel::str::Formatter;
-+    ///
-+    /// let mut buffer = [0; 4];
-+    /// let mut formatter = Formatter::new(&mut buffer);
-+    /// formatter.write_str("test")?;
-+    /// assert_eq!(formatter.bytes_written(), 4);
-+    /// assert_eq!(&buffer, b"test");
-+    /// # Ok::<(), kernel::error::Error>(())
-+    /// ```
-     pub fn new(buffer: &'a mut [u8]) -> Self {
-         // SAFETY: `buffer` is valid for writes for the entire length for
-         // the lifetime of `Self`.
+perhaps... and we already have WQ_FLAG_PRIORITY, but we can't re-use it
+without more changes...
 
--- 
-2.56.1
-
+Oleg.
 
