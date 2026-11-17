@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794877390;
-	b=1jMNyeBeFYlaUtuwmaQL3bgIU2/TEga80WxiOFFwxBagVd021PF5GPAV8MVW+WFDgCsy
-	 JuLSezCX23CnMbSur2rpKGjQum3wciKNOOfGCY6SNg00TNIyf1eHxCzi6N4Psy0OwYY0G
-	 KRCKpquMWzCiHxVipadZEu4zRRhvGe76hh3zgE4SDRKqFk7q89+LUxLYM+pMWHOBdyQTa
-	 ybdHaRkuO86TfcsN8q7zECe26+Umpdah4/m5AITd6R4bt9HMGIN2DBo7zTzXFHxony4pi
-	 LHyehc+LNyBSoG1DnBTiaQtKciwISNeIwcME4oQpmGMc4xpPLOlxJmPXFFiGUP01feg==
+	t=1794877391;
+	b=C2OVRZhOgTv39k+ttBwPJjbu5IqvW+8Vctwp53fexz36GFMuay83/+4uUwHsFO/IUBO5
+	 iWiLCExRnLfk2Jhu2NVtGKABlr0X6F7C29fvYPBxhh7AVTy60UsTmNqcswkv7lIp+euDW
+	 sRvKOHGF97Iyr9Sn3wq+xO0HbmwSvTQ+On2+mev7RPi75blybM/1W/Uub3nTKGB3f+AAt
+	 4RndmtcaM1Xzg7T9WQVlagfIR4k4YIlqeaLBZyHm9aNC/qCCBeDYM1Tip23O1JTxOFZyo
+	 kR1tVFDKlJk9rdOE9Ha+1WGIJvrQQA4dz1ahEoPw3IOULz8Ja/ngZfdrF9zgVqpFhhg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794877390;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794877391;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ctl9L1NNllHU34mLpNmtS7+FcoqFTF1lEyCbVFmBBR4=;
-	b=yzcYN6X4zbRGz1icSv5hNsi7/IUQowznsPA+GVh/wUwclINzS3f+4a5h4fSANO/DAl6e
-	 OHLm5LLkWBhTenGJm8qxysDpVyMeq/neuSeIz8VqrLa+o52KjMt6qsn5KEo9RVPZe6pGb
-	 knyEJm6dJW9q485oTDfaweKBI/527Moi0ydT605JxHIvR6kF6+hbZdZmwtOZjesc02b5s
-	 fFQzIcJJNxBgZdk+h1OoHeaHUL3AKuMKx1pG4y9O6cYkTvW6bPRT9CFQbTVXzbC71GizX
-	 x3/ikwhDtUfvVq1OoXbvtdsqfo1VLfnPD/5txraDvKFnpE5xgq7jo6T485KgMCmvd3Q==
+	bh=VSsxVqIpPocHwXdbYnDV3IVSPQ59g639wPhtS/DpJuc=;
+	b=2aGBrfwTxK/sOut+lPHv9hWgOFdlE1Xq3CTX+jtjAw5xooKocXOt5XhzCplM9EBP5q0b
+	 Z2AXBVISwcEL8KKBnt2fkC5+s8YkKsk7MXzL/X+22rj6tCrl5iEMb3O79207Kar8sZ7Qj
+	 e1mBIuUubFDG3At0xDJAbNsGsaWbD/Cv2cmF19Of18YmcD2SIqA2sR67jZYM465sGmPT4
+	 YS9IS+ca5W1/Tq7qTwf1TId6dakd07jyutnv1CatAH834WKB2aTe+BhxJV96FIj6ytgiT
+	 PUZAOSsBw3D7YsqZ1sZ1FhwcStYv1ovNuQE3SG9hhZnub7F/3ac0BhWRC4nD05OLEVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWcZZSeQ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DH7Q9ors;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 844D7606A31C;
-	Tue, 17 Nov 2026 01:03:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4223606A31C;
+	Tue, 17 Nov 2026 01:03:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWcZZSeQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B6491F000C5;
-	Tue, 17 Nov 2026 01:03:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DH7Q9ors
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A03FD1F000C4;
+	Tue, 17 Nov 2026 01:03:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794877390;
-	bh=ctl9L1NNllHU34mLpNmtS7+FcoqFTF1lEyCbVFmBBR4=;
+	s=k20260515; t=1794877391;
+	bh=VSsxVqIpPocHwXdbYnDV3IVSPQ59g639wPhtS/DpJuc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bWcZZSeQoIn1xDQNInkelYsjjleAlodUY5FJKx/KxvqSMB/5TwFx6jZCVHTUUCwCJ
-	 fw2ztixGg4AL4o9LVS/GSPRq5UnQGpGBZV7La7dx00WHLyo5Q9+c+BuVn8+6Efr+X9
-	 s76YuBnRXHcHjV4L9t2qidC5sIYBlKY5DLg4XEfFgaBJrxQs/5vuYmKSJ/crBM63nN
-	 uM2LeJw4MfNAHJlDjMFypFZM64HiH7btorpFYVr1XNhcm6pAroQBm8wQvGPXFTgRGH
-	 RDoPayzLdtub7r25TsJNJbmlzG2awwdW3xph6Fcb2YIRTmAdmADnz0y5p2KO9adXHa
-	 Ie6aISdaHHzLA==
+	b=DH7Q9orsMuxRWex72emEAe5XG5nw2FYKjuzMoTSK3GfjJJmkEC1WQLP5Y5+Gtv+6l
+	 QnvNmptz+7X9hjjGEkGdgJaaJTaF6AAGSSa3FM1Cx0iC6Z9D4k1NIjzMoHsFJL/BkF
+	 UN0ZnAPzeUi0k6ITsflSZi16v5vdjrEZbrpCxjFp6/EXdbojvsAkKDJgzaVyyFJVVt
+	 UndfjfDpKDm+uXMxPmssB7a01LPbAwGLyVsHfUckcHaBqxY4aIAnKiqqht9tDfS0hC
+	 +iyjI2nEVE2gA0Fkd9oDqdLj99f+wiQBmPB0ltOLzDDzYZQVnwKbgI8jjX7iXsVFQV
+	 nKPrt+NXjTfKA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: florian@wagner-flo.de,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	cel@kernel.org,
-	linux-nfs@vger.kernel.org,
-	Kimi Security Team <bug-report@moonshot.ai>,
-	Yilin Zhang <yilinzhang@moonshot.ai>,
-	Bjoern Doebel <doebel@amazon.de>
-Subject: Re: [PATCH 5.15] SUNRPC: Copy the deferred RPC Call from the head buffer
-Date: Mon, 16 Nov 2026 20:03:00 -0500
-Message-ID: <2026-11-16-2-daily-reply-0004@kernel.org>
+	regressions@lists.linux.dev,
+	linux-acpi@vger.kernel.org,
+	"Rafael J . Wysocki" <rafael@kernel.org>
+Subject: Re: [PATCH 6.18.y] ACPI: button: Enable wakeup GPEs for ACPI buttons at probe time
+Date: Mon, 16 Nov 2026 20:03:01 -0500
+Message-ID: <2026-11-16-2-daily-reply-0005@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116135551.2582117-1-doebel@amazon.de>
-References: <20261116135551.2582117-1-doebel@amazon.de>
+In-Reply-To: <20261116181104.7297-1-florian@wagner-flo.de>
+References: <20261116181104.7297-1-florian@wagner-flo.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,10 +63,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> svc_defer() snapshots the RPC Call for replay once a pending cache
-> upcall resolves.
+> That causes function keys to stop working on some systems [1] and there
+> may be other related issues elsewhere.
 
-Queued for 6.1 and 5.15, thanks.
+Queued for 6.18, thanks.
 
 -- 
 Thanks,
