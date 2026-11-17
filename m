@@ -1,101 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.31
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794935193;
-	b=PXy10Dt7Oek98elSql5+hfGcswgBOqbXcOt4qS8x69WhPYR1kSjrJltfWq48vywhbaRq
-	 XvFudDp64S4BPy/qaCNmWg8ofLVZYc68piNV4pfH6lS/bcEuS2PZpXvfVzkojZJeWi/nO
-	 /G4eOI0PqcEwPXaCbydkRns1X9oK5BTAAt4Tfjror18hBXQpKpEahTVVW51VnVqn8OUy+
-	 jQY7YmPmeGMyetRArxQ2v7fRb9P3/qnSe2VvFyDVOtsviGyYg6P6AeYqC89/YYReamIAA
-	 LXMwzY6QM94E/OJ8PWVRVMeiLjRz2rlRWk/dOPKi00P3kkklkmGaiY9sa1UXuYvaIKg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794935193;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-ID:References:In-Reply-To:To:CC:
-	 X-Mailer:X-Originating-IP:X-ClientProxiedBy:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=6kClAKwtb/qEr+B7xAWt/YbleAe5eKX6HCYjif4LUtY=;
-	b=ievVjSe205YUTa21hcHJ0W6nrKGQXwRG4EYFoRKKdbwMs4OmRqXaRW9Tl3clSzJmgxsx
-	 27BbhCkLMpLgJaSMOK7/aAy8rkVA3eWHH2CHlgXQYZpv8CGC1zwglVgtnrN2hhjSTPQ43
-	 Wl3wUDQJnwmzfCcC4aRzjIJlzMm1UioESc1/aTrJwTXL2EzurAtnZBq2gXVwsJgNLqlXP
-	 kV2gOU24SB7vt0tsp/PGA3Oz0hyJvxROC/akkh5d3z/l4xYnt7qVTtcmnn25IX/dDdzoi
-	 4Wc7oj76FAr1MvBK9ylXAs7WJy3qMOJ1nc33k036vjmcdlvzhk+5jjHzaPC4kAijgzg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foss.st.com;
-	spf=pass smtp.mailfrom=foss.st.com;
-	dkim=pass header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=kH7oAK3c;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.69.31
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010031.outbound.protection.outlook.com [52.101.69.31])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.176
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794935195;
+	b=kRO+YzJvm98trpoyC8BR5An0jmJaruFYEIv+NopheVhcYKqzxi6MPPvilx5X5LRI3ceR
+	 QNOutxZHGB/+PKU/dHwEW9g7Sj9D3L05vSOqsMyYVLZjiaorQIp8hng1f5MqwjKiIVzvk
+	 c8NmB2H28tfLsdfaKt2pT26MGGB1CZdUTqMktLPoGUI1xn+MdS0q5k97fWLQ4a5tWCJUo
+	 +2R9M0IRYiEqLsO+crYntm6u5o1/mBQ0psw4VKqBbfF2FmqrwAUCCiuN1dEXNtW44rJ4q
+	 4F0w+isbb28O++KJWxokPMSvsXAxdoGU/kuS45Ys1sKXjy4z/ZnMdO7YXPQpWFnzsRg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794935195;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=hixzDBYjex72mbAqfdJ0BMP0XnPJdhglkhJ+5expOLw=;
+	b=uM6sn0jBgeskJYRaCWEq2/AF9NhVa6BPHrcTMmJRcvNP6gBoCGaFJmxvEjDTQS+KF9Oa
+	 luudLnaeT2egL8jdkugoK/2htmnhBCTJ12M7LJOYqYUiqCqG5ecwhbf+q9FRJb+91LFlf
+	 AvQQq1de4bYeyNZikTLcb6eHdLrn++xFI1FOzaZqYKOb5urAF3JW5IvM2HFGY+Fw+1OZk
+	 zcTCKhyFCmBZHGpvRpvK7hpHP3BNUotA0mAb7xGwdOU60f+Ow11nXu0coajaFIi/uWwhI
+	 bSp/1xlseQbWhrHpqvisBh+eTfEfqHF7BRN/q316rKxntUVr5XCMVBMXw/mivgtCIMQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="aJ/bZymZ";
+	arc=none smtp.remote-ip=95.215.58.176
+Received: from mta1.migadu.com (out-176.mta1.migadu.com [95.215.58.176])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB32E606A89C;
-	Tue, 17 Nov 2026 17:06:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB32E606A89C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296A860A2600
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:06:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 296A860A2600
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=foss.st.com header.i=@foss.st.com header.a=rsa-sha256 header.s=selector2 header.b=kH7oAK3c
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PfbhPcxJI0xnXJ3vgXlDOyATxCHCqFeq0fzZEH+Yb0DFMpT4sYZq6xZH1DihMav7HC+kGKmA6Sd0MOZBy5645A6uSYQ8Cze4E2p9O/Sl69ssWFOFSrk7fR/F/ze4dRGbBGFzm/IPZE938nb1dH/J9FZ97yFjm+cYp1qwCXzm/C4l9aB1ejFnzWmOBZrNp5KNOg4oO3sqT2tkMvDQuciw2moPJI7urMOpoxezPdK2iyZYok1J2/mFGVtCtsOZFfmp45rTin6emuHlScL0HRR3aZ/DqrhytwpzejbYKOz4K6ah19xU0Oms+pEb2Pr2tV4d7USd99zenU1XgZsDJ9e/5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6kClAKwtb/qEr+B7xAWt/YbleAe5eKX6HCYjif4LUtY=;
- b=QRl4py9UrghpYNVROMHtfCJ2mLdlIzzvyd8YXZ3m8qhQP4wwPB/jqLcfZYFdr/j0m/BTQbxocZlMELJIBg4gvGBLUif3kOSO2b6b7Df33PyfbKDwVFfUxWfwQCeLZXIHdZ/yVT/jZNL8cSJNeSuSgX+hKKvAwkt+V8Icg7YErU7uLKzsx9PK+oAxtrKQLeEZRYavDxrsiflND9/+riOUUupURtELES+r+LafQ0FD41TDg9kCHPJWgZ0qStnDZF/jECHhO005lZAx0PLy8QRt6fwV4G2IfJbjS7rSTr8zPDXrk7+QUfo9KRpNyfAIwrz4nL9I5elGI5fYOGVmOqZKPQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=st-md-mailman.stormreply.com
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6kClAKwtb/qEr+B7xAWt/YbleAe5eKX6HCYjif4LUtY=;
- b=kH7oAK3c9f2pBxeuH1jlGj1XoGTH41OJrWlQjEiWjo3+GRDe72Fm1llwnCwWF2uVf7yn8IL7U2ejd7w+K20ys40tcfS5IlFm/gONCbz95J7K+bG2Su/T4/jvLIXJh2R7MfUcBnkrNYT+3aLPkR/ydhh3R5S7RuM6wTpM0tMMlmJ2XjB79S8S9Y7FdFimJD18nkgPS1K8uQyozaO9+ibnAiCpXPTDjqfiDTjjYH5wEeA/S92vvd7f9jsgUz6OV1wE0blUkgHxYQhsAZHsK2ke75+fBHsuKWOzRH7OayiQ2VZbapYQ7zm2wYwWAX1mVtMz5G060xF88Xmnm71etf0JWw==
-Received: from AS4P192CA0030.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:5e1::18)
- by DU4PR10MB8711.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:55c::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.7; Tue, 17 Nov
- 2026 17:06:25 +0000
-Received: from AM2PEPF00070CF7.eurprd02.prod.outlook.com
- (2603:10a6:20b:5e1:cafe::1a) by AS4P192CA0030.outlook.office365.com
- (2603:10a6:20b:5e1::18) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.14 via Frontend Transport; Tue,
- 17 Nov 2026 17:06:25 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- AM2PEPF00070CF7.mail.protection.outlook.com (10.167.242.9) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 17:06:25 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Tue, 17 Nov
- 2026 18:07:24 +0100
-Received: from localhost (10.252.22.224) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 17 Nov
- 2026 18:06:23 +0100
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Tue, 17 Nov 2026 18:06:09 +0100
-Subject: [PATCH v5 5/7] usb: dwc2: hcd: don't disable external vbus in
- system suspend
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=aJ/bZymZ
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=CuWYfoaIeUOLVmPy0v9FnC5ISe1ZRoIopzCKCHIxYjE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794935192; v=1; x=1795539992;
+ b=aJ/bZymZTfxsU1N1k61nexnoLH2HUJsxeT7RaxWp3kj1WKQkwCpEHgnd8xPka38625ich6ah
+ 0hT/hcCD3XS1OgAf8w3CVVNFugM1MoxcdhKRWb9xV/ULtlDVGxZtbLZ1chJ5AdB1kC6WBmGnIoR
+ lgJg5tuSGsSjKdXXwSn2P7M4=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e272cc3ad4f333ea;
+	Tue, 17 Nov 2026 17:06:32 +0000
+X-Mizu-Trace-ID: e272cc3ad4f333ea
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5c00d7ac49dso9473e87.1
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:06:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGE7HzkuL1BOxhJIwAE7ghm3OHJm5d0+AsCbNZ7D4Hcklv5xv2txa2krw7szm5pXt82i6ieOwo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z84b0/dK9wMAtKNdLPLw1VdGufWp1G5Fd3C+VG+y+okW9b5N969
+	nXUJDonYza+uhYtyyURqZC/lERIhNRhErjNLx9OVTOx5X8PT0FDAEhFdD7BkBfgkpJQASijOcE8
+	QaarvU5KwlBvTBytkY1fBizSgAaVHyU6SQbllHJ8k
+X-Received: by 2002:a05:6512:b8d:b0:5bf:f0fb:2c9c with SMTP id
+ 2adb3069b0e04-5c1a189bda1mr156069e87.5.1794935186033; Tue, 17 Nov 2026
+ 09:06:26 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,109 +66,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261117-dwc2-low-power-fixes-stm32-v5-5-0f197e0e6362@foss.st.com>
-References: <20261117-dwc2-low-power-fixes-stm32-v5-0-0f197e0e6362@foss.st.com>
-In-Reply-To: <20261117-dwc2-low-power-fixes-stm32-v5-0-0f197e0e6362@foss.st.com>
-To: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>, Douglas Anderson <dianders@chromium.org>,
-	Stefan Wahren <wahrenst@gmx.net>, Artur Petrosyan
-	<Arthur.Petrosyan@synopsys.com>, Amelie Delaunay
-	<amelie.delaunay@foss.st.com>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	Jisheng Zhang <jszhang@kernel.org>, Felipe Balbi <balbi@kernel.org>
-CC: <linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>, <stable@vger.kernel.org>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM2PEPF00070CF7:EE_|DU4PR10MB8711:EE_
-X-MS-Office365-Filtering-Correlation-Id: f5424966-6adb-45b6-5dab-08df44cd1d29
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|82310400026|36860700016|10067099003|56012099006|11063799006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022075727099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	wh1Ppj0E/8J4ye1bJCaIg9zmMBI6RHLdCblBLhtZvIxDHHRtp/K0lu+wkY5o0oBqu3HLk0jsn56wzMTJ3qADc5E5ywBjNrS8pvA7rfh3CreteN/D2KngodeB0+cFx10P3atE+LgS88ckELHSa9Bdtb21twkzML54+eYdzub1WUkREd4wgrjJ2KbZJJHZXSW+j+MJHKbNs4kZ+Kzq1Sdxq2Y+ll3oZ5Wi4JhTeYPmT9oe6/1jknrZniPCEbXa7rA6fcu5Lyy21xObEmqNzGdhs9nicrd5fB7gGFiRlZbW6RBLf797XW2eLF7xE9DaN9DyFy8Y98SFL2WY/9iXrrmDBL1mNWmkfbU9lSYi3hrp49gfM1WpjMM94SJNkbSPyJy7K8GFVT0bw7piQSAfo5LK1MKTiZ9J/0FvE5OvwdaZsf19mXNxXlhM/FjyRGfNLG8lWbVPdp1GpTm7DeyO/+0jTK7DMs4kP/ArpjMCON0zphHcAqrg2YI0dVbvMq/6yHVij9+H+pLXyFc3I/w7TgqfyU8UHDRx9MKggFH5Mm4zflw4nM6NdaCaNhOu/JfDlZPwIVQjeE4Zm0gH+QLTSvSxJxm8cILINn9nXXeW4WnEXEzOzPwzGPdf1dCBTq7rLdNRUrwMPdI21HzeXd55mhyda2acG0oFQ+Nr9LlK4y+8+SqevLE2nT4blbv+zdZ7l7kFGf54zDB3KAQYxPgINgz6Ew==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(82310400026)(36860700016)(10067099003)(56012099006)(11063799006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	he/QBijzAhqEGfc9eX1ItbSxH6YOqY+ELm1gm3n0olD6TJ47F4qKlnnJt5G7J1096sKZX4ZQkinG+xs05xl2EC3iRMY7Z32FXAGr6G3ZHaL/5GnagerN1oqPbzXtc2ASN43DIwFujqaQ06x3eqPHDq8ORMifFTCrwzuN4wIiPTGhSNiCdWXIOAK04Z94VkalP77a13u4yo9z7K19buDji9ih0DXm499Op3wbioSlyR+5uvYis2FJG/c1m/qhS2ruZX4VrJMRDHnwd2dbvmlpOW9bVlCFTQiNGaHIdhRL8mB0MZlQ6l1YA22nDeFTN15T0pDnPRbriKMJC2396OdlZw0gLKCzpgOfzWO3i+OquoM5eVZN+lyadvsgp+dPaoC6VGtBE187DgQ62IjPWL0pf2uRK9oGGSINt87QE5n7oahzwy5MnyLSyRXlF+cM4tun
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:06:25.7217
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f5424966-6adb-45b6-5dab-08df44cd1d29
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM2PEPF00070CF7.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU4PR10MB8711
+References: <20261117074428.7544-1-fuad.tabba@linux.dev> <20261117074428.7544-2-fuad.tabba@linux.dev>
+ <avxfgWNePsGPK9mm@gremlin>
+In-Reply-To: <avxfgWNePsGPK9mm@gremlin>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Tue, 17 Nov 2026 17:05:49 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTzUrDxLSMEo6X66XhKtQ-=ew3zZhMdFWR6U9Ga17WLWkw@mail.gmail.com>
+X-Gm-Features: AclHuK8hlW_ShztJ0BsSWqDzcCkcDDTWK01dR1LguEsZLGP95yN_yfyBcMKgMpA
+Message-ID: <CA+EHjTzUrDxLSMEo6X66XhKtQ-=ew3zZhMdFWR6U9Ga17WLWkw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's
+ dirty ring is full
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson <seanjc@google.com>, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Alexandru Elisei <alexandru.elisei@arm.com>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-It's not required to remove port power upon system suspend, as explained
-in commit 113f86d0c302 ("usb: dwc2: Update partial power down entering by
-system suspend"). It can be addressed with hub ctrl (USB_PORT_FEAT_POWER).
+Hi Lorenzo,
 
-When PM suspend flow disables Vbus while in host mode by
-calling dwc2_vbus_supply_exit()) in _dwc2_hcd_suspend() and the core has
-been put into clock gating mode, it triggers a disconnect and a resume
-IRQ (during suspend):
-  ++Disconnect Detected Interrupt++ (Host) a_host
-  ++Resume or Remote Wakeup Detected Interrupt++
+On Tue, 17 Nov 2026 14:23:09 +0000, "Lorenzo Stoakes (ARM)"
+<ljs@kernel.org> wrote:
+[...]
+> > The check also sets run->exit_reason, and arm64's KVM_RUN completes a
+> > pending MMIO exit only if exit_reason is still KVM_EXIT_MMIO. If a
+> > pre-fault stops on a full ring while an MMIO exit is pending, the next
+> > KVM_RUN doesn't complete the exit and the guest repeats the MMIO
+> > access. Userspace can avoid that by completing the exit with KVM_RUN
+> > before it pre-faults.
+>
+> That's also true for riscv:
+>
+>         switch (run->exit_reason) {
+>         case KVM_EXIT_MMIO:
+>                 /* Process MMIO value returned from user-space */
+>                 ret = kvm_riscv_vcpu_mmio_return(vcpu, vcpu->run);
+>                 break;
+>         case KVM_EXIT_RISCV_SBI:
+>                 /* Process SBI value returned from user-space */
+>                 ret = kvm_riscv_vcpu_sbi_return(vcpu, vcpu->run);
+>                 break;
+>         case KVM_EXIT_RISCV_CSR:
+>                 /* Process CSR value returned from user-space */
+>                 ret = kvm_riscv_vcpu_csr_return(vcpu, vcpu->run);
+>                 break;
+>         }
+>
+> (note that it skips CSR, SBI also with a changed exit_reason).
 
-That starts the wkp_timer in dwc2_host_exit_clock_gating() that will
-finally resume the port, e.g. call dwc2_wakeup_detected() and set
-lx_state = DWC2_L0 after ~70ms.
+Ack.
 
-It races with PM suspend/resume flow. During _dwc2_hcd_resume() the port
-may already be in DWC2_L0 state skipping the dwc2_vbus_supply_init(),
-leaving the Vbus disabled.
+> But the overflow bug only applies to x86 (see below), so is this something
+> we should worry about at all?
 
-So remove the disable of external Vbus in bus suspend to avoid this.
+The ring overflows on arm64 too (below). As for exit_reason, I asked
+Sean about the arm64 MMIO case on v1, and his answer was that a VMM
+that pre-faults between a KVM_EXIT_MMIO return and the next KVM_RUN
+"gets to deal with the fallout" [1]. I think the same goes for riscv's
+exits.
 
-Fixes: 113f86d0c302 ("usb: dwc2: Update partial power down entering by system suspend")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
-Changes in v4:
-- Rename the commit title and re-visit the commit message.
-- Drop dwc2_vbus_supply_restore() but keep dwc2_vbus_supply_init() to
-  enforce vbus is present when setting PWR bit.
+[...]
+> > diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
+[...]
+> >  The dirty ring can get full.  When it happens, the KVM_RUN of the
+> > -vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL.
+> > +vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL, and
+> > +KVM_PRE_FAULT_MEMORY on the vcpu will process no more pages until the
+> > +ring has been harvested and reset.
+>
+> Maybe worth mentioning the exit_reason thing if we keep this arch-generic?
 
-Changes in v3:
-- Sashiko comment (state desync leaves VBUS regulator permanently off)
-  Add a dwc2_vbus_supply_restore() to check regulator enable state
-  during hcd resume, if it has been turned off earlier, enable it,
-  so it is kept sync'ed with PWR bit that gets set.
+Sure, I'll document that userspace should complete a pending exit with
+KVM_RUN before it pre-faults on that vCPU.
 
-Changes in v2:
-- rephrase commit message since Sashiko review. Hopefully it better
-  explains the issue, and why HPRT0_PWR is kept synchronized with
-  external vbus supply.
----
- drivers/usb/dwc2/hcd.c | 4 ----
- 1 file changed, 4 deletions(-)
+[...]
+> I wonder if this shouldn't just be an x86-only fix, since no other arch is
+> impacted AFAICT.
+>
+> arm64 and riscv never map a dirty-logged memslot writable, so they're never
+> pushed to the rin, and s390 doesn't have a dirty ring at all:
+>
+> arm64:
+>
+> static int kvm_s2_fault_compute_prot(const struct kvm_s2_fault_desc *s2fd,
+>                                      const struct kvm_s2_fault_vma_info *s2vi,
+>                                      enum kvm_pgtable_prot *prot)
+> {
+>         ...
+>         if (s2vi->map_writable && (s2vi->device ||
+>                                    !memslot_is_logging(s2fd->memslot) ||
+>                                    kvm_s2_fault_is_write(s2fd)))
+>                 *prot |= KVM_PGTABLE_PROT_W;
+>         ...
+> }
 
-diff --git a/drivers/usb/dwc2/hcd.c b/drivers/usb/dwc2/hcd.c
-index 053d1234884b..40450b0a565d 100644
---- a/drivers/usb/dwc2/hcd.c
-+++ b/drivers/usb/dwc2/hcd.c
-@@ -4435,10 +4435,6 @@ static int _dwc2_hcd_suspend(struct usb_hcd *hcd)
- 		goto skip_power_saving;
- 	}
- 
--	spin_unlock_irqrestore(&hsotg->lock, flags);
--	dwc2_vbus_supply_exit(hsotg);
--	spin_lock_irqsave(&hsotg->lock, flags);
--
- 	/* Ask phy to be suspended */
- 	if (!IS_ERR_OR_NULL(hsotg->uphy)) {
- 		spin_unlock_irqrestore(&hsotg->lock, flags);
+arm64 does map a logged slot as writable today. memslot_is_logging()
+tests memslot->dirty_bitmap, which isn't allocated when only the dirty
+ring is enabled, and patch 2's selftest triggers the WARN in
+kvm_dirty_ring_push() on arm64 without patch 1. Wei-Lin's fix to
+memslot_is_logging() [2] is in kvmarm/fixes, not in mainline yet.
 
--- 
-2.43.0
+With it, the s2vi->device case above still maps a device page writable
+on a read fault in a logged slot. kvm_arch_prepare_memory_region()
+rejects logging on a VM_PFNMAP VMA, so that requires userspace to map
+the device under the slot after creating it (I haven't tested it).
 
+So I think the check should be in the generic loop.
+
+[...]
+> An x86-only version would be pretty simple, something like the below.
+>
+> This also covers off the retry (RET_PF_RETRY) loop which a generic version
+> doesn't.
+
+True. To overflow there, the retries for one page would have to push
+more entries than the ring has in reserve (at least 64), and I don't
+see a way to get that, so I left it alone.
+
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/all/avs5UD79FB_DG1Vs@seanjc-mac.roam.internal/
+[2] https://lore.kernel.org/all/20261029175238.3214788-2-weilin.chang@arm.com/
