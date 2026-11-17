@@ -1,79 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.219
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794915398;
-	b=q9Tg26lBcUmh/Z+KFqgYm/kG/oBGaEap53ewq69A19iDb0Q5otGVMg87nDqEpZLrl0dU
-	 LR2tbTAoL4uvOEzM9s7avPpF30guA+AZpzhYPVNbzNvgZvheQO4Q7/lIoQ6rJ0fBXEGK8
-	 iQTnQlIvx6NLhtS5rh3C7+l1XLziVEa1capLtUmlgQudFFU0YWW8FCmAlzB8ipY9R+qnI
-	 VWk4JFdUnbllDFoRd3VD0/VVWnEz+2Qijx4+i9uhZ69hezvwKhYiy+VIinG1w6Nk1lfqh
-	 AjHcq9H2pzPEodKswTQGJHzrKLEpE79MYYOdupWXz2QpXdcqQ9c9AWgO38gXdTvwHaw==
+	t=1794915436;
+	b=Mh4OZTHH22oZPwMLjkfI8O8qXI39Uu6JCMv0leRoepwnNBdRi3OxAmSo2fSBBlCWR57+
+	 XzMWfp1OZixDvAhvn68ONA4EOYLZO8z/SyHBPgn/cZ5XpUo84vC3+JSjRhaPIgcvaIOLx
+	 vuK+raHZ7FZ/9S2kOA7tZzoI5VcKQX24aN84uPEAbCvvfZIjZ1Q6KJDRJbf447ndfNnTn
+	 cDMuRrYPciAK7IqQpNPfErhwXtS6wcuTSWU+1S4NjLzA0npNt08dtSCOzcAx8vD5YOY1h
+	 +vakWOhHabD2SlSnuLhQsOdZuGI5BSZAGmaOnjVdFQsMpj8hRlYgjk/z3icpHM1P3aQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794915398;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Pee9pP4QeB8RIQBY95fiYNoGPLQBEUz6Tv8/k+LSC4w=;
-	b=ttz6XNXOBGU3fTCdaKn/PgLTpdHjN7+fISxJh7oX0Mw9CiagHx4ybtrSE0tEPYWR/8nn
-	 Ky60KsPsSQN1HyBxvrul+9D0xLWpu5kADWTpgJQ+iHAaq02Dacp3s37VU+ecG94IWJmbE
-	 mhQKggQTgfWkaAE8QRhkvSDAZtYcZ9a00wFPzP+VWrMOmaUBm7qgKJvDCTjV65dkoPOHh
-	 9ml1CowKLGUFE/YDsStA0/pyCZbeH8lqW8XmKIVTNeV90I7vQTyKZIbOzliH+AA3OoAZB
-	 9NWg2Ba6PFL9x3/CecBd98w0vRSdvT07SPJtbjbBzny/URpXnI2/JZR05dTwRF4RXiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794915436;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=FIq/acdz95vjbYoS5MNj8HtOBDIDNoJ60+7a7u5rlJg=;
+	b=OJ9LEjw5tXNvryfrqnyc52+CXjmt4P/L4sWMZWFstA4XH/i3BIERgDBJXLIx0lZHxUBp
+	 286dz+uQBdlfZAI/AbjdhQGBme/7L5dgRD3dncZDf/Z8PuId/sn0b2zRjabyWXcz0qLTe
+	 gIXhS72IY7CfBGHKb1m9hw+5Vy4wN545bLH9N7xmlq3OLj7luuDJzr3LP/2de/PjjVHzu
+	 Bnl6zKAVHTpRQuZWvW8Y2lthhHYkc6bVLU59kN9vtluvx89qMWgTMLL0NM7b0jnCd4V/b
+	 D5t4/nBJ9rgCEcvk7pe76CQv/Q1WYak8TiZxaqkfBsFS6VxFIB8wl14TA6JEcvgGEVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=Sd1DPZ1q;
-	arc=none smtp.remote-ip=43.163.128.50
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.50])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fEjtek8B;
+	arc=none smtp.remote-ip=91.218.175.219
+Received: from mta0.migadu.com (out-219.mta0.migadu.com [91.218.175.219])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221FE606A329;
-	Tue, 17 Nov 2026 11:36:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 221FE606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30CF4606A32A
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 11:37:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30CF4606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=Sd1DPZ1q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1794915385;
-	bh=Pee9pP4QeB8RIQBY95fiYNoGPLQBEUz6Tv8/k+LSC4w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Sd1DPZ1ql12ULapsBhlG1WzqwZCEzrBI44Soy2eXk/GbK3bHXq5NTtGPodC+2W6J3
-	 EnDwYY8hNf2YLDm+HxKL6FmChPBA8080vPlpRfiBdB9ECtiwNKcL8OSAIt/yHC6gh3
-	 +DOMD5wAqmEytScCGNeEnlSZBn1xwV6P4ELL/Fgo=
-Received: from localhost.localdomain ([240e:3bb:3032:791:29fa:b4bf:6c02:60d0])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 916B4002; Tue, 17 Nov 2026 19:36:22 +0800
-X-QQ-mid: xmsmtpt1794915382t4bmvah4y
-Message-ID: <tencent_443620EAE95525A375BB2D8A653406630A07@qq.com>
-X-QQ-XMAILINFO: McQ2ZMlMYdZ8wUy72l/LqzWMAcLSML8kmiKM1BJ0xzHJdDw0CtolP8eo3h10OH
-	 qOEOaTVLbtBqs91up1zXOXwaVkIHmegC3r96NZVdNUNUDXeX7jyFSbou+uy6sApMzjtaZc+R/EiS
-	 FDF9N+jfaYb/GQmoP1E09yeKNJSmqCQU5btxyXhKP8WSwsmnk7PYJmXa7a2ngJWYAfdFPcqJDh9k
-	 5RMApOMy9DTL5t67vN6d6SBqEmQEJQeGUJvOvyAnJJNAFIJw+YZ88tsYPgQcpWk1MJB4WnAtvnz7
-	 /+ZKdHUPDBjeD+ZX0RpgGutfG5Du05S3+0bSdphCTslQYU0E+IwDIgIUYxn3exf0Tf0RhTfRxl9q
-	 /MTmXpSFtVOK5UkdSnwCEqDWJmFI0psbiz6743uX3Th6zxBPKCiGt67H0XQujCDrJ9NHpXvZSSGi
-	 uWyFdwNVvWCRbH46hGH0bUYKjM5U+3b8nAL6falxttJo61GyfdrV49Z8M8xKeomUoOZV1Hc0qCva
-	 qIX0rz9N5Ij3iRUxpVllcFSuKETxMfTQqjn7iiq7qdi6SeX8w/hJ8Y5b56jmRRk+c+fFO6wWRLYE
-	 BQVEPMr7ejxxvxGA32YgjChXduYe74OPrrIqjajdmpIYQ+n/Tk+nrx+Kj0WHOdblYZcAHdiX0wDy
-	 eCk2YElAGPYW2Zld/uDYEAAHatDnhK94eoZB0bMc4qc3Np8HtOWEO0CtxKGeFvutmVMvXURZbwON
-	 9quiVmbfLGUIkeOhoSssP1eCRP8X34ov/RorUuc+FIU0JZ8gnDWU6A6JI3Pz50Ih4HpIBY2jny7f
-	 z7O03ZjkTMDX0/S9U3Gy8K5Sa5XTcy1/zWh+HnW94xuI9WoRDnZaNoUjss/VswsNsMeCp8B2dlly
-	 AT9BRYwsRJEhjhR5Tga7KTFfAj1a1w4ruRD1gCmsvC7gJwWVvjg3PFeff6LlR0Kw8PqUemIgXRJM
-	 CEewt7QiGb2REuyDHCfNjWGaclSgcV9UygFSlbKPTmXxUaEKBH4nzJXJes9zZvELeOLN31DMS3ex
-	 1M0qQS3RvUYGVU7lEQYR7LmSj2lidGUhgOKhxMFacZA96IvbWtOxJXspWsaaA=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: memoriaru@foxmail.com
-To: linux-usb@vger.kernel.org
-Cc: heikki.krogerus@linux.intel.com,
-	badhri@google.com,
-	gregkh@linuxfoundation.org,
-	stable@vger.kernel.org,
-	memoriaru@foxmail.com
-Subject: [PATCH usb v2] usb: typec: tcpm: align SOP' Soft Reset handling with SOP
-Date: Tue, 17 Nov 2026 19:36:21 +0800
-X-OQ-MSGID: <20261117113621.75401-1-memoriaru@foxmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <avw6CtZkJqvwj4eL@black.igk.intel.com>
-References: <avw6CtZkJqvwj4eL@black.igk.intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=fEjtek8B
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=1c0H7lzsrOLvPgIaEgNX/VBYlRpSEzqvqTJWZfntygs=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794915433; v=1; x=1795520233;
+ b=fEjtek8BsUI4xWPpUqbNZFhH/ighpcAaON8N8vgwoQDHr+DXcSZ/NtEr9kBvqsykxPpJDysS
+ ny7ld8ldQvtiv3gU5NNkhI/AiXgwE8S1zS1MO3yh7d3oV9s0onqWDa/U4XAXTkLZy6foghdNcFs
+ wamZ869X+UZmGjT5BYnmNquY=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d92e4996c9b348da;
+	Tue, 17 Nov 2026 11:37:13 +0000
+X-Mizu-Trace-ID: d92e4996c9b348da
+X-Migadu-Flow: FLOW_OUT
+From: "Hui Zhu" <hui.zhu@linux.dev>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Harry Yoo <harry@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Cc: Hui Zhu <zhuhui@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] mm: mglru: reset the mm iteration cursor in try_to_inc_max_seq_nowalk()
+Date: Tue, 17 Nov 2026 19:37:00 +0800
+Message-ID: <20261117113700.453044-1-hui.zhu@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,62 +81,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zhang Hewei <memoriaru@foxmail.com>
+From: Hui Zhu <zhuhui@kylinos.cn>
 
-The PD message duplicate-check and the SOFT_RESET state handling treat
-the SOP and SOP' channels differently:
+iterate_mm_list_nowalk() and try_to_inc_max_seq_nowalk() both advance
+mm_state->seq without walking the mm_list, but only the former drops the
+cursor. When the latter races with an ongoing page table walk, head is
+left pointing into the middle of the fifo.
 
-- tcpm_pd_rx_handler() exempts PD_CTRL_SOFT_RESET from the MessageID
-  duplicate check on the SOP path (the USB PD spec 6.6.1.2 note: a
-  Soft_Reset Message always carries MessageID zero, so the duplicate
-  check must not drop it), but the SOP' branch of the same switch has
-  no such exemption. A cable that sends a second Soft Reset over SOP'
-  (MessageID zero again) has that message silently dropped by the
-  stale rx_msgid_prime comparison, and the cable-side re-negotiation
-  stalls.
+The next walker reads that as "this generation already started": it skips
+reset_bloom_filter() and resumes after the cursor. Every mm before the
+cursor is skipped, and none of them have bits in the filter being read, so
+walk_pmd_range() descends into none of their PMDs and harvests no accessed
+bits. try_to_shrink_lruvec() ignores the failed try_to_inc_max_seq() and
+keeps evicting, so those hot folios become reclaim candidates and refault
+in the parent memcg, until head wraps around a generation later.
 
-- run_state_machine()'s SOFT_RESET case resets message_id/rx_msgid but
-  not message_id_prime/rx_msgid_prime, while the initiator path
-  (SOFT_RESET_SEND, SOP_PRIME branch) resets both counter pairs. After
-  a responder-side soft reset the prime counters stay stale.
+Factor the pattern into skip_mm_iteration(), which carries the rationale
+that used to sit in a comment in try_to_inc_max_seq_nowalk(), so the two
+callers cannot drift apart again. The wrap-around in iterate_mm_list() is
+left open-coded on purpose: there head is already back at the fifo, and
+tail has to survive for the force_scan test. Dropping the cursor is safe:
+get_next_mm() holds an mmgrab() reference, and a concurrent walker bails
+out at "walk->seq <= mm_state->seq" before touching head again. The
+unwalked part of the fifo restarts from the head next generation, as
+iterate_mm_list_nowalk() already does.
 
-Reset the prime counters together with the SOP counters and exempt
-Soft Reset from the SOP' duplicate check, aligning the SOP' handling
-with the SOP path.
+Only reachable from memcg_reparent_objcgs() -> max_lru_gen_memcg(); not a
+memory safety issue, since lru_gen_del_mm() repoints head and tail under
+mm_list->lock.
 
-Found by code inspection; a software TCPC stub was built for the
-responder path.
-
-Fixes: 6bd181ba60 ("usb: typec: tcpm: add control message support to sop'")
+Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhang Hewei <memoriaru@foxmail.com>
+Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
 ---
- tcpm.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ mm/vmscan.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/tcpm.c b/tcpm.c
-index bb90211..95f748d 100644
---- a/tcpm.c
-+++ b/tcpm.c
-@@ -4200,7 +4200,8 @@ static void tcpm_pd_rx_handler(struct kthread_work *work)
- 		*/
- 		switch (rx_sop_type) {
- 		case TCPC_TX_SOP_PRIME:
--			if (msgid == port->rx_msgid_prime)
-+			if (msgid == port->rx_msgid_prime &&
-+			    type != PD_CTRL_SOFT_RESET)
- 				goto done;
- 			port->rx_msgid_prime = msgid;
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 6a1af9b92349..0dc4017b87e4 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -3235,6 +3235,7 @@ static bool iterate_mm_list(struct lru_gen_mm_walk *walk, struct mm_struct **ite
+ 	do {
+ 		mm_state->head = mm_state->head->next;
+ 		if (mm_state->head == &mm_list->fifo) {
++			/* head is back at the fifo; keep tail for force_scan below */
+ 			WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
+ 			last = true;
  			break;
-@@ -6193,6 +6194,8 @@ static void run_state_machine(struct tcpm_port *port)
- 	case SOFT_RESET:
- 		port->message_id = 0;
- 		port->rx_msgid = -1;
-+		port->message_id_prime = 0;
-+		port->rx_msgid_prime = -1;
- 		/* remove existing capabilities */
- 		tcpm_partner_source_caps_reset(port);
- 		tcpm_pd_send_control(port, PD_CTRL_ACCEPT, TCPC_TX_SOP);
+@@ -3263,6 +3264,18 @@ static bool iterate_mm_list(struct lru_gen_mm_walk *walk, struct mm_struct **ite
+ 	return last;
+ }
+ 
++/*
++ * Advance mm_state->seq without walking the mm_list. The cursor must be
++ * dropped as well: iterate_mm_list() resumes from head, and resets the Bloom
++ * filter only when head == &mm_list->fifo.
++ */
++static void skip_mm_iteration(struct lru_gen_mm_state *mm_state)
++{
++	mm_state->head = NULL;
++	mm_state->tail = NULL;
++	WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
++}
++
+ static bool iterate_mm_list_nowalk(struct lruvec *lruvec, unsigned long seq)
+ {
+ 	bool success = false;
+@@ -3275,9 +3288,7 @@ static bool iterate_mm_list_nowalk(struct lruvec *lruvec, unsigned long seq)
+ 	VM_WARN_ON_ONCE(mm_state->seq + 1 < seq);
+ 
+ 	if (seq > mm_state->seq) {
+-		mm_state->head = NULL;
+-		mm_state->tail = NULL;
+-		WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
++		skip_mm_iteration(mm_state);
+ 		success = true;
+ 	}
+ 
+@@ -4686,15 +4697,11 @@ static void try_to_inc_max_seq_nowalk(struct mem_cgroup *memcg,
+ 	DEFINE_MAX_SEQ(lruvec);
+ 	bool success = false;
+ 
+-	/*
+-	 * We are not iterating the mm_list here, updating mm_state->seq is just
+-	 * to make mm walkers work properly.
+-	 */
+ 	if (mm_state) {
+ 		spin_lock(&mm_list->lock);
+ 		VM_WARN_ON_ONCE(mm_state->seq + 1 < max_seq);
+ 		if (max_seq > mm_state->seq) {
+-			WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
++			skip_mm_iteration(mm_state);
+ 			success = true;
+ 		}
+ 		spin_unlock(&mm_list->lock);
 -- 
-2.39.5 (Apple Git-154)
+2.53.0
 
