@@ -1,112 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.32
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794935559;
-	b=0GLeFskX4jV7Zt56oKkMuEsgnce1IUX4b1I/X2CZG/9GuemCDnUgqkkkopJj9EQxr1sw
-	 sIMnkH7TFVfKq9YjIXE9z8ereKJdEN3C+1vU+1YLAhWED4id2GpJ5Ugf9emssIH2GFcWS
-	 qDrhQUr7cCuspjruXcVv8uKhUj+6kS19Bf0t2wgdnb8PQkOtJ44t8B/1ajdmWI8vF85vZ
-	 lRFoNBHF8XTpKWV58AcMkgqfN5J7Qc+mqqmncGBnziZBLmM3DtAKZ3u7FPjleQtvvnp08
-	 LYciqyGsZZeqkg1mU4nXzmcjR944a9mL04pyIVdcrnKGei9mc3h/x7hp1PwAu1pOyRg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794935559;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=4rTCGU7Iuw/qVjkTnUUbBqLtOzWS2WMgpMDRtYNlsHs=;
-	b=2NthlPV4pi1rqlWHFT+5Z5cxq+MXAcqlHBlh3AdzVQkkTjj1GNybrgJFbo62o0c1noX+
-	 js4jqrbvR9/F+/TfNh1FY84e4Sa+z784EBiHAC36gr5NWiEy7YTXxKiPX2zguhp+gLgzZ
-	 o4DXTrVJEHlKNwmuTtSqKjx80HYDKAXZAOG4ME0440LIukgSs7H5VCvPWK8rjAhWBGpEQ
-	 ilJxV0yGPQk4/Y5ZRmlbhzkfIhM2qbZUFsLGXd4t26UmYP5rP8Svb1YJuVjZK+WoI08kR
-	 JF3QgiMsrfX8fNcZy4oToMDkkK5PB18r2zG1UTjTO8pJWnxNZKyfPeJNgCeT0MBXEDg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rd7qzgXu;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.32
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012032.outbound.protection.outlook.com [52.101.48.32])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794935735;
+	b=bIDt230bUH+ADa3b0iVYZnqwVtIzMlSw6v4jiMwgDZKbnIs1PwiFaW5gvQmhuN4ZqPB6
+	 mHX0TOIlRxOkSYkwoNfLPBN8rhDQHCZUMJuchoh33FLwbAPUV5y53pqqrqPxdNQ5tUQSY
+	 Dqv8zZ3/6CFK/KJvUcyd3GqqE3pIuqtiIej+/DdRP/+Wx3Jd5zpxatwp+fb9enj/m62ob
+	 ZjdCijmW8+N+BBITUSHKTGaVbF8mRFBefjsnx3XFYyu+ALIvGVGVnPzQNgM9ktyIsKd2v
+	 75Rm0bb6ROmLAHFZHzu5jkaPex4FLlW6xH+4WZYXr6AcixwXj2+yOWeqAZRfqevHF+A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794935735;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=jShjFF4Sq6gPLLl5+8nJzOEA7mRuIBIl4olxLWqQ+z8=;
+	b=iNZy42DVUzMhdO//czVZkWsaUCqcgI0RhtiwgY9dUA+XHpwJrlMlPRTjnKpbnTH9j2qh
+	 KaSt7AN9qVRR81Tp2cjnibBmdn73ERwblD/uFon7N/s9nbA6hTMmD7sT/53bwNxBMTVVB
+	 MiXguKvRrV8JpKULpwPw/oXXAH8vdzTjagvEo9kyqOSbnvcXmTDkrIAiIn9tM6QdPAyZO
+	 SAKtSQmBDCInLzeOU2qYlZXHfr6vzm/1s2zZ5mEbw7W126/tactEv1XcAwGrsENnN9cFf
+	 qHCN1ygbLo+aiRrCNl7fzfngiOPl9LV35LgdPe0PAI5xMfgZBs8Xw62Q/VqLicqmzqQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rKqT+MaY;
+	arc=none smtp.remote-ip=209.85.161.54
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24650606A32A
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:12:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24650606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 496A6606A32C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:15:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 496A6606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=rd7qzgXu
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qs9cRj+C2K617NlDrzzRrraAUnUE816C2Zmg3x/vAIActX0MuAi0H+BymvV0CoqI5pDQR0cUfdoIGlU8cfXtbQRu0At6wjaOpRrGxDXLEwxgQX4kQ1CgoYf3K2DcmveF7zOwQQznFr7sImD0KIRZy+jLzviXRpuf6/IkVP8bKsorKZljCrxXVBMc0WJlDTpUFgMOxc6aY3El56bLYaeH1Q04AHVp7JGsyOTpQrfjcceVnxTvlFc+ufY1ut3lZj4Kb+HbsWRRtH+QsRlH+Swlzh2+p4aV9xXNj68nz4Jo38I8tfw0uFUgUH8symR9Q3aQWigBdTS7fRoYRI4VxLB9Gw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4rTCGU7Iuw/qVjkTnUUbBqLtOzWS2WMgpMDRtYNlsHs=;
- b=jkX2FyhcNfgvVAg39LzadZX7+IYPqSLHdOF2HUjKJypBqO2sUINihku2IzDwXw2pQcwWPFPRqmBPduf/P4Ax+EvnuhbeXV7EdZXUXFV3hQaNna1ovaUp9JImL4Uz5blkGNUDrK1lLK2OH2WuEbAnkpJXcpfoDXll17T6knvvvZXMNjUgxpYJIDi3Mtk4xld1kofe0tUXmF0iv9i42s41LWEGGipSNUwJseKvgLT1JXY8a53qUgzRdVPYFtlsfvQ6nzgFHK3VCPAHlwBWIxOeJy1Stw2vWmFv/r7w2NJ9TKwDYujDLGEH7+N12r6HgmYWQ/8LgbGC53M/7uZTHltMfA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4rTCGU7Iuw/qVjkTnUUbBqLtOzWS2WMgpMDRtYNlsHs=;
- b=rd7qzgXuplXUZ4dNg6PqW1+sPKwEIsUWrYJIb4FtoHSa6+3cJVjZskuzeC+E2sbZ4YvqmTCwyQ9D0x3kPZRvXkho3uw2fNBsmazG9mSAodNx6wiYuTEmzUdtM5MnBzEsPXV3zUt8+HVvwmrs/59TBnVtHVjKAGKk2jgnX6Hhnac=
-Received: from CY5PR13CA0010.namprd13.prod.outlook.com (2603:10b6:930::12) by
- DM3PR12MB9352.namprd12.prod.outlook.com (2603:10b6:0:4a::20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.13; Tue, 17 Nov 2026 17:12:35 +0000
-Received: from PH3PEPF0005961A.namprd05.prod.outlook.com
- (2603:10b6:930:0:cafe::73) by CY5PR13CA0010.outlook.office365.com
- (2603:10b6:930::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.6 via Frontend Transport; Tue, 17
- Nov 2026 17:12:35 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- PH3PEPF0005961A.mail.protection.outlook.com (10.167.243.24) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.615.4 via Frontend Transport; Tue, 17 Nov 2026 17:12:34 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 11:12:34 -0600
-Received: from james-Birman-PHX.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Tue, 17 Nov 2026 11:12:24 -0600
-From: James Lin <PingLei.Lin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
-	Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
-	Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
-	<Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
-	<alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
-	<Chen-Yu.Chen@amd.com>, Zhikai Zhai <zhikai.zhai@amd.com>, Wenjing Liu
-	<wenjing.liu@amd.com>, Mario Limonciello <mario.limonciello@amd.com>, "Alex
- Deucher" <alexander.deucher@amd.com>, <stable@vger.kernel.org>, James Lin
-	<pinglei.lin@amd.com>
-Subject: [PATCH 03/33] drm/amd/display: Power up eDP when detect link
-Date: Tue, 17 Nov 2026 05:50:40 +0800
-Message-ID: <20261116215641.2800595-4-PingLei.Lin@amd.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116215641.2800595-1-PingLei.Lin@amd.com>
-References: <20261116215641.2800595-1-PingLei.Lin@amd.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rKqT+MaY
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-706113e92f9so13090eaf.2
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:15:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794935734; x=1795540534; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jShjFF4Sq6gPLLl5+8nJzOEA7mRuIBIl4olxLWqQ+z8=;
+        b=rKqT+MaYydX0PsyeQqfFKGGm/slS3UpjlNun4tLMIpYejfEiygK8/IBn1vvUiQtrlp
+         yR7GoCUu8LtosOIWFz2oIBYH9sZO3U1TnnrrIKGqm2EK5L0qPNHVFIUmOsD4JkwkzCgj
+         /cJrY3sFHyQz4DusZL1fHtuLBw5b8UVPQTtoNcHRzGeagRJhAgIaaaqSkKxA2ryf0mal
+         XtT+WkZotBUFNS4hDJ+oivVgmP6RRNwOJl5TO5xIf/BXFqVvhvyBR8ePn9tuF4V4n4s5
+         NQsePix3m/QplEFRDNBW2AzSh6UVM2L1wUKraim4QKsqZLloPcgxY4OE2AGgPZ3nU39o
+         xaLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794935734; x=1795540534;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jShjFF4Sq6gPLLl5+8nJzOEA7mRuIBIl4olxLWqQ+z8=;
+        b=fUQkybn7AXRnYOOTeDDCHEhf/CO5OlymRfLTm+KOvFJuh9CC1/QHdFS+tGml7BT495
+         9YuFVOkHYWCXJLo3qij0zD/vOKpo4IiYwe+1hYYCcdsRlr5Si3aXI07zYx0l5YfN0y9m
+         qvS3vHccadb2v4wbFYxQzZHK5YoLi1JF2xZt3EwBE3Xrdq8lIh3AVa1ahWNGv+m/+1lM
+         HmqxMrpAkgdCYAqmAh4+ofcK2TOWNeMS1ocrUwA5EjxUg1Yi8DJ41b/ZmPkkATXxY9Xy
+         j+TqPoGb6j518cfdFUNnKCQ4mk9k/0/2hLY67TgUV34J40CSMv5VypOqQK9Y+64APEJf
+         vicA==
+X-Forwarded-Encrypted: i=1; AL+hErEoB8yfE3z03jy7wrVNy4uDu2TmbMztemNPuLD1AZw2jCcZVf7Il1Cqs+SF27D2iI8BQEdXDvA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+wkrnfQKuozZGUuPk8B3oBA7XVRZUU+PxNLfTZ5EERRdHCT4Za
+	/cJ55or63FvVhpbAzFdfTydD/XwIb/+5ZHpfHa3xTf0AzZa7WfAZd0Al
+X-Gm-Gg: AYBFou1enDLq8GA+QzQEUww6+Hv8tnFiBTJ+1v80iy7gy9yWhoXjN9BCy5oEhaLXSC0
+	Y9GW1dAYbTBLD8toPeU5g2ZrJCBaVlUtiHwtxSx2S5DcI+Lwhgs8R3ZXYxHiyBZJNOz4UAegCYR
+	ce++5jjdZLnBuPcGQfnBwDORNl6QZq7sxLMjYAZvIgpas/6XZgmewgu0DBJGh5wpHor+w3zfH1R
+	FmZb5rJHnkafkxokYN/LazeQc5/yZw5sTYXjPQLQ9OvSADGuNSBxozLnUSBKDUTF5fqnNelMRuL
+	CRw5lRUzp9dYOlNVdq24e1Bdqyd/MF68ceNY/IHko62XAEDMsqJgzoocvVVhjYP9LrGhGSROTQv
+	1aEeL8ZVYUdFtn37y3ckWTZnHsX7dZdzOhvcGmVE7/ycidDTuP7p8+bVQNgMew3m5GBLu91PPN0
+	SnnwIaYgaO/jXApyYYO7C+nVArt9c/inpEaDfGh9cWBG/paF+uAV1TaiebllTrKrkQB6raGWcIO
+	GVITRO3nbsoQu3k9iPHFpv41lgWskIIFg6GM1PmRXTjenwkv26GzUrr6aM/x4GwBHE/VQLERnMM
+	1wltB1oWLV9ajQuN3opfDA==
+X-Received: by 2002:a05:6820:2203:b0:6cd:3ffc:ad01 with SMTP id 006d021491bc7-71ace39b3b4mr7492285eaf.81.1794935733793;
+        Tue, 17 Nov 2026 09:15:33 -0800 (PST)
+Received: from localhost ([2a03:2880:10ff:15::])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-71ab42cc12dsm11351357eaf.7.2026.11.17.09.15.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 09:15:33 -0800 (PST)
+From: Vlad Poenaru <vlad.wing@gmail.com>
+To: Qu Wenruo <quwenruo.btrfs@gmx.com>
+Cc: dsterba@suse.com,
+	linux-btrfs@vger.kernel.org,
+	mason@kernel.org,
+	osandov@osandov.com,
+	josef@toxicpanda.com,
+	fdmanana@suse.com,
+	boris@bur.io,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] btrfs: fix bytes_may_use underflow after a failed tree block allocation
+Date: Tue, 17 Nov 2026 09:15:26 -0800
+Message-ID: <20261117171526.1083793-1-vlad.wing@gmail.com>
+In-Reply-To: <700e302d-c85e-4bd8-84b1-0e6eb8565740@gmx.com>
+References: <700e302d-c85e-4bd8-84b1-0e6eb8565740@gmx.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,87 +105,15 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH3PEPF0005961A:EE_|DM3PR12MB9352:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7067a925-f104-474b-8428-08df44cdf948
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|10067099003|11063799006|56012099006|261026140227099003|261021121427099003|261021123027099003|261022105027099003|261028144727099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	tu6YGFEdN3kNSEVMzzQCiuF6weSj/04lXtaBQmzX6mCKontpfWUgYtwbhjdQ7ZavaIczznhAXOCCE0iz/f21ja8LZUltUJ5Z3Rs4IpgSvMqfop9i13eeYf2Jc9vRjY+vSHEUftqweq3ODfUWZ4kKcsXLT+ELmhYUN8Oh56Sv/5rfQfys1PTOcJDCmqUFYb+5nJ2F7mWPEkC1RTGTVptaUA7LEEGzbgNxW3X63/uGMbM5Bn6u/s0nZO1z9WV0x9si9UY9Ds3lAn2JV4oSOEvSQfufSemXrf18g8aQzaNQjtpn/KMjubFDqQTM7JnlbNEh4YeQ1YJe1TYr6xMX7YebIhHwtB8XKq19/noEs+ISTl0eIfotJ3bzPmfAhzawF7h8pvIgSFfC3J1NOwf5OxjZSz1KEFHrwhoOhUNOHadlGs8TB27CpGB4p2/anFVwBplMNJdqf6h/L1p5lHeoSICeqzomreohz4iMz6NT8wWkWpwN5WD6dc1MLYzbOCsYQMyXsvDdJbJ7qf+TZEGagyQx5sKvsHW7PS8982/4S1im0P7F5SPQPeDLNkYql/nfBpaHHXebjmEN7sIgwiM6hHny/vXBNt7Ki4JnJY7KcBpmEPSW+L2f0X+LJIyuTvDgU4E9ZiMPVKO+HlDv82XpyhyWHYJk+ZlOQ2KOEWccC927fvG9P+8BTjBKND5vK7PfxGCLPi0AYEb/Q3F1CD7nHIyqfw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(10067099003)(11063799006)(56012099006)(261026140227099003)(261021121427099003)(261021123027099003)(261022105027099003)(261028144727099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	WpeTYFrZhMGEsagRaKTnFvVwg2TsbYKdKWp+aAjQLaXf1BJSfO7GpcrafgSUwgP8SGXPGQGZqhD95Xs+CFkZas2kC73z2anKRs+RQKWLip18J5iXW06gDnnYDr/IUzmZquTzAII07Wg1U8Mt8/c2HDn1ZAEgHJRuYyXao3SGVNC/OPqYc837qd3YyOw1CrbTzEung0hLFBcxWd4wjlSDGLTvu92s3pSJznPD/EmZ/sfCTq/cn/sY8JgnidJtKbUnKKn73AB9nrl9iW1giayxSM0hSYy5UXRAE/oKHI7khYpTkTyP6dOwg5i+impIpg7LhbX5Wu5iAqtBqVKQ0traYtpPDXyC/jC6yjCuTZB89YWu+wXxHI1tE1xD9mtEp4X4bzxoCpVIzJBPyxuWOLrh/dtaEX5A9Htb/0w4RX9VXpEhXThtGT31heaaH4ZDDzho
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:12:34.9835
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7067a925-f104-474b-8428-08df44cdf948
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	PH3PEPF0005961A.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9352
 
-From: Zhikai Zhai <zhikai.zhai@amd.com>
+On Sat, Nov 14, 2026 at 08:05:47AM +1030, Qu Wenruo wrote:
+> Can you simplify the commit message, not only by a little but by a ton?
+[...]
+> To be honest, most (if not all) of your commit message can be extracted
+> into a single call trace graph:
+[...]
 
-[WHY]
-Previously we would start the asynchronous detection
-timer after resuming from S0i3, the sequence for
-eDP power up when resume from S0i3 is:
-1. eDP power up when link enable
-2. Timer trigger async detect for eDP
-3. The AUPI could read successfully in display detect
-Currently
-1. eDP detection runs from the display detect path
-2. AUPI read fail as HPD low when eDP link detect
-3. Link enable to power up eDP
+Thanks for the review, and sorry for the overly long changelog. v2 will
+follow with a much shorter one, built around a call trace like yours.
 
-[HOW]
-Power up eDP when detect link for aux read.
-
-Cc: Wenjing Liu <wenjing.liu@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Zhikai Zhai <zhikai.zhai@amd.com>
-Signed-off-by: James Lin <pinglei.lin@amd.com>
----
- .../gpu/drm/amd/display/dc/link/link_detection.c  | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-index 9bd24b3e4291..dae9e6840272 100644
---- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-@@ -1153,11 +1153,16 @@ static bool detect_link_and_local_sink(struct dc_link *link,
- 		(!link->dc->config.allow_edp_hotplug_detection)) &&
- 		link->local_sink) {
- 		// need to re-write OUI and brightness in resume case
--		if (link->connector_signal == SIGNAL_TYPE_EDP &&
--			(link->dpcd_sink_ext_caps.bits.oled == 1)) {
--			dpcd_set_source_specific_data(link);
--			msleep(post_oui_delay);
--			set_default_brightness_aux(link);
-+		if (link->connector_signal == SIGNAL_TYPE_EDP) {
-+			if (!link->dc->config.edp_no_power_sequencing)
-+				link->dc->hwss.edp_power_control(link, true);
-+			link->dc->hwss.edp_wait_for_hpd_ready(link, true);
-+
-+			if (link->dpcd_sink_ext_caps.bits.oled == 1) {
-+				dpcd_set_source_specific_data(link);
-+				msleep(post_oui_delay);
-+				set_default_brightness_aux(link);
-+			}
- 		}
- 
- 		return true;
--- 
-2.43.0
-
+Vlad
