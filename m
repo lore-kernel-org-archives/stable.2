@@ -1,53 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794909472;
-	b=Uek32839yZyHXcabLC2X91TzQMyoKuPrUvkqGj4BVKz+RFsxk6f6z5RgEe4Gdi4l5Nur
-	 kAg4DlAIQ1gqU2dRClc+4RtNF0sGRYfKZ6oSXe8VXs+wbr58UUfKFL61MVgptOIzAUuBN
-	 For25aF3KIavWeCcWeK7ylTagOT+0z413Q2O9ilh9TYi4NiiuFq4i65FUenubPalaFsjZ
-	 3Vin8jt15bNsnEG0MxOrFJ+QVqdxXkqgvaQR+1cGnE4Y0/f53MPSl5BtL3W4GQWvuodAC
-	 LjB55KW6OWAWizql1A60R9/TSndWe9048p8RMwK1ySXdW+ALUQ8d3ZAzZxI7IlMjV8Q==
+	t=1794909983;
+	b=z+Ix2U7BMEal1NtkKV9EG+kzXaUntlRmAxy6EpJuiezBYam1RirhEgpCaWGgqkt75u9g
+	 g86swYQi/H1mNN8naysq4EswwLG0xluT7vhZpF89yF+8HU7JCXQboKRsKP3u3t6goj+BN
+	 9RwATrmyp6hmne3RUYFHRznbpYyvG+OEMl014af9MPrsKJRMQAZgIf+CSR19ZOIREu0u4
+	 0g1rR3ImkX9iHVSKj99bpAMDtWLlkDE/1e6xTkYJA3aYCxkPpSntVroDjBIZCB8Vf4BGJ
+	 Je/pvMzROOXpxQXHQ2aeQFlBJ1QetSZng/vCUftv1W79ejO0ara9sFK2rzJoGNdJOGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794909472;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=NPBCRni7dqPhXV3m0qj8RnZnSgSXxrY9Otftjlz4nOo=;
-	b=oNbNN6LypXBKl7QmIJyAxL8TObf4AeVtw4Ak7y1PAYbNlw/b4FilCk1INhhlG1MJOSI+
-	 MOnJwK9nonx8Csf8hR5bhbWZccHHY3y2FTR56WHEg4CExX4ITF3abvSA0JBaOBbUSQn05
-	 a0KMD8oJ2KT5dCInL5owuzgYcC8zchRuZ7kyHZpin8qOCWIzr08cuOrQoXA9MyfTeWaGa
-	 eX+dK3FU9PmLZKhU+RcGNQtVSZrrvB+WEKbc/CxPX4JMDIbIzMYZBtwVKqF+amagUnBpd
-	 6HyVNbrmAu9VwaPOy7x/lJXc5pFEOsfir0wBPLmTF8JWyrRZFyFISWj0q58LZH3dHaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794909983;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rI4LasV5b++IgM0KeqrCTlvPABydB8GrsEj8qvf7nig=;
+	b=M+HfOW7u8pnHGQiSBxEQFQSZA0zHIBjx2AaQ8gj4lYuugIyIMXwnmwCbZt8ZfDfzwV+o
+	 H1UH4vulIkY9IPZa0GvMRzJ3EXYkggmiuGwG978jeKy+b+wAwF1BGbmaqnBK/2JaiL0lz
+	 CjX+5PHRGS7MA3Z3hRka5P7ZZzlc93WFK14ilIIREL7bCv/TZimoT3D2NogqbI3VFKcUL
+	 2HcF1ozQQb+Pjyem+0kCZ9dJJ7hBeVCbJigNfIMy+dS/JGlcFxgKkX0jZnzwKXbdQ6nF1
+	 TPPCNahnFXYAtfzpPq712EO5bDM1tMlggMcfY/KWxTKuT+uKu32TX/BnhF0fdL7m7qA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U2b2zNJG;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qxv9jBgr;
+	arc=none smtp.remote-ip=209.85.210.171
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC7E606A31C;
-	Tue, 17 Nov 2026 09:57:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06C61606A323
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 10:06:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06C61606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U2b2zNJG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B51651F000C5;
-	Tue, 17 Nov 2026 09:57:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1794909472;
-	bh=NPBCRni7dqPhXV3m0qj8RnZnSgSXxrY9Otftjlz4nOo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=U2b2zNJGNI4HHyq2IiKuNP5On/KDos2GxvOOzL7wzeD/LOkKB+XKZkjk34oQ7gohm
-	 CFLWgzBRnzY/Ba8Wa6c+J4OsIregkPa8Osw7EnAnV/h629VFJ+uWxftT+NE+jl8nuW
-	 zS4qZ9xKBXp4zRjb6KCFryymTUYItGntvHsJPI10=
-Date: Tue, 17 Nov 2026 10:57:38 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: onLeaf <onleaf322@gmail.com>
-Cc: pablo@netfilter.org, fw@strlen.de, phil@nwl.cc, kadlec@netfilter.org,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org,
-	netfilter-devel@vger.kernel.org, coreteam@netfilter.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] netfilter: ipset: exclude add-path GC during resize
-Message-ID: <2026111728-deduct-chastise-eac8@gregkh>
-References: <20261117092731.14656-1-onleaf322@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qxv9jBgr
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a06cc097c7so3721157b3a.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 02:06:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794909982; x=1795514782; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rI4LasV5b++IgM0KeqrCTlvPABydB8GrsEj8qvf7nig=;
+        b=qxv9jBgrMfukboKyv7rMfU0CRJtV7gusvERDhwg5BfQidZfaSNFmoCgVDYV5+KawKG
+         A+g9wnY8xkRgzR8DfqKm1NUUgy4dW5ZvMv9Swp+lsbmwof3PDIO5WNc5xNX3Yc+RZj2f
+         LIek1j276h4dfUO8eWmtCxwxgq/rzQGWEPtgUrKKfcKMJS+JoCxutWpyoPOgiDew2p4q
+         GMtIrO/Nd83auNzlmLnbH2tBOb9T5ADDVO3R/eS0FcDYiB/alU0NTh6PRI6fqWuErplY
+         oi7RigbC+vvQ6godEP3zSZ3YSsKCsfTX1rcImmxv+4/EaKThBRN2B9q2xRkcXtCYbp/3
+         L9SQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794909982; x=1795514782;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rI4LasV5b++IgM0KeqrCTlvPABydB8GrsEj8qvf7nig=;
+        b=LXKo+/7gkOUHe02+uip+W2qpb9aWqfnOEyhjFoY+3vEAXvqlMNz5xPIvTFy+W9kvBx
+         s0ru1B9n/asZgcb20U+NDM+u8yrH4rg5YtRXNGkJAW1TxdgtAJgSiLBb3mYqHvdmMLI9
+         pTM3UvIz/MZJA+Irny70tTHjIcFZ/T7KNmcY1anf053YiEtB2q7zMIpDQ/lVNA+A97K6
+         5mEK9cRc50//u+GDqLnxJQdbGYKF1lLIXHK84Tw+O7ZrAKtEq9e2mKG5b0Hl2YeiA/mW
+         +HDc3bf8SR0xYe7j/hc/CnQHry0M0sNyt10EKEgF6L05xnbTzCco9PFWxBQT68CKudiq
+         h6Lw==
+X-Forwarded-Encrypted: i=1; AL+hErE3zKagLpmVO+HBa18QP0klnfRNk80pngg/oWqP5MMxz8RktkcLOBrj/F+Clh0teiuC5JgMjGA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+6odcI4TJ2vHj6ERMMgbCdvRn++XyIZxKehIbosECEEicsU8+J
+	ZyX7dmEkir7YmD9GLqUtjiHj0qrOA028VjGzPB1PT64M3ZSmiAMW43PW8u2UA+4LlraVp3Hu
+X-Gm-Gg: AYBFou30u5cZsvBd5e4L7uhqsxwBQARUjZLBhDnCSsMLwS5R1Qf+kgxGaOgidBsqXb8
+	B/zrB140IgbqvldTNkg331RLdTTeHamTCNnUQlgnI7Lb7dKMjLvXy61TMIrM8NSMtbvnI/G/J4K
+	nJRiuW/XU/Idj0N2f2gFd4mxkbMYZnvI7rgj9F77HDHisv9nVe1ClH0rFNYIRYCM2s9BHlOzB9I
+	B9NTXXIgDmzQn6nu+RSs2ihY+PPdYv/LzN+7utIkq1h27sfwc3zetQA8bzuVxJwOsITEKZ+ebbn
+	lYGC+qSTfDHvSyyvJnSrXAKzo8Lz3A2TIm5Eyry4E4K65IwNcDom3uDItfR/uk8zEOtbps3X9Su
+	gfc2N8M1atvlaXfhrscgYMzHVgrvmkdS/39l/al6ke3X6EAPgw7SHHAc2KIa01qJCC7Rl1C8erU
+	+1B95m8i9RGFU/wtPxScg/hmdc8fF09COzYQAFuRBazxn55OPUqkelgFrnulXOy/WqVUG2N3ZAg
+	nTUZd45Pt1tovn9WxWsMEZKM+mc/Bnoa6vVftB0/Sd8ts3O46hrhhkbaIlGrtyxigAX+uRdwPY/
+	M1yswjg2RfxriQItUTbOkqxCmkO+/wOLN8ilmAguAKxqJuDfBodR8RATbRNpTNxzvBpj/l6YJFP
+	rkaDTXRt4WZ+jFjY3uFaanUltPgfdaW2MU1HQhij4teEe2Q/8mIZ9RVUuvSDO92ID7CtuOrwPCN
+	DNpXznjSXJQvBiIFMvThjZ422kR1CeRgGWyP4xoGemzOW1J1KG208c9r50hlD8pBw2KAjZc7UDw
+	Qq9Y6C0zIiUc9eK31DQ7MBuEOcaPVKkClMpiGwwn3iTehbD2xwF22iUJFoeqlRj
+X-Received: by 2002:aa7:9ec2:0:b0:8bf:e028:7864 with SMTP id d2e1a72fcca58-8bfe02879c7mr6741005b3a.0.1794909982190;
+        Tue, 17 Nov 2026 02:06:22 -0800 (PST)
+Received: from localhost.localdomain (123-243-92-89.static.tpgi.com.au. [123.243.92.89])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed263b354sm4752612b3a.47.2026.11.17.02.06.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 02:06:21 -0800 (PST)
+From: Daniel Wade <danjwade95@gmail.com>
+To: David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	stable@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/memory: mark unshare copies dirty to fix MADV_FREE data loss
+Date: Tue, 17 Nov 2026 20:36:02 +1030
+Message-Id: <20261117100602.797-1-danjwade95@gmail.com>
+X-Mailer: git-send-email 2.39.0.windows.2
+In-Reply-To: <c7c8ba0f-49ff-4b22-bd24-20fc394b1e36@kernel.org>
+References: <c7c8ba0f-49ff-4b22-bd24-20fc394b1e36@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -57,40 +108,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117092731.14656-1-onleaf322@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 06:27:31PM +0900, onLeaf wrote:
-> mtype_resize() copies elements to the new table including their extension
-> pointers. Garbage collection of an expired element in the old table after
-> the copy therefore frees an extension still referenced by the new table.
-> 
-> Commit cffcf57bf03c ("netfilter: ipset: exclude gc when resize is in
-> progress") prevents the delayed-work collector from running during resize.
-> However, mtype_add() also invokes mtype_gc_do() directly when its target
-> region is full. The packet path can enter this call while a userspace
-> resize is copying the old table. It then frees the old copy's comment, and
-> collection of the published copy queues the same object for freeing again.
-> 
-> An unprivileged process can reach packet-side ipset add with CAP_NET_ADMIN
-> in newly created user and network namespaces. The resulting duplicate free
-> was reproduced with KASAN on x86-64 and exploited from UID 1000 to UID 0 in
-> the initial user namespace on a non-KASAN build.
-> 
-> Serialize the direct collector with the same GC lock and honor the pinned
-> table's resizing flag, just as the delayed-work collector does. The table
-> remains pinned by uref while the lock is held.
-> 
-> The issue was found through AI-assisted source review. On the fixed kernel,
-> the same copy/old-GC/publish/new-GC ordering completed without producing a
-> duplicate object; /etc/passwd remained unchanged and the test ended in
-> LPE_FAIL.
-> 
-> This change was prepared with assistance from OpenAI Codex.
-> 
-> Fixes: f66ee0410b1c ("netfilter: ipset: Fix "INFO: rcu detected stall in hash_xxx" reports")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: onLeaf <onleaf322@gmail.com>
+On Tue, 17 Nov 2026 09:55:24 +0100
+"David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-Real name please.
+> We should always prefer setting the pte dirty, not the folio, as the latter
+> needs atomics.
+
+Will do a v2 with your version, thanks.
+
+> numa_maps does not show any such data. Did you mean smaps_rollup ?
+
+It does, gather_stats() ors the pte bit with folio_test_dirty(). So I
+kept it.
+
+> A more future proof solution would be to only allow MADV_FREE if we are the
+> exclusive folio owner, checked under folio lock.
+
+Makes sense to me, it kills the whole class instead of one producer at a
+time.
+
+One thing though, that takes the folio lock on every folio. Right now a
+clean exclusive one doesn't take it at all. If the lock is busy you skip
+the folio, so jemalloc freeing a big range would leave some of it
+behind.
