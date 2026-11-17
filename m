@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794878845;
-	b=wUvLETVk+p816cdIAS62YoiTsgQrGC9mJBnYIphY3mQvix8zks6KwZTcu7eE8kHZIQQo
-	 KRKHtDzF8jYTAj5mQ/7zeulhpQObpZcKaOaevwneYPFCdwoG/NFiyP8GQ9t3MpLZhrfC2
-	 0M6yL3m8xtgR3U0ugNf1+XRD1/4OcsFHO8wi14jLsDQyYyvnRb4HGX1rl+AgcL1jqnmG6
-	 96Ih2ciA792ASyKl9pTCTbP2d2ym8yuTXJmkuA1z1DxI8yE3KBkV3ukuahxOcjp8blpmF
-	 8YYQ+acT7YUdHjDNDwvMgdK1f65pDYf+gYMgViEv3rnBEeMMcO5ilk67qzX/9AWvdOg==
+	t=1794880477;
+	b=LducPjVFn1nB9dEW1nhuXlke6vfQ0U8YBquaK4g2HEqcAoFhMWnY/XsfJ32yuV61P5sd
+	 2k/2jMYHZFFfCDgfdC7++9Zt+w3nNXoXYHmDQSRDhqEc5L+hU0L9nN8J/cpnOEbcihxD+
+	 eI2S5ZnLOTlHs4izySN99bc9hwRMyJ5bPMEYCpMJto+FphqtXxWXumaezi9XvhpJnLsSY
+	 WOdawHMWF7g8yqxrBTAGd/+xcO3YSSFUXLCTZv16UqzMXh+tH4qq8t2Ybyb0wnwwxXYdW
+	 dxu/lv2kIvfpQibmmm6HpIwlvufUVq5ykGgZJ+w/j9CZyZ74+QS4IDsCWC0+76pwsQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794878845;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=Nx8k3CosD3afLDEMEHpVofmAOoOTqUyUTfQqddef4Z8=;
-	b=Een8OjT/CVxOEWkj8lXDlO6MakKayStudWbgb9FNEZ9lB8tt9iMuCeUQsoq9h2224qZb
-	 KMw5IaMR36wdy7ZKb6F7m0aBZwak4RU6epDJLpre7QDJLs6pKPTMhdQ34BvHQur656Ey1
-	 o3zkPmDcjjFQdpMkCTePLL4+TaBRBxEpzVsng4xogi1JkHnEGQavdv3MoQ/OlDV1FZXHL
-	 ZwUVmzO6R26CKMutCm9iqbHfZ7pGmybimlnJCaGmhdEqWmHtf7RNS8J8dMmqp3YaIGiaR
-	 9qWB6+c2aDUoZPwesixePFISCdbWVO/m19af2Zz/asL6K4QyFAjtBJZXgsXK+AaAmLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794880477;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=FE3DBp52FZtyFrsv/66l4xMtsZMQ5Rhcv6bIeoPewWE=;
+	b=IHP7OjvDYNWzC5yN14k2DbF2chkAFVeJ+RDNJ81Awue72F7FCL5TRVNAkjRHVFf1aef5
+	 BHFDclxNtogQEFqjCk7nj+5EsKCtj08XliivL0RXHDFZpPiQHbHZln6SptGIoQoMZ3LSP
+	 2qSXthanDKrge9m/mBHlTMuLrb3EgLrBy/F+1lCoP59mKyZfkOF0qadOjAf9H7Y85SSp8
+	 I/9v+Qsd09RbUZFdPRRogJSThNdbnlhJ+GILCGVQ9hAvDhH0FaQLX0VOEZfxWup2BHjtY
+	 9M7p5N+Sw7YkIdAi81bLbF4suHSL1FSUsbTfE/pN3b3Qvg9SP3gMEzQifAkBXDJ3qHg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18A0E606A31C;
-	Tue, 17 Nov 2026 01:27:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18A0E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IrmUa9eo;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA7A606A32C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:54:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1CA7A606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IrmUa9eo
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-36dc4797082so464379eec.2
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:54:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=Nx8k3CosD3afLDEMEHpVofmAOoOTqUyUTf
-	Qqddef4Z8=; b=Co5hPoaQKrTG+o5hc/JeXYmMattduFCjFY0THsuBfcJ7ZycyRS
-	519Ncte916woiBuoALjkrv+D6KM+UvR8phzT0zWCU6QzSYwYWsYuxXYWgxvh1VU+
-	+HTDpPkHQE/K+9yKhPFNzvB2MX7v711TbMWObZopRIoqeLFNNvWcE+wSE=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCGx_xrrftqGJy_AQ--.16012S2;
-	Tue, 17 Nov 2026 09:27:09 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	usb-storage@lists.one-eyed-alien.net,
+        d=gmail.com; s=20260707; t=1794880475; x=1795485275; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FE3DBp52FZtyFrsv/66l4xMtsZMQ5Rhcv6bIeoPewWE=;
+        b=IrmUa9eoYFeis8Esr7n25k4HrHbH/LcZHw0yYRdA4sj2+6Sr4caNhM3N60DO9Idurf
+         uaIQFZgDZ1nFpxlOtNV3svg8ufAjuBIK7Np/QULiysSmdJwilQ4I29EhJUxmSTbcKbbA
+         FCYscG1G361lIP9MeS+QBhWN4J0twWh0CRrYVjCRAh1upb1dSQ4KEIWy2IL6ldo8LLdt
+         u8sOeaVFih6h6glJ1J45c2rrGOuXVDsV/6VIUbLoGMjcs4bFVuw68IKqpeUBNhwLnEME
+         NfuRu0zv+bznSdKP1MiTf+5Oyj+SAkZJQFcX4763W1M0JSftpMQz8t8NkVevvtCeWTYw
+         yyXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794880475; x=1795485275;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FE3DBp52FZtyFrsv/66l4xMtsZMQ5Rhcv6bIeoPewWE=;
+        b=J6Bf6ZTfCvTe12V59F53OaoVTQFfpmKjU6jOfc1BqUgBjpZHM3SfOZymvgMKa0usP0
+         AUUwLZezgjtThz0J7k+QSCFLhk8NGlyXeR66gMEY0xemi/t/NOLGu2PMp2hjFfkwDA19
+         EoK+clPq5ExFcQEsav0bSqCY64jJKuv+R9V7YBrCQ6DEC1tnuBdUU84r2q/dn2uZLR4X
+         d3VUS4Wnw8rwUnFgEQIJQQPbOB+P3dGhx3/rzAIn5Lpe6A2DPWBbNk7/NH3aJJIuk62C
+         /vJLwsW2vVO70JavqKnpgMIuh3kcNrkAWu9DlYMRaBVQkAu59VKyytLqo7d/OM+JQQ90
+         AH2Q==
+X-Forwarded-Encrypted: i=1; AL+hErHOfRUd8tsvhywUGMlg1YvbKgyJUgY+ioce9Hz805B2itSJcZgxo5Hn/gR5PVBT1/k6dQW6Kmw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AQbHnBU/Bzh1AavksiuEzkX2763j7iKsuMk7h9mXQmpy+JBrx
+	KW+V5SgfRLKdny060PfvbwU3YazT/arrZ8bvdtpnbqhhYdzWr3oEsFbg
+X-Gm-Gg: AZFdTZdf8Uxfd6NXRPwi5KaYTjw96YkeWEf44W7KDNskuwxNKxcJk2Bt04+rm2/TLZ8
+	qtMXJEC4uzV6TVxBEM1WGY0+jaVJ8+H4mTrRXRvEDAAmSees742Qhy0QM4x0tmp2MVHaqw/XsOk
+	lmUgtPbXTfQSXRiMCmyyBAKopytrmDYEn7Wk2SFlGekJKPFLUElER+z55HAGwS52nZ7gmvQOiXs
+	pd4ekAyI6R/zvldgYGGTrGZ+nEJhYA7P98KMksuHTLPqhoG1GRL40wMWi43tUmwuFLdz15zuz2m
+	srkrKEttCiO4tfFosnIuciYMwZmeRQfxkjo2vsNq7BkA7ols04tvEx3ySYauATmVJqCm7GesiCk
+	C2iudUzwm3+657lUdVEkDPyIFDwrKgQf1hpFIrlQHqFqxSce5xbQ+BaFXes61uHfZV6x9jdjkGG
+	Zch8YavXaK6dT8+odWtmIs5Q8OGNN2sTCbqbTbDZy18ohObWFn8FO/PHTSlPuAa9y1TmDVlqo3q
+	aj2S1nJSAX32gVC8Z5WGthfiJR3eGOWbiAfbUNisBeXuC51TTS9XmexZsf6YA1FSI0GsTBvLtwu
+	EFCHsYBe8BGk1M3CdFxqejLhMEf4ArkGmZ1dfYqQpjR4aV9Y3v7aPw88x/WKSUiz+QFKQsN0QrP
+	VOnd4rKPJJo/5514yo2s=
+X-Received: by 2002:a05:693c:881a:20b0:36e:66d8:1424 with SMTP id 5a478bee46e88-3796047ff23mr17786935eec.0.1794880474975;
+        Mon, 16 Nov 2026 17:54:34 -0800 (PST)
+Received: from localhost.localdomain ([188.253.120.78])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332a77sm34139971eec.4.2026.11.16.17.54.28
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 16 Nov 2026 17:54:34 -0800 (PST)
+From: Qihang <q.h.hack.winter@gmail.com>
+To: Joerg Roedel <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>
+Cc: Qihang <q.h.hack.winter@gmail.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	iommu@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v2] usb: storage: shuttle_usbat: set the ATA sector size at device init
-Date: Tue, 17 Nov 2026 09:27:07 +0800
-Message-Id: <20261117012707.5858-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261116093452.15286-1-25031212351@stu.xidian.edu.cn>
-References: <20261116093452.15286-1-25031212351@stu.xidian.edu.cn>
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] iommu/io-pgfault: unlink partial faults before freeing them
+Date: Tue, 17 Nov 2026 09:54:08 +0800
+Message-ID: <20261117015409.25492-2-q.h.hack.winter@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261117015409.25492-1-q.h.hack.winter@gmail.com>
+References: <20261117015409.25492-1-q.h.hack.winter@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,86 +103,46 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkCGx_xrrftqGJy_AQ--.16012S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxuryxAry8Cw17Wr18GrWfKrg_yoW5XryDpF
-	ZrCFWYyrWDta1Skw1UJwsrWa4rAayfJFW3Kry0g34ruws8K3W5CrWxK34F9Fy7JryFyF1x
-	Ka1vqFnxCa1DCF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
-	8E87Iv6xkF7I0E14v26r4j6r4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x0
-	82IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGw
-	Av7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
-	MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
-	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
-	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
-	x0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
-	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
-	UI43ZEXa7IU8-yCJUUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2r7HshEXgABsH
 
-usbat_flash_read_data() and usbat_flash_write_data() divide the transfer
-length by info->ssize to turn it into an ATA sector count.  info->ssize is
-only assigned in the READ CAPACITY handler, so it is still zero when a
-read request arrives earlier.
+iopf_queue_remove_device() frees the pending partial faults without
+unlinking them, so fault_param->partial keeps pointing into freed
+memory.  A report that is still in flight can then list_add() through
+those dangling pointers.  The unlink has been missing since
+iopf_queue_remove_device() was first added, but the race only became
+reachable with a74c077b9021, which made the fault parameter
+refcounted and able to outlive the removal.
 
-Such a request is sent during device scan: sd_probe() starts with
-media_present set and usb-storage sets read_before_ms for every device, so
-sd_revalidate_disk() calls sd_read_block_zero() right after
-sd_read_capacity(), even when READ CAPACITY failed, because
-read_capacity_error() deliberately keeps media_present set for drives that
-fail it with media loaded.  A CompactFlash reader that does not complete
-the READ CAPACITY sequence, for example because a register access is
-stalled, therefore reaches usbat_flash_read_data() with info->ssize == 0:
+Unlink each entry before freeing it, matching
+iopf_queue_discard_partial().
 
-  Oops: divide error
-  RIP: 0010:usbat_flash_read_data+0x2a4/0x5c0
+This fixes the dangling-list access only: a partial that arrives after
+the drain now leaks, because the parameter is no longer on
+queue->devices and its final put does not free partial faults.  The
+next patch gives such a partial a defined fate.
 
-The ATA sector size of these readers is fixed at 512 bytes, so record it
-when the USBAT flash transport is selected, instead of waiting for a READ
-CAPACITY command to succeed.  The datafab and jumpshot drivers, which
-share this code, already set it during device identification for the same
-reason.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: a74c077b9021 ("iommu: Use refcount for fault data access")
 Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
 ---
-Changes in v2:
- - Set info->ssize when the flash transport is selected, as suggested by
-   Alan Stern, so the value is always available.
- - Drop the assignment from the READ CAPACITY handler, now redundant.
----
- drivers/usb/storage/shuttle_usbat.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+iopf_queue_discard_partial() cannot be called directly from here: it
+takes queue->lock, which iopf_queue_remove_device() already holds.
 
-diff --git a/drivers/usb/storage/shuttle_usbat.c b/drivers/usb/storage/shuttle_usbat.c
-index 7e5424268c73..267c82381465 100644
---- a/drivers/usb/storage/shuttle_usbat.c
-+++ b/drivers/usb/storage/shuttle_usbat.c
-@@ -1038,6 +1038,8 @@ static int usbat_set_transport(struct us_data *us,
- 		break;
- 
- 	case USBAT_DEV_FLASH:
-+		/* The ATA sector size of these readers is fixed at 512 bytes */
-+		info->ssize = 0x200;
- 		us->transport = usbat_flash_transport;
- 		break;
- 	}
-@@ -1703,8 +1705,6 @@ static int usbat_flash_transport(struct scsi_cmnd * srb, struct us_data *us)
- 		if (rc != USB_STOR_TRANSPORT_GOOD)
- 			return rc;
- 
--		/* hard coded 512 byte sectors as per ATA spec */
--		info->ssize = 0x200;
- 		usb_stor_dbg(us, "READ_CAPACITY: %ld sectors, %ld bytes per sector\n",
- 			     info->sectors, info->ssize);
- 
--- 
-2.34.1
+ drivers/iommu/io-pgfault.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
+diff --git a/drivers/iommu/io-pgfault.c b/drivers/iommu/io-pgfault.c
+index c16ff1f..55a3c29 100644
+--- a/drivers/iommu/io-pgfault.c
++++ b/drivers/iommu/io-pgfault.c
+@@ -479,8 +479,10 @@ void iopf_queue_remove_device(struct iopf_queue *queue, struct device *dev)
+ 		goto unlock;
+ 
+ 	mutex_lock(&fault_param->lock);
+-	list_for_each_entry_safe(partial_iopf, next, &fault_param->partial, list)
++	list_for_each_entry_safe(partial_iopf, next, &fault_param->partial, list) {
++		list_del(&partial_iopf->list);
+ 		kfree(partial_iopf);
++	}
+ 
+ 	list_for_each_entry_safe(group, temp, &fault_param->faults, pending_node) {
+ 		struct iopf_fault *iopf = &group->last_fault;
