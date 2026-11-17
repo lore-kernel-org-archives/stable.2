@@ -1,75 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794937636;
-	b=VLTeR5AnGLcNwacKEnnLw6oFmuGsYQKl8j5hjk2BTfibP5md0zWmL3OhnuztHnBtF9pI
-	 eQZfskQivwUamDYZsQZ4XWDy9jmlvY9SR1d/ap6jXwTK4ulihVBrAGNMGDwzEvCoF6qdw
-	 OxlZFy7VyyDeFtIU6IEY8bzhRTSlmSfXS4i9yCd/PdV4CVCK3JpTq54ZulxYle9kHZeHX
-	 Q6WzABPKGKYOudhHx7m5gTlFz+k8yeArLnsPFuBXVJEIv2RS/En2sVZpjKUR9adtxawWW
-	 dPOJ38ddj5tT9LqDjQhtAL+ZDftdZlIHNyNDQsNsVDLliWjT3M+mXInXkDDHplmRQqQ==
+	t=1794937707;
+	b=TABJudZhyHFaBDNr8/wDduJXGfD9OvH4v5p8NzSeaxdSIRZBHOFLaVNHvnlavFrxmAxG
+	 qAhliTZPTfaye4b3LpR+7CED3oVx6/z/xfB40zc3d3qdebOhKxDv+55K5TPL3fClMeIt2
+	 gx7eEJiNwF1SqqGnB1How0ZIX64ElFDLaolLG9vEkqX1vO96p/DhAU0QaxAGvrw2PEXib
+	 ykrEFZThPJDlz1Ggc6B2056GhJtFfj6l2d502VcwgExaSN2ltzPO0Dm83E96gY069/1XM
+	 pM+LFZUJUctIh5yAqsvKfyhwmh+slnuXjPd3/TohLKk2XdUwoG7r0ScQH4pjspoCwNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794937636;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=/lX51Mfz1mJ4y/S3UG7mwW4k5DzJAY1kWSKMs4mbXKg=;
-	b=Y5Lb9Tw7CHGK15CEPqg5jNG6qJbpgDagi2sDa46ikUE2yX8zMCBiI2OiLhWHppqKOv9r
-	 DVY60gMfQ5EW5Df1C7rYFOxV3R3JyBVWc1ArASEEDi4Pif/I7yfC2bT8HWjRuL96+Q3CH
-	 27wIxX13p/H41voiFQFPBsFzBi4BpLOgaeyJj6gXaiKLA3JVQtumc4y16KecHbYJ2kXhC
-	 Z+iBJwkGT5r2m1YmCY35jVbR1lKy2uQJaa4XAHr4s37NBk5nfRMA/LfoHcXVdlreSnjfh
-	 vjCqyGaHIrWDfge8G7nc+xq1GroscdybPsEaEKnFNMr+5BHOYqv/XiiAAKBzmN5Jkng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794937707;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xZPkTs2PciItdtjhjdoxtbfKcAnAHUD0fc5OCQIMaKQ=;
+	b=R+ir8HGn49sgfpktQ4LGWzRJyc7bAzF6NtAZnN2QiMExrqO24FFwc2wOpDCDcWE8kD33
+	 H3oWZByQz99jPOFzkRPnxoitGCe6kjoY6gu9fPXK0pfZfaynn7ENXK4XDUW/XdrAJEXX7
+	 Ny+kHg0ST/14Rlk/c2NrFMHzSEtb0nFmjhcpqIdw7l6lMp836Ii/0Tc2Jznb7pSYW0oUs
+	 5C90WBRfTYYdiUyJ7uUlKFIh+PhV/avDGkGU20i0okUAg8SMEr975lQky97daE4uVvuSD
+	 qFETHDXkyhC6/puiBfh7MyhM37hepZjsEKEBZkCzPZ9zuOIrDhK2NmIPX9HzhqojZcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=RYTOeDst;
-	arc=none smtp.remote-ip=80.241.56.151
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67995606A330;
-	Tue, 17 Nov 2026 17:47:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67995606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="A5z/wg6V";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3BA4D606A332;
+	Tue, 17 Nov 2026 17:48:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BA4D606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=RYTOeDst
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jTXHL4Pwcz8v5T;
-	Tue, 17 Nov 2026 18:47:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1794937630; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=/lX51Mfz1mJ4y/S3UG7mwW4k5DzJAY1kWSKMs4mbXKg=;
-	b=RYTOeDstKKPOhsZfw9LnuApiBQ0YwHDBumHIFGRDBY1WybOVpRVW4hgychjVPHh/UKowN7
-	X4flyauLehyoqxmP1gIB+N5QX+s/lTn5WTNQR3S/P1am1iCxZk/Wo+VbmMlaiTlkMw4c4r
-	re+Z/B1DR2mzn+GYWbPnfgPMhLJDf3A6d49/FNQIfz2VngzfL8++OTAFZEh9wqqYEoSjGi
-	/sRxZzEhFLobgp/+moiCkLBQuyj8rsSF/fh1eFmUFwcL21WoYr8fBkhsrjOBIavBiYWKoH
-	EzMlxnG8EX3BtgpgYCrhbD1IrLE8+ISllrHU1c/dMSwwrs384zMb15+vIuK5RQ==
-Message-ID: <3005c4692d538785e225f9372e4a261dc457edb2.camel@mailbox.org>
-Subject: Re: [PATCH] dma-buf/dma-fence: Prevent misordering for error checks
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, Philipp
- Stanner <phasta@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, Simona
- Vetter	 <simona.vetter@ffwll.ch>, Chris Wilson <chris@chris-wilson.co.uk>,
- Danilo Krummrich <dakr@kernel.org>, Gary Guo <gary@garyguo.net>, Alice Ryhl
- <aliceryhl@google.com>, Daniel Almeida <daniel.almeida@collabora.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Tue, 17 Nov 2026 18:47:08 +0100
-In-Reply-To: <efce5fe0-6e7d-417c-93a3-35247b431448@amd.com>
-References: <20261117090144.581909-2-phasta@kernel.org>
-	 <efce5fe0-6e7d-417c-93a3-35247b431448@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=A5z/wg6V
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A2B0B1A32;
+	Tue, 17 Nov 2026 09:48:23 -0800 (PST)
+Received: from e137867.cambridge.arm.com (unknown [10.2.213.11])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id AF0A63F632;
+	Tue, 17 Nov 2026 09:48:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794937706; bh=7PIC3PDMqrlBZ0mHhY/p6avIINTftQj7nZ6BHmw1YMs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=A5z/wg6VFmntekH8636Oc4TE84/Y8Jv5WuG6Fyb5jBXWj+UqOtF54C7YxWEQ95b/z
+	 XFlGlRQugLx+s6POr6ZH4RlrSGJPl7qHPd2uDnd+mxIwVOwJRcV43RUyB/GIwH1JT/
+	 YnqJbWg35N+aNfNU5GZnPAQG1vszfzuty7urBIn4=
+From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+To: linux-arm-kernel@lists.infradead.org,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>
+Cc: Vladimir Murzin <vladimir.murzin@arm.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Kiryl Shutsemau <kas@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Jinjie Ruan <ruanjinjie@huawei.com>,
+	Doug Anderson <dianders@chromium.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Huth <thuth@redhat.com>,
+	Dawei Li <dawei.li@linux.dev>,
+	mrigendrachaubey <mrigendra.chaubey@gmail.com>,
+	kernel-team@meta.com,
+	linux-kernel@vger.kernel.org,
+	Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/3] arm64: entry: sdei: always set VBAR_EL1 on SDEI entry
+Date: Tue, 17 Nov 2026 17:48:12 +0000
+Message-ID: <20261117174814.95936-2-ada.coupriediaz@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261117174814.95936-1-ada.coupriediaz@arm.com>
+References: <20261117174814.95936-1-ada.coupriediaz@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,48 +77,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: ecb0f878edf8740d1a6
-X-MBO-RS-META: hx6d7wgupk6yr6hyqbay1awpyj4e9j6c
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-11-17 at 15:55 +0100, Christian K=C3=B6nig wrote:
-> On 11/17/26 10:01, Philipp Stanner wrote:
-> > Many users of dma_fence do things like:
-> >=20
-> > // Thread A
-> > dma_fence_set_error(f, -EINVAL);
-> > dma_fence_signal(f); // <- Takes lock, which orders against the above.
-> >=20
-> > // Thread B
-> > if (dma_fence_is_signaled(f)) // <- Does test_bit(), no ordering.
-> > 	pr_info("err: %i\n", f->error); // <- Can be loaded first.
+SDEI can interrupt at any time, so we cannot guarantee that VBAR_EL1
+points to the kernel vectors.
+Unconditionally set VBAR_EL1 to the kernel vectors on SDEI entry so
+the SDEI handler always runs on the correct vectors.
 
-[=E2=80=A6]
+Commit 9bf6ee7952c7 ("arm64: sdei: Run the event handler on the kernel
+vectors") sets VBAR_EL1 to the kernel vectors when KPTI is on
+and it still points to the trampoline vectors.
 
-> > +	//=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 test_and_set_bit() should do the tri=
-ck.
->=20
-> That should probably be a C comment, e.g. /* ... */.
+This is only covers the KPTI case, as any other VBAR_EL1 value would
+not be changed, while pointing to the wrong exception vectors.
+KVM in VHE mode would be such a case as, in VHE, VBAR_EL1 is an alias for
+VBAR_EL2, which KVM uses for the hypervisor vectors when running guests.
 
-huh, how did that happen=E2=80=A6
--ETOOMUCHRUST
+Fixes: 79e9aa59dc29 ("arm64: sdei: Add trampoline code for remapping the kernel")
+Cc: stable@vger.kernel.org
+Cc: Kiryl Shutsemau (Meta) <kas@kernel.org>
+Cc: Breno Leitao <leitao@debian.org>
+Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+---
+ arch/arm64/kernel/entry-common.c | 25 ++++++++++++++-----------
+ 1 file changed, 14 insertions(+), 11 deletions(-)
 
-I provide a v2
+diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
+index beb56891fc4f..cb122163a68d 100644
+--- a/arch/arm64/kernel/entry-common.c
++++ b/arch/arm64/kernel/entry-common.c
+@@ -1079,19 +1079,22 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+ 	far = read_sysreg(far_el1);
+ 
+ 	/*
+-	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
+-	 * EL0 until the next exception from EL0 maps the kernel. They only
+-	 * handle exceptions from EL0: an exception taken here would run their
+-	 * empty current-EL half and never come back. Switch to the kernel
+-	 * vectors. The IRQ-like resume keeps using the interrupted VBAR, so it
+-	 * still goes through the trampoline.
++	 * As an SDEI event can take over at any point, VBAR_EL1 might not allow
++	 * us to take an exception safely :
++	 * - With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
++	 *   EL0 until the next exception from EL0 maps the kernel. They only
++	 *   handle exceptions from EL0: an exception taken here would run their
++	 *   empty current-EL half and never come back ;
++	 * - With VHE, the kernel runs at EL2 and VBAR_EL1 accesses VBAR_EL2.
++	 *   KVM might be running a guest and switched VBAR_EL2 to the
++	 *   hypervisor vectors.
++	 *
++	 * Switch to the kernel vectors unconditionally and restore
++	 * the interrupted VBAR_EL1 before returning.
+ 	 */
+ 	vbar = read_sysreg(vbar_el1);
+-	if (arm64_kernel_unmapped_at_el0() &&
+-	    vbar == (unsigned long)raw_cpu_read(this_cpu_vector)) {
+-		write_sysreg((unsigned long)vectors, vbar_el1);
+-		isb();
+-	}
++	write_sysreg((unsigned long)vectors, vbar_el1);
++	isb();
+ 
+ 	state = irqentry_nmi_enter(regs);
+ 	ret = do_sdei_event(regs, arg, vbar);
+-- 
+2.43.0
 
-> Apart from that really good catch.
-
-Found without any LLM 8-)
-
-I saw it while reworking Rust-fence to force users to always evaluate a
-fence's error code, i.e., you can only check whether a fence is
-signaled when you also check for the error.
-
-dma_fence_is_signaled() incentivizes wrong behavior.
-
-But btw. we really want to carefully rethink our beloved signaled-bit
-and its semantics. Mind all our past discussions about it.
-
-This patch is more like a temporary hotfix. Much of our API is quite
-fragile.
-
-Regards
-Philipp
