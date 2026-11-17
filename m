@@ -1,89 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.206.16.166
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794882102;
-	b=sTxOJYONQBTtiVG9yqVs78suvxXz95GJKynQDJf6bQzkb3jhqAk2JsYO70FH5xg0AF2R
-	 kZWst1fApU5u3klkysdjtGbII0TrMEUeWUf0qmXDV+pObZrEW1N0dCgB6/NEomKNmQGi2
-	 ejubcBAyxgPKx6V5wiww3g54xo/cL+SkWz+T//JHvyxhVNO8PihnGkhhfU3+MNzdsvHvK
-	 RtpcFLTqcPPsJgTDKz0PVBNFc5h/2EttLSWyFRhAYcWo9MJ1zhkSGZs7kmR+OtqpOE7qy
-	 Y7kgsvxTkHedGliLcpU4r0uRPnjzROxwyT3L9iGLIzuNzpiMHhgzPmB5wiUyW0dM7vw==
+	t=1794882167;
+	b=4QhPUm3CDwlyV5FLdjd7QZ/IxVyqsDEfUu+MbfxAYoStobVZlMzMrHP2iapWrZBsWMn6
+	 B1oGWeHTEsosk1flHQkXVPao3zsV6zuGoxx5rmwVeUDfK3ExGMgfCodcx4B5KpCKQMRwY
+	 k3dqhaJOYZSQ7FB1kWdBVb2ENqE4BjMdk2upEl+fOttgm3h3N/9ChXrkxF2kBOMpD+jqX
+	 2LWexcl7FUofRVOWmFltlEmGljDd9mUWFrY4fqxxhzUeoJ7B8RKZtf4Pe158m5k4b2mP3
+	 ECq6eC6kKv/GAtZRjYe+3p8CCrKX+rhBv+VBAe0Q4Jxbn/rwx2Bj1fTufaff9VxJ4oA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794882102;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ncld42tDn6XcKva7+KFXwbd1kjlUpIEInfIcN7jos5w=;
-	b=EyVocIesdTRr6EbhV241JCnK83Hdcu9MURuXgqtOIUE/NO62stOW7DbycWRqsA/yOXKz
-	 QAyJ6RAQFd2gqpvefwvqpQ+wUhYGcT2AmPgbeOXZyc37IEd0Yja+fEYNElBvRVf70bIeD
-	 Hm2BOxYTERLm1AjdY0dI8rR2LLWcHHOaiDJQAVkk8nlVWewdtdzgFr88Xe36bu69zBIO2
-	 XTd/MBi0Ke3dqMqBFJD8PMOZRAFW1zz4TJsAr+V3HndTJN3Zla8EbtuV2S/oBuRi3E57r
-	 CReKCfLsKYGyijCM5uQeDicmk8xvmc3U4vab2wgDG0nYk4qZJZmyIUBrpRL/YV2VBNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882167;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding:X-QQ-SENDSIZE:
+	 Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=YFEMt68OTUAuLc8xbBf8qhNhrtZH4z9jKejIQ0be8PA=;
+	b=pKS1/slI5Eq/iA856y/ftIVvPtVf4NOH8hs++yq9iyrZNIj1kqF1sDXjrUy35R7QtU4I
+	 bZN+JYH+l4oPI9b3kHtZ+A4m1urcuMN6ic+6cnVrqzLsIjHQE/sqXANRj/4C4N7jCOJMj
+	 yRdHwPwpWlYz3Tu/5JPfIjAfCgwylDJ19gf5XH2JL7aHAd1nbKTZCKDqrPodPgTN3HKtg
+	 yH6T8Dp5tHecT5+BPfZgZ4ERsnUJpHg4dORq9VHARDnJAmHLlrBZFZ1NWh/+a191DP1x3
+	 VsmLuSLxezvRRSJVANhDA6dMQTu2b4+cYUpFW5pfXy3yJYsp/2DXtP6RZSjicTElU8Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kernel.dk;
-	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ap+DPoBE;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=uniontech.com;
+	spf=pass smtp.mailfrom=uniontech.com;
+	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=WtvC0lCv;
+	arc=none smtp.remote-ip=54.206.16.166
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1895606A31C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 02:21:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1895606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2203F606A335;
+	Tue, 17 Nov 2026 02:22:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2203F606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ap+DPoBE
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-38133db970bso701561eec.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 18:21:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794882100; x=1795486900; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ncld42tDn6XcKva7+KFXwbd1kjlUpIEInfIcN7jos5w=;
-        b=ap+DPoBE17krcJNjdiBru2o3KKfNUg1GqppeX7H87tHY0/EgdFC55amn498E/TRGjI
-         XOkt/8dRiA2ZEWoKm2mXahBPIGJj5CP1RNfob9xIUSEk696eyS7bboReH0vs53MS3pxC
-         SlQVJq7Jp5mHiDczDMSuyDBXFvNVWASOX83rt7zkUtQIoJIxe74zqjP3gH0SIdDj8A6L
-         hMX9qTAAGxgqVJ1o7lfHqnl68D0hhTnPhsFqFWopSkWRl55CbFV3SkcrsTgXu7z2jtTT
-         Qj7JHCgSMoyjMokpywBA6Fp3/5cD1ijtcBTMlMdvVgBdt4lYdZDEz8BNu25oJt7J1SVV
-         cv/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794882100; x=1795486900;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ncld42tDn6XcKva7+KFXwbd1kjlUpIEInfIcN7jos5w=;
-        b=s44f0HUlITgYIwPf4WdLuRQRNvIYwHknwBbmGqt3ad8Mww2ArGm94mUsX9YtTwXaFT
-         o+nJ8ScRDKjiv/hketNV1KJHTaFlpxAA36Mu/i3pKxLXd2/FL2u3G3XDriHZ7cazNXw0
-         y+JRSKOrqE3d1/b/2CNznqXTyVll3lGkBNUUOGNjdTmfwYP/XFkKQztUNRTVt+F1KbCG
-         tmxo2BACWN75U4jwj1yHIR/VEVqRldiIYomoTv4TY6tctmzItaFQomEqvu916EVJU32C
-         SnYJdkIDpZLX3NnXh9Icd2raonFYXi0ZQcNYI7ZEIAUstd7TvFoytpWtf8/pvfB+IPVM
-         0gow==
-X-Forwarded-Encrypted: i=1; AL+hErE8KYNCbZpa1guUwNuU0wgepFxu+TNGuZbB6rbuCi4JXjDYVs30o06cr3Y0T4/UFf0AvcwOPAc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+hPKKX9j0IGRw29mLh4jtb0uQEM88zUL6ce6bBLAscJN++kS1L
-	C8ca+ggYj9FF689bF6fbo8yAay6e40VHjhG60w8D3sEW4lh6bkjtn+rRmpxBnSPCteU=
-X-Gm-Gg: AZFdTZctVyED4y4XX6qVpSkR6kNrkqxf99u2k6GIbk0EjXHXsADgeNu5RdyeODxlQT7
-	DiZGS9FuS2h9CZtHv6R2YMLidjjwUmJeHCz+vWo2nvetNyGPD0e2iw8VFhdDh+LuhXGXl6kGSS1
-	GFTLzpnZHHmmov9Xi59bXm3Wtry8urj7U/o737/yGQkPo4KuMUgP37TuMFoR9GrCHb5gsmmn/HL
-	zeFupqGkRYyK1b2/lxAo1uGLSvuNR7wGNfkSry18Yay1M3D4Oi6/wYZIxL5jU0r6rjQ2IqLd2Bp
-	kZ/cACNjszbupJ8eqOyIb3cf7KHlmNIW3E4xOfltYgy51GCR06WvYH7TTsGpYem4GbaKEjeE8D0
-	mNlgIWSWyO0LhmZ79W/OMvioDAU+C7l53j8++DdmE/30KDKwJXaVtBK8M6S9exlzjtUx2b2oyjL
-	B6W3/XrzSj3w+PtKQ6Xhc0iL+VLLG1D3OvUpRDN0a0UFSNBSXPHX4EQGB/K/gtsSGIH9GEalhs6
-	xLu6ZYc4jQoD5mIitIKwja+C889vxxIQXaNio3mCG2EVPA2r7qrOlYkUSowgcK00VwOSidKMz5S
-	NUEYi0brK4LPW+a0z0rguSTrCkqD09zsNpSIsiDKPc1sjDfSnexpPm0ljY1fHrflh9SmrzKJaJk
-	3Gxi7nINJhtP0
-X-Received: by 2002:a05:7300:dd03:b0:351:2958:1740 with SMTP id 5a478bee46e88-379681c67bfmr11608907eec.37.1794882099628;
-        Mon, 16 Nov 2026 18:21:39 -0800 (PST)
-Received: from [192.168.1.142] ([198.8.77.135])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad134sm47264660eec.27.2026.11.16.18.21.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 16 Nov 2026 18:21:39 -0800 (PST)
-Message-ID: <07947062-2974-4630-90db-1556e25b50bb@kernel.dk>
-Date: Mon, 16 Nov 2026 19:21:38 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=WtvC0lCv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1794882129;
+	bh=YFEMt68OTUAuLc8xbBf8qhNhrtZH4z9jKejIQ0be8PA=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=WtvC0lCvdz+ozCGLRNRQ43WF5h73ah/IcSFA2T7pditxkLHV0E3N9RW8PX/qPC4KF
+	 U8321eTgdshv4JvyWX/+VoeQ66jmI38MeO/p+5APZsk7nVWw1ZdYq4yVgTve9TKHTp
+	 iPovXmA3cxgVJ+TFeIfpLxIQSLwglEnyRKcTWNi0=
+X-QQ-mid: zesmtpgz6t1794882123t8dfc0e95
+X-QQ-Originating-IP: sQqB+ujerewejO2er3hRMdg9WLwDzslkW/qZ6voe2Yc=
+Received: from localhost.localdomain ( [1.202.39.170])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 17 Nov 2026 10:20:42 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 4569123318179278308
+From: Xue Haolin <xuehaolin@uniontech.com>
+To: deller@gmx.de
+Cc: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] fbdev: sstfb: Error out if pixclock equals zero
+Date: Tue, 17 Nov 2026 10:20:31 +0800
+Message-Id: <20261117022031.252357-1-xuehaolin@uniontech.com>
+X-Mailer: git-send-email 2.20.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,40 +67,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: io_uring/eventfd: registered eventfd signals only once after the
- cd305ee3633a backport (6.18.y, 6.12.y, Ubuntu 26.04)
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
- Yufan Chen <yufan.chen@linux.dev>, dev@rebasedinc.com
-References: <oMhla8VwCWoihfrmgn8znIy60W1QXI8g_v2OyB9i6sWESIDlVJlwoGGOLylJgIHRARNoieXUVRGqzeB__KvHMdXgnCfPPovs8vLMOzaMPEw=@rebasedinc.com>
- <draft-agent5-0001-re-eventfd-signal@kernel.org>
- <5d92861f-9a4d-4810-8700-b9e457ed9c86@kernel.dk>
- <2026111605-deskbound-clobber-a4a1@gregkh>
-Content-Language: en-US
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <2026111605-deskbound-clobber-a4a1@gregkh>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: OE2SNMSfMbmOkbcXtbV6xEXhgffGg4Q6JEDvh2xvbnjUCoAQJRu9zYX/
+	slXsqg46L7AOvOhu/Wd6LqcjwlSObMfkM96Zg7sbL7GqWZYQDDUL/+0AgL7yeSMq0Kw9qjI
+	xZldi5hM4ODMHlCTDJ05IqN7RSbv3eB+gwp2/crzE/aZvFrd7rcOLgLWhOAO09GDNAPNCql
+	TRhJGmKLXfJ99JK9TzROCK39G35FqoSZ2CbrkS9C9vm5ETopPAWD59CL6PtZvzIIvn89IAn
+	MCh2ToWnMhZVFQXOizzq8tLm8ywGjL7z/Jc8N4o6FsCPDCJuNtE+mrNhNVyEYVEDmnBKpau
+	0pDbw0IS7V/VGLYaVrKqr4BHuSve2DmMbXjB5Lt7ll4CJz7GUuG41SnKt9W7k38u2MWErL+
+	Qz1rxHd66FslN9Ry2I6TFSaH71JkCU5JM4vuokxZrokbHbcH3CetvZN5rLLU+5YIjgj/xH+
+	00HtH9VglGojgUjxLaTcwXpm15DjgxwXjWHD9gX+VRz+rFbDaYZInRJFKyt6iFdzGj8eqiM
+	Fc84ayzivAC73O2ArQ6Csr6QKYpB9D+k11b3dEQzPWJpjwSuttdR4XnV0IgIYXbhIp2tp1J
+	dEdSZxmXPDUoLsjWfPhRAfzwyWjQS/8hP+xWTR9IyEHlz4KMO67ylIYhuprlbl8+9/g0ATM
+	gX/e5PwTvKk3Ea+rj+Tm3FLE/ttTP6A+Y8wmTIqHgACUYKto9JltECaeHSBFsp7ULgLdBtL
+	cuGN+uicz4r+SSYuaEcOMtyPskEPgHI9kiFSPXaYdO+MZJpz8kWGZGyh+SYhHW8BZ++irTS
+	0pTVckcpPeAmEpJpwVa8+VxpIfdnj7DSX7M/4aQc+C7DatkgQHxlaReoWaUlSmacQYd8MRs
+	YQGAK1uY+I/D/q+gSgX9O7kaYv9ZQcemL/RYELkyKf+99Z3HlQZlE3uwoixBpzjddsJqfTz
+	ISSHan7jJDzv9edlPdqeFIqYFXayeEVEwzxDwMC7P/Js0+ltwZOQQFXGv2wHMjVD5yl/ly+
+	g0dE3OvHTnn0gCgxUtKhp2OBk3hQgUq15vgu3evQ==
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-RECHKSPAM: 0
 
-On 11/16/26 2:52 AM, Greg Kroah-Hartman wrote:
-> On Sat, Nov 14, 2026 at 11:12:40AM -0700, Jens Axboe wrote:
->> On 11/14/26 10:42 AM, Sasha Levin wrote:
->>> On 2026-11-13, dev@rebasedinc.com wrote:
->>>> If this is correct, a backport of 04fe9aeb4f3c to 6.18.y and 6.12.y looks like the right fix; it keeps the CVE-2026-80920 fix in place.
->>>
->>> Queued for 6.18 and 6.12, thanks.
->>
->> Yet another bs CVE - Greg, please invalidate this one too, it's NOT CVE material.
->> Getting a little tired of chasing these.
-> 
-> Now rejected, sorry about that.
+From: xuehaolin <xuehaolin@uniontech.com>
 
-Not sure how we improve on that, it's really annoying to catch these bogus
-ones after the fact?
+The userspace program could pass any values to the driver through
+ioctl() interface. If the driver doesn't check the value of pixclock,
+it may cause divide-by-zero error.
 
+sstfb_check_var() calls PICOS2KHZ(var->pixclock) which expands to
+1000000000UL / var->pixclock. If var->pixclock is zero, this causes
+a divide-by-zero exception.
+
+Fix this by checking whether pixclock is zero at the beginning of
+sstfb_check_var(), before it is used as a divisor.
+
+This is similar to CVE-2022-3061 in i740fb which was fixed by
+commit 15cf0b82271b ("video: fbdev: i740fb: Error out if
+'pixclock' equals zero"), and the fix in savagefb by
+commit 04e5eac8f3ab ("fbdev: savage: Error out if pixclock equals zero").
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: xuehaolin <xuehaolin@uniontech.com>
+---
+ drivers/video/fbdev/sstfb.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/video/fbdev/sstfb.c b/drivers/video/fbdev/sstfb.c
+index 8e2c2421028d..de0769eb4a2f 100644
+--- a/drivers/video/fbdev/sstfb.c
++++ b/drivers/video/fbdev/sstfb.c
+@@ -359,6 +359,9 @@ static int sstfb_check_var(struct fb_var_screeninfo *var,
+ 	int tiles_in_X, real_length;
+ 	unsigned int freq;
+ 
++	if (!var->pixclock)
++		return -EINVAL;
++
+ 	if (sst_calc_pll(PICOS2KHZ(var->pixclock), &freq, &par->pll)) {
+ 		printk(KERN_ERR "sstfb: Pixclock at %ld KHZ out of range\n",
+ 				PICOS2KHZ(var->pixclock));
 -- 
-Jens Axboe
-
+2.43.0
