@@ -1,65 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.13.80.246
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907413;
-	b=QuxkZVnIUyHC7ZjIdSQBTrCnuO9ov71M/VU8KridX3b+6C3AVJXhtBwwyhg08JpTaWgC
-	 WsmeJN8E0et8dvt1vFJPdH6jD8xOUzT38Of0oIX83sATL46zVDsA/PqmmGBImj/WWr90M
-	 7+Yyx/MJndDeC1jxtwiApTmpDXkTmWjuz5jFzdt+rqph/Wbj6amoHCV72vIh8UmOAiVZ4
-	 apl6H7Jz1KRgAMW8yszKJ4hxW6nGX9xyX39jSmc/Iz9vtWk27UTbHMWYg1bYEWKSMZMqJ
-	 ss3r0Ig1+cFErdzjFHIlpE9++pvCDdxql8Xr5Bdbwq6QK5g+6fMOVEXiIvu/RkLxP9w==
+	t=1794907568;
+	b=U8V2bx/av0xh2YM1n4qypc7O6d8WimR73k3MNB0XHwx8oSuxvdCOVQ6J+8uubRFOlWmf
+	 6wB0c+Z6PWjceEPM1gzJbvJum/Y9Bn3uhsgDEPMCOrygdh4R4FshXwVTi9J0YXjPBLSlE
+	 V4JJ1bzQfnYzg284HSYTy/ejl8neUT5ZfWn839eWda+N8q1GHK9N//WlM7mzd5tRwmUb/
+	 EmAoIXqn5OBu1KxMb8kKlAmKsLaeqGbMnpPVcMxR+qwPTr/aLA1JrxwrIEYyXa5LkSRdC
+	 3F/A8bqCD/XAR8wOGMY5idNGiEUD3SrfsHZ+RfW4GoGkTpiyAjJZKVH5IuBLYFVa+cg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907413;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=y0Dxc4AUtnds+NirsV609zNbchLGxMc3AgfuhcVTQUs=;
-	b=IzKFGa0pzvLOkcTwZLgaw0Zd0Y0GImRxUoKh4cZYUO2Q2dPslACP4yPe0CgFQ3HJalqB
-	 ZP01QXEkBq+pntRSGXKqivmUmKTfQxmIKDpNN8G5F4djQzYYfvC6oJI6YWh/NvoC2NYUE
-	 z0hrel72CnZDOqKs7RHXIoQz4vWhuEoJs0BAqYc9MsOXtTJChQ18SW3t2k5/nbNNft+m4
-	 6j4R/pZO9eVYSnduKVnn2O9b5v8vo+4PGfJyqZUHQS6eFUMKePQtSyCdOXPsYtmQtiO1p
-	 Faxzkb+hJVoK09cnZ0GcuHW6Z9FE1tR0qAPfJ8NTVrN1OZ5fQ3bDhfRUudE0VNf6t5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907568;
+	h=DMARC-Filter:Received:DKIM-Signature:MIME-Version:Date:From:To:Cc:
+	 Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=WArVX4RHsDBbDlMB9jeJsbFXO9eOXVjEfVktWuU8cPM=;
+	b=Ff8yG2Rncyo0mUxikvXhP8eVWn0xZM7ZELPsGc21m3UZ6lMYU/CkTHuSMyiG7aNwIbUY
+	 hC5o9733ZV3tt5MBPh/rDxN3Nfxhoo4zZfCAbhmC/TegGmkXhflI9Mhn75qDFeqLxTO8n
+	 +lkJbPzhBo2tiONXFYKbRxxpkcOlEo26KIGHgE5pgx2fpR8kFvSJ3NZGpPp8KhPMdSRWc
+	 RHT3HRciqB67wKpICVozPp2XQd8cZOzuaaRZxMiQirY97UlojtwrvfDR/3lMq1Z/ys5KB
+	 9J1lKB+he6xRMKWNqSZbQzjBVClFgKHOaoojgRW/JB44WXYCh0eBlLib8GLuB/3wWnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRSTQspS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=tipi-net.de;
+	spf=pass smtp.mailfrom=tipi-net.de;
+	dkim=pass header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=FW+OZ4fD;
+	arc=none smtp.remote-ip=194.13.80.246
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2008D606A31C;
-	Tue, 17 Nov 2026 09:23:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42719606A329;
+	Tue, 17 Nov 2026 09:26:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42719606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRSTQspS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571371F000C7;
-	Tue, 17 Nov 2026 09:23:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794907412;
-	bh=y0Dxc4AUtnds+NirsV609zNbchLGxMc3AgfuhcVTQUs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eRSTQspSxgaqoaoK60PFKexxHJe0ahOvWAZv8sFb02FsK7851Tdx9jqtFimAE+JSw
-	 FVzgjicajcGYzSjx6YKbwyyxCzAO7iXon19D5mByJfrLyIjFnT7kkToPaR1Rb8MeFz
-	 NgYy/7vY42oGvZyvEfwh26G8SO4X/XAcuWPU0kwL/Vfv6ZD3eucTVVvc56AlnIoloI
-	 Ie/7B2shCxsgNnfSAnRCdaY7+oFhWmWqFsxkYWiloEZX+WsDXsW+AXoHxgjCOrWw7s
-	 YvqurGf7Fl9VpIT9QtgrRHm1DiUVbi5BqQZAfzhWbh0eoIP6Q8xNe+ZWhujYEhvFod
-	 HnJR10Ui3iGAg==
-Date: Tue, 17 Nov 2026 10:23:30 +0100
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Florian Maurer <fmaurer@disroot.org>
-Cc: Felix Fietkau <nbd@nbd.name>, Ryder Lee <ryder.lee@mediatek.com>,
-	Shayne Chen <shayne.chen@mediatek.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH wireless 1/2] wifi: mt76: npu: return rx slots to the NPU
- only after refilling them
-Message-ID: <avwdEgGBeZWWGvzq@lore-qca>
-References: <cover.1793927986.git.fmaurer@disroot.org>
- <d6314f34e0965464207656d38a145490b6437aa5.1793927986.git.fmaurer@disroot.org>
- <au3igPTxdz3i64SO@lore-desk>
- <20261108205350.2956138-1-fmaurer@disroot.org>
- <avGnv8Jr7BAiQhG1@lore-desk>
- <avrdu8qr9L2sEuTz@lore-desk>
- <20261116162741.2438098-1-fmaurer@disroot.org>
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.a=rsa-sha256 header.s=dkim header.b=FW+OZ4fD
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3C9D3A1649;
+	Tue, 17 Nov 2026 10:26:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1794907565; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=WArVX4RHsDBbDlMB9jeJsbFXO9eOXVjEfVktWuU8cPM=;
+	b=FW+OZ4fDSt2alBajQx7uaqezbygOJtYL72/kkl7KfcNuHwWUB3oBK3KFvyyZiPWWCXMDD8
+	uKvAEAu1EOBgDwBYCgXs4rhB+h6QmXiJXt+j4zArt3v+5JWppgfws56/ulFuBNTexuO2Ro
+	t5/9q4FYt7yz9keCy3hrLfW3q2JjrPNRRIV9z+6Yxup2xbUcYHh6Bv4tYm3AwG3HMd3XEL
+	qWoAoIRRPlnCLEZ5GskvUK129HDkyp/Pl6yJwKHnDEyYF6bldUdV2TK56hzyhBWoeFojH0
+	QQpU+4hh3p4AqTHBbHXH0nYQqzS2miZ2XA/gM4HjiGma13u4B6EyAoj4SzbBIg==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,75 +53,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="s+XiL6GVKLQjZ58r"
-Content-Disposition: inline
-In-Reply-To: <20261116162741.2438098-1-fmaurer@disroot.org>
+Date: Tue, 17 Nov 2026 10:26:01 +0100
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Zxyan Zhu <zxyan0222@gmail.com>
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+ pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ horms@kernel.org, 0x1207@gmail.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net] net: stmmac: re-enable on-chip parity checkers for
+ XGMAC ASP 0x2
+In-Reply-To: <20261114015554.2187341-1-zxyan0222@gmail.com>
+References: <20261114015554.2187341-1-zxyan0222@gmail.com>
+Message-ID: <e041744a3817153bfe5269053d0a9260@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
---s+XiL6GVKLQjZ58r
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 14.11.2026 02:55, Zxyan Zhu wrote:
+> Commit 669a55560e4b ("net: stmmac: Check more MAC HW features for XGMAC
+> Core 3.20") made dwxgmac3_safety_feat_config() bail out early for
+> asp == 0x2, assuming that configuration has no parity protection.
+> 
+> Per the DWC_xgmac databook, the ASP field of MAC_HW_Feature3 selects:
+> 
+>   0x1 (AS_EPPE):  all automotive safety features, with ECC and parity
+>                   ports on the external application interface
+>   0x2 (AS_NEPPE): all automotive safety features, without ECC or
+>                   parity ports on the external application interface
+>   0x3 (AS_PPE):   all automotive safety features, with parity ports
+>                   on the external application interface
+> 
+> The reset value of the field is defined as:
+> 
+>   (DWCXG_ASP_ALL && DWCXG_ASP_PPE == 1) ? "3"
+>   : (DWCXG_ASP_ALL && DWCXG_ASP_PPE == 0) ? "2"
+>   : (DWCXG_ASP_ALL && DWCXG_ASP_PPE == 2) ? "1" : "0"
+> 
+> so ASP 0x2 implies DWCXG_ASP_ALL = 1, where the internal FSM state
+> parity and timeout (MAC_FSM_Control) and the on-chip data-path parity
+> (MTL_DPP_CONTROL) features exist; only the ports on the external
+> application interface are absent.  The early return therefore skips
+> enabling safety checkers that are present in the hardware.
+> 
+> Drop 0x2 from the condition so the FSM and data-path parity checkers
+> are enabled again.
+> 
+> Also update the safety feature descriptions printed by
+> stmmac_dma_cap_show() to spell out that ASP 0x1/0x2/0x3 differ only
+> in the ECC or parity ports on the external application interface; the
+> previous wording, "All Safety Features without ECC or Parity",
+> suggests the on-chip checkers are absent from an ASP 0x2 device.
+> 
+> Keep the early return for ASP 0x4 (EASP), which selects only ECC
+> protection for external memory and has no on-chip parity features.
+> 
+> Tested on XGMAC 3.10 and 3.40 cores.
+> 
+> Fixes: 669a55560e4b ("net: stmmac: Check more MAC HW features for XGMAC 
+> Core 3.20")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zxyan Zhu <zxyan0222@gmail.com>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c | 6 +++---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c   | 6 +++---
+>  2 files changed, 6 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c 
+> b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> index 1a88cbaed70c..6b2bfc241109 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwxgmac2_core.c
+> @@ -859,10 +859,10 @@ dwxgmac3_safety_feat_config(void __iomem *ioaddr, 
+> unsigned int asp,
+>  	value |= XGMAC_TCEIE; /* TSO Memory Correctable Error */
+>  	writel(value, ioaddr + XGMAC_DMA_ECC_INT_ENABLE);
+> 
+> -	/* 0x2: Without ECC or Parity Ports on External Application Interface
+> -	 * 0x4: Only ECC Protection for External Memory feature is selected
+> +	/* 0x4: Only ECC Protection for External Memory feature is
+> +	 * selected, without any on-chip parity protection
+>  	 */
+> -	if (asp == 0x2 || asp == 0x4)
+> +	if (asp == 0x4)
 
-On Nov 16, Florian Maurer wrote:
-> On Mon, Nov 09, 2026 at 12:00:15PM +0100, Lorenzo Bianconi wrote:
-> > q->head and q->tail are not the same when we have refilled the queue
-> > with new buffers. Moreover, I think if mt76_npu_fill_rx_queue() fails
-> > [...] it is not correct to use q->head for dma_idx
->=20
-> You're right, q->tail it is. In my tests I could not tell your version
-> and mine apart, so nothing speaks for head + 1.
->=20
-> > Can you please check the updated patch below?
->=20
-> Sorry for the delay. I tested it on the W1700K (kernel 6.18.55, mt76
-> 467ae2e3) and it works: no oops, no rx stall.
->=20
-> What I ran: your diff as posted, plus read-only counters that write
-> nothing to the descriptors. Load was 62 minutes of iperf3 from an
-> ath11k mesh peer at 113-259 Mbit/s, with four busy loops at nice -20
-> on the W1700K for 3 s every 18 s. In that time:
->=20
-> - 61.9 M frames on MT_RXQ_NPU1, 1.88 M on MT_RXQ_NPU0, of which 227781
->   span two slots
-> - no oops, no page_pool warning
-> - no descriptor that changed between consume and refill
-> - no refill failure, no skb failure, no tx-free parse error
->=20
-> Tested-by: Florian Maurer <fmaurer@disroot.org>
->=20
-> I found another issue of the NPU while testing, so this took me some
-> time as well:
-> In one minute, 226 multi-slot frames in a row did not end on the slot
-> with LAST. Slots of the rx ring go missing under this kind of load (I
-> suspect the NPU drops them), and counting slots by PKT_COUNT then
-> assembles the following frames one slot off, in your version and in
-> mine. I think tx-free events are lost the same way.
-> I will post it as a separate [BUG] report in the next days.
->=20
-> Optional: in my tree I made the poll report the budget as used when
-> the skb allocation fails, so napi polls again instead of waiting for
-> an interrupt. It never triggered here.
->=20
-> Please post your patch with the Tested-by. My 2/2 can be dropped.
->=20
-> Thanks,
-> Florian
 
-ack, I will do. Thanks for testing.
 
-Regards,
-Lorenzo
+>  		return 0;
+> 
+>  	/* 4. Enable Parity and Timeout for FSM */
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c 
+> b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> index 25894771e9e9..24f887df88fa 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -6741,9 +6741,9 @@ static int stmmac_dma_cap_show(struct seq_file 
+> *seq, void *v)
+>  	};
+>  	static const char * const dwxgmac_safety_feature_desc[] = {
+>  		"No",
+> -		"All Safety Features with ECC and Parity",
+> -		"All Safety Features without ECC or Parity",
+> -		"All Safety Features with Parity Only",
+> +		"All Safety Features with ECC and Parity Ports on External 
+> Application Interface",
+> +		"All Safety Features without ECC or Parity Ports on External 
+> Application Interface",
+> +		"All Safety Features with Parity Ports on External Application 
+> Interface",
+>  		"ECC Only",
+>  		"UNDEFINED",
+>  		"UNDEFINED",
 
---s+XiL6GVKLQjZ58r
-Content-Type: application/pgp-signature; name=signature.asc
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCavwdEgAKCRA6cBh0uS2t
-rFKTAQDrf8StTOI65bgn5xeopIFbWqMbx61UDKD54phLvPS85AEArtbOPqgpGZ5M
-4Q3sUXE6HqctYejU8r0x6vlcCI7NVAc=
-=x/Dy
------END PGP SIGNATURE-----
-
---s+XiL6GVKLQjZ58r--
+Thanks,
+Nicolai
