@@ -1,94 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794912090;
-	b=NnwmJy8rB5A/APfNrgiHLPdvlQJKhlZxgQg2V0ONbzbz46l94Q9w50CvMB3e+Fs2wOn7
-	 YMucT8F5Yk2wqLEeR/AXzlA8bQykP9K46HYgC0Nq+KhM5Bpk5urWHalrlUJ0JURfitOwf
-	 T6+x3G8h8J1hdrh3ubcPsqW3s1nVkm1bNELozQpChrj3HTlJo1ysDwbEUtYEpkmjxd3E3
-	 Wh131Osw5Wev13fVnNTlY9DA2aqoS/MsVot8scMwqzGaDWh29LZmEtuhWEm5RR6SvEf4E
-	 GYYJVvU6IwZxDfjbfhJaSw1bw8QZb0q1HOwrZGiqWolnqs6XmTLqc2zB8Zx2M+FL38Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794912090;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794912171;
+	b=f6by65hzEwirj79GkC7yngsy0jfYme3PDcV12fqy8UlgOZ2wsBVRtFShiNrxZBPgljR6
+	 jAMmaJjcFA5kvq0M//jsS9MebkprihZlrmaFP1cnQ4K8RIpopGINwGQOvkyuJ9FlKC0FP
+	 WWfqhHW2zJfotVEtliR0+U0YFWHLXMWO5bCLqW0NeWjWleUdVsj5SVKVP7tzY1mRoZnLF
+	 5g0YVqyRMI9LVi3utQEQ3EZiV2lCG5rS+91XJWmRiyfY3aXRVoUSrcNTPg+NxvPYiJRlD
+	 dMcILkhIrh4LeiKZQqIjCtyaBe82g02550TNGAOp/Uj+T4AspTrIE8v1X/cxsXvYXZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794912171;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=eaga9iq2xMzHbd5n0lWO/WLBwljw+5hVBVM+gVZj3uk=;
-	b=2EIHnfcyERMh6u5BTdq6t8Nug+jh4ViAoheTJi/Bg1JBW+ACm7ZHrmGMXDo76CsYcsd7
-	 Yw9jm9MDMguS9iLFOL7eaB48oIXjv/eTR4eqL2bYxaZENHOXt5QkXkEmSWEFuX/eS8S4p
-	 yl008hndA2xN7r47OAXl/Do/cxArEImLh7Lz2xP8BbcejpJ3SfkQdwi1VRXOfn8bt2BX4
-	 6TUsTWkWYTPXWySAIIgX3Ev41x5ff2tAnmZsVduz/ckvLdAw8ZHtHNj6Ps8K3Au12N8bE
-	 fI8rrp3kbt9Eie7Xi95n+9gzkI8bmV1W6gu3GnyoJdJUIzHGWgM59L74aeRxIXj0OwQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2K4xTG4xWSYcGUU6Ck/HjLgjeLHgRelJwDhlANxGeH0=;
+	b=uRIAAMdsk10g+xi1iicTuoM/TyEOJSD0opa10vF9pMV+teIs79ClL8aWvvZLQr4o2BMk
+	 j8HDyz7N2uZ6l/AGq5Pj2XU2uYkjw2ssquwPWeMyj2sfaPa5O55/UW0OWbHoRQpeI1mE0
+	 imNmClhvOgvWS25Q5AZwGVn3ft5loC9uo3avkQjKrFSaeApQKnqVxBNhIYwE76UDWYxRX
+	 jwJMMzspJSYS02DzcR99KnBxRdHtTuelNKiUCCzUbjp6po2+zRj/gbYLzmJkWO9XCOBe6
+	 k+L32V6oX0p7UBMohsyvenEeH/VmdgX5cp8R5CpH+lhmcXuSZE3LAjPy4ziMPJ3PhNQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vzTKbVTa;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F9XX7sbB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4445E606A329
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 10:41:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4445E606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D115606A338
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 10:42:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D115606A338
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vzTKbVTa
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8a4c72951b8so3394115b3a.3
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 02:41:30 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F9XX7sbB
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso2790242eec.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 02:42:51 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794912171; cv=none;
+        d=google.com; s=arc-20260327;
+        b=q2mm8cILlsX644E9QkimlJN0zVg9fj7MwKIJBl7qsTCcotr4D44OZ89B8dFtaHbuQD
+         vqCulgKlUeCvuyf3m1avPV/Dk7xxlR18fjF5MRlLjRQ3W3H2XiK4LijX1YFZJUFtaG3e
+         iOrQH8Bz4AGJM77RFB5m1Y2CUAZeJAvkp7krThMasNiOQ9Hd9ducnBUYuABXhtyNt7Uh
+         wQIkaE24s5iJtnJhNzhi1bn0JzDoomHb3TxqfcfPjmvmGHRpGBUK81nPYzyD/RK1fh3p
+         H02XlLswo6er3mPkaymmbJzSzUuLwHtW+3Sc4TvVK9z4IVHtbKwpAcexDyS2YCgPS5sk
+         XfOw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2K4xTG4xWSYcGUU6Ck/HjLgjeLHgRelJwDhlANxGeH0=;
+        fh=YcIG8Jm1YvxE69Qc62/Z7vcZ1AbKactNnzLfErRqKbE=;
+        b=ENubrvGTr3KDk87kuXDyNyUAzNA7F/ZqVy49ei6lBQIwpmJ/WsuvbJbwPmhGA/DIfj
+         cps0VOWRUKJZT0wQ4356M/MPRkPM+kTeBrvl0ENzQJvyXvFi9m2IZDPbIGsPl+mes9Mp
+         sH/fyk+QKSXM6aRwRjYQBujLZuJmMBnIHXMXj3+yhLt6Dz+a3JVdAx/nyhhPCdoRcGbC
+         MFVcciUXRgGcBUZe4ariCmZaOx5TlfTWViG3c5m6E+hrWv9p0UArLJK1yTcU1ZCxC3ja
+         Qd5mMFEd5UeVQ2Y1JXC3PR9FtKYzFQ1gA7XyYRXm/Xh41wuGBb5Pw3iMEKjnpe/8LYdz
+         JKvQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794912089; x=1795516889; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eaga9iq2xMzHbd5n0lWO/WLBwljw+5hVBVM+gVZj3uk=;
-        b=vzTKbVTaO0mnOjT0wrC9bJuj2U7c8JCBOJXeERXLXjO6BfmdRweqdJxvATO5aSRSHj
-         SXb9XVeZEaBHEWOO2LUH8py3vAozCejmhPwtmDUBrZi4zh1Az2YxxawDJJz8Ml7lH5wd
-         cnrD9bJqzzgyTEoscy4of5hkrgQDPSLHsjyaApIpOGz/V3CtmNtFnDppf79BVRrpsCzn
-         nQUYFA3GFydj38LtNiRADuY95g6sUsnytyW70R+5lCmFfR3lWNafrMTBuzYZgT09nVi6
-         vV8qmPYcO67Sg/XsSJIXbi9pwdzhbSr5k1Eq7p3ooNns1OQXih4gPtmlRxyRI3d3p11k
-         rEag==
+        d=gmail.com; s=20260707; t=1794912170; x=1795516970; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2K4xTG4xWSYcGUU6Ck/HjLgjeLHgRelJwDhlANxGeH0=;
+        b=F9XX7sbBGR7GouHuWGezLAmbKtVKQHZ8Oeu2iL4zpWJKnROQcZ2s5Cspj+RKbTEvrC
+         XQNC2UKsm9V05bFoE1pMpCMiflQ79UjbYv8sA0F3fkR3DQ/GFnWfZi9Necslubvm0Fmd
+         WVycYxZk+x+5t3XLyRLFsHdGWIrnC2gMZ9EL03M1K9MFSo9s+tX/kFdBHa8yZLrl+bnR
+         KajXAYQY/D68O9Dmj6nGEG7Af61W4spiH2GRp2EQIkQ8QJP924vRlZr+p2HiwQKzqICh
+         0solGFlFeLuwRC1mnOv5IECODksGUc2ywzVDucETnhuJuAxM1y7KSRt0D5NBYT9jRN1y
+         +s3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794912089; x=1795516889;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eaga9iq2xMzHbd5n0lWO/WLBwljw+5hVBVM+gVZj3uk=;
-        b=PDgnzFmBqY1hbM0UEPUq0Q3juCihpxyBHhUISvHrNphuKCp6OrfJ+DmOaogRYYgVmI
-         xI6PFxGF3fjWetSAvgLBAyocuhbBmI9z2kskH7TXHXeRODYHz/YlWMteVoqsYwQMkNkD
-         CjYMDiOHZzOcrWqN4u3Bn9u/UeYQMng/3YIw+HfNSSuENXmQ6HgiHiqsWYNYku6TXj3l
-         XA4pgJL8fynO+9QCMiARgv0VjNhaaEGsj3Vl2ZPt6Xvxxs2P0jHXcydVDGFHmzfarE9v
-         xGkgz9pftKc0IsYDJJDxefdRAAFER3utgjjgxCv6xcDkhCITReXjIss240rcZ63INNAA
-         nt8Q==
-X-Forwarded-Encrypted: i=1; AL+hErE0YZWG7kVdkdu0y20pnJMKAOrnX9mzQtrKNUuYXiL8iwWxF7CnXNga5R/ooLOcRUrAWFJ82/0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9nxDHocB6c89BilCytD+wrCAfi1Ie4ieZJCrfOgAU1fk4Zys7V
-	MLpThIvvMlYuH0zqA9PZrL871Wj3Ha9/uvkYav4wf0CbxsGd7Y8xMcUi
-X-Gm-Gg: AYBFou2Wk5aVaI4hV9fk5XzLTD3JjjcMPGzhRmCe8Gi/1oxs6mF3GbpxA4aVIdA+bZl
-	HEZ1W2SGowuj/BhuYC/2+IWDgiwsTgyA/HqE5ywGtQ21qULx1j4H9FMLrV58h5SW1iPOB0lRXgN
-	3UbDOzdofFppKDEplB3rBBDBIaUnaRS6qrA9p3XinBa7INvMDIbNwFx1DN6gNZA96yV+yDKH73B
-	KcHTniT3u7alWs4IEeGD32axLBTIb2wCo5HLKw/T2m1jTLPdX27eCa/lpLdL2hykH+7lep89kry
-	/ypsVZc2NT0rBRQSH4Swz21f+HFG0ZbAEFNGnoq4xkFs+tk20ld/nYdKbuTVdb0mcqvnf9iwXal
-	JV+GLZlq+yBRJjiZ1W6h90E43FU7zTY4KVtRhmgUk0iVqln3IFCx9R0KUwJOJdpCDEAXDwcqLLm
-	cfsziZwmyvmxQoBgoXCttjQWBygvFDvd7NU7HFVWqWLnmA7aazn3VMZHogCYxNeMJ5/j+CNXypi
-	HIfY3NL12RCl3hpvfMnwjpnGsunUJ2tKIUNtsOIT3RCfmi9H/rmpBODBm4quiBdNyj/K4XgwH5x
-	voQ3YpFEP6Q97tRKyaVpWjCCYpZKIsT1z43GrBy7azPEeXdX
-X-Received: by 2002:a05:6a00:2350:b0:8b3:15b4:45f2 with SMTP id d2e1a72fcca58-8beb6b6baffmr12020475b3a.25.1794912089476;
-        Tue, 17 Nov 2026 02:41:29 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed2829dcdsm4900102b3a.48.2026.11.17.02.41.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 02:41:29 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: Mary Strodl <mstrodl@csh.rit.edu>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] gpio: mpsse: reject bulk-in endpoints smaller than 3 bytes
-Date: Tue, 17 Nov 2026 19:41:10 +0900
-Message-ID: <20261117104110.240112-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        d=1e100.net; s=20260707; t=1794912171; x=1795516971;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2K4xTG4xWSYcGUU6Ck/HjLgjeLHgRelJwDhlANxGeH0=;
+        b=VadM0zjUhQlVyItvOt17bA8o2ZvXA+n/2hj/GIpMu/xwR9tU3YYCNxXAg7YXMM69id
+         jeUPlX6M6O+1O0lQ+fhB6A2gJpMCWsPet8vzJKZI8umk9UqXJv8hFtyJdxJ+BY5K8z6L
+         KxttdqRGzIRFcB+KoIaW4GxBsM2TebeJsd0i+ztiJDBURubjQtzSBIgKWSBHEigzzzLl
+         B1nprjgeQpWvvzEjrSGBAg+HA2gsNlh+fJLPz4cc5u29M0pVLwssii8IwfWqqHmxSWZp
+         e2LadBE6NVWXMJDNzVceSeGxvtqnk8xy/hcxPzeFmw9OmA/lsddH5ziKcnTIgRBRS/z0
+         ZICw==
+X-Forwarded-Encrypted: i=1; AL+hErG70kaqPRSAv5M9SjYpoeFnYTeXflRAkI6hqVc7yCcClTodlnD9kIdlMWX1/aZPX+kyHZEZCNI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/vTxo8YOJh29lxi0R/HDngymENWGCvT/AJzWCFEVFQP0JT1o5L
+	xQ7Jepox5HKqlem2p1a0LyWgjr0hlfnija3//vSWWnRVmHBEY3g27i9vPgu8wkVeZHO5/2fQSnd
+	jh4dLnM4M8FxN9LChVDorYr9pI+RJ0zQ=
+X-Gm-Gg: AZFdTZdR0Ah8jVHpgu+aFQSTwES1KBz2THZdDfxvBMVBzKoz+LbuKmI6eim/1GS1qU4
+	TJG2qqYDBLozvSdLO0uHdas9dZabBWcm+eyNSJxnxOc1bSkKAL58ZqdgPwlyYMycQB0ax+p2Z5b
+	pDluDHk9GB85xfaQ9LVwElpvyMuC3M5AjSb55NJeKibA7RuHY+zKb3Z2tfpY3pVPmQ5fOETr58u
+	YMj53Kl25u08LfUUgu8yTTEg2hNkdpS8sh88Js58AtvlCoPGVeOJOPB9lxv0zVJWifbkabnEE9/
+	TlaXE9M9KgCDcf//6sqCzF4EUMJwLUhlgZLgUu/0r+IuHh60/iMpd6KoJc+bfp/OTll75xT+BzP
+	BGLwHlTSEfoshqro0Ovq5zDSdYwwYREcMgVmwiLpxobM8L0VHz5vyW0+/JytFkiGaJ0rj
+X-Received: by 2002:a05:7301:658a:b0:381:1eb7:938e with SMTP id
+ 5a478bee46e88-3811eb7b15bmr3003773eec.4.1794912170526; Tue, 17 Nov 2026
+ 02:42:50 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,49 +104,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261117042341.4023597-1-hj351016@gmail.com> <CAKYAXd96-RaGbakDedW5eOgmV8JUhAF0_25qXLk2YimiT4wngw@mail.gmail.com>
+In-Reply-To: <CAKYAXd96-RaGbakDedW5eOgmV8JUhAF0_25qXLk2YimiT4wngw@mail.gmail.com>
+From: khj <hj351016@gmail.com>
+Date: Tue, 17 Nov 2026 19:42:38 +0900
+X-Gm-Features: Aa3M54qrUz1WablDAXNbu3oc9qupG3hDYlxl8MWwGpKOViJgsXLZVPrlk47_ZSc
+Message-ID: <CAGr5VtNX_Fy3PqcxFBVgAxtz2aDbSD_n_HgZK2vOBpj2Bd6UJA@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: reject SMB2 read on a file opened without read access
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Steve French <smfrench@gmail.com>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Tom Talpey <tom@talpey.com>, linux-cifs@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-mpsse_read() reads min(len + 2, wMaxPacketSize) bytes and then copies
-len_actual - 2 bytes to the caller. A device that declares a bulk-in
-endpoint with wMaxPacketSize 1 completes the read with len_actual 1, so
-the copy length becomes -1 and memcpy() runs far past the one byte
-buffer on the caller's stack and past bulk_in_buf:
+Thanks, I missed that one. Please ignore this patch.
 
-  memcpy: detected buffer overflow: 18446744073709551615 byte write of buffer size 1
-  WARNING: lib/string_helpers.c:1036 at __fortify_report+0x6e/0xc0
-  Call Trace:
-   __fortify_panic+0xd/0x10
-   gpio_mpsse_get_multiple+0x767/0x780
-   gpio_mpsse_gpio_get+0xa2/0xf0
-   gpiod_get_raw_value_commit+0xf8/0x1f0
-   gpiod_get_value_cansleep+0x1e/0xa0
-   value_show+0x42/0x90
-
-Reproduced with dummy_hcd and raw-gadget. A read needs room for the two
-status bytes plus at least one data byte, so refuse to bind otherwise.
-
-Fixes: c46a74ff05c0 ("gpio: add support for FTDI's MPSSE as GPIO")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- drivers/gpio/gpio-mpsse.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/gpio/gpio-mpsse.c b/drivers/gpio/gpio-mpsse.c
-index 61c5ca96314b..3ad7048f009f 100644
---- a/drivers/gpio/gpio-mpsse.c
-+++ b/drivers/gpio/gpio-mpsse.c
-@@ -676,6 +676,10 @@ static int gpio_mpsse_probe(struct usb_interface *interface,
- 	if (err)
- 		return err;
- 
-+	/* Every read carries two status bytes ahead of the data */
-+	if (usb_endpoint_maxp(priv->bulk_in) < 3)
-+		return -EINVAL;
-+
- 	priv->bulk_in_buf = devm_kmalloc(dev, usb_endpoint_maxp(priv->bulk_in),
- 					 GFP_KERNEL);
- 	if (!priv->bulk_in_buf)
--- 
-2.43.0
-
+2026=EB=85=84 11=EC=9B=94 17=EC=9D=BC (=ED=99=94) =EC=98=A4=ED=9B=84 7:35, =
+Namjae Jeon <linkinjeon@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
+>
+> On Tue, Nov 17, 2026 at 1:23=E2=80=AFPM Hyunjung Ko <hj351016@gmail.com> =
+wrote:
+> >
+> > smb2_create_open_flags() maps a DesiredAccess that has FILE_EXECUTE but=
+ no
+> > FILE_READ_DATA (e.g. FILE_EXECUTE | FILE_WRITE_DATA) to O_WRONLY, since
+> > FILE_READ_DESIRED_ACCESS_LE does not include FILE_EXECUTE_LE. The resul=
+ting
+> > file is opened without FMODE_READ, yet fp->daccess still carries
+> > FILE_EXECUTE_LE.
+> >
+> > ksmbd_vfs_read() only checks fp->daccess & (FILE_READ_DATA_LE |
+> > FILE_EXECUTE_LE), so such a handle passes the access check and reaches
+> > kernel_read(), which hits WARN_ON_ONCE(!(file->f_mode & FMODE_READ)) in
+> > __kernel_read(). A remote client can therefore trigger a kernel warning=
+ (and
+> > a crash under panic_on_warn) by opening a file for execute+write and is=
+suing
+> > a read.
+> >
+> > Reject the read when the underlying file was not opened for reading.
+> >
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+> Thanks for the patch. The same change has already been applied as
+> commit 2fd145f8865b ("ksmbd: refuse to read a handle that is not open
+> for reading").
+>
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit=
+/fs/smb/server?id=3D2fd145f8865bb1a6c38a3dc68fa44290008789d8
