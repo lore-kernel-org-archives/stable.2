@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933503;
-	b=s+522LO0Q7J1tW5qmdhlxjL8BPKQ4bQDjEBK3RBulC4s2pUuKI9kLWlZTo2wLsHFP+6i
-	 hSFcqwv+7+y9FccNNrair+82NC5uBxM/LQw0Yko8SqNWBh0TgZThnNvBTNZUWadDwJGU/
-	 uXF2yXg5FBNqWbeLLC6+ZY/hA1SGCygcuv//kgE7+MaogfMQAZeSwPlbTwiuc1qij1436
-	 rPNIRgMCqsIwhJvaEKJ7CmZU3VBYtXiUW60+i283W/9qUU03J3E8R6nJDIgG+7fKou3qF
-	 tHynRohEiKtwRxJWZ6NmVqs1HbT59GbWkyTxdYvZnkdOVLQ2eWJjCGFZMPGHu511WwQ==
+	t=1794933513;
+	b=aex+KjF9YzyftcO7AtxzRE9bhKY18zR59pYZfbbFnFQ0sOuKbI13LHSsnZc0hY6DMW/Y
+	 3KEY3IEuvPGpj//yw+2WPyiN8FymBgE0GkC1SGN8GszjxvMDVQTN59Vl1KkUE2a54AynK
+	 BF74xJ2bfwZhg8bHXIgjUz5pfrwU0YRNDSwYUsFRQlndj7D6rP+fZJj1Z5zmt/KLh3glE
+	 a05lH6Q6VXcMTtFIMwsCcdTNdnRAvNRIK5KYsgXlsekPS3UaWti+Vy4ITND9Qto8yTB6e
+	 zliJquB+0GL2g8rvNKj5WBpMqOO++B+ae58G7yYyA61MsAqtHsDeAxTdSdqlZLoRWyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933503;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933513;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=RNvs836lkpszr0VZ6j0KYnnJes31voSHxc9/JuZkd5s=;
-	b=K5V93tO3uYbO/ZE8jOIBertesvCLJ2+ah4H0hvP3ZqiGuw3ti0/pYXA5K9J15JwNyecM
-	 hO37vsvfOEBmtfXphVcjFkVGLZ3bq5u92KU2EjfpL5VTNmUOPn9ljR82HlrFuGQ4RxSmc
-	 AIpJeBzK5c6PD/0IJoFxJju1leystlUGIBrIug99mVVFygw3dEUxTwZrH6B/Uc80KnbpN
-	 lssvmoTdhxq1RS7bADdGRGfXd5EDilp0hw/bT6wNLVeoOj7B19sL2oEJC+8FtK40sAR6L
-	 lB/gdZnmcpyRklE7+ESkdazs2wwmmmuED823No85wrxhyQQkJysiynS3dddL+aSibrA==
+	bh=7DbAY79DNO2fCj1Ug+nf3QknPyL+0mRDt4L91TpAjeQ=;
+	b=QJ3C9KFO3X8yihVxdIe6vkyPXKJVWmVWnnG+bkCHWsdGGTQK2gatCxzmY95Td7E9B/VN
+	 viHmQIN1uqskQA0LEECUMu/o9ZpREEXrcO+tOuYE6eVnEk6dcj+wK/BKzGr1nUg4jS+n9
+	 5Ubvu54QGY7xgi4ZPR34XsgYK9TgnHUumlBcCHEpUMGLJMDBa1Q9uQQp5k73Sn7T0hsIY
+	 uvkiaZFLo35kvzKEvG/c5LgVpxKY3rXMt3C3UlHPXewYCygtj13L/SvIv6vdZKYT+1Sd1
+	 bVEwqvzy9ERFcW90hUs+xFRklF9TXL+ZYT0Xg1kfrgrRCGwi0OlYWDexUBdVDfgo/Zg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D5b1ENAb;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PzB+bOY4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5C6606A31C;
-	Tue, 17 Nov 2026 16:38:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B105C606A31C;
+	Tue, 17 Nov 2026 16:38:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D5b1ENAb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9497B1F000C7;
-	Tue, 17 Nov 2026 16:38:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PzB+bOY4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03D3A1F000C8;
+	Tue, 17 Nov 2026 16:38:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794933503;
-	bh=RNvs836lkpszr0VZ6j0KYnnJes31voSHxc9/JuZkd5s=;
+	s=k20260515; t=1794933513;
+	bh=7DbAY79DNO2fCj1Ug+nf3QknPyL+0mRDt4L91TpAjeQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D5b1ENAbK4VRD+buz4eC5wL1ADUOsO2UlDylvQypGW/2AvOU5sc3bj6ftLtNcil72
-	 gMj+FZPFka8Jpddm13/l1TlevYpE9eZucjscwJxYCkRAhB3WwYyYsWH8UaSBqQPf3b
-	 1/o0Br/vPExjaMtahe6KCP7bENqx/mIoSgJkCMyMVXSoywcGkvyy7dvZaSLZxK3JGL
-	 u7s1tdwVjdvvxHmTo7G4z2fEOC9R5gFgiOu73AvJjVMgphbFWytIzvCPJxXZgjttm4
-	 Gu1qVntjSXlkQ268Qxsh/lrZMPvgA9aCsdpZgNq7zlKP9rbG1BBbLGZpvwAQWLlNws
-	 GZlcgB4fEvRlQ==
+	b=PzB+bOY47T36STQrwGQpYEvYyBOB4V87/EJWx7z+oK0DgqJ+My3erSd74Eov9aH6Y
+	 mFHvQpFbZI3F9hKrWRshLlvQ3OnknrNrJwstoQxzXqoO3eCxqK5UQQ9TVgrTRHBimB
+	 IcaWw70UudomtGgDlNoXgnnZo5Yr/s17tZaXZA5azNS2FyQaA9ZcQMBl6UmW1x0dED
+	 Ih3iw/34ZBFONYOWQQIrHqZN5Tsjwv4Kd09gqymLauEVxcWl5OajliWAI6G6ri+m1y
+	 /noo0cePHN5S0wkQ60UT4jvoyrR1oP2qDrC46QdCD4tV6+enEAD2+RtpqI6+EopeNM
+	 wG87nBVbQgG8A==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
+	Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
 	Vinod Koul <vkoul@kernel.org>,
 	Frank Li <Frank.Li@kernel.org>,
-	Peter Pearse <peter.pearse@arm.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Joachim Eastwood <manabian@gmail.com>,
+	Raju Rangoju <Raju.Rangoju@amd.com>,
+	Philipp Stanner <pstanner@redhat.com>,
 	dmaengine@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 01/11] dmaengine: pl08x: Defer OF DMA controller registration until slave setup
-Date: Tue, 17 Nov 2026 16:37:02 +0000
-Message-ID: <20261117163809.622249-2-lee@kernel.org>
+Subject: [PATCH v2 02/11] dmaengine: ae4dma: Let the pending work exit before cancelling it
+Date: Tue, 17 Nov 2026 16:37:03 +0000
+Message-ID: <20261117163809.622249-3-lee@kernel.org>
 X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
 In-Reply-To: <20261117163809.622249-1-lee@kernel.org>
 References: <20261117163809.622249-1-lee@kernel.org>
@@ -66,83 +66,69 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pl08x_of_probe() registers the controller with
-of_dma_controller_register() before pl08x_dma_init_virtual_channels()
-initialises the slave channels list and before
-dma_async_device_register() registers the slave DMA device, and
-pl08x_probe() does not unregister the OF DMA controller if subsequent
-initialisation fails.
+ae4_pending_work() loops forever waiting for interrupts, so it never
+returns once it has started running, which it does 100us after probe.
+ae4_destroy_work() calls cancel_delayed_work_sync() on it, which waits
+for the running work to finish and therefore blocks indefinitely,
+hanging device removal and, once the work has started, the probe error
+path in ae4_core_init().
 
-Move of_dma_controller_register() after dma_async_device_register() for
-the slave device and unwind slave device registration if OF controller
-registration fails.
+Add a per-queue stop flag that ae4_destroy_work() sets, then wake the
+queue's wait queue so that the work leaves its loop before it is
+cancelled and its workqueue destroyed.
 
-Fixes: aa4734da6674 ("dmaengine: pl08x: support dt channel assignment")
-Closes: https://sashiko.dev/#/bug/linux-4e233fb9-3b0c-4442-b601-c6706c9f5aba
+Fixes: 90a30e268d9b ("dmaengine: ae4dma: Add AMD ae4dma controller driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 
-v1 => v2: No changes
+v1 => v2: New patch, so that ae4_destroy_work() can no longer hang
 
- drivers/dma/amba-pl08x.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+ drivers/dma/amd/ae4dma/ae4dma-dev.c | 8 ++++++++
+ drivers/dma/amd/ae4dma/ae4dma.h     | 1 +
+ 2 files changed, 9 insertions(+)
 
-diff --git a/drivers/dma/amba-pl08x.c b/drivers/dma/amba-pl08x.c
-index 543c2eb8cfa8..d8441e338502 100644
---- a/drivers/dma/amba-pl08x.c
-+++ b/drivers/dma/amba-pl08x.c
-@@ -2678,6 +2678,12 @@ static int pl08x_of_probe(struct amba_device *adev,
+diff --git a/drivers/dma/amd/ae4dma/ae4dma-dev.c b/drivers/dma/amd/ae4dma/ae4dma-dev.c
+index 8de3bef41b58..be86188da16c 100644
+--- a/drivers/dma/amd/ae4dma/ae4dma-dev.c
++++ b/drivers/dma/amd/ae4dma/ae4dma-dev.c
+@@ -23,9 +23,13 @@ static void ae4_pending_work(struct work_struct *work)
  
- 	pl08x->pd = pd;
+ 	for (;;) {
+ 		wait_event_interruptible(ae4cmd_q->q_w,
++					 READ_ONCE(ae4cmd_q->stop) ||
+ 					 ((atomic64_read(&ae4cmd_q->done_cnt)) <
+ 					   atomic64_read(&ae4cmd_q->intr_cnt)));
  
-+	return 0;
-+}
++		if (READ_ONCE(ae4cmd_q->stop))
++			break;
 +
-+static int pl08x_of_register(struct amba_device *adev,
-+			     struct pl08x_driver_data *pl08x)
-+{
- 	return of_dma_controller_register(adev->dev.of_node, pl08x_of_xlate,
- 					  pl08x);
- }
-@@ -2688,6 +2694,12 @@ static inline int pl08x_of_probe(struct amba_device *adev,
- {
- 	return -EINVAL;
- }
-+
-+static inline int pl08x_of_register(struct amba_device *adev,
-+				    struct pl08x_driver_data *pl08x)
-+{
-+	return 0;
-+}
- #endif
+ 		atomic64_inc(&ae4cmd_q->done_cnt);
  
- static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
-@@ -2944,6 +2956,15 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
- 			__func__, ret);
- 			goto out_no_slave_reg;
- 		}
-+		if (np) {
-+			ret = pl08x_of_register(adev, pl08x);
-+			if (ret) {
-+				dev_warn(&pl08x->adev->dev,
-+					 "%s failed to register OF DMA controller - %d\n",
-+					 __func__, ret);
-+				goto out_no_of_dma;
-+			}
-+		}
+ 		mutex_lock(&ae4cmd_q->cmd_lock);
+@@ -81,6 +85,10 @@ void ae4_destroy_work(struct ae4_device *ae4)
+ 		if (!ae4cmd_q->pws)
+ 			break;
+ 
++		/* Make ae4_pending_work() leave its loop so that it can be cancelled */
++		WRITE_ONCE(ae4cmd_q->stop, true);
++		wake_up(&ae4cmd_q->q_w);
++
+ 		cancel_delayed_work_sync(&ae4cmd_q->p_work);
+ 		destroy_workqueue(ae4cmd_q->pws);
  	}
+diff --git a/drivers/dma/amd/ae4dma/ae4dma.h b/drivers/dma/amd/ae4dma/ae4dma.h
+index 57f6048726bb..affb1d7d9d7d 100644
+--- a/drivers/dma/amd/ae4dma/ae4dma.h
++++ b/drivers/dma/amd/ae4dma/ae4dma.h
+@@ -60,6 +60,7 @@ struct ae4_cmd_queue {
+ 	u32 dridx;
+ 	u32 tail_wi;
+ 	u32 id;
++	bool stop;
+ };
  
- 	amba_set_drvdata(adev, pl08x);
-@@ -2954,6 +2975,8 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
- 
- 	return 0;
- 
-+out_no_of_dma:
-+	dma_async_device_unregister(&pl08x->slave);
- out_no_slave_reg:
- 	dma_async_device_unregister(&pl08x->memcpy);
- out_no_memcpy_reg:
+ union dwou {
 -- 
 2.56.0.679.gc527c65306-goog
 
