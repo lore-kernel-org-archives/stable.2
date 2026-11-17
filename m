@@ -1,113 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794935765;
-	b=dxy87er7aLSS24uhKVscnTsqyO4QNBWaaKkIBd7qbF9gjA+qsIzCZQyFHdczuRgYwNh7
-	 tyWI2s9zTs2sP40kldl/9FIqcRbNPVOj5Mj69Y0UPxLgp7Ez4u/TMjU8O7ywY/dtwYmsH
-	 Wvy0N/vpVnkZDWYq90Lzdl/iED8PB3p8bzp5d2gcEXkzIRvlHhvyw4tspa/do78SrTZ2z
-	 aaEcgCgN9FPPYldAqxsbEuCnBUpcA8JvipxO4LfPT8JJemFJtfduTm5777ruY3nKSbq8F
-	 XHj7htV2bc37KXcazw8neTj9xxpmXqNtrPD5J4doFGsJZsdcm9E7Tl+zpHLhCz7p0gw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794935765;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=v9QIGsGpsDWxp+6ngNarKfkobvGuOwNjAkuV0ubTIdI=;
-	b=bP3DwNRoNk/ltDFMaXi0zRvMHrkLOpjdFf7bAad4vDYa+HZzGuvJIGKKqze+9gzTF82q
-	 hdbDO9+bAt8CvtwLpQV8O6OpQKsZ5xSDVqcuUjnZs2/iIfrUzYJ4nqYRbCQSo7hl43fMo
-	 ny8rlqNdrYwMbgzXX22mrw9h1Y+4mg7w+ug0AvGxPMagrgkMs9D8JsHKjtLnHSh7XGtIq
-	 DmKLT0gAaefJDxQATnSH3qzp2xpqQnNWDuEgmbXvm8ScWUkid/fs0J0CtECMfodUzHRPO
-	 9P137g1gZbF13jXYZdRGcI+sfEpqcd4IfZYC75uMakTTjWIEadwCcvtM3d2tVdD2qOA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=VGMGCZxt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.15
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011015.outbound.protection.outlook.com [52.101.57.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7191606A31C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:16:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7191606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794936236;
+	b=2pGoCWXgtKRVhXt2uCrCGBCn0q2BzvoTwuBEdy/z54ZukHEHqJ88blr+yv0wkPYH+HXE
+	 p/gYMnh1pICF2ZEkPnT0QDiehM5WS+x9rRp5+uTqo+9MU/Bb3sR1gibukz75EvAoXCkpa
+	 HeMoHnxFYRxSk1xMBS1ypR4JGUuM1leC8LmoUXIozLJhVCCNmLHlpYErFAggoytUMEguU
+	 sGtJoTZGMnB23H0KtxWtyXj6Id17tIXnkKLgelIgJhFeIVWYjWE7ALb2CuZTvR3HCyR3x
+	 VeGZQNy83uRuviFyXlfKO8XV9r20b22f88dEUKB7F1mCjynoGGSMFMPXoxi+fr5OD8w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936236;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=+1CUcFNE7JwfSHGV62hBf/oteDplXzPtQU4sFGBvXqM=;
+	b=0aBkCLHEv2kE88jjUzHMDc2v34pMwp34/lPCRxNGNUbmi6OlLEC//+m5QLgEcKqI/mTn
+	 B8UhZ4xeFomZgQHhw1OPNHU/wgAl/e+q4qLg5PZt3YE5s0fxsgt/Md+52HUL9222+oblg
+	 xVEykLAbbqPAzjGUZhQDRnLb92DjInPrYqXS83uZLKPsY09DnWtLvuBOXCAUKDO5ch9/S
+	 Aga1SJ4JYewRY1DVzlpdJ4vYLJ0liKhUKcFi+QAbtezwZyGb6SdiXf2PZQ4I1pynLjc6k
+	 0lz2wxTX+aLMgXG1GYMyBuU4g0dxrTKCisx8WzDdakqGZqowJt2d3KV5NFob0dwjnMQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=X26tYuWa;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 51B62606A32A;
+	Tue, 17 Nov 2026 17:23:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51B62606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=VGMGCZxt
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vMnQmTGmziJVJ6C0rPk6BizKGqsImvC0odqynDt9mk9RvrLLCFf+odAYgmStFUYAjWgGFNiCn9U5SHGNvjG0RN+KjDLAJsBbEVzWIVEO+/DG3RDRVGFYrKhg2EFkLLzfNdSQUk5aG5nkfJcmvLOT9xNBGMxwowaQ0EiIAeZZhCEkwZQUxe3CbIPsTuPu2NhVsXM5T5w4vVWpMnUGxI8QpXOyBoKoh4j001mL3QiyNbaiQjx1xqovDgpNRS0yIY8tQ/f1cSEhPF543Eqg0V8q9ilshO/xVEotsjAY4xNWzfB2xE0wX6rwwjBc+Jmp5EDtGtdpso99KMR7Ee1ozuN9Tw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=v9QIGsGpsDWxp+6ngNarKfkobvGuOwNjAkuV0ubTIdI=;
- b=eh9DZ4sOmJPBhkmBFPTyEYBwmRXXVDrdlJDS+E6UkrG3QuXcyhOIlTyh3xN+yv7mhoEyQLZFZI8QdR5rUbL9Z0oy7/TqKoT7SCdoPrzzzra7TdLvD7DLmMAqpF7s7mi4L+O+77fHAwKlRyxiOdROuaYd1ELvb14wtEjBLrrwuJB/XiQ3RhRN5VhiBCtGTWcxNehWsRVPCTjCmHO4m7HaeXpX25hSEBT/PlTnK68HWWF5z+xBYRLFW7memxyT1MXuYaMns4HCP218pZlMAl1IJCTJeHWc37VEwWoxv4monY2F3GITLRCtPrZ+CdvFIY7vhQOeYXB3r7IDdHkWvHYTIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=v9QIGsGpsDWxp+6ngNarKfkobvGuOwNjAkuV0ubTIdI=;
- b=VGMGCZxtWnLZ9PmsO8GV3byxelY8s6bam17w+n9lCAfjNXCkVoop1p1ZW1RtDjfz3hUXMmnMhfC9Evj0a95KZy1k53TsMVwi0czfpX1P/xS+akBaf+WAYT2Udre4PYFKb1+b+S0rmRXEpIIGaMz3nUdvUxXGBhUarQiQZOhGMHk=
-Received: from BL1PR13CA0404.namprd13.prod.outlook.com (2603:10b6:208:2c2::19)
- by CH9PR12MB809658.namprd12.prod.outlook.com (2603:10b6:610:314::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 17:16:01 +0000
-Received: from BN1PEPF00018074.namprd04.prod.outlook.com
- (2603:10b6:208:2c2:cafe::29) by BL1PR13CA0404.outlook.office365.com
- (2603:10b6:208:2c2::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.639.4 via Frontend Transport; Tue, 17
- Nov 2026 17:16:01 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN1PEPF00018074.mail.protection.outlook.com (10.167.245.202) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.639.5 via Frontend Transport; Tue, 17 Nov 2026 17:16:01 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Tue, 17 Nov
- 2026 11:15:57 -0600
-Received: from james-Birman-PHX.amd.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
- Transport; Tue, 17 Nov 2026 11:15:48 -0600
-From: James Lin <PingLei.Lin@amd.com>
-To: <amd-gfx@lists.freedesktop.org>
-CC: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
-	Aurabindo Pillai <aurabindo.pillai@amd.com>, Roman Li <roman.li@amd.com>,
-	Wayne Lin <wayne.lin@amd.com>, Tom Chung <chiahsuan.chung@amd.com>, "Fangzhi
- Zuo" <jerry.zuo@amd.com>, Dan Wheeler <daniel.wheeler@amd.com>, Ray Wu
-	<Ray.Wu@amd.com>, Ivan Lipski <ivan.lipski@amd.com>, Alex Hung
-	<alex.hung@amd.com>, James Lin <PingLei.Lin@amd.com>, Chenyu Chen
-	<Chen-Yu.Chen@amd.com>, Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>,
-	Aric Cyr <aric.cyr@amd.com>, Mario Limonciello <mario.limonciello@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>, <stable@vger.kernel.org>, James Lin
-	<pinglei.lin@amd.com>
-Subject: [PATCH 22/33] drm/amd/display: Skip DSC padding borrow estimate for zero padding
-Date: Tue, 17 Nov 2026 05:50:59 +0800
-Message-ID: <20261116215641.2800595-23-PingLei.Lin@amd.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=X26tYuWa
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B615E1A00;
+	Tue, 17 Nov 2026 09:23:52 -0800 (PST)
+Received: from e144440.cambridge.arm.com (e144440.arm.com [10.2.199.104])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id AE1CD3F632;
+	Tue, 17 Nov 2026 09:23:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794936235; bh=nuuxNabwLDGMU43xHBMlv65TOjY4YdPO5UFA/AgDsmQ=;
+	h=From:To:Cc:Subject:Date:From;
+	b=X26tYuWa+ayRlYoEsgE88VEUuQSKMuliPzXKPOx6yh/KWkxN39IiELtTfcS2gRk3J
+	 6SmATcQOc+s/hgPrJ2rIOdWmsmZjONdKMp3qu4lS9iHVksalcZjuqR3cNGG1+ne+gb
+	 N4PM08YSNtMxOaR3KFb20OenFJijKD09w0Es5IQ8=
+From: Ryan Roberts <ryan.roberts@arm.com>
+To: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: Ryan Roberts <ryan.roberts@arm.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v1] arm64: Mitigate Spectre v1 in the BPF interpreter
+Date: Tue, 17 Nov 2026 17:23:40 +0000
+Message-ID: <20261117172341.3152407-1-ryan.roberts@arm.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261116215641.2800595-1-PingLei.Lin@amd.com>
-References: <20261116215641.2800595-1-PingLei.Lin@amd.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -118,71 +69,145 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN1PEPF00018074:EE_|CH9PR12MB809658:EE_
-X-MS-Office365-Filtering-Correlation-Id: dfcb577a-5017-43fb-5db8-08df44ce7432
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|1800799024|376014|23010399003|18002099003|22082099003|261009223027099003|3023799007|11063799006|56012099006|261102123227099003|10067099003|261021121427099003|261021135927099003;
-X-Microsoft-Antispam-Message-Info:
-	WHI0j//kDtxGTNfFePlG/6/vefVn2psdIoNDPZy/6pd8bSaLUswzRRWDZ3QvY+z2f6DOQX2WnNEy9FIVF2d0ecQpa0bhGrAywGzfpk9LP0ORZbJWfRmKB88IgBhepygn5G9mABOgSphMWM2ai1xOHLOwvsadL8Btzqq1a2CmJNUCkRSaJ2j1XDLGc9YKOO0J9MsXdR2xtE6Rzu6XYc8pYmuuah1uV12PSH/oGX5BTLjBsLeHhk2ZsCwVB522elTm/734eyNRwS7RFluoxYe921okRC7CHPSCiOXm4lMdaGyAM7r1czVAdeGVOM5zy2U+VCFTDh1CUvRH0NOI7ekyXUBT/wiwo5BuzuUlozLd/x03HcroJcOTq8k0I3jAooRzp02oUNy/7V/3VHohARjYNz/SHxTiJiTD1U2mZWY9HOtg206urrs17ySUQX9pHagIUSUCh7uWNAnbyjjicjYxGvC4Lhe7kW3Mgyt7+ZsRIg8FlbWsPIEMSPGAcznwQhTVqSXx9CcQtSTKYSKWBx458CKq0aAURTR9AJhhVDPq90uiUFOoTZI049LFUmbE+w8HC72nv6tolIwnW6LpUkBWTtmSSWwQMm90OYWOU2uE/1NkkuILTwEM1592zYqlPU8Bb3ZE3qQKbI9iVFm2VaJVFbAjLGgppHYHBLVV/htKVkjVnI/hEM4MQlB8UTJQJoRzKc8jZ98n7VUOc9r7zDfnrQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(261009223027099003)(3023799007)(11063799006)(56012099006)(261102123227099003)(10067099003)(261021121427099003)(261021135927099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Gt9O3ylyzj/fEn9PxtmCJXTEP4BBlYEhH1pXVrvEfra/yMkeU1i58+302rFocVNTPSfGkS0KCHV3QRxffhOHNZPHOgjBooTOiM2HlkuXQHeMkk4h/sMeL9V2qgRP6ELmWo6dA5DolKmSU9MRP5/Zu2LkeHajzB6jR+i6IEOI87UcHTf5oQ7SPoplaFsEVsoqgbYQ3oTstXVqDyv6qcyVZHkVhTMPsry42dijYXWDnpWTn9H26OBKkuC5VWnZzO4BFmy4fDnwpn0ex7Y3sgPS10RltfJMVdyaCYicMCrZdF+y6m83TsWq7Q9rMJ2f/npqHvUxpKpIoWYz0YKPuNuxelViwLHgFJ2RzKapi7nCWuZN0ZzXCcLXCkOK8AKsrlHQ5yKAzKAE2OzVWdc+NZo7oUueHMOLKSzZl88w6JzHPm+2qtYgk4ofApQVSBXmUspn
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:16:01.2791
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: dfcb577a-5017-43fb-5db8-08df44ce7432
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN1PEPF00018074.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH9PR12MB809658
 
-From: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
+The BPF verifier can accept programs with unsafe speculative paths by
+inserting BPF_NOSPEC instructions instead of rejecting them. It relies
+on those instructions to prevent execution of the unsafe paths.
 
-[Why]
-For non-DSC streams the DSC padding is zero.
+The arm64 JIT implements BPF_NOSPEC with a speculation barrier, but the
+interpreter calls barrier_nospec(), which falls back to a no-op on
+arm64. Programs executed by the interpreter therefore lack the
+Spectre-v1 barriers assumed by the verifier. Contrary to the code
+comment, kernel-wide SSBD does not provide this protection, since it
+mitigates Spectre v4 rather than Spectre v1.
 
-This causes the borrow-mode estimate to always borrow instead of
-falling back to FRL_BORROW_MODE_NONE.
+Rename spec_bar() to barrier_nospec() so that the interpreter and other
+callers receive SB if supported, or DSB NSH followed by ISB otherwise.
 
-[How]
-Return early in update_borrow_mode_from_dsc_padding() when both
-hactive and htotal padding are zero.
+Defining barrier_nospec() would also add barriers to the generic
+copy_from_user() and copy_from_user_iter() paths. These are unnecessary
+on arm64: its uaccess primitives mask user pointers so that they cannot
+address kernel memory even when an access_ok() check is mispredicted.
 
-Cc: Aric Cyr <aric.cyr@amd.com>
-Cc: Mario Limonciello <mario.limonciello@amd.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>
+Introduce user_access_may_speculate_kernel_addr(), defaulting to true,
+and have arm64 return false. Then update the uaccess sites to call
+barrier_nospec() conditionally on the macro.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Nicholas Kazlauskas <nicholas.kazlauskas@amd.com>
-Signed-off-by: James Lin <pinglei.lin@amd.com>
+Fixes: d6f1c85f2253 ("bpf: Fall back to nospec for Spectre v1")
+Signed-off-by: Ryan Roberts <ryan.roberts@arm.com>
 ---
- drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm64/include/asm/barrier.h | 6 +++---
+ arch/arm64/include/asm/uaccess.h | 3 +++
+ arch/arm64/kernel/proton-pack.c  | 2 +-
+ include/linux/uaccess.h          | 7 ++++++-
+ kernel/bpf/core.c                | 9 +--------
+ lib/iov_iter.c                   | 3 ++-
+ 6 files changed, 16 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-index 2eaa830662b0..cb201c9ee3c6 100644
---- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-+++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_hdmi_frl.c
-@@ -1173,6 +1173,10 @@ static void update_borrow_mode_from_dsc_padding(struct dsc_padding_params *dsc_p
- 	uint32_t h_blank = timing->h_total - h_active;
- 	struct frl_borrow_params *borrow_params = &frl_link_settings->borrow_params;
- 
-+	if (dsc_padding_params->dsc_hactive_padding == 0 &&
-+	    dsc_padding_params->dsc_htotal_padding == 0)
-+		return;
+diff --git a/arch/arm64/include/asm/barrier.h b/arch/arm64/include/asm/barrier.h
+index 9495c4441a46..088ee29d36f4 100644
+--- a/arch/arm64/include/asm/barrier.h
++++ b/arch/arm64/include/asm/barrier.h
+@@ -40,9 +40,9 @@
+  */
+ #define dgh()		asm volatile("hint #6" : : : "memory")
+
+-#define spec_bar()	asm volatile(ALTERNATIVE("dsb nsh\nisb\n",		\
+-						 SB_BARRIER_INSN"nop\n",	\
+-						 ARM64_HAS_SB))
++#define barrier_nospec() asm volatile(ALTERNATIVE("dsb nsh\nisb\n",		\
++						  SB_BARRIER_INSN"nop\n",	\
++						  ARM64_HAS_SB) : : : "memory")
+
+ #define gsb_ack()	asm volatile(GSB_ACK_BARRIER_INSN : : : "memory")
+ #define gsb_sys()	asm volatile(GSB_SYS_BARRIER_INSN : : : "memory")
+diff --git a/arch/arm64/include/asm/uaccess.h b/arch/arm64/include/asm/uaccess.h
+index 9f5bd9c69c24..6fd03dc1ae76 100644
+--- a/arch/arm64/include/asm/uaccess.h
++++ b/arch/arm64/include/asm/uaccess.h
+@@ -174,6 +174,9 @@ static inline void __user *__uaccess_mask_ptr(const void __user *ptr)
+ 	return safe_ptr;
+ }
+
++/* __uaccess_mask_ptr() prevents speculative accesses to kernel addresses. */
++#define user_access_may_speculate_kernel_addr() false
 +
- 	borrow_params->borrow_mode = frl_modify_borrow_mode_for_dsc_padding(timing->pix_clk_100hz,
- 		h_active,
- 		h_active + dsc_padding_params->dsc_hactive_padding,
--- 
+ /*
+  * The "__xxx" versions of the user access functions do not verify the address
+  * space - it must have been done previously with a separate "access_ok()"
+diff --git a/arch/arm64/kernel/proton-pack.c b/arch/arm64/kernel/proton-pack.c
+index 3bcf86154d95..c96e93eca3b9 100644
+--- a/arch/arm64/kernel/proton-pack.c
++++ b/arch/arm64/kernel/proton-pack.c
+@@ -559,7 +559,7 @@ static enum mitigation_state spectre_v4_enable_hw_mitigation(void)
+ 	 * could mis-speculate branches and bypass a conditional barrier.
+ 	 */
+ 	if (IS_ENABLED(CONFIG_ARM64_ERRATUM_3194386))
+-		spec_bar();
++		barrier_nospec();
+
+ 	return SPECTRE_MITIGATED;
+ }
+diff --git a/include/linux/uaccess.h b/include/linux/uaccess.h
+index 67cdb0a4f583..5a1fa4f48c77 100644
+--- a/include/linux/uaccess.h
++++ b/include/linux/uaccess.h
+@@ -50,6 +50,10 @@
+  #define mask_user_address(src) (src)
+ #endif
+
++#ifndef user_access_may_speculate_kernel_addr
++#define user_access_may_speculate_kernel_addr() true
++#endif
++
+ /*
+  * Architectures should provide two primitives (raw_copy_{to,from}_user())
+  * and get rid of their private instances of copy_{to,from}_user() and
+@@ -179,7 +183,8 @@ _inline_copy_from_user(void *to, const void __user *from, unsigned long n)
+ 		 * lead to nasty side effects *after* the copy is
+ 		 * finished:
+ 		 */
+-		barrier_nospec();
++		if (user_access_may_speculate_kernel_addr())
++			barrier_nospec();
+ 	}
+ 	instrument_copy_from_user_before(to, from, n);
+ 	res = raw_copy_from_user(to, from, n);
+diff --git a/kernel/bpf/core.c b/kernel/bpf/core.c
+index 0b8456f2dce9..abd938d310bb 100644
+--- a/kernel/bpf/core.c
++++ b/kernel/bpf/core.c
+@@ -2250,14 +2250,7 @@ static u64 ___bpf_prog_run(u64 *regs, const struct bpf_insn *insn)
+ 	/* ST, STX and LDX*/
+ 	ST_NOSPEC:
+ 		/* Speculation barrier for mitigating Speculative Store Bypass,
+-		 * Bounds-Check Bypass and Type Confusion. In case of arm64, we
+-		 * rely on the firmware mitigation as controlled via the ssbd
+-		 * kernel parameter. Whenever the mitigation is enabled, it
+-		 * works for all of the kernel code with no need to provide any
+-		 * additional instructions here. In case of x86, we use 'lfence'
+-		 * insn for mitigation. We reuse preexisting logic from Spectre
+-		 * v1 mitigation that happens to produce the required code on
+-		 * x86 for v4 as well.
++		 * Bounds-Check Bypass and Type Confusion.
+ 		 */
+ 		barrier_nospec();
+ 		CONT;
+diff --git a/lib/iov_iter.c b/lib/iov_iter.c
+index fa4fe2e92383..abd27189beff 100644
+--- a/lib/iov_iter.c
++++ b/lib/iov_iter.c
+@@ -60,7 +60,8 @@ size_t copy_from_user_iter(void __user *iter_from, size_t progress,
+ 		 * lead to nasty side effects *after* the copy is
+ 		 * finished:
+ 		 */
+-		barrier_nospec();
++		if (user_access_may_speculate_kernel_addr())
++			barrier_nospec();
+ 	}
+ 	to += progress;
+ 	instrument_copy_from_user_before(to, iter_from, len);
+--
 2.43.0
 
