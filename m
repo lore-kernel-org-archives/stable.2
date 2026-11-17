@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914314;
-	b=qmD+DxCytIXbskUYc0W9EuoGB8BVsUnd+qK1c68AXH8oRr2MkFdSuRc3neH3Hxf6IwL9
-	 OzRjE+lPdRe5jeYWD9rTvolc+Ae26Gttt6CAljLQ6lBtjzNVI/ini0QLDWlJvJDKmpJqa
-	 e4ozVM5wKPGzhRspJUFUNmqKvFTQzQqJ4JRwlNFM7gLBqmbgBD4YQlplSbic0gwiQ8jM3
-	 rf50TheG29tmljQ9YWezY7OgmGRoZukHzn0SQbr8K+sRhaIkCc/Uz2+mdVKRBdSl6lilN
-	 HyfGtR1TQvnusPwGC1B4fZ5K4TIKutWDPIyq/hhMu/Z4ILSSgIBY+TfOMaI41J3BjYg==
+	t=1794914315;
+	b=v1V5MJvrrCXDg0Z39tSsj5Lr90m2dIub8GLgrBtby0h6ydvcfUaT6Pa0gSVyxCvanMZE
+	 Ct1APSsGNI/1LR6sMh4ST3jpCRGuRiiWz4zSKtMnMYlAEY4Av15WiCcA71cvu3qc28KTC
+	 5mSrSr6TWgexePgwmAlSlFltfDm296u9n7WpT4CDOnEid7GC1gli5NXGnK8OawlFD8CYk
+	 SHsSip7fviIdYjFQywscJNh/btc6Y8hiQw/qnF2ifrrXGStqzQVEbmdRdQRLLPk0bpHvb
+	 SW3rE4V2EBkYVm1RetJgZF4oJyD29xRPcWX8auszmVkJvKwQhfpxAW9lgZGgsczk+mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914314;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914315;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=R7dVIQ4XDHgLNO3WaDmdHDUJK2S7GdX6/1fBTD2EHk0=;
-	b=1c6Y5AoSj4UsU+fycA3mxnVo66ihKCnfljsj2vG6yL5VmVA2JJJsCSCQrjubBMieNXXI
-	 OBzNMMAyaYWXy3bcSG0ZJyZhHe3n+BfKlkj43JHRBcivj/I45HUrKWAIpRzYWgVkAtEtG
-	 7nqjxXBIHFhM1cfHKF/KxnsIxt2BLR9Vt+j2DzpdDhKbOJpLDc1yHg3fRvVFOHPjEo6un
-	 hSSEATODoeX3R3vzuFAwHBCGvrAwIgAZ8HMNczaC3/pn3Vn7FXmNGBk/dfgTmvoocYJdd
-	 MuVDoygSUdGwsYNQJQxAjqoIl8YIU3d//rK7Pv1BGZjHEw9xh1dk3t3SEGIWH2jwRKw==
+	bh=IqLBpYE7h7awA0TG7t8nA0duIGgbrcEUjs5NwXMZs9w=;
+	b=xud7HHSwwToHSw5i+9qhC/rkQOiwdy9qRaE8QASpRahF2DqRFYc/0W//y/uslZkXcaVr
+	 LVA2X9R7w2kQKyiUURRylJuViUZnlVh0hjUOpfTWdUieyJ3X2jMhNEwJwozw3NGFMGPhR
+	 Ck6SseP7l4ts/Btoed8UsrDHIUlraN0uWkd/94yGcN5f0Wuf02/Us74nohGozHLhWhjQN
+	 A0yEDlCIBH7L2BwIB6cIwFRVtKSKaQJNNknHePT47pEaazun106eaKs8tbKzK4pvUtR0x
+	 W6CrJ5NxZ4NtP9iIYc1ytE9zfBoPxCS8qqnSKCDYs1ktx+IKxc+DvkSbrsqty0pgO/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYFB0ZrL;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCaFIUZH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41867606A323;
-	Tue, 17 Nov 2026 11:18:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80FFD606A883;
+	Tue, 17 Nov 2026 11:18:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYFB0ZrL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783CA1F000C6;
-	Tue, 17 Nov 2026 11:18:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mCaFIUZH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB7801F000C8;
+	Tue, 17 Nov 2026 11:18:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794914314;
-	bh=R7dVIQ4XDHgLNO3WaDmdHDUJK2S7GdX6/1fBTD2EHk0=;
+	s=k20260515; t=1794914315;
+	bh=IqLBpYE7h7awA0TG7t8nA0duIGgbrcEUjs5NwXMZs9w=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=EYFB0ZrLqXIET4JkS/BVKgd6yRyKcwaD/R+wLWk80JIO7h+Efxbkdl3Yp5cqC8GG1
-	 7PL12tm0vPfLGwk3d5cQLYJnR8mwvIzW8gV3P54eH9tcSr//VkM0sp/vBQcfde9ozp
-	 KIVKtSjAl35HrzPLbYWvObkN9BqvTqqPKnDv63sweM9InhRe6Ghr0d4/Fgz1a60xyo
-	 f77DC9+MHuSmsi4hBUxfogtMZUDJ8kTsYLeCyQhxB2xXWywf9JsjWnsQz+O7EjY+GA
-	 oapVy78v/gPJLfES95xA+6CiJ5QaYtqbH/ik/Bnf/tdApTkNBAlwMr48u0XW5jXKij
-	 LP++VaSceUBsg==
+	b=mCaFIUZHgw8kLUr6stTj4HbPc4TcRO5utbPuxEnmgAh2uyLh1xZi8xwK8jP3U2fmD
+	 smuWD0opczWQVBhCsXOtMOQyIebNiRDs+4AnLZMwvi4II0g2YITzYMsEpw7AoLNnNt
+	 V78ked96eUSWdEvNqFUAjqjOzse+If31UgybNkxZrn7MVJzDNCRHzo321wLlyzJgZY
+	 LSFaVSe4HyqMqI5d/YpqstPM5cx9PgX9n/P+rEzrOmZLvdl1SZkk1+OpBl/nT6X/6d
+	 DSTysjKCUqcJ9LGqiYJvmnaqVLAEWWhLnuJkDp14qoFFqRh3x1nc3BOKr5e1JevbB9
+	 6nKQLbxB1TvwQ==
 Subject:
- Re: [PATCH net 2/3] igb: link queues to NAPIs under RTNL after runtime resume
+ Re: [PATCH net 3/3] igb: only allow runtime PM if the device can wake up
 From: netdev-bot+sashiko@kernel.org
 To: antonio@mandelbit.com
 Cc: intel-wired-lan@lists.osuosl.org, anthony.l.nguyen@intel.com,
@@ -49,10 +49,10 @@ Cc: intel-wired-lan@lists.osuosl.org, anthony.l.nguyen@intel.com,
  edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  zheng.z.yan@intel.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-Date: Tue, 17 Nov 2026 11:18:33 +0000
-Message-ID: <179491431306.3136.1748912400459389536@kernel.org>
-In-Reply-To: <20261113105835.3821433-2-antonio@mandelbit.com>
-References: <20261113105835.3821433-2-antonio@mandelbit.com>
+Date: Tue, 17 Nov 2026 11:18:34 +0000
+Message-ID: <179491431428.3136.15501039766024079493@kernel.org>
+In-Reply-To: <20261113105835.3821433-3-antonio@mandelbit.com>
+References: <20261113105835.3821433-3-antonio@mandelbit.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -66,10 +66,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,119 +77,155 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] The new comment above igb_queue_napi_task() says: "The
-  q_vectors are only freed under RTNL with __IGB_DOWN set, so checking…
+- [Medium] Probe and remove can disagree about the runtime PM usage
+  count.
+- [Medium] The patch decides whether igb may runtime-suspend from one
+  pci_dev_run_wake() check in igb_probe().
 
 --
 
-igb: link queues to NAPIs under RTNL after runtime resume
+igb: only allow runtime PM if the device can wake up
 
-When __igb_open() is called on the resume path, it no longer links queues
-to NAPIs. On system resume the links are set directly with RTNL held. On
-runtime resume a new work item takes RTNL and sets them, checking
-__IGB_DOWN first so that it does not touch freed q_vectors.
-
-Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
+This patch changes igb_probe() so it drops the probe-time runtime PM
+usage reference only when pci_dev_run_wake() is true. Devices that can't
+signal a wake-up from D3 therefore no longer runtime suspend.
+igb_remove() takes the reference back under the same condition.
 
 > diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
-> index 028cdd90522cb..f1ce9aa696ab7 100644
+> index f1ce9aa696ab7..145daee832640 100644
 > --- a/drivers/net/ethernet/intel/igb/igb_main.c
 > +++ b/drivers/net/ethernet/intel/igb/igb_main.c
-> @@ -2115,6 +2115,30 @@ void igb_set_queue_napi(struct igb_adapter *adapter, int vector,
->  				     NETDEV_QUEUE_TYPE_TX, napi);
->  }
->
-> +static void igb_link_queue_napis(struct igb_adapter *adapter)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < adapter->num_q_vectors; i++)
-> +		igb_set_queue_napi(adapter, i, &adapter->q_vector[i]->napi);
-> +}
-> +
-> +/* Linking queues to NAPIs requires RTNL, which isn't held when resuming
-> + * from runtime suspend: do it from here instead. The q_vectors are only
-> + * freed under RTNL with __IGB_DOWN set, so checking it under RTNL is safe.
-> + */
-> +static void igb_queue_napi_task(struct work_struct *work)
-> +{
-> +	struct igb_adapter *adapter = container_of(work, struct igb_adapter,
-> +						   queue_napi_task);
-> +
-> +	rtnl_lock();
-> +	if (!test_bit(__IGB_DOWN, &adapter->state) &&
-> +	    netif_running(adapter->netdev))
-> +		igb_link_queue_napis(adapter);
-> +	rtnl_unlock();
-> +}
+> @@ -3677,7 +3677,11 @@ static int igb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>  
+>  	dev_pm_set_driver_flags(&pdev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
+>  
+> -	pm_runtime_put_noidle(&pdev->dev);
+> +	/* A device that can't wake up wouldn't notice the link coming back
+> +	 * while runtime suspended
+> +	 */
+> +	if (pci_dev_run_wake(pdev))
+> +		pm_runtime_put_noidle(&pdev->dev);
 
 [Severity: Medium]
-Is this statement accurate: "The q_vectors are only freed under RTNL with
-__IGB_DOWN set"? The commit message makes the same claim.
+Is one check at probe time enough to close the bug described in the
+commit message?
 
-On the runtime resume path, __igb_resume(dev, rpm=true) runs without RTNL.
-It calls igb_init_interrupt_scheme(adapter, true), which sets num_q_vectors
-and allocates q_vector[]. It then calls __igb_open(netdev, true). If MSI-X
-setup fails there, igb_request_irq() frees and reallocates the q_vectors:
+pci_dev_run_wake() depends on pci_target_state(), and that can change
+after probe. On ACPI platforms, acpi_pci_choose_state() limits the
+target to D3hot only when d3cold_allowed is clear:
 
-igb_request_irq() {
+drivers/pci/pci-acpi.c:acpi_pci_choose_state() {
     ...
-	if (adapter->flags & IGB_FLAG_HAS_MSIX) {
-		err = igb_request_msix(adapter);
-		if (!err)
-			goto request_done;
-		/* fall back to MSI */
-		...
-		igb_clear_interrupt_scheme(adapter);
-		err = igb_init_interrupt_scheme(adapter, false);
+	if (pdev->no_d3cold || !pdev->d3cold_allowed)
+		d_max = ACPI_STATE_D3_HOT;
+	else
+		d_max = ACPI_STATE_D3_COLD;
     ...
 }
 
-igb_clear_interrupt_scheme()->igb_free_q_vectors() sets num_q_vectors to 0
-and frees each q_vector[i]. The fallback then reallocates them with
-num_q_vectors set to 1. None of this runs under RTNL.
+Root can change d3cold_allowed through sysfs while igb is bound.
 
-igb_remove() also frees the q_vectors without RTNL. It is only safe because
-set_bit(__IGB_DOWN) and cancel_work_sync(&adapter->queue_napi_task) run
-before igb_clear_interrupt_scheme().
+Here is one sequence:
 
-So RTNL does not seem to serialize igb_queue_napi_task() against the
-runtime resume writer. The only handoff between them is the __IGB_DOWN bit.
-The writer uses a plain clear_bit() in __igb_open() and the reader uses a
-plain test_bit() here. Neither provides release or acquire ordering.
+1. igb binds with d3cold_allowed=0. The target is D3hot and PME is
+   supported from D3hot, so the probe check passes and the reference is
+   dropped.
+2. Root writes d3cold_allowed=1, so the target becomes D3cold.
+3. The part doesn't support PME from D3cold.
 
-Can the following sequence happen?
+On the next link-down, igb_runtime_idle() or the watchdog schedules a
+suspend. igb_runtime_suspend()->__igb_shutdown() arms the WUFC
+link-change filter without any PCI-level check. Then
+pci_finish_runtime_suspend() runs:
 
-  runtime resume #1 queues queue_napi_task
+drivers/pci/pci.c:pci_finish_runtime_suspend() {
+    ...
+	__pci_enable_wake(dev, target_state, pci_dev_run_wake(dev));
 
-  the work is delayed (on rtnl_lock() or in the workqueue) past the
-  5 second pm_schedule_suspend() in igb_runtime_idle()
+	error = pci_set_power_state(dev, target_state);
+    ...
+}
 
-  runtime suspend #2 takes RTNL, igb_down() sets __IGB_DOWN and
-  igb_clear_interrupt_scheme() NULLs q_vector[]
+pci_dev_run_wake() is now false. Wouldn't the device then go into D3cold
+with PME disarmed? The port would stay down after the cable is plugged
+back in, until user space resumes it.
 
-  the work takes RTNL while runtime resume #2, without RTNL, reallocates
-  the q_vectors (possibly through the MSI fallback) and clears __IGB_DOWN
+Could igb_runtime_idle() or igb_runtime_suspend() return -EBUSY when
+pci_dev_run_wake() is false? That would cover this case and also remove
+the need for the separate probe and remove accounting below.
 
-On weakly ordered CPUs such as arm64 or POWER, the work could see
-__IGB_DOWN as cleared but still load stale num_q_vectors or q_vector[i]
-values. For example, it could read num_q_vectors as N from before the
-fallback and q_vector[1] as NULL from after it.
+>  	return 0;
+>  
+>  err_register:
+> @@ -3899,7 +3903,8 @@ static void igb_remove(struct pci_dev *pdev)
+>  	struct igb_adapter *adapter = netdev_priv(netdev);
+>  	struct e1000_hw *hw = &adapter->hw;
+>  
+> -	pm_runtime_get_noresume(&pdev->dev);
+> +	if (pci_dev_run_wake(pdev))
+> +		pm_runtime_get_noresume(&pdev->dev);
 
-igb_set_queue_napi() would then dereference q_vector->rx.ring through a
-NULL pointer, or through a pointer that was already passed to kfree_rcu().
-The work does not hold rcu_read_lock().
+[Severity: Medium]
+Can igb_probe() and igb_remove() disagree about the runtime PM usage
+count here?
 
-This looks like a flag being used as a lock. One option is to pair
-clear_bit_unlock() (or smp_mb__before_atomic() plus clear_bit()) in
-__igb_open() with test_bit_acquire() here. Another is to rebuild the
-q_vectors on the rpm resume path under the same lock the work takes.
+igb_remove() calls pci_dev_run_wake() again instead of reusing the
+decision made in igb_probe(). The result comes from
+pci_pme_capable(dev, pci_target_state(dev, true)), and the target state
+can change while the driver is bound.
 
-At minimum, could the comment and the commit message state the real
-invariant? That is, the q_vectors only change while __IGB_DOWN is set, and
-igb_remove() cancels the work before it frees them.
+One way it can change is a write to d3cold_allowed through
+d3cold_allowed_store(). That changes what acpi_pci_choose_state()
+returns, as described above.
 
-[ ... ]
+Another way is surprise removal of a runtime-suspended igb that the
+platform does not manage. pci_device_remove() calls
+pm_runtime_get_sync() before drv->remove(), and during that resume
+pci_power_up() does:
+
+drivers/pci/pci.c:pci_power_up() {
+    ...
+	if (pci_dev_is_disconnected(dev)) {
+		dev->current_state = PCI_D3cold;
+		return -EIO;
+	}
+    ...
+}
+
+pci_target_state() then returns PCI_D3cold when igb_remove() runs. On a
+part with PME from D3hot but not from D3cold, pci_dev_run_wake()
+changes from true to false.
+
+After that, pci_device_remove() runs the same sequence regardless:
+
+drivers/pci/pci-driver.c:pci_device_remove() {
+    ...
+		pm_runtime_get_sync(dev);
+		pm_runtime_barrier(dev);
+		drv->remove(pci_dev);
+		pm_runtime_put_noidle(dev);
+	}
+    ...
+	pm_runtime_put_sync(dev);
+    ...
+}
+
+If the check was false at probe and true at remove, doesn't the usage
+count stay one too high for good? The device could then never runtime
+suspend again, even after rebinding.
+
+If the check was true at probe and false at remove, doesn't this drop
+one reference too many?
+
+With power/control=auto, rpm_drop_usage_count() would warn "Runtime PM
+usage count underflow!". With power/control=on, the extra put would
+silently cancel the pm_runtime_forbid() reference.
+
+Would it help to save the probe-time decision in struct igb_adapter and
+test that flag in igb_remove()?
+
+e1000e and r8169 also re-check pci_dev_run_wake() in their remove paths.
+Following them doesn't by itself show that the pattern stays balanced.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113105835.3821433-1-antonio%40mandelbit.com
