@@ -1,119 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794943333;
-	b=iILZPUE7nYbzCiUJq6DmAJBlp6MgJkOpYBuibym36bA6yh+OHqRp7j2w1+4YUvzvjdFC
-	 FqJoq7ROehiKmnaLmZkPGIo8qwPKQwINye318508V3AHvMAhKhOhlNCXny0sgEjwdQAgq
-	 a9ev12tx9R13Kk1aKHDI1hNYsY6wAEa15FBXXunfIZyNnMlangNjFOKkIVPNKzjcCGxyw
-	 IsxW+eW0/cLmBW/98fbTI4NB0LYMYSnpXVMgmmcsN0YrX4D5LB19EXVTMruPFsu+omrlk
-	 QqN0yY5hTSAr9MlPJK/V/A5/KjxDViiFUSrGZZSAIndsxL3XwP1w3C9fn7DNJpu2dRQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794943333;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
-	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding;
-	bh=c9u4TJgEI+jc2jYFOVzcuBfnMeDekfshseAkpl+s6Eo=;
-	b=Rx3+wsjZILYAOplEMbbvRkkmrNMfW2gPz4EQPqzpY+Vb4ywmHuQIiaL8HuzOP3zYIa5T
-	 ateY1roEYBZzcXIMCsRCeU4ve4lPywpGWMHAuDEaO5nWyE6h2niM3LRFxgM5x86xh5P6p
-	 HLNtfbdUnJNQpsljGYipxo1kP0JuKPnPXssroq2umz7tHY/PS6Octnwkq9v1XamdKbEf8
-	 rRF0p7FrEl5hQPagfsHO+iXfLR6yyYOHUaNOKQnZHh4oRzF1DscFMaVRUbXq0obxc5Yuz
-	 paJfdoRDXbeF0Mgsx5DKGymrCIhbKo3zU+B6vIR6V9RDZnA5D9fi5S+gMhfH/7VKenQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YEFufg5V;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=hC6MtADM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794943685;
+	b=tn4XE53E+mMlcnuSXTucSNR8fCLoCzSs9gjNiAiQC0JAynfz8hEQleaEEJidUlFsm4li
+	 ovhxlmEzrcOl4d2wfxREv3h4V4u9xb+wtD9bmP20EYfLa/qxdnSMDu91bOzLAOZlE19qm
+	 Ch3/SVcS/uwxDlo4S8ggXZC7K33jIRLCSpW23j/tz13cykmLjcF4l9DKD+VFuZb39mVbg
+	 dshln0sbz6Kx5fkRn7SXWPTVfjkRKF3c17tnFZXj+yg7qrtq7VLfyL2JRby4ALCW7bXxj
+	 zR9alKDUbAMnjuXPlw3z1pU90O2aEI94LMF0MSGOu2w2cgmgO4buafMxLom6T9ZGMsA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794943685;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version;
+	bh=QQ/iT9XMRjvb+CJ/YdA/w+zP0SyApH3w0cvhQ8OnPdE=;
+	b=GionMB0cJoquHWVpwgeli+ervXA829VC8+PwZ+nq+2BaAYQDQulV9cSB9coUGS+H2UQ8
+	 Ve3A3YQhKZXPR1OEoUAggvjqgH814zTlDbeQha1zAr6nAd8xWXjhpfZ80al1Q5+Z3oDYt
+	 cOiosgNknMAb6VCnWTRDoYRyOD08xzKwIBRccPAI+4LkTd7fyqURwtVt5MeUeNeYi48qW
+	 etLER0ciKPCqoY0LppduwKUqs55u9wEQgo+Df3Qx8OI4UYWarGf8zdHvI2NrVefhnjRnf
+	 97Xn1es31aSq4v7UiIitouA5DBK08YtWVymNAFKZNGyW2uEb5P36e0HLu6N9M3DeXrQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=NaHmg8am;
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0a-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23A22606A334
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 19:22:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23A22606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4888E606A31C;
+	Tue, 17 Nov 2026 19:28:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4888E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=YEFufg5V;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=hC6MtADM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794943332;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=c9u4TJgEI+jc2jYFOVzcuBfnMeDekfshseAkpl+s6Eo=;
-	b=YEFufg5V3HyjvgY9OSTxS5VryEyXLhL87lfT3Bp2ILZDtRb+gZPuw5IalSsKYEYOhlDyC4
-	pSdQDYznkSp2NKBpNNtxEmlFn7wBncf5YGnPUdaTlZtvW1mFMBRH/bGwnz5o+DcxDYsUD4
-	PNDMsdKqeyClh1PgugfqjOkKxEhwe8w=
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
- [209.85.221.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-489-EczEJ78fN3q1SQcSeCFhDA-1; Tue, 17 Nov 2026 14:22:10 -0500
-X-MC-Unique: EczEJ78fN3q1SQcSeCFhDA-1
-X-Mimecast-MFC-AGG-ID: EczEJ78fN3q1SQcSeCFhDA_1794943330
-Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5ecd7e10ca7so36803e0c.3
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 11:22:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794943330; cv=none;
-        d=google.com; s=arc-20260327;
-        b=gFn0H3AB257AOP36dbIYtRzetur+RRpVAriSQ3mKrpc5UWd3XWIXboSRfoLnAVT3e5
-         c27mOjBORa440AQ3wyTp70wCT/Jw4IAUk8AsRe66fbnx5owDZ6IyLA8I0Kbw/g6DGN3T
-         7Jkd5hrYg37DaOw/wpFFe/p8BOVZrFIjPcuBnAWF6IgXYjwpBEuZQwvVZws5e4fq0qa+
-         +4sz7+DcVK8ZtrJR5B4a76ZbviCRdVyurVwG34R2nyxW3g+fi2kSKrtGtW21SscHLzDz
-         31gWfXZZaSojX6eKFEqdHxjoZr+Pksk36ZoaY20Ko0NW6tvP7FszrOM11VRLKgb3aexF
-         5EKQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=c9u4TJgEI+jc2jYFOVzcuBfnMeDekfshseAkpl+s6Eo=;
-        fh=YLq+DSaV8z3/rwClu3BhYsdSUPBAWhsRkfyDnodBM5s=;
-        b=sAQnn+nps+fh5V3FVO1epmyw7UsPW8nhc0HoPkoozE5ZSyGr2VO7cryTawPH7xwg+c
-         gOXAaMXMZK/wDdw1LjJB4dLoaJLWRvSBXSk86JvyFiO2MmwgKXqeTmX4jZHWZlJh7k/u
-         l5qDnxv0zGM0r8ap6EVIB4X4qSUXlsyZxZWRGB2SM1IJfY1Y9fwLUK2Sk5LS26fYRIr5
-         lUt8N8JlInnhC7ubdDz7HG21/9qIRLWonOuCM4VV7myJmqVp1daT457HtM7Uas1YKqVr
-         R4KcH5GJeBemJnbeQVyyc7Qmdr4u5s+M+v3XJpHvlKbGms7iRHBLbBhiAZqlqbKFf902
-         lQDA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1794943330; x=1795548130; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=c9u4TJgEI+jc2jYFOVzcuBfnMeDekfshseAkpl+s6Eo=;
-        b=hC6MtADMRcqmNsaDh5aOtDh46eT9NyDx/brwP86DPqC3My7RJi+FnnOzr0xJJOesv4
-         3itdRDiof4T2weEYaKsYMRYTKAVFEFWZ8CiA3A0po0LN+1KC/SETdHuFYMgquzPVabIc
-         neceTgqC2dy8yoe0DWyDnYcxLXMAuLegPiXXPnR7B+o5HpDEBxOlSxlCyQWdpHlKXuVr
-         jGAZr+mXHgydl53wCDsSra3/LhHEPDQ+X7JCoXnt58yIeCs38W0RQrKnOsw73B3UIjAS
-         MjKMbEbssODOr1Bsi/+X7C8twb68ShFovvE637/ksS7XZw6BzviZyBr0LG25Iiukeoy/
-         Ga2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794943330; x=1795548130;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=c9u4TJgEI+jc2jYFOVzcuBfnMeDekfshseAkpl+s6Eo=;
-        b=ZiTbQZ+g89Jpjk69lHzPexJVn7G5CG+Xi72tWO7p97t4Hny5VEMb2QhgEfc/m60i0p
-         afbQewlxYDtI4EkFr+mfw365YnThBf4x6VZUReVOJmSSvo3VKVKtjrgbGXBqKVFOVntY
-         kdL5jFwsrwcAU66f1QnndGxO6hW+Fg9mXkgFiuRyFiTMX7oHS0rZp1jemiAMiqY9+3Uu
-         laNby/6tTnLH6BDpp/eXqNrKQTIAgH8CE7IUyUkWjXjaMjoXNP50aD/l+5taNRZJ4m2X
-         t+SyW7thqDRc2gMi46rVY/s2RTFF4c4YtoMOvVWug95O4fQ9tYsQCRonCft0rC8EY11L
-         U6Sw==
-X-Gm-Message-State: APuU4Z88eSG7kp5pVUFwVpS+aG61XOSgxnwa7bJobd1WJVoYZnhKHn7h
-	1I6LQoMhBDT7tc1Ry15IozAYVPZwxZEOvejLQRMQPsZ/PGwFR78BIAHBghlOHUfAcXFrKqsFd63
-	spiOtMWqJWxWtcUkuKbdJfLA5DoY/75MGkoBbejDhd2PxKlciuMzdSgldGZttROB5Fl1c2OZJbu
-	ZABw/u/VldE/2H8fWx9Py3dK1jeR3WJyZNBptryd9yYkM=
-X-Gm-Gg: AYBFou3H37+Ua4fKYkQCICsShlrxku1wwX0im3fux7DPEVEzpJfY5hGS437SP5jVU7A
-	CQd1Ulu04Hz+EAmsxoU3mUQ1MDzxJE4C7uHd2PFnUqJnXwi9X44MTHvFaFzTMIbGq/hrUUQ6EmC
-	oKkFmvhS6V1yMY/6XWfjqq9qWJ8pUXaQOCsaqnXANM/i6w06srqBf6qwZF4Ntr4fq60cepk5EAb
-	qtF6RiIsWxf33xPtcB3QD+2sUabAXUayrzCXkGFA9fr
-X-Received: by 2002:a05:6122:6e01:b0:5ee:28b4:915 with SMTP id 71dfb90a1353d-5ee64761144mr326163e0c.19.1794943330048;
-        Tue, 17 Nov 2026 11:22:10 -0800 (PST)
-X-Received: by 2002:a05:6122:6e01:b0:5ee:28b4:915 with SMTP id
- 71dfb90a1353d-5ee64761144mr326155e0c.19.1794943329555; Tue, 17 Nov 2026
- 11:22:09 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=NaHmg8am
+Received: from pps.filterd (m0089730.ppops.net [127.0.0.1])
+	by m0089730.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 6AHJ9rPc3914158;
+	Tue, 17 Nov 2026 11:27:28 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=QQ/iT9XMRjvb+CJ/YdA/w+zP0SyApH3w0cvhQ
+	8OnPdE=; b=NaHmg8amMGPnZqS58P55byRr87/6Tu9iPaP+ZDnLrzUfZ0qlAaJ4u
+	UBvSAgRMxfWZTUNIIYE79JsODPn68UicIo3N8zQApzoWR2LtQCIzt5AVn0EOea6z
+	gt0uw+9rrl4ckLiOH8IV1odjNr0OmZU5MClwf4CuTyNldvx7uAyYe/H6ISGO5L4Z
+	n4YywghqD/J/7eQQrpmE/9JFiy12VRQd2Bv32HWJ1mMIZsyfhgsRcEpKyuO7Ktn8
+	B6jo/TBMjJ3J7KRu3DcWKj7M8k7iw7PHhnrZNL2zWlSoMj1v5J0VvVJW6V4EJrDS
+	R2+sml1a5BWqyS+dEGpqJ5q+saKMd7DrA==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by m0089730.ppops.net (PPS) with ESMTPS id 4j0p7y4cx9-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Tue, 17 Nov 2026 11:27:24 -0800 (PST)
+Received: from localhost (2620:10d:c085:108::4) by mail.thefacebook.com
+ (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Tue, 17 Nov
+ 2026 19:24:21 +0000
+From: Todd Freed <toddfreed@meta.com>
+To: <netdev@vger.kernel.org>
+CC: "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet
+	<edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni
+	<pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+        Daniel Zahka
+	<daniel.zahka@gmail.com>,
+        Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
+        Wei Wang <weiwan@google.com>, Jamal Hadi Salim <jhs@mojatatu.com>,
+        Jiri Pirko
+	<jiri@resnulli.us>, Alexei Starovoitov <ast@kernel.org>,
+        Daniel Borkmann
+	<daniel@iogearbox.net>,
+        Andrii Nakryiko <andrii@kernel.org>,
+        Martin KaFai Lau
+	<martin.lau@linux.dev>,
+        John Fastabend <john.fastabend@gmail.com>,
+        Stanislav
+ Fomichev <sdf@fomichev.me>,
+        Sabrina Dubroca <sd@queasysnail.net>,
+        Boris
+ Pismenny <borisp@nvidia.com>, <bpf@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: [PATCH net v2 2/3] bpf: don't redirect decrypted skbs from egress to ingress
+Date: Tue, 17 Nov 2026 11:24:10 -0800
+Message-ID: <20261117192411.247117-3-toddfreed@meta.com>
+X-Mailer: git-send-email 2.53.1
+In-Reply-To: <20261117192411.247117-1-toddfreed@meta.com>
+References: <20261117192411.247117-1-toddfreed@meta.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -123,202 +97,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117190542.2302722-1-sashal@kernel.org>
-In-Reply-To: <20261117190542.2302722-1-sashal@kernel.org>
-From: Charles Mirabile <cmirabil@redhat.com>
-Date: Tue, 17 Nov 2026 14:21:58 -0500
-X-Gm-Features: AclHuK8nJW8SwUP-2Pvl_9nSlOLeenXsBfNLgDneF1K0Fmqo_jclsMOQZaQB8sM
-Message-ID: <CABe3_aGdrHqO-JjbyLmXF3u0S6ujxnSOH2kASuVS46WJxUW7mw@mail.gmail.com>
-Subject: Re: Patch "irqchip/sifive-plic: Cache the interrupt enable state" has
- been added to the 6.1-stable tree
-To: stable@vger.kernel.org
-Cc: stable-commits@vger.kernel.org, Thomas Gleixner <tglx@kernel.org>, 
-	Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>, 
-	Samuel Holland <samuel.holland@sifive.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE3MDA3NyBTYWx0ZWRfXxwU60u2yZ0ko
+ UjsBYLZobfj6bQd5zqIbz0rtEPTUs8vBVqYpy/hZun+Q2OZZlAyDMCxUhgczjjU/DfRhTe8SvAO
+ cR/toSEf8/zuFZEYQLyM6lhSxrh94ilD1OPQTzF4WrgR+UOeSg3kXl0VTT1lAj4HnxQu6MdWV50
+ 8sIYtp//mmMMgavG1EDqkAjrkA7UfLgCMGNAKVfLia13UZSIzlzmx4ThVfzqP/Nd5Nkattb/AI6
+ GsC8PTYEXYIPvJrxNGVj0tDiEmM4xCiUf+eDLrmu+INXuzL7uerwP1hqKatlhWMSjGfXpBetlqe
+ 9Kd8RXOYsCFe3NvzJWyQGfZT0m+dKtYSRApEQlhsICwM0MjNdOwQkclSh7AToUTGBimCjlcO9SZ
+ mHgBsE4sK9EtrHenLGdXct/uq2pd5b91oQTAihed/+yCyLCPIA9l9tooTlqaC0UMNqVHAZSRSS0
+ K7KUF8KfbuPydh2A19w==
+X-Authority-Analysis: v=2.4 cv=bJyDs/+Z c=1 sm=1 tr=0 ts=6afcaa9e cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=855S8uPTkML1Oy45N9_h:22 a=VwQbUJbxAAAA:8 a=VabnemYjAAAA:8
+ a=P5U4b8cfyem6Y1jgc2cA:9 a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-GUID: rxdXGiyJ2yFCWB3pvXeQiboehAGVUE95
+X-Proofpoint-ORIG-GUID: rxdXGiyJ2yFCWB3pvXeQiboehAGVUE95
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE3MDA3NyBTYWx0ZWRfX5JCi0q5WeCDw
+ XOVKr0U38Ixzr6uToz00lerrhABHwHOm12QfZDCMfqxZOWTeJvbYj7GZe+RaFxokXtDDZDmJwSV
+ YRS57iogxryZ5Sc8MRWdyRLSW9kDDlg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_04,2026-11-16_01,2025-10-01_01
 
-Hi all, me again=E2=80=94
+On transmit, skb->decrypted means that the device must encrypt the
+packet, e.g. a packet of a kTLS or PSP device offload socket.
 
-On Tue, Nov 17, 2026 at 2:05=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
-te:
->
-> This is a note to let you know that I've just added the patch titled
->
->     irqchip/sifive-plic: Cache the interrupt enable state
->
-> to the 6.1-stable tree which can be found at:
->     http://www.kernel.org/git/?p=3Dlinux/kernel/git/stable/stable-queue.g=
-it;a=3Dsummary
->
-> The filename of the patch is:
->      irqchip-sifive-plic-cache-the-interrupt-enable-state.patch
-> and it can be found in the queue-6.1 subdirectory.
->
-> If you, or anyone else, feels it should not be added to the stable tree,
-> please let <stable@vger.kernel.org> know about it.
->
+On receive, skb->decrypted means that the device decrypted the packet,
+and kTLS device offload trusts it as such (tls_device_decrypted()).
 
-Yes, I think we should not backport this and instead accept a slight
-context difference in 0f214e5bbee5 ("irqchip/sifive-plic: Avoid signed
-shift in interrupt enable mask")
+bpf_redirect() and bpf_clone_redirect() with BPF_F_INGRESS send the
+packet to a device's receive path with the bit still set, where it claims
+to have been decrypted by the device, although it was never encrypted.
 
-The following diff applies on v6.1.192
+Drop decrypted skbs which bpf redirects from egress to ingress, as mirred
+does since the previous patch.
 
-diff --git a/drivers/irqchip/irq-sifive-plic.c
-b/drivers/irqchip/irq-sifive-plic.c
-index fb1dae22ab17f..396fb37abf611 100644
---- a/drivers/irqchip/irq-sifive-plic.c
-+++ b/drivers/irqchip/irq-sifive-plic.c
-@@ -89,7 +89,7 @@ static int plic_irq_set_type(struct irq_data *d,
-unsigned int type);
- static void __plic_toggle(void __iomem *enable_base, int hwirq, int enable=
-)
+__bpf_redirect() tells egress from ingress by tc_at_ingress, which is
+only kept up to date in tc. It is also reached from LWT xmit programs
+(ip route ... encap bpf xmit), which run in ip_finish_output2(), before
+__dev_queue_xmit() clears the bit. A forwarded packet can still have it
+set there by the tc ingress hook of the device it came in on, and would
+pass the check: whether the packet is dropped would depend on unrelated
+tc configuration of its input device.
+
+Clear the bit before running an LWT xmit program, as __dev_queue_xmit()
+would right after. This also gives the program's other uses of the bit,
+in the redirect helpers and in its __sk_buff->tstamp access, the egress
+view, which matches where it runs.
+
+Sashiko found the LWT case when reviewing this patch as patch 7 of v1
+of the net-next series "psp: introduce socket-less associations", which
+it was split out of.
+
+Fixes: 414776621d10 ("net/tls: prevent skb_orphan() from leaking TLS plain text with offload")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/netdev/179471270091.2199510.4320994626979041884@kernel.org
+Cc: stable@vger.kernel.org
+Signed-off-by: Todd Freed <toddfreed@meta.com>
+---
+ net/core/filter.c  | 10 ++++++++++
+ net/core/lwt_bpf.c |  8 ++++++++
+ 2 files changed, 18 insertions(+)
+
+diff --git a/net/core/filter.c b/net/core/filter.c
+index 946b07a17fce..defbef3a9f75 100644
+--- a/net/core/filter.c
++++ b/net/core/filter.c
+@@ -2226,6 +2226,16 @@ static int __bpf_redirect_common(struct sk_buff *skb, struct net_device *dev,
+ static int __bpf_redirect(struct sk_buff *skb, struct net_device *dev,
+ 			  u32 flags)
  {
-  u32 __iomem *reg =3D enable_base + (hwirq / 32) * sizeof(u32);
-- u32 hwirq_mask =3D 1 << (hwirq % 32);
-+ u32 hwirq_mask =3D BIT(hwirq % 32);
-
-  if (enable)
-  writel(readl(reg) | hwirq_mask, reg);
-
-Best=E2=80=94Charliediff --git a/drivers/irqchip/irq-sifive-plic.c
-b/drivers/irqchip/irq-sifive-plic.c
-index fb1dae22ab17f..396fb37abf611 100644
---- a/drivers/irqchip/irq-sifive-plic.c
-+++ b/drivers/irqchip/irq-sifive-plic.c
-@@ -89,7 +89,7 @@ static int plic_irq_set_type(struct irq_data *d,
-unsigned int type);
- static void __plic_toggle(void __iomem *enable_base, int hwirq, int enable=
-)
- {
-  u32 __iomem *reg =3D enable_base + (hwirq / 32) * sizeof(u32);
-- u32 hwirq_mask =3D 1 << (hwirq % 32);
-+ u32 hwirq_mask =3D BIT(hwirq % 32);
-
-  if (enable)
-  writel(readl(reg) | hwirq_mask, reg);
-
->
->
-> commit 0281eadd39536ef2d99dd6ce5bbedfaac4db9ca9
-> Author: Charles Mirabile <cmirabil@redhat.com>
-> Date:   Fri Oct 24 09:36:42 2025 +0100
->
->     irqchip/sifive-plic: Cache the interrupt enable state
->
->     [ Upstream commit 14ff9e54dd14339776afff78e2d29e0edb3a4402 ]
->
->     Optimize the PLIC driver by maintaining the interrupt enable state in=
- the
->     handler's enable_save array during normal operation rather than only =
-during
->     suspend/resume. This eliminates the need to read enable registers dur=
-ing
->     suspend and makes the enable state immediately available for other
->     purposes.
->
->     Let __plic_toggle() update both the hardware registers and the cached
->     enable_save state atomically within the existing enable_lock protecti=
-on.
->
->     That allows to remove the suspend-time enable register reading since
->     handler::enable_save now always reflects the current state.
->
->     [ tglx: Massaged change log ]
->
->     Signed-off-by: Charles Mirabile <cmirabil@redhat.com>
->     Signed-off-by: Lucas Zampieri <lzampier@redhat.com>
->     Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
->     Link: https://patch.msgid.link/20251024083647.475239-4-lzampier@redha=
-t.com
->     Stable-dep-of: 0f214e5bbee5 ("irqchip/sifive-plic: Avoid signed shift=
- in interrupt enable mask")
->     Signed-off-by: Sasha Levin <sashal@kernel.org>
->
-> diff --git a/drivers/irqchip/irq-sifive-plic.c b/drivers/irqchip/irq-sifi=
-ve-plic.c
-> index 1986d4a49e671..cd537d8714721 100644
-> --- a/drivers/irqchip/irq-sifive-plic.c
-> +++ b/drivers/irqchip/irq-sifive-plic.c
-> @@ -90,15 +90,22 @@ static DEFINE_PER_CPU(struct plic_handler, plic_handl=
-ers);
->
->  static int plic_irq_set_type(struct irq_data *d, unsigned int type);
->
-> -static void __plic_toggle(void __iomem *enable_base, int hwirq, int enab=
-le)
-> +static void __plic_toggle(struct plic_handler *handler, int hwirq, int e=
-nable)
->  {
-> -       u32 __iomem *reg =3D enable_base + (hwirq / 32) * sizeof(u32);
-> +       u32 __iomem *base =3D handler->enable_base;
->         u32 hwirq_mask =3D 1 << (hwirq % 32);
-> +       int group =3D hwirq / 32;
-> +       u32 value;
-> +
-> +       value =3D readl(base + group);
->
->         if (enable)
-> -               writel(readl(reg) | hwirq_mask, reg);
-> +               value |=3D hwirq_mask;
->         else
-> -               writel(readl(reg) & ~hwirq_mask, reg);
-> +               value &=3D ~hwirq_mask;
-> +
-> +       handler->enable_save[group] =3D value;
-> +       writel(value, base + group);
->  }
->
->  static void plic_toggle(struct plic_handler *handler, int hwirq, int ena=
-ble)
-> @@ -106,7 +113,7 @@ static void plic_toggle(struct plic_handler *handler,=
- int hwirq, int enable)
->         unsigned long flags;
->
->         raw_spin_lock_irqsave(&handler->enable_lock, flags);
-> -       __plic_toggle(handler->enable_base, hwirq, enable);
-> +       __plic_toggle(handler, hwirq, enable);
->         raw_spin_unlock_irqrestore(&handler->enable_lock, flags);
->  }
->
-> @@ -249,33 +256,16 @@ static int plic_irq_set_type(struct irq_data *d, un=
-signed int type)
->
->  static int plic_irq_suspend(void)
->  {
-> -       unsigned int i, cpu;
-> -       unsigned long flags;
-> -       u32 __iomem *reg;
->         struct plic_priv *priv;
->
->         priv =3D per_cpu_ptr(&plic_handlers, smp_processor_id())->priv;
->
->         /* irq ID 0 is reserved */
-> -       for (i =3D 1; i < priv->nr_irqs; i++) {
-> +       for (unsigned int i =3D 1; i < priv->nr_irqs; i++) {
->                 __assign_bit(i, priv->prio_save,
->                              readl(priv->regs + PRIORITY_BASE + i * PRIOR=
-ITY_PER_ID));
->         }
->
-> -       for_each_present_cpu(cpu) {
-> -               struct plic_handler *handler =3D per_cpu_ptr(&plic_handle=
-rs, cpu);
-> -
-> -               if (!handler->present)
-> -                       continue;
-> -
-> -               raw_spin_lock_irqsave(&handler->enable_lock, flags);
-> -               for (i =3D 0; i < DIV_ROUND_UP(priv->nr_irqs, 32); i++) {
-> -                       reg =3D handler->enable_base + i * sizeof(u32);
-> -                       handler->enable_save[i] =3D readl(reg);
-> -               }
-> -               raw_spin_unlock_irqrestore(&handler->enable_lock, flags);
-> -       }
-> -
->         return 0;
->  }
->
->
++	/*
++	 * On transmit, decrypted asks the device to encrypt the packet. Sent
++	 * to ingress, the packet would read as decrypted by the device.
++	 */
++	if (unlikely((flags & BPF_F_INGRESS) && !skb_at_tc_ingress(skb) &&
++		     skb_is_decrypted(skb))) {
++		kfree_skb(skb);
++		return -EINVAL;
++	}
++
+ 	if (dev_is_mac_header_xmit(dev))
+ 		return __bpf_redirect_common(skb, dev, flags);
+ 	else
+diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
+index 72c86ff2a847..4861fe2b4959 100644
+--- a/net/core/lwt_bpf.c
++++ b/net/core/lwt_bpf.c
+@@ -13,6 +13,7 @@
+ #include <net/gre.h>
+ #include <net/ip.h>
+ #include <net/ip6_route.h>
++#include <net/tcx.h>
+ 
+ struct bpf_lwt_prog {
+ 	struct bpf_prog *prog;
+@@ -327,6 +328,13 @@ static int bpf_xmit(struct sk_buff *skb)
+ 		__be16 proto = skb->protocol;
+ 		int ret;
+ 
++		/* The packet is on egress, but a forwarded one can still have
++		 * tc_at_ingress set by the tc ingress hook of the device it
++		 * came in on, until __dev_queue_xmit() clears it. Clear it
++		 * now, so that the redirect helpers see the direction of this
++		 * hook.
++		 */
++		tcx_set_ingress(skb, false);
+ 		ret = run_lwt_bpf(skb, &bpf->xmit, dst, CAN_REDIRECT);
+ 		switch (ret) {
+ 		case BPF_OK:
+-- 
+2.53.1-Meta
 
