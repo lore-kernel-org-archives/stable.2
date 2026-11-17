@@ -1,58 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794909325;
-	b=qHJjE+/6b/48SzsF2einbUdREP21qc4ioF0uNoq6dvlmW8Yoz3BehT9P38S1GmY3Vn7o
-	 DfnjQQHNm4+A0hnIW04dRdWEIXrf5N34nEEE4zv10wTQTAf2UIDewICTRdUG740kghD7B
-	 YNfLqdczHCTSdLSH49b4pMgOcF7JAGtaozr5ok6diYi7bK4T4/LvZQfXw0XyyaZV3wuff
-	 Ly9MFwDxBjqhLYqnDcCHnVsKquYznAX0B/W2ZKa/wLXYm907n8sGgs1GyVyQHOgi3z+rR
-	 SA72G/3LlfPVhWmsoINc8p2VaEN3dB+lY696MO4vy7k8aLzB3gd/BJ4hfaOF+RTsMJg==
+	t=1794909460;
+	b=jU8JA3iOmFy0dp3VgzyI02NG74IFqfv9hAKI54MmWm2AEqFUxo3UtDh1b4kGjRpY8Uxd
+	 iOjMeSHyMIOcMLvNuaLcL4nLssLFj+pPKetteetbU3Y5Wsy1a4fxQDvobBi8KSLOu0m61
+	 AdcJtN8OrBNiympQlDzezpFrXE3Hs6PhhFgFBSaRnj9bAk5peZmGhI2bo+epTHbOmEOwu
+	 xBeGXQyzKKcXyr68FBnsSWzxDlxj3qJ8B5Nr3nihNRb2M1RO6eUekqeMVEpB2tZMuyc9I
+	 XmxdmmdcCVa7kGBLZBmky5igpH76Z21tJHWfHejhApQ5vSMRfgfbxmD1eHGFsE+4JIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794909325;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-Originating-IP:X-CM-SenderInfo;
-	bh=bXNkFpD2NUsrHrbv/N7nzoRy/xe9OnnNDu3rK4yNZro=;
-	b=CFKBMGLCQb1vC/PAWf8eJH7rWAamTbbUkxY6IIS8PMjO64PqYv8io19HPZbSr9Gr8VzT
-	 akGzAoeul1v60QBfKG+kX+yWaqXO24AI9VQLY7i6zls+DCZq8YETvZNKo3foq7nPtLg3D
-	 uVBPskMgd3igRuuhSU5s5sF6u/uaXg0Prdmlwo/rmn04mnRxf+OW5/ZYl7fbsOtpsmQM6
-	 WzdPt2BMQYgEfQZlBSzG+eFhNNqzT0wjDCdxbM/pkOT0Lv2CdUWoQ2m1K7ggDo3m58dk4
-	 5a4JLyOS9Qju7va/SkjlAieSvwKAK82WkdwUBe/yzuInb5cMcuq2SK7pU3BnALZX9HQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794909460;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=0JQJMqQZzEMkF+mY1cPTdcvEu+ZkGmV0o5FbiuBHi+w=;
+	b=5WWu34lMcCOj1ufQgpqG8B9F2NCwbqZQKh9x4gQ2pL3nt3/Ojug/mCbzCTQN/GRMyDnz
+	 2GP3fpoxGi2fEh5EJ7hDGxfsbBjZa/e4acUJ6YxtbduR4bljTS7wlE2Ve9ZgwDvJzUAhB
+	 wn2ORWkrXUAFVHKwZlztvBh/KBwhp6Lo7j7MIOFH34EWH/NJCzVj+pwlB1rngbxee68E1
+	 hpHCs4DR8/VT2VqdznA2jTauXX9icesLEcekf7dThP9msMoYCeVp1EJfF1AqXFSz8J9eE
+	 xRIDAd6dV8AfhnPPYp3dwLkQYZwU34RLKqEmtO1TaNxws48ff24fJoD/RxJbq1nK+Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=qUvlmDTw;
-	arc=none smtp.remote-ip=220.197.31.4
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BhSj4ci+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD491606A31C;
-	Tue, 17 Nov 2026 09:55:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DD491606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B48606A31C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:57:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=qUvlmDTw
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=bX
-	NkFpD2NUsrHrbv/N7nzoRy/xe9OnnNDu3rK4yNZro=; b=qUvlmDTwEfLmWF3j6O
-	h6QRk4mtEk8lLXgpXjlV/i1NMAe0WHlpvTF9jLPPRWKnk3/HsjjPon+vjq7zO/T0
-	jNdg2DzVxzymCduZYCeu4AbEhr9GPfEjfysOU5EKHRgH+B3IMb2lzcUsYie0DPv1
-	6W8RMR04CUwbNgojsuCdGd0V8=
-Received: from SYPC (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgD3_y6CJPxqHF9JGA--.44786S2;
-	Tue, 17 Nov 2026 17:55:15 +0800 (CST)
-From: Yang Siyuan <hsyysy@163.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] reset: core: honour optional resets when the GPIO fallback returns -ENOENT
-Date: Tue, 17 Nov 2026 17:55:03 +0800
-Message-ID: <20261117095503.14115-1-hsyysy@163.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261117092008.12130-1-hsyysy@163.com>
-References: <20261117092008.12130-1-hsyysy@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BhSj4ci+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72EBA1F000C6;
+	Tue, 17 Nov 2026 09:57:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794909459;
+	bh=0JQJMqQZzEMkF+mY1cPTdcvEu+ZkGmV0o5FbiuBHi+w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BhSj4ci+4wdPPDd+7646E5USh2EVBNXa27jfAcY3X4Ml/ujkLp/MA+DfLYQ77bIU2
+	 Hsz3qNikgOwHXqIgb3SHslMfG3J5gkbfyh0Rw9lYWoo8GdMsZIYDJnRuAtRB+J3wIW
+	 yV0QOsHbqs3oFtnB0NpYO3FfUmlG3V83kIV+gQ9Y=
+Date: Tue, 17 Nov 2026 10:57:23 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: onLeaf <onleaf322@gmail.com>
+Cc: stable@vger.kernel.org
+Subject: Re: [PATCH net] netfilter: ipset: exclude add-path GC during resize
+Message-ID: <2026111712-unharmed-lugged-b601@gregkh>
+References: <20261117092631.14530-1-onleaf322@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,57 +52,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgD3_y6CJPxqHF9JGA--.44786S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7AFyfJF1UXFy3Zw4ruw4DArb_yoW8Aw4fpF
-	s5Jr4rArs0gr4rCr48ZrWSvF1Fv3WfKFW8GFW8G393uw4Yqry3JrWag3Waqr4UArW8ua4Y
-	yF47JFnrZa4qkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U6mhwUUUUU=
-X-CM-SenderInfo: 5kv152r16rljoofrz/xtbC7gMDN2r8JIP1kgAA3P
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117092631.14530-1-onleaf322@gmail.com>
 
-__fwnode_reset_control_get() honours RESET_CONTROL_FLAGS_BIT_OPTIONAL by
-returning NULL when the requested reset is not described in the device
-tree.  The reset-gpio fallback breaks this: when
-__reset_add_reset_gpio_device() fails with -ENOENT, the error is returned
-even for an optional reset.
+On Tue, Nov 17, 2026 at 06:26:31PM +0900, onLeaf wrote:
+> mtype_resize() copies elements to the new table including their extension
+> pointers. Garbage collection of an expired element in the old table after
+> the copy therefore frees an extension still referenced by the new table.
+> 
+> Commit cffcf57bf03c ("netfilter: ipset: exclude gc when resize is in
+> progress") prevents the delayed-work collector from running during resize.
+> However, mtype_add() also invokes mtype_gc_do() directly when its target
+> region is full. The packet path can enter this call while a userspace
+> resize is copying the old table. It then frees the old copy's comment, and
+> collection of the published copy queues the same object for freeing again.
+> 
+> An unprivileged process can reach packet-side ipset add with CAP_NET_ADMIN
+> in newly created user and network namespaces. The resulting duplicate free
+> was reproduced with KASAN on x86-64 and exploited from UID 1000 to UID 0 in
+> the initial user namespace on a non-KASAN build.
+> 
+> Serialize the direct collector with the same GC lock and honor the pinned
+> table's resizing flag, just as the delayed-work collector does. The table
+> remains pinned by uref while the lock is held.
+> 
+> The issue was found through AI-assisted source review. On the fixed kernel,
+> the same copy/old-GC/publish/new-GC ordering completed without producing a
+> duplicate object; /etc/passwd remained unchanged and the test ended in
+> LPE_FAIL.
+> 
+> This change was prepared with assistance from OpenAI Codex.
+> 
+> Fixes: f66ee0410b1c ("netfilter: ipset: Fix "INFO: rcu detected stall in hash_xxx" reports")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: onLeaf <onleaf322@gmail.com>
+> ---
+>  net/netfilter/ipset/ip_set_hash_gen.h | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/net/netfilter/ipset/ip_set_hash_gen.h b/net/netfilter/ipset/ip_set_hash_gen.h
+> index 80ca523f304b..70f768ba7b44 100644
+> --- a/net/netfilter/ipset/ip_set_hash_gen.h
+> +++ b/net/netfilter/ipset/ip_set_hash_gen.h
+> @@ -1009,8 +1009,12 @@ mtype_add(struct ip_set *set, void *value, const struct ip_set_ext *ext,
+>  	maxelem = t->maxelem;
+>  	if (elements >= maxelem) {
+>  		u32 e;
+> -		if (SET_WITH_TIMEOUT(set))
+> -			mtype_gc_do(set, h, t, r);
+> +		if (SET_WITH_TIMEOUT(set)) {
+> +			spin_lock_bh(&h->gc.lock);
+> +			if (!t->resizing)
+> +				mtype_gc_do(set, h, t, r);
+> +			spin_unlock_bh(&h->gc.lock);
+> +		}
+>  		maxelem = h->maxelem;
+>  		elements = 0;
+>  		for (e = 0; e < ahash_numof_locks(t->htable_bits); e++)
+> -- 
+> 2.43.0
+> 
+> 
 
-This is reachable on Allwinner SoCs, whose pinctrl uses three-cell GPIO
-specifiers.  The reset-gpio fallback only supports two cells, so it
-returns -ENOENT and a consumer asking for an optional reset fails to
-probe instead of falling back to its own GPIO handling.  mmc-pwrseq-simple
-on the Anbernic RG35XX family hits this: its wifi_pwrseq node has
-reset-gpios but no resets, so the SDIO WiFi adapter never probes.
+<formletter>
 
-Return NULL only for -ENOENT when the reset was requested as optional.
-A reset that is described but cannot be used is still an error, so
--EPROBE_DEFER and all other failures are propagated.
+This is not the correct way to submit patches for inclusion in the
+stable kernel tree.  Please read:
+    https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+for how to do this properly.
 
-Fixes: c721f189e89c ("reset: Instantiate reset GPIO controller for shared reset-gpios")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yang Siyuan <hsyysy@163.com>
----
-Changes in v2:
-- Only translate -ENOENT to NULL for an optional reset; propagate all
-  other errors, as suggested by Philipp Zabel.
-
- drivers/reset/core.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/reset/core.c b/drivers/reset/core.c
-index 38e189d..daa4038 100644
---- a/drivers/reset/core.c
-+++ b/drivers/reset/core.c
-@@ -1181,6 +1181,8 @@ __fwnode_reset_control_get(struct fwnode_handle *fwnode, const char *id, int ind
- 		ret = __reset_add_reset_gpio_device(fwnode, &args);
- 		if (ret) {
- 			fwnode_handle_put(args.fwnode);
-+			if (ret == -ENOENT && optional)
-+				return NULL;
- 			return ERR_PTR(ret);
- 		}
- 	}
-
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
--- 
-2.56.1
-
+</formletter>
