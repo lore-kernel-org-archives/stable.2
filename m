@@ -1,83 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794911868;
-	b=fzi9rSM65hzko2VEH2E/LTIpPr3Sbt5avQjcLeN42OEb2Z21GqxEUz4pk17bFe0Bjp78
-	 ViNNrd9YWkRldienKvb9swYZe7I0b+ZrKmbTJamKs5E5850QQDeI9E0493UYenLZHoXy0
-	 6lDdMd94yGI2cupR/LozWgzLus8aY7rNX+pEymRJ0a0UT/sz7R8/NPwpaDy6md1cfvz+w
-	 BVcLoKL1HQtm/h5VFwzb+3Oq9/UU39ELHPheOiaiCWTWs+cmNmCR27YaNdeHiI0ODziAK
-	 Qpu5rx7hNMe24LRAv9TfiNDOOqHH3LJ2z6dIXBX48bbHdSMkSD6+IiR8UIDeLXup8Qw==
+	t=1794911893;
+	b=0Z5SOKFqgsicIyiP+GhhEuJWaSTFdY6lxGFzNt0LOvVA6qBQb+LWcp/ZyZdKI8c65cR7
+	 UzsOMWX0q58uJ08zGQ5WkX5nj77SKTHPJ4LM98vh0s8fDuUqBbf69yTsaMbp7QQ8uhims
+	 Fcc46fOqRuWIHFNX8BXipay1wfxGaddngrmZOaAcA1OhfyUlPO3DgXldJ0gdlIIg4Tadv
+	 SdHnrOdinMZQuwzIeqT2wy4H8U6n7D0iV7YWSvu7TVOb9I7BcotE8/fuf82DWvPt6NH2r
+	 L2VTRnDMMddbvc5mNvwu1mDsucJOvod9EBK48uZi8/MTlpuj1Sm4DSC+doEGftgda1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794911868;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/oGiJHm/jh1FUNLOdXcbYyLNEuc+U0PJnk+ui2av96o=;
-	b=YXtHgKgTxLSDFPUJGvMC9ueoi0zkLZUh6/ryunrle+/jEqeo/3b73ivMypr74E4PpliT
-	 9pAQ5N9/xFViKXF9qcjVFpiiiwkmEZTtwua4WHNBGsv9sjzUqGmXDr2OOssENsfGkBnmV
-	 jASZ7W9BvJZ8kOhCL0+sFxT9RZvWD/H/+p6F2/IO1aPCqOGDlJonKiEkpWRKhe6MzI3Sq
-	 m2cKaAsZDrEFIWmyr2tarHAEyQg5SokvFtUtBc6/D8LUvQDKbXWLzrTJ/mk3NNBPU1ggX
-	 jzlUJlPsBC8CjWFvGDt343sGBGepSnypT8dKMx4JKXIAanxRcL4tq4pmyXV7Onjv4SQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794911893;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=7202iUUeJFzO7dVxNuLr9HJTalRIPdZN7YVII+M8HyM=;
+	b=zM96NvAyXZm6sWgSOkYYqog91GFF6h6G+sIi7pU8ZsqlTR533BOG/BsxWKCgrw2eOx7O
+	 hQy+ba5+NCwKuNU0HQnKyme8GP/5EDdr7q8CZ1GRUv9PT3bB+Q38Ucf22w03LY8bHJEkl
+	 I7ylLgs85C3u5JY930ej1Q20Rv0AxmscIot6NKas4m2q058FapLfE+/QfWWZ8MwzEc+yB
+	 i477+L4Ds1QQ37tMFm8pId+ReK2riQC+okt8Kpz9GpqrwAmf3HERIKQn+X9mqpliOoDib
+	 Xu+w34LAJ65jcv/8YgCoQw1frsZSLBwDQ+/UUCYVvUrIYMA5U0rP4hxgS3TJXjIiTdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=aG0yeLuY;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T6HC+ez8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66706606A334;
-	Tue, 17 Nov 2026 10:37:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66706606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF2D606A339;
+	Tue, 17 Nov 2026 10:38:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=aG0yeLuY
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794911866;
-	bh=VOW3N+kuAOhlQXMVPIKqUw8yVwXy/w9NQurJNFZ3824=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=aG0yeLuY8OMnE6Cf2ENdM+pBOa2xVk8BB7i+rUJa3ZPKf6EEagNeE/cLqZj+KDzMl
-	 B+2rit060SVf8Fl0Lb7R3KzJZMEeBDhWXqwjsDKf1vgbevsUfdCsjxjckuPrj+389h
-	 AuxR/9X3ZVWCtd8ir9+Z9q8SeT50dODfe0CmmBa6EzqtzEWvE2W3VAtT/KPvGFYTBI
-	 SvjHgwie7k2wL5k7v6U71LmuXpSrB3it2GQWuYBuClo3+gMgn+P3uiGLHX/4YBbl32
-	 2V7DEgaj4Cj1+Wbf6qoVb09V098q9GC9hNq4FepGPCD/qZffIu1aBs70eMa1+hS7qy
-	 unczhdnjFCVIQ==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2C3F817E0390;
-	Tue, 17 Nov 2026 11:37:46 +0100 (CET)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>,
-	zoan37 <agentzoan@gmail.com>,
-	linux-clk@vger.kernel.org,
-	Shiji Yang <yangshiji66@outlook.com>
-Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	Chun-Jie Chen <chun-jie.chen@mediatek.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Edward-JW Yang <edward-jw.yang@mediatek.com>,
-	Irving-CH Lin <irving-ch.lin@mediatek.com>,
-	kernel@collabora.com,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Mark Brown <broonie@kernel.org>,
-	Jianhui Zhao <zhaojh329@gmail.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] clk: mediatek: mt7981: fix "emmc_400m_sel" clock mux sources
-Date: Tue, 17 Nov 2026 11:37:34 +0100
-Message-ID: <179491184091.148303.8587843697634686350.b4-ty@b4>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <OSCPR01MB1501934D1DC407B535D78F02EBC992@OSCPR01MB15019.jpnprd01.prod.outlook.com>
-References: <OSCPR01MB1501934D1DC407B535D78F02EBC992@OSCPR01MB15019.jpnprd01.prod.outlook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T6HC+ez8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 181B21F000C6;
+	Tue, 17 Nov 2026 10:38:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794911893;
+	bh=7202iUUeJFzO7dVxNuLr9HJTalRIPdZN7YVII+M8HyM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=T6HC+ez8jQSbFFN95ChPYsDxVEDS82+Ommpw8T8CIVFGq7+x0rPemxnxefnoEwWNf
+	 VDXXiJv7183eJyklQkSlYSa5lWQc3tROtkbxCeM3X+aF9ifxH0F/Oft3flohPd/uR3
+	 UexDyD2A6E5W4fHWcGt/8eN5eUYRJXQ47teQv6GnUEB2GZSsImJYbPiArjUCWwP0bc
+	 PYdIcXzrRTfbM5bAWmcGJPHllVK82kiB/jRsd7+ksRrblVMfdyGH5OBuMxKDxcEkMT
+	 3Iajo/CMqQaj8uu4FjSVF5R5CLWuZZyglNkGgzqGZhUHf9BXiFqtgwoyiWZd5v1aA2
+	 bKitR31QFwV9g==
+Date: Tue, 17 Nov 2026 10:38:07 +0000
+From: Lee Jones <lee@kernel.org>
+To: Basavaraj Natikar <bnatikar@amd.com>
+Cc: Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Gary R Hook <gary.hook@amd.com>,
+	Philipp Stanner <pstanner@redhat.com>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 02/10] dmaengine: ae4dma: Unregister DMA engine in
+ ae4_pci_remove()
+Message-ID: <20261117103807.GA64850@joneslee-macbookpro.roam.internal>
+References: <20261111215349.1983909-1-lee@kernel.org>
+ <20261111215349.1983909-3-lee@kernel.org>
+ <82163263-ac33-42e9-86d6-9b1cebd287af@amd.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,18 +62,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <82163263-ac33-42e9-86d6-9b1cebd287af@amd.com>
 
-On Sun, 18 Oct 2026 13:50:16 +0800, Shiji Yang wrote:
-> According to the document "MT7981B Platform: Registers Part 1", the
-> 4th clock source of "emmc_400m_sel" group is "cb_net2_d4".
+On Tue, 17 Nov 2026, Basavaraj Natikar wrote:
 
-Applied to v7.4-next/clk, thanks!
+> Hi,
+> 
+> 
+> On 11/12/2026 3:22 AM, Lee Jones wrote:
+> > [You don't often get email from lee@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+> > 
+> > ae4_core_init() registers the DMA device and creates the descriptor slab
+> > cache via pt_dmaengine_register(), but ae4_pci_remove() never calls
+> > pt_dmaengine_unregister(), leaking the descriptor cache and leaving a
+> > dangling DMA device registered after device removal.
+> > 
+> > Export pt_dmaengine_unregister() and call it from ae4_pci_remove().
+> > 
+> > Fixes: 98f5a4432622 ("dmaengine: ae4dma: Register AE4DMA using pt_dmaengine_register")
+> > Closes: https://sashiko.dev/#/bug/linux-10d41112-e133-4bc5-8e53-b3e96592c70d
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Lee Jones <lee@kernel.org>
+> > ---
+> >   drivers/dma/amd/ae4dma/ae4dma-pci.c     | 1 +
+> >   drivers/dma/amd/ptdma/ptdma-dmaengine.c | 1 +
+> >   2 files changed, 2 insertions(+)
+> > 
+> > diff --git a/drivers/dma/amd/ae4dma/ae4dma-pci.c b/drivers/dma/amd/ae4dma/ae4dma-pci.c
+> > index 2c63907db228..8712f4f65e28 100644
+> > --- a/drivers/dma/amd/ae4dma/ae4dma-pci.c
+> > +++ b/drivers/dma/amd/ae4dma/ae4dma-pci.c
+> > @@ -132,6 +132,7 @@ static void ae4_pci_remove(struct pci_dev *pdev)
+> >   {
+> >          struct ae4_device *ae4 = dev_get_drvdata(&pdev->dev);
+> > 
+> > +       pt_dmaengine_unregister(&ae4->pt);
+> 
+> The cache must remain valid until completion processing is quiesced.
+> pt_dmaengine_unregister() currently destroys it before ae4_destroy_work().
+> 
+> However, merely reversing these calls is insufficient: the existing worker
+> loops indefinitely, so cancel_delayed_work_sync() can hang. We need a
+> teardown sequence that safely stops DMA/completion activity before
+> destroying the descriptor cache.
 
-[1/1] clk: mediatek: mt7981: fix "emmc_400m_sel" clock mux sources
-      commit: af557feaed1f9344666296284cda362d4ed53a9c
+I'll look into that.  Thank you.
 
-Cheers,
-Angelo
-
+-- 
+Lee Jones
