@@ -1,93 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794893405;
-	b=jFuBPEHnGCjnJR/8kYCAaFeoZVqDktDjUVjTq4gkK62DzeFWAQcenmiytKwrwrq+Qg6J
-	 37Kkqdi4co657mOm6pKOrJpDJRmFUTepdnCv/pvcK5ttzeWPee7xb+hyGcgjxH22fcTY/
-	 eEBmb7p6qHcxT6wtggulywhVBPt0vkzVN3xjJ9TjwPiS2PIvK3jRvYuC8Q51SMxa7rDmR
-	 649G88LnoIcSWha22q+SEGSRsZBenjfAaC0L0L4qqXXvBIE8yUQrI6A+rYSOy6icW4Thl
-	 ftkGCN4nWD145K3vMMapm2LLeeUKZfjkvSHgeqIYagVvPqfr/Ghe4EDRQzcNURe/VOg==
+	t=1794895967;
+	b=DNFhLUxjwxilIjSaJ0XQFZ5AkJJ+00r4Y1nv8h65idNMLIMoPVi0TdnCk3QBmMJdSkp+
+	 DOrLXFCeP/M4FLXlibwHRwqN/0a0SiC4by/UPt+ektS2yUQcJVwINwekVs9ELokw7eSUU
+	 Y0fURtoreuJw2yfXEDS07e5GirbIVzQXWZ2N8XSGun5XOReFXR+xOuwZN5PeXWeiOnPbi
+	 RqFArJ2vTX1SAxrVJOzVqjVRs1qO6xBJYsW2tq0wk0yQAzqN3PV9cbjCoZBrLS4OalYsz
+	 vAGI6Q27/Xu98ICsA6ZcjUPQnea3vA6pq8MhmI+FuH4ohDIJ1V5oiq3GjDMQxFG1r+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794893405;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=ftrMizvuhIHObTCvAdpIahRgmk2EwZxg4CfQaHM/YjU=;
-	b=svbom2L6dZoHfFHfLNNOkW5z24kwicumlev27vuwW3HP97rp/2smPwfqp1sVTGjyBHwb
-	 FR/he50CAfCTCYYE4VvNCxQVXGNBXt1Rbks5uunQL320sej2QIsEbXhVe9nxeW/0qtdOb
-	 Sgq8I5pQ4qHsDc2loPGpFhrksAsvmEGKCPtAHw8PUy1SamTTXsDwyBg44/wzjSkKTFy7h
-	 peMNWNodzlPg9n4zE3D9pCwJvCvPzweqh6HIAUEQefMIBP762Ai/3y1yOEFzL5K7R/sWD
-	 sMS7H7eG8MR9ufOkW2lu17CwC6cGSpFndC/sQtieeIulhAl2g8yxiHKSRCTXTQ4yVjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794895967;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=3vsxfZ2MDOq/K41CQAgTtWIJsNxDIx0dtdlSnCViIUM=;
+	b=4tQiA5JaJimD4Ku4jFvojHsAr8SZKOjVMwsRfg8Aka6CpCJGXYmv95IGOlKq8RBHMzN4
+	 ZtpSX3NXJG587EY3loCuvjBYoQBY887Z8s3118YzyGFh1OIFYgSxspYWrHwljoLoa9l8n
+	 6xg5Uz7YiQcHFMoKiO0F9e+gQWt7xpO/EY7eN0hq90TA+GSHtgn9L3MukpDp63C/G7v0d
+	 PEmzvS7y3FI4QQ3FwHXLFDMzaBESGr6oi/RHxU9qWBk+TL7HWd4mMxQ+EDe5rtym3VK5X
+	 RbvAo03lTUqF6AfH7yedsVFuOPF7cKv2+1SVgQuOiOyBvZFbSiT5K2unhdKymjEWtNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Jx5pGRxE;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=LyNyvH8P;
+	arc=none smtp.remote-ip=162.62.58.216
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CEE7606A331
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 05:30:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CEE7606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E2D606A329
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 06:12:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96E2D606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Jx5pGRxE
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-1ae58d17cd9so3423887c88.1
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 21:30:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1794893404; x=1795498204; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ftrMizvuhIHObTCvAdpIahRgmk2EwZxg4CfQaHM/YjU=;
-        b=Jx5pGRxEn/r5S4/3N0yhzLTza9aPjKIstDeFKgSij5nK+aSlmAC86wdabmnPytAen/
-         kxVwbjGlPYVnJBopzfjTvdRf0AGe/mTwz9tkopS2yB958I883j92ZadhqHMX4+Yjexf2
-         Vz0NXVbpAR1i7P8EAYmA6xDiuz+JVh2Zj1v4OF/C6tf2VYGfjVaVcAQaqwWBIv3rWwOq
-         qebu8KuRr+cQ/mJQ9ETfZXkafs/HTLzQDS1LwuJsLZsxEq8T1xRUxCWCEZ+3Y9Or1I7t
-         cPXn2Y4iVfSC6C0gTujGvgEaJr1XTp2sFgNww6DJ5dtiHVV8biEK8U9cXdxZb8dZwAJr
-         WsqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794893404; x=1795498204;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ftrMizvuhIHObTCvAdpIahRgmk2EwZxg4CfQaHM/YjU=;
-        b=EK6c67HfyDt5KA2WeJVjPJqnidWs/YKv+Z2DZP+xA5tLytTttSmZC70k3SrMxntuBa
-         pU8m1ZS+mSQHprgh3M0JcgE1wLnnfkasSE76ZgzDL0IfhB9NP6G4lPf2/goGW19mvUoY
-         0SBq2k0oYmX+mXrTR/teuzXimaXZ18lHpduc2G/WBA0Cm61LZbmdMT4u1itLrTtcmn/z
-         6BZ/jBnT4RA1iHDRlXKccbGccnLggQz0X5LQfCEOZICyVs7AMiyoSwCGvYecWqChuZzF
-         W2yxtOSD5JGC8oEusA0+1D3Z6RXv0cHHJLVE2qptl9twGPv9wg0CotK2yKPBf/Ia5LSE
-         zGIQ==
-X-Forwarded-Encrypted: i=1; AL+hErE6aP1NFIYxSFaa/aHDJE7b8SqaoUtO5SfbIOPAGOwehDLCkQrsJbwIU8Gn9jKAxLSzjqjiPEs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9iudPUe1cjaD2yWF8rYr0sODDFvuAoTTf/02bj6utJA6Kbxw56
-	0PzdGa2k/Gsgi6+w7CSem467OiPnIZRGTy6e9Jr0AtFv+hC2EZ5uinWy00tPSsst5fw=
-X-Gm-Gg: AYBFou1ysTTPuS/Nvq8xxuDQ206Lv0hW3yd0tuXF9ChQBRxh7DrFU7FIhaMzBuGjnO5
-	ofiHWVO8gBaMzr7qSo1CTVsARPuL6O0WKrfTZF7wgdUw4ib4dgj8xGXCRkPUh0DvfEaxr/Di7o+
-	/zeQ0rirlL0Vf+97e1X2yE8sfZz6lopB04WZupfHZgmRS5ri/8gLO8gbnzPsSURtmppBKZKyh66
-	PRn3Gaczd0+mug5hK0hLc+F6FMU857tjBreSs3j9g1wU0h0d2hJfMqLXZSELRdTw+UptJI4zJBP
-	SgHhPHxTYLsxTjcEzyAO67mJzHpKDKVJfhT1rDX1fmrmNkG5EvCsX1EnI2KE+Y9CTquptEPSXKF
-	g377sD4Q4lotBEwqkilc30ijcU7ff+0eBuA/VQmSLl0lIoroutiWXc+kAPc8lyHVrbHCO3B3DCg
-	rbr4Ob/TQUaKBMitzT7lH/E+ECgjiFwuZQvvEh+mpTtf9afYrUQMlaY9k3qVhdWoVvY9fgbm2tw
-	fBkn/Fb9BylzVCZzk8NfMPR02CVnDHtGnQfNjh+D205ZRvh7g1q5DWJo8/iQHwwxg0LycluupS4
-	c2jv4217MU2bw+1vH15BIJQLeMOWQg==
-X-Received: by 2002:a05:7300:e9ce:10b0:368:7c2d:a612 with SMTP id 5a478bee46e88-37966c4738fmr12899653eec.10.1794893403702;
-        Mon, 16 Nov 2026 21:30:03 -0800 (PST)
-Received: from localhost ([122.172.83.36])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-379563df84fsm77630203eec.20.2026.11.16.21.30.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 16 Nov 2026 21:30:02 -0800 (PST)
-Date: Tue, 17 Nov 2026 11:00:00 +0530
-From: Viresh Kumar <viresh.kumar@linaro.org>
-To: Gyokhan Kochmarla <gyokhan@amazon.de>
-Cc: Shuah Khan <shuah@kernel.org>, "Rafael J . Wysocki" <rafael@kernel.org>,
-	linux-kselftest@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] selftests: cpufreq: Disable the runner timeout
-Message-ID: <avvmWA6YX2I-ovJy@vireshk-B250M-D3H>
-References: <20261113163951.1510082-1-gyokhan@amazon.de>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=LyNyvH8P
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1794895961; bh=3vsxfZ2MDOq/K41CQAgTtWIJsNxDIx0dtdlSnCViIUM=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=LyNyvH8PlKSUawdsGsOJNsSYwia0oQw1KWMwpPOmWCU0doc8vKci7gimMC+Tr93Kf
+	 zLTpdNPtIIKdJysfsoVRWwf9V3vNIV07EGv3EoXVIY7v457oSOBHNXOZoYvXNgpjNB
+	 9/xOarpcfIpa0HIK16NkmE2QcmueiFTRe8GeXgf4=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-XMAILINFO: Nco5cZgmLIi8YM/CBblmom27fNnvM6KwZ5pAr8uzyhJr2gXKCLA0OBKW05HmXh
+	 AXEIczDfcgO27RPMZ52osd/uemxiqp+la7U99Hs1eR2eB6TLGrjjSZrUG7F1T/QVApZlePcq6Ivuw
+	 klBROncxPutQEM1KSmQxkmJkEsFcGj63zxv2sz3lZybhN7EeM6ss4wnCGf5cuHVYXf+ghDg7FaD7u
+	 7OPApDlLttlc1Lk4qkRKEgIWHy4gVoHEuRPhOUxnvtkH/oAxLItSl6s5JpFdaDFuEtPkqPSIolsuC
+	 GtpCz14ZaeZhfpXbQEt/8hTDJBNLq17E8VFnGAepn0xtCz9K3GGKBQoD6nhfv0DiemGTS74NaLZz/
+	 T5Ji8IcYELJRwLloxXOcjqlfoVRZihI5J/aI07/V9OUyD/OEO1D0RxVLe8vbLQoZnYzPXrMu//Ae1
+	 mQA1otiXE2irSF7A2X6p3Ot2LyUv64gj1CpHVA8dsn6TxWvlEq223ph4wbLVYYaQDNKfdBs3Cx2M/
+	 TVeMikPLNg4oCjwtzUWYKku5G89cLvbQGUags3MbORX57XV7KWjht/5SCW2FStCp9Hp/ic3l6Dw7H
+	 4rw7Oy1Xm4ycnL+9XOwPx+vDls0p8FRqAdMUJa3tkflKvhu387vdZJfzIp9OSd+zl5P+Vpe7Vc8TI
+	 jWd5Y9M3lMIGZ/NKsoBVkkt2hfJess3YTLDuZ3DecplJaGtYjCvxK6v3tBags20u9R1Cj33W+l8/i
+	 orcXtrhvrnHmKY6Vd0BjsbNGpoEmwBlc5j6vSKPylVUjmk8KJ+0tydh+ZYpdR2EDds7vokucHyZf/
+	 w1GTsKNlAbIBQCpV1O6vUTA8wgnji0szdmVoZDkc34D2JZhj7CDpNr90LLN4bBVDz9DY53saGt/Kh
+	 x01+S5AlyH+H4ZgwmlhSmzI/2fQplGhnlQf7fLgctpXjwQ6cv0BaPss3TStTi5qaGIjo5tsf7h0eP
+	 VGxAnCjP0DNQwVBOr1SEkmQRaN3cVFcPC/wm/Y4dkZoZ+P4UBdAttClPyHK+hEH9CPjnOzBSQ8qnC
+	 tm6BZ2jX/DUKqoeGNXJULQjojqed2tC1/tKwB2kbqY+9AcvU=
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?bmV0ZGV2LWJvdCtzYXNoaWtv?=" <netdev-bot+sashiko@kernel.org>
+Cc: "=?utf-8?B?bWts?=" <mkl@pengutronix.de>, "=?utf-8?B?a2VybmVs?=" <kernel@pengutronix.de>, "=?utf-8?B?bWFpbGhvbA==?=" <mailhol@kernel.org>, "=?utf-8?B?aGVpa28=?=" <heiko@sntech.de>, "=?utf-8?B?c29ja2V0Y2Fu?=" <socketcan@hartkopp.net>, "=?utf-8?B?ZGF2ZW0=?=" <davem@davemloft.net>, "=?utf-8?B?ZWR1bWF6ZXQ=?=" <edumazet@kernel.org>, "=?utf-8?B?a3ViYQ==?=" <kuba@kernel.org>, "=?utf-8?B?cGFiZW5p?=" <pabeni@redhat.com>, "=?utf-8?B?aG9ybXM=?=" <horms@kernel.org>, "=?utf-8?B?Y29yYmV0?=" <corbet@lwn.net>, "=?utf-8?B?c2toYW4=?=" <skhan@linuxfoundation.org>, "=?utf-8?B?cmR1bmxhcA==?=" <rdunlap@infradead.org>, "=?utf-8?B?d2c=?=" <wg@grandegger.com>, "=?utf-8?B?bGludXgtY2Fu?=" <linux-can@vger.kernel.org>, "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, 
+	"=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtZG9j?=" <linux-doc@vger.kernel.org>, "=?utf-8?B?c3RhYmxl?=" <stable@vger.kernel.org>
+Subject: Re: [PATCH net v9 04/10] can: dev: check netif_running() before bus-off recovery
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,52 +68,38 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261113163951.1510082-1-gyokhan@amazon.de>
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Tue, 17 Nov 2026 14:12:38 +0800
+X-Priority: 3
+Message-ID: <tencent_CF62B15F445313CD974C5502DCC84F000B06@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261111-rockchip-canfd-restart-close-v9-4-6643f3825ba3@qq.com>
+	<179452272955.488853.2430789088711910750@kernel.org>
+In-Reply-To: <179452272955.488853.2430789088711910750@kernel.org>
+X-QQ-mid: xmsezb41-0t1794895958twn8o40ok
 
-On 13-11-26, 16:39, Gyokhan Kochmarla wrote:
-> cpufreq_basic_tests() reads and writes every policy file, offlines and
-> onlines every non-boot CPU five times, and then shuffles all
-> frequencies and governors of every policy. The amount of work scales
-> with the number of CPUs, but the test runs under the default 45 second
-> kselftest timeout.
-> 
-> On large systems the hotplug loop alone does not fit. On a 256 CPU x86
-> machine each offline/online pair takes about 0.5 seconds, so the
-> reboot_cpus 5 step needs more than 10 minutes. Even with the timeout
-> raised to 180 seconds it is killed in the second of the five loops,
-> and the frequency and governor tests never run:
-> 
->   not ok 1 selftests: cpufreq: main.sh # TIMEOUT 180 seconds
-> 
-> A larger fixed value would only move the problem to the next bigger
-> machine. The basic test has a fixed number of iterations and does not
-> wait on external events, so disable the timeout with timeout=0, as
-> ftrace, timers and net/forwarding already do.
-> 
-> Fixes: 852c8cbf34d3 ("selftests/kselftest/runner.sh: Add 45 second timeout per test")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Gyokhan Kochmarla <gyokhan@amazon.de>
-> ---
->  tools/testing/selftests/cpufreq/settings | 5 +++++
->  1 file changed, 5 insertions(+)
->  create mode 100644 tools/testing/selftests/cpufreq/settings
-> 
-> diff --git a/tools/testing/selftests/cpufreq/settings b/tools/testing/selftests/cpufreq/settings
-> new file mode 100644
-> index 000000000000..d3e07370a7e4
-> --- /dev/null
-> +++ b/tools/testing/selftests/cpufreq/settings
-> @@ -0,0 +1,5 @@
-> +# The basic test hotplugs every non-boot CPU five times and then walks
-> +# all frequencies and governors of every policy, so its runtime grows
-> +# with the number of CPUs. No fixed timeout fits every machine, and the
-> +# test always terminates on its own, so disable the runner timeout.
-> +timeout=0
+PiBUaGFua8KgeW91wqBmb3LCoHlvdXLCoGNvbnRyaWJ1dGlvbiHCoFNhc2hpa2/CoEFJwqBy
+ZXZpZXfCoGZvdW5kwqAzwqBwb3RlbnRpYWwKPiBpc3N1ZShzKcKgdG/CoGNvbnNpZGVyLgo+
+IAo+IENyaXRpY2FsOsKgMMKgwrfCoEhpZ2g6wqAywqDCt8KgTWVkaXVtOsKgMMKgwrfCoExv
+dzrCoDEKPiAKPiBJZsKgeW91wqBiZWxpZXZlwqBub25lwqBvZsKgdGhlwqBpc3N1ZXPCoGFy
+ZcKgbGVnaXRpbWF0ZSzCoHBsZWFzZcKgcmVwbHnCoHRvwqBlYWNoCj4gaXNzdWXCoG9mwqBN
+ZWRpdW3CoHNldmVyaXR5wqBvcsKgaGlnaGVywqBhbmTCoGV4cGxhaW7CoHdoecKgdGhlwqBB
+ScKgaXPCoHdyb25nLgo+IElmwqBhbnnCoG9mwqB0aGVtwqBhcmXCoGxlZ2l0aW1hdGXCoGFu
+ZMKgeW91wqBwbGFuwqB0b8KgcmVzcGluLMKgcGxlYXNlwqBsZXTCoHBhdGNod29yawo+IGtu
+b3fCoGJ5wqBpbmNsdWRpbmfCoCJwdy1ib3Q6wqBjciLCoGFzwqBhwqBzZXBhcmF0ZcKgbGlu
+ZcKgYXTCoHRoZcKgZW5kwqBvZsKgeW91csKgcmVwbHkKPiAob25lwqBzdWNowqByZXBsecKg
+cGVywqBzZXJpZXPCoGlzwqBlbm91Z2gpLgo+IAo+IC3CoFtIaWdoXcKgSW7CoGNhbl9idXNf
+b2ZmKCnCoChkcml2ZXJzL25ldC9jYW4vZGV2L2Rldi5jOjI3NC0yODUpLMKgdGhlwqBuZXcK
+PiDCoMKgcnVubmluZ8KgY2hlY2vCoGFuZMKgdGhlwqBzY2hlZHVsZV9kZWxheWVkX3dvcmso
+KcKgY2FsbMKgYXJlwqB0d2/CoHNlcGFyYXRl4oCmCj4gLcKgW0hpZ2hdwqBUaGXCoG5ld8Kg
+bmV0aWZfcnVubmluZygpwqBjaGVja8KgaW7CoGNhbl9yZXN0YXJ0KCkKPiDCoMKgKGRyaXZl
+cnMvbmV0L2Nhbi9kZXYvZGV2LmM6MjAxKcKgcnVuc8KgZnJvbcKgdGhlwqByZXN0YXJ0wqBk
+ZWxheWVkwqB3b3JrwqBvbuKApgo+IC3CoFtMb3ddwqBUaGXCoG5ld8KgdGV4dMKgaW7CoERv
+Y3VtZW50YXRpb24vbmV0d29ya2luZy9jYW4ucnN0wqBtYWtlc8KgYW4KPiDCoMKgdW5jb25k
+aXRpb25hbMKgcHJvbWlzZcKgYWJvdXTCoHJlc3RhcnQtbXMuCgpwdy1ib3Q6IGNy
 
-Acked-by: Viresh Kumar <viresh.kumar@linaro.org>
-
--- 
-viresh
