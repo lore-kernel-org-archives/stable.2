@@ -1,94 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908678;
-	b=G7v5K16z2PuCAQcCY2JNxR1fmpEqyLNeSNn5R0URPDkgsYvGj9yr5iay69Pn9vdAAqJw
-	 ZLpRjaXWaIg2UU1s4QFgyoctvzcH5JH8dUPAZKIJ5Hp+UF61U2Ui82T8afMujB8ZZ+dFo
-	 b2vC/aMariI8BAOmVg3KbjPgRdYg4VXDAmc3Hk0UHBr6qX3uFhYDJ9EUs5SPtNWEdFKa4
-	 hGOfEcsgcRWzx3gUxkcKaUPE979tz5XtUNRav4ewn/b/XDkK1G3cRtrSJpVJyYCePBwMF
-	 9XrN6CcCjh/XguVDjC9/DOM35Q8I1XBz3Nbsyu3uGsx8umo4IFUbDYVQRPMKBbXCJjA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908678;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=bpVBOHCqTNlmSYDRormllaIQWrWpuayTwUPbDNGy6w0=;
-	b=pFLV8hXBFS/VIxvjipRryL37C45geVJNGHMs7pXKn/QWfqqCDSwPaE4iWAuwD+tbeXG1
-	 pC9YkqD2+cQ/kaXVzNXJdo0g0VAUd8DvQjVVuqU3OqI2o56x1q1xaSXxEJe6UubGS1OLZ
-	 cDCGpeccvNCbsdJV68DyQJG72YN4/9bcUprLckda750AqpbTrnQsODHYIwDmfj44dlUIp
-	 AVuzj3YzePIDVf4MOjVwB8nvwMr7ADQ3a8U7XnH4fUagZfE2B6m8QY7xCsdtgvRdyJgiM
-	 4/YYZz18qWTae45oBRJCPQmT8qy5qU7k8gaTaJuB74HJspHYsmO+RllBunfEGHitC2g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ibn59nDn;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794908872;
+	b=HZ766RV4j9EcXE/iPYCiEEA0aQqwRgC6Lok5TRwcmUF94xAj5kXn0VvYLozJATwhFJ4j
+	 eJQ1bqBJYcZMnxup1azgKJeVvdSAbPZ56POXeqCzlI2KMTzVw+b5y2Tze3PImr/SYopY8
+	 9fmrRkMTfSOu4TLlxvh3LZg/eBwql8LjZNJV3hF66ucH7GfMeyG1qZ7mhyMRpLwtqxkfb
+	 ygGrRVM1Pngp85Uha+8OUvg26UXMvIpX207VFyy2HmASdbrGSYTrf0joK1gUiXAKHvlBC
+	 ERJVhEMDs+H+F5XAwgBI9csyW6dgOtoo7VvWfW+D6YmTvpE3oGKXhKc6Pehl7Ijz2gA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908872;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XNWKjNP0ylTMFqS5R4s7agStVoLlbB3dV3UE5VmDOlE=;
+	b=jRSGRk3ZecMi1kRS1AaRYKEE/jaD2kUeEt5o3wPBKPckD6DQ51b8Wgyby4k/rv8+KAAH
+	 HeoCQOdCUON8xRsvh10oQmon5cfKWEAMutkjSrhX90sl4tSLDTQuzKKUYxKFxNk4K1EfP
+	 LGNg5r/zyuu7TGUMqaUOgKcqTstc9kxQ+ApPBOYWYXuBvEQmgQUResv9SMFpPA0pG6ssR
+	 msMjY3gmsI+TTe3E2xcB0WENlDuDXogQEpWGBI1b2ivr4X5IfZrHyx13G4bLOpOCKrV9A
+	 G2iW6wTZIc4EuvAZoeGZT67VXHqtZ7BkvUTKq7DkZl54JvCWI01jxCSibiWdQ8ke1Ww==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eukyEsXJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F73B606A329;
+	Tue, 17 Nov 2026 09:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eukyEsXJ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1794908872;
+	b=yFwbkhtYib77j6dtQDMc57auIPm3DqvPI66X7wUAvkgStLZ9WwOOGTt/UIULIectPfxo
+	 eE0QpJVAJcjGpi4v6y9UsfYI/Ck7DShhyAmRZaMZ/BJ0kMyK5mlq5zpr8A9OAPgm20WO9
+	 03vuYbk9Pu+V2zJmg2T/92RJKEfYTXHFdynWx2wX3K7V63adUN5k1SJsCfZeLu/HkS1AT
+	 MwVpcLWQSSiv2yaQGojudXNDOn7Q2hxeUUMTpCnxJY0JZP3ISMFu7iTCXNBpcgFdPa/A6
+	 Srextx/u6EWlmfzOXhWD3iAMYPPAtwn0UjMfT0dLjFpyatsQURhLLzbg7AIt3bdnlZA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1794908872;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=XNWKjNP0ylTMFqS5R4s7agStVoLlbB3dV3UE5VmDOlE=;
+	b=NjUEWb1SCK0aBtWhsY0SXkhHA3pFmD/lPm/hhrNM/j558/shPSRBkayPzoQyoHdrhW7A
+	 US5CYDuK/2CXaG11k0iaBig3/gQgaKbyYSMZFQaBDGqgiVNLbDZlrpwfXy/QEZxcjh+jO
+	 AZHRStG+CPpd13FGIl1lmHnb7zNwaHgO/cQQZRF1rMbvR+fSjnQNJqhENiMn4aJXaPenI
+	 96i0AxRKRzu5HF2tQM4OYUvfH6eCaghIluS/4RkaDHO6D5VczWB5VNMMN+THRs1Ma82tk
+	 2VjI0dwpNIenqVmurnV0dCoI8Nh/J85QG8i4bc+i438VFZWLOsNWVzf4oIWW7gA51xQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1402606B5AA
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:44:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1402606B5AA
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ibn59nDn
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e99b1e5b4cso27501305ad.0
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:44:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794908677; x=1795513477; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bpVBOHCqTNlmSYDRormllaIQWrWpuayTwUPbDNGy6w0=;
-        b=Ibn59nDnajmbpxSmVCbdMujxlpU2xp7zr+ALPIpdphgEd4gO4RRUzcqnftOFGrxtmQ
-         DnP1qix7dGJ505+2a69wh2drHmZ+6mHExhJ6xa6j9T+ef1h3z4jFJ17RhJxFPOwmj7Tq
-         ceoQHZI8h38rpyuKLlNGko9rrljwHvmJT1EBq3TGs7glnozjV5T+FJU00kKEP/RajDAU
-         U7MGTihjuOdOrtLOGN8DCOOWQEZcQwBONbWvOcWmJjJQ+d6xskQ0eN6keqbQf5H0KUSH
-         w9LQBYUPigMAlbp9T+3ozAWQoLyyhTlloN2bWEzXpsylC3GCGDBDlWs2ORejIGjPXMU6
-         B1pA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794908677; x=1795513477;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bpVBOHCqTNlmSYDRormllaIQWrWpuayTwUPbDNGy6w0=;
-        b=lHi8Z+b27jfwlgHofgr9TpZuztBrtPMPU2oSy4BXtwEK319Drhm1xbLET0adBqWa/z
-         ywpbYFMD/498x53+Q9TgWdi9QeH+QIALAN6CkfhIZykqGIOjDAvZMMTyhS2XPwRKuFEW
-         sFqIhBMQPtv0Vs0x+zDNvmlOfRrSpGM9BwsSwjrLfVvRDms5T3ugEqrnv47aClRSGeU1
-         SG4FR2HaBYBUasSJmXih5MIw4jfaYQLbujJaF5f3zsjeiVBJMY6Ayf0gx4geSdqQbvKn
-         6lKtgv5lAVqpa3M2Gi//OYibaOgs4GC4VT0nrd8ohq3uspDHu+jku4lTYchJhD59iIot
-         UcIw==
-X-Forwarded-Encrypted: i=1; AL+hErFfzHvf/GFX1LMYVU3PN7gwLpNbyRet4/FIKnYShod2l6kHkLkY24FSMh2nnWjsejelGnPM9T0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BO0ZN9116bbmsdH+mj2lnIEGn+jewNvSXAn64GC0vsAKtAijF
-	EpOjr2HsKIjmgZaEYVQhDQvjO9FbNjKEYQbmHMyEHyBwEFld1pJLkS0F
-X-Gm-Gg: AZFdTZfJaQ9hOomhAdGEM1Prt8h3YLHkWOjNH2u7GF/qu82mmHbA79fENCOzI/3cKux
-	Hnv7/qPZCADTJXETZ6pefzXjxNQAHTWibEPvJ2y+b9PQ1slml2KLhJeF+Ppwyv8LIh7slQecRYW
-	eZEnmNcGG1oAJkUgzj0V2eFbVRsQ7Ws6ZDXXRYTWH0QC7LCae/KjyzkDs7gHouLKYp13Boe+cLP
-	q7zBmzrc1d0+xNOi1nN8KRMmtRW/vqVXnHY67MVV9u0XNDWCJJrVaQVrjoGoVb4HH1XH8mPclzO
-	o0xuLQl+SGuXvcT4jw27xwYFq4ltQ/xaO4x1X58pE3G2KU3MECfyQABXwkjwbl64wss4anFuSr4
-	kaYzaREqETXoSZKq3qQLu9vrs5r5esNZt71u16G9eSIUlcjneEvcpyxbbgFI7rYOJkFCyYDCuxk
-	hOI/oumFagItWfGlOlz4c95S4pYj8DezCk8JZGY3YIMO2k4Co7N/bYdQekAXTU5oxwqwrPXNRmC
-	9TQuwf57FEvLVv5+6N309wVhhOfaExLtwIM0z2DRutcZ6OZL4QJhHj4SpPJ4h6uwaJGqz5cTrWy
-	VzO0wnz7XgWYj3yJCVW69V3OUfAQe66cOHXzsUHx9d4OUr/E
-X-Received: by 2002:a17:903:3887:b0:2e9:528c:ba02 with SMTP id d9443c01a7336-2ee0dcca259mr118714855ad.60.1794908676979;
-        Tue, 17 Nov 2026 01:44:36 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efd76db218sm12114815ad.3.2026.11.17.01.44.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 01:44:36 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Tim Harvey <tharvey@gateworks.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] media: i2c: tda1997x: fix out-of-bounds read with a one-block EDID
-Date: Tue, 17 Nov 2026 18:44:23 +0900
-Message-ID: <20261117094423.193684-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	by smtp.kernel.org (Postfix) with ESMTPS id 9899C1F000C5;
+	Tue, 17 Nov 2026 09:47:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794908872;
+	bh=XNWKjNP0ylTMFqS5R4s7agStVoLlbB3dV3UE5VmDOlE=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=eukyEsXJqU0/4gLBim9oDaQp85TGKZh6EXzX3C7aB/u+feriK4bokpaBM42f0DkiS
+	 ucKKRLJ1QFNV55A3oehEzqmbX8OamJFtjV/OeW4mkjjSzxDWnkZsR0oMyMBKzVknOK
+	 tZnagItasZE7oc4RI/TjYepIpLCpv1KF5wv85Yclf2kcXABgLhzN0JaccdCy2ezCZF
+	 uXemzZh/2TlVX8KhfJNTdhnvLR6AZ6930x77qkQppelUhtG2SetmHCCww/tD5ce0qc
+	 J+/HCUU4dzj5LkJ50VGnLeWOTTXfBp5kS0OYT3XDwSkQk6mUWidq8YS5BKXG+YTjWi
+	 vuEinKoPyqFhA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 132BA4A793;
+	Tue, 17 Nov 2026 09:47:51 +0000 (UTC)
+From: Peder Bergan via B4 Relay <devnull+peder.bergan.gmail.com@kernel.org>
+Date: Tue, 17 Nov 2026 10:47:51 +0100
+Subject: [PATCH] rust: str: tie Formatter to its backing buffer
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,54 +82,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261117-formatter-lifetime-v1-1-9d7f38686552@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAMYi/GoC/yWMQQ6CQBAEv0Lm7CSuGlG/Yjws0CtjZCEzgyEh/
+ F3QY3W6aiaDCoxuxUyKj5j0eYWwK6huY36CpVmZDvvDOYRQcuq1i+5QfkuCSwc+XY7XgKaMKTW
+ 0ioMiyfSL3h9/trF6ofattD2qaOBKY67bbRoHc0XsWEdzzpicluULhAGl9psAAAA=
+X-Change-ID: 20261117-formatter-lifetime-48391ed7affd
+To: Miguel Ojeda <ojeda@kernel.org>
+Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ Georgios Androutsopoulos <georgeandrout13@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794908870; l=2702;
+ i=peder.bergan@gmail.com; s=kernel-contributions;
+ h=from:subject:message-id;
+ bh=c2EXF63mEwnQnsVVyx1xUR6wHcOb7PHcB7oVHC4kogc=;
+ b=cmJf587r8vKEHlsRLXxBys9PRoJzmqc7PY99ABcGPBG30A/U+CR4NFqDkHVTlCpCiZjZyEmEh
+ B0zCJRZLbAaAGYDmROGMsitdX3LRLm5XVeeEoCJThHNaAH++9pnec/m
+X-Developer-Key: i=peder.bergan@gmail.com; a=ed25519;
+ pk=39790pn1YZCulHBoUG1uiQI1Hm01EvhBEa2zVrS/yN0=
+X-Endpoint-Received: by B4 Relay for
+ peder.bergan@gmail.com/kernel-contributions with auth_id=1395
+X-Original-From: Peder Bergan <peder.bergan@gmail.com>
+Reply-To: peder.bergan@gmail.com
+Content-Transfer-Encoding: 7bit
 
-tda1997x_set_edid() accepts one or two EDID blocks, but always reads
-256 bytes from edid->edid: once when programming the CEA extension
-registers and once when saving the EDID in the driver state. For a
-one-block EDID the buffer allocated by the V4L2 core is only 128 bytes,
-so VIDIOC_SUBDEV_S_EDID with blocks = 1 reads 128 bytes past the end
-of it and writes that data to the chip.
+From: Peder Bergan <peder.bergan@gmail.com>
 
-Copy only the blocks that were passed in, zero the rest, and program
-the chip from the saved copy.
+Formatter::new() returns a Formatter whose lifetime is independent of the
+borrow of its backing buffer. Safe code can therefore drop the buffer and
+then write through the formatter, causing a use-after-free.
 
-Fixes: 9ac0038db9a7 ("media: i2c: Add TDA1997x HDMI receiver driver")
+Tie the buffer borrow to the formatter's lifetime so that the borrow
+checker rejects such callers and prevents overlapping mutable access.
+Add a doctest showing formatting into a borrowed buffer.
+
+Fixes: 87482d6d9104 ("rust: str: allow `str::Formatter` to format into `&mut [u8]`.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
+Closes: https://github.com/Rust-for-Linux/linux/issues/1261
+Signed-off-by: Peder Bergan <peder.bergan@gmail.com>
 ---
- drivers/media/i2c/tda1997x.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+I compiled the in-tree callers with Clippy and ran the string tests and
+kernel doctests under x86_64 QEMU. Three borrowing probes compiled before
+the fix and failed with the expected borrow-checker errors after it.
+Rust documentation and formatting checks passed.
 
-diff --git a/drivers/media/i2c/tda1997x.c b/drivers/media/i2c/tda1997x.c
-index 30dfd8a7b42b..a523fc2b2b71 100644
---- a/drivers/media/i2c/tda1997x.c
-+++ b/drivers/media/i2c/tda1997x.c
-@@ -1891,17 +1891,18 @@ static int tda1997x_set_edid(struct v4l2_subdev *sd, struct v4l2_edid *edid)
+OpenAI Codex assisted with coding and testing.
+---
+ rust/kernel/str.rs | 20 ++++++++++++++++++--
+ 1 file changed, 18 insertions(+), 2 deletions(-)
+
+diff --git a/rust/kernel/str.rs b/rust/kernel/str.rs
+index 644b4279a..6222faacf 100644
+--- a/rust/kernel/str.rs
++++ b/rust/kernel/str.rs
+@@ -645,7 +645,7 @@ impl fmt::Write for RawFormatter {
+ /// Fails if callers attempt to write more than will fit in the buffer.
+ pub struct Formatter<'a>(RawFormatter, PhantomData<&'a mut ()>);
  
- 	tda1997x_disable_edid(sd);
+-impl Formatter<'_> {
++impl<'a> Formatter<'a> {
+     /// Creates a new instance of [`Formatter`] with the given buffer.
+     ///
+     /// # Safety
+@@ -658,7 +658,23 @@ impl Formatter<'_> {
+     }
  
-+	/* store state */
-+	memset(state->edid.edid, 0, sizeof(state->edid.edid));
-+	memcpy(state->edid.edid, edid->edid, edid->blocks * 128);
-+	state->edid.blocks = edid->blocks;
-+
- 	/* write base EDID */
- 	for (i = 0; i < 128; i++)
--		io_write(sd, REG_EDID_IN_BYTE0 + i, edid->edid[i]);
-+		io_write(sd, REG_EDID_IN_BYTE0 + i, state->edid.edid[i]);
- 
- 	/* write CEA Extension */
- 	for (i = 0; i < 128; i++)
--		io_write(sd, REG_EDID_IN_BYTE128 + i, edid->edid[i+128]);
--
--	/* store state */
--	memcpy(state->edid.edid, edid->edid, 256);
--	state->edid.blocks = edid->blocks;
-+		io_write(sd, REG_EDID_IN_BYTE128 + i, state->edid.edid[i + 128]);
- 
- 	tda1997x_enable_edid(sd);
- 
--- 
-2.43.0
+     /// Create a new [`Self`] instance.
+-    pub fn new(buffer: &mut [u8]) -> Self {
++    ///
++    /// The formatter exclusively borrows `buffer` for its lifetime.
++    ///
++    /// # Examples
++    ///
++    /// ```
++    /// use kernel::fmt::Write as _;
++    /// use kernel::str::Formatter;
++    ///
++    /// let mut buffer = [0; 4];
++    /// let mut formatter = Formatter::new(&mut buffer);
++    /// formatter.write_str("test")?;
++    /// assert_eq!(formatter.bytes_written(), 4);
++    /// assert_eq!(&buffer, b"test");
++    /// # Ok::<(), kernel::error::Error>(())
++    /// ```
++    pub fn new(buffer: &'a mut [u8]) -> Self {
+         // SAFETY: `buffer` is valid for writes for the entire length for
+         // the lifetime of `Self`.
+         unsafe { Formatter::from_buffer(buffer.as_mut_ptr(), buffer.len()) }
+
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20261117-formatter-lifetime-48391ed7affd
+
+Best regards,
+--  
+Peder Bergan <peder.bergan@gmail.com>
+
 
