@@ -1,107 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794953350;
-	b=a1e7cXwovrfIdweTYT0zdR4DjjxbK6fUgKJCZFfP5/aRzviuSZr5ztE5RxsdAEzkB46m
-	 TfAHlS6pIJVO6/HP1fzimaNzDgD8kTqRZBWe48k+af9l1O853HFD1IEWiiIFNESjE0e3P
-	 d7ssXaabN3mo5XJb1QcnZf7j7zpy0okulmylnYYQWmVAKZla7NQXaWEBDa7JYacdva0uO
-	 t20KOILVcQR2liJ+ToKvYOU+7FhXiyM2MXgudum/C/9t8TRDx2FeP0iDu3bJkGuQvjStl
-	 Hx2H+od1NnWZiGZ9yQ+EULuamdwCCMYeHpkMkQHsNJvwLV5Q3KqTrWNNZu5hAwEKMXg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794953350;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JR03lNHA+XAibQ2kHelS62vmj403ExKe9e8Eaj9RGz4=;
-	b=mz5ktk0jNPieHG7kALsNZncWPRu4aC6QgUeEWDiPZkPO1TnLqZD+GLFlmPQhReuChsJO
-	 jmkr7dPzjXNc58SqVK1mIE1MlwUO/uprOp+QKmNxNRPb/daCBs+HsuK0/Id48wW/F3QsW
-	 uaz9i2LgiWX9PTo0ksiXpagDzUUKw50t1X+tcTBvCnQxNYSg75bxrCvfsBJRxQH8yF74T
-	 sQ5RXckR+tdz0JzPDNwPg4KirNEv+0GVpD44zGXybUsQxrPNuo6V/ksP8jHBBUc9+OwN8
-	 vvgdiuLW5Lnqam3CuByDIUbswjDoa+oDsIKYuKbZ5/xaeEVdopWd4ZUv2ymyY8XCiSw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=pengutronix.de;
-	spf=pass smtp.mailfrom=pengutronix.de;
-	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NpXwdmK8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.52
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794953388;
+	b=YyWxjr0twyMLOtejq3shnsFz/Whlkg1jUUURpg5LrYr0kGV9r4ujoh3hGlFHBrY2X4iV
+	 uuC2oOxoaH4qsaU5KZcbYgkeJWPxf89gE/uXUXJU9RQLBzfiMqJTulKNeqWvT7nZD+X+r
+	 Ueg8TSn9zeqVau7eDppV8IeCzxWFmdDG/4+gljKWpYqS81hgaa0AbyPbzeFKY3zjbLBnt
+	 5beOZi2Jui5FHO4TAl/LiQ9w7fg8hX66zZ7yNzixnDr2PmokExFW15EE2Q6fJb5NIRY5i
+	 smQpCUmBj1TTt3Ju/XbE23uUn1/80v6c/TiW2KRbU+7BgOUXzZHnRREu/jxi+pGD9lw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794953388;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=Nx7Fnx8ynrYtRU2zfFFoevS3m3nHQ2OljJrgCdTaFks=;
+	b=zEEsWlEU82zUBR2W/j1cbpbFj5UcQhzmqp3lQo/RqOekbR/0LomgwQnGarvHcuQKV84O
+	 BzqgUKEcBswDPasMLQiaBhIsJ8o+EmeXYr0HtSmNZGD8u2AavFCpc+1GDBXB1lX/ZJRPU
+	 JtGDrQ6KJJbr6+a5k28FIduWmHRWTRN9f6O3Z5iVtaHBpNl6opLFjgUa6UFCNa0InKt6a
+	 qVGH9DQfGw1+5z47Q0f+MDljh/VGA8sACd8+c/eYsvdkBXqco7DcUy4Z/e15UKKAARfAr
+	 UWKbdPGlgE+zFRQeMAnzxkiNwysbQ3nAu9owWfrFXs9f7n3bj8nLH192azjXn/voV4A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v8aAKYAr;
+	arc=none smtp.remote-ip=209.85.161.52
+Received: from mail-oo1-f52.google.com (mail-oo1-f52.google.com [209.85.161.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7DF606A32A;
-	Tue, 17 Nov 2026 22:09:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E7DF606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB66606A31C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 22:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BB66606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=NpXwdmK8
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D1B0E205A36;
-	Tue, 17 Nov 2026 23:09:04 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794953344;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JR03lNHA+XAibQ2kHelS62vmj403ExKe9e8Eaj9RGz4=;
-	b=NpXwdmK8VQpYh6jWMZB/YU9KV0v3I0Sl/YVEbkCrnHElUtoRibMebxdqB3ToZn+PNHOBL8
-	uUbUbOhE7YEOa4/VEuDmTVExnbGHYW0XIP/3KDLcRyHVytF2AqHt000j4xlk7pAkRLakA0
-	VITxUduwp5l399yWdQUNgDnpc10hLdOi/n8MGUgSdPx/3ky0LfA6AB588tHJ62oZsTepM1
-	Ah1mtlosVMf1JU0SPXuYzZXua4OLjXIpVvmdOdb6CiGBKqg/LSl5weQZ2In3H0l4Is14Dj
-	P78cbSbkxDPjyqPisBDy+TQOnoxHy2TbVj8HWm0jWTySgrFy2iUIj3p2fVtV0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1794953344;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JR03lNHA+XAibQ2kHelS62vmj403ExKe9e8Eaj9RGz4=;
-	b=A/MBt9XrRtAoyZwHCgMUhDSCLoIaA3bUx17IUG+SYFQuZSSzDybpfDHFo+/LiG3CK5UkJa
-	7Ifa/jd+MqJ6V0cJBOMz9BHhZp9tNLq7quLsDLYffMJrDG7xnBsvRFYenFWhLAaFD0pqqi
-	5dE7wS3F6Jv+IqAoePoftaJJ7zPsMwUQnLPgbbxtVutL8Tv88I8uvPU5ib4Kujc7YEMgVg
-	9uB/PUHv+OFIx6W5Hj7t7h+n9KFKBgDlp+AdgwLu66JfdZs+q3FWoXUPZKMMScRv4zDNJw
-	K7DcVaJQwSUag6WeC9Yi/zEpGSn2F4VXSlGy7dSFdoH7AjfboBwQGeUIm2fC0w==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794953344; a=rsa-sha256;
-	cv=none;
-	b=L1qUL/UteuQ7+WDqI4sRQbGttQYJHw4xeRl9O3dXl3E2w89D1Mct2OTp30faT05MWa/eZF
-	BCkKYCUYgeYwua9vk8DV/5TgCA9dhesF2cQyoP170FY5B1DuV8ERDG9xlNm6lzZB4TPLYr
-	QiszurHcR2kha1Bdi8SJHDOdNb7sLXsRSt/AkPvuQTevGFwtw8CuNHFhk/UwF4otlg77Ek
-	1NC1kX6HROlcj8AdKkFX/cFVytiU8ichqtgZBQRz3CDvYVlXO6a5wAQmh7AF+m29EJMKuD
-	roo7PDo2xLHXp9Kv4FOUYVfTZ9PQrcpVBlHpqGq/9fU+UURkkm1lMoi+Ltchlg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xTRMO-000Fmf-0i;
-	Tue, 17 Nov 2026 23:09:04 +0100
-Received: from blackshift.org (unknown [192.145.8.164])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 3037D5EDA29;
-	Tue, 17 Nov 2026 22:09:02 +0000 (UTC)
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: netdev@vger.kernel.org
-Cc: davem@davemloft.net,
-	kuba@kernel.org,
-	linux-can@vger.kernel.org,
-	kernel@pengutronix.de,
-	Oliver Hartkopp <socketcan@hartkopp.net>,
-	stable@vger.kernel.org,
-	Vincent Mailhol <mailhol@kernel.org>,
-	Marc Kleine-Budde <mkl@pengutronix.de>,
-	Oleksij Rempel <o.rempel@pengutronix.de>,
-	Zhu Ling <zhuling0805@qq.com>
-Subject: [PATCH net 06/11] can: isotp: always start the rx timeout in ISOTP_WAIT_DATA state
-Date: Tue, 17 Nov 2026 23:03:11 +0100
-Message-ID: <20261117220818.1142581-7-mkl@pengutronix.de>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117220818.1142581-1-mkl@pengutronix.de>
-References: <20261117220818.1142581-1-mkl@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v8aAKYAr
+Received: by mail-oo1-f52.google.com with SMTP id 006d021491bc7-705cb6ceebaso287389eaf.3
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 14:09:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794953386; x=1795558186; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Nx7Fnx8ynrYtRU2zfFFoevS3m3nHQ2OljJrgCdTaFks=;
+        b=v8aAKYArq1OAS+FF6szcxGbtJtsS91acry/6yUfzoaWscwk+57mz+m/xrLwcmMGSEs
+         +c7JxLAFU6FKeZHP+06tRRVH97w/8Uk425la/D5v7BPqOCdQ1p/By2sL3EztQGkMllgM
+         F9lvM7KZw57BGP0dwbuYIUpVtSsT6LciRKnAyehHhjt77ebvbR0rewdtsfeEdFcxI3Y2
+         WsxcFLPxvS8y1tTCInSRx+8Kd7sAsgBcn7AwRUBlzFIxnQezNSnUABJ6zGp0O+EoUTWV
+         JCjpRr1xCV738AuzT4G39rCTr6Y2JaEZ0BFxsrJsXwzvoJZ+ABHkHpzvtIB/eTK3+Ngp
+         dGiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794953386; x=1795558186;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Nx7Fnx8ynrYtRU2zfFFoevS3m3nHQ2OljJrgCdTaFks=;
+        b=G1IARFoFz3dpR7/SEN73ZDXO83sxQGsxzI7x3DBv12AU0YzRCcEHzHnpXGv6Fhssi7
+         r5IeGDgocw61sP0vv9+lNv1QRfWRh24SppKfEowOXPgq8zgHF8zic/ohIN5jcWG7P29h
+         Ks/nDrYgajby3MfVbCOpB9qXvTrohIQIpfK+GdztVvr2CpHDhajMs9yu2UtUmcgcZ9cJ
+         VBI+kDTMrEAPijLWCZa51y8/bE4YbkPobajGB9D0ISYGU9ejiNiyRB2YvXs+i7pYSLd8
+         gxlkLw9YfNE8xfuoocANkvKaJcyutbg9e368YvIeqR1eUDNskp27JbkrH157NAJ4aIE2
+         TK9A==
+X-Forwarded-Encrypted: i=1; AL+hErGurymoYrGsRHn53JoUwnRQJrqgZxQkXYcHYipjPgJhOp3qJDj+i6f1RIXWpjsk7SEZiKTvxRk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8YZJ6pZV936LXxBvXHG5pb2UX8GUnB04zuXCU9QpntFw1Qh3H6
+	fCx6+7sjD3LPprMyqHD9na6Znszto4lLCufHG3jn1yU28OD+XA1E5WI5
+X-Gm-Gg: AYBFou0lMXAyrmofVt1WYGdiU34TY5YemTlJYk9mHqq30hUqGae7Dyurv7Rz7nE21wi
+	Qej0Y5FRZRglnxvUk9LHi+GFM3XKU62B9S9b0YNecY9LvGbrp8jGamhwUcq29C/aOYWDWubTv+D
+	bWrlfiB97tbCgnzMC4yL2nG2ttb3Z8v8icocxgTdN8O0CG7i11RECROatjyJ+Y/T/IqGXYemEwV
+	JUGy8eIgrLEdbUkX6FfChRqZ+5l7rvRU3ML2YBeCTL+Hx7yIVDSNaF6I08I1S8HjhZwZ8UfJgWv
+	RbQl1vhUl1rjXnv0b6DmgZB6fSXA+spWiiTHB7Ke6Fizxwpw624hdcKJMi2s/ep3Ihh6sP+LRVq
+	qmainpfd926ybqvvTSfRJI9g5e/imyYBjkl2ku+KzdH5ov0cvkDmiKNYV90M4liKY92s/GGTAtS
+	0pTC9Xa+dPnlTNMV7pVD1hCKB8/4dktp4zr10T3fvlw69qiRdpfnKCXA2+mYAm5/sVAsjk1UpYW
+	I5rKxKYbw5urrz4THGBR8l3Z6WpixbFjaBJW9/CScaSH6uBhZQeFU7TBTDBoFZGZm8Yzv1B1B82
+	tst1P+741Q0gwbg1h5brbnmYJxZ46g2+Onb38M5/0yytRQai+ipBQ+tsmOAn1IfFIhnzBv7iVou
+	cXCQEHeym3WUpJsIy2hZNZVrxFSjG6Bt8v9dl6ohLaSR//aqes+Wm8QxIgwHWjYX98jnbArd2KV
+	vOhVCpoW0RoADjF3h6Ue5qtTRmSufASUzQFBHmylHzKiAqJ9iIsoHC
+X-Received: by 2002:a05:6820:3414:20b0:6fc:4051:d2d7 with SMTP id 006d021491bc7-71b184d9724mr449895eaf.38.1794953386149;
+        Tue, 17 Nov 2026 14:09:46 -0800 (PST)
+Received: from [127.0.1.1] (174-29-1-49.hlrn.qwest.net. [174.29.1.49])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862f01381f5sm559629a34.3.2026.11.17.14.09.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 14:09:45 -0800 (PST)
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Tue, 17 Nov 2026 15:09:08 -0700
+Subject: [PATCH] nvmem: keep write protection disabled while writers are
+ active
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -111,85 +93,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261117-submit-nvmem-wp-serialization-v1-v1-1-539d121f8f5e@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2O0RJDMBBFf8XkuStiVI1f6XhAF9sS6SbU1Pj3B
+ n08s/fes6uwyIRW5MEqGGeyNGoP6hKIuit1i0APzyKO4lQpdQM7VQM50POAA3wM7P2yp2/pfBN
+ mBZgkVZpF1yxTifAzhrGh5VDci5P9xhNrt+/+E4zvybvdGRNVaREcI+ZB55yxuZQtufCFrLEPR
+ 26lmSpp60H2pKdFnoc9Iy2TJnm8F3oOmpHh9Bfb9gO/Cd7R7wAAAA==
+X-Change-ID: 20261117-submit-nvmem-wp-serialization-v1-e44b68058814
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Khouloud Touil <ktouil@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Linus Walleij <linusw@kernel.org>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ James Hilliard <james.hilliard1@gmail.com>
+X-Mailer: b4 0.17-dev
 
-From: Oliver Hartkopp <socketcan@hartkopp.net>
+The core deasserts the WP GPIO before calling the provider and asserts
+it again on return. Two concurrent writes can both deassert WP before
+the first one finishes. That writer then protects the device while the
+other is still writing or waiting for the provider lock.
 
-The rx timeout is only started at the end of isotp_send_fc() and for
-consecutive frames inside a block in isotp_rcv_cf(). So so->rx.state
-can stay in ISOTP_WAIT_DATA without a running rx timeout:
+Count active writers per device under a mutex. Only the first writer
+deasserts WP and only the last one restores it, including on provider
+errors. Keep the mutex outside the provider callback so providers that
+forward writes to another NVMEM device can still nest.
 
-- isotp_send_fc() returns early, when it can not allocate the skb or
-  does not find the CAN device anymore
-- isotp_rcv_ff() does not send a flow control frame in listen mode
-- isotp_rcv_cf() has stopped the rx timeout and does not restart it at
-  the end of a block, when the flow control frame is not sent
-
-On a bound socket the next first frame or single frame resets the
-state. But when the CAN device has been removed, no further CAN frame
-is received and so->rx.state remains in ISOTP_WAIT_DATA. isotp_bind()
-then rejects a new binding with -EAGAIN until the socket is closed.
-
-Start the rx timeout in isotp_rcv_ff() and isotp_rcv_cf() whenever the
-reception continues in ISOTP_WAIT_DATA state, before a flow control
-frame is sent. isotp_send_fc() restarts the rx timeout as before. All
-this runs under so->rx_lock, so the order of the rx timeout start and
-the transmission of the flow control frame does not matter.
-
-In listen mode a first frame that is not followed by consecutive
-frames now leads to ETIMEDOUT, like a missing consecutive frame inside
-a block already does. So a listening socket reports a missing
-consecutive frame consistently, independent of its position in the
-PDU.
-
-Fixes: e057dd3fc20f ("can: add ISO 15765-2:2016 transport protocol")
+Fixes: 2a127da461a9 ("nvmem: add support for the write-protect pin")
 Cc: stable@vger.kernel.org
-Signed-off-by: Oliver Hartkopp <socketcan@hartkopp.net>
-Link: https://patch.msgid.link/20261117-can-bcmlock-memcg-v6-6-6826a6227d36@hartkopp.net
-Cc: Vincent Mailhol <mailhol@kernel.org>
-Cc: Marc Kleine-Budde <mkl@pengutronix.de>
-Cc: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: Zhu Ling <zhuling0805@qq.com>
-Cc: linux-can@vger.kernel.org
-Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+Link: https://lore.kernel.org/r/sashiko-outbox-219526@kernel.org/
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- net/can/isotp.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ drivers/nvmem/core.c      | 35 +++++++++++++++++++++++++++++++++--
+ drivers/nvmem/internals.h |  2 ++
+ 2 files changed, 35 insertions(+), 2 deletions(-)
 
-diff --git a/net/can/isotp.c b/net/can/isotp.c
-index 8229b6a69ecd..0293d590186c 100644
---- a/net/can/isotp.c
-+++ b/net/can/isotp.c
-@@ -634,6 +634,10 @@ static int isotp_rcv_ff(struct sock *sk, struct canfd_frame *cf, int ae)
- 	so->rx.sn = 1;
- 	WRITE_ONCE(so->rx.state, ISOTP_WAIT_DATA);
+diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
+index 7d4cce8e2742..c0da902d909b 100644
+--- a/drivers/nvmem/core.c
++++ b/drivers/nvmem/core.c
+@@ -70,6 +70,36 @@ static int __nvmem_reg_read(struct nvmem_device *nvmem, unsigned int offset,
+ 	return ops->reg_read(nvmem->priv, offset, val, bytes);
+ }
  
-+	/* start rx timeout, isotp_send_fc() restarts it */
-+	hrtimer_start(&so->rxtimer, ktime_set(ISOTP_FC_TIMEOUT, 0),
-+		      HRTIMER_MODE_REL_SOFT);
++static int nvmem_wp_write_begin(struct nvmem_device *nvmem)
++{
++	int ret;
 +
- 	/* no creation of flow control frames */
- 	if (so->opt.flags & CAN_ISOTP_LISTEN_MODE)
- 		return 0;
-@@ -726,13 +730,13 @@ static int isotp_rcv_cf(struct sock *sk, struct canfd_frame *cf, int ae,
- 		return 0;
- 	}
- 
-+	/* start rx timeout, isotp_send_fc() restarts it */
-+	hrtimer_start(&so->rxtimer, ktime_set(ISOTP_FC_TIMEOUT, 0),
-+		      HRTIMER_MODE_REL_SOFT);
++	if (!nvmem->wp_gpio)
++		return 0;
 +
- 	/* perform blocksize handling, if enabled */
--	if (!so->rxfc.bs || ++so->rx.bs < so->rxfc.bs) {
--		/* start rx timeout watchdog */
--		hrtimer_start(&so->rxtimer, ktime_set(ISOTP_FC_TIMEOUT, 0),
--			      HRTIMER_MODE_REL_SOFT);
-+	if (!so->rxfc.bs || ++so->rx.bs < so->rxfc.bs)
- 		return 0;
--	}
++	guard(mutex)(&nvmem->wp_lock);
++	if (!nvmem->wp_writers) {
++		ret = gpiod_set_value_cansleep(nvmem->wp_gpio, 0);
++		if (ret)
++			return ret;
++	}
++	nvmem->wp_writers++;
++
++	return 0;
++}
++
++static int nvmem_wp_write_end(struct nvmem_device *nvmem)
++{
++	if (!nvmem->wp_gpio)
++		return 0;
++
++	guard(mutex)(&nvmem->wp_lock);
++	if (--nvmem->wp_writers)
++		return 0;
++
++	return gpiod_set_value_cansleep(nvmem->wp_gpio, 1);
++}
++
+ static int __nvmem_reg_write(struct nvmem_device *nvmem, unsigned int offset,
+ 			     void *val, size_t bytes)
+ {
+@@ -84,13 +114,13 @@ static int __nvmem_reg_write(struct nvmem_device *nvmem, unsigned int offset,
+ 	if (!ops->reg_write)
+ 		return -EOPNOTSUPP;
  
- 	/* no creation of flow control frames */
- 	if (so->opt.flags & CAN_ISOTP_LISTEN_MODE)
--- 
-2.53.0
+-	ret = gpiod_set_value_cansleep(nvmem->wp_gpio, 0);
++	ret = nvmem_wp_write_begin(nvmem);
+ 	if (ret)
+ 		return ret;
+ 
+ 	wr_ok = ops->reg_write(nvmem->priv, offset, val, bytes);
+ 
+-	ret = gpiod_set_value_cansleep(nvmem->wp_gpio, 1);
++	ret = nvmem_wp_write_end(nvmem);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -930,6 +960,7 @@ struct nvmem_device *nvmem_register(const struct nvmem_config *config)
+ 	nvmem->dev.bus = &nvmem_bus_type;
+ 	nvmem->dev.parent = config->dev;
+ 	INIT_LIST_HEAD(&nvmem->cells);
++	mutex_init(&nvmem->wp_lock);
+ 
+ 	/*
+ 	 * Must happen before we assign the release() callback in
+diff --git a/drivers/nvmem/internals.h b/drivers/nvmem/internals.h
+index bc7a99f5aefb..aab2ee4f9329 100644
+--- a/drivers/nvmem/internals.h
++++ b/drivers/nvmem/internals.h
+@@ -34,6 +34,8 @@ struct nvmem_device {
+ 	const struct nvmem_keepout *keepout;
+ 	unsigned int		nkeepout;
+ 	struct gpio_desc	*wp_gpio;
++	struct mutex		wp_lock;
++	unsigned int		wp_writers;
+ 	struct nvmem_layout	*layout;
+ 	struct nvmem_operations __rcu *ops;
+ 	void *priv;
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+base-tree: https://git.kernel.org/pub/scm/linux/kernel/git/srini/nvmem.git for-fixes
+change-id: 20261117-submit-nvmem-wp-serialization-v1-e44b68058814
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
