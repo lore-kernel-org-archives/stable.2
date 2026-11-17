@@ -1,83 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.216
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794886810;
-	b=a17awecIod9GE57v6YhmAI8fw+zXajNHe91Rp7rIgbYXZtb83KLVkNtEA/rcoXBjnMZo
-	 k5EHrViwz8EDPT4feO0UtuZSKvo4pTC8DmbEFTIFH7IFH4mpzitzwkEgA+ipIrf0K4f5k
-	 +9Pws8OS0WAU8hE5Ar2c+tKZe3D+kWE3jtW+IfyG9Ndi1imzWYu02t+GB2zLe7kIRtRtI
-	 sTyJwqcBCrc/4lhq6fwIpBFOgm2UgjFA07hBcn27NH2ET3P85bscxRM7hkvOtFIT+WQ9b
-	 Yt08/fUgxQcVN6XnI5HjVN+kDlV8/e+k54lTlAe7vkol18VBqxnMb/Zymn5I8XDZpcg==
+	t=1794887543;
+	b=H3Yo2HjxDWuybA/XsPS4THO0Ai1hXwb8J7ZmaoGCtuOQzq6X529wExGxaSZNnH4bmHB0
+	 b1BRpdBhpe4Djo8XSV0WFdoqbO8UuGgaey0wO9HtZtJqPAzqXwpDKF9ygpSzvS8YMVUGd
+	 fbl2j//sQSoeWqCST/Sv60aB+YdC8sP9bd8dmKtqIkk2YUPYZ8qD3rWukhPw8ksubXxK3
+	 2PR78z3ynof0sTmGAVlDw7H6ncTFW0MBp4vR1ul3uBiJBI6hJcvMuLIsGwihtAUU1Hh7B
+	 KLSxjPWVEyb0cLE+iTAQOP2z1ZIPi8phEVVVtzP8bU5ZpxnGn6XcgaWGxfTTM4dw8ow==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794886810;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794887543;
+	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
+	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=+h+jlzE5c2hq2F/rPSQq3Xc262XJEaUM8Jil9/WOXYs=;
-	b=yzz99l7xRjYBAft6U0/w5jjtsMC6dn7i7NgFH2s0AEzOB87C4r50R/F8uSQ9bqNKa+B3
-	 2DQVrl6dm30NP/QvR9elrhEp5HY3z90ARE0UY/UbTke8BnLOKkQgmuz78mp9VK5TvQWH2
-	 KYHxeQ/v8omhGnn4dLb0fPRfx0egPvNuB56xCQGnAVegDIAHYLqFutc8d+tcsyMCUFiXw
-	 jqyKbTtU3/QLUNnUa/DonM09XwrQKz6supkfto7rS1WXkieLfJU5aNPsf6DBV9AKM9w/2
-	 jwwbCiMFN7iw45/BYYulK6OL2lxC9W3y1U22hqsVozna1m8JUY77V2h6nNNR0X7rVRw==
+	bh=kPbUU2pSkdSIyR6nxJNJ4pLUOdW5sNHpnFPYPN95g1Y=;
+	b=hsy6vbFxCvSddVTFCu8ogCczqhphcSmiZ7Ccek7gYyJEsMjCvk+r0QZVzI7GwagJ9COC
+	 +U3EQEumgCE6cINf8Xn9mtwwH3BBjLQzTGIlf1fb7IuopTNLJjer4eusB54/NxlSMRKRK
+	 bx1BLr+mDBwyirum8iWDXo4KN4PAND1cA8657lUbdXq5kd27f/BFYJ84MFZMDEYi/UWlj
+	 QCn/qMex534xOhHqXVaXvSiPsFYqe19PphY5pmn7d54Fk9lduOYpWQCBh9V+W70w8hOCC
+	 uG0nTk232KrtrPx40QXuVwi11cNzpmyhM3kMFoUj+5IhoXkexaTSAuhvMFJHOcifjIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=nAzCw2J+;
-	arc=none smtp.remote-ip=162.62.58.216
-Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=kylinos.cn;
+	spf=pass smtp.mailfrom=kylinos.cn;
+	arc=none smtp.remote-ip=124.126.103.232
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BDF606A323
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 03:40:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82BDF606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=nAzCw2J+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1794886804; bh=+h+jlzE5c2hq2F/rPSQq3Xc262XJEaUM8Jil9/WOXYs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nAzCw2J+eEuv5mbKHzo9zpFhy5GIBR22I3c0pFjpVjPlrgP3LoMeQMytcempqKyWD
-	 PD9UAtXV0ZyqWOvkqRh2Pu++d/66SqETBAq262kJlEWo+31NeFhTlhB/vaFgX+XLjB
-	 Y/jedavY52a3Ux1Qs72B2JvG7M+eI/ny9EqVXZKI=
-Received: from ikun ([221.176.157.242])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id 9E739AA0; Tue, 17 Nov 2026 11:39:39 +0800
-X-QQ-mid: xmsmtpt1794886779tz88pafb6
-Message-ID: <tencent_58D8BEFB60308A7011D26F6F7E8C941C2A09@qq.com>
-X-QQ-XMAILINFO: Nz6nvCBXF1ZF+liHtZ5KaBB1jAMuEmW62PPcaZrO1dDpv50pUZFR1GpWAtyoxQ
-	 vlgvZN7BlXnxPhT07NQcF/LUE9ArqcbR/iUyTkbn2OPxDmMcsyStuFsoR0srywvxWWH4v875As3n
-	 l4A7TbRh6SdnkSmCWpfntaCouCGNDd7AMP5jgXrZd7M4ii852CB87RG2RXcEZyr9PT1LDyK799cx
-	 Lh0SWn/cbHwOgjNOqQwSs15DUEQd8tb6uWiVoIgHwvCXbows4oGcGGvKD3uUPRZQzItygyEfSiTr
-	 +sY7VjkIEnAmBjlZyKGBP0zKbe6AJ88pH6y1Mrf9N3kymx+qVB394dJMBn36ik2vB8xFuDQ6zD7A
-	 BbaeZD+Y93wb+cDMZf4VGR0iKiirmPcSTrFWLd7S7SgBoMYCKBSp96HAeQp6fkjVmy+mN9eys2Of
-	 x3U5jdU6BRNxFZGDLJlbnZBhgtpKOqD92WoMCdDw7cn5KluDP5EoRuoZ8NqLCtyd5LOxEy/x1JTV
-	 9HTSbFYaiEU0B8DQMlsi+1ewGR8tW/1l26Ecm8utSclIBH6bFOqF41oHNAp1tNAqkEVO9c76qa7a
-	 GKTy65JIbyJ430sh7Dd8MPhHUl3IsfsKBsDeoLNm32Hdm+K7PYtC2mR4IAxxyM2EJAQI2kDjyYWz
-	 xPAAGscnvhu625sDdjBwyzTHv68LJstsBT6CrKWUgGIL5DAssZGNRkclN4HyV4SmakusMxLqWS7G
-	 97/RseH/or7hiUdvhMhTDpL20Bw+siLaJ+Hn1iH9BLLBMujK5BURcjqGTqFfYe6oA+XbzyEmC/41
-	 pgoXnrBmzVcd18BWhUeP8MrsPUxAKRt8VBZ56q+mrq8WhvBNUGHVhXIUL7AovuJYJuVTC7PbPAbD
-	 I4p34/olG4zXWknV/asJ34s74tPrOcEzrxQ+Wc2HTPnLlNK4XX3YrJ1ATIulXV9h634fTz41pUKP
-	 D8hAoGGkmn9/Ev61r6GASPebm69ZoRAZLpBtcn2g+jXRAs8fAUeearcXqVgvIHfMDBWU7sBx0R7J
-	 KYEwA0mg==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: Alan <3164729207@qq.com>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	harshadshirwadkar@gmail.com,
-	linux-ext4@vger.kernel.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12731606A31C;
+	Tue, 17 Nov 2026 03:52:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12731606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 429694a0e23a11f19a56ed5b684f684d-20261117
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:e56faa59-909d-4110-9eb5-9206bf254019,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:54d9638c31d6d837d37134dceeea875f,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
+	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
+	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 429694a0e23a11f19a56ed5b684f684d-20261117
+X-User: yijiangshan@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <yijiangshan@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 671802626; Tue, 17 Nov 2026 11:52:07 +0800
+From: Jiangshan Yi <yijiangshan@kylinos.cn>
+To: brendan.higgins@linux.dev,
+	david@davidgow.net
+Cc: raemoar63@gmail.com,
+	skhan@linuxfoundation.org,
+	linux-kselftest@vger.kernel.org,
+	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
+	13667453960@163.com,
+	Jiangshan Yi <yijiangshan@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH v2] ext4: reserve inode write access before unlinking entry
-Date: Tue, 17 Nov 2026 11:39:38 +0800
-X-OQ-MSGID: <20261117033938.4578-1-3164729207@qq.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <otvuclstcoaysrnywzdttapxbxg7hq3p7lp3iexy7u5cuj6plx@waqfsi2dg2p4>
-References: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com> <tencent_69B311F4356254E166A5EFDC981AA138D80A@qq.com> <otvuclstcoaysrnywzdttapxbxg7hq3p7lp3iexy7u5cuj6plx@waqfsi2dg2p4>
+Subject: [PATCH] kunit: fix NULL dereference when glob filter matches no tests
+Date: Tue, 17 Nov 2026 11:52:02 +0800
+Message-Id: <20261117035202.251238-1-yijiangshan@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,98 +76,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__ext4_unlink() removes the directory entry before decrementing the target
-inode's link count. It then dirties the parent inode. If the parent
-inode-table block cannot be read, parent inode dirtying fails after the
-entry has been removed, and unlink returns without dropping the target
-inode's link count. With errors=continue, this read error need not abort
-the journal transaction, so the directory update can be committed without
-the corresponding link-count update.
+When a suite glob matches a suite but its test glob matches none of the
+suite's tests, kunit_filter_glob_tests() returns NULL.
+kunit_filter_suites() only checks IS_ERR(), so the NULL passes into
+kunit_filter_attr_tests() and is dereferenced by kmemdup() in memcpy().
 
-Reserve the inode locations and journal write access for the parent and
-target inodes before removing the directory entry. This makes inode-table
-read and access errors fail before the namespace is changed. Keep the
-existing namespace and link-count update order, and release the inode
-location references on every exit path. Fast-commit replay can skip the
-parent update when the directory entry does not match the target inode, so
-reserve only the target inode in that case.
+Skip the suite when the glob filter returns NULL. Keep the existing NULL
+check after the attribute filter, which covers suites whose tests are all
+removed by attributes.
 
-The original source-derived injection at the journal write-access boundary
-is not evidence for a committed inconsistency: an error after the journal
-has already aborted cannot establish a committed transaction. The relevant
-failure is an actual inode-table READ EIO before journal write access.
-
-Tested on Linux 7.4-rc3 (torvalds/linux commit
-aebb7274476403040d582c61478df8f4a7bf9cd3) with QEMU blkdebug and
-errors=continue. On the unpatched kernel, the READ EIO leaves the directory
-entry removed with Links: 1 after normal unmount; the JBD2 trace shows no
-journal abort and records the transaction commit, and e2fsck -fn reports
-an unattached inode. With this patch, the same error is returned before the
-directory entry is removed; the file remains present with Links: 1 and
-e2fsck -fn passes. No-fault controls pass on both kernels. Also built
-fs/ext4/namei.o with W=1.
-
-Fixes: 4209ae12b122 ("ext4: handle ext4_mark_inode_dirty errors")
-Link: https://lore.kernel.org/linux-ext4/tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com/
+Fixes: 529534e8cba3 ("kunit: Add ability to filter attributes")
 Cc: stable@vger.kernel.org
-Signed-off-by: Alan <3164729207@qq.com>
+Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 ---
- fs/ext4/namei.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ lib/kunit/executor.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-v2:
-- Clarify that the committed inconsistency is reproduced by an inode-table
-  READ EIO before journal write access, not by an already-aborted journal.
-- Revalidate the unmodified and fixed paths on current Linux 7.4-rc3 mainline.
-
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 354fc2d22df1aa..4c16aa9ad78176 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -3233,6 +3233,7 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
- 	int retval = -ENOENT;
- 	struct buffer_head *bh;
- 	struct ext4_dir_entry_2 *de = NULL;
-+	struct ext4_iloc dir_iloc, inode_iloc;
- 	handle_t *handle;
- 	int skip_remove_dentry = 0;
- 
-@@ -3269,6 +3270,22 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
- 	if (IS_DIRSYNC(dir))
- 		ext4_handle_sync(handle);
- 
-+	/*
-+	 * Read the inode-table blocks and get journal write access before
-+	 * removing the directory entry. Otherwise, a read error while updating
-+	 * either inode can leave the name removed but the link count unchanged.
-+	 */
-+	dir_iloc.bh = NULL;
-+	inode_iloc.bh = NULL;
-+	if (!skip_remove_dentry) {
-+		retval = ext4_reserve_inode_write(handle, dir, &dir_iloc);
-+		if (retval)
-+			goto out_handle;
-+	}
-+	retval = ext4_reserve_inode_write(handle, inode, &inode_iloc);
-+	if (retval)
-+		goto out_handle;
-+
- 	if (!skip_remove_dentry) {
- 		retval = ext4_delete_entry(handle, dir, de, bh);
- 		if (retval)
-@@ -3293,6 +3310,10 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
- 	if (dentry && !retval)
- 		ext4_fc_track_unlink(handle, dentry);
- out_handle:
-+	if (dir_iloc.bh)
-+		brelse(dir_iloc.bh);
-+	if (inode_iloc.bh)
-+		brelse(inode_iloc.bh);
- 	ext4_journal_stop(handle);
- out_bh:
- 	brelse(bh);
-
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+diff --git a/lib/kunit/executor.c b/lib/kunit/executor.c
+index c798a02470d8..3a281af3cda8 100644
+--- a/lib/kunit/executor.c
++++ b/lib/kunit/executor.c
+@@ -226,6 +226,9 @@ kunit_filter_suites(const struct kunit_suite_set *suite_set,
+ 				*err = PTR_ERR(filtered_suite);
+ 				goto free_filtered_suite;
+ 			}
++			/* Skip this suite if the glob filter matched no tests. */
++			if (!filtered_suite)
++				continue;
+ 		}
+ 		if (filter_count > 0 && parsed_filters != NULL) {
+ 			for (k = 0; k < filter_count; k++) {
 -- 
-2.53.0
+2.25.1
 
