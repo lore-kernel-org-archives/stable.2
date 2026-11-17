@@ -1,90 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794914131;
-	b=lxJ205odGuZ8iMgRjkhKi90z27qfaY5ucMepRWxqJT98AskZoESNtmqlQx2PByltRTED
-	 H90/Ebd99GSB3rrwKd1uAv+12h/7/ZIxGb7VpPfjjDwaLs6M7wwd/zf8P1d/9GjZ2zBD8
-	 s+0IDTeOR20cnqujlCNoF13GbuJ7hW4p63/4ohiBmtXnpVBdvuhnwet6S7vKZHiso72jF
-	 tNaWMqb+3LEcNMfuoV+59LoqDJFuffVr+OdGhSUlVCE+D3/34TRA4y6cO/iwohdi9CuVe
-	 RIruUtOEbvSiZmfd6b9LzPvphqWA/pjoIKc5S2dw2m+l+Fz6I8hR1/ke4VfDs+XS1EQ==
+	t=1794914314;
+	b=qmD+DxCytIXbskUYc0W9EuoGB8BVsUnd+qK1c68AXH8oRr2MkFdSuRc3neH3Hxf6IwL9
+	 OzRjE+lPdRe5jeYWD9rTvolc+Ae26Gttt6CAljLQ6lBtjzNVI/ini0QLDWlJvJDKmpJqa
+	 e4ozVM5wKPGzhRspJUFUNmqKvFTQzQqJ4JRwlNFM7gLBqmbgBD4YQlplSbic0gwiQ8jM3
+	 rf50TheG29tmljQ9YWezY7OgmGRoZukHzn0SQbr8K+sRhaIkCc/Uz2+mdVKRBdSl6lilN
+	 HyfGtR1TQvnusPwGC1B4fZ5K4TIKutWDPIyq/hhMu/Z4ILSSgIBY+TfOMaI41J3BjYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794914131;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=9J3okju34MNnR27FDiPAaP7UT0/s47A9W6uHOHJn+uc=;
-	b=IhaEadN0ecidgWiC001WU9BirzwLuwOHQXk/t61pkQy+fJFpXrnLj1ptPJkqyJxMiIGW
-	 n/HsV2HfVN4hJ6WyCEyORZr/11lXl9IXb+g3kItxVUQVfbX2SA+Ti1dhaCMlsTM/NYz+M
-	 FKlZDFMwunHlbawYgOSOwG3QtA4Hlz5CrLBbs4as8C4mn+zeDiVF4PgCWV82GjUlm0jwy
-	 GuV7dcgEuiuSuZYRttix/ofWFL1o1aH/44whYmZxENtIMTUX7iz4qeCh6rMrRmIbp1I2x
-	 NdkF90LWZeIEOxa0AamBaY6Y9lEi7cJjkAJHy/kVwqLbNFm3ZcEXmdOFxsF8qzZjEug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794914314;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=R7dVIQ4XDHgLNO3WaDmdHDUJK2S7GdX6/1fBTD2EHk0=;
+	b=1c6Y5AoSj4UsU+fycA3mxnVo66ihKCnfljsj2vG6yL5VmVA2JJJsCSCQrjubBMieNXXI
+	 OBzNMMAyaYWXy3bcSG0ZJyZhHe3n+BfKlkj43JHRBcivj/I45HUrKWAIpRzYWgVkAtEtG
+	 7nqjxXBIHFhM1cfHKF/KxnsIxt2BLR9Vt+j2DzpdDhKbOJpLDc1yHg3fRvVFOHPjEo6un
+	 hSSEATODoeX3R3vzuFAwHBCGvrAwIgAZ8HMNczaC3/pn3Vn7FXmNGBk/dfgTmvoocYJdd
+	 MuVDoygSUdGwsYNQJQxAjqoIl8YIU3d//rK7Pv1BGZjHEw9xh1dk3t3SEGIWH2jwRKw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=CBz74zaC;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYFB0ZrL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE29606A335
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 11:15:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BE29606A335
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41867606A323;
+	Tue, 17 Nov 2026 11:18:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=CBz74zaC
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so23065305e9.1
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 03:15:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1794914129; x=1795518929; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9J3okju34MNnR27FDiPAaP7UT0/s47A9W6uHOHJn+uc=;
-        b=CBz74zaCPQeAfGLV4TbDZ+4TFW4hj7UsHko7rb3gYFQTHdjD+QfOv9Rj9HCaXnEqGH
-         +XIVedkLIMeW5zp7xTNk/hjaBXQ8fCvjOBThBVoE/F3wQXZTRIa+pasmFLg8my8d3deB
-         VL4xtZ+eZtBGni5pQ4buRdH7nfnOzXHgFR7SQV76JoC6ly474ep9653PCXcAGQAT/TRN
-         HPY6nG8F0P8zLOTCL5Kw4m9Oo6EQfVfEjOJrSJNQdp/pcgHAPnAipU61cTA/hHHP0O4T
-         BW+tMUPA4yQgnG4vWk+t+vpeHTslYrLUMNz5nOjVSFEavfTMN7Eu6g2mtGMtIlSbG3IY
-         OLsQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794914129; x=1795518929;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9J3okju34MNnR27FDiPAaP7UT0/s47A9W6uHOHJn+uc=;
-        b=omltxPDUFUNK8dzZssYMPSuo/ltG0XdEYffbDlQpZTgP1uTqxcY39blenLyReU7qFy
-         Ophm1A09foZ4kqrp9hV4XCYhcHnm9BTQQdFYmVhNakdoDXZMQqcQ+96bLnHD2P3FIgbo
-         dAORtwlH72SbebIslP3JioyXqnS0Q6dqvkWi8p0LGpQKvMK4o9Nkh8WmTlPhVf0tCeye
-         mru31bN4B4AcuKeonn0i+mFHotDxpfM7mmcLYBOuAVdYf2fimi5rbS8CCbo7Kq4e4nev
-         RabEqbgyTO5ViRtwtzWib7xdTVfUuVmmWK3cgxTX1mZKvgQ8fI8GYxFRffc80OMmuCKW
-         DXKw==
-X-Forwarded-Encrypted: i=1; AL+hErFFUGIsZhoTWElQiOy8PiJ/ZMSfV3sIlS2ZwVVDuP1ITztv9KYWjxnwgWTS8JMLvtdXHwHpNlQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+fyiyqR7sPJ27lQhhl6426V3igsSVUfFO4ZLUIvM9a3+vmrO7Y
-	CujQ2HT/pVyzE9z5MI+uBnNoNF/V0bXrQ9X8U9KdwG2Wp17KQVZ78+aNQSClpw7mBAg=
-X-Gm-Gg: AYBFou2XxcClOe5hy5i3W7VI5H2aYowK+iruMek3v1JLA7pnP4dbaTxsS1EbrQJzG61
-	1MlfbF9EEoOOEI2uA39/9reE3NJu+7OEuttHa9NTKPYlMPJsqSTjx8iF/jIiwhyi40N/ANKJBn4
-	A8nOtawmp7VimxJLuHFl42F9nqz0SoVtnbBKLJs5T4tJ84hqrFQvEWSLG3ZnfeIuNAgb5Us1jLW
-	t7laNZWKsMkNow1AsN0uJrIy5oojumpnM2rwxVwcO8+fGZfIaMY6qvAzt8rNqw3LrtrdxRC1xJY
-	3qGvFYls1St/GYjX7tZx1arrd69eFIKKG3HCX2XFOJlqFnIRJMGwxHf2g0tEW2HmKz/dBJM8hv6
-	UgBRn1sbAlt5wUcdIhQdgAnf4oW3+SqdvoK2wILg/qXRZG9cgLgrATmVUO3QLvzJeM8dGplZsOm
-	vU+3cmCC7a2tzM3qnEqD3GYWBqf7ZOBT3MkzS4eHG5fo9qzZmcaRdzVL6B4iybdyowdQ0DdcoMG
-	aGKB1CZ2hL/u9N2D5RAD+ylolD8FbTfvmzYwDEuqded48vTXuKldSOyRPB89ZI1/Y6SbIk2vPM9
-	xs4bJHREx7xpfQFBHWYTJXpa2FNNdMVRNKoLrP6bO8luFo87bQpeVggWBd680VlL5hkCEl00w7g
-	2cWFZpllwhQ==
-X-Received: by 2002:a05:600c:8b56:b0:4a6:44b:2593 with SMTP id 5b1f17b1804b1-4bb55ad0711mr284989995e9.29.1794914128746;
-        Tue, 17 Nov 2026 03:15:28 -0800 (PST)
-Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783f8220sm59773745e9.5.2026.11.17.03.15.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 03:15:28 -0800 (PST)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Tue, 17 Nov 2026 15:15:16 +0400
-Subject: [PATCH 2/3] usb: typec: tcpm: Leave SRC_VDM_IDENTITY_REQUEST
- whatever the cable answers
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EYFB0ZrL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783CA1F000C6;
+	Tue, 17 Nov 2026 11:18:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794914314;
+	bh=R7dVIQ4XDHgLNO3WaDmdHDUJK2S7GdX6/1fBTD2EHk0=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=EYFB0ZrLqXIET4JkS/BVKgd6yRyKcwaD/R+wLWk80JIO7h+Efxbkdl3Yp5cqC8GG1
+	 7PL12tm0vPfLGwk3d5cQLYJnR8mwvIzW8gV3P54eH9tcSr//VkM0sp/vBQcfde9ozp
+	 KIVKtSjAl35HrzPLbYWvObkN9BqvTqqPKnDv63sweM9InhRe6Ghr0d4/Fgz1a60xyo
+	 f77DC9+MHuSmsi4hBUxfogtMZUDJ8kTsYLeCyQhxB2xXWywf9JsjWnsQz+O7EjY+GA
+	 oapVy78v/gPJLfES95xA+6CiJ5QaYtqbH/ik/Bnf/tdApTkNBAlwMr48u0XW5jXKij
+	 LP++VaSceUBsg==
+Subject:
+ Re: [PATCH net 2/3] igb: link queues to NAPIs under RTNL after runtime resume
+From: netdev-bot+sashiko@kernel.org
+To: antonio@mandelbit.com
+Cc: intel-wired-lan@lists.osuosl.org, anthony.l.nguyen@intel.com,
+ przemyslaw.kitszel@intel.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ zheng.z.yan@intel.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Date: Tue, 17 Nov 2026 11:18:33 +0000
+Message-ID: <179491431306.3136.1748912400459389536@kernel.org>
+In-Reply-To: <20261113105835.3821433-2-antonio@mandelbit.com>
+References: <20261113105835.3821433-2-antonio@mandelbit.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,70 +65,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-tcpm-soft-reset-sop-v1-2-c7e1543828c0@flipper.net>
-References: <20261117-tcpm-soft-reset-sop-v1-0-c7e1543828c0@flipper.net>
-In-Reply-To: <20261117-tcpm-soft-reset-sop-v1-0-c7e1543828c0@flipper.net>
-To: Badhri Jagan Sridharan <badhri@google.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- RD Babiera <rdbabiera@google.com>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
- linux-usb@vger.kernel.org, Alexey Charkov <alchark@flipper.net>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1956; i=alchark@flipper.net;
- h=from:subject:message-id; bh=GcD+2Vp+u0FkZkbqOsmPAdEh3rJkylbYEoZ9S0w4x4U=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWT9MfcydXcz60u8f7Oh0rO+JiJtmfe0ApPHqSksR1qc7
- 83b+nJxx0QWBjEuBksxRZa535bYTjXim7XLw+MrzBxWJpAh0iINDEDAwsCXm5hXaqRjpGeqbahn
- aKRjrGPEwMUpAFO9Q5uR4Y71dIXi93fuJYuzyQcmpCgv6rNelPRNQ3rxo1Py1d+maTD8Yl6xY+G
- cHX/+CxqrJE4VW5QtfWNyIn9djMPejUEef+onMQAA
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-When its first Source_Capabilities goes unacknowledged, a source that is
-the VCONN source asks the cable plug for its identity in
-SRC_VDM_IDENTITY_REQUEST. Entering that state sets upcoming_state to
-SRC_SEND_CAPABILITIES, but the ACK and send error paths go there
-directly and leave upcoming_state set, so the first SRC_READY after the
-contract sends Source_Capabilities again. The second negotiation can cut
-into the sink's own Discover Identity, and once ended in a Hard Reset
-between two FUSB302B ports. If the cable plug acknowledges the request
-but never answers, or NAKs it, nothing leaves the state at all: the
-source sends no Source_Capabilities until the sink gives up with a Hard
-Reset, which cycles VBUS.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Schedule the move to SRC_SEND_CAPABILITIES on entering the state, after
-tTypeCSendSourceCap, the interval between Source_Capabilities, instead of
-setting upcoming_state. Keep the ACK and send error paths moving on at
-once, and a message from the sink interrupting as before.
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-Fixes: af8b627046bc ("usb: typec: tcpm: add state machine support for SRC_VDM_IDENTITY_REQUEST")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- drivers/usb/typec/tcpm/tcpm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index 8c5be904d772..947fca918414 100644
---- a/drivers/usb/typec/tcpm/tcpm.c
-+++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -6553,7 +6553,11 @@ static void run_state_machine(struct tcpm_port *port)
- 	/* Cable states */
- 	case SRC_VDM_IDENTITY_REQUEST:
- 		mod_vdm_discovery_delayed_work(port, 0);
--		port->upcoming_state = SRC_SEND_CAPABILITIES;
-+		/*
-+		 * Go on with Source_Capabilities whatever becomes of Discover
-+		 * Identity, unless the cable plug answers sooner
-+		 */
-+		tcpm_set_state(port, SRC_SEND_CAPABILITIES, PD_T_SEND_SOURCE_CAP);
- 		break;
- 
- 	default:
+- [Medium] The new comment above igb_queue_napi_task() says: "The
+  q_vectors are only freed under RTNL with __IGB_DOWN set, so checking…
+
+--
+
+igb: link queues to NAPIs under RTNL after runtime resume
+
+When __igb_open() is called on the resume path, it no longer links queues
+to NAPIs. On system resume the links are set directly with RTNL held. On
+runtime resume a new work item takes RTNL and sets them, checking
+__IGB_DOWN first so that it does not touch freed q_vectors.
+
+Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
+
+> diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+> index 028cdd90522cb..f1ce9aa696ab7 100644
+> --- a/drivers/net/ethernet/intel/igb/igb_main.c
+> +++ b/drivers/net/ethernet/intel/igb/igb_main.c
+> @@ -2115,6 +2115,30 @@ void igb_set_queue_napi(struct igb_adapter *adapter, int vector,
+>  				     NETDEV_QUEUE_TYPE_TX, napi);
+>  }
+>
+> +static void igb_link_queue_napis(struct igb_adapter *adapter)
+> +{
+> +	int i;
+> +
+> +	for (i = 0; i < adapter->num_q_vectors; i++)
+> +		igb_set_queue_napi(adapter, i, &adapter->q_vector[i]->napi);
+> +}
+> +
+> +/* Linking queues to NAPIs requires RTNL, which isn't held when resuming
+> + * from runtime suspend: do it from here instead. The q_vectors are only
+> + * freed under RTNL with __IGB_DOWN set, so checking it under RTNL is safe.
+> + */
+> +static void igb_queue_napi_task(struct work_struct *work)
+> +{
+> +	struct igb_adapter *adapter = container_of(work, struct igb_adapter,
+> +						   queue_napi_task);
+> +
+> +	rtnl_lock();
+> +	if (!test_bit(__IGB_DOWN, &adapter->state) &&
+> +	    netif_running(adapter->netdev))
+> +		igb_link_queue_napis(adapter);
+> +	rtnl_unlock();
+> +}
+
+[Severity: Medium]
+Is this statement accurate: "The q_vectors are only freed under RTNL with
+__IGB_DOWN set"? The commit message makes the same claim.
+
+On the runtime resume path, __igb_resume(dev, rpm=true) runs without RTNL.
+It calls igb_init_interrupt_scheme(adapter, true), which sets num_q_vectors
+and allocates q_vector[]. It then calls __igb_open(netdev, true). If MSI-X
+setup fails there, igb_request_irq() frees and reallocates the q_vectors:
+
+igb_request_irq() {
+    ...
+	if (adapter->flags & IGB_FLAG_HAS_MSIX) {
+		err = igb_request_msix(adapter);
+		if (!err)
+			goto request_done;
+		/* fall back to MSI */
+		...
+		igb_clear_interrupt_scheme(adapter);
+		err = igb_init_interrupt_scheme(adapter, false);
+    ...
+}
+
+igb_clear_interrupt_scheme()->igb_free_q_vectors() sets num_q_vectors to 0
+and frees each q_vector[i]. The fallback then reallocates them with
+num_q_vectors set to 1. None of this runs under RTNL.
+
+igb_remove() also frees the q_vectors without RTNL. It is only safe because
+set_bit(__IGB_DOWN) and cancel_work_sync(&adapter->queue_napi_task) run
+before igb_clear_interrupt_scheme().
+
+So RTNL does not seem to serialize igb_queue_napi_task() against the
+runtime resume writer. The only handoff between them is the __IGB_DOWN bit.
+The writer uses a plain clear_bit() in __igb_open() and the reader uses a
+plain test_bit() here. Neither provides release or acquire ordering.
+
+Can the following sequence happen?
+
+  runtime resume #1 queues queue_napi_task
+
+  the work is delayed (on rtnl_lock() or in the workqueue) past the
+  5 second pm_schedule_suspend() in igb_runtime_idle()
+
+  runtime suspend #2 takes RTNL, igb_down() sets __IGB_DOWN and
+  igb_clear_interrupt_scheme() NULLs q_vector[]
+
+  the work takes RTNL while runtime resume #2, without RTNL, reallocates
+  the q_vectors (possibly through the MSI fallback) and clears __IGB_DOWN
+
+On weakly ordered CPUs such as arm64 or POWER, the work could see
+__IGB_DOWN as cleared but still load stale num_q_vectors or q_vector[i]
+values. For example, it could read num_q_vectors as N from before the
+fallback and q_vector[1] as NULL from after it.
+
+igb_set_queue_napi() would then dereference q_vector->rx.ring through a
+NULL pointer, or through a pointer that was already passed to kfree_rcu().
+The work does not hold rcu_read_lock().
+
+This looks like a flag being used as a lock. One option is to pair
+clear_bit_unlock() (or smp_mb__before_atomic() plus clear_bit()) in
+__igb_open() with test_bit_acquire() here. Another is to rebuild the
+q_vectors on the rpm resume path under the same lock the work takes.
+
+At minimum, could the comment and the commit message state the real
+invariant? That is, the q_vectors only change while __IGB_DOWN is set, and
+igb_remove() cancels the work before it frees them.
+
+[ ... ]
 
 -- 
-2.56.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261113105835.3821433-1-antonio%40mandelbit.com
