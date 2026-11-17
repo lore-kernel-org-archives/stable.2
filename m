@@ -1,83 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794897890;
-	b=nbVkpnigUuiQwyNNkeeHhEhCGW9q/TICyOOq+j9siWSmxO3Hr8gjhd+68XWnRiLsDBg3
-	 DvomcqPdt84KX47XZJjveeF0QecBnsMuD7MnP3ozovX9XZtLXGk+BMyRB9Xw2gM4bco9R
-	 qySGEnzUjA5zG7bT9vsLVLomBYXDsEjNSxKjuZMVJ8oWN/CmTMOO9AbVMjI7jvzzT60/L
-	 TATrF45VjZILJZh2480JiNAS2HC/tuSuw4Z5XLxOKzWwd2YeLA2CdtInzWVNwbpQ93eux
-	 ojELikn9q/dpzPJ01+PVyiU/UkBtgZt5DPOm1S4/zLY9ouD15Y11lm5RPf7F8Tobj1Q==
+	t=1794898893;
+	b=iGpQKzz+VRh/EyHYvi1iGnLTwbOYj4OfDRke/qeK7slmNDsd5e5z2oFwy/2GxIS0Bv7M
+	 3WRnvSzOWhD2WTuVoyWCu/dzHTtv5rxGATxV1LXcuj+aWO7vsQ7I9InXvaf9/iHYfivXS
+	 lPPNzU1plt1AzbqmiN2gyzS6SqQD6E2AHEgBCjOpypgPRzZYyN4SszcwqOkx7Tjx7A8EK
+	 kQtnqwMhrjdWQX/U3SLw02yKG2AQjGsJaMpYlqjNcc0fCMigQ2b7Y6vh3SERwtHKgjB2/
+	 QPQLi6IeH4qsEEB4fosenr8MjsShWrry/l69PamZP61hVWZOL3IMR9j3JDaQmCQ5UcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794897890;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=hOnWhf2UYUafyeK5eqb3reqBBAwOK+jIEmpgbPZ8v1k=;
-	b=5bwoUHsBeb9saDM350QKGwpu9jUooBdYXRJOi/WDMM/xrKqOSFhqL3R9Nnvj3xazGt90
-	 cJ322sUIy1c+WJq1IyeeiQ1grdZ7Y43FQ4yJvGDePmZ0EgjcAgXqVs25UG1tLWAbQzrVv
-	 i3Hg1jX5EjnRu/R6n9jDYhJrKQPJDp1MfmalDTSU5XO4G5LG8TA2DDSmbS3jOtG2JW2Md
-	 sMKai/NiGgsrL0Tgyp64uJv41diAg9lWdE3i8gAe/RWNIjRqf4X4ObwRxAFzQMWEmjMMp
-	 PVmkR65FOX/qe+WI2cl9tksIQDSgWNPWfkEQR0TRq6xBo2FTJj43tNqFVUkG7k4D7eA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794898893;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Subject:To:CC:
+	 References:From:Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:
+	 Content-Type:Content-Language:Content-Transfer-Encoding:
+	 X-Originating-IP:X-ClientProxiedBy;
+	bh=kYmHsFilcq9OxcsGtB5MNVtlBGzhtGT9OYVm7nlS3JU=;
+	b=GUGeqmfsc62H5mZq/J9bLcMQB+T9Un6vAf6EkvpWwCBaXAdOLe0qihAB2ABcP8e67OKr
+	 X3UNU6B0MKqDzL9fI/DyHFNNWtANONoUHmGDjFGswITGdv+VTKHPHi/ZBrp+r3z/jVX85
+	 aRKPNikz9U7363h/7za0k/ZOoaAEBeLHIDa8lK+YQjaTkyOHjesm5+mxdTiTfYMeg3I0i
+	 f4ciJa+vTbrdRldLt+gM3neqhLe/xUNKsKGf27ox2lg7ZE5+sco3oZ2HwW5JTS08R89Xo
+	 eY7Vi98BqiEgyDDvX4ga2EI//c7RawKEgLBAZ7znauBW7I+9BSUDQkEZ3yfnKacPAbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gvcYvyi2;
-	arc=none smtp.remote-ip=198.175.65.10
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Fx5C7iqc;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C74606A323;
-	Tue, 17 Nov 2026 06:44:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3C74606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC64D606A339;
+	Tue, 17 Nov 2026 07:01:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC64D606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gvcYvyi2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1794897890; x=1826433890;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=ESQjpD8S2LW070yACMHY9t3rIJIM32CEwZ+XZ+1Vu5E=;
-  b=gvcYvyi2Z1tJPBKlvSs3Eu9JbUzgSZQbkeY01iIV7guv1lDKYVbim4oT
-   fCApOSUphr4v7YAW82Hgmi1byDcMVZ5MDFn7BVhTvr0uCTQieiB8oDBGH
-   lheCqJ7kpF6ofSLhmNxAtnN4TL7IHZQKV6cMA2Rnkypc+OXAhwNY1dFsq
-   MhVH4NwXUJTS3rNf1hQ7T7UO6VOS87PEdyoWSgK3baNQonvqGE9EpAobY
-   hht3QGhxXQTLY1QAPryvO6rbAxCvJLrX89HLQQDhHAaP+ADpiYZq5JOnN
-   LGMLGDu1myK8MnH4nbsMdk9D9d3A2CYiUQVu9b8MFaJaHO1iPJeSx/xHQ
-   w==;
-X-CSE-ConnectionGUID: fvif3nhYS3GV8MQ1PPGmaA==
-X-CSE-MsgGUID: INSYKuGeRm+4t4mrQ+OdzA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3564578"
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="3564578"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Nov 2026 22:44:49 -0800
-X-CSE-ConnectionGUID: K2ZTOQLqQ36QOI5pE7FNuA==
-X-CSE-MsgGUID: 3W5u5vGJQKGsicfVVW/6ag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
-   d="scan'208";a="10152989"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 16 Nov 2026 22:44:46 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xTCvr-00000001AAp-04dz;
-	Tue, 17 Nov 2026 06:44:43 +0000
-Date: Tue, 17 Nov 2026 14:44:22 +0800
-From: kernel test robot <lkp@intel.com>
-To: Hang Nan <2122295973@qq.com>, netdev@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, mptcp@lists.linux.dev,
-	matttbe@kernel.org, martineau@kernel.org, geliang@kernel.org,
-	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, kuniyu@google.com,
-	willemb@google.com, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, 2122295973@qq.com
-Subject: Re: [PATCH net v5 2/3] net: mptcp: reject token 0 in
- mptcp_token_get_sock()
-Message-ID: <202611171407.G0WgWRA6-lkp@intel.com>
-References: <tencent_46FC62D4DE8FB8E6C90049F5AB28BDAA8C05@qq.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=Fx5C7iqc
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=kYmHsFilcq9OxcsGtB5MNVtlBGzhtGT9OYVm7nlS3JU=;
+	b=Fx5C7iqca91BH76vbqFt8WHFsDvuTz0sjyHwxcjk/5uq4mW/eEAOTdVa8eivFFBDCI/KnDWeQ
+	5CM1XndY4tJRCU+tsqiGa83SwxptJq4BsdWHW1uL4ThsoAxdOw5ibI8nZu9WT0snL8ERAGU7OSf
+	5QqTNTAJ7ZZpjrCWO16GJwM=
+Received: from mail.maildlp.com (unknown [172.19.162.144])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jTFxK5B7SzpStX;
+	Tue, 17 Nov 2026 15:00:37 +0800 (CST)
+Received: from whupemk100004.china.huawei.com (unknown [7.152.185.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id A68E640684;
+	Tue, 17 Nov 2026 15:01:25 +0800 (CST)
+Received: from [10.173.125.21] (10.173.125.21) by
+ whupemk100004.china.huawei.com (7.152.185.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Tue, 17 Nov 2026 15:01:23 +0800
+Subject: Re: [PATCH v3] mm/memory-failure: set PG_hwpoison of a non-hugetlb
+ page under hugetlb_lock
+To: Mani Tofigh <mt4022@columbia.edu>
+CC: David Hildenbrand <david@kernel.org>, Naoya Horiguchi
+	<nao.horiguchi@gmail.com>, Kiryl Shutsemau <kas@kernel.org>, Mike Rapoport
+	<rppt@kernel.org>, Mike Kravetz <mike.kravetz@oracle.com>, Matthew Wilcox
+	<willy@infradead.org>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+	<tz2294@columbia.edu>, <stable@vger.kernel.org>, Muchun Song
+	<muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, Andrew Morton
+	<akpm@linux-foundation.org>
+References: <20261106-hwpoison-hugetlb-ro-v3-1-c11186963647@columbia.edu>
+ <42a60f57-5323-f981-8ef3-2e5d67623902@huawei.com>
+ <a87cbd92-0e07-4f84-9a6f-8db0b1778fcf@columbia.edu>
+From: Miaohe Lin <linmiaohe@huawei.com>
+Message-ID: <b0f30561-aabf-2bf5-2204-20907c40ef43@huawei.com>
+Date: Tue, 17 Nov 2026 15:01:23 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,33 +78,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_46FC62D4DE8FB8E6C90049F5AB28BDAA8C05@qq.com>
+In-Reply-To: <a87cbd92-0e07-4f84-9a6f-8db0b1778fcf@columbia.edu>
+Content-Type: text/plain; charset="utf-8"
+Content-Language: en-US
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems500001.china.huawei.com (7.221.188.70) To
+ whupemk100004.china.huawei.com (7.152.185.74)
 
-Hi Hang,
+On 2026/11/12 7:21, Mani Tofigh wrote:
+> On 11/9/26 2:23 AM, Miaohe Lin wrote:
+>> I have no idea why the error on P itself is ignored, could you explain that?
+> 
+> 
+> My bad, I should have explained that.  By then P is part of a hugetlb
+> folio that's still free or being set up, so get_hwpoison_page() can't
+> take it and we just end with "Ignored".  Nothing marks the folio, so
+> the bad page goes back to the pool and gets handed out later.
 
-kernel test robot noticed the following build errors:
+I see. Thanks for explaining.
 
-[auto build test ERROR on net/main]
+> 
+> If the folio is already in use it's even worse... it gets split as a
+> THP and hangs.  (That's a different race though, I'll send a separate fix for that soon.)
+>> I think we should clear the PageHWPoison flag we just set since the retry path expects
+>> we have cleared the PageHWPoison flag in the first round.
+> 
+> 
+> Agreed, as long as the page still isn't hugetlb.  Once it is, HVO may
+> have remapped its struct page, so the clear either hits the shared tail
+> page (read-only on e.g. 6.6) or gets lost while HVO copies the first
+> vmemmap page.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Hang-Nan/net-mptcp-reject-token-0-in-mptcp_token_get_sock/20261116-225828
-base:   net/main
-patch link:    https://lore.kernel.org/r/tencent_46FC62D4DE8FB8E6C90049F5AB28BDAA8C05%40qq.com
-patch subject: [PATCH net v5 2/3] net: mptcp: reject token 0 in mptcp_token_get_sock()
-config: x86_64-rhel-9.4-kunit (https://download.01.org/0day-ci/archive/20261117/202611171407.G0WgWRA6-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261117/202611171407.G0WgWRA6-lkp@intel.com/reproduce)
+In both cases, will the hwpoison flag be lost? If so, would TestClearPageHWPoison work?
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611171407.G0WgWRA6-lkp@intel.com/
+> 
+> So how about clearing it under hugetlb_lock only if the page still isn't
+> hugetlb, and otherwise skipping the retry like the second round does?
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+If the page becomes hugetlb, should we skip the retry path? try_memory_failure_hugetlb
+can't handle this case?
 
->> ERROR: modpost: net/mptcp/mptcp_token_test.ko: symbol 'mptcp_token_exists' undefined!
+> 
+>> I suspect this won’t solve the problem. The below race might still exist:
+>>
+>>    Task A (memory_failure)              Task B (nr_hugepages write)
+>>    get_huge_page_for_hwpoison()         alloc_fresh_hugetlb_folio()
+>>      /* P not hugetlb */                  /* P becomes a tail page */
+>>    clear_non_hugetlb_hwpoison
+>>    goto retry
+>>    get_huge_page_for_hwpoison()
+>>      /* P not hugetlb */
+>>                      __folio_set_hugetlb
+>>                                           hugetlb_vmemmap_optimize_folio()
+>>                                             /* P's struct page now in
+>>                                                the shared tail page */
+>>    TestSetPageHWPoison(P)
+> 
+> 
+> I think that one's covered.  With the patch, the "not hugetlb" check and
+> TestSetPageHWPoison() are under the same hugetlb_lock, and
+> __folio_set_hugetlb() moves under hugetlb_lock too, before HVO.  So A
+> either sees P as hugetlb, or the flag lands in P's OWN struct page
+> before HVO gets to it.
+> 
+> Also, with Muchun's vmemmap_remap_rwsem [1] HVO waits for
+> get_huge_page_for_hwpoison() anyway, so if his series goes in first the
+> hugetlb.c part can go.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Yes, this should fix the race.
+
+Thanks.
+.
+
