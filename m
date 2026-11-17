@@ -1,56 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794920907;
-	b=npG9uK5Coi09nUjdisTxOCjmUn6jSQ8piYI943D3QeIl8RYFMbHtaFi/1z9B97m4O8S+
-	 R1aL6Mr4GIpYPK6YqdiXr42Xgi0kyN4uXxsSaXYAvc2QkHPPQ6FO4iOKgImrTu77B/6gX
-	 T2uUjW1Aim3LxMGmroMhjx445TpNVAGNsxtNqt5K8gNX9vlA7OjDWQeuDcHe/yiT6kZHk
-	 R0W/n8SXr8teqYZxC1gv4+WL+XGwfYf57PltNCRYAYAhx1yRYY9QQ58r7GV4PTetubOSs
-	 qm0AieT+7FcnTMiWYHmaklwkSXHuCXrzpgJSthLEbmMOtgDul6dOGZhnjcTD3jPzKRg==
+	t=1794921699;
+	b=3rtkoirTR73jEM+hHp59UdTZ+nZdHF8LmajBvddq4GsNDUJolWRy2/qLBXu+8gA0YQVB
+	 fiHEIOP3qDJ4eK/6jJH+UY1bSmTSUZMUDloD8rjOksoOYe4e0Jrj4ib4wk+VafeaQWF7J
+	 3zbVbRhM2jw1Enogv1Jdb2sFKd2dUUcmrdCw+5X45LvGnrA1YcPe+cPM6t6h5Oxfyea6z
+	 sxh7o7HJ/GI9F0oPjKyxVjMHVlCl0dV4bAwh7+UvHQw/EqYhYiwPnechvlWJjb7lxWlPo
+	 pbSFbMx/pLyn2F4vknp9SwqHKgVN7i/IIW5WzCwNdsMSscqA6EW0cTNaQHStO9iJn/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794920907;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=r3fOCQdjHLQtrv80w46oYG+ZzeQD38zM0ynHLGL06zg=;
-	b=N3T57GStAEM6bI4VpZwEA2s6RoQLRXFUuLRPgvVd61soyo+0XKSaSdygh6IQlQmWvviV
-	 inEsLBT16Ph4Jk+KEpUZoIY2xcaxfxPRVu6Iu8ZgamqXyWAhEKAmRUUO34OSi8n/nps9v
-	 NIWKaUE7Rodqvj9GxujdnhZPYRfBlXEl9nY0rYBsvTqwmgbc7AgtfOvqAPPn2CmtqBgTX
-	 yLEjYkJ1dHKfJXoCng6BrcjZGCnNn6DAZ+qDufIyTas4AGiYoC6SaPiJf1UmXEkOHmoyz
-	 cNIte99XY3z8U6cInvY22dMbeK5khxonaVH4t67ezcz/1XGobcMdLket3ipqHSnDuwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794921699;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CMAE-Envelope;
+	bh=CWKy/Xe5D3WLDxIMxxMZifmNFWiFuSMPKw85DviN7N8=;
+	b=M84/6ZBgzDCzMQ4+zWN5IUE67oadekrVmreenrEMCugQInaz1GKimJ9VeGigTohiApLm
+	 57EsUsp0gzo64oGfJb6Ta6OkbSqqDS9hTP//E+TfVgrxbMllfgc7aRFoIET8HBSTP4lac
+	 fz+JWiECg5QnVDWxUEJqY7zx1Yytl4qrprgGF1FYcWjiEtbI5t3YeUo6mRkdPe0N1ZvcP
+	 8dks/gmSwWhzBnD+ODpej/fJ32VO8Mwe98EF/x8wQCf4YHv6YhqD9/j1Aj3xXyzUSu4s9
+	 ErHv4ZP1b3JN93b4l3os5bRWXAiNLoG4ImgERmexpBHm0vX4m5sG80Xb6I11AgxXw2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eODroBU1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=enneenne.com;
+	spf=pass smtp.mailfrom=enneenne.com;
+	dkim=pass header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=D3LHUF9a;
+	arc=none smtp.remote-ip=62.149.156.72
+Received: from smtpcmd0872.aruba.it (smtpcmd0872.aruba.it [62.149.156.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2B7E606A323;
-	Tue, 17 Nov 2026 13:08:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEEAB606A334
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 13:21:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEEAB606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eODroBU1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4812A1F000CA;
-	Tue, 17 Nov 2026 13:08:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794920906;
-	bh=r3fOCQdjHLQtrv80w46oYG+ZzeQD38zM0ynHLGL06zg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=eODroBU1dABEtH7DPElFrq6ojWYH/JUk1tDrenPyOgangSHitSnkBEzIJbxKtiscP
-	 LoZ1g84TwXo0rSzjzehxISA49c39ReBEj8KWj6bCxc/mBv0uIpLbjafpiCHBOPqnnf
-	 K47EBkOigwykyTHGYWlgSZXsza7LJZBbi7M7Ywm2ajOMW7UqZBlPen8vRe81DfJ7y1
-	 p0Kwxb8ipPxPIxJLRayDyhoX+N3t+K1mqA7sTRELJT3xsYq7uH3CdHM0CC2HxI3Tpl
-	 0+8DstV7PKjJH9jerX6M0gl/d8SIbpT2rAEeHZbl9wGCUZ4MzRCPJAo8yvyBKV2ntP
-	 aar3zqpz5Buuw==
-From: Lee Jones <lee@kernel.org>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Danish Khateeb <danishkhateeb03@gmail.com>
-Cc: Andrew Davis <afd@ti.com>, linux-leds@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261104193038.91614-1-danishkhateeb03@gmail.com>
-References: <20261104193038.91614-1-danishkhateeb03@gmail.com>
-Subject: Re: (subset) [PATCH v4] leds: tca6507: Fix use-after-free on
- unbind
-Message-Id: <179492090504.5831.10534337417357138621.b4-ty@b4>
-Date: Tue, 17 Nov 2026 13:08:25 +0000
+	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.a=rsa-sha256 header.s=a1 header.b=D3LHUF9a
+Received: from [192.168.0.186] ([101.57.122.26])
+	by Aruba SMTP with ESMTPSA
+	id TJ7nx1DnacPcsTJ7nxe0qW; Tue, 17 Nov 2026 14:21:29 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1794921689; bh=oT2PXSW88ArmQaqNSfEwrssUL0dmXrSRZQiuFx9AOd0=;
+	h=Date:MIME-Version:Subject:To:From:Content-Type;
+	b=D3LHUF9aQVXKQ9UYUAuA7NcPsl7BxfeUkL4oPBUdEqZXYDqb3z7e6J1CpDrKNvAaW
+	 FjXwqAeTCHmUYrrMsoTo9ECEVQSofvqgnLkdS16Huf5+yxZ36R6EkrMC1lwJPKt/dP
+	 W5Yv3mmn4/UEChNu7vuU6HPWQ7WotSwx9EBRzr/ilp803lg6O9lBrSeJc4kTtuW5T9
+	 JMRv6rH/v/F9jevkqU6/KbzUxwECPrTwg3y4tU/Oqod3O6X4vdWq+sdE+zr+7lJ63R
+	 smxM4IyZIlcdPa4oVOV/2RZkjbTo4owA78Gutm179EV2aTRPTlI117fu7Jmbr/WRft
+	 V6RJOdFZJ80bA==
+Message-ID: <0e20f799-e389-40d2-aaee-2f174748faae@enneenne.com>
+Date: Tue, 17 Nov 2026 14:21:26 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,36 +56,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.16-dev-ad80c
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] KEYS: fix signature length passed to
+ KEYCTL_PKEY_VERIFY
+Content-Language: en-US
+To: Florian Bauckholt <florian.bauckholt@cispa.de>,
+ David Howells <dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Lukas Wunner <lukas@wunner.de>, Ignat Korchagin <ignat@linux.win>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S. Miller" <davem@davemloft.net>
+Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Hui Peng <benquike@gmail.com>,
+ Stefan Berger <stefanb@linux.ibm.com>, keyrings@vger.kernel.org,
+ linux-crypto@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261111-keyctl-pkey-fixes-v1-0-934ebaa267a7@cispa.de>
+ <20261111-keyctl-pkey-fixes-v1-1-934ebaa267a7@cispa.de>
+From: Rodolfo Giometti <giometti@enneenne.com>
+In-Reply-To: <20261111-keyctl-pkey-fixes-v1-1-934ebaa267a7@cispa.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfDg+biMxW//ioyRGFd9IFIlidEW1a2KiKD2evhiscr/Ncy3LgypJUgynMd+o8RcM6m0eFTTCJ1Y8aXl826d0s2qqGHBPJuRg8drh+k/ewjJ5c2Ng73LR
+ N1Sj2F7NHEHNenpSVYzQjg322kfqmTdrNt6CuKC306/WtrTJ4wHiazfLjV8+mQgXARt9KWCyR8mz5Q2XRks657UfSiRgqNd1ZYLcQs9OlasaNk6dGFhFFmoc
+ Z2FUAQk5bG+wrDzFA+GhruflgGh4nb6+rZh82j3ZE2lkIL8s4ax2X0j+qB2EBx5WDzCUIs7cD//QfBopsXqJhBSSY3asWR4psvoAO2V5DCHwWR+8fqzwZVQ3
+ zWxAZXS6nvWdCV8z6ZLxLGXwOheVDOkyjoT0+v3JinadqrBrK6t/n0Okxk/VuHAFPtIkkfgYq6Vy4j1IGNdU24E9idR72uM67iouzpuPw9J6Jja6IaR1wbL+
+ jAB4i0/IEubK9G0Zzhd8ALVt+hyPUT9Av/tFfSpZWWpWweuUW5FLEiP95GfseydpODLCfV771PTvl/oMXt1dYSIj2lWGReGq2vVbifJoiSfW5HnLMG2dyhXC
+ jiMSlAznQPDMk5GEpsO0TNidxiRm6MzTbXqm5/7lWUZAXsLBql/Qex9lAVI7JZpTq7q4veUjqLK1gtQYpyUcvHc47fqhA5ay/gp+aB5BS/wfb4HHJJChllbv
+ HUgKPjrfCjq0IoHhg1AENiug5UQqKvMh
 
-On Wed, 04 Nov 2026 13:30:38 -0600, Danish Khateeb wrote:
-> Since the LEDs are registered with devm_led_classdev_register(), they
-> are unregistered only after tca6507_remove() has cancelled the work.
-> Unregistering an LED that is on turns it off, which queues the work
-> again from led_assign(), and the work then runs after devres has freed
-> the chip:
+On 11/11/2026 16:56, Florian Bauckholt wrote:
+> Commit cb481e59ea6c ("KEYS: fix overflow in keyctl_pkey_params_get_2()")
+> made keyctl_pkey_params_get_2() set params->out_len to the maximum
+> output size of the operation instead of the size provided by the caller.
+> It does so for KEYCTL_PKEY_VERIFY as well, but verify has no output
+> buffer: out_len shares a union with in2_len, the length of the
+> signature.
 > 
->   BUG: KASAN: slab-use-after-free in assign_work+0x414/0x5b0
->   Read of size 8 at addr ffff888010d5c0c0 by task kworker/1:2/65
->   ...
->   Last potentially related work creation:
->    ...
->    queue_work_on+0xb6/0xc0
->    led_assign+0x223/0x340 [leds_tca6507]
->    led_classdev_unregister+0x26b/0x340
->    release_nodes+0xb3/0x140
->    devres_release_group+0x247/0x470
->    i2c_device_remove+0xbf/0x1b0
+> As a result keyctl_pkey_verify() ignores the signature length passed by
+> the caller. It copies max_sig_size bytes from the signature pointer and
+> passes max_sig_size as the signature size to the verification.
 > 
-> [...]
+> This makes no difference for signatures that are always max_sig_size
+> bytes long, such as RSA. A shorter signature, e.g. a DER-encoded ECDSA
+> signature, is followed by whatever is behind it in the caller's memory,
+> or the call fails with -EFAULT if that memory is not readable. The
+> x962 ECDSA template currently ignores data following the signature,
+> which hides the problem.
 
-Applied, thanks!
+The test suite of craf (https://github.com/giometti/crypto-afalg,
+test3008) hits this with RSA too: it cuts a genuine 256-byte RSA-2048
+PKCS#1 signature to 255 bytes and expects the verify to fail. On
+Ubuntu's 6.8.0-147 kernel, which carries the stable backport of
+cb481e59ea6c, the cut signature verifies about once in 256 runs. Over
+2000 runs per build:
 
-[1/1] leds: tca6507: Fix use-after-free on unbind
-      commit: c92d6666ffaca04015e91df3b1789c15c965e3d2
+    plain: ok=1991 ko=9
+    asan: ok=1997 ko=3
 
---
-Lee Jones [李琼斯]
+and a failing run prints (line wrapped here):
 
+    libkcrypto  [pkey-cert]: kc-check pkey-verify cert:test3008.cert
+        enc=pkcs1 hash=sha256 test3008.d256 test3008.bad: exit 0, not 1:
+    KO!
+
+To reproduce it (the count printed is the number of failures; here it
+gave 3 out of 1000 runs):
+
+    git clone https://github.com/giometti/crypto-afalg
+    cd crypto-afalg/tests
+    export TESTS_TMPDIR=$(mktemp -d)
+    for i in $(seq 1000); do ./do_test.sh 3008; done | grep -c 'KO!'
+
+I also replayed the inputs of one failing run on a UML kernel of
+current mainline (666539eecdf4, after v7.4-rc3): the 255-byte signature
+verifies 20 times out of 20, and with your patch applied it is refused
+20 times out of 20.
+
+Maybe it is worth saying so in the commit message, since this is going
+to stable?
+
+I'll send my Tested-by once test3008 has run 2000 times on a kernel
+with your patch applied.
+
+> 
+> Use the length provided by the caller, which has already been checked
+> against max_sig_size.
+> 
+> Fixes: cb481e59ea6c ("KEYS: fix overflow in keyctl_pkey_params_get_2()")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/all/20260919221742.3709658-1-benquike@gmail.com/
+> Signed-off-by: Florian Bauckholt <florian.bauckholt@cispa.de>
+> ---
+>  security/keys/keyctl_pkey.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
+> index 15b6bf6399b5..794fa3d01911 100644
+> --- a/security/keys/keyctl_pkey.c
+> +++ b/security/keys/keyctl_pkey.c
+> @@ -160,7 +160,7 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
+>  		    uparams.in2_len > info.max_sig_size)
+>  			return -EINVAL;
+>  
+> -		params->out_len = info.max_sig_size;
+> +		params->in2_len = uparams.in2_len;
+>  		break;
+>  	default:
+>  		return -EOPNOTSUPP;
+>
+
+Ciao,
+
+Rodolfo
+
+-- 
+GNU/Linux Solutions                  e-mail: giometti@enneenne.com
+Linux Device Driver                          giometti@linux.it
+Embedded Systems                     phone:  +39 349 2432127
+UNIX programming
