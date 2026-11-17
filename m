@@ -1,80 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794922036;
-	b=K24/uJ82TnbfGNP02wZz+NvC3p+itIMNomqXMNeXjPyqhiF+pGCGTGWTZNL/Qi1c18Ns
-	 iGrLxaJaZZ6oMj6KGEyDkP3URR0sHAhYABUMoDeDI71ToTipXbIZr2X95JRLDC2Ooh+s8
-	 RzbT9ihTyhSGXVIywZ7+3fNRRrJNVLNobQzN2XvC6o6/BwIvAjnwuJXOE170AFH/0273a
-	 ksToofAS+2mZbHYAtvhmQar581pB4NlHbiPTBNzpa1VM0BDk69Our3lkFgZ78nCqQBoL6
-	 jUsDjkGpoeUcjECFH4vK228eG7FVIDdCd8p42P/XFACKGp3U/8wHE5pstOWiSc7y6og==
+	t=1794922353;
+	b=mBNXQzlow87PdpOuULFCUUoEBYBRua87dA+hoPeVZRR2wKn9umdrvdNcEl0sPLtWXHd6
+	 HfLIs7+Rw0i/bFhAvZg2jXdOrmmYo0jHUTieMXIebS6ZYKgc1lmtvI4pQF0hzO4SrK5MO
+	 gWw1XhZuNeV6nHxYTWIuJfev3iqb/Avo5h7G0tvRqGfaSO64hs1q19qicrHo8ciHjTh0+
+	 o52aFVZNsiM9z8Fy5ehZFOOQjkFJN5vhF0Rw5is//QfO/BXzwjp3vH7RcRX90RCVawkoC
+	 pcHCQpsurjNznVWuTFmHBUwSd9cer2G4go0mQvsF5gdgqbuSauOD5CYF0ZqPlzQ4aeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794922036;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=DhpQikh/j+IYKn/SiXHM5qk/4wFDsh9pRbRs8jpBleU=;
-	b=NtPSJSC5ZRmz7Ghwn1F9T8XlnHV2jKRAxu6zOPFAIbFhH0x6N3oD6Jrw9l+uJN7Lh+3Q
-	 Bry9jqmceErCedZ6mMsOY3m2feaZ0YHwmawK/W0SF7ImWR4gofVqISC+0CpxFZvYCVxAd
-	 Ko3cen4aGTodjaGCZUu/nxhDrSuaRNmBsync1nCO1HBDxa2ttSOY9d89s0jq5KC3lX1EU
-	 vHPe0BODTqzo64SP7YwVtoZlFIO0lSLsXxfuIaJyXBdajoglqDtqMgFzXpvmWP63yfZze
-	 4Ys3DV7fuYL0/s+neeV0/RDwb5jx+9iL6mGkUdrT31XNhwRxWVN+HqU/o6R+B9BHpbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922353;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=TNhUvt7V3+z9yILQyuOrF8o1BFxufpMkmYgFMT/d6gw=;
+	b=LGTBwABLLBAf3a1B4aJd5HIfXx7H1zQ62wLQpUg9GnLDWCdpAWz5rGrOef/x+9Z8JJxf
+	 WEAGjrWxyGK5cyh61+jQ/yOI90qzcPrKHq8UMg9eAaJryMua3iq52jRDxdySq3qB+etkJ
+	 c875iF5AU5GR2TlHhSLZR35R3SqBW2qx1fq7qTUo+WYrxq9raiQmne82zex11LdrXoD2v
+	 cwzRksENWYqre1Mr8m0WC3ZGwH0bSSZr+I4+FeDF9FVY95iODJ+fvKoKgoPdJX84YnN43
+	 guyRps9Neo83gP98s/jhCQHjzh0wNd56k1ceH3K6TdVFCoJ27qq0x+wSh5ATvxioc2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LcOiSOKu;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=fzTNkJ7N;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF1D606A323
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 13:27:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DF1D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83302606A31C;
+	Tue, 17 Nov 2026 13:32:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83302606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LcOiSOKu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794922035;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DhpQikh/j+IYKn/SiXHM5qk/4wFDsh9pRbRs8jpBleU=;
-	b=LcOiSOKusLHd8FboIu3hI6wzpEJn1UvxqP+ylDKOjsUGznep3faoD/a1gZTh8yP79MAkka
-	GIu/tY20yCMdBjzAvKhwdH0VB4LKUyyehVPzXRkUkGRloitYxYBvrWoxiYRg2aYK0H20G6
-	45K0ca+rrnisXNfc/X41JpWcLV+ZT/Y=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-70-vqidz2F6MtC3esXBLjIAAQ-1; Tue,
- 17 Nov 2026 08:27:11 -0500
-X-MC-Unique: vqidz2F6MtC3esXBLjIAAQ-1
-X-Mimecast-MFC-AGG-ID: vqidz2F6MtC3esXBLjIAAQ_1794922029
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 107041955D88;
-	Tue, 17 Nov 2026 13:27:09 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id A1725180054B;
-	Tue, 17 Nov 2026 13:27:05 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Tue, 17 Nov 2026 14:27:08 +0100 (CET)
-Date: Tue, 17 Nov 2026 14:27:04 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Mateusz Guzik <mjguzik@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	tz2294@columbia.edu, stable@vger.kernel.org,
-	Mani Tofigh <mt4022@columbia.edu>
-Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
-Message-ID: <avxWKI795DthE8Sb@redhat.com>
-References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=fzTNkJ7N
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id ED4914E41473;
+	Tue, 17 Nov 2026 13:32:30 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B842C5FC81;
+	Tue, 17 Nov 2026 13:32:30 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4DD3811BC0008;
+	Tue, 17 Nov 2026 14:32:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794922350; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=TNhUvt7V3+z9yILQyuOrF8o1BFxufpMkmYgFMT/d6gw=;
+	b=fzTNkJ7NqGGVaO8SeLv/BKRL0kR/5brrbWW+BVdqpx8Hn6YGdn9SHkF4bhwy8y3nM0e2na
+	8AkfGLOvB+VHHAWogLOJIz8hE2jNHpsWbigv51r+SoczEFM0XABBvlLtMBPTXS5JWmtD0I
+	DvNo2m+VU3VtwSaSsHH2DFS6cAnoS0wXFoy1UuHYr75G278+2HU6q8MNaiUggZ/SYfyBV0
+	eYaCxiFtUuGl0HreX36YTWgvN2h9Jt4TCzgyepWCIkr11Oh/Bzy0HwFKPTMtCFuOwDQ0A6
+	M4xs7DjX4N9x77Gt5uyNjAPkDsFkUisFze4hOZm2WzFeFlbjesb8MqKb0vtYog==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Guo Zihao <guozh23@xiaopeng.com>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Yangtao Li <frank.li@vivo.com>,
+  linux-mtd@lists.infradead.org,  linux-kernel@vger.kernel.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] mtd: lantiq-flash: Fix NULL pointer dereference in probe
+In-Reply-To: <20261106014928.4126855-1-guozh23@xiaopeng.com> (Guo Zihao's
+	message of "Fri, 6 Nov 2026 09:49:28 +0800")
+References: <20261106014928.4126855-1-guozh23@xiaopeng.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 17 Nov 2026 14:32:26 +0100
+Message-ID: <87mrr7lh1x.fsf@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,209 +73,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Mani reports the case when f1cebdec9739 ("pipe: only enable the extra
-wake_up(rd_wait) for EPOLLET consumers") makes a difference, see his
-email below.
+On 06/11/2026 at 09:49:28 +08, Guo Zihao <guozh23@xiaopeng.com> wrote:
 
-But lets forget about that commit for the moment. With or without that
-commit this trivial test-case hangs,
-
-	#include <unistd.h>
-	#include <sys/epoll.h>
-	#include <sys/wait.h>
-	#include <assert.h>
-	#include <stdio.h>
-
-	int main(void)
-	{
-		int pfd[2], efd;
-		struct epoll_event evt = { .events = EPOLLIN | EPOLLEXCLUSIVE };
-		char c;
-
-		pipe(pfd);
-		efd = epoll_create1(0);
-		epoll_ctl(efd, EPOLL_CTL_ADD, pfd[0], &evt);
-
-		if (!fork()) {
-			epoll_wait(efd, &evt, 1, -1);
-			read(pfd[0], &c, 1);
-			printf("1st: %c\n", c);
-			return 0;
-		}
-
-		sleep(1);
-
-		if (!fork()) {
-			read(pfd[0], &c, 1);
-			printf("2nd: %c\n", c);
-			return 0;
-		}
-
-		sleep(1);
-
-		write(pfd[1], "12", 2);
-		assert(wait(NULL) > 0);
-		assert(wait(NULL) > 0);
-
-		return 0;
-	}
-
-the 2nd non-epoll child sleeps in read(pfd[0]) even if pipe is not empty.
-
-anon_pipe_read() assumes that all exclusive waiters on pipe->rd_wait come
-from anon_pipe_read()->wait_event_interruptible_exclusive(), and the woken
-reader will set wake_next_reader = true.
-
-However, EPOLLEXCLUSIVE breaks this logic. ep_ptable_queue_proc() does
-add_wait_queue_exclusive() if EPOLLEXCLUSIVE is set. So write(pfd[1]) above
-wakes up the 1st "epoll" child, which then reads one byte from the pipe without
-sleeping, so it doesn't set wake_next_reader and thus it doesn't wakeup the
-2nd waiter.
-
-Again, this happens with or without f1cebdec9739. But that commit makes a
-difference: the 2nd child will continue to sleep even after another write
-to this pipe. So Mani suggests the trivial change which should restore the
-previous behaviour
-
-	--- a/fs/pipe.c
-	+++ b/fs/pipe.c
-	@@ -700,9 +700,13 @@ pipe_poll(struct file *filp, poll_table *wait)
-		 * and the ->pseudo_edgetrigger check in anon_pipe_write().
-		 * Currently io_uring sets EPOLLET for multishot polls, so it gets the
-		 * same behaviour.
-	+	 *
-	+	 * EPOLLEXCLUSIVE needs them too.  Its entry is an exclusive waiter on
-	+	 * ->rd_wait that can take the wakeup meant for a blocked reader, and
-	+	 * unlike a woken reader in anon_pipe_read() it doesn't pass it on.
-		 */
-		if ((filp->f_mode & FMODE_READ) &&
-	-	    wait && (wait->_key & EPOLLET) &&
-	+	    wait && (wait->_key & (EPOLLET | EPOLLEXCLUSIVE)) &&
-		    unlikely(!READ_ONCE(pipe->pseudo_edgetrigger)))
-			WRITE_ONCE(pipe->pseudo_edgetrigger, true);
-
-But I can't decide if we actually want to bless another historical
-"nonsensical" wakeup until have a user application that actually cares?
-
-Again, the test-case above will hang with or without the patch above, with
-or without f1cebdec9739. So do we really care? If yes, then perhaps we should
-also change anon_pipe_read(), something like
-
-	--- a/fs/pipe.c
-	+++ b/fs/pipe.c
-	@@ -468,6 +468,8 @@ anon_pipe_read(struct kiocb *iocb, struct iov_iter *to)
-		}
-		if (pipe_is_empty(pipe))
-			wake_next_reader = false;
-	+	else if (pipe->pseudo_edgetrigger) // for EPOLLEXCLUSIVE
-	+		wake_next_reader = true;
-		/* Consumed buffers may have refilled the pool; trim it and unlock. */
-		anon_pipe_trim_and_unlock(pipe);
-
-?
-
-(of course, this won't help if the 1st child doesn't do read() after epoll_wait()).
-
-What do you think?
-
-Oleg.
-
-On 11/11, Mani Tofigh via B4 Relay wrote:
+> ltq_mtd_probe() dereferences ltq_mtd->map->virt before the map_info
+> structure is allocated: the map pointer itself is still NULL when
+> ltq_mtd->map->virt is assigned, because the structure is allocated a
+> few lines below. Any device with a "lantiq,nor" compatible therefore
+> crashes the kernel with a NULL pointer dereference during probe.
 >
-> From: Mani Tofigh <mt4022@columbia.edu>
+> Assign the mapping after the map_info allocation instead.
 >
-> A task blocked in read() on a pipe can sleep while the pipe holds data,
-> when an epoll(EPOLLEXCLUSIVE) watcher of the read end was added before
-> it.  The watcher's entry on ->rd_wait is exclusive and sits ahead of the
-> reader, so a write into an empty pipe wakes only the watcher.  The
-> watcher reads without sleeping in anon_pipe_read() and doesn't pass the
-> wakeup on.  Since commit f1cebdec9739 ("pipe: only enable the extra
-> wake_up(rd_wait) for EPOLLET consumers") the next writes into the
-> non-empty pipe don't wake anyone anymore:
->
->   Task E                   Task A                 Task C
->   epoll_wait(ep, -1)
->     /* EPOLLEXCLUSIVE */
->                            read(p[0])
->                                                   write(p[1], "1")
->                                                     /* wakes E only */
->                                                   write(p[1], "2")
->                                                     /* no wakeup */
->   read(p[0], 1 byte)
->   exit()
->                            /* still asleep, "2" is in the pipe */
->
-> A then sleeps until the next write into an empty pipe, if ever.  Before
-> that commit any pipe_poll() enabled the per-write wakeups.  Those
-> reached A because an EPOLLEXCLUSIVE entry only takes a wakeup while a
-> task sleeps in epoll_wait().
->
-> So EPOLLEXCLUSIVE consumers depend on the per-write wakeups too, for a
-> different reason than EPOLLET.  Enable them for EPOLLEXCLUSIVE as well
-> and say why in the comment.  With the fix, A reads the second byte.
->
-> This bug was identified and confirmed with the help of a deterministic
-> hypervisor currently under development.  The C reproducer below however
-> hits it within about 2s.
->
-> Fixes: f1cebdec9739 ("pipe: only enable the extra wake_up(rd_wait) for EPOLLET consumers")
+> Fixes: 6145e07e9c77 ("mtd: lantiq-flash: Use devm_platform_get_and_iorema=
+p_resource()")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
-> ---
-> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/pipeexcl.c
->
-> There are a couple of older gaps like this (a single write, and the
-> write side with EPOLLOUT|EPOLLEXCLUSIVE).  I left both alone here though.
-> ---
->  fs/pipe.c                 | 6 +++++-
->  include/linux/pipe_fs_i.h | 2 +-
->  2 files changed, 6 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/pipe.c b/fs/pipe.c
-> index 4c1122597a3c..8ad792d300c9 100644
-> --- a/fs/pipe.c
-> +++ b/fs/pipe.c
-> @@ -700,9 +700,13 @@ pipe_poll(struct file *filp, poll_table *wait)
->  	 * and the ->pseudo_edgetrigger check in anon_pipe_write().
->  	 * Currently io_uring sets EPOLLET for multishot polls, so it gets the
->  	 * same behaviour.
-> +	 *
-> +	 * EPOLLEXCLUSIVE needs them too.  Its entry is an exclusive waiter on
-> +	 * ->rd_wait that can take the wakeup meant for a blocked reader, and
-> +	 * unlike a woken reader in anon_pipe_read() it doesn't pass it on.
->  	 */
->  	if ((filp->f_mode & FMODE_READ) &&
-> -	    wait && (wait->_key & EPOLLET) &&
-> +	    wait && (wait->_key & (EPOLLET | EPOLLEXCLUSIVE)) &&
->  	    unlikely(!READ_ONCE(pipe->pseudo_edgetrigger)))
->  		WRITE_ONCE(pipe->pseudo_edgetrigger, true);
->
-> diff --git a/include/linux/pipe_fs_i.h b/include/linux/pipe_fs_i.h
-> index 95f6236c5c5b..6b2e14ec6ef8 100644
-> --- a/include/linux/pipe_fs_i.h
-> +++ b/include/linux/pipe_fs_i.h
-> @@ -90,7 +90,7 @@ struct anon_pipe_prealloc {
->   *	@files: number of struct file referring this pipe (protected by ->i_lock)
->   *	@r_counter: reader counter
->   *	@w_counter: writer counter
-> - *	@pseudo_edgetrigger: has an EPOLLET consumer, enable per-write wakeups
-> + *	@pseudo_edgetrigger: enable per-write wakeups for EPOLLET/EPOLLEXCLUSIVE
->   *	@fasync_readers: reader side fasync
->   *	@fasync_writers: writer side fasync
->   *	@bufs: the circular array of pipe buffers
->
-> ---
-> base-commit: b0993210e420f2f1d61e6719fbcd3966b96ff9ed
-> change-id: 20261111-pipe-epollexclusive-wakeup-981528041b4d
->
-> Best regards,
-> --
-> Mani Tofigh <mt4022@columbia.edu>
->
->
+> Signed-off-by: Guo Zihao <guozh23@xiaopeng.com>
 
+Hello, this is a duplicate of a wider series from Simon Wunderlich, I
+took his since there are more behavioral fixes.
+
+Thanks for the contribution anyway!
+Miqu=C3=A8l
