@@ -1,58 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906785;
-	b=LE6a7x70YDqSsTL0Q7WxjNmDjYVD+r3stkALKEJQX+Qa+YisHxS8dav7y75b84EClDvH
-	 jgP4cjCBamVZPJJkAAJ/9/Hw3UwnD8fwTS7bBqang5LyDFe5pKu3rdDGrE3mFK4Lu/NKX
-	 jHhamV7okl71fZEG9Pp4gG3CPCPZ7Sh3rfi4v4t1edUHao3IuVXLhOJ9pDqZSL14M62M5
-	 FFHrSiG+MC3lUmJUouxi6SnJOWev/nrEB3uXVPycO8ZO7k9vqLDLf0VT0BQ00FkAs4gVd
-	 naEUhBG1baLERrgSqAa80mULWgHr/p3QJx07gejb8nfpQWmxBpGVWDiQLWGG+rwdrHA==
+	t=1794907230;
+	b=mB95BufBIT2TOHnhUVm2TGhPY5xVbFnOwTkwsI2HmQXCmGB43kS0onpI97BVJJRulQ60
+	 Few72NL468VCpPMEoEIFs0yCR5d1U5HlO385CYcAr64C9AQL3ejjPOiq2bUhUm+M6wxen
+	 jdybqhkYLGa00dIv/5+jO2STqRGipyc8+zUAa4tIxn1PY2xqvJLYm6JYMmYAYbZBLYKTm
+	 edbxPTCtsHJ7L/4Hl0aauA+B9jLt6OCRfqSEgCsRX0aV/Obt4B5NxeMgGI44xgg9w31C9
+	 23Jm4FTZ0P7wdUV2KDO2amHJXI2I0tNE5RuDBANO+5Hpxkq8GfSObDO30FjqTTvEzpA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906785;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding:
-	 X-Last-TLS-Session-Version;
-	bh=jHmFKQcEpErH6yTd+BcsBpSAeqJz4+fdKXvQPpS1SzY=;
-	b=UGVJOFWRDro3tCMpms7mEfr3811YP1CCl/WVS6pbyumahnDQM4W7jnO+R4F5fu2e3X5Z
-	 Kl+8CFxwQVHs5VBxMhthdAjQbvnT1FpHjziRIC8ZnBWpndI5T6F6j/8+gLa5VKIwCE6nQ
-	 as1u29Jy7iu9s92RExOe8U4bKKhS6QwyfQRVVlJfjyJXZvbOqg6PR3TW1pKmrZnuZkn5H
-	 /h3IAKp9WJPFRAe+eGrQkuR8casHERjVdZfSJGUSN02pZIowJaceUolnKQk9d86XQ7c4O
-	 vD/gxNvXjseNo8CCgadYC7+8T/bYrp6GM4y0f8n1voKPeQshuY/ARBX5+sl9PLVCBRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907230;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=ZeS4Ihakqhd5Qx6qdIoXtPXoSLqZWsuW/neHa8NNoeg=;
+	b=TYg+Vyzgaj1OlAiIFlPupcyiSOmombOlRekp9RKYLGGLkibGYjPNyDsw18iwJ2xDkCVa
+	 gqu0R28plUyll2/HUli+IhstCDljXQAU1BYAp8MZd9IOf8LShB9fGv41mcQuWy4D/i/Q9
+	 2lNCeieBjM3OkOq0qi2+5kKUBTZsNxKJKCWHQnda1qEJH4QGIa4dW0SUqyOtjNXJb+U0F
+	 DV+Zc0zVG3fLfFypXbS4ypQpM6oprOqYgLBi9wzVr+xNxl0shCCXCeDcdXWqDYKIRpfLn
+	 SJPKT4BdvKI77MiZutHvdkWZK/pKswhhtAbl8HdJDrHEFhKPiHQlmIJW1kE2sP+WpyA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QohGgGDT;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bikVzdcG;
+	arc=none smtp.remote-ip=220.197.31.3
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A61D9606A31C;
-	Tue, 17 Nov 2026 09:13:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A61D9606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 161C7606A31C;
+	Tue, 17 Nov 2026 09:20:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 161C7606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=QohGgGDT
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id E715A1A151F;
-	Tue, 17 Nov 2026 09:13:02 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B28265FC81;
-	Tue, 17 Nov 2026 09:13:02 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6D7C611BC0493;
-	Tue, 17 Nov 2026 10:12:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794906781; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=jHmFKQcEpErH6yTd+BcsBpSAeqJz4+fdKXvQPpS1SzY=;
-	b=QohGgGDTtw8azbIR//VvfGrlr4V+zs72XDzrDyoJRb0V8W2WTIhMsS3Om45in7H2LQEW79
-	y5ssLoKHMOcRF/+IV5057ZnzwjPoUzMav9cVjrADQiDTi/ngtIi9W0tDHEewPhs5aHjR6w
-	e54Y8nkGdm8O0wjLBZUwxszXdEB+Ki+9uTLld22EhInWUrVgQGF8K5kfgDzvE/t+azc1oQ
-	XEvKOOiOer6Uvhtd+3T59zk6YyyeWOZ7RbGJlmmIAix6Xe7iS2HWD+uXi4/dM9a3KjopYJ
-	8gb8TbQdW9aL++PfMCZtctJXUqPtztwaNOaUWyr6BdJvb/ff8yfekox+qYfnLA==
-Message-ID: <a0b1ea81-97bf-4a16-895f-5b6820a46c61@bootlin.com>
-Date: Tue, 17 Nov 2026 10:12:54 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bikVzdcG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Ze
+	S4Ihakqhd5Qx6qdIoXtPXoSLqZWsuW/neHa8NNoeg=; b=bikVzdcGBgDvVdopZV
+	xeM6Z6LHbs4h9qiaMorlxabiRDuRid+VgswNaljRaeSIMh1lCFg/Bp2cd+hqmQJ+
+	f/otNhOQ8kFgZdH8F46gT71euwsvIJLQvYHKjcJhlGbvtWr7nejNJsCeN/zymWQK
+	fFR/zcLZo8LcSgXf9jT3+bcK8=
+Received: from SYPC (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wAnFTdTHPxq96NHIQ--.57100S2;
+	Tue, 17 Nov 2026 17:20:20 +0800 (CST)
+From: Yang Siyuan <hsyysy@163.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH RESEND] reset: core: honour optional resets when the GPIO fallback is unusable
+Date: Tue, 17 Nov 2026 17:20:08 +0800
+Message-ID: <20261117092008.12130-1-hsyysy@163.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,74 +59,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] net: stmmac: re-enable on-chip parity checkers for
- XGMAC ASP 0x2
-To: Zxyan Zhu <zxyan0222@gmail.com>, andrew+netdev@lunn.ch
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- horms@kernel.org, 0x1207@gmail.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261114015554.2187341-1-zxyan0222@gmail.com>
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <20261114015554.2187341-1-zxyan0222@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wAnFTdTHPxq96NHIQ--.57100S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AFyDCF1kuw1kWrW7tw13Arb_yoW8CrW7pF
+	s5Jr4rAr95Ka1fCr4Fqr4FvFyrZw4rKFWxJFWfG3yxuw43Xryavw15KF1Yqr4UAry8ZFyY
+	vF47tFn7uFyvy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07U6mhwUUUUU=
+X-CM-SenderInfo: 5kv152r16rljoofrz/xtbC7RT1Kmr8HFRo5AAA30
 
-Hi,
+__fwnode_reset_control_get() honours RESET_CONTROL_FLAGS_BIT_OPTIONAL for
+every failure source except the reset-gpio fallback: when
+__reset_add_reset_gpio_device() fails, the error is returned even for an
+optional reset.
 
-On 11/14/26 02:55, Zxyan Zhu wrote:
-> Commit 669a55560e4b ("net: stmmac: Check more MAC HW features for XGMAC
-> Core 3.20") made dwxgmac3_safety_feat_config() bail out early for
-> asp == 0x2, assuming that configuration has no parity protection.
-> 
-> Per the DWC_xgmac databook, the ASP field of MAC_HW_Feature3 selects:
-> 
->   0x1 (AS_EPPE):  all automotive safety features, with ECC and parity
->                   ports on the external application interface
->   0x2 (AS_NEPPE): all automotive safety features, without ECC or
->                   parity ports on the external application interface
->   0x3 (AS_PPE):   all automotive safety features, with parity ports
->                   on the external application interface
-> 
-> The reset value of the field is defined as:
-> 
->   (DWCXG_ASP_ALL && DWCXG_ASP_PPE == 1) ? "3"
->   : (DWCXG_ASP_ALL && DWCXG_ASP_PPE == 0) ? "2"
->   : (DWCXG_ASP_ALL && DWCXG_ASP_PPE == 2) ? "1" : "0"
-> 
-> so ASP 0x2 implies DWCXG_ASP_ALL = 1, where the internal FSM state
-> parity and timeout (MAC_FSM_Control) and the on-chip data-path parity
-> (MTL_DPP_CONTROL) features exist; only the ports on the external
-> application interface are absent.  The early return therefore skips
-> enabling safety checkers that are present in the hardware.
-> 
-> Drop 0x2 from the condition so the FSM and data-path parity checkers
-> are enabled again.
-> 
-> Also update the safety feature descriptions printed by
-> stmmac_dma_cap_show() to spell out that ASP 0x1/0x2/0x3 differ only
-> in the ECC or parity ports on the external application interface; the
-> previous wording, "All Safety Features without ECC or Parity",
-> suggests the on-chip checkers are absent from an ASP 0x2 device.
-> 
-> Keep the early return for ASP 0x4 (EASP), which selects only ECC
-> protection for external memory and has no on-chip parity features.
-> 
-> Tested on XGMAC 3.10 and 3.40 cores.
-> 
-> Fixes: 669a55560e4b ("net: stmmac: Check more MAC HW features for XGMAC Core 3.20")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zxyan Zhu <zxyan0222@gmail.com>
+This is reachable on Allwinner SoCs, whose pinctrl uses three-cell GPIO
+specifiers. The reset-gpio fallback only supports two cells, so it
+returns -ENOENT and a consumer asking for an optional reset fails to
+probe instead of falling back to its own GPIO handling. mmc-pwrseq-simple
+on the Anbernic RG35XX family hits this: its wifi_pwrseq node has
+reset-gpios but no resets, so the SDIO WiFi adapter never probes.
 
-Seems correct to me, couldn't test it but this matches the datasheets
-I have.
+Keep propagating -EPROBE_DEFER, since the GPIO provider may be available
+later, but treat any other failure as "no reset" when the request is
+optional.
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Fixes: c721f189e89c ("reset: Instantiate reset GPIO controller for shared reset-gpios")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yang Siyuan <hsyysy@163.com>
+---
+ drivers/reset/core.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-Maxime
+diff --git a/drivers/reset/core.c b/drivers/reset/core.c
+index 38e189d04..f2375dd17 100644
+--- a/drivers/reset/core.c
++++ b/drivers/reset/core.c
+@@ -1181,7 +1181,17 @@ __fwnode_reset_control_get(struct fwnode_handle *fwnode, const char *id, int ind
+ 		ret = __reset_add_reset_gpio_device(fwnode, &args);
+ 		if (ret) {
+ 			fwnode_handle_put(args.fwnode);
+-			return ERR_PTR(ret);
++
++			/*
++			 * The GPIO provider may just not be available yet, so
++			 * EPROBE_DEFER must always be propagated. Any other
++			 * failure means that the fallback cannot be used,
++			 * which is not an error for an optional reset.
++			 */
++			if (ret == -EPROBE_DEFER || !optional)
++				return ERR_PTR(ret);
++
++			return NULL;
+ 		}
+ 	}
+ 
+base-commit: 091b06388b117fefdcb63336ac09956a4914b961
+-- 
+2.56.0
 
