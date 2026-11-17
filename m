@@ -1,66 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913510;
-	b=f1dgJ69S9jRMYsnNI9r6NkZbdZ/nz/FgmJw1VkGTwbmtpyol5bEjvhDmD5i/L+gwQR6x
-	 WQ0/qVYr9/fj0HzUIv1xx+CjL9fgcoDPtlXJoY1DPgqKmVxjAud6tadN2naYH2KKzXd/6
-	 BeG2dMTpPeG42qrmMY6ksq0itqkpa0gWRv3Y1f+aJ9MDfDsBCjkzW9YC9WCRATKBF4dCv
-	 8d33ngZk9vO7MxqQ18CR+PXOAa8sks0PS3ncAIWeXCaMlDhTkNL/8nxDC0nNsdss+IlqG
-	 oj9osPzfvvEWyIELld/8R+2c62Gty2Tv5CC3s27vCwvzMWUUI3b5XbaNfXTnVMsL/4A==
+	t=1794913579;
+	b=C1QGEQa8K2kmm3Q7uYK31qJsseRaCjVlQBC3waLicego4dVT55xuo9dGf3fjEoCj2tz0
+	 0YX40o4nSlnYra5vvb/WCYdKIlz3Xod6ON0kgeYCJiQ6k3EZ2F67m7gsAq6ees42I1k4I
+	 Ct2Slvf85oCj8497kDIDZH66QKw+TaS95YcSqKnlDx2VOqzJMN6xFlpj0fxzpl3OyrLGM
+	 kyNODtHDLuW/oorxbRM96rsesPcHRNj9FW6NO5eEt91moO8f6C+eMvUD8PC3/kwmN/fOi
+	 ivhNB+mYDBYAyLpixmdD7JouEevHKrOTEB7PWTfkSWeUwhWks/pE306Z48TMgPUb23A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913510;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:In-Reply-To:
-	 References:Subject:Message-Id:Date:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Mailer;
-	bh=Ed7lLF0CP7JeqyIekPCZLpbtKsM3+dJiy8vZ0Ay8D/w=;
-	b=vZ2Kw1FZsarVP8ScXdx4anRghvqhiNLAfJAYOB8L6sCitat2E2YkfuuEhnBPKMKMnMkF
-	 fahhQrxbGSivnIIEFg90qfFc6E7BU8Zbe4rdDNgmoYzPPaPYPg67s9CyFibWFDgfH54Ir
-	 Qi6bwBQZOvYEjgg7OxVk4l1J3Zaskm+MBPI5WTm89HPPmUxy+Ug/DHkQIFZEU75qRSGzl
-	 e30rlEOk7FZmsuZS4s5Y2VysS5ep9umwmuOdieNPmR92NJ53nVjoBrnAeM4K6E90QZlnW
-	 UsdnL/484ZePHfxPkwdpBA8+AdqJweY7g9QUx9RKNPfjeJA/smR3BN2p4ITZBqdccaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913579;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=y3gUkGRr0U1p2ZCNesM9xfptWY2/llhKtyiVyy36QM4=;
+	b=TFHLXkGpfniMej5q3KpYnoOEBtiWiGozdDt0Fk8MYtapPQvYigBI+a4beFkr3qfTXkqz
+	 1YZRC3I0a0+ZH+XK6Zv87fdPEwVzcAH575D8+lWabs/ziqKI3Uvy26yQmh4G8usi6RQ2l
+	 E+9432zHOLXPb/2t44D8V/vYcNvknr86/wXatyOlJWv7oAOyleANMYLUiEWjtUUsOX43b
+	 tEsrk0iZ4SarVrcncDZZRbRxny+8Ny90MBKj+I7owYq56AW2Fp1p2cB4gSl6OxYD56QSX
+	 kIloLxNHFMps+tTFyL/mrv2eXPgw1N/eziKhzKeB+Ad4vzWRmgxTDLHV3rXgYQfU40w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b="AlhkpnS/";
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yJNDrt6G;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBE1606A329;
-	Tue, 17 Nov 2026 11:05:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EBE1606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35726606A31C;
+	Tue, 17 Nov 2026 11:06:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35726606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=AlhkpnS/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1794913508;
-	bh=qD+A+5r0Pu5rX+NsDc5YpHGQypt4R2BcA7Y/dGhVwQ4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=AlhkpnS/onVNimPbPrBmaOEMj9/lUaCy+YIcEnteLP6km+nmS2zpGCFDaFacNKq7u
-	 5ZoOl1s6+XQKXzkVpzK9842JDliGu+WXMyccOEKN002T0d+7zrv06j9n1AjKqjHdVw
-	 T8y7JuGrpYakX3f8g5DrYedooFL9pi5Q9CtXWXG+qiJx5hUcsjKn4BzV4W7mGwcaow
-	 piZxWPhGnzCBR8u4ECs3dp0WSN1113Gz1AM/XS03kG3q3zSnMefRoctr3amQjvmusQ
-	 vcHtFyMe+NYLPm6lK0hwRZ901d+nn1kE2b7zilGaJJjEwSf/zQZqkzA2b8U4WB3V1O
-	 Q+fJM/Rje8Gow==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 38C1617E07EC;
-	Tue, 17 Nov 2026 12:05:08 +0100 (CET)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>, 
- Chen-Yu Tsai <wenst@chromium.org>
-Cc: linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
-In-Reply-To: <20261030103418.2355854-1-wenst@chromium.org>
-References: <20261030103418.2355854-1-wenst@chromium.org>
-Subject: Re: [PATCH 1/3] arm64: dts: mediatek: mt8192-asurada: Add
- ramp-delay for MT6315 regulators
-Message-Id: <179491350817.164578.3923681659802112857.b4-ty@b4>
-Date: Tue, 17 Nov 2026 12:05:08 +0100
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yJNDrt6G
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id B00D91A1605;
+	Tue, 17 Nov 2026 11:06:17 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 74F095FC81;
+	Tue, 17 Nov 2026 11:06:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7D8A711BC0493;
+	Tue, 17 Nov 2026 12:06:05 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1794913572; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=y3gUkGRr0U1p2ZCNesM9xfptWY2/llhKtyiVyy36QM4=;
+	b=yJNDrt6GP4E62RqG9gzmjY5xkLYVMACBX7hpOVMbd/yb3GDgPTc3Z+OHXJUSvjcp+GmfR9
+	9yjBcGZ8XOEQrZcwL+i9MiMadJusbAnUczI+SDShsMcnWMVzQv1FAXiK00c8cIS90hq9r1
+	xjr1wOuEEgPn5ErFtRKWVB+6IErAe2GJe8c4XPmrtnIiSORq9WRW3QTF45DEBWlsj4J6gt
+	VRCQitDPrUDCtL6E8f1X1EppcQbjyyE3tlJk6twendRCs1TUxLWSbNlkUlHeNoXcn3WFR2
+	5eRy8ly1H138an0K1OLpt8/qurzk6GQQl0Kj/WMOg8Sh9wSFGzKveo6RQkogVA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Petr Vaganov <petrvaganoff@gmail.com>
+Cc: Alexander Aring <alex.aring@gmail.com>,  Stefan Schmidt
+ <stefan@datenfreihafen.org>,  linux-wpan@vger.kernel.org,  "David S.
+ Miller" <davem@davemloft.net>,  Eric Dumazet <edumazet@kernel.org>,  Jakub
+ Kicinski <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,  Simon
+ Horman <horms@kernel.org>,  Phoebe Buckheister
+ <phoebe.buckheister@itwm.fraunhofer.de>,  netdev@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  lvc-project@linuxtesting.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH net] mac802154: remove redundant security_enabled
+ assignment
+In-Reply-To: <20261116065235.27348-1-petrvaganoff@gmail.com> (Petr Vaganov's
+	message of "Mon, 16 Nov 2026 13:52:34 +0700")
+References: <20261116065235.27348-1-petrvaganoff@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 17 Nov 2026 12:06:05 +0100
+Message-ID: <87y0arlntu.fsf@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,32 +78,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, 30 Oct 2026 18:34:15 +0800, Chen-Yu Tsai wrote:
-> On Asurada, the MT6315 buck regulators (Vbcpu, Vlcpu, and Vgpu) are
-> missing the regulator-ramp-delay property. Without the slew rate
-> specified, voltage increases may not have settled before switching CPU
-> or GPU to higher operating points, risking undervoltage crashes.
-> 
-> Add regulator-ramp-delay properties matching the slew rates configured
-> by firmware, with values provided by MediaTek: 8000 uV/us for Vbcpu, and
-> 4500 uV/us for Vlcpu and Vgpu.
-> 
-> [...]
+On 16/11/2026 at 13:52:34 +07, Petr Vaganov <petrvaganoff@gmail.com> wrote:
 
-Applied to v7.4-next/dts64, thanks!
+> During fuzz testing, the following issue was discovered:
+>
+> BUG: KMSAN: uninit-value in ieee802154_hdr_push_sechdr net/ieee802154/hea=
+der_ops.c:54 [inline]
+> BUG: KMSAN: uninit-value in ieee802154_hdr_push+0xa62/0xb20 net/ieee80215=
+4/header_ops.c:108
+>  ieee802154_hdr_push_sechdr net/ieee802154/header_ops.c:54 [inline]
+>  ieee802154_hdr_push+0xa62/0xb20 net/ieee802154/header_ops.c:108
+>  ieee802154_header_create+0xa83/0xd20 net/mac802154/iface.c:396
+>  wpan_dev_hard_header include/net/cfg802154.h:525 [inline]
+>  dgram_sendmsg+0xc6d/0x15d0 net/ieee802154/socket.c:677
+>  ieee802154_sock_sendmsg+0x8f/0xd0 net/ieee802154/socket.c:96
+>  sock_sendmsg_nosec net/socket.c:711 [inline]
+>  __sock_sendmsg+0x2f3/0x360 net/socket.c:726
+>  ____sys_sendmsg+0x960/0xc30 net/socket.c:2581
+>  ___sys_sendmsg+0x285/0x3e0 net/socket.c:2635
+>  __sys_sendmmsg+0x33c/0x950 net/socket.c:2724
+>  __do_sys_sendmmsg net/socket.c:2751 [inline]
+>  __se_sys_sendmmsg net/socket.c:2748 [inline]
+>  __x64_sys_sendmmsg+0xc6/0x150 net/socket.c:2748
+>  x64_sys_call+0x12a8/0x3cf0 arch/x86/include/generated/asm/syscalls_64.h:=
+308
+>  do_syscall_x64 arch/x86/entry/common.c:47 [inline]
+>  do_syscall_64+0xd9/0x1c0 arch/x86/entry/common.c:78
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>
+> Uninit was stored to memory at:
+>  ieee802154_hdr_push_sechdr net/ieee802154/header_ops.c:51 [inline]
+>  ieee802154_hdr_push+0xa5b/0xb20 net/ieee802154/header_ops.c:108
+>  ieee802154_header_create+0xa83/0xd20 net/mac802154/iface.c:396
+>  wpan_dev_hard_header include/net/cfg802154.h:525 [inline]
+>  dgram_sendmsg+0xc6d/0x15d0 net/ieee802154/socket.c:677
+>  ieee802154_sock_sendmsg+0x8f/0xd0 net/ieee802154/socket.c:96
+>  sock_sendmsg_nosec net/socket.c:711 [inline]
+>  __sock_sendmsg+0x2f3/0x360 net/socket.c:726
+>  ____sys_sendmsg+0x960/0xc30 net/socket.c:2581
+>  ___sys_sendmsg+0x285/0x3e0 net/socket.c:2635
+>  __sys_sendmmsg+0x33c/0x950 net/socket.c:2724
+>  __do_sys_sendmmsg net/socket.c:2751 [inline]
+>  __se_sys_sendmmsg net/socket.c:2748 [inline]
+>  __x64_sys_sendmmsg+0xc6/0x150 net/socket.c:2748
+>  x64_sys_call+0x12a8/0x3cf0 arch/x86/include/generated/asm/syscalls_64.h:=
+308
+>  do_syscall_x64 arch/x86/entry/common.c:47 [inline]
+>  do_syscall_64+0xd9/0x1c0 arch/x86/entry/common.c:78
+>  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+>
+> Commit f30be4d53cad ("mac802154: integrate llsec with wpan devices")
+> introduced mac802154_set_header_security() as the sole function
+> responsible for enabling frame-level security: it sets both
+> hdr->fc.security_enabled =3D 1 and initializes hdr->sec together,
+> maintaining the invariant that security_enabled =3D 1 implies hdr->sec
+> is initialized.
+>
+> However, ieee802154_header_create() was left with a pre-existing
+> assignment:
+>
+>     hdr.fc.security_enabled =3D cb->secen;
+>
+> This assignment can set security_enabled =3D 1 (from a stale cb->secen)
+> even when mac802154_set_header_security() returns 0 without initializing
+> hdr.sec, violating that invariant. ieee802154_hdr_push_sechdr() then
+> reads uninitialized hdr.sec fields.
+>
+> The stale value in cb->secen arises from a specific setsockopt()
+> sequence: calling WPAN_SECURITY_ON (secen_override=3D1, secen=3D1) and
+> then WPAN_SECURITY_DEFAULT (secen_override=3D0, secen unchanged at 1).
+> This undocumented combination likely explains why the bug was rarely
+> triggered.
+>
+> Remove the redundant assignment; mac802154_set_header_security() is the
+> only correct place to set security_enabled.
+>
+> Found by Linux Verification Center (linuxtesting.org) with Syzkaller.
+>
+> Closes: https://syzkaller.appspot.com/bug?extid=3D60a66d44892b66b56545
+> Closes: https://syzkaller.appspot.com/bug?id=3D23f21e76e9d2d1ed587cb5e715=
+15260d6d025b63
+> Fixes: f30be4d53cad ("mac802154: integrate llsec with wpan devices")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Petr Vaganov <petrvaganoff@gmail.com>
+> ---
+>  net/mac802154/iface.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/net/mac802154/iface.c b/net/mac802154/iface.c
+> index f437b8daa00d..7b7332805ecc 100644
+> --- a/net/mac802154/iface.c
+> +++ b/net/mac802154/iface.c
+> @@ -368,7 +368,6 @@ static int ieee802154_header_create(struct sk_buff *s=
+kb,
+>=20=20
+>  	memset(&hdr.fc, 0, sizeof(hdr.fc));
+>  	hdr.fc.type =3D cb->type;
+> -	hdr.fc.security_enabled =3D cb->secen;
+>  	hdr.fc.ack_request =3D cb->ackreq;
+>  	hdr.seq =3D atomic_inc_return(&dev->ieee802154_ptr->dsn) & 0xFF;
 
-[1/3] arm64: dts: mediatek: mt8192-asurada: Add ramp-delay for MT6315 regulators
-      commit: 9c9f83e3368d27d1e0ba55827a171ebf551c3d0c
-[2/3] arm64: dts: mediatek: mt8195-cherry: Fix ramp-delay for Vgpu
-      commit: 04560888cde5fd8adc325a6ce47466f80b8c668f
-[3/3] arm64: dts: mediatek: mt8186-corsola-voltorb: Add MT6319 ramp-delay
-      commit: 929638df9f3b36665efd60ac71f1eed4ba36a0a5
+There has been a similar patch in 2023 but it was never updated by the
+author. Fixes tag is better here, it should be taken.
 
-Cheers,
-Angelo
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
 
-
+Thanks,
+Miqu=C3=A8l
