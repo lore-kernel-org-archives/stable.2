@@ -1,96 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794877983;
-	b=EC1xHi5ZGBZqdI444lxCEZBg6DAp4lw/Z05iPfufcBExW5ZcNCriNyxj3arUfTXbzn2V
-	 yLZto5uKRxfPbLrQE0QQnbITM2wPQGBeKYZxfKmvSlHQO+PVsp+crUld8JPTlRPje3d3E
-	 ygurDvK3d5vFAAKSNGo64N53oyEUREZ3XF8ZkR15nyMj8lUjq8t/Vf303nEr7L91kRKVY
-	 qW8Jc1z9R6sZRVankgj6oO8KkhzIBDMJqEUjtsbYZNEad8hT4MLV+sXAaq6zfUBdbxZxk
-	 +W51lEH/TAefPi/YCzFlc2DcuzM3VbMOze8zcyKk/wlj/VKKTuFGQUJkl0F5Z8Xx/wA==
+	t=1794878845;
+	b=wUvLETVk+p816cdIAS62YoiTsgQrGC9mJBnYIphY3mQvix8zks6KwZTcu7eE8kHZIQQo
+	 KRKHtDzF8jYTAj5mQ/7zeulhpQObpZcKaOaevwneYPFCdwoG/NFiyP8GQ9t3MpLZhrfC2
+	 0M6yL3m8xtgR3U0ugNf1+XRD1/4OcsFHO8wi14jLsDQyYyvnRb4HGX1rl+AgcL1jqnmG6
+	 96Ih2ciA792ASyKl9pTCTbP2d2ym8yuTXJmkuA1z1DxI8yE3KBkV3ukuahxOcjp8blpmF
+	 8YYQ+acT7YUdHjDNDwvMgdK1f65pDYf+gYMgViEv3rnBEeMMcO5ilk67qzX/9AWvdOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794877983;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NUhA+uZG5XdxMUQDorM5AwEpculFp+rMbhcc7G7XRe8=;
-	b=Oi7iGfrIYcPJ+6i+/hTaGBWPlUGjF9imVgW8Z8PAZHN0l4bumoxN0TFETfpULoG9Vl29
-	 UXtYJtK91jwH9in20cO9MV8WviCA1Gm1bDMWvK7NaARgAdUd32kZv8F5WkXCQjRutvI5B
-	 o0a1GZJ9I4LxM8oRdq9wRwhEWm19DrDgUOMUvpBNOfNqgwmYrca6fKE0WEaS36dduycbx
-	 0rkFgMOlXxtroT9WuiwVqi+ofrfFgQ0jtLgBnri+KtzPekIm/XYJJOl2jV3jtlOjoiFD0
-	 y4QGatkJJv4o8Qew74M801WVar4aJ/hmjaWww4aC7vlfiZC8ED7TsKy0IEctdgJc5BQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794878845;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=Nx8k3CosD3afLDEMEHpVofmAOoOTqUyUTfQqddef4Z8=;
+	b=Een8OjT/CVxOEWkj8lXDlO6MakKayStudWbgb9FNEZ9lB8tt9iMuCeUQsoq9h2224qZb
+	 KMw5IaMR36wdy7ZKb6F7m0aBZwak4RU6epDJLpre7QDJLs6pKPTMhdQ34BvHQur656Ey1
+	 o3zkPmDcjjFQdpMkCTePLL4+TaBRBxEpzVsng4xogi1JkHnEGQavdv3MoQ/OlDV1FZXHL
+	 ZwUVmzO6R26CKMutCm9iqbHfZ7pGmybimlnJCaGmhdEqWmHtf7RNS8J8dMmqp3YaIGiaR
+	 9qWB6+c2aDUoZPwesixePFISCdbWVO/m19af2Zz/asL6K4QyFAjtBJZXgsXK+AaAmLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KJ8F7IZ1;
-	arc=none smtp.remote-ip=74.125.82.53
-Received: from mail-dl1-f53.google.com (mail-dl1-f53.google.com [74.125.82.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A85BE606A31C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:13:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A85BE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KJ8F7IZ1
-Received: by mail-dl1-f53.google.com with SMTP id a92af1059eb24-1a3c08d6928so5727531c88.0
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:13:02 -0800 (PST)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 18A0E606A31C;
+	Tue, 17 Nov 2026 01:27:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18A0E606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794877982; x=1795482782; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NUhA+uZG5XdxMUQDorM5AwEpculFp+rMbhcc7G7XRe8=;
-        b=KJ8F7IZ1fdLevvCAy9EWM+XFt/RwS4rzLVHGli7ayJ31VQO43qztXGUFmJHFL8vkUU
-         HmD9yzFIxOK0kWtwiViO6o/rgaP8h68DBBc37qdsVQGSbR6zZ5CSwDALHtKsxAwt5Yx1
-         LISL42V6M3b6ftocHAR/oLF966NmrY/VAfJPQ77XtLO/p08y8+OzpHZMfXw5AsZXBYOg
-         Z47Nbl/Xbg0P4vhQ4RjHv9kbzNmB7MBej6bTeRTovRctBCnBOF5n3aCVGyJwVlBqtOHx
-         /N+3RZDY4FAsxPJZuOkUQgUMmuInC7JYHEKjVcbzgS1Y60X3EYgn4B/3trXiUNLkaUOn
-         I1TQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794877982; x=1795482782;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NUhA+uZG5XdxMUQDorM5AwEpculFp+rMbhcc7G7XRe8=;
-        b=l1DJU/Y0FuufdxnLTCJUGerbys+essr5g20hlDr2LLgmtGcY67/KIE6+KNE29LaK7B
-         rD/5l/qHbOauZoQ0RKAFv+E8XLCEQAqzn3Z4VpU8DV+Aw0cVBP4DYu3VuGZW2LOO2DlE
-         q8bNZmBNe9P6CJ3eea2EEZTbCyclAHpcF3EywqU6bxsvsYOExo7LIFi+lFm2y6revymO
-         bkgU7D/P+cekMAt0vfgDytMi5mOXMtALgQ8jwdPSdPbgG5mYF5Q/3K9Q9vvbnsyrXhEm
-         wfSnUAG7oMON+75HJ0IZwP5Mn6G1WjeBxt5Vyf85P60ppkKmUdfqCrck0PUU4E7cqdoa
-         mWkA==
-X-Forwarded-Encrypted: i=1; AL+hErF1s5TtPFd/nP+Dr+/4lvlY5Fchm4nGfZHYAd7gQt3w0p4Y+XExKILOk7UjWWFvZE7T5Vxmm40=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/hVFWSHI4dWL+WakjGVpces97LOb1sqnb2Ywe9KFG2wEH0JTTw
-	mbryKSXgbMhtxGm840DH1p+sRsqMYgxD4Jg1aXwuZYZZ5qfUwtd4pM51cxC/64G9Kj0=
-X-Gm-Gg: AYBFou3GR/Td5/Co6RsGdpK1c63Kj4ElhELfLQ+NZzMCAAKRcLO6V22ils/8qkAKxgl
-	5wcma9fbXGBE/j8fynQmMaweiSwrxY7Wg/54olK1ASLSwo2AO0ay1uJI9QY0gnpY+BivyMpsNdT
-	rlWnoe5cAykYIB9HUEivQlheZ6uqLi9LlkmOJVqV+yh6PMsZid2YYssZ5D/ucLVE1r68m0FeQQW
-	NlGhBhB+rsfnVP7u8KgRml2iSI6LYLYfshmkFvSuvASTr4F3qrN0MHL1fom7Xvfkdp5avimeQv8
-	Jkt6GsIGjOHdxye1QY4vrZf54xS/82RkonrJZSqulXXYMfX5G9Q1sW6OUtHhx21x5F8/xpbJjo8
-	ScQgM8vzX5hptOdM3g9ic1S1Dhpx03Kcy0dmFZJGuI8OrkpAucWorIoRlW+/4DxLfIQxUX8d/vX
-	Nh2rm+t2nv4Qb3vUEF8wYgVXEs3DraM2aoICchrg4h9wAdsdcbNnxqvvItJGDE4VSs/DYQvRVOT
-	o/3VPn7Ic7ARlmS2OUzj5iK/MRXAPQuUdZZJT6n9FYRP2Jxi5j3uc2yiEUBZSw9thQk7kxcnKrZ
-	Oi9WQsJ4MYdHHBpDWcg+YQ8cS8nnlrqs6OqJN/sujd5mW6DYBqjBAsKVI2AakvAvZwq8LQ9exZf
-	PIaTaZE9ucsspfXsr7TPc+Ec=
-X-Received: by 2002:a05:7022:3c84:b0:1b4:fa58:9d3 with SMTP id a92af1059eb24-1b5030bb43dmr11232487c88.24.1794877981588;
-        Mon, 16 Nov 2026 17:13:01 -0800 (PST)
-Received: from localhost.localdomain ([2601:647:4182:5788:5c03:2bf9:5b8c:32cd])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3815045b90esm1193654eec.13.2026.11.16.17.13.00
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 16 Nov 2026 17:13:01 -0800 (PST)
-From: Ankit Gupta <ankit6791@gmail.com>
-To: linux-nvme@lists.infradead.org
-Cc: Ankit Gupta <ankit6791@gmail.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] nvme: limit Write Zeroes to 65536 logical blocks
-Date: Mon, 16 Nov 2026 17:10:49 -0800
-Message-ID: <20261117011230.10288-1-ankit6791@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=Nx8k3CosD3afLDEMEHpVofmAOoOTqUyUTf
+	Qqddef4Z8=; b=Co5hPoaQKrTG+o5hc/JeXYmMattduFCjFY0THsuBfcJ7ZycyRS
+	519Ncte916woiBuoALjkrv+D6KM+UvR8phzT0zWCU6QzSYwYWsYuxXYWgxvh1VU+
+	+HTDpPkHQE/K+9yKhPFNzvB2MX7v711TbMWObZopRIoqeLFNNvWcE+wSE=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.41])
+	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCGx_xrrftqGJy_AQ--.16012S2;
+	Tue, 17 Nov 2026 09:27:09 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Alan Stern <stern@rowland.harvard.edu>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	usb-storage@lists.one-eyed-alien.net,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH v2] usb: storage: shuttle_usbat: set the ATA sector size at device init
+Date: Tue, 17 Nov 2026 09:27:07 +0800
+Message-Id: <20261117012707.5858-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261116093452.15286-1-25031212351@stu.xidian.edu.cn>
+References: <20261116093452.15286-1-25031212351@stu.xidian.edu.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,77 +63,86 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BLQMCkCGx_xrrftqGJy_AQ--.16012S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxuryxAry8Cw17Wr18GrWfKrg_yoW5XryDpF
+	ZrCFWYyrWDta1Skw1UJwsrWa4rAayfJFW3Kry0g34ruws8K3W5CrWxK34F9Fy7JryFyF1x
+	Ka1vqFnxCa1DCF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26r4j6r4UJwAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x0
+	82IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGw
+	Av7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48J
+	MxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+	UI43ZEXa7IU8-yCJUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUTD2r7HshEXgABsH
 
-With nvme-tcp connected to nvmet-tcp at default settings, the target
-reports MDTS 0 and WZSL 0. A 33 MiB Write Zeroes request on a
-512-byte-LBA namespace then completes successfully after zeroing only
-the first 1 MiB.
+usbat_flash_read_data() and usbat_flash_write_data() divide the transfer
+length by info->ssize to turn it into an ATA sector count.  info->ssize is
+only assigned in the READ CAPACITY handler, so it is still zero when a
+read request arrives earlier.
 
-The native Write Zeroes command encodes the number of logical blocks
-in a zero-based 16-bit field. The namespace queue can advertise a
-larger limit, either through the MDTS fallback or through WZSL. In
-that case the host truncates the count when building the command and
-reports success after zeroing only part of the requested range.
+Such a request is sent during device scan: sd_probe() starts with
+media_present set and usb-storage sets read_before_ms for every device, so
+sd_revalidate_disk() calls sd_read_block_zero() right after
+sd_read_capacity(), even when READ CAPACITY failed, because
+read_capacity_error() deliberately keeps media_present set for drives that
+fail it with media loaded.  A CompactFlash reader that does not complete
+the READ CAPACITY sequence, for example because a register access is
+stalled, therefore reaches usbat_flash_read_data() with info->ssize == 0:
 
-Cap the native Write Zeroes limit at the number of logical blocks the
-command can encode. Convert that limit to sectors for each namespace
-and retain any smaller controller limit. The DSM deallocation quirk
-continues to use its own limit.
+  Oops: divide error
+  RIP: 0010:usbat_flash_read_data+0x2a4/0x5c0
 
-Fixes: b94e8cd2e6a9 ("nvme: fix Write Zeroes limitations")
+The ATA sector size of these readers is fixed at 512 bytes, so record it
+when the USBAT flash transport is selected, instead of waiting for a READ
+CAPACITY command to succeed.  The datafab and jumpshot drivers, which
+share this code, already set it during device identification for the same
+reason.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ankit Gupta <ankit6791@gmail.com>
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
 ---
-Tested on arm64 at v7.4-rc3 (aebb72744764), over TCP with the stock
-nvmet target. Full-range read-back passed for 1, 32, 33, 64, 256 and
-1024 MiB with 512-byte LBAs, and 256, 257, 512 and 1024 MiB with
-4 KiB LBAs. Host and target traces confirmed the expected command
-splitting. A smaller 1 MiB MDTS-derived limit was preserved, and XFS
-formatted and mounted successfully.
+Changes in v2:
+ - Set info->ssize when the flash transport is selected, as suggested by
+   Alan Stern, so the value is always available.
+ - Drop the assignment from the READ CAPACITY handler, now redundant.
+---
+ drivers/usb/storage/shuttle_usbat.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Claude and Codex assisted with the investigation, patch preparation,
-and validation. I also reproduced the 33 MiB failure and checked the
-trace by hand on an unpatched kernel.
-
-I will follow up with a blktests regression test for this, as
-Christoph suggested.
-
-Changes since v1 (sent to the maintainers off-list):
-  - Move the calculation into nvme_max_write_zeroes_sectors() and
-    derive the maximum block count from the command's length field.
-  - Describe the affected configuration and Cc stable.
-
- drivers/nvme/host/core.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index f4aa02869b79..441d70001920 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -2093,6 +2093,16 @@ static void nvme_set_ctrl_limits(struct nvme_ctrl *ctrl,
- 		lim->dma_alignment = 3;
- }
+diff --git a/drivers/usb/storage/shuttle_usbat.c b/drivers/usb/storage/shuttle_usbat.c
+index 7e5424268c73..267c82381465 100644
+--- a/drivers/usb/storage/shuttle_usbat.c
++++ b/drivers/usb/storage/shuttle_usbat.c
+@@ -1038,6 +1038,8 @@ static int usbat_set_transport(struct us_data *us,
+ 		break;
  
-+static sector_t nvme_max_write_zeroes_sectors(struct nvme_ns *ns)
-+{
-+	const size_t nlb_bytes =
-+		sizeof_field(struct nvme_write_zeroes_cmd, length);
-+	const u64 max_lbas = BIT_ULL(BYTES_TO_BITS(nlb_bytes));
-+
-+	return min_t(sector_t, ns->ctrl->max_zeroes_sectors,
-+		     nvme_lba_to_sect(ns->head, max_lbas));
-+}
-+
- static bool nvme_update_disk_info(struct nvme_ns *ns, struct nvme_id_ns *id,
- 		struct nvme_id_ns_nvm *nvm, struct queue_limits *lim)
- {
-@@ -2143,7 +2153,8 @@ static bool nvme_update_disk_info(struct nvme_ns *ns, struct nvme_id_ns *id,
- 	    (ctrl->oncs & NVME_CTRL_ONCS_DSM))
- 		lim->max_write_zeroes_sectors = UINT_MAX;
- 	else
--		lim->max_write_zeroes_sectors = ctrl->max_zeroes_sectors;
-+		lim->max_write_zeroes_sectors =
-+			nvme_max_write_zeroes_sectors(ns);
+ 	case USBAT_DEV_FLASH:
++		/* The ATA sector size of these readers is fixed at 512 bytes */
++		info->ssize = 0x200;
+ 		us->transport = usbat_flash_transport;
+ 		break;
+ 	}
+@@ -1703,8 +1705,6 @@ static int usbat_flash_transport(struct scsi_cmnd * srb, struct us_data *us)
+ 		if (rc != USB_STOR_TRANSPORT_GOOD)
+ 			return rc;
  
- 	if (ctrl->dmrsl && ctrl->dmrsl <= nvme_sect_to_lba(ns->head, UINT_MAX))
- 		lim->max_hw_discard_sectors =
+-		/* hard coded 512 byte sectors as per ATA spec */
+-		info->ssize = 0x200;
+ 		usb_stor_dbg(us, "READ_CAPACITY: %ld sectors, %ld bytes per sector\n",
+ 			     info->sectors, info->ssize);
+ 
+-- 
+2.34.1
+
