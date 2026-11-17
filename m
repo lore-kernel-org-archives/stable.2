@@ -1,59 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908878;
-	b=Pj4O+Y9AslvAMCrrS0UoveJC9FLcOtctEE8OjBldvHRi443oJ1cfPkzHIe820Sxkaq9B
-	 OtZkzTIR1whfn4ax9KY0a2Q8Hq1ltXvoyrwGsZThFYz3bIUvmVNeQyoCMo95ot1J8WQuJ
-	 895RdRB+xJYPSxTF3mkNs3d1S9zJ7lzCHFLrtP47yGeClVm60P/3/TPXR0xlDNKtUJxxE
-	 oc9GMJeDF4sKCL4FPX8BGLXVIeaKAzb01aps78j1oOoe4FAbGAOZAdc0jmggTvVMAJvmJ
-	 zcQryFm01ERiF5x7+ossGrB4ntyGMKVrYEcFPMXAPXjbvqOJF5x7ElHd/kLYL6SDYpQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908878;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=ND1nXXwHjHsAPgbdDGk/AXb83MyDC2euV41/T0fjsPI=;
-	b=RGlibCGvOptdbg/1Hl6Bi+XfR9wSfl8Ro5/bltEmHna6kFKEnJOlo6bA0IpTxQ9rE4VK
-	 XJ48hyFa2JC6mllYZYBKDQ5h6nrOjxQVPSdpQrUmmGtLdja3XHuHyqmV+JAZjihCxVmz+
-	 hhZv2fzlr/lso6HdTMrpYhGN2dN2cd+YztjtAhsytkCKW4BspV8E0J/f+ppGe8I60LaMI
-	 fHSQ6dpI6UKwTs22VV1AzNVtaM7+B2Luzvuyvj6KYZd5Xyc9etnRnR9T1sPLrnYIfhfho
-	 intcJqblH7e5luIt81w0IyZZYef/g0lc/cKjVV6eQzSYmkOtFfiWjUpwy9bcRIb/Xmg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=P5HLfqjZ;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794908998;
+	b=NuTfbDvFxQZu2DmMW8kXEsnrmOas264t3/2CBZpH7CXfnISSjI4Skg/r7z4QJSFo5CKi
+	 tOP/vlY/cLh57WsYOvgeY5kI3FdrgD2Heqbh23fqbdLw+Ei7P32JemzaWz/JlxswgjRPI
+	 fK4lLZOd0TJG05dGoM2TZtfwsOuZnZZzbbQ61X+lkz75G+bISe4/06uOh6g0uP/inSmDY
+	 y9RyMEjo1j6ZeqD6QFGEEAKMSEjQa4QDmSQo0YiqYmanEUrmHvfDhHZoVZQ7oycRn8C6b
+	 ZqO+EjKfk1Kcuv9AUiKkrcs3RIgH2U2XQPCJDHwPZgjSPScpWXvzn8s6kgH9rk+mbtg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908998;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=zoXzq6GckUKtWiYBmPIrwS2h9qGWRwQ1X+lk1bg+NOA=;
+	b=ZxEHg6T86LEDrSpnZC5oR7Wfo0kUE413DF6rgBlEUYsGXLIueC7NY+8kycRqbpoQq+mY
+	 gZ1fLdd4BvCPuRCRqRWL1avr+oPE1qz5KZ0DtJ6ECwM33AYlkUlZa40bwRhHpMl25bUH2
+	 SSyX8GSlYQnq09uPTwgoLhriAu+P1B5P1x31CD2bIPL1/+RYMA/4i6VcFV1x7FD11XAsn
+	 B1qA2H6sXzwU/LEWdxbQAZyT4fPJRjOcBJyWoOJnl5r44NQys3JHvqpS9cz8cZ6TewlPr
+	 iL8IMLa/uRFH77gDRZ0E/FOcIzrQhoFJpDyhJpBGqwNrTxubixSZ/aUtUT6Iil6nq7A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aGvO6etl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E93606A8A3;
-	Tue, 17 Nov 2026 09:47:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8E93606A8A3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 531F3606A31C;
+	Tue, 17 Nov 2026 09:49:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 531F3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=P5HLfqjZ
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B47071A158C;
-	Tue, 17 Nov 2026 09:47:56 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 842585FC81;
-	Tue, 17 Nov 2026 09:47:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A55B911BC112B;
-	Tue, 17 Nov 2026 10:47:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1794908875; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=ND1nXXwHjHsAPgbdDGk/AXb83MyDC2euV41/T0fjsPI=;
-	b=P5HLfqjZpWJJozoVBi99pHxutBDJaWHPd97XLhf06+PUQIUJR3U52CYF460iqyqSWbWzCk
-	nDJeXt6oYI8XWRaHaG0beewZ9lp/ltoXO+kskB02zAkoae44ZUZGYc6W76VFhVrZwdqobz
-	g2LCipPDRvRJh2qZRZvUxKGAwFHPCpRrT2gYV0FK1EqvXAvFcpDRUCOMXsUcHbUQ2x9M0a
-	MKFcDG9u7miBfj4yqG3N5RnNCLIBywSWSedRe3ghJ1DSs9V+J8Iuues32scobaKANIFXsa
-	fzra0d5LNVtxPeTG4EpaULArSmv8rfpX4/R7akPU2pGLyPf8fm7ECvGXv3obIg==
-From: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-Date: Tue, 17 Nov 2026 10:47:43 +0100
-Subject: [PATCH v6 03/10] i2c: cgbc: Use real I2C bus names
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=aGvO6etl
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5981720173E;
+	Tue, 17 Nov 2026 10:49:55 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794908995;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zoXzq6GckUKtWiYBmPIrwS2h9qGWRwQ1X+lk1bg+NOA=;
+	b=aGvO6etl4XCPW5TsgtFZygpp+inpHhv7SjRTprMWJ6JTwuXZ33HBPTJCFAFZEuxZoZcV/D
+	Dg4p4XTIv90rCEIRlfi1a+syE7gW85LZSJFREWCvgQeLB5L3ZA7BPdXxaEy/wXpoL53/C8
+	2BYgaXz62MiylVAi1+IRX2ilip2Q1C4HFAIyYSUF+PsxvtfPwxb7gseqBEQ4qLo4bLqzbF
+	5CSVtH5/MUkErxGicxw+dxdngp3VBLEEk1S4CyGJqjvTCA7KjIF6RSehtcn1Xs00P7cjzq
+	raXCluGfPiSx0bsiBsxabGB9Kg3MZAAFlayfN758l/5BxW2MqD5BGmhzVlrkMg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794908995;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zoXzq6GckUKtWiYBmPIrwS2h9qGWRwQ1X+lk1bg+NOA=;
+	b=ZY42NyUR0BEeN1DjsNWExBHwNE/FupYGZDmO/WaIzZDoa+k0knS7M1CEkNFuSD0rKdRGcC
+	hKXbgE40lPBmg6ZmR7QAjDl8TwBnHRtlvNDkQPpNC0BTapA8GSsjw5OB96phqe7gqDuUnO
+	dWHeSJOVQfVJ3r63r4UisLgviC6tZ57JVKFNtstOPr/lqtuZ4czJ/UnieYQ62eCQfU6e/U
+	PGl83E9QNYuCYuoiqcXeheiFi8c1oKsx3mj3ux6PSQTOdZPVDySnlY+fwes4Mbrpxuivbe
+	rZRZJvCVer5fv5knvOtUlrEaX7HgKwZ232ZET1jgpZE461nBi4fyeo0EKK3/8w==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794908995; a=rsa-sha256;
+	cv=none;
+	b=RRA7JYhth8jNinIFdnaGJU+HmJ45zeITjhvm7y3jlGgcQQsla40FXSd6G7kZoHBisZ3U46
+	VjXhfZtVLei0DwSZJxD2w7mQWq1y/8ejpMTplUM/Jm+hoMSoRfJoYGg1WzFJuxVLc8lLjM
+	qSiwqwH49marKd/L/mnFv8G7ixdJyOGiVodTLtG/7SKftKldqFEEKFcAFVAIx21/yJo6Sd
+	E6NDSaLZvPx7lqx/PwiCMoJOkk3HrEFZcIk/pavwPFVyb+AbI83b05WzngBQvJHeM83KWS
+	1lPKKmqtCt0l01SSCsisM7FcmMF071HY250AeK1wJ+KjfIN1Q2sXFgEJaLhs6w==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+Message-ID: <1c82364fad5948bc1154ce92f029324cc3cddf26.camel@pengutronix.de>
+Subject: Re: [PATCH RESEND] reset: core: honour optional resets when the
+ GPIO fallback is unusable
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Yang Siyuan <hsyysy@163.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 17 Nov 2026 10:49:55 +0100
+In-Reply-To: <20261117092008.12130-1-hsyysy@163.com>
+References: <20261117092008.12130-1-hsyysy@163.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,57 +92,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261117-cgbc-i2c-storage-devices-support-v6-3-bb070ad3e9aa@bootlin.com>
-References: <20261117-cgbc-i2c-storage-devices-support-v6-0-bb070ad3e9aa@bootlin.com>
-In-Reply-To: <20261117-cgbc-i2c-storage-devices-support-v6-0-bb070ad3e9aa@bootlin.com>
-To: Lee Jones <lee@kernel.org>, Andi Shyti <andi.shyti@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev, 
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
- "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
 
-The adapter names described the expected purpose of the buses ("General
-Purpose I2C adapter", "Power Management I2C adapter") on conga-sa7 board
-rather than their actual names on the Board Controller.
+On Di, 2026-11-17 at 17:20 +0800, Yang Siyuan wrote:
+> __fwnode_reset_control_get() honours RESET_CONTROL_FLAGS_BIT_OPTIONAL for
+> every failure source except the reset-gpio fallback: when
+> __reset_add_reset_gpio_device() fails, the error is returned even for an
+> optional reset.
 
-Rename them to the real bus names "cgbc-i2c0" and "cgbc-ddc0", matching
-the naming used by Congatec.
+RESET_CONTROL_FLAGS_BIT_OPTIONAL is only meant to replace -ENOENT with
+NULL, not other error codes. See the kerneldoc of
+reset_control_get_optional_exclusive():
 
-Cc: stable@vger.kernel.org
-Fixes: 6894f640b8f3 ("i2c: Congatec Board Controller i2c bus driver")
-Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
----
- drivers/i2c/busses/i2c-cgbc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+  "If the requested reset is not specified in the device tree, this
+   function returns NULL instead of an error."
 
-diff --git a/drivers/i2c/busses/i2c-cgbc.c b/drivers/i2c/busses/i2c-cgbc.c
-index dfdb9ffc6447..baf02bfe090c 100644
---- a/drivers/i2c/busses/i2c-cgbc.c
-+++ b/drivers/i2c/busses/i2c-cgbc.c
-@@ -358,7 +358,7 @@ static struct i2c_algo_cgbc_data cgbc_i2c_algo_data[] = {
- static const struct i2c_adapter cgbc_i2c_adapter[] = {
- 	{
- 		.owner		= THIS_MODULE,
--		.name		= "Congatec General Purpose I2C adapter",
-+		.name		= "cgbc-i2c0",
- 		.class		= I2C_CLASS_DEPRECATED,
- 		.algo		= &cgbc_i2c_algorithm,
- 		.algo_data	= &cgbc_i2c_algo_data[0],
-@@ -366,7 +366,7 @@ static const struct i2c_adapter cgbc_i2c_adapter[] = {
- 	},
- 	{
- 		.owner		= THIS_MODULE,
--		.name		= "Congatec Power Management I2C adapter",
-+		.name		= "cgbc-ddc0",
- 		.class		= I2C_CLASS_DEPRECATED,
- 		.algo		= &cgbc_i2c_algorithm,
- 		.algo_data	= &cgbc_i2c_algo_data[1],
+> This is reachable on Allwinner SoCs, whose pinctrl uses three-cell GPIO
+> specifiers. The reset-gpio fallback only supports two cells, so it
+> returns -ENOENT and a consumer asking for an optional reset fails to
+> probe instead of falling back to its own GPIO handling. mmc-pwrseq-simple
+> on the Anbernic RG35XX family hits this: its wifi_pwrseq node has
+> reset-gpios but no resets, so the SDIO WiFi adapter never probes.
+>=20
+> Keep propagating -EPROBE_DEFER, since the GPIO provider may be available
+> later, but treat any other failure as "no reset" when the request is
+> optional.
+>=20
+> Fixes: c721f189e89c ("reset: Instantiate reset GPIO controller for shared=
+ reset-gpios")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Yang Siyuan <hsyysy@163.com>
+> ---
+>  drivers/reset/core.c | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/reset/core.c b/drivers/reset/core.c
+> index 38e189d04..f2375dd17 100644
+> --- a/drivers/reset/core.c
+> +++ b/drivers/reset/core.c
+> @@ -1181,7 +1181,17 @@ __fwnode_reset_control_get(struct fwnode_handle *f=
+wnode, const char *id, int ind
+>  		ret =3D __reset_add_reset_gpio_device(fwnode, &args);
+>  		if (ret) {
+>  			fwnode_handle_put(args.fwnode);
+> -			return ERR_PTR(ret);
+> +
+> +			/*
+> +			 * The GPIO provider may just not be available yet, so
+> +			 * EPROBE_DEFER must always be propagated. Any other
+> +			 * failure means that the fallback cannot be used,
+> +			 * which is not an error for an optional reset.
 
--- 
-2.53.0
+No, it is very much an error if an optional reset is specified in the
+device tree but can't be used.
 
+The /*TODO*/-marked -ENOENT return in __reset_add_reset_gpio_device()
+is already papering over the issue.
+
+> +			 */
+> +			if (ret =3D=3D -EPROBE_DEFER || !optional)
+> +				return ERR_PTR(ret);
+> +
+> +			return NULL;
+
+I think instead this could be replaced with:
+
+ 		if (ret) {
+ 			fwnode_handle_put(args.fwnode);
++			if (ret =3D=3D -ENOENT && optional)
++				return NULL;
+			return ERR_PTR(ret);
+
+regards
+Philipp
