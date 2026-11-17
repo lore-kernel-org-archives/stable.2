@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908634;
-	b=HGO/GjVDlrx1AIvlvlQ4ImCfznyBOo3tGGT1lqwO6r93nwGveHw0BmDrL1hjmhPz364e
-	 68OSOG/8cfNqeBnJnPk4dZ67MIP8X6RigyC9yZ+Lgla1SJN8vJsjq0Yf1czuQI0EyEIan
-	 +q396tf1S2NIIsFPK7Df6P7Sx5yU9VPaBBmZRmbH5qOpTwQjDikyegq3Ip15p3KOjUzdu
-	 c67NbSPYXnOhPE1I3/cmD4tXesn/A71kxSOqWzB2EfeSNdaIv3PRP03AmhPomqL7chjH/
-	 camm4KOFJFrCxYCL18xCelfyym51odVwXdnnAQ0MROXiJOCnNt+CgivZ2nGxKfgYLsA==
+	t=1794908636;
+	b=26/PW073ZYQxZFlCsAjcMWItFfikDPD82mE3PQRKmW1Hw5m2XdRVuYZU14B4zNfXmbC6
+	 5XHXbmmHPjKMCgjEA4xO8DlwDy19omeHDq05e6deMooez7Vj56qHegOIjqLl+RR2ETf7I
+	 Lbdb6CVnOAvhoXxsX6rWcovNFmDOTosC9yz7cwNlTc357GFwYcopJJwTuYv2nRRazrAhd
+	 IDZTwAb1K4z17CvpDIP3WwT+Y5no8zuLc6I+VrULk0rtF2NL+yEghmN00xG3IWf9ycOM+
+	 OZ/S3sV2UWEP1451kK2EKAjeFpPY5UvFf5W2womj7jIp3D+8Mblyha5gSWt/0DTgG4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908634;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908636;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=lj/H6ObV+NiCkgR1Za56Q0sbCpzNk/GAy356ZgMOwhs=;
-	b=mSJdslcjBkjwxrodkhQwjXYkVNV1DqHzvOfAp3UPHbmEyBUwWLYLaG3FhkwJSrL4HYPZ
-	 dQXZ5KZF1+l8y55BVT29i+wYA7LBoueOR7mri7IVDfjW2vk0T2/Q6w2/Od19V6mc1sNfh
-	 tsXHgv8rjFVGpUrtZV/tlsqBAq+6JJ3oNqB6lcp1z8LOT6k7zBeIvGcq/1yjxgVjQ5C37
-	 XjVuS0z8tvyKI3UE9GQC8wP1wG7QlDc3QHO4jTJJJy5ot+JFDmwkCh/XVqt3G1z4w5QXt
-	 7J2Sifn/v7194AerDRGZMlw8q5NvZSajnpk4n5Rhh8UCQo3Eg4y1zzCsbuTxpksGVwg==
+	bh=EkMkRGE3wUMYDlYWX26IfHh9fQHE7ly+qPAGDAGs94Y=;
+	b=3zIX7bw4N+OiSWfwMBT38ZHEqnxPiJzLWOsI+3b9fbBXcXoeFNJwMqsjUtvW31Mni2Ar
+	 wGNi65zGWTq+j9nkxdr2jrzeMCq8Fk280pBN5+l+owXxThJiph7pBICoVbZJIjUponHuU
+	 +W+muDRsc44govm5kP1Cz23jZnaabrrKqaYru2h2ra27LJk8PcHMErm48/mZrRiHK62Ia
+	 rAxggwzVuS2Pdt/CHRrMtrq4O6jx2qQzyq8MvgKDtaiiOBWMZZ1egHHPVGSXTNotkgUzv
+	 6Usg2M0d4FcS1Oa5OM1bHzzxEbsc9ATz+KvtJlJnf0WVbYZgq42DsG+2PI3EjVFYR1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2SGxfYE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P3smttsi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0AF606A330;
-	Tue, 17 Nov 2026 09:43:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10EA8606A898;
+	Tue, 17 Nov 2026 09:43:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b2SGxfYE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B52671F0181D;
-	Tue, 17 Nov 2026 09:43:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P3smttsi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F0821F000D2;
+	Tue, 17 Nov 2026 09:43:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794908634;
-	bh=lj/H6ObV+NiCkgR1Za56Q0sbCpzNk/GAy356ZgMOwhs=;
+	s=k20260515; t=1794908635;
+	bh=EkMkRGE3wUMYDlYWX26IfHh9fQHE7ly+qPAGDAGs94Y=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=b2SGxfYEDMWwqaoLT/DMSAPcHCMLtUMRmGRwU0qTq7lYx2HkQQdrWIWozD9/d7X/D
-	 rdeqw6ATESA/iJfR11weE/R5/hA378fwDxhVFg+di3tTSTBZ0TeQWD8jjWcTt9ZwZJ
-	 Hugm5qyQix0ea2pP7/z0TCkLw0Y3NB9dpModUZVl3kHP7nc+YyYom3TgebPrivBPVm
-	 FPiu7BQ7H9WkQL7WqWRZwZ6vKNw6CE7vmCyRQeU6LRhl6KyIyoI3Qv5wKhiKrpc5LU
-	 IfCtQf6j/wbBewtiDeJsdMPbgDLGqcGPWQeujOUQEuOhWakQjYfpLgyhLfw+x+x0dg
-	 jKoMLHTdc40+A==
-Subject:
- Re: [PATCH net v4 2/3] net: mptcp: reject token 0 in mptcp_token_get_sock()
+	b=P3smttsihzvyAwE/2EaRi4cKFqx4R/4ZOu2OGX3an0jJ+abA3lN4gk8bsaKvqfRkD
+	 L5WQMZ+0f9obDAc5cuTfpANlUNY+ef8amWshZFC5QG5qcupobxitUQ+QTaeX21jna5
+	 jsHTCIVzoGw2vkx9vAOSdVgkH/6N/etJDhDWEyMrMyCNRyHvWnrThbWE0heiVcpvGG
+	 XCjuxucnK6/hiDNMIpydWo6BjI5kEhJD8pCZJo/tWB6cz14ZBvnV9AVCiMTEiCtEjN
+	 64Z/HmFtSCpfDxHBcZVPHU0uIEMphMRfdLoJI4FBcV4bBHhHBo0/Mn/SX0r6UpOULH
+	 EA/YhbbSDtphQ==
+Subject: Re: [PATCH net v4 3/3] net: mptcp: verify the token slot in
+ mptcp_token_iter_next()
 From: netdev-bot+sashiko@kernel.org
 To: 2122295973@qq.com
 Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, matttbe@kernel.org,
@@ -49,10 +49,10 @@ Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, matttbe@kernel.org,
  edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
  kuniyu@google.com, willemb@google.com, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-Date: Tue, 17 Nov 2026 09:43:53 +0000
-Message-ID: <179490863332.3133.3484259413562043053@kernel.org>
-In-Reply-To: <tencent_43D317CA682E96EDDF89E59E669052BF7E09@qq.com>
-References: <tencent_43D317CA682E96EDDF89E59E669052BF7E09@qq.com>
+Date: Tue, 17 Nov 2026 09:43:54 +0000
+Message-ID: <179490863464.3133.2064838572417107624@kernel.org>
+In-Reply-To: <tencent_647B95315D18DBA311A33E8120517E1DA60A@qq.com>
+References: <tencent_647B95315D18DBA311A33E8120517E1DA60A@qq.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -66,10 +66,10 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 (1) · Low: 2
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -77,104 +77,202 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] This patch rests on the claim that a freshly allocated msk
-  "holds [token 0] until it is hashed".
+- [Medium] Under the new check in mptcp_token_iter_next()
+  (net/mptcp/token.c:381-386), a socket passes if its token is non-zero…
+- [Low] The commit message says the affected callers are "mptcp_diag and
+  the userspace path manager".
+- [Low] The patch uses a plain READ_ONCE() of msk->token as an
+  "initialisation complete" signal (net/mptcp/token.c:381), but nothing…
+
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but the walk in
+  mptcp_token_iter_next() (net/mptcp/token.c:370-393) does not follow…
 
 --
 
-net: mptcp: reject token 0 in mptcp_token_get_sock()
+net: mptcp: verify the token slot in mptcp_token_iter_next()
 
-This patch makes mptcp_token_get_sock() return NULL early for token 0.
-The commit message says token 0 is what a torn down msk holds, and what a
-freshly allocated msk holds until it is hashed. The goal is to stop an
-MP_JOIN SYN carrying token 0 from matching a dying or half-initialised msk.
+This patch makes mptcp_token_iter_next() re-read msk->token after it takes
+a reference on a socket. The socket is skipped unless the token is
+non-zero and hashes to the slot being walked. The goal is to stop the
+iterator from returning a recycled msk whose pm state is not initialised.
 
-> Both validations in mptcp_token_get_sock() compare the socket's token
-> with the requested one, so for a request for token 0 they cannot tell a
-> match apart from a socket whose token has just been cleared.  With
-> SLAB_TYPESAFE_BY_RCU the same is true for a socket whose memory has
-> already been reused by a new msk that has not been hashed yet.
+> mptcp_token_iter_next() takes a reference on a socket found on the chain
+> of the slot it is walking and then re-checks only net_eq().  A socket
+> that was freed and whose memory has been reused by a new msk in the same
+> network namespace passes that check while it is still zeroed, and the
+> callers - mptcp_diag and the userspace path manager - then use mptcp_pm
+> state that has not been initialised yet.
+
+[Severity: Low]
+Is "the userspace path manager" the right caller to name here?
+
+Apart from mptcp_diag_dump(), every caller of mptcp_token_iter_next() is
+in net/mptcp/pm_kernel.c:
+
+  mptcp_nl_add_subflow_or_signal_addr()
+  mptcp_nl_remove_subflow_and_signal_addr()
+  mptcp_nl_remove_id_zero_address()
+  mptcp_nl_flush_addrs_list()
+  mptcp_pm_nl_set_flags_all()
+
+Each of them skips userspace PM sockets:
+
+    if (mptcp_pm_is_userspace(msk))
+        goto next;
+
+net/mptcp/pm_userspace.c does not use the iterator. It uses
+mptcp_token_get_sock(), which already re-checks the token after taking
+the reference.
+
+Could the commit message name the in-kernel path manager endpoint
+operations instead?
 
 > diff --git a/net/mptcp/token.c b/net/mptcp/token.c
-> index 3429b43a9f7c3..8a603fc8dc059 100644
+> index 8a603fc8dc059..48470d6e751d6 100644
 > --- a/net/mptcp/token.c
 > +++ b/net/mptcp/token.c
-> @@ -299,6 +299,10 @@ struct mptcp_sock *mptcp_token_get_sock(struct net *net, u32 token)
->  	struct mptcp_sock *msk;
->  	struct sock *sk;
+
+[ ... ]
+
+> @@ -377,7 +378,9 @@ struct mptcp_sock *mptcp_token_iter_next(const struct net *net, long *s_slot,
+>  			if (!refcount_inc_not_zero_acquire(&sk->sk_refcnt))
+>  				continue;
 >  
-> +	/* Token 0 is never assigned, but is what a torn down socket holds. */
-> +	if (!token)
-> +		return NULL;
-> +
+> -			if (!net_eq(sock_net(sk), net)) {
+> +			token = READ_ONCE(mptcp_sk(sk)->token);
+> +			if (!token || (token & token_mask) != slot ||
+> +			    !net_eq(sock_net(sk), net)) {
 
 [Severity: Medium]
-The commit message says a freshly allocated msk holds token 0 "until it is
-hashed". Does that hold for the passive MP_CAPABLE path?
+Does a non-zero token that maps to this slot really show that the msk is
+on this chain and fully set up?
 
-In mptcp_sk_clone_init(), the real non-zero token is stored well before
-the msk is linked into msk_chain:
+On the passive path, the token is published while the refcount is already
+non-zero and before the msk is hashed. First, sk_clone_lock() does:
 
-net/mptcp/protocol.c:mptcp_sk_clone_init() {
+    smp_wmb();
+    refcount_set(&newsk->sk_refcnt, 2);
+
+Then mptcp_sk_clone_init() in net/mptcp/protocol.c does:
+
+    WRITE_ONCE(msk->token, subflow_req->token);
     ...
-	WRITE_ONCE(msk->token, subflow_req->token);
+    mptcp_set_state(nsk, TCP_ESTABLISHED);
+    WRITE_ONCE(msk->first, ssk);
     ...
-	mptcp_copy_inaddrs(nsk, ssk);
-
-	mptcp_rcv_space_init(msk, ssk);
-	msk->rcvq_space.time = mptcp_stamp();
-
-	if (!mptcp_token_accept(subflow_req, msk)) {
+    list_add(&subflow->node, &msk->conn_list);
     ...
-}
+    mptcp_copy_inaddrs(nsk, ssk);
+    ...
+    if (!mptcp_token_accept(subflow_req, msk)) {
 
-Consider a reader in mptcp_token_get_sock() that holds a stale chain
-pointer to an msk whose memory is being reused as this clone, and that is
-looking up the same token T. It would see token == T, a refcount of 2
-from sk_clone(), and a matching netns.
+Here is one way to hit it:
 
-In that case both READ_ONCE(msk->token) != token checks pass and
-refcount_inc_not_zero_acquire() succeeds. Nothing checks whether the
-socket is hashed, so an unhashed msk that is still being built is
-returned. The new !token check doesn't cover this case.
+- A diag dump or PM netlink walk holds a stale RCU pointer to a freed msk
+  in slot S.
+- That memory is reused by this clone.
+- The new token happens to hash to S.
 
-subflow_token_join_request() then uses that msk without holding its lock:
+refcount_inc_not_zero_acquire() then succeeds, and the token is non-zero
+and matches the slot. So the iterator returns an msk that is not hashed
+yet.
 
-  subflow_check_req()
-    subflow_token_join_request()
-      mptcp_token_get_sock()
-      mptcp_pm_get_local_id()
-      mptcp_pm_is_backup()
-      mptcp_pm_announced_has_ssk()   (different source port)
-      subflow_req_create_thmac()
+Callers then do lockless reads before lock_sock(): sk_state, conn_list,
+and the inet addresses via mptcp_local_address(). These race with the
+initialisation above.
 
-mptcp_pm_get_local_id() could read the listener's addresses copied by
-sock_copy(), before mptcp_copy_inaddrs() runs. It could then return the
-wrong local ID, or add an implicit endpoint that shouldn't exist.
-subflow_req_create_thmac() could also run before the keys are set up.
+The failure path looks worse. mptcp_token_accept() can fail, for example
+when mptcp_subflow_reqsk_clone()->mptcp_token_move_request() has moved
+the request token during reqsk migration. In that case
+mptcp_sk_clone_destroy() does:
 
-The token store is a plain WRITE_ONCE() with no release ordering, and the
-reader has no matching acquire. On weakly ordered CPUs, could
-mptcp_pm_announced_has_ssk() see the new token but still see the
-pm.anno_list and pm.lock contents copied from the listener?
+    bh_unlock_sock(nsk);
+    sock_put(nsk);
+    sock_set_flag(nsk, SOCK_DEAD);
+    tcp_orphan_count_inc();
+    inet_sk(nsk)->inet_num = 0;
+    inet_csk_destroy_sock(nsk);
 
-If mptcp_token_accept() then fails, mptcp_sk_clone_destroy() tears the msk
-down while the join request still holds its reference. Because
-mptcp_token_destroy() returns early for unhashed sockets, the msk keeps
-token T.
+A reader blocked in lock_sock() can get the socket right after
+bh_unlock_sock(). Examples are mptcp_nl_remove_subflow_and_signal_addr()
+and mptcp_nl_flush_addrs_list(). The same applies to lock_sock_fast() in
+mptcp_diag_fill_info().
 
-The third patch in this series ("net: mptcp: verify the token slot in
-mptcp_token_iter_next()") does not touch mptcp_token_get_sock() or the
-clone path, so this case is still open at the end of the series.
+Can that reader then run pm and subflow operations while
+inet_csk_destroy_sock()->mptcp_destroy() tears down the msk without the
+socket lock?
 
-Would checking that the socket is hashed after taking the reference work
-here? Another option is to publish msk->token under the bucket lock just
-before hashing. Either would cover this case as well as the token 0
-cases.
+Would a check tied to hash membership close this window? Another option
+would be to assign msk->token inside mptcp_token_accept() under the
+bucket lock.
 
->  	rcu_read_lock();
->  	bucket = token_bucket(token);
->
+[Severity: Low]
+Is a plain READ_ONCE() enough to treat the token as an "initialisation
+done" flag?
+
+On the clone path, __mptcp_init_sock()->mptcp_pm_data_init() runs before
+WRITE_ONCE(msk->token, ...) in mptcp_sk_clone_init(). There is no release
+barrier between them.
+
+On the reader side, refcount_inc_not_zero_acquire() pairs only with the
+smp_wmb()/refcount_set() in sk_clone_lock(). That store comes before any
+MPTCP init. After the token load there is only a control dependency.
+
+The callers make some lockless reads before taking the socket lock:
+
+  mptcp_pm_is_userspace() (reads pm.pm_type)
+  list_empty(&msk->conn_list)
+  READ_ONCE(msk->fully_established)
+  the pm counters in mptcp_diag_fill_info():
+
+    info->mptcpi_extra_subflows = READ_ONCE(msk->pm.extra_subflows);
+    info->mptcpi_add_addr_signal = READ_ONCE(msk->pm.add_addr_signaled);
+
+On arm64 or POWER, can these reads be satisfied before the token load?
+They would then see the listener values copied by sock_copy() even though
+the token check passed.
+
+Would this need smp_store_release()/smp_load_acquire() on msk->token, or
+a hash membership check?
+
+>  				sock_put(sk);
+>  				continue;
+>  			}
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but the walk in
+mptcp_token_iter_next() does not follow the nulls-list protocol that the
+other msk_chain readers in net/mptcp/token.c use.
+
+mptcp_token_get_sock() restarts when its post-acquire re-check fails, and
+when the walk ends on another chain:
+
+    if (READ_ONCE(msk->token) != token ||
+        !net_eq(sock_net(sk), net)) {
+        sock_put(sk);
+        goto again;
+    }
+    ...
+    if (get_nulls_value(pos) != (token & token_mask))
+        goto again;
+
+mptcp_token_exists() does the same nulls check.
+
+The msk cache is SLAB_TYPESAFE_BY_RCU. An msk deleted from slot X and
+re-added to slot Y can move a lockless walker onto chain Y.
+
+The new (token & token_mask) != slot test detects that hop, but it
+responds with continue. The walker then takes and drops a reference on
+each entry of chain Y, and stops at Y's nulls marker.
+
+Are the remaining entries of slot X skipped for this dump or PM pass?
+
+Before this patch the X entries were skipped as well, and Y's entries
+were returned instead.
+
+Should a failed slot check restart the bucket walk? And should
+get_nulls_value(pos) be compared against slot when the walk ends?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/tencent_D0DCF4B132B20B70FB5AE2D9272AA4AEAF07%40qq.com
