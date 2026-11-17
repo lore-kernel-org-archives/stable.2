@@ -1,82 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794936348;
-	b=L1C+pb5Js3KUW8KPN5gzv1NS16djKTjr5uhXVh1dVegaCWZ6wMRitwC5vvz65ZiVqazz
-	 e/FDI8gd+w9f7NKhCF07TNiHpmKZGh/THAF3lE63fjey/pVKfqFADsklwJFYaVNTL/vb2
-	 d1w2pBVoC//34nzk4hVh50h+HIoDgqp0DZLmidkHN0/AJFlZAgKdvVLbNpvWuFiaNbeAA
-	 AJntFBiHJyq5tDXxZYrucJOahkmeOQaSTz7zWkdwdbC0pmnPl69NqZZkwtgI0jJlL0Gcs
-	 C8mPlU2mWoXSZjVzwLdB2JJU7amMjMMtWvAk2RumSrHi3wVZ+Fuw6bVm70XS97k11Lg==
+	t=1794936577;
+	b=nvW9szQsneSuzFnXb80uSM0RIjtSqqVV/GHW4NTJWUKSq8rWwLubPSIRPrQWbxZWqOil
+	 sG56pYCIdpSsz/tFNOQ0Ary6TGYAHPUGrH5wvYJVUo6h/P/lNM0+u9IdXbrUM3CtrZszV
+	 ONJXc0rVRzpd9r6cnax/YWq+OEzRe1GDKC6/LN4Dhy7u9WEPIEccStOzrjR1D5u3fst3k
+	 uvLufpQx2jG/d1DJ8GRAfjSeFC3X4VniwL1vYFy10GrE3h6PUT9janIxC9O6X4miP//lF
+	 h7l2c7vmdXZk8yR7HnV/xJdfr+2w35cJ5H1Bdl9kXStAAg7EWmBZeJn9uGDp05a8/PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936348;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Scanned-By;
-	bh=5HpZNf1p6vQ+Z15EuGtPfQXOlxM7vON26KjcgJWrLvY=;
-	b=E1Jd46P8jokoIjLPvgJ7TZZ+N/HZLTxggrBiAOUWhwfQaK4vpBAX/bOFRiJBqy2xEPmx
-	 A8HkAj625VyN/EqWgcrJoB1XaIdFKKmR6j3aXnmaCXKmj9ATbDdSWDjeBh7GKXrX1i8ZB
-	 ndIms804Y088mkyR3Cia675mbwUsx6wPX7id9MmdEI+Fdf3hLbEVzqYf7vwEhMoJWPAFe
-	 Q7dKsUcS5OLI4kRRIYd6FwkH1nm1eZq5vuemRv4ZUBfQfh85SDgJ6qqGq28yMj/BrwXk0
-	 W5TNbWz9w9IeFzOkldUC47FoIRvTCTxipiDEGmNN9+id5c11g5rMpGWirCBpgA475zQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794936577;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JHWpGOTp8ITv5cctf6TSThxhxXqYa8XzuutCrYWNpkQ=;
+	b=YVGs5vzTrIOsFKfS4SZS+hfv5BemXjG6QiTyAxbPzhg+DJzAtJgi9HrJ4Oep+p02cnfi
+	 aZyMiXpzblQ2NFtLrXnmxq0R9HdaAQjMZ8oG7CCW6XO7VgDRP1yUXJBX+lr7l9gDWHUSE
+	 W//tBOf2U3BxXYaWmjlepeCafw+dGWtisvR+ZkqKyqituoUqtLv9ju3PHPlTvwy1LS/+v
+	 IwXklMuAv27fVnhQuWpJInPTwaR/N6XHXNsezvQRetjcvH3Oia3dEPKGSag0Dp8pIFeVd
+	 XKFo1csMPsxjn2Pz/srJZVnS9h0BUaezBqmehs/owNcRMYOgzcUx3IEhH2E/zQPm1kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Y0cAOkcf;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QFAlhZaf;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD22606A32F
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:25:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FD22606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07C40606A32C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:29:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07C40606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Y0cAOkcf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1794936347;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=5HpZNf1p6vQ+Z15EuGtPfQXOlxM7vON26KjcgJWrLvY=;
-	b=Y0cAOkcfxmvbVcUy2Mymrlgs35i1jUf7NE83emRI/hA1hsWrUYxY8HlAV7xOA5QNog+QBl
-	+M0hp8O/CBYsmeoJvD66wKoKuWcZ33NPsFEij9YbtR3FgG8zVIvqcrq6yEvy4a75TrsWTu
-	ftoHUqsFTxzRimLV//JwDTiEVK0u/HY=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-467-OB_fdnBjM0yJlldqNbt59Q-1; Tue,
- 17 Nov 2026 12:25:41 -0500
-X-MC-Unique: OB_fdnBjM0yJlldqNbt59Q-1
-X-Mimecast-MFC-AGG-ID: OB_fdnBjM0yJlldqNbt59Q_1794936339
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6CB201956051;
-	Tue, 17 Nov 2026 17:25:39 +0000 (UTC)
-Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id F27F53001DAD;
-	Tue, 17 Nov 2026 17:25:35 +0000 (UTC)
-Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
-	oleg@redhat.com; Tue, 17 Nov 2026 18:25:39 +0100 (CET)
-Date: Tue, 17 Nov 2026 18:25:34 +0100
-From: Oleg Nesterov <oleg@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	Christian Brauner <brauner@kernel.org>,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
-	tz2294@columbia.edu, stable@vger.kernel.org,
-	Mani Tofigh <mt4022@columbia.edu>
-Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
-Message-ID: <avyODoFhZ_M7YDU5@redhat.com>
-References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
- <avxWKI795DthE8Sb@redhat.com>
- <CAHk-=wjOq+G=6gte4vX_YxOD_VfE1uZh7=+KHs8N0wU75xyHEg@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QFAlhZaf
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3282db206d3so211759eec.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:29:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794936576; x=1795541376; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JHWpGOTp8ITv5cctf6TSThxhxXqYa8XzuutCrYWNpkQ=;
+        b=QFAlhZaf6mH704TXlWZwc+wJGhbOYi3lFSuYjnaYSHXTWKToweJxWHp30TN9w8AeyP
+         UyfCGfZF5sqzRXYHprcaxgpOKn6Whq8uSMgLz8hBchchgIBKoMgIVr0/yISUg0vZMj5X
+         uWtA04TGPGhkylR1HxZmQGEn0Vb5tm7wKFEQkCmH8kaPQ1hRs+b4yj9sQnX2HftYGG79
+         CSl7d4LctBXOdtxKePJRzN9vKaUvDAy2d+B0ROcDfzYJAeG1IwXLw9+QdiIlDgDqv8D6
+         AbRfr9fhsDQRM4/HHGD88Sn5UjVIMW9yhbQzKXubit2YjbXU2dX/wmSk6TBGO+8P6HvY
+         K2Gw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794936576; x=1795541376;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JHWpGOTp8ITv5cctf6TSThxhxXqYa8XzuutCrYWNpkQ=;
+        b=aQy1osXM7yfCIiyEarXKQQFSShcESOZvcelOMSjzG9NId3hlgIdaKYEyxuv8nprPg9
+         gFauwBafQ2AVQdMbGXXjWhdcN/FOM8+K9+dEdj6lBL2T99Rt0Carse6cQN5Vv9cOpBR3
+         /jcMgd9epXNZhmBljpm1CfT9e2TMEbkHm2nVSvnJJnKBIK8BtSjB6YC2fp/M9sXR4F2O
+         Gft3el9lNBbVXpOPprHVlGcCyMGVxqEda82pUbiQHyRVycsAF6uRehDErXKCNqNsUngn
+         yoVX8MzRfds7okXsxR0xgwiZtlzMpBNI0ztUjiREqAC8grTLFi4T7FUD7HQa/rzrojAs
+         UINQ==
+X-Forwarded-Encrypted: i=1; AL+hErE6epYM4D4EIZVCmxJV/eRGSW+uu2iwxMoBgLJj5u4olIUKCnfvOrmF6SpElXST9hrQNhZRSDU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8EcI+ivgyeGf+u+Qq+NXGX2pfvte+C2cv02BoVrBMG5X5m1Wa9
+	z5qSQvroFNoqRWn1bKX4j1OLPdzM6demdd1ILiXCVpzE/80X6hnFPBUFp56IxQ==
+X-Gm-Gg: AYBFou1tpofSS6QJb5Qmi5fqyMPwczn0/c6jyW/6bYPhh3nU2EEqar7MTae8L2HAr0P
+	9znFLR6XA2K2VlbmgR93ln/CDy8sv3nBuMQXDk+Mz/04G50PIoV0noq6erEEY6qNohlAC/GU/Xq
+	T1Z/vOYs06YTvDJFLwlD33DV51PmFNGLQymMqfY9CjUZ1cmzU0eVw9Y+On3WtPDzOTHmxJGcPce
+	CTivvPTd+ntZtn/Bc/HTUFnPBSH9IXAsH+06uOrBjXIaqnt3pX7Qpu1taAuqVickqqEGPGAvd6p
+	y43xRXw7TGNuJ4Ph30vNSSMBVHZpZNzf+dfD82Fj+4HSMLI6qjKOpZFjDFQVx5iP699K6og8a2y
+	qRry7ZqjsMILmW9eL0lmfwM5Q5ccNrYwBDzkC4IoM2KH9nnhZ6Mf2jlQh5gc777fP4xk0dMJ8Lr
+	fq9sfgd3CiXY/KVr/lj5WKj5t/6AID+jBqUhs2Oqv7DxEVcofoF0RKYQJeWCH+XM958dl4ZcJHB
+	7sb4o+Y6p3CZizTOZiyfxyj2lVVeD4yGE1Y76c2s8k31rwdwy6PQKjEhWcJGjWfsyYS1SxBSf93
+	6uNSpHn8Ggaeu989jIVMMVeTB5SPFmZIjJ5hb7OaZ9d/3B4Uq9C5ZAsTc4aFacD5ehS0KXbogw=
+	=
+X-Received: by 2002:a05:7301:4d07:b0:369:21a:dcca with SMTP id 5a478bee46e88-3827f5972d9mr113314eec.10.1794936575989;
+        Tue, 17 Nov 2026 09:29:35 -0800 (PST)
+Received: from ubuntu ([110.9.142.4])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955f02ff0sm44163997eec.16.2026.11.17.09.29.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 09:29:34 -0800 (PST)
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	WANG Xuerui <kernel@xen0n.name>,
+	stable@vger.kernel.org
+Subject: [PATCH] LoongArch: Online memory-only NUMA nodes
+Date: Wed, 18 Nov 2026 02:29:23 +0900
+Message-ID: <20261117172924.3768845-1-ekffu200098@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -86,45 +97,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAHk-=wjOq+G=6gte4vX_YxOD_VfE1uZh7=+KHs8N0wU75xyHEg@mail.gmail.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Transfer-Encoding: 8bit
 
-On 11/17, Linus Torvalds wrote:
->
-> On Tue, 17 Nov 2026 at 05:27, Oleg Nesterov <oleg@redhat.com> wrote:
-> >
-> > However, EPOLLEXCLUSIVE breaks this logic. ep_ptable_queue_proc() does
-> > add_wait_queue_exclusive() if EPOLLEXCLUSIVE is set.
->
-> Christ, how I hate epoll. It's a pile of stinking shit.
->
-> This literally violates THE WHOLE AND ONLY POINT of exclusive waits.
->
-> The rule for an exclusive wait is that it *will* act on the wakeup -
-> either by consuming the data, or - if it can't consume it all - by
-> waking up the next waiter itself.
->
-> So it's not that "EPOLLEXCLUSIVE breaks this logic".
->
-> The logic is fine. EPOLLEXCLUSIVE is broken beyond words.
+init_numa_memory() does not online a memory-only node, because it
+onlines a node only if it has CPUs.
 
-Well, I thought so too. That is why initially I replied "we don't care"
-to Mani. But then I decided to summarize and add CC's.
+So online a node if it has any memory or CPUs.
 
-So. Do you agree that we can "ignore" this report from Mani for now?
-Until we find a user application that already depends on the behaviour
-before f1cebdec9739 (the next write() wakes up a reader which sleeps on
-->rd_wait for no reason).
+Fixes: 87c6d144bc7b ("LoongArch: Don't init & online empty nodes")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+---
+ arch/loongarch/kernel/numa.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
-Just in case... io_uring/poll.c:__io_queue_proc does the same:
+diff --git a/arch/loongarch/kernel/numa.c b/arch/loongarch/kernel/numa.c
+index 7dedc134ddfe..595cc15203a3 100644
+--- a/arch/loongarch/kernel/numa.c
++++ b/arch/loongarch/kernel/numa.c
+@@ -140,20 +140,25 @@ void numa_remove_cpu(unsigned int cpu)
+ 	cpumask_clear_cpu(cpu, &cpus_on_node[nid]);
+ }
+ 
+-static void __init node_mem_init(unsigned int node)
++static bool __init node_mem_init(unsigned int node)
+ {
+ 	unsigned long start_pfn, end_pfn;
+ 	unsigned long node_addrspace_offset;
+ 
++	get_pfn_range_for_nid(node, &start_pfn, &end_pfn);
++	if (start_pfn == end_pfn)
++		return false;
++
+ 	node_addrspace_offset = nid_to_addrbase(node);
+ 	pr_info("Node%d's addrspace_offset is 0x%lx\n",
+ 			node, node_addrspace_offset);
+ 
+-	get_pfn_range_for_nid(node, &start_pfn, &end_pfn);
+ 	pr_info("Node%d: start_pfn=0x%lx, end_pfn=0x%lx\n",
+ 		node, start_pfn, end_pfn);
+ 
+ 	alloc_node_data(node);
++
++	return true;
+ }
+ 
+ #ifdef CONFIG_ACPI_NUMA
+@@ -246,10 +251,8 @@ int __init init_numa_memory(void)
+ 		return -EINVAL;
+ 
+ 	for_each_node_mask(node, node_possible_map) {
+-		if (!cpumask_empty(&cpus_on_node[node])) {
+-			node_mem_init(node);
++		if (node_mem_init(node) || !cpumask_empty(&cpus_on_node[node]))
+ 			node_set_online(node);
+-		}
+ 	}
+ 	max_pfn = PFN_DOWN(memblock_end_of_DRAM());
+ 	max_low_pfn = min(PFN_DOWN(HIGHMEM_START), max_pfn);
 
-	if (poll->events & EPOLLEXCLUSIVE) {
-		add_wait_queue_exclusive(head, &poll->wait);
-	} else {
-		add_wait_queue(head, &poll->wait);
-	}
-
-Oleg.
+base-commit: 422e532809572ba1043192bf6a0c653bc68b3140
+-- 
+2.53.0
 
