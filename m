@@ -1,75 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=83.166.143.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794910671;
-	b=zR5cCHnESeWHhwklHcBsDrayiNYk8Z2DHUXLfIygpAG3Ov6rUhP/kcDtB4SaVOlbtNlN
-	 SlUq1LLu76o2l+yiBfj79tH+7ZY7cRLaa+zSU1siwTNPhT4azPeKa7FgVda4YFDwk2sz/
-	 GBSnbC/HTFrhcM/ypeWuPql7DaAoFiQLYEfYUmAkxuxLb+UPtMFz0fpwd1vycTD7B6Tq/
-	 X4vUQv5LajC773yXhn4F8gZGrFz98OOHetipWMe6I2RkrCweWMQReMO/KLlAHaMOQfRoF
-	 uAJygok2+r3UEhLTcTO9YxuXtxB7QCaOxB7eBes89iRXJmp/nwHG2ngzmKhR9hmaoSQ==
+	t=1794910726;
+	b=Ea/m58tZZTHj6uhQR7ui4L7hGclKioaJXJKfxtQiWexqx+ZVc0nPFyYoKNyyysDF+bnh
+	 xqf2fMvS9JNCO9uDdwEhXYeYJ12hETjJZOUGGeQRpxydTriO6EQv4r6ShLQaq7NLbz4Sq
+	 sJfzAk983lTV9MxHsFZ59zez9Usw7jWn0DyyAEmyOF7771LfryJ7jq87PvwM4Qzp4ccb1
+	 K0G0RVAlFJpEfec929myiaWaqPUexgUwV9yK5mVGMXmz+qhqnSX04TBM6YYOWU1rz9Gj/
+	 xyVpS2cHOYJZKcJgpxtkJTQfhsMnu+s3cLJxB+jK7+pXqzkI7Yxa0Glcfn2p0jyEl2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794910671;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Infomaniak-Routing;
-	bh=RvfKLtJx1LzpSXU6MV8aotz6RXl92/Gwx2B+niglRns=;
-	b=bOCGi3wH5Tetp6+l3oKZd+puR+u+90IMleJ3UQLIo6nyhePzMbOK7CU9exqw3bQWtcUx
-	 7OLmVH+ZaJrVfTXO/mkUIUDovur8k4ekPgThfAn8bwmlqwYBHU+KP/OOlVke8c9/oan6m
-	 POBiTQKxq76o4NWq/Nc5yokbmUwMQ/BKeLhKf3rm7eKzRaoBPl4uIlNstEvRRi6UI5GX/
-	 nP+w+C7aVsgbRtyMSn8wrvhBmgsWDSo+nOwZMlNI7PQWTQn3wKalmH5DoeZCGJFDnv0t4
-	 kcrt48fVDFebRQ2o7QyMPTOI932Wt5VjAYqG8elgf4bnP5FfFzteuO6GwUKeUCXgMgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794910726;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=A+KMP5W36d9989qmwo/N1+/FiGMgR/evvb5hza9hock=;
+	b=UKxBU7qHmeSpAgwJjkSaYYprSm8qAqeni3R7YMtErpdV84253g/wt0LMd176InraJHgQ
+	 hy7pJIQqHyd/jXPhz8I0hivnnyMLzPeEH0Mrn4OrSwvCH1msi2/4ISiO3KO0Yg7fYf8jV
+	 9ryRUlcwsnLlvvybKVxviZgqWMRKwFu0eKRbYMoJePS2F8u0YaGGy6FOnIzDV8SxCHzjv
+	 aBZOOwEYSJjm+gz/AYVSqkhdfI3Ay313HZOg71O+ChnmZfb4WPbCOJFQVoZLxsGrX2CYq
+	 lV24ph+OS61AKEK8+Lu7X93DPI63IbDpYiX9eu6HgBX3nSBlsO6bhfmvjIxFfmOE9pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=digikod.net;
-	spf=pass smtp.mailfrom=digikod.net;
-	dkim=pass header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=GWMqxOY7;
-	arc=none smtp.remote-ip=83.166.143.169
-Received: from smtp-8fa9.mail.infomaniak.ch (smtp-8fa9.mail.infomaniak.ch [83.166.143.169])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="O3/X27Mg";
+	arc=none smtp.remote-ip=198.175.65.9
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B73606A32C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 10:17:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3B73606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B755606A323;
+	Tue, 17 Nov 2026 10:18:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B755606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.a=rsa-sha256 header.s=20191114 header.b=GWMqxOY7
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4jTLJk5vv4zSLD;
-	Tue, 17 Nov 2026 11:17:42 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1794910662;
-	bh=RvfKLtJx1LzpSXU6MV8aotz6RXl92/Gwx2B+niglRns=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=GWMqxOY79t9/up9AQphDnpRvFs0//1c/WNeT3/qNfq3mNw5ae0vtGeFAOhpFyANJS
-	 rqtgV5FPR132TSvDdgetwvESb53cXf+bLLnUqOE0sQprz1RHRYgTF3D7+mSEfU3Pgf
-	 Uwteuw++SSQ0MctoeE7sAczHaftBmfJiCjeNwBbQ=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4jTLJh6RM2zM8R;
-	Tue, 17 Nov 2026 11:17:40 +0100 (CET)
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
-To: Paul Moore <paul@paul-moore.com>,
-	Serge Hallyn <sergeh@kernel.org>
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Ada Smith <adasmithgt@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>,
-	John Johansen <john.johansen@canonical.com>,
-	KP Singh <kpsingh@kernel.org>,
-	Matt Bobrowski <matt@bobrowski.net>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	apparmor@lists.ubuntu.com,
-	bpf@vger.kernel.org,
-	kernel-team@cloudflare.com,
-	linux-kernel@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	selinux@vger.kernel.org,
-	James Morris <jmorris@namei.org>,
-	Serge Hallyn <serge@hallyn.com>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=O3/X27Mg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794910726; x=1826446726;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=wn7SQPPOp4A9m11PWF5ke+W3KEz3GzCrHS1msl2nmNs=;
+  b=O3/X27Mgihdx/34+F7hmwtKKTbaH1rT2BsrMQ+KVLGxdOYSPhUeiVrnx
+   Uy8/QbJIa3daLn/IzpSKpfRTqKH6uTWyjyGQFEbprxG86YqLtUNoSwlb5
+   odsvjxNXGGIEgHo7rVS+hbKe187WByWnIG0XBb2Rvwt8iAiAKg41zU2r+
+   YT/BCBGCboV+kdExVYqasqMF484/kq8qOFDeA7qzsMYIts+iOHt6MMN7p
+   KD9EQazrMFnNeE1ZrLV53foIfb1x7OkOAtxUdkbB7rE1C3Dzrvq5uYVnA
+   M6j/h3snJCA+iCA2tLvG6uz5EtYeSLrM1X+s8iZvE3C/HRPDvJ6fW+mml
+   w==;
+X-CSE-ConnectionGUID: MqN5DSalTXSelhxohQzvLA==
+X-CSE-MsgGUID: TNdqAWhKR4+xHFj9v7UMFg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3529047"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3529047"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 02:18:46 -0800
+X-CSE-ConnectionGUID: gFHjx4TnSGy8/bh6+z2MXQ==
+X-CSE-MsgGUID: wqnJfffpQJC34xULFxnDmg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="9878616"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa001.jf.intel.com with ESMTP; 17 Nov 2026 02:18:43 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 9D98F99; Tue, 17 Nov 2026 11:18:42 +0100 (CET)
+Date: Tue, 17 Nov 2026 11:18:42 +0100
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Ijae Kim <ae878000@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] capabilities: Check PR_SET_SECUREBITS with ns_capable()
-Date: Tue, 17 Nov 2026 11:17:36 +0100
-Message-ID: <20261117101738.2523492-2-mic@digikod.net>
-In-Reply-To: <20261117101738.2523492-1-mic@digikod.net>
-References: <20261117101738.2523492-1-mic@digikod.net>
+Subject: Re: [PATCH] usb: typec: hd3ss3220: disable the interrupt before
+ unregistering the port
+Message-ID: <avwqAvnAKoDkTggQ@black.igk.intel.com>
+References: <20261112065613.34182-1-mhun512@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,107 +83,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261112065613.34182-1-mhun512@gmail.com>
 
-PR_SET_SECUREBITS checks CAP_SETPCAP with cap_capable(), which skips the
-LSM capable hooks, so a task can change privileged securebits despite an
-LSM denial.
+On Thu, Nov 12, 2026 at 01:56:13AM -0500, Myeonghun Pak wrote:
+> The devm-managed IRQ remains active while hd3ss3220_remove() unregisters
+> the Type-C port and releases the role switch. A cable event during unbind
+> can make hd3ss3220_set_role() access either resource after release.
+> 
+> Disable and synchronize the IRQ before teardown, matching the existing
+> polling-work cancellation. The ID pin IRQ needs no change: its GPIO and
+> regulator are acquired before it, so devres releases that IRQ first.
+> 
+> Found by a static analysis tool under development.
+> Not tested on hardware.
 
-Use ns_capable() instead, as PR_CAPBSET_DROP already does.  Move the
-check to a helper that only requires CAP_SETPCAP when needed, so that
-changes limited to the unprivileged securebits still do not reach the
-LSMs or set PF_SUPERPRIV.
+So why still use the managed version of the function to request the
+irq? Why not just concert the driver to "normal" request_irq and
+free_irq?
 
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: Günther Noack <gnoack@google.com>
-Cc: James Morris <jmorris@namei.org>
-Cc: John Johansen <john.johansen@canonical.com>
-Cc: KP Singh <kpsingh@kernel.org>
-Cc: Matt Bobrowski <matt@bobrowski.net>
-Cc: Paul Moore <paul@paul-moore.com>
-Cc: Serge Hallyn <serge@hallyn.com>
-Cc: Stephen Smalley <stephen.smalley.work@gmail.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Serge Hallyn (AMD) <sergeh@kernel.org>
-Fixes: 3898b1b4ebff ("capabilities: implement per-process securebits")
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
----
+Thanks,
 
-Changes since v1:
-https://patch.msgid.link/20261110202811.2409395-2-mic@digikod.net
-- Check the non-change case separately, with its own comment (suggested
-  by Serge Hallyn).
-- Shorten the commit message (suggested by Serge Hallyn).
-- Add Serge Hallyn's Reviewed-by.
----
- security/commoncap.c | 45 ++++++++++++++++++++++----------------------
- 1 file changed, 23 insertions(+), 22 deletions(-)
+> Fixes: 1c48c759ef4b ("usb: typec: driver for TI HD3SS3220 USB Type-C DRP port controller")
+> Cc: stable@vger.kernel.org
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> ---
+> 
+>  drivers/usb/typec/hd3ss3220.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/usb/typec/hd3ss3220.c b/drivers/usb/typec/hd3ss3220.c
+> index 60d6de9ba339..19c5dbdc97a1 100644
+> --- a/drivers/usb/typec/hd3ss3220.c
+> +++ b/drivers/usb/typec/hd3ss3220.c
+> @@ -554,6 +554,8 @@ static void hd3ss3220_remove(struct i2c_client *client)
+>  
+>  	if (hd3ss3220->poll)
+>  		cancel_delayed_work_sync(&hd3ss3220->output_poll_work);
+> +	else
+> +		disable_irq(client->irq);
+>  
+>  	typec_unregister_port(hd3ss3220->port);
+>  	usb_role_switch_put(hd3ss3220->role_sw);
+> 
+> base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+> -- 
+> 2.43.0
 
-diff --git a/security/commoncap.c b/security/commoncap.c
-index d47ab3022343..9794a594bdd9 100644
---- a/security/commoncap.c
-+++ b/security/commoncap.c
-@@ -1283,6 +1283,26 @@ static int cap_prctl_drop(unsigned long cap)
- 	return commit_creds(new);
- }
- 
-+/*
-+ * Doing anything with securebits requires privilege (go read about the
-+ * "sendmail capabilities bug"), except for unprivileged bits.  Indeed, the
-+ * SECURE_ALL_UNPRIVILEGED bits are not restrictions enforced by the kernel but
-+ * by user space on itself.  Only checking CAP_SETPCAP when it is needed keeps
-+ * LSMs from seeing (and logging) a capability check for unprivileged changes.
-+ */
-+static bool securebits_need_setpcap(unsigned long old, unsigned long new)
-+{
-+	const unsigned long unpriv_and_locks = SECURE_ALL_UNPRIVILEGED |
-+					       SECURE_ALL_UNPRIVILEGED << 1;
-+	const unsigned long changed = old ^ new;
-+
-+	/* For legacy reasons, a non-change requires privilege. */
-+	if (!changed)
-+		return true;
-+
-+	return changed & ~unpriv_and_locks;
-+}
-+
- /**
-  * cap_task_prctl - Implement process control functions for this security module
-  * @option: The process control function requested
-@@ -1346,28 +1366,9 @@ int cap_task_prctl(int option, unsigned long arg2, unsigned long arg3,
- 			/* cannot change a locked bit */
- 			return -EPERM;
- 
--		/*
--		 * Doing anything requires privilege (go read about the
--		 * "sendmail capabilities bug"), except for unprivileged bits.
--		 * Indeed, the SECURE_ALL_UNPRIVILEGED bits are not
--		 * restrictions enforced by the kernel but by user space on
--		 * itself.
--		 */
--		if (cap_capable(current_cred(), current_cred()->user_ns,
--				CAP_SETPCAP, CAP_OPT_NONE) != 0) {
--			const unsigned long unpriv_and_locks =
--				SECURE_ALL_UNPRIVILEGED |
--				SECURE_ALL_UNPRIVILEGED << 1;
--			const unsigned long changed = old->securebits ^ arg2;
--
--			/* For legacy reason, denies non-change. */
--			if (!changed)
--				return -EPERM;
--
--			/* Denies privileged changes. */
--			if (changed & ~unpriv_and_locks)
--				return -EPERM;
--		}
-+		if (securebits_need_setpcap(old->securebits, arg2) &&
-+		    !ns_capable(current_user_ns(), CAP_SETPCAP))
-+			return -EPERM;
- 
- 		new = prepare_creds();
- 		if (!new)
 -- 
-2.56.0
-
+heikki
