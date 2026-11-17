@@ -1,57 +1,90 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794913165;
-	b=4nJs583MZrMpi+6vHADto+cJNRXfW71XPBt7rVHSufLLHsjpSVFfjmgUvN9DcmFFKhL7
-	 oqmv9XOjMwW41ObiP2DHcM2X3cHack9NfoxhyPnAdo9+Gr9JUdQwNYN9AoUw7xcDr4HV2
-	 2mzBaveWhPcn0WMLYLfNYH3sgTt1M0byoK1tvk+2oEiJgO3HA2Iag2tZJ9xDv66Bw2NRf
-	 efsL2UIpYbaSNgOJ1kGPKiJQhlFViOepNYdFwf5AkijVHTxJ14LnHwhb34hFHrTGtx0mk
-	 EoA+O+CC4azA4oIDVcpzRAaIbjhOXOJ6Hkr2b8krGBsOWZzT403UL450u4Po6IkOaNA==
+	t=1794913373;
+	b=HHr82lUSaX09Ps+hUkdHKkMLCfPmFM3D7MFpyzZKmlgYdNTwjnjC1+rz/XLD+o/hEVr7
+	 TZlSS1LLVKh4i6jEtD7O0SErHrfOcoe1yaUxG/wXyxy8i/h+qzUHQJP+Fu0z9cxUyrenn
+	 vOdlYnlI9aEuncAwLSc0mO5onTGQjqe6VDhVQ5Ud+tQ4+0qkE0XzHKCH6b0oAInCkUMb/
+	 EiATE04CqjT8G/Kuw4wsAqltWBU0JaXFTZUjz4Lv9nRBpHYCJGVZbHiXywRmnJaJHnojQ
+	 fZKn127EqZ3vR4b84E00OWwP65X3L3YQvoC6ODevzVscDpNpxayzZmQ3M5EhEMvy40w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794913165;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=8eW6/+VtufNXs6nUVXwIqQ9eydkypxI9gUCA9iysrS0=;
-	b=E7OX1514SEfrlN+9rXi0kKJiav3sFQW95Eb5kVuppGeLqN8KRxuz2R09M3ltqHevDsTf
-	 OxPpBjVzsYyhtlonlv0ALKAtal2aVDm7RFop1H4omQreXnHpAa0AMdKt1JB41S+kX0OfG
-	 mZtI+gTGCcyRj/1O2W8Rr2ApVxK+eGiGdc4CK34jcUWzQ8tT7V2kbIQ05Bo2ArWaaadIl
-	 oVl9jGsjHqYHYd7GYSVMgj+ijJxMhfjHn8TEJ2xf5hBqYQGbx+IElkxIOQNa1LTmbxwck
-	 M/RBueMwI8jFSzelNYv36ee4TbIlPZY9PtSHMNMKNJo1W68ohbzQTlvpkujvfN8+fKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794913373;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=crEmioOjMzsnzH6L7JboWvkyCFcBX6fDyVf9lGMy6eg=;
+	b=lC0CC8ihbBYNfsjWegm8nC4ddg010FAGzl3YRlmOAGOPrQLDZ8zVD/lGM+qSZP26kaoy
+	 om9ln42rpxn5IX/iGhyoX0epjQ1kQmrU7rXB11jVUqk7wwPHfJ2BAtZNvCV8B/UGlgpWa
+	 6E66iB0kbBcojoKesJsdCUnQEag4G6j5tw74Xckr0b8US9HRqwm8B8VjaKhUidYW/CsiJ
+	 eQCziEp7nBB9gzYaPNHPvLBr7+mbm4vAMh/B70vAOTOKnVRMb6d7BgrW3Z3wxKdCdvpSM
+	 fvmRI0PJxKcSHGcIXtUZNCQSmLMent7kmenPVvjFiS5wFsVgzpVWKZQTUNrb9ZByE5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ajlkMD/k";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jD9TEQPU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 779BB606A323;
-	Tue, 17 Nov 2026 10:59:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55F3606A33B;
+	Tue, 17 Nov 2026 11:02:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ajlkMD/k
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 8D7021F000CC;
-	Tue, 17 Nov 2026 10:59:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jD9TEQPU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 862FA1F000C9;
+	Tue, 17 Nov 2026 11:02:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794913165;
-	bh=8eW6/+VtufNXs6nUVXwIqQ9eydkypxI9gUCA9iysrS0=;
+	s=k20260515; t=1794913372;
+	bh=crEmioOjMzsnzH6L7JboWvkyCFcBX6fDyVf9lGMy6eg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ajlkMD/krL+lSXAegaa8+3mjbypBV2BigEGUHlJ+srJYfsgtSK9F0itQ6RAl+NV8/
-	 EppBum2pVYRHAY6vqVila4McXYDCWzTJaHVA0pqJLaNMyOBf6WmoWYtNP64soRYbS0
-	 gCERj1LJsWT8Pml+zI7RmDlz7mOD113Md95RH5w5gBt30kkkMkqDSZEvFNceSVVav+
-	 nVDVvjzL6jHPeW0uyE+/wp6wbEBsAfMcgv9Mc8GFGMaDW7ZcPq1EFKNBpIYpLfa4ww
-	 hxeKPQGtJMBVKEyKHHjeqD2H7folUTauZJksxEPlkzQcN/P8RTVZ7uqjAoGlqen9TE
-	 2vJtDdQPzxoRA==
-Date: Tue, 17 Nov 2026 12:59:21 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Rustam Mustafin <rmustafin@cloudlinux.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Jaewon Yang <yong010301@gmail.com>,
-	Tadeusz Struk <tadeusz.struk@intel.com>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: track the response read position internally, not
- via the file offset
-Message-ID: <avwzid1Ovl4ACkaQ@kernel.org>
-References: <alvD5nOP15O5B8Ai@kernel.org>
- <20261117104838.2650999-1-rmustafin@cloudlinux.com>
+	b=jD9TEQPUGxO+mI/+inKff7uoSP7g0a0erFOtxFVtDkPnPMTbL0D081VhE33DJxbG8
+	 5dVj5e9HYeiDdT8hAL5IpDQbEHbuCC69/sE82COwPzr+ih+zjcYgUBHZT8A1r02nBI
+	 je2u94IG20Y4QpFov792FdB8+HkE3G8nSGn/QCZFfy+Mcm0IRMyqEDOk0Cp1XsOY56
+	 dEtCmev7DxnVFDk0RBErzUsr70H3zpp8qfYD3s2eFGhB8qrSfj6YeG1ESbpaS5zMYQ
+	 fdYqYoUIreWD8guOCclZ13kkzJn+IAD5y2yxDBES7ERoEjpEkNFJ98Gruwt+OvGW9c
+	 nP/F+RKLvJHAg==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 0A46D198004A;
+	Tue, 17 Nov 2026 06:02:43 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Tue, 17 Nov 2026 06:02:49 -0500
+X-ME-Sender: <xms:UzT8ajzhIRDuZQmR1yXTDLuGA3b1U0tuSaourJSyrLDTrQ_Um2nlVA>
+    <xme:UzT8ah-gVHw4IntEVOfc5Z14VjjzN7T7Q8B2FvFR5VBoen7b-HPD3m7hBY_KVQkTE
+    lA5xwY_Wo0lHo-IJ34H8B5KdKsLoJFuxG9Et2vFBrnNw5WdWVHCbak>
+X-ME-Received: <xmr:UzT8ahxcJlhvBNfVqovWJPHAn97L8-HJYkti8PJU_65bhna8ykiR1lDXN20>
+X-ME-Proxy-Cause: dmFkZTEdL3a0Ww8UBR3R2vq6MmLMcrG/RZX5swqKljzNR9iQbYhJjAbY7PI1ciZ9LK7lxN
+    G/X6ntG0iaY30AQsAjEuf57i6CZYjfm+meUK3SNiYXmeCWWUJ6eJZs3up8jphiYl4q8gjl
+    jx/Ahq1GKe6I/bXKrTuw70GcxIwNT2jp4gfkCI76UMri6prm91X5ZHCpQ0CSw70eKatw9o
+    W897R67TYQMC9tdclNiHUmVbeQonLxDDsNNr0tVhsGpDu129aHDLPo6xC+ZTyK9ZM6Qnnt
+    MYuzQ4L/hdyqL+ol7coGPamA67VuEepBf0wI/8gPf+rreyi3dAUVv7YzP/OCpkMvoNRZhV
+    YgsKbRCIilSfSP7pZVhBNK5pp+l4zUFWKPr0XsF4c/Rmq0cqJXBoQeoSNFwc2DiFDWZFSg
+    NfO+shv886RE5kd2tAFT+FTIarUIaRL9KRbOP0qtmfBkRi5y8jE6SPjvymtIKQCEHqK1h3
+    RYgAGGj/RxAuRRjdSRPlvRnDYhwbkOoHHLBugCLRdy6igxtIkdJ8SsiOfdaC9wZow2EeCV
+    Ejy4XNZF76vFloczn0M2QIsslwD2xaCsTZRX1OSP+ZOi7OtUBkmhno/iE/fXq03rTXkSbw
+    do3CK6UiTx4ST1p3Q59hLB+vj8psXH2OMMFeeHtUpnx+YFCTloQa9ChJJNoA
+X-ME-Proxy: <xmx:UzT8aruuJmQ7dDiwarHdYjVtP70RG52TxChOPLKFH7afF7h6-akdFg>
+    <xmx:UzT8aryVAcVUMmv2aTlcVJcYor6UcfL9P1w1L0anMWhtGRDIctF4jg>
+    <xmx:UzT8altjzJNLBNiYpIhGi_vWWH7VmxarJzm-N-JcvvJ1fgUMEfeHjQ>
+    <xmx:UzT8aljV0jDctEZAsJHbv0Ypfdw61mWX4M9wO2EfhtqHNe0Af12BHw>
+    <xmx:UzT8atCXyMGt2Yq-MlBZYadsi_cXIiTQmqxJmcETVf2oWtX0YRICrq70>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 17 Nov 2026 06:02:42 -0500 (EST)
+Date: Tue, 17 Nov 2026 11:02:41 +0000
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Usama Arif <usama.arif@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>, apopple@nvidia.com, 
+	byungchul@sk.com, david@kernel.org, gourry@gourry.net, jannh@google.com, 
+	joshua.hahnjy@gmail.com, liam@infradead.org, linux-fsdevel@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, ljs@kernel.org, matthew.brost@intel.com, 
+	mhocko@suse.com, pfalcato@suse.de, rppt@kernel.org, surenb@google.com, 
+	vbabka@kernel.org, ying.huang@linux.alibaba.com, ziy@nvidia.com, hannes@cmpxchg.org, 
+	riel@surriel.com, shakeel.butt@linux.dev, kernel-team@meta.com, 
+	baolin.wang@linux.alibaba.com, Nico Pache <nico.pache@linux.dev>, ryan.roberts@arm.com, 
+	dev.jain@arm.com, baohua@kernel.org, lance.yang@linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] mm: don't PTE-batch a swap-in of a folio with a
+ hardware-poisoned page
+Message-ID: <avwwMyk462raQFy2@shutemov.name>
+References: <20261116063624.1382944-1-usama.arif@linux.dev>
+ <20261116063624.1382944-3-usama.arif@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,126 +96,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261117104838.2650999-1-rmustafin@cloudlinux.com>
+In-Reply-To: <20261116063624.1382944-3-usama.arif@linux.dev>
 
-
-Please remove that claude'ism from short summary (, not.. uaargh).
-
-
-On Tue, Nov 17, 2026 at 05:48:38PM +0700, Rustam Mustafin wrote:
-> Commit f20d61c22bca ("tpm: Make the TPM character devices non-seekable")
-
-Duplicate information to fixes tag.
-
-> made pread() fail with -ESPIPE, but tpm_common_read() still indexes
-> data_buffer with *off, and io_uring can still set it: IORING_OP_READ
-
-io_uring is a data structure, not an active actor and IORING_OP_READ
-is a constant.
-
-> copies sqe->off into ki_pos without checking FMODE_PREAD, and
-> loop_rw_iter() passes it to ->read(). With sqe->off = 0x1400 the read
-> copies heap memory past data_buffer to user space and then zeroes it:
+On Sun, Nov 15, 2026 at 10:34:56PM -0800, Usama Arif wrote:
+> do_swap_page() checks PageHWPoison() on the faulting page, but the
+> large-folio batching path then maps the rest of the folio without
+> looking at its other pages. A poisoned page that is not the one being
+> faulted gets mapped anyway, and the fault that would have reported it
+> never happens.
 > 
->   BUG: KASAN: slab-out-of-bounds in _copy_to_user+0x4b/0x70
->   Read of size 16 by task iou-wrk-148/149
->   Call Trace:
->    _copy_to_user+0x4b/0x70
->    tpm_common_read+0x16e/0x2c0
->    loop_rw_iter+0x235/0x5a0
->    __io_read+0xc6e/0x11a0
->    io_read+0x8a/0x180
+> Skip batching for such an anon folio and let each page take its own
+> fault, where the existing check catches it. do_set_pmd() already backs
+> off the same way.
 > 
-> Keep the read position in file_priv, protected by buffer_mutex, and
-
-Why open code variable names in English?
-
-> ignore *off. This also closes a race where read() samples f_pos before
-> taking buffer_mutex and a concurrent write() replaces the response in
-> between.
+> Leave a freshly read folio alone: it is not anon yet and can only be
+> mapped as a whole, and falling back would free it with the poisoned
+> page still in it, which the retried fault can then get back from the
+> page allocator.
 > 
-> Fixes: 9488585b21be ("tpm: add support for partial reads")
+> Fixes: 508758960b8d ("mm: swap: entirely map large folios found in swapcache")
 > Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/r/CAHk-=wi8aXM9=Y8othMb1oxTv-PDw4isj-FPbXu0MXsm_EPE1g@mail.gmail.com/
-> Signed-off-by: Rustam Mustafin <rmustafin@cloudlinux.com>
-> ---
-> - A C reproducer for the io_uring path is available on request.
-> - nonseekable_open() only closes the VFS doors (lseek(), pread()); io_uring
->   bypasses both, so with this patch an IORING_OP_READ that passes an
->   explicit sqe->off ignores the offset and reads sequentially.
+> Signed-off-by: Usama Arif <usama.arif@linux.dev>
 
-Why weren't you able to realize this in the kselftest?
+With the check moved up as David and Zi suggested:
 
-> 
->  drivers/char/tpm/tpm-dev-common.c | 11 ++++++-----
->  drivers/char/tpm/tpm-dev.h        |  1 +
->  2 files changed, 7 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/char/tpm/tpm-dev-common.c b/drivers/char/tpm/tpm-dev-common.c
-> index ee91f456f975..553fc6aca94d 100644
-> --- a/drivers/char/tpm/tpm-dev-common.c
-> +++ b/drivers/char/tpm/tpm-dev-common.c
-> @@ -107,6 +107,7 @@ static void tpm_timeout_work(struct work_struct *work)
->  	mutex_lock(&priv->buffer_mutex);
->  	priv->response_read = true;
->  	priv->response_length = 0;
-> +	priv->read_pos = 0;
+Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
 
-I did search read_pos but it had zero hits in the commit message.
+Do we have the same problem on the file side?
 
+If memory_failure() cannot split a large file folio, it stays in the
+page cache with the poisoned page in it.
 
->  	memset(priv->data_buffer, 0, sizeof(priv->data_buffer));
->  	mutex_unlock(&priv->buffer_mutex);
->  	wake_up_interruptible(&priv->async_wait);
-> @@ -149,21 +150,21 @@ ssize_t tpm_common_read(struct file *file, char __user *buf,
->  			goto out;
->  		}
->  
-> -		rc = copy_to_user(buf, priv->data_buffer + *off, ret_size);
-> +		rc = copy_to_user(buf, priv->data_buffer + priv->read_pos, ret_size);
->  		if (rc) {
->  			memset(priv->data_buffer, 0, TPM_BUFSIZE);
->  			priv->response_length = 0;
->  			ret_size = -EFAULT;
->  		} else {
-> -			memset(priv->data_buffer + *off, 0, ret_size);
-> +			memset(priv->data_buffer + priv->read_pos, 0, ret_size);
->  			priv->response_length -= ret_size;
-> -			*off += ret_size;
-> +			priv->read_pos += ret_size;
->  		}
->  	}
->  
->  out:
->  	if (!priv->response_length) {
-> -		*off = 0;
-> +		priv->read_pos = 0;
->  		timer_delete_sync(&priv->user_read_timer);
->  		flush = true;
->  	}
-> @@ -214,7 +215,7 @@ ssize_t tpm_common_write(struct file *file, const char __user *buf,
->  
->  	priv->response_length = 0;
->  	priv->response_read = false;
-> -	*off = 0;
-> +	priv->read_pos = 0;
->  
->  	/*
->  	 * If in nonblocking mode schedule an async job to send
-> diff --git a/drivers/char/tpm/tpm-dev.h b/drivers/char/tpm/tpm-dev.h
-> index f3742bcc73e3..34efb1ffa491 100644
-> --- a/drivers/char/tpm/tpm-dev.h
-> +++ b/drivers/char/tpm/tpm-dev.h
-> @@ -15,6 +15,7 @@ struct file_priv {
->  	struct work_struct async_work;
->  	wait_queue_head_t async_wait;
->  	ssize_t response_length;
-> +	size_t read_pos;
->  	bool response_read;
->  	bool command_enqueued;
->  
-> -- 
-> 2.52.0
-> 
+Consider a write fault through MAP_SHARED on a good page of that folio:
 
-Br, Jarkko
+  do_shared_fault()
+    __do_fault()
+      PageHWPoison(vmf->page)
+        // checks the faulting page only
+    finish_fault()
+      do_set_pmd()
+        folio_test_has_hwpoisoned(folio)
+          // backs off with VM_FAULT_FALLBACK
+      set_pte_range(vmf, folio, &folio->page, folio_nr_pages(folio), addr)
+        // maps the poisoned page as well
+
+Possible fix is below. I can post a proper patch if the analysis looks
+correct.
+
+diff --git a/mm/memory.c b/mm/memory.c
+index fb76d8922e37..25b53847943f 100644
+--- a/mm/memory.c
++++ b/mm/memory.c
+@@ -5893,6 +5893,10 @@ vm_fault_t finish_fault(struct vm_fault *vmf)
+ 			return ret;
+ 	}
+ 
++	/* A poisoned page must take its own fault */
++	if (folio_contain_hwpoisoned_page(folio))
++		needs_fallback = true;
++
+ 	if (!needs_fallback && vma->vm_file) {
+ 		struct address_space *mapping = vma->vm_file->f_mapping;
+ 		pgoff_t file_end;
+-- 
+  Kiryl Shutsemau / Kirill A. Shutemov
