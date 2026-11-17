@@ -1,86 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794915933;
-	b=Ulee8w+LU9Jm7ro8jdWbWIwdzK68j4spNQ3T/TfBGdtlebIjEPqc35RQWtouKEkyEEBc
-	 s7hjAGmnwFEY3tLvpRCBgoBgLia+9qPIFPnifASBHcTmO+X17f3AbcmNPdTUiFbqj8Ho4
-	 +ND4J89Olhk8OsinMNZCBbrlnL77ywCcn7VaNT7Cq0SkRhI2kKyNyLXfVNtsGZDbqOe6j
-	 lP4UpdCJaUtv3vTJZOXXr04C7XjtyKlb7hWavmEuDEjk0TWN/flQgDnc0bWS7voMoDeVM
-	 LKN2uVq5xLvksZHxXckmjfOrWXFGodIfFMO+TvgyXccxdiwd+tReBq4RtKnglSyaY0Q==
+	b=MEFjgiJGlhqPZSi4OGnYiEPqzfDg11T3bI3JQhAThjQcFvN6kx8I9wHjVNudW5yhct/X
+	 IhHV1crqX9VpKK7tzkV8BZybXDx+LsPONeZ6X5BIEeH6/4RmWyy0BTkkZsDyejbrkZ+kd
+	 ncuo0AASWOPCzw7dPLdKcZA4vo0GW6bufol5BNvxxUF4knBGRt76QL2EG9z0HtSStlHPt
+	 pqT/tqreBD0DBJnpap4TDSdWpqCfQd1epIk3X2h4VgQXJgDprpyJhCwvJNW07Pt5/bBLz
+	 W5lYRxfB7ERs+p9/7lSVC3vsBQPTkF1Cvif/eTtLqs3XStjYMeIZNRve1Wuiaf40oRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794915933;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=17Of1ohVlTnK3P4A9jeZWTwwsZHNP9e2kxpo4Cftll0=;
-	b=EWc2GC4rND6g5xuaJZo58mHoX0iMenIF4qzXkSVaYKuHm6+QygP6N9yClTE8NNlx3lKT
-	 VRl3M6JQBBLPgSVCNovlMyodhZpMgkCpiJMeAFc3HI9x6DjOb79SiIBYrs81VQLe6+Zud
-	 y0owNkfrCLzX6hV7r0s0Z3o527bjPurwbYzu3FjiMyw1i7YunzPXYiGgbaSmbaMzqoe4j
-	 akIQH5ooOyXB/PzPeMMeb34OPuc/cVqlrQNY4umiyDbFDxkyj5+qbj7394yZs5fbpMSEu
-	 lB5I5rI9rYzIs2tS+IVxOkp/VGJfCFn4xr7gEh3r0uvxrhiGOf7N9L7y0zw7HCO4/Kg==
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
+	bh=xEHiK/lQJsiNqCYdsYnexV9SSAq2eRDbdaxychq8MdU=;
+	b=LiGk8/bFs2nu2ClYGbzeTBAYvHpMNpoL6YJx7AJH2l82M9NsUkp554qk5Z2dlzDdgeXV
+	 e5+H/wHN6wxzamMSFFDpn9SZzhvxDIgYT45BWqYGvcpPoWvTN//Rs2k2k6Qv2+oypuqy9
+	 tDawvw3rDLoLVrhwhl8B1ybXZJy6y6Oeq2PevOdfuM9p+SOMpk+pvrIMvRZhzBpT18ZC2
+	 D9s6/8gOlWlc7B6YLbNwSjYSVOYvBUkA6lfOcJycZ4OEOX0J5rJIisDqGAkcEUSqNzelJ
+	 7j/q/ea993tWtsjus8O8M3bOblxRePnjT5sWMxWmUsFK/yqGenYF7A+PbLq/NztOKOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=S8I8RmoN;
-	arc=none smtp.remote-ip=209.85.167.44
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PfcSc1Xv;
+	arc=none smtp.remote-ip=209.85.208.169
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4844606A32F
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 11:45:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A4844606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E35606A336
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 11:45:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51E35606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=S8I8RmoN
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5c17a1775fcso2908971e87.3
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 03:45:32 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PfcSc1Xv
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3adf9b1f5aeso7589121fa.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 03:45:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=chromium.org; s=google; t=1794915931; x=1795520731; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=17Of1ohVlTnK3P4A9jeZWTwwsZHNP9e2kxpo4Cftll0=;
-        b=S8I8RmoNLJKbPWlBsMnp6qxBDKnOAimv5Lv4AbuMtxCxxooienFAIRt7stT2m/7d/l
-         5ze9aOCWZ8EMaQOAEdq7w2cEApjUiek0Z4C0RKeamBqE4dR0DY2pKdgGVhUzGxjW/Ucs
-         kf1NaE84PL3nA1NwPC82stJux+MbGzMluAmW8=
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xEHiK/lQJsiNqCYdsYnexV9SSAq2eRDbdaxychq8MdU=;
+        b=PfcSc1XvKlk/DIZONeZkQIZzT32HbHfJqlE0G+YBOOC3LvGz+JT+4i6XHQBrcch6uz
+         qKCHb9TIlE60UCro7tYZgWSpPOoVW9XO1Q6mQggeTMwkLcCKWaKwOxYFNHY4htzNy90W
+         EAuN0yNbL77v43AgNHoAsz4l84kSsfLFK2k+c=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794915931; x=1795520731;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=17Of1ohVlTnK3P4A9jeZWTwwsZHNP9e2kxpo4Cftll0=;
-        b=O6tT1rAtmiCQkdKFzW0BEB+uIJZcHQN6JnfgO2XtK93LaJfRnW2zXm6yL0768fO+Lq
-         CxkaO9HAsD4kke0v2aHBWSAAZOIhGct9GHJmAyYf39uEU3DpRUhBrH3K+GVIGiNQ+09T
-         wXVPuNYsh5DxNUJ3N/WUb08NYueSBtKabSXwQxp12a8TnyZ/H3d7JPg8/B3r2KKLXUAu
-         NnsNIyzaMrF/p0CrCu95te62Gnii5AaYaS9Ju2yw9lX4QZ8nIxfRFvKRowj6/us8XsuZ
-         G6rj/R+IUo5GygKGlvjeupVLJ/IkvN1exN0otdJrFs/WqIbfwOTNl1ApnOaca0uejx5R
-         tIWg==
-X-Forwarded-Encrypted: i=1; AL+hErGCJIW6b9Xo5dr6JP/xQgFnxmdHwh2AYRBTbSk53xM/bRekEf5rYbhWXM5Y84UVLfM3ISx+dbU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+jxR/C7myPLObXl9qyRkDSBZtlgEer3FY0uDaxnQezu0RHCDpv
-	M49Sd5YoyjqHKjYlGiC44XPBLWIp3oRHs8bnRPQCG1x/az1GgMpc12n389MsekAI7+TrNqd7rSr
-	snVYKVT10
-X-Gm-Gg: AYBFou0+AFjVE4wnyhlu8D3L6K7L2UpTTocK8WNiteVBk0sdU2J6YSXHxG3QjFUKzqH
-	6zetDBXaOthkALCyeasSoKB922e0O/8TgW2ejhdVtq9DPztNulKHezRnVyQ2Q3gD0z7r3mmylWI
-	Tb+S4c5rVAZySeqWZ+w6rTy22L7eFsqCgLUt5QF+CurI9XEQwtwuA+hDn062wbgHrh6z2Mwd/EO
-	mMXatSTnn6NgiqYmLU7zKps4pmT2vS2bpE9JLMXX6GT1Tcdc4s2T2BR0P8iALpgYrv1scVXqIkD
-	Yoy3KL9XVmChsM6zdDL6c1yc/hSlskGd8KO/axtsEDbgGLMKoSB2tXTkJHimtlUFRCOxGwKZBDE
-	k+Vi/uaaDpDx88q/1Xs450xYm7EzxaaHjJC+u8kIz5DyAC3s1wJLsGCUnQ2ekTc6dcI89RES8Dt
-	qGtzMIMfQt3alIvD8BRXj8tYsNbxBKCd5Q8VieInLJb46KG+j3vhJdWS3pQac89RPCDQUzzPROH
-	aSt5t1SA6XeJWtlL7/N4sWlXCUL0hSNcMP8GhEQm6j2v3hOECsbBY3005bPptKzSJrAfTgeKJgH
-	teCBIKfVJ5yYC05MhjHlIHkb1+LY/4oo7Z0CDIv+rWIphYpKzxMLKFjHd1cN9nvUe57iFQBbTvW
-	4JxEoCaW8FQ==
-X-Received: by 2002:a05:6512:3182:b0:5c1:5bcc:bf0e with SMTP id 2adb3069b0e04-5c170b1c308mr5151649e87.14.1794915930932;
-        Tue, 17 Nov 2026 03:45:30 -0800 (PST)
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xEHiK/lQJsiNqCYdsYnexV9SSAq2eRDbdaxychq8MdU=;
+        b=kq+x3LryWYDBkJ4om4lYs6PW3oSzEW0yawg/RsQUkZ45kdR0SnX8++EwLTA6vnSXgm
+         o2z7aoYLUDN/YYNV1uBqc5LrR2fR6VWPc4+MWjzs7KjiZ80oSSZ9VgEtTY9Eq0BviQXI
+         Zf4phPscZbN5pAvRLdPpGCJMlmbS2MLGw87Eo3Q3GcAi7b6rlW3jw8Us/QD5VSDP9M36
+         4IGbxBD4xahf8hzy6600kd3ceFo2HnNFBYGVZbRdyLG34bxxn8Nov4CVQCfJDnPBGWez
+         4rkjV0eUi+v6i02yh9q5jGNVKJYD3vJoaJe0ngNldNa+GTrm+tvim8c1/BbTVY4n1+zq
+         82SQ==
+X-Forwarded-Encrypted: i=1; AL+hErFhw6TS7YI7d6CQlL7eFiycg3P6wX2ge6QRwelasOvs0ZOsJp9XwFGXZOGpBDV1PXSZrhnWs/c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dE0dgBI9BkWjuEpdubSagFHFhlQk1C/hKoAQyoOtcZoM6+QI2
+	xynSQl3DqwhJsUx+VIuDAFyL81Yr+sFChO/xeneaqW3oSW+yPaWpDJexJbVFgWWfSA==
+X-Gm-Gg: AYBFou2pRoLnUSUD2PKY6xZSILeL8UNgAVi7X43ORE21XMwZemTDB4pjAPZ6RRglF0/
+	LcGp7ti0u28QUElYfENg3BLwYCbcl6ihk8fA8BlhX9oDGcG09nq0QlPxjdSqxojNqoox8cx1KzF
+	802C7l+tuQ3tBb+SS9DalRCdF1+qZ/7dNrLzUIHasCk7yxWZEWMAoUmIDA5rRT8fnkmUAz4pp8W
+	TbpEqF09JbgQZDlUWRRc5Zhpgdb2qKb8Bivqkh90WW7aH2COLsmANEMxJLwfAO+TpwID519FUOT
+	nzjZorJqvvNLOGEkoKptpYdAT7u71ozfMUKsDE/syLm35ns0Mq4kist6KaibCITlXQFttvu+bWg
+	cdDz9F92aFg6wZLnTYpVPABJE8wovXNrYLo+3pRYRrMHmzrTaomlFtwLedXeNXMNRmgz0urBVzN
+	M2ovaQTLOtaLStdQmvnDu+e9RexSt/NR41LArEeDJin39az7q2M3DiLONAXxoNXwL6qfjdjnKEZ
+	viOBNuq25tws1FdTIfnbAuskUda08inFI2ZAu5e/ZIVQpvuflN5stzO9L2IDgnVlTnwEY6s76uX
+	uUY4Zviv/omqsgHUcwefLTAAR3ZomRVs5ir71tmYgf9sFphYFFBi86dtbHcXcsSJREqldBREmKX
+	4iVM0eNFbYUY7RJCC4+PslvxRzVhneZI=
+X-Received: by 2002:a05:651c:a191:b0:3a9:7c85:a16d with SMTP id 38308e7fff4ca-3ae5c9c3b3fmr6962841fa.5.1794915931605;
+        Tue, 17 Nov 2026 03:45:31 -0800 (PST)
 Received: from ribalda.c.googlers.com (214.118.88.34.bc.googleusercontent.com. [34.88.118.214])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712d9dd4sm3955141e87.7.2026.11.17.03.45.29
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5c1712d9dd4sm3955141e87.7.2026.11.17.03.45.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 03:45:30 -0800 (PST)
+        Tue, 17 Nov 2026 03:45:31 -0800 (PST)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Subject: [PATCH 0/2] media: uvcvideo: Fix HEVC formats for DJI cameras
-Date: Tue, 17 Nov 2026 11:45:24 +0000
-Message-Id: <20261117-uvc-dji-v1-0-7cb3cf3b4b5a@chromium.org>
+Date: Tue, 17 Nov 2026 11:45:25 +0000
+Subject: [PATCH 1/2] media: uvcvideo: Do not setup queues with buffersize 0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,10 +91,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAFQ+/GoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQ0Nz3dKyZN2UrExd88Q0C6PERFNzIKEEVF1QlJqWWQE2KTq2thYASjd
- ud1kAAAA=
-X-Change-ID: 20261117-uvc-dji-7af82aa572aa
+Message-Id: <20261117-uvc-dji-v1-1-7cb3cf3b4b5a@chromium.org>
+References: <20261117-uvc-dji-v1-0-7cb3cf3b4b5a@chromium.org>
+In-Reply-To: <20261117-uvc-dji-v1-0-7cb3cf3b4b5a@chromium.org>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  Hans de Goede <hansg@kernel.org>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -104,25 +102,37 @@ Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
  Jordan Moormann <service@jordan-systems.de>
 X-Mailer: b4 0.14.3
 
-DJI cameras seem to have incorrect descriptors that do not set the
-compressed flag for HEVC formats. Fix that.
+Vb2 (correctly) does not expect queues to have a buffer size of 0
+and throws a nasty warning:
+  WARNING: at vb2_core_reqbufs+0x60e/0x630 [videobuf2_common]
 
-While at it, fix a nasty warning when the buffersize is 0
+If a device has a descriptor with an invalid size, exit early before
+bothering the vb2 functions.
 
+Fixes: 6998b6fb4b1c ("[media] uvcvideo: Use videobuf2-vmalloc")
+Cc: stable@vger.kernel.org
+Reported-by: Jordan Moormann <service@jordan-systems.de>
+Closes: https://lore.kernel.org/linux-media/c2c00ad1-b21c-42f9-b3a1-e03a0ad49651@jordan-systems.de
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
-Ricardo Ribalda (2):
-      media: uvcvideo: Do not setup queues with buffersize 0
-      media: uvcvideo: Force the COMPRESSED flag for compressed formats
+ drivers/media/usb/uvc/uvc_queue.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
- drivers/media/usb/uvc/uvc_driver.c | 20 +++++++++++++++++++-
- drivers/media/usb/uvc/uvc_queue.c  |  3 +++
- 2 files changed, 22 insertions(+), 1 deletion(-)
----
-base-commit: 48fe5a7834cc10081887d7bcd9ff0a4cadc3fa8c
-change-id: 20261117-uvc-dji-7af82aa572aa
+diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+index 3c002c8f442f..46b807b95d2c 100644
+--- a/drivers/media/usb/uvc/uvc_queue.c
++++ b/drivers/media/usb/uvc/uvc_queue.c
+@@ -91,6 +91,9 @@ static int uvc_queue_setup(struct vb2_queue *vq,
+ 		break;
+ 	}
+ 
++	if (!size)
++		return -EINVAL;
++
+ 	/*
+ 	 * When called with plane sizes, validate them. The driver supports
+ 	 * single planar formats only, and requires buffers to be large enough
 
-Best regards,
 -- 
-Ricardo Ribalda <ribalda@chromium.org>
+2.56.1.708.g77570a6a1d-goog
 
