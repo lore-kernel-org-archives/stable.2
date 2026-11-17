@@ -1,54 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794930647;
-	b=CKQtilVOVSoOe2H92xFLdsEY79B3q52X/6hFm7gk6CLuGI/VsQwBpxEqJvSkv3XS8mxP
-	 k3ka5BOm9p2j5tSMtZPoZwEX0ivNNPptCaOBzM64viKYEo0titDn29X9kq5ahBzCkj0nJ
-	 X79D5XLshuKYQiOSc9nXb2L84ZFghY92ZEdh7m3lzC9jAD7fo6Of/x7KksYhAXR0sG9jo
-	 Mhb852yvubu13K/fFoC0wo/yu/TodUJUgOu0j5Aq+iJeLReBwGoPFVpKdQQn1nUwUDrJG
-	 dU42xtmLPqavkK8pOIn5DbInLOHkSWtmz4v2mNMqwDJzAVjzIy9PyOFf2Azbi2vHB9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794930647;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794930757;
+	b=ooKVtVadSYV2jLmeu1awy/SZb9gil5qzcHNx/sbd+LXqVD96yxIyllQvxQyhwzS4llyQ
+	 HUZNDKp89QYibq70+TUwdLaCGZawz4puVQkAdN1CaHRquBBg2ZtcXWRf6o2GOuIIQemBa
+	 9isgL8905eVZk9K4B/QxNdKHcRQ7nnmfdvMCz5H4FDDpa41wsIkBo23JEXoWkkh5wUy+9
+	 86ixhsbunLG72HVeQWXFBZ7oYP6Vowo0MhYw5aQTO9Xe5IbZ2Qcl10G5Aw452ejPnMhjl
+	 Xr7GifcROdINSJ/+/zq6SlvwWYAfnE5MDaGc8PQUuQA8qLC7936Kmbkwe16ZZENmGBw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794930757;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=G1LL/x7N77Eu1XLmVkvU8EZYqDRVKlBzvqhN4r+M2Js=;
-	b=MwyBotSh8lbtIzML994Qfna8OOclXGI8TdCNTNn6ZDdlTaBlmv+rA8w3rECWe/rSD4aP
-	 raoz9FNxoTXF0VAUSpzGGSnkol95p4/wcGRDVosZlo9Y29s1CKLXnXEx5Q0lHTH9TysjY
-	 h9hySPa72vXoZK6pqZFMiS9P2T7SjGDOEkzlt6GCVxwF7YvogzYVk4GwIfddt3cux6aBq
-	 NmiXFFtTynlHr5z0Wm8JysaXkZ9HGd0ylijJwb0liGfd8xHnurItdQKCFpBXym8CWVbjO
-	 gyTbkIN7Q7pU0/hQhppjNzacfEodHntjC6evU8LfSt3LL4ok88KlblOWT8VlbARa23A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hfz1DwFR;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	bh=rWQ3LCKx81yVb4ZPYmvkuNFKtOFNJfTl68Lxuk3875w=;
+	b=t4yX0Q+k0GMHMhO2FxBcWEae6N7n+fUulJSagmpAOMB0cNDrGYTJf2mC+Pw9Qv5+1jK8
+	 LB1mSW81BBENWWqNIqHVECuPCP4VuANDV2XVoTe0Opws5Zu9tGHWy+tfPcFqA7MCRQ0jM
+	 9pGbFhEuXBnxgLXzrR67FZldRU9tWEVH7QeimgwmWiU3kuEVL4Nni2eTkC0nfdN71anOq
+	 sOJQv62LtwUYZ5KDS/Q+b/2/uh6qg4OvUXoPQuRcI9SBYCxrIJ0fW3XcjSJcnc9CkoBsJ
+	 VKHnVxn4HMoa0olI35bjmDL8ZAGKsG9hlwi1GQj5ExK2gLDQpaO8kAwUn1HRLCWCH+A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=URGWjLaz;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43BC606A8BB;
-	Tue, 17 Nov 2026 15:50:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E43BC606A8BB
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DF3606A32F;
+	Tue, 17 Nov 2026 15:52:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=hfz1DwFR
-ARC-Seal: i=1; a=rsa-sha256; t=1794930629; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=M+ZrGkTyiA8mwALNyDzkzYpqOuc0nk8rmPgHMbEodQl2vZLceLmuJhx0znthV3bbNnTHSd2FH5+eNy1ekBAVnajB/5F6/fyw7NVxVymy2+4CKSaVehsf+ryAUiQpqQ0SGD3MpNK2a8vPiigIhAWyMpm/Ssr5mbHQgutT53IyyL4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1794930629; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=G1LL/x7N77Eu1XLmVkvU8EZYqDRVKlBzvqhN4r+M2Js=; 
-	b=iZK1oKOEBlWQDlGQ6qNLIdCkTCV7v2bHmLs9GWvOgrqVeJaqJ75+EcQZlO5lpJEeyveuGOUD/mYRtdjljISHPweKHwES8MS11buv1sN7I2iZIA9HwycDLm/lirZRJVPrXiA5AL/p2uvOKKGJemENT36JrKYgfEGaEgWgmcNU7IY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
-	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=hfz1DwFRq3HWKRf2nl7c818zlf3EcVL9zW5dXCaoQaXM+BjqHTCDnFcCOUMBcNxWuKkCs0ROA04nWwMXZYrP5YR6H6aUFyOAWD/9IqiyBFUPEpMVOi61iBD8lzOIxfFySCJC+RBAkqxIgEp15kncqGhzWb0CAS4QvYJIEko786o=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=G1LL/x7N77Eu1XLmVkvU8EZYqDRVKlBzvqhN4r+M2Js=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1794930627710904.9822389417972;
-	Tue, 17 Nov 2026 07:50:27 -0800 (PST)
-Message-ID: <93161ff8-dd0d-4253-aa80-174a33de30dc@collabora.com>
-Date: Tue, 17 Nov 2026 16:50:24 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=URGWjLaz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B7A01F000C7;
+	Tue, 17 Nov 2026 15:52:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794930757;
+	bh=rWQ3LCKx81yVb4ZPYmvkuNFKtOFNJfTl68Lxuk3875w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=URGWjLazzCNyXLQoIZq8i+Ieeqm5wCpQGJa3a+x8rIKCdnXEJkzUl48TG7es5hN1t
+	 aP23+qbwX5cDttOoJpIdRG2DNigYRritwoUMwYe5KGFybBNRKJT2cKLlO6S2VHwCX5
+	 nTq11yf1pXMzhm3FpbRLshfnXfHG+9AUmH7xVqNnVZ3Sda/vcLAuqVhRPy1kCVnLNq
+	 hWS+pU8vcqeNP/Jb3fhA2XXC1mHLAylbRZb8a+8164OusWf81YmV756sceh5ysQ1X1
+	 yHPP7ilExlBiJ1uEbvfmlw5YbLkfvdHAmr3phQzeESesk8U2rDraLjNjIe++54oCc+
+	 XRu+Xb4FIPsRw==
+Message-ID: <07b9bd2b-19da-4e3c-9b01-552364a82269@kernel.org>
+Date: Tue, 17 Nov 2026 16:52:31 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,68 +52,148 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] media: verisilicon: av1: Read the segmentation map at
- the reference's offset
-To: aiyengar1990@gmail.com, Nicolas Dufresne
- <nicolas.dufresne@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- stable@vger.kernel.org
-References: <20261115-b4-vpu981-av1-refs-v1-0-c65769715db9@gmail.com>
- <20261115-b4-vpu981-av1-refs-v1-2-c65769715db9@gmail.com>
-Content-Language: en-US
-From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-In-Reply-To: <20261115-b4-vpu981-av1-refs-v1-2-c65769715db9@gmail.com>
+Subject: Re: [PATCHv2 1/4] powerpc/64: Leave lockdep hardirq context around
+ replayed interrupts
+To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+ linuxppc-dev@lists.ozlabs.org
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
+ Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org,
+ Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,
+ Mukesh Kumar Chaurasiya <mkchauras@gmail.com>, stable@vger.kernel.org
+References: <cover.1794924821.git.ritesh.list@gmail.com>
+ <cfdac7c3508cf0eb1cbf063e7f6331dccb128796.1794924821.git.ritesh.list@gmail.com>
+Content-Language: fr-FR
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+In-Reply-To: <cfdac7c3508cf0eb1cbf063e7f6331dccb128796.1794924821.git.ritesh.list@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 
-Le 15/11/2026 à 09:59, Arun Iyengar via B4 Relay a écrit :
-> From: Arun Iyengar <aiyengar1990@gmail.com>
->
-> The segmentation map of the primary reference is read at the motion
-> vector offset of the current CAPTURE format. After a switch to a larger
-> format, that is past the end of a reference held in a smaller buffer.
->
-> Use the reference's own offset, and skip the map of a reference of
-> another size (the spec then uses segment 0, load_previous_segment_ids()
-> in section 6.8.2).
->
-> Fixes: 727a400686a2 ("media: verisilicon: Add Rockchip AV1 decoder")
+
+Le 17/11/2026 à 15:25, Ritesh Harjani (IBM) a écrit :
+> With PROVE_LOCKING, boot warns once and lockdep turns itself off:
+>    DEBUG_LOCKS_WARN_ON(lockdep_hardirq_context())
+>    WARNING: kernel/locking/lockdep.c:4448 at lockdep_hardirqs_on_prepare+0x22c/0x2d4, CPU#0: swapper/0/0
+>    CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.4.0-rc2-00027-g074831f06e18-dirty #123 PREEMPT
+>    NIP:  c0000000002b2f2c LR: c0000000002b2f28 CTR: c000000002426f90
+>    REGS: c000000004f075c0 TRAP: 0700   Not tainted  (7.4.0-rc2-00027-g074831f06e18-dirty)
+>    MSR:  8000000002021033 <SF,VEC,ME,IR,DR,RI,LE>  CR: 48022221  XER: 20040000
+>    NIP [c0000000002b2f2c] lockdep_hardirqs_on_prepare+0x22c/0x2d4
+>    LR [c0000000002b2f28] lockdep_hardirqs_on_prepare+0x228/0x2d4
+>    Call Trace:
+>      lockdep_hardirqs_on_prepare+0x228/0x2d4 (unreliable)
+>      trace_hardirqs_on+0x98/0x11c
+>      irqentry_exit+0x64c/0x1064
+>      timer_interrupt+0x274/0x6bc
+>      __replay_soft_interrupts+0x158/0x380
+>      arch_local_irq_restore+0x1cc/0x244
+>      console_flush_one_record+0x438/0x654
+>      console_unlock+0xb8/0x1e0
+>      vprintk_emit+0x300/0x56c
+>      vprintk+0x20/0x34
+>      _printk+0x40/0x54
+>      lockdep_init+0xdc/0x104
+>      start_kernel+0xa24/0xc68
+>      start_here_common+0x1c/0x20
+> 
+> Since commit bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature") a
+> replayed handler always returns via irqentry_exit(), which traces hardirqs
+> on while the replay is still inside irq_enter():
+>    arch_local_irq_restore()
+>      irq_enter()                        hardirq_context = 1
+>      __replay_soft_interrupts()
+>        timer_interrupt(&regs)
+>          irq_enter_rcu()                hardirq_context = 2
+>          irq_exit_rcu()                 hardirq_context = 1
+>          irqentry_exit()
+>            trace_hardirqs_on()          hardirq_context != 0 -> WARN
+>        next_interrupt()
+>          lockdep_hardirq_exit()         too late
+> 
+> Leave the hardirq context before each replayed handler instead of
+> after it:
+>    arch_local_irq_restore()
+>      irq_enter()                        hardirq_context = 1
+>      __replay_soft_interrupts()
+>        lockdep_hardirq_exit()           hardirq_context = 0 // fix
+>        timer_interrupt(&regs)
+>          irq_enter_rcu()                hardirq_context = 1
+>          irq_exit_rcu()                 hardirq_context = 0
+>          irqentry_exit()
+>            trace_hardirqs_on()          ok
+>        next_interrupt()
+>          trace_hardirqs_off()
+>          lockdep_hardirq_enter()        hardirq_context = 1
+>      irq_exit()                         hardirq_context = 0
+> 
+> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
-
-Reviewed-by: Benjamin Gaignard <benjamin.gaignard@collabora.com>
-
+> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 > ---
->   drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c | 8 +++++---
->   1 file changed, 5 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-> index 59f2adf74850..f23af435f961 100644
-> --- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-> +++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-> @@ -899,15 +899,17 @@ static void rockchip_vpu981_av1_dec_set_segmentation(struct hantro_ctx *ctx)
->   	if (!!(seg->flags & V4L2_AV1_SEGMENTATION_FLAG_ENABLED) &&
->   	    frame->primary_ref_frame < V4L2_AV1_REFS_PER_FRAME) {
->   		int idx = rockchip_vpu981_get_frame_index(ctx, frame->primary_ref_frame);
-> +		int mi_cols = DIV_ROUND_UP(frame->frame_width_minus_1 + 1, 8);
-> +		int mi_rows = DIV_ROUND_UP(frame->frame_height_minus_1 + 1, 8);
->   
-> -		if (idx >= 0) {
-> +		if (idx >= 0 && av1_dec->frame_refs[idx].mi_cols == mi_cols &&
-> +		    av1_dec->frame_refs[idx].mi_rows == mi_rows) {
->   			dma_addr_t luma_addr, mv_addr = 0;
->   			struct hantro_decoded_buffer *seg;
-> -			size_t mv_offset = rockchip_vpu981_av1_dec_chroma_size(ctx);
->   
->   			seg = vb2_to_hantro_decoded_buf(rockchip_vpu981_av1_dec_ref_buf(ctx, idx));
->   			luma_addr = hantro_get_dec_buf_addr(ctx, &seg->base.vb.vb2_buf);
-> -			mv_addr = luma_addr + mv_offset;
-> +			mv_addr = luma_addr + seg->av1.mv_offset;
->   
->   			hantro_write_addr(vpu, AV1_SEGMENTATION, mv_addr);
->   			hantro_reg_write(vpu, &av1_use_temporal3_mvs, 1);
->
+>   arch/powerpc/kernel/irq_64.c | 11 +++++------
+>   1 file changed, 5 insertions(+), 6 deletions(-)
+> 
+> diff --git a/arch/powerpc/kernel/irq_64.c b/arch/powerpc/kernel/irq_64.c
+> index d5c48d1b0a31..b189e796eb34 100644
+> --- a/arch/powerpc/kernel/irq_64.c
+> +++ b/arch/powerpc/kernel/irq_64.c
+> @@ -75,12 +75,6 @@ static inline void next_interrupt(struct pt_regs *regs)
+>   		WARN_ON(irq_soft_mask_return() != IRQS_ALL_DISABLED);
+>   	}
+> 
+> -	/*
+> -	 * We are responding to the next interrupt, so interrupt-off
+> -	 * latencies should be reset here.
+> -	 */
+> -	lockdep_hardirq_exit();
+> -	trace_hardirqs_on();
+>   	trace_hardirqs_off();
+>   	lockdep_hardirq_enter();
+>   }
+> @@ -137,18 +131,21 @@ static __no_kcsan void __replay_soft_interrupts(void)
+>   	if (IS_ENABLED(CONFIG_PPC_BOOK3S) &&
+>   	    irq_happened_test_and_clear(PACA_IRQ_HMI)) {
+>   		regs.trap = INTERRUPT_HMI;
+> +		lockdep_hardirq_exit();
+
+Can we include that in irq_happened_test_and_clear() instead of 
+duplicating it 5 times ?
+
+>   		handle_hmi_exception(&regs);
+>   		next_interrupt(&regs);
+>   	}
+> 
+>   	if (irq_happened_test_and_clear(PACA_IRQ_DEC)) {
+>   		regs.trap = INTERRUPT_DECREMENTER;
+> +		lockdep_hardirq_exit();
+>   		timer_interrupt(&regs);
+>   		next_interrupt(&regs);
+>   	}
+> 
+>   	if (irq_happened_test_and_clear(PACA_IRQ_EE)) {
+>   		regs.trap = INTERRUPT_EXTERNAL;
+> +		lockdep_hardirq_exit();
+>   		do_IRQ(&regs);
+>   		next_interrupt(&regs);
+>   	}
+> @@ -156,6 +153,7 @@ static __no_kcsan void __replay_soft_interrupts(void)
+>   	if (IS_ENABLED(CONFIG_PPC_DOORBELL) &&
+>   	    irq_happened_test_and_clear(PACA_IRQ_DBELL)) {
+>   		regs.trap = INTERRUPT_DOORBELL;
+> +		lockdep_hardirq_exit();
+>   		doorbell_exception(&regs);
+>   		next_interrupt(&regs);
+>   	}
+> @@ -164,6 +162,7 @@ static __no_kcsan void __replay_soft_interrupts(void)
+>   	if (IS_ENABLED(CONFIG_PPC_BOOK3S) &&
+>   	    irq_happened_test_and_clear(PACA_IRQ_PMI)) {
+>   		regs.trap = INTERRUPT_PERFMON;
+> +		lockdep_hardirq_exit();
+>   		performance_monitor_exception(&regs);
+>   		next_interrupt(&regs);
+>   	}
+> --
+> 2.39.5
+> 
+
