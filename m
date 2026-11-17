@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933398;
-	b=UBmejgYLAkJAR7zMw3tzGg0AWtzNfIVPF908fZQo/8bFjhBpQiPmDZMwN2MMcl/HC1Fv
-	 LP2warhD4jMrx8P91XoCo90+HW3muJZUEnvjM0npxNnud0RKcoWZbyLPBFr+ukSjV805W
-	 rM7mtaFOzfTAVK+kwABe7sIMyvAceLdD78L5kBBHlPJy9CCf8iG1qboR3/EPF3zDY96m0
-	 rD9V0kKEma3Ok79tTw1Lro5aMID38fNfFZg6DqHXaKYOTaFXflBmjXOcAcXecpkopw4CM
-	 vk0F1+zk7ZRP5W4XCSAfQwxnFLh570+RVJsptWpBjrVRP0fAhlbC6raPf24nMAeChqg==
+	t=1794933503;
+	b=s+522LO0Q7J1tW5qmdhlxjL8BPKQ4bQDjEBK3RBulC4s2pUuKI9kLWlZTo2wLsHFP+6i
+	 hSFcqwv+7+y9FccNNrair+82NC5uBxM/LQw0Yko8SqNWBh0TgZThnNvBTNZUWadDwJGU/
+	 uXF2yXg5FBNqWbeLLC6+ZY/hA1SGCygcuv//kgE7+MaogfMQAZeSwPlbTwiuc1qij1436
+	 rPNIRgMCqsIwhJvaEKJ7CmZU3VBYtXiUW60+i283W/9qUU03J3E8R6nJDIgG+7fKou3qF
+	 tHynRohEiKtwRxJWZ6NmVqs1HbT59GbWkyTxdYvZnkdOVLQ2eWJjCGFZMPGHu511WwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933398;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Zb5lYLuxjmg3shX7epwrm7jj0zA0SmJFcWL0jUgwwXM=;
-	b=2dazT6pi75geF3qKH9jdDdzHqZclHVESKtET/kIp6qagSBjMSvHTniy8ZgBL0yQzyris
-	 6aXgRWuJYXTTtsDkB5XllrXnPamdfKx4sKpYISMcSD7m88L4VuqpNY06GFy4pu81RKOEM
-	 iEAs5g7Lv+F44w9kjw0YRNLmMtyCL5N1MbivqZeqxU8m3umxjqnFArjnnSTs4GNLiSxL/
-	 mzzxyqg3MKHJGuHBB8iPaf2SYJBYGT6mPZJUVbg0xJ9DdbuEydXPcswoZ8iKfrkcWryld
-	 AZkVZFAOTZZaeMAURp4bjFe5ysS9NWDCnbm5rcibqQyV44LJoY3WHDOuZSHVHIVxqJQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933503;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=RNvs836lkpszr0VZ6j0KYnnJes31voSHxc9/JuZkd5s=;
+	b=K5V93tO3uYbO/ZE8jOIBertesvCLJ2+ah4H0hvP3ZqiGuw3ti0/pYXA5K9J15JwNyecM
+	 hO37vsvfOEBmtfXphVcjFkVGLZ3bq5u92KU2EjfpL5VTNmUOPn9ljR82HlrFuGQ4RxSmc
+	 AIpJeBzK5c6PD/0IJoFxJju1leystlUGIBrIug99mVVFygw3dEUxTwZrH6B/Uc80KnbpN
+	 lssvmoTdhxq1RS7bADdGRGfXd5EDilp0hw/bT6wNLVeoOj7B19sL2oEJC+8FtK40sAR6L
+	 lB/gdZnmcpyRklE7+ESkdazs2wwmmmuED823No85wrxhyQQkJysiynS3dddL+aSibrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LM2Rh/YI";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D5b1ENAb;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61418606A32C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 16:36:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5C6606A31C;
+	Tue, 17 Nov 2026 16:38:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LM2Rh/YI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E9181F000C5
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 16:36:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D5b1ENAb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9497B1F000C7;
+	Tue, 17 Nov 2026 16:38:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794933398;
-	bh=Zb5lYLuxjmg3shX7epwrm7jj0zA0SmJFcWL0jUgwwXM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=LM2Rh/YIjXZ08VB7J6bNbAaTRoBEXGF5QxZJAg8gfSI4cXdh0ZU8QU3yyMIfxQ+Zk
-	 iXQ+7F0g7b9SS1NY3L4X+newtbw65sVtJA6HYH/hmw53WfnC5jw93junCALWJDc8gw
-	 oQSwMQg1IqpK8GsgxGnmEr1j/64uZMQrr4DlZ+MX3V0HRUzVwVClNu1rMVEzFjlznz
-	 PvASuoXGiZUVys9FXbdZPavMIe6hbESXHDVqOyMHfyiduSMbWxlK6/fMCudnu3ZREr
-	 ZPnF6oA+FU2oaHX8dKm9XLVe+f62hLd7rtWpRPFSBXjSdbiKwFksMINRwvY9MGYGrM
-	 AswvSe/bq8/xA==
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7cc81984fceso1692030137.0
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 08:36:38 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGBY6NcHWl1TliIZ70ynmYOCCL9JqYDNVY2BDqVMmKRPOkNMWgMsSBFYNxIohHtswohb1kR3lg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9eN0RJqQ24MOMDpDg7hVHawy+1RLuI1gdaL6hRWEG1Cy5xQDpd
-	yLee9/uixbvMUlr8ooJkVQL506EQe08zBbHQxh1WKo1Eb8lHViki5RyHJ65zkQEV3QCAHVjat2X
-	pAp+V3nDxZM+osck4MoWhQlcpxJidgP0=
-X-Received: by 2002:a05:6102:54a7:b0:7d2:75bf:2fdb with SMTP id
- ada2fe7eead31-7d64d483390mr4099149137.2.1794933397332; Tue, 17 Nov 2026
- 08:36:37 -0800 (PST)
+	s=k20260515; t=1794933503;
+	bh=RNvs836lkpszr0VZ6j0KYnnJes31voSHxc9/JuZkd5s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=D5b1ENAbK4VRD+buz4eC5wL1ADUOsO2UlDylvQypGW/2AvOU5sc3bj6ftLtNcil72
+	 gMj+FZPFka8Jpddm13/l1TlevYpE9eZucjscwJxYCkRAhB3WwYyYsWH8UaSBqQPf3b
+	 1/o0Br/vPExjaMtahe6KCP7bENqx/mIoSgJkCMyMVXSoywcGkvyy7dvZaSLZxK3JGL
+	 u7s1tdwVjdvvxHmTo7G4z2fEOC9R5gFgiOu73AvJjVMgphbFWytIzvCPJxXZgjttm4
+	 Gu1qVntjSXlkQ268Qxsh/lrZMPvgA9aCsdpZgNq7zlKP9rbG1BBbLGZpvwAQWLlNws
+	 GZlcgB4fEvRlQ==
+From: Lee Jones <lee@kernel.org>
+To: lee@kernel.org,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	Peter Pearse <peter.pearse@arm.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Joachim Eastwood <manabian@gmail.com>,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2 01/11] dmaengine: pl08x: Defer OF DMA controller registration until slave setup
+Date: Tue, 17 Nov 2026 16:37:02 +0000
+Message-ID: <20261117163809.622249-2-lee@kernel.org>
+X-Mailer: git-send-email 2.56.0.679.gc527c65306-goog
+In-Reply-To: <20261117163809.622249-1-lee@kernel.org>
+References: <20261117163809.622249-1-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,186 +64,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <cover.1794867985.git.wqu@suse.com> <217e66b15e1646812cc86be582be67b7e558b270.1794867985.git.wqu@suse.com>
-In-Reply-To: <217e66b15e1646812cc86be582be67b7e558b270.1794867985.git.wqu@suse.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Tue, 17 Nov 2026 16:36:00 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H4Q1pEzYnXf16sNR2JSwj=V0nbMf2YE2iwrQPEKuPJ2WA@mail.gmail.com>
-X-Gm-Features: Aa3M54oDDrtqtMTndAZooAX4PnHXfQW-MFixPJvXSIrQumD-9mXy2DSd9zEqMoo
-Message-ID: <CAL3q7H4Q1pEzYnXf16sNR2JSwj=V0nbMf2YE2iwrQPEKuPJ2WA@mail.gmail.com>
-Subject: Re: [PATCH 1/2] btrfs: scrub: fix use-after-free when waking up the
- repair waiter
-To: Qu Wenruo <wqu@suse.com>
-Cc: linux-btrfs@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 10:34=E2=80=AFPM Qu Wenruo <wqu@suse.com> wrote:
->
-> The read-repair worker of a scrub_stripe can race with stripe freeing:
->
->  CPU0 (repair worker)                CPU1 (scrub)
->  scrub_stripe_read_repair_worker()   scrub_raid56_parity_stripe()
->  |                                   |-wait_event()
->  |                                   | ^^^ checks the condition without
->  |                                   |     taking repair_wait.lock
->  |-set_bit(REPAIR_DONE)              |
->  | ^^^ the waiter can see it now     | ^^^ sees the bit, doesn't sleep
->  |                                   |
->  |                                   \-scrub_simple_mirror()
->  |                                     \-...
->  |                                   scrub_stripe()
->  |                                   |-release_scrub_stripe()
->  |                                   \-kfree(sctx->raid56_data_stripes)
->  |                                     ^^^ stripe freed
->  |
->  \-wake_up()
->    \-_raw_spin_lock_irqsave()
->      ^^^ repair_wait.lock is in freed memory
->      Too late.
+pl08x_of_probe() registers the controller with
+of_dma_controller_register() before pl08x_dma_init_virtual_channels()
+initialises the slave channels list and before
+dma_async_device_register() registers the slave DMA device, and
+pl08x_probe() does not unregister the OF DMA controller if subsequent
+initialisation fails.
 
-There's something odd and very confusing with the diagram.
-The way it's structured it gives the idea that
-scrub_raid56_parity_stripe() calls scrub_simple_mirror() for example.
-But it's scrub_stripe() that calls scrub_raid56_parity_stripe() and
-scrub_simple_mirror().
+Move of_dma_controller_register() after dma_async_device_register() for
+the slave device and unwind slave device registration if OF controller
+registration fails.
 
-I also find it confusing the mention of scrub_simple_mirror(), since
-it doesn't add any value.
+Fixes: aa4734da6674 ("dmaengine: pl08x: support dt channel assignment")
+Closes: https://sashiko.dev/#/bug/linux-4e233fb9-3b0c-4442-b601-c6706c9f5aba
+Cc: stable@vger.kernel.org
+Signed-off-by: Lee Jones <lee@kernel.org>
+---
 
-Something like this instead (the indentation may be screwed up by gmail):
+v1 => v2: No changes
 
-scrub_stripe()
-    scrub_raid56_parity_stripe()
-         wait_event()
-            ^^ ...
-    release_scrub_stripe()
-         (...)
+ drivers/dma/amba-pl08x.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-This way, the flow is clearer.
+diff --git a/drivers/dma/amba-pl08x.c b/drivers/dma/amba-pl08x.c
+index 543c2eb8cfa8..d8441e338502 100644
+--- a/drivers/dma/amba-pl08x.c
++++ b/drivers/dma/amba-pl08x.c
+@@ -2678,6 +2678,12 @@ static int pl08x_of_probe(struct amba_device *adev,
+ 
+ 	pl08x->pd = pd;
+ 
++	return 0;
++}
++
++static int pl08x_of_register(struct amba_device *adev,
++			     struct pl08x_driver_data *pl08x)
++{
+ 	return of_dma_controller_register(adev->dev.of_node, pl08x_of_xlate,
+ 					  pl08x);
+ }
+@@ -2688,6 +2694,12 @@ static inline int pl08x_of_probe(struct amba_device *adev,
+ {
+ 	return -EINVAL;
+ }
++
++static inline int pl08x_of_register(struct amba_device *adev,
++				    struct pl08x_driver_data *pl08x)
++{
++	return 0;
++}
+ #endif
+ 
+ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
+@@ -2944,6 +2956,15 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
+ 			__func__, ret);
+ 			goto out_no_slave_reg;
+ 		}
++		if (np) {
++			ret = pl08x_of_register(adev, pl08x);
++			if (ret) {
++				dev_warn(&pl08x->adev->dev,
++					 "%s failed to register OF DMA controller - %d\n",
++					 __func__, ret);
++				goto out_no_of_dma;
++			}
++		}
+ 	}
+ 
+ 	amba_set_drvdata(adev, pl08x);
+@@ -2954,6 +2975,8 @@ static int pl08x_probe(struct amba_device *adev, const struct amba_id *id)
+ 
+ 	return 0;
+ 
++out_no_of_dma:
++	dma_async_device_unregister(&pl08x->slave);
+ out_no_slave_reg:
+ 	dma_async_device_unregister(&pl08x->memcpy);
+ out_no_memcpy_reg:
+-- 
+2.56.0.679.gc527c65306-goog
 
-Also, the notation you are using is confusing.
-On the left side set_bit() and wake_up() are called by
-scrub_stripe_read_repair_worker(), but one if prefixed with |- while
-the other with \-.
-On the right side,
-
->
-> The same applies to flush_scrub_stripes(), where the stripes are freed by
-> scrub_free_ctx() at the end of the scrub.
->
-> Fix it by waiting with a completion instead. complete_all() wakes the
-> waiter under the completion's lock and does not touch it afterwards, and
-> wait_for_completion() returns only after taking that lock, so the stripe
-> can be freed as soon as the wait returns.
->
-> The completion is re-armed by scrub_reset_stripe(), which is called
-> before every refill of a stripe, i.e. after the previous waiter has
-> returned. The SCRUB_STRIPE_FLAG_REPAIR_DONE flag has no user left, remove
-> it.
->
-> This is the same problem fixed for the RAID56 rbio in commit
-> 26eb4d70f96d ("btrfs: raid56: fix use-after-free when waking up the rbio
-> I/O waiter").
-
-We can't place the commit ID here, it's not stable yet since it's in
-github's for-next only and will change as it's rebased and so on.
-
-The code itself looks good.
-
-Thanks.
-
->
-> Fixes: 9ecb5ef543d3 ("btrfs: scrub: introduce the main read repair worker=
- for scrub_stripe")
-> Cc: stable@vger.kernel.org # 6.4+
-> Signed-off-by: Qu Wenruo <wqu@suse.com>
-> ---
->  fs/btrfs/scrub.c | 19 ++++++++-----------
->  1 file changed, 8 insertions(+), 11 deletions(-)
->
-> diff --git a/fs/btrfs/scrub.c b/fs/btrfs/scrub.c
-> index 98362c91bce4..4b37ae143f61 100644
-> --- a/fs/btrfs/scrub.c
-> +++ b/fs/btrfs/scrub.c
-> @@ -80,9 +80,6 @@ enum scrub_stripe_flags {
->         /* Set when @mirror_num, @dev, @physical and @logical are set. */
->         SCRUB_STRIPE_FLAG_INITIALIZED,
->
-> -       /* Set when the read-repair is finished. */
-> -       SCRUB_STRIPE_FLAG_REPAIR_DONE,
-> -
->         /*
->          * Set for data stripes if it's triggered from P/Q stripe.
->          * During such scrub, we should not report errors in data stripes=
-, nor
-> @@ -153,7 +150,9 @@ struct scrub_stripe {
->         /* From btrfs_chunk_map::stripe_len. Should not exceed BTRFS_STRI=
-PE_LEN. */
->         u32 stripe_len;
->         wait_queue_head_t io_wait;
-> -       wait_queue_head_t repair_wait;
-> +
-> +       /* Completed when the read-repair is finished. */
-> +       struct completion repair_done;
->
->         /*
->          * Indicate the states of the stripe.  Bits are defined in
-> @@ -359,7 +358,7 @@ static int init_scrub_stripe(struct btrfs_fs_info *fs=
-_info,
->         stripe->state =3D 0;
->
->         init_waitqueue_head(&stripe->io_wait);
-> -       init_waitqueue_head(&stripe->repair_wait);
-> +       init_completion(&stripe->repair_done);
->         atomic_set(&stripe->pending_io, 0);
->         spin_lock_init(&stripe->write_error_lock);
->
-> @@ -1234,8 +1233,7 @@ static void scrub_stripe_read_repair_worker(struct =
-work_struct *work)
->         }
->
->         scrub_stripe_report_errors(sctx, stripe, &errors);
-> -       set_bit(SCRUB_STRIPE_FLAG_REPAIR_DONE, &stripe->state);
-> -       wake_up(&stripe->repair_wait);
-> +       complete_all(&stripe->repair_done);
->  }
->
->  static void scrub_read_endio(struct btrfs_bio *bbio)
-> @@ -1762,6 +1760,7 @@ static void scrub_reset_stripe(struct scrub_stripe =
-*stripe)
->         stripe->nr_meta_extents =3D 0;
->         stripe->nr_data_extents =3D 0;
->         stripe->state =3D 0;
-> +       reinit_completion(&stripe->repair_done);
->
->         for (int i =3D 0; i < stripe->nr_sectors; i++) {
->                 stripe->sectors[i].csum =3D NULL;
-> @@ -1960,8 +1959,7 @@ static int flush_scrub_stripes(struct scrub_ctx *sc=
-tx)
->         for (int i =3D 0; i < nr_stripes; i++) {
->                 stripe =3D &sctx->stripes[i];
->
-> -               wait_event(stripe->repair_wait,
-> -                          test_bit(SCRUB_STRIPE_FLAG_REPAIR_DONE, &strip=
-e->state));
-> +               wait_for_completion(&stripe->repair_done);
->         }
->
->         /* Submit for dev-replace. */
-> @@ -2236,8 +2234,7 @@ static int scrub_raid56_parity_stripe(struct scrub_=
-ctx *sctx,
->         for (int i =3D 0; i < data_stripes; i++) {
->                 stripe =3D &sctx->raid56_data_stripes[i];
->
-> -               wait_event(stripe->repair_wait,
-> -                          test_bit(SCRUB_STRIPE_FLAG_REPAIR_DONE, &strip=
-e->state));
-> +               wait_for_completion(&stripe->repair_done);
->         }
->         /* For now, no zoned support for RAID56. */
->         ASSERT(!btrfs_is_zoned(sctx->fs_info));
-> --
-> 2.56.0
->
->
