@@ -1,47 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794921748;
-	b=E4Ce1jAAd9iS99eMTQBWp2PlQ98eR7ffMeaiIGZMAsoU778jHD6xe4c68ijQh/gqIuz7
-	 Yknwv+pJFs9vtBqu+mAddAlJrlK/AAz4Rx4yISKpmvHDwN9zGyqf3RHzWg5QzVXspEU4A
-	 OyuYGGD7YB4y/LgxGh7VHtluo16UTTUtI+9d0Avo+Phvi7wI0cU+pa/KMxyKcLD1ACamU
-	 H1Ee8Ve+u/Qu6kf3HYEaW5/5VHrH7wad2IuKPP92AFegokUC2uGYGRnKCppHa/IVZX/+9
-	 pzTCTIpXxQRdZtTpiC3H/1g8RTAN35nUdeyCz/1SZkZ6RSl1u5ogte5B/OI48IkIfeg==
+	t=1794922036;
+	b=K24/uJ82TnbfGNP02wZz+NvC3p+itIMNomqXMNeXjPyqhiF+pGCGTGWTZNL/Qi1c18Ns
+	 iGrLxaJaZZ6oMj6KGEyDkP3URR0sHAhYABUMoDeDI71ToTipXbIZr2X95JRLDC2Ooh+s8
+	 RzbT9ihTyhSGXVIywZ7+3fNRRrJNVLNobQzN2XvC6o6/BwIvAjnwuJXOE170AFH/0273a
+	 ksToofAS+2mZbHYAtvhmQar581pB4NlHbiPTBNzpa1VM0BDk69Our3lkFgZ78nCqQBoL6
+	 jUsDjkGpoeUcjECFH4vK228eG7FVIDdCd8p42P/XFACKGp3U/8wHE5pstOWiSc7y6og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794921748;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=q3DDGb9IWTrX6Pj2/yvRpbRR5C2SwHZTF4cKOKzF0BE=;
-	b=DuG8h9BqycZWg9B3V8VdZIh2wFwzkRXcvzpLSO5DAGwfUtWagQEGQkFmJoka7LmsBilx
-	 raJe8tkrWC1RBLIQ0WIfQZZ/PxihhI+lJwtwBBxNQL2Q/mpUhJWan+2CBUqovUI6Gdis9
-	 5lzMQGr4EuyguAYK1gwK0kizhtJZlHTK/x/bZorqL1nsvfwLGB3xAS9aysoowC6y90WGC
-	 +yNFIRLtd0S5ntBAr4L6P8DMemp2vT2N8O7uiyzICyWJRCrzUUAQ0Uqs/8Tisefa8OYCM
-	 S96wvVavC1iboTZC05Nm8+rk6rpP+pJsAfd3UZ+Hck0HlInMXbUUGuNxY0lawnfbbvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794922036;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=DhpQikh/j+IYKn/SiXHM5qk/4wFDsh9pRbRs8jpBleU=;
+	b=NtPSJSC5ZRmz7Ghwn1F9T8XlnHV2jKRAxu6zOPFAIbFhH0x6N3oD6Jrw9l+uJN7Lh+3Q
+	 Bry9jqmceErCedZ6mMsOY3m2feaZ0YHwmawK/W0SF7ImWR4gofVqISC+0CpxFZvYCVxAd
+	 Ko3cen4aGTodjaGCZUu/nxhDrSuaRNmBsync1nCO1HBDxa2ttSOY9d89s0jq5KC3lX1EU
+	 vHPe0BODTqzo64SP7YwVtoZlFIO0lSLsXxfuIaJyXBdajoglqDtqMgFzXpvmWP63yfZze
+	 4Ys3DV7fuYL0/s+neeV0/RDwb5jx+9iL6mGkUdrT31XNhwRxWVN+HqU/o6R+B9BHpbw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jx2oSxX+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LcOiSOKu;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67F9F606A31C;
-	Tue, 17 Nov 2026 13:22:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DF1D606A323
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 13:27:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DF1D606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Jx2oSxX+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 413851F000C4;
-	Tue, 17 Nov 2026 13:22:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794921748;
-	bh=q3DDGb9IWTrX6Pj2/yvRpbRR5C2SwHZTF4cKOKzF0BE=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=Jx2oSxX+IU18hyzbBGG7w9MRE/DIzQJSc4ET5lo0jg4JQa98smVR7OxpWgm4SHRPX
-	 u7OMazaimrueAqRx9PmQ3P32Cze5fX6r+Je5X85meHlA5IRMs5QIFhgZtUc+BIFM7a
-	 Pycg6HW6OAEYt69r7P0VzR+wHi/oW0l0xutIHO62AkEhH+w07FictKvxKpLehkKOft
-	 VZ/25wKnqVDDydG9wL7/0CI6DP32HOUHU58J6WaPXB2zVaRVX4UOaImZmHEtGwJSPD
-	 EB/O9cw6b503V3d53Gct+rBGFkrS7ClN8E7dyXusrIbM5c4jUqI2LlUOp2Zl4wGu89
-	 cGBAAGBY/iHdw==
-Message-ID: <86f9796a-2d2f-4e5a-875c-d2714bd76c58@kernel.org>
-Date: Tue, 17 Nov 2026 14:22:22 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LcOiSOKu
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1794922035;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DhpQikh/j+IYKn/SiXHM5qk/4wFDsh9pRbRs8jpBleU=;
+	b=LcOiSOKusLHd8FboIu3hI6wzpEJn1UvxqP+ylDKOjsUGznep3faoD/a1gZTh8yP79MAkka
+	GIu/tY20yCMdBjzAvKhwdH0VB4LKUyyehVPzXRkUkGRloitYxYBvrWoxiYRg2aYK0H20G6
+	45K0ca+rrnisXNfc/X41JpWcLV+ZT/Y=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-70-vqidz2F6MtC3esXBLjIAAQ-1; Tue,
+ 17 Nov 2026 08:27:11 -0500
+X-MC-Unique: vqidz2F6MtC3esXBLjIAAQ-1
+X-Mimecast-MFC-AGG-ID: vqidz2F6MtC3esXBLjIAAQ_1794922029
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 107041955D88;
+	Tue, 17 Nov 2026 13:27:09 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id A1725180054B;
+	Tue, 17 Nov 2026 13:27:05 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Tue, 17 Nov 2026 14:27:08 +0100 (CET)
+Date: Tue, 17 Nov 2026 14:27:04 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Mateusz Guzik <mjguzik@gmail.com>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	tz2294@columbia.edu, stable@vger.kernel.org,
+	Mani Tofigh <mt4022@columbia.edu>
+Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
+Message-ID: <avxWKI795DthE8Sb@redhat.com>
+References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,201 +84,209 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [merged mm-hotfixes-stable]
- assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node.patch removed
- from -mm tree
-To: Andrew Morton <akpm@linux-foundation.org>, mm-commits@vger.kernel.org,
- stable@vger.kernel.org, jarkko@kernel.org, dhowells@redhat.com,
- 4ncienth@gmail.com
-References: <20261110064551.3EA5D1F008A1@smtp.kernel.org>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261110064551.3EA5D1F008A1@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-On 11/10/26 07:45, Andrew Morton wrote:
-> The quilt patch titled
->      Subject: assoc_array: discard shortcut when collapsing a leaf-only node
-> has been removed from the -mm tree.  Its filename was
->      assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node.patch
-> 
-> This patch was dropped because it was merged into the mm-hotfixes-stable branch
-> of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-> 
-> ------------------------------------------------------
-> From: Daehyeon Ko <4ncienth@gmail.com>
-> Subject: assoc_array: discard shortcut when collapsing a leaf-only node
-> Date: Fri, 25 Sep 2026 17:05:48 +0900
-> 
-> assoc_array_delete() can collapse a subtree into a node that contains only
-> leaves while retaining the shortcut that led to it.  If that node later
-> fills, all_leaves_cluster_together replaces it with another shortcut.  The
-> first shortcut then points directly to the second one.
-> 
-> assoc_array_apply_edit() publishes this topology and propagates branch
-> counts from the new child node.  It skips the inner shortcut, encounters
-> the outer shortcut where it requires a node and triggers the BUG_ON().
-> 
-> Linux v7.2 and v6.12.105 are affected.  The same root remains at the
-> base-commit below and in every supported stable branch checked down to
-> 5.10.  It requires CONFIG_KEYS, but no capability, user namespace or race.
-> A UID/GID 1000 process produced:
-> 
->   CONTROL_BEGIN mode=exact uid=1000 gid=1000
->   CONTROL_CapEff: 0000000000000000
->   kernel BUG at lib/assoc_array.c:1388!
->   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
->   CPU: 0 UID: 1000 PID: 154 Comm: exploit
->   RIP: assoc_array_apply_edit+0x4aa/0x690
->   Call Trace:
->    __key_link
->    __key_instantiate_and_link
->    __key_create_or_update
->    __do_sys_add_key
->   Kernel panic - not syncing: Fatal exception
-> 
-> When deletion produces a leaf-only node, bypass its preceding shortcut as
-> garbage collection already does.  Retire the shortcut and old node
-> together after an RCU grace period; reused leaves keep their references
-> and the deleted leaf is still freed separately.
-> 
-> The exact trigger reached the BUG in 3/3 unmodified v7.2 KASAN boots and
-> completed cleanly in 3/3 fixed boots.  Fixed v6.12.105 also passed 3/3.  A
-> source reproducer is available privately on request.
-> 
-> Link: https://lore.kernel.org/20260925080548.2505640-1-4ncienth@gmail.com
-> Fixes: 3cb989501c26 ("Add a generic associative array implementation.")
-> Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-> Cc: David Howells <dhowells@redhat.com>
-> Cc: <stable@vger.kernel.org>
+Mani reports the case when f1cebdec9739 ("pipe: only enable the extra
+wake_up(rd_wait) for EPOLLET consumers") makes a difference, see his
+email below.
+
+But lets forget about that commit for the moment. With or without that
+commit this trivial test-case hangs,
+
+	#include <unistd.h>
+	#include <sys/epoll.h>
+	#include <sys/wait.h>
+	#include <assert.h>
+	#include <stdio.h>
+
+	int main(void)
+	{
+		int pfd[2], efd;
+		struct epoll_event evt = { .events = EPOLLIN | EPOLLEXCLUSIVE };
+		char c;
+
+		pipe(pfd);
+		efd = epoll_create1(0);
+		epoll_ctl(efd, EPOLL_CTL_ADD, pfd[0], &evt);
+
+		if (!fork()) {
+			epoll_wait(efd, &evt, 1, -1);
+			read(pfd[0], &c, 1);
+			printf("1st: %c\n", c);
+			return 0;
+		}
+
+		sleep(1);
+
+		if (!fork()) {
+			read(pfd[0], &c, 1);
+			printf("2nd: %c\n", c);
+			return 0;
+		}
+
+		sleep(1);
+
+		write(pfd[1], "12", 2);
+		assert(wait(NULL) > 0);
+		assert(wait(NULL) > 0);
+
+		return 0;
+	}
+
+the 2nd non-epoll child sleeps in read(pfd[0]) even if pipe is not empty.
+
+anon_pipe_read() assumes that all exclusive waiters on pipe->rd_wait come
+from anon_pipe_read()->wait_event_interruptible_exclusive(), and the woken
+reader will set wake_next_reader = true.
+
+However, EPOLLEXCLUSIVE breaks this logic. ep_ptable_queue_proc() does
+add_wait_queue_exclusive() if EPOLLEXCLUSIVE is set. So write(pfd[1]) above
+wakes up the 1st "epoll" child, which then reads one byte from the pipe without
+sleeping, so it doesn't set wake_next_reader and thus it doesn't wakeup the
+2nd waiter.
+
+Again, this happens with or without f1cebdec9739. But that commit makes a
+difference: the 2nd child will continue to sleep even after another write
+to this pipe. So Mani suggests the trivial change which should restore the
+previous behaviour
+
+	--- a/fs/pipe.c
+	+++ b/fs/pipe.c
+	@@ -700,9 +700,13 @@ pipe_poll(struct file *filp, poll_table *wait)
+		 * and the ->pseudo_edgetrigger check in anon_pipe_write().
+		 * Currently io_uring sets EPOLLET for multishot polls, so it gets the
+		 * same behaviour.
+	+	 *
+	+	 * EPOLLEXCLUSIVE needs them too.  Its entry is an exclusive waiter on
+	+	 * ->rd_wait that can take the wakeup meant for a blocked reader, and
+	+	 * unlike a woken reader in anon_pipe_read() it doesn't pass it on.
+		 */
+		if ((filp->f_mode & FMODE_READ) &&
+	-	    wait && (wait->_key & EPOLLET) &&
+	+	    wait && (wait->_key & (EPOLLET | EPOLLEXCLUSIVE)) &&
+		    unlikely(!READ_ONCE(pipe->pseudo_edgetrigger)))
+			WRITE_ONCE(pipe->pseudo_edgetrigger, true);
+
+But I can't decide if we actually want to bless another historical
+"nonsensical" wakeup until have a user application that actually cares?
+
+Again, the test-case above will hang with or without the patch above, with
+or without f1cebdec9739. So do we really care? If yes, then perhaps we should
+also change anon_pipe_read(), something like
+
+	--- a/fs/pipe.c
+	+++ b/fs/pipe.c
+	@@ -468,6 +468,8 @@ anon_pipe_read(struct kiocb *iocb, struct iov_iter *to)
+		}
+		if (pipe_is_empty(pipe))
+			wake_next_reader = false;
+	+	else if (pipe->pseudo_edgetrigger) // for EPOLLEXCLUSIVE
+	+		wake_next_reader = true;
+		/* Consumed buffers may have refilled the pool; trim it and unlock. */
+		anon_pipe_trim_and_unlock(pipe);
+
+?
+
+(of course, this won't help if the 1st child doesn't do read() after epoll_wait()).
+
+What do you think?
+
+Oleg.
+
+On 11/11, Mani Tofigh via B4 Relay wrote:
+>
+> From: Mani Tofigh <mt4022@columbia.edu>
+>
+> A task blocked in read() on a pipe can sleep while the pipe holds data,
+> when an epoll(EPOLLEXCLUSIVE) watcher of the read end was added before
+> it.  The watcher's entry on ->rd_wait is exclusive and sits ahead of the
+> reader, so a write into an empty pipe wakes only the watcher.  The
+> watcher reads without sleeping in anon_pipe_read() and doesn't pass the
+> wakeup on.  Since commit f1cebdec9739 ("pipe: only enable the extra
+> wake_up(rd_wait) for EPOLLET consumers") the next writes into the
+> non-empty pipe don't wake anyone anymore:
+>
+>   Task E                   Task A                 Task C
+>   epoll_wait(ep, -1)
+>     /* EPOLLEXCLUSIVE */
+>                            read(p[0])
+>                                                   write(p[1], "1")
+>                                                     /* wakes E only */
+>                                                   write(p[1], "2")
+>                                                     /* no wakeup */
+>   read(p[0], 1 byte)
+>   exit()
+>                            /* still asleep, "2" is in the pipe */
+>
+> A then sleeps until the next write into an empty pipe, if ever.  Before
+> that commit any pipe_poll() enabled the per-write wakeups.  Those
+> reached A because an EPOLLEXCLUSIVE entry only takes a wakeup while a
+> task sleeps in epoll_wait().
+>
+> So EPOLLEXCLUSIVE consumers depend on the per-write wakeups too, for a
+> different reason than EPOLLET.  Enable them for EPOLLEXCLUSIVE as well
+> and say why in the comment.  With the fix, A reads the second byte.
+>
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it within about 2s.
+>
+> Fixes: f1cebdec9739 ("pipe: only enable the extra wake_up(rd_wait) for EPOLLET consumers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
 > ---
-> 
->  lib/assoc_array.c |   36 ++++++++++++++++++++++--------------
->  1 file changed, 22 insertions(+), 14 deletions(-)
-> 
-> --- a/lib/assoc_array.c~assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node
-> +++ a/lib/assoc_array.c
-> @@ -1210,8 +1210,22 @@ found_leaf:
->  				goto enomem;
->  			edit->new_meta[0] = assoc_array_node_to_ptr(new_n0);
->  
-> -			new_n0->back_pointer = node->back_pointer;
-> -			new_n0->parent_slot = node->parent_slot;
-> +			/* A shortcut above a leaf-only node is redundant.  Drop it as
-> +			 * GC does so that a later split can't create two shortcuts in a row.
-> +			 */
-> +			ptr = node->back_pointer;
-> +			if (assoc_array_ptr_is_shortcut(ptr)) {
-> +				struct assoc_array_shortcut *s =
-> +					assoc_array_ptr_to_shortcut(ptr);
-> +
-> +				new_n0->back_pointer = s->back_pointer;
-> +				new_n0->parent_slot = s->parent_slot;
-> +				edit->excised_subtree = ptr;
-> +			} else {
-> +				new_n0->back_pointer = ptr;
-> +				new_n0->parent_slot = node->parent_slot;
-> +				edit->excised_subtree = assoc_array_node_to_ptr(node);
-> +			}
->  			new_n0->nr_leaves_on_branch = node->nr_leaves_on_branch;
->  			edit->adjust_count_on = new_n0;
->  
-> @@ -1225,21 +1239,15 @@ found_leaf:
->  			pr_devel("collapsed %d,%lu\n", collapse.slot, new_n0->nr_leaves_on_branch);
->  			BUG_ON(collapse.slot != new_n0->nr_leaves_on_branch - 1);
->  
-> -			if (!node->back_pointer) {
-> +			if (!new_n0->back_pointer) {
->  				edit->set[1].ptr = &array->root;
-> -			} else if (assoc_array_ptr_is_leaf(node->back_pointer)) {
-> -				BUG();
-> -			} else if (assoc_array_ptr_is_node(node->back_pointer)) {
-> -				struct assoc_array_node *p =
-> -					assoc_array_ptr_to_node(node->back_pointer);
-> -				edit->set[1].ptr = &p->slots[node->parent_slot];
-> -			} else if (assoc_array_ptr_is_shortcut(node->back_pointer)) {
-> -				struct assoc_array_shortcut *s =
-> -					assoc_array_ptr_to_shortcut(node->back_pointer);
-> -				edit->set[1].ptr = &s->next_node;
-> +			} else {
-> +				struct assoc_array_node *p;
-> +
-> +				p = assoc_array_ptr_to_node(new_n0->back_pointer);
-> +				edit->set[1].ptr = &p->slots[new_n0->parent_slot];
->  			}
->  			edit->set[1].to = assoc_array_node_to_ptr(new_n0);
-> -			edit->excised_subtree = assoc_array_node_to_ptr(node);
->  		}
->  	}
+> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/pipeexcl.c
+>
+> There are a couple of older gaps like this (a single write, and the
+> write side with EPOLLOUT|EPOLLEXCLUSIVE).  I left both alone here though.
+> ---
+>  fs/pipe.c                 | 6 +++++-
+>  include/linux/pipe_fs_i.h | 2 +-
+>  2 files changed, 6 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/pipe.c b/fs/pipe.c
+> index 4c1122597a3c..8ad792d300c9 100644
+> --- a/fs/pipe.c
+> +++ b/fs/pipe.c
+> @@ -700,9 +700,13 @@ pipe_poll(struct file *filp, poll_table *wait)
+>  	 * and the ->pseudo_edgetrigger check in anon_pipe_write().
+>  	 * Currently io_uring sets EPOLLET for multishot polls, so it gets the
+>  	 * same behaviour.
+> +	 *
+> +	 * EPOLLEXCLUSIVE needs them too.  Its entry is an exclusive waiter on
+> +	 * ->rd_wait that can take the wakeup meant for a blocked reader, and
+> +	 * unlike a woken reader in anon_pipe_read() it doesn't pass it on.
+>  	 */
+>  	if ((filp->f_mode & FMODE_READ) &&
+> -	    wait && (wait->_key & EPOLLET) &&
+> +	    wait && (wait->_key & (EPOLLET | EPOLLEXCLUSIVE)) &&
+>  	    unlikely(!READ_ONCE(pipe->pseudo_edgetrigger)))
+>  		WRITE_ONCE(pipe->pseudo_edgetrigger, true);
+>
+> diff --git a/include/linux/pipe_fs_i.h b/include/linux/pipe_fs_i.h
+> index 95f6236c5c5b..6b2e14ec6ef8 100644
+> --- a/include/linux/pipe_fs_i.h
+> +++ b/include/linux/pipe_fs_i.h
+> @@ -90,7 +90,7 @@ struct anon_pipe_prealloc {
+>   *	@files: number of struct file referring this pipe (protected by ->i_lock)
+>   *	@r_counter: reader counter
+>   *	@w_counter: writer counter
+> - *	@pseudo_edgetrigger: has an EPOLLET consumer, enable per-write wakeups
+> + *	@pseudo_edgetrigger: enable per-write wakeups for EPOLLET/EPOLLEXCLUSIVE
+>   *	@fasync_readers: reader side fasync
+>   *	@fasync_writers: writer side fasync
+>   *	@bufs: the circular array of pipe buffers
+>
+> ---
+> base-commit: b0993210e420f2f1d61e6719fbcd3966b96ff9ed
+> change-id: 20261111-pipe-epollexclusive-wakeup-981528041b4d
+>
+> Best regards,
+> --
+> Mani Tofigh <mt4022@columbia.edu>
+>
+>
 
-This causes conflicts with upstream. I suspect with Linus' cleanups part of
-
-commit 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4 (origin/master, origin/HEAD,
-master, base)
-Merge: 141b164bbe18 bbab563c5131
-Author: Linus Torvalds <torvalds@linux-foundation.org>
-Date:   Mon Nov 16 09:35:38 2026 -0800
-
-    Merge tag 'assoc-array-fixes-v2'
-
-    Clean up assoc_array library code
-
-It's in akpm/mm-hotfixes-unstable, but is this really MM material?
-
-Sounds more like nonmm stuff.
-
-Anyhow, I'll drop this from now from mm-next as I couldn't easily figure out how
-to resolve this (or if it is still required).
-
--- 
-Cheers,
-
-David
