@@ -1,66 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794908140;
-	b=crwUK2DQD7cbL8nYzy0ZahbyEjhrdS7FtxbTL2cO0ndbvdAJZE4cBmsqFe2gYP9KKu9S
-	 7dC7HsU99KKwL+qi1ZnIx2swiDfhlvlqhEVvGVA+BfLrY8eC4gkEff9zAk3VvCCUm0NpC
-	 IvknMHXTOhNZXz7i9pHZDLa6eKsoYHoQudKbu9o7OsHa1U7GJXYVQjT4M4ouDMiA9CWmi
-	 10dMv+2VeQN+su3uCeM564PmROPDAfzhZBS1OJ20mBJOCAjFFfvpPyhovrB8Jadeh5XXS
-	 Kd38DlHN/Q0b/1CyUA/ZBXW+Dd1X697ySLANNV794S2h7MkvYfEOiP8w1g42NP/b1Tw==
+	t=1794908246;
+	b=zKuLFYKLSBkcXb1pof4l3rBUXxqNdBr184q2eMdtlBfrawv1rU8NLWdJZxoS2OlZ7SXZ
+	 dFTKtLaH2ZUZPYPMVLiVk0lhZamgFSHNt/neLHkxRv5ZVcsHv1XPdmuEHGunSuJBdUQBQ
+	 nDK5JeqaeGvx0oia+gCA0Q3K0JqMKBLmg5Q6hOvcpKhKv5guRQwdfOVtZkU/DKOL19Tt/
+	 v/opPXl2ZcYqDI3YZ1ricsoEOod2f31/1lFPSFWp98ehnyv2K9peNCv5IZIrI/Bc9YZsO
+	 IPQiMLAzQ2ylWUbECHfwrbRiySFxd/T4RvgY35cnltiacDnbMk+nEqpQOkZHo77QNBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794908140;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OhiR+JSPx8omGjT6b8YvAiFiu4YN/j7mPCjJR2bPM4M=;
-	b=0JVvMRMQOK9NO1Xp9k50FbW9440v7lPlfGg9rI8IXr5lM95+ur28zeG3Dd7XiADjPW4+
-	 YhCkh+9X7NPVHlTKeDKcGRr4f3F8YaNJDVB0WuJ4bSIDXYlb/Vd2zRAeWA7Hoh8hKD0b/
-	 2qvuHtDN5iSNx9BeKt2PJtO/BONyzQYuhHIUqNEaJ6N/OMuZqlTnuastUuZ1YVupPzVhK
-	 OM9KTW7LTlwfYnAyTL6aiHFs95VlcyZITTwB2cR/k95GuoJIBc2o5NcTvEzWJEXqOKUBc
-	 stNzgQobF8M2o7jWxXQO6pEj4SKZleJBWQzrLblUZf4qiBabAZJiqjz7FcH3PCptojA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794908246;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=OFzWKIpfqvHsogWlMHgoDk6JLusnQb0ygt1RW9vKSgw=;
+	b=nxG8dZ96ou2br9v33LHy0C8VSw6GzK4b0980nx6f4GWka9Y214s7oSjkR6QN3INKOnj0
+	 qYo1biH22qe5Zt9ziCJSjNGT7VhyjGVhEUaALCxxYglEamJ8ZvWiUCEhDT+xzMH2BuXst
+	 pOQHff6MYmXrrkcRTEA3kPN9QG6/ntSlGFxrjX48HE7NzlZCGHzhqSzapZ0PewS/oo2yi
+	 k2GMu5pBOQnFCp72j8ILr1NAGpWqiHCU6To1sO80Kxd9W7ygjFl9LnBx5hTTdsb57PK57
+	 mMVJIujPTlwHT+TuuA4EQz5xHyqZpQzYQPm3kWY5YXyVkqWQIRx/n35yfyDzy3zKiSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DeiMapPB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ket+7AUd;
+	arc=none smtp.remote-ip=209.85.210.180
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B8DB606A31C;
-	Tue, 17 Nov 2026 09:35:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CA8606A323
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:37:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94CA8606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DeiMapPB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F4831F000C7;
-	Tue, 17 Nov 2026 09:35:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794908139;
-	bh=OhiR+JSPx8omGjT6b8YvAiFiu4YN/j7mPCjJR2bPM4M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DeiMapPBv1qnuZUks3+vkS9vQKhSFANKRAJ00GG+00KAmW2BdHrdtW8WHT3e7iLFT
-	 nFsxfKcIH+zwLmNxDc5T82lDHypUqr4zvbMzkDiBdX2xlVsMRMDXlYIUMN86mqKymX
-	 LPDm1tMHkzqr+5j3EGKoPojPubh99V3FTvO4EHnXyOT6BZr6aCr784DVkDXJ09lGLZ
-	 1VMTbY4l0g4skbmWuvlOozXZGbmB3QTOv8+K+o3njnYzVx5p4wxsAAor6jUfgfr3aR
-	 Yqx/cKJrh+//dpjUnqtVm56/u+soAo0+ZDo/oDtwLoIAOUEg9Q6UoAbP+CbK3yiizj
-	 QvU61S7rOaqjw==
-Date: Tue, 17 Nov 2026 09:35:30 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, Peter Xu <peterx@redhat.com>, 
-	Zi Yan <ziy@nvidia.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
-	Roman Kisel <romank@linux.microsoft.com>, Saurabh Sengar <ssengar@linux.microsoft.com>, 
-	Naman Jain <namjain@linux.microsoft.com>, Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] mm/memory: remove racy huge PMD assertion from
- walk_to_pmd()
-Message-ID: <avwbrON3_cCtaR20@gremlin>
-References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
- <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
- <dccf94b3-b901-4311-a233-488c87195dc5@kernel.org>
- <avs1rOJQ1gV33z8w@gremlin>
- <61d4f3ee-7a0b-4a8b-b5a2-35380dd46b4c@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ket+7AUd
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8b5c3288e6cso1992176b3a.3
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:37:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794908245; x=1795513045; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OFzWKIpfqvHsogWlMHgoDk6JLusnQb0ygt1RW9vKSgw=;
+        b=Ket+7AUdfnXGpxqEyOMcN0ibsbMUl850mzNv13fsw9jkNT0qV7qFKg6L+QznPksHGO
+         EgzcFuXKWMQcE0zBKXbpjyYBZ/uNetOVouaWgJQdv610bFV2MWf1Yj0+sYdjY/FkvRZo
+         D/jOQLl69uvTKIJtD4Sha4Rqv2yYrRo6oK9BOUXC9weEShuQqYGO7JveBntb5vd55VTF
+         dFhh53mkuhhktS0ax9hMNl/Dr8kgOWm1SFGkOXBmbdtG/n4pxVyvIgI+maFQhTlclUq/
+         rGDyc6SRSeLRc2082Hvgr2b8z3ix1qcKjdkARPKHfTzr2B6U67r1KY8cX504LQVo7EkL
+         CoNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794908245; x=1795513045;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OFzWKIpfqvHsogWlMHgoDk6JLusnQb0ygt1RW9vKSgw=;
+        b=Y65WDbtodCEVq6lF47zY6aEspr0w5FpgQust8wNJ7D1jb2rC/wW0tM+mmHH3v2G3YM
+         zj7L51+G0YK7evLiHhtB5W32NlLBr0DQiAhBH8dlvviOsQbv7iEPhBiIgwZ+Iu4LbLC0
+         EAZT5pHiU8r0vMnXo8g/+MU06TZFcA39ptd2v3bk0sPQ1hxdejaJLuRKFzU1G8XLPnex
+         8aD0euO4DTw6Dsw9eC2RzOHHAH3uegA01pGGANSDJcDhESrbfk6mJbDZmOMJ1g4nbVwF
+         z9GQpuc3Pg1eoI1/2Ej3y8eeqzLUQWmIgdiHdRMLxluvxgyKMAKSaJjcY527P8eVw6E+
+         i6rw==
+X-Forwarded-Encrypted: i=1; AL+hErEARwDnLj/j19oOpoY+cxAi8HumRIhnTRYavZoKBWfRAcZaYRnVO5i+W2u91y+yKY7lAIrw6Bk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z85QWWp03Aj/oQJVmMam2l20hW8s28AmRTz4VEePSKMVftq4zjT
+	TthfIrt/+s7binjUvFnQwjmCeoqtpfpZMgFY2/wky6miEGT7RgBIwGlt
+X-Gm-Gg: AYBFou1pa522efHt+x/fb6Ge1i2tVvn4Lv80Win0E/llx0VECJ2cqqA107zkIB1K3aA
+	AKc6crcOst1MBinR9BOuNdyenoDzgh5IJ3ImQckTFCtKWnm8SbgP0mp1YBeoLAvht0GDfzrxQz6
+	nxF63iPTvYs/MRBvorfsKAt7qpnzgv84IcZMD54sSoHc4AIyZOxadkDmzjeSPkA0zeb6buZ3Bjc
+	lZ0N9IiahBmPQXtoRo/6isCRPas4LyVhT1YWBSF372u5dAWjQRttEchtHOHIcqbfi1Q9Xm9ira3
+	giZTS1GjURerC901JM2B/kAbuuVmMw2XpdVVefECgezpQLMdyoF6FuJo4+AYo0yDL31OA09UKKi
+	uk3zqZ8socJLBhADomYS7AKVSWDq+J8q3MMnpMuE8ClDyz9fSn+3IrLwKFyPI4PjVb4PtZQBtWc
+	mHq9SxG/lkWJrlvzwE312fWq7Htsh4Bk1MqAMu6koJTth/8KzH45tHwbOrR+dwcGgUX+FF71qFh
+	nuo0aRGfT504oXDeFcIhIMQ3ostKL6lKXOwWESOS83UBdv/9KBhAPrDn3ShWKKIyhBO4awqNRvO
+	gjugis8b2YzyxLRI62pfZa1e+Td2jjASG8Mq5hKQRMFuE3Hq
+X-Received: by 2002:a05:6a00:1995:b0:89d:29fb:b5e7 with SMTP id d2e1a72fcca58-8beb5da5bf5mr12558126b3a.24.1794908244905;
+        Tue, 17 Nov 2026 01:37:24 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8bed2b190bfsm4804882b3a.50.2026.11.17.01.37.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 01:37:24 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Scott Branden <scott.branden@broadcom.com>
+Cc: bcm-kernel-feedback-list@broadcom.com,
+	Arnd Bergmann <arnd@arndb.de>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] misc: bcm-vk: bound plane descriptors against the message buffer
+Date: Tue, 17 Nov 2026 18:37:12 +0900
+Message-ID: <20261117093712.185359-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -70,117 +98,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <61d4f3ee-7a0b-4a8b-b5a2-35380dd46b4c@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 09:06:21PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/16/26 18:10, Lorenzo Stoakes (ARM) wrote:
-> > On Mon, Nov 16, 2026 at 04:56:25PM +0100, David Hildenbrand (Arm) wrote:
-> >> On 11/15/26 21:58, Lorenzo Stoakes (ARM) wrote:
-> >>> From: Eliav Farber <farbere@amazon.com>
-> >>>
-> >>> walk_to_pmd() asserts that the PMD entry it returns is not huge, but does
-> >>> so without holding the PMD lock, so the assertion is only valid if nothing
-> >>> can concurrently install a huge PMD entry in the range.
-> >>>
-> >>> This is not the case for a VMA whose driver implements both ->fault and
-> >>> ->huge_fault and which invokes vmf_insert_pfn() from the former.
-> >>>
-> >>> The existence of prctl(PR_SET_THP_DISABLE) is problematic here, as it only
-> >>> takes the mmap write lock and faults taken under the VMA lock are
-> >>> unaffected by this.
-> >>>
-> >>> This can result in two concurrent threads faulting the same thing
-> >>> disagreeing as to whether to attempt a huge fault and thus ->fault and
-> >>> ->huge_fault running at the same time and triggering this assertion.
-> >>>
-> >>> So just remove the assert.
-> >>>
-> >>> Target the commit which introduced the first driver able to do this for the
-> >>> fix - vfio-pci. DAX also mixes fault orders within a VMA, but serialises
-> >>> them using its own mapping entry lock.
-> >>>
-> >>> Link: https://lore.kernel.org/all/20261112051440.16140-2-farbere@amazon.com/
-> >>> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
-> >>> Cc: stable@vger.kernel.org
-> >>> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> >>> [ ljs: rewrote commit message ]
-> >>> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> >>> ---
-> >>>  mm/memory.c | 1 -
-> >>>  1 file changed, 1 deletion(-)
-> >>>
-> >>> diff --git a/mm/memory.c b/mm/memory.c
-> >>> index 3a20d64fd276..e03110906aa8 100644
-> >>> --- a/mm/memory.c
-> >>> +++ b/mm/memory.c
-> >>> @@ -2384,7 +2384,6 @@ static pmd_t *walk_to_pmd(struct mm_struct *mm, unsigned long addr)
-> >>>  	if (!pmd)
-> >>>  		return NULL;
-> >>>
-> >>> -	VM_BUG_ON(pmd_trans_huge(*pmd));
-> >>>  	return pmd;
-> >>>  }
-> >>>
-> >>>
-> >>
-> >> Could this also stumble over a huge PUD somehow? Should we just prepare it for
-> >> any leaves and bail out if we find some?
-> >
-> > No, walk_to_pmd() can only come from the order-0 path right now and
-> > __handle_mm_fault() makes sure that can't happen in the fault path:
->
-> That implies that get_locked_pte() and all insert_pages interfaces can only be
-> called from that path in __handle_mm_fault().
->
-> x86 an s390x use get_locked_pte() for some other paths, so I wouldn't want to
-> trust on that :)
+In bcm_vk_write(), a VK_FID_TRANS_BUF message embeds an array of
+num_planes struct _vk_data descriptors at the end of the message.  Their
+start is computed as:
 
-Well, I had claude go look through everything and there are no paths which are
-problematic _now_ :) but future-proofing is a good idea because assumptions like
-this bite you in the... assembly *ahem*
+	data = (struct _vk_data *)&entry->to_v_msg[msg_size + 1];
+	data -= num_planes;
 
->
-> (did I say that I hate walk_to_pmd and get_locked_pte? But you likely guessed it
-> at this point lol)
+num_planes (0..15) comes from the message cmd field and msg_size (a u8)
+from the size field; both are fully controlled by user space and are only
+checked with 'msg_size > to_v_blks'.  Nothing verifies that the plane
+count is consistent with the message size, so a crafted message (for
+example size 0 with a non-zero plane count) makes 'data' underflow below
+the copied buffer.  bcm_vk_sg_alloc() then reads num_planes descriptors
+from out-of-bounds memory and interprets them as DMA addresses/sizes.
 
-Yeah they're bloody awful aren't they? :)
+Reject any message whose descriptor range does not fall entirely within
+the buffer copied from user space.
 
->
-> >
-> > 	vmf.pmd = pmd_alloc(mm, vmf.pud, address);
-> > 	if (!vmf.pmd)
-> > 		return VM_FAULT_OOM;
-> >
-> > 	/* Huge pud page fault raced with pmd_alloc? */
-> > 	if (pud_trans_unstable(vmf.pud))
-> > 		goto retry_pud;
-> >
-> > So by the time any ->fault path runs, the PUD is stable.
-> >
-> > We don't have to worry about the mmap paths as at that point nothing has
-> > faulted in and it's all fresh.
-> >
-> > So it's all safe as things stand.
-> >
-> > But could update for future-proofing like:
-> >
-> > 	/* PUD leaf might have been installed. */
-> > 	if (pud_trans_unstable(pud))
-> > 		return NULL;
->
-> Yeah, that makes sense. I was just wondering whether we'd actually want to
-> return a proper error then instead, because this would not be an -ENOMEM case.
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ drivers/misc/bcm-vk/bcm_vk_msg.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-Let me have a fiddle and see what I can come up with, maybe we can use this as
-an excuse to improve things a bit... :)
+diff --git a/drivers/misc/bcm-vk/bcm_vk_msg.c b/drivers/misc/bcm-vk/bcm_vk_msg.c
+index 17114092a284..e0d57f99a569 100644
+--- a/drivers/misc/bcm-vk/bcm_vk_msg.c
++++ b/drivers/misc/bcm-vk/bcm_vk_msg.c
+@@ -1192,6 +1192,21 @@ ssize_t bcm_vk_write(struct file *p_file,
+ 		/* Now back up to the start of the pointers */
+ 		data -= num_planes;
+ 
++		/*
++		 * 'data' and the num_planes descriptors that follow must lie
++		 * within the message buffer copied from user space.  A crafted
++		 * message with a plane count inconsistent with its size (e.g.
++		 * size 0 with a non-zero plane count) makes 'data' underflow
++		 * below the buffer (or run past its end), leading to an
++		 * out-of-bounds read in bcm_vk_sg_alloc().
++		 */
++		if ((void *)data < (void *)&entry->to_v_msg[0] ||
++		    (void *)(data + num_planes) >
++		    (void *)&entry->to_v_msg[entry->to_v_blks]) {
++			rc = -EINVAL;
++			goto write_free_msgid;
++		}
++
+ 		/* Convert user addresses to DMA SG List */
+ 		rc = bcm_vk_sg_alloc(dev, entry->dma, dir, data, num_planes);
+ 		if (rc)
+-- 
+2.43.0
 
->
-> --
-> Cheers,
->
-> David
-
---
-Cheers, Lorenzo
