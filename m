@@ -1,108 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.27
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794936972;
-	b=ubn0NX2RYfImNLDY26UPcqX6RGMp2M7eVjlykZWpbZgOZAOAHYrMOzDzLdUWpapgFYNr
-	 LsLcfSQsWvcQOUs7gMO7CIuN/1wR9y8TXYsrCk5Yddw23ieAr1hdbtY7uS/H4Pwl3f27i
-	 e/ax+Sss35SzCtaTAuA4dJT/KyCgrQGf3tB6qxikCGH1GNkd0XdX4wjhz9gFvn2eSBGvP
-	 HYVaiblQ8yIJ4hOFNMMtOmGvn7fH8OIQVtdYou2zmNIgOq0ex2b/GXNHADmionIyGN+25
-	 KmMCamnspmUyf9oEc1fnJJPd97nGqNyfuNMBbAVHssbWbEXrj4R7YBekQi1t8RObD3g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794936972;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
-	 Date:X-Mailer:Message-ID:In-Reply-To:References:Content-Type:
-	 X-MS-Reactions:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=acFQAvj5oowsvPYTuJm9/E4VuOuVQQXZLKjxZBQzLp8=;
-	b=qBJQMKFyVayA1AhkUYyUc1nBCuDOp/ia3JSdArA3Dfix1u/hzufcUGN46XGv7bb6U3z8
-	 KlDOaD9zMkcWfFATBwDJ+OB8kKtsyLNSnlyxdYgiQXcz0FD6T7VZTbq7zNoifDvEBO8wA
-	 xBIVvxp0FFC9IPf9r/YurIRpxex0JeiAONtUN8QavwRMN5dJO6+uHNsR1iBLgYzka5mjX
-	 015Y3y1yvRU2feuZm35KkNNtL9OH8jDPU7IEv7P8ZSnVCn7GWYdF4cjwRuCz+dghv2BVC
-	 xJBq0w1E/+6HVk+G2q/A+Ey7ksig2hfj421z0t2Y8taEhU/NSAM2KRS8BVPaTnk9Z1A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aAOnNxxr;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.48.27
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012027.outbound.protection.outlook.com [52.101.48.27])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794937114;
+	b=skKlgpUqEyR/jBkFK7ihVb1RSHDo0AoZUdeXJhB3H0UlN0diF3YdWMOxPqZmfZQQ+6wU
+	 uYh31SZbEz2TEsNNvMtUayUVyRdv/NEX2df/DqGvJwDqyCywKa8i4TsLWQOx+Ac2Jw40g
+	 CgZLPvRWlUIttJrzVQk0+OoWb6+0hnR6CBgO9H7rbGaR7Q7gG1v0ttzj+sa27ZADw73ZM
+	 G7EFtrF8WnCsr1R5LiUKysvJz59zKMqA24rwmIkmDGYvjVVtS2McJU9WQCRppDsYVs0uq
+	 F/T58vysbi1J4ZSB3UOxJFUOxfrig2VwXZb5U/03Zk+P+WAwtJCFrOwuuwV1nawfMDA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794937114;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SSX+d+qRWkdn91G1pK7BnTwO8tnOwfNEC8664ApeNmk=;
+	b=EI2+m58xugWYQlgno5c3sa64gOMbZfdMQr19u7vcDfydN7pkJeVHxgDHQWC4iSSVX2ME
+	 6ydn4MH0QAjdO97+IBHQaOt01R1oSbGRWXHiKZIAbrvuTDXJfO50drsFEVv4vlFyNksLM
+	 O6f30wNqEHx44lTit4/SYiYJ3Qkj34g2B3POXR0B8UWEMQJ8bQcQ3Lux5AFJrqNAuQivg
+	 K6yNtmZSqlyxNRKuUA9PZIjfWiGCVetdiY2MFG+E1rbhtOJI2HDrHl+10Rp0CEjdGyHnK
+	 daV8ff+gCa1APHELZlZM1NobmbjFg3lHg2KY5F1GEin4KwNt0BeEdAvW3wKly4Jv5mw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x8lY2Afx;
+	arc=none smtp.remote-ip=74.125.82.179
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E47606A32A;
-	Tue, 17 Nov 2026 17:36:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3E47606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D0B606A31C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:38:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8D0B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aAOnNxxr
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aI0tL9avWkoTWCkKD1qfqMEKg+rxoIyrziHA5rN+ZmZD5ozeHxU7Rg2UfsoDllSbFEoihwqR8EDn9kM0ovLjguZpMlS6Gz/6PhcbbBPvekAK+L4suk3KpxFqtp1IBSyzIYAs9OjT+c7Pa4T3qllybmZUX9zT7ouq4GOftzYJumddtYXWajoPlP9dkrIv+tZXWLn2D1tjgFDg7Mk5FL633cKDWrfgcykhfaTAghh5Muy4xxhyFybovsUZmhoXyfSMR8Ot/XB1qD9tB2yWrxvmWHvXXckS4s7pePvtfjlvSDUFzjlINR3EGcp9uWHVN92qivp6uH6LEN9+CbqXbzcx8w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=acFQAvj5oowsvPYTuJm9/E4VuOuVQQXZLKjxZBQzLp8=;
- b=WLbgMdNFNbC3NwE0LF0yoayWtPm+jkJRQ7tCai3roVhITRO51coU5kny5MsVaeyzU70At7DiINORV27Gm9dr9GJXLfU9+BO3fJJD1QD4BnFsV1RKLC/ALW35WQZv/GlwTB7MJxa5EL6MFWi0KvDcZYw7YvfHrxsxAahtFpL2l1Jk5mRouTfGUsv6S3UOcN++/n/wnt3M6sNQYVL4aYr1TsttEbihs4OhDqaepchfPI11JxyF4Tcn/hGhS97YJdRTTAabFBDse3BDvfA3UcxCbbPDbPMKp8EyPt436c5qNbBqWnQC6djr+RqMlYXMOXuFavjLVKHu7K4VqnbYM8b+1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=acFQAvj5oowsvPYTuJm9/E4VuOuVQQXZLKjxZBQzLp8=;
- b=aAOnNxxrc6U0/hMpH2zD9RmKuu3QIY6Wq2xw0tuHVQeskfjhMUhO5+U1PJF5mmhvovzxDzbtsXs81N01WiemzJAazI7nPTXCjdKchwzTV1Zuac/aNoseTEHRVZgSYwQR/35SBHDxFWfwTYgxynU8NTYiJPjRIwxpWLGJEksJ0YfOwB6emOijbpFIeEwBZq/RuUogLAdoHHqw/f5jrV6xRV/rdkqM7M8vwjmK9ddGqltIJ1ZPP3PubYkxG9asXls8jMN51KX/kjUwHk2nxsmzrkhYZBXQnEZasso5bBTYZqESh35hd/6fECNmDGouRwNsZqEd7pI7GV4jTyEihNmv8A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
- by SAVPR12MB999121.namprd12.prod.outlook.com (2603:10b6:806:4e7::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Tue, 17 Nov
- 2026 17:36:07 +0000
-Received: from IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
- ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0615.009; Tue, 17 Nov 2026
- 17:36:07 +0000
-From: Zi Yan <ziy@nvidia.com>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Alex Williamson <alex@shazbot.org>, Peter Xu <peterx@redhat.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>,
- Roman Kisel <romank@linux.microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>,
- Naman Jain <namjain@linux.microsoft.com>,
- Michael Kelley <mhklinux@outlook.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, Eliav Farber <farbere@amazon.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] mm/memory: remove racy huge PMD assertion from
- walk_to_pmd()
-Date: Tue, 17 Nov 2026 12:36:05 -0500
-X-Mailer: MailMate (3.0r7038)
-Message-ID: <BDCBFC48-EE2F-4D4F-8C0E-C28311907102@nvidia.com>
-In-Reply-To: <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
-References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
- <20261115-huge-pfnmap-fault-races-v1-1-537605643f6f@kernel.org>
-Content-Type: text/plain
-X-MS-Reactions: disallow
-X-ClientProxiedBy: IA4P221CA0003.NAMP221.PROD.OUTLOOK.COM
- (2603:10b6:208:559::7) To IA0PR12MB8374.namprd12.prod.outlook.com
- (2603:10b6:208:40e::7)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x8lY2Afx
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-37071c0f42aso248984eec.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:38:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794937113; x=1795541913; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SSX+d+qRWkdn91G1pK7BnTwO8tnOwfNEC8664ApeNmk=;
+        b=x8lY2AfxwiNYg7IpNbQCiyILCpiANn+42LaeNRKECLogXhMVGvCdemTyxpgGVVxq1m
+         XrugsJSex2OH+YGY/0yNpu6PxKeaXRokdkaGeXtIrN+Fm5b23bR+JFGvwv4dhCTY48gX
+         /+xIndzKuykcxo0voMeBfw0iqHoY51A2l9csG8sJmoEFVxV3Go+l9pxPxXH53taNjs58
+         ZVLGf6fYwvR76sKUTNLWJFsCE/iuOIuZW7j46mBpdQfCruYGiGnxjdGwUKo5TZFaMB3N
+         EsXqvNF+xPqHS9kuMGsLBxpWvrg+3zY/1iabuknjQXbefzeNcnplI9ClvJWXfqQGSpAL
+         t/7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794937113; x=1795541913;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SSX+d+qRWkdn91G1pK7BnTwO8tnOwfNEC8664ApeNmk=;
+        b=Ohax6dICEflSXyW6L3Vqj7x7CMxnkOUuAVVtY2E8NfASMQWAAH5rw8MRYpQcLtfEtc
+         pfhhHQFX5ahqPoo+uw//BfJQk+99Ed9Oh8/KCS2PgnIx6+xlI/2eJpmHELhnX+vqUwI4
+         lc+TgsHsLxh/YiKivHpJGVOOI82+HobVbyXhLhn0w5uXl0IvyZWCs6CfrLyNOupIc3Ku
+         05sXk+BaLzEB3y6B9QEBIkqI9iQMOjXevQ7e7VyduV3J9JN1/sd7GkmLwGCnVzlGCDpo
+         k/t+0v5jdg/05wqFb7zw6Hh3vKrwqJt+Q7K9rt6lszfxTwL1HtgAoaqIdgbUZJEWIbir
+         KpaA==
+X-Forwarded-Encrypted: i=1; AL+hErFd6TGKZwg8CJonY5hRtL5zjOp4OuUOrg8Yo9LMPIJ9uaCn+ZT/DqpNbw4bY8BgwmWMzAZBO6g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+ajU/yXDahRlEsAabOPWpz8satFeneT8GfDyj5+WUb03fYbB6q
+	+L0XSIvdB8HF8YnhC31G9+o0Ap4EC/UmT2qylMra0dzsCDTc+1gFs3oMqsTiow==
+X-Gm-Gg: AZFdTZchxYFD5klf9w4z2Tw1y3Cnle8rvH0FwODk66DllAh9ezwg9GUZX1ecUDd9R1c
+	2QU959ewkedTb4OIB9SZvw5/udvHXFH2xPopHagf1nYpgToqC8+BHNmwKbFLhIA3L7i9G+iHFGj
+	c+BSzmgCUyvrm0YdsZy8QFAKS8MDr1bfXlBK2HaQM34xKJ1qAL9sEnyMq2ayMPOvbyzdSpkbuTh
+	uswkG+qaIlOnOto92shadm8dqY9sri23HdGfEl52TlZmDE4qua0jxfI9UW9b0R4sHQXiBmomr1h
+	lCA0ts6w0frugpZIgCAIlfGqI4V48WeAIBdNomEcmIudzWtiXIqLG+i4Qs/1865aJJ4EvAPMF7a
+	mtbL4mBZLAisXo/avS2+lVPAUqGQ25V1UwyRSQXGnGp0ydI6V6MMOdd5dZ+EilPHx/7JvDsLyct
+	YU5/R16dqXCkaf3Ym2SrkCGFVSs6+O2Avy0WhxpHsjoLPdp2qCb0yWwf7DLVh8gFseDQdC8zWPo
+	kxc6sFbmHxzc/e2ZuIJRLB9pCnTSdSqs20LJwc6s/2xhPEoQNLdM3UP9PEY3Ng+by43YMEY4MTN
+	v+xYVvvR
+X-Received: by 2002:a05:7300:de4c:b0:36a:1f4f:3e9 with SMTP id 5a478bee46e88-3828101de20mr123080eec.20.1794937112971;
+        Tue, 17 Nov 2026 09:38:32 -0800 (PST)
+Received: from eldorado ([2600:8802:b00:1f88::287])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bb0919sm44098373eec.29.2026.11.17.09.38.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 09:38:32 -0800 (PST)
+From: Florian Fainelli <f.fainelli@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: Florian Fainelli <f.fainelli@gmail.com>,
+	"H. Nikolaus Schaller" <hns@goldelico.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	stable@vger.kernel.org,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	linux-mips@vger.kernel.org (open list:INGENIC JZ47xx SoCs),
+	dri-devel@lists.freedesktop.org (open list:DRM DRIVERS)
+Subject: [PATCH v2] drm/ingenic: Allocate and register the internal bridge separately
+Date: Tue, 17 Nov 2026 09:38:20 -0800
+Message-ID: <20261117173822.1816385-1-f.fainelli@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -112,98 +104,125 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|SAVPR12MB999121:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5a2fe2c9-7ae3-4392-a655-08df44d14318
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|7416014|376014|366016|18002099003|22082099003|6133799003|11063799006|4143699003|56012099006|5023799004|261102123227099003|261026121527099003|261021121427099003|261022075727099003|261021123027099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	7jPIWFmHEs17sRhmSnXIz6iZUscZC0LoDxIVcN9Cn6WXPSbj1Aw8O1UWw5qryXhKqLyR7aUBEl4KeWZbINclj+KKNI81AHE9SmPHU8VD9HNWCzUfo2atHCLmlme1lgvIUbjCNFESWLENgyYA8n20SOCrcIe4n9jZeeEyq6IhxhizfClGq4qoEL9AA9PNuAQNYkknEu3xSh7j0eM5JgtPkDJPvoQ+QAaN1XhVhXe9ADxrwsmKxow3IYXY03PF8l6w/AbPKOttuL+DUYt+78LNJniur1Zv2T5i6rP/5zVDDuqA9ghr19LuxcJZLQPmhIUbhwuQB8B/JdbTZ4Q4fq6FLGTjizkDWEj4Q5ZGBWNeSq3y51/kCLDeuAZa38LxQV2Ty9tvsKAsq+ku9XZQmzWAtZ48mI3+e76TVmRH6cjGZaaJvO0bDjsMpgenmftrwEGr8+nLTGOxUE1E/wi+kwY4dv+4d5t9dexG416XrcMLvnOs7wIma31Bw8tVL0YAXik2uNCrFsXklO4sZwULOKGL24rA6rmy4pRbFLBo5vPWzQqHW/XTbX35bF1TrSvsv8DpH4SD/SkWdguIaZLkMEbcnCyPT58WTSSELYLtQErB+xTDHOqPSJGuy4lXgRbNaKdkH7cgXREpf+9dp+LdTJJJx0BYZXxLN0ER3vUOqqpuOmg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(7416014)(376014)(366016)(18002099003)(22082099003)(6133799003)(11063799006)(4143699003)(56012099006)(5023799004)(261102123227099003)(261026121527099003)(261021121427099003)(261022075727099003)(261021123027099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rOV21GbPaMBG089fde6qJaEMBSnhOiMWIgdD1iC5lB62xQAnukxHS3wkRwO+?=
- =?us-ascii?Q?mbL7FfYky17Hszd3G65ddhC25GtkOqO6f+qD9EvRlD8KSw+eGBDV6C/fuUZA?=
- =?us-ascii?Q?Nb2bjeo18IUUhJ+W1ZScbgXypqVUv36Cv2Oe0m4lEg+v/RYKf9jI0+P/0tyP?=
- =?us-ascii?Q?F5hVk6kA+UqP4hmAPno3NqDg4OxoIZiDmP/IE85CcBhyOHGKt3s7D+iTofHV?=
- =?us-ascii?Q?7vd/+RMeT6RzSTophA3OZ7U6PzvshKPtPArElrAE+fmnulas+sjoCDpeX5Ib?=
- =?us-ascii?Q?ZVJtwUZ9hdAjbSC3JCYPlzD1vjKAEicdOgn+vdqAA9BUURNtmbZD4SbFC5d7?=
- =?us-ascii?Q?5VwufaS6uflC6m1w/EQhP5l/HDYWG0NlV5vpSkPNSdFkKfHnrUSUE+B5Z7QZ?=
- =?us-ascii?Q?OLW15uA9NqnIBb+k1ZLpoiHUnGpK95IqJ6YphNdHij04IInSDrBx71aesz29?=
- =?us-ascii?Q?qIUiDZbvf/2NkUhwK8+U44cULRUWR4ubT0UAZaeDqx2Gl8El9tRW7HgRVkqu?=
- =?us-ascii?Q?usn1oB1zav2+TA/B20BmMGRBCTu5VO/gvST50kEUV+nPHWVhgYC6ANL8z1Cl?=
- =?us-ascii?Q?oVHCdu/bmuJj+Lw3ZkihENthl+nrsbeVDtOqyh5ZWWFLo751Inj3hDqedNqO?=
- =?us-ascii?Q?F9ydQUZhRIR5bpLnD+wxTOPuQDXvp0rJcN0ua+gE/zy1mAxQnB/SVlCEX6Yy?=
- =?us-ascii?Q?5fN0MuNvXvgRQoXr3e4XJlZOizbPR0qSdnxJyiX/p2dnLDovLh8WxW3SgZDo?=
- =?us-ascii?Q?yTHtVjHnSucMaMwwXVnEVN3LvPicwQnFhJnCJTqQDv66v2ekx++8BD9Co2Jd?=
- =?us-ascii?Q?xJNCKqeJcmLdut+lh6Qki09wjoSq3LR2kwcMYjmvi4Sem7tddgpOOgZeM5Zj?=
- =?us-ascii?Q?wILS6IwZdkQVZvR91FJwPLiOi+iImwYH6lmZMEKXlBE5Lds3OpumdiwOcLPD?=
- =?us-ascii?Q?7aJkPS+jbKPEbMAiYDYp6W09komgQK2WZ6eoMwvCH5Icf0CnwYReUUDoV3XA?=
- =?us-ascii?Q?NBuJ+Ry2UESqUYRJgY6YR1bbiXem+RQgY9cMW+9v4Oc/e/vyLS6e7KEfYRi+?=
- =?us-ascii?Q?r2MpWx36NTLLW7PR6uvVHDDJ8nRKltQwx17vkT+jmmsnKpMfCfLi3eJ3zNgM?=
- =?us-ascii?Q?drU4kCplRDcuEqJPmtt+L6M+kxFvGFr62CmYEHfZ+8Nuen71uofS36so7V0P?=
- =?us-ascii?Q?uxG/COAhEBlJ5V3ym2H/FFzp+KDrJmkLRhY10Jwq9nO5mq9C3s+b782LifGm?=
- =?us-ascii?Q?jgUEQGNMAo8fB9+MO4roGfOk395x9jUiitt2RqDR5pf/QJ5i8Nb8Fn1amPbv?=
- =?us-ascii?Q?7uyq12DqiZoK7vDix9SHVfUFbho3DkLfRm9EMt/SdJWO27+FxwRfZ04EZuOa?=
- =?us-ascii?Q?im5+haBlmXBR2HVESzI0kvJOi/qOoLwoUa0eFAd35DLl+OEHUpP/j2R/oB1+?=
- =?us-ascii?Q?c/ZJNKEUa2jzzbc1JfCHuzLtJV5YgBKF9uAYsSWva6jr58t9P29REyvWXibw?=
- =?us-ascii?Q?vkAML6t+Yh3TNYvHEYrRe4w+Y7Nv+PyMkpzSFyk6az5Gi2PjNa4WY96fcjof?=
- =?us-ascii?Q?AGP09NGAdn/1WBepODE1j6drufxS/lOKMDO9wvMT3lxfg4utGwHn98+2ShFe?=
- =?us-ascii?Q?HUpbDq6AyAhPA2XNfeGPMlXxxwzXs6o7b2Fd1wDBEfnbirdjj/VIl8eQTf6r?=
- =?us-ascii?Q?dAnzO7TqAlmAdEHI7qtq35cOgKo8BJ2ybeV7Sytqu9m0H3tj?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a2fe2c9-7ae3-4392-a655-08df44d14318
-X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Nov 2026 17:36:07.5467
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P7g7w7NgUTVGHC2Y+D1UO0ugDgnj8Tq4Xgp+u1lfFRsbHQd+t4ixdycgsZKWzncz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAVPR12MB999121
+Content-Transfer-Encoding: 8bit
 
-On 15 Nov 2026, at 15:58, Lorenzo Stoakes (ARM) wrote:
+The LCD controller's internal bridge is embedded in an object allocated
+with drmm_encoder_alloc(). This initializes the encoder but leaves the
+bridge's reference count at zero. Since drm_bridge_attach() takes a
+reference, probing the CI20 display produces addition-on-zero and
+underflow warnings and fails to attach the HDMI bridge chain.
 
-> From: Eliav Farber <farbere@amazon.com>
->
-> walk_to_pmd() asserts that the PMD entry it returns is not huge, but does
-> so without holding the PMD lock, so the assertion is only valid if nothing
-> can concurrently install a huge PMD entry in the range.
->
-> This is not the case for a VMA whose driver implements both ->fault and
-> ->huge_fault and which invokes vmf_insert_pfn() from the former.
->
-> The existence of prctl(PR_SET_THP_DISABLE) is problematic here, as it only
-> takes the mmap write lock and faults taken under the VMA lock are
-> unaffected by this.
->
-> This can result in two concurrent threads faulting the same thing
-> disagreeing as to whether to attempt a huge fault and thus ->fault and
-> ->huge_fault running at the same time and triggering this assertion.
->
-> So just remove the assert.
->
-> Target the commit which introduced the first driver able to do this for the
-> fix - vfio-pci. DAX also mixes fault orders within a VMA, but serialises
-> them using its own mapping entry lock.
->
-> Link: https://lore.kernel.org/all/20261112051440.16140-2-farbere@amazon.com/
-> Fixes: f9e54c3a2f5b ("vfio/pci: implement huge_fault support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> [ ljs: rewrote commit message ]
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> ---
->  mm/memory.c | 1 -
->  1 file changed, 1 deletion(-)
->
-Makes sense.
+Allocate the internal bridge with devm_drm_bridge_alloc() and register
+it with devm_drm_bridge_add() before attaching it. Keep the encoder in a
+separate DRM-managed allocation: encoder cleanup can drop the final
+bridge reference before it has finished accessing the encoder. Find
+the internal bridge through the encoder's bridge chain during mode
+setting, and use the bridge argument directly in bridge callbacks.
 
-Reviewed-by: Zi Yan <ziy@nvidia.com>
+Fixes: 94d50c1a2ca3 ("drm/bridge: get/put the bridge reference in drm_bridge_attach/detach()")
+Tested-by: H. Nikolaus Schaller <hns@goldelico.com> # CI20 V2a
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+CC: stable@vger.kernel.org
+Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
+---
+Changes in v2:
 
-Best Regards,
-Yan, Zi
+- collected Reviewed-by and Tested-by tags
+- added CC: stable
+
+ drivers/gpu/drm/ingenic/ingenic-drm-drv.c | 31 +++++++++++++++--------
+ 1 file changed, 21 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+index 625ec76cf04d..520912f9ed0d 100644
+--- a/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
++++ b/drivers/gpu/drm/ingenic/ingenic-drm-drv.c
+@@ -121,16 +121,15 @@ struct ingenic_drm {
+ };
+ 
+ struct ingenic_drm_bridge {
+-	struct drm_encoder encoder;
+ 	struct drm_bridge bridge, *next_bridge;
+ 
+ 	struct drm_bus_cfg bus_cfg;
+ };
+ 
+ static inline struct ingenic_drm_bridge *
+-to_ingenic_drm_bridge(struct drm_encoder *encoder)
++to_ingenic_drm_bridge(struct drm_bridge *bridge)
+ {
+-	return container_of(encoder, struct ingenic_drm_bridge, encoder);
++	return container_of(bridge, struct ingenic_drm_bridge, bridge);
+ }
+ 
+ static inline struct ingenic_drm_private_state *
+@@ -738,7 +737,9 @@ static void ingenic_drm_encoder_atomic_mode_set(struct drm_encoder *encoder,
+ {
+ 	struct ingenic_drm *priv = drm_device_get_priv(encoder->dev);
+ 	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
+-	struct ingenic_drm_bridge *bridge = to_ingenic_drm_bridge(encoder);
++	struct drm_bridge *first_bridge __free(drm_bridge_put) =
++		drm_bridge_chain_get_first_bridge(encoder);
++	struct ingenic_drm_bridge *bridge = to_ingenic_drm_bridge(first_bridge);
+ 	unsigned int cfg, rgbcfg = 0;
+ 
+ 	priv->panel_is_sharp = bridge->bus_cfg.flags & DRM_BUS_FLAG_SHARP_SIGNALS;
+@@ -799,7 +800,7 @@ static int ingenic_drm_bridge_attach(struct drm_bridge *bridge,
+ 				     struct drm_encoder *encoder,
+ 				     enum drm_bridge_attach_flags flags)
+ {
+-	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(encoder);
++	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(bridge);
+ 
+ 	return drm_bridge_attach(encoder, ib->next_bridge,
+ 				 &ib->bridge, flags);
+@@ -811,7 +812,7 @@ static int ingenic_drm_bridge_atomic_check(struct drm_bridge *bridge,
+ 					   struct drm_connector_state *conn_state)
+ {
+ 	struct drm_display_mode *mode = &crtc_state->adjusted_mode;
+-	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(bridge->encoder);
++	struct ingenic_drm_bridge *ib = to_ingenic_drm_bridge(bridge);
+ 
+ 	ib->bus_cfg = bridge_state->output_bus_cfg;
+ 
+@@ -1303,22 +1304,32 @@ static int ingenic_drm_bind(struct device *dev, bool has_components)
+ 			drm_panel_put(panel);
+ 		}
+ 
+-		ib = drmm_encoder_alloc(drm, struct ingenic_drm_bridge, encoder,
+-					NULL, DRM_MODE_ENCODER_DPI, NULL);
++		ib = devm_drm_bridge_alloc(dev, struct ingenic_drm_bridge, bridge,
++					   &ingenic_drm_bridge_funcs);
+ 		if (IS_ERR(ib)) {
+ 			ret = PTR_ERR(ib);
++			dev_err(dev, "Failed to allocate bridge: %d\n", ret);
++			goto err_drvdata;
++		}
++
++		encoder = drmm_plain_encoder_alloc(drm, NULL,
++						   DRM_MODE_ENCODER_DPI, NULL);
++		if (IS_ERR(encoder)) {
++			ret = PTR_ERR(encoder);
+ 			dev_err(dev, "Failed to init encoder: %d\n", ret);
+ 			goto err_drvdata;
+ 		}
+ 
+-		encoder = &ib->encoder;
+ 		encoder->possible_crtcs = drm_crtc_mask(&priv->crtc);
+ 
+ 		drm_encoder_helper_add(encoder, &ingenic_drm_encoder_helper_funcs);
+ 
+-		ib->bridge.funcs = &ingenic_drm_bridge_funcs;
+ 		ib->next_bridge = bridge;
+ 
++		ret = devm_drm_bridge_add(dev, &ib->bridge);
++		if (ret)
++			goto err_drvdata;
++
+ 		ret = drm_bridge_attach(encoder, &ib->bridge, NULL,
+ 					DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+ 		if (ret) {
+-- 
+2.53.0
+
