@@ -1,50 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794906484;
-	b=Hqmd7nJiEaLJZp6nZScgq2ASdlSd4+q1EcTeGQUkgP2tMeq9Kypg9zSzX7H5EfSALxZM
-	 jkirMZyuB6PlmVUjBQkOHykC63viCtkD6yD5WamfWe5lRuRiBcvwBDFeZciKIz3gsfdpe
-	 fqzUPOx7cQ1jcacW4u2DSvGx8CJWs7vGBdOSWYTIPRhNCYUlahOI/QAYf/NxExAQFG0oD
-	 mkVUppXf9/StwuNcY8XXVoCTmhf8tiiog1CpjkTsXEXxYyUbexU9jROleBBY3GgqXTWF0
-	 b5VyHiJ/daHdZg3V38WJAgs/RQu2n1uknF2YY4kuV2Lqi8TPzOElcSH1kjaztW/Qyhw==
+	t=1794906588;
+	b=jr2Tb946+wLvdXH4teRVYP27SokwThYRdU1OlyYewatBEOHGbPF5AKAw3zfGrpEae42v
+	 L62mQtTfe35d9I1y7vfzJXsmQmq9bpxaiEgwktSSIg7PMlVHleW0czcWcGt73i0JO1ukv
+	 mkW4tiYZGOM+v5IiATn73uxwX4QPZeP+W17LsSkSGFGgIIke5clUZk9T0VeUzZdni8uLP
+	 WCdKBm1sN8V1fRQJ62miS1cb7FiDPBK0AHvCh/tmQurdlsYDvGrbak3GFfALx5fLoYiLn
+	 sMGM6jMI6wSSrq4Ygmj3x0+9KgtWiBiVknKPed8P735Q/4gumMCH0Xix2e+OuPq40/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794906484;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
-	bh=qnWHBF7/CrL3v/UaPQ3D9TUr4mSedb6GT4QDxJOnqGU=;
-	b=jol/QuLV+AUGiqmNEI4yYR59MUsOELp9h9coJH+/uuzfxxIkI/gVnEiu1ioYQ3xWd4xj
-	 rGIRL81l8sPgLwQr8gMq4TKunEUphSRjBfH0HWOqBJXOiSbLVEhHcSH5BjnjoWFRmKdAB
-	 Mpyc/NJmCKrl1XIKyfFgpy6DSNQM3dFkziQDipfDBdRwbFaEzMaKBANBVkUhyceJCriP+
-	 bvPXv8kYhwpPLsROXwShilR9gbpOCuCP+oO9XbifRq5QkGPi5aUBBNVT0JqRMm9kwKPeN
-	 Yp/fUy4dfX5YWiWUZmOgM9twgpqwg4b1LI1ODB2sQc1UmND4RlnglfjJB3mjYFO/xFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794906588;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=sIMzr7tCCswzGqhee5Qd9BWq1x2xlpXll4Iq2ZTzjHQ=;
+	b=tCcUsThXDGe7RjWATnpzdzh/p6Sc73IqlFqbvZDpRvdcSzCBURla0XRR50QX6SHHxOvO
+	 CozbRfKoOCxJWr3s6SHTcAsYlkYdwtwzgu+XqEg+BJ0Ad/MPHXtsExAHtM0KfzqOLgTaU
+	 5TUPWQVnFSprq5LWtaECvWpbkcnhAjACPg93tvqX2wtuIzBVCUQE4dyCZsCejOwKj+P4w
+	 yFARC/S/LmKVEwhotGtSXQOJ4KYipUl5F9WKWRvOU1LCpdhnRzHhqh1ZCHe23L4KUpf3o
+	 pGNZ5J31Yhz576PzrWeGiJZmnLvAYzS1R8fwWZzCwA39oM4oD4eSZLi0tQKtBNVe4GA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=LCs1f+RU;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iBI+fODT;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4F3606A31C;
-	Tue, 17 Nov 2026 09:08:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D4F3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98114606A336;
+	Tue, 17 Nov 2026 09:09:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98114606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=LCs1f+RU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=qnWHBF7/CrL3v/UaPQ3D9TUr4mSedb6GT4QDxJOnqGU=;
-	b=LCs1f+RUGsbrP4WTmPM9ppp0r1+F7AbvUWTQDhEkkpV3pwk4HCXey30Ilgl0pa
-	dA3ss9N1EpbnYptkAxZNewxxSYDMxvQcsFKAToHSpYtNlTsXGV6x8e0Th6GTGn5R
-	CGoce3EripQzp08kRk1Z4e/U1VKRTcxbagKK3k8dkhF1w=
-Received: from [IPV6:2409:8900:1fc4:b5fb:f427:8008:88bf:afb9] (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wD3P2NXGfxqLzsVHw--.54292S2;
-	Tue, 17 Nov 2026 17:07:37 +0800 (CST)
-Message-ID: <f35ed0ad-aece-4d8a-b6f3-5ad8c4f1a13f@163.com>
-Date: Tue, 17 Nov 2026 17:07:35 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iBI+fODT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794906588; x=1826442588;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PPKhAbu/xd5BU4QocBM56BpTBxKFlcrRJZeYTqJNWMI=;
+  b=iBI+fODTLSLfpfTX9KzskzY4b/o1FP5jE0LF14rwFLh+ZbEpGdXlGiYd
+   Nf1c/vwN4OoeXZ72uUi+YxndD7uaJcu/rqbB0Z5PeHcBNnvKU+tRemjyv
+   cQR8/0p9E7oCQo9s5fLl6oJrnO9xPJj79y0v8T+/5x5aBVj6sM3eSF7YF
+   pWEPBZHsRZvDtNvEvse3/urK9GHmVaelFYUnr57Ieo0o0I6pXP0k6/25M
+   CumprIPNk0LW2chxIpibrjal11dn60ymSR4toKm1Wl0l1pfJ+HghbOXBb
+   y7HDJawuCnfxYoKxOfQXkbXSyakG8FvBxyduxgs6tzl3bFkaBmBEeeAOV
+   w==;
+X-CSE-ConnectionGUID: myyKszQISMeH4b08ick4bA==
+X-CSE-MsgGUID: 5FdJzY/YSQCalaH3lLPmSw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11968"; a="3685819"
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="3685819"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:09:47 -0800
+X-CSE-ConnectionGUID: kNqUTxWMTuy7VFcZ4JmM/w==
+X-CSE-MsgGUID: yJ7sZknoTJyvRC7xH0tvOg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,218,1787036400"; 
+   d="scan'208";a="10191074"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO mdjait-mobl) ([10.245.244.52])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 01:09:45 -0800
+Date: Tue, 17 Nov 2026 10:09:38 +0100
+From: Mehdi Djait <mehdi.djait@linux.intel.com>
+To: Michael Riesch <michael.riesch@collabora.com>
+Cc: linux-media@vger.kernel.org, paul.elder@ideasonboard.com, 
+	daniel@makrotopia.org, linux-rockchip@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH v1 1/2] media: rockchip: rkcif: Don't reset the hardware
+ in runtime suspend
+Message-ID: <avwZpcF8fti2vVI9@mdjait-mobl>
+References: <20261112183208.2688580-1-mehdi.djait@linux.intel.com>
+ <20261112183208.2688580-2-mehdi.djait@linux.intel.com>
+ <df61d7d2-7ad8-4b68-b3a0-7a03513ab5b7@collabora.com>
+ <avsBed-E2RPJnZ6k@mdjait-mobl>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,216 +82,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6] ntfs: trim the sizes after a short write
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, zhanxusheng@xiaomi.com
-References: <20261117082021.2947603-1-zhanxusheng1024@gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20261117082021.2947603-1-zhanxusheng1024@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3P2NXGfxqLzsVHw--.54292S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxuw45Wry3GFWxWF4rWw45ZFb_yoW3ur45pr
-	Wa9r13KrWIvryxCrnxGa4UXF4Yg395Cr4UC343GF9xCr93Crn7WFyUtrW0gayvyrZ2yw1F
-	vF4vvrWkWwn8Zw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uf8nrUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Ro2AWr8GVqCMQAA3i
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <avsBed-E2RPJnZ6k@mdjait-mobl>
 
+On Mon, Nov 16, 2026 at 03:30:33PM +0100, Mehdi Djait wrote:
+> Hi Michael,
+> 
+> On Mon, Nov 16, 2026 at 11:58:35AM +0100, Michael Riesch wrote:
+> > Hi Mehdi,
+> > 
+> > On 11/12/26 19:32, Mehdi Djait wrote:
+> > > The reset in the runtime suspend also resets the VICAP IOMMU.
+> > > 
+> > > When the IOMMU driver accesses the IOMMU registers inside the delay window
+> > > between the assert and deassert, e.g. in rk_iommu_zap_lines() to shootdown
+> > > IOTLB entries, the system hangs.
+> > > 
+> > > Drop the reset and the now unused reset control.
+> > 
+> > I agree that the current situation is nothing more than a crude hack
+> > that happened to work in most cases. But I doubt simply removing the
+> > reset is the correct solution. Recently, I saw some downstream patch
+> > that makes the reset a shared one, which seems like the right thing to
+> > do here. What would you think about that?
+> 
+> Do you have a link for these patches ?
+> 
+> I also agree that this patch will not be the solution that will go in
+> but the situation needs to change.
+> 
+> The VICAP_GLB_CTRL register does expose this:
+> reset the VICAP(except MMU/AXI MASTER/REG FILE)
+> 
+> The Rockchip-bsp kernel exports the disable and enable functions of the
+> iommu driver and calls them in the rkcif driver, see:
+> https://github.com/rockchip-linux/kernel/blob/develop-6.1/drivers/media/platform/rockchip/cif/capture.c#L7269
+> 
 
+I mean, I of course don't think this is a solution to be considered, but
+this is what I found for now..
 
-在 2026/11/17 16:20, Zhan Xusheng 写道:
-> From: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> 
-> ntfs_file_write_iter() moves the data size and, for a non-resident
-> uncompressed file, the initialized size to pos + count before the copy.
-> __ntfs_extend_initialized_size() only zeroes [old initialized size, pos),
-> so the range [pos, pos + count) is initialized only by the copy itself.
-> When iomap_file_buffered_write() copies less than count, it returns a
-> positive short count and the error rollback at out: does not run.  The
-> file keeps the size pos + count, and [pos + ret, pos + count) reads back
-> whatever the freed clusters held before, also after a remount.  A local
-> user can read the old contents of freed clusters this way.
-> 
-> Run the existing rollback for a short write as well, and roll the data
-> size back to the end of what was written.  Keep the initialized size,
-> as a page fault through a shared mapping may rely on it while the write
-> is stalled on its source, and zero what the write did not reach, up to
-> the end of the block holding pos + count.  Only if that fails, take the
-> initialized size back to where the zeroing started, if it is above that.
-> 
-> Fixes: b041ca562526 ("ntfs: update iomap and address space operations")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
-> ---
-> v6: cap that fallback at the current initialized size, which a failed
-> extension before the write can leave below pos (Baolin).
-> v5 (Baolin):
-> - start the zeroing at pos, not at the old initialized size, which
->    overwrote data stored through a shared mapping below pos
-> - do the same for a direct write, instead of truncating the page cache
->    and taking the initialized size back
-> - if the zeroing fails, take the initialized size back to where it
->    started, instead of skipping both rollbacks
-> v4: for a buffered write, zero the unwritten range instead of
-> truncating the page cache and taking the initialized size back, which
-> dropped data stored through a shared mapping during the copy (Baolin).
-> v3: clear the cache up to EOF, not up to the extended initialized
-> size, which left the rest of the block holding pos + count (Baolin).
-> v2: also clear the cached tail of the last block, which v1 left in
-> place when the write stayed inside the old data size (Baolin).
-> 
-> v5: https://lore.kernel.org/all/20261116091121.2547497-1-zhanxusheng1024@gmail.com/
-> v4: https://lore.kernel.org/all/20261113050148.1466682-1-zhanxusheng1024@gmail.com/
-> v3: https://lore.kernel.org/all/20261112093233.1118469-1-zhanxusheng1024@gmail.com/
-> v2: https://lore.kernel.org/all/20261112030815.982026-1-zhanxusheng1024@gmail.com/
-> v1: https://lore.kernel.org/all/20261111093459.660484-1-zhanxusheng1024@gmail.com/
-> 
-> Tested in a VM on ntfs-next b025f526c5d0, with all free space filled
-> with a known pattern first.  Short buffered writes of 4M, old data
-> readable after drop_caches and after remount, 3 runs each:
-> 
->                                      unfixed    v5     v6
->    fallocated, ends block-aligned    3137536    0      0
->    fallocated, ends inside a block   3141332    0      0
->    fallocated, unaligned start       3137536    0      0
->    same, pos + count in that page    -          0      0
->    append                            3137536    0      0
-> 
-> Marker stored through a shared mapping at 64K while pwritev() is
-> stalled on a userfaultfd source page, state after remount, with and
-> without fallocate():
-> 
->                                            unfixed  v5     v6
->    buffered 4K at 128K, EFAULT             lost     lost   kept
->    O_DIRECT 12K at 0, EFAULT               lost     lost   kept
->    buffered 12K at 0, short 8192 (v3)      kept     kept   kept
-> 
-> A store into [pos + ret, pos + count) itself during the write is
-> zeroed, as that range belongs to the write.  With iomap_zero_range()
-> failing (injected -ENOMEM), a 32K write to a 16K file that returns
-> 12288 leaves the size at 28K with no old data, also after remount.
-> fsx (buffered, no-mmap, O_DIRECT and mixed), compressed files,
-> fallocate, insert/collapse range and punch hole give the same results
-> with v6 as with v5.
-> ---
->   fs/ntfs/file.c | 70 +++++++++++++++++++++++++++++++++++++++++++++-----
->   1 file changed, 63 insertions(+), 7 deletions(-)
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 3213a0c9f96b..866aaca1887e 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -928,10 +928,21 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
->   		ret = iomap_file_buffered_write(iocb, from, &ntfs_write_iomap_ops,
->   				&ntfs_iomap_folio_ops, NULL);
->   out:
-> -	if (ret < 0 && ret != -EIOCBQUEUED) {
-> +	/*
-> +	 * Both sizes were moved to end before the copy, so a short write,
-> +	 * like a failed one, must take back what it did not write.
-> +	 */
-> +	if (ret < count && ret != -EIOCBQUEUED) {
-> +		loff_t new_init_size = old_init_size;
-> +		loff_t new_data_size = old_data_size;
->   		int init_err = 0;
->   		int data_err = 0;
->   
-> +		if (ret > 0) {
-> +			new_init_size = max(old_init_size, pos + ret);
-> +			new_data_size = max(old_data_size, pos + ret);
-> +		}
-> +
->   		/*
->   		 * Like ntfs_setattr_size(): __ntfs_attr_truncate_vfs()
->   		 * expects the invalidate lock held across the size
-> @@ -939,14 +950,59 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
->   		 */
->   		filemap_invalidate_lock(vi->i_mapping);
->   
-> +		/*
-> +		 * A page fault through a shared mapping may have used the
-> +		 * extended initialized size while the write was stalled on
-> +		 * its source, so keep that size and zero what the write did
-> +		 * not reach instead.  [old_init_size, pos) was zeroed before
-> +		 * the write.  Past end, zero the rest of the block that a
-> +		 * buffered copy may have read from disk, unless such a fault
-> +		 * already moved the initialized size past end and zeroed it.
-> +		 */
-> +		if (NInoNonResident(ni) && !NInoCompressed(ni) &&
-> +		    ni->initialized_size > new_init_size) {
-> +			loff_t zstart = max(pos, new_init_size);
-> +			loff_t zend = ni->initialized_size > end ? end :
-> +				      round_up(end, i_blocksize(vi));
-> +			int err = 0;
-> +
-> +			zend = min(zend, new_data_size);
-> +			if (zend > zstart) {
-> +				err = iomap_zero_range(vi, zstart,
-> +						zend - zstart, NULL,
-> +						&ntfs_seek_iomap_ops,
-> +						&ntfs_iomap_folio_ops, NULL);
-> +				/* A direct read must not see the old blocks. */
-> +				if (!err && iocb->ki_flags & IOCB_DIRECT)
-> +					err = filemap_write_and_wait_range(
-> +						vi->i_mapping, zstart, zend - 1);
-> +			}
-> +			if (!err)
-> +				new_init_size = min(ni->initialized_size,
-> +						    new_data_size);
-> +			else
-> +				new_init_size = min3(ni->initialized_size,
-> +						     zstart, new_data_size);
-> +		}
-> +
->   		/* ntfs_attr_set_initialized_size() rejects a resident one. */
-> -		if (ni->initialized_size != old_init_size &&
-> +		if (ni->initialized_size != new_init_size &&
->   		    NInoNonResident(ni)) {
->   			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
->   
-> +			/*
-> +			 * Only reached when the zeroing above failed or did
-> +			 * not apply.  Drop what was cached past the new
-> +			 * initialized size, as __ntfs_extend_initialized_size()
-> +			 * does.
-> +			 */
-> +			if (ni->initialized_size > new_init_size)
-> +				truncate_pagecache_range(vi, new_init_size,
-> +						max_t(loff_t, i_size_read(vi),
-> +						      ni->initialized_size) - 1);
->   			mutex_lock(&mrec_ni->mrec_lock);
->   			init_err = ntfs_attr_set_initialized_size(ni,
-> -					old_init_size);
-> +					new_init_size);
->   			mutex_unlock(&mrec_ni->mrec_lock);
->   		}
->   		/*
-> @@ -955,13 +1011,13 @@ ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
->   		 * the uninitialized tail, so skip it unless the rollback
->   		 * above restored that size.
->   		 */
-> -		if (ni->data_size != old_data_size && !init_err) {
-> +		if (ni->data_size != new_data_size && !init_err) {
->   			struct ntfs_inode *mrec_ni = ntfs_base_inode(ni);
->   
-> -			truncate_setsize(vi, old_data_size);
-> +			truncate_setsize(vi, new_data_size);
->   			mutex_lock(&mrec_ni->mrec_lock);
-> -			data_err = __ntfs_attr_truncate_vfs(ni, old_data_size,
-> -					old_data_size);
-> +			data_err = __ntfs_attr_truncate_vfs(ni, new_data_size,
-> +					new_data_size);
->   			mutex_unlock(&mrec_ni->mrec_lock);
->   			/* Like ntfs_setattr_size(): stay on the durable size. */
->   			if (data_err)
-> 
-> base-commit: b025f526c5d04929212c9d5fb7ffc96608f3eacc
-
-Looks good to me.
-
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
-
+--
+Kind regards
+Mehdi Djait
