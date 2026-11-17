@@ -1,80 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794957799;
-	b=ag+Su5f5N23SBJtrZSvsQKkdjrDSnLewxIzeqU+7B+NXouqIgepj+6c1mzsT1qMJ43SD
-	 zxIAoue4mrDBvxhvLwRULk8gCfk/xNu67u9FVWbGg460A/fW52bDffsqGdqMjT7hqq2XU
-	 /vPe1cAYaAbDC0UsZVIw/y2tJ3f2A0rUWBammm7lwbcshT/bwaNAUYsPcoMFExPhtfHXZ
-	 SCx28Wb3rZYX4n+91metJfVGtrC+SGvAoNf3KgFlPNvdTvQX/T885r/qokPI0qMcBQqYC
-	 OmA/sAt8SoPkOV/ATYlgMbl3ZpLE+457epwLqXLrbYNvGhIOgIfpPniffw2TymzSt0A==
+	t=1794958336;
+	b=c25Ph6+Is6g1/ynoxhpTakWYreRfGQdwvjAUOpSiFCsdNByID4zBapJdiIvQ4gwK4Prf
+	 gEzn/RCirpJy1p2O0zHYXXFFrWUqbHegiNwKvMvhIiO1KIUuggQi4Umka3ir3P3GNxmI6
+	 ov1aJFKAsHnjhOw9Z0qmL0+xFmRY71adPUB0f1rZFQQHnznyNVOzCwx6WCRYT510vM7u/
+	 XmzSzSZNWMRnFuc/AiYrSa+TtUBWv6nMaHanBWsTmarw/GGquXHg/ciP779Xt+n0DktXh
+	 fA8aPY3kQUd3JggfZ3Fb3UVQNKcTwPUedqzrr22h6FfmtmH+vMiq5Vub+jsWcQHJ+CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794957799;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=JSDG24vRsB9LMQ76l7t9/TVkpHL5U7qXXa6HU3bpKzA=;
-	b=W6zDL2JmU/ST/50yWlRZFis9aojgeIedIe2pykNbl9xsgBUAT1Qjs4WN8v+IeqVndP2j
-	 XCHIUv37Ug8DhpWej4Ji1O7PPUirZiTpkTt3akx9s9Ype8M3nQJBSgNVmaOT5O4hgjVuy
-	 L362bfTPUX732xqF1qFigBfYRpxk75gUe0YD7TS7Ply1JdlaAna+7k8KoPhFbW32BFmlz
-	 BBstlpOxh/LZRq/4uT300rm/KjLpuPQ8+MUuzcn1STXFvGJr/R5sQW0wemPpkXjURWcdE
-	 JQ+0ShPBsQ1EHh4WVPDFHGhb5rCRx18Ucpz7+XEwfAeufo6N0DeLi4vs+17fmTvO5+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794958336;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=9IwyFV8Hw/ru2qtr97qIXUT1MpN5o8lRiFBBmhPx1J4=;
+	b=g+xOANm9dgh2/ua3VoE5D4AYasrt7xdhIVKWdW3VL2/RYRpxOoSbhaQI6SY2zY/dkXvP
+	 awfIeGoW6U/CTmqLoqtHpFm8sYIehXI0CIMSzmFAfcSU0fw5sm+gKDX4ZPpW5Fo1Xt/h8
+	 HRY4JYenWKn985DSnRnN6bgYJ6foZsoH7cYYzwypbxqNAg5MMHZA+azQiszi7qpsKqbjh
+	 oQ83xKgt31i+xXUkQZPKwZ0QIRq9x73zoYnrNBrZ8AzttHt7xzLQjKGnkgmhH7jmDX2lI
+	 than7pGRHiMaUzz1sTwunTz+p4lDBvumjstcFlfLGE7z4SvFr9a5CSPTyirljSKKEsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=HoEJG7HU;
-	arc=none smtp.remote-ip=52.26.1.71
-Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--dhavale.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TUo6PzlP;
+	arc=none smtp.remote-ip=74.125.82.200
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD370606A894
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 23:23:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD370606A894
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2721606A32A
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 23:32:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2721606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dhavale.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=HoEJG7HU
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TUo6PzlP
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-37549877380so422954eec.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 15:32:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1794957798; x=1826493798;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=JSDG24vRsB9LMQ76l7t9/TVkpHL5U7qXXa6HU3bpKzA=;
-  b=HoEJG7HURTBwwR/vsQAoAp6TAMypCdBC+ognAZNcytWKO/STZtcnP9j/
-   VVgIqWHA0o5Z8MqjtQjFBbIH96lbN206fzmIxvOVXMNa25Sp7tTuMzKOK
-   aRJ8FCFyGqyKRrO6Dq+9lxkpfbpbu2rrPLtim7E7+/+ioNbohJpVb3rRn
-   WkHnhYLht1RIYkZ6ion8e5Qjlrt93R1yWTTjBx5VevNk6vBfOk4Hptwgq
-   OidbwtCq5FiYTohe+WNKj9UO6ZG9+myzklR0CJIyeOVOaK2T+BtMUZIz4
-   OO79S4/yMX89PzD35wnMPVB81GRC1DAmEiweo8gpxVsBGOAyfuCHC+m2F
-   g==;
-X-CSE-ConnectionGUID: edZ8gfNNRVqNE+5igBw1bA==
-X-CSE-MsgGUID: m58NZ0ibTPCHuVcdkkzh4g==
-X-IronPort-AV: E=Sophos;i="6.27,218,1787011200"; 
-   d="scan'208";a="34459554"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 23:23:18 +0000
-Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:1072]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.10.61:2525] with esmtp (Farcaster)
- id 90884354-cee8-48a5-9bf3-b16e0fabdce2; Tue, 17 Nov 2026 23:23:18 +0000 (UTC)
-X-Farcaster-Flow-ID: 90884354-cee8-48a5-9bf3-b16e0fabdce2
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Tue, 17 Nov 2026 23:23:17 +0000
-Received: from dev-dsk-mkbund-2b-9ea2efba.us-west-2.amazon.com (10.2.100.138)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Tue, 17 Nov 2026 23:23:17 +0000
-From: Mark Bundschuh <mkbund@amazon.com>
-To: <stable@vger.kernel.org>
-CC: Pablo Neira Ayuso <pablo@netfilter.org>, Jaeyeong Lee
-	<iostreampy@proton.me>, Mark Bundschuh <mkbund@amazon.com>
-Subject: [PATCH 6.18.y 2/2] netfilter: nft_ct: move custom expectation support to helper
-Date: Tue, 17 Nov 2026 23:23:07 +0000
-Message-ID: <20261117232211.stolba-3679da4ad8be-linux-6.18.y-v1-2@amazon.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20261117232211.stolba-3679da4ad8be-linux-6.18.y-v1-0@amazon.com>
-References: <20261117232211.stolba-3679da4ad8be-linux-6.18.y-v1-0@amazon.com>
+        d=google.com; s=20260707; t=1794958335; x=1795563135; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9IwyFV8Hw/ru2qtr97qIXUT1MpN5o8lRiFBBmhPx1J4=;
+        b=TUo6PzlP5dL8VHJ9DgzpoZViMJDHHEPNybIHHFYBOgad610mKaA8Rj7f51hafkpoC6
+         rHPh/OBeghn/8Hxs4kO/Tx9enk8Cy5lJUJDC4MgRoUJklYtTsX5aTV75zMZlX2WSvJNC
+         Cm8Zugb0y1MTOHa/ceqlkL5FNv3kuiWOPX74nMEf5eu80ZQlUnYexoyH6t/ju39o5DVo
+         GDCi1kNGqC24pvH4KxQPJ0Xh5IFJs65crMCjTYaz/4ixsEH+Qu3wLuTPXeTC9b4WzZdw
+         OyarLpRAa3XKZb+R+TAor6A61olaeZh2UXVhy0xSj6vFuSd4XCzHtXmyAusPiEU7oomY
+         oH3g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794958335; x=1795563135;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9IwyFV8Hw/ru2qtr97qIXUT1MpN5o8lRiFBBmhPx1J4=;
+        b=Nx/nAmH9zD8gxAUMjXE9UUUZg9upU0c/kbjk6rZbvQBA39MLijNof9J0Ap5Vnu84NQ
+         2iPNTriyLyQbEm61fUOv2MHUMMCViC41XiYgR4iW9yb4eegvxePpgxnR7JQvG8Oxftkz
+         u35B6awiZWyaDQdbm/L/L8cLxQmQ84i4ILqSYQBGkqEwRz3thmDvskPpfUBtk04dkw5W
+         rn2G0Xz68ENBfY9HdAXwx9vkmgIzZRihwn3wHP1vSadF2qeLWYxArCQtWlITZu6FXv4U
+         cszAgf971bU0qC1uwFbLNDgIJNQylPyiMG71vD6RpzVaRVIPQGxRslwLsO8Xz0SECyIR
+         8f3w==
+X-Forwarded-Encrypted: i=1; AL+hErHqWDxnGA3OxDF4Q+Dl9/itth+qk9hlrLHEIQtC6m9ZegGGuIXi8MkOidj7aQceWpCFP+BElAA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8lxvPaM5lk4ATv76TVb3W1yzgDanv2izrtpFRTqstgMxnokgkN
+	aMExkZSMPscGGuhOCwX1QpJtuTiM1Ad95VkKDUxeChJrdzR7ux8AyN44n76Bs8Qzvz4eiXLb7iU
+	b0mKBAn4P6w==
+X-Received: from dybtv21.prod.google.com ([2002:a05:7300:f495:b0:381:935d:2548])
+ (user=dhavale job=prod-delivery.src-stubby-dispatcher) by 2002:a05:693c:42d0:b0:381:fe77:7d31
+ with SMTP id 5a478bee46e88-38281020598mr858985eec.12.1794958334280; Tue, 17
+ Nov 2026 15:32:14 -0800 (PST)
+Date: Tue, 17 Nov 2026 15:32:06 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,282 +75,100 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC004.ant.amazon.com (10.13.139.246) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261117233208.72628-1-dhavale@google.com>
+Subject: [PATCH v2] ext4: fix race between inline dir conversion and folio read
+From: Sandeep Dhavale <dhavale@google.com>
+To: "Theodore Ts'o" <tytso@mit.edu>
+Cc: kernel-team@android.com, liuderong2022@gmail.com, 
+	Sandeep Dhavale <dhavale@google.com>, stable@vger.kernel.org, Jan Kara <jack@suse.cz>, 
+	liuderong <liuderong@xiaomi.com>, Andreas Dilger <adilger.kernel@dilger.ca>, 
+	Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, 
+	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
+Commit 90f097b1403f ("ext4: refactor the inline directory conversion and
+new directory codepaths") moved directory block initialization in
+ext4_convert_inline_data_nolock() into ext4_init_dirblock(), unlocking
+data_bh before setting BH_Uptodate.
 
-[ Upstream commit 3679da4ad8be84cddaf40bc307fef1fe13e051ff ]
+When block size is smaller than PAGE_SIZE, multiple buffer heads share a
+single block device folio. If a concurrent read on that folio runs via
+block_read_full_folio() while data_bh is unlocked and not uptodate, it
+locks data_bh and submits a disk read for the uninitialized block.
 
-Originally, the ct expectation support called nf_ct_helper_ext_add() for
-confirmed conntracks, which is invalid, triggering a splat. This was
-fixed by commit 1710eb913bdc ("netfilter: nft_ct: skip expectations for
-confirmed conntrack") which restricted it to unconfirmed conntracks.
+Because ext4_init_dirblock() initializes bh->b_data without holding the
+buffer lock, the disk read races with and overwrites the initialized
+directory entries and checksum tail, corrupting the directory block:
 
-However, early insertion of expectations into the expectations list when
-the conntrack is unconfirmed leads to stale entries pointing to the
-wrong hlist_head through .pprev due to ct extension reallocation.
+  EXT4-fs warning: ext4_dirblock_csum_verify:375: inode #...:
+    No space for directory leaf checksum. Please run e2fsck -D.
+  EXT4-fs error: __ext4_find_entry:1626: inode #...:
+    checksumming directory block 0
 
-Commit 7c9664351980 ("netfilter: move nat hlist_head to nf_conn") moved
-the nat hlist_head to nf_conn for this reason:
+This issue was reported by an Android partner encountering kernel panics
+in ext4_dirblock_csum_verify() ("No space for directory leaf checksum")
+on 16KB page size kernels mounting a 4KB block size ext4 filesystem.
 
-     1. ...
-     2. When reallocation of extension area occurs we need to fixup the
-        bysource hash head via hlist_replace_rcu.
+To fix this, mark data_bh uptodate before unlocking it in
+ext4_convert_inline_data_nolock(), just like the regular file path
+does. Additionally, hold lock_buffer(bh) in ext4_init_dirblock() while
+populating the directory entries and checksum tail so any buffer
+modifications are properly serialized.
 
-I'd rather not increase the size of the struct nf_conn for this feature
-has very limited scope: only one expectation can be created at a time
-given expect_clash() will make nf_ct_expect_related() reports EBUSY.
-For this reason, relax nf_ct_expect_related() not to drop packets in
-case expectation creation fails, therefore, expectation creation becomes
-best effort.
-
-To address this issue, add an internal ct helper and attach it to the
-conntrack entry to streamline the custom ct expectation support with
-existing ct helpers.
-
-Expose a new nf_conntrack_helper_release() function to release the
-internal helper that is allocated and attached to the conntrack entry to
-create the custom expectations. The nft_ct module removal always waits
-for rcu grace period, then the NULL helper callback is observed after
-this.
-
-This patch also restricts the creation of expectations to different
-helpers other than this custom helper that is created for this type of
-expectations.
-
-Fixes: 857b46027d6f ("netfilter: nft_ct: add ct expectations support")
-Reported-by: Jaeyeong Lee <iostreampy@proton.me>
-Link: https://patch.msgid.link/20260715144755.00ea7dfcd9f@proton.me
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-[ - ac46f3f35b6e ("netfilter: nf_conntrack_helper: add refcounting from
-    datapath") is not backported because it reworks helper lifetime
-    around a datapath ct_refcnt in 9 files, so one static nft_ct_expect
-    helper is unhelped at nft_ct module exit.
-  - d4beefc90a66 ("netfilter: nft_ct: support expectation creation for
-    natted flows") is not backported because it adds expectation support
-    for NATed flows, so the moved expectation code has no NAT
-    follow-master part.
-  - Context differs due to commit: 6031487d4e27 ]
-Signed-off-by: Mark Bundschuh <mkbund@amazon.com>
+Fixes: 90f097b1403f ("ext4: refactor the inline directory conversion and new directory codepaths")
+Cc: stable@vger.kernel.org
+Assisted-by: Antigravity:gemini-3.8-flash
+Signed-off-by: Sandeep Dhavale <dhavale@google.com>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Tested-by: liuderong <liuderong@xiaomi.com>
 ---
- include/net/netfilter/nf_conntrack_helper.h |   1 +
- net/netfilter/nf_conntrack_helper.c         |  20 ++--
- net/netfilter/nft_ct.c                      | 100 +++++++++++++++-----
- 3 files changed, 89 insertions(+), 32 deletions(-)
+Changes in v2:
+- Rebased onto ext4-tree/dev (7.4-rc2).
+- Moved the real-world impact paragraph into the commit message per Jan's
+  review comment.
+- Collected Reviewed-by from Jan Kara and Tested-by from liuderong.
 
-diff --git a/include/net/netfilter/nf_conntrack_helper.h b/include/net/netfilter/nf_conntrack_helper.h
-index 24cf3d2d9745..5b76fa57fd76 100644
---- a/include/net/netfilter/nf_conntrack_helper.h
-+++ b/include/net/netfilter/nf_conntrack_helper.h
-@@ -105,6 +105,7 @@ void nf_ct_helper_init(struct nf_conntrack_helper *helper,
+Link to v1: https://lore.kernel.org/all/20260918025416.604297-1-dhavale@google.com/
+
+ fs/ext4/inline.c | 1 +
+ fs/ext4/namei.c  | 2 ++
+ 2 files changed, 3 insertions(+)
+
+diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
+index ceee69a66482..0aa14cee3310 100644
+--- a/fs/ext4/inline.c
++++ b/fs/ext4/inline.c
+@@ -1167,6 +1167,7 @@ static int ext4_convert_inline_data_nolock(handle_t *handle,
+ 		error = ext4_handle_dirty_metadata(handle,
+ 						   inode, data_bh);
+ 	} else {
++		set_buffer_uptodate(data_bh);
+ 		unlock_buffer(data_bh);
+ 		inode->i_size = inode->i_sb->s_blocksize;
+ 		i_size_write(inode, inode->i_sb->s_blocksize);
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+index 354fc2d22df1..69580e54455f 100644
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -2933,6 +2933,7 @@ int ext4_init_dirblock(handle_t *handle, struct inode *inode,
+ 	if (ext4_has_feature_metadata_csum(inode->i_sb))
+ 		csum_size = sizeof(struct ext4_dir_entry_tail);
  
- int nf_conntrack_helper_register(struct nf_conntrack_helper *);
- void nf_conntrack_helper_unregister(struct nf_conntrack_helper *);
-+void nf_conntrack_helper_release(struct nf_conntrack_helper *);
- 
- int nf_conntrack_helpers_register(struct nf_conntrack_helper *, unsigned int);
- void nf_conntrack_helpers_unregister(struct nf_conntrack_helper *,
-diff --git a/net/netfilter/nf_conntrack_helper.c b/net/netfilter/nf_conntrack_helper.c
-index 2cef826e20fb..17538e3382dd 100644
---- a/net/netfilter/nf_conntrack_helper.c
-+++ b/net/netfilter/nf_conntrack_helper.c
-@@ -425,6 +425,18 @@ static bool expect_iter_me(struct nf_conntrack_expect *exp, void *data)
- 	return this == me;
++	lock_buffer(bh);
+ 	de->inode = cpu_to_le32(inode->i_ino);
+ 	de->name_len = 1;
+ 	de->rec_len = ext4_rec_len_to_disk(ext4_dir_rec_len(de->name_len, NULL),
+@@ -2965,6 +2966,7 @@ int ext4_init_dirblock(handle_t *handle, struct inode *inode,
+ 	BUFFER_TRACE(dir_block, "call ext4_handle_dirty_metadata");
+ 	set_buffer_uptodate(bh);
+ 	set_buffer_verified(bh);
++	unlock_buffer(bh);
+ 	return ext4_handle_dirty_dirblock(handle, inode, bh);
  }
  
-+void nf_conntrack_helper_release(struct nf_conntrack_helper *me)
-+{
-+	nf_ct_expect_iterate_destroy(expect_iter_me, me);
-+	nf_ct_iterate_destroy(unhelp, me);
-+
-+	/* nf_ct_iterate_destroy() does an unconditional synchronize_rcu() as
-+	 * last step, this ensures rcu readers of exp->helper are done.
-+	 * No need for another synchronize_rcu() here.
-+	 */
-+}
-+EXPORT_SYMBOL_GPL(nf_conntrack_helper_release);
-+
- void nf_conntrack_helper_unregister(struct nf_conntrack_helper *me)
- {
- 	mutex_lock(&nf_ct_helper_mutex);
-@@ -437,13 +449,7 @@ void nf_conntrack_helper_unregister(struct nf_conntrack_helper *me)
- 	 */
- 	synchronize_rcu();
- 
--	nf_ct_expect_iterate_destroy(expect_iter_me, me);
--	nf_ct_iterate_destroy(unhelp, me);
--
--	/* nf_ct_iterate_destroy() does an unconditional synchronize_rcu() as
--	 * last step, this ensures rcu readers of exp->helper are done.
--	 * No need for another synchronize_rcu() here.
--	 */
-+	nf_conntrack_helper_release(me);
- }
- EXPORT_SYMBOL_GPL(nf_conntrack_helper_unregister);
- 
-diff --git a/net/netfilter/nft_ct.c b/net/netfilter/nft_ct.c
-index 4687fc244eaf..87de920ead03 100644
---- a/net/netfilter/nft_ct.c
-+++ b/net/netfilter/nft_ct.c
-@@ -1228,6 +1228,65 @@ static int nft_ct_expect_timeout_get(const struct nlattr *attr, u32 *val)
- 	return 0;
- }
- 
-+struct nft_ct_expect_data {
-+	struct nft_ct_expect_obj	obj;
-+	enum ip_conntrack_dir		dir;
-+};
-+
-+static int ct_expect_help(struct sk_buff *skb, unsigned int protoff,
-+			  struct nf_conn *ct, enum ip_conntrack_info ctinfo)
-+{
-+	enum ip_conntrack_dir dir = CTINFO2DIR(ctinfo);
-+	struct nft_ct_expect_data *expect_data;
-+	struct nf_conntrack_expect *exp;
-+	int ret = NF_ACCEPT;
-+	u16 l3num;
-+
-+	if (nf_ct_is_confirmed(ct))
-+		return NF_ACCEPT;
-+
-+	expect_data = nfct_help_data(ct);
-+	if (!expect_data)
-+		return NF_ACCEPT;
-+
-+	if (expect_data->dir != dir)
-+		return NF_ACCEPT;
-+
-+	exp = nf_ct_expect_alloc(ct);
-+	if (!exp)
-+		return NF_DROP;
-+
-+	if (expect_data->obj.l3num == NFPROTO_INET)
-+		l3num = nf_ct_l3num(ct);
-+	else
-+		l3num = expect_data->obj.l3num;
-+
-+	nf_ct_expect_init(exp, NF_CT_EXPECT_CLASS_DEFAULT, l3num,
-+			  &ct->tuplehash[!dir].tuple.src.u3,
-+			  &ct->tuplehash[!dir].tuple.dst.u3,
-+			  expect_data->obj.l4proto, NULL, &expect_data->obj.dport);
-+	exp->timeout += expect_data->obj.timeout;
-+
-+	if (nf_ct_expect_related(exp, 0) != 0)
-+		ret = NF_ACCEPT;
-+
-+	nf_ct_expect_put(exp);
-+
-+	return ret;
-+}
-+
-+static const struct nf_conntrack_expect_policy nft_ct_expect_helper_policy = {
-+	.max_expected	= NF_CT_EXPECT_MAX_CNT,
-+};
-+
-+/* No need to register this helper, this is internal. */
-+static struct nf_conntrack_helper nft_ct_expect_helper = {
-+	.name		= "nft_ct_expect",
-+	.me		= THIS_MODULE,
-+	.expect_policy	= &nft_ct_expect_helper_policy,
-+	.help		= ct_expect_help,
-+};
-+
- static int nft_ct_expect_obj_init(const struct nft_ctx *ctx,
- 				  const struct nlattr * const tb[],
- 				  struct nft_object *obj)
-@@ -1235,6 +1294,8 @@ static int nft_ct_expect_obj_init(const struct nft_ctx *ctx,
- 	struct nft_ct_expect_obj *priv = nft_obj_data(obj);
- 	int err;
- 
-+	NF_CT_HELPER_BUILD_BUG_ON(sizeof(struct nft_ct_expect_data));
-+
- 	if (!tb[NFTA_CT_EXPECT_L4PROTO] ||
- 	    !tb[NFTA_CT_EXPECT_DPORT] ||
- 	    !tb[NFTA_CT_EXPECT_TIMEOUT] ||
-@@ -1280,7 +1341,7 @@ static int nft_ct_expect_obj_init(const struct nft_ctx *ctx,
- }
- 
- static void nft_ct_expect_obj_destroy(const struct nft_ctx *ctx,
--				       struct nft_object *obj)
-+				      struct nft_object *obj)
- {
- 	nf_ct_netns_put(ctx->net, ctx->family);
- }
-@@ -1305,11 +1366,9 @@ static void nft_ct_expect_obj_eval(struct nft_object *obj,
- 				   const struct nft_pktinfo *pkt)
- {
- 	const struct nft_ct_expect_obj *priv = nft_obj_data(obj);
--	struct nf_conntrack_expect *exp;
-+	struct nft_ct_expect_data *expect_data;
- 	enum ip_conntrack_info ctinfo;
- 	struct nf_conn_help *help;
--	enum ip_conntrack_dir dir;
--	u16 l3num = priv->l3num;
- 	struct nf_conn *ct;
- 
- 	ct = nf_ct_get(pkt->skb, &ctinfo);
-@@ -1317,38 +1376,28 @@ static void nft_ct_expect_obj_eval(struct nft_object *obj,
- 		regs->verdict.code = NFT_BREAK;
- 		return;
- 	}
--	dir = CTINFO2DIR(ctinfo);
- 
- 	help = nfct_help(ct);
--	if (!help)
--		help = nf_ct_helper_ext_add(ct, GFP_ATOMIC);
--	if (!help) {
--		regs->verdict.code = NF_DROP;
--		return;
--	}
--
--	if (help->expecting[NF_CT_EXPECT_CLASS_DEFAULT] >= priv->size) {
-+	if (help) {
- 		regs->verdict.code = NFT_BREAK;
- 		return;
- 	}
--	if (l3num == NFPROTO_INET)
--		l3num = nf_ct_l3num(ct);
- 
--	exp = nf_ct_expect_alloc(ct);
--	if (exp == NULL) {
-+	help = nf_ct_helper_ext_add(ct, GFP_ATOMIC);
-+	if (!help) {
- 		regs->verdict.code = NF_DROP;
- 		return;
- 	}
--	nf_ct_expect_init(exp, NF_CT_EXPECT_CLASS_DEFAULT, l3num,
--		          &ct->tuplehash[!dir].tuple.src.u3,
--		          &ct->tuplehash[!dir].tuple.dst.u3,
--		          priv->l4proto, NULL, &priv->dport);
--	exp->timeout += priv->timeout;
- 
--	if (nf_ct_expect_related(exp, 0) != 0)
--		regs->verdict.code = NF_DROP;
-+	expect_data = nfct_help_data(ct);
-+	if (!expect_data) {
-+		regs->verdict.code = NFT_BREAK;
-+		return;
-+	}
-+	expect_data->obj = *priv;
-+	expect_data->dir = CTINFO2DIR(ctinfo);
- 
--	nf_ct_expect_put(exp);
-+	rcu_assign_pointer(help->helper, &nft_ct_expect_helper);
- }
- 
- static const struct nla_policy nft_ct_expect_policy[NFTA_CT_EXPECT_MAX + 1] = {
-@@ -1428,6 +1477,7 @@ static void __exit nft_ct_module_exit(void)
- 	nft_unregister_obj(&nft_ct_helper_obj_type);
- 	nft_unregister_expr(&nft_notrack_type);
- 	nft_unregister_expr(&nft_ct_type);
-+	nf_conntrack_helper_release(&nft_ct_expect_helper);
- }
- 
- module_init(nft_ct_module_init);
 -- 
-2.50.1
+2.56.1.703.gf848ed807c-goog
 
