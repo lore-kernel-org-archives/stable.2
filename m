@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.146
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794933274;
-	b=N5ZBKPSNocFuxthQNqoe6Uar2GdfjGCqF1wYrFW36RApWj+98Oqx9J8aspbc654iVbsf
-	 k5OMtiDSy7a3Oexr4g3C2PgLK5pTdfZcT5+yABbTIToTHg7mekw5YFZ1vkLQIjat/8V7M
-	 d+bUxAJAwpJ+1i+Q90uEOBiGjxRVqF+OBYw48eW6noL2FuraekxjqmbB8GA0/ADDn/dUw
-	 CH51ORDZWKixB34m4S5e383jHvC77D6fYf+0Ha0WlcTMPlxxjKJMvEnZBKjGAXIZjm5VX
-	 V2hQFfnEF2Z/nbRdLRBtG+wXRXyImw1FHr7wiX9JmY8pXlB7Uvt0GeVxi46vALlXkIQ==
+	t=1794933398;
+	b=UBmejgYLAkJAR7zMw3tzGg0AWtzNfIVPF908fZQo/8bFjhBpQiPmDZMwN2MMcl/HC1Fv
+	 LP2warhD4jMrx8P91XoCo90+HW3muJZUEnvjM0npxNnud0RKcoWZbyLPBFr+ukSjV805W
+	 rM7mtaFOzfTAVK+kwABe7sIMyvAceLdD78L5kBBHlPJy9CCf8iG1qboR3/EPF3zDY96m0
+	 rD9V0kKEma3Ok79tTw1Lro5aMID38fNfFZg6DqHXaKYOTaFXflBmjXOcAcXecpkopw4CM
+	 vk0F1+zk7ZRP5W4XCSAfQwxnFLh570+RVJsptWpBjrVRP0fAhlbC6raPf24nMAeChqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794933274;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=JEEmq1dY81wdbCeTX7SttAeKu8NSqyPmmLobfOaFWuo=;
-	b=lDbRlYwGVPUQr3wiRbpuDjxPOGdIPM5cFNbyqSJMDqw0VXquGMe5AvIwCrvOS2VzVRs8
-	 NACXFl7VUv3pq8vBK4yGuSb1T7xuPBF9pRKY7GIKq08Ktyu8syErReOw7X+ml1OY5AQqX
-	 5quw6UdKuM+Mk6+1wN7y2iHaWU064M/3wpv7sKZGKoaQlOTxa3Y7BFoxJm8jCwxN+nLPB
-	 CJ3UfjLkZc3S2gJyzFyN2FKf5TYniYLVo69bk0eNN+AEoOC4adOHyUTNMr+APp7jMCHJN
-	 k0gcc+4lnmwMczDQ8E5aFJfxSPwt+DvLzAJ4GuAL7SOsiXnZPSDIOA5iTuVHOROIoQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794933398;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Zb5lYLuxjmg3shX7epwrm7jj0zA0SmJFcWL0jUgwwXM=;
+	b=2dazT6pi75geF3qKH9jdDdzHqZclHVESKtET/kIp6qagSBjMSvHTniy8ZgBL0yQzyris
+	 6aXgRWuJYXTTtsDkB5XllrXnPamdfKx4sKpYISMcSD7m88L4VuqpNY06GFy4pu81RKOEM
+	 iEAs5g7Lv+F44w9kjw0YRNLmMtyCL5N1MbivqZeqxU8m3umxjqnFArjnnSTs4GNLiSxL/
+	 mzzxyqg3MKHJGuHBB8iPaf2SYJBYGT6mPZJUVbg0xJ9DdbuEydXPcswoZ8iKfrkcWryld
+	 AZkVZFAOTZZaeMAURp4bjFe5ysS9NWDCnbm5rcibqQyV44LJoY3WHDOuZSHVHIVxqJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IfpL3SzR;
-	arc=none smtp.remote-ip=95.215.58.146
-Received: from mta1.migadu.com (out-146.mta1.migadu.com [95.215.58.146])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="LM2Rh/YI";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA914606A32C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 16:34:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA914606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61418606A32C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 16:36:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=IfpL3SzR
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RJgmEkz4jSKky+L1Q1MlhqmjHI4xCv6x+BFHapl0q5g=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794933271; v=1; x=1795538071;
- b=IfpL3SzR7Nvihq9US39Oqm3zkEnRicLRID6CM6pD9965dMcj8R+v8Pg6U6oppvPgNyt/bCoO
- 4ao82qHM39cCYvBWukc+QdjG4GgGFyXkLMMzDeysMwKkJyNztktyJfXVGjV+hiqRWDIN/3rlE59
- dUdRes882EQpHe6tLSNPhUH0=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 60d8652a3546647f;
-	Tue, 17 Nov 2026 16:34:31 +0000
-X-Mizu-Trace-ID: 60d8652a3546647f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a852dce9-4ece-4508-8e07-89768cf6713e@linux.dev>
-Date: Tue, 17 Nov 2026 09:34:23 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LM2Rh/YI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E9181F000C5
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 16:36:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794933398;
+	bh=Zb5lYLuxjmg3shX7epwrm7jj0zA0SmJFcWL0jUgwwXM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LM2Rh/YIjXZ08VB7J6bNbAaTRoBEXGF5QxZJAg8gfSI4cXdh0ZU8QU3yyMIfxQ+Zk
+	 iXQ+7F0g7b9SS1NY3L4X+newtbw65sVtJA6HYH/hmw53WfnC5jw93junCALWJDc8gw
+	 oQSwMQg1IqpK8GsgxGnmEr1j/64uZMQrr4DlZ+MX3V0HRUzVwVClNu1rMVEzFjlznz
+	 PvASuoXGiZUVys9FXbdZPavMIe6hbESXHDVqOyMHfyiduSMbWxlK6/fMCudnu3ZREr
+	 ZPnF6oA+FU2oaHX8dKm9XLVe+f62hLd7rtWpRPFSBXjSdbiKwFksMINRwvY9MGYGrM
+	 AswvSe/bq8/xA==
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7cc81984fceso1692030137.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 08:36:38 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGBY6NcHWl1TliIZ70ynmYOCCL9JqYDNVY2BDqVMmKRPOkNMWgMsSBFYNxIohHtswohb1kR3lg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9eN0RJqQ24MOMDpDg7hVHawy+1RLuI1gdaL6hRWEG1Cy5xQDpd
+	yLee9/uixbvMUlr8ooJkVQL506EQe08zBbHQxh1WKo1Eb8lHViki5RyHJ65zkQEV3QCAHVjat2X
+	pAp+V3nDxZM+osck4MoWhQlcpxJidgP0=
+X-Received: by 2002:a05:6102:54a7:b0:7d2:75bf:2fdb with SMTP id
+ ada2fe7eead31-7d64d483390mr4099149137.2.1794933397332; Tue, 17 Nov 2026
+ 08:36:37 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,103 +59,186 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/khugepaged: mark ptes dirty and soft-dirty on mTHP
- collapse
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lance Yang <lance.yang@linux.dev>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Chris Mason <mason@kernel.org>, Daniel Wade <danjwade95@gmail.com>
-References: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
-Content-Language: en-US
-From: Nico Pache <nico.pache@linux.dev>
-In-Reply-To: <20261117-khugepaged_mthp_dirty-v1-1-024e4a12c2fa@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <cover.1794867985.git.wqu@suse.com> <217e66b15e1646812cc86be582be67b7e558b270.1794867985.git.wqu@suse.com>
+In-Reply-To: <217e66b15e1646812cc86be582be67b7e558b270.1794867985.git.wqu@suse.com>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Tue, 17 Nov 2026 16:36:00 +0000
+X-Gmail-Original-Message-ID: <CAL3q7H4Q1pEzYnXf16sNR2JSwj=V0nbMf2YE2iwrQPEKuPJ2WA@mail.gmail.com>
+X-Gm-Features: Aa3M54oDDrtqtMTndAZooAX4PnHXfQW-MFixPJvXSIrQumD-9mXy2DSd9zEqMoo
+Message-ID: <CAL3q7H4Q1pEzYnXf16sNR2JSwj=V0nbMf2YE2iwrQPEKuPJ2WA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] btrfs: scrub: fix use-after-free when waking up the
+ repair waiter
+To: Qu Wenruo <wqu@suse.com>
+Cc: linux-btrfs@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Mon, Nov 16, 2026 at 10:34=E2=80=AFPM Qu Wenruo <wqu@suse.com> wrote:
+>
+> The read-repair worker of a scrub_stripe can race with stripe freeing:
+>
+>  CPU0 (repair worker)                CPU1 (scrub)
+>  scrub_stripe_read_repair_worker()   scrub_raid56_parity_stripe()
+>  |                                   |-wait_event()
+>  |                                   | ^^^ checks the condition without
+>  |                                   |     taking repair_wait.lock
+>  |-set_bit(REPAIR_DONE)              |
+>  | ^^^ the waiter can see it now     | ^^^ sees the bit, doesn't sleep
+>  |                                   |
+>  |                                   \-scrub_simple_mirror()
+>  |                                     \-...
+>  |                                   scrub_stripe()
+>  |                                   |-release_scrub_stripe()
+>  |                                   \-kfree(sctx->raid56_data_stripes)
+>  |                                     ^^^ stripe freed
+>  |
+>  \-wake_up()
+>    \-_raw_spin_lock_irqsave()
+>      ^^^ repair_wait.lock is in freed memory
+>      Too late.
 
+There's something odd and very confusing with the diagram.
+The way it's structured it gives the idea that
+scrub_raid56_parity_stripe() calls scrub_simple_mirror() for example.
+But it's scrub_stripe() that calls scrub_raid56_parity_stripe() and
+scrub_simple_mirror().
 
-On 11/17/26 2:28 AM, David Hildenbrand (Arm) wrote:
-> An mTHP collapse can lose soft-dirty PTE bits if pages were written and
-> the VMA was then made read-only, and not setting the PTE dirty in
-> VMAs without VM_WRITE can interact with a later MADV_FREE on a COW-shared
-> page such that all processes lose the data even though a single process
-> MADV_FREE'ed it.
-> 
-> Collapse does not preserve the soft-dirty bits of the old PTEs, so the
-> new entries must be marked soft-dirty. map_anon_folio_pte_nopf() relies
-> on pte_mkdirty() to do that, but only calls it if the VMA has VM_WRITE.
-> 
-> Further, after CoW-sharing such collapsed folios later, all PTEs will be
-> clean and the folios will be clean. One process doing a MADV_FREE can mark
-> the folios as lazyfree and result in all processes sharing it losing the
-> data once memory reclaim zaps it.
-> 
-> In map_anon_folio_pte_nopf(), call pte_mkdirty() unconditionally, just
-> like map_anon_folio_pmd_nopf() already does with pmd_mkdirty().
-> 
-> Consequently, we always mark these PTEs dirty (including soft-dirty) but
-> only set them writable if the VMA has VM_WRITE.
-> 
-> This essentially reverts Hugh's commit 1ac0cb5d0e22 ("mm: fix anonymous
-> dirtying") that back then touched do_anonymous_page() to avoid forcing
-> clean anonymous pages through swap instead of discarding them. This no
-> longer applies as shrink_folio_list() allocates swap for ordinary
-> anonymous folios and unconditionally marks them dirty before unmapping,
-> regardless of PTE dirty state. Keeping their PTEs clean does not make
-> them discardable.
-> 
-> This now also marks fresh anonymous PTEs dirty and soft-dirty in read-only
-> VMAs when page faults allocate real pages.
-> 
-> This has low urgency.
-> 
-> Fixes: e22f2fe72c74 ("mm/khugepaged: generalize collapse_huge_page for mTHP collapse")
+I also find it confusing the mention of scrub_simple_mirror(), since
+it doesn't add any value.
 
-I was just thinking yesterday: "Im happy the mTHP collapse stuff 
-survived this AI wave". I guess I spoke a day too soon ;P
+Something like this instead (the indentation may be screwed up by gmail):
 
-LGTM!
+scrub_stripe()
+    scrub_raid56_parity_stripe()
+         wait_event()
+            ^^ ...
+    release_scrub_stripe()
+         (...)
 
-Reviewed-by: Nico Pache <nico.pache@linux.dev>
+This way, the flow is clearer.
 
-> Cc: stable@vger.kernel.org
-> Reported-by: Chris Mason <mason@kernel.org>
-> Reported-by: Daniel Wade <danjwade95@gmail.com>
-> Closes: https://lore.kernel.org/all/20261117075246.61336-1-danjwade95@gmail.com/
-> Reviewed-by: Daniel Wade <danjwade95@gmail.com>
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Also, the notation you are using is confusing.
+On the left side set_bit() and wake_up() are called by
+scrub_stripe_read_repair_worker(), but one if prefixed with |- while
+the other with \-.
+On the right side,
+
+>
+> The same applies to flush_scrub_stripes(), where the stripes are freed by
+> scrub_free_ctx() at the end of the scrub.
+>
+> Fix it by waiting with a completion instead. complete_all() wakes the
+> waiter under the completion's lock and does not touch it afterwards, and
+> wait_for_completion() returns only after taking that lock, so the stripe
+> can be freed as soon as the wait returns.
+>
+> The completion is re-armed by scrub_reset_stripe(), which is called
+> before every refill of a stripe, i.e. after the previous waiter has
+> returned. The SCRUB_STRIPE_FLAG_REPAIR_DONE flag has no user left, remove
+> it.
+>
+> This is the same problem fixed for the RAID56 rbio in commit
+> 26eb4d70f96d ("btrfs: raid56: fix use-after-free when waking up the rbio
+> I/O waiter").
+
+We can't place the commit ID here, it's not stable yet since it's in
+github's for-next only and will change as it's rebased and so on.
+
+The code itself looks good.
+
+Thanks.
+
+>
+> Fixes: 9ecb5ef543d3 ("btrfs: scrub: introduce the main read repair worker=
+ for scrub_stripe")
+> Cc: stable@vger.kernel.org # 6.4+
+> Signed-off-by: Qu Wenruo <wqu@suse.com>
 > ---
->   mm/memory.c | 3 +--
->   1 file changed, 1 insertion(+), 2 deletions(-)
-> 
-> diff --git a/mm/memory.c b/mm/memory.c
-> index d2f48d78b0d7b..45875d1d3b3df 100644
-> --- a/mm/memory.c
-> +++ b/mm/memory.c
-> @@ -5522,8 +5522,7 @@ void map_anon_folio_pte_nopf(struct folio *folio, pte_t *pte,
->   
->   	entry = pte_sw_mkyoung(entry);
->   
-> -	if (vma->vm_flags & VM_WRITE)
-> -		entry = pte_mkwrite(pte_mkdirty(entry), vma);
-> +	entry = maybe_mkwrite(pte_mkdirty(entry), vma);
->   	if (uffd_wp)
->   		entry = pte_mkuffd(entry);
->   
-> 
-> ---
-> 
-> base-commit: 1c2962a57377c9878cbefb747488324d4e678982
-> 
-> change-id: 20261117-khugepaged_mthp_dirty-067f734d38aa
-> 
+>  fs/btrfs/scrub.c | 19 ++++++++-----------
+>  1 file changed, 8 insertions(+), 11 deletions(-)
+>
+> diff --git a/fs/btrfs/scrub.c b/fs/btrfs/scrub.c
+> index 98362c91bce4..4b37ae143f61 100644
+> --- a/fs/btrfs/scrub.c
+> +++ b/fs/btrfs/scrub.c
+> @@ -80,9 +80,6 @@ enum scrub_stripe_flags {
+>         /* Set when @mirror_num, @dev, @physical and @logical are set. */
+>         SCRUB_STRIPE_FLAG_INITIALIZED,
+>
+> -       /* Set when the read-repair is finished. */
+> -       SCRUB_STRIPE_FLAG_REPAIR_DONE,
+> -
+>         /*
+>          * Set for data stripes if it's triggered from P/Q stripe.
+>          * During such scrub, we should not report errors in data stripes=
+, nor
+> @@ -153,7 +150,9 @@ struct scrub_stripe {
+>         /* From btrfs_chunk_map::stripe_len. Should not exceed BTRFS_STRI=
+PE_LEN. */
+>         u32 stripe_len;
+>         wait_queue_head_t io_wait;
+> -       wait_queue_head_t repair_wait;
+> +
+> +       /* Completed when the read-repair is finished. */
+> +       struct completion repair_done;
+>
+>         /*
+>          * Indicate the states of the stripe.  Bits are defined in
+> @@ -359,7 +358,7 @@ static int init_scrub_stripe(struct btrfs_fs_info *fs=
+_info,
+>         stripe->state =3D 0;
+>
+>         init_waitqueue_head(&stripe->io_wait);
+> -       init_waitqueue_head(&stripe->repair_wait);
+> +       init_completion(&stripe->repair_done);
+>         atomic_set(&stripe->pending_io, 0);
+>         spin_lock_init(&stripe->write_error_lock);
+>
+> @@ -1234,8 +1233,7 @@ static void scrub_stripe_read_repair_worker(struct =
+work_struct *work)
+>         }
+>
+>         scrub_stripe_report_errors(sctx, stripe, &errors);
+> -       set_bit(SCRUB_STRIPE_FLAG_REPAIR_DONE, &stripe->state);
+> -       wake_up(&stripe->repair_wait);
+> +       complete_all(&stripe->repair_done);
+>  }
+>
+>  static void scrub_read_endio(struct btrfs_bio *bbio)
+> @@ -1762,6 +1760,7 @@ static void scrub_reset_stripe(struct scrub_stripe =
+*stripe)
+>         stripe->nr_meta_extents =3D 0;
+>         stripe->nr_data_extents =3D 0;
+>         stripe->state =3D 0;
+> +       reinit_completion(&stripe->repair_done);
+>
+>         for (int i =3D 0; i < stripe->nr_sectors; i++) {
+>                 stripe->sectors[i].csum =3D NULL;
+> @@ -1960,8 +1959,7 @@ static int flush_scrub_stripes(struct scrub_ctx *sc=
+tx)
+>         for (int i =3D 0; i < nr_stripes; i++) {
+>                 stripe =3D &sctx->stripes[i];
+>
+> -               wait_event(stripe->repair_wait,
+> -                          test_bit(SCRUB_STRIPE_FLAG_REPAIR_DONE, &strip=
+e->state));
+> +               wait_for_completion(&stripe->repair_done);
+>         }
+>
+>         /* Submit for dev-replace. */
+> @@ -2236,8 +2234,7 @@ static int scrub_raid56_parity_stripe(struct scrub_=
+ctx *sctx,
+>         for (int i =3D 0; i < data_stripes; i++) {
+>                 stripe =3D &sctx->raid56_data_stripes[i];
+>
+> -               wait_event(stripe->repair_wait,
+> -                          test_bit(SCRUB_STRIPE_FLAG_REPAIR_DONE, &strip=
+e->state));
+> +               wait_for_completion(&stripe->repair_done);
+>         }
+>         /* For now, no zoned support for RAID56. */
+>         ASSERT(!btrfs_is_zoned(sctx->fs_info));
 > --
-> 
-> Cheers,
-> 
-> David
-
+> 2.56.0
+>
+>
