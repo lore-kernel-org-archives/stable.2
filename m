@@ -1,98 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794880485;
-	b=qdDvRZrBgexp6hrJhFSRzZsYfj/vJBoHt8iHzoaG5vFQQfcVOmilapCxRDYONksKAlHu
-	 7MxXUng4w+A4eXrD1VPercaqCKAaGafzh/FshzsbabaLsqyRnlsiv+fvmuf+o6+lq6OpQ
-	 yn2THcBkg4wI/QI5SApxvDJXtc2C3s0rWvnH43JvwNSxa8snHWSyda5CnRukbHhBbiok5
-	 Fe4u2mduLqg9MihLUzOTcZ7slD+b1sxDd7w+jEjyaHDXPjOBEJnqkAVJvq5eTJWvQ4bz/
-	 N4NF+bt0Avf5NX31+Vqa2K65Cnk20cSbD0X3juI3/sJjcgDcT1RuEEXkie+aMPxBwuA==
+	t=1794882102;
+	b=sTxOJYONQBTtiVG9yqVs78suvxXz95GJKynQDJf6bQzkb3jhqAk2JsYO70FH5xg0AF2R
+	 kZWst1fApU5u3klkysdjtGbII0TrMEUeWUf0qmXDV+pObZrEW1N0dCgB6/NEomKNmQGi2
+	 ejubcBAyxgPKx6V5wiww3g54xo/cL+SkWz+T//JHvyxhVNO8PihnGkhhfU3+MNzdsvHvK
+	 RtpcFLTqcPPsJgTDKz0PVBNFc5h/2EttLSWyFRhAYcWo9MJ1zhkSGZs7kmR+OtqpOE7qy
+	 Y7kgsvxTkHedGliLcpU4r0uRPnjzROxwyT3L9iGLIzuNzpiMHhgzPmB5wiUyW0dM7vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794880485;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794882102;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=elkgCBj7aFay/OU9BHM3KC6ZUvNspwV9FYqesvpWo0I=;
-	b=h296CzbCV8UWVnQpX5VJBL+QHM/PXp3voNRDQ7nS6A6giwJgb8kdFcZ/rpYL45LgcJoM
-	 m/8MaT2J358hI9PIMeQFV3W3BI3cIa7BQhyhCHb7ESaw+/KsZbkPtA4CqZjctpRcmHtoA
-	 1SEyA9VFARK5LRq8+QAuyPulPJeaBHM35g9VjevMF3TP0R/J8oz+3resofSoQ5+tGTW2U
-	 nLZZGyo5eeQrReAUmlTIzLd5ErQHEXxPdQEg7lA38ImJCP1Lj930TCKGKm31lcraij5zZ
-	 XWPNa0kX8YviIztd4tjK9nD2Bml/4fDoxXiK5/UC501qttTalQ0zGFLiNddEzbhIb1w==
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ncld42tDn6XcKva7+KFXwbd1kjlUpIEInfIcN7jos5w=;
+	b=EyVocIesdTRr6EbhV241JCnK83Hdcu9MURuXgqtOIUE/NO62stOW7DbycWRqsA/yOXKz
+	 QAyJ6RAQFd2gqpvefwvqpQ+wUhYGcT2AmPgbeOXZyc37IEd0Yja+fEYNElBvRVf70bIeD
+	 Hm2BOxYTERLm1AjdY0dI8rR2LLWcHHOaiDJQAVkk8nlVWewdtdzgFr88Xe36bu69zBIO2
+	 XTd/MBi0Ke3dqMqBFJD8PMOZRAFW1zz4TJsAr+V3HndTJN3Zla8EbtuV2S/oBuRi3E57r
+	 CReKCfLsKYGyijCM5uQeDicmk8xvmc3U4vab2wgDG0nYk4qZJZmyIUBrpRL/YV2VBNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hIBv2MBd;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
+	dmarc=none header.from=kernel.dk;
+	spf=pass smtp.mailfrom=kernel.dk;
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ap+DPoBE;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00BA606A32C
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:54:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B00BA606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1895606A31C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 02:21:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1895606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hIBv2MBd
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-3719e3cb82bso447343eec.3
-        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 17:54:44 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=ap+DPoBE
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-38133db970bso701561eec.0
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 18:21:40 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794880484; x=1795485284; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=elkgCBj7aFay/OU9BHM3KC6ZUvNspwV9FYqesvpWo0I=;
-        b=hIBv2MBd2fvE4Vyu417yPTLhgJkc40FmC1Wfo8/CALgriSL3fwBkrdtox5K//HFBrV
-         CWJWLcx9M5xKuerupLWV7hYNFfmn32P9nwEvjTqM8lT4WO+rxTlf+rXw6EmRsACvbW49
-         z1rfEL7tp3z/eTwcQWdUx+rvencAzjXAaJgt45glo8joyDhHc4EzGg6SWhYgLSgIdeFZ
-         0VFRNQnCYl2AJ0q/eZgaN5/R4xMhbtO2ioaFhiUichv2RFJlJtSTpQlZuKK0dtG25+My
-         mScA4X0JmVwDgaSu0fcjTblhJ27H9Bb78LIEVc7wMHYoYiRTKdaRyqFunaVnvkySEFmp
-         36Sw==
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1794882100; x=1795486900; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ncld42tDn6XcKva7+KFXwbd1kjlUpIEInfIcN7jos5w=;
+        b=ap+DPoBE17krcJNjdiBru2o3KKfNUg1GqppeX7H87tHY0/EgdFC55amn498E/TRGjI
+         XOkt/8dRiA2ZEWoKm2mXahBPIGJj5CP1RNfob9xIUSEk696eyS7bboReH0vs53MS3pxC
+         SlQVJq7Jp5mHiDczDMSuyDBXFvNVWASOX83rt7zkUtQIoJIxe74zqjP3gH0SIdDj8A6L
+         hMX9qTAAGxgqVJ1o7lfHqnl68D0hhTnPhsFqFWopSkWRl55CbFV3SkcrsTgXu7z2jtTT
+         Qj7JHCgSMoyjMokpywBA6Fp3/5cD1ijtcBTMlMdvVgBdt4lYdZDEz8BNu25oJt7J1SVV
+         cv/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794880484; x=1795485284;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=elkgCBj7aFay/OU9BHM3KC6ZUvNspwV9FYqesvpWo0I=;
-        b=H8xyNklZEEV0Ot+LcALwGZgx95PFeaIocbixcyOIvKIiq2YO/AgUNuQ61UE2WZ8lPj
-         GzSW4z45RK0SN67hZS7mIerrUI/r2kJde6s3+9ky91KyLs7WlbbegUr3gkEo1Nuc8dTK
-         MWq2AGPwtsyhZgVr3JJXUTlngzrHUaMffBckCDRQanZpT6UJA9Eu0Vw4abCY74YC7497
-         AUV085XAJi+RhcY5iDbTZMKVSH6SIsT51456fL3bgck9bBmcj5zWc7zS2km65Xg3B9S8
-         74O5MWC+ezLfvbnEVnbEGdhVToCt0lM2aX/HTJS7bqPLgiUtL49E0sLSE2EkCYWQyfld
-         SDsQ==
-X-Forwarded-Encrypted: i=1; AL+hErEG1M2wMZoJ+aLWO5ExKz1FkPD0vtcfu/cK6PACBsdDpE0BF0zaxs6JhVIg0kw1eoSbqy3+nOQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9hioq5JGzAedmrZ/zTXwlIHBf/QdU/+lOwjLgO2vEYmBa44vh6
-	f6J6NNUIMdX6yvwZVwGC2Q4rSMlDIdoDcL8z8rWoQeZMcHEGxR5kLPiz
-X-Gm-Gg: AZFdTZepE0isPG/JqT/ZdmB24tOEBSX6fq4fNxgoD0m/rneuSt65E5adYnr+GzE5OWY
-	hCEaKLwlEahiS4++0CgOX2vEhPf+E9S8d1Xd4f0CemkJgbT3OciX8iIMIeMYhbC8TK/pY5wBpJq
-	qgSBBXdkXSREmlb1VQc+E7c9idxi6Rq8zAL+UxwgMwY+XcclFFqM/uPoB9CKSYQDlDiexMtYQVW
-	iS9Jn64/FrqB/2ObF8q3lYPzW+kMAtQ008ruiTQWBAqLid8yXxK7GgOW499xJezyYJKXeoSwoL6
-	zLnvBZnR6kL0eqYDY4I8xb4bq2porFt4wE9Fk6X50WM3tSgMWizIbFRvJf+SD6o/0WysSg2MZiA
-	4eQqivSYNLeo9W8dOGbr9AmlkGVB8LI2lUyn9Mv6zHtfZqHQgllLkTWJvYC5VKkX7hRZ5bIAvKd
-	2T9l+oqZOG/gHaCN5DADJsvVhEJHBXvsjQbsIjhu067EjNawZsfGitmrjPWM6D919JCOj6xc0YW
-	mKa5l4VeBcU190qql69OhQTPuP4Ju8H4BXdEn/g+10oxviTZpPfhQAWd97gajalGT61nqLPwZ+y
-	B9JtmsNMst6J2tMyEb5MI51rF/qHaH8vfM1+Tau1OU9E4sEOAMuDTgjzy2bj0Uxtp5C5/krKIWn
-	kH4Aou/HMcR6EISb55qE=
-X-Received: by 2002:a05:7300:c00e:20b0:35e:d21c:f33e with SMTP id 5a478bee46e88-379651ecb3emr20450412eec.1.1794880483783;
-        Mon, 16 Nov 2026 17:54:43 -0800 (PST)
-Received: from localhost.localdomain ([188.253.120.78])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37955332a77sm34139971eec.4.2026.11.16.17.54.35
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 16 Nov 2026 17:54:43 -0800 (PST)
-From: Qihang <q.h.hack.winter@gmail.com>
-To: Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>
-Cc: Qihang <q.h.hack.winter@gmail.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	iommu@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] iommu/io-pgfault: reject partial faults after the device is removed
-Date: Tue, 17 Nov 2026 09:54:09 +0800
-Message-ID: <20261117015409.25492-3-q.h.hack.winter@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261117015409.25492-1-q.h.hack.winter@gmail.com>
-References: <20261117015409.25492-1-q.h.hack.winter@gmail.com>
+        d=1e100.net; s=20260707; t=1794882100; x=1795486900;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ncld42tDn6XcKva7+KFXwbd1kjlUpIEInfIcN7jos5w=;
+        b=s44f0HUlITgYIwPf4WdLuRQRNvIYwHknwBbmGqt3ad8Mww2ArGm94mUsX9YtTwXaFT
+         o+nJ8ScRDKjiv/hketNV1KJHTaFlpxAA36Mu/i3pKxLXd2/FL2u3G3XDriHZ7cazNXw0
+         y+JRSKOrqE3d1/b/2CNznqXTyVll3lGkBNUUOGNjdTmfwYP/XFkKQztUNRTVt+F1KbCG
+         tmxo2BACWN75U4jwj1yHIR/VEVqRldiIYomoTv4TY6tctmzItaFQomEqvu916EVJU32C
+         SnYJdkIDpZLX3NnXh9Icd2raonFYXi0ZQcNYI7ZEIAUstd7TvFoytpWtf8/pvfB+IPVM
+         0gow==
+X-Forwarded-Encrypted: i=1; AL+hErE8KYNCbZpa1guUwNuU0wgepFxu+TNGuZbB6rbuCi4JXjDYVs30o06cr3Y0T4/UFf0AvcwOPAc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+hPKKX9j0IGRw29mLh4jtb0uQEM88zUL6ce6bBLAscJN++kS1L
+	C8ca+ggYj9FF689bF6fbo8yAay6e40VHjhG60w8D3sEW4lh6bkjtn+rRmpxBnSPCteU=
+X-Gm-Gg: AZFdTZctVyED4y4XX6qVpSkR6kNrkqxf99u2k6GIbk0EjXHXsADgeNu5RdyeODxlQT7
+	DiZGS9FuS2h9CZtHv6R2YMLidjjwUmJeHCz+vWo2nvetNyGPD0e2iw8VFhdDh+LuhXGXl6kGSS1
+	GFTLzpnZHHmmov9Xi59bXm3Wtry8urj7U/o737/yGQkPo4KuMUgP37TuMFoR9GrCHb5gsmmn/HL
+	zeFupqGkRYyK1b2/lxAo1uGLSvuNR7wGNfkSry18Yay1M3D4Oi6/wYZIxL5jU0r6rjQ2IqLd2Bp
+	kZ/cACNjszbupJ8eqOyIb3cf7KHlmNIW3E4xOfltYgy51GCR06WvYH7TTsGpYem4GbaKEjeE8D0
+	mNlgIWSWyO0LhmZ79W/OMvioDAU+C7l53j8++DdmE/30KDKwJXaVtBK8M6S9exlzjtUx2b2oyjL
+	B6W3/XrzSj3w+PtKQ6Xhc0iL+VLLG1D3OvUpRDN0a0UFSNBSXPHX4EQGB/K/gtsSGIH9GEalhs6
+	xLu6ZYc4jQoD5mIitIKwja+C889vxxIQXaNio3mCG2EVPA2r7qrOlYkUSowgcK00VwOSidKMz5S
+	NUEYi0brK4LPW+a0z0rguSTrCkqD09zsNpSIsiDKPc1sjDfSnexpPm0ljY1fHrflh9SmrzKJaJk
+	3Gxi7nINJhtP0
+X-Received: by 2002:a05:7300:dd03:b0:351:2958:1740 with SMTP id 5a478bee46e88-379681c67bfmr11608907eec.37.1794882099628;
+        Mon, 16 Nov 2026 18:21:39 -0800 (PST)
+Received: from [192.168.1.142] ([198.8.77.135])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-37956bad134sm47264660eec.27.2026.11.16.18.21.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 16 Nov 2026 18:21:39 -0800 (PST)
+Message-ID: <07947062-2974-4630-90db-1556e25b50bb@kernel.dk>
+Date: Mon, 16 Nov 2026 19:21:38 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,95 +93,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: io_uring/eventfd: registered eventfd signals only once after the
+ cd305ee3633a backport (6.18.y, 6.12.y, Ubuntu 26.04)
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+ "stable@vger.kernel.org" <stable@vger.kernel.org>,
+ "io-uring@vger.kernel.org" <io-uring@vger.kernel.org>,
+ Yufan Chen <yufan.chen@linux.dev>, dev@rebasedinc.com
+References: <oMhla8VwCWoihfrmgn8znIy60W1QXI8g_v2OyB9i6sWESIDlVJlwoGGOLylJgIHRARNoieXUVRGqzeB__KvHMdXgnCfPPovs8vLMOzaMPEw=@rebasedinc.com>
+ <draft-agent5-0001-re-eventfd-signal@kernel.org>
+ <5d92861f-9a4d-4810-8700-b9e457ed9c86@kernel.dk>
+ <2026111605-deskbound-clobber-a4a1@gregkh>
+Content-Language: en-US
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <2026111605-deskbound-clobber-a4a1@gregkh>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-A report that already holds a reference to the fault_param can still
-reach report_partial_fault() after iopf_queue_remove_device() drained
-the partial list.  The node it queues there leaks: the parameter is no
-longer on queue->devices and its final put does not free partial
-faults.
+On 11/16/26 2:52 AM, Greg Kroah-Hartman wrote:
+> On Sat, Nov 14, 2026 at 11:12:40AM -0700, Jens Axboe wrote:
+>> On 11/14/26 10:42 AM, Sasha Levin wrote:
+>>> On 2026-11-13, dev@rebasedinc.com wrote:
+>>>> If this is correct, a backport of 04fe9aeb4f3c to 6.18.y and 6.12.y looks like the right fix; it keeps the CVE-2026-80920 fix in place.
+>>>
+>>> Queued for 6.18 and 6.12, thanks.
+>>
+>> Yet another bs CVE - Greg, please invalidate this one too, it's NOT CVE material.
+>> Getting a little tired of chasing these.
+> 
+> Now rejected, sorry about that.
 
-Reject late partial insertions under fault_param->lock: add
-fault_param->removing, set it in iopf_queue_remove_device() before
-the drain, and test it in report_partial_fault() under the same lock
-that the insertion takes, so "check" and "link" cannot be separated.  A
-partial is then either drained or rejected and freed by
-report_partial_fault() itself, which returns -ENODEV; as for any
-non-last request, no response is sent.  removing is never cleared,
-since IOPF re-enable allocates a new fault_param.
+Not sure how we improve on that, it's really annoying to catch these bogus
+ones after the fact?
 
-This only protects partial-list admission; callers must still quiesce
-reports for the remaining lifetimes.  It is not a general teardown
-fix; the cover letter lists the paths it does not cover.
+-- 
+Jens Axboe
 
-Fixes: a74c077b9021 ("iommu: Use refcount for fault data access")
-Cc: stable@vger.kernel.org
-Signed-off-by: Qihang <q.h.hack.winter@gmail.com>
----
-This applies on top of "iommu/io-pgfault: unlink partial faults before
-freeing them".
-
- drivers/iommu/io-pgfault.c | 12 ++++++++++--
- include/linux/iommu.h      |  3 +++
- 2 files changed, 13 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/iommu/io-pgfault.c b/drivers/iommu/io-pgfault.c
-index 55a3c29..51d0d1a 100644
---- a/drivers/iommu/io-pgfault.c
-+++ b/drivers/iommu/io-pgfault.c
-@@ -64,6 +64,7 @@ static int report_partial_fault(struct iommu_fault_param *fault_param,
- 				struct iommu_fault *fault)
- {
- 	struct iopf_fault *iopf;
-+	int ret = 0;
- 
- 	iopf = kzalloc_obj(*iopf);
- 	if (!iopf)
-@@ -72,10 +73,16 @@ static int report_partial_fault(struct iommu_fault_param *fault_param,
- 	iopf->fault = *fault;
- 
- 	mutex_lock(&fault_param->lock);
--	list_add(&iopf->list, &fault_param->partial);
-+	if (fault_param->removing)
-+		ret = -ENODEV;
-+	else
-+		list_add(&iopf->list, &fault_param->partial);
- 	mutex_unlock(&fault_param->lock);
- 
--	return 0;
-+	if (ret)
-+		kfree(iopf);
-+
-+	return ret;
- }
- 
- static struct iopf_group *iopf_group_alloc(struct iommu_fault_param *iopf_param,
-@@ -479,6 +486,7 @@ void iopf_queue_remove_device(struct iopf_queue *queue, struct device *dev)
- 		goto unlock;
- 
- 	mutex_lock(&fault_param->lock);
-+	fault_param->removing = true;
- 	list_for_each_entry_safe(partial_iopf, next, &fault_param->partial, list) {
- 		list_del(&partial_iopf->list);
- 		kfree(partial_iopf);
-diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-index ef50437..5d56e66 100644
---- a/include/linux/iommu.h
-+++ b/include/linux/iommu.h
-@@ -846,6 +846,8 @@ struct iommu_device {
-  * @partial: faults that are part of a Page Request Group for which the last
-  *           request hasn't been submitted yet.
-  * @faults: holds the pending faults which need response
-+ * @removing: the device is being removed from the queue, no new partial
-+ *            faults may be queued
-  */
- struct iommu_fault_param {
- 	struct mutex lock;
-@@ -858,6 +860,7 @@ struct iommu_fault_param {
- 
- 	struct list_head partial;
- 	struct list_head faults;
-+	bool removing;
- };
- 
- /**
