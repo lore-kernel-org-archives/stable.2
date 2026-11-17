@@ -1,64 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.51
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794875668;
-	b=EizQ2D8ptotppCcCBRk/ng26I4wNH2Uu2XNN6uMD3P9wkjLLvK75X/pwdTTX2kzLLeTy
-	 A2enVzF+cfK0w+7Gmtycf8nvgA/tJ8hxxvn30M1RVIQp2kgRl6QWF6AMZFYHpJDPiiQFt
-	 j/1zWGXfT48zqppYuGF35LRjg7UupNGfrxdx8uKiApd1gndErYVzpk392ryexJD5xhgGg
-	 RXjjcLUcD8JXracVh/YREY1We3GBRyepVmvNX60KC3BSRIO/Js1zgxCZR4q7cXNU9ycXH
-	 eNZQj6zQ24ju0SmQ8P0LyzuvzdubAdC6qFRm0C8DMhAZI6wNrkRHc9cHeSKQWzXDosA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794875668;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zOWSa27u3Ave0V9vTT3pFsTcgdu8IRVtcAyDkVZ91z8=;
-	b=FynlSz8s52kP+S69hcRyeskTn821eKDCV67xjz5kZU9qH+7b4lSz//sSVKpmTQ8iNCt1
-	 sFG0uyMEs26KlOTwGxHLTWqAOgd0U7aVpTEWT6OLwkO4oFRHNB0c8YTzWvXp7s7oc7ZZ5
-	 h8TaQXL7ui8lT/cEPqN7kSiKJYkkwwzmdmRVjWhfBS0Rof4g2YjI3XBKSw2+p+mfWiE+A
-	 d2wVEpGXlXhnlX0TndogduzSIAgVBTPjqCx5NB1Vq/peWqy5u/TYpbK0N586gng1Jw8yE
-	 3rDo8SDbZn2wL0UevzK9BiUXaOhhUaRjsDO17O5gUxoMp57xOKOUTzKPEo7Z5Wqbuzg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=justthetip.ca;
-	spf=pass smtp.mailfrom=justthetip.ca;
-	dkim=pass header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=Ot4oqxy3;
-	arc=none smtp.remote-ip=95.215.58.51
-Received: from mta1.migadu.com (out-51.mta1.migadu.com [95.215.58.51])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794875962;
+	b=SLaKH/wpHpdVseC3JZmGkO6J+Sv2knaojOFOIop4ZhAHJ/8XaF396U7vx4EbI5/NIb2/
+	 5BDfzpICiNHGGSuJwiGtYCp05mPbJZw+DoOymDK7CzinbGfPnX6L2Nsi1FpEIcts+3cy5
+	 9AHjG/KGnNeSi+KP5SnlD9egGrlIZMC+WeMIAYjsU7+nGGBefUVmFjBgURFpcf4gbHlKI
+	 9Y9uy7KTQ1FX7dyeLQUH/Xf4NXzqFt64zc7n8Ae2MFxQoYjjSwPCfdmofz9K9ONkoIoKv
+	 0ERXS+tX6aPwFe6I00XjaDMJIH/ZtIaR3zkT0ANzbRHM29+RJuxxvvQbopk0hgKPy8g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794875962;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=yvgrNno9d5FQQl29xM4deIUmhIQOCFM5isagb92yiBg=;
+	b=3WlVtiity4SwMfKemalaqi3qWPybVb/A0PcIzkNHI5ryGhm9lyJCc126g9tr0Olu+2Ch
+	 COUEFTubxw9ARQFOhgF5HCOTkkqgG3R/eIESIVLrmVQAU4STyFNdbbAVaFyZ1K8DQVK0W
+	 FFyhP64FOvtSzY7LJUO/ri6TI18uUEu4d7e7QMt+wNCikmmUb9K4z1Dx7vr9YkepRPvad
+	 aft6OvAWK5giCHhSEvBvlfnPhB+TRehnzooZUgsRLP9+JWNjsqru9uZGTX91UbR8Z0aB/
+	 JInnpSOqhJZAedN5gxZ5x07gCQvvZ5isBhpZny3HIQ84UbTevBDyroSmzVv+IcVjaEA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UxjOoZWP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.49
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6F9D606A323
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 00:34:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6F9D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=justthetip.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=justthetip.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E0B606A323
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 00:39:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3E0B606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=justthetip.ca header.i=@justthetip.ca header.a=rsa-sha256 header.s=key1 header.b=Ot4oqxy3
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yvvOOXaMMgB1nSlfT2xaMn+eYtcmhlEfU9FHzAzuR3E=;
- c=simple/simple; d=justthetip.ca;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794875665; v=1; x=1795480465;
- b=Ot4oqxy3U3AK6oPbJVVqi5gnOh/xIuw6x23rbLp5RjGURpfcmIEw0c7hlJVYaUquOv1+61fe
- prX8S1gnX+IKlM06brMGbFcVhRnOx/JELdEBxTFsRw/LeJM53AnxBM8ddwQJSxBUQuwNYNgWSHp
- FsJ8o6eWiljsMFBNrz50c2vAY+nE7cxmuCy4y6XXga+Zfh2Mh5KzFYLLl2xbMZeGXSfgsjlEvoG
- 27jKQ4KWrBUjRfK9rvAx9A0ersSCrrtBMeEqFgeyhkZzCFVkd35hcOnfv+hwIhBmLSCFAwGOIGA
- JW70B1Rv8SIzu0uy1io2hNbq5Wl4HXont6tpwVaGIImNg==
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eece0ddd6e15d8e7;
-	Tue, 17 Nov 2026 00:34:25 +0000
-X-Mizu-Trace-ID: eece0ddd6e15d8e7
-X-Migadu-Flow: FLOW_OUT
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Ilan Peer <ilan.peer@intel.com>,
-	Martin Moosbauer <martinmoosbauer@vivaldi.net>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH wireless] wifi: cfg80211: keep the user's setting when another hint times out
-Date: Mon, 16 Nov 2026 17:34:16 -0700
-Message-ID: <20261117003416.22375-1-lucid_duck@justthetip.ca>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=UxjOoZWP
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-49d64a88222so217483f8f.1
+        for <stable@vger.kernel.org>; Mon, 16 Nov 2026 16:39:21 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794875960; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ewN/XgOvgulvXOXDhiqtsycO40ndHlJi5s6xC0RtnkcAAKLTvtCSaJlUeVQ8Pp0hib
+         u6QZEuC/ixb65ScgkhPOnOiqjj5vswjMMvNQQZKoq/S7CT0+Q4ycS2vcab+2f1fYqzya
+         p34NIgU+6Up5C8BpKuzsmRNgKICK+ZJVTfy3t1P2S/GzjjkXQkkCxbQYxMzvccOXhQLo
+         urqxr33lLfLKMRUNiP1jMNL6b7SG7t2NIYlVm+Uga1YiZWhVHTwFpAJAYbqvM/TFzqP6
+         K8m1TraUah6dAC+EWo+UWdz+lD+GAi2y4DP2jhOMrcjsJaI+GPffAMz5DprZB2/E2vOH
+         Cu5Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yvgrNno9d5FQQl29xM4deIUmhIQOCFM5isagb92yiBg=;
+        fh=LF/ZOvR6uc3FWkOTKQR+ekUnPatw3fnABvorAyv+HWM=;
+        b=ZGVKHo/lKctL2St34GhLsCeegrikexJxvzn3QHz1q5Y5QkOU7uhhZIPEiDiWDW/TRn
+         CtFpizn5/T1quFYqgfeFzPyTRaRz/A3zF+Qu6GnKSsXFe+C6eLWEb/jiti9gs9LoCAaC
+         JFVuWVh3D7zX/kKSSlyEiWfvGnVsFaovXX5LkB5o4psnaIR7+xf1CEHS3HqHnkU/U4w2
+         MwqcX/5PW/I2K/jEHcSNRnViAFeh5icNa2TE/kaeKcdJkyCj440XOxk5jIOFi3I1sN98
+         qlzI+3Vg7eDXJAxQgvEjbhlNj+435+CAj2RZ1vDa+0QybYvwWWXMKRA/DKe+TuVuH5DO
+         i7zA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794875960; x=1795480760; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yvgrNno9d5FQQl29xM4deIUmhIQOCFM5isagb92yiBg=;
+        b=UxjOoZWPK3gElO2xI8h3eyeToRm3WQAYI2yCvgWBfAC3i18Y2DixhLZCbw2DYBXwmd
+         KxvEaeuqC/pVb2O0hjaRK2b8NNzr73CGoAWXoKScfn2eGxJpvGlNp6AeG43JIcPUgQz/
+         YxyS3rh4/od0j8osjXeuKW/23khVHst4qkvv7SZ80Y+xGLWZuYfh2MOjj8NP7rqMnrny
+         O5LdpZm7z2V3nOXrd5L+x4QoXIE4WzyA1VGF9BcMMNKc+qbZinE9LBEx0TOk77x9z7tS
+         ojmjiqOOKFvyFlaiayZuCsg1wIr0QGDurAtWMNwbOJMatgUAIsNtkvn6hgj0qIEEdaAl
+         OyKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794875960; x=1795480760;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yvgrNno9d5FQQl29xM4deIUmhIQOCFM5isagb92yiBg=;
+        b=uD6uLg89DhVygVyYWClf/scq3g7pYE77GTK++8nykYv3xBkKCV5uyA0JtScsam5yTK
+         dPnj91FWBJNDpuas/vbQ1tp5DoAykVx4v2zeDftVdY3vcql6/2klN6uQokzNwZNZOozl
+         KmxSLD6FIaKiIuHrQeoB1edA7YIxYhbbJ5DR56UbntmMD8GIFl6Osan+/XCh9YNQ1TiC
+         VArv3aGJEceCsMBXL7K7mVeMwDscazdP+vWNq6vLEl6BReX8GfggLsYWnizKWUT2/Mwp
+         6W8BmgiYV9uNkQvc+nlTba8S55S7fJ10CGU8OQ/zjhzH8S8ewm4IIlqO4UyEB0ENDEDf
+         2s3A==
+X-Forwarded-Encrypted: i=1; AL+hErHhvp4ZZgXvmXdIT/34PJ+Wy1Z19ZEV55PyqjkJKDzNZI9njv1X+O7wv8Lm89QcWzF7mHoSdlI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9HyxJRQ23wHw9IsLw3I/WiFGWrYw4RXTNjHB9KtMcL8QOpRlG2
+	MGRcvJtJxoToGexYpOCiFAjSNAWvT2a9z1XBKmD9dTK6YYDIl79Xacc1bgwi/+a/WsgTChWrAyx
+	hMRXxguDiaDzOnSwEhusnTaAnQtQWr1VbDXnUqL4v
+X-Gm-Gg: AYBFou2OF0P+WrNYAG1LHleX0rC4XxD186qMLl7FfqSLzbKVZ130fAz8Zcr073C5ahl
+	83Dc5W05oYubTzYoBNMHU/YNlxXPdmeut/ZJxNazQBkA/jj4Y89e2hhoh6VPh26Js3xjDAzoMOJ
+	K3ziH/G1bOzRWEnHx0+32cDskvTmszw+JlmbWUeDf7Dy+U5j0SV05EDVYsIG6bBiG43tCB+zG87
+	VLpwn9hDSSYz+M2oBBqg1InV2r2DwhneypTaNrU0BB515j9xz9hi5lez1suN3GQhz/2WxXbnz3h
+	0b0H3O6YdkWxmOBJB3Sy1k2Te8IwvdpGD/x6duckgFbY0BKecbwuHafpOFU/QETETtUBwkWf0uy
+	VCK7DZfXS9ORhnOJDsysOUr7YR2nuVInIhDTmLQL/jErgcEtZGxMOU7bsoxmS9AyVio/jRpp/oQ
+	nRbm04vOjC9hLrlAqGD8TJAN0DG4BlERPSJJWkJg1FrnYMWnEM8pqsm36myjpUZMziNcjjZSACO
+	mzDXO4LPgIPA7u2DZ2e2eXQ3dSfcvDVSCRfgY4=
+X-Received: by 2002:a05:600c:4f4f:b0:4a0:20b4:ba93 with SMTP id
+ 5b1f17b1804b1-4bb7839996emr21077405e9.16.1794875959604; Mon, 16 Nov 2026
+ 16:39:19 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,70 +106,131 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20261116-topology-wunsequenced-v2-1-54611119172b@kernel.org>
+In-Reply-To: <20261116-topology-wunsequenced-v2-1-54611119172b@kernel.org>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Mon, 16 Nov 2026 16:39:08 -0800
+X-Gm-Features: Aa3M54rJVfSiPNSBUbY2jPJp90xuwKIoyFDAlZrLrZLvvd_WyhIWPKbXZui3s68
+Message-ID: <CAKwvOdkJzq8V1hO9SCDcANha5Tofk7EKao=c7pMv_LUji9vTJw@mail.gmail.com>
+Subject: Re: [PATCH v2] sched/topology: Avoid unsequenced accesses to jiffies
+ in sd_init()
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt <rostedt@goodmis.org>, 
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Connecting to an AP that advertises a country regulatory.db doesn't
-have, like the "EU" some Vodafone routers send, makes cfg80211 ask
-CRDA. Nothing answers, and the timeout restores the world domain and
-forgets the country the user set.
+On Mon, Nov 16, 2026 at 12:55=E2=80=AFPM Nathan Chancellor <nathan@kernel.o=
+rg> wrote:
+>
+> After a recent improvement in clang to warn on unsequenced accesses to
+> volatile variables [1], an instance appears in sd_init(), which can
+> break the build with CONFIG_WERROR=3Dy / W=3De:
+>
+>   In file included from kernel/sched/build_utility.c:86:
+>   kernel/sched/topology.c:2008:29: error: unsequenced accesses to volatil=
+e qualified 'jiffies' [-Werror,-Wunsequenced]
+>    1998 |                 .last_balance           =3D jiffies,
+>         |                                           ~~~~~~~
+>    1999 |                 .balance_interval       =3D sd_weight,
+>    2000 |
+>    2001 |                 /* 50% success rate */
+>    2002 |                 .newidle_call           =3D 512,
+>    2003 |                 .newidle_success        =3D 256,
+>    2004 |                 .newidle_ratio          =3D 512,
+>    2005 |                 .newidle_stamp          =3D now,
+>    2006 |
+>    2007 |                 .max_newidle_lb_cost    =3D 0,
+>    2008 |                 .last_decay_max_lb_cost =3D jiffies,
+>         |                                           ^
+>
+> Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
+> 6.5.2, unsequenced side effects on the same scalar object are undefined
+> behavior. Per C11 6.7.9.23, the evaluation of the initialization list
+> expressions in a designated initializer is indeterminately sequenced
+> relative to each other, meaning any side effects in the initialization
+> list are unsequenced.
+>
+> Add a local variable to hold the value of jiffies before the designated
+> initializer so that there are no unsequenced side effects while using a
+> consistent value, clearing up the warning.
+>
+> Cc: stable@vger.kernel.org
+> Closes: https://github.com/ClangBuiltLinux/linux/issues/2190
+> Fixes: 2b4cfe64dee0 ("sched/numa: Initialize newidle balance stats in sd_=
+numa_init()")
+> Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74=
+750637fc82dfcc423 [1]
+> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 
-Forgetting it made sense when only user requests had a timeout. Do it
-only when the request that went unanswered came from the user.
+Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
 
-Fixes: eeca9fce1d71 ("cfg80211: Schedule timeout for all CRDA calls")
-Reported-by: Martin Moosbauer <martinmoosbauer@vivaldi.net>
-Link: https://lore.kernel.org/linux-wireless/8db36875c56cd9703dee42c7a00b81c9@vivaldi.net/
-Cc: stable@vger.kernel.org
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
----
-Connecting to an AP whose beacons carry Country "EU", with a user
-country set:
+> ---
+> Changes in v2:
+> - Use a local variable with one access to jiffies before designated
+>   initializer (Nick)
+> - Link to v1: https://patch.msgid.link/20261114-topology-wunsequenced-v1-=
+1-686a36fe61f5@kernel.org
+> ---
+>  kernel/sched/topology.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+>
+> diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
+> index 99878da03bce..60fad1690894 100644
+> --- a/kernel/sched/topology.c
+> +++ b/kernel/sched/topology.c
+> @@ -1956,6 +1956,7 @@ sd_init(struct sched_domain_topology_level *tl,
+>         int sd_id, sd_weight, sd_flags =3D 0;
+>         struct cpumask *sd_span;
+>         u64 now =3D sched_clock();
+> +       unsigned long j;
+>
+>         sd_span =3D sched_domain_span(sd);
+>         cpumask_and(sd_span, cpu_map, tl->mask(tl, cpu));
+> @@ -1973,6 +1974,7 @@ sd_init(struct sched_domain_topology_level *tl,
+>  #endif
+>         sd_flags |=3D asym_cpu_capacity_classify(sd_span, cpu_map);
+>
+> +       j =3D jiffies;
+>         *sd =3D (struct sched_domain){
+>                 .min_interval           =3D sd_weight,
+>                 .max_interval           =3D 2*sd_weight,
+> @@ -1994,7 +1996,7 @@ sd_init(struct sched_domain_topology_level *tl,
+>                                         | sd_flags
+>                                         ,
+>
+> -               .last_balance           =3D jiffies,
+> +               .last_balance           =3D j,
+>                 .balance_interval       =3D sd_weight,
+>
+>                 /* 50% success rate */
+> @@ -2004,7 +2006,7 @@ sd_init(struct sched_domain_topology_level *tl,
+>                 .newidle_stamp          =3D now,
+>
+>                 .max_newidle_lb_cost    =3D 0,
+> -               .last_decay_max_lb_cost =3D jiffies,
+> +               .last_decay_max_lb_cost =3D j,
+>                 .child                  =3D child,
+>                 .name                   =3D tl->name,
+>         };
+>
+> ---
+> base-commit: d7e670601af6c564ccf6d3b2ddf70ee4f41a6d1c
+> base-tree: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.=
+git master
+> change-id: 20261114-topology-wunsequenced-18f1d3b9167c
+>
+> Best regards,
+> --
+> Cheers,
+> Nathan
+>
 
-  kernel                       card          without          with
-  7.4-rc1, wireless/main       MT7612, USB   world, US lost   back <1 s
-  7.3.4 (Fedora)               MT7927, PCIe  world, CA lost   back <1 s
-  6.18.63 (Arch)               MT7612, USB   world, US lost   back <1 s
-  6.18.52 (Arch)               MT7925, USB   world, US lost   back <1 s
-  6.12 6.6 6.1 5.15 5.10 Arch  MT7612, USB   world, US lost   back <1 s
 
-On stock, a 5 GHz AP running at the time is shut down a minute later.
-With the change it stays up, and a transfer running across the reset
-keeps its rate. A CA element still applies, and the user's own
-unanswered request still resets everything. With no regulatory.db at
-all, CRDA is asked as often as before.
-
-This replaces [1], which tied the two lookups together. Below 7.4 the
-timeout takes the RTNL instead, and that version is what ran on 7.3
-and older above.
-
-[1] https://lore.kernel.org/all/20261116060723.37130-1-lucid_duck@justthetip.ca/
-
- net/wireless/reg.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/net/wireless/reg.c b/net/wireless/reg.c
-index 5cd3880ee384..1dde03ce16a5 100644
---- a/net/wireless/reg.c
-+++ b/net/wireless/reg.c
-@@ -526,10 +526,14 @@ static DECLARE_DELAYED_WORK(crda_timeout, crda_timeout_work);
- 
- static void crda_timeout_work(struct work_struct *work)
- {
-+	struct regulatory_request *lr;
-+
- 	pr_debug("Timeout while waiting for CRDA to reply, restoring regulatory settings\n");
- 	mutex_lock(&cfg80211_mutex);
- 	reg_crda_timeouts++;
--	restore_regulatory_settings(true, false);
-+	lr = get_last_request();
-+	restore_regulatory_settings(lr->initiator == NL80211_REGDOM_SET_BY_USER,
-+				    false);
- 	mutex_unlock(&cfg80211_mutex);
- }
- 
-
-base-commit: 763b13f622e2758726e8e3ecaef819db8fa0430a
--- 
-2.56.1
-
+--=20
+Thanks,
+~Nick Desaulniers
