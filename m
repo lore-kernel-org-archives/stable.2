@@ -1,98 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794907335;
-	b=SDAPy+fT8rY2RFrwZi3IQ6wvzKkZRDZZtGZDbUVXymXAEz58kIXS5JmSErFSG+9CKMCa
-	 RzYpkDc8VbrZ669SFd2ysCmqGBKSKhA9RanfQIuEQIc9Ov98dMA2+31hGb4tGuRpJEKrY
-	 7Wlccsuu6aY2vfCJjyK9cbIqNUNT+3L6YH6mFc0gxnrhrMA5w1eGG8g6qQg7X+csbCM68
-	 WUIzm+JSmfsljo6vls4BkXE6E7vUnqc30nCnuXv2EdBIYpcJvEBcUQfiOrgXN8Ud8WkRt
-	 JwkjQ6k8e6a9dPHY7/fnFyLx0P0XS0mpzrW6Zzo7KUUCL03kc2rTORcZAWTmo5JnrQQ==
+	t=1794907413;
+	b=QuxkZVnIUyHC7ZjIdSQBTrCnuO9ov71M/VU8KridX3b+6C3AVJXhtBwwyhg08JpTaWgC
+	 WsmeJN8E0et8dvt1vFJPdH6jD8xOUzT38Of0oIX83sATL46zVDsA/PqmmGBImj/WWr90M
+	 7+Yyx/MJndDeC1jxtwiApTmpDXkTmWjuz5jFzdt+rqph/Wbj6amoHCV72vIh8UmOAiVZ4
+	 apl6H7Jz1KRgAMW8yszKJ4hxW6nGX9xyX39jSmc/Iz9vtWk27UTbHMWYg1bYEWKSMZMqJ
+	 ss3r0Ig1+cFErdzjFHIlpE9++pvCDdxql8Xr5Bdbwq6QK5g+6fMOVEXiIvu/RkLxP9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794907335;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=yb6u44XvrqgEBzrXu63168C9irhvj3KwyZom9iAK0aI=;
-	b=K+AQ640kij+oQcSCWLPTg7VOcd0o7BLvvXoPe+bEqtrkBu7ZRzNUO6HeqzqCpIzvEnU7
-	 i3AW667oSIp0VNC/VURjzXk7isEkvCEa9FHO5Rn/9+ZIW193FGM1pt7hdmjAC+d+w7HHP
-	 Ovb2g/3+4GcrJvFIZFZMweUGC+oe7BYCY+sjQSYrRnGGQrNTv6PDJcZPiN7AagTgPz0AA
-	 8XC5SVMHbL7xCSi8VSgbfH2veP+Zlb7Bl/zKkSKOolOM65MdzgHJ1kd69VqdlnkrzD3zp
-	 y3uhq96zx2mbVBkQLP+9Ckbd536n0dB9d3v5apj0YpH5MIoD8ca80AL1q/ZjeSCR87w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794907413;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=y0Dxc4AUtnds+NirsV609zNbchLGxMc3AgfuhcVTQUs=;
+	b=IzKFGa0pzvLOkcTwZLgaw0Zd0Y0GImRxUoKh4cZYUO2Q2dPslACP4yPe0CgFQ3HJalqB
+	 ZP01QXEkBq+pntRSGXKqivmUmKTfQxmIKDpNN8G5F4djQzYYfvC6oJI6YWh/NvoC2NYUE
+	 z0hrel72CnZDOqKs7RHXIoQz4vWhuEoJs0BAqYc9MsOXtTJChQ18SW3t2k5/nbNNft+m4
+	 6j4R/pZO9eVYSnduKVnn2O9b5v8vo+4PGfJyqZUHQS6eFUMKePQtSyCdOXPsYtmQtiO1p
+	 Faxzkb+hJVoK09cnZ0GcuHW6Z9FE1tR0qAPfJ8NTVrN1OZ5fQ3bDhfRUudE0VNf6t5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qCqxw8Rf;
-	arc=none smtp.remote-ip=209.85.214.182
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRSTQspS;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D571606A323
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 09:22:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5D571606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2008D606A31C;
+	Tue, 17 Nov 2026 09:23:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qCqxw8Rf
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ee1b65fdbcso14646425ad.1
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 01:22:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794907335; x=1795512135; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yb6u44XvrqgEBzrXu63168C9irhvj3KwyZom9iAK0aI=;
-        b=qCqxw8RfWo7pZ9gZK2/OOFzdFnddnZWU3F8BdPnBphFDfCGs101taaaQSeD5rdBBQ+
-         WWOi72ECg/Vz8lwExssQ8I9wwrpTsbL6T0W91ZIJkuauFQrs4hoIz4SyWgmLdVlbkal8
-         JPn7ufWZtXBn1YHNOtUMgNIOlXm5ylVPZfMQdbBwEumwBsCZplh8v7nwu9wDmva+hitz
-         eAq4JXD+CQpg4za/tmnX0MJ3lxc7MibjysE9p+OvAWmxAjbF1+ljOcVwceuV1jZ/fqS7
-         zYMYn8jxxFzrNOv35JyxMfkp1u8VrVnaEUNLG5MUYMVxddjzRTexmQbypcs7K2X+MkcD
-         /Flg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794907335; x=1795512135;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yb6u44XvrqgEBzrXu63168C9irhvj3KwyZom9iAK0aI=;
-        b=12LqNR9yvTxqqC8aLIiqNjt3+zCY/wp/Ze9LUxBsqczS2DJfVlc2KOh+jYuSzqO/iB
-         PWCDTY/YcOkCntUnf57lor8PmVIv/VHptrvvSs8DQ3MuTmOWFIAzFqNn9Mrwis3pksiZ
-         aXfvbFTfQbWfvFZwAs1WxOg72X3Iy3hh/dA2Pf1jRK1TVEdYyDW80CLADbLf+hywQX7t
-         g74t87CIWVDEsrrxkxxeGJtVFrvMNX7BE9UZaW28qHRe+4HVfgK9EfpAHqa6qYlqHgnW
-         xQSm18WCxrO7r8GDD1KraPqHnAoUTBWEiWJTXAD6E4t0fAZ9b7d+Hf16vg8GUo3tpzX5
-         Fd2w==
-X-Forwarded-Encrypted: i=1; AL+hErFP2gPuzmN1ovn2GVFKRXA+QrYZQiUjDtFxNUxIHjC1vkaPb7P0CmLNwLKnw5UY1tzsxBRZFRQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+BPMip0/tmxFSfG3aV4av/9M7T81//OOEojz6O/elxxBC6gaqD
-	8l0T+LczsojszUxM3TyYEKvrQiQsvszClMuQgXEKfuNyC/ydY7gGnLMV
-X-Gm-Gg: AZFdTZdbZXECZK4amzXVD7eDYATw+vvbmi6OZffPj4WTT+F5nZztlXwFZcOJjJCIW4f
-	Ox+rZdUbPKLFQ4r/PcocWj7jtVhwX1DKLcyr8sVoXrzOVvgDjKXQs6WELeEzOC2CdL+7KFJ+kdG
-	hgdE92JXz7lCMg7fB25ELMTDBgZy7AgybhIScaiUN8hjBHiyk0meh4gmr1M38JnqTmMJpS03Io4
-	V2qjIBPS5JwWjfFxl9jbBmcN4tHdhUmlFscrzai6mHUi+poLrIAa3F03vNcrQAB8HHiWmhFdqH+
-	3nrY41nNZWNIsFhG1NhXMCDvjYUAfoTXC7yVGWPgsfNcwaJVLVmhudba2FbZNDsXi94gX5eRezq
-	3KPsSBFOPQ9Od6J2QuM1fj/CSdrXq+JwrodcFz818Z++EDlVrmT/1mPuvAUCWzhXLcSzJoL5cvh
-	LjEJ3v1YmQOb5bRu04NOYE2XyJnjgmUT+TjOUxnDFI94yIUPjQuIUGO8SMsA6Jh/ep2Aa0GGYRz
-	cXz4tvfYrKnlPgniANKXx4gKUwpS4MpbbHmMnwN7mD/uZjcZJrOMgMtkagn1pP+VMZUS8XG62Nh
-	y1DsErjfe51lFR+pmhZVZr6kyFh1FXbyrk29j9+b1f1CV5Kp
-X-Received: by 2002:a17:902:e801:b0:2ed:1ca2:ea5a with SMTP id d9443c01a7336-2ee0dca839cmr135269225ad.51.1794907334563;
-        Tue, 17 Nov 2026 01:22:14 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2efe98cff9fsm1783345ad.33.2026.11.17.01.22.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 01:22:14 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: James Chapman <jchapman@katalix.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Chris Elston <celston@katalix.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH net] l2tp: reject short IPv6 address attributes
-Date: Tue, 17 Nov 2026 18:21:57 +0900
-Message-ID: <20261117092157.85513-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eRSTQspS
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571371F000C7;
+	Tue, 17 Nov 2026 09:23:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794907412;
+	bh=y0Dxc4AUtnds+NirsV609zNbchLGxMc3AgfuhcVTQUs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eRSTQspSxgaqoaoK60PFKexxHJe0ahOvWAZv8sFb02FsK7851Tdx9jqtFimAE+JSw
+	 FVzgjicajcGYzSjx6YKbwyyxCzAO7iXon19D5mByJfrLyIjFnT7kkToPaR1Rb8MeFz
+	 NgYy/7vY42oGvZyvEfwh26G8SO4X/XAcuWPU0kwL/Vfv6ZD3eucTVVvc56AlnIoloI
+	 Ie/7B2shCxsgNnfSAnRCdaY7+oFhWmWqFsxkYWiloEZX+WsDXsW+AXoHxgjCOrWw7s
+	 YvqurGf7Fl9VpIT9QtgrRHm1DiUVbi5BqQZAfzhWbh0eoIP6Q8xNe+ZWhujYEhvFod
+	 HnJR10Ui3iGAg==
+Date: Tue, 17 Nov 2026 10:23:30 +0100
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: Florian Maurer <fmaurer@disroot.org>
+Cc: Felix Fietkau <nbd@nbd.name>, Ryder Lee <ryder.lee@mediatek.com>,
+	Shayne Chen <shayne.chen@mediatek.com>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH wireless 1/2] wifi: mt76: npu: return rx slots to the NPU
+ only after refilling them
+Message-ID: <avwdEgGBeZWWGvzq@lore-qca>
+References: <cover.1793927986.git.fmaurer@disroot.org>
+ <d6314f34e0965464207656d38a145490b6437aa5.1793927986.git.fmaurer@disroot.org>
+ <au3igPTxdz3i64SO@lore-desk>
+ <20261108205350.2956138-1-fmaurer@disroot.org>
+ <avGnv8Jr7BAiQhG1@lore-desk>
+ <avrdu8qr9L2sEuTz@lore-desk>
+ <20261116162741.2438098-1-fmaurer@disroot.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,49 +69,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="s+XiL6GVKLQjZ58r"
+Content-Disposition: inline
+In-Reply-To: <20261116162741.2438098-1-fmaurer@disroot.org>
 
-L2TP_ATTR_IP6_SADDR and L2TP_ATTR_IP6_DADDR are NLA_BINARY with .len set
-to sizeof(struct in6_addr), which only bounds the attribute from above.
-l2tp_tunnel_sock_create() then copies a full in6_addr out of each one,
-so a shorter attribute makes it read past the payload. If the attribute
-is the last one in the message this picks up whatever lies behind the
-skb tail (stale heap data unless init_on_alloc is set), which ends up
-in the socket address and can be read back with L2TP_CMD_TUNNEL_GET.
+--s+XiL6GVKLQjZ58r
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-The commands are GENL_UNS_ADMIN_PERM, so this is reachable from a user
-namespace.
+On Nov 16, Florian Maurer wrote:
+> On Mon, Nov 09, 2026 at 12:00:15PM +0100, Lorenzo Bianconi wrote:
+> > q->head and q->tail are not the same when we have refilled the queue
+> > with new buffers. Moreover, I think if mt76_npu_fill_rx_queue() fails
+> > [...] it is not correct to use q->head for dma_idx
+>=20
+> You're right, q->tail it is. In my tests I could not tell your version
+> and mine apart, so nothing speaks for head + 1.
+>=20
+> > Can you please check the updated patch below?
+>=20
+> Sorry for the delay. I tested it on the W1700K (kernel 6.18.55, mt76
+> 467ae2e3) and it works: no oops, no rx stall.
+>=20
+> What I ran: your diff as posted, plus read-only counters that write
+> nothing to the descriptors. Load was 62 minutes of iperf3 from an
+> ath11k mesh peer at 113-259 Mbit/s, with four busy loops at nice -20
+> on the W1700K for 3 s every 18 s. In that time:
+>=20
+> - 61.9 M frames on MT_RXQ_NPU1, 1.88 M on MT_RXQ_NPU0, of which 227781
+>   span two slots
+> - no oops, no page_pool warning
+> - no descriptor that changed between consume and refill
+> - no refill failure, no skb failure, no tx-free parse error
+>=20
+> Tested-by: Florian Maurer <fmaurer@disroot.org>
+>=20
+> I found another issue of the NPU while testing, so this took me some
+> time as well:
+> In one minute, 226 multi-slot frames in a row did not end on the slot
+> with LAST. Slots of the rx ring go missing under this kind of load (I
+> suspect the NPU drops them), and counting slots by PKT_COUNT then
+> assembles the following frames one slot off, in your version and in
+> mine. I think tx-free events are lost the same way.
+> I will post it as a separate [BUG] report in the next days.
+>=20
+> Optional: in my tree I made the poll report the budget as used when
+> the skb allocation fails, so napi polls again instead of waiting for
+> an interrupt. It never triggered here.
+>=20
+> Please post your patch with the Tested-by. My 2/2 can be dropped.
+>=20
+> Thanks,
+> Florian
 
-Require the exact length.
+ack, I will do. Thanks for testing.
 
-Fixes: f9bac8df908d ("l2tp: netlink api for l2tpv3 ipv6 unmanaged tunnels")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
----
- net/l2tp/l2tp_netlink.c | 10 ++--------
- 1 file changed, 2 insertions(+), 8 deletions(-)
+Regards,
+Lorenzo
 
-diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
-index 89ef04c78787..a07009d4cb00 100644
---- a/net/l2tp/l2tp_netlink.c
-+++ b/net/l2tp/l2tp_netlink.c
-@@ -910,14 +910,8 @@ static const struct nla_policy l2tp_nl_policy[L2TP_ATTR_MAX + 1] = {
- 	[L2TP_ATTR_MTU]			= { .type = NLA_U16, },
- 	[L2TP_ATTR_MRU]			= { .type = NLA_U16, },
- 	[L2TP_ATTR_STATS]		= { .type = NLA_NESTED, },
--	[L2TP_ATTR_IP6_SADDR] = {
--		.type = NLA_BINARY,
--		.len = sizeof(struct in6_addr),
--	},
--	[L2TP_ATTR_IP6_DADDR] = {
--		.type = NLA_BINARY,
--		.len = sizeof(struct in6_addr),
--	},
-+	[L2TP_ATTR_IP6_SADDR] = NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
-+	[L2TP_ATTR_IP6_DADDR] = NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
- 	[L2TP_ATTR_IFNAME] = {
- 		.type = NLA_NUL_STRING,
- 		.len = IFNAMSIZ - 1,
--- 
-2.43.0
+--s+XiL6GVKLQjZ58r
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCavwdEgAKCRA6cBh0uS2t
+rFKTAQDrf8StTOI65bgn5xeopIFbWqMbx61UDKD54phLvPS85AEArtbOPqgpGZ5M
+4Q3sUXE6HqctYejU8r0x6vlcCI7NVAc=
+=x/Dy
+-----END PGP SIGNATURE-----
+
+--s+XiL6GVKLQjZ58r--
