@@ -1,109 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794946575;
-	b=PPjt5F8jinJgbX+I2m6ja2KCo5KRZeAk/OKXeLvQLfBZpeDS7QdEHWUzFfoL4wGn6sy+
-	 AsHsBkj47+xFPZRN1q8G3xSFnmNDk0UvZ6ambWdw7eLnDx0OUC7kjgoRXAmuAyTPltcB7
-	 GkZe8ckCbfD4GIB/rSL8LjpT474pUCT20meMaqFkJASf6UUnTh2XMUi7WkQCyqfYkvJ4o
-	 HhbgPlqN5BJuJ40chN1Q31vXXDM0o7nF95FCQ1FUEdV+Jxnq5k/prJnnpKvAN3VljIYws
-	 u8Fx1ZbMdEd6/nAjCcic74w7v6qm2I0VHi7BAYGAb8A59frRv1C4xRS0CVn4VwVF19A==
+	t=1794947514;
+	b=jG0htICO7Je5VLUQRbuBowTpb6HiXU8nn0WDEFR2NFnXAIKZG9qF0X/+ZgT9iKH42ken
+	 sSQ+cIWfF+4WZ0SS5AAah67NfkaiBX5W14qn1o2ZnrbHGNlBn8YlQFZeck3qjfuOBrqCD
+	 flIpLNs4Nz33+PN62j1HlMtTq+gsNVvMgVQuSAz/7Qv5GcsuuiHvbYyS2B5+eBBdVCwB6
+	 KQ8VSLh2K2kF32KhaxrjYf6rC7HEthfa9MSlJx8wxs4CiIcfjzrNrpsB5/W8z3mTrkdIq
+	 rzNAMV/AbOhAlaWwb/DXc+dftRvZnJ7JJYlJQy0q1rjhAsJ2QewZlWoORJ2yoyDqybw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794946575;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794947514;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
 	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
 	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=4gHgyZkJ85ljmtbUfZ2ppvyzZiHy8Yza2XSe4CtHOfc=;
-	b=4nbq2/vi98Trlx41lHiCeFyXHg/tlXoOdZLmjKldvkRET2nv6CJLs+PnQgH+4u58xFPC
-	 OZsHUGzQHQfFTEtS94b+1TDs6MRrhXLvCY4NmgQ6UcvDktVxnO4sLfvObFYQCVhmzHs1V
-	 6vUALLScmEA8OrWjCZozXJ5QG9W4xfmvKlUrUubas9s89hU9glC4YdN6aJUwJ826WGbcP
-	 eIuWE2wpjtk/36ML3pQI6vmKFwWkStwQVggwxQylK2neI5bzEV2rWAyh6csmuYfUfHmTE
-	 x5kzdHeTn/QT1LWsZAO3Y02/zZrZZ8dEWsvINYQQhOq+8XK5OsfPi7f+izU0u39ge7w==
+	bh=WNCSWS2QqSRGlwzVEz08kpdvfR9MhOjRdFeTc6DNji4=;
+	b=v2gkChIVVQp4DrcVJ5qTbka2TRDhCkcyt8+tVgMZP4zGCES1UbfC7YZc8XCV6g346CPV
+	 XPe6bjjezTDmY74xMbTSHveUNxqCpEP+BheSr5RJ6C6PXikhxrkbRAkiJ60UIMjUqjsm8
+	 QZVtkhpazwZWd2mpyuPjw2YTik1/7VMlSM7UdaViS4pnLjVArWcJh9EU8yzWjW4LBey9V
+	 98WopfoUg4HTmepO9uM11JvVwgGll5R05j/xm40XrT3BnXSxj58wxMDfKim9d+FkwUyYd
+	 VncLWD4EZwIMCbDl5LvVjhqaPIR761qwk4G+HeVkVl1SSw8WmdK6nDJjhu8gDrNglTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arndb.de;
 	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=nTPalYv2;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=f0kVEqZJ;
-	arc=none smtp.remote-ip=103.168.172.156
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=Dbol2SdG;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=bVGMY0QC;
+	arc=none smtp.remote-ip=103.168.172.149
+Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E952A606A32F
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 20:16:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E952A606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D812606A32C
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 20:31:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D812606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=nTPalYv2;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=f0kVEqZJ
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=Dbol2SdG;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=bVGMY0QC
 Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 0EF4414001A2
-	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 15:16:13 -0500 (EST)
+	by mailfout.phl.internal (Postfix) with ESMTP id 41CF3EC08AE
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 15:31:53 -0500 (EST)
 Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 17 Nov 2026 15:16:14 -0500
+  by ams-compute-02.internal (MEProxy); Tue, 17 Nov 2026 15:31:53 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1794946569;
-	 x=1795032969; bh=4gHgyZkJ85ljmtbUfZ2ppvyzZiHy8Yza2XSe4CtHOfc=; b=
-	nTPalYv2nLevYvXXnrmzznDZ8pPmmR76R6bCrbWXO537SkU607/FvckQoAQKoOnK
-	z2grOXjDj1uQZE925GpNZkZf8PSHjMG1QkyCHUzZI9v6H2GjQUjMogWAYhFmtVUu
-	bje3shbY1dXtpjvLBLWmZLH5lzJmhBLmgjR2Oo90dcgG1nZCYzvSgN85jC+pkfoc
-	vMTaQtUajGNopRUR/C8UIL9fhgncrAZEXTZqdwahotoZ1//ra93mBlOHeTUODGeI
-	Vb5VOdmyVzaKufyDopul2zGqTEwXvBcQG56AgBHrI9Bo45sYCwJKj9FGeWwCeIjk
-	H8Rj4smUeYHt3ataeT/mug==
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1794947505;
+	 x=1795033905; bh=WNCSWS2QqSRGlwzVEz08kpdvfR9MhOjRdFeTc6DNji4=; b=
+	Dbol2SdGFaQqyJvSWzqITR78ej/yMViPnTN2XjqlTVliD9QfLdixQKnSTHDXqlYS
+	M4u0/CK+AgvflLiH1RrLGTP0EFlOZZ7GkEjaZXDs//ZTaX2HKDpU54nrkJ76KJ0a
+	xieMdyhtRy3bMHZvFg4UI98VuQdad3ODeyKVwXt0lE1BmgoZjc4Qr55kkGqoTy3V
+	+f81Ju1XRmWbZCloDZxOrEaQx1Ji8fnYSZQyXXqdFjg/Fd87nWcFCFl64ZtF6tS4
+	lskeHxsVuPoFjXdDj3XA9g3I65DjO3g2kxbQYKWUPHye0LfQg4dN2mdf8GlZUp7H
+	GFtflzN48+y1i611iZ9pWg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794946569; x=
-	1795032969; bh=4gHgyZkJ85ljmtbUfZ2ppvyzZiHy8Yza2XSe4CtHOfc=; b=f
-	0kVEqZJZCzAmcw1UrJqBJOotuvtgTXTC6vJaS2saQYcpuYleZj3LcorPC9LuUPB6
-	0N4E/yCdfN1M4iernSVIB2pFQPk0zC4AnZNDWicXXtKuCzhJBsNtpbiDaZ3jKt/1
-	M+fx2RiyDTT82sddphx1oXAEv10i5SIEBPis6Zf4UxSc8fQgt1T0iWdLl0c0/1CV
-	v1xvVs5SaLMnxA0wlHAu8b6yTv9IsTOyZgwgXcL47MQx8a2Wg17Am6Ve2cAPP/Lk
-	GIQAfdn4uozW6tdxK5H05dipZMQZPyQyZqpjEfIVnpQBauhoGPz19VqZ85YGuqLw
-	UaJEobjkJU0wz4SjrL+Kg==
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1794947505; x=
+	1795033905; bh=WNCSWS2QqSRGlwzVEz08kpdvfR9MhOjRdFeTc6DNji4=; b=b
+	VGMY0QC0lXkN5yQusQJVXqhsMz504eRl+FSaCCvEl97uJ50hKrjtk+RcBO7isl7D
+	0uBlbee6DOZ4jIDan8Pe+nFVeTinBlTwxAfF6oMYadOgzeSydL5TkG4FLGghdAe1
+	OKkmEV3XyYnV8xO5SBeZKt9utccfqI8iFx4bviZoZlVReYc2g0j+NvoX8T5ofpxc
+	U7wJkGpHLjjr0htmWdQsKZ+w76lcm4OLvHFGd/nyE59+1lPoX8pXtZdAurZBnML7
+	v7XyUvxATdzd92gj+TqnUSDwrdormPcNaJueOPfTJrr/S6IRmnVpJg58Gqy39Vb7
+	GSzDOHRxumhpWOiC8nQRg==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794946569; d=arndb.de;
+DKIM2-Signature: i=1; m=1; t=1794947505; d=arndb.de;
 	mf=PGFybmRAYXJuZGIuZGU+; rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:eGGfoUbI3H46twLudiv/3EEQdY6JDMB3SGu3fPll6eQtaQc
-	Hz5eBbmDz0AVC954ei3C9jQfmbTbpKdn85jUJ8fzRZ69MDS6NzDcEbxeaJzO/7am
-	tbhYAbDC7PrBBfFSd0/zG1MF4H/5hWmgX9BX6WRn7ZTRlqh033wyK2wvHITB6uJt
-	EWI/Hk5G+ZXORMtFVVN3H4/zqMowMW8aSnY4X5QYGDOQGgh6+D7xLzgIHpmCcIUc
-	a/VNYsYwDR+JARdfC+jPG6ts9VMhU2NTX01ImF+QAQ/kdpM5lQn+z13TOjltVllY
-	Vu2YAzOhmPrJvf3oW5/wUpRjYVXAIo72nJYucKg==;
+	s=fm2:rsa-sha256:AejStTnJE7EmUB6Vm9BYqrcvIuONCEXKm9sdZHwJv9RGuEU
+	ryvCY1Uwx/06T2rXNwODWCxWezJixoeiAt1WatknNZ6r2mAz3GTRrNyn119odlH1
+	utw8NkFOWshBB9u9aCp2cyGAEQjvGiIm0Hm7OFxoT6Sj/M2yAvBNX3DvXT9YPRL/
+	dJkhVeEmUWfN1N1Tc1MnsLDPmt8ooN/FpxTlVPEIDwuxEIk2CRpMBstyMuuMvQt3
+	u1nu2BPBs7jjZWaIITy6QgsHc7ncT9x/SXlRj94wERR9n9XHUPeVQZZnDBTasPyZ
+	pseEWVEThX+XDqIKTMd54fBpZm4NOK0WBtcDabw==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
 	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
 	action=mi-m=1; hc=12;
 	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
 	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:H35lYAFWjzt/PT3JDB+srzKd9F4jY5coVqosVXJaKWk=:zqY97fITSSBwgO6NYdHi++FrGLhlw1V/CK2RmFngirI=;
-X-ME-Sender: <xms:Bbb8an4eD7Mxjhr5xuNgow9-719Ddu-H-Q4KUYRGxZAisBwy7FQnWQ>
-    <xme:Bbb8ansDjA7lMOPcIA_7XRB4G0YH88GTgtLbBk3YlA1iN9F0oxEYv1uocMejPIJgU
-    aQSeiA4oFgrcMQATc9tzuQqcrhnpdLVkau1XTMjfgrlC10EJLBbyPeW>
-X-ME-Proxy-Cause: dmFkZTGX2j4tdhEBXhp83Wtai7HDzbSZhK2/icwqvbj+jNBIKYl/6qaWMH/EcTsxxUlklJ
-    FNt+NRsGh1upWKnRORMCx6dBMm2QYj9qBwd4ricE+t/KALMLiZ9o7Yl+B59U9A/yxR9OLE
-    67asVz2quecKhYHK390xyT1823BrDUYaGlNNeFaZKFGyM0h5+LXQ9PSuvPVGkQCJkFAQXK
-    ueawkHayc3c3ayWIXL/EFvTnjjQo/rCTXVmsEsnwr6RIdyySbeaqeYl5kcuskh2vbAG/l0
-    WXrM25oWjRxRVxANUnucFb4sGX/a6DOwrkYOEqjFY8ZQb8yP4FdsEjSMZD1hC2+cBzQVdu
-    ktAHaYiHkGQ0CUZkmsHs8uSta9pGY4VmEM7JiqM0mN3bqLKyWT9d/pCblc+lK74Y+xstca
-    PxshXGWJwpQKF3k6m3WXY6msOd11AVRzJ7hHtJg5mju0oKJaXS/sVOBxLwOS9/qe6RBK5H
-    dUeZ3b+RqbYcAELEWjfm1lh2IpgMgvGWCqj14/G9A7PoinZm1Q+yemlQSVNLIJyttQaJD7
-    T3bvucWtVNSGnxrFH7ifXNDQv9JIkxkzqdgN5iYh2MbQD4KGRcixouQkKYIdNYortMElj/
-    8EkrfTNgnlGLi0kazarXtWeaCQncBdaeD2gQwIUPl26YuoUyrK5/rJrW3OFw
-X-ME-Proxy: <xmx:B7b8avlo4EsGZDqFpvRGJQgbdrap5yCA03GNkiqRun18Eem0bnij8A>
-    <xmx:B7b8akZkb2ndM2tuNoNasGmNQVrpVA2v2N4Qa-EZAQ0GESwNx8JvBw>
-    <xmx:B7b8ar982JRLWxMT0g6xBo81gzkr03Ffp-mtrZStxnzcQLXpi_O65w>
-    <xmx:B7b8ajbw-vWr4UGj9pHRcGbYD0xt0PZPI0CfnfANv7fWuqIthtxW2A>
-    <xmx:Cbb8ahpWMpy65Kxk3-1n1DEqaAmlrHVo6ojZ0Ct17citMsykrpd0dK1s>
+Message-Instance: m=1; h=sha256:zJWjr0w3M4uzGv9DdYuVvMqjqpmxQkLd0PUp2ChdHmI=:vZCoE7GaeTovUmbb2627WNVcsxxfg/5P5Qa1/f2QtCE=;
+X-ME-Sender: <xms:qLn8aut4kjEAIfTtKKGxWZ-hOtsuMwsTOhijyO33M9k9UKBvkJ3KrA>
+    <xme:qLn8auRxM9JaWI4XD6aBn5D1w8i4TbEQ2EYZAdg0eMDTC9q5lUsJdP4vc2TJMxiEQ
+    np57Qgx8bLSz5xmHV1VBb4wNtq47SnhKqeytP34DJquf81c3umxSpXw>
+X-ME-Proxy-Cause: dmFkZTE0A9w+3y8XwzwOBv43d1AyuvTsAuiT2g9ykEpGMhc4nsxzzX3B8PJFomtHSZZeJc
+    khIJgbJuHtU9xdjTsYeF5AXolyWV5KGMp9OKVwv2bn2IqVZu7pck7dzVgDsNODPu/fYpXZ
+    7uxRkJFwomneQH3/FI2o5QtPAi44mXLePCFmHonK0zt//dinU7VfLSsSXgawZdyPn7661+
+    i7voJF6rON6TNeF7q5UlaDGyevhhFa+nSKaUSQDucAlHDx1eyj5zJKhT2TdQiQZUXDYztO
+    qGo8yJQ4p8fFy91xPsR5hIT9665FM2i+AMxAzzRv3uTvyG6AyBZMzeTKRL8beMlpe8wYec
+    c5gEu7wMJiwFSQgxSkq00VMWhPeYj2a4/w8vEUCHah8AN9E9QQGLuJt2urg0N2xauE0yml
+    EfcYJxucixIhJdhmWNWV60pm3jpW9O6tks+upGWdkZSf1MzW1d9LXmDdz3y/3J9m64zkLG
+    5l3s2hPtKKAXa1R4FitA82h8NntynpgA9yDpZ7k6t+nMTZQyqdBGrje+s+xZXaw1UGk9ui
+    9dXxor9pmO0y0/InEJ0/EDauA/mqqgCGUprQcneXLupOODBhkSj4NYx7z/mnN8RGAZx5IY
+    v0Epg7JXoLeVLrJnKt3svcxoO3RPEvq7yOlSDkiwMcz36I8iJ6YQKcGNOQyw
+X-ME-Proxy: <xmx:q7n8aqZnNZcsaMYeJ2yFSowbOe4V2-N8k8R0e7nCg0QB19jqpK7k2w>
+    <xmx:q7n8ar6Dar06zmf9UnCsiJQbAtuy1ytgj5EtoAgKNGXai26oW9YEEg>
+    <xmx:q7n8arzn2gVJyrol89XFf5bwE_SXKmj5Dhxz9hM4jLRj5HQZZ4DfvA>
+    <xmx:q7n8asreHaW_kWMSvYJe38Vq-6KfxzK7gnmxCe_ItZ8I9R8UtCxw4g>
+    <xmx:sbn8amEc_gSAE9Qm7EyRNWFkieIAKR3fEH60_gODcmjaP1lzRgeaVRVk>
 Feedback-ID: i56a14606:Fastmail
 Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id C96C432A0099; Tue, 17 Nov 2026 15:16:05 -0500 (EST)
+	id C443D32A0099; Tue, 17 Nov 2026 15:31:36 -0500 (EST)
 X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -114,51 +114,98 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: AfIw-mqhlrh3
-Date: Tue, 17 Nov 2026 21:15:45 +0100
+X-ThreadId: AXxIX-uOARoc
+Date: Tue, 17 Nov 2026 21:31:16 +0100
 From: "Arnd Bergmann" <arnd@arndb.de>
-To: stable@vger.kernel.org, stable-commits@vger.kernel.org
-Cc: "John Stultz" <jstultz@google.com>, "Thomas Gleixner" <tglx@kernel.org>,
- "Stephen Boyd" <sboyd@kernel.org>, "Miroslav Lichvar" <mlichvar@redhat.com>,
- "Anna-Maria Gleixner" <anna-maria@linutronix.de>,
- "Frederic Weisbecker" <frederic@kernel.org>, "Ingo Molnar" <mingo@kernel.org>
-Message-Id: <101777e2-a6fe-4d1a-9a9e-7179ce89bd65@app.fastmail.com>
-In-Reply-To: <20261117200127.2399332-1-sashal@kernel.org>
-References: <20261117200127.2399332-1-sashal@kernel.org>
-Subject: Re: Patch "timekeeping: add CONFIG_LEGACY_TIMER_TICK" has been added to the
- 5.10-stable tree
+To: "Gregory Price" <gourry@gourry.net>, "Lorenzo Stoakes" <ljs@kernel.org>
+Cc: "Arnd Bergmann" <arnd@kernel.org>,
+ "David Hildenbrand (Red Hat)" <david@kernel.org>,
+ "Andrew Morton" <akpm@linux-foundation.org>, larips <larips950@gmail.com>,
+ stable@vger.kernel.org, "Zi Yan" <ziy@nvidia.com>,
+ "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Rakie Kim" <rakie.kim@sk.com>,
+ "Ying Huang" <ying.huang@linux.alibaba.com>,
+ "Brendan Jackman" <brendan.jackman@linux.dev>,
+ "Johannes Weiner" <hannes@cmpxchg.org>, "Jackie Liu" <liuyun01@kylinos.cn>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Message-Id: <9e7805c3-d41b-4d5e-ac67-8474a5671d86@app.fastmail.com>
+In-Reply-To: <179494557732.482102.7719202079181127037.b4-reply@b4>
+References: <20261117142628.3931151-1-arnd@kernel.org>
+ <avxnIQTcFni9G4IN@gremlin>
+ <541a67af-3b45-4d5d-ac4b-c741850f92e1@app.fastmail.com>
+ <avx0Ci5uPW_hF0Jk@pazuzu>
+ <179494557732.482102.7719202079181127037.b4-reply@b4>
+Subject: Re: [PATCH] mm/mempolicy: fix copy_nodes_to_user() for odd inputs
 Content-Type: text/plain
 Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026, at 21:01, Sasha Levin wrote:
-> commit c3738bb0ab2025492e5c66b7dcc89bacab4af79d
-> Author: Arnd Bergmann <arnd@arndb.de>
-> Date:   Thu Sep 24 15:21:43 2020 +0200
+On Tue, Nov 17, 2026, at 20:59, Gregory Price (Meta) wrote:
+> What about the following:
 >
->     timekeeping: add CONFIG_LEGACY_TIMER_TICK
->    
->     [ Upstream commit b3550164a19d62e515af6cacb5a31f0b2b3f9501 ]
->    
->     All platforms that currently do not use generic clockevents roughly call
->     the same set of functions in their timer interrupts: xtime_update(),
->     update_process_times() and profile_tick(), sometimes in a different
->     sequence.
->    
->     Add a helper function that performs all three of them, to make the
->     callers more uniform and simplify the interface.
->    
->     Reviewed-by: Geert Uytterhoeven <geert@linux-m68k.org>
->     Reviewed-by: Linus Walleij <linus.walleij@linaro.org>
->     Signed-off-by: Arnd Bergmann <arnd@arndb.de>
->     Stable-dep-of: 2927f7ca7844 ("time: Prevent time64_to_tm() day 
-> truncation on 32-bit")
->     Signed-off-by: Sasha Levin <sashal@kernel.org>
+> --- 1/2 mm/mempolicy: convert maxnode to a bit count in copy_nodes_to_user()
+>
+> Converts maxnode to a bit count on entry to copy_nodes_to_user() and 
+> get_nodes(), fixing the compat KASAN stack over-read and stack leak. 
+> Fixes e130242dc351, Cc stable.
+>
+>
+> Subject: [PATCH 1/2] mm/mempolicy: convert maxnode to a bit count in
+>  copy_nodes_to_user()
+>
+> Whenever maxnode - 1 is a multiple of 32, compat_put_bitmap() reads one
 
-I don't see how this is a dependency of 2927f7ca7844, it looks
-unrelated to me, and the patch only adds an unused function.
+'multiple of 64' I think
 
-Also, while 2927f7ca7844 is correct, I don't think we
-really need to worry about overflowing day numbers in
-stable kernels.
+> more compat_ulong_t from the kernel nodemask than the caller asked for,
+> and writes it past the end of the caller's bitmap.
+>
+> When the kernel nodemask ends there, that read goes past the on-stack
+> nodemask_t in kernel_get_mempolicy(), and its low 32 bits are copied
+> to userspace.
+>
+> With CONFIG_NODES_SHIFT=6, 64 possible nodes and a 32-bit caller
+> passing maxnode=65:
+>
+>   BUG: KASAN: stack-out-of-bounds in compat_put_bitmap+0x122/0x130
+>   Read of size 8 at addr ffff8880150d7ec0 by task mpoltest/241
+>    compat_put_bitmap+0x122/0x130
+>    copy_nodes_to_user+0x14a/0x250
+>    __ia32_sys_get_mempolicy+0x1b0/0x2b0
+>
+> Convert maxnode to a bit count once, on entry, and use only that in the
+> rest of copy_nodes_to_user(), so the compat path gets the same size as
+> the native one. Do the same in get_nodes().
+>
+> Fixes: e130242dc351 ("mm: simplify compat numa syscalls")
 
-     Arnd
+I like the renaming as a cleanup, though it does make it a little
+harder to backport to stable kernels from context changes, maybe
+it's better to do do the minimal fix first.
+
+>  mm/mempolicy.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+>
+> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> index 390a31a99b4ff..cddca1db3d9a1 100644
+> --- a/mm/mempolicy.c
+> +++ b/mm/mempolicy.c
+> @@ -1725,8 +1725,10 @@ static int copy_nodes_to_user(unsigned long 
+> __user *mask, unsigned long maxnode,
+>  	unsigned int nbytes = BITS_TO_LONGS(nr_node_ids) * sizeof(long);
+>  	bool compat = in_compat_syscall();
+> 
+> -	if (compat)
+> +	if (compat) {
+> +		copy = ALIGN(nbits, BITS_PER_COMPAT_LONG) / 8;
+>  		nbytes = BITS_TO_COMPAT_LONGS(nr_node_ids) * sizeof(compat_long_t);
+> +	}
+
+It fixes the bug, but I'd drop the nbytes= assignment here, as it
+has no benefit: The only configurations where nbytes actually gets
+a different value is for NODES_SHIFT<6, but as the on-stack
+bitmask is still a 64-bit word here, the only difference is whether
+the extra zeroes come from memset() or compat_put_bitmap().
+
+I assume that when I introduced this bug, I simply confused which of
+the two variables needed to be adjusted.
+
+      Arnd
