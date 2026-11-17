@@ -1,55 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794925047;
-	b=za72ccUskkNG8oBdMuwlDf6Gqk5fHGRsdripAR42eMtHloaDEl3VNEZW6C0nFzoU4lOa
-	 c0OFmTX695dAX2dKTdlPcfKEyR8dOdbbaJc6oFb8Aag1iI0EgY11pqPiymHHjSNPpqxn6
-	 UinXEx4MlTgd+zLkdLPg9eTknKgVNM5hpjZ+hT4Zrjj7aiPGrM86E3/Cbuwvu7kc5xsBc
-	 D2kzgX1TBAUaLy25v/t7XMppWxtNHK1MFoglrJ+FZoPYyoazKB7mDG5L470l9PzKDOpmE
-	 gUvLRK7zPHp3xS4ShrMT8PvUOJwPZh2CuSuFVlj8hgc4DnBEDw/ZjcbfkUQOtAPtUlA==
+	t=1794925168;
+	b=Tq1XZLUODO5XzJiOWMiLq6vwmN319W0mtWNf04JM4T2ZCKljEC0HoS45Q3e0iin3X+JQ
+	 WHq3HjQsYO4xV06aseUfHPet/xSADxnrol5hRrJQ1FyoJP6UBn8nfnE4HVu0eg0wNCfLI
+	 68NPcf0OZbgklW2HTr/oCUElOzY7AKUl1Aba1JLB8bZKd36zJXCK9/mXs+jjnI1BOXc98
+	 Kvo1WKrFlQkXuO8qKs35D9Xe2tr9RNxJAHMUPXmJGHtGEhNfVeOA2aYig5OOnwAH0SjpP
+	 +YcEEiy3bTLMZCSL/v+aEue75iku8uwC0dpV5o8k8Vgfs01k4OuguUjLKEUOdFEyaMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794925047;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=liIZOjRuYPEbplj4vLWB8JdNqmnfvrixSMO+8M41odI=;
-	b=h+h5ksQeqSWb79S4SNcnjYUx2DH5bkdujZxDRTTGNa2KmOPJ8HKr0/l4EupdJgHaUHAH
-	 TRsdlSwIzk/0pdVR/ymwwDWmjuU1nVPS3euQ1dCMkfkgPLwi8ndIJQuKzNXzRt31flhGq
-	 LJGalVAB+fZetoyeG9jMluG07NIeulbIHnWP9q1ALM2LurthjvnGfYrTTd5CqvZ+EFEH9
-	 AHh1V4SCNCVP4e+5J/6OCfaSNhlqsdEIFHqDb9pu70eGLVd+aC2rXC+HCeOvQu4TSYPo/
-	 XB94m3BwWrJ6A0Zd7sXOfBHecGGhc68l3xnpoL6dgDTWILXz7fxtajLZJr88yFi+IbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794925168;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=vewm0YM3mK/oI43WitLGRasKLJvDnFpqAzBQT6/SwaY=;
+	b=qRdPqfgvHOL3NwTP1eDufWUoz57Ltpy/JqrU7NZpzRSjerevxYIdwUcBxl9OTiV9sS9A
+	 z8N6U7EjGZLpG+lRifkkw7e6eyXxeaCWTN2l7RxXE7XaGrItBemoP8x0dpDkcrZrhStCg
+	 WLLQVsajnsguj4QiKuYPcrfouj5h/4xs8VRq1K2JRTMUJh4hcz9nrY1jh21E/3R5clti1
+	 D9PV5z/lqAra3Ng/XImpz/D2UPS8c/w67EIvAiSE8NxKn11S1tjNzKa8Db07d0AWvP08s
+	 AOlfKq6jFk0wbCbEiJNCOGiOj0eyiHVBJHS4xZcLVl+1MmfwkpaemMCq8vKlsbfrjIg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMyTfUiH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g1mIG94u;
+	arc=none smtp.remote-ip=209.85.218.53
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id D4684606A329;
-	Tue, 17 Nov 2026 14:17:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5300606A32A
+	for <stable@vger.kernel.org>; Tue, 17 Nov 2026 14:19:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5300606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LMyTfUiH
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 2CDE11F000C5;
-	Tue, 17 Nov 2026 14:17:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794925047;
-	bh=liIZOjRuYPEbplj4vLWB8JdNqmnfvrixSMO+8M41odI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LMyTfUiHO2RCiWpysRkGi3YHyZ5J0cL8l1BasNNy7jvqJ7qYAB/s4pKS4QXHXT0rn
-	 MqwJtvZdF9bmnqLcVmenrDel6dYJ7WAB/IDJ5bWX14bVKA9+J3qhEHyqs+6SMZ0CB0
-	 EfPeikOm/UJ5oDq5Cj8eMejV3F7eymlU9gQKXh2NM6GkhnA0BCNEUT2DXOv8Pj7BBt
-	 0mmxpkzGDUunpXs0IibCMIJ44RvV5thgHL+FP+OWXRZKWL/C7HQ0jJ8RXiDS1hSLW9
-	 WrD9caCOivDNaXELcrLeeml9xLYt/FjoPek+Df/SkuoIu6cEl1NAa1rh9kcsAGt2U+
-	 ZXtdoQzObbGZQ==
-Date: Tue, 17 Nov 2026 16:17:23 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, mm-commits@vger.kernel.org,
-	stable@vger.kernel.org, dhowells@redhat.com, 4ncienth@gmail.com
-Subject: Re: [merged mm-hotfixes-stable]
- assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node.patch removed
- from -mm tree
-Message-ID: <avxh82yWCs_bQq_w@kernel.org>
-References: <20261110064551.3EA5D1F008A1@smtp.kernel.org>
- <86f9796a-2d2f-4e5a-875c-d2714bd76c58@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g1mIG94u
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c408e21e8acso79057566b.3
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 06:19:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794925166; x=1795529966; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vewm0YM3mK/oI43WitLGRasKLJvDnFpqAzBQT6/SwaY=;
+        b=g1mIG94uiwF/vwzgPogrWrr49hBBpuWyaBIfHz0VTF/3ud2fMbXGndfciZGknZ/oso
+         Unrn2lL/ffxpHHfayW1ZDifeh2AT1/y/drksrPb1V7xh51akTN8sGKAlGIkfyizmLKwS
+         emUd4aZ22uR5Ix9O4mBnymnW2NRNZVmi811c/8E4B152pLU20y3aVNnigmmAZCG9WFaD
+         fe8bVTzXtLSzt5KR7E8Gqh6Af7Z6fTrncNsyQlv9sO9KEyjYUT5HoSbs/iSw40u9nHcX
+         5aBFa4VryAg5TmSOmvsApllXv8XaVk5dHUXdGMiwEZ4CJV0pzYxNkaDv02oaNY4Y0YD3
+         QqMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794925166; x=1795529966;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vewm0YM3mK/oI43WitLGRasKLJvDnFpqAzBQT6/SwaY=;
+        b=c3fZl1k0yIpEugxBQY1SM8G4wD8Bfs+5AbpUt38DapKbNcNAIgKJ1F0/ptzrVl/AG2
+         srXoRFywPzxzPsuWIig/8Oxb+WPQqLFGJPIrmQrCQTYvqs2L20CrswW/xwb57z+GAXFk
+         zjciaEPZF9Vzfw7k8KW5X8UhZ1BU/NbM8ECkFDUHJJuHULBavRnyCkmQP4buFKQJPxM/
+         ACJ5MQy05pIak3Q4UQGxGZjK7e9xPhVAPRzcvtt75tIvzMCKLJM3aTOvZZC3JncWVUjC
+         +VRstcNJSt6HtwJYk31MUM6Y6LdXOOOBtCRcIl7HbsT36kl9tiihjCnW/BF9U9xDCh9M
+         DpKg==
+X-Forwarded-Encrypted: i=1; AL+hErGu5nG5qRDSCQUcLIGgjEmC/aanu3/QV1eJr80RUyPc2YaVzPMvcGh3Y3WasuC67GIL90d8KYg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8F2o/eHMKJokkiECUHbJ/fZpts6IKNQJEy6BXSCnuh1XMjYkDf
+	uYg/yFxyYPUUNH14pnwc6jPYQySWQZuhlwyZbgYN2aWRjj5KoPnC9BE3
+X-Gm-Gg: AYBFou0l49PHY9XHZRraMsLiGTQJ0dmw4YJqY3LVko5rzUT8/e7VAUrl3Nq7bP76QDF
+	SSairV7FqMqe67gsqnN34fQHqnBgZZPZXO3cqfySdkTLjLFUF0Xw2wKUc3GKILUNnHifLLsznuA
+	watgxmZFD5cktIK9WuWuToYE1dFwefFEaB3Q91nZVyhrykQ6aBoHgZCfk43t94jvo61jOA/IpY+
+	JMpcQ3IwXm9uINiCMMaNuemxvGckbDDsUwbm/wVfsmr5Y23L3mxI40Yz62n8iw6UM0B5v7GDOIF
+	doh51P4qI9z2oUOJwX5R98ueVjdp/wxZtD7RQCzesDBY6QHYzUvazk9YYNxXz1KafzRd8xlbJwm
+	1EprAZzg6B9Lc0EVDueftgVlohyMlp1L0XQNnjsL+LHiUwMY5Pt2ZlQM+NLFDm5EV0gKNoZPs2K
+	asv/LjPGXzlYcT3yvyvpXhhBghpD8NGQYlIUiM4Pxa1YIUUCWRH0M1bnqADzTFNXHYzrZ5G6pAW
+	cm/1PLFIwP1gK3GxYImInZkyCFelJ/rpR8aBc3vngIjx0/qqqDMZGsAe6sqIczVzYI704ECuE1O
+	wcEurN6DV41+N//wBYcLb/16b1GUC/ppnV+s3WgyBoSdzExQrH8zNKG1lU8wEMIZRd5eRe+mDyx
+	+vz20qdtSVA9rjNIlnqvp97ndC4GcTAyByLks0MBLW58qKMKj03d5mN6XXhbb9agPxTg6i8aNY/
+	PQBp65mQ==
+X-Received: by 2002:a17:906:2441:b0:c41:8e21:4d62 with SMTP id a640c23a62f3a-c509614d4d7mr1248867266b.1.1794925165807;
+        Tue, 17 Nov 2026 06:19:25 -0800 (PST)
+Received: from L-022584.energy.envision.com (dynamic-077-184-154-007.77.184.pool.telefonica.de. [77.184.154.7])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c5095a5abf3sm545215166b.12.2026.11.17.06.19.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 06:19:25 -0800 (PST)
+From: Xin Xie <xiexinet@gmail.com>
+To: netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	andrew+netdev@lunn.ch,
+	shuah@kernel.org,
+	kees@kernel.org,
+	petr.wozniak@gmail.com,
+	qingfang.deng@linux.dev,
+	fmaurer@redhat.com,
+	luka.gejak@linux.dev,
+	bigeasy@linutronix.de,
+	xiaoliang.yang_1@nxp.com,
+	skhawaja@google.com,
+	liuhangbin@gmail.com,
+	stable@vger.kernel.org,
+	sdf.kernel@gmail.com,
+	xiexinet@gmail.com,
+	lukma@denx.de,
+	fmancera@suse.de,
+	danishanwar@ti.com,
+	sunwenbo@cmss.chinamobile.com
+Subject: [PATCH net v10 0/4] net: hsr: fix super-packet forwarding
+Date: Tue, 17 Nov 2026 15:19:18 +0100
+Message-ID: <20261117141922.20-1-xiexinet@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,157 +119,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <86f9796a-2d2f-4e5a-875c-d2714bd76c58@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 02:22:22PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/10/26 07:45, Andrew Morton wrote:
-> > The quilt patch titled
-> >      Subject: assoc_array: discard shortcut when collapsing a leaf-only node
-> > has been removed from the -mm tree.  Its filename was
-> >      assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node.patch
-> > 
-> > This patch was dropped because it was merged into the mm-hotfixes-stable branch
-> > of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-> > 
-> > ------------------------------------------------------
-> > From: Daehyeon Ko <4ncienth@gmail.com>
-> > Subject: assoc_array: discard shortcut when collapsing a leaf-only node
-> > Date: Fri, 25 Sep 2026 17:05:48 +0900
-> > 
-> > assoc_array_delete() can collapse a subtree into a node that contains only
-> > leaves while retaining the shortcut that led to it.  If that node later
-> > fills, all_leaves_cluster_together replaces it with another shortcut.  The
-> > first shortcut then points directly to the second one.
-> > 
-> > assoc_array_apply_edit() publishes this topology and propagates branch
-> > counts from the new child node.  It skips the inner shortcut, encounters
-> > the outer shortcut where it requires a node and triggers the BUG_ON().
-> > 
-> > Linux v7.2 and v6.12.105 are affected.  The same root remains at the
-> > base-commit below and in every supported stable branch checked down to
-> > 5.10.  It requires CONFIG_KEYS, but no capability, user namespace or race.
-> > A UID/GID 1000 process produced:
-> > 
-> >   CONTROL_BEGIN mode=exact uid=1000 gid=1000
-> >   CONTROL_CapEff: 0000000000000000
-> >   kernel BUG at lib/assoc_array.c:1388!
-> >   Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-> >   CPU: 0 UID: 1000 PID: 154 Comm: exploit
-> >   RIP: assoc_array_apply_edit+0x4aa/0x690
-> >   Call Trace:
-> >    __key_link
-> >    __key_instantiate_and_link
-> >    __key_create_or_update
-> >    __do_sys_add_key
-> >   Kernel panic - not syncing: Fatal exception
-> > 
-> > When deletion produces a leaf-only node, bypass its preceding shortcut as
-> > garbage collection already does.  Retire the shortcut and old node
-> > together after an RCU grace period; reused leaves keep their references
-> > and the deleted leaf is still freed separately.
-> > 
-> > The exact trigger reached the BUG in 3/3 unmodified v7.2 KASAN boots and
-> > completed cleanly in 3/3 fixed boots.  Fixed v6.12.105 also passed 3/3.  A
-> > source reproducer is available privately on request.
-> > 
-> > Link: https://lore.kernel.org/20260925080548.2505640-1-4ncienth@gmail.com
-> > Fixes: 3cb989501c26 ("Add a generic associative array implementation.")
-> > Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-> > Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> > Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-> > Cc: David Howells <dhowells@redhat.com>
-> > Cc: <stable@vger.kernel.org>
-> > ---
-> > 
-> >  lib/assoc_array.c |   36 ++++++++++++++++++++++--------------
-> >  1 file changed, 22 insertions(+), 14 deletions(-)
-> > 
-> > --- a/lib/assoc_array.c~assoc_array-discard-shortcut-when-collapsing-a-leaf-only-node
-> > +++ a/lib/assoc_array.c
-> > @@ -1210,8 +1210,22 @@ found_leaf:
-> >  				goto enomem;
-> >  			edit->new_meta[0] = assoc_array_node_to_ptr(new_n0);
-> >  
-> > -			new_n0->back_pointer = node->back_pointer;
-> > -			new_n0->parent_slot = node->parent_slot;
-> > +			/* A shortcut above a leaf-only node is redundant.  Drop it as
-> > +			 * GC does so that a later split can't create two shortcuts in a row.
-> > +			 */
-> > +			ptr = node->back_pointer;
-> > +			if (assoc_array_ptr_is_shortcut(ptr)) {
-> > +				struct assoc_array_shortcut *s =
-> > +					assoc_array_ptr_to_shortcut(ptr);
-> > +
-> > +				new_n0->back_pointer = s->back_pointer;
-> > +				new_n0->parent_slot = s->parent_slot;
-> > +				edit->excised_subtree = ptr;
-> > +			} else {
-> > +				new_n0->back_pointer = ptr;
-> > +				new_n0->parent_slot = node->parent_slot;
-> > +				edit->excised_subtree = assoc_array_node_to_ptr(node);
-> > +			}
-> >  			new_n0->nr_leaves_on_branch = node->nr_leaves_on_branch;
-> >  			edit->adjust_count_on = new_n0;
-> >  
-> > @@ -1225,21 +1239,15 @@ found_leaf:
-> >  			pr_devel("collapsed %d,%lu\n", collapse.slot, new_n0->nr_leaves_on_branch);
-> >  			BUG_ON(collapse.slot != new_n0->nr_leaves_on_branch - 1);
-> >  
-> > -			if (!node->back_pointer) {
-> > +			if (!new_n0->back_pointer) {
-> >  				edit->set[1].ptr = &array->root;
-> > -			} else if (assoc_array_ptr_is_leaf(node->back_pointer)) {
-> > -				BUG();
-> > -			} else if (assoc_array_ptr_is_node(node->back_pointer)) {
-> > -				struct assoc_array_node *p =
-> > -					assoc_array_ptr_to_node(node->back_pointer);
-> > -				edit->set[1].ptr = &p->slots[node->parent_slot];
-> > -			} else if (assoc_array_ptr_is_shortcut(node->back_pointer)) {
-> > -				struct assoc_array_shortcut *s =
-> > -					assoc_array_ptr_to_shortcut(node->back_pointer);
-> > -				edit->set[1].ptr = &s->next_node;
-> > +			} else {
-> > +				struct assoc_array_node *p;
-> > +
-> > +				p = assoc_array_ptr_to_node(new_n0->back_pointer);
-> > +				edit->set[1].ptr = &p->slots[new_n0->parent_slot];
-> >  			}
-> >  			edit->set[1].to = assoc_array_node_to_ptr(new_n0);
-> > -			edit->excised_subtree = assoc_array_node_to_ptr(node);
-> >  		}
-> >  	}
-> 
-> This causes conflicts with upstream. I suspect with Linus' cleanups part of
-> 
-> commit 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4 (origin/master, origin/HEAD,
-> master, base)
-> Merge: 141b164bbe18 bbab563c5131
-> Author: Linus Torvalds <torvalds@linux-foundation.org>
-> Date:   Mon Nov 16 09:35:38 2026 -0800
-> 
->     Merge tag 'assoc-array-fixes-v2'
-> 
->     Clean up assoc_array library code
-> 
-> It's in akpm/mm-hotfixes-unstable, but is this really MM material?
-> 
-> Sounds more like nonmm stuff.
-> 
-> Anyhow, I'll drop this from now from mm-next as I couldn't easily figure out how
-> to resolve this (or if it is still required).
+HSR and PRP tag, number and de-duplicate each frame on the wire. GRO
+and GSO can hand them one skb holding several frames, which the lower
+device then drops or which goes out with a single tag or RCT and
+sequence number.
 
-I think you're right, thanks.
+Patch 1 keeps software GRO off on HSR/PRP ports. GRO_HW that the
+driver keeps on is left alone.
 
-I temporarily removed the commits from my next mirror branch.
+Patch 2 refuses bridge, bond, team and OVS masters as ports, a macvlan
+or MACsec device on top of a bridge, bond, team or HSR/PRP master, and
+devices that already have a master or cannot take an RX handler.
+This fixes the syzbot recursive seqnr_lock report, as Sebastian
+suggested [1].
 
-I'll go through this with time and re-push them later.
+A port check cannot catch every path back into an HSR master, such
+as a tc/BPF redirect or a tunnel; those still nest the lock and can
+deadlock on the same device. Fixing them without dropping traffic
+needs seqnr_lock released before the port transmit, which can reorder
+frames for receivers without aae9d6b616b5 ("hsr: Implement more robust
+duplicate discard for HSR"). That is left to net-next, where Hangbin's
+patch [2] fits. He dropped it in favor of this series [3]; as this
+series no longer narrows seqnr_lock, it can go ahead there.
 
-> 
-> -- 
-> Cheers,
-> 
-> David
+Patch 3 segments GSO skbs before per-frame processing, outside
+seqnr_lock. GSO reaches an HSR/PRP port even with GRO off, typically
+from a container attached to a PRP RedBox interlink through veth:
 
-Br, Jarkko
+  container/netns                  host PRP RedBox
+  prp0-peer ---- veth ---- prp0-int (interlink RX)
+                                  |
+                           split GSO into frames
+                                  |
+                           sequence number + RCT
+                              /          \
+                           LAN A        LAN B
+
+Some old Linux PRP senders put one RCT on a whole GSO skb; patch 3
+drops such aggregates when it can detect them. With GRO_HW off on
+virtio-net, the host may segment them first and the RCT arrives as
+payload; upgrade the sender or disable GSO and TSO on its HSR/PRP
+master.
+
+Patch 4 adds selftests.
+
+Tested on a lockdep kernel: the new selftests (also with Python 3.9)
+and the existing hsr selftests pass, and the syzbot reproducer no
+longer reports recursive locking. No new W=1 warnings.
+
+No stable backport is requested. The remaining HSR dev->stats races
+are left to a separate series, as Paolo suggested [4].
+
+Based on net aa40afa831eb; also applies to net-next. Patch 3
+conflicts with Sebastian's pending net-next series [5]; its notes give
+the resolution.
+
+Changes since v9:
+- Added Sebastian's Reviewed-by.
+- Patch 1: the role clear in hsr_del_port() and the hsr_port bit moved,
+  so that the series applies with the pending fix [6] and with the XDP
+  series now in net-next [7]. Comment and message updated after the AI
+  review [8].
+- Patch 3: the segment loop uses skb_list_walk_safe(), as Sebastian
+  suggested.
+- Patch 4: three test checks tightened after the AI review [8].
+- AI review [8], not changed: a tunnel routed back through its own HSR
+  master (patch 2) is the existing deadlock described above, and the
+  socket close order in the test helper is harmless.
+
+[1] https://lore.kernel.org/netdev/20261014151838.6RyMIRVM@linutronix.de/
+[2] https://lore.kernel.org/netdev/20260805-hsr_deadlock-v1-1-d8a6f06fc5a8@kylinos.cn/
+[3] https://lore.kernel.org/netdev/anXnxn-PBv8qH6VB@fedora/
+[4] https://lore.kernel.org/netdev/4fc3b9f1-4bef-4b34-ae7a-e89037cce829@redhat.com/
+[5] https://lore.kernel.org/netdev/20261104-hsr_ptp-v10-0-2c4a38ad973c@linutronix.de/
+[6] https://lore.kernel.org/netdev/20261112064716.85381-1-sunwenbo@cmss.chinamobile.com/
+[7] https://lore.kernel.org/netdev/20261112235027.4072149-1-kuba@kernel.org/
+[8] https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261112153333.20-1-xiexinet@gmail.com
+
+v9: https://lore.kernel.org/netdev/20261112153333.20-1-xiexinet@gmail.com/
+v8: https://lore.kernel.org/netdev/20261107220544.20-1-xiexinet@gmail.com/
+v7: https://lore.kernel.org/netdev/20261009201324.17-1-xiexinet@gmail.com/
+v6: https://lore.kernel.org/netdev/20260809121455.1745-1-xiexinet@gmail.com/
+v5: https://lore.kernel.org/netdev/20260807140751.1351-1-xiexinet@gmail.com/
+v4: https://lore.kernel.org/netdev/20260803222211.877-1-xiexinet@gmail.com/
+v3: https://lore.kernel.org/netdev/20260731090224.18-1-xiexinet@gmail.com/
+v2: https://lore.kernel.org/netdev/20260724161253.79-1-xiexinet@gmail.com/
+v1: https://lore.kernel.org/netdev/20260722171836.196-1-xiexinet@gmail.com/
+
+Xin Xie (4):
+  net: hsr: keep GRO disabled on HSR/PRP ports
+  net: hsr: refuse forwarding devices as HSR/PRP ports
+  net: hsr: segment GSO before per-frame forwarding
+  selftests: net: hsr: verify GRO policy and ordered forwarding
+
+ .../networking/net_cachelines/net_device.rst  |    1 +
+ include/linux/netdevice.h                     |    8 +
+ net/core/dev.c                                |   15 +
+ net/hsr/hsr_device.c                          |   13 +-
+ net/hsr/hsr_forward.c                         |  156 ++
+ net/hsr/hsr_forward.h                         |    1 +
+ net/hsr/hsr_slave.c                           |  145 +-
+ net/hsr/hsr_slave.h                           |    2 +
+ tools/testing/selftests/net/hsr/Makefile      |    7 +-
+ tools/testing/selftests/net/hsr/config        |   10 +
+ .../selftests/net/hsr/hsr_gro_superpacket.py  | 1468 +++++++++++++++++
+ .../selftests/net/hsr/hsr_gro_superpacket.sh  |    9 +
+ .../net/hsr/hsr_ordered_forwarding.sh         |    9 +
+ 13 files changed, 1829 insertions(+), 15 deletions(-)
+ create mode 100755 tools/testing/selftests/net/hsr/hsr_gro_superpacket.py
+ create mode 100755 tools/testing/selftests/net/hsr/hsr_gro_superpacket.sh
+ create mode 100755 tools/testing/selftests/net/hsr/hsr_ordered_forwarding.sh
+
+
+base-commit: aa40afa831ebfe45e40a23721711059f2ac584d4
+-- 
+2.53.0
+
