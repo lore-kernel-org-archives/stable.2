@@ -1,54 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005659;
-	b=vMGj22EMu9Z20PnB0Hfl8pO3a4w7tsquQuTdMiHPLh2wVtZ63uxozJDNL9Wm8IWE/0e8
-	 G3Q3AXwtcdbedHks3/qgAil6zE7Nl4FKjJerju76/ATxqqaTiCzeX2ZEb+g87ZuEHIj/C
-	 nGTfrx0OHkXuyA/3ombVMFHBhY2HazQbWudr2abWdZXcYIcx7A/Jyd+9peaWjnXpqphVP
-	 cPZbnvtQAXk64uan81R3IPye7jBfTwu9OWJ/i7XR76NFuApzf2J/Rv9YiZ5pTo1KpNKfl
-	 zKWMKSjOB40KeBCZ7GbG5wormhf8ACtSYx34Azk3/TLfIf/FRRqj4kzQOgcuBJWJcDw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005659;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=VZ51au4RonPigHEfbkNsWVqDM0KTWvC8Bkvcgfsi/r0=;
-	b=clsD18tApKSbxnlXCnjeYRQhHhN0v8HyADgiFSsZA/dWQoHKLK+yZs595GvOOjrvUZDr
-	 V4dsc3afkWRbu162h0demvlGoOQNDwMNjVziW1qTQg1PKWR6MnaTWL6SqqbpDwA0G9i78
-	 xAHYFSOsSNc0P2j+2DP3swM3Q2eEpMLK5cDHSkIKkmtRPnZJro+ROEG5s4JcLpAzNeXSu
-	 b18TJFq0+NZPwkzTkMRjUiXMmGDYlJUFHgeUj/UTgdfyS1A2O3+N+ERt/0uuvi41cshWA
-	 PUrsiKkBg+9yOs+jCiO7W2rtH24Ph8XimrpYYc1kLN90e69RjWvalfuzfqpgh/AO3YA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ex/cmMe5";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.43
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795005828;
+	b=U8VERdsFyouGubh08b4lQzhnbd90F0qpM9lTSYLb530GOlf6E1UQKGAjy8eGqNLkOTcl
+	 eqkA+xPKysGdOZ6qbCaTppFF88kUxVzKsDt5j1h1eaAJZFP6NOXcvteCG/VdFU8OVhZPC
+	 EDQKX4ZkU9lOVv64Bb5wLjrWQXYTKtw3gPxNW+7/0jr8XeaZUks8YDcNxAP9CO5SxVPf/
+	 a9aO8VO8j4EQGlpFOO00o4imSmZ2T7BPh16MPLSFN5hgeWGDRjyC15UgSF/keAOBpaS0t
+	 6Nzo+56tuuDpjq1L8YamcLDB79zk1cDR+DgZG0ps+4RlVRVd18pS/fBRSxxVCWbx1lA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005828;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=HOa9a+YmhCohrGoQIoOJu5k2eiu280ZQTpGsvtsQ4X8=;
+	b=Ee3yg+8St5fLEtYo0mmL4gsQO1o8qEriegychnyitV3hp1MzuQfnlE0h60xGmczYtKXE
+	 5PkajJX71LstD9mpf6rmAh0T2QC7WMCAj1I6MeEtSxQO5IjEFC+MpdwflRIRUnueYntR2
+	 dNMkf/v4OM454uMGV35GjKWSJ649v7EghRi1R9ArROgIdcK9wKHxJ61GzbMnJs49cB3FC
+	 ISF4IzE08q95WGI+xZu6XaZTOCAi7S+xjv3wuJIdHVRCeWlhNbysBKVV8bxbqQH0U3uj1
+	 DKTXE58y2ALfhVXe5SZKLFke5hfEcjy0ts2yBQTtENCxqxYWuaulyjHemCTZba5/+eA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iAXTJNPb;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056DA606A320;
-	Wed, 18 Nov 2026 12:40:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACB1C606A320
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 12:43:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACB1C606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ex/cmMe5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 814C31F000C9;
-	Wed, 18 Nov 2026 12:40:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795005658;
-	bh=VZ51au4RonPigHEfbkNsWVqDM0KTWvC8Bkvcgfsi/r0=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=ex/cmMe5bYC5eWxfcXVWKFzUvQ2k36gWLlFLC48Ih3lpzVF5Ayu9dEH49FU0xpudu
-	 Tn0tK2Z1zqowhfaQUWqEN9dc9ah01Y0LqldcJJl3hyq4v4MMrN1Crr+FTdN57Rx3Lj
-	 Ku5kaZ2V/QpI20q4HTqUMqKeWvLM+9HJWlCDlsD1nz3T6cKz8+nNYXhtRF8qS2XnmW
-	 w2SHyoo/J7v7i977B9NqcFIk/mA98C5Z/8nvlo5QnLEs6WJEfCA4nmshFIz2zEX2tf
-	 GXqbsXkS0aMEdM/gvSITQa2L1u9JqOQ1bQXhBqCYnsVD0V/mRXfAIr917xWR23pLPI
-	 5X863xrPlShsw==
-From: Christian Brauner <brauner@kernel.org>
-To: Jan Kara <jack@suse.cz>, Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261112064009.2313455-1-joseph.qi@linux.alibaba.com>
-References: <20261112064009.2313455-1-joseph.qi@linux.alibaba.com>
-Subject: Re: [PATCH v2] ufs: free cylinder group structures on late mount
- failure
-Message-Id: <20261118-pfeifen-reift-heimfahren-8a2f3de7729c@brauner>
-Date: Wed, 18 Nov 2026 13:40:55 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iAXTJNPb
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-498f5fa4f70so783050f8f.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 04:43:47 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795005826; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PFg9kisgqroIQzq5AuxPXH+ldrAaJm61amLE5f8ioTorz1lewATb6CzKKalm8VsC1U
+         xKhx9G/LEyfH41D684zdxfRVUh/As2ELaWeOwjuo0IqOjGCM4h9fgRKXqJEs+n52DRAD
+         46xOBt4v8YaVNmNTcH0ayzISQv7TjvfPY4OIblblQKLNqQrauE+FJ97boVlS+UnRBKr5
+         wwp1WOHVSj+lM63+6f/eWC2qiLJfGqvJFn85ualMZ7Y7+j8awvUHSwgdoVvZ8Uc5OZTT
+         qEB/LgSpGqTccFbDDjXY1ffaXokkjQTS+5NBLaMJqXxaJ7Ge7pXs/T76WStJlaGiUcdB
+         rK0g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=HOa9a+YmhCohrGoQIoOJu5k2eiu280ZQTpGsvtsQ4X8=;
+        fh=wlJLzs7lodQQLAszYoyPLt6PvNJWYyP91uYFXfmqEcU=;
+        b=IcrLwAq/+vXG4vu5h/LthkhSZIPh4Y/HSfb4+2PC5j5qvzS9I/29HuQptqxC6+DCbJ
+         TrpHkniV/AgzFPMss7VX5bEEAzqj5g1K2dOb0OOKzR7IgPQT8/MxJIMZJvmkVKcOrTRF
+         jIHAt8kXV4Y/9hSXN1ni9HLK5oya4QD1QjkgmNS2o6uEaCmdAfQThBE5Z47ZRhoquuzy
+         shYta2IIvckz7enC2osKfIjH7FWIxtSMI6gv8wI1aD2PWMBxXwcF9W70vvXJgFbJSPTp
+         4Ze3X/m40Yf999pfVeAV8EOI/NSFMtMIm5AIKVL/b+YlnyxcEYuk+93ozB2Bc1Ahok8+
+         ngTg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795005826; x=1795610626; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HOa9a+YmhCohrGoQIoOJu5k2eiu280ZQTpGsvtsQ4X8=;
+        b=iAXTJNPbbCN659b9MtFE9Nq3rMo5jF5bTb9kRrR9tpOx3pdss/rcDpa6WK1UryjALr
+         ZBJAlqBA9S5KVXqKFLk59uXQ+JUt05h8tmHqKLwO6fYKzbcrvotCRgoMHWFZTWpUUGmB
+         dd/cEU9vQfDFf98lUVbzKxspwMrgKoAep4AMOAUa3N/5hqJfMn6n6m24xAI9q6CbSnab
+         j6k8/fztBZ5YoaPKZ2yuHtmbYUPCRlIK74ftjquzJO76AB+E3JW+utqEr99xIPLtmall
+         T21cqmj8KzYzPEnD+2G7O38mgLT1PsFavjqz8D8fGobB+4KiwEN2zb9MY+grF7Bsw7xW
+         E6SQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795005826; x=1795610626;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=HOa9a+YmhCohrGoQIoOJu5k2eiu280ZQTpGsvtsQ4X8=;
+        b=QCb1NBuQ/OUZGy0fCscnnOkrbx5Ip0phdhJuAyK+pKd9h46gT+YOGiN3KLeT/bAduW
+         p/2EBo857lWTvy1wvWkZ2CwL9TSLbsnNqm29anaDwm2ZBfiHviOGX5wn6L19EznPvVV/
+         HizNreRdptGBmBJcq/AExTLhghPNupGJRRmuC/z7Mcw/wFxFLGmrL06YPgtR+Mn0c8fz
+         bVG/DTbrYfcg3VegPK+6jKxQe0fzv4UTQ6VepKYZkpTEs2hdLNWqopxWIvT2h/HkKHRw
+         5pilsHxqdAy9o8ixg7QoQy5O4QMqlzLo/sGcw2eM3U4YTEXovQMKDJ/bs1GS7FnqEoyj
+         XmhA==
+X-Forwarded-Encrypted: i=1; AL+hErHWUxEQuH1Bg6Pi//eZr8Ju0vMJJ0Nb5NvPMe3XdPaBmbCpwYxAX0NKV/l6x0g/hmmOgauw48A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9SeOwJYsl3eVaMq4MfwhbKlybn6+JUecI3de4ilauptCR81Ah0
+	kZ0mOuWZQN2T3HRGUJSnt9N7MUH1muRBib9xHncG9ZNRGOPoyhRAvIO6qRd9G9TzP4rbBS1dAUD
+	NZjk7RNs3WabcEF2cBfRykvxYRt66AYU=
+X-Gm-Gg: AZFdTZdhMRIKoG+XagS30aEfr2q8xL8Jmk6x1JSDzR1aqM7g/wFmq1CaqR9apfsxf+E
+	AkpxFgiUP1cNuiU8xcWXd9b+KMe/Izpg345GsKPTvpu0Ff2AWzMUF+VZdPltGeePRSETW7F3GiK
+	roe/vPILksGwSfgiYJPy8xtJvP6CsVXr5LSQwDDpsJmzdB4tazvsKH+TazSHO7mooRurcFu6fR1
+	nTqoCUnXGw/KLyx241wSOlZIKlsOKeOf88CRL/cD4fUJVl/rt6OoFqfgJ4l43UcD6mvdfhLH9i1
+	QQiUd+J24X7kou5Mh37l91gjkAg+SFDtoeipQ6aw0P/Mmz8/kMCweLMslZjCXXyr53USvJpyCPu
+	PctH/lugeLLnApsrwkx/NtI3TTJvzFQlVng==
+X-Received: by 2002:a05:6000:4a04:b0:4a6:8012:19a with SMTP id
+ ffacd0b85a97d-4a68012033bmr4116923f8f.22.1795005825888; Wed, 18 Nov 2026
+ 04:43:45 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,39 +101,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev-04696
+From: Wong Steve <shyckless@gmail.com>
+Date: Wed, 18 Nov 2026 20:43:33 +0800
+X-Gm-Features: Aa3M54ppZITCCGdeh2x9pwMNL4N9s_TEBJJomvDgdCI7vdkibDlWPRSqczxn-uw
+Message-ID: <CA+X8SdhwtAT=XoRXf_1=WBfYYrc1MWh1sywQ0uUuQ7b_b3EOeQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] coresight: etm-perf: reject events that exclude both
+ kernel and user space
+To: moonafterrain@outlook.com, suzuki.poulose@arm.com, mike.leach@arm.com, 
+	james.clark@linaro.org, leo.yan@arm.com, alexander.shishkin@linux.intel.com, 
+	mathieu.poirier@linaro.org, gregkh@linuxfoundation.org
+Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, danisjiang@gmail.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 12 Nov 2026 14:40:09 +0800, Joseph Qi wrote:
-> ufs_fill_super() reads the cylinder group structures before it creates
-> the root dentry, and the two failures that remain after the read, a
-> failed ufs_iget() and a failed d_make_root(), jump to a label that only
-> frees the in-core superblock information.  generic_shutdown_super()
-> calls put_super only inside its if (sb->s_root) block, so with s_root
-> left NULL the s_csp allocation, the s_ncg buffer heads behind s_ucg[]
-> and the UFS_MAX_GROUP_LOADED s_ucpi[] entries are leaked, once per
-> mount attempt.  Neither failure needs an I/O error: ufs_iget() rejects
-> a root inode number outside the s_ncg * s_ipg range the image claims,
-> and s_ipg is not validated.
-> 
-> [...]
+Hi Junrui,
 
-Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.5.misc branch should appear in linux-next soon.
+Nice catch, and thanks for the detailed analysis. We ran into the same
+issue independently while auditing privilege checks, and I can confirm
+it is real: in etm4_parse_event_config(), and in the same place in
+etm3x,
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
+        if (attr->exclude_kernel)
+                curr_config->mode = ETM_MODE_EXCL_KERN;
+        if (attr->exclude_user)
+                curr_config->mode = ETM_MODE_EXCL_USER;
 
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
+the second assignment overwrites ETM_MODE_EXCL_KERN, so an event that
+sets both exclude_kernel and exclude_user excludes only user space and
+still traces the kernel. perf_event_open() skips perf_allow_kernel()
+when exclude_kernel is set, so the privilege check is bypassed and an
+unprivileged user can trace the kernel.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
+Rejecting the combination in etm_event_init(), as your patch does, is
+the right place to fix it and covers both etm3x and etm4x. I went
+through the patch and it looks correct to me.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.5.misc
+Reviewed-by: Suyuan Wang <stevewong@hust.edu.cn>
 
-[1/1] ufs: free cylinder group structures on late mount failure
-      https://git.kernel.org/vfs/vfs/c/0f97da93e617
+Suzuki, Mike, James, Leo: this still applies to next-20261117 and the
+hole is still open. The patch has been out since August without a reply
+-- could you let us know its status? Happy to help if anything is needed
+to get it picked up.
 
+Thanks,
+Suyuan
