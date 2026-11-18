@@ -1,65 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794977375;
-	b=QyUpL09G3ttFf3gqj6De2ss7VsSXQHkZ4y+dyUhHsQtVa9QkpmXqojJrcqNaH5OvaDqB
-	 Zr0+17Fekd2Fz/ERnYQJQmn/3rErzqHr5eYUKAQ0LYcH1IRggZ5FOSjZBSkuL/KV72n6H
-	 qQ8HPFn4NTIpQbVM/DY/LxxlA1HjllYOiskixBvCp/5CvGKME4zWX4XUB/UTh0RcbH5Er
-	 UF1PFf/FebfFAMyUwgNf8m+k/GynbIY3MeY7ADosqb691QQb1EKZESh9p5ey76jSXPSxl
-	 VgFkRSlqeSW1T+ok3z4KMQZkQA5ty/E+hy5ApmAl2a6N3F1/gvd3BvtKvR4K9HxDgng==
+	t=1794977378;
+	b=f553uQFTFTm+UjZs8hu/UJq9pHWQtFsSr6khJVfiMnhLEtjlDQdwskdY5MjeXHg0r7vz
+	 l+131fEKa5RV1CXDMrdPZV9pAxK+ABRPS2fMM1mYaeJ+CcIg5D9B4OOzaU82jtbkum9qy
+	 qdQLQux0iLhRqdwiSJHcGx/p8BY56oQ5R/r7b9xqCVT0DoRFebe7XLo6cASybxoSl999Y
+	 u5L/cPBCPOYHIT4FPfYftye8/FZUDn+OTZAZtZWQ3Ro/s2OkJEBi0QdySF/kBgvow81EA
+	 bVhh/QIwB0PANNDOH3154PsFICQaT47+10jVgmgcNKxFnug16i+sW1weR7Rm0GkusAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794977375;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794977378;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=LSYBzu3WzxYwZFW+agUt6ozNBAbIN82n1qHNnQDIvNg=;
-	b=Mn/wTqVYpBpiDnm751JBbSxHzkST7LELSqRbMqhtp2zSUJ+8zTJ1EnUZzZfkOeKO8IJS
-	 EIrsCxDVEg9UAQ7kgNK5WjDVSNRJyOLSMkM66wB/WBA7FB0DqLUmDNuHSlRSO5CA6EXjR
-	 UsCr1Y38wbj18aRPCpv1m3JcfAkwFYElQuc+686NmKRRLeE189HCRQYr+2owIMyL3uqqy
-	 lO6TdTaoVY3KfnWlFC3jx001GQozX6mZCwZ3IuTtvZ6GzxPngdLwv07NDR6xUt/uvl8UP
-	 Pe0shce3P0uv5TwHmgO1K1G3nTykyjksOL+VOvW+cw9DZsdZu6xyfuo/s7O1hA+4sjw==
+	bh=fgpWZZwE7NSYEWRtNq7ZlfOjQQLjUSuAxIrdzbkZGnM=;
+	b=3mzl70CYKwuIqotfV9S8wCgdYIZX2vnvRMhNyU4kqPsE0dYclFcdN7pqE3WcHBHjpqeI
+	 QwFyBLG1GaCeaBlCtz5dB3Uhxy91d/U6q3zcI4KLWEOW7UtzxCnMhyX5FHDS44dxuK+nU
+	 8Dr887gUUFT9SvnQw199UpZw9QPCZjxZ3caH6feDewf4B9FvxnB6IfQ9wqPifBrD8s1s6
+	 34kNAqQ93xnr41xvU8JlKx0xcwhxfOUsYIvzwTqOEj83eSzVz9oXvxAK7DhvdnzuAiFoN
+	 co32JJdfBAql96Qf6+6kY/d6ebK4fiEpXMbffjcl8XEc7Tos/HU964seTv6P5GebMBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qdzvfc9j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="M/Z28yIl";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0674606A33F;
-	Wed, 18 Nov 2026 04:49:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F57A606A33F;
+	Wed, 18 Nov 2026 04:49:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qdzvfc9j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046591F000C9;
-	Wed, 18 Nov 2026 04:49:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M/Z28yIl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 296341F000CA;
+	Wed, 18 Nov 2026 04:49:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794977375;
-	bh=LSYBzu3WzxYwZFW+agUt6ozNBAbIN82n1qHNnQDIvNg=;
+	s=k20260515; t=1794977378;
+	bh=fgpWZZwE7NSYEWRtNq7ZlfOjQQLjUSuAxIrdzbkZGnM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qdzvfc9jhQj8G2GdqvR36YQfrFxPPNuip1dU9JjrPLQvrIkqj7yRGjoBzsdoaGDtq
-	 YQ7cWrzNVoHhsLuv3+9jaCFBlkiwuMzOzV9+KkcC5UWSjCfbijxiRARSWxMabHVBWF
-	 PC0AKCEaH3SKVDQ9a8au7aVxditDZY3fnRRbC9SG2gzUnTwQDxWfdiWfvUx8tDFv1c
-	 PHyIQuyKT7e4KJglrVl2hSvKkqx/Y9w8/+XZaW9ziBa9b5ZXeTVNRDMP7Dwtxuij/1
-	 CK0FPpIuxedoiGp3D5xZ+rx4krIUOAI49kcEvWUHtfCjs/oMDw5YBy03TqROoFem9Y
-	 XaM+VgeKBrMRg==
+	b=M/Z28yIlfN/dW/5PR331Wua2qc0cdeLPcRWT0tXAUOvYBYQ8TpNLvxL+c0cpqRWSH
+	 eHcG3AYvBCosqnjT5iimqL5FGdOtGM831xCM1QUfyl7jLvNarT4e9j3biL9E5ySZPS
+	 DGvRDjG4tfRaGE/Bsg9m41DxTGwCESe5hGGmZXcgiJPTSQ1cndFofXtpUHJq9a3PtC
+	 YDeBPmcW+L4jikcpS7Zs+W0m87xJ3/Q5RU+KRTecgyDPsYD6V9uUdwOuyCRnHMFiEF
+	 vKyOIurIZco6ae4ixatC3cSDYBHTv/+P10mBmsfbDWyeROV9wTP0oWz6HylVOwx4KQ
+	 0AAid/iSAxT4A==
 From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: Sathya Prakash <sathya.prakash@broadcom.com>,
-	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
-	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
-	Ranjan Kumar <ranjan.kumar@broadcom.com>,
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
-	Laurence Oberman <loberman@redhat.com>
+To: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Stanley Jhu <stanleyjhu@google.com>
 Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	MPT-FusionLinux.pdl@broadcom.com,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Bean Huo <beanhuo@micron.com>,
+	sangram kumar yerra <sangram.k.y@intel.com>,
+	Rajeshkumar Sambandham <Rajeshkumar.Sambandham@amd.com>,
 	linux-scsi@vger.kernel.org,
-	Keith Busch <kbusch@kernel.org>,
-	Mira Limbeck <m.limbeck@proxmox.com>,
-	Chandrakanth Patil <chanpati@redhat.com>,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: mpt3sas: Fix off-by-one in NVMe PRP list transfer size limit
-Date: Tue, 17 Nov 2026 23:49:23 -0500
-Message-ID: <179497726111.2093762.8341844612167289010.b4-ty@b4>
+Subject: Re: [PATCH] scsi: ufs: ufs-pci: Check hba->vops in system PM callbacks
+Date: Tue, 17 Nov 2026 23:49:25 -0500
+Message-ID: <179497726103.2093762.2048107205167410263.b4-ty@b4>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261113145047.623807-1-loberman@redhat.com>
-References: <20261113145047.623807-1-loberman@redhat.com>
+In-Reply-To: <20261111084853.3530107-1-stanleyjhu@google.com>
+References: <20261111084853.3530107-1-stanleyjhu@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,24 +71,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Fri, 13 Nov 2026 09:50:46 -0500, Laurence Oberman wrote:
+On Wed, 11 Nov 2026 16:48:53 +0800, Stanley Jhu wrote:
 
-> Commit 04631f55afc5 ("scsi: mpt3sas: Limit NVMe request size to 2 MiB")
-> capped max_hw_sectors at 2 MiB on the basis that the 4 KiB PRP list
-> buffer holds 512 entries. That does not account for how
-> base_make_prp_nvme() fills the buffer:
+> ufshcd_pci_tbl[] defines the Samsung 0xC00C and AMD 0x1B29 PCI IDs
+> with .driver_data set to 0, so ufshcd_pci_probe() leaves hba->vops
+> NULL. Both ufshcd_pci_suspend_prepare() and
+> ufshcd_pci_resume_complete() dereference hba->vops->name without
+> checking hba->vops:
 > 
->  - PRP1 is placed in the main message frame and covers the first,
->    possibly partial, page of the transfer.
->  - When the list reaches the last 8-byte slot of the page, that slot
->    is used for a chain pointer, so only 511 data PRPs fit.
+> 1. System suspend on an AMD 0x1B29 or Samsung 0xC00C host enters the
+>    PM prepare phase and calls ufshcd_pci_suspend_prepare().
+> 2. ufshcd_pci_suspend_prepare() evaluates
+>    strcmp(hba->vops->name, "intel-pci"), dereferences NULL, and
+>    triggers a kernel oops in the suspending task.
 > 
 > [...]
 
 Applied to 7.4/scsi-fixes, thanks!
 
-[1/1] scsi: mpt3sas: Fix off-by-one in NVMe PRP list transfer size limit
-      https://git.kernel.org/mkp/scsi/c/dd6ff53a2706
+[1/1] scsi: ufs: ufs-pci: Check hba->vops in system PM callbacks
+      https://git.kernel.org/mkp/scsi/c/947d8e9a4d1e
 
 -- 
 Martin K. Petersen
