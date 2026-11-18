@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794961206;
-	b=uAzk7MXA355yRpXaxGUtLUIi3o73LNTL6OdiVl+dq00PqIphXr2UVdSGI9Zovw1dSW1N
-	 XU/NBgzmzssBVap+dmfCeZxx1Ek/d7F7bPPKlPj/nppzrek2KzjPgHJJZjnOZkEua3QgI
-	 mM+Fk25aPHVqkBP30GNMrij57IIRE8ksDQTNaHM68mOu99F5smkvGGOOSiIFgzHQ4erqf
-	 XL/Imvn3nSVl3jJBtBCAVpVnERY4ymWubEE2NGb9wHA/8NjKCtFCDLZ3CFNkKzMLVKQDj
-	 oRxOci7u9Tq/h/xZU7EbdWQob6MM2eH6pylbSGOovwYs446IPuCZb+jlKaFEKCdPOiQ==
+	t=1794961207;
+	b=W+/XaVARrz8D4ZQeblz/c4Xok6Dv0pA/CIh5h9YxSZpZvsIbyLeyPqv4cgx2ofFc2pKU
+	 YHoME6exxQWx1mCmj09j5wAJnYGd0n/hnIaPWekR0gGGl0xhvnpvZzRr02OO1dhxHolHi
+	 3GQqw5Y15JTaNt0ALQYg4889OqmSrwzJiGKRyqIuoW9280G2emefvbrFu7wl5NWW2hxyT
+	 bJCzxk9uzQPjjBr5qdZna1D2ph2es25aCisiUzUOBmghwXupZbY7wKEuxSAwiVO9ufVS3
+	 /J0Pr1toLZnrgE4q+H1W8CxAMQhVULf2R756sRMxhGuxiAxP/EhC67/5mXlLeRqFaLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794961206;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794961207;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Yyp9htXtlrZQtTO2sEMjINZ4vkcpiCK5cmehF31nALA=;
-	b=OZHUgedoC3Gm829019Kzwh3BwZn6X2CVGF1W4FeVbipJ1Hx8WmTq8tX5U89yO5lgyQiW
-	 ph2CMbXDFmTvWmuI7qjKIbSHwBisy8fUIoG0ewNQGjGppjpHj1TTQ4zg5na2iu+PMgugF
-	 ZPBJg7rNn1fXrG2Dl1Qz76R4O+UelepxwSlnV/kabOEiFr23XawoVlJZq4RJmfe3jnM9E
-	 tywjymD2Qo1bRXVxj+/lDsDv2sDI3KSuCzQBPmGWPTd7D5WOUhqrSGo1S3v/JrD5TGxvZ
-	 11tUiQ6iyzZOfn+Mtgj4olEAk+Vn+cI9z6V8yVrjXeJLLQC5TAqcjK/Wbo76O+UCy+Q==
+	bh=JRw6fEvSDbVhRU8qh+aETvS7Fbkzj3KZVD4IK2wFBqY=;
+	b=vrhPeI1Ic+tT+axS0KZSpYmvc61yc/6JBFzyZifu1ItNcvgSN5S7vk0MC+/YUUMwexdE
+	 MBx7MEhuEzVIv1PRkyGzj6E0Aa8iaejM0sQyQZ1Oj9ZtXBYZ65EhGr+ituEHeFfvAgnrg
+	 D3z0Bl/towsZKXTvKim3PI3Pb6JuqslY4fvEPnibpgRScOoFFgyztPLsUwCX6NyAdDUmx
+	 d4bKRtB/2h6oi5jakJzYYDxeT5Z/yJUqA16E193LeQvLunmD6l8IxtdzoMigTn7ASjAwv
+	 6p0qyZM0zxDgi+4lxM1bscO28+tl2BhtoMHJbFe6PzmjstDSEihcn5Vj300w573j32g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gD6LPNvJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nE4t4pYg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75E1B606A336;
-	Wed, 18 Nov 2026 00:20:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69650606A333;
+	Wed, 18 Nov 2026 00:20:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gD6LPNvJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7356A1F000C7;
-	Wed, 18 Nov 2026 00:20:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nE4t4pYg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 929D01F000C8;
+	Wed, 18 Nov 2026 00:20:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794961206;
-	bh=Yyp9htXtlrZQtTO2sEMjINZ4vkcpiCK5cmehF31nALA=;
+	s=k20260515; t=1794961207;
+	bh=JRw6fEvSDbVhRU8qh+aETvS7Fbkzj3KZVD4IK2wFBqY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gD6LPNvJzDtuapbIYq62L25qn99jxM43uMj4LswQHuurrmXL13DvjvtdFAiVJuEoi
-	 vhSJm4WND28LdiVHyf65p8pwVuZ9MNzXyvfut4BiIiFPQvtSXk8GBYYQ1dOF4rj9pK
-	 phwqxlOFzPvIUnicYEcX00rONHi/1fd6qq418zZ/TV0fostFd2CBSf3U8SRIJiqm3E
-	 YKh8p8a84l0pu+COn00dSzTWM1iKv2M+vvIUOWExWVM2Qjgux3lyDC7V+2E0Qe3k1R
-	 SER8ElDGc6cFvOWU0KKtF5dmDo/+GOxPXvxhASHBX221ll3zZsMB6tqJ8vRc8stFZa
-	 G7c9Y7WQBJxPg==
+	b=nE4t4pYgB1yY9ZNJ1B2RKAkcSkBbt2b+/QxmUfj7BRSEob37v9uJVwIz21Mg+WLYF
+	 IYdeailZMAmDZJSHiBV67s+AYO18rH1+21VTDvWQMEAm3MhuIKQr2tRMJ+iR5k6If9
+	 oBpllGB6y9jz65V9BhzwSg+Bsd7KDeUe1MZ4i1AXJ0h2OyRioZzhCUXfXSQ1aQKtW5
+	 Rwyuayw42nLJteTG0zs1fcob4RnjyOeDjZhlPtGdnkHZm77lKekdFigQE3Rc/QbHyP
+	 EIc5CI23OVudhX6KrRMXjIPpRU6LmiSXUasWGvFxuYJ3epiEGHaTuWO1Q1BChVzKth
+	 aFr3DEGeNKZtg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	leon@kernel.org,
-	jgg@ziepe.ca,
-	kaishen@linux.alibaba.com,
-	Cheng Xu <chengyou@linux.alibaba.com>
-Subject: Re: [PATCH 6.6.y] RDMA/erdma: Use IRQ-safe XArray helpers for QP and CQ tables
-Date: Tue, 17 Nov 2026 19:19:53 -0500
-Message-ID: <2026-11-17-1-daily-reply-0002@kernel.org>
+	sj@kernel.org,
+	damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	Mark Polyakov <mark@thundercompute.com>
+Subject: Re: Backport request for 6.12.y: mm/damon/reclaim: use parameter context correctly
+Date: Tue, 17 Nov 2026 19:19:54 -0500
+Message-ID: <2026-11-17-1-daily-reply-0003@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117022839.23186-1-chengyou@linux.alibaba.com>
-References: <20261117022839.23186-1-chengyou@linux.alibaba.com>
+In-Reply-To: <CAA5JH2yO-gw1gn_172hv0YWFfQpkXz915a=uoVH+e49P_D8-+Q@mail.gmail.com>
+References: <CAA5JH2yO-gw1gn_172hv0YWFfQpkXz915a=uoVH+e49P_D8-+Q@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,13 +63,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Use IRQ-safe XArray helpers for all QP and CQ create-path updates,
-> including the GSI QP store and error paths.
+> It seems 6.12 gets backports of most DAMON fixes but this one must
+> have slipped through.
 
-Queued for 6.12 and 6.6, thanks.
-
-6.1 has the same bug and is not covered. If you want it there, please send a
-6.1.y backport.
+Queued for 6.12, thanks.
 
 -- 
 Thanks,
