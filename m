@@ -1,73 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795021804;
-	b=gXc8F0J+tJSdwo5s87fa90sTS3BYvxQ1IQ81usaix3mOs8bIlElIPivTQtLAY6m6cPle
-	 QS2edBppSt93aY7Ub3MMe7lymeyCtDdE6ijyiCXstI8WqGKtnOcP+dtPve87HrPeCQq8q
-	 LM3DLO2w8l/gGnz71eGzko0EGg7e7Bhlue3KVryKkRwvY0lSPzEHQX700dnNcXk/iyL+g
-	 4n14O6qgkif4ac+Srn33lI/h+TCpvJ1HSt7ZFQcHIvZwZF46xkbejwXroRHLmhDnUw08x
-	 yc+1Vfu1Temfh04Zx1Qf4QHRBnFe/EC+BQbsZGwLhHeYexT8urYy00rlXLQyDJ+p5UQ==
+	t=1795021805;
+	b=f2G3zBQoIGvS9GWYQ/aeEB9/PvBPilJUsjpuB10bWWbt4l1V+2DsfKyhBqBQYl4N2ECr
+	 /YEDBBB5VXFHbf7kEm6SEN9M1KtjC0t65Qj6734XpwHlxQOIMW/DkEkIML9KL+gF5IsEt
+	 JiH0ys1jUOp5E3MLipMe6Kyw0oLB+rZPA9W7OWQvqbDKZElC0xyOT6FOFHJtZ8HD8yrSq
+	 xZu5pjvxoEFY4eyvl+1/VJHfwmex2jx98MJ71gWYWC8ArFSS0lENj+OkS+SnGY8SrfrNz
+	 VvEBSrqgZ7fQDvLX1Pd58Eg8wUcr3QJcDHPqUeU3l7FYqV/I4Xp+L8ZbrH/Lt9B8SIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795021804;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-B4-Tracking:X-Change-Id:X-Developer-Key:X-Developer-Signature:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=mBINZO8SI4MpYZqVki+lomnJt57kbnNhtrWtWttDyyg=;
-	b=fWD80A411WFRTy+FPJTluehWGUgozEUS6vCrpaURaPfKB+HDQKuXWPQk03fek5T8C9sV
-	 fAIUrDu3HKnArCxKS55SlOgGJUxnN8SO84fDtvDankU/92bKb5HSIKXmPW7DQTTYNb9hs
-	 9xcQhouKNKgFgIFP4WLcdnczbPUDBFKDU4TviDFR/IYtuP281Ija0+Cd68gwCBqH7Ucfq
-	 dGTmtBkdYXfnsQmZVtbqVsi4xgHIiTgdV3yaMh6cZp1jb6MbR0uJmbuQAvSYShfvQlej7
-	 jlvnasmbwv4AY2MruW35IoGJNAwZz6U9JDPKUjRNXkycKrO0t9SusqcIdcnct6vb0Cg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795021805;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=uRfMnwx8xx9LCnew1X7JR84InWnEJXSrr5Prqa4SAMw=;
+	b=g8IApYYUOoD8aYdiqpiZUoz7lVvlN8gwpTgHlr7CqP17Wehi28ADjsjPEhl1HBbc+xNI
+	 68k6UNKngwiaqWlXd+qf46uR1viB55E6fKlkmbJS3tJJ2B90EqLtvVqUk6CSLz2TDa9Fx
+	 I+qp+dg/mxiXSAmsXUDlsb/dAb0xvrFHevb+FQxYOEeeQuOyW9vyLliEcle3aPh3w/yas
+	 zFNO6iR9pONbA1Io3TFF+vb0JL6mDFqoX2pG/gvkbX4ThAmgXO1M+z8LC9sDBHDkVzdao
+	 41eVmOxvXBisS8oAcnQW/q5S8U4XTWQT4z9aSP5v0LmXQ0j0vo302cgY43smmy4K3WA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NQRD6l1T;
-	arc=none smtp.remote-ip=209.85.128.69
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eklXmKrP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295E160A2603
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 17:10:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 295E160A2603
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B293A606A334;
+	Wed, 18 Nov 2026 17:10:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NQRD6l1T
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a359b714f8so8076825e9.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 09:10:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795021802; x=1795626602; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mBINZO8SI4MpYZqVki+lomnJt57kbnNhtrWtWttDyyg=;
-        b=NQRD6l1TEtmIkjHWuz75N2co3p+FwDO9v10vBOx3armYpgWNct7q4TXvfe+q4eiCFU
-         K7fsXwLRgj96NcAqLdAtMd8bmPp+j7SaF0lt973TUT1EscM6flsDNztdVahjV6YZn13h
-         Uu0AVW4rEq8gi8umm3a9VhwbyyGSDq+rbimt41v5mYKm7Js7LqHdxKdE/LlB+bJiZSv6
-         RAvcZMnizV/Pp6qJFfMpQFPiJYOi0SvoCXmW7MIY/OEZUYI09VE6iaGwIK1SfdHGBhwh
-         GVBY0EEth0Z8NBZT8gCzlHQm0xH/la8rl7HpSpUsTaLD2Hfbe5wdYhP1N0bLTwFQR/Wj
-         SC9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795021802; x=1795626602;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mBINZO8SI4MpYZqVki+lomnJt57kbnNhtrWtWttDyyg=;
-        b=LIdpUwET/i3gPWCYleRf3Wx8AdT16FK3RhXQX8sjLMG6L0ugz0i7F1bSCd2MjU1udZ
-         Zx+WVgHGktpE0d5f1sofDoub2AkU2hagU9ea97SiSbYN487r4L9h6EjoNfEMWBragMfK
-         Fs4IKpj1v33tkaKx8jT70YqYainMH/C9nreBemzriKL3Oh+MqQsgQV5PmbJij+BrSAP0
-         iYogJqWlVcBMe1anmM40q7xyjwdIHhtf7XTNFK/4rmjtxNB9BDe+ErRe7c2LgWD2J4r4
-         DzHzq0VvQDY2T/Cqn0RaPLZAr4nu4mr0Z4v9sQKMySWI1fcDRjP3YPQYjLRpY7B1KOme
-         3rZA==
-X-Forwarded-Encrypted: i=1; AL+hErFZuRy+u0iyl8Y4k0wXBNVCGxe5m8GhC6Ce9CKXQwN3zo5NwCvvMf1v9y4sWhw9lm7bNHDxA7U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9+yP5SzUyL0cCHpWcxHLqVqeJnpCRHERj3XTQ+zwjEFBsAA50I
-	5xSqDlvgYOO3JizeIRT59gLXZsw6qHckoK/vR7jmpG5UJvRpRHV3FX2JNwL6gztKk5hbmaxZw59
-	a4eHFRz3X9ylWxRfUdw==
-X-Received: from wmdn7.prod.google.com ([2002:a05:600c:2947:b0:4a2:8ef:a5af])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4ecf:b0:4bb:7007:4a5a with SMTP id 5b1f17b1804b1-4bb7da2eaa2mr68357745e9.23.1795021801887;
- Wed, 18 Nov 2026 09:10:01 -0800 (PST)
-Date: Wed, 18 Nov 2026 17:09:50 +0000
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=eklXmKrP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1C851F000C9;
+	Wed, 18 Nov 2026 17:10:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795021805;
+	bh=uRfMnwx8xx9LCnew1X7JR84InWnEJXSrr5Prqa4SAMw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=eklXmKrP4VuT54Fdv2LE11GPfBK1yJ0cPBksTzxqeZeFqB9z3QpABXVMdwCqMCqa1
+	 98eQGXt7Fgi8JpAW9lM5xT2YEWdEjncb4wU4robeOExmokEj3Rl1RylwlLKdEEuS4r
+	 Y5XHVwWrnz6s5SkFBKVXmr1qASC/1C8IoIoa+v6s=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 2436/2651] ASoC: codecs: wsa884x: disable runtime PM on unbind
+Date: Wed, 18 Nov 2026 16:01:16 +0100
+Message-ID: <20261118150412.886814057@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,62 +61,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAN/b/WoC/x3MQQqEMBAF0atIr21IosjgVcRFTL5Og0TtgAri3
- SfM8i2qHspQQaa+ekhxSpYtFdi6ovD1aQFLLCZnXGet/fCmEYrI18HBp4CVu2YyDmaGDy2Vblf Mcv+fw/i+P1fPKTRjAAAA
-X-Change-Id: 20261118-ordered-wq-cancel-63b02e0feac4
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=733; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=2c+b7t2eSKRSZikSFPwO4mhMOW0PlzZoNYa5IB1loN4=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq/dvjWZXjaqIG7+QNZMRPjUaudgg03nhqwuouf
- rjtcynuV8aJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCav3b4wAKCRAEWL7uWMY5
- RqEvD/4jQXgzC7AXJ3txLaMqfqDu96CDUPsiDmb2Os7FDvR8CQzsd+E4vkv8pqnLpUoVUbHTKxn
- 2LWXPUTEOHgIv87yjdfM6ZAPpx7qtx6Tv4I8U84NucamP86rLQ6mMPLBua5EDNbRmvslVhFLomy
- +SxNbhkFbEBHwBbNfU7FLV1P2TCLuBnhqYAQ8uiAHXkWUtYcsnF0alwTgCbe6NV9wQqIiYY2VV3
- 9a/6bCBumEP6JkrPczQHfL1ELRfX4M/A6CWQuChk4HiNMWIW3zL5YFlLMJQAHRFu53FWr1hpjwg
- Lx0jF3cHrOX1gTGF2y3XnaDi+6vo7n5etmR7Vtm1x07Is7Bb9S12OuZit9LmasPyB6ZHdY0LU/9
- 9YoUtddS6nhAA01UysT7bPMBRhEpgNEI4FrQILcfCB5Fi9DqPto6wRHdJGYbsZVQa6rmWu0RtYm
- 3s3UYTrJq5b6jPzkx+q/9SdB4Y2nwTaj22UrRHQ1ia+sox6qbd7JXg40xcmUcA+Aipul3211n0Z
- 3lwyL8KPBHQjpButhNYkOP59y5KlQxPxpWRxM44d1bBEvIky2FvViYro4fWZhuvW7ZpTECXAvto
- CLULfePyLLxPbarsGy4z0VZr30J8rc62G1h1bCYvVQ6/3QrO/pHY77KqTrT8uNnvmNWUGbU3G+c FR2c8om07K578Ng==
-X-Mailer: b4 0.14.3
-Message-ID: <20261118-ordered-wq-cancel-v1-0-916e01f9affe@google.com>
-Subject: [PATCH 0/2] workqueue: fix cancel_work_sync() on ordered workqueues
- and clarify docs
-From: Alice Ryhl <aliceryhl@google.com>
-To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Boqun Feng <boqun@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>, 
-	Matthew Brost <matthew.brost@intel.com>, 
-	"=?utf-8?q?Christian_K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>, 
-	"=?utf-8?q?Thomas_Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
-	Boris Brezillon <boris.brezillon@collabora.com>, Steven Price <steven.price@arm.com>, 
-	Liviu Dudau <liviu.dudau@arm.com>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, 
-	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
-	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Alice Ryhl <aliceryhl@google.com>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Please see the commit message of patch 1 for details.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-This came up while figuring out what to do about this sashiko review:
-https://sashiko.dev/#/patchset/20261020-rust-workqueue-v3-0-ea7c74d02068%40google.com
+------------------
 
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+
+[ Upstream commit 54c121eaeed8ee7751935db8100b6b5c57124db9 ]
+
+Probe enables runtime PM but nothing disables it on unbind. The pending
+autosuspend then runs wsa884x_runtime_suspend() after the devm-managed
+regmap is freed, and dereferences NULL:
+
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000020
+  pc : regcache_cache_only+0x18/0x80
+  lr : wsa884x_runtime_suspend+0x24/0x40 [snd_soc_wsa884x]
+
+Use devm_pm_runtime_enable() so runtime PM is disabled before the regmap
+is freed.
+
+Fixes: aa21a7d4f68a ("ASoC: codecs: wsa884x: Add WSA884x family of speakers")
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Link: https://patch.msgid.link/20261023171316.819857-5-srinivas.kandagatla@oss.qualcomm.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Alice Ryhl (2):
-      workqueue: fix cancel_work_sync() on ordered workqueues
-      workqueue: doc: clarify cancel_work_sync() cross-workqueue behavior
+ sound/soc/codecs/wsa884x.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
- Documentation/core-api/workqueue.rst |  7 ++++++-
- kernel/workqueue.c                   | 37 +++++++++++++++++++++++++++++-------
- 2 files changed, 36 insertions(+), 8 deletions(-)
----
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-change-id: 20261118-ordered-wq-cancel-63b02e0feac4
-
-Best regards,
+diff --git a/sound/soc/codecs/wsa884x.c b/sound/soc/codecs/wsa884x.c
+index f0857c0588d51..3c008224d32e8 100644
+--- a/sound/soc/codecs/wsa884x.c
++++ b/sound/soc/codecs/wsa884x.c
+@@ -2125,7 +2125,9 @@ static int wsa884x_probe(struct sdw_slave *pdev,
+ 	pm_runtime_use_autosuspend(dev);
+ 	pm_runtime_mark_last_busy(dev);
+ 	pm_runtime_set_active(dev);
+-	pm_runtime_enable(dev);
++	ret = devm_pm_runtime_enable(dev);
++	if (ret)
++		return ret;
+ 
+ 	return devm_snd_soc_register_component(dev,
+ 					       &wsa884x_component_drv,
 -- 
-Alice Ryhl <aliceryhl@google.com>
+2.53.0
+
+
 
