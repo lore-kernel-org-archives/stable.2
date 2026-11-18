@@ -1,49 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016093;
-	b=yFGVtt9sn1NbzhydheRQXkAGiBThCzhA50ShccRu1u+mHuj9Ys9/jelSop0ye5swFQxz
-	 +RmdFANuJZRgMbhLXZlPRRn42LvZN4S6aZe/C436AZtsE04DDBT5NCv4v4MXb9pQXEp3p
-	 paooIMOsRQ/ZNlaGsAPve1wMPXD883hr8NvCHnEBnYR85LOEzcMGwuQVtfPpHCiJ0RVZc
-	 2NnEEaywCDdkEYgUDqoe0Kf1AQkjTAtzBaA43+REY5fNx36lgZJs3uxcraIyJfBtJVg39
-	 thQccnH5Qo1jB05B+hrPvplq8wAjUDhYPhd97/X+eYxUx2eecq7qlKebXBs7DW/XMZg==
+	t=1795016101;
+	b=14hoifHOwDOAkqrF0kArKN4zhpwg3ZDZX6+5IByVdYlEvfQfNVngImY8y10QLXV3PPpu
+	 oXvcQXKnfASBQL7RcgOE9oBXtx+f5Bg6oN6K/SCY7P9HQskJbcKd5CmgVdAPWtYZ1TtPU
+	 ccq/PqwC+RFlNpNVogITuwQC49GOwL/9uNFgWMC/ZEe+zueY30HtDFfZ8FJbfrJ/DjwLS
+	 /TXaUgf8lKyyzNuJWJVsxQkb+5qIae0S/TskH79CfkXXjQdfCCWAosJiC/I0sto1UqjM+
+	 dNkJE7eE3nBydqN+kF23/0t4RBjWZS+LK+aMePzMGSbh41dZ18UV/FXlCScKskAQEtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016093;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=TTOWgexBBg/MVW0b5stJBvTCU1KsO22oMvb+9fg5rIs=;
-	b=zPa8FKF7mE4Cr0lrPoFXk20DIhufKl3Biq/de2q/LdOV/r93TmfnhUJa6oXv5Z/SlNp8
-	 aAEJIC6v8LmEJ0qfEkt6DX1zCoPN5XkMOvys7SyaMTkdBmNBpfK/20auECXNTaxYoGNQD
-	 IinN3ScQLCLnbB09av4hVodzVCWM4FTOjrd2vv+FT8CkUWV8WvS9KChoxPutRNjGlFHsa
-	 agRwNuiS0jc+7FF1w2FcXcEG7gHLM27WBWDhMGis+2J7g1fUD3TfXeEFMIDIYpLln8OgX
-	 GDkAblynH0pkFVDqjLoRhY2HssDeHfl9+6qMA/8PZ9qOe91FcxHXDFkSBfYJuCkAKHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795016101;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PfI2YMhGy/VQnlJ8DtqruiZ/jrm3WK8gWXp+TgARKQs=;
+	b=Udy/8cwZ73dDSzhUIYEgV92rj/M0y5AzBrg8l9ZOOMs9+4wXEZxrj3s1tFONh3CCKCg4
+	 +WJlmO7MgHWmtX8MzmjwShoc2glgVAX1KTdDLDKzJMb8Sv9Vxnvi8XVJDr/liQttNdUQF
+	 iMdkq8gY8yMzOfPoEQjt4sRGSg2TgdrVMoB52rlSsOzZcEQEL26nC8x8T1nu0ntYX49Pr
+	 Hlp37NWWgs6wLcqF05/DwDPhgLMy8p24JSezPoFH45aw7VNDfhbd0z9RrHnDC5cLjK+IC
+	 ztDG6Jaj93Vew0fIAUnPQ58dYwpksjujY5gvmcuu4tUT7VIFhMvYjF8u65aj1LprM0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hSU9vXMZ;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1E00C606A331;
-	Wed, 18 Nov 2026 15:34:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E00C606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C+Bog6ik;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14A75606A31C;
+	Wed, 18 Nov 2026 15:35:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=hSU9vXMZ
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 413EB1477;
-	Wed, 18 Nov 2026 07:34:49 -0800 (PST)
-Received: from [10.0.136.98] (M0PRX50XMG.cambridge.arm.com [10.0.136.98])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8CB6A3F632;
-	Wed, 18 Nov 2026 07:34:50 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795016092; bh=2BBJ1suAnTPS6/YPDbka46qhf9/+FM2sALeGOYTfwRA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=hSU9vXMZlJnCa4XqPjRCwtNV6uXMCZHpWp9OKCcFMpV7fWDhrfoyYtFhu1M6433SY
-	 G7gYi9FjVVcyW1m9pIV+m0RUlTPgepTX56bUP9dqB7zppCyHf8RXxFFtu12K0w3XSk
-	 xk9aMeyZ0i6KN2KAzzRfQ3jIwicqPxkatRa3vP94=
-Message-ID: <71b9323b-902f-4bf9-9cbf-6d0d90ee7ca0@arm.com>
-Date: Wed, 18 Nov 2026 15:34:48 +0000
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=C+Bog6ik
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94F501F000C5;
+	Wed, 18 Nov 2026 15:35:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795016100;
+	bh=PfI2YMhGy/VQnlJ8DtqruiZ/jrm3WK8gWXp+TgARKQs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=C+Bog6ikLvXrxExg6kpJ3UcWq/cdrSnMueqtYpG2oEloMYlASJLbc1Bah5YmXyzau
+	 YzyUm2dYNoXc8ZNoWVmjnrftZj5CwNHF/xi0AxgL6E+pIYAT0nMpb4+lFXbJ9JIe6P
+	 yckdMIz+K5WrUWnTqnFySQNmzZLnCTVKINBQbP+E=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Xueqin Luo <luoxueqin@kylinos.cn>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0409/2651] cpuidle: menu: Do not return a disabled idle state
+Date: Wed, 18 Nov 2026 15:27:29 +0100
+Message-ID: <20261118150302.558629332@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,114 +62,56 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/10] irqchip/gic-v5: Serialise IRS synchronisation
- requests
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Timothy Hayes <Timothy.Hayes@arm.com>,
- Catalin Marinas <Catalin.Marinas@arm.com>,
- Jonathan Cameron <jic23@kernel.org>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
- <20261104-host_gicv5_fixes-v2-3-e47ad20ea3c8@arm.com>
- <auw0ulR3wrsKVcYe@red-moon>
-Content-Language: en-GB
-From: Sascha Bischoff <sascha.bischoff@arm.com>
-In-Reply-To: <auw0ulR3wrsKVcYe@red-moon>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05/11/2026 07:48, Lorenzo Pieralisi wrote:
-> [Remove stable from the CC email recipient list, leave it only in the log]
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Noted, and thanks. Hadn't caught that had been added in from CC. Will 
-omit henceforth!
+------------------
 
-> 
-> On Wed, Nov 04, 2026 at 05:47:57PM +0000, Sascha Bischoff wrote:
->> IRS_SYNCR writes are ignored while IRS_SYNC_STATUSR.IDLE is clear.
->> Calls to gicv5_irs_syncr() for different IRQs can overlap, allowing
-> 
-> Nit: gicv5_irs_syncr() has no notion of specific IRQs, this is
-> misleading.
-> 
->> the second request to be dropped. Its caller can then observe the
->> first request completing and assume that its own events have been
->> processed.
->>
->> With GICv5 ITS KVM support, gicv5_irs_syncr() is also called while
->> restoring the host ITTE in gicv5_its_set_vcpu_affinity(). The callback
->> runs under the IRQ descriptor lock via irq_set_vcpu_affinity(), so it
->> cannot sleep.
-> 
-> Technically we are talking about a use case that does not exist yet.
-> 
-> I understand it is churn to fix it first and change it again later,
-> I would just say that gicv5_irs_syncr() might need to be called in atomic
-> context.
+From: Xueqin Luo <luoxueqin@kylinos.cn>
 
-I've reworked this commit message to make it clearer.
+[ Upstream commit d594187cafd5ad65afc5f00242f8fa20e1d8c0f1 ]
 
-Thanks,
-Sascha
+When idle state 0 is disabled and the PM QoS latency constraint is
+zero (latency_req == 0), the first branch of the || in the early-return
+condition of menu_select() is taken immediately, so state 0 is returned
+regardless of its disable flag.
 
-> 
->> Serialise the request and completion poll with a raw spinlock, and use
->> atomic polling because the synchronisation runs while holding the IRQ
->> descriptor lock.
->>
->> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
->> ---
->>   drivers/irqchip/irq-gic-v5-irs.c | 8 ++++++--
->>   1 file changed, 6 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/irqchip/irq-gic-v5-irs.c b/drivers/irqchip/irq-gic-v5-irs.c
->> index 4edf787f3f97f..ead76560ea08f 100644
->> --- a/drivers/irqchip/irq-gic-v5-irs.c
->> +++ b/drivers/irqchip/irq-gic-v5-irs.c
->> @@ -10,6 +10,7 @@
->>   #include <linux/log2.h>
->>   #include <linux/of.h>
->>   #include <linux/of_address.h>
->> +#include <linux/spinlock.h>
->>   
->>   #include <linux/irqchip.h>
->>   #include <linux/irqchip/arm-gic-v5.h>
->> @@ -22,6 +23,8 @@
->>   #define LPI_ID_BITS_LINEAR		12
->>   
->>   static DEFINE_PER_CPU_READ_MOSTLY(struct gicv5_irs_chip_data *, per_cpu_irs_data);
->> +/* Synchronization requests must not overlap in an IRS Domain. */
->> +static DEFINE_RAW_SPINLOCK(irs_sync_lock);
->>   static LIST_HEAD(irs_nodes);
->>   
->>   static u32 irs_readl_relaxed(struct gicv5_irs_chip_data *irs_data,
->> @@ -507,10 +510,11 @@ void gicv5_irs_syncr(void)
->>   		return;
->>   
->>   	syncr = FIELD_PREP(GICV5_IRS_SYNCR_SYNC, 1);
->> +	guard(raw_spinlock_irqsave)(&irs_sync_lock);
->>   	irs_writel_relaxed(irs_data, syncr, GICV5_IRS_SYNCR);
->>   
->> -	gicv5_wait_for_op(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
->> -			  GICV5_IRS_SYNC_STATUSR_IDLE);
->> +	gicv5_wait_for_op_atomic(irs_data->irs_base, GICV5_IRS_SYNC_STATUSR,
->> +				 GICV5_IRS_SYNC_STATUSR_IDLE, NULL);
->>   }
-> 
-> Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> 
->>   
->>   int gicv5_irs_register_cpu(int cpuid)
->>
->> -- 
->> 2.34.1
->>
+Address this by making the !disable check a prerequisite for the entire
+early-return condition, so that when state 0 is disabled the normal
+state selection loop is used instead, which already skips disabled
+states.
+
+Fixes: 53812cdc9100 ("cpuidle: menu: Move the latency_req == 0 special case check")
+Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
+Link: https://patch.msgid.link/20260827094820.3900062-1-luoxueqin@kylinos.cn
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/cpuidle/governors/menu.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/cpuidle/governors/menu.c b/drivers/cpuidle/governors/menu.c
+index 544a5d5930077..eb529d73d4b75 100644
+--- a/drivers/cpuidle/governors/menu.c
++++ b/drivers/cpuidle/governors/menu.c
+@@ -284,10 +284,10 @@ static int menu_select(struct cpuidle_driver *drv, struct cpuidle_device *dev,
+ 		data->bucket = BUCKETS - 1;
+ 	}
+ 
+-	if (latency_req == 0 ||
+-	    ((data->next_timer_ns < drv->states[1].target_residency_ns ||
+-	      latency_req < drv->states[1].exit_latency_ns) &&
+-	     !dev->states_usage[0].disable)) {
++	if (!dev->states_usage[0].disable &&
++	    (latency_req == 0 ||
++	     data->next_timer_ns < drv->states[1].target_residency_ns ||
++	     latency_req < drv->states[1].exit_latency_ns)) {
+ 		/*
+ 		 * In this case state[0] will be used no matter what, so return
+ 		 * it right away and keep the tick running if state[0] is a
+-- 
+2.53.0
+
+
 
