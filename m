@@ -1,50 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795015811;
-	b=UkbXuhuunHiJnCPFnLxOPop7K4URBT1x4T0LGUewjpLnRXuUp7Pltu3ejTtlTNt5coAF
-	 QDMH7PsCJG9898MnZ22ADgHnIRm/fYp0Ep+coEOo5xfr7dUZ6i8d1ljWwqlOj9phxDd6t
-	 XefY99A97lpPo+1jIVscatc8LQhPzo0VGJ03Hya034X8MgKysmXDvGig/pFmdA/hxImXw
-	 Tf3cORLo7FwGj80kL0sPoJ5CXKGN5Kljoq3adb60j7L5JamsZ+izSJW9Ct0j8RPuWNvKm
-	 /LSJQAyY8aa1YUFoes+53CJQ6dutqYUp9Jo5/AFBnaYIbfGopEIqSObmhiW3eBWE71A==
+	t=1795015814;
+	b=IBRQeiC8A1f7TAE2ddlgwl2axxk89PTZOwSvIQ8lCQbbnycfsxitdOy1Ug0xcxpIu72Z
+	 Y9K6ZzqMmgIpvz/m6g5Z6Mmphw3H+Jm92Voom3TYRaBFXqWjYIGC8OJuIe00gZqNUyczf
+	 LGVMaSnERdaF2ZWq3CsxmOVipAD9HTv1nhZHnFVALJoSXYNN2Jq0xRHNjsHSCWbs1sPRs
+	 h1wxXN9XMGYvIDexzrgKlZM716QkkkqSi5VSoniCMxbW/P9YCNM0x4BhoGBukkyq1WdLE
+	 nqbig5uZDHECfXtygy/3vWsqf/18ZW8GpcrWEiDLkcnfpp3EylNBfS9FmZKlrfQFDfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795015811;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:Organization:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pb2DkYgnWmb9+bw97jIJiTPdWJPNRHPP0cb+PUXqyRQ=;
-	b=Cuswle3ojG8WOoDXIKBQM+ct682hynXz89fbUWocVCXHmnhB87nBBQjg/YNM+VP1LRrS
-	 s1m0StGzAes1dnMdfH1VXKn8ZZTF29l71uo5BaZDJ0xmHpMarV9GGSlDyXw7Noux5pTE3
-	 yKs994JkedJaHXyYX313LNb9uPbWBYqx3do4BxigbGKUGngQ9dJPP+47kWKcnADObobQ/
-	 IBMHRP+QHGIIGcyfMhHspB7tqf+kOlDKgJQCtUDqMaA1L3qrjVbM0pnqts7tvF1hc8R1i
-	 Jyu4zGdlnlvBxSHChaCSca2AOgxAzSo5SoAm+Y71JtatgPL3QLZWPXFsxB/O1f8M+9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015814;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ikGcfM920CHLDR0HhhtbFofDlHBxMsnqrnNuaz8rSbo=;
+	b=vSD7hHBy/DtzMqDUJtPbxC9MkC7I749ZltLQnsToQTOy64oi4agNA3u2KZr3BUi4zsml
+	 zCUFa8ouo1xMZxVto42Q3bjV2BjE85SAl/ckCfbnB2CaYCoH5dir5sGsQRFeALmGaChkN
+	 KB+Recz0qGg3aHM7AIOy6mxrW3GMi8qrqG5BnhQ7NjsuaZk2FLG+a6ygC8UGS8uATaKhJ
+	 AXos2M9h9x5AHwJMN4TsAPVunzlwwwBMv7oxm768nLyUvgz+uGaSduAr6LEocUiHzEfvL
+	 Dqzldryh0/HkwwPcKaPTS/2IEc5JlssrhG21tAfjys54OXE8rbdoKu6WLjimgnVFdfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BcWNdAZP;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5ED7E606A31C;
-	Wed, 18 Nov 2026 15:30:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5ED7E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KUYhwEHo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 549BD60A2626;
+	Wed, 18 Nov 2026 15:30:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=BcWNdAZP
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 9CF641477;
-	Wed, 18 Nov 2026 07:30:07 -0800 (PST)
-Received: from [10.2.213.11] (unknown [10.2.213.11])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E2FB03F632;
-	Wed, 18 Nov 2026 07:30:07 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795015810; bh=pe0bYMQLHpKIt4goswPEy6JNKEehOuA2ys1dJsrtcB4=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To:From;
-	b=BcWNdAZPfIauVt3J95yHNQoW8WzeY7FQl0Rfy0Uzx7/YOqT2Fx2uKi70Mps5DtHbo
-	 CKhVXiqqZfeCtl0LJfbCVuT3h2T8LErJ7edGpFIw4zyblTlMUKofqkahLtDrn+wcr8
-	 No4tvr3RE7FbS+OwdcyDTJnmrR326HP4z1/xPvXM=
-Message-ID: <2ce350f9-4dc4-480f-8a53-07ef9586d49b@arm.com>
-Date: Wed, 18 Nov 2026 15:30:06 +0000
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KUYhwEHo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A09E31F000C8;
+	Wed, 18 Nov 2026 15:30:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795015814;
+	bh=ikGcfM920CHLDR0HhhtbFofDlHBxMsnqrnNuaz8rSbo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KUYhwEHoXatxEahG1nTN2+xpJlLdsnk/YiYix6qY75847CaPZyBTeAwhoK7QNTAMr
+	 jhSAdd1XeaQi8FXQ22YkD6vU82aqd1wOw4+U2mRjF9q4phM9iv43aHbzSIQpTI/ARQ
+	 aQFAwo2aWFl/x3o0sL3DpaeuzySjeUHbdA4tP5u8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	Peixin Xie <peixin.xie@linux.spacemit.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0308/2651] ACPI: scan: Stop calling acpi_bus_init_power() early
+Date: Wed, 18 Nov 2026 15:25:48 +0100
+Message-ID: <20261118150258.984170066@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,90 +63,278 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-Subject: Re: [PATCH 3/3] arm64: head: set __entry_task along with task setup
-To: Vladimir Murzin <vladimir.murzin@arm.com>,
- linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Kiryl Shutsemau <kas@kernel.org>,
- Breno Leitao <leitao@debian.org>, Jinjie Ruan <ruanjinjie@huawei.com>,
- Doug Anderson <dianders@chromium.org>, Linus Walleij <linusw@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Thomas Huth <thuth@redhat.com>,
- Dawei Li <dawei.li@linux.dev>, mrigendrachaubey
- <mrigendra.chaubey@gmail.com>, kernel-team@meta.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261117174814.95936-1-ada.coupriediaz@arm.com>
- <20261117174814.95936-4-ada.coupriediaz@arm.com>
- <f232d0ff-3286-4d85-b9e3-cad8c6bc7178@arm.com>
-Content-Language: en-US, en-GB, fr
-Organization: Arm Ltd.
-In-Reply-To: <f232d0ff-3286-4d85-b9e3-cad8c6bc7178@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-[Resending for the lists, as I forgot to disable sending HTML,
-  sorry for the noise !]
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Hi Vladimir,
+------------------
 
-On 18/11/2026 11:01, Vladimir Murzin wrote:
-> Hi Ada,
->
-> On 11/17/26 17:48, Ada Couprie Diaz wrote:
->> `__entry_task` is only set after the first `switch_to()`, despite
->> a proper task being set up in SP_EL0 as soon as CPUs go through
->> `__{primary,secondary}_switched()`.
->>
->> As SDEI can interrupt execution at any time, it can interrupt before
->> the first `switch_to()` and use a null `__entry_task` to set
->> its current task.
->>
-> TBH I do not know much about SDEI, but don't we need opt-in for
-> SDEI before we can get any SDEI events? If so, can we really
-> receive SDEI event before first switch_to()?
->
-> Cheers
-> Vladimir
+From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 
-I honestly do not know much either !
-But, looking into the driver, we register the SDEI entrypoint
-as part of the driver init in `arch_initcall`, with a few notifiers
-(CPU hotplug among them).
-If using SDEI NMI, we register an SDEI event callback within in this
-driver init, in `device_initcall`.
+[ Upstream commit 2f4ddf2bd1baf0ee3c8542ec6f382a3585cae607 ]
 
-Both of those are done in "late" in the boot process, in
-	rest_init()
-	-> kernel_init()
-	   -> kernel_init_freeable()
-	      -> do_basic_setup()
+There is a problem, introduced by commit 9d9bcae47fd5 ("ACPI: delay
+enumeration of devices with a _DEP pointing to an INT3472 device")
+inadvertently, that devices with missing dependencies may be put
+into power state D0 prematurely [1].
 
-This is as part of the init task, before excve into userspace,
-but after kthreadd is set up and has switched to the init task.
+Namely, acpi_bus_init_power() called by acpi_bus_get_power_flags()
+during the early initialization of ACPI device objects, may discover
+that all of the power resources needed by the given device to be in
+power state D0 are initially on, so it will reference count those
+power resources and transition the device into D0.  Later, if
+acpi_bus_attach() running for that device notices that it has missing
+dependencies, the enumeration of it will be deferred and its
+power_manageable flag will be cleared, even though it is still in D0
+at that point.
 
-So, I think that it is not possible to be interrupted by SDEI
-on the boot CPU before the first `switch_to`, as we would have
-`switch_to()`'d the init task by immediately scheduling
-from the idle task.
+After the dependencies in question have been met, acpi_bus_attach()
+runs again for the device and now it calls acpi_bus_init_power() that
+takes additional references to the power resources used by the device
+in D0.  These additional references prevent the power resources from
+being turned off when the device goes into D3hot/D3cold.
 
-However, as far as I can tell this is not the case for secondaries :
-their first task on boot is set to the idle task, which they go to
-without switching until (and unless) something gets scheduled on the core.
-This would be the same path taken for CPU hotplug.
+Another problem, related to the previous one, is that ACPI power state
+initialization may be carried out for devices whose parents are not
+ready for enumeration which may lead to initialization ordering issues.
+
+To address both, stop calling acpi_bus_init_power() from
+acpi_bus_get_power_flags(), but also take the initialization of
+PCI devices into account, which needs to be done because they
+are initialized and bound to their ACPI companions before
+acpi_bus_attach() is called for the latter.
+
+To that end, notice that acpi_power_up_if_adr_present() is used for
+powering-up PCI devices in D3cold before walking the bus in order to
+discover them and the initial ACPI power state of those devices needs
+to be known for this purpose, so add an acpi_bus_init_power() invocation
+to that function.  [The debug statement printed by it duplicates the
+debug statements printed during the acpi_bus_init_power() execution, so
+drop it.]
+
+Moreover, since the ACPI companions of PCI devices are associated with
+the corresponding PCI devices found on the bus before acpi_bus_attach()
+is called for them, it is not necessary or even useful to skip them in
+acpi_bus_attach() due to an ACPI status mismatch, so avoid doing that
+and complain if the ACPI status does not match the observed situation.
+
+Also use the ACPI power state tracking to decide whether or not
+the device's power state needs to be initialized in acpi_bus_attach()
+instead of using the "initialized" flag of the ACPI device object
+for this purpose, which is fragile and inconvenient, and clear the
+power_manageable flag on failure in acpi_bus_init_power() (additionally,
+poison the device ACPI power state as "invalid" if the initialization of
+it fails).  That allows the clearing of the power_manageable flag for
+devices with unmet dependencies to be dropped.
+
+While at it, add a debug message pringing statement to
+acpi_bus_init_power() to facilitate diagnostics.
+
+Fixes: 9d9bcae47fd5 ("ACPI: delay enumeration of devices with a _DEP pointing to an INT3472 device")
+Link: https://lore.kernel.org/linux-acpi/20260820-acpi-power-resource-ref-fix-v2-1-29818173ea13@linux.spacemit.com/ [1]
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Tested-by: Peixin Xie <peixin.xie@linux.spacemit.com>
+Tested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Link: https://patch.msgid.link/2295263.irdbgypaU6@rafael.j.wysocki
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/acpi/device_pm.c | 62 ++++++++++++++++++++++++++++++++--------
+ drivers/acpi/scan.c      | 40 +++++++++++++++++---------
+ 2 files changed, 76 insertions(+), 26 deletions(-)
+
+diff --git a/drivers/acpi/device_pm.c b/drivers/acpi/device_pm.c
+index 4269735aadde5..76104f715efa1 100644
+--- a/drivers/acpi/device_pm.c
++++ b/drivers/acpi/device_pm.c
+@@ -23,6 +23,8 @@
+ #include "fan.h"
+ #include "internal.h"
+ 
++#define ACPI_D_STATE_INVALID	ACPI_D_STATE_COUNT
++
+ /**
+  * acpi_power_state_string - String representation of ACPI device power state.
+  * @state: ACPI device power state to return the string representation of.
+@@ -293,24 +295,28 @@ int acpi_bus_set_power(acpi_handle handle, int state)
+ }
+ EXPORT_SYMBOL(acpi_bus_set_power);
+ 
+-int acpi_bus_init_power(struct acpi_device *device)
++static int acpi_device_init_power(struct acpi_device *device)
+ {
+ 	int state;
+ 	int result;
+ 
+-	if (!device)
+-		return -EINVAL;
+-
+-	device->power.state = ACPI_STATE_UNKNOWN;
+-	if (!acpi_device_is_present(device)) {
+-		device->flags.initialized = false;
+-		return -ENXIO;
+-	}
+-
+ 	result = acpi_device_get_power(device, &state);
+ 	if (result)
+ 		return result;
+ 
++	/*
++	 * If the current power state of the device is D0 and it has a parent
++	 * whose power state is not ignored, and the parent's power state
++	 * initialization has failed, the parent's power state can be updated to
++	 * D0 for consistency.
++	 */
++	if (!device->power.flags.ignore_parent && state == ACPI_STATE_D0) {
++		struct acpi_device *parent = acpi_dev_parent(device);
++
++		if (parent && parent->power.state == ACPI_D_STATE_INVALID)
++			parent->power.state = ACPI_STATE_D0;
++	}
++
+ 	if (state < ACPI_STATE_D3_COLD && device->power.flags.power_resources) {
+ 		/* Reference count the power resources. */
+ 		result = acpi_power_on_resources(device, state);
+@@ -340,9 +346,36 @@ int acpi_bus_init_power(struct acpi_device *device)
+ 		state = ACPI_STATE_D0;
+ 	}
+ 	device->power.state = state;
++
++	acpi_handle_debug(device->handle, "Initial power state: %s\n",
++			  acpi_power_state_string(state));
++
+ 	return 0;
+ }
+ 
++int acpi_bus_init_power(struct acpi_device *device)
++{
++	int result;
++
++	if (device->power.state != ACPI_STATE_UNKNOWN)
++		return 0;
++
++	/*
++	 * The ACPI device power state can be only initialized once.  If this
++	 * fails, ACPI power management will not be used for the device going
++	 * forward.
++	 */
++	result = acpi_device_init_power(device);
++	if (result) {
++		device->flags.power_manageable = 0;
++		device->power.state = ACPI_D_STATE_INVALID;
++		acpi_handle_info(device->handle,
++				 "Initial power state undetermined, ACPI PM disabled\n");
++	}
++
++	return result;
++}
++
+ /**
+  * acpi_device_fix_up_power - Force device with missing _PSC into D0.
+  * @device: Device object whose power state is to be fixed up.
+@@ -464,8 +497,13 @@ static int acpi_power_up_if_adr_present(struct acpi_device *adev, void *not_used
+ 	if (!(adev->flags.power_manageable && adev->pnp.type.bus_address))
+ 		return 0;
+ 
+-	acpi_handle_debug(adev->handle, "Power state: %s\n",
+-			  acpi_power_state_string(adev->power.state));
++	/*
++	 * This is done during the PCI root initialization which occurs before
++	 * acpi_bus_attach() is called for the device, so the ACPI power state
++	 * of the device needs to be initialized here.
++	 */
++	if (acpi_bus_init_power(adev))
++		return 0;
+ 
+ 	if (adev->power.state == ACPI_STATE_D3_COLD)
+ 		return acpi_device_set_power(adev, ACPI_STATE_D0);
+diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
+index 163a3cccf197b..e8189849eaa60 100644
+--- a/drivers/acpi/scan.c
++++ b/drivers/acpi/scan.c
+@@ -20,6 +20,7 @@
+ #include <linux/kthread.h>
+ #include <linux/dmi.h>
+ #include <linux/dma-map-ops.h>
++#include <linux/pci.h>
+ #include <linux/platform_data/x86/apple.h>
+ #include <linux/pgtable.h>
+ #include <linux/crc32.h>
+@@ -1143,8 +1144,7 @@ static void acpi_bus_get_power_flags(struct acpi_device *device)
+ 			device->power.states[ACPI_STATE_D3_COLD].flags.valid = 1;
+ 	}
+ 
+-	if (acpi_bus_init_power(device))
+-		device->flags.power_manageable = 0;
++	device->power.state = ACPI_STATE_UNKNOWN;
+ }
+ 
+ static void acpi_bus_get_flags(struct acpi_device *device)
+@@ -2338,38 +2338,50 @@ static int acpi_scan_attach_handler(struct acpi_device *device)
+ static int acpi_bus_attach(struct acpi_device *device, void *first_pass)
+ {
+ 	bool skip = !first_pass && device->flags.visited;
++	struct pci_dev *pci;
+ 	acpi_handle ejd;
+ 	int ret;
+ 
+ 	if (skip)
+ 		goto ok;
+ 
++	device->flags.initialized = true;
++
+ 	if (ACPI_SUCCESS(acpi_bus_get_ejd(device->handle, &ejd)))
+ 		register_dock_dependent_device(device, ejd);
+ 
+ 	acpi_bus_get_status(device);
+-	/* Skip devices that are not ready for enumeration (e.g. not present) */
+-	if (!acpi_dev_ready_for_enumeration(device)) {
+-		device->flags.initialized = false;
++	/*
++	 * If the given ACPI device object has been already associated with a
++	 * PCI device found on the bus, its status is effectively "present and
++	 * enabled", and dependencies are not tracked for PCI devices, so it is
++	 * not necessary or even useful to check the device's readiness in that
++	 * case.
++	 */
++	pci = acpi_dev_get_pci_dev(device);
++	if (pci) {
++		acpi_handle_debug(device->handle, "PCI companion %s found\n",
++				  pci_name(pci));
++
++		if (!acpi_device_is_present(device))
++			pci_info(pci, FW_BUG "ACPI status differs from reality\n");
++
++		pci_dev_put(pci);
++	} else if (!acpi_dev_ready_for_enumeration(device)) {
++		/* The device is not ready (e.g. not present), so skip it. */
+ 		acpi_device_clear_enumerated(device);
+-		device->flags.power_manageable = 0;
+ 		return 0;
+ 	}
++
+ 	if (device->handler)
+ 		goto ok;
+ 
+ 	acpi_ec_register_opregions(device);
+ 
+-	if (!device->flags.initialized) {
+-		device->flags.power_manageable =
+-			device->power.states[ACPI_STATE_D0].flags.valid;
+-		if (acpi_bus_init_power(device))
+-			device->flags.power_manageable = 0;
++	acpi_bus_init_power(device);
+ 
+-		device->flags.initialized = true;
+-	} else if (device->flags.visited) {
++	if (device->flags.visited)
+ 		goto ok;
+-	}
+ 
+ 	ret = acpi_scan_attach_handler(device);
+ 	if (ret < 0)
+-- 
+2.53.0
 
 
-
-Unless I am misunderstanding something, which would not surprise me
-given the amount of things happening before getting to init, I think
-that is is indeed impossible to get an SDEI interrupt before the first
-`switch_to()` on the boot CPU, but that it is on secondaries
-or after hotplug.
-
-
-Hopefully this makes sense and, more importantly, is correct !
-Thanks for bringing the question up.
-Kind regards,
-Ada
 
