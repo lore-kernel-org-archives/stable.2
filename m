@@ -1,125 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795049343;
-	b=svOu8lYFuu1FPDhInXbCoZ4b93pCC/LF2g1s8fT1gvd4o7TTy28fEEMgCSoZeePqVReW
-	 adPkihcahIN1XqWSDBhlYHYb/z8+ZomOH9aBL5xwt6w7HaX5AkCPPmuZNQlmu+8KJ5no8
-	 cGKrOXahJ6406Fu6X2lUa9IMBrwBsbe4aZvXHn8honAYN3P5ZVkqE3wIko04SxjXbv6Zf
-	 4op+HVDmhJelBvt3ndX2P6CaCsNLXgscy8FL7HIomCIcjREqkkxjx3hqwYDxNQrkBSEv7
-	 /w/VKigeLvXeWuhZYfNCyWrFBSMDAnwx0RfFbqJg/keYPKJOopDJnSsBy6THNvczGog==
+	t=1795049344;
+	b=2uvIfrGPuDNrbJH//+WGwMztest231hq7EYwPTZxXg9hoCpnYodIOV22H8aoQT/NTT37
+	 AIFd3+ZEuSfqHiRve6jWaGmUzSFmh9L6zFBgTzJNkD3Ytz76S7WdjXdPHc0Ik9CNFs8WO
+	 BpDPtFvszG1VqmnPc+yOEUXlaBdiZjL0tVnXjoM9Qrt6cxmJM/7+buBQ/pLfkI3aL8CCq
+	 yf3qYdM/8mcOe+F5oOcC0TAj6UeHAW6tAddO8k1uqgCOaZwvncDNuLOEWASwoJn+AmoS3
+	 RrXgoZ+0WI32jW1UpgoAWBl2hZ7N6m0f1uY9fRKRhcULGjKxNjj8QBM7yiLoOzHelvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795049343;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 Message-ID:User-Agent:MIME-Version:Content-Type;
-	bh=S65lyMMR1xE8IrA8zcxyTFGEF6srOPz5FeKYqMApl9g=;
-	b=GLL7rr9xKQMB/4xQr+4ZGgRWFfzm3upT/Wie+uuPQIevy7gl+6/jQoz8uPT3FOoBNDQe
-	 wr6G0Qa01TmQvsHFV3OgkH9FlZ0Y/lM2W8rKF6cXmoVfIqlXvl/QHpq6I4sEVCgZFG4ww
-	 m9MfFE43UpSidQcCYW2K4oc5qXUIi/WhWwn45kTgVvPmNEiScItp/fdqrHcMz7Uq2LH8P
-	 GTOWYxqWNmuc476n7xtZ9pDM0owm7ClJymypESpsllsZPkigWUF+p43o5dOjFQNdEfYp4
-	 4VuqjePsKKCiOu5fFFu7i9giqIpC6e2USrnis2Kh3MgDDHQ7QcY5u4dbBDv/ETZTqLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795049344;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7tlDrvjKvmBkIwL9unLcCcqQmTmuenWlR7yVG5NuDx8=;
+	b=y8MvJxIOZ0eYRWuLGZxbhMt2OJBPhOLpthcjtX9Zq2KZ1EhHx2vgbEmgq7wM+ZEt6Gw6
+	 t/mxtAZAW51lgeExQOxxP8pn3hiQx95AKeoU/MCk/h0skzHaWnSgWL2lK5d3b0o2FG/Ue
+	 rWkU+dJQP6dCgkA4ZO9gYnVDpgLoZYbTxGd0lj0DyjTdnQLyhJ2em4gWaPrttpGqNftso
+	 F9esDmuKhGhhNZVF1DsaZyG9cLK/JgXb5rN7HDubvW4ehpzYrqRSPaiVp2ova/yPiF/mZ
+	 RF7cPfESMMtbg7cnedj+rPYfUXCTr66C0yJd0mJyDDfEq/iNOW/dek011HM6iP4d7FA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LhRpIZXH;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HJehicea;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lSO+hXKL;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E128606A32A
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:49:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E128606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF8160A2600;
+	Thu, 19 Nov 2026 00:49:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LhRpIZXH;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=HJehicea
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795049341;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=S65lyMMR1xE8IrA8zcxyTFGEF6srOPz5FeKYqMApl9g=;
-	b=LhRpIZXHVHDSHAYPBrXCYLM/yWYiqAaDq1judW61Nun6D43FhKPg8xPOlf65T1/ItenuY1
-	q60miaktR0s25zoCqikUxd3fvKl/uaSe/w3kW5kbp+1/MoVBaSSj9soyBUyBhjMAjKXVot
-	RELTgeUh4U+GEEYQ82YsGC9615tpN1g=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-150-lMXbT_dlNOO2FcOdKTUejA-1; Wed, 18 Nov 2026 19:49:00 -0500
-X-MC-Unique: lMXbT_dlNOO2FcOdKTUejA-1
-X-Mimecast-MFC-AGG-ID: lMXbT_dlNOO2FcOdKTUejA_1795049339
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a4654add56so12382955e9.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:49:00 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795049339; x=1795654139; darn=vger.kernel.org;
-        h=content-type:mime-version:user-agent:message-id:date:references
-         :in-reply-to:subject:cc:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=S65lyMMR1xE8IrA8zcxyTFGEF6srOPz5FeKYqMApl9g=;
-        b=HJehiceaKCDXeFC4JNkXjCqGVlH8JdiQ49uzKhDkE76gZMq4YrJEev2Atmq9ggrKMU
-         OkrPi0gWJmgFZ2VuPC4D3jTXZx9+ZuIdMv9vCYmEqkQwFqR9tSyqEeDHpqWlorcdzwvi
-         OpPFPHr6fxflIWbjBWtG4abQkLPYRt3LQ7GW2IkrraGC+39xxGQWKaMwj1kAxqfgpIdu
-         KSkNXNuHsWq1Ni+FwOgPdGE/qTKtmUQoH4KFp4FPle9dLK9h1eLwt+KWGGgvhiCHRiE4
-         ERyUww8QwHD5JywAYxswYo2ELIz66cPqr38AGnSkmTn1f2rkvtizkPPOQaHYcqsv/OBF
-         7vAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795049339; x=1795654139;
-        h=content-type:mime-version:user-agent:message-id:date:references
-         :in-reply-to:subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=S65lyMMR1xE8IrA8zcxyTFGEF6srOPz5FeKYqMApl9g=;
-        b=Pj6ar9camgP68yHC8lXDjpha7k9ji3qzI4AQXbPTTJ8EVuStxsLp2/9QJ4kVXeyLtV
-         u9kPF0zsqIREm6l8UtBHEkJnpMTWxZOxGaM8lRJJKCbPJZlauS/nF/xtH//YuaYoQO8X
-         zw4C2782V3HbmIWr8X2S17cpCsZuMo6thVPh4VcCsMgB3wVzrHbNXVNX6ypul9ctgRZ7
-         xULifBYrIUW8tj3I6fW5oCXL+2wsckgTmbvbXQeuEhhI0Nc3IoXLhbQtBm0sfJ0NiwqH
-         HzWZUndA+hf8gex2QdSi4GOt5BmwhKRdx93NOQbjP+/1nf0VxxDMsRUtgxAo3TSchGi7
-         xi8A==
-X-Forwarded-Encrypted: i=1; AL+hErGNbwNnfNC5bqg00grRRsbX3Cye+s2RPaYPeLrDWpHFhWF/CbgiYhHo4CUyb0wxdG8cre/Tedk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9QQp27t4vX770T90HVCFDioQ0GKyiMSsr/Zu6mk9Cgx7XMgRLU
-	YCqQdaawmqrIA0/BcW5Mpb0pd7ght0XhP9CzyurxaoOe7FhIP9cVNLE3l7u5NAZMFVmYumPQzw+
-	m/DOBM0zW93PeaKcyBfO1s1o2JTd8bpW3Bfgodra1AhJhP+/PlaYY3CRUA6gtOWxYdlaT+kyEq5
-	elyuklvfGwCzbLhJSQOLa2lt62iukIcsY/hQI6tmay
-X-Gm-Gg: AYBFou10BiltvUMTu8O6p/IcCXt7FMZ+jIBsn/LqwhOfKkoZn8ufgORA3a0R4svWkaA
-	d72vRgMDspU2NHfoXGuFViYbw4G8Ni+WAdoK+PWxdVqjBfPJp4djvahABUbfkrkJC0BgoF15Vh3
-	z2DVhb8/Vf8M5nS2DX5/Ab8bGaA36EKh4ky0w9yDaqXZXDdnSXSGK+UdUTJHH6x5dAropjghUSr
-	1s+d3opG6q4te2gKAoZz4jgtLpfHfameNN6XXWK9Sc9SaccGjToB/EtV/aU12iv1vog29OgmecR
-	e84TV069Cay1fl+9UnQ7bYTWpUfvt6IYOWZviPIps5Qbq8iBS9VzMysE3NTscW0FqWwAwXpkwQo
-	ZP1Xdw8Z2uiRh7Cow7SRNE9uvP36x9XuAylfj9aN+N5h2aN/qBn6byQFR53/bEhhjUJ4V7uy2uV
-	2imGQ=
-X-Received: by 2002:a05:600c:4ec7:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-4bb7da3b3e8mr86399115e9.27.1795049339074;
-        Wed, 18 Nov 2026 16:48:59 -0800 (PST)
-X-Received: by 2002:a05:600c:4ec7:b0:49f:fd2d:23c7 with SMTP id 5b1f17b1804b1-4bb7da3b3e8mr86398765e9.27.1795049338658;
-        Wed, 18 Nov 2026 16:48:58 -0800 (PST)
-Received: from aconole-thinkpadt14gen4.rmtusnh.csb ([216.212.39.190])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8450fa2csm10795485e9.7.2026.11.18.16.48.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 16:48:58 -0800 (PST)
-From: Aaron Conole <aconole@redhat.com>
-To: Eric Dumazet <edumazet@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>,  Jakub Kicinski
- <kuba@kernel.org>,  Paolo Abeni <pabeni@redhat.com>,  Simon Horman
- <horms@kernel.org>,  David Ahern <dsahern@kernel.org>,  Ido Schimmel
- <idosch@nvidia.com>,  Willem de Bruijn <willemdebruijn.kernel@gmail.com>,
-  Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>,  Xin Long
- <lucien.xin@gmail.com>,  Eelco Chaudron <echaudro@redhat.com>,  Ilya
- Maximets <i.maximets@ovn.org>,  Daniel Borkmann <daniel@iogearbox.net>,
-  Justin Iurman <justin.iurman@gmail.com>,  Linus =?utf-8?Q?L=C3=BCssing?=
- <linus.luessing@c0d3.blue>,  Sabrina Dubroca <sd@queasysnail.net>,
-  Stefano Brivio <sbrivio@redhat.com>,  Hyunwoo Kim <imv4bel@gmail.com>,
-  netdev@vger.kernel.org,  linux-sctp@vger.kernel.org,
-  dev@openvswitch.org,  stable@vger.kernel.org
-Subject: Re: [PATCH net 1/5] ipv6: gro: limit the number of extension headers
-In-Reply-To: <20261113124625.4010206-2-edumazet@kernel.org> (Eric Dumazet's
-	message of "Fri, 13 Nov 2026 13:46:21 +0100")
-References: <20261113124625.4010206-1-edumazet@kernel.org>
-	<20261113124625.4010206-2-edumazet@kernel.org>
-Date: Wed, 18 Nov 2026 19:48:54 -0500
-Message-ID: <f7tfqwxk5mx.fsf@aconole-thinkpadt14gen4.rmtusnh.csb>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lSO+hXKL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19731F000C5;
+	Thu, 19 Nov 2026 00:49:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795049344;
+	bh=7tlDrvjKvmBkIwL9unLcCcqQmTmuenWlR7yVG5NuDx8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lSO+hXKLlit8cUE4oafLLxApHocq2WZLkEaAvnKh1LdvCAJr7jYUxFTTsh3nIQYeb
+	 HCFWHytwvnkjMz+FdAFgmv3F757DlMaoQxQlVEWESy1BzFjKpnl/MbDMPyg0O4q/wq
+	 MY4JgxUJmby4kd66oW55uMXxbZxtSCRZ/bWf+/kM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 2277/2857] efi/libstub: Fix error unwind freeing fdt in allocate_new_fdt_and_exit_boot()
+Date: Wed, 18 Nov 2026 15:55:11 +0100
+Message-ID: <20261118150323.440658681@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
+References: <20261118150201.293410965@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -129,48 +63,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-Eric Dumazet <edumazet@kernel.org> writes:
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-> Hyunwoo Kim reported that a long chain of IPv6 extension headers
-> can push the transport header offset of a GRO packet beyond what
-> the 16-bit skb->transport_header can store. The truncated offset
-> is later used by gro_receive_network_flush() to locate the network
-> header of a packet held in the GRO list, leading to an out-of-bounds
-> read.
->
-> Since commit 3744b0964d52 ("ipv6: Implement limits on extension header
-> parsing"), ip6_protocol_deliver_rcu() drops packets carrying more than
-> IP6_MAX_EXT_HDRS_CNT extension headers, but ipv6_gro_pull_exthdrs()
-> was left unbounded.
->
-> There is no point trying to aggregate packets that the stack is going
-> to drop anyway if they are locally delivered. Apply the same limit in
-> ipv6_gro_pull_exthdrs().
->
-> When the limit is hit, @proto still designates an extension header.
-> Extension header offloads have no gro_receive() callback, so
-> ipv6_gro_receive() takes its existing "goto out" path with flush set,
-> and the packet is given to the normal receive path. Local delivery
-> drops it with SKB_DROP_REASON_IPV6_TOO_MANY_EXTHDRS, while forwarded
-> packets are simply not aggregated.
->
-> An extension header being at most 2048 bytes, this bounds a chain
-> to 24576 bytes.
->
-> Note that offsets can still accumulate over nested encapsulations,
-> so the places storing them should be hardened separately.
->
-> Fixes: 4b0ebbca3e16 ("net: gro: move L3 flush checks to tcp_gro_receive and udp_gro_receive_segment")
-> Cc: stable@vger.kernel.org
-> Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-> Link: https://lore.kernel.org/netdev/avTTQNyvwPP6LtGx@v4bel/
-> Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-> Cc: Daniel Borkmann <daniel@iogearbox.net>
-> Cc: David Ahern <dsahern@kernel.org>
-> Cc: Ido Schimmel <idosch@nvidia.com>
-> ---
+------------------
 
-Reviewed-by: Aaron Conole <aconole@redhat.com>
+From: Jason Gunthorpe <jgg@nvidia.com>
+
+[ Upstream commit d83fe67339f2032d8facf0fe8a047a4c5d15394f ]
+
+Sashiko says fdt_addr can point to either an allocated fdt or the fdt from
+get_fdt() which is memory owned by FW.
+
+Only the allocated fdt should be freed on the error unwind path. Use a
+dedicated variable for the allocation's size so that the free does not get
+confused.
+
+Fixes: 4fc8e738ff3e ("efi: libstub: remove DT dependency from generic stub")
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Signed-off-by: Jason Gunthorpe <jgg@nvidia.com>
+Signed-off-by: Ard Biesheuvel <ardb@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/firmware/efi/libstub/fdt.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/firmware/efi/libstub/fdt.c b/drivers/firmware/efi/libstub/fdt.c
+index 6a337f1f8787b..b7a2d7aa61b4e 100644
+--- a/drivers/firmware/efi/libstub/fdt.c
++++ b/drivers/firmware/efi/libstub/fdt.c
+@@ -229,6 +229,7 @@ efi_status_t allocate_new_fdt_and_exit_boot(void *handle,
+ 	u32 desc_ver;
+ 	efi_status_t status;
+ 	struct exit_boot_struct priv;
++	unsigned long fdt_size_allocated = 0;
+ 	unsigned long fdt_addr = 0;
+ 	unsigned long fdt_size = 0;
+ 
+@@ -251,12 +252,13 @@ efi_status_t allocate_new_fdt_and_exit_boot(void *handle,
+ 		if (strstr(cmdline_ptr, "dtb="))
+ 			efi_err("Ignoring DTB from command line.\n");
+ 	} else {
+-		status = efi_load_dtb(image, &fdt_addr, &fdt_size);
++		status = efi_load_dtb(image, &fdt_addr, &fdt_size_allocated);
+ 
+ 		if (status != EFI_SUCCESS && status != EFI_NOT_READY) {
+ 			efi_err("Failed to load device tree!\n");
+ 			goto fail;
+ 		}
++		fdt_size = fdt_size_allocated;
+ 	}
+ 
+ 	if (fdt_addr) {
+@@ -334,7 +336,7 @@ efi_status_t allocate_new_fdt_and_exit_boot(void *handle,
+ 	efi_free(MAX_FDT_SIZE, *new_fdt_addr);
+ 
+ fail:
+-	efi_free(fdt_size, fdt_addr);
++	efi_free(fdt_size_allocated, fdt_addr);
+ 	if (!efi_novamap)
+ 		efi_bs_call(free_pool, priv.runtime_map);
+ 
+-- 
+2.53.0
+
+
 
