@@ -1,103 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794996238;
-	b=jPN9t2PniMQowe6wr0tm22HSccJ8QaljnxNHgBLrFNGqzarSj9867vME0656+uGU52Go
-	 /hSwt3yYhDWP57Rw2eVn4Q7JIfusHnAthdjdl9kWzvGhtVWqqehWvaiKp28Zvba6JzW25
-	 s5ABP/MBNCmFtQSOtGYdtAb+u8/713pt8szHymopyQy3Z2McGSmpkOV60Vw5xxqnOXFRA
-	 socUGl6OXvpjXLJsEPPBDvzWBK4gv/csEGgDR/0y682gaGTha27D3S81fqD476lNWFcnG
-	 dT6XQfLZBJNStWQsddN8aB830a2ODMSHmeuk9cstP4EtAffZR1zLscxnrbYLfa3qwKg==
+	t=1794996454;
+	b=UP44fFlPJUQ7aCioGxN5AIuzc2D4ecQX1v0q6Q0YtOx37V4jZZI3TAHKdJFdSd7sDU88
+	 Pg0fiOin2GB9SZ0iNir1KhX2NcMFJI073VaalVH61SD4UkXn8AiyREto/mVTliJHX7mH4
+	 +jrkAiRHmi+XXV98gM5c3vUYjfmtrlQiirENSP4Ci+jpEWeyFvgZiJk15/iz7Ish/npdi
+	 5PuPTKY4cNEocxgOfGLjEJb5jtnFbyNEYsHeLFOHWCDs8/nSFdqoiw8LpB0ULm4jEV3cn
+	 mYReuNP7K2u/oihxlq37x62Eqm2br8IwNkNG5uO0InVDE51Px/tB0D0zGVkBC6J/MIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794996238;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=j+Y2FiNk9Wl9qy2Tngasbxd4q3UxkbbYUIzjyrrCkFc=;
-	b=k+wcp/Jd/aE0V1fs9N3/7siIZl7wn8kjmEFVoR7zkOPKITPekSYDFoOfR7JqEJDLM727
-	 BnfiVgmvGDkR9OJQcr/d9mrotRaFd/rIxIUV6sd5fNS5A4ATLJ7PotDLOK3FrpnEihYtB
-	 lqUMWj+Rkli4x1n08SV+K+67SljfirqJoZXHTrJIjCj0nEZ9KZcGRaroaEZMdWKVYBTPX
-	 ofBkhwkKuZMy3UOpvhBtkPLDD54Ynrg+RdgNsN81bIkD1Fngx3FhlkC02NlkoGePNKBNX
-	 ZLTZMHAE6uxdxv5lDCf5M+acdzJ69SMZum4sgJWYcQZFN0/kNn8BrhYlRW2aXs3B17g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794996454;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=9p7nWP6aCwolh1r/jYlW6rQASc0ZzZDHEc19WN951qU=;
+	b=NE5jLzVgcwhwubsf6IxqZRJJUPcbpP47ESVCjg5B52qPahVupH3vLqs81jNCOuAkwLi5
+	 5KjtrU0Y2vZBrCSoPhwMSaRLsSk/1lIjtW0UpS4RIei9D45Up6HJAsgFlwCItWph9//PS
+	 GYzfj/WBVCTHIPs7qz0Eqwcb2P8Di89L+3OEcXCqE9Tnd4iaN3vuXkyypBDqz3BqPssJ4
+	 GHv/qF6bZYFGlZGOGvwgiEIn5qY5VTym09kdTk5WGG1Nl2OqV3QqYOfxLOsZeK9abNJVD
+	 078K3w86i+EP8vobfdEuSupx1ouAnZ17rban9dyh0V2f8QEi+ic5ghGxXIWqIcdsffQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="PjwvOV/H";
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=aqa4i8Na;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40085606A320
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:03:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40085606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A535606A330;
+	Wed, 18 Nov 2026 10:07:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A535606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PjwvOV/H
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4b467581b98so9050375e9.0
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 02:03:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794996237; x=1795601037; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=j+Y2FiNk9Wl9qy2Tngasbxd4q3UxkbbYUIzjyrrCkFc=;
-        b=PjwvOV/HB9EDAmJ0beGEqqeUTsLrkVZhdcux9SGuDKjQHS5B4RUgDr661ySi2v2Kwk
-         gHvkIN6DsB80jYxUljZo6dl+OHc7Bsijpy5mbgqi31+5esopKrJ9HGYR4/xtWRUuWJMn
-         i/lJBKM/QepPOrMeoJ6UHC9k3KwvliFRGGYZnElTKH+gcnv+bAqTExxdEI9K5vkmu+np
-         lK/Iud4Vv2i3MnVNbPx4bQLeyUNbKclzrHyxf3mu4an7rsI9VMokDAMqdoGgJaTpqKbM
-         xyo0J9JgVQNVADkNzzm5GXe5vWZXo0UVgkyNwzNO+NOFpkDgRMgrAtFpy01JTQ+G3M7j
-         0Xew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794996237; x=1795601037;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j+Y2FiNk9Wl9qy2Tngasbxd4q3UxkbbYUIzjyrrCkFc=;
-        b=OFq+osyoQBXQV9F1QAxbER1oIc+52P6LXm9+QRuLJJ9EHe54qYfJ1nblgQRuyoag7J
-         MuWP+yRzSv8qPyK2Z6Dks93WyaHxT7UOjoMz8lpunBH39p2cuAHCrbXFOvwGifhG9xQC
-         ej/wW6FbAIVuICrEMqrmuqxTa1uweQ84xL3i72ItTJzensgu7G0D9bSNACkgx2HtiQTm
-         ynGL1f1BgwOx9oS/TZ9WLoaANV6qHd4u0Fq0jpUrtGCf3ktZKJzLspfqLTgMCcorbVnw
-         R6hnv06AzZcVyEOSIxI4B2tOEysm9ThIWiTrDMdsiE6pfxbGdk+CtYZ8RpcfIU/bynFv
-         3XkQ==
-X-Forwarded-Encrypted: i=1; AL+hErHyKVlbVuXtokdGuqtDZwqRCM82DVr/Uj/zyMwYd0HqUqmQ9yWXjDgcB3+ND62OkWNwt4LyR08=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9D29Y/M3/mKTyzvs5HE7F8sZJo2vLrBfRSoo+QsEB9h4NOPiv+
-	U0ggZGR/P2DBhFx8oVqtjXvamHHhr0x05ebSXLKVd1+OI/sFyqhpgDSO
-X-Gm-Gg: AYBFou1vbwkRE6DfcwSXsKIpfQNvf0AL//oELdNZPJDuLM7VZLyfgXBpxWciWK1OPul
-	frFUgCsYZpUd4UZLf709zWZ3WRGKOk84LbSZBW0NCQq6xDczgucq9T6FOCt1fW4T1ELVQ+jDq9h
-	69O+yM/sJW7TiilwdvY9x6N68gP8+o+Tsxcm4D9hIrGR7OL2G16qGa7aPFOO96RtKi6LdWUylYA
-	Tyyr/Evb+Txcho96Ti56rEaCua45hBZRnVB6k0pVCjQYytN1j+BzekI/77hSZ30gT1okwEtTWbW
-	PmBomtwSL7PxL5Yd1MbuFqIGfzg97XeJoGiyvUPQLUfXdG+aC82ur4qFN4Nj1tuGL6005ARsgVF
-	ClJikDLqC7oUFw+tGKMrGHmxQbs6gJBkdPgS1lYw2PJFxJcmYHKE+jq2p4DDDTSJQGaHSZfL4QF
-	PLNiicKDfwPn+xHTLuOrIujQ9ylOx9Jq0icmHDrB9T+nj6yWgrI5tRtkA1l/opnK7O6mz9HPRX1
-	3AUzkgGic9t4kDphNJpCJ3AlRZvjXxaTLTABx98+I+EjCBn19fXoSoI1/+vOY1DjVK3VWs8jA0/
-	4GAgNku4bV2YmRzK6dzsGgtL5T7aP/kFDdgIfZc4ts460b/oK6drEes0Mq2skdJ+2Q==
-X-Received: by 2002:a05:600c:800f:b0:4bb:5bf3:8ee9 with SMTP id 5b1f17b1804b1-4bb7da4ec63mr37351435e9.31.1794996236390;
-        Wed, 18 Nov 2026 02:03:56 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783f7eecsm242389095e9.3.2026.11.18.02.03.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 02:03:55 -0800 (PST)
-Date: Wed, 18 Nov 2026 10:03:54 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Nick Desaulniers <ndesaulniers@google.com>
-Cc: Peter Zijlstra <peterz@infradead.org>, Nathan Chancellor
- <nathan@kernel.org>, Ingo Molnar <mingo@redhat.com>, Juri Lelli
- <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
- <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
- <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
- Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org,
- llvm@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH v2] sched/topology: Avoid unsequenced accesses to
- jiffies in sd_init()
-Message-ID: <20261118100354.495fda73@pumpkin>
-In-Reply-To: <CAKwvOd=9pjhCnreMvoAH_0PegYg60ouaZL=BAjB242bE48J23g@mail.gmail.com>
-References: <20261116-topology-wunsequenced-v2-1-54611119172b@kernel.org>
-	<20261117183043.GK1813469@noisy.programming.kicks-ass.net>
-	<CAKwvOd=9pjhCnreMvoAH_0PegYg60ouaZL=BAjB242bE48J23g@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=aqa4i8Na
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1794996461; x=1826532461;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WV62P4nogrn/yedNrcqAoj0rawX6mdY7FKe5AzL+xxc=;
+  b=aqa4i8Na/12xObUKqU5m2tbbsExjC0TaFY6hk9HcgxKLEeyFRkG5XPeu
+   +eONOWY8+gCvE5hYCy5BwwCIGjSY5wj8gHhcuV/3SDHEWT3DYW0ZG3Z6P
+   TnYVxba00w2R9SZb+Og/BKN+yIxzYTS2wsKFtAlmqETeOfH2LAHdDzw5K
+   pG9ZVidylnJ/VOvRVy0preNj07KvtSObVnoSDrZQPTdL8kxS5Umv320Cu
+   YORjfErMKXmxPmmPxP/27b5sPEmc6aDqE7b0hdtkx/AdPy1JEeVytoyQL
+   8tKcw8/hsQPvdqanZv64qzxtuMe8VpHjRU/TBK6XpbhiIlYcTkGRC1+LP
+   w==;
+X-CSE-ConnectionGUID: CDvrusw7S4i+4/eC+9cqbA==
+X-CSE-MsgGUID: RUyH8oQSQnuzLEE9CMGJJQ==
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="65717232"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 18 Nov 2026 03:07:40 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Wed, 18 Nov 2026 03:07:31 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 18 Nov 2026 03:07:29 -0700
+Date: Wed, 18 Nov 2026 11:07:29 +0100
+From: Daniel Machon <daniel.machon@microchip.com>
+To: Henry Martin <bsdhenrymartin@gmail.com>
+CC: Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Simon
+ Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>, Nicolas
+ Dichtel <nicolas.dichtel@6wind.com>, Yuyang Huang <sigefriedhyy@gmail.com>,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH] net: fix uninitialized heap leak in multicast address
+ dumps
+Message-ID: <20261118100729.jn66g5cvdkspoqjc@DEN-DL-M70577.microsemi.net>
+References: <20261116024056.1274402-1-bsdhenrymartin@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,38 +84,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20261116024056.1274402-1-bsdhenrymartin@gmail.com>
 
-On Tue, 17 Nov 2026 10:39:15 -0800
-Nick Desaulniers <ndesaulniers@google.com> wrote:
+Hi,
 
-> On Tue, Nov 17, 2026 at 10:30=E2=80=AFAM Peter Zijlstra <peterz@infradead=
-.org> wrote:
-> >
-> > I don't speak enough C legal to actually understand the Changelog, but
-> > the actual change seems daft. Is this really needed? =20
+> __hw_addr_create() allocates entries with kmalloc() and initializes
+> only addr_len bytes of ha->addr. Dump paths emit entries using the
+> current dev->addr_len, which can grow after the entry was created:
+> tun's TUNSETLINK changes a device from ARPHRD_NONE (addr_len 0) to
+> ARPHRD_IP6GRE (addr_len 16). Both the RTM_GETMULTICAST dump and
+> /proc/net/dev_mcast then emit up to 16 bytes of never-written slab
+> memory per entry.
+> 
+> This discloses leftover kernel heap contents to anyone reading those
+> interfaces.
+> 
+> Zero the tail of ha->addr at creation time, so dumps can only emit
+> initialized bytes.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: a748ee242681 ("net: move address list functions to a separate file")
+> Link: https://lists.openwall.net/linux-kernel/2026/09/10/320
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> ---
+>  net/core/dev_addr_lists.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/net/core/dev_addr_lists.c b/net/core/dev_addr_lists.c
+> index d827cc21867b..53a2dfa2706c 100644
+> --- a/net/core/dev_addr_lists.c
+> +++ b/net/core/dev_addr_lists.c
+> @@ -100,6 +100,11 @@ __hw_addr_create(const unsigned char *addr, int addr_len,
+>  	if (!ha)
+>  		return NULL;
+>  	memcpy(ha->addr, addr, addr_len);
+> +	/* Entries are dumped with the current dev->addr_len, which can grow
+> +	 * after creation (e.g. tun TUNSETLINK), so never leave the tail
+> +	 * uninitialized.
+> +	 */
+> +	memset(ha->addr + addr_len, 0, MAX_ADDR_LEN - addr_len);
+>  	ha->type = addr_type;
+>  	ha->refcount = 1;
+>  	ha->global_use = global;
+> -- 
+> 2.43.7
+>
 
-A better description might be saying something about ensuring the two
-jiffies values are the same.
-As coded they can be different with either larger.
+Looks right.
 
-> I would imagine a delta of the disassembly here before/after the
-> change would make it more obvious (one less volatile access, which be
-> have arbitrary ordering between initializing other members).
->=20
-> But I guess I'm also curious why jiffies is defined as volatile
-> anyway? I thought the usual guidance was to use
-> cast-to-volatile-qualified pointer during access, rather than declare
-> as volatile?
+Just a thought, I think switching to kzalloc, like so:
 
-I'm sure that guidance was based on the fact that not all accesses needed
-to be volatile.
-But now the tools are getting picky and needing WRITE_ONCE() as well as
-READ_ONCE() and bleating about plain accesses maybe it is less relevant.
-So if all access have to be volatile why not make the variable volatile?
++       ha = kzalloc(alloc_size, GFP_ATOMIC);
 
-Doesn't this initialiser also generate 'really crap code'?
-IIRC it is likely to generate an on-stack structure and then do a memcpy().
+Would give you the same fix, and you would get rid of that extra tail length
+arithmetic.
 
-David
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
