@@ -1,91 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794994552;
-	b=vpDDbMUOeIXp1czgoEW+bgYJwPQGr69X8slEMdt/LJiBIN+GIM8hf9nH9MKBdErOvI1w
-	 wwzQRNMO9wwPTGUfZMN+mFkhQJ4u7vs7p3Sw+hCg5EiwbDTDgPdxh5LHa0xDGoiKLOTEr
-	 QFzsOScAKFEEwVmoXQIb0QyEZFHDTuLyKfj716FxCJA4V3iT27HvgZ15friEtnHIJm2xz
-	 YU1UlgzIKV3rXQwZvPRf52sT3SodBSlGpEkRLytUKSqa/OX1xUlfQARu/tD7djVjhzbwZ
-	 Yf6VxWFo4UFNoYwX5ipgcoySdoYXIwNedC1Bv7zRmJZ5j9XelSKkF9XR0WkjS/CXAvw==
+	t=1794994553;
+	b=eqfD+HiJkfYSP6gBGIX4I6znbfUvY1kl4cTf6WKzPv7Vx4mvddW514+7oPyiuwxqZjvG
+	 GiTszC7rRx/llmNg6RZOGVJ9taFP1BfriIGoebL9ywixNI4oJcfg/rqyTIlP/1GFc/HqD
+	 3F7KW7pg9bAJpLkSJiS0IpcAu4vZOvXWvhVg+/6v0eQhdfpAnVLVVNyZj6AazhS+fDdmK
+	 shlVA8Fuid1ia37AeTrNDDHVx1KAFt3q/H1ODJDmJ2tzFKCQ7CPMcZ0LRKamgrJob6/zL
+	 Eq8O2jWTZ8IN7+bpGDwQT+gQe9s8HHFi3vNsm/Mn7DzxP2aChz5IB6g8U4GBBXsU8Zg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794994552;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794994553;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=Ly/F24Q2hYwiMQ5vhxGkL8qVuwIGhGpKKIzVi9DbbcM=;
-	b=X3465OW/e3z7ZYGYsStBYUHvWjRKNFJ73kED8lM/mfiUP93mBz7K1ln7qQ/YjhJ6tI8W
-	 2CcT9YduDj7I2wmPodPlNu8YxTJALHLkDYSS0MQUJgR+Gb+NDwJBVnUiMPAVzAhaF+OKd
-	 OFUycGbRRiNNA1ZlEhj18hnZBtAMm//A/dPBod8bauJQRjDTRibbehWXx1E/tnYCzcQcG
-	 RRv6IS0D8YrWpg5TGQihar4UFBrN3FFicm5rPld6IkgfxYge9DZfrdnRw0LtKY1Pbx43p
-	 MqkgftST4vNPVbFGRZ/bK3kRdCy9bMV9WQoU6h8eCUZmCJIhsATR0PdfMVTBoENVCew==
+	bh=l4/AfoH5qtsktDGlgqnQkJetFNnwwrHfiT5OhfTorx0=;
+	b=tGjrv3vZir2ZEEMBmQZFBUX2hVtIdRe7NljdfwSu8vZtOfuaPiqIQhoc0IVklhzwFjvt
+	 Xzi14X0Ry9NScSgQTAOPEDK7To2iRF5v5ZVtYff7WWsxhloaIX7C6+veFfrtjI81pL+wT
+	 EoWAZskvnSi6lcOFwOgpsms7DI3BuivW93U3xYBrYsFTxoBPHr5FO3WYEdtDFIz56zomC
+	 1vslaLJCS3xjV9aS45ycflLMg0Sns7NSxNoxx+Ra355ogHu0xiuN6dVBpXunzOzEZYuBQ
+	 XNjDtmZLP1DIT5fZjRPMi6AhitcyafJUWhQEkPgyoBgx0no73GzVQQ7nsSEN0MDOc+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=fairphone.com;
 	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=MbcmXncG;
-	arc=none smtp.remote-ip=209.85.218.47
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=oZHsLWdp;
+	arc=none smtp.remote-ip=209.85.218.54
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A3DD606A335
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC47F606A325
 	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 09:35:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A3DD606A335
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC47F606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=MbcmXncG
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c445c95d553so95461466b.1
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=oZHsLWdp
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c50cc7540b7so92359366b.0
         for <stable@vger.kernel.org>; Wed, 18 Nov 2026 01:35:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=fairphone.com; s=fair; t=1794994551; x=1795599351; darn=vger.kernel.org;
         h=to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Ly/F24Q2hYwiMQ5vhxGkL8qVuwIGhGpKKIzVi9DbbcM=;
-        b=MbcmXncG0y1iLs1skBz7D4OPWNdf2/AUylZf6668NraHrV2T7Gycd9uCEUHuRpHz9m
-         yudjtTWL1mdOTKe2FMHnT/E+GmzumX3Rrmu8F2c6YQw+MHARNdXt3kIjxnObxyjrzPb5
-         1lNuLaS+JaLCA36JSrshDKLoT6d37gRvHUK/KxrWr0Cnj2M769+s3qkoAzGZCaiNVAF5
-         gujm3OpAIFtOoLvik5c9qTzzERDvy4WFrO0XAem+8xqih8ZYg99S1/bHo3ottABa15oS
-         iq3YQh7J58YAZKxluLXU5EjEByM/evOVnzFF4hhgNosE5SQCVPePSP4MZsSMFd2CGSWr
-         4fuw==
+        bh=l4/AfoH5qtsktDGlgqnQkJetFNnwwrHfiT5OhfTorx0=;
+        b=oZHsLWdpNrywGLboUZDutaadO2GkeZAyMaSEojOUxjcJMDYrP1CB44yoBUQ0hykPqk
+         9cnSKWDx3Y3V7WZPqDlBeMjDKQm8EGbR6J4naz76o9s78XOlb8PTkW8vtJZLE8tJCd9M
+         yuSr8EennPDpuCvisldirR/aAh2kGa6NLCHmluvvAvuDYWX+K3UrNOy+v245za6HoKOm
+         vel77RfP4efhAaRIYhAuEHBfgfzjyJVc88yaKP/sovTjXvC9vj4UEzbPAuW4Dsr6teFn
+         sor3uBjSEPhdANG7r5WAXYE6uGGJV9cMExXLAHl2CYOr5lCYcHxlEkDbrT1VYEE2mBq5
+         YySQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1794994551; x=1795599351;
         h=to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ly/F24Q2hYwiMQ5vhxGkL8qVuwIGhGpKKIzVi9DbbcM=;
-        b=2T6ln03KTIzXTHs17FXAIalJ0vCI5WdzeyGzt4aqutytoNvHx0XJbFYwMtxTsmiQvG
-         obk3UjervKJ3QsLD4iLvVg+VjRfdCqFgxZ6TEV7ivxozdGp7P42pvEp5agPCrDV4gAbw
-         LGFIt+gluhNpk72ffZT/tGt8emasY04aiJhGzYINGo3B2tWg/v0HH8R7neVgtO+uq6GL
-         UowYJDO9i+sl8ZvvnYyrKD52OiLiu5c9iD8XiFqPzNKB+8jY4qp65jf8VXVCAHv3JIHH
-         ryGm4JzjNCpB5+LGHAAQcS5V7SUv9kxCVpU2+H/CznYNB4rNPQ76LsIptNdNIq7WR5+j
-         UUUA==
-X-Gm-Message-State: APuU4Z8Mnm/z/7q2p6mglVpPjSLFfwYYuF28YhUD/do85n6J3yj1suyt
-	AREUQ+nZMqwy367oBMD+AkitLXY+Du/zqH+EIPiXL3GENA3WXvytiw7OAS8JwH/Jwl7l58CyJq0
-	3+YPnvy7X+g==
-X-Gm-Gg: AYBFou2UvZysQn0xbApba0t8rWCAAs/DdNxa2GASfU+F+eIEmMr5e1k+f5wnzCs2tfk
-	Atbv4QBV6fEH8mKfTsV1up0QQ8vHazPx3tMYVb2KFY6Fa8k1uYyjkxgrbUk6RXqyD+cJaKHbxU/
-	sCVo9cCtAP76649R6sRl5nZ1dnNVClb9943afdtJB55fTShTS0BiibBz7iNBwkgIBbnFm7zwYA1
-	EUCowhSqa4sKtR3ZqYnCqDDwkVyT6G3rOgU/eoVKi9IFGjyXHm4lcXcpUKd1Z1ZLD8u204thBrA
-	qtRlKP9c9kWp67kFAxXo1MiuGQxBkz7E70KeWF9P9hJ5sVm9GLP+9foyNJk6Wp4oL++VyeO/3Dm
-	NPDSTblG7f9GTgl+hRq4fDl0BVughPXGmzJESV5WtO+o1Z6XToBhJ4jqPpXc3rpRAALJLYi1XGc
-	aLSlfJlYqaeUSKL0tUOClDqjxwuq875EIWR1w/zTI4xCtNp/gHaQ7t+TBBX7/KyvkrrzYXhDDId
-	aJ/I4Td5Gkh41l2KRNHI84evHE4Cib39GNHisDoc85Yr3uBvwYLf0FmdfT6bvOZMee7Vu6W/jDn
-	tMripvSx1p3ty7EEIBm/Q79646zMQbCmpP0yv5RnCTbzlMGxzjXFmFIO7umdnW/slv6y3zbAvHu
-	uT21LQv8=
-X-Received: by 2002:a17:907:d16:b0:c50:f1c5:f815 with SMTP id a640c23a62f3a-c510e3c960cmr165683266b.31.1794994550600;
-        Wed, 18 Nov 2026 01:35:50 -0800 (PST)
+        bh=l4/AfoH5qtsktDGlgqnQkJetFNnwwrHfiT5OhfTorx0=;
+        b=yAWM7IA4kV3OjKgorlL+DGtolaFH5PsArdP9oqrv4fBqBD5OQcrL1tFz8JL2ZDVyLd
+         yRqfSHa5j4W4VDR2POEi2C24a75uqE76x98t40BdWKbJN4kgHdHgRldxwslVx00X4iRA
+         bCikl9ixiYqmeZyRGiWogoHUZUzn5nf58ZdRsI74J1h0bNts7/wfTbKyTtVrpzyXMKCX
+         5EnVRZ74cLTF87vdD9fCCu3UEbcMUckHibFe90/GPGULPeVeMENphLsaS/z8uE47t0Wc
+         Nmuao0kfAvaK557FgCVq20IKsR8rDZjPtgIF3rL2tRJTDlo4x315vXlnHwyD6sV8aTQf
+         dECw==
+X-Gm-Message-State: APuU4Z+PIpLG4YpSc1zFDrlEH+8y8XdlXGXGp1kWtF07OhzpVbcNKt4A
+	z4ynSfzw+RoFtP6/XLbWhWOreR4op366eipi1FfGgdMJsZdwbL8utoPmCdLvXk5OFehZEAbs9au
+	HMcKuY4Byjg==
+X-Gm-Gg: AYBFou1SvVbRznDIJmT1+1GexbXO7X1jaLHxmaa+TGUNdJuwhx92DcqI0SyDhFvqdG1
+	z6uzSLAWfLQWxlJB5hQdSCDIA+VB7Ab1zroB391rTyyJmG6NfsHsW/ikQFrOMQ9G90W97jt5KpW
+	qR0N6iEj2CWaADuHOC/fa7YAx24Shp9jGSPn4Hc9iPT+Dhv+Igcr/ETmNYgGm+2F4EpZ6/LAOMS
+	3FvWOBeu6b2Hv3tcVxR5Rho/Aj36Q0/X6OII5EsRW7gBoKDaqy44NVhZZ33linPsiVITjY9//zB
+	qqjFxp3tqQgVIwSIZnnGX4Zq8vLuQrEG/Pj5B4NhPMm/fqIwu5JF8Ke2ye8khXlBFrs58FWznD5
+	SmsVp/S5sE42V+JXXGDJvmDiBiEUfrdiqHbzNHLxTqI8kiYoBPOkO3pfn7+Y2vqElzLay5mSCAf
+	hbPt8a+iJyzHRG4jxTUMG82KrQNtPfGtraezP/vLC/CwgXAkhO29x4W3xo2zsezj1NRL7WRIxHx
+	NtMinNOn8+70PQ/iQc82HY1nAaEgFyTFkmoE//KYUzevbtsPXlYlapt0EX6HEKup/XCxxUwC4cc
+	MKfuzifW8x+D6Umr74K5FYKUjc4wR8p2YzlCbB/QxHaEkScol37WYGSBYMah/JNlI5DhzYPi5ky
+	Y2nz8EA==
+X-Received: by 2002:a17:907:72c9:b0:c35:babe:ab44 with SMTP id a640c23a62f3a-c510dc797e9mr190923066b.0.1794994551014;
+        Wed, 18 Nov 2026 01:35:51 -0800 (PST)
 Received: from [172.16.240.99] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
         by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c510cab3000sm75275066b.56.2026.11.18.01.35.50
         for <stable@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 18 Nov 2026 01:35:50 -0800 (PST)
 From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Wed, 18 Nov 2026 10:35:43 +0100
-Subject: [PATCH 5.15.y 5.10.y 3/4] sign-file,extract-cert: use pkcs11
- provider for OPENSSL MAJOR >= 3
+Date: Wed, 18 Nov 2026 10:35:44 +0100
+Subject: [PATCH 5.15.y 5.10.y 4/4] extract-cert: Wrap key_pass with '#ifdef
+ USE_PKCS11_ENGINE'
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,305 +97,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-openssl4-515-v1-3-e1fbd1da96d4@fairphone.com>
+Message-Id: <20261118-openssl4-515-v1-4-e1fbd1da96d4@fairphone.com>
 References: <20261118-openssl4-515-v1-0-e1fbd1da96d4@fairphone.com>
 In-Reply-To: <20261118-openssl4-515-v1-0-e1fbd1da96d4@fairphone.com>
 To: stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794994548; l=8391;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794994548; l=2345;
  i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=zVyzzOljbY+dCeWDG34fL5CDSWoJK3l8gxI0xpFTFE4=;
- b=DdWCXSW0LfHwg+aLey0p+98KaFdU6PJVg7biX3/Puhpcdv1acGKHE3uUpKdInOPTzIIHFRg2L
- FVOpYVjjvEEDNXTkmvzh8bAaWjetVeOJyDITj8IGunN2ve6EHuTn1tT
+ bh=IFtEtOls0MTjRM05vLvDPeBYQ476A3gj7lHW6aXY3wg=;
+ b=jKeCC5pI22PMYkSSsSWbYd6Aa+L3fkrHzQnr7H86DX8fq7tjyQnAy5RM1XOkrQIrm/NzCTnmv
+ YADQ7bGORhcDvW7yRBDA7ZLVFTyRVPcgRfPCUDNn2xSSeKFjvYIXJFV
 X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
  pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
 
-From: Jan Stancek <jstancek@redhat.com>
+From: Nathan Chancellor <nathan@kernel.org>
 
-commit 558bdc45dfb2669e1741384a0c80be9c82fa052c upstream.
+commit 4f96b7c68a9904e01049ef610d701b382dca9574 upstream.
 
-ENGINE API has been deprecated since OpenSSL version 3.0 [1].
-Distros have started dropping support from headers and in future
-it will likely disappear also from library.
+A recent strengthening of -Wunused-but-set-variable (enabled with -Wall)
+in clang under a new subwarning, -Wunused-but-set-global, points out an
+unused static global variable in certs/extract-cert.c:
 
-It has been superseded by the PROVIDER API, so use it instead
-for OPENSSL MAJOR >= 3.
+  certs/extract-cert.c:46:20: error: variable 'key_pass' set but not used [-Werror,-Wunused-but-set-global]
+     46 | static const char *key_pass;
+        |                    ^
 
-[1] https://github.com/openssl/openssl/blob/master/README-ENGINES.md
+After commit 558bdc45dfb2 ("sign-file,extract-cert: use pkcs11 provider
+for OPENSSL MAJOR >= 3"), key_pass is only used with the OpenSSL engine
+API, not the new provider API. Wrap key_pass's declaration and
+assignment with '#ifdef USE_PKCS11_ENGINE' so that it is only included
+with its use to clear up the warning. While this is a little uglier than
+just marking key_pass with the unused attribute, this will make it
+easier to clean up all code associated with the use of the engine API if
+it were ever removed in the future. While in the area, use a tab for
+the key_pass assignment line to match the rest of the file.
 
-[jarkko: fixed up alignment issues reported by checkpatch.pl --strict]
-
-Signed-off-by: Jan Stancek <jstancek@redhat.com>
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-Tested-by: R Nageswara Sastry <rnsastry@linux.ibm.com>
-Reviewed-by: Neal Gompa <neal@gompa.dev>
-Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+Cc: stable@vger.kernel.org
+Fixes: 558bdc45dfb2 ("sign-file,extract-cert: use pkcs11 provider for OPENSSL MAJOR >= 3")
+Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+Tested-by: Nick Desaulniers <ndesaulniers@google.com>
+Link: https://patch.msgid.link/20260325-certs-extract-cert-key_pass-unused-but-set-global-v1-1-ecf94326d532@kernel.org
+Signed-off-by: Nathan Chancellor <nathan@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
 ---
- scripts/extract-cert.c | 103 +++++++++++++++++++++++++++++++++++--------------
- scripts/sign-file.c    |  95 +++++++++++++++++++++++++++++++--------------
- 2 files changed, 139 insertions(+), 59 deletions(-)
+ scripts/extract-cert.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/scripts/extract-cert.c b/scripts/extract-cert.c
-index 8101549c98ae..6d9886024c5d 100644
+index 6d9886024c5d..646cc4d4f968 100644
 --- a/scripts/extract-cert.c
 +++ b/scripts/extract-cert.c
-@@ -21,17 +21,18 @@
- #include <openssl/bio.h>
- #include <openssl/pem.h>
- #include <openssl/err.h>
--#include <openssl/engine.h>
--
-+#if OPENSSL_VERSION_MAJOR >= 3
-+# define USE_PKCS11_PROVIDER
-+# include <openssl/provider.h>
-+# include <openssl/store.h>
-+#else
-+# if !defined(OPENSSL_NO_ENGINE) && !defined(OPENSSL_NO_DEPRECATED_3_0)
-+#  define USE_PKCS11_ENGINE
-+#  include <openssl/engine.h>
-+# endif
-+#endif
- #include "ssl-common.h"
- 
--/*
-- * OpenSSL 3.0 deprecates the OpenSSL's ENGINE API.
-- *
-- * Remove this if/when that API is no longer used
-- */
--#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
--
- #define PKEY_ID_PKCS7 2
- 
- static __attribute__((noreturn))
-@@ -61,6 +62,66 @@ static void write_cert(X509 *x509)
- 		fprintf(stderr, "Extracted cert: %s\n", buf);
+@@ -43,7 +43,9 @@ void format(void)
+ 	exit(2);
  }
  
-+static X509 *load_cert_pkcs11(const char *cert_src)
-+{
-+	X509 *cert = NULL;
-+#ifdef USE_PKCS11_PROVIDER
-+	OSSL_STORE_CTX *store;
-+
-+	if (!OSSL_PROVIDER_try_load(NULL, "pkcs11", true))
-+		ERR(1, "OSSL_PROVIDER_try_load(pkcs11)");
-+	if (!OSSL_PROVIDER_try_load(NULL, "default", true))
-+		ERR(1, "OSSL_PROVIDER_try_load(default)");
-+
-+	store = OSSL_STORE_open(cert_src, NULL, NULL, NULL, NULL);
-+	ERR(!store, "OSSL_STORE_open");
-+
-+	while (!OSSL_STORE_eof(store)) {
-+		OSSL_STORE_INFO *info = OSSL_STORE_load(store);
-+
-+		if (!info) {
-+			drain_openssl_errors(__LINE__, 0);
-+			continue;
-+		}
-+		if (OSSL_STORE_INFO_get_type(info) == OSSL_STORE_INFO_CERT) {
-+			cert = OSSL_STORE_INFO_get1_CERT(info);
-+			ERR(!cert, "OSSL_STORE_INFO_get1_CERT");
-+		}
-+		OSSL_STORE_INFO_free(info);
-+		if (cert)
-+			break;
-+	}
-+	OSSL_STORE_close(store);
-+#elif defined(USE_PKCS11_ENGINE)
-+		ENGINE *e;
-+		struct {
-+			const char *cert_id;
-+			X509 *cert;
-+		} parms;
-+
-+		parms.cert_id = cert_src;
-+		parms.cert = NULL;
-+
-+		ENGINE_load_builtin_engines();
-+		drain_openssl_errors(__LINE__, 1);
-+		e = ENGINE_by_id("pkcs11");
-+		ERR(!e, "Load PKCS#11 ENGINE");
-+		if (ENGINE_init(e))
-+			drain_openssl_errors(__LINE__, 1);
-+		else
-+			ERR(1, "ENGINE_init");
-+		if (key_pass)
-+			ERR(!ENGINE_ctrl_cmd_string(e, "PIN", key_pass, 0), "Set PKCS#11 PIN");
-+		ENGINE_ctrl_cmd(e, "LOAD_CERT_CTRL", 0, &parms, NULL, 1);
-+		ERR(!parms.cert, "Get X.509 from PKCS#11");
-+		cert = parms.cert;
-+#else
-+		fprintf(stderr, "no pkcs11 engine/provider available\n");
-+		exit(1);
++#ifdef USE_PKCS11_ENGINE
+ static const char *key_pass;
 +#endif
-+	return cert;
-+}
-+
- int main(int argc, char **argv)
- {
- 	char *cert_src;
-@@ -86,28 +147,10 @@ int main(int argc, char **argv)
- 		fclose(f);
- 		exit(0);
- 	} else if (!strncmp(cert_src, "pkcs11:", 7)) {
--		ENGINE *e;
--		struct {
--			const char *cert_id;
--			X509 *cert;
--		} parms;
-+		X509 *cert = load_cert_pkcs11(cert_src);
+ static BIO *wb;
+ static char *cert_dst;
+ static int kbuild_verbose;
+@@ -132,7 +134,9 @@ int main(int argc, char **argv)
  
--		parms.cert_id = cert_src;
--		parms.cert = NULL;
--
--		ENGINE_load_builtin_engines();
--		drain_openssl_errors(__LINE__, 1);
--		e = ENGINE_by_id("pkcs11");
--		ERR(!e, "Load PKCS#11 ENGINE");
--		if (ENGINE_init(e))
--			drain_openssl_errors(__LINE__, 1);
--		else
--			ERR(1, "ENGINE_init");
--		if (key_pass)
--			ERR(!ENGINE_ctrl_cmd_string(e, "PIN", key_pass, 0), "Set PKCS#11 PIN");
--		ENGINE_ctrl_cmd(e, "LOAD_CERT_CTRL", 0, &parms, NULL, 1);
--		ERR(!parms.cert, "Get X.509 from PKCS#11");
--		write_cert(parms.cert);
-+		ERR(!cert, "load_cert_pkcs11 failed");
-+		write_cert(cert);
- 	} else {
- 		BIO *b;
- 		X509 *x509;
-diff --git a/scripts/sign-file.c b/scripts/sign-file.c
-index bb3fdf1a617c..7070245edfc1 100644
---- a/scripts/sign-file.c
-+++ b/scripts/sign-file.c
-@@ -27,17 +27,18 @@
- #include <openssl/evp.h>
- #include <openssl/pem.h>
- #include <openssl/err.h>
--#include <openssl/engine.h>
--
-+#if OPENSSL_VERSION_MAJOR >= 3
-+# define USE_PKCS11_PROVIDER
-+# include <openssl/provider.h>
-+# include <openssl/store.h>
-+#else
-+# if !defined(OPENSSL_NO_ENGINE) && !defined(OPENSSL_NO_DEPRECATED_3_0)
-+#  define USE_PKCS11_ENGINE
-+#  include <openssl/engine.h>
-+# endif
+ 	kbuild_verbose = atoi(getenv("KBUILD_VERBOSE")?:"0");
+ 
+-        key_pass = getenv("KBUILD_SIGN_PIN");
++#ifdef USE_PKCS11_ENGINE
++	key_pass = getenv("KBUILD_SIGN_PIN");
 +#endif
- #include "ssl-common.h"
  
--/*
-- * OpenSSL 3.0 deprecates the OpenSSL's ENGINE API.
-- *
-- * Remove this if/when that API is no longer used
-- */
--#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
--
- /*
-  * Use CMS if we have openssl-1.0.0 or newer available - otherwise we have to
-  * assume that it's not available and its header file is missing and that we
-@@ -106,28 +107,64 @@ static int pem_pw_cb(char *buf, int len, int w, void *v)
- 	return pwlen;
- }
- 
-+static EVP_PKEY *read_private_key_pkcs11(const char *private_key_name)
-+{
-+	EVP_PKEY *private_key = NULL;
-+#ifdef USE_PKCS11_PROVIDER
-+	OSSL_STORE_CTX *store;
-+
-+	if (!OSSL_PROVIDER_try_load(NULL, "pkcs11", true))
-+		ERR(1, "OSSL_PROVIDER_try_load(pkcs11)");
-+	if (!OSSL_PROVIDER_try_load(NULL, "default", true))
-+		ERR(1, "OSSL_PROVIDER_try_load(default)");
-+
-+	store = OSSL_STORE_open(private_key_name, NULL, NULL, NULL, NULL);
-+	ERR(!store, "OSSL_STORE_open");
-+
-+	while (!OSSL_STORE_eof(store)) {
-+		OSSL_STORE_INFO *info = OSSL_STORE_load(store);
-+
-+		if (!info) {
-+			drain_openssl_errors(__LINE__, 0);
-+			continue;
-+		}
-+		if (OSSL_STORE_INFO_get_type(info) == OSSL_STORE_INFO_PKEY) {
-+			private_key = OSSL_STORE_INFO_get1_PKEY(info);
-+			ERR(!private_key, "OSSL_STORE_INFO_get1_PKEY");
-+		}
-+		OSSL_STORE_INFO_free(info);
-+		if (private_key)
-+			break;
-+	}
-+	OSSL_STORE_close(store);
-+#elif defined(USE_PKCS11_ENGINE)
-+	ENGINE *e;
-+
-+	ENGINE_load_builtin_engines();
-+	drain_openssl_errors(__LINE__, 1);
-+	e = ENGINE_by_id("pkcs11");
-+	ERR(!e, "Load PKCS#11 ENGINE");
-+	if (ENGINE_init(e))
-+		drain_openssl_errors(__LINE__, 1);
-+	else
-+		ERR(1, "ENGINE_init");
-+	if (key_pass)
-+		ERR(!ENGINE_ctrl_cmd_string(e, "PIN", key_pass, 0), "Set PKCS#11 PIN");
-+	private_key = ENGINE_load_private_key(e, private_key_name, NULL, NULL);
-+	ERR(!private_key, "%s", private_key_name);
-+#else
-+	fprintf(stderr, "no pkcs11 engine/provider available\n");
-+	exit(1);
-+#endif
-+	return private_key;
-+}
-+
- static EVP_PKEY *read_private_key(const char *private_key_name)
- {
--	EVP_PKEY *private_key;
--
- 	if (!strncmp(private_key_name, "pkcs11:", 7)) {
--		ENGINE *e;
--
--		ENGINE_load_builtin_engines();
--		drain_openssl_errors(__LINE__, 1);
--		e = ENGINE_by_id("pkcs11");
--		ERR(!e, "Load PKCS#11 ENGINE");
--		if (ENGINE_init(e))
--			drain_openssl_errors(__LINE__, 1);
--		else
--			ERR(1, "ENGINE_init");
--		if (key_pass)
--			ERR(!ENGINE_ctrl_cmd_string(e, "PIN", key_pass, 0),
--			    "Set PKCS#11 PIN");
--		private_key = ENGINE_load_private_key(e, private_key_name,
--						      NULL, NULL);
--		ERR(!private_key, "%s", private_key_name);
-+		return read_private_key_pkcs11(private_key_name);
- 	} else {
-+		EVP_PKEY *private_key;
- 		BIO *b;
- 
- 		b = BIO_new_file(private_key_name, "rb");
-@@ -136,9 +173,9 @@ static EVP_PKEY *read_private_key(const char *private_key_name)
- 						      NULL);
- 		ERR(!private_key, "%s", private_key_name);
- 		BIO_free(b);
--	}
- 
--	return private_key;
-+		return private_key;
-+	}
- }
- 
- static X509 *read_x509(const char *x509_name)
+ 	if (argc != 3)
+ 		format();
 
 -- 
 2.56.1
