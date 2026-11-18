@@ -1,92 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794978897;
-	b=qqFgTiXPNzLCs+3JJA1pfUwUtAaaLBFDr6TJQJgT4BiufkwNqgYUw88RHdWhUpN79GaU
-	 ryz8Fo/CcSCxrzrZBr/vY3869Ds1pFi83818/dzUiYHt/JKbcFOH3ZJuK17198+6iRFrH
-	 SJsX8FyqeNMbwam338EJPwkvgdvpmjd+ewYijDsTkEfPb2rXoI5FZeU8JFJN/4AJLox4K
-	 5SLN4wKcQMGTiwx4Y5fr8/nFgdvbjfp+Cm/oLVzVWzIQbvohfX7XnucPhNsiX4oKNrvv/
-	 xE4x5PAPUG7Kv4fgVpMcfwYZG+xq2nQClAPNarHRgzn2hHZ2pY26C/QvO463gLvM3QA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794978897;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
-	 X-Authority-Analysis:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=/6KaE7xGisRHQL2pZ5XkTkcDmLT7cT0gvLUNhjy8lPk=;
-	b=Mq3hdGcbUVx0wJJM9F0hhZk5FrAlqvOuBa0hZhuScj7hlExe5xgw//5H28nh8m2eSvjs
-	 YqiadEfYqHeaHZN5j02sEJEbHtPUSStb3VuvkrdprGpq99td9HA0N6c0KiLYAmyCtBC4W
-	 wSBo6VI/yHkfc/xr+4p2747A2tkbmbsdtNcLIKSDxKuaTyqatyaUSThF07F3tMd7yTyaw
-	 NU02dX9WKBBWUI3Ao+w4XSG4xQPrzkUH211pQXUABN70dBMyl3OH3RAIkExLc07Dv/tW5
-	 jP+5pus6IUsFe4TQ+4PqRKwKvd8TfwDZ0WBw7jbqhbXWJ9/5+t9bjWSUeu5gCJWuZrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=AaCXAoKJ;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794979567;
+	b=kpGcEXU7HdBH5TL+MaifCOYhEoS33r/EfIdNThbjUb8ALtqcdNOPlqWQN0r6AwsyLYab
+	 Ezj573ECCDrb7PJUxc5oMB2oMc4o/S4pB/Z1th3l9a62l8s5Jpm089wwEYbuiRG3wdnU/
+	 wHHeyJ12UTyc61vIKI/A9H87aV5Pq9Xi1fHwtUVpttlW/5sMIRQg8CspLepg+LUWUUdHD
+	 7lf58WyTmilJWcfOLp+J+b7n8bU3KCK+QRX2ZN8NJPsEvXhuqCOmVSCojMRCszITihEn+
+	 Qa2GrqtACc649z9snbORGRT4WTs2f2c4GU8aM4NgAWrltwkMPQ2vJJMVy//qbTIdkcw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794979567;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=MYg91d5wzYF4TFnjBxzz+qg6N7tTURDQA5SFNzxK9ys=;
+	b=MovvTWiE4ajAIGvnDSJtksdJmYqB8hMjJk0YaQNufUr62toN2BNC0jfUmYRY7Jc8WoNs
+	 r3u/TOUBViU/5DGgLAdzzUkklA9cTficIHPqRKVaqOKbCa9FmlmpNP4i4+uThKhUOQx9u
+	 aGBGcHxce2lE5ZEKkI0Fl4NQo6kkk1tMgq7Ph7pNw026z69nQCcbHbvvaQLDhM96uKFCa
+	 uHW3ZsrQ4o1483xq2QzM4oUjIEKXC1/FZfAOB4GltHODrUnp92feZmPeufESiLw7mhI5p
+	 74qtvk3eq/Te0g6yT99loNK9WsJxnktIF3MrLO4HvReNGzIQkeoSzJeuw18fO2X7Ddw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=suse.com;
+	spf=pass smtp.mailfrom=suse.com;
+	dkim=pass header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=KEg3+T8J;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C32606A330;
-	Wed, 18 Nov 2026 05:14:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5C32606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29A0606A325
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:26:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E29A0606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=AaCXAoKJ
-Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AI2SHqK4045002;
-	Wed, 18 Nov 2026 05:14:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=/6KaE7xGisRHQL2pZ
-	5XkTkcDmLT7cT0gvLUNhjy8lPk=; b=AaCXAoKJw4gbH/0NR0Jn5GP/t3hyrYkR+
-	bnZiBdRh8gD1m3HUFOrjVfVKcaHxzzOR59cOOmXTp9JfaGUqvx03b4RYdK2DR4eV
-	5Jmf3jrS8BL0MkEz8M6QkUu5fmD2o6PmtdTajDfZxnNtPeHREzNwMn5IT30OrqGc
-	y9j8B85VAebvJB0U10d4nhLhFvf5yVhk0jdDjvbrcSLEewc36XUpiPZouPMW4wCX
-	W3WUrN5loutpc5sFffI6Al0AQB9jONWynS91qcFfxXW++7gY6cDPUeLgufdKRxX2
-	ALJCNPw/wUSKQGbPogf9gC2RB29q3+v4+YmzKVPRLzbE/rmvhqhdg==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j105wrxrq-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 05:14:39 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AI2YtBM1428861;
-	Wed, 18 Nov 2026 05:14:38 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j02dffwyg-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 05:14:38 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AI5EYOB49152304
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 18 Nov 2026 05:14:34 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 66DB62004B;
-	Wed, 18 Nov 2026 05:14:34 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 6361320040;
-	Wed, 18 Nov 2026 05:14:29 +0000 (GMT)
-Received: from li-7bb28a4c-2dab-11b2-a85c-887b5c60d769.ibm.com.com (unknown [9.39.20.10])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 18 Nov 2026 05:14:29 +0000 (GMT)
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-To: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, chzigotzky@xenosoft.de
-Cc: sshegde@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-        christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org,
-        msuchanek@suse.de, ritesh.list@gmail.com, harshpb@linux.ibm.com,
-        gautam@linux.ibm.com, amachhiw@linux.ibm.com, venkat88@linux.ibm.com,
-        nnmlinux@linux.ibm.com, mkchauras@gmail.com, stable@vger.kernel.org
-Subject: [PATCH v5 1/3] PPC32: Fix hard_irq_disable to follow tracing and lockdep state
-Date: Wed, 18 Nov 2026 10:44:17 +0530
-Message-ID: <20261118051419.783878-2-sshegde@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261118051419.783878-1-sshegde@linux.ibm.com>
-References: <20261118051419.783878-1-sshegde@linux.ibm.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=KEg3+T8J
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48dee593f18so347667f8f.3
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 21:26:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1794979565; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VhFhX0oNs9q+iQfFxerhZ5eJe7JCXre8/B0/bGCsnSqdSUhOf7L1Hbu1bizpPjper/
+         SrzaGOwQ0o6x5Uozne3w4Xe7dPz00ei2IQtdIZkn0kcOuIqF7kkN1NcwvViJl2LI2gMo
+         Kq9l39FS+JYivKF6c50nAXUn4ouMgIckCaBQisjoNQP5lhmpozSQHvrFrqCkfwclgjpW
+         i05UkgleMSl6ZXb6QGy+W0+9Osv8hXPHcCHsLmv5H1Cy5JwmMN5zijHcbinIdXe1W8Xm
+         4Wi+JSsG9kOR+TU0YKIF9sAL8BXn2XcIlVKcismz+oIRmEog+WSsj3if0wQA8ex4tzUk
+         VMfA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=MYg91d5wzYF4TFnjBxzz+qg6N7tTURDQA5SFNzxK9ys=;
+        fh=lxYj0OgZIbLnG2l6+Iepyf5MEB8sbioLewbxCgnOOfQ=;
+        b=McRC2RGg4L7A34HNQOc1KovOkml89twZqtA3RkY3I1rfGfg6ONtubuV5FCSWNAA+xc
+         j3QwyKcAy1M/OFMJcqjh1m9iSH9NrM5WBBSubwi9czodrPphj99zu+IhOAzgcLRpBSsU
+         AdhTvYb2XFsSPS6ePAF1ni/QcgwVK1ebW21DEl9kqSxUgrpZhgCBFI0yPBGiWuznz5L2
+         nVJ72J+PpKw9qdQ0LIy0GaouR1jp83nD5HOYDl/sI3t4AXF1ehuPftt9SLmF7SJXnSzw
+         WiG2dIRku9Q2wMXKKasPnJypm0Ci45sdryanm51Ho+ErMVXnaUPK27+9Yke8uqtsLvKz
+         oZEA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1794979565; x=1795584365; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MYg91d5wzYF4TFnjBxzz+qg6N7tTURDQA5SFNzxK9ys=;
+        b=KEg3+T8Jpl59hWzw+ks9zQ56eCeJlD1hhOj4JYBgQIdmKYKtYcmqknpvlahLT+ksPL
+         9i76OOd8iGDCyzQbUGeLrwQ8m9dxzo+v+GjJYRftTH00k5/Le9jmNGXs+84QDaNg4rMR
+         7SIQkJ8hi/FNdzWOpFjeo0IVNkCakl025/HTxqKe3wvZLYsp5wjiKh6fNdSS/WCPfuaj
+         fzs1UT0tX0ouEpg4wxJpy/J9XFFyAErNhwcG2ledaYKMTIhjWEbg0UlXelppmWN9FGHm
+         EkROWlTNd1/wW9MmaStkrbTilUeqwbNbvfXqIO/TWwbJEna9VkcNUcu+3Ar16ciHTqtq
+         tD5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794979565; x=1795584365;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=MYg91d5wzYF4TFnjBxzz+qg6N7tTURDQA5SFNzxK9ys=;
+        b=kKKddjtbBk4xkRFSurMEfXOS82ZESCJaEKnmqdfqU1C7o4EP9qeMERR2644U/vJDix
+         kHseuMQ4x9PVHLSUuJZ7xWfaF+YEM+kqkRaW1WkyTeskwWqY3nNGAfJ3Qq8RCJOEH6dd
+         CHybB6HXjgRTdEu/6wNm0WWijaRNEebH1LyTYMmbW+hDE0t+z4VkzyNFSrs1xLoeIMp/
+         sOtakdNXBD+G6cN0ujlvuGR7NRWhu4OVEPIs6HYsvN6bLN5U+cwbo82fSIiZpVBee3AZ
+         d0v8XKQZ/OiClrr3JSH5tu+X7Cq5xwafnyMjqZYP9QEF6Ozi2s+IQBd6BLQLYlyUpsB2
+         iUsg==
+X-Gm-Message-State: APuU4Z/u7SJ14mMd4dwOPykAHJkEVB+POGm/KbGGI11M9xTLmH/8MiDg
+	eMbT5QgRX/OoyXJu33GTlgAiFotz83Z8/o30TblklpQ5wZT2VNuOSzdPcvh2eeHkLghWxcPG1SW
+	6NeGiHWJTPH+3W+eZ+CDDR3LMSJPFUgZzj6kjr5JDdvMR3BEy07zuGW8=
+X-Gm-Gg: AZFdTZfO2ePyEGvUT4+xXcX1qGZEpwTY+nngbgsyk559vDUK1yESbQ3SI+D6NXt5W/A
+	p5Po2U7ZWcNg+DovFOEA3GCqKmA1YRM80czxQD5Fp1gtbS+u2jMY3nddsneaUGSFylc5gwt7akK
+	vOrwOSyDjuPA5A1TNbBkZTBxd9RHcTw05jJN3iwPw9pXjwCUOoAwqap6jGcyeI7ArN+WK00KXIC
+	ZMuPPLHkaGj3Jrv4b5FHxdJ7iPhTOX7ch03dMVgovznGjTEuMMFnYK73fNTUI3i6l98ehmLLTVM
+	1zeOD2gOI9I+aQ8QyDje8cTXZDVAAMwuXss54ja/w/Ec6Sw4L1e2ce7xkBdchKdq6Yht7ohrYwU
+	wwjGUSrQ/28QSXwfvE50fdEEe7rpH4y7mVaLh4ycSWAocmYuTPvcpsaL604ccz26zM2bGzB5BYn
+	sJm3IIPHuCBSCrBxUgLOXxFCW7pVrHDbeiIw==
+X-Received: by 2002:a05:6000:41c9:b0:491:da8f:7276 with SMTP id
+ ffacd0b85a97d-4a63928a16amr2991274f8f.26.1794979565234; Tue, 17 Nov 2026
+ 21:26:05 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,80 +103,139 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: IGLee--yC3Poim3REU9BzHMxsnhCM6D8
-X-Proofpoint-GUID: 41sXIPfRQR4BugZCTOdVkLi2TVB7lRVB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAxOSBTYWx0ZWRfX02FdU2ZEwabr
- cq27CazAXapoft0c95T2P6nTwxQqFY0QYYjtLDPeOBreSCJEMJAF8Dko/k8ietmMhFYyBl40ZnP
- jMId4+1UgJOjppwiHBMdJHMwShwhLlQahnIRKDzlWlDn6ntgnXH0c5POm33Kb43NhCtv7SeRybK
- MfECpLe+MPXB5+gKP3rJ4mC6e856EEKOq7OQ4YwgM5wLimLYlSSD0c6HOrBoqEGsNaTdnY2DFd+
- Oby8H78xjySNAWYnTzt87A/J5RUkU4/LUpbW8H0B2pZkVQ75OPlQa97d/l6MTFx49m3sb1C3muX
- 3Ui+htBuJu027Iw8CbdKoIHUxiKHssNYYOMRmA0tvLdUZdsSM/glfK0nzjkHeu0iQExhdB2/Jk3
- /t/NDFvIBL/w2EJehhHYRqfJSwehows7RdLgBc7qBb1iGBoEwuw+t3WqIBKmuNCMAe1oIrjv4XJ
- Wxo94GSOOIbB2fxjIXw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAxOSBTYWx0ZWRfXzjaY+llNeAu2
- fU1bN/e0/lcUwE51U8s7Aikoq/0uc9UesKAC3P06JCX+vriVktkNlndZuEMsKw2lMpUWh3Cm7hF
- E+vcexlRK/vGYL60D73KIiHJV4VncV4=
-X-Authority-Analysis: v=2.4 cv=K+m3jCWI c=1 sm=1 tr=0 ts=6afd343f cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=VnNF1IyMAAAA:8
- a=UTOWjhEXSVwx40Q-rnQA:9
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-18_01,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 clxscore=1015 adultscore=0 spamscore=0
- priorityscore=1501 impostorscore=0 phishscore=0 lowpriorityscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611180019
+References: <20261117144250.1672000-1-sashal@kernel.org>
+In-Reply-To: <20261117144250.1672000-1-sashal@kernel.org>
+From: Daniel Vacek <neelx@suse.com>
+Date: Wed, 18 Nov 2026 06:25:54 +0100
+X-Gm-Features: Aa3M54pt4s8JZQ09SHgzJ60SVUZ5zUG3qwR1jl-XEhQCOcpAkdJV0O_28T8TwwU
+Message-ID: <CAPjX3Fd6-adZNF1hC2n1BPJW_nDOH9yGgGbpYnEY3AUnn2Jd=g@mail.gmail.com>
+Subject: Re: Patch "btrfs: use bio::remaining for async checksumming
+ synchronization" has been added to the 7.3-stable tree
+To: stable@vger.kernel.org
+Cc: stable-commits@vger.kernel.org, David Sterba <dsterba@suse.com>, 
+	Chris Mason <mason@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On PPC32, the code for hard_irq_disable has diverged and it doesn't
-do lockdep/tracing anymore, leading to use of both local_irq_disable
-and hard_irq_disable on PPC32 to overcome those.
+On Tue, 17 Nov 2026 at 15:42, Sasha Levin <sashal@kernel.org> wrote:
+> This is a note to let you know that I've just added the patch titled
+>
+>     btrfs: use bio::remaining for async checksumming synchronization
+>
+> to the 7.3-stable tree which can be found at:
+>     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+>
+> The filename of the patch is:
+>      btrfs-use-bio-remaining-for-async-checksumming-synch.patch
+> and it can be found in the queue-7.3 subdirectory.
+>
+> If you, or anyone else, feels it should not be added to the stable tree,
+> please let <stable@vger.kernel.org> know about it.
 
-That is un-necessary, instead simply calling local_irq_disable is
-enough. It disables EE bit and does lockdep tracking.
+This one is only worth for CONFIG_BTRFS_EXPERIMENTAL builds.
+I'm not sure it makes sense pulling it to stable.
 
-Subsequent patch uses this API in KVM code to avoid the warnings.
-Wider use of it is possible, but it will be taken subsequently.
+--nX
 
-Cc: <stable@vger.kernel.org> # v7.2+
-Suggested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
----
-PS: New warnings would have started since commit 
-12013e3d4695 ("KVM: powerpc: Use generic xfer to guest work function")
-which added local_irq_disable for 32 bit. The proper fix may date back
-years ago. To avoid backport complications, keeping it backported till
-7.2. So removed fixes tag and cc'ed stable.
-
-Also, 32 bit shouldn't need hard_irq_disable. But that can only be taken
-up subsequently.
-
-Also, below fix isn't needed anymore.
-https://lore.kernel.org/linuxppc-dev/a14571be1897955f43d9994f0e093de3ada6ecde.1793447880.git.ritesh.list@gmail.com/
-
- arch/powerpc/include/asm/hw_irq.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/powerpc/include/asm/hw_irq.h b/arch/powerpc/include/asm/hw_irq.h
-index b7eee6385ae5..ddb850e62abd 100644
---- a/arch/powerpc/include/asm/hw_irq.h
-+++ b/arch/powerpc/include/asm/hw_irq.h
-@@ -464,7 +464,7 @@ static inline bool arch_irqs_disabled(void)
- 	return arch_irqs_disabled_flags(arch_local_save_flags());
- }
- 
--#define hard_irq_disable()		arch_local_irq_disable()
-+#define hard_irq_disable()		local_irq_disable()
- 
- static inline bool regs_irqs_disabled(struct pt_regs *regs)
- {
--- 
-2.54.0
-
+> commit f1d59a15198b62c45ec7062017ef72cace97ef0d
+> Author: Daniel Vacek <neelx@suse.com>
+> Date:   Wed Sep 2 15:56:27 2026 +0200
+>
+>     btrfs: use bio::remaining for async checksumming synchronization
+>
+>     [ Upstream commit e54f700d6ae3203221745c168dae20d88f2be4f1 ]
+>
+>     We can use bio::remaining counter to sync the offloaded checksumming.
+>     As a result we can slim down the btrfs_bio structure by 24 bytes
+>     and simplify the code a bit.
+>
+>     Difference in pahole output:
+>
+>     -       /* size: 328, cachelines: 6, members: 15 */
+>     +       /* size: 304, cachelines: 5, members: 14 */
+>
+>     Moreover this will allow us enabling async checksumming with encryption
+>     where we need to checksum the bounce bio instead of our regular one
+>     embedded in btrfs_bio. And so we need to extend it's lifetime. This is
+>     the preferred way to do so.
+>
+>     This also fixes a bug in experimental build where the async checksumming
+>     was using the system workqueue instead of fs_info::endio_workers.
+>
+>     Fixes: dd57c78aec39 ("btrfs: introduce btrfs_bio::async_csum")
+>     Reviewed-by: Qu Wenruo <wqu@suse.com>
+>     Signed-off-by: Daniel Vacek <neelx@suse.com>
+>     Signed-off-by: David Sterba <dsterba@suse.com>
+>     Signed-off-by: Sasha Levin <sashal@kernel.org>
+>
+> diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
+> index 19b4855969f53..771b7d598aeee 100644
+> --- a/fs/btrfs/bio.c
+> +++ b/fs/btrfs/bio.c
+> @@ -103,7 +103,6 @@ static struct btrfs_bio *btrfs_split_bio(struct btrfs_fs_info *fs_info,
+>         bbio->can_use_append = orig_bbio->can_use_append;
+>         bbio->is_scrub = orig_bbio->is_scrub;
+>         bbio->is_remap = orig_bbio->is_remap;
+> -       bbio->async_csum = orig_bbio->async_csum;
+>
+>         atomic_inc(&orig_bbio->pending_ios);
+>         return bbio;
+> @@ -114,9 +113,6 @@ void btrfs_bio_end_io(struct btrfs_bio *bbio, blk_status_t status)
+>         /* Make sure we're already in task context. */
+>         ASSERT(in_task());
+>
+> -       if (bbio->async_csum)
+> -               wait_for_completion(&bbio->csum_done);
+> -
+>         bbio->bio.bi_status = status;
+>         if (bbio->bio.bi_pool == &btrfs_clone_bioset) {
+>                 struct btrfs_bio *orig_bbio = bbio->private;
+> diff --git a/fs/btrfs/bio.h b/fs/btrfs/bio.h
+> index b7bd377a01624..bbf362b8668bb 100644
+> --- a/fs/btrfs/bio.h
+> +++ b/fs/btrfs/bio.h
+> @@ -58,7 +58,6 @@ struct btrfs_bio {
+>                         struct btrfs_ordered_extent *ordered;
+>                         struct btrfs_ordered_sum *sums;
+>                         struct work_struct csum_work;
+> -                       struct completion csum_done;
+>                         struct bvec_iter csum_saved_iter;
+>                         u64 orig_physical;
+>                         u64 orig_logical;
+> @@ -93,9 +92,6 @@ struct btrfs_bio {
+>         /* Whether the bio is coming from copy_remapped_data_io(). */
+>         bool is_remap:1;
+>
+> -       /* Whether the csum generation for data write is async. */
+> -       bool async_csum:1;
+> -
+>         /* Whether the bio is written using zone append. */
+>         bool can_use_append:1;
+>
+> diff --git a/fs/btrfs/file-item.c b/fs/btrfs/file-item.c
+> index 2c6c14dfe3932..ae1fd4da38d31 100644
+> --- a/fs/btrfs/file-item.c
+> +++ b/fs/btrfs/file-item.c
+> @@ -819,9 +819,8 @@ static void csum_one_bio_work(struct work_struct *work)
+>         struct btrfs_bio *bbio = container_of(work, struct btrfs_bio, csum_work);
+>
+>         ASSERT(btrfs_op(&bbio->bio) == BTRFS_MAP_WRITE);
+> -       ASSERT(bbio->async_csum == true);
+>         csum_one_bio(bbio);
+> -       complete(&bbio->csum_done);
+> +       bio_endio(&bbio->bio);
+>  }
+>
+>  /*
+> @@ -855,10 +854,9 @@ int btrfs_csum_one_bio(struct btrfs_bio *bbio, bool async)
+>                 csum_one_bio(bbio);
+>                 return 0;
+>         }
+> -       init_completion(&bbio->csum_done);
+> -       bbio->async_csum = true;
+> +       bio_inc_remaining(bio);
+>         INIT_WORK(&bbio->csum_work, csum_one_bio_work);
+> -       schedule_work(&bbio->csum_work);
+> +       queue_work(fs_info->endio_workers, &bbio->csum_work);
+>         return 0;
+>  }
+>
