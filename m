@@ -1,49 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794999725;
-	b=TKOX23ydv9W/dXHyXqAd5mvEUOYZBYBTnVFUg9qOaqms5Ip5rFSSkY4NB+LgsdUeZLbt
-	 Tjtx26LhewOKEHyPzSloLP7eeync7ZcmgEKK9a1kimKbeHEYCOe3LQaX0eMtW8ApsmOav
-	 FAIW+GCEN2rfI07CkweIxjOz/8qnuo82VMb6pd6P/oiMIBu3lHRuCVgPs/oQZwMgGqJad
-	 orm1Dm4g4EYOnGsPj0546I4zLBniylHfJUgbOW+zp9nx0ni9X5bExbjyAALuglCtHw238
-	 1BIZTIuk4HhFxA14gcwSSlPMBJdeuuCahySFv/AW8tx/GvokO3JgDmoGWqI6tGOhf2g==
+	t=1794999754;
+	b=Ho9j/R3YGt+puZ3IZHo/PCuhkUchFU1MrJCDoKTCmwZLoHXlvhXSMqthPj4q/EGYOta4
+	 c0pvWXQ7R3qB3bDgjPLTwbFadir7J4ne7esNuT09wjiEoR9BeTpnVAmxN/OcE3ZD7X4Mz
+	 zucjpf77n5TxGHHWzErxoH7YOX3bv5f0dz9f0vi8woBveFpqlEFrxHjkaWKhTxYQpI6sy
+	 EPY4PqqE7V9OvZh0gY6qGPzG1ujg/bpya1sFU2I0Xziw38gSGD4ya/8/KHUVN4lHNJtcT
+	 Ke/bhf95+eoaft04id0IcIJFpGTaWzwqDQ6KY3Bi0CEsx7XXsSkGARso7Ee9zrUIYKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794999725;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=6ffufnkevwO9vAPh1vevODopGUaiiKz9CA2eJcqQaCg=;
-	b=sFTtui/3O/73oqOqvpBhcx4JbAtrIlu4KLd2MjnZZsYSrbvNnEI4EFfuE8yXL9FIMlvn
-	 41JlSCUF13sT8cS3t+oAmqrz7/Qd1bxUjyhxSz2Wp7VRY4UeNeII6MbLuSktxX7BliW19
-	 1CUbPljuJDHQCcCjXCuoLVOO9r0x2XpBjkeCw05FWxLZsL5PAJ2MDziCnpcbDFtkE/gkh
-	 SVltbvNmSSHpTMK/YTaeiwGEGbekiHTg0nOuk6RxnrKfvdGfS1mc3JHJMoHpJyiUd7QdH
-	 k1nV2FBROeHT+QAX666XfNJ8IHa4ypxsW61GtwObYDOHMNawp67HpnCKpiytNDKCbwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794999754;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:Organization:
+	 Content-Transfer-Encoding;
+	bh=VP2Ho0yVQBQbmYAdfwECk1lQKQTIUB09kP8yRbsZdHY=;
+	b=1m4PCTZECxEuG31nkKQvKHg0LtsKx3x4l1pvUfWUZTG5sigWMcWc/6Em92P1/eIFPLRU
+	 Fs0UctCM83WdzC2uc15rwV2DXyn2DrGyIS9LRabjc97gHXnnR3O9QCO3r9kFjQ9UlCvTv
+	 kllO83Q73uLvBIf8ujF2GmORjP05eLj9wTlUsDv4tFWkKcTAL6a8f/sUj2dWwB8by/Zvx
+	 H0SVhGvgS6wgn4O9kPcn/Djg9p19fY6pIMRdaoOu+jcxVtfnVh7i8tHm1RL2Hrr9zwrxC
+	 58JCx7t8npNuibbVlmdZ3gxlF/a1E5mVinML+nHSVTQ1hEBg1mHqfjlp8EeSzCziwlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bKW0qTq0;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7BE7606A32C;
-	Wed, 18 Nov 2026 11:02:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7BE7606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EGvv6KOW;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C31606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:02:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9C31606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bKW0qTq0
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 54F07339;
-	Wed, 18 Nov 2026 03:02:00 -0800 (PST)
-Received: from [10.0.154.42] (e121487-lin.cambridge.arm.com [10.0.154.42])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 85DD93F632;
-	Wed, 18 Nov 2026 03:01:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794999723; bh=hYNm5P0vnO8U/haSHt1cJzP127qSvrRU04WHL1UF9Po=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bKW0qTq0u56OK8+5FBBAikIOYVawRxzDbtctJrhm5/9bv6soS79Yb1t1oHtma9Ub3
-	 vFjlA43eotGjqgbRsdn9vOy+oYbww7mkkd6Nz/f197Fdp5ygYOWqJv0Eb0goONBaT3
-	 1U8AN2vNuXZ3HwPhTCDTxYGmT+3GNRvISpI0jXNM=
-Message-ID: <f232d0ff-3286-4d85-b9e3-cad8c6bc7178@arm.com>
-Date: Wed, 18 Nov 2026 11:01:57 +0000
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EGvv6KOW
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794999754; x=1826535754;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=WT/e90wemZ6wkOGEgi67Yz9+ZXxRD8C7Nq7SJ9kE7RQ=;
+  b=EGvv6KOWkF7f45KztoEhUDAKBbAw1sMuw09rjNI7aEkTCte7YEYCNnHY
+   OeB6RSMWa1eueKSq5YD3zaWfukN83d8KBIjcxnDfjW+tDqR41UqEpHUZf
+   TTpG5fSUZAtKTkwBtn6cC20AVTCp1+q7f17P64MFHojh2CuomsmW20PoZ
+   ds4+xl9Jnh9DjS2+2aJ06Af0MdO/q3noaS/wzlU6n/rVDohZxroGmUzEx
+   xP2JKEBTezt3pblsTXBWJO74C83P7KWS7fADJO8Odn0N78HHOretzsFIk
+   BDuAjeDR2MJmiWXPvcnQ48jlyb78BsoFmMN8XNnWlRP+hPQcEubj+nJka
+   g==;
+X-CSE-ConnectionGUID: TYDJ6FcGTQKIN2FCesLouw==
+X-CSE-MsgGUID: PW4Q8QogSMuurhltjCQY0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3845559"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="3845559"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 03:02:34 -0800
+X-CSE-ConnectionGUID: +UmDrNOUSjaTBOiLzesDRw==
+X-CSE-MsgGUID: MlrElevCQkO1uKXo08gXTQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="10514400"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO jhogande-mobl3.intel.com) ([10.245.246.138])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 03:02:31 -0800
+From: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>
+To: intel-gfx@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Jouni=20H=C3=B6gander?= <jouni.hogander@intel.com>,
+	Jani Nikula <jani.nikula@intel.com>,
+	Mika Kahola <mika.kahola@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/i915/psr: Adjust Xiaomi Book Pro 14 2026 psr2 disable quirk
+Date: Wed, 18 Nov 2026 13:02:20 +0200
+Message-ID: <20261118110220.77370-1-jouni.hogander@intel.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,90 +81,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: head: set __entry_task along with task setup
-To: Ada Couprie Diaz <ada.coupriediaz@arm.com>,
- linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>,
- Mark Rutland <mark.rutland@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>
-Cc: Marc Zyngier <maz@kernel.org>, Kiryl Shutsemau <kas@kernel.org>,
- Breno Leitao <leitao@debian.org>, Jinjie Ruan <ruanjinjie@huawei.com>,
- Doug Anderson <dianders@chromium.org>, Linus Walleij <linusw@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Thomas Huth <thuth@redhat.com>,
- Dawei Li <dawei.li@linux.dev>, mrigendrachaubey
- <mrigendra.chaubey@gmail.com>, kernel-team@meta.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261117174814.95936-1-ada.coupriediaz@arm.com>
- <20261117174814.95936-4-ada.coupriediaz@arm.com>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <20261117174814.95936-4-ada.coupriediaz@arm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+Content-Transfer-Encoding: 8bit
 
-Hi Ada,
+We want to apply psr2 disable quirk on  Xiaomi Book Pro 14 2026 with
+differing device ID.
 
-On 11/17/26 17:48, Ada Couprie Diaz wrote:
-> `__entry_task` is only set after the first `switch_to()`, despite
-> a proper task being set up in SP_EL0 as soon as CPUs go through
-> `__{primary,secondary}_switched()`.
-> 
-> As SDEI can interrupt execution at any time, it can interrupt before
-> the first `switch_to()` and use a null `__entry_task` to set
-> its current task.
-> 
+Fixes: 5e79af5db00b ("drm/i915/psr: Disable PSR2 on Xiaomi Book Pro 14 2026 as a quirk")
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/9575
+Cc: Jani Nikula <jani.nikula@intel.com>
+Cc: Mika Kahola <mika.kahola@intel.com>
+Cc: <stable@vger.kernel.org> # v7.2+
+Signed-off-by: Jouni Högander <jouni.hogander@intel.com>
+---
+ drivers/gpu/drm/i915/display/intel_quirks.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-TBH I do not know much about SDEI, but don't we need opt-in for
-SDEI before we can get any SDEI events? If so, can we really
-receive SDEI event before first switch_to()?
-
-Cheers
-Vladimir
-
-
-> Set `__entry_task` as soon as we have a proper task set up in
-> `init_cpu_task()` in case we get interrupted before switching threads.
-> 
-> Remove the second paragraph of the comment on `__entry_task`, as it has
-> been incorrect since the introduction of SDEI, and even more so
-> with this change.
-> 
-> Fixes: f5df26961853 ("arm64: kernel: Add arch-specific SDEI entry code and CPU masking")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-> ---
->  arch/arm64/kernel/head.S    | 3 +++
->  arch/arm64/kernel/process.c | 3 ---
->  2 files changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-> index d6ba3c0af811..e53a9c6fec83 100644
-> --- a/arch/arm64/kernel/head.S
-> +++ b/arch/arm64/kernel/head.S
-> @@ -209,6 +209,9 @@ SYM_CODE_END(preserve_boot_args)
->  	ldr	w\tmp2, [\tsk, #TSK_TI_CPU]
->  	ldr	\tmp1, [\tmp1, \tmp2, lsl #3]
->  	set_this_cpu_offset \tmp1
-> +
-> +	adr_l	\tmp2, __entry_task
-> +	str	\tsk, [\tmp2, \tmp1]
->  	.endm
->  
->  /*
-> diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-> index 42b15b0c069f..c3d194676efc 100644
-> --- a/arch/arm64/kernel/process.c
-> +++ b/arch/arm64/kernel/process.c
-> @@ -584,9 +584,6 @@ static void ssbs_thread_switch(struct task_struct *next)
->  /*
->   * We store our current task in sp_el0, which is clobbered by userspace. Keep a
->   * shadow copy so that we can restore this upon entry from userspace.
-> - *
-> - * This is *only* for exception entry from EL0, and is not valid until we
-> - * __switch_to() a user task.
->   */
->  DEFINE_PER_CPU(struct task_struct *, __entry_task);
->  
-> -- 2.43.0
-> 
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 96eb9a40df9b9..e3303d5146e89 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -270,6 +270,7 @@ static struct intel_quirk intel_quirks[] = {
+ 
+ 	/* Xiaomi Book Pro 14 2026 */
+ 	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },
++	{ 0xb080, 0x1d72, 0x2424, quirk_disable_psr2 },
+ };
+ 
+ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
+-- 
+2.53.0
 
