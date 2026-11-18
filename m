@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795043409;
-	b=34X5042dPk3eXRk9GXIvvz8jfdQQG2kTvfYfBf12DnJum8usWXNlaYayrzYaCCcskiTn
-	 I2V4M3PRdm8l6mIR0S45eBv9QE9DpZ33wgR4ymh0Ojq3vlP9vswVsNI5gkSPcnfEK+nTZ
-	 U8YMShfiBLxv8h2lrRaXr17s7fMBrJu9Wm9aAmh4D8RAXYopFdPPdHyFKCxKd9xK9/zPQ
-	 5aqPH3IaA+Zvn41RCoWP0WFQOgTcP981O5yTtBFc0vvbjW4iwcyibp5uHsRQyzEf48Zau
-	 v4/beN48k9G5yY36gHkhCXbICJ3sX5bW+zgLIQYNvSfONOSD+9s37+210YMWupZE+Jw==
+	t=1795043414;
+	b=s9d4oOpZkBMLcRLla8PhxPSN1FF29tLTOFpTwv6WJhW1ezn+dBOsrrYo1h7wj/AZcq/9
+	 znpvewVQP5Q+rqtj0kcEbJbw3+Oadv5ejyIrPc7A+0cUbCQwWNO9gJWNSwPi/ASCyhIh9
+	 zbwgTg1m/loew6iW9Ymk5tVx415191VOvfITfdOn1jAB+ZwaZyiGmOxmdyYkn/QOlJ4l8
+	 FxJTlxZT7EqJqlTCYUbQhx54UUok2uRmXyMWh5rxApeqodPdqphlKgBWFpMdOgsAJd0aE
+	 PLPH55B5Wwpf6ghYshad0x0GX5j0TaxUVoIHhq8720f2l9IA4a44Xo3QOnwD2+3TwtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795043409;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795043414;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=FNV1o1iRPmuPguJBGtrAk5QeP7laJOTYRLc/kJeUTAU=;
-	b=zskkqrO+ojLciyCg1moMrkGXOyHcsX48u7KHHDn3OG4LqmzWxHTndo1157Fz9kzgxOvU
-	 BPgo08bKVkNHhCScT6zX4gmwsZ+vQAvkJ+P/zdFE3h7pZCpDoO0z6tWmiEEMe4iNi/eLs
-	 JBrfzYXE92M2z3GiyupRKC775J68LQpaYA7FeaPMvoT3tDHDgCm86ghP2oRC7kZcpC8YA
-	 DyyF7noL8i9R184pRGbpeOCxfsPtoP7hwUyQJug991EzhzZqZ27HYtc4FrqUdE1UhXQaa
-	 I5C+ia67cX/mCBOJd3bsc/hJDtFPvBr99JpGgn2LsluE8xACfBGCqCTyhw8ciQ1WmAw==
+	bh=STUB0uqCQbFUEd88gwEYnPd856UaJs535dmQv6Eio+A=;
+	b=PUpp5GVozQBCgYz7mBw9mPGCz13bUuPYCjZ6nwU9fuowDmzN0iJDIz3m9jRy9lPYiddm
+	 qfIDvP2rpGXaM+MSZT/h7FjNvdHUFz8WJ8TuPKnA+FiQSeRGVc6mOyUf3HOCMmGAHqxiy
+	 yTTVn3CsL7LvVRHKWW0P1Adi7vHkXohSDBju9BCHvLKBBpnnsZnJhBT9ppASzCce8RT+K
+	 7NIlG0LDutM/hdH6D6A0u+pLxymPTkPZCKxL6HK5+zuDvC7GNkhoo7wWQmJLMDLyK7XzS
+	 otAES2eH+551L4WOzttdj/faizngy2ARRfSjpVB5U+OTHFmd1Q8j71RCnRrJCPtUxZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=McE+BDS5;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RuZGSki8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8143606A325;
-	Wed, 18 Nov 2026 23:10:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88EB606A330;
+	Wed, 18 Nov 2026 23:10:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=McE+BDS5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49B201F000C4;
-	Wed, 18 Nov 2026 23:10:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RuZGSki8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D70601F000D0;
+	Wed, 18 Nov 2026 23:10:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795043408;
-	bh=FNV1o1iRPmuPguJBGtrAk5QeP7laJOTYRLc/kJeUTAU=;
+	s=korg; t=1795043414;
+	bh=STUB0uqCQbFUEd88gwEYnPd856UaJs535dmQv6Eio+A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=McE+BDS5S8m24vazAHp94kAYf0xJZeeJWI1XdGg6wRe4rTEK0y5WfuC/gXC6xq0lh
-	 9gdBkXtrNt93dlsG0uN3YzQos3Lq4XT92NgAR0oEOfqWvdZ2YJL0MinYAJV6WGWY5B
-	 CHQQjtzpnHfuLlLbzLRKKT85+b31713pPHFldmWY=
+	b=RuZGSki8pDOm1bSNgnlmwwS3GD/R6bGK6QO3SkWLFfyEr8ZzwVzAYZpegOotnpo83
+	 hIwWABYaDwQ4aLWdbIwjZ5KMCaytgG5KLvDofSg0dNuEPqR/8tS1IUEHzjMcIyiH94
+	 DlLIV2+Sm++9gVgCV+Yyq7wAADe0gmIjXc2+XnCY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Gerd Rausch <gerd.rausch@oracle.com>,
-	Sharath Srinivasan <sharath.srinivasan@oracle.com>,
-	Allison Henderson <achender@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0193/2857] net/rds: fix rds_message leak in the rds_send_xmit() drop path
-Date: Wed, 18 Nov 2026 15:20:27 +0100
-Message-ID: <20261118150208.305035991@linuxfoundation.org>
+Subject: [PATCH 6.1 0203/2857] HID: rmi: check report length before trimming sentinel bytes
+Date: Wed, 18 Nov 2026 15:20:37 +0100
+Message-ID: <20261118150208.660486142@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
 References: <20261118150201.293410965@linuxfoundation.org>
@@ -70,77 +68,36 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Sharath Srinivasan <sharath.srinivasan@oracle.com>
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 
-[ Upstream commit eb8a59a17f4a8b6f2afb4a8063e99dd96cc3fab0 ]
+[ Upstream commit 28a3e326fad2451bdb66b747dd1f7ccbb900eed6 ]
 
-When rds_send_xmit() picks the next message off cp_send_queue it takes
-its own reference with rds_message_addref().  If the message then hits
-the never-retransmit check (RDS_MSG_FLUSH, or an RDMA op that was
-already retransmitted), it is moved to the local to_be_dropped list and
-that reference is dropped after the batch.
+rmi_check_sanity() trims trailing 0xff sentinel bytes, but its loop
+reads data[valid_size - 1] before checking that valid_size is non-zero.
 
-However, if RDS_MSG_ON_CONN has already been cleared, the message is
-not added to to_be_dropped and the reference taken above is never
-dropped: cp_xmit_rm has not been set at this point, so the loop simply
-abandons rm and the rds_message (and everything it pins: pages, MRs,
-notifiers) leaks after an RDMA error.
+Reverse the condition so the length is proved before the last byte is
+inspected.
 
-The only other places that clear RDS_MSG_ON_CONN are
-rds_send_path_drop_acked() and rds_send_drop_to(), and both can run
-while rds_send_xmit() has dropped cp_lock between moving the message
-to cp_retrans and re-taking the lock in the never-retransmit check:
-rds_send_path_drop_acked() can ack away a message that already sat on
-cp_retrans - the RDS_MSG_RETRANSMITTED case above - and
-rds_send_drop_to() runs on socket close.  Both unlink the message
-under cp_lock and put their own reference, leaving the xmit-path
-reference stranded.
-
-Drop the reference directly in that case.
-
-This mirrors Oracle UEK commit "net/rds: fix rds_message memleak in
-rds_send_xmit".
-
-Signed-off-by: Gerd Rausch <gerd.rausch@oracle.com>
-Signed-off-by: Sharath Srinivasan <sharath.srinivasan@oracle.com>
-[achender: port to net-next; update commit message, checkpatch nits]
-Signed-off-by: Allison Henderson <achender@kernel.org>
-Link: https://patch.msgid.link/20260730041629.3512480-4-achender@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/rds/send.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
+ drivers/hid/hid-rmi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/rds/send.c b/net/rds/send.c
-index c2ef236076188..516ebd03c8400 100644
---- a/net/rds/send.c
-+++ b/net/rds/send.c
-@@ -288,9 +288,21 @@ int rds_send_xmit(struct rds_conn_path *cp)
- 			    (rm->rdma.op_active &&
- 			    test_bit(RDS_MSG_RETRANSMITTED, &rm->m_flags))) {
- 				spin_lock_irqsave(&cp->cp_lock, flags);
--				if (test_and_clear_bit(RDS_MSG_ON_CONN, &rm->m_flags))
--					list_move(&rm->m_conn_item, &to_be_dropped);
--				spin_unlock_irqrestore(&cp->cp_lock, flags);
-+				if (test_and_clear_bit(RDS_MSG_ON_CONN,
-+						       &rm->m_flags)) {
-+					/* our ref is put after the batch */
-+					list_move(&rm->m_conn_item,
-+						  &to_be_dropped);
-+					spin_unlock_irqrestore(&cp->cp_lock,
-+							       flags);
-+				} else {
-+					/* already off the conn list; drop
-+					 * the ref taken above ourselves
-+					 */
-+					spin_unlock_irqrestore(&cp->cp_lock,
-+							       flags);
-+					rds_message_put(rm);
-+				}
- 				continue;
- 			}
+diff --git a/drivers/hid/hid-rmi.c b/drivers/hid/hid-rmi.c
+index 8788192c09561..cd3173af5d7bf 100644
+--- a/drivers/hid/hid-rmi.c
++++ b/drivers/hid/hid-rmi.c
+@@ -386,7 +386,7 @@ static int rmi_check_sanity(struct hid_device *hdev, u8 *data, int size)
+ 	 * such reports here.
+ 	 */
  
+-	while ((data[valid_size - 1] == 0xff) && valid_size > 0)
++	while (valid_size > 0 && data[valid_size - 1] == 0xff)
+ 		valid_size--;
+ 
+ 	return valid_size;
 -- 
 2.53.0
 
