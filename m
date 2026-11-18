@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795022771;
-	b=D9StqWvhFP+dLk4dil/8127TxtURlCJvuKmQXP/c2y/IkgOvMYspcZi73uy/GpWM8sfV
-	 EFoy0asauYNciSjmsElQgbFQSYd3BfRURSbH4mpvDv5clSbUmJuvW3CSHI3dwvkUAOX1/
-	 2OfstvsckHMzMSc1PagZS0yC2mIkkF5ncja5/x6Kuen1WcfA7SC1YUuRlfIwCWjIBgtzs
-	 UKDg8JVMAPOrms+mVq0H7NyuPovdL7gUZH0YHI5er7elFCkttdVdYWPxkpypVggF/xK4z
-	 d9l4mRIm0kCqGMnmcAumRuV/m0hr8YX9Cix+vEAhSfX7ynolCUQcDmjgNzQnLNq1mBQ==
+	t=1795022777;
+	b=qahB5tKL2ngaF6RKmzkeO2ZTu4LLMipi3o+4kHb18R2e7nY/H5Xo8zW+/5BXE0zU+KHr
+	 qFYHIqtnMGijzE/QM2iPM739FqaNLKf9IeSAtn3K8zkWePyE4iUmi7lB2Y0ZQhzRWYULg
+	 twUZb9Lw4qtMVK5/TxPtAxjnTwn6h6nkMDAw2YcZ7tGEnPpsq6Sje3MZ1p/2AV93Uz071
+	 PZ/56E3t3rthY+j+PS1xHdhiwXDq/BhE6Iek0XOqBUVGPuaxt2RhXbr+W9BgJpH8TjaJX
+	 L+h1GCqdSdPj5YfGW3z8sM+MJ9TOlkuzC9XahFl+Iy7DXPUlEyG1U7RnEA0hjuh5ykg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795022771;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=ssKNU/z5Vf5ezfQe9+t8GBDFiuU8VYizXFRB6pc5X5Q=;
-	b=OlJpssC6Vvr/dEVRieRBGBUtru32KpIZDsds1uG01H4t3Oow2v6wl9zKG6JWkp5CxH8u
-	 P7BzPo5LugsKRXX3QTnum+MF4qr3oN6JEHcIC7KLVuLif4Oiisvb64jSd9FrP5qniALGx
-	 70qQUKGBbreLksWtlqusTuUvwrPLeLsM4mKlA3+tSQ1q+4510ZwpXHgPH7dmYH6CpQlHR
-	 AziY38S8rr+3ivvVjNu199Cg+piSVwS7zHer1R+7VdJbcdicLPrbfnHktwpXve8kLc5kF
-	 qKdXHvIgxXDAJ9UeJbzh9pwEYD/effaf5T6O+nW3f2Hry9xufpuUBwYyzowiQAyuDMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795022777;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=msxL4SwUOYQwo6eXUvVwQL6WseISh8qbqPk5ZcPwp28=;
+	b=R8VT0AIsbKn3VC9vzOfDWuwz4uwfpdPwz24vi8F/Sm+g2Xw+fYUfskwUWR75A5gs86nJ
+	 hcGc2yDjEOFFrNpre3IKI85aaBGzDcEi04GvMAaTxKgCRSc8LFUcKvPUauZPH4/cNWNpM
+	 lBYC6jxKNPc3yWeaD11XRKNxoFrbnWH6KbTWhRpJqZgPfM8u8VQKnO+g7XAl2Xj6LP+hl
+	 /qLg7Rv2VUVfRzjzXtmFuEf2UfFRANgrsgObhv70RMDIa+Kza/B8alElMu/g45UYIEC3l
+	 lMM+8cJhBoDLl7So/Eik3t+VJrpOayWL6bAWAICHLuyz0BCmuUnkNg0Ui/p1ntCvgqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OhkBwqUd;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lYVRdpCf;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA34606DABF;
-	Wed, 18 Nov 2026 17:26:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8CCC60A263A;
+	Wed, 18 Nov 2026 17:26:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OhkBwqUd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C43CD1F0030B;
-	Wed, 18 Nov 2026 17:26:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795022771;
-	bh=ssKNU/z5Vf5ezfQe9+t8GBDFiuU8VYizXFRB6pc5X5Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OhkBwqUdAwEkWXUbXYCq1qwK7hKu020RRVpe/qOpr6iYfuUJwsiUngB3KEze02/M/
-	 1LXnnLiUvy+eBr/ClXfyC3zSau6MPiyl7XsKf1oRJY2jT0q5AQgqzdOUh/6GOXKX+5
-	 HqPnyPJwwBDIHkwRmVk+GtX9Ca2DWDSOK9rAde4lbbpMuRaDemsYayt4XIOM0rSGSk
-	 mpDUJ+V5136s3F7VYb2IAksTUYJLd073cIYCpbduyeNpi1CtY2awCWQjUI/k3YsIa7
-	 RINZz8R3txoYR7crTIrcRS1uR+8fADfk83eGGSwfyc0HTalW2zEZRyInWI62Kq/P47
-	 /Leh6WZ3lRYNg==
-Date: Wed, 18 Nov 2026 17:26:07 +0000
-From: Simon Horman <horms@kernel.org>
-To: =?utf-8?B?SsOpcsOpbXk=?= Jean <jeremy.jean@oss.cyber.gouv.fr>
-Cc: netdev-bot+sashiko@kernel.org, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] udp_tunnel: fix GRO callback mismatch during setup
-Message-ID: <20261118172607.GL860048@horms.kernel.org>
-References: <20261111214622.2482547-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <179478310543.3136.4977357785981182737@kernel.org>
- <20261118153221.GG860048@horms.kernel.org>
- <1d7deb845ffc57994cfc86c317d9958d@oss.cyber.gouv.fr>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lYVRdpCf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4BAB1F000C6;
+	Wed, 18 Nov 2026 17:26:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795022777;
+	bh=msxL4SwUOYQwo6eXUvVwQL6WseISh8qbqPk5ZcPwp28=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lYVRdpCfcKmPwXNCbt0bLuhU9XQy743tWMyM+UlJsizFxX1u4kIJ/lVBe7O9YMqkM
+	 WnYQcOT147D3WzUjzf80mgAWNbs08KTkul0horQwUqlkEInfFNMlUW94wey+J4peZQ
+	 RoBYsl337v9ULTetPYJaaPM4XG84J/qogL2dD6Yo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Maxime Ripard <mripard@kernel.org>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0132/2151] drm: of: Fix drm_of_get_data_lanes_count_ep() return value documentation
+Date: Wed, 18 Nov 2026 15:31:07 +0100
+Message-ID: <20261118150126.599570666@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
+References: <20261118150121.603863898@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,50 +64,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <1d7deb845ffc57994cfc86c317d9958d@oss.cyber.gouv.fr>
 
-On Wed, Nov 18, 2026 at 04:36:50PM +0100, Jérémy Jean wrote:
-> On 2026-11-18 16:32, Simon Horman wrote:
-> > On Sun, Nov 15, 2026 at 10:51:45PM +0000, netdev-bot+sashiko@kernel.org
-> > wrote:
-> > > Thank you for your contribution! Sashiko AI review found 4 potential
-> > > issue(s) to consider.
-> > > 
-> > > Critical: 0 · High: 1 · Medium: 2 · Low: 1
-> > > 
-> > > If you believe none of the issues are legitimate, please reply to each
-> > > issue of Medium severity or higher and explain why the AI is wrong.
-> > > If any of them are legitimate and you plan to respin, please let
-> > > patchwork
-> > > know by including "pw-bot: cr" as a separate line at the end of your
-> > > reply
-> > > (one such reply per series is enough).
-> > > 
-> > > - [High] The fix still lets receive and completion use different
-> > > tunnel
-> > >   parsers on the same packet, so the out-of-bounds write the commit…
-> > > - [Medium] udp_tunnel_gro_count only describes how the head skb of a
-> > > GRO
-> > >   entry was parsed, not the packets merged into it, so packets in the…
-> > > - [Medium] The Fixes: tag blames only 5d7f5b2f6b93 ("udp_tunnel: use
-> > >   static call for GRO hooks when possible", v6.16), but part of what
-> > > the…
-> > > - [Low] The new synchronize_net() in udp_tunnel_update_gro_rcv()
-> > >   (net/ipv4/udp_offload.c:139) runs with the global…
-> > > 
-> > 
-> > Hi Jérémy,
-> > 
-> > I would appreciate it if you could provide feedback on
-> > the concerns raised in this AI-generated review.
-> 
-> Hello,
-> 
-> I intend to do this at some point, but I have been busy with other
-> non kernel things recently. I hope to get back to this at some point when
-> I find time.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Ack, thanks in advance.
+------------------
+
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+
+[ Upstream commit e3eca845ef7d6cd8c407f9b42beb45af94ff096b ]
+
+Update drm_of_get_data_lanes_count_ep() return value documentation
+to match the drm_of_get_data_lanes_count() return value documentation.
+The drm_of_get_data_lanes_count_ep() is only a wrapper around the
+drm_of_get_data_lanes_count() and therefore returns the same error
+codes.
+
+Simplify the return code description of drm_of_get_data_lanes_count()
+and drm_of_get_data_lanes_count_ep() to -ENODATA and -EINVAL.
+
+Fixes: fc801750b197 ("drm: of: Add drm_of_get_data_lanes_count and drm_of_get_data_lanes_ep")
+Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Reviewed-by: Maxime Ripard <mripard@kernel.org>
+Link: https://patch.msgid.link/20260305205840.95978-1-marek.vasut+renesas@mailbox.org
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/drm_of.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_of.c b/drivers/gpu/drm/drm_of.c
+index 4f65ce729a473..e99645103b23d 100644
+--- a/drivers/gpu/drm/drm_of.c
++++ b/drivers/gpu/drm/drm_of.c
+@@ -507,8 +507,8 @@ EXPORT_SYMBOL_GPL(drm_of_lvds_get_data_mapping);
+  *
+  * Return:
+  * * min..max - positive integer count of "data-lanes" elements
+- * * -ve - the "data-lanes" property is missing or invalid
+- * * -EINVAL - the "data-lanes" property is unsupported
++ * * -ENODATA - the property does not have a value.
++ * * -EINVAL - the "data-lanes" property is missing or invalid
+  */
+ int drm_of_get_data_lanes_count(const struct device_node *endpoint,
+ 				const unsigned int min, const unsigned int max)
+@@ -539,8 +539,8 @@ EXPORT_SYMBOL_GPL(drm_of_get_data_lanes_count);
+  *
+  * Return:
+  * * min..max - positive integer count of "data-lanes" elements
+- * * -EINVAL - the "data-mapping" property is unsupported
+- * * -ENODEV - the "data-mapping" property is missing
++ * * -ENODATA - the property does not have a value.
++ * * -EINVAL - the "data-lanes" property is missing or invalid
+  */
+ int drm_of_get_data_lanes_count_ep(const struct device_node *port,
+ 				   int port_reg, int reg,
+-- 
+2.53.0
+
+
+
