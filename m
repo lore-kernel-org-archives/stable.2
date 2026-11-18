@@ -1,62 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795022420;
-	b=xJk5cT8tQTye4lWbuuptbp3LHw17Zt3hfF2fNPQjurgTZs+ZC5Q+cX3IRHqMMX6uLxng
-	 cbRFYgS8KA8Rf/K2nkolXzlFWpTbKIoHywz0tcAyV4JvSsygHCfEz6S0k/DJRzELIs+mG
-	 bk9V6SVirdHZ9Qe9WCKCsgpl9p8ORUEdi01zJUBklw2HjAHQzJPalq5moWPU0GIP6Y/so
-	 Qn5Q4h9H9XcqlzMwabt5BwWPZoOCbg8k4RibGxoS1FPNAz2hir/nVATB4dR9cmJ0RiUFo
-	 GYJVu9Y0PpAv2ouwqgqkovTHzdhM2BRRUZ9Axwwdw7YoWkfHmprSNSUoue8zPbi0NBw==
+	b=S3+kZxU9CD56jCUlEwjuVv9W8Wbs7c+tDKZYQNcfZp4AmF/lrrfC9PXEddKulL/7uBC0
+	 sj9g1LalTufxCIA2JDokiSoFuhHC2dlDGp1tEtky6r30lz+o10ijCQPSYsgZft63cU9TM
+	 ME95gpib+4gsar9URrrT0sUXXf+LkAfrcJUBOIlCYTIIQyW04QBSVgFQzAyQSCJTCgvKV
+	 auGimu+7bQL14OoBxg7hIECNNGda6N3aLtBUP3HgQFrQqIinDWHkCPMsObhpbwGhHAYSw
+	 yRUWO8YsxJaSACdv2oW5QCoUS9wVotE45sjcDLOxBv9VCdSVZIRWSj/jp2ijylRwikQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795022420;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=IgIiITxVjm7kIyQ/zfRLE5+VcqSexCvsHqxgRddnORo=;
-	b=wbyeYogPDhbdrfSDHcciwqskF6/mbUNg1Kyv4J/YrQRI9+zmGqsn2+pn1DhxjuLl2j3j
-	 IaZFVmWoWxmhnuMYe7I5hWSO0SHU1yWIQ7YtYtT93lDUqM2sLGqakQ42zO6ul7ic5YmNL
-	 DBdqgxLA4Fsn+3FMSQ8jDavvSz0fyxTh8Pth88RDOoRtk5KCyag41NCcQtRvKpoIIkVuv
-	 3F80CmboxpMac24qrx1I9ZsbGWcZB1RHkHRb+/1TwPY0h3mU6QKARWeumSy6oGrDoSiWU
-	 CGJmkdCxEkxCPOsU8a2f11jBnlxPig3A3V0BCpQstmoZNvRnLCxFIYZ7WG224aaiykw==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=GNSgVc/BtfH4kx3pq6fmT3aOO7rA3luHHP210jnBneY=;
+	b=ZmxXcZRsQ4uWZKWoZdVC2IrYeQrbpCScXne3OnAVsokEEQsqliSt84r3kvAzlXXwep8O
+	 +oWDfABec0GxPEzrGlV+dRiYxa0rWSntpkdqvC8orjUgpYxKlJEHbB9LfV+wUSRXrOm1h
+	 kflrg8fyw9vchI9GUqouP+hxWpostvigKbHGq1DrZdcPacCmKjVNQIrAtJc0CX6ht6jQ+
+	 rokvNvxkc45cDj4qkN3044LHnhZtj12rUQACptMZw4D+5rV6u3QTKaaFCOpyIcVVAL7V5
+	 O4qCDOK8/yu7cngG/hHM6Cg2YHEQGJSJRUH2o29d9siiBc41LdyLhDWh50Nq5kd10Ww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SehBtupa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A9SLqBRA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EADA606A320;
-	Wed, 18 Nov 2026 17:20:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2B3606A320;
+	Wed, 18 Nov 2026 17:20:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SehBtupa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B1BC1F000C5;
-	Wed, 18 Nov 2026 17:20:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795022419;
-	bh=IgIiITxVjm7kIyQ/zfRLE5+VcqSexCvsHqxgRddnORo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SehBtupa7pQtBA/tk4KsK/2JqfEEakG9ENe4/MPRrmIfgk/Ftjkni0qE5+4JlXy2o
-	 Q/9vLIyHGDMGi1+w8kb+qQhfogxTDoylF46SDUCP/6tyo0Ppk5hYLzUkN7Wp0LOiEn
-	 RzmUhuLv4tmTUQwamjxDJ5m5K5KYSjtbvOPksTNI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Eric Dumazet <edumazet@kernel.org>,
-	Aaron Conole <aconole@redhat.com>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Willem de Bruijn <willemb@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 2627/2651] openvswitch: use eth_type_trans_careful() in internal_dev_recv()
-Date: Wed, 18 Nov 2026 16:04:27 +0100
-Message-ID: <20261118150418.758398155@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A9SLqBRA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DDA21F000C6;
+	Wed, 18 Nov 2026 17:20:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795022420;
+	bh=GNSgVc/BtfH4kx3pq6fmT3aOO7rA3luHHP210jnBneY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=A9SLqBRAcu+7ALHB9PkuS+vgG0JPFf/+lfVDdaL2rR+DW/XvEbpKH9dPaJ6day5iB
+	 p/ggtp9MF36xjWUS+7vbt9eKGOenioorvyf62TcNxysVplfACSmyLI+lVC3OXLGUGC
+	 yfcop1htUS+eIlodqqXjis9xgQNlaleumDUn0wKqvI5VNrcsl0EkL045+uHQ7tQh2C
+	 Y7WY2I8LzSWXmwQ/qlgcq2gwwZJhxmkYf73pVtEbx1vgTuLxZF7npIVIDGvqsaVfNN
+	 6qg+k2jTh5FHNJHvmMpZX9xrRBk3OX9f5MyT12x0/ArDCHSOcICT+QnzhpAUbh9H3a
+	 IDIoqyeq383Mg==
+Date: Wed, 18 Nov 2026 17:20:16 +0000
+From: Lee Jones <lee@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linusw@kernel.org, linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org, pavel@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] leds: netxbig: Fix platform device reference leak on
+ successful probe
+Message-ID: <20261118172016.GE98456@joneslee-macbookpro.roam.internal>
+References: <20260922160323.GB3438784@google.com>
+ <20261107042737.708109-1-vulab@iscas.ac.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,84 +59,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261107042737.708109-1-vulab@iscas.ac.cn>
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On Sat, 07 Nov 2026, Wentao Liang wrote:
 
-------------------
+> of_find_device_by_node() returns the GPIO extension device with an
+> elevated reference count.  The error paths release it through the
+> put_device label, but the success path returns directly, so the
+> reference is leaked whenever the LED driver probes successfully.
+> 
+> Release the reference right after its last use and remove the put_device
+> label and the gotos leading to it.
+> 
+> Fixes: 9af512e81964 ("leds: netxbig: Convert to use GPIO descriptors")
+> Suggested-by: Lee Jones <lee@kernel.org>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+> Changes in v2:
+>  - Release the reference right after its last use and remove the put_device
+>    label and the gotos, as suggested.
+>  - Apologies for the very late reply. 
+>  drivers/leds/leds-netxbig.c | 74 ++++++++++++++-----------------------
+>  1 file changed, 27 insertions(+), 47 deletions(-)
 
-From: Eric Dumazet <edumazet@kernel.org>
+Much nicer, thanks.
 
-[ Upstream commit b55e5a0159c8f53edefcb7848d95eb93db37bce1 ]
+In future, please submit versions on their own.
 
-OVS actions like pop_eth followed by pop_mpls(ETH_P_TEB) or pop_nsh
-can expose an inner Ethernet header which is not in the linear part
-of the skb. Output to an internal port then crashes in eth_type_trans():
+Attaching them to previous submissions gets real confusing, real quick.
 
-  flow: in_port(0),eth(),eth_type(0x8847),mpls(lse=0x00010140)
-  actions: pop_eth,pop_mpls(0x6558),0
-  # AF_PACKET SOCK_RAW on dp0: eth / mpls / eth / 4096 bytes of payload
-
-  kernel BUG at include/linux/skbuff.h:2839!
-  RIP: 0010:eth_type_trans (include/linux/etherdevice.h:635 net/ethernet/eth.c:163)
-  Call Trace:
-   internal_dev_recv (net/openvswitch/vport-internal_dev.c:202) openvswitch
-   do_execute_actions (net/openvswitch/actions.c:1296) openvswitch
-   ovs_execute_actions (net/openvswitch/actions.c:1606) openvswitch
-   ovs_dp_process_packet (net/openvswitch/datapath.c:310) openvswitch
-   ovs_vport_receive (net/openvswitch/vport.c:448) openvswitch
-   internal_dev_xmit (net/openvswitch/vport-internal_dev.c:42) openvswitch
-   dev_hard_start_xmit (include/linux/netdevice.h:5455 include/linux/netdevice.h:5464 net/core/dev.c:4057 net/core/dev.c:4073)
-   __dev_queue_xmit (net/core/dev.c:5066)
-   packet_sendmsg (net/packet/af_packet.c:3157 net/packet/af_packet.c:3189)
-
-Use eth_type_trans_careful(), and drop the packet if the Ethernet
-header can not be pulled. This covers all OVS actions at the consumer,
-instead of fixing each producer.
-
-Fixes: b2d0f5d5dc53 ("openvswitch: enable NSH support")
-Fixes: f66b53fdbb22 ("openvswitch: New MPLS actions for layer 2 tunnelling")
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Reviewed-by: Aaron Conole <aconole@redhat.com>
-Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Tested-by: Jamal Hadi Salim <jhs@mojatatu.com>
-Acked-by: Alexei Starovoitov <ast@kernel.org>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20261028122703.2093730-5-edumazet@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/openvswitch/vport-internal_dev.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/net/openvswitch/vport-internal_dev.c b/net/openvswitch/vport-internal_dev.c
-index 125d310871e93..06a363df81556 100644
---- a/net/openvswitch/vport-internal_dev.c
-+++ b/net/openvswitch/vport-internal_dev.c
-@@ -186,6 +186,7 @@ static void internal_dev_destroy(struct vport *vport)
- static int internal_dev_recv(struct sk_buff *skb)
- {
- 	struct net_device *netdev = skb->dev;
-+	enum skb_drop_reason reason;
- 
- 	if (unlikely(!(netdev->flags & IFF_UP))) {
- 		kfree_skb(skb);
-@@ -197,7 +198,12 @@ static int internal_dev_recv(struct sk_buff *skb)
- 	nf_reset_ct(skb);
- 
- 	skb->pkt_type = PACKET_HOST;
--	skb->protocol = eth_type_trans(skb, netdev);
-+	reason = eth_type_trans_careful(skb, netdev);
-+	if (unlikely(reason)) {
-+		dev_core_stats_rx_dropped_inc(netdev);
-+		kfree_skb_reason(skb, reason);
-+		return NETDEV_TX_OK;
-+	}
- 	skb_postpull_rcsum(skb, eth_hdr(skb), ETH_HLEN);
- 	dev_sw_netstats_rx_add(netdev, skb->len);
- 
 -- 
-2.53.0
-
-
-
+Lee Jones
