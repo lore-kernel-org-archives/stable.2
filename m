@@ -1,97 +1,92 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794966301;
-	b=xQItsXZ/aDY64KA43qmGkTYMhiU25R3GVZy7YtGY71rlbpSTNi8Q7XFFfz7NmGPw0m6T
-	 TKSVVTRyAzqG+ZKhNNvErkoKXKNLtdOkSiJqpNgOOFE8VCHNSBcabk54iFFJLdC+Sj0Yu
-	 J1bimzt2CDCQoG8bqR/VlvpNzSrSmDvkJW1fPJa0FZ+l93AgF937Lzv/IdGlB7sDJyE1e
-	 sJ2u6JDrEexhznCDya7o+ELZAEW6OoNb59RkdBjUdK0cyBY0e5J273bOhTqhk0EFdRYgQ
-	 XSxfhe7PXc5MOQQVMhBkT4ByCaGyRGR0ioTgoqbczQZajBXjhV1tnjbKqkN3O2fmOhA==
+	t=1794966322;
+	b=HZJB/LvsY0gpAUTU0xF42POeRpIGG27A880eZK6jF2z7aDkU3U0nIcZgOxbCDKsKrMVW
+	 1VpH3eL7g38ltxM0XfjAmkIHQepaubfeH5f68TSmHmRGnlkmzpSR+fpFw7ZxtRu2c/8bt
+	 9ZYnoCGzqtBNBnh3Et3WqPg/x8CJUQAIp0hwUfRnXZPGNSeQBJcwm7skPm8dU0JNK5sxz
+	 WWXvFmVn9nXXgS4hzfRcqfBH/PpJ1YYIUcBl8xXLrOYgLHL1aQ+np0gec0YVpL/HrwZKH
+	 33N+nRj79WYlCsncEh0egXQCxYrij2A92mGRnpu29dD1xsNjUzWP5rkcNw8oEKnTRwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794966301;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794966322;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
 	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=uPj2X8KhO1OscrKtkgCKzVwK3Pjz1SVL5I8ga2MSWvk=;
-	b=xbUwXQJQXJ3x0fzYaq+sCjskKs0R5DcHSdhQ1OR889UBlbe6uhDlGGcGC8InyCx4lfmZ
-	 LkKN/zHWa9OZnJXKbHOI/jniLhyliqtx/LLX37w7cPfvqkeMR/Gzge2Hprl0dfWTwdKma
-	 wI/sjRMf0p4qRC7S7T8zOExcw+b0BO8TzDdlPUt4HRNSVarM53kw0V+DCTwUk6qJf7Daa
-	 Jwu0veMhv8JQZ7wyCXg40HhyssErale5aSOdLvoDzC+5zoTUgI74u6pCT4WlU33dvW61b
-	 cwLcNzfDVrrzUykbNxw7TCKC8+ZzdIaV1pQ6AePjJ64vKk5fe+N7mCGuERH6/T+ZSFw==
+	bh=w++WoOqvUgF7NwuXxPtgBet20OmoMipzkODW3UtZXdA=;
+	b=x4GXOWXdhvPaaAzus6CLyJCgwH01yN2bv+U+JQpcZALfBWNJtWixmc/7nVz/MDMZA6FT
+	 AeCUbeGugKDKuUA9Ght9tYa86hn+hO2AauJd/SV1SnQXLZpSqvTbwc5rx2e80INfeva8A
+	 OUjM7frmGN2RYf3qVkQU5oV1rLgNlSPMShdM/ZpjR9kfNKiDgFPYkEYzDwoNfIPuk7963
+	 qhMCAKDOPs+8BO/vHyMOcGOXKnFMX1+LE1275afoMzGz03OQbA2kftt48Hebg1/f8NrWp
+	 0kp7qKLDn5HBd98t2thSJE4PoTPdwbaTSJMKNnW6p8xvL0Fxexrn2CAmXuxqYUZgE6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.ibm.com;
 	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=DXYexYPX;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=OVH+PPLq;
 	arc=none smtp.remote-ip=148.163.156.1
 Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8513B606A32A;
-	Wed, 18 Nov 2026 01:45:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8513B606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A5A606A32F;
+	Wed, 18 Nov 2026 01:45:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4A5A606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=DXYexYPX
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHMvD3g3642039;
-	Wed, 18 Nov 2026 01:44:44 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=OVH+PPLq
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHMv4953803880;
+	Wed, 18 Nov 2026 01:45:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=uPj2X8
-	KhO1OscrKtkgCKzVwK3Pjz1SVL5I8ga2MSWvk=; b=DXYexYPXuS9F/DZPPZ03aB
-	aYieMQWdFBVQevusWuRVxc2xjMIYmtMJ3OmZkmxKkZvc3R+f2XijRdmmCaiBNVvT
-	8HzLkjcwxKC7in8n6O+Nskn513q8P0lPkrWuEkvJKzT1F8Vj2A8AJMwRx/0a4Tiy
-	e+JO0lI3y8bF91hW/4IAo7VT+qcxyWOr4CjleK+A3eXVZ3p1nbC3oLletsRnzx9p
-	LqHYYZjALdrWYGxnxYfKRwWZPEsv5ZNl6h5poXKqZz1kXjyQ99lwosVXBnxQ9rLo
-	r9L3JES/QFzvVdHz5nQChFdzCBx1amKOMxwTpjTuER53ogrkVdfev9N/kVsbtkGg
+	:message-id:mime-version:references:subject:to; s=pp1; bh=w++WoO
+	qvUgF7NwuXxPtgBet20OmoMipzkODW3UtZXdA=; b=OVH+PPLqUtqZl+rlJZkUvx
+	MW4mNjRVESMDh7aHREnwBH19riBrUKnumGftf4YI/9pM0SGiTQmOny4SM32szHq4
+	ban8SMtpa4aMuZaFBoZjght6CWTV08lsTwAVdCrqoSLSYyzleJnnsKWYuK5fZnJ/
+	XnDUu8VVAZTkaCNFFCtmcgGeVg/nInpcmiqgWEj9XK6g8nz7acvvECcXisR3lcPS
+	ktaP9XOD7KWgwdGSbN7wm7pIWHr7DDtBI+8bV3A1cNBvxp4cNgsqITPQn5otndM7
+	2Rw0hWDkRenwsa1nD9JAHaeVx0CJBJsFYXcC1hCi9RdwNhfhpopNYFIHuvkrx+kw
 	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j105t0d6k-1
+Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j105n8d5d-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 01:44:43 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHMo0dC030822;
-	Wed, 18 Nov 2026 01:44:43 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j067ne2jy-1
+	Wed, 18 Nov 2026 01:45:02 +0000 (GMT)
+Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHMo0E42234496;
+	Wed, 18 Nov 2026 01:45:01 GMT
+Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
+	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4j02juedgu-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 01:44:43 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AI1idQ329032828
+	Wed, 18 Nov 2026 01:45:01 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
+	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AI1ivNk45023682
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 18 Nov 2026 01:44:39 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 466212004B;
-	Wed, 18 Nov 2026 01:44:39 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8B17E20040;
-	Wed, 18 Nov 2026 01:44:34 +0000 (GMT)
+	Wed, 18 Nov 2026 01:44:57 GMT
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 4B89720040;
+	Wed, 18 Nov 2026 01:44:57 +0000 (GMT)
+Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AF32A20043;
+	Wed, 18 Nov 2026 01:44:53 +0000 (GMT)
 Received: from Linuxdev.ibmuc.com (unknown [9.43.63.250])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 18 Nov 2026 01:44:34 +0000 (GMT)
+	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 18 Nov 2026 01:44:53 +0000 (GMT)
 From: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: linuxppc-dev@lists.ozlabs.org, Amit Machhiwal <amachhiw@linux.ibm.com>
-Cc: Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>,
-        Alexander Graf <agraf@suse.de>, Avi Kivity <avi@redhat.com>,
-        kvm-ppc@vger.kernel.org, kvm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Gautam Menghani <gautam@linux.ibm.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        R Nageswara Sastry <rnsastry@linux.ibm.com>,
-        linux-hardening@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] KVM: PPC: Book3S HV: Disable preemption around host-side HPT lock users
-Date: Wed, 18 Nov 2026 07:14:33 +0530
-Message-ID: <179496619897.633156.6514109970527173646.b4-ty@linux.ibm.com>
+To: npiggin@gmail.com, mpe@ellerman.id.au, chleroy@kernel.org,
+        ritesh.list@gmail.com, sshegde@linux.ibm.com,
+        Gautam Menghani <gautam@linux.ibm.com>
+Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Timothy Pearson <tpearson@raptorengineering.com>
+Subject: Re: [PATCH v5] KVM: PPC: Book3S HV: Avoid spurious interrupts caused by LPCR_MER bit
+Date: Wed, 18 Nov 2026 07:14:52 +0530
+Message-ID: <179496619898.633156.157194038888710996.b4-ty@linux.ibm.com>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261014185215.71832-1-amachhiw@linux.ibm.com>
-References: <20261014185215.71832-1-amachhiw@linux.ibm.com>
+In-Reply-To: <20261102091700.253381-1-gautam@linux.ibm.com>
+References: <20261102091700.253381-1-gautam@linux.ibm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,55 +100,56 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=IouL47/g c=1 sm=1 tr=0 ts=6afd030c cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAwNSBTYWx0ZWRfXzNTkvvMsS0Za
+ ZtEdJHpdo5g6zEcY3bMXFdE+zzZBO9LDr0qnF1jhxE9l8Zb3i1GdFiC6Pzo301/ZBnHBrVZD+ZO
+ luoz4aYpESjigZDb7DgFNHiRTXqbIBpuEfxyYAAODaKavm/oO5vZasAWwJJE5JJHkKjK3FZGe0h
+ YcqDnN5Jx1xjdAh2H+P97cBPiRBGxGogVq8A7PPkPnPERDLHU6zo10NyonfC77CMYQnLBK7Z4h1
+ MflSVvVG6P/wUAe4qY/pP/UVIqco4kuNtMvP6OXs8jDOBsSyuEnvRSHoLCmSWxkMlwS9SizjV+A
+ 6B1C4o3Tf7d7+3WYbGeFcYWalxX6nkS2hioD7tuyDlHI/VPLbnV5PgwyOG8F4dd2FeXDbnCmEMR
+ CRPXd4O2HkkKdazhvo8A+jTzBX1sidgdS2GOc9bIyOl9EEMdkLgV0ni4cjpRRgUCUcs0vUXH6FJ
+ pVYS7IuMxtqZGTsusXQ==
+X-Authority-Analysis: v=2.4 cv=HN9WhYtv c=1 sm=1 tr=0 ts=6afd031e cx=c_pps
+ a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=qyQGTUAR5DSMwchT5_QA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: a3dRU6Gzo3Ru-U3igaaGOBCUqlvQ5g3O
-X-Proofpoint-GUID: JjmVVTr0acEnABj2T5hmRDHE_ZUOdW9n
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAwNSBTYWx0ZWRfX9+yNv2YB5W7H
- MxM/zGFNI/qx/4NzsMRuxO2qlwYqSUfoT7vr4Eqzpb55pShQEjmsSDwpNzSuxTWmMv5tg4EWP7g
- BltX7lvCLcM2KgUIbvjhBWVvjPpC5RuN0oQvhqXz7DK9mzJW4mjrqPRX5G8ZCC50BWORrCHTdG+
- 8JbzuJonsEFW/bgrI/JhYJmLk2X2JSRJw68d/+o/JG9/2iDJsZg2C+hrRtSHnd8w/Tcn9/rXfQv
- MP03hJk0PWVbR/NOJVFsAdSUMbJuUvAqjpIjDKOuyw54lOIiapRIfgfsYvCMJZ1/dJDefbHcv+A
- //AuDRRYv6xCJPbRw2edi5upIUt5uPgbC162T1yBVA5eXzxZYPHWsrGLgaEGMyAXqP07XyaoA5O
- eVj0oE9+CJxc8Gx5A6uE8cTigsRGNbZwkbfbeSTRrUfyowdmp2d7o58lNGNZRJcLSxVgq0k+lJm
- VJgCXXQ6BF3SQhz3ySw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAwNSBTYWx0ZWRfX+yJuBQ4n8Ggx
- l+aYmtizKtNfyz67Nj5BwkiZ8h/ct5L+EMxYDM0qsv6WVYsOlkU7hLa5CZ8NHTqQ83EYcqZw7rN
- Lw5kHXQoycTVTE69a1Jb/TlcL+pG6OA=
+ a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
+ a=R5pTh2J6EbdJFU7_rC4A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: PL1qid-a0E9Pq0B86x8Ks14BUjwSLyrH
+X-Proofpoint-ORIG-GUID: n5B5z_QM2xBLLRJVJfooGjoct0zZFpKv
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAwNSBTYWx0ZWRfX7eAFA/UFb+Um
+ sI5dtlk/5yTq+fUG9WPfnJ+6KNZX6B1TSld69e7nByJ80gYAlc38vAYsp5g2Pbmj46RNK6bjuAq
+ rIHcQV6v2geEJ2gk57+43+9dfxXqWDo=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-17_05,2026-11-16_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 adultscore=0 priorityscore=1501
- lowpriorityscore=0 suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611180005
+ bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
+ adultscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180005
 
-On Thu, 15 Oct 2026 00:22:15 +0530, Amit Machhiwal wrote:
-> A previous change ("KVM: PPC: Book3S HV: Add preempt_disable() around
-> virtual-mode HPTE bit-lock users") at [1] added preempt_disable() around
-> guest vCPU HPT hcalls and page fault handlers executed in virtual mode.
-> This ensures vCPU threads cannot be preempted while holding
-> HPTE_V_HVLOCK or the reverse-map lock.
+On Mon, 02 Nov 2026 14:46:59 +0530, Gautam Menghani wrote:
+> A huge number of spurious interrupts can be seen immediately after a KVM
+> on PowerNV guest boots up in XIVE mode.
 > 
-> However, several host-side virtual-mode paths in book3s_64_mmu_hv.c also
-> acquire HPTE_V_HVLOCK and lock_rmap() in process context with preemption
-> enabled.  Specifically, kvm_unmap_rmapp() and kvm_age_rmapp() take both
-> locks during MMU notifier callbacks and memslot flushes, while
-> resize_hpt_rehash_hpte() acquires HPTE_V_HVLOCK during HPT resizing.  If
-> a host thread is preempted while holding either bit-lock, any guest vCPU
-> thread scheduled on the same CPU spinning for the same lock with
-> preemption disabled will never yield, resulting in a permanent CPU hang.
+> $ cat /proc/interrupts  | grep SPU
+> SPU:     223705     192439     273526     147623   Spurious interrupts
+> 
+> This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
+> Handle pending exceptions on guest entry with MSR_EE"). The root cause
+> is that once LPCR_MER bit is set, it is supposed to be reset by
+> software. But when a vCPU starts running with LPCR_MER set, the vCPU does
+> not exit back to the host until the decrementer expires or there is an
+> hcall, etc. This is because KVM on PowerNV guests have support for
+> native XIVE, so they are not dependent on host for interrupt emulation.
+> Due to this behaviour, a huge number of spurious interrupts are seen
+> since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
+> vCPU exits to the host.
 > 
 > [...]
 
 Applied to powerpc/fixes.
 
-[1/1] KVM: PPC: Book3S HV: Disable preemption around host-side HPT lock users
-      https://git.kernel.org/powerpc/c/4e6e66ecf62185828f731914000a6b0baff355db
+[1/1] KVM: PPC: Book3S HV: Avoid spurious interrupts caused by LPCR_MER bit
+      https://git.kernel.org/powerpc/c/9751c361cb234f000261879b1b5015bf08f6a428
 
 cheers
