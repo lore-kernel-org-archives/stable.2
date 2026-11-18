@@ -1,59 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795022012;
-	b=fOJJ5r9qweMjjLyd1bFKa9C0hlf9HS5CnNIItaAVO63jIDwxx4yw4FWCidGFWel6hpuM
-	 jujScB9D+E+sdezuKvOXFwm5UJo8T/X4kmnunqFAe1skcRB1Z/TpALygwvK5nG6MAh3fM
-	 KaJrMzNlB/zoXg3z2gjTjUbOgSOyClLRo6CIciUOYwJohtZsPFSLgKLCsn6LmE3WYXXSa
-	 lcHLEL7j/qwY+lbmkSfhC6s4Lv7rh38fvt08WjJ+M8sxPmhXoCoW9tB7tgOzfiikaRi/b
-	 iOOiyOpcpnOeEiTbD7aFG8HK4qSmi9BaDdm1WemFJHHD+WjCNaVvE2egpxOX4aG2W/Q==
+	t=1795022015;
+	b=smqWWh2pvhMaTJeATSiSbOmdEeC/nc903yGHX1aOTyZn9KSFnoSEzQs7zBE6IcXgymZs
+	 nwldtOw2oE6EqKY5F7lEXqltM7qOe7vDs91RYlb4LtUifI20TR+W9xqvpvmfuO7860e9F
+	 Fimm24yo0+LOmUG2YrKtVo0C5hKKTGlZ2VJDtbCZfhEtT9OAfb/nhuLvpY7zZm35+xZxF
+	 /JzhBCNn/HDN743t2Oq1szgbQJ1lqz+xh9RSDOw79g+oFW3fhkLTw4bs0eSpGIl4ppcZi
+	 k8xuOotNwRXpk61CHdxpPUrl5QS/jHbptrt3xioDBahtIxjO/Id4Iwstb77b2E4cRbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795022012;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795022015;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=M8m08qFoEwTHZYx3O79RkrP0QnY+vHq8lPMkWzmF2n4=;
-	b=a0G9gh6o3pRU1CNCahirujhhDDyYvIVMdi6wIEm/maVo2CmucixErLTKMqpkBZ/OJQjE
-	 5kE2dFSeZoePtomax/dmaQXwXVZPP+RFfucbMOzGsfjM+BzAWGzV9kBvaUxi9bw9EULjr
-	 9E7Tbv/C17kn4GeHj0+qrMSUkXhsuHb0wbWg83pDs5Jd6wT20nbFSyeTLE0Ulf9xetn22
-	 MtNgohGDT2riKqyLrZUOcp9Xd/BHPL7n5SBRxbiGtjeSEiTFQvD2m/rh20npmQ/VTgBUp
-	 jTwE748NQWUwCdcDKOBy3gZuVR3GZ+08FZsKEx1oJgbEQkAJsNV1G7EbfS65tmaDOFA==
+	bh=4cBtlgSholNnDJWCl4oISQxqxXzBWeFzV9tSbiyzJfM=;
+	b=kVcEB9d9jw/3HPRK2fZmavjjVcgIb1YNBUBN9MKDCqrHzUjXfMYvKoUBIfJtl9YOqH2q
+	 Z2R0c8UvYJo5WFiuSWcUl+dGQC2bPdC7gI0LSxyFp+KNJRO++VodQS9XSUyj8WYtxqVuk
+	 7EnA3r97pSXG8ABE4REamHPhkY1GdLP9XEAVSh06rkRngdRevWqlURvlgHgSXVOR42ozC
+	 b2zeBQBc6Sdb22qtWKiLkpje4gEaGMu0uu98RbimeIuEe/h6f4weyCVAcKFmZWyE2ZyXZ
+	 MsBn+Seh+hOJ9usZNE4d/p7kxYcZaB6p23SK0OrEQrtaPbmqA4UuxqRReQml73qa1Ew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2DLhzayX;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oqdcq2jA;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A633F606A320;
-	Wed, 18 Nov 2026 17:13:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9048606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 17:13:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9048606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2DLhzayX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B91BC1F000C4;
-	Wed, 18 Nov 2026 17:13:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795022012;
-	bh=M8m08qFoEwTHZYx3O79RkrP0QnY+vHq8lPMkWzmF2n4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=2DLhzayXDKBvsxxRJWiUIcw08JtgEm//LFGONyu9t49OtBnyVHqEAawMifK49W65c
-	 c3zufGvH830c9L/UvBCJc2yiuOOD87jGiHpg5q+KXx3BZDZUiJxcqOaW0KN3gnKiwT
-	 OAjl54Q7V56kgbMph4WwdKKZpsUH9VlnQljXPbx8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Andrew Lunn <andrew@lunn.ch>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 2511/2651] net: dsa: mv88e6xxx: fix 88E6171 statistics type
-Date: Wed, 18 Nov 2026 16:02:31 +0100
-Message-ID: <20261118150415.140388826@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oqdcq2jA
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4bb6756bb1cso832305e9.2
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 09:13:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795022013; x=1795626813; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4cBtlgSholNnDJWCl4oISQxqxXzBWeFzV9tSbiyzJfM=;
+        b=oqdcq2jAFfgr419IQ26VJOvfkh19c7KAa6r4tiEfQg1KBiSn6h0ksqMe/Rmz3wciw1
+         0quzx40LPTfZUhLJTW1ee0GrC4JlIq+b0zjtW+iT3lRjClNv921pA5skjm4rWPHpbyPZ
+         JQ/4v9r5zjOFHwUd3C3oiWPv2DDQ6S0y0OYmt3q4obBQ9b+HI2bFeMnyjKVGkRpWQIXc
+         Xs2/IPr910LRZgFjogfIX4dtyLrhBn+HJxsegjKI7EWUhlneZ+ig6aq15IQqBURkuhMT
+         Mf5IrNBUOh1AMCVn1GqGrce9Ahf8nDBL7kDC0iuZBfiix8y9mxc8CPxwpzwTWTs5noFg
+         hjOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795022013; x=1795626813;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4cBtlgSholNnDJWCl4oISQxqxXzBWeFzV9tSbiyzJfM=;
+        b=w+sPClFT50gpsXT9QCkDPteP7P70wYq5S/GYY7WYuQIuENtHtaPsOw/NoeEUL1g/i1
+         jkegjCk5SjEYNCk4Iee7Q2ULhQvwCjqVtnb1MHHlZ0wcTG9431qK0srU4DaYytVjVrDp
+         QPurms6NNbqOmBi+fI6TbC3FVmc8/HaLG+hbScOTNP6LjpYlJNFacLqwYGw8Qur5ghlN
+         TI6EN6ozhpALOWHd0THjGDHwI858CGVZSNoOSdsuy5O3GkEqLn4Dt1fGofcLi850FvNT
+         0YCUrwPsHBpbHJh4TO7Dnni6YcK6h/bs1Tpx1JGw3Ymogq+9krGOs6VXWpMa4/ZtV4+F
+         pA8Q==
+X-Forwarded-Encrypted: i=1; AL+hErHut5I/v2q3OkQobvEb048WuS7aqLcIT+vTepLYqOsepYwjwT7FtogcPB2s4jeZltGlBQ+NGjE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/psafQLjLUyM2zLd9Pr99G0W61LFUXWZgz1pzf9zaV/q0fly3q
+	NMZvKXPNALdxEuVnAmM6GtvUbET19tETWa0V//TUONCjTm3rawO7HujO
+X-Gm-Gg: AYBFou22/GE1fIQp0IZm4DGnWgPlzkXE2plLV3fgQpbvVAdki+v96YGtZZziuzRPbq1
+	QYOjNHNHyU7a8o/xOrMUzOnTqChT/B0m/fN5INu88vanIyNXZxoQi0VFiywSj4eZ5rKDDjMkVFB
+	TKIumMvPnP7jyrbu42XDWBTvlPC+bSu8EWSmQlJHdR6gI7EpprFQNH+BodZHD4u9SpqkszBRrFU
+	Ovx5iOGzn/nDnYkeV4PYfuZbV8iFMWExQ33RdnSibpAnIblBGYJ9c33bbZmS+jJBOqyJKzhN1lq
+	npZo7RsCP/z66L7Sh4iHUzpTvX90ULKwHtHryJ42QXxbxLJ39n2BHiTf5ARd2rvdJOC/yr392DJ
+	soOmvPNzxnQuNKj5FFzo5B1Vos12PxsIS0lUv6a/06N70hIoBjgJwB+lBg4G6KoHIQyhYFEiKlg
+	R0QHSPxdU1dJybhKFxlDoFeO2XqvgliTwCK3a8AaGSAKCc4TL8YUXQHHFACzukjfp2IyTGnVX9K
+	TfFeGvqG5mbMtrCzszuK6ynA6xzPWoraYOuGXbcQOBppYE07adlikAHqaLjEw59To9CoCL9QIJd
+	jO0Yke2DwMnPdyINQiM7NYxZnPe3VeO7b83aw+DDdXeT0Ug1Ww==
+X-Received: by 2002:a05:600c:524a:b0:4bb:5ad9:50dc with SMTP id 5b1f17b1804b1-4bb7d5783b5mr61295565e9.0.1795022013053;
+        Wed, 18 Nov 2026 09:13:33 -0800 (PST)
+Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8324a0d7sm2940715e9.3.2026.11.18.09.13.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 09:13:32 -0800 (PST)
+From: Itai Handler <itai.handler@gmail.com>
+To: miquel.raynal@bootlin.com
+Cc: mwalle@kernel.org,
+	pratyush@kernel.org,
+	richard@nod.at,
+	vigneshr@ti.com,
+	takahiro.kuwano@infineon.com,
+	tudor.ambarus@linaro.org,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5] mtd: spi-nor: take the flash lock around spi_nor_restore()
+Date: Wed, 18 Nov 2026 19:13:20 +0200
+Message-Id: <20261118171320.3887035-1-itai.handler@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <87bj7mi5gy.fsf@bootlin.com>
+References: <20261029210153.3986211-1-itai.handler@gmail.com> <DMYDITU0H48Z.2LA5KF2TFNUY2@kernel.org> <87bj7mi5gy.fsf@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,55 +106,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On Wed Nov 18, 2026 at 3:23 PM CET, Miquel Raynal wrote:
+>>> +	ret = spi_nor_prep_and_lock(nor);
+>>> +	if (ret == -ESHUTDOWN)
+>>
+>> This is actually really hard to follow.
+>
+> Yes, I tried to review this patch and eventually stopped. Please teach
+> your AI to not overengineer its solutions.
 
-------------------
+Sorry for the time it cost you. That one is on me: I sent it, and I
+should have made it simpler before sending it.
 
-From: Florian Fainelli <f.fainelli@gmail.com>
+v6 is simpler. It follows Michael's sketch: spi_nor_restore() takes
+the lock itself and then sets a "restored" flag, and the lock helpers
+fail any later operation with -EIO. The extra helper and the special
+error code are gone, and the commit message is about half as long.
+The diff is longer than v5's only because the _pe and _rd unlock
+helpers move up, as Michael asked.
 
-[ Upstream commit df66431f39426b685f6693f0731cd5881c51679c ]
-
-The 88E6171 uses the 6095 statistics operations, which advertise and name
-BANK0 and PORT counters. Its stats_type bitmap instead selects BANK0 and
-BANK1. Since statistics collection started using that bitmap, it has
-written a different set of counters from the one advertised to ethtool.
-
-For this chip, get_sset_count() accounts for 30 BANK0 counters, three
-PORT counters and five ATU/VTU counters. Collection instead writes 30
-BANK0 counters, 26 BANK1 counters and five ATU/VTU counters: 61 entries
-rather than the advertised 38. This mislabels the tail of the returned
-statistics and writes past the advertised statistics buffer.
-
-Select BANK0 and PORT counters to match the chip's statistics operations
-and restore the filter used before the bitmap was introduced. Tested on
-an EA4500, where the two-bridge forwarding and multicast snooping tests
-now pass their hardware counter checks.
-
-Fixes: 5595e3613ea7 ("dsa: mv88e6xxx: Move available stats into info structure")
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Signed-off-by: Florian Fainelli <f.fainelli@gmail.com>
-Link: https://patch.msgid.link/20261026164733.737299-3-f.fainelli@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/dsa/mv88e6xxx/chip.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
-index 50ce7b7828995..e647e36dea393 100644
---- a/drivers/net/dsa/mv88e6xxx/chip.c
-+++ b/drivers/net/dsa/mv88e6xxx/chip.c
-@@ -6022,7 +6022,7 @@ static const struct mv88e6xxx_info mv88e6xxx_table[] = {
- 		.age_time_coeff = 15000,
- 		.g1_irqs = 9,
- 		.g2_irqs = 10,
--		.stats_type = STATS_TYPE_BANK0 | STATS_TYPE_BANK1,
-+		.stats_type = STATS_TYPE_BANK0 | STATS_TYPE_PORT,
- 		.atu_move_port_mask = 0xf,
- 		.pvt = true,
- 		.multi_chip = true,
--- 
-2.53.0
-
-
-
+Thanks,
+Itai
