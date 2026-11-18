@@ -1,79 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794961212;
-	b=Y5sZc6IYo1UmgBxw+3K+YB+UBHtkzcjCMB+YRx8tQdM97rLwaZXiGMUuP0IYUMhCvJKX
-	 cEZ9Q3Ru3q7SpODc7zE8Z5l3aEX7iXfgZ95E2VbGUDVDKwFhxbfr6PZROzsxJc4KY8Ggf
-	 txRXwVmltiK0h9iGRin5qMS5yt7JkkEuDVxM+ShJc3A7qcyZgohudIPzCjvnEMbiV6WFV
-	 sW+/s9tifLgjmRZPd8jqCNnTL71wdlrR9xVzcP02lZ+BWyrXF9hWaf5cFrMWg9SEd4bEH
-	 UpizTMkHuP4RNS2EGaEJLIFeHUpCpy/R+rqHXhIizqnaQfMkdmXI1Hw9Rr11gTFut+A==
+	t=1794961213;
+	b=RZStZh9/8EewmBAbdekGQduKRV1Zv9vRTtYWnqR6AD0KwllSlq3q/sNjDO41pFos4Ts1
+	 BIPawDrjOBO5YczEaFEYqQjMHVWl1u7ZnIn9UR6tlGGMlRQhREeu2bN4zvgTmx+eTfOr6
+	 VDG+InH3z4DQHBIcj6uWMy3do24jomxT/umo/rcrYF2XE7cviJ/O6OfGBdOJEhkwsZl/f
+	 6pcvhjeQK078UQJy+WfncLNTs08VQ5q2d3PG/JxQVYpikp3OI1xbhCErn2NpF9m9sOIaT
+	 PdzdnFo0fOuftrtOIsO68FVBKKUKXGGKZQDW9uM8rmJ9SJ3XXgjyRU6zFAIsdErVMyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794961212;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794961213;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=oy0tZArTQ8iY4s0PSPsEHwXzkcjVeEK/EWogk8QKuFE=;
-	b=HJExCWPll4nFtCCoCTPWkefJoRemDZ2dSA8JN+bfDPj1i6l76UsCrNsWTStHf26s5NJf
-	 StRRdgdU9bJrciQJ1neyebocOwX4Ph3+gxMHknrC/so3RxHEdFyN6xOEKKbKkwlgmaaV3
-	 FPbBaP0OatHIZrt2cuIq3czJCRjiv89HeYmXyZrEmzBvJ8xLvK5OQZUE99+mMS9R77VuJ
-	 tLAQDsQgvg2tRlKO2dMTR1o2Enwbf+zi8m0L6alRJ9bduNJIalu9erAA8t5ZCosA20ngi
-	 f93fzLrLoz1xvPi1jLs9ge0KE02MYF6cOzh+vqf1ZHJqc1wgl7G/D2wzZH+GMnksb9w==
+	bh=TvmVX8vSr+bVv958yLRdJe1gco7tiYKjCsERcZnNAd4=;
+	b=L8+cyEKltuxBZqIckKiQ1H8baEtD8V89ZP2pMVbOW51vPe9pJ4EMqQJYqufrREOnYiap
+	 RsHxhBofTznKup0DRtqgxTZFOwxUtGJTRSXbAQAC1nhZv6ccbFooqh3bWZtbsaTVRqakB
+	 0m9MSK4BHOpXUMl1W4OHZMsB69FhcbOLPjW/qPd8e9Uiw6fsm/XsV4ik3r8mgcAhW/0XV
+	 /53oyJK5M468YOD4OXTRuO5qX6nk9gmZZklnlqdlDjyzQlPXW4MHc5aI52zaehpZ9YBKr
+	 H/zs8Lumr7Gv7tL7WOimEZlB6K1xKvNyj/9VmeYwBjK/0168sVOml9ezlKKq0d/qsbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aFLMh+xD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U5xGvlbE;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9577606A330;
-	Wed, 18 Nov 2026 00:20:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996D2606A33F;
+	Wed, 18 Nov 2026 00:20:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aFLMh+xD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6B261F000C9;
-	Wed, 18 Nov 2026 00:20:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U5xGvlbE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 915DD1F0089E;
+	Wed, 18 Nov 2026 00:20:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794961212;
-	bh=oy0tZArTQ8iY4s0PSPsEHwXzkcjVeEK/EWogk8QKuFE=;
+	s=k20260515; t=1794961213;
+	bh=TvmVX8vSr+bVv958yLRdJe1gco7tiYKjCsERcZnNAd4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=aFLMh+xDDGy+yTOG2rH18yB/wKGdV0J2WoYSljsYH/RhBGaFKuS16FdsDKa7MGN5i
-	 DR+FJ0dgIvOw6+nvhQVEI562R+t/0ABcMiyGSfZnzjBR6iUppOXT2kNjzOQEbNZalO
-	 ADBhz6OilStESaNZTwgtD4xK51OgdQ0MQxwmQDPfluxcqaQKKvAIFCttq2825czJwg
-	 B2wiY7O67WsoBMBEuuCqtsVr1zu1Z6VwX472LII8JttSoC0IBh/k2dtH1NOeXAI2MA
-	 2HPhkwBJ14QXyM/SWg6LnuOnG/cCtgmZilMl4weUq8rljDljwostsfi/l/uyRl5RZ3
-	 hNFYVQ/gR6mEg==
+	b=U5xGvlbEtbMfAj6hBflVTOBrkUYpTdJleDkSRwmugTIz1/08AYcKuQE2lLkYRn8s4
+	 T/AkpoGf1urTaF11oPwpFx2TqEp6ZYc9FwbdqwWLQwD1EOOODUddnrkuADbgeoChmp
+	 TaSZjRClVBM/OapvGVcRWyANxSJoVTH5FZAWQOMoOFfK4I9keBSKXRKGYsvwY17kqX
+	 v0UZG6+gvC+JAUOUDLpVmWkhmWqW5DBwYNYdV4k+xjYK4QRdr4Mp/QsXDyyxKkRJq1
+	 VuoFFeYp3R1mLvQKmxlW1xqSf5fy+JturXAmtp3KvppLhJLz9L544jLoByHjOE++am
+	 TSRn72AAzF8JA==
 From: Sasha Levin <sashal@kernel.org>
-To: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Tejun Heo <tj@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	reinette.chatre@intel.com,
-	tglx@linutronix.de,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	x86@kernel.org,
-	rafael@kernel.org,
-	dakr@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	andrii@kernel.org,
-	eddyz87@gmail.com,
-	shuah@kernel.org,
-	jolsa@kernel.org,
-	alan.maguire@oracle.com,
-	cgroups@vger.kernel.org,
-	bpf@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	Christian Loehle <christian.loehle@arm.com>
-Subject: Re: [PATCH AUTOSEL 6.12 486/486] kernfs: Use RCU to access kernfs_node::parent.
-Date: Tue, 17 Nov 2026 19:19:57 -0500
-Message-ID: <2026-11-17-1-daily-reply-0006@kernel.org>
+	stable-commits@vger.kernel.org,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Paul Walmsley <pjw@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Charles Mirabile <cmirabil@redhat.com>
+Subject: Re: Patch "irqchip/sifive-plic: Cache the interrupt enable state" has been added to the 6.18-stable tree
+Date: Tue, 17 Nov 2026 19:19:58 -0500
+Message-ID: <2026-11-17-1-daily-reply-0007@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <c6918c4e-060a-4968-a43a-1b1cbdafd27b@arm.com>
-References: <c6918c4e-060a-4968-a43a-1b1cbdafd27b@arm.com>
+In-Reply-To: <CABe3_aGGSWW2LrPHNtAU8Lc2NqgeOQJrZNma2WzQ-JH+vFyWJg@mail.gmail.com>
+References: <CABe3_aGGSWW2LrPHNtAU8Lc2NqgeOQJrZNma2WzQ-JH+vFyWJg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -85,18 +65,17 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Sorry, my bad, this should've been to ::name, later in the series.
-> Here's a lockdep:
+> This patch makes substantial changes to the driver and how it
+> processes interrupts. I am not sure it is a great candidate for
+> stable.
 
-Thanks for the splat. The fix for it is not one patch but the whole kernfs RCU
-series, from 400188ae361a ("kernfs: Acquire kernfs_rwsem in
-kernfs_notify_workfn().") through 741c10b096bc ("kernfs: Use RCU to access
-kernfs_node::name."), plus its follow-ups. None of it is tagged for stable, and
-one follow-up, 6034974e3aec ("kernfs: take kernfs_rename_lock for same-parent
-renames too"), is not in 7.3 or 6.18 yet.
+Agreed. I dropped it, and the BIT() fix that needed it, from the 6.18, 6.12,
+6.6 and 6.1 queues. The same applies to your notices for the other three trees.
 
-That is too invasive for 6.12 for a lockdep report, so I'm not queueing it. A
-tested backport of the series would be considered.
+Could you send git-am-able BIT()-only backports of 0f214e5bbee5
+("irqchip/sifive-plic: Avoid signed shift in interrupt enable mask"), one per
+tree ([PATCH 6.18.y] through [PATCH 6.1.y])? I'll queue them. 7.3 already has
+the cache patch in its base release, so it keeps the original fix.
 
 -- 
 Thanks,
