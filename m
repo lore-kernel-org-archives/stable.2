@@ -1,58 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795026158;
-	b=uHXdrOkPhAmcygNw7AM2MAt2QP1//YC7x0Sx+0YY0NtEVRV8+94U+mPDG1hFw4iNx2n5
-	 f13tqsCzrnn/rvNuKcXMqF/weHn5/lEzbeKbssElAsmjWGjUw0bPHP4v3ynbRPKGv1KFH
-	 Yl+RD5ueykgReiiEdy3sB+XNOkr6UgYPHVW4LDwHotFGJdNLeN4YYSu4fTrDmCrXf6OL3
-	 JkgsjJTc1Mg2eEykBRZl980v6qOWBAye3ry8R+05Ob/1m6yWAiFbQWjlFeMI+bkUZ/myN
-	 RiiwScPLTwYy5gg1X5PpB/QDLf9bSS+Z4FuKNtOzdmYfZU6cZzzHnVTLikLRCD5y+sQ==
+	b=IOLbxIhKVPg1QIW/qqaWuS4gRFaOkD0DCkvCN7zBcps+/lHAPqWpre+9YdHiyQddThaD
+	 A5W7RrvonHjEiEs37SGl7RNIVz5wWA9qAS4EnQzBO02Anu7+cKDychwPT204I0jdh9zci
+	 2/Z7KwQEqLDrZhOkca/XuDlkdQEuZwLbubR+zd1tuMS4CEw8yV71zLODPIm/xrkDt6HAg
+	 CH1MF8I9WaIIkwL4ZJSKGqll0JW3mRd95V3IgdX1z06r285bxJQ55fF3JdhV1slxcnrpr
+	 ieepwCbvmUXY/TJmMU0vew+ptYBA13Lah2k/y5pGqGjIUD6CNLapQqwrK+FTBlYKIcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795026158;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=qLTfCg6lwTvZbOYm30MEU3jfOq0Je73OS4rog520OVg=;
-	b=WhUSOZM1ANmu/hB8B8lIU/nPbxjEEVbJ3Lv3s0HkZ7f3U+Lx1Jvsq4aMjQGH+UlkfMyZ
-	 p8ho0EQri4WaaT/aGwoL6Z7cNfk2Lr0OjthHO6v1kPUEP1O5F5/rIEZJJfFIJcW4GoT0R
-	 W8WrfhgTEaKSU0IiZgdQ7mY/k2qAp+0GCX1Ol0mU9g7JHARA2MxfYxN6/qwqkpCehCupg
-	 /XhsXgS5Zqk/VsxqYhEAkQMMvxCLD4jZL4Bc3MtYlUNNkHx11ExNrXj4Mn99Y0FYgRwPk
-	 MomJAowH3xMMg8E4DLcUPfBeRReMosEnB51gz5oiALEQX5uTgG444kUxLwXY36TYWRg==
+	h=Received:DKIM-Signature:Date:To:Cc:From:Message-Id:Subject;
+	bh=4pu6z1Ov5wsBhDkCoZ/+vEL5wykOdNzSLuoNYPfbkfU=;
+	b=zJBn+zDPHyI7gl6oPrHdwQyE8AagB1hA0FoCtcea0pc/x9BRHIxOFB08qdHQpREjOKZ9
+	 y7fiMBn0d2XzwQpCkAYWuHlYcxyPdas226SRodLR9v2Wpw3JPKoRSCNt9vCfO7+8p+Oh/
+	 rdbk9x6P42Vz/BJtsq1O8KmTXNxcwHKVEK7KIbvbBIDB2V5QtRXBq0/C2eizAyTztXzBW
+	 uowElXQ9nEEQAuzrb3qjHVJ7afqCGO24OmR5061L5d4XO5zv6kzXL2dqf1f9NrXbljVD5
+	 cHt61MLnJH6xgcB4PW00JauxxnGULsWyAd6z/w0IaLn25YQOlZ3uDIzRATGoZSFGaEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zWLYSn1j;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=wGjb+nc1;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05937606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D0B5606A32C;
 	Wed, 18 Nov 2026 18:22:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zWLYSn1j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D0F81F000C5;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=wGjb+nc1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD9541F000CA;
 	Wed, 18 Nov 2026 18:22:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795026157;
-	bh=qLTfCg6lwTvZbOYm30MEU3jfOq0Je73OS4rog520OVg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zWLYSn1jHR9orqEruJPk7E/C9OWWWVbh3DWaZS3gziypBgf95HJZEy0rvtgrXwnCh
-	 Ce3bC0QKTKWFmL7XJWdpDZhOg9L2zUsAHhZUWWpMIWE97i/7hjRg9r7khvh/Zi8Xmh
-	 pj0Yf/ryx4hISt7JjilBKkTegaFyqG7+XfM02G2I=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Aloka Dixit <aloka.dixit@oss.qualcomm.com>,
-	Johannes Berg <johannes.berg@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1294/2151] wifi: mac80211: remove redundant null check in ieee80211_assign_beacon()
-Date: Wed, 18 Nov 2026 15:50:29 +0100
-Message-ID: <20261118150209.256322189@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
-References: <20261118150121.603863898@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1795026157;
+	bh=4pu6z1Ov5wsBhDkCoZ/+vEL5wykOdNzSLuoNYPfbkfU=;
+	h=Date:To:Cc:From:Subject;
+	b=wGjb+nc1YWq3gAciA4hqq/atiwGomfGG8wCFfivt+YG+4J7PAiK/p5SzkDhZrbi9v
+	 BOJjBzHvMXf1643JPSSdT3t55z8jXpis7KnNspNVyqQu5k+w7VKkNnNh/0JkOeShjC
+	 7ionM2lzysSXoTe0HVXZhh+9jxvTUDRXkoQBifU8=
+Date: Wed, 18 Nov 2026 10:22:37 -0800
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org, linux-block@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>, Daehyeon Ko <4ncienth@gmail.com>,
+ Al Viro <viro@zeniv.linux.org.uk>, Jens Axboe <axboe@kernel.dk>,
+ Keith Busch <kbusch@kernel.org>, Hannes Reinecke <hare@kernel.org>,
+ Christoph Hellwig <hch@lst.de>, Haocheng Yu <l1za0.sec@gmail.com>,
+ Tal Zussman <tz2294@columbia.edu>, stable@vger.kernel.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Message-Id: <bc6dc5eaf825462783cd3a606636e92b.1@linux-foundation.org>
+Subject: [PATCH] iov_iter: validate extracted segment for bvec alignment
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,45 +54,82 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Daehyeon Ko <4ncienth@gmail.com>
+Subject: iov_iter: validate extracted segment for bvec alignment
+Date: Thu, 15 Oct 2026 15:19:07 +0900
 
-------------------
+iov_iter_extract_bvecs() validates iter_iov_addr() and iter_iov_len()
+before iov_iter_extract_pages() selects the first nonempty segment and
+limits it by iter->count.  The checks can therefore cover a different
+range after a leading empty segment or iov_iter_truncate().
 
-From: Aloka Dixit <aloka.dixit@oss.qualcomm.com>
+An unprivileged O_DIRECT preadv() reproduced the empty-segment case: an
+aligned empty segment followed by a misaligned one completed 4096 bytes
+instead of returning -EINVAL.  A truncated iterator has the same mismatch
+when its full segment length is aligned but its remaining count is not.
 
-[ Upstream commit 229cf0621950919c38a271ab3c07dfd41dd301d0 ]
+The worst effect I have confirmed is an alignment-contract bypass.  An
+unprivileged O_DIRECT preadv() produced bvecs with offset/length pairs
+(1, 4095) and (0, 1).  The bio reached brd_submit_bio(), and the read
+completed 4096 bytes instead of failing with -EINVAL.
 
-The else-if branch condition 'old && old->mbssid_ies' already
-guarantees 'old' is non-NULL. The inner 'old &&' in
-'if (old && old->rnr_ies)' is therefore redundant; remove it.
+I have not demonstrated harmful behavior on real DMA hardware.  For a
+normal blk-mq target, blk_mq_submit_bio() calls
+__bio_split_to_limits(), where bio_split_io_at() rejects the misaligned
+bvec before queue_rq().  Virtio-blk and loop both returned -EINVAL in
+my controls.
 
-Signed-off-by: Aloka Dixit <aloka.dixit@oss.qualcomm.com>
-Link: https://patch.msgid.link/20261002-csa_cca_fix-v1-2-b83a998aeb44@oss.qualcomm.com
-Signed-off-by: Johannes Berg <johannes.berg@intel.com>
-Stable-dep-of: baf0d4feed2f ("wifi: mac80211: fix mbssid/rnr allocation in beacon data")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/mac80211/cfg.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+So a bio-based driver can receive a bvec which violates its advertised
+dma_alignment, but any further effect is driver-specific.  I have not
+reproduced memory corruption or a crash on real hardware.
 
-diff --git a/net/mac80211/cfg.c b/net/mac80211/cfg.c
-index af314b2870ca9..c154d9c0169aa 100644
---- a/net/mac80211/cfg.c
-+++ b/net/mac80211/cfg.c
-@@ -1363,7 +1363,7 @@ ieee80211_assign_beacon(struct ieee80211_sub_if_data *sdata,
- 	} else if (old && old->mbssid_ies) {
- 		mbssid = old->mbssid_ies;
- 		size += struct_size(new->mbssid_ies, elem, mbssid->cnt);
--		if (old && old->rnr_ies) {
-+		if (old->rnr_ies) {
- 			rnr = old->rnr_ies;
- 			size += struct_size(new->rnr_ies, elem, rnr->cnt);
- 		}
--- 
-2.53.0
+Bound the normal fast-path length by iter->count.  Keep
+first_iovec_segment() for leading empty segments so validation covers the
+remaining portion of the segment available for extraction.
 
+Link: https://lore.kernel.org/20261015061907.2713943-1-4ncienth@gmail.com
+Fixes: 14b007e17881 ("block: validate user space vectors during extraction")
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Closes: https://lore.kernel.org/r/20261012065520.1089147-1-4ncienth@gmail.com
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Keith Busch <kbusch@kernel.org>
+Cc: Hannes Reinecke <hare@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Haocheng Yu <l1za0.sec@gmail.com>
+Cc: Tal Zussman <tz2294@columbia.edu>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: <stable@vger.kernel.org>
 
+ lib/iov_iter.c |    9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
+--- a/lib/iov_iter.c~iov_iter-validate-extracted-segment-for-bvec-alignment
++++ a/lib/iov_iter.c
+@@ -1042,7 +1042,7 @@ static ssize_t iter_xarray_get_pages(str
+ 	return maxsize;
+ }
+ 
+-/* must be done on non-empty ITER_UBUF or ITER_IOVEC one */
++/* must be used on a non-empty ITER_UBUF, ITER_IOVEC or ITER_KVEC */
+ static unsigned long first_iovec_segment(const struct iov_iter *i, size_t *size)
+ {
+ 	size_t skip;
+@@ -1959,8 +1959,13 @@ ssize_t iov_iter_extract_bvecs(struct io
+ 		   iter_is_iovec(iter) ||
+ 		   iov_iter_is_kvec(iter))) {
+ 		unsigned long start = (unsigned long)iter_iov_addr(iter);
++		size_t seg_size = min(iter_iov_len(iter), iter->count);
+ 
+-		if ((start | iter_iov_len(iter)) & mem_align_mask)
++		if (unlikely(!seg_size && iter->count)) {
++			seg_size = iter->count;
++			start = first_iovec_segment(iter, &seg_size);
++		}
++		if ((start | seg_size) & mem_align_mask)
+ 			return -EINVAL;
+ 	} else if (iov_iter_alignment(iter) & mem_align_mask) {
+ 		return -EINVAL;
+_
