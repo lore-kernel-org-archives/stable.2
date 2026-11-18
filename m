@@ -1,59 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795038475;
-	b=m7IR5YA/igZR24cj/cNpkoEfihUmPg4YWBxV49yk1jOs7D08qQIumaDsFuz3dfqczwvr
-	 rHJ0Pw6R+k7VmCWq0fysOf65X31EgSE+yqbW0KrhHkbdxfRLrdsUu9AWWlZd7lxCleAzA
-	 0J5NECFRZ2T+f0KI/LAbo3pazURYNNVtCaKSdUSeVWs1JHOynlQVuO9ewIBe4Na6wUzyV
-	 Cij+jo6WGVwvl/shSsBSTNNeBIwGRKAo2oRmCc1TNyCjmDVsquLDD7d9QIPsijQmKlwcN
-	 fA1HWUqxRx1cP3owbLONEulqeuh96Iodco9sBL9Ujg4EQU2PdHTVp5DBgfxSk8VJjrg==
+	t=1795038477;
+	b=SY79VlGBYhryXoznk1Xf33jK3agouRCqTR075IpXO1mjLY+tbcwPfnbhwybP9QPJMuyS
+	 ag7kKJLkuOxvPaY5Na1GjJWRkAMdJUaBCnowJXTW5wqwpi4l9QG4HIYuzIJ96PJReLukF
+	 /4EvUTPVDdQSJ0e3tQ0aOWLn5zaQKbAfFpL62zOBHln4btFQ2FwgYhefKkOckFxiNB74Z
+	 xv4vn7qV+OVio+k/fqYrfhsQ37bTbfcHBpGbvcbjAQsM6Br44FPH7U69haKPk/V9+jURD
+	 DcmZKRPUB23ZhIdvgJBtrddFZ8s8meHpu/KldM+QAH5kG9H1Cy1Hvq0/8urNo5VQRzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795038475;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=IHxJz0v6qYwmH+y21xlQHBsR+2TRr/OYKAZ8tK6AtIE=;
-	b=TJR2jlwA03gQuQnB8dapU+YcqMqUpGbQCv/IbiuslUCHNiMmm/12fFtJG+4pshC2RMXX
-	 fJprM/hLTz9Y804oD36DlURTZsYeGT5/en/ZJEgKzsgo6kXmy60YGsMJLzyqS3bYQsfiI
-	 1DIY5lYPmTD9aAk0SxCHWvVHuworgNpnfogVVionVO6mlmLD/KO/K/5iMezOXOT4+cuDE
-	 rVtwK1zrbqHRKhqsIV7aOSmmlVCZ6zI/v9bC1keZ822pLXInvX1kfVdK4wCKeM/hOSUNt
-	 rfTdpAcSaTUQcgT1L4AmKqsfRPGbyuXcxUmzPuXMD/EBxzhLCCo1NJTjaw7Pt5HYjzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795038477;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=8hwxCT8J6T3J+VUZm9acnDT4rPprAYYlG8dk+lTP2CE=;
+	b=vJ1INJFy4CIiJ01l6Bhfmfl1oMY/CgSRa5DfbVWhwDNzngvgtogjuG4l2l8e/T8xfc/c
+	 zpE1KGWLLyLzKYw+ezLPsLAxlHNuwnYoDN9lRhf3YzcC5pK92dx7MsVw+EUB73/Ezt2Ml
+	 JNA98tRT6RoE5SW55HtFVvnG4Yh/BjGWy7aNmNCdochFxItGqThBhb96PUkbdEFF79k+8
+	 YMgMOl9kFwpkrhvZv24IpCiYy+jhrFzi9+blr+qWSso34WybTEPXfslgAmq6vdahrhTUg
+	 4jSj1NUfZiHXKrkplMCTE/f7om16DsXy0++wL2UYJ/zCzP52ncl7j696ubh8Rn+hPGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PSkqVx2c;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=TV7Sdxs5;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49456606A325;
-	Wed, 18 Nov 2026 21:47:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2981C606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 21:47:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2981C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PSkqVx2c
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CEA71F000C4;
-	Wed, 18 Nov 2026 21:47:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795038475;
-	bh=IHxJz0v6qYwmH+y21xlQHBsR+2TRr/OYKAZ8tK6AtIE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PSkqVx2cizRJlKkq/u6XWZRKZdMdDYFuSAVnSR+7Du2V8y9BX/i+Jfxs1sak7vdaD
-	 R3I2J/QtTBUSc2MNrHfc0zpgI/ySGHz/ayp8bS8mLaecpD8QIsXOta5O7pGmRl5OO6
-	 3OY8t80IaEC7EDEsg7iqYjIMr5kX5gaYO9oq79/w=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Oliver Upton <oupton@kernel.org>,
-	Fuad Tabba <fuad.tabba@linux.dev>,
-	Marc Zyngier <maz@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1756/3318] KVM: arm64: vgic: Stop the target vcpu when disabling LPIs
-Date: Wed, 18 Nov 2026 15:39:38 +0100
-Message-ID: <20261118150414.536825055@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
-References: <20261118150313.527275416@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=TV7Sdxs5
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From:From:Reply-To;
+	bh=8hwxCT8J6T3J+VUZm9acnDT4rPprAYYlG8dk+lTP2CE=; t=1795038476; x=2110398476; 
+	b=TV7Sdxs5vONd5GlaDC0Ag8KzJfJcpku70q8PuLt35xLe5zi/ukcUcSK9A7kUgFAmJKP7oP6Ufy6
+	qRSHPSC2LulV/IMR95mnOEHr66YKf4OOOW8LJ+rnUiSifgDhdERDBTD9B64sril8cpYRul/gUXO0/
+	BKRw3/AX0VMnNj0Rrk1pr3LxN8xEYHxIvLGGRzy/hc/izEqnz97SGu7yenZq/1yC4gv83Xm4shsN5
+	xNBnZ9V9m7DpV6StgmCIxymhH1ttjvK4x3OiDpUQPEZDjxkU3f5lOYtqoj01J7asA5G3zu/apsWIl
+	b9Ccb3vU71aFk/+v74Osx5GcE8FLAR9Wj1yw==;
+Received: from [179.105.94.163] (helo=[10.0.0.1])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xTnVS-00000001DOD-1YrF;
+	Wed, 18 Nov 2026 22:47:54 +0100
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Date: Wed, 18 Nov 2026 18:47:31 -0300
+Subject: [PATCH 4/4] drm/vc4: Clear the slice caches before resetting a
+ stalled GPU
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,66 +60,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261118-vc4-icache-workaround-v1-4-5b8adc2c84fe@igalia.com>
+References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
+In-Reply-To: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
+To: Iago Toral <itoral@igalia.com>, 
+ "Juan A. Suarez Romero" <jasuarez@igalia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3218; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=9zffzSXj5cLqRqPiTxaIkEmj8QnZEXnsu3xIIn9DrVM=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq/hz2fLhHihYkBlYSAhnyUlGgi7iZke7zOs4Vs
+ 9JJnupRMiSJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCav4c9gAKCRA/8w6Kdoj6
+ qqYZCACt4a0s9dGJaRujPek0YJ3j91vzQax2ccDNTOQVlBf2EjpVrjP4C7om7yfnCJ6OQ+/vWp4
+ +Zc2ggP4I8fFSmoU144RNcx+nhvjc/o8owtsm9K6dUWVLwyT3kzLukkFNNUFHwaun8l0qkHHLO5
+ EPqk+vV/dl41aCSMJE8eppB9wkVPOq/ymgGDCEZR1QFQQKlhxd1zoNIIb13dh9NlklV+rOVtoRk
+ hYV5518TEfwKT9fyLbr4OVq6p+bJhJ4eGKoAdYWAI0RJtq+DBTV39p77JgVpA2d840+2ILMdSaD
+ g2Lemh9iCZJUX5dkPwpoWFTPkn5iCFmrN14t76AR2WR8Fvx1
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+Starting shader code at varying offsets makes the GFXH-16 icache livelock
+unlikely, but not impossible. When the livelock happens, the QPUs make no
+progress and the hangcheck resets the GPU, losing the job.
 
-------------------
+When the hangcheck finds no progress, clear the slice instruction and
+uniforms caches and check again before resetting. If the stall is a
+livelock, clearing the caches can break it and let the job continue.
 
-From: Marc Zyngier <maz@kernel.org>
+Drop round_jiffies_up() from the hangcheck timer, so checks run every
+100 ms instead of at the next whole second. This shortens the screen
+freeze before the caches are cleared. Long jobs are unaffected: while the
+control lists advance, the hangcheck won't clear the caches or reset the
+GPU.
 
-[ Upstream commit a1b4bd2c2c262b8094c86afb99364d16ac08cb66 ]
-
-Disabling LPIs is pretty nasty, as it directly messes with the AP list
-of the affected CPU, which could be running... This has the potential to
-lead to really bad behaviours, and we should not be doing that.
-
-Take example on the way the Active state is handled and simply pause the
-the vcpu so that we are sure it is in a quiescent state, and the state be
-safely manipulated.
-
-Nobody has any expectation of performance for this anyway.
-
-Fixes: 96085b949672d ("KVM: arm/arm64: vgic-v3: Retire pending interrupts on disabling LPIs")
-Co-developed-by: Oliver Upton <oupton@kernel.org>
-Signed-off-by: Oliver Upton <oupton@kernel.org>
 Cc: stable@vger.kernel.org
-Reviewed-by: Fuad Tabba <fuad.tabba@linux.dev>
-Tested-by: Fuad Tabba <fuad.tabba@linux.dev>
-Link: https://patch.msgid.link/20261015100539.1011760-7-maz@kernel.org
-Signed-off-by: Marc Zyngier <maz@kernel.org>
-[ sashal: Replaced kvm_pause_vcpu()/kvm_resume_vcpu() with whole-guest kvm_arm_halt_guest()/kvm_arm_resume_guest() calls. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
+Closes: https://gitlab.freedesktop.org/mesa/mesa/-/issues/16652
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- arch/arm64/kvm/vgic/vgic-mmio-v3.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ drivers/gpu/drm/vc4/vc4_drv.h |  5 +++++
+ drivers/gpu/drm/vc4/vc4_gem.c | 20 ++++++++++++++++++--
+ 2 files changed, 23 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/kvm/vgic/vgic-mmio-v3.c b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-index 33ff9fcfcfb08..1dab5298ae9e7 100644
---- a/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-+++ b/arch/arm64/kvm/vgic/vgic-mmio-v3.c
-@@ -276,9 +276,19 @@ static void vgic_mmio_write_v3r_ctlr(struct kvm_vcpu *vcpu,
- 		if (ctlr != GICR_CTLR_ENABLE_LPIS)
- 			return;
- 
-+		/*
-+		 * Yes, disabling LPIs is painful, since it can be done from
-+		 * a *remote* vcpu! So let's not take any chance, and make
-+		 * sure that the target vCPU has written their LRs back to the
-+		 * irq structures, and release any reference they would have.
-+		 *
-+		 * If it hurts, don't do it.
+diff --git a/drivers/gpu/drm/vc4/vc4_drv.h b/drivers/gpu/drm/vc4/vc4_drv.h
+index 62ce83322d1b..dae325a3854d 100644
+--- a/drivers/gpu/drm/vc4/vc4_drv.h
++++ b/drivers/gpu/drm/vc4/vc4_drv.h
+@@ -218,6 +218,11 @@ struct vc4_dev {
+ 	struct {
+ 		struct timer_list timer;
+ 		struct work_struct reset_work;
++
++		/* The instruction and uniforms caches were cleared at the
++		 * last check that found no progress.
 +		 */
-+		kvm_arm_halt_guest(vcpu->kvm);
- 		vgic_flush_pending_lpis(vcpu);
- 		vgic_its_invalidate_cache(vcpu->kvm);
- 		atomic_set_release(&vgic_cpu->ctlr, 0);
-+		kvm_arm_resume_guest(vcpu->kvm);
- 	} else {
- 		ctlr = atomic_cmpxchg_acquire(&vgic_cpu->ctlr, 0,
- 					      GICR_CTLR_ENABLE_LPIS);
++		bool caches_cleared;
+ 	} hangcheck;
+ 
+ 	struct drm_modeset_lock ctm_state_lock;
+diff --git a/drivers/gpu/drm/vc4/vc4_gem.c b/drivers/gpu/drm/vc4/vc4_gem.c
+index 956be198f8a7..9898eb1ef077 100644
+--- a/drivers/gpu/drm/vc4/vc4_gem.c
++++ b/drivers/gpu/drm/vc4/vc4_gem.c
+@@ -43,8 +43,7 @@ vc4_queue_hangcheck(struct drm_device *dev)
+ {
+ 	struct vc4_dev *vc4 = to_vc4_dev(dev);
+ 
+-	mod_timer(&vc4->hangcheck.timer,
+-		  round_jiffies_up(jiffies + msecs_to_jiffies(100)));
++	mod_timer(&vc4->hangcheck.timer, jiffies + msecs_to_jiffies(100));
+ }
+ 
+ struct vc4_hang_state {
+@@ -355,6 +354,7 @@ vc4_hangcheck_elapsed(struct timer_list *t)
+ 
+ 	/* If idle, we can stop watching for hangs. */
+ 	if (!bin_exec && !render_exec) {
++		vc4->hangcheck.caches_cleared = false;
+ 		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
+ 		return;
+ 	}
+@@ -371,11 +371,27 @@ vc4_hangcheck_elapsed(struct timer_list *t)
+ 			bin_exec->last_ct0ca = ct0ca;
+ 		if (render_exec)
+ 			render_exec->last_ct1ca = ct1ca;
++
++		vc4->hangcheck.caches_cleared = false;
++
+ 		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
+ 		vc4_queue_hangcheck(dev);
+ 		return;
+ 	}
+ 
++	/* Clear the slice caches to workaround GFXH-16 */
++	if (!vc4->hangcheck.caches_cleared) {
++		V3D_WRITE(V3D_SLCACTL, VC4_SET_FIELD(0xf, V3D_SLCACTL_ICC) |
++			  VC4_SET_FIELD(0xf, V3D_SLCACTL_UCC));
++
++		vc4->hangcheck.caches_cleared = true;
++		spin_unlock_irqrestore(&vc4->job_lock, irqflags);
++		vc4_queue_hangcheck(dev);
++		return;
++	}
++
++	vc4->hangcheck.caches_cleared = false;
++
+ 	spin_unlock_irqrestore(&vc4->job_lock, irqflags);
+ 
+ 	/* We've gone too long with no progress, reset.  This has to
+
 -- 
-2.53.0
-
-
+2.56.0
 
