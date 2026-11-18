@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795020656;
-	b=dWhtRs09bKpFgKEELs5UcAyvt4PajdnoJyFEBVsXL1nxa55XvJjry2pxC3Z702uUArg4
-	 ZwcZZhGKa5EC1lswtfDGpOENHg7jZq9rVxXwNJOHQRsjOu0ALZsLDRf2+yt/1AmhBRrvf
-	 b61eLgDjQ90p66FqueMK6TcA5EtsvuFu0eX+YSTJE94FQSnlmopG+gLb34DJeJGb6gTFs
-	 WTNZWLxntxm6g+IlEYDHc5UH/KIjaWep3EOKY6w7YT2rG9veGeCIP/cHHkRQUIC25xeDm
-	 ad0XXFTK51kRGm9BPpu4fAOgC9I/AD+IuoiVxHvGLA8em3Wqpi614Diu4L5Z/of0NKA==
+	t=1795020661;
+	b=WwDNF5UEJkkgjasNEeMvq/u8ZKpe9BII7vJH5xEV1JnSjJ2Ek2/1NowRB4OMvaPP9fBu
+	 A7jpXqfLdIVdyYKdNSL3/9RVDXCQQ/jbBWxmumtnoUJ1UBm0VeTd8eLlLuXLqhLtXXsOi
+	 mpZscSqCYCpbtVC2OvOC9g9kebqFG5h7DEygo7EY0gz6fyjhAtyzZhHG+8preFz3YZehD
+	 TYGJne8FRUVgmwwwgoVOwEN4nOCaDFM8Db2NtZagR+nE3Y7cCY3KMbj/GfrGh7+4R9CtU
+	 lDWA/LAcBuG9xByKjIqLzVwbYuHSJhFLp+6M4jViyB4DO4U/NsFUe9jOZrtQcM9TxMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795020656;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795020661;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=UsOo0MPaeTaKNS2iR7WQnz5ZLaopB4g5nCZVCxU77HE=;
-	b=sIuQpQvgdK6eELLSZpRW8+g9oT0P/V7aykoPTrVMXVYLPAGGHWtWn0cNE6oZR7lhc3xP
-	 iucqrzeXrCLG2iVpQUzY4vEFe5JdRHiz3DsM1ZwO5o80mNsdIP1zowJQeMvU/oN3BZCML
-	 jAPpDNkxGPAXP7IGiXoHYgWUOIP0gR7ik8yE6EptKX+VNjg2foF3jIZCMfxazyiyW0Ink
-	 eiSFRtvD9bZZSUbS2dFQVB75+cfNuqWEtyzyjQkneGNwReg9KBD2EnWLEBzVF6l64TMru
-	 AnD3+z1K6AvVW8Eue79LE12+t3Hvml2nf/ghDJZHjks/eHt4ehroBgMl9nWrSJ0MI3w==
+	bh=zuOPWcQ+YyPy0lFL2lqn20+BcvEjBVyQqSbgV5a9VPI=;
+	b=N+P+CrVdsQylXUXB7v7OAbX5MsZ0HOlkj0H4DdOq1Dob4nlas1OP2Q+ydEDTlgVTKqcy
+	 UVRavAQcvjjRM0utNuwTfNQ4RHV9mkZ1T20ZFLZ8fWoH5NoH1+zZMQJcXQOuz/pDbmTJO
+	 3+sjKcpGWrMu8rTc+YvAcRb/eq3TsSDaLZ4egeMwf7IqL5ZgqKQRbAf/Ke7Ev0XwB2htK
+	 H8ijVQIa8N2jtxpvgG74GillLYbgBdudsq5fP3XZB19Np8ESYtdjixVVUsXnqIPhIktXx
+	 rbYsAkXzW7xRviB2dorWiT3XUsrNRxtDVd3E6LDOXutZ4wuNNnIn5V0S7vmE5m5DxuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=l50CegC5;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="qeJq7GA/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1630360A2636;
-	Wed, 18 Nov 2026 16:50:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F209606A335;
+	Wed, 18 Nov 2026 16:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=l50CegC5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D56F1F000C7;
-	Wed, 18 Nov 2026 16:50:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qeJq7GA/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1B421F000C8;
+	Wed, 18 Nov 2026 16:51:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795020655;
-	bh=UsOo0MPaeTaKNS2iR7WQnz5ZLaopB4g5nCZVCxU77HE=;
+	s=korg; t=1795020661;
+	bh=zuOPWcQ+YyPy0lFL2lqn20+BcvEjBVyQqSbgV5a9VPI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l50CegC5ek4U5M7BXJ8xKkuWyZmJNsetvijV/MAPeh0+brkHkRjRQyQprKV57M5bV
-	 xnZO51eQW8XkWsGxsAGsFP+SuMl7Atp6LwAKTqCd0Uyb0U/IBh/vqYskdE40t1eS9o
-	 cUDqlJOndHTvBNlQz73a5Vx0C5F5VfOU03DJO0iQ=
+	b=qeJq7GA/RRxga5JIWEucDEaPwjcyPtWTU0vqU5GqhQIFnKszuXMEUH3mvGUHqigiH
+	 9Jnm7zmiAYlw9LKlOMWnaOFW6C+n8wHGibfCLXMdosJgzMFnhihsnciZy90Va8vghO
+	 5guO9fEO8XzJuJ1+3KTqQv/V643HkQjNn7zlXOFU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	Tim Chen <tim.c.chen@linux.intel.com>,
-	Jemmy Wong <jemmywong512@gmail.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Cen Zhang <zzzccc427@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 2029/2651] sched/cache: Avoid publishing partial LLC utilization
-Date: Wed, 18 Nov 2026 15:54:29 +0100
-Message-ID: <20261118150359.205532728@linuxfoundation.org>
+Subject: [PATCH 7.3 2031/2651] ALSA: vmaster: Protect follower lookup and setup
+Date: Wed, 18 Nov 2026 15:54:31 +0100
+Message-ID: <20261118150359.264979835@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -70,66 +68,181 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Jemmy Wong <jemmywong512@gmail.com>
+From: Cen Zhang <zzzccc427@gmail.com>
 
-[ Upstream commit fcceb7da94659695d6cba97190e18e87d9cce82c ]
+[ Upstream commit db2db2dec96e24d067cc5692ac5eec35830ee8d9 ]
 
-update_sg_lb_stats() sums utilization over the CPUs in both
-sched_group_span(group) and env->cpus, but takes capacity from
-group->sgc->capacity for the whole group. record_sg_llc_stats()
-publishes both.
+A control selected by snd_ctl_add_followers() must remain alive until
+_snd_ctl_add_follower() has copied it and installed its wrapper. The
+lookup returns a raw pointer without retaining the control, and neither
+the short-lived list lookup lock nor the fast lookup protects later use.
 
-Rejecting an all-affinity-pinned source runqueue removes that CPU from
-env->cpus and retries group selection. The retry can publish the
-partial utilization with the full capacity.
+If a kernel client adds followers to a live virtual master while another
+client removes or replaces a published follower, the following order is
+possible, with the card and master kept alive:
 
-can_migrate_llc() then treats a busy preferred LLC as having spare
-capacity. More tasks can aggregate into it, migrations out can be
-blocked, and two busy LLCs may not fall back to generic balancing.
-This increases CPU contention and task latency. Found by inspection.
+  Follower setup                      Control removal
+  snd_ctl_add_followers()
+    snd_ctl_find_id_mixer()
+      return follower
+                                      snd_ctl_remove()
+                                        down_write(controls_rwsem)
+                                        __snd_ctl_remove()
+                                          unlink follower
+                                          snd_ctl_free_one(follower)
+                                        up_write(controls_rwsem)
+    _snd_ctl_add_follower()
+      read follower->count
 
-Skip publication on affinity retries using LBF_ALL_PINNED, retaining
-the first-pass snapshots and avoiding repeated cpumask checks. On the
-first pass, publish either shared LLC statistic only when env->cpus
-covers the whole group. Load balancing still uses the affinity-filtered
-statistics.
+Removal completes after lookup returns and before setup reads the
+control. Since setup holds neither controls_rwsem nor a reference, the
+count read and subsequent control copies can access freed memory.
 
-The same window exists during CPU hotplug. env->cpus drops a CPU at
-set_cpu_active(false), but the group span and sgc->capacity still
-include it until cpuset_cpu_inactive() rebuilds the domains. Keeping
-the previous snapshot avoids the mismatched publish. After the rebuild,
-the next periodic balance records both statistics again.
+Hold controls_rwsem for writing across the lookup and follower setup.
+This prevents removal or replacement from freeing the selected control
+until wrapper installation is complete. Write ownership also excludes
+control callbacks while setup changes the callback and private fields.
 
-Fixes: f025ef275388 ("sched/cache: Record per LLC utilization to guide cache aware scheduling decisions")
-Suggested-by: K Prateek Nayak <kprateek.nayak@amd.com>
-Suggested-by: Tim Chen <tim.c.chen@linux.intel.com>
-Signed-off-by: Jemmy Wong <jemmywong512@gmail.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20261013084338.55100-1-jemmywong512@gmail.com
+KASAN report as below:
+
+    BUG: KASAN: slab-use-after-free in _snd_ctl_add_follower+0x452/0x520
+    Read of size 4 at addr ffff888107957d50 by task loadmodule/491
+
+    CPU: 3 UID: 0 PID: 491 Comm: loadmodule Tainted: G           O        7.2.0-rc6-pmb-bt-functional-v1+ #1 PREEMPT(lazy)
+    Tainted: [O]=OOT_MODULE
+    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+    Call Trace:
+     <TASK>
+     dump_stack_lvl+0x93/0xd0
+     print_report+0xce/0x630
+     ? _snd_ctl_add_follower+0x452/0x520
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __virt_addr_valid+0x20d/0x410
+     ? _snd_ctl_add_follower+0x452/0x520
+     kasan_report+0xe0/0x110
+     ? _snd_ctl_add_follower+0x452/0x520
+     _snd_ctl_add_follower+0x452/0x520
+     snd_ctl_add_followers+0x153/0x2b0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __pfx_snd_ctl_add_followers+0x10/0x10
+     ? __might_fault+0x135/0x190
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? __might_fault+0x14e/0x190
+     ? __pfx_fixture_write+0x10/0x10 [pmbd_vmaster_fixture]
+     fixture_write+0x174/0x1f0 [pmbd_vmaster_fixture]
+     ? __pfx_fixture_write+0x10/0x10 [pmbd_vmaster_fixture]
+     ? __pfx___might_resched+0x10/0x10
+     proc_reg_write+0x1fb/0x2d0
+     vfs_write+0x25a/0x1010
+     ? __pfx_proc_reg_write+0x10/0x10
+     ? kmem_cache_free+0x242/0x580
+     ? __pfx_vfs_write+0x10/0x10
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? putname+0x93/0xe0
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     ? do_sys_openat2+0x12a/0x1b0
+     ? __pfx_do_sys_openat2+0x10/0x10
+     ksys_write+0x111/0x200
+     ? __pfx_ksys_write+0x10/0x10
+     ? irqentry_exit+0xbe/0x820
+     ? srso_alias_return_thunk+0x5/0xfbef5
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+    RIP: 0033:0x7f0b835a9687
+    Code: 48 89 fa 4c 89 df e8 58 b3 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+    RSP: 002b:00007ffc82ea0360 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
+    RAX: ffffffffffffffda RBX: 00007f0b83517780 RCX: 00007f0b835a9687
+    RDX: 0000000000000005 RSI: 0000564f8a21d074 RDI: 0000000000000003
+    RBP: 0000000000000003 R08: 0000000000000000 R09: 0000000000000000
+    R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000000
+    R13: 00007ffc82ea04f0 R14: 00007f0b83755000 R15: 0000564f8a21ed78
+     </TASK>
+
+    Allocated by task 485:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     __kasan_kmalloc+0xaa/0xb0
+     __kmalloc_noprof+0x2d7/0x770
+     snd_ctl_new+0x51/0x190
+     snd_ctl_new1+0x13c/0x650
+     0xffffffffc04011b5
+     do_one_initcall+0xf3/0x4e0
+     do_init_module+0x281/0x8e0
+     load_module+0x658c/0x7cc0
+     init_module_from_file+0x15b/0x180
+     idempotent_init_module+0x22d/0x770
+     __x64_sys_finit_module+0xd2/0x160
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    Freed by task 492:
+     kasan_save_stack+0x33/0x60
+     kasan_save_track+0x14/0x30
+     kasan_save_free_info+0x3b/0x60
+     __kasan_slab_free+0x5f/0x80
+     kfree+0x307/0x580
+     __snd_ctl_remove+0x2ac/0x3d0
+     snd_ctl_remove+0x46/0x70
+     fixture_write+0x1ae/0x1f0 [pmbd_vmaster_fixture]
+     proc_reg_write+0x1fb/0x2d0
+     vfs_write+0x25a/0x1010
+     ksys_write+0x111/0x200
+     do_syscall_64+0x115/0x6a0
+     entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+    The buggy address belongs to the object at ffff888107957d00
+     which belongs to the cache kmalloc-192 of size 192
+    The buggy address is located 80 bytes inside of
+     freed 192-byte region [ffff888107957d00, ffff888107957dc0)
+
+    The buggy address belongs to the physical page:
+    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x107957
+    flags: 0x200000000000000(node=0|zone=2)
+    page_type: f5(slab)
+    raw: 0200000000000000 ffff8881000423c0 dead000000000100 dead000000000122
+    raw: 0000000000000000 0000000000100010 00000000f5000000 0000000000000000
+    page dumped because: kasan: bad access detected
+
+    Memory state around the buggy address:
+     ffff888107957c00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+     ffff888107957c80: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+    >ffff888107957d00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                                     ^
+     ffff888107957d80: fb fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
+     ffff888107957e00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+    ==================================================================
+
+Fixes: ae07eb9bf23e ("ALSA: vmaster: Add snd_ctl_add_followers() helper")
+Assisted-by: LLM
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+Link: https://patch.msgid.link/pm-pmb-6c0b7e841529ddd0b21a-v2-b53dbcd593a7a4bd9582@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/fair.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ sound/core/vmaster.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 913630c0b0590..548a28e37d0e7 100644
---- a/kernel/sched/fair.c
-+++ b/kernel/sched/fair.c
-@@ -12128,6 +12128,14 @@ static void record_sg_llc_stats(struct lb_env *env,
- 	if (env->sd->child != rcu_dereference_all(per_cpu(sd_llc, env->dst_cpu)))
- 		return;
+diff --git a/sound/core/vmaster.c b/sound/core/vmaster.c
+index 3d57182031d93..f43144ba27978 100644
+--- a/sound/core/vmaster.c
++++ b/sound/core/vmaster.c
+@@ -287,6 +287,8 @@ EXPORT_SYMBOL(_snd_ctl_add_follower);
+  *
+  * Adds the multiple follower kcontrols with the given names.
+  * Returns 0 for success or a negative error code.
++ *
++ * Note that this function takes card->controls_rwsem lock internally.
+  */
+ int snd_ctl_add_followers(struct snd_card *card, struct snd_kcontrol *master,
+ 			  const char * const *list)
+@@ -294,6 +296,7 @@ int snd_ctl_add_followers(struct snd_card *card, struct snd_kcontrol *master,
+ 	struct snd_kcontrol *follower;
+ 	int err;
  
-+	/*
-+	 * A redo repeats stats published on the first pass. Hotplug can
-+	 * still leave env->cpus partial, so util would not match capacity.
-+	 */
-+	if ((env->flags & LBF_ALL_PINNED) ||
-+	    !cpumask_subset(sched_group_span(group), env->cpus))
-+		return;
-+
- 	/*
- 	 * At this point we know this group spans a LLC domain.
- 	 * Record the statistic of this group in its corresponding
++	guard(rwsem_write)(&card->controls_rwsem);
+ 	for (; *list; list++) {
+ 		follower = snd_ctl_find_id_mixer(card, *list);
+ 		if (follower) {
 -- 
 2.53.0
 
