@@ -1,95 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795018063;
-	b=YYgSfXuzL0p1vHc4jpzRzqpbl9W9gIAfVyz0IiBwca6AXTn9KpYloN5MYHT43nsELceq
-	 yBj+jhUhvxyustBsj9T9/JRxfQZPsqnhQX4YSlfGsxfE2aBuQzj+gaA7xS6wtFbowWBHy
-	 woHqUZNXHgre1nM1iGOPBDcPuLVwD9v6yQNDRBVAC86SYf5YAmvypBdF9QxjDbHimJov1
-	 bUFeL+Q3OE57FRKG9WgsWdkPrScsis0Bsf/vs/xVG7gWcLNkdoEXzjX0Hqcgtc7QuxzuW
-	 /BZ7PRUlJZ8l4Uliwd6Hbl20tpPXCf85+tMJb6HiVrt/HcQI1ZEg/GlNmIQxKcgnKrg==
+	t=1795018064;
+	b=WzyZTeTz/HuKnIfVi87Bz/z3qBH6VZ3J57+bbqI089QTqrfMc3jtXGz8diZv5EjWS93p
+	 7KX0guR+ZzX87MYFVhx3DnPy8rNXAiSOEGfro1Salwaa66ebfHK1lqR9eb90tV7cvUnUw
+	 rDThgYu/UketczgzGP28EC010h7ylEz9i08uyuptGE9vdqc3NJIiMEZVn655CE1JJ4moh
+	 IiL5kn4BAPtdDzmUQ2mx9LL7I+Z2KcSaSNHqcBUpEpthB1moRn23Cjq+b+zdxritEbj/K
+	 vjj5TBBmSB9wmvtxSF545CjFuV0wvycCWlfRLtRpBgyUCcbacCtz3QNxToiV7rU8T0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795018063;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795018064;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=JmaZ/n9FsASCYINSVjYeJtINexMMe1X6XnCohCT4mSs=;
-	b=O/kU6dkGMfpaagyfhorfqcXbPQ8lcvQj94jbzw07yeuB5BWQqTFWYMiWBp2Vrusptw9C
-	 c8wPCHzOS4tD8yGZe+80ineuvPYrbkmLee0M708spYYzvafkGalTexq/yJGFFfsd5rwVn
-	 P6q2znfFpYJPO5Y3twFoZFQB0G7M3h7c8j8dQX6r7j4XhnWCIbwft+32i5p0mLnrjpNDh
-	 tGR8/7dL1HScdisip/1VLLB/k2jQnxKaEON7dsVW1+px3nLOKIbSy5pw8fhsg3kHPvrVh
-	 cCHZ6TOsvtcZKfCXfz/Abmd+iYfeKBYR4c0hQEBmMSQ2IX4+rN/ZwOodqOBnaed/+2g==
+	bh=Daq83ZrmsgMu0hFMnqIG7pmefbD4GjLgNHcMc6rgY7Q=;
+	b=zYX4WDo4qhVU+JrW252PjZ5ufoMKXMLAgSyS97TKS026OlOHn3xqazEiF8xdPgmTVp4o
+	 ABVpqvnUBVssZlCumVoUY9/HL8CtqhYFKZdpk3kSHTtuywe/Ed5ltbL3YfGvdUPxDDS2c
+	 /yM95Ck+j9AjxZ02VldYYQQgMqtEXbkkRuOzBq+NtkBceOcnuGI8Hy9d7VY7UYLfRN4Pb
+	 ekOP6wbybJWJEE2G1qz6q5prXrJLYFcPvz0yz4/6xDh3sza7ClkjMTQCrpoi1U1N58pu1
+	 C2w9tD0JFUmyYXHAgzLGcUKvMMp78FcneT8gna3XivdOKoawmhpcrWQ4IyKr61b1a6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=YIGUfzF4;
-	arc=none smtp.remote-ip=209.85.160.54
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com [209.85.160.54])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=D2PdDMAP;
+	arc=none smtp.remote-ip=209.85.160.49
+Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE64F60A2623
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:07:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE64F60A2623
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E887760A262F
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:07:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E887760A262F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=YIGUfzF4
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-451a49abd8aso1040518fac.3
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 08:07:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=D2PdDMAP
+Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-4ada9579947so682653fac.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 08:07:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1795018062; x=1795622862; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1795018063; x=1795622863; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JmaZ/n9FsASCYINSVjYeJtINexMMe1X6XnCohCT4mSs=;
-        b=YIGUfzF4YnoSIglmvHhpupDq72wlS4QGZnvMOEHjBAiofpTfvXUr9l69ZgY5KW9v37
-         BebnR6s4m+EJuuRwS1MIoehf1B1szHGaFvybAFk/6Y67mWgEwe8Z1j2yNgyUbPpmq+Qw
-         uB0lALKqu0H19jXyksW90i8+XVHdbLYnn9AQZDE3vmQhy6Kw/Z7vihQ4fQ+RtCLB6QLX
-         UQrpjYpz90AZg4LIeflbmQvQAZSJOpX9QQzrIdZqIUG1i1FQi2ajKubFOllnTD1ABKPl
-         zzUfkW/UQPqAxI/BJnq/h/YKqJkem64f0sGOoXqJQohx4xM62iNWD+mdjup01f4EsJBZ
-         0nqQ==
+        bh=Daq83ZrmsgMu0hFMnqIG7pmefbD4GjLgNHcMc6rgY7Q=;
+        b=D2PdDMAPMDy8UNJuMaPlzqLIFFNb7Ja/2WtNZH2stvVdL0+MsOYWG33s8IMzKVzdXL
+         iq6Gb2+/achS+nqScVdDn+xTrPTybI97E+ZAI16eoLeS8xXrIAZLAYgpvaBpgOpQ9e4c
+         AlwqlaJKHuj62lF6haPfdjua6nI3KGr7pCUsDM/bNYNuw/Fobp8O/tVyL8zjHzU3RiPR
+         0ur2t+i2Gla48dnssTsOWpMjQPw49CCymhgj0GdtsvXFEyFdk5TdUllnhHD8Q+y9qsb0
+         vdP4ffyyAjJRh2zfAyX070/Pa2PMxMHH3LePxvykBYHTzs73zIEr3rP5hMUnFxvw4z0s
+         oU3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795018062; x=1795622862;
+        d=1e100.net; s=20260707; t=1795018063; x=1795622863;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JmaZ/n9FsASCYINSVjYeJtINexMMe1X6XnCohCT4mSs=;
-        b=YkgefxGCTsrkk8XAmimFeaD5DtTBitTAnncDhkugU6ltNwTYWr1lhgaiJqPbfE1sOx
-         lZfCnziKh8pviRXGbq7DYfCq98ge8LVB948yVlYnY+ZQMVqCgcBPoW+kMkhetBp3Y70u
-         ZF+ECU3xQ/TRCbOtLzOgMmqLhwdPei+QSTuHSI/qHE8ePGU91jVgRESiAutQRbC/41mB
-         ptK9GllchVNgvESnBxLt+p/QbdMdYg6TEAfi1RhLxlt5j0nRny06v8n64XjSpUBOWJXp
-         tbkArfW1nt6MZHhSkqS0BUudZ6NUJQmRurMFceiL7MJD6gMN3rDW9ynfMbkdqdFFqllM
-         rGuQ==
-X-Forwarded-Encrypted: i=1; AL+hErGY4UzJJogWF4w8DzKmsKkjv8eglq/jpMqpGDHv0kteXmsyeBUG9oKZQ93TY4XeS+iW5YPIOrE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z81EI4wq9O4jn+6Fhhvo0tIXNeAM0jIiCsbPN3eFZ4xSngvW8qT
-	sFbQJUmPSeWs8K1gOv2GvS6n1Gws7bED5k6UE4QFHFy1FIhwi+cGIUDGvgZ5D28ygg+gqw+SJqm
-	3PrV7AmI=
-X-Gm-Gg: AYBFou0uB1GmsZnQrcnkle6jYGG/7E9E0OaP8Vv1DLFl/U7xw+fOf6V18iENLJiQUY1
-	A1n2cafl7wMbPkWHFBH5ildCwhrVLZOgGFJMPgPF26xvIQQPMQoy8k/HczKiYH2J1Yuk0NbohYs
-	qj/YGV/mHvy92LmmmjwMVRbiICgo05l0gl8GKqiVFAPJo4buBGdT/cl6r8aLb/51O/INWXF4sEK
-	LtgjD+n1gaNlbhisyj60eY/hiejfu2Fx/5x8j/8j8Y140825B1o2iggQRNSAaO0xVfeNorbIZdf
-	khs7p5inXcmpbjeE3t7luSxefrEB7+oeRCe1+YlNyzgeDvsI7dAQpcSF2ntKBP7j/WTIs2PXTW0
-	bnYjA9n8GB8phXVKkvDOuJyCXDeA42LN0YP2DMah/mTffjgXPyBNVK28Rmfbh+R+ARqLXgijsP/
-	Z5HiPh5XKSqxmbpLDc/yRlOwPX8fxNB5ERysy623vqZnwcCjld31Iqb8vKqVGt8M0Af/Yz4LZtM
-	2WAqXJc8mxCcWxuDZyqa5SXeoPrmh9xo+TexFogXxyN0huig6FV/ylUEwXbXRqoDnD1i6f33Ezq
-	RkgV2NDYQbVjFYpqIZxaY7Y13RCCg7sNwQWUw052J4AoW3DnJBI3quo8PCap1pfGrqBd/yobSdE
-	gslGgwrG4hsJE2eD9Ltu54lbSsRGBNey7npK0DifhN+hOsBXiuL4=
-X-Received: by 2002:a05:6808:2220:b0:4f6:a430:1822 with SMTP id 5614622812f47-5773c52fedamr3373325b6e.7.1795018061884;
-        Wed, 18 Nov 2026 08:07:41 -0800 (PST)
+        bh=Daq83ZrmsgMu0hFMnqIG7pmefbD4GjLgNHcMc6rgY7Q=;
+        b=wr8mnZi1ShJf+Ofk4ijQA5N1404TpIcrAN1gwiW34QNyIrezZAkq+fD9hNf83hszYb
+         srnqboG316FkAeddX5tEmZx5XFubysEMgC7SaYWYAzFWZAc/wZkmFI+Xb2zMAloU3+v9
+         555T09p9lhMesDDsNJJnDWw6I+oua9Ye8F/QLK7GkSHto5CeoLATHmbGbfXbX4626lEd
+         vmNg48uBJ2CYIng0DDYdvIOnirWG1cahzGFpU+0HZl+XS+hTzKzCeNpOpGg5d4cY/70u
+         1SJVUr8qBMQbad9J5e4cAWyymiMiRb6CP7w1ZIGWMHiGv+l6g5B81aD30ZZ9QZ8oEzJc
+         BbAQ==
+X-Forwarded-Encrypted: i=1; AL+hErFpnNnRovCs2tYWBJhOrd98tPJRo+b+VoHYeimT7H7gBqBTbmO09J8mw/DZe3KauxLw5MxD16I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8SiedKt5pVV3TZpO7hasyGRDHKpgMJSFpmbXfiLWrdINyJo8Ub
+	gobxT7a951xkN8ueyR4k1bolN/NQW9R9FjnD5v9Z262jlhZj/S/aGln40paKa7qTi7I=
+X-Gm-Gg: AYBFou2RPyMtug9pDpgrsUYEc2RkhZRQIokV0XLKxrFqwdcdG9n/SNSsmYn4MXnMRku
+	EQ+lc52c+IXKF9U8H0KIyA/16gHyccbKT+9DslI2hfFurpYOjuThotjjGS0GZ/UeV9w0rd0xtSN
+	6fjUUf3BhpRfOT3LnozYrydJ0Qnp0Ey4SQrFVB+M7twPJtGqFqAYCU9CVh+Poc4WTrGUrCS/r9F
+	r7JXCuhkYANXmDcM32Vj/30fjWCNrrO/jwugi8DOftW+2xSAteaCWMCnEbRofOPihNsNEaOg0X3
+	BphchRiAGXndSPRhfE0+Toz2KzUP7vs4zw514wxWP1yLg9F6VZxOgFr2MrTAJm7ja9dmNqaXgaI
+	gs/1ymJBdotldTYmMD8GZ8egBvxiq5gE277Ia0L4BM8jFoDjo+4wZ3f9LIJvaHX0PMx2MAzDj92
+	xiccLlcx1kLPcLFHBWcoPmW4iVrLYJ3PMneyljddPPf5TSzcEFJJMeohBEC6AXBO0IkKYqLDHIt
+	2GdFPoUl2q3aVI8A9Rz96KSIgDDHeY6TIjONtt4fOpOv5/KKDVkB8a1UY8n+OTz8kinyV5EoG3l
+	+csbmZ+On+xXNWglAYy4RBchRfngXl3tVGgcxylXtJqKitxgT4iumHgL5HLkEl67mt4sJEIgWLA
+	6U8TLKqcKVoZH8MYEy/OE4ZVITh2CoxHjAFDov+avFwZKox349e8=
+X-Received: by 2002:a05:6870:aa89:b0:4b5:65d9:5bbf with SMTP id 586e51a60fabf-4b75fd1764fmr2554172fac.29.1795018062902;
+        Wed, 18 Nov 2026 08:07:42 -0800 (PST)
 Received: from [192.168.11.112] ([96.43.243.130])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4b743721fe9sm2624231fac.6.2026.11.18.08.07.40
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4b743721fe9sm2624231fac.6.2026.11.18.08.07.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 08:07:40 -0800 (PST)
+        Wed, 18 Nov 2026 08:07:42 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
 To: linux-block@vger.kernel.org, shao.mingyin@zte.com.cn
 Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
-In-Reply-To: <20261115003345297PJDJduSwIS5uDYxPFRxKJ@zte.com.cn>
-References: <20261115003345297PJDJduSwIS5uDYxPFRxKJ@zte.com.cn>
-Subject: Re: [PATCH] partitions: aix: validate the physical partition size
- exponent
-Message-Id: <179501806057.17649.7759332240241480233.b4-ty@b4>
-Date: Wed, 18 Nov 2026 09:07:40 -0700
+In-Reply-To: <20261115003347468yvY7EkDVXpRQABqNYceKf@zte.com.cn>
+References: <20261115003347468yvY7EkDVXpRQABqNYceKf@zte.com.cn>
+Subject: Re: [PATCH] partitions: sun: calculate partition starts in
+ sector_t
+Message-Id: <179501806201.17649.16236946055978931642.b4-ty@b4>
+Date: Wed, 18 Nov 2026 09:07:42 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -104,22 +103,24 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
 
-On Sun, 15 Nov 2026 00:33:45 +0800, shao.mingyin@zte.com.cn wrote:
-> The physical partition size exponent is read as an unvalidated 16-bit
-> value from the LVM record and used as the shift count of an int. Values
-> of 32 or more cause an out-of-range shift and can produce an unrelated
-> partition size. Exponents below SECTOR_SHIFT produce a zero sector count.
+On Sun, 15 Nov 2026 00:33:47 +0800, shao.mingyin@zte.com.cn wrote:
+> The Sun label parser calculates sectors per cylinder and partition
+> starts in unsigned long. On 32-bit systems a start above UINT_MAX
+> sectors wraps before put_partition() receives it, potentially exposing
+> a partition at the wrong location. The same label is parsed differently
+> on a 64-bit system.
 > 
-> Reject sizes that cannot be represented by the parser's u32 byte count
-> or do not cover a whole sector before doing the shift. Use an unsigned
-> operand to express the representable byte count directly.
+> Keep both values in sector_t and promote the first geometry operand
+> before multiplication. This also prevents the two 16-bit geometry
+> fields from being multiplied as signed int when their product exceeds
+> INT_MAX.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] partitions: aix: validate the physical partition size exponent
-      commit: 9ce4cf1ad3392b2945bf1d49f1fd305364020a1b
+[1/1] partitions: sun: calculate partition starts in sector_t
+      commit: a5be44a8243fd7f7875f54ce1c5df3df713257a9
 
 Best regards,
 -- 
