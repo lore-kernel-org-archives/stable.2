@@ -1,69 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=188.68.61.103
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795028611;
-	b=qBygbc/SBWIb4haJrzdsQxRfHi+30NVYRmN1qNGacwaIePXlh8RSzeJ/DtkVXeYecoGA
-	 A72baSn74s/a6FoBR5Ht/A2kgSFhCeDMrc4RsrNCJ8IJVzzjzzz06mLx/98LjfcBrXnzg
-	 xOG5qMM45oG4vlOI5xqi9e5+ixmiZS8tKjk/TdpxtQDVueaqyADKynvp7zj/CQspf+ctG
-	 ygpxKgDVcnUngjoaAlMTNk8VyywhIJm0XeNzqc/YN9f2RWrLs1cRYxJSq6MzdVAmvs/Q6
-	 jhGGUZcVGbYQzbVh0bRpmKMIP3gIgS+2Z8DbH4fgIl/Fxg0b43wofaJE6EvlKKdtucg==
+	b=JY0Fe/0DELBsZTU125/3LN69FHmSMglGrEmlf0Y3zLozrDRx/98FmIopgFO9zhjC7qRZ
+	 vmKLYAH781hll6z6nyLj0o2aN8RRHQ1RyiumDe7P23y4/nO+iz5m4XiNo4tgegmtLO8p5
+	 4zShqgccfR40keyX7TcFbqbyiLliduVigvcEetqhvBEp5tZSzjyf6VA0MM3vvzyLsldnk
+	 tCiEg8h4Cl6iMQ/FX5JQF/LYpEYQK2kGje16NzNhNQDAuwARN6X7Bs+oQDbxr6zOgwfci
+	 CsfNeX1OkhFPjBKHAn9h1c6x+Oj7Gf//n+m2vQV5E1bwvkIZRMk98mcpljqVYHrLngw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795028611;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received-SPF:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:From:Content-Language:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-PPP-Message-ID:X-NC-CID;
-	bh=cKVUKfEjTJSrd4mq0m9icoUtnIqPcU/7y036eaR+Jts=;
-	b=YtObHabt7iaxj6rxeE6r6k8Ap7+HufKD+Hf57lkBZMg2jFp2mH4I1OQ0DZyaMxqAsoTM
-	 rUBC9lMXAfOXpqF52yjJGVvPqUKJekKeDU5T1bJG+dE6Qlj4YtqJX+AFGq8TjBCmq9Ls4
-	 tEbDebOQ8DvDt+UnpadTbzdYqhA0ua1WqjpakpHA+ihlOAR5jjnkjaWVZDvpY3F0F+Oq+
-	 JTZOrmNt7q4ZpQj+F7gSh/QljWtSRTy1IYS9woHziMGC9iKY43o3fEd6/GeoFQ78RqysB
-	 17xPnLd/ZQEYa/WD75ACH8syZbd8TAqfaqUsrQR7lUGXrewoHvxNivmgKEqItee2hLA==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=CCVUTJxZ3oWCYXJ6dBKGoE563RRww6YCT+3oK21Ibbw=;
+	b=NhUV7k48IA4r64ObNAKmNw3KexHDXHLRILeAU2gwpHHTzmhI5MoVSVjJPjqdnX1dH10b
+	 bSKpqELOabMC7Clu59jmG53slzQ0VHzdh9vrFK429s9TlSOZPFaXKBpgXg6QMOyfWtUAY
+	 4bSww7PSQmV4JXviGNuWQsqKihzX89Ri3PuR2Hi2Ye/DSUSnLUileMnDvi/cSIz2YWcqv
+	 SkWSkWNMAWX/iiJREt5JMjd/Kp7c3HX7xXBmcPLNGldVul+CdUjlAAMk5VAfoX20IBH9F
+	 6cbojnz7+SxL/6WiZNo2KwvOrwfh09jZoh8nS8v18UzV/2+JQQBp6+ppWcrWwJGywPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=leemhuis.info;
-	spf=pass smtp.mailfrom=leemhuis.info;
-	dkim=pass header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=ZrswiGbz;
-	arc=none smtp.remote-ip=188.68.61.103
-Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.61.103])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tw9oWH3x;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86DC4606A32A;
-	Wed, 18 Nov 2026 19:03:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86DC4606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7B6606A335;
+	Wed, 18 Nov 2026 19:03:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=ZrswiGbz
-Received: from mors-relay-8403.netcup.net (localhost [127.0.0.1])
-	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4jV9vm73Gwz8fXt;
-	Wed, 18 Nov 2026 20:02:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
-	s=key2; t=1795028549;
-	bh=o5pFJPLvfYzsSxdkOip9Un2zRa7+ZaAOIQMq7WMNMNA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ZrswiGbz2SJUdV+I2tAwAxTp0MOxS/9dStHwemJQTjwIcqRatajXu6cVkrBmwOgEW
-	 h0FvfBWwRjcgfhJ0ik/IQ6YXYPJ5IgyyoggO8g5Uddio6RG4igxIv+AKwgN0CEGLdF
-	 QRW8cjbDvguba3u+lygd4KhA++ranqqWBBPco3Ij9Lwmfa/ot3jiKIghS/qxantAT8
-	 jJ3VOgwTlB0dyYIpUABkn+E6QmHnaqkFKyA+6oW0GHxYPvvjhCBDtL64Ad6/Latyyh
-	 3kyopLCa8uoj7DAtdMWoYfQ843qhT0vBgNodVkiz/ihXawEEJzUA7mnjYPhkHHawwg
-	 AkAcRzbH7AhzQ==
-Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
-	by mors-relay-8403.netcup.net (Postfix) with ESMTPS id 4jV9vm6J02z8fXc;
-	Wed, 18 Nov 2026 20:02:28 +0100 (CET)
-Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jV9vj2W2qz8sb7;
-	Wed, 18 Nov 2026 20:02:25 +0100 (CET)
-Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
-	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 38EBE5FAE1;
-	Wed, 18 Nov 2026 20:02:10 +0100 (CET)
-Authentication-Results: mxe9fb;
-        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=linux@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
-Received-SPF: pass (mxe9fb: connection is authenticated)
-Message-ID: <cb9ff126-7767-4c60-b735-1b7890a247fc@leemhuis.info>
-Date: Wed, 18 Nov 2026 20:02:09 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tw9oWH3x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29C7E1F000C7;
+	Wed, 18 Nov 2026 19:03:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795028611;
+	bh=CCVUTJxZ3oWCYXJ6dBKGoE563RRww6YCT+3oK21Ibbw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=tw9oWH3xddKoeh1i4ITEDLExT3QPOg1H5ip5Tw413mfonycNLh7sOPA2dpMdcgQeg
+	 0l9+zGu6vGwCc3jR5PVHlyFOtfM8i2BQlrex/WoNFBM8KGOi60f/ofHIccrQlNo/+R
+	 3MGsgBpp/nVP3FNzd28zAEIbg1YnpaNWa48DnMXI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Sashiko <sashiko-bot@kernel.org>,
+	=?UTF-8?q?Asaf=20Nuri=20Bertizlio=C4=9Flu?= <ycistak@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 0056/1756] hwmon: (coretemp) Set nr_cores only after core_data allocation succeeds
+Date: Wed, 18 Nov 2026 15:36:23 +0100
+Message-ID: <20261118150010.602003728@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150007.957976754@linuxfoundation.org>
+References: <20261118150007.957976754@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,120 +63,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 0000/2651] 7.3.6-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com, Miguel Ojeda <ojeda@kernel.org>,
- RUST <rust-for-linux@vger.kernel.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-From: Thorsten Leemhuis <linux@leemhuis.info>
-Content-Language: de-DE, en-US
-Autocrypt: addr=linux@leemhuis.info; keydata=
- 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 MEK4
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-PPP-Message-ID: 
- <179502853112.2764222.18096889583059449587@mxe9fb.netcup.net>
-X-NC-CID: boliFuEOQHkzI0IzbOIZEcbWEMqjRW/0tl8Z9QpTJHBe7qIWHMU=
+Content-Transfer-Encoding: 8bit
 
-On 11/18/26 15:20, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.3.6 release.
-> There are 2651 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 20 Nov 2026 14:55:47 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.6-rc1.gz
-> [...]
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-This failed to build for me due to a problem with rust during the "make
-bzimage" stage:
+------------------
 
-"""> error[E0432]: unresolved import `crate::util`
->   --> rust/pin-init/internal/src/init.rs:17:5
->    |
-> 17 |     util::*,
->    |     ^^^^ could not find `util` in the crate root
-> 
-> error[E0599]: no method named `extract_cfg_attrs` found for struct `Vec<Attribute>` in the current scope
->    --> rust/pin-init/internal/src/init.rs:171:39
->     |
-> 171 |                 let cfg = field.attrs.extract_cfg_attrs();
->     |                                       ^^^^^^^^^^^^^^^^^
->     |
-> help: there is a method `extract_if` with a similar name, but with different arguments
->    --> library/alloc/src/vec/mod.rs:4245:4
-> 
-> error[E0599]: no method named `as_ident` found for reference `&Member` in the current scope
->    --> rust/pin-init/internal/src/init.rs:413:28
->     |
-> 413 |         let ident = member.as_ident();
->     |                            ^^^^^^^^ method not found in `&Member`
-> 
-> error: aborting due to 3 previous errors
-> 
-> Some errors have detailed explanations: E0432, E0599.
-> For more information about an error, try `rustc --explain E0432`.
-> make[2]: *** [rust/Makefile:649: rust/libpin_init_internal.so] Error 1
-> make[2]: *** Waiting for unfinished jobs....
-> make[1]: *** [/builddir/build/BUILD/kernel-7.3.6-build/kernel-7.3.6-rc1/linux-7.3.6-0.rc1.400.vanilla.fc45.x86_64/Makefile:1440: prepare] Error 2
-> make: *** [Makefile:256: __sub-make] Error 2
-"""
-Full log:
-https://download.copr.fedorainfracloud.org/results/@kernel-vanilla/fedora-rc/fedora-45-x86_64/11350094-stablerc-fedorarc-releases/builder-live.log.gz
+From: Guenter Roeck <linux@roeck-us.net>
 
-Have to run, so not time to look at where this is coming from right now,
-sorry.
+[ Upstream commit 95638f1f05ced75a82e83f610cd01b636d2a21b1 ]
 
-Ciao, Thorsten
+In init_temp_data(), pdata->nr_cores is populated from
+topology_num_cores_per_package() before allocating pdata->core_data. If
+that allocation fails, init_temp_data() returns NULL with
+pdata->core_data still NULL and pdata->nr_cores set to a positive value.
+
+coretemp_add_core() logs the error without failing coretemp_cpu_online(),
+so the CPU still comes online with pdata->hwmon_dev registered. When the
+CPU is later taken offline (or the module is unloaded),
+coretemp_cpu_offline() calls get_temp_data(pd, cpu), which loops up to
+pdata->nr_cores and dereferences the NULL pdata->core_data pointer.
+
+Store the core count in a local variable and assign pdata->nr_cores only
+after pdata->core_data is allocated, preserving the invariant that
+pdata->nr_cores is zero whenever pdata->core_data is NULL.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Fixes: 1a793caf6f69 ("hwmon: (coretemp) Use dynamic allocated memory for core temp_data")
+Cc: stable@vger.kernel.org
+Tested-by: Asaf Nuri Bertizlioğlu <ycistak@gmail.com>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+[ sashal: used kcalloc() with NUM_REAL_CORES instead of kzalloc_objs() with topology_num_cores_per_package() ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/hwmon/coretemp.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/hwmon/coretemp.c b/drivers/hwmon/coretemp.c
+index cc81b849c09ef..7f8ff6dd16bfa 100644
+--- a/drivers/hwmon/coretemp.c
++++ b/drivers/hwmon/coretemp.c
+@@ -497,11 +497,13 @@ init_temp_data(struct platform_data *pdata, unsigned int cpu, int pkg_flag)
+ 		 * Will replace hardcoded NUM_REAL_CORES with actual per package core count
+ 		 * when this information becomes available.
+ 		 */
+-		pdata->nr_cores = NUM_REAL_CORES;
+-		pdata->core_data = kcalloc(pdata->nr_cores, sizeof(struct temp_data *),
++		int nr_cores = NUM_REAL_CORES;
++
++		pdata->core_data = kcalloc(nr_cores, sizeof(struct temp_data *),
+ 					   GFP_KERNEL);
+ 		if (!pdata->core_data)
+ 			return NULL;
++		pdata->nr_cores = nr_cores;
+ 	}
+ 
+ 	tdata = kzalloc(sizeof(struct temp_data), GFP_KERNEL);
+-- 
+2.53.0
+
+
+
