@@ -1,53 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795021583;
-	b=X9bQcBo/0+izZfseYF3Tkatl9OvjjIvG5LtEnLGQ/mUL03ncAXaN8otkNwAN2bY6SExn
-	 uk0VBINkrab3tYvoDqGSHoeguDDe/4UAxVmHBNLq47DsO+kNrPQWhVNcN6nvdL24QqdZn
-	 B9dPfxOU1Oh+OKxzWsENHv3+tjHLvooix89VDG7miF3sVGJ0cQvBiUwV3/Edd/jmWF34i
-	 m5TFD6uCekZIjC/cOj6uAoU09nnjYjtpkQxq0SygNlmmMu09dN80irOkG0TSpxrCesGry
-	 HQwbDAPQ8n+vA03MdrEyj17vmVotcZGFTysl8WtmF2nJpnR8JffLPzTQuAjqvYfR4nw==
+	t=1795021589;
+	b=sxqt6Qmp1ruSsXo9V2Re6PEKNQLxZAPCaPNM3i55ZsoXWR0aklQiriCp749ACO2cionI
+	 2ON8U+DoEWs02YN7EO79vPLSQ4PH/O33PWFAPfNNKAdkNn9zNrbwjAxOAD5MHi7yLlued
+	 BHbnMZG84O0sw+Y8rZKb5owJ98K1PMXqgiWVvL5e4///JWvtfvajrQX6DAiQycY9LHlUA
+	 O35XAa6qOEEf6c//+hYrKXvjDo1Tw67nsdzJynAZqPddj5EdlLgo+jKoAal1r0QiTNbKZ
+	 tm5u8Nynxm3eqAOpSRPXE3T3Udg/uLuh5J8Wg1Z3sFCwCHWYDoEXIOmGt1dTbN+Z2Hw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795021583;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795021589;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Z+8xUHPL0tRgZEEEe+SXrx0naTNxq3KowzfjAvU3+bw=;
-	b=smO5aeqCDML1DmAR4vRi7S74BTKRPFwwiZIShWIEnA5Jf1AvepgfzNxwSk4ErrzGMzTj
-	 SuryrFbNVlVOZ4w9D1I9Ad1r3/toX0wyRea/Veb5PSoynSHdVDIDglxdOb9uPR4iGwpUY
-	 sY2QIom99frFdVRZYqggyaqd/V2smvxIkuXydhZSIpVrtAoImwl4E1tvMk9VEbJTaGoif
-	 Z7wk1CxvbqWgbPbZKchAV1D50N4lX2YdK6RoJkNR3MUOuD20dwVKssy2ubhDuVCIyPwjc
-	 i0E0PNxcs5cEgi5MMiWHzzZb0j95Pn7urqCF64Cbfx9QtgNhJUszMZ9Wxa5VOwJIGwA==
+	bh=DZHzTBzaKbBCS7121FqM/G6daC53C+N6qM7ZW7GUGXc=;
+	b=xigFvQ52Dj+jzisId3WQkh2GDeb9MoDnoJxvlTFKSCfMOLMloOoHBjiN2FwXho4YcPpK
+	 ZpdqrxU8ChXR+zGoXAM1C409snbzvmpH8ypBO5SmGkbUhlFChxblZi/Y/cDpbL9Gyw4tu
+	 Y5gr0mVZhWU0qaI+7xpTm1R/PiMRG8qUw/zPT1U6GUtWGxjYeVRWxsspVdwyxIUvID49F
+	 ojfo2kZhp+UCU1UjzaDRhKgG64I4eIKYi4cCwQcU8hTJSMmqtIJMpELQOoFdCvg10+KOO
+	 3By+/qUKhACc/ttOpN2Xv5sWM3cEqhG4dU3HvKwPX59yHZD/uJiqbyGeOb+ImxTJ1bw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="F3AMv28/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Q+IwJD3a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCAFC606A339;
-	Wed, 18 Nov 2026 17:06:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF0E606A339;
+	Wed, 18 Nov 2026 17:06:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F3AMv28/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9581F000C7;
-	Wed, 18 Nov 2026 17:06:22 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Q+IwJD3a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCA9B1F0089E;
+	Wed, 18 Nov 2026 17:06:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795021583;
-	bh=Z+8xUHPL0tRgZEEEe+SXrx0naTNxq3KowzfjAvU3+bw=;
+	s=korg; t=1795021589;
+	bh=DZHzTBzaKbBCS7121FqM/G6daC53C+N6qM7ZW7GUGXc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F3AMv28/394Rjln4qeQzGDOE/MUvWLFcLAGqVttSZoIYYocSN1XUQQh5qugJ7+ADX
-	 LPhjIqxCDSwHJVQw1N1FCSE8LXEPSxBNgoSpATTrq+zs0WKzKvB3cOxmYLfTA6r2L+
-	 nXq0tTG4abXnj6l/dOa+jEywVI5QbpAQLFMeObnc=
+	b=Q+IwJD3aLAsIVHkPtQTT622jld88QO1yKY7GsWUC39mgJjwacpjnJdZQuH9kJ2qpv
+	 ug+KUJm0xaR5b3oRRTMarNFdIngxGjK8tIT4vBJ1LA1FZzC/96ywrUHiNKUCuxvlSt
+	 StYMzf8wyIm+er6oI6kmEl2fro+dZCZtsIKryoDY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Charles Keepax <ckeepax@opensource.cirrus.com>,
+	Sylwester Nawrocki <s.nawrocki@samsung.com>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 2357/2651] fs: fix ramfs_fs_info leak when rootfs is unmounted
-Date: Wed, 18 Nov 2026 15:59:57 +0100
-Message-ID: <20261118150410.425340974@linuxfoundation.org>
+Subject: [PATCH 7.3 2320/2651] ASoC: wm8994: dont lose the AIF clock ratio when staying at 32kHz SYSCLK
+Date: Wed, 18 Nov 2026 15:59:20 +0100
+Message-ID: <20261118150408.699756932@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -69,66 +70,160 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+From: Marek Szyprowski <m.szyprowski@samsung.com>
 
-[ Upstream commit c60f9fe1988dd6f96b4b1d4f25fe7474340c7b87 ]
+[ Upstream commit 693574504051a19383640cfb99524a6b69e4624f ]
 
-When rootfs is a ramfs, for example with root= on the command line, its
-superblock carries a struct ramfs_fs_info from ramfs_init_fs_context().
-ramfs_kill_sb() frees it, but rootfs_fs_type uses kill_anon_super().
+When SYSCLK drops below 50kHz, the AIFnCLK rate ratio is saved and
+temporarily lowered to 128fs for accessory detection, then restored
+once SYSCLK gets fast enough again. The ratio is however saved again
+on each clock reconfiguration done while SYSCLK is still slow, which
+overwrites the original ratio with the 128fs one.
 
-Before commit 576ee5dfd459 ("fs: add immutable rootfs") rootfs could not
-be unmounted. Since then prepare_namespace() pivots into the real root
-and unmounts rootfs. When the superblock is destroyed, the structure is
-leaked. kmemleak on an SH7785LCR board:
+This happens on the Exynos4412 Trats2 board, which set MCLK2 as SYSCLK
+twice during the card probe and then configure FLL1 while still running
+from MCLK2. Once SYSCLK is switched to FLL1, the 128fs ratio is
+"restored", so AIF1 is left configured for 48kHz at 128fs while being
+clocked at 256fs. If any digital path is powered up before a stream
+reconfigures the AIF, the codec raises FIFO error interrupts every
+10ms, flooding the kernel log:
 
-  unreferenced object 0x8100a720 (size 32):
-    comm "swapper/0", pid 0, jiffies 4294892299
-    backtrace (crc c8bfd23b):
-      ...
-      ramfs_init_fs_context+0x16/0x48
-      rootfs_init_fs_context+0x16/0x2c
-      alloc_fs_context+0x98/0x114
-      fs_context_for_mount+0x16/0x24
-      ...
+ wm8994-codec wm8994-codec: FIFO error
 
-Call ramfs_kill_sb() when rootfs is a ramfs. tmpfs frees its own data
-in put_super and keeps kill_anon_super().
+Save the original ratio only when entering the low SYSCLK mode. While
+at it, move the code duplicated in _wm8994_set_fll() and
+wm8994_set_dai_sysclk() to a common helper.
 
-Fixes: 576ee5dfd459 ("fs: add immutable rootfs")
-Reported-by: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Link: https://patch.msgid.link/20261009055546.85279-1-kmehltretter@gmail.com
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 6730049a4763 ("ASoC: wm8994: Lower AIFnCLK divisor when dropping to 32kHz")
+Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
+Reviewed-by: Sylwester Nawrocki <s.nawrocki@samsung.com>
+Link: https://patch.msgid.link/20261021101750.3297770-3-m.szyprowski@samsung.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- init/do_mounts.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ sound/soc/codecs/wm8994.c | 94 +++++++++++++++++----------------------
+ 1 file changed, 40 insertions(+), 54 deletions(-)
 
-diff --git a/init/do_mounts.c b/init/do_mounts.c
-index 95e0b3a0f711b..b088021b1546d 100644
---- a/init/do_mounts.c
-+++ b/init/do_mounts.c
-@@ -503,10 +503,18 @@ static int rootfs_init_fs_context(struct fs_context *fc)
- 	return ramfs_init_fs_context(fc);
+diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
+index e166a377e1ed4..eb2ff1e27be72 100644
+--- a/sound/soc/codecs/wm8994.c
++++ b/sound/soc/codecs/wm8994.c
+@@ -2207,6 +2207,44 @@ static int wm8994_get_fll_config(struct wm8994 *control, struct fll_div *fll,
+ 	return 0;
  }
  
-+static void rootfs_kill_sb(struct super_block *sb)
++/*
++ * If SYSCLK is less than 50kHz adjust AIFnCLK dividers for detection,
++ * restoring the original ones once SYSCLK is fast enough again.
++ */
++static void wm8994_update_aif_clk_rate(struct snd_soc_component *component)
 +{
-+	if (IS_ENABLED(CONFIG_TMPFS) && is_tmpfs)
-+		kill_anon_super(sb);
-+	else
-+		ramfs_kill_sb(sb);
++	struct wm8994_priv *wm8994 = snd_soc_component_get_drvdata(component);
++
++	if (max(wm8994->aifclk[0], wm8994->aifclk[1]) < 50000) {
++		/* Don't overwrite the saved dividers with the 128fs ones */
++		if (!wm8994->aifdiv[0]) {
++			dev_dbg(component->dev, "Configuring AIFs for 128fs\n");
++
++			wm8994->aifdiv[0] = snd_soc_component_read(component,
++								   WM8994_AIF1_RATE)
++				& WM8994_AIF1CLK_RATE_MASK;
++			wm8994->aifdiv[1] = snd_soc_component_read(component,
++								   WM8994_AIF2_RATE)
++				& WM8994_AIF1CLK_RATE_MASK;
++		}
++
++		snd_soc_component_update_bits(component, WM8994_AIF1_RATE,
++				    WM8994_AIF1CLK_RATE_MASK, 0x1);
++		snd_soc_component_update_bits(component, WM8994_AIF2_RATE,
++				    WM8994_AIF2CLK_RATE_MASK, 0x1);
++	} else if (wm8994->aifdiv[0]) {
++		snd_soc_component_update_bits(component, WM8994_AIF1_RATE,
++				    WM8994_AIF1CLK_RATE_MASK,
++				    wm8994->aifdiv[0]);
++		snd_soc_component_update_bits(component, WM8994_AIF2_RATE,
++				    WM8994_AIF2CLK_RATE_MASK,
++				    wm8994->aifdiv[1]);
++
++		wm8994->aifdiv[0] = 0;
++		wm8994->aifdiv[1] = 0;
++	}
 +}
 +
- struct file_system_type rootfs_fs_type = {
- 	.name		= "rootfs",
- 	.init_fs_context = rootfs_init_fs_context,
--	.kill_sb	= kill_anon_super,
-+	.kill_sb	= rootfs_kill_sb,
- };
+ static int _wm8994_set_fll(struct snd_soc_component *component, int id, int src,
+ 			  unsigned int freq_in, unsigned int freq_out)
+ {
+@@ -2441,33 +2479,7 @@ static int _wm8994_set_fll(struct snd_soc_component *component, int id, int src,
  
- void __init init_rootfs(void)
+ 	configure_clock(component);
+ 
+-	/*
+-	 * If SYSCLK will be less than 50kHz adjust AIFnCLK dividers
+-	 * for detection.
+-	 */
+-	if (max(wm8994->aifclk[0], wm8994->aifclk[1]) < 50000) {
+-		dev_dbg(component->dev, "Configuring AIFs for 128fs\n");
+-
+-		wm8994->aifdiv[0] = snd_soc_component_read(component, WM8994_AIF1_RATE)
+-			& WM8994_AIF1CLK_RATE_MASK;
+-		wm8994->aifdiv[1] = snd_soc_component_read(component, WM8994_AIF2_RATE)
+-			& WM8994_AIF1CLK_RATE_MASK;
+-
+-		snd_soc_component_update_bits(component, WM8994_AIF1_RATE,
+-				    WM8994_AIF1CLK_RATE_MASK, 0x1);
+-		snd_soc_component_update_bits(component, WM8994_AIF2_RATE,
+-				    WM8994_AIF2CLK_RATE_MASK, 0x1);
+-	} else if (wm8994->aifdiv[0]) {
+-		snd_soc_component_update_bits(component, WM8994_AIF1_RATE,
+-				    WM8994_AIF1CLK_RATE_MASK,
+-				    wm8994->aifdiv[0]);
+-		snd_soc_component_update_bits(component, WM8994_AIF2_RATE,
+-				    WM8994_AIF2CLK_RATE_MASK,
+-				    wm8994->aifdiv[1]);
+-
+-		wm8994->aifdiv[0] = 0;
+-		wm8994->aifdiv[1] = 0;
+-	}
++	wm8994_update_aif_clk_rate(component);
+ 
+ 	return 0;
+ }
+@@ -2585,33 +2597,7 @@ static int wm8994_set_dai_sysclk(struct snd_soc_dai *dai,
+ 
+ 	configure_clock(component);
+ 
+-	/*
+-	 * If SYSCLK will be less than 50kHz adjust AIFnCLK dividers
+-	 * for detection.
+-	 */
+-	if (max(wm8994->aifclk[0], wm8994->aifclk[1]) < 50000) {
+-		dev_dbg(component->dev, "Configuring AIFs for 128fs\n");
+-
+-		wm8994->aifdiv[0] = snd_soc_component_read(component, WM8994_AIF1_RATE)
+-			& WM8994_AIF1CLK_RATE_MASK;
+-		wm8994->aifdiv[1] = snd_soc_component_read(component, WM8994_AIF2_RATE)
+-			& WM8994_AIF1CLK_RATE_MASK;
+-
+-		snd_soc_component_update_bits(component, WM8994_AIF1_RATE,
+-				    WM8994_AIF1CLK_RATE_MASK, 0x1);
+-		snd_soc_component_update_bits(component, WM8994_AIF2_RATE,
+-				    WM8994_AIF2CLK_RATE_MASK, 0x1);
+-	} else if (wm8994->aifdiv[0]) {
+-		snd_soc_component_update_bits(component, WM8994_AIF1_RATE,
+-				    WM8994_AIF1CLK_RATE_MASK,
+-				    wm8994->aifdiv[0]);
+-		snd_soc_component_update_bits(component, WM8994_AIF2_RATE,
+-				    WM8994_AIF2CLK_RATE_MASK,
+-				    wm8994->aifdiv[1]);
+-
+-		wm8994->aifdiv[0] = 0;
+-		wm8994->aifdiv[1] = 0;
+-	}
++	wm8994_update_aif_clk_rate(component);
+ 
+ 	return 0;
+ }
 -- 
 2.53.0
 
