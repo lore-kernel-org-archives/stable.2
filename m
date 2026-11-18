@@ -1,97 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795007996;
-	b=KSn/7GLkfG1n5NXbLwq0hewb3bng9mYCVJIbTiDhiatnzo7U4vFypeSAPpULuE6SJalC
-	 D7V+SV44GFn+G8qVt5MqFGas7Zx+MuEsF0Nprw8l0leNX+oDqKmCh2mg/y8ZoIsN2yhHQ
-	 nNnuVrjJin+pZxZsPHKazw8O3gA0qnXZEdFxz4o1Ey8P1cuZ2t7AzGbJdwbHedupmqa0e
-	 u+eTzTjXm88+bCisQAtblAfhyIdAgnJiy4twtNeEO72s7AkwPO+nCJzWixKtt9zF5si7n
-	 aiAVujKK2VEycRrAGnm6OZLlgv4zDjqSZaep1FQXo9JKrLQHLscCUt+DI6g124F787A==
+	t=1795008114;
+	b=5txmQX/uOFXpoxhYwROx7Z3wBd2z/+VAxuTXbSfevBNsz72JRoj5vAOtZEaNT0x9GKxJ
+	 wxn2QRoJHfTzhUFP7dvowkb4FL0wKW1p5/9xhew8hoYXuAGHHTuVEnbJbKY6CXKrroaEE
+	 OGIFSEi1E1GEr7mX0/t3CImViMKChxPWyuxj79x+IrKxCb8silMnGd/Akfjku4HbLBVYM
+	 UtScK/+9t6JQu/35ubt7VMQ7IVcJh6KgI5fbVWUA6ybZJ9s53y8huRlp0W5G8WUmg+3Ml
+	 q+GAyP/YjOoVKG+/i1EMZlAWIUJOnyT7UGqrlv5KAXD4hD+8H1+lnrE2uYNN4XwUOEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795007996;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795008114;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=XvTSmuMfFY3q/sfZxdJtMgP+cT08HPhiF656C8De+nA=;
-	b=XxEolVwLDs1w+97JzKtLdj2NHIbryS7PF2k/c5D0noIgvcC38w5uGiMMI5KyBnRo477o
-	 8SCXb2Ppv+S6ZYl+BYINaSpx2HXZqLMY12Esp0OW6ZCY3L6AWqnX9UvNaTur2vHowJxWG
-	 YZEVJxxAPEUD8H1ArICqMkzEjk1vXvLTOnLUVHzTz4dFNu38SfzKiWGrQk2supfKdSTnB
-	 kHZ2AVjZvrEJ6WtHYXRNM0CUJhLjJFbrVCjbkr/k8OfCRKD/xrueDSKUqj5+CqatMT+zN
-	 DChVywOKzmloT8WfUOygYgKnnBxD32ObwQHx2aJ5RvROJ6sw8klQvO5KLTAym9us/XA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=p7Dcs8rqFWgV7vy5jckJd9/OMxXaRSwC9PD3XcVQ8ik=;
+	b=l98epKluQBuip1UDdnr2I4Ip8S4ZFghv4f0/WwU8Omhfa8v4J2CLlxGQujJaYrlaHX16
+	 Pa/xPHe10by5FLd7U11huFv3SPLuzguZUOTgQIVcJZgZb+D3n+cd++a1CMZ9eQTOClGc8
+	 0J7b3oy6umytZP921iKJ8UdeoFZJtudfUXXThlhbl9eygtK/RjYZX/Hy86zOpoEuR2Tbq
+	 L3VeUwo/lB2cn8liQJ7O1xWrtQmojWn0UhuH/GZwN4GHH+xKqYHFNtsnvAiTbG0CTYbz+
+	 U38DslH5aSTQF2+oI+DLZPNvININgC535OOMauhM/FbXh2eOxMmOIOU+JZ5XVrGhO5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FzwMzYhc;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Llmgi4Dc;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A331F606A32A
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:19:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A331F606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3A0606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:21:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D3A0606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FzwMzYhc
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so7483445e9.0
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:19:55 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Llmgi4Dc
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4b467581b98so11465265e9.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:21:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795007994; x=1795612794; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XvTSmuMfFY3q/sfZxdJtMgP+cT08HPhiF656C8De+nA=;
-        b=FzwMzYhcOT68fh1Wfkw/Jzn6y+7K05F9ZpQ/2KPnIs8uL74CgV6RR8vKA87xNjbUeP
-         eIILtRAyJVotot4NT+3E4wX/5/i1i2WxkZf8hbBafe5/GGDRr3AmH/LlZm9LpJ2T75KH
-         P+aoDvuZxiCmjg2pKO+Tmk6DCU7sviVtr84tDxJd/+TVsaLYGbrOykAE6f4/AonVzpyM
-         w37IgqE1CsCOsxt+7Mr2kVDICqRAKCA3ixoFspv7SWOzRqE+gUxbgSo3mIKH7v1jRy+D
-         WlQF3Oq/TTxlaMOQEiPhLyW3Pgg9ewrbhkxJo2DRoTsUb/yoZylw3vqgNl14NpeZ0KQp
-         RM1A==
+        d=gmail.com; s=20260707; t=1795008113; x=1795612913; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=p7Dcs8rqFWgV7vy5jckJd9/OMxXaRSwC9PD3XcVQ8ik=;
+        b=Llmgi4DcPx325HGQxrpRFLWWHauQKMHVrrVD7XSd9t+wRFKL/4riBJzMtkOl4Sqate
+         8nlBRAPedu7tq9EalZaGeXlImuSahc8dfswPg8GGEE3YzPp3sdhSV6jJ7RFp4I7U8uYs
+         a2lnOfUXTfx+qXHUty/bX74ZYMZxL5CLD7texNThaooTfMG7J5PV/m0IIOdWK6SUZu59
+         oM8pW8sZONvoMjT6EZBxzbhkqk6SLjeV/WuKsQts9/JSVu75NU8j2SQFk1GpXyIylviH
+         T8w40rbeSXJgABpY0DdkI0umRKJmNojs5wX18Bj4nP4y48cDCBYVnHBIDbGyYqxTjuLu
+         nC9w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795007994; x=1795612794;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XvTSmuMfFY3q/sfZxdJtMgP+cT08HPhiF656C8De+nA=;
-        b=U2Mdn3umVONw8lupTa3EhrHDbkGag+9vLaZBwrpAdO1q/jDWAyPDc41ndmPSVi0OBt
-         D2KT+07Mx1KbGQA5pzy8u4jJ4r3+Co0Unm67I7CWZF+z4V2Y+ux9/ssZ6RBIYNTSjLPq
-         JLLmznou4N2OjZe5oqMtoCrttlUcc71DHxVuSdlCl3o10OB22or5OqqxYG6Jdb/ynCxW
-         Sk1FI8AMvKR1C7wmp8/MJqH7WOxR7ag/FNJo1K9VI4ig32RjQ1Xif78jKo87eLca6glG
-         LFW+tB2wZigAiQOk1/c9IKMuf2Qf81/BT9Vu0QhxRg2PHU9e5SLDIWlG3KrJZV4isHI0
-         jobg==
-X-Forwarded-Encrypted: i=1; AL+hErH7m/yLtnuEFHtldrilF6hZfKMsbMNejbBxoq8ltSwMVTVX18Xok6nWaz6MmBHQUYgxz7751fo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8S1nvj+JvySZl8G50neiOyDOzpraCFRWxGnSsQ9OcaFA7LTSlW
-	OmdylVvjZR79RlxSrHUfFKJuWEs8BUw1hyiNcFR6Ats3iu23pI4VCmXn
-X-Gm-Gg: AYBFou2bLd/W4zWbaKi3EIUPQDsA9e3o8Acedo8lYbv4uMf1Zag049mWmGGz1HuaCPH
-	Q+HNQ6ooHkDbhFygdNLDEH+dSfhOJi49Bp4+bXBq/Wvp2PTWwY3/bobTjJ7NqkewoturNTmL9U4
-	JfvZtlCmcc90zr45YpFBH1WvcEUsuH5skiULx/ifOkUum8mJq5vnaYunR44ZapBacnTY5ecgqj/
-	m2boJONQlBatIew9hbhXYiGeVwstWwvlssUispBfurzhWuLfmQgELLE+/4dpe/dYY8wEnx7Ckee
-	T0x+c8I1K2M4UmiobtavdRgOAQPXjAM7+tlvymEzL9K0Wo885eLPgVLCz4V+/Ea9nAYQfbm6PkZ
-	S4rtJEXY13LBtm8lPzNVctaoeMQPV4kwQxoSZfqG9pSQplcwBBvMPZtdBHtt/Yc+WkDSqTMIhCo
-	x1LrkI8lUIAL5uSrWxrTzRtKCSwy4lB9UIFrki8N3pz9462rhxBUMWM20xgQi5QSjwCYTO4zli8
-	bQxX+DClgJK6mUtFGE6EIobVlqHbv9qoVKkzvvY5pctdDP41rx1sABYFTOFg3H3oSmahSi0kI/1
-	Wqeyv6+940wWimDP78UeCPdcVCgRtod3FMDSLTYTiEYvdEqvvomlCuXW+AwMm1NjNUv81B3W0M7
-	ThP4r8ynqGxGEd0YPFt9Te2QDNA==
-X-Received: by 2002:a05:600c:4f56:b0:4b7:6c16:7b43 with SMTP id 5b1f17b1804b1-4bb7da12aa6mr53734285e9.10.1795007993903;
-        Wed, 18 Nov 2026 05:19:53 -0800 (PST)
-Received: from SurHub.localdomain ([196.188.113.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7e513c28sm24342875e9.0.2026.11.18.05.19.52
+        d=1e100.net; s=20260707; t=1795008113; x=1795612913;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=p7Dcs8rqFWgV7vy5jckJd9/OMxXaRSwC9PD3XcVQ8ik=;
+        b=oDwBIZQz8Rk/1ueIiaC3QOp5m0KB0rFpijNrbah3HcOdRRK/H392Zpio9ywH/rSxHv
+         viz2D7wl3iejo+QtwUzPwwVYpO3yF7tHdsH54aBEJuV8NQXVks8WFVcg21ldQPO2HrW3
+         nGlCBnvxTcGeBN8Ze7vAy929Ob6z99FGvHb0YFRITT9DFBDz3mRRKTRyMqchNT3Hva0i
+         fLPMuqxVW5TfCjcQm6dS4z86ERXcKQkhDad96WAmbN71scEKWzMcM1DWZ4h8zHRXABPW
+         8lbg94RED7I1YgJi4x1yQqj49yGdxw7O2oJDfTTXzVq6NXb6p07eimG9OhtngVlpH8OU
+         xyeQ==
+X-Forwarded-Encrypted: i=1; AL+hErH8/OEVXht8mRTVNJnCdhSVsJ1J//16r5AeohQ2apNWp++LW/3G35U7PXgICKMnReF6k1dV23g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z89PElJpjxdogxoOkLpyx0w5CSNSTNY/jl1J1ULPJCDE8XNd8K1
+	jm6nZl5BgPKF7DkTZOz9yqNyI6n241yg9ZPiWS6ioBxdDsZ8IersDIC8
+X-Gm-Gg: AYBFou3ezMewr7S449v/Xp8pzopX/6sitVLUUsI9ucRqe0+5XeEJW8+W9X9atmFLCnT
+	9K7z15aympU3WEf58JUbzTj+V5mYrjGfwW6j1hiLnYY2k7nrTea/aNtb998huR2VJaR91lIljKi
+	E7pY9LjKngSns0pzg8fDOjSGAbUJXLGkFBksrk0vMpXQy7y4faBbYlJ67Lu191pN6GFn6fAh9A5
+	vYsRyzXKt+DhPBtLrTNRmzrr9auGIrHpK7rOUNBKE/QI8VZw2IB3fWXyGITw2ITkhktrdjFdSf9
+	nprQEDAIVfryS4F/YWZj9ydWVbws6j6BJJ/a3jIUM3lUOomL1qnPerbdfSfdiJ02Y1ZoUsfklBy
+	PWTD65EvCVbyoST4fG9ITMdB0q2v3UeA8pIwiMwi5fsNJV47iGeWX5gvEDyRE4XT5kPt6Kfsl+j
+	0pbxn1oGSwd/7gS3h1QZE9wc0QJmHIFUFUCtTlzFkJwvF1mFMyU6ztwWkG+k/PA9c+Es35460RM
+	F1KH2bWBgag4KVg4ePDzmuMGxFFNGuweygmt9FARv7FEUNOhQ6poMIvGNuFYH7W1X+bytD6G/Yp
+	dgECXIlgP5m4MvlPqUvkBiluTopflQKkN74xRC+AQYnZ93tGdte4DE9X+LnSwvHFCOgh+JtHHlh
+	0ajSLX/LE0gBtz9FlMsDAWhhOU3njZ640OHU=
+X-Received: by 2002:a05:600c:4f4e:b0:4bb:7033:c92f with SMTP id 5b1f17b1804b1-4bb7da0f671mr58393325e9.11.1795008112703;
+        Wed, 18 Nov 2026 05:21:52 -0800 (PST)
+Received: from pc.tail250202.ts.net ([87.110.86.243])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a65541f3b3sm4899303f8f.23.2026.11.18.05.21.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 05:19:53 -0800 (PST)
-From: Abdifatah Suruur <suruurism@gmail.com>
-To: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
-Cc: linux-rdma@vger.kernel.org,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Leon Romanovsky <leonro@nvidia.com>,
-	Abdifatah Suruur <suruurism@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] IB/hfi1: reject writable SUBCTXT_EGRBUF mmap
-Date: Wed, 18 Nov 2026 16:19:47 +0300
-Message-ID: <20261118131948.28748-2-suruurism@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261118131948.28748-1-suruurism@gmail.com>
-References: <20261118131948.28748-1-suruurism@gmail.com>
+        Wed, 18 Nov 2026 05:21:52 -0800 (PST)
+Date: Wed, 18 Nov 2026 15:21:49 +0200
+From: Janis Edvarts Lacis <janislacis06@gmail.com>
+To: Antonio Quartulli <antonio@mandelbit.com>
+Cc: intel-wired-lan@lists.osuosl.org, 
+	Tony Nguyen <anthony.l.nguyen@intel.com>, Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+	Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Heiner Kallweit <hkallweit1@gmail.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH net v2 1/3] igb: fix RTNL assertion when resuming from
+ runtime suspend
+Message-ID: <rab7ustlezklu43vnjkby5mqh33bgqoztlz6bv5wxkjqfvbtfd@imjngi6j72nz>
+References: <20261116153041.3002666-1-antonio@mandelbit.com>
+ <20261116153041.3002666-2-antonio@mandelbit.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,34 +103,29 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20261116153041.3002666-2-antonio@mandelbit.com>
 
-hfi1_file_mmap() clears VM_MAYWRITE for the SUBCTXT_EGRBUF mapping, but
-never checks whether the caller requested VM_WRITE in the first place.
-A caller can pass PROT_WRITE to mmap() and get a writable mapping of
-the read-only shared eager receive buffers, unlike RCV_EGRBUF which
-rejects the request with -EPERM.
+On 16 Nov 16:30, Antonio Quartulli wrote:
+>Since commit ac8c58f5b535 ("igb: fix deadlock caused by taking RTNL in
+>RPM resume path") __igb_resume() doesn't take RTNL for runtime resume,
+>but __igb_open() still calls netif_set_real_num_{tx,rx}_queues(), which
+>require it. An asynchronous runtime resume (e.g. after the link comes
+>back) then triggers "RTNL: assertion failed".
+>
+>Skip them when resuming. The counts are set again on every regular open,
+>which happens under RTNL; the only case left out is a fallback from
+>MSI-X to MSI during a resume, which leaves the stack with more queues
+>than the device uses until the next open.
 
-Add the missing VM_WRITE check, matching the other read-only mmap cases
-in this function.
+RTNL is not held only on runtime resume, it is held on a normal resume.
+__igb_open() skips netif_set_real_num_{tx,rx}_queues() for both resume
+types. Maybe it makes sense to skip them only on runtime resume when the
+RTNL is not held?
 
-Fixes: 12220267645c ("IB/hfi: Protect against writable mmap")
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+May I ask why is it okay to leave out the fallback case, can't it lead
+to trouble if the counts are not updated but a fallback happens?
 
----
-diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
-index 680364fda856f..6de12a276a605 100644
---- a/drivers/infiniband/hw/hfi1/file_ops.c
-+++ b/drivers/infiniband/hw/hfi1/file_ops.c
-@@ -525,6 +525,10 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
- 		is_vmalloc = 1;
- 		break;
- 	case SUBCTXT_EGRBUF:
-+		if (flags & VM_WRITE) {
-+			ret = -EPERM;
-+			goto done;
-+		}
- 		memvirt = uctxt->subctxt_rcvegrbuf;
- 		memlen = uctxt->egrbufs.size * uctxt->subctxt_cnt;
- 		flags &= ~VM_MAYWRITE;
+Best regards,
+Janis
