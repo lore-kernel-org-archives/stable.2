@@ -1,58 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795020524;
-	b=RXbULxrbLt/l3/Ct7c5nfdPqwMkgaqsQZQl4B+dUSdo0y6qZrP2cu/F5WBxb0YVy7BLr
-	 IhPB4SeecF67XVnko+74AbEphRlqK435CaAXo5q6VNd2s0a4Yq79bzPH5NnEZQDLjkPK/
-	 JcxxrttHD1zptTE9BCijbILAnWitn5HPc9TYxWDGHmwVWTKbA40jBLMKrBpcG8xpcjXn+
-	 hx8aZnnfVK3i+YnbGngVJMVPi3mM8O7E29iKy1/PLDnpEUupkjcI5n32l72B3OMtwaoij
-	 bJ0Qmsf3xAf/ItYxK94qObFnpC97NuNKimlkFphphrw4KIUgrYRu8ErM22pmayj391A==
+	t=1795020526;
+	b=cu6fY3apLCAJrmIqFqg0xi/bpeIs9jJ3FwFzA5ez5CbViz1pYSq+rCmWW5FQp6n7WGOC
+	 ikjwlJUuQdwDnkB+uO9dabLKUOND060GodKpO+TTnUPVUX0jp9F5e0WmaHxxkHZ5QOtMA
+	 XQFoaIG25REqLibzPtyIIFq7rRDcZN6jAbehEg7So2ubdsHzSi05u29iH3imkDqKgR1Sh
+	 iwW86L9QnHDU57dBAUqI2aKC6tU53DKTVCo1kA7+56E2DbohwsUqZ1fBFlMWTYG0S6/wX
+	 4sYkHkTrz0J3Uc259f3bn6oV4hRHpEEqYPQa7L+BPbEfRAK5P3aW7iIx9LYy+pMKR5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795020524;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=q9IItLIEbMnYP6dU4HjidN8jf8ToHHqGO5mUhn4HIM8=;
-	b=4DDS8bvI1IyBeJ3CXvoBfP0VeUdFnABxoK8gMQKAvWLl+TkQA0jg6B2ehVeRgP7lQez7
-	 sfA16uNQdWfJ9WAZ/lmh+U8laoPkxDDqqNuyM+DHHZDdMrQgBD/8JEbFjhYKYD42XaVeh
-	 z97+m2TYyDRXu0P3FeCLX7PgK+hipABqLC8P1eMa7LB8J6vlXLb5LGa6KKvGQ3vs6VRrR
-	 miHvxXrqDYMXCGOD1tJkDG+280SeW+dk6UnB+exhpCgUK1VOVF5NqDH+vU1Atp+hSyZA1
-	 GmLkKnjS6sTuXrE1NwSE/WxrH/cec4KPWtQ+4NCP0mFFfK7eSvS2GL6Una36sZgiQtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795020526;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=miTxn25ctvzo84ihqxeAlmk7XDh4mD7nIOo99nLddxE=;
+	b=Zw37JGTC7/qa3AWs++WTm4+h+DL8fHgmlx32p10hSNrJvcedThXJq1wOEqHZaVV9Lcke
+	 jJ/tWmSNae6WYczI5J3IbfA8ETuBCcbIk7IlUwB3fCltZ8qQ5B0+y4MlIJ5i1K9I8Iydd
+	 jb4YyGEBsAuzXtJ8c8aIgV9aSyUpkkaQqEWCNqSvS8VONrrTDx0IabJb08AgONGQqeyDJ
+	 Qrl2vhLKR7f85hHi6KbXihMRavlxmUGQMriWmz03GTsNODSTuzq4HjBG/dY3FfPfh47/V
+	 lRuwVRfmP1rxUYwOVJtNJw1VDq/2GynU4XBm/cW/r5y2z3OG0U95kFrR3qeZYUTiPQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pBqHvoX8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB138606A31C;
-	Wed, 18 Nov 2026 16:48:44 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b="p4Q/E93c";
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E3029606A31C;
+	Wed, 18 Nov 2026 16:48:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3029606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pBqHvoX8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 303D91F000C4;
-	Wed, 18 Nov 2026 16:48:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795020524;
-	bh=q9IItLIEbMnYP6dU4HjidN8jf8ToHHqGO5mUhn4HIM8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pBqHvoX8L1ThrSBkBRc+pHXstieKRuS0mocy7zycM1skoLSjUZVYAdHsGUnZvZww6
-	 eLTrSqo3hSMTn50K2weevnp+PAeiE3/SdqRFbgQCHedWXre2/hXJ7MCRza6Zx3yRxw
-	 /88uPiKyikWjKydSvLfl++Scxy+dhCTz30SbBtD0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sasha Levin <sashal@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: [PATCH 7.3 1983/2651] selftests: keep the build status from wrapping to success
-Date: Wed, 18 Nov 2026 15:53:43 +0100
-Message-ID: <20261118150357.791012940@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=p4Q/E93c
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6F1D2143D;
+	Wed, 18 Nov 2026 08:48:42 -0800 (PST)
+Received: from [10.57.69.78] (unknown [10.57.69.78])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3D4C03F673;
+	Wed, 18 Nov 2026 08:48:44 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795020525; bh=tWe5dXBkId+JNgkn9XhUiubNQFbD2xY89r5uLnS/bR8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=p4Q/E93c5E7cE8D2wNJonXu8VDfLu3f1JSwUYMf/4XGWq/jlpqL3bG9nRy4xV+D1A
+	 xKkWHyo0WketnMZBOUHV7i79upIHeQvckteKJLjoobn4+VepMpyEDqU+2DUiPs4KCp
+	 E05UKbeyP8Ep15Fr6A9XAB2Heh0iCE9e0DwzzNUc=
+Message-ID: <cd17d0fc-2859-4969-9677-692aaa2db0b7@arm.com>
+Date: Wed, 18 Nov 2026 17:48:42 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,64 +53,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: Patch "arm_mpam: let low level MSC accessors return an error" has
+ been added to the 7.3-stable tree
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
+ stable-commits@vger.kernel.org
+Cc: James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
+References: <ab81e90a-fdc4-426b-8da7-45b1a80e88f0@arm.com>
+ <2026-11-17-1-daily-reply-0009@kernel.org>
+ <8b078536-4101-42d4-bbad-d251cedba4f0@arm.com>
+ <20261118124002.3727477-3-sashal@kernel.org>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261118124002.3727477-3-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+Hi Sasha,
 
-------------------
+On 11/18/26 13:39, Sasha Levin wrote:
+> On Wed, Nov 18, 2026 at 11:03:40AM +0100, Andre Przywara wrote:
+>> I will send the stable backport patch ASAP.
+> 
+> Dropped 84e8795c271a ("arm_mpam: let low level MSC accessors return an error"),
+> a3a94c13c442 ("arm_mpam: propagate MSC access errors for state saving
+> function") and 197a7a41e6e0 ("arm_mpam: On saving mbwu state read the monitors
+> before clearing CFG_MBWU_CTL") from the 7.3 queue. I'll pick up your adapted
+> 7.3 backport of 197a7a41e6e0 once it's posted.
 
-[ Upstream commit 907d138279ee3747efedc9f7403d8b0edb52aca2 ]
+Thanks! It turns out that this backport patch here logically depends on 
+another fix (197a7a41e6e0, you mention above). So I need a bit more time 
+to figure out what's exactly going on here, will try to send something 
+tomorrow.
 
-The top-level all and install rules return failure only when every
-selected target fails, which commit cad6f32665cb ("selftests: Deescalate
-error reporting") deliberately kept as the default. They implement this
-by multiplying the exit statuses of the targets:
+Cheers,
+Andre
 
-  ret=$$((ret * $$?))
-
-A failing recursive make exits with status 2, so eight failing targets
-produce 256, and "exit 256" reports success. Building eight or more
-targets that all fail therefore succeeds, and install goes on to
-package an empty installation.
-
-Record a successful target instead of multiplying statuses. The rules
-still fail only when no target succeeds, and FORCE_TARGETS still stops
-at the first failure.
-
-Link: https://lore.kernel.org/r/20261014200115.1363363-2-sashal@kernel.org
-Fixes: 5f70bde26a48 ("selftests: fix build behaviour on targets' failures")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Reviewed-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Shuah Khan <skhan@linuxfoundation.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- tools/testing/selftests/Makefile | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/tools/testing/selftests/Makefile b/tools/testing/selftests/Makefile
-index bc4fdb6f53375..45ab2d8eacffe 100644
---- a/tools/testing/selftests/Makefile
-+++ b/tools/testing/selftests/Makefile
-@@ -232,7 +232,7 @@ all:
- 		$(MAKE) OUTPUT=$$BUILD_TARGET -C $$TARGET	\
- 				O=$(abs_objtree)		\
- 				$(if $(FORCE_TARGETS),|| exit);	\
--		ret=$$((ret * $$?));				\
-+		[ $$? -eq 0 ] && ret=0;				\
- 	done; exit $$ret;
- 
- run_tests: all
-@@ -299,7 +299,7 @@ ifdef INSTALL_PATH
- 				OBJ_PATH=$(INSTALL_PATH) \
- 				O=$(abs_objtree)		\
- 				$(if $(FORCE_TARGETS),|| exit);	\
--		ret=$$((ret * $$?));		\
-+		[ $$? -eq 0 ] && ret=0;		\
- 	done; exit $$ret;
- 
- 
--- 
-2.53.0
-
-
+> Also dropped 643b64025650 ("arm_mpam: Release the mon_sel lock on
+> mpam_save_mbwu_state() errors"), which needs the mon_sel_lock guard class that
+> 7.3 does not have.
+> 
 
