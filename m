@@ -1,65 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.108.111.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795002172;
-	b=Jx8SJ9ZcP/av2eYRaJGz+bvKJedzDg66Y6w7EVz7R+Mg23RVvrQ3WCJfNmnyopI7uWjh
-	 LMJG4r2pm59O6gQRaysqbymJbL6UTzqrw9/6ku41xhsov/BxenauMtzGCqZ5uORYLcYxt
-	 mI8D/d+pSDDEiWlJAV1axgynEwRH6RW09P3FPZk9xsNaxcOkpEp36T71fSlZhvi3cTOdF
-	 JTjdD1ekH9zGNDqD0p4L1JRFszAErwghKhaPmsZ5pxPYTTeEa5zdXUyNVbnFGYpN9qohP
-	 /3Vn1KDHevd/9RkkIolIEhywRFDOhG/YsKiWaupT68mLqyyV8v3vtub/XtHhRlsAcbA==
+	b=W5dxP4zxurgUw5DGySCy3ptN7IyixCFZqm3WV0etzrDw6q6Bz277KKsHHu93mL6Mmca6
+	 ZePP4gRtYU5u7KhMzhG9R3NyxnTq2MUSLRCH80B25hfOTKcy6Xw9gPteBa3f6xlutKr4A
+	 HwjmUrGZIOgAYTQSnCpcdvsTRf25ZfYDH2q6QYWOvNV0Y3VFRElfcm3FreD9/XnE7R+4a
+	 F2K2z5ufrlOmVAz+nD51QdCLGgCgCWNNSeDT8pV058mFxKKEgFLaTJmxeQWAvSa0CxlgC
+	 /e0JBQgpuLdKMMslCwDp3Qr8DK3Mq6inWuWzPuVaauGFXE5meuFFok4UDu9IUgcPSOg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795002172;
 	h=DMARC-Filter:Received:Received:Content-Transfer-Encoding:
 	 Content-Type:DKIM-Signature:Received:From:To:CC:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 X-Originating-IP;
-	bh=9JG/HgZdfWiJm1kcLHFQu8u7nS7AdgoqDyWHfJsi2iM=;
-	b=VzSB7EquhBxdQCOTEiU5JiCdn0GrLR4/tossrNSCXH0k1eXqvOyf2kHjdTlwYJDwv10X
-	 4cYEMu6OhPkHdFADqVuaypGoF4kRefwAxa4lr8Lu8F7IBHIXwXQ3R5wWf4i+CRllUZ16c
-	 nJMQBaWufU5TCdLJAe9kr00JVmOr97UZfMhvvoKyodjumFhiQHZjVipDdVFJDq+ROXDMk
-	 eD+S0edronzV+ANvlJTmClE5H0cZBmHZX52gMX4Ns1r9DNyEXox3wwvbF6Ma8jOHEGB3k
-	 J/TQGBklcOLoZquQlktqKqwGrC8kpQKFjapy9+XM3GnMFFNjjBdTczZdrYdjvMMvmLg==
+	bh=xy3wwlq1qAjY3KOqMhVgEHqcecxTAejvnEiypNdka20=;
+	b=TVkK6O3HslBRv9BFN9r4MGCqYxLSfJi0Km3o8CUENtCoXKAlBdxdmOJxrVThY1NAdznU
+	 g6zknZb2tdShN0IrAJSxdSaCrkVwPA1aCOanfcjCALXGtHRGOHGXWfu3HXLtQLraS6K3L
+	 VTCn/AtI1NaKzEVeSC+EOhDJvnHFnBriMdso32Hyfu5e4mudpmLXmxtsrZFzi5oFq8i9K
+	 JpLJFF5tJiyYWiqb52ZMfv2TplKtfwJemYUls2n6yDEYNuQ/PgHCT7NGq8srrO4ajFAVV
+	 PCmoQQp9BTachkA6MHInAiXL57MLlJswmpONJ4t+e+HhjCeJmE5F4ThZvUwa11KAnAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amicon.ru;
 	spf=pass smtp.mailfrom=amicon.ru;
-	dkim=pass header.d=amicon.ru header.i=@amicon.ru header.a=rsa-sha256 header.s=mail header.b=cfATHzrQ;
+	dkim=pass header.d=amicon.ru header.i=@amicon.ru header.a=rsa-sha256 header.s=mail header.b=j6drFrlW;
 	arc=none smtp.remote-ip=77.108.111.100
-Received: from pmg.amicon.ru (mail.amicon.ru [77.108.111.100])
+Received: from pmg.amicon.ru (unknown [77.108.111.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD0E606A320;
-	Wed, 18 Nov 2026 11:42:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2DD0E606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF22606A330;
+	Wed, 18 Nov 2026 11:42:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CF22606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amicon.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amicon.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.a=rsa-sha256 header.s=mail header.b=cfATHzrQ
+	dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.a=rsa-sha256 header.s=mail header.b=j6drFrlW
 Received: from pmg.amicon.ru (localhost.localdomain [127.0.0.1])
-	by pmg.amicon.ru (Proxmox) with ESMTP id 0ACE6101843;
-	Wed, 18 Nov 2026 14:42:49 +0300 (MSK)
-Received: from mail.amicon.ru (unknown [192.168.0.59])
-	by pmg.amicon.ru (Proxmox) with ESMTPS id DF3DE1017DA;
+	by pmg.amicon.ru (Proxmox) with ESMTP id 0717F101832;
 	Wed, 18 Nov 2026 14:42:48 +0300 (MSK)
+Received: from mail.amicon.ru (unknown [192.168.0.59])
+	by pmg.amicon.ru (Proxmox) with ESMTPS id DACB91017DA;
+	Wed, 18 Nov 2026 14:42:47 +0300 (MSK)
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 DKIM-Signature: v=1; a=rsa-sha256; d=amicon.ru; s=mail; c=simple/simple;
-	t=1795002168; h=from:subject:to:date:message-id;
-	bh=D89hnILMeBrbr9kOvzofvFnCnVkIpA6cDtBLokmbOEA=;
-	b=cfATHzrQLiA6CVotG6AiooaLNa1ixqcxy8fa1C7+XxBWyVdezxz6cMGZoDpV1bi8xWjnofUHfYe
-	tDP9uua4vfgAWaHsfvYcw8tcYvPnXSdT7FK3mpmEVGxDf7d2VVDT/Q6VOv7fPyct6I+9GFOM8XbtI
-	v/VBSa9b9eqJvIZdYf4SNgpYM7vdbrjtQWjmp3d0Js86vNcZXWldd7+B24/OmpPgXaGz7P6X6I6CR
-	stdWVoRLDYHn2RRhVbdVUmpPnd+KBrk5sIyqSbR7XoMPoActNsNs59IBgHCZHsxN7lAfplmYdUJG3
-	inuSRbBvI+sz1PoZKz4goOtBuS82AyC+Zf/w==
+	t=1795002167; h=from:subject:to:date:message-id;
+	bh=/UGFBmqWAxc+UXyoNHL/nGVn+MKrgpoqLB/x2t6A9a4=;
+	b=j6drFrlWH/TsoDgbsgAJR3VgDt4Q+6pUMoRM6w1mkjLbeDxRUW1Tt/oPpLIp/xfCDudq5lcd3+B
+	m68KqgAhKtqjUY3Drxv3e6UDyvuIFIK22ayCO2IQwzJe6Gnp9Srb0dHZGR7E0zfOU7OxzTW5dGjp1
+	PB54MLuK+Q1oXPa2g4XmDwrjIYI2cqVyov7+xuF3yOz8Qk2Fv7TNl+C8tCiEKxH9QvmKjneQF4Ttg
+	abycWlEXvJiYrc8JDh2Stai82jKCYj6K0BP5pIDu8CJaj1HfGIyCzKASySED90NNyxapvsIicZ3HB
+	wYZLESOh8eG8m4urUSda+BaObI+uCWYcbFEw==
 Received: from amicon.ru (172.16.2.25) by mail.amicon.lan (192.168.0.59) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.27; Wed, 18 Nov
- 2026 14:42:48 +0300
+ 2026 14:42:47 +0300
 From: Artem Novikov <naa@amicon.ru>
 To: <stable@vger.kernel.org>
 CC: <kvm@vger.kernel.org>, <pbonzini@redhat.com>, <seanjc@google.com>
-Subject: [PATCH 5.10 3/5] KVM: x86/mmu: Retry faults on obsolete shadow roots
-Date: Wed, 18 Nov 2026 14:42:24 +0300
-Message-ID: <20261118114226.26178-4-naa@amicon.ru>
+Subject: [PATCH 5.10 2/5] KVM: X86: Synchronize the shadow pagetable before link it
+Date: Wed, 18 Nov 2026 14:42:23 +0300
+Message-ID: <20261118114226.26178-3-naa@amicon.ru>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261118114226.26178-1-naa@amicon.ru>
 References: <20261118114226.26178-1-naa@amicon.ru>
@@ -73,72 +73,108 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-From: Sean Christopherson <seanjc@google.com>
+From: Lai Jiangshan <laijs@linux.alibaba.com>
 
-commit a955cad84cdaffa282b3cf8f5ce69e9e5655e585 upstream.
+commit 65855ed8b03437e79e42f2a89a993206981ac6cb upstream.
 
-Retry before walking a shadow root that was invalidated during fault
-handling. Check under mmu_lock after reclaim has finished and fall
-back to the MMU reload request for synthetic roots.
+Synchronize descendants before linking a cached indirect shadow page.
+A guest can make a nonpresent GPTE present without flushing its TLB.
+Retry the fault if synchronization needs to yield the MMU lock.
 
-Carry the follow-ups 18c841e1f411 ("KVM: x86: Retry page fault if MMU
-reload is pending and root has no sp") and 2abd5287f083 ("KVM: x86:
-Check for invalid/obsolete root *after* making MMU pages available").
-
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Fixes: 4731d4c7a077 ("KVM: MMU: out of sync shadow core")
+Link: https://lore.kernel.org/r/20210918005636.3675-3-jiangshanlai@gmail.com
+Signed-off-by: Lai Jiangshan <laijs@linux.alibaba.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[Check at the legacy walk entry points. The separate 5.10 TDP MMU
- uses its own root validity handling.]
+[Adapt mmu_sync_children() to the 5.10 spinlock and PAE root path.]
 Signed-off-by: Artem Novikov <naa@amicon.ru>
 ---
- arch/x86/kvm/mmu/mmu.c         | 14 +++++++++++++-
- arch/x86/kvm/mmu/paging_tmpl.h |  3 ++-
- 2 files changed, 15 insertions(+), 2 deletions(-)
+ arch/x86/kvm/mmu/mmu.c         | 17 ++++++++++-------
+ arch/x86/kvm/mmu/paging_tmpl.h | 12 ++++++++++--
+ 2 files changed, 20 insertions(+), 9 deletions(-)
 
 diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 9e711d0fa02cc972a817aef05a92253d04f8648a..7e82b2b33563db89a4020ae0894dd477570e3f72 100644
+index d2428c76d940ec737ec1d7e8dd447f3218c0c5bd..9e711d0fa02cc972a817aef05a92253d04f8648a 100644
 --- a/arch/x86/kvm/mmu/mmu.c
 +++ b/arch/x86/kvm/mmu/mmu.c
-@@ -2852,6 +2852,17 @@ void disallowed_hugepage_adjust(u64 spte, gfn_t gfn, int cur_level,
- 	}
+@@ -1972,8 +1972,8 @@ static void mmu_pages_clear_parents(struct mmu_page_path *parents)
+ 	} while (!sp->unsync_children);
  }
  
-+static bool is_stale_shadow_root(struct kvm_vcpu *vcpu)
-+{
-+	struct kvm_mmu_page *sp = to_shadow_page(vcpu->arch.mmu->root_hpa);
+-static void mmu_sync_children(struct kvm_vcpu *vcpu,
+-			      struct kvm_mmu_page *parent)
++static int mmu_sync_children(struct kvm_vcpu *vcpu,
++			     struct kvm_mmu_page *parent, bool can_yield)
+ {
+ 	int i;
+ 	struct kvm_mmu_page *sp;
+@@ -1999,12 +1999,18 @@ static void mmu_sync_children(struct kvm_vcpu *vcpu,
+ 		}
+ 		if (need_resched() || spin_needbreak(&vcpu->kvm->mmu_lock)) {
+ 			kvm_mmu_flush_or_zap(vcpu, &invalid_list, false, flush);
++			if (!can_yield) {
++				kvm_make_request(KVM_REQ_MMU_SYNC, vcpu);
++				return -EINTR;
++			}
 +
-+	if (sp)
-+		return is_obsolete_sp(vcpu->kvm, sp);
-+
-+	/* Synthetic roots such as pae_root have no shadow page. */
-+	return kvm_test_request(KVM_REQ_MMU_RELOAD, vcpu);
-+}
-+
- static int __direct_map(struct kvm_vcpu *vcpu, gpa_t gpa, u32 error_code,
- 			int map_writable, int max_level, kvm_pfn_t pfn,
- 			bool prefault, bool is_tdp)
-@@ -2866,7 +2877,8 @@ static int __direct_map(struct kvm_vcpu *vcpu, gpa_t gpa, u32 error_code,
- 	gfn_t gfn = gpa >> PAGE_SHIFT;
- 	gfn_t base_gfn = gfn;
+ 			cond_resched_lock(&vcpu->kvm->mmu_lock);
+ 			flush = false;
+ 		}
+ 	}
  
--	if (WARN_ON(!VALID_PAGE(vcpu->arch.mmu->root_hpa)))
-+	if (WARN_ON(!VALID_PAGE(vcpu->arch.mmu->root_hpa)) ||
-+	    is_stale_shadow_root(vcpu))
- 		return RET_PF_RETRY;
+ 	kvm_mmu_flush_or_zap(vcpu, &invalid_list, false, flush);
++	return 0;
+ }
  
- 	level = kvm_mmu_hugepage_adjust(vcpu, gfn, max_level, &pfn,
+ static void __clear_sp_write_flooding_count(struct kvm_mmu_page *sp)
+@@ -2073,9 +2079,6 @@ static struct kvm_mmu_page *kvm_mmu_get_page(struct kvm_vcpu *vcpu,
+ 			kvm_make_request(KVM_REQ_TLB_FLUSH_CURRENT, vcpu);
+ 		}
+ 
+-		if (sp->unsync_children)
+-			kvm_make_request(KVM_REQ_MMU_SYNC, vcpu);
+-
+ 		__clear_sp_write_flooding_count(sp);
+ 
+ trace_get_page:
+@@ -3416,7 +3419,7 @@ void kvm_mmu_sync_roots(struct kvm_vcpu *vcpu)
+ 		spin_lock(&vcpu->kvm->mmu_lock);
+ 		kvm_mmu_audit(vcpu, AUDIT_PRE_SYNC);
+ 
+-		mmu_sync_children(vcpu, sp);
++		mmu_sync_children(vcpu, sp, true);
+ 
+ 		kvm_mmu_audit(vcpu, AUDIT_POST_SYNC);
+ 		spin_unlock(&vcpu->kvm->mmu_lock);
+@@ -3432,7 +3435,7 @@ void kvm_mmu_sync_roots(struct kvm_vcpu *vcpu)
+ 		if (root && VALID_PAGE(root)) {
+ 			root &= PT64_BASE_ADDR_MASK;
+ 			sp = to_shadow_page(root);
+-			mmu_sync_children(vcpu, sp);
++			mmu_sync_children(vcpu, sp, true);
+ 		}
+ 	}
+ 
 diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index d9ab3a855a859bda1fd15f932db2eedf96f21953..0a500ac0e76e220ae484fdc60d1e5112b53abff0 100644
+index 1500fc877aece64fc9e0f013554ae8ecff99882e..d9ab3a855a859bda1fd15f932db2eedf96f21953 100644
 --- a/arch/x86/kvm/mmu/paging_tmpl.h
 +++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -652,7 +652,8 @@ static int FNAME(fetch)(struct kvm_vcpu *vcpu, gpa_t addr,
- 	if (FNAME(gpte_changed)(vcpu, gw, top_level))
- 		goto out_gpte_changed;
+@@ -667,8 +667,16 @@ static int FNAME(fetch)(struct kvm_vcpu *vcpu, gpa_t addr,
+ 		if (!is_shadow_present_pte(*it.sptep)) {
+ 			table_gfn = gw->table_gfn[it.level - 2];
+ 			access = gw->pt_access[it.level - 2];
+-			sp = kvm_mmu_get_page(vcpu, table_gfn, addr, it.level-1,
+-					      false, access);
++			sp = kvm_mmu_get_page(vcpu, table_gfn, addr,
++					      it.level - 1, false, access);
++			/*
++			 * A change from a nonpresent to a present GPTE needs no
++			 * guest TLB flush. Sync descendants before linking.
++			 * Retry if syncing would have to drop the MMU lock.
++			 */
++			if (sp->unsync_children &&
++			    mmu_sync_children(vcpu, sp, false))
++				return RET_PF_RETRY;
+ 		}
  
--	if (WARN_ON(!VALID_PAGE(vcpu->arch.mmu->root_hpa)))
-+	if (WARN_ON(!VALID_PAGE(vcpu->arch.mmu->root_hpa)) ||
-+	    is_stale_shadow_root(vcpu))
- 		goto out_gpte_changed;
- 
- 	for (shadow_walk_init(&it, vcpu, addr);
+ 		/*
 
