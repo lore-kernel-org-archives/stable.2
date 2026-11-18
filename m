@@ -1,53 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795057005;
-	b=5N/9soyfbBAMde88WWVKXUY68wwuNwFD8gLMAuGBX271AOzvVgV06dxgbZBZxDgUw0eH
-	 WBT4YaTY2Z5IHyxp3ApfG8E16vMLJnbE1WG2FYs0kAYqp+k80fisMADf5qZUXrPNlLJ9Q
-	 R+lU7hSpf590HFKNRlNvzCR3mgHmt9jKFejn1gzQgmQzqtKPZb8SnY1MkAU26D08ieXTQ
-	 dWWPyV2dIbCfti+sR+Xqxkfwju/wGvtIbOq6DuaoWwZnYd9zJ8q3LmPE5UHdJYW0SfwGI
-	 Oormk3EYy6Y7KCKdvOHg99ZhfXU+Ys0WNiYUF5/1nQwGko9Rwlo/cvJDHrXpR2pgbfg==
+	t=1795057008;
+	b=cWxiXOsnfs3hO9bgHTKgTuscpQVM4n6jKX6An3os6jj8DTG/ows0tQCW5WXH9iRQbxmb
+	 gkA3CeFSC1g8tvmpae19dlPEjVNy740MUFaoe331oFDIwpT9fHXwxzYHgBHFbvI0XvTJV
+	 62abPMTDLG2rT/qyZW9mx+lmDWtPDjKrZtnKBkrXY8uIn84tbChr1k4SVY/Ouajf0M1Be
+	 IUejLW7yslaA9wBxJ9y0vWwUa4XnXFsCu5ArWHHD6w4sIcVV+yo6zde3VqVjJcAOYm2aX
+	 0lJCp0QcqTh+AuXQyPMGLNVFRp0MyQNwkmxKqAtCeFEAK3wJJirLopWNGwnm4Do0X0Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795057005;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795057008;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=wqLhiSG1Rd0W3Oszzvfkd363BqM2dS1VlmYH9ULrqlY=;
-	b=yQQFhsp4uem0H2dkpU9QjpKDrjInaHJFtEFIMxfm9UF3R80uDaVRRS3u6Emlk78o3g9A
-	 iBilipBQrJ0PvuoLL9zD1yx/Lvkmf/yufXue5VJYw2WF1FwzVXL4bjssf+MpHKwVKMbFI
-	 NAr4vQsJF3InMPc/y9ktCKZUzCVR3mLt4jRsyc+NdNIALsk9JxxJjjdCEML2pNWBI5SN7
-	 R6kIKx81y0rp81vTWVOMlU+1kykoVLIm/4W6AYQe3bV8tcdNcnq69HqvSbbdbnk6Ls/9n
-	 G0I4SIHqLizgZRhdIPfqrk3M2ypIDzz0SwDoU/HGALs51v4WivRLWGgsTmwEBX4KGQg==
+	bh=riiBg2LigYUpTpcVwDRdAGcWBshoGVYFWiDAEdVJ+QI=;
+	b=4VxKIiT5ccVSkRvWhZx4mH1u5Bv4hSu9h+a0nDYnI7HHMcDzwjHL/GEIDp6pJVD2lms0
+	 dZlUzdrdVONzQZSHS1MOX/bA5pqD90615Tgvfpuht+zGII721CSGWsx51F5l8NATVm4M7
+	 ROBduyUoInviZe+1tGp7mXJTvuoCjmKJe+fkXBapj97Vpsjo7q1SfjV59PEJGaOki1Au1
+	 CQeee3aoHoID7kaSwJIy9QAcq5zdHBLWJoJ25gKyrH60kj7SXY5Xd8rNLtesjx8NrSzjM
+	 XHcTpG8/zg/mYJ61/LItDbkXW4ihyUMlm8SFR6rJVnZONyWG+9uzXn50kBod+o5PWYw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ft9gcHpM;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tAXg7yfO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B345B606A33E;
-	Thu, 19 Nov 2026 02:56:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 692D3606A330;
+	Thu, 19 Nov 2026 02:56:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ft9gcHpM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19E021F000C4;
-	Thu, 19 Nov 2026 02:56:44 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tAXg7yfO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C66761F000C6;
+	Thu, 19 Nov 2026 02:56:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795057005;
-	bh=wqLhiSG1Rd0W3Oszzvfkd363BqM2dS1VlmYH9ULrqlY=;
+	s=korg; t=1795057008;
+	bh=riiBg2LigYUpTpcVwDRdAGcWBshoGVYFWiDAEdVJ+QI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ft9gcHpM65IfmPW0/MqQDiW64xqeBd//EePsmQp+mJ8dYoP3L8AltEGQZV4kcMIlw
-	 Vb49l6SYsTq/DJGo0vireCx/8kIJhcYrfnfcwZtgilHAZUtaluPg8vPpBpKkr8DTBd
-	 BvHGmxeK742Q6PwNC773BpWbk3cABQCRBs1KmP7o=
+	b=tAXg7yfORaH7Kb2uYqFKYCF4gMACEDWcm2pvv3N2R/iGhMML9FtzInkE7XsfnmWO7
+	 1HC3kp3Fl9EAzlsH1hA+7zUPe2V4Ny8VZ7pddLbSTgEUli2LLYadFSWuTWSwOXx4/J
+	 lOx83g21KMRv90B/cfJ3Dh9q5IkWgQbHdWfOqzzE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Jhonata Poma-Hansen <jhonata.poma@gmail.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+	Tong Liu <lyutoon@gmail.com>,
+	Qi Tang <tpluszz77@gmail.com>,
+	Zhiyu Zhang <zhiyuzhang999@gmail.com>,
+	Bradley Morgan <brads@mainlining.org>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 2190/2214] netlink: check sk_rcvbuf before charging the dump skb
-Date: Wed, 18 Nov 2026 16:04:26 +0100
-Message-ID: <20261118150137.939296691@linuxfoundation.org>
+Subject: [PATCH 5.15 2191/2214] watch_queue: keep info_id separate from rcu_head
+Date: Wed, 18 Nov 2026 16:04:27 +0100
+Message-ID: <20261118150137.976624491@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150009.797899913@linuxfoundation.org>
 References: <20261118150009.797899913@linuxfoundation.org>
@@ -69,68 +71,83 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Jhonata Poma-Hansen <jhonata.poma@gmail.com>
+From: Zhiyu Zhang <zhiyuzhang999@gmail.com>
 
-[ Upstream commit b45d37740cfb4bdfccef3fbd9fd970fd3224438f ]
+[ Upstream commit 53d72818f9e2aeb03a6053544ee6efa4eb2a3988 ]
 
-Since commit ae8f160e7eb2 ("netlink: Fix wraparounds of
-sk->sk_rmem_alloc."), netlink_dump() charges the dump skb first and
-queues it only if sk_rmem_alloc is still below sk_rcvbuf. Commit
-a215b5723922 ("netlink: make sure we allow at least one dump skb")
-added an exception for an empty socket.
+struct watch overlays info_id with rcu_head. A notification poster reads
+info_id under rcu_read_lock(), but a concurrent final put can enqueue the
+watch with call_rcu(). Enqueueing the callback writes rcu_head before the
+grace period has elapsed, so it can corrupt info_id while the object
+remains legally visible to the reader.
 
-A dump that starts while something else is still charged to a socket
-with a small receive buffer fails with ENOBUFS and stays running.
-Every recvmsg() retries it, fails again and sets sk_err, so a reader
-that peeks before reading, as libnl does, gets ENOBUFS on the read
-after each peek, never consumes the message at the head of the queue
-and spins forever.
+__post_watch_notification() then merges that value into the notification
+info word without masking it. Pointer bits can corrupt WATCH_INFO_LENGTH
+and make post_one_notification() copy beyond the posting task's stack
+record.
 
-I hit this with "iw dev wlan0 scan" hanging at 100% CPU on an arm64
-board with a 6.6 based kernel (iw 5.19 sets SO_RCVBUF to 8KiB). A
-kprobe trace showed the scan dump starting while the NEW_SCAN_RESULTS
-notification iw had just read was still charged to its socket,
-because iw had preempted the sender before netlink_broadcast()
-returned.
+Give info_id storage separate from rcu_head so RCU enqueueing cannot modify
+it. Place it after the kref, which uses existing tail padding on x86-64.
+Mask info_id with WATCH_INFO_ID at the point of use as an additional
+invariant check.
 
-Check the limit before charging, as before ae8f160e7eb2, which also
-covers the empty socket. netlink_recvmsg() continues a dump only at
-or below half of sk_rcvbuf, so the skb is then always queued, and a
-dump goes over the limit by at most one skb. Refuse a skb that would
-take sk_rmem_alloc past INT_MAX, so the wraparound stays fixed.
+An unprivileged shell and keyctl reproducer was run for 30 seconds in QEMU.
+The vulnerable baseline produced malformed notification lengths, while this
+change completed with 288631 key notifications and no malformed record.
 
-Reproduced on net in a KVM guest with a userspace reproducer and the
-selftest in the next patch; both pass with this fix.
-
-Fixes: ae8f160e7eb2 ("netlink: Fix wraparounds of sk->sk_rmem_alloc.")
-Signed-off-by: Jhonata Poma-Hansen <jhonata.poma@gmail.com>
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
-Link: https://patch.msgid.link/20261027-netlink-dump-livelock-v2-1-c4bb05352a33@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Fixes: c73be61cede5 ("pipe: Add general notification queue support")
+Reported-by: Tong Liu <lyutoon@gmail.com>
+Reported-by: Qi Tang <tpluszz77@gmail.com>
+Reported-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+Closes: https://lore.kernel.org/lkml/CALf2hKveij_sHgANY9Aktm1dPa4wfKjKNkHyp9yPbjORWFXagA@mail.gmail.com/
+Link: https://lore.kernel.org/netdev/CALf2hKvp0NPVLwr=a3+jUHtPohxbra8gox+aYAfWathJnn-J+Q@mail.gmail.com/
+Signed-off-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+Link: https://patch.msgid.link/20261029054136.1174216-1-zhiyuzhang999@gmail.com
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netlink/af_netlink.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ include/linux/watch_queue.h | 6 ++----
+ kernel/watch_queue.c        | 2 +-
+ 2 files changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
-index d3536f9d50cb3..5fa5fadb5f0f7 100644
---- a/net/netlink/af_netlink.c
-+++ b/net/netlink/af_netlink.c
-@@ -2264,9 +2264,13 @@ static int netlink_dump(struct sock *sk, bool lock_taken)
- 	if (!skb)
- 		goto errout_skb;
+diff --git a/include/linux/watch_queue.h b/include/linux/watch_queue.h
+index 3b9a40ae8bdba..d39a1b384097c 100644
+--- a/include/linux/watch_queue.h
++++ b/include/linux/watch_queue.h
+@@ -53,10 +53,7 @@ struct watch_queue {
+  * Representation of a watch on an object.
+  */
+ struct watch {
+-	union {
+-		struct rcu_head	rcu;
+-		u32		info_id;	/* ID to be OR'd in to info field */
+-	};
++	struct rcu_head		rcu;
+ 	struct watch_queue __rcu *queue;	/* Queue to post events to */
+ 	struct hlist_node	queue_node;	/* Link in queue->watches */
+ 	struct watch_list __rcu	*watch_list;
+@@ -65,6 +62,7 @@ struct watch {
+ 	void			*private;	/* Private data for the watched object */
+ 	u64			id;		/* Internal identifier */
+ 	struct kref		usage;		/* Object usage count */
++	u32			info_id;	/* ID to be OR'd in to info field */
+ };
  
-+	/* Check the limit before charging the skb: netlink_recvmsg() continues
-+	 * the dump at or below half of sk_rcvbuf, and the skb must be queued
-+	 * then. Keep sk_rmem_alloc at or below INT_MAX.
-+	 */
- 	rcvbuf = READ_ONCE(sk->sk_rcvbuf);
- 	rmem = atomic_add_return(skb->truesize, &sk->sk_rmem_alloc);
--	if (rmem != skb->truesize && rmem >= rcvbuf) {
-+	if (rmem - skb->truesize >= rcvbuf || rmem > INT_MAX) {
- 		atomic_sub(skb->truesize, &sk->sk_rmem_alloc);
- 		goto errout_skb;
- 	}
+ /*
+diff --git a/kernel/watch_queue.c b/kernel/watch_queue.c
+index b14dbef344996..245d48c2191b0 100644
+--- a/kernel/watch_queue.c
++++ b/kernel/watch_queue.c
+@@ -217,7 +217,7 @@ void __post_watch_notification(struct watch_list *wlist,
+ 		if (watch->id != id)
+ 			continue;
+ 		n->info &= ~WATCH_INFO_ID;
+-		n->info |= watch->info_id;
++		n->info |= watch->info_id & WATCH_INFO_ID;
+ 
+ 		wqueue = rcu_dereference(watch->queue);
+ 		wf = rcu_dereference(wqueue->filter);
 -- 
 2.53.0
 
