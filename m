@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795015945;
-	b=x+CgiJIPdCQzfIXuuwsDKyVaLTXOfQVpGriUPCiYmaeTQTp9mSqpujIs6gt4WStLwIN/
-	 FDDselCvPSoqOGb0SmAaJmnctpxH8deIStnbhQBlksBrmmT4yB/UUipnOiiR5+Kc/23f/
-	 hSRc0Ych3Sq1FScnbcSmFBMYqVbvlCftMAobrB1vD9X+KqgqxfReIsvN3IvUPOXMKtF9g
-	 hmeWgkVqGh4hMeRGbEdr1Grcgu/Iu7H3F3AUtp4GT+OnDSGoLfTCU0h0cyvpeWVZKDmXv
-	 ot7g7QTMzOyZYTE2/MMJ+ntreVNq4e4LRk7h3ooRgvpW3eiU8SH3WW12+ElvkgTuTyg==
+	t=1795015950;
+	b=a5R7h6rQyyJFuueg4gWZ66t8bPhsaLKWFl+YKFLusdAraSoRKbK5igg+6DakV63DxUDr
+	 vBFVnScGW5FOAZYu3Oq3qSNT3JvQupeeHY+JFu+KTW5gwARMyD1B5Bd7fBv+a4+Jrrp3Y
+	 ObgQumrO1KdfWd+R44WbNjzOqItyHGDH1s8k/ahINDw8lkdnt6VR/06SUVZ/qjtVSt+3q
+	 448d+0LJ4tpB4bvJI1FEOl4BiNs+2ckWr6QKGPkK5B0m29GL20KLzimFf+3+wfX6NjB2t
+	 Ev1SokezwTQFqKNY6Lq3ID58y61t2qi7ddkrDrhn412Liu4koHxHrAjVjsBOc71FyYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795015945;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=CUTDYfj/NI7vPhfySbvU/8wA3af+cG4HXcFhDsJtznQ=;
-	b=19dWOsgTUc7HGh7gc21V/DfZKaQ1DlprMlV2AQbIDm1iXMhzZPS0JV7xLoy34Yu4Yfyh
-	 47GVqWc+SJStOoZFwhqMbAUVlHeHB6DzssGBa8lqlh2Lj50hNuflqRvSTU8dGT+VTpua3
-	 aI4c3r5EQCjd+X461nKeih1ZhNBmnAMPzbsrmdqFCSgFdnzovgg1eyKwzQZonofbovXQf
-	 SMtzMR5YIW7WcRmG3sEQfwPG8nElk53+eNxnFBFa5fJ/QElqfE1KB4hsYxzsMZaILdHtv
-	 9wE2r+Bpn0tqDrNk7jllFNnh9b62Oby3VP+AJesSE5daxlg4z1/tYjgODVftD9qXzVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015950;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YoJQdLYMQZjx98X8+P1ETRHqOtKdYCF7nOrC6EjxpBM=;
+	b=QSnJLDuID+hOhrcLtJRQRdwIievYPWRl5fZJ/VxnrsVRva5gsuLejreAv0G92lFHZvm0
+	 CnzwvPVK8a6LKOghb3sXXEJtyOqaq/ProFi5HPSUfhivSFcDNrwxPfHed8a/UxSpPvJbs
+	 62GJ6nwqf2x6RB750GMo7i22pgpvgd2yPkX9ZlX3SMmGCA98WyEw46XXDV3czRygriMAi
+	 cZvFaWiTqtds+WFYsriG19AY8pOG7BAbfnRddRZB8fA/z0eMovVHr5DDWpX5FOfV4YnVj
+	 HZbZKciWYBoykojbMJ6b8iPqonsJIWq6GSw5LvZmZZJ0B21OG15WPiwy2I7L9q4V6Nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZxyL1JMC;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UV07UQao;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5C8D606A31C;
-	Wed, 18 Nov 2026 15:32:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CDA606A330;
+	Wed, 18 Nov 2026 15:32:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZxyL1JMC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD8071F000C5;
-	Wed, 18 Nov 2026 15:32:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795015945;
-	bh=CUTDYfj/NI7vPhfySbvU/8wA3af+cG4HXcFhDsJtznQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZxyL1JMCOvrqNjwR/CLKPpAzeQNk+OwfnkiPVrJTJ0zeD9IY2bLRl+Tv8DUSHtEtR
-	 0391ymAd+beaNlleASnPtaCjq8N+iJfNvWuE+TX3WJ98zvecdjJa1Mru8rpF0YcpLl
-	 1CqH7bMYwtxc1ULTndPr8d+jXCoZeg3vXrRd+S+KEAHoOvVK1goW0tsKT4mRxDk5U4
-	 9GKIzzBAk3Bz/USLkWhl5rw3GhKoQCo4Bkei/PVRBRo6erP1J0t8XLoRqhRTUpry0m
-	 5fhJwJevar3t3AmZO69EG9lVmdcxtBarW+eJJVJhhD5VnW13V6vB7QcqWNX757gkd8
-	 cYHRsZebWoS1A==
-Date: Wed, 18 Nov 2026 15:32:21 +0000
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: Jeremy.Jean@oss.cyber.gouv.fr, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] udp_tunnel: fix GRO callback mismatch during setup
-Message-ID: <20261118153221.GG860048@horms.kernel.org>
-References: <20261111214622.2482547-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <179478310543.3136.4977357785981182737@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UV07UQao
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4464F1F000C4;
+	Wed, 18 Nov 2026 15:32:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795015949;
+	bh=YoJQdLYMQZjx98X8+P1ETRHqOtKdYCF7nOrC6EjxpBM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UV07UQao0LOXjVyWb4XCmqxlpL2a7J/hXYQ+x1qxxcvOFGUp+zPgvH3G3gp3W/6ae
+	 KRnQ/joQ3jWa/RDRPgjhEamE7hOIrLv+QlhPC271C8giowaNm3gdT66AFCRu0pDTG+
+	 cQROd2gZspfvrtBR6pG+9nf/j1zAE/y7VYnLrWkI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Chandrakanth Patil <chandrakanth.patil@broadcom.com>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0338/2651] scsi: mpi3mr: Fix target device reference leak in device removal handshake
+Date: Wed, 18 Nov 2026 15:26:18 +0100
+Message-ID: <20261118150300.020241058@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,34 +62,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179478310543.3136.4977357785981182737@kernel.org>
 
-On Sun, Nov 15, 2026 at 10:51:45PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 · Medium: 2 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] The fix still lets receive and completion use different tunnel
->   parsers on the same packet, so the out-of-bounds write the commit…
-> - [Medium] udp_tunnel_gro_count only describes how the head skb of a GRO
->   entry was parsed, not the packets merged into it, so packets in the…
-> - [Medium] The Fixes: tag blames only 5d7f5b2f6b93 ("udp_tunnel: use
->   static call for GRO hooks when possible", v6.16), but part of what the…
-> - [Low] The new synchronize_net() in udp_tunnel_update_gro_rcv()
->   (net/ipv4/udp_offload.c:139) runs with the global…
-> 
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Hi Jérémy,
+------------------
 
-I would appreciate it if you could provide feedback on
-the concerns raised in this AI-generated review.
+From: Chandrakanth Patil <chandrakanth.patil@broadcom.com>
+
+[ Upstream commit a04b0f3a17e32aa449fd896163a7b40efc29c4f5 ]
+
+The device removal handshake looks up the target device to update its state
+but never drops the reference that the lookup takes.
+
+Drop it once the state has been updated.
+
+Fixes: 13ef29ea4aa0 ("scsi: mpi3mr: Add support for device add/remove event handling")
+Signed-off-by: Chandrakanth Patil <chandrakanth.patil@broadcom.com>
+Link: https://patch.msgid.link/20260825210411.301535-10-chandrakanth.patil@broadcom.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/scsi/mpi3mr/mpi3mr_os.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/scsi/mpi3mr/mpi3mr_os.c b/drivers/scsi/mpi3mr/mpi3mr_os.c
+index f146c1b7bf8d5..6cfec6ae82f22 100644
+--- a/drivers/scsi/mpi3mr/mpi3mr_os.c
++++ b/drivers/scsi/mpi3mr/mpi3mr_os.c
+@@ -2561,6 +2561,9 @@ static void mpi3mr_dev_rmhs_send_tm(struct mpi3mr_ioc *mrioc, u16 handle,
+ 		tgtdev->state = MPI3MR_DEV_REMOVE_HS_STARTED;
+ 	spin_unlock_irqrestore(&mrioc->tgtdev_lock, flags);
+ 
++	if (tgtdev)
++		mpi3mr_tgtdev_put(tgtdev);
++
+ 	if (drv_cmd)
+ 		goto issue_cmd;
+ 	do {
+-- 
+2.53.0
+
+
+
