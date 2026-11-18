@@ -1,74 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.137
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794994751;
-	b=FkZGagyG6/pY/mTJHVczd1LvizUTIrvyrRboixp8QXHKd4/70IoulLlkqUE6aZOUEzHG
-	 3HS0giDDaPar3vCq8nuhGEaczqe9yvyVAyIm4QVg+1+hgd7cse5XpnCAdXpyFZYI522zf
-	 GNVcYtZv0oMqiDM1noH+Nti4JcHJVfPxr4K5H4YH+RbTC47+4+QQLsTGV71mQNCCi3wx9
-	 qcyJaXJqFtX1VCsZAEJjqGxFJgHD+iAS0dLcpjN/VJf3f6w5sEdZHXNBBUfToltxaNcei
-	 04AZJm46fRxLnFq7WMck2rdiZ8ceIp4oG9jrJo3+P3QEyvKeZNzsGwReuSPNnR1PVnw==
+	t=1794994819;
+	b=IVjviD830DpJcEtQpz8xwtdQcvM/7LceeDkf9AhvJKH+09y2G/2Atwbc7wGH6+xCNz3y
+	 kccBkl5TofKdZykdlBbZEfXTZ7UiBug/5sOtFPr+xFOD1+aSLOJqlqzUBGJatd/8BMMFh
+	 CM3EtwJlOmbx8e3DnawxhkfAyKBiwQFzz4rKTtY33M/S1hzZSQQSc0pL8vWktUnKfnYkf
+	 cY3rqcxSV0DUzUDGa9I/que7Vdq/NBl/v6SIQDPJ4XBzKrDq4cSAXjODnjSYxRUGdOSE6
+	 X32M6228FID3/5bW9l9fDGhbrMqurFT0Bqh0UrNYCYt+Vc6LvDo9T1jdeoViK7EuSIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794994751;
-	h=DMARC-Filter:X-UUID:X-CID-P-RULE:X-CID-O-INFO:X-CID-META:X-CID-BVR:
-	 X-CID-BAS:X-CID-FACTOR:X-CID-RHF:X-UUID:X-User:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1794994819;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=AsjaTEvjj3gZ93q0amD72vG8GO/OKqJcee747/qPRiI=;
-	b=RQuuo4Dlq/ytPkinhSn+TTsKSWCPMsA+/oGbbwgeES3xmW2wmlXAvqA34ceoMeY8Lqzy
-	 agieMiBQsUKuTXrre1W8m3jIdJPbYm1vPCUp54wA7x1in5TL1GrTBLE6uSqJEyYLZJBLL
-	 SUw+yP7z8QhV8lcKwxw8wNfvkdNO2OVr+yw9G+Igco8e8gy0jWMN9ajXNVBojZm+Yg+ZP
-	 5v54iG1vDlqsjBsy8ArSFdXqf3CJsR5Ac71bzL4ENs1ZuZlDKvxftO74BJC8odYducrCU
-	 oSt7thN+b7T8hFsHx4rWld1MLXv/C8Nw4DXl53B8NBvl1h29FGGZrYjDzvgc3BrL7fw==
+	bh=K6C3KealrE9nPWRbh4Md0/lee3g/VCnP6sGbAQQZiOw=;
+	b=1nbYYLyuEPBCRiIij9hrCRopz5ZHQKQcvK0bxJ4mOI9K1BmLfV73q9XgD2V5rpxy11NN
+	 XhSQfYsYzOidg5gV04VSRe9Sf5Lk3TvPLOAwz8vYSUXN/Ze/DnoRzgKzp1UVgCl362QYv
+	 cLEzMWIa9YWW7cSSVGkTdUZiHA/JVH++A06o6x+DnK+jmWaLIywAvL/9ncOheI0DXoXfr
+	 /6aIFGiIsj41s2V9xyuROeUWWYlroB5Xhofs9EpskwDwW+d5BaOjCbeWSwLTssC6O5hJY
+	 0r0kp83RCiK5eeNxrU/XJimj67OBSWj2G+v4tMgKa92ykskMHACqfEyJqm+ce+Z91Bg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=kylinos.cn;
-	spf=pass smtp.mailfrom=kylinos.cn;
-	arc=none smtp.remote-ip=124.126.103.232
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69C62606A31C;
-	Wed, 18 Nov 2026 09:39:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69C62606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e3a9c08ee33311f19a56ed5b684f684d-20261118
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:0846131d-252d-4e03-a1fd-780c2246c151,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:c674026f7db0ce8aac13ae7d87e7d93e,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50|99,EDM:-3,I
-	P:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
-	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e3a9c08ee33311f19a56ed5b684f684d-20261118
-X-User: yijiangshan@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <yijiangshan@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1229989291; Wed, 18 Nov 2026 17:39:02 +0800
-From: Jiangshan Yi <yijiangshan@kylinos.cn>
-To: brendan.higgins@linux.dev,
-	david@davidgow.net
-Cc: raemoar63@gmail.com,
-	brgl@kernel.org,
-	sboyd@kernel.org,
-	skhan@linuxfoundation.org,
-	logang@deltatee.com,
-	gregkh@linuxfoundation.org,
-	linux-kselftest@vger.kernel.org,
-	kunit-dev@googlegroups.com,
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=IEuJqGnU;
+	arc=none smtp.remote-ip=111.22.67.137
+Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D61D1606A320;
+	Wed, 18 Nov 2026 09:40:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D61D1606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=IEuJqGnU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=IEuJqGnUnwltx1CBnurSogcZrX5F+hHsGiRYgtr2XY2Kl5mNFhkGmoD+Ld0/YqfapkyCycsvz/p95
+	 g2GlyZ5tbQTJ7Q/iJkhrqDL58EhTIwG8zQr/ZUcjzE4pXeXKou2f+gK2A8549GvGQAn3ppst8DxQQR
+	 A9Xa/pn6gjsqhnH0=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86afd727edd8-b33f0;
+	Wed, 18 Nov 2026 17:40:14 +0800 (CST)
+X-RM-TRANSID:2ee86afd727edd8-b33f0
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from Z04181454368174 (unknown[10.55.1.71])
+	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26afd7278c69-d25f5;
+	Wed, 18 Nov 2026 17:40:14 +0800 (CST)
+X-RM-TRANSID:2ee26afd7278c69-d25f5
+From: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
+To: akpm@linux-foundation.org
+Cc: ljs@kernel.org,
+	david@kernel.org,
+	surenb@google.com,
+	vbabka@kernel.org,
+	kas@kernel.org,
+	dave.hansen@linux.intel.com,
+	mirq-linux@rere.qmqm.pl,
+	arnd@arndb.de,
+	sfr@canb.auug.org.au,
+	usama.anjum@arm.com,
+	avagin@gmail.com,
+	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	13667453960@163.com,
-	Jiangshan Yi <yijiangshan@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] kunit: fix resource leak when init fails
-Date: Wed, 18 Nov 2026 17:38:57 +0800
-Message-Id: <20261118093857.578044-1-yijiangshan@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	trivial@kernel.org,
+	zhang jiao <zhangjiao2@cmss.chinamobile.com>,
+	Muhammad Usama Anjum <usama.anjum@collabora.com>
+Subject: [PATCH] fs/proc/task_mmu: fix uninitialized read in pagemap_scan_push_range()
+Date: Wed, 18 Nov 2026 17:39:58 +0800
+Message-ID: <20261118093959.1728-1-zhangjiao2@cmss.chinamobile.com>
+X-Mailer: git-send-email 2.50.1.windows.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -80,42 +83,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-If the init function passed to kunit_alloc_resource() or
-kunit_alloc_and_get_resource() fails, __kunit_add_resource() returns
-before the resource is added to the test's resource list, so the
-allocated resource is never freed. Call kfree() on the error path.
+From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
 
-The free function is not called on this path: init() is responsible for
-cleaning up after a failure, and free() expects an initialized resource.
+PAGEMAP_SCAN ioctl accumulates struct page_region entries in a bounce
+buffer before copying them out to userspace.  The bounce buffer is
+allocated with kmalloc() and only the first entry's ->start and ->end
+fields are reset, leaving its ->categories field uninitialized.
 
-Fixes: 0a756853586c ("kunit: test: add test resource management API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
+pagemap_scan_push_range() decides whether an incoming range can be
+merged into the current entry with:
+
+	if (addr == cur_buf->end && categories == cur_buf->categories)
+
+A scan starting at address 0 is accepted (arg->start is only checked
+for page alignment) and page 0 can be mapped when mmap_min_addr permits
+it.  If the first matching page is then reported at address 0,
+addr == cur_buf->end == 0 holds and the uninitialized
+cur_buf->categories is read, so the merge decision depends on stale
+slab contents and KMSAN would flag an uninit-value use.  No kernel data
+can actually be disclosed, because the comparison only succeeds when
+the uninitialized value equals the categories that would be stored
+anyway.
+
+Fix this by zero-allocating the bounce buffer, which also makes the
+manual reset of the first entry redundant.  The buffer is allocated
+once per ioctl invocation, so the additional zeroing cost is
+negligible.
+
+Fixes: 52526ca7fdb9 ("fs/proc/task_mmu: implement IOCTL to get and optionally clear info about PTEs")
+Cc: <stable@vger.kernel.org>
+Cc: Muhammad Usama Anjum <usama.anjum@collabora.com>
+Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
 ---
- include/kunit/resource.h | 3 +++
- 1 file changed, 3 insertions(+)
+ fs/proc/task_mmu.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/include/kunit/resource.h b/include/kunit/resource.h
-index c330ed3e751c..5c12b3cc2947 100644
---- a/include/kunit/resource.h
-+++ b/include/kunit/resource.h
-@@ -258,6 +258,8 @@ kunit_alloc_and_get_resource(struct kunit *test,
- 		kunit_get_resource(res);
- 		return res;
- 	}
-+
-+	kfree(res);
- 	return NULL;
- }
+diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
+index 22361607020d..4e552f9db8ba 100644
+--- a/fs/proc/task_mmu.c
++++ b/fs/proc/task_mmu.c
+@@ -3082,11 +3082,10 @@ static int pagemap_scan_init_bounce_buffer(struct pagemap_scan_private *p)
  
-@@ -293,6 +295,7 @@ static inline void *kunit_alloc_resource(struct kunit *test,
- 	if (!__kunit_add_resource(test, init, free, res, context))
- 		return res->data;
+ 	p->vec_buf_len = min_t(size_t, PAGEMAP_WALK_SIZE >> PAGE_SHIFT,
+ 			       p->arg.vec_len);
+-	p->vec_buf = kmalloc_objs(*p->vec_buf, p->vec_buf_len);
++	p->vec_buf = kzalloc_objs(*p->vec_buf, p->vec_buf_len);
+ 	if (!p->vec_buf)
+ 		return -ENOMEM;
  
-+	kfree(res);
- 	return NULL;
- }
+-	p->vec_buf->start = p->vec_buf->end = 0;
+ 	p->vec_out = (struct page_region __user *)(long)p->arg.vec;
  
+ 	return 0;
 -- 
-2.25.1
+2.33.0
+
+
 
