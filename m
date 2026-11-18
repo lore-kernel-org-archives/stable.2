@@ -1,54 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795017535;
-	b=lsLck7fol9mTmjGiuEvrPfKbMLYEdfj/9plzjTqNGlbYl5RgRHiy/kp/jqaCS2+/cbDx
-	 ViU03pYkRh4WM17LUXHXLH9yqpQ7tNNZnaaFu3TQp99jESt+xJlevJyb4xyYZFD6cdCp5
-	 8yxg8nmK8p5usuu8OfXbHMVRDbbiQEPNCNXAzXZbCUPP8GFVCR1cPAUlE0yUHgDHx3Ux+
-	 X9hIpES3qZqOJjS6R2OBxPqymrFAXu2yCARs3cUCr2UkAgpcvFSVfBb2ljBEbXVEFqElP
-	 FLaoWjWTVWBJqg8khBZ3bWZSLRCIXyTVaap8D75z908jE5HjoMhPIiIrIlcaIF+JTzQ==
+	t=1795017541;
+	b=nZbhsc/6s01ZXmWvf3necJFSeZQKGMKMfroJmr1W7qBPIx+MB8yGb2URjdkXrSJl+KCj
+	 BdbWzXCiOLDg8gWfkc5Ci+IHw21uGYa/GOYlN7J+QkEHZCeMP53fd4MK5f+7QPGj+eONo
+	 dQIz9Ij/kLg9mJEANJgDRoWJil3TwR2FGCGGKTBLdKLDARJz/NrRa9eWcYKWeMACl8sDV
+	 sCzWEoV7dtizobxIIqF8D23Y/xgjyQbYtG8YNmam1FRhWKzr4jTSa9ZIX7o+zi/GHswPU
+	 evrVR/j0mtWziREhKQq0ujYfGIXAToRHUoXTd597p+8YcQbsCyPzFr5H4hzAL0n1PQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795017535;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795017541;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=bV0a29puUMUgFKcwx3kzLQgASGnvcTy4ZJ1c0YCykTM=;
-	b=ZOsBC8coaJvEcXRTeRyxylKoeC0XZdUdz9OOTLcc+S64SgCgR97nvMUsKx8G50TdXo8p
-	 E2wyYOeKnanIqMy8DIl5D/YN5vxdmRNBsrUkcIsSdfUL8PU6lxtCmci3gWKopMP7qkd4M
-	 BDH9nKWC2X1JbtvDsg3EpuJpw3wYoQRp/aMSzccV0O2PKGJ/kbL/A6OIf06HLcnSd9zBd
-	 oz+JkfjiGFDzLkiXT7dXTA5FEVrgdwUx3QzD9ZFUHxEku22IsBFjnKTPp0Ts2rW5dNWyG
-	 XGBKIwaMODKUbl0nShRKTgvE6niSjOgrYXU53iV9CmMbDssgiNu1xJQasAFPGT9za8w==
+	bh=dmPW+cPKWpTjgVWJ0xqMB8hOrh9e8aHHnpcNaIuAhhE=;
+	b=Pt1Wa6ge3D1rUi9er1FTi6B7O33TBmLmwdBEVlVnxNdWsJK63kBy51vRSnt+EPR7oroe
+	 Rc0G7SL9PJuAKxxuDXYhThXOiGErNBeEauba9YGn4YF/pqEbZ9LP/bC5BUFu44reLbJRd
+	 UN1/GheLKHEYvjn3LbTX6V+ZPJ6NZT+60zUW4vJJ+Cfw3xD7Qn1DFamxZb7KE+q/kpYVt
+	 xztZDx5R5m8uXj5AdygDlflxWLc7N5BYypjgU6+e36bFnwnY3HB3jJZEiXHAd4MZHGXTA
+	 T47jHSaGoZtFtvM98M6VEI6xmTvVb5bGN7XeY11m+goxbX4wYSvKAw3r2d8kUyoSUPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2mpIheYh;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E08wlwqO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A51D606A339;
-	Wed, 18 Nov 2026 15:58:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22330606A33D;
+	Wed, 18 Nov 2026 15:59:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2mpIheYh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F19B11F000C9;
-	Wed, 18 Nov 2026 15:58:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=E08wlwqO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E45D1F000C5;
+	Wed, 18 Nov 2026 15:59:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795017535;
-	bh=bV0a29puUMUgFKcwx3kzLQgASGnvcTy4ZJ1c0YCykTM=;
+	s=korg; t=1795017541;
+	bh=dmPW+cPKWpTjgVWJ0xqMB8hOrh9e8aHHnpcNaIuAhhE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=2mpIheYhO/aEuXay9taCIpI5RKaxuJSGVa1iR66W+JcYAQ4CbfkKsJt6NmwrmRQvj
-	 jI4npDzJsnIAkYat4bQpfkAMhEaze+peu9aR7b3fYrW4l7jdg2w4pE62gMUcgCs49f
-	 Zf8p19X6zuvhZKW1IzBK1wVCu2J7lsao3dAaWpjQ=
+	b=E08wlwqOitexTg5Ygm2JUsS+dmTkESTlMGCg8SKGNgIiQy2SmqL56I6V0IPpFX3b/
+	 3DshCD1X3ifo4YO6BkJ0HKh+eVXY95VovEGo/mmdWgczyFhGfSFyTocZrPB2ruKaLI
+	 BTbJR6qbbs/WPrv6CzR7v/Xf+iLOHqMDxeD3A7yk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
+	Johannes Berg <johannes.berg@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0920/2651] arm64: dts: qcom: sm8150: Use SM8150_CX for the SDHC power domain
-Date: Wed, 18 Nov 2026 15:36:00 +0100
-Message-ID: <20261118150321.014963733@linuxfoundation.org>
+Subject: [PATCH 7.3 0922/2651] um: time-travel: fix sched_yield() behaviour
+Date: Wed, 18 Nov 2026 15:36:02 +0100
+Message-ID: <20261118150321.084748191@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -70,38 +67,46 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+From: Johannes Berg <johannes.berg@intel.com>
 
-[ Upstream commit 475aab59d9870d250f521e202d191899c50a3ded ]
+[ Upstream commit 0e70b1de88ef1973cf752ae27930683eb2acd338 ]
 
-Replace the raw power-domain index of SDHC2 with the SM8150_CX binding
-constant, which is the correct power domain in this case.
+Just incrementing tt_extra_sched_jiffies can make this
+drift enough to hit the softlockup detector, e.g. with
+ping using sched_yield() in a loop to measure short
+intervals. Make the simulation actually pass time, this
+requires going to the external scheduler but actually
+makes this sort of thing behave much better and avoids
+the soft lockup.
 
-Fixes: 876644c76034 ("arm64: dts: qcom: sm8150: Add support for SDC2")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260914-qcom-tie-cx-to-gcc-v4-0-9d5a606ada33@oss.qualcomm.com?part=45
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260915-dts-qcom-sm8150-sdhc-use-mss-for-pd-index-v2-1-a8610199483d@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+Fixes: 887c5c12e80c ("um: work around sched_yield not yielding in time-travel mode")
+Link: https://patch.msgid.link/20260924134223.1672004-2-johannes@sipsolutions.net
+Signed-off-by: Johannes Berg <johannes.berg@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/boot/dts/qcom/sm8150.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/um/kernel/skas/syscall.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8150.dtsi b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-index 94a3b02cb2897..e83fe8daa7c29 100644
---- a/arch/arm64/boot/dts/qcom/sm8150.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8150.dtsi
-@@ -3574,7 +3574,7 @@ sdhc_2: mmc@8804000 {
- 			iommus = <&apps_smmu 0x6a0 0x0>;
- 			qcom,dll-config = <0x0007642c>;
- 			qcom,ddr-config = <0x80040868>;
--			power-domains = <&rpmhpd 0>;
-+			power-domains = <&rpmhpd SM8150_CX>;
- 			operating-points-v2 = <&sdhc2_opp_table>;
+diff --git a/arch/um/kernel/skas/syscall.c b/arch/um/kernel/skas/syscall.c
+index bc117733e8eff..914b90af42ed2 100644
+--- a/arch/um/kernel/skas/syscall.c
++++ b/arch/um/kernel/skas/syscall.c
+@@ -35,12 +35,13 @@ void handle_syscall(struct uml_pt_regs *r)
+ 	/*
+ 	 * If no time passes, then sched_yield may not actually yield, causing
+ 	 * broken spinlock implementations in userspace (ASAN) to hang for long
+-	 * periods of time.
++	 * periods of time. Advance the time-travel clock a bit so sched_yield()
++	 * in a loop (like ping does for small intervals) also works correctly.
+ 	 */
+ 	if ((time_travel_mode == TT_MODE_INFCPU ||
+ 	     time_travel_mode == TT_MODE_EXTERNAL) &&
+ 	    syscall == __NR_sched_yield)
+-		tt_extra_sched_jiffies += 1;
++		time_travel_ndelay(1000);
  
- 			status = "disabled";
+ 	if (syscall >= 0 && syscall < __NR_syscalls) {
+ 		unsigned long ret;
 -- 
 2.53.0
 
