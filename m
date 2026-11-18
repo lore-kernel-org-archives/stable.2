@@ -1,59 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795055879;
-	b=ivwQt64UBUf/16HXbzXd1MYUzu+9bSjm/y8VhpnZ3HevfTK7dN/h9OTvsE812WAxlE0A
-	 MEyRLeasunrmpjwOJXpxp+iWWf+07MD4tTaGClkGGV5Fbdr+tvyDM6o3e8x6hDAW/OMWI
-	 frPCc5501h4rIed1kKFmJQkf7SCWv69yMW7KfHJt9tYyYobk3ffw9vMCP9+Uc85SQCF4Y
-	 gvg9tnyRaa1SPCcS2dxmBmzpk0vqK3NVO6V9BgW7wiky9fU8AnSOSQv0R2g7MjMUZ8e8x
-	 TIcu+2+w5hBNC0ni67tHlp+AAXwxO4ILQyxcRTwVfCCXgHnGEh8ljNzOUXcyFUoCbTA==
+	t=1795055885;
+	b=Y/h6oaqbhTxbYcPcQtEUJOFLje8UCz50TT5sjLN5TqZXbELNMn2R/uzD18hOdr+yQFFT
+	 cb1MxJr34xMI1xBVKoQoXVnB4CHxK4vjvRcomh3qKn8vmPjdXhoq8g8c6J9LtjQtH5zrn
+	 RcG632V1OotMYMcX2cjq4QZ0wPRz6/V1wjxPHFs1x21NHuH4aUWVIPNPtkGA9WEy6Jufr
+	 MK6AUC1sPUue458Age48CwXTDlfaTsyPaI9Hakmf2H4YF1zc+oFdEc8OU0mvPUO+pEbFc
+	 ZX+5XvSJ7nSUlm1Hv4S2qni4P4eI3VEasKmIJ5MU6htUYXExJZFc7GBrUpHdrRLLnwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795055879;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795055885;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=mm3qHs4l5mGjI3KBqSHd4mu56acPUBbxpy0R/lTutis=;
-	b=qKCYf8bEaPiZyhUXqJW1e0/+HB87p/zc3BXDvM1Z06O5YjITZT/uH9RrSbeEPbpa7N93
-	 MOb1jamVPb3uohUcAB9TtUhPJhnEfulKbWrbhgS8mGWTNEFKs1PJtfzZnTJrZwozRi1Vq
-	 GC/tTYyDTXY4hqa9t80VRA2ydklJ5wF6ltsHsYW7wQ+iUZ1Xx5zhW6LrZ6pQYpuDlm9pe
-	 +LjTt3dFR0q6Gp2qARhB+8/fTH9EtyzOVltKtLezbeMfqm+wnEWY7FVcoJhNaxHjIzR7Z
-	 +EC3J7FFRNjFlkKST04QliFBkfT7O7fLtKtinGn3daHBBxG3MymK+DRtic76NE7uvNA==
+	bh=ztOxYpMT+8Zvdi3WSySngYa8C+uvRooS04SATwJKvqQ=;
+	b=DWbBQFt8E8rJBQFk+d60UOLd2CfmhN3yd3D6MInDB5ccT2jmT6lwswXEqhmNEfiVjpVU
+	 2HhmmmLlq4tR1svX3WtHIGAmZr9JfHpQAA1nCfYyP2aYYHYh5HDQJ02KaAs7E7tuROPKc
+	 YBgOnigoWg20md2Q7UlE60yez5XhKWK5HppwYRdu+6jSQsepA2mKq88iQGRtPCNOhmFF1
+	 Ce3bDNaqGD0d1UsfPtm7CXBHcp01T59LTb2RrOoJog9X0dm+VAMKa3FjbGyYbRlXmAErz
+	 0T25qw0fD31hhutvo73H8tAI5Uh3AfFtkb8HR3+7xUnxniDLYp0raAp9d3i3NWiUV5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="UZrGww/n";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nJZJuXPl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C509606A325;
-	Thu, 19 Nov 2026 02:37:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1A0D606A32C;
+	Thu, 19 Nov 2026 02:38:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UZrGww/n
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C549B1F000C5;
-	Thu, 19 Nov 2026 02:37:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nJZJuXPl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5684E1F000C4;
+	Thu, 19 Nov 2026 02:38:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795055879;
-	bh=mm3qHs4l5mGjI3KBqSHd4mu56acPUBbxpy0R/lTutis=;
+	s=korg; t=1795055884;
+	bh=ztOxYpMT+8Zvdi3WSySngYa8C+uvRooS04SATwJKvqQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UZrGww/n3zEfOI7klLGT9+YIDngKKQrDzJqFlizf3zLxOXnNAaU/YY1823FPpMsdz
-	 Bw84Da07tqrevVcbc1+2aauc90i4IOJtTaRwquVccL6X+Z3JlH5bdOWgtkn/KetKZK
-	 LC/icDry/9VzFzLP6CE3Y8p08rPdimIOR7XxrOmA=
+	b=nJZJuXPlzVz6CHLoIvo9wypLonWe9a/ySr+dlr9mH3XwGItt5o19leyzS9BcoSPwe
+	 4yjQ/SOtpWWjaJG1AC2tJvII8wIHXTJs9W/xq2D0mSdlQpA6+vkMJY2+9GlT5cEW7m
+	 gzklnpsbFWViHGI5YqDXZ9mrqF2QwXCUhwBCeVjA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Terry Bowman <terry.bowman@amd.com>,
-	Robert Richter <rrichter@amd.com>,
-	Oliver OHalloran <oohall@gmail.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-pci@vger.kernel.org,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	Dave Jiang <dave.jiang@intel.com>,
-	Dan Williams <dan.j.williams@intel.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 1789/2214] PCI/AER: Forward RCH downstream port-detected errors to the CXL.mem dev handler
-Date: Wed, 18 Nov 2026 15:57:45 +0100
-Message-ID: <20261118150123.049904747@linuxfoundation.org>
+Subject: [PATCH 5.15 1791/2214] ALSA: caiaq: Allow zero-length packet handling for EP1
+Date: Wed, 18 Nov 2026 15:57:47 +0100
+Message-ID: <20261118150123.151420963@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150009.797899913@linuxfoundation.org>
 References: <20261118150009.797899913@linuxfoundation.org>
@@ -75,215 +67,49 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Robert Richter <rrichter@amd.com>
+From: Takashi Iwai <tiwai@suse.de>
 
-[ Upstream commit 0a867568bb0d203ca3d28634a611a1367d7c892d ]
+[ Upstream commit ccfe6ab672c020fca56988e634088bfb7764e2a7 ]
 
-In Restricted CXL Device (RCD) mode a CXL device is exposed as an
-RCiEP, but CXL downstream and upstream ports are not enumerated and
-not visible in the PCIe hierarchy. [1] Protocol and link errors from
-these non-enumerated ports are signaled as internal AER errors, either
-Uncorrectable Internal Error (UIE) or Corrected Internal Errors (CIE)
-via an RCEC.
+The recent fix to avoid OOB access for malformed packets added a
+packet length check and returns immediately if it's too short.
+However, this can be lead to a regression because the completion
+handler doesn't resubmit the packet, while a zero-length packet itself
+is valid, per se.
 
-Restricted CXL host (RCH) downstream port-detected errors have the
-Requester ID of the RCEC set in the RCEC's AER Error Source ID
-register. A CXL handler must then inspect the error status in various
-CXL registers residing in the dport's component register space (CXL
-RAS capability) or the dport's RCRB (PCIe AER extended
-capability). [2]
+For addressing the potential regression above, change the handling for
+a zero-length packet to just resubmit without processing the incoming
+contents.
 
-Errors showing up in the RCEC's error handler must be handled and
-connected to the CXL subsystem. Implement this by forwarding the error
-to all CXL devices below the RCEC. Since the entire CXL device is
-controlled only using PCIe Configuration Space of device 0, function
-0, only pass it there [3]. The error handling is limited to currently
-supported devices with the Memory Device class code set (CXL Type 3
-Device, PCI_CLASS_MEMORY_CXL, 502h), handle downstream port errors in
-the device's cxl_pci driver. Support for other CXL Device Types
-(e.g. a CXL.cache Device) can be added later.
-
-To handle downstream port errors in addition to errors directed to the
-CXL endpoint device, a handler must also inspect the CXL RAS and PCIe
-AER capabilities of the CXL downstream port the device is connected
-to.
-
-Since CXL downstream port errors are signaled using internal errors,
-the handler requires those errors to be unmasked. This is subject of a
-follow-on patch.
-
-The reason for choosing this implementation is that the AER service
-driver claims the RCEC device, but does not allow it to register a
-custom specific handler to support CXL. Connecting the RCEC hard-wired
-with a CXL handler does not work, as the CXL subsystem might not be
-present all the time. The alternative to add an implementation to the
-portdrv to allow the registration of a custom RCEC error handler isn't
-worth doing it as CXL would be its only user. Instead, just check for
-an CXL RCEC and pass it down to the connected CXL device's error
-handler. With this approach the code can entirely be implemented in
-the PCIe AER driver and is independent of the CXL subsystem. The CXL
-driver only provides the handler.
-
-[1] CXL 3.0 spec: 9.11.8 CXL Devices Attached to an RCH
-[2] CXL 3.0 spec, 12.2.1.1 RCH Downstream Port-detected Errors
-[3] CXL 3.0 spec, 8.1.3 PCIe DVSEC for CXL Devices
-
-Co-developed-by: Terry Bowman <terry.bowman@amd.com>
-Signed-off-by: Terry Bowman <terry.bowman@amd.com>
-Signed-off-by: Robert Richter <rrichter@amd.com>
-Cc: Oliver O'Halloran <oohall@gmail.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>
-Cc: linuxppc-dev@lists.ozlabs.org
-Cc: linux-pci@vger.kernel.org
-Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-Reviewed-by: Jonathan Cameron <Jonathan.Cameron@huawei.com>
-Reviewed-by: Dave Jiang <dave.jiang@intel.com>
-Link: https://lore.kernel.org/r/20231018171713.1883517-18-rrichter@amd.com
-Signed-off-by: Dan Williams <dan.j.williams@intel.com>
-Stable-dep-of: e86ac10110d0 ("PCI/AER: Fix struct pci_dev reference leak in aer_process_err_devices()")
+Fixes: aba30af07d4f ("ALSA: usb-audio: caiaq: validate EP1 reply lengths")
+Link: https://patch.msgid.link/20261006134405.479603-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/pci/pcie/Kconfig |  9 ++++
- drivers/pci/pcie/aer.c   | 93 +++++++++++++++++++++++++++++++++++++++-
- 2 files changed, 100 insertions(+), 2 deletions(-)
+ sound/usb/caiaq/device.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/pci/pcie/Kconfig b/drivers/pci/pcie/Kconfig
-index 45a2ef702b45b..c38789da37ac6 100644
---- a/drivers/pci/pcie/Kconfig
-+++ b/drivers/pci/pcie/Kconfig
-@@ -45,6 +45,15 @@ config PCIEAER_INJECT
- 	  gotten from:
- 	     https://www.kernel.org/pub/linux/utils/pci/aer-inject/
+diff --git a/sound/usb/caiaq/device.c b/sound/usb/caiaq/device.c
+index bc35c36148ac9..39b88f5fc481b 100644
+--- a/sound/usb/caiaq/device.c
++++ b/sound/usb/caiaq/device.c
+@@ -142,7 +142,7 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
+ 		return;
+ 	}
+ 	if (urb->actual_length < 1)
+-		return;
++		goto resubmit;
  
-+config PCIEAER_CXL
-+	bool "PCI Express CXL RAS support"
-+	default y
-+	depends on PCIEAER && CXL_PCI
-+	help
-+	  Enables CXL error handling.
-+
-+	  If unsure, say Y.
-+
- #
- # PCI Express ECRC
- #
-diff --git a/drivers/pci/pcie/aer.c b/drivers/pci/pcie/aer.c
-index 3770727c8a327..da4d7f3060ec9 100644
---- a/drivers/pci/pcie/aer.c
-+++ b/drivers/pci/pcie/aer.c
-@@ -937,14 +937,97 @@ static bool find_source_device(struct pci_dev *parent,
- 	return true;
- }
+ 	payload_len = urb->actual_length - 1;
  
-+#ifdef CONFIG_PCIEAER_CXL
-+
-+static bool is_cxl_mem_dev(struct pci_dev *dev)
-+{
-+	/*
-+	 * The capability, status, and control fields in Device 0,
-+	 * Function 0 DVSEC control the CXL functionality of the
-+	 * entire device (CXL 3.0, 8.1.3).
-+	 */
-+	if (dev->devfn != PCI_DEVFN(0, 0))
-+		return false;
-+
-+	/*
-+	 * CXL Memory Devices must have the 502h class code set (CXL
-+	 * 3.0, 8.1.12.1).
-+	 */
-+	if ((dev->class >> 8) != PCI_CLASS_MEMORY_CXL)
-+		return false;
-+
-+	return true;
-+}
-+
-+static bool cxl_error_is_native(struct pci_dev *dev)
-+{
-+	struct pci_host_bridge *host = pci_find_host_bridge(dev->bus);
-+
-+	return (pcie_ports_native || host->native_aer);
-+}
-+
-+static bool is_internal_error(struct aer_err_info *info)
-+{
-+	if (info->severity == AER_CORRECTABLE)
-+		return info->status & PCI_ERR_COR_INTERNAL;
-+
-+	return info->status & PCI_ERR_UNC_INTN;
-+}
-+
-+static int cxl_rch_handle_error_iter(struct pci_dev *dev, void *data)
-+{
-+	struct aer_err_info *info = (struct aer_err_info *)data;
-+	const struct pci_error_handlers *err_handler;
-+
-+	if (!is_cxl_mem_dev(dev) || !cxl_error_is_native(dev))
-+		return 0;
-+
-+	/* protect dev->driver */
-+	device_lock(&dev->dev);
-+
-+	err_handler = dev->driver ? dev->driver->err_handler : NULL;
-+	if (!err_handler)
-+		goto out;
-+
-+	if (info->severity == AER_CORRECTABLE) {
-+		if (err_handler->cor_error_detected)
-+			err_handler->cor_error_detected(dev);
-+	} else if (err_handler->error_detected) {
-+		if (info->severity == AER_NONFATAL)
-+			err_handler->error_detected(dev, pci_channel_io_normal);
-+		else if (info->severity == AER_FATAL)
-+			err_handler->error_detected(dev, pci_channel_io_frozen);
-+	}
-+out:
-+	device_unlock(&dev->dev);
-+	return 0;
-+}
-+
-+static void cxl_rch_handle_error(struct pci_dev *dev, struct aer_err_info *info)
-+{
-+	/*
-+	 * Internal errors of an RCEC indicate an AER error in an
-+	 * RCH's downstream port. Check and handle them in the CXL.mem
-+	 * device driver.
-+	 */
-+	if (pci_pcie_type(dev) == PCI_EXP_TYPE_RC_EC &&
-+	    is_internal_error(info))
-+		pcie_walk_rcec(dev, cxl_rch_handle_error_iter, info);
-+}
-+
-+#else
-+static inline void cxl_rch_handle_error(struct pci_dev *dev,
-+					struct aer_err_info *info) { }
-+#endif
-+
- /**
-- * handle_error_source - handle logging error into an event log
-+ * pci_aer_handle_error - handle logging error into an event log
-  * @dev: pointer to pci_dev data structure of error source device
-  * @info: comprehensive error information
-  *
-  * Invoked when an error being detected by Root Port.
-  */
--static void handle_error_source(struct pci_dev *dev, struct aer_err_info *info)
-+static void pci_aer_handle_error(struct pci_dev *dev, struct aer_err_info *info)
- {
- 	int aer = dev->aer_cap;
+@@ -192,6 +192,7 @@ static void usb_ep1_command_reply_dispatch (struct urb* urb)
+ 		break;
+ 	}
  
-@@ -968,6 +1051,12 @@ static void handle_error_source(struct pci_dev *dev, struct aer_err_info *info)
- 		pcie_do_recovery(dev, pci_channel_io_normal, aer_root_reset);
- 	else if (info->severity == AER_FATAL)
- 		pcie_do_recovery(dev, pci_channel_io_frozen, aer_root_reset);
-+}
-+
-+static void handle_error_source(struct pci_dev *dev, struct aer_err_info *info)
-+{
-+	cxl_rch_handle_error(dev, info);
-+	pci_aer_handle_error(dev, info);
- 	pci_dev_put(dev);
- }
- 
++ resubmit:
+ 	cdev->ep1_in_urb->actual_length = 0;
+ 	ret = usb_submit_urb(cdev->ep1_in_urb, GFP_ATOMIC);
+ 	if (ret < 0)
 -- 
 2.53.0
 
