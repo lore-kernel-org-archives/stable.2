@@ -1,69 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=134.76.10.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795043925;
-	b=4iAdF++B665jP8Sav+I9rnoIa6jOeJEdFiFXTduwPaF4rMgKGRVB2eJuNxfmvAWXg3kY
-	 pJN2nAz7fiBU05DtSvcOAVCt3uP610/bWGjEuYznKMmAzWuBVJz/cz95tIP1Pazv3jncv
-	 Iz74Xkg8U3mwouqwgMxOMxKQ780h2/boO36DBmjKjVuYjQAdJXOBjuw9/aCUhtHTgdGfh
-	 2LhpfFnOlKxg2dp4NM72OfscZAm397uDAMqgqdDzUIBH0AsYZFNClAEt7Z1aVBKbsGfVg
-	 iHMwyRF6o0q2PTnXVtL3tuPM2mS+I1UpX21zGOtygwNBI0lpHxRkJqaB01e07oHjDwQ==
+	t=1795043926;
+	b=Sm5b/MAe5nITzybbFW6IL4ahLe+xsXoO7psQbCIG72puRIlMT+PLgYwzSgmw6Po7ZQw+
+	 hyeXLgJuucdamAqOVu7uWIG2c8ITqlyI6v68Odos0zr2AlnGIytcBUPaSFxth+ZwogtzO
+	 NgPqGvypKPkPOnZhOLSEb9Jp08skas+8fNM7dI4ZJlsmasa/bJtPfpbKWqVnSBTp5iL0v
+	 bzADQ75bNzJA1t2KQtk4KXecPQpDwvONflF3CU3AdVztookeoj3xrZVk/IC35/Iv1xX9K
+	 oXwGREZ686ZdC37t26kBlz66/YWGh+MyQG6mHi6JfwiXHarzyx7eMHHIQW+PTVOxz3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795043925;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:
-	 Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Originating-IP:X-ClientProxiedBy:
-	 X-Virus-Scanned:X-Spam-Level;
-	bh=JDoxYPpMuMBE75pF/Op+Adyf6/VS3J3TnGd9XMcVHtg=;
-	b=D/6CE638MkNscUSymTk/WWjhNZ7CJD4fPA2LJh0bl+cxdNyt727FAGsBzelgUVTVQZrx
-	 W031bxftVnikARJaHQruRRY6bw3lSQqAtnUfpRIRX7iNiGMl/Shu+hyBZEIjEsNfsWlPN
-	 f9zbdIAPZDrRZqKnS7zH4u9htz3cU3GPga90ILS2y9YtvXbU09eBG78xsJNx1lcTmHADc
-	 IW/1yNbH6JrSZ3cPIUro2S5whyo6e3hwOwaz7sqx64vLYVYD5qghcwTrJr2owb/LDaLEn
-	 /57enf/cRs4wll6t7Z3FR/y8fcMSeFU0/CbIi6z7sZNgDtHeLZYfWkig8VijnpIIrQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795043926;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=lOkPVQ4pVHx4kWWTc2DqnvtMDb1hQ1I/ADvYUmQ3CEY=;
+	b=QCsWrbYdbWDgIWR9kC03Ea2VLneHkNnpAS+uMKA0qnufEZDbWIK+Jg2RnUUg9uCUIYsn
+	 e0kIO5BJyXSSiCa158trUlOZnu9AL82bLjq62P7EJhn8THZjuQgKDysE/KrGYefqOCx+M
+	 y9sYmK7Du1C2Tai2nLvspzqAJFBS2pNXyiKOBzLI6QQwPRDRxI2ydwGzaVGRnf7Jdqk0S
+	 wNI1fSmtjvTicf5GCrpxGii9ltDkoRbTivboiwQuq5xICdXHEPe0YacesgYHP/8usBT2K
+	 bqzJhxuP/dT/npCAnjBeX/Pz7bFIbMCO4GTWrKrauGs7O6MhmuMcWrUvlovn8e/hUcg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cispa.de;
-	spf=pass smtp.mailfrom=cispa.de;
-	dkim=pass header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=YEBh6Uc+;
-	arc=none smtp.remote-ip=134.76.10.21
-Received: from mx-2023-1.gwdg.de (mx-2023-1.gwdg.de [134.76.10.21])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JzfSJPbG;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32460606A31C;
-	Wed, 18 Nov 2026 23:18:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32460606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cispa.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cispa.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B71C60A2601;
+	Wed, 18 Nov 2026 23:18:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cispa.de header.i=@cispa.de header.a=rsa-sha256 header.s=2023-rsa header.b=YEBh6Uc+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=cispa.de;
-	s=2023-rsa; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:CC:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=JDoxYPpMuMBE75pF/Op+Adyf6/VS3J3TnGd9XMcVHtg=; b=YEBh6Uc+Fs1XK1Yl0qcX4Zeyix
-	6zjDCC+x569jxsg0+bW78XiDg0PyvCTLuGO/WkBCPqpRDvrTCX7j7JvNparhMwKI0IJghR10/hFV1
-	7plvNq4OlPCeH1SUeADdyFj+FNBvuEPrV54xm2Q1lYGB232paeo2V/tW+JqGlkdC7NnzvMqEnjz67
-	I/RZ9vopvM/uhUtcYjz9FEbl7X7Y+EqxlexW947xyObD79W5KFAInY+keI99+82SaTdxNWth+y73P
-	a1OF/wGKISwqVzijHJqO0hWC+foDuG/M54V9MWWX6Z9KgQ9mKu465aOw6+JlsochB0iDHBrfZYZ1X
-	d0lAQwCw==;
-Received: from mailer.gwdg.de ([134.76.10.26]:37272)
-	by mailer.gwdg.de with esmtp (GWDG Mailer)
-	(envelope-from <florian.bauckholt@cispa.de>)
-	id 1xTovI-008jxB-2Y;
-	Thu, 19 Nov 2026 00:18:41 +0100
-Received: from mbx19-sub-11.um.gwdg.de ([10.108.142.88] helo=email.gwdg.de)
-	by mailer.gwdg.de with esmtps (TLS1.2:ECDHE-RSA-AES256-GCM-SHA384:256)
-	(GWDG Mailer)
-	(envelope-from <florian.bauckholt@cispa.de>)
-	id 1xTovI-000AB3-36;
-	Thu, 19 Nov 2026 00:18:40 +0100
-Received: from [192.168.0.168] (10.250.9.200) by mbx19-sub-11.um.gwdg.de
- (10.108.142.88) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.57; Thu, 19 Nov
- 2026 00:18:40 +0100
-Message-ID: <db5a384d-e833-4ab0-baf3-619717b39f60@cispa.de>
-Date: Thu, 19 Nov 2026 00:18:39 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JzfSJPbG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1D391F000C4;
+	Wed, 18 Nov 2026 23:18:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795043926;
+	bh=lOkPVQ4pVHx4kWWTc2DqnvtMDb1hQ1I/ADvYUmQ3CEY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JzfSJPbGZMqfySWeBqAp6nUqypgAikAZ551mK0nvwnpvZIjPT2GxtXK04gQqYPkFV
+	 GiE+bf486zdWCAqZfSZeiIWwF6C2JSWc26v5IuvqqrpSaubZHAYO8bMlgaxASL4xdV
+	 KlGZs4PPkbZiKIB0mZzgfWj947PBcwm9rV2c8zvM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Sashiko <sashiko-bot@kernel.org>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Daehyeon Ko <4ncienth@gmail.com>,
+	Vishnu Dasa <vishnu.dasa@broadcom.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 0385/2857] vsock/vmci: validate packet source for connected sockets
+Date: Wed, 18 Nov 2026 15:23:39 +0100
+Message-ID: <20261118150215.265615856@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
+References: <20261118150201.293410965@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,54 +66,136 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] KEYS: fix signature length passed to
- KEYCTL_PKEY_VERIFY
-To: Rodolfo Giometti <giometti@enneenne.com>, David Howells
-	<dhowells@redhat.com>, Jarkko Sakkinen <jarkko@kernel.org>, Lukas Wunner
-	<lukas@wunner.de>, Ignat Korchagin <ignat@linux.win>, Herbert Xu
-	<herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>
-CC: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, "Serge
- E. Hallyn" <serge@hallyn.com>, Hui Peng <benquike@gmail.com>, Stefan Berger
-	<stefanb@linux.ibm.com>, <keyrings@vger.kernel.org>,
-	<linux-crypto@vger.kernel.org>, <linux-security-module@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-References: <20261111-keyctl-pkey-fixes-v1-0-934ebaa267a7@cispa.de>
- <20261111-keyctl-pkey-fixes-v1-1-934ebaa267a7@cispa.de>
- <0e20f799-e389-40d2-aaee-2f174748faae@enneenne.com>
-Content-Language: en-US
-From: Florian Bauckholt <florian.bauckholt@cispa.de>
-Autocrypt: addr=florian.bauckholt@cispa.de; keydata=
- xjMEav3GRRYJKwYBBAHaRw8BAQdAnELDrQj5frnVfDEzfgTLq+dYQyGwNlrF4RK4Lnh0EtLN
- LkZsb3JpYW4gQmF1Y2tob2x0IDxmbG9yaWFuLmJhdWNraG9sdEBjaXNwYS5kZT7CjwQTFggA
- NxYhBCzYgazhZyFPZBJ6GB4ZurGrnfo1BQJq/cZFBQkFo5qAAhsDBAsJCAcFFQgJCgsFFgID
- AQAACgkQHhm6saud+jWpqAEAvdY72AqnlDNhbzgaDPghigkZxQsXy0SguVI4rIFdkYoA/RRN
- yQMEpqS/x1bseRnNFeLmtDviMLMoLUrKGY23VuUPzjgEav3GRhIKKwYBBAGXVQEFAQEHQElQ
- tDrQlEp5XdrAZUWzYVj26t0q0BhMLOqKLXSMmA5xAwEIB8J+BBgWCAAmFiEELNiBrOFnIU9k
- EnoYHhm6saud+jUFAmr9xkYFCQWjmoACGwwACgkQHhm6saud+jUl5AD/S78nLqAgIn53lOzT
- A8NTSByrtVvDBb9G9heETfLzVBIBANDFhjZQpssjUeVZ7QV/1GDL9ZhGssjnTQmzHKavboEK
-In-Reply-To: <0e20f799-e389-40d2-aaee-2f174748faae@enneenne.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MBX19-SUB-07.um.gwdg.de (10.108.142.72) To
- mbx19-sub-11.um.gwdg.de (10.108.142.88)
-X-Virus-Scanned: (clean) by clamav
-X-Spam-Level: -
+Content-Transfer-Encoding: 8bit
 
-On 11/17/26 14:21, Rodolfo Giometti wrote:
-> The test suite of craf (https://github.com/giometti/crypto-afalg,
-> test3008) hits this with RSA too: it cuts a genuine 256-byte RSA-2048
-> PKCS#1 signature to 255 bytes and expects the verify to fail.
-> 
-> Maybe it is worth saying so in the commit message, since this is going
-> to stable?
+6.1-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Daehyeon Ko <4ncienth@gmail.com>
+
+[ Upstream commit ad9a7da3fa39c2d616ec0dd3cf6e30531d032fe7 ]
+
+vmci_transport_recv_stream_cb() looks up sockets first by the full source
+and destination tuple, then by destination only in the bound table. The
+fallback can select a non-listening socket without checking whether the
+packet came from its stored peer.
+
+This was reproduced with two VMCI contexts. A RST from the context not
+stored in a TCP_SYN_SENT socket reset that socket after it was selected by
+the destination-only lookup.
+
+VMCI can process notification packets in bottom-half context when the
+socket is not owned by user context, or defer packets to a workqueue. Use
+vsock_check_source() after taking the socket lock in the bottom-half path,
+and recheck after lock_sock() in the workqueue path. Listening sockets
+continue to accept packets from any source.
+
+Reply with a RST addressed from the received packet before dropping a
+source that fails validation. This preserves the existing reset behavior
+for bound non-listening and concurrently closed sockets without directing
+the reset to a connected socket's stored peer.
+
+Fixes: d021c344051a ("VSOCK: Introduce VM Sockets")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/netdev/20260814121255.6B5001F000E9@smtp.kernel.org/
+Cc: stable@vger.kernel.org
+Suggested-by: Stefano Garzarella <sgarzare@redhat.com>
+Suggested-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Reviewed-by: Vishnu Dasa <vishnu.dasa@broadcom.com>
+Link: https://patch.msgid.link/20260826003929.966160-3-4ncienth@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/vmw_vsock/vmci_transport.c | 34 ++++++++++++++++++++++++++++------
+ 1 file changed, 28 insertions(+), 6 deletions(-)
+
+diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
+index ff3602d45de92..17232f1f322e7 100644
+--- a/net/vmw_vsock/vmci_transport.c
++++ b/net/vmw_vsock/vmci_transport.c
+@@ -676,11 +676,13 @@ static int vmci_transport_recv_stream_cb(void *data, struct vmci_datagram *dg)
+ 	struct vmci_transport_packet *pkt;
+ 	struct vsock_sock *vsk;
+ 	bool bh_process_pkt;
++	bool drop_pkt;
+ 	int err;
+ 
+ 	sk = NULL;
+ 	err = VMCI_SUCCESS;
+ 	bh_process_pkt = false;
++	drop_pkt = false;
+ 
+ 	/* Ignore incoming packets from contexts without sockets, or resources
+ 	 * that aren't vsock implementations.
+@@ -757,17 +759,29 @@ static int vmci_transport_recv_stream_cb(void *data, struct vmci_datagram *dg)
+ 	bh_lock_sock(sk);
+ 
+ 	if (!sock_owned_by_user(sk)) {
+-		/* The local context ID may be out of date, update it. */
+-		vsk->local_addr.svm_cid = dst.svm_cid;
++		if (sk->sk_state != TCP_LISTEN &&
++		    !vsock_check_source(vsk, &vmci_transport, &src)) {
++			drop_pkt = true;
++			err = VMCI_ERROR_NO_ACCESS;
++		} else {
++			/* The local context ID may be out of date, update it. */
++			vsk->local_addr.svm_cid = dst.svm_cid;
+ 
+-		if (sk->sk_state == TCP_ESTABLISHED)
+-			vmci_trans(vsk)->notify_ops->handle_notify_pkt(
+-					sk, pkt, true, &dst, &src,
+-					&bh_process_pkt);
++			if (sk->sk_state == TCP_ESTABLISHED)
++				vmci_trans(vsk)->notify_ops->handle_notify_pkt(sk, pkt, true,
++									       &dst, &src,
++									       &bh_process_pkt);
++		}
+ 	}
+ 
+ 	bh_unlock_sock(sk);
+ 
++	if (drop_pkt) {
++		if (vmci_transport_send_reset_bh(&dst, &src, pkt) < 0)
++			pr_err("unable to send reset\n");
++		goto out;
++	}
++
+ 	if (!bh_process_pkt) {
+ 		struct vmci_transport_recv_pkt_info *recv_pkt_info;
+ 
+@@ -892,6 +906,7 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
+ {
+ 	struct vmci_transport_recv_pkt_info *recv_pkt_info;
+ 	struct vmci_transport_packet *pkt;
++	struct sockaddr_vm src;
+ 	struct sock *sk;
+ 
+ 	recv_pkt_info =
+@@ -900,6 +915,12 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
+ 	pkt = &recv_pkt_info->pkt;
+ 
+ 	lock_sock(sk);
++	vsock_addr_init(&src, pkt->dg.src.context, pkt->src_port);
++	if (sk->sk_state != TCP_LISTEN &&
++	    !vsock_check_source(vsock_sk(sk), &vmci_transport, &src)) {
++		vmci_transport_reply_reset(pkt);
++		goto out;
++	}
+ 
+ 	/* The local context ID may be out of date. */
+ 	vsock_sk(sk)->local_addr.svm_cid = pkt->dg.dst.context;
+@@ -929,6 +950,7 @@ static void vmci_transport_recv_pkt_work(struct work_struct *work)
+ 		break;
+ 	}
+ 
++out:
+ 	release_sock(sk);
+ 	kfree(recv_pkt_info);
+ 	/* Release reference obtained in the stream callback when we fetched
+-- 
+2.53.0
 
 
-Yes, I'll add it to v2 and link to your report.
 
-> I'll send my Tested-by once test3008 has run 2000 times on a kernel
-> with your patch applied.
-
-Thanks. v2 is rebased but the code change is the same.
-
-Florian
