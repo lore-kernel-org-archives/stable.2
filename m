@@ -1,124 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795000850;
-	b=gfZl75qO8G7TY3Pt+nJUyEzWrwLnznB8D5DBaOjgvxuqUxp6uLAvcOjg/KcO4P2xSzXF
-	 dklwFqErg2Kp0ujOJu7eagiT7EBgQZCmURWYS5aB8UD3xJNEQyAqDYN7uy45NbNOqoe6G
-	 POT+oW3O5EICpKap/Ie7BEoH+DFfcb/VbfBUpQM/Gjgpf+5QTs/2BClHIvcKCyXehDjuP
-	 E7F6vMF8wEitwh371lr0TPgDaoKAJNjknJhrJt+/6DGzX5hqYAboH+Tyr3eoJDUSRNPJV
-	 6mq+0y2iSjn0t+KaIX8ctHuBF6sntye5B+m3pgfo2F54bJn8vnOeffbfo+jtMSgM6Ww==
+	t=1795001007;
+	b=5uC/P3AM8px+BsdGBrrmt2vTKgi0oxIn1weehagyOyxStPwBC/PCHMrzxl0Np8TSSMpC
+	 Bfa5E2UCOd2v5bkN0g2uUR/nuSb5OOVijwZu/YbKRVXpIp9b2wN9U/K82QSDS+gaJzYt5
+	 lwB4Kc0c/M0057K/Agz70ajCV0SWU3mdKDVXdGN/UY4tEY1AWMW05uvD1bk8h4LItjlsd
+	 aliv5EdcJ3dDd9rtJxkfnn7i7p1u+6z/SKUBQq1X8LOOT88uTtlkz91XGhaIIS7mj5bDl
+	 StciFcM6NwisFTgl92YdyE/4fY/GTGWSXM4XT/zIZksUUXsA0UASe8TFK5hFN03Obeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795000850;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=UYZeLko8ARh+TMZJ/jcaVMaBZpqH4WAJB7a5zPUzakg=;
-	b=i8chrzBNO6hKw+/O1nKWAjVHR+nCUUt/5UF0eKUSs/70d25VldxC+msh9hR1dA/6lZXa
-	 viRs8PCuvkiq5jaNjqImQL0pG7nktAZUKy7IRLDlb5PJxTRF60izfNKZSha7Ulr0TKECk
-	 yvkcn3yjGVVLcE//SETriF2v8hsdqIsLLBjZSDYPAJeKd6AzfshishRH09b33xxe1rrWk
-	 JQI++t0nZtaqDhtrLeNSDS5UrhXjddAjffl9V27IhHrSIZIcW0CJEJLTyRJYGABzgAqhX
-	 nNPFA79F6P3hZWfHVxYIEiWOYzuWgu6Hre0Vx4FmNN4ZWTc63rPwlZw7kjkEucrw+SA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795001007;
+	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=Uo1t1EVVrhNV9dYy9mF5BIHiXsAItxda6Gonbb74fKg=;
+	b=s4QnG97o0NthwNkx6JGtAgScM52Mh2Hvaibafd3uLzclZEG6wlv4h7Dga3Tm2RearIam
+	 zhEXmmhKXV5rxHwX1OR8JvconKSc6YzDA8siD+uBv2GY3MMec+424Ex6yfU4T4OFRaHwd
+	 Tn25zAq/8rWfT78GhpsrFl+SLku0/QXElCtvMtbLGE2UkTZ5+N+Fu+IKwVQw0XdnJUHae
+	 ++d6BC4DWo4OAT2+g5U+rXd4nn0cmQ3FEs+vAWqypZUwKW+EqWPuPn6Z1vPchdLF71+25
+	 j5mBFLQbQE5cW1DdOc4Rv6Izs/obQxhGJ9cUfMmKmUeYdbzS8Wb+pkZtoNMKHT0eCWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iORFFgFd;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=GpL06LLH;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aZJGhTu9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C60606A32C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:20:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51C60606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4824606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:23:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=iORFFgFd;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=GpL06LLH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795000848;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=UYZeLko8ARh+TMZJ/jcaVMaBZpqH4WAJB7a5zPUzakg=;
-	b=iORFFgFd322gO9ZgYGy1IvDR74Gf36yEqNGJxd4+VfnSq0mZFQdnH9+yCpx8U86A6I9LPH
-	JpHIUxeOoDT7gA1XSbyb7LQOPjXqz0u8A7H94AuXpi5sYcdLE1YWMFt8IGbXONS1johxXg
-	eE2ofvemC7h+RRHZ5H5HchRrYgU04No=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-203-LacacNv-NVCI4OuEegI3tg-1; Wed, 18 Nov 2026 06:20:47 -0500
-X-MC-Unique: LacacNv-NVCI4OuEegI3tg-1
-X-Mimecast-MFC-AGG-ID: LacacNv-NVCI4OuEegI3tg_1795000846
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4bb680f0ac4so5384715e9.0
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 03:20:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795000846; x=1795605646; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UYZeLko8ARh+TMZJ/jcaVMaBZpqH4WAJB7a5zPUzakg=;
-        b=GpL06LLH6he6KY83Kswtjf5NHWlqseEgBMeWpf2WQ9het2uamRVdPeeUrDLQVbR8Ox
-         Ihmv8Dm7c5v5zBi5IjZccJR6pEt6C5XIvcsNl13QVzxOELXQqg4jacsBtZYJBI82gSnF
-         umpvBG6Js4CqPHi0EOoMyzjVGBEfZ6XkWovAbifhSzhGHTl+17Wv8+v/tHqY/zsZJ2kx
-         VZsk2YPsYg+VEb1uqA+vP6I1CbgFYe+ZLa4GUU/o/FO+WGBBllgGRvxjlbmuq2UnWK6f
-         klwuHSjRZY9jP/SIH2Q7ejD96q1Kv/pVsiZoDEhIrEVyaPJKv5jXtojriGafP4FU/TSI
-         BMmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795000846; x=1795605646;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UYZeLko8ARh+TMZJ/jcaVMaBZpqH4WAJB7a5zPUzakg=;
-        b=esBOzLh9QcA8P9Rgjj9eQ3eZRhdI65DUESse++QH5/g9x0wrouxG0WZoS44E9RxEmA
-         Durpx0joZRHabHHFC/26QbSI+oDThMN+5TX+eXwO5786sqh/PMQ+sBgIeE1Q/67AFvEm
-         C4qh7NJRSrFxgOqvvTv266YXml+MJsNrrx3C4ZShaCmribjATVKZDufkhv+IRhimAcs4
-         Q89KXGSwYfQaTiSTI5yCLbb5M1qw2tQt6z75/XDt4DQmOYXDBDeD72skAaD8Q1PcEDuW
-         i7Me6jNA+e/3qRUYxvQm7QwiSyfVxTmw/jZ/g8/LiJkBplecf1AxOcDV5BNU06UQtRDG
-         XfgQ==
-X-Forwarded-Encrypted: i=1; AL+hErEEIpoCphpDNGLNum5L/1Yo79s8LgP+TSyZCFyQmqtvGdcEOIHVD26g4xGLRMUgKiSsTqWjreY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9WDPhuQids0pKfcb+5+c2AI0VYHgxvRT3cQUznhSkls1hn/PEp
-	mgWwBtmBgGfBBriB94dCsa/A+LLIC65dGFvCg3TjHU17G6O2DdCZ6xhE7jW5qqvRoWUCsvSCw+1
-	WbwUlozUL+Exiw3pkeXsB/m+6MByo5Ubs45dxwkV3VpFZ2fFbyHKMqaDSJw==
-X-Gm-Gg: AYBFou0Xmr2AsBftITr6LE4pID/JY1wstO/UQXYl+3+18kYrQ0rr3Jf9Abv+nFN/E8l
-	C2rKRmqu6ZZZiWCVi7c28aLrFYOtNggwhwHXyJbqWHamL42m2Hwh/Z6X4r6FuYhV+FV8HnivkYW
-	KFx1s83/P2viYee9sDrHLZhQ6aUIy24Q2fVEw0oV8aOLYeLwzwxaUNbfbifk2Ba6B2QKh0/f637
-	owZjh8DaBMqxpAbnVAiWEPmwS/9itRAAYlXAWAWhsxslX85w+pWP8xdURGJCtnzKgyfFPkbqxCX
-	Zd15t67I14YiYW3njwGIHXpYkQIsyi/bv7NvAta5M7PdoUZjC7cUiM6z+l+gwWjTH0grvfGgXOj
-	quR2q8/IEjcDGrc2d/Q3benjXfSDPFuo9+I7cA3+mO4TTNNBB00Irxtk9Lgl6h0L2URVCc7tDVH
-	kdMgg=
-X-Received: by 2002:a05:600c:8b02:b0:4bb:6752:8400 with SMTP id 5b1f17b1804b1-4bb7da1b48dmr39551865e9.17.1795000845950;
-        Wed, 18 Nov 2026 03:20:45 -0800 (PST)
-X-Received: by 2002:a05:600c:8b02:b0:4bb:6752:8400 with SMTP id 5b1f17b1804b1-4bb7da1b48dmr39551335e9.17.1795000845561;
-        Wed, 18 Nov 2026 03:20:45 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78418853sm195748985e9.8.2026.11.18.03.20.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 03:20:44 -0800 (PST)
-Date: Wed, 18 Nov 2026 12:20:41 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v7 04/40] sched/deadline: Do not divide by zero active
- CPUs of a root domain
-Message-ID: <av2KCeKAnXAi6saN@jlelli-thinkpadt14gen4.remote.csb>
-References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
- <31f723a7dab4d58045cc60fac0fea09ea1841c7b.1794922146.git.mathieu.desnoyers@efficios.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aZJGhTu9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADFA11F000C8;
+	Wed, 18 Nov 2026 11:23:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795001007;
+	bh=Uo1t1EVVrhNV9dYy9mF5BIHiXsAItxda6Gonbb74fKg=;
+	h=Subject:To:Cc:From:Date;
+	b=aZJGhTu9WoJD9JXGJw0e4/Qr4ZJBm1dxAL/utXEsRax7+9dConKkkXYMVm7yv/whU
+	 QT5kgT70voqX/bSJsgSu/UxNGCS9jPldaumUglr4LXQU193mL5UIOl/r6J+hCb2Hcv
+	 x5Iu0ALkhrhoc3EmMTzvu412tXf7kIjLexbcIan4=
+Subject: FAILED: patch "[PATCH] rust: bindings: derive Zeroable for bindgen's opaque array" failed to apply to 6.12-stable tree
+To: sashal@kernel.org,acourbot@nvidia.com,aliceryhl@google.com,nathan@kernel.org,ojeda@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 18 Nov 2026 12:23:23 +0100
+Message-ID: <2026111823-prelaw-chapped-13ae@gregkh>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,55 +51,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <31f723a7dab4d58045cc60fac0fea09ea1841c7b.1794922146.git.mathieu.desnoyers@efficios.com>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-Hello,
 
-On 17/11/26 09:10, Mathieu Desnoyers wrote:
-> __dl_sub() and __dl_add() divide by their cpus argument. Most callers
-> pass dl_bw_cpus(), the number of active CPUs of a root domain. That
-> number can be 0, and the division then traps.
-> 
-> Commit daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl
-> tasks") added extra_bw, the bandwidth that deadline tasks can reclaim
-> on a runqueue. A change of a root domain's total_bw is spread over the
-> extra_bw of its active CPUs.
-> 
-> During hotplug, a CPU sits in the default root domain, which can then
-> have no active CPU. This lasts from the rebuild in
-> sched_cpu_deactivate() to the offline, and from the online to
-> sched_cpu_activate(). A debugfs write to the runtime or period of its
-> fair or ext server divides there. A write of the current value passes
-> admission in the window. In 8-CPU VMs of v7.4-rc2, a loop of such writes
-> oopses at the first offline and online:
-> 
->   Oops: divide error: 0000 [#1] SMP NOPTI
->   RIP: 0010:dl_server_apply_params+0x335/0x380
->   Call Trace:
->    sched_server_write_common.isra.0+0x1c0/0x260
->    full_proxy_write+0x58/0x90
->    vfs_write+0xcb/0x550
-> 
-> By reading, two other paths would divide by zero:
-> - inactive_task_timer(), for a task that left SCHED_DEADLINE or died,
->   if its CPU went offline.
-> - sched_setattr(SCHED_DEADLINE) on a task asleep on an offline CPU,
->   with admission control off.
-> 
-> Fix this by changing total_bw alone when the root domain has no active
-> CPU.
-> 
-> With this patch, the reproducer survives 20 rounds with no warning.
-> 
-> Fixes: daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl tasks")
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> Cc: stable@vger.kernel.org
-> ---
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Thanks,
-Juri
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 57d916a3eb765ee0577d269bb2ac1bdf3a7a7f40
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026111823-prelaw-chapped-13ae@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 57d916a3eb765ee0577d269bb2ac1bdf3a7a7f40 Mon Sep 17 00:00:00 2001
+From: Sasha Levin <sashal@kernel.org>
+Date: Sat, 31 Oct 2026 11:28:46 -0400
+Subject: [PATCH] rust: bindings: derive Zeroable for bindgen's opaque array
+ wrappers
+
+bindgen 0.73 emits the blob of some opaque types, such as ones aligned
+to more than 4 bytes, as a `__BindgenOpaqueArray` or
+`__BindgenOpaqueArray<align>` newtype instead of a plain array. The
+newtype only derives `PartialEq`, `Eq`, `Copy`, `Clone`, `Debug` and
+`Hash`, and the `MaybeZeroable` custom derive does not reach it, so a
+struct that embeds such an opaque type is no longer `Zeroable`.
+
+`spinlock` is opaque (see rust/bindgen_parameters), and with lockdep its
+blob becomes a `__BindgenOpaqueArray8<[u8; 72]>`. Commit 71ec3c7d6db8
+("blk-mq: quiesce a queue that joins a quiesced tag set") added a
+`spinlock_t` to `struct blk_mq_tag_set`, so an allmodconfig build with
+bindgen 0.73 now fails:
+
+  error[E0277]: the trait bound `bindings::__BindgenOpaqueArray8<[u8; 72]>: pin_init::Zeroable` is not satisfied
+    --> rust/kernel/block/mq/tag_set.rs:41:49
+
+Which wrappers exist depends on the bindgen version and on the opaque
+types of the configuration, so they cannot be covered by unconditional
+impls in rust/bindings/lib.rs like `__BindgenBitfieldUnit` is. Derive
+`Zeroable` for each wrapper in the generated bindings instead. The
+pattern allows for the spacing of bindgen's output when rustfmt is not
+available.
+
+Fixes: 71ec3c7d6db8 ("blk-mq: quiesce a queue that joins a quiesced tag set")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Reported-by: Nathan Chancellor <nathan@kernel.org>
+Closes: https://lore.kernel.org/rust-for-linux/20261030223702.GA1673281@ax162/
+Link: https://patch.msgid.link/20261031152846.746656-1-sashal@kernel.org
+Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+
+diff --git a/rust/Makefile b/rust/Makefile
+index 0ac9ab28cc2b..0165626decbe 100644
+--- a/rust/Makefile
++++ b/rust/Makefile
+@@ -514,13 +514,20 @@ endif
+ bindgen_c_flags_final = $(bindgen_c_flags_lto) -fno-builtin -D__BINDGEN__
+ 
+ # `--rust-target` points to our minimum supported Rust version.
++#
++# `bindgen` 0.73 emits the blob of some opaque types as a
++# `__BindgenOpaqueArray[<align>]` newtype, which the custom derives do not
++# reach. Derive `Zeroable` for those wrappers, so that a struct embedding such
++# an opaque type (e.g. `spinlock_t` with lockdep) is still `Zeroable`. The
++# pattern also matches the unformatted output used when `rustfmt` is missing.
+ quiet_cmd_bindgen = BINDGEN $@
+       cmd_bindgen = \
+ 	$(BINDGEN) $< $(bindgen_target_flags) --rust-target 1.85 \
+ 		--use-core --with-derive-default --ctypes-prefix ffi --no-layout-tests \
+ 		--no-debug '.*' --enable-function-attribute-detection \
+ 		-o $@ -- $(bindgen_c_flags_final) -DMODULE \
+-		$(bindgen_target_cflags) $(bindgen_target_extra)
++		$(bindgen_target_cflags) $(bindgen_target_extra); \
++	sed -Ei 's/pub struct __BindgenOpaqueArray[0-9]* *< *T *> *\( *pub T *\) *;/$(pound)[derive(pin_init::Zeroable)] &/g' $@
+ 
+ $(obj)/bindings/bindings_generated.rs: private bindgen_target_flags = \
+     $(shell grep -Ev '^#|^$$' $(src)/bindgen_parameters)
 
