@@ -1,113 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.130.202.135
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794980781;
-	b=ZbsuU+lpm6fzYFkta4wGcuvq+JQpwpIFKu+To3ZUUIOY2t+iY067xILqesc/P6SQ6sVm
-	 HtyQV2Wx88w58wqKbAc6SRSxvw9LBq4LXHqqmK7z7bjS+RqgoI5rv0R+f65PEcHO1Sqb9
-	 PT3QeD+6ediu+AKzKjB2oWe7qYpV2nv087DtEWINnyY+TC2/ozF6clBVb+32y84f7AsgU
-	 2XlBzS0oVWo+27ijMagVD0cAQu0vFv7c5Bc8CWRG5n9GNJm20hoHw8rB4uh3K39hAFxer
-	 yW4e0NUOsnw+bnE+KufogZeA70xRQfs71xfMwiBzW72iYOBoMxNjuzHuUk51GHGsLiQ==
+	t=1794981942;
+	b=GNKWQPLU0i8bRaRlIyUiqgeo8HuEWb7XnD+n0uw9axwrGGgGZFps3GKEsWikoXRlXQAB
+	 5Rlok5o9Jc7r5gqO9y4y/eLK07cUE8YWwgTBgY2aRk8vFwWYcJ3+b/AwQRBof/tLVqPsO
+	 H8VE/zznDjQYSL8IM/4tu3GxaCBl8PLBGzdpk9tPe9T6Oc6ad9R6uxmy80ZKLTH7C4mUs
+	 BldhLtgKoBzxCyzQRoVMfB8u13s32ekvHlt4OOKtL7uEHEsJ6/flxrik4A+4AK0eTfw52
+	 5zCT5mIQy7ZuUX2a5x2T63fCFHPFUSI9CuC/YdXtpux78O6nOSI/KsLCabeVj3Onm0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794980781;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Content-Language:To:
-	 Cc:From:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=4PGhncW7N254BHhuI+X+ylprn6wTF6rmx27dV8++hJw=;
-	b=d+FGv6TpHU/ahu5F9JPVl9MsdUk+SOTq6SRBbgrIi1yUZoNX7a03yNl16M7MM1KIuey4
-	 1ln3IJYpKDFxdEzKQ9y7mVdgPnT0xxT6u54JdB0NfHYzaTlRsAza+c/DwvtGse5XeIB90
-	 qvmOPeiBDzllWB7b7/CjJqyU1FuLDFojI/May1omIdR8QQGrjXCgdjzLDSweJo+iVlAsC
-	 LkpgcI6mG7T3Gfk1tdJuNNi0CqYk1VOpILh2kGwYzRe8F5lGu5ECE+OmEFFQJjc67ZxyR
-	 NG2JImraV3fS8RUFsynOj7qUriQbU4fdlDWfAxO/cfAAHtA0RWXYHUsKSQRLeXxmyfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794981942;
+	h=DMARC-Filter:DKIM-Signature:Received:X-Iguazu-Qid:X-Iguazu-QSIG:
+	 Received:From:To:Cc:Subject:Date:X-TSB-HOP2:Message-Id:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ETRLYfOnWdxJUU1SbgPiKArR5EJI6qKGiZLZtvU5VqI=;
+	b=P+hfTzgn/yOXxbKKlo4YVEoG/ePjQFbBG+aiNabSDm4UQG6o4FOO8b0U7QZRLGpkIXqm
+	 A+kin3XcVLN8KvMkYrsfOFMxFCptl+z5XgBXBabQ+OC9qwQLhsawGnUExmYwYpPPkuKoc
+	 QrENkFLaT4IsAQxp1gdsUTwhU8jY0yEcfojk5pro/sOfxQwLg/0W1S/vO/v1VzOrkTTNf
+	 qKMUdfeYydLsaHpuc2BIVG66MKEvmphnnVyH9/keBBAJXMW9qs0+zj901u3ggf0jPSZFH
+	 bNk4hHwzTQFLGjIzrS/m7u4Hr8FZlFdS2vAnhnJ31omhL4GzRHvNUmZVtptzqI43Xnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=e+zKZHIt;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=h8A93scB;
-	arc=none smtp.remote-ip=202.12.124.147
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+	dmarc=pass header.from=mail.toshiba;
+	spf=pass smtp.mailfrom=mail.toshiba;
+	dkim=pass header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=uVrq+trF;
+	arc=none smtp.remote-ip=210.130.202.135
+Received: from mo-csw.securemx.jp (mo-csw1801.securemx.jp [210.130.202.135])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBEC606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:46:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BBEC606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A069606A325
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 06:05:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A069606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.toshiba
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.toshiba
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=e+zKZHIt;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=h8A93scB
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id 91F751D001A7
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 00:46:19 -0500 (EST)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-06.internal (MEProxy); Wed, 18 Nov 2026 00:46:19 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm2; t=1794980779; x=1795067179; bh=4P
-	GhncW7N254BHhuI+X+ylprn6wTF6rmx27dV8++hJw=; b=e+zKZHIt56pZGUueFu
-	6/7sRUf6ytsx9O+Q1lVweOYjs1eVZgyAiZXMPFXWapq7o6cu843VDDcCEm0laJbG
-	6x6gUH/EOY3QsKIaMceF80cw5fjxMbEFMInUMWPsde6zEoR91RyqOyqw/luhCo85
-	HNwYF1ae/VEdD4/rnLiIFdeOOBU3wiHh+/wYEU1rzL+bud7+wHHGhQh3GTX19IHi
-	FSMNIoDZW/F4PS68bNxA/i8zkMnckprLaxKqwAzEo10sBGxxLAj8+jhogkDyT8lL
-	GGOBvZZTlUw5k37McEH63641M/8ov+zODkvJ6f8wR+y96YgGuzaW8wEhk0HYdf4X
-	aGsA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1794980779; x=1795067179; bh=4PGhncW7N254BHhuI+X+ylprn6wT
-	F6rmx27dV8++hJw=; b=h8A93scBUH3VvuyV/i2yXE6mt+Ya3HXJTq5bBTTxjqr4
-	v5scOwAz1W0bWCXNE4c5IU5jJHVHHZzVJ3gr6ROUksltVGN6BbmNyzHaPjWKNddS
-	sFcYboMQLqZu16rH0bZmMb9U9DlDKu1h2a0dxZMRCM/xNms+UOTnsgoEoBhM0PIO
-	ywQJRBzySjXLGqhpk6Z4Uq5PhYU9eeeNhJuIdnCnxFgi1VXZJ3gho2BoS0q2UHnP
-	Nd7DxUn6lcGVmi2BCDL3D/DSHbh87hUvGK6fDs7eoWZZUsWf54iCFwtnUEx9YUxi
-	i0Si3YEabVDR0Q58PLziOILgmy2gC5heckV8EP3+Bw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1794980779; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:NtLHJ5c7O/apKm5nrTiMao6/NcPhEoI2L1gd6Pb/RO1Ij1U
-	l54Zz+kZvvcNv40gZ2WCgbgAJ6rZRY5+3T1qrj9vZ6xdSxZWAVemoIku/rjL3NgI
-	85G8Z8OlVZS6L4TjJ/GsmtHL0O/2i+FEcw8KcnJ01HM3QrGC/mlZmlj/YBtCF1Bk
-	7Kwdty0DpaXekMW3Sv2s/csgqK2fklLowMWJu6wh2I39rkoHk5YhPpqaSmdXpahK
-	c2Qi7mJbMXmUF/jRv++o6cVUqxumnBWEWBU8M8wu+TQgsdPYJiqEu4mt7EwP3YOU
-	tXAgCzP2eNVb05XtQGYIadnfagXt4DkYru7Y6Ag==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,message-id,mime-version,subject,to,
-	user-agent;
-Message-Instance: m=1; h=sha256:YqRDAbMZP5ZWB5Ze7phEkMI/84mAmKX5ZFXvsdE2tXM=:O0PRFVuMTsEHZYKnmzI6aG+lABhavA5E9ecPBMEFR+k=;
-X-ME-Sender: <xms:qzv9aimTVYv9yDN2uIBGOuPlM38Uj4GgKo6HbV_QQqBZzZP2llntvA>
-    <xme:qzv9akaMXNtldnI5dPlWYp9b5Hxw7F6LYjWSc0_EYHiUqvam_MxpeKuJrPPSflF5a
-    w9ohb7R57F2hQzNJZAGPajEDZ2STKsNSWNBbpsiXRBD-UnjQDcG_dc>
-X-ME-Received: <xmr:qzv9atOrFmpnuoNZgWaQ_-UFNfRAR7gZORZjNby1uCmFunw7h49MDF8LdatRFPHXDzDp_cwwmRIzXOWZ-EZ4IIr5N1vC9KsE>
-X-ME-Proxy-Cause: dmFkZTFt2b6l6LBKqtDnRJuBqrXtjWv+zZnCfHSUR/5nzqddxAcyKhhUQHZKO6dbduIzO2
-    vn+EDcweZnoy6+WNxoGlaC9r2mf8rvjIkhxGW7d1m/qOi2MVkmQQ4cI9FZi9jx3WybFpwC
-    e9eMIA9gz4+upz17G0UbJgh+squESqCBOPNTygSKknPFv5gO87cY+UooUtoLPfLEjbiZsc
-    b4umbxp1PRTwoXUjCpkDyu0mL8Us0CgvKZjbAJnxSRbYwpRomnJKdWSt+VnrIT3tusZrwU
-    4ZZgnklhqRPm7IHG8380VImflj1EDxuRUHaN8PqjmhheDQerEF0t9ZtOPazwBCnEUhonQ8
-    4PlfD9apM8kMB1zH+LQ6Nbc/Ia8rLG/fErG3E9RqnlsRdy9MFwJnZQEa/ztQYyUbyTJOlp
-    E2optNB0UQu4EoxJNBy0td1XE8yi+l7aVOLgWXRe6uRvuuUtF1ks/A1UUAGHWZF9oBQriO
-    L4jfspAvBpdx1m0490SOD2sM8L+D/A/7r/wJK4ZoJ2ptAzvaOe0q74JpiFO6r4ANxoclHO
-    AHTOGfAYjALpa7Hd9TVvpOQAmHps67t2LwNtS61kkHrfAbasIBuZvfqslLJ0TXSJlEbxkP
-    u9EDiKHEO1V52yzbsSXSTEiknZMoqPbBGP2R88fP2FFQEWjppmoQpLlMj99A
-X-ME-Proxy: <xmx:qzv9apbwy5eFrJRUIjsVW-J7cJ_TYBSPZjgIDP_lc9jBT6428_Scjw>
-    <xmx:qzv9ar2B2gjom2yokbPlvcjLKTTe0RiTX3hawvteu8etESOL6ixxhQ>
-    <xmx:qzv9avcewB3I6pyzx2c7mXrRYE6gmPedif8v2F-j7097yaZjU03wSg>
-    <xmx:qzv9asH_fx98uILtGjnsBie2bnHppBed6zalEMeBOZ6bemcptKiKcA>
-    <xmx:qzv9av6FiU4ZNap5QBP0v6vY9rFyAehQtnPrtWgKBBpqh7coOPU7CbLJ>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 18 Nov 2026 00:46:18 -0500 (EST)
-Message-ID: <31a4ad36-33bd-4563-9eae-651e713adbdf@pobox.com>
-Date: Tue, 17 Nov 2026 21:46:17 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=uVrq+trF
+DKIM-Signature: v=1;a=rsa-sha256;c=relaxed/simple;d=mail.toshiba;h=From:To:Cc:
+	Subject:Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	i=nobuhiro.iwamatsu.x90@mail.toshiba;s=key2.smx;t=1794981908;x=1796191508;bh=
+	idAq0S6+iA989Drl4RGSf5QlcOyQHLtUesHiiW654B8=;b=uVrq+trF8Jnfgi4V7py7oG6HMOmNUo
+	7xSUgHDaMJ3KxpJyfVXN0aFKRNuKv5LGW+Sq0APxQL9cER9celmb6hFiCaNbQsYa5NQiOC0Ghg3ae
+	t5ZXDZ/qjgWWRU4a29k5aVpQLvnpzXkIFNKpl4sLd9U3nciYA9+0ipHWWj88IJuxCSm3ielljJ4vm
+	p/2hHAapGPC4D6QIQO3UkhfSJZ2Bw+ykPngjeqTjTcnATc0DDgAxOOF3F23niOAbOYHkDaSjfSQuM
+	b+7kQZvOj0YWsC++njY6t3bqDgtqAYuJYNCAuld7uDYokEG/KlCd9e2IXRb5lWOZwQl3VAtOB+dJp
+	d/ug==;
+Received: by mo-csw.securemx.jp (mx-mo-csw1801) id 6AI657xk1766218; Wed, 18 Nov 2026 15:05:07 +0900
+X-Iguazu-Qid: 2yAbofA4kxsHIr6nLB
+X-Iguazu-QSIG: v=2; s=1; t=1794981907; q=2yAbofA4kxsHIr6nLB; m=iMSpvHsr1jYoy2v+v16rB9VRp1AmvmJHNqGNyTd4yr0=
+Received: from imx2-a.toshiba.co.jp (imx2-a.toshiba.co.jp [106.186.93.35])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	 id 4jTrfq2rBQz1xnk; Wed, 18 Nov 2026 15:05:07 +0900 (JST)
+From: Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, sashal@kernel.org,
+        Kory Maincent <kory.maincent@bootlin.com>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
+Subject: [PATCH 5.10.y] net: ravb: Fix missing rtnl lock in suspend/resume path
+Date: Wed, 18 Nov 2026 15:04:52 +0900
+X-TSB-HOP2: ON
+Message-Id: <1794981892-14446-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
+X-Mailer: git-send-email 2.7.4
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,34 +70,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: stable <stable@vger.kernel.org>, Sasha Levin <sashal@kernel.org>
-Cc: Josef Bacik <josef@toxicpanda.com>, Alexei Starovoitov <ast@kernel.org>
-From: "Barry K. Nathan" <barryn@pobox.com>
-Subject: [5.10.y] build broken by "bpf: Validate the SRH which End.DT6
- uncovers in End.BPF"
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-To be clear, this report is about the current 5.10.y stable-queue. No
-previously shipped 5.10.y release is affected.
+From: Kory Maincent <kory.maincent@bootlin.com>
 
-After applying the current stable-queue on top of 5.10.274, the build
-fails for me with the following error:
+commit 2c2ebb2b49573e5f8726112ad06b1dffc3c9ea03 upstream.
 
-net/core/filter.c: In function ‘bpf_update_srh_state’:
-net/core/filter.c:5867:26: error: implicit declaration of function ‘seg6_get_srh’ [-Werror=implicit-function-declaration]
-  5867 |         srh_state->srh = seg6_get_srh(skb, 0);
-       |                          ^~~~~~~~~~~~
-net/core/filter.c:5867:24: warning: assignment to ‘struct ipv6_sr_hdr *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
-  5867 |         srh_state->srh = seg6_get_srh(skb, 0);
-       |                        ^
+Fix the suspend/resume path by ensuring the rtnl lock is held where
+required. Calls to ravb_open, ravb_close and wol operations must be
+performed under the rtnl lock to prevent conflicts with ongoing ndo
+operations.
 
-"bpf: Validate the SRH which End.DT6 uncovers in End.BPF" is the patch
-that causes this error. Reverting it fixes the build.
+Without this fix, the following warning is triggered:
+[   39.032969] =============================
+[   39.032983] WARNING: suspicious RCU usage
+[   39.033019] -----------------------------
+[   39.033033] drivers/net/phy/phy_device.c:2004 suspicious
+rcu_dereference_protected() usage!
+...
+[   39.033597] stack backtrace:
+[   39.033613] CPU: 0 UID: 0 PID: 174 Comm: python3 Not tainted
+6.13.0-rc7-next-20250116-arm64-renesas-00002-g35245dfdc62c #7
+[   39.033623] Hardware name: Renesas SMARC EVK version 2 based on
+r9a08g045s33 (DT)
+[   39.033628] Call trace:
+[   39.033633]  show_stack+0x14/0x1c (C)
+[   39.033652]  dump_stack_lvl+0xb4/0xc4
+[   39.033664]  dump_stack+0x14/0x1c
+[   39.033671]  lockdep_rcu_suspicious+0x16c/0x22c
+[   39.033682]  phy_detach+0x160/0x190
+[   39.033694]  phy_disconnect+0x40/0x54
+[   39.033703]  ravb_close+0x6c/0x1cc
+[   39.033714]  ravb_suspend+0x48/0x120
+[   39.033721]  dpm_run_callback+0x4c/0x14c
+[   39.033731]  device_suspend+0x11c/0x4dc
+[   39.033740]  dpm_suspend+0xdc/0x214
+[   39.033748]  dpm_suspend_start+0x48/0x60
+[   39.033758]  suspend_devices_and_enter+0x124/0x574
+[   39.033769]  pm_suspend+0x1ac/0x274
+[   39.033778]  state_store+0x88/0x124
+[   39.033788]  kobj_attr_store+0x14/0x24
+[   39.033798]  sysfs_kf_write+0x48/0x6c
+[   39.033808]  kernfs_fop_write_iter+0x118/0x1a8
+[   39.033817]  vfs_write+0x27c/0x378
+[   39.033825]  ksys_write+0x64/0xf4
+[   39.033833]  __arm64_sys_write+0x18/0x20
+[   39.033841]  invoke_syscall+0x44/0x104
+[   39.033852]  el0_svc_common.constprop.0+0xb4/0xd4
+[   39.033862]  do_el0_svc+0x18/0x20
+[   39.033870]  el0_svc+0x3c/0xf0
+[   39.033880]  el0t_64_sync_handler+0xc0/0xc4
+[   39.033888]  el0t_64_sync+0x154/0x158
+[   39.041274] ravb 11c30000.ethernet eth0: Link is Down
 
-(seg6_get_srh is present in 5.15.17, 5.16.0 and later, but not 5.10.y.)
+Reported-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Closes: https://lore.kernel.org/netdev/4c6419d8-c06b-495c-b987-d66c2e1ff848@tuxon.dev/
+Fixes: 0184165b2f42 ("ravb: add sleep PM suspend/resume support")
+Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
+Tested-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[iwamatsu: Adjust context]
+Signed-off-by: Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
+---
+ drivers/net/ethernet/renesas/ravb_main.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
+index 3e131788a4a3..1e7ff7f9cd4d 100644
+--- a/drivers/net/ethernet/renesas/ravb_main.c
++++ b/drivers/net/ethernet/renesas/ravb_main.c
+@@ -2352,10 +2352,12 @@ static int __maybe_unused ravb_suspend(struct device *dev)
+ 
+ 	netif_device_detach(ndev);
+ 
++	rtnl_lock();
+ 	if (priv->wol_enabled)
+ 		ret = ravb_wol_setup(ndev);
+ 	else
+ 		ret = ravb_close(ndev);
++	rtnl_unlock();
+ 
+ 	return ret;
+ }
+@@ -2393,12 +2395,16 @@ static int __maybe_unused ravb_resume(struct device *dev)
+ 	ravb_write(ndev, priv->desc_bat_dma, DBAT);
+ 
+ 	if (netif_running(ndev)) {
++		rtnl_lock();
+ 		if (priv->wol_enabled) {
+ 			ret = ravb_wol_restore(ndev);
+-			if (ret)
++			if (ret) {
++				rtnl_unlock();
+ 				return ret;
++			}
+ 		}
+ 		ret = ravb_open(ndev);
++		rtnl_unlock();
+ 		if (ret < 0)
+ 			return ret;
+ 		ravb_set_rx_mode(ndev);
 -- 
--Barry K. Nathan  <barryn@pobox.com>
+2.55.0
+
 
