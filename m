@@ -1,63 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794966670;
-	b=qwZ7QEf00TnN+1oMFlWYpm0+NAh+kt0MCvAJxspro0R/rb5V/Su74C59k42ljigWcxwN
-	 rLKd7qqLhduCf7cmVJXoY2npYirhuGmIEBxzHg3DrccJ1yz+l3cXmou+YUaI4lo/ydouR
-	 Mtl3oGSrjrgA0y9mitLF3rcj4HshlK6NwHFIc7vZHPP36RnBlw+fm90t6s5GnoUq99Y4V
-	 Jps4HorafBFo7T8XcvzIyKfy/2UKFYWaklk5cSAAMb2jGyYbj91WAhkwuDuEks6nD46T6
-	 bAcFiA36wM5cThOMMZyWXvWU9NkH8eAG3XDv4QZL/UCJGVXaQrm7oeekO2S6Y9XJOHw==
+	t=1794967165;
+	b=yYI3xEnPs7RW4ZarxL1zR6Y3OFu7aGGwoL0PHn+4QN6azH4lZA7LnLEpot+zh35p7gXp
+	 FxPLrkVsXE3F01hkjya5EAahbhUk/QmAJA4mPXTObvpMpzcJa/eRirMICLEDf8Oyykb5G
+	 JW0hvFIalaKJCecs1Jvndwnxe4t8EoabeNzTEe4h0qt9kElvHw/HPWJZ9nMUZ00Y2JlVL
+	 LSx9NdNHO6ftM+CGWizyOIS2awBkm6JaGyFnnug90omrzXzkj3x5bGfANlxYBRAf8rvRr
+	 AxtwJRJlD6Gjki7dt6NXlaqdsEsccZsJ3q50DhhJRIXjt/nxIQOGhKryrBe5QW/ijNQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794966670;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=xui+L1Kl8YV8BY/zkHbqr+YzjXk4VH0pkRVVyFr69gk=;
-	b=sCe7H7/jwrhcwNcl2J7YyVLyAiwN1tnTqpDhH3y6UrkKH0JZ/nTMUo1VEjQOb1DBufgw
-	 KPjYmgFB+CNTnFxsq2hRVrgCynDWyibLEWF7yHfogDW3VB0Ufy+/ZTFuLD01cp3LwLq13
-	 5OrZ2SE0DdBF4Q9dkpkzlnfeLeiiDSaD+cGRxzDRUTiTMN3UsmTrwa153MDTT1CNZEZxD
-	 ChyT8cpmlxkgKMbFgkU2Aepv3Hu55v0/hjCNUMzUFP3Jx4jXMSzK4l1vBujvuK4tsY6eE
-	 SjBGCJ+17/day2PzD/ktLe/Vbea+8HGpd/R+Boq2rAQo4+CxDQGM42aHkSrG+WLTifw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794967165;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type;
+	bh=XJQJo2wE0lk+4HgZW9J60rvYloBz0R9Np939LBvZbbk=;
+	b=ASaytwRJtGSk6mOw2U7nrxD1JfTMvehH5TxUCaPxJ0IL/1xbB7OmY7kCB+p1dEBhZzUL
+	 ghK6PyiOBxROUMMqId8oqIQgF/4RtZkojJFS/A2IJalZQDSg3vbJ6lbLKdUC/+IPQyGHO
+	 HnxJbkVJ+q9kJHEQu0UGMqO/3cFJWK4+olQ6mOa9bpyxLViM3GRiIW2PaKqk+Q/hSiggv
+	 F9z85i20RKW9LGn9AZ5N/zeSZpzWPHH+uEtVSENCFqTmVWkTzOzfIWYlKA8yNR6UmZXzv
+	 r5kOBk03Fx6090h6tqpBuq3H0EbSFgGcWOo1o3nipwkPSGZBDa6liC3NfqnQY6VMXpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ln3yavLO;
-	arc=none smtp.remote-ip=91.218.175.131
-Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=XQ87ZR4i;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17162606A33F
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 01:51:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17162606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31BA606A32C;
+	Wed, 18 Nov 2026 01:59:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A31BA606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ln3yavLO
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=rm+AxKqTEOXCpk9Th0qeoefjY+08yAH5hlAEglN9Rgk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794966667; v=1; x=1795571467;
- b=Ln3yavLOPytuKHfZPe5QYObzrdgPsQkepZJE4WVOafWZy3hLA3nYTZc3C/7QztuWz6kuOLNl
- o/OteqBnBpLONtPkSKfIWAr5wKLl04XXL4upWSW0YFmqQQkiY2GoW/PFGrkXw8z5Hb9jK6uAKGd
- EPYm5u2j9OaxUhESxsoQscF8=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id f9f5a1b8f39bf639;
-	Wed, 18 Nov 2026 01:51:06 +0000
-X-Mizu-Trace-ID: f9f5a1b8f39bf639
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 18 Nov 2026 09:50:55 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Hyunjung Ko <hj351016@gmail.com>
-Cc: James Chapman <jchapman@katalix.com>, Jakub Kicinski <kuba@kernel.org>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Chris Elston <celston@katalix.com>,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] l2tp: reject short IPv6 address attributes
-Message-ID: <av0EfxJlYXo2XbU-@fedora>
-References: <20261117092157.85513-1-hj351016@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=XQ87ZR4i
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AI1wxMrB859233, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1794967139; bh=XJQJo2wE0lk+4HgZW9J60rvYloBz0R9Np939LBvZbbk=;
+	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
+	 MIME-Version:Content-Type;
+	b=XQ87ZR4iQ313Na2oPGkiQCFjprtL3tXb+2L37H24T553cLdCuWDyPcG8hYG5m9aYy
+	 BEPNwYdbgKMDmxBDcyXZbvBoB/Bu+LObOW51X53hgdDzoLEME52+Q93/OZo1N11gx0
+	 Is6jRut73tv1ld+muO/s7LacKs0nJ42jhzDFSMI5IZbSsAGiddCtSFHWsW+Ahsaqx9
+	 TQig1pSwHd3FOxPrIbaxMdVg3BxSBgtj8nayUxV3li+rKAa9nc237lhBMxJ6Hvvxe4
+	 ggYp0Q7/a2Z39oV8/+MqZh+IZivn4eEz5Xtry+YK0aZyqey/zWCU4IRM/EJEv2mxRC
+	 vBs/QxCpb0c/Q==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AI1wxMrB859233
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 18 Nov 2026 09:58:59 +0800
+Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Wed, 18 Nov 2026 09:58:58 +0800
+Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS05.realtek.com.tw
+ (10.21.1.55) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Wed, 18 Nov 2026 09:58:53 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Alastair D'Silva <alastair@d-silva.org>, <linux-wireless@vger.kernel.org>,
+	Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>
+CC: Luka Gejak <luka.gejak@linux.dev>, Martin Blumenstingl
+	<martin.blumenstingl@googlemail.com>, Jernej Skrabec
+	<jernej.skrabec@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
+	<linux-kernel@vger.kernel.org>, Alastair D'Silva <alastair@d-silva.org>,
+	<stable@vger.kernel.org>
+Subject: Re: [PATCH rtw-next v11 1/4] wifi: rtw88: sdio: Handle allocation and read errors in rtw_sdio_rxfifo_recv
+In-Reply-To: <20261117101347.2157211-2-alastair@d-silva.org>
+References: <20261117101347.2157211-1-alastair@d-silva.org> <20261117101347.2157211-2-alastair@d-silva.org>
+Message-ID: <70dc30d9-a615-4a0a-9ee6-228d079c1bf5@RTKEXHMBS05.realtek.com.tw>
+Date: Wed, 18 Nov 2026 09:58:53 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,54 +78,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117092157.85513-1-hj351016@gmail.com>
+Content-Type: text/plain
 
-On Tue, Nov 17, 2026 at 06:21:57PM +0900, Hyunjung Ko wrote:
-> L2TP_ATTR_IP6_SADDR and L2TP_ATTR_IP6_DADDR are NLA_BINARY with .len set
-> to sizeof(struct in6_addr), which only bounds the attribute from above.
-> l2tp_tunnel_sock_create() then copies a full in6_addr out of each one,
-> so a shorter attribute makes it read past the payload. If the attribute
-> is the last one in the message this picks up whatever lies behind the
-> skb tail (stale heap data unless init_on_alloc is set), which ends up
-> in the socket address and can be read back with L2TP_CMD_TUNNEL_GET.
+Alastair D'Silva <alastair@d-silva.org> wrote:
+
+> When dev_alloc_skb() or rtw_sdio_read_port() fails, rtw_sdio_rxfifo_recv()
+> returns without reading data. Because it returned void, the caller still
+> counted rx_len against the loop budget while leaving data stranded in the
+> FIFO.
 > 
-> The commands are GENL_UNS_ADMIN_PERM, so this is reachable from a user
-> namespace.
+> Return an error code from rtw_sdio_rxfifo_recv() on failure and break out
+> of the receive loop in the caller immediately.
 > 
-> Require the exact length.
-> 
-> Fixes: f9bac8df908d ("l2tp: netlink api for l2tpv3 ipv6 unmanaged tunnels")
+> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
-> ---
->  net/l2tp/l2tp_netlink.c | 10 ++--------
->  1 file changed, 2 insertions(+), 8 deletions(-)
-> 
-> diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
-> index 89ef04c78787..a07009d4cb00 100644
-> --- a/net/l2tp/l2tp_netlink.c
-> +++ b/net/l2tp/l2tp_netlink.c
-> @@ -910,14 +910,8 @@ static const struct nla_policy l2tp_nl_policy[L2TP_ATTR_MAX + 1] = {
->  	[L2TP_ATTR_MTU]			= { .type = NLA_U16, },
->  	[L2TP_ATTR_MRU]			= { .type = NLA_U16, },
->  	[L2TP_ATTR_STATS]		= { .type = NLA_NESTED, },
-> -	[L2TP_ATTR_IP6_SADDR] = {
-> -		.type = NLA_BINARY,
-> -		.len = sizeof(struct in6_addr),
-> -	},
-> -	[L2TP_ATTR_IP6_DADDR] = {
-> -		.type = NLA_BINARY,
-> -		.len = sizeof(struct in6_addr),
-> -	},
-> +	[L2TP_ATTR_IP6_SADDR] = NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
-> +	[L2TP_ATTR_IP6_DADDR] = NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
->  	[L2TP_ATTR_IFNAME] = {
->  		.type = NLA_NUL_STRING,
->  		.len = IFNAMSIZ - 1,
-> -- 
-> 2.43.0
-> 
+> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
+> Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
+> Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
 
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+4 patch(es) applied to rtw-next branch of rtw.git, thanks.
+
+2fc87b00daf2 wifi: rtw88: sdio: Handle allocation and read errors in rtw_sdio_rxfifo_recv
+07eb79021ca5 wifi: rtw88: sdio: Track running state and cancel TX worker on stop
+a468dc94161a wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
+6f51fced1eaf wifi: rtw88: sdio: Split rtw_sdio_rx_isr into 8051 and 3081 variants
+
+---
+https://github.com/pkshih/rtw.git
+
