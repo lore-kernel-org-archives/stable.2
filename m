@@ -1,93 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794987888;
-	b=EOCEZdjjVGQjNHvAbzCeLN30xz54P4JszM7d4QuXB2v2qUhwA3FUpdumghEBYkwFn43c
-	 JMODLnIJbSzyT1jcoauVM5Wp2OUkz/omF6Vr8hH4zeMDqol0GAHLbvQLX1Ci/rbYgCdu6
-	 Hrc4EmONXF9oE4YBvi0QRwW7TeBjBzu+VwVWQBiewFpwlEhbyBztb1mcpT8WcWjcxdUwO
-	 Uzdm8QICBn33ehph6hBlNkLAiNS6ohY7IQYQA/FT8AAIXYOLs7qzh59ypWNpbDoVxae2F
-	 EZCUicKPqxTSmonSYq4DJzowaJj19mslk9H5acyFU6FeXKFqcZ54KD0zIK/EgLpqlnA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794987888;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794988048;
+	b=yxFkaMFzbHKwbWjO2y5SDtwaTO3DvQkeHTYyGZff/mMqygo+rZu3Ya3T27nzm0ymfhwe
+	 YWWoPK3IVh8S9mHbghCNnKumZkRD6d1hCEOHg0DlIL4B1W4JjkYAbz/Se+ONsxW0D+chs
+	 KnP4I+9YOoSXu5rV87ce45LBxHUN97MZUbFrHJLdSYYpr6dH/WjJklehc7HrCXeLSnijV
+	 UWuBCYnPcjUg0Ntjz9p0LGPZn+IirYSPkCNxadj13wt4FjgkSBbXcE+Qbp7cqAq1epzxE
+	 aENRGxLm8JnhPXz8RRnT/Hvx7XrqekNsUcwv41C/+EfyPFghmr+qSCSz6V/bvkw7zsA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794988048;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=6PGhhjEgvqZ65gHKlryLhyRpAAf9R8lJRaIz/grErgQ=;
-	b=t+JslL56ozUMTQFADk56W5HRGjpEagAWeNYGUbmRoJxkwRjy+TiQzdhahq/jGB47PlMS
-	 oh+oncZyb1ncTg7U3MfE/IsGDk+vo2E5kOpLBA0Hm0o26aASEPpYoiWi32sPSaG+ckiLC
-	 frm3x9cYZg9PrqmAMXuA90ox2oR767po64AXvYqJtwIOxLsdVMSlKZFnxCfVHdVtNXJXW
-	 QSO2EnisFEgo2oDDQaFWmrNDzc8TWCzowZFC1F8326aWmMxkJHI4IWLR1ycCX/sWN3XHG
-	 Li2ngULEi98QIHXUa6qPnPbeVnFMn0smqBGSVWkb/n/124YWPlkCFATvjEdXBB4u6jw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=quora.org;
-	spf=pass smtp.mailfrom=quora.org;
-	dkim=pass header.d=quora.org header.i=@quora.org header.a=rsa-sha256 header.s=google header.b=jO4u+vVH;
-	arc=none smtp.remote-ip=209.85.214.174
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	bh=yp3BTD6nQWlUPRESQ1+Z3775XsajsPNxx6sfD+CD9AY=;
+	b=J90AIF2PWeJlkZtJkfIsAF9MzcGNUFVhxmmZ0nK0GU0O4V2G8jZfHPIH0d3W9k1RTs/8
+	 fbv8CDVEVV8v+iXQ1SVc0G/QlZ5bO/nomW+dm+EdWIsNqce+sdHBKpcTC5Mv2RlYrWf2n
+	 falmQnF3Qik2hXMfFFbuCmVKazXWsNUoE2orK91mjkgs2txb680gc1vERR/J8kHZIL+3K
+	 tv6XcBcZvye/UdXDh70Kt5DYeQpS5PQbiI2E71JfD9fU4Gzx+Uw+TJ+wLffTrOsq8M3Kt
+	 2fObhAnhQKuL46VyjyfWSjSZT+heGPUE6SxQdTHv6myxZSwNd1OTdIzCgkL685UKmUw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hartkopp.net;
+	spf=fail smtp.mailfrom=hartkopp.net;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Xj22RsYq;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=P7X8dg6v;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.51
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D6F606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:44:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67D6F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F05606A31C;
+	Wed, 18 Nov 2026 07:47:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3F05606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hartkopp.net
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=hartkopp.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.a=rsa-sha256 header.s=google header.b=jO4u+vVH
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2e977109392so3928945ad.0
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 23:44:47 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=quora.org; s=google; t=1794987887; x=1795592687; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6PGhhjEgvqZ65gHKlryLhyRpAAf9R8lJRaIz/grErgQ=;
-        b=jO4u+vVHbKfydjhXAgKGqbmmiaqz5waZr82t4jcefYRuztKgvoKYZbtIwkEB2lBpSj
-         t75qZhQox2VBo5S+opH7xbCckEx3lv0fomGg/xhSOIUPVO1nDXeyTX+ykS3yTaWxbv+F
-         JsRVg78nEb063msGH2HQPjPOZRAfbQRT2R9IE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794987887; x=1795592687;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6PGhhjEgvqZ65gHKlryLhyRpAAf9R8lJRaIz/grErgQ=;
-        b=AeUcjJZzR5iwcZT19ZcnZoAtlPD7UoRhoY0n87p7KgbRYBvCLFYF3xo3APbNE845JS
-         2nVva3xqdJnM3LZkrY2z7FtqwEqr6J/vCNhuNMqLz319Dt+7F9+6OeyHxSbVm1LtxipJ
-         w6P/2n2yfiRLjNkpCR/tFXCM+Q32ZWxRPis5/u7EjzJwhjw5nKSsvMcCo9wQ4jub7orV
-         GGGkaQBv0MIMB5Xi70ljns+ZASdvR4g7zJK+rnKmiR5DGYcytVHsO/lthR9Sa8ud4tZC
-         8/aOL15+2ziYf09TheL30jJs/oystto3q22hEFX2w4FBI0nhZDxEn+gVhPZ/rmnpJoS4
-         mBLA==
-X-Forwarded-Encrypted: i=1; AL+hErFuHm2o8Fc+5iypPoQUoV8GPU07DIyQ/NKf2Xcus4Iz0Ll/kLYdomhIsq1xJIqPhqSBKi+ng9k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lexT4VkMz7ZdpL0qQWFZs1+ubgXvEe9WKfHXBcVMssRxdhEB7
-	PKEI32cq9nO4xDvFAAYT8GWsvpXkIzcO71lc7galXNPWodck/Y5D2HsTaOE2rjBLmg8=
-X-Gm-Gg: AZFdTZequEaKPl/r7/Xcsutyc8ac73F+PigdP6Ee04h+XNPTxqlWErhCSiKiWV6Ec8r
-	wUSRZEoxuLZb8gN/gBVKE0zsqVNqvpoGQ/WUzykduocorbktyKUc8wMQnrrHPrVn8WRUHgUv39X
-	71RpdqEj33lbn5UtGi8I1En7jcz2EPXtrM4WP8hgc1FHo1sl986Xq6njskm4qvk4Fcgj6Xiun9c
-	EF0HBvu6dz8RqyEy0T6ggAfIzuHAmfKivRTw0RheGdy3JUuADM/8ZzzD04JA6IbzAeFlfo/5eph
-	mpKkw0ogTpL4b9KcMlnU9IIw3jcy9iNiLnFVYjjdDilZZpkhedBhectvy762rYcpRQsdrg2qdOe
-	JMih+xUXScFogVCFSf9ZnamjrYeTMCTFTrDECHX67S4QQUbOIlbMNo4fJKxBKTpkwqk/J+yFVMQ
-	CitB3Kek5rSwCpqXAWgUkGbTsmq4wynKqoskYMNHKO9JPvz4cW806lopV/lBBzUZ1NqM8gulwPM
-	GW3ZrFD2Kn2hfaFEZAtuiLvv0QLMDRVkPLG46TkfoXW3l2BSZvH/05ZmOcSLFaDgJPNclhT+jbq
-	RD2rlvB1IX3AZGmrLS1/Q2nw0kbSItbGHvRNXgiB3mWBu82V4gRBQcN0y80wS4ofKHchCi6jOp+
-	2kEgj94ivAXSa3othV1kzTjNgjX9Ru9xq2w7Ex075txdAbT++gzo2lcONteVtCTm72C0hweLw+o
-	ipYen2oVESw28tOd6HeYyTHqDK0LeNFWatimlPtYwcYzca4xEkp0ZorrevDDr59loPbpo3DF6Ac
-	scQupnd9xjKqMse
-X-Received: by 2002:a17:902:d4c1:b0:2ed:2e3a:1fa4 with SMTP id d9443c01a7336-2eff76a9fdemr20403605ad.62.1794987886252;
-        Tue, 17 Nov 2026 23:44:46 -0800 (PST)
-Received: from localhost.localdomain ([2001:fd8:4d04:f800:62d7:4d2f:7b52:ebdc])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eff61162dcsm8861185ad.18.2026.11.17.23.44.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 23:44:45 -0800 (PST)
-From: Daniel J Blueman <daniel@quora.org>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Felix Fietkau <nbd@nbd.name>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Daniel J Blueman <daniel@quora.org>
-Subject: [PATCH] wifi: mac80211: remove NO_VIRTUAL_MONITOR monitor interfaces on suspend
-Date: Wed, 18 Nov 2026 15:29:47 +0800
-Message-ID: <20261118072949.14222-1-daniel@quora.org>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=hartkopp.net header.i=@hartkopp.net header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=Xj22RsYq;
+	dkim=pass header.d=hartkopp.net header.i=@hartkopp.net header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=P7X8dg6v
+ARC-Seal: i=1; a=rsa-sha256; t=1794988037; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=bv292idDRFZybTZo21cZRfqpLO82IKNKNClTZpHWn4QchrQHqKKWR0TsqFqpxQdnH+
+    ae3aKJ2ud3O0x1YB3qNYI/Wh5R+r9GRZJ8+mwmXZ/6l47L+aUBjC5CwaDq5MJqT/toZE
+    /RhB3eMXT5vnycfLogR7euDELuj3BvchJKfoIBT7/jpeQ8qbNxgW1HvutHKh03gze1GW
+    qLTkWpE1VsPQ9ij8TylyHPV1Xq83srp+2ggN1jN1zahb7L6bmsxOAo1p8sCXpd22buBs
+    Z48KIQ/q0d/4VXSirg1HTw21keqbaMsQJb4pVO7gxPszr8lWWUt2AGH0p8tPyxLYM+U4
+    HJ6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1794988037;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=yp3BTD6nQWlUPRESQ1+Z3775XsajsPNxx6sfD+CD9AY=;
+    b=TbzHZ/WVv02071okqYqh3RcJ5a4lGXiR611JKO5fZqodUoqvtqhbBkbHfTNTw2Y2V/
+    x/JLgO1uJzBE4ntVfu3w0w7Ejq66UI2aSa0A5ScYDyjXQLMf+njuY4S8wMdJw8o9Mqqu
+    7iP3okL20PNcqHCHNeIdGPfAunj+i9qSxu1cFbqtW5XTKv71U2AwwiHc9q+2eLf+sd9M
+    eS6WO6IXaORx3OmAhv3d6NlNm/P0FncBoC71K+M+dXHBooIMg+HaBkayDGi48zum71uF
+    58I39I46g2AEDEMBCFt9Um2Gxjq/lCcM5MmukytfqMFjscbCR6btMU9T2Yl5cBUYZ3CE
+    xOAw==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo01
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1794988037;
+    s=strato-dkim-0002; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=yp3BTD6nQWlUPRESQ1+Z3775XsajsPNxx6sfD+CD9AY=;
+    b=Xj22RsYqGtbEADDThMB4RxzDoGIBRNwb3I8d8Db/WfA7zT4JE97kUiM4hq4lBd7u3H
+    +mu9ahUQF1CDiGzc7smb/0MHof45/LYGbLVlBr84UAOCY7QonJH+V5BNh8ACPlJFTmZo
+    8Ly65x2vqPFl+kSYKb5FK/qzqJZGKSEXJOXEXVn1XxuQY7dK3ANh7y9zI+6+w8kZhYVw
+    pe+mqI7mVQrdVYYvm8c6yvK4oiP1Hec5EsBQhQ8JKPBeBm4fRkU6J917lVwO7qMUFlPT
+    p9U3qkf48y3bALsvhOCEAzTcC8TVRVkLfGP/IriD1huO0n0symzhTmxNEzJVZmUpFxoO
+    CRow==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1794988037;
+    s=strato-dkim-0003; d=hartkopp.net;
+    h=In-Reply-To:From:References:Cc:To:Subject:Date:Message-ID:Cc:Date:
+    From:Subject:Sender;
+    bh=yp3BTD6nQWlUPRESQ1+Z3775XsajsPNxx6sfD+CD9AY=;
+    b=P7X8dg6vpPUt1cGEt/fboDIc6gB4WaTVJK3Af1wm09FAoIWxbyo+ZP2rMxWjiSElgd
+    baM3mxB9DYMIE68a5MAQ==
+X-RZG-AUTH: ":P2MHfkW8eP4Mre39l357AZT/I7AY/7nT2yrDxb8mjH4JKvMdQv2tTUsMrZpkO3Mw3lZ/t54cFxeEQ7s8bDup0Q=="
+Received: from [IPV6:2a00:6020:4a38:6810::989]
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Kfdf2a2AI7lH5VW
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Wed, 18 Nov 2026 08:47:17 +0100 (CET)
+Message-ID: <c72cd2f8-755d-4223-8c84-d8ff831b63fd@hartkopp.net>
+Date: Wed, 18 Nov 2026 08:47:11 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,58 +95,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 01/11] can: bcm: copy the CAN frames outside of
+ lock_sock()
+To: netdev-bot+sinfo@kernel.org, Marc Kleine-Budde <mkl@pengutronix.de>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ linux-can@vger.kernel.org, kernel@pengutronix.de, stable@vger.kernel.org,
+ Vincent Mailhol <mailhol@kernel.org>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Zhu Ling <zhuling0805@qq.com>
+References: <20261117220818.1142581-1-mkl@pengutronix.de>
+ <20261117220818.1142581-2-mkl@pengutronix.de>
+ <179495352427.3291.18107293383947918297@kernel.org>
+Content-Language: en-US
+From: Oliver Hartkopp <socketcan@hartkopp.net>
+In-Reply-To: <179495352427.3291.18107293383947918297@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When suspending with an ath12k interface with the NO_VIRTUAL_MONITOR
-hardware flag and monitor mode set, the driver skips removing the
-interface. This results in a firmware failure and unusable interface,
-triggering:
 
-WARNING: net/mac80211/pm.c:173 at __ieee80211_suspend+0x44c/0x530 [mac80211], CPU#11: kworker/u73:11/20379
-...
- ieee80211_suspend+0x24/0x50
- wiphy_suspend+0x2c0/0x420
- dpm_run_callback+0x60/0x2a0
- device_suspend+0x268/0x7f0
- async_suspend+0x28/0x58
- async_run_entry_fn+0x3c/0x190
- process_one_work+0x1bc/0x4f0
- worker_thread+0x18c/0x320
- kthread+0x128/0x150
- ret_from_fork+0x10/0x20
 
-Fix this by also removing interfaces with the NO_VIRTUAL_MONITOR hardware
-flag in monitor mode.
+On 17.11.26 23:12, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>   - How the issue was discovered, e.g. hit in production, hit during
+>     development, syzbot report, manual code inspection, LLM or static
+>     analysis tool scan.
+> 
+>   - Whether the issue was actually triggered, or is only theoretical
+>     (e.g. found by LLM and not proven at runtime). If it was triggered
+>     please include the symptoms, like the stack trace or kernel messages.
+> 
+The issue was not reported or observed in production. It was found in
+a review and later proven by a test that provokes an RTNL stall:
 
-Failure analysis and fix development was assisted by Claude Fable under my
- instruction. Validated on my ASUS Zenbook A16 (Snapdragon X2 Extreme) and
-QCC2072.
+The Sashiko AI review (LLM) of a former CAN_BCM patch found a wait
+chain, where a task that is blocked in a copy to user space holds
+lock_sock() while the netdev notifier waits for it under RTNL. At that
+time the chain was a stalled reader of the CAN_BCM procfs entry, which
+is fixed by "can: bcm: do not remove the procfs entry in bcm_notify()"
+in this pull request. Following this, the CAN_RAW and CAN_ISOTP socket
+options have been moved outside of lock_sock() with commit 43c973a0887d
+("can: raw, isotp: copy socket options outside of lock_sock()").
 
-Fixes: 9d40f7e32774 ("wifi: mac80211: add flag to opt out of virtual monitor support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Daniel J Blueman <daniel@quora.org>
----
- net/mac80211/pm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+A subsequent LLM assisted review of the locking in net/can identified
+bcm_sendmsg() as the remaining instance of this wait chain: the CAN
+frames are copied from user space with memcpy_from_msg() under
+lock_sock(), while bcm_notify() takes lock_sock() of every CAN_BCM
+socket in the namespace on NETDEV_UNREGISTER under RTNL.
 
-diff --git a/net/mac80211/pm.c b/net/mac80211/pm.c
-index f63676c44853..503c24cd2e85 100644
---- a/net/mac80211/pm.c
-+++ b/net/mac80211/pm.c
-@@ -151,8 +151,12 @@ int __ieee80211_suspend(struct ieee80211_hw *hw, struct cfg80211_wowlan *wowlan,
- 			continue;
- 		switch (sdata->vif.type) {
- 		case NL80211_IFTYPE_AP_VLAN:
--		case NL80211_IFTYPE_MONITOR:
- 			continue;
-+		case NL80211_IFTYPE_MONITOR:
-+			if (!ieee80211_hw_check(hw, NO_VIRTUAL_MONITOR))
-+				continue;
-+			ieee80211_link_release_channel(&sdata->deflink);
-+			break;
- 		case NL80211_IFTYPE_STATION:
- 			ieee80211_mgd_quiesce(sdata);
- 			break;
--- 
-2.55.0
+The issue has now been triggered at runtime, analogue to the test for
+the procfs reader.
 
+With this patch, "can: bcm: do not remove the procfs entry in
+bcm_notify()" and "can: bcm: use a private mutex instead of
+lock_sock()" in this pull request, stalled user space accesses on
+CAN_BCM sockets can not block RTNL anymore.
+
+Best regards,
+Oliver
