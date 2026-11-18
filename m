@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795032412;
-	b=x4o10gcIJX2DRZlIjhRCiwVJzngxfRATb8tOFlCe0D1OSIoJRE4IG94MsxLQ00Kd0dy+
-	 Z3uvwljS6pJ1z62SkNoCW+NseuzMGtG9KIwkx2SDQakPXk+/yqK1DtjrsY2PyvdMRua0v
-	 OX4A9332PRSzr29ixJQehnTy4Df5wR5DZI22b/LR1nK/zaK+F9dBTh2L10iVq8mYnmkYU
-	 Feh9OZv9Msyc5hndM0NBlvKzU+GZl0GYMnsL7/ymbvJBTBAHRAAnLeWVNJMW8MKyGs0Fn
-	 2G1aLy94hZLVbGrO/AgTFsLpS1ayEhEg9yzjous7Jl2QcWvl4mcxnhfF+LTQM14SiGw==
+	b=dLcynd9I91pb5P8ACqayTnN9pG1LSUACJAVGHL4DbiaYiXRD+t3iOnkE/DOIukohdZAP
+	 T0fM+lZMe5K+6t2crfpqh5Na0sYTOzXhXzOaDFL9OBLd2+XkUF9r7VUyw5FoeO8sp9AHd
+	 gKOFtgFOkNxRHs8cx4z+KARx3ySlE5saCyMmCtZdldw7YmH9NVl6YBqxYEDVmnvzm2098
+	 9pvFxw1SZQP8oTjtvvg+41ym3ybK/a7YyZ8RFte5IdnVoM5IFjnuE4RzO1fY1lHowK3t5
+	 qG1AJnTOJgeLAmp85rVJMZemwVHn5mDdWqwLcH9MZwiZBZ9PwN/5Y67aCv0LMc4P0Kw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795032412;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=YUpRYsuuZ9zTOzlFogFq/lthSpzrXEJar3Q39+/3IbQ=;
-	b=D6f1IxitEYSM0mp198/YbB2ht3crYub430fg+Kdlr1Z20s39tOvmRt4j1LW146Yn1cBh
-	 d2kWr8cSf3H92tXvEZP40E4ysazG7J4HemDKzKveOttIOII9TdopIcaFapD19k3wGCRH+
-	 SrExqmqIt3IL0aCzqVG+1Z8LmTLXRuCQfVh4irwGvVS4OHucKmcCQpDZV4PdIlgRhJvVS
-	 aH4QISJstW7ZwaMJjMBJ6Y/RV6H8F5vLDBZJ5kQwH9GKITJXff0sprBY7UlWtmmPVnhDK
-	 zXWnFlcDkoeSYuPDmYP9JMIpVAup8bbfN9pFkXMXxmxutw9SsNXLac+KtvR4ivSGXfA==
+	bh=J+xqGM/XTVoLXbet9Pqsqr3DEOW4nOHD7WQm9LFTgGg=;
+	b=Ts98pPkQmpY76klw4/W9oXG9IKkpNG6w26eq3drG54yl3y5vrDY1qaWtL0VwscYvRPyv
+	 sPzWUM7J4ZpeoQUW9gZagD06sAK7/CYus+slLpJo8COIsZ4ZIfAA71+DaDKE0HMEN5pOO
+	 QUtD9l3pQRcNBDbXyahPqr4tEGnniDIOP50kFiFcCkYIZVPMPty9qm2xVpYzD+3P14/sM
+	 9czqIFcS/NqjvAC5ktV06zQjjDlbHpKOReYNrVn1aAxNbAWK/Y6FuqE3aqPU+tDESzmqJ
+	 ZJYzBUoTPUJIHgX1F7R5KuJQourHgrgKNxQ16uLFkSUBbmuhWx7fg7ulRSiq1WF2tGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=Nm2G+KpH;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=Q3wdMHkY;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0417760A263F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4187B60A3815;
 	Wed, 18 Nov 2026 20:06:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0417760A263F
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4187B60A3815
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=Nm2G+KpH
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=Q3wdMHkY
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795032405;
-	bh=YUpRYsuuZ9zTOzlFogFq/lthSpzrXEJar3Q39+/3IbQ=;
+	s=smtpout1; t=1795032406;
+	bh=J+xqGM/XTVoLXbet9Pqsqr3DEOW4nOHD7WQm9LFTgGg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Nm2G+KpHD/BobwLgtt3YGTjAyyTKXYYasq7OAP2MKTzYxHx2RGU7DPgNnEZ04QDrq
-	 cLOy6z+k+2baUZs4vvy7a8fZpFDpIZy6rja/lLRqr0jFstpMiIh+7RmdwZgCFNKTfS
-	 wQY0Egr7oK14jAggr7ondsW+sq2S23kk+wkhn9hya0GqaM9LbJnU72MH1S23VY32q5
-	 Wi6suUFp5wGPl9qlC+GpolneiTaxH6AFIzIADm0n7I1agw0X+0yTvs/Wks4LjP/Vlv
-	 w75x39asV4ghsrAai9NStjIni8dfCFgmm/YOO2z/1KsoFbNMWTKpwlcuVI0z9Um9gz
-	 KCSVevk0vRHmA==
+	b=Q3wdMHkYFCG8yk8+POriuSJA/izhsj8UwXChQaE3n8ZNdU57W1t6RVeaqzv6OlRx+
+	 UgWZNFAGnA7b6G1Y0TJSiU/HUdJB2Yqky3lPRFzyViSs3tvyEsVnUrIaBNed5283xj
+	 mwyG/YGXOz6Nr1WmqO3hw4SJeNjsOFmOeQ6nlk7IkhI0QcwZFgaV/c4O9TgYUuG2eb
+	 ZQ9OluRJlwXyBDPoVGxSbHrqkRsNagh7bGH6tnXBlk08MaMZHVVeG4EHCX1X2aOcp1
+	 Fomf+1l2LSXo88cygFjlQz+5nJmD+6vNoZ/ZclWf1gsS8oNLyBgwK4XSai1lOwbhL0
+	 00GiyhitLYnxQ==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVCKx1W1qzRJZ;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVCKx6lj8zRXW;
 	Wed, 18 Nov 2026 15:06:45 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
@@ -80,9 +80,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH 09/16] sched/deadline: Reset the deadline and the runtime with the parameters
-Date: Wed, 18 Nov 2026 15:06:34 -0500
-Message-Id: <07a810645c5ab919a52ffe2cc4b63074a84751fb.1795031605.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH 13/16] sched/deadline: Check SCHED_DEADLINE affinity under the rq lock
+Date: Wed, 18 Nov 2026 15:06:38 -0500
+Message-Id: <5b0e698d12772886d395d7a887a05fbff51ade16.1795031605.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1795031605.git.mathieu.desnoyers@efficios.com>
 References: <cover.1795031605.git.mathieu.desnoyers@efficios.com>
@@ -97,86 +97,138 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A task that leaves SCHED_DEADLINE keeps its parameters until its 0-lag
-time, so that leaving and coming back gains nothing. Commit 209a0cbda7a0
-("sched/deadline: Improve the tracking of active utilization") moved
-their reset to that time. Before it, the replenishment timer did the
-reset at the deadline. So a task back after the reset found its
-deadline passed, and started a new period. But __dl_clear_params()
-resets neither the deadline nor the runtime.
+From: Andrea Parri <parri.andrea@gmail.com>
 
-Now a task back after its 0-lag time can be enqueued on its old
-deadline and runtime. With runtime left, its 0-lag time comes before
-its deadline. Back before that deadline, it would first spend the runtime
-of the reservation it gave back. Back after it, a constrained task
-would be throttled until its old period ends. "sched/deadline: Do not
-lose a throttled task switched out and back" moves the deadline of a
-throttled task on. This widens the window before the deadline to about
-a period.
+A task can end up SCHED_DEADLINE with an affinity narrower than its root
+domain when sched_setaffinity() and sched_setattr() race on it. Both
+calls succeed, although each fails when made after the other:
+sched_setattr() with -EPERM, sched_setaffinity() with -EBUSY.
 
-A task with no parameters of its own, boosted by a deadline waiter,
-keeps the donor's deadline and runtime after its deboost. If it then
-enters SCHED_DEADLINE before that deadline, it runs on the donor's
-runtime. On v7.4-rc2, a task of 10ms per 100ms ran 40ms of its first
-period.
+__sched_setaffinity() calls dl_task_check_affinity() before
+__set_cpus_allowed_ptr() takes task_rq_lock(), whereas
+__sched_setscheduler() runs its admission test and switches the policy
+under a single task_rq_lock(). So both calls can pass their checks:
 
-Fix this by resetting the deadline and the runtime in
-__dl_clear_params(), and in switched_from_dl() at the deboost of a task
-with no parameters. The next enqueue then starts a new period.
+  CPU 1: sched_setaffinity(p, cpu0)    CPU 2: sched_setattr(p, DEADLINE)
 
-The Sashiko AI review of this series found the first case and the
-deboost. The deboost_resets_period case of deadline_bw_test, added later
-in this series, tests the deboost.
+  dl_task_check_affinity()
+    !task_has_dl_policy(p): return 0
+                                       task_rq_lock()
+                                       admission test passes
+                                       p->policy = SCHED_DEADLINE
+                                       task_rq_unlock()
+  __set_cpus_allowed_ptr()
+    task_rq_lock()
+    p->cpus_mask = cpu0
 
-Fixes: 209a0cbda7a0 ("sched/deadline: Improve the tracking of active utilization")
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Acked-by: Juri Lelli <juri.lelli@redhat.com>
+The window includes CPU 1 spinning on task_rq_lock() while CPU 2 holds
+it. With one thread narrowing a sleeping task to CPU 0 while another
+makes it SCHED_DEADLINE, 923514, 959547 and 983997 of 1000000 rounds
+ended with both calls succeeding on three boots of a 4-CPU guest.
+
+Move the check into __set_cpus_allowed_ptr_locked(), next to the
+PF_NO_SETAFFINITY re-check, under the same lock as the admission test.
+Whichever call takes task_rq_lock() second then sees the other's
+result: sched_setaffinity() fails with -EBUSY if p is already
+SCHED_DEADLINE, and sched_setattr() fails with -EPERM if p's affinity
+is already cpu0.
+
+A new SCA_DL_CHECK flag selects the check, and only
+__sched_setaffinity() sets it, so sched_setaffinity() and
+relax_compatible_cpus_allowed_ptr() keep the check and other callers
+stay unchecked. restrict_cpus_allowed_ptr() already does its deadline
+check this way.
+
+__sched_setaffinity() clears SCA_DL_CHECK before the second
+__set_cpus_allowed_ptr() call it makes after racing with a cpuset
+update, so the cpuset mask still wins there, as it does when
+cpuset_update_tasks_cpumask() narrows a deadline task. SCA_CHECK stays
+set for the PF_NO_SETAFFINITY re-check.
+
+With this applied, the same test ends with both calls succeeding in 0
+of 1000000 rounds on each of three boots, and sched_setaffinity()
+fails with -EBUSY whenever it loses.
+
+The race was reported by Sebastian. The fix was written with the help
+of an LLM.
+
+Fixes: 332ac17ef5bf ("sched/deadline: Add bandwidth management for SCHED_DEADLINE tasks")
+Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Closes: https://lore.kernel.org/20261103081149.DuyWNhVe@linutronix.de
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 Cc: stable@vger.kernel.org
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/deadline.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+ kernel/sched/core.c     | 11 +++++++++++
+ kernel/sched/sched.h    |  1 +
+ kernel/sched/syscalls.c | 12 +++++++-----
+ 3 files changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 71b1c155c242..d6d2657dcddd 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -3569,6 +3569,16 @@ static void switched_from_dl(struct rq *rq, struct task_struct *p)
- 	if (task_on_rq_queued(p) && p->dl.dl_runtime)
- 		task_non_contending(&p->dl, false);
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 5ed660f099a5..32fe889e02fb 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -3195,6 +3195,17 @@ static int __set_cpus_allowed_ptr_locked(struct task_struct *p,
+ 		goto out;
+ 	}
  
 +	/*
-+	 * A task with no parameters of its own was boosted into the class.
-+	 * Its deadline and runtime are the donor's. Reset them, so that its
-+	 * next entry into the class starts a new period.
++	 * Check under the same lock that __sched_setscheduler() holds for
++	 * its admission test, so that p cannot become SCHED_DEADLINE
++	 * between this check and the mask update below.
 +	 */
-+	if (!p->dl.dl_runtime) {
-+		p->dl.deadline = 0;
-+		p->dl.runtime = 0;
++	if (ctx->flags & SCA_DL_CHECK) {
++		ret = dl_task_check_affinity(p, ctx->new_mask);
++		if (ret)
++			goto out;
 +	}
 +
- 	/*
- 	 * In case a task is setscheduled out from SCHED_DEADLINE we need to
- 	 * keep track of that on its cpuset (for correct bandwidth tracking).
-@@ -3984,7 +3994,8 @@ bool __checkparam_dl(const struct sched_attr *attr)
- }
+ 	if (!(ctx->flags & SCA_MIGRATE_ENABLE)) {
+ 		if (cpumask_equal(&p->cpus_mask, ctx->new_mask)) {
+ 			if (ctx->flags & SCA_USER)
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 92134ce326a4..20ad13f388cb 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2972,6 +2972,7 @@ extern struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf);
+ #define SCA_MIGRATE_DISABLE	0x02
+ #define SCA_MIGRATE_ENABLE	0x04
+ #define SCA_USER		0x08
++#define SCA_DL_CHECK		0x10
  
- /*
-- * This function clears the sched_dl_entity static params.
-+ * Clear the static parameters of @dl_se. Also reset its deadline and its
-+ * runtime, so that its next enqueue starts a new period.
-  */
- static void __dl_clear_params(struct sched_dl_entity *dl_se)
- {
-@@ -3995,6 +4006,9 @@ static void __dl_clear_params(struct sched_dl_entity *dl_se)
- 	dl_se->dl_bw			= 0;
- 	dl_se->dl_density		= 0;
+ extern void update_group_capacity(struct sched_domain *sd, int cpu);
  
-+	dl_se->deadline			= 0;
-+	dl_se->runtime			= 0;
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index b87b878be63f..5983232476a9 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -1225,11 +1225,7 @@ int __sched_setaffinity(struct task_struct *p, struct affinity_context *ctx)
+ 	cpumask_and(new_mask, ctx->new_mask, cpus_allowed);
+ 
+ 	ctx->new_mask = new_mask;
+-	ctx->flags |= SCA_CHECK;
+-
+-	retval = dl_task_check_affinity(p, new_mask);
+-	if (retval)
+-		goto out_free_new_mask;
++	ctx->flags |= SCA_CHECK | SCA_DL_CHECK;
+ 
+ 	retval = __set_cpus_allowed_ptr(p, ctx);
+ 	if (retval)
+@@ -1258,6 +1254,12 @@ int __sched_setaffinity(struct task_struct *p, struct affinity_context *ctx)
+ 			if (empty)
+ 				cpumask_copy(new_mask, cpus_allowed);
+ 		}
 +
- 	dl_se->dl_throttled		= 0;
- 	dl_se->dl_yielded		= 0;
- 	dl_se->dl_non_contending	= 0;
++		/*
++		 * The cpuset mask must win here, as it does when
++		 * cpuset_update_tasks_cpumask() sets it on a deadline task.
++		 */
++		ctx->flags &= ~SCA_DL_CHECK;
+ 		__set_cpus_allowed_ptr(p, ctx);
+ 		retval = -EINVAL;
+ 	}
 -- 
 2.47.3
 
