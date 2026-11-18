@@ -1,69 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794995186;
-	b=khmVDfKDuQCuT5t6Q7+rAc3G3pNQp8uBIzCudsbpSmv+cwTzQoH3Ahw85zKa9lvDg83d
-	 exyE+LoQq8hLkTpQfOUstVdCTjZL9SFc3vYo6Gu/DlHZNVBo0Q3fTlRCkpP+AHzODNFzB
-	 k3nhYQuV00sc551zholk7BLfbmxSI0PH6Z5rNtcm91iv6RvXKoqtjf/Obs8T7Ah3Xwm+S
-	 QTHB7rBae25jZzD8RW4BrR9nqDnaYnv9HpwDL/ez/comY4EI+8PdqGtSJjZK+xEsnhR6G
-	 /WL/ZrFdMZZUQM1eVw5ps4cKaLEb0DgDeCQktOxl91GnWNeUNlMZDsjW8TOFzZ/LtfQ==
+	t=1794995253;
+	b=Hq+/MYJ/3cP25DMBhIPUYwq7J5fsFL0vhlOaisXcjsqxEVqdtlQsLWemaWcdeZRN3MqA
+	 3MNhhoWbXLsYU6k3VuryCRrMYko6w9ZBUHRsLmh0mh6S30I7qO1yg5W1sNrE63zTQR58y
+	 sPMekOStabHX/JBEizPGUIqap7l7R56X2xq1QE35d+XrmAJjDwnLFt56OW+yVHCoZVDvz
+	 qrH4hegDJMN20jEkjvv7yHEyfl7tFRJz2dW6yXL6hN0/x43bgpWh4igpo11NOx2TbP5xm
+	 UExaaxvRLyh38I8gNB13osM+ZJukJffzdwN3dziv4Fpe244WYPj4AGj8Cda6Mdn2whQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794995186;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wt8+KMB765b7GYSUtiacsq5XR7qsSeCZZHAe4LgX0wM=;
-	b=kI2XQmoSn8WaiGmGxbu0/DIEX/IfMsKpXoESv4m12QNTvFSVAqsMRflukLwUWXkYcKsV
-	 NL/vZoeXrE2TidDaAvuUarKY5QwwHAUkK370lGMiBStyRVP6qyV9W9ghWZvniRoV9rgRE
-	 wUYXoTafpzM4nAxXzDojbZP1cJpCbr0s3CZO/U3o2TGzMBjrUNhTGTWjBTxGv13IQTdob
-	 ckZ03s+mFKG5ntN5qAvPt6fM9KgZ78ofWgwHsbBdoDw+vUhPk8094DicFozy8UZ2LlnAD
-	 4yFFWafkrs3kVNTRqQv9T99njwsRWvMit53efH49LBU9GGxKYgp/r+AXkM0oDwaqDAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794995253;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=XLt3LNagC3p3W1cQVzPcPQlpUU8JjJOhvQQAMn7LWL0=;
+	b=w9razx2XufB2PNQjBoRy8j1dWeM9BvPKNBxFuuMLJQqn1ZF2xTDk/5KDwOZgI8h2dSzb
+	 OwTWd7bK/FKpqynrCmKGL+Nsmny2tNJxftap0pKOhxiYj0gNtMvExj+kD8EoocrhY556H
+	 jWGwy06TQ0KXq9J7OV2QELhNHGg4yqb2h7LDs6VhO1WIXPKWJQi+8Vvzy6DL2T5mRvr6X
+	 584i7xBd9eZs9aLvyfp45easl4VjIbbwWFySXoKPwffNwLt5lLaIDNH05svfJiSNsdcKG
+	 DeHYUCuMH+bwhRonvmaXFc28PBL7ei6tQhN5KegEUofRAOQo5+XrBSY0vab+zIlp6Rw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mzVG4ECt;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D8E7A606A31C;
-	Wed, 18 Nov 2026 09:46:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8E7A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=jU2lFV2S;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15617606A31C;
+	Wed, 18 Nov 2026 09:47:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15617606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=mzVG4ECt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=mzVG4ECtWyqsSqZjE2nIz3CBjNgp7RutH/lpkQQroferzMZWFAMw6T5cMqrhD3fk0g0K20hd4TAVw
-	 yupRoh0vprSE/0Clm9dzkZer8WGOjd8A9TAI4EVheoE/rMpxkyKz7WhliUe91P30B8CVZAfnXa2Og6
-	 PPW/DD4brO3Ltz7A=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app05-12005 (RichMail) with SMTP id 2ee56afd73e9c4d-10772;
-	Wed, 18 Nov 2026 17:46:22 +0800 (CST)
-X-RM-TRANSID:2ee56afd73e9c4d-10772
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from Z04181454368174 (unknown[10.55.1.71])
-	by rmsmtp-syy-appsvr06-12006 (RichMail) with SMTP id 2ee66afd73eb0b5-d28a3;
-	Wed, 18 Nov 2026 17:46:22 +0800 (CST)
-X-RM-TRANSID:2ee66afd73eb0b5-d28a3
-From: zhangjiao2 <zhangjiao2@cmss.chinamobile.com>
-To: tglx@kernel.org
-Cc: frederic@kernel.org,
-	brauner@kernel.org,
-	john.stultz@linaro.org,
-	toddpoynor@google.com,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	trivial@kernel.org,
-	zhang jiao <zhangjiao2@cmss.chinamobile.com>
-Subject: [PATCH] fs/timerfd: fix stale remaining time after disarming an alarm timerfd
-Date: Wed, 18 Nov 2026 17:46:12 +0800
-Message-ID: <20261118094613.1799-1-zhangjiao2@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.50.1.windows.1
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=jU2lFV2S
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Transfer-Encoding:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:
+	Sender:Reply-To:Content-ID:Content-Description;
+	bh=XLt3LNagC3p3W1cQVzPcPQlpUU8JjJOhvQQAMn7LWL0=; b=jU2lFV2S+o7g2QF1SeTqfT7QMA
+	W+1H37jOi0sd+4guZE/2eKqnmkF6yjD2VUUHdD3zw3SSCct4MoH89Dspp5tZbeDKTlLOd4+JVXVHO
+	TFlHRq7SzXMpbNOFEMpj5nQUZN9Vs3R2Tf1jdrSAnosYnUGNs/LR1hNVBTuSWD5rJpXkppO1X+Jky
+	OCve/jxF/itYuaFjrueijIjyPIJAkHxCb54IlSIgn7a7dbC09pCoDbnLJztbOcyL8lx7DYh6hDPXF
+	2cX3gPrh/yfpI5h29WAIRoJkYw3lIigoEHu8JVI757Ila/Lk6xSNx+cMBTskDZ2tuuhFkA3wUKL/f
+	lKotaS4Q==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xTcGF-0000000Bwcy-25c3;
+	Wed, 18 Nov 2026 09:47:27 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 6D3CF3004C9; Wed, 18 Nov 2026 10:47:26 +0100 (CET)
+Date: Wed, 18 Nov 2026 10:47:26 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Nathan Chancellor <nathan@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>,
+	Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] sched/topology: Avoid unsequenced accesses to jiffies
+ in sd_init()
+Message-ID: <20261118094726.GM1813469@noisy.programming.kicks-ass.net>
+References: <20261116-topology-wunsequenced-v2-1-54611119172b@kernel.org>
+ <20261117183043.GK1813469@noisy.programming.kicks-ass.net>
+ <CAKwvOd=9pjhCnreMvoAH_0PegYg60ouaZL=BAjB242bE48J23g@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,58 +77,43 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAKwvOd=9pjhCnreMvoAH_0PegYg60ouaZL=BAjB242bE48J23g@mail.gmail.com>
 
-From: zhang jiao <zhangjiao2@cmss.chinamobile.com>
+On Tue, Nov 17, 2026 at 10:39:15AM -0800, Nick Desaulniers wrote:
+> On Tue, Nov 17, 2026 at 10:30 AM Peter Zijlstra <peterz@infradead.org> wrote:
+> >
+> > I don't speak enough C legal to actually understand the Changelog, but
+> > the actual change seems daft. Is this really needed?
+> 
+> I would imagine a delta of the disassembly here before/after the
+> change would make it more obvious (one less volatile access, which be
+> have arbitrary ordering between initializing other members).
 
-timerfd_setup() reinitializes the timer on every timerfd_settime()
-invocation.  For the hrtimer based clockids this goes through
-hrtimer_setup(), which zeroes the whole hrtimer including the expiry
-time which is stored in the embedded timerqueue node.
+Could it be fixed by adding an explicit cast? Say:
 
-For the alarm based clockids (CLOCK_REALTIME_ALARM and
-CLOCK_BOOTTIME_ALARM) timerfd_setup() uses alarm_init(), which only
-reinitializes the timerqueue node linkage and the alarm state.  The
-expiry time, which alarm_start_timer() stores in alarm->node.expires,
-survives that reinitialization.
+	.last_balance = (unsigned long)jiffies,
 
-As a consequence, disarming an alarm timerfd with timerfd_settime()
-and an all zero it_value leaves the expiry time of the previous
-arming in place.  The remaining time of a timerfd is reported by
-timerfd_gettime(), by the old_value copyout of a subsequent
-timerfd_settime() and by the fdinfo file.  A disarmed alarm timerfd
-therefore keeps reporting a non-zero it_value until the stale expiry
-time has passed, while the hrtimer based clockids correctly report
-zero as required by POSIX.
+> But I guess I'm also curious why jiffies is defined as volatile
+> anyway? I thought the usual guidance was to use
+> cast-to-volatile-qualified pointer during access, rather than declare
+> as volatile?
 
-Reset the expiry time when disarming an alarm based timerfd, which
-matches what the memset() in hrtimer_setup() establishes for the
-hrtimer based clockids.
+jiffies is ancient; it stems from before we had READ_ONCE() and friends.
+It used to be that task_struct::state was also declared volatile, but
+I've since fixed that.
 
-Fixes: 11ffa9d6065f ("timerfd: Add alarm timers")
-Cc: Todd Poynor <toddpoynor@google.com>
-Cc: Thomas Gleixner <tglx@kernel.org>
-Cc: <stable@vger.kernel.org>
-Signed-off-by: zhang jiao <zhangjiao2@cmss.chinamobile.com>
----
- fs/timerfd.c | 2 ++
- 1 file changed, 2 insertions(+)
+Mostly, you want to always read time, and not have time optimized
+'away'. Like lift a jiffies read out of a loop and break the timeout
+condition and all that.
 
-diff --git a/fs/timerfd.c b/fs/timerfd.c
-index fe845af0b74e..d7cc704e4afa 100644
---- a/fs/timerfd.c
-+++ b/fs/timerfd.c
-@@ -247,6 +247,8 @@ static int timerfd_setup(struct timerfd_ctx *ctx, int flags,
- 			   ctx->clockid == CLOCK_REALTIME_ALARM ?
- 			   ALARM_REALTIME : ALARM_BOOTTIME,
- 			   timerfd_alarmproc);
-+		if (!texp)
-+			ctx->t.alarm.node.expires = 0;
- 	} else {
- 		hrtimer_setup(&ctx->t.tmr, timerfd_tmrproc, clockid, htmode);
- 	}
--- 
-2.33.0
+Also, the C people are daft and want to get rid of volatile,
+irrespective of its many uses, so perhaps this is a subtle act of
+sabotage or something and we should get clang to revert this weirdness.
 
-
+I think the thinking was that with _Atomic there is no further need of
+volatile and its fine to break the many billions of lines of
+pre-existing C code or something stupid like that :/
 
