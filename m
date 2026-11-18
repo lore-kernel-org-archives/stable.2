@@ -1,59 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795015977;
-	b=rCnswUXUIvyz6v+fKgr+hB5iDTYkLGOhoDBjHsP4JFQ0i3PAyhX95xVwuxPM5LP0hIAo
-	 gHEh/rpIVMT+Xz1nzrsUEOUNoOlhHm2u0CxHdeHNAqncpYpYXz7Esk2mbtOamqLWqZzzC
-	 nvR6MQSh6PTm9yp9pOFQB/YBlxLuvuRMFXVSRmcxgVob0inbXDwvwK6FdJwXlWE4QN+Fg
-	 KZKepJTyiguX0l7XetYX+eSG1OrRCG3ktkl9IQPQmg8BS6suVSjY/rBtFRwTVelldLCB+
-	 0U3IyOSj1bkE8Mm1RD2SPWxubbsk41CKdyt7Aee14yTGWXvqtp9Zi9jS0lx/bN3+suQ==
+	t=1795015978;
+	b=r4cKsw6TqMxvlBV72ZR93rDRjllU7Ic+lAN1pvXa51F1xggpJ/GYT2kT7Jhz68LyFxO9
+	 dEjcLhfO8plM3tNZub1HZ19AKt/6jnSZdUIPWTusI6v235X5om6pcrWnkCsNmQ6Gdz+1H
+	 iXD+n0a5fQGp1KkvZJsfjaXK1ZAAXQcol+Qt7m3CX9rm2bbuyT7/EtN1xHsTpVgNILDjE
+	 9i/LIu0vRdi8TsUC6vY/XoKXri/ZjypR1DpNY1j3E4YO4u/BShYJlm+bk26z05cR67aBJ
+	 2PaVeUevnf870Zssbo04zd6vXN54ywft8xWaXXNBCxs7dhps3Jw7sJVl6wEZQtXEGlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795015977;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7ufjRQf3Q9whFJzDniP3ipYxGynUjktFdwVE6uTQlCE=;
-	b=N/4eoEqhoet4kyPr5yNOouPZwHDCfbbDjyzJcUNJwiy2q7mjdJiY2kPQD9Pw/TX2O9W3
-	 xTW7fLP23oUpJS9ZdV1I6l6xFIRLudmVyHtH2yEOOkZZI/tCvKuNhgGeojTA6A7aI1afP
-	 CB32yYyxDjCTzwIykQ3PSPtomurP/6RGe4cs1rd0VKbJ1IaXZAmc3hmwBBvGQhziFNuXo
-	 XIc33rYpLCdYk437aQhPlD/K/YWqmnK/C3CmYQLYPgOABx4IPCdN+0vCZhSSsycHTNcDv
-	 BZhg5t3wDbbsl3VlaxYLEJwFR/FQL5RAxyXH2RQIe+6O6FmAd/2ktKAuKnFBCslSY0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015978;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+MpmiAPVSNOMODlIUH/rRrCpeyRccmS8EYDCXlOBkiQ=;
+	b=4lMNwardxYztHnFPM4D7SkFo/jvy8DFIYXg1V48YBwmYnK/3eqGp3/tNwDALLbnqo9rM
+	 oRlnZCAcnsjP7HbtV5P6i3A1PTlYTudBX0F8gROqhkxSflsC/eiY79W/XYX41aQJRWuXt
+	 D06t08fOCybKa4lsWkrXhCe2U6esP/r00MPdGWCX6BH/H3lcShEsipl49bTyoLIl2v6eL
+	 xii0vMQv54X92LJK7sA3/RIQm77H/Kh31vFPXpHna0BCN0LTAKC5VF1Wxmctpbl/r0h4z
+	 nk2UmPymqLmNs4nVj5aquQx5ioEXtlVxIJkuqTxS5cEMn5vNkT1GpS/CgZOPyB46Jdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MdSAV4hc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Rb/GMiZm";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC57C606A32F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0892760A2603;
 	Wed, 18 Nov 2026 15:32:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MdSAV4hc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BDF11F000C4;
-	Wed, 18 Nov 2026 15:32:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795015977;
-	bh=7ufjRQf3Q9whFJzDniP3ipYxGynUjktFdwVE6uTQlCE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MdSAV4hc9++1+TcktvHsxu54YJOlnOWbeE8dtHuTN96gEfjhqoHpvLWUN/30Qazdl
-	 nMyzqNfKOT63OXLjkEcMdfhzwVqAmzsLmDh0LvmILwjyRa/05PxXLCj2OYYYamth30
-	 cW1Pd+x14PaxVkj5R+i2AS4tCqfhCg5DsXIwB7Qk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Roland Dreier <rolanddreier@rivian.com>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0365/2651] firmware: arm_scmi: Protect xfer->async_done with xfer->lock
-Date: Wed, 18 Nov 2026 15:26:45 +0100
-Message-ID: <20261118150300.978744505@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rb/GMiZm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CF561F000C6;
+	Wed, 18 Nov 2026 15:32:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795015977;
+	bh=+MpmiAPVSNOMODlIUH/rRrCpeyRccmS8EYDCXlOBkiQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Rb/GMiZmoH/oEZ/prkmXhUbm3LTPbJjPeQ8WwHnjUdihoSviBg5H6PKTc/6g4K0qg
+	 lNQC6QsgvBDvMU6XeKzROa7Rcgqqi/tM5ZkvSz/FDMs67gpXpiTC4Ic81U6NuPoOzp
+	 RXKLdMAp8OaF+1LBKf89eruO9Am/L8+OMNH8ehMggTnskwjuoObp26Ge4FsyyIJHav
+	 siAOOZr4tVg1njfZTl0HhyzUb1o4d1S7/McqJiYVokydNtiiuaAhWIaW0h0VbiccJu
+	 VUv8D1b+GgV9WX2VVYw0C7VbmW1pIaSiFjvjhW+wetXes3LhDKHalzMulVk3femeDE
+	 LttntKJaUpTVw==
+Message-ID: <d1fe5a36-e6e0-4109-bf70-5582278ad653@kernel.org>
+Date: Wed, 18 Nov 2026 16:32:41 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,248 +51,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 08/13] mm/migrate_device: fix ksmd oops on a migrated
+ KSM page
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Usama Arif <usama.arif@linux.dev>, Kairui Song <kasong@tencent.com>,
+ Balbir Singh <balbirs@nvidia.com>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?=
+ <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Yu-cheng Yu <yu-cheng.yu@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>,
+ Chris Mason <mason@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Mark Brown <broonie@kernel.org>,
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org
+References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
+ <20261113-mason-migrate-et-al-fixes-v2-8-50a2ed382b61@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-8-50a2ed382b61@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On 11/13/26 22:45, Lorenzo Stoakes (ARM) wrote:
+> From: Chris Mason <mason@kernel.org>
+> 
+> After a KSM page is migrated to device private memory, ksmd can oops,
+> and KSM then stops until reboot. A process that maps the page can also
+> loop in page faults when it next accesses the page.
+> 
+> The problem arises because KSM doesn't know not to try to look at device
+> private memory that does not exist in the direct map.
+> 
+> In addition, ksmd skips all device pages when it scans, so it drops its
+> rmap of a KSM page which was migrated to device private or device
+> coherent memory.
+> 
+> Disallow migrating a KSM page to either by explicitly testing for this
+> in __migrate_device_pages().
+> 
+> Fixes: a5430dda8a3a ("mm/migrate: support un-addressable ZONE_DEVICE page in migration")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ ljs: tweak commit message, comment, also refuse device coherent ]
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> Acked-by: Balbir Singh <balbirs@nvidia.com>
+> Reviewed-by: Alistair Popple <apopple@nvidia.com>
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
-------------------
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-From: Roland Dreier <rolanddreier@rivian.com>
-
-[ Upstream commit 49fc5bc04eec2b7687d49ccceb7adf6ace640a3b ]
-
-Asynchronous SCMI commands are completed by a delayed response. The RX
-path signals the response with complete(xfer->async_done). Unlike
-xfer->done, xfer->async_done is a pointer to a completion owned by
-whoever is waiting for the delayed response, and it stays valid only for
-as long as that waiter is still waiting.  In do_xfer_with_response() it
-is a DECLARE_COMPLETION_ONSTACK() in the caller's stack frame.
-
-Nothing serialises the RX path against a waiter that gives up on a
-timeout. scmi_msg_response_validate() does read xfer->async_done
-under xfer->lock, and documents that as a requirement, but the lock is
-dropped again before scmi_handle_response() dereferences the pointer,
-and neither the arming nor the disarming side takes it at all. So a
-delayed response arriving just as the wait times out can be signalled
-on a completion that is already gone:
-
-  waiter                                RX path (IRQ context)
-  ------                                ---------------------
-  do_xfer_with_response():
-    xfer->async_done = &async_response
-    do_xfer(xfer)
-    wait_for_completion_timeout(xfer->async_done, tmo)
-    /* returns 0, gives up */
-                                        /* response receive interrupt */
-                                        scmi_handle_response():
-                                          scmi_xfer_command_acquire()
-                                            lock xfer->lock
-                                            validate: async_done != NULL
-                                            unlock xfer->lock
-    xfer->async_done = NULL
-    return -ETIMEDOUT
-    /* async_response goes out of scope */
-                                          complete(xfer->async_done)
-
-That last complete() has two possible bad outcomes: it either dereferences
-the NULL just stored by the waiter or - if that store is not yet visible
-on the RX CPU - it takes a lock and writes to a stack frame that the
-waiter may already have returned from.
-
-Fix this by making xfer->lock cover xfer->async_done end-to-end. Add
-helpers to arm and disarm it under the lock, use them on both the regular
-and the raw paths, and have the RX path read and signal the completion
-under that same lock. A waiter that is timing out then either completes
-its disarm before the RX path looks, in which case the delayed response is
-dropped, or blocks in the disarm until the RX path is done with the
-completion, in which case the completion is still alive.
-
-Log the dropped case, so every path where a delayed response that was
-matched to a pending xfer and then discarded produces an error. (This is
-the same treatment scmi_msg_response_validate() already gives a
-delayed response that arrives after the waiter has disarmed the xfer)
-
-Fixes: 58ecdf03dbb9 ("firmware: arm_scmi: Add support for asynchronous commands and delayed response")
-Signed-off-by: Roland Dreier <rolanddreier@rivian.com>
-Reviewed-by: Cristian Marussi <cristian.marussi@arm.com>
-Tested-by: Cristian Marussi <cristian.marussi@arm.com>
-Link: https://patch.msgid.link/20260909-scmi-async-done-race-v2-1-cc5dec25c6be@rivian.com
-Signed-off-by: Sudeep Holla <sudeep.holla@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/firmware/arm_scmi/common.h    | 22 ++++++++++++++++
- drivers/firmware/arm_scmi/driver.c    | 37 +++++++++++++++++++++++----
- drivers/firmware/arm_scmi/protocols.h |  9 ++++---
- drivers/firmware/arm_scmi/raw_mode.c  |  4 +--
- 4 files changed, 62 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/firmware/arm_scmi/common.h b/drivers/firmware/arm_scmi/common.h
-index fe8c22cfb9f7d..a5492dd90b417 100644
---- a/drivers/firmware/arm_scmi/common.h
-+++ b/drivers/firmware/arm_scmi/common.h
-@@ -284,6 +284,28 @@ static inline bool is_polling_enabled(struct scmi_chan_info *cinfo,
- 		is_transport_polling_capable(desc);
- }
- 
-+/**
-+ * scmi_xfer_async_response_arm  - Arm the delayed response completion
-+ *
-+ * @xfer: A reference to the xfer to arm
-+ * @async_done: The completion to signal upon reception of a delayed response,
-+ *		or NULL to disarm @xfer.
-+ */
-+static inline void scmi_xfer_async_response_arm(struct scmi_xfer *xfer,
-+						struct completion *async_done)
-+{
-+	unsigned long flags;
-+
-+	spin_lock_irqsave(&xfer->lock, flags);
-+	xfer->async_done = async_done;
-+	spin_unlock_irqrestore(&xfer->lock, flags);
-+}
-+
-+static inline void scmi_xfer_async_response_disarm(struct scmi_xfer *xfer)
-+{
-+	scmi_xfer_async_response_arm(xfer, NULL);
-+}
-+
- void scmi_xfer_raw_put(const struct scmi_handle *handle,
- 		       struct scmi_xfer *xfer);
- struct scmi_xfer *scmi_xfer_raw_get(const struct scmi_handle *handle);
-diff --git a/drivers/firmware/arm_scmi/driver.c b/drivers/firmware/arm_scmi/driver.c
-index a666ad39acdf1..005ff6da19f0f 100644
---- a/drivers/firmware/arm_scmi/driver.c
-+++ b/drivers/firmware/arm_scmi/driver.c
-@@ -1064,6 +1064,29 @@ static inline void scmi_xfer_command_release(struct scmi_info *info,
- 	__scmi_xfer_put(&info->tx_minfo, xfer);
- }
- 
-+/**
-+ * scmi_xfer_async_response_complete  - Signal a received delayed response
-+ *
-+ * @xfer: A reference to the xfer whose delayed response was received
-+ *
-+ * Return: True if a completion was still armed on @xfer and has been
-+ *	   signalled, false if a waiter has already disarmed it due to
-+ *	   timeout or other error.
-+ */
-+static bool scmi_xfer_async_response_complete(struct scmi_xfer *xfer)
-+{
-+	unsigned long flags;
-+	struct completion *async_done;
-+
-+	spin_lock_irqsave(&xfer->lock, flags);
-+	async_done = xfer->async_done;
-+	if (async_done)
-+		complete(async_done);
-+	spin_unlock_irqrestore(&xfer->lock, flags);
-+
-+	return !!async_done;
-+}
-+
- static inline void scmi_clear_channel(struct scmi_info *info,
- 				      struct scmi_chan_info *cinfo)
- {
-@@ -1167,8 +1190,12 @@ static void scmi_handle_response(struct scmi_chan_info *cinfo,
- 
- 	if (xfer->hdr.type == MSG_TYPE_DELAYED_RESP) {
- 		scmi_clear_channel(info, cinfo);
--		complete(xfer->async_done);
--		scmi_inc_count(info->dbg, DELAYED_RESPONSE_OK);
-+		if (scmi_xfer_async_response_complete(xfer))
-+			scmi_inc_count(info->dbg, DELAYED_RESPONSE_OK);
-+		else
-+			dev_err(cinfo->dev,
-+				"Delayed Response for %d (protocol 0x%X msg 0x%X) received after waiter was disarmed, dropping\n",
-+				xfer->hdr.seq, xfer->hdr.protocol_id, xfer->hdr.id);
- 	} else {
- 		complete(&xfer->done);
- 		scmi_inc_count(info->dbg, RESPONSE_OK);
-@@ -1510,7 +1537,7 @@ static int do_xfer_with_response(const struct scmi_protocol_handle *ph,
- 	int ret, timeout = msecs_to_jiffies(SCMI_MAX_RESPONSE_TIMEOUT);
- 	DECLARE_COMPLETION_ONSTACK(async_response);
- 
--	xfer->async_done = &async_response;
-+	scmi_xfer_async_response_arm(xfer, &async_response);
- 
- 	/*
- 	 * Delayed responses should not be polled, so an async command should
-@@ -1522,7 +1549,7 @@ static int do_xfer_with_response(const struct scmi_protocol_handle *ph,
- 
- 	ret = do_xfer(ph, xfer);
- 	if (!ret) {
--		if (!wait_for_completion_timeout(xfer->async_done, timeout)) {
-+		if (!wait_for_completion_timeout(&async_response, timeout)) {
- 			dev_err(ph->dev,
- 				"timed out in delayed resp(caller: %pS)\n",
- 				(void *)_RET_IP_);
-@@ -1532,7 +1559,7 @@ static int do_xfer_with_response(const struct scmi_protocol_handle *ph,
- 		}
- 	}
- 
--	xfer->async_done = NULL;
-+	scmi_xfer_async_response_disarm(xfer);
- 	return ret;
- }
- 
-diff --git a/drivers/firmware/arm_scmi/protocols.h b/drivers/firmware/arm_scmi/protocols.h
-index 15ad5162e37a9..8583159059e6b 100644
---- a/drivers/firmware/arm_scmi/protocols.h
-+++ b/drivers/firmware/arm_scmi/protocols.h
-@@ -100,7 +100,10 @@ struct scmi_msg_hdr {
-  *	message. If request-ACK protocol is used, we can reuse the same
-  *	buffer for the rx path as we use for the tx path.
-  * @done: command message transmit completion event
-- * @async_done: pointer to delayed response message received event completion
-+ * @async_done: pointer to delayed response message received event completion,
-+ *		or NULL when no delayed response is expected. Protected by
-+ *		@lock, since the completion is owned by the waiter and can
-+ *		vanish once the wait times out.
-  * @pending: True for xfers added to @pending_xfers hashtable
-  * @node: An hlist_node reference used to store this xfer, alternatively, on
-  *	  the free list @free_xfers or in the @pending_xfers hashtable
-@@ -121,7 +124,7 @@ struct scmi_msg_hdr {
-  *	    - SCMI_XFER_SENT_OK -> SCMI_XFER_DRESP_OK
-  *	      (Missing synchronous response is assumed OK and ignored)
-  * @flags: Optional flags associated to this xfer.
-- * @lock: A spinlock to protect state and busy fields.
-+ * @lock: A spinlock to protect state, busy and async_done fields.
-  * @priv: A pointer for transport private usage.
-  */
- struct scmi_xfer {
-@@ -147,7 +150,7 @@ struct scmi_xfer {
- #define SCMI_XFER_IS_CHAN_SET(x)	\
- 	((x)->flags & SCMI_XFER_FLAG_CHAN_SET)
- 	int flags;
--	/* A lock to protect state and busy fields */
-+	/* A lock to protect state, busy and async_done fields */
- 	spinlock_t lock;
- 	void *priv;
- };
-diff --git a/drivers/firmware/arm_scmi/raw_mode.c b/drivers/firmware/arm_scmi/raw_mode.c
-index 1f6e51670208d..8751cff5fa4eb 100644
---- a/drivers/firmware/arm_scmi/raw_mode.c
-+++ b/drivers/firmware/arm_scmi/raw_mode.c
-@@ -346,7 +346,7 @@ scmi_xfer_raw_waiter_get(struct scmi_raw_mode_info *raw, struct scmi_xfer *xfer,
- 
- 		if (async) {
- 			reinit_completion(&rw->async_response);
--			xfer->async_done = &rw->async_response;
-+			scmi_xfer_async_response_arm(xfer, &rw->async_response);
- 		}
- 
- 		rw->cinfo = cinfo;
-@@ -361,7 +361,7 @@ static void scmi_xfer_raw_waiter_put(struct scmi_raw_mode_info *raw,
- 				     struct scmi_xfer_raw_waiter *rw)
- {
- 	if (rw->xfer) {
--		rw->xfer->async_done = NULL;
-+		scmi_xfer_async_response_disarm(rw->xfer);
- 		rw->xfer = NULL;
- 	}
- 
 -- 
-2.53.0
+Cheers,
 
-
-
+David
