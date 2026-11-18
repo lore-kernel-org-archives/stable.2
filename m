@@ -1,59 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795015058;
-	b=aKLnIWRRfd8uiYOst5OBmB1y1UB56mCD6qgzlVh6o/kQxCf7ch3uVyAFVR4f1xzGNqgq
-	 Q96qo5iwPRekiCEwhUqb6Z1moYCWJCn37OzL9s1qK2oQcwZnelKQk1KEsx3tqGEVxNzwd
-	 NWb/AkEKK62N85QzONVLwbW10Vy4tq4+U94SmPyx82244CQpzD7tRMiwpFfGM5Vp6I7ES
-	 yO7M4PaumMCxInJFRj9w/v3t5fG9zeVWCRBANYdUP3OuOFpry+n4v4Tk2umdSfo5mXlk6
-	 R3WCGU75L/5R7HjggnUTHuNsamZ+7TDbYJ0OnVoCiep5U4WAevxMKmlUJ79HuqamD2g==
+	t=1795015055;
+	b=GTdkZ8WMUjMBKfLST3q7LtZkTnCjBhirzweqV+gTMnoe0qitnIZs/xdaHjCeyC7IEMJn
+	 J54VkM/8oa6rHfw7Nc/Ssfie8uP3zKDhR3aRMjERVnnm72bDNCMqNpXAJk2peADrRR0qB
+	 XPKi8bycrGwQ8AQdk0VhFi0Pmj1xqy4pGjUGral82q+ZfunWvrr6jud084vyItm3Q7hU4
+	 Sxx83cdvaVu1E4uhaVVRb0SLtJhLj/KE7EYWWacJonRCjPRadGwQ631mgg21M2AZb8Dlq
+	 P7mFrniNKas7odD4zlMiIIHT9869jbgr4u7olvXUwZWdJTb8qAipA0uOBsuYa5/ghLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795015058;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=UxiBr0vNJ+eslZtKIOiSyh7NI3V0KhTvdwZmmMa424M=;
-	b=G/yGEZ868ejYbk6bvJ97jop+EQeAv3kPAxZr5U6rdMCqE/4AUYeL+xsyX/K9MRsPXM4o
-	 Ho6HrGp0fWqL+4/gdwY/NhmxfWUbgKopobkLWf15PWfWWXNp/VuKcmXJ63EDVTO0xfl6p
-	 OjdSjkuHpdvcdPlb3P9xL/FSZJDfWspXYeW8AosY+E5PA3RMaoPm+9chqTTHqSH56qI9i
-	 rKybLLjmHtk9/rZdiJu1njSpdYRGe4YMUT+HJMg/FERAlSKXioYdmtWC6j6vq9arrepKH
-	 dB1F6tsIwZPZSF2FIBUauWfrR/V0a3bH7DKuXWe3+MoXYDIlGUzuT2DgCjhdkRnp1Ag==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015055;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=9eNFjz8eGoaFkh5ByexY9gtwepGgk8JN1OSK8KUSAaY=;
+	b=fDcor9TshrLxSjRmenZaHeySMLipAeRw/EUTu2P9TU3A0vt8v++4C9M7c38tQpV+EiB+
+	 S9pB/g9rmpiO8eSSr1CYoG5rI+mQNOjk9DqKlwlN1KFp3tX0eDFIUYcZlXv0izrtzRt7u
+	 Cbtwrs265T63IK9A7LehEicyzHg7MVjc/XCXITrxUPMkk9NDfbz0Pik6JepCw9uspUyNZ
+	 0cdyTnTU75K/JfaHmhcf5tz6XOrkb18feUIIStdoVidMqUxlOVpvg77b63UJKaCbJ393h
+	 WHMoJKKHWA67v4ftJClRLYG67XpQOLjvb8gs0v1yq8qQOd7hV+iu0gXxMk3QLX+8Xmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TWofsyZw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+E3VNgm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07D360A2600;
-	Wed, 18 Nov 2026 15:17:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5DA606A31C;
+	Wed, 18 Nov 2026 15:17:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TWofsyZw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517401F000C5;
-	Wed, 18 Nov 2026 15:17:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795015057;
-	bh=UxiBr0vNJ+eslZtKIOiSyh7NI3V0KhTvdwZmmMa424M=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TWofsyZwTSP9hLFSihX0NH/r4ce+3CqKRZ50JijEjQzW420YmZ5qECbxUe6S7+wzw
-	 tn6NQRcNlDChcdsqzLcyGkgRKOR/Syj3fMsBopq9wXvqteuwsT4ajyOIpt4yQTEf8c
-	 nzVdkTYwfCL3g2dwr44DYqpPL/MupkJzoGTNdbnM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Nilay Shroff <nilay@linux.ibm.com>,
-	Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>,
-	Keith Busch <kbusch@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0038/2651] nvme-tcp: fix use-after-free in nvme_tcp_free_ctrl()
-Date: Wed, 18 Nov 2026 15:21:18 +0100
-Message-ID: <20261118150249.341986400@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+E3VNgm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DE121F000C5;
+	Wed, 18 Nov 2026 15:17:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795015055;
+	bh=9eNFjz8eGoaFkh5ByexY9gtwepGgk8JN1OSK8KUSAaY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=K+E3VNgmUZ1CtEoIBgh+MLhkxySu15WxG6psA0t/6HrkUXxiH5y8ElLlMW7mU15+1
+	 unb0Cpy1bOEi+FwKaWVQUHRKherIi6ozV1MQHOdHT1e+XKFi96seRY+ixDpN6yzUhp
+	 LEGJ2Ym/5H4pl+484Qy4zhkH1GmXbrH+l3Wg2wt+wLIZmi2jG/8DlnCNPM/Tb3sWti
+	 IlL4dTvvc/IbG43lukUWr6CBeo/sto0yanSZSBgslZiQZu+NT0lbqY1pFZJIMcdlXn
+	 KCGe4Tr0Zd8L1xyjR/7poPi0WPQ1unsz0iJ1gRYcH72G4wc7v+bOBHVmjRM1B4L/2u
+	 5OmhGoPCraD8Q==
+From: David Hildenbrand <david@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>, 
+ Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>, 
+ Roman Kisel <romank@linux.microsoft.com>, 
+ Saurabh Sengar <ssengar@linux.microsoft.com>, 
+ Naman Jain <namjain@linux.microsoft.com>, 
+ Michael Kelley <mhklinux@outlook.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Eliav Farber <farbere@amazon.com>, 
+ "Jose A. Perez de Azpillaga" <azpijr@gmail.com>, 
+ "Gregory Price (Meta)" <gourry@gourry.net>
+In-Reply-To: <20261117-huge-pfnmap-fault-races-v2-0-276007e73bcb@kernel.org>
+References: <20261117-huge-pfnmap-fault-races-v2-0-276007e73bcb@kernel.org>
+Subject: Re: [PATCH v2 0/4] mm: fix races between huge and non-huge faults
+ in PFN mappings
+Message-Id: <179501504807.12832.2222363605872715262.b4-ty@b4>
+Date: Wed, 18 Nov 2026 16:17:28 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,90 +76,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On Tue, 17 Nov 2026 18:31:31 +0000, Lorenzo Stoakes (ARM) wrote:
+> A driver that implements both ->fault and ->huge_fault must anticipate
+> concurrent use of both.
+> 
+> This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
+> concurrent with faulting, as that only holds the mmap write lock and thus
+> does not exclude faulting threads stabilised by VMA lock.
+> 
+> [...]
 
-------------------
+Applied, thanks!
 
-From: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
+tree: mm/core.git
+branch: core-7.5.misc
 
-[ Upstream commit b1d1f6b1ee03285690f12c2ebf23616416e6d881 ]
+Applied patches will appear soon in mm-next, followed by linux-next.
 
-nvme_tcp_free_ctrl() reads ctrl->ctrl.opts to know how many queue
-mutexes to destroy. When creating the controller fails,
-nvmf_create_ctrl() frees opts as soon as nvme_tcp_create_ctrl()
-returns, but a concurrent open of the character device can hold the
-last reference to the controller. With CONFIG_DEBUG_KOBJECT_RELEASE,
-which delays the release, every failed connect reads freed memory:
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
 
-  BUG: KASAN: slab-use-after-free in nvme_tcp_free_ctrl+0x38b/0x430
-  Read of size 4 at addr ffff888005b93740 by task kworker/2:1/51
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
 
-Keep the size of the queue array in the controller and use it instead.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
 
-Fixes: 2eeeaa9c1ff0 ("nvme-tcp: Validate the queue state under the queue lock in the address attribute")
-Cc: stable@vger.kernel.org
-Reviewed-by: Nilay Shroff <nilay@linux.ibm.com>
-Signed-off-by: Christian Aurich Zanettini Martins <christian.aurichzm@gmail.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
-[ sashal: adapted to a tree without the netns/init_queue refactor, so the fix edits the mutex_init/mutex_destroy queue loops instead of nvme_tcp_init_queue()/exit_queue() and has no net member context. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/nvme/host/tcp.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+[1/4] mm: update walk_to_pmd() to explicitly return an error
+      https://git.kernel.org/mm/core/c/977781a1
+[2/4] mm/memory: remove racy huge PMD assertion from walk_to_pmd()
+      https://git.kernel.org/mm/core/c/dffaff24
+[3/4] mm/memory: do not report OOM if insert_pfn() races a huge fault
+      https://git.kernel.org/mm/core/c/6aaf0015
+[4/4] mm/huge_memory: only compare PFNs of huge entries on huge fault insert
+      https://git.kernel.org/mm/core/c/bc5cff91
 
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 50297ce8bdde6..edb41cb3a7a15 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -191,6 +191,7 @@ struct nvme_tcp_ctrl {
- 	struct delayed_work	connect_work;
- 	struct nvme_tcp_request async_req;
- 	u32			io_queues[HCTX_MAX_TYPES];
-+	unsigned int		nr_allocated_queues;
- };
- 
- static struct workqueue_struct *nvme_tcp_wq;
-@@ -2791,8 +2792,6 @@ static void nvme_tcp_stop_ctrl(struct nvme_ctrl *ctrl)
- static void nvme_tcp_free_ctrl(struct nvme_ctrl *nctrl)
- {
- 	struct nvme_tcp_ctrl *ctrl = to_tcp_ctrl(nctrl);
--	/* the same count used to size and initialize the queue array */
--	unsigned int nr_queues = NVME_TCP_OPT_NR_QUEUES(nctrl->opts);
- 	unsigned int i;
- 
- 	if (list_empty_careful(&ctrl->list))
-@@ -2804,7 +2803,7 @@ static void nvme_tcp_free_ctrl(struct nvme_ctrl *nctrl)
- 
- 	nvmf_free_options(nctrl->opts);
- free_ctrl:
--	for (i = 0; i < nr_queues; i++)
-+	for (i = 0; i < ctrl->nr_allocated_queues; i++)
- 		mutex_destroy(&ctrl->queues[i].queue_lock);
- 	kfree(ctrl->queues);
- 	kfree(ctrl);
-@@ -3198,7 +3197,8 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
- 		goto out_free_ctrl;
- 	}
- 
--	ctrl->queues = kzalloc_objs(*ctrl->queues, ctrl->ctrl.queue_count);
-+	ctrl->nr_allocated_queues = ctrl->ctrl.queue_count;
-+	ctrl->queues = kzalloc_objs(*ctrl->queues, ctrl->nr_allocated_queues);
- 	if (!ctrl->queues) {
- 		ret = -ENOMEM;
- 		goto out_free_ctrl;
-@@ -3209,7 +3209,7 @@ static struct nvme_tcp_ctrl *nvme_tcp_alloc_ctrl(struct device *dev,
- 	 * they outlive the per-queue connect/disconnect cycles so that
- 	 * sysfs readers can never race their destruction.
- 	 */
--	for (i = 0; i < ctrl->ctrl.queue_count; i++)
-+	for (i = 0; i < ctrl->nr_allocated_queues; i++)
- 		mutex_init(&ctrl->queues[i].queue_lock);
- 
- 	ret = nvme_init_ctrl(&ctrl->ctrl, dev, &nvme_tcp_ctrl_ops, 0);
 -- 
-2.53.0
+Cheers,
 
-
+David
 
