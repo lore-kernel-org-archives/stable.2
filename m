@@ -1,91 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795032413;
-	b=rP+ShJnCxRrt7QmMMZtVCf4yNqsn82/lOf6eeWBhcq4fm8wt1C3ot5/AwshbOxnodleu
-	 Wjc/NAa5mDINDm60LXy+hLhgtRD7FYJoiCln9+8euKuczpoSnHs1rEbQQS4iyF9+rgaTC
-	 Nszis74STlhcxIP89V1uorirYDMeY0w0P64jvAZ9YUZkyoHqzCFsd8OgtWfBZwWImyrSP
-	 1D3B+Ca21OGROw7GfSVGT0zWKpRCxjj3m5RwXc8sz7pldVfUCFU27uzYgrAmsu4XxDeki
-	 oWPqK8WBHBYLb9q1ncswU2EuUa994/3mt4dIR6LvyHMXkvnH8aMvQsRCssxvoVgrV0g==
+	t=1795032415;
+	b=CGz+LwMfS2orMEgeoM+03XJUHvm5ujk0vzcMIOczNnbpMfjpS7AH7Wqz0rGVKXJDmyQB
+	 uDxdKTM4M0exJqr101DrvmBogbi7Me0LSmDfZ5GOCut66ZLMbXgiQL+rXx82/tiFVvinS
+	 EX9WMuPsEWwtwTGQL2vrmWWWwLErrtTZLn7OtRAEf3QqNDE340euf9LwfopCTfnO57+3N
+	 fC6J1q2UwS19+0W8JzwJOq9dXLnP9jcJlt/U6p4KQgBZlq8h3oA8geq9YxUqsJnGN3aNF
+	 DWNE3ubzAJ80zI0dLN4uRsbah4GLQnznzENsAe49PNOB9OnBIoA/1Pe4/EywThZrZmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795032413;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dH+Qy0VqTTtvIXebKmx2Zo7LzHbz/iWPH6FpOkNy6PM=;
-	b=QqUeUEN2MMHt3Ti1l3noW56co/BKh+wtf6mHFYlEiKpbS6m9jcGqks6LT/l5VC9a3tgI
-	 4cP8HLguFNke1NtzXxRPbKe5nW44/+O0fhWiHqg+cyEcfdFc++uubS4diZgM+/JZ/cGDC
-	 oHW314BLk1IEzyPFJ9gHxCBbWdcvngvD/sSNjRyBt0PGI8EAWW37A0JIycZsvrwaJZuj9
-	 MZfWH9O/Xdxl0cUijpwgz4tiimFRgWKlbM8Nlpu2oIHK5A3v5bLFaAD37Y/K35YoUJ+6V
-	 69Y+8BfHkb9LDx1Md/4j5Z4Z5GAtMAZ2qT/a9qDWXDZCNXAVpAIEprvFHX1mddsgFeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795032415;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=+IxwOd+4dYdX1EmCmpBtkh/gGiAuGyd9jQhUoIMCWt4=;
+	b=xh5LPA1P99N+CgqTSOLusV9lP33rgHhfZ32h/LEgye1EykJbKGrDM0bMDUBD6tyXh7/o
+	 cNc59yyEXOwXx9dvTCaHJ6JE9Stdweahz57gZaAgKvtOP7q693W+MUvD8vvSgG9ZY1fF1
+	 PdWtPv3TYYOSTbRtemdUpQCxqg77mhtCCaqVUvTbNSQKf2hcCx0KY5EvxzT7zrgzVAR7q
+	 B/bMrk/tLWYFnIzC6KGw6CTj19nuWhLR3ftvdiT/kyFby3d9GS6fLnNNwSPnDoXj9frmQ
+	 +bvzFIkPnoYkEOa6xseOrxJ6M4rfBho3vvyas2s4smr05m1bps/vYLos2U2LptYNxxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=K0bVyGeE;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=okesLcPk;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CA660A3801;
-	Wed, 18 Nov 2026 20:06:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05CA660A3801
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EE760A3819;
+	Wed, 18 Nov 2026 20:06:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=K0bVyGeE
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795032405;
-	bh=dH+Qy0VqTTtvIXebKmx2Zo7LzHbz/iWPH6FpOkNy6PM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=K0bVyGeEIYJlr/Cr2S7i/adSW1q3CXQVs8/SGCMolNpAhUjvaDre3dDHKo1cU53WX
-	 DWvIQ20jXYhTpN51KCQNRy1XamuF1i5Ibh16/xLgkNoWzoGFPwhgvhDipm+6b1CAwT
-	 jof1rEEZctPubdwFlqacn0a7Cbhy85WJsjwOZ4wUKBQL0IsyaM2G/I0TzV6MSwnaqp
-	 NHnNDxbvjuJqBvr7/9oZrgNg8tI+1areaIAvYIEIoFz7d7IofrfFmznbhgHS6Uey2w
-	 AO8w5OrjT6K4ayTX6/l9UJoRUyUV3pxCzrvYgXtwwID1fyyDCmAcvgpnHHLBpFlCob
-	 nJSQRlt/2NuaQ==
-Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVCKx2tcCzRJb;
-	Wed, 18 Nov 2026 15:06:45 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: juri.lelli@redhat.com,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	vincent.guittot@linaro.org
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	tglx@kernel.org,
-	will@kernel.org,
-	boqun@kernel.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org,
-	longman@redhat.com,
-	ridong.chen@linux.dev,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shuah@kernel.org,
-	bigeasy@linutronix.de,
-	clrkwllms@kernel.org,
-	parri.andrea@gmail.com,
-	m.szyprowski@samsung.com,
-	kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com,
-	cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH 10/16] sched/deadline: Release the bandwidth of a task that leaves the class asleep
-Date: Wed, 18 Nov 2026 15:06:35 -0500
-Message-Id: <413baa5f50669ae464f504dbafeb504dd9b6ef6c.1795031605.git.mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1795031605.git.mathieu.desnoyers@efficios.com>
-References: <cover.1795031605.git.mathieu.desnoyers@efficios.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=okesLcPk
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 611D61F0182C;
+	Wed, 18 Nov 2026 20:06:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795032414;
+	bh=+IxwOd+4dYdX1EmCmpBtkh/gGiAuGyd9jQhUoIMCWt4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=okesLcPkRwgcRf91GhEUzifmWqxDrO/+3pRLNjvhT/BOiTxhKWho5bleDtJGDTNoq
+	 uL+vhpDpyufEUHczAGzOhbXqJ+s1mTmz1Zj97QK8egoNflPz/kUIaX0U6m3/5DiQaf
+	 tx1R5UcrWudST8O5ErefNjPoz5ygmI80fgX/lZbM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Qiliang Yuan <odys.yuan@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 1403/1756] selftests/bpf: Run the cpumask map insert tests only for the test task
+Date: Wed, 18 Nov 2026 15:58:50 +0100
+Message-ID: <20261118150105.040014867@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150007.957976754@linuxfoundation.org>
+References: <20261118150007.957976754@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,85 +64,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A task that leaves SCHED_DEADLINE while it is not queued can keep its
-bandwidth in total_bw until the next rebuild of the root domains.
-Repeated, this fills total_bw up to the admission limit. Then
-sched_setattr(SCHED_DEADLINE) and CPU offlining fail with EBUSY.
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-A task that leaves the class keeps its bandwidth until its 0-lag time.
-Releasing it earlier would allow temporary overloads. For a queued task,
-switched_from_dl() calls task_non_contending(). It releases the
-bandwidth if the 0-lag time is past. Otherwise it arms the inactive
-timer, which releases it then. For a task that is not queued,
-switched_from_dl() relies on the timer armed when the task blocked.
+------------------
 
-But the timer is not always pending when the task leaves the class:
-- The task blocked after its 0-lag time. The timer was not armed.
-- The timer fired while the task was still in the class. It only
-  removed running_bw.
-- The task was woken up on another CPU and is not enqueued there yet.
-  The wakeup cancelled the timer.
-- The task came back to the class asleep. switched_to_dl() cancelled
-  the timer.
+From: Qiliang Yuan <odys.yuan@gmail.com>
 
-Then nothing releases total_bw.
+[ Upstream commit e2c978ad415ce223e71f6ddaa92778225eca0bef ]
 
-Fix this in switched_from_dl(). For a task that is not queued and has
-no timer pending, call task_non_contending(), as for a queued task. It
-arms the timer if the 0-lag time is ahead. Otherwise it releases the
-bandwidth now and clears the parameters, as inactive_task_timer() does.
+verify_success() attaches each cpumask test program to task_newtask,
+forks a single child, and expects err to be 0 afterwards. Most programs
+return right away for other tasks than the test one.
 
-Clearing the parameters keeps later paths from releasing the bandwidth
-again:
-- A timer handler that already started finds a dl_bw of 0.
-- The deboost of a later priority inheritance boost finds no
-  parameters.
+test_insert_leave and test_insert_remove_release don't, and insert a
+cpumask into the single entry of __cpumask_map for every task created
+in the system while they are attached. test_insert_leave leaves its
+cpumask in the map, so a second task created, for instance by a test
+running in parallel, fails to insert one and sets err to 3. Two tasks
+created at the same time can do the same to test_insert_remove_release.
 
-An owner that the task boosts as a waiter can find the parameters
-cleared too. "sched/deadline: Do not replenish a boost from cleared
-parameters" handles this, so a backport needs it first. Without it, the
-owner's CPU can lock up as soon as the waiter leaves the class.
+Return early for other tasks than the test one in both programs, as the
+other programs do.
 
-Juri Lelli's first fix, since dropped from tip, released the bandwidth
-here without clearing dl_bw. The bandwidth of a boosted task was then
-released twice.
-
-Juri Lelli suggested the call to task_non_contending() in review.
-
-The Sashiko AI review of this series found the two cases with the 0-lag
-time ahead. deadline_switch_test, added later in this series, tests
-the release in asleep_round_trip.
-
-Fixes: 209a0cbda7a0 ("sched/deadline: Improve the tracking of active utilization")
-Reported-by: Tejun Heo <tj@kernel.org>
-Closes: https://lore.kernel.org/all/2b5fb3f22bca6aa383be8f4781923392@kernel.org/
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20261103-b4-sched-dl-bw-fixes-v1-2-dd761fe005b4@redhat.com/
+Fixes: 7b6abcfa15cd ("selftests/bpf: Add selftest suite for cpumask kfuncs")
+Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
+Link: https://lore.kernel.org/bpf/20261009-selftests-bpf-cpumask-insert-filter-v1-1-3249218594d7@gmail.com
+Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/sched/deadline.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ tools/testing/selftests/bpf/progs/cpumask_success.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index d6d2657dcddd..f0e03f97fd82 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -3595,6 +3595,14 @@ static void switched_from_dl(struct rq *rq, struct task_struct *p)
- 		if (p->dl.dl_non_contending)
- 			sub_running_bw(&p->dl, &rq->dl);
- 		sub_rq_bw(&p->dl, &rq->dl);
-+		/*
-+		 * Without an armed timer, nothing releases total_bw. Do as for
-+		 * a queued task: arm the timer if the 0-lag time is ahead, or
-+		 * release the bandwidth and clear the parameters now. Call
-+		 * task_non_contending() after sub_rq_bw(), which needs dl_bw.
-+		 */
-+		if (!p->dl.dl_non_contending)
-+			task_non_contending(&p->dl, false);
- 	}
+diff --git a/tools/testing/selftests/bpf/progs/cpumask_success.c b/tools/testing/selftests/bpf/progs/cpumask_success.c
+index 80ee469b0b602..7462474ef1adc 100644
+--- a/tools/testing/selftests/bpf/progs/cpumask_success.c
++++ b/tools/testing/selftests/bpf/progs/cpumask_success.c
+@@ -460,6 +460,9 @@ int BPF_PROG(test_insert_leave, struct task_struct *task, u64 clone_flags)
+ {
+ 	struct bpf_cpumask *cpumask;
  
- 	/*
++	if (!is_test_task())
++		return 0;
++
+ 	cpumask = create_cpumask();
+ 	if (!cpumask)
+ 		return 0;
+@@ -476,6 +479,9 @@ int BPF_PROG(test_insert_remove_release, struct task_struct *task, u64 clone_fla
+ 	struct bpf_cpumask *cpumask;
+ 	struct __cpumask_map_value *v;
+ 
++	if (!is_test_task())
++		return 0;
++
+ 	cpumask = create_cpumask();
+ 	if (!cpumask)
+ 		return 0;
 -- 
-2.47.3
+2.53.0
+
+
 
