@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794961384;
-	b=2mkAtzq4kNAwKssHUwCcCsDhs6cKjeleDl4flZcZTjKZiDf3F8PQrPe676f14jN7L2qF
-	 YjkHlpQyscZK2ho6pscBFj/0DJ+ck1WWcxNnZYBRTvALDwwaqSnnNuy4aeSNpE0skhFBu
-	 IdfttlTmtfCYVXRfoJv+Gf8Dh5mv8DztibpAabYdSQha9ubk+dMTspOY9DZsb+/Fvnwtq
-	 BSvxYw5/tBKNFBEQTyis+BTL7ubs7uRIechyaBIpxgHqM5Z59c8zqaFUTALcPhJwX3WMx
-	 sDoe4+ukl1AiX7RTUMuhx5RmYSV7N/Kvm4BPy9g5/iVhUTYuwGhlmqNw3jh5pw4btzg==
+	t=1794961387;
+	b=m+iPUGFFQ+euj7gaHRod8Qu7AJTBMXjuBtebsIx4z2C1mM05XQa+pjoSzyy8iZeQDVzq
+	 7Y75v+yBrYibSHVZ386WKTXJ3s5bo0cSBg3yS2ZI4gzAYUcQ+jwbyEvyFhIsplrznZYAo
+	 cZpnE9I2bWcuCeWC6zU0hfYyVWGxpJ9BPJJyBxY3G29MLXzMQoyuEj5xkBD/BWMgfpBCW
+	 EL9alA9Y7Dwk0UJlP+USxGrOYvn/gleuJIzHNEzBs6lbeMl5zkLq/mlKi+1Dcz0s+ifN/
+	 YklGvdijWfgPELdK9O5GY/WQfMpLBN6LNkw7TmpLXpz7EKiOmlMdZ7zeTY856nQ5HZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794961384;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794961387;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=TvmVX8vSr+bVv958yLRdJe1gco7tiYKjCsERcZnNAd4=;
-	b=nBCNVrH6S4K0UJ9MKVRwx5rc6vZ79/8OJk8lglMHwQrfMISfEDHTOO3VDxBHCJC0F3O2
-	 qJV1sVeq0WnZ+CJH36fTYZ3qrM5ICkFsS+PEw8jwE2FEKuxgQ2M/bTpBPplR+73MGOCs+
-	 tvz4GVxc51+kgg806oYPoonssGJmTfeHBauDzygoVnNcu4nwHXguFgBzb0eojMxXOtqIb
-	 m1Rm/pUliIEefQonB5ulW91nJQXzVs6EJvFCDvNUNVI6GgXsuRuX4Fcd5Yy3/PMkeDbdf
-	 g7e3VwQ8ja2M7c6dYCY0oVB63PJGXCqwoGe2LtGCHcjlYqpmcRAKxnTf5FdEjc5RfHA==
+	bh=CkbW//av23/68TB9XD/L1XMZDCm2MfcLf5r8qDRl6kM=;
+	b=WIYhJXX8+6N+R1DTSmxH6aHScnelmjmnvnOm+W6+3qngrfputfR61aZtDEELXWyjZQ8l
+	 nwXkgeoA1KP4N9nt6uATOIdw6W6GvQ71db+5yXVAD1zykook4PTAeIUr378OlA+EKNbnx
+	 1qedh1lOnoSfqVyzkWbv3w6Aq3zNv80GAfROUcv8VdysYlR1ngPoWp6BO7jxZC/hqf++W
+	 qAOAxmQfAO2BIKfm3TtHDayLxaepsjybT8rVG+zN4Qrs4+RSF/yy2nDMk/2tZN1AfF3x8
+	 fivHQucSzDAj85Y1YccWihhQSaN0N7Tp+Dqz+WDEoMYO4cuiD6zTEIYGOb8nxxuLr3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AnWSosJk;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lntXEWIt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC7D606A333;
-	Wed, 18 Nov 2026 00:23:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 909DC606A333;
+	Wed, 18 Nov 2026 00:23:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AnWSosJk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 801201F000C8;
-	Wed, 18 Nov 2026 00:23:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lntXEWIt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1212F1F000C8;
+	Wed, 18 Nov 2026 00:23:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794961384;
-	bh=TvmVX8vSr+bVv958yLRdJe1gco7tiYKjCsERcZnNAd4=;
+	s=k20260515; t=1794961386;
+	bh=CkbW//av23/68TB9XD/L1XMZDCm2MfcLf5r8qDRl6kM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AnWSosJkgYFKR2Pbe1O7W3jeoRpvje3nP+JeAueqWAnZ4xr7YkAjHsFp84OzA6H3n
-	 iklnJmDhN4P6GbyUEhK0H3tTOsRACuhPbe81BPovNK4e9+GMw4YEd9orOO4qKUKTUw
-	 lx8FltcdMFsLX1O5JSnLLq5GbfDjT276C26s1I2T/NJZN8gxshLD6hnvJwTZViW8Qo
-	 LNj1quIw7D/x0pc/6OTwTckgaYA984e1J0YWWyOjKjJej8Xf8WLJ0b+22ZF35Jl/Op
-	 6IaaAAWSumJGwQPV8mw2jRu80mpIBJYYOsqacreRKxSR2FDKiJlrElvRXwESxmK+uS
-	 FG2A5pbVxq6Aw==
+	b=lntXEWItVj2f9LV2xs7cFhKm2+KiTDIMz7l94KyFrPCFEr76VYDhrrKJouhWhT5tJ
+	 mOZyPUXh935qTaIE4McSH+MC3O9TN7asBfmCmYItvaECB9x+ZuxPPpU5ESsJCUPiJg
+	 zzULxPDEnRDdHRY/f3dUVOHVKVp2dzsIjwIZSgpBjBuzY/6EZt3+Z8747GJ9ci1LKU
+	 JdMCbnc56gJ2QUurjhx3x/c/zdUyIM5R9wrSGqrDF7eS2MHYLKlmwlie6DrH+nypxJ
+	 HJ0G9BoQlHxyCrxDOvxKE79Awev3ja8/mDz9FSwLi9ULX3HjxT1ntybR01oGfifL5X
+	 7j4ejXbjYvjVA==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: stable-commits@vger.kernel.org,
-	Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Charles Mirabile <cmirabil@redhat.com>
-Subject: Re: Patch "irqchip/sifive-plic: Cache the interrupt enable state" has been added to the 6.18-stable tree
-Date: Tue, 17 Nov 2026 19:23:02 -0500
-Message-ID: <2026-11-17-1-daily-reply-0007@kernel.org>
+To: stable@vger.kernel.org,
+	stable-commits@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	John Ogness <john.ogness@linutronix.de>
+Subject: Re: Patch "serial: 8250: Switch to nbcon console, take 2" has been added to the 6.18-stable tree
+Date: Tue, 17 Nov 2026 19:23:04 -0500
+Message-ID: <2026-11-17-1-daily-reply-0008@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CABe3_aGGSWW2LrPHNtAU8Lc2NqgeOQJrZNma2WzQ-JH+vFyWJg@mail.gmail.com>
-References: <CABe3_aGGSWW2LrPHNtAU8Lc2NqgeOQJrZNma2WzQ-JH+vFyWJg@mail.gmail.com>
+In-Reply-To: <87a4n79zqb.fsf@jogness.linutronix.de>
+References: <87a4n79zqb.fsf@jogness.linutronix.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,19 +63,13 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID: <20261118002302.sb-OlvFHxkJpwI2OQl4hmui5lPJPyvzStBng3doKIOc@z>
+Message-ID: <20261118002304.tT8KKyByPztclr_66TQq4eQCIaOhQdUCDCMQc0J-e4Q@z>
 
-> This patch makes substantial changes to the driver and how it
-> processes interrupts. I am not sure it is a great candidate for
-> stable.
+> Is this patch really needed for 6.18? The conversion to nbcon was
+> initially reverted for 6.14.
 
-Agreed. I dropped it, and the BIT() fix that needed it, from the 6.18, 6.12,
-6.6 and 6.1 queues. The same applies to your notices for the other three trees.
-
-Could you send git-am-able BIT()-only backports of 0f214e5bbee5
-("irqchip/sifive-plic: Avoid signed shift in interrupt enable mask"), one per
-tree ([PATCH 6.18.y] through [PATCH 6.1.y])? I'll queue them. 7.3 already has
-the cache patch in its base release, so it keeps the original fix.
+Not needed. Dropped it from 6.18, along with the patches that were queued only
+because of it. Thanks.
 
 -- 
 Thanks,
