@@ -1,59 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016449;
-	b=K8CZTr8DqsAMs2GyyxK4CbAZZHztsKMuRnzFStru7iICbLG4MNiFsIQ8LrtsofJDIo9Z
-	 uJsFzs8cZG5u5jYxXbcCgdZhu556X+6V16DRq6PbmiK3sz4PVS76RouDmXZzH0seqtjyh
-	 sToDUTrK/aMP6kwmRy6Su8EgQsz6hAg0BzvE3dHjSGZvRGuQLdDBXL4uZMw8omEZs8Kjw
-	 sG/+jtb4uPpuQ4JPh62goC+hrqIQ11MY029cuRPqS1nALtKS1t7KIsJqVkmBPRaDp452y
-	 x8PlULg/4ykNgrzpveqwDD4F4CtWjoOEre4NAx09fCri+4rzFpSvLH8VEcQHfZWL7Ig==
+	t=1795016450;
+	b=XGSqOv6NNvKaBcoVFVs5RvdMhHicluRvV4Qn8WOZCQJ9Q25RCI0XpcX0xLo0UXg6fgXr
+	 E48twnN0nYy3NkOzQlTKlMDSAjY3EF61V+TGKxeKav+bvFYq2tmKEtyjuDUFqLQrKguFS
+	 A3xjlPFmNZ/UcwYDjH+/7PJ/+2vFic1KMD0ifjv5F7Hsy8VhuyOZY4FPw1IvbWrlldLB3
+	 Rbwd/l6fpKfYgjWP+Z1Z6j3Som+gwRU+dgHBynWbLr/boabT9TNrHAuKpo60S3T6xEmxG
+	 k56BlQuR7pGA2LI3TFIvbTZJaWrmRv19AHjaPSkcOEvYdkwy82zoHgodFs7aEQFkZLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016449;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=P4UvoBXpgd9hv4bPCCSNT4Peiln9+GjAhCOd58V9qHE=;
-	b=yyZpCypIRIMyJXA+OPjJH+nEdTJDKCVwcFTxm/O8TEr2Mc0dnLJt1uEmGLL4lekJhCR3
-	 CozADvzPMdJytQPdMyGrzXmbXVhHH2ciRR+1RE2SYkjFLoLRK7dimvULwUVefJR97DjgB
-	 u3zjXtWocbUuRzRO6RJcVvkIkvgkHDOQglFIrNxPSTKcxhnxfgczT+dCYByt3ZP+ZyHve
-	 fJLxX8TsFbSX0Uk3R0IfIIeAVd/0lZHeQJo0LsH+1x2H0pjgnkqEenlygHmft1WIK/xZt
-	 /udPIh6MMFA/+0ebbPqEIurt84rVdyRK8ZG0wR1SKEvDAr0pivcdKEElZILzna/yksg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795016450;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=tm6dB1EUYOThFG6qE8KMMgbho+/lR/6Gk/9spMdJzlU=;
+	b=V4E/0Y3jYF0ks29CCD2zdN8LKvY/W/fUo+fsgeU3ACj7FcvJ5OPZIjRsGdUIkJ3OxhvL
+	 GiWxqCi6EBdmuM9PtykDKaI59qoAlMLZqQKwnjyz7n4751iRXrPrJgWi7WuzCYRgopBOa
+	 Y/cTeglSvaCpOD2wef/7hbDBkUsA5ru6eAKjkH/R8EwageM8fsvoLbXE7vjZ885xqhphu
+	 EtRpMENaKM/NqulSbd9Ah2swMmPGpwcECCd2/0QueejeGn6BfI1OP25/7kAKNh/PxBmlt
+	 4tHNXS0tTzq1L9v/tGkX93Vze7+UdvYy9Vo5bvhukfW7wEiyzNKQvF3tR7ULPf4dGig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0DeHAq3R;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="F/T+wXSc";
+	arc=none smtp.remote-ip=209.85.210.172
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70757606A320;
-	Wed, 18 Nov 2026 15:40:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0C2B606A334
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:40:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0C2B606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0DeHAq3R
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C22B51F000C4;
-	Wed, 18 Nov 2026 15:40:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795016449;
-	bh=P4UvoBXpgd9hv4bPCCSNT4Peiln9+GjAhCOd58V9qHE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0DeHAq3RxlYqjh6I9kuO1WZLXkRx2N9EFbnTO95lD0ZEqO941ll2iacQDLWDa0Vw5
-	 IW+ux3v9LyhqTIF809vIBt59gLLqqrbwRoVTaU2b2WAO57Ky/fPEgIza3xkKixNNc6
-	 lt+EKoeh2lyQJMBstvMqmUBcE877fu3RuvnxIrzU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	bui duc phuc <phucduc.bui@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0533/2651] ASoC: mediatek: mt8189: Propagate TDM clock errors
-Date: Wed, 18 Nov 2026 15:29:33 +0100
-Message-ID: <20261118150306.952131239@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F/T+wXSc
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8b4c8b51b58so778453b3a.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:40:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795016449; x=1795621249; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tm6dB1EUYOThFG6qE8KMMgbho+/lR/6Gk/9spMdJzlU=;
+        b=F/T+wXScP9Zgh1uofVaMqzOlFgqfmKgwCctq1qXcplNMa+wjBVSQAc7SSMeRLdzPB0
+         aZ1GrJrH5iye0o4/LLMI2fA25rH7UfxV1ehkUE7OC99in1a0QZS4q4fUT1mZWt1NMlya
+         gIwScpx9+n0G70Q0jOcfxLy+AeOQGv591C0uGFyEAHz9ZnLD0ZPavJuDzCS5ZaYKLAvn
+         6pxQ0tEw9NUG7Dmh4UdLTFYgD1RdG/Yy3r4oDl+vYou7NUVAtvVOSdOwQBIm1lDnzDne
+         iwJ1y8JgjfqQy1FPn6+euDTe3FiV8I9E4eClxfNeRAuzzroJEQOGh0/mIeVlCC2JDxXj
+         qTMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795016449; x=1795621249;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=tm6dB1EUYOThFG6qE8KMMgbho+/lR/6Gk/9spMdJzlU=;
+        b=ElZqh8Ie1c61VN7VEgkN/tohSNMLLy54IlETty6Mzfl9tuoAYIEaE7dOnCVvBm7DBJ
+         P1RmWBcZZry2I+SIfFCx/Gd8eE9+l4j2mbh0SZRQ2T6QAGmV3DDy1V8l8h2Te4vx/Lyx
+         7lBTXwJh7s2AdxPNryrzXVUHi/QIS6ZqbQD46rxKYHk9Eq4rtpESzcQRMU70IFiBIqTd
+         9UIjoKlTKfUg4U2/M337RaXDfz/7fIYP0w9YVNQI5t+yTYztm4I1yVsvltvUkq7f6mm0
+         8Srw+gpwCeAUpYlnwEtWgj33XAWxWzRqVkvLwrpsGP1115/sr+Y4e0vNvJcYwYh1u6ck
+         oEvA==
+X-Forwarded-Encrypted: i=1; AL+hErENV89D2Anr3n7IGNoIz9Oy8IY4Bn1qppBwfToIeb603y2SVOC9jgXHp3L4AgdtsK8X/rRz0rI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/qWiT9SHvIdIw4GlcPp3csnuJ1SafoZRtYZ3oIL5JNzUj2UpbW
+	23mTq96tpb8S2aBEGGtBoHeQ9DCJHYSZe+yzkQfUT8laodL0YsWt/CVJPok2eA==
+X-Gm-Gg: AYBFou0UVVnN84JpWcP0V+sAX3n9uAIZHv9XWhm9g6j5q6lwFrdM4BE+yW6cAbeFUlr
+	30i3yHuYvyYZVzQssuRpZVX6RlAK/MzHBXTed0vjrzssvgwBz9hOtfU96vulFUr4PZpLDKa/B8O
+	SqKZ8LbvV3yDh6D3861XbzT8EIqOuv9WjsJxEUkaLzEKDJCMn2ooPee2yIEigdPhpda0dlSe6Sx
+	B5a7Bec1FimzMdI8NMNMXxxqrc+o13FVBnAKBUAtckCNiVGmpClsq444c1XKJ6hqeJpSAZRlr0j
+	7GpRokRjRJqSgf/T3fcWWJtVel4AUXloVl20BPOGhxZ+bVypvl9xzvBZL9AHM4EtuCxyhGy1Ae4
+	o6mcxhUo1ZDUL6eXFvYRQQTw6xG3PJ5Ar6tgInbHTCrDuboji1ce7GRlzIBDpxUPBramz/ZA8XQ
+	5q0oBRN7wczuVGlfDJKNxRgUhrft0AuwESvndiiRYFSF+X9I4eMUFGM+eib0cmYnKhBJt/wBWPP
+	17F1KV3JBWZCVKRimuCy297l3TqzUiR1hO1Z/1hyiW0OIfH9u4OhDmxnvyGc7XSexzSZo2ZOJf4
+	qDH2VhIZDsJ+2qRVNZGFhCm+eZGQQQaelPRklBd9lZPU5xge
+X-Received: by 2002:a05:6a00:a244:b0:892:e080:4ed8 with SMTP id d2e1a72fcca58-8c5d48d82b8mr2645070b3a.47.1795016449055;
+        Wed, 18 Nov 2026 07:40:49 -0800 (PST)
+Received: from rigel (106-68-220-184.tpgi.com.au. [106.68.220.184])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c5ca5bf959sm1421203b3a.20.2026.11.18.07.40.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 07:40:48 -0800 (PST)
+Date: Wed, 18 Nov 2026 23:40:41 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v6 4/8] gpiolib: cdev: don't sleep in the SRCU read
+ section in read()
+Message-ID: <20261118154041.GB46152@rigel>
+References: <20261116-gpiolib-chip-removal-v6-0-aambrozewicz@nvidia.com>
+ <20261116-gpiolib-chip-removal-v6-4-aambrozewicz@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,94 +105,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-gpiolib-chip-removal-v6-4-aambrozewicz@nvidia.com>
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On Mon, Nov 16, 2026 at 03:47:07PM +0200, Adrian Ambrozewicz wrote:
+> linereq_read(), lineevent_read() and lineinfo_watch_read() stay in the
+> gdev->srcu read section while they sleep waiting for an event, so
+> gpiochip_remove() blocks in synchronize_srcu() until an event arrives
+> or the reader is signalled. The device lock is held meanwhile, which
+> also blocks device_shutdown():
+> 
+>   task:init state:D stack:0 pid:1 tgid:1 ppid:0
+>   Call Trace:
+>    __synchronize_srcu
+>    gpiochip_remove
+>    devres_release_all
+>    device_release_driver_internal
+>    platform_device_unregister
+>    gpio_sim_device_deactivate
+> 
+> Check the chip in a scoped SRCU section only; nothing after the check
+> dereferences it. End the wait once the chip is gone, and return -ENODEV
+> if there is no event to report.
+> 
+> Reproduced with gpio-sim: setting "live" to 0 hangs while a reader is
+> blocked in read() on a line request; with this change, the write
+> returns at once and read() fails with -ENODEV.
+> 
 
-------------------
+Reviewed-by: Kent Gibson <warthog618@gmail.com>
 
-From: bui duc phuc <phucduc.bui@gmail.com>
-
-[ Upstream commit 242d0280eabba05c085a51ad0a9c9a7a3afa7b03 ]
-
-mtk_tdm_bck_en_event() and mtk_tdm_mck_en_event() currently ignore
-errors returned by the MCK enable and disable functions.
-
-Propagate these errors.
-
-Fixes: 9f202872ba04 ("ASoC: mediatek: mt8189: support TDM in platform driver")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Link: https://patch.msgid.link/20260916050020.14575-12-phucduc.bui@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/mediatek/mt8189/mt8189-dai-tdm.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
-
-diff --git a/sound/soc/mediatek/mt8189/mt8189-dai-tdm.c b/sound/soc/mediatek/mt8189/mt8189-dai-tdm.c
-index 5d68a55ccc45c..9aebd0320614e 100644
---- a/sound/soc/mediatek/mt8189/mt8189-dai-tdm.c
-+++ b/sound/soc/mediatek/mt8189/mt8189-dai-tdm.c
-@@ -261,22 +261,24 @@ static int mtk_tdm_bck_en_event(struct snd_soc_dapm_widget *w,
- 	struct mt8189_afe_private *afe_priv = afe->platform_priv;
- 	int dai_id = get_tdm_id_by_name(w->name);
- 	struct mtk_afe_tdm_priv *tdm_priv = afe_priv->dai_priv[dai_id];
-+	int ret;
- 
- 	dev_dbg(cmpnt->dev, "name %s, event 0x%x, dai_id %d, bck: %d\n",
- 		w->name, event, dai_id, tdm_priv->bck_rate);
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
--		mt8189_mck_enable(afe, tdm_priv->bck_id, tdm_priv->bck_rate);
-+		ret = mt8189_mck_enable(afe, tdm_priv->bck_id, tdm_priv->bck_rate);
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
--		mt8189_mck_disable(afe, tdm_priv->bck_id);
-+		ret = mt8189_mck_disable(afe, tdm_priv->bck_id);
- 		break;
- 	default:
-+		ret = 0;
- 		break;
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- static int mtk_tdm_mck_en_event(struct snd_soc_dapm_widget *w,
-@@ -288,23 +290,25 @@ static int mtk_tdm_mck_en_event(struct snd_soc_dapm_widget *w,
- 	struct mt8189_afe_private *afe_priv = afe->platform_priv;
- 	int dai_id = get_tdm_id_by_name(w->name);
- 	struct mtk_afe_tdm_priv *tdm_priv = afe_priv->dai_priv[dai_id];
-+	int ret;
- 
- 	dev_dbg(cmpnt->dev, "name %s, event 0x%x, dai_id %d, mclk %d\n",
- 		w->name, event, dai_id, tdm_priv->mclk_rate);
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
--		mt8189_mck_enable(afe, tdm_priv->mclk_id, tdm_priv->mclk_rate);
-+		ret = mt8189_mck_enable(afe, tdm_priv->mclk_id, tdm_priv->mclk_rate);
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
- 		tdm_priv->mclk_rate = 0;
--		mt8189_mck_disable(afe, tdm_priv->mclk_id);
-+		ret = mt8189_mck_disable(afe, tdm_priv->mclk_id);
- 		break;
- 	default:
-+		ret = 0;
- 		break;
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- static const struct snd_soc_dapm_widget mtk_dai_tdm_widgets[] = {
--- 
-2.53.0
-
-
-
+Cheers,
+Kent.
