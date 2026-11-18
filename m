@@ -1,95 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794966340;
-	b=KrQPMMV996FP3nBROpULh1lJgHvMwRJxTWpHvNUzSNbFk8WO8QKh6OXGrvUcvF30U5Ih
-	 L5u5H/4DhP5Av6dpOXiQaYfteyuDrn+iUq2GLf49yhdnGroRT1mfre3Ylf8SZHpUGlAWG
-	 Jeeu6nKf/Xcqc00YG9ZkNhXomI4v01sYIlHoLMdi/EcRNreCD3yri/yi1nE5WImLd/yJn
-	 eZsSokmUTINhsO6sgOOVGQNcm90ezrY2I3vJU+sAh844Jwv4Ni+kvLDov4mJ4acKYOXrD
-	 8gBUO187Ekc6lwoZgkrg/JQcuxjs8rLPbyKZ+7TZl+VG0D0okb4z9Kv7hB70sbnTGcw==
+	t=1794966670;
+	b=qwZ7QEf00TnN+1oMFlWYpm0+NAh+kt0MCvAJxspro0R/rb5V/Su74C59k42ljigWcxwN
+	 rLKd7qqLhduCf7cmVJXoY2npYirhuGmIEBxzHg3DrccJ1yz+l3cXmou+YUaI4lo/ydouR
+	 Mtl3oGSrjrgA0y9mitLF3rcj4HshlK6NwHFIc7vZHPP36RnBlw+fm90t6s5GnoUq99Y4V
+	 Jps4HorafBFo7T8XcvzIyKfy/2UKFYWaklk5cSAAMb2jGyYbj91WAhkwuDuEks6nD46T6
+	 bAcFiA36wM5cThOMMZyWXvWU9NkH8eAG3XDv4QZL/UCJGVXaQrm7oeekO2S6Y9XJOHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794966340;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=JFZOKiemVFn+ZpLaCoT/8XChxYhHMw6NmRWsjDKhJq4=;
-	b=2D3iIiYqk2193JhG0wlOsYJNQEUSyVjHR3OY6MmuzuYOuB0hQWbK/+fAQAvJHP2yJ3LL
-	 DpnSMdevx0O8UFDF8zcZ9YVbpSuMcFG58w0JvSFJqrXkw4R34j0Gp8Sc1jr/8hPiXwcvz
-	 MY4rsPTk61jyLvezUBENc9hf0GlfJG1JkM9GQAH77ZTigJHl6k7614OlxqIseawHBoKgw
-	 Lc3NVxUM2aBBEkm8MyPxnI6DS9bqgOU9c9gdmu3wzZKrj0pTdxjQf0d1MrErUW2bXppW7
-	 E2IfnzrdR2Nxni/i+q/uKaYIlabq1PoUY2AieFzzwk2zqv980kpNmEDKaazbS7WGyPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794966670;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=xui+L1Kl8YV8BY/zkHbqr+YzjXk4VH0pkRVVyFr69gk=;
+	b=sCe7H7/jwrhcwNcl2J7YyVLyAiwN1tnTqpDhH3y6UrkKH0JZ/nTMUo1VEjQOb1DBufgw
+	 KPjYmgFB+CNTnFxsq2hRVrgCynDWyibLEWF7yHfogDW3VB0Ufy+/ZTFuLD01cp3LwLq13
+	 5OrZ2SE0DdBF4Q9dkpkzlnfeLeiiDSaD+cGRxzDRUTiTMN3UsmTrwa153MDTT1CNZEZxD
+	 ChyT8cpmlxkgKMbFgkU2Aepv3Hu55v0/hjCNUMzUFP3Jx4jXMSzK4l1vBujvuK4tsY6eE
+	 SjBGCJ+17/day2PzD/ktLe/Vbea+8HGpd/R+Boq2rAQo4+CxDQGM42aHkSrG+WLTifw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=UjFWg8DB;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ln3yavLO;
+	arc=none smtp.remote-ip=91.218.175.131
+Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413C3606A31C;
-	Wed, 18 Nov 2026 01:45:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 413C3606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17162606A33F
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 01:51:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17162606A33F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=UjFWg8DB
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHMwof62444013;
-	Wed, 18 Nov 2026 01:45:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=JFZOKi
-	emVFn+ZpLaCoT/8XChxYhHMw6NmRWsjDKhJq4=; b=UjFWg8DBNtOC+K1kTyIgW/
-	sIGcZ+EJnU3B3KHPnkgse8zApaknk6NW+8tdKJxrHXcEBmkXYOsiM6yURsJiqyhy
-	VNJEIjF0nYEgIBeBGjc7B1IpiTHhgk6H2fbvu4qweclMj3BlMnBJdFIBjOhd1tcc
-	xH5OEFqDi6pZcbs5WIJnufa+B1TcVTKoIlpzNQvqnHDgzKPlea8xcoBjign3jpAL
-	JWGhHgqWMny/BjIdl281aNlmtjFf2Eidao0rspmtqRqGYjWpUyooHRzCxOyFwCzJ
-	yRc5Z7/mx4zAbQYxLaywzytw4ryxfTYci0fDRaePlJRmT0x19BOHWN01FqNHJnMA
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j105vrcrx-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 01:45:26 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHMnwdH030777;
-	Wed, 18 Nov 2026 01:45:25 GMT
-Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j067ne2pc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 01:45:25 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AI1jMnT47907174
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 18 Nov 2026 01:45:22 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1C80520040;
-	Wed, 18 Nov 2026 01:45:22 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 7A1C92004B;
-	Wed, 18 Nov 2026 01:45:18 +0000 (GMT)
-Received: from Linuxdev.ibmuc.com (unknown [9.43.63.250])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 18 Nov 2026 01:45:18 +0000 (GMT)
-From: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
-        "Oliver O'Halloran" <oohall@gmail.com>,
-        Michael Ellerman <mpe@ellerman.id.au>,
-        Nicholas Piggin <npiggin@gmail.com>,
-        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
-        linux-kernel@vger.kernel.org, Jiale Yao <yaojiale02@163.com>
-Cc: stable@vger.kernel.org
-Subject: Re: [PATCH] powerpc/eeh: NUL-terminate force recovery input
-Date: Wed, 18 Nov 2026 07:15:17 +0530
-Message-ID: <179496619893.633156.18174588142349778639.b4-ty@linux.ibm.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261029052948.2525048-1-yaojiale02@163.com>
-References: <20261029052948.2525048-1-yaojiale02@163.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ln3yavLO
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=rm+AxKqTEOXCpk9Th0qeoefjY+08yAH5hlAEglN9Rgk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794966667; v=1; x=1795571467;
+ b=Ln3yavLOPytuKHfZPe5QYObzrdgPsQkepZJE4WVOafWZy3hLA3nYTZc3C/7QztuWz6kuOLNl
+ o/OteqBnBpLONtPkSKfIWAr5wKLl04XXL4upWSW0YFmqQQkiY2GoW/PFGrkXw8z5Hb9jK6uAKGd
+ EPYm5u2j9OaxUhESxsoQscF8=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id f9f5a1b8f39bf639;
+	Wed, 18 Nov 2026 01:51:06 +0000
+X-Mizu-Trace-ID: f9f5a1b8f39bf639
+X-Migadu-Flow: FLOW_OUT
+Date: Wed, 18 Nov 2026 09:50:55 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Hyunjung Ko <hj351016@gmail.com>
+Cc: James Chapman <jchapman@katalix.com>, Jakub Kicinski <kuba@kernel.org>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Chris Elston <celston@katalix.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] l2tp: reject short IPv6 address attributes
+Message-ID: <av0EfxJlYXo2XbU-@fedora>
+References: <20261117092157.85513-1-hj351016@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,50 +67,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: XA71WWIYaHG9bzN6-8FSwGfrw5CvZaBD
-X-Authority-Analysis: v=2.4 cv=Z8x5j3RA c=1 sm=1 tr=0 ts=6afd0336 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
- a=g1nSsVvyxN4glAn0PLQA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: FgxudGiZkK_28LRDtuavpf7Df0pJ2gc6
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAwNSBTYWx0ZWRfX3Q6on4+nHy5R
- kQRg4RKlnxRewOBCIxourj5zUg7dcJEDlwn1WaT9HkbhOxVqvYL/CJsJ8OwI6rJaozhvM9Y9IaG
- evhGsCDgLPtBrW0x1XftDMjHQQTSAi8=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAwNSBTYWx0ZWRfX8qkqBRqc3ZWi
- pis4+cVtmJULHZIB/qYdjC+EGOTIgo9Gny/ImuKED59X17wquI/BO/ew4OeWydKCJrt7U4zGp/Z
- Z86DsiV5Xu4Ls0CiW5/wW7HUSWVklrXUN+8JA5geToDWJbzso18gVHCRDBqFpzmBnUCll/sxTcp
- EVm0P+uYxgNz67vLgJDqXm6Xu5dimzVCO5TjxZi1hvIRgk0iiEaKNQSh+7bu4+32P7zKGxacqD9
- 5+Ymr8XQMLhG9jWwgoKtQ1bS4nOGPpNx93ezGKFBovFB/lBS8Prz+NfIMwpqMCRqZCqAWZaUUGe
- kh9kPP+DY4NJwKmOat/G+McA7glGUWqezGRLa0TlvxIVie16AJ1diNw430CrAwMHFSLz/zs4Vg5
- HCpMGz81DNvAXxOTvwJDIKWMWNjBx5+FVUEvWsDqYMvdfXc+ZJilhvVjVyVndOPx0Lt9w9/WxTz
- DcT56GzEDfw4VgCZ6eQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-17_05,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
- adultscore=0 bulkscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180005
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117092157.85513-1-hj351016@gmail.com>
 
-On Thu, 29 Oct 2026 13:29:48 +0800, Jiale Yao wrote:
-> eeh_force_recover_write() can fill its entire stack buffer from userspace
-> and then pass the unterminated data to strncmp() and sscanf(). This can
-> make the string helpers read beyond the buffer.
+On Tue, Nov 17, 2026 at 06:21:57PM +0900, Hyunjung Ko wrote:
+> L2TP_ATTR_IP6_SADDR and L2TP_ATTR_IP6_DADDR are NLA_BINARY with .len set
+> to sizeof(struct in6_addr), which only bounds the attribute from above.
+> l2tp_tunnel_sock_create() then copies a full in6_addr out of each one,
+> so a shorter attribute makes it read past the payload. If the attribute
+> is the last one in the message this picks up whatever lies behind the
+> skb tail (stale heap data unless init_on_alloc is set), which ends up
+> in the socket address and can be read back with L2TP_CMD_TUNNEL_GET.
 > 
-> Reserve the last byte and initialize the buffer so every accepted input is
-> NUL-terminated. Propagate copy errors before parsing as well.
+> The commands are GENL_UNS_ADMIN_PERM, so this is reachable from a user
+> namespace.
 > 
-> [...]
+> Require the exact length.
+> 
+> Fixes: f9bac8df908d ("l2tp: netlink api for l2tpv3 ipv6 unmanaged tunnels")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+> ---
+>  net/l2tp/l2tp_netlink.c | 10 ++--------
+>  1 file changed, 2 insertions(+), 8 deletions(-)
+> 
+> diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
+> index 89ef04c78787..a07009d4cb00 100644
+> --- a/net/l2tp/l2tp_netlink.c
+> +++ b/net/l2tp/l2tp_netlink.c
+> @@ -910,14 +910,8 @@ static const struct nla_policy l2tp_nl_policy[L2TP_ATTR_MAX + 1] = {
+>  	[L2TP_ATTR_MTU]			= { .type = NLA_U16, },
+>  	[L2TP_ATTR_MRU]			= { .type = NLA_U16, },
+>  	[L2TP_ATTR_STATS]		= { .type = NLA_NESTED, },
+> -	[L2TP_ATTR_IP6_SADDR] = {
+> -		.type = NLA_BINARY,
+> -		.len = sizeof(struct in6_addr),
+> -	},
+> -	[L2TP_ATTR_IP6_DADDR] = {
+> -		.type = NLA_BINARY,
+> -		.len = sizeof(struct in6_addr),
+> -	},
+> +	[L2TP_ATTR_IP6_SADDR] = NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
+> +	[L2TP_ATTR_IP6_DADDR] = NLA_POLICY_EXACT_LEN(sizeof(struct in6_addr)),
+>  	[L2TP_ATTR_IFNAME] = {
+>  		.type = NLA_NUL_STRING,
+>  		.len = IFNAMSIZ - 1,
+> -- 
+> 2.43.0
+> 
 
-Applied to powerpc/fixes.
-
-[1/1] powerpc/eeh: NUL-terminate force recovery input
-      https://git.kernel.org/powerpc/c/f294ebd827e7a2b831b1eef4aaf437f07b2c235e
-
-cheers
+Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
