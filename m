@@ -1,49 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795048208;
-	b=vfe30XtUuWorYXjXBsRhv11SRHzU/iF+iA+/+YH25flg1MPGl0TBA8X8DktXxoZkOR/f
-	 v6Yjqi6fPIn4OXlHrYzADRRelPBYNutdHCqFLoep79DZ/LkaqGEroq4wQff0eOZxSZ394
-	 mB2tYkpfnS7Z+NhI1zrQ1v+me31w9ICuMRpdl2GZDJRPTnvbWI1cbwzDT8gP6gNN3bSGX
-	 lG+Kt9ecYyhLqBK6o6vOM3qNIav4HPhGlCo7vkMyMJV96nVglkniLAquYnvKh1YirtGAh
-	 g3iLz640/Mx2l2mjuVpxI5fFE5nX7ABmBhfzMDKE9bjsUx9Qs9bI1yIAOJ3KGGtI00A==
+	t=1795048209;
+	b=ezPj8kJK79Rb0FB09BbhMPIckHJ8O2uk3gQCC2c1YITyNu712D5b74eKkGZUdk0R60Kg
+	 zI9N2Vr0JiCkICUu5yer2Oph/wf7JgeuzI1h3Zz0Q2kLSMlUQZl02fiHC6WrH0MkRTcLf
+	 oZRQX734hwlEjvLsmP17rO55dfgJXKIidt+OCWWTb6K29810plNLKzLOF+lw2IhC2Xc3Y
+	 rIKKzsk0B570O5DKcOneyAiazd1PPNIwHzJwIGMN0Mz/A5UNuG81jS1/3b60tjGn6X110
+	 fyCyPycNXVvxnd/ktUAE7c6fv22HhUk9MzEYdB0uA4hKUZpGUX1JQlhw2dVU+kD8K5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795048208;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=vLkljH5SDXx0IeKaAwCJhAMjKvUVLeXJNvmdVHGfrO0=;
-	b=b0El8bPB4m2x1W5X8W1E7os10kLfybLgq/JuboBrZS5ADjeZFV2DEv2vEVlhvaAErBfU
-	 jIBUhKGN2x8RaGCrHzu0e2lk2Veaueo45eC1QWp3+cxIYDorwLcHjMp++711zNC5fwiOn
-	 l3zE4N1irlTEnegUYGlNOLywM0SafPqu5RSm6RbDYMLzRXRUnWds6qQqFvVdlUwMV9wgO
-	 NNCzAddxrm6yXmsG42w+GGFlHY3qi/MTgqiwcB/7jJQzgAIn4JP6yAqZCaIipoxODfHIG
-	 37k0YKd+c9RhK3HaEmT3f28sMVXXCt54Tgh+D0SfuKfTYiX8yD0pEgMtRpWyZKumYAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795048209;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NsihK2+L4oPefvxRnAlsT/ePrG3H+bfwFBg76h9KyLo=;
+	b=fo7UF3EqX912uw+EBuAVsLiwD2KLodxMhe+GBmKY8Rme+5iyJj7B6aI2vfH+qoIbVc7Y
+	 2/do98u7Vf1qxoye63Ir6Ta85qHYVymHqcbzqTEhcmc7CM4E18LEgqZh+XTpMLp4XeZoA
+	 eId/rzVCJCWlWSbhhIhTU1R5VH9X2JWCWtzFFddnyuVfeX0nm5VKtacF6yxhpdnP+ENFo
+	 9ngc2cq+ebLmb7YveVS2Mx6/AbAk2l95TVniJYNJhzH7jXtMfJ7+8m1ILLuQgUnvazU+i
+	 EITRoO7w1ws1Cter95jHwVVABZ49CrcDQsai39TX1+a0jd+oLPGluBsI18lEGqU41UA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eMfXbFFl;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MehrsnqK;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31BAE606A332;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42B1E606A33A;
 	Thu, 19 Nov 2026 00:30:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eMfXbFFl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06D981F000C4;
-	Thu, 19 Nov 2026 00:30:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795048208;
-	bh=vLkljH5SDXx0IeKaAwCJhAMjKvUVLeXJNvmdVHGfrO0=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=eMfXbFFlHWv1HxmG0QmKHqjCfZ/Eiio/JZRGDj/nRPYvDgKTiXqv9XYYqQvkUMGMq
-	 qpBjsvMsBj8J+tj+4AOOK1mfYKsZ8b1Rnbk9JTN54qOzamX0JcmBxxj71ErGF1wsph
-	 bhS5xKuSA0Flxm+4Qr0z0jRIpB+sycGjRVfMEqg1avOxOafFbOL97PxHF3fDiDA08S
-	 PeDMh6+wxWswyyBhRAocrJgGtI3nYy9RO1/U4T/n+kc4EWWBikPwxPE2x/vE+aMyeJ
-	 E4ghclge45yWsmpkn/e8g2CAN+mpOLAY+IEHnUslgQZN699hI2mh3J1fSbVA2ALJQn
-	 nH3KL0l/ATQxw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F17FA3808210;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MehrsnqK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0758A1F000C5;
 	Thu, 19 Nov 2026 00:30:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795048208;
+	bh=NsihK2+L4oPefvxRnAlsT/ePrG3H+bfwFBg76h9KyLo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MehrsnqKvQxxMcKAHKFaMLpaZc0W8Jsxy/EY+p+4xxQV4ZXTXBfgtC9c5BUJZBBBV
+	 cHI9CwrWdWgvfWIHz5hXaZIr5eJjQRXoGqIebBU1Eb6288yJx2nMVb7zyShNztMjLu
+	 5fdWfqvPcN1juA1vEWdq1ZUWjwTC2flkzQtgaaUA=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 1914/2857] ALSA: control: Fix virtual master creation reference in kernel-doc
+Date: Wed, 18 Nov 2026 15:49:08 +0100
+Message-ID: <20261118150310.132426558@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
+References: <20261118150201.293410965@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,46 +63,44 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] net: phy: realtek: fix listing of sysfs directory tree
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179504820653.2657179.4672591477512368848.git-patchwork-notify@kernel.org>
-Date: Thu, 19 Nov 2026 00:30:06 +0000
-References: <20261115214045.3704-1-mat.jonczyk@o2.pl>
-In-Reply-To: <20261115214045.3704-1-mat.jonczyk@o2.pl>
-To: =?utf-8?b?TWF0ZXVzeiBKb8WEY3p5ayA8bWF0LmpvbmN6eWtAbzIucGw+?=@aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org
-Cc: andrew@lunn.ch, javen_xu@realsil.com.cn, hkallweit1@gmail.com,
- linux@armlinux.org.uk, kuba@kernel.org, maxime.chevallier@bootlin.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hello:
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+------------------
 
-On Sun, 15 Nov 2026 22:40:45 +0100 you wrote:
-> On git master, listing the contents of sysfs produces an error:
-> 
-> 	root@mateusz-debian:/sys# LANG=C find -iname foobar
-> 	find: './module/realtek/drivers': Input/output error
-> 	root@mateusz-debian:/sys# LANG=C ls -1 ./module/realtek/drivers
-> 	ls: reading directory './module/realtek/drivers': Input/output error
-> 	'mdio_bus:Generic FE-GE Realtek PHY'
-> 	'mdio_bus:RTL8201CP Ethernet'
-> 	'mdio_bus:RTL8201F Fast Ethernet'
-> 	'mdio_bus:RTL8208 Fast Ethernet'
-> 	'mdio_bus:RTL8211B Gigabit Ethernet'
-> 	[...]
-> 
-> [...]
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-Here is the summary with links:
-  - net: phy: realtek: fix listing of sysfs directory tree
-    https://git.kernel.org/netdev/net/c/f16d85cd3de9
+[ Upstream commit a347cc458d97ecd8adb5462b91559682a70aced6 ]
 
-You are awesome, thank you!
+The snd_ctl_add_follower() comment refers to
+snd_ctl_create_virtual_master(), but virtual master controls are created
+with snd_ctl_make_virtual_master(). Correct the helper name.
+
+Fixes: 79c7cdd5441f ("ALSA: Add kernel-doc comments to vmaster stuff")
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Link: https://patch.msgid.link/20260912100548.86134-1-kmehltretter@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/sound/control.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/include/sound/control.h b/include/sound/control.h
+index 42e8dbb22d8e9..b0d4257d105c7 100644
+--- a/include/sound/control.h
++++ b/include/sound/control.h
+@@ -221,7 +221,7 @@ int _snd_ctl_add_follower(struct snd_kcontrol *master,
+  * @follower: follower element to add
+  *
+  * Add a virtual follower control to the given master element created via
+- * snd_ctl_create_virtual_master() beforehand.
++ * snd_ctl_make_virtual_master() beforehand.
+  *
+  * All followers must be the same type (returning the same information
+  * via info callback).  The function doesn't check it, so it's your
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+2.53.0
+
 
 
