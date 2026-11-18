@@ -1,58 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794999956;
-	b=ESq4rkETqvv7Cx7LScGrBYaLfbENSJLckIc/1cB0s62+px/ncEa0Nm5teXdXnjmZBXH3
-	 SVydnyONL09sN7+jVz4cVHvtA0Rb2K51VGhXc7fKiE4gQ7ukcV0j0Kz4sxQjgYA+9HbXC
-	 epMe7UxxyNVTgxVgBGdZ6nGPlC/fRec61FpUNIUmvei9p7IyVab/SARiXG2BMNGNY/4cC
-	 kkb5EMCM0+BLlg0sfenhMuKymFK7xXctZm6kYl6l8yF93BXU5x/EN0HfjJ0IV8VeRrfeh
-	 LGpNtEHob9Y4UMWVhjbjLaEZOKskld/Gsd98vcMzDobaV0xAY5vau73+Zbyl1vV3j/A==
+	t=1795000172;
+	b=P0JvUbXaWcXAKEFaJE5uigj0yLsPFbm63zFpq06rIEZvP/YlgJO3fVe92GgMLPa6DWSj
+	 SL/YcGK/Zu7fmS9onF3JrO8Z1OT9lygSoAU6HLRL8L0gPyAPcDRB0utuIavqfP76dg1aQ
+	 +qm9fpUAkkFmjMIz+mOPoRF0D6vXXTHPxXsi6y+YEP447PVfsacztH+wP1dGCq+j7glTi
+	 Ml3V5EibntK7aX/q1EwVnMfNhx2duUH5SQv3QEjcsdoyeEhtjMY61gaIMvh8klcUQQeHW
+	 fZ5JAIZJaQQOUclzRjF0fct6gsAHjHYh+Gaze47FB6w8rDSpS0wm1QOqg87EmexjEmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794999956;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:CC:References:In-Reply-To:
-	 From:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=N2WBV91cmkAUdcnNf48jE+IYB0wjHX2MQTzeLVdlj/U=;
-	b=BkUpM4f+9YIlQhRysxwfB03WPFjCh9vbC545JeBLVQML1e2jQsOIqYiMERXd6o2OMMjS
-	 uGqYufSKNLu63BpaLVX4LgH9utSs727+JcFSKcpbyvyK8ZDEfbTm/699t01JLh76EuS7g
-	 imSEeux16xAupDfexcB06V/thZhLaClA6cPWmZRG3ZD/DiGXjueM3vI0yekeQQIwDgC50
-	 ao1zGuuW3ocJt+VtjU8l6JFbRAhFiLouSvPBMm4XkJV4dN6+FFdkJeoBbI94Aoup8zp84
-	 loaL8FvP7PxCOu7+rM00UYPUU5xAi3jaFUmEhNFWABL2tVCdaGZTo7dAkgl3M3mXQoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795000172;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=2r4uDbTO5b1ExxzqtmXHm/o8aZPr6mw3/GIXTKP7B9I=;
+	b=lYLOVyHbSTpHkvpXAF5jihz5tFOtTURhQ8rfiUP5kNlytoWlGztvE8DnK6cIHn5XVlX2
+	 5C4MwE9g1IsDZ36O6ka5CKrZCYxPBhX6zgNKjmyzo6VRSM+vaO1k6WxSAQrnYEYFvVaxd
+	 Nh4zlUVbG8obzP+Pqs4qwh1ItTkULRTHk3l4rvIpQmBnQ9xG7CT51pohv8WOZqeh+VljV
+	 WjbcWylIklH1FoG9tbrNreRHi7CEt00gIDsvRee4HLovs3dZciyVsP4wBklm0uyj/k5bB
+	 tWuIIiNnm/HzhfDOm0axZ10PaK5pYdoZUs1eJjliIWGIZ8/6B2np64sHkPv92AxV+RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=xhi0kL4V;
-	arc=none smtp.remote-ip=113.46.200.226
-Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5dRIAt5;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F175B606A320;
-	Wed, 18 Nov 2026 11:05:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F175B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EBC606A31C;
+	Wed, 18 Nov 2026 11:09:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=xhi0kL4V
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=N2WBV91cmkAUdcnNf48jE+IYB0wjHX2MQTzeLVdlj/U=;
-	b=xhi0kL4VDySviSZf0jN2Mj4lry4+vI4t2FYKDuPVA0kAOaiwsX7wbTUQ1lv5DOa4IHyhhpFGh
-	kM804jmgUXvgvp5B18CMSrP3qNRWVjEzdfX6gmJqOj6jFnnqy98OPSgjxZE1c1lWOMZuRLPMFV6
-	siuqwshGoPYJ5gIdiCJf414=
-Received: from mail.maildlp.com (unknown [172.19.163.200])
-	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jTzKW14TGzKm64;
-	Wed, 18 Nov 2026 19:05:35 +0800 (CST)
-Received: from whupemk300014.china.huawei.com (unknown [7.152.185.8])
-	by mail.maildlp.com (Postfix) with ESMTPS id 875A840563;
-	Wed, 18 Nov 2026 19:05:49 +0800 (CST)
-Received: from [10.174.177.221] (10.174.177.221) by
- whupemk300014.china.huawei.com (7.152.185.8) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 18 Nov 2026 19:05:47 +0800
-Message-ID: <074af9c6-b852-4990-a3e7-ed40a5dc6780@huawei.com>
-Date: Wed, 18 Nov 2026 19:05:46 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=S5dRIAt5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 255611F000C4;
+	Wed, 18 Nov 2026 11:09:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795000172;
+	bh=2r4uDbTO5b1ExxzqtmXHm/o8aZPr6mw3/GIXTKP7B9I=;
+	h=From:To:Cc:Subject:Date;
+	b=S5dRIAt5qwBtGu9sLynNj1ue2gSnNUi3qQxYNtq9CfPuguy487isOOrZE7uhXpbi+
+	 rodELKLsisj0lLLegSbkWLK8zbbSltNAq3shMzpVrl2leWwADCLISjIRLqBZiuy0Hp
+	 aADmEdvx0RMRPBHGOBrS+ltfgpL2D8+T9KbEK8kfV2l032iB3kdZb64T+a92eIiHcv
+	 TdwTqlaV30aVHlwuOkMVrpecY4aimC/5d2fA3Bo12lmNw3P1WjudRY140qm0PvlJdA
+	 xMNWDw6etnwlp7m5ngLhwLS0PtLzv6kDuAkikbxQTYL9i6gliTUu5tmhAoW57u/M1m
+	 5N2YjUDZNRBkQ==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Simona Vetter <simona.vetter@ffwll.ch>,
+	Chris Wilson <chris@chris-wilson.co.uk>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] dma-buf/dma-fence: Prevent misordering for error checks
+Date: Wed, 18 Nov 2026 12:09:15 +0100
+Message-ID: <20261118110914.1471416-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,48 +67,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] xprtrdma: Wake connect worker on device removal
-To: Tim Menninger <tmenninger@everpuredata.com>
-CC: "Dai.Ngo@oracle.com" <Dai.Ngo@oracle.com>, "anna@kernel.org"
-	<anna@kernel.org>, "cel@kernel.org" <cel@kernel.org>, "jlayton@kernel.org"
-	<jlayton@kernel.org>, "linux-nfs@vger.kernel.org"
-	<linux-nfs@vger.kernel.org>, "linux-rdma@vger.kernel.org"
-	<linux-rdma@vger.kernel.org>, "neil@brown.name" <neil@brown.name>,
-	"okorniev@redhat.com" <okorniev@redhat.com>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>, "tom@talpey.com" <tom@talpey.com>,
-	"trondmy@kernel.org" <trondmy@kernel.org>, "weiyongjun (A)"
-	<weiyongjun1@huawei.com>, yuehaibing <yuehaibing@huawei.com>, zhangchangzhong
-	<zhangchangzhong@huawei.com>
-References: <20261103032758.1302493-4-lixiasong1@huawei.com>
- <20261117182727.104697-1-tmenninger@everpuredata.com>
-In-Reply-To: 20261117182727.104697-1-tmenninger@everpuredata.com
-From: Li Xiasong <lixiasong1@huawei.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- whupemk300014.china.huawei.com (7.152.185.8)
+Content-Transfer-Encoding: 8bit
 
-Hi Tim,
+Many users of dma_fence do things like:
 
-On 11/18/2026 2:27 AM, Tim Menninger wrote:
-> I encountered a refcount_t underflow warning in rpcrdma_ep_put() on
-> 7.4.0-rc3 during a pNFS flexfiles read workload with one MDS and one DS.
-> The trigger was restarting the NFS engine on the DS while reads were
-> in flight. The warning came from xprt_rdma_connect_worker via
-> rpcrdma_xprt_disconnect() -> rpcrdma_ep_put().
-> 
-> With all three patches from this v2 series applied to 7.4-rc3, the
-> warning no longer occurred under the same test. This test did not
-> involve removing the RDMA device.
-> 
-> Tested-by: Tim Menninger <tmenninger@everpuredata.com>
+// Thread A
+dma_fence_set_error(f, -EINVAL);
+dma_fence_signal(f); // <- Takes lock, which orders against the above.
 
-Thanks for testing the v2 series and sharing the results.
+// Thread B
+if (dma_fence_is_signaled(f)) // <- Does test_bit(), no ordering.
+	pr_info("err: %i\n", f->error); // <- Can be loaded first.
 
-The v2 series is still being refined based on Chuck's and Sashiko's
-feedback, including further improvements to the endpoint cleanup path.
-I will include them in the next version.
+There is no memory ordering between reading of the signaled-bit and
+reading of the error code. This can result in outdated, wrong error
+codes being evaluated by the user.
 
-Thanks,
-Li Xiasong
+Though dma_fence_get_status() does take the fence lock, it is equally
+broken because the misordering can simply happen within the critical
+section.
+
+It's not entirely clear since when this bug exists, but at least since
+dma_fence_get_status() was added, which is why its birth commit is
+marked as the Fixes commit here.
+
+Ensure ordering for everyone evaluating the error code centrally by
+using test_bit_acquire() in dma_fence_test_signaled_flag().
+
+Cc: stable@vger.kernel.org
+Fixes: d6c99f4bf093 ("dma-fence: Wrap querying the fence->status")
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+Changes in v2:
+  - Use classic C style comments. (Christian)
+---
+ include/linux/dma-fence.h | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
+index dd07d128adc3..a3fa1341765e 100644
+--- a/include/linux/dma-fence.h
++++ b/include/linux/dma-fence.h
+@@ -496,7 +496,18 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
+ static inline bool
+ dma_fence_test_signaled_flag(struct dma_fence *fence)
+ {
+-	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
++	/*
++	 * Best-effort ordering of the locklessly evaluated signaled-bit,
++	 * especially so that reads of fence->error are not misordered.
++	 *
++	 * The release counterpart is typically ensured like this:
++	 *   a) Error codes must only be set before a fence signals and
++	 *   b) The fence's spinlock's barriers effective in dma_fence_signal()
++	 *      ensure ordering.
++	 *   c) For users of dma_fence_signal_locked(), the barrier implied in
++	 *      test_and_set_bit() should do the trick.
++	 */
++	return test_bit_acquire(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+ }
+ 
+ /**
+-- 
+2.56.0
+
