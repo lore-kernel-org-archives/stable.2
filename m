@@ -1,54 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795017341;
-	b=Ciwr0memma/MBaRscct51o+ez4AMpiAumluXVcl5cAJpIwwxozD0auHHmNQRIrvZE/pD
-	 gkhODVnE57GJsoRuxs4X91PLsMyCd/7rxLgA/iV4fyJO2wygusHIO0G8CBs//5EbFN5tR
-	 Q0DIY44mfyb1oBX/gN9NNM05q228K2VJDz9FrInVfn1FFR/TOcITgnkR/aDpLUDWypmg2
-	 58GNe4UXNWmNvBryZzeqMUBmOs59bLSzPxA6/cbvo7/9WhyDBmHWLsqFW0VlL1eBGpV/j
-	 VRrLToMdQwTvar8fMQHeTnyBe90k7fOw4rUi0J7D+bPIB+RebBf7tzCS0vfFvsQZHww==
+	t=1795017344;
+	b=Ok6MiithYCPva5CDoBh7ZrtW8B5B0RrRewEPDSvw7665/KSJbCT/UPo2nPI3qFBkFKXD
+	 YC5P4+9jCLI616JreW0wAOE4y2MUlGkFjig9QqvDwtZD59/S6pJ0cY5rXNWAFeiK75IkC
+	 Fi9PSsj3LW0CSFLh8nXfe3WQgpQ5YHqfHHwj4KqvS8xKahOQDHAIKAoZvqxktKyRmI5C4
+	 h7frTjCp++WvbOe1nJ3hgy+evBIW7OYfJjTLJcyEw7wA84tUAbNqPc3I7PxDyFHT2Hais
+	 tJ9kb8WzmjmzytifvpjWyU8BMCFWwtkWxp8yBsyO2Sr08dgkTqfSfdkeqFRyn3TBrQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795017341;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795017344;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ra85Cds9zmxeLi8N8uI0UNM5s75r2ImNZXluUL6njZQ=;
-	b=mUuYFvcOAVjG3YN2FOgsksDD3i4JNNn2PQgQp0TTwrzBfZZeszgCKTovunwbIG0Xvsyv
-	 1CHAo9/FyRhKWzL6UhWmnTZFUPQkPrNdqnZHl/t1qviOpEyMHK9ZgyQUpASWBwXTqiY3R
-	 C9QmntGgKZFtuhtj5pHBUes67FWPM9vJwHUV6MgGUyPurpAbFdohcS3z2eFpgTZ/Qc0dy
-	 Dnz8mouoPsBfuMa8P36Lbg9V7iDNwAOJHu5UbzrWpa1Wt1RNmH+xgykPfF475TqQzfSxS
-	 ugXwHgq6mKv9hbMGfBzp7/rbR5HmiPREeiMWgmXXdxJSYQB0kLS/Ou5yW+BFAXyqqsw==
+	bh=x8m4Lq2f1xDWte5y1lS1jAYCubPc5YLWyf6bX6/QnNw=;
+	b=v/OoQ5Pqmf+cV4bOGs2r3YYmx+Uw8nj30UM9vPn777VURTO7QPQi11X81DUqEJcFbmlD
+	 beBH+M5C5EP/97kXlXuIF1gP5vp8+FDBtgljQ20Jq7G+imO5EM8yD/lChVPI9OTKkgmud
+	 4OF5ouo236ifhpb35Xmeabod2iArEqrdvAoxyRLRuDGlm+/Nw2/1DL5pDcOygzAVpcSti
+	 WXWweFoRbNZxRQRHDPgVeXSf/xK58hIMlJibWnrfiwEwXaFGqvuDZdlKMb7n5BQizS/pd
+	 a4swB+E1DoYYwsUQ1zbP870ozyfZyQtlM6E4CEbHWNJgsiOkUbfYBdqKI/NPVC8S1Eg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PlbkDv4x;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1TMzappc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A50606A31C;
-	Wed, 18 Nov 2026 15:55:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B88606A31C;
+	Wed, 18 Nov 2026 15:55:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=PlbkDv4x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08A8B1F000C6;
-	Wed, 18 Nov 2026 15:55:40 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1TMzappc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03A81F000C4;
+	Wed, 18 Nov 2026 15:55:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795017341;
-	bh=ra85Cds9zmxeLi8N8uI0UNM5s75r2ImNZXluUL6njZQ=;
+	s=korg; t=1795017344;
+	bh=x8m4Lq2f1xDWte5y1lS1jAYCubPc5YLWyf6bX6/QnNw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PlbkDv4xDm754sMk2SA7e9g/FNEEOxql4QzctoKcR7a7wXxGvf3Jv96PXvxPgv6io
-	 /IHnMfa2eAZLsruELxdR/3p2cQqHgaSjBAaHWhlr5SJo3LtdUnRBRrc6kBhbhhKo2t
-	 TPbmqTQEDK7n9hpGoHsmTWPH0ZkJcR0fKU2L8cS8=
+	b=1TMzappcDF4GTVsMYwQH4/KTNhp9igfp76N2Obozj17NUJ2V2I5wqi79gdefyGqcH
+	 U9GdxwKjK/aP4jJ4pVKJytd++GewsNFeJCy0xnIYOiW7wJulYVpCivdr7aRNAUAtsv
+	 hE4R6wOh4pelZfIYWSe37ARV+UH+UmR7RRgDy+E0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Imran Shaik <imran.shaik@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0850/2651] clk: qcom: gcc-qcs615: Fix GCC_CPUSS_GNOC_CBCR offset
-Date: Wed, 18 Nov 2026 15:34:50 +0100
-Message-ID: <20261118150318.475540966@linuxfoundation.org>
+Subject: [PATCH 7.3 0851/2651] ASoC: amd: acp: add EFI dependency for selecting TAS2783
+Date: Wed, 18 Nov 2026 15:34:51 +0100
+Message-ID: <20261118150318.509600609@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -70,37 +68,46 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+From: Arnd Bergmann <arnd@arndb.de>
 
-[ Upstream commit 51ff9ffa18758c465a1a67ca36a78c2a8a5f3b2e ]
+[ Upstream commit 4d2b92b82ee82f0008179cd795b02256144064e1 ]
 
-According to the documentation, the offset GCC_CPUSS_GNOC_CBCR is 0x48004.
-Drop the extra zero, otherwise we land outside of regmap range.
+The TAS2783 codec requires EFI support, so it cannot be selected
+unless that is also enabled:
 
-Fixes: 39d6dcf67fe9 ("clk: qcom: gcc: Add support for QCS615 GCC clocks")
-Reviewed-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260924-clk-qcom-gcc-qcs615-fix-cpuss-gnoc-offset-v2-1-67275f94aaec@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+WARNING: unmet direct dependencies detected for SND_SOC_TAS2783_SDW
+  Depends on [n]: SOUND [=m] && SND [=m] && SND_SOC [=m] && SOUNDWIRE [=m] && SND_SOC_SDCA [=m] && EFI [=n]
+  Selected by [m]:
+  - SND_SOC_AMD_LEGACY_SDW_MACH [=m] && SOUND [=m] && SND [=m] && SND_SOC [=m] && SND_SOC_AMD_ACP_COMMON [=m] && X86 [=y] && PCI [=y] && ACPI [=y] && SOUNDWIRE [=m]
+
+Add this as a dependency for SND_SOC_AMD_LEGACY_SDW_MACH, assuming
+that this is only needed on modern x86 machines that require EFI
+support already. It would likely be possible to do something more
+complex to still allow SND_SOC_AMD_LEGACY_SDW_MACH to be used without
+TAS2783 when EFI is disabled, but I cannot see a usecase for that.
+
+Fixes: 28114992dd2f ("ASoC: amd: acp: enable TAS2783 and add RT712-VB SoundWire machine")
+Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Link: https://patch.msgid.link/20260925131137.146638-1-arnd@kernel.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/clk/qcom/gcc-qcs615.c | 2 +-
+ sound/soc/amd/acp/Kconfig | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/clk/qcom/gcc-qcs615.c b/drivers/clk/qcom/gcc-qcs615.c
-index 57f8c80c6f324..1a6a1e74e805c 100644
---- a/drivers/clk/qcom/gcc-qcs615.c
-+++ b/drivers/clk/qcom/gcc-qcs615.c
-@@ -2999,7 +2999,7 @@ static int gcc_qcs615_probe(struct platform_device *pdev)
- 	qcom_branch_set_clk_en(regmap, 0x71004); /* GCC_GPU_CFG_AHB_CLK */
- 	qcom_branch_set_clk_en(regmap, 0xb004); /* GCC_VIDEO_AHB_CLK */
- 	qcom_branch_set_clk_en(regmap, 0xb040); /* GCC_VIDEO_XO_CLK */
--	qcom_branch_set_clk_en(regmap, 0x480040); /* GCC_CPUSS_GNOC_CLK */
-+	qcom_branch_set_clk_en(regmap, 0x48004); /* GCC_CPUSS_GNOC_CLK */
+diff --git a/sound/soc/amd/acp/Kconfig b/sound/soc/amd/acp/Kconfig
+index 6433876430f04..b7b7b4f4a55ca 100644
+--- a/sound/soc/amd/acp/Kconfig
++++ b/sound/soc/amd/acp/Kconfig
+@@ -167,7 +167,7 @@ config SND_SOC_AMD_SOF_SDW_MACH
  
- 	ret = qcom_cc_register_rcg_dfs(regmap, gcc_dfs_clocks,
- 				       ARRAY_SIZE(gcc_dfs_clocks));
+ config SND_SOC_AMD_LEGACY_SDW_MACH
+ 	tristate "AMD Legacy(No DSP) Soundwire Machine Driver Support"
+-	depends on X86 && PCI && ACPI
++	depends on X86 && PCI && ACPI && EFI
+ 	depends on SOUNDWIRE
+ 	select SND_SOC_AMD_SDW_MACH_COMMON
+ 	select SND_SOC_SDW_UTILS
 -- 
 2.53.0
 
