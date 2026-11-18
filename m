@@ -1,58 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795038467;
-	b=T7k7IlZy95Jmkn5uUkBXGzDr0AcI6RIifS2Su7m6UiqbkUH/yQVjk0rk20C+oav7xKXn
-	 XXZ2mYcOqjxaaP19FMhmHZw8kevycZOhv6YLOQEJ0i9R92hWzWff77VtELxh2hQLBdWym
-	 7IGVnOoFZmavDv6qvmEAhtpSnD8wsy83PsVcdn0RL8P8GYlx4QisaDk+3IeMB1Hq92szF
-	 u/lzXGVhyh7UUr/R8rUzM1nSqzv2GQd1zkJLs0jrfBhiY5OSQb7EPgBdOwZ3xQYFHfXY1
-	 OZTgos19H3RsoSXECOhdC7Fr9T+Nv0lpct/tiU7fRae5ZlpSFF90k2R9MVXUdcur3BQ==
+	t=1795038469;
+	b=qg6T2EMTY4MawUKbuZafxdpbCs3LrL0/guNQdDiV+5vnGfOjTFYfP9h0OS0Be8oPGMnK
+	 yQ7BhTNrsiycn6aSKt+rzVkpS6KJjyE1J5OkLfjuFvaKNAQaqvP/73dvoXg92bvrYQJlt
+	 u19QVyABzedg0wtlpsVocX8okqQYNQN7C0zYwb5mMVoswUC7knR1AnaWu+/CfegYxIa42
+	 oy7psZjeu7iR2H7kLfxuyN6Hrd1bIs/xlx5+atJJ45pbTF/Npoie6Yr6ut3md4IwQSxAc
+	 a1g2cId9bZoe3pK84cQcvMiZRIMWtxIbQ4Wy6E+ZDadjiRXeZn1xGanocHhQ+ZWMhqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795038467;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mQyU7DN/lzTRdzu70rpp1Uu4Lae0EpU6XKx1JiNxNGw=;
-	b=xaTNgoZHzJaFn+D73V898NUEtAed+IrKaRFRLOiCMNddzIm50u2hHzZ85iOMsjCWVUKc
-	 vxnih02XX+NKIVruy9jxubXmua0c/QWMr3qW0XeCPOHxidUh6TZ1gX2vlBg3C2bJo8STo
-	 NjCoIjOwXrq2ph80vOb8RVIvhQdtsyfIzkakQVSn6ScLrNJYWTwfni0yta8yLBQ672Ev+
-	 7Cu+4IyHKlzvu33/H46bnT/DoSoFx/HMKwHn3Wh6fhiRI1rTk4m5fbdtr+fxKvKsanMOz
-	 PRrdOwaX3wGDFmwFkbLqT+xflFI09DzKCHkxyLIK8MPYcZY8WZFUj7so68F1Dyi57CA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795038469;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=Y9z0INQnIrxBLi0ItJauMKa1CNAGPzWxvkQC64eLAXI=;
+	b=QZVGccyXmonlieSCcyfEVTnajzJkvSQckl3FT6BEdTuusylsbIifOhFaFucGNlumkBvA
+	 4KZAks+eyx7/KF+8XRVZTNMv38lj5f3H2nHigkeYhl92+Hk/pRCpStrHGdgYVfzlstiyp
+	 g8AgdqSN0Q4nFlHBFfijHQHVD1joLgrwiVHOIpnasKyGAtTAQUA0Q1RyF4cgYQ451lgUx
+	 7jMw6rvnn5En6yt+8ztE2I86Imr/B0IT7yzqbHyvbZJ2h6v0/E//9pkcZcztgL3UntJAi
+	 lOgR/cEcWJctYSvBVpjWH94xv3CO/USJI2Uy9+ZmGSSiZOlC7M2/WmWSGME0YcPGxRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NHVA3vGs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=GUh0hZ12;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0596606A325;
-	Wed, 18 Nov 2026 21:47:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C83B606A325
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 21:47:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1C83B606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NHVA3vGs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BE941F000C7;
-	Wed, 18 Nov 2026 21:47:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795038466;
-	bh=mQyU7DN/lzTRdzu70rpp1Uu4Lae0EpU6XKx1JiNxNGw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NHVA3vGsXh6jg0beLKpnaR/xJla+ZI8NvGU83ycZDo0yRfpcNVlS5fWAjbqougTwK
-	 lJZ6j4wt/azOYMqxTCSceupV6F3ihhSHcER3DKTrdy6F4HacTj6K8QFtMcDFJQXA2I
-	 VtALd1hfxv3haFoaGRYgPBA9ke5/V8kPxoHxBRCk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sashiko <sashiko-bot@kernel.org>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1754/3318] ALSA: emux: Fix UAF of soundfont zones at note-on
-Date: Wed, 18 Nov 2026 15:39:36 +0100
-Message-ID: <20261118150414.478108783@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
-References: <20261118150313.527275416@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=GUh0hZ12
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From:From:Reply-To;
+	bh=Y9z0INQnIrxBLi0ItJauMKa1CNAGPzWxvkQC64eLAXI=; t=1795038468; x=2110398468; 
+	b=GUh0hZ12BT2Otl5c1WMu6HwXjaayexacbNBQNxI49BteXYOKv8Qkm/mhdNrc4YxC48dH/Q22p2v
+	oVYPLNWPMHfHJhRdpHu4PKvho1PkmIZy4kmFoWumCez1u7xnfjLC8/60xvZ85Aktnzn7nrnqeSvBw
+	7MZRwjDQgRduIdFxZ9n04ICTy8iInb4U3N3Sg+vh80EZ++SDKYbjnASiuxJjnrSd/zEWKOOEUXNFY
+	7JVNAc8bblDkboKNMAhakFZMD+nMJK1Rw6gVQ0TQcArb3Pr/Abg+3UJ3wqtOzPkXS+G13yHid0dbp
+	Ps7yCRmMJ0/96poIztUSOZyRIGM03oYlpB3w==;
+Received: from [179.105.94.163] (helo=[10.0.0.1])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xTnVK-00000001DOD-1atu;
+	Wed, 18 Nov 2026 22:47:46 +0100
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Date: Wed, 18 Nov 2026 18:47:29 -0300
+Subject: [PATCH 2/4] drm/vc4: Check for a validated shader before reading
+ its thread mode
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,87 +60,84 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261118-vc4-icache-workaround-v1-2-5b8adc2c84fe@igalia.com>
+References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
+In-Reply-To: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
+To: Iago Toral <itoral@igalia.com>, 
+ "Juan A. Suarez Romero" <jasuarez@igalia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2021; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=BSFhiqKTk4diCGnaXJLGBu8mlHmWK2u9FvoYgucdTZ8=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq/hz221sfFJT2BawEtvEsuwBAjv/xZAhIeiAEB
+ cF+RxceqY2JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCav4c9gAKCRA/8w6Kdoj6
+ qjnPCADVzoZl8ywOqRQPPY3qUJX1tfbxYYwIZU+DyxrHJ4HNiTICiOcHvPbGsaMzKC+YHHQed9m
+ JPEAfOyqPmnud3wjsANZxg1Q7AAfJQyVXIs1vuUJg2fADcQ/DTmVYNyKeBGrkAyN2cpnezgS9J4
+ ZxIKUWT6fMj8SoskSSWwXH3FVAOqxpyp21+1IvymQnhq7GaLod3EGcf2cleba3NEMLDrh8Gi/ug
+ CcJnen28Y/tnYxUuf3kBeJmVrsAxVWD/y3ZDMixcvAWxA5jgb562feoXOoZlXwdIVgsd9UJWgd0
+ 0dMZhaEk6NwLtBlJwikVWpHcpu0z1N7irmlYE8K1pfLAPZ4S
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+validate_gl_shader_rec() reads the thread mode from the validated_shader
+of the FS, VS and CS BOs before checking it for NULL. A shader record
+pointing at a BO not created by DRM_IOCTL_VC4_CREATE_SHADER_BO has no
+validated_shader, so userspace can trigger a NULL pointer dereference.
 
-------------------
+Check that every shader BO has a validated shader before using it.
 
-From: Takashi Iwai <tiwai@suse.de>
-
-[ Upstream commit 34e3e04b8a1731a773797542f0781e99ce7cd755 ]
-
-snd_emux_note_on() looks up the matching zones via
-snd_soundfont_search_zone(), which takes sflist->lock only during the
-lookup and returns the raw zone pointers after releasing it.  The
-caller then stores them in vp->zone without any protection.
-Meanwhile, a concurrent SNDRV_EMUX_IOCTL_REMOVE_LAST_SAMPLES ioctl may
-unlink and free those zones in snd_soundfont_remove_unlocked(); this
-leads to a use-after-free in snd_emux_note_on(), and later at
-accessing the cached vp->zone, e.g. in snd_emux_send_effect().
-
-Fix it by holding sflist->lock in snd_emux_note_on() over the whole
-zone lookup and voice setup, and let snd_soundfont_search_zone()
-require the caller to hold the lock, instead.
-snd_soundfont_lock_preset() takes sflist->lock for setting
-presets_locked, so the removal path now syncs with the note-on finish.
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-697212bb-a434-4ff5-8778-25a84f5dad89
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20261020101624.205638-1-tiwai@suse.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: c778cc5df944 ("drm/vc4: Add fragment shader threading support")
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- sound/synth/emux/emux_synth.c | 3 +++
- sound/synth/emux/soundfont.c  | 9 ++++++---
- 2 files changed, 9 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/vc4/vc4_validate.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/sound/synth/emux/emux_synth.c b/sound/synth/emux/emux_synth.c
-index b3c8296840a56..537a7c47ef475 100644
---- a/sound/synth/emux/emux_synth.c
-+++ b/sound/synth/emux/emux_synth.c
-@@ -60,6 +60,9 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
- 		return;
+diff --git a/drivers/gpu/drm/vc4/vc4_validate.c b/drivers/gpu/drm/vc4/vc4_validate.c
+index 0d2b08abf1ad..240786e7dcd5 100644
+--- a/drivers/gpu/drm/vc4/vc4_validate.c
++++ b/drivers/gpu/drm/vc4/vc4_validate.c
+@@ -830,6 +830,11 @@ validate_gl_shader_rec(struct drm_device *dev,
+ 			return -EINVAL;
+ 	}
  
- 	key = note; /* remember the original note */
++	for (i = 0; i < shader_reloc_count; i++) {
++		if (!to_vc4_bo(&bo[i]->base)->validated_shader)
++			return -EINVAL;
++	}
 +
-+	/* hold sflist->lock for protecting against concurrent free */
-+	guard(spinlock_irqsave)(&emu->sflist->lock);
- 	nvoices = get_zone(emu, port, &note, vel, chan, table);
- 	if (! nvoices)
- 		return;
-diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
-index c124d6c27a945..2e37d91153a05 100644
---- a/sound/synth/emux/soundfont.c
-+++ b/sound/synth/emux/soundfont.c
-@@ -1220,6 +1220,9 @@ delete_preset(struct snd_sf_list *sflist, struct snd_sf_zone *zp)
-  * The found zones are stored on 'table' array.  max_layers defines
-  * the maximum number of elements in this array.
-  * This function returns the number of found zones.  0 if not found.
-+ *
-+ * The caller must hold sflist->lock, and keep holding it as long as
-+ * the returned zones are accessed.
-  */
- int
- snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
-@@ -1229,11 +1232,11 @@ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
- {
- 	int nvoices;
+ 	if (((*(uint16_t *)pkt_u & VC4_SHADER_FLAG_FS_SINGLE_THREAD) == 0) !=
+ 	    to_vc4_bo(&bo[0]->base)->validated_shader->is_threaded) {
+ 		DRM_DEBUG("Thread mode of CL and FS do not match\n");
+@@ -843,7 +848,8 @@ validate_gl_shader_rec(struct drm_device *dev,
+ 	}
  
--	/* this function is supposed to be called atomically,
--	 * so we check the lock.  if it's busy, just returns 0 to
-+	lockdep_assert_held(&sflist->lock);
-+
-+	/* if the presets are being modified, just returns 0 to
- 	 * tell the caller the busy state
- 	 */
--	guard(spinlock_irqsave)(&sflist->lock);
- 	if (sflist->presets_locked)
- 		return 0;
- 	nvoices = search_zones(sflist, notep, vel, preset, bank,
+ 	for (i = 0; i < shader_reloc_count; i++) {
+-		struct vc4_validated_shader_info *validated_shader;
++		struct vc4_validated_shader_info *validated_shader =
++			to_vc4_bo(&bo[i]->base)->validated_shader;
+ 		uint32_t o = shader_reloc_offsets[i];
+ 		uint32_t src_offset = *(uint32_t *)(pkt_u + o);
+ 		uint32_t *texture_handles_u;
+@@ -858,10 +864,6 @@ validate_gl_shader_rec(struct drm_device *dev,
+ 			return -EINVAL;
+ 		}
+ 
+-		validated_shader = to_vc4_bo(&bo[i]->base)->validated_shader;
+-		if (!validated_shader)
+-			return -EINVAL;
+-
+ 		if (validated_shader->uniforms_src_size >
+ 		    exec->uniforms_size) {
+ 			DRM_DEBUG("Uniforms src buffer overflow\n");
+
 -- 
-2.53.0
-
-
+2.56.0
 
