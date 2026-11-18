@@ -1,97 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795021424;
-	b=JAA9kxSpbx/V2ppQsFbOjhVyra2CRlkrSa32eNC+3i9ZbP1TWy9WIVttIS8sX1pXb45Y
-	 x0t5ZHCvRIgOWw15KHr9wfhTq9O2avudE/lMInfClt9gN+AUuW9826bZ2ZDwHwTsI5Jce
-	 vs9EbEskKcW1zRzmNeOaGaxWncVr/ggzJt99dgNjdxCUpCJZWxi/F9nvnYdzEJlLNfo5b
-	 SCNJeyrsDZ0o5Ma/jxNznOP+vvUcTrteri4tSjJyuPrxE1k8R5wAi/pV3F4tW8azcoR6/
-	 dID2z12R7wRFwDl9y2wfAcBrHZ7QVgHfy7TW8UvMYc8eOPGTAPB+7eekM4LMr2qI8Lw==
+	t=1795021425;
+	b=VPC7Bfd2vyY+b/3iaGyd+fTCtizedYP8JrBsKqdirprUCExj/xciseJPrZt+6odjKNCg
+	 dihLOMeeB8yjjqE9s0aP4rjJyaSnNOFbhPFqGncDwajwxbQaIDayz8jvlt4j8IyQAhWNr
+	 I2AKQbizwNFQQoXvX3TSbkQMZ7v+AgdDXnrz5Ixy6/nAUM+V1W2XR2xnpBLgd9UGaMLd9
+	 GhjWel7yMiqQjD8kdAOy/uGoZi1nNLJP5QCjrxHsLo1tVWmxxbLYCUzPLYcUcunE9a4md
+	 QEH0+UhNbxgPWAiKDtAbXA/9iqdZVh2jrcnASsDG0SGxFi1XBmebgz5oczk2zkKgRQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795021424;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=UaVcyNlEXvHCvSegf7DdOWk+AJHnO+R6lg7onpWBTLM=;
-	b=M/n0CfxbMYryrHK1AOYKvG2BzJk35Z3xQDxwzX+Nflc55O/1trM89/9ll4mTHE2aM4QB
-	 xWHbg4nL7cqeSaLP1XlNjxHyHrj3qPnzVxKYDWcJeckhzzDeqJOlHKnuNeb4e0S18UNUM
-	 X3tW45PQ71dF1oYkj+sL9T7lmGW3Pz5sfbHQupo4ECh5PHyQ5HjMfsH6OnON+iTrRXfwl
-	 YY6f6HKvvHVD3JfuXLz0iilGxjLr3j8C82t2+bqZid0XZs12FuQ3OK++ooeXxRgz2C+0A
-	 pYHhnrj3mqmnctgs22ZfgNGmMevdc+9ndvNLooVR7IUTwr19g5OZVBIQA+Mg+elOE7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795021425;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=bknFpjSf7gHn6e71rroekiCqiqG8ykeRZE84i1OW0Fs=;
+	b=u19Gogb2d0fSfkd4BA5nYFeskONu6nsFv6tFi3nWYUH7XvKGVPwredslnKab3rGAa03J
+	 hAZUovBSM4aV/82NwauEB688lA9q1OIflJvpWX1kJkhC0hCAiwC803hZFrf56IsbAOUIT
+	 X/BUu9Fr0m2vyiy4AnJ5Z3RGTsNnRCosUANOpGl6scBeYbNDJLF1/3zYbIx6/bTjCjukp
+	 UCD9rSJc7hooT6YLB4iYMWEw+y+T2SgXBZzXa7kKWVHc9+Z811UypdpC/b5xpb4maKl+u
+	 xiyKtkBawxY5yLCXO0PjFYsAzrHOE5NgeBrF8tdrqG6xzM8olAMZHAfAf99Sg6EYyyw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mOwwJznX;
-	arc=none smtp.remote-ip=209.85.210.47
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aVXmeGC3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B22F60A3836
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 17:03:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B22F60A3836
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1A960A2619;
+	Wed, 18 Nov 2026 17:03:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mOwwJznX
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-843b6f8e2c7so1215955a34.1
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 09:03:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795021422; x=1795626222; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UaVcyNlEXvHCvSegf7DdOWk+AJHnO+R6lg7onpWBTLM=;
-        b=mOwwJznXdq/mL9a1/tRYiu+9aHrPlamFRSWHPx0O36q9m1DP0sFU3+p9VaXqjV9+Jc
-         MHRPPQyaH6plbzz+MRt03IENGzTCFWtIU2eB6RDCK/vXwdZ3FIYebVbtzwU68gaL+/YL
-         svImR0bmonJzBwIrCZkIeL2mFLfBOb0UYMwLIM3rpOA9Rx0s1aEgxxJziWKfhhCyP6h5
-         geqrqUdZrc7VGULz5CGgt6SNcvKLjmcItUpgyqAgUBH5zB+tze7iTqdDztLygklSMQsv
-         CDA8M9ne2KsRlZRTbIJYPmcmkdYmXliMxsuKVjRfHlL7z45p5d8Bv8061oC7JWLDorFM
-         JKkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795021422; x=1795626222;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UaVcyNlEXvHCvSegf7DdOWk+AJHnO+R6lg7onpWBTLM=;
-        b=0NFj4ZnJ9E/8ZpffBmkc5X15+azY0EhKhJuylPU/RD6tSwUuuHVlCSZVOgvGAYROJm
-         sZ8DtPTayVwpZTD5sQs6Iqn7oE9nnTRfGdrv1rIy4iIXyqKny+p+8b0JgCxmMu+/PHxz
-         6ec2DmdEudI9rjTa3FnSrun93EOM6CMaGufl7IOjcim+ZeFPNwfgJgoUoeL4zGSQVene
-         ksyLD6dI6F8+4XOZquZIeDK53gfx4duMvFwPkeVsJmqmJAerB8y/s7wg3ZdPeWirDY48
-         cjNdFuDTW/Z7aiLSFLWxAlW/oMk8vu9jJTH29cgiDCMaqYBx2jNtrhBmM3nA8dfY9BZr
-         XcOw==
-X-Forwarded-Encrypted: i=1; AL+hErFZh5zqWnyrBA40R9THJHDcD3CXVF/+ZG5o3lcV58J6lfGxM+lRRGQ9QBFm5tD41dK/IwY0/HE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/yvansrbig8Kd0giSd4UqCGbuRo0XCUh3K0NlvncZbVTDQF3xZ
-	sLC3E3OSq6ud2CJ5Bhe8VKEyEHt6KphSOsGRvc8g/alXq0ZszeIRX7ZK
-X-Gm-Gg: AYBFou3recbBzQAbIFo+mGFPXJqtMenpJwiESMIiKKtF7p3HWggHLX1SfwC5wRLPK54
-	eZ3atvNi7ezMFEMGhnV8oSEJKsxU3OJZCvOqmrYmnGWwjF55h3JgN/86sjNbmC51h987r1Hcyhl
-	eoRwZAbPSBqqdjkr0m5hlLAp+MDPNg2bPMl8y6N7BKwyL+SGmGk5JLE97D6bz3iku7LxCNBPk27
-	Mly/eWN15yxzgq/G+QcME8LbLqUiTaTAMN8ZAXJ+VII5zHT0im/s0ga7dvGPQvHS42qy6SfpvLM
-	VwmS/gPwOhDL2vmt21UY+rMGFY91kkHF0i3kObJpJBqm0OKTjq/EN5TnvYx/TnL21PvZeF1ahnj
-	FgdFKZQ+WwmN9TtzA63Gbr/A9xDR6qcaT/hFNdWCauCR6uzFi51IADjXIaQxFv84RRDF29zZ+jB
-	7fshJdXSvuf3lOxGktxOJwWtdoyupOM2/SgPNUAby7TNt7QqYp/8dvCN9SlkPwE3HB7TtcMo/7V
-	89hUyHK8SaeJgECsJ7KtgvnbqNiMi3hV/5pBTXjrC4toFVVZVbVXC3s/BGKrR3p6mjaW8rnphej
-	Ud9mTKq15qPuBlbfgTuk5WA=
-X-Received: by 2002:a05:6830:2696:b0:862:aca4:1158 with SMTP id 46e09a7af769-862f0861aafmr2972784a34.22.1795021419554;
-        Wed, 18 Nov 2026 09:03:39 -0800 (PST)
-Received: from localhost ([2a03:2880:10ff:15::])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862f01d474esm2486617a34.4.2026.11.18.09.03.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 09:03:39 -0800 (PST)
-From: Vlad Poenaru <vlad.wing@gmail.com>
-To: dsterba@suse.com,
-	linux-btrfs@vger.kernel.org
-Cc: mason@kernel.org,
-	osandov@osandov.com,
-	josef@toxicpanda.com,
-	fdmanana@suse.com,
-	boris@bur.io,
-	quwenruo.btrfs@gmx.com,
-	linux-kernel@vger.kernel.org,
-	kernel-team@meta.com,
-	stable@vger.kernel.org
-Subject: [PATCH v2] btrfs: fix bytes_may_use underflow after a failed tree block allocation
-Date: Wed, 18 Nov 2026 09:03:32 -0800
-Message-ID: <20261118170332.992625-1-vlad.wing@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=aVXmeGC3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726FC1F0092F;
+	Wed, 18 Nov 2026 17:03:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795021425;
+	bh=bknFpjSf7gHn6e71rroekiCqiqG8ykeRZE84i1OW0Fs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=aVXmeGC3h8J7hEk0+zRnV0ZOCkaEIdZzusiPkGYGA4GrI4Nd0D8JlA/FTNcYaHp/G
+	 G7XNj4lOdT7nUIXH/HFOXZqZmP7XwvlaaidEe+BeO0W1kMoOOJt80KLrW8HMuW8yNq
+	 BgvkywJBTYs49HRADf1ANQaYunxh1PyIz/KzO9pQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Carolina Jubran <cjubran@nvidia.com>,
+	Dragos Tatulea <dtatulea@nvidia.com>,
+	=?UTF-8?q?Bj=C3=B6rn=20T=C3=B6pel?= <bjorn@kernel.org>,
+	Jason Xing <kerneljasonxing@gmail.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 2301/2651] net: skbuff: dont copy alloc_cpu in skb header copies
+Date: Wed, 18 Nov 2026 15:59:01 +0100
+Message-ID: <20261118150408.048619413@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,59 +67,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-When btrfs_alloc_tree_block() fails after btrfs_reserve_extent() has
-succeeded, its error path gives the block back to the block reserve,
-although the block has already left bytes_may_use. Each such failure
-leaves bytes_may_use a block short, and it underflows and warns in
-space-info.h when the global block reserve is released at unmount, or
-earlier.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-  btrfs_alloc_tree_block()
-  |- btrfs_use_block_rsv()
-  |- btrfs_reserve_extent()
-  |  \- btrfs_add_reserved_bytes()  <- bytes_may_use -= blocksize
-  |- btrfs_init_new_buffer()
-  |  \- alloc_extent_buffer()       <- fails with -ENOMEM
-  |- btrfs_free_reserved_extent()   <- bytes_reserved -= blocksize
-  \- btrfs_unuse_block_rsv()        <- block rsv += blocksize again
+------------------
 
-Since commit 19d7f65f032f ("btrfs: convert the buffer_radix to an
-xarray") in 6.16, alloc_extent_buffer() can fail this way under memory
-cgroup pressure, because fs_info->buffer_tree is memcg-accounted.
+From: Carolina Jubran <cjubran@nvidia.com>
 
-Return without giving the block back once btrfs_reserve_extent() has
-succeeded.
+[ Upstream commit 78d4bd22ec9df490135303c00e190ac43d5c334a ]
 
-Fixes: 67b7859e9bfa ("btrfs: handle ENOMEM in btrfs_alloc_tree_block")
-Cc: stable@vger.kernel.org # 6.16+
-Reviewed-by: Boris Burkov <boris@bur.io>
-Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
+Commit 68822bdf76f1 ("net: generalize skb freeing deferral to
+per-cpu lists") added alloc_cpu to struct sk_buff and placed it in the
+headers group copied by __copy_skb_header().
+
+This is wrong for newly allocated skbs. For example, skb_segment()
+allocates a new skb and records the current CPU in alloc_cpu, but
+__copy_skb_header() overwrites it with the value from the original skb.
+
+If the original skb was allocated on another CPU, the segment may later
+be treated as remotely allocated and unnecessarily deferred there when
+it is freed.
+
+Move alloc_cpu out of the headers group so it is preserved across
+header copies. Copy it explicitly in skb_clone(), which allocates
+the skb object directly instead of going through __alloc_skb().
+
+This was discovered while investigating a throughput regression with
+software IPsec. The load used 512 IPsec tunnels carrying traffic over
+VXLAN, with 512 parallel iperf3 flows and an MTU of 4500.
+
+Before the fix:
+
+  16.09%  queued_spin_lock_slowpath
+             |
+             --15.90%--_raw_spin_lock_irqsave
+                       |
+                       --9.37%--__slab_free
+                                 kfree
+                                 skb_release_data
+                                 napi_consume_skb
+                                 mlx5e_poll_tx_cq
+
+After the fix:
+
+   6.84%  queued_spin_lock_slowpath
+             |
+             --6.57%--_raw_spin_lock_irqsave
+                      |
+                      --5.00%--__slab_free
+                                kfree
+                                skb_release_data
+                                napi_consume_skb
+                                mlx5e_poll_tx_cq
+
+Fixes: 68822bdf76f1 ("net: generalize skb freeing deferral to per-cpu lists")
+Signed-off-by: Carolina Jubran <cjubran@nvidia.com>
+Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
+Reviewed-by: Björn Töpel <bjorn@kernel.org>
+Reviewed-by: Jason Xing <kerneljasonxing@gmail.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20261019174152.2932829-1-cjubran@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-v2:
-- Shorter changelog, built around a call trace (Qu Wenruo).
-- Dropped the code comment (Boris Burkov).
+ include/linux/skbuff.h | 4 ++--
+ net/core/skbuff.c      | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-The code is v1's apart from the removed comment, so v1's testing stands:
-its reproducer leaves bytes_may_use below the global reserve without the
-fix and not with it, and fstests btrfs/002, btrfs/220, generic/475 and
-generic/476 pass.
+diff --git a/include/linux/skbuff.h b/include/linux/skbuff.h
+index a3ff380d43f01..d6894f463bf43 100644
+--- a/include/linux/skbuff.h
++++ b/include/linux/skbuff.h
+@@ -1036,8 +1036,6 @@ struct sk_buff {
+ 	__u16			tc_index;	/* traffic control index */
+ #endif
+ 
+-	u16			alloc_cpu;
+-
+ 	union {
+ 		__wsum		csum;
+ 		struct {
+@@ -1088,6 +1086,8 @@ struct sk_buff {
+ 
+ 	); /* end headers group */
+ 
++	u16			alloc_cpu;
++
+ 	/* These elements must be at the end, see alloc_skb() for details.  */
+ 	sk_buff_data_t		tail;
+ 	sk_buff_data_t		end;
+diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+index ea4c38dee19f5..0c1229c544d24 100644
+--- a/net/core/skbuff.c
++++ b/net/core/skbuff.c
+@@ -1593,7 +1593,6 @@ static void __copy_skb_header(struct sk_buff *new, const struct sk_buff *old)
+ #ifdef CONFIG_NET_RX_BUSY_POLL
+ 	CHECK_SKB_FIELD(napi_id);
+ #endif
+-	CHECK_SKB_FIELD(alloc_cpu);
+ #ifdef CONFIG_XPS
+ 	CHECK_SKB_FIELD(sender_cpu);
+ #endif
+@@ -1625,6 +1624,7 @@ static struct sk_buff *__skb_clone(struct sk_buff *n, struct sk_buff *skb)
+ 	C(pfmemalloc);
+ 	C(pp_recycle);
+ 	n->destructor = NULL;
++	C(alloc_cpu);
+ 	C(tail);
+ 	C(end);
+ 	C(head);
+-- 
+2.53.0
 
-v1, with the reproducer:
-https://lore.kernel.org/all/20261113170926.1468850-1-vlad.wing@gmail.com/
- fs/btrfs/extent-tree.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
-index 9b0a5c6b96f3c..8d4c66bf850bc 100644
---- a/fs/btrfs/extent-tree.c
-+++ b/fs/btrfs/extent-tree.c
-@@ -5433,6 +5433,7 @@ struct extent_buffer *btrfs_alloc_tree_block(struct btrfs_trans_handle *trans,
- 	free_extent_buffer(buf);
- out_free_reserved:
- 	btrfs_free_reserved_extent(fs_info, ins.objectid, ins.offset, false);
-+	return ERR_PTR(ret);
- out_unuse:
- 	btrfs_unuse_block_rsv(fs_info, block_rsv, blocksize);
- 	return ERR_PTR(ret);
+
