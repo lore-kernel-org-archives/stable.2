@@ -1,62 +1,84 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795012402;
-	b=fnAHfy0CfKeCd753RZV9dzSxBUxmG0fB5jDVAoYB2U5quND+O5cmPXrwW7HBdLH0OWvZ
-	 r5lSAt20Uko6WIU6fhKQf3x9UML/45i3jSqGdHwmStEfWBsY6ZGmVvWDAo7g/xWZr4kSq
-	 PLkyTwTcnAp5MZwK8SQiMxuTqxU3A5Fkf5FF4oEcWUvz2XCe382qPHdGex7+5wGtRrmtq
-	 qs1jpdW9xLP2SPhM1tp8LsVgHiz5FWgW5GM7+8gNontFNLQPMfkFnzVEKKP62sXmkYQYa
-	 VXPFLXExMHLBesGNIgpEuM+7z1jQozAjzYz4QTZlolkWg07heepTuk3zKP/JjcI+jlw==
+	t=1795012435;
+	b=JQ0kORTjginTLYSxK1wXz+ym/HsU+PgJNeHP5B0JDAlIXMmKp/zE73RxB9BNQTzvN/WZ
+	 QhlkGVmai5t8XoQt4mydQ52gIDf3cLgFq+nV7jaAU57Q+6hZNX7WJwe9c/iw9DcaBYL6W
+	 2+2woOrfslbAAJxt2+NMtRZnV4PjPbOD9geCNF4GNBiMD47tTlFC5x0A2m/O03KstTDpC
+	 lPRXE9AVFoLNWgBnEwdQKW9m0rcNTiyRvrIZE+CFSIdzD/MDCpR8wUTBs1dGG8LlU6etQ
+	 bK6mx8dczi3IXULCGYd818mci717o7BWKgInb7CVQhYoTfEPcG92dSgjg7e5A+KhK0w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795012402;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795012435;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=835DxEnSywtZBMLzRISeZZ0nE8xsVV06SOGlBgREpU0=;
-	b=K2eOmYO6sOgSDdXvT+AS5BA0Thre8ATps5nx39Q887gHZkTfK14C6ktJkwUF418MeKwy
-	 2+RIPWIqz7oY+sz+y7bfw4Lr3RGP1JVw+LDLOBxN+rGhAZQQVGQHBTl801bc9ZSpHGo7N
-	 6czX1mkln7C/iDZFWAKym372IKsxQ4/zCxaZuvKuKGpUoxY18GZlcLH8WyZ1PnFl86EKB
-	 kVV+f8BaTHJhodOMrcPwv84F+a5Xvp7kXTr5MmfsDEc0QbizfoaoAbJlxSdwhfjdgCc1a
-	 7KPaQqPWiZfMokUVrN2S22Jqg5jJqGvkdT3z92qjIFs6UXTA2XIiS3wYWjVqtTG3O6g==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=r0M7bUtZEofsoW8E6XLzL0ND8blGJ4WCG6thjd+0hTw=;
+	b=ESHZhkFOEBVEWho2o+4M9AJyhAT76DcMv07dGDRlQMyRRI2dCQyYQkT32Wm4kJ0xEU/K
+	 AvDA4UUo4p782Y4Ypt3+nzYFjOSVE76OgkN9VYUYF1JO02v1dBkImZVw5LDEU7+2VOhBW
+	 nX9XNreAwSxkzWj0KluUVeslfXoS5a11mWU8VOtnv+jUZ7c6HDe0GCslAXSXc3Laocw0G
+	 4Sxt29tJuqXGMiiMwLqQncyOWo2TB+C8W7yOXqn0vIHPgLXbM69a2XsIGnOVjdDOdfm/4
+	 chdnsAlJ55/0zdN8o+H/rDiiR6+iiSE1QZtktR7aNbFi9VSPl+IuCOVTiJtEIuXNmFg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PoWh0Ry2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kp9aWV9V;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id C2580606A320;
-	Wed, 18 Nov 2026 14:33:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397B2606A31C;
+	Wed, 18 Nov 2026 14:33:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PoWh0Ry2
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 0E2741F000C4;
-	Wed, 18 Nov 2026 14:33:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kp9aWV9V
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D43D1F000C4;
+	Wed, 18 Nov 2026 14:33:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795012402;
-	bh=835DxEnSywtZBMLzRISeZZ0nE8xsVV06SOGlBgREpU0=;
+	s=k20260515; t=1795012434;
+	bh=r0M7bUtZEofsoW8E6XLzL0ND8blGJ4WCG6thjd+0hTw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PoWh0Ry2OELgScL/i9zOAV/F1Jc0335SKjezvVlYKnJM3YynE5NyqEXZZ+doP5ms5
-	 YEz2kYaW38Fxn0DuegeLq48CLz5gVDALFC9ndtDFwX5/K9NwCcOh/ecB9608qi+sa0
-	 ihn375kMk1NnpKE91KEhHss0mkWSJXlAWgJELcPMPooZ7p1JAqHkgTx5ZbEWdh+2aW
-	 SRhHyPeOL8p8aM6L+xwkRH5hh11fXUHpk6yopJ2MbMW2frCHUryi9ZIWh/gTcWSZqz
-	 BHd6m5SkqfiHhZRRW8x5Ixgm7bNQ09NyEf/LV1KWA1UleL63tUNRxOpayMdkM8v6WL
-	 4GOwk9UuT6AFA==
-Date: Wed, 18 Nov 2026 16:33:19 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Rustam Mustafin <rmustafin@cloudlinux.com>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Jaewon Yang <yong010301@gmail.com>,
-	Tadeusz Struk <tadeusz.struk@intel.com>,
-	linux-integrity@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] tpm: track the response read position internally, not
- via the file offset
-Message-ID: <av23L5HBpy2gbm3m@kernel.org>
-References: <alvD5nOP15O5B8Ai@kernel.org>
- <20261117104838.2650999-1-rmustafin@cloudlinux.com>
- <avwzid1Ovl4ACkaQ@kernel.org>
- <avxJ9MxZ0PoWbQTc@kernel.org>
- <avxKqn-PlzJyxVdK@kernel.org>
- <CAG6=z5sxUo1x6mpotkNZXk=nQYvD2AyMLSDhzD3B3kqxJ1=iaw@mail.gmail.com>
+	b=Kp9aWV9VMOCglS7T1p8dI1UFHOj3QgFUQWE27OP4HKp8U3+jjxoxZ5MiJj4la/XvM
+	 5g271rkeXZHxD1RQZeYy9sJtGReqx/Wu2njRPkXusfpMZXxCGIR5ZzMv8YoTGpm6hg
+	 Z6tgqCBkZgIcFlZSz6035WSZxIeGPy+JrC1PJGNpvJDd48S1qhJk/hFuZsiCPChbpz
+	 cbipzUh3C8OOrW/AvXUuXYqzav1/ZSNl5r9u80mpnTju6Ee+vMAghVK8OCjuuDA05S
+	 HY68vn5JPr7XXFHUq32yMMFYFnOyzSscbzp0r5NSgcm81ZAyPEr+jLZrZyeSuycfOU
+	 fAGNDFU01uI8Q==
+Date: Wed, 18 Nov 2026 16:33:41 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>,
+	James Houghton <jthoughton@google.com>,
+	Andrea Arcangeli <aarcange@redhat.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Balbir Singh <balbirs@nvidia.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
+	Pedro Falcato <pfalcato@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@suse.com>,
+	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
+	Andrei Vagin <avagin@gmail.com>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	Stephen Rothwell <sfr@canb.auug.org.au>,
+	Arnd Bergmann <arnd@arndb.de>, Zi Yan <ziy@nvidia.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Joshua Hahn <joshua.hahnjy@gmail.com>,
+	Byungchul Park <byungchul@sk.com>,
+	Gregory Price <gourry@gourry.net>,
+	Ying Huang <ying.huang@linux.alibaba.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Nico Pache <nico.pache@linux.dev>,
+	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
+	Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/9] userfaultfd: refuse UFFDIO_MOVE into a
+ non-present huge destination PMD
+Message-ID: <av23RfHuKjWeeEnN@kernel.org>
+References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
+ <20261117-uffd-state-fixes-v3-2-b617009d1a4a@columbia.edu>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,75 +88,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAG6=z5sxUo1x6mpotkNZXk=nQYvD2AyMLSDhzD3B3kqxJ1=iaw@mail.gmail.com>
+In-Reply-To: <20261117-uffd-state-fixes-v3-2-b617009d1a4a@columbia.edu>
 
-On Wed, Nov 18, 2026 at 04:49:46PM +0700, Rustam Mustafin wrote:
-> On Tue, Nov 17, 2026 at 7:38 PM Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> > On Tue, Nov 17, 2026 at 02:35:04PM +0200, Jarkko Sakkinen wrote:
-> > > I think this would be more feasible:
-> > >
-> > >         if (current->flags & PF_IO_WORKER)
-> > >                 return -EIO;
-> > >
-> > >         if ((current->flags & PF_KTHREAD) && current->io_uring)
-> > >                 return -EIO;
-> > >
-> > > I.e., block io_uring entirely.
+On Tue, Nov 17, 2026 at 11:28:42PM -0500, Tal Zussman wrote:
+> move_pages() refuses to move into a destination PMD that already maps a
+> THP, but checks for that with pmd_trans_huge(), which is only true for a
+> present THP. A device-private THP or a THP under migration is a PMD
+> softleaf entry and is not refused.
 > 
-> Hi Jarkko, thanks for the review.
+> The destination PMD is then treated as if it pointed to a PTE table. It
+> is not empty, so pte_alloc() leaves it alone, and move_pages_ptes()
+> fails to map a PTE table from it and returns -EAGAIN. move_pages()
+> retries on -EAGAIN, with both VMA read locks held. If the source is a
+> THP, it is split first for nothing.
 > 
-> These checks do not fully block io_uring. With O_NONBLOCK set and a
-> response ready, io_uring calls ->read() inline from the caller's own
-> task, where neither PF_IO_WORKER nor PF_KTHREAD is set.
-> loop_rw_iter() declines the inline attempt only when the file lacks
-> O_NONBLOCK:
+> For a THP under migration, the loop ends once the migration finishes.
+> A device-private THP can remain in device memory indefinitely, so the
+> caller of UFFDIO_MOVE hangs until it receives a fatal signal, and
+> anything in the mm that needs to write-lock one of the VMAs blocks along
+> with it. This requires a driver that migrates THPs to device memory.
 > 
->     if ((kiocb->ki_flags & IOCB_NOWAIT) &&
->         !(kiocb->ki_filp->f_flags & O_NONBLOCK))
->         return -EAGAIN;
+> To fix it, check the destination with pmd_is_huge(), which is true for
+> a present THP and for a PMD softleaf entry. UFFDIO_MOVE now fails with
+> -EEXIST in these cases, as it already does for a present THP.
 > 
-> I built a kernel with both checks applied and the injected offset
-> still reaches tpm_common_read():
-> 
->     BUG: KASAN: slab-out-of-bounds in _copy_to_user+0x4b/0x70
->     Read of size 16 at addr ffff88810c3455d2 by task python3/134
->     Call Trace:
->     _copy_to_user+0x4b/0x70
->     tpm_common_read+0x1e6/0x360
->     loop_rw_iter+0x235/0x5a0
->     __io_read+0xc6e/0x11a0
->     io_read+0x8a/0x180
-> 
-> Reproducer:
-> - open("/dev/tpm0", O_RDWR | O_NONBLOCK)
-> - write() a command, then poll() until POLLIN
-> - submit IORING_OP_READ with sqe->off = 0x1400, without IOSQE_ASYNC
-> (this is how tpm2-tss opens the device O_RDWR | O_NONBLOCK).
-> 
-> Checking current->io_uring alone would catch the inline path, but
-> then a process that uses io_uring for anything else would also lose
-> plain read()/write() on the device.
-> 
-> For v2 I propose:
-> 
-> 1. The read position fix, with your review comments applied.
-> 2. stream_open() instead of nonseekable_open(), on top of 1. With
->     FMODE_STREAM both the VFS and io_uring pass a NULL offset to the
->     driver. This follows c5bf68fe0c86 ("*: convert stream-like files
->     from nonseekable_open -> stream_open").
-> 3. A kselftest: lseek() and pread() fail with -ESPIPE, chunked reads
->     of a TPM2_GetCapability(TPM_PT_FAMILY_INDICATOR) response match a
->     one-shot read, and an io_uring read with an explicit sqe->off
->     returns the start of the response.
-> 
-> Br,
-> Rustam
+> Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
+> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
+> Cc: stable@vger.kernel.org
+> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-I wrote that out of my memory. I did not expect to be exactly out.
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-Block uring.
+> ---
+>  mm/userfaultfd.c | 11 ++++++-----
+>  1 file changed, 6 insertions(+), 5 deletions(-)
 
-Br, Jarkko
+-- 
+Sincerely yours,
+Mike.
