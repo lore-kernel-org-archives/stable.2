@@ -1,79 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795043837;
-	b=lhDR+t9o0ac7ZHixgtJUoxTfaI4znADH9qk0ufoNQ7FWmQ3zO168tp1mFlTuPIye7ACc
-	 krIDtyzOMA/u9I+1vH4ZUsOvLV5vBLzdDsf9viGs6E1wGPQh2r95aMrKQ2IJS7F+gMkWu
-	 ExHAQsXE826r8Yio4cinXK4jdygiyFwdgpUBPfYKsakqjOt06WhA7Aeur2i74HlEPBjAW
-	 Eiek1ey9RMqL7+NMdHdbXsH5cklr4hcbUX0zNaqDCMGnKKSSmytjElaJuyPbN6f/0MgX8
-	 uttmBytzz+MIcJaWRBhwhkIxFdUzq6lvXrzzmcDJOkxYYvkdj8EnEvf2B1FRiSGphEQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	b=x2hb/ewMRsT3rYhrnP/ujMnys4MWx2X7KMIbq11U0PJ6vjDWK/vN/H0FdymtvtgcA1Di
+	 IvGAf+UlHPrbJjpIaRIKylKBJim8VcibRvgvUX9ukkmDHRLwAE/KT8MpuVu3v3f+opGiT
+	 zZPmJlBuzrH9HelQtmPexAOfMkCZKh2QRwxZQqvolqKGkBnI9eRJfwvl3U7XO7h5Avi3R
+	 y9yN1uebQZXGw2WOduN58aZivfIB7HKB+A1lyoDiKrrlEQZyPj/bxSKLfUpMHnoAf+yd+
+	 1dJga+7vsk29vXBwJXw3S71Qe7sXNbLmoA5KW9RD5dYYu1YI3zyLuzmggCYuiU7Do/A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795043837;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9CeY2H+xs1/uP6Al65hZcJhz1eI/t+6B7af7ReXxmio=;
-	b=SAR3rW6ytCDBHajljeMcNtq6dMzL5kAoxQMroKi9p1D6+S+xr3+UXasELgjVsetY2zpL
-	 bJfo1GsF5zMZfTUwQ1/lB/7lf85/ejXsmhn+Yh14JfWlbj9fcnbI5kmNlTHojxqwNAe4/
-	 ygAlhMtrTL9UoeG7SXCeFzlVEjrTImHbXcFHNoQUypzGuEGi46drTuRtAF9NAhGJPH4YB
-	 dgF+EUWBh8xEau5DqeAbdDuyyrHUZ7QaAICMz6jYQZBYUJN05e6q/OB7+0Ys1LkXsSIvo
-	 cTypv3ByLUv2Ya0lhBIrXSUttNiMwYZF+SjmGaPu3j59Rn9AGUzVYLhn4kN31pI53Ig==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eB9KIEms;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=d+0Y5b/JW1/8hEDYnyEgF8SYhSCsXuI7GwvIZG7vFJ4=;
+	b=JYE15vIGrz6o2MquScfSXPlqwdrhooqrlYIGH9KFd9IN4a8Fo2OoWXGWfCXpRzVywlWm
+	 l2rdXctPsKHSE9ueLvoE2w1PS6G3aJSTQPe3LTkw9DTK+iXFlUmiCHCqxyHVV6ff0REAV
+	 +v2GTnTOvwgU9qR9wDLbvp8aryRrQVSl8RwH6LO59XItPeFHEKZEDbT/G5FB3ZjQNpBHK
+	 queaqZSdNJbtFFiKX0ur8+S/+gJ8FvSi/UVMi3HzZb6h8t4bIa/1tgJCB/LHFmDvWn7Op
+	 C4Hw9wmvTTEkxJrJmLUM8W2V46ic527kM/6utDcaCDZPFDJ9IKSYsEMbpJ7O0g/v8NA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sezbVCe+;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6510260A2607;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72B8160A2608;
 	Wed, 18 Nov 2026 23:17:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eB9KIEms
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795043837;
-	b=KZAhjkJNrkRajDLFanC/3Sq5h41vlCENifPQSg1qfjLs1aJpQHZlz8qZRy81nhGBo4u4
-	 HLpQgCGKXZoWDo+xCS/HXBOnei1Hs3aI1DkfygNxLMYw2typDtvp4f69byQk7oZRZc1Vg
-	 33YiUgdhRCaZzQs+jnhWHjnJTyQMdWw2imssNdulNmf9Nszco4dEZWYDhhkCwpBawf+Hn
-	 g5e0FaAIusNhemI1ueDLQhLfqeKmX7Xt1x5QcbqHvXbkgy43SqAaZSe2Oo6Z6sM18GX7F
-	 AcqB8/uows7IrMMCydchPo2vbtQh6TdUJXrV+HaTV+vN+34NMhxTAJp86vE/h0efkLA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795043837;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9CeY2H+xs1/uP6Al65hZcJhz1eI/t+6B7af7ReXxmio=;
-	b=TGzPfIIXrz0YImeJOgsUCoBZOp5yAoCNIJhORSUgcc+e9X4LShRd1ZXu3Z50hISkUmSJ
-	 4EtTclvr17YLox9PERroRw1wC0iaYcGh/0fzQS81wS7S/oPiOM0PjpSbLnbNtlq/wXKKv
-	 NFKmbTKJ3VoqSgv38b2QTYxaCCpv+VJsn+/U7n9FWebXkv6Iq97vFHDMj5lnwSpQUUYd/
-	 oQYCm9tml9VNTAhP75YzvgTshxzMkDnY64VeSy4Ee+fvhYV4/4OpJUQuk2stMw7+3OXel
-	 GWkbTPA7DzxC2PpffCnyQiY9BfrWpYy9QgAYA9aYjkZXS1Ke9bDFlf4GhQynaosypbw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id B7DB11F000C9;
-	Wed, 18 Nov 2026 23:17:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795043837;
-	bh=9CeY2H+xs1/uP6Al65hZcJhz1eI/t+6B7af7ReXxmio=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=eB9KIEmslW5ZrbP1xXQKV1Dw+n3fpU429nb9V5lc9TPrYBhv9xtNg/MhPCqybbF+k
-	 t5Mvci3IaHZ9cMoKdABQfiORhpafgQijRKCdN2eeU8IEH8wR/s+qRwp7zDy7hUYCgX
-	 L/HBZfRFaEFrzUSb64JEBsPPILG2U0pQ4UGIve/Of3jCwbzgsIOqctLW1Ud8Ql9z3U
-	 kfjHvLXX/P3NZmZ7ArNi0iZZgcLRSd2G/Ayxph3QpMF59NHAsO9y0CCH90D01teK8J
-	 b5O6T10EzcFi8Epxup7c5JZF1G3IDAJCCB/ZSnO9XhKTPqlTCORFtrU1YALxc356UG
-	 zfdnBDHsKdvYw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 489AD4B01B;
-	Wed, 18 Nov 2026 23:17:15 +0000 (UTC)
-From: =?utf-8?q?Alexandru_Andrie=C8=99_via_B4_Relay?= <devnull+alex.andries.aa.gmail.com@kernel.org>
-Date: Thu, 19 Nov 2026 00:16:51 +0100
-Subject: [PATCH 2/3] power: supply: qcom_battmgr: complete ack on callback
- payload errors
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sezbVCe+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3BA11F000C5;
+	Wed, 18 Nov 2026 23:17:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795043837;
+	bh=d+0Y5b/JW1/8hEDYnyEgF8SYhSCsXuI7GwvIZG7vFJ4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=sezbVCe+KTQ8F7stI/z/wt9M8453fICBfU+i1kNt3uSSLOhN/0/57YckcEwm8uIw0
+	 F8SOgUeiF4RXNvv/oMoZba4/WKF/BqiGx/x7wPkhiHRmNZZPMJsxhYXSTqcm/k5vPD
+	 95HVZbnpLzVPV36Ej2d+Km8/sa2f2mkWPrJoai00=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Chris Mason <clm@meta.com>,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 0352/2857] nfsd: convert nfsd_net boolean flags to unsigned long flags word
+Date: Wed, 18 Nov 2026 15:23:06 +0100
+Message-ID: <20261118150214.108317046@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
+References: <20261118150201.293410965@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,146 +62,406 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-upstream-qcom-battmgr-fixes-v1-v1-2-ca83700c08c1@gmail.com>
-References: <20261119-upstream-qcom-battmgr-fixes-v1-v1-0-ca83700c08c1@gmail.com>
-In-Reply-To: <20261119-upstream-qcom-battmgr-fixes-v1-v1-0-ca83700c08c1@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, stable@vger.kernel.org, 
- =?utf-8?q?Alexandru_Andrie=C8=99?= <alex.andries.aa@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795043834; l=4014;
- i=alex.andries.aa@gmail.com; s=20261118; h=from:subject:message-id;
- bh=4a5S/RCiOR+4vQvgLxF6hT1Z621jRwseAFd13o3O2w0=;
- b=CkKPXNOplgo1JQ1Ks5iRvi3VDP4HJqvXCRCoVwGYk/kboEMLmTEPGZKDftPrE4glT65Y/l1pb
- UZd0A/aH3UVCuFfCyqn20nYFE+QowQ2EtzPvLLbSBJnrkb7Gugg10zQ
-X-Developer-Key: i=alex.andries.aa@gmail.com; a=ed25519;
- pk=kNAqgavfB7uUd1mA8o8TszhGxzyqBwY71PGO/oK4v84=
-X-Endpoint-Received: by B4 Relay for alex.andries.aa@gmail.com/20261118
- with auth_id=1564
-X-Original-From: =?utf-8?q?Alexandru_Andrie=C8=99?= <alex.andries.aa@gmail.com>
-Reply-To: alex.andries.aa@gmail.com
 Content-Transfer-Encoding: 8bit
 
-From: Alexandru Andrieș <alex.andries.aa@gmail.com>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-On unexpected payload lengths, qcom_battmgr_sc8280xp_callback() and
-qcom_battmgr_sm8350_callback() return early without completing
-&battmgr->ack, stalling qcom_battmgr_request() for 1s until
-wait_for_completion_timeout() expires with -ETIMEDOUT instead of
-returning -ENODATA. Aside from the 1s delay, -ETIMEDOUT causes
-power_supply_uevent() to abort the entire uevent on firmware with
-mismatched property payloads (such as shifted BATT_MODEL_NAME IDs on
-Xiaomi SM8350), whereas -ENODATA lets add_prop_uevent() skip only the
-affected property.
+------------------
 
-Set battmgr->error = -ENODATA on short payloads as well and jump to
-out_complete on all payload length errors.
+From: Chris Mason <clm@meta.com>
 
-Tested the SM8350 path on a Xiaomi MIX 4; the SC8280XP path was
-build-tested only.
+[ Upstream commit 11a5fe42e1811f793e04ef885b639ea7668f439d ]
 
-Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
+nfsd_net contains several boolean fields that are accessed from
+concurrent contexts without serialization.  In particular,
+nfsd4_end_grace() guards its drain path with a plain bool:
+
+    if (nn->grace_ended)
+            return;
+    nn->grace_ended = true;
+
+The read and the write are independent, and nothing in struct
+nfsd_net serializes them.  At least two contexts can reach this
+code with no lock held:
+
+    laundromat path
+      laundry_wq kworker
+        nfs4_laundromat()
+          nfsd4_end_grace()
+
+    RECLAIM_COMPLETE path
+      nfsd compound kthread
+        nfsd4_reclaim_complete()
+          inc_reclaim_complete()
+            nfsd4_end_grace()
+
+Both callers can observe grace_ended == false on different CPUs,
+both store true, and both proceed into nfsd4_record_grace_done(),
+which invokes the active client_tracking_ops->grace_done callback.
+For tracking ops that drain reclaim_str_hashtbl (legacy_tracking_ops
+via nfsd4_recdir_purge_old, and the cld v1+ ops via
+nfsd4_cld_grace_done), grace_done calls nfs4_release_reclaim(),
+which walks every bucket of reclaim_str_hashtbl with no lock and
+calls nfs4_remove_reclaim_record() (list_del + kfree) on each
+entry.  Two concurrent walkers corrupt the list and double-free
+every nfs4_client_reclaim.  A concurrent nfsd4_find_reclaim_client()
+iterating the same bucket reads through freed memory.
+
+A third call site exists in nfs4_state_start_net() on the
+skip_grace startup path, but it runs under nfsd_mutex before any
+client has connected and before the laundromat's first delayed
+work fires, so it cannot race with the two callers above.
+
+Replace the scattered boolean fields in nfsd_net with a single
+unsigned long flags word and an enum nfsd_net_flag for the bit
+positions.  The grace_ended race is fixed by using
+test_and_set_bit(), which is atomic on all architectures.  The
+remaining flags (grace_end_forced, in_grace, somebody_reclaimed,
+track_reclaim_completes, nfsd_net_up, lockd_up) are converted to
+use test_bit/set_bit/clear_bit for consistency.  This avoids
+sub-word cmpxchg issues on architectures like Hexagon that only
+support word-sized atomic operations.
+
+Fixes: 362063a595be ("nfsd: keep a tally of RECLAIM_COMPLETE operations when using nfsdcld")
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexandru Andrieș <alex.andries.aa@gmail.com>
+Assisted-by: kres:claude-opus-4-7
+Reported-by: Chris Mason <clm@meta.com>
+Signed-off-by: Chris Mason <clm@meta.com>
+Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-3-f27e8eb4d974@kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+[ sashal: Kept this tree's client_lock and boot_time_bt logic and its flatter shutdown path, converting only the flag accesses to bit operations, plus one direct nfsd_net_up read in nfsd_last_thread converted to test_bit. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/qcom_battmgr.c | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
+ fs/nfsd/netns.h       | 19 +++++++++++--------
+ fs/nfsd/nfs4proc.c    |  2 +-
+ fs/nfsd/nfs4recover.c | 12 ++++++------
+ fs/nfsd/nfs4state.c   | 41 +++++++++++++++++++++++++----------------
+ fs/nfsd/nfsctl.c      |  2 +-
+ fs/nfsd/nfssvc.c      | 20 ++++++++++----------
+ 6 files changed, 54 insertions(+), 42 deletions(-)
 
-diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-index c07e2db8f242..83e67d22c432 100644
---- a/drivers/power/supply/qcom_battmgr.c
-+++ b/drivers/power/supply/qcom_battmgr.c
-@@ -1285,7 +1285,8 @@ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
- 	if (payload_len < sizeof(__le32)) {
- 		dev_warn(battmgr->dev, "invalid payload length for %#x: %zd\n",
- 			 opcode, len);
--		return;
-+		battmgr->error = -ENODATA;
-+		goto out_complete;
+diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
+index 6291cd57f38eb..94739a09b319d 100644
+--- a/fs/nfsd/netns.h
++++ b/fs/nfsd/netns.h
+@@ -25,6 +25,16 @@
+ struct cld_net;
+ struct nfsd4_client_tracking_ops;
+ 
++enum nfsd_net_flag {
++	NFSD_NET_GRACE_ENDED,
++	NFSD_NET_GRACE_END_FORCED,
++	NFSD_NET_IN_GRACE,
++	NFSD_NET_SOMEBODY_RECLAIMED,
++	NFSD_NET_TRACK_RECLAIM_COMPLETES,
++	NFSD_NET_UP,
++	NFSD_NET_LOCKD_UP,
++};
++
+ enum {
+ 	/* cache misses due only to checksum comparison failures */
+ 	NFSD_STATS_PAYLOAD_MISSES,
+@@ -63,9 +73,8 @@ struct nfsd_net {
+ 	struct cache_detail *nametoid_cache;
+ 
+ 	struct lock_manager nfsd4_manager;
+-	bool grace_ended;
+-	bool grace_end_forced;
+ 	bool client_tracking_active;
++	unsigned long flags;
+ 	time64_t boot_time;
+ 	time64_t boot_time_bt;	/* same instant in CLOCK_BOOTTIME */
+ 
+@@ -113,19 +122,13 @@ struct nfsd_net {
+ 	spinlock_t blocked_locks_lock;
+ 
+ 	struct file *rec_file;
+-	bool in_grace;
+ 	const struct nfsd4_client_tracking_ops *client_tracking_ops;
+ 
+ 	time64_t nfsd4_lease;
+ 	time64_t nfsd4_grace;
+-	bool somebody_reclaimed;
+ 
+-	bool track_reclaim_completes;
+ 	atomic_t nr_reclaim_complete;
+ 
+-	bool nfsd_net_up;
+-	bool lockd_up;
+-
+ 	seqlock_t writeverf_lock;
+ 	unsigned char writeverf[8];
+ 
+diff --git a/fs/nfsd/nfs4proc.c b/fs/nfsd/nfs4proc.c
+index 00681c82bebd0..afdf27306bd23 100644
+--- a/fs/nfsd/nfs4proc.c
++++ b/fs/nfsd/nfs4proc.c
+@@ -592,7 +592,7 @@ nfsd4_open(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+ 		pr_warn("nfsd4_process_open2 failed to open newly-created file: status=%u\n",
+ 			be32_to_cpu(status));
+ 	if (reclaim && !status)
+-		nn->somebody_reclaimed = true;
++		set_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
+ out:
+ 	if (open->op_filp) {
+ 		fput(open->op_filp);
+diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+index 4f1f4d2c6bed1..d5ee9c2e05bb7 100644
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -228,7 +228,7 @@ nfsd4_create_clid_dir(struct nfs4_client *clp)
+ out_unlock:
+ 	inode_unlock(d_inode(dir));
+ 	if (status == 0) {
+-		if (nn->in_grace)
++		if (test_bit(NFSD_NET_IN_GRACE, &nn->flags))
+ 			__nfsd4_create_reclaim_record_grace(clp, dname, nn);
+ 		vfs_fsync(nn->rec_file, 0);
+ 	} else {
+@@ -388,7 +388,7 @@ nfsd4_remove_clid_dir(struct nfs4_client *clp)
+ 	nfs4_reset_creds(original_cred);
+ 	if (status == 0) {
+ 		vfs_fsync(nn->rec_file, 0);
+-		if (nn->in_grace)
++		if (test_bit(NFSD_NET_IN_GRACE, &nn->flags))
+ 			__nfsd4_remove_reclaim_record_grace(dname,
+ 					HEXDIR_LEN, nn);
  	}
+@@ -446,7 +446,7 @@ nfsd4_recdir_purge_old(struct nfsd_net *nn)
+ {
+ 	int status;
  
- 	switch (opcode) {
-@@ -1300,7 +1301,7 @@ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
- 				 "invalid payload length for battery information request: %zd\n",
- 				 payload_len);
- 			battmgr->error = -ENODATA;
--			return;
-+			goto out_complete;
- 		}
+-	nn->in_grace = false;
++	clear_bit(NFSD_NET_IN_GRACE, &nn->flags);
+ 	if (!nn->rec_file)
+ 		return;
+ 	status = mnt_want_write_file(nn->rec_file);
+@@ -528,7 +528,7 @@ nfsd4_init_recdir(struct net *net)
  
- 		battmgr->unit = le32_to_cpu(resp->info.power_unit);
-@@ -1325,7 +1326,7 @@ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
- 				 "invalid payload length for battery status request: %zd\n",
- 				 payload_len);
- 			battmgr->error = -ENODATA;
--			return;
-+			goto out_complete;
- 		}
- 
- 		battmgr->status.capacity = le32_to_cpu(resp->status.capacity) * 1000;
-@@ -1388,6 +1389,7 @@ static void qcom_battmgr_sc8280xp_callback(struct qcom_battmgr *battmgr,
- 		break;
- 	}
- 
-+out_complete:
- 	complete(&battmgr->ack);
+ 	nfs4_reset_creds(original_cred);
+ 	if (!status)
+-		nn->in_grace = true;
++		set_bit(NFSD_NET_IN_GRACE, &nn->flags);
+ 	return status;
  }
  
-@@ -1403,7 +1405,8 @@ static void qcom_battmgr_sm8350_callback(struct qcom_battmgr *battmgr,
- 	if (payload_len < sizeof(__le32)) {
- 		dev_warn(battmgr->dev, "invalid payload length for %#x: %zd\n",
- 			 opcode, len);
--		return;
-+		battmgr->error = -ENODATA;
-+		goto out_complete;
+@@ -1476,7 +1476,7 @@ nfs4_cld_state_init(struct net *net)
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++)
+ 		INIT_LIST_HEAD(&nn->reclaim_str_hashtbl[i]);
+ 	nn->reclaim_str_hashtbl_size = 0;
+-	nn->track_reclaim_completes = true;
++	set_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags);
+ 	atomic_set(&nn->nr_reclaim_complete, 0);
+ 
+ 	return 0;
+@@ -1487,7 +1487,7 @@ nfs4_cld_state_shutdown(struct net *net)
+ {
+ 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+ 
+-	nn->track_reclaim_completes = false;
++	clear_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags);
+ 	kfree(nn->reclaim_str_hashtbl);
+ }
+ 
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index ec37aca0949af..3abe5e1d8baf4 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -2379,7 +2379,7 @@ static void inc_reclaim_complete(struct nfs4_client *clp)
+ {
+ 	struct nfsd_net *nn = net_generic(clp->net, nfsd_net_id);
+ 
+-	if (!nn->track_reclaim_completes)
++	if (!test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags))
+ 		return;
+ 	if (!nfsd4_find_reclaim_client(clp->cl_name, nn))
+ 		return;
+@@ -4536,8 +4536,6 @@ nfsd4_init_leases_net(struct nfsd_net *nn)
+ 
+ 	nn->nfsd4_lease = 90;	/* default lease time */
+ 	nn->nfsd4_grace = 90;
+-	nn->somebody_reclaimed = false;
+-	nn->track_reclaim_completes = false;
+ 	nn->clverifier_counter = get_random_u32();
+ 	nn->clientid_base = get_random_u32();
+ 	nn->clientid_counter = nn->clientid_base + 1;
+@@ -5966,12 +5964,21 @@ nfsd4_renew(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+ static void
+ nfsd4_end_grace(struct nfsd_net *nn)
+ {
+-	/* do nothing if grace period already ended */
+-	if (nn->grace_ended)
++	/*
++	 * nfsd4_end_grace() can be entered concurrently from the
++	 * laundromat workqueue and from an nfsd compound thread
++	 * handling RECLAIM_COMPLETE.  Without serialization, both
++	 * callers can observe NFSD_NET_GRACE_ENDED clear and proceed
++	 * into nfsd4_record_grace_done().  For tracking ops whose
++	 * grace_done drains reclaim_str_hashtbl, that results in
++	 * list corruption and a double free of every
++	 * nfs4_client_reclaim entry.  Use an atomic test-and-set so
++	 * exactly one caller proceeds.
++	 */
++	if (test_and_set_bit(NFSD_NET_GRACE_ENDED, &nn->flags))
+ 		return;
+ 
+ 	trace_nfsd_grace_complete(nn);
+-	nn->grace_ended = true;
+ 	/*
+ 	 * If the server goes down again right now, an NFSv4
+ 	 * client will still be allowed to reclaim after it comes back up,
+@@ -6013,11 +6020,12 @@ bool nfsd4_force_end_grace(struct nfsd_net *nn)
+ 	if (!nn->client_tracking_ops)
+ 		return false;
+ 	spin_lock(&nn->client_lock);
+-	if (nn->grace_ended || !nn->client_tracking_active) {
++	if (test_bit(NFSD_NET_GRACE_ENDED, &nn->flags) ||
++	    !nn->client_tracking_active) {
+ 		spin_unlock(&nn->client_lock);
+ 		return false;
+ 	}
+-	WRITE_ONCE(nn->grace_end_forced, true);
++	set_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags);
+ 	mod_delayed_work(laundry_wq, &nn->laundromat_work, 0);
+ 	spin_unlock(&nn->client_lock);
+ 	return true;
+@@ -6032,15 +6040,15 @@ static bool clients_still_reclaiming(struct nfsd_net *nn)
+ 	time64_t double_grace_period_end = nn->boot_time_bt +
+ 					   2 * nn->nfsd4_lease;
+ 
+-	if (READ_ONCE(nn->grace_end_forced))
++	if (test_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags))
+ 		return false;
+-	if (nn->track_reclaim_completes &&
++	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags) &&
+ 			atomic_read(&nn->nr_reclaim_complete) ==
+ 			nn->reclaim_str_hashtbl_size)
+ 		return false;
+-	if (!nn->somebody_reclaimed)
++	if (!test_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags))
+ 		return false;
+-	nn->somebody_reclaimed = false;
++	clear_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
+ 	/*
+ 	 * If we've given them *two* lease times to reclaim, and they're
+ 	 * still not done, give up:
+@@ -7797,7 +7805,7 @@ nfsd4_lock(struct svc_rqst *rqstp, struct nfsd4_compound_state *cstate,
+ 		nfs4_inc_and_copy_stateid(&lock->lk_resp_stateid, &lock_stp->st_stid);
+ 		status = 0;
+ 		if (lock->lk_reclaim)
+-			nn->somebody_reclaimed = true;
++			set_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
+ 		break;
+ 	case FILE_LOCK_DEFERRED:
+ 		kref_put(&nbl->nbl_kref, free_nbl);
+@@ -8308,8 +8316,8 @@ static int nfs4_state_create_net(struct net *net)
+ 	nn->unconf_name_tree = RB_ROOT;
+ 	nn->boot_time = ktime_get_real_seconds();
+ 	nn->boot_time_bt = ktime_get_boottime_seconds();
+-	nn->grace_ended = false;
+-	nn->grace_end_forced = false;
++	clear_bit(NFSD_NET_GRACE_ENDED, &nn->flags);
++	clear_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags);
+ 	nn->client_tracking_active = false;
+ 	nn->nfsd4_manager.block_opens = true;
+ 	INIT_LIST_HEAD(&nn->nfsd4_manager.list);
+@@ -8391,7 +8399,8 @@ nfs4_state_start_net(struct net *net)
+ 	spin_lock(&nn->client_lock);
+ 	nn->client_tracking_active = true;
+ 	spin_unlock(&nn->client_lock);
+-	if (nn->track_reclaim_completes && nn->reclaim_str_hashtbl_size == 0)
++	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags) &&
++	    nn->reclaim_str_hashtbl_size == 0)
+ 		goto skip_grace;
+ 	printk(KERN_INFO "NFSD: starting %lld-second grace period (net %x)\n",
+ 	       nn->nfsd4_grace, net->ns.inum);
+diff --git a/fs/nfsd/nfsctl.c b/fs/nfsd/nfsctl.c
+index 450957535d1d2..4b95830911c98 100644
+--- a/fs/nfsd/nfsctl.c
++++ b/fs/nfsd/nfsctl.c
+@@ -1124,7 +1124,7 @@ static ssize_t write_v4_end_grace(struct file *file, char *buf, size_t size)
  	}
  
- 	switch (opcode) {
-@@ -1415,7 +1418,7 @@ static void qcom_battmgr_sm8350_callback(struct qcom_battmgr *battmgr,
- 					 "invalid payload length for BATT_MODEL_NAME request: %zd\n",
- 					 payload_len);
- 				battmgr->error = -ENODATA;
--				return;
-+				goto out_complete;
- 			}
- 		} else {
- 			if (payload_len != sizeof(resp->intval)) {
-@@ -1423,7 +1426,7 @@ static void qcom_battmgr_sm8350_callback(struct qcom_battmgr *battmgr,
- 					 "invalid payload length for %#x request: %zd\n",
- 					 property, payload_len);
- 				battmgr->error = -ENODATA;
--				return;
-+				goto out_complete;
- 			}
+ 	return scnprintf(buf, SIMPLE_TRANSACTION_LIMIT, "%c\n",
+-			 nn->grace_ended ? 'Y' : 'N');
++			 test_bit(NFSD_NET_GRACE_ENDED, &nn->flags) ? 'Y' : 'N');
+ }
  
- 			battmgr->error = le32_to_cpu(resp->intval.result);
-@@ -1514,7 +1517,7 @@ static void qcom_battmgr_sm8350_callback(struct qcom_battmgr *battmgr,
- 				 "invalid payload length for %#x request: %zd\n",
- 				 property, payload_len);
- 			battmgr->error = -ENODATA;
--			return;
-+			goto out_complete;
- 		}
+ #endif
+diff --git a/fs/nfsd/nfssvc.c b/fs/nfsd/nfssvc.c
+index 3f7705be3ac75..6bd62ddd70a31 100644
+--- a/fs/nfsd/nfssvc.c
++++ b/fs/nfsd/nfssvc.c
+@@ -402,7 +402,7 @@ static int nfsd_startup_net(struct net *net, const struct cred *cred)
+ 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+ 	int ret;
  
- 		battmgr->error = le32_to_cpu(resp->intval.result);
-@@ -1555,7 +1558,7 @@ static void qcom_battmgr_sm8350_callback(struct qcom_battmgr *battmgr,
- 				 "invalid payload length for %#x request: %zd\n",
- 				 property, payload_len);
- 			battmgr->error = -ENODATA;
--			return;
-+			goto out_complete;
- 		}
+-	if (nn->nfsd_net_up)
++	if (test_bit(NFSD_NET_UP, &nn->flags))
+ 		return 0;
  
- 		battmgr->error = le32_to_cpu(resp->intval.result);
-
+ 	ret = nfsd_startup_generic();
+@@ -412,11 +412,11 @@ static int nfsd_startup_net(struct net *net, const struct cred *cred)
+ 	if (ret)
+ 		goto out_socks;
+ 
+-	if (nfsd_needs_lockd(nn) && !nn->lockd_up) {
++	if (nfsd_needs_lockd(nn) && !test_bit(NFSD_NET_LOCKD_UP, &nn->flags)) {
+ 		ret = lockd_up(net, cred);
+ 		if (ret)
+ 			goto out_socks;
+-		nn->lockd_up = true;
++		set_bit(NFSD_NET_LOCKD_UP, &nn->flags);
+ 	}
+ 
+ 	ret = nfsd_file_cache_start_net(net);
+@@ -434,7 +434,7 @@ static int nfsd_startup_net(struct net *net, const struct cred *cred)
+ 	if (ret)
+ 		goto out_reply_cache;
+ 
+-	nn->nfsd_net_up = true;
++	set_bit(NFSD_NET_UP, &nn->flags);
+ 	return 0;
+ 
+ out_reply_cache:
+@@ -442,9 +442,9 @@ static int nfsd_startup_net(struct net *net, const struct cred *cred)
+ out_filecache:
+ 	nfsd_file_cache_shutdown_net(net);
+ out_lockd:
+-	if (nn->lockd_up) {
++	if (test_bit(NFSD_NET_LOCKD_UP, &nn->flags)) {
+ 		lockd_down(net);
+-		nn->lockd_up = false;
++		clear_bit(NFSD_NET_LOCKD_UP, &nn->flags);
+ 	}
+ out_socks:
+ 	nfsd_shutdown_generic();
+@@ -458,11 +458,11 @@ static void nfsd_shutdown_net(struct net *net)
+ 	nfs4_state_shutdown_net(net);
+ 	nfsd_reply_cache_shutdown(nn);
+ 	nfsd_file_cache_shutdown_net(net);
+-	if (nn->lockd_up) {
++	if (test_bit(NFSD_NET_LOCKD_UP, &nn->flags)) {
+ 		lockd_down(net);
+-		nn->lockd_up = false;
++		clear_bit(NFSD_NET_LOCKD_UP, &nn->flags);
+ 	}
+-	nn->nfsd_net_up = false;
++	clear_bit(NFSD_NET_UP, &nn->flags);
+ 	nfsd_shutdown_generic();
+ }
+ 
+@@ -558,7 +558,7 @@ void nfsd_last_thread(struct net *net)
+ 	 * other initialization has been done except the rpcb information.
+ 	 */
+ 	svc_rpcb_cleanup(serv, net);
+-	if (!nn->nfsd_net_up)
++	if (!test_bit(NFSD_NET_UP, &nn->flags))
+ 		return;
+ 
+ 	nfsd_shutdown_net(net);
 -- 
-2.56.1
+2.53.0
+
 
 
