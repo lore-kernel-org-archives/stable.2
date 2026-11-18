@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794961209;
-	b=T8lniS/ufHQMVgWGHFORbyb0dHGDYQYUsf40Z9Ivyx4+Gx3H4Eq1PBh4dzlAKzrkvRyR
-	 EFcUiGCfHbGibvhvTTKrB5ke/cDdDnmrdqEqCvEdTl9ZFTaGGGuE4+MuB17nGzVBK9Gn3
-	 6KXVCA24DZWMrOCKnjan92Ij4Ku+9err/dmFtW66HIMaw8BT7teMjeHJwVvyPaiRkiTAf
-	 6dl6wUyk4Sr7Gs32sgBrt4mYDBRr4VASyd7BTphbJB5uYdnFNpDTcdH9PNruyPxErogf7
-	 twdhYvRyqFzTOW2rocOQBAvpr5VI8PcFd68qktAeB75tyUcVbbibVCo1oWvNoqFft6Q==
+	b=LrLpiNYujWby72mtJVThgz8uNC2Y1EFTu3lCZ9Z1GuH21tsz2KtGhbPX4/A4NQQIRwTj
+	 AtKGczNwnAIvxyTyLRCl8A9Y4BJ/Z6PucVbe8LnAF6mRLd8tAM4EHVxl3y06wI5ZIumdn
+	 nJTFYQGmf+Kt4iqN/H5yTHyNzuue5LLxle6oSCi29JEy1S5vzuqStQKUivWc8Qk0m+KO1
+	 3dlsfWC6XQDOsRVuwcGPUiAoP4nrdUG5CJG5rAf1BR59w2UGQtNFCfgcb0hYs+GbW8jgq
+	 DFJLyTh6Da1XRDIw547LRBisNz2f2kmegepY8PpJ538dgSFFXJK1SeYp2Em36iOd+/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794961209;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=6so24GezOUeLshnz+r9/uQrQbBVW4KNO24KQxAvhjmo=;
-	b=S99WofiFJxz7Cle58uy8FAsE+fraQO2ZbTOYztOHrybFmV6CWCQz1xU4OuA9fzy2aMW1
-	 ouTEIV73t4FU/LZb0HMZYiG9iPbkAxbHq3DoMYL2+65vEXmJkrJRMnx7pL+P4EBaVkwzi
-	 vAzPFJfW8+E0ax4kFqWzfUuCNJns78pzvk1s8VuAyLJyZkzO0VY8cYBo77i+nlEzHZnDU
-	 6CL0onHZYvRWFeK7dhoWhlQ/XWcrIzK6Bn0M2aewqmxMfWKnFW5Kh23nG42s4Y7j+XL7c
-	 w2f5k48ESyv6E4kFHuHA9Hf9cAKeldJtVn1drnZ3FAMgz/S8APe/4NQovwQcCTQr3Ng==
+	bh=4bbODQ8lbn47OYKS3LDBYU7IVB/7EA0DDppuHioC3F8=;
+	b=vAGP+p6A1oaeDXIrenhhuqBDGrSdYb8RWRQjqZOocd9MwJ2gm/IugaF1fsFnnSfWTBXa
+	 FIsTi4jYyYPHwDVq1qATxPa2CeKngDZ0KzBlzqNF7yZ/Co+deK7MvKbLgWIYnILm2j2u+
+	 tlcjbqBX3amsuJ6J+A8MZtn6Nr0t7dV5Gm7y2iLd8oP6UU36NFF2qMA6LqL502+OBgaLa
+	 EX64qwTXRwq8M9GrcADSFDXx23i7QkuPgvOIyzeo+7/2pcHAwJbZMS/mPjh5dxF5GdkKJ
+	 abqMruQoT730vDy2Y/slFiQtfVhXHUv/aQlycoL+j0zA/5o4i5LON7EzDRSjkjwgoRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mk1ZYGFW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="YKcJJlQ/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7873C606A887
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 00:20:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93113606A889;
+	Wed, 18 Nov 2026 00:20:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mk1ZYGFW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 822391F000C9;
-	Wed, 18 Nov 2026 00:20:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YKcJJlQ/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DF6E1F000CC;
+	Wed, 18 Nov 2026 00:20:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794961208;
-	bh=6so24GezOUeLshnz+r9/uQrQbBVW4KNO24KQxAvhjmo=;
+	s=k20260515; t=1794961209;
+	bh=4bbODQ8lbn47OYKS3LDBYU7IVB/7EA0DDppuHioC3F8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mk1ZYGFWyc+Mg2qwBo1YPEdoME2QsUO23tOY4Sd1WHLz7FiFJwSoETTqb5YJe9RW9
-	 dPOclLekAsH55cDRB3qoSJGeVtun/8ZpUsIBzxPldTNcDevM2dF/RmizvQcfhTUNwC
-	 cOCBRY0/v1Dp/q++QzuaXVs70w7kq+bMT3qzJ5rTiqM8nzaQn0KxdKsp5GLRSmB4t0
-	 bL6rBbrCEOYibTL3ryvZHT2CyZkyISySrVc98+I5clhoW8WY2magEPyJC0p/JBA5kP
-	 BFqEeK8Sp85poQLLF6AuHjX/l/DVvT580UYwJILgulmFFKm4Wij2+2FrlHSbft6NG2
-	 snD9dn+wpDXww==
+	b=YKcJJlQ/MSyJyNrE9ahfYIcRddoE/z6uQZuBIAxOILLtGFUsnf5MWeScaaMS/jmFT
+	 sp88TO/pKL8c5VEVNQqZbkYePF7ca/MJwJVxJt1yGQpT6jrQy249vrilfQaH7WQ6NR
+	 lCWz1lNMDZA5dB5dl2D/1+yCyLGdOYcg6W/hvmN7UoPiTm5hzt8XOipwrGFweyXCyy
+	 ikrhqcFOqCwXl3N+U2nEcFo3XdJB1YIRyMhpbgE49JaKsacmzh97F6pADyEBZFtBFD
+	 iHBVolvxkW8O9uf6odM07Gly0G1GVkG7a+HVT08SijtJTZs7MFQpWM0fKVoJyjWl2E
+	 JeStNpSy8j6jg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	gregkh@linuxfoundation.org,
-	akpm@linux-foundation.org,
-	mathieu.desnoyers@efficios.com,
-	mhocko@suse.com,
-	linux-mm@kvack.org,
-	Dmitrii Chervov <fary.ru@gmail.com>
-Subject: Re: [PATCH 6.12.y] mm: fix OOM killer inaccuracy on large many-core systems
-Date: Tue, 17 Nov 2026 19:19:55 -0500
-Message-ID: <2026-11-17-1-daily-reply-0004@kernel.org>
+	stable-commits@vger.kernel.org,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Linus Torvalds <torvalds@linux-foundation.org>
+Subject: Re: Patch "vhost: vringh: use get_user()/put_user() for IOTLB 16-bit accesses" has been added to the 6.18-stable tree
+Date: Tue, 17 Nov 2026 19:19:56 -0500
+Message-ID: <2026-11-17-1-daily-reply-0005@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261117124938.72111-1-fary.ru@gmail.com>
-References: <20261117124938.72111-1-fary.ru@gmail.com>
+In-Reply-To: <CAHk-=wjJ80Ajzu6vd6TOjaV1jSVgvBJ04nMT0qK3igvqgu_Oxg@mail.gmail.com>
+References: <CAHk-=wjJ80Ajzu6vd6TOjaV1jSVgvBJ04nMT0qK3igvqgu_Oxg@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,12 +64,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> [ Upstream commit 5898aa8f9a0b42fe1f65c7364010ab15ec5c38bf ]
+> Note that the "now disables page faults around it" is not true in
+> stable kernels unless you also take the previous commit:
 >
-> Use the precise, albeit slower, precise RSS counter sums for the OOM
-> killer task selection and console dumps.
+>   05fb07c40e00 ("vdpa_sim: disable page faults around
+> vringh_need_notify_iotlb()")
 
-Queued for 6.18 and 6.12, thanks.
+Thanks, queued that one for 7.3, 6.18, 6.12 and 6.6.
 
 -- 
 Thanks,
