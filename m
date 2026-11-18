@@ -1,59 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795026426;
-	b=dy45syubhNdJQSaP4ZM/M31FqqQrlQVrW5obAVl9OI+KgcDEiV+hQgo2Cfiy5ooIdgCe
-	 nuKvtYgQ5Xk8cf4uyakEOTLb8rYM489ap0ElEG1DYPxeI/I7smtYzPkl+Kjc6LeUpHE8I
-	 zIVPy85196XlWIRMlZPSIL8+mNCg8Hkv46h3ytO+k6j3D/i2s4ncMhZIbhLHPdXi9mwhM
-	 V+42uMHDeioTc8qOBcazke81GIN5JRIdfuymlM6hs/msY9rfyR5dZ/YNcQ8yotaiN0xu2
-	 7ucyzMaSe8umIsLCw3B+mrqyDvY8q7w72V4uvRytujY852cXj2quGmKv05hqS6HtvVQ==
+	t=1795026427;
+	b=bQPxbSprSxgq/RUTpsIBmbVuXoCaJHtT9Sn5Hg3gi/XBy7tleycoZ6agDsMqo/ThxGpL
+	 3Odcp0a+l+h/N3zoFK1sLeUclrjTUqX37lc6Lzk461hVDFiTfgVEni5AIxDE7/Yo8/DHv
+	 kvNBAtmiJkDX0FD0RbRLScuWlTRqmMr+mfeo7klnVVzH6tN+tE/rNFXN14i9Gu304sfNx
+	 aRZ02PEwe7x3veNgA355tHA/gZBBF8j17+7Eh2j7AF5ZuWoQSNnUYSjiRwOWr5qQcyBNv
+	 F2dwi/7D+Oy1hQNRuBj8Ry7/AoQCoVF1JMNLM+ceR6efeV87ALs+DQa9X+sVOmrCeIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795026426;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=MyF3vdZ89Seq40QuJUnY5NyP+ytEkPofcy4gALz24s4=;
-	b=CcARyCPwRvxM1stuPtdbHbiccGNY9W5aG4TgqN+axnA+QfYJr5Ob98jzvG4ZcRn25RA6
-	 J53tvn2h97g/fP3cG7hclRE/0APlItmdexN/6KnW+nxiimUAyWuNwFDseI2vFljJdotcx
-	 Vt2jdz2hJGUynbUaqpX5nu69s1yfst9la6oev2eY417Ucpdk6B3nOZ5xbPYKKZw0zMwbg
-	 FtIUK93UsZkj8oC9sZRCPIkZYWK6R0FfXn+bIw37i3eq+znuBe3leaXjrz6cGYz7ptBbG
-	 dt21V0xG+1bDOM0N84vcyyevmkxgrQY6tZHiA3Qtv10PVAR2VcN162okKBJqMKOJs1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795026427;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=Z/lgf/GnvODHH2kSfd1ioOa/KiKtGaKkOea+zkHk+YI=;
+	b=loqeR4te4YFwecRqd8jAfsVIEchUiBCNFWJMGzEjDBr39CgT27ZA4t4TRZqm91ZXrFez
+	 roPKeJFMbOtG8PF2bkWmrVy/W5gDPJt9ILdJaEBX7TLGBzjXY9elBlmOjFWu+oF8/Uz66
+	 QpTwCggC2WSFkU8CTCSUP4WoHvO7Cg+YW5ZhSA+GkJAeeV/00oCbSBGlNf2bITKjm01KV
+	 v0QD7GBJPweFma+B/ivaD9dBdyoAzShrpkVA8mYN1bDyyPwqyV7TpY9Khg9oWbrZ1JZxS
+	 3wSCajnEdF9azPicHCogvZPxHMz192SFVMouskkX+HH5uTy0seumGAVVbTLVSbgsvLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x+Pv+udf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F55A606A32A;
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OdFPmX7Z;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA844606A331;
 	Wed, 18 Nov 2026 18:27:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA844606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x+Pv+udf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4F121F000C4;
-	Wed, 18 Nov 2026 18:27:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795026426;
-	bh=MyF3vdZ89Seq40QuJUnY5NyP+ytEkPofcy4gALz24s4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=x+Pv+udf7pmYd+l9dMGxKX4MWKJt2xdKSFaFJdehAPN27c3Q0pwv4jKwsXV3v0gmW
-	 5aUaKoFZSPlYcp440Rl6/F5IY0TcZxhd7SOGC0MR6xLwmR9tMa76fwkCILBHjTZnuh
-	 1ypaV04gnW6H1XTr9/L7UcadUOJRjR/5oiHxpD9k=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1432/2151] clk: qcom: mmcc-msm8996: Fix FD AHB clock register offset
-Date: Wed, 18 Nov 2026 15:52:47 +0100
-Message-ID: <20261118150214.100159044@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
-References: <20261118150121.603863898@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OdFPmX7Z
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E52071477;
+	Wed, 18 Nov 2026 10:27:02 -0800 (PST)
+Received: from gaia.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2BBFA3F673;
+	Wed, 18 Nov 2026 10:27:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795026425; bh=KD00H1LZROLiORUw7YDn6v/wgRaKM9BnTfzpbzUCeVo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=OdFPmX7Z+SLEjJNH0jSOiiUGQ/J+Aol+4r8E/VTNF6DOQRuVpf4adrDYexah8mmF+
+	 4jDcYK8Wk7NsokRYoqRZ5Qw1H/1WTK2rN/deYIZVtBYReCe+v+Dclr7yWoC3bHHqXq
+	 xX5Rd+MsP0iG6Nw7Zw5AUKcb6i8eo2z7FBvm9dDE=
+From: Catalin Marinas <catalin.marinas@arm.com>
+To: Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Pasha Tatashin <pasha.tatashin@soleen.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Ben Cressey <ben@cressey.dev>
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	kexec@lists.infradead.org,
+	llvm@lists.linux.dev,
+	Nathan Chancellor <nathan@kernel.org>,
+	Zhaoyang Huang <zhaoyang.huang@unisoc.com>,
+	Jeson Gao <jeson.gao@unisoc.com>,
+	stable@vger.kernel.org
+Subject: Re: (subset) [PATCH v2 0/2] arm64: use typed entries into copied code for kCFI
+Date: Wed, 18 Nov 2026 18:26:38 +0000
+Message-ID: <179502639864.2187887.8685436920018120058.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261111-arm64-kexec-nocfi-v2-0-ddf0c4aa326f@cressey.dev>
+References: <20261111-arm64-kexec-nocfi-v2-0-ddf0c4aa326f@cressey.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,52 +75,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Wed, 11 Nov 2026 15:26:03 -0800, Ben Cressey wrote:
+> An arm64 kernel built with CONFIG_CFI=y oopses after "Bye!" on every
+> kexec that relocates the image. v1 [1] marked machine_kexec() __nocfi.
+> This version types the copied relocation code instead, as Kees Cook
+> suggested [2], and does the same for hibernate, as Mark Rutland asked
+> [3], so that swsusp_arch_resume() loses its __nocfi. Only kexec faults
+> today, and its fix does not depend on the hibernate patch. x86 follows
+> as a separate patch.
+> 
+> [...]
 
-------------------
+Applied to arm64 (for-next/fixes), thanks! The second patch is for 7.5.
 
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-
-[ Upstream commit 7cb2d65286b817d8d7e26f454a9c374d65e87072 ]
-
-The FD AHB clock branch register is at offset 0x3b74, not 0x3ba74.
-The incorrect offset exceeds the regmap maximum of 0xb008, so regmap
-rejects accesses to it and the clock cannot be enabled.
-
-Correct both the enable and halt register offsets so the driver can
-enable the branch and check its status.
-
-Assisted-by: LLM
-Fixes: c252659770db ("clk: qcom: Add MSM8996 Multimedia Clock Controller (MMCC) driver")
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260916-clk-qcom-mmcc-msm8996-fix-fd-ahb-offset-v1-1-a575e1b9112c@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/clk/qcom/mmcc-msm8996.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/clk/qcom/mmcc-msm8996.c b/drivers/clk/qcom/mmcc-msm8996.c
-index 7d67c6f73fe13..deb90fe5aa9f8 100644
---- a/drivers/clk/qcom/mmcc-msm8996.c
-+++ b/drivers/clk/qcom/mmcc-msm8996.c
-@@ -3134,9 +3134,9 @@ static struct clk_branch fd_core_uar_clk = {
- };
- 
- static struct clk_branch fd_ahb_clk = {
--	.halt_reg = 0x3ba74,
-+	.halt_reg = 0x3b74,
- 	.clkr = {
--		.enable_reg = 0x3ba74,
-+		.enable_reg = 0x3b74,
- 		.enable_mask = BIT(0),
- 		.hw.init = &(struct clk_init_data){
- 			.name = "fd_ahb_clk",
--- 
-2.53.0
-
-
-
+[1/2] arm64: kexec: use a typed entry to fix kCFI oops
+      https://git.kernel.org/arm64/c/b059e957d07b
