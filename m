@@ -1,100 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795015837;
-	b=pOoPDL+UPcT0s0Rz3YcsHB/zmu9OXEioU3fZspSJvJTQWlkngzP4re5B1YHtf2zQWUEN
-	 VMEc7T2tU2lQyxDiO4f8yY8TCoqWALcJ6+3EIF262ugmaCWgQJJcWvYnInHbwUUHucRLb
-	 IjVkiBniCVTkTz8VTwcW3OK+GmhOT61ZHH0xaZMsASNSPOkVnHJcBaGItIgu4Q8FgkWK0
-	 +9pd05/VuYgualPW20ntmT3iflUKr+Y9DNCQe6K0xOd0gceptulUKPN+WGPY5vwnGMMxg
-	 68xvbfaU5IJ5iCIAJPhu/2ZznrrgzCj0YGBmOzfS5d5ZoaexSsZKJEUf7N2f+tuh16A==
+	b=5Bd+cHjLiZ3n/L75p/Jzqrz5j2zXa7h1ncXeTXaMhs0kv38zyr+5JtBoEMdmfeAzXdIb
+	 e3HrP6QkDugifXvgGcUmVg7m1nWTj0Lyi2xHNFn0uXU+RGfDcur2ZFCGUbbc68quy1sMH
+	 wYow6jJTXI5RK+BcWI2H3SzDv/7ieZDwry77r7472ZM+L7TfwPt9brcJuPtRerx5nIej+
+	 HF2+bcgAWp5xljp3GEgeHAgWJ3XmFUcs1hweGCdbLnqqIqtNLX+R8V9lBpRshlete4LRo
+	 po6ljEng9cddL//lCRX0ZwELw7pgtR8+opSsrvbwpKgBbQ+hb2UOOW5QZe0bkMyXwkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795015837;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=l0Wbxu7fm6/y8ipzcr+Pib3IjmOX46dTwli0BjlLQ+A=;
-	b=y8YVJQxF15stW1Y6foH0v1bcZmmx4XpREhbCNSbpEBZuPYorTmHoU2uIh5Jaglah6+av
-	 tUqlJjCyKflxKjwfJBhOi+dA/+INp3tue0/sR2E8qR35BAE1tVaG2QYUZjuB3mvpRHq+z
-	 MqeanGiaBl9gml+gLv2SeBCYxbe8T6s4LDj2pjnXb2iFVzvVG44V2OKe9J4/HtTDW6/mb
-	 Od0Wg3Ob8akjGhyMGD+FXtB2ZZzT8TEfLwanIokbGlTqwXmfDeW3ElB9hvDomqiI5wEvc
-	 A7hYhDiGSB5tGPojqi4+NzXdzq1eqBZqEnwbo55M8kC83wdloqM/sYWTYzILgQW2Xgg==
+	bh=4TaXxKweLsnbx+xHy/WoLb24+PDzdqST68n6n1hqe0Y=;
+	b=HzAGOJl2lqsCwkOtA9miePbvrtCONfLhkzh+Pv+LfvAjM4M1hDtuI5kUga3CSNd+dKE8
+	 rRy6pWNeVkqJIPnKI7WPuWjnaW7uO+pOsdxPqieIwk0XehdMZ1z/d9BUI70+t1RiAnfGQ
+	 phzz8uHbjPk7aGgts2WY7oQt+mxugeY5oDvFseVR8az9xaT9uFPJXd8kaexUMDGi5vfL8
+	 oqj7XmOx4CarO6ACorsYpU7w/giZ9of9kzk9ocZ/LTj2LGioYixiGPS8iRFgImGnYrBNr
+	 tdv5cIOnMBaI52ml5LQSqswnZtM39TLt1e519VflWqd7Uye7Xdq6JY0ezeeHWFelfbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nNjudTQf;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HPi09b34;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A7EA606A33D
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:30:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A7EA606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A94960A260A;
+	Wed, 18 Nov 2026 15:30:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nNjudTQf
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-381f65e4e4bso1849099eec.0
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:30:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795015836; x=1795620636; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=l0Wbxu7fm6/y8ipzcr+Pib3IjmOX46dTwli0BjlLQ+A=;
-        b=nNjudTQfUtItgoHK8wzcYX+IGFRMeXj+D0aA6Rd/YI+IqEGKHlmiwm0DTzxYD6tNIX
-         y2UKX/gNMusuX4F3gWYEjtlN+8ppU+9qfpj41cvSgo+uE6MahlY3OMt5dm8/y7FSWxX3
-         U6uURVKB4m7HyQAMo42tMpFsLlL5AZVaf936R3u+u1YnmTDmBtbORevicnDXJl1mpD3X
-         qHDB4F04WBInTWkXwgwgnlQQR3dcIFIBMjVjqbKWs1chILOjZH91nWO3/5uePD3HNchS
-         MHClzeINEWtGDd+pn56VlF6MXsYBD5VxNOG/Nah9zM/VCsYdbhL1xySD7oPug46gf3vb
-         IWnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795015836; x=1795620636;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l0Wbxu7fm6/y8ipzcr+Pib3IjmOX46dTwli0BjlLQ+A=;
-        b=xj/m61iHmmJ1Di6We46IZEx15WpbAk3zLwkNddeJ6/yDmV4bcjweEI82gAekeGYd8C
-         z6s/zD5kgmkkL1NDkTVLcWxWyx79xMx3toq9F83zHjCU0ti/UIEhaIccYb9roXfiHy1R
-         8rH6raJBUiw8MI87N8bSRPWAZC9GqE9HUreQqM3OTU83OIDvDtsCf8U7PTRyMKyAcNlg
-         joAQxpeKSFWGv1i/iGQjMllL6nv01dRnnHOodsfuRdkw6NOTCi99OlpeWNqPw1oMjLHI
-         qbhvvJs0X3l/Wz+BKjkDMCEpAGX87teF/iPdKy6zytQh03pBmX+Uu3ktv/mSFWpfnb5r
-         Z1fw==
-X-Forwarded-Encrypted: i=1; AL+hErFP2Qy2xshLy9RcHifpVG9tZ5DImuhKMeZpsgwkWhzy8mvWA6DzPMQulf6/7fnjVV+NZjG/q9E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8JwaNfWfME1TNMsGSZfiIfLf4+Jae9lCYFelZqshcVW3LvLRiu
-	JkquZBCqcojPZemqkCCVWl6FsU7ZUD8WYDm6YdTjaWDtPnVEOPxEmHww
-X-Gm-Gg: AZFdTZfqHtN5HusWAlXiC2D07MiQO/xHcWfVJS8yvEoFkB5+GLQHuOHK3h4TbpgUCus
-	a3DhXnh1csgyui6keiJ4Fz2n3Uwwp9cUT8UWBY84O4bVDIr3IzyjihxpRSGUg98LdibP0EBH6xm
-	f9FeEtoN02GgKBW1toXjyT3vN9ii7L2WVEXJKyzXVJ5GEKYEZZzT0KUuQukUp3uYut1aIOhgU4t
-	uvl0/i5dRDsc0ErDMJTN2Ewf1tQAEXNUz7Dl9S5H9O0pJaHF4o49jOT2BZHrQlxinhO9SHN+68n
-	ix6h8+V48vharAA5rSlBjywgZ9YzIxN7r1E1KwjInu/RjtMIA9C+1Eme+Wvg3ydA9XIENfORkv+
-	cLrmvckj94BiY/9BZCSO/95xM7cu3JxAl9lz5cBTbQTmr/SKm/QA3VFOSS/94rmJNfD3+sNObOp
-	JXmGEfNaEq4Yhwulijg9BHHX8XIFcaR7dWeJwbQek0fgPUVsTCFu4IMBDWtl2UbCO7VOccugKS9
-	A5C5+jPwZTtneCkStvKBXmJdgltC1bXsSw8urjCAEBH6Hphy2u6pA6ScnCp/t7vaxAohJf30AaG
-	tuSOsj6w0fQ5DVlsV7ndK62BPpcYxOnBHWsk1eP7ycjYepfzFnnFtpldrwk=
-X-Received: by 2002:a05:7300:d210:b0:36d:4135:cd7 with SMTP id 5a478bee46e88-3828083e094mr2685513eec.18.1795015834724;
-        Wed, 18 Nov 2026 07:30:34 -0800 (PST)
-Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:2c16:ada8:2d24:d03])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a630517asm8922616eec.8.2026.11.18.07.30.25
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 18 Nov 2026 07:30:34 -0800 (PST)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: Kalle Valo <kvalo@kernel.org>,
-	Wen Gong <quic_wgong@quicinc.com>,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HPi09b34
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53B591F000C4;
+	Wed, 18 Nov 2026 15:30:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795015836;
+	bh=4TaXxKweLsnbx+xHy/WoLb24+PDzdqST68n6n1hqe0Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HPi09b34mGY/pZlflYFyjy3uTCfZS6jBYroLTB+V0IV7AckRoAgGOtO/GrC3z3JZ3
+	 l5PxPCk33osGe1Gdz7HKLLjgGq0N4sQzfZkrlD9JWbr8EfAJ+mKrPVD5/Tw7MlSFyj
+	 q64247uHExJpkROyyL8ylIXmKQJCUzJZ9RWuGHV4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
 	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Anilkumar Kolli <quic_akolli@quicinc.com>,
-	linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Zhao Li <enderaoelyther@gmail.com>
-Subject: [PATCH ath-current 2/3] wifi: ath11k: free the regulatory state when the device is freed
-Date: Wed, 18 Nov 2026 23:29:41 +0800
-Message-ID: <20261118152942.62838-3-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261118152942.62838-1-enderaoelyther@gmail.com>
-References: <20261118152942.62838-1-enderaoelyther@gmail.com>
+	Nicolas Escande <nico.escande@gmail.com>,
+	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0315/2651] wifi: ath11k: fix locking problem in ath11k_dp_rx_tid_del_func()
+Date: Wed, 18 Nov 2026 15:25:55 +0100
+Message-ID: <20261118150259.222952454@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,59 +66,104 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The regulatory state of struct ath11k_base, the reg_info_store array
-with the rules it holds and the default_regd[] and new_regd[] domains,
-lives as long as the device, but ath11k_reg_free() runs from
-ath11k_core_soc_destroy(), which only ath11k_core_deinit() calls. The
-teardown paths that follow a failed start skip ath11k_core_deinit():
-ath11k_pci_remove() when ATH11K_FLAG_QMI_FAIL is set, and
-ath11k_ahb_remove() and ath11k_ahb_shutdown() when
-ATH11K_FLAG_REGISTERED is clear. They reach ath11k_core_free(), which
-frees ab, and whatever regulatory state the failed start allocated
-leaks.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Free the regulatory state in ath11k_core_free(), which every teardown
-path reaches, right before ab itself.
+------------------
 
-AI assistance was used.
+From: Nicolas Escande <nico.escande@gmail.com>
 
-Fixes: 61a57e51e46e ("ath11k: fix rmmod failure if qmi sequence fails")
-Cc: stable@vger.kernel.org # needs adjustments for <= 5.15
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+[ Upstream commit c7555d47b1d051e0406474349deccf74b491ae01 ]
+
+In this function, we iterate over dp->reo_cmd_cache_flush_list using
+list_for_each_entry_safe(), under dp->reo_cmd_lock for concurrent access,
+and for each expired entries we :
+  - drop the lock
+  - call ath11k_dp_reo_cache_flush()
+  - kfree() the entry
+  - retake the lock to keep on iterating
+
+list_for_each_entry_safe() protects us from deleting the entry during
+iteration but doesn't protect for concurrent access. So another thread can
+take the lock and modify the list in between and crash like below.
+
+To fix the issue, move all entries that needs to be freed to a local list
+while under the lock and then iterate over the list to free the entries
+without holding the lock.
+
+	BUG: Unable to handle kernel paging request at virtual address 00000010ddbeef8c
+	Call trace:
+	ath11k_dp_rx_tid_del_func+0x164/0x3c8
+	ath11k_dp_process_reo_status+0x1d4/0x2fc
+	ath11k_dp_service_srng+0x334/0x338
+	ath11k_pcic_ext_grp_napi_poll+0x30/0xc0
+	__napi_poll+0x34/0x184
+	napi_threaded_poll+0xb4/0x1d8
+	kthread+0xdc/0xe0
+	ret_from_fork+0x10/0x20
+
+Tested-on: QCN9074 hw1.0 PCI WLAN.HK.2.9.0.1-01977-QCAHKSWPL_SILICONZ-1
+
+Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
+Suggested-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Signed-off-by: Nicolas Escande <nico.escande@gmail.com>
+Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260813-ath11k-locking-v2-1-f4113a0bd0f4@gmail.com
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Found by code review. Tested in QEMU with KASAN, using a test module
-that frees a synthetic device through ath11k_core_free() after a
-SERVICE_READY_EXT event allocated the store, then reads the store to
-see whether it was freed: without this change the read succeeds, so the
-store leaks; with the series applied KASAN reports the read as a
-use-after-free of the store that ath11k_reg_free() freed from
-ath11k_core_free().
+ drivers/net/wireless/ath/ath11k/dp_rx.c | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
-No new W=1, sparse or smatch warnings.
-
- drivers/net/wireless/ath/ath11k/core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireless/ath/ath11k/core.c
-index 766ae27306f4..90124a826088 100644
---- a/drivers/net/wireless/ath/ath11k/core.c
-+++ b/drivers/net/wireless/ath/ath11k/core.c
-@@ -2021,7 +2021,6 @@ static void ath11k_core_soc_destroy(struct ath11k_base *ab)
- {
- 	ath11k_debugfs_soc_destroy(ab);
- 	ath11k_dp_free(ab);
--	ath11k_reg_free(ab);
- 	ath11k_qmi_deinit_service(ab);
- }
+diff --git a/drivers/net/wireless/ath/ath11k/dp_rx.c b/drivers/net/wireless/ath/ath11k/dp_rx.c
+index 33425707c0842..5b717b731197a 100644
+--- a/drivers/net/wireless/ath/ath11k/dp_rx.c
++++ b/drivers/net/wireless/ath/ath11k/dp_rx.c
+@@ -762,6 +762,9 @@ static void ath11k_dp_rx_tid_del_func(struct ath11k_dp *dp, void *ctx,
+ 	struct ath11k_base *ab = dp->ab;
+ 	struct dp_rx_tid *rx_tid = ctx;
+ 	struct dp_reo_cache_flush_elem *elem, *tmp;
++	struct list_head flush_list;
++
++	INIT_LIST_HEAD(&flush_list);
  
-@@ -2734,6 +2733,7 @@ void ath11k_core_free(struct ath11k_base *ab)
- {
- 	destroy_workqueue(ab->workqueue_aux);
- 	destroy_workqueue(ab->workqueue);
-+	ath11k_reg_free(ab);
+ 	if (status == HAL_REO_CMD_DRAIN) {
+ 		goto free_desc;
+@@ -783,23 +786,25 @@ static void ath11k_dp_rx_tid_del_func(struct ath11k_dp *dp, void *ctx,
+ 	list_add_tail(&elem->list, &dp->reo_cmd_cache_flush_list);
+ 	dp->reo_cmd_cache_flush_count++;
  
- 	kfree(ab);
- }
+-	/* Flush and invalidate aged REO desc from HW cache */
++	/* identify aged REO desc that needs removal */
+ 	list_for_each_entry_safe(elem, tmp, &dp->reo_cmd_cache_flush_list,
+ 				 list) {
+ 		if (dp->reo_cmd_cache_flush_count > DP_REO_DESC_FREE_THRESHOLD ||
+ 		    time_after(jiffies, elem->ts +
+ 			       msecs_to_jiffies(DP_REO_DESC_FREE_TIMEOUT_MS))) {
+-			list_del(&elem->list);
++			list_move_tail(&elem->list, &flush_list);
+ 			dp->reo_cmd_cache_flush_count--;
+-			spin_unlock_bh(&dp->reo_cmd_lock);
+-
+-			ath11k_dp_reo_cache_flush(ab, &elem->data);
+-			kfree(elem);
+-			spin_lock_bh(&dp->reo_cmd_lock);
+ 		}
+ 	}
+ 	spin_unlock_bh(&dp->reo_cmd_lock);
+ 
++	/* remove aged REO desc from HW */
++	list_for_each_entry_safe(elem, tmp, &flush_list, list) {
++		ath11k_dp_reo_cache_flush(ab, &elem->data);
++		list_del(&elem->list);
++		kfree(elem);
++	}
++
+ 	return;
+ free_desc:
+ 	dma_free_noncoherent(ab->dev, rx_tid->unaligned_size,
 -- 
-2.56.1
+2.53.0
+
+
 
