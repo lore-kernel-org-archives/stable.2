@@ -1,47 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794999028;
-	b=ONMzY2Tsdo+r+674ACBd/8jgbrWq+Y853wn++j0SWxIpYuJxJko9KILMFNpDWtD6GS+l
-	 ai1SDAPKMb8+does7e6flFOK/uqWTVn6K/XsSY1CquVnhnjaRfz70+YzBuendW1BXYdOI
-	 f+SRDOeR+piPRDkc4i2TVMRxIc8qcWTsOF1DTEFirx+yoszKZv2jABq3bpssjHOv0uc2M
-	 mv1yRdf2mmFkRcF2zsAYZDnPjjf2CA8Hcf7IvYdbr97GkRk5mosIOnEB6ePPtlKbwY0Lq
-	 ZsCw92fN1c3pihObxZQdIIKVLFk1NaGgFs9qU+2juNC3d1vv00U4woGIOJ+luuSKWbg==
+	t=1794999128;
+	b=tsSMtkN/NsmQio3TDKif4ObJWNzAY/6WKm0sZmbWf2+Wz5gWmF0ow8GCRrnOFjq/3Aqs
+	 SDtm6psXp3M/Y0X1GIgsLKT0ES34ypmr+xcvo41sdrfcU3v0IpDW1bbIvUlYxB3meW+Ym
+	 AWJ6u4yxfY40Zgd7sRTkavJKiMsB96B4nEwRGT8WbaD9IUZC2k1/KsusOxUVNMh2XwOvf
+	 c0vtRDpV2l58z5t+jhLI/+u+A78cfhbowu9muzM4e8w8QDms/x7s2wbAzBSvz7XDhKREc
+	 aW0jsTNhUJBqaWFS1pm+q4Nxhh/hHJgIw/PaLzrZ6RdPlsw0H/ZzycKfecOahSW52Rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794999028;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=2tyJQEQnFeWwomXQ5IRkBcHcwvd362+cG6pq/T5Bwi4=;
-	b=QU+yJIIvXQV/elyx2dUWg7yLpPk08YeGVf8zfcMDKa/yFYCJmEJGNriLdAICIKo1KZVk
-	 aZQImw1nX1eFKRA4CIJdYGPorSQXYmYdptOb6ycG5bi+nkXLEb91i8QbJUpBNGnzgKsSH
-	 iFAJzzswYNDXhctf3Qu0+tW26oDbxo3y4nPb3jCeCWJmUNLPv6oPDgBRmT4rUgh4y0g7H
-	 0r2wEDP6HSYx6o4xCK9z+b+A5RllK/zRri2nvNT/xelBLmyuV3O5sSiFLtTcid/BPZ5Ld
-	 uGw7fj6QvMYl3WiQlAqzLu4+mQIUQzKMD0t/I5/cNzi/9JWUm7J48W+pMzrhJXqzFpw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794999128;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YBu0cA8jS17Zmd35KzNwqLeEg0d5ykV16Mfd43dd0oo=;
+	b=2Lx93dR051iEWsWU00Mzdrrsqy7vvfL4hBP0NkwxYTH8OuYXpbuoVnPASMXtNEAxQxp6
+	 lTbooJBzIpWiHWqcwKVkQutZoqA5JqMq7QpYr/ZOerdAwNYtmKvt8j2hGh3U8BNT+tJrP
+	 g4WJvmtYTyS7bcBfNeo5b0YXP0t26FzLdO8dU34wpI2cPjyIIxXCnmAYZxGn5UmPzsTJu
+	 +mdOyBW4apKj/c4kH08KRUqCOKrMRqUQbtZ0tYrW68XBef0zQrtBE4dPp1hdddwkKMdE5
+	 spafbtOcW250rbJvfKrjd8WF93H99I/diigeMU1XwNkfIH8dgVBG+dxXp+sNBJkF9TQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Pr//q/Y8";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhIKHIri;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78383606A31C;
-	Wed, 18 Nov 2026 10:50:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6635606A334
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:52:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pr//q/Y8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03ABB1F000C5;
-	Wed, 18 Nov 2026 10:50:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhIKHIri
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 207251F000C7;
+	Wed, 18 Nov 2026 10:52:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794999028;
-	bh=2tyJQEQnFeWwomXQ5IRkBcHcwvd362+cG6pq/T5Bwi4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Pr//q/Y8OiVPLDdAT5oOmIcmCL8xXTs8vFj8sUFKQYdCvGikTJ0MxLgfNrOxR0Ta7
-	 AvTRZmLuVgJcBFYzqHm6BJF+z8/n8NgYxsuIdIhK3XrCehTmx4m77tW024J0HY7NaN
-	 TCsXb/wtvXkZ97WVBVrd5ZNfmeNPReiJukadaoCOGcU0xmTOwygDw8RetcGwRI83bA
-	 EZDxFtJH54PQVrXoaFNElTjvs939KZH+QAnzmgH2xqETia+5LNJUHTvcsosMOdFE3J
-	 NPf/f7/QyQoOlw81m8LAQrJSKwq5Z1SVPncq6MUyzIBgRZRfIv3KsUzMGyCy4bVghB
-	 bBpHjPargRbJg==
-Message-ID: <aa9a2189-71e5-409e-b89d-c14441bccb72@kernel.org>
-Date: Wed, 18 Nov 2026 11:50:20 +0100
+	s=k20260515; t=1794999128;
+	bh=YBu0cA8jS17Zmd35KzNwqLeEg0d5ykV16Mfd43dd0oo=;
+	h=From:To:Cc:Subject:Date;
+	b=UhIKHIri/ZnPV+U6Dby2M5MBIrFTAUTsjQWi2ifwt737GHCSwx6FeY8ocqX/tGC+i
+	 ID6gE0+Le3ERiuJihDwUuOY291B0R8SlfvxhUea65UCGxrQfssv9x1VSkSQnDGUJmW
+	 6Gj+ZfN9egYGreAhdXfEWBm24RIyZcxuLcv/mONIkamVcuhcjDlZPlAugzDsO/veQC
+	 Gc0lm5OY5MSpuuQJNAO7Tay1Lnj5St2XPTRmhNIOkEZfRoQat7/iaOaE2sCskSiYsV
+	 CqaflI+rZBhtUlnuifMognnEOGGcuKEOPva7he6SKir6Y2lvCPb1Ys2ZW9RyVXXImW
+	 ruNwWYGgMwZhw==
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+To: stable@vger.kernel.org
+Cc: adrian.hunter@intel.com,
+	Frank.Li@nxp.com,
+	alexandre.belloni@bootlin.com,
+	claudiu.beznea@kernel.org
+Subject: [PATCH 5.10.y-stable] i3c: master: Fix recursive locking during device registration
+Date: Wed, 18 Nov 2026 12:52:05 +0200
+Message-ID: <20261118105205.2780673-1-claudiu.beznea@kernel.org>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,99 +58,162 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net v5 0/3] mptcp token hash ordering and token 0 lookups
-Content-Language: fr
-To: Hang Nan <2122295973@qq.com>
-Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, martineau@kernel.org,
- geliang@kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, kuniyu@google.com,
- willemb@google.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <tencent_50E9A78F95855D54DA67136F3D8520017F0A@qq.com>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <tencent_50E9A78F95855D54DA67136F3D8520017F0A@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Hang Nan,
+From: Adrian Hunter <adrian.hunter@intel.com>
 
-On 16/11/2026 15:58, Hang Nan wrote:
-> This series restores acquire ordering for the mptcp token lookup and fixes
-> two pre-existing defects in that hash table which ordering alone cannot
-> cover.
+commit 456f832e5fc26fbfd3b8200fd4553eee520cc377 upstream.
 
-I didn't do a full review of this series because of the build failures,
-but here are just a couple of quick notes:
+i3c_master_register_new_i3c_devs() registers newly discovered devices
+while holding i3c_bus_normaluse_lock(), a down_read().  device_register()
+can immediately probe the device, and probe callbacks typically invoke
+I3C helpers that take i3c_bus_normaluse_lock() again, leading to a
+recursive acquisition of the same rwsem.  rwsems do not support recursive
+read locking and can deadlock when a writer is waiting.  See the
+"Recursive read locks" section of Documentation/locking/lockdep-design.rst.
 
-- The patches you send are not linked to the cover-letter, see the
-  In-Reply-To [1] pointing to a different Message-ID than the
-  cover-letter [2]. Your messages ID are probably modified when sent.
+For example, with Intel LPSS I3C, LOCKDEP generates a WARNING like:
+  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/unbind
+  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/bind
+  WARNING: possible recursive locking detected
+  kworker/5:1/94 is trying to acquire lock:
+  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_device_match_id+0x45/0x370
+  but task is already holding lock:
+  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_master_reg_work_fn+0x21/0x5f0
 
-- Please wait for Netdev Sashiko [3] before sending new versions.
+Fix this by separating device creation from device registration.
+Populate desc->dev under the maintenance lock, collect the devices that
+still need registration into a local list, then release the lock before
+calling device_register().  Finally retake the lock and clean up any
+devices that failed to register.
 
-- Use 'mptcp:' prefix instead of 'net: mptcp:'
+Use the maintenance lock rather than the normal-use lock while adding
+device objects.  A write-side maintenance lock prevents readers from
+observing a partially initialized desc->dev during initial device
+population, or desc->dev disappearing if registration fails.
 
-- Split the new kunit tests from the modification in the code to ease
-  backports.
+The local list requires a list node, so add a list node member to struct
+i3c_device.
 
-- (Honestly, a test for a !token guard is probably not worth 50 lines.
-   The first KUNIT_EXPECT_PTR_EQ on the empty table, or no new test at
-   all seems more reasonable.)
+Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
+Cc: stable@vger.kernel.org
+Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260807145638.168865-2-adrian.hunter@intel.com
+Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
+[claudiu.beznea:
+ - drop the i3c_bus_normaluse_{lock,unlock}() around
+   i3c_master_register_new_i3c_devs() calls from i3c_master_do_daa() and
+   i3c_master_register()
+ - drop master->shutting_down specific code since this is not available
+   in v5.10]
+Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+---
+ drivers/i3c/master.c       | 39 ++++++++++++++++++++++++++------------
+ include/linux/i3c/master.h |  3 +++
+ 2 files changed, 30 insertions(+), 12 deletions(-)
 
-- (I agree that the Token 0 is never assigned... in Linux: the RFC8684
-   accepts it, but the Linux implementation don't. Maybe mention that in
-   the commit message to avoid confusions.)
-
-[1] https://lore.kernel.org/tencent_BB8DA72524E32FD374B8B2950B247B62E207@qq.com
-[2] https://lore.kernel.org/tencent_50E9A78F95855D54DA67136F3D8520017F0A@qq.com
-[3] https://netdev-ai.bots.linux.dev/sashiko/
-
-Cheers,
-Matt
+diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+index 457e112dbc0f..5595d980a2c8 100644
+--- a/drivers/i3c/master.c
++++ b/drivers/i3c/master.c
+@@ -1520,12 +1520,16 @@ static int i3c_master_early_i3c_dev_add(struct i3c_master_controller *master,
+ static void
+ i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
+ {
++	struct i3c_device *i3cdev, *tmp;
+ 	struct i3c_dev_desc *desc;
++	LIST_HEAD(i3c_unreg_devs);
+ 	int ret;
+ 
+ 	if (!master->init_done)
+ 		return;
+ 
++	i3c_bus_maintenance_lock(&master->bus);
++
+ 	i3c_bus_for_each_i3cdev(&master->bus, desc) {
+ 		if (desc->dev || !desc->info.dyn_addr || desc == master->this)
+ 			continue;
+@@ -1546,15 +1550,30 @@ i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
+ 		if (desc->boardinfo)
+ 			desc->dev->dev.of_node = desc->boardinfo->of_node;
+ 
+-		ret = device_register(&desc->dev->dev);
+-		if (ret) {
+-			dev_err(&master->dev,
+-				"Failed to add I3C device (err = %d)\n", ret);
+-			desc->dev->desc = NULL;
+-			put_device(&desc->dev->dev);
+-			desc->dev = NULL;
+-		}
++		list_add_tail(&desc->dev->node, &i3c_unreg_devs);
++	}
++
++	i3c_bus_maintenance_unlock(&master->bus);
++
++	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
++		ret = device_register(&i3cdev->dev);
++		if (ret)
++			dev_err(&master->dev, "Failed to add I3C device (err = %d)\n", ret);
++		else
++			list_del_init(&i3cdev->node);
+ 	}
++
++	i3c_bus_maintenance_lock(&master->bus);
++
++	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
++		list_del(&i3cdev->node);
++		desc = i3cdev->desc;
++		i3cdev->desc = NULL;
++		put_device(&i3cdev->dev);
++		desc->dev = NULL;
++	}
++
++	i3c_bus_maintenance_unlock(&master->bus);
+ }
+ 
+ /**
+@@ -1583,9 +1602,7 @@ int i3c_master_do_daa(struct i3c_master_controller *master)
+ 	if (ret)
+ 		return ret;
+ 
+-	i3c_bus_normaluse_lock(&master->bus);
+ 	i3c_master_register_new_i3c_devs(master);
+-	i3c_bus_normaluse_unlock(&master->bus);
+ 
+ 	return 0;
+ }
+@@ -2627,9 +2644,7 @@ int i3c_master_register(struct i3c_master_controller *master,
+ 	 * register I3C devices discovered during the initial DAA.
+ 	 */
+ 	master->init_done = true;
+-	i3c_bus_normaluse_lock(&master->bus);
+ 	i3c_master_register_new_i3c_devs(master);
+-	i3c_bus_normaluse_unlock(&master->bus);
+ 
+ 	return 0;
+ 
+diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
+index b31170e37655..1b646b2067db 100644
+--- a/include/linux/i3c/master.h
++++ b/include/linux/i3c/master.h
+@@ -219,6 +219,8 @@ struct i3c_dev_desc {
+  *	  every time the I3C device is rediscovered with a different dynamic
+  *	  address assigned
+  * @bus: I3C bus this device is attached to
++ * @node: unregistered device list node, only for use by
++ *	  i3c_master_register_new_i3c_devs(), it is not protected by a lock
+  *
+  * I3C device object exposed to I3C device drivers. The takes care of linking
+  * this object to the relevant &struct_i3c_dev_desc one.
+@@ -229,6 +231,7 @@ struct i3c_device {
+ 	struct device dev;
+ 	struct i3c_dev_desc *desc;
+ 	struct i3c_bus *bus;
++	struct list_head node;
+ };
+ 
+ /*
 -- 
-Sponsored by the NGI0 Core fund.
+2.43.0
 
