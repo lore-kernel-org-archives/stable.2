@@ -1,59 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795031956;
-	b=k6sjGz91IskRr9YyUDeJHqr/JryTW9bhQHtqz4/dDNi9seu4q7xXWdily1eiXOradNhU
-	 Bd/5P47212n7dua6eg4We4sCG4XuZKlv64a/EwKacgETRQIrsCGsPR8vc0LSqIIZsvax8
-	 kP7VWdyn6EjbKnlEF1di9GU+/7S1kOoaKllTT6nG1hx27hgQDJgVrdGmn0Q2F/9SAnDnd
-	 CNVR2rkYkZW8O6pHoKh97zUIjTVI/szDVTCbJ5tCqYf1n59zHXGYSyL1oUVEgd0q4Pt24
-	 jG62zpk6m7qbaOZqrhFKz/3nuzBPtmxDOZvMF+eF41taZo1jb8Btp5131HQuIfA6EKw==
+	b=1PDjuPN+ujmwlTYewFV64RX7QgpDyDlYh7RiAxNX4FYI+h/GDgcf6/CgJ1k2JkCiDJ7K
+	 KHx59tYRKlyK6DpfoI+/muHydgPyLKY0b6RsCDG/KFW6cb2VoLXFbQw2oo2EdH0ljbeK0
+	 v+xSjxJwTlqp0/YAVtTz11q0uxq/zNZyUpA4CyjaEDShESSJaxdaxnq1W+/nUY+KekAFp
+	 O0wO45y+aKZU+bJyst9jBrcNIA4YrwvPlG1ATI+11bWdwq9otI01qYjKNCwrLeqtyE5Ow
+	 9I28uFyYQsBgflxFAtICKQoFxjNNiUmDQ5paR9b8eeKpha9IA238mq8nPZooiCb7h8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795031956;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+n26e4ppmsC8nMru7EGSNoPLe1dWipRHE8TLh0k7lhM=;
-	b=RghtZKZ8YiDU1NtDPR5fYuwDGQyXldZaMBikLqknHIXcPTjWihqTeqjpQGaTWSiFMyMb
-	 9Ht80GV61ikneNUf01bkUgWFXtVDVRPCZZ17081dMeuYc0nOUjIPdmNjzXYyS7vXU7olG
-	 VEx+yV+kT7Xb+xevbb0D9tp+E2MF/0zvWlkiJSOCXDNFRMAW0IoyS3lbOsPlSlGQ1BFcj
-	 nXSUcHcxQfil3YlCXpH8uJdNPQeRjzNMzcN1zaWmUfbshab2jWN+HkQrsfiXwPIpNkos2
-	 OdCM73wh8oC7Uh5DA4MNgoZI4Qq9QRu12SuGdEG2c2IZiujyt9/koDAQr8yQzKJ5CJQ==
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=EvNm36ee6QMlzT0gTHiv5nNg/UkjSVqUWtytJ7TE48o=;
+	b=CEwJPSbe/Z/3GhtmCUzbbERoyWR8OAcPWQt+rl3pTfG0CXIR7luzuGt5USjpjyaL++AS
+	 FwlabrrrAaBFbcnXKmgnysFW8S98yxgMK9nqZM9MRUWzJcw6suR+wfb2kV89ZdiM3Z5CZ
+	 KSCgwTqCh8g9/4axFRhBabveGJEUdVdrAR2XtmYmkUZG5+RGkajrrPv14KB4+iZjE0jXw
+	 BtFdfQoZF8Lepj3bxUvc+S62khqCtlxQ/eKwXtwljaFpsmQvhX2Bz6VuedgpCvLg8PbVF
+	 ekqEHzJmXj/i1o+92tjSbb+xQDFrh5ebXpp2wGAR0D66Wb6Ki9X/EKDzXO9Gk8K8zAA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FGroZuNF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YIkEaTpt;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3828606A320;
-	Wed, 18 Nov 2026 19:59:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 929E3606A337
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 19:59:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 929E3606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FGroZuNF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4087E1F000C4;
-	Wed, 18 Nov 2026 19:59:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795031955;
-	bh=+n26e4ppmsC8nMru7EGSNoPLe1dWipRHE8TLh0k7lhM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FGroZuNFM3sJTb/Mc5xLc9Bsk1D3EFs4dkSO5fcPi6tY7rzZHkWw9BKA6+6etpYQU
-	 MojX6msjDQDjTS4mLetZcXpTkMVesQIJhVmXrh4UxKmoCqenUiVmfHzbuLADkLHkdS
-	 bbcEu36K8IqO22mOcESdpQEzGH2mjj43sCius2Xg=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	HyeongJun An <sammiee5311@gmail.com>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1199/1756] ASoC: codecs: wm8983: Fix definition of ADC 128x Oversampling control
-Date: Wed, 18 Nov 2026 15:55:26 +0100
-Message-ID: <20261118150057.580677268@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150007.957976754@linuxfoundation.org>
-References: <20261118150007.957976754@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YIkEaTpt
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-15ea896ddc8so2486313c88.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:59:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795031956; x=1795636756; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EvNm36ee6QMlzT0gTHiv5nNg/UkjSVqUWtytJ7TE48o=;
+        b=YIkEaTpt/23/K5+TQfElnCS7kgWm71Vbi1ImwCIs1IFJFDkhPtL30VzXEUHDGhMy1Y
+         eUBW2y1XoFqvUUslvLCEP6vVIC5BYJ3Dc5uiUo4E20cyFGTPvT6BGzk7W7S9cXHh0hY1
+         gQ+Mlvk8tzfZELL5NmwimPM1cCD2RqpdYhj7jYlaaBD1TEyoDu9KWrsjbbnw2dxYRDBS
+         lWfnzlk+GrGN7iKct00XaXa92OXqnw5JgyerOae7DUatHl+dM2dAtP7ulnOXyNfZAd4Z
+         8uvQsjnc3QdYFzbsGNqLbfLYyPQvR3KHYiVOvFc3Ns1OztGKsOH2uGQDD/vADA5mRtu2
+         2kWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795031956; x=1795636756;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EvNm36ee6QMlzT0gTHiv5nNg/UkjSVqUWtytJ7TE48o=;
+        b=D7uYbrm96FQWoSEnpJgRfcyv1KghZkDK3e9npeUrBV417l1XsndQaq0tZCT3u5D0Kz
+         Y3e4mZvXxMOvtcL0WbDuIn9XRJ8v/xRVM3nOS0NN1oQ9h+ZifOcPy5m7yVTi/TRKeHUI
+         wzmdLKOg4COkfZzBmDkRKnTK92YfncawSKexo9F3aEviqLu11OmX9afLg5mTgmD83f5U
+         C7C7phCuKfNJWYItj9t4zb010dIIn5enq/v7Y+SZwuAQty5xwXHyryvTC5NmDklCTlQL
+         KP/Hu8fQ/6i+PIL0N06xMZ60WRm6WBksIyM6C4aY2qfqX5wn5TCNQnkP3RAweFUptKNd
+         fbLQ==
+X-Forwarded-Encrypted: i=1; AL+hErHcPBuBmazaMsYrpodzHH9mJxYw0K8j6P46lOLu8oMAyNtas+5f7jlg58AzOilWxdcn6fhfqT4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95uCKeqZ7ZyXeENg7KFOMR82XnNHKuofC74n8XxB77LKUzmyIT
+	561Fe0AqclhfrSV7hYd8dia97fwBHgV3zHOg9VvoSvUg2hyU6BzyiZzJJwsGTQ==
+X-Gm-Gg: AZFdTZfkATUilYuW67y6YBCCkPpKtj7DZKQP5kr5HShfFo6VLSR5fXvvnZN5Zgv7m+M
+	HVKzA3QcZ8brfIt/4GbCvXPZV4f0PqZkabFm/V0nBnyDcBItHsr87owZVlAbRY8xWZ1yiMGvtDO
+	YFMs8tpF21xBMQoCKrk/6dpNCtz8eUZNvUUX/mB8OR9+MqiiiJqrC82ukDA6wnZVfRRVuLpInGB
+	lFS4nOAJmE3tk+Ng5giLAGCUTwE1b4pixb9GGrfxJYSZUKnQKRZHn5lKPcS3hC8cnzSrX2Jsix7
+	ckvo8OpRaRchUd/PVs5F1cPv/7evu0o+Nf+stu6qjc89G0jZ93YMmPuwIt8hWYfNWm5nziJmC26
+	wTgAVetzM5NgLjFt0gWXZmww6inmYVuL3AsrXE/Hf/2aIRvyAJ6uxMKMn+nzHC6M0qhCqcHiTz0
+	+y7t5MM+9lWJrvFN8rPK4GSol0QmS67uMILmtpzq4WoO9BtQ0uB02cIHguIa0oILvgAQhU+4Hyy
+	YNdhueKU/zCbeT9KhacoCH5lhOv7+tXJ85GCv7qTMPmO1XDATSZHpAnVziMiERmJj39SBxwOSju
+	mA++FJPGg4J/GtS5RvaurBQjBnpHhtRqK5A/Z5+78qKQEzvokDwxH0RLJEUOCyyH6whZ2w5SeXq
+	iqQ==
+X-Received: by 2002:a05:693c:885a:b0:376:37a2:87f3 with SMTP id 5a478bee46e88-3828161ae29mr3343574eec.31.1795031955504;
+        Wed, 18 Nov 2026 11:59:15 -0800 (PST)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a6800366sm9938909eec.12.2026.11.18.11.59.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2026 11:59:14 -0800 (PST)
+Message-ID: <835e4c45-4b46-4d1b-a2d2-de1147666842@gmail.com>
+Date: Wed, 18 Nov 2026 11:59:13 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,45 +93,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 0000/2651] 7.3.6-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20261118150247.972732815@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On 11/18/26 06:20, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.3.6 release.
+> There are 2651 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Fri, 20 Nov 2026 14:55:47 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.6-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-------------------
+perf fails to build with:
 
-From: HyeongJun An <sammiee5311@gmail.com>
+util/annotate-data.c: In function 'global_var__collect':
+util/annotate-data.c:785:30: warning: implicit declaration of function 
+'die_get_type_die'; did you mean 'die_get_typename'? 
+[-Wimplicit-function-declaration]
+   785 |                         if (!die_get_type_die(dwarf, 
+pos->die_off, pos->die_tag,
+       |                              ^~~~~~~~~~~~~~~~
+       |                              die_get_typename
+util/annotate-data.c:785:71: error: 'struct die_var_type' has no member 
+named 'die_tag'
+   785 |                         if (!die_get_type_die(dwarf, 
+pos->die_off, pos->die_tag,
+       | 
+       ^~
+util/annotate-data.c:786:50: error: 'struct die_var_type' has no member 
+named 'from_alt'
+   786 |                                               pos->from_alt, 
+&type_die))
+       |                                                  ^~
+util/annotate-data.c:792:44: error: 'struct die_var_type' has no member 
+named 'from_alt'
+   792 |                                         pos->from_alt);
+       |                                            ^~
+util/annotate-data.c: In function 'get_global_var_type':
+util/annotate-data.c:849:26: warning: implicit declaration of function 
+'die_same_file' [-Wimplicit-function-declaration]
+   849 |                         !die_same_file(cu_die, type_die));
+       |                          ^~~~~~~~~~~~~
+util/annotate-data.c: In function 'update_var_state':
+util/annotate-data.c:905:42: error: 'struct die_var_type' has no member 
+named 'die_tag'
+   905 |                                       var->die_tag, 
+var->from_alt, &mem_die))
+       |                                          ^~
+util/annotate-data.c:905:56: error: 'struct die_var_type' has no member 
+named 'from_alt'
+   905 |                                       var->die_tag, 
+var->from_alt, &mem_die))
+       |                                                        ^~
 
-[ Upstream commit c1af9e2272f025ff75be76e03413074d5e7801c9 ]
-
-ADC 128x oversampling (ADCOSR128) is at bit 3 of ADC Control, not at
-bit 8, which is the high pass filter enable (HPFEN).
-
-Fixes: 6b3860b0a20a ("ASoC: WM8983: Initial driver")
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-Reviewed-by: Charles Keepax <ckeepax@opensource.cirrus.com>
-Link: https://patch.msgid.link/d6a5bbab35e1fd2bec5b13d30951546080d493a8.1791959026.git.sammiee5311@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/codecs/wm8983.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/sound/soc/codecs/wm8983.c b/sound/soc/codecs/wm8983.c
-index 252b4a6cac04d..86d0161922a61 100644
---- a/sound/soc/codecs/wm8983.c
-+++ b/sound/soc/codecs/wm8983.c
-@@ -234,7 +234,7 @@ static const struct snd_kcontrol_new wm8983_snd_controls[] = {
- 			 8, 1, 0, pga_boost_tlv),
- 
- 	SOC_DOUBLE("ADC Inversion Switch", WM8983_ADC_CONTROL, 0, 1, 1, 0),
--	SOC_SINGLE("ADC 128x Oversampling Switch", WM8983_ADC_CONTROL, 8, 1, 0),
-+	SOC_SINGLE("ADC 128x Oversampling Switch", WM8983_ADC_CONTROL, 3, 1, 0),
- 
- 	SOC_DOUBLE_R_TLV("Playback Volume", WM8983_LEFT_DAC_DIGITAL_VOL,
- 			 WM8983_RIGHT_DAC_DIGITAL_VOL, 0, 255, 0, dac_tlv),
 -- 
-2.53.0
-
-
-
+Florian
