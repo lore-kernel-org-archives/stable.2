@@ -1,49 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016398;
-	b=q2Uy0krJ+o2szWalCJ5ABatn1sKr5fyFYD5jzxCHh6GAe07kRy3m3mwoGwcFhOouo/nO
-	 KPfVTmdYu/YVdOkySP8Dj7/Jv/IIilUFITvE4BNb4Yqm9SDDQHXin347fNlZYqwr+ffgO
-	 xBDRQrmb6AMV+xmuYP3dVvhJ9C0CXbXvu5COPeI6QUMQnw0mglpI6otDZOZNa4nLS7i0l
-	 wUbA/yP1ncbCVoxFG7JENu7Gj0A5QJ2L6Khv84kyFHcqcR8FntTNxz3VPPBSGkc0yAHhf
-	 jFVnMhq8KAuB4PD86ODNmJx3qOAyxqadMCv5e6P+RxvD4ZqttWfmVgPw3F9Cx6lIB8A==
+	t=1795016399;
+	b=Dze4HVGAlcGClSoNEcDBehQbe8IlS21Qz1POUzqdOOUmqnvRIEbVTvZoZ8sElN6cqMGd
+	 wqm2sOXYJejJqmU9NDFp0ZBUzczaalxFu7grA+QyIhDQ0RqMZcRxGEm7I4Ou+YvxFVFBx
+	 mxrUHCxZersfgTIq59qRB/eytMS7se4jIUqR3T2nrU3Xmg0M6fPIsLXDJhCGoK7FmrBay
+	 qvyEsF3TY8Oy9VD3TgiMW+RlZBqR+nLOmeOZRgxecG7zbodI4sBzoU9vqQNRS/Sfbbt/1
+	 qmRxo0+7S+fHDl22nu3VcY507i3El2Aga/XgtfG0J5o5NDVa6kDaTGx21ECry2O5Auw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016398;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=QXxc5ot+vlrpdqmyd7tRC2ZxCHOrFo4InfagjyJYHbQ=;
-	b=kpjxvS2rdiISjpnellu9S3zn8EtYNDqrbt3rgzFTUk8gTvXtIh2byPEU5f2gqwN05XC6
-	 xnMcbpz89V7mz/fd0zdX8WXELDEgL82N7PUIZ0yhlXg7AHwbunO+vi3LdBJfw84fWVERP
-	 irTGppWvSIsKol1UlRoHRlSVxCUTEYqW5K4wfNOBH3BUQb/tMNwUdp+jY12d+oQR1N6qA
-	 p6725K9ohXO5W8FiVTaIrTmug7h6xKMeoTcKelgu8EGOkBGcPGzuodf9efYw/VAAaUiyt
-	 Dp+rKDM6qWfFPSorLIzeNO3oPZdjZDC5Ok5ZyDyU8fBI8nBKtZDiHjGQysQSn03KuVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795016399;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=mQ3iTiHb4JLuoG5MgAndRNWgt+Te0vWMcuwrtN3FdMk=;
+	b=U9/l6Lw3pnxNs/BZtRKs3jqEDTuELyOsfFrWiwHdqAAAwJw9yYXcQ3TsK3wGqb42UE+f
+	 RMiJ/Bpb+QOQ181Nnrjf1bpksJqg0Qm4V2luTd/vyTeKwjNNn2mFOZhjjtcBZIyvJ2yH7
+	 GLgF3w5OCgCtdLuA6iN66V4SnbDHZ4ZUseoVETgiFgeU3oE0lejLuhPNLIvCPgUMIeoyM
+	 gbNrIz9WcHYkM+kJsGCHGJhUgl0EIe3Wl5NDtKLD/uDd3CtqaqkIFtFoinHDyYK7CQ9x9
+	 ZLMpRDoRVgGytu+tcocP2u70BXYhUc1xINi3nIFmYsTurq5YzuzkPq+1n88VnZQTIhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=iIaSAgs7;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 657A060A260F;
-	Wed, 18 Nov 2026 15:39:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 657A060A260F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BG4GFqrV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4084460A2631;
+	Wed, 18 Nov 2026 15:39:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=iIaSAgs7
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F285C1477;
-	Wed, 18 Nov 2026 07:39:47 -0800 (PST)
-Received: from [10.0.136.98] (M0PRX50XMG.cambridge.arm.com [10.0.136.98])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 28CCE3F632;
-	Wed, 18 Nov 2026 07:39:49 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795016390; bh=pRHQq9jHd5WU+gVj8Uypqp7K7FRf83zEeV7eEsHdPRA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=iIaSAgs7fJabN3cXkoWC0i7T/2byGsPZWGMkOppHww3EtYoeJCk3+DAzoW4j3+B/z
-	 c4w/sTUuoR4PKhtq85KPwOT2ZATNpPB3PJ/1DdInpXxZS/dmJ+VO6wn/vHHQaIk8yt
-	 h15zkNUxCf6nMhw+9KCOEPh4tiTU5xQSO7OZ+ync=
-Message-ID: <535a378e-4d68-4a5c-a85d-3366e2a1626c@arm.com>
-Date: Wed, 18 Nov 2026 15:39:47 +0000
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BG4GFqrV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE231F000C5;
+	Wed, 18 Nov 2026 15:39:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795016399;
+	bh=mQ3iTiHb4JLuoG5MgAndRNWgt+Te0vWMcuwrtN3FdMk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BG4GFqrVV2bwCg2zw1ht+p7RJGl8TX2NOoNX5PrlrCjn4hgOxF6AO2JnHdqffpdHt
+	 vHZRMaPkHkAar1QZd7k2OUr21EWAG4z2eK+DERGG82uZdKunTZt66EycAduoaOUsBI
+	 xH/HK/ml5NaDHC/Fs0lpFxo8yJsmdGygU1UFawSg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Li RongQing <lirongqing@baidu.com>,
+	Kalesh AP <kalesh-anakkur.purayil@broadcom.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0474/2651] RDMA/uverbs: Make CQ handle mandatory for WQ creation
+Date: Wed, 18 Nov 2026 15:28:34 +0100
+Message-ID: <20261118150304.855370850@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,120 +63,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/10] irqchip/gic-v5: Serialise ITS invalidation
- commands
-To: Lorenzo Pieralisi <lpieralisi@kernel.org>
-Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Timothy Hayes <timothy.hayes@arm.com>,
- Catalin Marinas <catalin.marinas@arm.com>,
- Jonathan Cameron <jic23@kernel.org>,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Sashiko AI <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20261104-host_gicv5_fixes-v2-0-e47ad20ea3c8@arm.com>
- <20261104-host_gicv5_fixes-v2-4-e47ad20ea3c8@arm.com>
- <auw-5EyY_aifcv1N@red-moon>
-Content-Language: en-GB
-From: Sascha Bischoff <sascha.bischoff@arm.com>
-In-Reply-To: <auw-5EyY_aifcv1N@red-moon>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 05/11/2026 08:31, Lorenzo Pieralisi wrote:
-> On Wed, Nov 04, 2026 at 05:47:58PM +0000, Sascha Bischoff wrote:
->> The ITS uses the shared DIDR and EIDR registers to select the DeviceID
->> and EventID whose translation is to be invalidated. Event
->> invalidations for different IRQs can overlap, as can an event
->> invalidation and a device invalidation. The per-IRQ descriptor lock
->> does not serialise these commands, so writes can interleave and cause
->> an invalidation to use the DeviceID or EventID of another IRQ being
->> invalidated concurrently on a different CPU.
->>
->> Serialise the command register writes and STATUSR.IDLE polls for both
->> invalidation paths with a per-ITS raw spinlock. The KVM
->> gicv5_its_set_vcpu_affinity() callback calls the event invalidation
->> helper via irq_set_vcpu_affinity(), which holds the IRQ descriptor
->> lock. This path cannot sleep, so use atomic polling.
-> 
-> Same comment here as IRS sync. This one though looks like a host
-> driver bug that can happen regardless of KVM, so I'd just fix it
-> and remove/rephrase this paragraph.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Done, thanks!
+------------------
 
-> 
->> Fixes: 57d72196dfc8 ("irqchip/gic-v5: Add GICv5 ITS support")
->> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
->> Link: https://sashiko.dev/#/patchset/20261016155741.979985-1-sascha.bischoff@arm.com?part=11
-> 
-> Again, this is linking to a report on a series that wasn't merged
-> yet but probably it makes sense to leave it there for context.
+From: Li RongQing <lirongqing@baidu.com>
 
-Yeah, I was just trying to make it clear where this was reported and how.
+[ Upstream commit f7d28791433d373ecdab7b00f60ddb504e858e0a ]
 
-Thanks,
-Sascha
+UVERBS_ATTR_CREATE_WQ_CQ_HANDLE is declared UA_OPTIONAL in the ioctl
+method definition, so the mandatory attribute bitmap does not enforce
+its presence.  When userspace omits it, uverbs_attr_get_obj() returns
+ERR_PTR(-ENOENT) and the handler stores that error pointer into
+wq_init_attr.cq without validation.
 
-> 
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
->> ---
->>   drivers/irqchip/irq-gic-v5-its.c | 9 +++++++++
->>   1 file changed, 9 insertions(+)
-> 
-> Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
-> 
->> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
->> index 28e39b065de0e..6d98f3dbe34b6 100644
->> --- a/drivers/irqchip/irq-gic-v5-its.c
->> +++ b/drivers/irqchip/irq-gic-v5-its.c
->> @@ -16,6 +16,7 @@
->>   #include <linux/of_address.h>
->>   #include <linux/of_irq.h>
->>   #include <linux/slab.h>
->> +#include <linux/spinlock.h>
->>   
->>   #include <linux/irqchip.h>
->>   #include <linux/irqchip/arm-gic-v5.h>
->> @@ -28,6 +29,8 @@
->>   struct gicv5_its_chip_data {
->>   	struct	xarray			its_devices;
->>   	struct	mutex			dev_alloc_lock;
->> +	/* Event and device invalidation commands share DIDR. */
->> +	raw_spinlock_t			inv_lock;
->>   	struct	fwnode_handle		*fwnode;
->>   	struct gicv5_its_devtab_cfg	devtab_cfgr;
->>   	void	__iomem			*its_base;
->> @@ -129,6 +132,8 @@ static int gicv5_its_itt_cache_inv(struct gicv5_its_chip_data *its, u32 device_i
->>   	eidr = FIELD_PREP(GICV5_ITS_EIDR_EVENTID, event_id);
->>   	eventr = FIELD_PREP(GICV5_ITS_INV_EVENTR_I, 0x1);
->>   
->> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
->> +
->>   	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
->>   	its_writel_relaxed(its, eidr, GICV5_ITS_EIDR);
->>   	its_writel_relaxed(its, eventr, GICV5_ITS_INV_EVENTR);
->> @@ -371,6 +376,9 @@ static int gicv5_its_device_cache_inv(struct gicv5_its_chip_data *its,
->>   		  FIELD_PREP(GICV5_ITS_INV_DEVICER_EVENTID_BITS,
->>   			     its_dev->itt_cfg.event_id_bits)	|
->>   		  FIELD_PREP(GICV5_ITS_INV_DEVICER_L1, 0x0);
->> +
->> +	guard(raw_spinlock_irqsave)(&its->inv_lock);
->> +
->>   	its_writeq_relaxed(its, didr, GICV5_ITS_DIDR);
->>   	its_writel_relaxed(its, devicer, GICV5_ITS_INV_DEVICER);
->>   
->> @@ -1112,6 +1120,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
->>   		return -ENOMEM;
->>   
->>   	mutex_init(&its_node->dev_alloc_lock);
->> +	raw_spin_lock_init(&its_node->inv_lock);
->>   	xa_init(&its_node->its_devices);
->>   	its_node->fwnode = handle;
->>   	its_node->its_base = its_base;
->>
->> -- 
->> 2.34.1
->>
+The bogus cq pointer is then passed to the driver's create_wq callback.
+In the mlx5 case, create_rq() calls to_mcq(init_attr->cq) which applies
+container_of to the ERR_PTR value, producing a near-NULL pointer.  The
+subsequent access in get_rq_ts_format() triggers a kernel NULL pointer
+dereference:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000296
+  RIP: 0010:create_rq+0x32/0x550 [mlx5_ib]
+  Call Trace:
+   mlx5_ib_create_wq+0x14a/0x210 [mlx5_ib]
+   ib_uverbs_handler_UVERBS_METHOD_WQ_CREATE+0x1f0/0x320 [ib_uverbs]
+   ib_uverbs_run_method+0x296/0x320 [ib_uverbs]
+   ib_uverbs_cmd_verbs+0x1a0/0x260 [ib_uverbs]
+   ib_uverbs_ioctl+0xa8/0x120 [ib_uverbs]
+
+A WQ without a CQ was never valid; the legacy write path always required
+one via uobj_get_obj_read() in ib_uverbs_ex_create_wq().  Declare the
+attribute UA_MANDATORY so the uverbs framework rejects the ioctl early
+when the CQ handle is missing, before the handler ever runs.
+
+Fixes: ef3bc084a8ed ("IB/uverbs: Introduce create/destroy WQ commands over ioctl")
+Signed-off-by: Li RongQing <lirongqing@baidu.com>
+Link: https://patch.msgid.link/20260911021557.2113-1-lirongqing@baidu.com
+Reviewed-by: Kalesh AP <kalesh-anakkur.purayil@broadcom.com>
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/infiniband/core/uverbs_std_types_wq.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/infiniband/core/uverbs_std_types_wq.c b/drivers/infiniband/core/uverbs_std_types_wq.c
+index 7ded8339346f3..c23f455231bf0 100644
+--- a/drivers/infiniband/core/uverbs_std_types_wq.c
++++ b/drivers/infiniband/core/uverbs_std_types_wq.c
+@@ -140,7 +140,7 @@ DECLARE_UVERBS_NAMED_METHOD(
+ 	UVERBS_ATTR_IDR(UVERBS_ATTR_CREATE_WQ_CQ_HANDLE,
+ 			UVERBS_OBJECT_CQ,
+ 			UVERBS_ACCESS_READ,
+-			UA_OPTIONAL),
++			UA_MANDATORY),
+ 	UVERBS_ATTR_FD(UVERBS_ATTR_CREATE_WQ_EVENT_FD,
+ 		       UVERBS_OBJECT_ASYNC_EVENT,
+ 		       UVERBS_ACCESS_READ,
+-- 
+2.53.0
+
+
 
