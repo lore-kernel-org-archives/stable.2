@@ -1,103 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795035145;
-	b=UgUQQ/nRAIWGRcMaTixudk/PUKfuMxLjeXwFrRSKdfVbtmQMKn8x8oxiA13G5GNDb6vF
-	 SK5zTT4GAmWX99+DwpOj0S7dE6gjt1zYxtHiR3BjqQ0WqbXU+X/zq7kbQYC1ja8opjj4W
-	 gKGfK//XT2vdxJo/S9fN3EErsIzfd0OAA3OoYPumSs2ngDIlh9qKDRCthVN6MIXNyjUTZ
-	 yOV+cmy8VMIKA9THV/E4w/eY7W5qIIdgAtwtK4FAmpcDh8EYJPnxaKg2mNHn3BdJTeJe6
-	 SwL5mkA951Qpyz9cZWRIxT91nG8fwRH3lImHHXjHAq4UsPxLxjdnhYlVioryfgFnLUA==
+	t=1795035146;
+	b=ax1vdHLBJbmlMLNY8Vu+y4Nf+s4ZYLxMyZsqbbvw3VZRQnBjm1zxMSEduR7lo3LCpoBp
+	 r3p48E68JU/kXiBR/RNewUGHAs8TsJw6h+NIg98X2eaFNxosDJzMqtihqZxEQ+wENy+kU
+	 0vxU4v06hR6R8Wdni63TP8SlXG2x/VnnMTyNVoRKR30U/bfaGzsF4LMRXy9iZkcpis0pQ
+	 JXwKNaNa9cJIvKeDJv/xKxdqjKfj/8nDVvFkduojvbgPvBhoCYl8HLd2qxpKoOzpiRQXi
+	 nJflEAEjJSiwTu3P73J4TXjqHMVS1K3GraNU/7DLdRRFimxmZOIt9/yTNpj83lAdQjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795035145;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Subject:From:To:Cc:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=dxmySTmEZ3hib+9H5pqVDEDQRI3wIZljNjzSSTwZn7w=;
-	b=VZaPetWXB4Sv6ntguXxDPQRCEHx750N0fLu+Ieodipf11Kiu53ypfWi/UJwZFGV184w3
-	 UlxIRcpMv8XSoqdzV25tY8iIcBg6I4uBO1vysI6sWnN2w98tlB9kSLRMrL5bA+V++D9o3
-	 dS/9B5x8OWoihJ9V0sSlJokYcSEanzQxtoYuRwf3nJeeUlxnHdTM4cpJz0rIB3UoM9StC
-	 tBguoBuwCY0orOKWLQYT9gKQ3DV9d64P6U1fTWKudNFSRMB7evTD6mHUiMzhTfSH04job
-	 MEHW9GLA9kEPP8ocgWZiNNNqIZjowEoo6R0rQSx9VvUlajWStNR1bU9C9D8nJRoyrjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795035146;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=lzMvfQ/28KGfw2hK1DEmbmPHSoi+4DIGoQySXMCWuU8=;
+	b=Rk4lDW5pRI7U3CCpfRJWaCC/vQMGVoG26Hws/itCTclCAbKugoq5IlTlU6cQzbSD0pA9
+	 yCl522HTMbCoNzOTLn7D88egtTHF7fgiAB4bkBlyLNVHDEalKFFt4rks4chuQyB84hw9u
+	 qG/RQdtNXwCPMPgiQPpjCq+JYE1u3xXuuA1dU73xn2Z/nczgLfvrvG5bggFp08t+A7xCO
+	 U8GYhff76llDBTZ1e9OtmQUtIoA3i4gfXLL4vxRd1vc46TYObNN7UH0WmQtFgkkD2nFMz
+	 QoQ3FaEUZjVcvqL3IBZo8EwULAdVrp+kgD+wsyfxRSA2DMQ1AV5MVr0eLxzxI121W9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SqHUcWGu;
-	arc=none smtp.remote-ip=209.85.215.182
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yeL7Xb29;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F545606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 20:52:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F545606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42349606A32A;
+	Wed, 18 Nov 2026 20:52:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SqHUcWGu
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cdb15cd8558so945969a12.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 12:52:25 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795035144; x=1795639944; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
-         :from:subject:message-id:date:content-type:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dxmySTmEZ3hib+9H5pqVDEDQRI3wIZljNjzSSTwZn7w=;
-        b=SqHUcWGuBJ5iPjwuoExkJaVT/UVpfdPBxDUFOXh6mpiQuWiJKjjQrPeuXpWMmMwI/u
-         soWYK+E2+ktGyN0Mz0Y/0hREtps/a3j0GpYhuBoacNC49w4L3fbdbfPmwLRrhgBUxom/
-         zsFLmibB8/aUwOgVfsoKnxJ48Wg/ZX8wwMZkIxFkXgN/13l5erXTN1NQchLap+467x4c
-         LCR3snF+qsFzpxzJx547CpICfIsqqVjRXbemsyTJ97tlHu3vMXz0w3VotAin2HXQMLVk
-         F9I4XGQ2sfHYLYsTlk2h/KNSgRqNnjIIIS8lmZtgsWecH4GG6FpElOb4rFYA1+uwN4pm
-         irLg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795035144; x=1795639944;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
-         :from:subject:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dxmySTmEZ3hib+9H5pqVDEDQRI3wIZljNjzSSTwZn7w=;
-        b=OUwiWLA/H4fEPEC0Ywo8uOVkw6YsGeyYP7ZjFMYCiSNgK6XgxS5LDTpTRnij7sbevu
-         Q6r6JsjzcnitRxToIOevuOxWcKX2Dc8NerfVNt4n/9Y1WHKIItmwPNJZi4aOxnhsu7iQ
-         UnbOZf0ZBgpIHZzQFAhxdOp3TjZHtY3czLXnimQudRubyXUrM6v9XVoBXfNVduXeY9EF
-         sCeTzU6vvtOsoCBtx/h4UVZRSVRyVA+1sH3+XXVjZhi3IMMq+IVPq/iV6cuDC0XN8kSN
-         2N/9GsNiBdag+d+hmTwNDysvN9yvdPaWqw8aJn0XVF0zQ729ByWfA6moAbgtOyRediGQ
-         dijA==
-X-Forwarded-Encrypted: i=1; AL+hErG+Igi/mCqBtJGFFXVOBL3505gt69uc9xXm/E3B1fz+uDoHgOSk61CBOwZpoWIATcOZuXDygWE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9xuMsJCDfqWPk+epEN8QvXQKRckVojbqIeAyyNGdAn9h1+H5wT
-	Hkne308VzLnJI93qkrHs7VlKMIDRhieWgCm4Vx+HwBOzNjn/1N12PqPU
-X-Gm-Gg: AZFdTZehFhgoyjpLv795vPlN0EViyon77tiIhv9DbdWGcCZS4yifILBhZ4qLHcrDxB9
-	z9i2Aj5t59bsGUmOwF8u4oQpW5eGjXXhuqha3Y85uiAhiDJ2qQiu25pGiRzQCU/zZeObtb/TjaC
-	laKUTuHuOTuHfTbYLhwgWbVz9PzjqFlsaRrjq7TTtTLkJCF+NJBS8UrJcxmd+tl3widgptjCNIu
-	Epw4an0QBJFDohsVKlFnlsmeFcklHtt26w5Y1ahOQwmbJ78YR4xjnT1JCRFB/sgVFGNDSz0j3li
-	5Jh0tJeFIDaHbF2djTaoH4YOaMFWMaElSqbwBjd6V+USeEi99KHQ+Pue/ijoOHwuPyRnWys1csj
-	DegZBXyiYkabQa1+oWXRgWtOLLPOup0q2dypnDqJquL86V7X+MuqySWNsRiH0b1BWajIJA40W0A
-	nF/St10in3gP9G4KSfzx7aZWfvLCnoQy6ie3MNMfxEW1r4cXOphiMRAB6ENiEVzOG/dMwuQSu89
-	ZAzoMn0ItjdPYqmR+XI+Ovf6TMLlFQqpUlTV/XTlFiIe3DlOuc6sbkGIAY+IB4TEvIA8eItFoSd
-	OKtGv2fXzoiWeGdaL96JVGewK9dvp9h1sO+wo+FAHatIbOub4/kjBx+JYTLLD6DMuh3t8t/3QQ5
-	dxiZyqZ6z7BSI0zI3iSvgalwJYBXtLLtk+g==
-X-Received: by 2002:a17:90b:17ca:b0:3b3:c00e:56a7 with SMTP id 98e67ed59e1d1-3b3d07d458bmr3354393a91.42.1795035144417;
-        Wed, 18 Nov 2026 12:52:24 -0800 (PST)
-Received: from localhost ([153.61.198.241])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d56a3f93sm2644508a91.2.2026.11.18.12.52.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 12:52:24 -0800 (PST)
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 18 Nov 2026 20:52:23 +0000
-Message-Id: <DMYMUOTUYZIC.3CG88B0ZSFU7E@gmail.com>
-Subject: Re: [PATCH] bpf: Fix cgroup link update after a failed effective
- array rebuild
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "J4f J4f" <shlomojune6@gmail.com>
-Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii
- Nakryiko" <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
- "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
- <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "Tadeusz Struk" <tadeusz.struk@linaro.org>
-In-Reply-To: <CAE_LbwmtogEFvk5jDUcYhjSaX7_5bsHy-OWxCKPxmiBVDcjj_w@mail.gmail.com>
-References: <20261112134942.288831-1-shlomojune6@gmail.com> <DMTHXFS504S9.2BU4PDLEWG3PX@gmail.com> <CAE_LbwmtogEFvk5jDUcYhjSaX7_5bsHy-OWxCKPxmiBVDcjj_w@mail.gmail.com>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=yeL7Xb29
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 945591F000C7;
+	Wed, 18 Nov 2026 20:52:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795035146;
+	bh=lzMvfQ/28KGfw2hK1DEmbmPHSoi+4DIGoQySXMCWuU8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=yeL7Xb29LlWBX75IS/jgyMBd281HMnTlMnrmeBAnHMA7uKW9Q5OGcqK6T/I/3GZh4
+	 J+IQLFKO6L6SQ3jHnM4TjOm9ngesOTCV2UX0UnSQ2PCsVkb3/L0Z/+mU4wMa0N2DUm
+	 v1DFVPmEWpko+Y+vgccTVFGqJ/EvXaWuL0WrQR/8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Fan Wu <fanwu01@zju.edu.cn>,
+	Ming Qian <ming.qian@oss.nxp.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: [PATCH 6.6 0621/3318] media: imx-jpeg: cancel timeout worker when streaming stops
+Date: Wed, 18 Nov 2026 15:20:43 +0100
+Message-ID: <20261118150336.462848777@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
+References: <20261118150313.527275416@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,16 +63,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 18, 2026 at 06:41 AM J4f J4f <shlomojune6@gmail.com> wrote:
-> I reproduced it on f66469d9905b39 (7.4.0-rc1).
->
-> [    4.307527] BUG: KASAN: vmalloc-out-of-bounds in
-> cgroup_bpf_prog_query+0xdf1/0x10a0
-> [    4.307589] Read of size 8 at addr ffffc90000073050 by task exp/74
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-That's the last step of the scenario.
-How did the alloc in compute_effective_progs() fail 4 seconds after boot?
-It's a small kmalloc with GFP_KERNEL.
-I think it fails only for an OOM victim or with failslab.
-So it's still wont-fix.
+------------------
+
+From: Fan Wu <fanwu01@zju.edu.cn>
+
+commit 78fdfbf117c409273eecbfa7a528ef42358a0e38 upstream.
+
+Each per-fd context ctx owns a delayed_work (ctx->task_timer, callback
+mxc_jpeg_device_run_timeout) armed via schedule_delayed_work() at the end
+of mxc_jpeg_device_run() to recover a stalled encode/decode job. The only
+existing cancellation is cancel_delayed_work() in the frame-done IRQ
+handler, which de-queues a pending work item but does not wait for a
+callback that has already started, and it only runs when a frame completes.
+
+When the fd is closed while a job is in flight (the frame-done IRQ has not
+fired yet), nothing syncs the worker before mxc_jpeg_release() frees ctx
+with kfree() after v4l2_m2m_ctx_release(). A queued or executing
+mxc_jpeg_device_run_timeout() can then recover ctx through
+container_of(&ctx->task_timer) and dereference it (ctx->mxc_jpeg,
+slot_data, dev_warn) after ctx has been freed.
+
+Cancel the worker from mxc_jpeg_stop_streaming(). The cancel cannot live
+in mxc_jpeg_release(): mxc_jpeg_device_run() arms the timer while holding
+only hw_lock, not the mxc_jpeg->lock mutex that release holds, so a cancel
+in release could still race a concurrent mxc_jpeg_device_run() that
+re-arms the timer afterwards. mxc_jpeg_stop_streaming() instead runs inside
+v4l2_m2m_ctx_release() -> vb2_queue_release(), i.e. after
+v4l2_m2m_cancel_job() has set TRANS_ABORT and waited for any in-flight job
+to finish (so __v4l2_m2m_try_queue() will not queue and v4l2_m2m_try_run()
+will not run any further job for this context, which prevents
+mxc_jpeg_device_run() from re-arming the timer) and before the m2m context
+is freed. cancel_delayed_work_sync() removes a pending work item and waits
+for a running callback, so the worker can no longer race with the
+subsequent kfree(). The cancel is placed before the buffer-release loop so
+a concurrently running timeout callback cannot race with it over the same
+buffers. If the frame-done IRQ canceled a still-pending timer, this cancel
+is a no-op; if the timeout callback has already started, it waits for the
+callback to finish. The same mxc_jpeg_stop_streaming() call is also
+reached from VIDIOC_STREAMOFF, which drains the worker early, although
+STREAMOFF itself does not free ctx -- the use-after-free arises only
+when the fd is later closed.
+
+This bug was found by static analysis.
+
+Fixes: cfed9632ca8e ("media: imx-jpeg: Add a timeout mechanism for each frame")
+Cc: stable@vger.kernel.org
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Ming Qian <ming.qian@oss.nxp.com>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c |    2 ++
+ 1 file changed, 2 insertions(+)
+
+--- a/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
++++ b/drivers/media/platform/nxp/imx-jpeg/mxc-jpeg.c
+@@ -1658,6 +1658,8 @@ static void mxc_jpeg_stop_streaming(stru
+ 
+ 	dev_dbg(ctx->mxc_jpeg->dev, "Stop streaming ctx=%p", ctx);
+ 
++	cancel_delayed_work_sync(&ctx->task_timer);
++
+ 	/* Release all active buffers */
+ 	for (;;) {
+ 		if (V4L2_TYPE_IS_OUTPUT(q->type))
+
+
