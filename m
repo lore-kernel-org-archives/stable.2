@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795032122;
-	b=Yv6U9XuYttAmXxCbI6lLode/MXb4z/Psx48UDstXo24WLqTu0G35SRut9lz4H6OTtQRv
-	 ZNrYFHyMAgb/6cwjUWOXGzuqOnoWB6P1DlgmfehEZFQdZcSPIxwawOE+k4TBktCbVE+Us
-	 RAiA9z1OxpCq/T9iT8smlD3DUy7pSQ7BmSK+33ZKNkATY5zLrdad3214knl3upsp0HYnd
-	 Rv5Fy4uclMOj9TmGvYgyWyxtRAsIPcQRYGJXQk5XiDeQlt2RNJNYNw40fzAgGKfmWc8T2
-	 Z71veu8xVLiPaErRa+G1az7ZM7heDqBr1n04mvMbLbPZ7iqCcV2dcCa8z+VHqi2RlbQ==
+	t=1795032127;
+	b=HI8syXhUut3AIRa3/rnz9iV+szNs6K94PizzeRJ43NvrU4og52DWkaykv+7L5/1gWsfe
+	 quJ2FzU+laqvwZ541iMLNYHizJTuEg2EOFdGKLyla3X+3mFu3d7g+H4R+NpCNeMtEI/4I
+	 9xBjghYSolDKdjT38JGMRsqDb/ICX9Rjy04hL9OE8joycpz8k3u1JXMq9lgv/Rk3NhKXW
+	 Z+IqaWCHWlHvaQxX7BwkPvBqlYAPPebKizF1Pv4TTUpK4MEApdi+9LPbTZPOl4LWjULJ3
+	 ky61IV3/m5ROOWy7dsnOxjxupHdM67wmh75pHw5qq8UpZBooFs6QkJQH7y5JswLbQ0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795032122;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795032127;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=zCh9NsRAvBA0Z+JllMMKwUF3JsKdHrLPX3adSgo4BPo=;
-	b=OzaZEscSORm5TNv8MegFqS4mwpDlWO/1Ues1JR/eI1I6b3rsUvGltUQkJAxWIRL4e+qu
-	 ap+B9JvAenzDvHHKVtfGdUJW0J2yd0cig/gpOEt/vaOjlMCLJxi78hrLqREQaMTR40+e7
-	 TKnizICNcW7Y0bibJNiXFrS5pGoFy+8xgzRPFff0T1+ndjUAK86zAplmVvRqF8B9U/CVm
-	 mHCkQVJB3G5DwO1X4eAfRNs+vqGohdc5fSsd7L7oxw5NbJpCzMQ4xfI7vZWz8qHPARpk+
-	 +izbCrloYB2QxZK9Qj3tN7vLEO0tO2Z3N65vFyKQ2LRirCm2hLGzcNQSc/zSKcEyPOg==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RxYUAJW2cS+xhl/4zeLOobQgtnCuj4yk83fiE7Iw6LQ=;
+	b=dwxo1DY+EvyBiZooq/NSZ8frZnF3jCRtnvxxgNRQ0ZIWsLkaQBAQnGbGryr5uDwxgrx4
+	 eZ3HlnbQPFSbRBlEIEdWC7RYw984u7c5s3o/KBJrEwaGI/LGsFvmowk8xCI//zZpv+oJD
+	 pkq6976qI/FV9CNWcDj6s8DFzEj9KvRJROkXfZxZ7EJBycVfeHX23qB7OkTYrEKQNs8F/
+	 y1itIa3Lr7vtI9pFTDI/ZzHJoYZFjE2nt9Cp2T7xRVTxGiX0dyPuKXHjvFYlINMn5pt93
+	 PB5WAHLhMqIrmSZuKysBIkmVPj8sLDqlBPcV3EsvTkZjkNEOWbx0AVaufrpxyb28akA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pZXQPA6+;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HI22zE1m;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E57F7606A31C;
-	Wed, 18 Nov 2026 20:02:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69864606A32C;
+	Wed, 18 Nov 2026 20:02:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pZXQPA6+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4816D1F000C4;
-	Wed, 18 Nov 2026 20:02:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=HI22zE1m
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA85A1F000C4;
+	Wed, 18 Nov 2026 20:02:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795032121;
-	bh=zCh9NsRAvBA0Z+JllMMKwUF3JsKdHrLPX3adSgo4BPo=;
+	s=korg; t=1795032127;
+	bh=RxYUAJW2cS+xhl/4zeLOobQgtnCuj4yk83fiE7Iw6LQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pZXQPA6+G1VN8yT8WV7/nyxXT7mitaYPtIO187GQ2G95hraQekm5dcY/xdwb7NPtx
-	 ZaEjzBzS2c7rYT5k7DI8q9k8vOngFphNCKMOqONOEjoq4KHUCh2WXX0WdMSYXXUPVL
-	 s3BUDdqfXbanNL/JY4qdBDvyWPNSdHMtHZ7Enl5M=
+	b=HI22zE1mKdOYV2ySnbILk2NPVRNYMHtztYu6zD3CEzHn8e/oIgzc9WQdsEuvcRxhv
+	 ms3I+VwYfHx2QH4SIi9uPlGbsiIiPXyi0qXU/VJC2uUnaZMdju/61jUFvXWTjOtBEw
+	 c0/TYl9a3PZ4MBSWB8ro8QWG5z4zrEZnmmPAgYrQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	=?UTF-8?q?Amadeusz=20S=C5=82awi=C5=84ski?= <amade@asmblr.net>,
+	bui duc phuc <phucduc.bui@gmail.com>,
 	Mark Brown <broonie@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1300/1756] ASoC: soc-ac97: Fix error handling in snd_soc_new_ac97_component()
-Date: Wed, 18 Nov 2026 15:57:07 +0100
-Message-ID: <20261118150101.267463833@linuxfoundation.org>
+Subject: [PATCH 6.12 1302/1756] ASoC: mediatek: mt8195: Fix tuner clock error handling
+Date: Wed, 18 Nov 2026 15:57:09 +0100
+Message-ID: <20261118150101.335970551@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150007.957976754@linuxfoundation.org>
 References: <20261118150007.957976754@linuxfoundation.org>
@@ -62,48 +62,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.12-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Amadeusz Sławiński <amade@asmblr.net>
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-[ Upstream commit fc081cdfc6b370f6b6853cdeb4313f92561770d1 ]
+[ Upstream commit 8e5a2eabb0d7cbd6db0b94f7f30e1ca2c0a8994f ]
 
-If call to snd_soc_ac97_init_gpio() fails, proper removal procedure
-should mirror snd_soc_free_ac97_component() behaviour and call
-device_del() before put_device().
+Check and propagate errors from mt8195_afe_enable_clk(). If enabling
+the tuner clock fails, disable the previously enabled APLL clock.
 
-Fixes: 9bf5c3d11f1f ("ASoC: ac97: add gpio chip")
-Signed-off-by: Amadeusz Sławiński <amade@asmblr.net>
-Link: https://patch.msgid.link/20261014200608.118770-6-amade@asmblr.net
+Fixes: ff5a90173d98 ("ASoC: mediatek: mt8195: enable apll tuner")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Link: https://patch.msgid.link/20261014112752.683032-2-phucduc.bui@gmail.com
 Signed-off-by: Mark Brown <broonie@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/soc-ac97.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/mediatek/mt8195/mt8195-afe-clk.c | 24 +++++++++++++++++-----
+ 1 file changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/soc-ac97.c b/sound/soc/soc-ac97.c
-index 079e4ff5a14e9..f86782b44b1b9 100644
---- a/sound/soc/soc-ac97.c
-+++ b/sound/soc/soc-ac97.c
-@@ -234,10 +234,12 @@ struct snd_ac97 *snd_soc_new_ac97_component(struct snd_soc_component *component,
+diff --git a/sound/soc/mediatek/mt8195/mt8195-afe-clk.c b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
+index f35318ae07392..5d4ba88ceaef1 100644
+--- a/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
++++ b/sound/soc/mediatek/mt8195/mt8195-afe-clk.c
+@@ -241,21 +241,35 @@ static int mt8195_afe_enable_tuner_clk(struct mtk_base_afe *afe,
+ 				       unsigned int id)
+ {
+ 	struct mt8195_afe_private *afe_priv = afe->platform_priv;
++	int ret;
  
- 	ret = snd_soc_ac97_init_gpio(ac97, component);
- 	if (ret)
--		goto err_put_device;
-+		goto err_del_device;
+ 	switch (id) {
+ 	case MT8195_AUD_PLL1:
+-		mt8195_afe_enable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL]);
+-		mt8195_afe_enable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL1_TUNER]);
++		ret = mt8195_afe_enable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL]);
++		if (ret)
++			return ret;
++		ret = mt8195_afe_enable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL1_TUNER]);
++		if (ret) {
++			mt8195_afe_disable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL]);
++			return ret;
++		}
+ 		break;
+ 	case MT8195_AUD_PLL2:
+-		mt8195_afe_enable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL2]);
+-		mt8195_afe_enable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL2_TUNER]);
++		ret = mt8195_afe_enable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL2]);
++		if (ret)
++			return ret;
++		ret = mt8195_afe_enable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL2_TUNER]);
++		if (ret) {
++			mt8195_afe_disable_clk(afe, afe_priv->clk[MT8195_CLK_AUD_APLL2]);
++			return ret;
++		}
+ 		break;
+ 	default:
++		ret = 0;
+ 		break;
+ 	}
  
- 	return ac97;
+-	return 0;
++	return ret;
+ }
  
-+err_del_device:
-+	device_del(&ac97->dev);
- err_put_device:
- 	put_device(&ac97->dev);
- 	return ERR_PTR(ret);
+ static int mt8195_afe_disable_tuner_clk(struct mtk_base_afe *afe,
 -- 
 2.53.0
 
