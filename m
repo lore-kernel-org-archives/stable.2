@@ -1,44 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795008828;
-	b=BpsIy3vB6PvVrGmq1S0RbkEXruFeTd5AiYFaYuY7DVbQEkQDx5ZSl9j0htrR4Ry3CUbl
-	 2hGtCJoME1E0zoYtbNddC/vEwzQSIvZKhXJCHyNCnoNPr++fOG+xOlj0HzsfvzLKUIF9R
-	 zAVbp+jU9DCstj1C8ZkXS3EdbztV+cg+gdJloTvQ02eEM92Fj5EV877mgCP8ZUKVySa9j
-	 UVotR3ZvR5d/CY9ajOBA8ZECrSJ7GPOFlZcJpAVSViP/aw1/FlxoHsWgzk2MUY1UrL71F
-	 y4xQ+gtDbjV3hGjptkPnqEM9GrzHxW7PjGzF9yubrCDt2NN/QgiQNcumt4eV42dhbXQ==
+	t=1795009066;
+	b=sO+p4gAEynbpKhihF44b3Ybq68yaHH6WZnGi7F5ATD2YA1xgKcPDtTJqsl4yTS0reDJC
+	 j1xAdqFMO0IWJ91Zn0p/rV57TPadzO0MOOW4DxjBu96Eoam+bUONp1niriPhZVTKdTRbS
+	 681Q/kGJFjlZiIPf1bpWmX8ItL+2vfldXIYdao+278r+xrlO/Aa9Zz8npc+eHlG62irG6
+	 zHxz9OigyCAta7tx41+U/qtxyuMvkVOi8Fm+sfWGw22T1m0Z16KaO003X4NKSDFES6/SO
+	 PtvGO4f7V+2HT4ymOnR8Y1YZg2MEbRj3kfQCtARedt1Jp4stG6Q4rAPmLHy8sQdcrbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795008828;
-	h=Received:DKIM-Signature:Mime-Version:Content-Type:Date:Message-Id:
-	 Subject:Cc:From:To:X-Mailer:References:In-Reply-To;
-	bh=XV7sbxNgaRZfJYvF96xgpKxkblconb2brXYMaR7KHAQ=;
-	b=nn0545lYu2y3GMYnAufIReAYy7/CFHDesZaJxwk+Uyp6Tj464wBCiutJ642ejmsPeqAy
-	 kr2wJe/Ro/J4UCaoJGfllnNB+78PxXDl1dpXJnWb8qEGV3eE/cfg6+EJCvU58kBHxfznk
-	 Q9JBSb9gYbdnY24T+rzs7XWCjKYozB58VWtaqIcOFbzCyGdX5AnDJT+2HcIWHQVlWMplW
-	 NCKRh14qZuIwYpOgtI+ETQ21elMVLqaXvXATwHh/e7Z8IHXiJVEnz5Tij7vxP7im/UhVf
-	 SVP9u8kMlfIQIRpa8o7sW6v3YuMYcupe1scF5LXoC6oa5pd65CvqthTV2mLqdOxQQGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795009066;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Subject:
+	 Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Last-TLS-Session-Version;
+	bh=WGyeXbeTBpO0bbOfE0ofodA7WQqaxR+ETpukNGWz/SM=;
+	b=u1A7J3MvKeHVIBVaVnybdCxYpU+Uy4FTRwsnkHa/V77CSSkgURjb91zeFoz0s5P9fEcM
+	 gLZLXqPY0EIX4slgtbE+vq+INhPyW1TiMaLvADMj1QORvqYWCEfuODNj9gRjrr4kXywSJ
+	 q+5iAKLssZMs/q86YmjBuiqn+6bEn0w1jVmeMpzRsTDDkrxMiybx/Bl8LxAZ5AetTFot0
+	 ubmih4m7xbHO9x8471Kr5CxcSZ5xZsJokMM+i3j5dO9dOVNB4i6V5HwsPf4pZo+4QUP1o
+	 /gXpBI7SmLni7bl3uKoU0bbnk6u1rPcIDPEjTbhXQtd75YmOL2anAdVt3KEzdSomQdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LpWafA0R;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0yrjWeCj;
+	arc=none smtp.remote-ip=185.246.85.4
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4B7F4606A333;
-	Wed, 18 Nov 2026 13:33:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 169E4606A320;
+	Wed, 18 Nov 2026 13:37:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 169E4606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LpWafA0R
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 67B0B1F000C4;
-	Wed, 18 Nov 2026 13:33:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795008827;
-	bh=XV7sbxNgaRZfJYvF96xgpKxkblconb2brXYMaR7KHAQ=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=LpWafA0RwY/n/9v45H1EHR4XucbTQoWJQ3NJbtGitL2gASLcRRiYUZF08XL9eO2Kp
-	 ltJ2gH4tg81TDp1WYRzC9GhfYjda2M5HfEhocfrdXsO2w3H/nekhPABrOL5ISOBCmh
-	 AAxmhTI/UcnTsZlExtIpJROqieAd0S+mmtOJm2s+w1+dFUs8j9V/oRNifUrVH5uBdI
-	 B3WvHGVujbwNvzyUKL4yyTCE+opEkTC58JXaOzAPhlplaHOXwi7yiSrkCQG14ZJaR4
-	 SCVvibrhJ3ekLr6Bc70Twi0TyKmfP0zm1ukVWOJe/7XA7+XKMmRXlZIHVWTc3v3+Oa
-	 M8xYFpDpUifRQ==
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=0yrjWeCj
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 7A1D64E41627;
+	Wed, 18 Nov 2026 13:37:44 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4409E5FE9B;
+	Wed, 18 Nov 2026 13:37:44 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 30A4411BC2074;
+	Wed, 18 Nov 2026 14:37:27 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795009058; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=WGyeXbeTBpO0bbOfE0ofodA7WQqaxR+ETpukNGWz/SM=;
+	b=0yrjWeCjRlF1Q8QECqODe+Wi/p2jg6/W4wFMouKAzBKC0GPtgS2HA5ON//RDCNhs+wKFsS
+	lGxDap+PEGClqeAzA/dsHxMJa2aAId+6wzN+U5m9jWLIwdX4q0m3m3QlmwT9nmSh3/PYPN
+	umMbiwRbsWCMOX+AmCOJc1Y5fPJ+n51tm7nnFKJ9DdilNpsf596dRdFXJOyoNk4ODaeVYv
+	oaka9AkYASZTMUVWKMNnOkX1Nky1gCY8qoV2pTckN0TilD6OO+VKfHDJ6UPhY8gswHop8s
+	gbmxm0zpRL/9NP2IJx6TSDk67PwYj+6snYSYZU6RpHseIciRlVD90fonM0DNZQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v11 00/10] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+Date: Wed, 18 Nov 2026 14:37:07 +0100
+Message-Id: <20261118-perso-ma35d1-upstream-clk-v11-0-bd1d1e060926@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -47,337 +62,153 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=65b67eaa2390905bd19cb271d8b7bafb464b182aa8cf20a1b34dc82aee08;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Wed, 18 Nov 2026 14:33:44 +0100
-Message-Id: <DMYDITU0H48Z.2LA5KF2TFNUY2@kernel.org>
-Subject: Re: [PATCH v5] mtd: spi-nor: take the flash lock around
- spi_nor_restore()
-Cc: <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
- <takahiro.kuwano@infineon.com>, <tudor.ambarus@linaro.org>,
- <linux-mtd@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- <stable@vger.kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Itai Handler" <itai.handler@gmail.com>, <pratyush@kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20261029210153.3986211-1-itai.handler@gmail.com>
-In-Reply-To: <20261029210153.3986211-1-itai.handler@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43S3UoDMRAF4FcpuTYyk/945XuIF0l2YoNtt+zWR
+ Sl9d7MVdGVL6OUM5MvJIWc20lBoZE+bMxtoKmPpD3VAfNiwtA2HN+KlqwsmQBhwKPmRhrHn+yB
+ 1h/zjOJ4GCnuedu/c6BRSThiciayePw6Uy+cVf3mt87aMp374ut416Xn7o3rhG+qkOXDjtJTkp
+ SZSz7HvT7tyeEz9ns3uhH9WO+GEHDlZR5oMWkFhbYllLmxZouYS4HMnRXARYG3JpaVblqxWzjG
+ QJRAQ3NpSd1tqtqTxVtfOPOa1ZRaWhJZlqqWcl5bIJB/j2rK/FgKIlmWrlWLna6RghL3Rl1taq
+ mW5ahEGBBNQuHTD8gsLm335amHWyuUg6hPoxv+CuzGEuTGbvI1aBQf+v3a5XL4B2nV4MHMDAAA
+ =
+X-Change-ID: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ stable@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
---65b67eaa2390905bd19cb271d8b7bafb464b182aa8cf20a1b34dc82aee08
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+I am in possession of an MA35D1 NuMaker board. The SPI controller has
+been contributed, but at this stage it does not work with the current
+clock driver.
 
-On Thu Oct 29, 2026 at 10:01 PM CET, Itai Handler wrote:
-> spi_nor_restore() runs on reboot, kexec and unbind to hand the flash
-> over in its power-on state. It runs without nor->lock while the MTD
-> device is still registered. Tasks are not frozen on reboot or kexec,
-> and kexec -e does not even stop user space, so the restore can run in
-> the middle of a program or erase. This causes two problems:
->
-> 1. The flash can be left in the wrong state. On boards that do not
->    reset the flash (broken-flash-reset), the restore exits 4-byte
->    address mode, but a busy flash typically ignores the command, so
->    the flash stays in 4-byte mode after the reboot or kexec. After a
->    reboot, a boot ROM that reads the flash in the power-on 3-byte mode
->    gets the wrong data, and the board fails to boot. For example, the
->    GnuBee PC1 (MT7621) has a Winbond W25Q256FV, which ignores the exit
->    command while busy, and the board needs the restore to reboot, see
->    commit 90dedc973b86 ("staging: mt7621-dts: allow gnubee to reboot
->    cleanly."). A busy flash also ignores READ ID, so if it is still
->    busy when the secondary kernel probes it after a kexec, the probe
->    fails ("unrecognized JEDEC id bytes"), and that kernel cannot use
->    the flash.
->
-> 2. Data can be corrupted. The restore also soft resets flashes that
->    support it, which can abort a program or erase. For example, the
->    Micron MT25QU512ABB8ESF-0SIT QSPI NOR flash advertises the soft
->    reset in its SFDP, and its data sheet says that a reset aborts a
->    program or erase in progress and may corrupt data. If an application
->    is writing data to the device when the system kexecs into a secondary
->    kernel, or restarts, a sector can be left partly erased or programmed.
->
-> Take the lock, so that the restore waits for the operation in flight.
-> That alone is not enough: the next operation would then start right
-> after the restore, and could still be running at the kexec or be cut
-> short by the reboot. And after an exit from 4-byte mode, it would still
-> use 4-byte addresses, so a page program would write to the wrong place.
-> So mark the flash shut down before releasing the lock, and fail later
-> operations with -ESHUTDOWN. The CFI drivers also refuse operations once
-> they have reset the flash for a reboot (see cfi_intelext_reset()). If
-> the SPI controller removes itself on shutdown, spi_nor_remove() runs
-> after spi_nor_shutdown(), finds the flash shut down, and does not
-> restore it a second time.
->
-> The wait is usually short, as applications and flash file systems
-> typically submit small requests, such as a single sector erase. It can
-> be long, though: spi_nor_erase() holds the lock for the whole request,
-> so shutdown or unbind may wait for a full chip erase, which can take
-> minutes. If the lock cannot be taken, warn and restore without it, as
-> before.
->
-> Backport note: before v6.4, the lock helper is spi_nor_lock_and_prep(),
-> and it has no _pe and _rd variants. From v6.4 on, apply this on top of
-> commit f594a33f9721 ("mtd: spi-nor: Unprepare legacy controllers upon
-> RWW wait interruption"), which is also tagged for stable.
->
-> Fixes: 59b356ffd0b0 ("mtd: m25p80: restore the status of SPI flash when e=
-xiting")
-> Cc: stable@vger.kernel.org # see patch description, needs adjustments for=
- <=3D 6.3
-> Assisted-by: LLM
-> Signed-off-by: Itai Handler <itai.handler@gmail.com>
-> ---
-> Changes in v5:
-> - Fail operations after the restore with -ESHUTDOWN, so that none can
->   reach the flash between the restore and the reboot or kexec.
-> - Warn and restore anyway when the lock cannot be taken, instead of
->   skipping the restore, as I offered in my reply on v3 [1].
-> - Use a helper around spi_nor_restore() again, as in v3, and the v3
->   subject.
-> - Say that the wait can last for a full chip erase; v4 understated it.
-> - Drop the long code comment, and rewrite the commit message, with
->   examples and a backport note.
-> - Use the v3 form of Assisted-by.
-> - Rebase on mainline.
->
-> Why the lock is not just kept after the restore, which would also stop
-> later operations: it hangs the reboot or kexec on boards whose SPI
-> controller removes itself on shutdown (spi-fsl-dspi, spi-bcm2835,
-> spi-ath79). spi_nor_remove() then runs after spi_nor_shutdown(), in the
-> same task, and waits for the lock that spi_nor_shutdown() kept. With
-> this patch, spi_nor_remove() gets the lock and skips the restore.
->
-> Testing:
-> - Built with W=3D1 for arm64, on mainline and, cherry-picked on top of
->   f594a33f9721, on 6.6, 6.12, 6.18, 7.2 and 7.3. The backports to 5.10,
->   5.15 and 6.1 build cleanly too; I will send them when the stable team
->   asks.
-> - In QEMU (v7.3, ZynqMP GQSPI, n25q512a11 with broken-flash-reset, and
->   the flash model patched to stay busy during an erase), with an
->   application erasing and programming the flash during a kexec:
->   - Without this patch, the flash ignores WREN, EX4B and WRDI, and stays
->     in 4-byte mode.
->   - With a draft that released the lock after the restore, the next
->     erase went out with a 4-byte address. With a 10 s erase, it was
->     still running when the secondary kernel probed the flash, and the
->     probe failed.
->   - With this patch, the flash obeys EX4B, nothing reaches it after the
->     restore, and the secondary kernel finds the flash, with both a 3 s
->     and a 10 s erase.
-> - With the GQSPI driver changed to remove itself on shutdown, as
->   spi-fsl-dspi does, a kexec with a draft that kept the lock hung, as
->   spi_nor_remove() waited for it. With this patch, it completes, and the
->   flash is restored once.
->
-> v4: https://lore.kernel.org/r/20261004104311.2196527-1-itai.handler@gmail=
-.com
-> v3: https://lore.kernel.org/r/20260915113811.2429311-1-itai.handler@gmail=
-.com
-> [1] https://lore.kernel.org/r/CAFpOueRGN2TSNo+m3319qn00p-BYn8w7OQ6OPt4XTc=
-VG63-uUA@mail.gmail.com
->
->  drivers/mtd/spi-nor/core.c  | 43 +++++++++++++++++++++++++++++++++++--
->  include/linux/mtd/spi-nor.h |  2 ++
->  2 files changed, 43 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> index 90524c58602e..3109f89b35f3 100644
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -1230,6 +1230,11 @@ int spi_nor_prep_and_lock(struct spi_nor *nor)
->  		ret =3D wait_event_killable(nor->rww.wait,
->  					  spi_nor_rww_start_exclusive(nor));
-> =20
-> +	if (!ret && nor->shutdown) {
-> +		spi_nor_unlock_and_unprep(nor);
-> +		return -ESHUTDOWN;
+The clock controller registers its muxes with .fw_name parent data,
+which requires every internal clock name to be declared in the DT. As
+the DT does not declare them, all parent lookups fail: muxes end up
+registered as root clocks and most peripherals read a zero rate.
 
-This will be propagated to userspace, correct? Not sure this is a
-valid error code outside of sockets. Maybe EIO?
+This conversion exposed a first issue with the WDT/WWDT parents which
+were actually missing in the clock driver. I am not using these clocks
+myself but it is worth fixing.
 
-> +	}
-> +
->  	if (ret)
->  		spi_nor_unprep(nor);
-> =20
-> @@ -1290,6 +1295,8 @@ static void spi_nor_rww_end_pe(struct spi_nor *nor,=
- loff_t start, size_t len)
->  	rww->ongoing_pe =3D false;
->  }
-> =20
-> +static void spi_nor_unlock_and_unprep_pe(struct spi_nor *nor, loff_t sta=
-rt, size_t len);
-> +
+The second round of reviews raised another problem with the
+crystals. HXT and LXT are external crystal oscillators wired on the
+board, while HIRC and LIRC are on-chip RC oscillators. HXT was described
+whereas LXT was not. The series now also takes the two crystal inputs
+from the DT: they get documented in the bindings, described in the
+boards and looked up by the driver (with a fallback for backward
+compatibility).
 
-Please avoid forward declarations and move the functions.
+Finally, I was still unsatisfied by the clock tree because there were
+too many root clocks. Many "gates" were wrongly set aside from the
+downstream clocks they would gate, and SYSPLL was simply not parented at
+all (?).
 
->  static int spi_nor_prep_and_lock_pe(struct spi_nor *nor, loff_t start, s=
-ize_t len)
->  {
->  	int ret;
-> @@ -1304,6 +1311,11 @@ static int spi_nor_prep_and_lock_pe(struct spi_nor=
- *nor, loff_t start, size_t le
->  		ret =3D wait_event_killable(nor->rww.wait,
->  					  spi_nor_rww_start_pe(nor, start, len));
-> =20
-> +	if (!ret && nor->shutdown) {
-> +		spi_nor_unlock_and_unprep_pe(nor, start, len);
-> +		return -ESHUTDOWN;
-> +	}
-> +
->  	if (ret)
->  		spi_nor_unprep(nor);
-> =20
-> @@ -1366,6 +1378,8 @@ static void spi_nor_rww_end_rd(struct spi_nor *nor,=
- loff_t start, size_t len)
->  	rww->ongoing_rd =3D false;
->  }
-> =20
-> +static void spi_nor_unlock_and_unprep_rd(struct spi_nor *nor, loff_t sta=
-rt, size_t len);
-> +
->  static int spi_nor_prep_and_lock_rd(struct spi_nor *nor, loff_t start, s=
-ize_t len)
->  {
->  	int ret;
-> @@ -1380,6 +1394,11 @@ static int spi_nor_prep_and_lock_rd(struct spi_nor=
- *nor, loff_t start, size_t le
->  		ret =3D wait_event_killable(nor->rww.wait,
->  					  spi_nor_rww_start_rd(nor, start, len));
-> =20
-> +	if (!ret && nor->shutdown) {
-> +		spi_nor_unlock_and_unprep_rd(nor, start, len);
-> +		return -ESHUTDOWN;
-> +	}
-> +
->  	if (ret)
->  		spi_nor_unprep(nor);
-> =20
-> @@ -3250,6 +3269,26 @@ static void spi_nor_restore(struct spi_nor *nor)
->  		spi_nor_soft_reset(nor);
->  }
-> =20
-> +static void spi_nor_lock_and_restore(struct spi_nor *nor)
-> +{
-> +	int ret;
-> +
-> +	ret =3D spi_nor_prep_and_lock(nor);
-> +	if (ret =3D=3D -ESHUTDOWN)
+The clock tree now looks much more accurate.
 
-This is actually really hard to follow. It's tested for even before
-it is set down below. Also probably wont work with an EIO return
-code. See more below
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Changes in v11:
+- Add a patch to fix the CCAP mux bus width.
+- Add comments stating that the HXT and LXT IDs are legacy clock IDs.
+- Collect R-by tag.
+- Dropped the DTS patches from the clock series.
+- Link to v10: https://lore.kernel.org/r/20261015-perso-ma35d1-upstream-clk-v10-0-47c97b54a809@bootlin.com
 
-> +		return;
-> +	if (ret)
-> +		dev_warn(nor->dev,
-> +			 "Failed to lock flash, restoring its power-on state anyway, err =3D =
-%d\n",
-> +			 ret);
-> +
-> +	spi_nor_restore(nor);
-> +
-> +	if (!ret) {
-> +		nor->shutdown =3D true;
+Changes in v10:
+- Make sure muxes registration is device managed like all the other clocks.
+- Link to v9: https://lore.kernel.org/r/20261015-perso-ma35d1-upstream-clk-v9-0-1f548fa2002e@bootlin.com
 
-Why don't you set the flag unconditionally?
+Changes in v9:
+- Create devm_clk_hw_register_fixed_rate_parent_hw().
+- Use the above helper to register SYSPLL.
+- Keep hws[HXT] available in the legacy case.
+- Propose myself for maintaining this driver.
+- Link to v8: https://lore.kernel.org/r/20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com
 
-> +		spi_nor_unlock_and_unprep(nor);
-> +	}
-> +}
-> +
->  static const struct flash_info *spi_nor_match_name(struct spi_nor *nor,
->  						   const char *name)
->  {
-> @@ -3632,7 +3671,7 @@ static int spi_nor_remove(struct spi_mem *spimem)
->  {
->  	struct spi_nor *nor =3D spi_mem_get_drvdata(spimem);
-> =20
-> -	spi_nor_restore(nor);
-> +	spi_nor_lock_and_restore(nor);
+Changes in v8:
+- Fix an out-of-bound bug (syspll parenting structure was wrongly
+  defined).
+- Make sure HXT_GATE is validated before being reused (and possibly
+  dereferencced blindly by the core.
+- Link to v7: https://lore.kernel.org/r/20261002-perso-ma35d1-upstream-clk-v7-0-cbd991fa6270@bootlin.com
 
-So why don't you just keep spi_nor_restore() and just add the
-locking there?
+Changes in v7:
+- Avoid opencoding core helpers, replace them with existing helpers
+  (mentioned by Jerome)
+- Rebased on top of clk-next since the first patches have been applied
+- Link to v6: https://lore.kernel.org/r/20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com
 
-What about the following:
+Changes in v6:
+- Drop the clock output names entirely, they are not relevant.
+- Error out when the crystal providers defer probing.
+- Make sure gates are correctly parented.
+- Make sure SYSPLL is parented.
+- Link to v5: https://lore.kernel.org/r/20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com
 
-static void spi_nor_restore(struct spi_nor *nor)
-{
-	struct spi_nor_flash_parameter *params =3D nor->params;
-	int lock_ret, ret;
+Changes in v5:
+- Fix the bindings wrt HXT and LXT.
+- Fix the DT descriptions of HXT and LXT.
+- Collect tags.
+- Link to v4: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com
 
-	lock_ret =3D spi_nor_prep_and_lock(nor);
-	/* already restored, e.g. remove() after shutdown(). */
-	if (nor->restored)
-		return;
-	if (lock_ret)
-		dev_warn(nor->dev, "...", lock_ret);
+Changes in v4:
+- I forgot to bump the clock counter in the driver after adding the two
+  new clocks in the bindings. Sashiko will keep complaining about the
+  incoherency though. Since binding and driver changes should be kept
+  separated, I cannot do both at the same time.
+- Link to v3: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com
 
-	/* former body .. */
+Changes in v3:
+- Drop the number of clocks from the binding, set it in the driver only
+- Split the binding/driver patches completely
+- Link to v2: https://lore.kernel.org/r/20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com
 
-	/* refuse any further operations */
-	nor->restored =3D true;
+Changes in v2:
+- New patch 1/3: register the missing WDT/WWDT parent clocks
+- New patch 3/3: harden the code
+- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com
 
-	if (!lock_ret) {
-		spi_nor_unlock_and_unprep(nor);
-	}
-}
+---
+Miquel Raynal (10):
+      dt-bindings: clock: ma35d1: Mark HXT and LXT legacy
+      clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
+      clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
+      clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT when possible
+      clk: nuvoton: ma35d1: Reparent the gates correctly
+      clk: nuvoton: ma35d1: Use device managed helpers for fixed rate clocks
+      clk: Create devm_clk_hw_register_fixed_rate_parent_hw()
+      clk: nuvoton: ma35d1: Reparent SYSPLL correctly
+      clk: nuvoton: ma35d1: Fix CCAP muxes bus width
+      MAINTAINERS: Add myself as Nuvoton MA35D1 clock controller
 
-> =20
->  	/* Clean up MTD stuff. */
->  	return mtd_device_unregister(&nor->mtd);
-> @@ -3642,7 +3681,7 @@ static void spi_nor_shutdown(struct spi_mem *spimem=
-)
->  {
->  	struct spi_nor *nor =3D spi_mem_get_drvdata(spimem);
-> =20
-> -	spi_nor_restore(nor);
-> +	spi_nor_lock_and_restore(nor);
->  }
-> =20
->  /*
-> diff --git a/include/linux/mtd/spi-nor.h b/include/linux/mtd/spi-nor.h
-> index b3e3c6b10186..6f5d2e5c2118 100644
-> --- a/include/linux/mtd/spi-nor.h
-> +++ b/include/linux/mtd/spi-nor.h
-> @@ -361,6 +361,7 @@ struct spi_nor_flash_parameter;
->   * @read_opcode:	the read opcode
->   * @read_dummy:		the dummy needed by the read operation
->   * @program_opcode:	the program opcode
-> + * @shutdown:		the flash was restored, refuse further operations
+ MAINTAINERS                                    |   8 +
+ drivers/clk/nuvoton/clk-ma35d1-divider.c       |   3 +
+ drivers/clk/nuvoton/clk-ma35d1-pll.c           |   3 +
+ drivers/clk/nuvoton/clk-ma35d1.c               | 716 +++++++++----------------
+ include/dt-bindings/clock/nuvoton,ma35d1-clk.h |   2 +
+ include/linux/clk-provider.h                   |  13 +
+ 6 files changed, 281 insertions(+), 464 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
 
-shutdown only covers some of its meaning, it might also just get
-unbinded etc. So what about 'restored'?
+Best regards,
+-- 
+Miquel Raynal <miquel.raynal@bootlin.com>
 
--michael
-
->   * @sst_write_second:	used by the SST write operation
->   * @read_proto:		the SPI protocol for read operations
->   * @write_proto:	the SPI protocol for write operations
-> @@ -402,6 +403,7 @@ struct spi_nor {
->  	enum spi_nor_protocol	read_proto;
->  	enum spi_nor_protocol	write_proto;
->  	enum spi_nor_protocol	reg_proto;
-> +	bool			shutdown;
->  	bool			sst_write_second;
->  	struct sfdp		*sfdp;
->  	struct dentry		*debugfs_root;
->
-> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-
-
---65b67eaa2390905bd19cb271d8b7bafb464b182aa8cf20a1b34dc82aee08
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCav2pOBIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/iSKAF8CjZ0K4y3yJPfFmLZVIV6ajtPbzWce0hR
-/ZmGWAHOvBPHE4XfE0TJQPFWmIoaGgqzAX9liK5bTl4ufe3m3vAN1eRNAZrHxvm5
-iLWUpX4RLO2ARPVq0AS0XAv4rvsyQVJCoVk=
-=TEHg
------END PGP SIGNATURE-----
-
---65b67eaa2390905bd19cb271d8b7bafb464b182aa8cf20a1b34dc82aee08--
