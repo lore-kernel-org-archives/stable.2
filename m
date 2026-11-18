@@ -1,84 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795011594;
-	b=Mh3JlZ4HEwUg4JUvE9TkxsCZN0FYeL6NiNeWtDP9qOSNlw9fzi6r0KGLxGsANAaQACqD
-	 nL2NBxOsTdsRHASbQuTgSFPYtse/lYuTiNcgL09ncWf6kAvTCknVaZZjq/HVDagdEcvCy
-	 Aq+HwMZ0HrZBKr/bTNlbszPUBdcNov9LNojuu1BeYtjl12H7GXxJmccN+odm8j8Coz4qp
-	 wUxu1N9jRs5jhoQpPSjRURZjD54eW7d0A7YvRQP1tB9LCNvIIyy8fxCSXc0sFBWU7I6gb
-	 laZac+7gADjKYed5RWa7SHJ8hjRyPwODHuqiwKBO+dI67uhHr+uRvTzhn/9etrB8z/Q==
+	t=1795011687;
+	b=ZvlWlO/kTDVYCuWZNMxABExfjQtSryRH8nQxdE7uzkduBLzIAFxS/YklmG1G3mgzBCzP
+	 s4ASH7IG7F/elday7WuPyCIclAnGY7o2J8+poTEtrtLob3Khz4sEIHlML1pnqcoU8qSYa
+	 9g9laz9Q6Jj++dSMbqYQwxydDf/nO7nU/kZscJtnWube5fag+XHPu4qf2afk30DlNPQRc
+	 Qg8w2TNjIvQxDEvF8KIeffR0uq84qRx4+HRig69mVXqoKH7q3tvEBmRT+iVHnmwH/CI7h
+	 xnracj/WMdy8Zf45UcUZ10ZTmrEoHBZmlxdOlNALuj5O9fUZGOn87YcFY3UtNgZ8FcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795011594;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=dSUNXYTPof7VaxfrAjSqlJUYRb7d441TRHvtPsDe9u8=;
-	b=0Cvjl0vPsKyl3G/U7Kt1Si8SNqDZFQjazBtUTSWlYdJabWk0zZ0gvtvIasvqqQOwvVLP
-	 ZpZv11jGwi06VdzZdJIwarTh+Z5qGjEFqYKqn7c7F1YZw5rMUBZAMKeHu3D6GAFfjiri0
-	 qhj0ri+AnLKDtD14sITJVtUnENwbtOnXzUiX5lmTXghSqaAmyxLb+tHZKeosMHYf1jg3v
-	 d9eGnfC46b24Z4pehSH0sfD3UC75DHu9m/jMlM8YbQkuUJqqMcSsd3RJifPdfYJCarb7f
-	 xyRi5s2eFEdGRIqLLXG75NhvmZDgWylSU8mmuBRbuf7iRstjgPslgHSA7bRd3fLxB7g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795011687;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=koOA3+uyeaO+yGsJ2lbzCEqTAi1LlA5ojHCIwS8nkFo=;
+	b=0BaU2gvsDiW8o2rR+4nnblx1crD1glx6U6KdWnkvLV2cBH8C/jJ+kQmsl8tN7s+v3X5n
+	 RxsSsN0B/HS1dX9l2qYFKtoUgV9PQNMYlYEvmAr2/g9FA7mXOkq92/PDqVnGd2amYsAVz
+	 YTK90+kyS6elaEZhcwrGMf4cHzJoy7n3wFOkEmyX4t9cgQDadBLVXQHXcJmraHmBoqJdu
+	 vPB2nTVtZN4o1l+Z47pm06KKiNegWAKQKtD97jrbYze0zGhCx00UgzHSw9ET60MeMEKhN
+	 rYKFjV+zn2QUwESvc7MLZnYl3IP+k97xWRugFzTsqs64BWaOl5RwDiZy48RFgSkSFXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=zFv9+mvn;
-	arc=none smtp.remote-ip=43.163.128.53
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.53])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=dVL28C5M;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB70460A2607
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 14:19:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB70460A2607
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22AF9606A33E;
+	Wed, 18 Nov 2026 14:21:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22AF9606A33E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=zFv9+mvn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795011583; bh=dSUNXYTPof7VaxfrAjSqlJUYRb7d441TRHvtPsDe9u8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zFv9+mvn042VnSIoNBYDGV8Upi7YdORlIgKZyZ7/Z/vRhtGsDa3az8NezW6+lUkDB
-	 2gGr8bliEoegPNFUR4gkiHfQI3A6bNXuRZdIo+iWDL5+FDUrpoOSNlg6DOkDj+7gxJ
-	 ZgUXSrd+E/51yj0Rkk6lHUqO52C5HIJstpg1zpsA=
-Received: from ikun.localdomain ([221.176.157.242])
-	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
-	id 4E383A55; Wed, 18 Nov 2026 22:19:35 +0800
-X-QQ-mid: xmsmtpt1795011575taoi6oh7q
-Message-ID: <tencent_6D3188701BD3C36F588C221C4CD924FB7809@qq.com>
-X-QQ-XMAILINFO: OZoK8I5s/zCBW8/CD5NJpsKWqzzD/mr3M62EDz845Ou1Jp09CRQR7lXnmgpNtE
-	 cRv5D65qXKCDNPGaR1Esy0dkPIMOEfsTAq1bqoB4XY+ZMEWcNfCkTF5fVGQ8E/E7tEnmQhhNGjgg
-	 fz/9DrRF5TwWUDcvu9geg20zLDIecpFavB+euBJMPxb9np2EBS2oCmJk7pByvDOCG6Otkz0m44Xx
-	 R7UEcifkqTr3jhLEI1jWcGetn4YrHt9s6YhN4syI6EkBwfno16yex9YD/DkZVGJdbiz0YOQrmuu2
-	 3RbRkV0dtlfViFBwfnU/VIkq3ih15byGQtfc17jXZuiFXxkPVI+4bgmHigajsZiCH1gu9GzTZR2E
-	 AbXjJ5ceb8dFnrhdBaWmpu6n7NjZULNiNVKlJpj62gAIjlnWTeoV/IEuTcA4tVFkaW4ZMsmV60bS
-	 uStXDh+s4CKbO2JVZl67erkqyB6jU9j/kbblGSmIMKNLH3w4MRptsFdoh22X2g1OcYnW3BHGCby0
-	 Pdz9KQWJnf+SjBIjoPXHH0kBGOrBcYBkdfaUauRzKktfRjZnQIOg5YlD7k/5lhk/D+P3JPKLlava
-	 byrwG0WKPl8dHPm4gQ1J1/RoXtrILJEvU9RveOUDZsJXM1o3xO81HLa76Ag6XP1rt8hBVVawlasm
-	 yh3lwNHtB79Kzd6NE9i5h4sZuhh6UsfLq4RkNiR41t2KjmoQTNUP27nFQNxzxbQ0q4HstA1YNYfh
-	 u6Zuckmi8H6UfsNd0dDXUR2dTIfBtA0C+la+gUR04w+uJldtrYkLCEZmCmgN3BF7HCsLjhNvq+sT
-	 1JbOee94Fp3zohzGdeRGd3DueQGfMyrstwSgWwWUCx5f/Eoum718o9ygHpu7Orv3oJm/xETe29lI
-	 4Xr7imADeWze1kTNNVri2zvzk4wyXkaKqy1ywSTTpMQnrhdYDLdEN1LKbXEo2zBn5/DqQnqoojLm
-	 mJrVJ0M/A48aON9noDp/JkpbhNEJ/pPxy/FEwNN5fLIiy2nUAcj+QF5nR4kSw5TKrjY4egd9LY2x
-	 XoYyLZuYGNotOw/R3hdCanp7m75mr0V3WziAgt/efzCyrdrhLst7lNllh6aEnxCO9/UokimNP2Pk
-	 ZVCShP
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Alan <3164729207@qq.com>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	harshadshirwadkar@gmail.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3] ext4: reserve inode write access before unlinking entry
-Date: Wed, 18 Nov 2026 22:19:33 +0800
-X-OQ-MSGID: <20261118141933.49011-1-3164729207@qq.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <zkqch3frmclz7yjyllhcvehbpnfeofs3zt5ylg6ska7hdkf6th@gvd7pv5zrehv>
-References: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com> <tencent_69B311F4356254E166A5EFDC981AA138D80A@qq.com> <tencent_58D8BEFB60308A7011D26F6F7E8C941C2A09@qq.com> <zkqch3frmclz7yjyllhcvehbpnfeofs3zt5ylg6ska7hdkf6th@gvd7pv5zrehv>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=dVL28C5M
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 28D11C4F77E;
+	Wed, 18 Nov 2026 14:21:28 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4DF1B5FE9B;
+	Wed, 18 Nov 2026 14:21:23 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C4B4F11BC220F;
+	Wed, 18 Nov 2026 15:21:18 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795011682; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=koOA3+uyeaO+yGsJ2lbzCEqTAi1LlA5ojHCIwS8nkFo=;
+	b=dVL28C5M1iHlKNScWIc5QWCr1TK41/mIj/V2RhQms8jF7udysTvfZ4qv5gXHQWnKKHvjji
+	716dw/wiRDCo4DdhCb+X9kRImFyzJLmLNVc2BCSSCJ2Fhx9UbVlLVWTVHw/FVFx+4nO0a3
+	KItzbMPit9xC2YA7EA4nvyN+o5LWK/iYTbFRL4FAKkHP+qtLYFxkcxS7oVIuASJIjFM5LK
+	txYyTmtCN/cxpcbTHyMCx3Ey73rNzuz6wslYr5OgDyfZE50r+9iEQnp/Okyq3Y76DCJjRJ
+	HMzpq08hP2mymX3psfhnf+0/QkQpZarZ6XuJxgXP2OP3Mh5Yur0a2o2DQn7c0w==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: "Michael Walle" <michael@walle.cc>
+Cc: <haibo.chen@oss.nxp.com>,  "Pratyush Yadav" <pratyush@kernel.org>,
+  "Michael Walle" <mwalle@kernel.org>,  "Takahiro Kuwano"
+ <takahiro.kuwano@infineon.com>,  "Richard Weinberger" <richard@nod.at>,
+  "Vignesh Raghavendra" <vigneshr@ti.com>,
+  <linux-mtd@lists.infradead.org>,  <linux-kernel@vger.kernel.org>,
+  <imx@lists.linux.dev>,  "Haibo Chen" <haibo.chen@nxp.com>,
+  <stable@vger.kernel.org>
+Subject: Re: [PATCH v5] mtd: spi-nor: clear the default read_sr2 opcode for
+ Octal DTR flashes
+In-Reply-To: <DMYBR7I0R1PK.25FUNB24SPCFS@walle.cc> (Michael Walle's message of
+	"Wed, 18 Nov 2026 13:10:38 +0100")
+References: <20261023-spi-nor-fix-v5-1-bb6e0ce21169@nxp.com>
+	<DMYBR7I0R1PK.25FUNB24SPCFS@walle.cc>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 18 Nov 2026 15:21:17 +0100
+Message-ID: <87h5hei5k2.fsf@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,97 +78,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-__ext4_unlink() removes the directory entry before decrementing the target
-inode's link count. It then dirties the parent inode. If the parent
-inode-table block cannot be read, parent inode dirtying fails after the
-entry has been removed, and unlink returns without dropping the target
-inode's link count. With errors=continue, this read error need not abort
-the journal transaction, so the directory update can be committed without
-the corresponding link-count update.
+On 18/11/2026 at 13:10:38 +01, "Michael Walle" <michael@walle.cc> wrote:
 
-Reserve the target inode location and journal write access first. When the
-directory entry is being removed, reserve the parent inode in the existing
-branch before deleting the entry. This makes inode-table read and access
-errors fail before the namespace is changed. Keep the existing namespace
-and link-count update order, and release inode location references on every
-exit path. Fast-commit replay can skip the parent update when the directory
-entry does not match the target inode, so only the target inode is reserved
-in that case.
+> On Fri Oct 23, 2026 at 9:11 AM CEST, haibo.chen wrote:
+>> From: Haibo Chen <haibo.chen@nxp.com>
+>>
+>> The core defaults opcodes.read_sr2 to the legacy RDCR opcode (0x35), and
+>> spi_nor_cache_sr_lock_bits() reads SR2 during spi_nor_init(), i.e. after
+>> the flash has been switched to its runtime protocol. On an octal flash
+>> running in 8D-8D-8D mode the opcode is extended per cmd_ext_type (e.g.
+>> 0x3535), but RDCR is not a valid register read there: these parts access
+>> their status/configuration registers through a vendor-specific indirect
+>> space, if at all. The flash does not answer, the register read times out
+>> and probe (or resume) fails (on i.MX FlexSPI: -ETIMEDOUT and a controller
+>> WARN(), seen with a Micron MT35XU01G and a Macronix MX25UW51345G).
+>>
+>> Clear read_sr2 on every path that enables 8D-8D-8D, so that
+>> spi_nor_read_sr1_and_sr2() degrades to an SR1-only read and no
+>> unsupported command is issued. A manufacturer driver that genuinely
+>> needs an SR2 read in this mode can still install its own opcode in a
+>> later fixup.
+>>
+>> - spi_nor_parse_profile1(): the common case. The xSPI Profile 1.0 table
+>>   does not describe any SR2/RDCR read, and it runs before the
+>>   manufacturer late_init.
+>> - mt35xu512aba_post_sfdp_fixup(): some mt35xu512aba batches lack the
+>>   Profile 1.0 table and enable 8D here instead, with the BFPT QER field
+>>   left at a reserved value so read_sr2 keeps its RDCR default.
+>> - spi_nor_no_sfdp_init_params(): non-SFDP parts that enable 8D via
+>>   SPI_NOR_OCTAL_DTR_READ keep the RDCR default too.
+>>
+>> CMP (the only user of SR2 beyond quad-enable in the locking code) is
+>> Winbond-specific and is not placed in SR2 on their 8D-capable parts, so
+>> no octal flash loses a usable SR2 read because of this change.
+>>
+>> Fixes: 63489002d397 ("mtd: spi-nor: Refactor Read Status/Write Status su=
+pport")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Haibo Chen <haibo.chen@nxp.com>
+>> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+>
+>
+> Miquel, if you want to pick it yourself for fixes, otherwise I can
+> also push it there.
+>
+> In any case,
+>
+> Acked-by: Michael Walle <mwalle@kernel.org>
 
-The original source-derived injection at the journal write-access boundary
-is not evidence for a committed inconsistency: an error after the journal
-has already aborted cannot establish a committed transaction. The relevant
-failure is an actual inode-table READ EIO before journal write access.
+Sorry, I'm used to be the only one doing that job. Please do it.
 
-Tested on Linux 7.4-rc3 (torvalds/linux commit
-aebb7274476403040d582c61478df8f4a7bf9cd3) with QEMU blkdebug and
-errors=continue. On the unpatched kernel, the READ EIO leaves the directory
-entry removed with Links: 1 after normal unmount; the JBD2 trace shows no
-journal abort and records the transaction commit, and e2fsck -fn reports
-an unattached inode. With this patch, the same error is returned before the
-directory entry is removed; the file remains present with Links: 1 and
-e2fsck -fn passes. No-fault controls pass on both kernels. Also built
-fs/ext4/namei.o with W=1.
-
-Fixes: 4209ae12b122 ("ext4: handle ext4_mark_inode_dirty errors")
-Link: https://lore.kernel.org/linux-ext4/tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com/
-Cc: stable@vger.kernel.org
----
- fs/ext4/namei.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-v3:
-- Follow Jan Kara's suggestion: reserve the target inode first and move
-  the parent-inode reservation into the existing !skip_remove_dentry
-  branch.
-
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 354fc2d22df1aa..27fe5e82d6e12b 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -3233,6 +3233,7 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
- 	int retval = -ENOENT;
- 	struct buffer_head *bh;
- 	struct ext4_dir_entry_2 *de = NULL;
-+	struct ext4_iloc dir_iloc, inode_iloc;
- 	handle_t *handle;
- 	int skip_remove_dentry = 0;
- 
-@@ -3269,7 +3270,21 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
- 	if (IS_DIRSYNC(dir))
- 		ext4_handle_sync(handle);
- 
-+	/*
-+	 * Read the inode-table blocks and get journal write access before
-+	 * removing the directory entry. Otherwise, a read error while updating
-+	 * either inode can leave the name removed but the link count unchanged.
-+	 */
-+	dir_iloc.bh = NULL;
-+	inode_iloc.bh = NULL;
-+	retval = ext4_reserve_inode_write(handle, inode, &inode_iloc);
-+	if (retval)
-+		goto out_handle;
-+
- 	if (!skip_remove_dentry) {
-+		retval = ext4_reserve_inode_write(handle, dir, &dir_iloc);
-+		if (retval)
-+			goto out_handle;
- 		retval = ext4_delete_entry(handle, dir, de, bh);
- 		if (retval)
- 			goto out_handle;
-@@ -3293,6 +3308,10 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
- 	if (dentry && !retval)
- 		ext4_fc_track_unlink(handle, dentry);
- out_handle:
-+	if (dir_iloc.bh)
-+		brelse(dir_iloc.bh);
-+	if (inode_iloc.bh)
-+		brelse(inode_iloc.bh);
- 	ext4_journal_stop(handle);
- out_bh:
- 	brelse(bh);
-
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-
+Miqu=C3=A8l
