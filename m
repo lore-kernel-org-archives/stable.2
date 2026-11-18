@@ -1,57 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795019007;
-	b=mak9xCuD7JEyaRmDt8h71N8dMXnOHuwCeOGBS9YwNM6lv/hyEKHoaXKEVgVq42XNDk/c
-	 KfpD7jq+OZi/NTI3iOMdK7gvwiD6adWJJUfkKVHtuzXRXBJYqZKiWkK/syQFdspfNN4AL
-	 drL78CiXhC34lJEA7Xon7YEMcO80AQOV3xkUuyOmyhWDy3ztg4o4qj4G2q4vR/qPS1mYZ
-	 A9XCsa3TuIywuSGLC3I8rYY3ATRnk1f2vB3xJQJoDOUN/xSzhk7d3IlKGXGveisHTbd8V
-	 D8njAkM7WG0ABVw1cV0TTuUkqyJnPhXK7avJeGaoCVQJxqq4X8TSWZlIqZMdb5Ae6LQ==
+	t=1795019015;
+	b=T/UyNG9QIdog8FYpso2PHFBxa0dexMasbRMqbg/pc146PgkeFImqOwFW7bH9M9N/6w2G
+	 jfEi4Ka5ocz3/Hy7Fj1ZzxYXht6V38Xlhs3sH1392P2mEx+sHzhMBCB88z6yEqRdioVfR
+	 HJpRkfzwZLWhBzAgA8M92aLFvDv+z+ign5VLhNVM90jFmSTPrzXa6tHTS7MxQ3+jEB3ks
+	 dbOdqsQlcr84tPlRpwSh/NFof6br09e3fVgJdiVsAMVPDpQxKWIcbwtg7t0oQnR2BiN5J
+	 UHT2/Idu7LzQ9Cxfg9MB0ngzn3oNw0wtKu1Muz9hD25mrpZrZpQ+SBHVvbG5LibOQFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795019007;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=TghilNVkwbKH2zAVmKDZkVzO+5fujCP4ET+Mg8Ax8Os=;
-	b=BO3AKs7pceJwyPqk3Usul98a58QDffsXAOtSVuF3bA/5jF1luY+wCKNoavJwI9/Ih6ED
-	 kh6OEPhn9OwUE3lN02mMpzZKgG3cVYKkVTDnQyuRtt7gBlv1aW1iWME6LTrf4hmKkyjN0
-	 t1oE2bJmYJ/aUmEpQn+VbqE0atixsCfrQZr8hloDb5iEVDSyo9yK6lCiSgJUp+ITji7+O
-	 jJABXy4uJwPNotrgQygefyyvo20tVBR9IPv+mhD8oU/ZSuzrTZV1TCrSsdKOSg0Mi3I0b
-	 w74I1z1tdKEf5on9g+xyMXMOiyO0uZKc5u+uI3wtpFgxyzJkE0s2zGJ1TQPYOsBrA7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795019015;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PIadoqDV84S7wuWequWIOEewZj8ufy6rYkCb2G4299Y=;
+	b=WFO84OYqRfXMlqLxL7rK+RpYYd4pIevRyA4hZa2ncrDgTBKvnDJ3DARpDELdjJRo1e7T
+	 KK9huD/a5W20KK2BE0FTjs7SJvR3pQOSbDSjfZhTUX4DOVROJw8HATV/pMxnRDNxsBwyA
+	 xHj1mL18N1PiLh1NaGDDepcBtaO6SggzibcxkbLmzy7bOZrwY4sVXI34+ep0fZgOummxa
+	 LnwSsRuzZvkmzuB/+fj4ACT+E7EuL9/w88gyGF60ZK1KR25xugnFUHEzd/Fsc/ZG+rqz+
+	 UTZv36lGgqAulSNXq34iXIXB5lF8fDh66zjQVB+xCAy1HndGOxl0XzgtFjqyh502Pww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Z0Hp5GIm;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lF3ytgiX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3807C606A32C;
-	Wed, 18 Nov 2026 16:23:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3807C606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B0A60A2600;
+	Wed, 18 Nov 2026 16:23:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Z0Hp5GIm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795019005;
-	bh=SpKKAxZ7e8O13VXr++rojMKx6yhQT3thaJt3o0CVOPs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Z0Hp5GImTdw3KSMbcw6Tmhrurp4PDt+FjyfQuyUDlCgmQE0GwNNBF4bst8VbAdkzU
-	 SV1q3F3VBPryVLo0rH9svtYt6gIYzyUr5CuMjo+4kDLs7tbJgYOX15KUd8sIGHFd2S
-	 E85qbpPmDHbu2md9nr3aFcUmfFxDBGlLbJ8iWvUYv/GSlOZ+i00BSpCJjr/qlsyqth
-	 v63LMD6X7SN3HshiMU4c9vGj3df/YedeD6EAb/TIjn+lTlu8QCz431hukr+QpUKGPs
-	 YldYY2MRAZHvi1dF5wXquUasXaaLiidm/Wi/zoo0LRJilk0fQQB0RxJOzdoyqfO4jP
-	 Jd1G+ZQ6txMcw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 17C2317E07EC;
-	Wed, 18 Nov 2026 17:23:25 +0100 (CET)
-Message-ID: <23e20395-2b5f-44b7-a081-f57cca18b08b@collabora.com>
-Date: Wed, 18 Nov 2026 17:23:24 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lF3ytgiX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AFC91F000C6;
+	Wed, 18 Nov 2026 16:23:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795019015;
+	bh=PIadoqDV84S7wuWequWIOEewZj8ufy6rYkCb2G4299Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lF3ytgiXXNNCN+Gyc5rzT8ZdkIeBrkdQ2guchCNtzk3xXaUKpXmFyx3HPnDOi1IPn
+	 gyuajwx+2e4RZw4fAa1QZDRAqsGaWEV26KoOknTbXlxKmlXF8KtbcHtwQIjnkdV28k
+	 MZ5H0vDuyU/co7J788DcQwlfQkBnQzl8lJgaXh94=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jiale Yao <yaojiale02@163.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 1446/2651] wifi: mt76: mt76x02: validate RX padding before use
+Date: Wed, 18 Nov 2026 15:44:46 +0100
+Message-ID: <20261118150340.098938191@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,43 +62,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] power: supply: mt6360_charger: Set the input voltage
- limit in CHG_CTRL6
-To: i@udp0.com, Sebastian Reichel <sre@kernel.org>,
- Matthias Brugger <matthias.bgg@gmail.com>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- stable@vger.kernel.org
-References: <20261107-mt6360-charger-mivr-v1-1-ae6fcfb21bb9@udp0.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20261107-mt6360-charger-mivr-v1-1-ae6fcfb21bb9@udp0.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/7/26 12:09, Rui Cao via B4 Relay wrote:
-> From: Rui Cao <i@udp0.com>
-> 
-> mt6360_charger_set_mivr() updates the MIVR field (bits 7:1) of
-> CHG_CTRL3, but MIVR lives in CHG_CTRL6, where mt6360_charger_get_mivr()
-> reads it and MediaTek's own MT6360 charger driver writes it. CHG_CTRL3
-> holds the input current limit (AICR, bits 7:2) instead.
-> 
-> Writing input_voltage_limit therefore never changed the voltage limit
-> and replaced the input current limit with the MIVR selector: 4.5 V, for
-> example, set AICR to 250 mA.
-> 
-> Write the MIVR field of CHG_CTRL6.
-> 
-> Tested on a Redmi Note 13 5G (MT6833 with an MT6360): with this change,
-> writing 4.6 V to input_voltage_limit only moves CHG_CTRL6 from 0x0d to
-> 0x0f and reads back as 4.6 V, while CHG_CTRL3 stays at 0x72 and
-> input_current_limit at 1.5 A.
-> 
-> Fixes: 0402e8ebb8b8 ("power: supply: mt6360_charger: add MT6360 charger support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Rui Cao <i@udp0.com>
+7.3-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Jiale Yao <yaojiale02@163.com>
+
+[ Upstream commit baf375ca58eaa24503f9febac75c056852694c3a ]
+
+The RX descriptor provides L2 and PN padding lengths that are used to
+locate the CCMP IV and determine how many bytes to remove from the packet.
+These lengths are not checked against the received skb length before the
+IV is read or mt76x02_remove_hdr_pad() is called.
+
+Reject frames whose IV does not fit within the skb or whose header padding
+would extend past the end of the skb.
+
+Fixes: 30ce7f4456ae ("mt76: validate rx CCMP PN")
+Signed-off-by: Jiale Yao <yaojiale02@163.com>
+Link: https://patch.msgid.link/20260925152754.2323624-1-yaojiale02@163.com
+Signed-off-by: Felix Fietkau <nbd@nbd.name>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/wireless/mediatek/mt76/mt76x02_mac.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c b/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
+index 231685bb62d2a..158aa356b7105 100644
+--- a/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
++++ b/drivers/net/wireless/mediatek/mt76/mt76x02_mac.c
+@@ -816,9 +816,13 @@ int mt76x02_mac_process_rx(struct mt76x02_dev *dev, struct sk_buff *skb,
+ 	len = FIELD_GET(MT_RXWI_CTL_MPDU_LEN, ctl);
+ 	pn_len = FIELD_GET(MT_RXINFO_PN_LEN, rxinfo);
+ 	if (pn_len) {
+-		int offset = ieee80211_get_hdrlen_from_skb(skb) + pad_len;
+-		u8 *data = skb->data + offset;
++		unsigned int offset = ieee80211_get_hdrlen_from_skb(skb) + pad_len;
++		u8 *data;
+ 
++		if (offset + 8 > skb->len)
++			return -EINVAL;
++
++		data = skb->data + offset;
+ 		status->iv[0] = data[7];
+ 		status->iv[1] = data[6];
+ 		status->iv[2] = data[5];
+@@ -838,6 +842,9 @@ int mt76x02_mac_process_rx(struct mt76x02_dev *dev, struct sk_buff *skb,
+ 		}
+ 	}
+ 
++	if (pad_len + ieee80211_get_hdrlen_from_skb(skb) > skb->len)
++		return -EINVAL;
++
+ 	mt76x02_remove_hdr_pad(skb, pad_len);
+ 
+ 	if ((rxinfo & MT_RXINFO_BA) && !(rxinfo & MT_RXINFO_NULL))
+-- 
+2.53.0
 
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
