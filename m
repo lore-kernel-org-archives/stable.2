@@ -1,47 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795000397;
-	b=H5UcN0Qf2+M1CF08hvgUgRnar1DDXiJrDX+1zju0Xqh7BuinPqA9+ZPW1/dHlq7vbEO1
-	 cHNlDwbTJzpDfsN/bWyTZsF9AU+W8ONazJLTaFBKV4OyLro2kAOeRV9VbZ0yMibgBZQ74
-	 80gceyGeDCp5mXNi0BdLvKqWJh9WZTY4cmEGN9eGk4KG/s5ryPHB8jB8PV75x3XYxAfRT
-	 C8zJLUY7AtKs9v/Urjh7yNAdIxDBuh9xNXrN0bc3BpcSSz/q3Ock16+Vfv9zZ1ViVP+E0
-	 /stV/wz3AA0tlpp2LkomApNbybfoWx3VigtLyfFqGd9gIyOEC7mLsMG5Kzcbd7OXXlg==
+	t=1795000536;
+	b=3I3gWp4WrRih+OOzi+k/pno3KqClElzWzWUK6XotDjHRBedRigG1toNGS1vq+lOp0tB1
+	 /zCXweOUb3VU4+KbzUCq6fUYc7cQlZ8dS2zKORO8l8EDvotToD4oeuvtcFn0hUJJ9Lfsw
+	 7hTXi2zgSnuccCtAD3rZ/py9UOG3Pc82yFMqWYixQQ6nUotEnJufGew4CVre0KUHgeEKH
+	 b0GIEt46pA++J6htbBwepOryBkRtBmij4UNPJ3pyZzaqY9aTO8B2sVXyVanhMCgk8bmVE
+	 Yun0L7C7fGSuJePWeAWveFQjdycEuJLldEi9vBkaTz5JV5EMPzhsaOL75+u0oDQO+rg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795000397;
-	h=Received:DKIM-Signature:Subject:To:Cc:From:Date:Message-ID:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=4uPiSbgoqhzT7PRc0/Neidefg70yiK/fDtckwB5JWSA=;
-	b=WE5havyD27cKV3c065tXxPG6Lo6C6t5oNe4YqOu47IInVAw8EokXQBcbNBaTYPmwT374
-	 t41t5amzsZ1TSijhvvBk4EaxOrXhczPDSQyM0dXvLhDnYzOespPehKtcttJJpZvUjKVsz
-	 AZqvCGyiCSrngv8OOh5Sd47O4J+CFLtxcfrCKD8f7q2T1PHk4uGBWX/3f/r7OA9euU9i5
-	 w8OR77kWnhgpzHXRrlppq5BD3c4x27/ad0/j7EhOHWixURtWgbLcZ2hXqyN1ym40wT8os
-	 gewTyC7iFfaav6oZWdFpH6yTas8xrUGGmAkVNtefbUrNTMrGF80h+C1HuQR2hHS7jXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795000536;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=SXeroM2jCfcBKXV1NOSG1sFarrMqehRN66QskO8HWNg=;
+	b=kk7PRDrtQMISc9kwTZLXUk91pNjWspiLfMkDrvoP73CmfqnzvilsV7u0aRJcgHDAUzZE
+	 0kjqEaLPe8Gu14xgioQKW3YMMPhrLv7PQ49AjlqXLsnzqCVSInYbkvqhMRIHZkeArhhKB
+	 WoJmLt+E+z6pIJR7Muw76Y+QDVaQgg00GQKlRbTg0zluSNxpaTV2ANZmw9068P0jdmGFN
+	 5HO1g13xRmfscfWw4jXWvV8YUNuVW8iOrRpZ51H0mAIusOuvDw6pc6xpcLTRGLUUS1FRQ
+	 7lH2Qlr2RhOUu4HZgSrgNzeYBwvWtX9tIM6Z1Y6jk6rdGayRCtkRrFnjoJ+1boj5m9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jx6UFZFv;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="bHdFKU/4";
+	arc=none smtp.remote-ip=209.85.216.46
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B844C606A33D
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:13:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E228660A260D
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:15:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E228660A260D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jx6UFZFv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6051F000C8;
-	Wed, 18 Nov 2026 11:13:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795000397;
-	bh=4uPiSbgoqhzT7PRc0/Neidefg70yiK/fDtckwB5JWSA=;
-	h=Subject:To:Cc:From:Date;
-	b=jx6UFZFvWONOlVU4OfAWRCJzHjIRjBNbgJMsSUJYsmPu6b+6beyKFz6csa4O+31DF
-	 QgQLo4zFggZIWGUx6WS45L3z0DaSfF1+vuXlCHLGI9FD9ra13AM8Eo9VQEUnVYvcfR
-	 5FyfMcOPSllD4Z0sFrjVwsyzPVLYQaj9U8zU/W/4=
-Subject: FAILED: patch "[PATCH] rust: bindings: derive Zeroable for bindgen's opaque array" failed to apply to 6.18-stable tree
-To: sashal@kernel.org,acourbot@nvidia.com,aliceryhl@google.com,nathan@kernel.org,ojeda@kernel.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 18 Nov 2026 12:13:14 +0100
-Message-ID: <2026111814-mushroom-shelving-5b17@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bHdFKU/4
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3b12cb3c37bso407359a91.2
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 03:15:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795000535; x=1795605335; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SXeroM2jCfcBKXV1NOSG1sFarrMqehRN66QskO8HWNg=;
+        b=bHdFKU/4t+asVDt9njDBPNmVxH74MFAD4wsINbAc3XgW5M2Fv7OJDVzO3vtyztUnoQ
+         mcxDv7NtU3WYasfNf4dk0z5bnPThVh+BfKP/wO6jgOyndTDeqNKdFhVtubTrRWN4pkqb
+         J4vteOADSYMAGg11dr3R0zuaHd723iRHYSCI1YpBi3Fz+Y11hzi4HWc0LjB1MOHkbOMA
+         zoWrtzVqfwlMnv4lYQRDjUlFN+XFBp2vUyodeKo/IZC0Qr6dT/2gP9C7UnPJ/o9YSBq4
+         isvbbwrs4K/WEN5Rk+roENzMi0YS1j5GDXnLThkMUOLP0Eh9ZL2fUpDmHyHilCkDn/Gq
+         mxOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795000535; x=1795605335;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SXeroM2jCfcBKXV1NOSG1sFarrMqehRN66QskO8HWNg=;
+        b=PzSMRu8CHBdMWVpQevhfgH9MZQx8nMiK8nLfYAIXtvJIwcudI6XFMhUf/qttMQmvre
+         WoFtlx4bjcnh+1ByFzfNsF7fN/oMBulPh+lBhQ+2yjQDEjP3/xt18WwDT4R3K3bFVNWW
+         5PE65rQgWMmg1o0+oHZiYjRILjpLKL2S50wJTz9Kvu7BJ+dITvSBE36zngMAxs0APSE5
+         vu9rmRCDJZxOX0fsI9ZJTMqBb6UhSBxglLmH03wzcCOP1UVr89xRod+rtMKbCBEK1uzm
+         kWA4cuG2Nq9009dx9VevBz3Mqb45bg1MRgjKDa0EW3ZH4uV5PoScn7f322U0rX40D9l1
+         lS8A==
+X-Forwarded-Encrypted: i=1; AL+hErGJJNt3pMfiJSBRXuflf83X81p2cLZ9DlT2+iw4jl27VkEiEdDMD3nwkSuyrjW6dFE2MMj1A8w=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aZszU1H8Xd5h1ktHqokLTRyJj6FOSuMVqoc2ypWHRIOVXJQsN
+	oJLucieM+Oh89smwEZbxp+oBYRbkATdg+b5fxPMFsXiqKOBTNcNcn1gJ
+X-Gm-Gg: AZFdTZf2UO+Ck9SpUAL3A5k3EJ0dihPX15WkA5FCwKe24kZnJXnICPAAJNNoxMkbWrv
+	S5yASZeK1pEnxtnmb/Zg0kAF4SroffRMXR67ZwAGuu5JeeFh30Dqq0Zzjr5XaBnMx2gsS7251SU
+	f+jgCA88P2itHFIyEYLuPvc/XX5K19ac/fV7IXEAPF+ZT8Dn1EU3W8vtknFEAX65Q/G+Jpm8Ge0
+	F2V8RwDnjpOmqVZDA4Zc162LrR6DyuF6zTmUm9luEBSyeWnYT9Z8rmLd43zYp5HrVdnRBiF4Dhl
+	ypkHtbjwH31Xdnq4rR91zas0g91ZjlOgThEO5os89lvZo2ZquzXv8O58Ogu5a0o4Kyt94RN7E09
+	1Fj+nZJkQJExzhMdZslJohh7fTDTMpAC5QxUW5LYOaVMW/vME5l3ulAGfknZGoy11gQ4MGmdk+a
+	fId9PpGbMRIPvh6fo4/OxpjycrGqr8zdeUyAYrQ0r5elj/VW0ZBizeYEpNzM8zbf6tLCBvuIZUK
+	7Ra34HQVPzXMU208LZO/eDPRLhpNbaxR9B85PXbswYICM+1kbEZ8ppQR89k1xDuoU35PkDN+now
+	B45M+QV9bUhMdpapoWih2l3jrCQCixUHfo/TdgrVXPLG0drr
+X-Received: by 2002:a17:90b:3c05:b0:3ac:a11a:7c7f with SMTP id 98e67ed59e1d1-3b3d07b8f81mr2204159a91.23.1795000535203;
+        Wed, 18 Nov 2026 03:15:35 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3ac255634sm8796941a91.5.2026.11.18.03.15.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 03:15:34 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Cc: linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] serial: pic32_uart: don't enable clock with interrupts disabled
+Date: Wed, 18 Nov 2026 20:15:21 +0900
+Message-ID: <20261118111521.1003717-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,96 +97,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+pic32_uart_startup() calls clk_prepare_enable() with interrupts disabled
+via local_irq_save(). clk_prepare() calls might_sleep() unconditionally,
+so this can sleep in atomic context.
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Interrupts are only disabled to serialize the UART register
+initialization that follows; the clock must be enabled before those
+registers can be accessed anyway. Enable the clock before disabling
+interrupts.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Fixes: 157b9394709e ("serial: pic32_uart: Add PIC32 UART driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+---
+ drivers/tty/serial/pic32_uart.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x 57d916a3eb765ee0577d269bb2ac1bdf3a7a7f40
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026111814-mushroom-shelving-5b17@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 57d916a3eb765ee0577d269bb2ac1bdf3a7a7f40 Mon Sep 17 00:00:00 2001
-From: Sasha Levin <sashal@kernel.org>
-Date: Sat, 31 Oct 2026 11:28:46 -0400
-Subject: [PATCH] rust: bindings: derive Zeroable for bindgen's opaque array
- wrappers
-
-bindgen 0.73 emits the blob of some opaque types, such as ones aligned
-to more than 4 bytes, as a `__BindgenOpaqueArray` or
-`__BindgenOpaqueArray<align>` newtype instead of a plain array. The
-newtype only derives `PartialEq`, `Eq`, `Copy`, `Clone`, `Debug` and
-`Hash`, and the `MaybeZeroable` custom derive does not reach it, so a
-struct that embeds such an opaque type is no longer `Zeroable`.
-
-`spinlock` is opaque (see rust/bindgen_parameters), and with lockdep its
-blob becomes a `__BindgenOpaqueArray8<[u8; 72]>`. Commit 71ec3c7d6db8
-("blk-mq: quiesce a queue that joins a quiesced tag set") added a
-`spinlock_t` to `struct blk_mq_tag_set`, so an allmodconfig build with
-bindgen 0.73 now fails:
-
-  error[E0277]: the trait bound `bindings::__BindgenOpaqueArray8<[u8; 72]>: pin_init::Zeroable` is not satisfied
-    --> rust/kernel/block/mq/tag_set.rs:41:49
-
-Which wrappers exist depends on the bindgen version and on the opaque
-types of the configuration, so they cannot be covered by unconditional
-impls in rust/bindings/lib.rs like `__BindgenBitfieldUnit` is. Derive
-`Zeroable` for each wrapper in the generated bindings instead. The
-pattern allows for the spacing of bindgen's output when rustfmt is not
-available.
-
-Fixes: 71ec3c7d6db8 ("blk-mq: quiesce a queue that joins a quiesced tag set")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
-Reported-by: Nathan Chancellor <nathan@kernel.org>
-Closes: https://lore.kernel.org/rust-for-linux/20261030223702.GA1673281@ax162/
-Link: https://patch.msgid.link/20261031152846.746656-1-sashal@kernel.org
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-
-diff --git a/rust/Makefile b/rust/Makefile
-index 0ac9ab28cc2b..0165626decbe 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -514,13 +514,20 @@ endif
- bindgen_c_flags_final = $(bindgen_c_flags_lto) -fno-builtin -D__BINDGEN__
+diff --git a/drivers/tty/serial/pic32_uart.c b/drivers/tty/serial/pic32_uart.c
+index 8407f85776c0..a8010d6b65ba 100644
+--- a/drivers/tty/serial/pic32_uart.c
++++ b/drivers/tty/serial/pic32_uart.c
+@@ -455,13 +455,11 @@ static int pic32_uart_startup(struct uart_port *port)
+ 	unsigned long flags;
+ 	int ret;
  
- # `--rust-target` points to our minimum supported Rust version.
-+#
-+# `bindgen` 0.73 emits the blob of some opaque types as a
-+# `__BindgenOpaqueArray[<align>]` newtype, which the custom derives do not
-+# reach. Derive `Zeroable` for those wrappers, so that a struct embedding such
-+# an opaque type (e.g. `spinlock_t` with lockdep) is still `Zeroable`. The
-+# pattern also matches the unformatted output used when `rustfmt` is missing.
- quiet_cmd_bindgen = BINDGEN $@
-       cmd_bindgen = \
- 	$(BINDGEN) $< $(bindgen_target_flags) --rust-target 1.85 \
- 		--use-core --with-derive-default --ctypes-prefix ffi --no-layout-tests \
- 		--no-debug '.*' --enable-function-attribute-detection \
- 		-o $@ -- $(bindgen_c_flags_final) -DMODULE \
--		$(bindgen_target_cflags) $(bindgen_target_extra)
-+		$(bindgen_target_cflags) $(bindgen_target_extra); \
-+	sed -Ei 's/pub struct __BindgenOpaqueArray[0-9]* *< *T *> *\( *pub T *\) *;/$(pound)[derive(pin_init::Zeroable)] &/g' $@
+-	local_irq_save(flags);
+-
+ 	ret = clk_prepare_enable(sport->clk);
+-	if (ret) {
+-		local_irq_restore(flags);
++	if (ret)
+ 		goto out_done;
+-	}
++
++	local_irq_save(flags);
  
- $(obj)/bindings/bindings_generated.rs: private bindgen_target_flags = \
-     $(shell grep -Ev '^#|^$$' $(src)/bindgen_parameters)
+ 	/* clear status and mode registers */
+ 	pic32_uart_writel(sport, PIC32_UART_MODE, 0);
+-- 
+2.43.0
 
