@@ -1,80 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794996454;
-	b=UP44fFlPJUQ7aCioGxN5AIuzc2D4ecQX1v0q6Q0YtOx37V4jZZI3TAHKdJFdSd7sDU88
-	 Pg0fiOin2GB9SZ0iNir1KhX2NcMFJI073VaalVH61SD4UkXn8AiyREto/mVTliJHX7mH4
-	 +jrkAiRHmi+XXV98gM5c3vUYjfmtrlQiirENSP4Ci+jpEWeyFvgZiJk15/iz7Ish/npdi
-	 5PuPTKY4cNEocxgOfGLjEJb5jtnFbyNEYsHeLFOHWCDs8/nSFdqoiw8LpB0ULm4jEV3cn
-	 mYReuNP7K2u/oihxlq37x62Eqm2br8IwNkNG5uO0InVDE51Px/tB0D0zGVkBC6J/MIg==
+	t=1794996456;
+	b=a4u8ejh65D8H2D2YRAQgMfoC+Ucq8m/+/ka0hNKBY5VAlWCxoTvbFVYIZXoIXmGbVP7e
+	 NAOeVGEy2Rrzh25rAP7oRs7WMTNE4dQFYQCsQHl5JG8JEMA53EeTGRG6McYl5xiEwNJEk
+	 nxywJmG2h15qKf0Siyc+A6eADw999hAGsMgXdhao1CO0db+7VISzUORdB3uoeHQtkl7ck
+	 YKZMh9+mOyha75AI5j2LgY1E5UbTPgA0QMCF4jdCDH63WTCVpg0seXauRKE3wJs7nR/t1
+	 MsVpUjO9ecGrfzLb/Hpkqv7+ycTCEkJrZJD9f6oFEfWiAcSbLsmy2yGhDStH8sY/2jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794996454;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=9p7nWP6aCwolh1r/jYlW6rQASc0ZzZDHEc19WN951qU=;
-	b=NE5jLzVgcwhwubsf6IxqZRJJUPcbpP47ESVCjg5B52qPahVupH3vLqs81jNCOuAkwLi5
-	 5KjtrU0Y2vZBrCSoPhwMSaRLsSk/1lIjtW0UpS4RIei9D45Up6HJAsgFlwCItWph9//PS
-	 GYzfj/WBVCTHIPs7qz0Eqwcb2P8Di89L+3OEcXCqE9Tnd4iaN3vuXkyypBDqz3BqPssJ4
-	 GHv/qF6bZYFGlZGOGvwgiEIn5qY5VTym09kdTk5WGG1Nl2OqV3QqYOfxLOsZeK9abNJVD
-	 078K3w86i+EP8vobfdEuSupx1ouAnZ17rban9dyh0V2f8QEi+ic5ghGxXIWqIcdsffQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794996456;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Sf2ef/DZzsnK1sMDSaxmFCha0DAq5bCsGRzR7EIIXpE=;
+	b=OUV3+pD75DhwQnIbZFUQbYJcp8erSERoC890EAZqR5yfgShJM2Q/S3zxgs+WVGufOeWT
+	 aXm5uwfmqOQs4q++uVD7C1ucBRJtjvxBIi8QxAPlXrQDY290Ck9UwnJguKTp2RJK73Xh8
+	 OQuOO0VfZOEbNG5tfRG7UnJOrvEg97a6AGP8wgOGYmcM7RQ1W1XFZmDGWMLURHUHtoZuR
+	 k0aHgIEeCNjP9UPKYT5DrxZ9Sfh8rrpflBVPTN0je2O36dS/PYazjpEyxs+xIFrBUYAMi
+	 l3EoBJCoIjZRcxdNAVlF5sF4dBs/+iDl2c1au04cSZId2F+GZiTzut+7j3sav7ag/xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=aqa4i8Na;
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d2QzbFoJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A535606A330;
-	Wed, 18 Nov 2026 10:07:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3A535606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683D8606A32C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:07:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=aqa4i8Na
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1794996461; x=1826532461;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=WV62P4nogrn/yedNrcqAoj0rawX6mdY7FKe5AzL+xxc=;
-  b=aqa4i8Na/12xObUKqU5m2tbbsExjC0TaFY6hk9HcgxKLEeyFRkG5XPeu
-   +eONOWY8+gCvE5hYCy5BwwCIGjSY5wj8gHhcuV/3SDHEWT3DYW0ZG3Z6P
-   TnYVxba00w2R9SZb+Og/BKN+yIxzYTS2wsKFtAlmqETeOfH2LAHdDzw5K
-   pG9ZVidylnJ/VOvRVy0preNj07KvtSObVnoSDrZQPTdL8kxS5Umv320Cu
-   YORjfErMKXmxPmmPxP/27b5sPEmc6aDqE7b0hdtkx/AdPy1JEeVytoyQL
-   8tKcw8/hsQPvdqanZv64qzxtuMe8VpHjRU/TBK6XpbhiIlYcTkGRC1+LP
-   w==;
-X-CSE-ConnectionGUID: CDvrusw7S4i+4/eC+9cqbA==
-X-CSE-MsgGUID: RUyH8oQSQnuzLEE9CMGJJQ==
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="65717232"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 18 Nov 2026 03:07:40 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Wed, 18 Nov 2026 03:07:31 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 18 Nov 2026 03:07:29 -0700
-Date: Wed, 18 Nov 2026 11:07:29 +0100
-From: Daniel Machon <daniel.machon@microchip.com>
-To: Henry Martin <bsdhenrymartin@gmail.com>
-CC: Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Simon
- Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>, Nicolas
- Dichtel <nicolas.dichtel@6wind.com>, Yuyang Huang <sigefriedhyy@gmail.com>,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	<netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH] net: fix uninitialized heap leak in multicast address
- dumps
-Message-ID: <20261118100729.jn66g5cvdkspoqjc@DEN-DL-M70577.microsemi.net>
-References: <20261116024056.1274402-1-bsdhenrymartin@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d2QzbFoJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10F021F000C4
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:07:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794996456;
+	bh=Sf2ef/DZzsnK1sMDSaxmFCha0DAq5bCsGRzR7EIIXpE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=d2QzbFoJFY+k8q9V/CGKaMctSrm9z6TSBfBrEjsKosoFas19a+BaErySppE4Ncgt2
+	 +YSdxqUGJKw5Ow6BHQmZ0I0Ug7mKId8Hr0d34Dtn/ism8hNDrU1dMb81zn2rGg4keB
+	 1Z5QdzO6tUdStZVyDbBk+gjvk1yWL0KOISnTmx5EVdT9jZSZut4WkMBxY2JsPLJUNg
+	 dvrkhrUmgKESSnXvjOZUlz1jSYIsuRpL5f/yC03cqwDmO9+V6HuTUlWi+hVrWihCWx
+	 9WNv7YMnr1sf7TR58+2c1ubP35MTMNjuajhXEep1RUviGWq5QuxI5Yx/X+Yl5d6r3G
+	 XdrDIOXkQ1+oQ==
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-491846221ffso605195f8f.3
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 02:07:36 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEyUCUJuyc2YzvDFyqGQtJ9AJjnmqhyWFLPhmTzwPDTwNG5kXivkbJUSR2YK4cKlLQeiinAY7s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Tehi64FXkPklHOwIbhX+PdXV3niJuXxMkzGb/C+BVDH3TTV3a
+	f/emOi5/QeU0zZAXSd76zr0rwoHZmsB1Sl3V7baH9WuVFB76cUHRdMMVKUEzHlt86yZ1XbwIlyy
+	rqy1NKh2K8XjTLe2N+nLXpmYLK9YwyaU=
+X-Received: by 2002:a05:6000:4812:b0:48d:ff06:c626 with SMTP id
+ ffacd0b85a97d-4a63b6fc6d5mr4531220f8f.35.1794996454710; Wed, 18 Nov 2026
+ 02:07:34 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,61 +59,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20261116024056.1274402-1-bsdhenrymartin@gmail.com>
+References: <20261118-riscv-marchid-fix-v1-1-6d677fcd5461@linux.spacemit.com>
+In-Reply-To: <20261118-riscv-marchid-fix-v1-1-6d677fcd5461@linux.spacemit.com>
+From: Guo Ren <guoren@kernel.org>
+Date: Wed, 18 Nov 2026 18:07:22 +0800
+X-Gmail-Original-Message-ID: <CAJF2gTQ+86jtp3Dw9pw8xf7zK=bU_txdGYjaJp+85H7WE_iKLA@mail.gmail.com>
+X-Gm-Features: Aa3M54rjZmx21x9qbdtBeJSZpO91ThMWIbqg7YbcJXk95cJ0eYpg24g2amLowHU
+Message-ID: <CAJF2gTQ+86jtp3Dw9pw8xf7zK=bU_txdGYjaJp+85H7WE_iKLA@mail.gmail.com>
+Subject: Re: [PATCH] riscv: cpu: Fix incorrect cached machine IDs on secondary harts
+To: Peixin Xie <peixin.xie@linux.spacemit.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+	Conor Dooley <conor.dooley@microchip.com>, Charlie Jenkins <thecharlesjenkins@gmail.com>, 
+	Palmer Dabbelt <palmer@rivosinc.com>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, spacemit@lists.linux.dev, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
-
-> __hw_addr_create() allocates entries with kmalloc() and initializes
-> only addr_len bytes of ha->addr. Dump paths emit entries using the
-> current dev->addr_len, which can grow after the entry was created:
-> tun's TUNSETLINK changes a device from ARPHRD_NONE (addr_len 0) to
-> ARPHRD_IP6GRE (addr_len 16). Both the RTM_GETMULTICAST dump and
-> /proc/net/dev_mcast then emit up to 16 bytes of never-written slab
-> memory per entry.
-> 
-> This discloses leftover kernel heap contents to anyone reading those
-> interfaces.
-> 
-> Zero the tail of ha->addr at creation time, so dumps can only emit
-> initialized bytes.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: a748ee242681 ("net: move address list functions to a separate file")
-> Link: https://lists.openwall.net/linux-kernel/2026/09/10/320
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> ---
->  net/core/dev_addr_lists.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/net/core/dev_addr_lists.c b/net/core/dev_addr_lists.c
-> index d827cc21867b..53a2dfa2706c 100644
-> --- a/net/core/dev_addr_lists.c
-> +++ b/net/core/dev_addr_lists.c
-> @@ -100,6 +100,11 @@ __hw_addr_create(const unsigned char *addr, int addr_len,
->  	if (!ha)
->  		return NULL;
->  	memcpy(ha->addr, addr, addr_len);
-> +	/* Entries are dumped with the current dev->addr_len, which can grow
-> +	 * after creation (e.g. tun TUNSETLINK), so never leave the tail
-> +	 * uninitialized.
-> +	 */
-> +	memset(ha->addr + addr_len, 0, MAX_ADDR_LEN - addr_len);
->  	ha->type = addr_type;
->  	ha->refcount = 1;
->  	ha->global_use = global;
-> -- 
-> 2.43.7
+On Wed, Nov 18, 2026 at 11:05=E2=80=AFAM Peixin Xie
+<peixin.xie@linux.spacemit.com> wrote:
 >
+> During early ISA-string parsing, the boot hart stores its mvendorid
+> and marchid in riscv_cpuinfo. This happens before setup_per_cpu_areas(),
+> which copies the static per-CPU data to each CPU's allocated area.
+>
+> When riscv_cpuinfo_starting() runs on the other harts, the copied IDs
+> are already nonzero, so it skips reading their own IDs. As a result,
+> secondary harts can retain the boot hart's IDs.
+>
+> Read mvendorid and marchid unconditionally on each hart, as already
+> done for mimpid.
+>
+> Fixes: e482eab4d1eb ("riscv: cpufeature: Fix thead vector hwcap removal")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Peixin Xie <peixin.xie@linux.spacemit.com>
+> ---
+>  arch/riscv/kernel/cpu.c | 12 ++++--------
+>  1 file changed, 4 insertions(+), 8 deletions(-)
+>
+> diff --git a/arch/riscv/kernel/cpu.c b/arch/riscv/kernel/cpu.c
+> index af84b97af3a1..64c0c83eff76 100644
+> --- a/arch/riscv/kernel/cpu.c
+> +++ b/arch/riscv/kernel/cpu.c
+> @@ -197,16 +197,12 @@ static int riscv_cpuinfo_starting(unsigned int cpu)
+>         struct riscv_cpuinfo *ci =3D this_cpu_ptr(&riscv_cpuinfo);
+>
+>  #if IS_ENABLED(CONFIG_RISCV_SBI)
+> -       if (!ci->mvendorid)
+> -               ci->mvendorid =3D sbi_spec_is_0_1() ? 0 : sbi_get_mvendor=
+id();
+> -       if (!ci->marchid)
+> -               ci->marchid =3D sbi_spec_is_0_1() ? 0 : sbi_get_marchid()=
+;
+> +       ci->mvendorid =3D sbi_spec_is_0_1() ? 0 : sbi_get_mvendorid();
+> +       ci->marchid =3D sbi_spec_is_0_1() ? 0 : sbi_get_marchid();
+>         ci->mimpid =3D sbi_spec_is_0_1() ? 0 : sbi_get_mimpid();
+>  #elif IS_ENABLED(CONFIG_RISCV_M_MODE)
+> -       if (!ci->mvendorid)
+> -               ci->mvendorid =3D csr_read(CSR_MVENDORID);
+> -       if (!ci->marchid)
+> -               ci->marchid =3D csr_read(CSR_MARCHID);
+> +       ci->mvendorid =3D csr_read(CSR_MVENDORID);
+> +       ci->marchid =3D csr_read(CSR_MARCHID);
+>         ci->mimpid =3D csr_read(CSR_MIMPID);
+>  #else
+>         ci->mvendorid =3D 0;
+>
+> ---
+> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+> change-id: 20261118-riscv-marchid-fix-3ea3672d1e0e
+>
+> Best regards,
+> --
+> Peixin Xie <peixin.xie@linux.spacemit.com>
+>
+Hmm, it solved the problem on Big-little cores' SoC.
 
-Looks right.
+Reviewed-by: GUO Ren (XuanTie) <guoren@kernel.org>
 
-Just a thought, I think switching to kzalloc, like so:
-
-+       ha = kzalloc(alloc_size, GFP_ATOMIC);
-
-Would give you the same fix, and you would get rid of that extra tail length
-arithmetic.
-
-Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+--=20
+Best Regards
+ Guo Ren
