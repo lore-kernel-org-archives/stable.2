@@ -1,75 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.69
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795046522;
-	b=5T58nmqg4QlF5UU89hiDZmi+isZ3J/bCnPtooHFxDeVwYxLPq6ARUALcdu0xdmatGKKG
-	 IwTo662I5QUdQBskRp7/9KC6xHLgwSoXhvElAtYJEsvTKdpJfxL6uzIH4SXFd8ADLp/fD
-	 ZT4vbXvruQCd5+AdwXIjSKVeNBbSe6A81K3McstM5UW5h4dcr/dC50P5xzv1XFFApb2rE
-	 7yTsxPhd83GCfLu1yKODUbqDol2EJVGHFh2e0qqte46da0gxPlMnZ25zP7GssdBPjoHYZ
-	 hP6wqlpkHNF3JZyGZV7d/zZD8hUpFRugFl8TcOeSi0m18Z2KlimJAnGZiktimPjppgA==
+	b=DOLQ5lolY6omw6RsTvHzRYBMHnojoYuP63qCqAELiy0LdeRqt3attcz3UKas1KBC0wEZ
+	 RAya9rZExCSU6F3ECQiz17dR2/QHBYKA8lC1DGmwFFsDUvKv5APn2l8T21Dpys2d+jGsX
+	 Dz7UoYbzcB7+S7TmP965vIFbKxZBV9gzfq53AFB1Bmz9OJNhHloI6HyvQ37wuV0nLoMvZ
+	 jUhHExuogSGTiI5WJEhADhUGCZfeThPYuYjBLu5l/aCfJ4l9gdsvpSAb/jJVDy7AqiZMm
+	 YQbmN1VoVvGn3CM3hnFSncmEO/KX89KXLJKOlf7HOIn24o++G9zdz0Uz5unf2AeWCuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795046522;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=ZMcRdE0DWUvfvjny+MgYRY4V5/4F1cz7ADr3t9/9/Oc=;
-	b=LNZ/NyBJPGYootIEGWftTmm1VwOvv4dMi+qH59o1gV/kgvQG9C72w3CT65fgHADVgMh2
-	 5Df4XNovJu+KCg+kxtxeYvuNaGdUn0Kse7TB+JSDFXEZbW24aApGKTBLGRLTmjDqPRxBG
-	 KJsr4TJ+Awom2UssSTbOmK2faRHqo/th5zQwjghEo/lhtRgCrgABM0Kftou92WNvCn1na
-	 uXSm/CgT+1aujOVuFAg9CC/Sbbocp/VC7rgxGNEF3S5OfHW+2w+wUjrxW6rlWVGWEGu3r
-	 H8TZ2ACUOyBvF5IUdvcm8cVw248cW5MsMEMTVCh65rSpGgnD06w7lP97tJ8t2QyhEYg==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LZMuI9PjTBavzpCqfVT+JCWvop/mBBvsFWq3QG94t3k=;
+	b=tp/XFqPAwfpQM3DDi5FM2qLgG2F42/Imgel8eVwf3syMHGryuWPMq2EtNNY8MWtuu49C
+	 yDANg2pxcDiDg0Ul6z8KSok3/pj0+jSbChd8QoYx6rboNbx5U7SXX3trtI12Vq6SjMbhu
+	 KxfSK9o6LSiwalLnbf/upKgVHCXMzjDxiXBwzrcftCCx95N2S/OFrEe12gNCNHmmuYfpG
+	 UWQPImpExzfQV8Y+RRLX3p3GDJPFy3Kk+beP7QmqHf48fPai1Fbfz4SnAScINgrJqVSaZ
+	 ZS2qKgchA0EU6USz2rxlYmekJrW7X8ltvVm1+Rt6T4agzz/PANp+XxhMRSRMvb2nR/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VnL5J7E3;
-	arc=none smtp.remote-ip=209.85.210.69
-Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hWhUTXoQ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D4C460A263A
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:02:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D4C460A263A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9C0B60A380B;
+	Thu, 19 Nov 2026 00:02:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VnL5J7E3
-Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-862a5ad18d0so1748024a34.3
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:02:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795046521; x=1795651321; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZMcRdE0DWUvfvjny+MgYRY4V5/4F1cz7ADr3t9/9/Oc=;
-        b=VnL5J7E37p9U9QygnOqjiKkyG+IY3TThsqkVfJlyVBCOMMRYdCX9nngEyVIwDOGF7X
-         hazEduQrQFeNkJqU9unCkvw+x3fHhHYS4qS4Tx7pcJOAni4UNVEeb5zXzA5kb+1GdKo6
-         s2jCXYoJGQtw2NLJOgCXsyWEZ6KRPamW5NM72W0mj3R3+rtSy6RI2FYFh1MOLngm2YPg
-         8JfpqdzaeCtylXIPwfcr5MA1ku91WqlM9gtdXXpc9vH3g0bJCawkk06w/Mmr5JDM/ItS
-         ycu/1sbs7nrnAwUySq1i6TnI+v+Od0HJmmz9zTTNg43BT7y6DZYNEthgvkX6GkwURFXo
-         Tnag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795046521; x=1795651321;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZMcRdE0DWUvfvjny+MgYRY4V5/4F1cz7ADr3t9/9/Oc=;
-        b=bginAWtJcL2/ZpOYWyBZmEggq5873uiEyACagNYbJDh1jK2L0XEXk2EUJQtPrpI4zo
-         bnu4EELS3/Lc7f0GctwLVXuJO6H66FNLTYzPkRYba+qA46bphm2ccH6iij2fp98pyPhJ
-         YoaFdjuDRwPCXdFYdvZU46U0t+fQTfCTrmdM29mz43m60rAKiwwK5Ah77r/kbZ4sQT+G
-         iOozM5Vk5hjw3L9xASHLyIVAmkFlycxFR0yIx9UkoLL2disGiRkHt5Dw24SwT1NIDX5t
-         coS/FTBllJL64qO/HxL+qnsNnT5ZzIVDVO/98kVVH20ziJcpUsG0oliJ1hBwg5mX8oGV
-         gX3w==
-X-Forwarded-Encrypted: i=1; AL+hErFl/zrRumg51OYZF6fgW/yKWR3jhSXs6RY/w5jnglmIbn9ewkrtRS7FYddtSir/GKxkTxMZIso=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+oe9hw6qWqhGmVefvT18zxax0vERxtk9YnIuA8qffVliorqLHv
-	YCJyw/XInlrsmqClR+hEu+dFEJZVf+REs9PmIgSoXi7O0xR0TAlBuJ+hPyxsX7LSQIu7KKp9EAY
-	pl3IYAXDnsFGa8w==
-X-Received: from iohd25-n2.prod.google.com ([2002:a05:6602:86d9:20b0:9e2:221a:fd83])
- (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:3a19:b0:567:c773:39ab with SMTP id 5614622812f47-57742d30c1fmr4647260b6e.39.1795046520570;
- Wed, 18 Nov 2026 16:02:00 -0800 (PST)
-Date: Thu, 19 Nov 2026 00:01:46 +0000
-In-Reply-To: <20261119000151.442543-1-dmatlack@google.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hWhUTXoQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3031A1F000C4;
+	Thu, 19 Nov 2026 00:02:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795046522;
+	bh=LZMuI9PjTBavzpCqfVT+JCWvop/mBBvsFWq3QG94t3k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hWhUTXoQUhQRQyap/Rzs47F/1nQtXWJaanjmJXWyej+OTKDNJM1grul/KWNlwDPhR
+	 NQ3pnGl0V16g+2h6jIgf0b6Xri/JnLy1cCBUIwe0+gAqKZQ4c6JKA4/+eA2tI1Id3s
+	 jsYuCHBF7s4YpQkAnzaSj7hc5EIUZr7liGI2Xye4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Imre Kaloz <kaloz@kernel.org>,
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 1311/2857] MIPS: sgi-ip32: Mask MACE PCI interrupts in CRIME only
+Date: Wed, 18 Nov 2026 15:39:05 +0100
+Message-ID: <20261118150248.664851127@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
+References: <20261118150201.293410965@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,59 +61,130 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261119000151.442543-1-dmatlack@google.com>
-X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
-Message-ID: <20261119000151.442543-5-dmatlack@google.com>
-Subject: [PATCH v2 4/8] vfio: selftests: Skip vfio_pci_sriov_uapi_test if
- SR-IOV can't be enabled
-From: David Matlack <dmatlack@google.com>
-To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Cc: Abhishek Sahu <abhsahu@nvidia.com>, Alex Williamson <alex@shazbot.org>, 
-	David Matlack <dmatlack@google.com>, Raghavendra Rao Ananta <rananta@google.com>, Shuah Khan <shuah@kernel.org>, 
-	Vipin Sharma <vipinsh@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Skip vfio_pci_sriov_uapi_test if writing to the PF's sriov_numvfs file
-fails with -ENOENT, which means SR-IOV cannot be configured on the PF.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-vfio-pci returns -ENOENT unless its enable_sriov module parameter is
-set, which it is not by default, so the test currently fails during
-setup instead of skipping.
+------------------
 
-Fixes: a6e4e726600d ("vfio: selftests: Add tests to validate SR-IOV UAPI")
-Signed-off-by: David Matlack <dmatlack@google.com>
+From: Imre Kaloz <kaloz@kernel.org>
+
+[ Upstream commit 4e65c502b8975e7c3c3d84aba59cd04af1dd6b8a ]
+
+Masking PCI interrupts in the MACE PCI control register overwrites the
+error and arbitration enables set at init, and a read-modify-write can
+hang CRIME 1.1 machines under DMA load. Enable the slot interrupts once
+and mask them in CRIME.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Imre Kaloz <kaloz@kernel.org>
+Signed-off-by: Thomas Bogendoerfer <tsbogend@alpha.franken.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ arch/mips/pci/pci-ip32.c      |  7 ++++--
+ arch/mips/sgi-ip32/ip32-irq.c | 45 +++--------------------------------
+ 2 files changed, 8 insertions(+), 44 deletions(-)
 
-diff --git a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
-index f3a018b8699d..f27418fa5960 100644
---- a/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
-+++ b/tools/testing/selftests/vfio/vfio_pci_sriov_uapi_test.c
-@@ -210,6 +210,7 @@ static void vf_setup(void)
+diff --git a/arch/mips/pci/pci-ip32.c b/arch/mips/pci/pci-ip32.c
+index 7ae89d0c70990..30aca6f76563d 100644
+--- a/arch/mips/pci/pci-ip32.c
++++ b/arch/mips/pci/pci-ip32.c
+@@ -125,10 +125,13 @@ static int __init mace_init(void)
  {
- 	char *vf_driver;
- 	int nr_vfs;
-+	int ret;
+ 	PCIBIOS_MIN_IO = 0x1000;
  
- 	nr_vfs = sysfs_sriov_totalvfs_get(pf_bdf);
- 	if (nr_vfs <= 0)
-@@ -220,7 +221,12 @@ static void vf_setup(void)
- 		ksft_exit_skip("SR-IOV already configured for the PF: %s\n", pf_bdf);
+-	/* Clear any outstanding errors and enable interrupts */
++	/*
++	 * Clear any outstanding errors and enable interrupts.  PCI interrupts
++	 * are masked in CRIME, so the per-slot enables stay on.
++	 */
+ 	mace->pci.error_addr = 0;
+ 	mace->pci.error = 0;
+-	mace->pci.control = 0xff008500;
++	mace->pci.control = 0xff0085ff;
  
- 	/* Create only one VF for testing */
--	sysfs_sriov_numvfs_set(pf_bdf, 1);
-+	ret = __sysfs_sriov_numvfs_set(pf_bdf, 1);
-+	if (ret == -ENOENT)
-+		ksft_exit_skip("Cannot enable SR-IOV on %s (vfio-pci requires enable_sriov=1)\n",
-+			       pf_bdf);
-+
-+	VFIO_ASSERT_EQ(ret, 0);
+ 	printk("MACE PCI rev %d\n", mace->pci.rev);
  
- 	/*
- 	 * Setup an exit handler to destroy the VF in case of failures
+diff --git a/arch/mips/sgi-ip32/ip32-irq.c b/arch/mips/sgi-ip32/ip32-irq.c
+index e21ea1de05e31..5bf3c4796527d 100644
+--- a/arch/mips/sgi-ip32/ip32-irq.c
++++ b/arch/mips/sgi-ip32/ip32-irq.c
+@@ -162,38 +162,6 @@ static struct irq_chip crime_edge_interrupt = {
+ 	.irq_unmask	= crime_enable_irq,
+ };
+ 
+-/*
+- * This is for MACE PCI interrupts.  We can decrease bus traffic by masking
+- * as close to the source as possible.	This also means we can take the
+- * next chunk of the CRIME register in one piece.
+- */
+-
+-static unsigned long macepci_mask;
+-
+-static void enable_macepci_irq(struct irq_data *d)
+-{
+-	macepci_mask |= MACEPCI_CONTROL_INT(d->irq - MACEPCI_SCSI0_IRQ);
+-	mace->pci.control = macepci_mask;
+-	crime_mask |= 1 << (d->irq - CRIME_IRQ_BASE);
+-	crime->imask = crime_mask;
+-}
+-
+-static void disable_macepci_irq(struct irq_data *d)
+-{
+-	crime_mask &= ~(1 << (d->irq - CRIME_IRQ_BASE));
+-	crime->imask = crime_mask;
+-	flush_crime_bus();
+-	macepci_mask &= ~MACEPCI_CONTROL_INT(d->irq - MACEPCI_SCSI0_IRQ);
+-	mace->pci.control = macepci_mask;
+-	flush_mace_bus();
+-}
+-
+-static struct irq_chip ip32_macepci_interrupt = {
+-	.name = "IP32 MACE PCI",
+-	.irq_mask = disable_macepci_irq,
+-	.irq_unmask = enable_macepci_irq,
+-};
+-
+ /* This is used for MACE ISA interrupts.  That means bits 4-6 in the
+  * CRIME register.
+  */
+@@ -301,8 +269,8 @@ static struct irq_chip ip32_maceisa_edge_interrupt = {
+ 	.irq_unmask	= enable_maceisa_irq,
+ };
+ 
+-/* This is used for regular non-ISA, non-PCI MACE interrupts.  That means
+- * bits 0-3 and 7 in the CRIME register.
++/* This is used for regular non-ISA MACE interrupts.  That means bits 0-3
++ * and 7-15 in the CRIME register.
+  */
+ 
+ static void enable_mace_irq(struct irq_data *d)
+@@ -438,20 +406,13 @@ void __init arch_init_irq(void)
+ 	mips_cpu_irq_init();
+ 	for (irq = CRIME_IRQ_BASE; irq <= IP32_IRQ_MAX; irq++) {
+ 		switch (irq) {
+-		case MACE_VID_IN1_IRQ ... MACE_PCI_BRIDGE_IRQ:
++		case MACE_VID_IN1_IRQ ... MACEPCI_SHARED2_IRQ:
+ 			irq_set_chip_and_handler_name(irq,
+ 						      &ip32_mace_interrupt,
+ 						      handle_level_irq,
+ 						      "level");
+ 			break;
+ 
+-		case MACEPCI_SCSI0_IRQ ...  MACEPCI_SHARED2_IRQ:
+-			irq_set_chip_and_handler_name(irq,
+-						      &ip32_macepci_interrupt,
+-						      handle_level_irq,
+-						      "level");
+-			break;
+-
+ 		case CRIME_CPUERR_IRQ:
+ 		case CRIME_MEMERR_IRQ:
+ 			irq_set_chip_and_handler_name(irq,
 -- 
-2.56.1.708.g77570a6a1d-goog
+2.53.0
+
+
 
