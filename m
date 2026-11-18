@@ -1,65 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795027447;
-	b=oXbchHcVtesILpJPrkCJCz4NRHsC+MIsejsZjQOMZjZfng1i2pR8/GZbaV14r3dzHRnV
-	 SA4EJX2fNkPzsE3BTXps70lzBwgKfMJkCG5RaG//BadKeiO3/uAg/b6wWjFrnEgh7cfNl
-	 zTGTj/B2KRsDe4YC9y+ldzd6uo0MQGjKEJdUpIyIUTtGG1LD6eDopdikBwgOtJ6DWgpz+
-	 LKkgFweR9VQpymFWNlFENkVd9wzkEHzaGDPZ6XkiCk5t7g5/x2+/H0jwliATGO5Anry6W
-	 GdVXEumxXJRfCgNz9hTL3rreM4fzQKKrSxuH2t6KM/4S7Spvy4dE3F0BOyZWUHFAHhw==
+	t=1795027453;
+	b=mrvie8czhmuW032uJFIBBvM5Yqdp8l1xbia7gnX/NxfKMUUPZkhuWFXEh2Axp1jfcezs
+	 s8h9PACYmw4u+BNs5wJuFlBUxqJ6PPAU/XabtCP62Mlp3sw+ql4fZ91m9o04KROFAxB8/
+	 /MS8IZyEXopBPmvoxVhsau2qAjVQxfDfBGTsUJm4PjkUOsF2xQ1jY2DfHUBN4DVtFwd8U
+	 /0qIAvOu5JX171BpOiJDA5hVMknGMpMJce/4gO7Yg2s1r0j6X5cLb63tQXHVAFTJO55Ct
+	 SHfUzdljhGjmwr6kRO5AnvlZoKToZT57kgL/vmPy2kzqAikcIIbWrIEE0CDeh6J9SBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795027447;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Exh67LGpxykc1JGTN+in07YExIL4rUDgMV0oj2/L/Eg=;
-	b=tw4wEh2PZghhB4mNAgtBkIMMjbPqT5uBsw2V6GCxlioe20z5KlzVzKB5PCRQOGzoglXd
-	 z2ske3ug9zkMyYuIfmqjCRlPJX1Tn3TSzwoDYn9kMQSFKzJonIByhoqb62MlEeWT9VfJb
-	 ta+yXBnGV0uEYHCViXXRY1FqO1vJ++mVn71VHgneBP7Wq2+51ExBp1f05nuQBPKH+LqIx
-	 iOq2X2vPK3kcGc9kNy6HYz5jXbhSzzdiVExkstEAO/CadaDNx5tbxiMELTJg3ORDbC0nm
-	 1fHtxExBrGU8WYR9C7XGLVhYYiLQ5LMHrq64OvayzeaaTLWHKdP5ah9Gjs6Y2J3iMGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795027453;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=b5MoMLqJ51l3Tn6rqL0Fa5C9fXy7bm0E+BaycOObaR0=;
+	b=0pD7pMEbYgbBqspvWi5lrmUfu3wbfj2yNIFivxXvbDMfq1rXS3mIfva1y2NgspYcPlhO
+	 J6DGdi/ZLg707JuE8CaMTtCkE/QeZWTQMj7Vyv1bj6C7ZWZW7N5LQRsGvdm4Wtk1wzvdH
+	 YIJBP4ilI/hP6eAg5cXg+0gkB5Svmk4xulRZv12O7WtqZkxjEoYzKCgOZD3KC9uLIY5iF
+	 NLBNC9tuG1UM45P49E/E+Qj86klmscUhgfWSgPhL6U7TOktjfpoQKHhcZF/eUm0Wt/ARC
+	 ATsR7q0+euM469CA5+IcTP+DIUieZC6+T8hKhR3oTJaa7IqWTa80qTX6wEZ/Uq6/fpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=bVwK3gIB;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1X4pAoKM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA2B606A331;
-	Wed, 18 Nov 2026 18:44:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CA2B606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADE860A2617;
+	Wed, 18 Nov 2026 18:44:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=bVwK3gIB
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Exh67LGpxykc1JGTN+in07YExIL4rUDgMV0oj2/L/Eg=; b=bVwK3gIBoh1JAh+xKxY1vWJ8OO
-	fHzZaF3l9M7ah8N5eVTQJFCwbBiZQBD82LzWGm0pYXrIwvcHdC0lMR3LHPXUeGqMSl0hjvNF7/mp9
-	YPfqAc+xiEcNAUfTuvs8xcP/6EwHqs9MAfT9ZZsqL3I9bCOAFhvu2B5qosMnOXbToLnE=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xTkdP-00HUdI-IX; Wed, 18 Nov 2026 19:43:55 +0100
-Date: Wed, 18 Nov 2026 19:43:55 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Zhao Li <enderaoelyther@gmail.com>
-Cc: Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Eric Woudstra <ericwouds@gmail.com>,
-	=?iso-8859-1?Q?Bj=F8rn?= Mork <bjorn@mork.no>,
-	"Lucien . Jheng" <lucienzx159@gmail.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] net: phy: air_en8811h: check PBUS register read
- errors
-Message-ID: <31de7b62-098a-425a-bf0e-38064b3a42d3@lunn.ch>
-References: <20261118182436.32455-1-enderaoelyther@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=1X4pAoKM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2730D1F000C4;
+	Wed, 18 Nov 2026 18:44:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795027453;
+	bh=b5MoMLqJ51l3Tn6rqL0Fa5C9fXy7bm0E+BaycOObaR0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=1X4pAoKM2nWon7ZyKVDUzAMi+MjXohY0n93j79jbHG+aSq5k/pmSSg4zkJvZKinZm
+	 g7N0H/mc/N3ceP4ERg/r8k3VIj6GfTVjvy7Kk14JoKz3peQ9AU1DBdaFLHBcbqDk01
+	 /et5+pqxlGrO7VF1pfOCLWfuCKHOdW/VbLglSvNs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Mat Martineau <martineau@kernel.org>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 1796/2151] mptcp: options: dss: avoid printing uninit csum
+Date: Wed, 18 Nov 2026 15:58:51 +0100
+Message-ID: <20261118150227.234865022@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
+References: <20261118150121.603863898@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,40 +63,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118182436.32455-1-enderaoelyther@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 19, 2026 at 02:24:36AM +0800, Zhao Li wrote:
-> an8811hb_check_crc() ignores the return value of its PBUS reads. When
-> the status read fails, the loop tests a stale or uninitialized
-> pbus_value and can stop waiting before the check has finished. When the
-> result read fails, the PASS or FAIL message tests the status value.
-> 
-> en8811h_print_fw_version() also ignores a failed read, which leaves
-> priv->firmware_version at 0 on the first firmware load.
-> en8811h_read_status() then handles it as firmware older than 24011202
-> and guesses the link partner's 2.5GBASE-T ability from the link speed.
-> 
-> Return the error from each of these reads. A failed version read now
-> fails the firmware load or the probe, as the other PBUS errors there
-> do.
-> 
-> Found by an AI code review agent; not triggered. Compile-tested with W=1.
-> 
-> Fixes: 71e79430117d ("net: phy: air_en8811h: Add the Airoha EN8811H PHY driver")
-> Fixes: 5afda1d734ed ("net: phy: air_en8811h: add Airoha AN8811HB support")
-> Cc: stable@vger.kernel.org # needs adjustments for <= 7.1
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Does this bother anybody?
+------------------
 
-https://www.kernel.org/doc/html/latest/process/stable-kernel-rules.html
+From: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 
-MDIO pretty much never returns an error.
+[ Upstream commit 00e2690c9dad0e09cd2a4435b98de6d8efd5fbc2 ]
 
-Please repost for net-next.
+When parsing the DSS suboption, this pr_debug() might read and print
+uninitialised checksum value.
 
-    Andrew
+That's mostly harmless, but that's also confusing. Fixing that also
+avoids some tools to complain about accessing uninit data.
 
+So read this csum field only if it has been set.
+
+Note: this was initially reported by Clashiko as an existing issue. The
+code has been analysed by a human and confirmed. This is a non-urgent
+fix.
+
+Fixes: 390b95a5fb84 ("mptcp: receive checksum for DSS")
+Reviewed-by: Mat Martineau <martineau@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20261013-net-next-mptcp-misc-feat-7-4-part2-v1-2-1181e5d2fda4@kernel.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-pw-bot: cr
+ net/mptcp/options.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/net/mptcp/options.c b/net/mptcp/options.c
+index c53d212156303..69c2906bf3147 100644
+--- a/net/mptcp/options.c
++++ b/net/mptcp/options.c
+@@ -259,7 +259,7 @@ static void mptcp_parse_option(const struct sk_buff *skb,
+ 			pr_debug("data_seq=%llu subflow_seq=%u data_len=%u csum=%d:%u\n",
+ 				 mp_opt->data_seq, mp_opt->subflow_seq,
+ 				 mp_opt->data_len, !!(mp_opt->suboptions & OPTION_MPTCP_CSUMREQD),
+-				 mp_opt->csum);
++				 (mp_opt->suboptions & OPTION_MPTCP_CSUMREQD) ? mp_opt->csum : 0);
+ 		}
+ 
+ 		break;
+-- 
+2.53.0
+
+
+
