@@ -1,56 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016220;
-	b=Bzn0IsRn2X8+NH9bI0Hk1vDUd+d2jB7ck3PM+NcYu66ahgSBuHAEtMATsSo9yJXK0yVn
-	 2/RASo8zLILNVL4Igoj093PxpZDFN0AM8zjuLqeKC7ENOyeDJmQwBQe25UCrdp0yxmY9g
-	 f/Ve6vS02JpC2topGDu/kYvtzbHUd/FZaEIssvWVRkPQMFLHPYo4x+x0bchoP8XBhyaYK
-	 uDi3EwqFkzlFw1VKkDGKx2VxvpWzuft7ODRFkfbahK44UMEBG8SbQrmxU1b0iCbm0yXok
-	 p+t073Elc8/DhaIL4YyetCPtrZNbdhyoCqTAXXWpjShaZRTGzm5YbLYn7ghNtdY5ltQ==
+	t=1795016225;
+	b=iqHrGYIOLVePvdOZE9LUwTCNmiCQYnqe51OpezohcfWO2gFS39WuzhqB0HRK3TjWFwEH
+	 ils+MjdXMKIddNZGYJHMlDYpZnbeVNP1zufSXRJC41fKWEjdROCVTUHj37Fvl0LXjtvKg
+	 Koaol96lMAbda8vuq5VQynplWRAB+uLiAEtYubg6tSCB8N4I4HansPHOE4VM3LLc361g1
+	 NDHyoykYU84yJqmQpYgkmnghTZtF8Fjq9Lt94gcd/Tm2BMGrsMUV6NtguStbE3degsln6
+	 30LIJH9BGOiDjXsKOuFYwOIp/5od8j6oRUHmXPFoGz2Al+j1F23XqfuW4CVOcD3bkSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016220;
-	h=DMARC-Filter:DKIM-Signature:Received:MIME-Version:Date:From:To:Cc:
-	 Subject:In-Reply-To:References:User-Agent:Message-ID:X-Sender:
-	 Content-Type:Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
-	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
-	bh=RgWtSxLmAhtYhLG2BvNwj3rhsazutaU7Zjd615Xs2tU=;
-	b=Lv0VcbMAXNolJGttkWGIQZTvYCUCACSOpVYIVXlGUjqQHSYH1mGdaSCwjwwTfTbss5Sd
-	 t5/Pq4J4dvBgtujxF6/yXI2Oe5UjOQc5+9s061T147MqAvG8ojs7UxQTMtUvjU6bD2Qz8
-	 K+0qLsF34Lw+fvWsEgEcAlL4j7renoF1v5eUtKz8LUWmQEQmJVi1dWhFa8H74QbByt2Pq
-	 SJCB/JopzGKiey0tO4BKCMRssLkDX0bG/UdYgAWyOLdOxQIVC/b8YoD0j+Henr14fhAa7
-	 Zk7KH8UTIk7I6C78g5gb7/CvRAYOTBTGljw+xYxOjcvaLdv3f+rbfA50u4E1fQqud3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795016225;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=pSxkduUn4P6K17qwqHipmWRftwdPUiD4nM2JhyrXwjs=;
+	b=am81vFaWcnVi8Vbb/yxYreOkILHtWnQ9NbHUip3vmJ0q1QTNRaECkVZihLU5HG8rEc9B
+	 hTPOqpzEFBN3AHJP+p0S/6WHpJ218mwgc6PlcOGTRKHIi9PukZ1+2ne46VTK2Gcpo+YKG
+	 vbihDz6qkgUpF9iQsHItPgx/W8JDIfxVcSFFaABh7nb/5MEiimn6RMbPDU/dmhsnf9K08
+	 XZjyRr/tljwWeDyfAdCh07I92zTWL75aHqDbdApEjmK3XmGHsjMjQQ0pXykQaCldonUsL
+	 RSV/OgdDamSpHppDJX/Fyz55W20UVpt8lEdfwPh34PfcHaMR8wIpOVABp3dPIv9vqUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b="Y0E/Bo1F";
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="NZdkO/7R";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF7E606A320;
-	Wed, 18 Nov 2026 15:36:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BEF7E606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F96E606A325;
+	Wed, 18 Nov 2026 15:37:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=Y0E/Bo1F
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
-	Message-ID:References:In-Reply-To:Subject:Cc:To:From:Date:MIME-Version:
-	Reply-To:Sender:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=RgWtSxLmAhtYhLG2BvNwj3rhsazutaU7Zjd615Xs2tU=; b=Y0E/Bo1FwWCrAQ8ELPOv3Z76JB
-	mYA/1ubdl0gmNA6CdqfKAG3CJdLN2G6EObpOZUST+sEc0LBPzw1lyyg+zIdqd6QxNKEQ3MuFm5DMS
-	4REYs2mXLcLS0nviJSb70VKrebdOdg/nhvYGaDdrRzqgWXJD0Zq/HRrn5MymtUJ1NvLoqpxbCAaab
-	4TNEAuH069jyZrewelGQoAFMpCsE0mFuv7HIXRUgCIEVjapT392zOD0ndmydGDpMozEvsepjgIlvd
-	ZLcE2LCLQUEw2afJM1dsHhhSA+KLWIXCu4Z6vMdEuGf3GdLh/ICbQuWW62feoU5yqRnCqOjIpMdZ+
-	S4E5K2gA==;
-Received: from [::1] (port=57880 helo=pf-012.whm.fr-par.scw.cloud)
-	by pf-012.whm.fr-par.scw.cloud with esmtpa (Exim 4.100.1)
-	(envelope-from <jeremy.jean@oss.cyber.gouv.fr>)
-	id 1xThiQ-0000000EZro-0eDB;
-	Wed, 18 Nov 2026 16:36:51 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NZdkO/7R
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEF751F000C5;
+	Wed, 18 Nov 2026 15:37:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795016225;
+	bh=pSxkduUn4P6K17qwqHipmWRftwdPUiD4nM2JhyrXwjs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NZdkO/7RB23Zjdk7gCBevmJFGnXulAwXWuCN80dK7nQIl7aYkWiQeE02QDU39vS2v
+	 q5iVev1S/SYuiTZYb/FZqwaAXH7bD5g30hU1leaVxCbL/DKHsWItuXOcUSToxF47i3
+	 JXbN0Rt2eLJ6088VaUYOSZad4YmwAHu2S1UAcsJY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Linkai Gong <gonglinkai@kylinos.cn>,
+	Linus Walleij <linusw@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0453/2651] pinctrl: amd: add timeout to irq-enable readback
+Date: Wed, 18 Nov 2026 15:28:13 +0100
+Message-ID: <20261118150304.117742545@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,74 +62,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Date: Wed, 18 Nov 2026 16:36:50 +0100
-From: =?UTF-8?Q?J=C3=A9r=C3=A9my_Jean?= <jeremy.jean@oss.cyber.gouv.fr>
-To: Simon Horman <horms@kernel.org>
-Cc: netdev-bot+sashiko@kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] udp_tunnel: fix GRO callback mismatch during setup
-In-Reply-To: <20261118153221.GG860048@horms.kernel.org>
-References: <20261111214622.2482547-2-Jeremy.Jean@oss.cyber.gouv.fr>
- <179478310543.3136.4977357785981182737@kernel.org>
- <20261118153221.GG860048@horms.kernel.org>
-User-Agent: Roundcube Webmail/1.6.20
-Message-ID: <1d7deb845ffc57994cfc86c317d9958d@oss.cyber.gouv.fr>
-X-Sender: jeremy.jean@oss.cyber.gouv.fr
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
 
-On 2026-11-18 16:32, Simon Horman wrote:
-> On Sun, Nov 15, 2026 at 10:51:45PM +0000, netdev-bot+sashiko@kernel.org 
-> wrote:
->> Thank you for your contribution! Sashiko AI review found 4 potential
->> issue(s) to consider.
->> 
->> Critical: 0 · High: 1 · Medium: 2 · Low: 1
->> 
->> If you believe none of the issues are legitimate, please reply to each
->> issue of Medium severity or higher and explain why the AI is wrong.
->> If any of them are legitimate and you plan to respin, please let 
->> patchwork
->> know by including "pw-bot: cr" as a separate line at the end of your 
->> reply
->> (one such reply per series is enough).
->> 
->> - [High] The fix still lets receive and completion use different 
->> tunnel
->>   parsers on the same packet, so the out-of-bounds write the commit…
->> - [Medium] udp_tunnel_gro_count only describes how the head skb of a 
->> GRO
->>   entry was parsed, not the packets merged into it, so packets in the…
->> - [Medium] The Fixes: tag blames only 5d7f5b2f6b93 ("udp_tunnel: use
->>   static call for GRO hooks when possible", v6.16), but part of what 
->> the…
->> - [Low] The new synchronize_net() in udp_tunnel_update_gro_rcv()
->>   (net/ipv4/udp_offload.c:139) runs with the global…
->> 
-> 
-> Hi Jérémy,
-> 
-> I would appreciate it if you could provide feedback on
-> the concerns raised in this AI-generated review.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Hello,
+------------------
 
-I intend to do this at some point, but I have been busy with other
-non kernel things recently. I hope to get back to this at some point 
-when
-I find time.
+From: Linkai Gong <gonglinkai@kylinos.cn>
 
-Regards,
-Jérémy
+[ Upstream commit 44c232e80adc26634e40b3dbeaa20711da9ecf0d ]
+
+amd_gpio_irq_set_type() polls INTERRUPT_ENABLE with IRQs off
+and no timeout. Use readl_poll_timeout_atomic() and return
+-ETIMEDOUT.
+
+Fixes: b85bfa246efd ("pinctrl/amd: poll InterruptEnable bits in amd_gpio_irq_set_type")
+Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/pinctrl/pinctrl-amd.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/pinctrl/pinctrl-amd.c b/drivers/pinctrl/pinctrl-amd.c
+index 6835e943909ca..7282d1362a00b 100644
+--- a/drivers/pinctrl/pinctrl-amd.c
++++ b/drivers/pinctrl/pinctrl-amd.c
+@@ -18,6 +18,7 @@
+ #include <linux/errno.h>
+ #include <linux/log2.h>
+ #include <linux/io.h>
++#include <linux/iopoll.h>
+ #include <linux/gpio/driver.h>
+ #include <linux/slab.h>
+ #include <linux/platform_device.h>
+@@ -494,7 +495,7 @@ static void amd_gpio_irq_eoi(struct irq_data *d)
+ static int amd_gpio_irq_set_type(struct irq_data *d, unsigned int type)
+ {
+ 	int ret = 0;
+-	u32 pin_reg, pin_reg_irq_en, mask;
++	u32 pin_reg, pin_reg_irq_en, mask, reg;
+ 	unsigned long flags;
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+ 	struct amd_gpio *gpio_dev = gpiochip_get_data(gc);
+@@ -568,8 +569,9 @@ static int amd_gpio_irq_set_type(struct irq_data *d, unsigned int type)
+ 	pin_reg_irq_en |= mask;
+ 	pin_reg_irq_en &= ~BIT(INTERRUPT_MASK_OFF);
+ 	writel(pin_reg_irq_en, gpio_dev->base + hwirq * 4);
+-	while ((readl(gpio_dev->base + hwirq * 4) & mask) != mask)
+-		continue;
++	if (readl_poll_timeout_atomic(gpio_dev->base + hwirq * 4, reg,
++				      (reg & mask) == mask, 1, 1000))
++		ret = -ETIMEDOUT;
+ 	writel(pin_reg, gpio_dev->base + hwirq * 4);
+ 	raw_spin_unlock_irqrestore(&gpio_dev->lock, flags);
+ 
+-- 
+2.53.0
+
+
+
