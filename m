@@ -1,91 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794966322;
-	b=aarJ4UpqryLz1L2oTyaxz/SMU+K4zVFNXlLBCnAhBChVqVzxmaya7YvnPxH6C78T43YH
-	 mLCPPTWv0o8B52x/jCpfYxCDKv9TxZus1MuSQM/43w4W9+c3XCsy6ZG6zijn482SjeTBO
-	 ARw90VUhYYN44OxeW+idFUG5WDhABAXdgl0Wpp6G519gbx578VY0DU2kFczporKTO0NKW
-	 pUcEGZj3enTWHD+gdgYr2AWj7wapee9/DBXq9vqVgyjG2YbUAk/8MrJabtkf/Tx9xLdSk
-	 fQjO2cianQW27fXTIHEvvtp3a3CC5o6Qf1bLzQTZny2t9bbGg7VK8dAvjdvdtsyp8jQ==
+	t=1794966340;
+	b=KrQPMMV996FP3nBROpULh1lJgHvMwRJxTWpHvNUzSNbFk8WO8QKh6OXGrvUcvF30U5Ih
+	 L5u5H/4DhP5Av6dpOXiQaYfteyuDrn+iUq2GLf49yhdnGroRT1mfre3Ylf8SZHpUGlAWG
+	 Jeeu6nKf/Xcqc00YG9ZkNhXomI4v01sYIlHoLMdi/EcRNreCD3yri/yi1nE5WImLd/yJn
+	 eZsSokmUTINhsO6sgOOVGQNcm90ezrY2I3vJU+sAh844Jwv4Ni+kvLDov4mJ4acKYOXrD
+	 8gBUO187Ekc6lwoZgkrg/JQcuxjs8rLPbyKZ+7TZl+VG0D0okb4z9Kv7hB70sbnTGcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794966322;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794966340;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
 	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=xy6xJHSs+3xv0hTa769rLPV89+WvX7mv4MSqSuyFZb4=;
-	b=v1IyCamhKKniiD/1DOp2aUDRo5riqi+IcJq404gBs0B29RlGlOB7bUMrictcEyjYKLdz
-	 y30lEICmFvOIk2mKK5CEQr3qOQFFWiNOp1RdCWxaMjrJa2943+9WrV+ApQJwA8HEGvTqn
-	 HwkB6sGv2NfTq6jRbNATTtclfgMfQzlsBX1LKx6O2I8Mj5YMrOb3S+i5RqKb7a9vL/N8+
-	 V0OuOk3ObuuNglqpccBymyZhQKcqfJMNYg5gD6j0McuEp/9DCGhHXahKAUT6wxqsSHXCK
-	 ZA2Wz7cZ8fi8yuqjEZRwKbh9JBcTcQemAbhfCWlO8rb8kgImEHr8yFKtcnR4mPALJIQ==
+	bh=JFZOKiemVFn+ZpLaCoT/8XChxYhHMw6NmRWsjDKhJq4=;
+	b=2D3iIiYqk2193JhG0wlOsYJNQEUSyVjHR3OY6MmuzuYOuB0hQWbK/+fAQAvJHP2yJ3LL
+	 DpnSMdevx0O8UFDF8zcZ9YVbpSuMcFG58w0JvSFJqrXkw4R34j0Gp8Sc1jr/8hPiXwcvz
+	 MY4rsPTk61jyLvezUBENc9hf0GlfJG1JkM9GQAH77ZTigJHl6k7614OlxqIseawHBoKgw
+	 Lc3NVxUM2aBBEkm8MyPxnI6DS9bqgOU9c9gdmu3wzZKrj0pTdxjQf0d1MrErUW2bXppW7
+	 E2IfnzrdR2Nxni/i+q/uKaYIlabq1PoUY2AieFzzwk2zqv980kpNmEDKaazbS7WGyPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.ibm.com;
 	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=P8OvUAUi;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=UjFWg8DB;
+	arc=none smtp.remote-ip=148.163.158.5
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77AFC606A32A;
-	Wed, 18 Nov 2026 01:45:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77AFC606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 413C3606A31C;
+	Wed, 18 Nov 2026 01:45:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 413C3606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=P8OvUAUi
-Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHMuZKV3803105;
-	Wed, 18 Nov 2026 01:45:06 GMT
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=UjFWg8DB
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHMwof62444013;
+	Wed, 18 Nov 2026 01:45:27 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=xy6xJH
-	Ss+3xv0hTa769rLPV89+WvX7mv4MSqSuyFZb4=; b=P8OvUAUiEbPndq+VStbB7u
-	Bbgh5FxhOWchU5O1JuhMo6hKSKaPh8m+BXfME9kE3bNLSYE9nP4I82juxAm0zq0T
-	c1UjAmYM8KALQ3E8EnCj3TgdztvdPMFRxg7Bf1UYF9qDpdb0J0Ibk1txpvnI+txV
-	Fc+E1Q+GOOuZSovXkxwv2AVa/9m8sl06tLrmDDTUOKw/QTnVp1fF+0S1FgCGxobB
-	+9amvV98PJI6bjyE4Ar/Ojuc80g7sTQRkb6VieCZHx6N8vVAbZiU+Y70fJLSCRJi
-	/pTfzocJ9psHAJDnDK+lwSpxHT8b+sB3Pi6yjs47KB07H0QeW7OcPCACOTLLxTLQ
+	:message-id:mime-version:references:subject:to; s=pp1; bh=JFZOKi
+	emVFn+ZpLaCoT/8XChxYhHMw6NmRWsjDKhJq4=; b=UjFWg8DBNtOC+K1kTyIgW/
+	sIGcZ+EJnU3B3KHPnkgse8zApaknk6NW+8tdKJxrHXcEBmkXYOsiM6yURsJiqyhy
+	VNJEIjF0nYEgIBeBGjc7B1IpiTHhgk6H2fbvu4qweclMj3BlMnBJdFIBjOhd1tcc
+	xH5OEFqDi6pZcbs5WIJnufa+B1TcVTKoIlpzNQvqnHDgzKPlea8xcoBjign3jpAL
+	JWGhHgqWMny/BjIdl281aNlmtjFf2Eidao0rspmtqRqGYjWpUyooHRzCxOyFwCzJ
+	yRc5Z7/mx4zAbQYxLaywzytw4ryxfTYci0fDRaePlJRmT0x19BOHWN01FqNHJnMA
 	==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j105n8d60-1
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j105vrcrx-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 01:45:06 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHN4r3N440908;
-	Wed, 18 Nov 2026 01:45:05 GMT
+	Wed, 18 Nov 2026 01:45:26 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHMnwdH030777;
+	Wed, 18 Nov 2026 01:45:25 GMT
 Received: from smtprelay06.fra02v.mail.ibm.com ([9.218.2.230])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hy2bvg9cq-1
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j067ne2pc-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 01:45:05 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AI1j2KV37224934
+	Wed, 18 Nov 2026 01:45:25 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
+	by smtprelay06.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AI1jMnT47907174
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 18 Nov 2026 01:45:02 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9AF842005A;
-	Wed, 18 Nov 2026 01:45:02 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 2CFC42004B;
-	Wed, 18 Nov 2026 01:44:59 +0000 (GMT)
+	Wed, 18 Nov 2026 01:45:22 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 1C80520040;
+	Wed, 18 Nov 2026 01:45:22 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 7A1C92004B;
+	Wed, 18 Nov 2026 01:45:18 +0000 (GMT)
 Received: from Linuxdev.ibmuc.com (unknown [9.43.63.250])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 18 Nov 2026 01:44:58 +0000 (GMT)
+	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 18 Nov 2026 01:45:18 +0000 (GMT)
 From: Madhavan Srinivasan <maddy@linux.ibm.com>
-To: npiggin@gmail.com, linuxppc-dev@lists.ozlabs.org,
-        "Luiz Capitulino (Red Hat)" <luiz.capitulino@linux.dev>
-Cc: mpe@ellerman.id.au, chleroy@kernel.org, ritesh.list@gmail.com,
-        sshegde@linux.ibm.com, akpm@linux-foundation.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] powerpc/watchdog: disable watchdog when watchdog_thresh=0
-Date: Wed, 18 Nov 2026 07:14:57 +0530
-Message-ID: <179496619904.633156.5886261180502004676.b4-ty@linux.ibm.com>
+To: Mahesh J Salgaonkar <mahesh@linux.ibm.com>,
+        "Oliver O'Halloran" <oohall@gmail.com>,
+        Michael Ellerman <mpe@ellerman.id.au>,
+        Nicholas Piggin <npiggin@gmail.com>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org,
+        linux-kernel@vger.kernel.org, Jiale Yao <yaojiale02@163.com>
+Cc: stable@vger.kernel.org
+Subject: Re: [PATCH] powerpc/eeh: NUL-terminate force recovery input
+Date: Wed, 18 Nov 2026 07:15:17 +0530
+Message-ID: <179496619893.633156.18174588142349778639.b4-ty@linux.ibm.com>
 X-Mailer: git-send-email 2.56.1
-In-Reply-To: <20261104034018.2676750-1-luiz.capitulino@linux.dev>
-References: <20261104034018.2676750-1-luiz.capitulino@linux.dev>
+In-Reply-To: <20261029052948.2525048-1-yaojiale02@163.com>
+References: <20261029052948.2525048-1-yaojiale02@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,49 +103,46 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAwNSBTYWx0ZWRfXx+kL+CqxJn3i
- 3JLqBldCCc+Co1qM2hxKQIP8cvlCjK0VkAoMT/3APTsGx7HfxdOhQs+X5gz2fMF61xK5ZCO0/dq
- djQMaK6Xb6u7uHWw4L7wX8b4ff+rwGN3yhf6XPMppBCj9A3gBLUr7ru+XXv2WCQaEF6bgF+Y0Xx
- 1RjIOdJwch/nrCbGbctcQgqDXs+0FaL1fSs2blIMrITST772bsBRimyiuPRpzil28L/fWL/Li/L
- q70C3TmzBZMVNR64ZkXneRy14WlrUBbNd13UQegaCOpk2yOelsC2GcmBzxRMdFgvOW51SxMHlec
- TiyKlsh3zPbkbA8KQFOEWvhEGf2RmoZPD0EzCfOnJsP7UPBYla8xs5uvEbUDh1RFaqtFzwPcqCh
- S2At8jgBVcjjQ0mqiGNoug+yJ99AXGHlcexrQUulOE+KDvA5MVCNCPKbpZfuqsvclY9iPvqX7H9
- 63ECPAFWUEiV63bKndw==
-X-Authority-Analysis: v=2.4 cv=HN9WhYtv c=1 sm=1 tr=0 ts=6afd0322 cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+X-Proofpoint-GUID: XA71WWIYaHG9bzN6-8FSwGfrw5CvZaBD
+X-Authority-Analysis: v=2.4 cv=Z8x5j3RA c=1 sm=1 tr=0 ts=6afd0336 cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8
- a=XfLR646rRCGFvi2gcZYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: TeVO_a2RWjO2IFv6yLkg96AJea2N5z_4
-X-Proofpoint-ORIG-GUID: 2hJsp2E0Ppy15eb0WNi8hNYuq6FmzvEe
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAwNSBTYWx0ZWRfX5raUkQMEaApe
- 28A77eectKr1wNrsR3M9IlLSKtlCHH1ih0H7JFCk11zgXC0kyxMeQgz/KKCR8X+sg3159Oj+S3n
- lSzanzMlywp6GGhOr2/S6ufCDM7kWog=
+ a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8
+ a=g1nSsVvyxN4glAn0PLQA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: FgxudGiZkK_28LRDtuavpf7Df0pJ2gc6
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAwNSBTYWx0ZWRfX3Q6on4+nHy5R
+ kQRg4RKlnxRewOBCIxourj5zUg7dcJEDlwn1WaT9HkbhOxVqvYL/CJsJ8OwI6rJaozhvM9Y9IaG
+ evhGsCDgLPtBrW0x1XftDMjHQQTSAi8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAwNSBTYWx0ZWRfX8qkqBRqc3ZWi
+ pis4+cVtmJULHZIB/qYdjC+EGOTIgo9Gny/ImuKED59X17wquI/BO/ew4OeWydKCJrt7U4zGp/Z
+ Z86DsiV5Xu4Ls0CiW5/wW7HUSWVklrXUN+8JA5geToDWJbzso18gVHCRDBqFpzmBnUCll/sxTcp
+ EVm0P+uYxgNz67vLgJDqXm6Xu5dimzVCO5TjxZi1hvIRgk0iiEaKNQSh+7bu4+32P7zKGxacqD9
+ 5+Ymr8XQMLhG9jWwgoKtQ1bS4nOGPpNx93ezGKFBovFB/lBS8Prz+NfIMwpqMCRqZCqAWZaUUGe
+ kh9kPP+DY4NJwKmOat/G+McA7glGUWqezGRLa0TlvxIVie16AJ1diNw430CrAwMHFSLz/zs4Vg5
+ HCpMGz81DNvAXxOTvwJDIKWMWNjBx5+FVUEvWsDqYMvdfXc+ZJilhvVjVyVndOPx0Lt9w9/WxTz
+ DcT56GzEDfw4VgCZ6eQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-17_05,2026-11-16_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
- adultscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
+ adultscore=0 bulkscore=0 clxscore=1015 impostorscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180005
 
-On Tue, 03 Nov 2026 22:40:18 -0500, Luiz Capitulino (Red Hat) wrote:
-> On powerpc, trying to disable the hardlockup detector with:
+On Thu, 29 Oct 2026 13:29:48 +0800, Jiale Yao wrote:
+> eeh_force_recover_write() can fill its entire stack buffer from userspace
+> and then pass the unterminated data to strncmp() and sscanf(). This can
+> make the string helpers read beyond the buffer.
 > 
->  # echo 0 > /proc/sys/kernel/watchdog_thresh
-> 
-> causes an immediate and endless hardlockup detection, eventually leading
-> to an unusable system (splat example below). This happens because
-> watchdog_calc_timeouts() sets wd_timer_period_ms, wd_panic_timeout_tb
-> and wd_smp_panic_timeout_tb to zero, but start_watchdog() still starts
-> the timer (with expiry=0) in this code path:
+> Reserve the last byte and initialize the buffer so every accepted input is
+> NUL-terminated. Propagate copy errors before parsing as well.
 > 
 > [...]
 
 Applied to powerpc/fixes.
 
-[1/1] powerpc/watchdog: disable watchdog when watchdog_thresh=0
-      https://git.kernel.org/powerpc/c/d513ec3c907b067d4a32b14ec6f73c3e041cb136
+[1/1] powerpc/eeh: NUL-terminate force recovery input
+      https://git.kernel.org/powerpc/c/f294ebd827e7a2b831b1eef4aaf437f07b2c235e
 
 cheers
