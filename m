@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795022200;
-	b=1EReR1UHMTyGj9eYQFNNpBQsL7iGr0vKnxgGiuvo4QQGfO6S+BcDJIRNBe0NfS6eWLnh
-	 UBpY60FRMdTnahCLUyr/YGKbGZKnAesWdqUG5z+0wrHgp+fCTBzOOyR/ZtmpGEiRYu+pM
-	 5ZH/DX1LH3sSNyVSg6goq94uh/Dd1HfTlxn0erJZmnVwa0Vd5CUPyQglnCSyo89yEkA8u
-	 eqZz+mjHbP9jKaiT0+dgG/CMiYETZePSUFJExnj4q4w2HgmzT6rHO/dtbBfbuDTYs/4Dw
-	 58Sb4XlX7GcL9kn7rpsDg/6cV7g8H3G5Bz0QA8esqimwkoBas5U6RUJX7fXf5AGO20g==
+	t=1795022201;
+	b=ESB6rShDiEom4RbZiZ4hayNfIipZi6sKV8G2QRTlaWWapy3yiPo8og9cd894wJbNVuVM
+	 963kwFClLEyhhw2QsjKOeZ+GgiCprbo3Gx8c5j2gAB73diVlPeWME4cOGjHUhG3NCzlGd
+	 CBCna4R3jmKxW0h58nPOEq50hr+lq8kuwp+3Uk2wN6V+x0XllQaheZbYvVERo6p0VwZ06
+	 4kZTZEHz0tPT1/h1HTAbwLYXOhytvKoZEGWHfh7YaewDdoUUXR543NG/+0Q1Mbj2YKaso
+	 b5E5Qr235R54odIC5Y+hqACtXw8THIMsc34CwLpNKxxYm/2M3dvMThAzmzKE0M4NsMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795022200;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=SAzJmY4FCeji/qIKXkz3wy9NVv0twgE5M8r/Ajd4Jqk=;
-	b=vSokR6NYMvDo8LVDEJbgSWyVvBUDoVrcxwLxhhzyDtOD/YYwnU7ghRwRS1fQFIlXux0/
-	 KPmYlMNzwDOIAUa3JzFYH1AKwrGeFR50/vSfDhqDlKo8M8afO5DWY8hhpWfmOMbGzIBSr
-	 hii7RvgzsRYuFJjc+qY6JaOzUA7oxBWG9wkUkO9huV6vTIoQp6yB7GeExLqNGtnH7TD+h
-	 /tuKnybRtS9rhYPkYbVSCiuuvDOI22G06s3SI91U4sI5eLmbJ3xuerVhXn9WUCjTpQXuK
-	 D5xitLw0YdtEaCDLPwIpTVGApJ6OkA43/jQW65s3FBwB8ikiS398iH62E3elnhzvy0A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795022201;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=FamDkIm1W7H//ywItiVZXU4Urd3sODNzyBhG+y6S0U8=;
+	b=w+OMS11zXasfXWttQCDYlYNFcPzu+F9VTBw/qRx+SYio1rmpojjCOVGxYHpRAQLG5SZR
+	 6fR2tUNiUa+VmPjBkzR2j53z/7o4cGySL8egTqurqFbNjUh1c+6FTETXfdC2cgmboOg5K
+	 pF2mTr34MFxQ3v5aBjHDSI1VjHcZJneGaFMGL3st61mh0g9LWqnEk3UiFvoAnBcfSSuW9
+	 I21ClJOxawY4jgD195PwakzrN1lODOPsD6ze/lY3ZyrMRqXmt3ltn/xghMWW70MRSeR75
+	 6XbWRT3AGPW1c62sjtjnah2+vgieSnJ0Em6sN8JR8wld5g2upZpEzulWFsvhwAFknlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GSY98f4K;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="gXzh/2W0";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9DD9606A325;
-	Wed, 18 Nov 2026 17:16:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99A9D606A334;
+	Wed, 18 Nov 2026 17:16:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GSY98f4K
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA67C1F000C9;
-	Wed, 18 Nov 2026 17:16:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795022200;
-	bh=SAzJmY4FCeji/qIKXkz3wy9NVv0twgE5M8r/Ajd4Jqk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GSY98f4Ki8nRSlVBffIV0exkJgfRM+bfH+yHeRlifszVzSumzm3erhIwdDMLB/7fj
-	 WYuGsz1NZdAkTUpBQDVls9xrw/8a/b2zIh2E9iwDTSk/UdaOZ6G4RAu4okEn0/Iu3N
-	 PJK36e3rQ6ZMubzstA7P42bQv4InxsVDiwfyLcrkXDLMTLJsa1f2OdGsiuFs/eK8cc
-	 0xDRMW5MlS7weCJc+GkV9gA0+XTylYdYwIWF+9JpPxZ8uChYBQFDHWx430nhbIh/aM
-	 nvv3ELf1bpOhmGuYgnz+6ZywpXW9x8G7RX8orGBpDFxfyco7VwG5X2VR5hlL8SaClI
-	 VJ9UXFPiPAtFw==
-Date: Wed, 18 Nov 2026 17:16:36 +0000
-From: Lee Jones <lee@kernel.org>
-To: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>
-Cc: Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Sandipan Patra <spatra@nvidia.com>, linux-pwm@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/8] pwm: tegra: Prevent 32-bit period truncation and
- division by zero
-Message-ID: <20261118171636.GD98456@joneslee-macbookpro.roam.internal>
-References: <20261105143847.2559586-1-lee@kernel.org>
- <20261105143847.2559586-2-lee@kernel.org>
- <auykeNit2S4e7axg@monoceros>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gXzh/2W0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBE641F000C7;
+	Wed, 18 Nov 2026 17:16:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795022201;
+	bh=FamDkIm1W7H//ywItiVZXU4Urd3sODNzyBhG+y6S0U8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=gXzh/2W0nxOrTyKOkIvQQZybNrOrCAFCzTzZdBQLGqfkl3bxbaBclWpZoKzE0BAHP
+	 wFQuxmivtk0rPtSu/S3kYMI35agnsjv7Q85BrdKsWbffABqOQOQWEDfz1fiN8NK9jR
+	 ym4OBYLmmqZwaARg/Q2IJbU45iXZ/S4+log+UUv8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Dominik Maier <dmnk@google.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 2576/2651] xattr: always invoke cap_convert_nscap() for security.capability writes
+Date: Wed, 18 Nov 2026 16:03:36 +0100
+Message-ID: <20261118150417.088247384@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,37 +62,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <auykeNit2S4e7axg@monoceros>
 
-On Thu, 05 Nov 2026, Uwe Kleine-König wrote:
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-> Hello Lee,
-> 
-> On Thu, Nov 05, 2026 at 02:38:03PM +0000, Lee Jones wrote:
-> > tegra_pwm_apply() passes the 64-bit state->duty_cycle and state->period
-> > values into tegra_pwm_config(), which accepts signed 32-bit int
-> > parameters and performs DIV_ROUND_CLOSEST_ULL(c, period_ns) before
-> > validating period_ns against pc->min_period_ns.  If a consumer requests
-> > a period that is a non-zero multiple of 2^32 nanoseconds, period_ns
-> > truncates to zero and triggers a divide-by-zero panic.
-> > 
-> > Widen duty_ns and period_ns to u64 and validate that period_ns lies
-> > within [pc->min_period_ns, U32_MAX] prior to dividing by period_ns.
-> > 
-> > Fixes: 1d7796bdb63a ("pwm: tegra: Support dynamic clock frequency configuration")
-> > Fixes: fd3ddd4355c0 ("pwm: tegra: Implement .apply() callback")
-> > Closes: https://sashiko.dev/#/bug/linux-5c5b97d6-4da6-4d06-9dc7-957419dcd832
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lee Jones <lee@kernel.org>
-> 
-> This is already addressed in
-> 9ad5602d4943 ("pwm: tegra: Fix value discarding for duty and period")
-> which is next-20261102 and later.
+------------------
 
-Would you like me to resubmit the set without this or can you omit it?
+From: Dominik Maier <dmnk@google.com>
 
+[ Upstream commit 0f4a9e682f7fa5becc3af7204606d9bf4780e425 ]
+
+Commit 8db6c34f1dbc ("Introduce v3 namespaced file capabilities") changed
+cap_inode_setxattr() to return 0 unconditionally for XATTR_NAME_CAPS
+("security.capability") and moved capability validation into
+cap_convert_nscap(), but placed the call inside the "if (size)" block in
+setxattr(). Commit 7c03e2cda4a5 ("vfs: move cap_convert_nscap() call into
+vfs_setxattr()") preserved that "size &&" condition in vfs_setxattr():
+
+	if (size && strcmp(name, XATTR_NAME_CAPS) == 0) {
+		error = cap_convert_nscap(idmap, dentry, &value, size);
+		...
+	}
+
+For security.* extended attributes, xattr_permission() skips
+inode_permission(MAY_WRITE) and leaves permission checks to the security
+module, while cap_inode_setxattr() returns 0 for XATTR_NAME_CAPS assuming
+cap_convert_nscap() has already validated the write. Because
+__vfs_setxattr() treats size == 0 as an empty attribute write (setting
+value = "") rather than a removal, calling setxattr(2) on
+"security.capability" with size == 0 bypasses cap_convert_nscap() and
+allows an unprivileged caller without CAP_SETFCAP or write permission on
+the target inode to write a 0-byte security.capability xattr (or
+overwrite an existing one).
+
+When that binary is subsequently executed, get_vfs_caps_from_disk() reads
+the 0-byte security.capability xattr and fails the
+size < sizeof(magic_etc) check with -EINVAL, causing execve(2) to fail
+with -EINVAL.
+
+Always invoke cap_convert_nscap() when strcmp(name, XATTR_NAME_CAPS) == 0
+regardless of size, so that 0-byte writes hit the existing !*ivalue /
+!validheader() checks in cap_convert_nscap() and are rejected with
+-EINVAL.
+
+Fixes: 8db6c34f1dbc ("Introduce v3 namespaced file capabilities")
+Signed-off-by: Dominik Maier <dmnk@google.com>
+Link: https://patch.msgid.link/20261022232119.2537209-1-dmnk@google.com
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/xattr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/xattr.c b/fs/xattr.c
+index d589791152007..44710ef2dfe50 100644
+--- a/fs/xattr.c
++++ b/fs/xattr.c
+@@ -332,7 +332,7 @@ vfs_setxattr(struct mnt_idmap *idmap, struct dentry *dentry,
+ 	const void  *orig_value = value;
+ 	int error;
+ 
+-	if (size && strcmp(name, XATTR_NAME_CAPS) == 0) {
++	if (strcmp(name, XATTR_NAME_CAPS) == 0) {
+ 		error = cap_convert_nscap(idmap, dentry, &value, size);
+ 		if (error < 0)
+ 			return error;
 -- 
-Lee Jones
+2.53.0
+
+
+
