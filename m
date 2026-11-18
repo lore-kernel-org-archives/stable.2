@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795023212;
-	b=31adJ77tBSe6VlUh+jAKUaHAwMkAKaIUGlO8PPg6zvUufXXJrXo/UcmjiQ9kYPT4LdLV
-	 SwkRem1ElS4O97oyyRfrjYn6eUoEcVKHQzoN/KcIDwvAnF6vahfsLzoEiUs6BOjBzFqLY
-	 sh7OI47MTylFK/og3OX2DgDda1TGE6uOHb2G+ul2PiEXLiO6PWkA4ploQ/DnU/GXd4XV1
-	 OctFflgodD+2vW9ScNJQNh8zuRcc2vi1yaaRUgjT7JvVLJujjOVTpkbmUv+hwLkjiMaKK
-	 dAlEsuiGSChxCqLfXu2s+cnXThu74kxsky4xBCQRQD1faDxceyDnicHhPsM+FC7Dlxg==
+	t=1795023217;
+	b=4j2wAubJGDXHonkDZo1lKkz7nvVIqUB4eyn8TSWE3oGl7iuExCnS/GoFHbvXxOlb1v4c
+	 OgYTyEt1QxGS0sJKX8mF12LFF36XquAEiuBLJWhF4y8Zz0BvojLuv+CFahx46ivGi6raF
+	 k9/qMj1zR3I09xDevYclbDnVV/AKzJO6tTia4sbUQwWSlnmJ+Hr7H7rF4dlApEoX4DTHe
+	 OLv2LeKBjbRt0mJFMJHdW/0td7PK9W0aNQa3Jssb5p6SIsoJgRfOVmrhw3aPNGIomwaFk
+	 oGgFAwA+GEZoj4HVu5qYODO3pQBUzXwZEyvHVPiuvdVy7VFP/I3fzbXek9wD2BW6ASw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795023212;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795023217;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Q4495yhJUmHZEhqV4q4rIq7NT1HsGQd3gb0JWaJ5DkY=;
-	b=QxjxWaC5qDJsjfNbKEgTzlxRB1b/bsoITNbArgC+fXanHQ58gz9V+rn6f3j3LHhmRc9A
-	 5YcXquOHqFEy2tEr2vHBNS7cov1KSVq3Pl6wQzTjbelW9IetHfR1gfcv5v+vJTI9QPzfr
-	 XaUCu/5XV+/r5ZBdmvaEKCWa77TqqMIAUWpVf9BJp3y3xgr2DTUCJEGqDSB9q8n0V/xZH
-	 lLHCv8o+4cnC/HHpDyechjeuejcgPIiX5awdthr//9whDgGq+bobWzLqTP/TL701PpbLx
-	 PJuOVVGYvEen9Hi7xy0f5V0QYXso6R6NyVwYEoa9qQTf1A4nbExoWNS4VWIYrf3sigg==
+	bh=0pDPCT+HiPbPiAt2xAZifEKBq3nwX1k0B/gC7BOeFi0=;
+	b=iw2n/a1noZcNyW07l8UoOuna3yQEtE4VcpTj8HgqyhsMO/qh10vjAc3AU65IsjxJW+CB
+	 q8x5/YTe9oF/OBXSFLW5sYyzkOLx3iw2Jcc/n4855CrH1XCUgt/8Mobc3biMbnK9Td6ry
+	 CWiDtV9eynLrkKLwV7rDfkvczCpbDNJL6NdPLYtxtcQssZ432carsuitkeNedCMurVCq9
+	 WC6ahIT7BHsofOww7luwYQkALXV5johxvwMt7F70PJSX8+5c18QqMWFtgG2XkI4Z+7P88
+	 6IKM/om04zDu/UhQ4maeGnjv+aqJS7e856rVEY1TQoePy4fsfgJ+gG1ZnoPMdPFSQWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fx18QF+I;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KMo4ilEq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45FE5606A320;
-	Wed, 18 Nov 2026 17:33:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF148606CA51;
+	Wed, 18 Nov 2026 17:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Fx18QF+I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3A831F00926;
-	Wed, 18 Nov 2026 17:33:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KMo4ilEq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22F191F000CC;
+	Wed, 18 Nov 2026 17:33:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795023212;
-	bh=Q4495yhJUmHZEhqV4q4rIq7NT1HsGQd3gb0JWaJ5DkY=;
+	s=korg; t=1795023217;
+	bh=0pDPCT+HiPbPiAt2xAZifEKBq3nwX1k0B/gC7BOeFi0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Fx18QF+IBVLjhVmeNnaFrxwGjGTSUsNDq+DxpJ4cLtL+c3Bvh84TLeeknkng00tAn
-	 9agq07IKiYWo8a5t+WDm/NDB/HjA93d2gstFCbfmK94OnwVxkW5CCwM+DbBWWfS3b9
-	 aAdVCePZp6xKzKlao60JML7/kl+60pze1NOe6j0k=
+	b=KMo4ilEqaDZS14D9Cm6rgOGHxBLiUX+E+FsNgKd/APTQkDwRj3LDvDL027Gct18Xs
+	 Tk9qAS/u+qdtk0B7+yBw6TH3/BlBGcYFCaNhOmKZjM3Jh0A/LeI34l0Q9jiGIJaLNW
+	 EcVYrPG1nB1GBbHpMBaS49lrtsOKAnyw2XheXaDQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Alan Maguire <alan.maguire@oracle.com>,
-	Mark Brown <broonie@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	sashiko-bot@kernel.org,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Shuai Xue <xueshuai@linux.alibaba.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0287/2151] perf bpf: Fix up build failure due to change of btf_vlen() return type
-Date: Wed, 18 Nov 2026 15:33:42 +0100
-Message-ID: <20261118150132.351270319@linuxfoundation.org>
+Subject: [PATCH 6.18 0244/2151] efi/cper: Reject CPER records with an out-of-range error_data_length
+Date: Wed, 18 Nov 2026 15:32:59 +0100
+Message-ID: <20261118150130.673747819@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
 References: <20261118150121.603863898@linuxfoundation.org>
@@ -71,78 +71,73 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Mark Brown <broonie@kernel.org>
+From: Dave Jiang <dave.jiang@intel.com>
 
-[ Upstream commit 3287a1881ca528b89b964d9fa6d28880d277d9e2 ]
+[ Upstream commit a5a612cd3eecbadf135df1e9b2b40bc9f4c28f1c ]
 
-Fix:
+cper_estatus_check() sizes each section with acpi_hest_get_record_size(),
+which adds the firmware-controlled u32 error_data_length to the header size
+as a signed int (see <acpi/ghes.h>). A value in the top sizeof(*gdata)
+bytes of the u32 range wraps the sum small rather than large, so it slips
+past the "record_size > data_len" check: against the 72-byte v300 header,
+0xffffffb9 sizes the record at 1 and acpi_hest_get_next() walks it a byte
+at a time, off the end. 0xffffffb8 sizes it at 0 and loops forever.
 
-util/btf.c: In function '__btf_type__find_member_by_name':
-util/btf.c:19:43: error: comparison of integer expressions of different signedness: 'int' and '__u32' {aka 'unsigned int'} [-Werror=sign-compare]
-   19 |         for (i = 0, m = btf_members(t); i < btf_vlen(t); i++, m++) {
-      |                                           ^
+Use check_add_overflow() to reject a sum that will not fit the int those
+helpers return, since the walk advances by that value. That subsumes the
+"acpi_hest_get_size(gdata) > data_len" test above it, because record_size
+is never smaller than the header.
 
-builtin-trace.c: In function 'syscall_arg__strtoul_btf_enum':
-builtin-trace.c:967:27: error: comparison of integer expressions of different signedness: 'int' and '__u32' {aka 'unsigned int'} [-Werror=sign-compare]
-  967 |         for (int i = 0; i < btf_vlen(bt); ++i, ++be) {
-      |                           ^
+The later "len < sizeof(*foo)" guards rely on this per-section upper bound;
+they are lower bounds only.
 
-by making the variable the same type as the function.
-
-Committer note:
-
-Add an extra hunk from Alan Maguire, fixing btf_enum_scnprintf().
-
-Reviewed-by: Alan Maguire <alan.maguire@oracle.com>
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Cc: Alexei Starovoitov <ast@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-Stable-dep-of: 024b219744a9 ("perf trace: Add upper bound checks for augmented BTF struct printing")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://sashiko.dev/#/patchset/20260714231835.303081-1-dave.jiang@intel.com?part=1
+Fixes: 45b14a4ffcc1 ("efi: cper: Fix possible out-of-bounds access")
+Reviewed-by: Hanjun Guo <guohanjun@huawei.com>
+Reviewed-by: Shuai Xue <xueshuai@linux.alibaba.com>
+Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+Link: https://patch.msgid.link/20260904172337.1409775-2-dave.jiang@intel.com
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/perf/builtin-trace.c | 6 +++---
- tools/perf/util/btf.c      | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/firmware/efi/cper.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/tools/perf/builtin-trace.c b/tools/perf/builtin-trace.c
-index 046db6fcd7f7f..19ff67424c5d5 100644
---- a/tools/perf/builtin-trace.c
-+++ b/tools/perf/builtin-trace.c
-@@ -970,7 +970,7 @@ static bool syscall_arg__strtoul_btf_enum(char *bf, size_t size, struct syscall_
- 	struct btf *btf = arg->trace->btf;
- 	struct btf_enum *be = btf_enum(bt);
- 
--	for (int i = 0; i < btf_vlen(bt); ++i, ++be) {
-+	for (u32 i = 0; i < btf_vlen(bt); ++i, ++be) {
- 		const char *name = btf__name_by_offset(btf, be->name_off);
- 		int max_len = max(size, strlen(name));
- 
-@@ -1015,9 +1015,9 @@ static bool syscall_arg__strtoul_btf_type(char *bf, size_t size, struct syscall_
- static size_t btf_enum_scnprintf(const struct btf_type *type, struct btf *btf, char *bf, size_t size, int val)
+diff --git a/drivers/firmware/efi/cper.c b/drivers/firmware/efi/cper.c
+index d4dc69693ece4..bc1d1fcbab865 100644
+--- a/drivers/firmware/efi/cper.c
++++ b/drivers/firmware/efi/cper.c
+@@ -752,7 +752,7 @@ EXPORT_SYMBOL_GPL(cper_estatus_check_header);
+ int cper_estatus_check(const struct acpi_hest_generic_status *estatus)
  {
- 	struct btf_enum *be = btf_enum(type);
--	const int nr_entries = btf_vlen(type);
-+	const unsigned int nr_entries = btf_vlen(type);
+ 	struct acpi_hest_generic_data *gdata;
+-	unsigned int data_len, record_size;
++	unsigned int data_len;
+ 	int rc;
  
--	for (int i = 0; i < nr_entries; ++i, ++be) {
-+	for (unsigned int i = 0; i < nr_entries; ++i, ++be) {
- 		if (be->val == val) {
- 			return scnprintf(bf, size, "%s",
- 					 btf__name_by_offset(btf, be->name_off));
-diff --git a/tools/perf/util/btf.c b/tools/perf/util/btf.c
-index bb163fe87767c..50d98f3e83bf0 100644
---- a/tools/perf/util/btf.c
-+++ b/tools/perf/util/btf.c
-@@ -14,7 +14,7 @@ const struct btf_member *__btf_type__find_member_by_name(struct btf *btf,
- {
- 	const struct btf_type *t = btf__type_by_id(btf, type_id);
- 	const struct btf_member *m;
--	int i;
-+	u32 i;
+ 	rc = cper_estatus_check_header(estatus);
+@@ -762,10 +762,18 @@ int cper_estatus_check(const struct acpi_hest_generic_status *estatus)
+ 	data_len = estatus->data_length;
  
- 	for (i = 0, m = btf_members(t); i < btf_vlen(t); i++, m++) {
- 		const char *current_member_name = btf__name_by_offset(btf, m->name_off);
+ 	apei_estatus_for_each_section(estatus, gdata) {
+-		if (acpi_hest_get_size(gdata) > data_len)
++		int record_size;
++
++		/*
++		 * The <acpi/ghes.h> helpers sum these as a signed int, so a
++		 * huge error_data_length wraps small rather than large and the
++		 * walk then advances by that wrapped value. Reject a size an
++		 * int cannot carry.
++		 */
++		if (check_add_overflow(acpi_hest_get_size(gdata),
++				       gdata->error_data_length, &record_size))
+ 			return -EINVAL;
+ 
+-		record_size = acpi_hest_get_record_size(gdata);
+ 		if (record_size > data_len)
+ 			return -EINVAL;
+ 
 -- 
 2.53.0
 
