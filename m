@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795023376;
-	b=PxcTS7gs3r5pncKKdDFoETdT1CNo6jTMF+qOqC+dD1CnOzm4EcUc80Vd8Rlhv4lsT89q
-	 lFkZmqXJBKqYyapXjT1sGlsaGddD6w6m+WaBdf3A88dR816XozFIeUhOEe9Kj0c4RCbpo
-	 yiLh7GXlnRtSQP1QvVLRP7OVdyAt0C3tnLIKg1xSH71kfKthd2y7FwpnHr0LC9U1vvf5M
-	 JtkoSY0FARuasbeRRnxIZSwAP4uQZIbihhvYyqhVzTNFSi/hpaLhqrKn9gcI7mzjaAWqp
-	 I8ONnsHmC4DTFhvTm+gi4NHo0TWzUplH63/s6plpUIVfwWRlO/EnE8BEIiXhwzkPsKg==
+	t=1795023382;
+	b=xCBwZaCtJ5JSwK13jIBFlOcWDvrw8qzxA0CXp9sK/iO85ArtjobOGX2aDBPj39nAdcFD
+	 a9dwnSkwYito6OIZx/7oY2SYOD9M69s9gK2eu+N2CBFwaCoLu15FNU/fjn3z0fnJRFTdl
+	 DvVka4n4qAzD1of9/EZvfIeWLENyobjE/5xKx4NBr2xq7BpkCm30gH3e1XGeHrLb+Li7Y
+	 g5YDKBAfYV4f/awfm1eYJyDAugFh41ZOL5wYJ65EA2mAJ5cX4f6bU45Zhht6M4gDqWfjY
+	 bY/xKTblxjShmqntGfi0EnQ/JnHRz8bVYkVyBfbbimtSY8c/Vh+8g40xGpuToNwsN9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795023376;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795023382;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=icY2jLil6SBHbePRdH6Ofbtu1wi1erArrCqweyKTF/c=;
-	b=WCdJxE1l1hZdR7GoW9arYtApF6C2G4FzAsbKMgMoWtzpfqC3i9AgthTTzzZdD8BTfoCd
-	 ZX9rNm6UELqd44MzxMuqRrOZ4AKWaf7T9fRB3STTtT+OeMxP1DXmu0YdN6yOiirXGzyz1
-	 qGG3M9/ipVx0DpAlyH40Nua5PsQVj0Z9Xwh/FZmwv2mknRS6cuSdqGdjDnMgtwrdMs75+
-	 Kg0+ybooDeOSXY3/iaEJwArejsjj9aBSBWe74jTx5nNZR61x7SOhs3ToEzjtrXOLwjH/I
-	 VPjRZQY7Pfves+RK+2U9+lKEGOdF3psJl0BAXCDA8yZnZr7hRMIH8lTh/ih+8cvdVMA==
+	bh=y3K/HdCGMqjeslpsiXRDQAVwYCHQWYpnQY/6PBaj3n8=;
+	b=EuwaSvJjM6RIyrBQR6W7xyRW/37hb5v/Cm3jmOyGM6+nkCve+fRd4WNjbE+2sbA+Dgrj
+	 E0lhssDT8lJ/4CMmbZioNCfDS5Hrj3FgjlABIRDyUZSBahRE1f45DTqGJE2Jfi3SrRuu5
+	 AUdHJUn7VOfPW4D3csX9jSfb7Tp7DDNj5cfNTNkMXR4oZnxGxM78RUSAVbk5xuNzMphSx
+	 R77dORFqMkh+A3O9GjqM8YGsPHFUe3R0r5kP2SDAbiB2Bs+Daj1hU2t1EgOjBa7rizeDx
+	 3OqB4Y4i64euZTXxrNHaSogDDTj2DTMSKEZl3CtE2Flqntnesafz6XbTTEeMEzMiGAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hMO8hAqs;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="wBEf6/Wl";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47B7660A262B;
-	Wed, 18 Nov 2026 17:36:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF876606CA6D;
+	Wed, 18 Nov 2026 17:36:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=hMO8hAqs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5443B1F000C9;
-	Wed, 18 Nov 2026 17:36:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wBEf6/Wl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03C2E1F000C4;
+	Wed, 18 Nov 2026 17:36:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795023375;
-	bh=icY2jLil6SBHbePRdH6Ofbtu1wi1erArrCqweyKTF/c=;
+	s=korg; t=1795023381;
+	bh=y3K/HdCGMqjeslpsiXRDQAVwYCHQWYpnQY/6PBaj3n8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hMO8hAqs31Xd56Fxsgv9+Mvd+5dJ4kYWUPqjYPbMur2v5HJF567O2XmSd0Bk0bRcL
-	 IkJScJhgq7PJj9YeE6WBzI5+v7zMnQLApwtIQMko6NUCivze9Bp6O8AuDj1fORHYLn
-	 8tm7eMqX8fAyy2xvcSy7gscFCHr+WnpXdvP02IAw=
+	b=wBEf6/WlFXzqcsuVYDG3FvquSKKnluxp4cH2wUTKgRgG7bHoZa6RdTz0uzBI7lsIl
+	 efErza6g2Aiozgs6jy3b1JtsgTUhPjbbP03/SPAODLnqqdHJ60LL2iQ30e0DKgmdu+
+	 oh114QSPbT//QCbnPzNbGCIQruK/BoHUw1wS9Iic=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Justin Yeh <justin.yeh@mediatek.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Junxian Huang <huangjunxian6@hisilicon.com>,
+	Leon Romanovsky <leon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0348/2151] arm64: dts: mediatek: mt8188-geralt: Enlarge SCP core0 memory region
-Date: Wed, 18 Nov 2026 15:34:43 +0100
-Message-ID: <20261118150134.780848084@linuxfoundation.org>
+Subject: [PATCH 6.18 0350/2151] RDMA/hns: Limit gmv_entry_num to avoid memory waste
+Date: Wed, 18 Nov 2026 15:34:45 +0100
+Message-ID: <20261118150134.853464850@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
 References: <20261118150121.603863898@linuxfoundation.org>
@@ -69,41 +68,36 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Justin Yeh <justin.yeh@mediatek.com>
+From: Junxian Huang <huangjunxian6@hisilicon.com>
 
-[ Upstream commit 868297e3ebcc5c9b0e7cada19c82b11068faf4bf ]
+[ Upstream commit bb464eeadd301c3a53e9f92a2a472b73c42b74c4 ]
 
-The SCP firmware in linux-firmware for this platform
-(mediatek/mt8188/scp_c0.img) supports MDP, which the mdp3-rdma node
-drives through scp_c0. On top of the segments it loads, the firmware
-allocates a 1 MiB DMA region at 0x50800000 at run time. That lies
-outside the 8 MiB reserved for SCP core0, so Linux is free to allocate
-over memory the firmware uses.
+The GMV entry is a HW object corresponding to a GID. Since gid_table_len
+is already limited to a maximum of 256, there is no need to allocate
+memory for those extra GMV entries as they will never be touched.
 
-Enlarge the region to 9 MiB. apu_mem starts at 0x55000000, so no other
-reserved region has to move.
-
-Fixes: e36be19823f0 ("arm64: dts: mediatek: mt8188-geralt: Enable first SCP core")
-Signed-off-by: Justin Yeh <justin.yeh@mediatek.com>
-Reviewed-by: Chen-Yu Tsai <wenst@chromium.org>
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Fixes: 7243396aaf12 ("RDMA/hns: Add a max length of gid table")
+Signed-off-by: Junxian Huang <huangjunxian6@hisilicon.com>
+Link: https://patch.msgid.link/20260907084901.2420703-3-huangjunxian6@hisilicon.com
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/infiniband/hw/hns/hns_roce_hw_v2.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index 118d6b2ebd2c6..038ade1acdfdc 100644
---- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -171,7 +171,7 @@ reserved_memory: reserved-memory {
+diff --git a/drivers/infiniband/hw/hns/hns_roce_hw_v2.c b/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
+index 2336079daa1e0..92a15be234068 100644
+--- a/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
++++ b/drivers/infiniband/hw/hns/hns_roce_hw_v2.c
+@@ -2180,8 +2180,7 @@ static void apply_func_caps(struct hns_roce_dev *hr_dev)
+ 					 caps->gmv_bt_num *
+ 					 (HNS_HW_PAGE_SIZE / caps->gmv_entry_sz));
  
- 		scp_mem_reserved: memory@50000000 {
- 			compatible = "shared-dma-pool";
--			reg = <0 0x50000000 0 0x800000>;
-+			reg = <0 0x50000000 0 0x900000>;
- 			no-map;
- 		};
+-		caps->gmv_entry_num = caps->gmv_bt_num * (HNS_HW_PAGE_SIZE /
+-							  caps->gmv_entry_sz);
++		caps->gmv_entry_num = caps->gid_table_len[0];
+ 	} else {
+ 		u32 func_num = max_t(u32, 1, hr_dev->func_num);
  
 -- 
 2.53.0
