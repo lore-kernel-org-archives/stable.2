@@ -1,69 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=31.14.14.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795002899;
-	b=uRKmfvtT7+lWwHLnOFosv9CEnpZNXpzsjOgNeQgQKt3+MqhbDTqRcCyGY9ZXIs98kQdp
-	 FVLnMlnY8ZMoolt3pzMhYu47fafHTrREgQ0SCllGFHBxROhDg2ufgeg1iKwUSj+ip+rEb
-	 /sV87aIyBMQWpBfB2fqaROSNbG4y2/J3ppeShnPA+7M5C1OjwlQyK4muu14kxU6lIcq84
-	 jPFsiAmjXSda4AaQxdB/HCPrvFiZJeoSSBnHBnjO7x6XGhG2znNDV7HX1RW6XjFaSrlPx
-	 DN6xUjmctjRyOyZm8oZzQz/O2VJBQbZ2zaaOgmaTJjKdUE5nWBf4MrDlOH/+k38NEtw==
+	t=1795003147;
+	b=ayE8oOad0hXs1MlkoHzJEEbgViGHu4EtX3VnvBP01pIlJqGrM31A6nlNaPuIZ4R950TG
+	 4c6cbcLEHOQ544R3euruXmuOdD2/fULSHC1CDJBiW10l16OlKdqllhQz6y2hdmhwQC6sL
+	 jZiPd4E0CVQ2Uy4dJ8PGL4lOOqkGcduHbUSl0/C3wcCrQQa8OKhPfpvAD2y64onkSYlVz
+	 QmtHozkIuvOZckF7xmgq+83H6EC4Qn/toi97Sf0XP9bagsFfoqxS05/yOK9LAToKcLiUp
+	 9Va8ZqJlnKSIdyll9WJwM69JA5P3zIw2Ugcl4hDQ3GEASkHDo38L+IwwZbEuzD7F3CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795002899;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-Get-Message-Sender-Via:X-Authenticated-Sender:X-Source:
-	 X-Source-Args:X-Source-Dir;
-	bh=6GOr3KNRT2rok7vKqjER1ypwe9KHJCE1nI3K5wbj11o=;
-	b=49KcK7NHBI95d+bqS7GuJZ+G2/mIjDPbaqP5KQ/pUihZ//BYyTGkbSw0Etva0ryKci9n
-	 Bu+vqp/hwMdaGKs/iT08n0ReZIYfVWxUWC+vDatM+SKn4p9zwv2kWBFl+4sLEBAp70/JZ
-	 CLUUt7jjkaXzEIw6cy8KJqHI1JCyLpgcJqdS8DL+aeTtAbMJlBMg/DcSbREuaykW8CeiC
-	 rKkcBV1snJ6T/66pmWjWkCw67A1+I1A0P441RaMhNV6XcfOPJxdDkT/8dQFi4u44/PuzO
-	 YxyI1C7c/Ee+Th0JoBuTlw+RqrJq/YS+Tg2f/peVZODbx8ZfumSTIa4sb1twMHs3kOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795003147;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=CnwHe6Za0gioBrJSOjEXfX4YMSK/pWetGW+W3ruXwR4=;
+	b=EBcdWc6s+pjOkFrlu6S/z6fraDrLu2Irk4BsaNXJ8635RXITQ3+gkS2J5B6SpRyj5lun
+	 VV4FO7NmMLOOK8wygUya1zMmuyk0ZB+1+/ak7H3Y3w8/D/Wx7A7MSw/9KEPQ7wGjXDJrW
+	 ijxXYU143FPv7uG1ToKRPxtdBR4gURHDYQPcJWnhZAsnvHOp/kwCEY7TWBdLvT11B2VHS
+	 Sfz2hkdt+nuCC38Uoe96/nXJ8UWUChkz7HoCGOlJxtQ4xQBaHlAheaDgZDVwUS2HPswKG
+	 GQKFXbpreDeFKhO7d+2aZ8OA2apkJ616mskHY0X5ZIyYM9T8YQuaS69i0aFsGVhGLAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=taladin.ro;
-	spf=pass smtp.mailfrom=taladin.ro;
-	dkim=pass header.d=taladin.ro header.i=@taladin.ro header.a=rsa-sha256 header.s=default header.b=kbx3dt5s;
-	arc=none smtp.remote-ip=31.14.14.46
-Received: from taladin.ro (unknown [31.14.14.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=OtTWgeSn;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26910606A331;
-	Wed, 18 Nov 2026 11:54:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26910606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=taladin.ro
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=taladin.ro
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C44B0606A320
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:59:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C44B0606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=taladin.ro header.i=@taladin.ro header.a=rsa-sha256 header.s=default header.b=kbx3dt5s
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=taladin.ro;
-	s=default; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
-	Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=6GOr3KNRT2rok7vKqjER1ypwe9KHJCE1nI3K5wbj11o=; b=kbx3dt5sk9ccl88mWwKyxjao7+
-	1MI69QDNwIv7IB5s7RnhjTURgGaVn5tap+rq8M8bDxz8Txkx6QJA5N0kxixCMvSX4oJNoDAEY9tO5
-	PerctfQ19/0O3NSqe1QQ1z0jEBZO/wn10HJYi6BrMoyWocUECns/REeULjYY0yf3wCpu6ZPLLDFmh
-	VJdYTCsU2KjAQJVmrG0uKk0dEYXQ0X0JeySQIO2lGWPLPxDDIYihBBgArRyqVgQdaxmjJq8uun/3r
-	CKlDInS6TNlwkuMlgWammSc+opES1JXQr0//nmjREPQjy3LRfr+14DWrtYSjKztI/R/OGl94FoXhE
-	pDL3aNfg==;
-Received: from [82.79.151.56] (port=44350 helo=mercury..)
-	by cloud607.c-f.ro with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <aardelean@taladin.ro>)
-	id 1xTeFU-00000000FDM-3tJn;
-	Wed, 18 Nov 2026 13:54:49 +0200
-From: Alexandru Ardelean <aardelean@taladin.ro>
-To: linux-usb@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	hubert.wisniewski.25632@gmail.com,
-	gregkh@linuxfoundation.org,
-	b-liu@ti.com,
-	Alexandru Ardelean <aardelean@taladin.ro>
-Subject: [PATCH] usb: musb: gadget: mask the MUSB IRQ while complete() runs
-Date: Wed, 18 Nov 2026 13:54:35 +0200
-Message-ID: <20261118115435.49748-1-aardelean@taladin.ro>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=OtTWgeSn
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-15ea896ddc8so1593583c88.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 03:59:06 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1795003146; x=1795607946; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=CnwHe6Za0gioBrJSOjEXfX4YMSK/pWetGW+W3ruXwR4=;
+        b=OtTWgeSnKXHJpwpe/aV+0Gl7gLdzflqFqpIORqDeElkhJ7/AEXopMcZfY7jLrEQ7Db
+         KA9kbOkEzyNgOzoh8VIg1JBa/CoWiU5REMu2QZuWk+a/YXksB3i7eFzv8rVu3B6dC2ce
+         ZynOhTyhxEIAw4mS9gcX4PZzzPpZc/FFG4kEv9Ihpa8lVKldopeLHRFMYnrn6NfqFvWO
+         C35+UCr8/0DuV9fora2COP+KNodMKsPS0GZHijDrouEyz86ZeDSnKwxMkxEDB5CrDcXA
+         dahEOJrOTCT4pMt1nf+c+QD4yyQSM+TLBEAIjls+3amGUWZIaJ601/VHPVoCEq+ms/RT
+         cGvw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795003146; x=1795607946;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CnwHe6Za0gioBrJSOjEXfX4YMSK/pWetGW+W3ruXwR4=;
+        b=vKDyCIOJXvKeCu1U8yme/6QEESzkslYa0jCDwRzt7SFLBBsZ4C/9Ntv+2RP5I0iFDU
+         0s8dp6f9T0sAio0KPAnnmSAmSlCp+F3Tz0lykqfN70x5BVwjVq9fVrTojdk296OVts4j
+         RS3Lyau2mXvKxHRpefhmL2SLO55Oiqm+vKSJryzv5zauLRo56J4qRvCNMyxUGPxIR5LN
+         LYzgXIbvhnwdnXYJdx0DkTpK6L9kKQ/7yL+0PLvScISlSlH4MgIZUsIcUbJbGIiB3Jty
+         +SI98btRngHekhu7yfXUM7clvZeVp+5KvyVZpdYUJTjR3zfGUjVXz2sDQk8xW+a82dbW
+         Uu4g==
+X-Gm-Message-State: APuU4Z9p5W7/x+/o9kyZhLOsCvGlla03nXz22810jSwoHc9cuvqrSCIq
+	xteDBoZmnO4ow9hyYe2KP7k0WD44oNutDD1FiH5lvBrxraLSfyx52raJLeqzLAm1F6A=
+X-Gm-Gg: AYBFou1VRpJIuk0ClkUWoTbSrtf+CsinsbYhA0rYQxRndswwGC28UZwz3yLh7V/gJPy
+	dRib7Bia2NXjTmIXQIIJxowE7gRTVWpxAbvj8iyD7u2AQmFp8eMJyXHnBCdwM8e9x8PPWIBRQsO
+	/QVtHROyDfV6sZs4Ai9ZWYR/zhWkwDNaxBxT0TEu+vv1KKKTlgq8w649a3c1Vv5NLtEaLG+7D3X
+	5ZI6ELDAZnMC8QO3Ja0wao9ktC7RtokOAZgQnS3EbPUISFZco+5SSJ6Q6XsRHnSV7yrRVOTxSDd
+	RmQ2XcItG9iCExwpdretDLIM6gRMmPECTuEoK6hoT+6+l8u0rO422ViM5bPhqMGGmPju72qyCQl
+	rtZqs+MMBhdr+zi87TpOXMrn0cvzbyHv+mf1Mz+B5l+CCgKhZomyBL2hKyVRCO32LQKwR08eXui
+	4Gh9GBvC15Qp80bLox3K/q1lRSd3aNf2UtSApC8vEUWp9LJ4d5FM+6bgB5gwByShcz/9U8B5/a1
+	Ul9b/EaEAFHweISk75Iv9ckMXQGyM8tgXAYS0XIUDvcFa6X+empGb9h3hZx+tmK4+Prfbl3qD1a
+	Y6hMuWkfs2s3axMTnmoMcLv/SiyEcyx0bOHSnojkKog=
+X-Received: by 2002:a05:7022:150e:b0:183:3c2a:ae8 with SMTP id a92af1059eb24-1b543d40ca0mr2399653c88.41.1795003145548;
+        Wed, 18 Nov 2026 03:59:05 -0800 (PST)
+Received: from 8439c401ee69 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5447c1193sm6170107c88.7.2026.11.18.03.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 03:59:04 -0800 (PST)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,92 +89,64 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cloud607.c-f.ro
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - taladin.ro
-X-Get-Message-Sender-Via: cloud607.c-f.ro: authenticated_id: aardelean@taladin.ro
-X-Authenticated-Sender: cloud607.c-f.ro: aardelean@taladin.ro
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Subject: 
+ =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-5=2E15=2Ey=3A_=28build=29too_few_?=
+ =?utf-8?q?arguments_to_function_=E2=80=98pm=5Fruntime=5Fget=5Fif=5Factive?=
+ =?utf-8?q?=E2=80=99_in_drivers=2E=2E=2E?=
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Wed, 18 Nov 2026 11:59:04 -0000
+Message-ID: <179500314336.299494.11551223325196238800@kernelci.org>
 
-This patch is 2-part (in one).
-It reverts commit 3fc137386c46 ("usb: musb: Fix hardware lockup on first
-Rx endpoint request") and implements the second possible fix suggested
-in that commit.
+Cc from: regression/stable-rc.yaml
 
-Reverting that commit alone would bring back CVE-2024-56687 which it
-addresses.
+New build issue found on stable-rc/linux-5.15.y:
 
-However, the fix causes a regression in cases where the USB gadget device
-exposes itself as USB mass storage device. With that commit,
-musb_ep_restart() flushes the RX FIFO instead of reading it. As a
-consequence, a packet that came before the OUT request is lost.
-With the mass storage gadget the host loses commands (CBW), times out
-and resets the device; so, the PC never mounts the drive.
-
-We've found the issue in kernel 6.12.57.
-And we've identified the problem by reverting the driver to the 6.1.119
-version (where this problem did not exist).
-
-The same commit also offers an alternative fix which works fine for
-the USB mass storage case.
-i.e.
-  2. Disable MUSB interrupts in musb_g_giveback() before calling the
-     callback and re-enable them afterwars (by calling
-     musb_{dis,en}able_interrupts(), for example). This would ensure
-     that MUSB interrupts are not handled during the callback, even if
-     IRQs are enabled. In fact, it would allow IRQs to be enabled when
-     releasing the lock. However, this feels like an inelegant hack.
-
-This change also implements that fix.
-
-Fixes: 3fc137386c46 ("usb: musb: Fix hardware lockup on first Rx endpoint request")
-Signed-off-by: Alexandru Ardelean <aardelean@taladin.ro>
 ---
- drivers/usb/musb/musb_gadget.c | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+too few arguments to function ‘pm_runtime_get_if_active’ in drivers/dma/ste_dma40.o (drivers/dma/ste_dma40.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-diff --git a/drivers/usb/musb/musb_gadget.c b/drivers/usb/musb/musb_gadget.c
-index 016d3f3fc1e05..5cb7eb9c56de0 100644
---- a/drivers/usb/musb/musb_gadget.c
-+++ b/drivers/usb/musb/musb_gadget.c
-@@ -145,7 +145,10 @@ __acquires(ep->musb->lock)
- 		unmap_dma_buffer(req, musb);
- 
- 	trace_musb_req_gb(req);
-+	/* no MUSB interrupt during complete(), even if it enables IRQs */
-+	disable_irq_nosync(musb->nIrq);
- 	usb_gadget_giveback_request(&req->ep->end_point, &req->request);
-+	enable_irq(musb->nIrq);
- 	spin_lock(&musb->lock);
- 	ep->busy = busy;
- }
-@@ -1162,19 +1165,12 @@ void musb_free_request(struct usb_ep *ep, struct usb_request *req)
-  */
- void musb_ep_restart(struct musb *musb, struct musb_request *req)
- {
--	u16 csr;
--	void __iomem *epio = req->ep->hw_ep->regs;
--
- 	trace_musb_req_start(req);
- 	musb_ep_select(musb->mregs, req->epnum);
--	if (req->tx) {
-+	if (req->tx)
- 		txstate(musb, req);
--	} else {
--		csr = musb_readw(epio, MUSB_RXCSR);
--		csr |= MUSB_RXCSR_FLUSHFIFO | MUSB_RXCSR_P_WZC_BITS;
--		musb_writew(epio, MUSB_RXCSR, csr);
--		musb_writew(epio, MUSB_RXCSR, csr);
--	}
-+	else
-+		rxstate(musb, req);
- }
- 
- static int musb_ep_restart_resume_work(struct musb *musb, void *data)
--- 
-2.43.0
+Log excerpt:
+=====================================================
+/tmp/kci/linux/drivers/dma/ste_dma40.c:1681:15: error: too few arguments to function ‘pm_runtime_get_if_active’
+ 1681 |         ret = pm_runtime_get_if_active(base->dev);
+      |               ^~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /tmp/kci/linux/drivers/dma/ste_dma40.c:19:
+/tmp/kci/linux/include/linux/pm_runtime.h:56:12: note: declared here
+   56 | extern int pm_runtime_get_if_active(struct device *dev, bool ign_usage_count);
+      |            ^~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/kci/linux/drivers/dma/ste_dma40.c: In function ‘d40_hw_detect_init’:
+/tmp/kci/linux/drivers/dma/ste_dma40.c:3292:32: error: returning ‘int’ from a function with return type ‘struct d40_base *’ makes pointer from integer without a cast [-Wint-conversion]
+ 3292 |                         return -EINVAL;
+      |                                ^
 
+=====================================================
+
+When fixing this issue, please attribute this report according to the
+patch submission rules:
+
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:e10ef55ba949bff0f9ed8929e20efddcb2074871
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  4bb8d342a2c791584ece3d8430e5c03eecf3b3bb
+
+# Builds where the incident occurred:
+
+## multi_v7_defconfig on (arm):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6afd908e99c74e1a997d36da
+
+#kernelci issue maestro:e10ef55ba949bff0f9ed8929e20efddcb2074871
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
