@@ -1,47 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794994284;
-	b=14yJkkn1RnbX9uM/PmipdjM1AmqamPhANm2gjmmIm4T6EFlg5/UDAn7bJOVVlk1emLFC
-	 xrngKkHqKvzsBU9MpLPWgpdpHjCU87ZuXqhTltMgcFVG60I+NNUTRyyXdn4k55Drgfdop
-	 XObKwVhPoNCCjyALc0Hjw/VJaGMdOgxxGxOmckEGWnNFVSdliZddxaCe2eAHIqTMLhLV4
-	 BOWaLcPGyGQ7Us6IANRIXZCTT/Wy4uqKo1uGATbT4lhfo6oe35YpYqr20yLmF/aSELggD
-	 +V8Dfs+kGN871+zIubrFc4NyZQWFuc98Qch8Ph5Tc5a+tnWi51g8RrqQqZHH7gl+MmQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794994284;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=XF8GKc/X0VLcHzIBVmGS1CVeRJx2Wgr4tpTpsERNcqI=;
-	b=0WijYKc9NnCAOdIvvvvjGwBmUAhNTdWApH4JFBoS7+Zq1MnWCungylOkTdbEpVYWDQYx
-	 T0/RqUqVh/iQ8s9cQIDV4KQjvkcTOwb3s3bbjlpDHYFL0iGduW6h0f7kLHS9z6VRb5mlV
-	 z4HBH7f61oyPNqX6b0ZR2MsVfd80FtHJ1t4WQjGsiew3VFqICPzlGG/0LajRH/SEia5oc
-	 PWpaOAyfeCgSQiMu2CBC6jIDE/0F9gNMjCIxCbGqNOhrDAyyojvSviBi2l+aL+h/14QYy
-	 /FylSLYclqUloc7WF84bqGKPa83FZT5HXVnwY0puOpMVy0rm58Cq4MaBQwSqt9kwXvg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q1HWPlap;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1794994337;
+	b=pC1Fw95CmexaXiTfWtMowJBHLdN57I9EllwmVw1hjZ+gnki3FbWHzuDfMfHer3l2rh05
+	 os/x5QOO/Y2iJ/hGFQpUwhY+MXlx/DkrdGaK9unV8gvlDb0ip3laoKZyyGAEbYRxfeCfx
+	 w4p6xHfCQziaIKGc56lDnMZcFyBfE3xKCRY5JXhBXP8iXdbjaastzsCa+cOljAxU2LD4y
+	 VliMDFl2Hk+M2+YbglS7O3fCz5Vkb/2iSjEa2Nw1X7IzeotfBzdgR0TLnFC89Injng9sy
+	 F5G0sQYFE566r0JnfyqCt77dCydbVizQcNTJDVR/nVFahKCybFuX3Z+cPQUA6UfL9IQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794994337;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=KEN5ZypB40P0YfGkq38aJE4BdtSzLwnZcBL5dNs54wM=;
+	b=SI2QX7KdFUB35uihOocfVMODRIhScatn0XKHuCGSgLFUEFa0wZm4jwiYfFidgsIEJctu
+	 WmPqp5hPJ0iyvfp+lkA/iiHfK3DC0QqhbZz1hvcjyifuozRvs6c+7e/l5pMZcITjM5Ai1
+	 9ffDwmBUuM6G3oKhNu2Aj5jMbKYhqbblfjxqJDRpTnbdhFIDAnrjD6+f+j2VO9uyoq69g
+	 tnv13cSyctYaplor1f2A8482/AMYPFh2Vyh1nUenJNz5dHni12Nk71uKRtHuju79Q6nZw
+	 PFwfznN/e8JhHvNmG4uihWGGu0gpE3jftadqS3Hhv/GCryrx7+XQvzvYG9dguBNWYqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=pengutronix.de;
+	spf=pass smtp.mailfrom=pengutronix.de;
+	dkim=pass header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GjuBL4tA;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=185.203.200.13
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1A1606A31C;
-	Wed, 18 Nov 2026 09:31:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 284FD606A325;
+	Wed, 18 Nov 2026 09:32:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 284FD606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q1HWPlap
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D6D1F000C5;
-	Wed, 18 Nov 2026 09:31:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794994284;
-	bh=XF8GKc/X0VLcHzIBVmGS1CVeRJx2Wgr4tpTpsERNcqI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Q1HWPlapjpRCmieyRfIWLeE1Gqlm26as4yTq4bwNmdEjsKQuKb9BWZ490H7B0FwXr
-	 cpIYolkQNJKuKBleITXdl1CKDnnawzei53EGY99yEvDFSrocoPYyWHrDltPyTGTWf/
-	 eojg2mTjFwX7e2QgE2qMkjNxL9CWYooG+pXrpT2liNBBrp43gy8qqcZWgDmEQ46L/c
-	 SLbP53dGMaa0mdaBe5yP9FBqK6E4AQ+rU65JZcug9qACXbHLJ2leae/ysZFB6kxIID
-	 k0DoFioSSY4cZFoMJaRlz0Ae/CbTnF7IA3pfnOk+ubsnT08BZcBR5k5dUtNLN61y4n
-	 a0vnAMNIujwNA==
-Message-ID: <29bca989-c3ce-4995-ab1f-1e2c49b93e48@kernel.org>
-Date: Wed, 18 Nov 2026 10:31:18 +0100
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=GjuBL4tA
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 20AEA20581E;
+	Wed, 18 Nov 2026 10:32:14 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794994334;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KEN5ZypB40P0YfGkq38aJE4BdtSzLwnZcBL5dNs54wM=;
+	b=GjuBL4tAiXHbJKbS4OQALtKDWreqsusOIc7rCQuzogU1OBdmjGpsGqDo2iyZPqAzO3R7M0
+	rvntf0EBnYVNAoMqXJiLC8DPtR2McTv5MYgG9df6usSrKCFQMuojuvrj7kfDAVbBZ5qbvC
+	I3iQ2iyMjamrqqvnn0RXKlhaKoiR0Fsd6zo7+kWYuswXJzFWoWXhRddYizK6epySTPO8C6
+	Ojenmteesoc8G3dDDVPgbglsYdXkmKHInCYOeBn2w74rL/IAVvav4vEter2/bMMKMaNqTS
+	numI9dJHglDn6sk0LbyrqsG+Mx6X/74oovEMjWd6e7oVAnzOXRGNLqyx6z0M3w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+	s=20260414; t=1794994334;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KEN5ZypB40P0YfGkq38aJE4BdtSzLwnZcBL5dNs54wM=;
+	b=W5F0nAz7H8ofjZ3vXcBKVNMP0/aKwI35MiUOc+fVBc7ddkqevMhL5axBjQI5g4Stv7W0nN
+	qqL0g/++vAXmO2gEbCF5gQ5K6P33ZPxeORO4Fop55NExGux1bfa7AGdJFCWOkkUCE6SDyg
+	TFiaSNop6/QqqBiZ2XKEmvcrB0xbjTrNf5aYWfqhZWfj3mrRTb+FZkbfHm8nQ8fy5WyHiL
+	dYKa2m5gqnUHg0gUjoW8VfPqMf45/F9TkAg+3l0kniRMWXp5+fIjObO5sDU0FL5Vc7r3v8
+	6CfrxOwaT1wAsiEAk0QkHJL8YMWVfjNfeQfFc5iLeLzaTmQqeTCfF+1Q3WrjbQ==
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1794994334; a=rsa-sha256;
+	cv=none;
+	b=NoW/35QYQVmyCWy01WC/E26uCphaSvxTrK4Nf5CeYMvr5ouFZfdf4NtAcEakTWLwca35B1
+	CiuXFo3MYv23iPZevbA2UCm9TrgcCm0K1tiZAXt8nWmZ7h3aTO1OURDwf43bQGGDGRsHzI
+	9KgfHIHbvZTx/m1V3tahPQPgzPD0nXMRoWgPP9WWQ/m5pBXpQPfKd6jBbfleYpH/QsDsRW
+	gyf9OL8evbQkGzxXrwE5RgfJbQA+tU1uEQ0R0uU3ifMS8uJYIEk9VamEKUQN06fs+u04to
+	a2GGAJQmrK/tAQiGlNZdqsSsHI1TC1RUyW0QgbQK23bUqC2LzyUdh4Puphp+Qg==
+ARC-Authentication-Results: i=1;
+	ORIGINATING;
+	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
+Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mkl@pengutronix.de>)
+	id 1xTc1V-000KHw-1V;
+	Wed, 18 Nov 2026 10:32:14 +0100
+Received: from blackshift.org (unknown [185.109.152.103])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	(Authenticated sender: mkl-all@blackshift.org)
+	by smtp.blackshift.org (Postfix) with ESMTPSA id 1711D5EDC9C;
+	Wed, 18 Nov 2026 09:30:04 +0000 (UTC)
+From: Marc Kleine-Budde <mkl@pengutronix.de>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	linux-can@vger.kernel.org,
+	kernel@pengutronix.de,
+	Maximilian Zimmermann <maxz@spacecubics.com>,
+	stable@vger.kernel.org,
+	Marc Kleine-Budde <mkl@pengutronix.de>
+Subject: [PATCH net-next 12/12] can: xilinx_can: set CAN FD flags on received frames
+Date: Wed, 18 Nov 2026 10:11:45 +0100
+Message-ID: <20261118092955.1283165-13-mkl@pengutronix.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261118092955.1283165-1-mkl@pengutronix.de>
+References: <20261118092955.1283165-1-mkl@pengutronix.de>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,141 +108,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm: shmem: limit forced anonymous shmem huge orders to
- MAX_PAGECACHE_ORDER
-To: Jingyi Sun <1045704958@qq.com>, Hugh Dickins <hughd@google.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Luiz Capitulino <luizcap@redhat.com>
-References: <tencent_FCBAE9157D42FFF00E681A2D5EA72CEEDF08@qq.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <tencent_FCBAE9157D42FFF00E681A2D5EA72CEEDF08@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/18/26 03:45, Jingyi Sun wrote:
-> When the top-level shmem_enabled knob is set to "force",
-> shmem_allowable_huge_orders() returns huge_shmem_orders_inherit for
-> anonymous shmem without masking it with THP_ORDERS_ALL_FILE_DEFAULT,
-> unlike the other return path at the end of the same function.
-> 
-> huge_shmem_orders_inherit defaults to BIT(HPAGE_PMD_ORDER). On arm64
-> with 64K base pages HPAGE_PMD_ORDER is 13, while MAX_PAGECACHE_ORDER
-> is 11 because of the xarray split limit. With shmem_enabled=force, an
-> anonymous MAP_SHARED mapping can therefore get a 512M (order-13) folio
-> in the page cache. Splitting it later, e.g. on swap-out from
-> shmem_writeout(), triggers
-> 
->   WARNING: lib/xarray.c:1051 at xas_split_alloc
-> 
-> and the split fails, so the folio can never be swapped out.
-> 
-> This is the same problem that commit 9fd154ba926b ("mm/shmem: disable
-> PMD-sized page cache if needed") and commit b66b1b71d7ff ("mm: shmem:
-> avoid allocating huge pages larger than MAX_PAGECACHE_ORDER for shmem")
-> fixed for the other paths; the force branch was left out. Mask it with
-> THP_ORDERS_ALL_FILE_DEFAULT as well.
-> 
-> Reproduced on v7.3-rc2 in QEMU (arm64, 64K pages, -cpu cortex-a72,
-> 4G RAM, zram swap): with shmem_enabled=force, a PMD-aligned
-> MAP_SHARED|MAP_ANONYMOUS mapping of one PMD size got a single
-> PMD-mapped folio (ShmemPmdMapped: 524288 kB) and MADV_PAGEOUT
-> triggered the warning above in 3/3 runs. With this change: 0/3.
-> shmem_enabled=always and 4K pages did not show the warning. The code is
-> unchanged in v7.4-rc3 and in mm-unstable, but the test has not been
-> re-run on those trees.
-> 
-> The issue was found with a research static analyzer for
-> cross-architecture dependency bugs and confirmed with the QEMU
-> reproducer described above.
-> 
-> Fixes: e7a2ab7b3bb5 ("mm: shmem: add mTHP support for anonymous shmem")
-> Cc: stable@vger.kernel.org
-> Cc: Luiz Capitulino <luizcap@redhat.com>
-> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
-> Signed-off-by: Jingyi Sun <1045704958@qq.com>
-> ---
-> Changes in v2:
-> - Dropped the Assisted-by tag (Baolin).
-> - Collected Reviewed-by from Baolin.
-> - Dropped the note about the overlap with Luiz's mTHP series; Luiz
->   confirmed his series will land after this patch.
-> 
-> v1: https://lore.kernel.org/all/20261117121626.1058-1-1045704958@qq.com/
-> 
->  mm/shmem.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
-> 
-> diff --git a/mm/shmem.c b/mm/shmem.c
-> index 10cef89b00b0..41bb3f2c6b63 100644
-> --- a/mm/shmem.c
-> +++ b/mm/shmem.c
-> @@ -2114,7 +2114,8 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
->  	 * means non-PMD sized THP can not override 'huge' mount option now.
->  	 */
->  	if (shmem_huge == SHMEM_HUGE_FORCE)
-> -		return READ_ONCE(huge_shmem_orders_inherit);
-> +		return THP_ORDERS_ALL_FILE_DEFAULT &
-> +		       READ_ONCE(huge_shmem_orders_inherit);
+From: Maximilian Zimmermann <maxz@spacecubics.com>
 
-could we instead set
+The Xilinx CAN FD controller reports the bit rate switch (BRS) and error
+state indicator (ESI) in the receive buffer DLC register. The receive
+path currently uses this register to determine frame format and payload
+length, but does not set BRS and ESI in struct canfd_frame::flags.
 
-	mask = READ_ONCE(huge_shmem_orders_inherit);
+This results in applications being unable to receive the BRS and ESI
+flags, even when the controller correctly received them.
 
-And sue a goto to the end of the function  where we have
+Add the ESI register mask and copy the controller flags to the
+corresponding SocketCAN canfd_frame struct.
 
-	return THP_ORDERS_ALL_FILE_DEFAULT & mask;
+Fixes: c223da689324 ("can: xilinx_can: Add support for CANFD FD frames")
+Cc: stable@vger.kernel.org
+Signed-off-by: Maximilian Zimmermann <maxz@spacecubics.com>
+Link: https://patch.msgid.link/20260921-fix-xilinx-canfd-flags-v1-1-a371c90b4e7c@spacecubics.com
+Signed-off-by: Marc Kleine-Budde <mkl@pengutronix.de>
+---
+ drivers/net/can/xilinx_can.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-Avoiding the goto means more churn I guess.
-
+diff --git a/drivers/net/can/xilinx_can.c b/drivers/net/can/xilinx_can.c
+index 43d7f22820b8..52661e088205 100644
+--- a/drivers/net/can/xilinx_can.c
++++ b/drivers/net/can/xilinx_can.c
+@@ -157,6 +157,7 @@ enum xcan_reg {
+ #define XCAN_2_FSR_RI_MASK		0x0000003F /* RX Read Index */
+ #define XCAN_DLCR_EDL_MASK		0x08000000 /* EDL Mask in DLC */
+ #define XCAN_DLCR_BRS_MASK		0x04000000 /* BRS Mask in DLC */
++#define XCAN_DLCR_ESI_MASK		0x02000000 /* ESI Mask in DLC */
+ #define XCAN_ECC_CFG_REECRX_MASK	BIT(2) /* Reset RX FIFO ECC error counters */
+ #define XCAN_ECC_CFG_REECTXOL_MASK	BIT(1) /* Reset TXOL FIFO ECC error counters */
+ #define XCAN_ECC_CFG_REECTXTL_MASK	BIT(0) /* Reset TXTL FIFO ECC error counters */
+@@ -959,6 +960,11 @@ static int xcanfd_rx(struct net_device *ndev, int frame_base)
+ 
+ 	/* Check the frame received is FD or not*/
+ 	if (dlc & XCAN_DLCR_EDL_MASK) {
++		if (dlc & XCAN_DLCR_BRS_MASK)
++			cf->flags |= CANFD_BRS;
++		if (dlc & XCAN_DLCR_ESI_MASK)
++			cf->flags |= CANFD_ESI;
++
+ 		for (i = 0; i < cf->len; i += 4) {
+ 			dw_offset = XCANFD_FRAME_DW_OFFSET(frame_base) +
+ 					(dwindex * XCANFD_DW_BYTES);
 -- 
-Cheers,
+2.53.0
 
-David
