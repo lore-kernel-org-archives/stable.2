@@ -1,85 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795015018;
-	b=TggsgB+i6ASTKB1Sc7us7q6H5WJhD0uewpvVG3ClnNswTpoel7xRJLzzFhwJNRAfaKjh
-	 Ng3Cw1Dp+6tAKkjYced+tKp5H/8JTC0Oo8JaTadO/Xpc3Z5CjBPSdNOmjTxu54dvhWq2v
-	 1j+T6fTIvNRX/jsi6U3UHY0iRu/VaPfzhWhrLTX0RzAOAEn2Dmw0+VofgXHFggqdiA6oP
-	 gIAsS4FnMwpNeKPvTiufAkTUUhR1pOaSG9FA1HmjCAnObYx1bkQIdRj8juC2t6WCep1/O
-	 l4/h6nkJeCw2W1zuITyzMJ604iNKTD+8cK23+qAnSHAu2TiTTEvJgVyghASD+ED/R1w==
+	t=1795015019;
+	b=jRM0HJFn46XE1BfmP4nigyepVJTdY0jZk8+J6Is2EZjLVlJKwEBXiPJl4KJN9AhIwD3Y
+	 T7fo7sXIn1RwiilT0aa/plRUNUs8stoxWBa4GR4SgW4zjXUGOn/GRLjrQUVwyls2a6F77
+	 dVKbJ9OvdCcgrry+0pY33jBQAu9vQ51I2gbmce6JiTefMwgatOCQU3wf+xb2d12P6ezcT
+	 5bYr6vckZtMVvtbCOlsISrSQFn5H+1QTVc5qvmAh9VHzkKhzZ4hAxMb5kvtdIjyCyDmfm
+	 PKYIK61nWf9y4JZyIEjTX+PqzbVZNb33gYvkASr44drTKXqnjEHZTK0U19Z7ihAnuTw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795015018;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
-	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=rOY+wdV3n8VmzgrzAHcUOOBb9IyWYRHS3lQymwFtS30=;
-	b=wLukCxufiBLdgxG66nUDHuWVbKvLslILxrsJS2aaTmIVZieA34RD4UvruVQ+pGhIIH+7
-	 JLIniRUoncETwYfIkTwarOCiNpCOOk6I8ISHwJ8+NKvAXJnExhQdzqszVAa4NyY4VD30B
-	 oIxWlBdFQmq2SbTES6eO4XdvqiyLhxZGv0InB676afSW4z0qXOBdkFWcCloPHwqImAeEf
-	 imwkCM6RlZg5KVanPCqSXfXrXprHrJjyGjPh69kmxgVut1UYqIDPaDU8kgFsUsVs47d46
-	 GzfEGM1WI3LxSHQJaK/imj3RprGXM1vKE21TkP8zJ1UOIYiZXmabxRbuOhXJMjNkNbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015019;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=FpbflN9c2J0rwUTpq2msjVqW5fPCW3YxQ7epwnbDxG0=;
+	b=sAqh14do6KYA/OKmb3G2bUT8iXfYAUD/ZL6NYPzPHu6eaTkwrPvt0Z9j2VKtG5jXFshk
+	 LCpRk/oJJaaDTCNBQFIbNCa2KdD5oCAmdURCnj89B/+zch0gOnY2UQGnPWjcwmiTamAcU
+	 FBztyvB5h8TkWIkDqfWM7StMjJzP+mprMB113InYHH6E+CD0mRrVVvj1Hss0U5l90YWBh
+	 BR9YBXhKng/bDqAEcnYa6fCHnkDqHMc3LxyCY4NZnaY/2bZaKZJHeMpDjgFQXZIL/YoIT
+	 DceWimBoSC3j5w5X7c99PX5Dh2kqFFhe8oSC/JFeSN5nlxKMn25n22HBe8fU0f4YJtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=baylibre.com;
-	spf=pass smtp.mailfrom=baylibre.com;
-	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=iEWjEnyL;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tAQCY976;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989BC606A32A
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:16:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 989BC606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3514D606A32F;
+	Wed, 18 Nov 2026 15:16:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=iEWjEnyL
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-491971ac844so1091538f8f.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:16:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1795015016; x=1795619816; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=rOY+wdV3n8VmzgrzAHcUOOBb9IyWYRHS3lQymwFtS30=;
-        b=iEWjEnyLaCvEhk5M1AC5NQQlDysiyvVk+m/XObmo5r4yFRVJsV74x/mhSkir4B7qMz
-         KtA2S2cd1SPHmCasNEl3YXtyCltDHfHkQAUr4PM2xp4ys0o+luBMLN1PJAT04ec0CfEO
-         J1ue4dlADD98xco42qsvWjY8TeUYJ91pJNlpG2HzLaUzHGgigZ7K7BJVsf/iRHcd3/ze
-         1p2ldMgEy8WXbZamZrds69/CExGXM4jkrb8GBZFPllc+UCMfN/cuXZkZBwwee6elg9GH
-         /8ejWlKpm3hSAazBTMqC5VZicJkOW+eBUWv6KXgh3TTCLik9m+6JsizSQzNiQapg+xCt
-         6jsg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795015016; x=1795619816;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rOY+wdV3n8VmzgrzAHcUOOBb9IyWYRHS3lQymwFtS30=;
-        b=oZyPOFMg8qr3FiR2ARGywTrSXKQfRg16sVW2MLjN4ai1LoqTdc3UTOYSNj9L7tJCj3
-         nrDViFNTmGJgTPXCyxqyHRQm9y71cmrXA0C6BgmwCAk4ykBEzUECNalEy1h9KTranwmk
-         +lQPOMpHaEiS6rEAPotldlWdDXLRISugeUxdmIhMEZ9tfhzNwG5zNmcAf5jz/M2JnGL8
-         p2hY0+DVCdz1OUKmxjKYo/WEWnGiWWDk/ZvOGwdGnit1dXHqJ7QRKbTOhZ5+3faloNYs
-         YJR7WZGZTkElZv2H13Rmg9grO1BE0DnW11xNE93/WgZAjrGi2dq84Hwa4KzoUBmUUyUG
-         ciaQ==
-X-Forwarded-Encrypted: i=1; AL+hErHw0GtS/lGSqk5ppnY+0WVqt0XvZhXzihvlkyvZZL5Ww4DNuV9ZJaOj7/0uJVvxaFPgcJPMckU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+0i9Y0ysrYhf95ePzvcdEhaCjf4Im6MTKhJvJ3TXUQJkWkfwFD
-	A2GSwVMNJdGgUxlTjC9Uh3v/s6XAJBV2u/vgg3llDI9jD0OXiezD+uP/rPFfrv+q4NY=
-X-Gm-Gg: AZFdTZdqUb4cbo4WLYsRSNS1QQLxpW8pFo1Rt06XcwNkIduce10E4wyb+ppXtm7pevD
-	D5RQ0nimtl87waxMYiUGsil69Sss+atnDDN8chgHzvO+DadGIwUGBqZ46WIjINJX2TCVAv1sUhA
-	InV3c64hFyyy2GBVUgF1L5xBUhD8KwiptqjR3zYXxCC/zD1RR1klWS5XmcQU4Gmk0krX2AcCgwi
-	tq3qSuprZuTX/ry3GPNFNcsQ2ljSTBDgItWzhLquD+OakDbN/kF0RlgLyhWEZ8r2qHgwfIz7H+G
-	pkDIuKHvqJl8+vhFsjEZcCYscIdd+1P8Kkmg6A5SAn02PoTlxjJ0Q3MzMtC6HkTcHiuDcWp9Tpb
-	QPICBo8ZTJ+348pCqkWnRlmq3GXZ4W628/1FOckcpIVIVhag6JtjOEsTBkT0JiMi/cp12gJqL/a
-	wFHGwysKbw8Kput/nwK/TOrKhXab/FxJX8HDjdlh1vga62msMdeYjflHv0Bzb3BImBcVjJ9UGbd
-	7O4pdRKVYAHzRaQiOG9QOfUL2vc6ONBmdqsOyInLvxLr69/onEiN5nIgwc5LsIbz3hO/ArdcUUp
-	Yt+oj+Foc8SbYaQ51e5QqcVM8ZS9OKxjTJ84T8g7q/0IQ15N
-X-Received: by 2002:a05:6000:22c5:b0:4a6:ed6f:7a6d with SMTP id ffacd0b85a97d-4a6ed6f7c2dmr4688498f8f.28.1795015015881;
-        Wed, 18 Nov 2026 07:16:55 -0800 (PST)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a650d2f682sm5148396f8f.6.2026.11.18.07.16.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 07:16:55 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=tAQCY976
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85F211F000C6;
+	Wed, 18 Nov 2026 15:16:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795015019;
+	bh=FpbflN9c2J0rwUTpq2msjVqW5fPCW3YxQ7epwnbDxG0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=tAQCY976WRTWrXYDPjYyzbRAvB1ATGoh9DGERfIfpkMVrRZF25GYc37YanBEtQNSI
+	 inXuKBbuEXiXVvoPPWjg+yej+V8puUvkUHk1bbtGURC8UEFbplG9+gXF+dC4xX7CEH
+	 TnUKH5VmR5kZsdLOYDoC+6EtmRYL+4VIZgvfXYV8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0023/2651] ALSA: pcm: Optimize cpu_latency_qos_*() calls
+Date: Wed, 18 Nov 2026 15:21:03 +0100
+Message-ID: <20261118150248.819594840@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,75 +61,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v11 00/10] clk: nuvoton: ma35d1: Fix mux parenting and
- peripheral clock rates
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, stable@vger.kernel.org, 
- Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <20261118-perso-ma35d1-upstream-clk-v11-0-bd1d1e060926@bootlin.com>
-References: <20261118-perso-ma35d1-upstream-clk-v11-0-bd1d1e060926@bootlin.com>
-Date: Wed, 18 Nov 2026 16:16:50 +0100
-Message-Id: <179501501070.639563.9357303541273366380.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1497; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=Ze/lWMxenuMFFinRWmaSX0IcexmH1tvXM9t0DvMowcU=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFl/D6bpy/0tV5+lWL51RkjKPQXn58FtMoH+f5SuWOVVn
- Q0z+7iko5SFQYyLQVZMkaWGu1r8naTWl1nTdW7DzGFlAhnCwMUpABM5Z8bwP3716cfT9okus2OZ
- 8K++LlbF6Pn25IUzVn3Zf0aba1HEyhhGhjdSSyMeLDnMVr/5vvLSWKM/unu682QdT776tVq3cnv
- vJwYA
-X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
- fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
+Content-Transfer-Encoding: 8bit
 
-> I am in possession of an MA35D1 NuMaker board. The SPI controller has
-> been contributed, but at this stage it does not work with the current
-> clock driver.
-> 
-> The clock controller registers its muxes with .fw_name parent data,
-> which requires every internal clock name to be declared in the DT. As
-> the DT does not declare them, all parent lookups fail: muxes end up
-> registered as root clocks and most peripherals read a zero rate.
-> 
-> This conversion exposed a first issue with the WDT/WWDT parents which
-> were actually missing in the clock driver. I am not using these clocks
-> myself but it is worth fixing.
-> 
-> The second round of reviews raised another problem with the
-> crystals. HXT and LXT are external crystal oscillators wired on the
-> board, while HIRC and LIRC are on-chip RC oscillators. HXT was described
-> whereas LXT was not. The series now also takes the two crystal inputs
-> from the DT: they get documented in the bindings, described in the
-> boards and looked up by the driver (with a fallback for backward
-> compatibility).
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Hi Miquel,
+------------------
 
-We've had to base clk-next on v7.4-rc2 because it carries a treewide change
-around devm_kzalloc. This was triggering a lot of conflict in linux-next.
+From: Takashi Iwai <tiwai@suse.de>
 
-I did not look at your series yet but it does not apply cleanly on patch 3
-(maybe others too) because of the same change. Would you mind rebasing on -rc2
-or clk-next please ?
+[ Upstream commit 9f6f4e97fd53908aecb0979507d9ff10a22288eb ]
 
-https://sashingci-clk.liltaz.com/builds/555/steps/3
+We have a few cpu_latency_qos_*() calls in PCM callbacks, but they
+seem suboptimal in a few aspects:
+- We call them at each time when the hw_params changed, but explicitly
+  do remove and (re-)add; this could be
+  cpu_latency_qos_update_request(), instead
+- The setup of cpu_latency_qos_*() doesn't have to be in hw_params at
+  all; it's not the place where the actual parameters are set up, but
+  rather better at the prepare callback.
+- The hw_free calls cpu_latency_qos_remove_request() unconditionally,
+  which may be poking a WARNING when it wasn't queued.
 
+For addressing the issues above, this patch cleans up and reorganize
+the cpu_latency_qos_*() calls in the PCM core by a couple helper
+functions.  Now, they are set up at prepare callback, and cleared at
+hw_free and release callbacks via the new helpers.
+
+Link: https://patch.msgid.link/20261002150420.879056-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 9017bc3d13da ("ALSA: pcm: Prevent O_APPEND open on OSS streams")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/core/pcm_native.c | 35 +++++++++++++++++++++++++----------
+ 1 file changed, 25 insertions(+), 10 deletions(-)
+
+diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
+index 6d32c12fb79bd..c9e80617f508b 100644
+--- a/sound/core/pcm_native.c
++++ b/sound/core/pcm_native.c
+@@ -778,11 +778,32 @@ EXPORT_SYMBOL_GPL(snd_pcm_runtime_buffer_set_silence);
+ #define is_oss_stream(substream)	false
+ #endif
+ 
++static void pcm_qos_req_clear(struct snd_pcm_substream *substream)
++{
++	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
++		cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
++}
++
++static void pcm_qos_req_update(struct snd_pcm_substream *substream, int usecs)
++{
++	if (usecs < 0) {
++		pcm_qos_req_clear(substream);
++		return;
++	}
++
++	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
++		cpu_latency_qos_update_request(&substream->latency_pm_qos_req,
++					       usecs);
++	else
++		cpu_latency_qos_add_request(&substream->latency_pm_qos_req,
++					    usecs);
++}
++
+ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
+ 			     struct snd_pcm_hw_params *params)
+ {
+ 	struct snd_pcm_runtime *runtime;
+-	int err, usecs;
++	int err;
+ 	unsigned int bits;
+ 	snd_pcm_uframes_t frames;
+ 
+@@ -889,12 +910,6 @@ static int snd_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	snd_pcm_timer_resolution_change(substream);
+ 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_SETUP);
+ 
+-	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
+-		cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
+-	usecs = period_to_usecs(runtime);
+-	if (usecs >= 0)
+-		cpu_latency_qos_add_request(&substream->latency_pm_qos_req,
+-					    usecs);
+ 	err = 0;
+  _error:
+ 	if (err) {
+@@ -971,7 +986,7 @@ static int snd_pcm_hw_free(struct snd_pcm_substream *substream)
+ 		goto unlock;
+ 	result = do_hw_free(substream);
+ 	snd_pcm_set_state(substream, SNDRV_PCM_STATE_OPEN);
+-	cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
++	pcm_qos_req_clear(substream);
+  unlock:
+ 	snd_pcm_buffer_access_unlock(runtime);
+ 	return result;
+@@ -2005,6 +2020,7 @@ static int snd_pcm_do_prepare(struct snd_pcm_substream *substream,
+ 	err = substream->ops->prepare(substream);
+ 	if (err < 0)
+ 		return err;
++	pcm_qos_req_update(substream, period_to_usecs(substream->runtime));
+ 	return snd_pcm_do_reset(substream, state);
+ }
+ 
+@@ -2795,8 +2811,7 @@ void snd_pcm_release_substream(struct snd_pcm_substream *substream)
+ 		substream->ops->close(substream);
+ 		substream->hw_opened = 0;
+ 	}
+-	if (cpu_latency_qos_request_active(&substream->latency_pm_qos_req))
+-		cpu_latency_qos_remove_request(&substream->latency_pm_qos_req);
++	pcm_qos_req_clear(substream);
+ 	if (substream->pcm_release) {
+ 		substream->pcm_release(substream);
+ 		substream->pcm_release = NULL;
 -- 
-Jerome
+2.53.0
+
+
 
