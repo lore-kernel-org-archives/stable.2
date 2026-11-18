@@ -1,52 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795043030;
-	b=u+bK1ncpbbzcp0Tth21SRGUX9r4aIJh6iMsWau8O2/iNBIX1eFZ826Ckdb35LAFWH847
-	 QD1avBS+XaNRSjpEdIgJjJSuXHH7fYL+eDsAj4TGp736zZlCKavW2mcLGt0xZabU2mnqo
-	 k/0tRlce8Vxq8hyGrHOt9Bmzvy6doKfw1opGpZv0cv5r5wZMnAme7rfoKvMhW6//+Q2as
-	 u84lkNAeZMMF3Jnl44u+jNGPVCpDp6DkxDE+ulZ74PcP+qtke4mZeJ7/Fg61YeKTI3PhI
-	 NxqsjNJxngSBTX3o2n4fr1FzEfP3Z0lzy0lMR/8FBia9Nx+5G+8KKiQPDhv1AXHzq/A==
+	t=1795043036;
+	b=mGY1XY55xznKjMFjW4BC56BcgF4WhtH1Sz7qWqDapOquCUiWB4ge9mP/Z/FD/brO5VT7
+	 dISvrskJEXz8Yjq6TuDM+OVXoK/C35xjRO0wqhziZ3CF1Kx40sohIjHKfsWrNIaR3/NXC
+	 8TrHxa9i5DQs9E/Vs+Wl8cs37t6vvneW27o/O0O2Dx1fQpRVkTdwu9YCJ8sXJDz3ExGdd
+	 Z7ap5PxkvexrvoBX7RZxWbkpm3j1LT9Ml+k6Hw85iBIP+OTV5R7SizRJUTctt3zXPfUEw
+	 lNXsLdUXVveU+uZaium8rfmIHNlGw7w76p6bNHz/IwabQzUlVjcirNjSZhe6jsercxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795043030;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795043036;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=BtXQAuCEgutbhOFVbhOL15BFvSmeFMKr3dvDGimkpXA=;
-	b=lSlhjvvkHZ/hE79jcjJ6d2NHER49uLB9K/d8YkxKa2kbcGCoIRqz1Zx2VpgwMPnbgZHy
-	 0gC4V+o3u3dvTy1e5kewwp1Pw9Rdw8mu0p0SMQzeC/EEWffoGEYesyAlQLedyM9SEe69y
-	 Zm2nhyVZLu9NGHYid2clRqWMNDohwwoFtWT4/TNUSD5W6b4gAF8hbPEFIubIlXgI8upCC
-	 lKb8npSuYKRRdbaYiJjIAE7ZoXFr1aAh9uYWGDpL7eFYRybqpvUwiyAJjPuzlMUQXZcj0
-	 dc0SKPr7xA4AHC0zfkCnNxhGx87fTs01dY0GChAiZFZI+OhXp1lP48aXbJ/JyyQoQug==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=iHfYwPA3FqFuu4iAM777jj/XtcPG1I1bcFudLVARo9Q=;
+	b=4WwGuWNSUqPMa2SzSbfEwOKXOWVl56v+YW+v2EwYqSn5ZQBEELZNhyvmsMrNHGoeTpJC
+	 O26Q0qtoLjnAONurxmjsO5+FJ16De2R6YzYMl0R5lwUjm6LUaezdIAnREBcNe+/CKo2Nx
+	 Jb6bNYzA2oqFDXUIXCwNsZksp9DKOPksUpVdAywGLeo+HwIgUvCRT3w007C37nV4X39u1
+	 UckvA3+Ik8o9jb/7DngZRw6z32dNIQaBOyMIVMCR5e4KTV3HTqHImzuMjC5+C+UsVBnUy
+	 kZw5KN5Dv65lNCcS5aDUuFzVh66d5a+Gufj+q496ABF8bJcTyyIToh9OZpJxCW/J9sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sPab96vt;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JiBkWE8Z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6420360A2606;
-	Wed, 18 Nov 2026 23:03:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1295460A2615;
+	Wed, 18 Nov 2026 23:03:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=sPab96vt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDFD61F000C5;
-	Wed, 18 Nov 2026 23:03:49 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JiBkWE8Z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AD8D1F000C6;
+	Wed, 18 Nov 2026 23:03:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795043030;
-	bh=BtXQAuCEgutbhOFVbhOL15BFvSmeFMKr3dvDGimkpXA=;
+	s=korg; t=1795043035;
+	bh=iHfYwPA3FqFuu4iAM777jj/XtcPG1I1bcFudLVARo9Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=sPab96vtN135gOXhRlvDIfhUSl/mSTCPcKIkGYj7lFNaETNQrO0zkFXfZhQ4lFoe3
-	 o44FOIPciOXalIcaJ4EFGcchiP7/yF6QJstrX757KlBsZlM1Xg53JAfgUZFCnec9aw
-	 8Ep6fGANE3WBVtElIu6gnHktiz8TTp2HX6FmXDLM=
+	b=JiBkWE8ZTpTAelLn0JHecLAe4D52wnm4SOFk18VD1YZrTiGpf7yqvj4oQhQ2gP4cs
+	 97kIu7/Uy3BWgD8CJ04HMXt6mxE8ETCaZgAyhQNWzpMnd2yDl8BbrFu/5Duw7OdJ59
+	 g/ulO7zxlI8vUFH4TJ1JTfa3SG/W/IxcG/1xCeVY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	"Jason A. Donenfeld" <Jason@zx2c4.com>,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	Eric Biggers <ebiggers@kernel.org>
-Subject: [PATCH 6.1 0013/2857] lib/crypto: arm64: Fix lost Poly1305 carry when resuming NEON state
-Date: Wed, 18 Nov 2026 15:17:27 +0100
-Message-ID: <20261118150201.787384708@linuxfoundation.org>
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Samiullah Khawaja <skhawaja@google.com>,
+	Nicolin Chen <nicolinc@nvidia.com>,
+	Lu Baolu <baolu.lu@linux.intel.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Pranjal Shrivastava <praan@google.com>,
+	Joerg Roedel <joerg.roedel@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 0068/2857] PCI/ATS: Ensure pci_ats_supported() is PF-aware for VFs
+Date: Wed, 18 Nov 2026 15:18:22 +0100
+Message-ID: <20261118150203.770975474@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
 References: <20261118150201.293410965@linuxfoundation.org>
@@ -62,87 +68,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
+From: Pranjal Shrivastava <praan@google.com>
 
-commit 24f07e8c07a0c0dd275331cbb41c79a78741eef9 upstream.
+[ Upstream commit 4f2cd6091ac41566a7300f5a4590d20a99aaa8bc ]
 
-When poly1305_blocks_neon() resumes from a base 2^26 accumulator and the
-next update contains an odd number of full 16-byte blocks, it processes
-one leading block through poly1305_mult() so that the remaining NEON
-work has an even block count.  That requires converting the accumulator
-to the base 2^64 form used by poly1305_mult().  The final ADC of that
-conversion stores the carry into d2, but the following accumulation and
-poly1305_mult() use h2.  If the conversion carries across bit 128, the
-carry is dropped and the emitted tag is wrong.
+Update pci_ats_supported() to additionally check the associated PF's
+status when called on a VF. This ensures that PF-level quirks and
+untrusted status are correctly propagated to VFs, providing a robust
+support check that aligns with the kernel's PF-centric ATS configuration
+model and is immune to the timing of VF-specific fixups.
 
-This was introduced by Cryptogams commit 03dc4adf91c8
-("arm/poly1305-armv*.pl: optimize branches."), which removed the
-reduction that consumed d2 shortly before Linux imported the code.
-OpenSSL's copy did not take that change.
-
-The carry is possible because the NEON code stores the accumulator [h0,
-h1, h2, h3, h4] in a lazily reduced, redundant base 2^26 form: its final
-carry chain leaves h0, h2, h3 < 2^26, but h1 and h4 may slightly exceed
-2^26 - 1.  For example, the reachable state
-
-  h0 = 4
-  h1 = 2^26
-  h2 = 2^26 - 1
-  h3 = 2^26 - 1
-  h4 = 2^24 - 1
-
-represents 4 + 2^26*2^26 + (2^26-1)*2^52 + (2^26-1)*2^78 +
-(2^24-1)*2^104 = 2^128 + 4, despite the bit representing the 2^128 term
-(bit 24 of h4) not being set; the extra comes from the h1 limb being
-above the normal base 2^26 range.  When this value is converted into the
-non-redundant base 2^64 form, a carry into the new 2^128 bit (in bit 0
-of h2) is necessary to preserve the value.
-
-Given the above bounds, a carry into bit 128 happens exactly when
-h1 >= 2^26, h2 = h3 = 2^26 - 1, and h4 mod 2^24 = 2^24 - 1.
-
-Store the carry into h2, matching the other base 2^26 to base 2^64
-conversions in poly1305_blocks() and poly1305_emit().
-
-This bug causes an incorrect tag to be emitted.  However, this is
-unlikely to happen in practice where Poly1305 is used with a random key,
-since the random key tends to distribute the accumulator values
-throughout their valid range.  There isn't an obvious way for an
-attacker without knowledge of the r_key to cause [h0, h1, h2, h3, h4] to
-land on the precise values where this bug occurs.
-
-[EB: Rewrote the commit message to more clearly describe the bug and
- its impact, and simplified explanation about why there's a carry bit.]
-
-Fixes: f569ca164751 ("crypto: arm64/poly1305 - incorporate OpenSSL/CRYPTOGAMS NEON implementation")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Reviewed-by: Jason A. Donenfeld <Jason@zx2c4.com>
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
-Link: https://patch.msgid.link/20261009125354.315476-2-ebiggers@kernel.org
-Signed-off-by: Eric Biggers <ebiggers@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
+Reviewed-by: Samiullah Khawaja <skhawaja@google.com>
+Reviewed-by: Nicolin Chen <nicolinc@nvidia.com>
+Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+Signed-off-by: Pranjal Shrivastava <praan@google.com>
+Signed-off-by: Joerg Roedel <joerg.roedel@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/arm64/crypto/poly1305-armv8.pl |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pci/ats.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
---- a/arch/arm64/crypto/poly1305-armv8.pl
-+++ b/arch/arm64/crypto/poly1305-armv8.pl
-@@ -372,7 +372,7 @@ poly1305_blocks_neon:
- 	adc	$h1,$h1,xzr
- 	lsr	$h2,x14,#24
- 	adds	$h1,$h1,x14,lsl#40
--	adc	$d2,$h2,xzr		// can be partially reduced...
-+	adc	$h2,$h2,xzr		// preserve carry into top limb
+diff --git a/drivers/pci/ats.c b/drivers/pci/ats.c
+index c967ad6e26267..aa89408cf0195 100644
+--- a/drivers/pci/ats.c
++++ b/drivers/pci/ats.c
+@@ -39,10 +39,13 @@ void pci_ats_init(struct pci_dev *dev)
+  */
+ bool pci_ats_supported(struct pci_dev *dev)
+ {
+-	if (!dev->ats_cap)
++	if (!dev->ats_cap || dev->untrusted)
+ 		return false;
  
- 	ldp	$d0,$d1,[$inp],#16	// load input
- 	sub	$len,$len,#16
+-	return (dev->untrusted == 0);
++	if (dev->is_virtfn)
++		return pci_ats_supported(pci_physfn(dev));
++
++	return true;
+ }
+ EXPORT_SYMBOL_GPL(pci_ats_supported);
+ 
+-- 
+2.53.0
+
 
 
