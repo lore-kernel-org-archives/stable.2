@@ -1,59 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795021606;
-	b=wvyDsUtK81SmYC/4ErVjIuTA97F2fyFlS50BmsiTqSLXMLyY/cjQ08+GDv7mJR8qR3g+
-	 4+6l4yAt2GivlhHPUBgweibIS0OVJKsUGEUWEy7wW991e7UFyEFYfsAXJu/Wrq+9EUn7W
-	 k/I6dWFA0U3Cc583GLqmyOQoinFkMC8eAs5hsArC95SXq/RIwHhRZhMNLgI2DKz0QCZ3K
-	 +lyZQ27zKhInOhXm/qoyTL2xISFoGOBRcodOntqfvx9fj6HKzMDdQ/LyT0VGvYbneOKPF
-	 cghWqeZy47PGUoBj70zDJjY+3lmXKHi4DgKolEA7CHKuUfZawnR27x9TyK2+S3Nla9w==
+	t=1795021609;
+	b=s9XSQizneY45e2nwrBkvOYIPmujKUqLgeinDxJl/kRDWB171zChWbf+eAbwx8pH0CB6i
+	 JrgNY39TY2kN64pslbrxsAKAKRlr6R9G7zUz3RnTBXPP7D4qiWqdmXlnhajgThlTuA2xL
+	 G//HEAKLKiLt3DeNvWztKCtCZ1kdd+bRWfccVhKfFtMQq08tAGCQqyfjRqh6cl8SheC2p
+	 vPclG+uX+R42Dz85/jFyghHXMkaIkzDOD6WFArNePDbkqq5WumDyqY2ZMovky6bqO+nuW
+	 7dWAqQb//Swq/TjUZXdNokJqAqQiiTibtjZAXFIUpIxB+zZA/dfojzrJV4AxwYnVMWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795021606;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=tGR1Pheja8UX+q7j6BPbOePxrbdEA1lKf+oSFzTuAy4=;
-	b=Vs07QrpsnPdqs7hjZcpDbHATNy4uT3+SwrzGoB1JBCPGVD6Y33r+YvXuP5NN5369Re/C
-	 Rh8dQtW5pkKXRJGgLqaU9CSNZj+9a9M9RnISCXl1YKoI9YJEDkNxoqHhEBD0MfXutCocz
-	 +aLVSqGzVUfOkxSwz6NjZu4CAhd6qzv3dZsjjFi70Xw/in++vYUhtrIEJ4YDY5Saf9MoN
-	 LBinI45HoKn2Fn7LIOE7/Kdz7CGI7rtm0gQ9DiwRx+7FHPtwSSGGsgSA+3vEN+AvVCTO0
-	 WNYRU1lwoaCrOfdA0/5lRdyZwmIMS1sNaoso/xVJbnpC1IxXRdD6v5q8i9WB8NTNIXQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795021609;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=NERtTTv5NntT1NkD3gAahuIItX+5AV99kWuiN6Stv5M=;
+	b=O6fQ31d+duMGk83WPHwo5Jy5HX5B3LpLkg2NpiTiE/LuhmIKgTU71Git9VHpeRgOzKzr
+	 bSvNUwzBvPpqVuYzihFhfBNIdZtP+CzHAmyXXJOIHyLy3uZzt5oXCWgdM9s5yYzWn3OaS
+	 /MRC9iQPxKblI6hY9ePH+mqYbAE+lFWYvqMrxvnIMwFfxSVVp9t8U0AOqs6lT/Y1WU27m
+	 D1GzO9FcrQ84ETlLPlKEfP8QoXoHW5CwgZnfWpqjQou5wJThgLOvZ+N0AEDviHKGVWMl3
+	 /fc4c+B0EXHFSuQo9Feq+bb8P1wL17+VrrQLygjIIgiI0RfV5BpxvtAvMwlpBUHekvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=N7tWJTXq;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QheI099E;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6465760A260E;
-	Wed, 18 Nov 2026 17:06:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6465760A260E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D4E60A2610;
+	Wed, 18 Nov 2026 17:06:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=N7tWJTXq
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 4B1891A16CB;
-	Wed, 18 Nov 2026 17:06:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 18D525FE9B;
-	Wed, 18 Nov 2026 17:06:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 30A7811BC29F5;
-	Wed, 18 Nov 2026 18:06:38 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795021603; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=tGR1Pheja8UX+q7j6BPbOePxrbdEA1lKf+oSFzTuAy4=;
-	b=N7tWJTXq91CmHZAVeUCRic974Wak36ycLZYVPBV19l92gS7EePUMS1QnL3VxQ1UwyxXGj/
-	a637ctUnvyPT3jQEj2+XKFQp72QJXDfmxVBX5B8E+eebxCN+gfh7ZAGztl1uzH5/RkHkV+
-	bUzI0fP5YKlTBwOHwa6cJblkbW4dcoerCq2Ifu8kqroQ5P2D9/wUe6x1QJSga9PAOBmlvs
-	UdYaczEBb91ov+wceS8QCAlrTfce89d26ARjirGNOgoWAKL32rQvZjIHGQ4O3qDvAKWlMU
-	ZuxPzQfkEHw4+5r3VE10OydcUKq6QhFafH3AbGFKMm1oSgB2xlhj1Q0GnG/hQQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 18 Nov 2026 17:59:18 +0100
-Subject: [PATCH v12 09/10] clk: nuvoton: ma35d1: Fix CCAP muxes bus width
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QheI099E
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F0971F000C9;
+	Wed, 18 Nov 2026 17:06:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795021608;
+	bh=NERtTTv5NntT1NkD3gAahuIItX+5AV99kWuiN6Stv5M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QheI099E1qF3SkLoCygosQjKdyk5+RE4bMFewgqDYUYjtwimMzYvKRWhu7wdXxfoY
+	 16ddkkIXlhGBxPBNXQ33HK1WJnYt4+ru+F3VJsPrki0IEZeMNFCob9UOeq4E05Jtak
+	 PYyNH9FbrButFCXlb9pUnczZ57ghyws3vfC1i8OE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Waiman Long <longman@redhat.com>,
+	Ridong Chen <ridong.chen@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 2369/2651] cgroup/cpuset: check effective mems for a movable-only configuration
+Date: Wed, 18 Nov 2026 16:00:09 +0100
+Message-ID: <20261118150410.812196244@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,63 +64,92 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-perso-ma35d1-upstream-clk-v12-9-bee2c8dad4e1@bootlin.com>
-References: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
-In-Reply-To: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Both CCAP muxes are registered with a single bit bus width which is
-obviously wrong since there are 4 possible parents. Fix the mux field
-width.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+------------------
+
+From: Gregory Price (Meta) <gourry@gourry.net>
+
+[ Upstream commit 4c047bd0499602161959478b90e66f4c8e523c9b ]
+
+check_insane_mems_config() warns and enables cpusets_insane_config_key
+when a cpuset's tasks can allocate only from movable memory.
+
+In cgroup v2 the request may name a memoryless node, which has no zones
+and cpusets reports it as a movable-only nodemask.
+
+For example, with node 2 a CPU-only node:
+
+  # echo +cpuset > /sys/fs/cgroup/cgroup.subtree_control
+  # mkdir /sys/fs/cgroup/test
+  # echo 2 > /sys/fs/cgroup/test/cpuset.mems
+  # cat /sys/fs/cgroup/test/cpuset.mems.effective
+    0-1
+  # dmesg
+    Unsupported (movable nodes only) cpuset configuration detected (nmask=2)!
+
+This is a bit confusing, especially consider mems.effective ends up with
+a valid nodemask by-design (cpuset.mems is treated as-if it were empty).
+
+Check each new effective mask in update_nodemasks_hier() instead, as the
+hotplug path already does. The allocator's bail-out tests the task's
+mems_allowed, which comes from the effective mask.
+
+A request naming a movable-only not present in the parent's nodemask
+no longer warns (since, again, the cpuset.mems gets overridden and
+treated as empty). However, it will warn if the parent's mems include
+the node later.
+
+For Example, with node 3 a movable-only node:
+
+  # echo 0 > /sys/fs/cgroup/test/cpuset.mems
+  # echo 3 > /sys/fs/cgroup/test/child/cpuset.mems
+  # cat /sys/fs/cgroup/test/child/cpuset.mems.effective
+    0
+  # dmesg
+    { empty }
+  # echo 0,3 > /sys/fs/cgroup/test/cpuset.mems
+  # cat /sys/fs/cgroup/test/child/cpuset.mems.effective
+    3
+  # dmesg
+    Unsupported (movable nodes only) cpuset configuration detected (nmask=3)!
+
+Fixes: 8ca1b5a49885 ("mm/page_alloc: detect allocation forbidden by cpuset and bail out early")
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+Reviewed-by: Waiman Long <longman@redhat.com>
+Reviewed-by: Ridong Chen <ridong.chen@linux.dev>
+Signed-off-by: Tejun Heo <tj@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/clk/nuvoton/clk-ma35d1.c | 4 ++--
+ kernel/cgroup/cpuset.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index a5a36f88d973..97a90cdb48c7 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -424,13 +424,13 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	hws[EMAC1_GATE] = ma35d1_clk_gate(dev, "emac1_gate", "epll_div2",
- 					  clk_base + REG_CLK_SYSCLK0, 28);
+diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+index 5d1883d19319b..d39953799ad56 100644
+--- a/kernel/cgroup/cpuset.c
++++ b/kernel/cgroup/cpuset.c
+@@ -2882,6 +2882,8 @@ static void update_nodemasks_hier(struct cpuset *cs, nodemask_t *new_mems)
+ 			continue;
+ 		rcu_read_unlock();
  
--	hws[CCAP0_MUX] = ma35d1_clk_mux(dev, "ccap0_mux", clk_base + REG_CLK_CLKSEL0, 12, 1, hws,
-+	hws[CCAP0_MUX] = ma35d1_clk_mux(dev, "ccap0_mux", clk_base + REG_CLK_CLKSEL0, 12, 2, hws,
- 					ccap_parent_idx, ARRAY_SIZE(ccap_parent_idx));
- 	hws[CCAP0_DIV] = ma35d1_clk_divider(dev, "ccap0_div", "ccap0_mux",
- 					    clk_base + REG_CLK_CLKDIV1, 8, 4);
- 	hws[CCAP0_GATE] = ma35d1_clk_gate(dev, "ccap0_gate", "ccap0_div",
- 					  clk_base + REG_CLK_SYSCLK0, 29);
--	hws[CCAP1_MUX] = ma35d1_clk_mux(dev, "ccap1_mux", clk_base + REG_CLK_CLKSEL0, 14, 1, hws,
-+	hws[CCAP1_MUX] = ma35d1_clk_mux(dev, "ccap1_mux", clk_base + REG_CLK_CLKSEL0, 14, 2, hws,
- 					ccap_parent_idx, ARRAY_SIZE(ccap_parent_idx));
- 	hws[CCAP1_DIV] = ma35d1_clk_divider(dev, "ccap1_div", "ccap1_mux",
- 					    clk_base + REG_CLK_CLKDIV1,
-
++		check_insane_mems_config(new_mems);
++
+ 		spin_lock_irq(&callback_lock);
+ 		cp->effective_mems = *new_mems;
+ 		spin_unlock_irq(&callback_lock);
+@@ -2935,8 +2937,6 @@ static int update_nodemask(struct cpuset *cs, struct cpuset *trialcs,
+ 	if (retval < 0)
+ 		return retval;
+ 
+-	check_insane_mems_config(&trialcs->mems_allowed);
+-
+ 	spin_lock_irq(&callback_lock);
+ 	cs->mems_allowed = trialcs->mems_allowed;
+ 	spin_unlock_irq(&callback_lock);
 -- 
-2.56.0
+2.53.0
+
+
 
