@@ -1,52 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795028606;
-	b=Nct4xy7YCuCGOEA095Okj2rvpY45J7f9Z678WTAPGYKUqFWU57+vOxc/axHmAD+Yw7RP
-	 8nSzRMCKM4XggGyAgHjlexBeh5qd4yPYfZveJ5JUNiczjZNb7jt2qUartdwi2zuERfajt
-	 GdFYEaBUtPONlWdUcvt5ULh8PlZVFs3iUw6ZY0pKRJHcWVydJOh+CTEpxGcIC88nt4P9v
-	 h2Jk9sH62+wOcAdTDfnlq4OuM68tRBxwi6WdrfdD/HbwnJsfco+l4lAAjtNnXMPXfwlK2
-	 BJKYAeeHxE75g41WIYI7gy4nMKJfpupwmtl4oF2VsPyxQwDQNSHimUlLQs+VAHAJEdw==
+	t=1795028609;
+	b=LdjoTvGbYqxZDvrdX8UBHHp2w1pUj5/I6lak9E885tgwmI8g5GgNIVHvUloSCx1+frkg
+	 FO+OeQY/HYeUEJ2lGntX3Pmzb7xNFfODRUY54IEXHq5ykYABNbv91QHh4DHiQPZfqwkj3
+	 PmbMAUKx+M6uBqAOBNNgHZTjrFBTaWrn0RP/FI5HfLuV62QaB/YD/VLlM0GREi4JPIFnj
+	 aL8i5ruFK+xko8rBU9TEXwtN3OY0sKd0yoEME6O2hB5eXxnTYFPi/b7yfpMrCBZjFbHgZ
+	 gdC8xScib++rFEAKkXhLJ5trQs2tE65DDfnQMMy4moWq1mkLK9c8MITmDhof+in9VZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795028606;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795028609;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=PNKoy+v7vSkFthuccA5bGJTdM07tajyXwKeBYz/vll0=;
-	b=zFf/CaOPgK7zX3TnFicBnh/pDGQiXlfSJYyVChcoIvn9R16uQDaeiHc4djPJHKFiZf/+
-	 kYMYv8dLgX+PjzpGc64nsmKYhH6aK+VZezaimXmvZwwGMhyRydX6+nIiuIf5z/pROS3Md
-	 GopvcQuN7nzGlAoUWQXNJvPWTcyGCiJX2Swagd4HLftScukI0740F8YekzGzdr1XDzB6B
-	 7qZCCMBFHHRycYZhi7a0db1KiSnnhy4L2lcMbRZdTsKf28UJR4dQQfqND7Iuvz23teYvQ
-	 bfGs7OM9480Mc5RjVgdLtmLROWhcc9KfEI5g9Pt9N1Jjj54nBYnKy8w1tvQq5IrC/Bw==
+	bh=11o9i6k6M1fI3l87f9rN6HDq/3zExjHRrhOsdsh+TPg=;
+	b=lW8SI5gYl4d6ZWVwQ9ox9WFvoEeYiIzCpQcrFTCsFbxVSGsUQWzPuEy6fk0W9GokQQMv
+	 SIj8700hskcSy5j6RMkEmkk1BkT3tlNODXOQxi5GKBfqEBG6uEgoXyGU1///KYBILR9tf
+	 PrnSS3btWFPxRnpofZ2NZLY/N0viSfxdl/mPf495PP1Qn00eL1p14tnDe3qYfK0BAgL/y
+	 Zyz5sey24wcJeZ8Gs2AMz9WOwBdriDEGz5xZ9fYXXQ10jSqRH3q78P80u9NgSlc4p5Ln2
+	 O1Dka1XWIcFc0dQOHrgmiZD/KbwPwTrvkJp1IfCWy56v7kE13GY9to0iP6zr8hhaLgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SFxi4VDs;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wRZLqk7h;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ABAD606A325;
-	Wed, 18 Nov 2026 19:03:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1632606A31C;
+	Wed, 18 Nov 2026 19:03:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SFxi4VDs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C5ED1F000C5;
-	Wed, 18 Nov 2026 19:03:25 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wRZLqk7h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC7F1F000C4;
+	Wed, 18 Nov 2026 19:03:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795028606;
-	bh=PNKoy+v7vSkFthuccA5bGJTdM07tajyXwKeBYz/vll0=;
+	s=korg; t=1795028608;
+	bh=11o9i6k6M1fI3l87f9rN6HDq/3zExjHRrhOsdsh+TPg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SFxi4VDs23Jwcd64uZQxumphsCD/gIhYe0mHBBoExv5uOkiNVSnRJ9+2EtjYgsDqo
-	 vRM+SIdI/MkR2PuubeG1u/l87/hz3hiVYqUpcSyli5/cN4zb770C+gIfBdc++wUmo9
-	 tLZHl3bRVWr89Hyc5Ur2PCh3Cbdt/Xky9+K7NdxE=
+	b=wRZLqk7h01QPRYXbYvsb9Pl6p9Y2UdtwThSAcFxdRfNUmNG/Br3BP1RmSSNDaegae
+	 u5XDz/aF8x4/dQXGLmcUegPBVzxGXv3lK/Emqap+Io2yp6XeYY6nI9VPh/jh1VY4wB
+	 IIEE3nNd4K+H+mw7XoLQBTR5qP2xH86eiDzngdH0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	"Pierre-Loup A. Griffais" <pgriffais@valvesoftware.com>,
+	Melissa Wen <mwen@igalia.com>,
+	Alex Hung <alex.hung@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0054/1756] drm/msm/hdmi: Handle msm_hdmi_power_on() errors during .atomic_pre_enable()
-Date: Wed, 18 Nov 2026 15:36:21 +0100
-Message-ID: <20261118150010.528621379@linuxfoundation.org>
+Subject: [PATCH 6.12 0055/1756] drm/amd/display: Signal PQ EOTF in FreeSync infopacket for DP HDR
+Date: Wed, 18 Nov 2026 15:36:22 +0100
+Message-ID: <20261118150010.565149036@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150007.957976754@linuxfoundation.org>
 References: <20261118150007.957976754@linuxfoundation.org>
@@ -68,95 +70,81 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+From: Melissa Wen <mwen@igalia.com>
 
-[ Upstream commit dd6ecace57851878e62367a6f1a26dd5b9aa217f ]
+[ Upstream commit 81f923b065801c7d30042bcda31ccb9449b4f58b ]
 
-Properly handle power up failures during .atomic_pre_enable() by
-aborting the .atomic_pre_enable() to avoid accessing registers why
-blocks did not bring up.  Otherwise this could lead to imprecise aborts
-when accessing MMIO while entire power domain is off.
+Commit c2791297013e ("drm/amd/display: Add color bit info to freesync
+infoframe") created the app_tf interface for FreeSync HDR and commit
+c21a764a98cb ("drm/amd/display: Send PQ bit in AMD VSIF") used it to set
+PB9 bit 5 (PQ EOTF) in v2/v3 AMD Freesync infopacket. However, Linux
+never made use of this interface: DM ignores what userspace sets
+regarding HDR and always passes TRANSFER_FUNC_UNKNOWN as app_tf, so the
+PQ bit is never set in the infopacket received by the eDP panel.
 
-Cc: <stable@vger.kernel.org>
-Fixes: ba3d7bf3a7ab ("drm/msm/hdmi: Convert PHY files according to new design")
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Patchwork: https://patchwork.freedesktop.org/patch/752652/
-Link: https://lore.kernel.org/r/20260911-drm-msm-hdmi-fixes-before-eliza-v4-2-87bdb9f1987f@oss.qualcomm.com
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-[ sashal: adapted atomic_pre_enable() error handling to pre_enable() with explicit regulator and multiple-clock cleanup ]
+Check the EOTF in the HDR static metadata and set the PQ bit in Freesync
+infopacket for DP accordingly. This fixes gray-washed HDR on KDE/GNOME
+on Framework 13 Pro AI 9 HX 370 (DCN 3.5) and may fix similar issues on
+other VRR-capable panels that advertise Replay in its AMD VSDB.
+
+It doesn't affect color/EOTF bits on infopackets for SDR and native
+HDMI.
+
+Reported-by: Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/3200
+Signed-off-by: Melissa Wen <mwen@igalia.com>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit b318f3e13dd73781404670d3b3c6cf2177e0119c)
+Cc: stable@vger.kernel.org
+[ sashal: inlined the upstream dm_dp_in_hdr_mode() condition in the existing update_freesync_state_on_stream() function ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/msm/hdmi/hdmi_bridge.c | 30 +++++++++++++++++++++-----
- 1 file changed, 25 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-index b4abac49f5d96..4b874b1c846ad 100644
---- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-+++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-@@ -11,7 +11,7 @@
- #include "msm_kms.h"
- #include "hdmi.h"
- 
--static void msm_hdmi_power_on(struct drm_bridge *bridge)
-+static int msm_hdmi_power_on(struct drm_bridge *bridge)
- {
- 	struct drm_device *dev = bridge->dev;
- 	struct hdmi_bridge *hdmi_bridge = to_hdmi_bridge(bridge);
-@@ -19,11 +19,15 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
- 	const struct hdmi_platform_config *config = hdmi->config;
- 	int i, ret;
- 
--	pm_runtime_get_sync(&hdmi->pdev->dev);
-+	ret = pm_runtime_resume_and_get(&hdmi->pdev->dev);
-+	if (ret)
-+		return ret;
- 
- 	ret = regulator_bulk_enable(config->pwr_reg_cnt, hdmi->pwr_regs);
--	if (ret)
-+	if (ret) {
- 		DRM_DEV_ERROR(dev->dev, "failed to enable pwr regulator: %d\n", ret);
-+		goto err_pm_put;
-+	}
- 
- 	if (config->pwr_clk_cnt > 0) {
- 		DBG("pixclock: %lu", hdmi->pixclock);
-@@ -39,8 +43,19 @@ static void msm_hdmi_power_on(struct drm_bridge *bridge)
- 		if (ret) {
- 			DRM_DEV_ERROR(dev->dev, "failed to enable pwr clk: %s (%d)\n",
- 					config->pwr_clk_names[i], ret);
-+			goto err_clk_unprepare;
- 		}
- 	}
-+
-+	return 0;
-+
-+err_clk_unprepare:
-+	for (; i > 0; i--)
-+		clk_disable_unprepare(hdmi->pwr_clks[i - 1]);
-+	regulator_bulk_disable(config->pwr_reg_cnt, hdmi->pwr_regs);
-+err_pm_put:
-+	pm_runtime_put(&hdmi->pdev->dev);
-+	return ret;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 175cf9e1a24e7..0302109de6baa 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -8817,6 +8817,8 @@ static void prepare_flip_isr(struct amdgpu_crtc *acrtc)
+ 		      acrtc->crtc_id);
  }
  
- static void power_off(struct drm_bridge *bridge)
-@@ -135,8 +150,13 @@ static void msm_hdmi_bridge_pre_enable(struct drm_bridge *bridge)
- 	DBG("power up");
- 
- 	if (!hdmi->power_on) {
--		msm_hdmi_phy_resource_enable(phy);
--		msm_hdmi_power_on(bridge);
-+		if (msm_hdmi_phy_resource_enable(phy))
-+			return;
++#define DP_HDR_SDP_EOTF_IDX 2
 +
-+		if (msm_hdmi_power_on(bridge)) {
-+			msm_hdmi_phy_resource_disable(phy);
-+			return;
-+		}
- 		hdmi->power_on = true;
- 		if (hdmi->hdmi_mode) {
- 			msm_hdmi_config_avi_infoframe(hdmi);
+ static void update_freesync_state_on_stream(
+ 	struct amdgpu_display_manager *dm,
+ 	struct dm_crtc_state *new_crtc_state,
+@@ -8832,6 +8834,8 @@ static void update_freesync_state_on_stream(
+ 	bool pack_sdp_v1_3 = false;
+ 	struct amdgpu_dm_connector *aconn;
+ 	enum vrr_packet_type packet_type = PACKET_TYPE_VRR;
++	enum color_transfer_func app_tf;
++	const struct dc_info_packet *hdr;
+ 
+ 	if (!new_stream)
+ 		return;
+@@ -8883,12 +8887,18 @@ static void update_freesync_state_on_stream(
+ 					&new_stream->adaptive_sync_infopacket);
+ 	}
+ 
++	hdr = &new_stream->hdr_static_metadata;
++	app_tf = dc_is_dp_signal(new_stream->signal) && hdr->valid &&
++		 hdr->sb[DP_HDR_SDP_EOTF_IDX] == HDMI_EOTF_SMPTE_ST2084 ?
++		 TRANSFER_FUNC_PQ2084 :
++		 TRANSFER_FUNC_UNKNOWN;
++
+ 	mod_freesync_build_vrr_infopacket(
+ 		dm->freesync_module,
+ 		new_stream,
+ 		&vrr_params,
+ 		packet_type,
+-		TRANSFER_FUNC_UNKNOWN,
++		app_tf,
+ 		&vrr_infopacket,
+ 		pack_sdp_v1_3);
+ 
 -- 
 2.53.0
 
