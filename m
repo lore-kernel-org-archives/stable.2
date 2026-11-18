@@ -1,64 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.204
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794970961;
-	b=r1yBJwT6gS/mvPt9pHbNiorjmQ+RmsH1DOsMrB4OaiL676G2AfiErBCZEuDd5A8xoCsk
-	 0u9b0TKubUy7WMXrt2jJ4aifU+5ygbOwsGlMFpEmKJTltHUzsvlI+XgkjUEKgqILcTgaB
-	 xlEYO0U/FimJRG2aXbYW5Lb3CumPi6u7Z3DXP9n+3O8yQOTLpa1Qv03Q2EUAu87cPhwxp
-	 R1ymKJLF3DpZSON84RpDUyIehFTmaLVbsCeKD8hyV9Vjd7rEEGSbGMiwFSSAA8mz8RBsG
-	 IcE/tydhOp2foe5TTqmBIk3LC6tTICqXXIBRzOWhL3UYgm7E4ui8K4Dm90sZ4/lPQiQ==
+	t=1794971129;
+	b=cULGJcOo1FU0zU6E6aW4f01TuBnFZvbu0CPztgvE3+gqqJRIgQU9VCb2jUTi2KzZBprB
+	 e1lHb8fA211Cj5zIKBRqyhiXWxvH1UBMy7wVQo0J6rztqQlSrBCleoorvepHAMoRk5Thm
+	 mskMgDux7+yhXY44AAvxMpihC+swWUu2uW47leLfi9yHcWeyniONdTrDA4nnWG/2xiuRQ
+	 6bqruvyVzBRx/5DfgCug5BO5q1oCagxjXI+bbsLqNujUxNrkNW3+sygLdI00PTgn5KXLc
+	 esSl5DX//C0xZMLM6FD6GJD7zYY6YgU3M6c7f6741tOF9gTlHP5ZLBFyNZAeuMFL9FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794970961;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=QBDyWzDsJEXBE+HUMN83GaHrQvFEUg2tZXZUzLfc4I8=;
-	b=AjQNKf+RGtOFAvNBEZk4vavRnDXufFJFwVpCKvkNrUy6mOW9lKJkq2c6VTBwB8e6Ms7E
-	 P+3hu2Q2Wsb/o+BB5sewwrw5CKi/kbWJBE2ARgX5WJx9XRdqDMz98kAkm3p5/WBFyZPor
-	 z/+bRZO73gwLngqVk0e41DiYo+VXwNbvGAiluzfl3r4P56rNP93nIguanPoWb1K3J/tjG
-	 lOXE/Y5QX2sMcrFdtF2kKqbY+xU3KnmSDwDJUQzN9qkvaBciPAYDTmU1UaK32+MZK/g9i
-	 +XqbRRLvbAzP0MzjWxikHkwBRGfU5LeDNwxTyKK5Ps4rY7MfFsP5dpM37rpxznLNvTQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794971129;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
+	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
+	bh=JVf5Z4L493biQzcZIUPq5WSeKo5jxSQPgvOHK9iHNbU=;
+	b=ekLWNSNDV2zNk339D4J05eLp3rK4WGgQVLiIGeREquJPvu5mENK6NDuTAWIPupbwWjws
+	 MoXVdtZZCDORRgOYw2d/46Up0Wog35t16lBIF9KLs3aCPSZBK5X73bapnk9Xh3N8zqbfB
+	 zn5rKHaDjtHO8Kiw8tSgVsyfL/MJSjp7aR3rElQpim5cTPWHpJ3KXsIcws3eYDBZgNpt5
+	 o0dTALhLvSN2V5dcdbwSuY6kRpH2PcWfXPz1qCqpURF5/QNgrgc4MYwohTKE0pfYOJjoY
+	 vRLkkSWV1s/iwTygqSQ63xNVEPQzpZabYwsICgQmo/zJUT75QWEpL8MfOqYvChVdgkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mbCXTH6K;
-	arc=none smtp.remote-ip=91.218.175.204
-Received: from mta0.migadu.com (out-204.mta0.migadu.com [91.218.175.204])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=none header.from=linux.spacemit.com;
+	spf=none smtp.mailfrom=linux.spacemit.com;
+	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=ClDhMaZR;
+	arc=none smtp.remote-ip=54.204.34.130
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30DB3606A32C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 03:02:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30DB3606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0053606A31C;
+	Wed, 18 Nov 2026 03:05:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0053606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mbCXTH6K
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=RfydaBjTvqp0ShnNlaeJnvlPZ3CZOLNGFmInsl50U98=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1794970959; v=1; x=1795575759;
- b=mbCXTH6KEBNLQKqghEfJNW//WuPDRk1gq3mzbVQiepxryrwR19BTZbpaD+yrrTaGWbVxez/L
- PBU62/HDuLzCtPgN/9spIe1eEC5v7Zcch5tiZ9OQpmJjGxvZmUODNshuumHfZDQaTfe302Z4NDj
- 4JvP4u9e7V2t1UqQsZ98L7ig=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 18f3657c6622a384;
-	Wed, 18 Nov 2026 03:02:39 +0000
-X-Mizu-Trace-ID: 18f3657c6622a384
-X-Migadu-Flow: FLOW_OUT
-From: George Guo <dongtai.guo@linux.dev>
-To: chenhuacai@kernel.org,
-	yangtiezhu@loongson.cn
-Cc: hengqi.chen@gmail.com,
-	guodongtai@kylinos.cn,
-	bpf@vger.kernel.org,
-	loongarch@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] LoongArch: BPF: Fix the offset of stptr.w and stptr.d stores
-Date: Wed, 18 Nov 2026 12:02:18 +0900
-Message-ID: <20261118030219.6230-1-dongtai.guo@linux.dev>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=ClDhMaZR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1794971118;
+	bh=JVf5Z4L493biQzcZIUPq5WSeKo5jxSQPgvOHK9iHNbU=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=ClDhMaZR4HNDzWf8gp1p2oOY/dkzabWLPp84r9vKh8WOYIwUOg5e7Kc5aO50Bs1wF
+	 JywNEqxHFGPHf+sQ+TDYIPo04Rng+JidhfGuu33olH2aTnuZfWuT0XzHRSIj9gjyqv
+	 7lhWl39goLdQKk1t0R0IUb16/YuGedMBFkf9fh58=
+X-QQ-mid: zesmtpgz6t1794971117t96746eb8
+X-QQ-Originating-IP: CtE7MWfKIvGwwWKdSM4dsr/RIPUw16t0C8P3Ex/CTfQ=
+Received: from [127.0.1.1] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 18 Nov 2026 11:05:14 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 18325639032088577285
+EX-QQ-RecipientCnt: 15
+From: Peixin Xie <peixin.xie@linux.spacemit.com>
+Date: Wed, 18 Nov 2026 11:04:33 +0800
+Subject: [PATCH] riscv: cpu: Fix incorrect cached machine IDs on secondary
+ harts
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,118 +64,101 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261118-riscv-marchid-fix-v1-1-6d677fcd5461@linux.spacemit.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW7AWcGkVwkvtt1jjpDJTEkgv
+ ntrXX4Hzr+RwxROl2ojw6quz7lAThWlMc53sOZiCnVoRaRjU08rP6KlUTMP+uEGsWnPIQtqUPk
+ thjL/mtf+b3/fJqTXEaJ9/wK1tqKVdQAAAA==
+X-Change-ID: 20261118-riscv-marchid-fix-3ea3672d1e0e
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Yixun Lan <dlan@kernel.org>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+ Guo Ren <guoren@kernel.org>, Conor Dooley <conor.dooley@microchip.com>, 
+ Charlie Jenkins <thecharlesjenkins@gmail.com>
+Cc: Palmer Dabbelt <palmer@rivosinc.com>, linux-riscv@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, spacemit@lists.linux.dev, 
+ stable@vger.kernel.org, Peixin Xie <peixin.xie@linux.spacemit.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1794971115; l=1952;
+ i=peixin.xie@linux.spacemit.com; s=20260727; h=from:subject:message-id;
+ bh=+XmXptOpB9qNChqNiEmskdTqAu9CpoySFZwuHevOeCA=;
+ b=soX/Y5u/Zof/TqDEPMOha+JkSm85SjmlfwBSkakoCGHxFRfWao9VmVVnZg/ZsWNXcDY7i1z0z
+ b3fqqDc9nfcAoJrWhMbXxEj8Z9BLLAUG8F7K7unoT4HSC/thsDrZNqK
+X-Developer-Key: i=peixin.xie@linux.spacemit.com; a=ed25519;
+ pk=jczO0FmEQZBoClfXslkwCsHKDmSRchQ1hQr8W7yiiXg=
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: NCv6Rd7nbe9tzhgisXV4tGubeS7/b3j1/ZmU17ZGcxgsnlylQBdptiPp
+	/bNLOPUN2QUp20zkU4AlPWVf/sVPL2X9Jlqa3F6UdHb5TB6g8aN8hbWFh9YulzDSm+BkoN1
+	xo7gvBx+4MTB9Gk4DONs4cDkqjBB+GCo9p3A6qGGU1DtkXH2RcqZ1jPdUiLxTs9NmPS67gH
+	GZHcU7/U0NqgV7EKSou70CAFluv6iwF3Vgq0LFIX58GqlxkuhUoLaP+Qxb/hbfbvEtM+JMG
+	WjztnMhzjw3hnPuhna5aOpKJeI2x83aRiyZtcCiJXI44eHHR903HxwwIfrEw1swpeDtqJyH
+	cRBPLtoe/XDpzYJgTQGuSesvVmdEw5I2ZGBEJXuTfoOfOI9ZhZT5PulRH5VMG9ue0YphFXV
+	ckNPzu3ra5N8EiExMkQm73iJ/5J+Mh6RmZP8hjHdXER+asqibf0Hwt/ZZxBn6J8U84jfrnz
+	luhmnn3qC4pkpbTKz+qnjdCgQOAbBq7N1P91J61ThD/e5znDZyIK5HUwTGnhSyMHgqMOMPy
+	TJFN4DXXSUhENZC6TZ2qEPRApssA/fh5FLGt9RZ3V81h780su8pr+Zx/OFj0IFJz+KCYIdq
+	MHYx4TTutgZOMKVhZ0NspTFuWWacb6M8wYY92Kk0Ql/P4xjsTiIUTAhRt5GfbzpRiJMnDG7
+	A/BRzrW/nZi9WVp+m1/1nn9/pncN/XvnGqGrPnZBbvTkhc0hgE+J36wuxLlaRY+CHCYfKBG
+	jm5Xf7bHD/1pOhkI2ROoFRYjmEu7fW/oRzQdKmvvzfnh50R1rxfmSH+mJNRMWt4eq7OsirV
+	UBwWXvi90+5dWm6Zpn4N0HXqtejxRz3rbXg36qlfcjzfovo6Pn1aNnLqghgstx0LwoxBpBm
+	lbRXEzsultz6dnQWwOfHnnJuH018UaPe/3ADt/GRn60J/4SaAgiymug3h0wkM9GnodwpzFv
+	cV82qsEY/9boOvu2inLBR7UUDKfthy1IxADDg3Rjabyx2hDsoP+/cLcSnZxb1LyP06WuPUo
+	NqYeZ1luZWjzg63pAkxp6iHF3mU2Qt2bpr4bPE4kMBN5EBvbrY6XIBT/4ugy6Q1dq8baPCZ
+	qHU0WTxE1fsHLxQTTKrv8PhFoiSNtArgfyNQQ/zC+S4q80vvXrwOHIy5qAaS76wWw==
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-From: George Guo <guodongtai@kylinos.cn>
+During early ISA-string parsing, the boot hart stores its mvendorid
+and marchid in riscv_cpuinfo. This happens before setup_per_cpu_areas(),
+which copies the static per-CPU data to each CPU's allocated area.
 
-When testing bpf selftests "jit_insns" and "jit_insns_blinded", the
-"ldst_offsets" subtest fails for word and doubleword stores:
+When riscv_cpuinfo_starting() runs on the other harts, the copied IDs
+are already nonzero, so it skips reading their own IDs. As a result,
+secondary harts can retain the boot hart's IDs.
 
-  store_offsets:FAIL:stx size=24 base=r9 src=r0: byte at offset -16384
-  unexpected ... actual 255 != expected 67
-  ...
-  #197/11  jit_insns_blinded/ldst_offsets:FAIL
+Read mvendorid and marchid unconditionally on each hart, as already
+done for mimpid.
 
-This is because the JIT emits stptr.w or stptr.d for store offsets
-that do not fit a signed 12-bit immediate but fit a signed 14-bit
-immediate, and passes the byte offset directly to the instruction
-encoder. However, these instructions scale their signed 14-bit
-immediate by 4 when calculating the memory address. For example, a
-store at offset -4096 writes at offset -16384 instead, outside the
-memory range checked by the verifier.
-
-Pass the offset in units of 4 bytes when emitting stptr.w and stptr.d
-for both immediate and register stores. Use these instructions only
-for offsets that are multiples of 4 in the range [-32768, 32764], and
-keep the register-offset fallback for other offsets that do not fit
-the signed 12-bit immediate of st.w or st.d.
-
-With this patch, both "ldst_offsets" subtests pass:
-
-  $ sudo ./test_progs -t jit_insns -t jit_insns_blinded
-  ...
-  #196/26  jit_insns/ldst_offsets:OK
-  ...
-  #197/11  jit_insns_blinded/ldst_offsets:OK
-
+Fixes: e482eab4d1eb ("riscv: cpufeature: Fix thead vector hwcap removal")
 Cc: stable@vger.kernel.org
-Fixes: 5dc615520c4d ("LoongArch: Add BPF JIT support")
-Signed-off-by: George Guo <guodongtai@kylinos.cn>
+Signed-off-by: Peixin Xie <peixin.xie@linux.spacemit.com>
 ---
- arch/loongarch/net/bpf_jit.c | 16 ++++++++--------
- arch/loongarch/net/bpf_jit.h |  9 +++++++++
- 2 files changed, 17 insertions(+), 8 deletions(-)
+ arch/riscv/kernel/cpu.c | 12 ++++--------
+ 1 file changed, 4 insertions(+), 8 deletions(-)
 
-diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
-index 15af1abb5cb6..16e59722620f 100644
---- a/arch/loongarch/net/bpf_jit.c
-+++ b/arch/loongarch/net/bpf_jit.c
-@@ -1400,8 +1400,8 @@ static int build_insn(const struct bpf_insn *insn, struct jit_ctx *ctx, bool ext
- 			move_imm(ctx, t1, imm);
- 			if (is_signed_imm12(off)) {
- 				emit_insn(ctx, stw, t1, dst, off);
--			} else if (is_signed_imm14(off)) {
--				emit_insn(ctx, stptrw, t1, dst, off);
-+			} else if (is_ptr_off(off)) {
-+				emit_insn(ctx, stptrw, t1, dst, off >> 2);
- 			} else {
- 				move_imm(ctx, t2, off);
- 				emit_insn(ctx, stxw, t1, dst, t2);
-@@ -1411,8 +1411,8 @@ static int build_insn(const struct bpf_insn *insn, struct jit_ctx *ctx, bool ext
- 			move_imm(ctx, t1, imm);
- 			if (is_signed_imm12(off)) {
- 				emit_insn(ctx, std, t1, dst, off);
--			} else if (is_signed_imm14(off)) {
--				emit_insn(ctx, stptrd, t1, dst, off);
-+			} else if (is_ptr_off(off)) {
-+				emit_insn(ctx, stptrd, t1, dst, off >> 2);
- 			} else {
- 				move_imm(ctx, t2, off);
- 				emit_insn(ctx, stxd, t1, dst, t2);
-@@ -1460,8 +1460,8 @@ static int build_insn(const struct bpf_insn *insn, struct jit_ctx *ctx, bool ext
- 		case BPF_W:
- 			if (is_signed_imm12(off)) {
- 				emit_insn(ctx, stw, src, dst, off);
--			} else if (is_signed_imm14(off)) {
--				emit_insn(ctx, stptrw, src, dst, off);
-+			} else if (is_ptr_off(off)) {
-+				emit_insn(ctx, stptrw, src, dst, off >> 2);
- 			} else {
- 				move_imm(ctx, t1, off);
- 				emit_insn(ctx, stxw, src, dst, t1);
-@@ -1470,8 +1470,8 @@ static int build_insn(const struct bpf_insn *insn, struct jit_ctx *ctx, bool ext
- 		case BPF_DW:
- 			if (is_signed_imm12(off)) {
- 				emit_insn(ctx, std, src, dst, off);
--			} else if (is_signed_imm14(off)) {
--				emit_insn(ctx, stptrd, src, dst, off);
-+			} else if (is_ptr_off(off)) {
-+				emit_insn(ctx, stptrd, src, dst, off >> 2);
- 			} else {
- 				move_imm(ctx, t1, off);
- 				emit_insn(ctx, stxd, src, dst, t1);
-diff --git a/arch/loongarch/net/bpf_jit.h b/arch/loongarch/net/bpf_jit.h
-index 2bd0dc5b911c..5207ad30fade 100644
---- a/arch/loongarch/net/bpf_jit.h
-+++ b/arch/loongarch/net/bpf_jit.h
-@@ -52,6 +52,15 @@ do {										\
- #define is_signed_imm52(val)	signed_imm_check(val, 52)
- #define is_unsigned_imm12(val)	unsigned_imm_check(val, 12)
+diff --git a/arch/riscv/kernel/cpu.c b/arch/riscv/kernel/cpu.c
+index af84b97af3a1..64c0c83eff76 100644
+--- a/arch/riscv/kernel/cpu.c
++++ b/arch/riscv/kernel/cpu.c
+@@ -197,16 +197,12 @@ static int riscv_cpuinfo_starting(unsigned int cpu)
+ 	struct riscv_cpuinfo *ci = this_cpu_ptr(&riscv_cpuinfo);
  
-+/*
-+ * ldptr.{w,d} and stptr.{w,d} take a 14-bit signed immediate in units of
-+ * 4 bytes: they reach a multiple of 4 in [-32768, 32764], passed as off >> 2.
-+ */
-+static inline bool is_ptr_off(int off)
-+{
-+	return !(off & 3) && is_signed_imm16(off);
-+}
-+
- static inline int bpf2la_offset(int bpf_insn, int off, const struct jit_ctx *ctx)
- {
- 	/* BPF JMP offset is relative to the next instruction */
+ #if IS_ENABLED(CONFIG_RISCV_SBI)
+-	if (!ci->mvendorid)
+-		ci->mvendorid = sbi_spec_is_0_1() ? 0 : sbi_get_mvendorid();
+-	if (!ci->marchid)
+-		ci->marchid = sbi_spec_is_0_1() ? 0 : sbi_get_marchid();
++	ci->mvendorid = sbi_spec_is_0_1() ? 0 : sbi_get_mvendorid();
++	ci->marchid = sbi_spec_is_0_1() ? 0 : sbi_get_marchid();
+ 	ci->mimpid = sbi_spec_is_0_1() ? 0 : sbi_get_mimpid();
+ #elif IS_ENABLED(CONFIG_RISCV_M_MODE)
+-	if (!ci->mvendorid)
+-		ci->mvendorid = csr_read(CSR_MVENDORID);
+-	if (!ci->marchid)
+-		ci->marchid = csr_read(CSR_MARCHID);
++	ci->mvendorid = csr_read(CSR_MVENDORID);
++	ci->marchid = csr_read(CSR_MARCHID);
+ 	ci->mimpid = csr_read(CSR_MIMPID);
+ #else
+ 	ci->mvendorid = 0;
 
-base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
--- 
-2.53.0
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261118-riscv-marchid-fix-3ea3672d1e0e
+
+Best regards,
+--  
+Peixin Xie <peixin.xie@linux.spacemit.com>
 
