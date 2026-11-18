@@ -1,61 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795033846;
-	b=snPGe3yDTazpBp+AQnna1OBYi5+Lj16fmQ9d/Iteq/8j9kGOooNr3IW7F+U93HitIq56
-	 L2PDcwZUefzOhb1r+dEriaSOtCr2leoEOamxtRK4GD0W/9T0MZy8mCDdEDKQS771zm8re
-	 PRcCuha8h0/o/2xHzpxox4w7tbkY0C0uozmIeMpOfU1mAoJ4tEt9tgRr9jDa3RyQA6NOV
-	 X4ERA7o+prh0kwsAJQl5tI3NaLFDuXizG5vqvBQMaGaFXMnYb8blesHlKXE0GxrkKzugK
-	 qP4u2sDf6rLlppjxQndwvd+XxFt3QKyQRApUrkhbbybXKde5hrptZXGE0+aXvnCQfTg==
+	t=1795033848;
+	b=zqNPl9CSMbIAcOpmd9FqLdM78aP+hybQk7LEjdvU68nDgmfiXEg2XJoPRyAqK7Vrpzpm
+	 B9vDS2qFAZvqim8ynM2jTlokKXec90qkfJ1QnZVkNirLGhHqRT35mEkH5Mruylo1fLoHH
+	 TpClSkLYnmSavtxWG/upvffYn/GQY9BrqNMKof8zIWHYF8tfjBax2NNxmHbeytFFHYm0d
+	 XBS5uiMa/5WaOrhQzV6cJK/tolMrfpv1FxWp9g8EnQ/fpTRO2KB21pBCiUbX1tk+F1d1G
+	 NMhCbqb/7iWwv0jtXORondyjzwGZ2zIm55XiECdQDFHOtYyUl2d7RvvfMLYrW9m8/sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795033846;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:CC:Subject:In-Reply-To:
-	 Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=EmMKr6gSHoH2dKRP5qeeryr94SYQSSVn/xmvtlztII0=;
-	b=UO+8hPW8tLpA7GOsaY6JuAQd3l9NO17lB31ZQjGOThsLyo04vChftjpHMHo3aiv2KxnD
-	 OqYgzNH7+/ursVpIirXIvj+VH4E033/CmxOG+ZrJNoD+jMy7dtEMWqZDKc2xGipSfG9H4
-	 7FZl2u7js+ptsqzFHC5Y58VQ9J2wSACTxEE+RVHBfxETAY00/HgksuZ/B7fn0uz87IU9a
-	 phMlvJB/zbitGt90gMWGqWR32rcV9DhLg5UEV+nOAKbD8pvLxA4d4rJphH/296AZ1mFSd
-	 Awc8ZLN6bk7S1Rax2VUFxICBGRCPrU4yr++A3kPbuq6Ut/kRSxQxINAtzyPuWD7uAlw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795033848;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=gj/Yilb31ambxsfGuFP4gX2NVYLHhC/tkcHgSxNU3w4=;
+	b=FA35aOmmCvrM1HgD6NpMnxc0IPP98WixCGFKRt4RRL7SbBdWdHrkCa6YoCx72Pc220LC
+	 M9mA9XOf/2jYNzmbSkDUqQhjqyrTo1fJWAH/JHC1AD2jsgjDv6nlarulYMZk5X+iG1gwo
+	 e4C9O6qoAkpQonlqB/FiZYas9JKsuOKivJz8FYxSnZDbPzNTKIVQSN9nhCajg5ljkiTpb
+	 OqsxDjZwltk1YfeX6ZlH+LbUU5t7cC94Pb9WGpVg6giUB0o3pZlJlW2DeGqLs6HM89uzL
+	 LD5rAhoPXVUVofBM0AI35W3UgxBwvsrkPQ/GwkGGaz+9xI8jves41l/F3AHjL6jbRJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="r/4UGTfV";
-	arc=none smtp.remote-ip=95.215.58.72
-Received: from mta1.migadu.com (out-72.mta1.migadu.com [95.215.58.72])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Sm61j5Iu;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C63DB606A32F
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 20:30:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C63DB606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D5460A2605;
+	Wed, 18 Nov 2026 20:30:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=r/4UGTfV
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AsyjQJaO+QbLQmBFS9Ydf8nttCyuw8mAVUIvRm2Y66o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795033842; v=1; x=1795638642;
- b=r/4UGTfVpgnLp5bgcuF487KDCDTFkFp4oHBZamZRqB1sFp5kSp8MrHkQIXV3ScGC5Kee+pFO
- nEpSrHSS4mZBaskS08GH9oO1NqmwiAvnV0nFXnRLkjRGzzxRA6GcUWR06vsFRcxVEn33yp7iVuy
- VbdgbyusWRhTnPgPqSLjxSi4=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9e06d7d80b8442fc;
-	Wed, 18 Nov 2026 20:30:42 +0000
-X-Mizu-Trace-ID: 9e06d7d80b8442fc
-X-Migadu-Flow: FLOW_OUT
-Date: Wed, 18 Nov 2026 20:30:38 +0000
-From: Bradley Morgan <bradley.morgan@linux.dev>
-To: a.kazinsky@ideco.ru
-CC: danielt@kernel.org, dianders@chromium.org, gregkh@linuxfoundation.org,
- kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org,
- lvc-project@linuxtesting.org, mort@sgi.com, naveen.osdev@gmail.com,
- stable@vger.kernel.org, tim.bird@sony.com
-Subject: Re: [PATCH v2] kdb: Reject non-positive BYTESPERWORD before division
-In-Reply-To: <20261118072853.1578323-1-a.kazinsky@ideco.ru>
-Message-ID: <D82C97F0-F6CF-4D7D-BD47-4C1870A7E1FA@linux.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Sm61j5Iu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADA111F000C4;
+	Wed, 18 Nov 2026 20:30:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795033848;
+	bh=gj/Yilb31ambxsfGuFP4gX2NVYLHhC/tkcHgSxNU3w4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Sm61j5IudB43+uH0Za+jnSHiPWmbqI/BwTnOaCWi6mf7ASXCglThCHiF4/sxGaqm9
+	 IAF2c8pfTakJTbqOsvplPUU7l6ISo8ZnDA3Tw/UltlNyjPlyvHt1WWOcTOOU6zoykz
+	 bva0qSWmh+pR98fzdBr3qL3b+b5U94ddgBop0h6g=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Oliver Neukum <oneukum@suse.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 0119/3318] usb: misc: cypress_cy7c63: check result of IO
+Date: Wed, 18 Nov 2026 15:12:21 +0100
+Message-ID: <20261118150317.890405713@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
+References: <20261118150313.527275416@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,60 +61,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 18 November 2026 07:28:52 GMT, Alex Kazinsky <a.kazinsky@ideco.ru>
-wrote:
->kdb_md() uses BYTESPERWORD as a divisor when calculating the initial
->repeat count, before validating the word width. A zero width causes a
->division by zero. kdbgetintenv() also casts an unsigned long to int,
->so the resulting width can be negative. If the width is -1 and the
->scaled count is INT_MIN, the quotient overflows and raises a divide
->error on x86.
->
->Return KDB_BADWIDTH for non-positive widths before calculating the
->repeat count.
->
->Found by Linux Verification Center (linuxtesting.org) with SVACE static
->analysis tool.
->
->Fixes: 5d5314d6795f ("kdb: core for kgdb back end (1 of 2)")
->Cc: stable@vger.kernel.org
->Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-Nice!
+------------------
 
-Reviewed-by: Bradley Morgan <bradley.morgan@linux.dev>
+From: Oliver Neukum <oneukum@suse.com>
+
+[ Upstream commit 0673b919e0933541ae56bb3f0253853f696d3773 ]
+
+If the device returns a bogus short read, treat it as EIO.
+Actually check for IO errors.
+
+Signed-off-by: Oliver Neukum <oneukum@suse.com>
+Link: https://patch.msgid.link/20260710095523.1646308-1-oneukum@suse.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/usb/misc/cypress_cy7c63.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/usb/misc/cypress_cy7c63.c b/drivers/usb/misc/cypress_cy7c63.c
+index 75f5a740cba39..e1a0c1ae93f2b 100644
+--- a/drivers/usb/misc/cypress_cy7c63.c
++++ b/drivers/usb/misc/cypress_cy7c63.c
+@@ -89,8 +89,11 @@ static int vendor_command(struct cypress *dev, unsigned char request,
+ 				 address, data, iobuf, CYPRESS_MAX_REQSIZE,
+ 				 USB_CTRL_GET_TIMEOUT);
+ 	/* we must not process garbage */
+-	if (retval < 2)
++	if (retval < 2) {
++		if (retval >= 0)
++			retval = -EIO;
+ 		goto err_buf;
++	}
+ 
+ 	/* store returned data (more READs to be added) */
+ 	switch (request) {
+@@ -175,8 +178,9 @@ static ssize_t read_port(struct device *dev, struct device_attribute *attr,
+ 	dev_dbg(&cyp->udev->dev, "READ_PORT%d called\n", port_num);
+ 
+ 	result = vendor_command(cyp, CYPRESS_READ_PORT, read_id, 0);
+-
+ 	dev_dbg(&cyp->udev->dev, "Result of vendor_command: %d\n\n", result);
++	if (result < 0)
++		return result;
+ 
+ 	return sprintf(buf, "%d", cyp->port[port_num]);
+ }
+-- 
+2.53.0
 
 
->---
->v1: https://lore.kernel.org/all/20261113111152.4190309-1-a.kazinsky@ideco.ru/
->
->Changes in v2:
->- Reject negative BYTESPERWORD values as well as zero.
->- Explain the signed division overflow in the commit message.
->
-> kernel/debug/kdb/kdb_main.c | 3 +++
-> 1 file changed, 3 insertions(+)
->
->diff --git a/kernel/debug/kdb/kdb_main.c b/kernel/debug/kdb/kdb_main.c
->index 40c332d2179d..b1719382144b 100644
->--- a/kernel/debug/kdb/kdb_main.c
->+++ b/kernel/debug/kdb/kdb_main.c
->@@ -1527,6 +1527,9 @@ static int kdb_md(int argc, const char **argv)
-> 	kdbgetintenv("RADIX", &radix);
-> 	kdbgetintenv("BYTESPERWORD", &bytesperword);
-> 
->+	if (bytesperword <= 0)
->+		return KDB_BADWIDTH;
->+
-> 	/* Assume 'md <addr>' and start with environment values */
-> 	repeat = mdcount * 16 / bytesperword;
-> 
->
->
->
 
---- Thanks!
