@@ -1,88 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794983273;
-	b=V6nT+Tsdp82l1YcGQqNaYM5l7t2TrIWAni+M3s5UcvvKpLt7GFoW2/H9X7CgwbDY611m
-	 yV0nRi8iMGarZ9jDaPjsGQFtzC5Ad6oW3tCYQi380ai+RXkwGVeYWnxDTeP+yGfWbiBVz
-	 XQ0457+7zYvO6uK0iSLci/kWgT0CKM6pt3MJEcGPGuBw6OQ6W0FTd3VpnyJ1Whk5OZs1U
-	 jvjIyTm82D8khDeWWjZsD4yQFN1/ONT6WsxDIneI/l1vhLa0/XzpOnBdfCSde/cj+bKIs
-	 VWAJ0snMgMYbChyPZmKLOSdSe8tOkh1fzdQ+d9aNYdMZvooCxf88Wdz/A9XC43fmE6Q==
+	t=1794983974;
+	b=k0PEIdeKC4guy7T5madP9rLySXPj42bs+8CKkcYf5PutVFaUUnPANeps6aNpXxxLwjl3
+	 6Lim59MxffsnZzcgR8s3AT5CaeVK7Hir6xrdM48fAQbifBmvvFqr1d1y+JQSclecNRapd
+	 ROAGqJ2tlxi6lhEZnF3wEkkEfzyzyTvEb3wj6chNZ2Bub3q+x09cjtyeG82oR6jXe6iCg
+	 VZprnLBQSmp0KRsKV7DwVd5EbSE4nxlrPAgLP0rbXy+N7jzuw9Xd20/bF1EfZ72UU2Y9e
+	 QUC6F0saLSosmnLwjCDt+gS2RKjlMyHdxN0IjRZN1mmp7uJGiUoAMcIkjkR6lFfJZlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794983273;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794983974;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=u5Ctav/yDjXLRSHJvbAGfgAiHawDLtclHE70KW98KZA=;
-	b=2DDgEnJWHB2XtU+djSLVocbiJQ5k+DpszKSHoG3+6YkrfgfHlh7CAbDl6/2+T6qLyJlT
-	 B/D/QNtkzFN8rzRf2DKpSF6Ei+9tJrNi2/agpnz5eS1uliyxSEkSGIv4kQPU49GCkZuZ5
-	 nY3A1tMF1Gu+RlfmB40ihBeSFBedStEZkPbmd3RMi5xhlKuFnMyHRnwE/2T25d9WL6epT
-	 g6D7KmrfhvG0dZkjd5vGl86E7uO5HsvpUcUJPcTRj3C2ZL14/KoqUKSkCeGm3LkkPnoc5
-	 etASM1goaRshutvw3AurTogFaHEZ4+IeM2xm3SRTpfvGHnN3ZpUfjx+x4DkIyS3d5RQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=aoczeufkw3DOf+e+V7z0I3M4e1H07M0CJBQzemDHKiA=;
+	b=TWtjIv+RBA3ZX7IxXPx4ZtAL34Bgh4sMAYfTN8KF/nWiCLP24f5UXhfJe0wC+daTs8MZ
+	 Knp1zxQ5W7fKvTfSjpC3HdvCoV1AvkLAvL5cbR8YiqtvCtxQAuwALtZHG+tfAs51U81Cp
+	 H7W+bCGRV0iFcSHs7TkyLwI1kGNQWVcR9rCMCDqoZqBi3lsr7463kNFgasWJezVRtWAtc
+	 Cgk9Rtk9SkhvKcH9BxcFgbH34XTxVS3Wma4JTBVYD8wgWLTp/ndZVbSVPAR/IsKJhwLvj
+	 4FEg1xIwffkJ3/7lcpuKWXmSQ1kASBOUV7tD8MWdakqL4THfDGP27UF48JJp7KohdMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WXeG34R6;
-	arc=none smtp.remote-ip=209.85.215.177
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fraUT9mF;
+	arc=none smtp.remote-ip=209.85.216.47
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5B5606A330
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 06:27:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A5B5606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CD4D606A32A
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 06:39:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7CD4D606A32A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WXeG34R6
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cd6acc50b8dso364568a12.3
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 22:27:53 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fraUT9mF
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3b179528d56so291356a91.3
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 22:39:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794983272; x=1795588072; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=u5Ctav/yDjXLRSHJvbAGfgAiHawDLtclHE70KW98KZA=;
-        b=WXeG34R6DDZWngdAiJaA7PHvZ+uKaDZCO7R75Gb/fZ5hR4hqnw+Oj05fyFYLPZ20aH
-         lbxhyngcn0slgj164eujmb5/+SJC+8ah9Tennp1z0ZQ3ShlHv7Nr3QsQ4SPr9dl2JlZ8
-         ogZVVmxe4pIimIDxBdPJ7Ev5355PJdJp97ovhBknNamNrmYhhK/SGJjxNb4gjOpvwCpq
-         t9hd6TV4/OzNpS+/lUjU4QM8KWrgzA1VkT2iceUk5HB+c6kjU6pfzdSPP+C4fHNQr64a
-         uqidN6z5JhYNhWASGiplpEFeVCNXuRFK5QyLHAC/1A0CIvrpq+XDyZqcCyky9HqyaRq5
-         3LTQ==
+        d=gmail.com; s=20260707; t=1794983974; x=1795588774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aoczeufkw3DOf+e+V7z0I3M4e1H07M0CJBQzemDHKiA=;
+        b=fraUT9mFHK9og4458A+ZbVxONdM9BrGJ9bX9Kp+OXfOb9NeYDjpjCoMbZ3cosjdsMn
+         txiPE7W0rSaEf6Rdy/FOVk+s5d/sQgGj6gQk10guHUGKBpu48l79tsHDhP0JZSV3loy1
+         o+U+vaM7FiIUxLHy8H203NdhjTNa/PwgWsZmYJsGI6EFuy5C3kevAHOPznWFUWQRiH2U
+         51eUSNNAAZGU6Iv/R/NaaPS3WRRIkms3+8XzRq2W3VRPdRnJ1VKrsqVELlStAw4b7Qm4
+         WS2QFQgW5GrAXtfKCa3TcnSRclBlAspk+NpBzi+1QhTcpWQ14Kg2VjF8Egcy/6bHgo2+
+         HPvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794983272; x=1795588072;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=u5Ctav/yDjXLRSHJvbAGfgAiHawDLtclHE70KW98KZA=;
-        b=TS/Ny0ywg+GXQ/wGnAX9q+QxNLQ9ayP4gvTg/m+RbqCNkjQbbShycVtMAK2RdDV3Ec
-         hdwWmF23fvccPWPUYjjm8bTiZytupayfV1jfo6lzgF3haAFlDtr4AXy/ZX7jb/GID7hQ
-         REvD9Ww8fDjMsiY7gkiKOnqQecYiOx4jBbb2r/HF+pB85/nRPM+odtkYQBdig6hceUPf
-         ZvkTMcj8ze1/JN2OQQl5rgLb2RR7/C7bqMkr7cRx7zJla67y1gDJbctuRc2SjinB0Fg7
-         rCPDRc8xM/NOq55I5Cc1iTRBoyGJU6Ja5CnZ41bqubV15JqXsgNAnHVuOZdJtz1ig4Ix
-         OGBw==
-X-Forwarded-Encrypted: i=1; AL+hErFWxMKnNw0kHIDQQAaNjJpSOge2/7+sbwMLTvOl99k9oySM/gQAS7P8mQfiHf1AGnvvB/h4suw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+amMSuyfHXX8zontYQbKnKodDE9zt3sJEBT/a8ebMZR/cPs9dv
-	EmBXV0UsnjsmP0YvOgudC3X3vvGbK/Kz6L0HlZgn0jJ2JxCg9Y0o3Ir0CgUhbA==
-X-Gm-Gg: AZFdTZe3UDG1rJjuUiTKSXWNBcXodI65L3bPPvsDwsJuIk9n7vXbDhgFVXsD0qUwaci
-	gcZrjeLLsUahCppso+ktndZnP9luLTICgAhqVwW750QbG3Js/m5hGxlLzcX9ZcztjlkMFBsT8YZ
-	+jphYAsD5Pu8IbL7EZEXAcZ/cmEKNtXre1jtJJCZVqhVHaQoiXpJvPleJRr4iQeZkD7uJG9AqTj
-	e9+rhP00a1amx2exEmXt7HF9f9aCgfkkMlEkaGMyAPRZLuxZKiADOXFbhhtfxJY50uMPaHyegUA
-	jTYuJ3HDKWT4abjj9J0AEUYxCcybHl8uvCOnmOsjQbW1L29sQNaNO7HO1FD6M4mqYY9QBlJKUEt
-	IgBVOm27ddUUK4OCm7U7o9+ulqKXRRCVM5BqWTepI6rgTfzTj4YOjS5WSfeiZJTw1985XZvlY4b
-	ufP/8tB+eGxEj0wg0iouMn5DPR0sFCeVZ5vJWSFiE57ZT/ge/izx+9/+u6wzsF/zfd/QEYPCpFg
-	fD3nhQoi0rIyiHK7frO4sL8eS4qABPj/USy0lAfPfn2TnBV7muoqZ2orbtd29VvElm5QQ90kVuH
-	q2bLwmVwJVl/+gOOBo0ReneNjWEXHBYNwFzuTGpAxyZo9gE6m5PmdgNPyaNwy+Mu7NMSm45U0qH
-	ZzfgFGHfxyb5X03+qi+efV2vg2pHw6KwT8+ngQV66itrA7uVDZa++27XN
-X-Received: by 2002:a17:90b:2d88:b0:3ae:8106:6074 with SMTP id 98e67ed59e1d1-3b3d07649c6mr1578634a91.16.1794983272450;
-        Tue, 17 Nov 2026 22:27:52 -0800 (PST)
-Received: from [169.254.3.1] ([143.248.188.96])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d1acd118sm2576836a91.12.2026.11.17.22.27.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 22:27:52 -0800 (PST)
-From: SeungJong Ha <engineer.jjhama@gmail.com>
-Date: Wed, 18 Nov 2026 15:27:44 +0900
-Subject: [PATCH net] net: release netpoll dev_lock when NETDEV_PRE_UP
- vetoes an open
+        d=1e100.net; s=20260707; t=1794983974; x=1795588774;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aoczeufkw3DOf+e+V7z0I3M4e1H07M0CJBQzemDHKiA=;
+        b=BsC5MoSI0dXr1IgsJkj0S3pamj2kBiRQ74zZnYaOGtScFNIVucOrHn1YKhRyB2MZkT
+         a5sLEa9SX4sCip+fjo6MhyBJg3JmA8X2dxYAMWNVVOAykoLgAjGMvpxnUB+dsQT38Ezm
+         xSs2OtUrv/KjY9NloJq+Isc7eDuPbOkxWwkIL/1fPTt+cMI8gSey9RcOz91YgrY7rdk/
+         AgcZ6pDRvwPHUI9SkGeZwkDV3pIxxkZlE/hfZ7Uy2OkfYgZY09gChlDkzmVmeTkhFbko
+         h76SKDvQlrIDBh1Wleet503KDJ/eIWrfgzTu8+sgUs9djmMWDAuExFp1NFbtpActobEO
+         8+cA==
+X-Forwarded-Encrypted: i=1; AL+hErHPdB++aQmO4X4cJpy+4u29euUVHMYx/vnU2W1kHKBfGVLVwn+wSX5hCu8cUta8la6gtAa48Lg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8irP/MLuVwHtcZsuuc9F6+64r615NZt4KkZxW/Y+/SrknSMxPA
+	IM6wYMT1IM6F8fWnzVkmzHZM0rMEPMpswMkl6e6Yghwl2CglmNx0QyJa
+X-Gm-Gg: AZFdTZevO0wNlEsppx0UUgwI8ZuqfPa9zQ7mOntADElPk6PLqlsEeUp/EJy2/SyUaLD
+	+5Iq1YAlZUJS8gcnRGeLBdqaF2qO5qz8jC4Ege4Igz+ucn7raghHY0Szwp3iMquoDiunaMnPywe
+	oVoAYk8lb+HPJTkhTHjZLa4PX4ExbBrBJB2k5+IVAsY1ZeXoyPwhjkBNlc398gZNnpW596roV61
+	CmCF6rE2Jgm9Du8vOdQ4JaGxs/LA4S2USr8mPZl93cDqAWKN7jYSzRM5Em3vSMaufv+MuQkwX22
+	k+KiHRLj3ssj4p+m3jq3esN3oEXFor9eXe2b45COwHSsgJVpNShcMdktblo558qf91Nii7280Fk
+	WJMHoBotfWIPlS4SrtKEfnX9uDAoiMFVf3OHBfdde3Q4mi2wrCAw2cMUhDGKbAQf10LSL5wFKCL
+	Tu85zeGqYsJsbpNsD0y7D6CQU1jGODKv94cI5xByTqaRDF4isOw7HdJb/HHDdH5tPN9yi+WYHb8
+	T+SwjUDtFO3Uouhr6X+D9T/Pp9hYfLtbNV85RXDGr1RJL3uwU8XHSZ4XYT5T6VuFrxCCQPB/CWP
+	ZEeWfqohryGniTHggdPIJfnxyv2W4+1/uIpbKD9795GNGRQg8hzmpBiTvZUd8UIvtqauDvODUS0
+	iLwQYgIbnYBvF+1tgpS47k07YXXxP59/NQbFh6OrCsAnxoPgnI2Zp
+X-Received: by 2002:a17:90a:d445:b0:3a7:ef4:164b with SMTP id 98e67ed59e1d1-3b3d06873d0mr1539328a91.2.1794983973868;
+        Tue, 17 Nov 2026 22:39:33 -0800 (PST)
+Received: from LDYT9Q2G2M.pvgl.sap.corp ([104.28.235.58])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d1c03e04sm2562322a91.15.2026.11.17.22.39.29
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 17 Nov 2026 22:39:33 -0800 (PST)
+From: Zhiqi Zhang <zhiqizhangg@gmail.com>
+To: netdev@vger.kernel.org
+Cc: jhs@mojatatu.com,
+	jiri@resnulli.us,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	shuah@kernel.org,
+	koen.de_schepper@nokia-bell-labs.com,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net 1/2] net/sched: dualpi2: refresh head timestamps after trimming
+Date: Wed, 18 Nov 2026 14:39:21 +0800
+Message-ID: <20261118143500.dualpi2.1.543a9a1be910-zhiqizhangg@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261118143500.dualpi2.0.543a9a1be910-zhiqizhangg@gmail.com>
+References: <20261118143500.dualpi2.0.543a9a1be910-zhiqizhangg@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,90 +108,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-netpoll-preup-veto-v1-1-7d3fdf101d3a@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAF9F/WoC/yWMywrCMBBFf6XctQOdGiP6K+LC1qmOlCQkaRFK/
- 91Rl+c+zooiWaXg3KzIsmjRGAx412B43sJDSO/G6NrOM/ORgtQUp4lSljnRIjXSye1bdxidZ9/
- DjlaN+v5JL7A9rv+wzP1LhvrVYds++xXTS3sAAAA=
-X-Change-ID: 20261117-netpoll-preup-veto-943045f4616b
-To: "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
- Neil Horman <nhorman@tuxdriver.com>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, SeungJong Ha <engineer.jjhama@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-When netpoll is attached to a device, __dev_open() takes
-npinfo->dev_lock through netpoll_poll_disable() before calling the
-NETDEV_PRE_UP notifiers, but returns without releasing it when a
-notifier vetoes the open. The next attempt to open the device then
-sleeps in down() with RTNL held, and every other RTNL user blocks
-behind it.
+Reducing limit or memory_limit in dualpi2_change() removes packets with
+qdisc_dequeue_internal(), bypassing the timestamp refresh performed by
+dequeue_packet(). The cached c_head_ts and l_head_ts can therefore refer
+to a packet that has already been removed. If a queue is drained, its
+timestamp remains nonzero.
 
-For example, with netconsole on a wireless interface, cfg80211 vetoes
-the open while the wiphy is rfkill-blocked. Release the lock on that
-path, as the ndo_open() error path does.
+get_queue_delays() continues reporting an increasing delay for the empty
+queue, and calculate_probability() uses that delay as input to the PI2
+controller. Partially trimmed queues also report the delay of the old
+head instead of the retained head.
 
-Found by an AI coding assistant reviewing __dev_open(). Reproduced in
-QEMU on an unmodified net tree with mac80211_hwsim built in and
-netconsole bound to wlan0:
+Refresh both cached timestamps from the internal queue heads after the
+trim loop, while still holding the qdisc tree lock. head_enqueue_time()
+returns zero when the corresponding queue is empty.
 
-  ip link set wlan0 down
-  echo 1 > /sys/class/ieee80211/phy0/rfkill0/soft
-  ip link set wlan0 up    # fails: RF-kill
-  echo 0 > /sys/class/ieee80211/phy0/rfkill0/soft
-  ip link set wlan0 up    # hangs in D state:
-    down
-    __dev_open
-    __dev_change_flags
-    netif_change_flags
-    do_setlink
+I identified this issue and reviewed the fix. I used OpenAI Codex for
+root-cause analysis, drafting the fix and this changelog, and assistance
+with regression-test development. Codex also performed automated
+validation; the archived results are described below.
 
-With this patch the last command succeeds. Selftests were not run.
+I reproduced the issue using Codex-assisted automated tests on an
+unmodified arm64 net-tree kernel in QEMU, with real AF_PACKET traffic
+in an isolated network namespace and HFSC ls/ul shaping to retain
+packets. No source changes or fault injection were
+used to trigger the bug. The companion kernel selftest covers C/L
+dequeue, full and partial trimming, mixed queues and no-trim changes:
+the baseline passes three controls and fails eight trimming checks;
+the fixed kernel passes all 11. Runtime coverage is this DualPI2 selftest
+on arm64. I also used Codex to build arm64 Images and compile the modified
+object with W=1; additional build coverage is in the cover letter.
 
-Fixes: ca99ca14c95a ("netpoll: protect napi_poll and poll_controller during dev_[open|close]")
+Fixes: 8f9516daedd6 ("sched: Add enqueue/dequeue of dualpi2 qdisc")
 Cc: stable@vger.kernel.org
-Signed-off-by: SeungJong Ha <engineer.jjhama@gmail.com>
+Signed-off-by: Zhiqi Zhang <zhiqizhangg@gmail.com>
 ---
-The fix just drops the lock on the veto path, the same way the
-ndo_open() error path a few lines below already does.
+ net/sched/sch_dualpi2.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-I tested it in QEMU on net (297ae1590173) with mac80211_hwsim and
-netconsole built in: the reproducer from the commit message hangs
-without the patch and completes with it. W=1 allyesconfig and
-allmodconfig builds are clean for net/core/dev.c.
-
-The bug was found, and the reproducer and patch written, with Claude
-Code (Claude Opus 5.5). I reviewed all of it by hand and re-ran the
-reproducer myself.
----
- net/core/dev.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 3c58db732761..0be9e78572ff 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -1748,8 +1748,10 @@ static int __dev_open(struct net_device *dev, struct netlink_ext_ack *extack)
- 
- 	ret = call_netdevice_notifiers_extack(NETDEV_PRE_UP, dev, extack);
- 	ret = notifier_to_errno(ret);
--	if (ret)
-+	if (ret) {
-+		netpoll_poll_enable(dev);
- 		return ret;
-+	}
- 
- 	set_bit(__LINK_STATE_START, &dev->state);
+diff --git a/net/sched/sch_dualpi2.c b/net/sched/sch_dualpi2.c
+index 4947def7c4..79eba7209e 100644
+--- a/net/sched/sch_dualpi2.c
++++ b/net/sched/sch_dualpi2.c
+@@ -938,6 +938,8 @@ static int dualpi2_change(struct Qdisc *sch, struct nlattr *opt,
+ 			break;
+ 		}
+ 	}
++	WRITE_ONCE(q->c_head_ts, head_enqueue_time(sch));
++	WRITE_ONCE(q->l_head_ts, head_enqueue_time(q->l_queue));
+ 	qdisc_tree_reduce_backlog(sch, old_qlen - qdisc_qlen(sch),
+ 				  old_backlog - sch->qstats.backlog);
  
 
----
-base-commit: 297ae15901733df7562a6781613fb49f3d270401
-change-id: 20261117-netpoll-preup-veto-943045f4616b
-
-Best regards,
---  
-SeungJong Ha <engineer.jjhama@gmail.com>
+base-commit: 2a324a58a084c5cfd7e5a2f55e0786bee170a4a5
+-- 
+2.54.0 (Apple Git-157)
 
