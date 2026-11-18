@@ -1,58 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795021422;
-	b=Rik1iownDgaSMjV8Vs3P5APN9xCkbyyIxsWgmklt6g5Bz106dbVgwRAKuu0h2Mh0tJQp
-	 2opi4BFe/AoGr4RmH9/TUrgJFUJHhwxSoggpDuX86QPGUcZNylRIeN7Vdh+iW1p5lW2Kv
-	 m8POOwFePsza/nHFbW4b3Sd1euF8XD9a47RyEja+dotQe3q1egyYs9iARGUiVpfs889Mq
-	 Pqyn5i+AjhRB5cMf0Ra7HXHDN2lU3EuNGgiOGx22sOGPXBcwK2BCvhhjgWxGJS8Pn+nnU
-	 sZxEpbF6eaJCD5NPMEYEDBm2JhB3FT1QR5ebrF7eHZpoChnogzW/Rdo10BHAgAXZk1A==
+	t=1795021424;
+	b=JAA9kxSpbx/V2ppQsFbOjhVyra2CRlkrSa32eNC+3i9ZbP1TWy9WIVttIS8sX1pXb45Y
+	 x0t5ZHCvRIgOWw15KHr9wfhTq9O2avudE/lMInfClt9gN+AUuW9826bZ2ZDwHwTsI5Jce
+	 vs9EbEskKcW1zRzmNeOaGaxWncVr/ggzJt99dgNjdxCUpCJZWxi/F9nvnYdzEJlLNfo5b
+	 SCNJeyrsDZ0o5Ma/jxNznOP+vvUcTrteri4tSjJyuPrxE1k8R5wAi/pV3F4tW8azcoR6/
+	 dID2z12R7wRFwDl9y2wfAcBrHZ7QVgHfy7TW8UvMYc8eOPGTAPB+7eekM4LMr2qI8Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795021422;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=E4aNPDLFsJfF0FTQEiCMTcVBGmkerWI8sbplr9tQEPw=;
-	b=QGZxaLWc25zYQGP8mPg85FrTZHFe+oeBKgRe9IaCiWMEK1aSPDwNetSAEsXzryxQ7lJu
-	 g+VP0sJ7qBay9foZYM7gEjBmMpUukYwyM7iIJFWaegZi49q8+j0soEIXBg03fbvxlCH+7
-	 FRLX0ridRqa4nkTzv59J0BXfcQb1h2Gaf5cUjotrBD8zBjbK4zago/LbuuD9BBwyjjDvd
-	 5nND66XiiKb+/jY0f6gIwcERaPafvIoBkU8WmwqTzFI3I3+i9dvDltEG7+C0R5/amNZP/
-	 bnPJwxWXbm7RA3YvvySjAQcf7cQE7rkuAS9v7QO7Lp38EmLNrffK5+Q+btPQNC3Ze6A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795021424;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UaVcyNlEXvHCvSegf7DdOWk+AJHnO+R6lg7onpWBTLM=;
+	b=M/n0CfxbMYryrHK1AOYKvG2BzJk35Z3xQDxwzX+Nflc55O/1trM89/9ll4mTHE2aM4QB
+	 xWHbg4nL7cqeSaLP1XlNjxHyHrj3qPnzVxKYDWcJeckhzzDeqJOlHKnuNeb4e0S18UNUM
+	 X3tW45PQ71dF1oYkj+sL9T7lmGW3Pz5sfbHQupo4ECh5PHyQ5HjMfsH6OnON+iTrRXfwl
+	 YY6f6HKvvHVD3JfuXLz0iilGxjLr3j8C82t2+bqZid0XZs12FuQ3OK++ooeXxRgz2C+0A
+	 pYHhnrj3mqmnctgs22ZfgNGmMevdc+9ndvNLooVR7IUTwr19g5OZVBIQA+Mg+elOE7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="ZT8bd/ZH";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mOwwJznX;
+	arc=none smtp.remote-ip=209.85.210.47
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD0160A3822;
-	Wed, 18 Nov 2026 17:03:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B22F60A3836
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 17:03:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B22F60A3836
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZT8bd/ZH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD95D1F000CB;
-	Wed, 18 Nov 2026 17:03:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795021422;
-	bh=E4aNPDLFsJfF0FTQEiCMTcVBGmkerWI8sbplr9tQEPw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZT8bd/ZHFezGkYJBZqRj7GlONStY+y1zpFPkFRASmiYcDbV5sKsC1vanMmp4U/XiV
-	 YWfE6XZ7hzUOCSjHw7pyxZ4iL3X4p7etkae9jZkwBfrxgCknZQWiHJyoJqSaeQl4yV
-	 eBYHCLUIBUYj77+CbFRJlB67a7D8t81aBjK+qShs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Mingming Cao <mmc@linux.ibm.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 2274/2651] ibmveth: return the error when set_channels cannot add TX queues
-Date: Wed, 18 Nov 2026 15:58:34 +0100
-Message-ID: <20261118150407.202087325@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mOwwJznX
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-843b6f8e2c7so1215955a34.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 09:03:43 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795021422; x=1795626222; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UaVcyNlEXvHCvSegf7DdOWk+AJHnO+R6lg7onpWBTLM=;
+        b=mOwwJznXdq/mL9a1/tRYiu+9aHrPlamFRSWHPx0O36q9m1DP0sFU3+p9VaXqjV9+Jc
+         MHRPPQyaH6plbzz+MRt03IENGzTCFWtIU2eB6RDCK/vXwdZ3FIYebVbtzwU68gaL+/YL
+         svImR0bmonJzBwIrCZkIeL2mFLfBOb0UYMwLIM3rpOA9Rx0s1aEgxxJziWKfhhCyP6h5
+         geqrqUdZrc7VGULz5CGgt6SNcvKLjmcItUpgyqAgUBH5zB+tze7iTqdDztLygklSMQsv
+         CDA8M9ne2KsRlZRTbIJYPmcmkdYmXliMxsuKVjRfHlL7z45p5d8Bv8061oC7JWLDorFM
+         JKkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795021422; x=1795626222;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UaVcyNlEXvHCvSegf7DdOWk+AJHnO+R6lg7onpWBTLM=;
+        b=0NFj4ZnJ9E/8ZpffBmkc5X15+azY0EhKhJuylPU/RD6tSwUuuHVlCSZVOgvGAYROJm
+         sZ8DtPTayVwpZTD5sQs6Iqn7oE9nnTRfGdrv1rIy4iIXyqKny+p+8b0JgCxmMu+/PHxz
+         6ec2DmdEudI9rjTa3FnSrun93EOM6CMaGufl7IOjcim+ZeFPNwfgJgoUoeL4zGSQVene
+         ksyLD6dI6F8+4XOZquZIeDK53gfx4duMvFwPkeVsJmqmJAerB8y/s7wg3ZdPeWirDY48
+         cjNdFuDTW/Z7aiLSFLWxAlW/oMk8vu9jJTH29cgiDCMaqYBx2jNtrhBmM3nA8dfY9BZr
+         XcOw==
+X-Forwarded-Encrypted: i=1; AL+hErFZh5zqWnyrBA40R9THJHDcD3CXVF/+ZG5o3lcV58J6lfGxM+lRRGQ9QBFm5tD41dK/IwY0/HE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yvansrbig8Kd0giSd4UqCGbuRo0XCUh3K0NlvncZbVTDQF3xZ
+	sLC3E3OSq6ud2CJ5Bhe8VKEyEHt6KphSOsGRvc8g/alXq0ZszeIRX7ZK
+X-Gm-Gg: AYBFou3recbBzQAbIFo+mGFPXJqtMenpJwiESMIiKKtF7p3HWggHLX1SfwC5wRLPK54
+	eZ3atvNi7ezMFEMGhnV8oSEJKsxU3OJZCvOqmrYmnGWwjF55h3JgN/86sjNbmC51h987r1Hcyhl
+	eoRwZAbPSBqqdjkr0m5hlLAp+MDPNg2bPMl8y6N7BKwyL+SGmGk5JLE97D6bz3iku7LxCNBPk27
+	Mly/eWN15yxzgq/G+QcME8LbLqUiTaTAMN8ZAXJ+VII5zHT0im/s0ga7dvGPQvHS42qy6SfpvLM
+	VwmS/gPwOhDL2vmt21UY+rMGFY91kkHF0i3kObJpJBqm0OKTjq/EN5TnvYx/TnL21PvZeF1ahnj
+	FgdFKZQ+WwmN9TtzA63Gbr/A9xDR6qcaT/hFNdWCauCR6uzFi51IADjXIaQxFv84RRDF29zZ+jB
+	7fshJdXSvuf3lOxGktxOJwWtdoyupOM2/SgPNUAby7TNt7QqYp/8dvCN9SlkPwE3HB7TtcMo/7V
+	89hUyHK8SaeJgECsJ7KtgvnbqNiMi3hV/5pBTXjrC4toFVVZVbVXC3s/BGKrR3p6mjaW8rnphej
+	Ud9mTKq15qPuBlbfgTuk5WA=
+X-Received: by 2002:a05:6830:2696:b0:862:aca4:1158 with SMTP id 46e09a7af769-862f0861aafmr2972784a34.22.1795021419554;
+        Wed, 18 Nov 2026 09:03:39 -0800 (PST)
+Received: from localhost ([2a03:2880:10ff:15::])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862f01d474esm2486617a34.4.2026.11.18.09.03.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 09:03:39 -0800 (PST)
+From: Vlad Poenaru <vlad.wing@gmail.com>
+To: dsterba@suse.com,
+	linux-btrfs@vger.kernel.org
+Cc: mason@kernel.org,
+	osandov@osandov.com,
+	josef@toxicpanda.com,
+	fdmanana@suse.com,
+	boris@bur.io,
+	quwenruo.btrfs@gmx.com,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2] btrfs: fix bytes_may_use underflow after a failed tree block allocation
+Date: Wed, 18 Nov 2026 09:03:32 -0800
+Message-ID: <20261118170332.992625-1-vlad.wing@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,68 +103,57 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+When btrfs_alloc_tree_block() fails after btrfs_reserve_extent() has
+succeeded, its error path gives the block back to the block reserve,
+although the block has already left bytes_may_use. Each such failure
+leaves bytes_may_use a block short, and it underflows and warns in
+space-info.h when the global block reserve is released at unmount, or
+earlier.
 
-------------------
+  btrfs_alloc_tree_block()
+  |- btrfs_use_block_rsv()
+  |- btrfs_reserve_extent()
+  |  \- btrfs_add_reserved_bytes()  <- bytes_may_use -= blocksize
+  |- btrfs_init_new_buffer()
+  |  \- alloc_extent_buffer()       <- fails with -ENOMEM
+  |- btrfs_free_reserved_extent()   <- bytes_reserved -= blocksize
+  \- btrfs_unuse_block_rsv()        <- block rsv += blocksize again
 
-From: Mingming Cao <mmc@linux.ibm.com>
+Since commit 19d7f65f032f ("btrfs: convert the buffer_radix to an
+xarray") in 6.16, alloc_extent_buffer() can fail this way under memory
+cgroup pressure, because fs_info->buffer_tree is memcg-accounted.
 
-[ Upstream commit 16abfa871dc840e55f1726408c5994c66a9773e2 ]
+Return without giving the block back once btrfs_reserve_extent() has
+succeeded.
 
-When ibmveth_set_channels() cannot allocate a TX buffer for a new
-queue, it falls back to the old queue count, and the successful
-netif_set_real_num_tx_queues() call then overwrites rc. ethtool -L
-reports success while the queue count is unchanged.
-
-Return the allocation error when the fallback succeeds.
-
-Found in review of the ibmveth multi-queue RX series and confirmed by
-code inspection. Tested on a POWER10 LPAR with the TX buffer allocation
-forced to fail by a test-only module parameter (not part of this patch):
-ethtool -L tx 8 now fails with -ENOMEM and the device keeps its four
-queues and passes traffic. No kernel selftests cover ibmveth.
-
-Fixes: 10c2aba89cc0 ("ibmveth: Ethtool set queue support")
-Signed-off-by: Mingming Cao <mmc@linux.ibm.com>
-Link: https://patch.msgid.link/20261013182926.30417-7-mmc@linux.ibm.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 67b7859e9bfa ("btrfs: handle ENOMEM in btrfs_alloc_tree_block")
+Cc: stable@vger.kernel.org # 6.16+
+Reviewed-by: Boris Burkov <boris@bur.io>
+Signed-off-by: Vlad Poenaru <vlad.wing@gmail.com>
 ---
- drivers/net/ethernet/ibm/ibmveth.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+v2:
+- Shorter changelog, built around a call trace (Qu Wenruo).
+- Dropped the code comment (Boris Burkov).
 
-diff --git a/drivers/net/ethernet/ibm/ibmveth.c b/drivers/net/ethernet/ibm/ibmveth.c
-index 42aa9f7bd49de..48bc4406396bd 100644
---- a/drivers/net/ethernet/ibm/ibmveth.c
-+++ b/drivers/net/ethernet/ibm/ibmveth.c
-@@ -1177,7 +1177,7 @@ static int ibmveth_set_channels(struct net_device *netdev,
- 	struct ibmveth_adapter *adapter = netdev_priv(netdev);
- 	unsigned int old = netdev->real_num_tx_queues,
- 		     goal = channels->tx_count;
--	int rc, i;
-+	int rc, i, alloc_rc = 0;
- 
- 	/* If the device is not open (including a failed close/open with
- 	 * IFF_UP still set) then don't allocate, just set desired
-@@ -1203,6 +1203,7 @@ static int ibmveth_set_channels(struct net_device *netdev,
- 		/* if something goes wrong, free everything we just allocated */
- 		netdev_err(netdev, "Failed to allocate more tx queues, returning to %d queues\n",
- 			   old);
-+		alloc_rc = rc;
- 		goal = old;
- 		old = i;
- 		break;
-@@ -1213,6 +1214,8 @@ static int ibmveth_set_channels(struct net_device *netdev,
- 			   old);
- 		goal = old;
- 		old = i;
-+	} else if (alloc_rc) {
-+		rc = alloc_rc;
- 	}
- 	/* Free any that are no longer needed */
- 	for (i = old; i > goal; i--) {
--- 
-2.53.0
+The code is v1's apart from the removed comment, so v1's testing stands:
+its reproducer leaves bytes_may_use below the global reserve without the
+fix and not with it, and fstests btrfs/002, btrfs/220, generic/475 and
+generic/476 pass.
 
+v1, with the reproducer:
+https://lore.kernel.org/all/20261113170926.1468850-1-vlad.wing@gmail.com/
+ fs/btrfs/extent-tree.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-
+diff --git a/fs/btrfs/extent-tree.c b/fs/btrfs/extent-tree.c
+index 9b0a5c6b96f3c..8d4c66bf850bc 100644
+--- a/fs/btrfs/extent-tree.c
++++ b/fs/btrfs/extent-tree.c
+@@ -5433,6 +5433,7 @@ struct extent_buffer *btrfs_alloc_tree_block(struct btrfs_trans_handle *trans,
+ 	free_extent_buffer(buf);
+ out_free_reserved:
+ 	btrfs_free_reserved_extent(fs_info, ins.objectid, ins.offset, false);
++	return ERR_PTR(ret);
+ out_unuse:
+ 	btrfs_unuse_block_rsv(fs_info, block_rsv, blocksize);
+ 	return ERR_PTR(ret);
