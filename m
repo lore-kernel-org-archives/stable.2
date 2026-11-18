@@ -1,63 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795017831;
-	b=W7ExT2BjqnzUXdU5T9zLPdTx1BTBTTaOQVRPAdeCNbYeAwYzHi861TIopM9uE2XsiH8V
-	 T3IXvRrvlph1G8lzW/vmWxmNy3+p01BEngm1Qa2mGXJirk5TGLbzfKi5slM5jMatGFOS+
-	 RgWHGEcE2V2b6ivW1F0ScPKePVlQV8Hv/z7QfghHCyGZCfgaVhSDh/XA3f0Xh8TgeG3y5
-	 DLdEEriG+a5hDylTxzGbfl58VpqyRTk6SUz5eCQG3cQ65cIyfNnNwS4M2bp+yh9gnkjZA
-	 NekyksnhLAbi3PdsDJMeP4vJe+3g1vyumeTPZw7EBf/JgA3+ISY6mI7Faj0skb+nTqA==
+	t=1795017833;
+	b=5ANA/P1VWEYum7zfuN8WV1rld4bFJbCVDAHlStWiXayzqoC0mwfJc/E3ZGm2/rRk3grq
+	 MwPj9YxkDHbvI4PFE6kyf+nXxlLxSgINXCULXJ6Q+zx5FYKhvZIHLyRllv01fGHTMyDJs
+	 dYBbYIq7D3RFIjnqq6gzNhfNHTNoMtlmM+5E7+JDn8jMtJBSptyODBPBKzoM6r2Tj2dIF
+	 P4lnRCxYi9tlnI/DgLasYKTJ92BgsKdrcfDTPJIxKcS3AYi8NTUloIZJlcfZiM6EHk3Jq
+	 ieeXpG4db5si4JVXwCjXxHqJwWDuElHBEhcRYCPUq8SFIk2F8+97cUIReaAjHA/A2Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795017831;
-	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:
-	 In-Reply-To:References:Subject:Message-ID:Date:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Mailer:X-FB-Internal:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version;
-	bh=jsJeHMkPdNev+Xkq1iaFXCxN4ARySNZFCQlN5OjLmNo=;
-	b=rSAht5VDnXFQ+z/GBW+llxAS97ghMdhxpFL/qILcus7Bn0Zf2ih4JoREo6xAlm222yDp
-	 4xqhm6ZOfh/Iz9LOvp37GOYy10LSkdc+flB/GQeHLZ0uWA5fLbt4IfV5hdbhZSrgq/Lol
-	 7tLmKkhbaYkZkkPBK5lSCfKxfMSXMHNx22guUoTXc6nirlw4FyuUW2qw1RHJLpueLlyHY
-	 SL2/TRTu31rclvLB73VlU+UIZeUAEvCq9fARGaNCvLlUtmZi33Il6G8c0dP9rzv804V7K
-	 6AisBfmx7FUHcr6hDdLlQ/ZTsV66iOOBnZPwH2A4rdHMiFdsIA9CW8qS5OkIEY9i++Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795017833;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=U1B0Gyd+ZPWSSEbdNP65ww6FT7HVeAANBcbZjmbm9Hg=;
+	b=Hk3tTvTO4BxoEagG4oR/uXRk22ftiF44vx4NUufM0P0ROThdjw6TVLMHzqSLqGbT2s7t
+	 zzUaPRvdLNzwjp1WG75KyVroZBN/0GUJYJ/109FcdhVrQtrXkd6ITtR6mXfzT0hz8OUTX
+	 TFt2VAz4GFvNUD8ZR0PRPNCWO021BumcnMEqMIjy/5nbW0SirdfCRTk4HxvBdvZeG3nEy
+	 Teb4vJtU2shgTarK2/iylU34NZ2Xt/IVIhn+KzcMRSGr/vihBUDyaS72rTqmliNODjYNj
+	 hGhnwOZTiIzTz38Dg9Cy6PEhLaUDkBZI2FOAA0tI53TyRFZCkqH1FO1Wc8Hby9Thgug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=kernel.org;
-	spf=pass smtp.mailfrom=meta.com;
-	arc=none smtp.remote-ip=67.231.153.30
-Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=trfQBf9D;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D996C606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:03:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D996C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=kernel.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
-Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AIE4vKr3908299
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 08:03:49 -0800
-Received: from maileast.thefacebook.com ([163.114.135.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4j0yu7xb2n-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 08:03:49 -0800 (PST)
-Received: from twshared18199.01.snb2.facebook.com (2620:10d:c0a8:1c::11) by
- mail.thefacebook.com (2620:10d:c0a9:6f::8fd4) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Wed, 18 Nov 2026 16:03:48 +0000
-Received: from devbig197.nha3.facebook.com (localhost [IPv6:::1])
-	by devbig197.nha3.facebook.com (Postfix) with ESMTP id 673312F281A21;
-	Wed, 18 Nov 2026 08:03:36 -0800 (PST)
-From: Keith Busch <kbusch@kernel.org>
-To: <linux-nvme@lists.infradead.org>, Ankit Gupta <ankit6791@gmail.com>
-CC: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@lst.de>,
-        Sagi
- Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>,
-        <stable@vger.kernel.org>
-In-Reply-To: <20261117011230.10288-1-ankit6791@gmail.com>
-References: <20261117011230.10288-1-ankit6791@gmail.com>
-Subject: Re: [PATCH v2] nvme: limit Write Zeroes to 65536 logical blocks
-Message-ID: <179501781641.1620426.13226357559228704463.b4-ty@kernel.org>
-Date: Wed, 18 Nov 2026 08:03:36 -0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1337606A31C;
+	Wed, 18 Nov 2026 16:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=trfQBf9D
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22E8E1F000C4;
+	Wed, 18 Nov 2026 16:03:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795017833;
+	bh=U1B0Gyd+ZPWSSEbdNP65ww6FT7HVeAANBcbZjmbm9Hg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=trfQBf9Dg7pfVhourgIBn/i5TGyXv+fuQylBC0wxSsH0T1ICIOVOBbTVaUnnEQFWc
+	 XXx1+cPf2AOlmuebAYhDzAIHmbu9ZNH4BM3vHKSC2O0nmNYyuKYpv66gFys6wcsVuW
+	 LbKoyCbOx/F3GkAvbPhOlu3QTX4DDj2JQNKAFavo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>,
+	Bryan ODonoghue <bod@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 1025/2651] media: iris: cache work mode after computing it in iris_set_stage
+Date: Wed, 18 Nov 2026 15:37:45 +0100
+Message-ID: <20261118150324.850778327@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,50 +63,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.13.0
-X-FB-Internal: Safe
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA2MyBTYWx0ZWRfX5YI8LRX6Dixe
- Qy5ALBKKLnmPKYUYrC0OWl0Hr6fEPMroS0ly2soJ9hiIytZpzLfYj9OrN3gnOi97AWcKVR1sOMm
- 1GRvmSh8/EK+9rtS/rnKySP7wFTr078=
-X-Authority-Analysis: v=2.4 cv=OcANnRTY c=1 sm=1 tr=0 ts=6afdcc65 cx=c_pps
- a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22 a=wpfVPzegXHpEFt3DAXn9:22
- a=VwQbUJbxAAAA:8 a=qFBJAfofNFoZCmylNHQA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
-X-Proofpoint-ORIG-GUID: vqVRS3lQM92pPZuCJ1ecWY8wJn205Him
-X-Proofpoint-GUID: vqVRS3lQM92pPZuCJ1ecWY8wJn205Him
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA2MyBTYWx0ZWRfX36CwNzNXaFjk
- OnzJ75ldcK1j3n7b7kQS6TUs7xDJR8B7b1A62ruO1TZkOnQmcIhSLMrkOPSMFHwfHB3zSVJW14H
- u/zDChw9GpOHQptXSGotHvXvJXS82HW8XX5FFtqom3WVcXKtsQXN+CZ3enKLVc1WejbDuZy9HgA
- GUWq6HpLNTtjoa0Njb7HdPE6PUjDGeSEND/g0wmyb4hSd117Sajyy3ibdXd12rZ4aQ+DsRbVy90
- 5cE+c/VVve4DIP4tT8wPc8hhejejgqE2amWWX41O/WecNrC6ZRhNZqLLumwBpuBRxFZOzYcxwBl
- 4bpRw7faIUgQlOt7tjMd09AoxcboU9TEbEPF+VGO6L3nPIGhWzKrvzqhnNxnR52vOHUMeWbaya3
- ujxXlTmfqzCjlfZeSGRXFgsYkclZ4wjFJKgCBD7kRXO3+MO9daM7yX0ukZ52v61/+fxU8Pt7ygn
- RTxzySy6BU4hdaEdldg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-18_04,2026-11-16_01,2025-10-01_01
+Content-Transfer-Encoding: 8bit
 
-On Mon, 16 Nov 2026 17:10:49 -0800, Ankit Gupta wrote:
-> With nvme-tcp connected to nvmet-tcp at default settings, the target
-> reports MDTS 0 and WZSL 0. A 33 MiB Write Zeroes request on a
-> 512-byte-LBA namespace then completes successfully after zeroing only
-> the first 1 MiB.
-> 
-> The native Write Zeroes command encodes the number of logical blocks
-> in a zero-based 16-bit field. The namespace queue can advertise a
-> larger limit, either through the MDTS fallback or through WZSL. In
-> that case the host truncates the count when building the command and
-> reports success after zeroing only part of the requested range.
-> 
-> [...]
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Thanks, applied to nvme-7.4.
+------------------
 
-[1/1] nvme: limit Write Zeroes to 65536 logical blocks
-      commit: 49a768272ae1445714efc6ab2b23f9de1398d61e
---
-Keith Busch <kbusch@kernel.org>
+From: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+
+[ Upstream commit 1237888922a71897326495f848766412fb74307c ]
+
+iris_set_stage() computes work_mode and sends it to firmware but
+never updates inst->fw_caps[STAGE].value, leaving the cached STAGE
+value stale. iris_vpu_enc_bin_size() and
+iris_vpu3x_vpu4x_calculate_frequency() read this cached value, so a
+stale default causes them to miscalculate buffer size and clock
+frequency for sessions actually running in a different stage than
+the cached one.
+
+Update inst->fw_caps[cap_id].value with the computed work_mode
+before sending it to firmware, keeping the cache consistent with
+what is actually configured.
+
+Fixes: 3a19d7b9e08b ("media: iris: implement set properties to firmware during streamon")
+Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Signed-off-by: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/media/platform/qcom/iris/iris_ctrls.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
+index bf17d310eac08..232be0cb7fa07 100644
+--- a/drivers/media/platform/qcom/iris/iris_ctrls.c
++++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
+@@ -525,6 +525,8 @@ int iris_set_stage(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id
+ 			work_mode = STAGE_1;
+ 	}
+ 
++	inst->fw_caps[cap_id].value = work_mode;
++
+ 	return hfi_ops->session_set_property(inst, hfi_id,
+ 					     HFI_HOST_FLAGS_NONE,
+ 					     iris_get_port_info(inst, cap_id),
+-- 
+2.53.0
+
+
 
