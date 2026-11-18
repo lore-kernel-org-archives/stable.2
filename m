@@ -1,62 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795061842;
-	b=e4/XNHvmiwJ7WKxr4BF2XPrYiJGc2xqeCRmR5MUrXbh2j562m+RQEBhuH148xGxXn0NQ
-	 1hcnnAGjZ1NvBARG/81yCGkMnXQlUWU5CASjHhl4FYxQ41W8DwyEywb/ET8bEYgkFE+Nz
-	 qnhifc8DDbEh0nADp9R4H3KAG2eprg6hyn8rnMRM3PAg1CU/uvndJeJI7iAPKhK1LdN0/
-	 46VL1026tglQ2jPGUoBC+zzRJpYHzVc45eH06g4na2of+twaMbucAARt5y1+iyW12whc0
-	 cwxf5r3dUyY0klZs4f6UPIxVO/+MwqlUBmnDJvRz6KgKUwyKC7rxczxa6gVuEk1wdKQ==
+	t=1795061849;
+	b=zg9rz+fJwehmsP1avIe119fUaeUHLELN/lq0gVgn8NtIf34jXMgWGBIR3f8YRZFn7AH2
+	 Q8w9JoaNxBjLhXSggMauhm7OZLrVJ2EHHHGGUHtZAgZ8AF1QgXEDbUHegmYjXr37uuuf4
+	 erI+DiBGzfhquhewLpAa01Dnfn2jdb1bP4G8iCOyZLKtV1IAfMp3UMHWbusvG+OaZhGpI
+	 OXNNh7G/ymo45O9om65CM7zD5xZwNh4YeiYs7ZO2lHWzxQbzMC3kfHw+MEbs+oAPudIKE
+	 061p02x3XfO9eMCvp+RkWsqR2UAdQAG+8IvAOAG/uBbTgcUsoVCE6ZahnZ3UYe6UcbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795061842;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=bime9q+xt/mMyBljVd8JNlkAWoM91LP/FgSUS7yT3ek=;
-	b=kKqeHev/vWQuv0xYgLkvkvmx5X7NfmvCHAd8ir7m0+xXbTQd5tywn3qp5f3/xv7vkE6v
-	 wxvlEvQVtuf1iHC5V/yMun7N0MsgeUTBIYbZAbo9Lsb16KmfgC88xF2I4iQBDJe9KVH4Z
-	 +9QnHI1VvuByy6dbrzlZ1RCuT2tj4iP0fhSFA8Nfyi1cA//1f9Qq95/QvevqdCfrvRlCk
-	 jIsImuspAswT3gmfo4D4IYik+CK/+s9sWKBSxosjEguuaCpzUral8qpQIBh3NZPmleDGH
-	 zpcXIafBnaR68yiM7q36Jq43jT9WtuoCvNn1B/dOoWBYWGXAAZUTvtb67jf5soP/+Zw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795061849;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ca1ZQCpat86vjGBhccYSa9EC/MdOY7wpurQwkc16pPg=;
+	b=xTjamMnFhv4Oe+g0lPibXM8ZgAv5XQ/3tu89KbzoTH1t4bHwayKd05bJeuqUXZVVZg8z
+	 XO0U022UB75/KvEudgpBCXSXZ4XyeIiKOIMJAr2qGSjzCY1Fkdd75zT18ml+MfSv2asIN
+	 u1CHmtEVwQqHsZcpby5215HtYTdCHruy5lpW264/bLUdwYTONLaoUYsARl8Z0mq9DEd/u
+	 wfPM+tYfNgLZMNIIXxM/rOyjsRW5CyXfdP4xDUf/H2MPwiG2fbhcyPcgCneGL6meYeLvG
+	 nh4TgFUEtXWJ8GtSdS7tb3K6jmnWDYGx5rfYFgoEbcPVuUdmSJ9pOdLMTmDCLjmjlSQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hB4mqCxl;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IHa+D7Eq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76DC9606A326;
-	Thu, 19 Nov 2026 04:17:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDBA606A32A;
+	Thu, 19 Nov 2026 04:17:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hB4mqCxl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6301F000C4;
-	Thu, 19 Nov 2026 04:17:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795061842;
-	bh=bime9q+xt/mMyBljVd8JNlkAWoM91LP/FgSUS7yT3ek=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hB4mqCxlbre1uxuf/1qmW6YA6JfyokrzDz1UjD7wtFh1PQudHZTk7DrSZ4tjUgkqz
-	 D136E46di7e139AmptrOn51NWoCU/EJSGnOD9o3+1bnwpxzf5qtCRQfAUTj1O6+UGx
-	 cFJlsX0cF8NyFKuQO67dQ6p/sQoR+8NRLX/rRufXSS9BVwgqYdQRh13/2r7aame2H6
-	 RCstza6l9RuGTdHsId4ci17KiFmsF7sB+eAi/jqNCcSxNnZuNPh63Acln7fKTLOg2v
-	 ZIMGpY4pKdF61CaQzOQ1OFH8xDllWo1HHcsyC2KWp41M+kEmsXKsFuIKJCtBnCx35U
-	 epDWiXFaaYjoQ==
-Date: Wed, 18 Nov 2026 21:17:17 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-tip-commits@vger.kernel.org,
-	"Borislav Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
- enabled when compile testing
-Message-ID: <20261119041717.GB1218811@ax162>
-References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
- <avrPcQ4sOkgJPbkZ@gmail.com>
- <20261116130159.GA1327949@ax162>
- <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
- <20261116223628.5a6139a7@pumpkin>
- <20261118072848.GA325225@ax162>
- <20261118090035.15ced20c@pumpkin>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IHa+D7Eq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4421F000C4;
+	Thu, 19 Nov 2026 04:17:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795061849;
+	bh=ca1ZQCpat86vjGBhccYSa9EC/MdOY7wpurQwkc16pPg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=IHa+D7EqJts9q1EnD0aC926t899o5eY4oOLKW4boYapMpQsUK9kEYWZ1bCbIj6UWz
+	 iSkignssyu8xbxvaWXIrA9esjxBpxAqw0VEFCXCGNTrC1Tc3xdSOyeBNJi4iZwRm8+
+	 dYCr5dAXJY7HYiAApDSkJvXUO730aYIwrfQ44e1M=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Vega <vega@nebusec.ai>,
+	Florian Westphal <fw@strlen.de>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 1701/1848] netfilter: conntrack: fix unlikely UaF in gc worker
+Date: Wed, 18 Nov 2026 16:02:19 +0100
+Message-ID: <20261118150030.950852209@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
+References: <20261118145911.150052362@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,39 +63,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261118090035.15ced20c@pumpkin>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 18, 2026 at 09:00:35AM +0000, David Laight wrote:
-> On Wed, 18 Nov 2026 00:28:48 -0700
-> Nathan Chancellor <nathan@kernel.org> wrote:
-> >   $ make ARCH=... LLVM=1
-> > 
-> > is generally all you need to do nowadays.
-> > 
-> 
-> That requires that you also get the correct clang on $PATH.
-> I'm sure I remember that not being as easy as it might seem.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-Since
+------------------
 
-  e9c281928c24 ("kbuild: Make $(LLVM) more flexible")
+From: Florian Westphal <fw@strlen.de>
 
-in 5.18, you can pass a full prefix to clang, which can help ensure you
-are using the right toolchain since the build will error if you do not
-point it to the right path:
+[ Upstream commit 9836164821a46af07428bb2a5e14137bf0c7bd6e ]
 
-  $ make -skj"$(nproc)" ARCH=arm64 LLVM=/doesnt/exist/bin/ mrproper defconfig
-  make[3]: /doesnt/exist/bin/clang: No such file or directory
-  make[3]: /doesnt/exist/bin/clang: No such file or directory
-  /bin/sh: line 1: /doesnt/exist/bin/clang: No such file or directory
-  make[4]: *** [scripts/Makefile.host:114: scripts/basic/fixdep] Error 127
+When early-drop scan is enabled, gc_worker() reads tmp->ct_net, resolves
+cnet with nf_ct_pernet(), and reads cnet->count with RCU read lock held but
+before acquiring a reference to tmp.
 
-I use that when I am building with the kernel.org toolchains because
-they live on disk in my home folder then I have clang tip in my path
-that I can use with just LLVM=1.
+Its unlikely but possible that the worker gets preempted before reading
+cnet->count while nf_conntrack_cleanup_net_list manages to unlink all
+conntracks and returns in the mean time.
+This allows for the pernet memory to get free'd.
 
+On resume, use after free would occur when the worker reads cnet->count.
+
+This can be solved either via another synchronize_rcu() in
+nf_conntrack_cleanup_net_list or via cheaper flush_work().  If work
+wasn't running no race can happen as next call cannot observe
+already-unlinked conntrack objects.
+
+This is an LLM finding with no reproducer, but it appears to be correct.
+
+Fixes: c6dd940b1f74 ("netfilter: allow early drop of assured conntracks")
+Reported-by: Vega <vega@nebusec.ai>
+Signed-off-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/netfilter/nf_conntrack_core.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/net/netfilter/nf_conntrack_core.c b/net/netfilter/nf_conntrack_core.c
+index e2330c3456b03..5c5112b5bc3a7 100644
+--- a/net/netfilter/nf_conntrack_core.c
++++ b/net/netfilter/nf_conntrack_core.c
+@@ -2457,6 +2457,11 @@ void nf_conntrack_cleanup_net_list(struct list_head *net_exit_list)
+ 		goto i_see_dead_people;
+ 	}
+ 
++	/* must wait for current scan loop, worker also looks at
++	 * struct nf_conntrack_net, which is about to be free'd.
++	 */
++	flush_work(&conntrack_gc_work.dwork.work);
++
+ 	list_for_each_entry(net, net_exit_list, exit_list) {
+ 		nf_conntrack_proto_pernet_fini(net);
+ 		nf_conntrack_ecache_pernet_fini(net);
 -- 
-Cheers,
-Nathan
+2.53.0
+
+
+
