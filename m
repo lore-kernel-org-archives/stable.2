@@ -1,72 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794993331;
-	b=LWQNN4rEFZy0y6rE4vi4AB36FgB0aoxnNKV2JrApvUDdIUMta51av1P8U6tFByQDShwj
-	 bvcqgOZQKKAXuejmA7Pw6HlB0tYyKyg1GpW2O5vjBG5FSN2f2lZZR71TEyaDKhZ4uxuba
-	 RRPvsFotpShM+ycKgq6hc443lkqbKU4VvJ6Qt6172foHionR4IQhjTQQWxWJ9xMcY1SMF
-	 LmvyXBJFF0V0dmuLyozpKfPRkWAv+e3mqmecBKWJvESbvV4bB6yy3iebumXDGfLEdPcTp
-	 SzcEXQeezQKhYxqxbVBMX2BXeDjnbtck7Mc/8g/OvR6LCknj7Dbtlc2xiwHK02qoA2w==
+	t=1794993669;
+	b=qo58syDoSCdy3RHPMPT8EVMMCnTeRYh2zhhrrR4jTMqkAdaM52D7DYFGa6ZbeJGcqZAu
+	 KZ3Z4550FvekHcLpj1LXnzeOyzA/0FbJuQXBpeKXiLS4Mv144nc8/msTOE6+rA+Ea+7DO
+	 9K/JERg+l4oZ7SFUyBdAD2VJQZ0nOCJdXIelrFxxlNxxBkNJQy9796T/EFyGqfaLKwiQi
+	 mJFhFSoxTWgibcv4zHBciNNl2GJos6LM6K48Dx865p5LleVtYHKr4Pkp909eLz4HG4lFV
+	 OFBRTWzWZY4UB/0EeEVd7DAe/D55jzJI5HtCz33vRp4hVOnisRJpbO+lzCTPBAa3s+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794993331;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Spam-Status:X-Spam-Checker-Version;
-	bh=wSMeyCY8gUx+v9imX2JzRn4eiji0nD/JQaQuLlGld0I=;
-	b=ocR0L5LOWDPgSecGO89nuKaIaBcvCPqT544pWp9+tCoH8SzireodjqkXDPBA+kIyyaev
-	 Mb18z3R4VscIEJHBxwslh7nsky0NQWrtn3lXOQ/lF0LVIxsOIfd2eMY8U6U6Faym4OAYm
-	 tm5Kg9oHPMLFjuvYyH9faHW1M8TGebFYbTI1JzJoMQcqFXgbWVl258vRWfK2EojmlQI56
-	 ldcT9+gRsgfUxyJJlojvhA6aLlEMqK9H4hFWBegUsSLZ+6VCdeZXNfeer1NZfute0I4pb
-	 l37NNsQpHcFP9nOwmEVDr3LVgTfW5MDUtSBTbN1Egd9ALA3j2NszV3+ZCjiM/RAPtPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794993669;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=hcfafF7WXNr27PZx8i3XRebSUbFpd4N+v61QV1UymJI=;
+	b=M2otC477ic/tVgZXXu6eGIuxAuwYJcd5ycgsWBH0X1qW+0oZvsWi39dzUpYtSibdCzuG
+	 JurIWXuHuEGFM///Ng4Ujq/vLqlzOLtbsuT5+p11AzlHp9Qc3NQ1C9YvnBjdVqYlQp0Nj
+	 j9+PhmQZLY4nLHT6MjU9nZxGqQyLboMiamHVv0n9jBu3OdFp29ppyAoy6J0bPCZ9JoMrR
+	 nygNEC8oExkXPAPZK8qUjvwFULdBdlzWMyLi9QLdQCVwvqhD9jQfUMwlxxomk6rtTc3+n
+	 bSVsRiCLo202WDMAcdsgD8cgIk4OEtIOEY5ZuSpcZ0OOcbMHuD48+0FINYJsLZC/wAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=GvOKBmL6;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 97124606A320;
-	Wed, 18 Nov 2026 09:15:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97124606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knsgeF4b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DEE606A31C;
+	Wed, 18 Nov 2026 09:21:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=GvOKBmL6
-Received: from kali.mshome.net (unknown [4.213.232.16])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 7471F20B7169;
-	Wed, 18 Nov 2026 01:15:23 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7471F20B7169
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1794993328;
-	bh=wSMeyCY8gUx+v9imX2JzRn4eiji0nD/JQaQuLlGld0I=;
-	h=From:To:Cc:Subject:Date:From;
-	b=GvOKBmL6Nk3ycPq9/4MdVIXvbgmDsqx1wE5Z2nA0X2RNTIGS7jHHkt5ioW0fXT/2r
-	 UTC5xqW4VL8QBuZLC81ywzSC5AMjCH3BkfLSckG4JNn7V02HJL+qxLtLMHQWqkDSuA
-	 Hu8E6yIsnN7nGHjtYavYEgyLQPUX0ZoDhSbW905I=
-From: Sahil Chandna <sahilchandna@linux.microsoft.com>
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	kotaranov@microsoft.com,
-	horms@kernel.org,
-	ernis@linux.microsoft.com,
-	gargaditya@linux.microsoft.com,
-	mawasthi@linux.microsoft.com,
-	kees+treewide@kernel.org,
-	schakrabarti@linux.microsoft.com,
-	leitao@debian.org,
-	linux-hyperv@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH net v4] net: mana: Avoid waiting on dead HWC after device reset
-Date: Wed, 18 Nov 2026 03:14:04 -0600
-Message-ID: <20261118091436.3985155-1-sahilchandna@linux.microsoft.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=knsgeF4b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1591F000C6;
+	Wed, 18 Nov 2026 09:20:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794993669;
+	bh=hcfafF7WXNr27PZx8i3XRebSUbFpd4N+v61QV1UymJI=;
+	h=From:Subject:Date:To:Cc;
+	b=knsgeF4b9Zqq2mXULZ2xDUqAb/MDVTZ+31aNGsl2OmkKsxj7SM9K/I2Lj6SDTusFD
+	 9hn3x2iUPD2XD3WbebyB2J2xXayuyE73Sn3Ky9K4WLWz9BeyZWHhRnZ7+p0ohiRvFV
+	 g5GLf9HbVwQ8zS+5KdLQ0diU096Vo88Bt0SPThWweEDxQwmV/wcF93W4HKjwfT9tCD
+	 Bz5Xe9N9KyfO2Y9/NMR6p5PCaUrT3aRC4cy+5+H3Tqph4iONu6w6erA8A3Vet9so9g
+	 tRJGA7FOrFEI0fuTpaJvs0XfYlvAt4KEugPS/Ya5RBtCLNLqKX7Eu1JHwu4ZFKcW8C
+	 4EpRGHjPK/+YA==
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: [PATCH 0/4] mm: fixes for stale TLB entries due to delayed/batched
+ TLB flushes
+Date: Wed, 18 Nov 2026 10:20:35 +0100
+Message-Id: <20261118-file_folio_flush-v1-0-e9e739ed14e0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,440 +54,216 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMQQrCMBAF0KuEv27ACcVqriJS2mbGjoRGMlaE0
+ ruLunybt8G4Khui21D5paZlQXTUOEzzsNzYa0J0CIdwJKLWi2bupWQtveTVZt8l6tqzDGNIJzQ
+ Oj8qi7195uf5t63jn6fl9sO8fqjXp1XQAAAA=
+X-Change-ID: 20261114-file_folio_flush-7d1749fab2d8
+To: Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ "Borislav Petkov (AMD)" <bp@alien8.de>, 
+ =?utf-8?q?Cenk_Y=C4=B1lmaz?= <cenk@deepfinresearch.com>, 
+ Zhang Peng <zippermonkey@icloud.com>, Mike Rapoport <rppt@kernel.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
+ Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+ Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
+ Mel Gorman <mgorman@suse.de>, Sasha Levin <sasha.levin@oracle.com>, 
+ Rik van Riel <riel@redhat.com>, Ingo Molnar <mingo@kernel.org>, 
+ Peter Xu <peterx@redhat.com>, Hugh Dickins <hughd@google.com>, 
+ Axel Rasmussen <axelrasmussen@google.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Andrea Arcangeli <aarcange@redhat.com>, Thomas Gleixner <tglx@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7325; i=david@kernel.org;
+ h=from:subject:message-id; bh=+XVlM1zarDt/HoTmPPZ/6LhCqrtwp0Vps9Eria3V5YE=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLL+5r41r9qbeeLAswnm7KJNK1J4UnauMDBvn5PwZW1zT
+ sqvN72CHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAExEey3D/7TbJ1jt108/9L6z
+ cun5WD6r4llqN/bFHdxta1lamnvapJGRYWXM4p7DnjP1Hu1T1niXlvvC/oakHv+VnPiFXzvYjkw
+ RZwAA
+X-Developer-Key: i=david@kernel.org; a=openpgp;
+ fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-After device reset is issued due to TX drain timeout in
-mana_dealloc_queues(), hardware channel (HWC) state is non-functional.
-However, the driver continues to issue HWC commands (mana_disable_vport_rx,
-mana_fence_rqs, mana_destroy_wq_obj) which will each wait for a
-completion that never arrives.
+David, what keeps you up at night? Well, the last 3 nights, TLB flushes.
 
-The first such command (MANA_CONFIG_VPORT_RX) blocks for the full
-hwc_timeout (60s as set by the firmware on the tested system), after
-which the timeout is reduced to 1 ms for subsequent commands. This
-causes the calling thread to hold the RTNL lock for over 180 seconds
-(120s TX drain + 60s HWC timeout), triggering hung task warnings and
-blocking all other networking operations on the system.
+We have two mechanisms that can delay/batch TLB flushes and cause
+problems:
 
-Fix this by:
-1. Replacing the sleep-based TX drain with a CQE polling approach:
-   disable NAPI per queue and poll its CQ synchronously, with up to 3
-   more polls 100 ms apart to collect late completions. Reset the
-   device only if sends remain unacknowledged after that, then free
-   uncompleted SKBs. The device is reset at most once per call, and
-   not at all if an earlier reset already marked the HWC dead. Once a
-   queue is found stuck or the HWC is dead, the remaining queues are
-   polled only once. This replaces the 120s drain timeout with at most
-   300 ms of sleep per queue. If queue is still stuck,
-   mana_gd_dev_reset() waits for device to return. The 300 ms budget
-   is not based on a hardware limit but in testing under load, the
-   completions still outstanding on a queue had all arrived by its
-   second poll.
-2. Setting the hwc_dead flag after a successful device reset. If the
-   reset fails, the device may not have been reset and may still access
-   memory, so teardown commands are still posted.
-3. Checking the hwc_dead flag in mana_hwc_send_request() before taking
-   an HWC message slot and again before posting the WQE, and returning
-   -ETIMEDOUT immediately without submitting commands to hardware that
-   cannot respond. A request that was already posted, or that passed
-   these checks just before hwc_dead was set (for example from the
-   gf_stats worker or mana_ib, which do not hold RTNL), still waits for
-   its own timeout, as before this patch.
-4. Skipping mana_fence_rqs() and the SHM channel teardown handshake
-   once hwc_dead is set.
+ (A) mmu_gather zap: we can delay TLB flushes until after dropping the
+     PT lock, after having zapped PTEs and adjusted the mapcounts.
 
-Fixes: a7dfeda6fdec ("net: mana: Fix MANA VF unload when hardware is unresponsive")
-Cc: stable@vger.kernel.org
-Co-developed-by: Dipayaan Roy <dipayanroy@linux.microsoft.com>
-Signed-off-by: Dipayaan Roy <dipayanroy@linux.microsoft.com>
-Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
+ (B) TTU_BATCH_FLUSH when used by reclaim: we can defer (batch) TLB
+     flushes, after having unmapped folios and adjusted the mapcounts,
+     and after having discarded lazyfree folios, removed folios from the
+     page-cache/swap-cache or just dropped the folio lock.
+
+Code that installs new folios (and doesn't just refault the old ones)
+must be aware of that, otherwise we can end up with stale TLB entries
+while new folios are already mapped into page tables.
+
+So in general, whenever we install a new folio into the page tables,
+we must make sure that no such stale TLB entries exist.
+
+Even worse, whenever we replace a folio in the page-cache that might differ
+content-wise from the old folio, or we end up modifying a new folio through
+write(), we must make sure that no such stale TLB entries exist.
+
+There are some exceptions (e.g., only once MADV_DONTNEED finished is when
+a new read from the same address gives any guarantees), so the primary
+focus is on folios that got unmapped transparently by the system, without
+involving MADV_DONTNEED.
+
+This series handles the following scenarios:
+
+Patch #1: Zapping: flush the TLB before installing a CoW'ed folio.
+          Handles CoW of a folio that is still in the page-cache.
+
+Patch #2: Reclaim: flush deferred writable TLB entries before unlocking
+          the folio. Handles writes through stale TLB entries getting
+          lost when reclaim keeps a dirty folio and somebody else
+          starts writeback.
+
+Patch #3: Reclaim: don't defer TLB flushes when unmapping lazyfree
+          folios. Handles mapping a new anon folio after reclaim
+          discarded a lazyfree folio (do_anonymous_page(),
+          migrate_vma_insert_page(), UFFDIO_COPY, UFFDIO_MOVE).
+
+Patch #4: Reclaim: unlock unmapped folios only after the deferred TLB
+          flush. Handles refaulting a new page-cache folio, CoW of a
+          folio that is still in the page-cache, and swapping in a new
+          folio (do_swap_page(), unuse_pte(), UFFDIO_CONTINUE). Also
+          handles invalidation replacing a folio that reclaim kept, and
+          write() modifying a new page-cache folio.
+
+Patches #1 and #2 are small fixes that should be merged as soon as
+possible. Patch #4 makes the flush added by patch #2 unnecessary by
+keeping folios locked until the deferred TLB flush, and removes it
+again.
+
+Patches #3 and #4 are RFC, because #4 is rather intrusive and #3 comes
+with a performance impact (see below). But there isn't really a good
+alternative to fix these things for good that I see.
+
+In theory, UFFDIO_COPY installing a new anon folio into a MAP_PRIVATE
+shmem mapping is affected by concurrent zapping just like CoW faults in
+patch #1. But the required setups (e.g., userfaultfd on a MAP_PRIVATE
+mapping of a tmpfs file that backs a loop device) are so unusual that we
+will leave it alone for now. Same applies to the hugetlb counterpart.
+
+Remaining Problem
+-----------------
+
+There is one remaining known problem that is not handled by this
+series:
+
+Zapping (e.g., unmap_mapping_range()) removes the rmap of clean
+page-cache folios before performing the deferred TLB flush. If the
+mapcount drops to 0, a concurrent invalidation (e.g.,
+invalidate_inode_pages2_range()) will skip the unmapped folio and can
+remove it from the page-cache before the pending TLB flush.
+
+A page fault (except a CoW fault, see patch #1) can then map a new folio,
+or write() can modify it, while other CPUs still read the old folio through
+stale TLB entries.
+
+I think that this is low priority: it requires two concurrent invalidations
+of the same file range while another process has the file mapped, and CPUs
+can only read stale data until the zapper flushes the TLB; writes are never
+lost.
+
+It could maybe be fixed in the invalidation code? unmap_mapping_*() holds
+the i_mmap_rwsem in read mode until it flushed the TLB, so
+folio_unmap_invalidate() could briefly take it in write mode iff the folio
+has unexpected references. But dropbehind (RWF_DONTCACHE) invalidates
+folios on writeback completion while holding an additional reference, where
+we must not sleep on the i_mmap_rwsem, so that would need some care.
+
+Something for the future :)
+
+Testing
+-------
+
+I threw a bunch of selftests at it and had AI generate some stress
+tests, in particular for the benchmarks below. I also ran stress-ng to
+force reclaim.
+
+I managed to reproduce the issues in patch #3 and #4, as described in
+the patch descriptions.
+
+Stale reads out of 1024000 checked pages in 2000 iterations:
+
+                               base    series
+  lazyfree,  MGLRU            16242         0
+  lazyfree,  classic LRU      16274         0
+  swapcache, MGLRU            24076         0
+  swapcache, classic LRU      23028         0
+
+Performance Impact
+------------------
+
+I ran some benchmarks in an x86-64 VM with limited CPUs, RAM and zram
+enabled. Running inside a VM might make TLB flushes more expensive, so
+the results below might be a bit exaggerated. AI results below.
+
+Classic LRU, 4 threads randomly touching a working set twice the size of
+their memcg for 30 seconds. Pages touched per second:
+
+                 base     series
+  anon-rw        681k      1055k
+  anon-ro       1013k      1027k
+  file-ro        417k       419k
+  file-rw        173k       183k
+  lazyfree      1512k       333k
+
+Swapping out dirty anon folios ("anon-rw") is about 55% faster, because
+patch #4 now also batches TLB flushes of stale writable TLB entries.
+That is what Zhang Peng's series [1] tried to achieve, and his work also
+inspired how patch #4 locks folios again, but the used mechanism is
+different.
+
+Reclaiming clean anon folios ("anon-ro"), clean page-cache folios
+("file-ro") and dirty page-cache folios ("file-rw") is not noticeably
+affected.
+
+Reclaiming lazyfree folios ("lazyfree") is about 4.5x slower, because
+we stop batching TLB flushes when discarding them entirely, which seems
+to be the right thing to do for now. We can look into optimizing this
+separately later.
+
+[1] https://lore.kernel.org/linux-mm/20261031-batch-tlb-flush-v6-0-190539839eec@tencent.com/
+
 ---
-Changes in v4:
-- Keep netif_napi_del_locked() in mana_destroy_txq() after the WQ
-  object is destroyed; track the dealloc-time disable with
-  txq->napi_disabled.
-- Drop lowering hwc_timeout on reset failure.
-- Fix commit message based on review comments.
-Link to v3: https://lore.kernel.org/all/20261112085226.878780-1-sahilchandna@linux.microsoft.com/
+David Hildenbrand (Arm) (4):
+      mm: flush stale TLB entries before installing a CoW'ed folio
+      mm/vmscan: flush deferred writable TLB entries before unlocking the folio
+      RFC: mm/rmap: don't defer TLB flushes when unmapping lazyfree folios
+      RFC: mm/vmscan: unlock unmapped folios only after the deferred TLB flush
 
-Changes in v3:
-- Resolve sashiko comments, poll last 100 ms before device reset.
-- Stop the drain retries once the HWC is dead.
-- Fail fast in mana_hwc_send_request() only when hwc_dead is set, not
-  when hwc_timeout is 0, so requests made after mana_serv_reset() are
-  still posted as before this patch.
-- When the device reset fails, do not set hwc_dead, so teardown
-  commands are still posted, but lower hwc_timeout to 1 ms so they do
-  not each wait the full timeout
-- Read hwc_timeout once with READ_ONCE() and lower it with cmpxchg(),
-  so a concurrent 0 from mana_serv_reset() is not overwritten.
-- Use READ_ONCE() for all hwc_dead reads.
-Link to v2: https://lore.kernel.org/all/20261030125009.3758592-1-sahilchandna@linux.microsoft.com/
+ mm/internal.h |   5 ++
+ mm/memory.c   |   6 +++
+ mm/rmap.c     |  20 +++++++-
+ mm/shmem.c    |   2 +-
+ mm/swap.h     |   5 +-
+ mm/swapfile.c |   7 ++-
+ mm/vmscan.c   | 155 ++++++++++++++++++++++++++++++++++++++++++++++++++++++----
+ 7 files changed, 184 insertions(+), 16 deletions(-)
+---
+base-commit: 0c524518413094607a6178c53a65815762bc9c45
+change-id: 20261114-file_folio_flush-7d1749fab2d8
 
-Changes in v2:
-- Add bounded wait for late TX completions before deciding that a
-  queue is stuck, poll the CQ up to 3 times, 100 ms apart.
-- check hwc_timeout and hwc_dead before taking an HWC message slot,
-  not only before posting the WQE.
-Link to v1: https://lore.kernel.org/all/20261025072838.1991785-1-sahilchandna@linux.microsoft.com/
-
- .../net/ethernet/microsoft/mana/gdma_main.c   |   6 +-
- .../net/ethernet/microsoft/mana/gdma_pci.c    |   2 +-
- .../net/ethernet/microsoft/mana/hw_channel.c  |  40 ++++--
- drivers/net/ethernet/microsoft/mana/mana_en.c | 118 +++++++++++++-----
- include/net/mana/hw_channel.h                 |   1 +
- include/net/mana/mana.h                       |   3 +
- 6 files changed, 130 insertions(+), 40 deletions(-)
-
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-index d6ae89c2ccdd..db330426320e 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
-@@ -141,7 +141,7 @@ int mana_gd_init_registers(struct gdma_context *gc)
- 		return mana_gd_init_vf_regs(gc);
- }
-
--/* Suppress logging when we set timeout to zero */
-+/* Suppress logging when we set timeout to zero or hwc is dead */
- bool mana_need_log(struct gdma_context *gc, int err)
- {
- 	struct hw_channel_context *hwc;
-@@ -153,7 +153,9 @@ bool mana_need_log(struct gdma_context *gc, int err)
- 		return true;
-
- 	hwc = gc->hwc.driver_data;
--	if (hwc && hwc->hwc_timeout == 0)
-+	if (hwc &&
-+	    (READ_ONCE(hwc->hwc_timeout) == 0 ||
-+	     READ_ONCE(hwc->hwc_dead)))
- 		return false;
-
- 	return true;
-diff --git a/drivers/net/ethernet/microsoft/mana/gdma_pci.c b/drivers/net/ethernet/microsoft/mana/gdma_pci.c
-index 208dadbcf977..f9d75b5d9e43 100644
---- a/drivers/net/ethernet/microsoft/mana/gdma_pci.c
-+++ b/drivers/net/ethernet/microsoft/mana/gdma_pci.c
-@@ -102,7 +102,7 @@ static void mana_serv_reset(struct pci_dev *pdev)
- 	}
-
- 	/* HWC is not responding in this case, so don't wait */
--	hwc->hwc_timeout = 0;
-+	WRITE_ONCE(hwc->hwc_timeout, 0);
-
- 	dev_info(&pdev->dev, "MANA reset cycle start\n");
-
-diff --git a/drivers/net/ethernet/microsoft/mana/hw_channel.c b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-index fb9f38f65911..1671944684b8 100644
---- a/drivers/net/ethernet/microsoft/mana/hw_channel.c
-+++ b/drivers/net/ethernet/microsoft/mana/hw_channel.c
-@@ -192,7 +192,7 @@ static void mana_hwc_init_event_handler(void *ctx, struct gdma_queue *q_self,
-
- 		switch (type) {
- 		case HWC_DATA_CFG_HWC_TIMEOUT:
--			hwc->hwc_timeout = val;
-+			WRITE_ONCE(hwc->hwc_timeout, val);
- 			break;
-
- 		case HWC_DATA_HW_LINK_CONNECT:
-@@ -816,10 +816,16 @@ void mana_hwc_destroy_channel(struct gdma_context *gc)
- 		return;
-
- 	/* gc->max_num_cqs is set in mana_hwc_init_event_handler(). If it's
--	 * non-zero, the HWC worked and we should tear down the HWC here.
-+	 * non-zero, the HWC worked and we should tear down the HWC here,
-+	 * unless device reset has already marked it dead: the device then
-+	 * no longer holds the HWC state and the handshake would only spin.
- 	 */
- 	if (gc->max_num_cqs > 0) {
--		mana_smc_teardown_hwc(&gc->shm_channel, false);
-+		if (READ_ONCE(hwc->hwc_dead))
-+			dev_warn(hwc->dev,
-+				 "HWC unavailable, skip SHM teardown handshake\n");
-+		else
-+			mana_smc_teardown_hwc(&gc->shm_channel, false);
- 		WRITE_ONCE(gc->max_num_cqs, 0);
- 	}
-
-@@ -867,9 +873,17 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
- 	u32 dest_vrcq;
- 	u32 dest_vrq;
- 	u32 command;
-+	u32 timeout;
- 	u16 msg_id;
- 	int err;
-
-+	/* Fail fast before taking the HWC slot. After a device reset, requests
-+	 * already holding slots will release them once their own timeout
-+	 * expires.
-+	 */
-+	if (READ_ONCE(hwc->hwc_dead))
-+		return -ETIMEDOUT;
-+
- 	mana_hwc_get_msg_index(hwc, &msg_id);
-
- 	tx_wr = &txq->msg_buf->reqs[msg_id];
-@@ -902,21 +916,31 @@ int mana_hwc_send_request(struct hw_channel_context *hwc, u32 req_len,
- 	dest_vrq = hwc->dest_vrq_id;
- 	dest_vrcq = hwc->dest_vrcq_id;
-
-+	/* If the HWC is unavailable after device reset, do not post the WQE:
-+	 * the hardware cannot respond, so fail fast instead of waiting for
-+	 * the full timeout.
-+	 */
-+	if (READ_ONCE(hwc->hwc_dead)) {
-+		err = -ETIMEDOUT;
-+		goto out;
-+	}
-+
- 	err = mana_hwc_post_tx_wqe(txq, tx_wr, dest_vrq, dest_vrcq, false);
- 	if (err) {
- 		dev_err(hwc->dev, "HWC: Failed to post send WQE: %d\n", err);
- 		goto out;
- 	}
-
-+	timeout = READ_ONCE(hwc->hwc_timeout);
- 	if (!wait_for_completion_timeout(&ctx->comp_event,
--					 (msecs_to_jiffies(hwc->hwc_timeout)))) {
--		if (hwc->hwc_timeout != 0)
-+					 (msecs_to_jiffies(timeout)))) {
-+		if (timeout)
- 			dev_err(hwc->dev, "Command 0x%x timed out: %u ms\n",
--				command, hwc->hwc_timeout);
-+				command, timeout);
-
- 		/* Reduce further waiting if HWC no response */
--		if (hwc->hwc_timeout > 1)
--			hwc->hwc_timeout = 1;
-+		if (timeout > 1)
-+			cmpxchg(&hwc->hwc_timeout, timeout, 1);
-
- 		err = -ETIMEDOUT;
- 		goto out;
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 7e9223143fc7..5e4379107b45 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -2086,7 +2086,9 @@ static void mana_poll_tx_cq(struct mana_cq *cq)
- 	if (atomic_sub_return(pkt_transmitted, &txq->pending_sends) < 0)
- 		WARN_ON_ONCE(1);
-
--	/* Feed DIM with the completion rate observed here, in NAPI context. */
-+	/* Feed DIM with the completion rate observed here, in NAPI context
-+	 * or in the TX drain of mana_dealloc_queues() after NAPI is disabled.
-+	 */
- 	cq->tx_dim_pkts += pkt_transmitted;
- 	cq->tx_dim_bytes += tx_bytes;
-
-@@ -2611,6 +2613,8 @@ static void mana_update_tx_dim(struct mana_cq *cq)
- 	/* cq->tx_dim_pkts/bytes are accumulated in mana_poll_tx_cq(), in the
- 	 * same NAPI context as this read, so they track the hardware
- 	 * completion rate and need no u64_stats_sync protection.
-+	 * The TX drain in mana_dealloc_queues() also adds to them,
-+	 * but only after NAPI is disabled, so not concurrently with this read.
- 	 */
- 	dim_update_sample(READ_ONCE(cq->dim_event_ctr), cq->tx_dim_pkts,
- 			  cq->tx_dim_bytes, &dim_sample);
-@@ -2717,16 +2721,17 @@ static void mana_destroy_txq(struct mana_port_context *apc)
- 		apc->tx_qp[i]->mana_tx_debugfs = NULL;
-
- 		napi = &apc->tx_qp[i]->tx_cq.napi;
--		if (apc->tx_qp[i]->txq.napi_initialized) {
-+		if (apc->tx_qp[i]->txq.napi_initialized &&
-+		    !apc->tx_qp[i]->txq.napi_disabled) {
- 			napi_synchronize(napi);
- 			napi_disable_locked(napi);
- 			cancel_work_sync(&apc->tx_qp[i]->tx_cq.dim.work);
- 		}
-
--		/* Forget the SKBs freed without being completed after a drain
--		 * timeout, now that NAPI can't complete any. Doing it here also
--		 * covers the queues that a lower channel count won't recreate,
--		 * which could otherwise stay stopped.
-+		/* Forget the SKBs freed in mana_dealloc_queues() without
-+		 * completion, now that NAPI can't complete any. Doing it
-+		 * here also covers the queues that a lower channel count
-+		 * won't recreate, which could otherwise stay stopped.
- 		 */
- 		netdev_tx_reset_queue(apc->tx_qp[i]->txq.net_txq);
-
-@@ -2743,6 +2748,7 @@ static void mana_destroy_txq(struct mana_port_context *apc)
- 			mana_gd_detach_cq(gc, apc->tx_qp[i]->tx_cq.gdma_cq);
- 			netif_napi_del_locked(napi);
- 			apc->tx_qp[i]->txq.napi_initialized = false;
-+			apc->tx_qp[i]->txq.napi_disabled = false;
- 		}
-
- 		mana_deinit_cq(apc, &apc->tx_qp[i]->tx_cq);
-@@ -3774,19 +3780,24 @@ int mana_attach(struct net_device *ndev)
- 	return 0;
- }
-
-+#define MANA_TX_DRAIN_RETRIES	3
-+
- static int mana_dealloc_queues(struct net_device *ndev)
- {
- 	struct mana_port_context *apc = netdev_priv(ndev);
--	unsigned long timeout = jiffies + 120 * HZ;
- 	struct gdma_dev *gd = apc->ac->gdma_dev;
-+	struct hw_channel_context *hwc;
-+	int flr_pending, i, err, retry;
-+	bool trigger_flr = false;
- 	struct mana_txq *txq;
- 	struct sk_buff *skb;
--	int i, err;
--	u32 tsleep;
-+	u32 flr_txq_id = 0;
-
- 	if (apc->port_is_up)
- 		return -EINVAL;
-
-+	hwc = gd->gdma_context->hwc.driver_data;
-+
- 	if (apc->rxqs)
- 		mana_chn_setxdp(apc, NULL);
-
-@@ -3799,31 +3810,79 @@ static int mana_dealloc_queues(struct net_device *ndev)
- 	 * to false, but it doesn't matter since mana_start_xmit() drops any
- 	 * new packets due to apc->port_is_up being false.
- 	 *
--	 * Drain all the in-flight TX packets.
--	 * A timeout of 120 seconds for all the queues is used.
--	 * This will break the while loop when h/w is not responding.
--	 * This value of 120 has been decided here considering max
--	 * number of queues.
-+	 * Drain the in-flight TX completions for each queue. TX is already
-+	 * stopped, so pending_sends can no longer grow. For each queue,
-+	 * disable NAPI so it cannot run at the same time as this drain,
-+	 * then poll its CQ for up to 300 ms. If sends are still missing,
-+	 * the hardware is not responding: reset the device and mark the
-+	 * HWC dead so that later HWC commands fail fast.
- 	 */
-
- 	if (apc->tx_qp) {
- 		for (i = 0; i < apc->num_queues; i++) {
-+			struct napi_struct *napi;
-+			struct mana_cq *tx_cq;
-+			int pending;
-+
-+			tx_cq = &apc->tx_qp[i]->tx_cq;
- 			txq = &apc->tx_qp[i]->txq;
--			tsleep = 1000;
--			while (atomic_read(&txq->pending_sends) > 0 &&
--			       time_before(jiffies, timeout)) {
--				usleep_range(tsleep, tsleep + 1000);
--				tsleep <<= 1;
--			}
--			if (atomic_read(&txq->pending_sends)) {
--				err = mana_gd_dev_reset(gd->gdma_context);
--				if (err) {
--					netdev_err(ndev, "device reset failed %d with %d pkts pending in txq %u\n",
--						   err,
--					    atomic_read(&txq->pending_sends),
--					    txq->gdma_txq_id);
-+			napi = &tx_cq->napi;
-+
-+			if (txq->napi_initialized) {
-+				/* Stop the NAPI poll so it cannot run
-+				 * concurrently with the synchronous drain.
-+				 */
-+				napi_synchronize(napi);
-+				napi_disable_locked(napi);
-+				cancel_work_sync(&tx_cq->dim.work);
-+				txq->napi_disabled = true;
-+
-+				/* Poll the CQ until no sends are outstanding,
-+				 * sleeping 100 ms between polls. Poll only
-+				 * once if earlier queue was stuck or device
-+				 * has already been reset.
-+				 * A zero budget frees skbs via the non-NAPI
-+				 * path, which is required outside softirq.
-+				 */
-+				tx_cq->budget = 0;
-+				for (retry = 0; retry <= MANA_TX_DRAIN_RETRIES;
-+				     retry++) {
-+					do {
-+						tx_cq->work_done = 0;
-+						mana_poll_tx_cq(tx_cq);
-+					} while (tx_cq->work_done);
-+
-+					if (!atomic_read(&txq->pending_sends) ||
-+					    trigger_flr ||
-+					    READ_ONCE(hwc->hwc_dead))
-+						break;
-+					if (retry < MANA_TX_DRAIN_RETRIES)
-+						msleep(100);
- 				}
--				break;
-+			}
-+
-+			pending = atomic_read(&txq->pending_sends);
-+
-+			if (!trigger_flr && pending > 0) {
-+				trigger_flr = true;
-+				flr_txq_id = txq->gdma_txq_id;
-+				flr_pending = pending;
-+			}
-+		}
-+
-+		if (trigger_flr && !READ_ONCE(hwc->hwc_dead)) {
-+			/* Completions never arrived: the device is
-+			 * unresponsive. Issue device reset and
-+			 * mark the HWC dead so subsequent HWC commands
-+			 * fail fast instead of each waiting the full
-+			 * hwc_timeout.
-+			 */
-+			err = mana_gd_dev_reset(gd->gdma_context);
-+			if (err) {
-+				netdev_err(ndev, "device reset failed %d with %d pkts pending in txq %u\n",
-+					   err, flr_pending, flr_txq_id);
-+			} else {
-+				WRITE_ONCE(hwc->hwc_dead, true);
- 			}
- 		}
-
-@@ -3846,7 +3905,8 @@ static int mana_dealloc_queues(struct net_device *ndev)
- 	if (err && mana_en_need_log(apc, err))
- 		netdev_err(ndev, "Failed to disable vPort: %d\n", err);
-
--	mana_fence_rqs(apc);
-+	if (!READ_ONCE(hwc->hwc_dead))
-+		mana_fence_rqs(apc);
-
- 	/* Even in err case, still need to cleanup the vPort */
- 	mana_destroy_rxqs(apc);
-diff --git a/include/net/mana/hw_channel.h b/include/net/mana/hw_channel.h
-index 1ab2d66c891e..0bc222c32244 100644
---- a/include/net/mana/hw_channel.h
-+++ b/include/net/mana/hw_channel.h
-@@ -179,6 +179,7 @@ struct hw_channel_context {
- 	struct gdma_dev *gdma_dev;
- 	struct device *dev;
-
-+	bool hwc_dead;
- 	u16 num_inflight_msg;
- 	u32 max_req_msg_size;
-
-diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
-index 218d540bc994..0ed638bfe8b2 100644
---- a/include/net/mana/mana.h
-+++ b/include/net/mana/mana.h
-@@ -143,6 +143,7 @@ struct mana_txq {
- 	atomic_t pending_sends;
-
- 	bool napi_initialized;
-+	bool napi_disabled;
-
- 	struct mana_stats_tx stats;
- };
-@@ -344,6 +345,8 @@ struct mana_cq {
- 	/* Cumulative TX completions fed to DIM. Updated and read only in
- 	 * NAPI context (mana_poll_tx_cq() / mana_update_tx_dim()), so they
- 	 * measure the hardware completion rate and need no u64_stats_sync.
-+	 * The TX drain in mana_dealloc_queues() also updates them, but only
-+	 * after NAPI is disabled and the DIM work is cancelled.
- 	 */
- 	u64 tx_dim_pkts;
- 	u64 tx_dim_bytes;
---
-2.53.0
+Best regards,
+--  
+David Hildenbrand (Arm) <david@kernel.org>
 
