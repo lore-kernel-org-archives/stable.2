@@ -1,95 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795045819;
-	b=krKt3OrUqulKiWzbJHgbK1PpKkNQsF+PN/QKL1VkB38VKFFPwSzTuOYP/DtpXNEBBmnk
-	 fgmOSlBnGE/LTWUAhapPckPFqJsUggf4U/BsHAHc7hUMbUXw7El3aYqJP9kAN2LwYQNuh
-	 +LQobHOVXpbosHMyMM8Tajd2rJlxPvxjQiM2bmzsJM5hBW0y1AV8WEt7/hc+x+qIgSGe6
-	 RXMZtWyi4Zf0TOSDn+voZXWTr1oHPVx+iyLqWggISEgV4pTdpBFann+fB037J8+qQ436Q
-	 6Aaex7+ODPmpROW7P8Vw0cJETUkUVMCy1iG4McmTuby5MNAP/3dv8+zb0brshk+9AOA==
+	t=1795045821;
+	b=1u9KGav/ML/OuZDuV6JFzMINtlDkFHiuNdGx8RvOznLBoz/IKK0iBWL38Eo1++7fcXhh
+	 w2YZxGhNgDTqi9MbZ1wMrXMZjH08HUXxi+eZQg89DyKuhqLhCENWWc7nLxR2gwbu/ESbv
+	 OO8whLe+443f2Dz7w7DyiJa39yqRX2B5ux00YLPNkuPrrsEKk2/NhpzefepC2q6H/FTAS
+	 d918pRbDKne7PQXaGqd77WDycLddOHrvbGePnSK5UlSqSQeXqV0kVroahghVUpcK7asjN
+	 j0929/kg4ovBZiaSM34F/jmUQ/KINN9BTGarAtXFszIcpa9/Z0197vKsbin+EvoiDvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795045819;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=fduH1+3PZ/9MoDFOHCe3dYefomwFptmBxA3+ByWc1yc=;
-	b=bL+bUEWgsYx/ARdTQ4zDvZkIxTP6P9n/tOehZ6rK+RDjJxoyiIQHMPPyiMiZnLnHMi/4
-	 aUOirOyimB+xYwF1z1CpYkD18Regx5vhNHRa6Z1pH5Ra8W4a3Nx+XWetT4ajxxLhreU7T
-	 ysd/yO3XlbeA0IMsOHU5OoVUc3/K2Bpt5EuUioA24WBo3s+SUUj5iTKkiI+3Er16JZUOD
-	 cLhnEFNIpeK87bE7wmeccpM0wRyA9Rle5Cvl5vnGxkgr6HO+NuZqfZ3jkoTqmd6liRGmm
-	 oIorbH3kKv+cGCnqpx1nmcJQ8r+OD2kmXindYGW+gd06Tns/6QDL/c3W/t7GBA/wC0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795045821;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=qYZYt1sUk7Kp9kJVUtkvX/Wu3uZsKcDCU/usnaJogYg=;
+	b=oFLhTawkCuBWF9aXuhVlGnEcQaLCH1tPJCkrnmNaNiD++tpM87GQOtIkYWI8Uc6lEmIe
+	 JJi/gvbDMlo1gnce2W4A5GWWqDnCRLenZ1YDWge3bC2VUWtSea6HKhNpT0oZbzj97SeV2
+	 W94cwZObKda7u655St7+YrORPxGngD9js3C+Z3UC2bqkcwyOz7A9sFSSKxeEWpADWm7qQ
+	 S+os6MU2Lk8Vtfu6YDg3COksUzFpRCYfOqKpPCBHLZ+ssTEc8INPulJGKQJrqDjRg8t5A
+	 7n9UBiAoijlFurjG0rvrbb0afCxaJFIve/qCJY7IjHg7pv8dllvTIKOB+oCEEG8hoTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GrC4vKpJ;
-	arc=none smtp.remote-ip=209.85.210.47
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oWr9RD+W;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5DF6606A325
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 23:50:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5DF6606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36D62606A33E;
+	Wed, 18 Nov 2026 23:50:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GrC4vKpJ
-Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-844a8bf7e25so1046570a34.1
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:50:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795045817; x=1795650617; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fduH1+3PZ/9MoDFOHCe3dYefomwFptmBxA3+ByWc1yc=;
-        b=GrC4vKpJ3CsPgqGTknzfnPz9X85IHt+SfYZidKboL13p5Ur3sfNCf+Z7a3dc3RLeny
-         9E18YdymITMZ31wvetqb94MdtegskLeOHC9QrjGoPJ+Iqe0JZDT0lmtUNdR6e8DIedCO
-         aF3JzfBB0bpMDo/ZO8NBtYN5MYPrdlunidnv0NBNo+cPAT7VeLpW99PVdZsU5ShMdIi+
-         Jl4ieKOwKwnf1e+p/8rF3atEuExcPblM4D3v462LbLbEsYhKxSAL2zaw4jyuXHL8vWHW
-         cS7uYCTnA/4rPJr255DaUoZZUVSp//5SDt/PYvbx69yWK57r2z/Qi6uF3fvwNxY8Lvbb
-         XYRg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795045817; x=1795650617;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fduH1+3PZ/9MoDFOHCe3dYefomwFptmBxA3+ByWc1yc=;
-        b=bib8jEpEzSsR38wJjdSiUIZp4XbnHwsitJjUs5YOk/MClsdOJMxQWF/OlgufJye03c
-         Ta9N67T983u3Bv/7P2CvXyfBblPh6KHKrWGwlAKyIkdTg69sFB1+naOqcFhsalxyXCs3
-         9dBwjdcFyqDb4edcuE6L7KcpImtYZL2PrMWA4Y/t21ekn8XAgHy/YOW7dXLVFcaoAcPv
-         o4WZ9n9jt9jETwlUFr2T6++fPEyrg4PE5XOQTmCFll9eTMcu+kBRE5ZMZsQbz8ONvI6i
-         f+JFhZNKO5n7q8jt0SMTQKD7FAoQrSZ6jFKjH9vjUYxrOtFu2N4Blx3Gz6KTN4ypLoE+
-         iX+w==
-X-Forwarded-Encrypted: i=1; AL+hErGmdSOPhHPU+zyEpronbP/8EJD+Ikfvp1RrXYQ3C912wXrxTmpRq7/ZGQxWkiqRYA99oY/Y528=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/gRO0GSPtur8cj7+LaVo682U0ql4hYo5e0pqjV1l04U4gMXyvY
-	j4Q+j57Yq/Fkj0YiSwWNFM9f1N1NGdzx8UCQRmGYSTE8zRT4EDeuTyBo
-X-Gm-Gg: AYBFou1xbpaA6xDDv6UzQ81RSCXMzAmsgSJIJc08pWQ3DyIDvVf2Duaw+Mydbo/Lzxx
-	vNnp+IvRS6qPjSzzNftzm56M29UQYaihxz0FVV9DJzu6dU/cC/kjgYI1Q0aWoKHD46S53w76Iae
-	gt/66EGeQUG3aGw+VhLjR2RMCXliy7DYQBxnre/jxDx3RNUoPp0G85OzQajtwNkjBdxe1g3/Eau
-	LN7CKA5EaxnjXJnkDvL9fRSgI4GDT68tcqj0PRVfkW6AMhnMzRiOC5cknujH6EpXrUWPuRjY6My
-	xSIHkI8g/Vm80sUv2cTwSGQOwNM9CRs6OE4Gr/A3k5veUyoWBRMwNnbX42VSXumGQ0Z9jGRXGeQ
-	OOV+YG4sgJuyOYQ/Nkf9sFxyQZ9h4ffETDsqKFqwRgYjq3AdglXfz2O55MwgymEXFT/76pEP9f2
-	mY0nAVlm2dc+x6vG26PCdFxoWb7nI5d7+SztFF57mTkm6/Qto21lo/miweb2o2h/HplODUotOe0
-	W98D80Mprf8f1zvpgTobAlBkzA4lpjWxGDqAqzbahuJ2s0YSJykFAoLI1SGZCZUbbO3VrXbIQcR
-	6gho3UAiXgXYg1n0vZybE6mHb3otWaJRAWsAf/+8Xzv7J9STip2N0hrFbXafuzPJMGEKDhntdFI
-	IaBjHnn/uVoxXiocl7WAHyMdbmYLwC2cx0qIE+A==
-X-Received: by 2002:a05:6830:254a:b0:843:cc20:9d07 with SMTP id 46e09a7af769-862f093b805mr5979128a34.16.1795045817527;
-        Wed, 18 Nov 2026 15:50:17 -0800 (PST)
-Received: from FKXX2DL94F.bytedance.net ([72.29.204.230])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-862f023a1c7sm3148912a34.23.2026.11.18.15.50.16
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 18 Nov 2026 15:50:17 -0800 (PST)
-From: Yifan Feng <evanfengff@gmail.com>
-To: SJ Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Yifan Feng <evanfengff@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mm/damon/core: fix damos_walk() hang with zero watermarks interval
-Date: Wed, 18 Nov 2026 15:50:12 -0800
-Message-Id: <20261118235012.14859-1-evanfengff@gmail.com>
-X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=oWr9RD+W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E2EA1F000C4;
+	Wed, 18 Nov 2026 23:50:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795045821;
+	bh=qYZYt1sUk7Kp9kJVUtkvX/Wu3uZsKcDCU/usnaJogYg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oWr9RD+W0ehIYzrW91Xgzysv6PxXnUd0jlBtcUG9pHht2P2b1VlBFTNTisbArVwbD
+	 u4Wii1KRE0ZBluZjr/J8OLxl/33BAfOFxkckYRfHGpHpFCCVBNMc82RdUKuHMBYHNr
+	 nib3umfP/t693EqKgoXryEYkXwm1/PzDF5ahkUw4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	sung byeongchan <tjdqudcks0424@naver.com>,
+	Alex Markuze <amarkuze@redhat.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 1059/2857] ceph: bound name skips in ceph_mdsmap_decode() by the message end
+Date: Wed, 18 Nov 2026 15:34:53 +0100
+Message-ID: <20261118150239.721459308@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
+References: <20261118150201.293410965@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,59 +65,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kdamond_wait_activation() cancels damos_walk() requests while all
-schemes are deactivated by their watermarks.  But it returns without
-waiting when the watermarks check interval of a deactivated scheme is
-zero, which is the default of the DAMON sysfs interface.  The kdamond
-main loop then runs with all schemes deactivated.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-In that state, kdamond_apply_schemes() finds no scheme to apply and
-returns before it calls damos_walk_complete().  The walk request is
-neither completed nor cancelled, so damos_walk() waits until the
-watermarks activate a scheme again, possibly forever.
+------------------
 
-For example, with a scheme that has the free_mem_rate metric, zero
-interval_us and a high watermark below the current free memory rate,
-writing update_schemes_tried_regions to the kdamond state file never
-returns and cannot be killed.  The writer holds damon_sysfs_lock, so all
-other DAMON sysfs writes including "off" fail with -EBUSY meanwhile.
+From: sung byeongchan <tjdqudcks0424@naver.com>
 
-Do not skip the deactivated schemes when deciding whether
-kdamond_apply_schemes() has something to do.  damon_do_apply_schemes()
-still skips them, so no action is applied, and the walk is completed
-with no region for them, as it already is when another scheme is
-activated.
+[ Upstream commit 7f702e1703c9648fcb02a217d66c880d00417150 ]
 
-Fixes: bf0eaba0ff9c ("mm/damon/core: implement damos_walk()")
-Cc: <stable@vger.kernel.org> # 6.14.x
-Signed-off-by: Yifan Feng <evanfengff@gmail.com>
+ceph_mdsmap_decode() reads two remote u32 name lengths and advances its
+parser cursor without checking that either string remains in the message.
+On a 32-bit client, a sufficiently large length can wrap the cursor below
+`end`.  The following numerical bounds check then succeeds and dereferences
+the wrapped address.
+
+Use ceph_decode_skip_n() for both names so the remaining bytes are checked
+before the cursor advances.
+
+The issue produced a page fault in ceph_mdsmap_decode twice on the tested
+i386 baseline.  The same frame was rejected without a fault twice after
+this change, while a normal MDSMap continued to be accepted.
+
+Cc: stable@vger.kernel.org
+Fixes: 2f2dc053404f ("ceph: MDS client")
+Assisted-by: LLM
+Signed-off-by: sung byeongchan <tjdqudcks0424@naver.com>
+Reviewed-by: Alex Markuze <amarkuze@redhat.com>
+Signed-off-by: Ilya Dryomov <idryomov@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-QEMU: the write hangs before, returns after; kunit and 13 selftests pass on both (2 need drgn, not run).
-Found and written with the help of an AI coding assistant.
-
- mm/damon/core.c | 4 ++--
+ fs/ceph/mdsmap.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index b8678a53b0a9..12578fc3280c 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -3498,11 +3498,11 @@ static noinline_for_stack void kdamond_apply_schemes(struct damon_ctx *c)
- 		if (time_before(c->passed_sample_intervals, s->next_apply_sis))
- 			continue;
+diff --git a/fs/ceph/mdsmap.c b/fs/ceph/mdsmap.c
+index 3c26330a781ee..ed171b3cd2df3 100644
+--- a/fs/ceph/mdsmap.c
++++ b/fs/ceph/mdsmap.c
+@@ -207,7 +207,7 @@ struct ceph_mdsmap *ceph_mdsmap_decode(struct ceph_mds_client *mdsc, void **p,
+ 		ceph_decode_need(p, end, sizeof(u64) + sizeof(u32), bad);
+ 		*p += sizeof(u64);
+ 		namelen = ceph_decode_32(p);  /* skip mds name */
+-		*p += namelen;
++		ceph_decode_skip_n(p, end, namelen, bad);
  
-+		has_schemes_to_apply = true;
-+
- 		if (!s->wmarks.activated)
- 			continue;
- 
--		has_schemes_to_apply = true;
--
- 		damos_adjust_quota(c, s);
- 	}
- 
-
-base-commit: 4405c18c95d2d0f99f6c581ef0ee8591a1aa6ccd
+ 		ceph_decode_32_safe(p, end, mds, bad);
+ 		ceph_decode_32_safe(p, end, inc, bad);
+@@ -225,7 +225,7 @@ struct ceph_mdsmap *ceph_mdsmap_decode(struct ceph_mds_client *mdsc, void **p,
+ 		laggy = laggy_since.tv_sec != 0 || laggy_since.tv_nsec != 0;
+ 		*p += sizeof(u32);
+ 		ceph_decode_32_safe(p, end, namelen, bad);
+-		*p += namelen;
++		ceph_decode_skip_n(p, end, namelen, bad);
+ 		if (info_v >= 2) {
+ 			ceph_decode_32_safe(p, end, num_export_targets, bad);
+ 			export_targets_len = size_mul(num_export_targets,
 -- 
-2.39.3 (Apple Git-146)
+2.53.0
+
+
 
