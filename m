@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795031610;
-	b=GC3PDjf7rDSYtWDhYcJmGtCl1X3USST7u7dIJCMw+eTHu4BTqf2Hd5LH588ln4rzvkXD
-	 yf/KmsWkNX7nZVLMQyTVdZNBc5OQ7ebySXCApXVwU3F0/o+v+IWv3JDYs/LOxFcvkJgHB
-	 Pu9hAvsWwIrI7AsQPFcvw1PyEC67f2mVT1Q04NpcYg66AEcSbIfj8S23HEh3ID4kcQQ/R
-	 aU+T78h8qHUfRn92OJQfuy6XFtic4iwvSNxctb/bAOZWQovVwrR4S+BYJQOrVXYcSSL3L
-	 feSC0Ly5DI/fuC1PE6KrZgHKbDNerlkuo9jgrRhKZejYyCanmfv+g22LYHlZdq1uzXg==
+	t=1795031615;
+	b=uXi6eazr4DwcjvXO7nbmakNCn2LPIhJNb+KGwBVcO+62eoWB5bnS6nKEckMscsKGvMp/
+	 WHdphgnq4FV0WsOnJaTZ38R4WFzjUx8JuvKVgdW56+QlCvRSAePTqDiuFZsJXJTbYvw2Y
+	 oEWLj8tzIPtQsKLrwvNuiEfJaNAedE4SJt85hSybJriXm5v80ygb0XzmkfENGOy+2/1cw
+	 zQlB+UmdYSzUsJMxhR1wRkfPO6GdUhmSpwpVoPwOSya7aiITB8sSZ+5u5UeA6K9eCSad8
+	 v8IWoUsKSEyN+lU1pxcw7FsD0j+vVwPk2b2c/2ZeCyRDyU4INmpQty0KRr8UsaIRJog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795031610;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795031615;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=OY6EL2cGEQFnTiBP7BUe1Iv7ybXptmCUoHw+C+SO8pg=;
-	b=Ik+yXFglwrKUW0oDU6bmYbde8PNrWXuW8WdMV2eg5Ka3pB2mdgKoFM9KDd+1JFSuYyrv
-	 dGxZNBqdzNuq5seMKJ4N0JSiPMqb+MC1HV7sWGJo34aPOArJT/UAt00PDssglIE7ugAZn
-	 HUyi7BcNgYOTw/6ofo75TM23Uw8MFjh+H22mjng76fIgHK/iTaVLZi6xFtKIrwhjU4g/m
-	 VUmQWKLpUvwB0AfsK7nH/ypIxjI/idmKZ1Bm3wPsbiSIN0xMTU80/RJGw8qeujzEond6p
-	 7JWILrCiP455w8yYvDCP8mWTe0XRGKiETu2pIeGnPGE9u3kVAlWVypTRl8NJXFITRew==
+	bh=ICE575WrY0oYn5aKUtwCXsvU5alGaB419EALovBTfDM=;
+	b=1UAH1C0NfUGhoxBpFOop54UzTbC3532KlZWRqlK2w7+7VJJv1YXfINO8r70NicRVMGFS
+	 4g2fQWJsf4juUjwAq9GVnxJOwtg78EUGAwMsKLafyFdUvxwVMQkY9IFjMeRZaXfc61tfE
+	 NJkZSNCN5IjZeKSKVLcK9YNR4S5jGZmLedXXQbffdxyj3YpzNNzOSjMcgBTRLDd8UoTSu
+	 zLL0gp3z7rv6fdYFLx0vmzyx4nmyf5SRQvurGKF1jU7TElg1AEkFIW2KdS5tuAQH+WTfX
+	 4nRuAdZzhJ85eqGjZQGURjRlVLZnAoRWkMGisVfQBTQnrIHngJbLa8oYE+VU7y8EG1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MZh40wAi;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nsKW15+S;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30E34606A330;
-	Wed, 18 Nov 2026 19:53:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1AC3606A330;
+	Wed, 18 Nov 2026 19:53:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MZh40wAi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE371F000C6;
-	Wed, 18 Nov 2026 19:53:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nsKW15+S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 241171F000CF;
+	Wed, 18 Nov 2026 19:53:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795031610;
-	bh=OY6EL2cGEQFnTiBP7BUe1Iv7ybXptmCUoHw+C+SO8pg=;
+	s=korg; t=1795031615;
+	bh=ICE575WrY0oYn5aKUtwCXsvU5alGaB419EALovBTfDM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MZh40wAi57fCEnWqQA3h2XkQm6k14tuA5Teb+pf6ldM5AnODRJ4Jez6DDhGM8DNWv
-	 g9ZfwUXv7u5Wcklsf0fc/oFQUoCrguiJk+rOYIZ3MzI5UdBzmqDdEjeetQkoSyz3Fw
-	 kGoWEUcbD3MHoncspEwen/RVJGEFZlEmQTrzw/q4=
+	b=nsKW15+Shq/ZQOSCKEzF0OWftSXL0n6nW4FXRE+HBHh66IXFMCvLBRnaEktymLC5V
+	 EkFTnTF8qXOfoK/K4vHDfSQiG6AhQo+Vt0WXC9a7UJYiPGFC/047Y6R/tmrjJaoQkB
+	 LINtkd/Mu0YCrzlVgzZZkG0Rk+fD7xzuvJN+or64=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Ethan Ferguson <ethan.ferguson@zetier.com>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Joas Antonio dos Santos <joasantonio108@gmail.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1119/1756] ntfs3: add FS_IOC_SETFSLABEL ioctl
-Date: Wed, 18 Nov 2026 15:54:06 +0100
-Message-ID: <20261118150054.670363536@linuxfoundation.org>
+Subject: [PATCH 6.12 1103/1756] calipso: hash the cache key, not the option start, in calipso_cache_add()
+Date: Wed, 18 Nov 2026 15:53:50 +0100
+Message-ID: <20261118150054.094091468@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150007.957976754@linuxfoundation.org>
 References: <20261118150007.957976754@linuxfoundation.org>
@@ -68,56 +69,47 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Ethan Ferguson <ethan.ferguson@zetier.com>
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-[ Upstream commit 21dc07ac9c25f01ab2023e3e8605861d8fd6e00c ]
+[ Upstream commit d538cc3ec0bc4cb7b40981b3213a6c6671959ed5 ]
 
-Add support for the FS_IOC_SETFSLABEL ioctl.
+calipso_cache_add() stores calipso_ptr + 2 as the cache key, but
+computes entry->hash over calipso_ptr, i.e. starting two bytes earlier
+at the option type and length.  calipso_opt_getattr() looks entries up
+with calipso_cache_check(calipso + 2, calipso[1], ...), which hashes the
+key itself.
 
-Signed-off-by: Ethan Ferguson <ethan.ferguson@zetier.com>
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Stable-dep-of: 80218408836f ("fs/ntfs3: do not mark frame pages uptodate on read error")
+The two hashes only match on a jhash collision, so the CALIPSO label
+cache never hits and every labelled packet takes the full DOI lookup and
+category conversion path.  The memcmp() on the key keeps lookups
+correct, so this is a performance bug only.
+
+Hash the stored key, as cipso_v4_cache_add() does for CIPSO.
+
+Fixes: 4fee5242bf41 ("calipso: Add a label cache.")
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Assisted-by: Claude:claude-opus-5-5
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+Link: https://patch.msgid.link/179138670045.80227.16155454353416856947@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs3/file.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ net/ipv6/calipso.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ntfs3/file.c b/fs/ntfs3/file.c
-index fd46160f48484..b33648f109781 100644
---- a/fs/ntfs3/file.c
-+++ b/fs/ntfs3/file.c
-@@ -57,6 +57,22 @@ static int ntfs_ioctl_get_volume_label(struct ntfs_sb_info *sbi, u8 __user *buf)
- 	return 0;
- }
- 
-+static int ntfs_ioctl_set_volume_label(struct ntfs_sb_info *sbi, u8 __user *buf)
-+{
-+	u8 user[FSLABEL_MAX] = {0};
-+	int len;
-+
-+	if (!capable(CAP_SYS_ADMIN))
-+		return -EPERM;
-+
-+	if (copy_from_user(user, buf, FSLABEL_MAX))
-+		return -EFAULT;
-+
-+	len = strnlen(user, FSLABEL_MAX);
-+
-+	return ntfs_set_label(sbi, user, len);
-+}
-+
- /*
-  * ntfs_fileattr_get - inode_operations::fileattr_get
-  */
-@@ -154,6 +170,8 @@ long ntfs_ioctl(struct file *filp, u32 cmd, unsigned long arg)
- 		return ntfs_ioctl_fitrim(sbi, arg);
- 	case FS_IOC_GETFSLABEL:
- 		return ntfs_ioctl_get_volume_label(sbi, (u8 __user *)arg);
-+	case FS_IOC_SETFSLABEL:
-+		return ntfs_ioctl_set_volume_label(sbi, (u8 __user *)arg);
+diff --git a/net/ipv6/calipso.c b/net/ipv6/calipso.c
+index 3ab22f9b416ec..f3a983aa07036 100644
+--- a/net/ipv6/calipso.c
++++ b/net/ipv6/calipso.c
+@@ -284,7 +284,7 @@ static int calipso_cache_add(const unsigned char *calipso_ptr,
+ 		goto cache_add_failure;
  	}
- 	return -ENOTTY; /* Inappropriate ioctl for device. */
- }
+ 	entry->key_len = calipso_ptr_len;
+-	entry->hash = calipso_map_cache_hash(calipso_ptr, calipso_ptr_len);
++	entry->hash = calipso_map_cache_hash(entry->key, calipso_ptr_len);
+ 	refcount_inc(&secattr->cache->refcount);
+ 	entry->lsm_data = secattr->cache;
+ 
 -- 
 2.53.0
 
