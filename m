@@ -1,58 +1,85 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795015314;
-	b=k8x+RITOaG+sGv7zXZVYKctxgzElIDyM88EWMnXVMOfiCJcfK5Myb0b8p9jBUI8V7B9Y
-	 d5cb/6XHgCv2iec70nj9g+NVtTXvFSrlXv86JYdjoe33o5AMA+9t+k+sFv+bTqX846Xx1
-	 bUTGerdJrhDrAvAkxaZZYUmqgTVAXD5EsXxRHv1B7eS4wTX489MjCkxAxZs7JL6CdQJrq
-	 a5ulGxIw05K/CA66UA7ZfM9QOqFVAMJRkxBLXdsVf0ZKxc3w1pM2HqiiI+FfA+ZpA3bfE
-	 XNDRmdJkRWezAAXur5DtKksyvHyzadv/f2PcAR3t9Y+PkGSt+l24wLKf0s2LHUv35Aw==
+	t=1795015311;
+	b=z6OuMQZhaQttHe6ah+/sm4bz2xRwyT1JJEClRGmEVkD3vnH7uKH+cqcNScHk0rEHXnjm
+	 Zn/rPj0vwcuNkUty+zGMC4prIzdvEYEpqCy8mxvSQGc/NsM+2dC3EGFDRByH3+rWvCH0G
+	 RraJYHXH8gOop6iikLXLpUWftFDHWAl/QcmqpJVlDkA3vBK2XSZqeWw1PVY7ynZLK/Gea
+	 ZdyMal5gLMOq5edfgomGUYycplhtSd0WWZLqfz+Exq1iMvyjHPw31dKpcsyUuoTQGWlYR
+	 wqNjJdAy4FqnHR/a+ZouAEUULbDvbZxM71lrgHU58o4rObmCbJnTH2rbPkkcHCT1b8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795015314;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=7V5Dd1LcmQPsBZF2mK2uPOmGTMxvevrkZxDka4THDYI=;
-	b=deDOO38OP8zLoDZ2xa3+YmdQ3gh/RbuAXB2x5vcBYIpDOBlwRkAEZrfPSYGd1dBxIpNe
-	 i+cv1o8qN4zjSuwZFermZem4Hk6NcqhJWYefPldIeMegZIV6/H6A5Wf3p69Y9mumheHn8
-	 njRYdrpNfRhfxxp1Q7/hp//AXrpfBxvWytpi2yva1DjN2lzD2w4zrM3wqebxhs66CPw1F
-	 6kwNqEpxwyXWKD/BV4niJWuDHEhg4LscT2dijQK7YWTKIUy1CRkBBitRufxniBYM9Doea
-	 4VmwPIipLSaOFuRG1Eg0lAwD2uBE+y+f/4sTCbS1zbEBTQDYD+WwZozqHSfJwc4bP/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015311;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=zjHf/N+E74CHlMypQ6kG0MO/j1AaxlMnO45unT7fRs8=;
+	b=hQc18Yqgd0DsXygsJn3/Xtwj+xEsL/fgF4VlUY62JfE5WcrVrRebOHqrK092ifhsCk24
+	 gL3rMQWCi2MOrE9yfvRzvfb13mvc+84vlwxHzBMaV1m7t3bw/nibpJ+YfR0bevD4Pq7wN
+	 snXumAjRr7obC3J7Z28VpAiJMdVClbO1+dzGno6oR6YeGnUSb0TCcK916HtaCJOQASRv4
+	 5hEBnXBu3gA1pW7kkaKWO7PNfTZWoBKceXJCbAgNWtVRgaDQpL7FGAmTEAoP/Px5ji+v4
+	 J8C8p6qT33coKvThN+SnWVviYqjc7FOL4vbA68Y8iiXtwkclSD1Ib6FrHhNKKr75BPw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=X2pJZqP6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zatd8Vt0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E346606A31C;
-	Wed, 18 Nov 2026 15:21:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FB9606A331;
+	Wed, 18 Nov 2026 15:21:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=X2pJZqP6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D52771F000C7;
-	Wed, 18 Nov 2026 15:21:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795015314;
-	bh=7V5Dd1LcmQPsBZF2mK2uPOmGTMxvevrkZxDka4THDYI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X2pJZqP6UINXEIq0rK/Jx7gdnDZFNOTrSQdcy63PdzieTqkfFcNji/4zHV0N5a3Fz
-	 ZQ55qjd1WxRcp09RJj4P952CBJEtVcz/j+lzybfLDLen6DKrd0Xn5PoQkcBFwCWazf
-	 c/RfWDx6acYgP7zDwjjZvT4iRnueIAlE2nTfTdsE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0130/2651] remoteproc: xlnx: Initialize mailbox work before requesting channels
-Date: Wed, 18 Nov 2026 15:22:50 +0100
-Message-ID: <20261118150252.537264922@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zatd8Vt0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 587FD1F000C4;
+	Wed, 18 Nov 2026 15:21:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795015311;
+	bh=zjHf/N+E74CHlMypQ6kG0MO/j1AaxlMnO45unT7fRs8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Zatd8Vt0ywkplJtY52sv1C6gqcSe5RQKIFV+5E71Yls+0SNUpVBiJwgzdPLtELYUe
+	 lMEeHjRrAnWCh2jU/xSsBaecsX4m19vZToDTdpSksFBkKQ+BznUVf+kzqQpRE594cl
+	 xI8Xzi02t1DvZZ4QYsxI3pXSUlMMlXjiS6thpbcD+kd0ditk+o0zuiajNisMWqprBJ
+	 /63zF2q7x1g0nOMjPpptKxP3+nsGFzPTU+2b5WqClj1L/DhevvwIx0kJR7RAEdV+V1
+	 Jl3RUAzke75z/aoxyBUnO1R5v5m1VuTsvFwkZGVLKCc2UzrfJ4Rc20DHv+e1oARAVi
+	 NavFFG/ZUVtzw==
+From: David Hildenbrand <david@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
+ James Houghton <jthoughton@google.com>, 
+ Andrea Arcangeli <aarcange@redhat.com>, 
+ Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, 
+ Michal Hocko <mhocko@suse.com>, 
+ =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>, 
+ Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>, 
+ Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, 
+ =?utf-8?q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>, 
+ Tal Zussman <tz2294@columbia.edu>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+In-Reply-To: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
+References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
+Subject: Re: (subset) [PATCH v3 0/9] userfaultfd: assorted fixes (part 1)
+Message-Id: <179501529906.13844.1913398195867025027.b4-ty@b4>
+Date: Wed, 18 Nov 2026 16:21:39 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,98 +89,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On Tue, 17 Nov 2026 23:28:40 -0500, Tal Zussman wrote:
+> This is a first batch of userfaultfd fixes, with more to come.
+> 
+> These were found by a mix of regular old LLM review and by having an LLM
+> write a TLA+ model of uffd interactions with PTE bits and other state
+> and seeing what issues fell out.
+> 
+> Most of these fix places where mm code loses uffd-wp or RWP protection
+> while moving or migrating an entry. Userspace then either misses writes
+> and accesses, or gets pages reported that nobody touched.
+> There is also a hang in UFFDIO_MOVE, and UFFDIO_ZEROPAGE modifying a
+> file through a private mapping.
+> 
+> [...]
 
-------------------
+Applied, thanks!
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+tree: mm/core.git
+branch: migrate-7.5.misc
 
-[ Upstream commit 5ca7dea7cb2e47f42c15ac7206c5e0cba23d292d ]
+Applied patches will appear soon in mm-next, followed by linux-next.
 
-zynqmp_r5_setup_mbox() installs zynqmp_r5_mb_rx_cb() as the mailbox RX
-callback before requesting the mailbox channels, but initializes
-ipi->mbox_work only after both channels have been requested. Once the RX
-channel is active, a notification delivered before the late INIT_WORK()
-would make the callback queue an uninitialized work item.
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
 
-Initialize the work item before requesting channels. Also drain the work
-before freeing the mailbox state, after the channels have been released so
-no new callbacks can queue it. Use the same drain before freeing ipi from
-the channel request error paths, since the callback is already published
-there as well.
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
 
-This issue was found by our static analysis tool and then confirmed by
-manual review of the mailbox setup sequence. The callback is published
-before the channel requests complete, so the work item should be ready
-before the mailbox provider can invoke it.
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
 
-A QEMU PoC modeled a mailbox notification delivered after the RX callback
-became reachable but before the delayed INIT_WORK(). DEBUG_OBJECTS reported
-queueing an uninitialized work item from the zynqmp_r5_setup_mbox() path.
+[8/9] mm/migrate_device: do not migrate a uffd-protected zero page
+      https://git.kernel.org/mm/core/c/a37a6cf0
 
-This is sent as an RFC because the practical trigger depends on the ZynqMP
-IPI mailbox provider and firmware delivery timing. If the provider cannot
-invoke the RX callback until after setup returns, this is a defensive
-lifecycle cleanup rather than a reachable race on current systems.
-
-Fixes: 5dfb28c257b7 ("remoteproc: xilinx: Add mailbox channels for rpmsg")
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://lore.kernel.org/r/20260818101201.1603947-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/remoteproc/xlnx_r5_remoteproc.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/remoteproc/xlnx_r5_remoteproc.c b/drivers/remoteproc/xlnx_r5_remoteproc.c
-index c685bb5fa62c3..d47fbf143acde 100644
---- a/drivers/remoteproc/xlnx_r5_remoteproc.c
-+++ b/drivers/remoteproc/xlnx_r5_remoteproc.c
-@@ -318,6 +318,8 @@ static struct mbox_info *zynqmp_r5_setup_mbox(struct device *cdev)
- 	if (!ipi)
- 		return NULL;
- 
-+	INIT_WORK(&ipi->mbox_work, handle_event_notified);
-+
- 	mbox_cl = &ipi->mbox_cl;
- 	mbox_cl->rx_callback = zynqmp_r5_mb_rx_cb;
- 	mbox_cl->tx_block = false;
-@@ -329,6 +331,7 @@ static struct mbox_info *zynqmp_r5_setup_mbox(struct device *cdev)
- 	ipi->tx_chan = mbox_request_channel_byname(mbox_cl, "tx");
- 	if (IS_ERR(ipi->tx_chan)) {
- 		ipi->tx_chan = NULL;
-+		cancel_work_sync(&ipi->mbox_work);
- 		kfree(ipi);
- 		dev_warn(cdev, "mbox tx channel request failed\n");
- 		return NULL;
-@@ -339,13 +342,12 @@ static struct mbox_info *zynqmp_r5_setup_mbox(struct device *cdev)
- 		mbox_free_channel(ipi->tx_chan);
- 		ipi->rx_chan = NULL;
- 		ipi->tx_chan = NULL;
-+		cancel_work_sync(&ipi->mbox_work);
- 		kfree(ipi);
- 		dev_warn(cdev, "mbox rx channel request failed\n");
- 		return NULL;
- 	}
- 
--	INIT_WORK(&ipi->mbox_work, handle_event_notified);
--
- 	return ipi;
- }
- 
-@@ -364,6 +366,8 @@ static void zynqmp_r5_free_mbox(struct mbox_info *ipi)
- 		ipi->rx_chan = NULL;
- 	}
- 
-+	cancel_work_sync(&ipi->mbox_work);
-+
- 	kfree(ipi);
- }
- 
 -- 
-2.53.0
+Cheers,
 
-
+David
 
