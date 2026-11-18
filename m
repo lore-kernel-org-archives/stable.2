@@ -1,55 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795043826;
-	b=ppvYXYXY3XFPsAi+E3JZos6FEVLDOLgPT309583w+SoyHGvl1tCa6A5OUBZCAbne2KjQ
-	 NdcXUIPFUcsAR+uQwwNn4EkOfJO8x2V0J63OQeSZDFUE1FnYnhgHkg1b5c6wyrFXnWit/
-	 gBEyRNNVD2UckrVuiIliK7s1UQBwMgiWg0hpq76eaio2V/vKqSDDhjuaHOxp/W9KF4CfQ
-	 gFSE7ZF+jglcKh6HiawyO+Q+BjiiwN1MI3qP0GkEywQDfNiRB5XTPKHH0HdtIFyiop11w
-	 H7p8PMSIO69eiE8zjFNbL4qG7mKMUryXLI8O6CsPLfz7bBDTG+F/nSoa8jWVz7SEj0Q==
+	t=1795043832;
+	b=q71Learcu6SjNVjYTfIB2sb5cyJCAAPuLYeNFKEaslEwQbkJL5NTIykAqjYNNWeFzvIR
+	 hkJya4scK07j3QhGqnKX0uCMWPY6CmW+elBobq5fQLUDMDbPf+8K2w+t6CfME07G4mvH7
+	 l8yuEys1X0fu6pHjkjki78oHAeMHMTn4islado6JPCafP0ufHyBoFf7Hwsq+V5DfBRNJv
+	 KrU0RlyNoTtuyaMEQ37RjAymj6Y3O2eNyHm5o87rdX53vUqzoQMwc/m5ufpxkoDSYl0Gl
+	 /glf+NIu1EEBBpCcXXepTiCvjZ5r+5DP7glTCelIZpxhGgQ1uCLc2RDmqcfQ9c99aoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795043826;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795043832;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=fn2+z07HmsgQzqfR7QECMWfbdzSjVmV0UuyQIBr+BhI=;
-	b=NvdLG7JcLnSo0kNgiOFcQO8m7bpr5BYUpgZIUhTeU/g7+DldNL3cy0uSjHjPjCTtrA8q
-	 QLTbMDogk9Le2GIgkJ0YXC2uWjNB4f2UfIaPRRiCDBlgILDcSLb8GYo3YOthzpHmEpfj4
-	 IZgzPJhVe1ASilGtC37HuXdyFk4zc9LoqdDZd+a1vRFWBqqUWQvNzwB21IR6vi5vO1qWg
-	 4Sclj3nqJmyUxi88QLwFGDXbKSI31aLY4OOaZH81m/1uczomu6eXPKXy290iwnR9osK7V
-	 JCKtFpDUGCMjWP+cHlIA6A+nIFgaCDeYnwBoHGFRZ/RTIx2Q9xKeHW1xtNvziMnHDqA==
+	bh=gN1BfUo4t0ZXxvElv7Y8ynS0qfSXZ80r2Fn26oyG2uM=;
+	b=DsdxUh95dqd4DnEl+rIzkhJdcJysac4vybBWZeb+6pd7lXw3rNgoI9ed6FgYubAPSQvV
+	 DtiJ44DKV6BkJHSiQEy54r6BpoCWuXUW7UiIqjotQwtF/Cxq+QSd12Zrl0bAuXVxen1Jo
+	 uYpopLuK2nDn7FsMy6n13z7qfDowqVajkXTFc6Imf4AHiqGofAQ034SWruXHs5pT8Z4HJ
+	 K5FxPSQts8WKF/vClV9sru38/hFrlw21gjy2LCRDMjIDhGTq70rvVTZjc1dleWYa1ehbT
+	 EnANXHrZyUH2vRCjOWkGXPep8A26NBkMngoJfVUJIHlqALQ2r7/oHVDF7FLrrosIgVw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="NkpjJTy/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BCI+IoUY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D023160A2605;
-	Wed, 18 Nov 2026 23:17:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4420D606A331;
+	Wed, 18 Nov 2026 23:17:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NkpjJTy/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF01B1F000C4;
-	Wed, 18 Nov 2026 23:17:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BCI+IoUY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 660A81F000C8;
+	Wed, 18 Nov 2026 23:17:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795043826;
-	bh=fn2+z07HmsgQzqfR7QECMWfbdzSjVmV0UuyQIBr+BhI=;
+	s=korg; t=1795043831;
+	bh=gN1BfUo4t0ZXxvElv7Y8ynS0qfSXZ80r2Fn26oyG2uM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NkpjJTy/2Q+T4XoJ5eL44rsTtGZeDSMv1G6hC1U/Bo6Sp3F7SrUWYUar7qMIfB3Uc
-	 Qt/5jx8PDWp+IgW3uzj0Qj6gCiJYy6QR9AeVdrZ6w6lUiXMY7XNMpW/wU+Vr+J1ICX
-	 kOGW0kzew44/QufIWKYKd4um0Z+fPWQStNmFgRzc=
+	b=BCI+IoUYImNUzXgUx8VKYm9toEqn03W1878B5ZzwCxMyCfLo/c8ke4jGqOjdkfk1l
+	 m8K9ynSoRbd/PKmGoD27/zI6Uia83L2Z4JReIuzTvP2EzWvXMhweNEuKVlaEPHlqGW
+	 zkc2/M+AITE5U+S5sR/vy5EhwCF6rVFNx+cgJ3r0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Qing Luo <luoqing@kylinos.cn>,
-	Xin Long <lucien.xin@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Harshvardhan Jha <harshvardhan.j.jha@oracle.com>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Kyle Zeng <kylebot@openai.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0322/2857] sctp: auth: discard auth_chunk when skb_clone fails
-Date: Wed, 18 Nov 2026 15:22:36 +0100
-Message-ID: <20261118150213.038741470@linuxfoundation.org>
+Subject: [PATCH 6.1 0350/2857] futex: Sanitize and document task_struct::futex::state transitions
+Date: Wed, 18 Nov 2026 15:23:04 +0100
+Message-ID: <20261118150214.038461353@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
 References: <20261118150201.293410965@linuxfoundation.org>
@@ -71,62 +69,204 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Qing Luo <luoqing@kylinos.cn>
+From: Thomas Gleixner <tglx@kernel.org>
 
-[ Upstream commit 9ae7ed101cf28613071ebfbc42668c8917a670cf ]
+[ Upstream commit f9ece060cc43eae8a1f148737d193ba0d07b8f88 ]
 
-When processing AUTH + COOKIE-ECHO packets, if skb_clone() fails
-due to memory pressure, chunk->auth_chunk is NULL. The original
-code still sets chunk->auth = 1 and continues, leaving the
-COOKIE-ECHO to be processed without a valid auth_chunk for
-deferred verification.
+The futex state is used to prevent a waiter from attaching to the lock
+owner while the owner runs the futex cleanup in exit() or exec().
 
-Discard the AUTH chunk early via pdiscard when skb_clone() fails,
-so that the receive loop can continue processing remaining chunks
-in the inqueue instead of stalling the entire packet.
+Only the state transition from FUTEX_STATE_OK to FUTEX_STATE_EXITING must
+be done with the task's pi_lock held, the transition away from
+FUTEX_STATE_EXITING has no serialization requirements on the writer side,
+but it's completely non obvious why. It's magically protected by
+exit_pi_state(), which operates under tsk::pi_lock, as that's the state
+which has to be correct when the waiter observes the new state.
 
-Signed-off-by: Qing Luo <luoqing@kylinos.cn>
-Acked-by: Xin Long <lucien.xin@gmail.com>
-Link: https://patch.msgid.link/20260723061107.384106-1-l1138897701@163.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Harshvardhan Jha <harshvardhan.j.jha@oracle.com>
-Signed-off-by: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+OTOH, taking the pi_lock in futex_cleanup_end() is not a performance issue
+because at that point the lock should be uncontended in the vast majority
+of cases.
+
+Aside of that the handling of FUTEX_STATE_EXITING in attach_to_pi_owner()
+and handle_exit_race() is confusing at best.
+
+Protect the store in futex_cleanup_end() with tsk::pi_lock, handle
+FUTEX_STATE_EXITING in attach_to_pi_owner() explicitly and document how
+this is supposed to work.
+
+Reported-by: Peter Zijlstra <peterz@infradead.org>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Kyle Zeng <kylebot@openai.com>
+Acked-by: Peter Zijlstra <peterz@infradead.org>
+Cc: stable@vger.kernel.org
+[ sashal: Adapted to the older flat tsk->futex_state field name and dropped the private-futex-key mm check hunk, which this tree lacks. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/sctp/associola.c   | 4 ++++
- net/sctp/endpointola.c | 4 ++++
- 2 files changed, 8 insertions(+)
+ kernel/futex/core.c |   8 ++--
+ kernel/futex/pi.c   | 100 +++++++++++++++++++++++++++++++-------------
+ 2 files changed, 73 insertions(+), 35 deletions(-)
 
-diff --git a/net/sctp/associola.c b/net/sctp/associola.c
-index a957142672cb2..5149f744eaf21 100644
---- a/net/sctp/associola.c
-+++ b/net/sctp/associola.c
-@@ -1029,6 +1029,10 @@ static void sctp_assoc_bh_rcv(struct work_struct *work)
- 			if (next_hdr->type == SCTP_CID_COOKIE_ECHO) {
- 				chunk->auth_chunk = skb_clone(chunk->skb,
- 							      GFP_ATOMIC);
-+				if (!chunk->auth_chunk) {
-+					chunk->pdiscard = 1;
-+					continue;
-+				}
- 				chunk->auth = 1;
- 				continue;
- 			}
-diff --git a/net/sctp/endpointola.c b/net/sctp/endpointola.c
-index efffde7f2328e..2313ea9fbe065 100644
---- a/net/sctp/endpointola.c
-+++ b/net/sctp/endpointola.c
-@@ -362,6 +362,10 @@ static void sctp_endpoint_bh_rcv(struct work_struct *work)
- 			if (next_hdr->type == SCTP_CID_COOKIE_ECHO) {
- 				chunk->auth_chunk = skb_clone(chunk->skb,
- 								GFP_ATOMIC);
-+				if (!chunk->auth_chunk) {
-+					chunk->pdiscard = 1;
-+					continue;
-+				}
- 				chunk->auth = 1;
- 				continue;
- 			}
+diff --git a/kernel/futex/core.c b/kernel/futex/core.c
+index 5944e57285063..41a9886489ac8 100644
+--- a/kernel/futex/core.c
++++ b/kernel/futex/core.c
+@@ -1126,11 +1126,9 @@ static void futex_cleanup_begin(struct task_struct *tsk)
+ 
+ static void futex_cleanup_end(struct task_struct *tsk, int state)
+ {
+-	/*
+-	 * Lockless store. The only side effect is that an observer might
+-	 * take another loop until it becomes visible.
+-	 */
+-	tsk->futex_state = state;
++	scoped_guard(raw_spinlock_irq, &tsk->pi_lock)
++		tsk->futex_state = state;
++
+ 	/*
+ 	 * Drop the exit protection. This unblocks waiters which observed
+ 	 * FUTEX_STATE_EXITING to reevaluate the state.
+diff --git a/kernel/futex/pi.c b/kernel/futex/pi.c
+index 9496084b6dcd8..58d0a0f17f3df 100644
+--- a/kernel/futex/pi.c
++++ b/kernel/futex/pi.c
+@@ -192,6 +192,48 @@ void put_pi_state(struct futex_pi_state *pi_state)
+  *     pi_mutex->wait_lock
+  *       p->pi_lock
+  *
++ * Futex kernel state:
++ *
++ * The kernel tracks the task state in p::futex::state to protect against exit()
++ * and exec(). The states are:
++ *
++ * - FUTEX_STATE_OK when the task is alive and waiters can be attached
++ *
++ * - FUTEX_STATE_EXITING when the task cleans up the robust list and pi
++ *   state. Concurrent waiters cannot attach anymore and have to wait until the
++ *   cleanup is finished to re-evaluate the potential changes of robust list and
++ *   pi state cleanups.
++ *
++ * - FUTEX_STATE_DEAD when the task has cleaned up the robust list and
++ *   is about to fully exit.
++ *
++ * exec() switches back to FUTEX_STATE_OK after the cleanup.
++ *
++ * The state has two related locks:
++ *
++ * 1) p::pi_lock
++ *
++ *    p::pi_lock has to be taken by the waiter when evaluating the state to
++ *    protect against a concurrent exit/exec cleanup by the owner. If the state
++ *    is OK then the waiter can be attached to the owner while still holding
++ *    pi_lock.
++ *
++ *    The cleanup code has to hold it for all state transitions to ensure that
++ *    the stores to the state cannot be reordered against previous stores on
++ *    which the waiter correctness depends on.
++ *
++ * 2) p::futex::exit_mutex
++ *
++ *    The mutex is acquired when the cleanup starts and released at the end. It
++ *    obviously is not serializing the owner's cleanup against itself. It is
++ *    used to avoid a live lock caused by a waiter preempting the owner's
++ *    cleanup. Such a waiter would busy loop forever waiting for the owner to
++ *    finish the cleanup.
++ *
++ *    To prevent this, waiters have to drop all locks when observing
++ *    FUTEX_STATE_EXITING and block on the mutex. When the owner releases the
++ *    mutex after finishing the cleanup the waiters make progress and
++ *    re-evaluate the situation.
+  */
+ 
+ /*
+@@ -317,18 +359,10 @@ static int attach_to_pi_state(u32 __user *uaddr, u32 uval,
+ 	return ret;
+ }
+ 
+-static int handle_exit_race(u32 __user *uaddr, u32 uval,
+-			    struct task_struct *tsk)
++static int handle_exit_race(u32 __user *uaddr, u32 uval)
+ {
+ 	u32 uval2;
+ 
+-	/*
+-	 * If the futex exit state is not yet FUTEX_STATE_DEAD, tell the
+-	 * caller that the alleged owner is busy.
+-	 */
+-	if (tsk && tsk->futex_state != FUTEX_STATE_DEAD)
+-		return -EBUSY;
+-
+ 	/*
+ 	 * Reread the user space value to handle the following situation:
+ 	 *
+@@ -425,7 +459,7 @@ static int attach_to_pi_owner(u32 __user *uaddr, u32 uval, union futex_key *key,
+ 		return -EAGAIN;
+ 	p = find_get_task_by_vpid(pid);
+ 	if (!p)
+-		return handle_exit_race(uaddr, uval, NULL);
++		return handle_exit_race(uaddr, uval);
+ 
+ 	if (unlikely(p->flags & PF_KTHREAD)) {
+ 		put_task_struct(p);
+@@ -433,33 +467,39 @@ static int attach_to_pi_owner(u32 __user *uaddr, u32 uval, union futex_key *key,
+ 	}
+ 
+ 	/*
+-	 * We need to look at the task state to figure out, whether the
+-	 * task is exiting. To protect against the change of the task state
+-	 * in futex_exit_release(), we do this protected by p->pi_lock:
++	 * We need to look at the task state to figure out whether the task is
++	 * exiting. To protect against the change of the task state from
++	 * FUTEX_STATE_OK to FUTEX_STATE_EXISTING in futex_cleanup_begin() it is
++	 * required to do this protected by p->pi_lock, which prevents the owner
++	 * from concurrently starting the exit cleanup.
++	 *
++	 * If the state is FUTEX_STATE_OK pi_lock must be held until the waiter
++	 * is attached to protect against a concurrent exit()/exec().
+ 	 */
+ 	raw_spin_lock_irq(&p->pi_lock);
++
++	/* Validate that the task is ready for futex operations. */
+ 	if (unlikely(p->futex_state != FUTEX_STATE_OK)) {
+ 		/*
+-		 * The task is on the way out. When the futex state is
+-		 * FUTEX_STATE_DEAD, we know that the task has finished
+-		 * the cleanup:
++		 * The task is on the way out. When state is FUTEX_STATE_EXITING
++		 * the cleanup is in progress. To avoid a live lock when the
++		 * waiter preempted the owner, store the task pointer in
++		 * @exiting and keep the reference on the task. The calling code
++		 * will drop all locks, block on @p::futex::exit_mutex and wait
++		 * for the owner to finish the cleanup. Once the owner released
++		 * the mutex the waiter drops the reference count and
++		 * re-evaluates the situation.
+ 		 */
+-		int ret = handle_exit_race(uaddr, uval, p);
++		if (p->futex_state == FUTEX_STATE_EXITING) {
++			raw_spin_unlock_irq(&p->pi_lock);
++			*exiting = p;
++			return -EBUSY;
++		}
++
++		int ret = handle_exit_race(uaddr, uval);
+ 
+ 		raw_spin_unlock_irq(&p->pi_lock);
+-		/*
+-		 * If the owner task is between FUTEX_STATE_EXITING and
+-		 * FUTEX_STATE_DEAD then store the task pointer and keep
+-		 * the reference on the task struct. The calling code will
+-		 * drop all locks, wait for the task to reach
+-		 * FUTEX_STATE_DEAD and then drop the refcount. This is
+-		 * required to prevent a live lock when the current task
+-		 * preempted the exiting task between the two states.
+-		 */
+-		if (ret == -EBUSY)
+-			*exiting = p;
+-		else
+-			put_task_struct(p);
++		put_task_struct(p);
+ 		return ret;
+ 	}
+ 
 -- 
 2.53.0
 
