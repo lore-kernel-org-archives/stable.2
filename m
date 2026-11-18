@@ -1,96 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.231.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794997082;
-	b=mm9kEasi5qfhVwp2eQCo16KPeZYixFk2+ObQ/e9o8wAt9c0guxxv70SLlm4D0wAewl84
-	 6hE+Vo60u5zttL0OOkk0IUvEn28+5vRE4vpCEpFSEOYs72KtwrBDgIpXmt3KjN3I9M+oj
-	 dSJe5G9RYpF6imo3WigLaF2dM+WYRJZogFNOVI/VWyTX3AF5z6svOrx8U8dyPsr9pAmGU
-	 XwyZ2AU3PjF3dKs77by1Mc89A7Eu+kYrxhl02dwl2kr8MvO0qmlqM0OigjARxmBSjVC1z
-	 pVcuTckKLzozH0mT8YlmUDs0B4d9E1y7tO2Ak2HSDSdE9rNH50q3R066DgC9VjcdvFA==
+	t=1794997083;
+	b=cKXeC2NbYF428kM3wHpSHN9mq8cRVidrmJI+s7T/Y1Q0TY3Ols3zQERi0cwHB9c1/Qwo
+	 WewzUFE8V8Gf9Zz+LMHgZRBhSRS9+i4P0F3qEgxyRWO0Hm45dpWQpZOMEpjhsHhlP6Vj3
+	 rWg1TcScrBuw6qxqLkeTyX86ziY8aXHeR8LG4czgupthT6CbMERciNJC3WoIiLLkj/5VV
+	 Wv1wsoblgYmAQ581PEwhnLKuuUSTN92Zectk28M7JlybA82ugcZmKGDI9FT/vN/8UrsbR
+	 9p3Kh7TLWc9Te5Ws5ekzVCKPE3kri3Ym5sorG4NlRyJS0MZqv/uQdhyH40maHNn5pjw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794997082;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794997083;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=m9nxtzxZNBF3WBJsdKrWnkE6fbrAAwaEK/yK704NFP4=;
-	b=2FXh7BCZdUBipMs4czwYPatg71VqjTUDwo7c1J6L7tCJYoX1a2A3DnUp2RnvnKVqxAyA
-	 yIfOcN/pIpZ/VJCMGpCi4gYyucxWS3N4GQqQDVyxBOvP9ZNVh+RUuToCS2wdixFfmORW0
-	 7Dlzn0E3wqxRmPFUpEVyFbGPn+wGT/S6rwVp2/Rh9zfmYiDARw/it1cB+umdfWt2YnPyf
-	 +/vI9dik8B9gn9Qf3Zb5E3egqX/UP2Jip2RaCcGLAPJzwVdV7MTq9K3LpEOsmt+T7Y8GO
-	 y3kos9K6CDEEk0D4/6xyE00JK5nwBMJKu+OIVb6SIisj5GQBvQWogJ+iY7EuumHx++g==
+	bh=TMFZcDH6aQIFtxqkM360mGsHK/mRi1dMwYrjxUKwiNQ=;
+	b=drT2YBRmOmfZmenekr0admvThY1SSABGY4Jfy6yD0ToRc30bZQbGI3M7i5QjMnSBzHJ5
+	 vDZfSHaMl2QtbnSLj+IHbt6qxtZzkhsFLwX6UWDgR7vjiPXIQMIDVgYomV29dmuuhMVl9
+	 x+Cgw4EYSn6flr3OpXvrRSakDK/dyWU7lbHDWhoFtyuHdACUEJ7BHHCEKox0gImJi3AOR
+	 yWNfE+++CMcCalISE2HxEknXJ3w2BaOIVZTNlWgiBektmPiGsFpBHYa7VQbIZEXDTt9vf
+	 oAXIuv4K9NQLzQNn8kT/zFAmdh7y6CJeMrq+WSdOE9Fxy/NS1aGEL6t9K1l1yHIn31g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ob97kGp5;
-	arc=none smtp.remote-ip=209.85.161.45
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com [209.85.161.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uNHHFZO2;
+	arc=none smtp.remote-ip=74.125.231.138
+Received: from mail-oo2-f10.google.com (mail-oo2-f10.google.com [74.125.231.138])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11A9606A320
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:18:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A11A9606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF1C606A334
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:18:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4BF1C606A334
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ob97kGp5
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-71ae5389c00so541613eaf.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 02:18:01 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uNHHFZO2
+Received: by mail-oo2-f10.google.com with SMTP id 46e09a7af769-862aa241d77so273877a34.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 02:18:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794997080; x=1795601880; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m9nxtzxZNBF3WBJsdKrWnkE6fbrAAwaEK/yK704NFP4=;
-        b=ob97kGp5SBgiDnJ3pS1DBEfZvQ7EMm+NKaQK7Kq65fETrLQz2J/d/L2Oe0iz8lWAjV
-         JoWUp5mVskJ6KtyWFqGhevJjN8Lz+WDioQwWZt/QLQnjUv2WSjDx8Pk3Q33mdoyTTn4Q
-         PEq2dLl1xR33OfscDqznt7CY3ijlNUxEavNB8x2lyN4chZ+hbIq29Jn3lSpS3Zm0Av/5
-         kGajT0l/vOCbw9KsnRu+1nwq7NbXSYgvAgTc2Hm32GhDnhNYXD7qwtA94Dxc9M4pDnbN
-         4szFO4DhKs9aehLR82LkT0wdw+MCDqwKdPubc0vu933kJ9nOMCpOuO+/8IWsEZf0Nflr
-         lM6g==
+        d=gmail.com; s=20260707; t=1794997082; x=1795601882; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TMFZcDH6aQIFtxqkM360mGsHK/mRi1dMwYrjxUKwiNQ=;
+        b=uNHHFZO2ZWTl6wjsCFAG/t3isVNM5BUArcyiCTu8msNqQOHHSJHOQeDcsjBiDZryVl
+         Qa+xjH6lLze0MKSlm48eQtg/RIuygvNvD611LMDbqxqF3T2iKHL1neKXRI2f6MwQl0Wf
+         Nf3jcxNOmbWeMJlnhS+c4rT14GEjZMHBWNb65i5PBUn4Mej7/RhGZ/KRp0Rc6+eqRiV4
+         oNioML4frdYcY2ILpjSZmIIHPjooXe66RirHa1Gi03EKfEdtD9sUpHxDCd9fdJdFl0bK
+         aq4glU9iuVkSG5Acx73BnMjhGZ3gVTz0S6kjvaRrsV8cec1ibV/I5IKjSbwKfM3HT7Zh
+         rM9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794997080; x=1795601880;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m9nxtzxZNBF3WBJsdKrWnkE6fbrAAwaEK/yK704NFP4=;
-        b=Yy03UAAGIhKSCwwgVWVJXkQZt807sRoSutSmdduNIZUW8p/jBZ4GSOMPiYpGR2efNc
-         yrtvrksJI93PN754Yxu2/27a0DS5Stn4YH5FcqfxPOt9MIfU0iA3WLJXxbVjlpFLyfVs
-         zGXuxCPzP8eU23CHtcq3Td2WVOevPEMv0EE5WvlsOcjMDTkaR2D4BxVYcrktHIjlN7/W
-         xfw0dq4+hIEYxeJxvuD5MIhVb68VEYksjD7ZJBoSac6IHQj+eHoaCfgPnvPnWabCFGKq
-         aVfRj2dabIvaMz6L8rM0r908g87ONt8fUs0CJtvUj3Z08bVUd1O8A0n080d8UWPOJKSl
-         hyBg==
-X-Gm-Message-State: APuU4Z8P5eXtZ+lProFBJVxW/OgfcASnraBhdHtbGSNW1ilGvNg9zTaM
-	kj5zs1u6WhxY2afgw2FKwV3jxQntEptGIauEGZ1NVZdUP3Piv2gcrJNmxw5LZ0rLd/A=
-X-Gm-Gg: AYBFou3DJZQ2dtwNFwFdgxurhg7HCRc/61NhLsOcRh+XDE1CDSQYEe047lIkAN3dHxs
-	Q4D/8Nwnza1O40FL1/OkYJFoJlUlzmPqjNiKow1KG8atUQ6lopassxntCXHAn+RqMHjAs/6H8BU
-	2YFEcc0DjAkw7hfKRWcjVPa0dvqPslMdAsDLtvXB6zZQu3BBIJAxjsd8HLVN1fY0KSFZUJB6fSo
-	uC1ocLP9suPJjlSTgSVAwLKG8xtrXw+tnQZ7yLbTiH7YSexPGA0Nj2huC2ihrkj6VXMuLxVwrem
-	lg+01B4AN72vPgaNkJML8y2qNT+TAUxRAq+v6sdwSvQQXfUztt4hP6IfTQ2c81vBwh+Lhtd2LgQ
-	8nsjG4+BD9IP4V/WRlXvdzIp9ApEcYXYN7kl42I7ND/zh1eNPo4ZOhq3TyOFCNo2qORffRzrttm
-	TkETSfzONp9113vBd6ErzSXCKOmIofg1L7jABK41IoE9MHVBvzQlZqxl8N5/xi32ZLUK7Wy1bjy
-	kS1UPv1tZkSoiQ6q1Q69xyZUjlQQvpvI4EgoW3UxqEFm0kVrf+hgl4yHFxw42B259tl4wKyrakS
-	gkIBG0UUA5P+IBPfFOEFFwwsdu4Rb7VY6wqdIQxKx6n637JSg453lt1KlsTAyEM=
-X-Received: by 2002:a05:6820:1391:b0:71a:f498:3048 with SMTP id 006d021491bc7-71b1853a5eamr1698465eaf.25.1794997080164;
-        Wed, 18 Nov 2026 02:18:00 -0800 (PST)
-Received: from localhost ([216.128.135.139])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4b7449282c8sm1781869fac.11.2026.11.18.02.17.55
+        d=1e100.net; s=20260707; t=1794997082; x=1795601882;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TMFZcDH6aQIFtxqkM360mGsHK/mRi1dMwYrjxUKwiNQ=;
+        b=oz2mHavlU5rs2xxu2k0W0OlFmZoWdiKd6hzLOU7fkwdcWWDIkAroZ04oUCMqkca+ZH
+         ZItAQ0jPzknGJJXyTeZcKz1isnfNvbzzvCakSeg+Ak6rkrubxUlwpTuKf8GUSuiAqn/6
+         hWd+5oZ/WMBG4CcE63FawdP5z+8MvsANjnP1kWj60uhnquKqnNOuO8OTfELAlKEjXD2V
+         F6XuCfNBEfQxh030nEn5c12HqEtGgeNvPl/z2/PuZjxsvR2C36o+WMtryNuT4bFW1vxa
+         n/JBu3aWXaah6LqVeuBVHJAZr8eqvcXssS8UksZMkOMa3XyTkR7eqxs1elJKZym6oLJh
+         cOag==
+X-Forwarded-Encrypted: i=1; AL+hErEEsQ1m0wWX0bVKU2I6bhOT02dMhmaz3FuaHh3RncIgpA15ialcBMRFsvhawBIkj2T6AMIdKig=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nEccVrwpi8koGuSXXoAGpghxowz3paeakP16Ndoy1c3v/HLiZ
+	jFmIQIUQz6ykQO4KbGG4ZDgpz+h1A/ZhTH/BevnAGFfRsIDmD9OtgxIm
+X-Gm-Gg: AYBFou2r+KbYk3fOkFGhW6FOo2ZcMMDtlnV3086vgcVAUBcSLJ99SJusrDmRFfDJ4cv
+	yNqtQl3xYdQNCPhdMkJxzCnIokanNhywDp/2RGuNuRUzAqYJanY1Nk2wc09z8/hwstj4apLAl51
+	G5/2UHkNw/8vWjUz4MoZCbYIkcKpl59dGvD3KMQaAv5VH9qdz+QxYVQDXWBwOrNmR0xiYMS/2JJ
+	Bw4ta5Us78VDpaH9mzA/N+h07t32Dawlly4rOjU0Djc8h9+0ydn+wZ4nprir9QvSrwRoQWScbvQ
+	UUSTKlhIEUdEcp45LDmnduhVEz6y6Cw3Phq4w6WPlT1w3+erUW7rmAnuVoWkzuema0g5ZGrMuZg
+	k/9D2K/1RwYCGFMxTaD7xZyPFDldsYRJZF7t/T2/ab9l+qkW+nkr9e8nu3lQAoThAFZNlX3ysl2
+	sFORaO/f3cLgmqyiY4zvX4endi1NM1+N244iY21Q/Ov7NGlf8ee+oxSl0AD8TA/+XYIf/cSWFoX
+	AvosNGQfoUzc6s3tJ+g+am8+ju7jo6VvSZon3cISHbupqPs5awNeiks7b3H7zRwD76ydErGi8vH
+	Zi9g/Y3mKUqrSEaEpa8+0JqI/50hdDRFuj9qWDFD7he/gNTA/nRZ0oY2HblRrmwnNy1/zfjiWd9
+	McePetWFYjoi4
+X-Received: by 2002:a05:6820:2306:b0:71a:ea63:ac2c with SMTP id 006d021491bc7-71b18657f8bmr1251461eaf.84.1794997081863;
+        Wed, 18 Nov 2026 02:18:01 -0800 (PST)
+Received: from localhost.localdomain ([14.22.11.163])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4b743721fe9sm1889777fac.6.2026.11.18.02.17.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 02:17:57 -0800 (PST)
-From: asatsuyu.liu@gmail.com
-To: stable@vger.kernel.org
-Cc: bpf@vger.kernel.org,
-	ast@kernel.org,
-	daniel@iogearbox.net,
-	puranjay@kernel.org,
-	vadim.fedorenko@linux.dev,
-	Yi Liu <asatsuyu.liu@gmail.com>
-Subject: [RFC PATCH 6.18.y 1/1] bpf: Reject NULL arguments to four kfuncs
-Date: Wed, 18 Nov 2026 10:17:48 +0000
-Message-Id: <20261118101748.2335815-2-asatsuyu.liu@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261118101748.2335815-1-asatsuyu.liu@gmail.com>
-References: <20261118101748.2335815-1-asatsuyu.liu@gmail.com>
+        Wed, 18 Nov 2026 02:18:00 -0800 (PST)
+From: Henry Martin <bsdhenrymartin@gmail.com>
+To: Eric Dumazet <edumazet@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Henry Martin <bsdhenrymartin@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] net: initialize sk_peer_lock in cloned sockets
+Date: Wed, 18 Nov 2026 18:17:52 +0800
+Message-ID: <20261118101752.1989502-1-bsdhenrymartin@gmail.com>
+X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,90 +105,45 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Yi Liu <asatsuyu.liu@gmail.com>
+sock_copy() clones a struct sock with two memcpys that both include
+sk_peer_lock.  sk_clone() re-initializes sk_lock, but nothing resets
+sk_peer_lock, so a clone created while the parent's sk_peer_lock is held
+inherits the lock in the locked state.
 
-6.18.y only applies the kfunc NULL-argument check to functions carrying
-KF_TRUSTED_ARGS or KF_RCU.  Four kfuncs dereference pointer arguments
-unconditionally but do not carry either flag:
+The first getsockopt(SO_PEERCRED) on such a child spins forever in
+queued_spin_lock_slowpath().  spin_lock() disables preemption, so the
+task never schedules and its CPU stops reporting quiescent states; RCU
+grace periods then stop and callers of synchronize_rcu(), such as
+expand_files() from accept(), hang.
 
-  bpf_copy_from_user_str()
-  bpf_copy_from_user_task_str()
-  bpf_crypto_ctx_create()
-  bpf_rbtree_remove()
+Initialize sk_peer_lock explicitly for the clone.
 
-A BPF program can therefore pass a NULL or PTR_MAYBE_NULL argument and
-trigger a kernel NULL dereference.  Mark the four kfuncs KF_TRUSTED_ARGS
-so the existing verifier check rejects such calls.
+This issue was discovered by Tencent CodeBuddy Security.
 
-Skip __ign parameters in that check.  bpf_copy_from_user_str() and
-bpf_copy_from_user_task_str() intentionally accept
-unsafe_ptr__ign == NULL together with BPF_F_PAD_ZEROS, which is used to
-clear the destination buffer.  Without the skip, the new flag would
-reject this valid use.
-
-The patch is intended as a minimal 6.18.y stable fix; mainline has
-already made KF_TRUSTED_ARGS the default in v7.0.
-
-Fixes: 65ab5ac4df01 ("bpf: Add bpf_copy_from_user_str kfunc")
-Fixes: f0f8a5b58f78 ("bpf: Add bpf_copy_from_user_task_str() kfunc")
-Fixes: 3e1c6f35409f ("bpf: make common crypto API for TC/XDP programs")
-Fixes: bd1279ae8a69 ("bpf: Add bpf_rbtree_{add,remove,first} kfuncs")
-Signed-off-by: Yi Liu <asatsuyu.liu@gmail.com>
+Fixes: 35306eb23814 ("af_unix: fix races in sk_peer_pid and sk_peer_cred accesses")
+Cc: stable@vger.kernel.org
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
 ---
- kernel/bpf/crypto.c   | 2 +-
- kernel/bpf/helpers.c  | 6 +++---
- kernel/bpf/verifier.c | 1 +
- 3 files changed, 5 insertions(+), 4 deletions(-)
+v1 -> v2:
+ - drop the inline comment, the changelog already explains it
+ - use [PATCH net] in the subject, as requested
 
-diff --git a/kernel/bpf/crypto.c b/kernel/bpf/crypto.c
-index 3837d4dcf48d..d1566f76a2c1 100644
---- a/kernel/bpf/crypto.c
-+++ b/kernel/bpf/crypto.c
-@@ -353,7 +353,7 @@ __bpf_kfunc int bpf_crypto_encrypt(struct bpf_crypto_ctx *ctx,
- __bpf_kfunc_end_defs();
+ net/core/sock.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/net/core/sock.c b/net/core/sock.c
+index ad414878dc5b..ebc83a466d91 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -2545,6 +2545,7 @@ struct sock *sk_clone(const struct sock *sk, const gfp_t priority,
  
- BTF_KFUNCS_START(crypt_init_kfunc_btf_ids)
--BTF_ID_FLAGS(func, bpf_crypto_ctx_create, KF_ACQUIRE | KF_RET_NULL | KF_SLEEPABLE)
-+BTF_ID_FLAGS(func, bpf_crypto_ctx_create, KF_ACQUIRE | KF_RET_NULL | KF_SLEEPABLE | KF_TRUSTED_ARGS)
- BTF_ID_FLAGS(func, bpf_crypto_ctx_release, KF_RELEASE)
- BTF_ID_FLAGS(func, bpf_crypto_ctx_acquire, KF_ACQUIRE | KF_RCU | KF_RET_NULL)
- BTF_KFUNCS_END(crypt_init_kfunc_btf_ids)
-diff --git a/kernel/bpf/helpers.c b/kernel/bpf/helpers.c
-index 72757f7290ec..d9e0c95bce02 100644
---- a/kernel/bpf/helpers.c
-+++ b/kernel/bpf/helpers.c
-@@ -4278,7 +4278,7 @@ BTF_ID_FLAGS(func, bpf_list_front, KF_RET_NULL)
- BTF_ID_FLAGS(func, bpf_list_back, KF_RET_NULL)
- BTF_ID_FLAGS(func, bpf_task_acquire, KF_ACQUIRE | KF_RCU | KF_RET_NULL)
- BTF_ID_FLAGS(func, bpf_task_release, KF_RELEASE)
--BTF_ID_FLAGS(func, bpf_rbtree_remove, KF_ACQUIRE | KF_RET_NULL)
-+BTF_ID_FLAGS(func, bpf_rbtree_remove, KF_ACQUIRE | KF_RET_NULL | KF_TRUSTED_ARGS)
- BTF_ID_FLAGS(func, bpf_rbtree_add_impl)
- BTF_ID_FLAGS(func, bpf_rbtree_first, KF_RET_NULL)
- BTF_ID_FLAGS(func, bpf_rbtree_root, KF_RET_NULL)
-@@ -4365,8 +4365,8 @@ BTF_ID_FLAGS(func, bpf_preempt_enable)
- BTF_ID_FLAGS(func, bpf_iter_bits_new, KF_ITER_NEW)
- BTF_ID_FLAGS(func, bpf_iter_bits_next, KF_ITER_NEXT | KF_RET_NULL)
- BTF_ID_FLAGS(func, bpf_iter_bits_destroy, KF_ITER_DESTROY)
--BTF_ID_FLAGS(func, bpf_copy_from_user_str, KF_SLEEPABLE)
--BTF_ID_FLAGS(func, bpf_copy_from_user_task_str, KF_SLEEPABLE)
-+BTF_ID_FLAGS(func, bpf_copy_from_user_str, KF_SLEEPABLE | KF_TRUSTED_ARGS)
-+BTF_ID_FLAGS(func, bpf_copy_from_user_task_str, KF_SLEEPABLE | KF_TRUSTED_ARGS)
- BTF_ID_FLAGS(func, bpf_get_kmem_cache)
- BTF_ID_FLAGS(func, bpf_iter_kmem_cache_new, KF_ITER_NEW | KF_SLEEPABLE)
- BTF_ID_FLAGS(func, bpf_iter_kmem_cache_next, KF_ITER_NEXT | KF_RET_NULL | KF_SLEEPABLE)
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index b89a5d717e42..aac687b81b84 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -13494,6 +13494,7 @@ static int check_kfunc_args(struct bpf_verifier_env *env, struct bpf_kfunc_call_
- 		}
+ 	sk_node_init(&newsk->sk_node);
+ 	sock_lock_init(newsk);
++	spin_lock_init(&newsk->sk_peer_lock);
  
- 		if ((is_kfunc_trusted_args(meta) || is_kfunc_rcu(meta)) &&
-+		    !is_kfunc_arg_ignore(meta->btf, &args[i]) &&
- 		    (register_is_null(reg) || type_may_be_null(reg->type)) &&
- 			!is_kfunc_arg_nullable(meta->btf, &args[i])) {
- 			verbose(env, "Possibly NULL pointer passed to trusted arg%d\n", i);
+ 	if (lock)
+ 		bh_lock_sock(newsk);
 -- 
-2.34.1
+2.43.7
 
