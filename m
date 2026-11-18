@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795021606;
-	b=aNJAGFAvuj9gJbfHUVlKSd4u+ntm9STPk5VXRDPDP1enL66eyT1BZ6MZIr35prDMHJJn
-	 Uby1OniRTTez6RufiRO4mz11IOg8+G+CkMHENRRVPdJFscaSNJv0eY2TI0kRBqezjjSxY
-	 ji1Bg5batI/u/u+QERT6VE+c5Sclt5Lhq/9qfDX+R2aDCtb+AolMTHkkxyGMaNi9erfb1
-	 AEyNDgA2wj56LPuzF0/tBxBwNxXY07VV6AI7w4Yi9zUp2t49JJ0f32ZruCZ9Lk9ld5HDr
-	 H7xTqE69GpB8qz18MNhovtfSdOQcSWTH9zhgurx5B5f5TBlMS/xXIlqBoqPxNgzOxoA==
+	b=wvyDsUtK81SmYC/4ErVjIuTA97F2fyFlS50BmsiTqSLXMLyY/cjQ08+GDv7mJR8qR3g+
+	 4+6l4yAt2GivlhHPUBgweibIS0OVJKsUGEUWEy7wW991e7UFyEFYfsAXJu/Wrq+9EUn7W
+	 k/I6dWFA0U3Cc583GLqmyOQoinFkMC8eAs5hsArC95SXq/RIwHhRZhMNLgI2DKz0QCZ3K
+	 +lyZQ27zKhInOhXm/qoyTL2xISFoGOBRcodOntqfvx9fj6HKzMDdQ/LyT0VGvYbneOKPF
+	 cghWqeZy47PGUoBj70zDJjY+3lmXKHi4DgKolEA7CHKuUfZawnR27x9TyK2+S3Nla9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795021606;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=TjugvHD9xDWC7pCuOggHYh+xK87KfDNxX+WbeUG142Y=;
-	b=eEaLdybZNWYveS3BuxuOzqAsliHoQ4iTfovFuSOm3JxjFdFxnwRyrBHZXB6ilic6AZcz
-	 j4f8WNZQasmcFsR1z02bB5FftHn2+i1PvclpY01r/0D3RkWQDlma5gW2IYlsYJbX8DqRW
-	 GQ+6Kpwac58oVh4NYZxjIDpD3xvzwtc0+IKhj+awivkrfl53jaqYmqip2EDVF334/rnRd
-	 loBkkXhYJKdTK3gQubfIO0rChgC9vLymoZvmqlIDy1WZ0TkWng5A4pkAtkqompeJDRzUF
-	 qIXdKCjbbZOfUYeVHxvSDXMc31xn7jv3oRyHEHxVKzprm5K7HOMhE8xGUnn+6Xs62/w==
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Last-TLS-Session-Version;
+	bh=tGR1Pheja8UX+q7j6BPbOePxrbdEA1lKf+oSFzTuAy4=;
+	b=Vs07QrpsnPdqs7hjZcpDbHATNy4uT3+SwrzGoB1JBCPGVD6Y33r+YvXuP5NN5369Re/C
+	 Rh8dQtW5pkKXRJGgLqaU9CSNZj+9a9M9RnISCXl1YKoI9YJEDkNxoqHhEBD0MfXutCocz
+	 +aLVSqGzVUfOkxSwz6NjZu4CAhd6qzv3dZsjjFi70Xw/in++vYUhtrIEJ4YDY5Saf9MoN
+	 LBinI45HoKn2Fn7LIOE7/Kdz7CGI7rtm0gQ9DiwRx+7FHPtwSSGGsgSA+3vEN+AvVCTO0
+	 WNYRU1lwoaCrOfdA0/5lRdyZwmIMS1sNaoso/xVJbnpC1IxXRdD6v5q8i9WB8NTNIXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pH2yaaJp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=N7tWJTXq;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C55606A330;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6465760A260E;
 	Wed, 18 Nov 2026 17:06:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6465760A260E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=pH2yaaJp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A7581F000C4;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=N7tWJTXq
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 4B1891A16CB;
 	Wed, 18 Nov 2026 17:06:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795021606;
-	bh=TjugvHD9xDWC7pCuOggHYh+xK87KfDNxX+WbeUG142Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pH2yaaJp+nOHvPqRSTnxSl+d1lfX9BSTf6AX/rSCsjsYYCe4PqNe7PEfZOMxby5/r
-	 tor87yvlnXhV1JQeattUUT9R386UKw9jRgV3Ollt4MVh0PlBLYD+xfF0ka2o+tVkMH
-	 vAmwNkwmIousu7v1FmLGFgaSKs7xsu2yigHCzQ+M=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Mark Pearson <mpearson-lenovo@squebb.ca>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 2360/2651] ACPI: platform_profile: Separate handler locking from sysfs lifetime
-Date: Wed, 18 Nov 2026 16:00:00 +0100
-Message-ID: <20261118150410.521068609@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 18D525FE9B;
+	Wed, 18 Nov 2026 17:06:45 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 30A7811BC29F5;
+	Wed, 18 Nov 2026 18:06:38 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795021603; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=tGR1Pheja8UX+q7j6BPbOePxrbdEA1lKf+oSFzTuAy4=;
+	b=N7tWJTXq91CmHZAVeUCRic974Wak36ycLZYVPBV19l92gS7EePUMS1QnL3VxQ1UwyxXGj/
+	a637ctUnvyPT3jQEj2+XKFQp72QJXDfmxVBX5B8E+eebxCN+gfh7ZAGztl1uzH5/RkHkV+
+	bUzI0fP5YKlTBwOHwa6cJblkbW4dcoerCq2Ifu8kqroQ5P2D9/wUe6x1QJSga9PAOBmlvs
+	UdYaczEBb91ov+wceS8QCAlrTfce89d26ARjirGNOgoWAKL32rQvZjIHGQ4O3qDvAKWlMU
+	ZuxPzQfkEHw4+5r3VE10OydcUKq6QhFafH3AbGFKMm1oSgB2xlhj1Q0GnG/hQQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Date: Wed, 18 Nov 2026 17:59:18 +0100
+Subject: [PATCH v12 09/10] clk: nuvoton: ma35d1: Fix CCAP muxes bus width
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,296 +63,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261118-perso-ma35d1-upstream-clk-v12-9-bee2c8dad4e1@bootlin.com>
+References: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
+In-Reply-To: <20261118-perso-ma35d1-upstream-clk-v12-0-bee2c8dad4e1@bootlin.com>
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+Both CCAP muxes are registered with a single bit bus width which is
+obviously wrong since there are 4 possible parents. Fix the mux field
+width.
 
-------------------
-
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-
-[ Upstream commit b66621ad2a8fb553c4cb75b9d69fead4f0532933 ]
-
-Registration and removal currently hold profile_lock across
-device_unregister() and sysfs_update_group(). These operations can remove
-sysfs attributes and wait for their active callbacks to finish. The
-profile read and write callbacks acquire profile_lock themselves, so a
-concurrent access can deadlock:
-
-  Removal/update path             Active sysfs callback
-  -------------------             ---------------------
-  acquire profile_lock            hold kernfs active reference
-  remove a sysfs attribute         wait for profile_lock
-  wait for its active references
-
-The removal path cannot finish until the callback returns, and the
-callback cannot return until the removal path releases profile_lock.
-This applies both to per-provider device teardown and to updates of the
-legacy aggregate attribute group.
-
-Commit 041142d7d252 ("ACPI: platform-profile: Fix possible deadlock in
-platform_profile_remove()") previously fixed this lock ordering by moving
-sysfs_remove_group() outside profile_lock. Commit 55b1e68134bf ("ACPI:
-platform_profile: Use guard(mutex) for register/unregister") reintroduced
-the issue by extending the mutex guard over sysfs_remove_group(). Later,
-commit 77be5cacb2c2 ("ACPI: platform_profile: Create class for ACPI
-platform profile") replaced that teardown with device_unregister() and
-sysfs_update_group(), still under the same mutex, extending the problem
-to class-device teardown and aggregate attribute updates.
-
-Simply dropping profile_lock around these operations is insufficient.
-Aggregate operations currently discover providers through the class
-device list. A provider being unregistered could therefore still be
-selected for an aggregate read, write or cycle while its sysfs files are
-being torn down. Concurrent registrations and removals would also race
-when updating aggregate attribute visibility.
-
-Introduce profile_registration_lock to serialize registration, removal
-and aggregate sysfs updates. Sysfs callbacks never acquire this mutex.
-Retain profile_lock for profile operations and use it to protect an
-explicit list of handlers participating in the aggregate interface.
-
-Add a handler to that list only after device_register() succeeds. On
-removal, unlink it under profile_lock before calling device_unregister().
-Acquiring profile_lock first waits for any aggregate operation already
-using the handler to complete; unlinking prevents later aggregate
-operations from finding it. Release profile_lock before draining sysfs
-callbacks, allowing active per-provider callbacks to complete before the
-device is released. Apply the same unlink-before-unregister ordering to
-registration error cleanup.
-
-Walk this list for aggregate reads, writes and profile cycling, and use
-its emptiness to determine aggregate attribute visibility. The class
-devices remain the per-provider userspace interface.
-
-There can now be an interval between removing the last handler from the
-list and removing the aggregate attributes. Explicitly reject choices
-reads and writes during that interval: the intersection bitmap starts
-with every bit set, so an empty traversal must not advertise all profiles
-or report a successful write without updating a provider.
-
-This separates aggregate membership from class device teardown while
-preserving the existing class and ACPI sysfs interfaces.
-
-Fixes: 55b1e68134bf ("ACPI: platform_profile: Use guard(mutex) for register/unregister")
-Fixes: 77be5cacb2c2 ("ACPI: platform_profile: Create class for ACPI platform profile")
-Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Reviewed-by: Mark Pearson <mpearson-lenovo@squebb.ca>
-[ rjw: Subject adjustment, added two empty code lines ]
-[ rjw: Renamed profile_walk_handlers() to profile_for_each_handler() ]
-Link: https://patch.msgid.link/20261020144525.3265851-1-daniel.lezcano@oss.qualcomm.com
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- drivers/acpi/platform_profile.c | 82 ++++++++++++++++++++-------------
- 1 file changed, 49 insertions(+), 33 deletions(-)
+ drivers/clk/nuvoton/clk-ma35d1.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/acpi/platform_profile.c b/drivers/acpi/platform_profile.c
-index 79d2e92e5c28d..b4c91d57f3d48 100644
---- a/drivers/acpi/platform_profile.c
-+++ b/drivers/acpi/platform_profile.c
-@@ -8,15 +8,25 @@
- #include <linux/bits.h>
- #include <linux/cleanup.h>
- #include <linux/init.h>
-+#include <linux/list.h>
- #include <linux/mutex.h>
- #include <linux/platform_profile.h>
- #include <linux/sysfs.h>
+diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
+index a5a36f88d973..97a90cdb48c7 100644
+--- a/drivers/clk/nuvoton/clk-ma35d1.c
++++ b/drivers/clk/nuvoton/clk-ma35d1.c
+@@ -424,13 +424,13 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
+ 	hws[EMAC1_GATE] = ma35d1_clk_gate(dev, "emac1_gate", "epll_div2",
+ 					  clk_base + REG_CLK_SYSCLK0, 28);
  
- #define to_pprof_handler(d)	(container_of(d, struct platform_profile_handler, dev))
- 
-+/*
-+ * Protects profile_handlers membership and serializes profile operations
-+ * against each other and handler removal. Never held across sysfs teardown,
-+ * which can wait for callbacks that acquire this lock.
-+ */
- static DEFINE_MUTEX(profile_lock);
-+/* Serialize registration and sysfs updates without blocking sysfs callbacks. */
-+static DEFINE_MUTEX(profile_registration_lock);
-+static LIST_HEAD(profile_handlers);
- 
- struct platform_profile_handler {
-+	struct list_head node;
- 	const char *name;
- 	struct device dev;
- 	int minor;
-@@ -44,6 +54,23 @@ static_assert(ARRAY_SIZE(profile_names) == PLATFORM_PROFILE_LAST);
- 
- static DEFINE_IDA(platform_profile_ida);
- 
-+static int profile_for_each_handler(void *data,
-+				    int (*fn)(struct device *dev, void *data))
-+{
-+	struct platform_profile_handler *handler;
-+	int ret;
-+
-+	lockdep_assert_held(&profile_lock);
-+
-+	list_for_each_entry(handler, &profile_handlers, node) {
-+		ret = fn(&handler->dev, data);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
- /**
-  * _commmon_choices_show - Show the available profile choices
-  * @choices: The available profile choices
-@@ -306,20 +333,18 @@ static ssize_t platform_profile_choices_show(struct kobject *kobj,
- 	int err;
- 
- 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
--		err = class_for_each_device(&platform_profile_class, NULL,
--					    &data, _aggregate_choices);
-+		err = profile_for_each_handler(&data, _aggregate_choices);
- 		if (err)
- 			return err;
- 		if (data.count == 1) {
--			err = class_for_each_device(&platform_profile_class, NULL,
--						    &data, _remove_hidden_choices);
-+			err = profile_for_each_handler(&data, _remove_hidden_choices);
- 			if (err)
- 				return err;
- 		}
- 	}
- 
- 	/* no profile handler registered any more */
--	if (bitmap_empty(data.aggregate, PLATFORM_PROFILE_LAST))
-+	if (!data.count || bitmap_empty(data.aggregate, PLATFORM_PROFILE_LAST))
- 		return -EINVAL;
- 
- 	return _commmon_choices_show(data.aggregate, buf);
-@@ -384,8 +409,7 @@ static ssize_t platform_profile_show(struct kobject *kobj,
- 	int err;
- 
- 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
--		err = class_for_each_device(&platform_profile_class, NULL,
--					    &profile, _aggregate_profiles);
-+		err = profile_for_each_handler(&profile, _aggregate_profiles);
- 		if (err)
- 			return err;
- 	}
-@@ -423,15 +447,13 @@ static ssize_t platform_profile_store(struct kobject *kobj,
- 		return -EINVAL;
- 
- 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
--		ret = class_for_each_device(&platform_profile_class, NULL,
--					    &data, _aggregate_choices);
-+		ret = profile_for_each_handler(&data, _aggregate_choices);
- 		if (ret)
- 			return ret;
--		if (!test_bit(i, data.aggregate))
-+		if (!data.count || !test_bit(i, data.aggregate))
- 			return -EOPNOTSUPP;
- 
--		ret = class_for_each_device(&platform_profile_class, NULL, &i,
--					    _store_and_notify);
-+		ret = profile_for_each_handler(&i, _store_and_notify);
- 		if (ret)
- 			return ret;
- 	}
-@@ -450,22 +472,11 @@ static struct attribute *platform_profile_attrs[] = {
- 	NULL
- };
- 
--static int profile_class_registered(struct device *dev, const void *data)
--{
--	return 1;
--}
--
- static umode_t profile_class_is_visible(struct kobject *kobj, struct attribute *attr, int idx)
- {
--	struct device *dev;
--
--	dev = class_find_device(&platform_profile_class, NULL, NULL, profile_class_registered);
--	if (!dev)
--		return 0;
--
--	put_device(dev);
-+	guard(mutex)(&profile_lock);
- 
--	return attr->mode;
-+	return list_empty(&profile_handlers) ? 0 : attr->mode;
- }
- 
- static const struct attribute_group platform_profile_group = {
-@@ -502,8 +513,7 @@ int platform_profile_cycle(void)
- 	int err;
- 
- 	scoped_cond_guard(mutex_intr, return -ERESTARTSYS, &profile_lock) {
--		err = class_for_each_device(&platform_profile_class, NULL,
--					    &profile, _aggregate_profiles);
-+		err = profile_for_each_handler(&profile, _aggregate_profiles);
- 		if (err)
- 			return err;
- 
-@@ -512,8 +522,7 @@ int platform_profile_cycle(void)
- 		    profile == PLATFORM_PROFILE_LAST)
- 			return -EINVAL;
- 
--		err = class_for_each_device(&platform_profile_class, NULL,
--					    &data, _aggregate_choices);
-+		err = profile_for_each_handler(&data, _aggregate_choices);
- 		if (err)
- 			return err;
- 
-@@ -525,8 +534,7 @@ int platform_profile_cycle(void)
- 					  PLATFORM_PROFILE_LAST,
- 					  profile + 1);
- 
--		err = class_for_each_device(&platform_profile_class, NULL, &next,
--					    _store_and_notify);
-+		err = profile_for_each_handler(&next, _store_and_notify);
- 
- 		if (err)
- 			return err;
-@@ -583,7 +591,7 @@ struct device *platform_profile_register(struct device *dev, const char *name,
- 		}
- 	}
- 
--	guard(mutex)(&profile_lock);
-+	guard(mutex)(&profile_registration_lock);
- 
- 	/* create class interface for individual handler */
- 	minor = ida_alloc(&platform_profile_ida, GFP_KERNEL);
-@@ -604,6 +612,8 @@ struct device *platform_profile_register(struct device *dev, const char *name,
- 		put_device(ppdev);
- 		goto cleanup_ida;
- 	}
-+	scoped_guard(mutex, &profile_lock)
-+		list_add_tail(&to_pprof_handler(ppdev)->node, &profile_handlers);
- 
- 	sysfs_notify(acpi_kobj, NULL, "platform_profile");
- 
-@@ -614,6 +624,9 @@ struct device *platform_profile_register(struct device *dev, const char *name,
- 	return ppdev;
- 
- cleanup_cur:
-+	scoped_guard(mutex, &profile_lock)
-+		list_del(&to_pprof_handler(ppdev)->node);
-+
- 	device_unregister(ppdev);
- 
- cleanup_ida:
-@@ -636,7 +649,10 @@ void platform_profile_remove(struct device *dev)
- 
- 	pprof = to_pprof_handler(dev);
- 
--	guard(mutex)(&profile_lock);
-+	guard(mutex)(&profile_registration_lock);
-+
-+	scoped_guard(mutex, &profile_lock)
-+		list_del(&pprof->node);
- 
- 	ida_free(&platform_profile_ida, pprof->minor);
- 	device_unregister(&pprof->dev);
+-	hws[CCAP0_MUX] = ma35d1_clk_mux(dev, "ccap0_mux", clk_base + REG_CLK_CLKSEL0, 12, 1, hws,
++	hws[CCAP0_MUX] = ma35d1_clk_mux(dev, "ccap0_mux", clk_base + REG_CLK_CLKSEL0, 12, 2, hws,
+ 					ccap_parent_idx, ARRAY_SIZE(ccap_parent_idx));
+ 	hws[CCAP0_DIV] = ma35d1_clk_divider(dev, "ccap0_div", "ccap0_mux",
+ 					    clk_base + REG_CLK_CLKDIV1, 8, 4);
+ 	hws[CCAP0_GATE] = ma35d1_clk_gate(dev, "ccap0_gate", "ccap0_div",
+ 					  clk_base + REG_CLK_SYSCLK0, 29);
+-	hws[CCAP1_MUX] = ma35d1_clk_mux(dev, "ccap1_mux", clk_base + REG_CLK_CLKSEL0, 14, 1, hws,
++	hws[CCAP1_MUX] = ma35d1_clk_mux(dev, "ccap1_mux", clk_base + REG_CLK_CLKSEL0, 14, 2, hws,
+ 					ccap_parent_idx, ARRAY_SIZE(ccap_parent_idx));
+ 	hws[CCAP1_DIV] = ma35d1_clk_divider(dev, "ccap1_div", "ccap1_mux",
+ 					    clk_base + REG_CLK_CLKDIV1,
+
 -- 
-2.53.0
-
-
+2.56.0
 
