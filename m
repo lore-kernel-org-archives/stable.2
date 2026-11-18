@@ -1,91 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795037120;
-	b=Y2PJt2MnGy/zn2vdes6/OfwU2pM4ryOy55WyQGL7S6bmVTgcf9/8Pdxxp6No+2a2pvJI
-	 s7LzSsjIbvfFCzuHGfzFacFK2lmHDetcd5lH3cDNu2G1yBq8rXLU0vvc5TZF8aac6l7fC
-	 CZkIkIQL545BlfC0uK0JDIJSP6ET0YikjAHxSVbhMZZTICQsYpVcTDhZazMIcz8sVvINg
-	 gGYtJNO107G0xkp9+JblXv6/A92gDjIBFl4eIoaNW2yDsh7hBeUdm+7v9+rTchzcO62OM
-	 JW2cXfdsDrSqaei2gW33u03gkDxAv4TCvV/vrNNpQzgO1Q6QKlzu9GeH1nv+ph0wT/Q==
+	t=1795037127;
+	b=T6NtiF7mLtAK4zzDlFi5LxhQYQtufcdMl+lQeCl8AQ5HxUk74I+UE1GZ0NibT5eS1VGY
+	 9gLuGQQcwfDQc3ZZh6+AzBSVQdJ5bjTjCKkmQvV2pyvnlG8ZYr+2o2+wwMUyY8TJCUvPT
+	 wNVFVpwoTlHxkd5Mh0lYF8VOxFmNuFm/uhSgHLnVO7vd+GlePDJwe93GjpIoFDRuIB5Z4
+	 mxjlXP1RwbOJRtI9hSeRxQ4AEdxyqAjNF8kWMmQ/tRxZdEVVHzSqeezDTnOItHGKTXSgd
+	 wpQcJOXXxbVKrmvUH7a1ilQLE2T/7uv18m7hJ/XYb6HslEbCxCONhPVynCaUQw8D9vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795037120;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=J786XyzD4Ejqh0xQe33CLgYWo2dkNfSw+M+NLmT/DuM=;
-	b=U0OwRMnCsQYMFPv9FCQ1UaTvFCba1n7DpUiV8hE9hGeSlF1W5qLabF0m8vvdVjTx8QJw
-	 DMBQAp3nufZsgm5ZHOqChiMZMRItZZlII4yYG4qei4+GJEI7cPbEC/Ubsqbaa20BMoqai
-	 KqjEwIrnijjJetlo2btWMjoAUosFrU9XyQgThn0vojubUcurT/xcojj685030fGXSwGgX
-	 iPiTGanJo+TyCV8C/exlw2+Xol7v8KrqZFA26s9bQHScboe1zSJnyqMqlDil94vjYh7X/
-	 cuAX1S9oQoZ8WyTsxC196aevwTdC1k+d/nkI6SbbEgp8xnqGN9ihHJNK3RtFfKir1vQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795037127;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Rtk3S45JyU+glpEJBI2UWta9g44jbg4JL7UkvcVpaF4=;
+	b=Ci5qmJ97S/1nf13bbGP2Pbby5MxaAuFwPC5u/5MzvRYxZRXzD0cyApeAoGIh2ZiuZ7qw
+	 js2ER5E7P9BDzBDiirxsfPNWqHHk3BqFiV1B2cuZ6lccNujvKqWmo9NF2fjD0s6j0u9gb
+	 artpZ5sDNFt/E9gQpNHFb4x4mlYfCW3KRTjWHs3hdEpJf90ZNcxQvubbNDElv6h5tP5Ke
+	 n+8zVvVqFKOpVlr1LL51pkvXhGtjnozQ0Iqy45emxK1XJpMcHhMWdetA4KpbVXeMoqw7Y
+	 WYxzrBYW0TEVU2CM0TXU9eQwjahGwNxVNZADglhEYKOPVJyKdkCMN9kjTWd5KjakrBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=LTYbVsBQ;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nr1+fsmM;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95A8260A2631;
-	Wed, 18 Nov 2026 21:25:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95A8260A2631
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52587606A41E;
+	Wed, 18 Nov 2026 21:25:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=LTYbVsBQ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795037117;
-	bh=J786XyzD4Ejqh0xQe33CLgYWo2dkNfSw+M+NLmT/DuM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=LTYbVsBQDWU1QONYA2tkryLpB2eISnPp4xScN0Gf8OaW5k5DK1AtmNcaVKZPn1FRd
-	 RNQSYy+9wlArSpLS2n32xOjgPN4bjSi9WXv7e/944KoNphzlbLO7P58YZqkH8ICRaH
-	 WjEISlLkLGh617aZ7iBXdYigm7bl9YurQq9XvaGL0iVu6YTQNATPkVgHdBh4zi5L1P
-	 lR3EhIB80+tbKbbvoC3c1H5lx+nS+C4YU6FznUU7xlbQCjK+6xLCb+x0ZVhvRi+SFi
-	 UHv+yEEsASEVDy+SjcWSMct+XlmoVk1CDNmmKyvfIWab1ppy/nhUhujGbJnxkj0dms
-	 IE36vrmUIfaFw==
-Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVF4Y4qblzS33;
-	Wed, 18 Nov 2026 16:25:17 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: juri.lelli@redhat.com,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	vincent.guittot@linaro.org
-Cc: linux-kernel@vger.kernel.org,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	tglx@kernel.org,
-	will@kernel.org,
-	boqun@kernel.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org,
-	longman@redhat.com,
-	ridong.chen@linux.dev,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shuah@kernel.org,
-	bigeasy@linutronix.de,
-	clrkwllms@kernel.org,
-	parri.andrea@gmail.com,
-	m.szyprowski@samsung.com,
-	kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com,
-	cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH v2 12/16] sched/deadline: Fix this_bw when a task is changed during a remote wakeup
-Date: Wed, 18 Nov 2026 16:25:08 -0500
-Message-Id: <dfe9865764c347295703c25e9a781438784f061b.1795037078.git.mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1795037078.git.mathieu.desnoyers@efficios.com>
-References: <cover.1795037078.git.mathieu.desnoyers@efficios.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nr1+fsmM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64C71F000C4;
+	Wed, 18 Nov 2026 21:25:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795037127;
+	bh=Rtk3S45JyU+glpEJBI2UWta9g44jbg4JL7UkvcVpaF4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nr1+fsmMT2COrE7GJypd/GnR1z5OmG4qf2E3aevEYyh2vIlRI9ypTUs8SIPm0WmW2
+	 0QxqkmzDF5sY89NFmLjIE+syIaxAhKeg4zoL7oTAglKSfbeG5XInV/hxfswJh9f9qc
+	 +PnAnypppfjNBsrCoenJ5DHI0B6nkIwa2sis99bQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Willem de Bruijn <willemb@google.com>,
+	Kamil Sawicki <user148783812897@gmail.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 1304/3318] net: limit priority VLAN untag depth
+Date: Wed, 18 Nov 2026 15:32:06 +0100
+Message-ID: <20261118150359.386369410@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
+References: <20261118150313.527275416@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,181 +67,83 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The this_bw of a runqueue is the bandwidth of the deadline tasks
-assigned to it, running or not. GRUB uses it to compute the inactive
-utilization of the runqueue. When a task wakes up on another CPU,
-migrate_task_rq_dl() takes its bandwidth off the old runqueue. The
-enqueue adds it to the new one.
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-Between these two steps, no runqueue counts the bandwidth.
-try_to_wake_up() can leave the enqueue to the wake list of the new CPU,
-and return before it runs. task_cpu() already points at the new CPU. A
-change of the task in that window gets this_bw wrong.
+------------------
 
-In this example, T is a deadline task. S is another task. It changes
-the bandwidth of T from "old bw" to "new bw":
+From: Kamil Sawicki <user148783812897@gmail.com>
 
-  CPU 0                               CPU 1                       CPU 2
-  T blocks
-  this_bw of CPU 0 counts T
-  <timer> try_to_wake_up(T)
-    set_task_cpu(T, 1)
-      migrate_task_rq_dl()
-        sub_rq_bw(): CPU 0 drops T
-    T on the wake list of CPU 1
-    return
-                                                                  S: sched_setattr(T)
-                                                                    task_rq_lock(T): CPU 1
-                                                                    T is not queued
-                                                                    dl_change_utilization()
-                                                                      this_bw of CPU 1:
-                                                                      - old bw + new bw
-                                      sched_ttwu_pending()
-                                        enqueue_task_dl(T)
-                                          task_contending()
-                                            add_rq_bw():
-                                            this_bw of CPU 1:
-                                            + new bw
+[ Upstream commit d3ff07f5acc573e5f72bf1c581bae5d05191ba61 ]
 
-CPU 1 then counts the new bandwidth twice, less the old one. Repeated,
-this makes this_bw drift until it underflows. If T left the class in
-that window, switched_from_dl() would take its bandwidth off CPU 1 the
-same way. A task that enters the class in that window would be counted
-twice, by switched_to_dl() and by the enqueue.
+The priority VLAN receive path can repeatedly remove VID 0 tags and retry
+packet processing. Unlike the read-only VLAN protocol parser, this path has
+no limit on the number of nested tags it consumes.
 
-This needs a wakeup that moves the task, so a root domain of more than
-one CPU, with busy CPUs. CONFIG_SCHED_PROXY_EXEC=y makes such wakeups
-more common. In testing, a task sleeps and wakes in a busy two-CPU
-partition root, and another CPU changes its runtime. The kernel warns
-within a second in each of 8 VMs:
+Each skb_vlan_untag() advances skb->data and resets header offsets. The
+offsets are stored in 16-bit fields. With enough nested tags, the network
+or transport offset can wrap. A later protocol handler can then derive a
+large pull length from the wrapped offsets and access memory outside the
+skb allocation.
 
-  WARNING: kernel/sched/deadline.c:352 at dl_rq_change_utilization+0x71/0x2e0, CPU#0: wake_race/109
-   __sub_rq_bw(): this_bw underflow
-  WARNING: kernel/sched/deadline.c:316 at task_contending+0x244/0x260, CPU#6: swapper/6/0
-   __add_running_bw(): running_bw overflow
+Apply the existing VLAN_MAX_DEPTH limit to the exceptional VID 0 retry.
+Count the tag already stored in skb VLAN metadata as the first level, then
+stop before untagging a ninth level. Keep the accounting inside this
+uncommon branch so the regular VLAN receive path is unaffected.
 
-Fix this with a new bit, dl_bw_oncpu, that tells whether a runqueue
-counts the bandwidth of the task. add_rq_bw() adds the bandwidth only if
-no runqueue counts it. sub_rq_bw() takes it off only if one does.
-dl_change_utilization() does nothing while no runqueue counts the
-bandwidth. The enqueue adds the new one.
+A single VID 0 priority tag before a real VLAN tag is valid. No normal
+deployment was found that intentionally emits multiple consecutive VID 0
+tags; permitting eight levels is therefore conservative.
 
-With this patch, none of the 8 VMs warns. deadline_bw_test, added later
-in this series, tests this in params_waking. The Sashiko
-AI review of this series found the double count, and a bit that the
-first version of this patch left set.
+The issue was found while researching the Linux network receive path for
+Google kvmCTF, with OpenAI Codex (gpt-5.6-sol) assisting the analysis. The
+affected path, reproducer and fix were manually reviewed and tested.
 
-Fixes: 8fd27231c330 ("sched/deadline: Track the "total rq utilization" too")
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Fixes: 36b2f61a42c2 ("net: handle 802.1P vlan 0 packets properly")
 Cc: stable@vger.kernel.org
----
- include/linux/sched.h   |  5 +++++
- kernel/sched/deadline.c | 39 +++++++++++++++++++++++++++++++++++----
- 2 files changed, 40 insertions(+), 4 deletions(-)
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Signed-off-by: Kamil Sawicki <user148783812897@gmail.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/20261024004835.17862-1-user148783812897@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index e4f6323d7855..88cda9c10cb8 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -706,6 +706,10 @@ struct sched_dl_entity {
- 	 * contributes to the root domain's total_bw. Only meaningful for server
- 	 * entities (@dl_server == 1). Allows toggling the reservation on/off
- 	 * without losing the configured @dl_runtime/@dl_period.
-+	 *
-+	 * @dl_bw_oncpu tells if the this_bw of a runqueue counts the task's
-+	 * @dl_bw: add_rq_bw() and sub_rq_bw() set and clear it, under that
-+	 * runqueue's lock. Not for servers, which keep @dl_bw_attached.
- 	 */
- 	unsigned int			dl_throttled      : 1;
- 	unsigned int			dl_yielded        : 1;
-@@ -718,6 +722,7 @@ struct sched_dl_entity {
- 	unsigned int			dl_defer_running  : 1;
- 	unsigned int			dl_defer_idle     : 1;
- 	unsigned int			dl_bw_attached    : 1;
-+	unsigned int			dl_bw_oncpu       : 1;
- 
- 	/*
- 	 * Bandwidth enforcement timer. Each -deadline task has its
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index f0e03f97fd82..c36516210669 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -267,18 +267,35 @@ void __sub_rq_bw(u64 dl_bw, struct dl_rq *dl_rq)
- 	WARN_ON_ONCE(dl_rq->running_bw > dl_rq->this_bw);
- }
- 
-+/*
-+ * @dl_se->dl_bw_oncpu tells whether the this_bw of a runqueue counts the
-+ * bandwidth of @dl_se. add_rq_bw() adds the bandwidth only if no runqueue
-+ * counts it. sub_rq_bw() subtracts it only if one does.
-+ *
-+ * A wakeup on another CPU takes the bandwidth off the old runqueue. The
-+ * enqueue on the new CPU adds it back later. A change of the task in
-+ * between must not count the bandwidth twice, nor take it off a runqueue
-+ * that does not count it.
-+ *
-+ * The servers track their bandwidth with dl_bw_attached. They call
-+ * __add_rq_bw() and __sub_rq_bw() directly.
-+ */
- static inline
- void add_rq_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
- {
--	if (!dl_entity_is_special(dl_se))
--		__add_rq_bw(dl_se->dl_bw, dl_rq);
-+	if (dl_entity_is_special(dl_se) || dl_se->dl_bw_oncpu)
-+		return;
-+	__add_rq_bw(dl_se->dl_bw, dl_rq);
-+	dl_se->dl_bw_oncpu = 1;
- }
- 
- static inline
- void sub_rq_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
- {
--	if (!dl_entity_is_special(dl_se))
--		__sub_rq_bw(dl_se->dl_bw, dl_rq);
-+	if (dl_entity_is_special(dl_se) || !dl_se->dl_bw_oncpu)
-+		return;
-+	__sub_rq_bw(dl_se->dl_bw, dl_rq);
-+	dl_se->dl_bw_oncpu = 0;
- }
- 
- static inline
-@@ -347,6 +364,14 @@ static void dl_change_utilization(struct task_struct *p, u64 new_bw)
- 	if (task_on_rq_queued(p))
- 		return;
- 
-+	/*
-+	 * The task is waking up on another CPU, and no runqueue counts its
-+	 * bandwidth. The enqueue adds it, with the new parameters that
-+	 * __setparam_dl() sets right after this.
-+	 */
-+	if (!p->dl.dl_bw_oncpu)
-+		return;
-+
- 	dl_rq_change_utilization(task_rq(p), &p->dl, new_bw);
- }
- 
-@@ -2726,6 +2751,11 @@ static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused
- 		 */
- 		cancel_inactive_timer(&p->dl);
+[ Backport to 6.6.y: __netif_receive_skb_core() has no local
+  drop_reason variable, and this branch does not define
+  SKB_DROP_REASON_RECURSION_LIMIT. Omit the upstream assignment
+  and keep the existing SKB_DROP_REASON_UNHANDLED_PROTO drop path. ]
+Signed-off-by: Kamil Sawicki <user148783812897@gmail.com>
+
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/core/dev.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/net/core/dev.c b/net/core/dev.c
+index f9436563a2e84..19d3149d320db 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -5618,6 +5618,8 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
  	}
-+	/*
-+	 * set_task_cpu() points task_cpu() at the new CPU next. The runqueue
-+	 * of that CPU counts this bandwidth only once the enqueue there adds
-+	 * it. Until then, no runqueue counts it, as dl_bw_oncpu now says.
-+	 */
- 	sub_rq_bw(&p->dl, &rq->dl);
- 	rq_unlock(rq, &rf);
- }
-@@ -4025,6 +4055,7 @@ static void __dl_clear_params(struct sched_dl_entity *dl_se)
- 	dl_se->dl_defer			= 0;
- 	dl_se->dl_defer_running		= 0;
- 	dl_se->dl_defer_armed		= 0;
-+	dl_se->dl_bw_oncpu		= 0;
  
- #ifdef CONFIG_RT_MUTEXES
- 	dl_se->pi_se			= dl_se;
+ 	if (unlikely(skb_vlan_tag_present(skb)) && !netdev_uses_dsa(skb->dev)) {
++		unsigned int priority_tag_depth = 1;
++
+ check_vlan_id:
+ 		if (skb_vlan_tag_get_id(skb)) {
+ 			/* Vlan id is non 0 and vlan_do_receive() above couldn't
+@@ -5629,6 +5631,10 @@ static int __netif_receive_skb_core(struct sk_buff **pskb, bool pfmemalloc,
+ 			 * 802.1Q or 802.1AD and vlan_do_receive() above could
+ 			 * not find vlan dev for vlan id 0.
+ 			 */
++			if (unlikely(priority_tag_depth >= VLAN_MAX_DEPTH))
++				goto drop;
++
++			priority_tag_depth++;
+ 			__vlan_hwaccel_clear_tag(skb);
+ 			skb = skb_vlan_untag(skb);
+ 			if (unlikely(!skb))
 -- 
-2.47.3
+2.53.0
+
+
 
