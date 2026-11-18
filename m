@@ -1,60 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.171.202.116
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795015516;
-	b=LY+ofyie+zWsY5SQ1N776SwCZSiQpWOtJqkneLjsIREiZSoqJoSGQVx5Av01cw2NC5I7
-	 4k8mvnw66isCAa8NlmaLxuVtc8H5H2iygyBx2qi5WyO9H44hKS8RR/jYgh/2p1yuh144w
-	 MnTQOsZTGEFXZi7jEXo8Llfo4jnmMYHBI7hRuYmrqtGWOifVw2e+6bmtaRRL7mSec/lgr
-	 pKBda1ptuJ6rdlqZIRqy1TbxqO4/ogu+Z33wEGCmiJ5uLjnme3OyiNNPvu7cPgoIikQnd
-	 WbI5+vudAptgJ10wosF1rbi1cYxo/l70rR2mrrXzeSAs0vOv/iAn4gbBLxjGhnxplWQ==
+	t=1795015518;
+	b=hD9T3nL1c070ZBWOIh404ZQUvb9iAERbXONpsiGwOKRw6KUwFtGu85rbFY2jPXUloVrk
+	 5h1kdxgrM/0ZL9yQF2qNCYuN0CkPKTFCKlhv5gNh5pEFGR8ocQKdFAv43iPHYC1ftfnjp
+	 ZsY/fIadh/H8rwH8gxJjHxbYe/azldJPT6Ii9Olt18waaEos3GF7jluyw3INCoFcTm4+0
+	 hbKTWdUGmmlHVoE1/3vLcjChHKTNxqko1lAPIti8WdXYOuucmw26FDQ6BM3u25Q0YoXwy
+	 KKRzzH/ak+4H8O1gUJnsQlUUUOcUDUgSzWdMKdwKQIvzHr+asZ6bAm6ZfPUHYZ+lnNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795015516;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=2YMpvcwjZBo6A17+kchkd7Wi1e8tA/WBCLMYxCTiJ5E=;
-	b=zPBwv9GHIpWA7U6DRuKAjHHov9DN6UTa8rNDO16OsB4eD5Dh6s/EalUmMwA30qe/D1P4
-	 +xJXXxhdBKhGMLYat4a1URcuHqD74a/2bWpK9CNPmLtcj9rsOVYqRETBCYWrc+5FyVspL
-	 5N6Wlex7T+XWJlUNCB52cA9xws6T7LZv63QPt6N32I+DcCokDiq3BV8uvQj1D6hM2gkBK
-	 oMaVz7fZeyno5FCd4uN0TZLw+Jk4SRt6JD5UycWWbr3R8Z8GW8ukqi3KfkhtyNu/i8bvI
-	 9kNV0TuZNwh+kl5SQRwh5XURcISoABUdOAQuuEoAyxdQM5xzbBYanYdPx+Gjj9UHtbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015518;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:In-Reply-To:References:User-Agent:Date:Message-ID:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Last-TLS-Session-Version;
+	bh=CEm9dGLjcVwIMaOu+kqX5t+aM+qvinbpRnz4RyrHHjY=;
+	b=ZKk26ujrtzAD1QXg7XWkGjmpy0ZE4ZRausXCuRy3DVKmN8DuMub1QYVcOKTYa1ON0rj6
+	 ZxxYv/rsoc2zN7kWtrNEK9HUBtNVmDJkHdNSlT8u4CZcHuKFaqGN75ep6UbQMmQhBhh9g
+	 16aWm5RKlVu1n2H9fHbNR0EGNbBrxHwbv6yLkczMkPEdhp9HH2yKVcUHo0ZUT7zdFePEq
+	 XGBRIXnXqJnn1pjjC+BmpzUY3EdIEbCaoJutjJGJhGG3ZmxhaZqtA4vGEAw5DpwlNMbMd
+	 wyt7P1OmhZFYNvQB+XCLB3zRYgV/0Brab3WkJyDHN0+NmvcoVNMh5IjUUxjE62zh3Pg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cySBsH4q;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ez0Qk31S;
+	arc=none smtp.remote-ip=185.171.202.116
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D8060A261F;
-	Wed, 18 Nov 2026 15:25:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3874606A325
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:25:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3874606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cySBsH4q
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 850D01F000CF;
-	Wed, 18 Nov 2026 15:25:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795015516;
-	bh=2YMpvcwjZBo6A17+kchkd7Wi1e8tA/WBCLMYxCTiJ5E=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cySBsH4qJzUhit8ahqzhccL4I6aT+0+REZOWq6eCNgaAeOcgG4LUpYy5shypidOkR
-	 XOJUgmHbzuhavqBDD/KXA8vHqyx7uWlewvPD+RObLf7J2hoa2fgCJIHdvwb5OMa3GF
-	 EcL0ng+4TiqYtcjt28Z6IWp7VAYyQkOVqm+qVwik=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
-	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
-	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0199/2651] wifi: ath11k: fix NULL dereference in ahb remove when QMI init incomplete
-Date: Wed, 18 Nov 2026 15:23:59 +0100
-Message-ID: <20261118150255.029294037@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ez0Qk31S
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 7FC39C4F77E;
+	Wed, 18 Nov 2026 15:25:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 1CF7A5FFAF;
+	Wed, 18 Nov 2026 15:25:10 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DD84511BC24A1;
+	Wed, 18 Nov 2026 16:24:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1795015507; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=CEm9dGLjcVwIMaOu+kqX5t+aM+qvinbpRnz4RyrHHjY=;
+	b=ez0Qk31S9QtS5y2slTb9afsub9oCe6bae5MiTUqJxpin2qhPa/86oOfDJEL36e+gl/hq0N
+	kEnC3vQ/205ru9vEC10gYcjPTsRmnX//2rgC5Wx2FKON3+9NT/nmkCxBY3JiKRzDAdVXDe
+	X1QqcVc9mq8Tj81LItHKUr3ofwCvWX+JtRYzEAhcWSCgkhrhTRrfxydmvXQ95204cpIt6K
+	wPa5K1JZo6iSY2/i9QSdi1nO5hAo9BZ0jMf4fM1/dGszaXdZohsemd7ReSwIaLpNxZ2kPx
+	XVhMHVqEHsmm/OVrCmCKoxpzsAw/VuzxbkvgKNQKcjKbhZzL1VqNr1rtLkFGhw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>,  Shan-Chun Hung
+ <schung@nuvoton.com>,  Michael Turquette <mturquette@baylibre.com>,
+  Stephen Boyd <sboyd@kernel.org>,  Richard Cochran
+ <richardcochran@gmail.com>,  Arnd Bergmann <arnd@arndb.de>,  Brian Masney
+ <bmasney+clk@redhat.com>,  Jerome Brunet <jbrunet+clk@baylibre.com>,  Rob
+ Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Andrew Jeffery
+ <andrew@codeconstruct.com.au>,  Avi Fishman <avifishman70@gmail.com>,
+  Tomer Maimon <tmaimon77@gmail.com>,  Tali Perry <tali.perry1@gmail.com>,
+  Patrick Venture <venture@google.com>,  Nancy Yuen <yuenn@google.com>,
+  Benjamin Fair <benjaminfair@google.com>,  Thomas Petazzoni
+ <thomas.petazzoni@bootlin.com>,  Steam Lin <STLin2@winbond.com>,
+  linux-arm-kernel@lists.infradead.org,  linux-clk@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  Krzysztof Kozlowski <krzk@kernel.org>,
+  devicetree@vger.kernel.org,  openbmc@lists.ozlabs.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH v11 00/10] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+In-Reply-To: <179501501070.639563.9357303541273366380.b4-review@b4> (Jerome
+	Brunet's message of "Wed, 18 Nov 2026 16:16:50 +0100")
+References: <20261118-perso-ma35d1-upstream-clk-v11-0-bd1d1e060926@bootlin.com>
+	<179501501070.639563.9357303541273366380.b4-review@b4>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Wed, 18 Nov 2026 16:24:56 +0100
+Message-ID: <87o6bmgo1j.fsf@bootlin.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,74 +87,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+Hi Jerome,
 
-------------------
+> We've had to base clk-next on v7.4-rc2 because it carries a treewide chan=
+ge
+> around devm_kzalloc. This was triggering a lot of conflict in linux-next.
+>
+> I did not look at your series yet but it does not apply cleanly on patch 3
+> (maybe others too) because of the same change. Would you mind rebasing on=
+ -rc2
+> or clk-next please ?
+>
+> https://sashingci-clk.liltaz.com/builds/555/steps/3
 
-From: Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>
+Yeah, it broke my MTD branches as well... Mark Brown is having a fun
+time noticing all the subsystem maintainers one after the other.
 
-[ Upstream commit 1a7bcf5324c8e2de6512eca5b028b6b283181d3f ]
+Yes of course, I'll rebase on -rc2.
 
-On WCN6750, if QMI messages never arrive (for example when qrtr_smd
-is not ready), WLAN initialization stops before the device is fully
-registered. In this case ATH11K_FLAG_QMI_FAIL is not set because no
-QMI event handler is executed.
-
-When the driver is removed, ath11k_ahb_remove() still calls
-ath11k_core_deinit(), which eventually triggers
-ath11k_ce_cleanup_pipes() on uninitialized CE pipes and results in a
-NULL pointer dereference in ath11k_hal_srng_access_begin():
-
-  ath11k_hal_srng_access_begin+0x14/0x68 [ath11k]
-  ath11k_ce_cleanup_pipes+0x184/0x190 [ath11k]
-  ath11k_pcic_stop+0x24/0x38 [ath11k]
-  ath11k_core_deinit+0xfc/0x1c0 [ath11k]
-  ath11k_ahb_remove+0x38/0xa0 [ath11k_ahb]
-
-Fix this by invoking ath11k_ahb_remove_prepare() before the state
-check and skipping ath11k_core_deinit() if ATH11K_FLAG_REGISTERED
-is not set, core initialization did not complete and CE pipes may
-remain uninitialized, making ath11k_core_deinit() unsafe.
-
-Tested-on: WCN6750 hw1.0 AHB WLAN.MSL.2.0.c2-00204-QCAMSLSWPLZ-1
-
-Fixes: 00402f49d26f ("ath11k: Add support for WCN6750 device")
-Signed-off-by: Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>
-Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260806101331.484063-3-miaoqing.pan@oss.qualcomm.com
-Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/wireless/ath/ath11k/ahb.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
-index e417b0a0f2d7f..c3ce5ea36e3c3 100644
---- a/drivers/net/wireless/ath/ath11k/ahb.c
-+++ b/drivers/net/wireless/ath/ath11k/ahb.c
-@@ -1296,14 +1296,15 @@ static void ath11k_ahb_remove(struct platform_device *pdev)
- {
- 	struct ath11k_base *ab = platform_get_drvdata(pdev);
- 
--	if (test_bit(ATH11K_FLAG_QMI_FAIL, &ab->dev_flags)) {
-+	ath11k_ahb_remove_prepare(ab);
-+
-+	if (!test_bit(ATH11K_FLAG_REGISTERED, &ab->dev_flags)) {
- 		ath11k_ahb_power_down(ab, false);
- 		ath11k_debugfs_soc_destroy(ab);
- 		ath11k_qmi_deinit_service(ab);
- 		goto qmi_fail;
- 	}
- 
--	ath11k_ahb_remove_prepare(ab);
- 	ath11k_core_deinit(ab);
- 
- qmi_fail:
--- 
-2.53.0
-
-
-
+Thanks,
+Miqu=C3=A8l
