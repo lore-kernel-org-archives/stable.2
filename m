@@ -1,100 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795021974;
-	b=G41pINhZB398SjansCxNuCNsOYn2iwCX6Eik2Mlh3yL91C5yGW7LfZ1vg0ykXPJ0LPV1
-	 RHFIWtFwWDetA0j66KDEsELrw6BGBDUCd3O464GLPpk7r/kV63hZEmaR9YPQOJAJXwR/O
-	 yRQPUvwsGiXxDaaDkYWvxRTsK2/qA+FchuKIvQT+1dqwshJHdhBYpwI4vAuSgTTTuZUjr
-	 oblDNAnsQk/lDt/uVun47MKMRfdAujmK6/Or+FVbiK8m902k7180AL6BrtZh7JjUu5XZi
-	 3a/QEq9N7417pO9YL51SoFfsHXDp/HtZn8I9+400emxdrMa4m3ptb+gT/B5FkyyJz8g==
+	t=1795021975;
+	b=pyaoX9gfz+jL67Qew9QSrCVvxfOTOR5kV3LIa3r3E0DpJ4RPhjED8wz2XenY5haNUN5K
+	 OkwxlycVCp7KbEZGlij9YOoku0ggNV3f0vk/Np0YcDwjCR7pqStHIli0NOCipxX9Iuqbu
+	 czYijiE+A2jIx6WitiWcvCgnu/+eZ5FLYrZulcyVumdWs0zPIxv7yWlMpcdfKzceoKYDA
+	 XY0+IwMO8BvrP5VBXsfxI9PkO1MSG4XhaE4HMNFy5cH4nZDCKAE+2RU0nTvupcy27Zq0W
+	 sjyl8ahr32dfxTgg+JstvbYTlccwWA0IG0vM0aRRA5ELaeYT7HKSd2d6UvYgIg73XiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795021974;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795021975;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=Upxleu5PclylbFkFy5/TUrklY/Ium3UhTzAwysVorX4=;
-	b=w6BG1iZXZ7xzr2T3z5IChtCkRa3Vx04bebUrrKFEO1ULpx0UKEioNJajYmYyCWV5o1Mt
-	 vdYZT6GD9h4hpfR22+h5460qeWMrP3DoTOLqd3wJFdr5sBelThdhxNrtfSAqc9djPefBf
-	 KNhEsi6IuxVO3bYbtpUdsZIUPCIIDY5je9mYt0nBsH6OHKoWJBTWQMgprv+Od7kw834vl
-	 c5kpx2e94mRJcxcmBA9e4U2Cz1zeeZxM5l3fpGmB2+B8HkX4kA+peh6bXCKXtnab5kh3l
-	 rPQzMgJG940eDZ2aEzW8qbXq9esdtIZbdA9h+7z9my8xAw0IFh/KRLahRpRWY3EL4KA==
+	bh=+r+Ijfi/ZNiZ6k0QiYfPA78h3ZghhvFPgBfz3Lk5RUI=;
+	b=bnJ5TCuGeUo7jX+owrz6Et+mPj7iLNUHiwnYNb9czuZ0/DpIpsSON8nrATL0Yg7YnyML
+	 57cVEi4BFwTtFNT5UoeioJAPaSzZpSlv/MupyLgyTu9Xdq5vM2K46PcdIJpojqb++XRtr
+	 R6fSHTp2WPdC2VwQGTUvQRcn3WJbImKXcyphi495bYHoVStzQO2FrrQAU7XOizYLIIq9h
+	 nvVsh6+FCU1W/hj4FGC1SgPZcUC8gp7TrW4WiUGs3hYJc7CQYUaZlU2vKWVTFV4ipiqSD
+	 2MvlxHPqco/SIctQSnBo4mSgFUPvFnJTS6dgAHFDtm1O98nbJMadYURo72G+0pbn4kQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nwyF0PXC;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qJOz+zxa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F92606A32C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 17:12:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32F92606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672F7606A32F;
+	Wed, 18 Nov 2026 17:12:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nwyF0PXC
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-49355a50d11so115385f8f.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 09:12:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795021972; x=1795626772; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Upxleu5PclylbFkFy5/TUrklY/Ium3UhTzAwysVorX4=;
-        b=nwyF0PXCU31oETZBnYGqmuIzowi1kcnE7reNVwGl9PO/qyDB3t+CJ2Wztk18Z6gOLW
-         P4Sjf+5tzcKPI/NNskflPr4CXvhoRSFCQIV+bf+ZfgWpzcL5uS7elC1nXdbw4Fp+neiH
-         a9/1wMDnr2VlcXUyR2ijr5A3WnCBQjqGAAzZ2Px5kZy6x5OhVHwYC9ct8VslWOBun6fd
-         wUblKds6rHuPyygs9ToMQ2pfslUHSwib8ck+xrtqZyCSGnxG3aLOiZiuhY5/ZTWgi0UR
-         aLxMRA1WfU1BfRlEemvDHjRP5A7B5jpFWBtDbo3gPvvkM/D7PVv/dKYDHwkanwlwAXSF
-         U+fg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795021972; x=1795626772;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Upxleu5PclylbFkFy5/TUrklY/Ium3UhTzAwysVorX4=;
-        b=FS8FWvsCEYqeA3/mijCgh8lyNlQwjruoKCl2gs7/uJrYlBPO2j8eAd+/dD5Tu2yE8y
-         HnRwyctoA4dADWpeTHey4vsCFhvtGHm+aTuMNfc3tva2r5o0EFgR8wbHuorK1lKMv3cg
-         m2Kc+fI0pwmoHeTFP+KKGhlfangF7WOIhza6dr6yhpyB/y6GaFR9yuEccCf5+6DoyQpZ
-         iACY8tVI0rOxm0EoXNuqCfdo7QYCtYeBJot3HOyoAgNvIzzkqYRkKdyolRqxVccMey11
-         56iqwAGZAn1fK8/NRME2AX7RHxSPX6CU7WT/PAbSZTzNQIdBSfKlo/gZdjtsfYjRegnn
-         uduQ==
-X-Forwarded-Encrypted: i=1; AL+hErEyGDGJQZSuHbTo0pcG4N7dAGiywrXSrIo2I+uTxbEhFCsob629qqWpWZdV8fDi8rqC4VU7ZIY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/OiBBkBgEK7/lproxLYIwMPoi53pLsH/9l3HUsc+Drx3CvGEye
-	bcQ41rNOMsqsWwPlTgq17Nw4Q5Yj1NszidZX8ZlaX412gcZGYazpkNRu
-X-Gm-Gg: AZFdTZdovgGUkWwZfMhTH7Bb9AT3MazibxlMG8EKYpAtl2uS8oHklATgbYK9a8ESyku
-	gJ/BaM7bD5urZHHfoI0spQm+QUbtF86+uzJ7/p104tavSJEilkOLX9u5mRCmvX/MVIn2qzAshYP
-	nZmzjBooQD1neAiIomvV2Ee/wcSYrVjs3z5Hf+s0aj8OKEYRGtm6BNCmgd1R418wV6uZdkW26Ir
-	zSWFtJqSNfaCIfq8g4ADZGXqBOsvam0x1cyps7woj23lE/zvDiyMm8EwiME5LGfS8iBcI5aJt5z
-	YHLwmDi1a+MIhraxI8ejUtmj4YZIzsYHrZn5ACb1EAddYUM3t3jX1IAf1M8MAN40HDBK15W2mKy
-	u35J7xBeJLvytrQuAGmvLOvuT06VJFnD4+07vYbHeiDHE7h22EU3gj1HiMFs9K5sPt3sUg/awz0
-	03krYMmds8VyX1sx5Z5aO7RxsHfRlUrO3+9U1SdJRrLwiTrHuZ0aWuzza7z4gTLxnUuSTIPTEDa
-	AF+DnzI6xe0+QAcaiRLMW1Em2/DokhhwGS2hxWL6W3x6cbU58o9RbPazXFaIlNe77ZVOeyWf3AI
-	LD9ta1tS0RvWvvHcziWP6NH2Qsy8p9jz2JPvb9S7vkeGvu+8uqFxZFw7dAIBcp08kd4Q+jU=
-X-Received: by 2002:a05:6000:2405:b0:4a8:eed3:770 with SMTP id ffacd0b85a97d-4a8eed3127amr182443f8f.4.1795021972366;
-        Wed, 18 Nov 2026 09:12:52 -0800 (PST)
-Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a6573baa9fsm6313344f8f.57.2026.11.18.09.12.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 09:12:51 -0800 (PST)
-From: Itai Handler <itai.handler@gmail.com>
-To: mwalle@kernel.org
-Cc: miquel.raynal@bootlin.com,
-	pratyush@kernel.org,
-	richard@nod.at,
-	vigneshr@ti.com,
-	takahiro.kuwano@infineon.com,
-	tudor.ambarus@linaro.org,
-	linux-mtd@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v5] mtd: spi-nor: take the flash lock around spi_nor_restore()
-Date: Wed, 18 Nov 2026 19:12:35 +0200
-Message-Id: <20261118171235.3886698-1-itai.handler@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <DMYDITU0H48Z.2LA5KF2TFNUY2@kernel.org>
-References: <20261029210153.3986211-1-itai.handler@gmail.com> <DMYDITU0H48Z.2LA5KF2TFNUY2@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qJOz+zxa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF5A11F000C4;
+	Wed, 18 Nov 2026 17:12:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795021975;
+	bh=+r+Ijfi/ZNiZ6k0QiYfPA78h3ZghhvFPgBfz3Lk5RUI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=qJOz+zxaDKQe/vY7UhYykLAmIcPliathuDU657Xgl5ZTz5dUL8M/ANyUXyUlspN5l
+	 u8Zxh1fv6yOW08Y3DdupKO96+gUih65uAgqcXqhp8cI1PnslkzKuqbC41TSg0CGESK
+	 KJXLOy/rNXj7RS9M5nHbXoGStsJsp7Ts1wr6O7JM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	alex todadze <todadzealexi19@proton.me>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 2447/2651] net: stmmac: fix rx checksum offload with extended descriptors
+Date: Wed, 18 Nov 2026 16:01:27 +0100
+Message-ID: <20261118150413.227256493@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,67 +64,177 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed Nov 18, 2026 at 2:33 PM CET, Michael Walle wrote:
->> +	if (!ret && nor->shutdown) {
->> +		spi_nor_unlock_and_unprep(nor);
->> +		return -ESHUTDOWN;
->
-> This will be propagated to userspace, correct? Not sure this is a
-> valid error code outside of sockets. Maybe EIO?
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Yes, it reaches user space, e.g. through the MTD char device. v6
-returns -EIO, which is also what the CFI drivers return once they have
-reset the flash for a reboot.
+------------------
 
->> +static void spi_nor_unlock_and_unprep_pe(struct spi_nor *nor, loff_t start, size_t len);
->> +
->
-> Please avoid forward declarations and move the functions.
+From: alex todadze <todadzealexi19@proton.me>
 
-Done.
+[ Upstream commit 72ee27b97986f4d331fe1c26e4333f12738d982f ]
 
->> +	ret = spi_nor_prep_and_lock(nor);
->> +	if (ret == -ESHUTDOWN)
->
-> This is actually really hard to follow. It's tested for even before
-> it is set down below. Also probably wont work with an EIO return
-> code. See more below
+With extended descriptors, bit 0 of RDES0 is the Extended Status
+Available flag. enh_desc_get_rx_status() still reads it as the payload
+checksum error bit of the checksum offload table, so every IP frame that
+has extended status is reported as csum_none and its checksum is
+verified again in software.
 
-Agreed. v6 tests the flag instead.
+When extended status is available, take the result from RDES4 instead.
+A TCP, UDP or ICMP payload with no IP header error, no payload error and
+no checksum bypass is a good frame. Everything else keeps the status
+from RDES0. Since RDES4 now decides the checksum status, read it after
+the own bit with dma_rmb(). While at it, fix the IP payload type mask,
+which covered bits 6:2 instead of 2:0 and had no users.
 
->> +	if (!ret) {
->> +		nor->shutdown = true;
->
-> Why don't you set the flag unconditionally?
+Tested on a Siflower SF19A2890 (GMAC 3.70) with the board as the iperf3
+endpoint. TCP receive goes from 326 to 378 Mbit/s with one stream and
+from 259 to 329 Mbit/s with four, and CPU use while receiving 200 Mbit/s
+drops from 26.6% to 21.5%. In stmmac_rx(), frames with a bad TCP, UDP or
+ICMP checksum, over IPv4 and IPv6 and including fragmented UDP, are
+still passed up as CHECKSUM_NONE and dropped by the stack.
 
-No good reason. v6 sets it unconditionally. When the lock could not be
-taken, another operation can then read the flag at the same time, so
-v6 uses WRITE_ONCE() and READ_ONCE() for it.
+Fixes: c24602ef8664 ("stmmac: support extend descriptors")
+Signed-off-by: alex todadze <todadzealexi19@proton.me>
+Link: https://patch.msgid.link/20261020-stmmac-rx-csum-v2-1-330c8d0951ea@proton.me
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/ethernet/stmicro/stmmac/descs.h   |  6 ++++-
+ .../net/ethernet/stmicro/stmmac/enh_desc.c    | 25 +++++++++++++++++--
+ drivers/net/ethernet/stmicro/stmmac/hwif.h    |  6 ++---
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c | 19 ++++++++++----
+ 4 files changed, 45 insertions(+), 11 deletions(-)
 
-> So why don't you just keep spi_nor_restore() and just add the
-> locking there?
->
-> What about the following:
+diff --git a/drivers/net/ethernet/stmicro/stmmac/descs.h b/drivers/net/ethernet/stmicro/stmmac/descs.h
+index 846007cc245f0..0af819a98fdab 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/descs.h
++++ b/drivers/net/ethernet/stmicro/stmmac/descs.h
+@@ -116,7 +116,7 @@
+ #define	ETDES1_BUFFER2_SIZE_MASK	GENMASK(28, 16)
+ 
+ /* Extended Receive descriptor definitions */
+-#define	ERDES4_IP_PAYLOAD_TYPE_MASK	GENMASK(6, 2)
++#define	ERDES4_IP_PAYLOAD_TYPE_MASK	GENMASK(2, 0)
+ #define	ERDES4_IP_HDR_ERR		BIT(3)
+ #define	ERDES4_IP_PAYLOAD_ERR		BIT(4)
+ #define	ERDES4_IP_CSUM_BYPASSED		BIT(5)
+@@ -147,6 +147,10 @@
+ #define RDES_PTP_SIGNALING		0xa
+ #define RDES_PTP_PKT_RESERVED_TYPE	0xf
+ 
++#define RDES_EXT_PAYLOAD_UDP		0x1
++#define RDES_EXT_PAYLOAD_TCP		0x2
++#define RDES_EXT_PAYLOAD_ICMP		0x3
++
+ /* Basic descriptor structure for normal and alternate descriptors */
+ struct dma_desc {
+ 	__le32 des0;
+diff --git a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+index 0512536012251..023b54b72478f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
++++ b/drivers/net/ethernet/stmicro/stmmac/enh_desc.c
+@@ -109,8 +109,25 @@ static int enh_desc_coe_rdes0(int ipc_err, int type, int payload_err)
+ 	return ret;
+ }
+ 
+-static void enh_desc_get_ext_status(struct stmmac_extra_stats *x,
+-				    struct dma_extended_desc *p)
++static int enh_desc_ext_rx_csum(u32 rdes0, u32 rdes4, int status)
++{
++	u32 type = FIELD_GET(ERDES4_IP_PAYLOAD_TYPE_MASK, rdes4);
++
++	if (status != csum_none || !(rdes0 & RDES0_FRAME_TYPE))
++		return status;
++	if (!(rdes4 & (ERDES4_IPV4_PKT_RCVD | ERDES4_IPV6_PKT_RCVD)) ||
++	    (rdes4 & (ERDES4_IP_HDR_ERR | ERDES4_IP_PAYLOAD_ERR |
++		      ERDES4_IP_CSUM_BYPASSED)))
++		return status;
++	if (type != RDES_EXT_PAYLOAD_UDP && type != RDES_EXT_PAYLOAD_TCP &&
++	    type != RDES_EXT_PAYLOAD_ICMP)
++		return status;
++
++	return good_frame;
++}
++
++static int enh_desc_get_ext_status(struct stmmac_extra_stats *x,
++				   struct dma_extended_desc *p, int status)
+ {
+ 	u32 rdes0 = le32_to_cpu(p->basic.des0);
+ 	u32 rdes4 = le32_to_cpu(p->des4);
+@@ -170,7 +187,11 @@ static void enh_desc_get_ext_status(struct stmmac_extra_stats *x,
+ 			x->l4_filter_match++;
+ 		if (rdes4 & ERDES4_L3_L4_FILT_NO_MATCH_MASK)
+ 			x->l3_l4_filter_no_match++;
++
++		status = enh_desc_ext_rx_csum(rdes0, rdes4, status);
+ 	}
++
++	return status;
+ }
+ 
+ static int enh_desc_get_rx_status(struct stmmac_extra_stats *x,
+diff --git a/drivers/net/ethernet/stmicro/stmmac/hwif.h b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+index 5e2654c91b417..9925b789bcc9f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/hwif.h
++++ b/drivers/net/ethernet/stmicro/stmmac/hwif.h
+@@ -70,8 +70,8 @@ struct stmmac_desc_ops {
+ 	/* Return the reception status looking at the RDES1 */
+ 	int (*rx_status)(struct stmmac_extra_stats *x,
+ 			 struct dma_desc *p);
+-	void (*rx_extended_status)(struct stmmac_extra_stats *x,
+-				   struct dma_extended_desc *p);
++	int (*rx_extended_status)(struct stmmac_extra_stats *x,
++				  struct dma_extended_desc *p, int status);
+ 	/* Set tx timestamp enable bit */
+ 	void (*enable_tx_timestamp) (struct dma_desc *p);
+ 	/* get tx timestamp status */
+@@ -128,7 +128,7 @@ struct stmmac_desc_ops {
+ #define stmmac_rx_status(__priv, __args...) \
+ 	stmmac_do_callback(__priv, desc, rx_status, __args)
+ #define stmmac_rx_extended_status(__priv, __args...) \
+-	stmmac_do_void_callback(__priv, desc, rx_extended_status, __args)
++	stmmac_do_callback(__priv, desc, rx_extended_status, __args)
+ #define stmmac_enable_tx_timestamp(__priv, __args...) \
+ 	stmmac_do_void_callback(__priv, desc, enable_tx_timestamp, __args)
+ #define stmmac_get_tx_timestamp_status(__priv, __args...) \
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 80489d1fe3036..8a8e9f71e6f98 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -5607,9 +5607,13 @@ static int stmmac_rx_zc(struct stmmac_priv *priv, int limit, u32 queue)
+ 		if (!buf->xdp)
+ 			break;
+ 
+-		if (priv->extend_desc)
+-			stmmac_rx_extended_status(priv, &priv->xstats,
+-						  rx_q->dma_erx + entry);
++		if (priv->extend_desc) {
++			/* Read the extended status after the own bit */
++			dma_rmb();
++			status = stmmac_rx_extended_status(priv, &priv->xstats,
++							   &rx_q->dma_erx[entry],
++							   status);
++		}
+ 		if (unlikely(status == discard_frame)) {
+ 			xsk_buff_free(buf->xdp);
+ 			buf->xdp = NULL;
+@@ -5790,8 +5794,13 @@ static int stmmac_rx(struct stmmac_priv *priv, int limit, u32 queue)
+ 
+ 		prefetch(np);
+ 
+-		if (priv->extend_desc)
+-			stmmac_rx_extended_status(priv, &priv->xstats, rx_q->dma_erx + entry);
++		if (priv->extend_desc) {
++			/* Read the extended status after the own bit */
++			dma_rmb();
++			status = stmmac_rx_extended_status(priv, &priv->xstats,
++							   &rx_q->dma_erx[entry],
++							   status);
++		}
+ 		if (unlikely(status == discard_frame)) {
+ 			page_pool_put_page(rx_q->page_pool, buf->page, 0, true);
+ 			buf->page = NULL;
+-- 
+2.53.0
 
-v6 does that, as in your sketch, except that it tests the flag before
-taking the lock. Your order works too, since spi_nor_prep_and_lock()
-fails for a restored flash and releases the lock again, but testing
-first does not rely on that. Only spi_nor_restore() sets the flag, and
-it runs from ->shutdown() and ->remove(), which the driver core
-serializes with the device lock, so that test needs no lock.
 
-One more change in v6: spi_nor_remove() restored the flash before
-mtd_device_unregister(), so with the flag, the unregister could no
-longer write back data, e.g. mtdblock's cache. v6 unregisters first.
 
->> + * @shutdown:		the flash was restored, refuse further operations
->
-> shutdown only covers some of its meaning, it might also just get
-> unbinded etc. So what about 'restored'?
-
-Renamed to "restored".
-
-v6 is out now.
-
-Thanks,
-Itai
