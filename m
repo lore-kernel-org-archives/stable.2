@@ -1,58 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795026963;
-	b=yCKnp/CgbfpIAuauM/6cSWQHnlJr2WL7VwkavLgQGsdgB7sJpjyG82lm+4gmkejaH4cx
-	 w+js86Yu0N1V3LptTorHUZ8uW6aJoHoNqSHSt4k/nyXtJ2UP7kHrQrOACGUjffNr6HOIj
-	 zGifTKNsCF3/0Bhl3jzvY7J5l6yPq7x9CN3AU8cSEM4F0oUTxRkHaCB2ppGRkIm2J2MQT
-	 WGYTLr5orFfqcbK2Lsottz1IY6VmN1JtTOz6XIS9KGPWkWFTgxuyxW57O3lL/pdVKfmgz
-	 aw+hK/P/XETLAL7vSE9uf0xrRQT1xNIG7pLLy+J7epFLhXacURlzKmO/ZuljdGcXv4A==
+	t=1795026965;
+	b=hpYjRI0pDzKehITMla9HGBPF5yqxbSEBh2dv7qawwWyzZaU3XEieK+O8nra7a+oAh7S4
+	 +JFTdQKQS56UOLO/Uw/XQxbjrM9DfH1gZcrZcMjp2sfV0TXhCx7z7tQGbaEuHMyGJ0r71
+	 TdXfR55FQQv8dgVyoj2g3eAknSXPZ7m/6vyVAj7LjWrY7UlX48+sgo1UAT1dBj2tNxKMs
+	 UyI9/+yV89jkhkH+EkyCLBXs/gHkicbfdEttZsNqKTAkgl1ShGtpMIF3pvrH2OTGdrU5i
+	 B4tNxf1KP6muifJuDoEjnk5XcuG38JzdsjD7VUl3l7x8Yz0fhouxegClRXNRU0k7kyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795026963;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795026965;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=gqc53Q69QT9c5k6KFmUHo4xoP8wAlrEtr7mLrs5+nnA=;
-	b=sYCQtwRq6nAGPIbJOuhXcVWFm6gnTdRkPgUZfeCV+vbI4pCPyLmrqUN/88KCZ0EiNJxh
-	 XTjzdNOw6DdRLRxpcl/1fs+LtVWRsOTavXzEMrRK0wQlZJRipKZq8F8TbwGB8ygxoxRI0
-	 7oh+Oe+3QXT0uveZkMX7QEfyT7U0RD75aTbLeH1Qq6pg55cH87x4ldeL8sQycq+gIQmA6
-	 5BLslU5gVF60vETFGPX/emKMpkuLdNGoUkSUh7ecepMIfyY+f+/YiXH3gR0xATGQoec+J
-	 U6O3hqZzZjAUN7VY2ISq5GvTDCKitRB9vMEnMTeEpgEz4pC+4f+0oPhb9Qsgy7usuhg==
+	bh=8RDyAIx6GdPyur2p4krhRfb/lrH/VMCLoWVTsANEHhI=;
+	b=fkUgIIdMXNcaQtAQ2Wq/QynriV14JS7oSF798sf1aIv9/6fSwDpG6/HfhBBMGKtYfseC
+	 27i6mWQTjoGagdBli/cj8PhbGf1OG107WFnsSLZZTG32mdDoZuZAbbincffU4OKC4eXUD
+	 4wAQu9Rj9P2f3bKNdBXFHQd3DCdd3+1nWcQufAxGiKU4MspM+hKG357Sf0Wh6Jr0fcoNK
+	 NeDjbVsNGfKZhoFqtkQDUGO471A+bky1E//F12AKPn+6FeURp0s5N/78eU1gRJ8LzvUjC
+	 u+0/4EyKTvUhEpuKZ3apWqFdIkAvGk5WV2gshFg0DMYV310CYBH9+oUslr8CTyyLEfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=luTWcfbH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kmAcvJnL;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B97606A333;
-	Wed, 18 Nov 2026 18:36:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C70606A32F
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 18:36:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6C70606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=luTWcfbH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71C0C1F000C6;
-	Wed, 18 Nov 2026 18:36:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795026963;
-	bh=gqc53Q69QT9c5k6KFmUHo4xoP8wAlrEtr7mLrs5+nnA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=luTWcfbHejFI8nq3iXfwUHfzmX9qRO6bYilSSahx4orP2TqQcJOkboAphgA7R5NJt
-	 b62Q5Rfp2w3PhIz0GP/gEbwk5XitJ3FLQ90p+WDmw4j4ZpE3MC4fy6u2/808cq3uNW
-	 WJa3LFFSxrWR2M/QUxNnfnSDYZFCHow8QQFC4w5o=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	bui duc phuc <phucduc.bui@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1621/2151] ASoC: rockchip: rk3288_hdmi_analog: Drop redundant probe error messages
-Date: Wed, 18 Nov 2026 15:55:56 +0100
-Message-ID: <20261118150220.930085186@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
-References: <20261118150121.603863898@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kmAcvJnL
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-15ea896ddc8so2340490c88.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:36:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795026964; x=1795631764; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8RDyAIx6GdPyur2p4krhRfb/lrH/VMCLoWVTsANEHhI=;
+        b=kmAcvJnL0+eiYXsyN8IMK9D8KwnlkRZHRuuD9sBxVGn5t2mob9W8a/IaGyCKBnoPXo
+         Vd+TDCxJ7g5FKRfitt4LhgaQYVaYShyMWk7KrCzqg0gNLr3+tArJDgRuyYbrZk/Y9IDC
+         ghCHM6Agc+jSakuk3SRYN53xY27OzB6ErohGLrGTYKtqp1c64tQLONvhveiUtiSjih5X
+         h3xwBeRiQlOVpLqaLA5JxJiBAsmBx8E4R93y7TqFHbZ18gvvQUSGpC3gdZ9ptWMIwG0X
+         EZ7JvNQqIpAfbPLC/lgL0HQqcCdE8Hc6GepMhdP9SYzv62xf5tkTQZQbkxW72NbHHLjl
+         kBnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795026964; x=1795631764;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8RDyAIx6GdPyur2p4krhRfb/lrH/VMCLoWVTsANEHhI=;
+        b=mbYGRi/a/TYz+BEY/NCbB8noDGirim+Vl4uWMoJP06uJhIaHi4j368yD3WesZEx7xj
+         AbGa21qYdPdFMH9jIHNTDh1XD37dzpy7bYBxUvSyeciS4a3kLtE+cluL6dMUAUJxTaBm
+         PbM7S22Q1C09Gkbfmcl8yy0CSq2VXXyW64RJRDMnUPPhWHT2UEB49HpvF2knm7BF4dK9
+         Y26T6w4Bb4/inLLJncLyuppwZfFeeqjpmadHgFYxTOcUhkzFuBhPaR8tKMCZcOM6ttaY
+         GCbW8erQyMdbOcO2boqJrx13YiPoNcVJmajwia2fdWKLwVDts8qa2lkIwLmWl7ukcF5e
+         +pFA==
+X-Forwarded-Encrypted: i=1; AL+hErE1SUdj+aXwJ/NWl1lGm/l1NXIS8lHg7A+akcES753ME0OvH+0R/dgVDGsQxRtG/R/8GGbJhdo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/qMcMxEhsD30Ky4IQLlXtquvUrltjBE2IO9Uau+0NFlizU1l20
+	b23A9BSSnRXcc1ujnpRh8AmauV44iZ8kPoLjI3MPEeKYv0RsZzXafPxJ
+X-Gm-Gg: AZFdTZcQ8HD5/7JhrmDDguXKWXdeGWqPQwlUIiinN/isTkq0Z4EVw3PAlh53fl0fpUf
+	1KtTYdSDaXzbLpYlOFk62V1u7K9nBpmdEpAW1jwVOzW6TfAiv577vOk2wiaHDmgCkqVpS0aSbSP
+	Hj3mSSBhPhf9AF9sbnw9x4uyxvBAWBP2pGMfWOeUzJgO7O7vevnE4qfCg35NRY+wzmQgChPmMND
+	MX5tG7CTHlvHA2vgxf+WwfvD2pusK10i705YFGtLRqgzfSbt1MMbqIaDIBdC6Whdcc7jC9+Ra9E
+	MhPlDwMcWHqYa0QXsm8iiTkET3Mw90dAjyQ1k5fPVhpJChpyUPLbO/Riuq/ijl+/QW0v7T3xlcl
+	awZqrB/FWDVmWtWqh1uKFJC2JU5vHjNeUI+CygnneWc+nB4Bzrk+S28dyyNLBRyeKRh+kL8iUqE
+	EmIVmurnA8iU3uUuzOkoOLnuE7tHJI+/Xd0eJoLkB7eICk85bRATs0WKDFHVVgZ1k2F4IVgtVfX
+	k7AGJZbJyEvMxg4r+uLGtReuBK8ZAzoQRf2+e8XZXoyOVcP+ISD/omFvabT3rbhNDarFAhW8A/r
+	GB/dRYjIpDx38Ag+fQffUTVbkO4mvZHtBCriNeIxBscRR3jdZg==
+X-Received: by 2002:a05:7301:190a:b0:36a:1e9e:ae61 with SMTP id 5a478bee46e88-38281bfa917mr3311876eec.38.1795026963313;
+        Wed, 18 Nov 2026 10:36:03 -0800 (PST)
+Received: from G7XWH7K1F3 ([139.177.225.245])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a45274aesm10450189eec.2.2026.11.18.10.35.57
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 18 Nov 2026 10:36:03 -0800 (PST)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: Jeff Chen <jeff.chen_1@nxp.com>
+Cc: Jeff Chen <jeff.chen_1@oss.nxp.com>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Arend van Spriel <arend.vanspriel@broadcom.com>,
+	Jiangshan Yi <yijiangshan@kylinos.cn>,
+	Linmao Li <lilinmao@kylinos.cn>,
+	Kees Cook <kees+treewide@kernel.org>,
+	Rosen Penev <rosenp@gmail.com>,
+	Benjamin Berg <benjamin.berg@intel.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Zhao Li <enderaoelyther@gmail.com>
+Subject: [PATCH wireless v2 4/4] wifi: nxpwifi: stop AP when delayed channel switch fails
+Date: Thu, 19 Nov 2026 02:35:06 +0800
+Message-ID: <20261118183506.45749-5-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261118183506.45749-1-enderaoelyther@gmail.com>
+References: <20261118183506.45749-1-enderaoelyther@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,57 +110,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+The delayed channel-switch work can fail while stopping the BSS, setting
+the beacon or restarting the AP. It then returns without telling
+cfg80211, and TX stays enabled over the stopped BSS unless the request
+set block_tx.
 
-------------------
+On each failure, stop the carrier and TX queues, clear uap_stop_tx and
+request interface shutdown, then free the beacon update as on success.
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+Found by code review. Compile-tested with W=1.
 
-[ Upstream commit 931f4a1223e154fdea63071074cbaa633ebf394b ]
-
-Remove the probe error messages to avoid duplicate error reporting,
-since the error is already reported by the called functions.
-
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-Link: https://patch.msgid.link/20260806052136.21034-2-phucduc.bui@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Stable-dep-of: f15b2df0b940 ("ASoC: rockchip: fix device node reference leak in rk3288_hdmi_analog")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
- sound/soc/rockchip/rk3288_hdmi_analog.c | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+No new W=1, sparse or smatch warnings.
 
-diff --git a/sound/soc/rockchip/rk3288_hdmi_analog.c b/sound/soc/rockchip/rk3288_hdmi_analog.c
-index ffbc5a39b493f..cb9add725a3c3 100644
---- a/sound/soc/rockchip/rk3288_hdmi_analog.c
-+++ b/sound/soc/rockchip/rk3288_hdmi_analog.c
-@@ -184,10 +184,8 @@ static int snd_rk_mc_probe(struct platform_device *pdev)
- 	gpiod_set_consumer_name(machine->gpio_hp_en, "hp_en");
+AI assistance was used.
+
+ drivers/net/wireless/nxp/nxpwifi/11h.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/wireless/nxp/nxpwifi/11h.c b/drivers/net/wireless/nxp/nxpwifi/11h.c
+index a6c87dfad9ee..d83f36b1c8a5 100644
+--- a/drivers/net/wireless/nxp/nxpwifi/11h.c
++++ b/drivers/net/wireless/nxp/nxpwifi/11h.c
+@@ -300,22 +300,22 @@ void nxpwifi_dfs_chan_sw_work(struct wiphy *wiphy, struct wiphy_work *work)
+ 	bss_cfg = &priv->bss_cfg;
+ 	if (!bss_cfg->beacon_period) {
+ 		nxpwifi_dbg(adapter, ERROR,
+-			    "channel switch: AP already stopped\n");
+-		goto out;
++			    "channel switch: AP configuration is missing\n");
++		goto stop_iface;
+ 	}
  
- 	ret = snd_soc_of_parse_card_name(card, "rockchip,model");
--	if (ret) {
--		dev_err(card->dev, "SoC parse card name failed %d\n", ret);
-+	if (ret)
- 		return ret;
--	}
+ 	if (nxpwifi_send_cmd(priv, HOST_CMD_UAP_BSS_STOP,
+ 			     HOST_ACT_GEN_SET, 0, NULL, true)) {
+ 		nxpwifi_dbg(adapter, ERROR,
+ 			    "channel switch: Failed to stop the BSS\n");
+-		goto out;
++		goto stop_iface;
+ 	}
  
- 	rk_dailink.codecs[0].of_node = of_parse_phandle(np,
- 							"rockchip,audio-codec",
-@@ -222,11 +220,8 @@ static int snd_rk_mc_probe(struct platform_device *pdev)
- 	rk_dailink.platforms->of_node = rk_dailink.cpus->of_node;
+ 	if (nxpwifi_cfg80211_change_beacon(adapter->wiphy, priv->netdev,
+ 					   priv->ap_update_info)) {
+ 		nxpwifi_dbg(adapter, ERROR,
+ 			    "channel switch: Failed to set beacon\n");
+-		goto out;
++		goto stop_iface;
+ 	}
  
- 	ret = snd_soc_of_parse_audio_routing(card, "rockchip,routing");
--	if (ret) {
--		dev_err(&pdev->dev,
--			"Unable to parse 'rockchip,routing' property\n");
-+	if (ret)
- 		return ret;
--	}
+ 	nxpwifi_uap_set_channel(priv, bss_cfg, priv->dfs_chandef);
+@@ -323,7 +323,7 @@ void nxpwifi_dfs_chan_sw_work(struct wiphy *wiphy, struct wiphy_work *work)
+ 	if (nxpwifi_config_start_uap(priv, bss_cfg)) {
+ 		nxpwifi_dbg(adapter, ERROR,
+ 			    "Failed to start AP after channel switch\n");
+-		goto out;
++		goto stop_iface;
+ 	}
  
- 	snd_soc_card_set_drvdata(card, machine);
+ 	nxpwifi_dbg(adapter, MSG,
+@@ -337,6 +337,13 @@ void nxpwifi_dfs_chan_sw_work(struct wiphy *wiphy, struct wiphy_work *work)
+ 		priv->uap_stop_tx = false;
+ 	}
  
++	goto out;
++
++stop_iface:
++	netif_carrier_off(priv->netdev);
++	nxpwifi_stop_net_dev_queue(priv->netdev, adapter);
++	priv->uap_stop_tx = false;
++	cfg80211_stop_iface(wiphy, &priv->wdev, GFP_KERNEL);
+ out:
+ 	kfree(priv->ap_update_info);
+ 	priv->ap_update_info = NULL;
 -- 
-2.53.0
-
-
+2.56.1
 
