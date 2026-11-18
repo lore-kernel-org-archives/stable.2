@@ -1,71 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795026427;
-	b=bQPxbSprSxgq/RUTpsIBmbVuXoCaJHtT9Sn5Hg3gi/XBy7tleycoZ6agDsMqo/ThxGpL
-	 3Odcp0a+l+h/N3zoFK1sLeUclrjTUqX37lc6Lzk461hVDFiTfgVEni5AIxDE7/Yo8/DHv
-	 kvNBAtmiJkDX0FD0RbRLScuWlTRqmMr+mfeo7klnVVzH6tN+tE/rNFXN14i9Gu304sfNx
-	 aRZ02PEwe7x3veNgA355tHA/gZBBF8j17+7Eh2j7AF5ZuWoQSNnUYSjiRwOWr5qQcyBNv
-	 F2dwi/7D+Oy1hQNRuBj8Ry7/AoQCoVF1JMNLM+ceR6efeV87ALs+DQa9X+sVOmrCeIA==
+	t=1795026429;
+	b=08njMlj5u8lOZkMiw2ZEVmT4ikZn2+V+EVslg+NTrD9dc6oJQdXZParOP0WPZr/XuBUi
+	 8ZjRKPYWWxfUi5HD/i5GRiNYOwwJrGaX8oRYGQKul8EYCUERK2UeEG98sk3rqhRaZBXf/
+	 Q0Fu2hyjiUD/rR2enOZGB0A/iE8VNSnYR3bSFSnetf5SKoPuCzVKDhuU2RYtZ5bJJLj0x
+	 HFtdiPBpkyVKcMWmsUC/s5VLsPv/c374sw90H1oDelLTEkJlU+STnK78/YsR6VVpYxCjm
+	 rkIwYEzsHs+/ZwkfTmPVoZ54pZoGhqVUG5zW0riKbb9sCFf7pGv+meXDKIcPJA9Gbfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795026427;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Z/lgf/GnvODHH2kSfd1ioOa/KiKtGaKkOea+zkHk+YI=;
-	b=loqeR4te4YFwecRqd8jAfsVIEchUiBCNFWJMGzEjDBr39CgT27ZA4t4TRZqm91ZXrFez
-	 roPKeJFMbOtG8PF2bkWmrVy/W5gDPJt9ILdJaEBX7TLGBzjXY9elBlmOjFWu+oF8/Uz66
-	 QpTwCggC2WSFkU8CTCSUP4WoHvO7Cg+YW5ZhSA+GkJAeeV/00oCbSBGlNf2bITKjm01KV
-	 v0QD7GBJPweFma+B/ivaD9dBdyoAzShrpkVA8mYN1bDyyPwqyV7TpY9Khg9oWbrZ1JZxS
-	 3wSCajnEdF9azPicHCogvZPxHMz192SFVMouskkX+HH5uTy0seumGAVVbTLVSbgsvLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795026429;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Rl+CWXTGRu9pRYIOevzFG3CaxOA0dlA1s75UBUL+55k=;
+	b=IGGwbqoHmxqhbAdNYns3okYzcv9UYZQykTzxmgcdLrs10FRT5xeikYDENcuYo4VY7wco
+	 n2/A+tnADaiU/RC20i9Ufsj8v3QDipEZ9usYU+Aq74RX4mDJsuggdvRBuDSC1rxbxY+Xb
+	 zIYGUW7SCMX/jV/zKgnu45sOfIJRgzqDpcn/39KiON1cR7mfk6GHDyvYUCupMogugtuZW
+	 HJfPNrmeOSg0ie7TJ3BrjWUA6xcMlbO1FQiI2Ku2FjKTLAU8MMLdua1x2dwxgy3ZwW+JB
+	 I5AbmF7t3EyL4NNkC553GxNIUcKwCEhjIv4XxZYF9SkqgOMnCkpV7rov5xEQIRTKA8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OdFPmX7Z;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id AA844606A331;
-	Wed, 18 Nov 2026 18:27:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA844606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XfDTAHlO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 663FE60A2601;
+	Wed, 18 Nov 2026 18:27:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OdFPmX7Z
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E52071477;
-	Wed, 18 Nov 2026 10:27:02 -0800 (PST)
-Received: from gaia.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 2BBFA3F673;
-	Wed, 18 Nov 2026 10:27:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795026425; bh=KD00H1LZROLiORUw7YDn6v/wgRaKM9BnTfzpbzUCeVo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=OdFPmX7Z+SLEjJNH0jSOiiUGQ/J+Aol+4r8E/VTNF6DOQRuVpf4adrDYexah8mmF+
-	 4jDcYK8Wk7NsokRYoqRZ5Qw1H/1WTK2rN/deYIZVtBYReCe+v+Dclr7yWoC3bHHqXq
-	 xX5Rd+MsP0iG6Nw7Zw5AUKcb6i8eo2z7FBvm9dDE=
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Will Deacon <will@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Ben Cressey <ben@cressey.dev>
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	Kees Cook <kees@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	kexec@lists.infradead.org,
-	llvm@lists.linux.dev,
-	Nathan Chancellor <nathan@kernel.org>,
-	Zhaoyang Huang <zhaoyang.huang@unisoc.com>,
-	Jeson Gao <jeson.gao@unisoc.com>,
-	stable@vger.kernel.org
-Subject: Re: (subset) [PATCH v2 0/2] arm64: use typed entries into copied code for kCFI
-Date: Wed, 18 Nov 2026 18:26:38 +0000
-Message-ID: <179502639864.2187887.8685436920018120058.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261111-arm64-kexec-nocfi-v2-0-ddf0c4aa326f@cressey.dev>
-References: <20261111-arm64-kexec-nocfi-v2-0-ddf0c4aa326f@cressey.dev>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XfDTAHlO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3F691F000C4;
+	Wed, 18 Nov 2026 18:27:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795026429;
+	bh=Rl+CWXTGRu9pRYIOevzFG3CaxOA0dlA1s75UBUL+55k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=XfDTAHlO1rRUa/5X7Mgvmmne7UNwVqao918Lk6p5PCJqiA/AOEDjaie3YLHEYdeCY
+	 WfOWRVh3k6SmELX2KVJBquX/adhcT3IghVURjcG14496oqyFTNSyFj97XAkbyGu0b+
+	 mD+XvabIRImcs1kbgpfiAl7q3Y6ru66YhJZ9Pr/o=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 1433/2151] clk: qcom: mmcc-sdm660: Fix MDSS AHB clock HWCG register offset
+Date: Wed, 18 Nov 2026 15:52:48 +0100
+Message-ID: <20261118150214.135246751@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
+References: <20261118150121.603863898@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,21 +63,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Wed, 11 Nov 2026 15:26:03 -0800, Ben Cressey wrote:
-> An arm64 kernel built with CONFIG_CFI=y oopses after "Bye!" on every
-> kexec that relocates the image. v1 [1] marked machine_kexec() __nocfi.
-> This version types the copied relocation code instead, as Kees Cook
-> suggested [2], and does the same for hibernate, as Mark Rutland asked
-> [3], so that swsusp_arch_resume() loses its __nocfi. Only kexec faults
-> today, and its fix does not depend on the hibernate patch. x86 follows
-> as a separate patch.
-> 
-> [...]
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Applied to arm64 (for-next/fixes), thanks! The second patch is for 7.5.
+------------------
 
-[1/2] arm64: kexec: use a typed entry to fix kCFI oops
-      https://git.kernel.org/arm64/c/b059e957d07b
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+
+[ Upstream commit c5f338329a2d0d60f7874aa7a1addaa0e4e75a3b ]
+
+The MDSS AHB clock HWCG bit resides in the same register as the branch
+enable and halt status bits, at offset 0x2308. The current HWCG register
+offset of 0x8a004 exceeds the regmap maximum of 0x40000, so regmap rejects
+the read in clk_branch_in_hwcg_mode(). Since the read error is ignored,
+the helper uses an uninitialized value to decide whether to skip the
+halt status check.
+
+Correct the HWCG register offset so the helper reads the actual hardware
+clock gating state.
+
+Fixes: 5db3ae8b33de ("clk: qcom: Add SDM660 Multimedia Clock Controller (MMCC) driver")
+Assisted-by: LLM
+Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260916-clk-qcom-mmcc-sdm660-fix-mdss-ahb-hwcg-offset-v1-1-30dcf09d907c@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/clk/qcom/mmcc-sdm660.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/clk/qcom/mmcc-sdm660.c b/drivers/clk/qcom/mmcc-sdm660.c
+index dbd3f561dc6d0..6d57aadedd2de 100644
+--- a/drivers/clk/qcom/mmcc-sdm660.c
++++ b/drivers/clk/qcom/mmcc-sdm660.c
+@@ -2018,7 +2018,7 @@ static struct clk_branch csiphy_ahb2crif_clk = {
+ static struct clk_branch mdss_ahb_clk = {
+ 	.halt_reg = 0x2308,
+ 	.halt_check = BRANCH_HALT,
+-	.hwcg_reg = 0x8a004,
++	.hwcg_reg = 0x2308,
+ 	.hwcg_bit = 1,
+ 	.clkr = {
+ 		.enable_reg = 0x2308,
+-- 
+2.53.0
+
+
+
