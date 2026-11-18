@@ -1,57 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795037116;
-	b=rcQy3UcapAastrfzkgaz20J+LEfczIlrj5dcy+/SO46dypzKjscmMQISaKEa5pkd92IY
-	 d3zNnSB+718gZ90HyW2cUjxYEk37UO4mwe+FnVnCZP/sf6BVbVJmP+2G2sc/OnwIXL3N2
-	 WTnG16ZP64e4znr26yQMxakkEoUf7riVHRZI6qD6/TY9G1myBHI6aellXGeLAJtR3eqOK
-	 sZHiwok3UF2z+mieHUsgWKDF/j0+Xs2OrzDTfvp558IK9HPgf7KF4k5rF8QF7eqscyeJ7
-	 1R1AvoWY6Ih6iI0KNAoRQ3bKK7NBb2H+pZEfrVJS7ellSsGhJBfqKcW1wptfrBw/QoA==
+	t=1795037117;
+	b=ISB+5+1O0T1nCe7mIVd/pruxLO9dsTUethET94P8Hu6CyHzLNMkI3ErtzYm/2BdBf35d
+	 SEJJMKUxsh9z8E5ZY2d+44r0CMs/pYD79qv0KZl7nb83STgkh7ffAc0iQ57XhJTx/6IDt
+	 G9bbwL5Ke6ms5DYOkp8zOhcGy1lrqBFmADnjggwXwKdnYoTdJhBg7u5AZPAsvx7oG3ip3
+	 DeQ7mpnShY94WlLAqEN2e/awzMclttHlHysM9WfNI8tE7eKNDu0+0VtAItBwWXEuIWPWx
+	 6cwRGdGGPQoKtIRoUqsfYMyo7fmvx0IGoK/FXpg5TbFaunM+UDsbJmYVFo2EargraaQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795037116;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ti5N9OPX5y1JlpeX0cMRzQfjoiK+1OckUdzTnRATN4o=;
-	b=5pW3CyMHS8ynXQFt15Stn3T6Vx9zlABG/51+gT+b/TXqQLmUDxd8EJBbDxiAqAWglFY0
-	 vmwITlWJSmSJQ1GzWYw9y2GAzjCgmMCpkmwY9VIth+7YY0ghT6yvdFeAdRO4Xum/3+biQ
-	 eB8hTC235bogI0I3Y0KlliWj+HEsdD9noROUG5gkermQ5oM2dQNs9eWn/5pyIH+hniY5n
-	 m7Z1I86J3NZvUh9qRRb6NKd9ZdPR6dtvMi1Ujd5B9eHzbZqaMocaMes3BIvsc4DzMZ+sm
-	 6H34V3kxiCDnzbpqmXY9WMhzDbd1iwO9f6i4IMi3K985p0MenYPde6NL3ujQCzeMdCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795037117;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VF8D/NpkOVfXwYS7vocB3YSAlBjCCPP6hp45RuIin7I=;
+	b=JS/mCkyXrFJPuk7NgXaYKllJhtrxodIkXpZP5pePSWcYR7yoy6E1hHjIwURGu5euSwW+
+	 siYHBbndd7YmBFTiFY6C5sVKeZbRbf4NGh9L7DcosCb73Rjm8JxGkucttBpqQ1SYhRykM
+	 PEt2ZK1TdAQ68nGyywHFFiyaPAJmtIiroLCz7FCgoOIiv3/h4iZnfKWHElrTRhbTzPLcI
+	 P0ohEoLfkIJHUf32DHOvo6aD5cG0SfTgVvmm/K+5tVAX5pPKfAGq8gA2Xk70KB4DCXj3H
+	 ZNF8mKA4/EcqgKb5Zl6zimghZXNwsfFu4Z5imkL4/jrfxiYLy9RPsyPx7o8mo1BVslA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XrYObqgE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=qJa2sKeg;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA1B606A31C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CDD606A320;
 	Wed, 18 Nov 2026 21:25:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B5CDD606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=XrYObqgE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7054D1F000C4;
-	Wed, 18 Nov 2026 21:25:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795037116;
-	bh=ti5N9OPX5y1JlpeX0cMRzQfjoiK+1OckUdzTnRATN4o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XrYObqgET+V3AgllvMfrs9f4dZ2gZ7XOjrHgtpyQOf7I+iWpUvq3Gu4ccK9wM3WiE
-	 DKGCjvD8mo5Jx5KVO6iCAFXzjfrt7leXZv4MlScbib//KefAWm+BBj5LQmy/XKglLM
-	 QycuwLJP4PdC85sevH8MWQZsb2VVtzXICleWnL/4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Chuck Lever <cel@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1300/3318] NFSD: Set nn->cld_net before registering the cld pipe
-Date: Wed, 18 Nov 2026 15:32:02 +0100
-Message-ID: <20261118150359.265033065@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
-References: <20261118150313.527275416@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=qJa2sKeg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1795037115;
+	bh=VF8D/NpkOVfXwYS7vocB3YSAlBjCCPP6hp45RuIin7I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=qJa2sKegXf9S3s98sfRIPTTRCglhdd3Ii/c4RhWMQmlIdRsCrEnCsQpgdm4xlISnv
+	 G1GVZXxn3sbyywpIXfJM/HlrkX8v3r+3KvSrkCsX3yiDhdSpMpbF86jYbA/OSWMft6
+	 HAUTamM3iL+F2Y1Vf/5jgA6VGy4GKihKenC/62hY3SmsC4diVi00qdvxTcdiC3H6JT
+	 NhZHBvM8g/B54f/DMQj2tkyRpGGcPXrVaqhae2IMl6nW5Mt3Z2dadvkzUuLDdIM3bD
+	 Wk9x0L48zbs8TC01z99GUg0vtTcN2IVQyxAwHe3tKe4MtI+EPaA2H1G7mrfto7gY5q
+	 w+LbTXNxlcT2Q==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVF4W65BPzSNw;
+	Wed, 18 Nov 2026 16:25:15 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	tglx@kernel.org,
+	will@kernel.org,
+	boqun@kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v2 02/16] sched/deadline: Do not admit bandwidth for parameters that are kept
+Date: Wed, 18 Nov 2026 16:24:58 -0500
+Message-Id: <ab5b150fe61d5db767aa98f1b1255661ad5de333.1795037078.git.mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1795037078.git.mathieu.desnoyers@efficios.com>
+References: <cover.1795037078.git.mathieu.desnoyers@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,67 +97,60 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+__sched_setscheduler() runs the deadline admission test on a request
+with SCHED_FLAG_KEEP_PARAMS. But the task keeps its parameters: the
+call skips __setscheduler_params().
 
-------------------
+Commit f4dddf90d58d ("sched: Skip priority checks with
+SCHED_FLAG_KEEP_PARAMS") made sys_sched_setattr() copy the task's own
+parameters into such a request. Then the priority checks pass.
+get_params() copies them without a lock.
 
-From: Chuck Lever <cel@kernel.org>
+Another call can change the task's parameters before
+__sched_setscheduler() takes the runqueue lock. The request is then
+stale, and dl_param_changed() takes it for a change. sched_dl_overflow()
+would put the stale bandwidth in place of the task's own in total_bw,
+and in this_bw for a sleeping task. But the task keeps its own dl_bw.
+Its release at the 0-lag time takes that dl_bw, and the difference
+stays behind.
 
-[ Upstream commit 14996e662f3b734427e2d645cacffc27b779f7d1 ]
+Fix this by skipping sched_dl_overflow() for SCHED_FLAG_KEEP_PARAMS.
+There is nothing to admit for parameters that are kept.
 
-rpc_mkpipe_dentry() instantiates the pipe's dentry before it returns,
-so the cld pipe can be opened as soon as nfsd4_cld_register_net() has
-run. __nfsd4_init_cld_pipe() does not store the new cld_net in
-nn->cld_net until after that call. cld_pipe_downcall() reaches the
-cld_net only through that pointer and takes cn_lock without checking
-it, so a write() that lands in the window oopses.
+Found by reading, after the Sashiko AI review of this series raised the
+boosted case of the previous patch. Not reproduced: the parameter change
+must land inside that window.
 
-Store nn->cld_net once @cn is fully initialized and before the pipe is
-registered, and clear it again when registration fails.
-
-Fixes: f3f8014862d8 ("nfsd: add the infrastructure to handle the cld upcall")
+Fixes: a509a7cd7974 ("sched/uclamp: Extend sched_setattr() to support utilization clamping")
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260901-alemi-v2-6-e163f94a3a6e@kernel.org
-Signed-off-by: Chuck Lever <cel@kernel.org>
-[ sashal: adapted to the dentry-returning pipe registration API while retaining unconditional cn_has_legacy initialization ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/nfsd/nfs4recover.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ kernel/sched/syscalls.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
-index f48cd56840942..c6e8a853bf5f5 100644
---- a/fs/nfsd/nfs4recover.c
-+++ b/fs/nfsd/nfs4recover.c
-@@ -1020,6 +1020,13 @@ __nfsd4_init_cld_pipe(struct net *net)
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index 89b0d5787f45..6f8ce5fd94a1 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -690,8 +690,16 @@ int __sched_setscheduler(struct task_struct *p,
+ 	 * of a SCHED_DEADLINE task) we need to check if enough bandwidth
+ 	 * is available. Keep this check last. If a later check failed,
+ 	 * nothing would give back the bandwidth it reserves.
++	 *
++	 * With SCHED_FLAG_KEEP_PARAMS, the task keeps its parameters, so
++	 * there is nothing to admit. Such a call changes other attributes,
++	 * such as the utilization clamps. A deadline task does not use its
++	 * clamps, but keeps them for when it leaves the class. The
++	 * parameters in attr may also be stale: sys_sched_setattr() read
++	 * them from the task without a lock.
+ 	 */
+-	if ((dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
++	if (!(attr->sched_flags & SCHED_FLAG_KEEP_PARAMS) &&
++	    (dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
+ 		retval = -EBUSY;
+ 		goto unlock;
  	}
- 	spin_lock_init(&cn->cn_lock);
- 	INIT_LIST_HEAD(&cn->cn_list);
-+	cn->cn_has_legacy = false;
-+
-+	/*
-+	 * The pipe's methods reach @cn through nn->cld_net, so set
-+	 * it before the pipe can be opened.
-+	 */
-+	nn->cld_net = cn;
- 
- 	dentry = nfsd4_cld_register_net(net, cn->cn_pipe);
- 	if (IS_ERR(dentry)) {
-@@ -1028,11 +1035,10 @@ __nfsd4_init_cld_pipe(struct net *net)
- 	}
- 
- 	cn->cn_pipe->dentry = dentry;
--	cn->cn_has_legacy = false;
--	nn->cld_net = cn;
- 	return 0;
- 
- err_destroy_data:
-+	nn->cld_net = NULL;
- 	rpc_destroy_pipe_data(cn->cn_pipe);
- err:
- 	kfree(cn);
 -- 
-2.53.0
-
-
+2.47.3
 
