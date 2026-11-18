@@ -1,77 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795007766;
-	b=jO7tkvrHwDTYpUpNolcOkMxbEbirCJh8+7UTWOWgZqRx/ot7yjYj8K91OXXXKbzEeQaw
-	 0lBSJcC2kNWobrSlbgHhlvtBAzFOtx/Np/HNcyoQEW0ta66hChGCteA9WpGxC/g4ivI6c
-	 zBERKD4zyZHPZD4yyKTRvCvDwIK0HuRqXqiPOEC6KfHG0gARlxW/M7CTjWeQAayXmNzBO
-	 yJNz1agENYJbJwfoLu/zDNl0F5RnkiIygg8gQ/GINhjKypbCIX03J2jpNChBNga9v8qnj
-	 rMNbAgsU3do6ZTt/69be1TUhPmreH85wfhSekYEAxzDo84G24QBgLyg8h5vX4G9309g==
+	t=1795007802;
+	b=s+HVcvVlA+URfv2dcK50zoWt7VsPdv5G2rVwJXBuZz14/7X9etVFMbl0iXF/w2D9byKt
+	 JeZiRdc3As3pYTGu7QAiLbwC1Y52om+ux0Sfxej9l+5YN1b2SrSCiNrGeLCsrZnvZHA2n
+	 nUmwkh4vA/lr2HXzqjmBUVFPW1Fd1cwp0ndkTSwXghCM3HKDtFCpe5x+sWmiQCzInU5rq
+	 vBRYMZrjomFZe/jEIPsw2Dcx780ITT7vM3f8Otd2zty95n38L6GeWbYhFa1ydZLQWs7uA
+	 IIRFDGo2NR7DpOtlsFayt9GmZfU1z3rFDrdhJ9YhuIhImWJ9gJUQ9DnOg7/Ie2rrjXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795007766;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=yW4osrFS24wgu8pSOiR70jM4pZlWA15tPUFvK4+40fk=;
-	b=Ns7c7bk+sqsb1272mOq4Re2OmZuk9tQxNxSQbny6Dldyi6K5jWUgVhi9G5bnGmH5xycf
-	 jcybJO1dTU4E5/id72TTNXZxLbj9nQemQnvD3D9TLfChP84yqxSjeaFJnZ9uLQXp8JTz0
-	 8h0eDByZBpc6397oHrBlRL5b1OB8d51dckuClucAwNgXYmrOh/jE94RubyXtC7EfWcBoB
-	 ZVNYfpoNz8dLGygUtYXESqN64Fd4kfAwKC9GzrEfhkkmQ33k3bn8xPaf0246Ash9+dA9H
-	 xUzalOJD0+bsAapcvVRPW/63Qfby1glHEiNZyQVGRP8aJ0ey1GsatFPLvK2BbsIPSYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795007802;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=hB9UzleAIkWHJrqq6SqfTW60PW5YtSUer1QfUULJtCg=;
+	b=0IPA9dnc5pUZLv27CV5QA2DUvVXdpUPPZ4Fc+ja+GIVIaIGXw/5SagUQzTuGEZXYUQck
+	 V/d2KXYV8lMngcu7ZPde615cBplJxeSiLfuQa3XW28v/PfrpIcUvph6SYBfTE0XUsyi4d
+	 nvJ/pwDIc+zrhV6hPYwOVGxDKOtU5BwhqQvM8MiHv4PIoTO7cXn5H1JjfDyiXAO8SmObn
+	 L+/+pA9rp4LAwwO9fdhrd+c/PMKFTjOdTo6BNg7uH2BTPaiXwQPcWd/ptT47m5vLV6hFc
+	 r7gzAE3EDQ2S6J2uxJ6ruR1EBq9dy14ka8RaKZNStoFQWYL++mcyao5vTksiroISCPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=kMQ2IVGZ;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CKbNLiOt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08482606A31C;
-	Wed, 18 Nov 2026 13:16:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08482606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7595E606A32C;
+	Wed, 18 Nov 2026 13:16:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=kMQ2IVGZ
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jV2Cw1MlDzMlpB;
-	Wed, 18 Nov 2026 14:15:56 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1795007756; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=yW4osrFS24wgu8pSOiR70jM4pZlWA15tPUFvK4+40fk=;
-	b=kMQ2IVGZHdYSJi1qr7AZ9ssQhavYnyXjudHLXhc5Gz4zhD67Q5LNKVdw/Q7Kf3s7YRMYyT
-	z14c4Gxh3PGt5WK59jRYiVr1b2r1qNmAdnntGsByfYF4p0ivZZ7H2p0RvH+EFN9Nez2qSS
-	cUP+vHa6VeOhBAlRkNj7rIOY33r84D5HLofQpEcar11/GSuVbkA/tSPTuWzf3aVtMF3Wmq
-	B3GGpAFcM8mKji5LdLlnzrMuA8AUTiySFzS5Hx/epY8d4q7Yhu0urRLCB5XylYeA34k8EI
-	vYD6ldQhNbIySbQZT5QISSNB5Llj01NBQehK86haf2EU0duawmxW41BL0xPb6Q==
-Message-ID: <3792b7f8f4729820a924e0d60d17c97489827732.camel@mailbox.org>
-Subject: Re: [PATCH v2] dma-buf/dma-fence: Prevent misordering for error
- checks
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Gary Guo <gary@garyguo.net>, Philipp Stanner <phasta@kernel.org>, Sumit
- Semwal <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
- <christian.koenig@amd.com>,  Simona Vetter <simona.vetter@ffwll.ch>, Chris
- Wilson <chris@chris-wilson.co.uk>, Danilo Krummrich	 <dakr@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Daniel Almeida	
- <daniel.almeida@collabora.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 18 Nov 2026 14:15:54 +0100
-In-Reply-To: <DMYCSXNA6VQ9.22FS1PMBBYWRO@garyguo.net>
-References: <20261118110914.1471416-2-phasta@kernel.org>
-	 <DMYCSXNA6VQ9.22FS1PMBBYWRO@garyguo.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CKbNLiOt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF9191F000C4;
+	Wed, 18 Nov 2026 13:16:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795007802;
+	bh=hB9UzleAIkWHJrqq6SqfTW60PW5YtSUer1QfUULJtCg=;
+	h=From:Subject:Date:To:Cc;
+	b=CKbNLiOtnQArVEW7ZPUs5wZ+GoPNnxHHl/IA4Kigx1MdiDJYsF/TfqkvXPOnrf4QS
+	 CLMJekPxNF+BXbpTwHJURn1Mq11paeCU7zbXP4LDsBJjscDxBtI4/V2wjLx/Mag3ZV
+	 xwuOMSzYbIQpR0xnJjPsx5g8QPO38nioygtWcsZpG+T//MY1y13oSF3ims58wsElcy
+	 tP+1JUwKodT9MrGypya7bHV+k6A1JKOcnvoia2U0F0UVKXQsJhQM/5iG89E5+n1qJm
+	 U6BgZy0nRf2q2/dVq3JXp+WuiXBF5U9IJj343bl5reWMHPfrYsbf9PQElZMmuFu2MH
+	 CVr0J62YV7hMg==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 0/2] fs: reintroduce SB_I_MULTIROOT
+Date: Wed, 18 Nov 2026 14:16:16 +0100
+Message-Id: <20261118-work-nfs-multiroot-v1-0-66e4458b7d32@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,79 +53,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MBO-RS-ID: 1cf2ae9d8dfe671f094
-X-MBO-RS-META: ko59io9p5mbdaggd9b7y5om1iqooo31t
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMyw7CIBBFf6WZtWOEGm38FeMC6GDxAc0MrSZN/
+ 12wy3Nzz1lAiAMJXJoFmOYgIcUCateAG0y8E4a+MOiDPimlOvwkfmL0gu/plQOnlLHvNLXt0Z2
+ 10VDEkcmH7z96vW0sk32Qy7VUH9YIoWUT3VCn2ct+M9b1B1jiur6SAAAA
+X-Change-ID: 20261118-work-nfs-multiroot-d82e334c72a2
+To: linux-fsdevel@vger.kernel.org
+Cc: linux-nfs@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Jan Kara <jack@suse.cz>, Chuck Lever <cel@kernel.org>, 
+ Jeff Layton <jlayton@kernel.org>, Amir Goldstein <amir73il@gmail.com>, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-04696
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1477; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=XolEZKg0n/Jhtb65dQs63UYEaAuPALwcP0dpFXFAw8w=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9XWrUqrbmPm/HHZ4/FjXZf84tbVx2+3jSmph9+btuu
+ /ZW8nxQ7ChlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZhIzxKG/0V/E3tevQu4v/1o
+ 0rQw9+DanwKBYvbPz+TuLpQvbXhueZXhn66QaSL/n6UTk/j5NDKkZ+UI1E75H+587nvlmeZL99L
+ E2AE=
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-On Wed, 2026-11-18 at 12:59 +0000, Gary Guo wrote:
-> On Wed Nov 18, 2026 at 11:09 AM GMT, Philipp Stanner wrote:
+Welcome to 2018: Since the nfs conversion to the new mount api in v5.6
+".." can escape an NFSv2/NFSv3 mount again when the client shares the
+superblock between mounts of different subtrees of the same server
+filesystem.
 
-[=E2=80=A6]
+I reproduced it in a VM with knfsd exporting a single ext4 filesystem
+and the client mounting two subdirectories of it over loopback. On
+v7.4-rc3 ".." from a directory that got moved into the other mount's
+subtree lands in that other mount, from inside a chroot as well. With
+the first patch it fails with ENOENT. The first patch just restores what
+we had so it can go to stable easily.
 
-> > =C2=A0static inline bool
-> > =C2=A0dma_fence_test_signaled_flag(struct dma_fence *fence)
-> > =C2=A0{
-> > -	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-> > +	/*
-> > +	 * Best-effort ordering of the locklessly evaluated signaled-bit,
-> > +	 * especially so that reads of fence->error are not misordered.
->=20
-> I am not sure if this should focus on the error, or it should just provid=
-e a
-> general guarantee that anything happens before dma_fence_signal is visibl=
-e when
-> signal test returns true. I would lean on the latter?
+While testing this I noticed that the same setup trips the warning I
+added to vfs_dentry_acceptable() for open_by_handle_at(). The handle is
+correctly refused but an unprivileged user can trigger the warning
+from a user namespace if they own the directories. The second patch
+uses the flag to not warn on multi-root superblocks.
 
-See below.
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Christian Brauner (2):
+      fs: reintroduce SB_I_MULTIROOT
+      fhandle: don't warn about multi-root filesystems
 
->=20
-> > +	 *
-> > +	 * The release counterpart is typically ensured like this:
-> > +	 *=C2=A0=C2=A0 a) Error codes must only be set before a fence signals=
- and
-> > +	 *=C2=A0=C2=A0 b) The fence's spinlock's barriers effective in dma_fe=
-nce_signal()
-> > +	 *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ensure ordering.
->=20
-> Spinlock has nothing to do with this. The only thing that guarantees the
-> ordering is test_and_set_bit in (c).
+ fs/fhandle.c                   | 6 ++++--
+ fs/namei.c                     | 4 ++--
+ fs/nfs/super.c                 | 2 ++
+ include/linux/fs/super_types.h | 1 +
+ 4 files changed, 9 insertions(+), 4 deletions(-)
+---
+base-commit: 94ca49563acb36a19fb578499b04c84d5b0a5181
+change-id: 20261118-work-nfs-multiroot-d82e334c72a2
 
-Why not? A spinlock includes full barriers. If it were set_bit()
-instead of test_and_set_bit(), it would still work.
-
->=20
-> So probably easier just to say something like
->=20
-> =C2=A0=C2=A0=C2=A0 /* Pairs with test_and_set_bit() in dma_fence_signal_t=
-imestamp_locked */
-
-It is easier.
-
-I am, however, unhappy with the unclear state of the API contract. It's
-still unclear what the signaled-flag even is supposed to mean. So this
-comment was also supposed to hint at the unclear state.
-
-The desired meaning aimed for by Christian is that it's only meaning is
-"hardware is done".
-
-But as we see here it has implications for the entire semantic, too:
-a) signaled =3D=3D true -> the error code is valid (what else?)
-b) The fence has either signaled or "is still signaling", i.e. running
-callbacks
-
-I still maintain the position that it is inconsistent to run
-test_and_set_bit() under lock protection and evaluate it without the
-lock. Should be one or the other, not both.
-
-Note that this patch intends just to hot-fix the error code evaluation,
-not to make the fence API fully consistent. It's currently not even
-clear whether manual flag evaluation is legal. It used to be legal. I'm
-the one who added dma_fence_test_signaled_flag(), but mostly for
-readability, not for semantic correctness.
-
-It should be illegal to evaluate error codes with anything other than
-dma_fence_get_status(). But there then the meaning of the spinlock is
-currently also undefined. The lock there, with the current thinking,
-would seem surplus with this patch here.
-
-
-P.
