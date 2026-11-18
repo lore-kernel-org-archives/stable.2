@@ -1,58 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795032415;
-	b=CGz+LwMfS2orMEgeoM+03XJUHvm5ujk0vzcMIOczNnbpMfjpS7AH7Wqz0rGVKXJDmyQB
-	 uDxdKTM4M0exJqr101DrvmBogbi7Me0LSmDfZ5GOCut66ZLMbXgiQL+rXx82/tiFVvinS
-	 EX9WMuPsEWwtwTGQL2vrmWWWwLErrtTZLn7OtRAEf3QqNDE340euf9LwfopCTfnO57+3N
-	 fC6J1q2UwS19+0W8JzwJOq9dXLnP9jcJlt/U6p4KQgBZlq8h3oA8geq9YxUqsJnGN3aNF
-	 DWNE3ubzAJ80zI0dLN4uRsbah4GLQnznzENsAe49PNOB9OnBIoA/1Pe4/EywThZrZmw==
+	t=1795032411;
+	b=ibLuz1jDh4Ins7wIhEOE/nBUrO31QIuJ3G3HzIH6sktSieG+/CYZVzy2czxFFE+u6pAM
+	 zgBfLzg8RZdMjcKw+4DcBZdbjlCrZRJ1ajUt4TJkOixHSTkKesW0Mon0pJjqJbK/3LoRF
+	 uqrZyyRoR4gu9eD5d+dXEzKcf91GsewJFid1d+BSpBfG7D6aJu7AktAbhokN/yoX+F5xg
+	 /3hI6Png81EMkTolVhZbihxXqDLZk/ZjYyRRAKgqequ23tvhqQIH2lR1lHTTpAg8S7owX
+	 gFvt1cSkE9/Vopgxnoq2fzj8ALQL9G9nDNMCxLGXuQR/Eh3HpJCUO47gL98IYL8FZ/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795032415;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+IxwOd+4dYdX1EmCmpBtkh/gGiAuGyd9jQhUoIMCWt4=;
-	b=xh5LPA1P99N+CgqTSOLusV9lP33rgHhfZ32h/LEgye1EykJbKGrDM0bMDUBD6tyXh7/o
-	 cNc59yyEXOwXx9dvTCaHJ6JE9Stdweahz57gZaAgKvtOP7q693W+MUvD8vvSgG9ZY1fF1
-	 PdWtPv3TYYOSTbRtemdUpQCxqg77mhtCCaqVUvTbNSQKf2hcCx0KY5EvxzT7zrgzVAR7q
-	 B/bMrk/tLWYFnIzC6KGw6CTj19nuWhLR3ftvdiT/kyFby3d9GS6fLnNNwSPnDoXj9frmQ
-	 +bvzFIkPnoYkEOa6xseOrxJ6M4rfBho3vvyas2s4smr05m1bps/vYLos2U2LptYNxxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795032411;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2GDIvsu7zv8+pf1iUkWvntMzShMjZhVgxoA9fdCxHRA=;
+	b=GjWPJKkw1Le3mW3ShDLcxmkPugbd2jo0OOM6n+0pXL2W5GsKEp8ZG+4qn7eKfiT/3yHN
+	 ILa+SQ0ACF5DYZEtT3HbMGXy/6z/uCJ7hmjj7gGGOY1tJ4LtCyXyRKYDFV4ogsfI/Gn8S
+	 JcBDrLC7v+mXy9/Km/s1/a381L5isN4thcxUPDwKk2WSgLBXEtZ33NNBHAdXHP3L1PQah
+	 ByUq+z6WMIA28BHtB17sE/GfbghdGFeW1sg0jZ8MwISyHqKt/LyxAy5KABDtPeEZV3Br0
+	 PCGVNYb83O7WJNoFanskCKeYHqPX8nZHhzdfrrVU4bczVT8/tPvhXkeVTGiJnczkSbA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=okesLcPk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=heE8tMlc;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EE760A3819;
-	Wed, 18 Nov 2026 20:06:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75E8606A339;
+	Wed, 18 Nov 2026 20:06:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C75E8606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=okesLcPk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 611D61F0182C;
-	Wed, 18 Nov 2026 20:06:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795032414;
-	bh=+IxwOd+4dYdX1EmCmpBtkh/gGiAuGyd9jQhUoIMCWt4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=okesLcPkRwgcRf91GhEUzifmWqxDrO/+3pRLNjvhT/BOiTxhKWho5bleDtJGDTNoq
-	 uL+vhpDpyufEUHczAGzOhbXqJ+s1mTmz1Zj97QK8egoNflPz/kUIaX0U6m3/5DiQaf
-	 tx1R5UcrWudST8O5ErefNjPoz5ygmI80fgX/lZbM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Qiliang Yuan <odys.yuan@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1403/1756] selftests/bpf: Run the cpumask map insert tests only for the test task
-Date: Wed, 18 Nov 2026 15:58:50 +0100
-Message-ID: <20261118150105.040014867@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150007.957976754@linuxfoundation.org>
-References: <20261118150007.957976754@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=heE8tMlc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1795032404;
+	bh=2GDIvsu7zv8+pf1iUkWvntMzShMjZhVgxoA9fdCxHRA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=heE8tMlcAmpgS7JOeB7i0WFWWp9D714e5+eRLhpA4XAmfHvsUbx8DGyncgl6uROyc
+	 li7mdKhEwyY/9uYxX9uWQBEi7EN2eurRaF9hUbuy0J8maAjcHt5LOmV7XnO6oCnqdC
+	 jpkDKhggK/l9fkQ6tLoBIE1TjAcbsASSQ4vhds8Y93GwGASmTz24zCpDn9/ZhZzqDB
+	 wcTV0ozU85IxvES/rz1PYmbWqBEQCX9xDRZQ00OuucSmkGPmqFCFukbuh1fIpZQkLU
+	 FY1goBNUDjL6KBu47MVJbyToJigI9a0aZ7CvY6GP9d/GYC6uakUM7rnwzRasGHCA6w
+	 fafx+oySGReTA==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVCKw2BTKzS2V;
+	Wed, 18 Nov 2026 15:06:44 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: linux-kernel@vger.kernel.org,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	tglx@kernel.org,
+	will@kernel.org,
+	boqun@kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH 04/16] sched/deadline: Do not divide by zero active CPUs of a root domain
+Date: Wed, 18 Nov 2026 15:06:29 -0500
+Message-Id: <46cf3d11435498c167e87c1e402c6ab2522f71ab.1795031605.git.mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1795031605.git.mathieu.desnoyers@efficios.com>
+References: <cover.1795031605.git.mathieu.desnoyers@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,63 +97,81 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+__dl_sub() and __dl_add() divide by their cpus argument. Most callers
+pass dl_bw_cpus(), the number of active CPUs of a root domain. That
+number can be 0, and the division then traps.
 
-------------------
+Commit daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl
+tasks") added extra_bw, the bandwidth that deadline tasks can reclaim
+on a runqueue. A change of a root domain's total_bw is spread over the
+extra_bw of its active CPUs.
 
-From: Qiliang Yuan <odys.yuan@gmail.com>
+During hotplug, a CPU sits in the default root domain, which can then
+have no active CPU. This lasts from the rebuild in
+sched_cpu_deactivate() to the offline, and from the online to
+sched_cpu_activate(). A debugfs write to the runtime or period of its
+fair or ext server divides there. A write of the current value passes
+admission in the window. In 8-CPU VMs of v7.4-rc2, a loop of such writes
+oopses at the first offline and online:
 
-[ Upstream commit e2c978ad415ce223e71f6ddaa92778225eca0bef ]
+  Oops: divide error: 0000 [#1] SMP NOPTI
+  RIP: 0010:dl_server_apply_params+0x335/0x380
+  Call Trace:
+   sched_server_write_common.isra.0+0x1c0/0x260
+   full_proxy_write+0x58/0x90
+   vfs_write+0xcb/0x550
 
-verify_success() attaches each cpumask test program to task_newtask,
-forks a single child, and expects err to be 0 afterwards. Most programs
-return right away for other tasks than the test one.
+By reading, two other paths would divide by zero:
+- inactive_task_timer(), for a task that left SCHED_DEADLINE or died,
+  if its CPU went offline.
+- sched_setattr(SCHED_DEADLINE) on a task asleep on an offline CPU,
+  with admission control off.
 
-test_insert_leave and test_insert_remove_release don't, and insert a
-cpumask into the single entry of __cpumask_map for every task created
-in the system while they are attached. test_insert_leave leaves its
-cpumask in the map, so a second task created, for instance by a test
-running in parallel, fails to insert one and sets err to 3. Two tasks
-created at the same time can do the same to test_insert_remove_release.
+Fix this by changing total_bw alone when the root domain has no active
+CPU.
 
-Return early for other tasks than the test one in both programs, as the
-other programs do.
+With this patch, the reproducer survives 20 rounds with no warning.
 
-Fixes: 7b6abcfa15cd ("selftests/bpf: Add selftest suite for cpumask kfuncs")
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-Link: https://lore.kernel.org/bpf/20261009-selftests-bpf-cpumask-insert-filter-v1-1-3249218594d7@gmail.com
-Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: daec57983670 ("sched/deadline: Reclaim bandwidth not used by dl tasks")
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Cc: stable@vger.kernel.org
 ---
- tools/testing/selftests/bpf/progs/cpumask_success.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ kernel/sched/deadline.c | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/bpf/progs/cpumask_success.c b/tools/testing/selftests/bpf/progs/cpumask_success.c
-index 80ee469b0b602..7462474ef1adc 100644
---- a/tools/testing/selftests/bpf/progs/cpumask_success.c
-+++ b/tools/testing/selftests/bpf/progs/cpumask_success.c
-@@ -460,6 +460,9 @@ int BPF_PROG(test_insert_leave, struct task_struct *task, u64 clone_flags)
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index dfae08625342..b614d5fc1a1a 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -189,18 +189,25 @@ void __dl_update(struct dl_bw *dl_b, s64 bw)
+ 	}
+ }
+ 
++/*
++ * Spread a change of total_bw over the extra_bw of the active CPUs of the
++ * root domain. @cpus is their number. With no active CPU, as can happen
++ * during CPU hotplug, change total_bw alone.
++ */
+ static inline
+ void __dl_sub(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
  {
- 	struct bpf_cpumask *cpumask;
+ 	dl_b->total_bw -= tsk_bw;
+-	__dl_update(dl_b, (s32)tsk_bw / cpus);
++	if (cpus)
++		__dl_update(dl_b, (s32)tsk_bw / cpus);
+ }
  
-+	if (!is_test_task())
-+		return 0;
-+
- 	cpumask = create_cpumask();
- 	if (!cpumask)
- 		return 0;
-@@ -476,6 +479,9 @@ int BPF_PROG(test_insert_remove_release, struct task_struct *task, u64 clone_fla
- 	struct bpf_cpumask *cpumask;
- 	struct __cpumask_map_value *v;
+ static inline
+ void __dl_add(struct dl_bw *dl_b, u64 tsk_bw, int cpus)
+ {
+ 	dl_b->total_bw += tsk_bw;
+-	__dl_update(dl_b, -((s32)tsk_bw / cpus));
++	if (cpus)
++		__dl_update(dl_b, -((s32)tsk_bw / cpus));
+ }
  
-+	if (!is_test_task())
-+		return 0;
-+
- 	cpumask = create_cpumask();
- 	if (!cpumask)
- 		return 0;
+ static inline bool
 -- 
-2.53.0
-
-
+2.47.3
 
