@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795036519;
-	b=z3C3+fTFqZXPaFAzvJ9qmewz1clpXq94Q+HWJ6AB0Vw8L3gjZurUpEu6+NT4jow7TYu4
-	 lagJDdbLdTG1XK0CYlWF33xuZGgks3Coide82onLEv4MVna1T+l2zvlTCXDBvv8qmxIZA
-	 Mi8cei8FDBUqErrlK8zKqxUXSt5FGlogxMLTFAmug17kjjvxpN+3U4g6raKWR5/yWrF09
-	 03fqYYu71fR+UxSvsCZnQ03OiJ04oTMdhHK+3VRn8rT7KJlOWUM7w5emKgVSnnYAv4W/P
-	 KXyXXmbOnRSG2Co2znE1boz4VM1BBWNWptsixhtUeG0AovrJD0Ud6LGg8eotXib6qjw==
+	t=1795036522;
+	b=fRf+L2+kGm0d6ElT3uvZFa5uUT4eY0CYB/lt8h14w4WAh3B/K3J1dpXYHgBEicx49IF0
+	 VtGerX9nzaKuRrwDe24c1404LGsP0PgkpR4u1Vsz5dVEBKtIfv1VFYEucz9q9+DZcM+up
+	 zARVCdW7iLiJ1wPW+HYcCuuwvq6o1UGc7ZjVM++al8S4+jH/WaRwgjuEd7E0jdp8f2RMr
+	 sXOLReIZgi7B+N8XNDrd+TxaGbkfH8xmD0/eVMGqCO7XQFJdX7CNXvXy/H8juwYcmPNp5
+	 XYfeZ8nfibEoYkfEVyCkYnOSf0Jvn1+3/PobPVJMIUYbpbS27G69pWp3Hghvo0g2WFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795036519;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795036522;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=lNFrIBd55zWZ4sxZe/C4IVpZ9Ul8+sNnZ4oZi2FCQW8=;
-	b=zAXn12BEaysxblmscwzfxvey0fX9+vmhBQMJ5gInCVfRUXm4nn4pGrAf+wmlhx0U5CN6
-	 gYeEVuS36SUYz1xSUBCsiEVLLbm5VkE7ydFD1EgQeMdt/J6/SuYg8ezO/2n+lbLAYCRrj
-	 tjU9LHlBNbsNoxgFpsCP1rwAXwf4mdr9q8HPdl45ZKDLuiUXLQYTYWdBuvF61x2rweqd6
-	 Gpyk1W8m7iVLNz7Q1GK6R7iOBA6NIlEDXtm5KhATBPas3OQ5ll2P5aTpJJ+3Rbkk8cGpD
-	 ZG9vuleM85/rQG/pHobNobxpVz0NncQxtCHznhjQvxO4SY+2FC1ow2U07r44HboH9JA==
+	bh=OU4CrfPCTqb5f9W3Ul91wRmvggACK/YhpOEbSimTNkw=;
+	b=pLrc5i0SOfinRZ194IOLJ7BZe5ARptgPuyrch5WuFE7GXYqapOXQhIwqRvERygWd54ky
+	 n53/IZqqVdvw/xwFmNUESdUT3a2L4XP/8vvy1C6J0tibJKKK4MH1nixxqYs39t+b0DFE0
+	 GK6C0Z61JYdA3XuX2rChDKJavaddEx5E0rIhdp4l18e7zFmWapUZOBKXYCg8WlKqiU9aq
+	 EEBNuio5e7LQOO4SFdZh0KsrDaHTue7kMevVOXI+a7/lY8QRgIMbOLqfCfCXrF8VV3CSw
+	 OYM2sAQSMSbnj76N+A0CsNt938CWx8VlHewhbOK+sGJIz4zARHYG+S4KLdhzLOPd68A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zdVBRdhs;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OfPo8IQ8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EFA60A2609;
-	Wed, 18 Nov 2026 21:15:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB28E60A2630;
+	Wed, 18 Nov 2026 21:15:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zdVBRdhs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23B2E1F000C9;
-	Wed, 18 Nov 2026 21:15:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=OfPo8IQ8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06FCE1F000CA;
+	Wed, 18 Nov 2026 21:15:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795036519;
-	bh=lNFrIBd55zWZ4sxZe/C4IVpZ9Ul8+sNnZ4oZi2FCQW8=;
+	s=korg; t=1795036522;
+	bh=OU4CrfPCTqb5f9W3Ul91wRmvggACK/YhpOEbSimTNkw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zdVBRdhsQmOYq4gqTcplOzeKz8JhRJBIgMagRvq+gJsFQ3onqRlHTbL6ZUy7eOBQZ
-	 KpNX+J4D0AFz5UBWUgKQNaF0lkxruV4Pqh4s3oX3q0kl0PKUD4k9OAotnrVOUi60LM
-	 3itS3VFNW8gJ0U/akD1avT8tL8c4C2gJsOnJCdMw=
+	b=OfPo8IQ87oowzzl3dKjUaG/R7EXkzFKw8R3ZCw+9uSDTZV2wjIZfMQLkzSPWKkoMU
+	 Kkke6RgJ9xrm5JhYj/vzUou7SW5XPRb7Z5jzrsDO9dJMSyncNuzwNvejzH0+zhT26N
+	 qH328zVtARPTFTKuq9eZpQmZeAH3jKTASyhFMuLE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
+	Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Jassi Brar <jassisinghbrar@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1089/3318] clk: qcom: ipq5018: add 24MHz rate for USB UTMI clock
-Date: Wed, 18 Nov 2026 15:28:31 +0100
-Message-ID: <20261118150352.647610163@linuxfoundation.org>
+Subject: [PATCH 6.6 1063/3318] mailbox: qcom-ipcc: Guard against NULL con_priv in send_data()
+Date: Wed, 18 Nov 2026 15:28:05 +0100
+Message-ID: <20261118150351.849047273@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
 References: <20261118150313.527275416@linuxfoundation.org>
@@ -69,41 +69,68 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+From: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
 
-[ Upstream commit 75e893169fc5c9ec28d5f9dffde40ce29b59a5de ]
+[ Upstream commit 7b3cc361b5942ac600f38e5dff7aed009be34964 ]
 
-The USB UTMI reference clock must operate at 24 MHz, as recommended
-by the hardware team, for reliable USB operation.
+qcom_ipcc_mbox_shutdown() clears chan->con_priv with no locking.
+qcom_ipcc_mbox_send_data() dereferences the same field without
+checking for NULL first, so a send racing a concurrent shutdown can
+crash:
 
-Validation showed that USB 3.2 hub enumeration with USB 2.0 devices
-fails when the UTMI reference clock is not configured to the required
-24 MHz rate. Configuring the UTMI reference clock to 24 MHz to resolve
-the enumeration failure and ensure successful device detection.
+  mchan = chan->con_priv;
+  ...
+  hwirq = qcom_ipcc_get_hwirq(mchan->client_id, mchan->signal_id);
 
+Add the same NULL guard mbox_send_message() already uses for
+chan->cl, and bail out before dereferencing a cleared con_priv.
+
+To close the remaining race where send_data() reads con_priv a moment
+before a concurrent shutdown clears it, acquire the spinlock in
+qcom_ipcc_mbox_shutdown() using the modern guard(spinlock_irqsave)
+primitive before setting con_priv to NULL.
+
+Fixes: d6fbfdbc1274 ("mailbox: qcom-ipcc: Fix IPCC mbox channel exhaustion")
 Cc: stable@vger.kernel.org
-Fixes: e3fdbef1bab8 ("clk: qcom: Add Global Clock controller (GCC) driver for IPQ5018")
-Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260921-ipq_clk_changes-v1-1-d242e3d49648@oss.qualcomm.com
-Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Jassi Brar <jassisinghbrar@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/clk/qcom/gcc-ipq5018.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/mailbox/qcom-ipcc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/clk/qcom/gcc-ipq5018.c b/drivers/clk/qcom/gcc-ipq5018.c
-index 6ab9c3f1f818a..34c2be0b9df3a 100644
---- a/drivers/clk/qcom/gcc-ipq5018.c
-+++ b/drivers/clk/qcom/gcc-ipq5018.c
-@@ -1269,6 +1269,7 @@ static struct clk_rcg2 usb0_master_clk_src = {
- };
+diff --git a/drivers/mailbox/qcom-ipcc.c b/drivers/mailbox/qcom-ipcc.c
+index 6fbf98ddb73e4..c1e0d7ef0053c 100644
+--- a/drivers/mailbox/qcom-ipcc.c
++++ b/drivers/mailbox/qcom-ipcc.c
+@@ -10,6 +10,7 @@
+ #include <linux/mailbox_controller.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
++#include <linux/spinlock.h>
  
- static const struct freq_tbl ftbl_usb0_mock_utmi_clk_src[] = {
-+	F(24000000, P_XO, 1, 0, 0),
- 	F(60000000, P_GPLL4, 10, 1, 2),
- 	{ }
- };
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
+ 
+@@ -149,6 +150,9 @@ static int qcom_ipcc_mbox_send_data(struct mbox_chan *chan, void *data)
+ 	struct qcom_ipcc_chan_info *mchan = chan->con_priv;
+ 	u32 hwirq;
+ 
++	if (!mchan)
++		return -EINVAL;
++
+ 	hwirq = qcom_ipcc_get_hwirq(mchan->client_id, mchan->signal_id);
+ 	writel(hwirq, ipcc->base + IPCC_REG_SEND_ID);
+ 
+@@ -157,6 +161,8 @@ static int qcom_ipcc_mbox_send_data(struct mbox_chan *chan, void *data)
+ 
+ static void qcom_ipcc_mbox_shutdown(struct mbox_chan *chan)
+ {
++	guard(spinlock_irqsave)(&chan->lock);
++
+ 	chan->con_priv = NULL;
+ }
+ 
 -- 
 2.53.0
 
