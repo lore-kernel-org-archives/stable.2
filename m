@@ -1,75 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795008155;
-	b=e1kuxA86ghoP78sb10chrVjtw86DOeESutQfHGZOZ6LQ8NjFsUsQKKoT6CU+1SpPABwj
-	 LZjVaJEbeTTHRBeHMlTgL7l9rmErlVfnk+MIXf0WrW1xqgs+BFGROPOOs06L+qxtQPcjG
-	 739XI5rSn84R80BuGxfbUCmk4ilfu20jqWLRNOfDAtp0FF1FtGuz4kbozS+oArAH2IjG9
-	 u+Rw2KUN1TzPpOXaWcbUREaBK6soaymlW1O+LrZDdHHpFLDU9kyu3S4igi47Nytc8OBk0
-	 mdApOhd440z9ovLrKmI9iW5tdXslnDTs2Q+Qr954VZdivkUMuIvagrMQXa71Ok0LknQ==
+	t=1795008437;
+	b=dst94kjd/bucAtPQiNMoIvNluvleClopzQ8DXoDbtTS1pNp4yoZIDVs/1bNtTAAxTh7I
+	 EXgav6ZJDM0o1pQFJNJnKCv7eSgtz1b7KHM2LSPA3XavJAQOBLIt3ePlpyF+T5yiq2X67
+	 3Pfm4QNy56fcii9rbw8zkginBxGMjfwfXVUuMDMqg/p3S02IPtgf2mpqvk+J32vFYneur
+	 LKXz+dQ38SBRaz5l5oa4oBrz8Lo5pl0oIAwBZX3l7BTVvXB3vu5WfnCgoCqL6poCzBNaY
+	 fmKVNcspJt8OQ+a5yBqRHjwRn08Lrt7yjWEKN0B1nsJ/h9TUumpvncb1cLSp2gyVybA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795008155;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
-	bh=8TF6UKCst8lzq0LV30okvmZ/jdB3sqBqVgF0ME6NPUU=;
-	b=lQQ5ml1wE101xGbBAufHLkm6A+apH4Z2RwQcJ3SpTSfnkAqjZaN8CAkSQAbQUJ++jUbq
-	 Nu31fUKHdnJfr0U2Hd24Vglh+RBBgLWzIyuOkcw8Jls1WgwboV1z9EIDvaVHPL8B/krFd
-	 tGOR2thwA1jNfGiHfvEsTP7pTtjwBWb0my1kWEDabXs94hPs7wQIoWJHraXM2RHqAoN1T
-	 btP31Ep/IQ4cVUzzGnQu4dKNySF/Iv6OsxSQz3k5jn7DGPKGZ5sToxWurqxYc2MZOcmp/
-	 N2d2zMfPGG/LomquTV++e1WPbYzJkgr0fq4f4DJKALgy/ybFfFLpjz5o6wp8Rjv9ZlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795008437;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=kqJV0Ber9SezkC+GcM+NkWNL1RH3m+jhei1cGQjf+lM=;
+	b=zI/OZieZ8hx11kkjmywoP/tcVCW55GYmGWmUGczjhfjw0cFOnIkDvjiZUMW5tXv/ERZ9
+	 OGNQP+XnbskoIGxMJFmVP+eDqnkXng0BHW+9t+se/ltA0w5h2U/pY/Zc0NZzKR7m4ni4F
+	 BUZkuIMk5xLbbPHZJaXc01H9SyK7RGTgzrpqaPwV9yY1y9xtJgjqJzOGpwi/8h/plzsRI
+	 xWSFvS7bH7bNzdYJHBf5ubGRserKNGrBDHBU1HLo3NdMlEQ1FrywEKzoKjb+Ll3fcekew
+	 QedrWHy1jUsagJVNXVjPtPscgYMHiLOt9Jrm55GHjYUhTMQtftZtZg1o8EwlSO4l3Sw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PnAvX89B;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wEJl45gc;
+	arc=none smtp.remote-ip=209.85.221.44
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B0C606A320;
-	Wed, 18 Nov 2026 13:22:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AB6606A32C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:27:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3AB6606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PnAvX89B
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 142691F000C4;
-	Wed, 18 Nov 2026 13:22:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795008155;
-	bh=8TF6UKCst8lzq0LV30okvmZ/jdB3sqBqVgF0ME6NPUU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PnAvX89BLlompbeCCkZjl3vr9MCqKZciuydSOpL0eogzTLskwf3xZTohivEs0roUy
-	 SGHE3ptZwvcw56AzvAQmWHU2AKWfZBJ1Q+aHQiUujgs16dQbeouPrsRjUXjxqwCmzL
-	 Ic0BLwqP6KqS0jGWCMS2T/Ixdqkpxh4ygAhpATxyMBjSiigYgk4GNjPL5CPg7RuAHm
-	 2wFGRm0miTBwzMDFzEuxnDS2tc8VOXV/OZSGQmr95YsoKwOuCDUI0e75scvGjYgnhZ
-	 3DWuuj7B7Ts5+S7mf+y4R+8vNESPWSyJ/M9EWivAgicYCJ5uI0mObnGGnufPMbHttt
-	 d5ZeN50+Ga+jQ==
-From: Christian Brauner <brauner@kernel.org>
-To: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	Julian Sun <sunjunchao@bytedance.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Muchun Song <muchun.song@linux.dev>,
-	Breno Leitao <leitao@debian.org>
-Cc: Christian Brauner <brauner@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org,
-	kernel-team@meta.com,
-	stable@vger.kernel.org
-Subject: Re: (subset) [PATCH v2 0/4] writeback: make slow writeback report more actionable
-Date: Wed, 18 Nov 2026 14:21:46 +0100
-Message-ID: <20261118-abhaken-flocken-popmusik-322cfc4cfb7b@brauner>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wEJl45gc
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-497614c95f0so553330f8f.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:27:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795008435; x=1795613235; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kqJV0Ber9SezkC+GcM+NkWNL1RH3m+jhei1cGQjf+lM=;
+        b=wEJl45gc2y/uOQljIAbl/Bv85O0fAWrwrK2aklF7A4p1YnL5QAjYJFfneB3z78mAMQ
+         8M9MXuYdgzZ1PFucna+nKcVxQ/8MDXijf/gSckBRry5s1MaGktYUE7zABoA6SFsdBc0Q
+         vs/MnFwdFpglPbieOMZpPLCMZnodsUPOelmCKZkmbK/zNUaXUvTarx0OBxwQ8jqA0QEh
+         PbJQupJjK21JjC9zT6XkFRiw0gs4UIg+hwX3JsUN259z5A1PmSZpPZ/zH1VO3gufH0OH
+         ovQx8DSvjK5oW8z2BRawBcvRI5PfcB2c+YIt5B++gmD2Rm6+GQ+9Cah3tJtCwnV48Jvc
+         hMbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795008435; x=1795613235;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kqJV0Ber9SezkC+GcM+NkWNL1RH3m+jhei1cGQjf+lM=;
+        b=tZFD7veuvgoTHh/psnHly3kaCgt+V8Ql2uoqP3qLgEbqsYlqezewH+GoMwypEIDrUP
+         FNtQbfWLOZOQ40TBbDVsemTyZ1WNU7CZEN788/o+ktCKMsNWLe38WDW3i1CHR5dzgmrB
+         OviMDccGerRLEsZp4BBDrmFEezQ3SizO5oM+Y2dnNOeogzQisKzkHF2jwG+76pJEewAl
+         F0j3fme+0hOtffzrWQrSJNJw9DpUZ4l2DnultSmoVilKYff62t8hZU69yHx8wSjg2WkX
+         CtQjdI7wszTN88W/6wt9G8MZeSxHFq4AqAIzgixiWeWr3DisbEpD3YVvRY117gtiADnJ
+         ++tw==
+X-Forwarded-Encrypted: i=1; AL+hErFfmtQZYwoeFWdUUOa61oWUdQM+BCOIIkREC5P7PutalepN6Q+NenB6Un70sf41Mve+nZTVcok=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/MGWwqtgNNo6diyz2oB71dTOYTdNA2KZAvVfgLmtu7UqBe3GVl
+	PoOWgmR4au1WszTdgv6Ukj/3vIumcE9uJl4ZipShpxZ7C6m6NvPK/3wP
+X-Gm-Gg: AZFdTZc7vDE9erweYUAx/pOEX5XMtuwO0t1VTxjwjrvBAbnJpwrYOM73xmf4m/GTD3r
+	AFHKGL0xPMdracr61o8qVURlMNp9toxrx9lHv2yqv6MRv3BA2LS13/UfmEOeFq9hv4KZvQTEi4O
+	MXY7wdPcq0uvbbdEXrnv6wKQDbReKcJEkzysBz6sn8v+JmNVgtEtZBKcI18fSMIqUVzSUC7X243
+	qaAQIARPKtKVNUMUvXV2cegD8Kp43sdyH7IUHYnV5hFks5HhXXI4kHAC9SMnWJJodnXWMvpxsgZ
+	lUPn2Fw+xXti/WSJVYa/Rw5EZqsMPs+ZjnGHsbH5QW/qEq+jNwOOMcivQU7vFVeJFvM5hNo7EQ5
+	Ey8JS5WLbJZ8pRKkjT80vNi47To4OwlRecaqkAXoYdb5P+G8T8u0YRmzbYaJ+aFZqYORGGgn4yI
+	ZZMLEQdaMBtImOhPtMY8Ez5V5yy78zICQtNDJW9OC9i2jyYWYKdN5lsHZu601CznS2grq8Uy6uo
+	5OmFnZ1xiHw20TtR75+8B/MZMY/6ej1fd84SMmmasFJozSjJyKVGliaQ2lJyaWJfMnI7F1xUA2T
+	wQJsfZ+lKHLu7zByyoIhI7CRYEqy4ad5RlIahf/y2mIGXTdnwq4rrj7mInFqwr0XPCAP+F02HZk
+	zg/pL
+X-Received: by 2002:a05:6000:3cf:b0:4a6:5a2a:f5a3 with SMTP id ffacd0b85a97d-4a65a3a384dmr5519121f8f.3.1795008435029;
+        Wed, 18 Nov 2026 05:27:15 -0800 (PST)
+Received: from SurHub.localdomain ([196.188.113.38])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a650d2ecd0sm5392727f8f.8.2026.11.18.05.27.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 05:27:14 -0800 (PST)
+From: Abdifatah Suruur <suruurism@gmail.com>
+To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: ntfs3@lists.linux.dev,
+	stable@vger.kernel.org,
+	Abdifatah Suruur <suruurism@gmail.com>
+Subject: [PATCH] ntfs3: clear VMA_MAYWRITE on read-only compressed-file mmap
+Date: Wed, 18 Nov 2026 16:27:10 +0300
+Message-ID: <20261118132710.29751-1-suruurism@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261110-writeback_stall_report-v2-0-9e0ed75074ca@debian.org>
-References: <20261110-writeback_stall_report-v2-0-9e0ed75074ca@debian.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,46 +96,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1641; i=brauner@kernel.org; h=from:subject:message-id; bh=17BmXY+svo1KKAU3k/ez0FW6KIlSlOJjiwLKTuSYAHE=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWT9XdZ/5kOhJceeRM/vHyZofy/xnxT4zdrUsSbiyamTA sbRT85N6ChlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZjI74UM/z3e+ShL79f9uLr3 jg/fksyjM6fc89T1ub/9mXZq3aXuc4GMDA1OrMk/izVsRdd9amKoZV95hK0/V3jVt8rFS0XKtr+ 6yQ8A
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
 
-On Tue, 10 Nov 2026 03:39:26 -0800, Breno Leitao wrote:
-> Since v6.19, writeback waiters are woken while their writeback makes
-> progress, so a slow sync no longer trips the hung task detector.
-> Instead, a waiter past hung_task_timeout_secs logs:
-> 
->   INFO: The task sync:180 has been waiting for writeback completion for more than 28 seconds.
-> 
-> Across the Meta fleet, this line is logged about 19,000 times a day
-> (the median over 40 days), and up to 82,000 times on a busy day.
-> 
-> [...]
+ntfs_file_mmap_prepare() rejects a writable mmap of compressed files,
+but leaves VMA_MAYWRITE set in the VMA description. Userspace can map
+such a file read-only and then upgrade the mapping with mprotect(),
+writing page-cache pages of a compressed file even though the filesystem
+explicitly does not support writable mmap for them.
 
-I took 1-3 as they're fairly separate fixes. Please rework 4 as agreed on the
-thread and send it.
+Clear VMA_MAYWRITE on that path, so the restriction cannot be bypassed
+after mmap().
+
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
 
 ---
-
-Applied to the vfs-7.5.writeback branch of the vfs/vfs.git tree.
-Patches in the vfs-7.5.writeback branch should appear in linux-next soon.
-
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.5.writeback
-
-[1/4] writeback: add the missing newline to the slow writeback report
-      https://git.kernel.org/vfs/vfs/c/82da6ca38c26
-[2/4] writeback: name the bdi in the slow writeback report
-      https://git.kernel.org/vfs/vfs/c/8dd5775aab52
-[3/4] writeback: log the end of a slow writeback wait
-      https://git.kernel.org/vfs/vfs/c/26286f60c266
+diff --git a/fs/ntfs3/file.c b/fs/ntfs3/file.c
+index 1624f9b014e09..a817452ac73fa 100644
+--- a/fs/ntfs3/file.c
++++ b/fs/ntfs3/file.c
+@@ -415,6 +415,8 @@ static int ntfs_file_mmap_prepare(struct vm_area_desc *desc)
+ 		}
+ 		/* Turn off readahead for compressed files. */
+ 		file->f_ra.ra_pages = 0;
++		/* Do not allow mprotect() to make this mapping writable. */
++		vma_desc_clear_flags(desc, VMA_MAYWRITE_BIT);
+ 	}
+ 
+ 	if (rw) {
