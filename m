@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795040361;
-	b=oEHXwdX9aizVO39++jjDeXBNc9Mr7UycIBXn/bYPXJNIWxl/oB+Luz+Qvl1XX7hGC9tv
-	 N3CpTo6I6TpzKPXbh0rCsx/MddSWXV0kyoylYvoKzUFtfKKNJGTA2eDaJdMZ+M6uaI95M
-	 1t4chzwYbCKQ6jNnYl6pMLaSZaelF4cgogy0hMJhCEno2UoyPBuy0Bzpp/hx1CpPRn3rg
-	 gmRvAHMTgtEI6sbQ3lROd2vsmd4id2pWiciChZV62cZFs4Sq9xbf6R4yzdSpnwP1XpTzS
-	 BamiqiJhrCHyvUKAstjrQrCDNLO0i7BLibE8pvkZTxxxQa7hJsdZc74fwI4rvwuXVEg==
+	t=1795040362;
+	b=UcqCmkiGKcTDjIalgyvv/avtjW0bBaC7IbgNbn3gqGEy5VjYZg4xJ1xihssci6Tojjfw
+	 PjmmdXfV+jgLBmXQc6XvAaHHGfFepG13TEYrwzkDDCZwlGwzIQLitAt5Zu0vkRS8z3LAE
+	 3WvOqZLS54uZaR5eD/tFOFKkn56N3FvGdOFlthb40BxZHPb6EdrX9X8U1eJZufML13P54
+	 vT8SrdIAPJ2Qxu23w8mX/6dgrfcEPw6haJzPdivFclx27bAdHhGDzOmSSQYRmh5jshud4
+	 Ocft6nP/NrmxeGpm+aOfAEtpznnJ+GVKCwV99Xirzv8mcVgNnZnsj07XABnzO3MjuwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795040361;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795040362;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=/wF5nfxmVRaAwWIreRYmQzkdmrPMsVSsymJcGTGwnHg=;
-	b=bES4Y+IcI1SJZyaCEcZU3eK+j/ZhoLFEZu+IjKLTej5Zim/xE5jFPNviFGHtsnhVyz+Z
-	 nRJP1WGuGOKeicxvdOl6AugLlNDF3zd+2NR9oTaV089xWobicNA2WPqNkXFq89I6qGp+Q
-	 idDLm6Xh5d/X4d0Y14SWYC2xqCOVaSKDnlM/jI9eMbgbTfQKvVM77/q4f288Takmtp303
-	 FYTqm5rtld9odmC6gwA+66oVV/xBsziQg3v3C2WGkUUFftHsd/EreKkFqnCFmrk1CY1J7
-	 EExKqb6+/XoBP9W/EviLCCBMyUebEbZLEgjZtXpJmx7j/fo8wy6FHmtN44gEqxX1TmA==
+	bh=3B+8++5tpV3zDQLhadaZstF3q/rpXHwLZuqY72uKG7g=;
+	b=sNLBehbN1Yhs9qXR1tecuST/73NHxJ3dYZiVaMudIwOJinPjDuwyner2MDONiShdG3zx
+	 uC9Yym+bBYy0E+FhInqIKz2qazofOFBZx+YIM0Pwd2MRg+VzyhoIFkyZaGBgZSrzk/KUM
+	 7k82RxYITH8ZJ0FTixKqoNpSdpzPig2Y45ZfXjs+ixMOYkJdCg8HwbBwrItuq57E+7Am8
+	 4fWC6fN2e1fKgb0j0V96phCUlF70EcErUslgdxp3ZnykRZoOwCRpNTSmgS5JxnjBE7MCH
+	 /8wIYz5cUKW8mCFX0qLVKCZB8rnFP1i39jO5wZZEXw51iBnK1n3ZGjkd05QkqBOpWOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UEg8Q1QJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eK8gRSZX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AC6D606A337;
-	Wed, 18 Nov 2026 22:19:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B135D60A2609;
+	Wed, 18 Nov 2026 22:19:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UEg8Q1QJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B99211F000C4;
-	Wed, 18 Nov 2026 22:19:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eK8gRSZX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F167B1F000C8;
+	Wed, 18 Nov 2026 22:19:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795040361;
-	bh=/wF5nfxmVRaAwWIreRYmQzkdmrPMsVSsymJcGTGwnHg=;
+	s=k20260515; t=1795040362;
+	bh=3B+8++5tpV3zDQLhadaZstF3q/rpXHwLZuqY72uKG7g=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UEg8Q1QJTVEORLibXsLjtFVC5GnCnKqEZtYdjlPVBuSsXNaG/G2uShFVIwFVVOrCV
-	 sCPp89DufJFfYbfp7PF2oqRcNc2NrbiabQUwD8abLo9482j1W2b4FD5JssCJuCyUxq
-	 Uy9bVFlM72nYPxBsbHRk3JHV+vtD6nXPGDwoA0toaZxllZTOHX29dBg9hM6nKbeqSN
-	 AQNnhvQlX0mKOWAKsVrauVzpD2PZufDiykOzrIP4XvKGZ4j5txGEQK984jKCkPjyJF
-	 kKCfP5ohWxmgBVJ/3HL+nU/DNF1UdPOQI8k65mnQH2M1++/5XQqCidX1uO7s+EgwZd
-	 JFMdYF5z3Xs3A==
-Subject: Re: [PATCH net 07/11] can: isotp: reject socket options while a
- transfer is active
+	b=eK8gRSZXgH6xcPpRcmVS6hygWlYjU7ahtHVUPO7lW7UnpVz6VoKtGughcg6naqa1u
+	 nIIXhik55oyQK3sbC8rSC1Hy6XRNr90cl9Sd64DAyjkU975vFZqqQ911gTOoSbcjIe
+	 h0WY0FP3SSff/KYLq/70iu2oNrxFFyuXvI4729zhsXEqQGfmmQHmn0qp7pDynxFB6G
+	 dLwd8gOMKIWVfFIzqdUimmVg93VebmSLlwF/vs2KxxtLq8W1zcIrXshRIr5L1j31br
+	 q14Hc+NMjU31Vv1RzVqiLf0zjB+dITglaKHBdg9m2IEDjXhlguI8hxjAos1VF8jC5x
+	 1wtj5KBOCtuyQ==
+Subject:
+ Re: [PATCH net 08/11] can: netlink: fix static FD-NON-ISO mode validation
 From: netdev-bot+sashiko@kernel.org
 To: mkl@pengutronix.de
 Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
  linux-can@vger.kernel.org, kernel@pengutronix.de, zhuling0805@qq.com,
  stable@vger.kernel.org, socketcan@hartkopp.net, mailhol@kernel.org,
  o.rempel@pengutronix.de
-Date: Wed, 18 Nov 2026 22:19:20 +0000
-Message-ID: <179504036031.3136.7813193141510099541@kernel.org>
-In-Reply-To: <20261117220818.1142581-8-mkl@pengutronix.de>
-References: <20261117220818.1142581-8-mkl@pengutronix.de>
-X-sashiko-severity: High
+Date: Wed, 18 Nov 2026 22:19:21 +0000
+Message-ID: <179504036152.3136.12444797036692057668@kernel.org>
+In-Reply-To: <20261117220818.1142581-9-mkl@pengutronix.de>
+References: <20261117220818.1142581-9-mkl@pengutronix.de>
+X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
@@ -65,176 +65,87 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
+Low priority / nit picks for your consideration:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The new -EAGAIN check in isotp_setsockopt_locked()
-  (net/can/isotp.c:1732-1734) assumes, as the commit message says, that…
-- [Medium] isotp_sendmsg() reads so->opt.flags into 'ae'
-  (CAN_ISOTP_EXTEND_ADDR) and 'wait_tx_done' (CAN_ISOTP_WAIT_TX_DONE) at…
+- [Low] The patch fixes a second, older bug but tags only the newer one.
 
 --
 
-can: isotp: reject socket options while a transfer is active
+can: netlink: fix static FD-NON-ISO mode validation
 
-This commit adds a check to isotp_setsockopt_locked() that returns -EAGAIN
-while so->tx.state or so->rx.state is not ISOTP_IDLE. This matches the check
-already done in isotp_bind(). The goal is to stop a concurrent setsockopt()
-from changing so->opt, so->ll and so->tx.ll_dl while isotp_sendmsg() is
-still building frames after the device was unregistered.
+This patch moves the "fd is disabled" exception for the static FD-NON-ISO
+mode in can_ctrlmode_changelink() from ctrlstatic to ctrlstatic_missing.
+That stops requests such as 'fd off' or 'loopback on' from being rejected
+on controllers with a static FD-NON-ISO mode. It also adds a check that
+rejects any request which explicitly switches off a static control mode.
 
-Link: https://patch.msgid.link/20261117-can-bcmlock-memcg-v6-7-6826a6227d36@hartkopp.net
+Link: https://lore.kernel.org/all/tencent_3A964832542399A780E646D6A6246335C409@qq.com/
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261115095746.709371-1-mkl%40pengutronix.de
+Link: https://patch.msgid.link/20261117-can-bcmlock-memcg-v6-8-6826a6227d36@hartkopp.net
 
-> diff --git a/net/can/isotp.c b/net/can/isotp.c
-> index 0293d590186c4..32c88749d75e7 100644
-> --- a/net/can/isotp.c
-> +++ b/net/can/isotp.c
-> @@ -1725,6 +1725,14 @@ static int isotp_setsockopt_locked(struct socket *sock, int optname,
->  	if (so->bound)
->  		return -EISCONN;
+> diff --git a/drivers/net/can/dev/netlink.c b/drivers/net/can/dev/netlink.c
+> index 081dfddda0008..521e2496e2cc3 100644
+> --- a/drivers/net/can/dev/netlink.c
+> +++ b/drivers/net/can/dev/netlink.c
+> @@ -330,9 +330,17 @@ static int can_ctrlmode_changelink(struct net_device *dev,
+>  		return -EOPNOTSUPP;
+>  	}
 >  
-> +	/* A transmission or reception that outlived a previous binding
-> +	 * (unbound by NETDEV_UNREGISTER) may still be draining and uses the
-> +	 * socket options, see isotp_bind().
-> +	 */
-> +	if (READ_ONCE(so->tx.state) != ISOTP_IDLE ||
-> +	    READ_ONCE(so->rx.state) != ISOTP_IDLE)
-> +		return -EAGAIN;
+> +	/* static control modes can not be switched off */
+> +	if (deactivated & ctrlstatic) {
+> +		NL_SET_ERR_MSG_FMT(extack,
+> +				   "static control mode %s can not be switched off",
+> +				   can_get_ctrlmode_str(deactivated & ctrlstatic));
+> +		return -EOPNOTSUPP;
+> +	}
 
-[Severity: High]
+[Severity: Low]
+Should this patch also carry a Fixes: tag for commit c9e1d8ed304c ("can:
+dev: replace can_priv::ctrlmode_static by can_get_static_ctrlmode()")?
 
-The commit message says:
+The commit message says this check closes a bug that existed before
+6742ca18cb41:
 
-  "As the transmission and the reception always end by their timeouts at
-  the latest, this state is only temporary."
+  "before the above mentioned commit a request like 'fd-non-iso off'
+  passed the check and removed the static CAN_CTRLMODE_FD_NON_ISO bit
+  from priv->ctrlmode. As can_get_static_ctrlmode() derives the static
+  modes from priv->ctrlmode, this information was lost permanently."
 
-Is this true for the rx side?
+The permanent loss comes from can_get_static_ctrlmode() in
+include/linux/can/dev.h, which was added by c9e1d8ed304c (v5.17):
 
-In isotp_rcv_cf(), the rx watchdog is cancelled before the length checks.
-Two of the early exits that follow return without resetting so->rx.state
-and without re-arming so->rxtimer:
+    return priv->ctrlmode & ~priv->ctrlmode_supported;
 
-net/can/isotp.c:isotp_rcv_cf() {
-    ...
-	hrtimer_cancel(&so->rxtimer);
-    ...
-	/* CFs are never longer than the FF */
-	if (cf->len > so->rx.ll_dl)
-		return 1;
+Before c9e1d8ed304c, priv->ctrlmode_static was a separate field, so this
+path could not clear it.
 
-	/* CFs have usually the LL_DL length */
-	if (cf->len < so->rx.ll_dl) {
-		/* this is only allowed for the last CF */
-		if (so->rx.len - so->rx.idx > so->rx.ll_dl - ae - N_PCI_SZ)
-			return 1;
-	}
-    ...
-}
+In trees that have c9e1d8ed304c but not 6742ca18cb41, take M_CAN v3.0.x or
+v3.1.x, or pcan_usb_fd with firmware < 2.x. A request with
+mask=FD_NON_ISO, flags=0 and FD not switched on passes the check. Then
+'priv->ctrlmode &= ~cm->mask' clears the static bit. A later 'fd on' is
+accepted and reported as ISO mode, while the hardware stays non-ISO.
 
-This leaves the socket in ISOTP_WAIT_DATA with no timer armed, so
-isotp_rx_timer_handler() never runs to set it back to ISOTP_IDLE. While
-the socket is bound, the next SF or FF fixes the state through
-isotp_rcv_sf() or isotp_rcv_ff().
+The only tag is:
 
-On NETDEV_UNREGISTER, isotp_notify() unregisters the isotp_rcv filter and
-clears so->bound, but it does not touch so->rx.state:
+    Fixes: 6742ca18cb41 ("can: netlink: add userland error messages")
 
-	so->ifindex = 0;
-	WRITE_ONCE(so->bound, 0);
-	WRITE_ONCE(so->dev, NULL);
+With only that tag, will the stable tooling skip this fix for LTS trees
+such as 6.1, 6.6 and 6.12? Those trees also lack ctrlstatic_missing, so
+the patch would not apply there as is.
 
-After that, only isotp_release() can bring rx.state back to IDLE.
+Would a second Fixes: c9e1d8ed304c tag help here? Or a note that older
+trees need a separate backport?
 
-One possible sequence:
+>  	/* do not check for static fd-non-iso if 'fd' is disabled */
+>  	if (!(maskedflags & CAN_CTRLMODE_FD))
+> -		ctrlstatic &= ~CAN_CTRLMODE_FD_NON_ISO;
+> +		ctrlstatic_missing &= ~CAN_CTRLMODE_FD_NON_ISO;
 
-  1) a node on the bus sends a valid FF; isotp_rcv_ff() sets WAIT_DATA
-     and arms rxtimer
-  2) the same sender sends a malformed CF (classic CAN: a 3 byte CF
-     while more than 7 bytes are still missing; CAN FD: an FF with len 8
-     followed by a 12 byte CF)
-  3) isotp_rcv_cf() cancels rxtimer and returns early, still in WAIT_DATA
-  4) the CAN device is unregistered (USB unplug, vcan/vxcan deletion,
-     netns teardown)
-
-Would every later setsockopt() on this socket then return -EAGAIN until
-the socket is closed?
-
-The matching check in isotp_bind() would also keep returning -EAGAIN. The
-socket could then be neither reconfigured nor rebound.
-
-An earlier commit in this series, "can: isotp: always start the rx timeout
-in ISOTP_WAIT_DATA state", seems meant to close this class of stuck
-states. It only adds hrtimer_start() on the success paths of
-isotp_rcv_ff() and isotp_rcv_cf(), and these two early exits are not
-covered.
-
-The isotp_bind() comment that this check points to makes the same
-assumption:
-
-	 * (unbound by NETDEV_UNREGISTER) may still be draining; the FC/echo
-	 * and RX watchdog timers bound how long this takes. Checked together
-
-Could these exits re-arm rxtimer or reset rx.state to ISOTP_IDLE? Another
-option would be for isotp_notify() to cancel rxtimer and reset rx.state on
-NETDEV_UNREGISTER.
-
-[Severity: Medium]
-
-Does this check fully cover isotp_sendmsg()? The locals derived from the
-options are computed at function entry, before so->tx.state is claimed:
-
-net/can/isotp.c:isotp_sendmsg() {
-    ...
-	int ae = (so->opt.flags & CAN_ISOTP_EXTEND_ADDR) ? 1 : 0;
-	int wait_tx_done = (so->opt.flags & CAN_ISOTP_WAIT_TX_DONE) ? 1 : 0;
-    ...
-	/* so->bound is only checked once above - a wakeup may have
-	 * unbound/rebound the socket meanwhile => recheck
-	 */
-	if (!READ_ONCE(so->bound)) {
-    ...
-}
-
-The new check only rejects setsockopt() once tx.state != ISOTP_IDLE, so
-the window between function entry and the claim is not covered.
-
-Here is how that could play out. isotp_sendmsg() is waiting in the claim
-loop (or is preempted) when the device is unregistered. Then
-setsockopt(CAN_ISOTP_OPTS) toggles CAN_ISOTP_EXTEND_ADDR or
-CAN_ISOTP_WAIT_TX_DONE, and bind() succeeds. In that case the bound
-recheck above passes.
-
-The SF/FF size checks, isotp_fill_dataframe() and isotp_create_fframe()
-would then use the stale ae with the new so->tx.ll_dl and
-so->opt.ext_address. Meanwhile isotp_send_cframe() recomputes ae from the
-new flags:
-
-	int ae = (so->opt.flags & CAN_ISOTP_EXTEND_ADDR) ? 1 : 0;
-
-Could the FF and its CFs then use different extended addressing layouts
-within one PDU? And would the WAIT_TX_DONE blocking for that sendmsg()
-call still follow the old options?
-
-This does not look like an out-of-bounds access. The indices stay bounded
-by so->tx.ll_dl, and the skb is sized from so->ll.mtu, which is read after
-the claim. It does not quite match the commit message's statement that
-"the socket options can only be changed when no transfer is active".
-
-Would moving the ae and wait_tx_done computation after the claim, next to
-the bound recheck, close this window?
-
-> +
->  	switch (optname) {
->  	case CAN_ISOTP_OPTS:
->  		memcpy(&so->opt, val, sizeof(so->opt));
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261117220818.1142581-2-mkl%40pengutronix.de
