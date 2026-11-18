@@ -1,47 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795025241;
-	b=HSqwrn0FwuR/I+SjO20IrqHofndOk9WTz1KLP6ypOSDfAJL4exwOVM2u5fW/GY32pxJ3
-	 pE9T7YQqAsWMYHjh6dra4DMnNPILf65PXpYREEAVuUhEeHS/DmuRe3rY8ElcVNcyBNy2c
-	 57TsTZ2moPe1nRLeBCqmlUoK9AyTamnsxF7tZ0HU9lheAUwujsJaB9sNwtEdGtYesRbqu
-	 C8RlbAJ7gvB/RgVrJZcB5JFuaWQwQxADkzDxEVYhFnTaUXdtMCVCQz9KraRw0mVOUAq6U
-	 0JbuQBasMFNc5c1YqO/Io6T1BxWdixSrUub7/Q14okkuiZ1pxgv37p+jia8sdPfbk9A==
+	t=1795025243;
+	b=1ZkEBazeho1aswgQ9nCjSBBeXvMVsXe0BaJMDaVbFeqOyCoafS7NkA02OKyJEtlS+Qzr
+	 bo0xVpe4wF9+j6yARBtazdRGnlNa8ebokzDHuz+sXh5i986BwKI99FGr6Kvgc7Brp1L5H
+	 jtz1gZnp38eo2bg4G0W1GZKXtFGUQAp+6S14v18DTbSkZIZNUyCMza6ko224eoANRE8t+
+	 8EfGOwpe1xAF6wqh4URY5p6hWmr0XPPkeLIJLAdr5VHauEqX5NdXkuIHZ+uKgHnC3Evkk
+	 PwuIkQDqHPLudPp85nr3b49nSooMB+8nsTYCQh8zWk5ARDGmclgQ4MB4S2XJhX79L2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795025241;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=rdP4j48GuYSkO8qcbBXJ0PPkPdIKR3XKwi2O9Q5hJw8=;
-	b=5ZTwB4b8FpgZ9Fym4s+UE6pN83b33Mc75gFwCSx+mQbgSELncECntrYDwf81KVRNXVvh
-	 OLG+c2A88QkTv254gBQDBU8bjaaU17TPF2g+WptCJ28xahcHMJE2Q+0w80Xi8lJELB3mW
-	 8uQACFKqPf4SH7qt+h8A4lKcGEdIDmmaugXp2w59I1DVYCmnrCscBhHQEGozcLBpS88Qj
-	 6enfttsXmHS4A5vXyejbYaPYWupsImYTKYvfo30I7HyCAYo+LmE6nXxmp7L9wJQd05JHf
-	 z1LKlP9/S5XMoDTnPT14exsJ1dHV/5nIbmEBpbqRYBvPCJh9F88drQZ4xzlqYXUZzkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795025243;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UU2h46aq/+8gYnYXQT7DzP/eBm89EybaVGXntn5yfIA=;
+	b=xwsTwzsnHVKB6HHMrn8bt236JD/b5+XzBVeIETQjOkKvQRmQWpRh5CksJ+65FRAL0ACY
+	 A+0N/mjCp7yXIO2vBcVQ0nwraYBw8O6AU/kZ9V1FZ1+J0jOogYg+4uC7u7Jmcwz0Fzq0c
+	 gTcZlq1bT8d9dRcL1qjksWDd/hOMjT7nlR7nsVQ0j3jK67Oc9K9tuVMNz0QRPEzSwYzr4
+	 xlNH6kNheanIO/sWGptQ7MAhxBdqplJ+vqc9jewNrwne9C58puuudhuUq8YJJa5KdJO+I
+	 bhVFu+zMEiIAohuS48UxC2MB/IqK7/luj4JzL/+FUSDqmjRO4oEhfL0V/TX9iwcZ9wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jHP7W8wG;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bvtdjB65;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28259606A330;
-	Wed, 18 Nov 2026 18:07:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092D9606A325;
+	Wed, 18 Nov 2026 18:07:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=jHP7W8wG
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B591D1F000C6;
-	Wed, 18 Nov 2026 18:07:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795025240;
-	bh=rdP4j48GuYSkO8qcbBXJ0PPkPdIKR3XKwi2O9Q5hJw8=;
-	h=Date:To:From:Subject;
-	b=jHP7W8wGETKB2F7IBnFAWJDErCJAb5sANISNmuoyUMxHl7d1f7OcK2a+mgD27oyxW
-	 tfo0xYKTRiw47vQNf49VugM3kQmccuGoORafriXbEd3f7cX97aDT7Z2UHeF00vTM/J
-	 QVIz6UU//6qcyK6rT7cuBig5KtBq7EhxXAsC4vQo=
-Date: Wed, 18 Nov 2026 10:07:20 -0800
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,neil@brown.name,
-	maarseveent@gmail.com,jlayton@kernel.org,jack@suse.cz,brauner@kernel.org,
-	jain.sm@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged] errseq-dont-let-errseq_check_and_advance-hide-later-errors.patch removed from -mm tree
-Message-Id: <20261118180720.B591D1F000C6@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=bvtdjB65
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29D441F000C7;
+	Wed, 18 Nov 2026 18:07:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795025242;
+	bh=UU2h46aq/+8gYnYXQT7DzP/eBm89EybaVGXntn5yfIA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bvtdjB65x8id0/drT13PNdMAwJf+foYm0pco4NRc+K3bniDdtf1ElvR117g8Awrax
+	 MIEhAArFPhpqcQfxCBJWKQ35XgTY9n1X9APmvz02D/yq/Mupp3Etr/onkYh0makCip
+	 6F4soLDi0UzvrEx3pfQKthcAjQUDxKpkszRFutms=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 1009/2151] scsi: scsi_debug: Take the zone metadata lock before the data lock
+Date: Wed, 18 Nov 2026 15:45:44 +0100
+Message-ID: <20261118150159.190760600@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
+References: <20261118150121.603863898@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -50,190 +62,69 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-The quilt patch titled
-     Subject: errseq: don't let errseq_check_and_advance() hide later errors
-has been removed from the -mm tree.  Its filename was
-     errseq-dont-let-errseq_check_and_advance-hide-later-errors.patch
+------------------
 
-This patch was dropped because it was merged into mainline or a subsystem tree
+From: Niklas Cassel <cassel@kernel.org>
 
-------------------------------------------------------
-From: Shashank Mohan Jain <jain.sm@gmail.com>
-Subject: errseq: don't let errseq_check_and_advance() hide later errors
-Date: Sun, 27 Sep 2026 10:47:25 +0530
+[ Upstream commit c9aedbcbff0fe31fabdea09600609eb30e05441d ]
 
-Patch series "errseq: fix lost writeback errors in
-errseq_check_and_advance()".
+resp_comp_write() takes the data lock and then the zone metadata lock,
+while every other command that takes both takes the metadata lock first and
+reaches the data lock through do_device_access(). A COMPARE AND WRITE and
+any other write to the same store can therefore deadlock each other.
 
-errseq_check_and_advance() advances the caller's cursor to the value it
-tried to store even when its cmpxchg() failed.  If errseq_set() stored a
-different errno in the meantime, the cursor holds a value that was never
-in the errseq_t.  errseq_set() does not bump the counter while the current
-error is unseen, so recording the first errno again recreates exactly that
-value, and once another subscriber has marked it seen, the cursor's next
-check returns 0.  For fsync() (file->f_wb_err) and syncfs() (sb->s_wb_err)
-this means that a writeback error recorded after the previous call
-returned is not reported.  The race is rare: it needs two different
-errnos, an error recorded while the check runs, and a second subscriber
-consuming the value.  There is no user report; it was found with a model
-checker.
+Take the locks in the same order as everywhere else.
 
-Patch 1 retries with the value found when the cmpxchg() fails, so the
-cursor is only ever advanced to a value that was stored with ERRSEQ_SEEN
-set.  Patch 2 adds a KUnit case that races errseq_set() against
-errseq_check_and_advance() on two CPUs.
+Correct the comment above map_region() while here: the provisioning map is
+covered by the metadata lock rather than the data lock, which is why
+resp_unmap() takes only the metadata lock.
 
-Two behaviour changes are visible to callers, both intended.  When a
-writer wins the race, the call now returns the newer errno (still "the
-latest error", as documented).  And when two threads race on the same
-unserialised cursor (syncfs() does not lock f_sb_err), the loser may now
-return 0 where both used to return the error, so each open file
-description gets one report.
+Assisted-by: LLM
+Fixes: 84f3a3c01d70 ("scsi: scsi_debug: Atomic write support")
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Link: https://patch.msgid.link/20260929082456.857423-19-cassel@kernel.org
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/scsi/scsi_debug.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Dependencies: patch 1 applies to mainline (fd179f8a05be) on its own and
-carries Cc: stable.  Patch 2 extends the errseq KUnit suite from commit
-b52f5c1605f2 ("lib/tests: add KUnit tests for errseq"), which is only in
-mm-nonmm-unstable, so the series is based on mm-nonmm-unstable
-(e8d6475e77a7).  Patch 1 could go through mm-hotfixes and patch 2 through
-mm-nonmm-unstable.
-
-The bug was found with a TLA+ model of lib/errseq.c checked with TLC.
-The patches were prepared with Claude Code (Anthropic), model Claude
-Opus 5.5 (claude-opus-5-5).  Testing is described at the Link:.
-
-
-This patch (of 2):
-
-errseq_check_and_advance() reads the errseq_t, sets ERRSEQ_SEEN with a
-cmpxchg() and then advances *since to the value it computed, ignoring
-whether the cmpxchg() succeeded. When it fails because errseq_set()
-recorded a different error in the meantime, *since ends up holding a
-value that was never stored in the errseq_t.
-
-errseq_set() only bumps the counter when ERRSEQ_SEEN is set. So as long
-as nobody has seen the new error, recording the original errno again
-recreates exactly the old value, and once another subscriber marks it
-seen, it is equal to the stale *since. The next check through that
-cursor then reports nothing, although -ENOSPC was recorded after the
-value that check reported, and -EIO was recorded again after it
-returned:
-
-  cursor f                writeback              cursor g
-  --------                ---------              --------
-                          set(-EIO)
-  check_and_advance(&f)
-    old = [c, EIO]
-                          set(-ENOSPC)
-                          -> [c, ENOSPC]
-    cmpxchg() fails
-    f = [c, EIO, SEEN]
-    returns -EIO
-                          set(-EIO)
-                          -> [c, EIO]
-                          (no bump: unseen)
-                                                 check_and_advance(&g)
-                                                 -> [c, EIO, SEEN]
-                                                 returns -EIO
-  check_and_advance(&f)
-    [c, EIO, SEEN] == f
-    returns 0             <- -ENOSPC and the second -EIO are lost
-
-For file->f_wb_err this means that fsync() on one descriptor can return 0
-although writeback failed after the previous fsync() on that descriptor
-returned, when writeback errors race with fsync() on another descriptor of
-the same file.  The same applies to syncfs() through sb->s_wb_err, which
-every file on the filesystem shares, and to the ext4 and jbd2 cursors on
-the block device mapping.  The kernel-doc promises "Negative errno if one
-has been stored, or 0 if no new error has occurred".
-
-Retry with the value found when the cmpxchg() fails, so that *since is
-only ever advanced to a value that was actually stored with ERRSEQ_SEEN
-set.  Every later errseq_set() then has to bump the counter, and the error
-is reported.  The retry loop terminates because each iteration needs a
-concurrent update, like the loop in errseq_set().
-
-A TLA+ model of errseq_set() and errseq_check_and_advance(), checked with
-the TLC model checker, finds the lost error with the current code; with
-this change TLC checks that an error recorded after a check returned is
-always reported by the next check (exhaustively for two subscribers with
-three checks each, and one writer recording four errors or two writers
-recording two each).  The KUnit race test added in the next patch misses
-the error in 1-6% of 2 million rounds on 4-CPU UML before this change
-(depending on host load), and in none after it.
-
-Link: https://lore.kernel.org/20260927051726.71337-1-jain.sm@gmail.com
-Link: https://lore.kernel.org/20260927051726.71337-2-jain.sm@gmail.com
-Fixes: 84cbadadc6ea ("lib: add errseq_t type and infrastructure for handling it")
-Signed-off-by: Shashank Mohan Jain <jain.sm@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Cc: NeilBrown <neil@brown.name>
-Cc: Thomas Maarseveen <maarseveent@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>
-Cc: <stable@vger.kernel.org>
-
- lib/errseq.c |   29 ++++++++++++++++++-----------
- 1 file changed, 18 insertions(+), 11 deletions(-)
-
---- a/lib/errseq.c~errseq-dont-let-errseq_check_and_advance-hide-later-errors
-+++ a/lib/errseq.c
-@@ -162,7 +162,8 @@ EXPORT_SYMBOL(errseq_check);
-  * points to. If it does, then just return 0.
-  *
-  * If it doesn't, then the value has changed. Set the "seen" flag, and try to
-- * swap it into place as the new eseq value. Then, set that value as the new
-+ * swap it into place as the new eseq value. If the swap fails because the
-+ * value changed, retry with the new value. Then, set that value as the new
-  * "since" value, and return whatever the error portion is set to.
-  *
-  * Note that no locking is provided here for concurrent updates to the "since"
-@@ -184,24 +185,30 @@ int errseq_check_and_advance(errseq_t *e
- 	 * to take the lock that protects the "since" value.
- 	 */
- 	old = READ_ONCE(*eseq);
--	if (old != *since) {
-+	while (old != *since) {
- 		/*
- 		 * Set the flag and try to swap it into place if it has
- 		 * changed.
- 		 *
--		 * We don't care about the outcome of the swap here. If the
--		 * swap doesn't occur, then it has either been updated by a
--		 * writer who is altering the value in some way (updating
--		 * counter or resetting the error), or another reader who is
--		 * just setting the "seen" flag. Either outcome is OK, and we
--		 * can advance "since" and return an error based on what we
--		 * have.
-+		 * If the swap fails, a writer or another reader changed the
-+		 * value under us, so retry with the new value.  "since" must
-+		 * only ever be set to a value that was stored with the SEEN
-+		 * flag: errseq_set() does not bump the counter while the
-+		 * flag is clear, so an unstored value could come back later
-+		 * and hide the errors that were recorded in the meantime.
- 		 */
- 		new = old | ERRSEQ_SEEN;
--		if (new != old)
--			cmpxchg(eseq, old, new);
-+		if (new != old) {
-+			errseq_t cur = cmpxchg(eseq, old, new);
-+
-+			if (cur != old) {
-+				old = cur;
-+				continue;
-+			}
-+		}
- 		*since = new;
- 		err = -(new & ERRNO_MASK);
-+		break;
+diff --git a/drivers/scsi/scsi_debug.c b/drivers/scsi/scsi_debug.c
+index 168babffc146d..60ed10fa1f7fd 100644
+--- a/drivers/scsi/scsi_debug.c
++++ b/drivers/scsi/scsi_debug.c
+@@ -5459,20 +5459,20 @@ static int resp_comp_write(struct scsi_cmnd *scp,
+ 			    "indicated=%u, IO sent=%d bytes\n", my_name,
+ 			    dnum * lb_size, ret);
+ 
+-	sdeb_data_write_lock(sip);
+ 	sdeb_meta_write_lock(sip);
++	sdeb_data_write_lock(sip);
+ 	if (!comp_write_worker(sip, lba, num, arr, false)) {
+ 		mk_sense_buffer(scp, MISCOMPARE, MISCOMPARE_VERIFY_ASC, 0);
+ 		retval = check_condition_result;
+ 		goto cleanup_unlock;
  	}
- 	return err;
- }
-_
+ 
+-	/* Cover sip->map_storep (which map_region()) sets with data lock */
++	/* Cover sip->map_storep (which map_region() sets) with the meta lock */
+ 	if (scsi_debug_lbp())
+ 		map_region(sip, lba, num);
+ cleanup_unlock:
+-	sdeb_meta_write_unlock(sip);
+ 	sdeb_data_write_unlock(sip);
++	sdeb_meta_write_unlock(sip);
+ cleanup_free:
+ 	kfree(arr);
+ 	return retval;
+-- 
+2.53.0
 
-Patches currently in -mm which might be from jain.sm@gmail.com are
 
-lib-tests-errseq-add-a-concurrent-check_and_advance-test.patch
 
