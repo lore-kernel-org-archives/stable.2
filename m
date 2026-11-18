@@ -1,60 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794986933;
-	b=RdIV0/sLMiAoj+bTFDz2UXvwK4480fzss7Sg9uHl4AjkIvMM7dqWN3nvqx8lyAb+LmHF
-	 dPNXtc84QrfBhD4nTPgfZaPECSpgRdw4w1LIq/eWy0DwDWDD95LoSkUwcs7zFHHFhTQx2
-	 KZKUO8PzHy/mh5dZ5Z5bTVhtG/z1wbTUEGxAhJUZMdbXe46VQqEt08x0vNMuvQKG8s0h5
-	 ymyJC95HpCbMIOanJ1alsFmRpSE46NpCrnby4YMe3vs8HpSKrL+cJY9wEc546AyhuLb0R
-	 D3HWaJTumAlC4QRjkDLPi+dDp4v8puUCLkmJvIqRHSTGFsriJG7YOon18+yG/oZDPsw==
+	t=1794986956;
+	b=VH9j8Rh6Hq7pGNfaiHASLR7QgdlQs0pNPzDuSr2YxVkS5kFTxlhonVvGcBDj359kR1+A
+	 Vf+aAozWnIm7KI9ywt5FtQW+fFBbWt9z3wCD9gIqcwc/yv+QiV+P02ukNdMCRQAMrM16s
+	 4bH0KkBmn+pb2XoqgrYtynCcQMRt7sgoccDyvXLChnzYAxaAw3jiIdwMzevyMIoZMx9xW
+	 /0FZeYdpfCcT1qCT38Sto2zzJYIsPULj91Ir4l57OU8S50xPcm972b0cBR17+3H5IuAGm
+	 vpe5ZWg+WqhwBjgy+OU+DPqrEIu61Sd20Uw9Lq6+7oRNQxyFSugbYWwDjQGLZd756dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794986933;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=vsqpXrvhFD7jKsDFlhV8QKdSwNCeLB3Iu8VGRA5Wd20=;
-	b=Q39VQ/AN7QrsXCYamX5HQoCbdF6yhVSZjky4KXmKwOX93syJU5K4vdfe0+vK8NXNfVbY
-	 5vp+D76Le56OQQ5RylGMaIR17KXk4mFHR27SQ3e49Yc1fow6rgcBI3tQ+ZPVWxpv0YN0a
-	 urdmKrKXIr0x5KdEo2rnRJ5zGMYLxd3LYYIoFir6aqm5pnu8G9q7rTmOXORkRPs9JjB2w
-	 SEiJv3k/1GAnpVpDmqzyLz1Owq9sqAbhW/+m0XvFbpABSOhzX6c6EuBcLdjFAc0BIkzYv
-	 dkpVcoNVBZ+1KLP8HaoUY1OIpfojXcQY3MZscxP9vwflVjrC5nne8WtwyDgyXcKWf5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794986956;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=FdJ71Vw//fMcipdbWiSKxx1q6kfXMoaJMvIEeY+EiAk=;
+	b=Xgdzgju0IFMeoPrllW8tGZ8cBITUEw3nnran8RNa7qHT2iXMylKFtFsabTFDMVILjN0x
+	 PT8QliJnBzlP/QFER1/CbI48LWiNO4HebdkaO3DOnCdMDtpYRMSV/nNudtIwMKW/SQwgL
+	 I9dbikua47T7j49I2/l4EERpuKbZZus24iDRXdubr+x/iZk/9qgBW1eZghoa1csXzGVCb
+	 YLa5qM2PvZF3bvQJ+ErVPv6JArAY/8zQvckqdrYEUErlvpZ9/FNFAvMZBEb74CdcOIb7H
+	 5dvQqFuERaZDcqVgri0Gjr3Vx6AXJG+fzeljI2zIZwEIqpRFWNX3YCGoW9fINn350lQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXrceJhF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=ideco.ru;
+	spf=pass smtp.mailfrom=ideco.ru;
+	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=VfXmx7W0;
+	arc=none smtp.remote-ip=51.250.56.165
+Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31B5606A31C;
-	Wed, 18 Nov 2026 07:28:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939DF606A31C;
+	Wed, 18 Nov 2026 07:29:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 939DF606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ideco.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iXrceJhF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A23BC1F000C4;
-	Wed, 18 Nov 2026 07:28:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794986933;
-	bh=vsqpXrvhFD7jKsDFlhV8QKdSwNCeLB3Iu8VGRA5Wd20=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iXrceJhFerACI6Ppd4V83Dg+h+bRoQAe0orBgaIV5N6gUPDgFioE0P24lCO9kPcSf
-	 ZNTU3zMyboNMS8DM25MvrYMyDBTZDksQenxIa4OEw907B5xTS/VN1KOVp3UsinqqsW
-	 IFVW6YuRC1BecqbwVb/WzlcGzBANewOKibF8fZhZTcKo+Jn+WhL+tgSACuxZ1gP1w9
-	 UUos1EZBM0TGU4U3+oTw2/xF8KFZyIwyDLrx5mRK1gIfOOsaxR2WtNgj6+vGQTRXen
-	 ZGV/dn6m2qK9MYdf5SgjiLekU/+iTmsjbLep2eT3OLvd44bteozKEAGc/4AxZtyLOP
-	 W+KN73HLlkaSA==
-Date: Wed, 18 Nov 2026 00:28:48 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: David Laight <david.laight.linux@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-tip-commits@vger.kernel.org,
-	"Borislav Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
- enabled when compile testing
-Message-ID: <20261118072848.GA325225@ax162>
-References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
- <avrPcQ4sOkgJPbkZ@gmail.com>
- <20261116130159.GA1327949@ax162>
- <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
- <20261116223628.5a6139a7@pumpkin>
+	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=VfXmx7W0
+Received: from [169.254.254.254] (localhost [127.0.0.1])
+	by smtp.ideco.ru (Postfix) with ESMTP id 8FACD26BC0;
+	Wed, 18 Nov 2026 12:29:06 +0500 (+05)
+Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.ideco.ru (Postfix) with ESMTPSA id 2CEDB26BC5;
+	Wed, 18 Nov 2026 12:29:04 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 2CEDB26BC5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
+	t=1794986945; bh=FdJ71Vw//fMcipdbWiSKxx1q6kfXMoaJMvIEeY+EiAk=;
+	h=From:To:Cc:Subject:Date;
+	b=VfXmx7W0sL3gKH6r0keBxbX5Y00Kt9kaoopxDQkcJcEygtoOsqu0UdluJxHqdoR+f
+	 Iz5d6T9YpXa38/vqlsjoZz6bo40HO62COV1XXhC55pNyPVXrfEEkek++DCmoq+fP+n
+	 jOFR+2/wp+YV2MeHtWmZ9NaWe8WoatVCDnN+yd3IyiJwMga+Ed1bXQypXuCNg3vapt
+	 scjNlWD0/+4r8cDyPS3JnjQ6JiRmLgnU0mYEoGf3ubJC2oWiMt9N2yeQgvZuO19ow8
+	 MDp57NvnWdvArTJc0QROy6wUPQdK8Tfk7MIHczm+XlKwxyNT1UAHxZaQEn63t9Q06Z
+	 pQ4HMXzlX45UQ==
+From: Alex Kazinsky <a.kazinsky@ideco.ru>
+To: Daniel Thompson <danielt@kernel.org>
+Cc: Alex Kazinsky <a.kazinsky@ideco.ru>,
+	Douglas Anderson <dianders@chromium.org>,
+	Naveen Kumar Chaudhary <naveen.osdev@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Tim Bird <tim.bird@sony.com>,
+	Martin Hicks <mort@sgi.com>,
+	kgdb-bugreport@lists.sourceforge.net,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] kdb: Reject non-positive BYTESPERWORD before division
+Date: Wed, 18 Nov 2026 11:28:52 +0400
+Message-ID: <20261118072853.1578323-1-a.kazinsky@ideco.ru>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,26 +77,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116223628.5a6139a7@pumpkin>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 10:36:28PM +0000, David Laight wrote:
-> I don't even remember a check that the compiler is right for the architecture.
-> I'm sure I've got strange errors when I've forgotten I need to specify the
-> compiler for a cross build - and then forgotten where I'd put the compiler,
+kdb_md() uses BYTESPERWORD as a divisor when calculating the initial
+repeat count, before validating the word width. A zero width causes a
+division by zero. kdbgetintenv() also casts an unsigned long to int,
+so the resulting width can be negative. If the width is -1 and the
+scaled count is INT_MIN, the quotient overflows and raises a divide
+error on x86.
 
-Yeah, I guess having some internal check that the correct compiler is
-being used could be useful/user friendly but given how fast things
-explode otherwise, I am not sure it is worth the additional complexity.
+Return KDB_BADWIDTH for non-positive widths before calculating the
+repeat count.
 
-> Oh and forgotten all the things you need to set to get clang to do a
-> cross compile.
+Found by Linux Verification Center (linuxtesting.org) with SVACE static
+analysis tool.
 
-  $ make ARCH=... LLVM=1
+Fixes: 5d5314d6795f ("kdb: core for kgdb back end (1 of 2)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+---
+v1: https://lore.kernel.org/all/20261113111152.4190309-1-a.kazinsky@ideco.ru/
 
-is generally all you need to do nowadays.
+Changes in v2:
+- Reject negative BYTESPERWORD values as well as zero.
+- Explain the signed division overflow in the commit message.
 
--- 
-Cheers,
-Nathan
+ kernel/debug/kdb/kdb_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/kernel/debug/kdb/kdb_main.c b/kernel/debug/kdb/kdb_main.c
+index 40c332d2179d..b1719382144b 100644
+--- a/kernel/debug/kdb/kdb_main.c
++++ b/kernel/debug/kdb/kdb_main.c
+@@ -1527,6 +1527,9 @@ static int kdb_md(int argc, const char **argv)
+ 	kdbgetintenv("RADIX", &radix);
+ 	kdbgetintenv("BYTESPERWORD", &bytesperword);
+ 
++	if (bytesperword <= 0)
++		return KDB_BADWIDTH;
++
+ 	/* Assume 'md <addr>' and start with environment values */
+ 	repeat = mdcount * 16 / bytesperword;
+ 
+
