@@ -1,64 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794988631;
-	b=YVTxgpGELbTcUE/DGmmjFdEoqGauN+U5E4rkPsz6hgO9PJ1hdhHu+CT9i2FQ5Fg0aipb
-	 nZgzXw1v40untErJAYGNXrq6RwMNNoALb/edZK1+8PqqdCFM457EAqZmFoCWR7pvirGO6
-	 3zuuP+sUZq1bg71ieXmi3+5UykGMoRM11j5D0OfVMm64gxs1Qm885nbet3YUC6JlTPvzA
-	 l6fwjZkJ1NY3/QFXfrOOHViL3H7M7aVXDb2MJD3R2SdLdbo1ed/K3zjUYTFiQignNpBMW
-	 x8glcoDb34cCDtYWXndl3UefAGUqKoDZozNCvGoVEm+qc20fwK982hGe5FjHg1pw7vQ==
+	t=1794988709;
+	b=dIZfquaPlwuzPQsnszi940wdA8ua0wmjs+men/RJLfw7rTIPqKqj1eBxs7xxbN8qmSwB
+	 CQCiRvcn06CMzQAc1HdOnDTIV+giHmkBC3lrOrHb52lhj1G+jD5wp0x2lOoOHX/UPb1hu
+	 zT94tyRLAG7UhAS+Rqsa7U1HyOPSHZ/OvC4JHDWFth6G/YRf5XPcZOl20GPxx3zviVekr
+	 udK6LHts9ntBZrg2gDIASTeTC5qkQh99MGp5vpP0NJRuazZI4yPtQRMYDq4HBHu1Y18cy
+	 hZBaT2KK6MSLE4kshQCDaajdYYIcc76RlX8Trz9rzyeN+EnRCRqFBbwW+rPl1YntbTA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794988631;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=HVlY59yebrjjIBqdbedBvMWvL8/mmW3OmeZ7ju/UwIk=;
-	b=0kzCIBglB3f58/wbvzuFzJtRMb3P758lH3NbP4iFCu39FOxWpNUrDYQg3zH72eyrNNVr
-	 0AP1BLSnFgSSEFg3jsOYe/U5r+FYVqMBhhh5mNpvTkD0Cn6uEyMogUEyWg9Z3SNQ2I1TK
-	 n/QfgwMar5Z0McS+pLupkQLUka0u6OEy/0T8PEjhWk6Sc8nLmYkMi2dSnIAlecDqQs5PF
-	 9fiqJZsfGoW74jYyU32wC/R57zaXv6lRsRt94gaKn+FNqrO7BX2QrhkAu+VmDbvPpqlOG
-	 pBAEOfnzzz5PkoS2LiC89x8AJF+br7l8ZJsyQO9bo3aXf9nwwD+50wcwBU8zJmRahLA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794988709;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=6us6rjoIvGLVE20T/fcNhfH3xwzBqksxB+6Fe115Gvs=;
+	b=EXwWHA1xtCumYp10+WtLrmNIek5PelGuEXDLcQnG3XchNuJ8x6IJl3u/A1FCA4fgbumP
+	 1fAQQq/B45E0yAPOuU+SS19LFvGCeS9xn27y6WIzfGCI5S/N64iNPeHJySSi02/NiB9CU
+	 nuFO3aNE1oJf8jeHZIGKfEoE24YP1IDnQDaN11Ltb1JimbdT9AHH3Gyo9UN14wbZXtKKR
+	 wNbOf0t62kEtKTFJWsaNurX3HN+Z5dT8f3IAfTo8o3zamgjAADO2fTYiMVKpOV1A3Yu9y
+	 ftYyOG+9O1+TkKBw5wbEXf7jDywq3FSfewxfNcL4OPRnnSXyN4/+sqDA5CV7FCr/Ayg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nDqCzRnH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=d6mF5wID;
+	arc=none smtp.remote-ip=117.135.210.4
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADFD3606A33D;
-	Wed, 18 Nov 2026 07:57:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD280606A31C;
+	Wed, 18 Nov 2026 07:58:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD280606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nDqCzRnH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924671F000C4;
-	Wed, 18 Nov 2026 07:57:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794988631;
-	bh=HVlY59yebrjjIBqdbedBvMWvL8/mmW3OmeZ7ju/UwIk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nDqCzRnHPXyb/gq9KlbI1jhO1d6sLC5wiyW1rsRinzdlIwL0M5af/x0zWX6fkyafn
-	 9AbML9xsvFdVnL+8ZFVOF2K8/+MC1NUV10r0LBEGMPQG0P6+p79WJvNUgsQTMCZdUA
-	 aryafQ98wFmwISoxAL6muJCU1SLywwZeYX9Xhf6fNuVA4MzFdxXufC1jplnimOwVEv
-	 DcY3hwxVCJpy1Vw/WxhyWDgqIo1q/lUi64oXnFo+VpmowczPmhm+T4PsQYcRxAGdeV
-	 1aQwC7oLh2Z2TEZowt7f3/SdDNC5Dyy/FcHqmmiDvfQvaVvbFyO4T1UDkFlNTQuuMJ
-	 JfxAMy33K2JmA==
-Date: Wed, 18 Nov 2026 00:57:06 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Nick Desaulniers <ndesaulniers@google.com>,
-	Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>, Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=d6mF5wID
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=6u
+	s6rjoIvGLVE20T/fcNhfH3xwzBqksxB+6Fe115Gvs=; b=d6mF5wIDk8qmkR3pbT
+	KEF97ncD8LpnA4n4cKWdtVD9ke+iJYggaToDIG6JHylIJEtv0J8f3JWJtgxtzVpZ
+	8XbG/LI28QIR+/tLqkJyaIGkf/Bn2AU5iy8RHzv8sgwVEb7Si8+cpCo8YnPgLGTM
+	uY6KPG95cLV8+w6zTL33XUw30=
+Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
+	by gzsmtp3 (Coremail) with SMTP id PigvCgDn10OYWv1qJJPjGg--.59937S2;
+	Wed, 18 Nov 2026 15:58:17 +0800 (CST)
+From: Ziheng Wei <zihengw03@163.com>
+To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] sched/topology: Avoid unsequenced accesses to jiffies
- in sd_init()
-Message-ID: <20261118075706.GB325225@ax162>
-References: <20261116-topology-wunsequenced-v2-1-54611119172b@kernel.org>
- <20261117183043.GK1813469@noisy.programming.kicks-ass.net>
- <CAKwvOd=9pjhCnreMvoAH_0PegYg60ouaZL=BAjB242bE48J23g@mail.gmail.com>
+Subject: [PATCH v2] parport: do not re-enable interrupts in parport_claim()
+Date: Wed, 18 Nov 2026 15:58:16 +0800
+Message-ID: <20261118075816.2323688-1-zihengw03@163.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,32 +60,89 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAKwvOd=9pjhCnreMvoAH_0PegYg60ouaZL=BAjB242bE48J23g@mail.gmail.com>
+X-CM-TRANSID:PigvCgDn10OYWv1qJJPjGg--.59937S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxZF15ZrW7CrW3Cw4Uuw43trb_yoW5GrW8pa
+	4vga9Iga40vFyxua17Xw1jkFWjva1ktay7CFy8GwsrAa1UJrW3Ww18KF9IvF1Y9r1xXFZ8
+	XF15WrZ2yw45AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jMT5LUUUUU=
+X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7hrWJ2r9WprMJAAA36
 
-On Tue, Nov 17, 2026 at 10:39:15AM -0800, Nick Desaulniers wrote:
-> On Tue, Nov 17, 2026 at 10:30 AM Peter Zijlstra <peterz@infradead.org> wrote:
-> >
-> > I don't speak enough C legal to actually understand the Changelog, but
-> > the actual change seems daft. Is this really needed?
+When the claiming device was on the wait list, parport_claim() takes
+it off the list with spin_lock_irq()/spin_unlock_irq() while it holds
+cad_lock with interrupts disabled:
 
-Yes, I would say this is needed. I am far from a C lawyer myself but I
-think this is like any other undefined behavior: it might not be a real
-problem now but it could always become one later.
+  parport_claim()
+    |
+    | write_lock_irqsave(&port->cad_lock)     <- IRQs off, cad_lock held
+    | spin_lock_irq(&port->waitlist_lock)
+    | spin_unlock_irq(&port->waitlist_lock)   <- IRQs on too early
+    |
+    +---- port interrupt on this CPU ----+
+    |                                    |
+    |                                    v
+    |                        parport_irq_handler()
+    |                          read_lock(&port->cad_lock)
+    |                          spins forever: cad_lock is held
+    |                          by the code it interrupted
+    |
+    | write_unlock_irqrestore(&port->cad_lock)  <- never reached
 
-> I would imagine a delta of the disassembly here before/after the
-> change would make it more obvious (one less volatile access, which be
-> have arbitrary ordering between initializing other members).
-> 
-> But I guess I'm also curious why jiffies is defined as volatile
-> anyway? I thought the usual guidance was to use
-> cast-to-volatile-qualified pointer during access, rather than declare
-> as volatile?
+Interrupts are already disabled here, so use spin_lock()/spin_unlock(),
+like the "blocked" path in the same function.
 
-Maybe because jiffies is accessed a lot across the tree?
+Found by LLM-assisted static analysis.
 
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ziheng Wei <zihengw03@163.com>
+---
+
+Notes:
+    v2: shorter changelog; drop the kernel test robot tags.
+    
+    The bug was found by the static analysis above.  The kernel test robot
+    had sent a smatch warning for the same code to oe-kbuild only, which I
+    found afterwards and credited in v1:
+    https://lore.kernel.org/r/202608091622.jlJn0jOj-lkp@intel.com/
+    
+    Tested in QEMU (parport_pc) with two ppdev users, one waiting in
+    PPCLAIM while the other releases the port: lockdep warns without this
+    patch and is quiet with it.  I have no parallel port hardware.
+    
+    On real hardware this needs two users of the same port and a port
+    interrupt within a few microseconds of the hand-over, so it is
+    unlikely to be hit; lockdep reports it whenever the path runs.
+    
+    The changelog was drafted with an AI assistant and reviewed by me.
+
+ drivers/parport/share.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/parport/share.c b/drivers/parport/share.c
+index eb0977ca1..d1b9f17d1 100644
+--- a/drivers/parport/share.c
++++ b/drivers/parport/share.c
+@@ -999,7 +999,7 @@ int parport_claim(struct pardevice *dev)
+ 		dev->waiting = 0;
+ 
+ 		/* Take ourselves out of the wait list again.  */
+-		spin_lock_irq(&port->waitlist_lock);
++		spin_lock(&port->waitlist_lock);
+ 		if (dev->waitprev)
+ 			dev->waitprev->waitnext = dev->waitnext;
+ 		else
+@@ -1008,7 +1008,7 @@ int parport_claim(struct pardevice *dev)
+ 			dev->waitnext->waitprev = dev->waitprev;
+ 		else
+ 			port->waittail = dev->waitprev;
+-		spin_unlock_irq(&port->waitlist_lock);
++		spin_unlock(&port->waitlist_lock);
+ 		dev->waitprev = dev->waitnext = NULL;
+ 	}
+ 
+
+base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
 -- 
-Cheers,
-Nathan
+2.43.0
+
