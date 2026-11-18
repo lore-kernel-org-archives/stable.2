@@ -1,79 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795043837;
-	b=KciLb7Fe2mwhyPXZLmYmfg1qeueWQhdb+SaNw6qlTPiUkdwa/YohB7U9s5j3LxAIVMMS
-	 0HtXg97PaSozT1UP4pvWTwbvAUzVYYZ4KiviZIuaao4r/sw3c7U9VoYZuswiSMSKEhhyr
-	 2xET0FunszERg1wpWAZSnbxoDaoXUgc+wOAy1BYZnO9qVtZO+PZmpTQZBfqFDByqnVWuS
-	 sgxnHAczWqtkfDqH/e/TJnCOLmrSivA6/dol7nKNywFcGXmSMBuO6JPUvBWriBkOwXAUF
-	 CfTblzrsO6yKnIUx8cbvzaWk2r5WDuIUJtDFIWV2mHOui+03x00HrML2MSYcDxfO/qQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795043837;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=5dQ4JQj6AUa0iFblGEmenrbjQYznIq7haN0cV2XTtU0=;
-	b=zx8F9dO6YwLBSKcM5PzVlOP0UXyfjKZJQOzBW/6Cz6GZezBDfJawHmLQk8gW9qEjWHld
-	 w4h73IUvJnVnyPGoK+3VV/nDBX5Hii5OBMm6adt4KwIcG8uBuGQaFdzT9CJPBYuJUcoip
-	 LmHQjFm6gcwNB0AQtkKIysORm8y6HgGvSf1Hlyay3DaxubDO5nyBOusIz0EtS4XOE0eu7
-	 D3VPv1bx5aLDKPP2pkLVLmGvw8J3VPBjySxpunQ22d9qOD8PsjkTBO3XNFGs0WCKklRuN
-	 RZ9yOBiOgdtHwKvjKf/WVNzmJ2JbOiyHGEKrj45KjT2j/iXTe5u7PmkI5rv6jrtK37g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1TS4pNj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795043840;
+	b=aOmfZJkGvzXKwbnsj2oKDz5hZQyxtjHDnUlRBGar+KyAUaXzQuCTpNAaPG79PKlGS1xV
+	 D1yK+tOlH7CS6c/s8B5R+YdSvUqATKY5LxXYuDeoJLbZJORxpITaMH7UEohGTqaxsWW8C
+	 QlyP76uTl6wQDTA++in6VWflDxHxbr3m/AJb7OuUzTDa3gPlYpRYGlwbUz+I4/lLvhqCu
+	 5oLGL+s3D4vIA3b//6380l9fmD4pgRe4MiBk1q7YiDHgDDxnR0I6WRWVP6s7fwFkwR9Wd
+	 5QebHlM1xAWCvd5feegsyXbY7pf+mKjIdp+mPznDtyrJouTw3q2spnWCWhC9zb8j2Vg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795043840;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=lDyzOcEtgKGbbcLAGOwXZIBkuH7GWtZ2jXSH5efTZoU=;
+	b=s5HbWhP6XJN7X+Hkm79VQwT7kIL48/3yDtbmfT6+mJHbHV7owyocZrcZzr2hjwnRNGXw
+	 MloV/2VVzeiDRPHzruQ4F8IMq7h8/m0lGk4IId1y652aqDXT5nckS0lThE7HvipFfsUPc
+	 LQuNCl7X/MrsPH2W1U4JsHX39VzZN3UTQ0QtniwNnYB3f3z5LzivkqqeJNwb13hphKXIS
+	 B5NugVayty1usD+n+0XFpyvKC+aaHKX9sZ/Wgr0TXj636Xs3P7VUTp1I2IiKPfH54WeOk
+	 PiPxpJ+dZT0UaSWaFKJkEBy4YmTwAAVrT2b/8GI3vBfpH4HZidGI2zIaDkHl9l7DB1w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fkgesKmJ;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29DF60A2614;
-	Wed, 18 Nov 2026 23:17:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620CD60A260B;
+	Wed, 18 Nov 2026 23:17:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L1TS4pNj
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795043837;
-	b=OS5bZbstqsAzZgYMyvbhpSfAlrfBBu2q5djxtebwVrwYTlt13MLo+MOvnWAr/rzJ65RC
-	 tZYU9m0S3q7Xlp0AFFck4bem/c+B7qGh4hyioD9C7wTjAcpgaZfBpRYgg3+kTtiYAdmqk
-	 ppBvWDIC8oDK3pxS4goEqLalz5LV5lg4YMjj7BVFvXNpoTnzm2Fk8bXCBgDet5HksibdY
-	 dGOhZ6Owh/dM4V2K8ldIzxOBUBeMefPzkqmjgsoBN/xcjbjNL8BPJ0v/nBvvjUkImzJqx
-	 8Gy1ahq2EJk572D89qp0LQZ3qO0zvGNWpZXoMyDTtAzOoaklL5fMlU6nFiNkrzTT7+w==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795043837;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=5dQ4JQj6AUa0iFblGEmenrbjQYznIq7haN0cV2XTtU0=;
-	b=0XTY8mRyjBsX9ZrSFROBQmUAx4Nc4NSJDUzTng0t9I6gSJ36Z5ZF2qMKLO9+TLDqOJ3k
-	 VkOk64PDQCVQruQcSCW3WIx/B/I7EjK5xZ5rQD2+o+vRMxFjoNbbQcARBCOoiaK8DGFwh
-	 qqmFSqxPyan44y8eDVE9KwYBFA0zzN3frW+u8J0KLhBo4ueuaZakgJY1/wz6V502fY3VR
-	 NnmmGXTeIgFWVH9FcZCKu7o3vqQsGBjUINBu5tj+53LNH67e/QkKF7SMBN2KQ/Nj3zKNA
-	 uAVSGg4jiEdRHToaCc02gyKy5UEh2KQHry9i9lX3MEhVItJsP0RKbTZiuefjdfe2QWQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id CF1281F000C6;
-	Wed, 18 Nov 2026 23:17:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795043837;
-	bh=5dQ4JQj6AUa0iFblGEmenrbjQYznIq7haN0cV2XTtU0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=L1TS4pNjinTHQUPNzblK7H6rftDiSIGBZHMRJk9MnP+1Whjuhb1hNXEKv/dH9IwHm
-	 +QIhfG+7ujPJ0z33rU+AURixQD7chABxZyLUgGpkegK37ZUAWWE4Tl3ORhRvCLfd0W
-	 b5K4AZH+2tPJENb6KWFymE2tByLWeItAsHRfKSLDK1iIZ22bnLdHSL9MjQ2SO/43w0
-	 UGq5Bu48mB7na5XX1ILdhn6H3Clgrbe+h4HCBvdCGKXTK/ibdeoAACJ09cpHMIA3Zr
-	 xdZ/c83dKuYy2JxYDoL09whTWQ3TPxgHVe7i1xK24sDJR1fHH0NfWYyUwJrJGaBLqW
-	 j3DwuOZvXH8Vw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 60B314B01F;
-	Wed, 18 Nov 2026 23:17:15 +0000 (UTC)
-From: =?utf-8?q?Alexandru_Andrie=C8=99_via_B4_Relay?= <devnull+alex.andries.aa.gmail.com@kernel.org>
-Date: Thu, 19 Nov 2026 00:16:52 +0100
-Subject: [PATCH 3/3] power: supply: qcom_battmgr: fix negative temperature
- values
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fkgesKmJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C8181F00933;
+	Wed, 18 Nov 2026 23:17:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795043840;
+	bh=lDyzOcEtgKGbbcLAGOwXZIBkuH7GWtZ2jXSH5efTZoU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fkgesKmJiI/2l1gpFmmNfF0gjHruStQK5IGmRZdPABvG2ZpBhYWtbZ6zixgZq/R3l
+	 CQeb2T0NbtKwY3iQvv9yvW3Ge569thT/MmoNOuQk/vuCfoGz79beEE2ajfp7RENYho
+	 PO8gQFrO0sjF4dwAOOP7iaxt4M29EXY4srx/YjGs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Chris Mason <clm@meta.com>,
+	Jeff Layton <jlayton@kernel.org>,
+	Chuck Lever <chuck.lever@oracle.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 0353/2857] nfsd: dedup nfs4_client_to_reclaim inserts
+Date: Wed, 18 Nov 2026 15:23:07 +0100
+Message-ID: <20261118150214.145237480@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
+References: <20261118150201.293410965@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,88 +63,391 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-upstream-qcom-battmgr-fixes-v1-v1-3-ca83700c08c1@gmail.com>
-References: <20261119-upstream-qcom-battmgr-fixes-v1-v1-0-ca83700c08c1@gmail.com>
-In-Reply-To: <20261119-upstream-qcom-battmgr-fixes-v1-v1-0-ca83700c08c1@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, stable@vger.kernel.org, 
- =?utf-8?q?Alexandru_Andrie=C8=99?= <alex.andries.aa@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795043834; l=2126;
- i=alex.andries.aa@gmail.com; s=20261118; h=from:subject:message-id;
- bh=rbeD9/hqy2iLa1zbMjhzXGTU00ckT0RtHpgBQ16AH5I=;
- b=JsoY8sFr/LIOpNR9zSCmVSlbAT0y8+na0ABBLTwEaUCcTDISlTl8LFCGx31mJICe5nVIy0Qtu
- UutV5/Wakh1DN2wEzee4AH33SDAS4fJv78X+dVsfRO+4EeM1fQs9uu1
-X-Developer-Key: i=alex.andries.aa@gmail.com; a=ed25519;
- pk=kNAqgavfB7uUd1mA8o8TszhGxzyqBwY71PGO/oK4v84=
-X-Endpoint-Received: by B4 Relay for alex.andries.aa@gmail.com/20261118
- with auth_id=1564
-X-Original-From: =?utf-8?q?Alexandru_Andrie=C8=99?= <alex.andries.aa@gmail.com>
-Reply-To: alex.andries.aa@gmail.com
 Content-Transfer-Encoding: 8bit
 
-From: Alexandru Andrieș <alex.andries.aa@gmail.com>
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-Firmware reports battery temperature in signed hundredths of a degree
-Celsius, scaled to tenths of a degree for POWER_SUPPLY_PROP_TEMP.
-Passing it as unsigned int to DIV_ROUND_CLOSEST(..., 10) in both
-qcom_battmgr_sc8280xp_convert_temp() and qcom_battmgr_sm8350_callback()
-turns sub-zero values (e.g. -5.00 C, 0xfffffe0c) into 429496680 instead
-of -50.
+------------------
 
-Change status.temperature and qcom_battmgr_sc8280xp_convert_temp() to
-int, and cast the SM8350 BATT_TEMP payload to s32 before dividing.
+From: Jeff Layton <jlayton@kernel.org>
 
-Tested at 35.0 C on a Xiaomi MIX 4 (SM8350); the SC8280XP path and
-sub-zero temperatures were not hardware-tested.
+[ Upstream commit 9b57793863f69c608691c98e57c2f9be2db9dfed ]
 
-Fixes: 29e8142b5623 ("power: supply: Introduce Qualcomm PMIC GLINK power supply")
+nfs4_client_to_reclaim() unconditionally allocates a new
+nfs4_client_reclaim, prepends it to reclaim_str_hashtbl[], and bumps
+reclaim_str_hashtbl_size with no check for an existing entry for the
+same client name.  After a reboot with a populated recovery directory
+that inflates the counter by one for every client that reclaims:
+
+    boot:    load_recdir()
+               nfs4_client_to_reclaim(name)   /* entry #1, size++ */
+
+    grace:   RECLAIM_COMPLETE
+               __nfsd4_create_reclaim_record_grace()
+                 nfs4_client_to_reclaim(name) /* entry #2, size++ */
+
+inc_reclaim_complete() ends the grace period early only when
+
+    atomic_inc_return(&nn->nr_reclaim_complete) ==
+        nn->reclaim_str_hashtbl_size
+
+With reclaim_str_hashtbl_size at 2N and nr_reclaim_complete capped at
+N, the equality never holds and the fast end-of-grace path is dead.
+The grace period always runs out the full 90-second laundromat timer,
+and the shadow entry left in the hash table carries a dangling cr_clp
+for any reader that walks it.
+
+Fix nfs4_client_to_reclaim() to look the name up with
+nfsd4_find_reclaim_client() first and, on a hit, fold the new
+princhash into the existing record (if it lacks one) and return that
+record without allocating or touching reclaim_str_hashtbl_size.  On
+kmemdup() failure during the fold-in, return NULL so
+__cld_pipe_inprogress_downcall() surfaces -EFAULT to nfsdcld, matching
+the miss-path contract.
+
+Add an rw_semaphore (reclaim_str_hashtbl_lock) to struct nfsd_net that
+serialises all access to reclaim_str_hashtbl[] and
+reclaim_str_hashtbl_size.  Writers (nfs4_client_to_reclaim,
+nfs4_remove_reclaim_record callers) hold the write side; readers
+(nfsd4_cld_check*, inc_reclaim_complete, clients_still_reclaiming,
+nfs4_has_reclaimed_state, nfsd4_check_legacy_client) hold the read
+side.  All call sites are in sleepable context, and none is a hot
+path, so the rwsem cost is negligible.
+
+Reported-by: Chris Mason <clm@meta.com>
+Fixes: 362063a595be ("nfsd: keep a tally of RECLAIM_COMPLETE operations when using nfsdcld")
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexandru Andrieș <alex.andries.aa@gmail.com>
+Assisted-by: kres:claude-opus-4-7
+Signed-off-by: Jeff Layton <jlayton@kernel.org>
+Link: https://patch.msgid.link/20260530-nfsd-fixes-v2-4-f27e8eb4d974@kernel.org
+Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+[ sashal: Adapted nfsd4_cld_check_v2() to the older crypto_shash digest path, added up_read() on its extra early-return paths, and added a missing up_read() on the nfs4_make_rec_clidname() failure path. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/power/supply/qcom_battmgr.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ fs/nfsd/netns.h       |  6 ++++-
+ fs/nfsd/nfs4recover.c | 39 ++++++++++++++++++++++-----
+ fs/nfsd/nfs4state.c   | 61 ++++++++++++++++++++++++++++++++++++++-----
+ 3 files changed, 92 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
-index 83e67d22c432..98b658ff6beb 100644
---- a/drivers/power/supply/qcom_battmgr.c
-+++ b/drivers/power/supply/qcom_battmgr.c
-@@ -278,7 +278,7 @@ struct qcom_battmgr_status {
- 	int power_now;
- 	unsigned int voltage_now;
- 	unsigned int voltage_ocv;
--	unsigned int temperature;
-+	int temperature;
- 	unsigned int resistance;
- 	unsigned int soh_percent;
- 
-@@ -1250,7 +1250,7 @@ static unsigned int qcom_battmgr_sc8280xp_parse_technology(const char *chemistry
- 	return POWER_SUPPLY_TECHNOLOGY_UNKNOWN;
+diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
+index 94739a09b319d..de2a915edc693 100644
+--- a/fs/nfsd/netns.h
++++ b/fs/nfsd/netns.h
+@@ -92,6 +92,7 @@ struct nfsd_net {
+ 	 */
+ 	struct list_head *reclaim_str_hashtbl;
+ 	int reclaim_str_hashtbl_size;
++	struct rw_semaphore reclaim_str_hashtbl_lock;
+ 	struct list_head *conf_id_hashtbl;
+ 	struct rb_root conf_name_tree;
+ 	struct list_head *unconf_id_hashtbl;
+@@ -104,7 +105,10 @@ struct nfsd_net {
+ 	 * close_lru holds (open) stateowner queue ordered by nfs4_stateowner.so_time
+ 	 * for last close replay.
+ 	 *
+-	 * All of the above fields are protected by the client_mutex.
++	 * reclaim_str_hashtbl[], reclaim_str_hashtbl_size are protected by
++	 * reclaim_str_hashtbl_lock.
++	 *
++	 * All of the remaining fields are protected by the client_lock.
+ 	 */
+ 	struct list_head client_lru;
+ 	struct list_head close_lru;
+diff --git a/fs/nfsd/nfs4recover.c b/fs/nfsd/nfs4recover.c
+index d5ee9c2e05bb7..1f38e9dff7abe 100644
+--- a/fs/nfsd/nfs4recover.c
++++ b/fs/nfsd/nfs4recover.c
+@@ -354,10 +354,12 @@ __nfsd4_remove_reclaim_record_grace(const char *dname, int len,
+ 		return;
+ 	}
+ 	name.len = len;
++	down_write(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	kfree(name.data);
+ 	if (crp)
+ 		nfs4_remove_reclaim_record(crp, nn);
++	up_write(&nn->reclaim_str_hashtbl_lock);
++	kfree(name.data);
  }
  
--static unsigned int qcom_battmgr_sc8280xp_convert_temp(unsigned int temperature)
-+static int qcom_battmgr_sc8280xp_convert_temp(int temperature)
+ static void
+@@ -558,6 +560,7 @@ nfs4_legacy_state_init(struct net *net)
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++)
+ 		INIT_LIST_HEAD(&nn->reclaim_str_hashtbl[i]);
+ 	nn->reclaim_str_hashtbl_size = 0;
++	init_rwsem(&nn->reclaim_str_hashtbl_lock);
+ 
+ 	return 0;
+ }
+@@ -677,13 +680,16 @@ nfsd4_check_legacy_client(struct nfs4_client *clp)
+ 		goto out_enoent;
+ 	}
+ 	name.len = HEXDIR_LEN;
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	kfree(name.data);
+ 	if (crp) {
+ 		set_bit(NFSD4_CLIENT_STABLE, &clp->cl_flags);
+ 		crp->cr_clp = clp;
+-		return 0;
+ 	}
++	up_read(&nn->reclaim_str_hashtbl_lock);
++	kfree(name.data);
++	if (crp)
++		return 0;
+ 
+ out_enoent:
+ 	return -ENOENT;
+@@ -1282,19 +1288,23 @@ nfsd4_cld_check(struct nfs4_client *clp)
+ 		return 0;
+ 
+ 	/* look for it in the reclaim hashtable otherwise */
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(clp->cl_name, nn);
+ 	if (crp)
+ 		goto found;
+ 
+ 	if (cn->cn_has_legacy) {
+ 		status = nfs4_make_rec_clidname(dname, &clp->cl_name);
+-		if (status)
++		if (status) {
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
++		}
+ 
+ 		name.data = kmemdup(dname, HEXDIR_LEN, GFP_KERNEL);
+ 		if (!name.data) {
+ 			dprintk("%s: failed to allocate memory for name.data!\n",
+ 				__func__);
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
+ 		}
+ 		name.len = HEXDIR_LEN;
+@@ -1304,9 +1314,11 @@ nfsd4_cld_check(struct nfs4_client *clp)
+ 			goto found;
+ 
+ 	}
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return -ENOENT;
+ found:
+ 	crp->cr_clp = clp;
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return 0;
+ }
+ 
+@@ -1328,19 +1340,23 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 		return 0;
+ 
+ 	/* look for it in the reclaim hashtable otherwise */
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(clp->cl_name, nn);
+ 	if (crp)
+ 		goto found;
+ 
+ 	if (cn->cn_has_legacy) {
+ 		status = nfs4_make_rec_clidname(dname, &clp->cl_name);
+-		if (status)
++		if (status) {
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
++		}
+ 
+ 		name.data = kmemdup(dname, HEXDIR_LEN, GFP_KERNEL);
+ 		if (!name.data) {
+ 			dprintk("%s: failed to allocate memory for name.data\n",
+ 					__func__);
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
+ 		}
+ 		name.len = HEXDIR_LEN;
+@@ -1350,6 +1366,7 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 			goto found;
+ 
+ 	}
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return -ENOENT;
+ found:
+ 	if (crp->cr_princhash.len) {
+@@ -1357,26 +1374,33 @@ nfsd4_cld_check_v2(struct nfs4_client *clp)
+ 			principal = clp->cl_cred.cr_raw_principal;
+ 		else if (clp->cl_cred.cr_principal)
+ 			principal = clp->cl_cred.cr_principal;
+-		if (principal == NULL)
++		if (principal == NULL) {
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
++		}
+ 		cksum.len = crypto_shash_digestsize(tfm);
+ 		cksum.data = kmalloc(cksum.len, GFP_KERNEL);
+-		if (cksum.data == NULL)
++		if (cksum.data == NULL) {
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
++		}
+ 		status = crypto_shash_tfm_digest(tfm, principal,
+ 						 strlen(principal), cksum.data);
+ 		if (status) {
+ 			kfree(cksum.data);
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
+ 		}
+ 		if (memcmp(crp->cr_princhash.data, cksum.data,
+ 				crp->cr_princhash.len)) {
+ 			kfree(cksum.data);
++			up_read(&nn->reclaim_str_hashtbl_lock);
+ 			return -ENOENT;
+ 		}
+ 		kfree(cksum.data);
+ 	}
+ 	crp->cr_clp = clp;
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ 	return 0;
+ }
+ 
+@@ -1476,6 +1500,7 @@ nfs4_cld_state_init(struct net *net)
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++)
+ 		INIT_LIST_HEAD(&nn->reclaim_str_hashtbl[i]);
+ 	nn->reclaim_str_hashtbl_size = 0;
++	init_rwsem(&nn->reclaim_str_hashtbl_lock);
+ 	set_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags);
+ 	atomic_set(&nn->nr_reclaim_complete, 0);
+ 
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index 3abe5e1d8baf4..24bc61f743429 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -2381,14 +2381,21 @@ static void inc_reclaim_complete(struct nfs4_client *clp)
+ 
+ 	if (!test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags))
+ 		return;
+-	if (!nfsd4_find_reclaim_client(clp->cl_name, nn))
++
++	down_read(&nn->reclaim_str_hashtbl_lock);
++	if (!nfsd4_find_reclaim_client(clp->cl_name, nn)) {
++		up_read(&nn->reclaim_str_hashtbl_lock);
+ 		return;
++	}
+ 	if (atomic_inc_return(&nn->nr_reclaim_complete) ==
+ 			nn->reclaim_str_hashtbl_size) {
++		up_read(&nn->reclaim_str_hashtbl_lock);
+ 		printk(KERN_INFO "NFSD: all clients done reclaiming, ending NFSv4 grace period (net %x)\n",
+ 				clp->net->ns.inum);
+ 		nfsd4_end_grace(nn);
++		return;
+ 	}
++	up_read(&nn->reclaim_str_hashtbl_lock);
+ }
+ 
+ static void expire_client(struct nfs4_client *clp)
+@@ -6042,10 +6049,15 @@ static bool clients_still_reclaiming(struct nfsd_net *nn)
+ 
+ 	if (test_bit(NFSD_NET_GRACE_END_FORCED, &nn->flags))
+ 		return false;
+-	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags) &&
+-			atomic_read(&nn->nr_reclaim_complete) ==
+-			nn->reclaim_str_hashtbl_size)
+-		return false;
++	if (test_bit(NFSD_NET_TRACK_RECLAIM_COMPLETES, &nn->flags)) {
++		int size;
++
++		down_read(&nn->reclaim_str_hashtbl_lock);
++		size = nn->reclaim_str_hashtbl_size;
++		up_read(&nn->reclaim_str_hashtbl_lock);
++		if (atomic_read(&nn->nr_reclaim_complete) == size)
++			return false;
++	}
+ 	if (!test_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags))
+ 		return false;
+ 	clear_bit(NFSD_NET_SOMEBODY_RECLAIMED, &nn->flags);
+@@ -8160,9 +8172,13 @@ bool
+ nfs4_has_reclaimed_state(struct xdr_netobj name, struct nfsd_net *nn)
  {
- 	return DIV_ROUND_CLOSEST(temperature, 10);
+ 	struct nfs4_client_reclaim *crp;
++	bool found;
+ 
++	down_read(&nn->reclaim_str_hashtbl_lock);
+ 	crp = nfsd4_find_reclaim_client(name, nn);
+-	return (crp && crp->cr_clp);
++	found = (crp && crp->cr_clp);
++	up_read(&nn->reclaim_str_hashtbl_lock);
++	return found;
  }
-@@ -1467,7 +1467,7 @@ static void qcom_battmgr_sm8350_callback(struct qcom_battmgr *battmgr,
- 			break;
- 		case BATT_TEMP:
- 			val = le32_to_cpu(resp->intval.value);
--			battmgr->status.temperature = DIV_ROUND_CLOSEST(val, 10);
-+			battmgr->status.temperature = DIV_ROUND_CLOSEST((s32)val, 10);
- 			break;
- 		case BATT_TECHNOLOGY:
- 			battmgr->info.technology = le32_to_cpu(resp->intval.value);
-
+ 
+ /*
+@@ -8175,10 +8191,39 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 	unsigned int strhashval;
+ 	struct nfs4_client_reclaim *crp;
+ 
++	down_write(&nn->reclaim_str_hashtbl_lock);
++
++	/*
++	 * A reclaim record for this client name may already exist (for
++	 * example, populated at boot from the recovery directory before
++	 * an in-grace RECLAIM_COMPLETE or an nfsdcld downcall delivers
++	 * the same name). Dedup here so reclaim_str_hashtbl_size stays
++	 * equal to the number of distinct client names; inc_reclaim_complete
++	 * relies on that equality to end the grace period via the fast path.
++	 */
++	crp = nfsd4_find_reclaim_client(name, nn);
++	if (crp) {
++		if (princhash.len && crp->cr_princhash.len == 0) {
++			void *pdata = kmemdup(princhash.data, princhash.len,
++					      GFP_KERNEL);
++			if (pdata) {
++				crp->cr_princhash.data = pdata;
++				crp->cr_princhash.len = princhash.len;
++			} else {
++				dprintk("%s: failed to allocate memory for princhash.data!\n",
++					__func__);
++				crp = NULL;
++			}
++		}
++		up_write(&nn->reclaim_str_hashtbl_lock);
++		return crp;
++	}
++
+ 	name.data = kmemdup(name.data, name.len, GFP_KERNEL);
+ 	if (!name.data) {
+ 		dprintk("%s: failed to allocate memory for name.data!\n",
+ 			__func__);
++		up_write(&nn->reclaim_str_hashtbl_lock);
+ 		return NULL;
+ 	}
+ 	if (princhash.len) {
+@@ -8187,6 +8232,7 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 			dprintk("%s: failed to allocate memory for princhash.data!\n",
+ 				__func__);
+ 			kfree(name.data);
++			up_write(&nn->reclaim_str_hashtbl_lock);
+ 			return NULL;
+ 		}
+ 	} else
+@@ -8206,6 +8252,7 @@ nfs4_client_to_reclaim(struct xdr_netobj name, struct xdr_netobj princhash,
+ 		kfree(name.data);
+ 		kfree(princhash.data);
+ 	}
++	up_write(&nn->reclaim_str_hashtbl_lock);
+ 	return crp;
+ }
+ 
+@@ -8225,6 +8272,7 @@ nfs4_release_reclaim(struct nfsd_net *nn)
+ 	struct nfs4_client_reclaim *crp = NULL;
+ 	int i;
+ 
++	down_write(&nn->reclaim_str_hashtbl_lock);
+ 	for (i = 0; i < CLIENT_HASH_SIZE; i++) {
+ 		while (!list_empty(&nn->reclaim_str_hashtbl[i])) {
+ 			crp = list_entry(nn->reclaim_str_hashtbl[i].next,
+@@ -8233,6 +8281,7 @@ nfs4_release_reclaim(struct nfsd_net *nn)
+ 		}
+ 	}
+ 	WARN_ON_ONCE(nn->reclaim_str_hashtbl_size);
++	up_write(&nn->reclaim_str_hashtbl_lock);
+ }
+ 
+ /*
 -- 
-2.56.1
+2.53.0
+
 
 
