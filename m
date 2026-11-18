@@ -1,64 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795061261;
-	b=dz6455PONjf2AMctcm5BBJqmntk2ue/53UZj9rFm1VcM85lVj5PJpiGEqXmAAqwVDCCb
-	 irNuJ0rlhgskmAlraXw9Zfa2MN8kDzVRM5jHa1sovqDdSLjpL2T+qPBJSIfIiwDFFx/++
-	 WDhj83MgIuFmDbQ5hmJ1tdqjRCb5isZIaLKQO/7Wy6iu1BUeQ0i3c8ebcyGICEFR4jCM5
-	 UOZnym8jBa6MXoJhU03MmGp1EbXfA/C7J80YliaPxups4rIAB9KgySXtXquEMR9sKEMpw
-	 UWmkRaD0YS2jWI0ap7mM1LVRLZcZefFuM927sfsnDse0dggmoOCkHFxe2D0e0eX1xxQ==
+	t=1795061263;
+	b=vlzlSfTa9j78NLctadysjf3bgyIUHFa5gK9cW7V7bJ6pNLuZSabH7Rw4IgdD3BdFx5Pj
+	 H8hEqdxyu0TD7d4C1ChU1gbcWKsqVtmfU0DMh+2YvAPrNZ7TAWxXTpnwzzY/Kb9kXTD2F
+	 Bl56b1FSOhpZmEs47mGn9QBWTFV518FBcCnIdj9M70Gx1rDQnvqlEnIzGVITij4UnLEZk
+	 cVg2MGTsvyAcsfMaMWL6yvwCrv12B+EIuPbDP0ZsyTkumK2AmH6zgRNxP3v7vKXTfcmIm
+	 p2BBty6Lc5eIfbOFDspYxxStr5FJiCcPgSG4nEBhYA0HDjgTEDiac5e73JCl3zNS1iQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795061261;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=sS9FIrfW22SIhehTvpH3rdvmtslwIeEYozBr0OvaZe8=;
-	b=x2/QjRDVPSzUNqLMZKWFwPJtgVc/fv/SSUDza6b7npZ6uQEFdeEtsH4b6Zk7Io/CreR7
-	 zAYqpdv7RXBz13sIq3OI93RMcuEg4C/GVECqg2ItEqRMWBIaaEFJIz9QAHf+VbC47SJrw
-	 +eTj1swxM+TJrXB7kbRQf7xAwGi0YNIS3FFiLwesLXzk64O0ZAf1/5GlF5eQebhBxtD12
-	 DH2xML5a75FgW7xnHf6EB5uMJUP4oVNd7kuVebp0ozL+Pk97foZmznyN4A+CBQ5mynn4z
-	 PHrKl1Ptj7TNAatl8//FBiNRksy7f+VS/w86nHNmCqUVIVz5CSn4DOuCbs/U/jeATUA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795061263;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Lexdu45DmtrhQ3ngIjDv6I74j3cEzxY1ByDtifnMlME=;
+	b=2xDUq0aTvlchG/h9R2e7Op7GPC9r/d/fxlKSjjRTx3OgItK9fcYemNN2gWyK+SV8TBqc
+	 1X1i/4PUNmQM0rCIVEkrL9ovl3VhjzFUZdeECDjL+D1dnSH38R3sqL7nFdaGwAaD9u5Lb
+	 bVmZDUZ0l6fvwwYkCNlfLIEqLJZ0u/0BffdyYb8Bxfsj1ye0xgMvD3iVMNGc9Qa1UXwfD
+	 7vgubqWNWjw60ultiAS2TCWV7mpTjStEKcizDMuhucKTcU+sRCm9zQdMaS/LvYJR8fuRS
+	 Uw67JUGg6bYjRwdQMOURWfJyypXmxEgw6oxYPbbrvDy/49ZtvpPyyKA87/wXaFgCysg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="h6kQxpk/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fXsQIDTC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C92C60A2613;
-	Thu, 19 Nov 2026 04:07:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDD2606A334;
+	Thu, 19 Nov 2026 04:07:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h6kQxpk/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ADAE1F000CA;
-	Thu, 19 Nov 2026 04:07:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795061261;
-	bh=sS9FIrfW22SIhehTvpH3rdvmtslwIeEYozBr0OvaZe8=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fXsQIDTC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AEB21F000C9;
+	Thu, 19 Nov 2026 04:07:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795061263;
+	bh=Lexdu45DmtrhQ3ngIjDv6I74j3cEzxY1ByDtifnMlME=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h6kQxpk/wUTjV7qJfAlwrxSj3pldJJBYbuVI8F9mEP51oxqZufUgRIO9X8wxhjALn
-	 ViCJptmYX//dGFWjGRvGCu+ZSTIDZWgQLbpg1XF+doHibF7M4LkT5BHz8SraHr76Ii
-	 R4EC7oGW5yMXDeepn4TRhUpn8Ydm4/Bj7FGGpUrQIXt+JuUMskR5dduu3YcAu4D0lW
-	 gnU0q3e4oWvp7W95DxOINQzgCRv/nCsMhXXigmZRKZxkpSiZt4ZvLSWSTgZaivHR5X
-	 cKx8/BOsVVMPRv06dpQZ4zk6I4aAAiubk1O69NXNPsu8+VHOM7szxWGKn4VxfR7Ald
-	 DX0im1dM/cyBA==
-From: netdev-bot+sinfo@kernel.org
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: Paolo Abeni <pabeni@redhat.com>, "David S . Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Simon Horman <horms@kernel.org>, Stanislav Fomichev <sdf.kernel@gmail.com>,
- Nicolas Dichtel <nicolas.dichtel@6wind.com>,
- Yuyang Huang <sigefriedhyy@gmail.com>,
- Aleksandr Loktionov <aleksandr.loktionov@intel.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Daniel Machon <daniel.machon@microchip.com>
-Subject: Re: [PATCH net v2] net: zero the tail of ha->addr when allocating
- address list entries
-Date: Thu, 19 Nov 2026 04:07:40 +0000
-Message-ID: <179506126016.3291.768995268008269701@kernel.org>
-In-Reply-To: <20261119040153.158372-1-bsdhenrymartin@gmail.com>
-References: <20261119040153.158372-1-bsdhenrymartin@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	b=fXsQIDTCpBV/fDL3cdGiVrlAcvz7j3XmAEF8+pf1BDw0OiK2zbzQ5Nlgoft/Vz/S1
+	 aalJxv5iot+VX56uB9SEgu8LAleQYyo2Q/Kwd7QEMC0Jr+xGty/VeeOqWAY16mZ22w
+	 F7c1DVvwRlEXX3KpJzobKkObTHBYEra87BDlzW6M=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Linus Walleij <linus.walleij@linaro.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 1490/1848] dmaengine: ste_dma40: Use managed resources
+Date: Wed, 18 Nov 2026 15:58:48 +0100
+Message-ID: <20261118150021.611548224@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
+References: <20261118145911.150052362@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,22 +62,364 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+------------------
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+From: Linus Walleij <linus.walleij@linaro.org>
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account.
+[ Upstream commit 339f5041089a22646372d3ebdeec94c25e8d4e29 ]
 
-*IMPORTANT*: If you do repost (for other reasons) - please include
-the relevant info in the cover letter or commit messages.
+This switches the DMA40 driver to use a bunch of managed
+resources and strip down the errorpath.
+
+The result is pretty neat and makes the driver way more
+readable.
+
+Signed-off-by: Linus Walleij <linus.walleij@linaro.org>
+Link: https://lore.kernel.org/r/20230417-ux500-dma40-cleanup-v3-6-60bfa6785968@linaro.org
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Stable-dep-of: 7ca608cf6b84 ("dmaengine: ste_dma40: Fix probe IRQ leak")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/dma/ste_dma40.c | 180 ++++++++++++++--------------------------
+ 1 file changed, 61 insertions(+), 119 deletions(-)
+
+diff --git a/drivers/dma/ste_dma40.c b/drivers/dma/ste_dma40.c
+index cd21e638dbad4..b49749dc22df3 100644
+--- a/drivers/dma/ste_dma40.c
++++ b/drivers/dma/ste_dma40.c
+@@ -554,8 +554,6 @@ struct d40_gen_dmac {
+  * @virtbase: The virtual base address of the DMA's register.
+  * @rev: silicon revision detected.
+  * @clk: Pointer to the DMA clock structure.
+- * @phy_start: Physical memory start of the DMA registers.
+- * @phy_size: Size of the DMA register map.
+  * @irq: The IRQ number.
+  * @num_memcpy_chans: The number of channels used for memcpy (mem-to-mem
+  * transfers).
+@@ -599,8 +597,6 @@ struct d40_base {
+ 	void __iomem			 *virtbase;
+ 	u8				  rev:4;
+ 	struct clk			 *clk;
+-	phys_addr_t			  phy_start;
+-	resource_size_t			  phy_size;
+ 	int				  irq;
+ 	int				  num_memcpy_chans;
+ 	int				  num_phy_chans;
+@@ -3173,65 +3169,58 @@ static int __init d40_phy_res_init(struct d40_base *base)
+ 	return num_phy_chans_avail;
+ }
+ 
++/* Called from the registered devm action */
++static void d40_drop_kmem_cache_action(void *d)
++{
++	struct kmem_cache *desc_slab = d;
++
++	kmem_cache_destroy(desc_slab);
++}
++
+ static struct d40_base * __init d40_hw_detect_init(struct platform_device *pdev)
+ {
+ 	struct stedma40_platform_data *plat_data = dev_get_platdata(&pdev->dev);
+ 	struct device *dev = &pdev->dev;
+ 	struct clk *clk;
+ 	void __iomem *virtbase;
+-	struct resource *res;
+ 	struct d40_base *base;
+ 	int num_log_chans;
+ 	int num_phy_chans;
+ 	int num_memcpy_chans;
+-	int clk_ret = -EINVAL;
+ 	int i;
+ 	u32 pid;
+ 	u32 cid;
+ 	u8 rev;
++	int ret;
+ 
+-	clk = clk_get(dev, NULL);
+-	if (IS_ERR(clk)) {
+-		d40_err(dev, "No matching clock found\n");
+-		goto check_prepare_enabled;
+-	}
+-
+-	clk_ret = clk_prepare_enable(clk);
+-	if (clk_ret) {
+-		d40_err(dev, "Failed to prepare/enable clock\n");
+-		goto disable_unprepare;
+-	}
++	clk = devm_clk_get_enabled(dev, NULL);
++	if (IS_ERR(clk))
++		return NULL;
+ 
+ 	/* Get IO for DMAC base address */
+-	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "base");
+-	if (!res)
+-		goto disable_unprepare;
+-
+-	if (request_mem_region(res->start, resource_size(res),
+-			       D40_NAME " I/O base") == NULL)
+-		goto release_region;
+-
+-	virtbase = ioremap(res->start, resource_size(res));
+-	if (!virtbase)
+-		goto release_region;
++	virtbase = devm_platform_ioremap_resource_byname(pdev, "base");
++	if (IS_ERR(virtbase)) {
++		dev_err(dev, "No IO base defined\n");
++		return NULL;
++	}
+ 
+ 	/* This is just a regular AMBA PrimeCell ID actually */
+ 	for (pid = 0, i = 0; i < 4; i++)
+-		pid |= (readl(virtbase + resource_size(res) - 0x20 + 4 * i)
++		pid |= (readl(virtbase + SZ_4K - 0x20 + 4 * i)
+ 			& 255) << (i * 8);
+ 	for (cid = 0, i = 0; i < 4; i++)
+-		cid |= (readl(virtbase + resource_size(res) - 0x10 + 4 * i)
++		cid |= (readl(virtbase + SZ_4K - 0x10 + 4 * i)
+ 			& 255) << (i * 8);
+ 
+ 	if (cid != AMBA_CID) {
+ 		d40_err(dev, "Unknown hardware! No PrimeCell ID\n");
+-		goto unmap_io;
++		return NULL;
+ 	}
+ 	if (AMBA_MANF_BITS(pid) != AMBA_VENDOR_ST) {
+ 		d40_err(dev, "Unknown designer! Got %x wanted %x\n",
+ 			AMBA_MANF_BITS(pid),
+ 			AMBA_VENDOR_ST);
+-		goto unmap_io;
++		return NULL;
+ 	}
+ 	/*
+ 	 * HW revision:
+@@ -3245,7 +3234,7 @@ static struct d40_base * __init d40_hw_detect_init(struct platform_device *pdev)
+ 	rev = AMBA_REV_BITS(pid);
+ 	if (rev < 2) {
+ 		d40_err(dev, "hardware revision: %d is not supported", rev);
+-		goto unmap_io;
++		return NULL;
+ 	}
+ 
+ 	/* The number of physical channels on this HW */
+@@ -3263,23 +3252,22 @@ static struct d40_base * __init d40_hw_detect_init(struct platform_device *pdev)
+ 	num_log_chans = num_phy_chans * D40_MAX_LOG_CHAN_PER_PHY;
+ 
+ 	dev_info(dev,
+-		 "hardware rev: %d @ %pa with %d physical and %d logical channels\n",
+-		 rev, &res->start, num_phy_chans, num_log_chans);
++		 "hardware rev: %d with %d physical and %d logical channels\n",
++		 rev, num_phy_chans, num_log_chans);
+ 
+-	base = kzalloc(ALIGN(sizeof(struct d40_base), 4) +
+-		       (num_phy_chans + num_log_chans + num_memcpy_chans) *
+-		       sizeof(struct d40_chan), GFP_KERNEL);
++	base = devm_kzalloc(dev,
++		ALIGN(sizeof(struct d40_base), 4) +
++		(num_phy_chans + num_log_chans + num_memcpy_chans) *
++		sizeof(struct d40_chan), GFP_KERNEL);
+ 
+-	if (base == NULL)
+-		goto unmap_io;
++	if (!base)
++		return NULL;
+ 
+ 	base->rev = rev;
+ 	base->clk = clk;
+ 	base->num_memcpy_chans = num_memcpy_chans;
+ 	base->num_phy_chans = num_phy_chans;
+ 	base->num_log_chans = num_log_chans;
+-	base->phy_start = res->start;
+-	base->phy_size = resource_size(res);
+ 	base->virtbase = virtbase;
+ 	base->plat_data = plat_data;
+ 	base->dev = dev;
+@@ -3316,76 +3304,55 @@ static struct d40_base * __init d40_hw_detect_init(struct platform_device *pdev)
+ 		base->gen_dmac.init_reg_size = ARRAY_SIZE(dma_init_reg_v4a);
+ 	}
+ 
+-	base->phy_res = kcalloc(num_phy_chans,
+-				sizeof(*base->phy_res),
+-				GFP_KERNEL);
++	base->phy_res = devm_kcalloc(dev, num_phy_chans,
++				     sizeof(*base->phy_res),
++				     GFP_KERNEL);
+ 	if (!base->phy_res)
+-		goto free_base;
++		return NULL;
+ 
+-	base->lookup_phy_chans = kcalloc(num_phy_chans,
+-					 sizeof(*base->lookup_phy_chans),
+-					 GFP_KERNEL);
++	base->lookup_phy_chans = devm_kcalloc(dev, num_phy_chans,
++					      sizeof(*base->lookup_phy_chans),
++					      GFP_KERNEL);
+ 	if (!base->lookup_phy_chans)
+-		goto free_phy_res;
++		return NULL;
+ 
+-	base->lookup_log_chans = kcalloc(num_log_chans,
+-					 sizeof(*base->lookup_log_chans),
+-					 GFP_KERNEL);
++	base->lookup_log_chans = devm_kcalloc(dev, num_log_chans,
++					      sizeof(*base->lookup_log_chans),
++					      GFP_KERNEL);
+ 	if (!base->lookup_log_chans)
+-		goto free_phy_chans;
++		return NULL;
+ 
+-	base->reg_val_backup_chan = kmalloc_array(base->num_phy_chans,
++	base->reg_val_backup_chan = devm_kmalloc_array(dev, base->num_phy_chans,
+ 						  sizeof(d40_backup_regs_chan),
+ 						  GFP_KERNEL);
+ 	if (!base->reg_val_backup_chan)
+-		goto free_log_chans;
++		return NULL;
+ 
+-	base->lcla_pool.alloc_map = kcalloc(num_phy_chans
++	base->lcla_pool.alloc_map = devm_kcalloc(dev, num_phy_chans
+ 					    * D40_LCLA_LINK_PER_EVENT_GRP,
+ 					    sizeof(*base->lcla_pool.alloc_map),
+ 					    GFP_KERNEL);
+ 	if (!base->lcla_pool.alloc_map)
+-		goto free_backup_chan;
++		return NULL;
+ 
+-	base->regs_interrupt = kmalloc_array(base->gen_dmac.il_size,
++	base->regs_interrupt = devm_kmalloc_array(dev, base->gen_dmac.il_size,
+ 					     sizeof(*base->regs_interrupt),
+ 					     GFP_KERNEL);
+ 	if (!base->regs_interrupt)
+-		goto free_map;
++		return NULL;
+ 
+ 	base->desc_slab = kmem_cache_create(D40_NAME, sizeof(struct d40_desc),
+ 					    0, SLAB_HWCACHE_ALIGN,
+ 					    NULL);
+-	if (base->desc_slab == NULL)
+-		goto free_regs;
++	if (!base->desc_slab)
++		return NULL;
+ 
++	ret = devm_add_action_or_reset(dev, d40_drop_kmem_cache_action,
++				       base->desc_slab);
++	if (ret)
++		return NULL;
+ 
+ 	return base;
+- free_regs:
+-	kfree(base->regs_interrupt);
+- free_map:
+-	kfree(base->lcla_pool.alloc_map);
+- free_backup_chan:
+-	kfree(base->reg_val_backup_chan);
+- free_log_chans:
+-	kfree(base->lookup_log_chans);
+- free_phy_chans:
+-	kfree(base->lookup_phy_chans);
+- free_phy_res:
+-	kfree(base->phy_res);
+- free_base:
+-	kfree(base);
+- unmap_io:
+-	iounmap(virtbase);
+- release_region:
+-	release_mem_region(res->start, resource_size(res));
+- check_prepare_enabled:
+-	if (!clk_ret)
+- disable_unprepare:
+-		clk_disable_unprepare(clk);
+-	if (!IS_ERR(clk))
+-		clk_put(clk);
+-	return NULL;
+ }
+ 
+ static void __init d40_hw_init(struct d40_base *base)
+@@ -3631,11 +3598,11 @@ static int __init d40_probe(struct platform_device *pdev)
+ 	} else
+ 		writel(base->phy_lcpa, base->virtbase + D40_DREG_LCPA);
+ 
+-	base->lcpa_base = ioremap(base->phy_lcpa, base->lcpa_size);
++	base->lcpa_base = devm_ioremap(dev, base->phy_lcpa, base->lcpa_size);
+ 	if (!base->lcpa_base) {
+ 		ret = -ENOMEM;
+ 		d40_err(dev, "Failed to ioremap LCPA region\n");
+-		goto release_base;
++		goto report_failure;
+ 	}
+ 	/* If lcla has to be located in ESRAM we don't need to allocate */
+ 	if (base->plat_data->use_esram_lcla) {
+@@ -3645,14 +3612,14 @@ static int __init d40_probe(struct platform_device *pdev)
+ 			ret = -ENOENT;
+ 			d40_err(dev,
+ 				"No \"lcla_esram\" memory resource\n");
+-			goto destroy_cache;
++			goto report_failure;
+ 		}
+-		base->lcla_pool.base = ioremap(res->start,
+-						resource_size(res));
++		base->lcla_pool.base = devm_ioremap(dev, res->start,
++						    resource_size(res));
+ 		if (!base->lcla_pool.base) {
+ 			ret = -ENOMEM;
+ 			d40_err(dev, "Failed to ioremap LCLA region\n");
+-			goto destroy_cache;
++			goto report_failure;
+ 		}
+ 		writel(res->start, base->virtbase + D40_DREG_LCLA);
+ 
+@@ -3732,16 +3699,8 @@ static int __init d40_probe(struct platform_device *pdev)
+ 
+ 	dev_info(base->dev, "initialized\n");
+ 	return 0;
+- destroy_cache:
+-	kmem_cache_destroy(base->desc_slab);
+-	if (base->virtbase)
+-		iounmap(base->virtbase);
+-
+-	if (base->lcla_pool.base && base->plat_data->use_esram_lcla) {
+-		iounmap(base->lcla_pool.base);
+-		base->lcla_pool.base = NULL;
+-	}
+ 
++ destroy_cache:
+ 	if (base->lcla_pool.dma_addr)
+ 		dma_unmap_single(base->dev, base->lcla_pool.dma_addr,
+ 				 SZ_1K * base->num_phy_chans,
+@@ -3753,28 +3712,11 @@ static int __init d40_probe(struct platform_device *pdev)
+ 
+ 	kfree(base->lcla_pool.base_unaligned);
+ 
+-	if (base->lcpa_base)
+-		iounmap(base->lcpa_base);
+-
+-release_base:
+-	if (base->phy_start)
+-		release_mem_region(base->phy_start,
+-				   base->phy_size);
+-	if (base->clk) {
+-		clk_disable_unprepare(base->clk);
+-		clk_put(base->clk);
+-	}
+-
+ 	if (base->lcpa_regulator) {
+ 		regulator_disable(base->lcpa_regulator);
+ 		regulator_put(base->lcpa_regulator);
+ 	}
+ 
+-	kfree(base->lcla_pool.alloc_map);
+-	kfree(base->lookup_log_chans);
+-	kfree(base->lookup_phy_chans);
+-	kfree(base->phy_res);
+-	kfree(base);
+  report_failure:
+ 	d40_err(dev, "probe failed\n");
+ 	return ret;
 -- 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+2.53.0
+
+
+
