@@ -1,78 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795027913;
-	b=0KotIEyMSupRbKMLibCimMyhMglD3mh3lf5zbPKXMkvVcnKHLAGEUEBpwteu9mrqvtas
-	 DPqeRDYlD4X2RI4cZ34AQEDlvbGC+OEN57HTwbADTiGoNa/c4yslzNSt5TDbD91rmlNoJ
-	 7H3cvYpXSY/6c2sbk6iVBpfAZFPehh3jUYN7E0llE0cjPjydtvnYuda7CUGTImK8TQNdq
-	 u0QR8Tf/OjihOeB/KmncnQ7povJ1aJ2puzu1xEwyanN3Jg0czK7w5et+4iDJmjuyJGD6O
-	 khqO5mnn0BJL5y4nqvbw0tCFNzK9gzA9A/ydnDhn6Zs1qy2OaHVdRAUUsU/rk0KhiTw==
+	t=1795027914;
+	b=ESXYgnJG7Xie5zlSDgconl/mdk72Z0D8PsXMsKvzU3p8aO1zQORW0RJb3G+S6c5CvvAZ
+	 BTNOL+RV9s1mJHGg/jkWVnThgjvxARd7PjwibzUFrS7SEIe6Uw7BrIIEfeRVwEBTizue4
+	 Uwv4GIhe4l6EigQHtxiHnC3DMPcw+jxm59aSFZpH24/GpBFk4O2umcU0+2BC1pWSAkKzh
+	 NwFe6fQv8hnC5r6zOf28fXzlEWuEIojLsDqs6UlkuqzA9GYrGhDDjCHZCC+pMWG0NWM63
+	 U94T+S5KNjJA048IohYWshRqo5oe+H90EUlUPIF+Kw7jd1wRGcSzgzGz/Vvy0mlYBmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795027913;
-	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=7r/uBMtDqbIiez9GoW6cYv6uWC8IZHkqEq27b9GWd48=;
-	b=4/4z46c8vjpnK5KKfwAcWVerfF0feEsN2nHW6GS96UkczlW7bLkHW05kaFbadWAzUiwd
-	 puaBWCoCsCq5NWVdEj97Q39W0258SFpoAmOS3jdfFIEs2SoDnIktRUZ7/71oaAN6HajHZ
-	 gBcIyOWFLzDW8qx3Ev0TbcSgxl2eZQGLDXgmy+xBT8X0Yxq3/kxEPpolciYxtxuG7AKID
-	 L9im5A6gExwKD11vBfSNlSiB3bkXNEj5+NCirgg7000cvs8bArYW8zlta7W/95DL0lIMP
-	 SQ6sBXJjuhVSKBT/yvNt1i/X3aaPG/mUl7mi6PDlZ/lxo1PaUfAxX4PDB9AGcdGKCMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795027914;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=lCO7R6oc6BP/qjidyNQMXFt3AP/nfYL9mQn1oSSuK3I=;
+	b=b68ARi2oNPEtCRxmJSXG0sh0POukZkKc1AigjaJlTeiG+AzyU/lu8iL4lHr0wDU/dI49
+	 lJInxoAIg9o6NcNiNkB2z3SX1e0fSBrNyqu5FSIEB2DfZ7AUxT0M6dDY3eYyOOzynuwO/
+	 3QMp4nwnAFDtUp3+IjuqOAFtZb1Ymy1j+NKAwG//lhPLoir1fBMjyr7fIoEgud+affUSd
+	 o/b2kvYtidDWPW6Givf2dyDwh1PFoQNTOjOrkMGpPNgcGq80K4ZuuVcA6HpaH3yhte+i/
+	 e2lt8LgCCnadK/1IN52qWUzg6+zA/mXiRjPMx4h36Wj88MCSGnTR/3Is2kHYyYpwWBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linutronix.de;
-	spf=pass smtp.mailfrom=linutronix.de;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=2RU5uVqF;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=KyuNyxSj;
-	arc=none smtp.remote-ip=193.142.43.55
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="O+ACO/AZ";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E687606A32A;
-	Wed, 18 Nov 2026 18:51:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E687606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59802606A337;
+	Wed, 18 Nov 2026 18:51:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=2RU5uVqF;
-	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=KyuNyxSj
-Date: Wed, 18 Nov 2026 19:51:49 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1795027911;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7r/uBMtDqbIiez9GoW6cYv6uWC8IZHkqEq27b9GWd48=;
-	b=2RU5uVqFIoOcYBIuu5FzLeZm4jsbablm0hI6vBLqVKkE+t/H2MyqhbMaMR2PndJTE/aUem
-	VHULrJ2Oi05Ld5cpNiU9InhF4vjDQGSJ690omV224tEOb6J0YH6hPlBYxtTOXoOK+ur8Gu
-	QJbO5uBST6MsWBuBe1aagO5n9FXScXVlciDPXxN03nku1zA8beq6uXbW/EaKff+tbfNW17
-	glFcYsSbmDTESwrioWz4qaBO9M/oJpV1UBY+TrFpP6TygG4VbGrfbyFMuyy/HL0WdjCoHG
-	qOnG23Lrx+4w0qgVjQIOMuWMJoC/JaZ4M8FRfF52slHZm4Sqjp2RqsOhL1F6fA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1795027911;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=7r/uBMtDqbIiez9GoW6cYv6uWC8IZHkqEq27b9GWd48=;
-	b=KyuNyxSjVooS0IRzd8hhn0GsDj/vn33Jl75FyYQgzq6P7APeAp8C365+D10R4taBEmalQt
-	aPDusTuQ6CFwBYCw==
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, tglx@kernel.org, mingo@redhat.com,
-	linux-kernel@vger.kernel.org, will@kernel.org, boqun@kernel.org,
-	longman@redhat.com, rostedt@goodmis.org, clrkwllms@kernel.org,
-	dvhart@infradead.org, dave@stgolabs.net, andrealmeid@igalia.com,
-	shuah@kernel.org, juri.lelli@redhat.com,
-	linux-rt-devel@lists.linux.dev, linux-kselftest@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/5] locking/rtmutex: Stop spinning on the owner when
- the waiter is woken
-Message-ID: <20261118185149.SNIpxf_4@linutronix.de>
-References: <20261108141347.1525532-1-mathieu.desnoyers@efficios.com>
- <20261108141347.1525532-2-mathieu.desnoyers@efficios.com>
- <20261116120626.JVHxeSTu@linutronix.de>
- <83330898-b6de-469c-ac20-7367c1eb4f0e@efficios.com>
- <20261118141912.GnOg6YYM@linutronix.de>
- <8ba74adb-b8c4-4109-b20c-7094012d4853@efficios.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=O+ACO/AZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B39431F000C8;
+	Wed, 18 Nov 2026 18:51:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795027914;
+	bh=lCO7R6oc6BP/qjidyNQMXFt3AP/nfYL9mQn1oSSuK3I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=O+ACO/AZVPCdH4RyQEmlNEnAjz51zSudzFxDDJyPqfcwfMt3Tfddm2UTMnB9F9SFr
+	 HmhTeDe3BxWVqkiz2KWZ9N1I3joZOW99pq+W5f78GuNeTAbvUC0er1lqCiE6Y65ByX
+	 NXxYhOxSoZHTsKQARchncjLBrykHYWimOm+4AOms=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Mina Almasry <almasrymina@google.com>,
+	Kaifeng Wang <kaifengw@google.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Pavel Begunkov <asml.silence@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 1916/2151] tcp: reject devmem tx with fastopen and repair
+Date: Wed, 18 Nov 2026 16:00:51 +0100
+Message-ID: <20261118150231.579285968@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
+References: <20261118150121.603863898@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,28 +66,102 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <8ba74adb-b8c4-4109-b20c-7094012d4853@efficios.com>
+Content-Transfer-Encoding: 8bit
 
-On 2026-11-18 12:27:45 [-0500], Mathieu Desnoyers wrote:
-> Hi Sebastian,
-Hi Mathieu,
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-> > > I kept the check for TASK_UNINTERRUPTIBLE on the rt_mutex side. A
-> > > ww_mutex wound also wakes an uninterruptible waiter, and the ABBA case
-> > > of patch 5 needs the spin to stop there.
-> >
-> > Not sure what is related to. I don't see this in this patch.
-> > TASK_UNINTERRUPTIBLE vs TASK_INTERRUPTIBLE would make a difference for
-> > signals here.
-> 
-> Sorry, that was unclear. The patch tests no state. You had suggested
-> to limit the check to !TASK_UNINTERRUPTIBLE. I did not do that. A
-> ww_mutex waiter sleeps in TASK_UNINTERRUPTIBLE, and the wound wakes it.
-> That is the ABBA case of patch 5. So the spin must stop for an
-> uninterruptible waiter too.
+------------------
 
-Ah okay, that makes sense. Sorry for the confusion then :).
+From: Kaifeng Wang <kaifengw@google.com>
 
-Sebastian
+[ Upstream commit 89b9db72918bc209029fad8cccc42191b498d511 ]
+
+tcp_sendmsg_locked() enforces that devmem TX can only proceed if the
+zero-copy path is active and a valid dmabuf binding exists. However,
+subsequent branches in tcp_sendmsg_locked() can still intercept the
+message before it reaches the devmem zero-copy loop:
+
+1. TCP Fast Open (MSG_FASTOPEN or DEFER_CONNECT):
+   If TCP_FASTOPEN_CONNECT is set, the socket may have a valid dst with
+   NETIF_F_SG (so zc == MSG_ZEROCOPY and binding is present), but
+   tcp_sendmsg_fastopen() -> tcp_send_syn_data() will use
+   copy_page_from_iter() to byte-copy from the iterator. Since iov_base
+   represents dma-buf offsets rather than user virtual addresses, this
+   misinterprets offsets as user pointers and copies the caller's memory
+   at those addresses into the SYN packet.
+
+2. TCP repair mode:
+   If tp->repair is enabled with TCP_RECV_QUEUE, tcp_send_rcvq() similarly
+   calls skb_copy_datagram_from_iter(), byte-copying from the iterator.
+
+Neither path supports or makes sense for devmem transmission. Reject
+devmem sends inside the Fast Open and TCP repair branches when a devmem
+binding is present. Checking inside the tp->repair branch also covers
+the case where repair mode is enabled while sk_stream_wait_connect()
+drops the socket lock.
+
+Additionally, drop the !sockc_err gate from the devmem validation check
+and return sockc_err if set. Otherwise, if a valid SCM_DEVMEM_DMABUF is
+followed by a failing cmsg, sockc.dmabuf_id remains set while binding is
+not acquired, allowing the Fast Open and TCP_RECV_QUEUE repair paths to
+proceed and return before sockc_err is checked.
+
+This pre-existing issue was identified by Sashiko AI review on commit
+125755776bc6 ("tcp: reject non zerocopy devmem tx") and has not been
+hit in production.
+
+Fixes: 125755776bc6 ("tcp: reject non zerocopy devmem tx")
+Fixes: bd61848900bf ("net: devmem: Implement TX path")
+Reviewed-by: Mina Almasry <almasrymina@google.com>
+Signed-off-by: Kaifeng Wang <kaifengw@google.com>
+Acked-by: Stanislav Fomichev <sdf@fomichev.me>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Reviewed-by: Pavel Begunkov <asml.silence@gmail.com>
+Link: https://patch.msgid.link/20261019174522.55644-1-kaifengw@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/ipv4/tcp.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/net/ipv4/tcp.c b/net/ipv4/tcp.c
+index 56e7e7ef5e5c5..11a78d4f9ae00 100644
+--- a/net/ipv4/tcp.c
++++ b/net/ipv4/tcp.c
+@@ -1132,14 +1132,18 @@ int tcp_sendmsg_locked(struct sock *sk, struct msghdr *msg, size_t size)
+ 			zc = MSG_SPLICE_PAGES;
+ 	}
+ 
+-	if (!sockc_err && sockc.dmabuf_id && (zc != MSG_ZEROCOPY || !binding)) {
+-		err = -EINVAL;
++	if (sockc.dmabuf_id && (zc != MSG_ZEROCOPY || !binding)) {
++		err = sockc_err ?: -EINVAL;
+ 		goto out_err;
+ 	}
+ 
+ 	if (unlikely(flags & MSG_FASTOPEN ||
+ 		     inet_test_bit(DEFER_CONNECT, sk)) &&
+ 	    !tp->repair) {
++		if (binding) {
++			err = -EINVAL;
++			goto out_err;
++		}
+ 		err = tcp_sendmsg_fastopen(sk, msg, &copied_syn, size, uarg);
+ 		if (err == -EINPROGRESS && copied_syn > 0)
+ 			goto out;
+@@ -1163,6 +1167,10 @@ int tcp_sendmsg_locked(struct sock *sk, struct msghdr *msg, size_t size)
+ 	}
+ 
+ 	if (unlikely(tp->repair)) {
++		if (binding) {
++			err = -EINVAL;
++			goto out_err;
++		}
+ 		if (tp->repair_queue == TCP_RECV_QUEUE) {
+ 			copied = tcp_send_rcvq(sk, msg, size);
+ 			goto out_nopush;
+-- 
+2.53.0
+
+
+
