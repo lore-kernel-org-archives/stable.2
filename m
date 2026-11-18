@@ -1,60 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.82.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795040551;
-	b=fSxVKF5IpLYkvxfUyGKsCM5cVbCMVnf7uRUH7tkxCMVifZGJHPbTHgrZrJ8i2a7LDZ3E
-	 fCPPRYR/+jWV1R10cz3005d46ZlOXq8gSTPmobY5bmb0amH8eZqe+mv5rHYJyMEIhO/Sp
-	 urGORKva2gJCgES1gEfMb6xxl0iTwhb/Oy4Rtq6Zz4rC3UOIdd8cefmb81tDNVcFg7n0U
-	 GL86ywpH1TvV6CM026tT+1XJhOjEEHTBsVtV/9vbE/y2zDIXUM76TKXFEghC61sYqoH4O
-	 wl2ubZcTqTOUse9eHQZ8QSIcPzuKkqys8ZquA9utffbR1JdUG2vToAsx2j6mjhXYscw==
+	t=1795040558;
+	b=4uqDCUfSiQrco0jPmyjdmUitMPLyFRi1/lZOQ8zvdoFcf9klSI+9CWxeCHIFP9SJOcTU
+	 1zQs9/9N/7k+QXGA6LI0Xl6XPY38OeJ7Ro1KgMz3PqVzcBedi65RLfPSF34MAA4zD/K96
+	 gnzBHZqjx7/5mXLRi/dGm4Mka8HZLyV2cmUKwJVqLMR0TcmB7641qx5MDnJNqL6tI4eH5
+	 jiIcvG+L2d/X3Yjt5C9DsdD5K3lnh+YtSoYlv6r74wv7aRvTISLzQSoL9edOUK8SvcPzV
+	 P/PJFxuwI+pRB/hX7j0ERqRq30+yMWstFvEQPPcKmuQEL2WZ5+zVPS5xUQlsyJpl9vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795040551;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=deC16colvJ6YmP1UCuRm/b/DXcA7zKSPNYZR/ylPBC8=;
-	b=qkkJaJcW9KqFf3lMXzRZDAKBojYW1mb247bc8/5eGrlQ5xDAL3JADFtvD7vB25dgG/RK
-	 HHq/Is66qHEiqrupd7RnEase63KPI+QSUpoXqrlUJF3BpNR01d2dGdwQagQTwrI3vYQnP
-	 gn2Sevq8w3SkkELVILvH73d9J66qnhRyQqYgShGKVSDeDhWgHxFsFuEkTlYMAYDCgTbhc
-	 vOq1oVOAZtnotRanmGnwUEzoLrD/G4YVchU8DToUt7mnKSo49Gm70BgHnZqBn0kKq865R
-	 mgX6k0OPpeYMhetzos/l63nt9q8jPM/F4dPLC6oj7au/WDmAm9PAxOWQv0PvCb+Nn2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795040558;
+	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
+	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=07Hk40Tpzd0exU21rqFe2WaV4XF0cHbqrd9OCHEx29s=;
+	b=Q2LQKmXJtVEapVE5X/mcOBLxo4j+7I7UK3taSsaHsIc0kfSR2D8W9CKS4wErvEMxilf0
+	 nDLdBE4LVCyzPMn0+cxaEbjcIcMKBe6yUa7q77cvp8359pSRSJgD8AcJPW5fu9loCu7lp
+	 6/AKZ1TKX7zIBBvVO3SO747e0eca3+6WKnQygcQdDA+d0ayDWQm7whfDvxJE457/grEps
+	 +6zdpkSpmRYhiMpPusnXzyEmXBeW1R6fb0394PHGn+2DyQhOqZ7Z6rp+I8AnRwEfQRpRR
+	 yL1TpykdoDpaRsoto68ajKjpc9IIFLJ/TrKAV5ikdPZPw7dEtY0+48ZkOTN5TYhGDow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="dY/uIibw";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=yahoo.pl;
+	spf=pass smtp.mailfrom=yahoo.pl;
+	dkim=pass header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=A0PNf8EG;
+	arc=none smtp.remote-ip=34.2.82.16
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106AA606A31C;
-	Wed, 18 Nov 2026 22:22:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8C2606A339
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 22:22:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B8C2606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dY/uIibw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E3DE1F000C4;
-	Wed, 18 Nov 2026 22:22:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795040550;
-	bh=deC16colvJ6YmP1UCuRm/b/DXcA7zKSPNYZR/ylPBC8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dY/uIibwHTdJA4M5PzAmm39IT2+od4JB7aY09mU24btvxJ4jk3dnClNHcU/Xd2djP
-	 jf3W9adJTe1KBa18nNeR1HUjFY1ipuC/DlS+1h2u8Pcw0OOEahFVAt06XWlWnjGtEJ
-	 VcVWV9oV8M1Lvh8KXF8+kwIGH/X7lWEU3MxDSa1FyJrGESKLZui9+4cHMBg5TpswEQ
-	 MUgaMWg8/fULiXQlN4cTnjLvq0i7KPiJ+6YH9cORiD/F6pDZckA/75IPffo/tEi3ml
-	 lpBelbATD3DsJfnSYzw2Mi9qOiI7FUasy4HzukKwvN5upqkMAQTOgO3JQbICSC1ssw
-	 hxzz813wk3RsA==
-Subject: Re: [PATCH net 2/2] net: sgi: ioc3-eth: fix IRQ lifetime against
- netdev teardown
-From: netdev-bot+sashiko@kernel.org
-To: kaloz@kernel.org
-Cc: tsbogend@alpha.franken.de, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, sashiko-bot@kernel.org
-Date: Wed, 18 Nov 2026 22:22:29 +0000
-Message-ID: <179504054981.3136.8539477779059154181@kernel.org>
-In-Reply-To: <20261116101934.25910-3-kaloz@kernel.org>
-References: <20261116101934.25910-3-kaloz@kernel.org>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=A0PNf8EG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1795040555; bh=07Hk40Tpzd0exU21rqFe2WaV4XF0cHbqrd9OCHEx29s=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To:Content-Type; b=A0PNf8EGpsyGv55j6FXHvQ+iIdclsGLckSUqutiiajr6W29ucpTLWPZJM3bfgwH54QvJc6P0xPeFuwdqGuXSdy7Gsrh2eAcAfZ57Ge9GzPxMAri1mYalZtCF3krgYR10UUityK0ZZ9wuD9NbMG3whKgIqSPuqpJth+QOkbf1RfVuBWQZMdcO9fOB6I6aF/rVpkoXJ2cHzWdl2RdE/2snu526QIBpQfl0I+l9+VCZMpEgqSlZn/Gu7wD8YUnUjGn82T1bdU7Qn2krsa9sHtouXWV5Ix73QigfQBwhXAM6zE8yYyhkENEcr0Sf6sFVJomBwAqHk3jpZmOcmAcrPHM4mQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1795040555; bh=ccBSLLeMHNMCOjiTq3s1KL5ikKwzDgI3u7O26Fa7zeO=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=L/YNxzC5q/QkFHR6rTeMKVTXhP0uaRsloQw/f9BcmGA5innpu+CMjBNJhuXE0UQJ+7L735lylKRZnu3ICIkRzV+akRIHvJo4gZTidccNF354eR7IQAKSd8Mee1aKVIlx370jXWpbiAABXmgXrE9os0kiK3GaVaL9Gy9tSBgM9XwOdCTComaULdHPIekmaMq8KAoKxJjhKv08qoTl2xvfnHdeL3zDzag3XzkP/Zk/IMOOeywPw0yZFEggGMlUZ5BiMCaUzMv14DddbtAeCQEk03MMP8IEXNeHUjI+FeWCXQzrsQZSfsmhiD4j4RmYPZDkkg5Et0mz2mjj33bvbzjSYg==
+X-YMail-OSG: E2zfUyEVM1liH8nrgR03BY6MMlnSLxTZiL4_OBke00d8BKt1HdeSS03_GrfkSqr
+ r9GCOc9.sBOLMNOXYZjK4nMOtJmWBHU1ME5YheUvKyHBHSwtGUEgWtG7zaq1c6FNdezLuaLxA.Xp
+ Yw3zGp2ZcmWE4pntiPfB6ZobFOYDCIMqSUP4wUrtDIgNZk__QG2cydAdDYWhYr3T4PlPg3Auk7dX
+ PecEbRNaDLxXPcSVG3zd6HUWMVCzccr3IJayk6WXtYO9o3dHn_tdKDR5Gp80D3RmuoU.K8bVCkmZ
+ 78PrrACxbiDFQopx_yZZ_GrMiwfNCeeFyTitneeZB2YBc9WMCfR5bcWhResYxcknauhnxQnCLtdw
+ 4.b2pZG60ZC7cqM7.z0O.xDbZ4oeaz5hlAUHR2PRCvs.W7K5dAxfv4lJ2XB7QSZxLo3.ozCdRnjv
+ K4bVWwWp0PrW.AZizoSKL6OF.i38BScvBNMWv2QZgB0hDqaxfZEuSuvJrRL6LEu8stZk4xvnR9xU
+ Q.9EwD2P2eEYILkCucgbeVopluAfte2JWDyuxpgcIJybhhW4JhlH5NY4YGjG.HkheBQq_3ZV23Y2
+ A16Tdhu6KTPxT8vtErjJh2d_SGkLehTL53Kd7NMJiw_MugeZgabadCiXUjTn1.b__kzvOnb5.aq0
+ Cy3I.lWLr5u5Ob4iWd2_Gj2Fqq6QGHtdUh1JribzK548K7rJO4gjY.kX54bSO4Kr1m7hWIP6OpKy
+ GwVJ27xsMtZZzmlS9KOZruP_xpiFx6wh0_7pjrHeaV16YG2qzixnVhV5Yvg4QhoVdRITSLJfA0_6
+ YYpCgkPchhWoDVJqNI.tjOmklhaUpp2rDHVvFPIDqqG_HcmpHFJKRp1XN3xbjNwgLbdYWYyF9xGn
+ 2ZGy1QMoP7XH3rw1ZckxsavCPbkZKCvdGPe2bLAB.IEFM43KKzWD5ch76SobnEFv_4IeAWyPPINe
+ 2EAy9zNwOoCXDbSVZAw9_hQMreoHCy5ZUXA3pRnNB588xuYx4tDhJIbqqNz.IVEeKS18LvmEU4qd
+ bbewjsO2fmBaOaslcOcwG_GJk9jDoG.UxwgiXWgrCtXU88jEOWbdEuMfca6V6bCoejBVS2Qi09bm
+ rlFixmrRHH6OLx.5HCbFROnaKTn5qHCtptwJcjKYnBBbIzBxCfbH.pO5eoqg4tPz3t_yiA3u7gRA
+ M9.G.KZIgAjOVBb8k0ILs3iTAKp_whkGcQOZDQDWSwQudtq2RjBpaKZzI1sMZwSYpE5lCTsw1F5R
+ wmNe9qhYhdL2CpxU5rMOOraG8PEXtnV6wIoT7KbytqlOEG_67J5dIx5oZ_QRYVHAcShuFedKcSSn
+ ihZjrob147ay12HRfKgNfv30Lje81TP0woEB0tgAjQQV0rxESgXgjYbuYrx0zD9e9uWKPiaPk1uU
+ 7e1jIM6SD_W9gmdesHdAgAw2RJ4TnmPBbtSkF8aTdJALodEYNU8hHzSrQ5jjvOYCeVStEiBy_L6W
+ maJzYNVU2o_kk1YzXLINJT3Rq3Eo_4AbqI4.v.zHdvJHRtUU.xHbML1f2tOPsa_DK0bn0LeOhYHS
+ _dvNJ20Oa6r3BZMAYnrd2ixmV3WaMEIhq9d13prdNmSvBd.By5jTkQ8Gne6ZmWX2WPg_A0fdNcNE
+ hVP.Z0PTICyR6z_FxO0FJOsIFguVfYLOWzQNNW.why79tm6W4YQbzC3U1QsnFGV1LSoqGJaVwVY.
+ daNdATXaSqglCV4N5f1JIXiWdJmd.XCK61e8yw1arqBmLSksiipY9b0PwC.6LWENZyzksqglRIi5
+ dy8buFOCLAMXaULCIBKvBeYc3qbCEEImHI2h2Vd83cOTh7y0GFNhra93jRr9v2dkWoKDw2nEkfFa
+ TghEdCMf8BLthrv7BBsVLj9.7Ca.iXaaNDNnQfRDnqf39ZPBhMg.fxfIrDQhIam9Yx2disLL84So
+ MPGJ1fAZnFOPI3yf66YMaHDnUHu6mhqjLaom3AnJI23fN1yhruKj2QWazVjAy9bdqiE0AYhB8dHF
+ dbeTLLDW6XjqRkM6uaIAJ7m9vOQ--
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: 0eafbce0-69f4-485d-810c-5d0ee321b30c
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-104 with HTTP; Wed, 18 Nov 2026 22:22:35 +0000
+Received: from dip120.lsn.ir2.yahoo.com ([87.248.99.129])
+          by hello (SMTP) with SMTP ID 97eb8e7d0ce49dbbcc92550550a7216e;
+          Wed, 18 Nov 2026 22:22:33 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Vinod Koul <vkoul@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Frank Li <Frank.Li@kernel.org>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	dmaengine@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] dmaengine: bcm2835-dma: Add missing of_dma_controller_free()
+Date: Wed, 18 Nov 2026 23:22:30 +0100
+Message-ID: <20261118222230.123431-1-tomasz.unger@yahoo.pl>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <av3_yVSq9CKqix6o@SMW015318>
+References: <av3_yVSq9CKqix6o@SMW015318>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,204 +98,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+On Wed, Nov 18, 2026 at 01:43:05PM -0600, Frank Li wrote:
+> On Sun, Nov 15, 2026 at 11:15:15PM +0100, Tomasz Unger wrote:
+>> @@ -1027,6 +1029,7 @@ static void bcm2835_dma_remove(struct platform_device *pdev)
+>>  {
+>>        struct bcm2835_dmadev *od = platform_get_drvdata(pdev);
+>>
+>> +      of_dma_controller_free(pdev->dev.of_node);
+>
+> use devm_of_dma_controller_register() to fix this problem
 
-Critical: 0 · High: 1 (1) · Medium: 1 · Low: 0
+Hi Frank,
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Thanks for the review. I tried that, but with only the OF registration
+moved to devres, the controller entry is removed after
+bcm2835_dma_remove() has returned, i.e. after
+dma_async_device_unregister() and bcm2835_dma_free().
 
-- [High] The IRQ handler can still reach freed skb memory during
-  teardown.
-- [Medium] In ioc3eth_probe() (drivers/net/ethernet/sgi/ioc3-eth.c), the
-  shared IRQ is still requested before the state its handler uses exists.
+In that window bcm2835_dma_xlate() can still be reached through the
+node. dma_async_device_unregister() has already freed chan->local and
+dropped the last device reference (dma_device_release() does
+list_del_rcu(&device->global_node)), while the channels stay on
+od->ddev.channels until bcm2835_dma_free(). A client requesting a
+channel at that point goes through find_candidate(), dma_chan_get()
+fails with -ENODEV and global_node is deleted a second time. The same
+applies to the dma_async_device_register() error path in probe.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but ioc3_error()
-  can deadlock against the timer callback and warns on every error…
+Doing it right with devres would mean converting the whole teardown:
+a devm action for bcm2835_dma_free(), dmaenginem_async_device_register(),
+and devm_of_dma_controller_register() last, so that the OF entry is
+removed first. That is a larger change, and
+devm_of_dma_controller_register() only exists since v7.1, while this
+fixes a bug from the original driver and is tagged for stable.
 
---
+So I would prefer to keep this patch as a minimal fix that backports
+cleanly, and send the devres conversion as a separate follow-up.
+Would that work for you?
 
-net: sgi: ioc3-eth: fix IRQ lifetime against netdev teardown
-
-This patch moves spin_lock_init() and timer_setup() ahead of the IRQ
-request in ioc3eth_probe(), and replaces devm_request_irq() with
-request_irq(). It also adds free_irq() calls on the probe error path and
-in ioc3eth_remove(), so the handler is gone before free_netdev() runs.
-
-Closes: https://lore.kernel.org/all/179473760071.2199510.16065103101920438822@kernel.org/
-
-> diff --git a/drivers/net/ethernet/sgi/ioc3-eth.c b/drivers/net/ethernet/sgi/ioc3-eth.c
-> index ee284a4f75ff2..e322a588d5c4d 100644
-> --- a/drivers/net/ethernet/sgi/ioc3-eth.c
-> +++ b/drivers/net/ethernet/sgi/ioc3-eth.c
-> @@ -870,16 +870,16 @@ static int ioc3eth_probe(struct platform_device *pdev)
->  		goto out_free;
->  	}
->  
-> -	if (devm_request_irq(&pdev->dev, dev->irq, ioc3_interrupt,
-> -			     IRQF_SHARED, "ioc3-eth", dev)) {
-> +	spin_lock_init(&ip->ioc3_lock);
-> +	timer_setup(&ip->ioc3_timer, ioc3_timer, 0);
-
-[Severity: High]
-This is a pre-existing issue, not one introduced by this patch. The timer
-is set up here without TIMER_IRQSAFE. Can ioc3_error() deadlock against
-the timer callback?
-
-ioc3_error() runs in hardirq context from ioc3_interrupt(). It takes the
-lock and then calls ioc3_init():
-
-ioc3_interrupt()
-  ioc3_error()
-    spin_lock(&ip->ioc3_lock);
-    ...
-    ioc3_init(dev);
-      timer_delete_sync(&ip->ioc3_timer);
-
-Because the timer is not TIMER_IRQSAFE, every error interrupt should hit
-this check in __timer_delete_sync():
-
-    WARN_ON(in_hardirq() && !(timer->flags & TIMER_IRQSAFE));
-
-The timer callback takes the same lock:
-
-ioc3_timer()
-  ioc3_setup_duplex()
-    spin_lock_irq(&ip->ioc3_lock);
-
-Suppose CPU1 is in ioc3_timer() spinning on ioc3_lock, while CPU0 holds
-ioc3_lock in ioc3_error(). CPU0 would then spin forever in the ret < 0
-loop of __timer_delete_sync(), waiting for CPU1's callback to finish.
-
-The timer is re-armed every 1.2s while the interface is up. Heavy
-incoming traffic can cause RX overflow errors.
-
-ioc3_timeout() has the same pattern. It holds
-spin_lock_irq(&ip->ioc3_lock) across ioc3_init() -> timer_delete_sync().
-
-> +
-> +	if (request_irq(dev->irq, ioc3_interrupt, IRQF_SHARED, "ioc3-eth",
-> +			dev)) {
->  		dev_err(&pdev->dev, "Can't get irq %d\n", dev->irq);
->  		err = -ENODEV;
->  		goto out_free;
->  	}
->  
-> -	spin_lock_init(&ip->ioc3_lock);
-> -	timer_setup(&ip->ioc3_timer, ioc3_timer, 0);
-> -
->  	ioc3_stop(ip);
->  
->  	/* Allocate rx ring.  4kb = 512 entries, must be 4kb aligned */
-
-[Severity: Medium]
-The commit message says the handler could run before its state was
-initialized. Doesn't the same problem still apply to the rings?
-
-When request_irq() returns, ioc3_stop() has not run yet. ip->rxr,
-ip->txr, rx_skbs[] and tx_skbs[] are all still NULL from
-alloc_etherdev(). ioc3_init(), which resets the MAC with EMCR_RST, also
-runs later.
-
-ioc3_interrupt() acts on the raw EISR value. It does not mask it with
-EIER, does not check any device state, and always returns IRQ_HANDLED:
-
-    eisr = readl(&regs->eisr);
-    writel(eisr, &regs->eisr);
-    ...
-    if (eisr & (EISR_RXOFLO | ...))
-        ioc3_error(dev_id, eisr);
-    if (eisr & EISR_RXTIMERINT)
-        ioc3_rx(dev_id);
-
-If an EISR bit is latched when the handler runs here, ioc3_rx() would
-dereference a NULL rx_skbs[0]:
-
-    skb = ip->rx_skbs[rx_entry];
-    rxb = (struct ioc3_erxbuf *)(skb->data - RX_OFFSET);
-
-ioc3_error() -> ioc3_clean_tx_ring() would also write through a NULL
-ip->txr:
-
-    ip->txr[i].cmd = 0;
-
-The rings do exist after later failures, such as no PHY being found or
-register_netdev() failing. In that case ioc3_error() would allocate and
-DMA-map new RX skbs and call ioc3_start(), which turns DMA and EIER back
-on. The out_stop path would then free the rings with DMA still running
-and leak those skbs.
-
-ioc3_stop() only clears EMCR and EIER and never acks EISR. The parent's
-ioc3_setup() in drivers/mfd/ioc3.c clears EISR separately from EIER. That
-suggests the status bits can stay latched while EIER is 0.
-
-There are two ways the handler can run in this window:
-
-- another device asserts the shared line.
-- CONFIG_DEBUG_SHIRQ makes its extra handler call from the free_irq()
-  this patch adds on the out_stop path.
-
-Should the rings be set up and EISR acked before the IRQ is requested?
-Alternatively, request_irq() and free_irq() could move into ndo_open and
-ndo_stop.
-
-[ ... ]
-
-> @@ -969,6 +970,7 @@ static void ioc3eth_remove(struct platform_device *pdev)
->  	struct ioc3_private *ip = netdev_priv(dev);
->  
->  	unregister_netdev(dev);
-> +	free_irq(dev->irq, dev);
->  	timer_delete_sync(&ip->ioc3_timer);
->  
->  	dma_free_coherent(ip->dma_dev, RX_RING_SIZE, ip->rxr, ip->rxr_dma);
-
-[Severity: High]
-Can the handler still reach freed skbs in this teardown path?
-
-unregister_netdev() runs ioc3_close() before this free_irq():
-
-ioc3_close()
-    timer_delete_sync(&ip->ioc3_timer);
-    netif_stop_queue(dev);
-    ioc3_stop(ip);
-    ioc3_free_rx_bufs(ip);
-    ioc3_clean_tx_ring(ip);
-
-ioc3_close() has no synchronize_irq(), and ioc3_rx() takes no lock. A
-handler already running on another CPU when EIER is cleared can
-therefore race with ioc3_free_rx_bufs().
-
-ioc3_free_rx_bufs() frees rx_skbs[rx_ci..rx_pi) with dev_kfree_skb_any().
-It leaves the pointers in ip->rx_skbs[] and does not reset rx_ci or
-rx_pi.
-
-The handler can run after that in two ways:
-
-- a shared-line interrupt arrives while the interface is down.
-- CONFIG_DEBUG_SHIRQ makes its extra call inside this new free_irq().
-  The commit message names that config as the reproduction method.
-
-ioc3_interrupt() acts on EISR without checking EIER or IFF_UP:
-
-- EISR_RXTIMERINT goes to ioc3_rx(), which dereferences the freed
-  ip->rx_skbs[rx_ci]->data and can pass a freed skb to netif_rx().
-
-- The error bits go to ioc3_error(), which runs ioc3_free_rx_bufs()
-  again over the stale indices and frees the same skbs twice. It then
-  allocates new RX skbs and calls ioc3_start(). That turns DMA and EIER
-  back on for a downed interface just before the dma_free_coherent()
-  calls below, and the new skbs are leaked.
-
-Would it be better to move request_irq() and free_irq() into ndo_open
-and ndo_stop? The other option is to add synchronize_irq(), ack EISR in
-the stop path and clear rx_skbs[] after freeing.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261116101934.25910-1-kaloz%40kernel.org
+Thanks,
+Tomasz
