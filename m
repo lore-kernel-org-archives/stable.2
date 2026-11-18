@@ -1,77 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795004436;
-	b=ShpANWNwMIj8rHv+AwD1ifDHQsbbx7s0TTZ22GRhx6cvW+grLujTElu2uGwwIcBblHV1
-	 r9za+NZq2j2myoFoUJJPXvJxU6oJY6wfHevkfqfaj420lazRLsS3o7IERMktIFF6mn6Uj
-	 B+kzIuhu2NLiT75e9tByxhYMtAip7Wfd3KaXOE14I7YjRWfNwfzjkDWmtmKOUQ1ABteqj
-	 dRzGeyjDAD/AGV1/ds72soyN1xDT6/2Oc5RwK3F0TLno6gir71+hBvRdy0maq8hBpVRXi
-	 Zo+o0mJWNs2mW43YIxPW3QR8c3v6cU71tHJ0VbtEet1CM4s6TKyU004TTInJuZu85Og==
+	t=1795004845;
+	b=fbTo1UdVx7j3l2D7HbQTTCsiWYiQwQrdOoBsTFM5EbsRxNiIWOH2yYRUE/ZghJE/wfKI
+	 n24IeZGuV6hyvO167ZwnsXb+zZQloOxXyjj1NmVImpKmCJ3IgAG3xJLH+yngeRsLa7Zzt
+	 mC0oyg/sHRp8AtqpKTdaGVeRyCWzGOpErpJMOlhVA29rR4BQWzwhbr6nc4acUUyg4/coy
+	 /kkUGQBftpaC+rWQus5jj7dt7C4PqoEgLRXXLMRgRix6y8lfHA6D3qu0vR2a+fDLXP9Ny
+	 tQny5sFAY6D/YPGvLWuSI4f6s88ljvlXQFvtBYZ7df+NCwnxSrMPyd4fnO/0Z15AE7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795004436;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795004845;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=TG4+TX/hNNdKeOSE6aIh3XoWRwHEosKSuvOtrUxuk70=;
-	b=tJLuNOb7pnBjfEG+7+W+LyA3Qq84L8Ji5/xPMlWwutcyDYt6FbZ1EAND7xTIXCvVladj
-	 lGUEvzv7x/lT943gesrPlbyO+B5YrXorbTysbTe39GUGu4IJv/8Hjeoh6Oz+wcLHa2GMz
-	 KPtE/CXIb2k4cceZFpzVQMmutT8Ci6qaHXp+8CajARb4uzjdEe3Jhn8zFs6M1JA1C6e2P
-	 QJnwRDd0DhKdb+YFG2KcYD/WNcFqRaSJtpmjZ+Fb/WjB9+enggVsbsR8KnfeHpKtrvGP2
-	 iJ+XcgquvpFShx7d8m52B46FMcAE+WsHmhOsfEgMVmA1jjzIeK8ZpmM9N3zveEooqag==
+	bh=xz2Bk4myv4eiO5R8ei+E2wIg7nTAaAYUNv7l92Ae3Cs=;
+	b=iGWwr0WzII5yHXUQT+fr6gMe0CrPCmi80rKdYW8CTptvE4fUzzL1O1uI/mDx0ef/KNwQ
+	 smRVZtibLzC24zYVxbIpCFa4mB3xahR6BdM8iSJIPeOLkVwYYxHsK/cWy8cRerUbquYSL
+	 7vIwHYeSSZC4twp6bvb4/6svqamP70woK7IUzlb58apDFgYk+tPp7AWvtDpfl61fIpRhs
+	 F/It1lzKR/a91OwbPng7YTfuR6PfQ7XP6IYIA08TLjBNwGXidEDTbK4yeMa19ZD05QCZ3
+	 XSPorhB65ODE0a8OrrisAfaZtjlbUr7mOjwkoezEP30f0PXPd9KnmpuxX8HY0gju72w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PaKakomL;
-	arc=none smtp.remote-ip=192.198.163.13
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ywd4nucm;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA355606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 12:20:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA355606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C5B606A320
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 12:27:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85C5B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PaKakomL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795004436; x=1826540436;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=3T2zLZG6Fsatelqk3J5s9jKnF8ytcJizYsHOMATTVgc=;
-  b=PaKakomLGI3FMy+NrH3THKkoi1DD6Zrw/MNNwXteWG2TAVXzMbEsUREM
-   U3q9ziCOIrAvtoI0eVdLSj8TKlzJPKOj98y5P/LaJOaD9NkvzeN/vMQ5P
-   f6VDVt08Fa+m+ALjBJbYJXML5IGsf4OY1FKjYDPRejhVsL8OcxggIomKq
-   dOR48hqu0aQLW3NO9FuWQWrIVLrAhuW1491hsYdH2JZtAhJuM9hk3pkHh
-   zzBNMuppr/XZIFm8RGJ45I5BweqLUA/sNJzy7l/bLwauL0QS8kARHYbLD
-   m6W/NuRVG+BQFsFjcMeTejaJwY3PUXhY9J4DC6ZUDnsNG+MSu4P/2fcnA
-   A==;
-X-CSE-ConnectionGUID: 21dvc1nrSrOKPFaWusnJGg==
-X-CSE-MsgGUID: 3HkwW4u7S9qdWUtri3l9ww==
-X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3802172"
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="3802172"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 04:20:35 -0800
-X-CSE-ConnectionGUID: 4VRWGNyGSq6Fu3GcFEBLmg==
-X-CSE-MsgGUID: p99UIoFsQ6ORGfCyZmo6uQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
-   d="scan'208";a="10040417"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO fedora) ([10.245.244.222])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Nov 2026 04:20:33 -0800
-From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
-To: intel-xe@lists.freedesktop.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Tejas Upadhyay <tejas.upadhyay@intel.com>,
-	Matthew Auld <matthew.auld@intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ywd4nucm
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a207b02a2cso6277625e9.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 04:27:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795004843; x=1795609643; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xz2Bk4myv4eiO5R8ei+E2wIg7nTAaAYUNv7l92Ae3Cs=;
+        b=Ywd4nucmEYLm0ATf0Lw1ZckaxEs0EzvRGYnkn/XOiMmiBstiWvmgQHqN64PEnM0tWX
+         +TfO+Inb/WfN8XdC17/40AWe51QJW68L4/jKNnFE6XY2JI/pMpkqnPZOMCD+wYbGCRXK
+         Tn8Q/Ap/GNVbC3IrqYJW3ZRrvqv7ChIn1W2VWyE5CxxRaWm+QQzXJ5GQEp+ZhN+NujWW
+         8q4HwHi6LGkl9tEKMtyNIXgyUYqIF7BFkl3SLWHUbichUEgJ7RwAPaOLKPNv7zsEM/S6
+         O2hn9kriQaukT7CMwu8pX12gl95KBr5bLklbZtB5DcWG3p867P91Y1DiNleztWSEfRb4
+         uHmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795004843; x=1795609643;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xz2Bk4myv4eiO5R8ei+E2wIg7nTAaAYUNv7l92Ae3Cs=;
+        b=boTvFCBjyDtPn+9XLlNNMwpIA2sl95Fgs6T87YguWL/Hxl/NAY2y/8d3mmDIfMSjlv
+         XifVtyj7j17kasBCl7yYTaNRvh4Ksllb/L6kYUYJj5A5wFDRGTngcI40qcBHneJ15nTb
+         LCP9tRupUqU9xeMQbNvFK92osVAVWUBIkPiIR4XeGjBOApw7QXTB7oPtvB8hDVUCKGgO
+         0VlW5pVq83VKVe/YU062JEA6x1Cyr4x+9FHlYesPTnlbjnoKvV/WbWCx7vZ9GruJ+5Gs
+         +cmypzrlRHszSPBubOCWGo7C3GEoWVNI9Dk5Gl1DbWnleFxzVRt05rTGktMu+3Cefs3T
+         aWwQ==
+X-Forwarded-Encrypted: i=1; AL+hErH+knNg51uaWHWS2oZfZQ6obz24GbA4b7wTbSrCr5T8yqGwRVqWh6hitW92Pv5886ZW5eLeUIg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8HtzU/gfdKvjEviBfk+bMINbrKyb/5JE/IbeMOzkhdbfPSaLAD
+	cipYmtXfJpNQJ0YD4p2nG5lzL0EYqjuvn5WHOA1+Vac8yzuwcV8od424
+X-Gm-Gg: AYBFou332V/Ylx0bJkTlP8Mj2syq401hQA74Apx4nSjlFWtxkFeCi5YVrc7Oc85aAYK
+	4L7h6l5R2yQJrWl008cXoN3OSCsceucWkMDQ4PVyZtXQR3ozXwy2vtHLLM8vYR0H1lAfjnB7ntp
+	wV0bxd3aH7nea/pO0KZMFm+3iTEqEc87zFhC8q5LOMwx7oxL+hAwRorK9xtLx5ctggJwr4Idb3Z
+	1wcM9615Uk4CyFiZqXeZvwV6MigDj7yYFs6wDyB0nbJkGUlU7WupvgWLlzlHbKeLMMYxzSRF3vs
+	5yoBvKRLggPxqs9eIf+5gB8LuVvXn+FxKWmxuqzMkj3nYMPnRfHUVNnyylrgAS2Nuqc4ZmaPssn
+	/C9OhJvM9OQb/c9ZpdO4/EvuTMBGyNMBx9SKZd7d8S2dMk8WQCf9xwLZAnsl2J7afU04/RqmU2w
+	zbhP1/3fJyxuAPByxuKnzMHItStpEZY1puUE5JypIEgTlS93M+YQb8KoT8+uxfPrN6nWnHO8AE1
+	MqRZxS63dsHthDBPsjXBA8SBN59wbmK7efvqBt/VNj8UMxoR7fiN1KuGL4KXB8evDQjnawKgY7y
+	hL+0gh3fH8e5WGleMDWH4E8XUQfL55wqljeZH6ji8TU01Fd0FGiWDrS0+temaCCHJgA0fSIxjA+
+	7I5+j
+X-Received: by 2002:a05:600d:82c5:b0:4bb:693e:4c8e with SMTP id 5b1f17b1804b1-4bb7da270bamr55401635e9.21.1795004842666;
+        Wed, 18 Nov 2026 04:27:22 -0800 (PST)
+Received: from SurHub.localdomain ([196.188.113.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb78430752sm150071565e9.12.2026.11.18.04.27.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 04:27:22 -0800 (PST)
+From: Abdifatah Suruur <suruurism@gmail.com>
+To: Steve French <smfrench@gmail.com>
+Cc: linux-cifs@vger.kernel.org,
+	Abdifatah Suruur <suruurism@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/xe: Don't zap imported bo page-tables on L2 flush optimized hw
-Date: Wed, 18 Nov 2026 13:20:11 +0100
-Message-ID: <20261118122011.487537-1-thomas.hellstrom@linux.intel.com>
-X-Mailer: git-send-email 2.56.0
+Subject: [PATCH] smb: client: reject oversized SET_INFO data
+Date: Wed, 18 Nov 2026 15:27:17 +0300
+Message-ID: <20261118122718.17236-1-suruurism@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,55 +96,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Invalidations of imported buffer objects originating from the dma-buf
-invalidate_mappings() callback may run without a runtime pm reference,
-and obtaining one from that context may not be possible. However, on
-L2 flush optimized hardware, xe_bo_trigger_rebind() would, also for
-non-fault-mode VMs, wait for idle and zap the page-tables and flush
-the TLB using xe_vm_invalidate_vma() in order to ensure the L2 cache
-is flushed.
+SMB2_set_info_init() copies the variable-length set-info data into the
+SMB2 request object without checking that it fits.  The object is
+CIFSMaxBufSize + MAX_SMB2_HDR_SIZE bytes and the data starts at
+sizeof(struct smb2_set_info_req), leaving 16492 bytes with the default
+CIFSMaxBufSize.  A malicious server can return a nearly maximum-size
+security descriptor; id_mode_to_cifs_acl() retains its ACEs and adds up
+to five new ones, producing a rewritten ACL around 16.8 KB.  A chmod()
+or chown() on a cifsacl mount then makes the memcpy() write up to 336
+bytes past the cifs_request object, and the overrun is also read back
+and sent to the server.
 
-For imported buffer objects this is not needed, since the vm_bind
-ioctl already restricts them to PAT indices that either ensure no
-data for their pages is kept cached in L2, or that are 2-way
-coherent, making a flush unnecessary. So, for non-fault-mode VMs,
-skip the invalidation for imported bos and rely on rebind on next
-exec, as is done on hardware that isn't L2 flush optimized.
+The worst case is much larger: if the server returns a security
+descriptor whose owner and group SIDs map to 15 subauths, the rewritten
+ACL keeps the original ACEs and replaces both SIDs.  With 817 ACEs the
+resulting SET_INFO data is 62256 bytes; KASAN reports a slab-out-of-bounds
+write of 45764 bytes past the 16588-byte cifs_request object on v7.4-rc2
+(where the earlier undersized-allocation issue is already fixed):
 
-The patch and changelog were prepared with the help of an LLM.
+  BUG: KASAN: slab-out-of-bounds in SMB2_set_info_init+0x47c/0x6d0 [cifs]
+  Write of size 62256 at addr ffff88800ee28060 by task python3/86
+  The buggy address is located 96 bytes inside of
+  allocated 16588-byte region
 
-Fixes: 4e7ebff69aed ("drm/xe/xe3p_lpg: flush shrinker bo cachelines manually")
-Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>
-Cc: Matthew Auld <matthew.auld@intel.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: <stable@vger.kernel.org> # v7.1+
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reject data that cannot fit before the copy.  This covers SMB2_set_acl(),
+SMB2_set_ea() and the other SMB2_SET_INFO callers.
+
+The vulnerable copy predates the ACE-retention rework, but the rework
+makes the overflow reachable with an ordinary chmod on a cifsacl mount.
+
+Fixes: 35143eb5c2e3 ("CIFS: Add SMB2 support for rename operation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
+
 ---
- drivers/gpu/drm/xe/xe_bo.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ fs/smb/client/smb2pdu.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
-index 42a6aa1a2e4a..fd7833e598b3 100644
---- a/drivers/gpu/drm/xe/xe_bo.c
-+++ b/drivers/gpu/drm/xe/xe_bo.c
-@@ -805,9 +805,12 @@ static int xe_bo_trigger_rebind(struct xe_device *xe, struct xe_bo *bo,
- 			drm_gpuvm_bo_evict(vm_bo, true);
- 			/*
- 			 * L2 cache may not be flushed, so ensure that is done in
--			 * xe_vm_invalidate_vma() below
-+			 * xe_vm_invalidate_vma() below. For imported bos, the
-+			 * PAT setting ensures either no cached L2 data or
-+			 * 2-way coherency, making a flush unnecessary.
- 			 */
--			if (!xe_device_is_l2_flush_optimized(xe))
-+			if (!xe_device_is_l2_flush_optimized(xe) ||
-+			    bo->ttm.base.import_attach)
- 				continue;
- 		}
+diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
+index f85595136ef8a..beb3abf9724dd 100644
+--- a/fs/smb/client/smb2pdu.c
++++ b/fs/smb/client/smb2pdu.c
+@@ -5894,6 +5894,17 @@ SMB2_set_info_init(struct cifs_tcon *tcon, struct TCP_Server_Info *server,
+ 	req->AdditionalInformation = cpu_to_le32(additional_info);
  
--- 
-2.56.0
-
+ 	req->BufferOffset = cpu_to_le16(sizeof(struct smb2_set_info_req));
++
++	/*
++	 * The request object is CIFSMaxBufSize + MAX_SMB2_HDR_SIZE bytes
++	 * and Buffer starts at sizeof(struct smb2_set_info_req).
++	 */
++	if (*size > CIFSMaxBufSize + MAX_SMB2_HDR_SIZE -
++		    sizeof(struct smb2_set_info_req)) {
++		cifs_buf_release(req);
++		return -EINVAL;
++	}
++
+ 	req->BufferLength = cpu_to_le32(*size);
+ 
+ 	memcpy(req->Buffer, *data, *size);
