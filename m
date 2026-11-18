@@ -1,59 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795023606;
-	b=anYPqsmmFhFqey+0KcOS/9f5+YENqG1mmm5ut7wRY+f39m/hJriPl+cAv/mfDRXcIXuM
-	 iPlvzXk7G9MEd3ikyalaOpoQcjark/73m+4L9ElTvX/WxOw1Eo0Ixgn8wjfUNWIfRYQA0
-	 akzMWpPOcQoWlBmCcL5dtR7j0vAAIvtPUpeH+QDGoBcnYSMDaxY/q+6YOMqqWer22UaHg
-	 C3Jn1Mj1S4/+ShP68MtV3pW2wQhM6A/zTfDRI5JumTKXCiBz2wyqETzijqacKbsu7Dss9
-	 622BRz14NpywL0xYu+Jv1/gK4PycIfJ7aiXGug1vl6tGO9CrChgDrheDGB8kPC7HTFg==
+	b=dEisLou+9iZyUb6qKLFt41BYU4tji5cPxpV5D7CXrWQNpS8Tpbogp339b9mVJHPmDOdz
+	 ReSzAugoEG21bkj2+hU1qEpJA1qplll4X8qnxMFjXu9XXE6C7OD0+PiAszsXpEx9MwJiM
+	 2xRqg+KV++OFcLGaUF5K4XkQKqdrELBsxUZ7b1ga7XMQQlAf/Lxw4UMrrnABFsRHAWQC9
+	 AJYV6Wy3oi3vgIrwrQhUERfSiz1/p+qA2PhVscxpFZ0U/pofnciWH/h52oCPoF4xFZ3/a
+	 AhNRn7kaGowX/EoFxq/2KBuK5MEpbJDqd/AeoRoyI2KyR4wNpR4Egj1cWJ581LkOJPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795023606;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/J7vbX+m1aC9wONWeqsOhA4ACqGayDATsRUB0nHafbQ=;
-	b=biF1gF2Jh2AwhW79FiENpCRuxrUkT6+/EJXrzz1E4iDpPlQtdi3kX6uS70u6YhZ34US+
-	 2FbuLZFRDV/I48tENyg0i+hCkIvw1xV4JSey1daE2D4pE4e+qaKfNYW3OPJN4xXpGIJ9R
-	 hb8zk8FC59C68Ct2gjq+A5/AmjwyGjwyNKCGVhWx+TkFFvPHlytYMKMfAcXI1JaApHLF4
-	 qVog/Uy8s5zMjwy7C6jSoDZSz54IpZGGbQzTHALlxe9EH5VghVNVXem9+iIGxcd7j+V9C
-	 8mZuVcjLOzEPdRz8j45/k+e5bTAevbjzy+mnJXMcVRHObbB4kYi0XsvAhZdGKdofLpQ==
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=WOX0nP5PfmFUf9Q723QgPHMMZtt0S26y3/EjkspDlFI=;
+	b=NQBsdqu34qF/Z5v85HdOBgSTpTflm9Xv4NjZmeyudbNfcjuQE1UFsdseIxVpglgfYswu
+	 j2DmRzJYSIjJ9utdw/GlRhA0cd2LFxTGPwgHCZvqxbEKT9teJbsCMpBf9v4Xbq5yMG9SE
+	 2uJxWlGzzAbFj17oX8MMNfcVchXMir4+g9LF0IV5PoVbBwiN9SSH/hIKpz66zCmWLpnpu
+	 MlV+5l2o9KbhVzTv5A29MXCGmZYYBlz6kF8xs6zbn+LXzIhybmQLCo3aoCwpx6Dw+dI9z
+	 SgbMN47QiKJk97ekV1fWEip/UCtIafkdZr1Scbvkzy3fNGXORzJu3l1U69jIizQHMWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GoeW3Sgk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=uMPh98SR;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ZmJAlvsi;
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77D39606A337;
-	Wed, 18 Nov 2026 17:40:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDC24606A336
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 17:40:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CDC24606A336
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GoeW3Sgk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61C11F000CC;
-	Wed, 18 Nov 2026 17:40:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795023606;
-	bh=/J7vbX+m1aC9wONWeqsOhA4ACqGayDATsRUB0nHafbQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GoeW3SgkJC91iDhh96fbcUWZi7S6QYku6qOUIq/GYKxr0gP4+ky4VW6tOYJc7Mo/3
-	 rU1kmpzFXup1LDcRls0YzI/FZ3E7x0kYopnrz4p3QvxSM1T6OaRPkY1hyEu4mPoc7o
-	 irG6VvjbsJyq2vvDWBKhRB19wY1sosQD2nR+chpI=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jiawen Liu <1298662399@qq.com>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0388/2151] memory: exynos5422-dmc: handle clock enable failures
-Date: Wed, 18 Nov 2026 15:35:23 +0100
-Message-ID: <20261118150136.204975426@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
-References: <20261118150121.603863898@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=uMPh98SR;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=ZmJAlvsi
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.phl.internal (Postfix) with ESMTP id F2C33EC0851
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 12:40:04 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Wed, 18 Nov 2026 12:40:04 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1795023604; x=1795110004; bh=WOX0nP5PfmFUf9Q723QgP
+	HMMZtt0S26y3/EjkspDlFI=; b=uMPh98SRFjJTRQkpb9KX4o+cYIxrZE0xih9RO
+	Yjkk0cK40nkAjxALH/87xeuNBJ+wF8ftLdvniLfCY+5Bl8UnetuSPzKfWUpNz4i1
+	TffBC5C3u+GcAVR7iJO3i2Ff9vjM+Ypte7AuOdjqFPO8akjW007dP0tEp8lG1jek
+	Ozn3txuKe3hMAfT6ykcjZYJ5Whv578O5BUNorCkLn2b9MjwNa/kDUoTO4duAv8jB
+	xrJCTxEPgDcuxVrzLhG/6bxPmmVwO16ByyTcqMuVTMAl4LgRY1KQZXHzopQIsMKi
+	uXfUCFFOQXJew0vFCZMkg3+PlXZ/iHJjljmiyYcxp2HYYFC5A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795023604; x=1795110004; bh=WOX0nP5PfmFUf9Q723QgPHMMZtt0S26y3/E
+	jkspDlFI=; b=ZmJAlvsiDT/hHDFRJJGhHTOwDLUqcW/vso0j92j3RPbXyfH8POc
+	F0NoayI8TWQGTZlAbKYBgaxXIDFynryP0io4+XnJ3+3z0u6laNiKW7a/T6udz9+t
+	yQxQA1GU0sFJI/5ofMp1Ilkwbhqx1oeqysj+Cp2PYJpv+++gi/D5S03kDcDrMGiX
+	QrZimDfvRfNtvqAJgpp3cLl+X1bqIKxouCq8QtLRIWvdJ3RsxS99eOUExZ7GsWBl
+	DI8pukATgDizDtoOPWvdlHDtvLoI1XfgLjjJ8f2s4ytCE1R3laZiAbMOVH32XMGB
+	9mdd/Vbk+iGIVBkBNg3l35yn8/J0aP/sQvA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795023604; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:itLRsuqAO0aEd97vOw6KtBCztmD+AqOTFlCKiAy8xqJyNTq
+	nX24XJdC5uNmvXbG7zSmmxJWWShAREGahTBlqMx0oAdemMYMlZwu2a3/L0eRRjKS
+	JwgVRbJnkbPaNQLBzKiGnKBYI9zHbDqfXKaUPyry14IjN8NKNDGOnMCCTDNeXp5m
+	27aHtP3+r1MeEXo6p2wWD6Z8EW4tAeuxsaw9kM2/hXn+jwRUz6UZuJr8X09A9FXk
+	HF7yGnlXcPxATS9i8f1WOGqURu9qJY11htWHJNavNDuKnYJg7VBybY6V/nyD4OFQ
+	xKBVply7Yw4kmZsv2/avLjL7dk1zD7njTUyKtYA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:ikqs4bWmQ0O5p9jUTxjsal+djJrIFHF8sLkQv7cZmMg=:2hUnR9ZvXd+MRNEYunAX71//rBW00NLAmOP7S88GEJw=;
+X-ME-Sender: <xms:9OL9ahhmvb0rokcBydyyzpw9ahWPsedKacMpIHAjFH5wSkXnp9vqwQ>
+    <xme:9OL9aiAGNsKExxhZZCdHd5U9MHGwJ8rGDc23vuYOPq86iD6lmylO6t6fUDoR2rCw8
+    pG-simB5qTLa0drphOMX5EhYUROLzt7WsalE_i_ehOheRokwyN7SHGvTA>
+X-ME-Received: <xmr:9OL9ajSsxCI72_1dQsw6gawpkFTjYQNBBEYENEtSYpQNKWskgJHwATCwEp5YHf6b>
+X-ME-Proxy-Cause: dmFkZTGeGXXOSWoH9YX7eY7zbjJR7vgoMjSUawdmwaHh923uKJ0B+BNjVdJifHN61FAC0P
+    3GVzypdXA4c9TLSaWZIfjqE4ti6KG5yLL2967424AB8dJDAgBwXA6vSsU7YwWklBecErYN
+    yp1BZNWGELaUaxZppgFY2Va7CF2Ozl6EL3GpQ6n2HV+N8AdBuLviC5mGF4ME5N3MYj6d5a
+    XzDKLSoMQ1nAvdvYWWDQmPdyfSNK5C8bb33j7CiIsq8rOPfcpppY44MQ4pp3hnmV0p/noC
+    nr3xVcgO0YlnbcxJriBv0eFprPx18ltJYm3AJ1a6U6E6R9oUPSCMDF5aaYmxpFadRoWIA+
+    e77qrBqqwvz+1gCReHpnOkuOpIro5bWPKrVcrXiHgdmwTYZjTnih/DTTNs95Ju4boLguXE
+    bYdk1UPMPLmHYVHcitbuHN1HoduoDf7E7kwXXKgjtLhz6X+C42UvoM3GCTV6UT5hq7uIbH
+    MlMSIoXKdq1/LMG0o3R49EiMCxa8qXzCMozjdwF8tp67xL26AlZmnndFmHbU/1cFDx/GR/
+    4XuVq/IsBeMGjCGnBkWzDFX+GkQ4oSwWXhKjNgz82KgUdSWlIx9cdj9+RGg1//Evc4RXtB
+    wgpOZ/X5lykevLxbyKLJCkSiXJxvJ6WYgQrcuCubKy2UBr7sJzjWmELnGCrg
+X-ME-Proxy: <xmx:9OL9anXqF4ug4dOTYdXYrrXX2pJHntwWCtFmHVP3_leuV1M0c32mwA>
+    <xmx:9OL9asfGzdb4TNAupirTSCjYFi3SPC-X6UhLmXaQwQF8d5F7vmqW6A>
+    <xmx:9OL9ajIiNTVh6VvTy7vjWDcBeEjKem0sCVjRlKYxdO6h1aSCKZ1Gdw>
+    <xmx:9OL9ahyr8MfvGWJg-ZjJkkn-jsgN-OV3-oux-hW4ut9GdY-F0Dlzbw>
+    <xmx:9OL9arRgjt6TiG4fSJkvQvgROZpit9Eam1A8WnvX1xKF5fv8va1uK-Er>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 18 Nov 2026 12:40:03 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
+	stable@vger.kernel.org
+Subject: [PATCH] ksmbd: clear DACL_PRESENT when the query omits the DACL
+Date: Wed, 18 Nov 2026 11:40:00 -0600
+Message-ID: <20261118174000.76954-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,55 +128,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+build_sec_desc() starts the Control of a security query reply from
+SELF_RELATIVE and ORs in the Control of the stored descriptor. A stored
+descriptor with a DACL has DACL_PRESENT. When the client asks only for
+the owner or the group, the reply then has DACL_PRESENT set and no
+DACL. A client reads DACL_PRESENT with a zero DACL offset as a NULL
+DACL, not as a DACL that was left out of the reply. The server's own
+access checks are not affected.
 
-------------------
+Do not take DACL_PRESENT from the stored descriptor. build_sec_desc()
+already sets it when the DACL is requested.
 
-From: Jiawen Liu <1298662399@qq.com>
-
-[ Upstream commit cce46902ea9fcd585cd200fffa3166f63bc571f1 ]
-
-Check the return values of clk_prepare_enable() for fout_bpll and
-mout_bpll.
-
-If enabling fout_bpll fails, propagate the error. If enabling mout_bpll
-fails, disable fout_bpll before returning. This keeps the clock enable
-count balanced on probe error paths.
-
-Fixes: 6e7674c3c6df ("memory: Add DMC driver for Exynos5422")
-Signed-off-by: Jiawen Liu <1298662399@qq.com>
-Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
-Link: https://patch.msgid.link/tencent_B0189529F550458590E3BA614EAB800FBF08@qq.com
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ian Bridges <icb@fastmail.org>
 ---
- drivers/memory/samsung/exynos5422-dmc.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/memory/samsung/exynos5422-dmc.c b/drivers/memory/samsung/exynos5422-dmc.c
-index 788d49c688b1d..98c3195525831 100644
---- a/drivers/memory/samsung/exynos5422-dmc.c
-+++ b/drivers/memory/samsung/exynos5422-dmc.c
-@@ -1297,8 +1297,15 @@ static int exynos5_dmc_init_clks(struct exynos5_dmc *dmc)
- 	if (ret)
- 		return ret;
+Tested on ksmbd-for-next 267029b35ad1 with KASAN. On a file with a
+stored descriptor, a query for the owner, the group or both now returns
+Control 0x8000 instead of 0x8004. Replies for the other tested
+AdditionalInformation values are unchanged. smbtorture results match
+the base.
+
+This patch was developed with LLM assistance.
+
+ fs/smb/server/smbacl.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index a87c22fa9a6e..5bd0c7eab515 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -1077,8 +1077,9 @@ int build_sec_desc(const struct mnt_idmap *idmap,
+ 	pntsd->sacloffset = 0;
+ 	pntsd->revision = cpu_to_le16(1);
+ 	pntsd->type = cpu_to_le16(SELF_RELATIVE);
++	/* DACL_PRESENT is set below when the DACL is requested */
+ 	if (ppntsd)
+-		pntsd->type |= ppntsd->type;
++		pntsd->type |= ppntsd->type & ~cpu_to_le16(DACL_PRESENT);
  
--	clk_prepare_enable(dmc->fout_bpll);
--	clk_prepare_enable(dmc->mout_bpll);
-+	ret = clk_prepare_enable(dmc->fout_bpll);
-+	if (ret)
-+		return ret;
-+
-+	ret = clk_prepare_enable(dmc->mout_bpll);
-+	if (ret) {
-+		clk_disable_unprepare(dmc->fout_bpll);
-+		return ret;
-+	}
- 
- 	/*
- 	 * Some bootloaders do not set clock routes correctly.
+ 	if (addition_info & OWNER_SECINFO) {
+ 		pntsd->osidoffset = cpu_to_le32(offset);
 -- 
-2.53.0
-
-
+2.47.3
 
