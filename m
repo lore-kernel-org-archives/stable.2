@@ -1,58 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795020118;
-	b=I4sxiZXCUnUFhlq7uPm1x8cpx6NX8Javo68bnZffeDZ2BsEbUYwrA3oEgURiWTXxmL5n
-	 vrGbroPtogYT0xW2Yyq9pnL/H9GWd3gjcNLFyy72clL9CzKzcmHcZkmd4d2p2jgt9EPJz
-	 Hg1FoSlXpvoiewUFhOqrQVm0KJdERDYZnmQZfQD4OpTBgyIXR0Ix+dooq054wwX8ixmRW
-	 w6NuymNbZj2RCUlrwfiGeGsNuO+bCk8Va1yx+Xv7NWldtSSH5XQCW0+gCw2AH7Ic8+ulS
-	 wmCTzM+GhqEMVQEGgz2uOpcceWgMMpw4cL/Xv4iJwb73fQZ6whjhljG+wWbQA3FAPTQ==
+	t=1795020121;
+	b=H+GHg45ZM8drhgR3CuguUVyEqobZKh1apo48vPchsp7QRXWl/ASS8TcshSqkpj8RF4zi
+	 VNFbGSL6R4YtmLU4YDjgN/Y4sUORK2LYXKDkFaLvMGiwgjrMnp2F53G36TrFjIxH1MYHW
+	 KBnIWCWusEZhR751RgKDDvX3Tl8H6zwqNk/9ifxwPMc+52LI0lpd6AYrvtTczc8owhgPF
+	 eU/ZpBcFkWEdzIzVTiJAxwhm95m7srjWEi1IG+btHSdhjU7DZV/0w5Z9u1yCZUnZUKizP
+	 8HSz47CLSUNP3BZ+6zrMfWvc4aRgiFl9JJoM5+YC7DNOvJlo3bLxb4CbByBLitL7xAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795020118;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Y+J7Vu1ehnxF/Az/9wE0jRHOLbAPuHKOWGEwVhQ3fvc=;
-	b=jjYJk+bGX/q5tmM7sXrLu8npnfuEihP8NuNbQOZ4D459BE4mibDhH2UXnkAacmekRc1J
-	 +of9tIYROSAP1kw5bnkzvIIIpGagXp2iAz4X+6Oey0yNm5U1uRg5HWx016cDRtYs0LNOH
-	 cjWNitGwHs0MFYFCjXOM8H25qFgXtWnvMTSGEraHWQw71v2S/HE3+8fHHcRUGxwlFq0zh
-	 Q1YiaupP9y8Ia6twU4wNoF+3q02e382119V2M7swuLfBWG9BngerRtWpLGgM0RNrZpuw3
-	 10s0YH4RTW0rxMxsj2Ph7x5PE6MiXygXaY3QYt9/59XJfx9MwcAYI51aod7dGgJSf3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795020121;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=NCJizk8bzcFH2AbvcH+Cs7sTkFlxW/3L98puwCtipF8=;
+	b=nDL0RIoIzEf3W5aj58lgzrPaygqEpWH5lnM2I7NOxN/8ECK7bF885eLBQO3/35576VYG
+	 L3OyoG0aay3gd8werK+G+ecSWtbCG0ZeMgwh6LgW2PLWgoPcfh16E6AL8vPrcdB8ts6ot
+	 kkIde1GLkwaZsU57tcvhlab/7F/KhOEEF7wv9t5pBPdH55tS3bAfgiiKrLYpHpLk/vLFc
+	 SGOR9LaqmC5YWciO45+hkx6gWpZ3fyv1FLe7w2GgnE1LMzPgM5JHiL2aurCf7f7E/A3lZ
+	 6PEjNy2qH6DJzqe51F+/YWG7YupuAybrN9BEMHfXcY8IyuBNWAS/PBD1ivx5mBlUT5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=paDrTOTX;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFMkljvJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 789AC606A325;
-	Wed, 18 Nov 2026 16:41:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFC69606A338;
+	Wed, 18 Nov 2026 16:42:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=paDrTOTX
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBF661F000C5;
-	Wed, 18 Nov 2026 16:41:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795020118;
-	bh=Y+J7Vu1ehnxF/Az/9wE0jRHOLbAPuHKOWGEwVhQ3fvc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=paDrTOTXb2RaX3vgUMIyKVAHSyAsM3JwhEFpU0vPcePSfxnJCJ1ID944kd8iV1TOj
-	 EMjprClYK1AcQdOc0iBznYwBn8SPY4jmhoH2tCkJmPHKABZd3ucd30UUzegZAoc8ss
-	 /4MuLqsHGrYzSB/gz1tcNBDxp2CvL0BSyddXCAIE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	bui duc phuc <phucduc.bui@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 1797/2651] ASoC: mediatek: mt8196: propagate I2S clock errors
-Date: Wed, 18 Nov 2026 15:50:37 +0100
-Message-ID: <20261118150352.005844867@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFMkljvJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D99B41F000C6;
+	Wed, 18 Nov 2026 16:41:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795020120;
+	bh=NCJizk8bzcFH2AbvcH+Cs7sTkFlxW/3L98puwCtipF8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QFMkljvJawec5NmrO3WRFAgrg16D5amWq/3qOZJySjcI3zkdLFyHx7qt/VJlC9Lrm
+	 rSHrnHsr0If7GeXaKoUgThoNSnbxJgzA69q6FDjUD+2mVMdOKq+wmTQ6MZMmKotJgE
+	 66PhJDfZH9qhEu7eBErOQRP50O2w7i/CA1T0JD4324mFPMAOPAtUcAKsyDk61PYvzw
+	 hlPic5EBWUu1uBSW3I1B3ik2XxIF8i8Ieqc0aaOP2wgzYy7SItackWUGeHDYhxDu4U
+	 S9KDdlpsuTmsA232DK65bIXrfRmH3XiJEVKdKDJsb1aoT9T2chlBroNfWVnZEHpoX1
+	 bYGA1hpCeJcjA==
+Date: Wed, 18 Nov 2026 16:41:48 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	David Rientjes <rientjes@google.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
+	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
+	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
+	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
+	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
+	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
+	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
+	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
+	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
+	Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 06/13] mm/migrate_device: don't let go of the fault
+ page
+Message-ID: <av3VJFuimrc9g9EY@gremlin>
+References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
+ <20261113-mason-migrate-et-al-fixes-v2-6-50a2ed382b61@kernel.org>
+ <0dc23953-328a-46b5-9432-4b1a1a16fac0@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,98 +76,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <0dc23953-328a-46b5-9432-4b1a1a16fac0@kernel.org>
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Nov 18, 2026 at 04:31:25PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/13/26 22:45, Lorenzo Stoakes (ARM) wrote:
+> > From: Josef Bacik <josef@toxicpanda.com>
+> >
+> > When migrate_vma_split_folio() has split the folio of the fault page,
+> > the lock and the reference which the fault handler has taken are at the
+> > former head page.
+> >
+> > It then moves them to the folio which now holds the fault page, by
+> > taking a reference on and locking that folio, then unlocking and putting
+> > the former head.
+> >
+> > split_folio() has unlocked the new folio and has dropped its own
+> > reference on it, so until folio_get() nothing but the page table entry
+> > holds it.
+> >
+> > Only the mmap lock is held for read, which does not prevent another thread
+> > from zapping the entry with MADV_DONTNEED.
+> >
+> > If this happens the folio is freed which results in folio_get() taking a
+> > reference on a free device page, which the driver can hand out again at any
+> > time.
+> >
+> > In addition, folio_lock() can sleep here with the lock of the head page
+> > held.
+> >
+> > Utilise split_huge_page() which will leave the lock and reference at the
+> > fault page correctly.
+> >
+> > Fixes: 022a12deda53 ("mm/migrate_device: handle partially mapped folios during collection")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> > [ ljs: tweaked commit message ]
+> > Tested-by: Gregory Price (Meta) <gourry@gourry.net>
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+>
+> This code is so bad we should remove all of that from the tree, seriously.
 
-------------------
+Yes stuff like this really does remind me of many scenes from the all-time
+classic movie Event Horizon... :)
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+>
+> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
 
-[ Upstream commit 6c14a59bc503fc9aa599f1ebc50777460145e8b4 ]
+Thanks! :)
 
-Propagate errors from APLL and MCK clock operations in the DAPM event
-callbacks instead of always returning success.
+>
+> --
+> Cheers,
+>
+> David
 
-Fixes: 65a195132669 ("ASoC: mediatek: mt8196: support I2S in platform driver")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-Link: https://patch.msgid.link/20260929061121.124001-10-phucduc.bui@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/mediatek/mt8196/mt8196-dai-i2s.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
-
-diff --git a/sound/soc/mediatek/mt8196/mt8196-dai-i2s.c b/sound/soc/mediatek/mt8196/mt8196-dai-i2s.c
-index ef5cde0ba829e..adebf75629bed 100644
---- a/sound/soc/mediatek/mt8196/mt8196-dai-i2s.c
-+++ b/sound/soc/mediatek/mt8196/mt8196-dai-i2s.c
-@@ -985,27 +985,30 @@ static int mtk_apll_event(struct snd_soc_dapm_widget *w,
- {
- 	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w->dapm);
- 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt);
-+	int ret;
- 
- 	dev_dbg(cmpnt->dev, "name %s, event 0x%x\n", w->name, event);
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
- 		if (strcmp(w->name, APLL1_W_NAME) == 0)
--			mt8196_apll1_enable(afe);
-+			ret = mt8196_apll1_enable(afe);
- 		else
--			mt8196_apll2_enable(afe);
-+			ret = mt8196_apll2_enable(afe);
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
- 		if (strcmp(w->name, APLL1_W_NAME) == 0)
- 			mt8196_apll1_disable(afe);
- 		else
- 			mt8196_apll2_disable(afe);
-+		ret = 0;
- 		break;
- 	default:
-+		ret = 0;
- 		break;
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- static int mtk_mclk_en_event(struct snd_soc_dapm_widget *w,
-@@ -1015,6 +1018,7 @@ static int mtk_mclk_en_event(struct snd_soc_dapm_widget *w,
- 	struct snd_soc_component *cmpnt = snd_soc_dapm_to_component(w->dapm);
- 	struct mtk_base_afe *afe = snd_soc_component_get_drvdata(cmpnt);
- 	struct mtk_afe_i2s_priv *i2s_priv;
-+	int ret;
- 
- 	dev_dbg(cmpnt->dev, "name %s, event 0x%x\n", w->name, event);
- 
-@@ -1025,17 +1029,18 @@ static int mtk_mclk_en_event(struct snd_soc_dapm_widget *w,
- 
- 	switch (event) {
- 	case SND_SOC_DAPM_PRE_PMU:
--		mt8196_mck_enable(afe, i2s_priv->mclk_id, i2s_priv->mclk_rate);
-+		ret = mt8196_mck_enable(afe, i2s_priv->mclk_id, i2s_priv->mclk_rate);
- 		break;
- 	case SND_SOC_DAPM_POST_PMD:
- 		i2s_priv->mclk_rate = 0;
--		mt8196_mck_disable(afe, i2s_priv->mclk_id);
-+		ret = mt8196_mck_disable(afe, i2s_priv->mclk_id);
- 		break;
- 	default:
-+		ret = 0;
- 		break;
- 	}
- 
--	return 0;
-+	return ret;
- }
- 
- static const struct snd_soc_dapm_widget mtk_dai_i2s_widgets[] = {
--- 
-2.53.0
-
-
-
+--
+Cheers, Lorenzo
