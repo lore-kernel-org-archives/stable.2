@@ -1,49 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794967208;
-	b=SB5VtGCYs+FRO4p+//6+Kuzv4P2um7gv4QHJIqKmjazpWDam/N6jFcSmnyUQ+SqkvvaY
-	 J4HNJ76qOeb2pjf4rIREbxTvYaLhrv7/CqjM5Dol9qE7d8TBURKZNO2fs2zM8ibKrS1c7
-	 znC9OsApoKMSMCTioCUf0l1xW244+uWKcQUqu0lu2gvGEorzG6iPhEw6PTkfmfpJ6EC5Z
-	 k4L/Fl3m7SoZvLUnrwFeMdYvOMrBKO/qZfgvNeKKnf/oOrE8EZpIPrWwHwmj/72aZR8p0
-	 LvBY/ToYTswSLMzGp7AeZSP+A7ZCN7XejljYud4pFIcvQ2+rG4EJInso5okQjruiKag==
+	t=1794967494;
+	b=1KZDAlGwOP/Df3oZYJFh8qrbVOfJkl1E6VVSzsemcy6GAuYT+Yk/de3HimHMo6E6nt/O
+	 DYhu2FWO0YXDMdr19xeOhBk/O19ulWGaYfcCjOCVctJJvtpUGF15zvkfEWKbb5cOy7lED
+	 onYMg5KzDu9xDBS8tynmjJ/fGq4jJaG5STpwaGihptbPd+5pzsxu3aLbG4VFrNb9ljNK9
+	 U+tUTLjg1kToUwHihUXUOoGrjBZ079X1pLCJZUgtWjawiC1bpB9iW5LZSGDBEFoZbCqTl
+	 soFO7g1JX5T+0KstXqvv2B2iW48Wylp90CN0TcJx+1QE0iXM6UG8xnLLBt75+rL536A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794967208;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=rysQnyo3q2q1PCSB5zwI+CF9MYiqYHtXoPwnkzo0XVs=;
-	b=Klx0O2rimbg1lVo3yjxQUtQi5VlemBMIRKnXuyYxHwimdwAGHqCSDK7MjksGDNZbiV+2
-	 PcXtV/aazW41f7EHcuwMF5hwSwUY+jWt0/XecfLW3lYyubAcnqnk9m0kFEvkYFiI+LN/i
-	 fI/MDjH78UxUs3VLuDeth25IW9KqgchkfR6+kQ+r8+ujZwOm4CP7L0Tcx3O8UzZn5qabz
-	 z84pq3eIMizdlyzOVTt7cw64Sk1xvgt/PFl312BjyiIb66iOONgolW6A75uFEalPhxZJy
-	 F0CngJ73qSCNstUarFPPe8MSyk39GdvKM3Z27gKUd5I34klJ6zaZ0SzyWKU9xQXtK/w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794967494;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=7idpOK0uLj0IeEH4I8ykLNX0Cq8hKyMbZ0eKNeKvegk=;
+	b=tzwrfX3nKg2IZtmfO9OtoWeroCqaALNstO1IqOIZvxVtjap3gjeDLZVjULylpv+7ocwb
+	 nq/gdYhq0Feyjal1F8/hGWTViIWnoBn0QqSN7e94T+lWCA6BnSnfGXTu7GTNGDgC1JTxb
+	 krVvJPLLn90FHT0cGTO2A7oW61/+Lcm+Na5egYNNkOcmBtZLHB+skCCfY6nTyo5l8vmZX
+	 DkuCMIUJTICQBnbJ2o6gs6BEJXPCQXQStDe2EnkN+G6MgFfhvB0Q1IQIfNfRi5DOH5ck0
+	 CWxHV9y2vdQDJyyfdc2SD4NV+CvBcFDcXOUpCZEU7Y6vRokKu4Uw9FJiU5Hs6gubomg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hKILQxMm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTFcnP8M;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F2A606A31C;
-	Wed, 18 Nov 2026 02:00:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C7D606A31C;
+	Wed, 18 Nov 2026 02:04:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hKILQxMm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5371F000C4;
-	Wed, 18 Nov 2026 02:00:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTFcnP8M
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216141F000C4;
+	Wed, 18 Nov 2026 02:04:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794967208;
-	bh=rysQnyo3q2q1PCSB5zwI+CF9MYiqYHtXoPwnkzo0XVs=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=hKILQxMmbL6IeQNW2Gh+AJLNiaRgwPTb4uEKnMxgqzGhzZBGKAo+0/11wqAkQr76E
-	 VkhmGiaWNWICew/29sChe9irFbze6kvie9BDTlaJhQsSj6mAYb5uyIW5yr1GvoxNiv
-	 uZ7ontFdoMX3HLQbtsfZlo4R366jjUOgfyQqdx28sEq0D75yhv1L2fRC3ljrf91hNn
-	 jqKe3gtTlkeyUBVoPIbXxRgdkId+8Hx4g/RiyWcrhUIDReYhZR94wvwsYZ6wUsSGcp
-	 K8NvgGg1kwKevzeA9DVgj3M/Zi3nHd8OMrQrWKMPnrU9D5bljkvaJoR2H0V94hxfPO
-	 7c2+Y4zXAjD1g==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F1470392B1FF;
-	Wed, 18 Nov 2026 02:00:07 +0000 (UTC)
+	s=k20260515; t=1794967494;
+	bh=7idpOK0uLj0IeEH4I8ykLNX0Cq8hKyMbZ0eKNeKvegk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=nTFcnP8MbRS5d4pxU3UnKAsWRer/12OXCwy/dor8M6yoTHEA6ZXvCCEieve4SwUmx
+	 9Q7uoAMK4V62w5DhJfeKkPM4tynL4KQp4+4lhQVRQ2EhHxDbcAD6K+0fQ3Ck24TkCH
+	 DZkLfUFrugvmrJbypvhvABHyS9vW6J5ZNQfyO18Lriqrksd3UxTTE+Hv3gWlP4YUGR
+	 A+OSdRId3pCz94FLWEo4tuJ05im+g/nFdgHylmnR7NAUp6I5P++IlPiNYVaEz0kZW7
+	 J6lipFXnG1ggEWg8XE+MMXF7VVuJGAZDorzd7ebeKRKO9Fs4j5RH1U1ZJP/QR6ywxl
+	 nB1s8h5XxRrdQ==
+Subject:
+ Re: [PATCH net] mac802154: remove redundant security_enabled assignment
+From: netdev-bot+sashiko@kernel.org
+To: petrvaganoff@gmail.com
+Cc: alex.aring@gmail.com, stefan@datenfreihafen.org, miquel.raynal@bootlin.com,
+ linux-wpan@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ phoebe.buckheister@itwm.fraunhofer.de, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
+ stable@vger.kernel.org
+Date: Wed, 18 Nov 2026 02:04:52 +0000
+Message-ID: <179496749259.3136.6007006994790888929@kernel.org>
+In-Reply-To: <20261116065235.27348-1-petrvaganoff@gmail.com>
+References: <20261116065235.27348-1-petrvaganoff@gmail.com>
+X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,53 +66,122 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] net: stmmac: re-enable on-chip parity checkers for
- XGMAC
- ASP 0x2
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179496720653.1405006.4159910100773001022.git-patchwork-notify@kernel.org>
-Date: Wed, 18 Nov 2026 02:00:06 +0000
-References: <20261114015554.2187341-1-zxyan0222@gmail.com>
-In-Reply-To: <20261114015554.2187341-1-zxyan0222@gmail.com>
-To: zhu xin <zxyan0222@gmail.com>
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, horms@kernel.org,
- 0x1207@gmail.com, netdev@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
 
-Hello:
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Critical: 0 · High: 1 · Medium: 0 · Low: 1
 
-On Sat, 14 Nov 2026 09:55:54 +0800 you wrote:
-> Commit 669a55560e4b ("net: stmmac: Check more MAC HW features for XGMAC
-> Core 3.20") made dwxgmac3_safety_feat_config() bail out early for
-> asp == 0x2, assuming that configuration has no parity protection.
-> 
-> Per the DWC_xgmac databook, the ASP field of MAC_HW_Feature3 selects:
-> 
->   0x1 (AS_EPPE):  all automotive safety features, with ECC and parity
->                   ports on the external application interface
->   0x2 (AS_NEPPE): all automotive safety features, without ECC or
->                   parity ports on the external application interface
->   0x3 (AS_PPE):   all automotive safety features, with parity ports
->                   on the external application interface
-> 
-> [...]
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Here is the summary with links:
-  - [net] net: stmmac: re-enable on-chip parity checkers for XGMAC ASP 0x2
-    https://git.kernel.org/netdev/net/c/9c9863f9b9f1
+- [High] The fix relies on an invariant that does not hold.
+- [Low] The subject 'mac802154: remove redundant security_enabled
+  assignment' presents a bug fix as a cleanup.
 
-You are awesome, thank you!
+--
+
+mac802154: remove redundant security_enabled assignment
+
+The commit removes the assignment hdr.fc.security_enabled = cb->secen from
+ieee802154_header_create(). After that, mac802154_set_header_security() is
+the only place that sets the security bit. This targets a KMSAN uninit-value
+report in ieee802154_hdr_push_sechdr(), triggered by a stale cb->secen after
+WPAN_SECURITY_ON followed by WPAN_SECURITY_DEFAULT.
+
+> mac802154: remove redundant security_enabled assignment
+
+[Severity: Low]
+This isn't a bug, but is "redundant" the right word for this line?
+
+Removing it changes the transmitted frame. When
+mac802154_set_header_security() takes this early return, the removed line
+was the only thing setting fc.security_enabled:
+
+	if (!params.enabled ||
+	    (cb->secen_override && !cb->secen) ||
+	    !params.out_level)
+		return 0;
+
+This is a fix tagged for stable. Would a subject like "mac802154: fix
+uninit-value in ieee802154_header_create()" be more accurate?
+
+> diff --git a/net/mac802154/iface.c b/net/mac802154/iface.c
+> index f437b8daa00d0..7b7332805ecce 100644
+> --- a/net/mac802154/iface.c
+> +++ b/net/mac802154/iface.c
+> @@ -368,7 +368,6 @@ static int ieee802154_header_create(struct sk_buff *skb,
+>  
+>  	memset(&hdr.fc, 0, sizeof(hdr.fc));
+>  	hdr.fc.type = cb->type;
+> -	hdr.fc.security_enabled = cb->secen;
+
+[Severity: High]
+Does this fully close the uninitialized hdr.sec read in
+ieee802154_hdr_push_sechdr()?
+
+The commit message relies on mac802154_set_header_security() keeping the
+invariant that security_enabled = 1 implies hdr->sec is initialized. That
+function only writes some of the fields:
+
+net/mac802154/iface.c:mac802154_set_header_security() {
+    ...
+	hdr->fc.security_enabled = 1;
+	hdr->sec.level = level;
+	hdr->sec.key_id_mode = params.out_key.mode;
+	if (params.out_key.mode == IEEE802154_SCF_KEY_SHORT_INDEX)
+		hdr->sec.short_src = params.out_key.short_source;
+	else if (params.out_key.mode == IEEE802154_SCF_KEY_HW_INDEX)
+		hdr->sec.extended_src = params.out_key.extended_source;
+	hdr->sec.key_id = params.out_key.id;
+    ...
+}
+
+It never writes sec.frame_counter or the reserved bits that share a byte
+with level and key_id_mode. In ieee802154_header_create(), hdr is on the
+stack and only hdr.fc is cleared by the memset above.
+mac802154_header_create() has the same pattern.
+
+So on the normal llsec TX path (llsec enabled, out_level != 0),
+ieee802154_hdr_push_sechdr() still copies stack memory into the skb:
+
+	memcpy(buf, hdr, 1);
+	memcpy(buf + 1, &hdr->frame_counter, 4);
+
+frame_counter is overwritten only later, in mac802154_llsec_encrypt(). By
+then, packet taps in dev_queue_xmit_nit() have already seen the header, as
+the TODO comment in net/mac802154/tx.c notes:
+
+dgram_sendmsg()
+  wpan_dev_hard_header()
+    ieee802154_header_create()
+      mac802154_set_header_security()
+      ieee802154_hdr_push()
+        ieee802154_hdr_push_sechdr()
+  dev_queue_xmit()
+    dev_queue_xmit_nit()
+    ieee802154_subif_start_xmit()
+      mac802154_llsec_encrypt()
+
+If encryption fails with -ENOKEY or -EOVERFLOW, mac802154_llsec_encrypt()
+returns before it pushes the header again. The 4 uninitialized
+frame_counter bytes then stay in the data that AF_PACKET taps copy to
+userspace.
+
+The reserved bits survive the memcpy(hdr, buf, 1) in
+ieee802154_hdr_get_sechdr(). mac802154_llsec_encrypt() then pushes them
+again, so they also go out over the air and into the CCM AAD.
+
+Should hdr (or at least hdr.sec) be zero-initialized in both
+ieee802154_header_create() and mac802154_header_create()? Another option
+is to memset hdr->sec in mac802154_set_header_security() before filling it.
+
+>  	hdr.fc.ack_request = cb->ackreq;
+>  	hdr.seq = atomic_inc_return(&dev->ieee802154_ptr->dsn) & 0xFF;
+>
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261116065235.27348-1-petrvaganoff%40gmail.com
