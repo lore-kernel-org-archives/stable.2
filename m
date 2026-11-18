@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795010351;
-	b=K0pXZvoCrDfbmDvNKhlPWHX8PmmfZCT6tBD5ZjjSRr03jWLmN8ZS+ZbFzIiCbSTvrxqH
-	 OheUJ9wMUEH2NO3jE/svKxksRZLLakiR3vRNlARMLxB/ojLityG+/fT89emnQgBEJlyfN
-	 WIP8hF04XmoKma212IX6/UHLIQJKlaloEJXOaStdW8b/sTrKzCZog5o4ZPeWHinB1p/tH
-	 IGM2cjFEdTQG8C6qcf99SfmMLVziE/uBM6ekrb02ad7uipwVG7TMQQrieRSuKiVrs+15r
-	 +zXKa++6eCpzrrlHEMP6cBlyq/6icHT2f4JNZ2XOqN4OI1wqpjUG+QLFJSpj1Rl2/Pw==
+	t=1795010353;
+	b=xShg03mXmageF7NojNAk0cG24i/zyWIHa+gIbbNaQ0GaGei3I26tWaUAl52wu/ipypg7
+	 JymbH32wox3zTeaxoUONxMTlbNWWDjYZT2gMcc308oWmFqmRv54heCNWqrLugYybLmban
+	 bu2xYFf9lS3stNktHlk5Cqbgh5PACughuGPdPGaXAYHiTl7EuVBx9zcWYu8pTiRdveqnG
+	 sbzDG3Jf5cP5FXB09WSpRxkUgMZHgCmLrMNOeQkRPRPtJUqOhjR7Kc54pKwHPXDfuMO0N
+	 5+WeukB1KoU3pDbbN3b5j1L8M9H738UkBq3syKpJPZ1di1J7PlRgGiQGErIV0O2ofKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795010351;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795010353;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
 	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
 	 Date:Message-ID;
-	bh=dJUVwftRY1iwIeYL9P8mLEUwk3JNrF8srd3FyqYGVZs=;
-	b=oGKF+BF5w1CmXUGFO+Ap0kiMicvZgQyW2HD8x033nLTkJJoEnZno+WVFgmkIXcqYQSdZ
-	 /9esahD11Q5mwod/0aEPSFjKRs5qpi8v5DcOxzeqjkOs9ZQ9mwCt1liVvTJtynViF5gr8
-	 BdZVOn/BI5ISOWD7iEYEm6/NO1/FOVnenJ5v4i9VT66FEy8VPe/CYAD9c+cS50Efg7KOM
-	 G4mdlIvRaDxW2dhT+7y2Dkj+0EI5OhueQxlkY2z+VSibR5X5Q14htrjNA0o/BPTIU7yaU
-	 I9AL+sXBUgjh9WJP56vAP8E482EpLWwws2fCbsOTID0dCNbaFMPjUMriA32hPWuudfg==
+	bh=RZvC0Zn/EQM7FLJk9oyKmnmn1HFmLnKjuQT0YGDPVR8=;
+	b=tKCkWTlrRZUaMlaOPfFdrb3Crwvx+atz2IqiueWTcVazHlbC4mWNpmrgZ7kVpSK+pv3p
+	 nCxMFhuU4ijmACHVc7Jp5k6yZR57bvdL3HwW0MJThbDZIyscKqUgP0M3FYFknRq1LPNOl
+	 W7sr0bWE+T/FbwImuDLPyLs3dRlTlHlatSJUtEpRtAbTPouRbiufJyZIVchHZxKKVvzKp
+	 HmhugdvORVf7tB7Iiuu9IPbohSMG5kQVwPOetw6+A12TfzBUENJxRRpmhtkPxZ/+xgKjL
+	 YtSnNkkAB6XDkXtjNo8/qIMITjZA9N4CwT9v8MoSp9mmbgN9Scl/i3N0/ka4ue02kmQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernelci.org;
 	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=Abf0T1E4;
-	arc=none smtp.remote-ip=74.125.82.49
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=BLzo8VRF;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5E9606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:59:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D5E9606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E41606A32C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:59:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1E41606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=Abf0T1E4
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1a8cc11ac42so1408028c88.0
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:59:11 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=BLzo8VRF
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-380b40312e2so2845129eec.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:59:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1795010350; x=1795615150; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1795010352; x=1795615152; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=dJUVwftRY1iwIeYL9P8mLEUwk3JNrF8srd3FyqYGVZs=;
-        b=Abf0T1E4SSpSG0r7l45OFb62FqZDKGfIvyCMkASsPVNkyQ3e3C8wMkhEydmhglCfnm
-         siQ26RGKk1bK2fjmo9sTXAcG+EZFLjhJ8L5DmSCF7n0cm152xbhsfB9+51g7HwrYib5d
-         k7mEArYnnaFZM6WbiVjjAe7g7VI2Tzj9UYOqPvtRYW9EhTaLT99OpDQkUsa6WqmQT9Ca
-         6q39t9xTGz+tr/lTdyZP02WPBnG5En+f61wKEbU5yv1eWFAu1Q32mzI/OcevktFyy0hQ
-         IaM9JDlFtBpr2Mo625JUq/3Kov7EBzf8uESri+K6zAU0+IyxKzqjhhgfeiM5u3ppanyV
-         G+6Q==
+        bh=RZvC0Zn/EQM7FLJk9oyKmnmn1HFmLnKjuQT0YGDPVR8=;
+        b=BLzo8VRFyRnkuOYOIH/QOS5a0SYqlFIKz2pbHU1YZ4W88sJhumpBuSwZwrN7wCkAd5
+         V2uD+vYsnXqyqa1sSDoRFyK9O9QQN7jbSEGuTlpz1t38cSJjp9GJjBSrkFvnsPirOhy4
+         JzOZMonv+kAYwcqZSWSYxcZul5wGtT79kr5Uxdl7ir3rVYZsfr0DqiczDScVLPZKwgkf
+         9+wb6trvTli+ygnwDIjDkp0qsmqiVDEjuaLKz3Ma8ZzAFaru1K1TNuIxwecA42O1/GL6
+         0cuT6jkrFzcD9dtkaf3qbp4uhS2vkCb9Zaj+YpitXMf+xeuS1o26Mbr4pWpDlKDqGg0n
+         B2ng==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795010350; x=1795615150;
+        d=1e100.net; s=20260707; t=1795010352; x=1795615152;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=dJUVwftRY1iwIeYL9P8mLEUwk3JNrF8srd3FyqYGVZs=;
-        b=UYCHmEa8Rz0Xuw5cPmhUrXQ9+A1u5v1qdApTNtj0lB+cCcMA+zDLWguXjHXhYECnYG
-         OOGfZ223/Jn2I5aGcih8otSkGucYdCrvnUzwuCpS/9mGJL13jCSUBHKThJqktDZGQ9wu
-         UZ02skoZ3AMKxUh8ARRKThnjdqKbjDF66J3uhI/dx39A7E9rDZP3HgklLmSG2qSM6pPD
-         vXiRi33nSxnZZ2/qSiyfgHsa4h+G6VLgnNPS+Db0lOvnmcEcGQMurlWh1mP3y4ZaWbZr
-         prQvtpH2KRZAc1cqDPSCBzmIxouRupf6+3fGAcBwxKZdxStlwhWe1HrtL0tj6YvwgTnT
-         NgYQ==
-X-Gm-Message-State: APuU4Z/Y2J2imtDYpKua732oYFfqBCZkBnsO9Ii0nCul5qOlCxJoj1MT
-	XLfmZAN0LOt/hlVRP8wCCjlkZwEqYn4oyTBiia4M1xxGR1Hlt1eKKfhz2RYoUZEe3HQ=
-X-Gm-Gg: AYBFou1nMTsS00nQGyJTKj9ktCRRAlvlKyKFjy39lUM0FqomfgAPovPI6S4jiM49Oxo
-	PPGxilPWlKs5Mki5CdXYCRdfwm9PY40tvfAq7O7GsBinDB9VifLBs8Prw3nn/TCNxsJ++MbVHLd
-	BAr65PXk8uOe2/MzpZhWjIU87eX3ryuCj7eY+6qumHAMJaFdFi8TVma7nXRbRbefWndNytsUWPQ
-	LjEet0bBuPT7+Mo1SRfCanTwTEmGyFs4zA/y+iGJO8Tn+5thQV6erstm58ZF+wBES97ckAbidJ4
-	Pq9SR7nFZ4Ij9HYL8d/OBtyTdKrVkNfnBJNNOMfJbQNJrxXLv5oI1j9N2zxiKxWwvuEtH1OpQkD
-	qKKQLlO4RFOT5NHJ21NPzTzF38NS31McptIFu4K76y0RkmF3JzX6/LQSMuw0iuyqcCfR69qTkzC
-	N4b+ZGABK3YVAH2snsc9IlpbUq+7xR2Rmk0QJejok9Co7WF3F3dzkPXa3qf6zhuVbjD2/HPr4n+
-	oEF4uAmTIMUX8tr/jw6Isb2wZ03BtIsKpbu4rSQwCCKOUu5ePStzQ/6ZEWpXMBWQZSik8kdHLqV
-	p2dKF/TaApJfrCpXxR2ArQ==
-X-Received: by 2002:a05:701a:844e:10b0:1b0:430d:d81c with SMTP id a92af1059eb24-1b543cebc8emr2494459c88.25.1795010350313;
-        Wed, 18 Nov 2026 05:59:10 -0800 (PST)
+        bh=RZvC0Zn/EQM7FLJk9oyKmnmn1HFmLnKjuQT0YGDPVR8=;
+        b=NXWigm2a6vLQm8QQnPpYPij+WKjKDkWQpf/jJV1aK6lRJimIHv90u9kmp/7LxBq4Ry
+         1xBbsuieCJ3d8EozGEe3s7l5CuwaMUX85JIUdfkNC/A4xOxRmqa1PAsULXO6+rz6ZbIG
+         1y1OA0xXg1Gpn4lbfsCWBUWKQ5Z/17ENgcYB+3WtBn/1uhEVAehzir/GCmHLyatF9q10
+         LcejcDVEh2X0g0c3AedE6CFG0E8L3OGV/L3Ci7/TkNIY0NVehYJfEPh4nTpAgkE//0n8
+         Rflz4vRIygXCuEA05h0+fzBxzFCvWsqhrIXIvjzfXRpS2YhlzJT2zZfD2+vYDdKSelXw
+         PD5Q==
+X-Gm-Message-State: APuU4Z8w3P9irM1UBlX9SYMPeBH6Lp/S9AVKmNfC61io+CtNCO2WsPzt
+	TSPQKjvLiOxKi3ptXXjoOd8ivPg0VLMNchH0kdMQsjdXDXY6TfcFjm2SQwoDrTEpXydITbbe4vu
+	xxZxJ
+X-Gm-Gg: AZFdTZez0NmLhPUSkgM77iZ0JE2uXuYieYZjFLQrUCR95YLGeIgBHI8YgaIwiGVuBhk
+	uUGTwccNlCx51ujlADyzEhB78bBRNAE+gIfksHwpXAPVs9HqtCXfswpUKI23Ilr+kIb9tPxNRYB
+	QvLoqA14UP+hs8zdsNU3bikhTgpHKVXZnG0mBEwbeTwmU0azZjQTEE96sgiNR7DIUZiu+fy9WaC
+	8FHK3mENRNwDw+lmOgN0yDEObnajt65p/x7eUxRSUlk/vQFinE08TfZm3YyLeRGudkGs5Ss1cuu
+	D75vIMZ5xMNJfc0Ae+Lf7bT2q+TcgGvMrTLkBxPI8ZxRjxVDNq7EgGYg7KajmQbtLFip4U2EQl7
+	hIGRBLiA151+z2+eNDyFlypg/xH9BWCC2ETm8FqqbdVXPNGQ2o10SR06DeQoMvRQhIF4cbFKY+4
+	DbuxpJFnPb3apBmxO0BDWUCQYnvh+kSHVwG34e2DpQbVC6B+NTi2K36Z07u+U6ImA+JDBQKdvCb
+	x57o7shKMz8ClJ7zkd/w/GDUG4BYKSyP+QyAdLBZOca6qTMulaMdH6Ap6AvF3gEjR9HxNCSVT/P
+	FII0Cv2i8kg/ypAQ7CBh/Q==
+X-Received: by 2002:a05:7301:fc13:b0:37f:73f9:aee7 with SMTP id 5a478bee46e88-3827da11e94mr2843096eec.5.1795010351514;
+        Wed, 18 Nov 2026 05:59:11 -0800 (PST)
 Received: from 8439c401ee69 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b544784017sm6875180c88.4.2026.11.18.05.59.09
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a7fbceffsm8710563eec.28.2026.11.18.05.59.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 05:59:09 -0800 (PST)
+        Wed, 18 Nov 2026 05:59:11 -0800 (PST)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,36 +90,39 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-5.15.y: (build)too few arguments to
- function
- call, expected 2, have 1 in drivers/d...
+Subject: [REGRESSION] stable-rc/linux-6.18.y: (build)no member named 'path' in
+ 'struct
+ coresight_device' in drivers/hwtr...
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Wed, 18 Nov 2026 13:59:09 -0000
-Message-ID: <179501034795.303994.18338228483300661482@kernelci.org>
+Date: Wed, 18 Nov 2026 13:59:11 -0000
+Message-ID: <179501035051.303994.13551035224157019598@kernelci.org>
 
 Cc from: regression/stable-rc.yaml
 
-New build issue found on stable-rc/linux-5.15.y:
+New build issue found on stable-rc/linux-6.18.y:
 
 ---
-too few arguments to function call, expected 2, have 1 in drivers/dma/ste_dma40.o (drivers/dma/ste_dma40.c) [logspec:kbuild,kbuild.compiler.error]
+no member named 'path' in 'struct coresight_device' in drivers/hwtracing/coresight/coresight-etm3x-core.o (drivers/hwtracing/coresight/coresight-etm3x-core.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-/tmp/kci/linux/drivers/dma/ste_dma40.c:1681:42: error: too few arguments to function call, expected 2, have 1
- 1681 |         ret = pm_runtime_get_if_active(base->dev);
-      |               ~~~~~~~~~~~~~~~~~~~~~~~~          ^
-/tmp/kci/linux/include/linux/pm_runtime.h:56:12: note: 'pm_runtime_get_if_active' declared here
-   56 | extern int pm_runtime_get_if_active(struct device *dev, bool ign_usage_count);
-      |            ^                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/tmp/kci/linux/drivers/dma/ste_dma40.c:3292:11: error: incompatible integer to pointer conversion returning 'int' from a function with result type 'struct d40_base *' [-Wint-conversion]
- 3292 |                         return -EINVAL;
-      |                                ^~~~~~~
-2 errors generated.
+/tmp/kci/linux/drivers/hwtracing/coresight/coresight-etm3x-core.c:462:9: error: no member named 'path' in 'struct coresight_device'
+  462 |         csdev->path = arg->path;
+      |         ~~~~~  ^
+/tmp/kci/linux/drivers/hwtracing/coresight/coresight-etm3x-core.c:503:9: error: no member named 'path' in 'struct coresight_device'
+  503 |         csdev->path = path;
+      |         ~~~~~  ^
+/tmp/kci/linux/drivers/hwtracing/coresight/coresight-etm3x-core.c:598:18: error: no member named 'path' in 'struct coresight_device'
+  598 |         drvdata->csdev->path = NULL;
+      |         ~~~~~~~~~~~~~~  ^
+/tmp/kci/linux/drivers/hwtracing/coresight/coresight-etm3x-core.c:622:18: error: no member named 'path' in 'struct coresight_device'
+  622 |         drvdata->csdev->path = NULL;
+      |         ~~~~~~~~~~~~~~  ^
+4 errors generated.
 
 =====================================================
 
@@ -130,18 +134,18 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:fdf1da2535f71ff5e6cbd02aed7a0493a4ff306c
+- dashboard: https://d.kernelci.org/i/maestro:70d1473b40f259323ee3a8d42a565e203a170e5f
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  ca6b7ac346ad69f2084705cbed131e31f0f0b45c
+- commit HEAD:  cdba173620176f2471d7dc1897b8a59fa7a85fcf
 
 # Builds where the incident occurred:
 
 ## defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (arm):
 - compiler: clang-21
 - config: None
-- dashboard: https://d.kernelci.org/build/maestro:6afd9d8699c74e1a997dc15d
+- dashboard: https://d.kernelci.org/build/maestro:6afd93a499c74e1a997d432e
 
-#kernelci issue maestro:fdf1da2535f71ff5e6cbd02aed7a0493a4ff306c
+#kernelci issue maestro:70d1473b40f259323ee3a8d42a565e203a170e5f
 
 --
 This is an experimental report format. Please send feedback in!
