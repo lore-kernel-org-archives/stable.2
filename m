@@ -1,60 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794971129;
-	b=cULGJcOo1FU0zU6E6aW4f01TuBnFZvbu0CPztgvE3+gqqJRIgQU9VCb2jUTi2KzZBprB
-	 e1lHb8fA211Cj5zIKBRqyhiXWxvH1UBMy7wVQo0J6rztqQlSrBCleoorvepHAMoRk5Thm
-	 mskMgDux7+yhXY44AAvxMpihC+swWUu2uW47leLfi9yHcWeyniONdTrDA4nnWG/2xiuRQ
-	 6bqruvyVzBRx/5DfgCug5BO5q1oCagxjXI+bbsLqNujUxNrkNW3+sygLdI00PTgn5KXLc
-	 esSl5DX//C0xZMLM6FD6GJD7zYY6YgU3M6c7f6741tOF9gTlHP5ZLBFyNZAeuMFL9FQ==
+	t=1794971358;
+	b=vws87E+jzhhzRoSL5ALAj97k5im7x1lLWoc3Gor6p8ZpovpLauBLH5BXn9ZehXj0MxVQ
+	 91/5q71AN6uReuDClyRSZ6vkt7TqtT6zb/EICy8vPlGWzJmfVZRca4nmca4fKmwF55Okr
+	 E1MfQOvNoMlkJncSglv5GHjXj4eZCe5FAkucVB9tad7nCF8CmTGafktRwU30v4VFgy0FS
+	 WCJbpdHur0weqLWqZDcsUMr/P9/QKpoM9jebi2JJVGcanGf9s0TKw+3VVt1+S7pOl+xBe
+	 rHNVTnTP91kuweXZXB68WQ37Iabt37iMikG0npbluJCTT+aAgvqOAzphVq98CG5bvWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794971129;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-QQ-SENDSIZE:Feedback-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=JVf5Z4L493biQzcZIUPq5WSeKo5jxSQPgvOHK9iHNbU=;
-	b=ekLWNSNDV2zNk339D4J05eLp3rK4WGgQVLiIGeREquJPvu5mENK6NDuTAWIPupbwWjws
-	 MoXVdtZZCDORRgOYw2d/46Up0Wog35t16lBIF9KLs3aCPSZBK5X73bapnk9Xh3N8zqbfB
-	 zn5rKHaDjtHO8Kiw8tSgVsyfL/MJSjp7aR3rElQpim5cTPWHpJ3KXsIcws3eYDBZgNpt5
-	 o0dTALhLvSN2V5dcdbwSuY6kRpH2PcWfXPz1qCqpURF5/QNgrgc4MYwohTKE0pfYOJjoY
-	 vRLkkSWV1s/iwTygqSQ63xNVEPQzpZabYwsICgQmo/zJUT75QWEpL8MfOqYvChVdgkQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794971358;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Subject:From:To:
+	 Cc:In-Reply-To:References:Date:Message-Id:X-Mailer;
+	bh=pitsyVb1clMqV2L4ssVlVlqFN6fptjFrrSXbJnVEGtU=;
+	b=MxyztdBUYP6C+OEDSY7zkoysVB/wL0E8y6DdjHiorvP4MM2AlKEhv3MqRW26l7TSaJtt
+	 ghI1UUjFIuCPXOfG5gbzcwuv+MpMUeBdHQW9bpPBUAAYQHBoI5vrYoyGFE5vd1TZAKCki
+	 ZQZKjs7AFigQJKlNesS2GDvawO3l26Iex9TJtCt+a/lYrH2BN8potOjjTVuSz73IoPtk/
+	 ED6lNbzEzMAwJz8icqmFLtncGl7hLS8HsKCs0NoUiWrIIK5K8MrAJY9YIlQjyx/+AMHLw
+	 c2yCb8xIz8JHEv52lkC0o9b+gaKfYNVCWbUtzAaIs/Xx8n8blCGwrg5FR06d047JvXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=ClDhMaZR;
-	arc=none smtp.remote-ip=54.204.34.130
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=none header.from=gourry.net;
+	spf=pass smtp.mailfrom=gourry.net;
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=DnriVk9D;
+	arc=none smtp.remote-ip=209.85.222.175
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0053606A31C;
-	Wed, 18 Nov 2026 03:05:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0053606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135C0606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 03:09:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 135C0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=ClDhMaZR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1794971118;
-	bh=JVf5Z4L493biQzcZIUPq5WSeKo5jxSQPgvOHK9iHNbU=;
-	h=From:Date:Subject:MIME-Version:Message-Id:To;
-	b=ClDhMaZR4HNDzWf8gp1p2oOY/dkzabWLPp84r9vKh8WOYIwUOg5e7Kc5aO50Bs1wF
-	 JywNEqxHFGPHf+sQ+TDYIPo04Rng+JidhfGuu33olH2aTnuZfWuT0XzHRSIj9gjyqv
-	 7lhWl39goLdQKk1t0R0IUb16/YuGedMBFkf9fh58=
-X-QQ-mid: zesmtpgz6t1794971117t96746eb8
-X-QQ-Originating-IP: CtE7MWfKIvGwwWKdSM4dsr/RIPUw16t0C8P3Ex/CTfQ=
-Received: from [127.0.1.1] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 18 Nov 2026 11:05:14 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 18325639032088577285
-EX-QQ-RecipientCnt: 15
-From: Peixin Xie <peixin.xie@linux.spacemit.com>
-Date: Wed, 18 Nov 2026 11:04:33 +0800
-Subject: [PATCH] riscv: cpu: Fix incorrect cached machine IDs on secondary
- harts
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=DnriVk9D
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-945e6d9ceeaso49830685a.0
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 19:09:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1794971356; x=1795576156; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pitsyVb1clMqV2L4ssVlVlqFN6fptjFrrSXbJnVEGtU=;
+        b=DnriVk9DfTUS181w66seZNegYFfAnO7mb4fFvUcc4ZFQ2uHxB+1rrqUCiJ9R8//FSa
+         kgFGoS/ehLk7tqP6keyGdj0ZSpONl5G/0OUwEz+bNDsbWIKeO09MbveRsU/80hUtXEum
+         ftI3mO+tx56UezX+C9JV6cYE4Gdqeoks+dpVlbGgrA1SRMyTJ+MZOqKJ3W/mFvvH87LG
+         uBZGqyALFWIsDQeNscH3zD09p7t4ozf7MqZ6YV9rhrdwxujPoRnUZ8MNm+rbiDqqx2QF
+         shQEdWhzinsG4Nz0s3XH2k89ZX19Ari7PYeSWxHQHK0N1TtnkYERBQIO3ujjLYg8nN9M
+         n3mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794971356; x=1795576156;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pitsyVb1clMqV2L4ssVlVlqFN6fptjFrrSXbJnVEGtU=;
+        b=UOkol2E4URWKjtR3qxeInt2RNu1EUIDZd63RRVGZdC6dzyH+VaLdwerRvMJhxwKYxb
+         Yii6xP3DNip8YWoP94zexlgLCsTJ6HZyMtbRtwIuh3XqYH5d6+r2sAYqLDj5wOOEtCOU
+         jeBNsdjknqownvMeSWtOBS3lu4ZL9SEGHAjhx3EU1Ko/IX7lKxAxDnRrWDYLBQxTvbPp
+         9gj4/4wDztn1Fna+L1Qkryyb8NT75mQjOGRONBLEdoD3vpOdCmWRqeOpq7c/fWX0KMRR
+         5p9Z6yIDyaARmQXdclf1Rlp3NhvNlPHZrBjdDnStR1VY2vjSWTXziEOHaWZOgdXP5scu
+         Fcsg==
+X-Forwarded-Encrypted: i=1; AL+hErELbi90P0b+vT6BnFd64cJs4UXVTl95Bq7spiDjZq+sH6FhcEA3/5s+Ke67Yd++XIr3v5LsefU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8VHhn2T4Dw1NmJjVr12n7hsYR/TPz45XhK1EvN0PHqULOTty32
+	lo/rPtHEnIS0ZPTAk32GqfLGhFcm5mpxe33EaxYJqBpgd+1HQRVU/bp95EtdPXuJYd8=
+X-Gm-Gg: AYBFou05VzJoLEPhDp/aYZ+NWpJlHqZLaoxjrUl7oO2Pz2KtosyoNvUIojIkyyrH50G
+	okzqjrN0kc2cjSeefrjmOWSlC9EjSRzdG4quA9//MpndmpX7KfFOcvqZhUAZARLsISo04bfN88f
+	TVxB7fUhRHj+gFNJX6qF1wUsIpKON0WohypTXSQZ/HoVx9rLKZUrP1sE+SUrglT8XA4/V+5y9kQ
+	TUvioj6apO2DSh8Y2gWw14EwoYnKbU1lcqIGbxAeQhQiuPeTSh5guXcQOSORZ82q0JHBQZGGKCM
+	tK/LlaqB4uJq/LivmekIoNYm5lM4NPLp+Tn7I/QZ2+zGPfAx7TWbiuvyW9+2NnH7av4Y1+JU8Vo
+	3VfAta0iuUGP95flv6vTdsiv+R+aFJTj3wsBLO4adG47XWIXi/JvJhqbpmGa1MFgKpC3mBAc5tg
+	po03yrRFYJtmLw2wiWGQ7tDKj4uza6Wrs5DeW8JAlmXbgcemudspaWRuFJ1cSDGtJKlA3/gQQd4
+	DRQ6ZZCbxIQeA4ctizTOpJKg+GLUPezxx4uAMEC4waf856EgeHALpf7KyDMdSvMV51RqaR73o6P
+	YSXT/kvjkdg8XbFY/1rE2KUhkHGTRqin8VcXb8j3lz4mpKWEUANQKZBdmJouF87X2Qo36RJun5Z
+	h9OfaXYl+
+X-Received: by 2002:a05:620a:1714:b0:949:73f3:83c with SMTP id af79cd13be357-94999572b95mr323060585a.21.1794971356503;
+        Tue, 17 Nov 2026 19:09:16 -0800 (PST)
+Received: from [192.168.50.231] (pool-71-191-145-202.washdc.fios.verizon.net. [71.191.145.202])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9499b74dd0asm76329585a.19.2026.11.17.19.09.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 19:09:15 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,99 +91,110 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-riscv-marchid-fix-v1-1-6d677fcd5461@linux.spacemit.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QqCQBCF4VeRuW7AWcGkVwkvtt1jjpDJTEkgv
- ntrXX4Hzr+RwxROl2ojw6quz7lAThWlMc53sOZiCnVoRaRjU08rP6KlUTMP+uEGsWnPIQtqUPk
- thjL/mtf+b3/fJqTXEaJ9/wK1tqKVdQAAAA==
-X-Change-ID: 20261118-riscv-marchid-fix-3ea3672d1e0e
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- Yixun Lan <dlan@kernel.org>, 
- Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
- Guo Ren <guoren@kernel.org>, Conor Dooley <conor.dooley@microchip.com>, 
- Charlie Jenkins <thecharlesjenkins@gmail.com>
-Cc: Palmer Dabbelt <palmer@rivosinc.com>, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, spacemit@lists.linux.dev, 
- stable@vger.kernel.org, Peixin Xie <peixin.xie@linux.spacemit.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794971115; l=1952;
- i=peixin.xie@linux.spacemit.com; s=20260727; h=from:subject:message-id;
- bh=+XmXptOpB9qNChqNiEmskdTqAu9CpoySFZwuHevOeCA=;
- b=soX/Y5u/Zof/TqDEPMOha+JkSm85SjmlfwBSkakoCGHxFRfWao9VmVVnZg/ZsWNXcDY7i1z0z
- b3fqqDc9nfcAoJrWhMbXxEj8Z9BLLAUG8F7K7unoT4HSC/thsDrZNqK
-X-Developer-Key: i=peixin.xie@linux.spacemit.com; a=ed25519;
- pk=jczO0FmEQZBoClfXslkwCsHKDmSRchQ1hQr8W7yiiXg=
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: NCv6Rd7nbe9tzhgisXV4tGubeS7/b3j1/ZmU17ZGcxgsnlylQBdptiPp
-	/bNLOPUN2QUp20zkU4AlPWVf/sVPL2X9Jlqa3F6UdHb5TB6g8aN8hbWFh9YulzDSm+BkoN1
-	xo7gvBx+4MTB9Gk4DONs4cDkqjBB+GCo9p3A6qGGU1DtkXH2RcqZ1jPdUiLxTs9NmPS67gH
-	GZHcU7/U0NqgV7EKSou70CAFluv6iwF3Vgq0LFIX58GqlxkuhUoLaP+Qxb/hbfbvEtM+JMG
-	WjztnMhzjw3hnPuhna5aOpKJeI2x83aRiyZtcCiJXI44eHHR903HxwwIfrEw1swpeDtqJyH
-	cRBPLtoe/XDpzYJgTQGuSesvVmdEw5I2ZGBEJXuTfoOfOI9ZhZT5PulRH5VMG9ue0YphFXV
-	ckNPzu3ra5N8EiExMkQm73iJ/5J+Mh6RmZP8hjHdXER+asqibf0Hwt/ZZxBn6J8U84jfrnz
-	luhmnn3qC4pkpbTKz+qnjdCgQOAbBq7N1P91J61ThD/e5znDZyIK5HUwTGnhSyMHgqMOMPy
-	TJFN4DXXSUhENZC6TZ2qEPRApssA/fh5FLGt9RZ3V81h780su8pr+Zx/OFj0IFJz+KCYIdq
-	MHYx4TTutgZOMKVhZ0NspTFuWWacb6M8wYY92Kk0Ql/P4xjsTiIUTAhRt5GfbzpRiJMnDG7
-	A/BRzrW/nZi9WVp+m1/1nn9/pncN/XvnGqGrPnZBbvTkhc0hgE+J36wuxLlaRY+CHCYfKBG
-	jm5Xf7bHD/1pOhkI2ROoFRYjmEu7fW/oRzQdKmvvzfnh50R1rxfmSH+mJNRMWt4eq7OsirV
-	UBwWXvi90+5dWm6Zpn4N0HXqtejxRz3rbXg36qlfcjzfovo6Pn1aNnLqghgstx0LwoxBpBm
-	lbRXEzsultz6dnQWwOfHnnJuH018UaPe/3ADt/GRn60J/4SaAgiymug3h0wkM9GnodwpzFv
-	cV82qsEY/9boOvu2inLBR7UUDKfthy1IxADDg3Rjabyx2hDsoP+/cLcSnZxb1LyP06WuPUo
-	NqYeZ1luZWjzg63pAkxp6iHF3mU2Qt2bpr4bPE4kMBN5EBvbrY6XIBT/4ugy6Q1dq8baPCZ
-	qHU0WTxE1fsHLxQTTKrv8PhFoiSNtArgfyNQQ/zC+S4q80vvXrwOHIy5qAaS76wWw==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+Subject: Re: [PATCH 1/2] [v2] mm/mempolicy: fix copy_nodes_to_user() for
+ odd inputs
+From: "Gregory Price (Meta)" <gourry@gourry.net>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, Gregory Price <gourry@gourry.net>, 
+ Andrew Morton <akpm@linux-foundation.org>, Arnd Bergmann <arnd@arndb.de>, 
+ larips <larips950@gmail.com>, stable@vger.kernel.org, 
+ Zi Yan <ziy@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, 
+ Brendan Jackman <brendan.jackman@linux.dev>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Jackie Liu <liuyun01@kylinos.cn>, 
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261117211635.2472067-1-arnd@kernel.org>
+References: <20261117211635.2472067-1-arnd@kernel.org>
+Date: Tue, 17 Nov 2026 22:09:15 -0500
+Message-Id: <179497135500.1538916.14761148206849685975.b4-reply@b4>
+X-Mailer: b4 0.17-dev
 
-During early ISA-string parsing, the boot hart stores its mvendorid
-and marchid in riscv_cpuinfo. This happens before setup_per_cpu_areas(),
-which copies the static per-CPU data to each CPU's allocated area.
+On 2026-11-17 22:14 +0100, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> The compat_put_bitmap() argument has an off-by-one error that leads to
+> copying an extra 32-bit word from the kernel stack to userspace when
+> called with an argument that is one larger than a 64-bit number.
+> 
+> In addition, the size calculation rounds up to multiples of 64 bits
+> instead of multiples of word size as documented in the man page and
+> expected by numactl.
+> 
+> Fix the calculation where needed to use the correct -1 offset
+> and pad as needed.
+> 
+> Reported-by: larips <larips950@gmail.com>
+> Reported-by: Gregory Price (Meta) <gourry@gourry.net>
+> Fixes: e130242dc351 ("mm: simplify compat numa syscalls")
+> Link: https://lore.kernel.org/all/20261117101910.1820066-1-gourry@gourry.net/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+> ---
+> v2: as Lorenzo pointed out, the off-by-one mistake is part of the ABI
+>     and cannot change, we just have to use it consistently.
+> ---
+>  mm/mempolicy.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
+> 
+> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
+> index 6d662a9a8c74..e471ce615691 100644
+> --- a/mm/mempolicy.c
+> +++ b/mm/mempolicy.c
+> @@ -1749,12 +1749,12 @@ static int get_nodes(nodemask_t *nodes, const unsigned long __user *nmask,
+>  static int copy_nodes_to_user(unsigned long __user *mask, unsigned long maxnode,
+>  			      nodemask_t *nodes)
+>  {
+> -	unsigned long copy = ALIGN(maxnode-1, 64) / 8;
+> +	unsigned long copy = ALIGN(maxnode-1, BITS_PER_LONG) / 8;
+>  	unsigned int nbytes = BITS_TO_LONGS(nr_node_ids) * sizeof(long);
+>  	bool compat = in_compat_syscall();
+>  
+>  	if (compat)
+> -		nbytes = BITS_TO_COMPAT_LONGS(nr_node_ids) * sizeof(compat_long_t);
+> +		copy = ALIGN(maxnode-1, BITS_PER_COMPAT_LONG) / 8;
 
-When riscv_cpuinfo_starting() runs on the other harts, the copied IDs
-are already nonzero, so it skips reading their own IDs. As a result,
-secondary harts can retain the boot hart's IDs.
+bleh this is such a mess to reason about.
 
-Read mvendorid and marchid unconditionally on each hart, as already
-done for mimpid.
+Pretty sure you need to keep both of these lines: 
 
-Fixes: e482eab4d1eb ("riscv: cpufeature: Fix thead vector hwcap removal")
-Cc: stable@vger.kernel.org
-Signed-off-by: Peixin Xie <peixin.xie@linux.spacemit.com>
----
- arch/riscv/kernel/cpu.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+      if (compat) {
+         copy = ALIGN(maxnode, BITS_PER_COMPAT_LONG) / 8;
+         nbytes = BITS_TO_COMPAT_LONGS(nr_node_ids) * sizeof(compat_long_t);
+      }
 
-diff --git a/arch/riscv/kernel/cpu.c b/arch/riscv/kernel/cpu.c
-index af84b97af3a1..64c0c83eff76 100644
---- a/arch/riscv/kernel/cpu.c
-+++ b/arch/riscv/kernel/cpu.c
-@@ -197,16 +197,12 @@ static int riscv_cpuinfo_starting(unsigned int cpu)
- 	struct riscv_cpuinfo *ci = this_cpu_ptr(&riscv_cpuinfo);
- 
- #if IS_ENABLED(CONFIG_RISCV_SBI)
--	if (!ci->mvendorid)
--		ci->mvendorid = sbi_spec_is_0_1() ? 0 : sbi_get_mvendorid();
--	if (!ci->marchid)
--		ci->marchid = sbi_spec_is_0_1() ? 0 : sbi_get_marchid();
-+	ci->mvendorid = sbi_spec_is_0_1() ? 0 : sbi_get_mvendorid();
-+	ci->marchid = sbi_spec_is_0_1() ? 0 : sbi_get_marchid();
- 	ci->mimpid = sbi_spec_is_0_1() ? 0 : sbi_get_mimpid();
- #elif IS_ENABLED(CONFIG_RISCV_M_MODE)
--	if (!ci->mvendorid)
--		ci->mvendorid = csr_read(CSR_MVENDORID);
--	if (!ci->marchid)
--		ci->marchid = csr_read(CSR_MARCHID);
-+	ci->mvendorid = csr_read(CSR_MVENDORID);
-+	ci->marchid = csr_read(CSR_MARCHID);
- 	ci->mimpid = csr_read(CSR_MIMPID);
- #else
- 	ci->mvendorid = 0;
+Otherwise now we can get the opposite problem.  If the buffer is longer
+than nbytes, we'll write too few.
 
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261118-riscv-marchid-fix-3ea3672d1e0e
+Test:
+```
+   /* 32-bit get_mempolicy() leaves nodemask word 1 stale (needs <= 32 nodes). */
+   #include <stdio.h>
+   #include <string.h>
+   #include <sys/mman.h>
 
-Best regards,
---  
-Peixin Xie <peixin.xie@linux.spacemit.com>
+   int main(void)
+   {
+      /* int $0x80 is a compat syscall: pointers must be below 4G */
+      unsigned int *m = mmap(0, 4096, PROT_READ | PROT_WRITE,
+                   MAP_PRIVATE | MAP_ANONYMOUS | MAP_32BIT, -1, 0);
+      long ret;
+
+      memset(m, 0xa5, 4096);
+      /* i386 get_mempolicy(275)(&policy, mask, maxnode=1025, 0, MPOL_F_MEMS_ALLOWED) */
+      asm volatile("int $0x80" : "=a"(ret)
+              : "a"(275), "b"(m + 512), "c"(m), "d"(1025), "S"(0), "D"(4)
+              : "memory");
+      printf("ret=%ld word0=%08x word1=%08x -> %s\n", ret, m[0], m[1],
+             m[1] == 0xa5a5a5a5 ? "FAIL: word 1 stale" : "ok");
+      return m[1] == 0xa5a5a5a5;
+   }
+```
+
+base       -  word0=00000003 word1=00000000 -> ok
+this patch -  word0=00000003 word1=a5a5a5a5 -> FAIL
+fix above  -  word0=00000003 word1=00000000 -> ok
+
+-- 
+~Gregory
 
