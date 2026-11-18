@@ -1,92 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795010068;
-	b=yCMejBHQmXDvrvH5PU8AdkA1o2ZC28i1YoFF/7vVL+5tEq2cNp98ZzF8S/Au44L36OVo
-	 NN5GHOZVfTiRdnhYhOlSWVwYMhN8G0W424xAfRhJJMkc2rndTqBi3Q6LmIQoVWZVp2JXa
-	 RP1tUNY5srZjC30RFMkHHCIFNpNkGQG36xDDokX7pvbJaHWSzof8V/WxPSiYjO9QZEmoh
-	 nOQcf4rcQXzRUNEr4j6qdSOP8KQil5D8I/Ro3q5ZUfDru8zwTnfRW2J32NeBClQ3U8Cfw
-	 LQwWlVlhaKn+rVn0rlFYdW2JVsvIQw3E/P6gwI4ejpPPeSUDo4bWmFt3HO69SSoV/sQ==
+	t=1795010135;
+	b=CyQQAdFSLqryfKZoKYoCcoLorm9JjrtnZwWEwZVvJnMuH+lNlJ9cx91OAqXvg+hk9wku
+	 aCQtI36gyKfOXXtOWyV7mz2p93J3CnGeMcwakA/ZCXN/F1mbIGY1RXxK2710VwwlielRp
+	 VIc5j5zOYjm6onMbqXHeDvsCK+mnByeA+guCXYJlprYiquAbFZlFHVw2m9rS4JfHaAWxA
+	 OmsQ+rW+Q3k3wLSW2VMx63avHzFAReg2KSOTghcqkzMbnx2ujeLpe4kw53NHQ2A5PYyiP
+	 Js4xxF1Ce70qle5zr+rhZdF91+mps9GvHKmrtqZzDN+0vsL17q2XKJtd4vQ0X0Wzbug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795010068;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795010135;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Message-ID:Date:MIME-Version:User-Agent:To:Cc:References:
+	 Content-Language:From:Autocrypt:Subject:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=aH6msihzS4+D+b6XyXRPlbUTTs0aOKCq5Tr3aXC1BvU=;
-	b=UmhYF/CqIAYR5b8MglEAgrhlwZtl/j3nQycOT1Lo34QA9bFSRkiJT4kWLb9pqQ8/Z8Xm
-	 2ugLaIj0Ls0mdEO86LyfGSay+I6Ejbtq24fBFRdOgUXgtR/5dcAnJPTJc+G9RaM9TxCyH
-	 +qP8pf696Te1q5U3vU2oUU0X2vOfZkkYjvG9gsGHBX8V0uRvfcDgOyuAMOkYWvz26WPEN
-	 bW8JRbtkRW9RbInJ195IFPrselso3Cd605i19ZlowCo0BNoeAJkGpovsxaQtRCa7+aPlz
-	 oQgT0m0j0aTH7m9T6MQJFQTrbG97B5u/ucley3jorVD5ewA7MS3cQ/XEDhv71Lu/xXA==
+	bh=fzZ8p4GcrJgIWf6F5LBlcZh4WchWnffp6/lWOYHVfoE=;
+	b=s4sM9RK2RRXGpHE/MPoOP25Hzpe6mVkXHaWk2hti6Nsgso3t6BxGcHYIwW/zkOuWOJ9n
+	 dp8PPpxVWsLqGCcrz3ts95WsVsoNwSUlgd/cmyaXZt/Yd/wrU+vffkd0bAyWtDFuNDGn1
+	 xXrItAHAfReLTGPfQgekmUK90nAQZfjQwhw53dHBT/bIIJ+1qAYQ+ZTdvRYLYNxWabeTh
+	 jnPB8qTkIxRY48Y+7qj4LnWv6+M1bX2hn1OBX0hm2OvyFlpVpWfg03t7U1hSWX473C1LS
+	 8/32z66tqpYTyl4QpAVBqRPXRMPy6z5SQ5ee/tLYQf78ZEaa16wzeb3dwSPfFMiqPpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MtcPgidh;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	dmarc=pass header.from=deepfinresearch.com;
+	spf=pass smtp.mailfrom=deepfinresearch.com;
+	dkim=pass header.d=deepfinresearch.com header.i=@deepfinresearch.com header.a=rsa-sha256 header.s=google header.b=XvvYdpnz;
+	arc=none smtp.remote-ip=209.85.128.49
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72F4606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:54:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B72F4606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD06606A320
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:55:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5DD06606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=deepfinresearch.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deepfinresearch.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MtcPgidh
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so9615335e9.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:54:27 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=deepfinresearch.com header.i=@deepfinresearch.com header.a=rsa-sha256 header.s=google header.b=XvvYdpnz
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so5645725e9.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:55:34 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795010066; x=1795614866; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aH6msihzS4+D+b6XyXRPlbUTTs0aOKCq5Tr3aXC1BvU=;
-        b=MtcPgidhBljncvF99yopIprwzxnse1fQCgyXl5WWgfCBF6+aRRyk8crE0PLeuJN7xV
-         +kPq8tM0YWYinYjUCVafXYEowe8F2BaCSISU+cYm6GWwVN1/skKfumK7tzfWDXZAFbHI
-         GtHjx7lNC/YDfVVEfJ7dUurlbZDhhtEsGSNDaiMVytouHgdvHgLXKL0XhzhUdcEgGsWP
-         UmXiZlWn/F1vv/KTOB8t/O5ocM8NQ8hoY1xLOIcCCeo9tdKwjkqCV4eM8xkkG3Awpo8S
-         eB0LjR4/WgbUbVIMrFDFL7SpLzl3TTzdraO8K/H40mkXFHiJMmOibQTJrbkZyzAB2QMS
-         otAw==
+        d=deepfinresearch.com; s=google; t=1795010133; x=1795614933; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:subject
+         :autocrypt:from:content-language:references:cc:to:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fzZ8p4GcrJgIWf6F5LBlcZh4WchWnffp6/lWOYHVfoE=;
+        b=XvvYdpnzeqkgtFJOpqJ19gHT43CkiH5Iifke2y7RTt8o8Ys5azjcfUCO68P8NeGI5y
+         HMHGfDnfIcedPT+IQwBqar3LBr79k1iiQnDLFdWCeRCLjh2XZfUTThAjKyepV1eAtn9s
+         8MN2oZ61G9WluL42OXw7suy/B089UVEgw1eA8BNYpZoyWdMnUc5G7ocn0TR/brbUG1lT
+         tmo22kxNEVWo3vxVM4YGd391KIDUhffvcaoqlVDlG/MTXYHACbWOVBnIEEE1oaba58Ns
+         +cvY27mGfy0Idvc41NTfd+lqpbHFrK5z+CRpdnqAow+xc5X14+/FL83sYeqXO64KROyZ
+         s84Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795010066; x=1795614866;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aH6msihzS4+D+b6XyXRPlbUTTs0aOKCq5Tr3aXC1BvU=;
-        b=lXv/Rl8z2isg3co9QqT5vlrXy2aGTkRyN3TuhiM57xecFS7T7S5at1g5TFb6hUSb3/
-         slesd+E4g/ssbtR+BEnByX/PGG9Q5kJJL38n446crvqIoWz4XYOUU5FgIpWqlGn69CN3
-         7mZuWjQ/VnzVk55tNmNCw8a1OL75EvFu0l/YxUZrcR50dp4zf7mnflr1tycb9BMmxlnK
-         Cs/3Jhi5sH7zGqV+T4kw0yJKFkXlK94yPh3YOabEa0MSjt2VwfTrvybk58sYNnKpeeKj
-         WIEAkQQyvMaFGg8xofY54Gzn131bTy8zwczJk5PSI5sYWykfqatk45ERNgznTz1huld+
-         yxDA==
-X-Forwarded-Encrypted: i=1; AL+hErHu+9o7HLCvRGhEHwB5d9PNlf57rAvjaZ9X3A5v+MreazmcXIjwi9T959SjXOAAT122w8A7hwU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+C+LoM5i0c4ZrkEISXhpnkF/6GcwNBBOBgCuWwa+/U7Xgjz6mk
-	sWLt8wg/QQmFZVVpywFFjKcUBYhERH8IbdFW+55K3RxytMazAgEtpgjCjYHONvBXMtQ=
-X-Gm-Gg: AYBFou2dtCPqbEuYWjTbiMcc52ywCXtxR/dB1tQ4a9dFa+BJGhIzpkfjlMLL2z4XbRE
-	vEcITyooU755B5Vu3rpW/kVCYwq6lg+xa0nrZi34iBHyGjABnFMAR7tKhbcM1bPgmBLkU7cF7Ou
-	Cexqewa56hn3Dz82dn3l5rPPO4BIHSkfBT5N9xWFhRiuoj4oD3enV+MKNPa+VcOqShwqUCbj5jp
-	ug/u+P9PUrsBTKUWkFiMcKhheQ+UPQlWYtP9bq8uP5qihjkc61xUOQv8AcqlvjvOdfNtvTW3Ill
-	OY8Qn4YuKqpJDJ4xiLug9NolR5eAcmHCaozaNhA6OIPPiumDJ0A/9eQge4lJzN6ohVRjW6eyOgN
-	u2w7/DbtYJvdk7s05DwtGu9hcopd52T7myAtYCwsooN1jmqqocafM0WXGTNlcgsS54KE79iYoAS
-	hy41JGbLnzKRNjHs2oao/wYhsy80Pd6pIwdzgoHwG7nUuLH3v7ce3h1FUve41KfQzsRyiIPTr1m
-	z8tlzjOJjbMGjrAUqy8KTs2+EiP5F/GVNVGcAEz88ZIP9urN6LmnGbNUwSVn3b7WhflQV0oTYQD
-	XfVLge2AEzLs+Lh3N4iqztiFleMlWB4sAFbIkUKctsm47Q2dwFqJJ3eZgxRa5RcFK4w5gLUsZoz
-	370Aau+PI2+FciuY0G0hUYeuwfQ==
-X-Received: by 2002:a05:600c:e556:20b0:4bb:7347:d5df with SMTP id 5b1f17b1804b1-4bb7dca65aamr30532225e9.13.1795010066068;
-        Wed, 18 Nov 2026 05:54:26 -0800 (PST)
-Received: from SurHub.localdomain ([196.188.113.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7d28ec3asm74615325e9.0.2026.11.18.05.54.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 05:54:25 -0800 (PST)
-From: Abdifatah Suruur <suruurism@gmail.com>
-To: Miklos Szeredi <miklos@szeredi.hu>
-Cc: linux-fsdevel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Abdifatah Suruur <suruurism@gmail.com>
-Subject: [PATCH] fuse: stop stealing pipe pages into the page cache
-Date: Wed, 18 Nov 2026 16:53:58 +0300
-Message-ID: <20261118135359.6256-1-suruurism@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1795010133; x=1795614933;
+        h=content-transfer-encoding:content-type:in-reply-to:subject
+         :autocrypt:from:content-language:references:cc:to:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=fzZ8p4GcrJgIWf6F5LBlcZh4WchWnffp6/lWOYHVfoE=;
+        b=Tfh7vBTWJyPJpAITPI1iClRoKuEYkZb8cve98Q/Jl1484zN0UOc8nOyZC8rtmTXyFE
+         Os5LILUz2JTu55YwJU+hEBhdiErNVGiSQp5s4rSeX7P52NNnzf8g20+K8wlYLMEfoHa5
+         mfGat5CXWMjfEhc64myIpd2g/L89CpZeJlz8DQLPD0A9XGyDNI+m/TO1l75Siatrg1d1
+         BkePAZLLrCC1QqYLQx+eFHi/9+73Bc30R92oep7bYDzb5zwlm74JeV2NqO+0Mv/ey/vi
+         OR4oYYumHXxZa9wEVef72gg8GyJruCWEEcNrUAJpuz72sA5YzoxBDJepjxzKEfm1Ahaf
+         L4gQ==
+X-Forwarded-Encrypted: i=1; AL+hErFJ9Lmj6VF6rBYp1cP8n/p4SHsA6dUYQYWGO8pDo9Lbd5Ptu5AxDRbKUcbCX2wt689DmUmuS9Y=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9/so8dAnblXBOBOez7reCrGR6DiozacqtMuEtgF3zWkCY4CERt
+	dXcbB99qExVZzL9z/XsZH59Low69xhlLhu/mOaNWoPvpn+IscFYj6LlGCXrypuXRGiU=
+X-Gm-Gg: AYBFou2FTdv+UQNoSTnJkyEjwa1EVgF4Ibq/1V2alS6Cvct9x7VMuUE4FvbokOSlHyx
+	GZHukzjzwxhcMPWDcQLn6TWXEqW2MZg2l7VEe36IasFeaw6kHdqDYulGI4N7cS0YN6eJzOHrDMq
+	Fk546OcRNA5LhVQTq40ZvquntNnuO92ZzFjoWnNMyEWiKsVBttcZuYiXADTjmIHE/uhgEtw7ijF
+	hzVCvG41K2KZribA6b2FKTm+kKxFDvBnAkVMwvGAB0EYeos8Yss1Qiewz+jpP7ZBsZFWCaVuyof
+	rFqk11cfeLutfeKn+5sgh3JGq0zRpM+MU8SWpHlDe0d+GN/xBZOg5MlGS3dc2nAwO5TkHz6BCP8
+	MOAl/GRK0Y/yVHxza5hI+EpSZLWPTK7q7o6dNwm9bOyAbJ+JBicMWHAcNfIcwpPAyIeTZEhKg9j
+	bFZlk1W/j/nf7A0qEyDXkdJDX8PycbUiXo3Audfo6xcpbqf+XUEeRSGKIaw1UntjKsX6sUS8gB6
+	+zuoMSSUm0qkb0Wypljztoi8tZZ00bSX99rXs4yovk0TDCx1G6tWD01ejCbe7+ItYFWo0eozoq3
+	Y6jENCs8SpjbgnmD7TNY4lshvv9mW1z93W5qecOSTCAfDF/621IbGZVmKUPc8DfFQdIsxYJPaU2
+	Y/6Qy6VErFobxWArjeWuCkipCT0FVjEtD
+X-Received: by 2002:a05:600c:800f:b0:4bb:5bf3:8ee9 with SMTP id 5b1f17b1804b1-4bb7da4ec63mr52026205e9.31.1795010132684;
+        Wed, 18 Nov 2026 05:55:32 -0800 (PST)
+Received: from [172.16.14.5] ([67.207.71.250])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7d2c3c93sm99049865e9.13.2026.11.18.05.55.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2026 05:55:32 -0800 (PST)
+Message-ID: <2c791bd1-7f9c-43e1-8a76-f3bbeefee897@deepfinresearch.com>
+Date: Wed, 18 Nov 2026 13:55:29 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,248 +93,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Zhang Peng <zippermonkey@icloud.com>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Youngjun Park <youngjun.park@lge.com>, Mel Gorman <mgorman@suse.de>,
+ Sasha Levin <sasha.levin@oracle.com>, Rik van Riel <riel@redhat.com>,
+ Ingo Molnar <mingo@kernel.org>, Peter Xu <peterx@redhat.com>,
+ Hugh Dickins <hughd@google.com>, Axel Rasmussen <axelrasmussen@google.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Andrea Arcangeli <aarcange@redhat.com>, Thomas Gleixner <tglx@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261118-file_folio_flush-v1-0-e9e739ed14e0@kernel.org>
+ <20261118-file_folio_flush-v1-1-e9e739ed14e0@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Cenk_Y=C4=B1lmaz?= <cenk@deepfinresearch.com>
+Autocrypt: addr=cenk@deepfinresearch.com; keydata=
+ xjMEar0rFhYJKwYBBAHaRw8BAQdAHz6z6MLA+mS1Fuz7sv4rdnByHh/NoO3hkH4hixSiOw/N
+ JkNlbmsgWWlsbWF6IDxjZW5rQGRlZXBmaW5yZXNlYXJjaC5jb20+wrUEExYKAF0WIQTrPCT0
+ JMi19/R1ti4EM3Wz2u4IvwUCar0rFhsUgAAAAAAEAA5tYW51MiwyLjUrMS4xMiwwLDMCGwMF
+ CQPCZwAFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQBDN1s9ruCL8FNgEAi48UZATA
+ 4fLQCEod98yy5j3o8AJ1FqI2atRtFZRuxP8BALjrpBK/eH606w5s82THH9hCWXmu9vhlMmUQ
+ NiVUjIYKzjgEar0rFhIKKwYBBAGXVQEFAQEHQNXlOF5B8tyFRxW+4M9Ws0CGNVN//I4GaOEu
+ Vqvl09ATAwEIB8KUBBgWCgA8FiEE6zwk9CTItff0dbYuBDN1s9ruCL8FAmq9KxYbFIAAAAAA
+ BAAObWFudTIsMi41KzEuMTIsMCwzAhsMAAoJEAQzdbPa7gi/XN0A/3HYaeGJBCsWXe7xkZZl
+ wDADkFGIqk6oSu7rvvRh2QPUAP9aEEF089q6fPA+dQdnEr12WX0Wh9+CItd9Yiz2WjmsCw==
+Subject: Re: [PATCH 1/4] mm: flush stale TLB entries before installing a
+ CoW'ed folio
+In-Reply-To: <20261118-file_folio_flush-v1-1-e9e739ed14e0@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The SPLICE_F_MOVE path in fuse_dev_splice_write() allows a FUSE server to
-move arbitrary pages from a splice pipe into the FUSE file's page cache.
-Those pipe pages can be page-cache folios of a different file, pages
-written by userspace, or gifted anonymous pages. Replacing a FUSE cache
-folio with such a page breaks page-cache aliasing, refcounting, dirty
-tracking and writeback, and can be used to corrupt or disclose data from
-other files.
-
-The checks in fuse_check_folio() are racy and cannot make this safe.
-Remove page stealing entirely: always copy the data into the FUSE page
-cache folio, and drop the move_folios/page_replace plumbing.
-FUSE_SPLICE_MOVE remains advertised for compatibility.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
-
----
-diff --git a/fs/fuse/args.h b/fs/fuse/args.h
-index 5173264a1261b..36ef0c6d59998 100644
---- a/fs/fuse/args.h
-+++ b/fs/fuse/args.h
-@@ -36,7 +36,6 @@ struct fuse_args {
- 	bool user_pages:1;
- 	bool out_argvar:1;
- 	bool page_zeroing:1;
--	bool page_replace:1;
- 	bool may_block:1;
- 	bool is_ext:1;
- 	bool is_pinned:1;
-diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
-index 3641abb90d6bb..e7238eed21fb8 100644
---- a/fs/fuse/dev.c
-+++ b/fs/fuse/dev.c
-@@ -1099,128 +1099,6 @@ static int fuse_copy_do(struct fuse_copy_state *cs, void **val, unsigned *size)
- 	return ncpy;
- }
- 
--static int fuse_check_folio(struct folio *folio)
--{
--	if (folio_mapped(folio) ||
--	    folio->mapping != NULL ||
--	    (folio->flags.f & PAGE_FLAGS_CHECK_AT_PREP &
--	     ~(1 << PG_locked |
--	       1 << PG_referenced |
--	       1 << PG_lru |
--	       1 << PG_active |
--	       1 << PG_workingset |
--	       1 << PG_reclaim |
--	       1 << PG_waiters |
--	       LRU_GEN_MASK | LRU_REFS_MASK))) {
--		dump_page(&folio->page, "fuse: trying to steal weird page");
--		return 1;
--	}
--	return 0;
--}
--
--/*
-- * Attempt to steal a page from the splice() pipe and move it into the
-- * pagecache. If successful, the pointer in @pagep will be updated. The
-- * folio that was originally in @pagep will lose a reference and the new
-- * folio returned in @pagep will carry a reference.
-- */
--static int fuse_try_move_folio(struct fuse_copy_state *cs, struct folio **foliop)
--{
--	int err;
--	struct folio *oldfolio = *foliop;
--	struct folio *newfolio;
--	struct pipe_buffer *buf = cs->pipebufs;
--
--	folio_get(oldfolio);
--	err = unlock_request(cs->req);
--	if (err)
--		goto out_put_old;
--
--	fuse_copy_finish(cs);
--
--	err = pipe_buf_confirm(cs->pipe, buf);
--	if (err)
--		goto out_put_old;
--
--	BUG_ON(!cs->nr_segs);
--	cs->currbuf = buf;
--	cs->len = buf->len;
--	cs->pipebufs++;
--	cs->nr_segs--;
--
--	if (cs->len != folio_size(oldfolio))
--		goto out_fallback;
--
--	newfolio = page_folio(buf->page);
--
--	if (folio_test_large(newfolio))
--		goto out_fallback;
--
--	/*
--	 * This is a new and locked page, it shouldn't be mapped or
--	 * have any special flags on it
--	 */
--	if (WARN_ON(folio_mapped(oldfolio)))
--		goto out_fallback;
--	if (WARN_ON(folio_has_private(oldfolio)))
--		goto out_fallback;
--	if (WARN_ON(folio_test_dirty(oldfolio) ||
--				folio_test_writeback(oldfolio)))
--		goto out_fallback;
--	if (WARN_ON(folio_test_mlocked(oldfolio)))
--		goto out_fallback;
--
--	if (!pipe_buf_try_steal(cs->pipe, buf))
--		goto out_fallback;
--
--	folio_clear_uptodate(newfolio);
--	folio_clear_mappedtodisk(newfolio);
--
--	if (fuse_check_folio(newfolio) != 0)
--		goto out_fallback_unlock;
--
--	err = lock_request(cs->req);
--	if (err)
--		goto out_fallback_unlock;
--
--	replace_page_cache_folio(oldfolio, newfolio);
--
--	folio_get(newfolio);
--
--	if (!(buf->flags & PIPE_BUF_FLAG_LRU))
--		folio_add_lru(newfolio);
--
--	/*
--	 * Release while we have extra ref on stolen page.  Otherwise
--	 * anon_pipe_buf_release() might think the page can be reused.
--	 */
--	pipe_buf_release(cs->pipe, buf);
--
--	*foliop = newfolio;
--	folio_unlock(oldfolio);
--	/* Drop ref for ap->pages[] array */
--	folio_put(oldfolio);
--	cs->len = 0;
--
--	err = 0;
--out_put_old:
--	/* Drop ref obtained in this function */
--	folio_put(oldfolio);
--	return err;
--
--out_fallback_unlock:
--	folio_unlock(newfolio);
--out_fallback:
--	cs->pg = buf->page;
--	cs->offset = buf->offset;
--
--	err = lock_request(cs->req);
--	if (!err)
--		err = 1;
--
--	goto out_put_old;
--}
--
- static int fuse_ref_folio(struct fuse_copy_state *cs, struct folio *folio,
- 			  unsigned offset, unsigned count)
- {
-@@ -1275,16 +1153,9 @@ int fuse_copy_folio(struct fuse_copy_state *cs, struct folio **foliop,
- 				return fuse_ref_folio(cs, folio, offset, count);
- 			}
- 		} else if (!cs->len) {
--			if (cs->move_folios && folio &&
--			    offset == 0 && count == folio_size(folio)) {
--				err = fuse_try_move_folio(cs, foliop);
--				if (err <= 0)
--					return err;
--			} else {
--				err = fuse_copy_fill(cs);
--				if (err)
--					return err;
--			}
-+			err = fuse_copy_fill(cs);
-+			if (err)
-+				return err;
- 		}
- 		if (folio) {
- 			void *mapaddr = kmap_local_folio(folio, offset);
-@@ -1920,9 +1791,6 @@ static ssize_t fuse_dev_do_write(struct fuse_dev *fud,
- 		if (!smp_load_acquire(&fch->initialized) || !fch->connected)
- 			goto copy_finish;
- 
--		/* Don't try to move folios (yet) */
--		cs->move_folios = false;
--
- 		err = fuse_notify(fch->conn, oh.error, nbytes - sizeof(oh), cs);
- 		goto copy_finish;
- 	}
-@@ -1966,8 +1834,6 @@ static ssize_t fuse_dev_do_write(struct fuse_dev *fud,
- 	set_bit(FR_LOCKED, &req->flags);
- 	spin_unlock(&fpq->lock);
- 	cs->req = req;
--	if (!req->args->page_replace)
--		cs->move_folios = false;
- 
- 	if (oh.error)
- 		err = nbytes != sizeof(oh) ? -EINVAL : 0;
-@@ -2068,7 +1934,6 @@ static ssize_t fuse_dev_splice_write(struct pipe_inode_info *pipe,
- 				goto out_free;
- 
- 			*obuf = *ibuf;
--			obuf->flags &= ~PIPE_BUF_FLAG_GIFT;
- 			obuf->len = rem;
- 			ibuf->offset += obuf->len;
- 			ibuf->len -= obuf->len;
-@@ -2083,9 +1948,6 @@ static ssize_t fuse_dev_splice_write(struct pipe_inode_info *pipe,
- 	cs.nr_segs = nbuf;
- 	cs.pipe = pipe;
- 
--	if (flags & SPLICE_F_MOVE)
--		cs.move_folios = true;
--
- 	ret = fuse_dev_do_write(fud, &cs, len);
- 
- 	pipe_lock(pipe);
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index d5e1cb53d86a6..ab955e4c3e5d7 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -1096,7 +1096,6 @@ static void fuse_send_readpages(struct fuse_io_args *ia, struct file *file,
- 
- 	ap->args.out_pages = true;
- 	ap->args.page_zeroing = true;
--	ap->args.page_replace = true;
- 
- 	/*
- 	 * Don't overflow end offset.
-diff --git a/fs/fuse/fuse_dev_i.h b/fs/fuse/fuse_dev_i.h
-index 4b412a76225f8..a90ce26ded319 100644
---- a/fs/fuse/fuse_dev_i.h
-+++ b/fs/fuse/fuse_dev_i.h
-@@ -326,7 +326,6 @@ struct fuse_copy_state {
- 	unsigned int len;
- 	unsigned int offset;
- 	bool write:1;
--	bool move_folios:1;
- 	bool is_uring:1;
- 	/* set when the payload is zero-copied. folios are filled in place */
- 	bool skip_folio_copy:1;
+Tested-by: Cenk Yılmaz <cenk@deepfinresearch.com>
