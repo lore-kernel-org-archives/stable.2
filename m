@@ -1,112 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795014332;
-	b=WSDRHCOnn+4cv/Ro43YRjf7N70rJpCBlyTfeqbzDb5bP9XIpVhKjXED+YaZ/VYg4MPfa
-	 d/lF+itjoqk2tiiFGESrLyfkj6rtS0nBZ6ebTtcH4Thd2lxUPWo8il6j7eUNMGNrigiQ7
-	 aukkCV1yZ7fcMVKMwOc2ewxJcUD3OhxvIwdNIJCUQvCYsNe4WgKvcOSXXgoWKNIkE4Ahn
-	 p9D140wtISsvH2UHtwtpVlW8O6mWPBtDHEpe9JwBDDgW5gJn8Hhe5ED+IrMC89wK8KqNZ
-	 AaAQiKjQz5cS/27v5+5TeMmyAK8fVOTJiMt8G+U3XYNvvJnOI506GjheiHrjQ3cYnqQ==
+	t=1795014368;
+	b=Kgm44NwEvOE0EP7TlBp6QdAjn1i898n2Y6L4jB2/kMVoBobgHCXXSha/wHi+iFgOUlg1
+	 oEOqDOjqqhH8EL0l44lN/inRW5asshAtaZ3y7NHLGngn2ifLpgezdLsUvh8h86rqokkps
+	 zSQC90pcaLcr1tm/fdqnOA+45pJ7W3CsVfqSnf+0yyoyGGbIrF+LJp22S9DAJL9lbaQxE
+	 B8iOpfaYk77oRWdOIJvTipiahDRDCDfd16drNAewcKiVkzj3Y+4PjayA3eJBDlpPmn0IY
+	 ii75HYtFK3Xr2HtdiOymORTsE1ITnA77EflrTuKSflT/HX6fu3gBkeXOPJdtYMRSR3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795014332;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:Mail-Followup-To:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=uHGZ+xOdJx3Zm8UTHiozAvdnroVoplilsdHtzudcbVI=;
-	b=I+uPRrIzbSE/z3tejS5yg+x2wwFwKaLnVDbuUV+GnNDAh3CiNTpwJn8b/CQ+8T2hnA/V
-	 yjPujRmGdn9rwvKgAISF2t19v5fz+xT5VevrzzUSDSh9+6sFfBHGCv9h48lf+U45QvtZf
-	 sPJmcLTroaGutwjCkhkSb/j310hv7ikBXuQGHBsRgg99tyZYi8Uc9H+adl2nK7Sy6BdVm
-	 fCISwBblYCTX53qVyLP9Uhy7HxOOfC63aUSdNp7qphqBPnlrK4AD0lJnbAQ1tcAztpRuo
-	 yBitFmS/HH9mgx1npaOX4J7OFIGil/GmNdB9HINGiZHmIIGlwKkdRzCtPYNtGXU+SbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795014368;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=ny2tIhslY9UknOoWFFp4Z/ibcFp8PRejUugPwRMttuU=;
+	b=hCqTL0g5iapAr7wRmLZ10IAYfBCgh734yI3BkrCGUx5sSyzMDLAK4RydEjA4DlZrryCx
+	 lGFP9lahhqnQWEZfEGz/kZbCxX6u2FkUPIfbZr7nsf5YHuQilqMHaSIS504b/VRc7blOt
+	 075oBA3+NCK6V38J2TlV8LnvL0JomwRlS1PMrGcalouo/NNPR4N0bH+aVwJvQxukuZS3k
+	 RKDze86AsPEsnCUyvwUeH451zKL7Y+0pY6gk86P3L8Jd2EL/D/Q3hkdpnpY/Rc9Dimr6e
+	 Q7wNCfn73Bl112SLB135IQN83AGSJzUc3c/VaVvEZiw+5U1FlF6ARDx4a3AfeBZUIJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dama.to;
-	spf=none smtp.mailfrom=dama.to;
-	dkim=pass header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=QXFVnjhG;
-	arc=none smtp.remote-ip=209.85.214.177
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2CCrSViX;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEE52606A333
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:05:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AEE52606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dama.to
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dama.to
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4B3606A320;
+	Wed, 18 Nov 2026 15:06:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dama-to.20260707.gappssmtp.com header.i=@dama-to.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=QXFVnjhG
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2efe591a1f6so5052435ad.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:05:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dama-to.20260707.gappssmtp.com; s=20260707; t=1795014331; x=1795619131; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uHGZ+xOdJx3Zm8UTHiozAvdnroVoplilsdHtzudcbVI=;
-        b=QXFVnjhGcWNcZVxAiqFpRMw2oMh2dieUZe7T/JOKGprkANq54ojUus6S8PyO67nOy9
-         7UlTC39NR3W/6RA7E9c2wfG0J/51zw50s+bzNZQTCmKm6ZUmT/NgA+NdNMD2Ic1hJYi5
-         0OlR6ykWIKzo5LTIh1NF+fqBL3e7M4NH30jvRTIhNCcBtmGbxmBLqqXFjFvyhLvrTw3s
-         NeR7MtbWNK/lNqEVwgeZpoy/YIKH9C2rBf2lZ6NfRkjJbHNpTYBoQ6t2Mqu9aIHaaITS
-         Wxop2OBj+7YXmP7hqs14tCALq2glB4GmongionzM4ZGaty18pR2LO4s5XD+nT2UwZK46
-         9rxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795014331; x=1795619131;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:mail-followup-to:message-id:subject:cc:to:from:date
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uHGZ+xOdJx3Zm8UTHiozAvdnroVoplilsdHtzudcbVI=;
-        b=gxnVw/INO2zB6MS+Ro/guW0+CBRNhUm+0E+n+GqQVTY20wCbIi+WJefC0YRj/S0F9a
-         qqvOhYg7f4ihyRbkGfjKAkeZRKy8cyh+EHLGEdP8esmSpAS28oY/5Yfu/a/zAGEH3jxW
-         LAK3D1pRh29EKX1hVYqjHJM1JYz478BQAL7bT3NhOga49ZD41/fWWPPx69J1T7ykqi8A
-         75adVNr91U7y6RkNrhcYjFCbZoko1XRWOGGKf9xQ1gf8RHmZJX6HjHoNMlAI568QRDtI
-         CsVu63I+/OmNQzow70Bur8ExGrA5+YeGr5IA5mgfVLg/WUniawlCk0cZFoKK288SPJZb
-         GAhQ==
-X-Forwarded-Encrypted: i=1; AL+hErEDVvSIAXV04jb9yDKP79ZT8hRjRRVRTtUSvuL5ypMtJQyc12UyY67C4Mu3B6pNzFEn+9xMG1o=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/j729jp43kyMM52uVbPbq1h6C1/0ZZJa2/0QPHkJZ7IXlqA3tZ
-	80uPbg4TltqP9i4k0lDShvwikSqAvkaoxL9cle9R5e37IQcULzDnAsaWGZU5nIZmYbw=
-X-Gm-Gg: AZFdTZcKolOOZERG5A6criTB0C8/RpM+jJvkbvmmoWCC5c498Aqo7trViqRylmLdts6
-	WLSAzLKiYaZpAYQ8/wXeVB9QEC4FsCnZOOvpw3PmQxa+y+S0J6DXh3UYoLWmBl9Rfqtb7MfgTTL
-	YMrxwDcslVlY1mRPwdG0EQm3Uh/j5mYczK95cblUouGUxBL9V/GBndOKY21QRxzjaen07B/3Y0h
-	DKeu16f31DeAupNI/SB4EO8YSkt1+F2rnIFtcgp5yOY+PRXTyYcoa+c3+nU9yRTX6zoI2qvcpGa
-	b31d3pW01QAN68f0xLdzYbAjkN2p3qrn41+1os4czquBTbZTTT45mvHR/ECpIqp6Zo57+msb6f/
-	kXLL4r073cVFyG6zMFGXVm6i7pi8BXxvM5qhDYSKp8ZDKsJXqyD4wk+1Bn1Ewpk6sFUpMFmkBjC
-	+cLiIEq4BDDCg6d4haU0gutmyyHiO3wy1GyuJwDkpTG0tT9k+p7HpeTBamCp9wYlmgtGoNWjeks
-	DcZJVaFhBzx95nx//jgkYqIhIrUDKlmSEVe5bvn/1Ai5rGtQfRnzK4o7/T9XSxE8fEj3Ofie6n5
-	3V55kOlzNrgSfZOHP3FWrWYO2ctrwekvLaU3DC122UbtmiMpdZW1zRiieSWneyJ4
-X-Received: by 2002:a17:902:ce10:b0:2ed:2104:9a6f with SMTP id d9443c01a7336-2eff73f1e64mr28760675ad.22.1795014330948;
-        Wed, 18 Nov 2026 07:05:30 -0800 (PST)
-Received: from localhost ([2a03:2880:2ff:46::])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eff6115f28sm15446135ad.19.2026.11.18.07.05.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 07:05:30 -0800 (PST)
-Date: Wed, 18 Nov 2026 07:05:29 -0800
-From: Joe Damato <joe@dama.to>
-To: Antonio Quartulli <antonio@mandelbit.com>
-Cc: intel-wired-lan@lists.osuosl.org,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Kurt Kanzenbach <kurt@linutronix.de>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2 2/3] igb: link queues to NAPIs under RTNL after
- runtime resume
-Message-ID: <av2+uVOytr5BDs5P@devvm20253.cco0.facebook.com>
-Mail-Followup-To: Joe Damato <joe@dama.to>,
-	Antonio Quartulli <antonio@mandelbit.com>,
-	intel-wired-lan@lists.osuosl.org,
-	Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Kurt Kanzenbach <kurt@linutronix.de>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20261116153041.3002666-1-antonio@mandelbit.com>
- <20261116153041.3002666-3-antonio@mandelbit.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=2CCrSViX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AF371F000C4;
+	Wed, 18 Nov 2026 15:06:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795014367;
+	bh=ny2tIhslY9UknOoWFFp4Z/ibcFp8PRejUugPwRMttuU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=2CCrSViXth03UJy8GEi5WV7bCkGqMLizCHg0zqIN1HTTCNm/qYQg6F9SPwWSFPO+D
+	 KUWKgC1SQI35JJ2IeAEy1/Oz7x3BZpH3nto84BuFTwmIJnrTTcFckWcRfNfhTE+c/l
+	 I5I8t8n3P1Xy3fSvR6+Cd9qxX7DdpNHp6o29zS20=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Tu Dinh <ngoc-tu.dinh@vates.tech>
+Subject: [PATCH 5.10 0001/1848] xen-netback: Fix XenBus connection failure cleanup
+Date: Wed, 18 Nov 2026 15:33:59 +0100
+Message-ID: <20261118145911.280788727@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
+References: <20261118145911.150052362@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -116,39 +60,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261116153041.3002666-3-antonio@mandelbit.com>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 04:30:38PM +0100, Antonio Quartulli wrote:
-> __igb_open() links queues to NAPIs with netif_queue_set_napi(), which
-> requires RTNL, but RTNL isn't held when resuming from runtime suspend:
-> this triggers "RTNL: assertion failed".
-> 
-> Don't link them in __igb_open() when resuming: do it right away on
-> system resume (RTNL held) and from a work item taking RTNL on runtime
-> resume. The links can't be kept across a suspend, because
-> __igb_shutdown() frees the q_vectors. These are only freed under RTNL
-> with __IGB_DOWN set, so the work item checks __IGB_DOWN under RTNL.
-> 
-> Tested with the 82576 emulated by QEMU.
-> 
-> Fixes: b75a1dea500f ("igb: Link queues to NAPI instances")
-> Cc: stable@vger.kernel.org # 6.16+
-> Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
-> Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
-> ---
-> v2: no code changes; mention the tested hardware.
-> 
-> Note: igc may have the same issue: __igc_open() also links queues to NAPIs
-> (igc_set_queue_napi()) on the RTNL-less runtime resume path. We didn't
-> have igc hardware to test a fix with, so no igc patch is sent for now.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-I have an igc I can test on if you want to send me the script you used to test
-this. Feel free to message me off list if you like.
+------------------
 
->  drivers/net/ethernet/intel/igb/igb.h      |  1 +
->  drivers/net/ethernet/intel/igb/igb_main.c | 38 +++++++++++++++++++++--
->  2 files changed, 37 insertions(+), 2 deletions(-)
+From: Tu Dinh <ngoc-tu.dinh@vates.tech>
 
-Reviewed-by: Joe Damato <joe@dama.to>
+commit dc6d814562b65813556933dbda1015cef61dabf8 upstream.
+
+xenvif_get_stats and xenvif_get_ethtool_stats capture vif->num_queues
+under rcu_read_lock. We need to unpublish vif->num_queues before
+synchronize_net to ensure that readers that come afterwards will not
+read a non-zero vif->num_queues and attempt to access invalid queues.
+
+This is the same cleanup algorithm as used in backend_disconnect and
+added in commit b17075d5c198 ("xen-netback: fix race condition on XenBus
+disconnect").
+
+This is XSA-531
+
+Fixes: 5fb756f1bbec ("xen-netback: Fix UAF when reading statistics data")
+Signed-off-by: Tu Dinh <ngoc-tu.dinh@vates.tech>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/net/xen-netback/xenbus.c |    8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
+
+--- a/drivers/net/xen-netback/xenbus.c
++++ b/drivers/net/xen-netback/xenbus.c
+@@ -731,6 +731,7 @@ static void connect(struct backend_info
+ 	unsigned int queue_index;
+ 	unsigned int requested_num_queues;
+ 	struct xenvif_queue *queue;
++	unsigned int num_queues;
+ 
+ 	/* Check whether the frontend requested multiple queues
+ 	 * and read the number requested.
+@@ -837,14 +838,15 @@ static void connect(struct backend_info
+ 	return;
+ 
+ err:
+-	if (be->vif->num_queues > 0)
++	num_queues = be->vif->num_queues;
++	if (num_queues > 0)
+ 		xenvif_disconnect_data(be->vif); /* Clean up existing queues */
++	be->vif->num_queues = 0;
+ 	synchronize_net();
+-	for (queue_index = 0; queue_index < be->vif->num_queues; ++queue_index)
++	for (queue_index = 0; queue_index < num_queues; ++queue_index)
+ 		xenvif_deinit_queue(&be->vif->queues[queue_index]);
+ 	vfree(be->vif->queues);
+ 	be->vif->queues = NULL;
+-	be->vif->num_queues = 0;
+ 	xenvif_disconnect_ctrl(be->vif);
+ 	return;
+ }
+
+
