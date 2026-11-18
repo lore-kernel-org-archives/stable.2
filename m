@@ -1,59 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1794961215;
-	b=j07ziCnK2KtiI+gFc/WHfcLQr9WnrVgk/zRDdAKFQhaOUC4DEZn1jmhj2dqfAtebZCiy
-	 hQnYVK1YxboAjHv5laFXFUV+ifdkNnUxvN+5aQZDt8n6uQdBjtjxNKtctxlZmqgkzLadU
-	 IJo/iE1hxhFOVQyxNfpsTUnMGP6VJt/zGPm5sEZ1N2Ov2xbGP3xxHs4OLD0uo+mw4rbDB
-	 BsXn0FVNXZNAFiwxP8qEaD06r3yAjvo+klWX/dmDsQwj4Or8qQIFZW8q9hbTjOc0Twe3y
-	 B7jmr7g6Cc5mtUvKN+ai1+Lm+0jo6nYyCR3xh6n3e4ro61N8+LloiL+0HKaf3Jo9OPQ==
+	b=3BJbl82JNX3BGAcxLWlo94tWbBLTJuIIyJWAC1yXibZbF3dudg18jS/jYaILGEVtM905
+	 uGDbp4E8PcOaHHeuX9eWcXCf011HgH2rAGLFKsaohdJKhHoZHlaUhcVVWGfOWPXW/j4N6
+	 7vo/OdZOdMGPsLO8W01zLY/pLRHHUFMka6ePpfZ2vI0cZNtcIN8vMHX1/U7LoAEG9IuCn
+	 YVVXQjU6L74z+1GrQbtd5NnWlcsVA2iut2SgUx9mQbAvxu7X6YAKbFCLWKOcBw/z3DCcJ
+	 aUCD9+3LjonsNy2PxXQ8cUF/ed3BDO/8+7m83qJXemkZG6DaMahnq8NLGQ8p2XzMYzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1794961215;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=CkbW//av23/68TB9XD/L1XMZDCm2MfcLf5r8qDRl6kM=;
-	b=r63skA94qMK2J/KBt57P9unsgWTUlkOnkzZqZImucvrAcxNkv54UVwkG5rFysTSx7Xmt
-	 DHBHVxU0Wi2sIBGsq40vWz0ojkb69fMIoGULHaBeDCHPcgKmsXlrcgkJlgIKaSPUyQuy0
-	 X6NaDvDYYIp9k/hiygrN/BRXgln+u8m+Kg4JGhhklzS8beFYKzJEKopjuBJqKQ3TR/5JH
-	 NNleN/EzdP+VXt9A42EbIQloaAANuHXqu45/vbjJu4t4YB4cJnfJ95MxjBJtZlIxuAz57
-	 2LtVoIkNIlGkfqpjxcOrDzQ5Z9BG6WcPwN4y6QGE08ec68FwIKrIBj++PVMvOiDLIpg==
+	bh=WsQgH7BU6XlQzwM1jikoHva5MxsyUwqyXNjUvngxBOw=;
+	b=vbHvXMsDRN7Me6DXdZ9kb0N/onG743OA8XRATe5Pue2zcY2AKcuTR4Dhw/+t2P7oj5o6
+	 Arfbt62y0QJ09alK4CwM7iboTfBCViBUfb4n65p2dfeAQ8YgksR14XRLxALMvWT/sGTtT
+	 kIgEH/iMrbhHnR0pTFYEfufHXYVPVoZCxNaW7o3dZwxKtASbvYMm7hkZKndC4z/DWAR+L
+	 Lnx871MjEi6rzQD8cimPZOzfidAdFnRjPL+jwBaQ66VX1tLBeyopqPuNK/44obRn/L0Rx
+	 Ji0h6Y0JwZofvcmSgGX0Nhgwu7eNU8mIRcsxQmfEM+brmq0Oyaglp31GRyUAIST82cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fY01DNnU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VSVZ7WrO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1F4606A336;
-	Wed, 18 Nov 2026 00:20:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB84606A332;
+	Wed, 18 Nov 2026 00:20:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fY01DNnU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B36601F000CB;
-	Wed, 18 Nov 2026 00:20:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VSVZ7WrO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEA851F000C8;
+	Wed, 18 Nov 2026 00:20:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794961214;
-	bh=CkbW//av23/68TB9XD/L1XMZDCm2MfcLf5r8qDRl6kM=;
+	s=k20260515; t=1794961215;
+	bh=WsQgH7BU6XlQzwM1jikoHva5MxsyUwqyXNjUvngxBOw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fY01DNnU8hBkz5ydqH3iQfejhCdohMg5Xf1wZwh8+Rab0Aqh8Fy1ouLssXlT//Ns1
-	 XAtn1oXA/W24Mc9pQT4qnHjPTeS6Y6PcFxHJrXsxe0M7HbP/o39PzTmHIjubfacFw+
-	 IjCYLHsaKbUnd8K4ovuXHYVXf1sWmD9YC4RHSTzVBrio8V9xEpIfgVndjkttULJdyi
-	 NrWbhcrdMSQJ4X0a2DBOCH6IF7+A91wS4CkGhCO+QCHSKZop63Pvzuu2QWkcbxTOe+
-	 k4Mn0EX7LJqxWgs2u0UGOWKXD46feESQt2e/6/vL2umsPyzl2auTgDbr0smRSmGYiy
-	 4fEoZsYHYf5Jg==
+	b=VSVZ7WrONu3+hODkJsc0owciFvSDXW/Am/vCd5FPZMAJpeuEO696P57hNlKxNgMYK
+	 PhrbWL/QXLGT7k9eeXlkImIgKhjdRjrsNLVPrhc/LMnDKsr2iXpD+VNknxlQfgkyTk
+	 g3Cc/ahGKoj283o4pVDtqvIj3nyOFKaFJDnc0+by6XiMeJCFhbTejilirRq1QXe1ub
+	 Nrc6Lb2LAOOSLbtyQ2pF7Z2ARNjvgmEdaUetoxSvr1dxtxsbjxQgYTbAZi5JLCk5NK
+	 OwHh47+ndnPjZU8bPeeUoiJpXyBpdjZjAmIoN0dZFNjsq19ybd3pdGIe2KISDOchW1
+	 rYe5cJ9TEelDA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org,
 	stable-commits@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	John Ogness <john.ogness@linutronix.de>
-Subject: Re: Patch "serial: 8250: Switch to nbcon console, take 2" has been added to the 6.18-stable tree
-Date: Tue, 17 Nov 2026 19:19:59 -0500
-Message-ID: <2026-11-17-1-daily-reply-0008@kernel.org>
+	James Morse <james.morse@arm.com>,
+	Ben Horgan <ben.horgan@arm.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Fenghua Yu <fenghuay@nvidia.com>,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: Re: Patch "arm_mpam: let low level MSC accessors return an error" has been added to the 7.3-stable tree
+Date: Tue, 17 Nov 2026 19:20:00 -0500
+Message-ID: <2026-11-17-1-daily-reply-0009@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <87a4n79zqb.fsf@jogness.linutronix.de>
-References: <87a4n79zqb.fsf@jogness.linutronix.de>
+In-Reply-To: <ab81e90a-fdc4-426b-8da7-45b1a80e88f0@arm.com>
+References: <ab81e90a-fdc4-426b-8da7-45b1a80e88f0@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -65,11 +65,13 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Is this patch really needed for 6.18? The conversion to nbcon was
-> initially reverted for 6.14.
+> Instead of back-porting this patch too, we can just drop the (pointless)
+> error handling in this fix patch.
 
-Not needed. Dropped it from 6.18, along with the patches that were queued only
-because of it. Thanks.
+Thanks. Both of these (this one and the "propagate MSC access errors" one) stay
+as plain upstream cherry-picks, and 197a7a41e6e0 ("arm_mpam: On saving mbwu
+state read the monitors before clearing CFG_MBWU_CTL") applies on top of them
+as is, so no adapted backport is needed.
 
 -- 
 Thanks,
