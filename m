@@ -1,74 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794967165;
-	b=yYI3xEnPs7RW4ZarxL1zR6Y3OFu7aGGwoL0PHn+4QN6azH4lZA7LnLEpot+zh35p7gXp
-	 FxPLrkVsXE3F01hkjya5EAahbhUk/QmAJA4mPXTObvpMpzcJa/eRirMICLEDf8Oyykb5G
-	 JW0hvFIalaKJCecs1Jvndwnxe4t8EoabeNzTEe4h0qt9kElvHw/HPWJZ9nMUZ00Y2JlVL
-	 LSx9NdNHO6ftM+CGWizyOIS2awBkm6JaGyFnnug90omrzXzkj3x5bGfANlxYBRAf8rvRr
-	 AxtwJRJlD6Gjki7dt6NXlaqdsEsccZsJ3q50DhhJRIXjt/nxIQOGhKryrBe5QW/ijNQ==
+	t=1794967208;
+	b=SB5VtGCYs+FRO4p+//6+Kuzv4P2um7gv4QHJIqKmjazpWDam/N6jFcSmnyUQ+SqkvvaY
+	 J4HNJ76qOeb2pjf4rIREbxTvYaLhrv7/CqjM5Dol9qE7d8TBURKZNO2fs2zM8ibKrS1c7
+	 znC9OsApoKMSMCTioCUf0l1xW244+uWKcQUqu0lu2gvGEorzG6iPhEw6PTkfmfpJ6EC5Z
+	 k4L/Fl3m7SoZvLUnrwFeMdYvOMrBKO/qZfgvNeKKnf/oOrE8EZpIPrWwHwmj/72aZR8p0
+	 LvBY/ToYTswSLMzGp7AeZSP+A7ZCN7XejljYud4pFIcvQ2+rG4EJInso5okQjruiKag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794967165;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	bh=XJQJo2wE0lk+4HgZW9J60rvYloBz0R9Np939LBvZbbk=;
-	b=ASaytwRJtGSk6mOw2U7nrxD1JfTMvehH5TxUCaPxJ0IL/1xbB7OmY7kCB+p1dEBhZzUL
-	 ghK6PyiOBxROUMMqId8oqIQgF/4RtZkojJFS/A2IJalZQDSg3vbJ6lbLKdUC/+IPQyGHO
-	 HnxJbkVJ+q9kJHEQu0UGMqO/3cFJWK4+olQ6mOa9bpyxLViM3GRiIW2PaKqk+Q/hSiggv
-	 F9z85i20RKW9LGn9AZ5N/zeSZpzWPHH+uEtVSENCFqTmVWkTzOzfIWYlKA8yNR6UmZXzv
-	 r5kOBk03Fx6090h6tqpBuq3H0EbSFgGcWOo1o3nipwkPSGZBDa6liC3NfqnQY6VMXpg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794967208;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=rysQnyo3q2q1PCSB5zwI+CF9MYiqYHtXoPwnkzo0XVs=;
+	b=Klx0O2rimbg1lVo3yjxQUtQi5VlemBMIRKnXuyYxHwimdwAGHqCSDK7MjksGDNZbiV+2
+	 PcXtV/aazW41f7EHcuwMF5hwSwUY+jWt0/XecfLW3lYyubAcnqnk9m0kFEvkYFiI+LN/i
+	 fI/MDjH78UxUs3VLuDeth25IW9KqgchkfR6+kQ+r8+ujZwOm4CP7L0Tcx3O8UzZn5qabz
+	 z84pq3eIMizdlyzOVTt7cw64Sk1xvgt/PFl312BjyiIb66iOONgolW6A75uFEalPhxZJy
+	 F0CngJ73qSCNstUarFPPe8MSyk39GdvKM3Z27gKUd5I34klJ6zaZ0SzyWKU9xQXtK/w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=XQ87ZR4i;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hKILQxMm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31BA606A32C;
-	Wed, 18 Nov 2026 01:59:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A31BA606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8F2A606A31C;
+	Wed, 18 Nov 2026 02:00:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=XQ87ZR4i
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6AI1wxMrB859233, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1794967139; bh=XJQJo2wE0lk+4HgZW9J60rvYloBz0R9Np939LBvZbbk=;
-	h=From:To:CC:Subject:In-Reply-To:References:Message-ID:Date:
-	 MIME-Version:Content-Type;
-	b=XQ87ZR4iQ313Na2oPGkiQCFjprtL3tXb+2L37H24T553cLdCuWDyPcG8hYG5m9aYy
-	 BEPNwYdbgKMDmxBDcyXZbvBoB/Bu+LObOW51X53hgdDzoLEME52+Q93/OZo1N11gx0
-	 Is6jRut73tv1ld+muO/s7LacKs0nJ42jhzDFSMI5IZbSsAGiddCtSFHWsW+Ahsaqx9
-	 TQig1pSwHd3FOxPrIbaxMdVg3BxSBgtj8nayUxV3li+rKAa9nc237lhBMxJ6Hvvxe4
-	 ggYp0Q7/a2Z39oV8/+MqZh+IZivn4eEz5Xtry+YK0aZyqey/zWCU4IRM/EJEv2mxRC
-	 vBs/QxCpb0c/Q==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6AI1wxMrB859233
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 18 Nov 2026 09:58:59 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Wed, 18 Nov 2026 09:58:58 +0800
-Received: from [127.0.1.1] (172.21.40.75) by RTKEXHMBS05.realtek.com.tw
- (10.21.1.55) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
- Transport; Wed, 18 Nov 2026 09:58:53 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Alastair D'Silva <alastair@d-silva.org>, <linux-wireless@vger.kernel.org>,
-	Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>
-CC: Luka Gejak <luka.gejak@linux.dev>, Martin Blumenstingl
-	<martin.blumenstingl@googlemail.com>, Jernej Skrabec
-	<jernej.skrabec@gmail.com>, Ulf Hansson <ulfh@kernel.org>,
-	<linux-kernel@vger.kernel.org>, Alastair D'Silva <alastair@d-silva.org>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH rtw-next v11 1/4] wifi: rtw88: sdio: Handle allocation and read errors in rtw_sdio_rxfifo_recv
-In-Reply-To: <20261117101347.2157211-2-alastair@d-silva.org>
-References: <20261117101347.2157211-1-alastair@d-silva.org> <20261117101347.2157211-2-alastair@d-silva.org>
-Message-ID: <70dc30d9-a615-4a0a-9ee6-228d079c1bf5@RTKEXHMBS05.realtek.com.tw>
-Date: Wed, 18 Nov 2026 09:58:53 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hKILQxMm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5371F000C4;
+	Wed, 18 Nov 2026 02:00:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794967208;
+	bh=rysQnyo3q2q1PCSB5zwI+CF9MYiqYHtXoPwnkzo0XVs=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=hKILQxMmbL6IeQNW2Gh+AJLNiaRgwPTb4uEKnMxgqzGhzZBGKAo+0/11wqAkQr76E
+	 VkhmGiaWNWICew/29sChe9irFbze6kvie9BDTlaJhQsSj6mAYb5uyIW5yr1GvoxNiv
+	 uZ7ontFdoMX3HLQbtsfZlo4R366jjUOgfyQqdx28sEq0D75yhv1L2fRC3ljrf91hNn
+	 jqKe3gtTlkeyUBVoPIbXxRgdkId+8Hx4g/RiyWcrhUIDReYhZR94wvwsYZ6wUsSGcp
+	 K8NvgGg1kwKevzeA9DVgj3M/Zi3nHd8OMrQrWKMPnrU9D5bljkvaJoR2H0V94hxfPO
+	 7c2+Y4zXAjD1g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F1470392B1FF;
+	Wed, 18 Nov 2026 02:00:07 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,31 +53,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] net: stmmac: re-enable on-chip parity checkers for
+ XGMAC
+ ASP 0x2
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <179496720653.1405006.4159910100773001022.git-patchwork-notify@kernel.org>
+Date: Wed, 18 Nov 2026 02:00:06 +0000
+References: <20261114015554.2187341-1-zxyan0222@gmail.com>
+In-Reply-To: <20261114015554.2187341-1-zxyan0222@gmail.com>
+To: zhu xin <zxyan0222@gmail.com>
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, horms@kernel.org,
+ 0x1207@gmail.com, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
 
-Alastair D'Silva <alastair@d-silva.org> wrote:
+Hello:
 
-> When dev_alloc_skb() or rtw_sdio_read_port() fails, rtw_sdio_rxfifo_recv()
-> returns without reading data. Because it returned void, the caller still
-> counted rx_len against the loop budget while leaving data stranded in the
-> FIFO.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Sat, 14 Nov 2026 09:55:54 +0800 you wrote:
+> Commit 669a55560e4b ("net: stmmac: Check more MAC HW features for XGMAC
+> Core 3.20") made dwxgmac3_safety_feat_config() bail out early for
+> asp == 0x2, assuming that configuration has no parity protection.
 > 
-> Return an error code from rtw_sdio_rxfifo_recv() on failure and break out
-> of the receive loop in the caller immediately.
+> Per the DWC_xgmac databook, the ASP field of MAC_HW_Feature3 selects:
 > 
-> Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
-> Cc: stable@vger.kernel.org
-> Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-> Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-> Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+>   0x1 (AS_EPPE):  all automotive safety features, with ECC and parity
+>                   ports on the external application interface
+>   0x2 (AS_NEPPE): all automotive safety features, without ECC or
+>                   parity ports on the external application interface
+>   0x3 (AS_PPE):   all automotive safety features, with parity ports
+>                   on the external application interface
+> 
+> [...]
 
-4 patch(es) applied to rtw-next branch of rtw.git, thanks.
+Here is the summary with links:
+  - [net] net: stmmac: re-enable on-chip parity checkers for XGMAC ASP 0x2
+    https://git.kernel.org/netdev/net/c/9c9863f9b9f1
 
-2fc87b00daf2 wifi: rtw88: sdio: Handle allocation and read errors in rtw_sdio_rxfifo_recv
-07eb79021ca5 wifi: rtw88: sdio: Track running state and cancel TX worker on stop
-a468dc94161a wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
-6f51fced1eaf wifi: rtw88: sdio: Split rtw_sdio_rx_isr into 8051 and 3081 variants
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
----
-https://github.com/pkshih/rtw.git
 
