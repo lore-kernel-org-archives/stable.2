@@ -1,53 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795019828;
-	b=LNbLSM4ybV50s44kwXxA7aUXzlUOdw0ft+Lhq63jdW/g5j5m9f8B+xuNqRUzJpQyS8Ls
-	 dNRU80hd8Aa7Cre6nqeMjpvZNwl3XlY2B0ZVdipZZOHLb3W8poaybkrtCyeXCy7pZ/dtO
-	 J8yjPO/oTylTGjVpeYbMY3lSl0aye8/le4jKEFM2X62+Cw0D9klxAQDSuIagUcFaqLw3N
-	 Dwq8Tu7RqF3cg5P5Rb5WnN3obg5kr38Oa6Zkwp4ueFtSGA5okCeitqCTnwANhjsS8ztA0
-	 6GjtTJosbbJ+Fc/ilU5b9VCOpujNGKtG3otqyp+0OROTgVKnI3JI61kY8JwxfzSbKgQ==
+	t=1795019834;
+	b=am+v5v03h5aWotwqNJAD1kTHhD+hzAeKvwps4RG1+17LreYOQiq3YGOhQId6e4iFS+TE
+	 LCz9LDepD8kdwr/dEB7NPsCBJJ1IKAe6DctSpicPPySFUCMPoH9qpPkXQlhXNHr72VizO
+	 H52/fm5vFHeZ1066TvSdnswihPpb8BYlrzY8rzu6t1aZU5xlmGQTfI7lWTXCkhy281Dn4
+	 0RbYpl9qD/bpoDzdK+QVYbyVdgvbxprQRQ8vu39NwONvy+kONz42Cy+7yxf7Hvt6hgGQC
+	 okKikA7ng7kSzifuoGXIxXaoub89oxZL1wBc1ynQUEZ1Tf+58+96D+bS7CjJ/PTrNig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795019828;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795019834;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=z0JsQogMpnaJaGodrVn7+wzCEaHIsYB58Kc3aLQmiMU=;
-	b=xFIr3DspHFSQNMAdbwQuPqvBpT6FjK/13eOSzfGK5uclHFBPfcPcRDoY5PT1ifnbQllo
-	 brd64RnPSjBaoRBlaIbVhZOB4zqFQsuMDwx4WYEyzOBmaWiyKdq8mccYRoEnkXvH+ZX2g
-	 UkIkt0PWs5ks5q0AnCf6DHGBmehiz+Zc97NsPod+ZkE22hB0pclSo8p8+jGD2JlAKM0eM
-	 G3udkNoeY4n7tQmSjSr4m3gFIBoUmvgLLUpWCrvMp3YD+xRgmKirghBFtOeXL0dc4rXVT
-	 9DYRqVpWPhPxHcazc+VxSIDys83p1n2HTapwmmdf+d/2VT0AhABboh8fCNk1zSygLJw==
+	bh=QWurdKROi/9VuMFlSCsGd3TjnTNZ3ZxZ0QZJ2x0umug=;
+	b=gKnOFQ5ilThHgeyO0QkmIp/u31NOoLSWRTcQFyU6QXlCLhMAwhL71qFoUMVQDyY4EJ+W
+	 ovvx6p6O5FtFKc4cFT7U0ZNut6FlpU638wkxlRiZCtMbKJN/Yz2nzygXxrWa6HSuq0yJf
+	 bi7pMHmeRWkUnpni1Euu1OsJo7eUGpbEqYIrxCCI5pHhFD5p2mVHjb1Eytm/Uew29SxbA
+	 cX1Jsh7EAA4NRf1TaEsP8pRuIIMFhOy8v2uurY7Dlf//RP5vm/pS2N3ItzNpcz6Mh7pQf
+	 31LvY4+Pj0TZTT8Od6QZrU1qWhlyTfVekAFxnNuBVLQZfNS/TTsqJHmMDTVVlZoxYfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QLntyHUS;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iL2wXahO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B524D60A2616;
-	Wed, 18 Nov 2026 16:37:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 563E760A2616;
+	Wed, 18 Nov 2026 16:37:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QLntyHUS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 044531F000C4;
-	Wed, 18 Nov 2026 16:37:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=iL2wXahO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ACB51F000C6;
+	Wed, 18 Nov 2026 16:37:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795019828;
-	bh=z0JsQogMpnaJaGodrVn7+wzCEaHIsYB58Kc3aLQmiMU=;
+	s=korg; t=1795019834;
+	bh=QWurdKROi/9VuMFlSCsGd3TjnTNZ3ZxZ0QZJ2x0umug=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QLntyHUS0zdbOwoIR9XWrkqKFokKB3ycf6bLDdhBxSwSGbgeXkLd6WRqflrMTPbkW
-	 uY/n6me4wCFAlfYCoPiVVAEMFPYfsn9qiQiFTanY+tx4zK4h6HT/7U5wywcgg92tT8
-	 0XFBMQdAMuQU+i/+zr8EeEShYjoKPj+hRyVK0VX4=
+	b=iL2wXahOBD7QRihnuSWvTJn7w0MP0I5rZ25a54HImjyYktVq2HtLJED+x5pPUUweq
+	 cvhCpAf8Etl4VD8ovYIfoBzKW2d0oLxqB3ATWsfGd/RUb1sg66+dHIY/COBh/iUHBo
+	 +NkIeJmLQAbwTb6b9kNtAEVO8Mwxus3T3ee7ONIo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Weigang He <geoffreyhe2@gmail.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Keerthy <j-keerthy@ti.com>,
+	Linkai Gong <gonglinkai@kylinos.cn>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 1734/2651] thermal/drivers/ti-soc-thermal: Cancel pending alert work on remove
-Date: Wed, 18 Nov 2026 15:49:34 +0100
-Message-ID: <20261118150350.033040784@linuxfoundation.org>
+Subject: [PATCH 7.3 1736/2651] char: scx200_gpio: check cdev_add() return value
+Date: Wed, 18 Nov 2026 15:49:36 +0100
+Message-ID: <20261118150350.089087206@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -69,87 +67,48 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Weigang He <geoffreyhe2@gmail.com>
+From: Linkai Gong <gonglinkai@kylinos.cn>
 
-[ Upstream commit aaa6c8dec49339710f9fd2a2af5646cf4111dbd4 ]
+[ Upstream commit fe26c195c265c033e474d015061a0183c7a02193 ]
 
-On a threshold crossing, the talert IRQ handler calls
-ti_thermal_report_sensor_temperature(), which queues the work embedded
-in the sensor's ti_thermal_data on the system workqueue. Nothing ever
-cancels or flushes that work.
+cdev_add() can fail. The driver currently ignores the return value and
+reports probe success even when the cdev was not registered, leaving a
+chrdev region allocated with no working file operations.
 
-ti_bandgap_remove() frees the talert IRQ last. free_irq() waits for a
-running handler, but not for the work the handler has queued. When
-remove returns, devres unregisters and frees the thermal zones and then
-frees the devm-allocated ti_thermal_data, so a work item that is still
-pending runs ti_thermal_work() on freed memory:
+Check the return value, emit an error, and unwind the chrdev region and
+platform device on failure.
 
-	ti_thermal_work()
-	  data = container_of(work, struct ti_thermal_data, thermal_wq);
-	  thermal_zone_device_update(data->ti_thermal, ...);
-
-Free the talert IRQ before removing the sensors, so that no new work
-can be queued, and cancel the work in ti_thermal_remove_sensor().
-
-This needs an OMAP4460/4470 or OMAP5 SoC (DRA7 has TALERT but no
-->report_temperature, so it never queues the work), a threshold crossing
-just before the driver is unbound or unloaded, and the work still
-pending when devres frees the data.
-
-Found by static analysis tool CodeQL.
-
-Fixes: 445eaf871bf9 ("staging: omap-thermal: common code to expose driver to thermal framework")
-Assisted-by: LLM codeql
-Signed-off-by: Weigang He <geoffreyhe2@gmail.com>
-Signed-off-by: Daniel Lezcano <daniel.lezcano@kernel.org>
-Acked-by: Keerthy <j-keerthy@ti.com>
-Link: https://patch.msgid.link/20260926124931.3599746-1-geoffreyhe2@gmail.com
+Fixes: 635adb6cd25c ("[PATCH] scx200_gpio: use 1 cdev for N minors, not N for N")
+Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
+Link: https://patch.msgid.link/20260803015450.2050900-1-gonglinkai@kylinos.cn
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/thermal/ti-soc-thermal/ti-bandgap.c        | 7 ++++---
- drivers/thermal/ti-soc-thermal/ti-thermal-common.c | 4 ++++
- 2 files changed, 8 insertions(+), 3 deletions(-)
+ drivers/char/scx200_gpio.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/thermal/ti-soc-thermal/ti-bandgap.c b/drivers/thermal/ti-soc-thermal/ti-bandgap.c
-index ba43399d0b384..507fe67eaffae 100644
---- a/drivers/thermal/ti-soc-thermal/ti-bandgap.c
-+++ b/drivers/thermal/ti-soc-thermal/ti-bandgap.c
-@@ -1077,6 +1077,10 @@ void ti_bandgap_remove(struct platform_device *pdev)
- 	if (!soc_device_match(soc_no_cpu_notifier))
- 		cpu_pm_unregister_notifier(&bgp->nb);
+diff --git a/drivers/char/scx200_gpio.c b/drivers/char/scx200_gpio.c
+index 700e6affea6f7..3ec17832e9c9d 100644
+--- a/drivers/char/scx200_gpio.c
++++ b/drivers/char/scx200_gpio.c
+@@ -107,10 +107,16 @@ static int __init scx200_gpio_init(void)
+ 	}
  
-+	/* Stop the alerts first: they queue work on the sensors' data */
-+	if (TI_BANDGAP_HAS(bgp, TALERT))
-+		free_irq(bgp->irq, bgp);
-+
- 	/* Remove sensor interfaces */
- 	for (i = 0; i < bgp->conf->sensor_count; i++) {
- 		if (bgp->conf->sensors[i].unregister_cooling)
-@@ -1093,9 +1097,6 @@ void ti_bandgap_remove(struct platform_device *pdev)
- 	clk_put(bgp->fclock);
- 	clk_put(bgp->div_clk);
+ 	cdev_init(&scx200_gpio_cdev, &scx200_gpio_fileops);
+-	cdev_add(&scx200_gpio_cdev, devid, MAX_PINS);
++	rc = cdev_add(&scx200_gpio_cdev, devid, MAX_PINS);
++	if (rc) {
++		dev_err(&pdev->dev, "cdev_add err: %d\n", rc);
++		goto undo_chrdev_region;
++	}
  
--	if (TI_BANDGAP_HAS(bgp, TALERT))
--		free_irq(bgp->irq, bgp);
--
- 	if (TI_BANDGAP_HAS(bgp, TSHUT))
- 		free_irq(gpiod_to_irq(bgp->tshut_gpiod), NULL);
- }
-diff --git a/drivers/thermal/ti-soc-thermal/ti-thermal-common.c b/drivers/thermal/ti-soc-thermal/ti-thermal-common.c
-index 0cf0826b805a9..4bf3b2e0fc682 100644
---- a/drivers/thermal/ti-soc-thermal/ti-thermal-common.c
-+++ b/drivers/thermal/ti-soc-thermal/ti-thermal-common.c
-@@ -195,6 +195,10 @@ int ti_thermal_remove_sensor(struct ti_bandgap *bgp, int id)
+ 	return 0; /* succeed */
  
- 	data = ti_bandgap_get_sensor_data(bgp, id);
- 
-+	/* Work queued by the talert IRQ must not outlive the data */
-+	if (!IS_ERR_OR_NULL(data))
-+		cancel_work_sync(&data->thermal_wq);
-+
- 	if (!IS_ERR_OR_NULL(data) && data->ti_thermal) {
- 		if (data->our_zone)
- 			thermal_zone_device_unregister(data->ti_thermal);
++undo_chrdev_region:
++	unregister_chrdev_region(devid, MAX_PINS);
+ undo_platform_device_add:
+ 	platform_device_del(pdev);
+ undo_malloc:
 -- 
 2.53.0
 
