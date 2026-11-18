@@ -1,92 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794972979;
-	b=m9+q8XFd+KchY/p0++nboYikRLAbUvVplqMTJSMd/onnoEUSBtP/ydaullyfHBymTwT/
-	 JEv6jhLNY7qxATWZ3GpzshLVDwTxz/iSSuvkDl8WGTL2uDSS2ZHm6QN5/DjWfgB03qN04
-	 JcOf4MCx6wFDMqGsIniRxbK+FJA9HIRZ/SJ+lBRxAMYYkT0Pt1aoSdQbRy7hzWi1he7+x
-	 pKl7DzqxzV6VTGE/usRTFG6MOMRpsku6KtElZDHB3LbwlbqpsCD+joWSQ3V+IZ6hUqJk2
-	 s5oW6Lx4tiqzh1oU5vAsWDIOubHn33t/HKnCs6C9qmy5LMr1Et6ShiOCOMTTMomi/1w==
+	t=1794975291;
+	b=L2qLWxUunPE3Txwo1sHMMClIrTQtMHrP15tNSMfi+0bo7BZtDjLFLdxUt3XKPD4KxsfJ
+	 oquALALr1wAXa/kCnQnPQr1SqekbszYkHx5AeZqlAIdiPBEq9MviEWL52guN8KS3iRFXu
+	 Vc3kVSIlWNJyB6gc5yiTAqdSs2rIsgJINEshHwca9hTZj7H9gcpLyBNrMjwfevAewntOJ
+	 ZmsVYN9PrRly2RVMXT5SvyCmrRZqmOKjZLR/v+KWQ+7FgZr8bIG+/OJWj3ftmKQ7A/vV9
+	 pa0GE9Dtl7M3s7mWdeJjF/H4OmMVozK5sEJKlFGEaDJmoCvq5BJI3LpfIo3X+76Aoeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794972979;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:In-Reply-To:Date:Message-ID:References:
-	 MIME-version:Content-type:Content-Transfer-Encoding;
-	bh=11RTZk9ANOdZGuwayk1pIL4zWdN4kr7W2Yo5uEDiGwk=;
-	b=rTyR6LGeFR1jmkn8oS0sKRuJXCgFHvhLYQPNYnPQIoFGoe59EPsiCI4L6LlVesAJLCri
-	 KZikGbYZuuE/NisRLVEEzJq5Rh78Jp1Q2T2T75f/8AUgflC+jZo9V2vagSSVoJ5MppGIl
-	 DCEckSOMAl1OHCN7+WAF1oS33HnMFakm6vJptsb1gOos3vZ3XFyh7Gp9Cl1HpSbuCteLG
-	 zbw+ngm/aiIrbabdR2yk1OREEFdfGY+qDRJ2z1yXAMumz7D0o6LBWGSunzedsODEj0yX5
-	 dh+qLIs6yhhmvZnGjhYE6f8OQW4UlSQKx2QkpIgMzcNXTdGaYEWAPTVhL7cxniQdEaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794975291;
+	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
+	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
+	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-CM-SenderInfo:X-Coremail-Antispam;
+	bh=YaOJJ7N+YdkFsLd9dYhGoiJMuptcbuFjKbt7Cq4JOQQ=;
+	b=jZosjV5xXlunOtgY+9tX7jhiJHIuxzDRZQxk1drDumrUEAPIDHHD2TSLLX9k5e166UmT
+	 K6oVpS8fiT4y69wU9h5xkkJRsmT3NFSMUVjpIp9o3gtEccOTjbeO63PiBwhJ1E1tnBq+r
+	 KMlZq30udrgiIYV/55950xGnfn25UW7JjC8xxzxabcDsBVo2kzb4Ejq3qIXsX3uJKxPvi
+	 YWJvJcXSC/9WniwQLtScbY67GxMC5+RqkKrA2B+8RFV89dgY5kKqDvhf4gpVErC1RUr5C
+	 g/Mn2OVaavilYNvAe2W9d4ds+F3DmuqmYwVgEt0j95YZyZpZyXB7XZC8CNAcUh7J4Lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gHm6UEbp;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1AE606A325
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 03:36:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF1AE606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gHm6UEbp
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36eb1cb7aabso872028eec.0
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 19:36:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794972978; x=1795577778; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :message-id:date:in-reply-to:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=11RTZk9ANOdZGuwayk1pIL4zWdN4kr7W2Yo5uEDiGwk=;
-        b=gHm6UEbp4JBAzNzt7JvJAX9Ga69Kx3kmTitKomReMGWrb/rMzkn6L0hSgkQcR6PzQb
-         oMwii2aPKnvzzB8esASsI4+FmkjhJkRJrBLfMvfEKa0ZBVC6++XV7kD91lFn4WsKUPVP
-         6yZMAuqaRmbyKL9SFgm4PAjexWmU36xOjB7Gobw/F/mqs5ujTAiIUk+spY3Wo5o1/hnA
-         kLilz5KPLvWzfLD+/4OCSOJBt1BFXsMhrd6OsvPd2yeiDLDtgwylqTq7Lit1vi7MQAAo
-         P004tiFaIeZeYLyV6tGf7BeRXkKKScJtNQXKXYSNGYwHZIKP4Q8olqi474SoK2uvBsHJ
-         GFXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794972978; x=1795577778;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :message-id:date:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=11RTZk9ANOdZGuwayk1pIL4zWdN4kr7W2Yo5uEDiGwk=;
-        b=cCjfHhHIVCKB9VMmdaQwi7tEU1i7k4fzkq0uPrSBR1Jj4pt7BcKyhd6gxEwH3OJAP5
-         ZUSUPjmrXc+6Rx+BRNR/WnDADMlhz+JxDZqT25T6ctuFOEE1er2JD6MQLJPOxdrS0jg3
-         ii0kkDsOLFd1aAd4q72JM8nNn6W5+M5HUMB88u/hGh6PkmCuCixVSN3kBVmieUibrHOt
-         ObwpE8c7ZmFNgOGw7qxrzO0DlLoG7f76qKeKcfZfprL2JhWC+AUhpszbL1gGlBE7G0mO
-         sxxvA8xyY+HM7MO8jfLcGc5NZw9gj5td3Iakpvu+hGFMA2O2on6ZSvfU2gVCiy4ZKUFC
-         /WJw==
-X-Forwarded-Encrypted: i=1; AL+hErF9IpTJiWs/QOqzfKpdTFfuOiE1VyfFzSihXZqezy40/D4I1B2d5OTyzg8H5l0AnJLly2Q74n8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+u8Rhy4qJzNjhFVvwAEzupQxnB2x3tN/jUpSaozCRYhiPoTb+9
-	mFWrqtI74Zgo4VOWlnHOvJ8JA5simb9EFV+CvOjV+UVBEoHBQiGrIn9XsDqP0g==
-X-Gm-Gg: AZFdTZeQj08ymllJeq3bjE99fhp1Ki2NM5jifWmJU/2qZMeftBzUw0TFF1ZHVorklOp
-	TWAURsVzkwPHYIEwT9wNphfmdct6cw2r1iQ52fTpVvEriN5ZTCg++BI9zK9lQs8sWAIdvNwYkdr
-	FiAQrI1KJmS+fmMZ7+bu6Stt8JH0c4s676SU0AqtIpzSAX3eZ1mRB2w/mPnoULU8/APFaL+iSnQ
-	DnLgB56CVWBQRSFoY4BcMDC6w6M6Dtf0iSxEgyrtKPhaCSa5Txr6m8ZqKT1s4huN1Mhzsdu3vpT
-	O4gqKATWpXWRim0yca53wA7n69AXsVOy56xfs5ZP4AmKyti3VLm+6BuqxwlIUC4jeg2BikJnTf1
-	08rvSCID2d+agt3Gh6QCEN8Y2sFuLiobLTqqBiV+9AgwORZDlv0DeEs0PGZhiKoDlGvp/0r62U/
-	OR09VAi6DkxXCEfL5K/AoHPMssPUYYSqogToBpRPdpJdIJIvtu+dm1oPBASX1lMmlzBQaVb3Mcb
-	B0LWpZeEka8uGCCFi/4KlpIB7IhSArXkONJa+2ATnszv3sSUUzsJTiWeOun4GTch1eom6U4h1Tl
-	+kXiBr21Q55rgn/ajDV7u22LSZg=
-X-Received: by 2002:a05:7300:7314:b0:381:1580:cb4c with SMTP id 5a478bee46e88-38281023cfemr1749374eec.24.1794972977304;
-        Tue, 17 Nov 2026 19:36:17 -0800 (PST)
-Received: from pve-server ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a76d70fasm2677074eec.22.2026.11.17.19.36.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 19:36:16 -0800 (PST)
-From: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-To: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, linuxppc-dev@lists.ozlabs.org, Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org, Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, stable@vger.kernel.org
-Subject: Re: [PATCHv2 1/4] powerpc/64: Leave lockdep hardirq context around replayed interrupts
-In-Reply-To: <07b9bd2b-19da-4e3c-9b01-552364a82269@kernel.org>
-Date: Wed, 18 Nov 2026 08:39:23 +0530
-Message-ID: <se0y7s4c.ritesh.list@gmail.com>
-References: <cover.1794924821.git.ritesh.list@gmail.com> <cfdac7c3508cf0eb1cbf063e7f6331dccb128796.1794924821.git.ritesh.list@gmail.com> <07b9bd2b-19da-4e3c-9b01-552364a82269@kernel.org>
+	dmarc=none header.from=loongson.cn;
+	spf=pass smtp.mailfrom=loongson.cn;
+	arc=none smtp.remote-ip=114.242.206.163
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B22CB606A325;
+	Wed, 18 Nov 2026 04:14:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B22CB606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [123.138.236.242])
+	by gateway (Coremail) with SMTP id _____8BxhvAxJv1qorQgAA--.28330S3;
+	Wed, 18 Nov 2026 12:14:41 +0800 (CST)
+Received: from [127.0.0.1] (unknown [123.138.236.242])
+	by front1 (Coremail) with SMTP id qMiowJBxJs0wJv1qSII1AA--.65343S2;
+	Wed, 18 Nov 2026 12:14:40 +0800 (CST)
+Subject: Re: [PATCH] LoongArch: BPF: Fix the offset of stptr.w and stptr.d
+ stores
+To: George Guo <dongtai.guo@linux.dev>, chenhuacai@kernel.org
+Cc: hengqi.chen@gmail.com, guodongtai@kylinos.cn, bpf@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261118030219.6230-1-dongtai.guo@linux.dev>
+From: Tiezhu Yang <yangtiezhu@loongson.cn>
+Message-ID: <7226bf46-05e3-b52d-af28-aabf1d504929@loongson.cn>
+Date: Wed, 18 Nov 2026 12:14:40 +0800
+User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
+ Thunderbird/68.7.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,176 +54,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-version: 1.0
-Content-type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+In-Reply-To: <20261118030219.6230-1-dongtai.guo@linux.dev>
+Content-Type: text/plain; charset=utf-8; format=flowed
+Content-Language: en-US
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:qMiowJBxJs0wJv1qSII1AA--.65343S2
+X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj9xXoWrur1kur1DGry5Cw1kGF18CrX_yoWkAwcEqw
+	nrC39rWw1rAayDJF17Kry5Jw4UK3WrAryrCF1kWr17AF1Y9r45XFWvgryku3y0g3y3CrWa
+	9ay5XFyS93y2yosvyTuYvTs0mTUanT9S1TB71UUUUUJqnTZGkaVYY2UrUUUUj1kv1TuYvT
+	s0mT0YCTnIWjqI5I8CrVACY4xI64kE6c02F40Ex7xfYxn0WfASr-VFAUDa7-sFnT9fnUUI
+	cSsGvfJTRUUUbfkYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I6I8E6xAIw20EY4v20x
+	vaj40_Wr0E3s1l1IIY67AEw4v_Jrv_JF1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
+	w2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
+	WUJVW8JwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr1j6F4UJwAaw2AFwI0_Jrv_JF1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0c
+	Ia020Ex4CE44I27wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_
+	JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrw
+	CYjI0SjxkI62AI1cAE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
+	6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+	0xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4
+	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AK
+	xVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjxU2MKZDUUUU
 
-"Christophe Leroy (CS GROUP)" <chleroy@kernel.org> writes:
+On 11/18/26 11:02 AM, George Guo wrote:
+> From: George Guo <guodongtai@kylinos.cn>
+> 
+> When testing bpf selftests "jit_insns" and "jit_insns_blinded", the
+> "ldst_offsets" subtest fails for word and doubleword stores:
 
-> Le 17/11/2026 à 15:25, Ritesh Harjani (IBM) a écrit :
->> With PROVE_LOCKING, boot warns once and lockdep turns itself off:
->>    DEBUG_LOCKS_WARN_ON(lockdep_hardirq_context())
->>    WARNING: kernel/locking/lockdep.c:4448 at lockdep_hardirqs_on_prepare+0x22c/0x2d4, CPU#0: swapper/0/0
->>    CPU: 0 UID: 0 PID: 0 Comm: swapper/0 Not tainted 7.4.0-rc2-00027-g074831f06e18-dirty #123 PREEMPT
->>    NIP:  c0000000002b2f2c LR: c0000000002b2f28 CTR: c000000002426f90
->>    REGS: c000000004f075c0 TRAP: 0700   Not tainted  (7.4.0-rc2-00027-g074831f06e18-dirty)
->>    MSR:  8000000002021033 <SF,VEC,ME,IR,DR,RI,LE>  CR: 48022221  XER: 20040000
->>    NIP [c0000000002b2f2c] lockdep_hardirqs_on_prepare+0x22c/0x2d4
->>    LR [c0000000002b2f28] lockdep_hardirqs_on_prepare+0x228/0x2d4
->>    Call Trace:
->>      lockdep_hardirqs_on_prepare+0x228/0x2d4 (unreliable)
->>      trace_hardirqs_on+0x98/0x11c
->>      irqentry_exit+0x64c/0x1064
->>      timer_interrupt+0x274/0x6bc
->>      __replay_soft_interrupts+0x158/0x380
->>      arch_local_irq_restore+0x1cc/0x244
->>      console_flush_one_record+0x438/0x654
->>      console_unlock+0xb8/0x1e0
->>      vprintk_emit+0x300/0x56c
->>      vprintk+0x20/0x34
->>      _printk+0x40/0x54
->>      lockdep_init+0xdc/0x104
->>      start_kernel+0xa24/0xc68
->>      start_here_common+0x1c/0x20
->> 
->> Since commit bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature") a
->> replayed handler always returns via irqentry_exit(), which traces hardirqs
->> on while the replay is still inside irq_enter():
->>    arch_local_irq_restore()
->>      irq_enter()                        hardirq_context = 1
->>      __replay_soft_interrupts()
->>        timer_interrupt(&regs)
->>          irq_enter_rcu()                hardirq_context = 2
->>          irq_exit_rcu()                 hardirq_context = 1
->>          irqentry_exit()
->>            trace_hardirqs_on()          hardirq_context != 0 -> WARN
->>        next_interrupt()
->>          lockdep_hardirq_exit()         too late
->> 
->> Leave the hardirq context before each replayed handler instead of
->> after it:
->>    arch_local_irq_restore()
->>      irq_enter()                        hardirq_context = 1
->>      __replay_soft_interrupts()
->>        lockdep_hardirq_exit()           hardirq_context = 0 // fix
->>        timer_interrupt(&regs)
->>          irq_enter_rcu()                hardirq_context = 1
->>          irq_exit_rcu()                 hardirq_context = 0
->>          irqentry_exit()
->>            trace_hardirqs_on()          ok
->>        next_interrupt()
->>          trace_hardirqs_off()
->>          lockdep_hardirq_enter()        hardirq_context = 1
->>      irq_exit()                         hardirq_context = 0
->> 
->> Fixes: bee25f97ad24 ("powerpc: Enable GENERIC_ENTRY feature")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
->> ---
->>   arch/powerpc/kernel/irq_64.c | 11 +++++------
->>   1 file changed, 5 insertions(+), 6 deletions(-)
->> 
->> diff --git a/arch/powerpc/kernel/irq_64.c b/arch/powerpc/kernel/irq_64.c
->> index d5c48d1b0a31..b189e796eb34 100644
->> --- a/arch/powerpc/kernel/irq_64.c
->> +++ b/arch/powerpc/kernel/irq_64.c
->> @@ -75,12 +75,6 @@ static inline void next_interrupt(struct pt_regs *regs)
->>   		WARN_ON(irq_soft_mask_return() != IRQS_ALL_DISABLED);
->>   	}
->> 
->> -	/*
->> -	 * We are responding to the next interrupt, so interrupt-off
->> -	 * latencies should be reset here.
->> -	 */
->> -	lockdep_hardirq_exit();
->> -	trace_hardirqs_on();
->>   	trace_hardirqs_off();
->>   	lockdep_hardirq_enter();
->>   }
->> @@ -137,18 +131,21 @@ static __no_kcsan void __replay_soft_interrupts(void)
->>   	if (IS_ENABLED(CONFIG_PPC_BOOK3S) &&
->>   	    irq_happened_test_and_clear(PACA_IRQ_HMI)) {
->>   		regs.trap = INTERRUPT_HMI;
->> +		lockdep_hardirq_exit();
->
-> Can we include that in irq_happened_test_and_clear() instead of 
-> duplicating it 5 times ?
->
+...
 
-Thanks for the suggestion. We can actually simplify this if we move this
-into the caller itself i.e. __replay_soft_interrupts(). I think we could
-change it to this diff then:
+> diff --git a/arch/loongarch/net/bpf_jit.h b/arch/loongarch/net/bpf_jit.h
+> index 2bd0dc5b911c..5207ad30fade 100644
+> --- a/arch/loongarch/net/bpf_jit.h
+> +++ b/arch/loongarch/net/bpf_jit.h
+> @@ -52,6 +52,15 @@ do {										\
+>   #define is_signed_imm52(val)	signed_imm_check(val, 52)
+>   #define is_unsigned_imm12(val)	unsigned_imm_check(val, 12)
+>   
+> +/*
+> + * ldptr.{w,d} and stptr.{w,d} take a 14-bit signed immediate in units of
+> + * 4 bytes: they reach a multiple of 4 in [-32768, 32764], passed as off >> 2.
+> + */
+> +static inline bool is_ptr_off(int off)
+> +{
+> +	return !(off & 3) && is_signed_imm16(off);
+> +}
+> +
 
-diff --git a/arch/powerpc/kernel/irq_64.c b/arch/powerpc/kernel/irq_64.c
-index d5c48d1b0a31..e2f1e5b7a3a7 100644
---- a/arch/powerpc/kernel/irq_64.c
-+++ b/arch/powerpc/kernel/irq_64.c
-@@ -76,13 +76,11 @@ static inline void next_interrupt(struct pt_regs *regs)
-        }
+Please use a self-documenting function name and remove the redundant
+comment:
 
-        /*
--        * We are responding to the next interrupt, so interrupt-off
--        * latencies should be reset here.
-+        * We are responding to the next interrupt. The irqentry_exit() of the
-+        * replayed handler has traced hardirqs on, which also reset the
-+        * interrupt-off latencies. Trace them off again.
-         */
--       lockdep_hardirq_exit();
--       trace_hardirqs_on();
-        trace_hardirqs_off();
--       lockdep_hardirq_enter();
- }
+static inline bool is_aligned_signed_imm16(int off)
+{
+	return !(off & 3) && is_signed_imm16(off);
+}
 
- static inline bool irq_happened_test_and_clear(u8 irq)
-@@ -116,6 +114,15 @@ static __no_kcsan void __replay_soft_interrupts(void)
-         */
-        local_paca->irq_happened |= PACA_IRQ_REPLAYING;
+Moreover, please remove the unused is_signed_imm14 macro in bpf_jit.h.
 
-+       /*
-+        * The irq_enter() of our callers is there to hold off softirqs. Each
-+        * replayed handler enters and leaves the hardirq context itself and
-+        * returns through irqentry_exit(), which again traces hardirqs on.
-+        * Since lockdep only allows that outside of hardirq context, so leave
-+        * it for the duration of the replay.
-+        */
-+       lockdep_hardirq_exit();
-+
-        ppc_save_regs(&regs);
-        regs.softe = IRQS_ENABLED;
-        regs.msr |= MSR_EE;
-@@ -168,6 +175,8 @@ static __no_kcsan void __replay_soft_interrupts(void)
-                next_interrupt(&regs);
-        }
-
-+       lockdep_hardirq_enter();
-+
-        local_paca->irq_happened &= ~PACA_IRQ_REPLAYING;
- }
-
-The above simplifies it a lot, and the new state machine with
-hardirq_context and hardirqs_enabled which lockdep cares about, will
-look like this:
-                                           hardirq_context  hardirqs_enabled
-arch_local_irq_restore()
-  trace_hardirqs_off()                     0             1 -> 0
-  irq_enter()                           0 -> 1           0          (softirqs held off)
-  __replay_soft_interrupts()
-    lockdep_hardirq_exit()              1 -> 0           0          patch: the loop is not a handler
-    timer_interrupt(&regs)
-      irq_enter_rcu()                   0 -> 1           0          handler starts
-      irq_exit_rcu()                    1 -> 0           0          handler done
-      irqentry_exit()
-        trace_hardirqs_on()                0             0 -> 1     legal: context is 0
-    next_interrupt()
-      trace_hardirqs_off()                 0             1 -> 0     still replaying: back to off
-    ...                                 same for each pending interrupt
-    lockdep_hardirq_enter()             0 -> 1           0          patch: restore for the caller
-  irq_exit()                            1 -> 0           0          softirqs may run now
-  trace_hardirqs_on()                      0             0 -> 1     IRQs really enabled
-
-
-Let me know if this looks good, then I can re-spin the next revision
-with the above changes.
-
--ritesh
+Thanks,
+Tiezhu
 
