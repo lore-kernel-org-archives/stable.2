@@ -1,72 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795006586;
-	b=Il3UTTeoTvtYLGgUWKmYoqZ9UL3k7gonlU4reZCE22nDWReINGcL3ZTlW3xNcTzc+Rbo
-	 Ny08tY9nC23c3mFK7qa4M+b+S4cYrgFTVZecNU98QkFV3T8cKyr84VWsLteoUYirKKLXq
-	 bcSwNdAMS1gtlD6e1dQX42MUGzVRa8LTU6z21jL7pMzdMBuAUzjjLIR567zqw+8/uuP9F
-	 xkOH5Upgh6pX6aTS9HWJfoFBtvceJCz1c8D/acjSppQJoXqVexrmKgqR4+iJzX3XAYnbZ
-	 fCRTwtWTjEQaz+3mxBq0wb6QWaRXfRzIqHpFFXlI2PmhA/Z9rXEHOBPo+50HqnbIZEA==
+	t=1795006746;
+	b=l4iTrDdQYXuFqzatLJMTqjhzKJXeKNehLdoi+RdmsVNhqxphpXFqm1zjUVshOrhAzWMI
+	 Czr2+xGuR6FKo0CGygvyhLg93zzugkhkxfAHd/hwfNIs6xeTiI24YcXhvAXMkClirMNbD
+	 xf5RIu+Qgv78W1CbpI9RYeNkOAlgwWszADt2Y7OuXr1YnQvxUHlR1SRILRgXAkT3cApo3
+	 mlK8uXX+UY5ukKX3KTyWG44mAIlkSH5ylTTO6RspHkYs0i3UB/VV7G7KSw4f9ibsOfRWB
+	 juzGw+IXOTBeR2oM9URoKWBYiAUBhVH7ZsAnB+BN9cVMvbyJEwSb4bIYcP3X9c9JhAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795006586;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key:X-Proofpoint-Reinject:
-	 X-QCInternal:X-QCInternal:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=L97f02qH7wQfYceicHLsDzYmsR8E4X22KagheN2MNP0=;
-	b=nR4jr4J5r74yl2JId4dsXgGYFuZFpSI3bDs3p+LagPL4Dpxk82v+OX0jv3LZptPKRVnk
-	 EXBn/OercT4IeVCABqZhEDdWIzMsxRzeRnGdJKRHS3/tSgSvt8wB4WsdWJAmeO15fNsdL
-	 MN1IN11FHQFArWHJwFgTsQauxLv7kFm9kzsBPRw7JqRAFJmul2ShX5vcc8PYGjLPophxA
-	 tPsmcDLE5NBHvbNuo5OF4FQSANMskusiktHny8QvQrczrurh2qAjhwIa20lbV9hW1R+RN
-	 pl4nR/zwPp8CidNcZtfEFrCDhTQXmHqi00q3gESCXg4rVPl7+ik/lY2JS+3+SqNUfEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795006746;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=QtpoCTcFD1j91qmHAV2lHjTulmCc0CiZjCMBdcppeko=;
+	b=IM6ePzlGenHUNRVQCAmNmSgr0eQhdg1Ec4uouU764SsGzlTZotVcCpfKlD7/Nnkvt4bN
+	 X6ofKj6hoMyIIuOyMhE02So4hdbonBtWwK6Q1bsnfz7bfLqVDCp8JLvpQuvVXToNmyt2q
+	 +Wdcx8Iwy4YdM5Q/+MF5R4qubwplXxlfmWoHmc65wh9sLwcMCey1tCBksBakbaMzAH7M7
+	 fdNPd/ljFc7M+UrNjIE8BiJgB+oJU/N8w7/oxYvC3aSfM3A//CVE/+gUNoyDjwFJrTmbo
+	 tBZgh3unSdDZI9VVkeJjfN/TGcBt67Q/FrdSAlYL8KSUpH47rSdDRQMN3ZuQJdpmd/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CnNfdegi;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=OSeQjark;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA08606A320;
-	Wed, 18 Nov 2026 12:56:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFA08606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19E9D606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 12:59:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19E9D606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CnNfdegi
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AICLNdr3278880;
-	Wed, 18 Nov 2026 12:56:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=L97f02qH7wQfYceicHLsDz
-	YmsR8E4X22KagheN2MNP0=; b=CnNfdegitsNITI5vuFSlmC0rbBl+4XSb2LeAnF
-	NHTKAdW9Fm9BlM+ExY84xroRWl7z2rwV5FrdjNFdaJaHmE0BbGMb/9awXijWtjbS
-	lDN4ZYlKql8W0xZ6X86dCk6fUkP1YBnssZq/b7MJOWH757AQdqdaJA/ABNoV6BsL
-	JSZ6kPP//I3JxLMWtujBnJlHEmBCpDys5RDhU86EjnkgU8OkNLEHxIhk2DLR/XHe
-	mjZY84hzR2J2lY3kAGYj7x1vmHKdRccMYqxeMUa+Y4jxwLMPMHuhAzdW/9119WMs
-	LItEVOt+KqcU52c7q5UfbIDETTLQBZsViTEmAd+g83o7Jm0Q==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j0yv9k1ts-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 12:56:23 +0000 (GMT)
-Received: from pps.filterd (apblrppmta01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AICuKp92734477;
-	Wed, 18 Nov 2026 12:56:20 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-somedey-hyd.qualcomm.com [10.147.252.89])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6AICuJRQ2734469
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 12:56:20 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 4179325)
-	id EF2BC654; Wed, 18 Nov 2026 18:26:18 +0530 (+0530)
-From: Somesh Dey <somesh.dey@oss.qualcomm.com>
-Date: Wed, 18 Nov 2026 18:26:07 +0530
-Subject: [PATCH] spi: geni-qcom: Fix sub-byte transfer packing and length
- calculation
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=OSeQjark
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1a8cc11ac42so1316422c88.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 04:59:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1795006745; x=1795611545; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=QtpoCTcFD1j91qmHAV2lHjTulmCc0CiZjCMBdcppeko=;
+        b=OSeQjarkVXM4ddKu6SgHBJ8XuaKUCiKkh7iHqwfTOTT54AzPt103UY5B+TRs+yoUHP
+         j160t3oU+ql+/lkxN+/6jwJVd3pjFzL+rBGDnAiBdJnRw+uHocT7urLTgiu67GNlpP6Y
+         CBMisBXY2LYQFQZ4UpmBZfMtbk+nZb9osCrlry1YdSGSK6sKqNF+0Y8DNxGKzi3wzkAm
+         WH7yPf1yceW0mvzQs1T/Ya7nBaBaz7BQwnCvd1UhRtDTWNIQneXvIjYldlSRgSSx+j0p
+         8VY/IemKw59Y6nRrZJ9ERsk091c2uTn8C/MQTq1WvVQWH3XueqxqcolsuiHZMOtUAwUB
+         UAAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795006745; x=1795611545;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QtpoCTcFD1j91qmHAV2lHjTulmCc0CiZjCMBdcppeko=;
+        b=kxuMNqj2/Nat/8sbh4rr03936XZbu6EualAfpRiaBBf5xcHSaC3bj/nW0PcHE83a3V
+         C1S6wIBtKTcyLjs57HiNf0MbK0ki/fEh4QyzcCakjqGSGuzhstQlnkevtAW+UQqO3prC
+         9bnIsgQBFfw8xuFJdhuilC83SajKz7oGg9Vgj6v3OovL5RYRGNz9C2ZS+r9jFivTQ50M
+         0Of0FZT3R/ziokAqDNSK2sR7KPZhKdulBJAmgkfJiagvnQlEjgLa9TfGImKfIImX+l2g
+         ljLa82Vxw1PiT5AKQQaq7nHlbCj3GAPn9CyG8NGDEfcVRuFTEy49j9pkPHX+3qmzBnmB
+         rvBw==
+X-Gm-Message-State: APuU4Z8phUrhIGd3kJjm/+TpAFTL5x07CKfpQqQwxjSa2PUn3lp3ZbAa
+	rYprK3CsumNGOzPis1HYyRynPHRloe6f1dljQZiGlTXj+rJidKnShz9EvMaqGhhcvMeL+RgDog7
+	xpD20
+X-Gm-Gg: AYBFou0SslY14wT/3dyu8zSIc4lXemyUiQpagDih1slYI2MfY9V2Cgc0kFZbuvEQ1HQ
+	wYlv5foO6MZqjYcFOhc+wf3j9iQ8a7nBAL8M1PncoBLcJEVb172/oM7EpB0GJ+Uw+dVXkECMaMR
+	Zik1ImmM7QTbPftldp/co6jAm0UV3J4QZzRSgZ4yq1XJXZraX/JCFYTjP5uJ5mbv49DgzU4oc16
+	Pkte2B7tpv2EROcX3laYe4zkHslfltcJDXquu4/oFLNxIJFibr5oVxH0pjBmW58kZ7l0gI/Zosr
+	+fykOWkOCfxongs0ic8sUqxlX6A9ys7Lmgz/ww9c5b/S9YbYcDc+1TOtFoCmSIGJLzz3iFTPvPU
+	wv/Piu8C4/3chAtNFhLesDYZ+oS78kovOXKg2It+Pgq49ynae4ODSmP2cZn1JrgPfkaxwNvbov7
+	cbypu3L6gqWCeCjPsgvNSWPWoeT7a//slenBGVQOSWm0FF6hnZUd82q4mYKxkv+Cao0AvJUohv/
+	vU90ywpcSB/myPSX1RdB/BrWiPnnSPHpIs1a0LCI7t/Yt7AXgSj6UXMotaBqlt9JVcbWWseVFuR
+	ICbYr5Rpx2xej8XexRNCKg==
+X-Received: by 2002:a05:7023:a8b:b0:1b3:ad63:b9c2 with SMTP id a92af1059eb24-1b543ce9e56mr2664723c88.22.1795006744607;
+        Wed, 18 Nov 2026 04:59:04 -0800 (PST)
+Received: from 8439c401ee69 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5447f4e19sm9668922c88.13.2026.11.18.04.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 04:59:04 -0800 (PST)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,261 +89,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-spi-bpw-fix-v1-1-e475586ca8e8@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAGag/WoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQ0ML3eKCTN2kgnLdtMwK3VQTs1QTI/PkVAvzFCWgjoKiVKAw2LToWAi
- /uDQpKzW5BGSEUm0tAJO+b/dvAAAA
-X-Change-ID: 20261118-spi-bpw-fix-e46e427ce87d
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org,
-        stable@vger.kernel.org, Somesh Dey <somesh.dey@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795006578; l=8020;
- i=somesh.dey@oss.qualcomm.com; s=20260825; h=from:subject:message-id;
- bh=/vsBZYD7cQcupdE96y51pMZ9cxnTOxfRg/nb38EoQE0=;
- b=Z5tTSfIZLqglCBOEndB0V80NRBuF6KiCbSS3E/kpVc391AZlsftu7gq4ARhyv4yWXYMAoCGI8
- NMpI4SlIkIKCTqBYnchhkxWVXMyCatwvIsuYBIMFKDjUNRwfJPn88LY
-X-Developer-Key: i=somesh.dey@oss.qualcomm.com; a=ed25519;
- pk=EdQJd0pMlRfHEn3JzZEcik8VU5W2ZWq2FMeS/v9VJ18=
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Authority-Analysis: v=2.4 cv=QenzLcbv c=1 sm=1 tr=0 ts=6afda077 cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=-czx3EHt1O5zhySWHf0A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: wwLDG5R-6o9rGBxlwNNiTZKU7Q-a17XU
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA1MSBTYWx0ZWRfX0zEAE31RIjDs
- geGmYV2IyAP0F4ztVPTDO0Bf250uImvYHslSX49u3NYOD0fvOMXGU3NK9h1Cxr1UxJsCwIu9rIi
- BmDh67NPfkGgbdXdqYyTaQUTSL1qdm63o4pYyuoPWZhS2x8jUWe29cMbIcPLloFDcDHSfNk+3BR
- MGzNjj8Ma63HR0hZsGg0/7/dVDOwiGG3+3TmpcC4yQ10AqKoZ5icsOVVRkyF+8DnbYsXkOBEZ/V
- Z7lwRvALZ4GH8DhIaMLv7CtXCWU9DSTE53s9BBH0ItikY7gTeXGfEwXJgfIILbN9dLPm/iPa7wp
- BSm3AjrmyItdUkdftXGACSjOhO2CtjV7SjXksqwXPOaROriv7+Yof3L3ZR9/QbAYFJpgSzpIAwk
- +EduPBkNuqhKdKGmuXzq8l7Ptn+Axgh0mtc1SEL8NQHUGIHbHElQDO4GhNexOtL1GFAvI22kkl4
- CYmhfxxtz8dcXhse3eQ==
-X-Proofpoint-GUID: wwLDG5R-6o9rGBxlwNNiTZKU7Q-a17XU
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA1MSBTYWx0ZWRfXyZbMlEUg4xG2
- 05ZRlqlhSIYppqaRv4ondcYHrpXp13ENEskmkDS/XER3OjThvJiZb+HnfMwpl0V6J5z9iwPa9pT
- MYH/C9pfF7ft48vdINrCjpQQam6oSR8=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-18_03,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 clxscore=1011 suspectscore=0 impostorscore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611180051
-
-On iq-9075-evk, short four-bit SPI loopback transfers can time out
-immediately after boot. The failure is reproduced with spidev_test:
-
-  ./spidev_test -D /dev/spidev0.0 -s 2500000 -b 4 -l -I 10 -v
-
-The test reports "can't send spi message: Connection timed out", with
-the following kernel messages:
-
-  [  732.730335] spidev spi0.0: SPI transfer timed out
-  [  732.735216] geni_spi 880000.spi: Can't set CS when prev xfer running
-  [  732.742882] spi_master spi0: failed to transfer one message from queue
-  [  732.749619] spi_master spi0: noqueue transfer failed
-
-At BPW 4, the driver requests eight protocol words per 32-bit FIFO
-entry. The GENI helper needs one packing vector per sub-byte word
-but only supports four vectors, so it returns without programming
-the packing registers. This leaves the transfer dependent on the
-previous packing configuration.
-
-The driver also assumes that a buffer byte contains two four-bit
-words. Linux SPI buffers store each sub-byte word in a separate byte,
-so the programmed transfer length can exceed the available data.
-
-Use byte-sized packing slots for sub-byte transfers and derive word
-counts from spi_bpw_to_bytes(). Share the packing count across hardware
-configuration, FIFO accounting and DMA selection. Account for storage
-padding in the last received word, and drain leftover FIFO entries
-without relying on a cached word width.
-
-Fixes: 561de45f72bd ("spi: spi-geni-qcom: Add SPI driver support for GENI based QUP")
+Subject: [REGRESSION] stable-rc/linux-7.3.y: (build)use of undeclared
+ identifier
+ 'devm_pci_alloc_host_bridge_release'; ...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
-Signed-off-by: Somesh Dey <somesh.dey@oss.qualcomm.com>
----
- drivers/spi/spi-geni-qcom.c | 81 +++++++++++++++++++--------------------------
- 1 file changed, 34 insertions(+), 47 deletions(-)
+Reply-To: kernelci@lists.linux.dev
+Date: Wed, 18 Nov 2026 12:59:04 -0000
+Message-ID: <179500674378.301701.2652326104855898669@kernelci.org>
 
-diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-index e239c4333055..6dcaa31b3304 100644
---- a/drivers/spi/spi-geni-qcom.c
-+++ b/drivers/spi/spi-geni-qcom.c
-@@ -14,7 +14,6 @@
- #include <linux/interrupt.h>
- #include <linux/io.h>
- #include <linux/iopoll.h>
--#include <linux/log2.h>
- #include <linux/module.h>
- #include <linux/panic_notifier.h>
- #include <linux/platform_device.h>
-@@ -306,22 +305,26 @@ static bool spi_geni_is_abort_still_pending(struct spi_geni_master *mas)
- 	return false;
- }
- 
-+static unsigned int geni_spi_words_per_fifo(struct spi_geni_master *mas,
-+					    unsigned int bits_per_word)
-+{
-+	/* Each sub-byte SPI word occupies a separate byte in memory. */
-+	unsigned int packing_bits = max_t(unsigned int, bits_per_word, BITS_PER_BYTE);
-+
-+	if (mas->fifo_width_bits % packing_bits)
-+		return 1;
-+
-+	return mas->fifo_width_bits / packing_bits;
-+}
-+
- static void spi_setup_word_len(struct spi_geni_master *mas, u16 mode,
- 					unsigned int bits_per_word)
- {
--	unsigned int pack_words;
-+	unsigned int pack_words = geni_spi_words_per_fifo(mas, bits_per_word);
- 	bool msb_first = (mode & SPI_LSB_FIRST) ? false : true;
- 	struct geni_se *se = &mas->se;
- 	u32 word_len;
- 
--	/*
--	 * If bits_per_word isn't a byte aligned value, set the packing to be
--	 * 1 SPI word per FIFO word.
--	 */
--	if (!(mas->fifo_width_bits % bits_per_word))
--		pack_words = mas->fifo_width_bits / bits_per_word;
--	else
--		pack_words = 1;
- 	geni_se_config_packing(&mas->se, bits_per_word, pack_words, msb_first,
- 								true, true);
- 	word_len = (bits_per_word - MIN_WORD_LEN) & WORD_LEN_MSK;
-@@ -451,13 +454,7 @@ static int setup_gsi_xfer(struct spi_transfer *xfer, struct spi_geni_master *mas
- 		peripheral.rx_len = 0;
- 	} else if (xfer->rx_buf) {
- 		peripheral.cmd = SPI_RX;
--		if (!(mas->cur_bits_per_word % MIN_WORD_LEN)) {
--			peripheral.rx_len = ((xfer->len << 3) / mas->cur_bits_per_word);
--		} else {
--			int bytes_per_word = (mas->cur_bits_per_word / BITS_PER_BYTE) + 1;
--
--			peripheral.rx_len = (xfer->len / bytes_per_word);
--		}
-+		peripheral.rx_len = xfer->len / spi_bpw_to_bytes(xfer->bits_per_word);
- 	}
- 
- 	peripheral.loopback_en = !!(spi_slv->mode & SPI_LOOP);
-@@ -522,15 +519,7 @@ static int setup_gsi_xfer(struct spi_transfer *xfer, struct spi_geni_master *mas
- static u32 get_xfer_len_in_words(struct spi_transfer *xfer,
- 				struct spi_geni_master *mas)
- {
--	u32 len;
--
--	if (!(xfer->bits_per_word % MIN_WORD_LEN))
--		len = xfer->len * BITS_PER_BYTE / xfer->bits_per_word;
--	else
--		len = xfer->len / (xfer->bits_per_word / BITS_PER_BYTE + 1);
--	len &= TRANS_LEN_MSK;
--
--	return len;
-+	return (xfer->len / spi_bpw_to_bytes(xfer->bits_per_word)) & TRANS_LEN_MSK;
- }
- 
- static bool geni_can_dma(struct spi_controller *ctlr,
-@@ -547,7 +536,7 @@ static bool geni_can_dma(struct spi_controller *ctlr,
- 		return true;
- 
- 	len = get_xfer_len_in_words(xfer, mas);
--	fifo_size = mas->tx_fifo_depth * mas->fifo_width_bits / xfer->bits_per_word;
-+	fifo_size = mas->tx_fifo_depth * geni_spi_words_per_fifo(mas, xfer->bits_per_word);
- 
- 	if (len > fifo_size)
- 		return true;
-@@ -724,16 +713,8 @@ static int spi_geni_init(struct spi_geni_master *mas)
- 
- static unsigned int geni_byte_per_fifo_word(struct spi_geni_master *mas)
- {
--	/*
--	 * Calculate how many bytes we'll put in each FIFO word.  If the
--	 * transfer words don't pack cleanly into a FIFO word we'll just put
--	 * one transfer word in each FIFO word.  If they do pack we'll pack 'em.
--	 */
--	if (mas->fifo_width_bits % mas->cur_bits_per_word)
--		return roundup_pow_of_two(DIV_ROUND_UP(mas->cur_bits_per_word,
--						       BITS_PER_BYTE));
--
--	return mas->fifo_width_bits / BITS_PER_BYTE;
-+	return geni_spi_words_per_fifo(mas, mas->cur_bits_per_word) *
-+		spi_bpw_to_bytes(mas->cur_bits_per_word);
- }
- 
- static bool geni_spi_handle_tx(struct spi_geni_master *mas)
-@@ -741,7 +722,7 @@ static bool geni_spi_handle_tx(struct spi_geni_master *mas)
- 	struct geni_se *se = &mas->se;
- 	unsigned int max_bytes;
- 	const u8 *tx_buf;
--	unsigned int bytes_per_fifo_word = geni_byte_per_fifo_word(mas);
-+	unsigned int bytes_per_fifo_word;
- 	unsigned int i = 0;
- 
- 	/* Stop the watermark IRQ if nothing to send */
-@@ -750,6 +731,7 @@ static bool geni_spi_handle_tx(struct spi_geni_master *mas)
- 		return false;
- 	}
- 
-+	bytes_per_fifo_word = geni_byte_per_fifo_word(mas);
- 	max_bytes = (mas->tx_fifo_depth - mas->tx_wm) * bytes_per_fifo_word;
- 	if (mas->tx_rem_bytes < max_bytes)
- 		max_bytes = mas->tx_rem_bytes;
-@@ -781,25 +763,30 @@ static void geni_spi_handle_rx(struct spi_geni_master *mas)
- 	unsigned int rx_bytes;
- 	unsigned int rx_last_byte_valid;
- 	u8 *rx_buf;
--	unsigned int bytes_per_fifo_word = geni_byte_per_fifo_word(mas);
-+	unsigned int bytes_per_fifo_word;
- 	unsigned int i = 0;
- 
- 	rx_fifo_status = readl(se->base + SE_GENI_RX_FIFO_STATUS);
-+
-+	/* Clear out the FIFO and bail if nowhere to put it. */
-+	if (!mas->cur_xfer || !mas->cur_xfer->rx_buf) {
-+		for (i = 0; i < (rx_fifo_status & RX_FIFO_WC_MSK); i++)
-+			readl(se->base + SE_GENI_RX_FIFOn);
-+		return;
-+	}
-+
-+	bytes_per_fifo_word = geni_byte_per_fifo_word(mas);
- 	rx_bytes = (rx_fifo_status & RX_FIFO_WC_MSK) * bytes_per_fifo_word;
- 	if (rx_fifo_status & RX_LAST) {
- 		rx_last_byte_valid = rx_fifo_status & RX_LAST_BYTE_VALID_MSK;
- 		rx_last_byte_valid >>= RX_LAST_BYTE_VALID_SHFT;
--		if (rx_last_byte_valid && rx_last_byte_valid < 4)
-+		/* Include the padding in the last in-memory SPI word. */
-+		rx_last_byte_valid = round_up(rx_last_byte_valid,
-+					      spi_bpw_to_bytes(mas->cur_bits_per_word));
-+		if (rx_last_byte_valid && rx_last_byte_valid < bytes_per_fifo_word)
- 			rx_bytes -= bytes_per_fifo_word - rx_last_byte_valid;
- 	}
- 
--	/* Clear out the FIFO and bail if nowhere to put it */
--	if (!mas->cur_xfer) {
--		for (i = 0; i < DIV_ROUND_UP(rx_bytes, bytes_per_fifo_word); i++)
--			readl(se->base + SE_GENI_RX_FIFOn);
--		return;
--	}
--
- 	if (mas->rx_rem_bytes < rx_bytes)
- 		rx_bytes = mas->rx_rem_bytes;
- 
+Cc from: regression/stable-rc.yaml
+
+New build issue found on stable-rc/linux-7.3.y:
 
 ---
-base-commit: 7cfbf79c66c63e807ea452abf0546e6f6d6833a6
-change-id: 20261118-spi-bpw-fix-e46e427ce87d
+use of undeclared identifier 'devm_pci_alloc_host_bridge_release'; did you mean 'devm_pci_alloc_host_bridge'? in drivers/pci/controller/pcie-iproc-bcma.o (drivers/pci/controller/pcie-iproc-bcma.c) [logspec:kbuild,kbuild.compiler.error]
+---
 
-Best regards,
---  
-Somesh Dey <somesh.dey@oss.qualcomm.com>
+Log excerpt:
+=====================================================
+/tmp/kci/linux/drivers/pci/controller/pcie-iproc-bcma.c:72:38: error: use of undeclared identifier 'devm_pci_alloc_host_bridge_release'; did you mean 'devm_pci_alloc_host_bridge'?
+   72 |         ret = devm_add_action_or_reset(dev, devm_pci_alloc_host_bridge_release,
+      |                                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                             devm_pci_alloc_host_bridge
+/tmp/kci/linux/include/linux/device/devres.h:181:34: note: expanded from macro 'devm_add_action_or_reset'
+  181 |         __devm_add_action_or_reset(dev, action, data, #action)
+      |                                         ^~~~~~
+/tmp/kci/linux/include/linux/pci.h:696:25: note: 'devm_pci_alloc_host_bridge' declared here
+  696 | struct pci_host_bridge *devm_pci_alloc_host_bridge(struct device *dev,
+      |                         ^
+/tmp/kci/linux/drivers/pci/controller/pcie-iproc-bcma.c:72:38: error: incompatible function pointer types passing 'struct pci_host_bridge *(struct device *, size_t)' (aka 'struct pci_host_bridge *(struct device *, unsigned int)') to parameter of type 'void (*)(void *)' [-Wincompatible-function-pointer-types]
+   72 |         ret = devm_add_action_or_reset(dev, devm_pci_alloc_host_bridge_release,
+      |                                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/kci/linux/include/linux/device/devres.h:169:73: note: passing argument to parameter 'action' here
+  169 | static inline int __devm_add_action_or_reset(struct device *dev, void (*action)(void *),
+      |                                                                         ^
+2 errors generated.
 
+=====================================================
+
+When fixing this issue, please attribute this report according to the
+patch submission rules:
+
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:b073a462cef436ac0fab5b241d4d2fc8b9617df7
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  be4dd9d66786975bc12243b4d744f97150649f63
+
+# Builds where the incident occurred:
+
+## multi_v7_defconfig on (arm):
+- compiler: clang-21
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6afd948899c74e1a997d487f
+
+#kernelci issue maestro:b073a462cef436ac0fab5b241d4d2fc8b9617df7
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
