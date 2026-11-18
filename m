@@ -1,84 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795006754;
-	b=foe5CRJuJYqK8426RwaaTELdOJLMR0gk++/hMWio6KkGHu4EhCdNu9JmIyat9rfCCh0y
-	 6dxxR/3JiXyRdy+bNAeDMNhnguupaAbNc1ZZ9FFO0Iw94D14HUA8dcNNmDQn33/jsnxrk
-	 tqWZ+CBaAPhgzmhm0iU6ITjyFIPyUQ/799OTprLIenipc/x+AbNSqxOjfQ79Q5AfIoM9h
-	 Bw7YhgRGpv7F7p37ynADtWDm/txX31BulppK5Zptm6sWezTBO/jRWaQVdlwJd7MHNy3EO
-	 o0pnrzms8RT/miXh85zprFWZt+Lyuw/5ybDw94Xw21gHTM0mElIKtoM27gYe0fAQHvA==
+	t=1795006755;
+	b=ZkPnaqZTbR1yTqkonw14V5SvXj3tszXH5k3MnXKuBoGAJPxjPBI+EBljrQAH/FUCvFZi
+	 tYxdwn7nIrEl1kQ1+SyqKOEDoEFTDGBH45/kVhw3dH7AItZu9b7zSdjxFFePJcsec5tLt
+	 Iyp8aS2FPeGWeXIkPfVB2odChpRYvrTTwNGqEbNHHft+PQHkgFgPZ4j4twshApPv4r8rL
+	 aSv0kTw0LOPOLj22x7a7PXu1QmoW5m+L6LzR6EhvhPRWnZiZ9yWPLZh89n5hyaX0BNnZ9
+	 PHiSzxASlfmUIow//cTlhE5xkf6eGa3csqYNCHUZygJiXr2kkddjFfeA0TFLn9NUxgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795006754;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795006755;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
-	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
-	 Date:Message-ID;
-	bh=8/uAkne8k0EntXUzXWcitUyI25VK6DxjgSCozFyEnSU=;
-	b=w7m6G5fzAzvXF96qfYx5NEVMHiZO+MbUX8Q7EmZnVL0GptMXrfS+MxujlCOJKin9amDY
-	 hYZcE1h6dNHnORfdUZIuvAIewQWWNMfA1TqsRolesiJwaGz78iGCTRnstIpcCvqYVpu0N
-	 VnRIM3eqFzzhnqLlvD3SBMKQts8KHqMzJ1Am7x0i4WfmIGisYY0+7NHquYuHrXEEZpXua
-	 hJWgYwIUKrjud7QFcfUeHqmgKuZVoWN9BjdWrY+doPxbGr5Ym+Vl5vEsVd+QqmsXjZZa4
-	 QJWw6dH+Jy7rj/Z9/Rc9tqHJedB216H/HS8YhPsr7vloEt4Ux6lgKI5BiLEhdHETM0w==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=xV6SX5EGiGjtkdhAIi5UEb7NqFrGHjtbz3buhHPyzGY=;
+	b=GSzF+TkBw+5nirrjJChwxTfSGtBhisVHwYwRqrZrEAi8lXhtoiOppoGsbXzWIsy8tWgQ
+	 4vCuCs/294BhkvmaXPnToaXfm/z0KKKs241r6OioyXsjcQ/8Ox5w0AOgHRz+wGNwxFmZ5
+	 cLK4gSe55gCwXPR4cTZg4dxvVkj4Fjil/5F8UVRxEXv89H3uBPGqaF1k05IoVSg3um3ae
+	 W5HUr8uJlpWouQHWJ5SdQrgyMDwahmjaeRdxVa8x2GY30cwfwfcHJ6vqj6tDL/vaHEK4J
+	 qmEk59zmg0+mFWoLE9qLpmK3U8GvcI1iPa6e/3udRMmihEk4gYyiFvb6Muzij68ho2w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kernelci.org;
-	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=PU65afpD;
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WiS4Pj7W;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92713606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C2B606A31C
 	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 12:59:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92713606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1C2B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=PU65afpD
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-380b40319bdso1464388eec.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WiS4Pj7W
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dee593f18so785026f8f.3
         for <stable@vger.kernel.org>; Wed, 18 Nov 2026 04:59:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1795006754; x=1795611554; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8/uAkne8k0EntXUzXWcitUyI25VK6DxjgSCozFyEnSU=;
-        b=PU65afpDiH2tUwJT8GYPxj3uS3xugZXNmhGwYcSai4jMykQ2KwYQX08GWN342MmTuC
-         pDMHXQePS37SX7iXBrLVS77mvi+Jrpg5hrOKf414ZkumAddhYW+X8jplQ3qyeUhFxtVK
-         qg3T6jeWgEwjf/6cpjRCHH/aWwWS/WRHpsxYZnVHtHe8v7Z91TfbeZtzQmshK4lfFcoH
-         2xLX3bVhRDYZmPA7AaHGniGCPZvTlB+Zh3ad0VGNghrUmQyxDzD8GQ/2/TfMOnMt6FXO
-         E/tMzks+P8iRHDlyUd0pjPsQOgFqyuJNdgzDJLwDz35tm/gHR4NP2F1ZpnX9J06caLRA
-         PSeQ==
+        d=gmail.com; s=20260707; t=1795006753; x=1795611553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xV6SX5EGiGjtkdhAIi5UEb7NqFrGHjtbz3buhHPyzGY=;
+        b=WiS4Pj7Wv+udGYtZHm2LbkFKbZxxeUir4cmqmN4Xc15StELrxcZz3IqJs9sBNj1SV5
+         k+JsdyNDD7mmer6LwnNzCJ3NsbdOf94o0qxo6Jc9pcyEJxeM5ioUqrcFA9vqxibZ0J2o
+         a7fn2brMmX5EJEf4p5W7FM20vCGWwKxy5u12x1de9Dx12pyk16Ew2l7IRN90alNrrW7K
+         EUlrHC2tA3rFXnXyA4pIUg2kOVwu85EY4pAkVe/87CeDgVgdAEt+bOdy9v/fG/gbIJpV
+         cB4c3VveUMYyMN2Ca1sfohiAL6ct+gK3Dy0MNkOh6656BTTW14/qA4sNDzBdoShj6nCx
+         mXzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795006754; x=1795611554;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8/uAkne8k0EntXUzXWcitUyI25VK6DxjgSCozFyEnSU=;
-        b=HNxwg0qjCpCkBsmgASS/3XGpytLy7uSjaFEPUZ2b7dkgsEqbl2ELns09+b4hXaQdXo
-         RaQ+n0dfOEmRMwiP+2Jo2cVNwwt4Tud6rpclug3IzWiobsIt3m6ud1STykIkDuHDsotC
-         N6OeJJ1i7hhFM67GACtsIeVwzFEpqgICjiGt6gftjUkiBaY0vER6maNVgXDllqcLPqc+
-         6rmGp6guRzI+U29GBMOL/oBMD+cUG0zMfIuHjVrD4sFeoYspdbwtvGo9PRYlFvDSELCb
-         p0sIGzcHgBMMuoJMRuUvvUpuIEq69OK9f40g7W5H04XUyKFWrQ2U6sU6SgbgnpppHY6X
-         i5QA==
-X-Gm-Message-State: APuU4Z9lvF7Us5glIEZIQ9ZarVz15IJbG3DhT7+A1+0cL6tGne1RCWPD
-	sDFXr0kSacLKhuIU5Ak+jrJrLNRwNaWDeSV3cTvu/k1Tsu4LQkpMGR6TCbgCtUsSfHc=
-X-Gm-Gg: AZFdTZc4APbhYv5FxZYE8CyeA8dJvWefEdHCPV3O5pR1aHcM4JWxRNtt3RVQSsz94E8
-	gkAJVKiKY/L9ioc6VXKV1ImmthPKgLVWF+qAQVz0zeGI5kJ/6qnFq/iKORZmu03EttriMNvK1uG
-	js/ZRJ5INtpXQWsGBbzgp1PPzkti/05lnnvbWRzYuhmqlZqRyztsEMTvJX3B9/4QnmnpdyCTNi0
-	XYcJc1SREqBHRZEzj3XLg1wonU0US/jXrvLdQh0JStd4U8qLZSAfAKPOXL9tXhXf3S/dVLXcvJu
-	BXMlqQGjFZokDgQrLK2q5VP5A6p6+oXbSCaobk9AQoDYrHewcmqW4u0h4o8vEeUqtpLni0/s+iv
-	geBX2imHs3JNh3AbsKhRZQ9LREwU72gHlRsbpaqyaJqBtlCzYIIOT8n6Kd/RZp8F8XcfFmCv08v
-	5q7hxOM9mKLvZ4yENN7CoXxhxzqSaoOtwg0C/7oli9MzJ6ydWXU4Qutb/ELr7Ql5tQiUwCw8vQG
-	apNYfHT7q2EidpMCiRjZZQgS1Z2R43BOSRUNkj6c+4dVTbZ5DOmu4ggcyQts1Ti4ayCJ2u/DSiV
-	DPTSWcsjlLDZCQ8L2DXgabQ=
-X-Received: by 2002:a05:7300:c00e:20b0:382:f0d4:1e77 with SMTP id 5a478bee46e88-382f0d4210cmr1559204eec.36.1795006753276;
+        d=1e100.net; s=20260707; t=1795006753; x=1795611553;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xV6SX5EGiGjtkdhAIi5UEb7NqFrGHjtbz3buhHPyzGY=;
+        b=eIozuhIRNFPCMfthFfThmPh3nun/NoxG8fWMG+8D0rrkcg/1tMNvPEzdMLcwWfzbeP
+         J//Nyfc3fZbCf446Ojb4qLzWr3pFdOA6Vwc5DtxZczG852DeSy72FWVzOijKxyUThbWO
+         17ztQEDZFLrv2QTLOPKGEizGyuI9U8/Bz3jGLJloHrStZ9XyqHZIRwFUUtDtjXns/K/+
+         hdIfSLPae2YI+oJR4ELGiX6GmznE0gNqsQ0HPQvPu5ca6iapJGFItAFYuH61vFkEaA7x
+         Iv9ymarMqATrIfPYLB6QVp7PmbxjsoXnAT86PDeNJChOTRkcgadEw5NnVPDiT+XWW8xI
+         NMuw==
+X-Forwarded-Encrypted: i=1; AL+hErEEMcH8z1OtlvZbniEsoMljWjd31SGcva6R+qawYiba8xZaqD+wpWFBmDGWOjxGiNuVTpllu1I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/yE4WHZgqnV7rbEFTTguELtOO1UeMdy4rn/yhc3Voh+44xlsk8
+	QQnIinBiaI/6wZmE3va58FUu1AY+8za3hlCgf0cLgXlDSLmfptPiCJ1D
+X-Gm-Gg: AZFdTZewjybc0IzCZIyDfpI6v+2JUXpGMDmMT4KWzvbRIDMAU0FiFcC0F06r/jgxqz+
+	senC+U+uGx8G0IyoarTPrkWnrth/1J85cJb3e2uVb/6iiSfQATIWBwmvK6H3tfOtw4RCduzyVIr
+	7BIRAQTRwwZevyFRuMyuyfsjRgR2xNzq4WlE4pso1XTz96hwwM4NL9MNZUbCAjsJJHt70F0JsVY
+	0S8F5QKcnIUA3CJ0eVMWpEhXxja5Z8I+556bluUPnn9BJ88nIFiRQMP3A9iKWreVZwpxuQUDZMy
+	xpxpNIMaQV/w/FSG8wv61YRsmj0jLp6Gf9fM7tpcHIdQDVJLPmZjkJ07wl2mxCk7Gc/+fjNHIBm
+	Ht/lft9bKxzycL2eyhKaLufex7eKBJL/F9SDIxRRElsZ83tgVQysNMhFq8AfLVpzOSW8lkMTA71
+	2Qz/l1yDJ0J7tEoEq8VcK46vcfEclaztDSooWENoHg/J1APR9TZZA2iuHOHnFLJTs18P5iekKEd
+	w0C7KquwqHybpSaMzeDPhFkfrh2EHHo02e0bPews42mIDTsZ96oY4wwAvIb/PvqHobS4cr7lC94
+	zVnrqE8IhdOiL3cyDgJNRcIAfANCsEqHvWdEunydD2yVFG0UOLmGsngabUCD/23NRGZV1t9ieD9
+	QkeZB
+X-Received: by 2002:a05:6000:1a8d:b0:48e:f10:ceb8 with SMTP id ffacd0b85a97d-4a63833975emr5859543f8f.11.1795006753058;
         Wed, 18 Nov 2026 04:59:13 -0800 (PST)
-Received: from 8439c401ee69 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a73e0aa6sm7894727eec.19.2026.11.18.04.59.12
+Received: from SurHub.localdomain ([196.188.113.38])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a655db6d45sm4609457f8f.33.2026.11.18.04.59.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 18 Nov 2026 04:59:12 -0800 (PST)
-Content-Type: text/plain; charset="utf-8"
+From: Abdifatah Suruur <suruurism@gmail.com>
+To: Dennis Dalessandro <dennis.dalessandro@cornelisnetworks.com>
+Cc: linux-rdma@vger.kernel.org,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Leon Romanovsky <leonro@nvidia.com>,
+	Abdifatah Suruur <suruurism@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] IB/hfi1: clear VM_MAYWRITE on read-only STATUS mmap
+Date: Wed, 18 Nov 2026 15:58:48 +0300
+Message-ID: <20261118125848.26160-1-suruurism@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,69 +99,28 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: 
- =?utf-8?b?W1JFR1JFU1NJT05dIHN0YWJsZS1yYy9saW51eC02LjEueTogKGJ1aWxkKXRvbyBm?=
- =?utf-8?b?ZXcgYXJndW1lbnRzIHRvIGZ1bmN0aW9uIOKAmHBtX3J1bnRpbWVfZ2V0X2lmX2Fj?=
- =?utf-8?b?dGl2ZeKAmTsgZXhwZWN0ZWQgLi4u?=
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+
+hfi1_file_mmap() rejects a writable mapping of the device status page,
+but leaves VM_MAYWRITE set in the VMA flags. Userspace can map the page
+read-only and then upgrade it to writable with mprotect(), bypassing
+the check and writing to a device-owned status page.
+
+Clear VM_MAYWRITE on this path, as the RTAIL and SUBCTXT_EGRBUF cases in
+the same function already do.
+
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Wed, 18 Nov 2026 12:59:12 -0000
-Message-ID: <179500675212.301701.8262514497119491246@kernelci.org>
-
-Cc from: regression/stable-rc.yaml
-
-New build issue found on stable-rc/linux-6.1.y:
+Signed-off-by: Abdifatah Suruur <suruurism@gmail.com>
 
 ---
-too few arguments to function ‘pm_runtime_get_if_active’; expected 2, have 1 in drivers/dma/ste_dma40.o (drivers/dma/ste_dma40.c) [logspec:kbuild,kbuild.compiler.error]
----
-
-Log excerpt:
-=====================================================
-/tmp/kci/linux/drivers/dma/ste_dma40.c:1694:15: error: too few arguments to function ‘pm_runtime_get_if_active’; expected 2, have 1
- 1694 |         ret = pm_runtime_get_if_active(base->dev);
-      |               ^~~~~~~~~~~~~~~~~~~~~~~~
-In file included from /tmp/kci/linux/drivers/dma/ste_dma40.c:19:
-/tmp/kci/linux/include/linux/pm_runtime.h:76:12: note: declared here
-   76 | extern int pm_runtime_get_if_active(struct device *dev, bool ign_usage_count);
-      |            ^~~~~~~~~~~~~~~~~~~~~~~~
-/tmp/kci/linux/drivers/dma/ste_dma40.c: In function ‘d40_hw_detect_init’:
-/tmp/kci/linux/drivers/dma/ste_dma40.c:3305:32: error: returning ‘int’ from a function with return type ‘struct d40_base *’ makes pointer from integer without a cast [-Wint-conversion]
- 3305 |                         return -EINVAL;
-      |                                ^
-
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:02b2acf6c5cfe769de2f75185c8d473200fb618d
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  80555b0524e00b3e34b4619457160cbb971ec8e8
-
-# Builds where the incident occurred:
-
-## multi_v7_defconfig on (arm):
-- compiler: gcc-15
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6afd915199c74e1a997d3841
-
-## multi_v7_defconfig+netdev+nfs-root-boot+ltp+crypto+ima on (arm):
-- compiler: gcc-15
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6afd915599c74e1a997d3846
-
-#kernelci issue maestro:02b2acf6c5cfe769de2f75185c8d473200fb618d
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
+diff --git a/drivers/infiniband/hw/hfi1/file_ops.c b/drivers/infiniband/hw/hfi1/file_ops.c
+index 680364fda856f..779dbe32c69da 100644
+--- a/drivers/infiniband/hw/hfi1/file_ops.c
++++ b/drivers/infiniband/hw/hfi1/file_ops.c
+@@ -492,6 +492,7 @@ static int hfi1_file_mmap(struct file *fp, struct vm_area_struct *vma)
+ 			ret = -EPERM;
+ 			goto done;
+ 		}
++		flags &= ~VM_MAYWRITE;
+ 		memaddr = kvirt_to_phys((void *)dd->status);
+ 		memlen = PAGE_SIZE;
+ 		break;
