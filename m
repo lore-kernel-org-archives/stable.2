@@ -1,64 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795005610;
-	b=YmZvPOr41nt2IR8tQBDRpnG3wxw2mHmK5AQETQjTFNM3KdHNPZkvmOcB2z9g+6ejpHI1
-	 5BbqAkM1Q7Hp9uSEcDziBes6g5iDNdkSnSKbFX6u6XjRuCsrV27ibAogM9QWBo2uOaS4I
-	 z66vILrSUlSaD+0i90WQ/Iiq1CZPw52veTZAv3nUn3w5RYedD9R1qqgxJTausHqYD2ngN
-	 XRShaBIoSzCANS2Psn0mLn0lV7bcOGX4g/0IUUmaxH4+ByoJZlz7hUPoGqmuqWSdfodlJ
-	 0uUGwNbw1vWLvWgt8OtnbMCChQcPGxthPjj0/TUA/C8+Jy1ftMt9rFzhC9gDrdfVDYg==
+	b=mFRmRCvNK4qXdKBQY8UBJrQBpS41tITOGlyM4n7LIu0drS6UCFrvMRRFbl8xDMPO7Du1
+	 JUwt6KQc2WoP/bcNLTUHyB5BBMgVJNUl8KBj4jOYQz8U4bLt2zcAqQC4DcP4GP4Lpa9RD
+	 zG8B3DgQXidtcWQy9Yjj1Cm1VnkVQA5/f2pRrtZAjO5phqzApIn/ciJD5JQ37sJzZ0RzH
+	 gIclEQoNL0xqN23HKx7pfgLHn8m+jXz+FKcnVyQl3X/zYFgLFAY2S/ei6n+0Q19R9zdWe
+	 t+oYlPUb6WSmFNbHeQtPCa2P0MfO0A90XL98hACJLF1AbnLDcUqqn87B6yeBmqWNntw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795005610;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=93315cMX21u3DHYgcba+pINy/eN5JSNaE8BW3BgW3t8=;
-	b=NooAx4q2rOdrvNB38cEDoyG59QCIuAr0S/lw3rfJfDIrh1JxsUjnT5Di5c7j+LwOjiqD
-	 lNvtMpWOoBRfZbBFxcxZkv42wFmAr9MzrjxIifJ5+36MJAUnWrKMzXJiUWKJuMXSXnBOf
-	 dM0/NcqIbSffx8reVAqT7WCmtskxSMvm+RWS29wMPAQVMjuZmFdQwJA4bBXpbna6K7Xq3
-	 ZctFAsZxGNhcB/QoDDaTTVIs5FrQ7ClrafrYnPOrYL3cckf4crC2wbcQ41q3yGEtVNRpE
-	 fUsCB4fJupm3/X+OA/d9IZmooEyTLyUIL5M+8lWnDemOkz80ddrCIiujI5Yzte/osZw==
+	bh=NWRRBL/nkj/qiw0FA+M+8kPBJmXsdrkEuh/cCE1zcS4=;
+	b=bRp6prUWPlOXoZFGHWV07SKbtRcPg631OsAXJw58R5ePOVzwAo4Mhtol76uajbwZMtv6
+	 EushYgYsPKv/klGCf7pKXUozv0UhmSMq1LryI0vO9oqufobCDWVRhqmWP0clbSwaLYUK1
+	 SRqS62hGY9elW3pLPRXRYw1Si/xAchYqu2pNVcCxOehoc2BzPmtSmtV4tNXpgApfYWw3i
+	 NOmMT+HUziaBFPH1MDbaYLn9xR6BgI6YsosENAhJIPbepBwQsNIZ5064TpsoY8HxZEY0q
+	 +cNNL9T89K49rf6UW6bxOgYnjLAfiaug0pU5NmaUFOu/qTwhylB7QMoi7xMlgVu4KpQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=avLhlc5g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQKiFR3s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4AE606A320
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 12:40:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5695606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 12:40:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=avLhlc5g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B5E01F000C5;
-	Wed, 18 Nov 2026 12:40:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQKiFR3s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04F631F000C7;
+	Wed, 18 Nov 2026 12:40:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795005609;
-	bh=93315cMX21u3DHYgcba+pINy/eN5JSNaE8BW3BgW3t8=;
+	s=k20260515; t=1795005610;
+	bh=NWRRBL/nkj/qiw0FA+M+8kPBJmXsdrkEuh/cCE1zcS4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=avLhlc5gtyifVIUaEj8Agw1MjPyyB2scVNGHwX2gs2BGB6vbQb+Jkzhrc0NsNqe7O
-	 RcYXvR8hHCN95l5o7fxO2sC2pMFVOCefDasPyh7n8KWvnWZP0KgSepO3o4qvaqXWAy
-	 CjG9vbFciLg0fMTDzPgJoEeIxbfazI2huk7nvgQXOjIbzR1JZUxET00hIFLl2hsOf+
-	 YFz8IcPkZbvDDKj2IyCCLbB4TG0iEADHl1iOOp9Qh69QjMiNaDTF0zD4nzuEffqeqV
-	 NHbMk/g9ti/oVYKJHQrHPyvTsDE4+SFkmN2+T+55ivFCSzwtg7AlTHyZH+Rlb8DPss
-	 hLL3s6afgBv/g==
+	b=eQKiFR3suRGrAbBQu/9v+UXrj9sh2Fc+z6Lyjn2oc9MSvNmVG24t/TSpB3fT/NWya
+	 D402e6YSF992XUfq84+9D/4GUGXA0XoD7sws+f/BSCmNa0EkEC+3h6WUb2PH+/e180
+	 6KuUtNl2ZufP3Paa0j2SPkY4VoIOsIMxCBbNUek1WQo9F63006NiAqZUWM4miDVALU
+	 gUH3A/UDc16VeXWzRf5eivABYvFdDlKttYd6O6l9mmyLYIbnuWrI6nRew9GIaXg2Le
+	 gfkD4gPVS4BFNjx++gU4ibN1VO/9dBRMaaXHCBFM6cofRqzheI28IwsVYxxC6fbl9M
+	 5Ml+AbbwJohyg==
 From: Sasha Levin <sashal@kernel.org>
-To: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Pankaj Gupta <pankaj.gupta@amd.com>,
-	David Hildenbrand <david@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Vlastimil Babka <vbabka@kernel.org>
-Subject: Re: [PATCH 6.6.y] mm/cma: accept memory of CMA areas reserved at a fixed address
-Date: Wed, 18 Nov 2026 07:40:01 -0500
-Message-ID: <20261118124002.3727477-5-sashal@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>
+Subject: Re: Patch "serial: max310x: drive RTS in software when hardware delays are too short" has been added to the 7.3-stable tree
+Date: Wed, 18 Nov 2026 07:40:02 -0500
+Message-ID: <20261118124002.3727477-6-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avszpOC2q4p8dVVK@shutemov.name>
-References: <20261109201234-failed-6.6-f8f9cbc34a30@kernel.org> <20261114161849.4002504-1-sashal@kernel.org> <avszpOC2q4p8dVVK@shutemov.name>
+In-Reply-To: <b68885fe-223b-4b55-aae9-768456d4fa30@vaisala.com>
+References: <20261117144521.1678735-1-sashal@kernel.org> <b68885fe-223b-4b55-aae9-768456d4fa30@vaisala.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,19 +64,15 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 16, 2026 at 04:48:52PM +0000, Kiryl Shutsemau (Meta) wrote:
-> accept_memory() takes (start, end) in 6.6. It was converted to
-> (start, size) in 6.12. See 5adfeaecc487 ("mm: rework accept memory
-> helpers"). Here size is taken as the end address. For the usual
-> cma=<size>@<base>, base is above size and nothing gets accepted, so the
-> bug stays.
+On Wed, Nov 18, 2026 at 08:23:34AM +0200, Tapio Reijonen wrote:
+> Please queue c06fcc258db0 before this patch in 7.3 and 6.18. If that
+> is not wanted, please drop this patch and ae588038e31c ("serial:
+> max310x: don't transmit while an RS485 reconfigure is pending") from
+> both trees; the second one builds on the first.
 
-The copy in the 6.6 queue is not the one that was posted. It already calls
-accept_memory(base, base + size), see
-queue-6.6/mm-cma-accept-memory-of-cma-areas-reserved-at-a-fixe.patch and its "[
-sashal: ... ]" note.
-
-The 6.12 copy passes (base, size), matching the 6.12 signature, as you say.
+c06fcc258db0 ("serial: max310x: schedule tx_work directly from the IRQ
+handler") is now queued for 7.3 and 6.18, ahead of 33632215e1bb ("serial:
+max310x: drive RTS in software when hardware delays are too short").
 
 -- 
 Thanks,
