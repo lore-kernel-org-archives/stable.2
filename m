@@ -1,59 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795022749;
-	b=e1U7OmivK9f1EE4PVoHXalxIabRGc+jd7Abi6dLd0DZWrlJmAnNRX6tCjv6iEW9lh56h
-	 O58Eu1LoGL0cChm3Oor6gcs7XgYgTDgzNVbJOUUrDlnKjAFyWIhT6c1o5VXuVNZ0cNkBf
-	 uDUckpovbz+PCRFwCeWBrDS+Fzx6WpKZ3y+c8pfK4uF/38HoHTYRY7KQBXFpNqz2eP2bt
-	 +iwV98Tf7V+0aKjUazrfeE6xgrHj6grgv4uUZZp7lU5k+TpV9Ajn81insOvRHszN8wwZv
-	 SviAgPQvHBI8mlEQyFHCjQImn30xkoZDzx6bKWOg+WdPSPTyjIlQDWbNkDrrOKwsF/w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795022749;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=W0hHX9oyra8ALTpXt3Dbfb6uV/FuLP3QioFXSIfphLs=;
-	b=PDR64OENkZSAzDqzt4XbJs3SzYBkqeiL6JSxaUzNxim/zmzmzHmBdn1X66ZW2JFjdYx2
-	 uHcjJoLoEBKfUwkAS9qE5qv4UK+2EALBtaGcOcRCKBW39/+0JLW8WykwK5HwcvDUe/7nx
-	 Uj9QmzLK5yDrpoTS4TUMZbP2WK6EdPMjfHmUO39Tp6pkmmCYEMGiexgejAnG71rQbmwDn
-	 iXIMiHGrQkds+7Cl+qJ7puaUTrOLKI0U5ltQlqSBWQzy9XsMDNobdzScwPX4je8kBuTcY
-	 rl823zZ0+LEK02UPQV8JSvmzWEDklAwrL5l70hn+xD+34ybz+4ksf31m3a49E7vtIaA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vG8lDqY2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.81
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795022750;
+	b=eTbhOw1ZrjhOSmTohITBE6S7ESa4TQbIDJYfQJhShBfUXYe/uq4U9JYyFqO05B0EBKLO
+	 ubdQ6uadJ3v1lmjpqqRfpI7igL+xe6SjtwmHS+B379adX+rIegT2jXuIiLCyMXwGEHLaz
+	 cdDeXK7fWX2CGwvC0DmnwCTuSgxtvs3yR3EWDNk1YP8uBtyIuIvm9RgQZrHHK5d3UOvE2
+	 P9WXucUtSKkTtjXMDNO0tSpDCz7crJflaSJv9jnTM9D7KBvMhUALYTSl9XJ8crBVrffuM
+	 NXRbUh5Qcm1YqfTn60947l22JKcEKMMpq/29r4nXF1rtospnowizSpCu6WI8+kFujeA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795022750;
+	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:Content-Type;
+	bh=x6Yn9nVVvzkj4kuG4KNyqMnRlTqVsBOrIHwYwoZ4SuE=;
+	b=aV8d4EMGqGftu7fE1Xuf1xDl/MGGHT9NwcDrlJuZ+uzAT37BydE10eR7amVh1c0FhbuI
+	 jQi4RUScBXKr7yTuRZCVCJm0w8NPAhC8jzNhLFSsxChsu2B1rZEgNr2Blolf5EwbOM37F
+	 jsfAYUUsVpgV9e3o4gooXDF+jW+x1mcMoqIYUK3ndNJYSjNm8IfxOrj7ONpa0Z3u7pn10
+	 cANiTWitwD5KF2ChOasPWZlhzqv+Xjnm7y1uiP+3/ioY0OTMhY4iXvjIf7QFGMckNdlUT
+	 xKyRRV304J/p0hnxpdp9oYfk4HZSJYw1UTsm2s6A21ry4TTF2nWV6pquUY4mHiEHrMg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goldelico.com;
+	spf=pass smtp.mailfrom=goldelico.com;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b="C0Tfdy/m";
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=D7BO09rM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=85.215.255.81
+Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de [85.215.255.81])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD42A606B5CF;
-	Wed, 18 Nov 2026 17:25:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=vG8lDqY2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0867D1F0089E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00C760A6F54;
 	Wed, 18 Nov 2026 17:25:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795022749;
-	bh=W0hHX9oyra8ALTpXt3Dbfb6uV/FuLP3QioFXSIfphLs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=vG8lDqY24WU+F8Ml0kqVzc3IkD7bUxXV0JQ85BOJInn0XM06Y1n82pRbl9P0KxP9A
-	 nDZzATQpSGez6x4YhEdHwASW826hoRF4p21R01tmzm3v+nnh+l8uUC55ChMG7qeFJ8
-	 sRrwEY2YNatagpqCk2f2tCUW9WRVgF4PpbWFF4u4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Nick <nick@kousu.ca>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Florian Wagner <florian@wagner-flo.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0123/2151] ACPI: button: Enable wakeup GPEs for ACPI buttons at probe time
-Date: Wed, 18 Nov 2026 15:30:58 +0100
-Message-ID: <20261118150126.270236176@linuxfoundation.org>
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B00C760A6F54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goldelico.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=C0Tfdy/m;
+	dkim=pass header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=D7BO09rM
+ARC-Seal: i=1; a=rsa-sha256; t=1795022739; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=IAOHYYcDQKvg5gxJbZh/KWQCyEO2iomMVSyP42UCOHIWSrtPc8wEIvwFrmv1LjDgg4
+    Xa1BJeoEcVKQf+yNQWcHmLn9QkNKzEVQ7mjisPo3wyKNZ5RXYiwch2kLVnlMnTvqqjB+
+    dLWVz27rn0SJsNP28BpVlaAiAx8u7cOB0abuA6Fn5+M9XeNiuZKeNkLUXMAU2dFsNjEe
+    gAQfoOfTXiMyB+fEwXeU2IQcoeeU3GBaG/+ji2aCxXLbwajc6qNwcAUZb3tG3aBUdrix
+    4q63sGnU4oiC+4CQp1H/VY1l1eUupA6qZrg8wteLqHHB0+15CrlDyrYoeK9UM0+fkUUt
+    hhhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795022739;
+    s=strato-dkim-0002; d=strato.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=x6Yn9nVVvzkj4kuG4KNyqMnRlTqVsBOrIHwYwoZ4SuE=;
+    b=klJpgx66coVO7xRkx4H5TTCPqoyQn6IusRowEkKAb8hWP2qaBvM6FH670szfoOPE5D
+    1c9jCU5UtF6u7oYHs3BxCBsgHtNG951gjsK9fccM1sfXYOt+okH0SMTfjlYSkvzqhAmM
+    PIOQwINizUKGXJirlynJiPeAE9uQ89s89hid7UmJlyEWkyP/3Rg+E8Drl6hEBgX7/oUg
+    l9dZg5Z8+d+8v9uPSI0tcORCwX3fPnXoF9kcmEeZuZ5oYvaxwPLmpgv5McRfbZWCpzRB
+    5XW/IEs4zMqm+OM544RQCEWUNluzZXb6vgnAAXtMyQR1YtXwvZqxEc/uacl+wSe9t5iz
+    KjYA==
+ARC-Authentication-Results: i=1; strato.com;
+    arc=none;
+    dkim=none
+X-RZG-CLASS-ID: mo02
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795022739;
+    s=strato-dkim-0002; d=goldelico.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=x6Yn9nVVvzkj4kuG4KNyqMnRlTqVsBOrIHwYwoZ4SuE=;
+    b=C0Tfdy/mbEh9v1ZgTxbT+k+qTbUKUuBZWGHgQQHtPUymUzqqOQ5WsKNnRLcNmWE7ku
+    9pMVzDCQft9obcsl/GngPzLA38HyZ8khwDyT4eymJXMRl8GTwA+I2gjmh1pNS8JjhoVx
+    LddVtPLkxPJ5LVyptF1b57JBrdP78fLxENuv8LPea1oCc4jCejLbQITFPhCMIRkhevKg
+    su2hSNvXGNnt+icIeKxJMLS6pXhVLOha6tgR9ohp0QlZM/+IzK1h+XeB+9dFld2KrFZw
+    je/aFc6ekphUjsGOyXB3wLI+CVkLosZoUxJeLkHvctSnmihgTlc+oSdbbYvxOFqyRulD
+    Gxng==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795022739;
+    s=strato-dkim-0003; d=goldelico.com;
+    h=References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Cc:Date:
+    From:Subject:Sender;
+    bh=x6Yn9nVVvzkj4kuG4KNyqMnRlTqVsBOrIHwYwoZ4SuE=;
+    b=D7BO09rMy6ryk90mjZBuoab9fDhn4kLNw50Xv67z4kCNuK9itXv7fwherWXgEYLtF/
+    2bQ5LHfhLwAPwID0RkBA==
+X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrV2Jpcm8iNZLZ2IBizV+3wFb55dglUeZzcEX9J"
+Received: from iMac.fritz.box
+    by smtp.strato.de (RZmta 55.6.3 AUTH)
+    with ESMTPSA id Qb56a22AIHPddiU
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Wed, 18 Nov 2026 18:25:39 +0100 (CET)
+From: "H. Nikolaus Schaller" <hns@goldelico.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-mips@vger.kernel.org,
+	letux-kernel@openphoenux.org,
+	stable@vger.kernel.org,
+	"H. Nikolaus Schaller" <hns@goldelico.com>
+Subject: [PATCH v4 1/7] pinctrl: ingenic: Swap ID_X1600 and ID_X1830
+Date: Wed, 18 Nov 2026 18:25:31 +0100
+Message-ID: <0fe84b1a87a384d810764c1043624e10a9214b8d.1795022736.git.hns@goldelico.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
-References: <20261118150121.603863898@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+In-Reply-To: <cover.1795022736.git.hns@goldelico.com>
+References: <cover.1795022736.git.hns@goldelico.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,202 +113,114 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+From: Paul Cercueil <paul@crapouillou.net>
 
-------------------
+The X1830 predates the X1600 and uses an older GPIO register layout.
 
-From: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Swap their IDs to reflect the hardware evolution. This allows
+is_soc_or_above() to distinguish newer X1600-based GPIO features
+like X2000 (and X2600) from the X1830 register layout.
 
-[ Upstream commit a004b8f0d3bc5d82d3f2c91ff93f4b4b7ccb8f76 ]
+Add an is_soc() helper for features specific to a single SoC
+generation and adjust the existing pin configuration checks
+accordingly.
 
-Prior to commit 57c31e6d620f ("ACPI: scan: Use acpi_setup_gpe_for_wake()
-for buttons"), ACPI button wakeup GPEs having handler methods remained
-enabled after acpi_wakeup_gpe_init(), but currently they are not enabled
-because acpi_setup_gpe_for_wake() disables them.
-
-That causes function keys to stop working on some systems [1] and there
-may be other related issues elsewhere.
-
-To address that, make the ACPI button driver enable wakeup GPEs for ACPI
-buttons so long as they have handler methods.  While this does not
-restore the old behavior exactly (the ACPI button driver needs to be
-bound to the button devices for the GPEs to be enabled), it should be
-sufficient to restore the missing functionality.
-
-For this purpose, introduce acpi_enable_gpe_cond() that enables
-a GPE if its dispatch type matches the supplied one and modify
-acpi_button_probe() to use that function for enabling the GPEs in
-question.
-
-Fixes: 57c31e6d620f ("ACPI: scan: Use acpi_setup_gpe_for_wake() for buttons")
-Reported-by: Nick <nick@kousu.ca>
-Closes: https://lore.kernel.org/linux-acpi/E2OXET.4X5GTP37VTNC3@kousu.ca/ [1]
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Tested-by: Nick <nick@kousu.ca>
-Cc: 7.0+ <stable@vger.kernel.org> # 7.0+
-Link: https://patch.msgid.link/9629117.CDJkKcVGEf@rafael.j.wysocki
-[ Adjusted for 6.18.y: struct acpi_button has no dev member in this
-  tree, so use &button->pdev->dev in the two dev_dbg() calls. ]
-Signed-off-by: Florian Wagner <florian@wagner-flo.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 4da56f9c6f14 ("pinctrl: ingenic: add x1600 support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
 ---
- drivers/acpi/acpica/evxfgpe.c | 50 ++++++++++++++++++++++++++++-------
- drivers/acpi/button.c         | 22 +++++++++++++++
- include/acpi/acpixf.h         |  5 ++++
- 3 files changed, 68 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/acpi/acpica/evxfgpe.c b/drivers/acpi/acpica/evxfgpe.c
-index 60dacec1b121f..4074b5908db30 100644
---- a/drivers/acpi/acpica/evxfgpe.c
-+++ b/drivers/acpi/acpica/evxfgpe.c
-@@ -78,18 +78,22 @@ ACPI_EXPORT_SYMBOL(acpi_update_all_gpes)
- 
- /*******************************************************************************
-  *
-- * FUNCTION:    acpi_enable_gpe
-+ * FUNCTION:    acpi_enable_gpe_cond
-  *
-  * PARAMETERS:  gpe_device          - Parent GPE Device. NULL for GPE0/GPE1
-  *              gpe_number          - GPE level within the GPE block
-+ *              dispatch_type       - GPE dispatch type to match
-  *
-  * RETURN:      Status
-  *
-- * DESCRIPTION: Add a reference to a GPE. On the first reference, the GPE is
-- *              hardware-enabled.
-+ * DESCRIPTION: Add a reference to a GPE so long as its dispatch type matches
-+ *              the supplied one, or it is different from ACPI_GPE_DISPATCH_NONE
-+ *              if the supplied one is ACPI_GPE_DISPATCH_MASK. On the first
-+ *              reference, the GPE is hardware-enabled.
-  *
-  ******************************************************************************/
--acpi_status acpi_enable_gpe(acpi_handle gpe_device, u32 gpe_number)
-+acpi_status acpi_enable_gpe_cond(acpi_handle gpe_device, u32 gpe_number,
-+				 u8 dispatch_type)
- {
- 	acpi_status status = AE_BAD_PARAMETER;
- 	struct acpi_gpe_event_info *gpe_event_info;
-@@ -100,14 +104,18 @@ acpi_status acpi_enable_gpe(acpi_handle gpe_device, u32 gpe_number)
- 	flags = acpi_os_acquire_lock(acpi_gbl_gpe_lock);
- 
- 	/*
--	 * Ensure that we have a valid GPE number and that there is some way
--	 * of handling the GPE (handler or a GPE method). In other words, we
--	 * won't allow a valid GPE to be enabled if there is no way to handle it.
-+	 * Ensure that we have a valid GPE number and that the dispatch type of
-+	 * the GPE matches the supplied one (or it is not ACPI_GPE_DISPATCH_NONE
-+	 * if the supplied one is ACPI_GPE_DISPATCH_MASK).
- 	 */
- 	gpe_event_info = acpi_ev_get_gpe_event_info(gpe_device, gpe_number);
- 	if (gpe_event_info) {
--		if (ACPI_GPE_DISPATCH_TYPE(gpe_event_info->flags) !=
--		    ACPI_GPE_DISPATCH_NONE) {
-+		if (dispatch_type == ACPI_GPE_DISPATCH_MASK)
-+			dispatch_type = ACPI_GPE_DISPATCH_TYPE(gpe_event_info->flags);
-+		else if (dispatch_type != ACPI_GPE_DISPATCH_TYPE(gpe_event_info->flags))
-+			dispatch_type = ACPI_GPE_DISPATCH_NONE;
-+
-+		if (dispatch_type != ACPI_GPE_DISPATCH_NONE) {
- 			status = acpi_ev_add_gpe_reference(gpe_event_info, TRUE);
- 			if (ACPI_SUCCESS(status) &&
- 			    ACPI_GPE_IS_POLLING_NEEDED(gpe_event_info)) {
-@@ -128,6 +136,30 @@ acpi_status acpi_enable_gpe(acpi_handle gpe_device, u32 gpe_number)
- 	acpi_os_release_lock(acpi_gbl_gpe_lock, flags);
- 	return_ACPI_STATUS(status);
- }
-+ACPI_EXPORT_SYMBOL(acpi_enable_gpe_cond)
-+
-+/*******************************************************************************
-+ *
-+ * FUNCTION:    acpi_enable_gpe
-+ *
-+ * PARAMETERS:  gpe_device          - Parent GPE Device. NULL for GPE0/GPE1
-+ *              gpe_number          - GPE level within the GPE block
-+ *
-+ * RETURN:      Status
-+ *
-+ * DESCRIPTION: Add a reference to a GPE. On the first reference, the GPE is
-+ *              hardware-enabled.
-+ *
-+ ******************************************************************************/
-+acpi_status acpi_enable_gpe(acpi_handle gpe_device, u32 gpe_number)
-+{
-+	/*
-+	 * Ensure that there is some way of handling the GPE (handler or a GPE
-+	 * method). In other words, we won't allow a valid GPE to be enabled if
-+	 * there is no way to handle it.
-+	 */
-+	return acpi_enable_gpe_cond(gpe_device, gpe_number, ACPI_GPE_DISPATCH_MASK);
-+}
- ACPI_EXPORT_SYMBOL(acpi_enable_gpe)
- 
- /*******************************************************************************
-diff --git a/drivers/acpi/button.c b/drivers/acpi/button.c
-index 4ddaee8955c30..b507b88df6c37 100644
---- a/drivers/acpi/button.c
-+++ b/drivers/acpi/button.c
-@@ -190,6 +190,7 @@ struct acpi_button {
- 	ktime_t last_time;
- 	bool suspended;
- 	bool lid_state_initialized;
-+	bool gpe_enabled;
+Notes:
+    Changes V4:
+    - Add Fixes and stable Cc trailers.
+
+ drivers/pinctrl/pinctrl-ingenic.c | 20 +++++++++++++-------
+ 1 file changed, 13 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-ingenic.c
+index 37310d9679457..88c5edeaaddcc 100644
+--- a/drivers/pinctrl/pinctrl-ingenic.c
++++ b/drivers/pinctrl/pinctrl-ingenic.c
+@@ -110,8 +110,8 @@ enum jz_version {
+ 	ID_JZ4780,
+ 	ID_X1000,
+ 	ID_X1500,
+-	ID_X1600,
+ 	ID_X1830,
++	ID_X1600,
+ 	ID_X2000,
+ 	ID_X2100,
  };
+@@ -166,6 +166,12 @@ static const unsigned long enabled_socs =
+ 	IS_ENABLED(CONFIG_MACH_X2000) << ID_X2000 |
+ 	IS_ENABLED(CONFIG_MACH_X2100) << ID_X2100;
  
- static struct acpi_device *lid_device;
-@@ -651,6 +652,21 @@ static int acpi_button_probe(struct platform_device *pdev)
- 		status = acpi_install_notify_handler(device->handle,
- 						     ACPI_ALL_NOTIFY, handler,
- 						     button);
-+		if (ACPI_SUCCESS(status) && device->wakeup.flags.valid) {
-+			acpi_status st;
++static bool
++is_soc(const struct ingenic_pinctrl *jzpc, enum jz_version version)
++{
++	return (enabled_socs & BIT(version)) && jzpc->info->version == version;
++}
 +
-+			/*
-+			 * If the wakeup GPE has a handler method, enable it in
-+			 * case it is also used for signaling runtime events.
-+			 */
-+			st = acpi_enable_gpe_cond(device->wakeup.gpe_device,
-+						   device->wakeup.gpe_number,
-+						   ACPI_GPE_DISPATCH_METHOD);
-+			button->gpe_enabled = ACPI_SUCCESS(st);
-+			if (button->gpe_enabled)
-+				dev_dbg(&button->pdev->dev, "Enabled ACPI GPE%02llx\n",
-+					device->wakeup.gpe_number);
-+		}
- 		break;
- 	}
- 	if (ACPI_FAILURE(status)) {
-@@ -694,6 +710,12 @@ static void acpi_button_remove(struct platform_device *pdev)
- 						acpi_button_event);
- 		break;
- 	default:
-+		if (button->gpe_enabled) {
-+			dev_dbg(&button->pdev->dev, "Disabling ACPI GPE%02llx\n",
-+				adev->wakeup.gpe_number);
-+			acpi_disable_gpe(adev->wakeup.gpe_device,
-+					 adev->wakeup.gpe_number);
-+		}
- 		acpi_remove_notify_handler(adev->handle, ACPI_ALL_NOTIFY,
- 					   button->type == ACPI_BUTTON_TYPE_LID ?
- 						acpi_lid_notify :
-diff --git a/include/acpi/acpixf.h b/include/acpi/acpixf.h
-index e65a2afe92504..af796d079656e 100644
---- a/include/acpi/acpixf.h
-+++ b/include/acpi/acpixf.h
-@@ -725,6 +725,11 @@ ACPI_HW_DEPENDENT_RETURN_STATUS(acpi_status
-  */
- ACPI_HW_DEPENDENT_RETURN_STATUS(acpi_status acpi_update_all_gpes(void))
+ static bool
+ is_soc_or_above(const struct ingenic_pinctrl *jzpc, enum jz_version version)
+ {
+@@ -4090,7 +4096,7 @@ static int ingenic_pinconf_get(struct pinctrl_dev *pctldev,
+ 				!ingenic_get_pin_config(jzpc, pin, X2000_GPIO_PEPU) &&
+ 				(jzpc->info->pull_downs[offt] & BIT(idx));
  
-+ACPI_HW_DEPENDENT_RETURN_STATUS(acpi_status
-+				acpi_enable_gpe_cond(acpi_handle gpe_device,
-+						     u32 gpe_number,
-+						     u8 dispatch_type))
-+
- ACPI_HW_DEPENDENT_RETURN_STATUS(acpi_status
- 				acpi_enable_gpe(acpi_handle gpe_device,
- 						u32 gpe_number))
+-	} else if (is_soc_or_above(jzpc, ID_X1830)) {
++	} else if (is_soc(jzpc, ID_X1830)) {
+ 		unsigned int half = PINS_PER_GPIO_CHIP / 2;
+ 		unsigned int idxh = (pin % half) * 2;
+ 
+@@ -4142,7 +4148,7 @@ static int ingenic_pinconf_get(struct pinctrl_dev *pctldev,
+ 	case PIN_CONFIG_INPUT_SCHMITT_ENABLE:
+ 		if (is_soc_or_above(jzpc, ID_X2000))
+ 			reg = X2000_GPIO_SMT;
+-		else if (is_soc_or_above(jzpc, ID_X1830))
++		else if (is_soc(jzpc, ID_X1830))
+ 			reg = X1830_GPIO_SMT;
+ 		else
+ 			return -EINVAL;
+@@ -4153,7 +4159,7 @@ static int ingenic_pinconf_get(struct pinctrl_dev *pctldev,
+ 	case PIN_CONFIG_SLEW_RATE:
+ 		if (is_soc_or_above(jzpc, ID_X2000))
+ 			reg = X2000_GPIO_SR;
+-		else if (is_soc_or_above(jzpc, ID_X1830))
++		else if (is_soc(jzpc, ID_X1830))
+ 			reg = X1830_GPIO_SR;
+ 		else
+ 			return -EINVAL;
+@@ -4190,7 +4196,7 @@ static void ingenic_set_bias(struct ingenic_pinctrl *jzpc,
+ 			ingenic_config_pin(jzpc, pin, X2000_GPIO_PEPD, false);
+ 		}
+ 
+-	} else if (is_soc_or_above(jzpc, ID_X1830)) {
++	} else if (is_soc(jzpc, ID_X1830)) {
+ 		unsigned int idx = pin % PINS_PER_GPIO_CHIP;
+ 		unsigned int half = PINS_PER_GPIO_CHIP / 2;
+ 		unsigned int idxh = (pin % half) * 2;
+@@ -4298,7 +4304,7 @@ static int ingenic_pinconf_set(struct pinctrl_dev *pctldev, unsigned int pin,
+ 			break;
+ 
+ 		case PIN_CONFIG_INPUT_SCHMITT_ENABLE:
+-			if (!is_soc_or_above(jzpc, ID_X1830))
++			if (!is_soc(jzpc, ID_X1830) && !is_soc_or_above(jzpc, ID_X2000))
+ 				return -EINVAL;
+ 
+ 			ingenic_set_schmitt_trigger(jzpc, pin, arg);
+@@ -4314,7 +4320,7 @@ static int ingenic_pinconf_set(struct pinctrl_dev *pctldev, unsigned int pin,
+ 			break;
+ 
+ 		case PIN_CONFIG_SLEW_RATE:
+-			if (!is_soc_or_above(jzpc, ID_X1830))
++			if (!is_soc(jzpc, ID_X1830) && !is_soc_or_above(jzpc, ID_X2000))
+ 				return -EINVAL;
+ 
+ 			ingenic_set_slew_rate(jzpc, pin, arg);
 -- 
-2.53.0
-
-
+2.56.0
 
