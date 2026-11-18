@@ -1,55 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794996456;
-	b=a4u8ejh65D8H2D2YRAQgMfoC+Ucq8m/+/ka0hNKBY5VAlWCxoTvbFVYIZXoIXmGbVP7e
-	 NAOeVGEy2Rrzh25rAP7oRs7WMTNE4dQFYQCsQHl5JG8JEMA53EeTGRG6McYl5xiEwNJEk
-	 nxywJmG2h15qKf0Siyc+A6eADw999hAGsMgXdhao1CO0db+7VISzUORdB3uoeHQtkl7ck
-	 YKZMh9+mOyha75AI5j2LgY1E5UbTPgA0QMCF4jdCDH63WTCVpg0seXauRKE3wJs7nR/t1
-	 MsVpUjO9ecGrfzLb/Hpkqv7+ycTCEkJrZJD9f6oFEfWiAcSbLsmy2yGhDStH8sY/2jA==
+	t=1794996548;
+	b=aWtOIh9IDKhyozqzZmVnjXwerJOf3v/cB7r6nEtxsYi+1WOlG8rKmVrCTD5sHttfyu9k
+	 nQCmeGNdr6gcLEhcv3QWeK2IMpCmu42j+eWIZURf+WW5LqroWsWp/bytbjGE5MuFCMeQ1
+	 gbjN0cxQ4qlLFzs520o4ieJSU+LNAPkRXp35lw3x5NCWmb4P6PyLLvCrlTWir2mi16IoO
+	 +Imw3+IscWvfRUxPijpVsd7H9QQBwBbEzHjYgPEslH0B2YTKWFPeqNetCrlTNc1wP3OPo
+	 xubgcx1SrmlZ3hUmDYSzuXHq/28FC5wk9Z76LNkxf8NbjEremJ2OYstXop8AEn2UPwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794996456;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Sf2ef/DZzsnK1sMDSaxmFCha0DAq5bCsGRzR7EIIXpE=;
-	b=OUV3+pD75DhwQnIbZFUQbYJcp8erSERoC890EAZqR5yfgShJM2Q/S3zxgs+WVGufOeWT
-	 aXm5uwfmqOQs4q++uVD7C1ucBRJtjvxBIi8QxAPlXrQDY290Ck9UwnJguKTp2RJK73Xh8
-	 OQuOO0VfZOEbNG5tfRG7UnJOrvEg97a6AGP8wgOGYmcM7RQ1W1XFZmDGWMLURHUHtoZuR
-	 k0aHgIEeCNjP9UPKYT5DrxZ9Sfh8rrpflBVPTN0je2O36dS/PYazjpEyxs+xIFrBUYAMi
-	 l3EoBJCoIjZRcxdNAVlF5sF4dBs/+iDl2c1au04cSZId2F+GZiTzut+7j3sav7ag/xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794996548;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=+B1TOH9oUaUU/yKHKlpMG2Fg0rcqqVsIpnka2NiH2/I=;
+	b=XIgf5pjKZx3eQmQVNVMkG9wUYt23LVNFw0QCl/luznkxCFzgRdeKkkew/kHk3VZ5+xlG
+	 TF3SYsoQNaJDKGOz3SnPw0aeQNURCPiiVy4jTj+2/nQoPXP1V+iFOFtpxQkgSvy/cODIS
+	 8WTARubzdfh2qUO0eqq203sfG+s2m82LskmOq/g+Rf0+MFeOvOaU82l3MppeOkYKIQ85q
+	 FJ2O4YHeQ4CFB81igBqbKpTk7cHJkg+qW4V+8XNejwcAft6iEEgRiAX1G2kHlXKyT8dqS
+	 r++reQ61se0lCRVZZZ0ZTwf7uQlSRW8pT4r3B+qaJoXTiH3p9DvJmseRIIcZndcpOVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d2QzbFoJ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--amitamishra.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=G14vOFv3;
+	arc=none smtp.remote-ip=209.85.210.197
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683D8606A32C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:07:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD8B606A320
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:09:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FD8B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--amitamishra.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d2QzbFoJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10F021F000C4
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:07:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794996456;
-	bh=Sf2ef/DZzsnK1sMDSaxmFCha0DAq5bCsGRzR7EIIXpE=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=d2QzbFoJFY+k8q9V/CGKaMctSrm9z6TSBfBrEjsKosoFas19a+BaErySppE4Ncgt2
-	 +YSdxqUGJKw5Ow6BHQmZ0I0Ug7mKId8Hr0d34Dtn/ism8hNDrU1dMb81zn2rGg4keB
-	 1Z5QdzO6tUdStZVyDbBk+gjvk1yWL0KOISnTmx5EVdT9jZSZut4WkMBxY2JsPLJUNg
-	 dvrkhrUmgKESSnXvjOZUlz1jSYIsuRpL5f/yC03cqwDmO9+V6HuTUlWi+hVrWihCWx
-	 9WNv7YMnr1sf7TR58+2c1ubP35MTMNjuajhXEep1RUviGWq5QuxI5Yx/X+Yl5d6r3G
-	 XdrDIOXkQ1+oQ==
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-491846221ffso605195f8f.3
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 02:07:36 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErEyUCUJuyc2YzvDFyqGQtJ9AJjnmqhyWFLPhmTzwPDTwNG5kXivkbJUSR2YK4cKlLQeiinAY7s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9Tehi64FXkPklHOwIbhX+PdXV3niJuXxMkzGb/C+BVDH3TTV3a
-	f/emOi5/QeU0zZAXSd76zr0rwoHZmsB1Sl3V7baH9WuVFB76cUHRdMMVKUEzHlt86yZ1XbwIlyy
-	rqy1NKh2K8XjTLe2N+nLXpmYLK9YwyaU=
-X-Received: by 2002:a05:6000:4812:b0:48d:ff06:c626 with SMTP id
- ffacd0b85a97d-4a63b6fc6d5mr4531220f8f.35.1794996454710; Wed, 18 Nov 2026
- 02:07:34 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=G14vOFv3
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8c5408e418bso669189b3a.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 02:09:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1794996547; x=1795601347; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+B1TOH9oUaUU/yKHKlpMG2Fg0rcqqVsIpnka2NiH2/I=;
+        b=G14vOFv3Ujb4z9LNJX6zHgOB/CiwYIy9Oy8Jt5I6Gz3ApMFDg7KvkQ6RdNztHu3C8c
+         qziMNmi2uJwjjaGR1vEA01vJ0dWRcsexxdNVY3WbxuuoGZ00IDI5nfaFpfm2TOVvOmEv
+         v6GBlsjWXLTtTTxV/GBDpFeJg3Lnac74OjZ1x9PjbqKwQWKRLSbDHwJkWH1Xbwre/Oyq
+         daIGMoFrDrnzXyHsjznsigqT+tDVSneoU1pbr0wCyfdQRCZrV/uqPnvH3EesfIHdEkK/
+         q1rQAwwD0IsLN3y5YmG2rO3PFMh07S/0ZSqHrTRr1v6g7FbtivSzK02Bzn0XmTaGF8je
+         T/Cw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794996547; x=1795601347;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+B1TOH9oUaUU/yKHKlpMG2Fg0rcqqVsIpnka2NiH2/I=;
+        b=PpD6ttniMkBG93wsR4jgntGulAkCpflKSYzJuK9vuoJT1oLOxaq2eeMAn9Ofc1X0CS
+         oNCLJqXrIZ8laYAwgmUzRhMchkRsTF2IAtR8gdeVRdyRk4bxZEQM64K7demeG3LYajLZ
+         bsCE4PozhJqnDAGBRIJlosaXiQQHAELVouBGiKFEf7OR/O/e1UPmTdRarXtdCfkC8F71
+         H1vEiO4zpUnn3ywzhhPnbSMTuKgFj30VvNqe8JNj4r+s5YCfX1sxHdbmzPA6hYRxT7un
+         Y2e6VamRNgAiB5vWkzNdz753Uj1xgM1VYqUKeGoVXktrz/A2qmiMNHBqXqWevjQ9s9AI
+         XBMA==
+X-Forwarded-Encrypted: i=1; AL+hErF3Cn+zTCfSN7xdvpC+OD5G6MhbHymhQueirhSNQVqA60FLTcj3PtxOIfxP/omqXEfMA06mZZo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/WUiiwqk+WTw2bcNZLWiTQht/jBOtCPQcbRvNcKjI+1I3Yy9WF
+	cuo6FhAWXieM6fyExN0O37W8cIzTi3d+5yzWXKzJciyCKIghk1oSYLJkW5f3mU2LAAS6Yiu75wT
+	yRPkDsSoeHCQZICUDd7tM09sPwg==
+X-Received: from pfdf8.prod.google.com ([2002:aa7:8b08:0:b0:8c5:fdd3:6020])
+ (user=amitamishra job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:1c8e:b0:87d:ee98:606 with SMTP id d2e1a72fcca58-8c5d45de9a8mr1864339b3a.23.1794996547074;
+ Wed, 18 Nov 2026 02:09:07 -0800 (PST)
+Date: Wed, 18 Nov 2026 10:08:39 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,87 +75,68 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261118-riscv-marchid-fix-v1-1-6d677fcd5461@linux.spacemit.com>
-In-Reply-To: <20261118-riscv-marchid-fix-v1-1-6d677fcd5461@linux.spacemit.com>
-From: Guo Ren <guoren@kernel.org>
-Date: Wed, 18 Nov 2026 18:07:22 +0800
-X-Gmail-Original-Message-ID: <CAJF2gTQ+86jtp3Dw9pw8xf7zK=bU_txdGYjaJp+85H7WE_iKLA@mail.gmail.com>
-X-Gm-Features: Aa3M54rjZmx21x9qbdtBeJSZpO91ThMWIbqg7YbcJXk95cJ0eYpg24g2amLowHU
-Message-ID: <CAJF2gTQ+86jtp3Dw9pw8xf7zK=bU_txdGYjaJp+85H7WE_iKLA@mail.gmail.com>
-Subject: Re: [PATCH] riscv: cpu: Fix incorrect cached machine IDs on secondary harts
-To: Peixin Xie <peixin.xie@linux.spacemit.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yixun Lan <dlan@kernel.org>, 
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
-	Conor Dooley <conor.dooley@microchip.com>, Charlie Jenkins <thecharlesjenkins@gmail.com>, 
-	Palmer Dabbelt <palmer@rivosinc.com>, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, spacemit@lists.linux.dev, 
-	stable@vger.kernel.org
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.703.gf848ed807c-goog
+Message-ID: <20261118100839.3090172-1-amitamishra@google.com>
+Subject: [PATCH] dmaengine: dmatest: terminate channel on timeout or error
+From: Amita Mishra <amitamishra@google.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>, Dan Williams <djbw@kernel.org>, dmaengine@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Amita Mishra <amitamishra@google.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 18, 2026 at 11:05=E2=80=AFAM Peixin Xie
-<peixin.xie@linux.spacemit.com> wrote:
->
-> During early ISA-string parsing, the boot hart stores its mvendorid
-> and marchid in riscv_cpuinfo. This happens before setup_per_cpu_areas(),
-> which copies the static per-CPU data to each CPU's allocated area.
->
-> When riscv_cpuinfo_starting() runs on the other harts, the copied IDs
-> are already nonzero, so it skips reading their own IDs. As a result,
-> secondary harts can retain the boot hart's IDs.
->
-> Read mvendorid and marchid unconditionally on each hart, as already
-> done for mimpid.
->
-> Fixes: e482eab4d1eb ("riscv: cpufeature: Fix thead vector hwcap removal")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Peixin Xie <peixin.xie@linux.spacemit.com>
-> ---
->  arch/riscv/kernel/cpu.c | 12 ++++--------
->  1 file changed, 4 insertions(+), 8 deletions(-)
->
-> diff --git a/arch/riscv/kernel/cpu.c b/arch/riscv/kernel/cpu.c
-> index af84b97af3a1..64c0c83eff76 100644
-> --- a/arch/riscv/kernel/cpu.c
-> +++ b/arch/riscv/kernel/cpu.c
-> @@ -197,16 +197,12 @@ static int riscv_cpuinfo_starting(unsigned int cpu)
->         struct riscv_cpuinfo *ci =3D this_cpu_ptr(&riscv_cpuinfo);
->
->  #if IS_ENABLED(CONFIG_RISCV_SBI)
-> -       if (!ci->mvendorid)
-> -               ci->mvendorid =3D sbi_spec_is_0_1() ? 0 : sbi_get_mvendor=
-id();
-> -       if (!ci->marchid)
-> -               ci->marchid =3D sbi_spec_is_0_1() ? 0 : sbi_get_marchid()=
-;
-> +       ci->mvendorid =3D sbi_spec_is_0_1() ? 0 : sbi_get_mvendorid();
-> +       ci->marchid =3D sbi_spec_is_0_1() ? 0 : sbi_get_marchid();
->         ci->mimpid =3D sbi_spec_is_0_1() ? 0 : sbi_get_mimpid();
->  #elif IS_ENABLED(CONFIG_RISCV_M_MODE)
-> -       if (!ci->mvendorid)
-> -               ci->mvendorid =3D csr_read(CSR_MVENDORID);
-> -       if (!ci->marchid)
-> -               ci->marchid =3D csr_read(CSR_MARCHID);
-> +       ci->mvendorid =3D csr_read(CSR_MVENDORID);
-> +       ci->marchid =3D csr_read(CSR_MARCHID);
->         ci->mimpid =3D csr_read(CSR_MIMPID);
->  #else
->         ci->mvendorid =3D 0;
->
-> ---
-> base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-> change-id: 20261118-riscv-marchid-fix-3ea3672d1e0e
->
-> Best regards,
-> --
-> Peixin Xie <peixin.xie@linux.spacemit.com>
->
-Hmm, it solved the problem on Big-little cores' SoC.
+In interrupt mode (!params->polled), when wait_event_freezable_timeout()
+times out (!done->done) or dma_async_is_tx_complete() reports a
+non-DMA_COMPLETE status, dmatest_func() jumps to error_unmap_continue and
+calls dmaengine_unmap_put() without terminating the DMA channel first.
+Channel termination via dmaengine_terminate_sync() only happens later
+when the test thread exits, unlike the polled path which terminates the
+channel immediately after dma_sync_wait().
 
-Reviewed-by: GUO Ren (XuanTie) <guoren@kernel.org>
+If the DMA controller is still actively transferring when the source and
+destination buffers are unmapped, an IOMMU-backed DMA engine will trigger
+use-after-unmap translation faults, or overwrite the buffers while the
+next iteration reinitializes them. In addition, if the timed-out transfer
+completes during a subsequent iteration, its callback sets the shared
+per-thread done flag and wakes done_wait prematurely, causing the next
+iteration to fail with "completion busy status".
 
---=20
-Best Regards
- Guo Ren
+Terminate the channel with dmaengine_terminate_sync() on both the timeout
+and non-DMA_COMPLETE error paths before unmapping the buffers, skipping
+the redundant call on timeout when params->polled has already terminated
+the channel.
+
+Fixes: 4076e755dbec ("dmatest: convert to dmaengine_unmap_data")
+Cc: stable@vger.kernel.org
+Signed-off-by: Amita Mishra <amitamishra@google.com>
+---
+ drivers/dma/dmatest.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/dma/dmatest.c b/drivers/dma/dmatest.c
+index 2ae3469397f3..950b7a9e7769 100644
+--- a/drivers/dma/dmatest.c
++++ b/drivers/dma/dmatest.c
+@@ -852,6 +852,8 @@ static int dmatest_func(void *data)
+ 		}
+ 
+ 		if (!done->done) {
++			if (!params->polled)
++				dmaengine_terminate_sync(chan);
+ 			result("test timed out", total_tests, src->off, dst->off,
+ 			       len, 0);
+ 			goto error_unmap_continue;
+@@ -859,6 +861,7 @@ static int dmatest_func(void *data)
+ 			   !(dma_has_cap(DMA_COMPLETION_NO_ORDER,
+ 					 dev->cap_mask) &&
+ 			     status == DMA_OUT_OF_ORDER)) {
++			dmaengine_terminate_sync(chan);
+ 			result(status == DMA_ERROR ?
+ 			       "completion error status" :
+ 			       "completion busy status", total_tests, src->off,
+
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+-- 
+2.56.1.703.gf848ed807c-goog
+
