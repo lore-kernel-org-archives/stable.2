@@ -1,124 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795007737;
-	b=d/K+3seVm/WwbEaoiSdXO+uwkFFDQIwHJCU7sUuRWKXewhkva3OFINh8skAK8zYWt1Bc
-	 k2Cl9J0dTzJeds11h0BiP0wBq1O48XeHAQM84QGrQZcLRclNDcoFREKAbhICMkgbljtFm
-	 9IN0X/53YXz5EGbjx0o9cTfoCEmnXfCPfJaW1BrgUD+HshX9gl3m2ILRLVhOXEF3sdaXh
-	 UVHrkbTkdNtcBsG3x1iST0erpMyaOhukrD+4CuNAUUnz62dOEcb5OIQmcWxxXHTNH8y5b
-	 1Clo7p529MIGwyHbmnoSvoONeZJ740bVAjpYZ6xZBoF0uai7iltqTXxHy9BwyQK6uPQ==
+	t=1795007766;
+	b=jO7tkvrHwDTYpUpNolcOkMxbEbirCJh8+7UTWOWgZqRx/ot7yjYj8K91OXXXKbzEeQaw
+	 0lBSJcC2kNWobrSlbgHhlvtBAzFOtx/Np/HNcyoQEW0ta66hChGCteA9WpGxC/g4ivI6c
+	 zBERKD4zyZHPZD4yyKTRvCvDwIK0HuRqXqiPOEC6KfHG0gARlxW/M7CTjWeQAayXmNzBO
+	 yJNz1agENYJbJwfoLu/zDNl0F5RnkiIygg8gQ/GINhjKypbCIX03J2jpNChBNga9v8qnj
+	 rMNbAgsU3do6ZTt/69be1TUhPmreH85wfhSekYEAxzDo84G24QBgLyg8h5vX4G9309g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795007737;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=GDBgSBwB9SZv912xAYmFSFm0+XZuKPzPjOZZNdWEPXQ=;
-	b=v3gnSkyMSFwUJZhOtvTI0WyV1PjSvXTzAD3mI8i4S5pIy3HkAfKVNTHZKF6+Oqt8B5am
-	 zlJcS86LeVG/+GQqZB7sq2QQ6N7JVF+92uqIxE/zAb6GFrWE8SLx1CWyxORYOi6js6qix
-	 8mYHaNnEvKVnUqt5kuJrzCZbLOAkDp5E4jRVSi3ACqUbK7FwUBd4blR+g4OA1ZmQv+wnv
-	 8dMQG5UnkQcS4L4TVI6fNsa5bGc6S1KebxFpYhB2os0fDaWqb+3gWFRRdUX1umSv/KPLp
-	 DqOpn1VIl7IV8465Q5rAVxzC3Rl6bC9fuXsrMz0nJ130VnLdbLN3VwtftbFGL1u1KOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795007766;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
+	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
+	 X-MBO-RS-META;
+	bh=yW4osrFS24wgu8pSOiR70jM4pZlWA15tPUFvK4+40fk=;
+	b=Ns7c7bk+sqsb1272mOq4Re2OmZuk9tQxNxSQbny6Dldyi6K5jWUgVhi9G5bnGmH5xycf
+	 jcybJO1dTU4E5/id72TTNXZxLbj9nQemQnvD3D9TLfChP84yqxSjeaFJnZ9uLQXp8JTz0
+	 8h0eDByZBpc6397oHrBlRL5b1OB8d51dckuClucAwNgXYmrOh/jE94RubyXtC7EfWcBoB
+	 ZVNYfpoNz8dLGygUtYXESqN64Fd4kfAwKC9GzrEfhkkmQ33k3bn8xPaf0246Ash9+dA9H
+	 xUzalOJD0+bsAapcvVRPW/63Qfby1glHEiNZyQVGRP8aJ0ey1GsatFPLvK2BbsIPSYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dw2tFieo;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=aZ71aw2n;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=mailbox.org;
+	spf=pass smtp.mailfrom=mailbox.org;
+	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=kMQ2IVGZ;
+	arc=none smtp.remote-ip=80.241.56.171
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8428A606A32A
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:15:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8428A606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08482606A31C;
+	Wed, 18 Nov 2026 13:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08482606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=dw2tFieo;
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=aZ71aw2n
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1795007735;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=kMQ2IVGZ
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jV2Cw1MlDzMlpB;
+	Wed, 18 Nov 2026 14:15:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1795007756; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=GDBgSBwB9SZv912xAYmFSFm0+XZuKPzPjOZZNdWEPXQ=;
-	b=dw2tFieoV2fUktIlo0TDK4I8UddhaWCMjQ0RpJmBwGRrUxLeTyC9lJV2MMZi1yZ2WLP5dN
-	pYIHMhX/LR1ysEbldW1KdHlw3RLwaNPw0TzqV/TIiPnEsZUkO+pvdhAz3n0nYk9jaOC8r7
-	gfhq3iKct+gLMo+hhnQF3t0piot4PT8=
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
- [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-388-i56h4bqEPOqe_umVS2ct-g-1; Wed, 18 Nov 2026 08:15:34 -0500
-X-MC-Unique: i56h4bqEPOqe_umVS2ct-g-1
-X-Mimecast-MFC-AGG-ID: i56h4bqEPOqe_umVS2ct-g_1795007733
-Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-48e011829easo534696f8f.3
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:15:34 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1795007733; x=1795612533; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GDBgSBwB9SZv912xAYmFSFm0+XZuKPzPjOZZNdWEPXQ=;
-        b=aZ71aw2n8oHteORzK1U/UStkmYdaD98yxYzrW+hkEZQEEtPaFjB1Y6q4hV4xCJpCwx
-         cnsqw71jhW44xU/UIWFXJtPXRLw4bJe7KtTVNGUFrYhkQnPGngKWt/+mC5OstdzU++IZ
-         3esEFjloz3o/Os0RkoqXLx1TvuAQaBu/u2lN74HCh7hgrmNG/xNaJqA9FbFy0HgdA7nK
-         z7CBcJCq1Ij9WGdnNevbF+o45xuwfsprrcxTiqlKYd1kwpeDIUB1wezCjoL3DRNyTmcS
-         zbFa1C2XKYOstvughcn84NKIzTZKoeQ3bIV7C7lTMtIuXJRm1gWKJiRRKp8JxjYdbzRS
-         PNkQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795007733; x=1795612533;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GDBgSBwB9SZv912xAYmFSFm0+XZuKPzPjOZZNdWEPXQ=;
-        b=fUSwOepsUWQqoeCDyDWR6RVahah/wXF0ShKg1CQn0N6YeTCk81Lq5hm4QldFuWDvTx
-         Me26N0IDJaFrm78ppVNlpb8a3dbFqgQDfp06Idg1T96C3SiNHGVdhStM/DlYKATA0jZQ
-         TyyUj1WzEuIytEf1UTD95zJ+Gxw9rmpi1QwW57g9IT3opCAOHuYDob1CoeNBBO3CIo0a
-         hgYjlK4A6aj8+SBspj8RPClU8YzOl64aIJ4nM+qdDGtUCAQcmypyY0UWQyT9h2qJGU1k
-         q+raP/q2Q5a+ybBaesF8xwjlsL6hgcvEDuSsH8w7h4MBtO3RvmwHnjeQjG52KRkNxjF1
-         gRAw==
-X-Forwarded-Encrypted: i=1; AL+hErFZsKZVs66nTjX1WF0DSg33+lMUaSrvazVsrEzDNVHfnWvLBs7KWjYwkK0iOdjHf8eW9OvSH9E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+E9h6OltetHu+5wxgl7lpVcVbNsXGn3npMGsFNRTL6HpIxkxxI
-	RuRdIi6iJ81lBHGLzzRzT32wA4ymv/BgpP9tXicf1YpXB4jo7g7+x/swrIGELmK62bLDL/RlnrZ
-	mZa1kZfGz9217IT2wT6ArIdcWbfRgGG2/jMLCqHYbOpEMnrvwolpTiZ6MlA==
-X-Gm-Gg: AZFdTZdiQsJNEjOoPI8vaKAKDT5wnm9TCPxCfD/PzqjtLqKv+iNBYgTsgWkcXfxuv1Z
-	6LNafOpbwwsAo6jBXo31T5iU8hMaUpacbvRFdYFwIAgUYfufIC8kRUMeApDVBIWLZwJoLYetUpB
-	og+PiuBEdkaQCYyyeHho7M2hD3UuPD/Jh+ZOME29mysxxn59A2mmyz3SfS4xXgXD2SlPNAGRoZD
-	TcezfukvTSxvyMNHxtvrqrvw6wgz2ZYbw+2uH2wIu1qDMU7a8RMKZEkWXcGhw1sW9fD3JnOzYJP
-	bQSvkOKK95s1iphaj9tRsOLsAnQEi7OBqKZmyV3Q0xhPWHxEi2XTYkeW3kgqPmOkOt18BJIKK+R
-	PkYEWjTmg7DEI1zIL+8DxsvhNueNeUzoCrOu7nqyzEAci0pAB8ENVsuTwhAVMatrXhehV51aEK4
-	ZRCYw=
-X-Received: by 2002:a05:6000:1889:b0:4a8:714:7ad4 with SMTP id ffacd0b85a97d-4a807147c78mr1864893f8f.32.1795007733057;
-        Wed, 18 Nov 2026 05:15:33 -0800 (PST)
-X-Received: by 2002:a05:6000:1889:b0:4a8:714:7ad4 with SMTP id ffacd0b85a97d-4a807147c78mr1864799f8f.32.1795007732558;
-        Wed, 18 Nov 2026 05:15:32 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a64b60940csm4651876f8f.0.2026.11.18.05.15.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 05:15:31 -0800 (PST)
-Date: Wed, 18 Nov 2026 14:15:28 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
-	linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
-	boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
-	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
-	kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org, longman@redhat.com,
-	ridong.chen@linux.dev, tj@kernel.org, hannes@cmpxchg.org,
-	mkoutny@suse.com, shuah@kernel.org, bigeasy@linutronix.de,
-	clrkwllms@kernel.org, parri.andrea@gmail.com,
-	m.szyprowski@samsung.com, kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com, cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v7 08/40] sched/deadline: Do not replenish a boost from
- cleared parameters
-Message-ID: <av2k8JlLvUcBBOhn@jlelli-thinkpadt14gen4.remote.csb>
-References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
- <cefacab5f1c0e7617f17e050af4ef5f6db01700a.1794922146.git.mathieu.desnoyers@efficios.com>
+	bh=yW4osrFS24wgu8pSOiR70jM4pZlWA15tPUFvK4+40fk=;
+	b=kMQ2IVGZHdYSJi1qr7AZ9ssQhavYnyXjudHLXhc5Gz4zhD67Q5LNKVdw/Q7Kf3s7YRMYyT
+	z14c4Gxh3PGt5WK59jRYiVr1b2r1qNmAdnntGsByfYF4p0ivZZ7H2p0RvH+EFN9Nez2qSS
+	cUP+vHa6VeOhBAlRkNj7rIOY33r84D5HLofQpEcar11/GSuVbkA/tSPTuWzf3aVtMF3Wmq
+	B3GGpAFcM8mKji5LdLlnzrMuA8AUTiySFzS5Hx/epY8d4q7Yhu0urRLCB5XylYeA34k8EI
+	vYD6ldQhNbIySbQZT5QISSNB5Llj01NBQehK86haf2EU0duawmxW41BL0xPb6Q==
+Message-ID: <3792b7f8f4729820a924e0d60d17c97489827732.camel@mailbox.org>
+Subject: Re: [PATCH v2] dma-buf/dma-fence: Prevent misordering for error
+ checks
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Gary Guo <gary@garyguo.net>, Philipp Stanner <phasta@kernel.org>, Sumit
+ Semwal <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=
+ <christian.koenig@amd.com>,  Simona Vetter <simona.vetter@ffwll.ch>, Chris
+ Wilson <chris@chris-wilson.co.uk>, Danilo Krummrich	 <dakr@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Daniel Almeida	
+ <daniel.almeida@collabora.com>, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 18 Nov 2026 14:15:54 +0100
+In-Reply-To: <DMYCSXNA6VQ9.22FS1PMBBYWRO@garyguo.net>
+References: <20261118110914.1471416-2-phasta@kernel.org>
+	 <DMYCSXNA6VQ9.22FS1PMBBYWRO@garyguo.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -128,120 +81,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cefacab5f1c0e7617f17e050af4ef5f6db01700a.1794922146.git.mathieu.desnoyers@efficios.com>
+X-MBO-RS-ID: 1cf2ae9d8dfe671f094
+X-MBO-RS-META: ko59io9p5mbdaggd9b7y5om1iqooo31t
 
-Hello,
+On Wed, 2026-11-18 at 12:59 +0000, Gary Guo wrote:
+> On Wed Nov 18, 2026 at 11:09 AM GMT, Philipp Stanner wrote:
 
-On 17/11/26 09:10, Mathieu Desnoyers wrote:
-> When a SCHED_DEADLINE waiter boosts the owner of an rt_mutex, the owner
-> runs on the waiter's parameters, through dl.pi_se. Commit 2d3d891d3344
-> ("sched/deadline: Add SCHED_DEADLINE inheritance logic") calls this a
-> temporary solution. The owner is never throttled. When its runtime runs
-> out, replenish_dl_entity() refills it at once from the waiter's
-> dl_runtime.
-> 
-> The waiter can leave SCHED_DEADLINE before the chain walk deboosts the
-> owner. Its parameters can be cleared in between, at its 0-lag time.
-> replenish_dl_entity() then loops forever on a dl_runtime of 0. It
-> holds the rq lock with interrupts off, so the owner's CPU locks up.
-> 
-> O is a SCHED_OTHER task that holds the rt_mutex L. W is a SCHED_DEADLINE
-> task. T is any other task:
-> 
->   CPU 0 (O)                         CPU 1 (W)                     CPU 2 (T)
-> 
->   locks L
->                                     blocks on L
->                                       rt_mutex_setprio(O, W)
->                                         O->dl.pi_se = &W->dl
->                                     sleeps
->                                       task_non_contending()
->                                         arms W's inactive timer
->                                                                   sched_setscheduler(W)
->                                                                     W leaves SCHED_DEADLINE
->                                                                     task_rq_unlock(W)
->                                     <W's inactive timer>
->                                     inactive_task_timer()
->                                       __dl_clear_params()
->                                         W->dl.dl_runtime = 0
->   <tick>
->   update_curr_dl_se()
->     enqueue_task_dl()
->       replenish_dl_entity()
->         runtime += W->dl.dl_runtime
->         loops forever
->                                                                     rt_mutex_adjust_pi(W)
->                                                                       rt_mutex_setprio(O, W)
->                                                                         spins on O's rq lock
-> 
-> Fix this by reading the inherited runtime, deadline and period once, and
-> by not refilling from cleared ones. They are cleared under the waiter's
-> rq lock, not the owner's. So test all three. The owner stays runnable.
-> It gets no runtime. A negative runtime is reset to 0: the owner's own
-> reservation does not pay for the boost. An owner with no parameters of
-> its own gets a deadline of now. A deadline of 0 would mark its dl_rq as
-> empty. The wakeup of a boosted task already gives that deadline when its
-> donor is cleared. The owner runs until the chain walk deboosts it, or
-> until it releases the lock. That also covers sysrq-n:
-> normalize_rt_tasks() changes the waiter without a chain walk. The
-> warning stays for an entity that is not boosted.
+[=E2=80=A6]
 
-The above paragraph is a bit hard to decipher. :)
+> > =C2=A0static inline bool
+> > =C2=A0dma_fence_test_signaled_flag(struct dma_fence *fence)
+> > =C2=A0{
+> > -	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
+> > +	/*
+> > +	 * Best-effort ordering of the locklessly evaluated signaled-bit,
+> > +	 * especially so that reads of fence->error are not misordered.
+>=20
+> I am not sure if this should focus on the error, or it should just provid=
+e a
+> general guarantee that anything happens before dma_fence_signal is visibl=
+e when
+> signal test returns true. I would lean on the latter?
 
-Maybe something like the below?
+See below.
 
----
-Fix this by not refilling from cleared parameters. The donor's
-parameters are cleared under the donor's rq lock, not the owner's, so
-replenish_dl_entity() can see them change under it. Read dl_runtime,
-dl_deadline and dl_period once, and bail out if any of them is 0.
+>=20
+> > +	 *
+> > +	 * The release counterpart is typically ensured like this:
+> > +	 *=C2=A0=C2=A0 a) Error codes must only be set before a fence signals=
+ and
+> > +	 *=C2=A0=C2=A0 b) The fence's spinlock's barriers effective in dma_fe=
+nce_signal()
+> > +	 *=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 ensure ordering.
+>=20
+> Spinlock has nothing to do with this. The only thing that guarantees the
+> ordering is test_and_set_bit in (c).
 
-On bailing out, the owner gets no new runtime, but stays runnable and
-unthrottled. It runs until the chain walk deboosts it, or until it
-releases the lock. Keeping it runnable also covers sysrq-n:
-normalize_rt_tasks() changes the waiter without a chain walk, so a
-throttled owner might never get to release the lock.
+Why not? A spinlock includes full barriers. If it were set_bit()
+instead of test_and_set_bit(), it would still work.
 
-The bandwidth the owner consumed while boosted belongs to the donor, so
-a negative runtime is reset to 0 rather than charged to the owner's own
-reservation. An owner with no parameters of its own gets a deadline of
-now. Its deadline must not stay 0: the dl_rq uses an earliest deadline
-of 0 to mean that no deadline entity is queued (see inc_dl_deadline()).
+>=20
+> So probably easier just to say something like
+>=20
+> =C2=A0=C2=A0=C2=A0 /* Pairs with test_and_set_bit() in dma_fence_signal_t=
+imestamp_locked */
 
-Until the deboost (which should happen "soon enough"), such an owner
-sorts first on its CPU's dl_rq and runs ahead of the other deadline
-tasks there.
+It is easier.
 
-The warning is kept for an entity that is not boosted.
----
+I am, however, unhappy with the unclear state of the API contract. It's
+still unclear what the signaled-flag even is supposed to mean. So this
+comment was also supposed to hint at the unclear state.
 
-> The reset bounds the overrun. But a runtime of 0 still counts as
-> exceeded. So until the deboost, update_curr_dl_se() still requeues the
-> owner at each update. An owner with SCHED_FLAG_DL_OVERRUN still gets
-> SIGXCPU.
-> 
-> With a 300ms debug delay before rt_mutex_adjust_pi(), v7.4-rc2 locks
-> up in 8-CPU VMs. A kernel with this patch does not.
-> 
-> The Sashiko AI review of the third posting found the lockup. Juri Lelli
-> suggested this fix in place of a larger one.
+The desired meaning aimed for by Christian is that it's only meaning is
+"hardware is done".
 
-Also for other changelogs, I am not sure this kind of info adds much, as
-I fear it will be hard to track down in history anyway.
+But as we see here it has implications for the entire semantic, too:
+a) signaled =3D=3D true -> the error code is valid (what else?)
+b) The fence has either signaled or "is still signaling", i.e. running
+callbacks
 
-> Fixes: a5e7be3b28a2 ("sched/deadline: Clear dl_entity params when setscheduling to different class")
-> Suggested-by: Juri Lelli <juri.lelli@redhat.com>
-> Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-> Cc: stable@vger.kernel.org
-> Link: https://lore.kernel.org/all/avL8oOtjKqVNR7-l@jlelli-thinkpadt14gen4.remote.csb/
-> ---
+I still maintain the position that it is inconsistent to run
+test_and_set_bit() under lock protection and evaluate it without the
+lock. Should be one or the other, not both.
 
-For the implementation,
+Note that this patch intends just to hot-fix the error code evaluation,
+not to make the fence API fully consistent. It's currently not even
+clear whether manual flag evaluation is legal. It used to be legal. I'm
+the one who added dma_fence_test_signaled_flag(), but mostly for
+readability, not for semantic correctness.
 
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+It should be illegal to evaluate error codes with anything other than
+dma_fence_get_status(). But there then the meaning of the spinlock is
+currently also undefined. The lock there, with the current thinking,
+would seem surplus with this patch here.
 
-Thanks,
-Juri
 
+P.
