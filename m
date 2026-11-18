@@ -1,95 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795060091;
-	b=Ciro2sPIDqw9rnUNB6DIFkXO20d7PAPv8Fz8jAW6HI3Gzf1Mij7t9wq7BHVmR95KMyw3
-	 rA2KYy7be3TyqVqcPh5dF+QHfsyLsSbW9XiYtiopzx0m1JvJDt56/hXgJ22TananD8PY/
-	 j7+9VZJPHxSBrfENJVxv7qvY+o4eldxyrELBhyQEeus/kG7CshFxdUd8uqWFCSoCT47G7
-	 KosLy+8P+OspEU6nMg1eu1Qv4bSOkljNPJ0qi74gWmydAB+N22g+Vp1zGTTiQCH+n0lxc
-	 yXHatxWt0nfVXp1QXTPZ2jE052N9OFUWB6o0p4STYw3NSyLDfec9fppdNRN9JJK3Lwg==
+	b=QhDhTKAG2PJH+YZozmEdMe/cQZa/A2LqjDAp+7XcZFEcwVJLuWmpHYTmSEOm2jOgwCYB
+	 WFy7yxunmc9VJzRs4Je46m2QOfjR8JWdqka7s8WVhKZgGzCZ8wfFwgfRf7pbBbrOqObGY
+	 VnnVlW0/xSq/7gF2oKSpr2kUMmMzTSjdqN62vE9jyC0njiA6pPfihJjLWwBWuAc+GQhj5
+	 YeWe9BP6gEatlZp7cE72VSRP74c4DECj1unn77leDkxPszFjqdMO7PBNyHlCp+ZwOowGm
+	 6vXG0pcNYUw9zE4j82nRSyOQYdWQXdDwUFL+tP69UvkbfrYk02AcjW68kDd4zAHg4Qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795060091;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=S5D8kWPJIdUaQq5yb68+AQ6+c9WqO7R4Em+vte/XbIk=;
-	b=DpmweOZ/bO7wdQ1KcXOGs+E3YFa7jybYr5aZw3M6ypWxr4zQjrfC4Zofyc/KUoMZ04WL
-	 6qaHXl1WCIQpoKraOvkF1egxTrbUnl5t0pWmlFOWc7ii+ak/JdSD9rBzzyXYPDiprN22Q
-	 0L2gJvLffO+QZeTk78aRfI9MEji39jprk4+N208M4EsIZudmJV+uzNW+5M5RDUUz/2sba
-	 7SafUaCbCV1xXl+7PtKQ5uyrG8TtsZwTnOKx7aVsDoGe+Yl5Z9XaFpzOJDBIGps9wyLD1
-	 pImAtxaQ71TkJgboBkHgGwdorsyd/09GIefVU0fItxm8tikPDcmKp8DT+A5ZVLcZE2g==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=E414nUUn4lm1Qy5BRZeoEYA2Gv0Z51cnNTgJCe13GPY=;
+	b=2+VnHmeMs0CaEdfv721E4ZTQa29ieXKu61YeYuJiD0fhz3VZFEzZ+dfCKxgkr2yPZoB7
+	 rLL6gw1OD1OUz6n9BJ3CiMwsPYj6bU6XF+7ChHUXqvOCRLfJKadx7/4cBgvUpNBAYb6z0
+	 bqy9E/eIwoBTytAPeuh/CwTAUxYyV20l1n6QuigQfST9OtbxTJxBqq9bwAf7LzboBIb2Z
+	 /B4a2u3vBD8F5SNZ/1y2cJlfjbdbLl+4S7a3EUDElcvSfRmiKn1PgmO5RKm36/mrt+Qhk
+	 JbA/bINQWRF9rTbquJ0NcUAdIug+S72R1/LntiKziNOt/9aSSZbrGlBOSmPTavDEbrw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X9R2psxl;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fy7oIgD2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C3E606A325
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 03:48:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5C3E606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4654606A32C;
+	Thu, 19 Nov 2026 03:48:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X9R2psxl
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b3b3c072eeso1098775a91.3
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 19:48:10 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795060090; x=1795664890; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=S5D8kWPJIdUaQq5yb68+AQ6+c9WqO7R4Em+vte/XbIk=;
-        b=X9R2psxl/Q2649gdnN0PuQFx0A8OsZgJ0zF36kzeEn8A1fSUVc/ZNrRMUYVTDRTkvm
-         jbPvHL/++HGajfR+RBB5T4zjK6ZpNxLyUFe9kCR4YfcyLlD3QDZ9Eg6YVPyUzJ4jfrS1
-         XVsNfJp+6KfEIy0usrBzX1UBz8w05UWjg526OgPCShxgbLZDEY5Xs7TFNhTASXEg6sCS
-         yBPzowEPMiroW64x3VCdt1GwRLVdw6CSAon+0w07S0fwujpCrwqMI3CWl7omXHaOE/TM
-         wmQH5wlSMXS7T2o3hRC5aa23/p/N6ekNt6+YiizVQ+JsxMb1aYFD2nQ+VUAJDJmh7GSy
-         1OTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795060090; x=1795664890;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S5D8kWPJIdUaQq5yb68+AQ6+c9WqO7R4Em+vte/XbIk=;
-        b=sQGsnZGsIz3G0lNMsFg9+8sVg5Wi4X0mmzF4LkV1WUTm/5A19w+xu/mk4IwhVfq/+9
-         pzJN2/WmWeNKa8Okp3la5nH/oj69MI7MPAT+SX3iFYMTMwMmRY5kzWEa97YBsWA6aOhz
-         kdGAEgciClPwatbEt+OsCfhl4I6uMd2Rw2i+qObEcZlc/gmaqphCR36pP20CqGDE/AHh
-         4pnbuEkM4RQIeDRmJGCw64DP64HfUK11itE5Y04XVaA3cSqd/qXwKmHa1HLkAHSf7fE8
-         BFQ8GYHLqsahiSCOAdppm6Qd+/yzntljY4gNwKlsnDtBMFLsSHSYAn6l5GHpmDpRYE/f
-         8KbA==
-X-Forwarded-Encrypted: i=1; AL+hErGZc0GoF0hGGSrrtcDo5QeoSCG7OMNI8DwGPgl6Er4USue06a3suF/QJIBpA0yi4pmlD4CWVbg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9a8pIshrf+mqmfo0EPtvP7VwMzk239ub5qrTUBClNdLqSxVe+L
-	un2Ya8ukKmvStOxGhBIn64joIWMJbaBFLltq3oUYmQ81tPyVkVAIioRv
-X-Gm-Gg: AZFdTZeNeCjtSALotFmofqw5r3rgvheGE+vrCOuI+fBbsqehDEHKA8Sbhx7m+S03Zx9
-	oOJsHLABZDwotytUZHFgVtgcORvNVYzM235bLVWAalmTAXNibOghV3sfjXrtN9cMcXQJr/RRI5O
-	3WcnBWKfdbEcGygjC9FXgyMOQAWU+Y/40PCTZlLjr4Bk/QQWsiTdYXOBskjuKx6FWXpsvhM+sGp
-	Jq7jDJ7Irtf68FZF5gSz+6T+RNh179Lx29ibrbibXp/xQ+Q72xUY6u6ig+un/x5wrCQpUI54VsE
-	n6dIAv2Qf2DLWCsFD4fWXzS6wCOn5J5EootRGW2CFyAA9RjobbVCAUyhsn8hk0TA9WC8zwL++K4
-	sUc8nWJwXEhF/b0doPUqfH+RkZaDP62qRPR9xDBR2xKpzMWZbtGOUN5s0zbEKftdm2uKvYpwCiq
-	5dyQd2rc0QBAO5rWqUibPmIE6LP08nr6WZUDXwJeo7lkgGRajKo/1cPnKNEFLaBYh2ekJnE4eMR
-	fF8WmSoDTNvxTULGQK7v1I0K1jQuy1ev28obybY2O8lylm+HRWDFGYm95OP+ZD4hBffmxnlf0UY
-	Y7gzcQAhsOrqhC8DVcnIWMLX6eqDa5C77fo06HiNzQk2hugR
-X-Received: by 2002:a17:90a:d445:b0:3ac:8897:7bab with SMTP id 98e67ed59e1d1-3b3d0686792mr4179890a91.6.1795060089811;
-        Wed, 18 Nov 2026 19:48:09 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d629ccsm316045a91.7.2026.11.18.19.48.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 19:48:09 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] powerpc/papr_scm: initialise metadata_size before reading it
-Date: Thu, 19 Nov 2026 12:47:45 +0900
-Message-ID: <20261119034745.1460361-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=fy7oIgD2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365BD1F000C4;
+	Thu, 19 Nov 2026 03:48:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795060091;
+	bh=E414nUUn4lm1Qy5BRZeoEYA2Gv0Z51cnNTgJCe13GPY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=fy7oIgD2ubN73hkfhmQvSZ8nLdXt86TRIsJqZuGEBZmiClO6en0hXtgOLItMuCFyd
+	 g+oOvBJ+1iBRCCMCJ2VDLIRBJbepB6QU050Mgxl1A5B6RdsXXyj/DQlqxqx25SSign
+	 S50z4sXakbrKqOrUZRkTeUAx4G6oWCTQMyi0ZA/0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	"Gregory Price (Meta)" <gourry@gourry.net>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 1076/1848] mm/userfaultfd: compare exact registration modes before skipping
+Date: Wed, 18 Nov 2026 15:51:54 +0100
+Message-ID: <20261118150003.145262218@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
+References: <20261118145911.150052362@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,39 +65,50 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-papr_scm_probe() reads "ibm,metadata-size" into metadata_size without
-checking the return value, and the property is optional, as the comment
-right above the call says.  of_property_read_u32() only writes the output
-when it can decode a value, so for a device tree without that property
-p->metadata_size is set from an uninitialised stack value.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-p->metadata_size is the bound for the metadata get/set commands:
+------------------
 
-	if ((hdr->in_offset + hdr->in_length) > p->metadata_size)
+From: Gregory Price <gourry@gourry.net>
 
-so a garbage value decides which metadata accesses are accepted.
-Initialise it to zero, which makes those commands reject every access
-when the platform does not advertise a metadata area.
+[ Upstream commit 05f64f211a25f7d9771d4fde109aad97174a1cf3 ]
 
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Changing registration from MISSING|WP to WP returns success but leaves
+MISSING enabled. The no-op check sees that WP is already set and skips
+the update, so later accesses to missing pages still wait for userspace.
+
+Skip the update only when the current and requested UFFD modes match
+exactly.
+
+Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
 Cc: stable@vger.kernel.org
+Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+[ david: apply fixup from Lorenzo ]
+Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+Link: https://patch.msgid.link/20261031-fixes_core-v3-26-d6437171ecc3@kernel.org
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+[ sashal: Replaced newer VMA bitmap helpers with an inline integer flag comparison using the VM_UFFD_MISSING | VM_UFFD_WP mask. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/powerpc/platforms/pseries/papr_scm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/userfaultfd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/arch/powerpc/platforms/pseries/papr_scm.c b/arch/powerpc/platforms/pseries/papr_scm.c
-index 5c3bf06bb59b..e9895e9b070c 100644
---- a/arch/powerpc/platforms/pseries/papr_scm.c
-+++ b/arch/powerpc/platforms/pseries/papr_scm.c
-@@ -1361,7 +1361,7 @@ static struct notifier_block mce_ue_nb =
- static int papr_scm_probe(struct platform_device *pdev)
- {
- 	struct device_node *dn = pdev->dev.of_node;
--	u32 drc_index, metadata_size;
-+	u32 drc_index, metadata_size = 0;
- 	u64 blocks, block_size;
- 	struct papr_scm_priv *p;
- 	u8 uuid_raw[UUID_SIZE];
+diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
+index 21c32d941f4a9..23230321c7756 100644
+--- a/fs/userfaultfd.c
++++ b/fs/userfaultfd.c
+@@ -1409,7 +1409,8 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+ 		 * userfaultfd and with the right tracking mode too.
+ 		 */
+ 		if (vma->vm_userfaultfd_ctx.ctx == ctx &&
+-		    (vma->vm_flags & vm_flags) == vm_flags)
++		    (vma->vm_flags & (VM_UFFD_MISSING | VM_UFFD_WP)) ==
++		    vm_flags)
+ 			goto skip;
+ 
+ 		if (vma->vm_start > start)
 -- 
-2.51.0
+2.53.0
+
+
 
