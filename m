@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794969134;
-	b=357lp8HXa4Bq9yAMCc6ussvvHNkCOef1nbr8qoj6JE/S+hB3sBzM7GA40JJVlwKM5uGu
-	 88097oY4q3C0/TDpns46qZPUbS3rrGaI3/GPZ4mmBdztZbFqfhD4SbaYdRg6RZj3FF/Tf
-	 H9NalibagMA2NfNA1lWqD/SbK3/oCw9UaBXX/1WEpwNDE3gI8b05Ejpw+Ffup0ec7tOSl
-	 Tpq/CH9DAH2uJ1sEegMwIqhGXPyk9ywgI/sHE31JaVkwQdzT9Rh2w1+XNWHL9OUfBSaCi
-	 EJGvos/kcZOLE0Y72qLZk4nt0PUQ504oLCiKX6z87Vbc00MzCo8XpNTsXmESRb5ydHQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794969134;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=g8HIvnqqvGqRI0REomTZZBB1KyLjsxfTvtaiObTtY0o=;
-	b=cPmNV4kwJfq+YynInDa+JYOWe/8eSxaeSfJT9Zq81QiUhvSe5kF+IlJFlPgyhGc+ujdv
-	 TCUaZjAqNW0E3Lv4m/2/K3MrP3LcZ62gOAOJUU4R+IpZrsIDIn+jmofuNqjWrfEJ0Lgw+
-	 O3T4ZzsneJwYO1NC3bRCnAb8ov+BAB4cYYXOFUxj3kC8c55/ND0pNxBs+ai1ddJ+PxwTU
-	 Rtpmaqb5GhPumi/XolCCS9kl7suiQX9DKeOhJDD7wc9zStGYR+WzP+4TywiDGUmeRGFGx
-	 ybQL1YJqp3xwK/DbW3Fozf43VQusli+nKEEmVTqeCl5ZOK83OzV/IsIKG/07fJZy0nA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AYWNqaoT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0303A606A325;
-	Wed, 18 Nov 2026 02:32:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AYWNqaoT
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1794969133;
-	b=PgdDmhcu7yv0d+zWQgAKG+SY/0byijFs7m0C2UBu5YNmkxqtsqxqb5ydSI/72lK/9GdD
-	 cHLZ/jFQboO5irkJZemnH/Bh3+r8dkzkNx3DDNmMCLi1oq4cdN2hZE4nTjOF5UzmkQ3pe
-	 v2jakp6s7rtBzD2w2wKtXYSnbQIDtUsbkpNAPMUsF9Z1zSOvkhH0NFQ05NcNip2Xh3wW2
-	 geZu46sCNQw327EV+FIAHxzLGJvGGHm9gDubKxt1Er0qYa9dJjbmoyo0axCQ9gIk+4F2u
-	 rXDEd9UXBNKGVHcsxGNyjsHKuiJQswSK1Fm+ubTFPnPUYnp2wQGd9cnKirEjLQSDEsg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1794969133;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=g8HIvnqqvGqRI0REomTZZBB1KyLjsxfTvtaiObTtY0o=;
-	b=l20cCV6WN6lGPVayBZGI+vc78bVPibwzzdgnK2ArGQI6A1u+wjGeuSqtSaYHoUQknUmy
-	 Ozn1b2pObMrTpNWe1ND6YLUr9p4/FMSxqLs8OxDn7UV0ciarESazq0V/K7KokqvZcQ76U
-	 7kSC8jLhUJ7KMxVYSfdAPJxpuXFaIVL4Xi7KQCat0xrW/C/v/i01FzMcT6oxqt8aGp0Cx
-	 8Sp50+uXScsBaxO2cozRNDw/NujM7DJ+9Tppbb5H14X0xy6urdzRtb9xD75NZ8BO1I4QN
-	 9aa75UXX+ZQTwJaZPXIWzu5isLZPj3iVDmGzmhW419iswuYT1rUIHEcpABVAGL19sYg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.236
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794969617;
+	b=nYzxb+CluYOsNRBxyymmDTp3zdLZzO0HLU+p5iuWL9WaEZVFGC9WL05NKZCANUJK1V25
+	 F2DIaDGpqq3wUnO+NgvU0G2lb5Uo+yoMXcWDv3DMYit0PHWKck5pH3CZ/PtBXpA81ejjp
+	 0SdM1/YRdYs7yQsJsDpdKjFWeSDUkpxHWbia/4i4ao/25Fh2b5hEhrIYh6AL7WUodr5fF
+	 NIwZHMjc3NvMfTQYTeGXRuZV/bp1N3M5FlykkBNdOnp+pxQE2oh6SfEdNZ2k/+QutXEVW
+	 Bw7XaPqqi+hovou2pxzMIlGcwTISM9rJyeVtuhL2p7FNAYIj26sC3uoqF6/w0PD/Esg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794969617;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=pN+R8iE5mrilm1yEawpmQGcShEPtoVSRmY5LE/o+UqM=;
+	b=5P+K+YCX/KZq/AYjLJeU8/8IO1ozuMzD4UyjC/TqCaec4ZhfTjBOX8MMRIzq7OseMjZf
+	 xJ+a5VvlFU/LcvtAM3ZATGNAiwcc9lZuNEVKz7Z8DPWdyN1YXKO8M/Cqw5we47SlWmGEc
+	 ezWGWZIAG/od2KUdstjPUJpvUXzyyXvI/vCiV8OQvUJ/8jzGYDeB/4Dk83Tc7yGihi2ga
+	 laneIxQUWA/29bS749DV1mKaFIwCZJm6ar/Ct7sos9K+CAhZKObT1qrRSZudBOiALPqbX
+	 Vu67iATsYtoEwCclThonEYuDVNN2m0poHZEzuTsmt2DEeR2jlwHMVft3iQXSus8vssA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=re8ycFdO;
+	arc=none smtp.remote-ip=95.215.58.236
+Received: from mta1.migadu.com (out-236.mta1.migadu.com [95.215.58.236])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 370381F000C5;
-	Wed, 18 Nov 2026 02:32:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794969133;
-	bh=g8HIvnqqvGqRI0REomTZZBB1KyLjsxfTvtaiObTtY0o=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=AYWNqaoTUpFohkx9Vy8klujvR3usQqbmB7e0XT0tmcomnoCfDcA6e01O1RJbIOI2H
-	 Z+uQN28OcJW6IRqN3rGl4t0OjyZyVuqFFfCeRqo0/2890yKrgpp/tVXIcD5RrTqcOT
-	 c/tBEmJIIzlNzzAo8jLTpKd6vAUT1aI/JDPPWv1MI9mBUohV9oku2t3M5Q3IuwvmJW
-	 hAc0ARQfwVyjB3wkbME3SUPDeKQxmTKHm/xm3DIKS6Ts7IRJ5h4y4rqz4PY1Ko59qt
-	 5Sp7Y4Mvj4ZbKl7sSc/Pj1UabPRDeWxIfG1liRLQiYnSqnSgwhOhYq7ozPvie7RYHf
-	 PDk227aefbDvA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8AEA54ABA8;
-	Wed, 18 Nov 2026 02:32:12 +0000 (UTC)
-From: Zi-Hao Huang via B4 Relay <devnull+zi-hao.huang.mediatek.com@kernel.org>
-Date: Wed, 18 Nov 2026 10:31:42 +0800
-Subject: [PATCH v2] block: fix PF_BLOCK_TS/current->plug ordering in
- blk_finish_plug()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD758606A32C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 02:40:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD758606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=re8ycFdO
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=0YmCdvKvcbyA+q3izi5xAhGTNdvmCrKT8RtQD9KuPwU=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1794969614; v=1; x=1795574414;
+ b=re8ycFdOaNbBIiMScTaXBZ6twyyXjxZvbfz90jzS97241xxo6zZdTBKsC3y+khI9fI0CQwZZ
+ 3Uh0RQ2ASHh1yNf93MMMEDBtvj1up/+cwHi5zQtvwb0iIjCTwIEIqP0favDb7UP8kgENez/AfJf
+ wq10XozYV0hLlgmuovDwiKXE=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ab029116bda70b98;
+	Wed, 18 Nov 2026 02:40:14 +0000
+X-Mizu-Trace-ID: ab029116bda70b98
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2c65fe4b-bea8-45e3-b51e-352139769a59@linux.dev>
+Date: Tue, 17 Nov 2026 21:40:11 -0500
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,104 +58,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261118-blk-plug-fix-v2-1-4acbeec5d512@mediatek.com>
-X-B4-Tracking: v=1; b=H4sIAA0O/WoC/3WMyw6CMBAAf4Xs2TXdNSLx5H8YDi0ssOGZFomG9
- N+t3D3OJDM7BPEqAe7ZDl42DTpPCfiUQdXZqRXUOjGw4ZyIGN3Q4zK8Wmz0jY3JC2eYL64wkJL
- FS9LH7lkm7jSss/8c941+9s9oIyS8NZZtznR1Rf0YpVa7Sn+u5hHKGOMXW3GED6sAAAA=
-X-Change-ID: 20261112-blk-plug-fix-f068b0223b80
-To: Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Chao Yu <chao@kernel.org>, stable@vger.kernel.org, 
- Zi-Hao Huang <zi-hao.huang@mediatek.com>, 
- Sandeep Dhavale <dhavale@google.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1794969131; l=2708;
- i=zi-hao.huang@mediatek.com; s=20261112; h=from:subject:message-id;
- bh=yzVnLTZw+V0byMgdM9XGWdyVxiHY2j5nto3cl5zYTUw=;
- b=YreCA/+/lxEewEeUdbmQqFTXZK9vYT/ZIJn38ItYb2h92mIT9j114TDFWBTozc6GL+lHZXlrX
- 496eudRghoJCRE0IrwkTnO0nnGdLBh5hc83YVTYF2yVzBYdKYnAh0Mm
-X-Developer-Key: i=zi-hao.huang@mediatek.com; a=ed25519;
- pk=tbMIVegYSSBtz5MaQSUCX9RJO88MA/AI5cbmQKbaoIc=
-X-Endpoint-Received: by B4 Relay for zi-hao.huang@mediatek.com/20261112
- with auth_id=1493
-X-Original-From: Zi-Hao Huang <zi-hao.huang@mediatek.com>
-Reply-To: zi-hao.huang@mediatek.com
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm: shmem: limit forced anonymous shmem huge orders to
+ MAX_PAGECACHE_ORDER
+To: Jingyi Sun <1045704958@qq.com>, Hugh Dickins <hughd@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <tencent_1B8BBAF215484255F04168752D9BA778EE08@qq.com>
+Content-Language: en-US
+From: "Luiz Capitulino (Red Hat)" <luiz.capitulino@linux.dev>
+In-Reply-To: <tencent_1B8BBAF215484255F04168752D9BA778EE08@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-From: Zi-Hao Huang <zi-hao.huang@mediatek.com>
-
-blk_plug_invalidate_ts() runs on context switch and assumes that
-PF_BLOCK_TS set implies current->plug != NULL. blk_finish_plug() breaks
-this: it clears PF_BLOCK_TS in __blk_flush_plug() and then sets
-current->plug = NULL, with plain accesses.
-
-clang inlines __blk_flush_plug() and emits the store to current->plug
-before the store that clears the flag (arm64, Android common kernel):
-
-  ldr  w8, [x20, #0x44]     // w8 = current->flags
-  str  xzr, [x20, #0xaa8]   // current->plug = NULL
-  and  w8, w8, #0xdfffffff  // w8 &= ~PF_BLOCK_TS  <- preempted here
-  str  w8, [x20, #0x44]     // current->flags = w8
-
-If an interrupt hits there and preempts the task, the task is later
-scheduled back in with PF_BLOCK_TS set and no plug, and
-blk_plug_invalidate_ts() writes to NULL + 0x20 (plug->cur_ktime):
-
-  Unable to handle kernel NULL pointer dereference at 0000000000000020
-  pc : __schedule+0x108c
-   preempt_schedule_irq+0x48/0xa8
-   el1_interrupt+0x48/0x8c
-   blk_finish_plug+0x6c/0x18c
-   ext4_do_writepages+0xd3c/0xef8
-
-The window is only a few instructions wide, so this is rare. It was hit
-at cycle 127 of a warm reboot stress test.
-
-Add a compiler barrier so the flag is cleared before the plug is
-dropped. A compiler barrier is enough because the race is with
-preemption of the same task on the same CPU. With the barrier, the same
-build stores current->flags before current->plug.
-
-Fixes: fad156c2af22 ("block: invalidate cached plug timestamp after task switch")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zi-Hao Huang <zi-hao.huang@mediatek.com>
-Reviewed-by: Sandeep Dhavale <dhavale@google.com>
----
-Changes in v2:
-- Point the Fixes tag at fad156c2af22, which dropped the NULL check and
-  made the preemption race possible, and drop the stable version
-  (Sandeep)
-- Collect Reviewed-by
-- Link to v1: https://lore.kernel.org/r/20261112-blk-plug-fix-v1-1-7fa2a6215b8d@mediatek.com
----
- block/blk-core.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/block/blk-core.c b/block/blk-core.c
-index 8836c7028568..ad2a8e4fe7a8 100644
---- a/block/blk-core.c
-+++ b/block/blk-core.c
-@@ -1299,6 +1299,12 @@ void blk_finish_plug(struct blk_plug *plug)
- {
- 	if (plug == current->plug) {
- 		__blk_flush_plug(plug, false);
-+		/*
-+		 * blk_plug_invalidate_ts() runs on context switch and expects a
-+		 * plug whenever PF_BLOCK_TS is set, so clear the flag (done in
-+		 * __blk_flush_plug()) before dropping the plug.
-+		 */
-+		barrier();
- 		current->plug = NULL;
- 	}
- }
-
----
-base-commit: 067c5c24cef23d913b67eaaf71ae67e7169a6620
-change-id: 20261112-blk-plug-fix-f068b0223b80
-
-Best regards,
--- 
-Zi-Hao Huang <zi-hao.huang@mediatek.com>
 
 
+On 11/17/26 7:16 AM, Jingyi Sun wrote:
+> When the top-level shmem_enabled knob is set to "force",
+> shmem_allowable_huge_orders() returns huge_shmem_orders_inherit for
+> anonymous shmem without masking it with THP_ORDERS_ALL_FILE_DEFAULT,
+> unlike the other return path at the end of the same function.
+> 
+> huge_shmem_orders_inherit defaults to BIT(HPAGE_PMD_ORDER). On arm64
+> with 64K base pages HPAGE_PMD_ORDER is 13, while MAX_PAGECACHE_ORDER
+> is 11 because of the xarray split limit. With shmem_enabled=force, an
+> anonymous MAP_SHARED mapping can therefore get a 512M (order-13) folio
+> in the page cache. Splitting it later, e.g. on swap-out from
+> shmem_writeout(), triggers
+> 
+>    WARNING: lib/xarray.c:1051 at xas_split_alloc
+> 
+> and the split fails, so the folio can never be swapped out.
+> 
+> This is the same problem that commit 9fd154ba926b ("mm/shmem: disable
+> PMD-sized page cache if needed") and commit b66b1b71d7ff ("mm: shmem:
+> avoid allocating huge pages larger than MAX_PAGECACHE_ORDER for shmem")
+> fixed for the other paths; the force branch was left out. Mask it with
+> THP_ORDERS_ALL_FILE_DEFAULT as well.
+> 
+> Reproduced on v7.3-rc2 in QEMU (arm64, 64K pages, -cpu cortex-a72,
+> 4G RAM, zram swap): with shmem_enabled=force, a PMD-aligned
+> MAP_SHARED|MAP_ANONYMOUS mapping of one PMD size got a single
+> PMD-mapped folio (ShmemPmdMapped: 524288 kB) and MADV_PAGEOUT
+> triggered the warning above in 3/3 runs. With this change: 0/3.
+> shmem_enabled=always and 4K pages did not show the warning. The code is
+> unchanged in v7.4-rc3 and in mm-unstable, but the test has not been
+> re-run on those trees.
+> 
+> The issue was found with a research static analyzer for
+> cross-architecture dependency bugs and confirmed with the QEMU
+> reproducer described above.
+> 
+> Fixes: e7a2ab7b3bb5 ("mm: shmem: add mTHP support for anonymous shmem")
+> Cc: stable@vger.kernel.org
+> Cc: Luiz Capitulino <luizcap@redhat.com>
+> Assisted-by: LLM
+> Signed-off-by: Jingyi Sun <1045704958@qq.com>
+> ---
+> Note: this touches the same line as "mm: thp: always enable mTHP
+> support" (Luiz Capitulino, v8 14/14), which is still under review. That
+> change masks the force branch with ~disabled_orders but does not add
+> THP_ORDERS_ALL_FILE_DEFAULT either, so it does not address this issue.
+> Happy to rebase on top of that series if it lands first.
+
+I'm late with v9 so no way my series will land before this patch, but
+thanks for the consideration :)
+
+> 
+> Link: https://lore.kernel.org/all/752f528f0fed5cdc9de12b54260b0495d4e5a6cb.1789695931.git.luizcap@redhat.com/
+> 
+>   mm/shmem.c | 3 ++-
+>   1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/mm/shmem.c b/mm/shmem.c
+> index 10cef89b00b0..41bb3f2c6b63 100644
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -2114,7 +2114,8 @@ unsigned long shmem_allowable_huge_orders(struct inode *inode,
+>   	 * means non-PMD sized THP can not override 'huge' mount option now.
+>   	 */
+>   	if (shmem_huge == SHMEM_HUGE_FORCE)
+> -		return READ_ONCE(huge_shmem_orders_inherit);
+> +		return THP_ORDERS_ALL_FILE_DEFAULT &
+> +		       READ_ONCE(huge_shmem_orders_inherit);
+>   
+>   	/* Allow mTHP that will be fully within i_size. */
+>   	mask |= shmem_get_orders_within_size(inode, within_size_orders, index, 0);
+> 
+> base-commit: 666539eecdf4db623f5e3c3e55cf9f2dfad24aa4
