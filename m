@@ -1,79 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=35.89.44.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794985413;
-	b=i4QSMc8/0jUuVogwON9MTAGGFO3i6VD47l1ujPncHSRKfrkRhFr2rtsml3NgDpy1fgkR
-	 HzHO24dsK94/maTHgu/TpQL0IDCIN2uLsuJsYWGK5fp2uRtXZYMmVJG6iBhPq0K3xkgnO
-	 jvRjrB+yUESztXHaSyVrq8ZP61iuKz1xeXpT0TiMN8yDADE1xUUw52obfzNKdC+11S3W7
-	 vfS/3OgAXJA2NhoPVKC4UTq1wwNY68gMb/oildluYkliTPjHNmcFyL7uF7JI0GXyJCrde
-	 CaNwI5JCdrAmVPWYW+3GLlJoMeZ6a5wXvOYPt9fl49HZbV/ft2RuQFaWtCUUg+6WsjQ==
+	t=1794985475;
+	b=1Dbxh84NZKypaY/mW8rBSvLIDeZC5bLv+Dwq1Cl5WrkaD1m1ZSukv1QXvWcDPBX8gepv
+	 q3UYs2eOatbgYkW8PoqCGVKL2QsaA2z3ArQp0mwUkg0OqRzLlqDYhuSLrDnh5kYJRlc6K
+	 e2Sm98wy8ZAayOTQ8M3/Q4GesmVEqSJhU4gsfFOCCd1W72jMA3oRgZ4P/i+dpPejuyjDU
+	 GJGgnhsTOUIzKWcq54WmzlpZXR8Qtm8254cl9YIj8WrFAw1frnKCQtiwyEXMx760avLtF
+	 jzPCtWJ6kUamyvA8ZxmB7Yi2Be4UZLpAFn/yHczQ59bQ+VCtbofIBUfe4MC+AdYMYeA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794985413;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=h1VBUKnemsO9XaRfaEdwM906RtF4ETg965AOGYzb7pM=;
-	b=SqfPFAEMYKV6HW3s69Vj3zOp1P4IjFbzB165v3+bmVhZP7UeeG5OOyqmqXN3Ooyubvqn
-	 SqZM9bO9wMy8lw86TS48VzMZUqC/+YKf4XMdMRxvTSJTRyLkDlHjATK7zWcN+d0LWLz0L
-	 6oRk+jRu26PwdNlkOo+a55bn9gdYExhyS5qhcF+qxVaHPpWjYpZm+CJBmNlj8Jf4KNaDc
-	 IrbWyTUfglfliD5LmidxLQwExnvmlnBH/sYQK13Fn02n4IJn8THtXKe8ZqMRIE6Tedpls
-	 TQ+fdGhWI+TQL0GVUl/2hewsfTbkWj5MxTiGelhDZRS4FyyXfwBIW+T7zKQYjW2VoOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794985475;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=IBidLxKze/cF8OVvvB427zi7hZyK+UPFvN3ze2Fv1zA=;
+	b=gavCApqqTzQkbItrUb8tuzdaFeOiE2azEzc1SBf0egiMrqR9OUxeOzeIoxJ9qVjYMpeQ
+	 F1GPlvzPkgIxVAUJEyR86vKyU3OjJhm6T7QnDLSpztWv/jtvlRCmfhxpNtXI4wqzpJ1ny
+	 TzEZLcHH3O+S45izzAYhUjgsAPbY3eJaup7DMhy0C0KgddWHLFv6gLUuobmMAgM6quoKo
+	 6HQoVJqM6vAntIpo2PznZJw5sJUyb+nDtvvFlF7rmxiqtMw8y8JNfp/yEXYtvpjz0oT/o
+	 ne1ZjdPtJvos1nm4DSAkN/t0epL/927nop71lCVvwCEE9SoY3eQDJp4HotAdbN4Co3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sellers.id.au;
-	spf=fail smtp.mailfrom=sellers.id.au;
-	dkim=pass header.d=sellers.id.au header.i=@sellers.id.au header.a=rsa-sha256 header.s=default header.b=hyg8TeeS;
-	arc=none smtp.remote-ip=35.89.44.37
-Received: from omta38.uswest2.a.cloudfilter.net (omta38.uswest2.a.cloudfilter.net [35.89.44.37])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nVANFmqj;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EEEE606A325
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:03:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EEEE606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sellers.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=sellers.id.au
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2F1606A325;
+	Wed, 18 Nov 2026 07:04:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sellers.id.au header.i=@sellers.id.au header.a=rsa-sha256 header.s=default header.b=hyg8TeeS
-Received: from eig-obgw-5006b.ext.cloudfilter.net ([10.0.29.217])
-	by cmsmtp with ESMTPS
-	id TNTQxX29iVK9UTZhcxFJOv; Wed, 18 Nov 2026 07:03:32 +0000
-Received: from just2044.justhost.com ([173.254.29.206])
-	by cmsmtp with ESMTPS
-	id TZhYxVyLwSeuLTZhYxHG7x; Wed, 18 Nov 2026 07:03:28 +0000
-X-Authority-Analysis: v=2.4 cv=NYvm13D4 c=1 sm=1 tr=0 ts=6afd4dc3
- a=pynxHT4M0AVwz8ROpNtnNw==:117 a=tbVZtiplu92VKpH45hjydQ==:17
- a=zJRp6_cAMcgA:10 a=QzMiS2WfBm8A:10 a=VwQbUJbxAAAA:8 a=tjeQfB6RoHAyGUvcEiwA:9
- a=sW6rCsXrbcaOzks2YK80:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=sellers.id.au; s=default; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=h1VBUKnemsO9XaRfaEdwM906RtF4ETg965AOGYzb7pM=; b=hyg8TeeSeHVlMc9tDvP9mzfRMU
-	XtpWm9AmiL0Ikqz3YfVJ+9dEYQCVAHwCJwCM437+ILMiFabokkWAlSaTlC1tfiuH4uG0ABTQbYDZP
-	afkGRs9Px0FlaiI0HEf2HIdwAEyaDavxs1y4vpDkYZqw+/bWw0onp1ughB6wUONVlJdEm0ukr9ild
-	qo7uBgYrBofTHdmLtDqUb/f6F29S0LiO6L/26SAflATF5aIU7//DCoJFX+nonpibPeKNATpMsXM/b
-	GdDJcIy+RjP36TWQw1ea8HfqNbzGrtD2KQCXNmCY+FeOCHX4M6jdZHU9tPQYW7JAVmFwaltHthMtG
-	bqgnLj8g==;
-Received: from n110-32-20-158.rdl21.qld.optusnet.com.au ([110.32.20.158]:44998 helo=localhost.localdomain)
-	by just2044.justhost.com with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <dean@sellers.id.au>)
-	id 1xTZhX-00000002U0j-16Iw;
-	Wed, 18 Nov 2026 00:03:27 -0700
-From: Dean Sellers <dean@sellers.id.au>
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Linus Walleij <linusw@kernel.org>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dean Sellers <dean@sellers.id.au>,
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=nVANFmqj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF5C21F000C4;
+	Wed, 18 Nov 2026 07:04:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1794985475;
+	bh=IBidLxKze/cF8OVvvB427zi7hZyK+UPFvN3ze2Fv1zA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nVANFmqjCHuT6xyOCPyWXpqxR/wQzG+X8JBZqZuBFeGJuXpIWqRFi7hHbKYRi9adD
+	 UKP8Jg6RH61vQH1wBol8DZZh3Z0lSeBgYKywCIkt4BSXILjqGcUBZBZIyF3EgbOfCH
+	 a4UarIhNGM3yvNnhXd2PpEsTOncxFsEog9/b7ego=
+Date: Wed, 18 Nov 2026 08:04:32 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Ziheng Wei <zihengw03@163.com>
+Cc: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
+	linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] gpio: pca953x: restore output registers before direction on resume
-Date: Wed, 18 Nov 2026 18:03:21 +1100
-Message-ID: <20261118070321.2557621-1-dean@sellers.id.au>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH] parport: do not re-enable interrupts in parport_claim()
+Message-ID: <2026111838-snowshoe-latch-1c25@gregkh>
+References: <20261116130930.1629208-1-zihengw03@163.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,94 +54,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - just2044.justhost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - sellers.id.au
-X-BWhitelist: no
-X-Source-IP: 110.32.20.158
-X-Source-L: No
-X-Exim-ID: 1xTZhX-00000002U0j-16Iw
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: n110-32-20-158.rdl21.qld.optusnet.com.au (localhost.localdomain) [110.32.20.158]:44998
-X-Source-Auth: dean@sellers.id.au
-X-Email-Count: 10
-X-Org: HG=bhshared_jh;ORG=bluehost;
-X-Source-Cap: cmVhbHN0cjE7cmVhbHN0cjE7anVzdDIwNDQuanVzdGhvc3QuY29t
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfDKHU4x+MKYWHIYEcDT7KZAYKLloqlnhTYxRBw8hiL0ds/UPEHzwDF+jiD+/DB0AM8235EdEE4oR2qISuoL4BqUEO7NS/itiTfe81XvJeRW4MwoUJ0p4
- WLWPBh+ADIEnex0jCFoK8ZvCTjs5pPNz9V0Bpd2TOVU5Qi2EdoeHxAczNnI13tPTdU480H4iHWNlXjV8DhZl3rvmOdB35yQ2jbw=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116130930.1629208-1-zihengw03@163.com>
 
-pca953x_regcache_sync() restores the direction registers before the
-output registers. If the chip lost power across suspend, it comes back
-with every line an input and its output registers at their power-on
-value, which is all-high on most of these parts. Restoring direction
-first turns the configured lines back into outputs while the output
-registers still hold that value. Every line programmed low is then
-driven high for the duration of the direction write and the output write
-that follows. Where those lines drive a load, there is potential for a
-spurious output.
+On Mon, Nov 16, 2026 at 09:09:30PM +0800, Ziheng Wei wrote:
+> parport_claim() takes port->cad_lock with write_lock_irqsave() and holds
+> it until the end of the function.  When the device that gets the port
+> was queued on the wait list (sleeping in parport_claim_or_block(), or
+> having a wakeup callback), parport_claim() takes it off the list under
+> port->waitlist_lock using spin_lock_irq() and spin_unlock_irq().  This
+> usually runs in the context of the previous owner, when
+> parport_release() hands the port over.  spin_unlock_irq() enables local
+> interrupts unconditionally, so the rest of the cad_lock section (setting
+> port->cad, daisy chain selection and ->restore_state()) runs with
+> interrupts enabled while cad_lock is held for writing.
+> 
+> parport_irq_handler() takes read_lock(&port->cad_lock) for every
+> interrupt on the port's line, including shared PCI INTx lines, since
+> parport_pc and parport_serial request the IRQ with IRQF_SHARED.  If
+> such an interrupt arrives on the same CPU inside that window, the
+> handler spins on the lock held by the code it interrupted and the CPU
+> locks up.  The early unlock also turns interrupts back on behind the
+> back of callers that hold their own spinlock with interrupts disabled,
+> such as imm_wakeup()/imm_pb_claim() and ppa_wakeup()/ppa_pb_claim(),
+> which call parport_claim() under spin_lock_irqsave(&arbitration_lock).
+> 
+> Reproduced on v7.3.1 (share.c is unchanged in mainline) in QEMU with the
+> emulated ISA parallel port (parport_pc, IRQ 7 from ACPI PnP), as a user
+> in the lp group with two ppdev openers: one holds the port, the other
+> blocks in PPCLAIM, and the holder closes its fd.  Lockdep reports:
+> 
+>   WARNING: inconsistent lock state
+>   inconsistent {IN-HARDIRQ-R} -> {HARDIRQ-ON-W} usage.
+>   ...
+>    _raw_spin_unlock_irq+0x28/0x80
+>    parport_claim+0x692/0xc80 [parport]
+>    parport_release+0x5c0/0x7c0 [parport]
+>    pp_release+0x37c/0x980 [ppdev]
+> 
+> and CONFIG_DEBUG_IRQFLAGS adds "raw_local_irq_restore() called with IRQs
+> enabled" for the final write_unlock_irqrestore().  When the closing task
+> runs on the CPU that handles IRQ 7, that CPU spins forever in
+> parport_irq_handler() -> _raw_read_lock(), on top of
+> parport_pc_restore_state() running with interrupts enabled.  QEMU
+> raises the port interrupt on the control register write in
+> ->restore_state(), so there the hang happens every time.  On real
+> hardware the interrupt has to arrive inside a window of a few
+> microseconds; I have not tested real hardware.  With this patch the
+> same test runs clean and the port interrupt is still delivered.
 
-Restore output first, while the lines are still inputs, and direction
-second. This matches device_pca95xx_init(), which already writes
-output before direction when bringing the chip up at probe.
+This is a wall of LLM-generated text.  Please make this sane and
+concise.
 
-Fixes: b76574300504 ("gpio: pca953x: Restore registers after suspend/resume cycle")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dean Sellers <dean@sellers.id.au>
----
-Testing: developed and tested on a TCA6408 on a 5.15-based kernel; the
-reorder was exercised through a configuration-restore path there, not
-through suspend/resume itself. I no longer have that hardware, so this
-version, rebased onto gpio/for-next, is compile-tested only (x86_64
-allmodconfig, W=1).
+> Interrupts are already disabled at this point, so use spin_lock() and
+> spin_unlock(), as the "blocked" path in the same function already does.
+> waitlist_lock is never taken from hardirq context.
+> 
+> Found by LLM-assisted static analysis.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Reported-by: kernel test robot <lkp@intel.com>
 
-The rebase onto mainline and the changelog were prepared with help from
-Claude (Anthropic); the code change is my original work.
+this tool found this bug?
 
- drivers/gpio/gpio-pca953x.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+And testing on real hardware would be best.
 
-diff --git a/drivers/gpio/gpio-pca953x.c b/drivers/gpio/gpio-pca953x.c
-index 3b2407690281..270cea8b4b49 100644
---- a/drivers/gpio/gpio-pca953x.c
-+++ b/drivers/gpio/gpio-pca953x.c
-@@ -1337,20 +1337,23 @@ static int pca953x_regcache_sync(struct pca953x_chip *chip)
- 	u8 regaddr;
- 
- 	/*
--	 * The ordering between direction and output is important,
--	 * sync these registers first and only then sync the rest.
-+	 * The ordering between output and direction is important: restore
-+	 * the output levels while the lines are still inputs, and only then
-+	 * turn them into outputs. Restoring direction first would drive
-+	 * every output at the power-on output value until the output
-+	 * registers are written. Sync these first, then the rest.
- 	 */
--	regaddr = chip->recalc_addr(chip, chip->regs->direction, 0);
-+	regaddr = chip->recalc_addr(chip, chip->regs->output, 0);
- 	ret = regcache_sync_region(chip->regmap, regaddr, regaddr + NBANK(chip) - 1);
- 	if (ret) {
--		dev_err(dev, "Failed to sync GPIO dir registers: %d\n", ret);
-+		dev_err(dev, "Failed to sync GPIO out registers: %d\n", ret);
- 		return ret;
- 	}
- 
--	regaddr = chip->recalc_addr(chip, chip->regs->output, 0);
-+	regaddr = chip->recalc_addr(chip, chip->regs->direction, 0);
- 	ret = regcache_sync_region(chip->regmap, regaddr, regaddr + NBANK(chip) - 1);
- 	if (ret) {
--		dev_err(dev, "Failed to sync GPIO out registers: %d\n", ret);
-+		dev_err(dev, "Failed to sync GPIO dir registers: %d\n", ret);
- 		return ret;
- 	}
- 
+thanks,
 
-base-commit: 90000c03a9f6c74759f773a5078088db81514347
--- 
-2.43.0
-
+greg k-h
