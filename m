@@ -1,96 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794966056;
-	b=5fOzVQxbZAvInGJCmGFHMRoPjdi2abtHn7mpGP3ezscBDOq8PqyrdYCpHYLRcvcyL8nt
-	 DiI4fKw38Hqaz0l9yj7UgicW8rWJv5+QyvHNSCBIs9gtT56HVXiajb2lcbuDGS2J6LM3m
-	 7ioG6HPSQvBDUJkuN5CEFkNrc3v8tADQ65zeeXK2HIp/HGYKG1LU+z79+2TPYRTyIaFeP
-	 iX6I5jNoG8P/wwQocwkH1gPVYk2iGILziCbIea3Rqwk6EG0fcDd95xEL8MlWDjofW3xHJ
-	 o7rxYfuddw4lD9V1CdXMcyF/wQ7H+PKte9NAGOFSBtksB4jMD6hcx8Xn1SROhDLUlSQ==
+	t=1794966301;
+	b=xQItsXZ/aDY64KA43qmGkTYMhiU25R3GVZy7YtGY71rlbpSTNi8Q7XFFfz7NmGPw0m6T
+	 TKSVVTRyAzqG+ZKhNNvErkoKXKNLtdOkSiJqpNgOOFE8VCHNSBcabk54iFFJLdC+Sj0Yu
+	 J1bimzt2CDCQoG8bqR/VlvpNzSrSmDvkJW1fPJa0FZ+l93AgF937Lzv/IdGlB7sDJyE1e
+	 sJ2u6JDrEexhznCDya7o+ELZAEW6OoNb59RkdBjUdK0cyBY0e5J273bOhTqhk0EFdRYgQ
+	 XSxfhe7PXc5MOQQVMhBkT4ByCaGyRGR0ioTgoqbczQZajBXjhV1tnjbKqkN3O2fmOhA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794966056;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=PHZG0bnEH5ZUBCEviVeul8atAzxQpR4ArhiU80Iqs1U=;
-	b=d6TYofevirjkeysA+NyejxZZgGyv/FUCHv0B/ijOtIQYP5VyAj7ohZyhCOYnC4piZFW8
-	 bBLd5P/Bmm0xRgGPfpMbCLB9u0CZKOehdfrPkLtPwWK+icOon7iyw/7t2DIMB8pEbAS7U
-	 DbHFSrl1ZF6Vf62lubVDD/cxUrB8dPrInDKYH42F2wgQdNZFwbcZIfj9kltL6QnZQD2+e
-	 6GH9ZKgl6mTOfcNBKHeOclyuDtPV7diSZ6j+xAV80qs8LeE+1Ixrwrt+t9CjRh9OnZrHD
-	 YQYbqB7RWv9J1uUbtgRuZag8/3DlhDIiAHrTIsybyGZYRbLdYj5lmLU8TdFdRjI5znQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794966301;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=uPj2X8KhO1OscrKtkgCKzVwK3Pjz1SVL5I8ga2MSWvk=;
+	b=xbUwXQJQXJ3x0fzYaq+sCjskKs0R5DcHSdhQ1OR889UBlbe6uhDlGGcGC8InyCx4lfmZ
+	 LkKN/zHWa9OZnJXKbHOI/jniLhyliqtx/LLX37w7cPfvqkeMR/Gzge2Hprl0dfWTwdKma
+	 wI/sjRMf0p4qRC7S7T8zOExcw+b0BO8TzDdlPUt4HRNSVarM53kw0V+DCTwUk6qJf7Daa
+	 Jwu0veMhv8JQZ7wyCXg40HhyssErale5aSOdLvoDzC+5zoTUgI74u6pCT4WlU33dvW61b
+	 cwLcNzfDVrrzUykbNxw7TCKC8+ZzdIaV1pQ6AePjJ64vKk5fe+N7mCGuERH6/T+ZSFw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cIxGV4xz;
-	arc=none smtp.remote-ip=209.85.222.174
-Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=linux.ibm.com;
+	spf=pass smtp.mailfrom=linux.ibm.com;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=DXYexYPX;
+	arc=none smtp.remote-ip=148.163.156.1
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D1D606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 01:40:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7D1D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8513B606A32A;
+	Wed, 18 Nov 2026 01:45:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8513B606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cIxGV4xz
-Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93f2f2edb19so43343085a.0
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:40:55 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794966055; x=1795570855; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=PHZG0bnEH5ZUBCEviVeul8atAzxQpR4ArhiU80Iqs1U=;
-        b=cIxGV4xzHPb8AnycsIS5fHQ+ETu8GWeOn45mTQ3MuAexMBjai42NmFlP3KPJhL1Gqt
-         TSt37n6RdKFJvYJSYV7QmEQV5gv02XcZt2EAotbWfA4nmNnkVPl2lkqAzO3hvoWrxOVZ
-         KStxxtF+uESBKZvlvURqBy1zQ3eTuIGim6NXE0ukzc4oh0xbIuwrs75Uxc3os1sJa9ke
-         ORzRyJh8X+lKUKgZF/8agZoYgVlNezlOhf9vz5mzz348WNMR4wGsSuR3JgcfY2pf4pS/
-         xNVrHVEzEw7iRh1p4yaqp9AJJvrR3xUDsA35wSxE6pz0wB7Nid5D1O3A9naU/VZjYKq/
-         awtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794966055; x=1795570855;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=PHZG0bnEH5ZUBCEviVeul8atAzxQpR4ArhiU80Iqs1U=;
-        b=Ka+uOcM9oggw6NS4//GHQT7BrB6XLYJPM5tQVMNOb1dMlO0bD+Zm5YWDqZK97OxHaM
-         25yrRpXkZn1at15WLDTn5AyebsUMK3Y5iDxLOxevxpklllDdaOGOlTB1NbOQ9Fi/GnRa
-         uw3M9ZIQu/36nfKojbgPN6lOaxUH7LpFIhHDAQGC9Gy8X9JbQ1t5dI9I+zc4TXHNYinK
-         sd8aC1T+6sht0u1wafIaomyQ1IAs6xv+mXgKk2/eGd+tunltxgmK507D1UrTfO/hR9Uk
-         bXS9XU1TSwvku7omXUtMeijaNaj5cA4PE5z7/+uTCiUijEMmIRko4octTnkjySc/mG9I
-         qP5Q==
-X-Forwarded-Encrypted: i=1; AL+hErFckr1klm8jKLWNS9Myr11b0+bGA9/vi/YiBCR3DqVVk5tlB/d5nT8wlts3Vr54RzAHRnMnhEw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+lZhC/774sU/XRyz8xXxWtNpsKzfHumBXmcsNLiAV6sem/YpCs
-	cDfYfpt8o8QnoOJ3MlNLimo9pW+sgVbf060xCvV8WYs7SZcgeAYzpgY=
-X-Gm-Gg: AYBFou0dtXCsGjexwLfAL3LGOSsWtybBxP+dwBdz0GblGkjVofefmoijHuNpQ33MEwA
-	QGyEqQr98uMaWH5PmxQ/S7zk5UueU3veq+t7/rmpXFPmLtQ9hRIuRdYfZCQYazNxVQEIMbDa+t2
-	XC2lyPji0gO1wiMTGJrIT3f5/OYaM9IrCBN207q/WpjuTtdATjFPsPlOsSavHO5RkoLVghnCJBl
-	kpGWtlXZopi4/UewtY+o/VHEZq9isZv9PL3U0a/OhUQfsmDOqEngt+LRyXdIPdIXjWijM2AevNU
-	XZc+8CC3gP56bIj1uTj3O9k32waMdjGtIXiEfs6Q9rDJkRjGfpyJbBZhPGJCoDi3Sbjh4v/pV1m
-	HVqU6bvBSefcqC6YqjiVunE1VcmWnHwkd7m1B7pnBEa0Tbzb4KbyabOCCbLreeeDxvjzwkeOmeI
-	qjp6XAITRDq43OdxSZ5A8pfQxPkqTAoraTZnMzGtX3wmBb2NOKI4WJcDnczMJs2r/sv598aw7Ck
-	GjRc6hi1VukEjFBdKiTYz5BzyxkKQyIePQdK6zjHSX6xbkBsctVbzsBDs2WNJAFcajyPmL/Quon
-	dc7YJPVQH3GR7SoDBaUzJ2rlkHZuMc8kLmyIz8ElX4Ib5MMGMgQP/cwSfTZJSstInxx6Un190fB
-	QORUCXlRvVKJ8sFSFG4w2hOv1IaQfIs+6QYlpeIM7IefeFX2E4GuoT59hnO464Nqf3w==
-X-Received: by 2002:a05:620a:2887:b0:93f:6375:aaa0 with SMTP id af79cd13be357-94999632575mr258573585a.80.1794966054585;
-        Tue, 17 Nov 2026 17:40:54 -0800 (PST)
-Received: from localhost.localdomain ([104.39.87.133])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9499b7d3f19sm60825585a.38.2026.11.17.17.40.52
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Tue, 17 Nov 2026 17:40:53 -0800 (PST)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Oder Chiou <oder_chiou@realtek.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ASoC: rt5663: Stop jack work on probe failure and unbind
-Date: Tue, 17 Nov 2026 20:40:51 -0500
-Message-ID: <20261118014051.75468-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=DXYexYPX
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHMvD3g3642039;
+	Wed, 18 Nov 2026 01:44:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pp1; bh=uPj2X8
+	KhO1OscrKtkgCKzVwK3Pjz1SVL5I8ga2MSWvk=; b=DXYexYPXuS9F/DZPPZ03aB
+	aYieMQWdFBVQevusWuRVxc2xjMIYmtMJ3OmZkmxKkZvc3R+f2XijRdmmCaiBNVvT
+	8HzLkjcwxKC7in8n6O+Nskn513q8P0lPkrWuEkvJKzT1F8Vj2A8AJMwRx/0a4Tiy
+	e+JO0lI3y8bF91hW/4IAo7VT+qcxyWOr4CjleK+A3eXVZ3p1nbC3oLletsRnzx9p
+	LqHYYZjALdrWYGxnxYfKRwWZPEsv5ZNl6h5poXKqZz1kXjyQ99lwosVXBnxQ9rLo
+	r9L3JES/QFzvVdHz5nQChFdzCBx1amKOMxwTpjTuER53ogrkVdfev9N/kVsbtkGg
+	==
+Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j105t0d6k-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 18 Nov 2026 01:44:43 +0000 (GMT)
+Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AHMo0dC030822;
+	Wed, 18 Nov 2026 01:44:43 GMT
+Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
+	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4j067ne2jy-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 18 Nov 2026 01:44:43 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AI1idQ329032828
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 18 Nov 2026 01:44:39 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 466212004B;
+	Wed, 18 Nov 2026 01:44:39 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 8B17E20040;
+	Wed, 18 Nov 2026 01:44:34 +0000 (GMT)
+Received: from Linuxdev.ibmuc.com (unknown [9.43.63.250])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 18 Nov 2026 01:44:34 +0000 (GMT)
+From: Madhavan Srinivasan <maddy@linux.ibm.com>
+To: linuxppc-dev@lists.ozlabs.org, Amit Machhiwal <amachhiw@linux.ibm.com>
+Cc: Nicholas Piggin <npiggin@gmail.com>, Michael Ellerman <mpe@ellerman.id.au>,
+        "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
+        Shrikanth Hegde <sshegde@linux.ibm.com>,
+        Alexander Graf <agraf@suse.de>, Avi Kivity <avi@redhat.com>,
+        kvm-ppc@vger.kernel.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Gautam Menghani <gautam@linux.ibm.com>,
+        Harsh Prateek Bora <harshpb@linux.ibm.com>,
+        R Nageswara Sastry <rnsastry@linux.ibm.com>,
+        linux-hardening@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: PPC: Book3S HV: Disable preemption around host-side HPT lock users
+Date: Wed, 18 Nov 2026 07:14:33 +0530
+Message-ID: <179496619897.633156.6514109970527173646.b4-ty@linux.ibm.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261014185215.71832-1-amachhiw@linux.ibm.com>
+References: <20261014185215.71832-1-amachhiw@linux.ibm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,92 +101,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Authority-Analysis: v=2.4 cv=IouL47/g c=1 sm=1 tr=0 ts=6afd030c cx=c_pps
+ a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=qyQGTUAR5DSMwchT5_QA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-ORIG-GUID: a3dRU6Gzo3Ru-U3igaaGOBCUqlvQ5g3O
+X-Proofpoint-GUID: JjmVVTr0acEnABj2T5hmRDHE_ZUOdW9n
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDAwNSBTYWx0ZWRfX9+yNv2YB5W7H
+ MxM/zGFNI/qx/4NzsMRuxO2qlwYqSUfoT7vr4Eqzpb55pShQEjmsSDwpNzSuxTWmMv5tg4EWP7g
+ BltX7lvCLcM2KgUIbvjhBWVvjPpC5RuN0oQvhqXz7DK9mzJW4mjrqPRX5G8ZCC50BWORrCHTdG+
+ 8JbzuJonsEFW/bgrI/JhYJmLk2X2JSRJw68d/+o/JG9/2iDJsZg2C+hrRtSHnd8w/Tcn9/rXfQv
+ MP03hJk0PWVbR/NOJVFsAdSUMbJuUvAqjpIjDKOuyw54lOIiapRIfgfsYvCMJZ1/dJDefbHcv+A
+ //AuDRRYv6xCJPbRw2edi5upIUt5uPgbC162T1yBVA5eXzxZYPHWsrGLgaEGMyAXqP07XyaoA5O
+ eVj0oE9+CJxc8Gx5A6uE8cTigsRGNbZwkbfbeSTRrUfyowdmp2d7o58lNGNZRJcLSxVgq0k+lJm
+ VJgCXXQ6BF3SQhz3ySw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDAwNSBTYWx0ZWRfX+yJuBQ4n8Ggx
+ l+aYmtizKtNfyz67Nj5BwkiZ8h/ct5L+EMxYDM0qsv6WVYsOlkU7hLa5CZ8NHTqQ83EYcqZw7rN
+ Lw5kHXQoycTVTE69a1Jb/TlcL+pG6OA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-17_05,2026-11-16_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 adultscore=0 priorityscore=1501
+ lowpriorityscore=0 suspectscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611180005
 
-rt5663 registers its jack IRQ before registering the ASoC component.
-If component registration fails, freeing the IRQ leaves any pending
-or running jack work in place while devres releases rt5663_priv.
-I2C removal can leave the same work behind.
+On Thu, 15 Oct 2026 00:22:15 +0530, Amit Machhiwal wrote:
+> A previous change ("KVM: PPC: Book3S HV: Add preempt_disable() around
+> virtual-mode HPTE bit-lock users") at [1] added preempt_disable() around
+> guest vCPU HPT hcalls and page fault handlers executed in virtual mode.
+> This ensures vCPU threads cannot be preempted while holding
+> HPTE_V_HVLOCK or the reverse-map lock.
+> 
+> However, several host-side virtual-mode paths in book3s_64_mmu_hv.c also
+> acquire HPTE_V_HVLOCK and lock_rmap() in process context with preemption
+> enabled.  Specifically, kvm_unmap_rmapp() and kvm_age_rmapp() take both
+> locks during MMU notifier callbacks and memslot flushes, while
+> resize_hpt_rehash_hpte() acquires HPTE_V_HVLOCK during HPT resizing.  If
+> a host thread is preempted while holding either bit-lock, any guest vCPU
+> thread scheduled on the same CPU spinning for the same lock with
+> preemption disabled will never yield, resulting in a permanent CPU hang.
+> 
+> [...]
 
-Stop the IRQ handler before disabling and draining both delayed
-works on component registration failure and I2C removal. Stop
-jack_detect_work first because it can queue jd_unplug_work. Keep
-both works disabled through device teardown because ASoC link
-cleanup can still call set_jack() after I2C remove returns.
+Applied to powerpc/fixes.
 
-Send earlier probe failures directly to regulator cleanup, before
-the driver has registered an IRQ or started jack detection.
+[1/1] KVM: PPC: Book3S HV: Disable preemption around host-side HPT lock users
+      https://git.kernel.org/powerpc/c/4e6e66ecf62185828f731914000a6b0baff355db
 
-Found by a static analysis tool under development.
-
-Fixes: df7c52168ee1 ("ASoC: add rt5663 codec driver")
-Cc: stable@vger.kernel.org # 6.10+
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Changes in v2:
-- Drop the duplicate subject from the body (Mark Brown).
-- Cover component registration failure after IRQ setup (Mark Brown).
-- Share I2C teardown and keep both works disabled through component
-  unregistration to block late set_jack() enqueues.
-
-No hardware test.
-
- sound/soc/codecs/rt5663.c | 25 ++++++++++++++-----------
- 1 file changed, 14 insertions(+), 11 deletions(-)
-
-diff --git a/sound/soc/codecs/rt5663.c b/sound/soc/codecs/rt5663.c
-index 58b165e8b6e12537196a775338de1da1667ad82a..5e95ab2666594ea1a8f2a59338cbd513c8c97c4e 100644
---- a/sound/soc/codecs/rt5663.c
-+++ b/sound/soc/codecs/rt5663.c
-@@ -3520,6 +3520,16 @@ static int rt5663_parse_dp(struct rt5663_priv *rt5663, struct device *dev)
- 	return 0;
- }
- 
-+static void rt5663_stop_jack_work(struct rt5663_priv *rt5663)
-+{
-+	if (rt5663->irq)
-+		free_irq(rt5663->irq, rt5663);
-+
-+	/* Jack detection can queue unplug work. */
-+	disable_delayed_work_sync(&rt5663->jack_detect_work);
-+	disable_delayed_work_sync(&rt5663->jd_unplug_work);
-+}
-+
- static int rt5663_i2c_probe(struct i2c_client *i2c)
- {
- 	struct rt5663_platform_data *pdata = dev_get_platdata(&i2c->dev);
-@@ -3724,19 +3734,13 @@ static int rt5663_i2c_probe(struct i2c_client *i2c)
- 			rt5663_dai, ARRAY_SIZE(rt5663_dai));
- 
- 	if (ret)
--		goto err_enable;
-+		goto err_jack_work;
- 
- 	return 0;
- 
--
--	/*
--	 * Error after enabling regulators should goto err_enable
--	 * to disable regulators.
--	 */
-+err_jack_work:
-+	rt5663_stop_jack_work(rt5663);
- err_enable:
--	if (i2c->irq)
--		free_irq(i2c->irq, rt5663);
--
- 	regulator_bulk_disable(ARRAY_SIZE(rt5663->supplies), rt5663->supplies);
- 	return ret;
- }
-@@ -3745,8 +3749,7 @@ static void rt5663_i2c_remove(struct i2c_client *i2c)
- {
- 	struct rt5663_priv *rt5663 = i2c_get_clientdata(i2c);
- 
--	if (i2c->irq)
--		free_irq(i2c->irq, rt5663);
-+	rt5663_stop_jack_work(rt5663);
- 
- 	regulator_bulk_disable(ARRAY_SIZE(rt5663->supplies), rt5663->supplies);
- }
-
-base-commit: fcfcd6db32adbdfe81c1ded257200e3ea6815d9a
+cheers
