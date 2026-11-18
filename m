@@ -1,68 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794961368;
-	b=hZlMQCfitsITjcgJ+PASGHd/y/g36iJU0TdWcxao2iUYTBa6bzP0eTqP8Iy7nGim0Gw8
-	 xTxvTO/+RjJ4ClpAZC3saOwmJNbolumioeq3p4dfNFAteTs+oL6FqmkOWRsdrLZGui8ET
-	 odqKOxGRT8RHsGAd5SN/N2MF7a4loyjScAhhCYq1fOfwdMj6XmaaAifbsxuHw0Zqf0pFi
-	 QL1sK7cUVNgXliRKuDQAaHyXo9v8Z9CD2t75gdUHrXaX72eieDM0+4Hzlw0bvAdrkbOQz
-	 w/t8w33np5OZjPZhYqfrNxvME2gr0flwh/L0UWrrXNEx705XSbbCXsdoMu0LNzxBBEQ==
+	t=1794961370;
+	b=Sqas0gzT1tMP9GIybHO+85fzpAoPX2+eSsGikyhQE+sQWzu3zejLo6cV9lsu/mk8CGQb
+	 ENrv27SxjC+8e7f84nz25SRYcz5WSeQrZyzOr9rh83k8B/eAqWWPoTigT14yDhEtB7udi
+	 iddCUmHKNZW+cGa73+h3s/Huizo42O1MsoBM7tJkD1Z3IhKemKMRM1Eu2REdqG5fIWEJb
+	 5m12fWjk0Shmv1mhIOseYBPwV4kDxA3jBRyzL7iulrZoMPf3NIFJGpcae+AhHy8zs8YHH
+	 xBtdbh0clbub9quyi2h3AzvVXc2NOvNiNB/rPTQtoBj2y2VMHajJfsmPQT7+z0aE7/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794961368;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794961370;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tDw64PTidKW4tbRkOeBVG+vbMqrqY/9S/VViLcg6PMM=;
-	b=t0uJBw+ThDgDh3CDbOR0pGT/pZ3aF079JjA2csSRdvACGfwQyFzIsmJi+aRdoucgEQ4/
-	 wGDIVRKvSdj3nhgm2bTskfEtXOe/VGX9ZXFp17VZnaHspopjziITmWc5I+9sa//WItHQ2
-	 MJcWMdmich4awadqlz1s/ORjDk8gMwaommTihE2ZwV4/2qxaU7UapusRVBPP2yXOU0dyz
-	 ApyiwOvV6HRR+UoNn+T40Qz974TjG5SQ8pqnaoPE0si8qVyuil3vp1Shg/r9OjHSP6ixo
-	 gQ+3WlcX8GjxUXADkwHi1JNDsVexw7DBHI0wR+eO7veUscm4d26yR6s6LDL1wCGa+eQ==
+	bh=Yyp9htXtlrZQtTO2sEMjINZ4vkcpiCK5cmehF31nALA=;
+	b=UqRvEVHRGw4zO2cztHTomYIVj0tfGmELL4uQC0yvxZnWXvJTBs8xbikMMVBjWIyyHCqr
+	 ZlIXvT5ku87L2x40u9O9SaIY9DGEcLmhVXz5l0yLv+9R26bowB05I2puqb2iw3GPFbzVN
+	 eHxJeW7rEWV8GA6+55zrU17cqP0Z0DXe8Kv/PDtr2QXviOX3/6j0mskikWoCVgU+MPGLO
+	 vb1SfsLH8srnmzL1kwSDFolW0RyAwWSHZ5yVF7oEOLG7FqF1LMSfNBMJSU54iM0tbwAkz
+	 25sClfTt/kY3L5BubUA3RMnnijFiznRR41cBE2lT0OIrBZqVkg80yUI6HwYMHmv07IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0GAUhSE;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cqBKZAkM;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88874606A32A;
-	Wed, 18 Nov 2026 00:22:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CC9606A31C;
+	Wed, 18 Nov 2026 00:22:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=N0GAUhSE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 943811F000C4;
-	Wed, 18 Nov 2026 00:22:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cqBKZAkM
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C73B81F000C4;
+	Wed, 18 Nov 2026 00:22:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794961368;
-	bh=tDw64PTidKW4tbRkOeBVG+vbMqrqY/9S/VViLcg6PMM=;
+	s=k20260515; t=1794961370;
+	bh=Yyp9htXtlrZQtTO2sEMjINZ4vkcpiCK5cmehF31nALA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=N0GAUhSEdI2xuc28STR+/Da083rcuE4Y9BI1AQVJ/EOvn4MDOhHyFLvHt7ETfHRqf
-	 VDwnmHHwLEvqjV2RlkAkMecsp4lf5zpfOhJqppfZ1hhvVmTITph1zeMo4I1q4aKMgy
-	 RRqRFDxaBnL6Lmrfdr3eFFh1KhKi3wL/eTADd608v2YNo2ooKVzABT0xkraAj1k0kD
-	 IzhZVN8cBhmSmvg8VC4xtMs819PDA4vCu+d97NjrqwfOxJ6JPTCSVfqaFd1S7StV6R
-	 akEfMZkysjNB/iDeMCQAACO/40b4IHtKE7oOOr6BiP1nH9cPRRheOtSqhlQJRVuAS5
-	 BOwso0ArGq2BQ==
+	b=cqBKZAkM4ZnJNd67kl1NTTRyMQr44qicC5vzQ+/sWcidrWU2DfEM8cgRRTjuWBEvh
+	 +iBIgsnCkWo74WOBoEfBbzAWNy1hzdlvyTDF1XPHDg4wTzwX8KO5xe8gtrj4Q14CzX
+	 DtnwACOnI8S8xko3HcInWVZwYmjikuKOTpDd2+blISTHsLErgMp3dYagVrhnhW09nd
+	 biDRcn7TqfCv3Utittx5ayxVRDlxab6agY1KwQHS/y3bAUUWWLauOf/vttA3RJ1vR6
+	 8ZgYzqDIt9nGVGUm7g2n1xQ1GzCi9E7/U1K7N/Tgx2c3B3fYW9R7rxPG/C0O38KIB/
+	 wp5GDc6Up8low==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org,
-	Alan Maguire <alan.maguire@oracle.com>,
-	andrii@kernel.org,
-	eddyz87@gmail.com
-Cc: ast@kernel.org,
-	ihor.solodrai@linux.dev,
-	daniel@iogearbox.net,
-	memxor@gmail.com,
-	martin.lau@linux.dev,
-	song@kernel.org,
-	yonghong.song@linux.dev,
-	jolsa@kernel.org,
-	emil@etsalapatis.com,
-	dwarves@vger.kernel.org,
-	bpf@vger.kernel.org,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Alan Maguire <almagui@kernel.org>
-Subject: Re: [PATCH 5.10-6.18 v2] libbpf: fix cross-endian build with newer libbpf
-Date: Tue, 17 Nov 2026 19:22:45 -0500
-Message-ID: <2026-11-17-1-daily-reply-0001@kernel.org>
+To: stable@vger.kernel.org
+Cc: linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	leon@kernel.org,
+	jgg@ziepe.ca,
+	kaishen@linux.alibaba.com,
+	Cheng Xu <chengyou@linux.alibaba.com>
+Subject: Re: [PATCH 6.6.y] RDMA/erdma: Use IRQ-safe XArray helpers for QP and CQ tables
+Date: Tue, 17 Nov 2026 19:22:48 -0500
+Message-ID: <2026-11-17-1-daily-reply-0002@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261116233301.1531563-1-asmadeus@codewreck.org>
-References: <20261116233301.1531563-1-asmadeus@codewreck.org>
+In-Reply-To: <20261117022839.23186-1-chengyou@linux.alibaba.com>
+References: <20261117022839.23186-1-chengyou@linux.alibaba.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,13 +63,15 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Message-ID: <20261118002245.zx5_b5yPdHt-10wuyst7c39O4DXkdDuID7G3GifLKgw@z>
+Message-ID: <20261118002248.wu4HjsFdDot26oHEK0Mwbq8yEcqH9lsR8E2s7HSq8Hc@z>
 
-> Newer libbpf versions also properly ignore trailing data in the bswap
-> case, but the patch is too intrusive to backport, so take the header
-> length comparison fix from it instead.
+> Use IRQ-safe XArray helpers for all QP and CQ create-path updates,
+> including the GSI QP store and error paths.
 
-Queued for 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
+Queued for 6.12 and 6.6, thanks.
+
+6.1 has the same bug and is not covered. If you want it there, please send a
+6.1.y backport.
 
 -- 
 Thanks,
