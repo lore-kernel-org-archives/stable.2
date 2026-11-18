@@ -1,73 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794965473;
-	b=yqCAssdxWC1V40gGSW8pLrxbAUObTLMKSzJXzrz+uf5O9Dixjgk2Qa5yQ0PYLXxw2nKz
-	 GNRa2PhkxRzQWoF3lMNYmQlc0lF2xwRgbztifD80pKmC+EGACfJHPbAGwEJBlQmlqJ1ys
-	 UkW3tTc7jH//sk0xkHwUsua9udATQJDhthOdaoVpTRrrDKVsVKkSLUpo1n634pxjrqkAW
-	 Ofq39lnGGn6ziSK8/0HDT7U7+j2JFenRnHsKfWkRzaSU5WozTzOA5lFfglfKl75fuB4zm
-	 2iG474V/WEB9c9LcS639J4cDTWXWD4C9XZHUHI9lGcKdcYjOto86RcFyt2Jnu9Zn9Xg==
+	t=1794965857;
+	b=BWRHO+rw8wxbKOs2Bo9ieTfe3MF1DGK8qc2nBZk+R0yVgP2daAiuu2eBWoEblyIVtfHL
+	 aMCvi+wnSe3bwJVIzJ12VZEMRK1nwKQvGb7xkw3SUv65ufPFEmy+fBnPg/7Eg+JJLOUJp
+	 /43WmuWg2m5gdgwI3SoD8GGP6PPktEeKE9m42xNxp9szHdkG5dtcnZ0rj+jlb+m0lh+e/
+	 VtB1EPnjxbln2lhm/2jb2Ycwwg2tCREGmH2HEFSqA0YHCA+Yn6x09o+c/fkcHQ8avHPXf
+	 k66WBmC6jDxZV7iqNHV3C4xK2qeTb+UJ5+dTnBzAHgDc8AosRCbJBIUnsXqGofkq2Ng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794965473;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=sSpSJ5wXnKKj4djOodlY+VVOZugZ41sTNKQIxuJGolI=;
-	b=T3DiriJ5qeANHtLBf2DrY3ZQVytBH6ZIy9RKQ0UyTwm4GMF8fdylk+jbyhk/Q9fcvaC+
-	 jJJkqZl8X3ix2KNtWPyt4hG0IpjZnQjTlie4SWpM2eIx4GOPs35vYqoubt05om2oinyei
-	 YISs6Z8gCrhgxfgd7CeE3Fn32hEwRz4eOnQDFd/WCaipJhc8fhi1DO1TMH4ns9LNgX/+R
-	 v5YupwyB/UbAxu03n8W5QHve9vFOTtvbLKjpZPSsrT79IZ/5F6nFZzPaonLnSuPj7O2e1
-	 OUDZ4kn2SYTurZATC2WmXIVYntk85wSolvb5+c7bPjMkOQZnMJlRoEJWi/aDF2tHs9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794965857;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=2ak/G9aO4KExnQrxARHHHXj8I0CSRMgCJgoJ5vAOUe4=;
+	b=mNV8n/WrTnjKxX06XCNApDIdgvowncWhN1R5RJwW96zAT1c516XSFCeRBHYY05Z2n/uC
+	 8m1t5elgybNPILFyNxHP9nmxr0yf1mGwX2ak/qwLGtaLUm8Os8h4kOiSz+LxXoRbeXUjF
+	 KhZCJHN2zXamNbsWzsAEICqqkF6FOHQoDlWR8pxkUZftxcuKWk5kOnNymgNGdvByPNldG
+	 SHnYcvUH9yHHq6k61fBfgCEj0DmkyjHpL7VRgKrteNC3esiY4jmBjRvTACzz90ecsQC2/
+	 a3Sc41gabdOUb8XlD05YPNIovYiNrNUjE0T0EJZ1Cwc8bsfUHuQ46B0tq8goaKFjWYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=igorsousa.com;
+	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	arc=none smtp.remote-ip=209.85.222.41
-Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com [209.85.222.41])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uf9DcJae;
+	arc=none smtp.remote-ip=74.125.82.178
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1EEE606A32A
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 01:31:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1EEE606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=igorsousa.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB114606A337
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 01:37:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CB114606A337
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-99075306daaso152778241.3
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:31:12 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794965471; x=1795570271;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uf9DcJae
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3704d30b84fso773403eec.1
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 17:37:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794965856; x=1795570656; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sSpSJ5wXnKKj4djOodlY+VVOZugZ41sTNKQIxuJGolI=;
-        b=G2EMl0xTCJLDbwWqK2XkD8QqjUfPmLzMQHiXNFAq4CNPX8v5VWWhyupoDzO6qJKF6/
-         ReZK965EnD7bzNgSxLrcmSR3oxq27ujJCNQYtbcLnIhvTaBx3bxq5FdWevAvYcREkke3
-         7/X+i83px/VQNOfF2yRckLM2hfWrUci8TK4MIDLdMCV9ucK+gxdJlMRJ58xDKu1imVGW
-         G75uenSClxPkwIqs5bAXG8ZANbNtrWU7a9BR5EEsqOcXSd7xu8k0+mabwWGHA7nd+U3W
-         t0O/FQ58aKxcUeZC7zEteSrxZLy71zJ6MqKlp3JCFKa37JRxpR41+ummFEvSdD6ZuXXq
-         i8cw==
-X-Gm-Message-State: APuU4Z81ox4ve35yKdcV81vHdQtW3sD/EaL0DZIKxjy5/jQarYrHL+jm
-	pRRMgDjAsHXDGnAgjq11EmkOqKBDSJ1GbA0qK/bThVmkzm8eEsSCTR+uF8/jAvdG
-X-Gm-Gg: AYBFou0QJMKG1fwsTM0j/s3F55Twm76ms+6iaydltwUhgI/9vagu4Ezj0p3beRK9LIF
-	PIAee2vVswsD+7IVVVRvX8vcyXG0FTKr2gNltpDlYJPEGUm0s0bsS+doChGoIHScz9sBArayOiF
-	ULjoKst2DrIGU9EjWzueiq5NV/sIFuqTxf3l93snAl1p/yxgnHo8ZENFzqlkCz2NPMt3mdHBAFM
-	VfUv1cJch8+yu4QI4Nj8pj2r+Ud7+jr+8yZc8RC90QsKwZ4Ufm5AIC64CKDzozk8vYy46vJMrAt
-	lt0yNqfb0bFEph4UeYEgTnYmLkoiV8Z23GDwAxxuwVO2u6QgSy72eppI52MLcwYEwc7PracDovf
-	/BBP2cf8PqZPx0Yqoe/IUs+tXNFXp6k9pZRUDRYbBDrMLBZjUyUI/+8jgAMox1JgMGUvO35EBed
-	6dYeCEChkM4pbk7K8eb3I5NDvWBVI7I+CSLNfNRq+/2OPTCKDiF8geZT2tH4dksb9CY+hKCNRg0
-	8G6f2aOhNTPouyxvuWYJvvZwBFGIT+K73q5S91LJMOehj6Np/cepz9Xu+mH7z51ljqC8gOJ7nb3
-	wWaO0YW0cBD4XcIRi3585BphIL8=
-X-Received: by 2002:a05:6102:e0c:b0:7b2:f3ff:6b34 with SMTP id ada2fe7eead31-7d6ba18e568mr348336137.1.1794965471527;
-        Tue, 17 Nov 2026 17:31:11 -0800 (PST)
-Received: from fedora ([2804:d59:8687:a500:6418:f958:e1ad:d4b8])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99e4a1cb543sm899183241.5.2026.11.17.17.31.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 17:31:11 -0800 (PST)
-From: Igor Sousa <contato@igorsousa.com>
-To: contato@igorsousa.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH] Input: atkbd - skip deactivate for Lenovo IdeaPad Slim 3 15IWC11 (83WA)
-Date: Tue, 17 Nov 2026 22:30:57 -0300
-Message-ID: <20261118013057.8994-1-contato@igorsousa.com>
-X-Mailer: git-send-email 2.56.1
+        bh=2ak/G9aO4KExnQrxARHHHXj8I0CSRMgCJgoJ5vAOUe4=;
+        b=Uf9DcJaefNR1xiv11XxOni8gPvQVR60YvB8zaM0ngMMbDZN9VRlB99d4I37/3Pz58G
+         ue2lZ7MsvjupoSEDcl2+aiB2a+CUmawTFpBIwkdXO9RV73bCTTCq0qU/HUhtQClbpqcR
+         l742uT5q6gsheFpq+0OMNFIacSYo/LZ/sJNSEz/qDdBnsR6c9zFUM3UMHMb2N6UuL7i6
+         sMSINTXA5S6I/LyqOC8s8F9WEducv/Zy54Wu4NXZLwJPczrPCGv0BjRgJUWRAbyyUh8D
+         cCP3aJ9bOKQFcMYSDzl2vzZ9L/1Dd32idUadqvyWBs5sNxb+Z32TktuIT2yNRD1KBajC
+         ztWQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794965856; x=1795570656;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2ak/G9aO4KExnQrxARHHHXj8I0CSRMgCJgoJ5vAOUe4=;
+        b=WCNPErnvh4JSFDRBFN7dab73s8NLFj9y5WWFira+Uup92xt/XAkzE5GrZThP024tpP
+         bwCVsogWKkCBFNi6fHzGdZcfhdnYjL8SN9iS+WDheIR6ACcGDx4yFxIn3zFdCNsIcPon
+         h+kCJyqYc4wRTq4AySwSM3j8uiPQGdPn8ZSKCz5r03aF+ZOmsJvBNlQS3hHGm+fxEHqs
+         /gRfNbLYanA8323aE1NZSkUX+FxM+oNC2KgLgzAxs0/W8+LPkECGkgILCOQXylso5nWv
+         Ndvg9tD8wzJj/F5OborMPK6JsuRYh0c3P95UYrYWHutPvriRS5K2BV0mzwNrm71d6frp
+         LkgA==
+X-Forwarded-Encrypted: i=1; AL+hErGNDlsFUSmooNKDHR7WeoKezPMdlWVp2G+f2L0HSOoi2L1a8Jsy8eve7wdHV24sHrrlNbarcmo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/DQQ6tgrUlaCEe/DzluRmyHwR1L9a1y6fHMEFGPD0sPu933mGZ
+	D1thiaipycJswKYYwjjFw/uvJMB/MLIJuXDNo5PqczVgsKPQ8hl/4NRY
+X-Gm-Gg: AZFdTZdC4L2nRLpwXHd10R4v5AEmekcjLMa6ZVyEauN6A3To1WR4V5VoYRqEp8no54B
+	wnUW08UravSxBgKesa2dKMhSZabssoerQguBp1jaV+HOLXoCYvxmHZCBobzJHwkbllrDty7LTqP
+	WvaVdkGKwKV/Qfi1UgtxceMNZM8oyr6e1YSoGVEEx5reD7p3xcNXPaL5/Wc/vyLff8dGiMJZgat
+	KHS+3Q8eUYXI9Izp2MBOI3z9Bk3Mss1AEVY2zJXkcl9RfcEATe3geMBa/DSJGZigofZDEDcfD+U
+	RzW8XRBrSNGTPNlgudqql7Z06yXpnmf0Vpo350gotRThsHdL1Nzp666WHHoE3lVilnZPu9T5uiu
+	l/Zr6/Al5m3JDBvHwTeb8f2wuhtVKKIr8eT8dz+00/3lg6ei95i4360pJ8PMkW+rx87f5ySKFJX
+	/l5NCexlFUvxOPsG92iInYtPM06X9+Omm+azQdrmi3YZpkKNw1wKku2XuukIBjxYkOHZ+emqHEs
+	kUlk9t9/hZwJnyjufv20JzCrhCHMjiz2lciAqHHKHbFSwpxBM5kvMbWWgL7XXbAPEntkKcF22PC
+	1el2gnRv065bE1TNhYEnm0wVlLglFOWdheNSW5E9J20SHocVNOQ3hvUtf1aBwWkmZNAuw2765EO
+	cw0uU0MCjhXd8iNmT+iNLXw/gk7xl3zA9lFgLu9oK4rVxuLsSnw==
+X-Received: by 2002:a05:7300:d117:b0:372:32a1:b384 with SMTP id 5a478bee46e88-38281a0669amr1111204eec.33.1794965855691;
+        Tue, 17 Nov 2026 17:37:35 -0800 (PST)
+Received: from localhost.localdomain ([2601:646:4300:d042:b1a7:bebf:2fc7:37b1])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a6def9e2sm2094527eec.13.2026.11.17.17.37.33
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 17 Nov 2026 17:37:35 -0800 (PST)
+From: ozgun kultekin <ozgunkultekin@gmail.com>
+To: slava@dubeyko.com,
+	glaubitz@physik.fu-berlin.de,
+	frank.li@vivo.com
+Cc: linux-fsdevel@vger.kernel.org,
+	yangguikun19@qq.com,
+	stable@vger.kernel.org,
+	ozgun kultekin <ozgunkultekin@gmail.com>
+Subject: [PATCH v2 1/2] hfsplus: pass the key buffer size to hfs_bnode_read_key()
+Date: Tue, 17 Nov 2026 17:37:24 -0800
+Message-ID: <20261118013725.90985-2-ozgunkultekin@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118013725.90985-1-ozgunkultekin@gmail.com>
+References: <20261114043522.48764-1-ozgunkultekin@gmail.com>
+ <20261118013725.90985-1-ozgunkultekin@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -79,40 +105,154 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Lenovo IdeaPad Slim 3 15IWC11 (DMI code 83WA) requires skipping
-keyboard deactivation in atkbd, similar to the existing "83RR" variant,
-otherwise the internal keyboard won't work unless the
-i8042.dumbkbd=1 option is passed.
+hfs_bnode_read_key() reads the key length of leaf records (and of all
+records of variable-key and attributes trees) from disk and only checks
+it against sizeof(hfsplus_btree_key), 518 bytes. The destination is
+always one of the two key buffers hfs_find_init() allocates, each
+tree->max_key_len + 2 bytes long. For the extents tree max_key_len is
+fixed at 10, so the whole allocation is 24 bytes and a crafted leaf key
+writes up to 516 bytes from the image into kmalloc-32. The error path
+clears 518 bytes of the same buffer.
 
-Added a DMI quirk for the "83WA" variant using atkbd_deactivate_fixup.
-Tested on the hardware without i8042.dumbkbd=1.
-Fixes typing and keyboard LEDs even after suspend/resume.
+hfs_brec_insert() reaches this with a key that was never validated:
+when the tree root is 0 it reads the key of record 0 of the leaf it
+inserts into, and after a split it reads the first key of the new node.
+A read-write mount that extends the catalog, or an append to a file
+whose extents spill into the extents tree, is enough.
 
+Do not let hfs_bnode_read_key() assume the size of the buffer. Record
+the size of each key buffer in struct hfs_find_data in hfs_find_init(),
+allocate the two buffers from it, and pass it to every
+hfs_bnode_read_key() call. Keys longer than the buffer are rejected as
+before, and the error path clears only the buffer.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: bb5e07cb9277 ("hfs/hfsplus: fix slab-out-of-bounds in hfs_bnode_read_key")
+Reported-by: Guikun Yang <yangguikun19@qq.com>
+Closes: https://lore.kernel.org/all/tencent_F85118A9AFDF9B230D4E8FA672510A3E2F08@qq.com/
+Suggested-by: Viacheslav Dubeyko <slava@dubeyko.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Igor Sousa <contato@igorsousa.com>
+Signed-off-by: ozgun kultekin <ozgunkultekin@gmail.com>
 ---
- drivers/input/keyboard/atkbd.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+v2: pass the key buffer size to hfs_bnode_read_key() and keep it in
+    hfs_find_data, as suggested by Viacheslav
+v1: https://lore.kernel.org/all/20261114043522.48764-1-ozgunkultekin@gmail.com/
 
-diff --git a/drivers/input/keyboard/atkbd.c b/drivers/input/keyboard/atkbd.c
-index 019cfa855..8de262d8a 100644
---- a/drivers/input/keyboard/atkbd.c
-+++ b/drivers/input/keyboard/atkbd.c
-@@ -1943,6 +1943,14 @@ static const struct dmi_system_id atkbd_dmi_quirk_table[] __initconst = {
- 		},
- 		.callback = atkbd_deactivate_fixup,
- 	},
-+	{
-+		/* Lenovo IdeaPad Slim 3 15IWC11 (83WA) */
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_NAME, "83WA"),
-+		},
-+		.callback = atkbd_deactivate_fixup,
-+	},
- 	{
- 		/* Xiaomi Book Pro 14 (TM2424) */
- 		.matches = {
+ fs/hfsplus/bfind.c      | 6 ++++--
+ fs/hfsplus/bnode.c      | 7 ++++---
+ fs/hfsplus/brec.c       | 9 +++++----
+ fs/hfsplus/hfsplus_fs.h | 5 ++++-
+ 4 files changed, 17 insertions(+), 10 deletions(-)
+
+diff --git a/fs/hfsplus/bfind.c b/fs/hfsplus/bfind.c
+index ca9813f58..5ec72fc98 100644
+--- a/fs/hfsplus/bfind.c
++++ b/fs/hfsplus/bfind.c
+@@ -19,11 +19,13 @@ int hfs_find_init(struct hfs_btree *tree, struct hfs_find_data *fd)
+ 	fd->tree = tree;
+ 	fd->bnode = NULL;
+ 	hfs_find_result_init(fd);
+-	ptr = kzalloc(tree->max_key_len * 2 + 4, GFP_KERNEL);
++	/* search_key and key, each holding one key of the largest size */
++	fd->key_size = tree->max_key_len + 2;
++	ptr = kzalloc(2 * fd->key_size, GFP_KERNEL);
+ 	if (!ptr)
+ 		return -ENOMEM;
+ 	fd->search_key = ptr;
+-	fd->key = ptr + tree->max_key_len + 2;
++	fd->key = ptr + fd->key_size;
+ 	hfs_dbg("cnid %d, caller %ps\n",
+ 		tree->cnid, __builtin_return_address(0));
+ 	mutex_lock_nested(&tree->tree_lock,
+diff --git a/fs/hfsplus/bnode.c b/fs/hfsplus/bnode.c
+index 3a1a1fa6f..e2335c6d7 100644
+--- a/fs/hfsplus/bnode.c
++++ b/fs/hfsplus/bnode.c
+@@ -71,7 +71,8 @@ u8 hfs_bnode_read_u8(struct hfs_bnode *node, u32 off)
+ 	return data;
+ }
+ 
+-void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off)
++void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off,
++			u32 key_size)
+ {
+ 	struct hfs_btree *tree;
+ 	u32 key_len;
+@@ -84,8 +85,8 @@ void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off)
+ 	else
+ 		key_len = tree->max_key_len + 2;
+ 
+-	if (key_len > sizeof(hfsplus_btree_key) || key_len < 1) {
+-		memset(key, 0, sizeof(hfsplus_btree_key));
++	if (key_len > key_size || key_len < 1) {
++		memset(key, 0, key_size);
+ 		pr_err("hfsplus: Invalid key length: %u\n", key_len);
+ 		return;
+ 	}
+diff --git a/fs/hfsplus/brec.c b/fs/hfsplus/brec.c
+index f416e562d..779d7df0b 100644
+--- a/fs/hfsplus/brec.c
++++ b/fs/hfsplus/brec.c
+@@ -148,7 +148,8 @@ int hfs_brec_insert(struct hfs_find_data *fd, void *entry, u32 entry_len)
+ 	 * at the start of the node and it is not the new node
+ 	 */
+ 	if (!rec && new_node != node) {
+-		hfs_bnode_read_key(node, fd->search_key, data_off + size);
++		hfs_bnode_read_key(node, fd->search_key, data_off + size,
++				   fd->key_size);
+ 		hfs_brec_update_parent(fd);
+ 	}
+ 
+@@ -166,7 +167,7 @@ int hfs_brec_insert(struct hfs_find_data *fd, void *entry, u32 entry_len)
+ 		entry_len = sizeof(cnid);
+ 
+ 		/* get index key */
+-		hfs_bnode_read_key(new_node, fd->search_key, 14);
++		hfs_bnode_read_key(new_node, fd->search_key, 14, fd->key_size);
+ 		__hfs_brec_find(fd->bnode, fd, hfs_find_rec_by_key);
+ 
+ 		hfs_bnode_put(new_node);
+@@ -464,7 +465,7 @@ static int hfs_brec_update_parent(struct hfs_find_data *fd)
+ 		}
+ 		fd->bnode = hfs_bnode_find(tree, new_node->parent);
+ 		/* create index key and entry */
+-		hfs_bnode_read_key(new_node, fd->search_key, 14);
++		hfs_bnode_read_key(new_node, fd->search_key, 14, fd->key_size);
+ 		cnid = cpu_to_be32(new_node->this);
+ 
+ 		__hfs_brec_find(fd->bnode, fd, hfs_find_rec_by_key);
+@@ -476,7 +477,7 @@ static int hfs_brec_update_parent(struct hfs_find_data *fd)
+ 			if (new_node == node)
+ 				goto out;
+ 			/* restore search_key */
+-			hfs_bnode_read_key(node, fd->search_key, 14);
++			hfs_bnode_read_key(node, fd->search_key, 14, fd->key_size);
+ 		}
+ 		new_node = NULL;
+ 	}
+diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
+index 6f240f87f..d0d4fea94 100644
+--- a/fs/hfsplus/hfsplus_fs.h
++++ b/fs/hfsplus/hfsplus_fs.h
+@@ -268,6 +268,8 @@ struct hfs_find_data {
+ 	int record;
+ 	int keyoffset, keylength;
+ 	int entryoffset, entrylength;
++	/* size of each of the search_key and key buffers */
++	u32 key_size;
+ };
+ 
+ struct hfsplus_readdir_data {
+@@ -372,7 +374,8 @@ void hfs_bmap_free(struct hfs_bnode *node);
+ void hfs_bnode_read(struct hfs_bnode *node, void *buf, u32 off, u32 len);
+ u16 hfs_bnode_read_u16(struct hfs_bnode *node, u32 off);
+ u8 hfs_bnode_read_u8(struct hfs_bnode *node, u32 off);
+-void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off);
++void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off,
++			u32 key_size);
+ void hfs_bnode_write(struct hfs_bnode *node, void *buf, u32 off, u32 len);
+ void hfs_bnode_write_u16(struct hfs_bnode *node, u32 off, u16 data);
+ void hfs_bnode_clear(struct hfs_bnode *node, u32 off, u32 len);
 -- 
-2.56.1
+2.39.5
 
