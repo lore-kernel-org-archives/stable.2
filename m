@@ -1,58 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016379;
-	b=uEi1UbX9aOANB7CdIi/ueIsZMwBlef6ssvcrwET5qJzCUpmnoeOr2wcdSYQUMvW1Pl2h
-	 MjgZXWTBUkAeICoS4pozPooUgmS9KkkS8oCzlr0Hksl4BRlEBujuibgcVycapU2wR/X/W
-	 i8jRBXGgBlH9T7WHZiVXgQlYVgqfR4SKKBBykRvKXkkU4IX77DHH4iHgkwwUKHIoP0uX/
-	 joNUZrT5hsU/04PjVvMlGiTu9JZcJMyyXKNcUoxjvRVuDrwuP0SvMyywMeXX2lw5hd3WF
-	 4zyyEuhS7WWmMuhlem7Q4868uIwRNECFTeU/9JWQ1wdaXd7J9hXCPKKoBM0vjNd1k1Q==
+	t=1795016382;
+	b=Kvqj1E0oc8NPRh1UKUv0GgDcSiqxV0U+j6P6llwp7TE50Cu0kgNdrGZH6Yve9UD7G1Tx
+	 x0nNTuz0IjEHS5ajaDETuHmgRmUWXciFhjzTkTrptP+QFE1Ee0DsWN4H8PRZdlewsldMG
+	 wp9WHzAr54bq3PpIUjjL192TY1MW4x/A2o50Y1tu9+Dqnwd5D8DM1DYe/BJVJV2c+ATkZ
+	 LxtOseekSyeASIB4HI1AJq9Ii4vTKpA69bxdboGR/JeeIVWIqr0Zd0GS6u8mek8WOgSQF
+	 rpn5JJ0ztzPmAVJZUwB1BcEHAkR9fYDf4V8zaY8blt03c40NjFhhDo82z9d8f8qtXFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016379;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vOGSC/DWmUZTtdn3N7rjZSc01Mw+zDn/++vArdbl0fs=;
-	b=OtbK0qzlLXTIiPsUz4fabnoBVL2ZSD0yO3DW9dBn7EoV3al0WfKDIF/hSa+YxxhpVn9L
-	 uVU05euZVf4L45Edc883M5vGEy119tSNbweVnCGlO6qGj50e0QyMVQ+1WIgZhqCbHj2Rm
-	 H9IvMAkFS/3vufFRVVJ18MtXBJZ0tjfYj59LynFof8YtOEv+3FDWkvJlG9wPXdpRrM/nc
-	 GWwRHvGKxgsrHn/rzDTTGi7yOtMD1IM2pgUrpaG3bRUe0ZGD40jTQlVMoaq2r/DOF7Hyv
-	 dtj0zVCdusFFsQdizK3GSue3z+rctYbWK90ODKRA2aejeBi6rAjQQ9/b+rsOay2CL8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795016382;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=5ax3Lipd+AcivWLlLBqoyKXnHoFVYuzVHK/u3oZQ3q8=;
+	b=TYWxoXfeP/M7Iu3nOLIIaSZnTpd17PWU8KlpjRJat8HCIyyUkkJ8IsVK4IjG7kftun+Z
+	 cFT0akFam2LU/yY0j+LNgSPS4j79QbSw0zGBJWHlovYYI4BZbrcBcLE47bInsE6hArlK0
+	 faZZTCEK54YVT13AS9WLhFsSuYsppFziHVUaxXkzceTrOOzPqFU76Chp3TN0w0/js9raH
+	 iDJ1gwsbXTc3lgQ+VBOu8Tsk2MrOQbpv8r+xk1sSa3JOuUt00r47yiw/O7Mb+/sFzeGmK
+	 +u3XvotdYMdmjO6Dc3XPLMtiH8JsU4H9uZZfRuH1yUo4WYiZzlIKUWFxU6w6CQgkdJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RxiwknAY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ChN4RtDN;
+	arc=none smtp.remote-ip=209.85.167.182
+Received: from mail-oi1-f182.google.com (mail-oi1-f182.google.com [209.85.167.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F0660A261B;
-	Wed, 18 Nov 2026 15:39:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA42F60A260B
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:39:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA42F60A260B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RxiwknAY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 988881F000C4;
-	Wed, 18 Nov 2026 15:39:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795016379;
-	bh=vOGSC/DWmUZTtdn3N7rjZSc01Mw+zDn/++vArdbl0fs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RxiwknAY3yH8/OktYOFrPXiw5roMuK2guTw7uaiZh2Kh82dPVLRX2vRUMIqcuQvi3
-	 aGpArtbtmSIVYpji/v5JrxutLHf6+M6PEUZqPhe8LklI/R6zDYKvJVjQBm4bCExu2Z
-	 MiEa2xAq0h3zeY0Tk6ZhKSV0esjaERjm2txgmwUU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0507/2651] x86/cpu: Inline generic_identify() into identify_cpu()
-Date: Wed, 18 Nov 2026 15:29:07 +0100
-Message-ID: <20261118150306.010835895@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ChN4RtDN
+Received: by mail-oi1-f182.google.com with SMTP id 5614622812f47-55e02e89f78so378020b6e.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:39:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795016381; x=1795621181; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5ax3Lipd+AcivWLlLBqoyKXnHoFVYuzVHK/u3oZQ3q8=;
+        b=ChN4RtDNL4FAZnfKWrkcqtZR9IwHiD412LxnId3JvdDhc10w9CNmIAgsuSll3tHp2S
+         w3KfmBSLf8edMN/+2ABaalGwez79ruoZ/SLHAW5f8PboytQDbTeWW3KMmtPzNVcAS1XL
+         LacFnrw01OSIW6IiBARxJfk2riKOsOXA2hPsu+tHeK7H8HqUZwqtrRDkUEh4+I3EVtAm
+         KlaNLYjxxtrM5ZeDXLOKDL37vL6bOMnswIdnJehE7PBi4+/Tg7d7t/Imgru0kNALnnUR
+         +pnmMFx/6a5ctuXYw9NsymB5Ipe0OBvr0807ptcZxoYCgpG623H5kq+8yLlmuu05TsF4
+         /j6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795016381; x=1795621181;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5ax3Lipd+AcivWLlLBqoyKXnHoFVYuzVHK/u3oZQ3q8=;
+        b=twlOY/LngUyEwy//jXzluR5qDM8xmJHjtpeoPe45+uKFdx1gjtHWEGpuhj89wl3vrM
+         dOrICDtHNrmbadkbEkX3101t4xXTJFwu2IwOPPBEKeoYLb0hi5qwid8yImP7ORbxR6LQ
+         7naEC/WIUcNPBrmea3XonPbud3HVkTphrcyPfnWiSDxyk0Lr1xpKfQpunMRZ4svOkYwL
+         Ub4cPLAbodNvrWo3JFDDn7jFKn7JxWwseBxR3mFQqwM/HTzpBs7Ignj/pjXPXultlH0X
+         m62hj7nTT7LMOcI5DR+G3jpwSwbPP/llNABF53B1Tjf98o6UMEI9nB5kvUjW0b0H0vFQ
+         juEA==
+X-Forwarded-Encrypted: i=1; AL+hErHRCdiqAAqmMaA0cfMlrvADDYbxoO8fYmsnbIqHOzjbx00HPe2dafKjA5+IIoyyAG1F6wJLKMc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+SHuT6beSLUwBT0yDZJlNeIuu09JD4Hly5yMXzmKuedRNFXMg7
+	q0pvqcGzyUUObhACceusYXY7BNeWXr07j7C4rJcEDxiuFYOLVg+dB7BNIMHToQ==
+X-Gm-Gg: AYBFou0qMBJKSSGvGORUDPMk9mjG2jyX+E2y2FO9RRMB82G3ZkoTf8xlOcPp/TwH7SH
+	H0wlN+CGsDSKkb6PEZqmcUzKBLPTernGNRokmVtLNgNbIrCKBuatwxIMA2RwhV7OKXy+QPBeZOK
+	XPhlqbcy9p3m4Gw8rOK04yN9mc+Ysz9tPn9Fc5reBP0UL/Vp3R0IdmS4g18F9v2ZQQlL7peIWNR
+	EsNDnHa0DmCbuc/MQ79H2GxhwjQmXu7bfx8ro7y2X1UBrkyrSDzpcvzoTow/61ppIFXEBmR2gBw
+	XSMy7Rxh1OvO4fa107TtZHUNeVA3u8I4RRiiEOafEEntBI6+0APMgR4BG7gwgG8obkUzDznLA9g
+	SWpEGhWxla2BIMYPGJ5jeDqIZWnmZG1XyRsZqIrmNGx+NCsWt4n4gRuKPZjor//AyXAAEBYJ4al
+	OLWQAf4hQzu7Vtk4T9PFc2QIT6VdEx+bFj/jo7q3MH95oSNwMCG1POhMxhFmXsjjDj8itZ6X74s
+	xv65TCmyLrVLiFryEGP170qunOvdKpfLbF+wSzVmjie//V9XKxYZT9Nsme1iF9tdKLnCibV2F8x
+	AtMWUpjBYvNzT5XeLShEazMFun+wXds4ezELAfkA2Ng8W2R4
+X-Received: by 2002:a05:6808:220e:b0:573:f2e:2bee with SMTP id 5614622812f47-57741723566mr3647243b6e.37.1795016380749;
+        Wed, 18 Nov 2026 07:39:40 -0800 (PST)
+Received: from rigel (106-68-220-184.tpgi.com.au. [106.68.220.184])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-57775461e70sm1987291b6e.0.2026.11.18.07.39.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 07:39:39 -0800 (PST)
+Date: Wed, 18 Nov 2026 23:39:31 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v6 3/8] gpiolib: cdev: do not free line IRQs again after
+ the chip is removed
+Message-ID: <20261118153931.GA46152@rigel>
+References: <20261116-gpiolib-chip-removal-v6-0-aambrozewicz@nvidia.com>
+ <20261116-gpiolib-chip-removal-v6-3-aambrozewicz@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,98 +105,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-gpiolib-chip-removal-v6-3-aambrozewicz@nvidia.com>
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On Mon, Nov 16, 2026 at 03:47:06PM +0200, Adrian Ambrozewicz wrote:
+> Since commit ec8b6f55b981 ("gpio: free irqs that are still requested
+> when the chip is being removed"), gpiochip_remove() frees the IRQs
+> still installed on the chip's lines. A line request or v1 line event
+> kept open across the removal frees its IRQ again on release. If the
+> mapping is gone, that can touch freed memory, as reported with
+> virtio-gpio; if the number was reused, free_irq() warns:
+> 
+>   Trying to free already-free IRQ 28
+>   WARNING: kernel/irq/manage.c:1881 at free_irq+0x193/0x2d0, CPU#2: gpio-hold/111
+>   Call Trace:
+>    linereq_free
+>    linereq_release
+>    __fput
+> 
+> Stop edge detection from the device notifier that gpiochip_remove()
+> calls, under config_mutex so that it does not race a reconfiguration.
+> Free the IRQ there only if it still has an action, as gpiochip_remove()
+> frees only those on lines flagged as used for IRQs. The release path
+> then finds nothing left to free.
+> 
+> Reproduced with gpio-sim: remove the chip under an open request with
+> edge detection, set it up again and request the same line, then close
+> the first request. Every cycle warns; with this change, 100 cycles pass.
+> 
 
-------------------
+Reviewed-by: Kent Gibson <warthog618@gmail.com>
 
-From: Ihor Solodrai <ihor.solodrai@linux.dev>
-
-[ Upstream commit ad86fe2134ccdc97a967693d2723a731c99fb7bc ]
-
-generic_identify() has exactly one call site: at the top of
-identify_cpu(). Fold it into identify_cpu() so that a single function
-does the job for both the boot CPU and the secondary CPUs.
-
-While at it, fix up both copies of the Cyrix comment.
-
-No functional changes.
-
-Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-Link: https://patch.msgid.link/20260916195203.1099646-4-ihor.solodrai@linux.dev
-Stable-dep-of: 2711d67bc3a7 ("x86/cpu: Don't transiently clear the boot CPU's capabilities")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/x86/kernel/cpu/common.c | 32 ++++++++++++++------------------
- 1 file changed, 14 insertions(+), 18 deletions(-)
-
-diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-index 7ac09bb6881fe..de07688c8711a 100644
---- a/arch/x86/kernel/cpu/common.c
-+++ b/arch/x86/kernel/cpu/common.c
-@@ -1827,7 +1827,7 @@ static void __init early_identify_cpu(struct cpuinfo_x86 *c)
- 	if (!cpuid_feature())
- 		identify_cpu_without_cpuid(c);
- 
--	/* cyrix could have cpuid enabled via c_identify()*/
-+	/* Cyrix could have CPUID enabled via c_identify(). */
- 	if (cpuid_feature()) {
- 		cpuid_scan_cpu(c);
- 		cpu_detect(c);
-@@ -1991,14 +1991,23 @@ void check_null_seg_clears_base(struct cpuinfo_x86 *c)
- 	set_cpu_bug(c, X86_BUG_NULL_SEG);
- }
- 
--static void generic_identify(struct cpuinfo_x86 *c)
-+/*
-+ * This does the hard work of actually picking apart the CPU stuff...
-+ */
-+static void identify_cpu(struct cpuinfo_x86 *c)
- {
-+	int i;
-+
-+	c->loops_per_jiffy = loops_per_jiffy;
-+
-+	init_cpu_info(c);
-+
- 	if (!cpuid_feature())
- 		identify_cpu_without_cpuid(c);
- 
--	/* cyrix could have cpuid enabled via c_identify()*/
-+	/* Cyrix could have CPUID enabled via c_identify(). */
- 	if (!cpuid_feature())
--		return;
-+		goto no_cpuid;
- 
- 	cpuid_scan_cpu(c);
- 	cpu_detect(c);
-@@ -2026,21 +2035,8 @@ static void generic_identify(struct cpuinfo_x86 *c)
- #ifdef CONFIG_X86_32
- 	set_cpu_bug(c, X86_BUG_ESPFIX);
- #endif
--}
--
--/*
-- * This does the hard work of actually picking apart the CPU stuff...
-- */
--static void identify_cpu(struct cpuinfo_x86 *c)
--{
--	int i;
--
--	c->loops_per_jiffy = loops_per_jiffy;
--
--	init_cpu_info(c);
--
--	generic_identify(c);
- 
-+no_cpuid:
- 	cpu_parse_topology(c);
- 
- 	if (this_cpu->c_identify)
--- 
-2.53.0
-
-
-
+Cheers,
+Kent.
