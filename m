@@ -1,85 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795015311;
-	b=z6OuMQZhaQttHe6ah+/sm4bz2xRwyT1JJEClRGmEVkD3vnH7uKH+cqcNScHk0rEHXnjm
-	 Zn/rPj0vwcuNkUty+zGMC4prIzdvEYEpqCy8mxvSQGc/NsM+2dC3EGFDRByH3+rWvCH0G
-	 RraJYHXH8gOop6iikLXLpUWftFDHWAl/QcmqpJVlDkA3vBK2XSZqeWw1PVY7ynZLK/Gea
-	 ZdyMal5gLMOq5edfgomGUYycplhtSd0WWZLqfz+Exq1iMvyjHPw31dKpcsyUuoTQGWlYR
-	 wqNjJdAy4FqnHR/a+ZouAEUULbDvbZxM71lrgHU58o4rObmCbJnTH2rbPkkcHCT1b8w==
+	t=1795015317;
+	b=rjAybnIR1B+vDez/lLpjsVoAlNHXDfa+brV2HOVPiwLX8qREcLDAvK5FATNxUEbKlkYq
+	 sMfBMNMW8VeBFIA6J0hrD+DZmcf6hY83O9Pq9diK5IscwwdjFjAmWE4eEL7IxCvmT/1wN
+	 SeqLzR512c/0QdSRDBl32tl/Jnc/kKsbpJ7nBthao5kelNILosyyW9ukvSN7eSBv8+Zl2
+	 dIyS6eolzQ1TRatsRPCbm5j2QWfzn8lFfDd44MVFuU3NzHYh1S0ei5je4sqGpHNUvbf12
+	 81ceqT8HPf/c1LZzW01rNrQFuo9/ERbdZcl3lypXzZohtkOE6F9kWDMrPOwmTzRd+dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795015311;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=zjHf/N+E74CHlMypQ6kG0MO/j1AaxlMnO45unT7fRs8=;
-	b=hQc18Yqgd0DsXygsJn3/Xtwj+xEsL/fgF4VlUY62JfE5WcrVrRebOHqrK092ifhsCk24
-	 gL3rMQWCi2MOrE9yfvRzvfb13mvc+84vlwxHzBMaV1m7t3bw/nibpJ+YfR0bevD4Pq7wN
-	 snXumAjRr7obC3J7Z28VpAiJMdVClbO1+dzGno6oR6YeGnUSb0TCcK916HtaCJOQASRv4
-	 5hEBnXBu3gA1pW7kkaKWO7PNfTZWoBKceXJCbAgNWtVRgaDQpL7FGAmTEAoP/Px5ji+v4
-	 J8C8p6qT33coKvThN+SnWVviYqjc7FOL4vbA68Y8iiXtwkclSD1Ib6FrHhNKKr75BPw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015317;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=6YK7K94zKeGDdUyNPh4kfd3uR9QkqWhbxxC4XfA+yn0=;
+	b=0nN2MFj9i4aJ1bsw1n5Bltey+bzgpxvEzDBIGGlVH7BXWb59kZaOwU+Hb79rnc20U/jz
+	 q9nAlb5l95Cc+zujEq6jQ4f/MESOVitCWNAqyQKtOrEJSYsPxd4aEJtUY5UtrqG+fqqoD
+	 5XSoco1raD8/28gc7RTqW2QfT4Nmf8CQZ9wAhF75zT+NOj1icgrWDPYm/sxDXlU6Vy31q
+	 5HmSGGAYMO8+DVK8wuaLmnRe7SxBK+Fp/DzXqkQflzCA3Cd5Xlt4Ds+itj7cxUZZwOzdj
+	 Au1QStTWV7PXMyZYoHRfhv6ICQX6gqG0+wydyCpzuLYUsff2EwpvDvDVB8C0bgHyOsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zatd8Vt0;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xLqSvN7z;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FB9606A331;
-	Wed, 18 Nov 2026 15:21:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405F0606A32F;
+	Wed, 18 Nov 2026 15:21:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Zatd8Vt0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 587FD1F000C4;
-	Wed, 18 Nov 2026 15:21:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795015311;
-	bh=zjHf/N+E74CHlMypQ6kG0MO/j1AaxlMnO45unT7fRs8=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Zatd8Vt0ywkplJtY52sv1C6gqcSe5RQKIFV+5E71Yls+0SNUpVBiJwgzdPLtELYUe
-	 lMEeHjRrAnWCh2jU/xSsBaecsX4m19vZToDTdpSksFBkKQ+BznUVf+kzqQpRE594cl
-	 xI8Xzi02t1DvZZ4QYsxI3pXSUlMMlXjiS6thpbcD+kd0ditk+o0zuiajNisMWqprBJ
-	 /63zF2q7x1g0nOMjPpptKxP3+nsGFzPTU+2b5WqClj1L/DhevvwIx0kJR7RAEdV+V1
-	 Jl3RUAzke75z/aoxyBUnO1R5v5m1VuTsvFwkZGVLKCc2UzrfJ4Rc20DHv+e1oARAVi
-	 NavFFG/ZUVtzw==
-From: David Hildenbrand <david@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
- James Houghton <jthoughton@google.com>, 
- Andrea Arcangeli <aarcange@redhat.com>, 
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, 
- Michal Hocko <mhocko@suse.com>, 
- =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>, 
- Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>, 
- Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
- Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Oscar Salvador <osalvador@suse.de>, 
- =?utf-8?q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>, 
- Tal Zussman <tz2294@columbia.edu>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, 
- Breno Leitao <leitao@debian.org>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Felix Kuehling <Felix.Kuehling@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
- Leon Romanovsky <leon@kernel.org>, dri-devel@lists.freedesktop.org, 
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
- amd-gfx@lists.freedesktop.org
-In-Reply-To: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
-References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
-Subject: Re: (subset) [PATCH v3 0/9] userfaultfd: assorted fixes (part 1)
-Message-Id: <179501529906.13844.1913398195867025027.b4-ty@b4>
-Date: Wed, 18 Nov 2026 16:21:39 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xLqSvN7z
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96FFC1F000C4;
+	Wed, 18 Nov 2026 15:21:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795015317;
+	bh=6YK7K94zKeGDdUyNPh4kfd3uR9QkqWhbxxC4XfA+yn0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=xLqSvN7z7fjc02bF7QOEimljHR7WMJF9v8zEMpSLcaTQiAKxw/p2uXaXOjmGhJEua
+	 MuYjs/YMPKbxzyjFEV7A+l1zGZ1AtqcO/JvZub0JhGC2Oj4qIF2JKSZEiyjqrw+Evq
+	 MuGJlTxAAW72UrE+EfcEcNkNvkL2CAajCdalsjEw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0131/2651] dt-bindings: clock: qcom,milos-camcc: Add missing power-domains support
+Date: Wed, 18 Nov 2026 15:22:51 +0100
+Message-ID: <20261118150252.572962776@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,48 +63,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 17 Nov 2026 23:28:40 -0500, Tal Zussman wrote:
-> This is a first batch of userfaultfd fixes, with more to come.
-> 
-> These were found by a mix of regular old LLM review and by having an LLM
-> write a TLA+ model of uffd interactions with PTE bits and other state
-> and seeing what issues fell out.
-> 
-> Most of these fix places where mm code loses uffd-wp or RWP protection
-> while moving or migrating an entry. Userspace then either misses writes
-> and accesses, or gets pages reported that nobody touched.
-> There is also a hang in UFFDIO_MOVE, and UFFDIO_ZEROPAGE modifying a
-> file through a private mapping.
-> 
-> [...]
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Applied, thanks!
+------------------
 
-tree: mm/core.git
-branch: migrate-7.5.misc
+From: Taniya Das <taniya.das@oss.qualcomm.com>
 
-Applied patches will appear soon in mm-next, followed by linux-next.
+[ Upstream commit e0f335a4e17f5c80b24b8bd2060802bac072775c ]
 
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
+The Milos camera clock controller requires the CX and MX power
+domains, along with their performance state votes, to be enabled
+before the clock controller can be accessed.
 
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
+Document the 'power-domains' and 'required-opps' properties and add
+them to the required properties list and example. Since these
+properties become required for the already-documented qcom,milos-camcc
+compatible, this is an ABI break for any devicetree using this binding
+without specifying them.
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
+Fixes: dbb9d53b7197 ("dt-bindings: clock: qcom: document the Milos Camera Clock Controller")
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+Link: https://lore.kernel.org/r/20260806-eliza-mm-cc-v9-v10-1-6ba52dd14343@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../bindings/clock/qcom,milos-camcc.yaml      | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
 
-[8/9] mm/migrate_device: do not migrate a uffd-protected zero page
-      https://git.kernel.org/mm/core/c/a37a6cf0
-
+diff --git a/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml b/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+index 707b25d2c11e6..c4aba40e316ca 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,milos-camcc.yaml
+@@ -29,9 +29,21 @@ properties:
+     items:
+       - description: Interconnect path to enable the MultiMedia NoC
+ 
++  power-domains:
++    items:
++      - description: CX power domain
++      - description: MX power domain
++
++  required-opps:
++    items:
++      - description: CX performance point
++      - description: MX performance point
++
+ required:
+   - compatible
+   - clocks
++  - power-domains
++  - required-opps
+ 
+ allOf:
+   - $ref: qcom,gcc.yaml#
+@@ -43,6 +55,7 @@ examples:
+     #include <dt-bindings/clock/qcom,milos-gcc.h>
+     #include <dt-bindings/interconnect/qcom,icc.h>
+     #include <dt-bindings/interconnect/qcom,milos-rpmh.h>
++    #include <dt-bindings/power/qcom,rpmhpd.h>
+     clock-controller@adb0000 {
+         compatible = "qcom,milos-camcc";
+         reg = <0x0adb0000 0x40000>;
+@@ -51,6 +64,12 @@ examples:
+                  <&gcc GCC_CAMERA_AHB_CLK>;
+         interconnects = <&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
+                          &mmss_noc SLAVE_MNOC_HF_MEM_NOC QCOM_ICC_TAG_ALWAYS>;
++
++        power-domains = <&rpmhpd RPMHPD_CX>,
++                        <&rpmhpd RPMHPD_MX>;
++        required-opps = <&rpmhpd_opp_low_svs>,
++                        <&rpmhpd_opp_low_svs>;
++
+         #clock-cells = <1>;
+         #reset-cells = <1>;
+         #power-domain-cells = <1>;
 -- 
-Cheers,
+2.53.0
 
-David
+
 
