@@ -1,90 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795019984;
-	b=iAoIKLxwl0PSs+Zdhhs0lEH434R/4wAM56hRJEo0wExu60+Ko2zL2zkMXreTJBkqYNp4
-	 /Y+1B3RVacBx+iqgOwf+IXmJ2dT3gFtj/dImeurYdjhunvVbw1eqrG5MtZYe32tGh2WDS
-	 80TwTyYvIZrjh6HtTK9NcDFEyAJ//ucXi7Do26wAUZO8a4bheMs5fUVM//xU9RB24fYFc
-	 OmllA5nW5U54AWMvlHu27BPxJlxCcEgdXvCaG7EVGkfs1LVjDnBcMUzUSV5OXkv2LbBQa
-	 2YPeKvf3D8481OBGwtL6hs1e2z8grANiFhZOkn7TfdGS1Ch8gWKU3i13GMrIcsSd0pA==
+	t=1795019990;
+	b=e1k0nH9Lhwe72qbxxTiTjK4k5HQ0KYNkLfWi3Xu5423vJnhFJ6ToMZCtZKklqTlASydu
+	 YpZoPnVjboFpucl7CEY2mP4U0y8hSnWuHTghi0ElN6cmBM120SaVUrzdbkze9H4JnLI3F
+	 FgYkTOobEgIzSgrysX6eFLfD1DOUTJ7vGP6d12AHy4bMJt7Aw/xBOBCz9RCN9qz8xmjz9
+	 NwE2VoBr7DMKHuQazeoLkHc7ZY2v/oDNUKohCvdJZMpjzC/ZPuDMojwxJlJtlatwGcXX3
+	 G5qp3LHdWXJtPstkaD5EWEN5TT8kr2WMutccuYxj1lnV+QCZODNRS/uGqgMq2cufMLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795019984;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=y0TMrCzbGMAXa1cTU4qckddvOIHma2PxgVYHTYEMX2w=;
-	b=zJg0fkHlvr/zuXwouJDJ8VangVsC/ma66eNZJcn7hqA2U8MbR7yHSrBEXnEXRLjhD90k
-	 c6r6I4QdkcrMDUG72YQArHKBDgl0cFQVy3eE9gQm3fDryJVOPT5ZJXkmycXFnY85tpoTM
-	 EO9aXdahcNa14H4Stf1unkWH+fIHHkwBOuN45Fb92F5SDr3I80WXXgC9vwlbuB8h9XilZ
-	 t37iSdTerWOg3Z73JmShdHGC/MUHz0o6Bgb8uax6XiTIU/zfzzdwBPnOxnFwsBxr6MzzL
-	 91Wr4pYWNy/8ma39w5F/+GHN5hu0MpJ2SkD7q/WP8amxkvcIsDuotYqzgXtVUbCsJbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795019990;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=Y3E0rRximManpqbyT9NAe7NVmlpfgnyRhlIC6ObysKE=;
+	b=1JQLg2ZWBKSfl3F20/KV/Zg4TReTk/RZD2HIb/5Dswq2xUKs6tZi54SlYa2dU7DF6lr4
+	 4F2OypjG+h9XiY3+1cfRRlQy0isZPsogobzBvV7gjmAQzXiYJXKShK53341T/frgoyqOa
+	 ykUBUm29SvVlqUREfRXrtGav/58muW6ENuTvamWsbrlm4McQ4aE/2WHjIw5LdM0S+DICO
+	 BSaDRB4Zfv975RVNrPY5moMoBjm+hO0hl/ve8GKV4hFSoydHERKSjvrndF6Yrga8ZnUZ4
+	 yLhRl+uwfZzFa1CUVPbBfXEOoO8RQQdg5zYr/OKkXtJAgLcKoQVXTq6ixTA3oXfLUkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=CvdgewD9;
-	arc=none smtp.remote-ip=209.85.208.50
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BZ1ghNAn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB53606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:39:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FB53606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C10606A332;
+	Wed, 18 Nov 2026 16:39:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=CvdgewD9
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b87a1a2babso1733a12.0
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 08:39:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1795019983; x=1795624783; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y0TMrCzbGMAXa1cTU4qckddvOIHma2PxgVYHTYEMX2w=;
-        b=CvdgewD9cRAYlUY2D7eJ5rsBhzbflbaP9q6WplNlDPxXo0EJ0uTXZjlEcha5xX/cWl
-         D9hq2RB42YueQv5m8YegdBlAkCZeC2wnNL6RJEmPpZhNn9BXseuW6y1UTBNolzBcBjnl
-         HathacXpqLzQqr76pKjyCPpBxk0TEsuKB0cxs=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795019983; x=1795624783;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y0TMrCzbGMAXa1cTU4qckddvOIHma2PxgVYHTYEMX2w=;
-        b=sW7eG1Ln83F06ZWGQkWqD2W417tBzlmhjpUDJ23hpW6iGAcB/kGa87bhQgmh5oWsAO
-         ZYLzkKw/ZKqKnybxsY2frIcwvvO117cIpf7e2rzebJelWO5DEyvjjrBTOMRBB5kl2ZEy
-         4v8ckDVCwUqClE7htKPhhbrIFepTTDZ6uZKwQanRP5MPfkBSrBiakvldtne//faN8u7h
-         /IU874sGz9WzdhZuQipy6Nqsxpw9/lDE6tVmFCFQzvGzsnnHeGYGEq2ncRNXUKly5CaJ
-         j73BbcwivlDs9CeNY724Q/UmHNZ+jmsEUvL+hcb4kLgQO6SpaM08UvioNLVhgAPESsFr
-         Dn3Q==
-X-Forwarded-Encrypted: i=1; AL+hErHf1FYS0EaoLffAHa11taG0w79Wh/DBcmGoMF4Q2qnQhy+HaBU8P5n6QOgWRej/urf1EnG8e44=@vger.kernel.org
-X-Gm-Message-State: APuU4Z94cQnvRXWm1nv/K2TBvOkgSeLK2llVg6FBLxmJynFrxsik+IHw
-	+Y/nU+cKcRuLpj8IEkfqiCxLjXtTDOU9E2nadjf1D2oESGDo158U4Nhc5LkthVb4OJPgrnyUyNJ
-	1KBXv3P/9Xg==
-X-Gm-Gg: AYBFou0ti+win+yJs/rphTVkDg42YHz4ujbxEOV1PZrg+p3Y/XYqEbVsHmi2dwbPeSU
-	9cdIRvDbc1tTRCrOpUEkv4BAWaBI9fJztw939CoIgP6EXLr3Ye64ccArFAxlZgVR63jswhwcNki
-	1JXfrlyuNUnqIoSnQsJ8IxROzqT3zdVRkpybUsuHglXgDFX/zGC69di03pc8YYIznmnxWtdWMR2
-	vW5UiDSjbbydu4EbwxiPAlxhhlFOMYexjqQQYAuz+LxN+yoeAnSG8UIXRL6oqlHnjmaPITj4pDb
-	n7ywEfXMMo86qSRXR+7Fwpzx4CjFBg7SwKHbCbdlUODsb+s3cBrNGxI2a1pwaz+EmG3NpPaDWiz
-	kN2chhOxUZXZF6IxieFNhTnC1S5fv9/FapaselslWs3jtZd7c6LY03t6kt64QLhhJoCr7TBpeHm
-	cmA/Xecg8OMzbYlPQVoIOjuGMOuZpUQBk8u9qt2LOZlkTxjBkhwS5cqmftvU+pA0kiemK7wIIz0
-	r0tl2ikW3VEhRuXV6tP4NcAHpYfgIYFXSxr1fOWwjApYctIPlr6olVnP2Ci1PZPaz8WJUXCDroj
-	NTA6ucnmJcn5hgka0S7z1tbdAAml3kWZ4BZ5L2xzKbDxKZj5jSiUNOt1hvfL/+O/oMpp9D1KYpU
-	F0WT/si00+FzxYngtnc/p7iy4Mw==
-X-Received: by 2002:a05:6402:910:b0:6b8:7fca:9291 with SMTP id 4fb4d7f45d1cf-6b9a963dbd4mr17147a12.4.1795019982693;
-        Wed, 18 Nov 2026 08:39:42 -0800 (PST)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com. [209.85.218.41])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b889c23658sm1344871a12.16.2026.11.18.08.39.41
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 08:39:42 -0800 (PST)
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c40e30c26a4so274266b.0
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 08:39:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGW0Yrvbq7knpYDfNnY6cNBY/jC4YQpJ8IstT0ngsKaTVo26/zcbskkXAr0AlP9di0XLDCnirc=@vger.kernel.org
-X-Received: by 2002:a17:907:1c9b:b0:c4d:31be:1f27 with SMTP id
- a640c23a62f3a-c51260bf92amr3511966b.9.1795019980203; Wed, 18 Nov 2026
- 08:39:40 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BZ1ghNAn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE6B61F000D0;
+	Wed, 18 Nov 2026 16:39:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795019990;
+	bh=Y3E0rRximManpqbyT9NAe7NVmlpfgnyRhlIC6ObysKE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BZ1ghNAnOJIbkTFv99E+IJ+2L/7DBt1wIW0NyRdX7bq74mpQQFTdZq8OdWaL2Wnor
+	 klrG6vw03aPgsbs15ETAxfDinnoksJAJOpL/r8Dcey7rP67plmhoIMhdfi5VOSgVp0
+	 DoJCBJTnRgpbaPSYcXUctcYVtnMiVdDYscZRQPlw=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 1751/2651] clk: qcom: rcg2: Propagate force-enable status errors
+Date: Wed, 18 Nov 2026 15:49:51 +0100
+Message-ID: <20261118150350.544437169@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,44 +63,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
- <avxWKI795DthE8Sb@redhat.com> <CAHk-=wjOq+G=6gte4vX_YxOD_VfE1uZh7=+KHs8N0wU75xyHEg@mail.gmail.com>
- <avyODoFhZ_M7YDU5@redhat.com> <CAHk-=wgcBSBtHE+3ceKGjq1jyF64OyoEqf5JPpixowAa80GqNQ@mail.gmail.com>
- <avyVwg-5ef-pXZkG@redhat.com> <CAHk-=wjJF8uZLfVbbqei9-fhs9K70i2OnVreCV-rQF9EGKAxJg@mail.gmail.com>
- <CAHk-=wjqParwoB8wb9KfGVpbwUwvKvObpLOo=XPM0GGfkn3ibw@mail.gmail.com>
- <av2juQijIISJAgyf@redhat.com> <CAHk-=wg4RgBYZcUU+c16XxdZ4UbAaazJkUS=R6=tpN4xUBdDRw@mail.gmail.com>
- <av3SmRMGDLVAwMzK@redhat.com>
-In-Reply-To: <av3SmRMGDLVAwMzK@redhat.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Wed, 18 Nov 2026 08:39:22 -0800
-X-Gmail-Original-Message-ID: <CAHk-=wifUn5X6LeT+-A3mW9JtDcfx2x-5xsWpTxXzThibsK6Ww@mail.gmail.com>
-X-Gm-Features: AclHuK8yADyTYfgQF-cxDlxPVAPrNzQpmw9eeowiVPqEa19tx8pNj1uFwz9vJyA
-Message-ID: <CAHk-=wifUn5X6LeT+-A3mW9JtDcfx2x-5xsWpTxXzThibsK6Ww@mail.gmail.com>
-Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>, 
-	Breno Leitao <leitao@debian.org>, Christian Brauner <brauner@kernel.org>, 
-	Mateusz Guzik <mjguzik@gmail.com>, Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	tz2294@columbia.edu, stable@vger.kernel.org, 
-	Mani Tofigh <mt4022@columbia.edu>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 18 Nov 2026 at 08:30, Oleg Nesterov <oleg@redhat.com> wrote:
->
-> On 11/18, Linus Torvalds wrote:
-> >
-> > Some duplication - with explicit naming of the locking status for the
-> > special cases that are called with the lock already held - is much
-> > preferable to dynamically doing the locking
->
-> OK, this was my plan B ;) I'll try to make a patch this week.
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-I've applied my cleanup patch in the meantime, it was obvious cleanup
-and I didn't want it to cause unnecessary conflicts with anything you
-do in this area.
+------------------
 
-I haven't pushed it out yet, I have a few pull requests pending that
-I'll go through first.
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-          Linus
+[ Upstream commit 8c0f93e10fa9e34009817bd37bb75c1b5a691fa2 ]
+
+clk_rcg2_is_enabled() returns either a hardware status or a negative
+regmap error. The force-enable polling loop treats every nonzero return as
+an enabled clock, so a failed status read is incorrectly reported as
+success and clock reconfiguration can continue with unknown hardware
+state.
+
+Check for negative returns before testing the enabled status and propagate
+the read error to the caller.
+
+Fixes: 7ef6f11887bd ("clk: qcom: Configure the RCGs to a safe source as needed")
+Assisted-by: LLM
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260917-topic-qc_clk_fixes-v1-2-5531cb00514b@oss.qualcomm.com
+Signed-off-by: Bjorn Andersson <andersson@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/clk/qcom/clk-rcg2.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/clk/qcom/clk-rcg2.c b/drivers/clk/qcom/clk-rcg2.c
+index adb03c3aa0dc0..54d122e2e0d60 100644
+--- a/drivers/clk/qcom/clk-rcg2.c
++++ b/drivers/clk/qcom/clk-rcg2.c
+@@ -1332,7 +1332,10 @@ static int clk_rcg2_set_force_enable(struct clk_hw *hw)
+ 
+ 	/* wait for RCG to turn ON */
+ 	for (count = 500; count > 0; count--) {
+-		if (clk_rcg2_is_enabled(hw))
++		ret = clk_rcg2_is_enabled(hw);
++		if (ret < 0)
++			return ret;
++		if (ret)
+ 			return 0;
+ 
+ 		udelay(1);
+-- 
+2.53.0
+
+
+
