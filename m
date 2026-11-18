@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795046528;
-	b=ZXB6q0EpK/9UvKGpINRd9Mb4a3vL/JBgz2kp+Jjo/Bb6Nw4EulZbXOvlJjO0B40CtX3L
-	 YXVaawILawdwW6G62J091ZkbEwFqT88xealu+iaKc916RUi2TPzGWycJbi4PF59antviH
-	 lLxj02NBwS8LlGcor0ZZDy9su/atc2IE2OgkFljPJK3sqTzKsz52ryysJSFeKUA5SmHvs
-	 5YKGq+86J3OG+bla6DCejhLmPc5n7OSd+5XfBrYm9Hd6uGtFFYIUO1ekc24yL0Gr31nvV
-	 xQheaqqvi+NFVfnfL+bQPYkErgIR2vO3pbCLW93SLuH6yNYaYw+5Lwbl3oyhXPoCUFA==
+	t=1795046533;
+	b=KnhVX8Me6qNo1WTRsC+bGjYoTOuY5W3LsOjry+4O6cZXS8LT/r7/nc6TdR870ExIJCEQ
+	 SGY/xfw4Vto57jhprX646shvB+RaFopss9zOlWYbAIfyHTSihm7+Y4cvW/juTm/263CBq
+	 TVnUBVL/MqOmzcf0XRL7ULEWkUy9FdaFYmYaCrriZ8ZatTyrEXATS6kG5WI8OxfGxBJnG
+	 3xZ995WtX6h2SGpYHLKRjt9A3J35G5/Sd3pjp1GZxc7D2KblZtq/khlM4KD46/7RuJkka
+	 uyx7VxALy1ZUxwCZaLVO9ZMG3YGswrEUl8vY4dypWbmT0qnruPblQl2lWMjE0r9CoXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795046528;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795046533;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=vkZxIz8F8dSatHa40gapsMm4NMfBx5poBEYHMWf34jc=;
-	b=uHTI8rBakNFmLcaymQTOzHu7JCAfENdvGU4KnzOZP6vWgFSqohBM0wPy3vujNs+MEBIb
-	 V7KCSDPtxjEUFznZMfOlZzSJzuRwQ7tWRDPWow2oIJdZrjpkQoX+m7oiMZ0rvgyLH/v1o
-	 98gvNhh8R1dQvl+FtEmbHGYwG0TOtFtwY5PZbYnYslY+6tQVx1DFV2NdW1VHuo6eTovFZ
-	 Mxp/7hcK2tLOZIaouLgdV6V2QytcVyO1NKaXLyr3D8WSoqd/94o71TpjVLTddLIb4h0Uu
-	 SCdgudpnmw+r+qnhGlpy8srfOdxCTwmKC30ziJptoHHEhtEjXBJweT/KFIjT3tkn9nw==
+	bh=sxNnby0jRN0zGBXvnLuQCWk1w/ZgWbr9Cwxt0PhzsQk=;
+	b=Id6lMhbp5+r5ZpXaoJVZjddk2KYkCBoldiD1kx9/cvvJhvrogtSeUG06JerdZi1MGltG
+	 Wn6ApX8Jn6b3xz29K9e8ACLOnwjzLeiwfojPz/pjADFvgkT9s25lnWDRrpErfLc9Z4N49
+	 JsO4dS7rv1hLLyGlkORIqjHL3GzwbqcERhZ7CrmEIRjFqomXu6/03RDBkJaVroHqQAc1D
+	 91W7ndWLszsqrkB3LtDZS6/LDnEHVnJP/JgrXjVvyvDQMmjm0lwVa1RTGK+k8PbmhjH2N
+	 oUA8QBmj8HqTznEqK6HXn3aOjECpIpFVzF3nAHCLHYRal2RhrNiTgn7DlLHAJSD3PXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=h4ZeyVFc;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BknkT8nL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16D4560A6F51;
-	Thu, 19 Nov 2026 00:02:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84756606A331;
+	Thu, 19 Nov 2026 00:02:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=h4ZeyVFc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B9CA1F000CC;
-	Thu, 19 Nov 2026 00:02:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BknkT8nL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7A461F000C7;
+	Thu, 19 Nov 2026 00:02:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795046527;
-	bh=vkZxIz8F8dSatHa40gapsMm4NMfBx5poBEYHMWf34jc=;
+	s=korg; t=1795046533;
+	bh=sxNnby0jRN0zGBXvnLuQCWk1w/ZgWbr9Cwxt0PhzsQk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h4ZeyVFcBpajbfZATgKaeaZcUmpoCNF6DMdZ2vkPb1KBW6ajzEtKhyDqDhg15uIdx
-	 W9tF7BkLWYVhoZDhPy8S/8wQFqX85QFL6v7OT4Yi/YUA0+yv5TmTPRW8oUKOc+JrDT
-	 JH3B+FyLOp9+zhFYEZunkoZJfLIKZwuLvsSVbkK4=
+	b=BknkT8nL+Muyrw2vnTbahafCMLvjoIiCVNMgVtR3E5CPgwjMo5lc1o0norrddCP96
+	 yridILGn5sWhleM5eBrBqKluQK3NjeOjmdiYd51zlHhC0TCWi707oAu6YpjM+Pn9n7
+	 dKW95prtpvqqZLlpaoMpRoP6AeRZ22xuxNJWQa/E=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Shao Mingyin <shao.mingyin@zte.com.cn>,
-	Christoph Hellwig <hch@lst.de>,
-	Keith Busch <kbusch@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Ingo Molnar <mingo@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1313/2857] nvmet: bound the traddr and trsvcid configfs writes
-Date: Wed, 18 Nov 2026 15:39:07 +0100
-Message-ID: <20261118150248.733217668@linuxfoundation.org>
+Subject: [PATCH 6.1 1315/2857] x86/nmi: Ignore negative NMI handler durations
+Date: Wed, 18 Nov 2026 15:39:09 +0100
+Message-ID: <20261118150248.801787943@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
 References: <20261118150201.293410965@linuxfoundation.org>
@@ -69,61 +69,72 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Shao Mingyin <shao.mingyin@zte.com.cn>
+From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit cf399d4abbeddc317f8160a79fefb4016c469862 ]
+[ Upstream commit ade63af6cfb7b3ca19ced28730fd6461e8d1d410 ]
 
-nvmet_addr_traddr_store() and nvmet_addr_trsvcid_store() reject a write
-only when count is larger than NVMF_TRADDR_SIZE (256) respectively
-NVMF_TRSVCID_SIZE (32).  A write of exactly that many characters is
-accepted, and the following
+I am seeing NMI handlers in the Meta fleet reported as running for
+about 584 years. Over 30 days, 11 AMD and Intel machines logged 637
+such lines, for example:
 
-	sscanf(page, "%s\n", port->disc_addr.traddr)
+  AMD EPYC 9D25 (family 0x1a, model 0x11, stepping 0x0):
+  [ 1650.616627] INFO: NMI handler (nmi_cpu_backtrace_handler.llvm.9643156322683129580) took too long to run: 18446744073709.551 msecs
 
-has no field width.  configfs terminates the buffer at page[count], so
-the scan writes 256 characters plus the trailing NUL, i.e. 257 bytes,
-into traddr[256].  The extra byte lands in the following tsas field of
-the discovery log entry, silently clearing the first TSAS byte (the
-RDMA queue type, or the TLS section type for TCP).  trsvcid has the
-same off-by-one with a 32-byte write; there the extra byte lands in
-the reserved bytes that follow trsvcid.
+  Intel Xeon Platinum 8321HC (family 0x6, model 0x55, stepping 0xb):
+  [360448.230129] INFO: NMI handler (perf_event_nmi_handler) took too long to run: 18446744071018.936 msecs
 
-Limit the scans to one byte less than the destination arrays.  The
-count checks can stay as they are so that a normal newline-terminated
-write is still accepted.
+  Intel Xeon D-2191A (family 0x6, model 0x55, stepping 0x4):
+  [81787.188959] INFO: NMI handler (ghes_notify_nmi) took too long to run: 18446744073709.545 msecs
 
-Fixes: 9ba2a5cb8896 ("nvmet: filter newlines from user input")
+nmi_handle() times each handler with two sched_clock() reads. When the
+second read is lower than the first, the u64 subtraction wraps, and
+nmi_check_duration() treats the result as a duration. In the three
+examples, the clock went back by less than 1 us, by 2.7 s and by about
+6 us.
+
+The wrapped value is also stored in action->max_duration. Every later
+real duration is smaller, so the handler is never reported again until
+the next boot.
+
+Whatever makes the clock read lower, a negative difference is not a
+duration, so return before it is stored or reported. A clock that steps
+forward is not covered, since that cannot be told from a real stall.
+
+A backwards clock is still worth knowing about, so print the size of
+the step once per boot. This uses pr_warn_once() rather than WARN, as a
+stack trace says nothing about the clock and panic_on_warn machines
+should not go down for it.
+
+Fixes: 2ab00456ea8a ("x86: Warn when NMI handlers take large amounts of time")
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Link: https://patch.msgid.link/20261027-nmi_negative-v1-1-b436a005eb8a@debian.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/target/configfs.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ arch/x86/kernel/nmi.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/nvme/target/configfs.c b/drivers/nvme/target/configfs.c
-index 88e6adc54dcbc..c966d1e3a1354 100644
---- a/drivers/nvme/target/configfs.c
-+++ b/drivers/nvme/target/configfs.c
-@@ -146,7 +146,7 @@ static ssize_t nvmet_addr_traddr_store(struct config_item *item,
- 	if (nvmet_is_port_enabled(port, __func__))
- 		return -EACCES;
+diff --git a/arch/x86/kernel/nmi.c b/arch/x86/kernel/nmi.c
+index b9a128546970f..d13499561cffd 100644
+--- a/arch/x86/kernel/nmi.c
++++ b/arch/x86/kernel/nmi.c
+@@ -109,6 +109,14 @@ static void nmi_check_duration(struct nmiaction *action, u64 duration)
+ {
+ 	int remainder_ns, decimal_msecs;
  
--	if (sscanf(page, "%s\n", port->disc_addr.traddr) != 1)
-+	if (sscanf(page, "%255s", port->disc_addr.traddr) != 1)
- 		return -EINVAL;
- 	return count;
- }
-@@ -220,7 +220,7 @@ static ssize_t nvmet_addr_trsvcid_store(struct config_item *item,
- 	if (nvmet_is_port_enabled(port, __func__))
- 		return -EACCES;
++	/* sched_clock() went backwards? */
++	if ((s64)duration < 0) {
++		pr_warn_once("NMI handler (%ps): sched_clock() went backwards by %lld ns on CPU%d\n",
++			     action->handler, -(s64)duration,
++			     smp_processor_id());
++		return;
++	}
++
+ 	if (duration < nmi_longest_ns || duration < action->max_duration)
+ 		return;
  
--	if (sscanf(page, "%s\n", port->disc_addr.trsvcid) != 1)
-+	if (sscanf(page, "%31s", port->disc_addr.trsvcid) != 1)
- 		return -EINVAL;
- 	return count;
- }
 -- 
 2.53.0
 
