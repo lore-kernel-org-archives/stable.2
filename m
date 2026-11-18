@@ -1,56 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.250.56.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794988709;
-	b=dIZfquaPlwuzPQsnszi940wdA8ua0wmjs+men/RJLfw7rTIPqKqj1eBxs7xxbN8qmSwB
-	 CQCiRvcn06CMzQAc1HdOnDTIV+giHmkBC3lrOrHb52lhj1G+jD5wp0x2lOoOHX/UPb1hu
-	 zT94tyRLAG7UhAS+Rqsa7U1HyOPSHZ/OvC4JHDWFth6G/YRf5XPcZOl20GPxx3zviVekr
-	 udK6LHts9ntBZrg2gDIASTeTC5qkQh99MGp5vpP0NJRuazZI4yPtQRMYDq4HBHu1Y18cy
-	 hZBaT2KK6MSLE4kshQCDaajdYYIcc76RlX8Trz9rzyeN+EnRCRqFBbwW+rPl1YntbTA==
+	t=1794988844;
+	b=1SqwSpWC0QORSGLHYawL5wIEO0Ltq12pSwBy+jQ+Z0NiP2QIQ/P40JbZ4nxlQViMv8B2
+	 LgCo1L5u/79tQAmVCsxLPwOoiDSoq9DEvFhuBpxQRA54qfsVkmdmQGv84toyL61NkriyK
+	 mJJ/qTdRh2UHz+Ihk8znTw1XXCXQMZLFO8MFswsvODkWFyBts9cT1zZZa7xmRYr4Y8YT8
+	 PVf79enUNQ6+1E0KTUpX46DMs5dn8Fy6Ohi09oUd4LqSV3m4E4cwLfbfH3NT9JXP4G5uM
+	 W8JtTg60eURE+ABhQ9gtziw2FGgZ0X1sVZArp6ayV9uEF2pNFt6WhnUfNIbwcBVGFfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794988709;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=6us6rjoIvGLVE20T/fcNhfH3xwzBqksxB+6Fe115Gvs=;
-	b=EXwWHA1xtCumYp10+WtLrmNIek5PelGuEXDLcQnG3XchNuJ8x6IJl3u/A1FCA4fgbumP
-	 1fAQQq/B45E0yAPOuU+SS19LFvGCeS9xn27y6WIzfGCI5S/N64iNPeHJySSi02/NiB9CU
-	 nuFO3aNE1oJf8jeHZIGKfEoE24YP1IDnQDaN11Ltb1JimbdT9AHH3Gyo9UN14wbZXtKKR
-	 wNbOf0t62kEtKTFJWsaNurX3HN+Z5dT8f3IAfTo8o3zamgjAADO2fTYiMVKpOV1A3Yu9y
-	 ftYyOG+9O1+TkKBw5wbEXf7jDywq3FSfewxfNcL4OPRnnSXyN4/+sqDA5CV7FCr/Ayg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794988844;
+	h=DMARC-Filter:Received:Received:DKIM-Filter:DKIM-Signature:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=H65MlX7VDMs/QZf1f9eG5SUm6SNdstMBTp7c2Y28djo=;
+	b=zzCSUVhhcCXv7U6pmmJiZkqokF4Zy9cW0KE79f3a96KCP8JrxHvDonXeUvAYIuhIfmAE
+	 TapM2rMh2+hCD0SkVzXzx5lDj/whlhvefrG1G9b23WvT6cCwQKsstZk2IQj8SejxZKkXj
+	 tAUSudA8P6Flq5tKSZQ+sy7gHqN98kJfKBYpZ7TSKkdRAKcFMfs3dotxbzGoOim1bBTLH
+	 yUBLDt1/dzyVYGcXwjeTdDIX/spZft6AUx15j/o76JgKOa54QBX+UODCnKjkm6IIg27tc
+	 CRZGCT2a+gIGwe34L9kAmELjJkSF+NhVxEH8aDslHGDmm0eZSjSbSwMfik0oJu2FF/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=d6mF5wID;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dmarc=pass header.from=ideco.ru;
+	spf=pass smtp.mailfrom=ideco.ru;
+	dkim=pass header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=mODEyCM+;
+	arc=none smtp.remote-ip=51.250.56.165
+Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD280606A31C;
-	Wed, 18 Nov 2026 07:58:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD280606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD50606A325;
+	Wed, 18 Nov 2026 08:00:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DD50606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ideco.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideco.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=d6mF5wID
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=6u
-	s6rjoIvGLVE20T/fcNhfH3xwzBqksxB+6Fe115Gvs=; b=d6mF5wIDk8qmkR3pbT
-	KEF97ncD8LpnA4n4cKWdtVD9ke+iJYggaToDIG6JHylIJEtv0J8f3JWJtgxtzVpZ
-	8XbG/LI28QIR+/tLqkJyaIGkf/Bn2AU5iy8RHzv8sgwVEb7Si8+cpCo8YnPgLGTM
-	uY6KPG95cLV8+w6zTL33XUw30=
-Received: from user-VMware-Virtual-Platform.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PigvCgDn10OYWv1qJJPjGg--.59937S2;
-	Wed, 18 Nov 2026 15:58:17 +0800 (CST)
-From: Ziheng Wei <zihengw03@163.com>
-To: Sudip Mukherjee <sudipm.mukherjee@gmail.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] parport: do not re-enable interrupts in parport_claim()
-Date: Wed, 18 Nov 2026 15:58:16 +0800
-Message-ID: <20261118075816.2323688-1-zihengw03@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=mODEyCM+
+Received: from [169.254.254.254] (localhost [127.0.0.1])
+	by smtp.ideco.ru (Postfix) with ESMTP id 0B8B026BC1;
+	Wed, 18 Nov 2026 13:00:41 +0500 (+05)
+Received: from [192.168.1.75] (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.ideco.ru (Postfix) with ESMTPSA id ED0E426BC0;
+	Wed, 18 Nov 2026 13:00:38 +0500 (+05)
+DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru ED0E426BC0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
+	t=1794988840; bh=H65MlX7VDMs/QZf1f9eG5SUm6SNdstMBTp7c2Y28djo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mODEyCM+RnWfkQD3D0L7RPiVM9y17X1jl+AEmaew/5qkbmQPln7heB3W1I9zluFOn
+	 OuQqrZ4nNyJ8dLBHHkOQTqZMy4jfQ8HNLgQv7CMCbS7pz3mYcKh7Uhp9f/YJEZ4KBp
+	 djCk2Dkt5MsDG7xsVGV/ni8IG8DLTItnx/yHy4wq3ES7VP+Fro9H3Irfx7hKPnQBS+
+	 XRZom0Ap2YHRkbdYwIdYROJ5HbBCneb2WWhyJFvGhc9zhzc50QQFmqYMw3u9mgsUiV
+	 Rq1pA8q9jJDoAxs3QfPxkBMNbbgkqLvDlfOTd1H+kJoK2w6Ic0MEoJLqxY8UKDVz2I
+	 vdP/70pwXmsPQ==
+Message-ID: <a77f7b69-89a3-4fe4-8ac7-4f5ac86ba2d4@ideco.ru>
+Date: Wed, 18 Nov 2026 12:00:38 +0400
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,89 +64,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PigvCgDn10OYWv1qJJPjGg--.59937S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxZF15ZrW7CrW3Cw4Uuw43trb_yoW5GrW8pa
-	4vga9Iga40vFyxua17Xw1jkFWjva1ktay7CFy8GwsrAa1UJrW3Ww18KF9IvF1Y9r1xXFZ8
-	XF15WrZ2yw45AaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jMT5LUUUUU=
-X-CM-SenderInfo: p2lkv0ljzqjqqrwthudrp/xtbC7hrWJ2r9WprMJAAA36
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] ice: Avoid tracing bridge ports after initialization
+ failure
+To: netdev-bot+sinfo@kernel.org
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Pawel Chmielewski <pawel.chmielewski@intel.com>,
+ Wojciech Drewek <wojciech.drewek@intel.com>,
+ intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
+ stable@vger.kernel.org
+References: <20261118074324.1583964-1-a.kazinsky@ideco.ru>
+ <179498811103.3291.4517029211414094145@kernel.org>
+Content-Language: en-US
+From: =?UTF-8?B?0JDQu9C10LrRgdC10Lkg0JrQsNC30LjQvdGB0LrQuNC5?=
+ <a.kazinsky@ideco.ru>
+In-Reply-To: <179498811103.3291.4517029211414094145@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When the claiming device was on the wait list, parport_claim() takes
-it off the list with spin_lock_irq()/spin_unlock_irq() while it holds
-cad_lock with interrupts disabled:
+18.11.2026 11:48, netdev-bot+sinfo@kernel.org wrote:
+> Hi!
+> 
+> This is an automated message. This series looks like a fix, but its
+> commit messages seem to be missing some information:
+> 
+>   - What hardware the change was tested on. For driver fixes please
+>     mention the device (and if relevant firmware version) used for
+>     testing, or say that the change was not tested on real hardware.
+> 
+> Please do not repost the series just to address the above. Instead,
+> reply to this email with the missing information, so that reviewers
+> can take it into account.
+> 
+> *IMPORTANT*: If you do repost (for other reasons) - please include
+> the relevant info in the cover letter or commit messages.
 
-  parport_claim()
-    |
-    | write_lock_irqsave(&port->cad_lock)     <- IRQs off, cad_lock held
-    | spin_lock_irq(&port->waitlist_lock)
-    | spin_unlock_irq(&port->waitlist_lock)   <- IRQs on too early
-    |
-    +---- port interrupt on this CPU ----+
-    |                                    |
-    |                                    v
-    |                        parport_irq_handler()
-    |                          read_lock(&port->cad_lock)
-    |                          spins forever: cad_lock is held
-    |                          by the code it interrupted
-    |
-    | write_unlock_irqrestore(&port->cad_lock)  <- never reached
+Hi!
+This change was not tested on real hardware.
 
-Interrupts are already disabled here, so use spin_lock()/spin_unlock(),
-like the "blocked" path in the same function.
-
-Found by LLM-assisted static analysis.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ziheng Wei <zihengw03@163.com>
----
-
-Notes:
-    v2: shorter changelog; drop the kernel test robot tags.
-    
-    The bug was found by the static analysis above.  The kernel test robot
-    had sent a smatch warning for the same code to oe-kbuild only, which I
-    found afterwards and credited in v1:
-    https://lore.kernel.org/r/202608091622.jlJn0jOj-lkp@intel.com/
-    
-    Tested in QEMU (parport_pc) with two ppdev users, one waiting in
-    PPCLAIM while the other releases the port: lockdep warns without this
-    patch and is quiet with it.  I have no parallel port hardware.
-    
-    On real hardware this needs two users of the same port and a port
-    interrupt within a few microseconds of the hand-over, so it is
-    unlikely to be hit; lockdep reports it whenever the path runs.
-    
-    The changelog was drafted with an AI assistant and reviewed by me.
-
- drivers/parport/share.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/parport/share.c b/drivers/parport/share.c
-index eb0977ca1..d1b9f17d1 100644
---- a/drivers/parport/share.c
-+++ b/drivers/parport/share.c
-@@ -999,7 +999,7 @@ int parport_claim(struct pardevice *dev)
- 		dev->waiting = 0;
- 
- 		/* Take ourselves out of the wait list again.  */
--		spin_lock_irq(&port->waitlist_lock);
-+		spin_lock(&port->waitlist_lock);
- 		if (dev->waitprev)
- 			dev->waitprev->waitnext = dev->waitnext;
- 		else
-@@ -1008,7 +1008,7 @@ int parport_claim(struct pardevice *dev)
- 			dev->waitnext->waitprev = dev->waitprev;
- 		else
- 			port->waittail = dev->waitprev;
--		spin_unlock_irq(&port->waitlist_lock);
-+		spin_unlock(&port->waitlist_lock);
- 		dev->waitprev = dev->waitnext = NULL;
- 	}
- 
-
-base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
--- 
-2.43.0
 
