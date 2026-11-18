@@ -1,68 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.108.111.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.43.10.250
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795002174;
-	b=r+TWXFCuHdws+DXZ5uAnsSerYSWYDlH6DpAWjS+zQo2G9STarpO7KY4pB560WcnCp4ZU
-	 pctTvy6NueLcyZf7Ivbe+UjROU6JpoM0PM1ooTbFeecrPRh3jenD39CwW6zysKHaRUQqO
-	 gQtNT2M5RcnUH034ENiorH54afXPey3Xr5hArb7Nf3wdW3XUakdUbX90P46dMop7/gZWO
-	 w83kQkvMkYTITpBqFixtDpLNwhWpqBOZuubQNqXUyEth0cy4lWKRGRnERhcBt35Lh4jNB
-	 Lk/m1h4UOARrE/6DS51eEpuu4WsOJNKsqKunLx7CXVELMDRKj2WKFJ1bdJb5lSdDW0w==
+	t=1795002330;
+	b=xK3s/dj0htVCyQArbQOt7FCli/DOEEzXjCb9dRZX5guCNax7zXSlWK9+X7svJISVGyZ9
+	 8ym9S4VTixR1/6G2bwgjhq/61SxghTA75u3FcJhXwwWau2j+Q0f+SwP/rLKlv5aFXAU0t
+	 PY7UMLVgJtqb5wkB2afoUxZL/T3nKWQitn/Bnun0FL+UZHXHvyuos3X7sila7b9Jq0UxS
+	 NDhgFYh31g5p6qSJM5RpqmJmgWBTCgkZtnviHvqEri50r7jYx+cg/Jf/KiSBUl/Ym8Yhu
+	 Upp8TFAUmBxlmf1KU+vWPSc9leg/DF5kuCBTG9c2cRz2+dTOyb1C22f25eoxYMtmEQA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795002174;
-	h=DMARC-Filter:Received:Received:Content-Transfer-Encoding:
-	 Content-Type:DKIM-Signature:Received:From:To:CC:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-Originating-IP;
-	bh=Xm1Qx58C3kdSvPTHXTBR7DDjRva6ecK+vC6rOyxx47c=;
-	b=OHe1jCzD4DqMyYULYH2S0EzKbdgSridfblxvq0QHRvVwB9ce30ofn/vgbWbFds+5BNvG
-	 62gOPELRvyZB9Lg9B8+LPAObYC2LA3fepZgjNFlioOQ47eR85rjN73vJMx2zY73mcoMF/
-	 zVbMXqyMfPBurTiofcS4zyFesj3ZuomONfljuggGQ+t4UwHkedCFKpu7O/jdxxcFRn1QQ
-	 6QL7WsY2cNuN5ERMSSg1qS8B2Nmi0K+pF5G3mKGUywepCxz+xSBNYehtLG10c0ELPaMO6
-	 ct1D/KLJGlpsFTr8ItpcYL3Za/y8GKRWMZT0sLkXi+sLUHtzSdQDFyZcaPT8IwW1Qmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795002330;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=fRUT9Lg9z6AwPB9dQzGr9DHnfFa8cs5qYP2STJS6W40=;
+	b=p9b53CEN3cnmBfTG+u1bcXF0Iw5kC8hg2xp4Wsbuq8s1Vli0jDFF1RYQJjVKRoNZczoK
+	 XWhhwjGK3+DC7WFEx2rZn3GhXKnF0cpAI02vvg37p8Cr/JiHoVScEPfmtqXNI8icGJuRG
+	 +G7gw0SwL/yN/c07Jd9ixnUYfob3vMiXQ8wAUcTw9sATXGXXobgyI/7luxG65k8ho9/bj
+	 QPkxAdHW6Un5CSQMPJHzYLz7kSyNUiBnMzzAbgN14iVt3AKDjCQfiu2oThd268oL0o824
+	 6Zd++l74wl5n7GX8sk0w1cAoPOiRfivfKK0Spqv5B2rJmPDXccfBQX9KQu+DNvS3/nA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amicon.ru;
-	spf=pass smtp.mailfrom=amicon.ru;
-	dkim=pass header.d=amicon.ru header.i=@amicon.ru header.a=rsa-sha256 header.s=mail header.b=f+gQxhXo;
-	arc=none smtp.remote-ip=77.108.111.100
-Received: from pmg.amicon.ru (mail.amicon.ru [77.108.111.100])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D23606A31C;
-	Wed, 18 Nov 2026 11:42:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55D23606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amicon.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amicon.ru
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.a=rsa-sha256 header.s=mail header.b=f+gQxhXo
-Received: from pmg.amicon.ru (localhost.localdomain [127.0.0.1])
-	by pmg.amicon.ru (Proxmox) with ESMTP id EAF44101822;
-	Wed, 18 Nov 2026 14:42:46 +0300 (MSK)
-Received: from mail.amicon.ru (unknown [192.168.0.59])
-	by pmg.amicon.ru (Proxmox) with ESMTPS id CB4C81017DA;
-	Wed, 18 Nov 2026 14:42:46 +0300 (MSK)
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-DKIM-Signature: v=1; a=rsa-sha256; d=amicon.ru; s=mail; c=simple/simple;
-	t=1795002166; h=from:subject:to:date:message-id;
-	bh=bbyA87p3vE/FUl1iLmQDrgsU4+px9vVUerDXviDtydo=;
-	b=f+gQxhXoeU12wfF7GYjqT9VLlBQufIWfFlxUCrtI/hu/E8FHaSHnMNoJz4tSwmdtEN3mjqdnm9u
-	StCRBFyLqbirFgd/aTM0V08Qfopgm3Mc8EmMvDvor/6UxyYwGfUHLNggnWB2T2k5Sfr+NvVY87aPP
-	Ky57yRqdxWnuVXtcb1oP0pMwNZysS+urSkv6ymQLENerGQnROEtVF9yOf9Xmytxp+2r8jq4VF21/v
-	mhm791FPO7yEgMGdE8NTgsl1kGsar/l00KPYEjvJL0Te7qRXEVapJEBdT05Qf4a7YpJ7dQqNHd6Dn
-	Yw9BXS5UEF7SaQNxHTxMSqtujVKCqTsBn20g==
-Received: from amicon.ru (172.16.2.25) by mail.amicon.lan (192.168.0.59) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.27; Wed, 18 Nov
- 2026 14:42:46 +0300
-From: Artem Novikov <naa@amicon.ru>
-To: <stable@vger.kernel.org>
-CC: <kvm@vger.kernel.org>, <pbonzini@redhat.com>, <seanjc@google.com>
-Subject: [PATCH 5.10 1/5] KVM: X86: Fix missed remote tlb flush in rmap_write_protect()
-Date: Wed, 18 Nov 2026 14:42:22 +0300
-Message-ID: <20261118114226.26178-2-naa@amicon.ru>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261118114226.26178-1-naa@amicon.ru>
-References: <20261118114226.26178-1-naa@amicon.ru>
+	dmarc=none header.from=altlinux.org;
+	spf=fail smtp.mailfrom=altlinux.org;
+	arc=none smtp.remote-ip=193.43.10.250
+Received: from basalt.external.altlinux.org (unknown [193.43.10.250])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id A8D4E60A3812
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:45:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8D4E60A3812
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=altlinux.org
+Received: by basalt.external.altlinux.org (Postfix, from userid 1137)
+	id 2008E2DF359; Wed, 18 Nov 2026 14:45:19 +0300 (MSK)
+From: Alexey Shabalin <shaba@altlinux.org>
+To: devel-kernel@altlinux.org
+Cc: Michael Bommarito <michael.bommarito@gmail.com>,
+	stable@vger.kernel.org,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: [PATCH 6.12/sisyphus 21/29] crypto: krb5 - filter out async aead implementations at alloc
+Date: Wed, 18 Nov 2026 14:45:10 +0300
+Message-ID: <20261118114518.3605222-22-shaba@altlinux.org>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20261118114518.3605222-1-shaba@altlinux.org>
+References: <20261118114518.3605222-1-shaba@altlinux.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,70 +49,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-From: Lai Jiangshan <laijs@linux.alibaba.com>
+From: Michael Bommarito <michael.bommarito@gmail.com>
 
-commit f81602958c115fc7c87b985f71574042a20ff858 upstream.
+commit 6c9dddeb582fde005360f4fe02c760d45ca05fb5 upstream.
 
-A leaf mapping removed by sync_page() can still be writable in a remote
-vCPU's TLB. Request an immediate remote flush when synchronization
-drops a mapping, so subsequent write protection can rely on the rmap.
+krb5_aead_encrypt(), krb5_aead_decrypt() in rfc3961_simplified.c and
+rfc8009_encrypt(), rfc8009_decrypt() in rfc8009_aes2.c set a NULL
+completion callback and treat any negative return from
+crypto_aead_{encrypt,decrypt}() as terminal, falling through to
+kfree_sensitive(buffer).  When the encrypt_name resolves to an
+async AEAD instance the request returns -EINPROGRESS, the buffer
+is freed while the backend's worker still holds a pointer, and the
+worker dereferences the freed slab on completion.
 
-Fixes: a4ee1ca4a36e ("KVM: MMU: delay flush all tlbs on sync_page path")
-Link: https://lore.kernel.org/r/20210918005636.3675-2-jiangshanlai@gmail.com
-Signed-off-by: Lai Jiangshan <laijs@linux.alibaba.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Signed-off-by: Artem Novikov <naa@amicon.ru>
+KASAN report under UML+SLUB with a synthetic async aead backend
+bound to krb5->encrypt_name:
+
+  BUG: KASAN: slab-use-after-free in t5_stub_complete+0x7d/0xc7
+
+The helpers were written synchronously, so filter the async
+instances out at allocation time instead of plumbing
+crypto_wait_req() through every call site.
+
+Reachable via net/rxrpc/rxgk.c, fs/afs/cm_security.c and
+net/ceph/crypto.c on systems with an async AEAD provider bound to
+the krb5 enctype name.
+
+Fixes: 00244da40f78 ("crypto/krb5: Implement the Kerberos5 rfc3961 encrypt and decrypt functions")
+Fixes: 6c3c0e86c2ac ("crypto/krb5: Implement the AES enctypes from rfc8009")
+Cc: stable@vger.kernel.org
+Suggested-by: Herbert Xu <herbert@gondor.apana.org.au>
+Assisted-by: Claude:claude-opus-4-7
+Signed-off-by: Michael Bommarito <michael.bommarito@gmail.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry picked from commit ef6feb77e2d91761427c5b773edc9c97e1b706ad)
 ---
- arch/x86/kvm/mmu/paging_tmpl.h | 23 ++---------------------
- 1 file changed, 2 insertions(+), 21 deletions(-)
+ crypto/krb5/krb5_api.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index c6daeeff1d9c9d958e08375c8baaedc295f7069f..1500fc877aece64fc9e0f013554ae8ecff99882e 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -1007,14 +1007,6 @@ static gpa_t FNAME(gva_to_gpa_nested)(struct kvm_vcpu *vcpu, gpa_t vaddr,
-  * Using the cached information from sp->gfns is safe because:
-  * - The spte has a reference to the struct page, so the pfn for a given gfn
-  *   can't change unless all sptes pointing to it are nuked first.
-- *
-- * Note:
-- *   We should flush all tlbs if spte is dropped even though guest is
-- *   responsible for it. Since if we don't, kvm_mmu_notifier_invalidate_page
-- *   and kvm_mmu_notifier_invalidate_range_start detect the mapping page isn't
-- *   used by guest then tlbs are not flushed, so guest is allowed to access the
-- *   freed pages.
-- *   And we increase kvm->tlbs_dirty to delay tlbs flush in this case.
-  */
- static int FNAME(sync_page)(struct kvm_vcpu *vcpu, struct kvm_mmu_page *sp)
- {
-@@ -1044,13 +1036,7 @@ static int FNAME(sync_page)(struct kvm_vcpu *vcpu, struct kvm_mmu_page *sp)
- 			return 0;
+diff --git a/crypto/krb5/krb5_api.c b/crypto/krb5/krb5_api.c
+index c7ea40f900a7..03395b89cc61 100644
+--- a/crypto/krb5/krb5_api.c
++++ b/crypto/krb5/krb5_api.c
+@@ -207,7 +207,7 @@ struct crypto_aead *krb5_prepare_encryption(const struct krb5_enctype *krb5,
+ 	struct crypto_aead *ci = NULL;
+ 	int ret = -ENOMEM;
  
- 		if (FNAME(prefetch_invalid_gpte)(vcpu, sp, &sp->spt[i], gpte)) {
--			/*
--			 * Update spte before increasing tlbs_dirty to make
--			 * sure no tlb flush is lost after spte is zapped; see
--			 * the comments in kvm_flush_remote_tlbs().
--			 */
--			smp_wmb();
--			vcpu->kvm->tlbs_dirty++;
-+			set_spte_ret |= SET_SPTE_NEED_REMOTE_TLB_FLUSH;
- 			continue;
- 		}
- 
-@@ -1065,12 +1051,7 @@ static int FNAME(sync_page)(struct kvm_vcpu *vcpu, struct kvm_mmu_page *sp)
- 
- 		if (gfn != sp->gfns[i]) {
- 			drop_spte(vcpu->kvm, &sp->spt[i]);
--			/*
--			 * The same as above where we are doing
--			 * prefetch_invalid_gpte().
--			 */
--			smp_wmb();
--			vcpu->kvm->tlbs_dirty++;
-+			set_spte_ret |= SET_SPTE_NEED_REMOTE_TLB_FLUSH;
- 			continue;
- 		}
- 
+-	ci = crypto_alloc_aead(krb5->encrypt_name, 0, 0);
++	ci = crypto_alloc_aead(krb5->encrypt_name, 0, CRYPTO_ALG_ASYNC);
+ 	if (IS_ERR(ci)) {
+ 		ret = PTR_ERR(ci);
+ 		if (ret == -ENOENT)
+-- 
+2.50.1
 
