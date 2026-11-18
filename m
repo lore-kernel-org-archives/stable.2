@@ -1,48 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794980511;
-	b=sLYy1eaUczizLm0B3JRJmORYwVw/Dgz18sk0P1dstayQp0EtDYb5yPlfubVV6gUr3vvW
-	 tOXTQFrHTt8sZIi0J4K3i2cQN4xWQEZnUjan7JedbarhakZ3nwpo38S+HmXHkZ30GAMAH
-	 +vU26Lw07NX+vrjaV8YbWeCgEq9m3bt2f56JMB/8fQn7+biABBBXY2vTUvMbyMTUBtl9w
-	 AaoGd/CC9sYRtRK4cGNdJsexf6gVKymoKSlpGvb4Ha8g0bisgZMSPWGeAHxi1O3+kfaw1
-	 SIByBL0igiaRdj5ulAaoC5HaRZ924sSBchU1kltI0anoHsLgtEDmP/HnpTsea0S0xmQ==
+	t=1794980781;
+	b=ZbsuU+lpm6fzYFkta4wGcuvq+JQpwpIFKu+To3ZUUIOY2t+iY067xILqesc/P6SQ6sVm
+	 HtyQV2Wx88w58wqKbAc6SRSxvw9LBq4LXHqqmK7z7bjS+RqgoI5rv0R+f65PEcHO1Sqb9
+	 PT3QeD+6ediu+AKzKjB2oWe7qYpV2nv087DtEWINnyY+TC2/ozF6clBVb+32y84f7AsgU
+	 2XlBzS0oVWo+27ijMagVD0cAQu0vFv7c5Bc8CWRG5n9GNJm20hoHw8rB4uh3K39hAFxer
+	 yW4e0NUOsnw+bnE+KufogZeA70xRQfs71xfMwiBzW72iYOBoMxNjuzHuUk51GHGsLiQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794980511;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=nrDBHQoQpQrBR93r6PQm/w5gK6g7OHyUc0BLaSuHLAA=;
-	b=qkrn3LrO9zV6iF+Hb7MaqauGjE1eud2Ju4AIBd51yEd5w/bTtdXMkgTRYgYyA2UboCMA
-	 RMOxNUW1Qlzzph797zUg1hFZ15bVSZJHNKBazY9E4FhaYktKEGiH0LadMUM2N2fZZhzRI
-	 1zEumYtvaTn1Z6Mj5fEyu4hrAxnwVQVsDWmtRfk55ACIDh3wJuWZVilxatPblZMnlUOLB
-	 xhRyf8t9DUgMNDZCpLjkK5sNmVoNFa/txlDGAKNoNA/tQjSpQrKx4J4hb73TuA4pNJ8a+
-	 YbynrmdBHonijOcrTOB8q8sfdrdm4yG8kVyc+KOHbY20NIlfeVTUh13LzrNnE127z5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794980781;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Content-Language:To:
+	 Cc:From:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=4PGhncW7N254BHhuI+X+ylprn6wTF6rmx27dV8++hJw=;
+	b=d+FGv6TpHU/ahu5F9JPVl9MsdUk+SOTq6SRBbgrIi1yUZoNX7a03yNl16M7MM1KIuey4
+	 1ln3IJYpKDFxdEzKQ9y7mVdgPnT0xxT6u54JdB0NfHYzaTlRsAza+c/DwvtGse5XeIB90
+	 qvmOPeiBDzllWB7b7/CjJqyU1FuLDFojI/May1omIdR8QQGrjXCgdjzLDSweJo+iVlAsC
+	 LkpgcI6mG7T3Gfk1tdJuNNi0CqYk1VOpILh2kGwYzRe8F5lGu5ECE+OmEFFQJjc67ZxyR
+	 NG2JImraV3fS8RUFsynOj7qUriQbU4fdlDWfAxO/cfAAHtA0RWXYHUsKSQRLeXxmyfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FxE5MRDC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=e+zKZHIt;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=h8A93scB;
+	arc=none smtp.remote-ip=202.12.124.147
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A4E606A325;
-	Wed, 18 Nov 2026 05:41:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BBEC606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:46:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BBEC606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FxE5MRDC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7077F1F000C4;
-	Wed, 18 Nov 2026 05:41:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794980511;
-	bh=nrDBHQoQpQrBR93r6PQm/w5gK6g7OHyUc0BLaSuHLAA=;
-	h=Date:To:From:Subject;
-	b=FxE5MRDCuMaSelfuWL0bGvG5jKn4AeZlDeyUem1rONUe169lVxOYBs6e9iJGcSID3
-	 ntJCVI6+TkYBsaWU/41VGKzNJPAiH6j1aV2IciwGzlOHIhLbGFEBvh6t+dPX6B3g0S
-	 l4+psMRgYiDWur1s7Yv4mFfUUkqUs1Tbck3SePmo=
-Date: Tue, 17 Nov 2026 21:41:51 -0800
-To: mm-commits@vger.kernel.org,vicky.yangwenfang@huawei.com,
-	syzbot+42984127d45ad96219de@syzkaller.appspotmail.com,stable@vger.kernel.org,
-	mark@fasheh.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,
-	heming.zhao@suse.com,zhiyuanzhang912@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-nonmm-hotfixes-stable] ocfs2-fix-kernel-bug-in-ocfs2_page_mkwrite-when-write_end-fails.patch removed from -mm tree
-Message-Id: <20261118054151.7077F1F000C4@smtp.kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=e+zKZHIt;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=h8A93scB
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfout.stl.internal (Postfix) with ESMTP id 91F751D001A7
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 00:46:19 -0500 (EST)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-06.internal (MEProxy); Wed, 18 Nov 2026 00:46:19 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:message-id:mime-version:reply-to
+	:subject:subject:to:to; s=fm2; t=1794980779; x=1795067179; bh=4P
+	GhncW7N254BHhuI+X+ylprn6wTF6rmx27dV8++hJw=; b=e+zKZHIt56pZGUueFu
+	6/7sRUf6ytsx9O+Q1lVweOYjs1eVZgyAiZXMPFXWapq7o6cu843VDDcCEm0laJbG
+	6x6gUH/EOY3QsKIaMceF80cw5fjxMbEFMInUMWPsde6zEoR91RyqOyqw/luhCo85
+	HNwYF1ae/VEdD4/rnLiIFdeOOBU3wiHh+/wYEU1rzL+bud7+wHHGhQh3GTX19IHi
+	FSMNIoDZW/F4PS68bNxA/i8zkMnckprLaxKqwAzEo10sBGxxLAj8+jhogkDyT8lL
+	GGOBvZZTlUw5k37McEH63641M/8ov+zODkvJ6f8wR+y96YgGuzaW8wEhk0HYdf4X
+	aGsA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+	fm3; t=1794980779; x=1795067179; bh=4PGhncW7N254BHhuI+X+ylprn6wT
+	F6rmx27dV8++hJw=; b=h8A93scBUH3VvuyV/i2yXE6mt+Ya3HXJTq5bBTTxjqr4
+	v5scOwAz1W0bWCXNE4c5IU5jJHVHHZzVJ3gr6ROUksltVGN6BbmNyzHaPjWKNddS
+	sFcYboMQLqZu16rH0bZmMb9U9DlDKu1h2a0dxZMRCM/xNms+UOTnsgoEoBhM0PIO
+	ywQJRBzySjXLGqhpk6Z4Uq5PhYU9eeeNhJuIdnCnxFgi1VXZJ3gho2BoS0q2UHnP
+	Nd7DxUn6lcGVmi2BCDL3D/DSHbh87hUvGK6fDs7eoWZZUsWf54iCFwtnUEx9YUxi
+	i0Si3YEabVDR0Q58PLziOILgmy2gC5heckV8EP3+Bw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1794980779; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:NtLHJ5c7O/apKm5nrTiMao6/NcPhEoI2L1gd6Pb/RO1Ij1U
+	l54Zz+kZvvcNv40gZ2WCgbgAJ6rZRY5+3T1qrj9vZ6xdSxZWAVemoIku/rjL3NgI
+	85G8Z8OlVZS6L4TjJ/GsmtHL0O/2i+FEcw8KcnJ01HM3QrGC/mlZmlj/YBtCF1Bk
+	7Kwdty0DpaXekMW3Sv2s/csgqK2fklLowMWJu6wh2I39rkoHk5YhPpqaSmdXpahK
+	c2Qi7mJbMXmUF/jRv++o6cVUqxumnBWEWBU8M8wu+TQgsdPYJiqEu4mt7EwP3YOU
+	tXAgCzP2eNVb05XtQGYIadnfagXt4DkYru7Y6Ag==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,message-id,mime-version,subject,to,
+	user-agent;
+Message-Instance: m=1; h=sha256:YqRDAbMZP5ZWB5Ze7phEkMI/84mAmKX5ZFXvsdE2tXM=:O0PRFVuMTsEHZYKnmzI6aG+lABhavA5E9ecPBMEFR+k=;
+X-ME-Sender: <xms:qzv9aimTVYv9yDN2uIBGOuPlM38Uj4GgKo6HbV_QQqBZzZP2llntvA>
+    <xme:qzv9akaMXNtldnI5dPlWYp9b5Hxw7F6LYjWSc0_EYHiUqvam_MxpeKuJrPPSflF5a
+    w9ohb7R57F2hQzNJZAGPajEDZ2STKsNSWNBbpsiXRBD-UnjQDcG_dc>
+X-ME-Received: <xmr:qzv9atOrFmpnuoNZgWaQ_-UFNfRAR7gZORZjNby1uCmFunw7h49MDF8LdatRFPHXDzDp_cwwmRIzXOWZ-EZ4IIr5N1vC9KsE>
+X-ME-Proxy-Cause: dmFkZTFt2b6l6LBKqtDnRJuBqrXtjWv+zZnCfHSUR/5nzqddxAcyKhhUQHZKO6dbduIzO2
+    vn+EDcweZnoy6+WNxoGlaC9r2mf8rvjIkhxGW7d1m/qOi2MVkmQQ4cI9FZi9jx3WybFpwC
+    e9eMIA9gz4+upz17G0UbJgh+squESqCBOPNTygSKknPFv5gO87cY+UooUtoLPfLEjbiZsc
+    b4umbxp1PRTwoXUjCpkDyu0mL8Us0CgvKZjbAJnxSRbYwpRomnJKdWSt+VnrIT3tusZrwU
+    4ZZgnklhqRPm7IHG8380VImflj1EDxuRUHaN8PqjmhheDQerEF0t9ZtOPazwBCnEUhonQ8
+    4PlfD9apM8kMB1zH+LQ6Nbc/Ia8rLG/fErG3E9RqnlsRdy9MFwJnZQEa/ztQYyUbyTJOlp
+    E2optNB0UQu4EoxJNBy0td1XE8yi+l7aVOLgWXRe6uRvuuUtF1ks/A1UUAGHWZF9oBQriO
+    L4jfspAvBpdx1m0490SOD2sM8L+D/A/7r/wJK4ZoJ2ptAzvaOe0q74JpiFO6r4ANxoclHO
+    AHTOGfAYjALpa7Hd9TVvpOQAmHps67t2LwNtS61kkHrfAbasIBuZvfqslLJ0TXSJlEbxkP
+    u9EDiKHEO1V52yzbsSXSTEiknZMoqPbBGP2R88fP2FFQEWjppmoQpLlMj99A
+X-ME-Proxy: <xmx:qzv9apbwy5eFrJRUIjsVW-J7cJ_TYBSPZjgIDP_lc9jBT6428_Scjw>
+    <xmx:qzv9ar2B2gjom2yokbPlvcjLKTTe0RiTX3hawvteu8etESOL6ixxhQ>
+    <xmx:qzv9avcewB3I6pyzx2c7mXrRYE6gmPedif8v2F-j7097yaZjU03wSg>
+    <xmx:qzv9asH_fx98uILtGjnsBie2bnHppBed6zalEMeBOZ6bemcptKiKcA>
+    <xmx:qzv9av6FiU4ZNap5QBP0v6vY9rFyAehQtnPrtWgKBBpqh7coOPU7CbLJ>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 18 Nov 2026 00:46:18 -0500 (EST)
+Message-ID: <31a4ad36-33bd-4563-9eae-651e713adbdf@pobox.com>
+Date: Tue, 17 Nov 2026 21:46:17 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,98 +116,35 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: stable <stable@vger.kernel.org>, Sasha Levin <sashal@kernel.org>
+Cc: Josef Bacik <josef@toxicpanda.com>, Alexei Starovoitov <ast@kernel.org>
+From: "Barry K. Nathan" <barryn@pobox.com>
+Subject: [5.10.y] build broken by "bpf: Validate the SRH which End.DT6
+ uncovers in End.BPF"
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+To be clear, this report is about the current 5.10.y stable-queue. No
+previously shipped 5.10.y release is affected.
 
-The quilt patch titled
-     Subject: ocfs2: fix kernel BUG in ocfs2_page_mkwrite() when write_end fails
-has been removed from the -mm tree.  Its filename was
-     ocfs2-fix-kernel-bug-in-ocfs2_page_mkwrite-when-write_end-fails.patch
+After applying the current stable-queue on top of 5.10.274, the build
+fails for me with the following error:
 
-This patch was dropped because it was merged into the mm-nonmm-hotfixes-stable branch
-of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+net/core/filter.c: In function ‘bpf_update_srh_state’:
+net/core/filter.c:5867:26: error: implicit declaration of function ‘seg6_get_srh’ [-Werror=implicit-function-declaration]
+  5867 |         srh_state->srh = seg6_get_srh(skb, 0);
+       |                          ^~~~~~~~~~~~
+net/core/filter.c:5867:24: warning: assignment to ‘struct ipv6_sr_hdr *’ from ‘int’ makes pointer from integer without a cast [-Wint-conversion]
+  5867 |         srh_state->srh = seg6_get_srh(skb, 0);
+       |                        ^
 
-------------------------------------------------------
-From: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
-Subject: ocfs2: fix kernel BUG in ocfs2_page_mkwrite() when write_end fails
-Date: Wed, 11 Nov 2026 02:34:44 +0000
+"bpf: Validate the SRH which End.DT6 uncovers in End.BPF" is the patch
+that causes this error. Reverting it fixes the build.
 
-syzbot reported a kernel BUG in the ocfs2 write fault path:
-
-  (syz.0.17,5578,0):ocfs2_write_end_nolock:1945 ERROR: status = -30
-  kernel BUG at fs/ocfs2/mmap.c:106!
-  Call Trace:
-   do_page_mkwrite+0x147/0x310 mm/memory.c:3879
-   do_shared_fault mm/memory.c:6145 [inline]
-   handle_mm_fault+0x1a53/0x3750 mm/memory.c:6943
-
-__ocfs2_page_mkwrite() calls ocfs2_write_begin_nolock() and then
-ocfs2_write_end_nolock(), and uses BUG_ON() to assert that the latter
-returns the full length.  But ocfs2_write_end_nolock() can fail: since
-commit 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before
-ocfs2_journal_dirty() in ocfs2_write_end_nolock()") it gets journal
-access to the inode buffer again, because the handle may have been
-restarted since ocfs2_write_begin_nolock().  That fails with -EROFS or
--EIO once the journal has been aborted or jbd2 has seen write errors
-on the device.  The syzbot reproducer gets there by shrinking the
-backing loop device to zero with LOOP_SET_STATUS while writing to a
-shared file mapping.
-
-Handle the failure instead of crashing.  ocfs2_write_end_nolock()
-leaves the mmap folio locked, because ocfs2_unlock_folios() skips it
-when w_target_locked is set so that it can be returned with
-VM_FAULT_LOCKED, and do_page_mkwrite() does not unlock it either when
-->page_mkwrite() returns an error.  So unlock it and fail the fault;
-the faulting task gets SIGBUS, like for the other errors in this
-function.
-
-For an mmap write ocfs2_write_end_nolock() returns either len or a
-negative errno: inline data has already been converted to extents by
-ocfs2_write_begin_nolock(), and copied is equal to len.
-
-The BUG matters for local mounts, where the filesystem is expected to
-go read-only and keep running after a journal abort.  On clustered
-mounts ocfs2_abort() panics the node anyway as soon as it notices the
-aborted journal.
-
-Link: https://lore.kernel.org/20261111023444.22688-1-zhiyuanzhang912@gmail.com
-Fixes: 7f27ec978b0e ("ocfs2: call ocfs2_journal_access_di() before ocfs2_journal_dirty() in ocfs2_write_end_nolock()")
-Signed-off-by: Zhiyuan Zhang <zhiyuanzhang912@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: <syzbot+42984127d45ad96219de@syzkaller.appspotmail.com>
-Closes: https://syzkaller.appspot.com/bug?extid=42984127d45ad96219de
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Reviewed-by: Heming Zhao <heming.zhao@suse.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: yangwenfang <vicky.yangwenfang@huawei.com>
-Cc: <stable@vger.kernel.org>
-
- fs/ocfs2/mmap.c |   12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
---- a/fs/ocfs2/mmap.c~ocfs2-fix-kernel-bug-in-ocfs2_page_mkwrite-when-write_end-fails
-+++ a/fs/ocfs2/mmap.c
-@@ -103,7 +103,17 @@ static vm_fault_t __ocfs2_page_mkwrite(s
- 		goto out;
- 	}
- 	err = ocfs2_write_end_nolock(mapping, pos, len, len, fsdata);
--	BUG_ON(err != len);
-+	if (err != len) {
-+		/*
-+		 * ocfs2_write_end_nolock() keeps the mmap folio locked so
-+		 * that it can be returned to the VM with VM_FAULT_LOCKED.
-+		 * On failure nobody else will unlock it, so do it here.
-+		 */
-+		folio_unlock(locked_folio);
-+		mlog_errno(err);
-+		ret = vmf_error(err);
-+		goto out;
-+	}
- 	ret = VM_FAULT_LOCKED;
- out:
- 	return ret;
-_
-
-Patches currently in -mm which might be from zhiyuanzhang912@gmail.com are
-
+(seg6_get_srh is present in 5.15.17, 5.16.0 and later, but not 5.10.y.)
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
 
