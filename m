@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795015107;
-	b=Uu7NebidsJDkjVcQBxo+Bam5xUwbdBA7NQgjbM4w1zK5rHlv3r+NSwb71ww+0ObhtYu9
-	 FMGFJNkE0u4uiZW47jXbrB4qcMAt/5+ahXRqEU5TGoWb0F3/ZzEOv1vTgUkttQVf6VSNZ
-	 Pnh8Tg8SPRkLfjqtcAPEc3yttZL1H/I7o8+jYVj2mAT/rGtFn4qlx/GvXcmvobSnH9B5N
-	 sGuLD0i21k4UrH0xefrVxlfUqb645svSThO8em7Bqlf2wSPna182BpZJi5W1BlvDYd2av
-	 NbLjke7PgD1ZW6ykQBstfukLblqRDfYvvy4znW4E75Q901EAeH0pV+0mqJf6OiftLqw==
+	t=1795015113;
+	b=fm0Y3mCIFSYz9LD/ILm0P9tYa6GPwFKDCYDc785Eyojk6qisfd9I9PmPiDNgaaLFqG3B
+	 4k3oECkGnY6rsqEG04rMeRGDCCxFyZSg6iRRe8tpl0xf+xhBLl9BaNh76/66Tyc4CrbwN
+	 xQ4iz+Ttpyjwp7PpK2tquKrPu5UppBiAFrQxdxql7XDle5Dqfv38B6w3I2Do4Gbvp69S1
+	 bo4HthCEEjxPWR8n/4y/e30TxuZ4qVxx/mH4kLCjS6gVuH1k4hX/+EzGBJGGwCj/bJn3i
+	 zx3/FLcTex3TJg1DDrlw+sDr4Sx3qCZp9Wj3zj7OaZgO7AYLT2IqP0SU/hjZSFBxc8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795015107;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015113;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=BAD0cOWaisgsWrHfWx1derTSrSezsIUh/m2kilUKT/U=;
-	b=QHxtSTdyA45NiknyJFKIlhNagSH3HQ3i8GG6cC1nHAY8uUfn1+CKoMIubr68juhBG4bV
-	 L/EG0MkURg6J+XX+PdRQ0leSQxVQjHI95X63HCCM7/CSCxYmov/ornqKV0LY8AeReS9FK
-	 TFpqqQpQOrXxhIoV3PQ29z08x/UTVei5ceUDunrjKZCf40TLxlBCifjup4pirCmrjQqoJ
-	 p29l47wsEWGUGW0ah848deHovuo+Jyth5Z6sZYwSrvky33PNHhWGu2UWR61SVRyZV31/L
-	 VUdibGEpDU8GhQjjwBtW1rxuPtTu54yAC1SyVhU23gMECfl6m3pw5/TNU9g5yxm+pqA==
+	bh=/Q0EhKKapcHhpTpahE+E1No47tUBGrpGXlq7WaxR4wI=;
+	b=BxDVYec+oZUvrICzqLw1lMgnaBkR5zOUCfK6u1+GN24Gjj6e8zgAHFc0gZApUsxQbwX1
+	 sOMRN7b0MTb2ZBuNIyjhD8RzBgNcayuXSY+wxxit9usC3OUbH9ARf3lxd65wBwOk8mxFN
+	 U12QHjTUgiYy+D6TGx1m0k90YuGkq1Q/hdeiRg0Ua4W8WmgpnQBcP38vZmE8fgSxm14Fl
+	 UOqUT5n1iiKo61DfxczLkSeBwo3pKIn+I4bwB8q9/TKHZkz/D9G7fpEYDWnaIsewMlFMC
+	 0ssGYDdacrz7Aa9PJ6B6KrSyex2/uppEk1U1IFoVbPUpc3Qka18H4Bjw2gAPzNOYGXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F1PpMVyi;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=B5QCd8tL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D54660A2631;
-	Wed, 18 Nov 2026 15:18:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A24E60A2631;
+	Wed, 18 Nov 2026 15:18:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=F1PpMVyi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC5C91F000C7;
-	Wed, 18 Nov 2026 15:18:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=B5QCd8tL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870AA1F000C9;
+	Wed, 18 Nov 2026 15:18:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795015107;
-	bh=BAD0cOWaisgsWrHfWx1derTSrSezsIUh/m2kilUKT/U=;
+	s=korg; t=1795015113;
+	bh=/Q0EhKKapcHhpTpahE+E1No47tUBGrpGXlq7WaxR4wI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=F1PpMVyisiTdyhtZkGpD7yL4C6LijE/V5Px07wSMUnglcGWDSbexfwNAqnOw9U8IL
-	 AAXI5zcd/yEzjs5qRUGdyJnaEtXatA4nSgVOgnSu31g5HkAjC6IVwEUKuJCaRdIJBB
-	 lsZC6F8wK1/pw9digoqOq3/NNF6al1MdYapi8Z8o=
+	b=B5QCd8tLsZMg5x8JS+hmOEnwB8saZbR9Wxv0GLRLbrhZnbTv3eKp7VqXX6iKoXaBk
+	 BS6PuYsULzrjDpYn1FEHvMOK43+bvuyDbCbu5gd/I4Mz1LrUM1DBP0m1mWaMWMpSjt
+	 MYsD17+LBOoCYD81sHubgm0fLvrocRaVUJRnjI4k=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sonny Jiang <sonny.jiang@amd.com>,
-	Boyuan Zhang <Boyuan.Zhang@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+	Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0028/2651] drm/amdgpu: Correct VCN V5_0_2 doorbell index setting
-Date: Wed, 18 Nov 2026 15:21:08 +0100
-Message-ID: <20261118150248.989778541@linuxfoundation.org>
+Subject: [PATCH 7.3 0056/2651] accel/qaic: Add <linux/device-id/mhi.h> to qaic_drv.c
+Date: Wed, 18 Nov 2026 15:21:36 +0100
+Message-ID: <20261118150249.965354879@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -69,35 +68,34 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Sonny Jiang <sonny.jiang@amd.com>
+From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
 
-[ Upstream commit 66421e37897ddd29c03a3290cd559f7c72622f80 ]
+[ Upstream commit c8e6229a81d0400a8347c70b89ff363ec08c816f ]
 
-Each VCN 5.0.2 instance has 11 doorbells. Use an 11-doorbell when
-calculating the per-instance VCN ring doorbell index.
+qaic_drv.c uses mhi_device_id implicitly. Include <linux/device-id/mhi.h>.
 
-Signed-off-by: Sonny Jiang <sonny.jiang@amd.com>
-Reviewed-by: Boyuan Zhang <Boyuan.Zhang@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-Stable-dep-of: a56c2536c399 ("drm/amdgpu: cancel idle work in hw_init failure paths for vcn/uvd/vce/jpeg")
+Fixes: c501ca23a6a3 ("accel/qaic: Add uapi and core driver file")
+Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+Reviewd-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Signed-off-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260727173326.2219191-3-youssef.abdulrahman@oss.qualcomm.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/accel/qaic/qaic_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
-index b9f6ae75ea727..5291ebbc5c3e2 100644
---- a/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
-+++ b/drivers/gpu/drm/amd/amdgpu/vcn_v5_0_2.c
-@@ -129,7 +129,7 @@ static int vcn_v5_0_2_sw_init(struct amdgpu_ip_block *ip_block)
- 		ring->use_doorbell = true;
+diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
+index 0acf6cdd44f81..c1bb6db78d129 100644
+--- a/drivers/accel/qaic/qaic_drv.c
++++ b/drivers/accel/qaic/qaic_drv.c
+@@ -4,6 +4,7 @@
+ /* Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries. */
  
- 		ring->doorbell_index =
--			(adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 32 * vcn_inst;
-+			(adev->doorbell_index.vcn.vcn_ring0_1 << 1) + 11 * vcn_inst;
- 
- 		ring->vm_hub = AMDGPU_MMHUB0(adev->vcn.inst[i].aid_id);
- 		sprintf(ring->name, "vcn_unified_%d", adev->vcn.inst[i].aid_id);
+ #include <linux/delay.h>
++#include <linux/device-id/mhi.h>
+ #include <linux/dma-mapping.h>
+ #include <linux/idr.h>
+ #include <linux/interrupt.h>
 -- 
 2.53.0
 
