@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795020364;
-	b=oYE6wGheYbzwfaOfeM6vcnpoU1rMFjGgk7zk13MQruRcdRY4LCLGxFTWIJZppI+FMQ3t
-	 KTbIUNRkGYFwxu3P5p1hTg5b0ihUKZI9lTiJofhN4etkdQcszLQFnMF1xdTJbMHsL9Aog
-	 GZg+f6wvNbH9ORzCSZOFQ0VSHD/4NgjYDdIPpfJe4WYm+USzVBy3VH5wSVYOwT5pHDZ0I
-	 MNUwo8ZyX+b58HWHRi5qNuC8+OGIcUUGn577v8Mw2GcQ13vV5yFBegQq9w4HYzdqgpKhY
-	 B/XTaYdfTZ0RAfsMmnxr8g8a+ZHHWaY8DBO+ZTlStYD/uCxc3tEagPQhwCFphg1KQSw==
+	t=1795020367;
+	b=oJWMMGuVutWQQSbxa2liYJxR4H7LjsTiY/SpR3gbaum6aM/uD6t0rAliM2JdS25bVsGf
+	 jFXScdRnqNbyt/o0FLUkfmUntGgVF4yJVjTpw+uGdmsAnXQuyAe+YSs5HJtmXAHi5ZbXT
+	 /p82+4ujwljPjuIB+LgwMBX8tWdEMziAiYTNPpAseRclswkfxQwmYNMkUhUvjTwPCWDqd
+	 6P7yE4P2Y07J7tjSU8zOGmDGZ628PZ+f/Sj7rX9kIEUG0adyihRHdlzNE60o+z6L8SDVx
+	 +wcYct6j+gw4W+5NC4IILjUWJLsCifcr6TeRBoJKeJN33fjEuK9SgA3R2A6/4ZOsCcQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795020364;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795020367;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=nGjn681DkD9gh1ycov7toSsjWvqt/fS7vgQu0sM45tE=;
-	b=C0JSLoEuW8KRkVH8Eluc8dz2mSEVFfcKzPYfiYAqxBgMNMqkydGcOTaQihtE+HGSYYeb
-	 6asFAxdEoB3F7oVAoZuY7SoPTMosVh9LcoAtjkd2o3/hvk5ifF3xyrtzxMK17Jc4+uvy1
-	 qofoxyM2zD+Shrf2bnxhv8m2k1v8+Wk69vxvEPV25uqMAa8jT5WaHTkbNso95XdM9LmzK
-	 i89ryd/8PO0mLvEazibGcWXEJfWJAvJvz/qGzLH/+CrZq2xTtdByKek1Pv8lgv8ZlyMpG
-	 jbgsgbr14IDlYa2wZuwETEa3d5pTwIi1p3WhxwkgUon4mQdgWxIU97jdmoOeThtenzg==
+	bh=k3BIb9y2udAo0+qzuH+301PWdAgEMoGjZyLzyrzv0aU=;
+	b=FRx9+vRaW+w0IJwQ4emRsVVT4/cjR9Ts8noH9y6LNyIjivjT1fdUiI0FAViiV0+bWXMt
+	 Ii67BLl0U5YdNlEjkyhz+GHc51ZoMCv/uvl4hjYVLkDvO6r6YlXAXVppb28HM2i0T32fL
+	 7ldUkxh8KKMT7RJqRK+W+ARmREScSOsgvscUCRi0lcNGnP/4P1aa3PBUvePlgvVh9uiD5
+	 mMXn1ao8yH6GrYPSvlk+I5VdaAsJPtt/Z4XaazT45alGQZUJSpfkgkl1G/+jSqg1w6U7C
+	 1ZVZU0l64X74xom2CKNEmfyu5DkGEtol431yOnW/UInrNrA5LmHeklKiKb88aQkTh3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kkQQ0l63;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=goYDSlZ8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228FA606A325;
-	Wed, 18 Nov 2026 16:46:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05DA0606A320;
+	Wed, 18 Nov 2026 16:46:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kkQQ0l63
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7820C1F000C5;
-	Wed, 18 Nov 2026 16:46:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=goYDSlZ8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5387A1F000C6;
+	Wed, 18 Nov 2026 16:46:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795020364;
-	bh=nGjn681DkD9gh1ycov7toSsjWvqt/fS7vgQu0sM45tE=;
+	s=korg; t=1795020366;
+	bh=k3BIb9y2udAo0+qzuH+301PWdAgEMoGjZyLzyrzv0aU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kkQQ0l63lNcD+Nxv6rQDJipdpafOzGd88WJ50bc7LIEHYvGZV0d3262ngTvbptS8L
-	 wOHpsGpU8rqjexiweCUDjfCNmUPikAf5Kt9ZUCQ/k945WkEuidORcaSoivcg2+lPyU
-	 qHP29NpksZenbcZsU/ANp54elWfXNskWFrLSs6Bw=
+	b=goYDSlZ8e7UViMuKQnbuHvz4x/3aKGGNpxAU+61LHb3dkqf3pQJpDaygI7l5q2Luy
+	 XzkN0QzvntpvRgbWag1kES2Cy8ooQ2omgYESTgSQ8xMoyJkUPwEfsqr2L/Mm/jIAgy
+	 zfNPOI7NfZY7MsG+GUKqjQ/L+LtsXU6V22i8q/BA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Kiran K <kiran.k@intel.com>,
+	Ravindra <ravindra@intel.com>,
+	Sergey Lebedev <lsa.uz@pm.me>,
 	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 1884/2651] Bluetooth: btintel_pcie: sync mbox tlv parsing with GP0 alive interrupt
-Date: Wed, 18 Nov 2026 15:52:04 +0100
-Message-ID: <20261118150354.738615053@linuxfoundation.org>
+Subject: [PATCH 7.3 1885/2651] Bluetooth: btintel_pcie: verify and serialize D-state transitions
+Date: Wed, 18 Nov 2026 15:52:05 +0100
+Message-ID: <20261118150354.769434001@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -68,143 +69,159 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Kiran K <kiran.k@intel.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
 
-[ Upstream commit d572ea4b621ce60279da5179a0c338660c8b7331 ]
+[ Upstream commit 4f6ead67b93bcc4ba1fbbf97c7c8bc5a0c45b80b ]
 
-Performing a target access to read the mbox TLV table while the driver
-is concurrently posting RX buffers to the firmware causes the hardware
-to return 0 for the target address, resulting in an invalid/empty TLV
-parse.
+The gp0_received flag only reports that the GP0 handler ran. It does not
+contain proof that the handler completed the requested D-state transition:
+a matched case can leave the state unchanged.
 
-Add a synchronization handshake between the mbox TLV read operation
-performed by the mbox worker and the GP0 (alive) MSI-X interrupt (which
-signals completion of RX buffer posting). The worker now waits for the
-alive interrupt before initiating the target access, ensuring the
-hardware returns valid data.
+Refresh the boot-stage register before treating the transition as
+successful. When the controller is in D0 but the handler did not re-arm the
+interface, restore the alive context, reset the IA, restart RX, and
+complete the mailbox/alive handshake. Propagate RX setup failures to the PM
+caller. Likewise, when the controller is in D3 but the handler did not
+record it, restore the alive context so the next transition dispatches
+correctly.
 
-Assisted-by: Gemini:gemini-3.1-pro-preview
-Signed-off-by: Kiran K <kiran.k@intel.com>
+Serialize the alive-context claim between the GP0 handler and the
+set_dxstate() fallback with irq_lock. Only the path that claims the D0
+transition resets the IA and rearms RX, avoiding concurrent updates to the
+shared ring state.
+
+Co-developed-by: Ravindra <ravindra@intel.com>
+Signed-off-by: Ravindra <ravindra@intel.com>
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+Fixes: 88c6216a52ea ("Bluetooth: btintel_pcie: Suspend/Resume: Controller doorbell interrupt handling")
+Tested-by: Sergey Lebedev <lsa.uz@pm.me>
 Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Stable-dep-of: 4f6ead67b93b ("Bluetooth: btintel_pcie: verify and serialize D-state transitions")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/bluetooth/btintel_pcie.c | 42 +++++++++++++++++++++++++++++---
- drivers/bluetooth/btintel_pcie.h | 10 +++++++-
- 2 files changed, 48 insertions(+), 4 deletions(-)
+ drivers/bluetooth/btintel_pcie.c | 80 +++++++++++++++++++++++++-------
+ 1 file changed, 64 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/bluetooth/btintel_pcie.c b/drivers/bluetooth/btintel_pcie.c
-index 8ad639e4d3ca0..9f7a9bf592f69 100644
+index 9f7a9bf592f69..8bf9a9b4ae78e 100644
 --- a/drivers/bluetooth/btintel_pcie.c
 +++ b/drivers/bluetooth/btintel_pcie.c
-@@ -989,6 +989,24 @@ static int btintel_parse_mbox_tlv(struct btintel_pcie_data *data)
- 	struct mbox_tlv *tlv;
- 	struct btintel_data *cnvi_data = hci_get_priv(data->hdev);
- 	u8 hw_variant = INTEL_HW_VARIANT(cnvi_data->cnvi_bt);
-+	long t;
-+
-+	/* Wait for GP0 alive interrupt to post RX buffers */
-+	t = wait_event_timeout(data->mbox_parse_wait_q,
-+			       test_bit(BTINTEL_PCIE_MBOX_PARSE_READY, &data->flags),
-+			       msecs_to_jiffies(BTINTEL_PCIE_MBOX_INTR_TIMEOUT_MS));
-+	if (!t) {
-+		bt_dev_warn(data->hdev,
-+			    "Timeout (%u ms) waiting for alive interrupt before mbox TLV parse; skipping",
-+			    BTINTEL_PCIE_MBOX_INTR_TIMEOUT_MS);
-+		return 0;
-+	}
-+	clear_bit(BTINTEL_PCIE_MBOX_PARSE_READY, &data->flags);
-+
-+	bt_dev_info(data->hdev,
-+		    "mbox TLV parse started at %lld ns (%lld us after mbox interrupt)",
-+		    ktime_to_ns(ktime_get()),
-+		    ktime_to_us(ktime_sub(ktime_get(), data->mbox_intr_ts)));
+@@ -1316,6 +1316,10 @@ static void btintel_pcie_msix_gp0_handler(struct btintel_pcie_data *data)
+ 	submit_rx = false;
+ 	signal_waitq = false;
  
- 	memset(&data->dump_info, 0, sizeof(data->dump_info));
- 
-@@ -1232,12 +1250,22 @@ static void btintel_pcie_msix_gp1_handler(struct btintel_pcie_data *data)
- 	if (target_access &&
- 	    !test_and_set_bit(BTINTEL_PCIE_MAIL_BOX_INTR,
- 				   &data->flags)) {
-+		/* Arm the mbox<->alive handshake */
-+		clear_bit(BTINTEL_PCIE_MBOX_PARSE_READY, &data->flags);
-+		set_bit(BTINTEL_PCIE_MBOX_PARSE_PENDING, &data->flags);
-+		data->mbox_intr_ts = ktime_get();
-+
-+		bt_dev_info(data->hdev,
-+			    "mbox interrupt received at %lld ns; queuing mbox_work",
-+			    ktime_to_ns(data->mbox_intr_ts));
-+
- 		WRITE_ONCE(data->debug_table_addr, addr);
- 		WRITE_ONCE(data->debug_table_size, size);
- 		if (!queue_work(data->dump_workqueue,
--				&data->mbox_work))
--			clear_bit(BTINTEL_PCIE_MAIL_BOX_INTR,
--				  &data->flags);
-+				&data->mbox_work)) {
-+			clear_bit(BTINTEL_PCIE_MAIL_BOX_INTR, &data->flags);
-+			clear_bit(BTINTEL_PCIE_MBOX_PARSE_PENDING, &data->flags);
-+		}
++	/* Serialize the alive_intr_ctxt claim against set_dxstate()'s
++	 * register-based fallback, which can run concurrently.
++	 */
++	spin_lock(&data->irq_lock);
+ 	switch (data->alive_intr_ctxt) {
+ 	case BTINTEL_PCIE_ROM:
+ 		data->alive_intr_ctxt = BTINTEL_PCIE_FW_DL;
+@@ -1371,6 +1375,7 @@ static void btintel_pcie_msix_gp0_handler(struct btintel_pcie_data *data)
+ 			   data->alive_intr_ctxt);
+ 		break;
  	}
++	spin_unlock(&data->irq_lock);
  
- 	/* Mailbox is read, ack to FW */
-@@ -1347,6 +1375,12 @@ static void btintel_pcie_msix_gp0_handler(struct btintel_pcie_data *data)
  	if (submit_rx) {
  		btintel_pcie_reset_ia(data);
- 		btintel_pcie_start_rx(data);
-+
-+		/* Complete the mbox<->alive handshake */
-+		if (test_and_clear_bit(BTINTEL_PCIE_MBOX_PARSE_PENDING, &data->flags)) {
-+			set_bit(BTINTEL_PCIE_MBOX_PARSE_READY, &data->flags);
-+			wake_up(&data->mbox_parse_wait_q);
+@@ -3521,7 +3526,7 @@ static void btintel_pcie_coredump(struct device *dev)
+ 
+ static int btintel_pcie_set_dxstate(struct btintel_pcie_data *data, u32 dxstate)
+ {
+-	int retry = 0;
++	int retry = 0, err;
+ 	long status;
+ 	u32 dx_intr_timeout_ms = 200;
+ 
+@@ -3533,30 +3538,73 @@ static int btintel_pcie_set_dxstate(struct btintel_pcie_data *data, u32 dxstate)
+ 		status = wait_event_timeout(data->gp0_wait_q, data->gp0_received,
+ 			msecs_to_jiffies(dx_intr_timeout_ms));
+ 
+-		if (status)
+-			return 0;
+-
+-		bt_dev_warn(data->hdev,
+-			   "Timeout (%u ms) on alive interrupt for D%d entry, retry count %d",
+-			   dx_intr_timeout_ms, dxstate, retry);
++		if (!status) {
++			bt_dev_warn(data->hdev,
++				    "Timeout (%u ms) on alive interrupt for D%d entry, retry count %d",
++				    dx_intr_timeout_ms, dxstate, retry);
+ 
+-		/* clear gp0 cause */
+-		btintel_pcie_clr_reg_bits(data,
+-					  BTINTEL_PCIE_CSR_MSIX_HW_INT_CAUSES,
+-					  BTINTEL_PCIE_MSIX_HW_INT_CAUSES_GP0);
++			/* clear gp0 cause */
++			btintel_pcie_clr_reg_bits(data,
++						  BTINTEL_PCIE_CSR_MSIX_HW_INT_CAUSES,
++						  BTINTEL_PCIE_MSIX_HW_INT_CAUSES_GP0);
 +		}
- 	}
  
- 	if (signal_waitq) {
-@@ -3345,6 +3379,8 @@ static int btintel_pcie_probe(struct pci_dev *pdev,
- 	init_waitqueue_head(&data->tx_wait_q);
- 	data->tx_wait_done = false;
- 
-+	init_waitqueue_head(&data->mbox_parse_wait_q);
+-		/* A hardware bug may cause the alive interrupt to be missed. Refresh
+-		 * boot_stage_cache from hardware, since only the interrupt handler
+-		 * updates it. Finally retry only if the state check still fails.
++		/* gp0_received is set at the top of the handler, before the switch on
++		 * alive_intr_ctxt. Error and lockdown are filtered out above it, but a
++		 * matched case can still complete without doing anything - D3 breaks
++		 * unchanged while the controller has not reached D0 - and a hardware
++		 * bug may drop the interrupt outright. Either way the flag says a gp0
++		 * was handled, not that the transition completed, and only the register
++		 * knows. Refresh the cache here and retry only if the state check still
++		 * fails.
+ 		 */
+ 		data->boot_stage_cache = btintel_pcie_rd_reg32(data,
+ 							       BTINTEL_PCIE_CSR_BOOT_STAGE_REG);
+ 		if (dxstate == BTINTEL_PCIE_STATE_D0) {
+-			if (btintel_pcie_in_d0(data))
++			if (btintel_pcie_in_d0(data)) {
++				bool armed;
 +
- 	data->workqueue = alloc_ordered_workqueue(KBUILD_MODNAME, WQ_HIGHPRI);
- 	if (!data->workqueue)
- 		return -ENOMEM;
-diff --git a/drivers/bluetooth/btintel_pcie.h b/drivers/bluetooth/btintel_pcie.h
-index 81f1abd14f359..a7573b377a3ef 100644
---- a/drivers/bluetooth/btintel_pcie.h
-+++ b/drivers/bluetooth/btintel_pcie.h
-@@ -126,7 +126,9 @@ enum {
- 	BTINTEL_PCIE_FWTRIGGER_DUMP_INPROGRESS,
- 	BTINTEL_PCIE_RECOVERY_IN_PROGRESS,
- 	BTINTEL_PCIE_SETUP_DONE,
--	BTINTEL_PCIE_MAIL_BOX_INTR
-+	BTINTEL_PCIE_MAIL_BOX_INTR,
-+	BTINTEL_PCIE_MBOX_PARSE_PENDING,
-+	BTINTEL_PCIE_MBOX_PARSE_READY
- };
- 
- enum btintel_pcie_tlv_type {
-@@ -179,6 +181,7 @@ enum btintel_pcie_mbox_msg {
- 
- /* Default interrupt timeout in msec */
- #define BTINTEL_DEFAULT_INTR_TIMEOUT_MS	3000
-+#define BTINTEL_PCIE_MBOX_INTR_TIMEOUT_MS	500
- 
- #define BTINTEL_PCIE_DX_TRANSITION_MAX_RETRIES	3
- 
-@@ -587,6 +590,11 @@ struct btintel_pcie_data {
- 	u32	debug_table_size;
- 	struct btintel_pcie_dump_mem_info	dump_info;
- 	struct btintel_pcie_mbox	mbox;
++				/* Claim the transition under irq_lock so a
++				 * concurrent gp0 handler run cannot also arm RX.
++				 */
++				spin_lock(&data->irq_lock);
++				armed = data->alive_intr_ctxt == BTINTEL_PCIE_D0;
++				if (!armed)
++					data->alive_intr_ctxt = BTINTEL_PCIE_D0;
++				spin_unlock(&data->irq_lock);
 +
-+	/* Wait queue for mbox_worker to wait for GP0 alive interrupt */
-+	wait_queue_head_t	mbox_parse_wait_q;
-+	/* Timestamp captured in GP1 handler when mbox interrupt is received */
-+	ktime_t	mbox_intr_ts;
- };
++				if (armed)
++					return 0;
++
++				/* Do what the handler's D3 -> D0 branch
++				 * would have done, unless it already has.
++				 */
++				btintel_pcie_reset_ia(data);
++				err = btintel_pcie_start_rx(data);
++				if (err)
++					return err;
++
++				/* Complete the mbox<->alive handshake */
++				if (test_and_clear_bit(BTINTEL_PCIE_MBOX_PARSE_PENDING,
++						       &data->flags)) {
++					set_bit(BTINTEL_PCIE_MBOX_PARSE_READY, &data->flags);
++					wake_up(&data->mbox_parse_wait_q);
++				}
++
+ 				return 0;
++			}
+ 		} else {
+-			if (btintel_pcie_in_d3(data))
++			if (btintel_pcie_in_d3(data)) {
++				/* Do what the handler's D0 -> D3 branch
++				 * would have done, unless it already has.
++				 */
++				spin_lock(&data->irq_lock);
++				if (data->alive_intr_ctxt != BTINTEL_PCIE_D3)
++					data->alive_intr_ctxt = BTINTEL_PCIE_D3;
++				spin_unlock(&data->irq_lock);
++
+ 				return 0;
++			}
+ 		}
  
- static inline u32 btintel_pcie_rd_reg32(struct btintel_pcie_data *data,
+ 	} while (++retry < BTINTEL_PCIE_DX_TRANSITION_MAX_RETRIES);
 -- 
 2.53.0
 
