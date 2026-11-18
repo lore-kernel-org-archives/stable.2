@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795026305;
-	b=H2nv8bhpoxYl3q4Ma98l+5CfqH+Wz6jqCF+Wm6ABpMenOb3ulDMt9NF/62sbTlOgslMu
-	 urLE7oZhXOZlz0uf82cC13f4ZSUL7yv6fKzcyvHbrecNyDhbojlNqXPP+PnMz42B2HqGl
-	 YeLRqI2ZYA7d6hXWDLNUitBXb97fseAw5kqyq/1nofY9Bt0I4F+ixz2a+RksjHai4XoQ4
-	 /8S1Kl0tG1ly79rtB/08Dl2fo5VlRR9VU2Cl39Ywrse/kwy5eFPD4XTmFNUTgsPnWJRhM
-	 Mwb5b2LMvYnFNya5+dNW/tWVmzFypT+EaKMnGzSgoNsIXE5q6a1nt+tYKk+uNreqjxw==
+	t=1795026311;
+	b=yUvVuZIeFI3bbfubAfDcRkc76vKaX+5NPWYVMdakkmejUMdo0Uy8F/fygZqtMhq4VYRC
+	 /R0kAb19HhS1BzHowR+edaA1trYT3mWW6S+no7zjvvYSlJLrBQMSgIjS4OGcrY86IMvT1
+	 fsLAcq4xfRLwZ5cPQbkUf/e4b3yK5gvHgx3034mydnuhhFfyUkkKujB1OgG+fmNyOmPSw
+	 u+4wu4GX2JQ6nKOnXrljGtOanj6IkyX47QvPZrzdViuiv6gYvAvV6JU9bwuLxbx/9kaFB
+	 kXWkzGwRprBNqY/NyBvjm1e0cK6EQTKKvPzuh3a3EFOXbkC5Qke6asuNyjU+BVQO10Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795026305;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795026311;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=YBLgLKaWoFlvy8GFiZ2JGBqhZEyhC9rabPr5bH98ONo=;
-	b=n7DvrkqIhTAosqcRV9mwhbQgxzVobsCQXBGdt1YzYkkvdYIP3x6yi6HJP2m/TA60dFjV
-	 sopKfsLVmHkgNu2GM+qdsr/1raJgzYm8yLBkIMMij1i3gb/salqu8E/q29psdflIBBcv1
-	 Y22ofwjVNCacmfJAuXg/IuOBRfibJs/538xmNZsOjrrobk3m52rH2KsSYLYy73UKhjyuR
-	 5/z2wgALgifshuE0kcpwFD2aJQe+HlkkxxJtpVSs9QkmRF8uWGvjZGAp7yUioF9JyqqNw
-	 bFiTklXr8irojABkq7rFGqiMnxKCI+ncerFT+pBlUXeNLv+lvTCOqPRR7yuS36Oeckg==
+	bh=gAnEPye0xk2zGIMGqbZYODM1RuVn0yPNI/KzlzBCGew=;
+	b=tVHHMRBPM/xllCLvb0Vzmrn66uJE+Q2euD7W1B+GPBCFgiPyxZDoggK3ecryx8Ty+Bdt
+	 q6WJpi8XU7Xr2tWbDH4jCpwVWQoZJg1i04N7q2F9NEm/Zjd+6V/rfhcBzekk8obYfcECn
+	 rbzuvmuh6Dnf48iowVIh2a27932d59ttkbVPQlZ/EK9odGNQBprmQM/KeRYRI7Czvp8F9
+	 2gYH+UzWXc3uItmjNZERDum4w/Xd+lk26RSe9Xmjns1x6RFhiqLv3FXqCIk95f/94EhWf
+	 F/9bcdez1eDiysJ6ViBD0OOz2ukD1EHqa7UCy2MJ+nyTi5dBuVihjOwXs7ZfHd3Ib6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qTB5xmdS;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n2Et1awt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91854606A338;
-	Wed, 18 Nov 2026 18:25:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C97606A332;
+	Wed, 18 Nov 2026 18:25:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qTB5xmdS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E75151F000C7;
-	Wed, 18 Nov 2026 18:25:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=n2Et1awt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58A651F000C5;
+	Wed, 18 Nov 2026 18:25:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795026305;
-	bh=YBLgLKaWoFlvy8GFiZ2JGBqhZEyhC9rabPr5bH98ONo=;
+	s=korg; t=1795026310;
+	bh=gAnEPye0xk2zGIMGqbZYODM1RuVn0yPNI/KzlzBCGew=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=qTB5xmdSoSSn2QGQQEZB4+kknajevjiU1nt7B6HLx64Kl4WW60MMBwHT5qu8fnxVL
-	 rT7RYuLkSHasNN4GblY7bl1NDI9HOwFl8ia5hrhBhtlLVwVJd/PudDyX0lycTAwGiq
-	 lCliaTooyuB7I+xDUFHlmzDqD5qStKMb6bYCzUHg=
+	b=n2Et1awtSnFJ8eiXCyFuKyy/tkbkcz81S63oRHyU9gosCwpmxbRNKqe/WEOV/cr15
+	 xFB+y5EYqmaBequodebu1oynwNLLNdwHQ4A/ri3x2i74/fZ3i1LTwGPCYDGPbaLyjR
+	 EsIeKGV6ob+T9VfJqnT0LeGI9aKmdyPI2NgNpEvo=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Cen Zhang <zzzccc427@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
+	Joas Antonio dos Santos <joasantonio108@gmail.com>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1389/2151] ALSA: pcm: Protect delay DMA sync against concurrent HW_FREE
-Date: Wed, 18 Nov 2026 15:52:04 +0100
-Message-ID: <20261118150212.604066377@linuxfoundation.org>
+Subject: [PATCH 6.18 1391/2151] calipso: hash the cache key, not the option start, in calipso_cache_add()
+Date: Wed, 18 Nov 2026 15:52:06 +0100
+Message-ID: <20261118150212.671444631@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
 References: <20261118150121.603863898@linuxfoundation.org>
@@ -68,230 +69,47 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Cen Zhang <zzzccc427@gmail.com>
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-[ Upstream commit 50f413b83b31ea8d8ee4276165ab95ed5ab0e10f ]
+[ Upstream commit d538cc3ec0bc4cb7b40981b3213a6c6671959ed5 ]
 
-A PCM DMA buffer must remain allocated until explicit DMA synchronization
-finishes. snd_pcm_delay() calls snd_pcm_dma_buffer_sync() after dropping
-the stream lock, without participating in the buffer-access exclusion
-used by HW_FREE.
+calipso_cache_add() stores calipso_ptr + 2 as the cache key, but
+computes entry->hash over calipso_ptr, i.e. starting two bytes earlier
+at the option type and length.  calipso_opt_getattr() looks entries up
+with calipso_cache_check(calipso + 2, calipso[1], ...), which hashes the
+key itself.
 
-With a managed NONCONTIG buffer requiring explicit sync, HW_PARAMS can
-allocate a separate runtime descriptor when the requested ring exceeds
-the preallocation. In PREPARED state with mmap_count zero, concurrent
-HWSYNC and HW_FREE calls on the same open PCM file can interleave:
+The two hashes only match on a jhash collision, so the CALIPSO label
+cache never hits and every labelled packet takes the full DOI lookup and
+category conversion path.  The memcmp() on the key keeps lookups
+correct, so this is a performance bug only.
 
-1. HWSYNC checks the state in snd_pcm_delay() under the stream lock and
-   releases that lock.
-2. The sync helper fetches runtime->dma_buffer_p and enters
-   snd_dma_noncontig_sync() with that descriptor.
-3. HW_FREE takes the negative buffer-access count, checks PREPARED under
-   the stream lock, releases the lock, and frees the DMA allocation and
-   dynamic descriptor through snd_pcm_lib_free_pages().
-4. The sync callback resumes and reads the freed descriptor.
+Hash the stored key, as cipso_v4_cache_add() does for CIPSO.
 
-The stream lock does not cover the allocation's release, and the sync
-operation has no positive buffer-access count to prevent it. The stale
-read causes a use-after-free in snd_dma_noncontig_sync(). DELAY uses the
-same snd_pcm_delay() path.
-
-Take a positive buffer-access count before checking the state and keep it
-until the DMA sync finishes, as the transfer and mmap paths already do.
-HW_FREE then returns -EBUSY while this access is active. If a buffer
-writer has already entered, snd_pcm_delay() returns -EBUSY before using
-the buffer. Keep the sync outside the stream lock and balance the count
-on the state-error path as well.
-
-KASAN report as below:
-
-    BUG: KASAN: slab-use-after-free in snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
-    Read of size 4 at addr ffff888108f58584 by task pcm-uaf-fixture/487
-
-    CPU: 1 UID: 0 PID: 487 Comm: pcm-uaf-fixture Not tainted 7.2.0-rc6-pmb-alsa-functional-v2+ #1 PREEMPT(lazy)
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    Call Trace:
-     <TASK>
-     dump_stack_lvl+0x93/0xd0
-     print_report+0xce/0x630
-     ? snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? __virt_addr_valid+0x20d/0x410
-     ? snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
-     kasan_report+0xe0/0x110
-     ? snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
-     ? __pfx_snd_dma_noncontig_sync+0x10/0x10 [snd_pcm]
-     snd_dma_noncontig_sync+0x295/0x310 [snd_pcm]
-     ? __pfx_snd_dma_noncontig_sync+0x10/0x10 [snd_pcm]
-     snd_dma_buffer_sync+0xc9/0x110 [snd_pcm]
-     snd_pcm_delay+0x3bd/0x550 [snd_pcm]
-     snd_pcm_common_ioctl+0x1e7/0x3aa0 [snd_pcm]
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? do_vfs_ioctl+0x1f5/0x1280
-     ? __pfx_do_vfs_ioctl+0x10/0x10
-     ? ioctl_has_perm.constprop.0.isra.0+0x34f/0x500
-     ? __pfx_snd_pcm_common_ioctl+0x10/0x10 [snd_pcm]
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     snd_pcm_ioctl+0x76/0xb0 [snd_pcm]
-     ? __pfx_snd_pcm_ioctl+0x10/0x10 [snd_pcm]
-     __x64_sys_ioctl+0x163/0x1d0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    RIP: 0033:0x7f1cae7ab91b
-    Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-    RSP: 002b:00007ffe12d544f0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-    RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 00007f1cae7ab91b
-    RDX: 0000000000000000 RSI: 0000000000004122 RDI: 0000000000000003
-    RBP: 00000000000001ee R08: 0000000000000073 R09: 00000000ffffffff
-    R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000003
-    R13: 0000000000000001 R14: 00005584f32b1398 R15: 00005584f32b2ce8
-     </TASK>
-
-    Allocated by task 487:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     __kasan_kmalloc+0xaa/0xb0
-     __kmalloc_cache_noprof+0x251/0x610
-     snd_pcm_lib_malloc_pages+0x27c/0x9f0 [snd_pcm]
-     snd_pcm_hw_params+0x171c/0x1d10 [snd_pcm]
-     snd_pcm_common_ioctl+0x1f62/0x3aa0 [snd_pcm]
-     snd_pcm_ioctl+0x76/0xb0 [snd_pcm]
-     __x64_sys_ioctl+0x163/0x1d0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    Freed by task 499:
-     kasan_save_stack+0x33/0x60
-     kasan_save_track+0x14/0x30
-     kasan_save_free_info+0x3b/0x60
-     __kasan_slab_free+0x5f/0x80
-     kfree+0x307/0x580
-     snd_pcm_lib_free_pages+0x1c9/0x420 [snd_pcm]
-     snd_pcm_common_ioctl+0x2bd3/0x3aa0 [snd_pcm]
-     snd_pcm_ioctl+0x76/0xb0 [snd_pcm]
-     __x64_sys_ioctl+0x163/0x1d0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-    The buggy address belongs to the object at ffff888108f58580
-     which belongs to the cache kmalloc-64 of size 64
-    The buggy address is located 4 bytes inside of
-     freed 64-byte region [ffff888108f58580, ffff888108f585c0)
-
-    The buggy address belongs to the physical page:
-    page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x108f58
-    flags: 0x200000000000000(node=0|zone=2)
-    page_type: f5(slab)
-    raw: 0200000000000000 ffff8881000428c0 dead000000000100 dead000000000122
-    raw: 0000000000000000 0000000000200020 00000000f5000000 0000000000000000
-    page dumped because: kasan: bad access detected
-
-    Memory state around the buggy address:
-     ffff888108f58480: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-     ffff888108f58500: 00 00 00 00 00 06 fc fc fc fc fc fc fc fc fc fc
-    >ffff888108f58580: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-                       ^
-     ffff888108f58600: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-     ffff888108f58680: fa fb fb fb fb fb fb fb fc fc fc fc fc fc fc fc
-    ==================================================================
-    Disabling lock debugging due to kernel taint
-    ------------[ cut here ]------------
-    kernel BUG at kernel/dma/mapping.c:417!
-    Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-    CPU: 1 UID: 0 PID: 487 Comm: pcm-uaf-fixture Tainted: G    B               7.2.0-rc6-pmb-alsa-functional-v2+ #1 PREEMPT(lazy)
-    Tainted: [B]=BAD_PAGE
-    Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-    RIP: 0010:__dma_sync_sg_for_cpu+0x230/0x360
-    Code: df 48 c1 e8 03 80 3c 10 00 0f 85 fa 00 00 00 4c 8b 35 d4 6b 7a 09 e8 7f e2 17 00 83 fd 02 0f 86 39 fe ff ff e8 71 e2 17 00 90 <0f> 0b e8 69 e2 17 00 be 08 00 00 00 4c 89 ff e8 bc 5f 77 00 4c 89
-    RSP: 0018:ffff888111f3fc50 EFLAGS: 00010293
-    RAX: 0000000000000000 RBX: ffffffffc0250d10 RCX: ffffffff816d395f
-    RDX: ffff88810836ba00 RSI: ffff888108f58580 RDI: ffffffffc02510d8
-    RBP: 00000000ffff8881 R08: 0000000000000000 R09: fffffbfff804a239
-    R10: ffffffffc02511cf R11: 6e696c6261736944 R12: ffff888108f58580
-    R13: 0000000002ce00e5 R14: ffffffffc0258720 R15: 0000000000000000
-    FS:  00007f1cae69c780(0000) GS:ffff8881fd861000(0000) knlGS:0000000000000000
-    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    CR2: 000055d1affa2480 CR3: 0000000108fc0003 CR4: 0000000000770ef0
-    PKRU: 55555554
-    Call Trace:
-     <TASK>
-     snd_dma_noncontig_sync+0x15a/0x310 [snd_pcm]
-     ? __pfx_snd_dma_noncontig_sync+0x10/0x10 [snd_pcm]
-     snd_dma_buffer_sync+0xc9/0x110 [snd_pcm]
-     snd_pcm_delay+0x3bd/0x550 [snd_pcm]
-     snd_pcm_common_ioctl+0x1e7/0x3aa0 [snd_pcm]
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     ? do_vfs_ioctl+0x1f5/0x1280
-     ? __pfx_do_vfs_ioctl+0x10/0x10
-     ? ioctl_has_perm.constprop.0.isra.0+0x34f/0x500
-     ? __pfx_snd_pcm_common_ioctl+0x10/0x10 [snd_pcm]
-     ? srso_alias_return_thunk+0x5/0xfbef5
-     snd_pcm_ioctl+0x76/0xb0 [snd_pcm]
-     ? __pfx_snd_pcm_ioctl+0x10/0x10 [snd_pcm]
-     __x64_sys_ioctl+0x163/0x1d0
-     do_syscall_64+0x115/0x6a0
-     entry_SYSCALL_64_after_hwframe+0x77/0x7f
-    RIP: 0033:0x7f1cae7ab91b
-    Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-    RSP: 002b:00007ffe12d544f0 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-    RAX: ffffffffffffffda RBX: 0000000000000004 RCX: 00007f1cae7ab91b
-    RDX: 0000000000000000 RSI: 0000000000004122 RDI: 0000000000000003
-    RBP: 00000000000001ee R08: 0000000000000073 R09: 00000000ffffffff
-    R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000003
-    R13: 0000000000000001 R14: 00005584f32b1398 R15: 00005584f32b2ce8
-     </TASK>
-    Modules linked in: snd_pcmtest snd_pcm
-    ---[ end trace 0000000000000000 ]---
-    RIP: 0010:__dma_sync_sg_for_cpu+0x230/0x360
-    Code: df 48 c1 e8 03 80 3c 10 00 0f 85 fa 00 00 00 4c 8b 35 d4 6b 7a 09 e8 7f e2 17 00 83 fd 02 0f 86 39 fe ff ff e8 71 e2 17 00 90 <0f> 0b e8 69 e2 17 00 be 08 00 00 00 4c 89 ff e8 bc 5f 77 00 4c 89
-    RSP: 0018:ffff888111f3fc50 EFLAGS: 00010293
-    RAX: 0000000000000000 RBX: ffffffffc0250d10 RCX: ffffffff816d395f
-    RDX: ffff88810836ba00 RSI: ffff888108f58580 RDI: ffffffffc02510d8
-    RBP: 00000000ffff8881 R08: 0000000000000000 R09: fffffbfff804a239
-    R10: ffffffffc02511cf R11: 6e696c6261736944 R12: ffff888108f58580
-    R13: 0000000002ce00e5 R14: ffffffffc0258720 R15: 0000000000000000
-    FS:  00007f1cae69c780(0000) GS:ffff8881fd861000(0000) knlGS:0000000000000000
-    CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-    CR2: 000055d1affa2480 CR3: 0000000108fc0003 CR4: 0000000000770ef0
-    PKRU: 55555554
-    Kernel panic - not syncing: Fatal exception
-    Kernel Offset: disabled
-    Rebooting in 1 seconds..
-
-Fixes: a25684a95646 ("ALSA: memalloc: Support for non-contiguous page allocation")
-Assisted-by: LLM
-Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
-Link: https://patch.msgid.link/pm-pmb-d74585d187e0b1810c08-v2-25432d0951f67fdaa1a9@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Fixes: 4fee5242bf41 ("calipso: Add a label cache.")
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Assisted-by: Claude:claude-opus-5-5
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+Link: https://patch.msgid.link/179138670045.80227.16155454353416856947@gmail.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/core/pcm_native.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ net/ipv6/calipso.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 79b49d8e6a87c..b1353c3bd1892 100644
---- a/sound/core/pcm_native.c
-+++ b/sound/core/pcm_native.c
-@@ -3075,14 +3075,19 @@ static snd_pcm_sframes_t snd_pcm_forward(struct snd_pcm_substream *substream,
- static int snd_pcm_delay(struct snd_pcm_substream *substream,
- 			 snd_pcm_sframes_t *delay)
- {
-+	struct snd_pcm_runtime *runtime = substream->runtime;
- 	int err;
- 
-+	/* Keep the DMA buffer alive through the sync below. */
-+	if (!atomic_inc_unless_negative(&runtime->buffer_accessing))
-+		return -EBUSY;
- 	scoped_guard(pcm_stream_lock_irq, substream) {
- 		err = do_pcm_hwsync(substream);
- 		if (delay && !err)
- 			*delay = snd_pcm_calc_delay(substream);
+diff --git a/net/ipv6/calipso.c b/net/ipv6/calipso.c
+index 22008f5a2973d..2bc3a8fac86bf 100644
+--- a/net/ipv6/calipso.c
++++ b/net/ipv6/calipso.c
+@@ -284,7 +284,7 @@ static int calipso_cache_add(const unsigned char *calipso_ptr,
+ 		goto cache_add_failure;
  	}
- 	snd_pcm_dma_buffer_sync(substream, SNDRV_DMA_SYNC_CPU);
-+	atomic_dec(&runtime->buffer_accessing);
+ 	entry->key_len = calipso_ptr_len;
+-	entry->hash = calipso_map_cache_hash(calipso_ptr, calipso_ptr_len);
++	entry->hash = calipso_map_cache_hash(entry->key, calipso_ptr_len);
+ 	refcount_inc(&secattr->cache->refcount);
+ 	entry->lsm_data = secattr->cache;
  
- 	return err;
- }
 -- 
 2.53.0
 
