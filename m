@@ -1,49 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794996220;
-	b=Xdefx03kaSPEMWrh7tFsFnp/EOKMBRKwrzIXgWxaTAxNjGRmN8WGbYeJFxRJhW/A9bDf
-	 Xduop4povEJQcR+IXCgOES1RqDscyNxehiInU13aJiKbYhedEhi3bZNF2s1BCMfcbhHRK
-	 3dd6rRBa/GV6DXn0tfSoJD/4WvR1emzuTJTn6ImPjxKjSpzJcz5t6oKw1e19Hr7YESbWv
-	 dNeKTWZgUnDtnNkVGRchTMDvB8IKqioS0TcEfd25Bk18r8JnSAbgvTjPvXYu4/dOgO7Dj
-	 TgtKCXxZjt4+CDuo6y6dNh8y2vIfw9NxwYy5sOcalBtIvXNX7Y+tphTo3SqGUR4jRFw==
+	t=1794996238;
+	b=jPN9t2PniMQowe6wr0tm22HSccJ8QaljnxNHgBLrFNGqzarSj9867vME0656+uGU52Go
+	 /hSwt3yYhDWP57Rw2eVn4Q7JIfusHnAthdjdl9kWzvGhtVWqqehWvaiKp28Zvba6JzW25
+	 s5ABP/MBNCmFtQSOtGYdtAb+u8/713pt8szHymopyQy3Z2McGSmpkOV60Vw5xxqnOXFRA
+	 socUGl6OXvpjXLJsEPPBDvzWBK4gv/csEGgDR/0y682gaGTha27D3S81fqD476lNWFcnG
+	 dT6XQfLZBJNStWQsddN8aB830a2ODMSHmeuk9cstP4EtAffZR1zLscxnrbYLfa3qwKg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794996220;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=E6Wjea5xNlseMIU1gabJ1JMwd0McL/hKQzFqGCqzeOU=;
-	b=kzQGmEXgOT1KbCMrlHFN1dyHsOWhax7aZFtzJNa2NghUgKLbHFt23rn2P2UWczdywDnL
-	 Fe7R8oiw8hvxiQwKyHpCY7DPnWe5Q6KHtCbuQf1y1bpA4JpYfKSpImukxVuMCkwyAjwu6
-	 LR6nOENiWK/dZwTE3blomXKEkGjefM330hQZ7J9q1ttKRXVruMtcDX3miNgoTnPzDniEc
-	 xpYSD3kNH79DBK8Jl0BvE2uFCfDswEsXC5XMyBuvSbEiB92koKOR3dSoocHgkmodhAPN1
-	 3v4Ttf/4un1EkjUMwOb0RxEWYLYVay0ODRZifsH9WF3dhXKLafsAmNtxZtUqiAsyZgw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794996238;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=j+Y2FiNk9Wl9qy2Tngasbxd4q3UxkbbYUIzjyrrCkFc=;
+	b=k+wcp/Jd/aE0V1fs9N3/7siIZl7wn8kjmEFVoR7zkOPKITPekSYDFoOfR7JqEJDLM727
+	 BnfiVgmvGDkR9OJQcr/d9mrotRaFd/rIxIUV6sd5fNS5A4ATLJ7PotDLOK3FrpnEihYtB
+	 lqUMWj+Rkli4x1n08SV+K+67SljfirqJoZXHTrJIjCj0nEZ9KZcGRaroaEZMdWKVYBTPX
+	 ofBkhwkKuZMy3UOpvhBtkPLDD54Ynrg+RdgNsN81bIkD1Fngx3FhlkC02NlkoGePNKBNX
+	 ZLTZMHAE6uxdxv5lDCf5M+acdzJ69SMZum4sgJWYcQZFN0/kNn8BrhYlRW2aXs3B17g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XjrPMthP;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 466AA606A32A;
-	Wed, 18 Nov 2026 10:03:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 466AA606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="PjwvOV/H";
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40085606A320
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:03:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40085606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XjrPMthP
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A15561596;
-	Wed, 18 Nov 2026 02:03:36 -0800 (PST)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7AEBA3F882;
-	Wed, 18 Nov 2026 02:03:38 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1794996219; bh=zFDjf1tMOA6qI/SmwbQt0R6XTPbVY8wCmM4cP6BRPJY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=XjrPMthPZZfI1pBWz21Dv7UZ9xPXCvUH9GxyzTikPLlrPxsm3gpOlQ9g+DNsUd2Co
-	 BW9VbSH8/9g/5nUPh1Z0wFnR5ltkZUqfqSXj3dUaE1hzd0oi5vsFGywqUtIQB4EylE
-	 VVeX7op+xub0tx2bTp4azVsAuuVLIRixMyPzBuxk=
-Message-ID: <8b078536-4101-42d4-bbad-d251cedba4f0@arm.com>
-Date: Wed, 18 Nov 2026 11:03:40 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PjwvOV/H
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4b467581b98so9050375e9.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 02:03:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794996237; x=1795601037; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=j+Y2FiNk9Wl9qy2Tngasbxd4q3UxkbbYUIzjyrrCkFc=;
+        b=PjwvOV/HB9EDAmJ0beGEqqeUTsLrkVZhdcux9SGuDKjQHS5B4RUgDr661ySi2v2Kwk
+         gHvkIN6DsB80jYxUljZo6dl+OHc7Bsijpy5mbgqi31+5esopKrJ9HGYR4/xtWRUuWJMn
+         i/lJBKM/QepPOrMeoJ6UHC9k3KwvliFRGGYZnElTKH+gcnv+bAqTExxdEI9K5vkmu+np
+         lK/Iud4Vv2i3MnVNbPx4bQLeyUNbKclzrHyxf3mu4an7rsI9VMokDAMqdoGgJaTpqKbM
+         xyo0J9JgVQNVADkNzzm5GXe5vWZXo0UVgkyNwzNO+NOFpkDgRMgrAtFpy01JTQ+G3M7j
+         0Xew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794996237; x=1795601037;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j+Y2FiNk9Wl9qy2Tngasbxd4q3UxkbbYUIzjyrrCkFc=;
+        b=OFq+osyoQBXQV9F1QAxbER1oIc+52P6LXm9+QRuLJJ9EHe54qYfJ1nblgQRuyoag7J
+         MuWP+yRzSv8qPyK2Z6Dks93WyaHxT7UOjoMz8lpunBH39p2cuAHCrbXFOvwGifhG9xQC
+         ej/wW6FbAIVuICrEMqrmuqxTa1uweQ84xL3i72ItTJzensgu7G0D9bSNACkgx2HtiQTm
+         ynGL1f1BgwOx9oS/TZ9WLoaANV6qHd4u0Fq0jpUrtGCf3ktZKJzLspfqLTgMCcorbVnw
+         R6hnv06AzZcVyEOSIxI4B2tOEysm9ThIWiTrDMdsiE6pfxbGdk+CtYZ8RpcfIU/bynFv
+         3XkQ==
+X-Forwarded-Encrypted: i=1; AL+hErHyKVlbVuXtokdGuqtDZwqRCM82DVr/Uj/zyMwYd0HqUqmQ9yWXjDgcB3+ND62OkWNwt4LyR08=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9D29Y/M3/mKTyzvs5HE7F8sZJo2vLrBfRSoo+QsEB9h4NOPiv+
+	U0ggZGR/P2DBhFx8oVqtjXvamHHhr0x05ebSXLKVd1+OI/sFyqhpgDSO
+X-Gm-Gg: AYBFou1vbwkRE6DfcwSXsKIpfQNvf0AL//oELdNZPJDuLM7VZLyfgXBpxWciWK1OPul
+	frFUgCsYZpUd4UZLf709zWZ3WRGKOk84LbSZBW0NCQq6xDczgucq9T6FOCt1fW4T1ELVQ+jDq9h
+	69O+yM/sJW7TiilwdvY9x6N68gP8+o+Tsxcm4D9hIrGR7OL2G16qGa7aPFOO96RtKi6LdWUylYA
+	Tyyr/Evb+Txcho96Ti56rEaCua45hBZRnVB6k0pVCjQYytN1j+BzekI/77hSZ30gT1okwEtTWbW
+	PmBomtwSL7PxL5Yd1MbuFqIGfzg97XeJoGiyvUPQLUfXdG+aC82ur4qFN4Nj1tuGL6005ARsgVF
+	ClJikDLqC7oUFw+tGKMrGHmxQbs6gJBkdPgS1lYw2PJFxJcmYHKE+jq2p4DDDTSJQGaHSZfL4QF
+	PLNiicKDfwPn+xHTLuOrIujQ9ylOx9Jq0icmHDrB9T+nj6yWgrI5tRtkA1l/opnK7O6mz9HPRX1
+	3AUzkgGic9t4kDphNJpCJ3AlRZvjXxaTLTABx98+I+EjCBn19fXoSoI1/+vOY1DjVK3VWs8jA0/
+	4GAgNku4bV2YmRzK6dzsGgtL5T7aP/kFDdgIfZc4ts460b/oK6drEes0Mq2skdJ+2Q==
+X-Received: by 2002:a05:600c:800f:b0:4bb:5bf3:8ee9 with SMTP id 5b1f17b1804b1-4bb7da4ec63mr37351435e9.31.1794996236390;
+        Wed, 18 Nov 2026 02:03:56 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb783f7eecsm242389095e9.3.2026.11.18.02.03.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 02:03:55 -0800 (PST)
+Date: Wed, 18 Nov 2026 10:03:54 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Nathan Chancellor
+ <nathan@kernel.org>, Ingo Molnar <mingo@redhat.com>, Juri Lelli
+ <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>, Steven Rostedt
+ <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman
+ <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, K Prateek
+ Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org,
+ llvm@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH v2] sched/topology: Avoid unsequenced accesses to
+ jiffies in sd_init()
+Message-ID: <20261118100354.495fda73@pumpkin>
+In-Reply-To: <CAKwvOd=9pjhCnreMvoAH_0PegYg60ouaZL=BAjB242bE48J23g@mail.gmail.com>
+References: <20261116-topology-wunsequenced-v2-1-54611119172b@kernel.org>
+	<20261117183043.GK1813469@noisy.programming.kicks-ass.net>
+	<CAKwvOd=9pjhCnreMvoAH_0PegYg60ouaZL=BAjB242bE48J23g@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,39 +107,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Patch "arm_mpam: let low level MSC accessors return an error" has
- been added to the 7.3-stable tree
-To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
- stable-commits@vger.kernel.org
-Cc: James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
- Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
-References: <ab81e90a-fdc4-426b-8da7-45b1a80e88f0@arm.com>
- <2026-11-17-1-daily-reply-0009@kernel.org>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <2026-11-17-1-daily-reply-0009@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Tue, 17 Nov 2026 10:39:15 -0800
+Nick Desaulniers <ndesaulniers@google.com> wrote:
 
-On 11/18/26 01:20, Sasha Levin wrote:
->> Instead of back-porting this patch too, we can just drop the (pointless)
->> error handling in this fix patch.
-> 
-> Thanks. Both of these (this one and the "propagate MSC access errors" one) stay
-> as plain upstream cherry-picks, and 197a7a41e6e0 ("arm_mpam: On saving mbwu
-> state read the monitors before clearing CFG_MBWU_CTL") applies on top of them
-> as is, so no adapted backport is needed.
+> On Tue, Nov 17, 2026 at 10:30=E2=80=AFAM Peter Zijlstra <peterz@infradead=
+.org> wrote:
+> >
+> > I don't speak enough C legal to actually understand the Changelog, but
+> > the actual change seems daft. Is this really needed? =20
 
-Sorry, but why? This patch (and the other) are complete churn as such, 
-and introduce a lot of unneeded code to the stable branch. The adapted 
-backport is very simple (just moving a single line within a function), 
-which seems to me much better suited than pulling in three patches, two 
-of which quite large and pointless.
-I will send the stable backport patch ASAP.
+A better description might be saying something about ensuring the two
+jiffies values are the same.
+As coded they can be different with either larger.
 
-Cheers,
-Andre
+> I would imagine a delta of the disassembly here before/after the
+> change would make it more obvious (one less volatile access, which be
+> have arbitrary ordering between initializing other members).
+>=20
+> But I guess I'm also curious why jiffies is defined as volatile
+> anyway? I thought the usual guidance was to use
+> cast-to-volatile-qualified pointer during access, rather than declare
+> as volatile?
 
+I'm sure that guidance was based on the fact that not all accesses needed
+to be volatile.
+But now the tools are getting picky and needing WRITE_ONCE() as well as
+READ_ONCE() and bleating about plain accesses maybe it is less relevant.
+So if all access have to be volatile why not make the variable volatile?
+
+Doesn't this initialiser also generate 'really crap code'?
+IIRC it is likely to generate an on-stack structure and then do a memcpy().
+
+David
