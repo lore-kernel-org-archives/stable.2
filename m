@@ -1,48 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795038509;
-	b=zJCvUQE1JyLW8w8QLH+5zrsQWOwW2Wqi7Zg68J5BdJt0GgyyWSguM+TKRW4EMoB60psw
-	 1OsuQ/SYmO838DgjzsRMltqbmxGS4hTaoJJi1ivN3Y3NHifmhdqVP8uAwiCptd8cy8cPC
-	 HitocN6LkrDUKu7mK3Rbf+5T9QnuCs9WXL65FPTjPUp8fBN/fV9+e6XlLDLaMPrvIfLMG
-	 0vkAejyTA2mUaFOzINlA4anwDb7q5bKm7VFNo2nOqd60hylTKIIm0pAFr/tL3mwiZ+xqT
-	 a7M5dvsdi7V3PqtraakaaGmcO22xiPG4kdWwfonXaUAUvac/4LoJtdcvIJnhRIfYRYg==
+	t=1795038510;
+	b=Ulr0MUXc8Av4bA8232Q8+sMMPrgJ+HHDbhbvOmqKHjAZI7zjZM8OsisggW3LcsAp0z7h
+	 jOcXjQpKPpHWijPg3xpSVstBDQMy8pSTX1XU9EAX3L3/zAknVcUs0zJgqlhOltUELydIA
+	 ieo6HwNqUT2P/ajyyXlttcFw5KsRz5UREYqg/rYtkRMf5VDUznAr5hobPS/uVG1J4huKs
+	 V+TmbFanHKVs5fqPaUpc2DlKiq+uTbQx2zRmQkfFZaUWdB456tbnEoQ51IYqXY8mqwUNz
+	 vzjKcLMGh3S2bQlqBtN19XB+50f9J1rALAynZQ/Kwi1RMrLnzDcSTa1/cL9zlVKIvkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795038509;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=Hu4eabpEarZy5KdormXmkyULV0C3qWVe8T2guI6y3Y4=;
-	b=2at6uHo0UydCKOn5hYVpDHS8l0EsEcfqcDVlMBLHXhP5bJeFsmCOIh6WhBm/yaMnHMg3
-	 /gIC1LnLYKEnq/YDW6+DjVhjJgaLUUi67EOTAE/cKo2xfdscDY5X+ss/3QSLobm5jFIuw
-	 7O8ymDDLL404Mk7NNY/Hil6tzcv+068yoR2phbVDh6llXLTf9860Znm5eds+vHKAeD7gF
-	 e062tvrQ7MZgNqBmGq/TAzH/8UvdKLcaCIB2/Lf6CWDfC0rbNb3QaRgIt23p21IpozJz7
-	 dbZ8qOsJghlwpxgV9QZoFb7suedtlXFKac8QWRAO7JcjiG9ogSYgKYctLAnz3IeJ9Pg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795038510;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=94tOUltSKZ5fqFr8Y4l5OfDEEdKX4RX1aCrWAeoTUDo=;
+	b=OrpWl4EPV0YBO2M+ZMSh75mjuqOKaqnQC4GO4esR0PyEhm4R+xKrZaEoinSPNziw/BDI
+	 QcYRooGAbIeoQJosqiedsao7XZWEydAvaPzBTyFPHx+H8GOPQg5P3l6K/dh05J6DOA/oP
+	 xZMi740dxUYTQHaBY/uZHzQPUg/CvNLFdruPy1h2Yt6IfcyDUPbBbjaeGUJP0uDwQKpus
+	 9BZs5ECbelIm0L4in7qlnTdtIyJCJC75hNiILhKSprx/1V/3ArAXO4Sg1QMWAZl9Dx+uA
+	 fpDG9mKHlrDd2OSthOpgXiSKDIqegn6T2nolKLdgHauCusxUuUk/+AzdqGq7yhcGxFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ghNYhmko;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=S5Oy10BJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2BA7606A337;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1DC1606A33A;
 	Wed, 18 Nov 2026 21:48:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=ghNYhmko
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F5261F000CD;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=S5Oy10BJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333CC1F000CC;
 	Wed, 18 Nov 2026 21:48:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795038509;
-	bh=Hu4eabpEarZy5KdormXmkyULV0C3qWVe8T2guI6y3Y4=;
-	h=Date:To:From:Subject;
-	b=ghNYhmkohuG7Woc0uifb/Zqjrc/gSKymEqbNEbCPn82siOLU3gOGgJD+gbJBRFGHk
-	 b57rjGI40ASYMgA3vMavjSjxOZlLSMxDnPEN6Q/4EouY0+Am2oXTuGUL4OXm2T4a3a
-	 XGCn1VSnNJkX0XK7ZWE+u6uBmQaX+hS07mbiexps=
-Date: Wed, 18 Nov 2026 13:48:28 -0800
-To: mm-commits@vger.kernel.org,youngjun.park@lge.com,stable@vger.kernel.org,
-	shikemeng@huaweicloud.com,nphamcs@gmail.com,kasong@tencent.com,
-	chrisl@kernel.org,baoquan.he@linux.dev,baohua@kernel.org,aquini@redhat.com,
-	oleksandr@natalenko.name,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-swapfile-really-fix-integer-overflow-in-swap_show-and-swapon.patch added to mm-hotfixes-unstable branch
-Message-Id: <20261118214829.5F5261F000CD@smtp.kernel.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795038509;
+	bh=94tOUltSKZ5fqFr8Y4l5OfDEEdKX4RX1aCrWAeoTUDo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=S5Oy10BJJoQAgJIspTc1ismP56ITfUseRrEq6i3yWtXdLi3MdeE5kao88K7lJ863d
+	 tx2sldp2cWZ9Dbkk3jbwDoe9Ou4NWnoGABUcsldfea+t5+ueR5GdaKswXKy9brBXSO
+	 cNxoJoHqxaaTGOrg7nN2CMzX6CV5nfsYxMeRcVVE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Oswald Buddenhagen <oswald.buddenhagen@gmx.de>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 1767/3318] ALSA: emux: simplify snd_sf_list.callback handling
+Date: Wed, 18 Nov 2026 15:39:49 +0100
+Message-ID: <20261118150414.863532972@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
+References: <20261118150313.527275416@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,86 +61,90 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-The patch titled
-     Subject: mm/swapfile: really fix integer overflow in swap_show() and swapon()
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-swapfile-really-fix-integer-overflow-in-swap_show-and-swapon.patch
+------------------
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-swapfile-really-fix-integer-overflow-in-swap_show-and-swapon.patch
+From: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+[ Upstream commit 4c4cbe66828f185903d2127aed6ac9b7302e9d3a ]
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Both drivers provide both sample_new and sample_free, and it makes no
+sense to pretend that they could not. In fact, load_data() would already
+crash if sample_new was null. So remove the remaining null checks.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+Contrary to that, the emu10k1 driver actually has a null sample_reset,
+though I'm not convinced that this inconsistency is justified.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+Signed-off-by: Oswald Buddenhagen <oswald.buddenhagen@gmx.de>
+Message-ID: <20240406064830.1029573-18-oswald.buddenhagen@gmx.de>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 8a5d87c2ba30 ("ALSA: emux: Stop voices before freeing zones in all cases")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/synth/emux/emux.c      |  6 ++----
+ sound/synth/emux/soundfont.c | 12 +++++-------
+ 2 files changed, 7 insertions(+), 11 deletions(-)
 
-------------------------------------------------------
-From: Oleksandr Natalenko <oleksandr@natalenko.name>
-Subject: mm/swapfile: really fix integer overflow in swap_show() and swapon()
-Date: Wed, 18 Nov 2026 12:26:10 +0100
-
-One of the enterprise customers uses 6 TiB of swap, and the values
-reported in /proc/swaps as well as in dmesg are still not correct.
-
-Cast si->pages to long explicitly so that the bitshift in K() doesn't
-truncate the value to 32 bits.
-
-Also do the same in swapon() for the same reason.
-
-Link: https://lore.kernel.org/20261118112610.122799-1-oleksandr@natalenko.name
-Fixes: 642929a2ded0 ("mm/swapfile: fix an integer overflow in swap_show()")
-Signed-off-by: Oleksandr Natalenko <oleksandr@natalenko.name>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Nhat Pham <nphamcs@gmail.com>
-Reviewed-by: Youngjun Park <youngjun.park@lge.com>
-Cc: Rafael Aquini <aquini@redhat.com>
-Cc: Christopher Li <chrisl@kernel.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Kemeng Shi <shikemeng@huaweicloud.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Barry Song <baohua@kernel.org>
-Cc: <stable@vger.kernel.org>
-
- mm/swapfile.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
---- a/mm/swapfile.c~mm-swapfile-really-fix-integer-overflow-in-swap_show-and-swapon
-+++ a/mm/swapfile.c
-@@ -3452,7 +3452,7 @@ static int swap_show(struct seq_file *sw
- 		return 0;
+diff --git a/sound/synth/emux/emux.c b/sound/synth/emux/emux.c
+index 0006c3ddb51d6..7966590f2edbc 100644
+--- a/sound/synth/emux/emux.c
++++ b/sound/synth/emux/emux.c
+@@ -94,10 +94,8 @@ int snd_emux_register(struct snd_emux *emu, struct snd_card *card, int index, ch
+ 	/* create soundfont list */
+ 	memset(&sf_cb, 0, sizeof(sf_cb));
+ 	sf_cb.private_data = emu;
+-	if (emu->ops.sample_new)
+-		sf_cb.sample_new = sf_sample_new;
+-	if (emu->ops.sample_free)
+-		sf_cb.sample_free = sf_sample_free;
++	sf_cb.sample_new = sf_sample_new;
++	sf_cb.sample_free = sf_sample_free;
+ 	if (emu->ops.sample_reset)
+ 		sf_cb.sample_reset = sf_sample_reset;
+ 	emu->sflist = snd_sf_new(&sf_cb, emu->memhdr);
+diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
+index 968c8d3f16cb0..152a85013ba8e 100644
+--- a/sound/synth/emux/soundfont.c
++++ b/sound/synth/emux/soundfont.c
+@@ -1040,7 +1040,7 @@ load_guspatch(struct snd_card *card,
+ 	/*
+ 	 * load wave data
+ 	 */
+-	if (smp->v.size > 0 && sflist->callback.sample_new) {
++	if (smp->v.size > 0) {
+ 		rc = sflist->callback.sample_new
+ 			(sflist->callback.private_data, smp, sflist->memhdr,
+ 			 data, count);
+@@ -1405,9 +1405,8 @@ snd_sf_clear(struct snd_sf_list *sflist)
+ 		}
+ 		for (sp = sf->samples; sp; sp = nextsp) {
+ 			nextsp = sp->next;
+-			if (sflist->callback.sample_free)
+-				sflist->callback.sample_free(sflist->callback.private_data,
+-							     sp, sflist->memhdr);
++			sflist->callback.sample_free(sflist->callback.private_data,
++						     sp, sflist->memhdr);
+ 			kfree(sp);
+ 		}
+ 		kfree(sf);
+@@ -1509,9 +1508,8 @@ snd_soundfont_remove_unlocked(struct snd_sf_list *sflist)
+ 			nextsp = sp->next;
+ 			sf->samples = nextsp;
+ 			sflist->mem_used -= sp->v.truesize;
+-			if (sflist->callback.sample_free)
+-				sflist->callback.sample_free(sflist->callback.private_data,
+-							     sp, sflist->memhdr);
++			sflist->callback.sample_free(sflist->callback.private_data,
++						     sp, sflist->memhdr);
+ 			kfree(sp);
+ 		}
  	}
- 
--	bytes = K(si->pages);
-+	bytes = K((unsigned long)si->pages);
- 	inuse = K(swap_usage_in_pages(si));
- 
- 	file = si->swap_file;
-@@ -3968,8 +3968,8 @@ SYSCALL_DEFINE2(swapon, const char __use
- 	/* Sets SWP_WRITEOK, resurrect the percpu ref, expose the swap device */
- 	enable_swap_info(si);
- 
--	pr_info("Adding %uk swap on %s.  Priority:%d extents:%d across:%lluk %s%s%s%s\n",
--		K(si->pages), name->name, si->prio, nr_extents,
-+	pr_info("Adding %luk swap on %s.  Priority:%d extents:%d across:%lluk %s%s%s%s\n",
-+		K((unsigned long)si->pages), name->name, si->prio, nr_extents,
- 		K((unsigned long long)span),
- 		(si->flags & SWP_SOLIDSTATE) ? "SS" : "",
- 		(si->flags & SWP_DISCARDABLE) ? "D" : "",
-_
+-- 
+2.53.0
 
-Patches currently in -mm which might be from oleksandr@natalenko.name are
 
-mm-swapfile-really-fix-integer-overflow-in-swap_show-and-swapon.patch
 
