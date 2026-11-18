@@ -1,56 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795021855;
-	b=nO0sURt9G0Lihij096WzxI4sMZOzokGafDflz7MHrZtwBktEDsLFyBYlbmsSw+3jsbXQ
-	 Ho1nS1Jky1lcHyD9WO/XSyEuUBMvy3Sttb0dOWfrwA4KVbkG7pwnDN0zPj5FYm6Qmtzr1
-	 qz0QxYAL8umtvqDgh2IR8iP6W9sWjS6C2bGkeRLUrtTjAH8+d77jg8S72N13fbecYox5/
-	 FA1cMZ9vT2PCHlDrkBD9b8Lnf2bBbz7eP15805BFKnVcUxLnC+Z9v5udz8qXAoTteEtSa
-	 IQSTcTNEmYVZ8RMhOZdaTlNwFrcNOctHzcntDA+g/z5UGGGuR3Gcqd989cRl/UQwDHw==
+	t=1795021858;
+	b=JkPMfSkVbbokfmDjS+8vLWnEiTFBXR1rSN8dZupjYzjDc+G5Vtk0CvSUGxVkMslODiEs
+	 xVdYugoXBpxwNBi/pUQkzGntz8WV85PqCsMBZRhmLfWvwSN4poryDu5Q0S1+0ycs+mzxS
+	 vl3YnFItFzpklFUjz3lPAf+Ug2j+yN36RgGUay00bnMTesUX3HoK91BEqmxQAt7uo4ayy
+	 jxl9hOqrICYj9Lq/w4eSTv9gI04+8+jXR0HO9/rDWkDyE/bqRBCxjFbKnLxX+ypKfJvkn
+	 KjR21bbMkjeZTlZmwMlsjF8woHPfWrjtb3tqKAVQr+hVzNoGf9efF7LQYB5/jbXx5jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795021855;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795021858;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=R21XpJOpeZtEADLGngZEZHz12vIQQZI4HGYzyWbL1ME=;
-	b=pHNZqS8DyhmZeK1zRT8bDlb17TRsWujOQE6tWD05+G+f2KYp9vOUqyYuIKi/g2uQ7TXB
-	 By365kNGg6DPQX6C8AFvyCVdzZgfEL0nZv7T8ZNdsT8vAo5MoCjXTfrnmL2HPD1IzPiUS
-	 or5ENOl9ACNE53YRF1mmfHU9LMjbbeeeW8K4wmQKTmk+MZgbJjlBbl2W+2QpzD9EvAJRb
-	 v593e+AoSlT554kAnYTlT4/vXgUaypd+ZS2zgpXHzT1iiayAjxPpFJiQjbL8WkwpliypL
-	 ypr0LBp1zYf49fudzMM+HO4PPtZ7+tDAqApJDHu0yu+4b2EfLB3maXLKFp2jkO5rVfQ==
+	bh=fVMwBXBtlHEKA/Y8sSzwbof/14t5qkL1cU6wQKgagAk=;
+	b=JMAlcxk23sYpiQWc+3ahw/UGykda+adOqDT3adXs2leSDilNvDwTlaPdIVojErllOc2u
+	 7SfnM0BB3ih+9C6NGW3bXFRN0Kjspa5Zq1wRu1+5cTN6e7SucQkZ7cnfqzfSbv4Cf0+Jn
+	 Cyb51pQCxpaA8NWMm+7Qr2ZZltF7lJF7Bpx/6gLv81V8wd5mdW3+GDeUfsmH0siudkhlR
+	 7K1cdf+paTLgiyqFJcFFkoMbU8D9imSM8QuuxXsLLt5iCRDF5oEZim0/qiQkNWoahK4xR
+	 1qV9TWDjXAa77DQNIcsRK3NS/yI8apgBWizRd/4Eljtbaa0vGBMk7fjAM0Xaslq38QQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FksZ0tTo;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wd6EOMk7;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 932BD606A31C;
-	Wed, 18 Nov 2026 17:10:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FC7C606A32A;
+	Wed, 18 Nov 2026 17:10:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=FksZ0tTo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0B461F000C4;
-	Wed, 18 Nov 2026 17:10:54 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wd6EOMk7
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCDF51F000C4;
+	Wed, 18 Nov 2026 17:10:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795021855;
-	bh=R21XpJOpeZtEADLGngZEZHz12vIQQZI4HGYzyWbL1ME=;
+	s=korg; t=1795021858;
+	bh=fVMwBXBtlHEKA/Y8sSzwbof/14t5qkL1cU6wQKgagAk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FksZ0tTo8z26vJIBwPJtMP4z5hw61+eoJ7nWJfPo8kvjoTghbsVkyFelxooYKZ6x0
-	 WAy0DfWA+1a1ZVzf+FAzAZMYX37OUbawWuZhqPQbmw7Cp6KGCQnn1j1YeX11nDFjwi
-	 zhFkyMxe1GMtODDvWwHxXiCi3pJxbSAfoX/co6Cs=
+	b=wd6EOMk7Fb3SYbRKFkV69/W+R3Bxw7bXI6cZEUqa/WMy4WeWkaU195Gd6cFCflntw
+	 DMDIK8sjfIptO09yxlnnMJ6tSockqjEYfyvVZFfM7WpFDE8glEOzPsv6R5AqueRpXF
+	 8x9XjGtJkdfTgGj2Ejk7ojWM8c+TD/mYyW5PbuhU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	shaos <shawnq1@163.com>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
+	Mikkel Eskildsen <mke@visotia.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 2448/2651] net: harden qdisc_pkt_len_segs_init() against malicious GSO packets
-Date: Wed, 18 Nov 2026 16:01:28 +0100
-Message-ID: <20261118150413.257603513@linuxfoundation.org>
+Subject: [PATCH 7.3 2457/2651] net: usb: cdc_ncm: dont enable BHs in tx_fixup under netpoll
+Date: Wed, 18 Nov 2026 16:01:37 +0100
+Message-ID: <20261118150413.524669067@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -72,74 +69,55 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Eric Dumazet <edumazet@kernel.org>
+From: Nicolai Buchwitz <nb@tipi-net.de>
 
-[ Upstream commit c6648c9f3b51c5a8a3df470c1542b2aa378d88f9 ]
+[ Upstream commit 108ca34cf4b453f6375a70079e32b11866b02601 ]
 
-An SKB_GSO_DODGY packet can carry untrusted gso_size and headers.
+netpoll holds the txq lock and calls ndo_start_xmit() with IRQs off but
+BHs on. The spin_unlock_bh() in cdc_ncm_tx_fixup() then runs pending
+softirqs. If one of them transmits, it spins on the txq lock that
+netpoll holds. With netconsole on a cdc_ncm device this ends in a soft
+or hard lockup.
 
-For instance, gso_size=1 and hdr_len=65532 for a 524275-byte frame
-makes qdisc_pkt_len_segs_init() compute an accounted length of
-about 4,294,574,091 bytes (after gso_segs silently wrapped in a u16).
+Every caller of cdc_ncm_tx_fixup() holds the txq lock with BHs or IRQs
+off, so the softirq user of ctx->mtx cannot interrupt it. Use plain
+spin_lock().
 
-With DRR quantum 256, the dequeue path then needs ~16.8 million
-deficit refills before it can dequeue the skb, keeping the CPU in
-the qdisc path long enough to trigger the soft-lockup watchdog.
-
-Commit 8f735d64382d ("net/sched: bound qdisc_pkt_len to prevent
-qdisc soft lockup") added QDISC_PKT_LEN_MAX to bound size table
-amplification. Use the same bound for DODGY packets:
-
-- Make gso_segs a u32 and drop packets whose segment count does
-  not fit GSO_MAX_SEGS, instead of silently truncating it.
-
-- Drop packets whose estimated qdisc_pkt_len() would exceed
-  QDISC_PKT_LEN_MAX.
-
-Fixes: 15e5a0307164 ("net_sched: better precise estimation on packet length for untrusted packets")
-Reported-by: shaos <shawnq1@163.com>
-Closes: https://lore.kernel.org/netdev/20261022144755.65025-1-shawnq1@163.com/
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Cc: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: "Michael S. Tsirkin" <mst@redhat.com>
-Acked-by: Michael S. Tsirkin <mst@redhat.com>
-Reviewed-by: Willem de Bruijn <willemb@google.com>
-Link: https://patch.msgid.link/20261022155436.117507-1-edumazet@kernel.org
+Fixes: c84ff1d6dff3 ("cdc_ncm: reduce driver latency in the data path")
+Reported-by: Mikkel Eskildsen <mke@visotia.com>
+Closes: https://lore.kernel.org/netdev/PRAP189MB185019A5A8D411482BB6E0CDA9982@PRAP189MB1850.EURP189.PROD.OUTLOOK.COM/
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Link: https://patch.msgid.link/20261024-cdc-ncm-netpoll-v3-1-6284ca03f967@tipi-net.de
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/core/dev.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+ drivers/net/usb/cdc_ncm.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/net/core/dev.c b/net/core/dev.c
-index 455ee43c248b1..2d033b45a3f00 100644
---- a/net/core/dev.c
-+++ b/net/core/dev.c
-@@ -4178,7 +4178,7 @@ static enum skb_drop_reason qdisc_pkt_len_segs_init(struct sk_buff *skb)
- {
- 	struct skb_shared_info *shinfo = skb_shinfo(skb);
- 	unsigned int hdr_len, tlen;
--	u16 gso_segs;
-+	u32 gso_segs;
+diff --git a/drivers/net/usb/cdc_ncm.c b/drivers/net/usb/cdc_ncm.c
+index 35db38cb3e4a2..3bd7cb66f3fc3 100644
+--- a/drivers/net/usb/cdc_ncm.c
++++ b/drivers/net/usb/cdc_ncm.c
+@@ -1535,14 +1535,17 @@ cdc_ncm_tx_fixup(struct usbnet *dev, struct sk_buff *skb, gfp_t flags)
+ 	if (ctx == NULL)
+ 		goto error;
  
- 	qdisc_skb_cb(skb)->pkt_len = skb->len;
- 	if (!shinfo->gso_size) {
-@@ -4231,6 +4231,15 @@ static enum skb_drop_reason qdisc_pkt_len_segs_init(struct sk_buff *skb)
- 		if (payload <= 0)
- 			return SKB_DROP_REASON_SKB_BAD_GSO;
- 		gso_segs = DIV_ROUND_UP(payload, shinfo->gso_size);
-+		/* shinfo->gso_segs is a 16bit field.
-+		 * Also make sure untrusted gso_size/hdr_len can not inflate
-+		 * qdisc_pkt_len() beyond QDISC_PKT_LEN_MAX, or deficit
-+		 * schedulers could spin in their refill loops.
-+		 */
-+		if (unlikely(gso_segs > GSO_MAX_SEGS ||
-+			     skb->len + (u64)(gso_segs - 1) * hdr_len >
-+			     QDISC_PKT_LEN_MAX))
-+			return SKB_DROP_REASON_SKB_BAD_GSO;
- 		shinfo->gso_segs = gso_segs;
- 		qdisc_skb_cb(skb)->pkt_segs = gso_segs;
- 	}
+-	spin_lock_bh(&ctx->mtx);
++	/* BHs or IRQs are always off here. netpoll only disables IRQs, and
++	 * spin_unlock_bh() would then run softirqs with the txq lock held.
++	 */
++	spin_lock(&ctx->mtx);
+ 
+ 	if (ctx->is_ndp16)
+ 		skb_out = cdc_ncm_fill_tx_frame(dev, skb, cpu_to_le32(USB_CDC_NCM_NDP16_NOCRC_SIGN));
+ 	else
+ 		skb_out = cdc_ncm_fill_tx_frame(dev, skb, cpu_to_le32(USB_CDC_NCM_NDP32_NOCRC_SIGN));
+ 
+-	spin_unlock_bh(&ctx->mtx);
++	spin_unlock(&ctx->mtx);
+ 	return skb_out;
+ 
+ error:
 -- 
 2.53.0
 
