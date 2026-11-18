@@ -1,99 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794995755;
-	b=fNA+YHhrM0rJf0Q/XoyS+DE5HrwWWH+n4VsuBjF96TuapFeVUFsWV8xTvHMNl2eR02yq
-	 lPUmK4vIg4bluCPmETA1OuZfDZKJHtyN7bsDyYH5XMjLJC8uoyrUoLZrR/2PcukNMY1zC
-	 iGlVOIURzOTImcS6qv68HahNtTOjH+rIeDzv3R0XNkQpL0q56Suc12oKNRSe/wY1BQ30/
-	 ijrdVOLzmNJsbfLvFYnGihd8SOcTmIcSOAZjh0s+/Zh0s+2T6Im3m5ViHVL91KDRr1NjT
-	 08rCXFKqdwJZOkSU5TZNZ8Hh2w8ViBVpMutMwi+gEBLQMmg6hoBvGPFqYKsLu6zfbhw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794995755;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=YT4Ew11jfkdMKzaiNmNTlrlUPIMOKEMpL6JNzVMVnPY=;
-	b=F9A+z6iSuFX60WEDf7l6iVeumfiFEZNhG+ZAine4zvk3PPHKWl4qprs1StjN3J4r6TcC
-	 q8AHgTT9og+h0pejydS3ctocrsFgGpJIm4FoxGDRzf6iO+DGBL6kS2QkYFRGGigJ5PMCL
-	 E2zrk6+YgfPXfZVIjgZrF21jj0XN6l2yy1z3bWLCQ/n3koxpu9/LvEQ1Irgv6t4TV5QHn
-	 /fdnMiCvWPHHTn4OzZ1n/y6Z7Q2xxhsMFZJjXMiYF1BeMNgfYCZtWGNq6Ya608/LRPbac
-	 gXStlgM3hTpGK1avCxaEnZQHM/oJr7RCI7UHAHHw+dAB/dY/meghOSe+kFhXNq6P1bw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudlinux.com;
-	spf=pass smtp.mailfrom=cloudlinux.com;
-	dkim=pass header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=bFysKzKl;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21DF606A325
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 09:55:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E21DF606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cloudlinux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudlinux.com
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794995920;
+	b=q2TRzneMl/R+voqQa+yQKiGx333nLsUuep/XgSFOeuwiwNXXg6ysjUcRQ09VXggRFfHg
+	 buJr2JsI7bWxXlQrw6jJQNRBrrz0T6Cebgwf9/wdDHEFfietJRmBZIbRWGEN/jSb9+ci0
+	 oLo1KJwrgtLpClszasgSlheIKPw9eRlNsf6TntFQJgXXs1Fg5wHQrOLFIXlbenUU8zGz3
+	 dT1bO8PDUdU4OK14aOMeYw+BtuKK/vSw+tB4qtg1Wrws6ajD5QVVmMeYxPzL54GUIwvmu
+	 VDWwRzP7iF6SJ3FoNlM3bPRgAjcBPoLuNotb5Pm3qCRDHKTwPM4EtzC22ss4sU47U4A==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794995920;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=fMIYl75aZu7vrGQvT2vVO2us1bwVx5ztzHE8ICinsSc=;
+	b=sXtzRWOH3TKWh/tv/bxFfOvwZsbHX+Ttui/nzM58W/xtSSd/j9uhvGBrkMxx29QuF3YH
+	 QD9Lf4d7BXGnR4gW9DFDBei3JMymTOkiYzLw018fAEhgOapY7z0ipAD5PdfB/OVa8cJje
+	 64JzaGUEjSe6QJ3HVqWaWB861DVOsRkZESdAynhe+HE7b3bcjyW7jbD4Tnj1pGQgYT+jn
+	 +u3QLf19fKzEpYw2hLL7yn6MqlqvgyNL2yyNqZ7t+CDxG/t1NCqYaxcumlAAysbpYVsEy
+	 DAiXvF+5wHXLYA5kQZGsHzp8tXb+3JIvKFBKo3G83lkPPMerazv5JUuUv9rIIn7tZig==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=u8C6HlpO;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id BFF29606A31C;
+	Wed, 18 Nov 2026 09:58:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BFF29606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=bFysKzKl
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6b6f42095bcso1263208a12.3
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 01:55:54 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1794995753; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GEt5j1izPGnK0I/eCq8B2Ey7Z4LPCYHDHxOih7I8yQltoxePMdAuVkwTRfxVUdPATU
-         D3pDtRacBoEl7U+nQ0lF4feY1QKbQxAY23Cw9u5i6pFlYf8l0XWPf6camq2oavoouqb3
-         aizukO8b72PsdGA0TP3a/ehzWAj3BU1jFjSMZ/RwBnLTPfq/0Bup51X/SztFhnMKXM96
-         qqbj/ZiWaKRnAAVobx4M5wPfw1SyBDClZieRMsdNk0PypZI9SPeCUADjvUW00mq1IWej
-         RvJStM+n0zK1JqY6swDgCa46q6AlgxdyKgV/unP3Rgm0H0NqGMrDSxSh4ChZYng1v8z7
-         RcVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=YT4Ew11jfkdMKzaiNmNTlrlUPIMOKEMpL6JNzVMVnPY=;
-        fh=/EIuqOk8lW1JzNcC0fkeYEDlQJJRIBzIkeWl1MK3FCs=;
-        b=GgK3YQ4XL3b2Vnu6/O8ka1aQBkY57Eu5Rqu27LEfCvtfYfNypX3VFHR8WkTTe1sOGo
-         XDiZSXe9NB0mbjb2SqUvztMfqUN7uFGoP/1yPm3XmbY+cxHFAjxtqVbBnRSvONrCngDQ
-         N/TCtgp+oRQSbNTUbWasubgsmnCGeN/9g/gY/a0LoXseUdSbcVbAhMBqRl59jkTwxt00
-         brq+4lAsol7NnHWnDG6Q2JHVd4losjet8av9md4r84crYxDhrVIST+cKU90RhP/fVfXZ
-         oyMkBCwJWlBHp8yKdpGb1UlVXzaIhUfw170KZrfwRYLlCHl7omeJ7VfUw+Q8/oOUGBLO
-         jkRA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudlinux.com; s=google; t=1794995753; x=1795600553; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YT4Ew11jfkdMKzaiNmNTlrlUPIMOKEMpL6JNzVMVnPY=;
-        b=bFysKzKl3BMCNocpAfYC7/aJh1MOAWQ7YzzDrZYZ334ZSPk6IEeETAjh8QuZ+4lQfK
-         /iYRw8ji1Fxtl+cU4Yj1D3rPtz59p1vxdURIiPCbLfUsx8xUR/QDNc/v3TT0UKnpBi5g
-         +aj0EqyD7G8XCLGfE/3v9Xg6h/3huxJc8IsD7w+yW3uhhKhMni2MFJy1l8yy0WHcXvCO
-         ypUitwLhyW1wq1zd0EN1lC3xRiiGt+nZYTWh9e6G1TXiMMnUWDIpqMN+4is9A0OO/XAQ
-         Da74g0FrWvFw9BgnCS/xMD6YEFyad6sA658faJZ26qpB3OWeVSUMWdSzhrhMvPrdA291
-         Vx/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794995753; x=1795600553;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YT4Ew11jfkdMKzaiNmNTlrlUPIMOKEMpL6JNzVMVnPY=;
-        b=1TP6EcEFg4g1vVVS9R1n4TkpJIXQ3fUvigLW7CTRp0IRbOIb/eP1pQolYQg3UEw81g
-         LpO/iaBbX0MkVfkyPp0lWJgKgCYgaX5ndw++IkN/ckgw2+3VCZRVMc0k/Y2A339T5zFp
-         vIvDB41ALTAG420Wng95/+UBLln3lTseI5l9zKDXSAtGHNodp7LZcb55sOI7Cxy5ruQv
-         A09U3ZknMRgkhiZE4NNXO6CCBbruDvT6vS6/O5IpEyYEdJ2TqcMPyJDxJIFJBHEgBCem
-         g9kxbDHc7Vii2skIpNQJwn3y7XcgEFBLFr1Ktw5ubfpvD8zKk8yucWRu2Jpz08n6rVID
-         Lx4Q==
-X-Forwarded-Encrypted: i=1; AL+hErHzJcw7nE3V/Xh+cHAk4xHpcQ/fmvjHdJx2N+Cm/5NTdBhTbljpHRXDDwzIqC7fE9G/nAF0+1k=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7Nf9gtnr/ckmtKU5uNFtVOsAnKCtKhf2ILAC5wvVa4zyKLneY
-	rK0V+zHfuEN3HWd/08DS3lVn4gqWN+ui8q3J4c4xd7VotLjez85XHg5wF0/ObMK0SlDWtOb+cTK
-	iudS7rFkUq7Onqy5frYZCtaaRdpXrAyT2tq0E6nfZrYF5bEa/jeMSj1MnYg==
-X-Gm-Gg: AYBFou2R02AfDYpjWkb7PJ9azhS2z4w58cXzf6nyVDyds4bZ0nBJ5oaqrHzD10LIteO
-	q60rDn06BTqB+QB0AANYFtny5vPIJi3KIefxw4IKrMpzQ1koIdskwg7HFgPqNPkFtCeN5nfq7cA
-	2sThYz2WEtexMBxI0o38nW4XWsU/YM+MoufeZlQeHYwhlDUPBSbx64fsPzGXpeq93Wkf0DHCe4S
-	eDAlSPvhqjBRDyrmGagyhmu7TKEAViDg+xQAJkPin6pWIXr9i0ALyhga+En7iDRDLIbaDJO+N9x
-	6wDYWrueKu6TgLS7drdgKpKZN6D+1HhCo8XXhjMwXnB9cCezFLT0WjmkOmsbKv9cKAOPhnKVdSn
-	6qvsiahdxjKRGsqei4VkxQg16puZzd1qztf3D/ikZ6eNBTlHHl4Hpv/c=
-X-Received: by 2002:a17:907:960a:b0:c40:4965:72cb with SMTP id
- a640c23a62f3a-c510e148c2amr181497666b.21.1794995753370; Wed, 18 Nov 2026
- 01:55:53 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=u8C6HlpO
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 094991596;
+	Wed, 18 Nov 2026 01:58:36 -0800 (PST)
+Received: from [10.0.154.42] (e121487-lin.cambridge.arm.com [10.0.154.42])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F3AB03F673;
+	Wed, 18 Nov 2026 01:58:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794995918; bh=TABkyzRDh8je8alNY8PpqIpwdxSTGCUGrmil5Y9DvPY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=u8C6HlpOlYHwe4Wb68OnPYyW96TJkAbEjRxjwxYwQMNdgxkF7Ilr+2RVrUoWUhRzv
+	 JpqkgRZ1HYh0dsGylGeAzFWpHtxsM7nHut5EFSPjYRLFLqcFzXz1sOpC54b5czkDOZ
+	 eUsNG3ydx9ZFkvt7zuWmkbTlV7G3KEUsA8A4FRKA=
+Message-ID: <628b2774-30bc-4399-98c3-2d99ad5090b6@arm.com>
+Date: Wed, 18 Nov 2026 09:58:34 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,78 +53,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <alvD5nOP15O5B8Ai@kernel.org> <20261117104838.2650999-1-rmustafin@cloudlinux.com>
- <avwzid1Ovl4ACkaQ@kernel.org> <avxJ9MxZ0PoWbQTc@kernel.org> <avxKqn-PlzJyxVdK@kernel.org>
-In-Reply-To: <avxKqn-PlzJyxVdK@kernel.org>
-From: Rustam Mustafin <rmustafin@cloudlinux.com>
-Date: Wed, 18 Nov 2026 16:55:42 +0700
-X-Gm-Features: AclHuK_OB-KbT-AGKLoVYFZj4MHc_UtbK05YckQfXNXzeGf1DWEJlXVBx-HXIJw
-Message-ID: <CAG6=z5uvRmJ38iCOeAOKjjVfpfSXJK8Ta-MmCMNmCWqkqiw6Bw@mail.gmail.com>
-Subject: Re: [PATCH] tpm: track the response read position internally, not via
- the file offset
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>, Jaewon Yang <yong010301@gmail.com>, 
-	Tadeusz Struk <tadeusz.struk@intel.com>, linux-integrity@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] arm64: entry: sdei: save and restore PMR for
+ pseudo-NMI
+To: Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+ linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Kiryl Shutsemau <kas@kernel.org>,
+ Breno Leitao <leitao@debian.org>, Jinjie Ruan <ruanjinjie@huawei.com>,
+ Doug Anderson <dianders@chromium.org>, Linus Walleij <linusw@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Thomas Huth <thuth@redhat.com>,
+ Dawei Li <dawei.li@linux.dev>, mrigendrachaubey
+ <mrigendra.chaubey@gmail.com>, kernel-team@meta.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261117174814.95936-1-ada.coupriediaz@arm.com>
+ <20261117174814.95936-3-ada.coupriediaz@arm.com>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <20261117174814.95936-3-ada.coupriediaz@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026 at 7:38 PM Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> On Tue, Nov 17, 2026 at 02:35:04PM +0200, Jarkko Sakkinen wrote:
-> > I think this would be more feasible:
-> >
-> >         if (current->flags & PF_IO_WORKER)
-> >                 return -EIO;
-> >
-> >         if ((current->flags & PF_KTHREAD) && current->io_uring)
-> >                 return -EIO;
-> >
-> > I.e., block io_uring entirely.
+Hi Ada,
 
-Hi Jarkko, thanks for the review.
+On 11/17/26 17:48, Ada Couprie Diaz wrote:
+> If using pseudo-NMI, PMR must be saved and restored on exception
+> entry/exit. We do so, and set it to a known value reflecting that DAIF
+> is masking all interrupts, in the regular entry path.
+> 
+> Do the same for SDEI, as it can interrupt the kernel at any point
+> and does not mandate firmware to touch PMR, but does mandate masking DAIF.
+> This avoids potentially returning with a different PMR than interrupted,
+> and SDEI having the DAIF/PMR pair in a unexpected state compared to
+> the rest of the kernel.
+> 
 
-These checks do not fully block io_uring. With O_NONBLOCK set and a
-response ready, io_uring calls ->read() inline from the caller's own
-task, where neither PF_IO_WORKER nor PF_KTHREAD is set.
-loop_rw_iter() declines the inline attempt only when the file lacks
-O_NONBLOCK:
+I think we need to save/restore PMR into/from pt_regs similarly to regular
+entry path, otherwise regs_irqs_disabled() is still broken, like it was
+pointed in the thread [1] (and Sashiko has raised the same concern on
+FEAT_NMI series)
 
-    if ((kiocb->ki_flags & IOCB_NOWAIT) &&
-        !(kiocb->ki_filp->f_flags & O_NONBLOCK))
-        return -EAGAIN;
+Cheers
+Vladimir
 
-I built a kernel with both checks applied and the injected offset
-still reaches tpm_common_read():
+[1] https://lore.kernel.org/all/auzM-l40BLsT3clg@arm.com/
 
-    BUG: KASAN: slab-out-of-bounds in _copy_to_user+0x4b/0x70
-    Read of size 16 at addr ffff88810c3455d2 by task python3/134
-    Call Trace:
-    _copy_to_user+0x4b/0x70
-    tpm_common_read+0x1e6/0x360
-    loop_rw_iter+0x235/0x5a0
-    __io_read+0xc6e/0x11a0
-    io_read+0x8a/0x180
+> Fixes: 133d05186325 ("arm64: Make PMR part of task context")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> ---
+>  arch/arm64/kernel/entry-common.c | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
+> index cb122163a68d..17a14c55532c 100644
+> --- a/arch/arm64/kernel/entry-common.c
+> +++ b/arch/arm64/kernel/entry-common.c
+> @@ -1041,7 +1041,7 @@ asmlinkage void noinstr __noreturn handle_bad_stack(struct pt_regs *regs)
+>  asmlinkage noinstr unsigned long
+>  __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+>  {
+> -	unsigned long elr, spsr, esr, far, vbar;
+> +	unsigned long pmr, elr, spsr, esr, far, vbar;
+>  	irqentry_state_t state;
+>  	unsigned long ret;
+>  
+> @@ -1067,6 +1067,16 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+>  	else if (cpu_has_pan())
+>  		set_pstate_pan(0);
+>  
+> +	/*
+> +	 * Regular kernel entry saves and resets the PMR to align with DAIF,
+> +	 * but __sdei_asm_handler() does not ; do it now.
+> +	 */
+> +	if (system_uses_irq_prio_masking()) {
+> +		pmr = read_sysreg_s(SYS_ICC_PMR_EL1);
+> +		write_sysreg_s(GIC_PRIO_IRQON | GIC_PRIO_PSR_I_SET,
+> +				SYS_ICC_PMR_EL1);
+> +	}
+> +
+>  	/*
+>  	 * Nothing saved the interrupted context's exception registers on the
+>  	 * way in, and it may be in the middle of exception entry or return
+> @@ -1110,6 +1120,9 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+>  	write_sysreg(far, far_el1);
+>  	write_sysreg(vbar, vbar_el1);
+>  
+> +	if (system_uses_irq_prio_masking())
+> +		write_sysreg_s(pmr, SYS_ICC_PMR_EL1);
+> +
+>  	return ret;
+>  }
+>  #endif /* CONFIG_ARM_SDE_INTERFACE */
+> -- 2.43.0
+> 
 
-Reproducer:
-- open("/dev/tpm0", O_RDWR | O_NONBLOCK)
-- write() a command, then poll() until POLLIN
-- submit IORING_OP_READ with sqe->off = 0x1400, without IOSQE_ASYNC
-(this is how tpm2-tss opens the device O_RDWR | O_NONBLOCK).
-
-Checking current->io_uring alone would catch the inline path, but
-then a process that uses io_uring for anything else would also lose
-plain read()/write() on the device.
-
-For v2 I propose:
-
-1. The read position fix, with your review comments applied.
-2. stream_open() instead of nonseekable_open(), on top of 1. With
-   FMODE_STREAM both the VFS and io_uring pass a NULL offset to the
-   driver. This follows c5bf68fe0c86 ("*: convert stream-like files
-   from nonseekable_open -> stream_open").
-3. A kselftest: lseek() and pread() fail with -ESPIPE, chunked reads
-   of a TPM2_GetCapability(TPM_PT_FAMILY_INDICATOR) response match a
-   one-shot read, and an io_uring read with an explicit sqe->off
-   returns the start of the response.
-
-Br,
-Rustam
