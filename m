@@ -1,55 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794999913;
-	b=q36GgwxBMfvj+kOo+3QwwTT5T6qLNXrhPBWhOLuD4Q9W+w0rKxAyGGLcC31FhQZSBAsf
-	 I85cONxsFqFWjW2rtaDUcUq7NI94awKJugCkTqlT4FXPlhb+PEPGelPd7oAaXn+iq1jDg
-	 VN+MDtziH22zrgMRubuZWyEifzxtbSDNK4xygYpu/sw+FR8+Y1EYKzg4SQa3i1OCwhIwv
-	 5k3YRyZHalRVDk5CFNXRlAOTtWkRwc+219Fvk185me83OZXE0zTQ0imUW0RFlRs+nUSa2
-	 63+hfpVgkcYL0Dyf4msKzSb/gGl8su9WteykbTc3jIfs2CV3G7hT0Y28nN/u3HS+APg==
+	t=1794999956;
+	b=ESq4rkETqvv7Cx7LScGrBYaLfbENSJLckIc/1cB0s62+px/ncEa0Nm5teXdXnjmZBXH3
+	 SVydnyONL09sN7+jVz4cVHvtA0Rb2K51VGhXc7fKiE4gQ7ukcV0j0Kz4sxQjgYA+9HbXC
+	 epMe7UxxyNVTgxVgBGdZ6nGPlC/fRec61FpUNIUmvei9p7IyVab/SARiXG2BMNGNY/4cC
+	 kkb5EMCM0+BLlg0sfenhMuKymFK7xXctZm6kYl6l8yF93BXU5x/EN0HfjJ0IV8VeRrfeh
+	 LGpNtEHob9Y4UMWVhjbjLaEZOKskld/Gsd98vcMzDobaV0xAY5vau73+Zbyl1vV3j/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794999913;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=wkNqj/Ri/DMG3jz7yivagroyPuLoigFqxoANJ+MiNn8=;
-	b=Qvggp+WxX5qHerk4Fob8xE+6LTb7FdNz8YF3UQ7NBFxCbPS6BkJu1BCIf5DDwF6UtGT5
-	 GpqEFjtlOpXwOtNRrnhT0FqQIYeTVvNOHFDWppmgFks16RvdPF/4tiUv25dSHO05XR0+b
-	 VW5o8zH/lgdXOKonWXGPofx7+4D/UMpGSUJVUi48WhPYUfJsgxkd9fIqijIiPXipaPYdH
-	 fPdW1JvuaRWmN0Vtf9xhCazu4kSTaUB5uHMDyP9M3R51Mxh6ZMwTQ7Fe4kBx9gtv3q21q
-	 2SXzBFJQDlS1vHMMndxlpK4UlJ4Pd1ApzJaHKHPJgOWiVwrteqhSi8S97T7rMuIIMKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794999956;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:CC:References:In-Reply-To:
+	 From:Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=N2WBV91cmkAUdcnNf48jE+IYB0wjHX2MQTzeLVdlj/U=;
+	b=BkUpM4f+9YIlQhRysxwfB03WPFjCh9vbC545JeBLVQML1e2jQsOIqYiMERXd6o2OMMjS
+	 uGqYufSKNLu63BpaLVX4LgH9utSs727+JcFSKcpbyvyK8ZDEfbTm/699t01JLh76EuS7g
+	 imSEeux16xAupDfexcB06V/thZhLaClA6cPWmZRG3ZD/DiGXjueM3vI0yekeQQIwDgC50
+	 ao1zGuuW3ocJt+VtjU8l6JFbRAhFiLouSvPBMm4XkJV4dN6+FFdkJeoBbI94Aoup8zp84
+	 loaL8FvP7PxCOu7+rM00UYPUU5xAi3jaFUmEhNFWABL2tVCdaGZTo7dAkgl3M3mXQoQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="A/0s5lGD";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=xhi0kL4V;
+	arc=none smtp.remote-ip=113.46.200.226
+Received: from canpmsgout11.his.huawei.com (canpmsgout11.his.huawei.com [113.46.200.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F842606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:05:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F175B606A320;
+	Wed, 18 Nov 2026 11:05:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F175B606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A/0s5lGD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BC181F000C6
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:05:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794999913;
-	bh=wkNqj/Ri/DMG3jz7yivagroyPuLoigFqxoANJ+MiNn8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=A/0s5lGD3drPiYEQ+MclkPga66UkhVReitMXeEUP4eCvJDQvJb5tiOJA9IuXO8ZlE
-	 zUWmyaAcuYrt3ZTcId5b3AgG2K4HB6RYJto+HbhBGOubpzVC9guNVB60kg7wnri7et
-	 QuRfmWaLmZVovt8gMT82EWCC/nHevSfzB2FU+pgvgRFRa0tyPkTaSKrUbg/pRtQHHC
-	 k+BYSR1q0aGPKz2JO86BuiIx820aALcgVCk5q2FgT8kqRRdjZuT72ZfPGSitzsw6WB
-	 VpQm8SUjNDI6CheO0nweOT7qUph+tKyL/Wvsqyz0vYxsyuZBkO86iqOCAqty16ftwI
-	 nkZJo4E6Ap48Q==
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-4b0348a4c79so539547fac.0
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 03:05:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFcgJ9Ciqt7QFbrVm8Bw9UsH74BroUY3hRGm0BONK3ca6EbCFzoF6i972ZbujuS1dY1dSpoUiE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8TkcV28tIYwy563qKKa7iuk6EZE7x38D8g1fiEs0LhVzsEYqDb
-	TPS7qDUVBIzUezV7hbTDQxeTZT4v7w/cp1rbKM9QSaCvPdJiwzgxF+p9dlqJ9qfUxabS8bU0Q/a
-	0i9g9tCq6tP8VkmQL1+BIQ8fygloz95Q=
-X-Received: by 2002:a05:6871:a1e3:b0:47b:7709:5568 with SMTP id
- 586e51a60fabf-4b75fb23c32mr1749736fac.10.1794999912304; Wed, 18 Nov 2026
- 03:05:12 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=xhi0kL4V
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=N2WBV91cmkAUdcnNf48jE+IYB0wjHX2MQTzeLVdlj/U=;
+	b=xhi0kL4VDySviSZf0jN2Mj4lry4+vI4t2FYKDuPVA0kAOaiwsX7wbTUQ1lv5DOa4IHyhhpFGh
+	kM804jmgUXvgvp5B18CMSrP3qNRWVjEzdfX6gmJqOj6jFnnqy98OPSgjxZE1c1lWOMZuRLPMFV6
+	siuqwshGoPYJ5gIdiCJf414=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout11.his.huawei.com (SkyGuard) with ESMTPS id 4jTzKW14TGzKm64;
+	Wed, 18 Nov 2026 19:05:35 +0800 (CST)
+Received: from whupemk300014.china.huawei.com (unknown [7.152.185.8])
+	by mail.maildlp.com (Postfix) with ESMTPS id 875A840563;
+	Wed, 18 Nov 2026 19:05:49 +0800 (CST)
+Received: from [10.174.177.221] (10.174.177.221) by
+ whupemk300014.china.huawei.com (7.152.185.8) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 18 Nov 2026 19:05:47 +0800
+Message-ID: <074af9c6-b852-4990-a3e7-ed40a5dc6780@huawei.com>
+Date: Wed, 18 Nov 2026 19:05:46 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,55 +62,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261118083811.1721010-1-bsdhenrymartin@gmail.com>
-In-Reply-To: <20261118083811.1721010-1-bsdhenrymartin@gmail.com>
-From: Eric Dumazet <edumazet@kernel.org>
-Date: Wed, 18 Nov 2026 12:05:01 +0100
-X-Gmail-Original-Message-ID: <CAL4Wiir7GS+-0tSH6D49f+xZv6njk+sbc-_E45_qnqgHe6V4TQ@mail.gmail.com>
-X-Gm-Features: AclHuK8EU7ooUYtzQK1pnm1__Qtfk6vzERe7RCmUjC-TOgvb6EadwPUWX31HIog
-Message-ID: <CAL4Wiir7GS+-0tSH6D49f+xZv6njk+sbc-_E45_qnqgHe6V4TQ@mail.gmail.com>
-Subject: Re: [PATCH] nfc: llcp: walk the accept queue under the socket lock
-To: Henry Martin <bsdhenrymartin@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>, "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, oe-linux-nfc@lists.linux.dev, 
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] xprtrdma: Wake connect worker on device removal
+To: Tim Menninger <tmenninger@everpuredata.com>
+CC: "Dai.Ngo@oracle.com" <Dai.Ngo@oracle.com>, "anna@kernel.org"
+	<anna@kernel.org>, "cel@kernel.org" <cel@kernel.org>, "jlayton@kernel.org"
+	<jlayton@kernel.org>, "linux-nfs@vger.kernel.org"
+	<linux-nfs@vger.kernel.org>, "linux-rdma@vger.kernel.org"
+	<linux-rdma@vger.kernel.org>, "neil@brown.name" <neil@brown.name>,
+	"okorniev@redhat.com" <okorniev@redhat.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>, "tom@talpey.com" <tom@talpey.com>,
+	"trondmy@kernel.org" <trondmy@kernel.org>, "weiyongjun (A)"
+	<weiyongjun1@huawei.com>, yuehaibing <yuehaibing@huawei.com>, zhangchangzhong
+	<zhangchangzhong@huawei.com>
+References: <20261103032758.1302493-4-lixiasong1@huawei.com>
+ <20261117182727.104697-1-tmenninger@everpuredata.com>
+In-Reply-To: 20261117182727.104697-1-tmenninger@everpuredata.com
+From: Li Xiasong <lixiasong1@huawei.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ whupemk300014.china.huawei.com (7.152.185.8)
 
-Le mer. 18 nov. 2026 =C3=A0 09:38, Henry Martin <bsdhenrymartin@gmail.com> =
-a =C3=A9crit :
->
-> llcp_accept_poll() walks parent->accept_queue and reads each child's
-> sk_state without holding the socket lock.  nfc_llcp_accept_dequeue()
-> unlinks closed children and drops their creation reference under that
-> lock, and the last sock_put() frees the child.
->
-> A poll() racing with accept() therefore reads a freed child:
->
->   BUG: KASAN: slab-use-after-free in llcp_sock_poll+0x440/0x4e0
->   Read of size 1 at addr ffff888112387812 by task poc.bin/528
->   Allocated by task 198:
->    nfc_llcp_sock_alloc
->    nfc_llcp_rx_skb
->   Freed by task 529:
->    __sk_destruct
->    nfc_llcp_accept_dequeue
->
-> Take the listener lock around the accept queue walk.
->
-> This issue was discovered by Tencent CodeBuddy Security.
->
-> Fixes: d646960f7986 ("NFC: Initial LLCP support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-> ---
->  net/nfc/llcp_sock.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
->
+Hi Tim,
 
-Next time, please specify the target tree in the subject ([PATCH net]).
+On 11/18/2026 2:27 AM, Tim Menninger wrote:
+> I encountered a refcount_t underflow warning in rpcrdma_ep_put() on
+> 7.4.0-rc3 during a pNFS flexfiles read workload with one MDS and one DS.
+> The trigger was restarting the NFS engine on the DS while reads were
+> in flight. The warning came from xprt_rdma_connect_worker via
+> rpcrdma_xprt_disconnect() -> rpcrdma_ep_put().
+> 
+> With all three patches from this v2 series applied to 7.4-rc3, the
+> warning no longer occurred under the same test. This test did not
+> involve removing the RDMA device.
+> 
+> Tested-by: Tim Menninger <tmenninger@everpuredata.com>
 
-Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Thanks for testing the v2 series and sharing the results.
 
-Also, make sure to wait a least 24 hours between versions (
-Documentation/process/maintainer-netdev.rst )
+The v2 series is still being refined based on Chuck's and Sashiko's
+feedback, including further improvements to the endpoint cleanup path.
+I will include them in the next version.
+
+Thanks,
+Li Xiasong
