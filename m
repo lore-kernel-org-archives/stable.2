@@ -1,50 +1,50 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795032411;
-	b=qRa82/BwMLOBm3uECyD85u0txCUhAk2WjNZRXNJC1IyF2KbgshWPx/vVkt7oCwyJikL8
-	 f/8yslexrS14QaLyy/NfQOXLpzSdlbBDFBhlwZxfPAjn5GDeQFndutcR7BwuYT5mGTSbG
-	 7PqiF/WoLIDKdYnwDb5kOgzp51ZBvmElGJ4t+bn7VenW3K9QhuasZQXwm0yBrQQzpWRpR
-	 bl+LOEE47Drd2dLf+V3pWDn9J9oRpFw/4GhbBFbBSOhcBfVdL7h6ERn/T/hndk9jlMfFE
-	 8TareRL/HQ5i7wF3wcUsZdC+qH9iDFnn4OxgVwWy+iTjWPxfyYUnryDvKwgvbqDTSyA==
+	b=1x03hTVpPo6asuQF2C7MgVl2TtPl5vSx3xIVj0zxOuQFVqt2DwAVrAxJOfUp59w97ovA
+	 ITVf25HWHGT7C8HXFFQioyT5uKZOripoG9k7GaDnh3i6Kwx2v3aP3mtuBGVX8NQG+9L7K
+	 U11PVGO/0IeX8Zza6b4OvkM8cczNIskdAiy8IyfWh5fJuCxWFLoFvNb2Yp6N5/Mxc69+r
+	 YzjRFmKiJ6qW3AxScmcIS9qQkbeyIHavEwbSxI1oqpvpgtYjoYPoqa1aUkFXofGLk09ve
+	 xFWfxbS1QyzhdHgVPly+Ylytxbmut72jaRWHxkPj+npkSVe/ADxurO+2CwUYg4ls5qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795032411;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=BhOtU90QChI4MV+CFuZYuouzsBkSjlKgdR13L9qHB5s=;
-	b=GPudrMiHWI2hcDh3OVAzsqFAOrmrf36oiW7BReELIXb1nxO1KkNzuuK7X0774LdhFTeU
-	 F52qGy/xqiLh7klgjWfzkMnqWnW8QHkq9V1TiahGwGbBKxk8CNQLv5AIE+zhoCyhghDD8
-	 MtPVfrBSsJupR2d+MS8qbrPCnpDBCY4XeACPzauVskdL50JURcEeMMx1a0dpwMN7sQhU5
-	 EkPHkceCQv+ZR07M/ogBcQW8o5aJMRiQ5fQpovWM3xPin2Ychqr+L9AxkGsyyiWZtDbty
-	 Or4jk7FtSMEVPIRmda/hibI6zFQlW3YXFpAGPiphkbmVMuaExWRYpTFyE53IkaAJGHQ==
+	bh=RpH3Eqg7iYrUnR+bT4B28VRSM1FxKzR8GEzsrCXC1us=;
+	b=scpXD8cBNYybs0HxYX3cS0XsdDF20ZsbXT8thRL0rRGcoLDkUpBVuViKmiuWK+VIDR13
+	 Y7Q9uDXt6HtkBuV3KKXet7S/La8lq3scEbT7Zq4vNT0hkHq/iTj57ww/bu4Bd85sUIV/a
+	 8Y1NyRfsCw1hJnw9VAc+xn1weYN50mYTG/eWTL4BXGq/qTUlbWbqWK8FzoyJkjiDOtfgh
+	 Jnhigi9p3C9Lo4sz+VK1K7ERCVIiI4fLa/EhNkhdLj3ogGA3KmgtGAiCOyXHQynbHuPj2
+	 STUaMapnKztpTUeQvQTQAqjjgACKPW4la8lX/ZNsPOBaJIhUaTrhxwYQqd531nHJTYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=mPEe7Fvd;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=pvHk6RNm;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEB560A2601;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634A260A2611;
 	Wed, 18 Nov 2026 20:06:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AEB560A2601
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 634A260A2611
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=mPEe7Fvd
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=pvHk6RNm
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1795032404;
-	bh=BhOtU90QChI4MV+CFuZYuouzsBkSjlKgdR13L9qHB5s=;
+	bh=RpH3Eqg7iYrUnR+bT4B28VRSM1FxKzR8GEzsrCXC1us=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=mPEe7Fvdhghbglb96cJSgOcVgOi3IiKQVvJXXN9L5nXNAlJ1jUQg8Z9/C5E1qMbqt
-	 AZBcCC9VFD4JJN57zjGcmuGKgbA/4U8G3xMB8R8frCkJ4Wajo2NSXq6vg3Wwls6ecA
-	 HQqQbsmRE1j0wlx+WRRjN9VBRormrmLt/KTIeVpyI0vgPrj67oaPlLSrcTIDe1hZDc
-	 9q/RivPBv+wNI2c5w4jasHVxuZTFbnU5A4sqUomwzQING2+8cDaQnyo9Zo7znZ72VF
-	 o7Zy9J4iutwBrKrJU7w0HXrQoWqielbN+QGfpNeDurDgumYyQqCfN7vAJYCh7YP0m0
-	 Lon6X34Q6Aa5A==
+	b=pvHk6RNmCJyCEKHG5r/IXfC6/bk0avtvPaMVD8tyWsmFdv5EN5Xb7dibxUjecbgXg
+	 ShCWkp0yr6FVFj+Ongt3t3sABxHrEEJ4qKYFQqDzahs4NslEG8M+NlLbsScE+Asrsw
+	 geqNTVvwJOx6fDNok5IQsWgC2Y/MD4mcILoCGk0OTyHjfWgyhCxkA+dbCNCu4c5ubG
+	 GMaGk44zkODxPvkUnzzteHSnWuMG3FG57q6FPxplYy2nKNiKz8GI88xXa7D+evWpbg
+	 e/JvdCKI/sXcvz+3n1nH6ntYGG6/I2bHO1rxO6q9ggOUkFH+NgunaNQDLbREuo0VFl
+	 0u/rgeFrRgdIA==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVCKw4bTKzSNr;
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVCKw3P1szS2W;
 	Wed, 18 Nov 2026 15:06:44 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
@@ -80,9 +80,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH 06/16] sched: Take cpuset_mutex for a deadline policy change only with pi
-Date: Wed, 18 Nov 2026 15:06:31 -0500
-Message-Id: <9194486f15bb0cb36b51e4525f471d1150c0d58b.1795031605.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH 05/16] sched/deadline: Refuse dl_server debugfs writes while the rq is offline
+Date: Wed, 18 Nov 2026 15:06:30 -0500
+Message-Id: <30870826885d7aa42b641d23701066e03b1a2b9b.1795031605.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1795031605.git.mathieu.desnoyers@efficios.com>
 References: <cover.1795031605.git.mathieu.desnoyers@efficios.com>
@@ -97,105 +97,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__sched_setscheduler() takes cpuset_mutex for a change that involves
-SCHED_DEADLINE. On success, it releases it only when pi is set.
-normalize_rt_tasks(), for sysrq-n, is the one caller with pi unset. It
-runs under read_lock(&tasklist_lock). So sysrq-n takes the mutex in
-atomic context for a deadline task, and never releases it. Every later
-change that involves SCHED_DEADLINE then blocks forever.
+Commit 4043f5498416 ("sched/deadline: Reject debugfs dl_server writes
+for offline CPUs") refuses a write to a dl_server's runtime or period
+on an offline CPU. Its message says that such a write has no meaningful
+semantics.
 
-Commit 710da3c8ea7d ("sched/core: Prevent race condition between cpuset
-and __sched_setscheduler()") took the cpuset lock only when pi is set.
-normalize_rt_tasks() cannot take it under tasklist_lock. Its changelog
-accepts this: after sysrq-n, the deadline guarantees are gone anyway.
-Commit 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex") then took
-the mutex only for deadline tasks. It replaced the pi test by a policy
-test, and left the release under pi.
+It tests cpu_online(). But during hotplug the CPU is still online while
+it sits in the default root domain. This lasts from the rebuild in
+sched_cpu_deactivate() to the offline, and from the online to
+sched_cpu_activate(). That root domain does not count the server's
+bandwidth. A write in the window still goes through admission. With
+admission control off, it changes total_bw there. On v7.4-rc2, a write
+of the current value divides by zero in that window. The previous patch
+removes the division, not the write.
 
-Fix this by taking the mutex for a deadline change only when pi is
-set.
+Fix this by testing rq->online instead. It is set under the runqueue
+lock when the CPU joins a root domain that counts it, after
+cpu_active() is set. Test cpu_active() too. On the way down, it is
+cleared before rq->online.
 
-The policy test reads p->policy before the runqueue lock. It is checked
-again under the lock only when the caller gave no policy. Otherwise,
-the task can enter SCHED_DEADLINE in between. The call then takes it
-out of the class without the mutex. A rebuild of the root domain
-accounting could run at the same time. So check again under the
-runqueue lock, and retry with the mutex.
+A write now fails with EBUSY while the CPU goes offline or comes
+online, as a write on an offline CPU already does. Writes at any other
+time are unchanged.
 
-sysrq-n on v7.4-rc2, with a deadline task and lockdep on:
+Applied without the previous patch, this patch alone also stops the
+oops. The reproducer survives 20 rounds with no warning, in 3 VMs of 3.
 
-  sysrq: Nice All RT Tasks
-  BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
-  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 4356, name: deadline_switch
-  locks held by deadline_switch/4356: 4, on CPU#3:
-   ...
-   #3: ffffffff83006098 (tasklist_lock){.+.+}-{3:3}, at: normalize_rt_tasks+0x34/0x150
-
-A sched_setattr(SCHED_DEADLINE) after it never returned, in 8 VMs of 8.
-The sysrq_normalize case of deadline_switch_test, added later in this
-series, tests this with DEADLINE_TEST_SYSRQ=1. It passes with this
-series.
-
-Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
+Fixes: d741f297bcea ("sched/fair: Fair server interface")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
 Cc: stable@vger.kernel.org
 ---
- kernel/sched/syscalls.c | 26 +++++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+ kernel/sched/debug.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index cb115aa9b0b3..9b04e77297ae 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -561,9 +561,11 @@ int __sched_setscheduler(struct task_struct *p,
- 
- 	/*
- 	 * SCHED_DEADLINE bandwidth accounting relies on stable cpusets
--	 * information.
-+	 * information. Do not take cpuset_mutex when pi is unset: the
-+	 * caller is normalize_rt_tasks(), which holds tasklist_lock and
-+	 * cannot sleep.
- 	 */
--	if (dl_policy(policy) || dl_policy(p->policy)) {
-+	if (pi && (dl_policy(policy) || dl_policy(p->policy))) {
- 		cpuset_locked = true;
- 		cpuset_lock();
- 	}
-@@ -643,7 +645,13 @@ int __sched_setscheduler(struct task_struct *p,
+diff --git a/kernel/sched/debug.c b/kernel/sched/debug.c
+index e6a3b516c703..ddb382df454b 100644
+--- a/kernel/sched/debug.c
++++ b/kernel/sched/debug.c
+@@ -410,7 +410,16 @@ static ssize_t sched_server_write_common(struct file *filp, const char __user *u
+ 			return  -EINVAL;
  		}
- 	}
  
--	/* Re-check policy now with rq lock held: */
-+	/*
-+	 * The caller gave no policy (SETPARAM_POLICY): the request was
-+	 * derived from an unlocked read of p->policy above. If the task
-+	 * changed policy since, re-derive the request from scratch, and
-+	 * release cpuset_mutex: the re-derived request re-decides whether
-+	 * it is needed.
-+	 */
- 	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
- 		policy = oldpolicy = -1;
- 		task_rq_unlock(rq, p, &rf);
-@@ -654,6 +662,18 @@ int __sched_setscheduler(struct task_struct *p,
- 		goto recheck;
- 	}
+-		if (!cpu_online(cpu_of(rq)))
++		/*
++		 * Refuse the write while the runqueue is offline. This
++		 * includes the windows where the CPU goes offline or comes
++		 * online. The root domain then does not count the server's
++		 * bandwidth, and may have no active CPU. rq->online is set
++		 * under this lock when the CPU joins a root domain that
++		 * counts it. cpu_active() is set before that. On the way
++		 * down, cpu_active() is cleared first.
++		 */
++		if (!rq->online || !cpu_active(cpu_of(rq)))
+ 			return -EBUSY;
  
-+	/*
-+	 * The caller gave an explicit policy, so the request needs no
-+	 * re-derivation (oldpolicy is -1 above). But the decision to
-+	 * take cpuset_mutex used the same unlocked read: the task
-+	 * entered SCHED_DEADLINE since, and the change below would take
-+	 * it out of the class. Retry to take the mutex.
-+	 */
-+	if (unlikely(pi && !cpuset_locked && task_has_dl_policy(p))) {
-+		task_rq_unlock(rq, p, &rf);
-+		goto recheck;
-+	}
-+
- 	oldprio = p->prio;
- 
- 	newprio = __normal_prio(policy, attr->sched_priority, attr->sched_nice);
+ 		update_rq_clock(rq);
 -- 
 2.47.3
 
