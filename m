@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795010349;
-	b=5fjZV4bJsiz/gbSqEy+aHQLYRR0uhevYxJqIeFWbXfqWobP+YDKsxPweZXIy5aQqCFQN
-	 lBNCwvBz+1ObhHVSZHrrTa9y87YPZNpQ+x2ikpi0gtVJxtfVcbP6UQFtD5N2xb6hKV+le
-	 yapPtcUoQOx/nvOtO/Dz6YvS8Ojfzvsppqvln20KvaESE5kgDSaIQj8EQFZFo1amOGdRM
-	 xp/xuEDgvLHaX23gj/TQpfMTDrb8A5Zwq/3yowBsEAo5hIq4Sz7ob562CHKNmCjYkVeZm
-	 YmJ4RjTsuIHJhXP7nrfU3UgCXphxbxcJQ76zGd8RMecW+uxPyTS4wEikaH1wlMmk4/Q==
+	t=1795010351;
+	b=K0pXZvoCrDfbmDvNKhlPWHX8PmmfZCT6tBD5ZjjSRr03jWLmN8ZS+ZbFzIiCbSTvrxqH
+	 OheUJ9wMUEH2NO3jE/svKxksRZLLakiR3vRNlARMLxB/ojLityG+/fT89emnQgBEJlyfN
+	 WIP8hF04XmoKma212IX6/UHLIQJKlaloEJXOaStdW8b/sTrKzCZog5o4ZPeWHinB1p/tH
+	 IGM2cjFEdTQG8C6qcf99SfmMLVziE/uBM6ekrb02ad7uipwVG7TMQQrieRSuKiVrs+15r
+	 +zXKa++6eCpzrrlHEMP6cBlyq/6icHT2f4JNZ2XOqN4OI1wqpjUG+QLFJSpj1Rl2/Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795010349;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795010351;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
 	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
 	 Date:Message-ID;
-	bh=Vz1UPedH0+TGS8xLCVVGdhuOe7MKQFOJiDEnzsXVMKs=;
-	b=tX/fjTXz4wDsz2Hku9IX7pKoCT56Kr8Hfu81hewKMR0JNbmXwsyc4peD/35jplND3oYq
-	 Ew2jik79k3y4Ato3/Xnc3Bb57YK+Hk9hcLYMk/ODJ1hs/a5cwM1LchwxzJu53nKTTwEOu
-	 v9WIrNQ65yzMrKt7BlTvJNEiXH1IqMvbu8cG3KxquKGQEkAh2fwJWp5tWjXu3idwpnPbd
-	 pjqxxfY5xQBvqYh/ocvh+H9Xg26rTWcAcY3SkCDAzu8pUVQ03qjDiVLYuzjIKrVFNOOTb
-	 mXvD5wUhZZUS6Yu5418aBSbNCjRyFw/+hk+bEyiUPFwYN6b8RCQkHJ19wPUw+aZ4oTg==
+	bh=dJUVwftRY1iwIeYL9P8mLEUwk3JNrF8srd3FyqYGVZs=;
+	b=oGKF+BF5w1CmXUGFO+Ap0kiMicvZgQyW2HD8x033nLTkJJoEnZno+WVFgmkIXcqYQSdZ
+	 /9esahD11Q5mwod/0aEPSFjKRs5qpi8v5DcOxzeqjkOs9ZQ9mwCt1liVvTJtynViF5gr8
+	 BdZVOn/BI5ISOWD7iEYEm6/NO1/FOVnenJ5v4i9VT66FEy8VPe/CYAD9c+cS50Efg7KOM
+	 G4mdlIvRaDxW2dhT+7y2Dkj+0EI5OhueQxlkY2z+VSibR5X5Q14htrjNA0o/BPTIU7yaU
+	 I9AL+sXBUgjh9WJP56vAP8E482EpLWwws2fCbsOTID0dCNbaFMPjUMriA32hPWuudfg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=kernelci.org;
 	spf=pass smtp.mailfrom=kernelci.org;
-	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=bJdHS4iy;
-	arc=none smtp.remote-ip=74.125.82.43
-Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=Abf0T1E4;
+	arc=none smtp.remote-ip=74.125.82.49
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCD4606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:59:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0FCD4606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D5E9606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:59:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D5E9606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=bJdHS4iy
-Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1b546061d58so1351196c88.1
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:59:08 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=Abf0T1E4
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1a8cc11ac42so1408028c88.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:59:11 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1795010348; x=1795615148; darn=vger.kernel.org;
+        d=kernelci.org; s=google; t=1795010350; x=1795615150; darn=vger.kernel.org;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=Vz1UPedH0+TGS8xLCVVGdhuOe7MKQFOJiDEnzsXVMKs=;
-        b=bJdHS4iy7EEs1AOAGdLhJeBJep7ZlCshlKH/KOh5AGtjT5T6SASQGhy2BriV7XcUI6
-         Ku+6rJfzZX2gKRjjFnH8Qo3YFaMmOB/6g+Zmes0Bo5eJvvKp2JPeKejLgX12hoeUIOoK
-         +4+nnbpfMqOGI4w+5CLYFoX0t8aNkDCn/abxZXiycKLqVvM7WV4EMpyocTdeVeapC265
-         /rYwO57+gxifyw5v00sImzGBTEpHtVnUG+3MaBNJHs3Jwprtyj/ChXydDGn8FkHyqKAB
-         YKlYKCEgxvNMSepPl+mdaTWtbgfRaiTCurCSygm/CjlEloLyWRU5M3lC54Nn0hXddfyI
-         qCtg==
+        bh=dJUVwftRY1iwIeYL9P8mLEUwk3JNrF8srd3FyqYGVZs=;
+        b=Abf0T1E4SSpSG0r7l45OFb62FqZDKGfIvyCMkASsPVNkyQ3e3C8wMkhEydmhglCfnm
+         siQ26RGKk1bK2fjmo9sTXAcG+EZFLjhJ8L5DmSCF7n0cm152xbhsfB9+51g7HwrYib5d
+         k7mEArYnnaFZM6WbiVjjAe7g7VI2Tzj9UYOqPvtRYW9EhTaLT99OpDQkUsa6WqmQT9Ca
+         6q39t9xTGz+tr/lTdyZP02WPBnG5En+f61wKEbU5yv1eWFAu1Q32mzI/OcevktFyy0hQ
+         IaM9JDlFtBpr2Mo625JUq/3Kov7EBzf8uESri+K6zAU0+IyxKzqjhhgfeiM5u3ppanyV
+         G+6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795010348; x=1795615148;
+        d=1e100.net; s=20260707; t=1795010350; x=1795615150;
         h=message-id:date:reply-to:cc:to:from:subject
          :content-transfer-encoding:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Vz1UPedH0+TGS8xLCVVGdhuOe7MKQFOJiDEnzsXVMKs=;
-        b=xrlZCnnDz2sDHd1t+gbRS5dNNcPb5LsumjaW5/ZfXo5QTK3ToHttO8Xfk9gBEEPh3Y
-         RMBdvD/2HY74azkXgzp0Wr+eVk9Wa5np6nBNZw3yNo8Ggr9tl+qdy7RG4GgyWsbb5HMA
-         2IqGvEKPbT8GsWeHjl5mmAeYtbNCbeRdG/PAyTA1SYxACjmiyZmn0SX8nxmVb93EtChQ
-         JGkgceV5W3vCyKBHAHNpQ2s82jbSZbQ98DnxAa+B4dmv4hEogMTAC7AmmYUn95BUJSaD
-         niY19/eXkESw6krXUK76QjngeeIiL0nEHh8YtJbOxQ91oFX3uOPUYr/lq3oL+3fZTkAI
-         BH4Q==
-X-Gm-Message-State: APuU4Z+cs9x1yNPpegRruLrAw7wi8t/XTZXfqPxtFZY9nKEVXOM2gO5Q
-	GNuIOdZ2fgJ4nbZ6MzAXtq7KEa5TCwfaZr8exetArNGhE+NQ+fuZNJfHMmaYreDSUFQoNOOQicA
-	euQ8z
-X-Gm-Gg: AYBFou2rI8vkbD092HJRNh6YJgiobPlbYh1S2ek3aRhuqoTRGm/PK2/B70SRNjGZKgM
-	f4Pdc0Vv6YlZKM0aBDgQTdl0d7MDBlYSlUQUWCU1CilNXcT3OkgdLBOuFLhad0bSkL5pfng3Afh
-	WkM0IamHGLzH+bj3g4iF+xRFjAXEXKjMQtbhNaYO0He8fLGn5iBDP75i8gPb7qcxVNjfL+7290d
-	ui/WltITe3c6X+y9ooCc4DyQKq4m9ONHsyCrdZP5CDeYX9fiAoYV2EeiVUkHbRwyjvWm+d/bQM3
-	3Udmndv+pa1OqD8ScZDLf/rjv+8RDg8BLf1/UlYkXZ++hcWhIgPlJpL6jnC+ETTBVVhIZyuJ/ly
-	ycYnxOl239e7eSyN7iOXj5kmRDhkJW/BFcjwKBRuUtXLUXxRinXQmd5Zbbd4PiPWdU+bu6bKihP
-	W9Ra987cysJyL8D58m60mhm6x4gQWBHWG28fW/PcEv+chIWkOMIahHgnGL1Yy9BueZEedstelon
-	iLdHawZSeLkt2OPJvbUyYAYFLIfQQnMkUpY3rkqPJutmS/fMCdlnxN3LFwLlQXRIs76EBOW2Oni
-	btSED+cJCXMPUcYUcBFFpA==
-X-Received: by 2002:a05:7022:282:20b0:19b:39f4:88c9 with SMTP id a92af1059eb24-1b547c99c5cmr1240478c88.10.1795010347751;
-        Wed, 18 Nov 2026 05:59:07 -0800 (PST)
+        bh=dJUVwftRY1iwIeYL9P8mLEUwk3JNrF8srd3FyqYGVZs=;
+        b=UYCHmEa8Rz0Xuw5cPmhUrXQ9+A1u5v1qdApTNtj0lB+cCcMA+zDLWguXjHXhYECnYG
+         OOGfZ223/Jn2I5aGcih8otSkGucYdCrvnUzwuCpS/9mGJL13jCSUBHKThJqktDZGQ9wu
+         UZ02skoZ3AMKxUh8ARRKThnjdqKbjDF66J3uhI/dx39A7E9rDZP3HgklLmSG2qSM6pPD
+         vXiRi33nSxnZZ2/qSiyfgHsa4h+G6VLgnNPS+Db0lOvnmcEcGQMurlWh1mP3y4ZaWbZr
+         prQvtpH2KRZAc1cqDPSCBzmIxouRupf6+3fGAcBwxKZdxStlwhWe1HrtL0tj6YvwgTnT
+         NgYQ==
+X-Gm-Message-State: APuU4Z/Y2J2imtDYpKua732oYFfqBCZkBnsO9Ii0nCul5qOlCxJoj1MT
+	XLfmZAN0LOt/hlVRP8wCCjlkZwEqYn4oyTBiia4M1xxGR1Hlt1eKKfhz2RYoUZEe3HQ=
+X-Gm-Gg: AYBFou1nMTsS00nQGyJTKj9ktCRRAlvlKyKFjy39lUM0FqomfgAPovPI6S4jiM49Oxo
+	PPGxilPWlKs5Mki5CdXYCRdfwm9PY40tvfAq7O7GsBinDB9VifLBs8Prw3nn/TCNxsJ++MbVHLd
+	BAr65PXk8uOe2/MzpZhWjIU87eX3ryuCj7eY+6qumHAMJaFdFi8TVma7nXRbRbefWndNytsUWPQ
+	LjEet0bBuPT7+Mo1SRfCanTwTEmGyFs4zA/y+iGJO8Tn+5thQV6erstm58ZF+wBES97ckAbidJ4
+	Pq9SR7nFZ4Ij9HYL8d/OBtyTdKrVkNfnBJNNOMfJbQNJrxXLv5oI1j9N2zxiKxWwvuEtH1OpQkD
+	qKKQLlO4RFOT5NHJ21NPzTzF38NS31McptIFu4K76y0RkmF3JzX6/LQSMuw0iuyqcCfR69qTkzC
+	N4b+ZGABK3YVAH2snsc9IlpbUq+7xR2Rmk0QJejok9Co7WF3F3dzkPXa3qf6zhuVbjD2/HPr4n+
+	oEF4uAmTIMUX8tr/jw6Isb2wZ03BtIsKpbu4rSQwCCKOUu5ePStzQ/6ZEWpXMBWQZSik8kdHLqV
+	p2dKF/TaApJfrCpXxR2ArQ==
+X-Received: by 2002:a05:701a:844e:10b0:1b0:430d:d81c with SMTP id a92af1059eb24-1b543cebc8emr2494459c88.25.1795010350313;
+        Wed, 18 Nov 2026 05:59:10 -0800 (PST)
 Received: from 8439c401ee69 ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5447f468asm6780289c88.12.2026.11.18.05.59.07
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b544784017sm6875180c88.4.2026.11.18.05.59.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 05:59:07 -0800 (PST)
+        Wed, 18 Nov 2026 05:59:09 -0800 (PST)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,50 +89,36 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Subject: [REGRESSION] stable-rc/linux-6.18.y: (build)no previous prototype for
+Subject: [REGRESSION] stable-rc/linux-5.15.y: (build)too few arguments to
  function
- 'hub6_match_port' [-Werror,-Wmis...
+ call, expected 2, have 1 in drivers/d...
 From: KernelCI bot <bot@kernelci.org>
 To: kernelci-results@groups.io
 Cc: stable@vger.kernel.org
 Reply-To: kernelci@lists.linux.dev
-Date: Wed, 18 Nov 2026 13:59:07 -0000
-Message-ID: <179501034399.303994.1678108687169067517@kernelci.org>
+Date: Wed, 18 Nov 2026 13:59:09 -0000
+Message-ID: <179501034795.303994.18338228483300661482@kernelci.org>
 
 Cc from: regression/stable-rc.yaml
 
-New build issue found on stable-rc/linux-6.18.y:
+New build issue found on stable-rc/linux-5.15.y:
 
 ---
-no previous prototype for function 'hub6_match_port' [-Werror,-Wmissing-prototypes] in drivers/tty/serial/8250/8250_hub6.o (drivers/tty/serial/8250/8250_hub6.c) [logspec:kbuild,kbuild.compiler.error]
+too few arguments to function call, expected 2, have 1 in drivers/dma/ste_dma40.o (drivers/dma/ste_dma40.c) [logspec:kbuild,kbuild.compiler.error]
 ---
 
 Log excerpt:
 =====================================================
-drivers/tty/serial/8250/8250_hub6.c:44:6: error: no previous prototype for function 'hub6_match_port' [-Werror,-Wmissing-prototypes]
-   44 | bool hub6_match_port(const struct uart_port *port1, const struct uart_port *port2)
-      |      ^
-  CC [M]  drivers/gpu/drm/tests/drm_kunit_helpers.o
-drivers/tty/serial/8250/8250_hub6.c:44:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
-   44 | bool hub6_match_port(const struct uart_port *port1, const struct uart_port *port2)
-      | ^
-      | static 
-drivers/tty/serial/8250/8250_hub6.c:50:12: error: no previous prototype for function 'serial8250_hub6_init' [-Werror,-Wmissing-prototypes]
-   50 | int __init serial8250_hub6_init(void)
-      |            ^
-drivers/tty/serial/8250/8250_hub6.c:50:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
-   50 | int __init serial8250_hub6_init(void)
-      | ^
-      | static 
-drivers/tty/serial/8250/8250_hub6.c:55:6: error: no previous prototype for function 'serial8250_hub6_exit' [-Werror,-Wmissing-prototypes]
-   55 | void serial8250_hub6_exit(void)
-      |      ^
-drivers/tty/serial/8250/8250_hub6.c:55:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
-   55 | void serial8250_hub6_exit(void)
-      | ^
-      | static 
-3 errors generated  CC [M]  drivers/reset/reset-scmi.o
-.
+/tmp/kci/linux/drivers/dma/ste_dma40.c:1681:42: error: too few arguments to function call, expected 2, have 1
+ 1681 |         ret = pm_runtime_get_if_active(base->dev);
+      |               ~~~~~~~~~~~~~~~~~~~~~~~~          ^
+/tmp/kci/linux/include/linux/pm_runtime.h:56:12: note: 'pm_runtime_get_if_active' declared here
+   56 | extern int pm_runtime_get_if_active(struct device *dev, bool ign_usage_count);
+      |            ^                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/tmp/kci/linux/drivers/dma/ste_dma40.c:3292:11: error: incompatible integer to pointer conversion returning 'int' from a function with result type 'struct d40_base *' [-Wint-conversion]
+ 3292 |                         return -EINVAL;
+      |                                ^~~~~~~
+2 errors generated.
 
 =====================================================
 
@@ -145,18 +130,18 @@ Reported-by: kernelci.org bot <bot@kernelci.org>
 For complete logs and details about the environment used, see the issue
 on the KernelCI dashboard:
 
-- dashboard: https://d.kernelci.org/i/maestro:88b7d0ef2189a3c9daa96318c2969e40b2739f7f
+- dashboard: https://d.kernelci.org/i/maestro:fdf1da2535f71ff5e6cbd02aed7a0493a4ff306c
 - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  cdba173620176f2471d7dc1897b8a59fa7a85fcf
+- commit HEAD:  ca6b7ac346ad69f2084705cbed131e31f0f0b45c
 
 # Builds where the incident occurred:
 
-## i386_defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (i386):
+## defconfig+allmodconfig+CONFIG_FRAME_WARN=2048 on (arm):
 - compiler: clang-21
-- config: https://files.kernelci.org/kbuild-clang-21-i386-allmodconfig-6afd942599c74e1a997d450a/.config
-- dashboard: https://d.kernelci.org/build/maestro:6afd942599c74e1a997d450a
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6afd9d8699c74e1a997dc15d
 
-#kernelci issue maestro:88b7d0ef2189a3c9daa96318c2969e40b2739f7f
+#kernelci issue maestro:fdf1da2535f71ff5e6cbd02aed7a0493a4ff306c
 
 --
 This is an experimental report format. Please send feedback in!
