@@ -1,47 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016238;
-	b=kBxKkuFj7/yDyYY71LZC+4/SHMKHNxpmmXi8Z0FaQT4eA/iquIxEui1vnBuqW5TYbg7X
-	 6DVKKvUhYpMD83rQMh64pPFm+2n9W63yZGk4DjPAHeef3W35TVATkl+57bxeYy+3IVgXg
-	 Tmq7YYaBKp5FHvb92sU/cEp9lR25nJ1dD/e6PiiOlX0NuXu783J/Dj2wgWpGxgaaMVDrq
-	 3g0/CePg4x+oyYJRb1hCeoTj4efbHjTFMuHtt/YgP7Za0OpcMU2reqJvGVkI2frmoIrQQ
-	 2xEvRBLBZsebrroSBKOGzhtzl2+UYGKhvX369kF2mR2rxXC21fxm6r7GvJtRrvNlB9g==
+	t=1795016245;
+	b=jfUuKiMPhBHVEeRtmtSkAWvmpAxvB53y1HLJ4OoU/7/+Sldof2nkuH4/xFZBsbvNbmII
+	 LLlXPCwRq2UGbLCn/fdhCon7hrabDuNYPLJVdCGIJ6n8aZguCmgFwT+KxYk7sjVUGTGBE
+	 yoYZcRxGUKG5DkoQEPTeWr2v/lyzpQkQKcBA3ipA4uj7wp+fBq3DYKJ+qf1KG1iyfDcS5
+	 7u3F1fx9RfcErtwIOkUe9p0TZAM/cto45Pk1gTZZpK8VqeD/iXMJ/sXRYEeOv9qz+t5PB
+	 /S+7xP3v6Z3siUsUBckIn82pkcH5as152r5tQa7tWNiBGMoA1oicxIOi3EgBxTyGzLg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016238;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=RGtuOoXmARbodH7Cw+9F0C3TnVxoO+KV9KQKzi8RPLo=;
-	b=QN4grj+rZl32u+Uezrpc1mF95szOhqAiP8l5MlT/160nOGL5FMcgOOduwQT8iYUi++Ci
-	 P/ZSP15Rd3Y+EtTKK3yn81DkfDBsodE/r1IbW7MOgQxTIZBzu8e1mAxV0HFBuq0vtX90r
-	 BwLswUmw9mstFQvdEGZtKvE4d1SWenZrEvmTEO3wVoNqt/XFZMfhHTLOhNSCPVI3+kOp+
-	 qiiiij97Cfe98jpuh2WlKchBDZYo20/G/Hvs2BHyWFbTjR+BGvkXlx8tpuK3388RJlM57
-	 9DPujzCacEvBXpw+/qN6FChPCCyNiT7VF5oYtAXQDmepINFihErAJoxJkc9bqSTBPiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795016245;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=4YUnRDepzqiHUlfieFaKgV5p6h4NeQcjCsEaStZpv2c=;
+	b=Ke5QTEHDVWXL7dgvheO8FdTrZSNSWCGnPjqNThRRB/UrfGrjQ8ODLsLiO92TglPHZYgd
+	 +aX6tiRRV4HFjHmYLNU4J3S81f+VZUoxD+o4xMoTWMA9LoWMumuuQtRlpuQmnxB/SDBsM
+	 AD1U42bTXanAGQeIrfxk6MJa5jGszqeqpfxauINmhIJtRURBeyh9FQv9dXMZ6XiZpPBXY
+	 Mt+bRMNhhf1BGfl7fuDlAdgDDCexmiIvgy9EojvLrX4TRIENZgnfEGM9lUtNaLUAxqbmU
+	 LEXsBClNCI/SAANj5XZFRK3Ew89hjbV2sUrgBCurqJZJ7PlGCHuRKObXqwFYp+UdCCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ouBLsAtQ;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lL8LSQ9J;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217B0606A31C;
-	Wed, 18 Nov 2026 15:37:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85684606A333;
+	Wed, 18 Nov 2026 15:37:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ouBLsAtQ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC5A11F000C4;
-	Wed, 18 Nov 2026 15:37:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795016237;
-	bh=RGtuOoXmARbodH7Cw+9F0C3TnVxoO+KV9KQKzi8RPLo=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ouBLsAtQ40oLsAZd1zjg2WJWLNqzwMhUfP/CPv4ev3jpHGU+8ovI1/XzIoAmz8sD/
-	 lALlKPHLFGVk4NjtK7nu7+IC9x+zjveLhbSdUOcABwiWN0XcUaBLkBnCKRhfMiJS6j
-	 6MuhpQLTkoL6xFlR6wr4KQucYsPJLIIfhxqdi8MPcQo6W1TlysTrTpIr1O0w+OSgI0
-	 uWYIlMYVajF4C6MaMZcxEmnBMWa/Cr8RKwpqycTbBpEcLTmMWwnR7X7RQkJRkxLBc9
-	 +9akaPTYA131z09+z3n9TjrBVHq1EHMQPMWrUJwPJPfEHVDvJ0Zsuh8UnZ3Xhomzxq
-	 S2bEBglFbbZkw==
-Message-ID: <bdd849e3-0a0f-4655-9c76-7e40d1e4eb66@kernel.org>
-Date: Wed, 18 Nov 2026 16:37:01 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lL8LSQ9J
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FCAC1F000C4;
+	Wed, 18 Nov 2026 15:37:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795016245;
+	bh=4YUnRDepzqiHUlfieFaKgV5p6h4NeQcjCsEaStZpv2c=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lL8LSQ9JFnF4ryiPzz5o+gWBZy4LeXc3Dxn2zLVVYg2PXyxKaoqIw8a5XunR7qHNp
+	 oEbzl23nNBfp6hvBs6JHwz6gbNPus5VTEXb+yHMpyGni1Q9iQ/V58eDfnF9xZ1zhJm
+	 nbGJ9U4y1Q3a3edAE8hW9fuKLcSWoXRAyPivKZNQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Christoph Hellwig <hch@lst.de>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0459/2651] block,iomap: fix protection information verification with initial bvec offset
+Date: Wed, 18 Nov 2026 15:28:19 +0100
+Message-ID: <20261118150304.327338073@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,126 +63,186 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/9] userfaultfd: assorted fixes (part 1)
-To: Tal Zussman <tz2294@columbia.edu>,
- Andrew Morton <akpm@linux-foundation.org>, Mike Rapoport <rppt@kernel.org>,
- Peter Xu <peterx@redhat.com>, James Houghton <jthoughton@google.com>,
- Andrea Arcangeli <aarcange@redhat.com>,
- Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>,
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
- Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>, Michal Hocko <mhocko@suse.com>,
- =?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
- Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>,
- Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>,
- Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
- Gregory Price <gourry@gourry.net>, Ying Huang
- <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>,
- =?UTF-8?Q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org,
- Breno Leitao <leitao@debian.org>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Felix Kuehling <Felix.Kuehling@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>,
- Leon Romanovsky <leon@kernel.org>, dri-devel@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- amd-gfx@lists.freedesktop.org
-References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
- <4f23b0bc-b89a-46c1-b8cd-853e7815b7ac@kernel.org>
- <7d31ba34-8b5f-4eb2-9864-145ea80c3412@columbia.edu>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <7d31ba34-8b5f-4eb2-9864-145ea80c3412@columbia.edu>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/18/26 16:26, Tal Zussman wrote:
-> On 11/18/26 4:41 AM, David Hildenbrand (Arm) wrote:
->> On 11/18/26 05:28, Tal Zussman wrote:
-> ...
-> 
->>> Patch 6 has little user impact on its own. It is included because,
->>> together with patch 7, it allows removing clear_uffd_wp_pmd().
->>>
-> 
-> ...> 
->> So, I would be picking up ...
->>
->>> Tal Zussman (9):
->>>       userfaultfd: use anonymous memory for UFFDIO_ZEROPAGE on private file mappings
->>>       userfaultfd: refuse UFFDIO_MOVE into a non-present huge destination PMD
->>>       fs/proc/task_mmu: downgrade writable migration entries in PAGEMAP_SCAN write-protect
->>>       mm/migrate: warn on a writable migration entry with the uffd bit set
->>
->> This
->>
->>>       fs/proc/task_mmu: write-protect device-private THPs in PAGEMAP_SCAN
->>>       mm/huge_memory: build the moved huge zero PMD from the destination VMA
->>
->> This
->>
-> 
-> So my one concern is that (as per above), the mremap patch removes 
-> clear_uffd_wp_pmd() after the huge_memory patch removes the other user.
-> Splitting them may break compilation. I would've left clear_uffd_wp_pmd()
-> alone but then it throws a nice ugly unused code warning :\
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Ah, so it's best Andrew picks that up as well then?
+------------------
 
+From: Christoph Hellwig <hch@lst.de>
+
+[ Upstream commit 7de79a5ffe338b959be8cd862292596ac9f7848b ]
+
+When reconstructing a bvec_iter from an ioend for protection information
+verification, iomap currently ignores the offset into the initial
+bio_vec.
+
+This can't happen for buffered I/O or direct I/O to user addresses, but
+is exercised by splice on O_DIRECT file descriptors or when using the
+loop driver in direct I/O mode.
+
+Fortunately the only file system PI user (XFS) currently always bounce
+buffers, so this can't actually be triggered yet.  But we'll want to make
+the bounce buffering conditional soon, for which this needs to be fixed.
+
+Store the initial offset in struct iomap_ioend, and pass a
+pre-constructed bvec_iter to fs_bio_integrity_verify.  For the
+synchronous read case the fix is even simpler as this path can
+simply stash away the original bvec_iter.
+
+Fixes: 0bde8a12b554 ("block: add fs_bio_integrity helpers")
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Link: https://patch.msgid.link/20260909060924.1102037-10-hch@lst.de
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ block/bio-integrity-fs.c      | 13 +++++--------
+ fs/iomap/bio.c                |  4 +++-
+ fs/iomap/ioend.c              | 14 ++++++++++----
+ include/linux/bio-integrity.h |  3 +--
+ include/linux/iomap.h         |  8 ++++++++
+ 5 files changed, 27 insertions(+), 15 deletions(-)
+
+diff --git a/block/bio-integrity-fs.c b/block/bio-integrity-fs.c
+index 692403dfa047b..dd6c85530913a 100644
+--- a/block/bio-integrity-fs.c
++++ b/block/bio-integrity-fs.c
+@@ -52,14 +52,10 @@ void fs_bio_integrity_generate(struct bio *bio)
+ }
+ EXPORT_SYMBOL_GPL(fs_bio_integrity_generate);
+ 
+-int fs_bio_integrity_verify(struct bio *bio, sector_t sector, unsigned int size)
++int fs_bio_integrity_verify(struct bio *bio, struct bvec_iter *data_iter)
+ {
+ 	struct blk_integrity *bi = blk_get_integrity(bio->bi_bdev->bd_disk);
+ 	struct bio_integrity_payload *bip = bio_integrity(bio);
+-	struct bvec_iter data_iter = {
+-		.bi_sector	= sector,
+-		.bi_size	= size,
+-	};
+ 
+ 	if (!bip || !(bip->bip_flags & BIP_CHECK_FLAGS))
+ 		return 0;
+@@ -71,9 +67,10 @@ int fs_bio_integrity_verify(struct bio *bio, sector_t sector, unsigned int size)
+ 	 * bio.  Requires the submitter to remember the sector and the size.
+ 	 */
+ 	memset(&bip->bip_iter, 0, sizeof(bip->bip_iter));
+-	bip->bip_iter.bi_sector = sector;
+-	bip->bip_iter.bi_size = bio_integrity_bytes(bi, size >> SECTOR_SHIFT);
+-	return blk_status_to_errno(bio_integrity_verify(bio, &data_iter));
++	bip->bip_iter.bi_sector = data_iter->bi_sector;
++	bip->bip_iter.bi_size =
++		bio_integrity_bytes(bi, data_iter->bi_size >> SECTOR_SHIFT);
++	return blk_status_to_errno(bio_integrity_verify(bio, data_iter));
+ }
+ 
+ static int __init fs_bio_integrity_init(void)
+diff --git a/fs/iomap/bio.c b/fs/iomap/bio.c
+index ee85b009c5c13..eed19277f0267 100644
+--- a/fs/iomap/bio.c
++++ b/fs/iomap/bio.c
+@@ -169,6 +169,7 @@ int iomap_bio_read_folio_range_sync(const struct iomap_iter *iter,
+ {
+ 	const struct iomap *srcmap = iomap_iter_srcmap(iter);
+ 	sector_t sector = iomap_sector(srcmap, pos);
++	struct bvec_iter saved_iter;
+ 	struct bio_vec bvec;
+ 	struct bio bio;
+ 	int error;
+@@ -178,10 +179,11 @@ int iomap_bio_read_folio_range_sync(const struct iomap_iter *iter,
+ 	bio_add_folio_nofail(&bio, folio, len, offset_in_folio(folio, pos));
+ 	if (srcmap->flags & IOMAP_F_INTEGRITY)
+ 		fs_bio_integrity_alloc(&bio);
++	saved_iter = bio.bi_iter;
+ 	error = submit_bio_wait(&bio);
+ 	if (bio_integrity(&bio)) {
+ 		if (!error)
+-			error = fs_bio_integrity_verify(&bio, sector, len);
++			error = fs_bio_integrity_verify(&bio, &saved_iter);
+ 		fs_bio_integrity_free(&bio);
+ 	}
+ 	bio_uninit(&bio);
+diff --git a/fs/iomap/ioend.c b/fs/iomap/ioend.c
+index c2891d640e827..edc4509300d7f 100644
+--- a/fs/iomap/ioend.c
++++ b/fs/iomap/ioend.c
+@@ -25,6 +25,7 @@ struct iomap_ioend *iomap_init_ioend(struct inode *inode,
+ 	ioend->io_parent = NULL;
+ 	INIT_LIST_HEAD(&ioend->io_list);
+ 	ioend->io_flags = ioend_flags;
++	ioend->io_bvec_offset = bio->bi_iter.bi_offset;
+ 	ioend->io_inode = inode;
+ 	ioend->io_offset = file_offset;
+ 	ioend->io_size = bio->bi_iter.bi_size;
+@@ -319,6 +320,13 @@ ssize_t iomap_add_to_ioend(struct iomap_writepage_ctx *wpc, struct folio *folio,
+ }
+ EXPORT_SYMBOL_GPL(iomap_add_to_ioend);
+ 
++static int iomap_ioend_integrity_verify(struct iomap_ioend *ioend)
++{
++	struct bvec_iter data_iter = BVEC_ITER_IOEND(ioend);
++
++	return fs_bio_integrity_verify(&ioend->io_bio, &data_iter);
++}
++
+ static u32 iomap_finish_ioend(struct iomap_ioend *ioend, int error)
+ {
+ 	if (ioend->io_parent) {
+@@ -336,10 +344,8 @@ static u32 iomap_finish_ioend(struct iomap_ioend *ioend, int error)
+ 
+ 	if (!ioend->io_error &&
+ 	    bio_integrity(&ioend->io_bio) &&
+-	    bio_op(&ioend->io_bio) == REQ_OP_READ) {
+-		ioend->io_error = fs_bio_integrity_verify(&ioend->io_bio,
+-			ioend->io_sector, ioend->io_size);
+-	}
++	    bio_op(&ioend->io_bio) == REQ_OP_READ)
++		ioend->io_error = iomap_ioend_integrity_verify(ioend);
+ 
+ 	if (ioend->io_flags & IOMAP_IOEND_DIRECT)
+ 		return iomap_finish_ioend_direct(ioend);
+diff --git a/include/linux/bio-integrity.h b/include/linux/bio-integrity.h
+index 0ea2a8bf7efb7..a954c97be0b33 100644
+--- a/include/linux/bio-integrity.h
++++ b/include/linux/bio-integrity.h
+@@ -151,7 +151,6 @@ void bio_integrity_setup_default(struct bio *bio);
+ unsigned int fs_bio_integrity_alloc(struct bio *bio);
+ void fs_bio_integrity_free(struct bio *bio);
+ void fs_bio_integrity_generate(struct bio *bio);
+-int fs_bio_integrity_verify(struct bio *bio, sector_t sector,
+-		unsigned int size);
++int fs_bio_integrity_verify(struct bio *bio, struct bvec_iter *data_iter);
+ 
+ #endif /* _LINUX_BIO_INTEGRITY_H */
+diff --git a/include/linux/iomap.h b/include/linux/iomap.h
+index bc7ae6327dbf8..9273378b37d0d 100644
+--- a/include/linux/iomap.h
++++ b/include/linux/iomap.h
+@@ -500,6 +500,7 @@ sector_t iomap_bmap(struct address_space *mapping, sector_t bno,
+ struct iomap_ioend {
+ 	struct list_head	io_list;	/* next ioend in chain */
+ 	u16			io_flags;	/* IOMAP_IOEND_* */
++	u32			io_bvec_offset;	/* offset into first bvec */
+ 	struct inode		*io_inode;	/* file being written to */
+ 	size_t			io_size;	/* size of the extent */
+ 	atomic_t		io_remaining;	/* completetion defer count */
+@@ -517,6 +518,13 @@ static inline struct iomap_ioend *iomap_ioend_from_bio(struct bio *bio)
+ 	return container_of(bio, struct iomap_ioend, io_bio);
+ }
+ 
++#define BVEC_ITER_IOEND(_ioend)				\
++{							\
++	.bi_sector	= (_ioend)->io_sector,		\
++	.bi_size	= (_ioend)->io_size,		\
++	.bi_offset	= (_ioend)->io_bvec_offset,	\
++}
++
+ struct iomap_writeback_ops {
+ 	/*
+ 	 * Performs writeback on the passed in range
 -- 
-Cheers,
+2.53.0
 
-David
+
+
