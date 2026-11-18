@@ -1,84 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.127
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795012435;
-	b=JQ0kORTjginTLYSxK1wXz+ym/HsU+PgJNeHP5B0JDAlIXMmKp/zE73RxB9BNQTzvN/WZ
-	 QhlkGVmai5t8XoQt4mydQ52gIDf3cLgFq+nV7jaAU57Q+6hZNX7WJwe9c/iw9DcaBYL6W
-	 2+2woOrfslbAAJxt2+NMtRZnV4PjPbOD9geCNF4GNBiMD47tTlFC5x0A2m/O03KstTDpC
-	 lPRXE9AVFoLNWgBnEwdQKW9m0rcNTiyRvrIZE+CFSIdzD/MDCpR8wUTBs1dGG8LlU6etQ
-	 bK6mx8dczi3IXULCGYd818mci717o7BWKgInb7CVQhYoTfEPcG92dSgjg7e5A+KhK0w==
+	t=1795012457;
+	b=PHfZ6Oiqe7828+Pbt3zso9/7tARPrnWeaEFjsXeLkhwvkSQ5kqa6j4gs6f3WgBSYYUUN
+	 TAlYnGZ4Np1KYdhxCOeMP+zTI2xiwXA+3k5M9nwdGNecAt2f6hGV/0ms26PEYi1Yfixad
+	 RYatm09rAOuEsRMZqIWEGo8Rvw/w3STF3BG3uxQyi2PiDOupieBYpAx8N8idScrNosUfo
+	 VEzqeD0KSIrvShYsvXSn36Li6c1Fsrgg/dOv+jQoFtDTnmh6K94emTGnHnqftTqd/7Z3u
+	 jo3+s7QuIGUUyno8D2Z/46qtlwNwBG12YI1DT0RVgwQXg5aNZRq6q8Dsb1xRPf1DsJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795012435;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=r0M7bUtZEofsoW8E6XLzL0ND8blGJ4WCG6thjd+0hTw=;
-	b=ESHZhkFOEBVEWho2o+4M9AJyhAT76DcMv07dGDRlQMyRRI2dCQyYQkT32Wm4kJ0xEU/K
-	 AvDA4UUo4p782Y4Ypt3+nzYFjOSVE76OgkN9VYUYF1JO02v1dBkImZVw5LDEU7+2VOhBW
-	 nX9XNreAwSxkzWj0KluUVeslfXoS5a11mWU8VOtnv+jUZ7c6HDe0GCslAXSXc3Laocw0G
-	 4Sxt29tJuqXGMiiMwLqQncyOWo2TB+C8W7yOXqn0vIHPgLXbM69a2XsIGnOVjdDOdfm/4
-	 chdnsAlJ55/0zdN8o+H/rDiiR6+iiSE1QZtktR7aNbFi9VSPl+IuCOVTiJtEIuXNmFg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795012457;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=MndTzYV14X6jKTNzKDMu9gfax8gLbgHUdDxFcB5nCiQ=;
+	b=Y5WWpste6K9SDRugmGgK/34CeiTeO0Yvh2OQNbcY6ED971f/LQKtW2+yAKClriVKhLjJ
+	 YhXYXKKgifzz2283hlQ++y6EVjBtdcDm8K+M8QdizUS6N45B/8FyTacGKW8pJsL/cM/+/
+	 un1zg1aST/KS5JdoPBlsMcFXklk2Sb0nd+bIt1lMFGMMk0PDva68M6oONjCyo2zcqkNQC
+	 GZYP4NqjfUF+lLieHAGa4/RZdKADv5L31Qjwch4N7VmCzlgYUnb1YA+8IK8YINeKK4SqZ
+	 2H+xUcOHF1QxZRrlURlLdeHLrrrLuY7S719jbun/0LhdpQrDGuMPmv0JZ9t9cOH5Shg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kp9aWV9V;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DEMB8Hc0;
+	arc=none smtp.remote-ip=95.215.58.127
+Received: from mta1.migadu.com (out-127.mta1.migadu.com [95.215.58.127])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397B2606A31C;
-	Wed, 18 Nov 2026 14:33:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22835606A333
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 14:34:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22835606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Kp9aWV9V
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D43D1F000C4;
-	Wed, 18 Nov 2026 14:33:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795012434;
-	bh=r0M7bUtZEofsoW8E6XLzL0ND8blGJ4WCG6thjd+0hTw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Kp9aWV9VMOCglS7T1p8dI1UFHOj3QgFUQWE27OP4HKp8U3+jjxoxZ5MiJj4la/XvM
-	 5g271rkeXZHxD1RQZeYy9sJtGReqx/Wu2njRPkXusfpMZXxCGIR5ZzMv8YoTGpm6hg
-	 Z6tgqCBkZgIcFlZSz6035WSZxIeGPy+JrC1PJGNpvJDd48S1qhJk/hFuZsiCPChbpz
-	 cbipzUh3C8OOrW/AvXUuXYqzav1/ZSNl5r9u80mpnTju6Ee+vMAghVK8OCjuuDA05S
-	 HY68vn5JPr7XXFHUq32yMMFYFnOyzSscbzp0r5NSgcm81ZAyPEr+jLZrZyeSuycfOU
-	 fAGNDFU01uI8Q==
-Date: Wed, 18 Nov 2026 16:33:41 +0200
-From: Mike Rapoport <rppt@kernel.org>
-To: Tal Zussman <tz2294@columbia.edu>
-Cc: Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>,
-	James Houghton <jthoughton@google.com>,
-	Andrea Arcangeli <aarcange@redhat.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Balbir Singh <balbirs@nvidia.com>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	David Hildenbrand <david@kernel.org>,
-	Michal Hocko <mhocko@suse.com>,
-	=?utf-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>,
-	Andrei Vagin <avagin@gmail.com>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	Stephen Rothwell <sfr@canb.auug.org.au>,
-	Arnd Bergmann <arnd@arndb.de>, Zi Yan <ziy@nvidia.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Byungchul Park <byungchul@sk.com>,
-	Gregory Price <gourry@gourry.net>,
-	Ying Huang <ying.huang@linux.alibaba.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Nico Pache <nico.pache@linux.dev>,
-	Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
-	Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
-	Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	Oscar Salvador <osalvador@suse.de>,
-	=?utf-8?Q?Miko=C5=82aj?= Lenczewski <miko.lenczewski@arm.com>,
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 2/9] userfaultfd: refuse UFFDIO_MOVE into a
- non-present huge destination PMD
-Message-ID: <av23RfHuKjWeeEnN@kernel.org>
-References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
- <20261117-uffd-state-fixes-v3-2-b617009d1a4a@columbia.edu>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DEMB8Hc0
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=y/2CZtS0my7XAoRAXQcDwklNbzZpak4z9kOV9aXMYhk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795012454; v=1; x=1795617254;
+ b=DEMB8Hc0FAAaDf3ZdafLSfO43GKgeNTxTB7eXILXydJguMPl5U+PetvbAP1n60+Qzy1+l6kl
+ tyi0H6wIhVAxd1itL+0clV5mPBgISrOo/fLbM9jcSZ6L9VlxYjjEYPAhM9WRgpb5P0jFyMO2yEK
+ JAXv96hg4QCdQ3pZkhf1bnmY=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ab288a68988a4ad9;
+	Wed, 18 Nov 2026 14:34:14 +0000
+X-Mizu-Trace-ID: ab288a68988a4ad9
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <3b705a3e-cbc5-42f1-b715-d407c08cdf87@linux.dev>
+Date: Wed, 18 Nov 2026 22:33:53 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,47 +58,126 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117-uffd-state-fixes-v3-2-b617009d1a4a@columbia.edu>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12.y] mm/ksm: fix userfaultfd protection during merge
+ and unmerge
+Content-Language: en-US
+To: Greg KH <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, Samarth Narang <samarth.colleges@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ "Kiryl Shutsemau (Meta)" <kas@kernel.org>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ Mel Gorman <mgorman@techsingularity.net>, Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?=
+ <jglisse@redhat.com>, Andrea Arcangeli <aarcange@redhat.com>,
+ Peter Xu <peterx@redhat.com>, Bobby Powers <bobbypowers@gmail.com>,
+ Brian Geffon <bgeffon@google.com>, Denis Plotnikov
+ <dplotnikov@virtuozzo.com>, Doug Gilbert <dgilbert@interlog.com>,
+ Hugh Dickins <hughd@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Martin Cracauer <cracauer@cons.org>, Marty McFadden <mcfadden8@llnl.gov>,
+ Maya Gokhale <gokhale2@llnl.gov>, Pavel Emelyanov <xemul@openvz.org>,
+ Rik van Riel <riel@surriel.com>, Shaohua Li <shli@fb.com>,
+ James Houghton <jthoughton@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Paolo Bonzini <pbonzini@redhat.com>, Sean Christopherson
+ <seanjc@google.com>, SJ Park <sj@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Mohammed EL Kadiri <med08elkadiri@gmail.com>
+References: <20261109200758-failed-6.12-990d6c2194a9@kernel.org>
+ <20261111082901.32704-1-lance.yang@linux.dev>
+ <2026111802-facial-asparagus-d380@gregkh>
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <2026111802-facial-asparagus-d380@gregkh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 11:28:42PM -0500, Tal Zussman wrote:
-> move_pages() refuses to move into a destination PMD that already maps a
-> THP, but checks for that with pmd_trans_huge(), which is only true for a
-> present THP. A device-private THP or a THP under migration is a PMD
-> softleaf entry and is not refused.
-> 
-> The destination PMD is then treated as if it pointed to a PTE table. It
-> is not empty, so pte_alloc() leaves it alone, and move_pages_ptes()
-> fails to map a PTE table from it and returns -EAGAIN. move_pages()
-> retries on -EAGAIN, with both VMA read locks held. If the source is a
-> THP, it is split first for nothing.
-> 
-> For a THP under migration, the loop ends once the migration finishes.
-> A device-private THP can remain in device memory indefinitely, so the
-> caller of UFFDIO_MOVE hangs until it receives a fatal signal, and
-> anything in the mm that needs to write-lock one of the VMAs blocks along
-> with it. This requires a driver that migrates THPs to device memory.
-> 
-> To fix it, check the destination with pmd_is_huge(), which is true for
-> a present THP and for a PMD softleaf entry. UFFDIO_MOVE now fails with
-> -EEXIST in these cases, as it already does for a present THP.
-> 
-> Fixes: adef440691ba ("userfaultfd: UFFDIO_MOVE uABI")
-> Fixes: a30b48bf1b24 ("mm/migrate_device: implement THP migration of zone device pages")
-> Cc: stable@vger.kernel.org
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> Tested-by: Gregory Price (Meta) <gourry@gourry.net>
-> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-> ---
->  mm/userfaultfd.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
+On 2026/11/18 18:48, Greg KH wrote:
+> On Wed, Nov 11, 2026 at 04:29:01PM +0800, Lance Yang wrote:
+>> KSM loses userfaultfd protection when replace_page() builds a new PTE from
+>> vma->vm_page_prot.  Dropping its uffd bit lets a subsequent write go
+>> through ordinary COW instead of userfaultfd write protection handling.
+>> For RWP, a merged page also becomes readable without faulting.
+>>
+>> Keeping the uffd bit and restoring PAGE_NONE fixes merging, but we also
+>> have to handle unmerging.  An existing KSM page can be protected with RWP
+>> before MADV_UNMERGEABLE, so unmerging already needs fixing independently
+>> of preserving RWP during merging.
+>>
+>> Unsharing replaces a shared page with a private one and should leave
+>> userfaultfd protection in place, as do_wp_page() already does for write
+>> protection.  Currently, an unshare fault reaches do_uffd_rwp() before it
+>> can proceed to do_wp_page().
+>>
+>> - With synchronous RWP, handle_userfault() returns VM_FAULT_SIGBUS.
+>>    break_ksm() then reports success with a KSM page still merged.
+>>
+>> - With asynchronous RWP, protection is cleared before unsharing.
+>>
+>> Preserve the uffd bit when merging, and restore PAGE_NONE for RWP.  Let
+>> FAULT_FLAG_UNSHARE skip RWP fault handling and keep PAGE_NONE on each
+>> private copy as well.  Unsharing can then complete with RWP still armed
+>> for a subsequent access.
+>>
+>> Link: https://lore.kernel.org/20261026130054.91461-1-lance.yang@linux.dev
+>> Link: https://lore.kernel.org/all/20261019010934.697895-1-samarth.colleges@gmail.com/
+>> Link: https://lore.kernel.org/all/20261020055518.36087-1-lance.yang@linux.dev/
+>> Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
+>> Fixes: 2d427bb01639 ("mm/userfaultfd: add RWP fault delivery and expose UFFDIO_REGISTER_MODE_RWP")
+>> Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+>> Signed-off-by: Lance Yang <lance.yang@linux.dev>
+>> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+>> Co-developed-by: Samarth Narang <samarth.colleges@gmail.com>
+>> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+>> Reviewed-by: Kiryl Shutsemau (Meta) <kas@kernel.org>
+>> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+>> Cc: Mel Gorman <mgorman@techsingularity.net>
+>> Cc: Xu Xin <xu.xin@linux.dev>"
+>> Cc: Chengming Zhou <chengming.zhou@linux.dev>
+>> Cc: Liam R. Howlett <liam@infradead.org>
+>> Cc: Vlastimil Babka <vbabka@kernel.org>
+>> Cc: Mike Rapoport <rppt@kernel.org>
+>> Cc: Suren Baghdasaryan <surenb@google.com>
+>> Cc: Michal Hocko <mhocko@suse.com>
+>> Cc: Jérôme Glisse <jglisse@redhat.com>
+>> Cc: Andrea Arcangeli <aarcange@redhat.com>
+>> Cc: Peter Xu <peterx@redhat.com>
+>> Cc: Bobby Powers <bobbypowers@gmail.com>
+>> Cc: Brian Geffon <bgeffon@google.com>
+>> Cc: Denis Plotnikov <dplotnikov@virtuozzo.com>
+>> Cc: Doug Gilbert <dgilbert@interlog.com>
+>> Cc: Hugh Dickins <hughd@google.com>
+>> Cc: Johannes Weiner <hannes@cmpxchg.org>
+>> Cc: Martin Cracauer <cracauer@cons.org>
+>> Cc: Marty McFadden <mcfadden8@llnl.gov>
+>> Cc: Maya Gokhale <gokhale2@llnl.gov>
+>> Cc: Pavel Emelyanov <xemul@openvz.org>
+>> Cc: Rik van Riel <riel@surriel.com>
+>> Cc: Shaohua Li <shli@fb.com>
+>> Cc: James Houghton <jthoughton@google.com>
+>> Cc: Jonathan Corbet <corbet@lwn.net>
+>> Cc: Paolo Bonzini <pbonzini@redhat.com>
+>> Cc: Sean Christopherson <seanjc@google.com>
+>> Cc: SJ Park <sj@kernel.org>
+>> Cc: Zi Yan <ziy@nvidia.com>
+>> Cc: Mohammed EL Kadiri <med08elkadiri@gmail.com>
+>> Cc: <stable@vger.kernel.org>
+>>
+>> (cherry picked from commit 990d6c2194a938a19a8cf94c6cfd75171345089b)
+>> ---
+>> Backport to 6.12:
+>> - Use the older pte_uffd_wp()/pte_mkuffd_wp() helpers.
+>> - Drop the mm/memory.c changes. 6.12 has no RWP support.
+> 
+> Dropped as you didn't also include a 6.18 backport :(
 
--- 
-Sincerely yours,
-Mike.
+Okay, I talked to Sasha earlier about the soft-dirty backport.
+
+Will wait for it to land in the relevant stable branches before
+sending v2 :)
+
+Cheers, Lance
+
