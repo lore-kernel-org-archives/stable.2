@@ -1,80 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795044007;
-	b=zCh2Ozuv5i3I49eiTiWMl/q/6nGYPIYCoYuqIPINZc2Yst1tj9tOuHp/hxlUnZpiMC7o
-	 Pm+ejvKx9pLl2T6N2V72X/n3+NSU3gqeV1HB0en+jKFFiM6HnM6rIVk/uxyddYCil+Gji
-	 U0FhGyTJ+C3K7Hzeut/tKuF3EKkQHELojFxBGLQcuRh5K9RkNXIwmXAnJ5V6mwGM2oJST
-	 HsVYAWYY2oK8fZA+28X+TaJsx1DO3OUmJb0qWineT476ZiuScwqAhLb+T0ZlVizneckrx
-	 mrcnuoRr8Yw24pj4GXrk1xHL6KLZKBGd1kPbYbA6LVBg2pFEsec0ilQlOG38vwV/f0w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795044007;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=KuzSUeKTvu0n86QvwvTTzILivYz+E3C9v4A9dUNMtTA=;
-	b=Z8tRFQ/MI6oUocpLWn41mqGuH8oTPZqieV6VKfmW2VN6d+1WZseYqdCTGBU0sNAbmpJp
-	 bSTjyUaT2JO5eTSfCzB55zBMnokATRmKL48vCuXwax3Fm0lmeM5thKo8zJmZnUS+fa4IA
-	 ZhdjW6iYtKPtSUsfPOIoLVb2hYAFmdeqAOkxp86dKmmYFrzWdZOfL/j8mX73FpGdFkpUK
-	 G6430lpQvWQdelDJM5cOHdJkFexNnKgp0w8m5hjrceUBAiCOAL/VzrHYm0W8Br4X/e418
-	 zr9JhUVvViAWAc3dIfhTxAWAcMzTPoQehVacfeh1Ahrv5sKNmE6pdeJUJmV645KbM7Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iT/OSNJL";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795044014;
+	b=wUUP7ekVeQl47BMey108zdEiJngBBFGNnX1W6wr9pm2oIX6+O3cvt2Ady6KzAM5cotD2
+	 2bM1TM7u+Ak9GfUSCXiq3Ihjq6HP6R13EhQLqFqdlKP3ak7l4FUh6M9i0ePci4C7WnKfw
+	 N/EBAwqZP3jj11/cvMrCND/7kZXzOQFwjHJ7vswG+PAmsuPYtf+2nQb94OQmDOATlxwrR
+	 tZVud4f4aXoIJu0xM/624tKnRGsjuIL+6HthogcVfXBpyX61WRij6dF64q62czjEu6gJP
+	 or//pJHalRkDB+wrTCYxbI5FaurW5FGsTffz+UDwW3uyIKSUPmw0dacGp9DhgH7AOjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795044014;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=u9MrF6c/ahbNcbc8OVp/4qS7r0N4PZG90LhHM8SuIGc=;
+	b=MUuWllYwwidzCXSm7WNPBe6WThOEnXmnU7QLzDGuW8XXrFbTN0uV2RxLM4A2NDE6RgZm
+	 kM0e28j7fvXMet8TalrEKgoY5wTb5sdkeK51jqc+hHFZlJnk78cHWKGxAoKN0lT8t5OyF
+	 bL+M17NfmHwb5swFm6thSQz5MSzR6e34TpBCrMwb5AuvNXYT93N7/5Xaum/qWrjDSxyV/
+	 CHuDw8AG9e9Uzb0DG2U1X34Cq+f/6cNXB5DfJFU2q6Aaqv/+boZ1gjG0IBBBCw67FB52t
+	 mAXErsg1c587MgOwhGd0DHXBGLn8VPEVS9U91rbYOBUIurwImxBvO/8hTY9KlzxrcRg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wIhVvygj;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 270FE606A338;
-	Wed, 18 Nov 2026 23:20:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0388360A381C;
+	Wed, 18 Nov 2026 23:20:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iT/OSNJL
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795044006;
-	b=UUU4ESAt/SHVKBB5X8EWvlsf5HDtrrWK2WEZmZZpfDhyVJg70zX7VgtH2bR1vO/NX/4K
-	 z1Sg/RdVO9ZGoEFAJ2Foz9orb2R3Qe6sCQ/JJGG0Ffetk6n95FoU9ROsJsQy7yX9lFPYC
-	 S1T7X5IHonzJe0i0jHhVjLbbo1OuzJrhPoWhY+bLXctgF39eyhjqcQzHCGjdNQU00kGLz
-	 /xeYH9UqIF8aiFNkrMKN+WF/AnyN8vrjpTB963dSRkdE5DjvwPGapIWbZZANl58eWDH2n
-	 TxkpebKaK2WKAXguVdGShpgWrq+0jNO1NfaSCrSJpLfghTvwZETXrSx/9zT+gMAf4QQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795044006;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=KuzSUeKTvu0n86QvwvTTzILivYz+E3C9v4A9dUNMtTA=;
-	b=jo+0Vczz8YZOxGgT6qzKTVnJ+GjYlnT0q6mdTFtFwmHOA1v6v40xkSTnYjSCPeKzQMCQ
-	 AZOrx/7FILJoW+zMT7KnwCd2w/J/MxwKnAMrUY+tnFroAbTWcUmiR3KwaZuzW/LOtNI7H
-	 R/rbT+vdsYXzJRPZV8bBzuQp65L8cZfgG7aE+/xdRrR+roKDkNyGike2mzp43qrSsAuxb
-	 ka730ACazRh4BakMVKoUkMp1Ps+9nCj92nBbd18aUb+Ic1nPYR8KwOUs3eTX8DmocB8h8
-	 bYL5LGfdvntVa+zeymMH/qkUjsa3vUX5v4KXF0zl7BmLOJMjYAQTqsmRXea1GGl69+Q==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 579071F000C4;
-	Wed, 18 Nov 2026 23:20:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795044006;
-	bh=KuzSUeKTvu0n86QvwvTTzILivYz+E3C9v4A9dUNMtTA=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=iT/OSNJLfvzQYzlpS9/SsgFtHeTOu+r5hw27SVJFmRlE3ojGKlzlMvwY2giRErmZd
-	 qFd6Ny++FdgcFiAVvmzhwe2S0Q1RTT9t0hO0eP9+qWjb8eKt6Thwfn+zKJICk9HMRd
-	 atKYDDnaKN3kOhI5URJTIuBtgp9JxilpgiWyD2FmHPFR1xr1IYdBscDeW+CmKQRZSc
-	 jTVLqpl2fj2sTyWJ/FTPM2CFC4uWwr3v8UL2lk2o6qyFROUvUvYLCUg9WFPftMk1Fo
-	 015AZBykGI85CGk5KlhJ4p0jGeWk7SzalwH/ERhDbbQIv73F8q8/wGUbqukZk/co1y
-	 OmQuNnasyrRUw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CB3C44B01B;
-	Wed, 18 Nov 2026 23:20:05 +0000 (UTC)
-From: Florian Bauckholt via B4 Relay <devnull+florian.bauckholt.cispa.de@kernel.org>
-Subject: [PATCH v2 0/2] KEYS: two fixes for the asymmetric keyctl
- operations
-Date: Thu, 19 Nov 2026 00:19:27 +0100
-Message-Id: <20261119-keyctl-pkey-fixes-v2-0-9e2d1c7db7ec@cispa.de>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wIhVvygj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 595841F000C8;
+	Wed, 18 Nov 2026 23:20:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795044013;
+	bh=u9MrF6c/ahbNcbc8OVp/4qS7r0N4PZG90LhHM8SuIGc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=wIhVvygjyjpSnELHB2VVqt4FOh8UEDjFJKF+aozjIRO8AU/oiMvxMaEdDujZub6I3
+	 zJPC950GdnCo/h1QfjpJWSSdoGlR2G5t8q80STUtpulAypij48QNXUsdrsi6v2B9lH
+	 Ug9fu5dnq1MWXii0xXl+U45q1r9/ivfR0Ovs+wpE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@suse.com>,
+	David Rientjes <rientjes@google.com>,
+	Muchun Song <muchun.song@linux.dev>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Rik van Riel <riel@surriel.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 0371/2857] memcg: bypass the reclaim and oom killer for dying tasks once oom_reaper is done
+Date: Wed, 18 Nov 2026 15:23:25 +0100
+Message-ID: <20261118150214.776487837@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
+References: <20261118150201.293410965@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,87 +70,201 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32NTQ6CMBCFr0Jm7ZhStEVX3sOwKGWUUQOkg0RCu
- Lst7n2byZd5PwsIBSaBc7ZAoImF+y6C3mXgW9fdCbmJDFppk0fhk2Y/vnCIF2/8IUFtimPpSqt
- sbSDmhkDbI8au1Y/lXT/Ij6koOVqWsQ/zNjrlyfevf8pR4ak4UO2cNtbZi2cZ3L4hqNZ1/QJbd
- XROwwAAAA==
-X-Change-ID: 20261111-keyctl-pkey-fixes-26358a8707b6
-To: David Howells <dhowells@redhat.com>, 
- Jarkko Sakkinen <jarkko@kernel.org>, Lukas Wunner <lukas@wunner.de>, 
- Ignat Korchagin <ignat@linux.win>, Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>
-Cc: Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>, 
- "Serge E. Hallyn" <serge@hallyn.com>, Hui Peng <benquike@gmail.com>, 
- Stefan Berger <stefanb@linux.ibm.com>, 
- Rodolfo Giometti <giometti@enneenne.com>, keyrings@vger.kernel.org, 
- linux-crypto@vger.kernel.org, linux-security-module@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Florian Bauckholt <florian.bauckholt@cispa.de>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795044005; l=1979;
- i=florian.bauckholt@cispa.de; s=20261105; h=from:subject:message-id;
- bh=FDAmoObBsHQBGQ+MetdjiLo0kYxapT4Ogq4Y3JdbTA8=;
- b=Wk1rAO/meq+r3f/pjo64iqVGKoS19pmqMHM9xPsXpyGDnVlWCtUdfEuvhLovt1cvaysJFtuQL
- tCvradrixlqCEdT2Je4d9Jncgq1EAGoPrSv0Mn4NmON56/1No+Asitb
-X-Developer-Key: i=florian.bauckholt@cispa.de; a=ed25519;
- pk=n9klXQ+dI45FWy0qWLrGpQfXU5ylIA0SN+uWSmOx3ok=
-X-Endpoint-Received: by B4 Relay for florian.bauckholt@cispa.de/20261105
- with auth_id=1420
-X-Original-From: Florian Bauckholt <florian.bauckholt@cispa.de>
-Reply-To: florian.bauckholt@cispa.de
+Content-Transfer-Encoding: 8bit
 
-Hi,
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-two small fixes for KEYCTL_PKEY_VERIFY and KEYCTL_PKEY_DECRYPT that I
-ran into while doing differential testing of crypto implementations
-with the kernel hooked up via UML:
+------------------
 
-Patch 1 fixes a regression from commit cb481e59ea6c ("KEYS: fix overflow
-in keyctl_pkey_params_get_2()"), which was tagged for stable:
-KEYCTL_PKEY_VERIFY ignores the signature length passed by the caller.
-It also is a prerequisite for making the x962 ECDSA template reject
-signatures that are not DER-encoded, which I posted separately to
-linux-crypto [2].
+From: Shakeel Butt <shakeel.butt@linux.dev>
 
-Patch 2 fixes PKCS#1 decryption of an empty message returning the
-ciphertext.
+[ Upstream commit 6b0d1083364fc8e7cc2f7d1f93ee3ee78f4d52f7 ]
 
-Both changes were part of a patch posted by Hui Peng in September that
-did not get a reply [1]. That patch also changed the out_len checks in
-keyctl_pkey_params_get_2(), which is not included here.
+At Meta, we are seeing instances where an OOM killed job is stuck in the
+exit path for several hours.  In one particular case, the job was stuck
+for more than 8 hours and I had to manually remove the memory.max limits
+to allow the process to exit.
 
-Thanks!
+The job was a single process job and had ~55 GiB memory.max and zswap
+enabled.  It had almost 0 anon in memory and ~111 GiB in zswap compressed
+to ~51 GiB zswap pool (i.e.  almost all of memory.current was zswap).
+Nothing was left on the LRUs to reclaim.
 
-[1] https://lore.kernel.org/all/20260919221742.3709658-1-benquike@gmail.com/
-[2] https://lore.kernel.org/all/20261112-ecdsa-x962-der-v1-1-36b24c5f5e11@cispa.de/
+On further inspection, I observed ~20k threads of that process stuck with
+the following stack:
 
+[<0>] mem_cgroup_out_of_memory+0x4e/0xa0
+[<0>] charge_memcg+0x8bf/0x990
+[<0>] mem_cgroup_swapin_charge_folio+0x4e/0x80
+[<0>] __read_swap_cache_async+0x10c/0x260
+[<0>] swapin_readahead+0x116/0x3f0
+[<0>] do_swap_page+0x13c/0x1ce0
+[<0>] handle_mm_fault+0x61d/0x11f0
+[<0>] do_user_addr_fault+0x3e7/0x6d0
+[<0>] exc_page_fault+0x8f/0x110
+[<0>] asm_exc_page_fault+0x22/0x30
+[<0>] __get_user_8+0x14/0x20
+[<0>] futex_cleanup+0x27/0x1c0
+[<0>] futex_exit_release+0x47/0x60
+[<0>] do_exit+0x107/0x940
+[<0>] do_group_exit+0x81/0xa0
+[<0>] get_signal+0x2b1/0x6e0
+[<0>] arch_do_signal_or_restart+0x1a/0x1c0
+[<0>] exit_to_user_mode_loop+0xa8/0x1c0
+[<0>] do_syscall_64+0x152/0x250
+[<0>] entry_SYSCALL_64_after_hwframe+0x4b/0x53
+
+In addition the dmesg was filled with "Out of memory and no killable
+processes..." messages.
+
+I have no idea why oom reaper was not able to reap/unmap the process.  My
+guess is that since oom reaper tries to acquire mmap_lock in read mode
+limited number of times and then gives up, there might be a thread of that
+process which had mmap_lock in write mode at that time.
+
+My initial suspicion was the futex_cleanup and kernel page fault causing
+infinite fault and charge retries but that was put to rest in previous
+discussions happened on similar problem [1].
+
+My current theory is that it is just a simple slow serialization behind
+the oom_lock.  Unlike page allocator, memcg charge code takes the oom_lock
+without the "try".  Though memcg oom code uses mutex_lock_killable(), note
+that in the call stack get_signal() consumes SIGKILL (or
+sigdelset(SIGKILL)) before calling do_group_exit().  So this
+mutex_lock_killable() is just a mutex_lock() here.  Therefore 10s of
+thousands of threads are waiting on oom_lock and one by one they get
+-EFAULT from get_user() in the futex cleanup code and bails out.
+
+Discussion from [1] led to commit a75ffa26122b ("memcg, oom: do not bypass
+oom killer for dying tasks") which routes dying tasks into the OOM path
+precisely so the oom_reaper can reap their mm and free the memory
+asynchronously.  But the reaper is best-effort and one-shot: if it cannot
+take mmap_lock for read (e.g.  a sibling thread holds it for write) it
+sets MMF_OOM_SKIP and never retries, leaving only the glacial
+oom_lock-serialized synchronous drain.
+
+Once MMF_OOM_SKIP is set there is no more asynchronous reclaim coming for
+the mm, so a dying task charging against it has nothing left to wait for:
+it frees its memory only once it finishes exiting.  Running reclaim and
+the (no-victim) OOM killer for it is then pointless, and doing it for 10s
+of thousands of exiting threads is what serializes them behind oom_lock.
+So before reclaim, if current is an OOM victim whose reaper is done, fail
+the charge.
+
+Reproduced with 20k threads, each parking a robust futex head on its own
+zswapped page, OOM-group-killed while a sibling holds mmap_lock for write
+so the reaper gives up and sets MMF_OOM_SKIP.  Tested on next-20260728 and
+baseline show ~90 seconds exit time while with the patch the exit time
+reduced to ~3 seconds.
+
+Link: https://lore.kernel.org/20260729024612.3369005-1-shakeel.butt@linux.dev
+Link: https://lore.kernel.org/7a4e5591f45df455e6a485fc5400989569d3d22d.camel@surriel.com/ [1]
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Acked-by: Johannes Weiner <hannes@cmpxchg.org>
+Acked-by: Michal Hocko <mhocko@suse.com>
+Cc: David Rientjes <rientjes@google.com>
+Cc: Muchun Song <muchun.song@linux.dev>
+Cc: Nhat Pham <nphamcs@gmail.com>
+Cc: Rik van Riel <riel@surriel.com>
+Cc: Roman Gushchin <roman.gushchin@linux.dev>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+to ~51 GiB zswap pool (i.e.  almost all of memory.current was zswap).
+Nothing was left on the LRUs to reclaim.
+
+On further inspection, I observed ~20k threads of that process stuck with
+the following stack:
+
+[<0>] mem_cgroup_out_of_memory+0x4e/0xa0
+[<0>] charge_memcg+0x8bf/0x990
+[<0>] mem_cgroup_swapin_charge_folio+0x4e/0x80
+[<0>] __read_swap_cache_async+0x10c/0x260
+[<0>] swapin_readahead+0x116/0x3f0
+[<0>] do_swap_page+0x13c/0x1ce0
+[<0>] handle_mm_fault+0x61d/0x11f0
+[<0>] do_user_addr_fault+0x3e7/0x6d0
+[<0>] exc_page_fault+0x8f/0x110
+[<0>] asm_exc_page_fault+0x22/0x30
+[<0>] __get_user_8+0x14/0x20
+[<0>] futex_cleanup+0x27/0x1c0
+[<0>] futex_exit_release+0x47/0x60
+[<0>] do_exit+0x107/0x940
+[<0>] do_group_exit+0x81/0xa0
+[<0>] get_signal+0x2b1/0x6e0
+[<0>] arch_do_signal_or_restart+0x1a/0x1c0
+[<0>] exit_to_user_mode_loop+0xa8/0x1c0
+[<0>] do_syscall_64+0x152/0x250
+[<0>] entry_SYSCALL_64_after_hwframe+0x4b/0x53
+
+In addition the dmesg was filled with "Out of memory and no killable
+processes..." messages.
+
+I have no idea why oom reaper was not able to reap/unmap the process.  My
+guess is that since oom reaper tries to acquire mmap_lock in read mode
+limited number of times and then gives up, there might be a thread of that
+process which had mmap_lock in write mode at that time.
+
+My initial suspicion was the futex_cleanup and kernel page fault causing
+infinite fault and charge retries but that was put to rest in previous
+discussions happened on similar problem [1].
+
+My current theory is that it is just a simple slow serialization behind
+the oom_lock.  Unlike page allocator, memcg charge code takes the oom_lock
+without the "try".  Though memcg oom code uses mutex_lock_killable(), note
+that in the call stack get_signal() consumes SIGKILL (or
+sigdelset(SIGKILL)) before calling do_group_exit().  So this
+mutex_lock_killable() is just a mutex_lock() here.  Therefore 10s of
+thousands of threads are waiting on oom_lock and one by one they get
+-EFAULT from get_user() in the futex cleanup code and bails out.
+
+Discussion from [1] led to commit a75ffa26122b ("memcg, oom: do not bypass
+oom killer for dying tasks") which routes dying tasks into the OOM path
+precisely so the oom_reaper can reap their mm and free the memory
+asynchronously.  But the reaper is best-effort and one-shot: if it cannot
+take mmap_lock for read (e.g.  a sibling thread holds it for write) it
+sets MMF_OOM_SKIP and never retries, leaving only the glacial
+oom_lock-serialized synchronous drain.
+
+Once MMF_OOM_SKIP is set there is no more asynchronous reclaim coming for
+the mm, so a dying task charging against it has nothing left to wait for:
+it frees its memory only once it finishes exiting.  Running reclaim and
+the (no-victim) OOM killer for it is then pointless, and doing it for 10s
+of thousands of exiting threads is what serializes them behind oom_lock.
+
+[ sashal: Replaced mm_flags_test() with test_bit(MMF_OOM_SKIP, &...->flags) and inserted the new block above this tree's existing memcg_memory_event() call. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2:
-- Rebased onto jarkko/linux-tpmdd.git for-next-keys (141b164bbe18).
-  Patch 1 no longer applied after commit bab48a104447 ("KEYS: Protect
-  pkey method checks against type removal"). The code change itself is
-  the same.
-- Patch 1: the commit message now mentions that a truncated RSA
-  signature can be accepted (Rodolfo Giometti).
-- Patch 2: unchanged.
-- Link to v1: https://patch.msgid.link/20261111-keyctl-pkey-fixes-v1-0-934ebaa267a7@cispa.de
+ mm/memcontrol.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
----
-Florian Bauckholt (2):
-      KEYS: fix signature length passed to KEYCTL_PKEY_VERIFY
-      KEYS: asymmetric: Fix PKCS#1 decryption of an empty message
+diff --git a/mm/memcontrol.c b/mm/memcontrol.c
+index e270dae84941a..f3ae313fa8645 100644
+--- a/mm/memcontrol.c
++++ b/mm/memcontrol.c
+@@ -2677,6 +2677,19 @@ static int try_charge_memcg(struct mem_cgroup *memcg, gfp_t gfp_mask,
+ 	if (!gfpflags_allow_blocking(gfp_mask))
+ 		goto nomem;
+ 
++	/*
++	 * OOM victim still needs to charge memory to exit. OOM reaper should
++	 * help but it might fail on mmap_lock contention. If the victim is a
++	 * large thread group then all exiting threads might compete on oom_lock
++	 * just to learn that there is nothing really killable anymore. Bail
++	 * out early and fail the charge to expedite their exit. They are
++	 * considered fully reclaimed by the oom reaper and they shouldn't
++	 * contribute further charges.
++	 */
++	if (tsk_is_oom_victim(current) &&
++	    test_bit(MMF_OOM_SKIP, &current->signal->oom_mm->flags))
++		goto nomem;
++
+ 	memcg_memory_event(mem_over_limit, MEMCG_MAX);
+ 	raised_max_event = true;
+ 
+-- 
+2.53.0
 
- crypto/asymmetric_keys/public_key.c | 6 +++---
- security/keys/keyctl_pkey.c         | 2 +-
- 2 files changed, 4 insertions(+), 4 deletions(-)
----
-base-commit: 141b164bbe186423e295b139e40e8e2d11cf1341
-change-id: 20261111-keyctl-pkey-fixes-26358a8707b6
-
-Best regards,
---  
-Florian Bauckholt <florian.bauckholt@cispa.de>
 
 
