@@ -1,95 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795026785;
-	b=brxp0GRUTJhOrCfDrAPIquf2uWaTgdvgRndxi/h4c2G4j+h74CGuEO9mqE381XsLJnYm
-	 R601syfkByPdT0vqvTgKCQ+h7hbuOT/+9oInmW9nCuGI77nZIjGFZoTBWinlg2l22bWN1
-	 Co8BBgWzYxI7Mg9Xgs5D0jYQYcGDv+W9o0U0paKidiwCaj+OHqHK8wXVktqr5qDMt3gP5
-	 0vem2hIByj70MXhd1noPRsQjj22azenpnaeO3CGaB0N/j8ZGv9FNwePfh4Vzja3QwBPmB
-	 KDiLOPtyxPRV4oBISUwcvfh8JckXyYXhDPRD/Hnq0jnHJJg7oRD6jzQ3kVNC6x1wLvQ==
+	t=1795026787;
+	b=CKoba6VSSh9TvHbQwb4kP2a1vz4eAmbvlqGDoYSKAeq2KzFSdH42360+lhrDkRe04owO
+	 72FhsA6hwFV6YFgszNoJTx4EWJZxv1/SwVqup/CKVZSsBdHEesVc2pZyqdkFbFV0khDny
+	 5JknQAfOgyXBhFO40e+S70sPBcNGM5Ulv1mP+4iiaJQ6uNCZLYitpdXygz01Nk1aUKBMj
+	 P26LNGnxa2BIiRK4R3Y0OeWdRzMlFC3Cmq7tLMKBB2AvBRJXD1Tu/oPbIZHtF6dXj9qzr
+	 qZ33jxJP4XmNcti6uxGkDyYlS/Cj4L577RtrbwhjvxkGmBjYW6JNEay5zLdz/SFjbsA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795026785;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=rhEN0h7wX2c8+mVN5T2q/8hdxoSKBQZF1DPC1+vTOL4=;
-	b=KDSUKEcfKh+v7YDxW0onzfGBMvfG34VHRMcAeZPWF5IDAip93ie3+pYIwJP+IvkOOS+W
-	 W3dHKFnIW1IehuALeN5PIWuIJlmY/u1An4HCaKekCJo6lzfq5SwY1oxHnqZXhByqAF58C
-	 iLt1n0R8T7vkutsP8m895vfEf6xOIsngq02tFmB/CCLNEdDgb81T9gh549f+ma+k1yVer
-	 gh6IeVQ+MZSxS3X8HCxW803Y++hMRmNXFCpi+ywvmp4/ZwzjMgkq5fmOTpoe1Jly3trYE
-	 RdZEDUp2cEE0T7LzrZHS0ZtXHOXmFvaGjuz6UeuxMeq24PWGWNLgw4+ODGUC+7SaTOg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795026787;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=M0SGW95DWowCUeKkQS8ZgXFOqIyYBA75GKJ/FFErdwM=;
+	b=X0jepHClWXgvAYhpyX4+R1QaR6FzKZlRLFobYpkKTPiwKHFFbsIZnX815IEhIxOjzqqR
+	 5DtSSEHWe3VHK07bHfoyBnmFXszAL9kdTzD10Hfv0EwiGWGO2g35Sitv0SDEyu5QWU1L9
+	 qhtKJhT+TYy3ZTo9Lyu6fwNVSwU0rVs9WLZJNI/v/V1gha/SiWOnKh2oLRY+4os5vSq8r
+	 Z5tdkDnqlNWidRPj8sF9FOIaz7tutYOYsCBGGldNXl5KBtr3tETfRm9rYHvjofRh1PiiE
+	 TEFw5khrrEbkQGAmJc9ox6ff1ZQdpFJMNxK5NoWavFb5OdBQK75NYuHTS/17K3tVCSw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jVddyxAL;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BuCM1Otp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70BA7606A332;
-	Wed, 18 Nov 2026 18:33:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70BA7606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4D7C60A2601;
+	Wed, 18 Nov 2026 18:33:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jVddyxAL
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AIHPwu2077471;
-	Wed, 18 Nov 2026 18:32:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pp1; bh=rhEN0h7wX2c8+mVN5T2q/8hdxoSK
-	BQZF1DPC1+vTOL4=; b=jVddyxALvzL/c5K2zFqAji+Zyrs7C+BQB3lcWn4yBqd2
-	+qriZLansAV8er08U+RIxN+ndkplbrJ1CUGE9yf6kvqu7lHPcfMJ8fOt4A1KlEec
-	kFj0VvHXSvRPX+Bpsvbl0zgNIKUvftwuB9Pmu5fhjReBL2MbN9N+2rqold9NrUGf
-	pOpHfCJQ7AZ8kv1u6hIYifMdtJ0+ynwu1nluJUkVnLjZq+LnOcHPcwoYLYQ7uZrF
-	LzgGR6m6YEpxA8cb6O0uCmV6BYUI6WXn12XO3dn9Mxh3q3IFtlyfzWA7UklswEP+
-	DkoDYl/j2gDAykAnQhOB126DKS4icN6gBXf5IYM1yw==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4j105rm0x8-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 18:32:51 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6AIHK3T03429607;
-	Wed, 18 Nov 2026 18:32:50 GMT
-Received: from smtprelay01.fra02v.mail.ibm.com ([9.218.2.227])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4j02juhau6-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 18 Nov 2026 18:32:50 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay01.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6AIIWkZs28377350
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 18 Nov 2026 18:32:47 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CC3202004B;
-	Wed, 18 Nov 2026 18:32:46 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 4239E20043;
-	Wed, 18 Nov 2026 18:32:43 +0000 (GMT)
-Received: from localhost.localdomain (unknown [9.39.19.69])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 18 Nov 2026 18:32:43 +0000 (GMT)
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-        Masami Hiramatsu <mhiramat@kernel.org>,
-        linux-trace-kernel@vger.kernel.org, linuxppc-dev@lists.ozlabs.org
-Cc: Amit Machhiwal <amachhiw@linux.ibm.com>,
-        =?UTF-8?q?Michal=20Such=C3=A1nek?= <msuchanek@suse.de>,
-        Vincent Donnefort <vdonnefort@google.com>,
-        Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-        Harsh Prateek Bora <harshpb@linux.ibm.com>,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
-        kvm-ppc@vger.kernel.org, stable@vger.kernel.org
-Subject: [PATCH v5] ring-buffer: Do not check si_mem_available() before deferred init completes
-Date: Thu, 19 Nov 2026 00:02:35 +0530
-Message-ID: <20261118183235.63310-1-amachhiw@linux.ibm.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BuCM1Otp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22CA31F000C5;
+	Wed, 18 Nov 2026 18:33:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795026787;
+	bh=M0SGW95DWowCUeKkQS8ZgXFOqIyYBA75GKJ/FFErdwM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BuCM1OtpYCSmoRh+D8lfrDn09cm33DkP58Aqgh+SBECGhpDUjW4aUsDrQk1/0d8+0
+	 bE8Dxs6ojxhHL4XrkrRWAIKjVG7OT6+i1sHzh1UFB2prjHaVkdZouYX+A7IuNLpd8v
+	 uyOX/m/AYB3rJ/ZQbBE0OaYX8q6kP9OycWubp+vI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Patrick Oppenlander <patrick.oppenlander@gmail.com>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 1517/2151] rpmsg: virtio: EPOLLOUT support
+Date: Wed, 18 Nov 2026 15:54:12 +0100
+Message-ID: <20261118150217.113291919@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
+References: <20261118150121.603863898@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,131 +62,214 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: UoNsp9KWx-lIKmVcQS8oRuIY9Bxh663p
-X-Authority-Analysis: v=2.4 cv=e8uT2qp/ c=1 sm=1 tr=0 ts=6afdef54 cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=1XWaLZrsAAAA:8 a=TAdDoJc28zNiS-eFyzwA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE4MDA3MyBTYWx0ZWRfX6xos6IAaNQhP
- BlSiuJhmSXzFi/6ZDuVDrWH70Vc2Zb16jqNhiJLgoq/pwX0dzPtKJt8VHins2xknSrA3NVqTFE1
- iGgI1XqH9rSyluG6FE7pyQnCOr1b1xw=
-X-Proofpoint-ORIG-GUID: 7Zi_ebJ6DCZ_bAp5rDfkW3mCgJgcv37y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE4MDA3MyBTYWx0ZWRfX3Fgejk2yJ4oI
- Ms64VVCgf4dYSfKPP7NkQbhjz5xj9VOzLFbpA/sMvrMsbwWEbltUTqzx4V1wVq/GjDdrQc/MvOL
- M2eEXKIgfCwcVhZybH+/NA8xFDbSvupUa5x4mYwrXO/Msrj+lgnKE64zoBXonUdq3MGqA99SOVj
- oTJB+1Pq/k9vi7D6zrrdn8PDXMzoFJTTEYenfY9Kbk616x7AH4pBFOUeh95Nl6y/cevHFGMO0J8
- voxsF11pruZIDyHzDuuXqL9d9aDqeopxtFZjwlOYpzmY+6gL0ZdOEB1eRTCbtysgOAxieMkrhDE
- 8DMY5p6RENpazt1KachLQZG2SRSRSSDsOd/w/C14JkKBhvJvoFDadkfxIqfR8asNnq3RxccJY67
- jWAX3yo7eLI3GDKO5JV6KCo9qK+5jb353QxpPQwmGnbztygzW8vGmGzy5/yC9Dy+J/JdzWBu2sM
- kQb7CPfKrf+HsjqA+jw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-18_05,2026-11-16_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 suspectscore=0 phishscore=0
- lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0 malwarescore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611180073
 
-With CONFIG_DEFERRED_STRUCT_PAGE_INIT=y, only about one memory section
-per node is initialized early in boot (16 MiB on powerpc).  The rest is
-initialized on demand by deferred_grow_zone() when an allocation would
-otherwise fail, or later by page_alloc_init_late().
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Until then NR_FREE_PAGES can be close to zero, because early allocations
-(SLUB, vmalloc, ftrace records) use up the first section.
-si_mem_available() is derived from NR_FREE_PAGES, so it under-reports.
+------------------
 
-__rb_allocate_pages() returns -ENOMEM when si_mem_available() is below
-the requested size.  This check wrongly fails the buffers allocated for
-the boot CPU in early_trace_init() and for secondary CPUs in smp_init(),
-both of which run before page_alloc_init_late().  The resulting boot log
-shows:
+From: Patrick Oppenlander <patrick.oppenlander@gmail.com>
 
-  ERROR: Failed to allocate trace buffer
-  ERROR: tracer: failed to allocate ring buffer!
+[ Upstream commit c38d8b66c82c585199e2ad67282295f21cfa489f ]
 
-Skip the check until SYSTEM_FREEING_INITMEM on
-CONFIG_DEFERRED_STRUCT_PAGE_INIT kernels.  The allocation itself still
-fails if memory really is short.
+Previously, polling an rpmsg endpoint (e.g. /dev/ttyRPMSGx) would
+generate EPOLLIN events but no EPOLLOUT events.
 
-This is the second half of the fix for the early boot crash reported on
-ppc64le KVM guests.  Commit b3b974008388 ("tracing: Do not initialize
-tracefs work if tracing is disabled") stopped the NULL pointer
-dereference in __find_event_file() that followed the failed allocation.
-This patch fixes the allocation failure itself.
+Unfortunately, poll support means that we can no longer disable
+tx-complete interrupts as there is no way to know whether a poller is
+waiting in sendq, so we always need notifications.
 
-Fixes: 2a872fa4e9c8 ("ring-buffer: Check if memory is available before allocation")
-Cc: stable@vger.kernel.org
-Reported-by: Michal Suchánek <msuchanek@suse.de>
-Closes: https://lore.kernel.org/all/arYskzbiaNzBR9MD@kunlun.suse.cz/
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
+Signed-off-by: Patrick Oppenlander <patrick.oppenlander@gmail.com>
+Link: https://lore.kernel.org/r/20251022032817.320378-1-patrick.oppenlander@gmail.com
+Signed-off-by: Mathieu Poirier <mathieu.poirier@linaro.org>
+Stable-dep-of: 7dd4cffdf4c2 ("rpmsg: virtio: fix error handling in TX buffer wait")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes since v4:
- - v4: https://lore.kernel.org/all/20261023145459.47516-1-amachhiw@linux.ibm.com/
- - Rewrote commit message for clarity and conciseness (Vincent, Steven).
- - Structure the deferred init check using if/else with unlikely() (Steven).
- - Added Vincent's R-b.
+ drivers/rpmsg/virtio_rpmsg_bus.c | 101 ++++++++++---------------------
+ 1 file changed, 32 insertions(+), 69 deletions(-)
 
-Changes since v3:
- - v3: https://lore.kernel.org/all/20261022181817.49717-1-amachhiw@linux.ibm.com
- - Replace #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT / #else / #endif with
-   IS_ENABLED() + i = LONG_MAX to avoid duplicating the threshold check.
-   (Vincent Donnefort)
- - Trim the in-code comment to one sentence. (Vincent Donnefort)
-
-Changes since v2:
- - v2: https://lore.kernel.org/all/20261016134247.70722-1-amachhiw@linux.ibm.com
- - Rebase on top of upstream ring_buffer.c changes from Vincent Donnefort;
-   update threshold to i < (nr_pages << subbuf_order). (Michal Suchánek)
-
-Changes since v1:
- - v1: https://lore.kernel.org/all/20261009163557.88467-1-amachhiw@linux.ibm.com
- - Extend the guard to cover SYSTEM_SCHEDULING as well: smp_init() calls
-   trace_rb_cpu_prepare() -> __rb_allocate_pages() before page_alloc_init_late()
-   completes, so the false negative window spans both SYSTEM_BOOTING and
-   SYSTEM_SCHEDULING. Use system_state >= SYSTEM_FREEING_INITMEM as the correct
-   boundary. (Sashiko, Vincent Donnefort)
- - Wrap in #ifdef CONFIG_DEFERRED_STRUCT_PAGE_INIT to preserve the original
-   check unchanged on non-deferred kernels. (Vincent Donnefort)
- - Drop Tested-by: guard condition changed, requesting fresh test.
-
- kernel/trace/ring_buffer.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 75cd8df23c1b..98e8a02b7c43 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -2468,8 +2468,17 @@ static int __rb_allocate_pages(struct ring_buffer_per_cpu *cpu_buffer,
- 		 * memory. It may not be accurate. But we don't care, we just want
- 		 * to prevent doing any allocation when it is obvious that it is
- 		 * not going to succeed.
-+		 *
-+		 * With CONFIG_DEFERRED_STRUCT_PAGE_INIT, si_mem_available()
-+		 * will reflect the actual available memory only after
-+		 * SYSTEM_FREEING_INITMEM.
- 		 */
--		i = si_mem_available();
-+		if (IS_ENABLED(CONFIG_DEFERRED_STRUCT_PAGE_INIT) &&
-+		    unlikely(system_state < SYSTEM_FREEING_INITMEM))
-+			i = LONG_MAX;
-+		else
-+			i = si_mem_available();
-+
- 		if (i < (nr_pages << subbuf_order))
- 			return -ENOMEM;
+diff --git a/drivers/rpmsg/virtio_rpmsg_bus.c b/drivers/rpmsg/virtio_rpmsg_bus.c
+index d4fce3ac1c88d..efc4ae029ecb9 100644
+--- a/drivers/rpmsg/virtio_rpmsg_bus.c
++++ b/drivers/rpmsg/virtio_rpmsg_bus.c
+@@ -41,13 +41,12 @@
+  * @buf_size:   size of one rx or tx buffer
+  * @last_sbuf:	index of last tx buffer used
+  * @bufs_dma:	dma base addr of the buffers
+- * @tx_lock:	protects svq, sbufs and sleepers, to allow concurrent senders.
++ * @tx_lock:	protects svq and sbufs, to allow concurrent senders.
+  *		sending a message might require waking up a dozing remote
+  *		processor, which involves sleeping, hence the mutex.
+  * @endpoints:	idr of local endpoints, allows fast retrieval
+  * @endpoints_lock: lock of the endpoints set
+  * @sendq:	wait queue of sending contexts waiting for a tx buffers
+- * @sleepers:	number of senders that are waiting for a tx buffer
+  *
+  * This structure stores the rpmsg state of a given virtio remote processor
+  * device (there might be several virtio proc devices for each physical
+@@ -65,7 +64,6 @@ struct virtproc_info {
+ 	struct idr endpoints;
+ 	struct mutex endpoints_lock;
+ 	wait_queue_head_t sendq;
+-	atomic_t sleepers;
+ };
  
-
-base-commit: 20eef29b7c8465ac98d7dd6d6f2ac07a8d8056ca
+ /* The feature bitmap for virtio rpmsg */
+@@ -144,6 +142,8 @@ static int virtio_rpmsg_sendto(struct rpmsg_endpoint *ept, void *data, int len,
+ static int virtio_rpmsg_trysend(struct rpmsg_endpoint *ept, void *data, int len);
+ static int virtio_rpmsg_trysendto(struct rpmsg_endpoint *ept, void *data,
+ 				  int len, u32 dst);
++static __poll_t virtio_rpmsg_poll(struct rpmsg_endpoint *ept, struct file *filp,
++				  poll_table *wait);
+ static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept);
+ static struct rpmsg_device *__rpmsg_create_channel(struct virtproc_info *vrp,
+ 						   struct rpmsg_channel_info *chinfo);
+@@ -154,6 +154,7 @@ static const struct rpmsg_endpoint_ops virtio_endpoint_ops = {
+ 	.sendto = virtio_rpmsg_sendto,
+ 	.trysend = virtio_rpmsg_trysend,
+ 	.trysendto = virtio_rpmsg_trysendto,
++	.poll = virtio_rpmsg_poll,
+ 	.get_mtu = virtio_rpmsg_get_mtu,
+ };
+ 
+@@ -435,7 +436,6 @@ static void *get_a_tx_buf(struct virtproc_info *vrp)
+ 	unsigned int len;
+ 	void *ret;
+ 
+-	/* support multiple concurrent senders */
+ 	mutex_lock(&vrp->tx_lock);
+ 
+ 	/*
+@@ -453,62 +453,6 @@ static void *get_a_tx_buf(struct virtproc_info *vrp)
+ 	return ret;
+ }
+ 
+-/**
+- * rpmsg_upref_sleepers() - enable "tx-complete" interrupts, if needed
+- * @vrp: virtual remote processor state
+- *
+- * This function is called before a sender is blocked, waiting for
+- * a tx buffer to become available.
+- *
+- * If we already have blocking senders, this function merely increases
+- * the "sleepers" reference count, and exits.
+- *
+- * Otherwise, if this is the first sender to block, we also enable
+- * virtio's tx callbacks, so we'd be immediately notified when a tx
+- * buffer is consumed (we rely on virtio's tx callback in order
+- * to wake up sleeping senders as soon as a tx buffer is used by the
+- * remote processor).
+- */
+-static void rpmsg_upref_sleepers(struct virtproc_info *vrp)
+-{
+-	/* support multiple concurrent senders */
+-	mutex_lock(&vrp->tx_lock);
+-
+-	/* are we the first sleeping context waiting for tx buffers ? */
+-	if (atomic_inc_return(&vrp->sleepers) == 1)
+-		/* enable "tx-complete" interrupts before dozing off */
+-		virtqueue_enable_cb(vrp->svq);
+-
+-	mutex_unlock(&vrp->tx_lock);
+-}
+-
+-/**
+- * rpmsg_downref_sleepers() - disable "tx-complete" interrupts, if needed
+- * @vrp: virtual remote processor state
+- *
+- * This function is called after a sender, that waited for a tx buffer
+- * to become available, is unblocked.
+- *
+- * If we still have blocking senders, this function merely decreases
+- * the "sleepers" reference count, and exits.
+- *
+- * Otherwise, if there are no more blocking senders, we also disable
+- * virtio's tx callbacks, to avoid the overhead incurred with handling
+- * those (now redundant) interrupts.
+- */
+-static void rpmsg_downref_sleepers(struct virtproc_info *vrp)
+-{
+-	/* support multiple concurrent senders */
+-	mutex_lock(&vrp->tx_lock);
+-
+-	/* are we the last sleeping context waiting for tx buffers ? */
+-	if (atomic_dec_and_test(&vrp->sleepers))
+-		/* disable "tx-complete" interrupts */
+-		virtqueue_disable_cb(vrp->svq);
+-
+-	mutex_unlock(&vrp->tx_lock);
+-}
+-
+ /**
+  * rpmsg_send_offchannel_raw() - send a message across to the remote processor
+  * @rpdev: the rpmsg channel
+@@ -581,9 +525,6 @@ static int rpmsg_send_offchannel_raw(struct rpmsg_device *rpdev,
+ 
+ 	/* no free buffer ? wait for one (but bail after 15 seconds) */
+ 	while (!msg) {
+-		/* enable "tx-complete" interrupts, if not already enabled */
+-		rpmsg_upref_sleepers(vrp);
+-
+ 		/*
+ 		 * sleep until a free buffer is available or 15 secs elapse.
+ 		 * the timeout period is not configurable because there's
+@@ -594,9 +535,6 @@ static int rpmsg_send_offchannel_raw(struct rpmsg_device *rpdev,
+ 					(msg = get_a_tx_buf(vrp)),
+ 					msecs_to_jiffies(15000));
+ 
+-		/* disable "tx-complete" interrupts if we're the last sleeper */
+-		rpmsg_downref_sleepers(vrp);
+-
+ 		/* timeout ? */
+ 		if (!err) {
+ 			dev_err(dev, "timeout waiting for a tx buffer\n");
+@@ -675,6 +613,34 @@ static int virtio_rpmsg_trysendto(struct rpmsg_endpoint *ept, void *data,
+ 	return rpmsg_send_offchannel_raw(rpdev, src, dst, data, len, false);
+ }
+ 
++static __poll_t virtio_rpmsg_poll(struct rpmsg_endpoint *ept, struct file *filp,
++				  poll_table *wait)
++{
++	struct rpmsg_device *rpdev = ept->rpdev;
++	struct virtio_rpmsg_channel *vch = to_virtio_rpmsg_channel(rpdev);
++	struct virtproc_info *vrp = vch->vrp;
++	__poll_t mask = 0;
++
++	poll_wait(filp, &vrp->sendq, wait);
++
++	/* support multiple concurrent senders */
++	mutex_lock(&vrp->tx_lock);
++
++	/*
++	 * check for a free buffer, either:
++	 * - we haven't used all of the available transmit buffers (half of the
++	 *   allocated buffers are used for transmit, hence num_bufs / 2), or,
++	 * - we ask the virtqueue if there's a buffer available
++	 */
++	if (vrp->last_sbuf < vrp->num_bufs / 2 ||
++	    !virtqueue_enable_cb(vrp->svq))
++		mask |= EPOLLOUT;
++
++	mutex_unlock(&vrp->tx_lock);
++
++	return mask;
++}
++
+ static ssize_t virtio_rpmsg_get_mtu(struct rpmsg_endpoint *ept)
+ {
+ 	struct rpmsg_device *rpdev = ept->rpdev;
+@@ -921,9 +887,6 @@ static int rpmsg_probe(struct virtio_device *vdev)
+ 		WARN_ON(err); /* sanity check; this can't really happen */
+ 	}
+ 
+-	/* suppress "tx-complete" interrupts */
+-	virtqueue_disable_cb(vrp->svq);
+-
+ 	vdev->priv = vrp;
+ 
+ 	rpdev_ctrl = rpmsg_virtio_add_ctrl_dev(vdev);
 -- 
-2.54.0 (Apple Git-157)
+2.53.0
+
+
 
