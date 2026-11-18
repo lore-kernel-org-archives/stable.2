@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795057000;
-	b=YxwNMtEA+lqIbh2XRfp7hfyHQWf6fr3P6TNXqguW3H7KADm+X4vqeCXIt1eDEEvllB26
-	 Qndab69x5HWUgd49HuhBiKs2gMRWl37vAE4GE2W3JOZZqjDA3p4m/WVfiVBo4x07GA1hu
-	 iq1sxhvQzGs++uBF52Qe3uzjPXuV92XjkY5HPcG808cSS5oR72DjRQjlAVRFAlCX04XvO
-	 hY0TtC7NjWLdXUqy+w9h6fhbo8iN2Ncq0bOa7Et+PeqS03VpwL1GsH6K9d6on1x9TzU6P
-	 zE3qFEmiXuu22Zun9ExxcZTDWT8f/qj/VqiNLS9rrB1V6+AJXMXaV1dSYAL8JZPwTBw==
+	t=1795057003;
+	b=BN2utGA+m8vS7QboOYcVWmI7tB5z0Y4StvTcglswHQua5Wwi//JmC44y0qyBlnr1N/+E
+	 /6GRj5UiZXPoLRQRV5JxRQy0boeGbGooSsHeQLeUdLrrqYODauafphoS+RTN+6uUh9QWA
+	 UjnplBjo2XtMd0lm5LlUQ+StG2iSSUVQNBrTmwuulfrH4jh/2f5mV5GMnWq4Wj6A9P+Hh
+	 k8p2aCXcrr6tgmDWfopt4rDnDp2WH2wWLqQt5fkM6T5b30IuGxXz/ddKTNZAE2rEqTp6P
+	 xm54wWURASYUslFFZhHqr/AXJvATgxTGSToxSQQG8QzjIukIPeZQWlk+zhAL2fQQTZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795057000;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795057003;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=4hCoRZfw2jZ5J58YTIyLjbAA96kg6crHUuYkXuyuC5w=;
-	b=MgKoPfpnkWAegBE0Jev4SJEfsudABhSGLHUaSacFhw4TBN0Zd2Qu3eM6YOWAWXlAdcPX
-	 6s0rMVr3mZp5MuKCGIxyBeLztBt2Ozk/0ZTWyzuR5YmGBAOJyy7gwCHjLPnRqnF2hTDkM
-	 GUVtWeGVQ2jPWl2C4DAz69bBWrs4bLy+v2ubyPsCBYLuIVQm3nEpPkwRtf+FRuVwQG830
-	 jhuHLDC6NRFHtOu6xU2aDvyPJifTEM+uoKMhuZIeCEAKxag/DMuiEaquAxy8GsorK4tBZ
-	 +0FkrkS5NGIsbaURvhZ2QY2P/xbQ2grfa4lAUeb318iDSZwXHWz1fWmP9FnDaBkDeEw==
+	bh=muJqfGWiy6bLUqcxukZSiPNb14J9UxSUaqS6ZAyOOI0=;
+	b=TP8Suh6zWNmtCUAcKvyZ7jAnAZqnYonvyI/M27pOVJUmZTPCY/pXRuvh+7g0BK9hweX4
+	 eilH++/6IOiHxLwqWM6kiSjK/asrvQKq8RHRvxw4LJDs+u1pO1ON4ClW8zg69MH0+Jrg6
+	 mDHbnlTK/S2dO/Z6B9KBNadEcWuaKleAzFjksTtnMrEnV+sN/lmQhlvx8mV7HQWKV/+pU
+	 a3jxWWJzhgvtDM/lC+cLeRhjCx9Hmq89RRpBQ0hmAIIoCsa1ThBIsTMnPtbC/kWw414RA
+	 L/+cLIcuH3i+NR8AdXUEngap6bbD0O4nNvpfqJQ0X/C1UM0resSuPe39L7Fik8KQl7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="JFJZdgH/";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=l6y3TREm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC52606A31C;
-	Thu, 19 Nov 2026 02:56:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12510606A32A;
+	Thu, 19 Nov 2026 02:56:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JFJZdgH/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80DFF1F000C4;
-	Thu, 19 Nov 2026 02:56:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=l6y3TREm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E6321F000C4;
+	Thu, 19 Nov 2026 02:56:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795057000;
-	bh=4hCoRZfw2jZ5J58YTIyLjbAA96kg6crHUuYkXuyuC5w=;
+	s=korg; t=1795057002;
+	bh=muJqfGWiy6bLUqcxukZSiPNb14J9UxSUaqS6ZAyOOI0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JFJZdgH/bcrN50WZpXMnbCuIFWg8eN6v5//2Kpz8ChEQLYLklmYZ1vCH+7Y5PFBvM
-	 n0V/Mm5MKawClG1jLXIFNxr9knBkzm34YUxP+ZcftFlRe1GsG0fYiYC2Ix2DqWNBRS
-	 EUj7qRxljbD2SgUfOjGom/dY2W/nYRuS7UqgSnSY=
+	b=l6y3TREmnB7a9UFzxX7tf8KXAsngg6Q46Nn9Exm4UCV/qlK41RiboszZ3AbCjImSi
+	 HYnJ+qu8ZAvy6fMfRJkRgq9Ded88K10eXqBMdDXq1qmg+x4DkiIXnRUnM/zhymEDIj
+	 HqWSwKdeToQVPNyYnWD6Udm+TW1CAS87aQDZM2Ww=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	John Johansen <john.johansen@canonical.com>,
+	Rosen Penev <rosenp@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 2188/2214] apparmor: Fix namespace reference leak in __aa_find_or_create_ns()
-Date: Wed, 18 Nov 2026 16:04:24 +0100
-Message-ID: <20261118150137.863786884@linuxfoundation.org>
+Subject: [PATCH 5.15 2189/2214] net: bgmac: fix TX DMA unmapping and slot cleanup
+Date: Wed, 18 Nov 2026 16:04:25 +0100
+Message-ID: <20261118150137.899342372@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150009.797899913@linuxfoundation.org>
 References: <20261118150009.797899913@linuxfoundation.org>
@@ -68,44 +69,124 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Wentao Liang <vulab@iscas.ac.cn>
+From: Rosen Penev <rosenp@gmail.com>
 
-[ Upstream commit 8f1f7f664c1822af34c5465f9820b4e39146786b ]
+[ Upstream commit 4f45e97b3aac2282f2b436d97338c9c2c484d093 ]
 
-When the namespace already exists, the reference taken by aa_get_ns() is
-overwritten with ERR_PTR(-EEXIST) without being released. The caller in
-apparmorfs.c clears ns on IS_ERR() and so cannot drop it either, leaking
-the reference on raced mkdir of an existing namespace.
+When mapping a fragment fails, bgmac_dma_tx_add() unwinds with the
+wrong slots. It passes the failed fragment's slot->dma_addr, which
+holds the mapping error, to dma_unmap_single() for the head. The
+fragment loop indexes from ring->end instead of ring->end + 1, so it
+unmaps the head a second time as a page and leaves the last mapped
+fragment mapped. None of the affected slots get their dma_addr cleared
+either, which includes the head slot when mapping the head fails.
 
-Release the reference before returning -EEXIST.
+bgmac_dma_tx_ring_free() unmaps every slot with a non-zero dma_addr,
+so tearing down the ring unmaps these addresses again. It also frees
+the skbs of pending TX slots but leaves slot->skb and slot->dma_addr
+set. The slots survive a down/up cycle, and bgmac_dma_tx_add() only
+sets slot->skb on the last slot of a packet. If a slot with a stale
+pointer is later used for the head or a fragment of a scatter/gather
+packet, bgmac_dma_tx_free() frees the old skb a second time when that
+slot completes.
 
-Fixes: 73688d1ed0b8 ("apparmor: refactor prepare_ns() and make usable from different views")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
+bgmac_dma_tx_ring_free() also picks dma_unmap_single() or
+dma_unmap_page() by looking at slot->skb, which is set on the last slot
+of a packet, while the head was mapped with dma_map_single() and the
+fragments with skb_frag_dma_map().
+
+In the error path, unmap the head and each mapped fragment from their
+own slots, and clear dma_addr on every slot the failed packet touched.
+In bgmac_dma_tx_ring_free(), choose the unmap function by the SOF flag
+of the descriptor like bgmac_dma_tx_free() does, unmap every slot
+before freeing any skb, since a packet can wrap around the end of the
+ring with its skb on the last slot, and clear both fields.
+
+This was found through code inspection by an LLM while hitting other
+bugs on an Asus RT-N16. It did not hit these ones specifically.
+
+Fixes: 9cde94506eac ("bgmac: implement scatter/gather support")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+Link: https://patch.msgid.link/20261028164839.28605-1-rosenp@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- security/apparmor/policy_ns.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/broadcom/bgmac.c | 47 +++++++++++++++++----------
+ 1 file changed, 30 insertions(+), 17 deletions(-)
 
-diff --git a/security/apparmor/policy_ns.c b/security/apparmor/policy_ns.c
-index bb952451205e1..c32e008dc5b83 100644
---- a/security/apparmor/policy_ns.c
-+++ b/security/apparmor/policy_ns.c
-@@ -291,10 +291,12 @@ struct aa_ns *__aa_find_or_create_ns(struct aa_ns *parent, const char *name,
- 	/* try and find the specified ns */
- 	/* released by caller */
- 	ns = aa_get_ns(__aa_find_ns(&parent->sub_ns, name));
--	if (!ns)
-+	if (!ns) {
- 		ns = __aa_create_ns(parent, name, dir);
--	else
-+	} else {
-+		aa_put_ns(ns);
- 		ns = ERR_PTR(-EEXIST);
+diff --git a/drivers/net/ethernet/broadcom/bgmac.c b/drivers/net/ethernet/broadcom/bgmac.c
+index 4239fbb866fd3..8abb8179ecc27 100644
+--- a/drivers/net/ethernet/broadcom/bgmac.c
++++ b/drivers/net/ethernet/broadcom/bgmac.c
+@@ -208,19 +208,24 @@ static netdev_tx_t bgmac_dma_tx_add(struct bgmac *bgmac,
+ 	return NETDEV_TX_OK;
+ 
+ err_dma:
+-	dma_unmap_single(dma_dev, slot->dma_addr, skb_headlen(skb),
+-			 DMA_TO_DEVICE);
++	slot->dma_addr = 0;
+ 
+ 	while (i-- > 0) {
+-		int index = (ring->end + i) % BGMAC_TX_RING_SLOTS;
+-		struct bgmac_slot_info *slot = &ring->slots[index];
+-		u32 ctl1 = le32_to_cpu(ring->cpu_base[index].ctl1);
+-		int len = ctl1 & BGMAC_DESC_CTL1_LEN;
+-
+-		dma_unmap_page(dma_dev, slot->dma_addr, len, DMA_TO_DEVICE);
++		index = (ring->end + 1 + i) % BGMAC_TX_RING_SLOTS;
++		slot = &ring->slots[index];
++		dma_unmap_page(dma_dev, slot->dma_addr,
++			       skb_frag_size(&skb_shinfo(skb)->frags[i]),
++			       DMA_TO_DEVICE);
++		slot->dma_addr = 0;
+ 	}
+ 
++	slot = &ring->slots[ring->end % BGMAC_TX_RING_SLOTS];
++	dma_unmap_single(dma_dev, slot->dma_addr, skb_headlen(skb),
++			 DMA_TO_DEVICE);
++
+ err_dma_head:
++	slot->dma_addr = 0;
++
+ 	netdev_err(bgmac->net_dev, "Mapping error of skb on ring 0x%X\n",
+ 		   ring->mmio_base);
+ 
+@@ -535,17 +540,25 @@ static void bgmac_dma_tx_ring_free(struct bgmac *bgmac,
+ 		unsigned int len = ctl1 & BGMAC_DESC_CTL1_LEN;
+ 
+ 		slot = &ring->slots[i];
+-		dev_kfree_skb(slot->skb);
+ 
+-		if (!slot->dma_addr)
+-			continue;
++		if (slot->dma_addr) {
++			if (le32_to_cpu(dma_desc[i].ctl0) & BGMAC_DESC_CTL0_SOF)
++				dma_unmap_single(dma_dev, slot->dma_addr,
++						 len, DMA_TO_DEVICE);
++			else
++				dma_unmap_page(dma_dev, slot->dma_addr,
++					       len, DMA_TO_DEVICE);
++			slot->dma_addr = 0;
++		}
 +	}
  
- 	/* return ref */
- 	return ns;
+-		if (slot->skb)
+-			dma_unmap_single(dma_dev, slot->dma_addr,
+-					 len, DMA_TO_DEVICE);
+-		else
+-			dma_unmap_page(dma_dev, slot->dma_addr,
+-				       len, DMA_TO_DEVICE);
++	/* A packet can wrap around the end of the ring with its skb on the
++	 * last slot, so free the skbs only once every slot is unmapped.
++	 */
++	for (i = 0; i < BGMAC_TX_RING_SLOTS; i++) {
++		slot = &ring->slots[i];
++		dev_kfree_skb(slot->skb);
++		slot->skb = NULL;
+ 	}
+ }
+ 
 -- 
 2.53.0
 
