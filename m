@@ -1,96 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795018059;
-	b=v9Agj7XuFcHSz1ppPGaRqEYlnJrulduy+u2qek28Jh7uz2sVE52xfQY+/z375lVR+6wx
-	 blP7FeU98KDGU8qLmb+KDCYQtcRan1665MgQu/xf9cn9CF+3jZq7WuzBXY62KKyxYoKvd
-	 2rvA27yuIRtibXA+UvWNycmErD7Crk/aZU5xmtLPSfYthV0GIFcN5SaatFmuhD3pzX4+U
-	 asv/zOnxU30+y0rSZalQU/uVU1FiumQqqCslbukDfaOxLxml4VORN4WpIbMrsBfi9swGM
-	 R20XpQVqH/riQrUeg1Hr86SKK0hRpimkKgUu43TkWjYvv3wP+mVmCfHz0TCqyC58AiQ==
+	t=1795018061;
+	b=zqnijU1xMchvdtX+ued5IXRiyMoAiQOAxHDX7pFpU2jumg8wK/DvbbWgcpmg/8uIzUhe
+	 Qh66URwB1II4gjXqn5TW8Pu/qB5pdNnZMNiB0h49CkeYliGQeo36Tf4IUWRpMoVhrc6ei
+	 mYs3k7a2RXg3gJJ1IIAj5QpXruRQy93YXo9O8/qkrLFfNEd9DUOEzUdsUn0/DXH0GDrpa
+	 62ZPLjel/Xecw6MYtq5koFFXSWH/+qoB6mDWMmmjQ/gOK/6CDIgjlNAloeDa5yXzWFTP5
+	 g9R8RvmRbfoncOrR1B028AgvcoQGPity9I5WZ9k6HyuWoyAIeJ/TghaCMswATNvKSbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795018059;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795018061;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=CV7oamrSYXfpp3NnleoEpP5E6f5lbD9kU3nbbqKEnc8=;
-	b=c7gqHTVGMzzuh9sq0dIL6+qao4UcxugdayUQb/A6+CKMKKLSJonBqfeHV4CGvtlbHOoa
-	 yfDUUEi3UYeryZWA3AqEDxi9NzZb4H7t26Ot/KTAW5CeBf0sNAXcadxEutnxN8B5/3gx9
-	 V9i9I0YnkyKjcDG6+z6fmNkVtDA8lrAtGwWwHY81sFzm/5Q6aTbqTe7Ych8cZvDf+R17/
-	 xQUPuxZjUMxL9hsGzj8bInQalCugNh4zOTHOaoTzYPuWAx9wlTIDPGuq7osAs18wG8Fh6
-	 A5efMrx6jkLmPkMeDwQXqTE8UHcfA7wPbvm2IbcFPI3PuIkZmncaJ4Q+ZEJpYWKaAIg==
+	bh=ujkN+eC6Zu+/+obGmDVtyoxxt+WJSJZ0U/kWRfaBMgw=;
+	b=mgmIZOZr9hUsf6xs5t3gaZjn5wwYD5pd463lxJQ1uFefN23OKLxHGspxbu2EG2LYf2t0
+	 CauG2dvpDzc15q0m9PpV6UwtEh0EMCh21QaPliJxghBVfy5jqR5nZ9Jsv0t7uRkKKLrY5
+	 Ta0Y6StKpUjDCYLo2sd76pGTvIGlUWpGGUG5+5tIDQGGpBmEjs2y6IxhUQO6EN8BafneS
+	 b6RvLgMgfQItV/238XQWDX3hm3ocmlXUZugZlN9XbuwbefGD4Pf363e9NfW2Vp8k4rjVW
+	 dAAIxbq9Wg3Ax187GzVowk6nf6EWGOIVUYT6kFBFRGFN0wV8z7b7zQf7xbB7GFPiJgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=kernel.dk;
 	spf=pass smtp.mailfrom=kernel.dk;
-	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=a5rhgeb3;
-	arc=none smtp.remote-ip=209.85.160.50
-Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
+	dkim=pass header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=WW6ACKA7;
+	arc=none smtp.remote-ip=209.85.161.54
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com [209.85.161.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCBFF606A332
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:07:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BCBFF606A332
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B05260A260B
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:07:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B05260A260B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=a5rhgeb3
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-48ed0b68895so779925fac.1
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 08:07:38 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel-dk.20260707.gappssmtp.com header.i=@kernel-dk.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=WW6ACKA7
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-71aea92f666so741705eaf.2
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 08:07:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1795018057; x=1795622857; darn=vger.kernel.org;
+        d=kernel-dk.20260707.gappssmtp.com; s=20260707; t=1795018060; x=1795622860; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=CV7oamrSYXfpp3NnleoEpP5E6f5lbD9kU3nbbqKEnc8=;
-        b=a5rhgeb35b8T5xllNNAeAnECO5OGWZ6FRR7g3JBTBjO3p29UNlMA5n5uAkVzlQrWDb
-         9X9tktBgkFW+N1AWN82LjGdQogSQ4C20Uq3ZqEfNc6b6QQnInosH7yAuraUEAckqLXRN
-         H8QXC6YWgM0rKmm4+aQArZeRlYHi5A9ujcVq17/4jz1Po88aC8PZnbgZwqfdfkRwCDwC
-         qIHH+l6buu7Fbly+5y4La0q2XL0yaSHrAlzPVTYXoW28SKbupT9CWG8AVuN6tBNNGPlM
-         8hw0B9CbHIRCEOd4dlJM8dAk2Ph1GA2THTGe5CsJF+6hPmUpcm7u9I0yji42m2YfX3bz
-         V/bw==
+        bh=ujkN+eC6Zu+/+obGmDVtyoxxt+WJSJZ0U/kWRfaBMgw=;
+        b=WW6ACKA7UVZiX0KfAzzg+edxiER4uOGUTJowPB7yetEcRNF0o4/Kgsp9BxcVCXTdif
+         Tgv4mmpcq1Wmrf7KxcoFOWJZbPQfmjFqlCYt+veaAJCLfJJpjJJ0+pe+WJbg9pSpDyX4
+         hEB4mBStC6AtALo5N6bjSJ5/23Si3ahmHjbu+4GyrjanqO9Z9FQL7hr4Y+i5Dj6ojLaN
+         f8kgHBRGEQ82u2/SnxNtKDHtkRKPlhx5anbGuZ15xZocj+BHbgcKoOetIUpg1RZEvvJo
+         MQ27KN1ViJofCC9c5ILfBA0ZvkCbNS1QGKsj6P7llq7rDd/KfASgsSuCATFnW+exUF01
+         J99A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795018057; x=1795622857;
+        d=1e100.net; s=20260707; t=1795018060; x=1795622860;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CV7oamrSYXfpp3NnleoEpP5E6f5lbD9kU3nbbqKEnc8=;
-        b=nEa6+NEPE5JpkAEgZoj4rPjbicVkDaNKK3HdhzXbXYlraa6q/A3GAeaFfPiQ/UyJ8q
-         KoJgREC6w2aawIx4DW0JMJ7jmL9e7cwdzFTdbAHyblVeY8insgbr1n7k2lHNcAxxq+e2
-         sAp7dHVbVIhZLF1hNIr4qJIg3K3mCi5TUIEysyKMEutcCOX3ErPl37QFJSXzzNJ4RkRy
-         e8hO27VvhSeay9Z17UrgV2vp2j7WABOjk3wUHa9n2nEiOrNrQ2hqWdGV8A/M6gK+uADm
-         nODaQ8/orwtKFNsaFTFcpy5AxA0gVYr4xSsCZnnudBtxGGSutnWlwPNqcKWUZoIPbg7I
-         OQLQ==
-X-Forwarded-Encrypted: i=1; AL+hErEile/AdR/hiDtsUrYOO9AdXw20TfetM0niA1JuG1PE9zqjs61anQplr/bvtgXg9S67DJYqUMk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9vEf7YIFXCaNzwa4eehni0SANvXt2Q1mP+rTdfecZmKU6zHaW/
-	da6s2wcj3WheTY22VE/UDMt4h7DF1E1M2viEhklMq9souesPPuN28Y+bhVy8GAysItY=
-X-Gm-Gg: AYBFou1mOkiDPTrqk9CDVaoA/Apew0QiDyzrXUGS/P+eHIT/wppqw8XqOwFwaGf6IYb
-	CdbIMzV7dRP+Bkm1e7Tqrv7VUoBgdDqFyNq2CowC9pjCTb1hPsIGcQc61NruifTuxrF8HpAWJUl
-	HbzqClHK54cLPpmsMa/kqLCtrWPctFef4LWdKAZX9waZWAu0A64zh37pzQGrtlzeE7c7B1hn7zk
-	l02bJedV9/If+g1FwYhXWCTXCCiRPafJFYQcAbpDfbeDZt+9XvVQlp8wva9Af1Kxm5s1C1dFEdU
-	X+ZS6L2kT94/6yH70br13W3j9Q6N5Bc7Y7YNS3z45BJGsSnkQY1UCqCwdH8VnB5mMDfuG1jBWxJ
-	OMlEZkq1KZH3jGHWWZDR+Faii6gQs55ZCbyPiDX8ihGpa+JcrbkUpBGBmAuR4VRv1mw8b0fAcTJ
-	3PIy5/JlzmdjXrpZd9Ez+n4aDHC8SbsUAvcMwTf5orTmRpss4d9zJhU5Q6V/3IoKhjq6G+VBTpr
-	ZPtUOzlwfMQiHmpOBYFRrG4/Lmx0byeAGRsYEuJS466JKujenNNq/TCXAd04aNPzDZ2gbXHZe8c
-	kJSGwo0YwR9AqFgc/LubxE0kkPHcoUtTx35o4vEb5EKi8UnUNmK2WYnd5JLj9x2Us9I9LoH2LEo
-	xeI83SSiGhihD5iXF39xdr6ksTcFZ6Mp2uVpaR/Hx2GbMBhgVH78=
-X-Received: by 2002:a05:6870:d285:b0:4ad:5a7a:f7e9 with SMTP id 586e51a60fabf-4b7613c52femr2613744fac.34.1795018057354;
-        Wed, 18 Nov 2026 08:07:37 -0800 (PST)
+        bh=ujkN+eC6Zu+/+obGmDVtyoxxt+WJSJZ0U/kWRfaBMgw=;
+        b=ZJHUml2xKwsFEveN4u3tMjG0OYWdaKCIpXiqB0eZlCr92rM2NkZb5TINHlcuiSKXq0
+         AxwP3RuqFPPZpSE0EIoboUge/aKDB5LIHV0Nk2/f6+Hd8E/AQPKKgCAIGqkAQ9pqUIwm
+         45HhnHSY6qLgIf/GfUhEiS/RX5tFJs/fiwuj25FBXNtwZlA4/NCrRi8AuqJkYeZ+Va5u
+         vSv/wv7WJ+Z2lKUowLbhFPLTNIxKthTX8dMrHcpUmCa8lvi+9hSBZDQKauiIZSVYapSc
+         DdWrCnJfaUosBnl89fmz5zTPhNpevMHWg+q5HSMVT/as2X3HJdLDDq8q+udWvNGpB57w
+         ig9w==
+X-Forwarded-Encrypted: i=1; AL+hErHkp2QFcLfxj9hIqWtqrNRbTCMQzs9hC1US2l2FIMJO2qgrtxpCyym5ybjLmpSjeW/aiQicI5M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/9T4aeja4bV99gdXb2yaS1VnC0itL+w+WldDYBUl8qhwFE3/li
+	5zPy0gfLQOuyfOoUSm35+DjhUHMuy2/6Nd3bGgAM3lcImTDEEmMQXnOrijRF3ToI2y4=
+X-Gm-Gg: AYBFou3gy9WqIJv1BCJO7DaSgcy/W94KcfP8V/mXhmNdZF65HQf18Q/81gVa7Vth2ZW
+	BNuD0V9J9kPbkbTYKrjxyvhVOhRloHNEDhS0BKneB3iO/z3cHU1KMLcA37fYjB80m2SFVAXcfYN
+	Gd4bHyeB73rvCqmJIaxGKGyf2B0zqKFhflPlzAoIgPKkxg6IYYiNCg1rVbp9jF39Yp8VvzqNR3X
+	mbdwlmkdKGTz0POInviuzY/MR6gajEqHKv+3CAFyNnqpTjDNfQOaVdXfLAG0YVD5fRgk9OTcMqr
+	rOoYvfk+htYnNR4gmvOEPKDN87oOhbqtYSjXwKyensHuPaXpSu6qQOZuf+r4kzEMFlsAT3b7uCR
+	jb9SPGETtQpgtVsLUJEnkqo3wygFmFCNQwWWbOxa/eAEJMwGQOsRLf8PpLO1icylQNeKMm4fZI6
+	vG3u4aA2SlmDght9NGGkZVAUYl6BSxGQNRjSIWFqJBDFSWplz1NObeTg/cceKIPQsLCoEf2Dx9x
+	GOXnL2YuW49+AH+ok4iB3zRpVjxP8xt9awWNtU8U6vtOHD6WQO+ZCga8DiGI+Pz7I9e3jlZ+3ZY
+	ie16s+esmfoXZNiYlB1qBfrbzmTjF/GH/oInKNpn6JDUS+O+Kct0dsqo19HExsF9O61UVnaLxSn
+	S3scpeR7qycXs4p1yYXCaByiz7Wz7hMxEMWd14r908JTOmm8Sj9czm1xcdQBFI7M9DVdiuJUK
+X-Received: by 2002:a05:6820:807:b0:71a:fa06:4dd7 with SMTP id 006d021491bc7-71b18454b50mr2463359eaf.28.1795018060423;
+        Wed, 18 Nov 2026 08:07:40 -0800 (PST)
 Received: from [192.168.11.112] ([96.43.243.130])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4b743721fe9sm2624231fac.6.2026.11.18.08.07.36
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4b743721fe9sm2624231fac.6.2026.11.18.08.07.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 08:07:36 -0800 (PST)
+        Wed, 18 Nov 2026 08:07:39 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
-To: Tejun Heo <tj@kernel.org>, Josef Bacik <josef@toxicpanda.com>, 
- Nathan Chancellor <nathan@kernel.org>
-Cc: cgroups@vger.kernel.org, linux-block@vger.kernel.org, 
- linux-kernel@vger.kernel.org, llvm@lists.linux.dev, stable@vger.kernel.org
-In-Reply-To: <20261115-blk-throttle-wunsequenced-v2-1-1d297c891b82@kernel.org>
-References: <20261115-blk-throttle-wunsequenced-v2-1-1d297c891b82@kernel.org>
-Subject: Re: [PATCH v2] blk-throttle: Avoid unsequenced accesses to jiffies
- in throtl_schedule_pending_timer()
-Message-Id: <179501805630.17649.245726738544852847.b4-ty@b4>
-Date: Wed, 18 Nov 2026 09:07:36 -0700
+To: tom.leiming@gmail.com, shuah@kernel.org, linux-block@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, shao.mingyin@zte.com.cn
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <202611112257529855AMDZLzg8ZmFDQ3fBstbi@zte.com.cn>
+References: <202611112257529855AMDZLzg8ZmFDQ3fBstbi@zte.com.cn>
+Subject: Re: [PATCH 0/4] ublk: report recovery test failures and fix the
+ exposed defects
+Message-Id: <179501805884.17649.3891543607346842206.b4-ty@b4>
+Date: Wed, 18 Nov 2026 09:07:38 -0700
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,25 +104,30 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.15.2
 
 
-On Sun, 15 Nov 2026 20:37:57 -0700, Nathan Chancellor wrote:
-> After a recent improvement in clang to warn on unsequenced accesses to
-> volatile variables [1], two instances appear in
-> throtl_schedule_pending_timer(), which can break the build with
-> CONFIG_WERROR=y / W=e:
+On Wed, 11 Nov 2026 22:57:52 +0800, shao.mingyin@zte.com.cn wrote:
+> The four patches make the ublk recovery tests report failures from their
+> workers, and then fix the two defects that the stricter tests exposed.
+> They are one series because the later work came out of the earlier
+> patches: patch 2 applies on top of patch 1, and patches 3 and 4 are the
+> two independent fixes that patch 2's testing uncovered.
 > 
->   block/blk-throttle.c:469:25: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
->     469 |                    expires - jiffies, jiffies);
->         |                              ~~~~~~~  ^
->   block/blk-throttle.c:469:25: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
->     469 |                    expires - jiffies, jiffies);
->         |                              ~~~~~~~  ^
+> Patch 1 waits for the recorded recovery worker PIDs and reports their
+> status from the parent, so a failed worker no longer ends in PASS.  It is
+> a v2 of the patch posted separately on 11-09; the only change is the
+> simplified wait loop Ming Lei asked for, and his Reviewed-by is kept.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] blk-throttle: Avoid unsequenced accesses to jiffies in throtl_schedule_pending_timer()
-      commit: ae1171f38098098e88c13c38e462d27babb50038
+[1/4] selftests: ublk: propagate recovery worker failures
+      commit: 6f3393515ee6526cf66175a85f3327899db765e3
+[2/4] selftests: ublk: propagate stress worker failures
+      commit: 01fe9c1894fc4cce7b04cdae5522c86519ba835e
+[3/4] ublk: cancel commits arriving after the quiesce scan
+      commit: b79225a8965f80b448dcdd236da2e1ca0690238e
+[4/4] selftests: ublk: clear reused batch SQE command flags
+      commit: 73f6a1d93040ac8cbdb03b3702a66e6a14773d02
 
 Best regards,
 -- 
