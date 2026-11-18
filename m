@@ -1,58 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795021803;
-	b=ix6Ij01OtA++AMLuqsPN7UUokP/By5J1G4kvCNkCP/Y34y03J5B2HIJsZP6tcS4/1vND
-	 SbsG9A2MbEjnLVY+Ke7GgTyKIbaHJTCycAUU9cg45LFvlkSWLlX7TixxscbliVF/we1v+
-	 mnwquM1f0U7tRLQ6BfW9Q1karyI4nipxELR6vDo6sZOahfuI79+IWBVGWNDpvLoFcWMON
-	 AFyIW/bgLLM0hp1MY6qvIUFkb+3Qv5Z3e9dVA8+DgOby28ecpoCKG7QNHS9UO3OdcAmyg
-	 pRtqOrVZmPB4WwO4TgKbIsmntRALKpg38cuRi5TpA6b6HUQdTTFwJ6XQuXDedy38kqA==
+	t=1795021804;
+	b=gXc8F0J+tJSdwo5s87fa90sTS3BYvxQ1IQ81usaix3mOs8bIlElIPivTQtLAY6m6cPle
+	 QS2edBppSt93aY7Ub3MMe7lymeyCtDdE6ijyiCXstI8WqGKtnOcP+dtPve87HrPeCQq8q
+	 LM3DLO2w8l/gGnz71eGzko0EGg7e7Bhlue3KVryKkRwvY0lSPzEHQX700dnNcXk/iyL+g
+	 4n14O6qgkif4ac+Srn33lI/h+TCpvJ1HSt7ZFQcHIvZwZF46xkbejwXroRHLmhDnUw08x
+	 yc+1Vfu1Temfh04Zx1Qf4QHRBnFe/EC+BQbsZGwLhHeYexT8urYy00rlXLQyDJ+p5UQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795021803;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=vUqe/YQx0RwzDL6fdLl36j+2r+Sm2rWRY6zGhTpvE9w=;
-	b=vf/v++pC7AB40q5VRwi4ofoCABdc6N4YuWcoN3aacu2Nce5BXQAId2PVeRxVrXkZkBpn
-	 HdIpk6nfOo4gNXc+fpD+fwDKmcJpo4HvuNCO9DdZCOau3j/+bC88XKNdDLNG8j4zZV+ge
-	 ZENS2PLopyfAfnA5Is1LYMQoVj3n1Et2kvBB2p+7JqbQnstguYVNzyiRLcrfnqJcf7cn8
-	 bpKNSv1CsRoVx5C/UzqLpvwFOp+9nhjJXzTUK9OI5BKphNVCMW91opaIEvzHzqn517GX0
-	 fNjX2OwVszg7ypNCDXhQ7qOKQ7YXB8sWZL0dyf4GwPeJugBEt/FIy0z6C8mPXMPOBYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795021804;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-B4-Tracking:X-Change-Id:X-Developer-Key:X-Developer-Signature:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=mBINZO8SI4MpYZqVki+lomnJt57kbnNhtrWtWttDyyg=;
+	b=fWD80A411WFRTy+FPJTluehWGUgozEUS6vCrpaURaPfKB+HDQKuXWPQk03fek5T8C9sV
+	 fAIUrDu3HKnArCxKS55SlOgGJUxnN8SO84fDtvDankU/92bKb5HSIKXmPW7DQTTYNb9hs
+	 9xcQhouKNKgFgIFP4WLcdnczbPUDBFKDU4TviDFR/IYtuP281Ija0+Cd68gwCBqH7Ucfq
+	 dGTmtBkdYXfnsQmZVtbqVsi4xgHIiTgdV3yaMh6cZp1jb6MbR0uJmbuQAvSYShfvQlej7
+	 jlvnasmbwv4AY2MruW35IoGJNAwZz6U9JDPKUjRNXkycKrO0t9SusqcIdcnct6vb0Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Le3rU40y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NQRD6l1T;
+	arc=none smtp.remote-ip=209.85.128.69
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17E7260A260A;
-	Wed, 18 Nov 2026 17:10:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295E160A2603
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 17:10:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 295E160A2603
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Le3rU40y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0876B1F000C4;
-	Wed, 18 Nov 2026 17:10:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795021802;
-	bh=vUqe/YQx0RwzDL6fdLl36j+2r+Sm2rWRY6zGhTpvE9w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Le3rU40yD/qPGwMOtVEHBKVWPd2HEB+z4Lr9pdi7WxNaDd+MVg1hgYgMayjq3VMr6
-	 icok59DfX14L/bG7scTSBqfuqoYB73pB41/auBo8x6Nyhb5kvZjX+jQ7DRrTyOPWsv
-	 ncaGmFE0JOPUwx6xGovpijMwjGLqQvzPm30VITqc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Hungyu Lin <dennylin0707@gmail.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 2435/2651] thermal: Fix CPU mask truncation in power limit trace event
-Date: Wed, 18 Nov 2026 16:01:15 +0100
-Message-ID: <20261118150412.853481572@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NQRD6l1T
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a359b714f8so8076825e9.2
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 09:10:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1795021802; x=1795626602; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mBINZO8SI4MpYZqVki+lomnJt57kbnNhtrWtWttDyyg=;
+        b=NQRD6l1TEtmIkjHWuz75N2co3p+FwDO9v10vBOx3armYpgWNct7q4TXvfe+q4eiCFU
+         K7fsXwLRgj96NcAqLdAtMd8bmPp+j7SaF0lt973TUT1EscM6flsDNztdVahjV6YZn13h
+         Uu0AVW4rEq8gi8umm3a9VhwbyyGSDq+rbimt41v5mYKm7Js7LqHdxKdE/LlB+bJiZSv6
+         RAvcZMnizV/Pp6qJFfMpQFPiJYOi0SvoCXmW7MIY/OEZUYI09VE6iaGwIK1SfdHGBhwh
+         GVBY0EEth0Z8NBZT8gCzlHQm0xH/la8rl7HpSpUsTaLD2Hfbe5wdYhP1N0bLTwFQR/Wj
+         SC9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795021802; x=1795626602;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mBINZO8SI4MpYZqVki+lomnJt57kbnNhtrWtWttDyyg=;
+        b=LIdpUwET/i3gPWCYleRf3Wx8AdT16FK3RhXQX8sjLMG6L0ugz0i7F1bSCd2MjU1udZ
+         Zx+WVgHGktpE0d5f1sofDoub2AkU2hagU9ea97SiSbYN487r4L9h6EjoNfEMWBragMfK
+         Fs4IKpj1v33tkaKx8jT70YqYainMH/C9nreBemzriKL3Oh+MqQsgQV5PmbJij+BrSAP0
+         iYogJqWlVcBMe1anmM40q7xyjwdIHhtf7XTNFK/4rmjtxNB9BDe+ErRe7c2LgWD2J4r4
+         DzHzq0VvQDY2T/Cqn0RaPLZAr4nu4mr0Z4v9sQKMySWI1fcDRjP3YPQYjLRpY7B1KOme
+         3rZA==
+X-Forwarded-Encrypted: i=1; AL+hErFZuRy+u0iyl8Y4k0wXBNVCGxe5m8GhC6Ce9CKXQwN3zo5NwCvvMf1v9y4sWhw9lm7bNHDxA7U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9+yP5SzUyL0cCHpWcxHLqVqeJnpCRHERj3XTQ+zwjEFBsAA50I
+	5xSqDlvgYOO3JizeIRT59gLXZsw6qHckoK/vR7jmpG5UJvRpRHV3FX2JNwL6gztKk5hbmaxZw59
+	a4eHFRz3X9ylWxRfUdw==
+X-Received: from wmdn7.prod.google.com ([2002:a05:600c:2947:b0:4a2:8ef:a5af])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600c:4ecf:b0:4bb:7007:4a5a with SMTP id 5b1f17b1804b1-4bb7da2eaa2mr68357745e9.23.1795021801887;
+ Wed, 18 Nov 2026 09:10:01 -0800 (PST)
+Date: Wed, 18 Nov 2026 17:09:50 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,57 +76,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAN/b/WoC/x3MQQqEMBAF0atIr21IosjgVcRFTL5Og0TtgAri3
+ SfM8i2qHspQQaa+ekhxSpYtFdi6ovD1aQFLLCZnXGet/fCmEYrI18HBp4CVu2YyDmaGDy2Vblf Mcv+fw/i+P1fPKTRjAAAA
+X-Change-Id: 20261118-ordered-wq-cancel-63b02e0feac4
+X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
+X-Developer-Signature: v=1; a=openpgp-sha256; l=733; i=aliceryhl@google.com;
+ h=from:subject:message-id; bh=2c+b7t2eSKRSZikSFPwO4mhMOW0PlzZoNYa5IB1loN4=;
+ b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq/dvjWZXjaqIG7+QNZMRPjUaudgg03nhqwuouf
+ rjtcynuV8aJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCav3b4wAKCRAEWL7uWMY5
+ RqEvD/4jQXgzC7AXJ3txLaMqfqDu96CDUPsiDmb2Os7FDvR8CQzsd+E4vkv8pqnLpUoVUbHTKxn
+ 2LWXPUTEOHgIv87yjdfM6ZAPpx7qtx6Tv4I8U84NucamP86rLQ6mMPLBua5EDNbRmvslVhFLomy
+ +SxNbhkFbEBHwBbNfU7FLV1P2TCLuBnhqYAQ8uiAHXkWUtYcsnF0alwTgCbe6NV9wQqIiYY2VV3
+ 9a/6bCBumEP6JkrPczQHfL1ELRfX4M/A6CWQuChk4HiNMWIW3zL5YFlLMJQAHRFu53FWr1hpjwg
+ Lx0jF3cHrOX1gTGF2y3XnaDi+6vo7n5etmR7Vtm1x07Is7Bb9S12OuZit9LmasPyB6ZHdY0LU/9
+ 9YoUtddS6nhAA01UysT7bPMBRhEpgNEI4FrQILcfCB5Fi9DqPto6wRHdJGYbsZVQa6rmWu0RtYm
+ 3s3UYTrJq5b6jPzkx+q/9SdB4Y2nwTaj22UrRHQ1ia+sox6qbd7JXg40xcmUcA+Aipul3211n0Z
+ 3lwyL8KPBHQjpButhNYkOP59y5KlQxPxpWRxM44d1bBEvIky2FvViYro4fWZhuvW7ZpTECXAvto
+ CLULfePyLLxPbarsGy4z0VZr30J8rc62G1h1bCYvVQ6/3QrO/pHY77KqTrT8uNnvmNWUGbU3G+c FR2c8om07K578Ng==
+X-Mailer: b4 0.14.3
+Message-ID: <20261118-ordered-wq-cancel-v1-0-916e01f9affe@google.com>
+Subject: [PATCH 0/2] workqueue: fix cancel_work_sync() on ordered workqueues
+ and clarify docs
+From: Alice Ryhl <aliceryhl@google.com>
+To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
+	Jonathan Corbet <corbet@lwn.net>
+Cc: Boqun Feng <boqun@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>, 
+	Matthew Brost <matthew.brost@intel.com>, 
+	"=?utf-8?q?Christian_K=C3=B6nig?=" <ckoenig.leichtzumerken@gmail.com>, 
+	"=?utf-8?q?Thomas_Hellstr=C3=B6m?=" <thomas.hellstrom@linux.intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, 
+	Boris Brezillon <boris.brezillon@collabora.com>, Steven Price <steven.price@arm.com>, 
+	Liviu Dudau <liviu.dudau@arm.com>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, 
+	dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
+	rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Alice Ryhl <aliceryhl@google.com>
+Content-Type: text/plain; charset="utf-8"
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+Please see the commit message of patch 1 for details.
 
-------------------
+This came up while figuring out what to do about this sashiko review:
+https://sashiko.dev/#/patchset/20261020-rust-workqueue-v3-0-ea7c74d02068%40google.com
 
-From: Hungyu Lin <dennylin0707@gmail.com>
-
-[ Upstream commit 82c9c94f54a444a686e926c872dae4b198d1036f ]
-
-num_possible_cpus() counts CPUs, but CPU IDs need not be contiguous.
-Using it to size the thermal_power_cpu_limit bitmap can omit CPUs with
-higher IDs. For example, possible CPUs 0 and 64 produce an eight-byte
-bitmap on a 64-bit system, dropping CPU 64.
-
-Use nr_cpumask_bits for both sizing and copying the bitmap.
-
-Fixes: 6828a4711f99 ("thermal: add trace events to the power allocator governor")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
-Link: https://patch.msgid.link/20261023060724.5691-1-dennylin0707@gmail.com
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/thermal/thermal_trace.h | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Alice Ryhl (2):
+      workqueue: fix cancel_work_sync() on ordered workqueues
+      workqueue: doc: clarify cancel_work_sync() cross-workqueue behavior
 
-diff --git a/drivers/thermal/thermal_trace.h b/drivers/thermal/thermal_trace.h
-index df8f4edd6068a..2f953fd8289dd 100644
---- a/drivers/thermal/thermal_trace.h
-+++ b/drivers/thermal/thermal_trace.h
-@@ -119,7 +119,7 @@ TRACE_EVENT(thermal_power_cpu_limit,
- 	TP_ARGS(cpus, freq, cdev_state, power),
- 
- 	TP_STRUCT__entry(
--		__bitmask(cpumask, num_possible_cpus())
-+		__bitmask(cpumask, nr_cpumask_bits)
- 		__field(unsigned int,  freq      )
- 		__field(unsigned long, cdev_state)
- 		__field(u32,           power     )
-@@ -127,7 +127,7 @@ TRACE_EVENT(thermal_power_cpu_limit,
- 
- 	TP_fast_assign(
- 		__assign_bitmask(cpumask, cpumask_bits(cpus),
--				num_possible_cpus());
-+				nr_cpumask_bits);
- 		__entry->freq = freq;
- 		__entry->cdev_state = cdev_state;
- 		__entry->power = power;
+ Documentation/core-api/workqueue.rst |  7 ++++++-
+ kernel/workqueue.c                   | 37 +++++++++++++++++++++++++++++-------
+ 2 files changed, 36 insertions(+), 8 deletions(-)
+---
+base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
+change-id: 20261118-ordered-wq-cancel-63b02e0feac4
+
+Best regards,
 -- 
-2.53.0
-
-
+Alice Ryhl <aliceryhl@google.com>
 
