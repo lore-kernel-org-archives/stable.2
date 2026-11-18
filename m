@@ -1,60 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795009099;
-	b=Y8SmJQMT9cUP1hI8qqr5ZqoLEl1dTC/SwbPV7WRwt4I3D4NhPVy6JV4+npercJWquf1w
-	 3AIAXP+Ac9Geid+rbVahAsZ0zHjPyHCq3bAHBPSqdnLZFuFRF6bEBRqBBbs6q/JKQ+9Jz
-	 pJ5Zoe/6eMJLZ2Zg74RizGjVb1eKh8JTz3937R5OIscuVO+Rg+ceMiI2Wj0sw57W9ZHm1
-	 /d0EP2ZCNtCCCrhB9f49fdN1lh0QMs3GS3oqhWp9xuLOoJaEN4f70umM5Qx8kEVByDpnm
-	 LcpppWRCe8EjqilaYVvdFIjxlRDjdkLlI0K82TUhyo9Em6ErXXdIwcwqcmStIVf6WRQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795009099;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Last-TLS-Session-Version;
-	bh=5d40pelDz1y7QtJWt7O/gaUwObkgrkM/NMpACCUfxCQ=;
-	b=GIR4pJNzoRBc0NyCtIYQ76OIZRIZtsHF6AmYB1AW6R/JvOc3WggSB3sAl+2xk65gDiks
-	 psoMEW0eutBLCTzJkXL0/BjeKdhNfuqjWQbhU8mfLS9HxrRVGxJNecAkMIUN+iG78x/hb
-	 ZpZ+4ywIfUAmqc4MIFvCtCmcPjy768YvF5YfGYUlt5EnokHLruEQ7YUKExwNYhLZEUILt
-	 3e2Zf96AeLyIeT3pjVQD/fxoRe7WLDOmwO34u81PqNjfDTe1uYjmW8PQo7fPQ6jlH3ebk
-	 8lY8w6W3XB4f2hTWG4FsN4xUG9WA4+5qnJ8lXKjoW6Jx17uV6H1rDP5iWA7lLDfMCVg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2BTeSE9z;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795009103;
+	b=lC/jUsATik0z73n5QJcadeiPPtPMI55XdzmF5yXgDJNt6B0BcWjgGJszNnd7yWgdIdtR
+	 QRNhrC+vv+BxNx8Wf2nmC+GAeF+85Gnd2krtq3Z84FZ4xGbIN3HH3a1FQyYMR3QHJr81W
+	 1Lql0b1R69VtySBDV3JeFD58ep8A6VNvVIXtsoToosRqlRVypjwI5uEi697CZLrqRR2YO
+	 QU7U1i5/PCOcFyV2W09EbSJQqtn46eIoeD52i7zB+d5eixuipbi48243C+DWOP2Pv1YPE
+	 QBZoksDdZtTqjhMwbTWcu42JbHmjmtq42A9NpYrxl1a7Vz9ta8L08KTXAMLBIO6IJNg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795009103;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=Gu0OV3kkEAl4D4CjhNeE+xCTUXelNvJBkZGChj72U4U=;
+	b=V1kTpMKPtA2xhwlOI68/AoctAkvgJBQ43DgPrOz9soxztn+N8PuT7W/qfd1lVFD9+6lf
+	 EXSUdjJ0GGMxuLIBsZVoWv/Y7DTssBYlg+eoeaypVhj+6ry7rAnCZkRC3Z9bn2gfZZxvT
+	 D23moJkeD36ngJDHfkgHY0y8y4Z8nuYYsMZiT/cbN4loJOdKHAqU7Ue6EegOFcHCXN8hf
+	 ns2erLdbp6eymg8WYcOi6OpqbtUUGayx6thS5sf6CQe5TjkU/5IVd7+oca2GibOK3uKRQ
+	 zE/AY0+vBo/8EfDH4qqUj5rGisbHJqQaYKrjXNk4cJy32gF+iRt3CqRXQItqtrJcn/g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=szeredi.hu;
+	spf=pass smtp.mailfrom=szeredi.hu;
+	dkim=pass header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=Pe34tTsI;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.173
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EEA7606A32F
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:38:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EEA7606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E92E606A333
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:38:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E92E606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=szeredi.hu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=szeredi.hu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2BTeSE9z
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id ECDBA4E41627;
-	Wed, 18 Nov 2026 13:38:17 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id BADBE5FE9B;
-	Wed, 18 Nov 2026 13:38:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5116F11BC2075;
-	Wed, 18 Nov 2026 14:38:10 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795009095; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=5d40pelDz1y7QtJWt7O/gaUwObkgrkM/NMpACCUfxCQ=;
-	b=2BTeSE9zLvDJmDegoUxQDxreFr6+iol4YOdpmaJExZ250fUHPdvSgIeA6xLIjh4gh/xuAQ
-	G6TqTAMWaVpLR3g+xdNfN0BCTuKutupFqEu9YJ0HdYrf70luuYhQ5WVv536WdX9SAI2WHp
-	bnwuu/6xZeE22V1FSvvZ6oYE+JAi2O8TGGHqqmWpyx5zQjcwiX/AXSp2AR0tkhfj6hgBsr
-	35ULM+tL2qz3XS2L/sjPIs8MIY0N4NzFX2Kd/6VNyWsO9O/rdhBtPFTC8KzNxAAgClNJs8
-	rbeazvn09+J8l/p0g2F/4cOceSnOMyL/Pm0R5D3HgKnqQr1pcsw6Rt/D3il0Hw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Wed, 18 Nov 2026 14:37:12 +0100
-Subject: [PATCH v11 05/10] clk: nuvoton: ma35d1: Reparent the gates
- correctly
+	dkim=pass (1024-bit key) header.d=szeredi.hu header.i=@szeredi.hu header.a=rsa-sha256 header.s=google header.b=Pe34tTsI
+Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-5495d549924so10500161cf.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 05:38:22 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795009101; cv=none;
+        d=google.com; s=arc-20260327;
+        b=goCV3XoovdJ3TZPlP/TwBBDoJO50zgrnGVTosLBvqaO0qdNUb/QghdI8JORxqsg5lz
+         tkuEnMuAa7PM8SJKj6TZrs30lGIijj3z6/M7I3rAbD6Q0VOOPZEBa8dcb2E6maqZDIiy
+         QTA4gCabWqhKSdcPHMN8354FMtaREse1EHCN8ouFe18LBzTaMEoEN3WyscFEfcMf8kUm
+         F7lSliQhJNsr6NnW0DT/8qrlpKgUrpQ8V4o+N/3d1eglUvBzoGphYoR5yA1em2lJIpHA
+         2kt3roZQY9fly4vsKB9egUxcdh2bCZ3AGC6BF2aVLlZbnOhB1z6y7BX+ElAD29FNdsp8
+         OlCA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=Gu0OV3kkEAl4D4CjhNeE+xCTUXelNvJBkZGChj72U4U=;
+        fh=TlFLx8wWzRLBe1pVfQ0zkpyaVFX1vG/zZ1rtE9qbxaA=;
+        b=gfZZIhRKNzjDVpVjk4kktV/NNpUo3XJPio+Prs7UW+uMQD06x/vpqU4u9o+IgGVAWz
+         zmSRCOGC1/VC3EAi15/YXEDsa49cjF5ug+CrDZqzTq23m2X78LVN7YFbVYw4dj5a2ibZ
+         6idfMiZQXEdV+UGb7O98Tr88Yy0TmiFhm23nh11nDaDoVu/qzM7LK6MJ50XOllDQ6nQN
+         jEfuL2Ury0GeNXMeK3oWh+2aIyZeQCEOX0LXZ0UBqnv73UL7P+WEtLBVYj33e00PaYBm
+         IC+y9ek/cQZi4RqjDHPy/Kb8M1+Z+u2XkOsVQM9oAoOG4HcbMKCtGpMKHBhRGbzO5o31
+         pQhQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=szeredi.hu; s=google; t=1795009101; x=1795613901; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Gu0OV3kkEAl4D4CjhNeE+xCTUXelNvJBkZGChj72U4U=;
+        b=Pe34tTsIgFeEeOlE8BDyVJuTMubDV7IkG0gfFDkXSbD/+AwMJkcrj2xltdA98E10Jt
+         WN8LQd0JEg98Z/33ga26tURmtWsAi7rYQ9NM9Ch20U1RmHdV/OD+mO+UwpY5EnnjM+HE
+         8NzXR1OZ4amekDKtfzXQMjpyw8un5pJRKJMmg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795009101; x=1795613901;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Gu0OV3kkEAl4D4CjhNeE+xCTUXelNvJBkZGChj72U4U=;
+        b=khjTMghml5avzqzQj0UuajvRSiHcSv5+EeBslU/mWFpLrrVNjp3NHD0xG+WFtzzSIz
+         c8QwaSXjRnAdJwTg+FYQjowAlbGXhwVg/U2LGyaJ/iatV0sTawSEBXtWbnFm++V1hxE5
+         4hVdMm7wvhtttnSCf1DNp7pg04O+BfHXAzH2emavVD51oWMgfMQYc0PYhzJc5S2+d9wa
+         f6BOGmyiWBvIZh98CmExZ+2oUppNnA9H6dsZ88s6BAUzHcG2/0x4CytmIELxCHyyS/NB
+         qN3fKTpOjzZn7rtzEFaujSIuJNLNxoHD374STaSJJ+r4TK5K53+WceZMwWC+lZEFm/P3
+         /4XA==
+X-Forwarded-Encrypted: i=1; AL+hErG/a/IlWJOo/XzT3Si8CmVD/xIELTE3/ZrLWKrFQTv9TZc3BY762b5RcYWP8x0eX2AYKPRcFgM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DC4pXxAb3E6/79QcfLcLpXaj32QGGN1ztvat9N3FqXoKtL5nT
+	MQEs3nBSSxzBVDbOftTULro/gx7/F0qQybj5vLw2QP5Uhp9XeqaCr/t7qbjqY4xGG3T4HQ+4o/J
+	1/jVL0jwfPgd9xPuWuVpiXSoa4sUH0IWBHyjgzmLThQ==
+X-Gm-Gg: AYBFou2ZlWKm2twyRGCYfp3OGs3rP1HvsNUyqOZilPffxUOieZKlbYO0kZepstzp+YQ
+	vDTJ2cVMgNvHC16LYNTym3D0MPuoH2weE3OKbCStOeEtMsAKIXdf/AogpWRQiHL1Xr1dXMIUOFk
+	KULzCLNLZ/whtTUy80WWa4RZPv5N6XZwwqE4Tl7L1g+j35NfFdlW8hmRW0BJJ4Mmu5XbVWV7rat
+	VUcMh9p4d0kMrxsmko897NhIiI3UBNQt/J5vSISeC4IK4GgccT9NUKXRL+Edk2MFXuXlijd8dgO
+	Wp60/q1kAB01kzOilVnOSODzdc5D5QRUb4e/KkWulKhn7zrG0UKYx8lHHd6aS09zXoarC2C/NzY
+	eKixa2chf/ND1mGHFYABFzXtiawMJXmAU4PxKT+0/wY9AXJe2IWG5cwIgNbwxNe8dMFxbxKq4/W
+	Y1llL5UKY1D9A=
+X-Received: by 2002:a05:622a:558e:b0:55c:f47a:8c96 with SMTP id
+ d75a77b69052e-55d5a340368mr39697851cf.3.1795009101249; Wed, 18 Nov 2026
+ 05:38:21 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,185 +101,30 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-perso-ma35d1-upstream-clk-v11-5-bd1d1e060926@bootlin.com>
-References: <20261118-perso-ma35d1-upstream-clk-v11-0-bd1d1e060926@bootlin.com>
-In-Reply-To: <20261118-perso-ma35d1-upstream-clk-v11-0-bd1d1e060926@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20261117135146.3174252-1-graypanda.inzag@gmail.com> <20261117135146.3174252-2-graypanda.inzag@gmail.com>
+In-Reply-To: <20261117135146.3174252-2-graypanda.inzag@gmail.com>
+From: Miklos Szeredi <miklos@szeredi.hu>
+Date: Wed, 18 Nov 2026 14:38:09 +0100
+X-Gm-Features: AclHuK95w6kthqK2rcV5FGmp6byHyDgOGBtGbNMoFRdYyxphnOM3Now-gzk5ZLo
+Message-ID: <CAJfpegvfKhZYuMQ914GUPNvdPi-nZBYE9qfwHVg6m+8ABuhqCg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] fuse: skip dcache instantiation for readdirplus
+ names with embedded NUL
+To: Junyoung Jang <graypanda.inzag@gmail.com>
+Cc: Jan Kara <jack@suse.cz>, Amir Goldstein <amir73il@gmail.com>, 
+	Matt Bobrowski <matt@bobrowski.net>, Gwanhyun Lee <gwanhyunlee@gmail.com>, fuse-devel@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The clock tree is still incorrect. There are four main clocks in this
-system:
-- HXT: external high-speed crystal oscillator
-- LXT: external low-speed crystal oscillator
-- HIRC: internal high-speed RC oscillator
-- LIRC: internal low-speed RC oscillator
-Each clock has a 'gate' control to disable it. While in the TRM the
-'gate' appears aside, in the CCF topology, the gates should be
-below. This is because if we gate one of those clocks, none of the
-children clocks continue ticking.
+On Tue, 17 Nov 2026 at 14:52, Junyoung Jang <graypanda.inzag@gmail.com> wrote:
 
-Reparent hxt_gate under hxt, and all hxt children under hxt_gate.
-Do the same for the three other clock sources listed above.
+> Some FUSE servers include a terminating NUL in namelen.  Follow
+> nfs_prime_dcache() in commit 78d04af4995a1 ("NFS: nfs_prime_dcache must
+> validate the filename") by skipping dcache instantiation without
+> failing getdents().  Return -EIO from fuse_direntplus_link() so
+> parse_dirplusfile() sends FUSE_FORGET for the unused lookup reference
+> and continues readdir.
 
-After this change, the frequencies are identical, but the clock tree
-looks much closer to the reality.
+Applied, thanks.
 
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Cc: stable@vger.kernel.org
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
- drivers/clk/nuvoton/clk-ma35d1.c | 78 +++++++++++++++++++++++-----------------
- 1 file changed, 45 insertions(+), 33 deletions(-)
-
-diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-ma35d1.c
-index 33b397d7b7c5..65a2691002a7 100644
---- a/drivers/clk/nuvoton/clk-ma35d1.c
-+++ b/drivers/clk/nuvoton/clk-ma35d1.c
-@@ -74,34 +74,46 @@ static const struct clk_parent_data lxtg_parent_data[] = {
- };
- 
- /* Mux parent selection, by index into the controller's clock table */
--static const int ca35clk_parent_idx[] = { HXT, CAPLL, DDRPLL };
-+static const int ca35clk_parent_idx[] = { HXT_GATE, CAPLL, DDRPLL };
- static const int sysclk0_parent_idx[] = { EPLL_DIV2, SYSPLL };
--static const int sysclk1_parent_idx[] = { HXT, SYSPLL };
-+static const int sysclk1_parent_idx[] = { HXT_GATE, SYSPLL };
- static const int axiclk_parent_idx[] = { AXICLK_DIV2, AXICLK_DIV4 };
--static const int ccap_parent_idx[] = { HXT, VPLL, APLL, SYSPLL };
-+static const int ccap_parent_idx[] = { HXT_GATE, VPLL, APLL, SYSPLL };
- static const int sdh_parent_idx[] = { SYSPLL, APLL };
- static const int dcu_parent_idx[] = { EPLL_DIV2, SYSPLL };
- static const int gfx_parent_idx[] = { EPLL, SYSPLL };
--static const int dbg_parent_idx[] = { HIRC, SYSPLL };
--static const int timer0_parent_idx[] = { HXT, LXT, PCLK0, -1, -1, LIRC, -1, HIRC };
--static const int timer1_parent_idx[] = { HXT, LXT, PCLK0, -1, -1, LIRC, -1, HIRC };
--static const int timer2_parent_idx[] = { HXT, LXT, PCLK1, -1, -1, LIRC, -1, HIRC };
--static const int timer3_parent_idx[] = { HXT, LXT, PCLK1, -1, -1, LIRC, -1, HIRC };
--static const int timer4_parent_idx[] = { HXT, LXT, PCLK2, -1, -1, LIRC, -1, HIRC };
--static const int timer5_parent_idx[] = { HXT, LXT, PCLK2, -1, -1, LIRC, -1, HIRC };
--static const int timer6_parent_idx[] = { HXT, LXT, PCLK0, -1, -1, LIRC, -1, HIRC };
--static const int timer7_parent_idx[] = { HXT, LXT, PCLK0, -1, -1, LIRC, -1, HIRC };
--static const int timer8_parent_idx[] = { HXT, LXT, PCLK1, -1, -1, LIRC, -1, HIRC };
--static const int timer9_parent_idx[] = { HXT, LXT, PCLK1, -1, -1, LIRC, -1, HIRC };
--static const int timer10_parent_idx[] = { HXT, LXT, PCLK2, -1, -1, LIRC, -1, HIRC };
--static const int timer11_parent_idx[] = { HXT, LXT, PCLK2, -1, -1, LIRC, -1, HIRC };
--static const int uart_parent_idx[] = { HXT, SYSCLK1_DIV2 };
--static const int wdt0_parent_idx[] = { -1, LXT, PCLK3_DIV4096, LIRC };
--static const int wdt1_parent_idx[] = { -1, LXT, PCLK3_DIV4096, LIRC };
--static const int wdt2_parent_idx[] = { -1, LXT, PCLK4_DIV4096, LIRC };
--static const int wwdt0_parent_idx[] = { -1, -1, PCLK3_DIV4096, LIRC };
--static const int wwdt1_parent_idx[] = { -1, -1, PCLK3_DIV4096, LIRC };
--static const int wwdt2_parent_idx[] = { -1, -1, PCLK4_DIV4096, LIRC };
-+static const int dbg_parent_idx[] = { HIRC_GATE, SYSPLL };
-+static const int timer0_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK0, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer1_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK0, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer2_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK1, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer3_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK1, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer4_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK2, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer5_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK2, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer6_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK0, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer7_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK0, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer8_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK1, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer9_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK1, -1, -1,
-+					 LIRC_GATE, -1, HIRC_GATE };
-+static const int timer10_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK2, -1, -1,
-+					  LIRC_GATE, -1, HIRC_GATE };
-+static const int timer11_parent_idx[] = { HXT_GATE, LXT_GATE, PCLK2, -1, -1,
-+					  LIRC_GATE, -1, HIRC_GATE };
-+static const int uart_parent_idx[] = { HXT_GATE, SYSCLK1_DIV2 };
-+static const int wdt0_parent_idx[] = { -1, LXT_GATE, PCLK3_DIV4096, LIRC_GATE };
-+static const int wdt1_parent_idx[] = { -1, LXT_GATE, PCLK3_DIV4096, LIRC_GATE };
-+static const int wdt2_parent_idx[] = { -1, LXT_GATE, PCLK4_DIV4096, LIRC_GATE };
-+static const int wwdt0_parent_idx[] = { -1, -1, PCLK3_DIV4096, LIRC_GATE };
-+static const int wwdt1_parent_idx[] = { -1, -1, PCLK3_DIV4096, LIRC_GATE };
-+static const int wwdt2_parent_idx[] = { -1, -1, PCLK4_DIV4096, LIRC_GATE };
- static const int spi0_parent_idx[] = { PCLK1, APLL };
- static const int spi1_parent_idx[] = { PCLK2, APLL };
- static const int spi2_parent_idx[] = { PCLK1, APLL };
-@@ -109,11 +121,11 @@ static const int spi3_parent_idx[] = { PCLK2, APLL };
- static const int qspi_parent_idx[] = { PCLK0, APLL };
- static const int i2s_parent_idx[] = { APLL, SYSCLK1_DIV2 };
- static const int can_parent_idx[] = { APLL, VPLL };
--static const int cko_parent_idx[] = { HXT, LXT, HIRC, LIRC,
-+static const int cko_parent_idx[] = { HXT_GATE, LXT_GATE, HIRC_GATE, LIRC_GATE,
- 				      AXICLK_DIV4, SYSPLL, DDRPLL,
- 				      EPLL_DIV2, APLL, VPLL };
--static const int smc_parent_idx[] = { HXT, PCLK4 };
--static const int kpi_parent_idx[] = { HXT, LXT };
-+static const int smc_parent_idx[] = { HXT_GATE, PCLK4 };
-+static const int kpi_parent_idx[] = { HXT_GATE, LXT_GATE };
- 
- static const struct clk_div_table ip_div_table[] = {
- 	{0, 2}, {1, 4}, {2, 6}, {3, 8}, {4, 10},
-@@ -284,16 +296,16 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 					 clk_base + REG_CLK_PWRCTL, 3);
- 
- 	hws[CAPLL] = ma35d1_reg_clk_pll(dev, CAPLL, pllmode[0], "capll",
--					hws[HXT], clk_base + REG_CLK_PLL0CTL0);
-+					hws[HXT_GATE], clk_base + REG_CLK_PLL0CTL0);
- 	hws[SYSPLL] = ma35d1_clk_fixed("syspll", 180000000);
- 	hws[DDRPLL] = ma35d1_reg_clk_pll(dev, DDRPLL, pllmode[1], "ddrpll",
--					hws[HXT], clk_base + REG_CLK_PLL2CTL0);
-+					hws[HXT_GATE], clk_base + REG_CLK_PLL2CTL0);
- 	hws[APLL] = ma35d1_reg_clk_pll(dev, APLL, pllmode[2], "apll",
--				       hws[HXT], clk_base + REG_CLK_PLL3CTL0);
-+				       hws[HXT_GATE], clk_base + REG_CLK_PLL3CTL0);
- 	hws[EPLL] = ma35d1_reg_clk_pll(dev, EPLL, pllmode[3], "epll",
--				       hws[HXT], clk_base + REG_CLK_PLL4CTL0);
-+				       hws[HXT_GATE], clk_base + REG_CLK_PLL4CTL0);
- 	hws[VPLL] = ma35d1_reg_clk_pll(dev, VPLL, pllmode[4], "vpll",
--				       hws[HXT], clk_base + REG_CLK_PLL5CTL0);
-+				       hws[HXT_GATE], clk_base + REG_CLK_PLL5CTL0);
- 
- 	hws[EPLL_DIV2] = ma35d1_clk_fixed_factor(dev, "epll_div2", "epll", 1, 2);
- 	hws[EPLL_DIV4] = ma35d1_clk_fixed_factor(dev, "epll_div4", "epll", 1, 4);
-@@ -461,7 +473,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	hws[CKO_GATE] = ma35d1_clk_gate(dev, "cko_gate", "cko_div",
- 					clk_base + REG_CLK_SYSCLK1, 13);
- 
--	hws[GTMR_GATE] = ma35d1_clk_gate(dev, "gtmr_gate", "hirc",
-+	hws[GTMR_GATE] = ma35d1_clk_gate(dev, "gtmr_gate", "hirc_gate",
- 					 clk_base + REG_CLK_SYSCLK1, 14);
- 
- 	hws[GPA_GATE] = ma35d1_clk_gate(dev, "gpa_gate", "hclk0",
-@@ -662,7 +674,7 @@ static int ma35d1_clocks_probe(struct platform_device *pdev)
- 	hws[UART16_GATE] = ma35d1_clk_gate(dev, "uart16_gate", "uart16_div",
- 					   clk_base + REG_CLK_APBCLK0, 28);
- 
--	hws[RTC_GATE] = ma35d1_clk_gate(dev, "rtc_gate", "lxt",
-+	hws[RTC_GATE] = ma35d1_clk_gate(dev, "rtc_gate", "lxt_gate",
- 					clk_base + REG_CLK_APBCLK0, 29);
- 	hws[DDR_GATE] = ma35d1_clk_gate(dev, "ddr_gate", "ddrpll",
- 					clk_base + REG_CLK_APBCLK0, 30);
-
--- 
-2.56.0
-
+Miklos
