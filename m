@@ -1,56 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795038465;
-	b=y3wlKKhvN28rS+OleE900P0WoqDrMFHzPUoysvC3Qtmk2PLZ4V51UiPMN/tu6gtl20P2
-	 E/jYVIhj6Rugjt8O47vN6gbywkgeBF37aQSow5yDuxW8AbE28dZp51CZHECwv2IN6qVmw
-	 9lOfxcFU4ur8VHxEtMkv4B85l0KRt2QzniacAlc5cVJqLHVaIm1EQVPVf40qrG8NVkZA2
-	 lL0DX8nlJI87zLmsO3TFH9XsIKDkUrf8yPaGh5ceKrX3BCT0xQ+KfOOkRLgF6OvU1K+kr
-	 XhO73ujMxdRwUthl0/WfSwT2QV0jNvsC7RKPa23NcS9OYMmzdqn6rDulg5HWIeVAZkA==
+	t=1795038467;
+	b=T7k7IlZy95Jmkn5uUkBXGzDr0AcI6RIifS2Su7m6UiqbkUH/yQVjk0rk20C+oav7xKXn
+	 XXZ2mYcOqjxaaP19FMhmHZw8kevycZOhv6YLOQEJ0i9R92hWzWff77VtELxh2hQLBdWym
+	 7IGVnOoFZmavDv6qvmEAhtpSnD8wsy83PsVcdn0RL8P8GYlx4QisaDk+3IeMB1Hq92szF
+	 u/lzXGVhyh7UUr/R8rUzM1nSqzv2GQd1zkJLs0jrfBhiY5OSQb7EPgBdOwZ3xQYFHfXY1
+	 OZTgos19H3RsoSXECOhdC7Fr9T+Nv0lpct/tiU7fRae5ZlpSFF90k2R9MVXUdcur3BQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795038465;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=CNB6iSHvxedKweBduiq/ZM5d60BtJ26KViuAeTWVp6k=;
-	b=3OODQrQnjZN8ohVRihi/4BoED8jn0ln/2KNXolQiv7Cw631Lkiab716YwY3/gd1JO6Sm
-	 /c8cgpiRK+opUAM6hzEGLD11uBIEsNIbjD8VirtyvYwQU+i5aaZdtLxRKtatYbgwjziUj
-	 HvIFNI0j+iMgbRX1kNKARWalLwWrj4sFeqnAkeOuR102rFu4KI4jKC8ZPMAaAWtHhVRzz
-	 P9voft4CfihARveAkVb2nZt4B6A+SormEt3yRyZuDlho1cR8wPO3JRm638leG6THOXctG
-	 nnD9Hn3DLQPDdmFcjAB9E0c7iCmlxgBoorZUUK7+GjWmA8ehL/LyL5T+eWq0wSA9yhw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795038467;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=mQyU7DN/lzTRdzu70rpp1Uu4Lae0EpU6XKx1JiNxNGw=;
+	b=xaTNgoZHzJaFn+D73V898NUEtAed+IrKaRFRLOiCMNddzIm50u2hHzZ85iOMsjCWVUKc
+	 vxnih02XX+NKIVruy9jxubXmua0c/QWMr3qW0XeCPOHxidUh6TZ1gX2vlBg3C2bJo8STo
+	 NjCoIjOwXrq2ph80vOb8RVIvhQdtsyfIzkakQVSn6ScLrNJYWTwfni0yta8yLBQ672Ev+
+	 7Cu+4IyHKlzvu33/H46bnT/DoSoFx/HMKwHn3Wh6fhiRI1rTk4m5fbdtr+fxKvKsanMOz
+	 PRrdOwaX3wGDFmwFkbLqT+xflFI09DzKCHkxyLIK8MPYcZY8WZFUj7so68F1Dyi57CA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ZHlcdu8k;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NHVA3vGs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BED8606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 21:47:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BED8606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0596606A325;
+	Wed, 18 Nov 2026 21:47:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ZHlcdu8k
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
-	MIME-Version:Subject:Date:From:From:Reply-To;
-	bh=CNB6iSHvxedKweBduiq/ZM5d60BtJ26KViuAeTWVp6k=; t=1795038465; x=2110398465; 
-	b=ZHlcdu8kPK4u+NYWRIqPEfpK+Ec3aQa+0Cu/kdUGkTcpBa3Jco66EaFcA7D+/g69KidJr0LcVlh
-	2dwjnUom1XmPWTW7JQRb7LKQA+2/NhPnKqRFhP33lDn9CVqAL4e50w3uSb/Xaxj8PrfmCsXQkEEDO
-	uysaQxisVnStFP6wTBv1e+EiCvcwGPb48QkKzssa8srrfVDuMmdV3EYsCFUR0aDuQg/1T5JaQRCMx
-	i7wSFqROzlg/+xCuyubNar6SQmDEgYqiBiZva84StUb984fnq9BMFBfIb2LEs3vLneovB+9PGEAWY
-	scvNuo+F1d1B/Vh7pxMH1HiuVKLalqWyON0Q==;
-Received: from [179.105.94.163] (helo=[10.0.0.1])
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xTnVG-00000001DOD-1t8O;
-	Wed, 18 Nov 2026 22:47:42 +0100
-From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Date: Wed, 18 Nov 2026 18:47:28 -0300
-Subject: [PATCH 1/4] drm/vc4: Fix off-by-one in the shader record BO handle
- check
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=NHVA3vGs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3BE941F000C7;
+	Wed, 18 Nov 2026 21:47:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795038466;
+	bh=mQyU7DN/lzTRdzu70rpp1Uu4Lae0EpU6XKx1JiNxNGw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NHVA3vGsXh6jg0beLKpnaR/xJla+ZI8NvGU83ycZDo0yRfpcNVlS5fWAjbqougTwK
+	 lJZ6j4wt/azOYMqxTCSceupV6F3ihhSHcER3DKTrdy6F4HacTj6K8QFtMcDFJQXA2I
+	 VtALd1hfxv3haFoaGRYgPBA9ke5/V8kPxoHxBRCk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Sashiko <sashiko-bot@kernel.org>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 1754/3318] ALSA: emux: Fix UAF of soundfont zones at note-on
+Date: Wed, 18 Nov 2026 15:39:36 +0100
+Message-ID: <20261118150414.478108783@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
+References: <20261118150313.527275416@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,59 +62,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261118-vc4-icache-workaround-v1-1-5b8adc2c84fe@igalia.com>
-References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
-In-Reply-To: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
-To: Iago Toral <itoral@igalia.com>, 
- "Juan A. Suarez Romero" <jasuarez@igalia.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
- stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1014; i=mcanal@igalia.com;
- h=from:subject:message-id; bh=XNYsBpRqYjrTgWPoLRTtBGrva2YK8YUh+MlM1gtp31w=;
- b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq/hz2xNPULxF58DQPnhhBojGn/EVjzHQ2RAFOB
- CP0ZALTyG+JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCav4c9gAKCRA/8w6Kdoj6
- qscBB/9yU+UMVgOZ9oiRUZq5czxN4GvmCGKveOviF2YA647bNP7YDSSm3gWpne69cVfAD228lKK
- hP4E2X9JEYhjWNtGo3uSCyKBIdQcEryOlhyYAkjok7VePUBMeGACuF0t7cD+N7ErRKjwRudeMgu
- HlI3+CWHj91ieQEbxKJigp4u3KUlYYUzeqhlE9RjIenkIN9MwOi09ffakRkRuk4YGKwnJxyvOOp
- KBkIpvsKQLXxoCLlDI1ldQh5131Ay23nuuR6um3/p0lz1w8y0Piskdbv3EtVfqy5Jw0FupJ5Fns
- u44x6Sjs6ZZZjGOgawnD3QHbeT6c6OTFgkiOjf3bQ+FblRsI
-X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
- fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-validate_gl_shader_rec() accepts a shader BO handle equal to
-exec->bo_count, reading one entry past the end of exec->bo[] and
-using it as a GEM object.
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-Reject handles that aren't below exec->bo_count.
+------------------
 
+From: Takashi Iwai <tiwai@suse.de>
+
+[ Upstream commit 34e3e04b8a1731a773797542f0781e99ce7cd755 ]
+
+snd_emux_note_on() looks up the matching zones via
+snd_soundfont_search_zone(), which takes sflist->lock only during the
+lookup and returns the raw zone pointers after releasing it.  The
+caller then stores them in vp->zone without any protection.
+Meanwhile, a concurrent SNDRV_EMUX_IOCTL_REMOVE_LAST_SAMPLES ioctl may
+unlink and free those zones in snd_soundfont_remove_unlocked(); this
+leads to a use-after-free in snd_emux_note_on(), and later at
+accessing the cached vp->zone, e.g. in snd_emux_send_effect().
+
+Fix it by holding sflist->lock in snd_emux_note_on() over the whole
+zone lookup and voice setup, and let snd_soundfont_search_zone()
+require the caller to hold the lock, instead.
+snd_soundfont_lock_preset() takes sflist->lock for setting
+presets_locked, so the removal path now syncs with the note-on finish.
+
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/bug/linux-697212bb-a434-4ff5-8778-25a84f5dad89
 Cc: stable@vger.kernel.org
-Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
-Signed-off-by: Maíra Canal <mcanal@igalia.com>
+Link: https://patch.msgid.link/20261020101624.205638-1-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/vc4/vc4_validate.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/synth/emux/emux_synth.c | 3 +++
+ sound/synth/emux/soundfont.c  | 9 ++++++---
+ 2 files changed, 9 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/vc4/vc4_validate.c b/drivers/gpu/drm/vc4/vc4_validate.c
-index 565227657b43..0d2b08abf1ad 100644
---- a/drivers/gpu/drm/vc4/vc4_validate.c
-+++ b/drivers/gpu/drm/vc4/vc4_validate.c
-@@ -815,7 +815,7 @@ validate_gl_shader_rec(struct drm_device *dev,
- 	exec->shader_rec_size -= packet_size;
+diff --git a/sound/synth/emux/emux_synth.c b/sound/synth/emux/emux_synth.c
+index b3c8296840a56..537a7c47ef475 100644
+--- a/sound/synth/emux/emux_synth.c
++++ b/sound/synth/emux/emux_synth.c
+@@ -60,6 +60,9 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
+ 		return;
  
- 	for (i = 0; i < shader_reloc_count; i++) {
--		if (src_handles[i] > exec->bo_count) {
-+		if (src_handles[i] >= exec->bo_count) {
- 			DRM_DEBUG("Shader handle %d too big\n", src_handles[i]);
- 			return -EINVAL;
- 		}
-
+ 	key = note; /* remember the original note */
++
++	/* hold sflist->lock for protecting against concurrent free */
++	guard(spinlock_irqsave)(&emu->sflist->lock);
+ 	nvoices = get_zone(emu, port, &note, vel, chan, table);
+ 	if (! nvoices)
+ 		return;
+diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
+index c124d6c27a945..2e37d91153a05 100644
+--- a/sound/synth/emux/soundfont.c
++++ b/sound/synth/emux/soundfont.c
+@@ -1220,6 +1220,9 @@ delete_preset(struct snd_sf_list *sflist, struct snd_sf_zone *zp)
+  * The found zones are stored on 'table' array.  max_layers defines
+  * the maximum number of elements in this array.
+  * This function returns the number of found zones.  0 if not found.
++ *
++ * The caller must hold sflist->lock, and keep holding it as long as
++ * the returned zones are accessed.
+  */
+ int
+ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
+@@ -1229,11 +1232,11 @@ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
+ {
+ 	int nvoices;
+ 
+-	/* this function is supposed to be called atomically,
+-	 * so we check the lock.  if it's busy, just returns 0 to
++	lockdep_assert_held(&sflist->lock);
++
++	/* if the presets are being modified, just returns 0 to
+ 	 * tell the caller the busy state
+ 	 */
+-	guard(spinlock_irqsave)(&sflist->lock);
+ 	if (sflist->presets_locked)
+ 		return 0;
+ 	nvoices = search_zones(sflist, notep, vel, preset, bank,
 -- 
-2.56.0
+2.53.0
+
+
 
