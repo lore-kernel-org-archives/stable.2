@@ -1,94 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.82.16
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795040558;
-	b=4uqDCUfSiQrco0jPmyjdmUitMPLyFRi1/lZOQ8zvdoFcf9klSI+9CWxeCHIFP9SJOcTU
-	 1zQs9/9N/7k+QXGA6LI0Xl6XPY38OeJ7Ro1KgMz3PqVzcBedi65RLfPSF34MAA4zD/K96
-	 gnzBHZqjx7/5mXLRi/dGm4Mka8HZLyV2cmUKwJVqLMR0TcmB7641qx5MDnJNqL6tI4eH5
-	 jiIcvG+L2d/X3Yjt5C9DsdD5K3lnh+YtSoYlv6r74wv7aRvTISLzQSoL9edOUK8SvcPzV
-	 P/PJFxuwI+pRB/hX7j0ERqRq30+yMWstFvEQPPcKmuQEL2WZ5+zVPS5xUQlsyJpl9vg==
+	t=1795040559;
+	b=f59nN5v/LwI9k6GXSRg/L3+7Mjv45uthwhQXEjNgWf9xKi4u1rjsbZDwbIGvPWJceflK
+	 ApduuivwvA/H8XJRT6r7/3T0kBFIr8JK+RyQWhfayjskMXAGBhI0+mR0zaCBijdj5nV1R
+	 vbKtBNQZ6CzXTOIJoUnMDEo9ehyew1fMtfOh/A5IX3ysPLniGqGKmuXC9ISm3Ap0Gue2D
+	 qsVWL9m6CTBNc6Q9WGbXZStOBHDtjk+S8mXlDQUBSHdcYId0wpruQ1bZjpqfodmwujY1F
+	 YumJY8RbQw+gXyA9m9zfI8F/sD2SX7RKkWj85bE67Hzh82VC0wuU8h9bCMNiNZGNIOQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795040558;
-	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
-	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=07Hk40Tpzd0exU21rqFe2WaV4XF0cHbqrd9OCHEx29s=;
-	b=Q2LQKmXJtVEapVE5X/mcOBLxo4j+7I7UK3taSsaHsIc0kfSR2D8W9CKS4wErvEMxilf0
-	 nDLdBE4LVCyzPMn0+cxaEbjcIcMKBe6yUa7q77cvp8359pSRSJgD8AcJPW5fu9loCu7lp
-	 6/AKZ1TKX7zIBBvVO3SO747e0eca3+6WKnQygcQdDA+d0ayDWQm7whfDvxJE457/grEps
-	 +6zdpkSpmRYhiMpPusnXzyEmXBeW1R6fb0394PHGn+2DyQhOqZ7Z6rp+I8AnRwEfQRpRR
-	 yL1TpykdoDpaRsoto68ajKjpc9IIFLJ/TrKAV5ikdPZPw7dEtY0+48ZkOTN5TYhGDow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795040559;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=GZWXehk5T1pfvekDxYxNDn8QmShK7ESGyoDujtxf1+Q=;
+	b=kZ2aPG62fySF+Zbx1Urx+HXFVE56uoMvr21105iNDYVpAOhXnX4sy2x06Z6looGhPk3X
+	 faM6eXfAIou+iLOAsDblsFVN75YGiXlo3PE/zTZXCKtO9DEARhZudxjypOPQ97dE6IheS
+	 kRZg0dXiXi5cgFuTqA3YC47vsSQZF9Z9+vknuDMZbdyOnjxeRHvh8HhW2BM5wXbTZITNu
+	 M7nVaMJwWwqhAXGTc1UF8XMEli9bWsQzWTVj+IkVTVk2s35em5r5woQrJ89VIiHUwF7Kg
+	 0Qnk34VwsDXmph92NdncijNCv+R43V6plcK5u+LZMw1pAbFE+Q+O+vVvH75mvgT5nwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=yahoo.pl;
-	spf=pass smtp.mailfrom=yahoo.pl;
-	dkim=pass header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=A0PNf8EG;
-	arc=none smtp.remote-ip=34.2.82.16
-Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YDu0oSX6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B8C2606A339
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 22:22:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B8C2606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 815F2606A336;
+	Wed, 18 Nov 2026 22:22:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=A0PNf8EG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1795040555; bh=07Hk40Tpzd0exU21rqFe2WaV4XF0cHbqrd9OCHEx29s=; h=From:To:Cc:Subject:Date:In-Reply-To:References:From:Subject:Reply-To:Content-Type; b=A0PNf8EGpsyGv55j6FXHvQ+iIdclsGLckSUqutiiajr6W29ucpTLWPZJM3bfgwH54QvJc6P0xPeFuwdqGuXSdy7Gsrh2eAcAfZ57Ge9GzPxMAri1mYalZtCF3krgYR10UUityK0ZZ9wuD9NbMG3whKgIqSPuqpJth+QOkbf1RfVuBWQZMdcO9fOB6I6aF/rVpkoXJ2cHzWdl2RdE/2snu526QIBpQfl0I+l9+VCZMpEgqSlZn/Gu7wD8YUnUjGn82T1bdU7Qn2krsa9sHtouXWV5Ix73QigfQBwhXAM6zE8yYyhkENEcr0Sf6sFVJomBwAqHk3jpZmOcmAcrPHM4mQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1795040555; bh=ccBSLLeMHNMCOjiTq3s1KL5ikKwzDgI3u7O26Fa7zeO=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=L/YNxzC5q/QkFHR6rTeMKVTXhP0uaRsloQw/f9BcmGA5innpu+CMjBNJhuXE0UQJ+7L735lylKRZnu3ICIkRzV+akRIHvJo4gZTidccNF354eR7IQAKSd8Mee1aKVIlx370jXWpbiAABXmgXrE9os0kiK3GaVaL9Gy9tSBgM9XwOdCTComaULdHPIekmaMq8KAoKxJjhKv08qoTl2xvfnHdeL3zDzag3XzkP/Zk/IMOOeywPw0yZFEggGMlUZ5BiMCaUzMv14DddbtAeCQEk03MMP8IEXNeHUjI+FeWCXQzrsQZSfsmhiD4j4RmYPZDkkg5Et0mz2mjj33bvbzjSYg==
-X-YMail-OSG: E2zfUyEVM1liH8nrgR03BY6MMlnSLxTZiL4_OBke00d8BKt1HdeSS03_GrfkSqr
- r9GCOc9.sBOLMNOXYZjK4nMOtJmWBHU1ME5YheUvKyHBHSwtGUEgWtG7zaq1c6FNdezLuaLxA.Xp
- Yw3zGp2ZcmWE4pntiPfB6ZobFOYDCIMqSUP4wUrtDIgNZk__QG2cydAdDYWhYr3T4PlPg3Auk7dX
- PecEbRNaDLxXPcSVG3zd6HUWMVCzccr3IJayk6WXtYO9o3dHn_tdKDR5Gp80D3RmuoU.K8bVCkmZ
- 78PrrACxbiDFQopx_yZZ_GrMiwfNCeeFyTitneeZB2YBc9WMCfR5bcWhResYxcknauhnxQnCLtdw
- 4.b2pZG60ZC7cqM7.z0O.xDbZ4oeaz5hlAUHR2PRCvs.W7K5dAxfv4lJ2XB7QSZxLo3.ozCdRnjv
- K4bVWwWp0PrW.AZizoSKL6OF.i38BScvBNMWv2QZgB0hDqaxfZEuSuvJrRL6LEu8stZk4xvnR9xU
- Q.9EwD2P2eEYILkCucgbeVopluAfte2JWDyuxpgcIJybhhW4JhlH5NY4YGjG.HkheBQq_3ZV23Y2
- A16Tdhu6KTPxT8vtErjJh2d_SGkLehTL53Kd7NMJiw_MugeZgabadCiXUjTn1.b__kzvOnb5.aq0
- Cy3I.lWLr5u5Ob4iWd2_Gj2Fqq6QGHtdUh1JribzK548K7rJO4gjY.kX54bSO4Kr1m7hWIP6OpKy
- GwVJ27xsMtZZzmlS9KOZruP_xpiFx6wh0_7pjrHeaV16YG2qzixnVhV5Yvg4QhoVdRITSLJfA0_6
- YYpCgkPchhWoDVJqNI.tjOmklhaUpp2rDHVvFPIDqqG_HcmpHFJKRp1XN3xbjNwgLbdYWYyF9xGn
- 2ZGy1QMoP7XH3rw1ZckxsavCPbkZKCvdGPe2bLAB.IEFM43KKzWD5ch76SobnEFv_4IeAWyPPINe
- 2EAy9zNwOoCXDbSVZAw9_hQMreoHCy5ZUXA3pRnNB588xuYx4tDhJIbqqNz.IVEeKS18LvmEU4qd
- bbewjsO2fmBaOaslcOcwG_GJk9jDoG.UxwgiXWgrCtXU88jEOWbdEuMfca6V6bCoejBVS2Qi09bm
- rlFixmrRHH6OLx.5HCbFROnaKTn5qHCtptwJcjKYnBBbIzBxCfbH.pO5eoqg4tPz3t_yiA3u7gRA
- M9.G.KZIgAjOVBb8k0ILs3iTAKp_whkGcQOZDQDWSwQudtq2RjBpaKZzI1sMZwSYpE5lCTsw1F5R
- wmNe9qhYhdL2CpxU5rMOOraG8PEXtnV6wIoT7KbytqlOEG_67J5dIx5oZ_QRYVHAcShuFedKcSSn
- ihZjrob147ay12HRfKgNfv30Lje81TP0woEB0tgAjQQV0rxESgXgjYbuYrx0zD9e9uWKPiaPk1uU
- 7e1jIM6SD_W9gmdesHdAgAw2RJ4TnmPBbtSkF8aTdJALodEYNU8hHzSrQ5jjvOYCeVStEiBy_L6W
- maJzYNVU2o_kk1YzXLINJT3Rq3Eo_4AbqI4.v.zHdvJHRtUU.xHbML1f2tOPsa_DK0bn0LeOhYHS
- _dvNJ20Oa6r3BZMAYnrd2ixmV3WaMEIhq9d13prdNmSvBd.By5jTkQ8Gne6ZmWX2WPg_A0fdNcNE
- hVP.Z0PTICyR6z_FxO0FJOsIFguVfYLOWzQNNW.why79tm6W4YQbzC3U1QsnFGV1LSoqGJaVwVY.
- daNdATXaSqglCV4N5f1JIXiWdJmd.XCK61e8yw1arqBmLSksiipY9b0PwC.6LWENZyzksqglRIi5
- dy8buFOCLAMXaULCIBKvBeYc3qbCEEImHI2h2Vd83cOTh7y0GFNhra93jRr9v2dkWoKDw2nEkfFa
- TghEdCMf8BLthrv7BBsVLj9.7Ca.iXaaNDNnQfRDnqf39ZPBhMg.fxfIrDQhIam9Yx2disLL84So
- MPGJ1fAZnFOPI3yf66YMaHDnUHu6mhqjLaom3AnJI23fN1yhruKj2QWazVjAy9bdqiE0AYhB8dHF
- dbeTLLDW6XjqRkM6uaIAJ7m9vOQ--
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: 0eafbce0-69f4-485d-810c-5d0ee321b30c
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-104 with HTTP; Wed, 18 Nov 2026 22:22:35 +0000
-Received: from dip120.lsn.ir2.yahoo.com ([87.248.99.129])
-          by hello (SMTP) with SMTP ID 97eb8e7d0ce49dbbcc92550550a7216e;
-          Wed, 18 Nov 2026 22:22:33 +0000 (UTC)
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Vinod Koul <vkoul@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Frank Li <Frank.Li@kernel.org>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Ray Jui <rjui@broadcom.com>,
-	Scott Branden <sbranden@broadcom.com>,
-	dmaengine@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] dmaengine: bcm2835-dma: Add missing of_dma_controller_free()
-Date: Wed, 18 Nov 2026 23:22:30 +0100
-Message-ID: <20261118222230.123431-1-tomasz.unger@yahoo.pl>
-X-Mailer: git-send-email 2.56.1
-In-Reply-To: <av3_yVSq9CKqix6o@SMW015318>
-References: <av3_yVSq9CKqix6o@SMW015318>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=YDu0oSX6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A64831F000C7;
+	Wed, 18 Nov 2026 22:22:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795040559;
+	bh=GZWXehk5T1pfvekDxYxNDn8QmShK7ESGyoDujtxf1+Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=YDu0oSX6kGS2HL4jEBnkZVQWm0o5B7JUdjEXsB3GnhNmbDat7CuFPUWxBlOmJw80T
+	 0G5YDR3Q3+/8o60RjZ3BWwOUMudUy0DHObDWSQ1QOhTl3Ib9mbbqcg/QdAhwk02bzg
+	 vA0/W19AVm2CCZ+cLGoosER0RzNCPO4ysYyaqMqI=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Simon Horman <horms@kernel.org>,
+	David Ahern <dsahern@kernel.org>,
+	Hangbin Liu <liuhangbin@gmail.com>,
+	Sabrina Dubroca <sd@queasysnail.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 2493/3318] ipv6: sr: restruct ifdefines
+Date: Wed, 18 Nov 2026 15:51:55 +0100
+Message-ID: <20261118150436.179026966@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
+References: <20261118150313.527275416@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,42 +67,178 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 18, 2026 at 01:43:05PM -0600, Frank Li wrote:
-> On Sun, Nov 15, 2026 at 11:15:15PM +0100, Tomasz Unger wrote:
->> @@ -1027,6 +1029,7 @@ static void bcm2835_dma_remove(struct platform_device *pdev)
->>  {
->>        struct bcm2835_dmadev *od = platform_get_drvdata(pdev);
->>
->> +      of_dma_controller_free(pdev->dev.of_node);
->
-> use devm_of_dma_controller_register() to fix this problem
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-Hi Frank,
+------------------
 
-Thanks for the review. I tried that, but with only the OF registration
-moved to devres, the controller entry is removed after
-bcm2835_dma_remove() has returned, i.e. after
-dma_async_device_unregister() and bcm2835_dma_free().
+From: Hangbin Liu <liuhangbin@gmail.com>
 
-In that window bcm2835_dma_xlate() can still be reached through the
-node. dma_async_device_unregister() has already freed chan->local and
-dropped the last device reference (dma_device_release() does
-list_del_rcu(&device->global_node)), while the channels stay on
-od->ddev.channels until bcm2835_dma_free(). A client requesting a
-channel at that point goes through find_candidate(), dma_chan_get()
-fails with -ENODEV and global_node is deleted a second time. The same
-applies to the dma_async_device_register() error path in probe.
+[ Upstream commit a79d8fe2ff8e78e549dc86cc853a61b029404871 ]
 
-Doing it right with devres would mean converting the whole teardown:
-a devm action for bcm2835_dma_free(), dmaenginem_async_device_register(),
-and devm_of_dma_controller_register() last, so that the OF entry is
-removed first. That is a larger change, and
-devm_of_dma_controller_register() only exists since v7.1, while this
-fixes a bug from the original driver and is tagged for stable.
+There are too many ifdef in IPv6 segment routing code that may cause logic
+problems. like commit 160e9d275218 ("ipv6: sr: fix invalid unregister error
+path"). To avoid this, the init functions are redefined for both cases. The
+code could be more clear after all fidefs are removed.
 
-So I would prefer to keep this patch as a minimal fix that backports
-cleanly, and send the devres conversion as a separate follow-up.
-Would that work for you?
+Suggested-by: Simon Horman <horms@kernel.org>
+Suggested-by: David Ahern <dsahern@kernel.org>
+Signed-off-by: Hangbin Liu <liuhangbin@gmail.com>
+Reviewed-by: Sabrina Dubroca <sd@queasysnail.net>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://lore.kernel.org/r/20240529040908.3472952-1-liuhangbin@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: f9cb4d296d81 ("seg6: fix HMAC validation when an extension header precedes the SRH")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ include/net/seg6.h      |  7 +++++++
+ include/net/seg6_hmac.h |  7 +++++++
+ net/ipv6/seg6.c         | 33 +++++----------------------------
+ 3 files changed, 19 insertions(+), 28 deletions(-)
 
-Thanks,
-Tomasz
+diff --git a/include/net/seg6.h b/include/net/seg6.h
+index af668f17b3988..82b3fbbcbb935 100644
+--- a/include/net/seg6.h
++++ b/include/net/seg6.h
+@@ -52,10 +52,17 @@ static inline struct seg6_pernet_data *seg6_pernet(struct net *net)
+ 
+ extern int seg6_init(void);
+ extern void seg6_exit(void);
++#ifdef CONFIG_IPV6_SEG6_LWTUNNEL
+ extern int seg6_iptunnel_init(void);
+ extern void seg6_iptunnel_exit(void);
+ extern int seg6_local_init(void);
+ extern void seg6_local_exit(void);
++#else
++static inline int seg6_iptunnel_init(void) { return 0; }
++static inline void seg6_iptunnel_exit(void) {}
++static inline int seg6_local_init(void) { return 0; }
++static inline void seg6_local_exit(void) {}
++#endif
+ 
+ extern bool seg6_validate_srh(struct ipv6_sr_hdr *srh, int len, bool reduced);
+ extern struct ipv6_sr_hdr *seg6_get_srh(struct sk_buff *skb, int flags);
+diff --git a/include/net/seg6_hmac.h b/include/net/seg6_hmac.h
+index 2b5d2ee5613e8..24f733b3e3fe9 100644
+--- a/include/net/seg6_hmac.h
++++ b/include/net/seg6_hmac.h
+@@ -49,9 +49,16 @@ extern int seg6_hmac_info_del(struct net *net, u32 key);
+ extern int seg6_push_hmac(struct net *net, struct in6_addr *saddr,
+ 			  struct ipv6_sr_hdr *srh);
+ extern bool seg6_hmac_validate_skb(struct sk_buff *skb);
++#ifdef CONFIG_IPV6_SEG6_HMAC
+ extern int seg6_hmac_init(void);
+ extern void seg6_hmac_exit(void);
+ extern int seg6_hmac_net_init(struct net *net);
+ extern void seg6_hmac_net_exit(struct net *net);
++#else
++static inline int seg6_hmac_init(void) { return 0; }
++static inline void seg6_hmac_exit(void) {}
++static inline int seg6_hmac_net_init(struct net *net) { return 0; }
++static inline void seg6_hmac_net_exit(struct net *net) {}
++#endif
+ 
+ #endif
+diff --git a/net/ipv6/seg6.c b/net/ipv6/seg6.c
+index 203bff1a6556c..c175d6cb57897 100644
+--- a/net/ipv6/seg6.c
++++ b/net/ipv6/seg6.c
+@@ -21,9 +21,7 @@
+ #include <net/genetlink.h>
+ #include <linux/seg6.h>
+ #include <linux/seg6_genl.h>
+-#ifdef CONFIG_IPV6_SEG6_HMAC
+ #include <net/seg6_hmac.h>
+-#endif
+ 
+ bool seg6_validate_srh(struct ipv6_sr_hdr *srh, int len, bool reduced)
+ {
+@@ -440,13 +438,11 @@ static int __net_init seg6_net_init(struct net *net)
+ 
+ 	net->ipv6.seg6_data = sdata;
+ 
+-#ifdef CONFIG_IPV6_SEG6_HMAC
+ 	if (seg6_hmac_net_init(net)) {
+ 		kfree(rcu_dereference_raw(sdata->tun_src));
+ 		kfree(sdata);
+ 		return -ENOMEM;
+ 	}
+-#endif
+ 
+ 	return 0;
+ }
+@@ -455,9 +451,7 @@ static void __net_exit seg6_net_exit(struct net *net)
+ {
+ 	struct seg6_pernet_data *sdata = seg6_pernet(net);
+ 
+-#ifdef CONFIG_IPV6_SEG6_HMAC
+ 	seg6_hmac_net_exit(net);
+-#endif
+ 
+ 	kfree(rcu_dereference_raw(sdata->tun_src));
+ 	kfree(sdata);
+@@ -523,41 +517,28 @@ int __init seg6_init(void)
+ 	if (err)
+ 		goto out_unregister_pernet;
+ 
+-#ifdef CONFIG_IPV6_SEG6_LWTUNNEL
+ 	err = seg6_iptunnel_init();
+ 	if (err)
+ 		goto out_unregister_genl;
+ 
+ 	err = seg6_local_init();
+-	if (err) {
+-		seg6_iptunnel_exit();
+-		goto out_unregister_genl;
+-	}
+-#endif
++	if (err)
++		goto out_unregister_iptun;
+ 
+-#ifdef CONFIG_IPV6_SEG6_HMAC
+ 	err = seg6_hmac_init();
+ 	if (err)
+-		goto out_unregister_iptun;
+-#endif
++		goto out_unregister_seg6;
+ 
+ 	pr_info("Segment Routing with IPv6\n");
+ 
+ out:
+ 	return err;
+-#ifdef CONFIG_IPV6_SEG6_HMAC
+-out_unregister_iptun:
+-#ifdef CONFIG_IPV6_SEG6_LWTUNNEL
++out_unregister_seg6:
+ 	seg6_local_exit();
++out_unregister_iptun:
+ 	seg6_iptunnel_exit();
+-#endif
+-#endif
+-#ifdef CONFIG_IPV6_SEG6_LWTUNNEL
+ out_unregister_genl:
+-#endif
+-#if IS_ENABLED(CONFIG_IPV6_SEG6_LWTUNNEL) || IS_ENABLED(CONFIG_IPV6_SEG6_HMAC)
+ 	genl_unregister_family(&seg6_genl_family);
+-#endif
+ out_unregister_pernet:
+ 	unregister_pernet_subsys(&ip6_segments_ops);
+ 	goto out;
+@@ -565,13 +546,9 @@ int __init seg6_init(void)
+ 
+ void seg6_exit(void)
+ {
+-#ifdef CONFIG_IPV6_SEG6_HMAC
+ 	seg6_hmac_exit();
+-#endif
+-#ifdef CONFIG_IPV6_SEG6_LWTUNNEL
+ 	seg6_local_exit();
+ 	seg6_iptunnel_exit();
+-#endif
+ 	genl_unregister_family(&seg6_genl_family);
+ 	unregister_pernet_subsys(&ip6_segments_ops);
+ }
+-- 
+2.53.0
+
+
+
