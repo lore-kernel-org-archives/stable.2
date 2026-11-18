@@ -1,59 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016148;
-	b=b5aMUxGBPtc0irjhl/U7M58FI7XPwswqJTutwdHU1KSq2HumLBeucKlzpCP0QH48Pe1f
-	 HTLovtgGht6nBTF62zzckZeFQOg1Y8Z4tQ0DKx6RxqEO0C5oJa8lxPln3YIIossj6Ladg
-	 HF/wEbqSur0PyCurrckcB6FeTM+t8+F9RJifjWyc5CjLgCiwaEFSJqQyOumrTX2BnQRVr
-	 lW7+xTajkwNVA6YCfVn8nAyYBGbBSUjlvq1GwmRxOgGO1jkwkxqxrD71ZZHTf/zheM4c1
-	 Ey6CsNY8FBXHeOd3JMZ+R0wm5I9P1S8C8rroAEI0JBiYpJV9KMuUpLCeKBSk/O9JEpw==
+	t=1795016149;
+	b=4wDkuV8yXFwmJo6Wkz7chKbLhMoigZDdPM281c/ht60YTW173NrdSuEa2y8Qf+nGSZ4J
+	 phm4IBuYp5ohncq/goKD3P/T58klTiWnAzfsNVvXKUl00XRuKHGNaie2FP4EEm+KOBxd+
+	 BQxtgJ08abU/GiLEnYs51MnYXzPJppGH9tgjxP6gyn1NvEti2O7TRnwc4ZEtPQVFK9rWv
+	 YWBPlzGEHqGVHXk2BqKLDCgufoPR+eFK0DQBsycClJsy3DZ78tD6s0EWaYc+heBcPBcaM
+	 xwjTUV6k/BFr8msicvHzU326dsm0REh/YCToYoEgw1r3uWJF+fPzEXzX91I7gmoqIWQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016148;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=cYaNt2cOQwYJSlc3ZfoFrFmCZNwFWsRio1Cw/M5FvbQ=;
-	b=KsJErcDFwx1kK5Wh43Tsb4MqWu+5WnQA7cIpjH2IhdN5EXYTFWv7nqkahF/qRq1Pq9Q3
-	 tKGozu4kCaYP+WQ7vLcI2qzDwR8k0pf/ASqsHw920fBGls6a4iUZ8rLp7ZBkLzpsTIS+Q
-	 /2aU9dYsACQlfIQ40xCRq2Ie7ZyXMaLoPPClrV+sfqWDdEUVB3hx+jeGariJX7savcGoe
-	 H/fx6RQXF3ZbZMDtRvxvO0QpzCmaP6hADKYCpLgsNETwIQkSkMZb+kWe8gmGwXR+dJjxs
-	 vflWvj4/xq+BAje+UyGKY3iU+fOAO9+zL9yqSDh2ooT4u3Gx0FwajIVXX3S1+ThuPVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795016149;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=t2Y0uksBfonBwzOwNmdjxS0BTSWKi5CUHrmpAZqGpVc=;
+	b=28+HdFueDQ5SJthlzNVqFE76z/NiraB85QTLTuQWIt9DAKgrPL46pGY+KGrEsa51ZOZR
+	 xSMl3DC5J0zABjvMLogNicy2VPHfRwExGqAY4aHFClteOZBRw8lr47sNAX2g4orgUm5jC
+	 mJn+VoHbwZMbcGfuspQpKQ8bAugnaZP6Wxap+yQYpLPPxSt8IGXRdYOM9N243tu/ocOh0
+	 xUb7h2Idq8ybWVmmPbRfTCyKGIPZJZ9TLWgT7cul3ubml2Nd3Peyi/bT/jrnVdSGBzfgF
+	 EbkWCZ/99IGwauYcxz0CDo35MjmhPLcmrBJrqJz7qVdXVLRrhyBasvQhPvGHQuFmhnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ht9eOjTI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZAyN23c;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 927FC606A325;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B16606A336;
 	Wed, 18 Nov 2026 15:35:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ht9eOjTI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E92761F000C8;
-	Wed, 18 Nov 2026 15:35:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795016148;
-	bh=cYaNt2cOQwYJSlc3ZfoFrFmCZNwFWsRio1Cw/M5FvbQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ht9eOjTI68Zjpzyu0Q8QpP47dDEQzApA0aI9dLDyLelNbaGF8dAWwaaBb2SNaWmm7
-	 uT8Uvloss4usA0daQR/OgjNIEy5ESyPw0twdmgXg9c4S+t36corNvV/k3sWv1YgVw9
-	 CRz07c9m+TYkawbO8Cz+JfoefY52Nvm3yxbd9pm4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Gabriel Fernandez <gabriel.fernandez@foss.st.com>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0424/2651] ARM: dts: stm32: fix vdda supply for onboard hub on stm32mp135f-dk
-Date: Wed, 18 Nov 2026 15:27:44 +0100
-Message-ID: <20261118150303.091008593@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZAyN23c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FFC11F000C9;
+	Wed, 18 Nov 2026 15:35:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795016148;
+	bh=t2Y0uksBfonBwzOwNmdjxS0BTSWKi5CUHrmpAZqGpVc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=NZAyN23cS3UbJ/9rD5RcMSWPahxbPftycUeQarC22xj/dMgCMTu7gdUdRL+AzWI48
+	 HCddOA12zv+vmSsdyWZpk8mMdvMjbFmBvNJWu9HONh1itqoLdq2yRfvkPBgZW3Sawq
+	 KGsDf1kaN9hWptbz0OxDnSIN++gAZYla6Pm5+uf1yO4sHyQpD1QySJzpN/egZnjfnr
+	 9OsGsr0KEUxxsUNSRQrAzAMYOeTadzDFqgZG60RhJ4WNV98x/+Eu0G1DGTfPFJXG9j
+	 RPci+KnUD8+8dVTBkG0H8TFal/Pg6WlQy9aQkcPTbvtyvW8qSNKx0o6JioXBGHbcRX
+	 gXtJuzQKxIVWg==
+Message-ID: <90a961f5-e488-46de-8872-0e1540eaad4c@kernel.org>
+Date: Wed, 18 Nov 2026 16:35:32 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,46 +51,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/13] mm: batch of (urgentish?) fixes in oomk,
+ cachestat, dev-migrate, percpu
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, David Rientjes <rientjes@google.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Nhat Pham <nphamcs@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Usama Arif <usama.arif@linux.dev>, Kairui Song <kasong@tencent.com>,
+ Balbir Singh <balbirs@nvidia.com>, =?UTF-8?B?SsOpcsO0bWUgR2xpc3Nl?=
+ <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Yu-cheng Yu <yu-cheng.yu@intel.com>,
+ Dave Hansen <dave.hansen@linux.intel.com>, Dennis Zhou <dennis@kernel.org>,
+ Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>,
+ Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>,
+ Chris Mason <mason@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ Mark Brown <broonie@kernel.org>,
+ "Dennis Zhou (Facebook)" <dennisszhou@gmail.com>,
+ Rick Edgecombe <rick.p.edgecombe@intel.com>, stable@vger.kernel.org,
+ Josef Bacik <josef@toxicpanda.com>
+References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On 11/13/26 22:45, Lorenzo Stoakes (ARM) wrote:
+> A bunch of fixes for oomk, cachestat, device migration and the per-CPU
+> allocator.
+> 
+> These patches were originally AI-generated, tamed into upstreamable state.
+> 
+> Some are more reworked than others. Those which needed a significant
+> rethink are submitted as mine and marked as Reported-by the relevant
+> original author, others are smaller edits which are annotated as such in
+> the usual fashion.
+> 
+> Please check for correctness, sanity, and whether the cc: stable is
+> warranted (I have not included it for 3 where it seemed unwarranted.)
+> 
+> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> ---
 
-------------------
+Lorenzo, I would pick up the migrate_device patches now.
 
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Which one should be fast-tracked upstream and which can wait for the next cycle?
 
-[ Upstream commit 2f92d900f262a16c8ae02daf53ae2910d07185f5 ]
+Use-after-free, shadow stack and out-of-bounds write ... look rather bad.
 
-stm32mp135f-dk uses Microchip USB2514 HUB. Since vdda supply has been
-added, the regulator framework wrongly associates the 'vdda' supply
-dedicated to ADC, so the wrong regulator is referenced.
-Only the 3v3 regulator is used to supply both the digital and the analog
-part of the HUB.
-
-Fixes: 673655f7944f ("usb: misc: onboard_dev: add vdda support for Microchip USB2514")
-Signed-off-by: Gabriel Fernandez <gabriel.fernandez@foss.st.com>
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Link: https://lore.kernel.org/r/20260821-usb_fixes_vdda-v1-v2-3-23cc919b59fb@foss.st.com
-Signed-off-by: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/arm/boot/dts/st/stm32mp135f-dk.dts | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/arch/arm/boot/dts/st/stm32mp135f-dk.dts b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-index 1d6435c59096a..bd5d6818d7ba9 100644
---- a/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-+++ b/arch/arm/boot/dts/st/stm32mp135f-dk.dts
-@@ -628,6 +628,7 @@ hub@1 {
- 		compatible = "usb424,2514";
- 		reg = <1>;
- 		vdd-supply = <&scmi_v3v3_sw>;
-+		vdda-supply = <&scmi_v3v3_sw>;
- 	};
- };
- 
 -- 
-2.53.0
+Cheers,
 
-
-
+David
