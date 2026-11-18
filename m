@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795020653;
-	b=i2e7L9jYIZcr6dYQS6Ivpf/78XNRV6lchvxE2G/TcxTgo7T8luNfHA+lnVhW+kr0iDnL
-	 IXI2FaAlES3nMVlCr4aM4lioxQWKe+HQBP9rCEiZQQAhx6fNdM6XGWuLxLOMQ+f3PKB7R
-	 R4ynoSO1xQYi3h4G0+dTuq3dO8bP4NxB3EY76y9hEDLG3CdB08MMU1rTXLVhV35KqW4UE
-	 LlsXd1NNvHvRmCCszGIaATOrMOhU1job9pbVglXaLTx2dLBHlCITV1S17IBqNkYGNDYr6
-	 Fxc2kvw+ApVfjO7U3pcu2LRfHT8NJ4f7Nz0vOftfOYh1Z1uG5A55DIlJ14MHWAgppzA==
+	t=1795020659;
+	b=t14UZNIk+nz2hy+lM5BfwoJ1HjiyG1SdhMyz1KrjPQs0dC/a6Ex9jq2uPk0iBHiPvuJv
+	 iWW3MTsRI8qVvN7g/g/Q5C1X9OK/4P7l+GPOHgTCulJU+JhLmbUn2ZezD5T9lM6GeY668
+	 8ES9zdU05mE5Axk3OvbIn2lh9L9HaMQKLgQcHVjsy3oQRbm/DTyafdET0ciRBcm/6SMVZ
+	 FC4Q7LiXgwDwRzhQBuQoIz2Y+Kbh7Dfb9rKKbQZVdWfUXFJc5oQvoUnhPVgTH+wcdf5Za
+	 JzTHCr9HTX/A2aZLWu7ewWdv6vGu2D/x6eHwT1XKrV+NGNxAkt4UkWYTKNx5YBmmPIg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795020653;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795020659;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=o1POwUOc5optfjJ+UUUWsBDoqh5lpXnAcSU6rKwJxHA=;
-	b=2jBv3MPDMx5uhX9GXoHaeH07WPYjp2Pbz5IbuxVBRGD6Eyy10W1AHDZX6jrL1sk93zYw
-	 I1/b6jFoqYTF9hlkWO4XlCog2w+KAwMZr83QpIYs3zyDYLilwYT4JFs3G1miAa05MBUoq
-	 51ceNtTVUncJ4S/F0mePEPH97pUkg3V6tJzmciRmvR0PMLw/9HptX70koSTRes8Rlg/TG
-	 Phim6W8t0A0eh1pUI4SobSHzf2TRcmnC8CakeeRhuPw3ocKVQ5NTpvDrOXDGJQmMIv3qT
-	 YEGj3gh69jN+QlN+RJYZqu602G0lSjXG5n+diHvhIF69c7jWy3bBrKjj5SdC5nTWMtA==
+	bh=hm++TGU/eDLJvOz3e9ufXWgPuqdw90V3j2fRVq4qFGM=;
+	b=iWvIhk7LOmOoyRFefV42hnrEgSixQUSjcSOGgITgJPbguJA8JwKQZ9WppyW3wE//3sqM
+	 JBRPW63GCEoYYbdg2xVgBC8RUYk2gsBWpV3ZBJqed8ftXfF3+r0Q6pSNiNxZCecatGAwC
+	 28G3EVaadsBA3iJI/48syGm0Mn3BbpPi26VgCoF+eYdVzxcIom265IQDTZhblzmKjeyPl
+	 VIj7HuPVSVdrcubJdN1FFPn8OaKS84ZBI/Ckm/TXq7sQ/uRvL7Y4uiqnE4oXhyPrFM3xa
+	 sJ+DRdW287G62kL/YVI94WWK65KRNRJ0ZH6ypJhTsFT0doamUJLGOG+GNLEZ3Sum1YQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z9jTEg1d;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uqRrsbeB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D62660A262D;
-	Wed, 18 Nov 2026 16:50:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BEF9606A33D;
+	Wed, 18 Nov 2026 16:50:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z9jTEg1d
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3F3F1F00927;
-	Wed, 18 Nov 2026 16:50:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=uqRrsbeB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C4341F000C5;
+	Wed, 18 Nov 2026 16:50:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795020653;
-	bh=o1POwUOc5optfjJ+UUUWsBDoqh5lpXnAcSU6rKwJxHA=;
+	s=korg; t=1795020658;
+	bh=hm++TGU/eDLJvOz3e9ufXWgPuqdw90V3j2fRVq4qFGM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=z9jTEg1dujPqZFSKMIWp2Vp/Q8EKfOTcfp3CV8n2J4z1Kn2XgZvhTOUQhFJ+vW/YM
-	 5jTQWJagKUWUYSJTwtvT2yMjT2EBPjsNwlGxsufAkhoPzxflTzLbfO4c2IzUkQp1ee
-	 Rru6MyY5nk6Bg9zR2j5fk0KSr5btwItX7v3OeGDo=
+	b=uqRrsbeBuZBwtuc0rg/UyaAU+i6ZqJQ0OfTYz1YD07rlGeEUJRgCdDYK+z7BnnFYS
+	 aib4Xux8x3Qr1I4sgNoHDxNtFfbAehdPtBPv9E3wA/NsQTVdlHITqAFVlBEGHpJhIO
+	 2oS/5UmGhZQyyB1yg1EY91OrQ5yxthrfOuuD2H7s=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Stian Halseth <stian@itx.no>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
+	Vasilij Markin <vasilij.kernel@tototo.si>,
+	Lukas Wunner <lukas@wunner.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 2028/2651] sched/cputime: Dont account idle time twice after dyntick-idle
-Date: Wed, 18 Nov 2026 15:54:28 +0100
-Message-ID: <20261118150359.176635284@linuxfoundation.org>
+Subject: [PATCH 7.3 2030/2651] drm/appletbdrm: Add suspend and resume support
+Date: Wed, 18 Nov 2026 15:54:30 +0100
+Message-ID: <20261118150359.236650479@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -69,223 +68,102 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Stian Halseth <stian@itx.no>
+From: Vasilij Markin <vasilij.kernel@tototo.si>
 
-[ Upstream commit 96a494c9cfd8f4bb7b1a7a70275426db71cf98aa ]
+[ Upstream commit 6f6a6b9ae0b481b97dac141ae86becdf7bd0b471 ]
 
-On idle exit the dyntick-idle accounting accounts the time up to now,
-then the tick is restarted on its old period. The first tick accounts a
-whole TICK_NSEC to whatever runs, although the part of that period
-before the idle exit has just been accounted as idle time, or with
-IRQ_TIME_ACCOUNTING as IRQ time. That is up to a full tick per idle
-exit, and /proc/stat reports more idle time than wall time.
+The driver has no USB power management callbacks, so the USB core
+unbinds it before system suspend and binds it again on resume. The DRM
+device is unregistered and registered again on every suspend and resume
+cycle, userspace driving the Touch Bar through it (such as tiny-dfr)
+loses its device, and the Touch Bar stays dark after resume.
 
-Record how much of the current tick period dyntick-idle has accounted,
-and leave it out of the tick that ends the period.
+Implement suspend and resume with drm_mode_config_helper_suspend() and
+drm_mode_config_helper_resume(), so the device stays registered and the
+last committed state is restored on resume. If the device was reset
+while suspended, repeat the probe-time handshake first.
 
-Fixes: cf6444c3e1bb7 ("tick/sched: Unify idle cputime accounting")
-Signed-off-by: Stian Halseth <stian@itx.no>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
-Link: https://lore.kernel.org/all/20261004142724.3896396-1-stian@itx.no/
-Link: https://patch.msgid.link/20261007142950.547604-1-stian@itx.no
+Fixes: 0670c2f56e45 ("drm/tiny: add driver for Apple Touch Bars in x86 Macs")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Vasilij Markin <vasilij.kernel@tototo.si>
+Signed-off-by: Lukas Wunner <lukas@wunner.de>
+Link: https://patch.msgid.link/20261015-appletbdrm-pm-v3-1-47377176619a@tototo.si
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/kernel_stat.h |  7 +++++--
- kernel/sched/cputime.c      | 39 +++++++++++++++++++++++++++++++------
- kernel/time/tick-sched.c    | 22 ++++++++++++++++-----
- 3 files changed, 55 insertions(+), 13 deletions(-)
+ drivers/gpu/drm/tiny/appletbdrm.c | 46 +++++++++++++++++++++++++++++++
+ 1 file changed, 46 insertions(+)
 
-diff --git a/include/linux/kernel_stat.h b/include/linux/kernel_stat.h
-index 9ca6c2259dfea..6e252048b5ade 100644
---- a/include/linux/kernel_stat.h
-+++ b/include/linux/kernel_stat.h
-@@ -40,6 +40,9 @@ struct kernel_cpustat {
- 	seqcount_t	idle_sleeptime_seq;
- 	u64		idle_entrytime;
- 	u64		idle_stealtime[2];
-+	u64		idle_dyntick_entry;
-+	u64		idle_tick_period;
-+	u64		idle_tick_overlap;
- #endif
- 	u64		cpustat[NR_STATS];
+diff --git a/drivers/gpu/drm/tiny/appletbdrm.c b/drivers/gpu/drm/tiny/appletbdrm.c
+index ef71b99579619..9a5288acbffca 100644
+--- a/drivers/gpu/drm/tiny/appletbdrm.c
++++ b/drivers/gpu/drm/tiny/appletbdrm.c
+@@ -30,6 +30,7 @@
+ #include <drm/drm_gem_atomic_helper.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_gem_shmem_helper.h>
++#include <drm/drm_modeset_helper.h>
+ #include <drm/drm_plane.h>
+ #include <drm/drm_print.h>
+ #include <drm/drm_probe_helper.h>
+@@ -821,6 +822,48 @@ static void appletbdrm_shutdown(struct usb_interface *intf)
+ 	drm_atomic_helper_shutdown(&adev->drm);
+ }
+ 
++static int appletbdrm_suspend(struct usb_interface *intf, pm_message_t message)
++{
++	struct appletbdrm_device *adev = usb_get_intfdata(intf);
++
++	return drm_mode_config_helper_suspend(&adev->drm);
++}
++
++static int appletbdrm_resume(struct usb_interface *intf)
++{
++	struct appletbdrm_device *adev = usb_get_intfdata(intf);
++
++	return drm_mode_config_helper_resume(&adev->drm);
++}
++
++static int appletbdrm_reset_resume(struct usb_interface *intf)
++{
++	struct appletbdrm_device *adev = usb_get_intfdata(intf);
++	struct drm_device *drm = &adev->drm;
++	int ret, resume_ret;
++
++	/*
++	 * A reset puts the device back into its initial state, where it
++	 * expects the same handshake as during probe. Resume the DRM side
++	 * even if the handshake fails, so that the state saved on suspend
++	 * is released.
++	 */
++	ret = appletbdrm_get_information(adev);
++	if (ret) {
++		drm_err(drm, "Failed to get display information\n");
++		goto resume;
++	}
++
++	ret = appletbdrm_signal_readiness(adev);
++	if (ret)
++		drm_err(drm, "Failed to signal readiness\n");
++
++resume:
++	resume_ret = drm_mode_config_helper_resume(drm);
++
++	return ret ? ret : resume_ret;
++}
++
+ static const struct usb_device_id appletbdrm_usb_id_table[] = {
+ 	{ USB_DEVICE_INTERFACE_CLASS(0x05ac, 0x8302, USB_CLASS_AUDIO_VIDEO) },
+ 	{}
+@@ -832,6 +875,9 @@ static struct usb_driver appletbdrm_usb_driver = {
+ 	.probe		= appletbdrm_probe,
+ 	.disconnect	= appletbdrm_disconnect,
+ 	.shutdown	= appletbdrm_shutdown,
++	.suspend	= appletbdrm_suspend,
++	.resume		= appletbdrm_resume,
++	.reset_resume	= appletbdrm_reset_resume,
+ 	.id_table	= appletbdrm_usb_id_table,
  };
-@@ -111,7 +114,7 @@ static inline unsigned long kstat_cpu_irqs_sum(unsigned int cpu)
- #ifdef CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE
- 
- static inline void kcpustat_dyntick_start(u64 now) { }
--static inline void kcpustat_dyntick_stop(u64 now) { }
-+static inline void kcpustat_dyntick_stop(u64 now, u64 tick_start) { }
- static inline void kcpustat_irq_enter(u64 now) { }
- static inline void kcpustat_irq_exit(u64 now) { }
- static inline bool kcpustat_idle_dyntick(void) { return false; }
-@@ -132,7 +135,7 @@ static inline u64 kcpustat_field_iowait(int cpu)
- #else /* !CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE */
- 
- extern void kcpustat_dyntick_start(u64 now);
--extern void kcpustat_dyntick_stop(u64 now);
-+extern void kcpustat_dyntick_stop(u64 now, u64 tick_start);
- extern void kcpustat_irq_enter(u64 now);
- extern void kcpustat_irq_exit(u64 now);
- extern u64 kcpustat_field_idle(int cpu);
-diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
-index 06bddaa738e52..faac7c2066d84 100644
---- a/kernel/sched/cputime.c
-+++ b/kernel/sched/cputime.c
-@@ -381,9 +381,9 @@ void thread_group_cputime(struct task_struct *tsk, struct task_cputime *times)
-  * softirq as those do not count in task exec_runtime any more.
-  */
- static void irqtime_account_process_tick(struct task_struct *p, int user_tick,
--					 int ticks)
-+					 u64 cputime)
- {
--	u64 other, cputime = TICK_NSEC * ticks;
-+	u64 other;
- 
- 	/*
- 	 * When returning from idle, many ticks can get accounted at
-@@ -418,7 +418,7 @@ static void irqtime_account_process_tick(struct task_struct *p, int user_tick,
- 
- #else /* !CONFIG_IRQ_TIME_ACCOUNTING: */
- static inline void irqtime_account_process_tick(struct task_struct *p, int user_tick,
--						int nr_ticks) { }
-+						u64 cputime) { }
- #endif /* !CONFIG_IRQ_TIME_ACCOUNTING */
- 
- #if defined(CONFIG_NO_HZ_COMMON) && !defined(CONFIG_HAVE_VIRT_CPU_ACCOUNTING_IDLE)
-@@ -468,18 +468,38 @@ static void kcpustat_idle_start(struct kernel_cpustat *kc, u64 now)
- 	write_seqcount_end(&kc->idle_sleeptime_seq);
- }
- 
--void kcpustat_dyntick_stop(u64 now)
-+void kcpustat_dyntick_stop(u64 now, u64 tick_start)
- {
- 	struct kernel_cpustat *kc = kcpustat_this_cpu;
- 
- 	if (!vtime_generic_enabled_this_cpu()) {
- 		WARN_ON_ONCE(!kc->idle_dyntick);
-+		if (kc->idle_tick_period != tick_start) {
-+			kc->idle_tick_period = tick_start;
-+			kc->idle_tick_overlap = 0;
-+		}
-+		tick_start = max(tick_start, kc->idle_dyntick_entry);
-+		if (!WARN_ON_ONCE(now < tick_start))
-+			kc->idle_tick_overlap += now - tick_start;
- 		kcpustat_idle_stop(kc, now);
- 		kc->idle_dyntick = false;
- 		vtime_dyntick_stop();
- 	}
- }
- 
-+/*
-+ * The first tick after dyntick-idle covers a period that the dyntick-idle
-+ * accounting may already have accounted in part.
-+ */
-+static inline u64 kcpustat_tick_overlap(void)
-+{
-+	struct kernel_cpustat *kc = kcpustat_this_cpu;
-+	u64 overlap = kc->idle_tick_overlap;
-+
-+	kc->idle_tick_overlap = 0;
-+	return overlap;
-+}
-+
- void kcpustat_dyntick_start(u64 now)
- {
- 	struct kernel_cpustat *kc = kcpustat_this_cpu;
-@@ -487,6 +507,7 @@ void kcpustat_dyntick_start(u64 now)
- 	if (!vtime_generic_enabled_this_cpu()) {
- 		vtime_dyntick_start();
- 		kc->idle_dyntick = true;
-+		kc->idle_dyntick_entry = now;
- 		kcpustat_idle_start(kc, now);
- 	}
- }
-@@ -555,6 +576,11 @@ u64 kcpustat_field_iowait(int cpu)
- }
- EXPORT_SYMBOL_GPL(kcpustat_field_iowait);
- #else
-+static inline u64 kcpustat_tick_overlap(void)
-+{
-+	return 0;
-+}
-+
- static u64 kcpustat_field_dyntick(int cpu, enum cpu_usage_stat idx,
- 				  bool compute_delta, ktime_t now)
- {
-@@ -695,12 +721,13 @@ void account_process_tick(struct task_struct *p, int user_tick)
- 	if (kcpustat_idle_dyntick())
- 		return;
- 
-+	cputime = TICK_NSEC - kcpustat_tick_overlap();
-+
- 	if (irqtime_enabled()) {
--		irqtime_account_process_tick(p, user_tick, 1);
-+		irqtime_account_process_tick(p, user_tick, cputime);
- 		return;
- 	}
- 
--	cputime = TICK_NSEC;
- 	steal = steal_account_process_time(ULONG_MAX);
- 
- 	if (steal >= cputime)
-diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
-index baa3ac9b48f88..6546e196645f2 100644
---- a/kernel/time/tick-sched.c
-+++ b/kernel/time/tick-sched.c
-@@ -775,12 +775,18 @@ static ktime_t tick_forward_now(ktime_t expires, ktime_t now)
- 	return expires + TICK_NSEC;
- }
- 
-+static void tick_nohz_forward_last_tick(struct tick_sched *ts, ktime_t now)
-+{
-+	if (now >= ts->last_tick)
-+		ts->last_tick = tick_forward_now(ts->last_tick, now);
-+}
-+
- static void tick_nohz_restart(struct tick_sched *ts, ktime_t now)
- {
--	ktime_t expires = ts->last_tick;
-+	ktime_t expires;
- 
--	if (now >= expires)
--		expires = tick_forward_now(expires, now);
-+	tick_nohz_forward_last_tick(ts, now);
-+	expires = ts->last_tick;
- 
- 	if (tick_sched_flag_test(ts, TS_FLAG_HIGHRES)) {
- 		hrtimer_start(&ts->sched_timer,	expires, HRTIMER_MODE_ABS_PINNED_HARD);
-@@ -1341,6 +1347,12 @@ unsigned long tick_nohz_get_idle_calls_cpu(int cpu)
- 	return ts->idle_calls;
- }
- 
-+static void tick_nohz_dyntick_stop(struct tick_sched *ts, ktime_t now)
-+{
-+	tick_nohz_forward_last_tick(ts, now);
-+	kcpustat_dyntick_stop(now, ts->last_tick - TICK_NSEC);
-+}
-+
- void tick_nohz_idle_restart_tick(void)
- {
- 	struct tick_sched *ts = this_cpu_ptr(&tick_cpu_sched);
-@@ -1353,7 +1365,7 @@ void tick_nohz_idle_restart_tick(void)
- 		 * no tiny amount of idle time is accounted twice.
- 		 */
- 		ts->idle_entrytime = ktime_get();
--		kcpustat_dyntick_stop(ts->idle_entrytime);
-+		tick_nohz_dyntick_stop(ts, ts->idle_entrytime);
- 		tick_nohz_restart_sched_tick(ts, ts->idle_entrytime);
- 	}
- }
-@@ -1397,7 +1409,7 @@ void tick_nohz_idle_exit(void)
- 
- 	if (tick_sched_flag_test(ts, TS_FLAG_STOPPED)) {
- 		now = ktime_get();
--		kcpustat_dyntick_stop(now);
-+		tick_nohz_dyntick_stop(ts, now);
- 		tick_nohz_idle_update_tick(ts, now);
- 	}
- 
+ module_usb_driver(appletbdrm_usb_driver);
 -- 
 2.53.0
 
