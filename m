@@ -1,58 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795038459;
-	b=NNIH+dyUJkRl13pw1F0Q/WyThdTFCCiuQo5LGErRIkmEhz+iD6RXWz1hrffl5wjyaltt
-	 aO41ayuUY0u/YbL5pqS5QpagrD7dlCuVF05+UCOZSE6TKSJnTwk6TOHGScW1lheRSyFaz
-	 aeqO1bnVwYfz/3Iyq9+bst5CUm7XryGDjPu4PdJU9xWlICKe7i02LpwiHIivG2j5/APEP
-	 IVfhsSNBZe4hOBN/dfVVxMnqHgwAvD0lUCphhnWhzTw54KKNOahT24iocOVKF3JSOru7S
-	 VciUhxsMNtsxMLFWkEz16BoS0kgmNiWyet3UG3Cym5dBpn71b0BANQGTPsudqt4bQuw==
+	t=1795038464;
+	b=KylHa3DOIAdq5yQQ/nt/26WEcekW/oG0NBMwjohwOrHW1X7b2BQBI9Gr2hye55cq9Nay
+	 Crcu5NRTC0yJdbvivHSOrjHfiVi8KQe+MNfrHQJ61BnVu7/aUlGCG+pPp1lk8gbV0Bhvy
+	 UuKzVlBxg0ivhcifWy+7Y+0GeUpD5cWlT5bhgH75S1QjnPzkvApFtS/yXPPw3pxfbrfBQ
+	 xTIOnUvgSi3oWXChO0GJT3BCA5iXniitv9sX9BU2nVHhvtXgDgh7KUqWWp3fcj+I4Y/vH
+	 TK2+qhjZmmPRD164qlM59DLC3OINHE/KM9OlEbqop7qFXv81RPvEkboI00eVctqemNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795038459;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+rExtwonBIhsWGG4Og34hlbiVhDkhdHqsNQ81OrViTU=;
-	b=5Jejz9vnQZGVkEUibHdyIAV2lu6iuyWvH7BgA2Y92X/tbaK88bLmY6/hAdfu0SxE3FP5
-	 6ZOMMVrKxRF4ktUmfAIUQt2aorXfejiKrovN6fyCendG/YI/wrwhiCv5A7dmBwrCImIlk
-	 XH5xC9PkLIkEDx9pQvPR7xRc7T6ZiyFCxxWcd7Od2++wqIqZjpUDFcQhL5OX3C2kHjpZf
-	 gcy2O07N5gHIJEiGZxhSWFWP2D1H0LayNdwdBX3f8iaXSke0JiB+nHrxRnOGvBykWDme2
-	 hPaBg1YhrOymTiaYxq9zrQzOcs7k7meo4pxBJWBVqBB9vyKkcFifL87lRZUBANWAHIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795038464;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=PmtX8OEiu2am7jf19lIwIhekAk6or208P1DOjACUs3U=;
+	b=E6zYtfA/s7aTCUEFFCqXhgbL9NuX9j2LYQECd3anZ7nLZQVBSd9zcQNYR0TXpKIoprV6
+	 z8c6j1FFT2weuyeExw6F5+6ALMHApoyZCaAMfyHY6kSaTrU7s03dNV0rXCAMpXV44RkLK
+	 07h0Az+bCF74KZ6uZtoG0BGqWXc6zf5Ly2TmbH2lyrvTEnZ0rcgXqHjBo10CS5AafD2Kz
+	 IK9nyV/C3RvRxbnolByORw1OjzP+TgcDVNUt2TqyCqDzq0MdELX2PdUp6WTL8iaqxVj8D
+	 QYWgJbCfboUs0Zd31+UIW3OyoENg4i/Ziw6SzmcGV/6dB1IBM72+QI4651Q8rrVfyKQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Wp2+kUGV;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=WfvNyqAj;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE633606A31C;
-	Wed, 18 Nov 2026 21:47:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271BD606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 21:47:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 271BD606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Wp2+kUGV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38ED91F000C4;
-	Wed, 18 Nov 2026 21:47:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795038459;
-	bh=+rExtwonBIhsWGG4Og34hlbiVhDkhdHqsNQ81OrViTU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Wp2+kUGVFKL+/oXS3C1Xd+1FgU/eXgwoI64EynlL5Mby+UZorBvN+Tqm5Ga7nbE66
-	 dGCsh7CCZSUIXM9N5IKRNUEX6o3WqphieLb5SqPlcUcd9xnOJLVbjo7SEAsPzVgAYu
-	 SwDWALiw7FYKROM511BPJd11ag8HQBlib6kLVyXQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1752/3318] ALSA: emux: Use standard print API
-Date: Wed, 18 Nov 2026 15:39:34 +0100
-Message-ID: <20261118150414.419877654@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
-References: <20261118150313.527275416@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=WfvNyqAj
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From:From:Reply-To;
+	bh=PmtX8OEiu2am7jf19lIwIhekAk6or208P1DOjACUs3U=; t=1795038462; x=2110398462; 
+	b=WfvNyqAjpfC68YRRC+RIVvZulQNYR1ZYb+tAQLhgVrsKHyNVWt6VPjZyzwr340YBAgBTvrKE+Qc
+	oF+uV5Powp1yONWtRV7PPS3deDu5S3cmJLjd33qnOFd7zgltB/3YLzh2eugdO5nzsCPKoONmicaTJ
+	6OqR6yzETnblBDPwVUhHCglGN4laFKwpe34FyudxWM+TbBQddEx/6S26kuFQq5JTBBWCvj8pZIvx7
+	jnxb3Sf3rVeBYG2jBiDpgNf7iDyGJSIUhzRBF4OVliYLLEVk5FTEpCo29f1MqzbYnSoF8twNueq36
+	dJexspOHZgq8EdLZxevomHaNAbRNsGc8JYjQ==;
+Received: from [179.105.94.163] (helo=[10.0.0.1])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xTnVC-00000001DOD-1tDD;
+	Wed, 18 Nov 2026 22:47:38 +0100
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Subject: [PATCH 0/4] drm/vc4: Work around GFXH-16 instruction cache
+ livelock
+Date: Wed, 18 Nov 2026 18:47:27 -0300
+Message-Id: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,377 +61,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQqDMAyA4VeRnBcwpbjhq4wdaho1CK2kTAfSd
+ 1/x+B3+/4IiplJg7C4wObRoTg306IDXkBZBjc3gejcQkcODPSoHXgXPbFuw/E0RI9HkvZ/4KS9
+ o7W4y6+/+vj+1/gGnz3KXZwAAAA==
+X-Change-ID: 20261112-vc4-icache-workaround-d11b444bc7e8
+To: Iago Toral <itoral@igalia.com>, 
+ "Juan A. Suarez Romero" <jasuarez@igalia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2234; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=cC8YMa0gkUQDhsp+cF6LKK3gm6xRtniDVoy3KOGeOYI=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq/hz2tZ0ROUyjMeAr0u6UKU9PWPnHJupq6sVyC
+ ljta72AexeJATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCav4c9gAKCRA/8w6Kdoj6
+ qkSoCADLDeIDD3BwywH70IITWb89C+gQ20xaDL8n/eEcMJGiC2xzQUEL2Ka2DNBv17ufC/gAEyF
+ KczwxVuWAVUjCDpN7pSDluvel2Qcv3fMKfg9gaAzkQHhc/Du4XkyMpMCl5sep90zktbLgR1dZCq
+ p0K2W8t8E/sQ2xrDaIQG5kBV/5IekQXlqmUzlX+Vc1kaeUtTav9ejq5wQPHbWmdDYobEJLX9RRk
+ rIgtBfhqm4aVpo6lHja3Fhou+0Uucv5UqWImn1m6x1itjjcJfaFat4XMFhHIrN7LeKRy+2Ymer4
+ 6RgfUGL3hRSqV2OHBvCPtzYKyg+k/pZ8GjLRvj1G6I+Ewjzu
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+Mesa issue #16652 [1] reports GPU resets every few minutes on the
+Raspberry Pi 3. They happen when text labels are drawn over their shadows:
+two different threaded fragment shaders, plus untextured single-threaded
+ones, in the same tiles.
 
-------------------
+During a hang, the performance counters show four QPUs fetching
+instructions with 0 cache hits, ~6.5M misses per 100 ms, and 0 valid
+instructions executed. This matches HW erratum GFXH-16: the QPUs of a
+slice share one instruction cache and can livelock, evicting each other's
+fills. Since shader code always starts at offset 0 of a page-aligned BO,
+every shader competes for the same cache sets.
 
-From: Takashi Iwai <tiwai@suse.de>
+This series works around it:
 
-[ Upstream commit fea1510719dd2a33e0ffa1eae6118c5437f7071d ]
+  - Patch 3 starts each shader's code at one of four offsets in its BO,
+    spreading shaders across cache sets.
 
-Use the standard print API with dev_*() instead of the old house-baked
-one.  It gives better information and allows dynamically control of
-debug prints.
+  - Patch 4 clears the slice instruction and uniforms caches when the
+    hangcheck finds no progress, and resets the GPU only if the stall
+    persists. It is meant to recover from livelocks the offsets don't
+    prevent.
 
-Some functions are changed to receive snd_card object for calling
-dev_*() functions, too.
+Patches 1 and 2 fix an off-by-one in the shader BO handle check and a
+NULL pointer dereference in validate_gl_shader_rec(), found while working
+on patch 3.
 
-Reviewed-by: Jaroslav Kysela <perex@perex.cz>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20240807133452.9424-44-tiwai@suse.de
-Stable-dep-of: 34e3e04b8a17 ("ALSA: emux: Fix UAF of soundfont zones at note-on")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Tested on a Raspberry Pi 3B+ with the issue's reproducer, 4 x 15 min runs:
+
+  without the series:  29 GPU resets
+  with patches 1-3:     0 GPU resets
+
+[1] https://gitlab.freedesktop.org/mesa/mesa/-/issues/16652
+
+Best regards,
+- Maíra
+
 ---
- include/sound/soundfont.h     |  6 ++--
- sound/synth/emux/emux_hwdep.c |  6 ++--
- sound/synth/emux/emux_oss.c   | 11 +++---
- sound/synth/emux/emux_seq.c   | 13 ++++---
- sound/synth/emux/emux_synth.c | 12 +++----
- sound/synth/emux/soundfont.c  | 67 +++++++++++++++++++----------------
- 6 files changed, 63 insertions(+), 52 deletions(-)
+Maíra Canal (4):
+      drm/vc4: Fix off-by-one in the shader record BO handle check
+      drm/vc4: Check for a validated shader before reading its thread mode
+      drm/vc4: Start shader code at varying offsets in its BO
+      drm/vc4: Clear the slice caches before resetting a stalled GPU
 
-diff --git a/include/sound/soundfont.h b/include/sound/soundfont.h
-index 98ed98d89d6de..8a40cc15f66db 100644
---- a/include/sound/soundfont.h
-+++ b/include/sound/soundfont.h
-@@ -86,9 +86,11 @@ struct snd_sf_list {
- };
- 
- /* Prototypes for soundfont.c */
--int snd_soundfont_load(struct snd_sf_list *sflist, const void __user *data,
-+int snd_soundfont_load(struct snd_card *card,
-+		       struct snd_sf_list *sflist, const void __user *data,
- 		       long count, int client);
--int snd_soundfont_load_guspatch(struct snd_sf_list *sflist, const char __user *data,
-+int snd_soundfont_load_guspatch(struct snd_card *card,
-+				struct snd_sf_list *sflist, const char __user *data,
- 				long count);
- int snd_soundfont_close_check(struct snd_sf_list *sflist, int client);
- 
-diff --git a/sound/synth/emux/emux_hwdep.c b/sound/synth/emux/emux_hwdep.c
-index fd8f978cde1c6..9e98c4c73fd1e 100644
---- a/sound/synth/emux/emux_hwdep.c
-+++ b/sound/synth/emux/emux_hwdep.c
-@@ -26,12 +26,14 @@ snd_emux_hwdep_load_patch(struct snd_emux *emu, void __user *arg)
- 		return -EFAULT;
- 
- 	if (patch.key == GUS_PATCH)
--		return snd_soundfont_load_guspatch(emu->sflist, arg,
-+		return snd_soundfont_load_guspatch(emu->card, emu->sflist, arg,
- 						   patch.len + sizeof(patch));
- 
- 	if (patch.type >= SNDRV_SFNT_LOAD_INFO &&
- 	    patch.type <= SNDRV_SFNT_PROBE_DATA) {
--		err = snd_soundfont_load(emu->sflist, arg, patch.len + sizeof(patch), TMP_CLIENT_ID);
-+		err = snd_soundfont_load(emu->card, emu->sflist, arg,
-+					 patch.len + sizeof(patch),
-+					 TMP_CLIENT_ID);
- 		if (err < 0)
- 			return err;
- 	} else {
-diff --git a/sound/synth/emux/emux_oss.c b/sound/synth/emux/emux_oss.c
-index 04df46b269d37..5f98d5201ba25 100644
---- a/sound/synth/emux/emux_oss.c
-+++ b/sound/synth/emux/emux_oss.c
-@@ -115,7 +115,7 @@ snd_emux_open_seq_oss(struct snd_seq_oss_arg *arg, void *closure)
- 	p = snd_emux_create_port(emu, tmpname, 32,
- 				 1, &callback);
- 	if (p == NULL) {
--		snd_printk(KERN_ERR "can't create port\n");
-+		dev_err(emu->card->dev, "can't create port\n");
- 		snd_emux_dec_count(emu);
- 		return -ENOMEM;
- 	}
-@@ -205,7 +205,7 @@ snd_emux_load_patch_seq_oss(struct snd_seq_oss_arg *arg, int format,
- 		return -ENXIO;
- 
- 	if (format == GUS_PATCH)
--		rc = snd_soundfont_load_guspatch(emu->sflist, buf, count);
-+		rc = snd_soundfont_load_guspatch(emu->card, emu->sflist, buf, count);
- 	else if (format == SNDRV_OSS_SOUNDFONT_PATCH) {
- 		struct soundfont_patch_info patch;
- 		if (count < (int)sizeof(patch))
-@@ -214,10 +214,13 @@ snd_emux_load_patch_seq_oss(struct snd_seq_oss_arg *arg, int format,
- 			return -EFAULT;
- 		if (patch.type >= SNDRV_SFNT_LOAD_INFO &&
- 		    patch.type <= SNDRV_SFNT_PROBE_DATA)
--			rc = snd_soundfont_load(emu->sflist, buf, count, SF_CLIENT_NO(p->chset.port));
-+			rc = snd_soundfont_load(emu->card, emu->sflist, buf,
-+						count,
-+						SF_CLIENT_NO(p->chset.port));
- 		else {
- 			if (emu->ops.load_fx)
--				rc = emu->ops.load_fx(emu, patch.type, patch.optarg, buf, count);
-+				rc = emu->ops.load_fx(emu, patch.type,
-+						      patch.optarg, buf, count);
- 			else
- 				rc = -EINVAL;
- 		}
-diff --git a/sound/synth/emux/emux_seq.c b/sound/synth/emux/emux_seq.c
-index 1adaa75df2f6a..9daced0e6c59d 100644
---- a/sound/synth/emux/emux_seq.c
-+++ b/sound/synth/emux/emux_seq.c
-@@ -61,16 +61,17 @@ snd_emux_init_seq(struct snd_emux *emu, struct snd_card *card, int index)
- 	emu->client = snd_seq_create_kernel_client(card, index,
- 						   "%s WaveTable", emu->name);
- 	if (emu->client < 0) {
--		snd_printk(KERN_ERR "can't create client\n");
-+		dev_err(card->dev, "can't create client\n");
- 		return -ENODEV;
- 	}
- 
- 	if (emu->num_ports <= 0) {
--		snd_printk(KERN_WARNING "seqports must be greater than zero\n");
-+		dev_warn(card->dev, "seqports must be greater than zero\n");
- 		emu->num_ports = 1;
- 	} else if (emu->num_ports > SNDRV_EMUX_MAX_PORTS) {
--		snd_printk(KERN_WARNING "too many ports. "
--			   "limited max. ports %d\n", SNDRV_EMUX_MAX_PORTS);
-+		dev_warn(card->dev,
-+			 "too many ports. limited max. ports %d\n",
-+			 SNDRV_EMUX_MAX_PORTS);
- 		emu->num_ports = SNDRV_EMUX_MAX_PORTS;
- 	}
- 
-@@ -87,7 +88,7 @@ snd_emux_init_seq(struct snd_emux *emu, struct snd_card *card, int index)
- 		p = snd_emux_create_port(emu, tmpname, MIDI_CHANNELS,
- 					 0, &pinfo);
- 		if (!p) {
--			snd_printk(KERN_ERR "can't create port\n");
-+			dev_err(card->dev, "can't create port\n");
- 			return -ENOMEM;
- 		}
- 
-@@ -376,12 +377,10 @@ int snd_emux_init_virmidi(struct snd_emux *emu, struct snd_card *card)
- 			goto __error;
- 		}
- 		emu->vmidi[i] = rmidi;
--		/* snd_printk(KERN_DEBUG "virmidi %d ok\n", i); */
- 	}
- 	return 0;
- 
- __error:
--	/* snd_printk(KERN_DEBUG "error init..\n"); */
- 	snd_emux_delete_virmidi(emu);
- 	return -ENOMEM;
- }
-diff --git a/sound/synth/emux/emux_synth.c b/sound/synth/emux/emux_synth.c
-index 075358a533a0e..02e2c69d7f18e 100644
---- a/sound/synth/emux/emux_synth.c
-+++ b/sound/synth/emux/emux_synth.c
-@@ -942,9 +942,9 @@ void snd_emux_lock_voice(struct snd_emux *emu, int voice)
- 	if (emu->voices[voice].state == SNDRV_EMUX_ST_OFF)
- 		emu->voices[voice].state = SNDRV_EMUX_ST_LOCKED;
- 	else
--		snd_printk(KERN_WARNING
--			   "invalid voice for lock %d (state = %x)\n",
--			   voice, emu->voices[voice].state);
-+		dev_warn(emu->card->dev,
-+			 "invalid voice for lock %d (state = %x)\n",
-+			 voice, emu->voices[voice].state);
- 	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
-@@ -960,9 +960,9 @@ void snd_emux_unlock_voice(struct snd_emux *emu, int voice)
- 	if (emu->voices[voice].state == SNDRV_EMUX_ST_LOCKED)
- 		emu->voices[voice].state = SNDRV_EMUX_ST_OFF;
- 	else
--		snd_printk(KERN_WARNING
--			   "invalid voice for unlock %d (state = %x)\n",
--			   voice, emu->voices[voice].state);
-+		dev_warn(emu->card->dev,
-+			 "invalid voice for unlock %d (state = %x)\n",
-+			 voice, emu->voices[voice].state);
- 	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
-diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
-index 77144fe221cf2..03f70cceb4a86 100644
---- a/sound/synth/emux/soundfont.c
-+++ b/sound/synth/emux/soundfont.c
-@@ -38,7 +38,8 @@ static struct snd_sf_sample *sf_sample_new(struct snd_sf_list *sflist,
- static void sf_sample_delete(struct snd_sf_list *sflist,
- 			     struct snd_soundfont *sf, struct snd_sf_sample *sp);
- static int load_map(struct snd_sf_list *sflist, const void __user *data, int count);
--static int load_info(struct snd_sf_list *sflist, const void __user *data, long count);
-+static int load_info(struct snd_card *card, struct snd_sf_list *sflist,
-+		     const void __user *data, long count);
- static int remove_info(struct snd_sf_list *sflist, struct snd_soundfont *sf,
- 		       int bank, int instr);
- static void init_voice_info(struct soundfont_voice_info *avp);
-@@ -113,7 +114,8 @@ snd_soundfont_close_check(struct snd_sf_list *sflist, int client)
-  * it wants to do with it.
-  */
- int
--snd_soundfont_load(struct snd_sf_list *sflist, const void __user *data,
-+snd_soundfont_load(struct snd_card *card,
-+		   struct snd_sf_list *sflist, const void __user *data,
- 		   long count, int client)
- {
- 	struct soundfont_patch_info patch;
-@@ -121,7 +123,7 @@ snd_soundfont_load(struct snd_sf_list *sflist, const void __user *data,
- 	int  rc;
- 
- 	if (count < (long)sizeof(patch)) {
--		snd_printk(KERN_ERR "patch record too small %ld\n", count);
-+		dev_err(card->dev, "patch record too small %ld\n", count);
- 		return -EINVAL;
- 	}
- 	if (copy_from_user(&patch, data, sizeof(patch)))
-@@ -131,16 +133,16 @@ snd_soundfont_load(struct snd_sf_list *sflist, const void __user *data,
- 	data += sizeof(patch);
- 
- 	if (patch.key != SNDRV_OSS_SOUNDFONT_PATCH) {
--		snd_printk(KERN_ERR "The wrong kind of patch %x\n", patch.key);
-+		dev_err(card->dev, "The wrong kind of patch %x\n", patch.key);
- 		return -EINVAL;
- 	}
- 	if (count < patch.len) {
--		snd_printk(KERN_ERR "Patch too short %ld, need %d\n",
--			   count, patch.len);
-+		dev_err(card->dev, "Patch too short %ld, need %d\n",
-+			count, patch.len);
- 		return -EINVAL;
- 	}
- 	if (patch.len < 0) {
--		snd_printk(KERN_ERR "poor length %d\n", patch.len);
-+		dev_err(card->dev, "poor length %d\n", patch.len);
- 		return -EINVAL;
- 	}
- 
-@@ -164,7 +166,7 @@ snd_soundfont_load(struct snd_sf_list *sflist, const void __user *data,
- 	rc = -EINVAL;
- 	switch (patch.type) {
- 	case SNDRV_SFNT_LOAD_INFO:
--		rc = load_info(sflist, data, count);
-+		rc = load_info(card, sflist, data, count);
- 		break;
- 	case SNDRV_SFNT_LOAD_DATA:
- 		rc = load_data(sflist, data, count);
-@@ -184,8 +186,8 @@ snd_soundfont_load(struct snd_sf_list *sflist, const void __user *data,
- 	case SNDRV_SFNT_REMOVE_INFO:
- 		/* patch must be opened */
- 		if (!sflist->currsf) {
--			snd_printk(KERN_ERR "soundfont: remove_info: "
--				   "patch not opened\n");
-+			dev_err(card->dev,
-+				"soundfont: remove_info: patch not opened\n");
- 			rc = -EINVAL;
- 		} else {
- 			int bank, instr;
-@@ -509,7 +511,8 @@ remove_info(struct snd_sf_list *sflist, struct snd_soundfont *sf,
-  * open soundfont.
-  */
- static int
--load_info(struct snd_sf_list *sflist, const void __user *data, long count)
-+load_info(struct snd_card *card,
-+	  struct snd_sf_list *sflist, const void __user *data, long count)
- {
- 	struct snd_soundfont *sf;
- 	struct snd_sf_zone *zone;
-@@ -525,7 +528,7 @@ load_info(struct snd_sf_list *sflist, const void __user *data, long count)
- 		return -EINVAL;
- 
- 	if (count < (long)sizeof(hdr)) {
--		printk(KERN_ERR "Soundfont error: invalid patch zone length\n");
-+		dev_err(card->dev, "Soundfont error: invalid patch zone length\n");
- 		return -EINVAL;
- 	}
- 	if (copy_from_user((char*)&hdr, data, sizeof(hdr)))
-@@ -535,15 +538,15 @@ load_info(struct snd_sf_list *sflist, const void __user *data, long count)
- 	count -= sizeof(hdr);
- 
- 	if (hdr.nvoices <= 0 || hdr.nvoices >= 100) {
--		printk(KERN_ERR "Soundfont error: Illegal voice number %d\n",
--		       hdr.nvoices);
-+		dev_err(card->dev, "Soundfont error: Illegal voice number %d\n",
-+			hdr.nvoices);
- 		return -EINVAL;
- 	}
- 
- 	if (count < (long)sizeof(struct soundfont_voice_info) * hdr.nvoices) {
--		printk(KERN_ERR "Soundfont Error: "
--		       "patch length(%ld) is smaller than nvoices(%d)\n",
--		       count, hdr.nvoices);
-+		dev_err(card->dev,
-+			"Soundfont Error: patch length(%ld) is smaller than nvoices(%d)\n",
-+			count, hdr.nvoices);
- 		return -EINVAL;
- 	}
- 
-@@ -944,7 +947,8 @@ int snd_sf_vol_table[128] = {
- 
- /* load GUS patch */
- static int
--load_guspatch(struct snd_sf_list *sflist, const char __user *data, long count)
-+load_guspatch(struct snd_card *card,
-+	      struct snd_sf_list *sflist, const char __user *data, long count)
- {
- 	struct patch_info patch;
- 	struct snd_soundfont *sf;
-@@ -954,7 +958,7 @@ load_guspatch(struct snd_sf_list *sflist, const char __user *data, long count)
- 	int rc;
- 
- 	if (count < (long)sizeof(patch)) {
--		snd_printk(KERN_ERR "patch record too small %ld\n", count);
-+		dev_err(card->dev, "patch record too small %ld\n", count);
- 		return -EINVAL;
- 	}
- 	if (copy_from_user(&patch, data, sizeof(patch)))
-@@ -1041,10 +1045,10 @@ load_guspatch(struct snd_sf_list *sflist, const char __user *data, long count)
- 	/* panning position; -128 - 127 => 0-127 */
- 	zone->v.pan = (patch.panning + 128) / 2;
- #if 0
--	snd_printk(KERN_DEBUG
--		   "gus: basefrq=%d (ofs=%d) root=%d,tune=%d, range:%d-%d\n",
--		   (int)patch.base_freq, zone->v.rate_offset,
--		   zone->v.root, zone->v.tune, zone->v.low, zone->v.high);
-+	pr_debug(
-+		 "gus: basefrq=%d (ofs=%d) root=%d,tune=%d, range:%d-%d\n",
-+		 (int)patch.base_freq, zone->v.rate_offset,
-+		 zone->v.root, zone->v.tune, zone->v.low, zone->v.high);
- #endif
- 
- 	/* detuning is ignored */
-@@ -1076,12 +1080,12 @@ load_guspatch(struct snd_sf_list *sflist, const char __user *data, long count)
- 		zone->v.parm.volrelease = 0x8000 | snd_sf_calc_parm_decay(release);
- 		zone->v.attenuation = calc_gus_attenuation(patch.env_offset[0]);
- #if 0
--		snd_printk(KERN_DEBUG
--			   "gus: atkhld=%x, dcysus=%x, volrel=%x, att=%d\n",
--			   zone->v.parm.volatkhld,
--			   zone->v.parm.voldcysus,
--			   zone->v.parm.volrelease,
--			   zone->v.attenuation);
-+		dev_dbg(card->dev,
-+			"gus: atkhld=%x, dcysus=%x, volrel=%x, att=%d\n",
-+			zone->v.parm.volatkhld,
-+			zone->v.parm.voldcysus,
-+			zone->v.parm.volrelease,
-+			zone->v.attenuation);
- #endif
- 	}
- 
-@@ -1125,12 +1129,13 @@ load_guspatch(struct snd_sf_list *sflist, const char __user *data, long count)
- 
- /* load GUS patch */
- int
--snd_soundfont_load_guspatch(struct snd_sf_list *sflist, const char __user *data,
-+snd_soundfont_load_guspatch(struct snd_card *card,
-+			    struct snd_sf_list *sflist, const char __user *data,
- 			    long count)
- {
- 	int rc;
- 	lock_preset(sflist);
--	rc = load_guspatch(sflist, data, count);
-+	rc = load_guspatch(card, sflist, data, count);
- 	unlock_preset(sflist);
- 	return rc;
- }
--- 
-2.53.0
-
-
+ drivers/gpu/drm/vc4/vc4_bo.c               | 43 +++++++++++++++++++++++-------
+ drivers/gpu/drm/vc4/vc4_drv.h              | 15 ++++++++++-
+ drivers/gpu/drm/vc4/vc4_gem.c              | 20 ++++++++++++--
+ drivers/gpu/drm/vc4/vc4_validate.c         | 17 +++++++-----
+ drivers/gpu/drm/vc4/vc4_validate_shaders.c |  7 ++---
+ 5 files changed, 79 insertions(+), 23 deletions(-)
+---
+base-commit: 80ac6d197218c3399d66674167a4d7c9051a25e2
+change-id: 20261112-vc4-icache-workaround-d11b444bc7e8
 
