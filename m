@@ -1,58 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795027556;
-	b=rE2BhBFbXXZJQewD5q6sMD4TByLriVUp3wYkYq0OH6fIvRkGUBBeMu6kAE73FAcozMtG
-	 9BT7JLdhGij+Kc1d9KcUBL3yfmIH1qlqVLIbBxuVdCxOi7PxwrWjRCF8a9DrHSNT+NAzw
-	 JOcz0vccV+HuuyIMQEGRDVpuH9IVxktfpncbChHJNlaQOzv+RKzHLf1eFlZ58U117KQqP
-	 gvdwldYzDaZl/zwB/98qckrCrakZJhkjdHRoRRLmbtz1YLQa6YJL8R7gCq3Aky8R6ucDx
-	 ocHCvKET94KrcAFkcRh6MNdwdngcpBXhc3w5zShPkQJ81O0qbUQUgQoQLj8hNh2cm6A==
+	t=1795027558;
+	b=GWAG1/QCWW1+IVEC0JzwPY0bcOp5gBHAxUncmRyzI1RKoj+990P6yJ8kkcGnnLPjVOHk
+	 7wsSMQJWRgmW22xj4Acq8HbIKxfMPCrngX5fM9xNebwtMYAEj9/jnC1vSfnlIK6flCqoE
+	 BCd9+ZONL7Hhs7rWT6sxuT5oGQOkzcoS4ek/K8Y9ChwkTPW4rb+HDT+iCAdgDCO+LXItw
+	 7PJe7e0jVYtxOofY/yE68rtwW5joatOz2qVm8stZ85OAsFarkcuUy+oO6I7BUOJLD4Ddq
+	 bS+8MZ9O9JyrbF3954/kzNxcH+ryCMKOcW0B0OSgyvTj4hRjxk42gXbYkoK9RuNodpQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795027556;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Evdf39T5nRn+hSZDgj62KMQ9SrxbOSal4ScwFgOpLzA=;
-	b=ht7mn40yoNBNqJNTzPnUwMsKlmYNmBBPfuE5q3pwLNBDhp/ycF2mBFi2p10sOkM4UDJc
-	 lMcceqTE+w/e9wKR2TArTRjfOGqNR463ZWX59Ce7OBRDiM1sR0Zz+ricsGE1zb5bpJBdr
-	 JJKpuF/64xdygQwOQsdviNQh161NFw31QYvmPlbKJ558xfd0YL1jXHj76imk7jQCGlq/J
-	 DDtVP6O0ga+hVczAbnjSFLIVXFeMFq8cfZ0f18nFpK5b6UPLTTVIXXd/3et5uUpgSHzL2
-	 1Z/1LFpiU7vvotU9SGqxAiIld2IKiO77yxM9fblt5D7aj8IZdPC2+Ue0l5F78sbp4Xg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795027558;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=q47HBnsBXsh2bthirykI6rD+fkcQs2OaoEr05am18HI=;
+	b=RXHYM9Euby39BAwziEj63a0NCVPorRSPP3qtZ/PJzgqjIWwW5bsiIdZEcuMc2N8JFrOV
+	 NrmoJujoPC7nc6PlrTAUaGq14kzx35wUAnZCNhCG1toxQ4zavLd485dGCj5P/2ja3tCeD
+	 Rev863SSR4uk7XHiIxMJKrItY3SKQpLJkQ2vtScl01iZFpjxAQt4OzuxqUSTPckFiqxsW
+	 Hgon5LPcgIf9yF8OcWb35FCptmCEvK3leyjpwntcVOmDWYQ4nh6tFha3H6u7V/D31XLgi
+	 cHkSlb3q2GXz7OcbENeYMtVlEOMyOAuIsIZhdrav4NP9Ad4WULZLGsV7jibIHZ0/C4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Gs/JaZdh";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC54606A332;
-	Wed, 18 Nov 2026 18:45:56 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JWVFmd9+;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 580F860A2607;
+	Wed, 18 Nov 2026 18:45:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 580F860A2607
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Gs/JaZdh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 031781F000C7;
-	Wed, 18 Nov 2026 18:45:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795027556;
-	bh=Evdf39T5nRn+hSZDgj62KMQ9SrxbOSal4ScwFgOpLzA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Gs/JaZdhzZrVKGQ9JgKX1LU0W+UT+DnZUOgLjzOC5bf2HSqRJa+4nMppnMZZn+6o4
-	 OWATcTumUUztGBOl7W0RTPiye+0RygWmeE8mJ+IOT9+vbVijYPEn8bZUY8QBA3DT5y
-	 b2Hl8fuMN4T8cLGIqh8voZ5Aj+SjBNEEvrgWEq4U=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Mingming Cao <mmc@linux.ibm.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1832/2151] ibmveth: do not close twice after a failed reopen
-Date: Wed, 18 Nov 2026 15:59:27 +0100
-Message-ID: <20261118150228.538534615@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
-References: <20261118150121.603863898@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JWVFmd9+
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B61601477;
+	Wed, 18 Nov 2026 10:45:54 -0800 (PST)
+Received: from pluto (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 330113F673;
+	Wed, 18 Nov 2026 10:45:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795027557; bh=RgXpgp1b64sl9UfssU3kG9kquYvtoA69zMUuuOQNjXM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=JWVFmd9+3yNomI/qoopkleACN5TNxUN3On+VVyud7IpUCc/SG+Ig7dye/VtQj3Gz+
+	 XscHeHYR6bZSkFh7ZNolGXymS8NH5Kbskz2yOHb3ZSiVXRIV0xMb2DzwXo6Pfv+j9w
+	 MozS/n6dl2ICb40gnwWiNxAS4XWK/eIpmthc0otc=
+Date: Wed, 18 Nov 2026 18:45:51 +0000
+From: Cristian Marussi <cristian.marussi@arm.com>
+To: Sudeep Holla <sudeep.holla@kernel.org>
+Cc: Cristian Marussi <cristian.marussi@arm.com>,
+	Chengyu Liu <lui2012qwq@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, arm-scmi@vger.kernel.org,
+	philip.radford@arm.com, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] firmware: arm_scmi: Fix deadlock between reboot
+ notifier and forceful work
+Message-ID: <av3yX-5WUt8bT8Jg@pluto>
+References: <20261116084211.3066460-1-cristian.marussi@arm.com>
+ <20261116084211.3066460-2-cristian.marussi@arm.com>
+ <20261116-astonishing-urchin-from-jupiter-838cfc@sudeepholla>
+ <avw5o7sTyriZ2ZiX@pluto>
+ <20261117-prodigious-limpet-of-fame-3d72e6@sudeepholla>
+ <CAE=Q7=4+HMtqbiK9v3jw4t31TQOYUfRXKRurZ7KcMi7GTi1v2A@mail.gmail.com>
+ <avyS2OLs3XGcKXXn@pluto>
+ <20261117-hypersonic-beautiful-perch-bd4fcf@sudeepholla>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,127 +69,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261117-hypersonic-beautiful-perch-bd4fcf@sudeepholla>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Tue, Nov 17, 2026 at 06:27:52PM +0000, Sudeep Holla wrote:
+> On Tue, Nov 17, 2026 at 05:46:00PM +0000, Cristian Marussi wrote:
+> > On Wed, Nov 18, 2026 at 01:35:04AM +0800, Chengyu Liu wrote:
+> > > Hi,
+> > > 
+> > > I think the current v2 may have reintroduced the second deadlock
+> > > described in my original commit message.
+> > > 
+> > > scmi_forceful_work_func() still calls unregister_reboot_notifier()
+> > > while holding sc->state_mtx. Could you also check the potential lock
+> > > inversion between state_mtx and reboot_notifier_list.rwsem?
+> > > 
+> > > The reboot path holds the rwsem read lock while executing the notifier
+> > > callback, which then waits for state_mtx. Meanwhile, the worker holds
+> > > state_mtx while trying to unregister the notifier, which requires the
+> > > rwsem write lock.
+> > 
+> > Yes indeed Sashiko complains about the same and the second part of the
+> > issue on the rwsem is unresolved and will need more work.
+> > 
+> 
+> That's what I was referring when I said
+> " ... re-evaluate needs_forceful again here after un-registration before
+>   calling below forced transition ?"
+> 
 
-------------------
+I know what you mean... 
 
-From: Mingming Cao <mmc@linux.ibm.com>
+> But then your response somehow convinced me that it is not needed 😉.
 
-[ Upstream commit 95811c873d1b97c424a7e6e731730cbf6656ab7e ]
+..but I fooled myself too O_o
 
-ibmveth_change_mtu(), veth_pool_store(), ibmveth_set_csum_offload()
-and ibmveth_set_tso() call close() and open() directly. If open() fails,
-NAPI is left disabled while IFF_UP stays set, so the next close()
-(ifdown, unregister or another reconfiguration) calls napi_disable()
-again and waits forever with RTNL held. Networking and shutdown
-hang; only a reboot recovers. ethtool -L in that state also wakes
-queues that have no TX buffer and dereferences NULL in
-ibmveth_start_xmit().
-
-Any open() failure on those paths triggers it, for example an
-allocation failure on an MTU change to jumbo frames.
-
-Track a successful open in adapter->opened. close() returns early
-when it is clear, and set_channels() checks it instead of IFF_UP.
-
-The open() error-path leaks were fixed separately in net by
-commit af0524bf4ce1 ("ibmveth: h_free logical LAN on open-fail after
-register") and commit 84bec0bf0352 ("ibmveth: fix TX LTB and filter
-unwind on open-fail"), which are now in net-next too, so a failed
-open() no longer leaves TX buffers or the logical LAN registration
-behind for the early return to skip.
-
-Found in review of the ibmveth multi-queue RX series and confirmed by
-code inspection. Tested on a POWER10 LPAR with ibmveth_open() forced to
-fail by a test-only module parameter (not part of this patch): 'ip link
-set dev eth1 mtu 9000' fails, then 'ip link set dev eth1 down' returns
-at once and 'ip link set dev eth1 up' recovers the interface. No kernel
-selftests cover ibmveth.
-
-Fixes: 860f242eb534 ("[PATCH] ibmveth change buffer pools dynamically")
-Signed-off-by: Mingming Cao <mmc@linux.ibm.com>
-Link: https://patch.msgid.link/20261013182926.30417-3-mmc@linux.ibm.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/ibm/ibmveth.c | 24 +++++++++++++++++-------
- drivers/net/ethernet/ibm/ibmveth.h |  2 ++
- 2 files changed, 19 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/net/ethernet/ibm/ibmveth.c b/drivers/net/ethernet/ibm/ibmveth.c
-index 7fdf0c5c2f9c4..bf0e0dc5eb516 100644
---- a/drivers/net/ethernet/ibm/ibmveth.c
-+++ b/drivers/net/ethernet/ibm/ibmveth.c
-@@ -739,6 +739,7 @@ static int ibmveth_open(struct net_device *netdev)
- 
- 	netif_tx_start_all_queues(netdev);
- 
-+	adapter->opened = true;
- 	netdev_dbg(netdev, "open complete\n");
- 
- 	return 0;
-@@ -781,6 +782,14 @@ static int ibmveth_close(struct net_device *netdev)
- 	long lpar_rc;
- 	int i;
- 
-+	/* change_mtu, pool sysfs, set_csum and set_tso call close() and
-+	 * open() directly. If that open() fails, IFF_UP stays set and
-+	 * NAPI is disabled; a second close() would hang in napi_disable().
-+	 */
-+	if (!adapter->opened)
-+		return 0;
-+	adapter->opened = false;
-+
- 	netdev_dbg(netdev, "close starting\n");
- 
- 	napi_disable(&adapter->napi);
-@@ -832,10 +841,10 @@ static int ibmveth_close(struct net_device *netdev)
-  *
-  * @w: pointer to work_struct embedded in adapter structure
-  *
-- * Context: This routine acquires rtnl_mutex and disables its NAPI through
-- *          ibmveth_close. It can't be called directly in a context that has
-- *          already acquired rtnl_mutex or disabled its NAPI, or directly from
-- *          a poll routine.
-+ * Context: This routine acquires rtnl_mutex and, if the device is open,
-+ *          disables its NAPI through ibmveth_close. It can't be called
-+ *          directly in a context that has already acquired rtnl_mutex or
-+ *          disabled its NAPI, or directly from a poll routine.
-  *
-  * Return: void
-  */
-@@ -1129,10 +1138,11 @@ static int ibmveth_set_channels(struct net_device *netdev,
- 		     goal = channels->tx_count;
- 	int rc, i;
- 
--	/* If ndo_open has not been called yet then don't allocate, just set
--	 * desired netdev_queue's and return
-+	/* If the device is not open (including a failed close/open with
-+	 * IFF_UP still set) then don't allocate, just set desired
-+	 * netdev_queue's and return
- 	 */
--	if (!(netdev->flags & IFF_UP))
-+	if (!adapter->opened)
- 		return netif_set_real_num_tx_queues(netdev, goal);
- 
- 	/* We have IBMVETH_MAX_QUEUES netdev_queue's allocated
-diff --git a/drivers/net/ethernet/ibm/ibmveth.h b/drivers/net/ethernet/ibm/ibmveth.h
-index d87713668ed30..3f2240823f6a3 100644
---- a/drivers/net/ethernet/ibm/ibmveth.h
-+++ b/drivers/net/ethernet/ibm/ibmveth.h
-@@ -172,6 +172,8 @@ struct ibmveth_adapter {
- 	int rx_csum;
- 	int large_send;
- 	bool is_active_trunk;
-+	/* Set by a successful ibmveth_open(), cleared by ibmveth_close(). */
-+	bool opened;
- 	unsigned int rx_buffers_per_hcall;
- 
- 	u64 fw_ipv6_csum_support;
--- 
-2.53.0
-
-
-
+Thanks,
+Cristian
