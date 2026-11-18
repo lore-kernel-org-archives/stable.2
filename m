@@ -1,45 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795017638;
-	b=YLFQoQdDnfKgzbGWMBC5WAMc32mMJUtKigRbTj9OalUjRKNTJ5VUOTpodJqZNE5S27eX
-	 GBDfEgod2iHuNM8euXgSgGa6bKTAcGDP25ueSDTyTFY54FDpBtXOEOTQlgswDHlMLeGOS
-	 o23mYba0SHV7dzefwh1uGxxcmXupboME1haUUuaTVaMl+g/i/Neejc6GrK1Zmtb+3p7CO
-	 5+adcs/LJ7dHXX4VJAGqhLERho3qnAlCf2gr2rGRwPbBOm3LY6Fwa20MacY/QIco8ASN5
-	 cYs+lQ3KrMn1EootVTruJ8gpHQlQzaT5NA8bGaSTRSwcvVAEMIEQzN+5551hj/mf9nw==
+	b=1JA465zDqkyv3ixcFEV9XKDNR4aIDVArWXc7XpLRh4uWZvK7bOH2sJ316IGiYfm7+4+/
+	 jDU+IO7T2bc2gK+mtZl4RF49OKprhGSEauyl+vTjt11uMYIfmFbihM1nd4HODZGzm8gdC
+	 iabX+V/vT/QlBmVVqloRxpxvKgs0w2I5l6U+NTiwHBhwwC5Jv8maXrDFtEtvwYvMnRdVo
+	 8VZ86uaPQPtcIIdKDy6LnQJwUqstYcA0jO49dnxSKukqUvlHHPLtECVeQY6zZ25F//7np
+	 EFEbYqIG7FgGnDvgAc/r3EeppngEtLO21EiPiopgvCswPgFZoDMaiCthppoMenTG35w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795017638;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=cSzRCJe203nG3DjmKreWNmifbqQ6eZroTgaCVpedgq8=;
-	b=wsug/zJTNDxUwXHiQiTiIGC0D1A7cIeo3yPL5aSnTb/fYkAoFKnEVBWhubr787RiQB9m
-	 RTxHj6ivko7SpS0eGE1Gyopi7nllkoVfWEVzIFLbTvG7SAzGT6F8MQbm8/NC8PXhKIvDc
-	 8zV3rMZJLESJ166HV7D5lVJbnP77ULOh1uGLdjhg04KzP0ZCTOJNNrLDFUsfzdU9E5FDM
-	 VNK62Xgd6Y9C01uGNR/R5YLafEeMc2UuIKMExrVU4zccU06969Vlfk72H5VJ4+fJrEK3j
-	 lNF8CQj+Qpl679N33XET+RwCb6DFtXfGDN7C+gfDty+U8Em7q1eK7dOzvGszHnXOFqg==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=UaVHWYwMUgG5QSWRdnbChW7hTw/wrhh7xI6BL37bz/4=;
+	b=tFh0rANaUEzNwpydqyDIzpxjFGltOjwvfupQKF1qhbG/uNttjmYVF+RjolWOipVgQvOq
+	 LontCr9dZST2hSl/ZIfn0+ybCvc5NEyabxmpAJYPcVSASaupkEagOBttprbCHlTRLvyrY
+	 nmcAUtT7nITAV1TIVQSfY5ismsV0tlegPmGue/7APvM5qQISTsnvjNCrTr7fzYAoPK+oY
+	 u2xqigMvXczfdx4EN8FQz7Q95yl9lXqCeISQllwQf/KJsvB1mMsOqXpjaLjRh7bUTBP8G
+	 ZDCc5WZdXHMxbelayZNQOUI87ry2tLhgba5HkuJQKVnoSgkCxcpSNjIFB+eg8WPytog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AIQpdHT4;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j2RsGLIi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82613606A325;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD68E606A32F;
 	Wed, 18 Nov 2026 16:00:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AIQpdHT4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3B931F000CE;
-	Wed, 18 Nov 2026 16:00:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795017638;
-	bh=cSzRCJe203nG3DjmKreWNmifbqQ6eZroTgaCVpedgq8=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=AIQpdHT4afUI2Yr6DBMBJ538B2Jh9xZElqzRV/cOj/VYB8cAtgJzCBK7UrCXioIsF
-	 H47ULU079HX6F41g/CHSqfaIv7Bwuj32R85uJLGeEV2/13wNkoZNMCkVR/AKLPKXyz
-	 wuq1IvVsdSV/QSKDgDvQxyV6Uk1SzF5k517NUksbxr27HYvIa6x8dMOaVBJSbYh3dI
-	 Tc96qzyeszI7j6l/SY/2msWk+N0GWdRfzByWS63Jscgh4selyjVN8xNHBFct5iF+6v
-	 u2tgJXx/Kap7Zt2vMuriPDYSmo9gZE/H+2RNaNXsFOLfRe6DUi4n0LLU0WtO6p7MUn
-	 ZEEdKptvA1njQ==
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=j2RsGLIi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F4C21F000C4;
+	Wed, 18 Nov 2026 16:00:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795017638;
+	bh=UaVHWYwMUgG5QSWRdnbChW7hTw/wrhh7xI6BL37bz/4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=j2RsGLIiwv0EUWD7P19NBOc7tRzaIJMBzN7EK6eXVpf6uk0gtkNrvLhb0/nWx+OKo
+	 W7STXg+OUXLx6QuDiuygQeQF62mYmR+dG409dm6Gvwxz8PVDTUsRhcWrhzy8fq0p+P
+	 11kFtC8CCh1w+sGyzsKKSgfItgODFZ+vYZeiSFkY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Linus Walleij <linusw@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 0915/2651] ARM: dts: gemini: Use a level-high interrupt for TVE200
+Date: Wed, 18 Nov 2026 15:35:55 +0100
+Message-ID: <20261118150320.834519057@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,83 +61,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 3/3] media: iris: Use firmware reported count for
- output buffers
-From: bod@kernel.org
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Vedang Nagar <quic_vnagar@quicinc.com>, Hans Verkuil <hverkuil@kernel.org>, 
- Stefan Schmidt <stefan.schmidt@linaro.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, 
- Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>, 
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- stable@vger.kernel.org
-In-Reply-To: <20261031-fix_dec_seek-v1-3-cfedf0c267ee@oss.qualcomm.com>
-References: <20261031-fix_dec_seek-v1-0-cfedf0c267ee@oss.qualcomm.com>
- <20261031-fix_dec_seek-v1-3-cfedf0c267ee@oss.qualcomm.com>
-Date: Wed, 18 Nov 2026 16:00:32 +0000
-Message-Id: <179501763210.2846709.2834027862962422789.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e3fc9
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1806; i=bod@kernel.org;
- h=from:subject:message-id; bh=/AP0CoAgLohhW5HLCcUNA+EpSWZFnT0y2EdkIXNbETE=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBq/cugn7uvdcNTuOfP9Xbb1suR9FMivnTjAW0KV
- QwoeoYaKgSJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCav3LoAAKCRAicTuzoY3I
- OpV2EACQ/TsC5dkjOhP0DBcih24tqd5YR4mkMNv2fqwOCG2fzstzwL3xRzS8zguIjtMrDbrhYOo
- ASQxvbyQUl0lrgpefu4w49HWLJe3on1oScY3IE4wSo0Gm90JVfB+EL1uCYSiSgZES/b6jOhulsc
- TnmFfq9OG/UAF6M1Dp78Olg9AdAxwQgfBwutI2C8XSf53BTG/ah/jpFQHDdz/IgsXWScaggYQHI
- dfHugOSWWUUkI8vahNzNw1NzOA5yGzUGZ8x0iTeKP3vj+8ozDkKOBd56ZAreZ7n/Yq95O0+sDtz
- JymFLEArHN5WJR1uA7CJu9GIzBytDWs1YyB9ECicSaWH4+HdfiwxnDVXK92tIUP+cvxu79dl7vB
- 3CqIaat2NH/aXk/3iDMI59ZORZGhKs2uyAjm1kI28niCxaI57QUrPKKRnBXZjuNvJns3D2tJeRN
- q5ldR1+C/y3huHapXc/7zy6/TlSZYg5quu511C7Ofyk9ZZOHlv0nQvC1SAM1DN4Eyp/CE9K14Kb
- FBK8BU1t9biOsj6MOCopt8kax2kouw55EEX7kXfURj8qywRnubbOdcgEgwf3aLqWMYGeCmIhcE0
- 8R3npHC9p254L7f3ouIOBMzx5v/TyDVUh217J9zJf8lsWAr+9sCN1AVpn8rTDV69Ii3jIDZ45Wn
- ltM/Y5fxOt7Jmng==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-31 01:49 +0530, Vishnu Reddy wrote:
-> Once the firmware reports its minimum output buffer count, the driver
-> still caps it to 4 for VP9 and AV1 when split mode is enabled. After a
-> seek, the output buffer count can be lower than the minimum required by
-> the firmware for VP9 streams. This causes the firmware to report
-> insufficient output buffers and the seek operation can fail.
-> 
-> Use the firmware reported minimum count as is. The driver calculated
-> count is only used until the firmware reports its own requirement.
-> 
-> Fixes: e1f5d32608ec ("media: iris: Add internal buffer calculation for HEVC and VP9 decoders")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_vpu_buffer.c | 10 ++--------
->  1 file changed, 2 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> index a8170e5fa9e6..57467c952f42 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_buffer.c
-> @@ -2375,14 +2375,8 @@ static int output_min_count(struct iris_inst *inst)
->  	int output_min_count = 4;
->  
->  	/* fw_min_count > 0 indicates reconfig event has already arrived */
-> -	if (inst->fw_min_count) {
-> -		if (iris_split_mode_enabled(inst) &&
-> -		    (inst->codec == V4L2_PIX_FMT_VP9 ||
-> -		     inst->codec == V4L2_PIX_FMT_AV1))
-> -			return min_t(u32, 4, inst->fw_min_count);
-> -		else
-> -			return inst->fw_min_count;
-> -	}
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-Quite a few questions here. Why is the minimum count currently set to four
-? Why do we use a hard-coded value of four more than once, why not define a
-different minimum count ?
+------------------
+
+From: Linus Walleij <linusw@kernel.org>
+
+[ Upstream commit 5bf1bb010712bba28eda926ed453db3cab91381a ]
+
+TVE200's interrupt is configured as rising-edge. On the D-Link DIR-685,
+this can stop interrupt delivery after the first vertical interrupt,
+causing vblank and page-flip timeouts and delaying framebuffer console
+startup.
+
+The vertical interrupt can remain pending after acknowledgment. Use
+level-high triggering so the pending condition is delivered again
+without requiring another edge.
+
+Fixes: d2b85241a9f5 ("ARM: dts: Add TVE200 to the Gemini SoC DTSI")
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+Message-ID: <20260921-gemini-tve200-fix-v1-2-8be03ac2a8f7@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-bod
+ arch/arm/boot/dts/gemini/gemini.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/gemini/gemini.dtsi b/arch/arm/boot/dts/gemini/gemini.dtsi
+index 23e68e17ffbbd..d8f64fea0a79d 100644
+--- a/arch/arm/boot/dts/gemini/gemini.dtsi
++++ b/arch/arm/boot/dts/gemini/gemini.dtsi
+@@ -445,7 +445,7 @@ dma-controller@67000000 {
+ 		display-controller@6a000000 {
+ 			compatible = "cortina,gemini-tvc", "faraday,tve200";
+ 			reg = <0x6a000000 0x1000>;
+-			interrupts = <13 IRQ_TYPE_EDGE_RISING>;
++			interrupts = <13 IRQ_TYPE_LEVEL_HIGH>;
+ 			resets = <&syscon GEMINI_RESET_TVC>;
+ 			clocks = <&syscon GEMINI_CLK_GATE_TVC>,
+ 				 <&syscon GEMINI_CLK_TVC>;
+-- 
+2.53.0
+
+
 
