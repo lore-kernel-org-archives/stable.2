@@ -1,53 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795020505;
-	b=JpsmifrFRNZSPYeHJN+fOtuit9uGM8xCkKUEJCS2skwval62xOANMxR876SebK4pdD+l
-	 JbzHkCOkXjPzOtFQ6gjCXDR2E0TgqzGXbtUS9XSUojTak/WXMPfUlRzWOpGiOchgaQOf3
-	 ZfXXxEfNZfd98snmINP3NPumoZoIn7auTG69sukN2OaZL8sQVNxHtfjzETQGzO4B9tfcL
-	 A871ErWL19zXpgLtSGrQdk+0DYjX0veWDjKuyqTdXTe49m689xsWiexk5iwS+lX2XnFKS
-	 rReoLhUiK2sqSDL1npuHfaLOQ6lH5PoZ+vZW92xxNBxMGAUR1QYPOVyTF3Vr7kivHHw==
+	t=1795020511;
+	b=UEHW3vOPQ8ciHquFH+Hzvia0KLN3nBAusfLF7O/cSLbDsOSJr6JAP63DM+UFcLk7jxA5
+	 sZ0AhtNO0f/ftpaUk7UR2NqsqTnYHGp+jrZxG7TvHldVnkcwGujahDttLz4kwEMb/OpUm
+	 2SXP0i+LTqDforW1nLDoA5+e5TC+KaQkU9NK7qHZ1JN1ES2NAL9VoIPIgSaTFZxq0V6kI
+	 Gpf5ssCgir2D4NyqZFkgOALBpcWEEP8rtHVRWT3E9AGldkJb0ufOZD2oEuVh318MMj5JL
+	 iFjDZwB6MkUsySbMQ+6MpvdvY19GwwbyyUBxbz4T25lKQvNc2h83OJgSdZPmQ99E3eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795020505;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795020511;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=eHBaNX7wF4GBH+8IjUQJOpAlFUflYMr5spKNfQuEOlU=;
-	b=Jd10AdAfWyBZLEBnALc3KbVSQsJa+CBSqgKTHqibhj0funMTxYFn4znObeT2MSDBOJyH
-	 +yzFx8a/Igr2CG6w8BXodym272jQsEHv/Zr0ialN0YiEY+zz8vARAvtbjWe6XY6KW+euV
-	 /e2jP6xxr6uU1Dt/hzE0lNZuZUxjtZAD+gS2CArYPOXZ3B3n1nY/ThE8Gnk1rhNa6GKKX
-	 9RvhvPXwexukuynkQI/D0Tm7rHpMXmhKMVKhOT972JvKHhRlZDcSWVFikqXUMq42COPsM
-	 HOw59qY8qrxgNtsjqdBK9lr6HPaJy7VzbyZjsGGKKlF85rqoVHAZTkROBY0YRvTwy7Q==
+	bh=0hhbWKKz5YwkRLCfBZJi2T64whXNiuynYqSDHIKDzSA=;
+	b=iowoWLkYD27UweQX03jveZzIGqsxmyqrHZV2SgXNJz4ZapSCq9o2ua5RxrAAGk8NWoRs
+	 NNWSLm1GmJ7DMiGhPvgunqdLyQn41PgJGri4GRGURtT1HzFvh2GoLRvu0FX3Wtv8l8bz4
+	 QGNW8uet5pyjUnDXPk74tyFUxRuii7dKE/jZKYrjzsHXsIh3Yv4z7ET06wQmGronO596H
+	 Imzert4BggdK0krUKrgLDz+nUCrqIdb9GzAhK+chd/pzLRBjcAR2mNP06BTT5s9vzB8q6
+	 9O/tKlMvy3CPNFQs13JnkBHM0/LLLdjIr/LsBq1LwsbHV+8X7ioLq6Rvf03GJEp0kKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xsnefMzB;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="DuAiqkG/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDA9606A333;
-	Wed, 18 Nov 2026 16:48:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E31A1606A332;
+	Wed, 18 Nov 2026 16:48:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xsnefMzB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94BD61F000C5;
-	Wed, 18 Nov 2026 16:48:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DuAiqkG/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 409F31F000C7;
+	Wed, 18 Nov 2026 16:48:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795020505;
-	bh=eHBaNX7wF4GBH+8IjUQJOpAlFUflYMr5spKNfQuEOlU=;
+	s=korg; t=1795020510;
+	bh=0hhbWKKz5YwkRLCfBZJi2T64whXNiuynYqSDHIKDzSA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=xsnefMzBGbOK0dzdj+S/BY3n+/cQIht9A8I7LroC+J/MuopwtrAVT+vslqjcXgwx4
-	 HYEmH2nh6JIyGeO69CvjHYP/twrITO9LahZ3zhzLAUcgpS5m/78V+8bKu0zxR/pv/L
-	 LKCGGOU9MQZDsPxc3In8QrBc4bNMhneYIVqyC93w=
+	b=DuAiqkG/qzZJ6EQ5FS730gQLc2GvwJWYzGboc2rvCfvzsN8YHxKqPteRsSzxXteyF
+	 yt6KusksnLS7i5Ar9nlWMMBFbRbP8p9QrALYqDjXOj8IdwMPn+XckjZnfj8FK+ydMU
+	 5Oc+2yy8Zhi7O027b4UUkojbnxvN1wbD4tqmRoj0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Qiliang Yuan <odys.yuan@gmail.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	"T.J. Mercier" <tjmercier@google.com>,
+	Serhat Kumral <serhatkumral1@gmail.com>,
+	Leon Romanovsky <leon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 1976/2651] selftests/bpf: Accept unnamed dma-bufs in the dmabuf_iter default test
-Date: Wed, 18 Nov 2026 15:53:36 +0100
-Message-ID: <20261118150357.570972872@linuxfoundation.org>
+Subject: [PATCH 7.3 1978/2651] IB/rdmavt: Fix error unwind path for qp_priv_init() in rvt_create_qp()
+Date: Wed, 18 Nov 2026 15:53:38 +0100
+Message-ID: <20261118150357.633907567@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -69,48 +68,39 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Qiliang Yuan <odys.yuan@gmail.com>
+From: Serhat Kumral <serhatkumral1@gmail.com>
 
-[ Upstream commit 653b8f14fdda385bd7c5b786f8dfdcc3e5599e27 ]
+[ Upstream commit dd36137b218ad6f18ed15e6279412d7fc160980c ]
 
-The dmabuf_collector iterator prints the inode, size, name and exporter
-of every dma-buf in the system on separate lines, with an empty name for
-the buffers that have none. The default_iter subtest parses that output
-and looks for the two buffers it created.
+If driver_f.qp_priv_init() fails, execution jumps to bail_rq_wq, which
+bypasses bail_qpn. Because alloc_qpn() has already succeeded at this point,
+the allocated QP number is left unreleased.
 
-It requires a name for every buffer, and sscanf() finds none on the
-empty line of an unnamed one. On a system that has such a buffer, like
-one exported by udmabuf without a name, the subtest fails before it
-gets to its own buffers.
+Jump to bail_qpn instead to ensure the QPN is properly freed via
+rvt_free_qpn().
 
-Take an empty name for a buffer without one.
-
-Fixes: ae5d2c59ecd7 ("selftests/bpf: Add test for dmabuf_iter")
-Signed-off-by: Qiliang Yuan <odys.yuan@gmail.com>
-Signed-off-by: Daniel Borkmann <daniel@iogearbox.net>
-Reviewed-by: T.J. Mercier <tjmercier@google.com>
-Link: https://lore.kernel.org/bpf/20261009-selftests-bpf-dmabuf-iter-unnamed-v1-1-962ee94f7a5e@gmail.com
+Fixes: 5190f052a3654 ("IB/hfi1: Allow the driver to initialize QP priv struct")
+Signed-off-by: Serhat Kumral <serhatkumral1@gmail.com>
+Link: https://patch.msgid.link/20261015102518.15780-1-serhatkumral1@gmail.com
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/infiniband/sw/rdmavt/qp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-index fb2cea710db3e..1a5dc1adae735 100644
---- a/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-+++ b/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c
-@@ -188,8 +188,9 @@ static void subtest_dmabuf_iter_check_default_iter(struct dmabuf_iter *skel)
- 			ASSERT_EQ(sscanf(line, "%ld", &bufinfo.size), 1,
- 				  "read size");
- 		} else if (f % FIELD_COUNT == NAME) {
--			ASSERT_EQ(sscanf(line, "%s", bufinfo.name), 1,
--				  "read name");
-+			/* Keep an empty name for a buffer without one */
-+			if (sscanf(line, "%s", bufinfo.name) != 1)
-+				bufinfo.name[0] = '\0';
- 		} else if (f % FIELD_COUNT == EXPORTER) {
- 			ASSERT_EQ(sscanf(line, "%31s", bufinfo.exporter), 1,
- 				  "read exporter");
+diff --git a/drivers/infiniband/sw/rdmavt/qp.c b/drivers/infiniband/sw/rdmavt/qp.c
+index c40cce69e9457..ec64a595ce03e 100644
+--- a/drivers/infiniband/sw/rdmavt/qp.c
++++ b/drivers/infiniband/sw/rdmavt/qp.c
+@@ -1173,7 +1173,7 @@ int rvt_create_qp(struct ib_qp *ibqp, struct ib_qp_init_attr *init_attr,
+ 		if (rdi->driver_f.qp_priv_init) {
+ 			ret = rdi->driver_f.qp_priv_init(rdi, qp, init_attr);
+ 			if (ret)
+-				goto bail_rq_wq;
++				goto bail_qpn;
+ 		}
+ 		break;
+ 
 -- 
 2.53.0
 
