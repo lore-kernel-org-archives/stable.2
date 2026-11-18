@@ -1,65 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.130.202.135
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.130.202.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794981942;
-	b=GNKWQPLU0i8bRaRlIyUiqgeo8HuEWb7XnD+n0uw9axwrGGgGZFps3GKEsWikoXRlXQAB
-	 5Rlok5o9Jc7r5gqO9y4y/eLK07cUE8YWwgTBgY2aRk8vFwWYcJ3+b/AwQRBof/tLVqPsO
-	 H8VE/zznDjQYSL8IM/4tu3GxaCBl8PLBGzdpk9tPe9T6Oc6ad9R6uxmy80ZKLTH7C4mUs
-	 BldhLtgKoBzxCyzQRoVMfB8u13s32ekvHlt4OOKtL7uEHEsJ6/flxrik4A+4AK0eTfw52
-	 5zCT5mIQy7ZuUX2a5x2T63fCFHPFUSI9CuC/YdXtpux78O6nOSI/KsLCabeVj3Onm0g==
+	t=1794982069;
+	b=eZUDpkKxXdRU5N5j+ztwlB39gk0K+T3y5JI2d08P0c3PcGTzlPPngU2k6w9Yg/5WjwqH
+	 nkplIvwZd+WyZ7p73O/X7s1mLFs2KS6natCt3Bi3I6wZGwht0UNgvdzHFkrIxnnwRG3BI
+	 4b1WhzVFusoGMqfIViTgVbZfZ2urXlurN3Y/pp9koYCfPfIcCSlf0TyLRjoG3V2hzZucz
+	 18ySK8zf/H0dYAm8vDs4CqDb8aHkQr550WK8RZ97u8V1t1lmUBtohfQABla33inbo0lN4
+	 pLDh55wEWiDUxfPdAKI7BwjY96E0hrjQ7yXoEGJ+savQfh2k6oVmQznUflbh3r1Em6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794981942;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794982069;
 	h=DMARC-Filter:DKIM-Signature:Received:X-Iguazu-Qid:X-Iguazu-QSIG:
 	 Received:From:To:Cc:Subject:Date:X-TSB-HOP2:Message-Id:X-Mailer:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=ETRLYfOnWdxJUU1SbgPiKArR5EJI6qKGiZLZtvU5VqI=;
-	b=P+hfTzgn/yOXxbKKlo4YVEoG/ePjQFbBG+aiNabSDm4UQG6o4FOO8b0U7QZRLGpkIXqm
-	 A+kin3XcVLN8KvMkYrsfOFMxFCptl+z5XgBXBabQ+OC9qwQLhsawGnUExmYwYpPPkuKoc
-	 QrENkFLaT4IsAQxp1gdsUTwhU8jY0yEcfojk5pro/sOfxQwLg/0W1S/vO/v1VzOrkTTNf
-	 qKMUdfeYydLsaHpuc2BIVG66MKEvmphnnVyH9/keBBAJXMW9qs0+zj901u3ggf0jPSZFH
-	 bNk4hHwzTQFLGjIzrS/m7u4Hr8FZlFdS2vAnhnJ31omhL4GzRHvNUmZVtptzqI43Xnw==
+	bh=k4hE8JIDiupRFg5lV2XTLp3i462b2TagRGcRljE4Juk=;
+	b=sS2FI5K/zyBLK+rGwcxqDEk1ABsOCIVxs2aukFE4blD0EsRYi+94/Hgrhzp2fmjpYM4y
+	 LWtHQPxiXi1BvyF2pP9Bg8IUL3/UItXry7OiNP2Birq2eyJ+9MA+NHXVeGakiz7mxaORh
+	 xJVAqjW+1WbIKLRM93uyjJi3TI0J73iZQ31uAsgILLmZAvK2oNqGZj+3xq8Gw9qF3RZ3O
+	 qIpkf+KpL929A+7oWSkhWEb55MGfcR/XSwaNJfnVoiEnYAZRYjTc3J+ATXAbxfmyGFfBn
+	 R7gE2/e+KqOTi1UU3xCafpJAVx/zQ+SVTtvb+AezluGWEmV+d+kEHjrq13Mw+1a/duA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.toshiba;
 	spf=pass smtp.mailfrom=mail.toshiba;
-	dkim=pass header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=uVrq+trF;
-	arc=none smtp.remote-ip=210.130.202.135
-Received: from mo-csw.securemx.jp (mo-csw1801.securemx.jp [210.130.202.135])
+	dkim=pass header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=nQB38DDn;
+	arc=none smtp.remote-ip=210.130.202.131
+Received: from mo-csw.securemx.jp (mo-csw1120.securemx.jp [210.130.202.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A069606A325
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 06:05:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A069606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19401606A335
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 06:07:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19401606A335
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.toshiba
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.toshiba
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=uVrq+trF
+	dkim=pass (2048-bit key, unprotected) header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=nQB38DDn
 DKIM-Signature: v=1;a=rsa-sha256;c=relaxed/simple;d=mail.toshiba;h=From:To:Cc:
 	Subject:Date:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding;
-	i=nobuhiro.iwamatsu.x90@mail.toshiba;s=key2.smx;t=1794981908;x=1796191508;bh=
-	idAq0S6+iA989Drl4RGSf5QlcOyQHLtUesHiiW654B8=;b=uVrq+trF8Jnfgi4V7py7oG6HMOmNUo
-	7xSUgHDaMJ3KxpJyfVXN0aFKRNuKv5LGW+Sq0APxQL9cER9celmb6hFiCaNbQsYa5NQiOC0Ghg3ae
-	t5ZXDZ/qjgWWRU4a29k5aVpQLvnpzXkIFNKpl4sLd9U3nciYA9+0ipHWWj88IJuxCSm3ielljJ4vm
-	p/2hHAapGPC4D6QIQO3UkhfSJZ2Bw+ykPngjeqTjTcnATc0DDgAxOOF3F23niOAbOYHkDaSjfSQuM
-	b+7kQZvOj0YWsC++njY6t3bqDgtqAYuJYNCAuld7uDYokEG/KlCd9e2IXRb5lWOZwQl3VAtOB+dJp
-	d/ug==;
-Received: by mo-csw.securemx.jp (mx-mo-csw1801) id 6AI657xk1766218; Wed, 18 Nov 2026 15:05:07 +0900
-X-Iguazu-Qid: 2yAbofA4kxsHIr6nLB
-X-Iguazu-QSIG: v=2; s=1; t=1794981907; q=2yAbofA4kxsHIr6nLB; m=iMSpvHsr1jYoy2v+v16rB9VRp1AmvmJHNqGNyTd4yr0=
+	i=nobuhiro.iwamatsu.x90@mail.toshiba;s=key2.smx;t=1794982030;x=1796191630;bh=
+	y3DQIF6HUUT8SZuhkhz9eBMA7qMCv3VJqVEGpdvnA8Q=;b=nQB38DDnKwNztJDAqh9tavH6wOFcU9
+	Jgt6mGaKeAG7N63vlhBkFnsxYIuIFPFT1488RDnC4JFrOwUUAXQaagVTKM+kl7/94rzAoPjR0oCKl
+	nPrxWpTqKs2nO6r2TT8zA5tnzPanl7oPzhmEqiNPQD4+kWOBoyoUq+ZHBeOqCxBbwfFnNfCWUklpm
+	m/A4Va4FeoD2sOI7fyAY3/3AKIOuzzuMlMJWY/X2l6N9EO+4odFjahVH+swuN+M0sXQs7oSwEfYud
+	d3rP9k4hDBD5bZP3kl5qpXCXTa/7cATHb0jrTRl2aNId0iIkFe4Bg2eVGhseY3Tcpj+nZQXGCTmEs
+	N38Q==;
+Received: by mo-csw.securemx.jp (mx-mo-csw1120) id 6AI679HN372975; Wed, 18 Nov 2026 15:07:09 +0900
+X-Iguazu-Qid: 2rWh8UlXZEXWisZvSG
+X-Iguazu-QSIG: v=2; s=1; t=1794982029; q=2rWh8UlXZEXWisZvSG; m=cLpFh9vl3sqK70t83Oq+1gp0p7SWXX/BIzT4dzOkOjE=
 Received: from imx2-a.toshiba.co.jp (imx2-a.toshiba.co.jp [106.186.93.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	 id 4jTrfq2rBQz1xnk; Wed, 18 Nov 2026 15:05:07 +0900 (JST)
+	 id 4jTrj929Phz1xng; Wed, 18 Nov 2026 15:07:09 +0900 (JST)
 From: Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
 To: stable@vger.kernel.org
 Cc: gregkh@linuxfoundation.org, sashal@kernel.org,
         Kory Maincent <kory.maincent@bootlin.com>,
         Paolo Abeni <pabeni@redhat.com>,
         Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
-Subject: [PATCH 5.10.y] net: ravb: Fix missing rtnl lock in suspend/resume path
-Date: Wed, 18 Nov 2026 15:04:52 +0900
+Subject: [PATCH 5.15.y] net: ravb: Fix missing rtnl lock in suspend/resume path
+Date: Wed, 18 Nov 2026 15:07:06 +0900
 X-TSB-HOP2: ON
-Message-Id: <1794981892-14446-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
+Message-Id: <1794982026-14518-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
 X-Mailer: git-send-email 2.7.4
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -130,17 +130,16 @@ Fixes: 0184165b2f42 ("ravb: add sleep PM suspend/resume support")
 Signed-off-by: Kory Maincent <kory.maincent@bootlin.com>
 Tested-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[iwamatsu: Adjust context]
-Signed-off-by: Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
+Signed-off-by: Nobuhiro Iwamatsu (CIP) <nobuhiro.iwamatsu.x90@mail.toshiba>
 ---
  drivers/net/ethernet/renesas/ravb_main.c | 8 +++++++-
  1 file changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
-index 3e131788a4a3..1e7ff7f9cd4d 100644
+index eee446e50048..fb055cd56064 100644
 --- a/drivers/net/ethernet/renesas/ravb_main.c
 +++ b/drivers/net/ethernet/renesas/ravb_main.c
-@@ -2352,10 +2352,12 @@ static int __maybe_unused ravb_suspend(struct device *dev)
+@@ -2471,10 +2471,12 @@ static int __maybe_unused ravb_suspend(struct device *dev)
  
  	netif_device_detach(ndev);
  
@@ -151,10 +150,10 @@ index 3e131788a4a3..1e7ff7f9cd4d 100644
  		ret = ravb_close(ndev);
 +	rtnl_unlock();
  
- 	return ret;
- }
-@@ -2393,12 +2395,16 @@ static int __maybe_unused ravb_resume(struct device *dev)
- 	ravb_write(ndev, priv->desc_bat_dma, DBAT);
+ 	if (priv->info->ccc_gac)
+ 		ravb_ptp_stop(ndev);
+@@ -2519,12 +2521,16 @@ static int __maybe_unused ravb_resume(struct device *dev)
+ 		ravb_ptp_init(ndev, priv->pdev);
  
  	if (netif_running(ndev)) {
 +		rtnl_lock();
