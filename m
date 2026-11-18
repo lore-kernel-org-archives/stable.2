@@ -1,71 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795022475;
-	b=BKuWQ91UJ+ETuhqih05Wp8P7cF0D51+UrD64CRJEXXpIy8K4JtVDprc22KD21QrHRm2H
-	 SyLBp1PoMG/awQJwAv0J45hrfQapmlOdB8UYFK1IhBZqXgBVzZQJhxwB0e/oaCF+IOLrF
-	 k3cso60iBYQ9wykO+HGNkD/UiGdeWVlGn1QXK9MbgclnyVyPXrUUoaxgjg+q7mofWvpc7
-	 rw571adRBgNR9A6ZjCblMPyHamKZ01wCOPeoA8hTdE1ikBokF7SNRmqKf5bcZtvU2lEEm
-	 kb7AM2q9W8FSyGgIY8XYGwlY+xd5/9IQsgd9YAvQhjHjORM3wq36JNC+TtspeJj9Y/w==
+	t=1795022478;
+	b=DJw97zlgTjL2OxzS8P4GP0AmGvXjLcR2u4IGXCpMB13rErLfHL6sBTDU8Js659FYBX4j
+	 yW9yzAimtvR/gt+gFFFFth3TTcHinEMtuez177zyWJQWaUWrjm0xn/oYwHXIbNdiO6ADU
+	 GPcxsc72tMJeBSRB92jc4zkQTRsQzPCwAqtjCUfikPE8ZCCXuOZCLtVfvJ+7wFrwG1k3j
+	 NE/SqDxdQxK4qqdNAuRRzAljg0Cn4rrnzDR0cKcI67g0oXq//QI1dkxTt9KtiRhqMCl8/
+	 X+CqrsmV6qPYEoLOjiLGgxcjwDQyNW45vBi3diip2jM0qcQAJW9LfzryTYCjFjlD5cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795022475;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=hesU+4ldnvOaAaxjWfy9d3z/Vr2tFTg+8pWVNqtk5cU=;
-	b=x7FegXDdsDEe9nBAcgxwbewQJbnz1l6PTTQbS4qh0GuVe1XmEDr+OmUSvShRMoZZlqtl
-	 hXVKk9qUO4mFGjCmU5II/TLzwsnQQl6Aj9zvq3qvCPLe97fy4jhz0XIcxQcxkRyqAfr3T
-	 3x2Z2R7S6P36yACuIm/uwIqSdP5RP0ipxZt5uzGqPkwW8V92ncDmRCiEqPlbm+BzzjcLy
-	 QJ9hchrKMtokNz3AGms/ZAKLRs3f9BQDiAHP2t1LIdbErMUwNqhv/gaaJA8E9IqHCKW59
-	 NzoLabX0EUfZ+JSrJPdj+Ly5/Z0rq4KbgmLD4hcuKlhL5M0RTACHNifzq+4HL44JKoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795022478;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RX0yMBEnL77rIkFFo807FE66nqN1ej0qHFtUmAqKyZY=;
+	b=TEWJV5b4TIPfXvz233/clHz7AYC6iLXx9WNs9gfuMo5+zWzLlD9j5VSedj5bipeF1fPz
+	 QSg3SQp5sGndYT9QJSxzk7QqN8CNYQ2lhiQEYnIySq8POV3m6xZKjNOkKKTLFN5A+MDut
+	 OMjVyQ9PLKOMNfZp1oNH4p2QBdB4gOQKMAnnbeuEP9f/n4HzEokuiIiAzpv5UmJz9T+Uf
+	 2g9MOaCiE01tl2q+hISLQ41JULdG4BZQCZ+2qXmklMUTDjUBZhTy1K2eo9IrgPYDtqMTp
+	 9tJi2q05xFGDXMYGHsoZf0/hhhkRWaCwLRFoO8jr80ynA0ovPEOFDNMxoGNJknoCujQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EEWUUcqa;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KlQGDOfo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D49D606A336;
-	Wed, 18 Nov 2026 17:21:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40EF5606A32A;
+	Wed, 18 Nov 2026 17:21:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EEWUUcqa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 719561F000C4;
-	Wed, 18 Nov 2026 17:21:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795022475;
-	bh=hesU+4ldnvOaAaxjWfy9d3z/Vr2tFTg+8pWVNqtk5cU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EEWUUcqa6leUkgcsEpfc2x29HRzw+OIdEg676QIVErDCbR3H3Ezwu5rlrejP0jH7X
-	 lw5CugG/Qbkwi/sl1A86PLQvpSjvi3qJql1cqAUQM+6pZZncpY6crwzk5llTn7WyWt
-	 o+KAI1Vgxt9x9SR0FeOA++Scoxwvce/u7eaULOIgwAQf+MrwWLrEoVvng6VziVq8wA
-	 Mt4963yUj3GZGBy7po/Xd/pFd2gQ8a41eqmZeeb+BMGoMvSljEeJsVlm9aE0HR91pg
-	 vZrYMozjVeF8Yt2c1vKQ7LB18IhCdxIo9XHL+QCmDNF6gdXh/hGfwi4BLpc2LG6d2W
-	 lpqqKfEt3Ohkg==
-Date: Wed, 18 Nov 2026 17:21:02 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	David Rientjes <rientjes@google.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
-	"Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, Nhat Pham <nphamcs@gmail.com>, 
-	Johannes Weiner <hannes@cmpxchg.org>, Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
-	Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
-	Gregory Price <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, 
-	Alistair Popple <apopple@nvidia.com>, Usama Arif <usama.arif@linux.dev>, 
-	Kairui Song <kasong@tencent.com>, Balbir Singh <balbirs@nvidia.com>, 
-	=?utf-8?B?SsOpcsO0bWU=?= Glisse <jglisse@redhat.com>, Kiryl Shutsemau <kas@kernel.org>, 
-	Yu-cheng Yu <yu-cheng.yu@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
-	Peng Fan <peng.fan@nxp.com>, Josef Bacik <jbacik@fb.com>, Chris Mason <mason@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
-	"Borislav Petkov (AMD)" <bp@alien8.de>, Mark Brown <broonie@kernel.org>, 
-	"Dennis Zhou (Facebook)" <dennisszhou@gmail.com>, Rick Edgecombe <rick.p.edgecombe@intel.com>, 
-	stable@vger.kernel.org, Josef Bacik <josef@toxicpanda.com>
-Subject: Re: [PATCH v2 00/13] mm: batch of (urgentish?) fixes in oomk,
- cachestat, dev-migrate, percpu
-Message-ID: <av3dRm-Gkx9kcYWj@gremlin>
-References: <20261113-mason-migrate-et-al-fixes-v2-0-50a2ed382b61@kernel.org>
- <90a961f5-e488-46de-8872-0e1540eaad4c@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KlQGDOfo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AD811F000C4;
+	Wed, 18 Nov 2026 17:21:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795022478;
+	bh=RX0yMBEnL77rIkFFo807FE66nqN1ej0qHFtUmAqKyZY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KlQGDOfoz4MgOXPuO95m3RgatNyXJ5i4LYII/TkbYtV30G+0fQvDFD5Q2xFph610x
+	 0/4+bq9bMDOxGRt7UFr4pFX/CEAQfL1rgWtVEjl+PtprZaCfQwxBbuV79Mr10HKtc8
+	 MqhWWCI8skbUjJIHqxTDZS1FToyeEbNrIEqeoQGM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Guixin Liu <kanie@linux.alibaba.com>,
+	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>,
+	Dave Jiang <dave.jiang@intel.com>,
+	Alison Schofield <alison.schofield@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0027/2151] cxl/pci: Use the Device GPF DVSEC for restricted endpoints
+Date: Wed, 18 Nov 2026 15:29:22 +0100
+Message-ID: <20261118150122.641172407@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
+References: <20261118150121.603863898@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,45 +64,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <90a961f5-e488-46de-8872-0e1540eaad4c@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 18, 2026 at 04:35:32PM +0100, David Hildenbrand (Arm) wrote:
-> On 11/13/26 22:45, Lorenzo Stoakes (ARM) wrote:
-> > A bunch of fixes for oomk, cachestat, device migration and the per-CPU
-> > allocator.
-> >
-> > These patches were originally AI-generated, tamed into upstreamable state.
-> >
-> > Some are more reworked than others. Those which needed a significant
-> > rethink are submitted as mine and marked as Reported-by the relevant
-> > original author, others are smaller edits which are annotated as such in
-> > the usual fashion.
-> >
-> > Please check for correctness, sanity, and whether the cc: stable is
-> > warranted (I have not included it for 3 where it seemed unwarranted.)
-> >
-> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> > ---
->
-> Lorenzo, I would pick up the migrate_device patches now.
->
-> Which one should be fast-tracked upstream and which can wait for the next cycle?
->
-> Use-after-free, shadow stack and out-of-bounds write ... look rather bad.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-I think given Gregory was able to repro nearly all of them, I'd say most. They
-are mostly small. So patches 4-9 I think should be.
+------------------
 
-Actually the shadow stack one (10) is unrepro'd and super borderine and requires
-a broken driver and etc. etc. so I'd say that one is less important.
+From: Guixin Liu <kanie@linux.alibaba.com>
 
->
-> --
-> Cheers,
->
-> David
+[ Upstream commit d2654fa0d841fa36ffa76577f83a2810d643ae19 ]
 
---
-Cheers, Lorenzo
+cxl_gpf_get_dvsec() picks between the Port and the Device GPF DVSEC
+from the PCIe type of the given device, and only a plain endpoint
+counts as a device. A restricted CXL device is an endpoint too, but
+it falls into the port case and is probed for the Port GPF DVSEC
+instead of the Device GPF DVSEC.
+
+On an RCD, dirty shutdown tracking therefore never arms: the DVSEC
+lookup in cxl_nvdimm_arm_dirty_shutdown_tracking() fails, the dirty
+shutdown count stays invalid, and the warning complains about a
+missing Port GPF DVSEC on a device.
+
+Treat restricted endpoints as devices.
+
+Fixes: 36aace15d9bd ("cxl/pci: Drop the parameter is_port of cxl_gpf_get_dvsec()")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Guixin Liu <kanie@linux.alibaba.com>
+Reviewed-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+Reviewed-by: Dave Jiang <dave.jiang@intel.com>
+Reviewed-by: Alison Schofield <alison.schofield@intel.com>
+Link: https://patch.msgid.link/20261008034619.28059-2-kanie@linux.alibaba.com
+Signed-off-by: Dave Jiang <dave.jiang@intel.com>
+[ sashal: Replaced the unavailable is_cxl_restricted() helper call with the equivalent pci_pcie_type(pdev) == PCI_EXP_TYPE_RC_END comparison. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/cxl/core/pci.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/cxl/core/pci.c b/drivers/cxl/core/pci.c
+index 48c1f3854b799..d2ee7d853f1fd 100644
+--- a/drivers/cxl/core/pci.c
++++ b/drivers/cxl/core/pci.c
+@@ -819,7 +819,8 @@ u16 cxl_gpf_get_dvsec(struct device *dev)
+ 		return 0;
+ 
+ 	pdev = to_pci_dev(dev);
+-	if (pci_pcie_type(pdev) == PCI_EXP_TYPE_ENDPOINT)
++	if (pci_pcie_type(pdev) == PCI_EXP_TYPE_ENDPOINT ||
++	    pci_pcie_type(pdev) == PCI_EXP_TYPE_RC_END)
+ 		is_port = false;
+ 
+ 	dvsec = pci_find_dvsec_capability(pdev, PCI_VENDOR_ID_CXL,
+-- 
+2.53.0
+
+
+
