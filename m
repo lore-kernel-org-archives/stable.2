@@ -1,54 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794999177;
-	b=1Y8RrcnI7nqraLdPEZSuHOWrROUe+KBphQEG1XTe8R4FYJygSjT+kwPSRgtFhjspbH7y
-	 z+TuzoYpAs+132lVjoy7p5ilPIIN59I++ut9X4N5HfSOx2DMqdblIl3ITLbTrMnk8IbSj
-	 z4jM7gVOGpK8S4SSVR7H2LcjLLSrlJ+gtv15IOZmgErtvHjJn6X0yACln45pxYb8DpR1m
-	 X0vNMCB+umO1fuaIRvMeQzpNiHO75NZEUtmYwUMfGmTsksHRvssU+40CUEvH+w4K1NfxT
-	 FRHfnJ0W1TcJIkJAlZNmQpbLMudeAhHY1XqjIW5Ru9qTSCkYGs2TCROCTJmjuQrXyew==
+	t=1794999725;
+	b=TKOX23ydv9W/dXHyXqAd5mvEUOYZBYBTnVFUg9qOaqms5Ip5rFSSkY4NB+LgsdUeZLbt
+	 Tjtx26LhewOKEHyPzSloLP7eeync7ZcmgEKK9a1kimKbeHEYCOe3LQaX0eMtW8ApsmOav
+	 FAIW+GCEN2rfI07CkweIxjOz/8qnuo82VMb6pd6P/oiMIBu3lHRuCVgPs/oQZwMgGqJad
+	 orm1Dm4g4EYOnGsPj0546I4zLBniylHfJUgbOW+zp9nx0ni9X5bExbjyAALuglCtHw238
+	 1BIZTIuk4HhFxA14gcwSSlPMBJdeuuCahySFv/AW8tx/GvokO3JgDmoGWqI6tGOhf2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794999177;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=i6hgnfRszYDjFrX7jRG/fj8WPQ69Z1ONdqlGSYpx9KU=;
-	b=OH/h5HT8P6vlMuNp1AJE3k29K62R4P6V4Fbjs16444sJFNShENyjy9icj7NjJiQ0DTZZ
-	 szJs5QDrj0LktyZfbXZrER8Y5JZxWd7kK/s85MysgEzegN+bYG9eZKXvBiBi8erAzG+pz
-	 JF2wzD6kH+q9CW+lWuOipXH9uWYBh5NC8cylaezkkxRwkjDs1W/QgYv2vYcm9oXHIq5L2
-	 d+n8xt8K5mVk2b6zkjhomzJBnyCzIUb2Tn4FghmDoCZlLFLD9qHWekM9cRlCIS9Woc0bW
-	 IYusOSqnxkiPWCxK5ikab8WCC+3wlu62Ff3d6z1dz3bIqLeUBdldv7UsHcG7GS40y+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794999725;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=6ffufnkevwO9vAPh1vevODopGUaiiKz9CA2eJcqQaCg=;
+	b=sFTtui/3O/73oqOqvpBhcx4JbAtrIlu4KLd2MjnZZsYSrbvNnEI4EFfuE8yXL9FIMlvn
+	 41JlSCUF13sT8cS3t+oAmqrz7/Qd1bxUjyhxSz2Wp7VRY4UeNeII6MbLuSktxX7BliW19
+	 1CUbPljuJDHQCcCjXCuoLVOO9r0x2XpBjkeCw05FWxLZsL5PAJ2MDziCnpcbDFtkE/gkh
+	 SVltbvNmSSHpTMK/YTaeiwGEGbekiHTg0nOuk6RxnrKfvdGfS1mc3JHJMoHpJyiUd7QdH
+	 k1nV2FBROeHT+QAX666XfNJ8IHa4ypxsW61GtwObYDOHMNawp67HpnCKpiytNDKCbwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNmvL82y;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1665606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:52:57 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bKW0qTq0;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7BE7606A32C;
+	Wed, 18 Nov 2026 11:02:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7BE7606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZNmvL82y
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 636DC1F000C4;
-	Wed, 18 Nov 2026 10:52:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794999177;
-	bh=i6hgnfRszYDjFrX7jRG/fj8WPQ69Z1ONdqlGSYpx9KU=;
-	h=From:To:Cc:Subject:Date;
-	b=ZNmvL82yhQWbSS+IxKWssrQgnWVxaokdBpFfWwuvkC9TmBqWIqGVWIbPbVlNcWUQo
-	 S7BNesKvaahp7p7kpATkZGueh1Of1J4jjpOay4dpqrbmNZp7EmUlx7ysmASWQXwOMi
-	 p2G1ZoPvhD/qFYLkpJ0MtXJP0G+62hVGYhXq7j0lU34KIFOhkKOAeOXgqXMQGiqtTM
-	 DHQ1MNU5rFuk5rZcCTiDkEZtHIEw+JQTJDH5JKi49tWod0jvFtQj2ej6m3HQMGZbIF
-	 d8iI47/aWMmoeHqasVNdKqC5pf38fRLmWmqENvZdd9oWcXUIwiupOBmFJ+pkIgDih9
-	 5PIOX0a59GBFQ==
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-To: stable@vger.kernel.org
-Cc: adrian.hunter@intel.com,
-	Frank.Li@nxp.com,
-	alexandre.belloni@bootlin.com,
-	claudiu.beznea@kernel.org
-Subject: [PATCH 5.15.y-stable] i3c: master: Fix recursive locking during device registration
-Date: Wed, 18 Nov 2026 12:52:54 +0200
-Message-ID: <20261118105254.2780893-1-claudiu.beznea@kernel.org>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=bKW0qTq0
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 54F07339;
+	Wed, 18 Nov 2026 03:02:00 -0800 (PST)
+Received: from [10.0.154.42] (e121487-lin.cambridge.arm.com [10.0.154.42])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 85DD93F632;
+	Wed, 18 Nov 2026 03:01:59 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794999723; bh=hYNm5P0vnO8U/haSHt1cJzP127qSvrRU04WHL1UF9Po=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=bKW0qTq0u56OK8+5FBBAikIOYVawRxzDbtctJrhm5/9bv6soS79Yb1t1oHtma9Ub3
+	 vFjlA43eotGjqgbRsdn9vOy+oYbww7mkkd6Nz/f197Fdp5ygYOWqJv0Eb0goONBaT3
+	 1U8AN2vNuXZ3HwPhTCDTxYGmT+3GNRvISpI0jXNM=
+Message-ID: <f232d0ff-3286-4d85-b9e3-cad8c6bc7178@arm.com>
+Date: Wed, 18 Nov 2026 11:01:57 +0000
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,162 +53,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: head: set __entry_task along with task setup
+To: Ada Couprie Diaz <ada.coupriediaz@arm.com>,
+ linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>,
+ Mark Rutland <mark.rutland@arm.com>,
+ Catalin Marinas <catalin.marinas@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Kiryl Shutsemau <kas@kernel.org>,
+ Breno Leitao <leitao@debian.org>, Jinjie Ruan <ruanjinjie@huawei.com>,
+ Doug Anderson <dianders@chromium.org>, Linus Walleij <linusw@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>, Thomas Huth <thuth@redhat.com>,
+ Dawei Li <dawei.li@linux.dev>, mrigendrachaubey
+ <mrigendra.chaubey@gmail.com>, kernel-team@meta.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261117174814.95936-1-ada.coupriediaz@arm.com>
+ <20261117174814.95936-4-ada.coupriediaz@arm.com>
+Content-Language: en-GB
+From: Vladimir Murzin <vladimir.murzin@arm.com>
+In-Reply-To: <20261117174814.95936-4-ada.coupriediaz@arm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Adrian Hunter <adrian.hunter@intel.com>
+Hi Ada,
 
-commit 456f832e5fc26fbfd3b8200fd4553eee520cc377 upstream.
+On 11/17/26 17:48, Ada Couprie Diaz wrote:
+> `__entry_task` is only set after the first `switch_to()`, despite
+> a proper task being set up in SP_EL0 as soon as CPUs go through
+> `__{primary,secondary}_switched()`.
+> 
+> As SDEI can interrupt execution at any time, it can interrupt before
+> the first `switch_to()` and use a null `__entry_task` to set
+> its current task.
+> 
 
-i3c_master_register_new_i3c_devs() registers newly discovered devices
-while holding i3c_bus_normaluse_lock(), a down_read().  device_register()
-can immediately probe the device, and probe callbacks typically invoke
-I3C helpers that take i3c_bus_normaluse_lock() again, leading to a
-recursive acquisition of the same rwsem.  rwsems do not support recursive
-read locking and can deadlock when a writer is waiting.  See the
-"Recursive read locks" section of Documentation/locking/lockdep-design.rst.
+TBH I do not know much about SDEI, but don't we need opt-in for
+SDEI before we can get any SDEI events? If so, can we really
+receive SDEI event before first switch_to()?
 
-For example, with Intel LPSS I3C, LOCKDEP generates a WARNING like:
-  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/unbind
-  # echo intel-lpss-i3c.0 > /sys/bus/platform/drivers/mipi-i3c-hci/bind
-  WARNING: possible recursive locking detected
-  kworker/5:1/94 is trying to acquire lock:
-  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_device_match_id+0x45/0x370
-  but task is already holding lock:
-  ffff88811c810d78 (&i3cbus->lock){++++}-{4:4}, at: i3c_master_reg_work_fn+0x21/0x5f0
+Cheers
+Vladimir
 
-Fix this by separating device creation from device registration.
-Populate desc->dev under the maintenance lock, collect the devices that
-still need registration into a local list, then release the lock before
-calling device_register().  Finally retake the lock and clean up any
-devices that failed to register.
 
-Use the maintenance lock rather than the normal-use lock while adding
-device objects.  A write-side maintenance lock prevents readers from
-observing a partially initialized desc->dev during initial device
-population, or desc->dev disappearing if registration fails.
-
-The local list requires a list node, so add a list node member to struct
-i3c_device.
-
-Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Adrian Hunter <adrian.hunter@intel.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260807145638.168865-2-adrian.hunter@intel.com
-Signed-off-by: Alexandre Belloni <alexandre.belloni@bootlin.com>
-[claudiu.beznea:
- - drop the i3c_bus_normaluse_{lock,unlock}() around
-   i3c_master_register_new_i3c_devs() calls from i3c_master_do_daa() and
-   i3c_master_register()
- - drop master->shutting_down specific code since this is not available
-   in v5.15]
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
----
- drivers/i3c/master.c       | 39 ++++++++++++++++++++++++++------------
- include/linux/i3c/master.h |  3 +++
- 2 files changed, 30 insertions(+), 12 deletions(-)
-
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 6e02c91060ab..40aca5006b87 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -1481,12 +1481,16 @@ static int i3c_master_early_i3c_dev_add(struct i3c_master_controller *master,
- static void
- i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
- {
-+	struct i3c_device *i3cdev, *tmp;
- 	struct i3c_dev_desc *desc;
-+	LIST_HEAD(i3c_unreg_devs);
- 	int ret;
- 
- 	if (!master->init_done)
- 		return;
- 
-+	i3c_bus_maintenance_lock(&master->bus);
-+
- 	i3c_bus_for_each_i3cdev(&master->bus, desc) {
- 		if (desc->dev || !desc->info.dyn_addr || desc == master->this)
- 			continue;
-@@ -1507,15 +1511,30 @@ i3c_master_register_new_i3c_devs(struct i3c_master_controller *master)
- 		if (desc->boardinfo)
- 			desc->dev->dev.of_node = desc->boardinfo->of_node;
- 
--		ret = device_register(&desc->dev->dev);
--		if (ret) {
--			dev_err(&master->dev,
--				"Failed to add I3C device (err = %d)\n", ret);
--			desc->dev->desc = NULL;
--			put_device(&desc->dev->dev);
--			desc->dev = NULL;
--		}
-+		list_add_tail(&desc->dev->node, &i3c_unreg_devs);
-+	}
-+
-+	i3c_bus_maintenance_unlock(&master->bus);
-+
-+	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
-+		ret = device_register(&i3cdev->dev);
-+		if (ret)
-+			dev_err(&master->dev, "Failed to add I3C device (err = %d)\n", ret);
-+		else
-+			list_del_init(&i3cdev->node);
- 	}
-+
-+	i3c_bus_maintenance_lock(&master->bus);
-+
-+	list_for_each_entry_safe(i3cdev, tmp, &i3c_unreg_devs, node) {
-+		list_del(&i3cdev->node);
-+		desc = i3cdev->desc;
-+		i3cdev->desc = NULL;
-+		put_device(&i3cdev->dev);
-+		desc->dev = NULL;
-+	}
-+
-+	i3c_bus_maintenance_unlock(&master->bus);
- }
- 
- /**
-@@ -1544,9 +1563,7 @@ int i3c_master_do_daa(struct i3c_master_controller *master)
- 	if (ret)
- 		return ret;
- 
--	i3c_bus_normaluse_lock(&master->bus);
- 	i3c_master_register_new_i3c_devs(master);
--	i3c_bus_normaluse_unlock(&master->bus);
- 
- 	return 0;
- }
-@@ -2585,9 +2602,7 @@ int i3c_master_register(struct i3c_master_controller *master,
- 	 * register I3C devices discovered during the initial DAA.
- 	 */
- 	master->init_done = true;
--	i3c_bus_normaluse_lock(&master->bus);
- 	i3c_master_register_new_i3c_devs(master);
--	i3c_bus_normaluse_unlock(&master->bus);
- 
- 	return 0;
- 
-diff --git a/include/linux/i3c/master.h b/include/linux/i3c/master.h
-index 604a126b78c8..d73770f5f69e 100644
---- a/include/linux/i3c/master.h
-+++ b/include/linux/i3c/master.h
-@@ -219,6 +219,8 @@ struct i3c_dev_desc {
-  *	  every time the I3C device is rediscovered with a different dynamic
-  *	  address assigned
-  * @bus: I3C bus this device is attached to
-+ * @node: unregistered device list node, only for use by
-+ *	  i3c_master_register_new_i3c_devs(), it is not protected by a lock
-  *
-  * I3C device object exposed to I3C device drivers. The takes care of linking
-  * this object to the relevant &struct_i3c_dev_desc one.
-@@ -229,6 +231,7 @@ struct i3c_device {
- 	struct device dev;
- 	struct i3c_dev_desc *desc;
- 	struct i3c_bus *bus;
-+	struct list_head node;
- };
- 
- /*
--- 
-2.43.0
+> Set `__entry_task` as soon as we have a proper task set up in
+> `init_cpu_task()` in case we get interrupted before switching threads.
+> 
+> Remove the second paragraph of the comment on `__entry_task`, as it has
+> been incorrect since the introduction of SDEI, and even more so
+> with this change.
+> 
+> Fixes: f5df26961853 ("arm64: kernel: Add arch-specific SDEI entry code and CPU masking")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+> ---
+>  arch/arm64/kernel/head.S    | 3 +++
+>  arch/arm64/kernel/process.c | 3 ---
+>  2 files changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
+> index d6ba3c0af811..e53a9c6fec83 100644
+> --- a/arch/arm64/kernel/head.S
+> +++ b/arch/arm64/kernel/head.S
+> @@ -209,6 +209,9 @@ SYM_CODE_END(preserve_boot_args)
+>  	ldr	w\tmp2, [\tsk, #TSK_TI_CPU]
+>  	ldr	\tmp1, [\tmp1, \tmp2, lsl #3]
+>  	set_this_cpu_offset \tmp1
+> +
+> +	adr_l	\tmp2, __entry_task
+> +	str	\tsk, [\tmp2, \tmp1]
+>  	.endm
+>  
+>  /*
+> diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
+> index 42b15b0c069f..c3d194676efc 100644
+> --- a/arch/arm64/kernel/process.c
+> +++ b/arch/arm64/kernel/process.c
+> @@ -584,9 +584,6 @@ static void ssbs_thread_switch(struct task_struct *next)
+>  /*
+>   * We store our current task in sp_el0, which is clobbered by userspace. Keep a
+>   * shadow copy so that we can restore this upon entry from userspace.
+> - *
+> - * This is *only* for exception entry from EL0, and is not valid until we
+> - * __switch_to() a user task.
+>   */
+>  DEFINE_PER_CPU(struct task_struct *, __entry_task);
+>  
+> -- 2.43.0
+> 
 
