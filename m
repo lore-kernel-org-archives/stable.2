@@ -1,55 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795022420;
-	b=S3+kZxU9CD56jCUlEwjuVv9W8Wbs7c+tDKZYQNcfZp4AmF/lrrfC9PXEddKulL/7uBC0
-	 sj9g1LalTufxCIA2JDokiSoFuhHC2dlDGp1tEtky6r30lz+o10ijCQPSYsgZft63cU9TM
-	 ME95gpib+4gsar9URrrT0sUXXf+LkAfrcJUBOIlCYTIIQyW04QBSVgFQzAyQSCJTCgvKV
-	 auGimu+7bQL14OoBxg7hIECNNGda6N3aLtBUP3HgQFrQqIinDWHkCPMsObhpbwGhHAYSw
-	 yRUWO8YsxJaSACdv2oW5QCoUS9wVotE45sjcDLOxBv9VCdSVZIRWSj/jp2ijylRwikQ==
+	t=1795022422;
+	b=F2EXkLMcZWTEAg90wH8uxl1QINvN6y33K2m9YsPvVqhilc4Ce6WHNCVpPC2ybzYvZZx8
+	 LGTd5i8snACYL19Ez02BbdpfhwBMOo3WdQBwK4N0CXMw1FAMvNvDizSOXsQBQ98sNjFqS
+	 2tXYw7DoruNYavJ7RbOGqK1Ht0+46bSC3Bk/b+pCsoOw1zOvq6NPbTmEz62oQ8v6p/lHk
+	 sXVbT9zsNZ3twd87Og02f0mN3i5JiIfZjmaiHnWWp22IutEpho7TJrvTHgy92WOj+4xgW
+	 DT8lUWVE5RPMI+v3kRS3ESEPvh6hOUisMzJ3Xv3gd/Hjyx439ciMpWbkPU8yI4g1duw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795022420;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=GNSgVc/BtfH4kx3pq6fmT3aOO7rA3luHHP210jnBneY=;
-	b=ZmxXcZRsQ4uWZKWoZdVC2IrYeQrbpCScXne3OnAVsokEEQsqliSt84r3kvAzlXXwep8O
-	 +oWDfABec0GxPEzrGlV+dRiYxa0rWSntpkdqvC8orjUgpYxKlJEHbB9LfV+wUSRXrOm1h
-	 kflrg8fyw9vchI9GUqouP+hxWpostvigKbHGq1DrZdcPacCmKjVNQIrAtJc0CX6ht6jQ+
-	 rokvNvxkc45cDj4qkN3044LHnhZtj12rUQACptMZw4D+5rV6u3QTKaaFCOpyIcVVAL7V5
-	 O4qCDOK8/yu7cngG/hHM6Cg2YHEQGJSJRUH2o29d9siiBc41LdyLhDWh50Nq5kd10Ww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795022422;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=4701j4U7h6x7pQKoX2mOHVdiZDrWSZgMwDj6/5ooEc8=;
+	b=yb+CA39x3PHZwUfB8WfSuX2zHSlsdsSZypxRhPR60RzPgM5mGwo0fndqDfwMfjtsw33W
+	 vlZgitQ4vXv/+PEFFf/GyXdbhIEcbDzUDwWMbTpeebPSfArfbFusrgfjIa9TKPzFXw5KW
+	 /+OguElUdOk44IuSMgwr6vllYRRiMWYcUnVt0m8UQISeGPF+8gACWYtlr5B59PhXmMB1U
+	 6pEDgQl989dYTdvrI47aADm7aVM221PG0qrT3frOa8H4qEz5G8LOKxj0L2CGLwXIdpon/
+	 9SYAsM6wHcJPix8nKrfiIuoK+TrM0DJaUqYVgRQiBrYECTtWtbLkTF8ZcPJPnnYfdbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A9SLqBRA;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=STaqNcTC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2B3606A320;
-	Wed, 18 Nov 2026 17:20:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C34606A325;
+	Wed, 18 Nov 2026 17:20:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=A9SLqBRA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DDA21F000C6;
-	Wed, 18 Nov 2026 17:20:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795022420;
-	bh=GNSgVc/BtfH4kx3pq6fmT3aOO7rA3luHHP210jnBneY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A9SLqBRAcu+7ALHB9PkuS+vgG0JPFf/+lfVDdaL2rR+DW/XvEbpKH9dPaJ6day5iB
-	 p/ggtp9MF36xjWUS+7vbt9eKGOenioorvyf62TcNxysVplfACSmyLI+lVC3OXLGUGC
-	 yfcop1htUS+eIlodqqXjis9xgQNlaleumDUn0wKqvI5VNrcsl0EkL045+uHQ7tQh2C
-	 Y7WY2I8LzSWXmwQ/qlgcq2gwwZJhxmkYf73pVtEbx1vgTuLxZF7npIVIDGvqsaVfNN
-	 6qg+k2jTh5FHNJHvmMpZX9xrRBk3OX9f5MyT12x0/ArDCHSOcICT+QnzhpAUbh9H3a
-	 IDIoqyeq383Mg==
-Date: Wed, 18 Nov 2026 17:20:16 +0000
-From: Lee Jones <lee@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linusw@kernel.org, linux-kernel@vger.kernel.org,
-	linux-leds@vger.kernel.org, pavel@kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] leds: netxbig: Fix platform device reference leak on
- successful probe
-Message-ID: <20261118172016.GE98456@joneslee-macbookpro.roam.internal>
-References: <20260922160323.GB3438784@google.com>
- <20261107042737.708109-1-vulab@iscas.ac.cn>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=STaqNcTC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9331F000C5;
+	Wed, 18 Nov 2026 17:20:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795022422;
+	bh=4701j4U7h6x7pQKoX2mOHVdiZDrWSZgMwDj6/5ooEc8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=STaqNcTCzmGMGHECWKP6KJTyBSUG2UKMVeGk3F2V1focVkW/wVYEUPvXCZWxf2+sK
+	 MFAKFZ30Qb8TMVlVs3GuO0fS5VoOr7baRSQZxgqbcplMeQ3tF0zT2JZ9t0+gxSkUlb
+	 WsixhhXwdfBGaQPzXHDj74Kd8zsBdk9Ik3v3jTgs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Jhonata Poma-Hansen <jhonata.poma@gmail.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 2628/2651] netlink: check sk_rcvbuf before charging the dump skb
+Date: Wed, 18 Nov 2026 16:04:28 +0100
+Message-ID: <20261118150418.790248303@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,37 +63,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261107042737.708109-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
 
-On Sat, 07 Nov 2026, Wentao Liang wrote:
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-> of_find_device_by_node() returns the GPIO extension device with an
-> elevated reference count.  The error paths release it through the
-> put_device label, but the success path returns directly, so the
-> reference is leaked whenever the LED driver probes successfully.
-> 
-> Release the reference right after its last use and remove the put_device
-> label and the gotos leading to it.
-> 
-> Fixes: 9af512e81964 ("leds: netxbig: Convert to use GPIO descriptors")
-> Suggested-by: Lee Jones <lee@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
-> Changes in v2:
->  - Release the reference right after its last use and remove the put_device
->    label and the gotos, as suggested.
->  - Apologies for the very late reply. 
->  drivers/leds/leds-netxbig.c | 74 ++++++++++++++-----------------------
->  1 file changed, 27 insertions(+), 47 deletions(-)
+------------------
 
-Much nicer, thanks.
+From: Jhonata Poma-Hansen <jhonata.poma@gmail.com>
 
-In future, please submit versions on their own.
+[ Upstream commit b45d37740cfb4bdfccef3fbd9fd970fd3224438f ]
 
-Attaching them to previous submissions gets real confusing, real quick.
+Since commit ae8f160e7eb2 ("netlink: Fix wraparounds of
+sk->sk_rmem_alloc."), netlink_dump() charges the dump skb first and
+queues it only if sk_rmem_alloc is still below sk_rcvbuf. Commit
+a215b5723922 ("netlink: make sure we allow at least one dump skb")
+added an exception for an empty socket.
 
+A dump that starts while something else is still charged to a socket
+with a small receive buffer fails with ENOBUFS and stays running.
+Every recvmsg() retries it, fails again and sets sk_err, so a reader
+that peeks before reading, as libnl does, gets ENOBUFS on the read
+after each peek, never consumes the message at the head of the queue
+and spins forever.
+
+I hit this with "iw dev wlan0 scan" hanging at 100% CPU on an arm64
+board with a 6.6 based kernel (iw 5.19 sets SO_RCVBUF to 8KiB). A
+kprobe trace showed the scan dump starting while the NEW_SCAN_RESULTS
+notification iw had just read was still charged to its socket,
+because iw had preempted the sender before netlink_broadcast()
+returned.
+
+Check the limit before charging, as before ae8f160e7eb2, which also
+covers the empty socket. netlink_recvmsg() continues a dump only at
+or below half of sk_rcvbuf, so the skb is then always queued, and a
+dump goes over the limit by at most one skb. Refuse a skb that would
+take sk_rmem_alloc past INT_MAX, so the wraparound stays fixed.
+
+Reproduced on net in a KVM guest with a userspace reproducer and the
+selftest in the next patch; both pass with this fix.
+
+Fixes: ae8f160e7eb2 ("netlink: Fix wraparounds of sk->sk_rmem_alloc.")
+Signed-off-by: Jhonata Poma-Hansen <jhonata.poma@gmail.com>
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+Link: https://patch.msgid.link/20261027-netlink-dump-livelock-v2-1-c4bb05352a33@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/netlink/af_netlink.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/net/netlink/af_netlink.c b/net/netlink/af_netlink.c
+index aecd0332b90fd..510fb5ebf9ff8 100644
+--- a/net/netlink/af_netlink.c
++++ b/net/netlink/af_netlink.c
+@@ -2325,9 +2325,13 @@ static int netlink_dump(struct sock *sk, bool lock_taken)
+ 	if (!skb)
+ 		goto errout_skb;
+ 
++	/* Check the limit before charging the skb: netlink_recvmsg() continues
++	 * the dump at or below half of sk_rcvbuf, and the skb must be queued
++	 * then. Keep sk_rmem_alloc at or below INT_MAX.
++	 */
+ 	rcvbuf = READ_ONCE(sk->sk_rcvbuf);
+ 	rmem = atomic_add_return(skb->truesize, &sk->sk_rmem_alloc);
+-	if (rmem != skb->truesize && rmem >= rcvbuf) {
++	if (rmem - skb->truesize >= rcvbuf || rmem > INT_MAX) {
+ 		atomic_sub(skb->truesize, &sk->sk_rmem_alloc);
+ 		goto errout_skb;
+ 	}
 -- 
-Lee Jones
+2.53.0
+
+
+
