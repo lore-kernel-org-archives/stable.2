@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.108.111.100
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795002172;
-	b=m54IG8gvbMUSUukXObZM6Q3Yx+8eMYi52s/kdr7RoSmmLq9IV65quABuu6zfnyR9IHfA
-	 5CZMBl4k7fCeqT0xHCk3twJUIiOJEbj2MDcrajRT0kTijxXADOaVw78quxfAteYqpcKdU
-	 Rc5Ei5WZ62LqCBygYcFL+e5S6n8aJVCbxu3lBN3YHsYSpfWRx67vKgHJg9TIQyaRch7sb
-	 BXXrF9xU6ohxO4Y6tOwjrdqSOiVJtXaTG31yocUpluPzY16iSn0v6XkcgWU+da42mT3tQ
-	 b9VnveB1C+ute0Nts2R4a98aoCfvv9OCHNYIk+EWztFhvcYVxeQ4cx3C2uJbyW1ow8A==
+	t=1795002174;
+	b=MM2SG0UBNmR11sYR2NmjeXImxIdHNyWEWTrhcf2tR/E4WAG1Cta7ybiChDzbKDmjeYn6
+	 kQQmUwXYT96pa+iX3no3Ykra1Ap0SEVQU/PdeEbzVJ7sH3MeB/ThPWA7bEOx6/ZoAw2GZ
+	 ZSw3bOuVBLTHsUx8uRKXeDLOKhoyY19OZYyoMCC3TC/n3vZW3mSgLb/9i0m27o9e04qJr
+	 d6TuGzUihnZlAHuAEXW6xk/66+EGr/wUKKjPNNmZDYyl+vaVC8M2Z9pDKXxI1AEFYhjw/
+	 REFSQ26rBZihsC22DIKBfbFifGpI2AeP3AW3zsWGF4IPjeeBz3rnh+S/JIEWhWb3tnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795002172;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795002174;
 	h=DMARC-Filter:Received:Received:Content-Transfer-Encoding:
 	 Content-Type:DKIM-Signature:Received:From:To:CC:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 X-Originating-IP;
-	bh=FenO36YsPKOcHM6a5HIFoe7h0H1FiFANOUGA5BQ2+GQ=;
-	b=C6tHKn6/g6bcgTmv1CR7r4CjjVuf2OL3bTd3g8YpzcWv2cF4uWHkjDVQ0NxsmCp4dyTD
-	 posxG7ONdgYpVdlGRxzD0PM3jZ2hysJpabxQnFeINmZ3Dm5X7m7LbvLWzghz2iDDoSF2C
-	 IdO8a28mGS4her3nNyuH7evBQ5gR04Q0pb3hm9zjpRaa9uc7lxMlaq6VlPefnRKBmZtT9
-	 tRoHoY4p78HH/vfnJmxveoaHzanzdpw2N4XoFuxVLpp7dLaL7xM1EOYLapG7TMmvfTXf9
-	 W7uDZK/pNcUdnfk20Lu4FjBmpT7j4/Ppad9Bf52fprL7XW/eoPpKDGmV53rWSh2IEGg==
+	bh=SfGH3q4DwUa0O9JB4FrX4MsCXETnXfEH/YKr5mSj8mw=;
+	b=gQe6297NkrpTbjeoMicoARekj2lXXWIH2BEEi/AXDM8aKIhgj7KOYTJaNd6rFX2khjS0
+	 CIO17k1lwefZUI3d0j5hUQ2oVrpL4vZI/NgxeEU5SVSC6//jBZoLhFFRg6bs0+nUCHbML
+	 jEJ9Mle8jMZeczCISxxM2GlCnnkBbX8qLtu7zYefKi232huk40cggwKwoH/uI1KJannrK
+	 wP029tu7uTEhSaNm5vI5ARsO1TDpKveE/d1pxFh+gkeQnFqgEFNchYVUwFy2o/7qQE4Ft
+	 BOo6gytWyKuB/GEeFQevY9bk8WWNnhfwIKLyUrw1a1uvD5HO5SldGN/LgxpZkJM66fA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=amicon.ru;
 	spf=pass smtp.mailfrom=amicon.ru;
-	dkim=pass header.d=amicon.ru header.i=@amicon.ru header.a=rsa-sha256 header.s=mail header.b=VSA5FSb8;
+	dkim=pass header.d=amicon.ru header.i=@amicon.ru header.a=rsa-sha256 header.s=mail header.b=clXlc9bA;
 	arc=none smtp.remote-ip=77.108.111.100
-Received: from pmg.amicon.ru (mail.amicon.ru [77.108.111.100])
+Received: from pmg.amicon.ru (unknown [77.108.111.100])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B18606A31C;
-	Wed, 18 Nov 2026 11:42:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4B18606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F33A660A2620;
+	Wed, 18 Nov 2026 11:42:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F33A660A2620
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amicon.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amicon.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.a=rsa-sha256 header.s=mail header.b=VSA5FSb8
+	dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.a=rsa-sha256 header.s=mail header.b=clXlc9bA
 Received: from pmg.amicon.ru (localhost.localdomain [127.0.0.1])
-	by pmg.amicon.ru (Proxmox) with ESMTP id 069DD101850;
+	by pmg.amicon.ru (Proxmox) with ESMTP id E32DC101865;
 	Wed, 18 Nov 2026 14:42:50 +0300 (MSK)
 Received: from mail.amicon.ru (unknown [192.168.0.59])
-	by pmg.amicon.ru (Proxmox) with ESMTPS id D755E1017DA;
-	Wed, 18 Nov 2026 14:42:49 +0300 (MSK)
+	by pmg.amicon.ru (Proxmox) with ESMTPS id C169F1017E7;
+	Wed, 18 Nov 2026 14:42:50 +0300 (MSK)
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
 DKIM-Signature: v=1; a=rsa-sha256; d=amicon.ru; s=mail; c=simple/simple;
-	t=1795002169; h=from:subject:to:date:message-id;
-	bh=ck9n1FuJmSMm4kEV0/QNeA6bJKS50IbWq69j3buFKGQ=;
-	b=VSA5FSb8w5GVrS0Ysf5D0wBkH8VOrnLUvyG0Yl65nlC8dOH1Gtv/9yjro5bbpk74mfZRYeCx3U8
-	Wv4LsR59h4mopxtqXVzRk6ToGe9fu6QN2L0bTCca9CxDaD8CyWRme3kYNU5zrizeTxiQvN8lK44k3
-	syXP0V5mHx+KVBBkk8GkliXg6No2bP+p6fXx8AHjYIqCPlkPJHx6BHBWBQeN4NpDw3nCb5K9wFYBg
-	rrDban/oPetCmtS8BkA44ikP+JRzI5rcbZaqNVL8YzovfbbMDLC6bv/PjVKi0L7b2ySRtFg0KbAHz
-	qm54VdiSq+9bXbXYe25MCfiUayyTlFCeOOIQ==
+	t=1795002170; h=from:subject:to:date:message-id;
+	bh=nOzdHmsohVFcM8p2j4kv7WrOpffuECO3EFYafF82PKY=;
+	b=clXlc9bAhSpd62XIsb1sDPddmlySSr0FVkqDJqeqOeGdvBTPyGOTnAeq6DWCCJuIfM4YGsE094k
+	KNh2OvyF+b5/om28ei8833WW1KUCYObO2DdzrYF8KK/WiEvnhMZmryUSPUI/qOXq35zRlpi4k4cdS
+	E/tXIDqnCYt1//kUqAAqlDG8MitbsB3Oyo1sjZ0ShTn7CKv61wxIYTJRWW7BnBf/B4yRJu83R0WGx
+	nIY9MdMSRzbMh5R6lQUJ8XiZUJDpQEhTJ19GUj3sxcopJzS1tZ8KOgb3Rbi+xFp+F6Y3o1hKhOr0M
+	Ee01Ej0yqtxZkvWvlSVWLDwi2oBudA2GYwkw==
 Received: from amicon.ru (172.16.2.25) by mail.amicon.lan (192.168.0.59) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.27; Wed, 18 Nov
- 2026 14:42:49 +0300
+ 2026 14:42:50 +0300
 From: Artem Novikov <naa@amicon.ru>
 To: <stable@vger.kernel.org>
 CC: <kvm@vger.kernel.org>, <pbonzini@redhat.com>, <seanjc@google.com>,
-	Alexander Bulekov <bkov@amazon.com>, Fred Griffoul <fgriffo@amazon.co.uk>
-Subject: [PATCH 5.10 4/5] KVM: x86: Fix shadow paging use-after-free due to unexpected GFN
-Date: Wed, 18 Nov 2026 14:42:25 +0300
-Message-ID: <20261118114226.26178-5-naa@amicon.ru>
+	"Hyunwoo Kim" <imv4bel@gmail.com>
+Subject: [PATCH 5.10 5/5] KVM: x86: Fix shadow paging use-after-free due to unexpected role
+Date: Wed, 18 Nov 2026 14:42:26 +0300
+Message-ID: <20261118114226.26178-6-naa@amicon.ru>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261118114226.26178-1-naa@amicon.ru>
 References: <20261118114226.26178-1-naa@amicon.ru>
@@ -74,135 +74,133 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 
-From: Sean Christopherson <seanjc@google.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
 
-commit 0cb2af2ea66ad8ff195c156ea690f11216285bdf upstream.
+commit 81ccda30b4e83d8f5cc4fd50503c44e3a33abfeb upstream.
 
-A linked shadow page can have a different GFN from the one expected by
-the current walk. Reusing it can leave reverse mappings under a GFN
-that the shadow page cannot recover when removing those mappings.
+A linked page with the expected GFN can have a different role.
+Direct and indirect shadow pages use different reverse-map GFN
+accounting. Reusing a child whose role has changed can leave a stale
+reverse map after the child is freed.
 
-Check the GFN in all three legacy child lookup paths. When a replacement
-is ready, zap the old parent SPTE and flush remote TLBs before linking
-the replacement. Use the existing zap helper, which also preserves
-shadow pages still pinned as roots.
+Require the linked child to match both the GFN and the whole role.
+Compare against the same role used for cache lookup. The role includes
+the access bits, so the shared replacement path also handles access
+changes on a direct child.
 
 Fixes: 2032a93d66fa ("KVM: MMU: Don't allocate gfns page for direct mmu pages")
-Fixes: 6aa8b732ca01 ("kvm: userspace interface")
-Reported-by: Alexander Bulekov <bkov@amazon.com>
-Reported-by: Fred Griffoul <fgriffo@amazon.co.uk>
-Link: https://lore.kernel.org/r/20260503201029.106481-1-pbonzini@redhat.com
-Signed-off-by: Sean Christopherson <seanjc@google.com>
+Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
+Link: https://www.cve.org/CVERecord?id=CVE-2026-53359
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-[Keep the 5.10 shadow walk and large-SPTE handling. Use the legacy GFN
- and role inputs when looking up a replacement.]
+[Apply the comparison where the 5.10 page allocator builds its role.
+ Keep the original role calculation and root lookup.]
 Signed-off-by: Artem Novikov <naa@amicon.ru>
 ---
- arch/x86/kvm/mmu/mmu.c         | 39 +++++++++++++++++++++++++++++-----
- arch/x86/kvm/mmu/paging_tmpl.h | 21 +++++++-----------
- 2 files changed, 42 insertions(+), 18 deletions(-)
+Backport fix for CVE-2026-53359
+
+ arch/x86/kvm/mmu/mmu.c         | 43 +++++++++-------------------------
+ arch/x86/kvm/mmu/paging_tmpl.h |  2 --
+ 2 files changed, 11 insertions(+), 34 deletions(-)
 
 diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 7e82b2b33563db89a4020ae0894dd477570e3f72..cace229921ebf625286cbdb8b57ace2c8df71f10 100644
+index cace229921ebf625286cbdb8b57ace2c8df71f10..18bd96ab6666e4a9987cd88a326cffb62522eaac 100644
 --- a/arch/x86/kvm/mmu/mmu.c
 +++ b/arch/x86/kvm/mmu/mmu.c
-@@ -2178,6 +2178,30 @@ static void shadow_walk_next(struct kvm_shadow_walk_iterator *iterator)
- 	__shadow_walk_next(iterator, *iterator->sptep);
+@@ -2028,7 +2028,8 @@ static struct kvm_mmu_page *kvm_mmu_get_page(struct kvm_vcpu *vcpu,
+ 					     gva_t gaddr,
+ 					     unsigned level,
+ 					     int direct,
+-					     unsigned int access)
++					     unsigned int access,
++					     struct kvm_mmu_page *linked)
+ {
+ 	bool direct_mmu = vcpu->arch.mmu->direct_map;
+ 	union kvm_mmu_page_role role;
+@@ -2052,6 +2053,10 @@ static struct kvm_mmu_page *kvm_mmu_get_page(struct kvm_vcpu *vcpu,
+ 		role.quadrant = quadrant;
+ 	}
+ 
++	/* Keep the parent SPTE if it already links the requested page. */
++	if (linked && linked->gfn == gfn && linked->role.word == role.word)
++		return NULL;
++
+ 	sp_list = &vcpu->kvm->arch.mmu_page_hash[kvm_page_table_hashfn(gfn)];
+ 	for_each_valid_sp(vcpu->kvm, sp, sp_list) {
+ 		if (sp->gfn != gfn) {
+@@ -2183,20 +2188,16 @@ static struct kvm_mmu_page *
+ kvm_mmu_get_child_sp(struct kvm_vcpu *vcpu, struct kvm_shadow_walk_iterator *it,
+ 		     gfn_t gfn, bool direct, unsigned int access)
+ {
+-	struct kvm_mmu_page *sp;
++	struct kvm_mmu_page *linked = NULL;
+ 	u64 spte;
+ 
+ 	drop_large_spte(vcpu, it->sptep);
+ 	spte = *it->sptep;
+-
+-	if (is_shadow_present_pte(spte)) {
+-		sp = to_shadow_page(spte & PT64_BASE_ADDR_MASK);
+-		if (sp && sp->gfn == gfn)
+-			return NULL;
+-	}
++	if (is_shadow_present_pte(spte))
++		linked = to_shadow_page(spte & PT64_BASE_ADDR_MASK);
+ 
+ 	return kvm_mmu_get_page(vcpu, gfn, it->addr, it->level - 1,
+-				direct, access);
++				direct, access, linked);
  }
  
-+/* Return NULL if the linked child can be reused. */
-+static struct kvm_mmu_page *
-+kvm_mmu_get_child_sp(struct kvm_vcpu *vcpu, struct kvm_shadow_walk_iterator *it,
-+		     gfn_t gfn, bool direct, unsigned int access)
-+{
-+	struct kvm_mmu_page *sp;
-+	u64 spte;
-+
-+	drop_large_spte(vcpu, it->sptep);
-+	spte = *it->sptep;
-+
-+	if (is_shadow_present_pte(spte)) {
-+		sp = to_shadow_page(spte & PT64_BASE_ADDR_MASK);
-+		if (sp && sp->gfn == gfn)
-+			return NULL;
-+	}
-+
-+	return kvm_mmu_get_page(vcpu, gfn, it->addr, it->level - 1,
-+				direct, access);
-+}
-+
-+static int mmu_page_zap_pte(struct kvm *kvm, struct kvm_mmu_page *sp,
-+			    u64 *spte, struct list_head *invalid_list);
-+
- static void link_shadow_page(struct kvm_vcpu *vcpu, u64 *sptep,
- 			     struct kvm_mmu_page *sp)
- {
-@@ -2185,6 +2209,14 @@ static void link_shadow_page(struct kvm_vcpu *vcpu, u64 *sptep,
+ static int mmu_page_zap_pte(struct kvm *kvm, struct kvm_mmu_page *sp,
+@@ -2227,28 +2228,6 @@ static void link_shadow_page(struct kvm_vcpu *vcpu, u64 *sptep,
+ 		mark_unsync(sptep);
+ }
  
- 	BUILD_BUG_ON(VMX_EPT_WRITABLE_MASK != PT_WRITABLE_MASK);
+-static void validate_direct_spte(struct kvm_vcpu *vcpu, u64 *sptep,
+-				   unsigned direct_access)
+-{
+-	if (is_shadow_present_pte(*sptep) && !is_large_pte(*sptep)) {
+-		struct kvm_mmu_page *child;
+-
+-		/*
+-		 * For the direct sp, if the guest pte's dirty bit
+-		 * changed form clean to dirty, it will corrupt the
+-		 * sp's access: allow writable in the read-only sp,
+-		 * so we should update the spte at this point to get
+-		 * a new sp with the correct access.
+-		 */
+-		child = to_shadow_page(*sptep & PT64_BASE_ADDR_MASK);
+-		if (child->role.access == direct_access)
+-			return;
+-
+-		drop_parent_pte(child, sptep);
+-		kvm_flush_remote_tlbs_with_address(vcpu->kvm, child->gfn, 1);
+-	}
+-}
+-
+ /* Returns the number of zapped non-leaf child shadow pages. */
+ static int mmu_page_zap_pte(struct kvm *kvm, struct kvm_mmu_page *sp,
+ 			    u64 *spte, struct list_head *invalid_list)
+@@ -3271,7 +3250,7 @@ static hpa_t mmu_alloc_root(struct kvm_vcpu *vcpu, gfn_t gfn, gva_t gva,
+ 		spin_unlock(&vcpu->kvm->mmu_lock);
+ 		return INVALID_PAGE;
+ 	}
+-	sp = kvm_mmu_get_page(vcpu, gfn, gva, level, direct, ACC_ALL);
++	sp = kvm_mmu_get_page(vcpu, gfn, gva, level, direct, ACC_ALL, NULL);
+ 	++sp->root_count;
  
-+	if (is_shadow_present_pte(*sptep)) {
-+		LIST_HEAD(invalid_list);
-+
-+		mmu_page_zap_pte(vcpu->kvm, sptep_to_sp(sptep), sptep,
-+				 &invalid_list);
-+		kvm_mmu_remote_flush_or_zap(vcpu->kvm, &invalid_list, true);
-+	}
-+
- 	spte = make_nonleaf_spte(sp->spt, sp_ad_disabled(sp));
- 
- 	mmu_spte_set(sptep, spte);
-@@ -2898,11 +2930,8 @@ static int __direct_map(struct kvm_vcpu *vcpu, gpa_t gpa, u32 error_code,
+ 	spin_unlock(&vcpu->kvm->mmu_lock);
+diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
+index 95b5476ab150ff8660cbe0c9c8ead2c073916c3e..9daf9029081161f3dddb0375019f823967dc29ad 100644
+--- a/arch/x86/kvm/mmu/paging_tmpl.h
++++ b/arch/x86/kvm/mmu/paging_tmpl.h
+@@ -708,8 +708,6 @@ static int FNAME(fetch)(struct kvm_vcpu *vcpu, gpa_t addr,
  		if (it.level == level)
  			break;
  
--		drop_large_spte(vcpu, it.sptep);
--		if (!is_shadow_present_pte(*it.sptep)) {
--			sp = kvm_mmu_get_page(vcpu, base_gfn, it.addr,
--					      it.level - 1, true, ACC_ALL);
+-		validate_direct_spte(vcpu, it.sptep, direct_access);
 -
-+		sp = kvm_mmu_get_child_sp(vcpu, &it, base_gfn, true, ACC_ALL);
-+		if (sp) {
- 			link_shadow_page(vcpu, it.sptep, sp);
- 			if (is_tdp && huge_page_disallowed &&
- 			    req_level >= it.level)
-diff --git a/arch/x86/kvm/mmu/paging_tmpl.h b/arch/x86/kvm/mmu/paging_tmpl.h
-index 0a500ac0e76e220ae484fdc60d1e5112b53abff0..95b5476ab150ff8660cbe0c9c8ead2c073916c3e 100644
---- a/arch/x86/kvm/mmu/paging_tmpl.h
-+++ b/arch/x86/kvm/mmu/paging_tmpl.h
-@@ -662,14 +662,11 @@ static int FNAME(fetch)(struct kvm_vcpu *vcpu, gpa_t addr,
- 		gfn_t table_gfn;
- 
- 		clear_sp_write_flooding_count(it.sptep);
--		drop_large_spte(vcpu, it.sptep);
--
--		sp = NULL;
--		if (!is_shadow_present_pte(*it.sptep)) {
--			table_gfn = gw->table_gfn[it.level - 2];
--			access = gw->pt_access[it.level - 2];
--			sp = kvm_mmu_get_page(vcpu, table_gfn, addr,
--					      it.level - 1, false, access);
-+
-+		table_gfn = gw->table_gfn[it.level - 2];
-+		access = gw->pt_access[it.level - 2];
-+		sp = kvm_mmu_get_child_sp(vcpu, &it, table_gfn, false, access);
-+		if (sp) {
- 			/*
- 			 * A change from a nonpresent to a present GPTE needs no
- 			 * guest TLB flush. Sync descendants before linking.
-@@ -713,11 +710,9 @@ static int FNAME(fetch)(struct kvm_vcpu *vcpu, gpa_t addr,
- 
- 		validate_direct_spte(vcpu, it.sptep, direct_access);
- 
--		drop_large_spte(vcpu, it.sptep);
--
--		if (!is_shadow_present_pte(*it.sptep)) {
--			sp = kvm_mmu_get_page(vcpu, base_gfn, addr,
--					      it.level - 1, true, direct_access);
-+		sp = kvm_mmu_get_child_sp(vcpu, &it, base_gfn, true,
-+					  direct_access);
-+		if (sp) {
- 			link_shadow_page(vcpu, it.sptep, sp);
- 			if (huge_page_disallowed && req_level >= it.level)
- 				account_huge_nx_page(vcpu->kvm, sp);
+ 		sp = kvm_mmu_get_child_sp(vcpu, &it, base_gfn, true,
+ 					  direct_access);
+ 		if (sp) {
 
