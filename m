@@ -1,108 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.28.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794967674;
-	b=KrEUAKBJTiYPkrcE6iXvYSj6bvVJRnKmyIv8CkG0iIyjK4DDjL0qkrwIGqaO78iZ/OYI
-	 uTKfPeXzXyATFzuU4Qd0QOQRDXbub3hR5Kzf5L0/wPgJudkjGciUuyucsRcgDtB9LJU2v
-	 UjUXlRbm8OKCkwgNSOF1+PPTi59RBeJLXQIIzkRH9VzcV7se0c9mHurW303wvwmm0ii7X
-	 SpllzinW6Z/RftWsSqXGcjoabfWgncZFS1Xkldn3tf7sxCvtesmuzVntcMsWc+Ae0iHrP
-	 5VMkWV5RcvO6HIzN/6HJP5RUCgPc/qmDZ5+oh0m/DRkrmuELUh+lwF9ZWF1Bp0LQt8A==
+	t=1794967678;
+	b=Rm6gipIF4o6ExAznNE3H97oDjtk732LaV8mqX1toHIuX2/2zUDEqn5hbpCDHo2+tJJhX
+	 nLPda0a3C5l/iHncPmWFfqSvrywPTnm2UkvHS40BnthO+40tdbpfr8IA242j6ejSbuvHj
+	 7YjhAL5NMRmQJUN5KPmcK3TITCGbiDF4FZfpvSQmqN9kjyMfgEA3giO75gsIP75TeR85l
+	 1HDPAkyOGCG0tHw7e5DDkeCxLVYO2GmDuY5zriJ6nlHSCsBqc/GT/vaxU44AsMsAsZv09
+	 68LoLdxnYSDeV1hcbgFYLJLVLReIL9b1ZqCE5qV50rTTgJtUvonsvwIJwDzXb1AVrIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794967674;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ecuacG42mOJlCKP+Xm2vtenahXDM0oGaAEC/qmvo8Ow=;
-	b=PfEL5cA0gt2wiRhAteJpSlfHJKMwNkFz0Qw9igaJHUNzHo3RfkTKCeuvb/ZEmOkmEFVR
-	 mpA+zzhjnkrdYsojufGqo3qZee37KhPsYOQcclcu7S37E3nTUBJeKuyNgnvsavJLTbIR+
-	 fW+z+WjP7yBnKzAlMpun8kDEbahynOn8vv/ZgKplNamavrOk1sUiJBmRbVzk3EO7mcuUn
-	 12g0wcY02RkfcKw9tIGm0dvu4iORud+GvMIUvJdc3J9aYGmjxieSobxV456kUM8IefTaD
-	 cw/6xwwBfrtunMwrTKbbjsIZ4vX66TXyOVu6kQJ/QpJt3S0n9LD6J8+A9z9p5x4bN9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794967678;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4sCen6N7/ej1iTjZeKlmK1FSRs7B5KNsHG5+ndEgEmo=;
+	b=yC+u/w1T57BvEO3uOipIec7UsJDBA8EPS6Bi+eAELiUOnNmtbvnj+I42J+9gd87IFaaD
+	 gx1Nt9quACwfDm7oN3jP4t5D0sawwmYFbfnbutB71Fx3ZiuCg5jRG9xRqA6DiKTNKKKXO
+	 qN100rwYjFnVVO3kZ4hJl5iaggiCOEegAEdGq1U/2igjXRq2sVCQhiOi9mzS3B2gfecTg
+	 ilyQzPh8uPSOO0jDgWM198cq53kChGT6Sa+71lGzUq6JcOIgjdUfsrKi+EXe3bP/qWzMe
+	 I0c8JgYPeh3hPyG+aQgmZHphpNjfs18YD9cBcbj78qSgBfG0hZQcD5rqiFQRoTwSTpA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o7ik5JLV;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=xiaopeng.com;
+	spf=pass smtp.mailfrom=xiaopeng.com;
+	dkim=pass header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=oFs0q61Q;
+	arc=none smtp.remote-ip=115.124.28.169
+Received: from out28-169.mail.aliyun.com (out28-169.mail.aliyun.com [115.124.28.169])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5AA8606A325
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 02:07:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5AA8606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0619B606A339;
+	Wed, 18 Nov 2026 02:07:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0619B606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o7ik5JLV
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-33bb5afa736so4387eec.1
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 18:07:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794967673; x=1795572473; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ecuacG42mOJlCKP+Xm2vtenahXDM0oGaAEC/qmvo8Ow=;
-        b=o7ik5JLVSbK5jaXU70vsqzLCjPaJRtT6RTbnLyn6TrHFa4gaSUzlLeTqy8sKLwm4KM
-         Qj75NgS3SRsg9NHJdBOh2cUupSjEROItqNNOL4vcS2x+StuV2WI0wF8qXiQ5jCLcItkk
-         FCg5kl+jlHBaYVC3WyXCorciDqOqcB1ZvNdsm4vMj6kxQ8r2taVyZRWNBoaE3aqN99Ti
-         UvK/xRe0mnf0E54iK+YJaEOd3K7SZ2/GQcGsbmurPUC2NgzEu1lD/0sIo2mwReqPXzw2
-         /hsj29APHi+OYo0LLFFbOdf7DbgbelGmSnI60F48W7epQS2RBVuW+QoT60CcmiiJ5vjS
-         4dfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794967673; x=1795572473;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ecuacG42mOJlCKP+Xm2vtenahXDM0oGaAEC/qmvo8Ow=;
-        b=EH0M0keg873nWD7q/RS3t6IlpanX/hlEFy1Vl4GQ4en4broj0r9MHaPySMT6cHqzp8
-         Qx+LC/K2UQPkFfSXtgF0Vn75lX6/hVPVwsMvfx2evTwt8XrbkYamc76uHHh/Jo+ycqDL
-         +AC/1Ui59Cuylqk1j58/MkPVq+DEHwz5DIHYgTvSwDa1jmlg4sgU9aSwOMMZA9TAeUm3
-         jpfzIh3UfXP9HI4eGNUhuaQG1bhkYPLLu42I92IlG9cdUhGJb7ZhyzwA1PkTkzX3MMU9
-         IBBN9hZUnIZYgaafNoOZHfBOfFruJ8wMsiw4wBFfn5k9Gn9q65abnNQ4jsddCvx954pt
-         O92Q==
-X-Forwarded-Encrypted: i=1; AL+hErFwKmmxUZ2dJ2d2iCSTGVcPAwdRnJMPs1TXeeCnWiCotqRiK24EQhaK1bFX+hTv+90HTRFg/zE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+7S1AwRidfHycpPNETYpBwqE68mDHGFVatyoSrwmlxdz6ixYjq
-	qw7fTaRWXaMcEe8Evb8v4UJ0InvxWPYe4exeTGhab8jfbdKtWARsoKpO
-X-Gm-Gg: AYBFou0sGIE9w1k/UgVDFt1GEsdDuAcYNQCHhdD4IGu/cv+TT8lBs5H/Rz+Gok7zN/P
-	n/vEf0hSD+5gKFKRu5fI5yYcSSHnbl7Si/jBYGvP328z6p/F0HZ/OvHIuwCYkwsdx2betM587pT
-	UVb5bUwWJxeEtTsMvTuzYxqXjitIprSESfsXtfbDTs0CwrLkCUufuRa6x/BG/4v+/BqVN8zYS56
-	lzPg7fDQPmBPJXqOacIkdrNAn/B6kjXbzAzbUtcjhiLPGhwOZaVj4TM0YVMN31J4stFMDgB4mPn
-	5yAfyQAV+y6CrJMyl5yI4twjomTc0iRz2WvYmNfFC/EXcEeIkHkcwvTuVYY0uCOvb4bmER9moxP
-	MQ64eg6c0B+te0CBNWfBOPN5qfECBT+tB+bTkNCP5rbsiqTOckSYTD8ILZeE0xnIFRisTPciVWo
-	biNReKZTjE9ESKLItrTDi/xcqWac16nTtzFiHMWNAmG3O0Oof43GU2K6n6FMcKt0eyaUcFckUKE
-	LH79r+kXXSEa2FZ61Wc/tif4pfOSyqtnBPViSPyjAuMnT7QIfUYcj3zspQgz06E8ahpOa5FRozQ
-	nVuBYzrhBTrJ6d+XJr2QV6++OZESSeTbsFd6WlKoNUYP0Q8bX5skDWUSV9p5PDGRKU8FIuDPdEI
-	PSwZn9jte+KV4LFBpkp10LSHl+2Q6
-X-Received: by 2002:a05:7022:e801:b0:146:ffa9:2117 with SMTP id a92af1059eb24-1b543b829c9mr1993620c88.1.1794967672916;
-        Tue, 17 Nov 2026 18:07:52 -0800 (PST)
-Received: from DESKTOP-CJ1L666.dankook.ac.kr ([220.149.255.57])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b544784008sm2862327c88.5.2026.11.17.18.07.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 18:07:52 -0800 (PST)
-From: Jiwoo Kim <arpe1618@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Anna Maniscalco <anna.maniscalco2000@gmail.com>,
-	Julius Bairaktaris <julius@bairaktaris.de>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
+	dkim=pass (1024-bit key, unprotected) header.d=xiaopeng.com header.i=@xiaopeng.com header.a=rsa-sha256 header.s=default header.b=oFs0q61Q
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1794967673; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=4sCen6N7/ej1iTjZeKlmK1FSRs7B5KNsHG5+ndEgEmo=;
+	b=oFs0q61QcYkaR0CEmCDarxl4xbFqxDY0kj8yih305qRtHIK9K6NRvgB849b4N9tKxNpO9HZncIb4/7MZBYH7A7rYPP/PXs8gdYiark8jvQL74PfwVyCBF7AGB/TnFmKT6XEYc83qVf+zJWDN1YqUX80zpc4iGTZ7rI6LzUl739g=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.1074903|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00566328-0.000578767-0.993758;FP=13790843656047517396|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037034254;MF=zhugl3@xiaopeng.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.k4NZxW7_1794967672;
+Received: from DESKTOP-UL5U09E.xiaopeng.local(mailfrom:zhugl3@xiaopeng.com fp:SMTPD_---.k4NZxW7_1794967672 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Wed, 18 Nov 2026 10:07:52 +0800
+From: Guanglei Zhu <zhugl3@xiaopeng.com>
+To: paul@crapouillou.net,
+	harveyhuntnexus@gmail.com,
+	miquel.raynal@bootlin.com
+Cc: richard@nod.at,
+	vigneshr@ti.com,
+	linux-mips@vger.kernel.org,
+	linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
+	liuwb@xiaopeng.com,
+	zhugl3@xiaopeng.com,
 	stable@vger.kernel.org
-Subject: [PATCH v4 5/5] drm/msm: Put the VM_BIND queue last when freeing a VM_BIND job
-Date: Wed, 18 Nov 2026 11:07:16 +0900
-Message-ID: <20261118020716.1698-6-arpe1618@gmail.com>
+Subject: [PATCH v3 2/2] mtd: rawnand: ingenic: validate BCH error index in jz4780_correct()
+Date: Wed, 18 Nov 2026 10:07:51 +0800
+Message-ID: <20261118020751.1833498-2-zhugl3@xiaopeng.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261118020716.1698-1-arpe1618@gmail.com>
-References: <20261118020716.1698-1-arpe1618@gmail.com>
+In-Reply-To: <20261118020751.1833498-1-zhugl3@xiaopeng.com>
+References: <80f1ef9dd605d16df2add0a9dbdcdd5f9f508174.camel@crapouillou.net>
+ <20261118020751.1833498-1-zhugl3@xiaopeng.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -114,58 +72,63 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-vm_bind_job_free() puts the job's submitqueue and then wakes up
-vm->prealloc_throttle.wait. The job does not hold a reference to the
-VM of its own: the VM is kept alive by the context, which the queue
-holds a reference to. When the job holds the last reference to the
-queue, as it can once the file has been closed, for example when a
-killed job is freed, the put can drop the last reference to the VM,
-and the wakeup then uses a VM that msm_gem_vm_free() has released.
+From: Weibin Liu <liuwb@xiaopeng.com>
 
-Since commit 01c8d1f385f7 ("drm/msm: RCU-free the scheduler-containing
-ring and VM objects"), msm_gem_vm_free() frees the VM with kfree_rcu(),
-but vm_bind_job_free() is not in an RCU read-side critical section, so
-a grace period can still end before the wakeup, e.g. if the task is
-preempted in between. Before that commit, the VM was freed right away.
+The JZ4780 BCH controller reports each corrected bit error as a byte
+pair index, in the INDEX field of the BCH_BHERR registers. The field
+is 11 bits wide, but nothing in jz4780_correct() checks the reported
+index against the size of the data buffer being corrected:
 
-Put the queue only after the last use of the VM.
+    buf[(index * 2) + 0] ^= mask;
+    buf[(index * 2) + 1] ^= mask >> 8;
 
-This was found with an AI coding assistant, which also drafted this
-patch and its changelog. It has not been reproduced, and the change
-has only been compile-tested.
+With data or ECC coming from an untrusted flash, the decoder can
+report an index that points past the end of the data buffer, and the
+above statements then flip bits outside the buffer.
 
-Fixes: b74fae5492d1 ("drm/msm: Add VM_BIND throttling")
+Skip the correction when the reported index does not point into
+the data area.  A bitflip in the parity bytes does not affect the
+data, so rejecting the page for it would fail reads that are
+perfectly correctable, and an index beyond the codeword has no
+buffer to update in the first place.
+
+Fixes: ae02ab00aa3c ("mtd: nand: jz4780: driver for NAND devices on JZ4780 SoCs")
 Cc: stable@vger.kernel.org
-Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
+Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
+Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
+Reviewed-by: Paul Cercueil <paul@crapouillou.net>
 ---
- drivers/gpu/drm/msm/msm_gem_vma.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+v3: add Cc: stable, my Signed-off-by as the sender, and Paul's
+    Reviewed-by, per review.
 
-diff --git a/drivers/gpu/drm/msm/msm_gem_vma.c b/drivers/gpu/drm/msm/msm_gem_vma.c
-index c526409f451d..3e9657982291 100644
---- a/drivers/gpu/drm/msm/msm_gem_vma.c
-+++ b/drivers/gpu/drm/msm/msm_gem_vma.c
-@@ -904,7 +904,6 @@ vm_bind_job_free(struct msm_vm_bind_job *job)
- 	job_foreach_bo (obj, job)
- 		drm_gem_object_put(obj);
- 
--	msm_submitqueue_put(job->queue);
- 	dma_fence_put(job->fence);
- 
- 	/* In error paths, we could have unexecuted ops: */
-@@ -921,6 +920,12 @@ vm_bind_job_free(struct msm_vm_bind_job *job)
- 
- 	wake_up(&vm->prealloc_throttle.wait);
- 
-+	/*
-+	 * The queue may hold the last reference to the context, and so to the
-+	 * VM, so put it only once we are done with the VM.
-+	 */
-+	msm_submitqueue_put(job->queue);
+Changes in v2: skip the correction for an index that does not point
+into the data area instead of failing the page with -EBADMSG.  A
+correctable bitflip in the ECC bytes leaves the data valid, and the
+early exit also dropped the error entries that followed it.  This
+matches how jz4740_ecc_correct() treats its indexes.
+
+Verified with a userspace replica of the correction loop: with
+params->size = 512, an index of 256 (first parity word) or at the
+field maximum (0x7ff) produces no write outside the data buffer,
+and in-range indexes keep correcting as before.
+
+ drivers/mtd/nand/raw/ingenic/jz4780_bch.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/mtd/nand/raw/ingenic/jz4780_bch.c b/drivers/mtd/nand/raw/ingenic/jz4780_bch.c
+index 12b5b0484fe9..3a4c5d6e7f8a 100644
+--- a/drivers/mtd/nand/raw/ingenic/jz4780_bch.c
++++ b/drivers/mtd/nand/raw/ingenic/jz4780_bch.c
+@@ -216,6 +216,10 @@ static int jz4780_correct(struct ingenic_ecc *bch,
+ 						BCH_BHERR_MASK_SHIFT;
+ 			index = (reg & BCH_BHERR_INDEX_MASK) >>
+ 						BCH_BHERR_INDEX_SHIFT;
++			/* Skip indexes outside the data area. */
++			if ((index * 2) + 1 >= params->size)
++				continue;
 +
- 	kfree(job);
- }
- 
+ 			buf[(index * 2) + 0] ^= mask;
+ 			buf[(index * 2) + 1] ^= mask >> 8;
+ 		}
 -- 
-2.43.0
-
+2.50.1
