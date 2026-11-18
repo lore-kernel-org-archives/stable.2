@@ -1,63 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795021911;
-	b=n1IFneC9OSPno9/wra5WNRiaErwRRZqU1gdAz/Q7RcsN6qggGSSMHIOndgFJtCi5fPGR
-	 ELX4IVmhJst8ps0Az3InBTRq8em7OJcar2sR49RdzvCd9EqIGmnboS3f5kV2/G/eS6UxI
-	 4RKp534yCrOkK6iCsNp660+2dlzi+ru9yyYBJfIrU7x0Kd4fQtiWngvDoIcQ32XU6ExOF
-	 65zOiWq6VA/DaSQCxVPhUzg2mRBBZBNCBFH44fv2OQ/1cR1N+xgWrlaUPqqK2IuvFsOuk
-	 AEhSZhSCYlt0S2BAXIXWprrnuAbiZw64TfyWtwthlAeDPkAfrS8aMBnOuo7zo5JhhdA==
+	t=1795021914;
+	b=4TVv+iOhn8Sr1Lq9q8Ct0dVn6khOopE738LcIN0fUTxY1VKwaDwIl+TXXFuHO/PkEms5
+	 /JfFfPBYdjxhgDxvYusrL/M4ZB4bZBzi7HexKgniVcZFQdU8ScqWbd4lVsve6WC8GaStH
+	 sSnygbAvLT3saafqwtQsdxBHhf4sLy2kcxxw5vtlXZ5ldvZaWKaG0JQxmEYtisbtxy5XS
+	 4xAxbBCs4K/zDJMqyAUWyQgGjILGkcz5G3Q/XgOMN8yFRAtc5aOLMoJOl16IZnCaIadAT
+	 r38MmA1lBoSVgsCH7VGzSPrcAFeTJoNdPn0Be4bEnJjgzUEfGNv0lR3QY2KjNYNJ7Lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795021911;
-	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Last-TLS-Session-Version;
-	bh=55hWbv3ahW17b2iOOwscIBO2RQ8epSsBo1FkfhM4zo0=;
-	b=fiDrs2j4wkjTn1F5QA3cvMRCJXHhmZ/Rr7W9F1bXl8c8SaKYKFgFJUn6G+pF+LF1Je32
-	 PNk5GR9tWQ+7n6AFsSyXzRDPtPVZdCcJMh+4fMWxCj9p+MgV726IsasfuqqgJ/bn+7lTc
-	 TyKv9FXrS9tx6g/YOGqQW3S3ax4AJ7rgFuafYXEmsdfYOncpwIPhm4WzBqy61AQ5pwzxT
-	 DnxoXn30BLDftaSq7BsAWLUmztKrhamLwxxB3Yt4CQ3fDJgf7HW5+IeAqfb0Cx1vY0IWI
-	 ohc87pJnb1ROm2qzSSs/aQQfPwxddVTGX4gyWRz4rJtlOMmqVDclnms+yIDN/Ae/V5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795021914;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=gERFka5pz+fpPKvRJke4wtf0RT61PLE4KstebUYoOHs=;
+	b=a5CGjyaHOvG09U2TsllM6UfYuA000cfJdR9QmT6Qj6A1wlav809kwhyP710TshYF/yef
+	 drcE2VxlEhPdD0W1yx/x4QRmrKmegGVdJHowSS5poi1c2S/5DAX8h0h26F5dm3L8SbaeF
+	 SCsDiLqdrxguws5wd/xXyzuIWSpwJFNC/JqPp/+EM8dFFXZLQ0QiUptchZjcSLFWCNN3L
+	 oHjr2Mqy88zgIFfP4D903qrbMaDpESyJ79OoMsY0aXhKxUl+jsPS4QKc+UCUqjoL4Lnmm
+	 YPaRUpznr0xxX+b51V2Hb9fkRoxAIDly8HyeDbfiVzc6kau4iZOejJE+ichAr85IbhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=McTjnncE;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BSpaELsC;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65E80606A31C;
-	Wed, 18 Nov 2026 17:11:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65E80606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CF2F606A33F;
+	Wed, 18 Nov 2026 17:11:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=McTjnncE
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AC10710BA16;
-	Wed, 18 Nov 2026 18:11:43 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1795021904;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=55hWbv3ahW17b2iOOwscIBO2RQ8epSsBo1FkfhM4zo0=;
-	b=McTjnncEDdCNvrpd87ixynpCyAndkyYKLVNAJ32je6Eb9VEdmhg+/qXfbJUr3ZrjBSHw1D
-	JcmgWbcwt0sJ7LIO8gigByJSVzjiVu8AfDGeyAm0m9tUcepKNEhn0X4bSQ4P+CZL/QlYNm
-	Ra10zu/nGp35YTMjgzUFUxwMEVVkDE5UCtIwO96476mmQb88J3Esj0dZQoscomafhDeDI4
-	GTpDgT2cR++TRMIMWXpjmqKN7kitFBAv90uHTTZT7F62ROuPPsMxIZD9PvRC1zRdZmKAQK
-	a0xdGQ5Bldmt7GFmkPhCNGYwghWiM2948M8GGIhza+fNsj3ujeNy5YMdDKHMDA==
-Date: Wed, 18 Nov 2026 18:11:42 +0100
-From: Pavel Machek <pavel@nabladev.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
-	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
-	patches@kernelci.org, lkft-triage@lists.linaro.org,
-	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.6 0000/3318] 6.6.163-rc1 review
-Message-ID: <av3cTuNbzz4trxoC@duo.ucw.cz>
-References: <20261118150313.527275416@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=BSpaELsC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A5951F000C5;
+	Wed, 18 Nov 2026 17:11:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795021914;
+	bh=gERFka5pz+fpPKvRJke4wtf0RT61PLE4KstebUYoOHs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BSpaELsCqE4jQlnL+hY3IPtyZaAz3M4tVSOLMih/9MefvkEowlpaBNzn3lGIRSZC9
+	 JtGvXCv5Q2TbPzMiRh9u/Ew4E8SJwfpRIGtq1kOoG/Lwsv5zpilITnGfbNbtofDdEe
+	 A8gnuJ3oiZDc92Y+6MP1h0WfLN7HuYbR670MOpD0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Hengqi Chen <hengqi.chen@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Tiezhu Yang <yangtiezhu@loongson.cn>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 2476/2651] LoongArch: BPF: Fix stack arguments for indirect trampolines
+Date: Wed, 18 Nov 2026 16:01:56 +0100
+Message-ID: <20261118150414.093258425@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,40 +64,81 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="BfKMZaz260JFDJKq"
-Content-Disposition: inline
-In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+
+7.3-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+
+[ Upstream commit 67ab1a331481ef282c53003e6c041c8c4348d4cd ]
+
+LoongArch passes arguments beyond a0-a7 at the caller stack pointer. The
+trampoline store_args() helper always reads those arguments at FP + 16,
+which is correct for a regular fentry trampoline: its prologue leaves FP
+16 bytes below the stack pointer at trampoline entry to hold the saved
+RA/FP frame record of the parent function.
+
+A struct_ops indirect trampoline is entered through a function pointer
+and only saves its own RA and FP before setting FP to the entry stack
+pointer. Its stack arguments therefore start at FP rather than FP + 16.
+As a result, every stack-passed struct_ops argument is currently read
+two slots late.
+
+Select the source offset based on whether the trampoline is indirect.
+This also prepares the stack-passed arena argument path to consume the
+actual pointer slot.
+
+With this patch the BPF selftest "./test_progs -t struct_ops_multi_args"
+passed on LoongArch.
+
+Fixes: c9ebe2016de9 ("LoongArch: BPF: Support up to 12 function arguments for trampoline")
+Acked-by: Hengqi Chen <hengqi.chen@gmail.com>
+Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Signed-off-by: Tiezhu Yang <yangtiezhu@loongson.cn>
+Signed-off-by: Huacai Chen <chenhuacai@loongson.cn>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ arch/loongarch/net/bpf_jit.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
+index e78eb582c3005..119a20a7edf18 100644
+--- a/arch/loongarch/net/bpf_jit.c
++++ b/arch/loongarch/net/bpf_jit.c
+@@ -1674,17 +1674,17 @@ int bpf_arch_text_invalidate(void *dst, size_t len)
+ 	return ret;
+ }
+ 
+-static void store_args(struct jit_ctx *ctx, int nr_arg_slots, int args_off)
++static void store_args(struct jit_ctx *ctx, int nr_arg_slots, int args_off, bool is_struct_ops)
+ {
+ 	int i;
++	int stack_args_off = is_struct_ops ? 0 : 16;
+ 
+ 	for (i = 0; i < nr_arg_slots; i++) {
+ 		if (i < LOONGARCH_MAX_REG_ARGS)
+ 			emit_insn(ctx, std, LOONGARCH_GPR_A0 + i, LOONGARCH_GPR_FP, -args_off);
+ 		else {
+-			/* Skip slots for T0 and FP of traced function */
+ 			emit_insn(ctx, ldd, LOONGARCH_GPR_T1, LOONGARCH_GPR_FP,
+-				  16 + (i - LOONGARCH_MAX_REG_ARGS) * 8);
++				  stack_args_off + (i - LOONGARCH_MAX_REG_ARGS) * 8);
+ 			emit_insn(ctx, std, LOONGARCH_GPR_T1, LOONGARCH_GPR_FP, -args_off);
+ 		}
+ 		args_off -= 8;
+@@ -2017,7 +2017,7 @@ static int __arch_prepare_bpf_trampoline(struct jit_ctx *ctx, struct bpf_tramp_i
+ 	func_meta = nr_arg_slots;
+ 	emit_store_stack_imm64(ctx, LOONGARCH_GPR_T1, -func_meta_off, func_meta);
+ 
+-	store_args(ctx, nr_arg_slots, args_off);
++	store_args(ctx, nr_arg_slots, args_off, is_struct_ops);
+ 
+ 	if (bpf_fsession_cnt(tnodes)) {
+ 		/* clear all session cookies' value */
+-- 
+2.53.0
 
 
---BfKMZaz260JFDJKq
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-Hi!
-
-> This is the start of the stable review cycle for the 6.6.163 release.
-> There are 3318 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-
-This failure looks similar to 6.12 failure.
-
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/18149509459
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/3084771510
-
-Best regards,
-								Pavel
-
---BfKMZaz260JFDJKq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCav3cTgAKCRAw5/Bqldv6
-8vVwAKCiOHAF0itzIm9a92Rqx161/MIf1gCfVxJ7y7RqnougTDqOz0QZPVSmvjg=
-=TeQW
------END PGP SIGNATURE-----
-
---BfKMZaz260JFDJKq--
