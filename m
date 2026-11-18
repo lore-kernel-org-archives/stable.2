@@ -1,74 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794968106;
-	b=PjPA62612AwdCGAr9c387wGtQA8KwX88rOEugYELaqp3Jm0oY1Oa1DeUXt3PeRKYzUvV
-	 qpztPSzRn9cL3uLGTE+I3RYud/7do1sFO6qFz7OlL1gpYNhppunV46jK0BWY26v93iVI5
-	 9p+Z498LLeCq7LszWOyAcmg9nrL5gdri9p7nwvXvQNy0j5rDtVKLpr6GOYrC3D8FAVzVm
-	 YRnTLQHu4aKPdNomBW6saLNGEFU4iLq67JMqCaqsZfTLyYm+s0hq43aVSqfsNm6rSLp7+
-	 J+ig3cnCazYvneDcUSeZxfsS6WZ+MKi0uLxFV+Hk8IDVUvnLWsTmn7vP7lgLiiOlZsg==
+	t=1794969040;
+	b=w2pz0MULUya5i+xMoAyStak/KP4WoDjkgkgiPlNunOWHXlhr5aVlTEAomewXrFTWjnye
+	 QVwza/dbjhtgJx5B60zmD6AEpOAi23E/3bbleADoLZkeOdKZdvPfp+1MEDt1+4lln7/6l
+	 3uQ37mvuJb1xXUdGBTZCf0enyh+yw981eJte1bU+vX760Y2bSYKYWQCyt7jlL/OPfVi0O
+	 NU7AgSVeqnxb7KUdiYY1cxoFF6S2rorSE1pH/OJXJRFly4uCkof9MmAHAfR+hEm4qYAra
+	 0kCBhYh3Rwgf7iGqnAV3c/Fo78/PUu0hNy+5YsKs7nQ/u8mItPRlHZTSQrJYOR7tpJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794968106;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794969040;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=Hek+ZE9sdaq9Ge80vFXi/7LSVSangUgBYjZCzNy2wbw=;
-	b=5GzshS7VNYLdelUTOapMpT1S+5ZXIr1twxr7YL9ZwvyLXEfcYnpf7JaI9jMpZpLaKGPK
-	 sPCZSWZxrQeCDCMm22mx4qqNBioggpuGuwz3bZRdfjsIlLCMeF+6NHqgJ8sWhU2aw+FQN
-	 cYG3k5S4fTa9PiIYWGvvnKNiERD17Oni12iz/Kn2kiZVU0juA29z+/IN2OYXXFZFb3XOx
-	 2sdrQBFM39gUzSovpXJLz827DdoZO8OsFqaxusX9kcwzmOxSG/XSUXzfI3BR1W4FpaDNx
-	 iTznMFDI+UHsyOT7RmITN3sbztbs8Gqwe0f0o+OdVwGDWYwVXj0LbXjtRVv9BhPM0sQ==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Content-Type:
+	 MIME-Version:Content-Transfer-Encoding:Subject:From:To:Cc:Reply-To:
+	 Date:Message-ID;
+	bh=DMAYMjFw7lq465cm9eAR7/r/ubempqskqvq1xGoVf5M=;
+	b=YSZ4Nv0OOiCwoZa0Qhaxd72YyfqyOi2t1FkRZXMi2+MDlm90oKw9J/2F5YF+8s+RIavV
+	 9nCatvRONFfQ0FNlMBJKJ4AMaMPh4BWenMPZNzoOOLlJldCNpSIHtTWTrEad0qAbJPlBk
+	 z+KDJDu6QVO1u94hrqjWOfC9LR/syhMK544hQ/XykT2IFNRzObNlNqpi4GCV0s1KRfi5o
+	 99f4Y1JPycD3xOSDuHgv453pBaf8HfYZKV0/mmTnsbaXoJLCMrjpt0i/PZ7d2jvBgwq8W
+	 S6mNOnrKSjKSTXKdSkiwWnDG/zLZz7jJxxtr4U+udLWexdaNMZ3RTH6zAcxt2IiWJ7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hcNs234f;
-	arc=none smtp.remote-ip=209.85.214.197
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	dmarc=pass header.from=kernelci.org;
+	spf=pass smtp.mailfrom=kernelci.org;
+	dkim=pass header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=hCwG6oFk;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936B4606A330
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 02:15:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 936B4606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E11606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 02:30:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 99E11606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hcNs234f
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ed08904845so5684625ad.3
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 18:15:05 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernelci.org header.i=@kernelci.org header.a=rsa-sha256 header.s=google header.b=hCwG6oFk
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1b3a05f8b5bso664319c88.1
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 18:30:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1794968105; x=1795572905; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Hek+ZE9sdaq9Ge80vFXi/7LSVSangUgBYjZCzNy2wbw=;
-        b=hcNs234fv2gBaZqCmj9VF5K0kL1XLIKNqqfa9Ib7n00vrxU4xjZB89GqYUPwRoKKPR
-         HQZiz/q+uS/wdr9I4W56QJaECk5u/vHYslwah52MEuCs+Feoq/mLB8AknBzRQQxDKsvj
-         LdTEIlPJ+YCz6rvXc+WGq3Bqt/lgn0RFe7LNZl9RecSftLv/8AtzOPEMo1JPSB1vzdw/
-         y0iabgq2OoPSmtNqEOqU8n0XEcAykRFq7aEmPU0YVgKvYOIXKKfOj4PEJ7/TivNFqVdF
-         L54ZIBHKMZHi9Y6jlofa+en7kQzLsCNXgGfDGyW3raz0HrVuhhEvsEACUu4JNU60TyzA
-         COGQ==
+        d=kernelci.org; s=google; t=1794969038; x=1795573838; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DMAYMjFw7lq465cm9eAR7/r/ubempqskqvq1xGoVf5M=;
+        b=hCwG6oFkpxvtDomiBinUNuNyklr8uqPjQaDtjx4rlf4YY3ZzYc1ooG0bAKr2JzxG7G
+         OMvEAPRHuGZxckfpAGaO3TTAEkxEVa78F2niWmJ3ZH/u85qoAr3e4Px9/En3H7rDSEQo
+         YYhqG40Stw1HHWLKkiNwHsYsyUVtMfo+zpB1hxUYhTffBDogFTsYrnFh8u8I9g5F67JD
+         7euy6hc33X23vAyDSSeiNYaA3vOSOgZP6Xc01o7Qkmut33UrqXBtbdRGEkwlOAxISrd5
+         LyrC7IVDAYiL3cGiXWJ89rlRqRm0epgGUkKmSDpMPsU+PSN5Ou0KIv5PF7LGe8N2vEdG
+         jmcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794968105; x=1795572905;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Hek+ZE9sdaq9Ge80vFXi/7LSVSangUgBYjZCzNy2wbw=;
-        b=x5cncAinDlgXsyKPRkfVZnfRUSF4+Pyq3fjETnPL2FnYmQb1YFLP87BQIK7k14Z454
-         onoN/WDjleWwK5pjwRPiE/IK2PLDnNh4a8uVAzd3Rbc6T4FmS2lHd8HegdIbHBXGWZ7x
-         oTNcYAEaXZW6d5sTGd+ONwFU1pw+BTndISu/vfLgWM2eWO9z1xQ5AUZEzVCIHvPAZ7k6
-         KsCOc6W8AN81Zhz069Sx8kkE0W10Rayix3R0rQ6teGQF6MusUv65OryalT9aRSeTEjuy
-         qcfkM8oo+husm/6xIm4QuPq19BkuSLib/J8ZCCnIMzfjwGjy9FrzxB3FLcMI3bCwxM4K
-         U2tQ==
-X-Forwarded-Encrypted: i=1; AL+hErGbIt9rmOCK5hFHcJjkRmoNN6nsh2KbL9vU2NC0LwVV3LfpmFotdamxKKSdHTwvS0ng9yjs1Ew=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cBfM8bV6RNlXD6m44kClL8bzu6D4lcl3tTlqHkkxULXl+5AI5
-	ssIqaEvZhXJ4qIDDbcj/qU7ggbYVC2McblRNcDbfHSrs0vUd8Y348HKSwLlJzVDOQLIJ5UHTkmg
-	nO+EIMg==
-X-Received: from plhq17.prod.google.com ([2002:a17:903:11d1:b0:2eb:4a7:306e])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:90f:b0:2e9:8202:509c
- with SMTP id d9443c01a7336-2eff70fd303mr11865625ad.7.1794968104719; Tue, 17
- Nov 2026 18:15:04 -0800 (PST)
-Date: Wed, 18 Nov 2026 02:15:04 +0000
-In-Reply-To: <20261117-work-net-peerpidfd_short_optlen-v1-1-a93f56288501@kernel.org>
+        d=1e100.net; s=20260707; t=1794969038; x=1795573838;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DMAYMjFw7lq465cm9eAR7/r/ubempqskqvq1xGoVf5M=;
+        b=EvXOvHy2JaS9IF4nm5LKidbMWlDKt5Hlv9rBwz2HaFxi3XvHPPTENSElmT++t5btFK
+         KebPUS3MZr4UU3WhtolWwVyDIm2zmGp8pqU905V7Z/WyED/y2VjV2JaN/+mBZdzdT6xG
+         l9UZ6HM07PPTwYf3khxu6s1tCUTinuBSzMWA+98YmqQwRsVOrGCK1D55zPhiR0NsteRN
+         S06uy/0mwtHEN7HDCvz3JjqJ2+PuDrGesHjflixvY0uH3JeWL7fjj9rXl4nwxqUbJm33
+         sdStJuBEWCGtFwJSrJparjOTNUyBM1M+yJww5I/J4AkS1JRhMJvTBU5VwvlM1Mzr6dB/
+         koVQ==
+X-Gm-Message-State: APuU4Z9X/y51nRvmQFy1rRB4k5LUWGqjjYGZqTKC/WEvEFouVlb5swt2
+	ApJv94xVddc2I+XzOCLRQPXvdFKN4xpTEScbwEw8Km6JfHLlOnKez/hEgsPYProLXyg9DA1WC5E
+	ZHXn7
+X-Gm-Gg: AYBFou0uWm1AzitBTg2oNdM4VQjn3fdjdvI/3jLNn1m6r1eL/60yshVN/BJ7e+Xg3vL
+	/tk2GAzBxqcgJL30fJ+P2rul0KB2enYSArCU9RP97uIyzDFoXVVr3pi4ABoHKA9V3qdBKJpidJj
+	uLAzqN3toTNEbl7JpRh3ck8yfO84Re5ET0+rlBuHNuJ3miH+VQ3bKtP+uDn4bheZYZJN3Uauxc1
+	cqeRN1Sy9UcQDINgiEwmSvWPoXKz0kbUOb48lD4SnSIOPwEFNE6a1d4OjbfHQ/4XZk//vloPTIj
+	L6aTjBKdv+ZUh/qTmyJ4I0gkkuAC66HlRABsohXAqFXVDFcJeAxXaaxrRQHzyemEEfj6uRgZU+9
+	Y3Y7O6XCQj95bOJMdEQbj1u82qHtsfSXQT3Ibr0dMaOjkhsuSnQgs9ymbqP94IRIvueMS9QZXs8
+	o8hNpkKFugOGf/wH3rNuuU3d9us5etjVgUNS+IBmh9Ju2j/kOwbYBwqvtwF8Czf29Rz5TizKi8l
+	/8NLkkjAaOi7DTneVQT1uOt8k+mVcJbYy/l+3mDEQp7puBPLBxonOaoOq8DBZF1RU/bcWbYu7FX
+	0MgUHJKrvaIK5j6zsZoC/cdPwn0JKJOeMAtakzwL58g=
+X-Received: by 2002:a05:7022:29c:20b0:1b2:46ee:4cc1 with SMTP id a92af1059eb24-1b543d414e7mr1254081c88.43.1794969038106;
+        Tue, 17 Nov 2026 18:30:38 -0800 (PST)
+Received: from 8439c401ee69 ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5447c1193sm2239952c88.7.2026.11.17.18.30.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 18:30:37 -0800 (PST)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,49 +88,69 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261117-work-net-peerpidfd_short_optlen-v1-0-a93f56288501@kernel.org>
- <20261117-work-net-peerpidfd_short_optlen-v1-1-a93f56288501@kernel.org>
-Message-ID: <av0KF1liMktF5Hg-@google.com>
-Subject: Re: [PATCH net 1/2] net: don't leak pidfds through a short
- SO_PEERPIDFD optlen
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	Alexander Mikhalitsyn <alexander@mihalicyn.com>, netdev@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: [STATUS] stable/linux-6.12.y -
+ b869a5313cbfe7102873d3de318ddb68675146d0
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Wed, 18 Nov 2026 02:30:37 -0000
+Message-ID: <179496903724.278076.10575304958568871576@8439c401ee69>
 
-On Tue, 17 Nov 2026 16:25:30 +0100, Christian Brauner wrote:
-> sk_getsockopt_peerpidfd() caps the caller's optlen at sizeof(int) but
-> never checks that it is at least that large. sk_getsockopt() only
-> rejects a negative optlen. So with an optlen of 0 to 3 we still
-> allocate a pidfd via pidfd_prepare(), copy zero to three bytes of the
-> fd number to userspace, write the short optlen back and then
-> fd_install() the pidfd anyway.
-> 
-> getsockopt() reports success but the caller only got part of the fd
-> number or none of it at all. It has no sane way to find out which fd it
-> has to close and the pidfd stays in its file descriptor table until the
-> process exits. Calling it in a loop fills up the table.
-> 
-> scm_pidfd_recv() deals with the same problem for SCM_PIDFD. Since
-> put_cmsg() doesn't fail on truncation it checks the size of the control
-> buffer itself and sets MSG_CTRUNC before it allocates a pidfd.
-> 
-> There's no point in handing out part of a file descriptor number. So
-> fail with EINVAL if optlen is smaller than sizeof(int) before we
-> prepare a pidfd. Since commit e10899b2a098 ("net: add
-> SO_PEERPIDFD_THREAD to get a thread-specific pidfd") SO_PEERPIDFD and
-> SO_PEERPIDFD_THREAD share the helper and the latter inherited the bug,
-> so this fixes both.
-> 
-> Fixes: 7b26952a91cf ("net: core: add getsockopt SO_PEERPIDFD")
-> Cc: stable@vger.kernel.org
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/sashiko-outbox-205984@kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+
+Hello,
+
+Status summary for stable/linux-6.12.y
+
+Dashboard:
+https://d.kernelci.org/c/stable/linux-6.12.y/b869a5313cbfe7102873d3de318ddb68675146d0/
+
+giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+branch: linux-6.12.y
+commit hash: b869a5313cbfe7102873d3de318ddb68675146d0
+origin: maestro
+test start time: 2026-11-17 10:39:52.684000+00:00
+
+Builds:	   48 ✅    0 ❌    0 ⚠️
+Boots: 	   73 ✅    0 ❌    0 ⚠️
+Tests: 	 8883 ✅  842 ❌ 1650 ⚠️
+
+### POSSIBLE REGRESSIONS
+
+  No possible regressions observed.
+
+
+### FIXED REGRESSIONS
+
+  No fixed regressions observed.
+
+
+### UNSTABLE TESTS
+    
+Hardware: qemu-arm64
+  > Config: defconfig+netdev+nfs-root-boot+ltp+crypto+ima
+    - Architecture/compiler: arm64/gcc-15
+      - ltp
+      last run: https://d.kernelci.org/test/maestro:6afc3aa899c74e1a996d11bf
+      history:  > ✅  > ✅  > ❌  > ✅  > ❌  
+            
+Hardware: bcm2711-rpi-4-b
+  > Config: defconfig+netdev+nfs-root-boot+ltp+crypto+ima
+    - Architecture/compiler: arm64/gcc-15
+      - ltp
+      last run: https://d.kernelci.org/test/maestro:6afc8adc99c74e1a9971d273
+      history:  > ❌  > ❌  > ❌  > ⚠️  > ❌  
+            
+
+
+Sent every day if there were changes in the past 24 hours.
+Legend: ✅ PASS   ❌ FAIL  ⚠️ INCONCLUSIVE
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
