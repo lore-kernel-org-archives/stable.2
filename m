@@ -1,60 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.96
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795013483;
-	b=PwV4loU8ow33yxZsYnzgz4i+DLnIivPmOSmfiNhRP/wskyLTX9kTE1h7HMltNVBjtAFi
-	 3SvdyXcsiT3kqUzfyBEGsibqyYE+D67/9eXTFvt9UTVgmH8fb5U2FtJ6tBLoVI0sj4qxc
-	 7VHylAnOz/NvQwhDWtLnMHlxv0NSA3OJEBYHtZ5duHoUnqkKca0UbQdFqQqjgjjZaUwBs
-	 0VyyF89TN4eV6EfpcA/ARJimLLv3n5PH4Xcu1PlF7RjV5yQgk/c71zzrK3/VM0vQkUQku
-	 GnOlP3YHtHK2hFY2hfN48R++QLDKdU/Ta59yc+0YmJpogGaqjGledgz++z7G7JCpa1w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795013483;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 In-Reply-To:References:Feedback-ID:X-Pm-Message-ID:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=eY4Iukd9tnjFhKXxywz21kAw07HDovdZxf/3jteIVpk=;
-	b=df1K99dlRFiJD3KRl/i/ZBUzAiJ/v+1oKOuCztJGt6tJ2QLTUCrfnTZZRZutBegRZjE7
-	 P0jRz5WEGmXF8lK4nBPR5/lt5W0AKPROSs6imjBO0aW2VZ7N6d/mcbPMbfROCwXHtbLsq
-	 NfwyN0pstavhU6sr3z4IyyOsk7K2sKkeDhi8kpJ5J0bBvIlrY7sM/w1aS/b9GAzdhlhxF
-	 xiam+gH1KKtTatApztPnIxJ0O9NdkHWu9t9IHkIPY6VXhW2MBxYFXUOaQErG4lQbeG4qg
-	 lDefANTOsjnWmcpSzAumQ1wFkEy3CbpNSEyQt7fYhpNqHBb668YDQGURGLCBpJHMeyg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=protonmail.com;
-	spf=pass smtp.mailfrom=protonmail.com;
-	dkim=pass header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b="rZ/PnwSS";
-	arc=none smtp.remote-ip=79.135.106.96
-Received: from mail-10696.protonmail.ch (mail-10696.protonmail.ch [79.135.106.96])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.139
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795013549;
+	b=DMVfM6Su0l2JvP79/4i75KnDfJgCgcZYmKiVAt9mKSPeZHch5Yw2LVBaYKD+sZONlu5/
+	 w8m6XNWNbY2+ZczLI2/zuoLedr+w+V0KILSZG/BIKbDcKDnPGzr4p6bVT+rPHRDqjiF/T
+	 p1TIhNYz8SGKmIk4evtwq/XOgld4M15VA8uyPbMQOX97DjxsG7gsYmzGZDdwWeRU99Ok3
+	 Z9ZxLr5kW5f2Y/4WTmwM5s3cpcdnQOKGE9BURK/nuasRLyKzTKX/qJ9CXfgFkSzrltlMy
+	 6kzdpa16qykBALGYelsH4xWc2AZuVouWqM1TjaUBuimI7CIuGikMU+WoWmoqVF/+rnw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795013549;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Nq5o9yhkYtuH+ZXDc69/fViNewBFXpBRSbbR1U7zUpI=;
+	b=MF9SYgv2LonWNb+pwY0EF4B2u7zBcMsgeqZfAPs5Vrf9qyFVEEBrLZWiPKXRPEeMprfu
+	 He2ErrJAMujICdkgbYX/GUDiAusqcY0d3b855Ksqw4RqIa499nQoP652FcGcQFA8sKzn0
+	 LgydSbdVYPo31mnpXAElww/WzMhh6TyROLZelb7G3vnMiRNMaSObxyMRK1oBZhq4YsvVa
+	 NVWbo0SWiwULf0I/u4/Rn/U5pA7DI05DfK0LIJ7PScL+838YBLPJ0Gl6n5D3xC5fORQrK
+	 AdIGHHWFpHNSDlGD6+vghlmWqtgSCHFn/dOkkStC58HngalYlU2FkgwPLaDE5NiBjUg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=WnDz1sCM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.193.139
+Received: from YT6PR01CU002.outbound.protection.outlook.com (mail-canadacentralazon11022139.outbound.protection.outlook.com [40.107.193.139])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE727606A339
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 14:51:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE727606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AEC4606A331;
+	Wed, 18 Nov 2026 14:52:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AEC4606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=rZ/PnwSS
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1795013480; x=1795272680;
-	bh=eY4Iukd9tnjFhKXxywz21kAw07HDovdZxf/3jteIVpk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=rZ/PnwSSZ1nVthbPy1h4qRvgQHEffarDlEReR+yx4dBjD7tO5dpXE3Yk0xZ/gp/Qo
-	 v9LxmsS4Tk4xS1FeiH9Ni1c2yU4mo0nDfJx3t4DZZcjLk99IGRTyeLh4zYyxZis8tk
-	 vxaDOHxwwY3IXTw6LEaQLh2GsMiHC3nzYf+unvtdTUV4fDe9iiN1nWWtsj0VkFTkH5
-	 kzfktF8ZQWifZDoNYSY3TzUB3NBZGhx5jl12r/wi6ikVxb3krMi5GcGH2dyBmFPQGj
-	 rFA+nffQYoDiNiapYqKhIviuE65hFotW5iIRO1rxM+lApx3lC876DbwXXAt75lzQKx
-	 tcTciGWpaIh7w==
-Date: Wed, 18 Nov 2026 14:51:13 +0000
-To: Alexey Charkov <alchark@flipper.net>
-From: Ryan Leung <untilscour@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Michael Walle <michael@walle.cc>, Miquel Raynal <miquel.raynal@bootlin.com>, Finley Xiao <finley.xiao@rock-chips.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP CPU ID
-Message-ID: <AQpdyd6hRl9cLAxBK-fEdzq0dcZsWpHP63dbDpOxcNQWCdaNIc4D3Mfi9Ll86jBVsbEVhr5-9EZzFHbkF6efBDcRUT7nXx9TH5Aeffy5DyU=@protonmail.com>
-In-Reply-To: <CAKTNdwH6E5=9gZHB6tdianC2+1aDv4wnLmvL59kDW-dR3a12bg@mail.gmail.com>
-References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net> <CAKTNdwH9QAgreJ-6+t1j_P1di4VyoMBSsFkf_g=mCi_-M8g9Pw@mail.gmail.com> <20260917221857.GA4056431-robh@kernel.org> <CAKTNdwH6E5=9gZHB6tdianC2+1aDv4wnLmvL59kDW-dR3a12bg@mail.gmail.com>
-Feedback-ID: 184418679:user:proton
-X-Pm-Message-ID: f72cf6b7ff069e62495bd32a905a304144d1643e
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=selector1 header.b=WnDz1sCM
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uPmkJTL1NCGg76pAIUrFL3pmeyKcTzPdK9CyU8dXxSEWKzez7ysOfULYpsYqOoUs2KUuYhcA6pq4WBMr+BmdPGQ3OuwZnzjV9Nwyiwz01XI+VEUzQhVw+0JKSpoqP2OLd2wPcIVsCW1PKN35VEXEQ7h33Thuoywk8saHR5LfeZ4AqMCn9znItVnLMuZNwM6f92c6XIkHfo3m4RHg5LevToVZ4KQxyfJc9ICvcDc7uiYRcUIjzuyTc6/XXiygiW1qCmGY7rA55MiwgqQgPc3+MgzF/KT42crJU80BDOefmRITsOLmX6J6/rWYtmrPl60IXSaEpxhzwIz1RFKKhLOrGw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Nq5o9yhkYtuH+ZXDc69/fViNewBFXpBRSbbR1U7zUpI=;
+ b=gJLzTJtfMx8ZmtL9PSXAvWzhVEBr8F2O8cfsDuV+fSaxo9dBnOLDW/maH7tD/VVcu+ABlUBDZaYa2Itu6Uw8r3iyBEfI3wlVZLGNQGbVTUrjDnQU+jW1hqURWgKWHfKQH5obmzeiVQtcRh+hLbjfHTe4ivruifML3Jc/+ADqsjdFSwGO+cfHk1PE7UBMKo3N0byJqkvcGHFEhdouXmyLWcg+NaOhRXh2vT2IT4NEAHqgDXl9DTyZAEuU4oiugoCQ7Om4whdFnWIJIhlsC/OzS6TB4QHU3t3NsPQDDEn4otcHyelHpVmDDZY2pEIf/t9uqP4I0tyBO8Ask4QwtjxmJA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=efficios.com; dmarc=pass action=none header.from=efficios.com;
+ dkim=pass header.d=efficios.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Nq5o9yhkYtuH+ZXDc69/fViNewBFXpBRSbbR1U7zUpI=;
+ b=WnDz1sCM6HUcYzV8QNrKtcKa93WZFGKP2ItTpTkICALORfMLfGJ2nGB1Tmoxi80JRIGv+QJOEyz5RsuCtF64w4p3UHRQBGuMePKG9m5wIeywcmHiMMrsP1Rd3Xy64yvhh8oqH16sqHk1Zz7365Qvs17lHuyvaYTTpEamnRoLBGxofqBuclhMIIKbqesMm1k1xH9epAAh9i/FL5kDJ15v/8slWeJCyVmApj5zr+jHVw966mAAouhI3Ytpf0nNYFAF9NERbDzVHf1rVGBrUN9O6tCFT7iN/DTH6AN3VALa773iiK6X58M09iLeqfm56oWupisUF/VL8yS9n/8/TZD4xg==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=efficios.com;
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10) by YT2PR01MB8487.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:b6::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
+ 2026 14:52:24 +0000
+Received: from YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc]) by YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ ([fe80::6b9e:a901:67c5:7ddc%6]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
+ 14:52:23 +0000
+Message-ID: <f6919908-b943-44a9-a71a-35d5a85d54c7@efficios.com>
+Date: Wed, 18 Nov 2026 09:52:22 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 08/40] sched/deadline: Do not replenish a boost from
+ cleared parameters
+To: Juri Lelli <juri.lelli@redhat.com>
+Cc: peterz@infradead.org, mingo@redhat.com, vincent.guittot@linaro.org,
+ linux-kernel@vger.kernel.org, tglx@kernel.org, will@kernel.org,
+ boqun@kernel.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, luca.abeni@santannapisa.it,
+ mathieu.poirier@linaro.org, longman@redhat.com, ridong.chen@linux.dev,
+ tj@kernel.org, hannes@cmpxchg.org, mkoutny@suse.com, shuah@kernel.org,
+ bigeasy@linutronix.de, clrkwllms@kernel.org, parri.andrea@gmail.com,
+ m.szyprowski@samsung.com, kayracizmeci@gmail.com, weihengqiuu@gmail.com,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-rt-devel@lists.linux.dev, stable@vger.kernel.org
+References: <cover.1794922146.git.mathieu.desnoyers@efficios.com>
+ <cefacab5f1c0e7617f17e050af4ef5f6db01700a.1794922146.git.mathieu.desnoyers@efficios.com>
+ <av2k8JlLvUcBBOhn@jlelli-thinkpadt14gen4.remote.csb>
+ <ddd215ff-d6de-4dea-b12a-80948a9b5ea6@efficios.com>
+ <av2295tJMdwRp3wK@jlelli-thinkpadt14gen4.remote.csb>
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Content-Language: en-US
+In-Reply-To: <av2295tJMdwRp3wK@jlelli-thinkpadt14gen4.remote.csb>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: YQBPR01CA0149.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:c01:7e::13) To YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:1d0::10)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,125 +111,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: YT6PR01MB491026:EE_|YT2PR01MB8487:EE_
+X-MS-Office365-Filtering-Correlation-Id: a1fa2958-050d-455a-a29f-08df45838e19
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|22082099003|18002099003|261009223027099003|4143699003|56012099006|261026121527099003|261028144727099003|261026140227099003|261022105027099003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	ODccdgiX3mhxduAm90yuGwsI+4vv06dvbOQCS+ZYv0hgG1DpxuTZZYqFEaekYW9x98U8d0KqG8eFQAUYF9aXjYv9puS5EG6nVXNEPGcNoz+B4vuFOLlup2GlKXncwYb2XZPOJ330NguQF9sdeNLxVXYqFVodSC9lJUD7IEPEvJk7XLpeTvz7hX19mDUqO/+JtjNaEd1pcHVnptB/X7SY2pRvmPxCywF+mF0f1hqsvvA20NSDdoMztU0rKi2Lth9X6UXlglFKQWyrh5VF0ioe2k12aQaoZ26p4s1fjAUQLzj0MQ+m7O+Y6dR1R4sLCNUpJRZN8o2jWd+FPU7wIcA+ydVvMHVfrgauE10GSNH96IL14T6+Gwh/q4BNaRNhwIC4E01BniOmUousjJ/qmq6SGbatiOuHTloUQqbPJu/Ye7HQACGxJVktg2zwYnm/BAIFIjeOdSJsfQkfEitZubp7/tRqLm3alPBzv+mh0vMkZY8KDLhI5AECfQ04fHEsVZzidpycZGBTGGm1TbTQ2exkKweSDtMueiE+VoHYlqjqjulSCUaBQJSAPKk1MbufBKG11XEAQW8LHCYTVPBIV6PfxowMfS/lOg9vrq4zwPWQEEM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(4143699003)(56012099006)(261026121527099003)(261028144727099003)(261026140227099003)(261022105027099003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TmhMTm1rMWVoT0dXOFJJZnZIUU1MbFdmZnFBakNmc0tzY251UXRKV0VmM2o3?=
+ =?utf-8?B?U0pCV3pOMHJKQjBZMzBjcDd0TXVhV3hBSnFKZjU3cEwyd3Q0SVpuNXd3MXVC?=
+ =?utf-8?B?VVdoUnBHQkd6cmYvZkdVaDFocDRTNy9lb1B2dVB1cWJJNXprZlBqSHhua0Ez?=
+ =?utf-8?B?WmpZa3AzVEEwUXBJa2VMYjUra01taHBKZ2x5elRYMUFNMG1WTnozemNtLzVG?=
+ =?utf-8?B?SUU4Y3VyUk1LOWMxUTJFNWowRXV2S2dmbUorQnNNTEUrZU45YjhZdTUybk1q?=
+ =?utf-8?B?NFdjTkNsTEFmN2dyZkNMR0NvbkZZQlVldXo4NlhxWHJONmFJd1pLMVA1dkxm?=
+ =?utf-8?B?YlJYOVdOQ1k4SHFaZ256LzJXb1dnTUFJcUhvcHJaN094alYyVFJ6emprUTda?=
+ =?utf-8?B?TGF4RkFsak1kREhjMFM4dXRBUWgzOUZ3bUlORlRaT2FWWlgwZXdkdjVsckx2?=
+ =?utf-8?B?eklDOVgzMDh2ZURKK2xtUFNoMGpMVHJEMkhkbCtIb0JZZ1FNU2htV0xqelFR?=
+ =?utf-8?B?Tmw1TzkvSHQ3eEJCc2s1SG1TNHJwc1dyQXA5Qk9rZGllZUxxMTNwZWgybStB?=
+ =?utf-8?B?N2xRalhDQ1RUZ1NMcjJLYWNaQjAxaGNXdllMRG16Qk91d2NrWklKV2xaYk5R?=
+ =?utf-8?B?Q280U2VMR1VxRWt6anAwS3JLQUN1dCt1WHc4akFvRmlKejFSRllkT1R6UTdL?=
+ =?utf-8?B?NFRKYkdYMDl4cVNMUjVQMHB4Ni9PS2hEd1J2bEEwR0F4K2JvbVJwbXU0SHRN?=
+ =?utf-8?B?T1piNkx2cEFvWC9rTkdkbDB5UnMwZnZ6cElFVklicnRrUFhoUndOWWhmSHZW?=
+ =?utf-8?B?WnBZWnpxejAyLzY2MzVBeUUrZm5nZWlqSFY2YlpBR3ZlWDJRV1QycW93UWZR?=
+ =?utf-8?B?N1h2WUZZb24vbzB5Ryt2aGJNTExjTVlCMHV5dG1rMFBIeHJ6TVhHQUd6aVVP?=
+ =?utf-8?B?M3NZb2ZNUk53bm1hOFlXRUdIYUdjbGhOc1U3YlBoRHg1aTZRYzFKSm1QTExE?=
+ =?utf-8?B?QlFYSU1sOTc4RXkvNkQwbS9WNW5zbGZnQnNLaDhFZUIrcnhIT0dpczJHWGNr?=
+ =?utf-8?B?S05MUE12WWRXWi9MeVFoMlAyRUFPV2Z5b2hMRWRoQUpUV2pHSjFWTk1OOWFp?=
+ =?utf-8?B?Y3cvSlZIcno0a2pBdzlMakdYaG02VGxQcFZYNWsxdXVORCsxNTBiUXBZd2xO?=
+ =?utf-8?B?MGduTFFuODg5VzR2NTlRaE1mVmRJRm1PUS9qeW1aSFZQdHRSajRrMnRJT0Rx?=
+ =?utf-8?B?SC9vTGd0QktSbmd2czM3eEFQRHZxOFhRNXRsN2hJVVcvUU1yNys0Zk1mTjF0?=
+ =?utf-8?B?WFR2ZWVpTEw2a3NhSXF1cXhBY0xKTWNhUlpLUUtQYk5WU201R0pRdW85ZzIv?=
+ =?utf-8?B?Wit5TDFXc2Rtekg0UmlGYXFCajhVNTRlOTZJdEVuMjdJcE1OdUU2aHhRaFpl?=
+ =?utf-8?B?WHNzL2xxa0FxNGxpUkJCakVVRHd2cmxEUDVncnJlTDJ3aDhtNEluRURVQ2Jw?=
+ =?utf-8?B?L0xIMHQvU3hSVkVISkVHbHordHRzYm11L3BGOVRGY096QWNmZXcxNUdqNDBS?=
+ =?utf-8?B?UGYySEk1Y0d4dk9MRnA3aEVkQy84aWwyVFk3QWh1RU5DNThNOVg3Z24zV1dY?=
+ =?utf-8?B?SmJoSEUvZ00vWUFSNnFudG13NmlFYXAyN3EwS1hSVHFiRHZDNFdRdmI3RHdp?=
+ =?utf-8?B?UTcxelJodUprSFlVT1VJVHFGdmdtbmZ4WXFzdjJVMWhraDkxSTQ4ZDFYRUNN?=
+ =?utf-8?B?cmhlNGFoSzAyUUNCTHdYL2RYeWZERWNkWVdManRTMGxKblBKczFVUndVZ2RJ?=
+ =?utf-8?B?MzB0WkxCTG5VWlJOWjhoSXBURkhSWitoWUlYbWtlZVdUd3lrWTZyNjU5M2RN?=
+ =?utf-8?B?SzduWlBSZUdmb240dmxNWDJaZTBvL2RoMnVldVlqa0lXUVJ5SWZTWjg1aElF?=
+ =?utf-8?B?bUhHQTdEVnFwTzRFWTZpQ0dEc3k5V0FJdjlYQjhsbzFSNUN4cnVBTmg5SWxH?=
+ =?utf-8?B?UFJBNktzKzBJajZwdVkvVm5RUU5WRTJFRUU4STVJMTdwemRnak1mYjBXVVlz?=
+ =?utf-8?B?UWhpRnBJK3pySE0rYUZtUVRLamlFVXV2MTB3WkN2dkFJazRXSDc5c3hUeU9K?=
+ =?utf-8?B?bUYyZTBOMCtZWUNWZjdTZ1puSVYxRHJNNElhZXpwbkFQbXJSSTJsVUsrTk1h?=
+ =?utf-8?B?Q3plUUZ5dU5jSmZCemF1bE5ueDNZd09xb0MzY2xCSEhEaVdhVFRSc2NqUUNG?=
+ =?utf-8?B?YmJ3RFBOVDNRSFJiSnprR1F1cU9UWjY1TkduNzZSbHBjWWlrcldUTTdzOU9Y?=
+ =?utf-8?B?YnR4M25ieUxJSTNSUUdETThLck41b1NQSGpyanUyNVJ5WTZReGl3dWc4cjUz?=
+ =?utf-8?Q?yndiduiSK5/sH7SifPbL9vugRwdx1aE+8PaZp?=
+X-OriginatorOrg: efficios.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a1fa2958-050d-455a-a29f-08df45838e19
+X-MS-Exchange-CrossTenant-AuthSource: YT6PR01MB491026.CANPRD01.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 14:52:23.7951
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4f278736-4ab6-415c-957e-1f55336bd31e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: LvCPkxGN4RNczm6w0xV9Gl1FDYmsrZyO0Kp8kPAUW7+e8Fg7O8t1HENOJSYiYTFcoOlBnm1cHWhkN9oZWUbE6mGWqJ7K1V5okzf3SQeh/2o=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: YT2PR01MB8487
 
-On Friday, September 18th, 2026 at 3:08 PM, Alexey Charkov <alchark@flipper=
-.net> wrote:
+On 18/11/26 15:32, Juri Lelli wrote:
+> Hummm, now that you say it, crediting Sashiko for findings might be
+> worthwhile (for usefulness statistics etc), though.
 
-> Hi Rob,
->=20
-> On Fri, Sep 18, 2026 at 2:19=E2=80=AFAM Rob Herring <robh@kernel.org> wro=
-te:
-> >
-> > On Thu, Sep 10, 2026 at 06:48:33PM +0400, Alexey Charkov wrote:
-> > > On Wed, Sep 2, 2026 at 5:08=E2=80=AFPM Alexey Charkov <alchark@flippe=
-r.net> wrote:
-> > > >
-> > > > Rockchip SoCs are shipped with a unique CPU ID in their internal OT=
-P
-> > > > memory, and Rockchip bootloaders use it to give boards which have n=
-o
-> > > > dedicated storage for a MAC address a stable one anyway: they hash =
-the CPU
-> > > > ID and patch the resulting addresses into the device tree they hand=
- over.
-> > > >
-> > > > Kernels started without that fixup, e.g. straight from the SPL in F=
-alcon
-> > > > mode or by any other loader which does not implement Rockchip's der=
-ivation,
-> > > > fall back to random MAC addresses which change on every boot.
-> > > >
-> > > > Formalize the derivation in the DT binding and add a Linux kernel d=
-river
-> > > > implementing it, so that a Linux image can use the same stable addr=
-esses
-> > > > regardless of the boot flow.
-> > > >
-> > > > Only RK3576 is wired up here, that being the SoC I can test on. Oth=
-er
-> > > > Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 =
-rather
-> > > > than 0xa on RK3588, for instance - which makes supporting them a tw=
-o-line
-> > > > addition to the driver's match table plus the layout node.
-> > > >
-> > > > Patch 1 is a prerequisite fix. The OTP hardware has its own interna=
-l state
-> > > > machine which only works correctly with serial access, but the curr=
-ent
-> > > > driver serializes nothing, which results in timeouts and/or corrupt=
-ed
-> > > > reads (e.g. returning splicing a TSADC trim value into the buffer o=
-f a
-> > > > caller asking for the CPU ID, or mixing up trim values of different=
- TSADC
-> > > > callers). Hence the Fixes: tag and Cc: stable.
-> > > >
-> > > > Cross-checked on an RK3576 board: the addresses fixed up into the F=
-DT by
-> > > > U-Boot match the ones derived by the new driver, and the driver cor=
-rectly
-> > > > assigns them to the network interfaces when the kernel is booted wi=
-thout
-> > > > U-Boot proper at all (via Falcon mode).
-> > > >
-> > > > Sashiko also rightly pointed out a use-after-free in the nvmem core=
- when
-> > > > a layout driver is unloaded leaving its sysfs nodes and the postpro=
-cessor
-> > > > function pointer dangling. This is fixed separately in [1].
-> > > >
-> > > > [1] https://lore.kernel.org/all/20260902-nvmem-layout-unreg-v1-1-2d=
-16bebeb518@flipper.net/
-> > > >
-> > > > Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> > > > ---
-> > > > Changes in v2:
-> > > > - Switched from a scope-based guard to explicit lock/unlock calls i=
-n the
-> > > >   OTP driver to avoid mixing styles in a function using goto error
-> > > >   handling (Sashiko)
-> > > > - Link to v1: https://patch.msgid.link/20260901-rk3576-otp-cpuid-ma=
-c-v1-0-ea9135270fc2@flipper.net
-> > > >
-> > > > ---
-> > > > Alexey Charkov (4):
-> > > >       nvmem: rockchip-otp: Serialize reads
-> > >
-> > > Incidentally, patch 1 of this series also fixes CPU thermal throttlin=
-g
-> > > on my RK3576 device: apparently, the mis-read OTP-programmed thermal
-> > > trim values broke the thermal governor logic, which now works
-> > > correctly with properly serialized OTP reads. So it would be great to
-> > > have these merged.
-> >
-> > It would be great to have the sashiko comments analyzed and replied to
-> > as well if you would like this to be reviewed.
->=20
-> Of course. One code-related comment Sashiko raised has been addressed
-> in a separate patch [1] which is still pending review. The
-> binding-related comments will need to be revisited, as I'd like to
-> first explore the idea Ryan proposed in the adjacent thread [2], as it
-> will change the approach somewhat if it works out.
->=20
-> Best regards,
-> Alexey
->=20
-> [1] https://lore.kernel.org/all/20260902-nvmem-layout-unreg-v1-1-2d16bebe=
-b518@flipper.net/
-> [2] https://lore.kernel.org/all/20260916123355.4507-1-untilscour@protonma=
-il.com/
+Agreed. Documentation/process/generated-content.rst also asks for it:
+"if a tool was used to find a problem addressed by a change, that
+should be noted in the changelog". The next version keeps the credit,
+without the number of the posting. For this patch:
 
-Hi Alexey,
+  The Sashiko AI review of this series found the lockup.
 
-Have you had a chance to explore this? I have got a working proof of
-concept [1] for the format I suggested, tested on RK3576 (NanoPi M5) and
-RK3528 (NanoPi R28S).
+Thanks,
 
-Best regards,
-Ryan
+Mathieu
 
-[1] https://github.com/untilscour/openwrt/commit/a622c1cf292f7a4bb7093521e2=
-5436be324fc1a4
+
+-- 
+Mathieu Desnoyers
+EfficiOS Inc.
+https://www.efficios.com
