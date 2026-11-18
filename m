@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795058770;
-	b=dJzi6Po9O6B5b6TY7yTpyLphrbm1rb1RebfOJWS2Kh/V7Kmysj4QTbqdAtH1zowxhhn5
-	 M3V2tt/mn4Sey+d9Yy2JMkedoPGfBhZhUlgxgx0Rmv4xVIIqbA6OsWW/JViNpWnxX1lY3
-	 wAZrB7esKBi5ek8J/ifkZPjs/mIu1ejEF2VfU0i2PudarEzAGzFsjsosRgvqFg/bzz6zj
-	 0AbFngTEwIX8D1TBy6yfEN+pHx6sc/Rn1/ToOIRS55QQ5zSQnYQuC17EGpJb8+O2vcNrO
-	 REYi8H3iLcpC/N8SHIqxQz4KtOkKIYyjBNZTTho3wBb9TUlGbsqpFohuXeyDuXs7w/A==
+	t=1795058772;
+	b=wrbKR8lbfmPAdDlEGvMv4KbUr0DoKjTW+s61tz3mMB4o4ZBKYwx8Y6BIIWiVrSAeIX4A
+	 TC5nzri0Kgx9YM6Rqb1TOXIhq2vPO8X+r6UdEN6CdtYMtQplJIw5MWahOr6Gq3SSX6PL1
+	 ExxGFN/N0Y+wvETtkmHutdIOyCEAV3PnjghSx1mVxVydrEQx6lgu8uWVHLWZ8sH+TCJDS
+	 pLyrFXFpLb35VLfW6ARhwRvGWoFi1VOGNAe3uMYg9pjV6+O0iNslt4ECj8mDjxoiVDpZZ
+	 aN8aSqIKjIn7iejSdC0cJepKiA2y+p7nIXF45KMR4QD+d6TWBOwBpIi6Flal/tH+7OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795058770;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=tEgnrxtnpWYOH8kNf1lgsgiYbPyppwMcUpEzbr89LnE=;
-	b=xYli2+V+AVKRc+a/VGDzNXi19jzTMA26SH0Ww3rGhXRLbSaBNo6g6gZbwEJF6GfDOEo7
-	 /RzdoK0nbGxvx7TIS3G9eJrVKrTbFAHPUK9jMYTZFdUMQsGQw+SS5i7k6tOG3pVmMTO33
-	 8FWASuLuzfzA07YLwg7TCvJ67LitfMfKk1oEmmahAfZyxhqbfH50gz+Y2EKsOhRMTV6CO
-	 2aaiUJf/sjlakP66H/jOJpE59u1D8buQRc1FzAHiPa8cwPDYy9wf+S3eiztKWPtdZoFs/
-	 rjfBbsLV1lrGvmJZtRUH4YNXUHPvc3KVABMiPD6MGVcZXxBznyNo4xoqEmAL7kc12hQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795058772;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=P1fr4AiE5e5uDYRuQXC1UfuK6YwZq4bK/FZ5sqbzMc0=;
+	b=p7JGCYGypyELO7v3sBoiCl3RAMZEVryENkzgmeGfLOC7YgHLc2EFYjUqNIU44Er9pRG2
+	 qhxxYIs6JJ5A9D8LCOGHiABi6mZxLCTjP05anvEck/SqCj+6yFOap2l2/rWTphLvrFKDl
+	 gU4h2FQFMlbjw334sk+yVlGnR44mRWET9u+ZzfP19Mr7ZjJ+cAHGgpK7MjOUzbjmbVm4x
+	 kIl2vWQctDA2TS5tskdABWKxUPhwdQxxf55Qu+j8bCmaCe9Ch36DmS02hLMns8KisYRk0
+	 CNEr7BxThq7HXbWNmMZASA3ibnxE8hzauZLcBMgLqRYNI9nKkY8Giafz0cVgsTsaDVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pm.me;
-	spf=pass smtp.mailfrom=pm.me;
-	dkim=pass header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=cjCCiyLL;
-	arc=none smtp.remote-ip=185.70.43.22
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SoL2zXix;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F087D606A326;
-	Thu, 19 Nov 2026 03:26:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F087D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B088606A337;
+	Thu, 19 Nov 2026 03:26:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.a=rsa-sha256 header.s=protonmail3 header.b=cjCCiyLL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1795058768; x=1795317968;
-	bh=tEgnrxtnpWYOH8kNf1lgsgiYbPyppwMcUpEzbr89LnE=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=cjCCiyLL2IgkcOy/AWdNJ61TeeTW0CsknRxXK1rGyyEx1TUgp6hqRmtkxkKsWJNi6
-	 1p2lIcXi4JLeruVA/harW0/4j1F3kl3SOY2GPGWfPgFa2wDdoWxyMhBMUbh5VzRfS5
-	 l2LwR30ABmVbFfOwrhD+TtVKmtjySYo633KlncyGkF1JHuS/TqqVOGGQLHAg1mGhb1
-	 ySZlY5yJcgMHiXdMCXD9VNovY+gcZFtwTVtKlRTkyVbYEDAvKOe6CvtCuQC7w6C++e
-	 /ItPfteGc4Ckcom+TZh9FUEZxyyn4Kis0Wh93vlD/vgVsywXguUe58HA2CTieaLiCA
-	 gGD4jjoMI5CkQ==
-Date: Thu, 19 Nov 2026 03:26:02 +0000
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev, linux-kernel@vger.kernel.org, torvalds@linux-foundation.org, akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org, achill@achill.org, sr@sladewatkins.com
-Subject: Re: [PATCH 7.3 0000/2651] 7.3.6-rc1 review
-Message-ID: <20261119032558.37385-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: e77117cf9639a404f1ec6fd24e8e8b7d7337584c
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=SoL2zXix
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B721F000C4;
+	Thu, 19 Nov 2026 03:26:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795058772;
+	bh=P1fr4AiE5e5uDYRuQXC1UfuK6YwZq4bK/FZ5sqbzMc0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SoL2zXixKbSDkQuMBcnuHZz8pOua6XQywyynVIXK5EFns3bJtgYRTU+dddBIZ4lN4
+	 WFEfJoyCLpEy9N8a9PrmrloDaY71m9spJxb9BP9GqyRBIwQC4ID2YfCaqt9/Flfp8j
+	 +CAZ4nf0gWP1o4yGxnPer9+Na8wERoPaLLZNmRp4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Kunhai Dai <daikunhai@didiglobal.com>,
+	Tao Cui <cuitao@kylinos.cn>,
+	Tejun Heo <tj@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 0604/1848] blk-iocost: abort weight transfer on invalid donation weights
+Date: Wed, 18 Nov 2026 15:44:02 +0100
+Message-ID: <20261118145940.630317520@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
+References: <20261118145911.150052362@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,19 +64,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Built with Ubuntu's config (Rust off) and booted on a Surface Pro 11
-(Lunar Lake, Intel BE201 Bluetooth over btintel_pcie). Ten s2idle
-cycles: no suspend failures, no alive-interrupt timeouts, and Bluetooth
-up and scanning after each resume. That covers the btintel_pcie series
-(1882-1886); its PM paths are the same as in v7.4-rc1.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-One problem, reported separately: 1120/2651 (debugfs_create_str()
-read-only) is queued without the two patches before it, and warns at
-boot here.
+------------------
 
-Tested-by: Sergey Lebedev <lsa.uz@pm.me> # Surface Pro 11, btintel_pcie s2i=
-dle
+From: Kunhai Dai <daikunhai@didiglobal.com>
+
+[ Upstream commit c810ee88cdab27f443c32270dc7c0eaad2cca3f8 ]
+
+transfer_surpluses() warns and then keeps going when the donation
+calculation produced invalid weights.  The following propagation can then
+divide by a zero hweight_inuse, so the warning is immediately followed by a
+divide error.
+
+When the check trips, abandon this period's donation transfer and release
+the walk lists.  This trades one period without donation for not crashing;
+the invalid state is not expected on the normal path.
+
+Developed with assistance from Claude Code (Anthropic): the assistant
+analysed the failure path, drafted the change and ran the checks listed
+below.  The author reviewed the result and remains responsible for it.
+
+Fixes: e08d02aa5fc9 ("blk-iocost: implement Andy's method for donation weight updates")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kunhai Dai <daikunhai@didiglobal.com>
+Tested-by: Tao Cui <cuitao@kylinos.cn>
+Reviewed-by: Tao Cui <cuitao@kylinos.cn>
+Acked-by: Tejun Heo <tj@kernel.org>
+Link: https://patch.msgid.link/20261019125412.3123895-2-daikunhai@didiglobal.com
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ block/blk-iocost.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/block/blk-iocost.c b/block/blk-iocost.c
+index 98866b3bfc275..46f2b01c782a3 100644
+--- a/block/blk-iocost.c
++++ b/block/blk-iocost.c
+@@ -1914,6 +1914,7 @@ static void transfer_surpluses(struct list_head *surpluses, struct ioc_now *now)
+ 			pr_cont(": active=%u donating=%u after=%u\n",
+ 				iocg->hweight_active, iocg->hweight_donating,
+ 				iocg->hweight_after_donation);
++			goto out;
+ 		}
+ 	}
+ 
+@@ -2012,6 +2013,7 @@ static void transfer_surpluses(struct list_head *surpluses, struct ioc_now *now)
+ 		__propagate_weights(iocg, iocg->active, inuse, true, now);
+ 	}
+ 
++out:
+ 	/* walk list should be dissolved after use */
+ 	list_for_each_entry_safe(iocg, tiocg, &inner_walk, walk_list)
+ 		list_del_init(&iocg->walk_list);
+-- 
+2.53.0
+
+
 
