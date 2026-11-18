@@ -1,53 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795021174;
-	b=OLic0QGesHnTzMn4HO4k0PKua7E2O3ufsaxy8JgPR/B5nJJ0CEGFCofxkyJgs+Rtgt05
-	 Yvdl/I1nvHr6NOun69pTtTpg75u573pU8uA7aLpMzz8HUoe5rtFxT6EctjD3daHyGbhUQ
-	 UZ5hbymkgsYKutJntr8dDWGnungImIeeifS6a9Wm7LyYJUyq3Q+xUy66WQ1Fv7QqObx49
-	 E/n6f/YBszEb8N40U4mqM+/ISIjpgk6hJHnJH3AoqlJz1rkJdKMem1G4RBjXH0eBxXvb3
-	 pq2rj6iLtAVLbzEGWUu0V6SOCSTuvX7LxyvtRCoULgc9y6L0KH6RF2jHaEXhjKuRZJw==
+	t=1795021177;
+	b=YrAsTuLYReFKGhyyIfSjbrTucTOGeg56FxqWjmNUiknJeqNHl1D1hMV1H3XiwGxYQvg2
+	 1SV447iQEn2q9rALV0hQO6VzGzkfM2xxX+OfRWQiUKpAs2YPCfp3zGnxX88ecgFGnfqqe
+	 8FooGour6hoS1UyRGxVshu0bwuzoiIcpln1pikeNkk1qEIdRVqZmjV/aRmqHyMbNlAALw
+	 g7sLculc89tFcladgEMsvSizyFhVzbjswl/xYGD3YBZi4I2eA0ijiPUHW7zEBZP2IeYsW
+	 7zt8HcW7yEgxvYQpz1rQ6BbG6px01qWyUW/84kX0wxPZ+MQUyhNlghjJtzpP4UMefvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795021174;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795021177;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=F7fKmBR5mIdS8aqknHWRGprioJPAr4c23sWZuqI1PwY=;
-	b=Egngjjf4MBqodQB1GLlRJtds8lF/yD//c03fc5m16XLTldR4RVTTj7fYMOipgenH+9Za
-	 fytdXwAWBBeozKgmXrHPQJG74nQjb2oAQwoJwtcpJVXtiyUdv+duSRfkJ3ylGGkhajlN+
-	 r4+7AxQv9l3//YV9vzpszj3L1N546lO91skqITZyh8qRP5dOYE7UddM3bPhwIMaXPcEN4
-	 muRteZiWVdzOLJ1C6dW0nvAA7WZFeNLhymweuN9FwbAqNLk+/tnY7gdbAFtdzNOAOlMru
-	 3d5A796plbFudMcGoGSZnOZTnnrrcmLWpCvyjGZfSJKtdQj5mm5JHt3Wbp2dGX7PfXQ==
+	bh=PbdDe7yfSO220EtkaJzhhh81+/cQeBncWKVYKl+JDZo=;
+	b=vY36L8uY1FEmzgds7zT+pIbQxtGjZ7GPRYDde3sebpaGaNBnmfQ2tx7yN/Hq35G7z0Fx
+	 EN6dT60o9fYVCOVLwLRS5eV8xXV3bQMuoIN2SVS7ZYvitTOUUQwqi4K8IRXkcXFtCTt3R
+	 H99oxJzmBLjUWwK/ghrLniCOYSGz+a15hwwJ5DsTvqaTiL9dGcuypEfXOpgkA9zXGHQge
+	 INO9XeA/JMLknatif2istZczPoqqn45RX0aSBns1XMLjFTq0aLckCEUFragf0WAdEtIIy
+	 LEGNaLvoPiDd8KKMrAZ0X4I8O+m1Lz/s9pqSDuBBX5YJAnBpgIAegp2EFtuWRfNYjUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="mb/QqY9N";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RYBXFwmY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFA2606A320;
-	Wed, 18 Nov 2026 16:59:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5973A606A320;
+	Wed, 18 Nov 2026 16:59:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=mb/QqY9N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96A641F000C9;
-	Wed, 18 Nov 2026 16:59:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RYBXFwmY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 605E71F000C7;
+	Wed, 18 Nov 2026 16:59:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795021174;
-	bh=F7fKmBR5mIdS8aqknHWRGprioJPAr4c23sWZuqI1PwY=;
+	s=korg; t=1795021176;
+	bh=PbdDe7yfSO220EtkaJzhhh81+/cQeBncWKVYKl+JDZo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mb/QqY9N4lqjZXqGSzg0+qbJCt4yr/HXUNF/B+1rezQvuKfbk54RXQhnqLtv87yaF
-	 5qBj5bbOiMu8mD2hxyuN/HTA+3TunFYi0ogUzQQMxDoaTKrP1k7MaNbt36Hv6ob7u2
-	 PdDq7EdkqAxWiHc8wgx7Bf9N5KoW1Rh3o+9GXdNc=
+	b=RYBXFwmYsfvXAD6rF4N/Mh5Vq31scZ3k+oDReQ7uFuIf1IQIt4Xo1p56zAC93RaG8
+	 hYGCiNro609KxyhDqjmSbT0He1vZ8T/nMZDPWoPIOjhr5vnQOaPbvhkYQ+Ee0+/b4P
+	 OThI4C9vXENmHMcowu5kFXtyzZC1HrQ0KSe3LnvE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Guopeng Zhang <zhangguopeng@kylinos.cn>,
-	Waiman Long <longman@redhat.com>,
-	Tejun Heo <tj@kernel.org>,
+	Baolin Liu <liubaolin@kylinos.cn>,
+	Hyunchul Lee <hyc.lee@gmail.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 2186/2651] cgroup/cpuset: Do housekeeping check before converting invalid partition to valid
-Date: Wed, 18 Nov 2026 15:57:06 +0100
-Message-ID: <20261118150404.453763306@linuxfoundation.org>
+Subject: [PATCH 7.3 2213/2651] ntfs: accept standard sparse compression unit
+Date: Wed, 18 Nov 2026 15:57:33 +0100
+Message-ID: <20261118150405.304676915@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -69,47 +69,52 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Waiman Long <longman@redhat.com>
+From: Hyunchul Lee <hyc.lee@gmail.com>
 
-[ Upstream commit 2c0a5742fc459cd8416607acff4a38a1abcb2e1b ]
+[ Upstream commit 87a548005f7a56e4171ff5d2050c591547b5449f ]
 
-When a hotplug event happens or when update_cpumasks_hier() is called, an
-invalid partition may be converted back to valid. However check against
-housekeeping conflict isn't being done which can lead to a partition
-state that violates the housekeeping rules. Update the code to allow
-reviving an invalid partition only if it can pass the housekeeping check.
+Windows native sparse-file inspection shows that a non-resident $DATA
+attribute can be marked sparse and record the standard compression unit
+(4) even when the file is not compressed.
 
-Fixes: 4a74e418881f ("cgroup/cpuset: Check partition conflict with housekeeping setup")
-Reviewed-by: Guopeng Zhang <zhangguopeng@kylinos.cn>
-Signed-off-by: Waiman Long <longman@redhat.com>
-Signed-off-by: Tejun Heo <tj@kernel.org>
+Fixes: af0db57d4293 ("ntfs: update inode operations")
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>
+Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/cgroup/cpuset.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ fs/ntfs/inode.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 4080e08428c4e..7443ee44d4d4e 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -2006,9 +2006,15 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 			bool exclusive = true;
+diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+index 302089f7f83a4..71b364e2ca73f 100644
+--- a/fs/ntfs/inode.c
++++ b/fs/ntfs/inode.c
+@@ -1148,14 +1148,21 @@ static int ntfs_read_locked_inode(struct inode *vi)
+ 					goto unm_err_out;
+ 				}
  
- 			/*
--			 * Convert invalid partition to valid has to
--			 * pass the cpu exclusivity test.
-+			 * Convert invalid partition to valid has to pass the
-+			 * cpu exclusivity test as well as the housekeeping
-+			 * check.
- 			 */
-+			if (prstate_housekeeping_conflict(cs->partition_root_state,
-+							  parent_prs, xcpus, NULL)) {
-+				part_error = PERR_HKEEPING;
-+				goto write_error;
-+			}
- 			rcu_read_lock();
- 			cpuset_for_each_child(child, css, parent) {
- 				if (child == cs)
++				/*
++				 * Windows stores the standard compression unit in
++				 * sparse attributes even when the data is not compressed.
++				 */
+ 				if (NInoSparse(ni) &&
+ 				    a->data.non_resident.compression_unit &&
+ 				    a->data.non_resident.compression_unit !=
+-				     vol->sparse_compression_unit) {
++				     vol->sparse_compression_unit &&
++				    a->data.non_resident.compression_unit !=
++				     STANDARD_COMPRESSION_UNIT) {
+ 					ntfs_error(vi->i_sb,
+-						   "Found non-standard compression unit (%u instead of 0 or %d).  Cannot handle this.",
++						   "Found non-standard compression unit (%u instead of 0, %d, or %d).  Cannot handle this.",
+ 						   a->data.non_resident.compression_unit,
+-						   vol->sparse_compression_unit);
++						   vol->sparse_compression_unit,
++						   STANDARD_COMPRESSION_UNIT);
+ 					err = -EOPNOTSUPP;
+ 					goto unm_err_out;
+ 				}
 -- 
 2.53.0
 
