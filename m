@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016856;
-	b=X9JqpjSbFashEAckwMylDTZJTqlVBmJMhImoyo5gy5+PDfbzMB58vaDCoohG9grusMp7
-	 ZshnauHqssEBr33wmAxb+YayWFNXcVcuCtXajRMmC74ZuC2xsWbEKQ7u6ZxOMmhKmYTEn
-	 pkz/2nfbv4T1KWvYLnFQxKAsepsxUeLDCdr8+EQxzYeKpjz8R4WqXziibC1vnMNILK6mt
-	 SWu2KIkZwcfB1PZlhPgujxRyS5YzogzcKdus9ANNwhFyGZI5GfJwF2YDGdmsBl3Z3/ApS
-	 9WW9liS9XACpxB1DQw/6kXXWfdGF+9OnfqYu2524QpG+E7YwoU/y1X+1MwI+CMlw9nw==
+	t=1795016862;
+	b=ph+rzwt4e+x2ap0kCNB/LIxxYtcUJiOnDxPJtF/ECPyhLP3Nq3Z3FFqiMDCjcosCrMeB
+	 jU53yOHlgG3y66S+nVc20yVHTtppf2l90kM4h15VUOmPyKnWar9LJtKIXDPgB9ed7EUms
+	 Uaj2XQlRQUjt/FmE9sAYzKGe103Mn6WXiY8rUdGceVUhbJgPsNvpzgq9hGq3Afgwl+uVm
+	 6JbHXmDbb7gLM4wAmmLswpwCbwa/lZxg6jUsED4/k4Tudys+oGRF18fHusGjORY7mRT8r
+	 lfhnBwx1Yecvoumn7JhizGLs/MuPsOA+bIz6ovg2RVTrDBqxasxH2RavI+doY0xHFcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016856;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795016862;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=3QYxZBy92BIdnYYutJ+qU7Gzs/WzWEElByOL9PubJac=;
-	b=eEJTfXj8B2INy9nSIcQpUTPwEBrI7IFMDPOfcMul/pw7Pv9N4hJWvfTN3rpHDPqjZYmo
-	 NEDeXenjmye9yh10BFcR0eiIQSQrf8KSG1iuonAY/UuYmfP1rF1l4YsuNk09I32UOQeGf
-	 ZmCMqPFn2qSrcelw9wVIG9RZXosqKObk72x5Lhhg/bC2kQ+O++BVr1FfmUEDKp1R9SVe3
-	 kviFgYN71361RwTN//2qGJZkIxnaZ2UBqBdR1Iw3RB/BRE6E142EytCMSHZ2NJshKEZUf
-	 dAk0BVLTFpT2wmVzaBduZEArCh9kXZ6ZKhMHeVqOUrsfv3uMU/DsbEbZM6/6ZG7Rl8g==
+	bh=/LSRx2v9N76BJjWOYQrPYWzPGcSnHvx/IS+3bv18RjE=;
+	b=NAZDwOyNTtFrXac3jIqlrrrahRNiG7GWPe6T+uC+k8OvJCCe3mRQN9fc9kFTJr6bwBLq
+	 /TIajFyx+QNc0BF0X51yRpFK0eYWzeafBSFg0mB58+19an6RdZG2P1O1hOfGD36tm0AmO
+	 zHr51Shd53UyEd84ond5AOlpnL2kG5Y0ECmbBRjF2ia/47nsGRWFdRq2PC80fsDcTCEYw
+	 fZEdHFG8DxiGBHgRLFhJRJfKnkLkyNZnW8INC8yliqbr4hr1rA/UD22maLHcA0pT/ovLO
+	 MG+2PRRYG4gw7Q6dmzgHwSH0KrO9dEZG9m2KD7mXwM8XbXcUSCJQgy6Q3mjFZbQsksA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U88186bs;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z2UbE8bd;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5F5606A320;
-	Wed, 18 Nov 2026 15:47:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AD68606A337;
+	Wed, 18 Nov 2026 15:47:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=U88186bs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C53681F000C4;
-	Wed, 18 Nov 2026 15:47:35 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=z2UbE8bd
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518641F000C4;
+	Wed, 18 Nov 2026 15:47:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795016856;
-	bh=3QYxZBy92BIdnYYutJ+qU7Gzs/WzWEElByOL9PubJac=;
+	s=korg; t=1795016861;
+	bh=/LSRx2v9N76BJjWOYQrPYWzPGcSnHvx/IS+3bv18RjE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=U88186bsiJ7TuAltnZIpKUHU1eVNam8JcDwOz8+IsrW8LUl5jeIalWh23SKLdxes5
-	 66Ov0d4hELmfNckowT6b3Wv9Zv/Ob4GY1fmfe9IoqOnwGdgjicmMVo4K/B9ru+h6dx
-	 fGUOOC9RPo+JmyyQGwTrxmmCs9moO78+8C8aWEws=
+	b=z2UbE8bdm+aL8dt1REjFMZn3n+J+IBoc2Ag/z5vOU8OEv0zInHgupvAMet0QAQVH3
+	 ESFfGKDyUx0R7MQDFdHwH53EGOiZbygkVBFBPSI/JLCo5iBD8Rj6DGnN5YNBjAU3yj
+	 /llYSRlE/0JKmQuxOJ+96Qa8fwQw7ga6ByJg0ha4=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Manuel Fombuena <fombuena@outlook.com>,
-	Lee Jones <lee@kernel.org>,
+	Mauricio Faria de Oliveira <mfo@igalia.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Juergen Gross <jgross@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0650/2651] leds: st1202: Clear unused pattern slots in pattern_set()
-Date: Wed, 18 Nov 2026 15:31:30 +0100
-Message-ID: <20261118150311.085352624@linuxfoundation.org>
+Subject: [PATCH 7.3 0678/2651] x86/pvh: Really inline memcmp() and memset() to fix unbootable VMs
+Date: Wed, 18 Nov 2026 15:31:58 +0100
+Message-ID: <20261118150312.277935641@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -68,68 +69,73 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Manuel Fombuena <fombuena@outlook.com>
+From: Mauricio Faria de Oliveira <mfo@igalia.com>
 
-[ Upstream commit 119a7d375e5caedaf252198fa64e7df5d7269ab4 ]
+[ Upstream commit b24bc9dec9c89d01ccb675a55cda6831dc048ce9 ]
 
-The pattern duration registers are chip-wide while the PWM registers are
-per-channel, so a channel can end up driven by a sequencer timeline it
-never programmed.
+Even with __builtin the compiler may decide to use the out of line function
+instead of the inline implementation.
 
-st1202_led_pattern_set() programs only the first len slots. The pattern
-trigger calls pattern_clear() before pattern_set() only once a channel is
-already in PATTERN_TYPE_HW mode, and activating the trigger resets that
-mode, so the first hardware pattern written after every activation skips
-it. If another channel has already programmed a longer pattern,
-durations [len, 8) are still set, and this channel's PWM for those slots
-holds whatever was last written there.
+The existing code is broken with gcc-14/15 but not gcc-12/13 (Ubuntu 25.10)
+and vmlinux no longer boots with CONFIG_PVH if CONFIG_KASAN_GENERIC is set.
+The instrumented out of line function performs a memory access to a region not
+yet initialized by KASAN, as it is still in the PVH kernel entry point.
 
-That used to be LED_OFF, so a channel stayed dark for the slots it had
-not programmed itself. Since commit d2ca0e2b6d64 ("leds: st1202: Set all
-pattern PWM slots to full after clearing pattern") pattern_clear() leaves
-ST1202_PATTERN_PWM_FULL there, and so does the brightness path since
-commit 7cbe470366bd ("leds: st1202: Fix brightness having no effect while
-pattern mode is active"). The channel now plays its own steps and then
-sits at full brightness for the rest of the sequence.
+For testing purposes, if the size argument in cpuid_base_hypervisor() is
+reduced from 12 to 8 the compiler decides to use the inline implementation.
+In xen_prepare_pvh(), it (still) decides to use the inline implementation
+(at least in these compiler versions), but it is not guaranteed to remain.
 
-Zero this channel's PWM for the unused slots so it stays dark for the
-remainder of the timeline, as st1202_blink_set() already does for the
-channels it is not driving.
+Switch the builtin to the inline implementation to address this.
 
-The duration registers are deliberately left alone. All twelve channels
-share them, so clearing them would truncate a longer pattern still
-running elsewhere on the same device. A channel whose pattern is shorter
-than the active timeline therefore keeps the longer period; that follows
-from having a single hardware sequencer and is not something this can
-correct.
+  [ bp: Massage commit message. ]
 
-Fixes: d2ca0e2b6d64 ("leds: st1202: Set all pattern PWM slots to full after clearing pattern")
-Signed-off-by: Manuel Fombuena <fombuena@outlook.com>
-Assisted-by: LLM
-Link: https://patch.msgid.link/GV1PR08MB8497E9939E3C0D68401659D0C5BA2@GV1PR08MB8497.eurprd08.prod.outlook.com
-Signed-off-by: Lee Jones <lee@kernel.org>
+Fixes: 416a33c9afce ("x86/cpu: fix unbootable VMs by inlining memcmp() in hypervisor_cpuid_base()")
+Fixes: fbe5a6dfe492 ("xen, pvh: fix unbootable VMs by inlining memset() in xen_prepare_pvh()")
+Signed-off-by: Mauricio Faria de Oliveira <mfo@igalia.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Link: https://patch.msgid.link/20260921-pvh-kasan-inline-v10-4-08da47943d8e@igalia.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/leds/leds-st1202.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/x86/include/asm/cpuid/api.h  | 2 +-
+ arch/x86/platform/pvh/enlighten.c | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/leds/leds-st1202.c b/drivers/leds/leds-st1202.c
-index 168df5ecf27b7..b34c41d58e44e 100644
---- a/drivers/leds/leds-st1202.c
-+++ b/drivers/leds/leds-st1202.c
-@@ -259,6 +259,12 @@ static int st1202_led_pattern_set(struct led_classdev *ldev,
- 			return ret;
+diff --git a/arch/x86/include/asm/cpuid/api.h b/arch/x86/include/asm/cpuid/api.h
+index 25b22b173f2a7..759b12d94bbfe 100644
+--- a/arch/x86/include/asm/cpuid/api.h
++++ b/arch/x86/include/asm/cpuid/api.h
+@@ -205,7 +205,7 @@ static inline u32 cpuid_base_hypervisor(const char *sig, u32 leaves)
+ 		 * from PVH early boot code before instrumentation is set up
+ 		 * and memcmp() itself may be instrumented.
+ 		 */
+-		if (!__builtin_memcmp(sig, signature, 12) &&
++		if (!__inline_memcmp(sig, signature, 12) &&
+ 		    (leaves == 0 || ((eax - base) >= leaves)))
+ 			return base;
  	}
+diff --git a/arch/x86/platform/pvh/enlighten.c b/arch/x86/platform/pvh/enlighten.c
+index f2053cbe9b0ce..cb442cbd9d828 100644
+--- a/arch/x86/platform/pvh/enlighten.c
++++ b/arch/x86/platform/pvh/enlighten.c
+@@ -8,6 +8,7 @@
+ #include <asm/hypervisor.h>
+ #include <asm/e820/api.h>
+ #include <asm/x86_init.h>
++#include <asm/string.h>
  
-+	for (int pattern = len; pattern < ST1202_MAX_PATTERNS; pattern++) {
-+		ret = st1202_pwm_pattern_write(chip, led->led_num, pattern, LED_OFF);
-+		if (ret != 0)
-+			return ret;
-+	}
-+
- 	ret = st1202_write_reg(chip, ST1202_PATTERN_REP, repeat);
- 	if (ret != 0)
- 		return ret;
+ #include <asm/xen/interface.h>
+ 
+@@ -129,7 +130,7 @@ void __init xen_prepare_pvh(void)
+ 	 * This must not compile to "call memset" because memset() may be
+ 	 * instrumented.
+ 	 */
+-	__builtin_memset(&pvh_bootparams, 0, sizeof(pvh_bootparams));
++	__inline_memset(&pvh_bootparams, 0, sizeof(pvh_bootparams));
+ 
+ 	hypervisor_specific_init(xen_guest);
+ 
 -- 
 2.53.0
 
