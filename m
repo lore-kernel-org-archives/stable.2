@@ -1,67 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=77.108.111.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795009963;
-	b=fVGRHx+iziXS7cmU7r+aPuO7KT91is2Z8DUkVCblCkz33j4SPwPDrus2phQWlh1dM8nt
-	 uudXqJOWwT3gWopIZnj7/QJBvbeFWHLr2eldZgGcUvRTcAFXQwG8sXYKVtDG+Ujy8bsfI
-	 p6NrZ/w+D6bGb30gLEqlGHGO9q9olHXz4fYnUJyES6NcCd7gavb8gfZ4GYpL5PVew02Ks
-	 2FD1qaRXsFyPD1w/xOEQC/wAP7H9eczJNHduUZvM7MapxfJ7TPTsTJ4PS7lJH4F1Yseeh
-	 wcHDHqg9j8QWaVFSuU9+yMhmwWKJDJ3H2/Qeazrr5PE8l9XKvd/BPJAzMtf7QlvqW7Q==
+	t=1795010025;
+	b=A3mkj05RFyA2AY+BifJkZQrKTz7PMi9GOqpOaYhw7XOPUJhrOAvqk8ZhiDp4w+k8BLYA
+	 HIU3+K9p1XYXyCh0B5NAtToUA9bKhvrkAztKhIk0zdW2wmcZk4/5rtGfbpHYkA4geHr7C
+	 D5xmYGIVS3OTFcSnilqmHZ3IzUOwqE6A4eN+5v778Rxp57WrC3+2EpXRoFsrdL/YyOKOn
+	 sDZ56kHHAzUTFmFpQOQJGJJUHVhtH+JGV44vhkTGjtAs4lWBo1xBeEaZDvXGH64tCywg/
+	 C9ntpJj5clp3Obh7RNfeEYhUy2mQpkAahq02I9WqBLwSivRCjven1TOfg0C6I35SkGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795009963;
-	h=DMARC-Filter:Received:Received:Content-Type:
-	 Content-Transfer-Encoding:DKIM-Signature:Received:From:To:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-Originating-IP;
-	bh=iCtO8C76z+v3AVxycrUJkY2p7BT9NCr8k81QRtBpz1Q=;
-	b=Bv4lIHxUPNm1KZrJBEPyDnjVbImdBZ7OvmVA2+fL6S9UpvBDokUFRqzBL4U7/CHxWTli
-	 s8HiHLn4HxUg0mRYCpf+75jaf6P0g83qdRc7Ukc0Y+ASpgA24BYEMLdszhMP+YVMBLRPA
-	 9gFruBUi4DDURr+UOLtkZ7zhX7BOD+BmaWEeQMfVRd29Jy7taOBngMSo4SXULsVrm3YeN
-	 uJd87UVPSaBlgl0p3fOEbDK6fqPYboOARR3MDFHGKvK+iWQZJA3xHOUeizYd6zHhCFGYP
-	 acuLNP8FCGsbh0y/V0mVSZUISDrfMhSUT/BMfCmEbdfyrba5bDHr352dKRvy7S17iFQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795010025;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=o7ezIVkxIIxFbHXUirO8U2Ygr063EQw7nBDsOC0esC0=;
+	b=r74Y1MAVhgnO6jnmjwqkDLda+BxLZANCeTtJSXn9miMqNZauQAtIVmvfC7H8IWSt8WJ7
+	 avu7Dm54lPbHzubkaxCSiJrzYQPK6I2b2f97d1MPZJFw5AqXmdxnPCihildVLwZgxMguK
+	 Gy3V5/vNSa8iR5wNtm6PtrIO/Wk60pfXN3agjh0UPFwbFwuDj/UrPQU05GfJO5D/uQ5nR
+	 A8FSzMSF333ypOByAV8Xn4AFM4WeQq3GogFnlNmjMfVNq5mggxXr2VhWMO9VJRvXMmLUj
+	 9dxXKtyhPHd1hw0PxAa15VoPtKUM8fQJSd0P7CKhXlBVHKFR1DV3jIzpmsYx/ldP76Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amicon.ru;
-	spf=pass smtp.mailfrom=amicon.ru;
-	dkim=pass header.d=amicon.ru header.i=@amicon.ru header.a=rsa-sha256 header.s=mail header.b=SXN0dNPv;
-	arc=none smtp.remote-ip=77.108.111.100
-Received: from pmg.amicon.ru (unknown [77.108.111.100])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kbjdYjGY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88FA606A320
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 13:52:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D88FA606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amicon.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amicon.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073D1606A31C;
+	Wed, 18 Nov 2026 13:53:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.a=rsa-sha256 header.s=mail header.b=SXN0dNPv
-Received: from pmg.amicon.ru (localhost.localdomain [127.0.0.1])
-	by pmg.amicon.ru (Proxmox) with ESMTP id F18F21017D1
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:52:35 +0300 (MSK)
-Received: from mail.amicon.ru (unknown [192.168.0.59])
-	by pmg.amicon.ru (Proxmox) with ESMTPS id CA49810144B
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:52:35 +0300 (MSK)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-DKIM-Signature: v=1; a=rsa-sha256; d=amicon.ru; s=mail; c=simple/simple;
-	t=1795009955; h=from:subject:to:date:message-id;
-	bh=iCtO8C76z+v3AVxycrUJkY2p7BT9NCr8k81QRtBpz1Q=;
-	b=SXN0dNPvaJza/SewD1pg6Nl5vpU4ouw7bS9V+Nw4bJfY5WSlYNPCLomJc5eCPN6XhKeOhYM9CXO
-	Q3pBbTbPO7d8wwuONN2yk67zYP5XB+66fCRu/4yN5GtLVUg/NbGpYWPBNaQFY+U2WhZCbuLzpHwjX
-	HhB8CU+TmD6cHBSuroe/moOgbRWBBmURER19hQqXP2xiZPwfuHCVMb6/Uwiuz9toVWtzYR52HSqAO
-	wp/u2RpKHxFrbrL1xSBH4pU1co6Ao3pEaklrb1bNwncjatZEjVI/OgKC9D+CbeThXZPLwwtBnDmOS
-	GygDFqjO2Lf5Qg9skrqk+h5zpMKYiKEqMGJQ==
-Received: from amicon.ru (172.16.2.25) by mail.amicon.lan (192.168.0.59) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.27; Wed, 18 Nov
- 2026 16:52:35 +0300
-From: Artem Novikov <naa@amicon.ru>
-To: <stable@vger.kernel.org>
-Subject: Re: [PATCH 5.10 v6 0/5] KVM: x86: Backport shadow MMU GFN and role fixes
-Date: Wed, 18 Nov 2026 16:52:27 +0300
-Message-ID: <20261118135227.204272-1-naa@amicon.ru>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261118134851.203854-1-naa@amicon.ru>
-References: <20261118134851.203854-1-naa@amicon.ru>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kbjdYjGY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE4F1F000C4;
+	Wed, 18 Nov 2026 13:53:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795010024;
+	bh=o7ezIVkxIIxFbHXUirO8U2Ygr063EQw7nBDsOC0esC0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=kbjdYjGYGCUs/NY8KUlPldKhJc9WsOzqbeGHCR4GYlOPfDSC63VCBtUCzZ3bHqQNS
+	 0ARjlrzTQn8ZTSG2f1hLrgibvH9cK9D077B9LsZG0BOFphRHWkzi/YOH/f50Mu7oP3
+	 tmGHcexqqrywHgm8PPCXOTBcV1G2YgYDCnY/OxOvKS+swJ3DXlWgcbIljadkUeKYgK
+	 Bp248gi4PrywoGVGPfVvPzsTVADZfn5fVbhmeWrlw3d/64GL4gu+HgNzDgoPdh53iv
+	 7Lga8h2Ou1VfdqQu4duKWr+Hqr8zWQpD38ZHL15CCQs7yaJ7JFbayCHPqVMCqZW20Q
+	 lwaxUQZymGt9Q==
+From: Christian Brauner <brauner@kernel.org>
+To: viro@zeniv.linux.org.uk, Ding Feng <dingf3ng@gmail.com>
+Cc: jack@suse.cz, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dlemoal@kernel.org, naohiro.aota@wdc.com, 
+ jth@kernel.org, Jun-ichi Takimoto <takimoto-j@kba.biglobe.ne.jp>, 
+ stable@vger.kernel.org
+In-Reply-To: <20261117173129.61028-2-dingf3ng@gmail.com>
+References: <20261117173129.61028-2-dingf3ng@gmail.com>
+Subject: Re: (subset) [PATCH 1/2] fs: ignore RLIMIT_FSIZE above LLONG_MAX
+ in generic_write_check_limits()
+Message-Id: <20261118-erzwang-einwand-kanzlei-a8960dafbd19@brauner>
+Date: Wed, 18 Nov 2026 14:53:40 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -71,11 +61,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-04696
 
-Hi,
+On Wed, 18 Nov 2026 01:31:28 +0800, Ding Feng wrote:
+> generic_write_check_limits() stores rlimit(RLIMIT_FSIZE), an unsigned
+> long, in a loff_t. A soft limit between 2^63 and RLIM_INFINITY becomes
+> negative there, so "pos >= limit" holds for every position: each write
+> through generic_write_checks() or copy_file_range() fails with -EFBIG
+> and raises SIGXFSZ, although no file position can reach such a limit.
+> 
+> Reproducer (bash counts ulimit -f in 1024-byte blocks, so 2^53 blocks
+> is 2^63 bytes):
+> 
+> [...]
 
-I sent this series by mistake. Please disregard this copy.
-Sorry for the noise.
+Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.5.misc branch should appear in linux-next soon.
 
-Artem
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.5.misc
+
+[1/2] fs: ignore RLIMIT_FSIZE above LLONG_MAX in generic_write_check_limits()
+      https://git.kernel.org/vfs/vfs/c/bc0dc4379463
 
