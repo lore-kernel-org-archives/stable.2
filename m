@@ -1,63 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795044008;
-	b=J/hlHuLpz7u2GTZMCpyUmyn5GGInBUReQ3yXqpBoaHamFMkAmTxtQYdnau3sHZOHuKc+
-	 nKX0jL1B3DEKEXLpe2KNjmDwr27Q3sDDeaPIO0EolHh0SsdlcyE+XGmhQSRm/EUxaPBvD
-	 D+Ih6OFDrHzC0mPO04fpbQAWlf5R7deWST+flR6XK3K8ehU4ej08mPYSh9CP7fQl0xJ3x
-	 kGo9tuYkomLKHKAx1n3A/vyBn3D/omOmDwLZZFFG7ZQal3qP1ULyoH4MiZQtchPbyX+9v
-	 fdMOR9CaclZ+MazNSzvHnwOGBR0xYw/Th9rIL8caV8fARObXU7q251c81hjzcV98W4Q==
+	t=1795044011;
+	b=zbD6BXd+pSUK+C99H3MxkEJUcdr4KJgDn187cvKa1ddnz5FRa/Mez9pVpnpTrNkLKP0+
+	 gP0512g/yOBru4pYF6k7DsatNfMZu1RlxF9voDRuZ69b0njoeWC8dfDmfU7+5zy6DsUnk
+	 sZAUqj7XRm0CMHBlAkE+AVRSn2S1pVumhvF7gCh0w5J6M/yt2iVjdciSuHS7eXk43c05p
+	 pg54iYI88LlG26HbGPur7IzGG1q+LBGEGmPV5Ks3TS8IXC6dswodMLwyqh0Lo4zH3vd8V
+	 FnCreYc+MO9fLvST/6DVzowsfS+Nfw0tP/8+tuoL7R2mdsCncc30qfvUt1wn35QS7Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795044008;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795044011;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=O2dB8lWfCBxW2RIz5iWi+JbK+x1OQWDJQMRuqf/dZmw=;
-	b=4NKSF4NAaAApw9aGFTC34fLOZVDqydli0ue1Vy3yU1ljNxwCo5qQvIhwEM+it4WYhT6G
-	 N3sTR2knVPVZJi4ncGRdZAz4lPc3tYvEB9XXrACKwCNiXiNlSVnIjr7/tao1FiWgseZs8
-	 f3kPbLu+f8DiQUidF+Htqv/oSkbqnVzyGkd7Wxr+qmcW5hbbOck7wT5vkjDmZP6I0I4mu
-	 jwIJiGdlN1muTJN6o5cvTsRhAJoVkoOtcvGn9Hb4c75KrQTtynx2b7lfjiuxgDEAmAqYy
-	 ckZwSMaxxY+eKaNNtBQFkGCOXBIQQYuTVtIweCDJS2KaFOqXBzmI0+ttJ5wfn05ho/Q==
+	bh=dJX7GlFfTZXNW5PryMx56g5iuU9vC5PhBUu+6WG77Xs=;
+	b=MqPLpYCjt7kDwMY1QElSaYLo7PIsIfM/hvcozePcVAGUbwjOrJy9yV6OlpCasZxjKR6V
+	 LhjHjKRCc4PVCoPUiyKMbctM6d3nRc4gN2sH9yXBZ0h3p4iMRZUgqnhFE8cR0bn4c8DKV
+	 aXSC40yHq0Ut2ymT2bW9w4x1Q3WveN+UFrLoiLhmJ9/LmWMHWAZygtuAXC6CFC9x0dvog
+	 C+rpOY5p+9t1bYbKcpYtWNcL6NUO4x3ZJj/StlgrZge+fyJefFAFTkR3cLZZO9nOcUlFP
+	 I84fYgvJOPK6u0aubMmcIE4Zkb5+trjFgu0pyM5ylapBr6QTpS8B8NQ7c++wJFQ/8+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jP0RXGPT;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DM29JPr4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB59360A2633;
-	Wed, 18 Nov 2026 23:20:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A036606A332;
+	Wed, 18 Nov 2026 23:20:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=jP0RXGPT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFCFD1F000C6;
-	Wed, 18 Nov 2026 23:20:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=DM29JPr4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D09C51F000C6;
+	Wed, 18 Nov 2026 23:20:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795044008;
-	bh=O2dB8lWfCBxW2RIz5iWi+JbK+x1OQWDJQMRuqf/dZmw=;
+	s=korg; t=1795044011;
+	bh=dJX7GlFfTZXNW5PryMx56g5iuU9vC5PhBUu+6WG77Xs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jP0RXGPTi3X3gpZSWyXjeCmV479mam8DO5ehAGP5opKY2VVWRLFQl7jbbRB1HVRnh
-	 DwWUwwzv1sSC2J1MlQe5uDz78Ss9hhmGl3J1CUrx+FR6ODLBNUJ70UaTNfQmmLA19J
-	 BPSQW0zvp6R9YsBl6/7BfFVFpIjr6NIMd8ogKbP0=
+	b=DM29JPr4/TedyA/LlqFLXVJvSmYmZ+vb2vOO9BI78+8mZP21tKtF/uu2SDTDliz8i
+	 xnSxOitfoy6Tuy2uL3pXOMCzPIvHPnaKiV8Qhdey0+Ddp+UftCTIV+iEpVzBH0/yzZ
+	 1fm03j469rWCKBUiyR3i+UIVmZDWOQEjuH379VX0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Neha Gholkar <nehagholkar@gmail.com>,
-	Gregory Price <gourry@gourry.net>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Balbir Singh <balbirs@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Byungchul Park <byungchul@sk.com>,
-	"Huang, Ying" <ying.huang@linux.alibaba.com>,
-	Joshua Hahn <joshua.hahnjy@gmail.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Rakie Kim <rakie.kim@sk.com>,
-	Zi Yan <ziy@nvidia.com>,
+	Breno Leitao <leitao@debian.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	SJ Park <sj@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Puranjay Mohan <puranjay@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 0369/2857] mm: mempolicy: fix automatic numa balancing for shmem
-Date: Wed, 18 Nov 2026 15:23:23 +0100
-Message-ID: <20261118150214.709086099@linuxfoundation.org>
+Subject: [PATCH 6.1 0370/2857] mm/kmemleak: report RCU-tasks quiescent states during the scan
+Date: Wed, 18 Nov 2026 15:23:24 +0100
+Message-ID: <20261118150214.744575582@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
 References: <20261118150201.293410965@linuxfoundation.org>
@@ -79,96 +72,114 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Johannes Weiner <hannes@cmpxchg.org>
+From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit d230991493b521eeff39f32434fddcbcdb109eb0 ]
+[ Upstream commit 3541a2b06ecd78ba333188df04368dcf97273d6a ]
 
-Neha reports that mapped shmem aren't considered for NUMA balancing,
-noting convergence problems and bandwidth bottlenecking for cachelib based
-workloads on tiered memory systems.
+kmemleak_scan() can run for ages on large debug kernels. It was
+causing some soft-lockups which I got fixed with commit
+3175fcfec8b16baeb ("mm/kmemleak: avoid soft lockup when scanning task
+stacks") with our beloved cond_resched().
 
-Looking at the code and going through the git history, this doesn't
-actually seem intentional:
+I've got the fix above deployed in the Meta fleet, and now I am seeing:
 
-Commit fc3147245d19 ("mm: numa: Limit NUMA scanning to migrate-on-fault
-VMAs") added a vma_policy_mof() gate to task_numa_work() so VMAs whose
-policy lacks MPOL_F_MOF are skipped from NUMA balancing scans.  The
-motivation was a real usecase: Oracle was pinning shared segments with
-mbind(MPOL_BIND) so trapping faults was both expensive and pointless.
+  INFO: rcu_tasks detected stalls on tasks:
+    task:kmemleak state:R ... nvcsw: 274/274 holdout: 1 idle_cpu: -1/3
+     scan_block
+     scan_gray_list
+     kmemleak_scan
 
-The handling of NULL from vm_ops->get_policy, however, treated "user
-explicitly opted out" the same as "user never specified anything." For
-VMAs whose shared policy is absent - the common case for shmem - the scan
-was disabled too.
+and, worse, blocks the callers waiting on that grace period.  Here a BPF
+struct_ops map free, which waits via synchronize_rcu_mult(call_rcu,
+call_rcu_tasks), is stuck long enough to also trip the hung task check:
 
-This issue is old.  It probably hurts less in conventional NUMA.  But it's
-very noticeable on tiered systems, where entire tmpfs workingsets can get
-stuck on lower-bandwidth memory.
+  INFO: task kworker/...:bpf_map_free_deferred blocked for 122 seconds
+     __wait_rcu_gp
+     bpf_struct_ops_map_free
 
-Fix this by having vma_policy_mof() use __get_vma_policy() directly, and
-thereby handle the fallback to task policy (-> preferred_node_policy() has
-MPOL_F_MOF per default).  Every other consumer of vm_ops->get_policy
-already handles it this way, the scan-eligibility check was the outlier.
+Then I've learned that cond_resched() is not an RCU-tasks quiescent
+state, so, we need to use stronger primitives.
 
-This preserves Mel's intended fix: don't scan stuff the user explicitly
-pinned.  But allow default policy vmas to participate in balancing.
+Use cond_resched_tasks_rcu_qs() at the scan reschedule points so the scan
+reports an RCU-tasks quiescent state as it proceeds.
 
-Link: https://lore.kernel.org/20260629163337.1264881-1-hannes@cmpxchg.org
-Fixes: fc3147245d19 ("mm: numa: Limit NUMA scanning to migrate-on-fault VMAs")
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
-Reported-by: Neha Gholkar <nehagholkar@gmail.com>
-Tested-by: Neha Gholkar <nehagholkar@gmail.com>
-Reviewed-by: Gregory Price <gourry@gourry.net>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Balbir Singh <balbirs@nvidia.com>
-Cc: Alistair Popple <apopple@nvidia.com>
-Cc: Byungchul Park <byungchul@sk.com>
-Cc: "Huang, Ying" <ying.huang@linux.alibaba.com>
-Cc: Joshua Hahn <joshua.hahnjy@gmail.com>
-Cc: Matthew Brost <matthew.brost@intel.com>
-Cc: Rakie Kim <rakie.kim@sk.com>
-Cc: Zi Yan <ziy@nvidia.com>
+Inspired by commit b96285e10aad ("tracing: Have osnoise_main() add a
+quiescent state for task rcu").
+
+Link: https://lore.kernel.org/20260720-kmemleak_rcu_task-v1-1-5b460ade777d@debian.org
+Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Breno Leitao <leitao@debian.org>
+Cc: Puranjay Mohan <puranjay@kernel.org>
 Cc: <stable@vger.kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-[ sashal: Adapted vma_policy_mof() to the older two-argument __get_vma_policy(vma, addr) and get_policy() API by dropping the pgoff_t ilx variable and the &ilx argument. ]
+[ sashal: Replaced cond_resched() with cond_resched_tasks_rcu_qs() at six scan-path sites, adapting context for void-returning scan_block helpers, the scan_should_stop() loop condition, and the page-scan loop ordering. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/mempolicy.c | 19 +++++--------------
- 1 file changed, 5 insertions(+), 14 deletions(-)
+ mm/kmemleak.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index c4a38d1b695f0..55da9a479aa3a 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -1798,23 +1798,14 @@ static struct mempolicy *get_vma_policy(struct vm_area_struct *vma,
- bool vma_policy_mof(struct vm_area_struct *vma)
- {
- 	struct mempolicy *pol;
-+	bool mof;
+diff --git a/mm/kmemleak.c b/mm/kmemleak.c
+index 2200f34a4f004..96eafff89a038 100644
+--- a/mm/kmemleak.c
++++ b/mm/kmemleak.c
+@@ -1395,7 +1395,7 @@ static void scan_large_block(void *start, void *end)
+ 		next = min(start + MAX_SCAN_SIZE, end);
+ 		scan_block(start, next, NULL);
+ 		start = next;
+-		cond_resched();
++		cond_resched_tasks_rcu_qs();
+ 	}
+ }
+ #endif
+@@ -1440,7 +1440,7 @@ static void scan_object(struct kmemleak_object *object)
+ 				break;
  
--	if (vma->vm_ops && vma->vm_ops->get_policy) {
--		bool ret = false;
--
--		pol = vma->vm_ops->get_policy(vma, vma->vm_start);
--		if (pol && (pol->flags & MPOL_F_MOF))
--			ret = true;
--		mpol_cond_put(pol);
--
--		return ret;
--	}
--
--	pol = vma->vm_policy;
-+	pol = __get_vma_policy(vma, vma->vm_start);
- 	if (!pol)
- 		pol = get_task_policy(current);
--
--	return pol->flags & MPOL_F_MOF;
-+	mof = pol->flags & MPOL_F_MOF;
-+	mpol_cond_put(pol);
-+	return mof;
+ 			raw_spin_unlock_irqrestore(&object->lock, flags);
+-			cond_resched();
++			cond_resched_tasks_rcu_qs();
+ 			raw_spin_lock_irqsave(&object->lock, flags);
+ 		} while (object->flags & OBJECT_ALLOCATED);
+ 	} else
+@@ -1467,7 +1467,7 @@ static void scan_gray_list(void)
+ 	 */
+ 	object = list_entry(gray_list.next, typeof(*object), gray_list);
+ 	while (&object->gray_list != &gray_list) {
+-		cond_resched();
++		cond_resched_tasks_rcu_qs();
+ 
+ 		/* may add new objects to the list */
+ 		if (!scan_should_stop())
+@@ -1502,7 +1502,7 @@ static void kmemleak_cond_resched(struct kmemleak_object *object)
+ 	raw_spin_unlock_irq(&kmemleak_lock);
+ 
+ 	rcu_read_unlock();
+-	cond_resched();
++	cond_resched_tasks_rcu_qs();
+ 	rcu_read_lock();
+ 
+ 	raw_spin_lock_irq(&kmemleak_lock);
+@@ -1546,7 +1546,7 @@ static void kmemleak_scan_task_stacks(void)
+ 			}
+ 			put_task_struct(p);
+ 		}
+-		cond_resched();
++		cond_resched_tasks_rcu_qs();
+ 	} while (pid && !scan_should_stop());
  }
  
- bool apply_policy_zone(struct mempolicy *policy, enum zone_type zone)
+@@ -1632,7 +1632,7 @@ static void kmemleak_scan(void)
+ 				continue;
+ 			scan_block(page, page + 1, NULL);
+ 			if (!(pfn & 63))
+-				cond_resched();
++				cond_resched_tasks_rcu_qs();
+ 		}
+ 	}
+ 	put_online_mems();
 -- 
 2.53.0
 
