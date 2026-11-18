@@ -1,55 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795048686;
-	b=5KlAUl6klxrAK4b9eM3z5ZrNx8kObU387lBARmeJ3c1p0laO/8DP6IgILv9cVCFo/UZJ
-	 fzuhWVum9yxAM9/bvImqk01XI/4jNIXZbV+o+65Sd16MvtUdfO0BP1hUdsshDy47MsYQP
-	 G8YMu7ArR4RT1LrJBlLX+yh61H2++20y7S12kEQJhRJGJHo7FtJrRPt/iXgUlbPtNrIgL
-	 agGNkmz7xE+h92fVSVq5v9bqRYcS/rOUshRWHmR4tFf5cHJupzhhkNKZQ+LoiRXxxdXJs
-	 Rl7AOle+aUobrF8a86f9jIGOhc36/WvXWgniHQZ4+/ZGlLRYHWwEaio+mREJbE3jO9w==
+	t=1795048688;
+	b=pqzzUjkO2GaUSWvcG1144Yq8KOb+lSYCYfNWX2b1sBOKL3fuNn2wliFqtw+WnldDbJ27
+	 ipH81G7qTs7MFlsVj9BNyg/WhnMYtYEj38fe9GnQl9XZZRQMCJvXLjgQ9P/LPXbnmNkyE
+	 mjFH+RDDoVpRt28kckw7zNMQsd6+pXq2h2gQF5VbziU8HLVeaJGhKFFQNc4rFDZvn5hK9
+	 iHyAdJdkPQn4e35ijXcgNEmuEkDH8vlwFLbqZex9Y+W9vflxweQ/EeCbLiEyp03toif/M
+	 RhlbeSTvDSWL1zBNZLTwQCPRofByWMzXPUhFyMIce4pXzqOdvDJv04+EO6KUeuqBV4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795048686;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=PtNQN5iYY+jY31+2PAsZJiMk/VcCexNZzkbg/hmJWTs=;
-	b=bn1ZUPrBpHAyav3VCTkxmj81EL+W8bGxwyk/ANUg+lugrQunVC9Emk5HBeAkyE/loF0K
-	 cQmy+E8enFEAupV2ytMoUF4ccwb+Rczw+75gV2PWoXvWWh4WXmOxkVhhYAuj37lQHqGbC
-	 GjNOwIXwm+GdNQn5WYKSFr7ZcZO9lkTTKIUdyEZt33n5LpM9b6U69Yomh6aEXO17VkqTy
-	 /jPnF8imprnglJ48X9GV1OHEoyVa22lJgZyVb6VKFQAmtOHvIu32zZajmpB4MZFtEfUpU
-	 OAk+NmqK10fV5FerSJTWJTyGSPZPR7KM3R3zTar9ZDXmudndIKCQxwR/lE5yG1CbEXg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795048688;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kKalksv5KlzntumoelqCxyhOSW70s0DPMADtV40gZhA=;
+	b=VReUToRgt7PDHB0cokN2plXKHjYwxvuQdm9PVVMql8ilzvWnzG51UDfxJA5wgacnfE1g
+	 dTvDbxVsPJsQt1rOm7tJLycO9Po8jkiu+qbAsnoR3dhFLL+mGZXl0JJUB2vNV53zo4B3/
+	 CesRRq8so86jkccWhjY65oU6S1cRKszz2tSUP8lAs7UcQJpj0OQWK81rxhEg90k+op6Wa
+	 mI47o+Y/pmQ9Cw2a2mEDgLo5A0ERY+PsQGjrDG0BIVVgBRyg+cAeuqDIOEdnOT9SwlKKj
+	 j0n+IDUhzj8V/TlYHnxBUdRLmRDSY3wLO7S2REkVcTmJKSpEHj2J9Ny6KJ5ooj8W/nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JJWSzLfr;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MPPvhm2i;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA0A606A32A
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:38:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71C2606A33E;
+	Thu, 19 Nov 2026 00:38:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JJWSzLfr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35AF51F000C9
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:38:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795048686;
-	bh=PtNQN5iYY+jY31+2PAsZJiMk/VcCexNZzkbg/hmJWTs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=JJWSzLfrLWZLBh+bEY0S4ycyK9l/DjHDUguV84PKMcPNyaeevfvpGwjeP5NMi9c71
-	 iO1zRMc4UNpYSZkasBAbCngTGqNTi6rJFXgWvtRq2s8zFweQezKoGi+adSu3FXCJ6O
-	 Jz2zEwZ5MpvW8GBWHGmgpbcp4rFbHt5FGxPTYixIUfmHWnFt1Au65Knobt94LrSEPq
-	 OBpFWYzlhRjvHuF0u8FwPAw53oZZ7YBYF9tAksGmXgb9jk+TO5LUqz1kmmCgQoezRx
-	 OtPAjoCfGE1+4hu1Qk1FjFpPlcPfQFYdasd9AECJnfzFloDA6WQMdZa2IRDCpktwWn
-	 yQv6f181rk53Q==
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c511c0e2826so135384966b.0
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:38:06 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFvJyGB5tDILZq3o9/jrulThLt8D7AHUid3zdX/Bc0UWAMAqxdpudlMKNKH5alhDiTDFQZmSHs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+W9sf77MsqFgAI3tSv5lnEEIhzvURTVmP3cXpKPsoUG2dabmi3
-	01Qztfj3csCmt9QYoJrmpmkHDGu+mnFH3yULx82mIN2IG1sp0CXQUWWBD4mmNTp3gpyWQynJKPY
-	k9aM6uVAZZPtLfKIH8ubtm8IW833CHr8=
-X-Received: by 2002:a17:907:2d0a:b0:c42:4750:8d49 with SMTP id
- a640c23a62f3a-c510e19f1d9mr421000666b.25.1795048684847; Wed, 18 Nov 2026
- 16:38:04 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MPPvhm2i
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064CE1F000C5;
+	Thu, 19 Nov 2026 00:38:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795048688;
+	bh=kKalksv5KlzntumoelqCxyhOSW70s0DPMADtV40gZhA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MPPvhm2iZLkmyc5LRtQi/IHf+zjNv8XFLtYABxg4Ks25ZO6OCuXsQ/RQhHLDVvF9K
+	 Ih1WFKHdCOe+sNSdj2FmI6H4wCaZT7UshrEeydgqtQgXeH2TuknzBK7HhJXFGBFIDs
+	 PRhyWKqMkQR+du43b2OVyOHg1yCzx8j8nJ1gvZJ8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Yishai Hadas <yishaih@nvidia.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 2085/2857] RDMA/mlx5: Set WQ event handler before firmware RQ insertion
+Date: Wed, 18 Nov 2026 15:51:59 +0100
+Message-ID: <20261118150316.480489548@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
+References: <20261118150201.293410965@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,40 +62,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261118173454.76416-1-icb@fastmail.org>
-In-Reply-To: <20261118173454.76416-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 19 Nov 2026 09:37:52 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-KFizCjxU=qm65Aw+3NYoMWGHZhuaJ_7G5w_+4jFp5MA@mail.gmail.com>
-X-Gm-Features: AclHuK8obTmEl6pbQBPLiW6u_HRdn8tgal2Bb23iPchjtvXRpFt8tnpt1hRJ6bo
-Message-ID: <CAKYAXd-KFizCjxU=qm65Aw+3NYoMWGHZhuaJ_7G5w_+4jFp5MA@mail.gmail.com>
-Subject: Re: [PATCH] ksmbd: allocate the security descriptor reply at its
- padded size
-To: Ian Bridges <icb@fastmail.org>
-Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
-	manizada@pm.me, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 19, 2026 at 2:35=E2=80=AFAM Ian Bridges <icb@fastmail.org> wrot=
-e:
->
-> smb2_get_info_sec() allocates the security descriptor reply with the
-> size that smb_acl_sec_desc_scratch_len() estimates. A compound response
-> pads the reply to 8 bytes inside that buffer, so after build_sec_desc()
-> the query fails with -EFBIG when the padded length does not fit. The
-> estimate is not padded, so a descriptor that fits the estimate can
-> still fail. A query with AdditionalInformation 0 always fails with
-> -EFBIG. Its reply is the 20-byte header, the estimate is 20 bytes, and
-> the padded length is 24. The client gets an error instead of the
-> header.
->
-> Round the allocation up to 8 bytes, as READ does for its data buffer.
->
-> Fixes: fda9522ed6af ("ksmbd: fix OOB write in QUERY_INFO for compound req=
-uests")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ian Bridges <icb@fastmail.org>
-Applied it to #ksmbd-for-next.
-Thanks!
+6.1-stable review patch.  If anyone has any objections, please let me know.
+
+------------------
+
+From: Yishai Hadas <yishaih@nvidia.com>
+
+[ Upstream commit 28c559d1e25de46bb6dd39e6fa1e93ea6abdf1f6 ]
+
+create_rq() inserts the RQ into dev->qp_table.tree, making it visible to
+rsc_event_notifier() before rwq->core_qp.event was assigned. A firmware
+WQ_CATAS_ERROR event in that window finds a NULL event pointer.
+
+Move the assignment before create_rq().
+
+Fixes: 350d0e4c7e4b ("IB/mlx5: Track asynchronous events on a receive work queue")
+Signed-off-by: Yishai Hadas <yishaih@nvidia.com>
+Link: https://patch.msgid.link/20260915140933.40580-11-yishaih@nvidia.com
+Signed-off-by: Leon Romanovsky <leon@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/infiniband/hw/mlx5/qp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/infiniband/hw/mlx5/qp.c b/drivers/infiniband/hw/mlx5/qp.c
+index 24fcfdf30c602..ea3540fe04a53 100644
+--- a/drivers/infiniband/hw/mlx5/qp.c
++++ b/drivers/infiniband/hw/mlx5/qp.c
+@@ -5417,6 +5417,7 @@ struct ib_wq *mlx5_ib_create_wq(struct ib_pd *pd,
+ 		rwq = kzalloc(sizeof(*rwq), GFP_KERNEL);
+ 		if (!rwq)
+ 			return ERR_PTR(-ENOMEM);
++		rwq->core_qp.event = mlx5_ib_wq_event;
+ 		err = prepare_user_rq(pd, init_attr, udata, rwq);
+ 		if (err)
+ 			goto err;
+@@ -5440,7 +5441,6 @@ struct ib_wq *mlx5_ib_create_wq(struct ib_pd *pd,
+ 			goto err_copy;
+ 	}
+ 
+-	rwq->core_qp.event = mlx5_ib_wq_event;
+ 	rwq->ibwq.event_handler = init_attr->event_handler;
+ 	return &rwq->ibwq;
+ 
+-- 
+2.53.0
+
+
+
