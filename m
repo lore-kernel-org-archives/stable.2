@@ -1,52 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795046609;
-	b=KD+9BGIbVZmaWX8zexojNpGexGUQYdfRexPTK7jfnmSj3qIiuyrCe8TFW9XjqSbJ8isI
-	 3nY7vU3OHlYLxez4o3TeMbnR/174woY0bLaXmhx5mJVkqVMnWgl8YVvGheifcdPdNzH+j
-	 i/XbRf9mrV11bA8UuGpCjSufHTJFsAuu4d9o7JKBGfSQartW3Qv//Pe630APiwo3z2C29
-	 k0+LKWMfIUfzuDx3NQ5XrwzHlLal2Kobbnh49sps7YYfbNrcRxapSUjSNfbzTVQfBygMm
-	 1AVdeKovrYCRwvl/VNZ9Gj80kMX+DlqqNTprz943wMuzpfqyxryv2ML7iEC96WUVcng==
+	t=1795046614;
+	b=4vnYqYwyHlT+P+KZfp1V5eP4wp4MR21nnRT81mYUtrJMGqPoDJ6fyLGr8ip4Tu3uORNb
+	 rM1zpmLU4E1XcyIjois89YRp7JSmA7xgDrmoSGibzDaw5fV5cuikM1ayF/GXbvuzvpRYt
+	 4Oq2kthRlcRGuCU6y5rVnbu428zIPszzSzHU1uRNNH/MOa+FUigAsnViEVD5IzcqD8NH9
+	 fu6xLa64Go4V/qDWSUFufdeQsrOkytmHfIRAaobBs/v7UxX1IQGq4eBU2nheAJvVGTw7/
+	 sw9Hs4r55mGjqcsyB4NDSWD0M537YWrUxFvXiDa3CL3bG63xvGE9JIRq/KMoon3ENyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795046609;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795046614;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=JAIXh+NIXcTLYSYIeQpCmra3stVpcK51R/9Nlz6moe8=;
-	b=i8cnZFsAIceJBsDZM7B7Fc8WOkYcGmxsAkASwVXwsISO3JPSwozggX7eFlqhlcHB0Fjz
-	 G6LffmNoxYmF/beUpOnPViKLA1HwpJ/J3r3AdarvyR4fnyRDSS88DkJImBuYstCbZeljd
-	 A5S0TSF4BimufuBQHygMf2r+oDvqeG9qc8hT5LQk2LaAjUux+qY0sIhirv7VGklfCa4aR
-	 hIh2nNWAywO8qa4FI7UTZyNl745RZ6lzYqkTKLwnm/wiZF3TLjkB19KZOjdnFNP6l/dgo
-	 +q+cQY2ssPlKbH6vMMOOgY6Ud15YtIeoZOgS8SbAP4cmj2MLOWBomce84EXuhPW8+Rw==
+	bh=slWdQsS2EgiXUWTQNiYIoNVnJOZGV9GmgylAnWOnxA0=;
+	b=OoE5hhN1qqURUWVzovkRhrcABWYEiee40Q9EsTBQcEZE4UT4Q703UQB5uK2PYg8i7llZ
+	 pY6fAnV7Y3CbpPSdzhCMxWrfgzuTDIJ1RNaVaUKgl027xUihMUIF+QOKfwsJhhMv+GfPr
+	 GB0IjjuI6bpoeLaObhyZQvzrGSFU/HvpdjVThGdFBQ5Je9IQNtFBbVCamncKewvo420lU
+	 pSVed3diKjBZZ/kCsg+zJalUVLxzkUQcMyxShizZQIdmfseDJahxVF+8F/p+dohhipCCB
+	 a0jpadLjdl5BG6qlUg+oXYb6O8WLmAz3OzPTLHTndluV9byGYUp6WxZ5kmFFpNBpzzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y+NGF+mS;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rjJ5EJnO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E5E8606A335;
-	Thu, 19 Nov 2026 00:03:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADEED606A33E;
+	Thu, 19 Nov 2026 00:03:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=y+NGF+mS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED591F000C4;
-	Thu, 19 Nov 2026 00:03:28 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=rjJ5EJnO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 080A71F000C7;
+	Thu, 19 Nov 2026 00:03:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795046608;
-	bh=JAIXh+NIXcTLYSYIeQpCmra3stVpcK51R/9Nlz6moe8=;
+	s=korg; t=1795046614;
+	bh=slWdQsS2EgiXUWTQNiYIoNVnJOZGV9GmgylAnWOnxA0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=y+NGF+mSduJkmhIi4OZlo5nvT29Sfn0DY2tLskyYfTxMELF0uNLGvQzHJcp9s9xx5
-	 tnjeaaCbDQV8JaDHfFDag4g7r3UQsXOXF4KG2lXAxM0ZSk1wkiVBqSpE0QKU6RZc7s
-	 H9nZGvPRKz9CZt+huFytJ29Eds8pqhVh+AeRCLL8=
+	b=rjJ5EJnOSAl/WH9KdrdOLf+pxH8yKmOYG2Gd8cPkaboURNNj3CzVYgtkkRZC9vEwG
+	 ruW0LdpGRoNQHISl1u0HEKP1tDzmZPglkzChvuw3HbDvs85mhKRzKlhrR83wpie2BK
+	 rRK2lV0qfBtiMnj1F3ny8BmrltbqrDj2BrvT2egI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Sashiko <sashiko-bot@kernel.org>,
 	Sven Eckelmann <sven@narfation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1343/2857] batman-adv: stop originator purge worker before freeing TT
-Date: Wed, 18 Nov 2026 15:39:37 +0100
-Message-ID: <20261118150249.780373479@linuxfoundation.org>
+Subject: [PATCH 6.1 1345/2857] batman-adv: tt: clear ROAM flag when re-adding a pending local client
+Date: Wed, 18 Nov 2026 15:39:39 +0100
+Message-ID: <20261118150249.848623382@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
 References: <20261118150201.293410965@linuxfoundation.org>
@@ -70,54 +69,70 @@ Content-Transfer-Encoding: 8bit
 
 From: Sven Eckelmann <sven@narfation.org>
 
-commit f89eda5a9ccf82cba06b085b42ebc4886b8dfe9e upstream.
+commit cc2186d7854785b30d423f5d43757b086b300e55 upstream.
 
-batadv_mesh_free() releases the translation tables via batadv_tt_free()
-before batadv_originator_free() stops orig_work. The purge worker can
-therefore still run while the TT is torn down. When an originator times
-out, batadv_purge_orig_ref() calls batadv_tt_global_del_orig(), which
-loads tt.global_hash and walks all buckets while taking their locks:
+When a ROAMING_ADV is received for an announced local client,
+batadv_tt_local_mark_removed() sets BATADV_TT_CLIENT_ROAM, queues a
+DEL|ROAM change and marks the entry as BATADV_TT_CLIENT_PENDING. If the
+client sends a frame again before the next TTVN commit,
+batadv_tt_local_add_existing() only clears the PENDING flag and returns
+early. The ADD cancels the queued DEL, but the entry keeps the ROAM flag:
 
-  CPU0                          CPU1
-  batadv_tt_free()              batadv_purge_orig()
-                                  batadv_tt_global_del_orig()
-                                    hash = ...tt.global_hash;
-    batadv_tt_global_table_free()
-      batadv_hash_destroy(hash);
-                                    spin_lock_bh(&hash->list_locks[i]);
+* batadv_is_my_client() reports the client as not served by this node
+* batadv_tt_local_client_is_roaming() reroutes unicast frames for it to
+  the node which sent the ROAMING_ADV
 
-Disable orig_work at the beginning of batadv_mesh_free(), directly after
-the mesh was marked as deactivating. The second
-disable_delayed_work_sync() in batadv_originator_free() is harmless because
-it is free'd anyway.
+The ROAM flag is only removed with the next frame of the client.
+
+Since BATADV_TT_CLIENT_ROAM is set together with BATADV_TT_CLIENT_PENDING,
+it has to be cleared also at the same time with BATADV_TT_CLIENT_PENDING
+when the client roamed back.
 
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260708091821.314516-1-sw%40simonwunderlich.de?part=3
-Fixes: 9d31b3ce8168 ("batman-adv: fix potential TT client + orig-node memory leak")
-[ Switch to cancel_delayed_work_sync() ]
+Fixes: 068ee6e204e1 ("batman-adv: roaming handling mechanism redesign")
+[ adjust code still in batadv_tt_local_add ]
 Signed-off-by: Sven Eckelmann <sven@narfation.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/batman-adv/main.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ net/batman-adv/translation-table.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/net/batman-adv/main.c b/net/batman-adv/main.c
-index 48065fd09e1a8..fb8964d867349 100644
---- a/net/batman-adv/main.c
-+++ b/net/batman-adv/main.c
-@@ -262,6 +262,11 @@ void batadv_mesh_free(struct net_device *soft_iface)
+diff --git a/net/batman-adv/translation-table.c b/net/batman-adv/translation-table.c
+index 86e066e56e820..6e41824db11c8 100644
+--- a/net/batman-adv/translation-table.c
++++ b/net/batman-adv/translation-table.c
+@@ -658,6 +658,7 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
+ 	int hash_added, table_size, packet_size_max;
+ 	bool ret = false;
+ 	bool roamed_back = false;
++	bool added = false;
+ 	u8 remote_flags;
+ 	u32 match_mark;
  
- 	atomic_set(&bat_priv->mesh_state, BATADV_MESH_DEACTIVATING);
+@@ -684,7 +685,7 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
+ 			 * flag can be reset like it was never enqueued
+ 			 */
+ 			tt_local->common.flags &= ~BATADV_TT_CLIENT_PENDING;
+-			goto add_event;
++			added = true;
+ 		}
  
-+	/* the originator purge worker accesses (among others) the TT tables
-+	 * and must therefore be stopped before any of them are freed
-+	 */
-+	cancel_delayed_work_sync(&bat_priv->orig_work);
+ 		if (tt_local->common.flags & BATADV_TT_CLIENT_ROAM) {
+@@ -765,10 +766,12 @@ bool batadv_tt_local_add(struct net_device *soft_iface, const u8 *addr,
+ 		goto out;
+ 	}
+ 
+-add_event:
+-	batadv_tt_local_event(bat_priv, tt_local, BATADV_NO_FLAGS);
++	added = true;
+ 
+ check_roaming:
++	if (added)
++		batadv_tt_local_event(bat_priv, tt_local, BATADV_NO_FLAGS);
 +
- 	batadv_purge_outstanding_packets(bat_priv, NULL);
- 	batadv_tp_stop_all(bat_priv);
- 
+ 	/* Check whether it is a roaming, but don't do anything if the roaming
+ 	 * process has already been handled
+ 	 */
 -- 
 2.53.0
 
