@@ -1,60 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795061529;
-	b=xKP2WsWzIZI2QJbNmHlrn8y377hp9GKXyai3xdaK4XmbDen8WpDcdDlT4mgcXhQyrDUy
-	 yy1wiyLiz04ibZvk5a6/o/hsHA8NYcoaWvh0ztdfL0B6tCxTu6Lh/feOwkuPWj0gIzBy3
-	 00A1V41bq5p+CUMA/bHISfpTVuRtyOHdisYLW20R9uvYVdNugz+KmRuLVZK16hsoSEW4b
-	 qvj8KC/eg9vAsPte5w71b10BTZe8jPmvj3cfH1PKytlpf6JnkfyNmz1bcqQ+B7O3b+EHw
-	 Jw1Pl6Db0p5DrF+tSMU8rNrlH1Yap57JGWT0YZ8TFcNhnzYhj+cvxhSKmVSk3du4G/w==
+	t=1795061532;
+	b=Bu0Ycq350v6f93A3IvZj/hF/6c/2qPIO4+U2Ov9UXJ9ttdJaakAIwsiGzCL2xpc/whNO
+	 7BTNuxMJFlYsDeVp7ULq2jSaxdQ7Zl3d+Q9XyvoIGhHj8s40WSndc4ENawqCl9YwbtiP9
+	 KYWpCgYWDGvnhRobdlEXw+tRFNcMkUJlTHJ3XzmCrgrn9x4nBx3IuaZszaORTYaqbrlLT
+	 G8kPKTdp7+NZglYpLSxr5cZcYzHNhRlI8eDYZsPYzKa7E8VyB/dRkpknSYnLmYElh95kY
+	 OHJuhvzaW+o8MygcAdk8LUgg3PV2mzw5h615D49b6R5dD9HPVqUfOlz87gc+XZ2kksg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795061529;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Cd/IXAd36BHiEDGk7QEjHc+1HbQrSiTqxqdslEATza4=;
-	b=qZicgLPC69YWD7McmlFUKFoebYkn2i+UkFelQgMZkBYgSgj60u7FMo6Dblx91m5ukevW
-	 KGS0Gpx9Kh0lfwxXRGzFNxEWUltzsrjj7jIYgePqtL6Ehkl9jsNXvJ77o99o7BUduQQvy
-	 oX5kVhSl7MoAHdJbYQL2Gc+a/DG6UXjxUQoKXTiogb8neVcprJ0Pf9plpxRH2ZTeg4tCL
-	 Qq0A98K80h/XfDxOf1R6XZTsnqRP4pqbvifgMfCS9MsVbEq3cw8K6UCTEewd9ePOm0umB
-	 MlaqKB1/t7/6YgmLfqsUnlE/WfIDiOG6lMWjtjZc4qZ3yC9tSKov6GEPpNBEeGWKFBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795061532;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=jlDqaUzBmY7KSJR/cJQFa9bN9vjDKYH/L3WntiwrWeU=;
+	b=fp5QBl15GDcNt604kk3vUV+SZXnqJyTy9NSWe5AJBrqXU398XJCHBrABeu9CicAvoVJd
+	 xZv62Wgzeiq/LMr7f98ghaM/t9G0L3V78VnWxIwPRHJFPhOK7l5miwWmDZFmiI6ooNGHz
+	 VV3Cf6qTJwjV3LrE5nlwh6+mVD9n8DvA4wnUhl/NQ+yEy0YlsupSRcuzoJ05PPnh314Qk
+	 7oncanPKUEvZ7Ra28RCypXafoz0jooYhT2w0Uhk+8jjjjuEkC4tTY4x9sWiLwtw6ZXe8f
+	 GmH6Oxajtd10DBAnRNRJIwSlf+dWHZ0v022hosG/70ezunJ1XBpHpgWQ6Gy4p3zpBgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RVmduHop;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qpWjZ4IF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D311C606A330;
-	Thu, 19 Nov 2026 04:12:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 369CC60A2608;
+	Thu, 19 Nov 2026 04:12:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RVmduHop
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 032011F000C4;
-	Thu, 19 Nov 2026 04:12:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795061529;
-	bh=Cd/IXAd36BHiEDGk7QEjHc+1HbQrSiTqxqdslEATza4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RVmduHopSC66FMRf2Ta7rbnscP97GeAHYr1J87nQCFQOQTip0W2JXhKgMVIkMTGFF
-	 dq1SqQcNt6tGlhrlBzPxLw6hwHkx56VeRVAbLSOazeG6pmLKGAmo0keF0YfD+krVS4
-	 mnd6Ls1aBjkYAkQw8fxyLxbIqxdHs94D3LNf1Sk2L3s3sXSL7xuYP9r7LhiMkgCTCD
-	 94d82Z+5+W5eGCotK4hnydTT3Hd1qwvr6t2d7CIrems5qXgqqfpUEtkinZfLMFV6wf
-	 b2MGQNVr6jctzXOApjnOLw8bCCvFC4Oxh4T7ClnWGbanzyrdai+zwn/cwS6Fzhjete
-	 BRwm6KUFpLxKQ==
-Date: Wed, 18 Nov 2026 21:12:05 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>,
-	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-tip-commits@vger.kernel.org, stable@vger.kernel.org,
-	x86@kernel.org
-Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
- enabled when compile testing
-Message-ID: <20261119041205.GA1218811@ax162>
-References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
- <avrPcQ4sOkgJPbkZ@gmail.com>
- <20261116130159.GA1327949@ax162>
- <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
- <20261116204517.GB1037705@ax162>
- <20261119031635.GFav5qExslqQpbK2Oj@fat_crate.local>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qpWjZ4IF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B5C11F000C6;
+	Thu, 19 Nov 2026 04:12:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795061531;
+	bh=jlDqaUzBmY7KSJR/cJQFa9bN9vjDKYH/L3WntiwrWeU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=qpWjZ4IFA/wEoUmOqL1tB2XTVHZEtv3+kbEe/pYUTrz8bEt6ajQjAd+cJ9t3sLm40
+	 I8hTWNvwZkDJERi6XhrtxseVizSUI96edme+owfeFjQnYx8DAWzMA7k2qnrkcq+Ic9
+	 wRis5ZLPUA5eD1d/I6AO+ZRLnJEwlXJT7J6x4jno=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10 1585/1848] serial: max310x: remove holes in struct max310x_devtype
+Date: Wed, 18 Nov 2026 16:00:23 +0100
+Message-ID: <20261118150025.904902886@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
+References: <20261118145911.150052362@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,22 +62,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261119031635.GFav5qExslqQpbK2Oj@fat_crate.local>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 18, 2026 at 07:16:35PM -0800, Borislav Petkov wrote:
-> On Mon, Nov 16, 2026 at 01:45:17PM -0700, Nathan Chancellor wrote:
-> > Hmmm, not a bad idea. That does seems to work based on my initial tests,
-> 
-> So I'm going to zap what I had queued until we figure out what we really wanna
-> do here.
+5.10-stable review patch.  If anyone has any objections, please let me know.
 
-If there are no objections, I'll send v3 within the next few days. Let's
-take it for 7.5 instead of 7.4 just to give it time to soak, I don't
-think this is really high priority (and I am testing -next most of the
-time anyways).
+------------------
 
+From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+
+[ Upstream commit eaf29135abb1c152a05572a5454c61dcd65bdeea ]
+
+Running pahole shows that there are some holes within the
+max310x_devtype structure.
+
+Remove holes and optimize alignment by reorganizing structure members.
+
+This can also lead to data structure size reduction for some CPUs.
+
+On 64-bit CPU (arm64):
+Before:
+    /* size: 40, cachelines: 1, members: 6 */
+    /* sum members: 34, holes: 2, sum holes: 6 */
+    /* last cacheline: 40 bytes */
+After:
+    /* size: 40, cachelines: 1, members: 6 */
+    /* padding: 6 */
+    /* last cacheline: 40 bytes */
+
+On 32-bit CPU (i386):
+Before:
+    /* size: 32, cachelines: 1, members: 6 */
+    /* sum members: 26, holes: 2, sum holes: 6 */
+    /* last cacheline: 32 bytes */
+After:
+    /* size: 24, cachelines: 1, members: 8 */
+    /* padding: 2 */
+    /* last cacheline: 24 bytes */
+
+Suggested-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Reviewed-by: Andy Shevchenko <andy.shevchenko@gmail.com>
+Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
+Link: https://lore.kernel.org/r/20240118152213.2644269-7-hugo@hugovil.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: 4efacb600bf9 ("serial: max310x: fix breaks not reaching the wire in RS485 mode")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/tty/serial/max310x.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
+index 36f63519ebc33..15b0ad92d7264 100644
+--- a/drivers/tty/serial/max310x.c
++++ b/drivers/tty/serial/max310x.c
+@@ -268,11 +268,11 @@ struct max310x_devtype {
+ 		unsigned short min;
+ 		unsigned short max;
+ 	} slave_addr;
+-	char	name[9];
+ 	int	nr;
+-	u8	mode1;
+ 	int	(*detect)(struct device *);
+ 	void	(*power)(struct uart_port *, int);
++	char	name[9];
++	u8	mode1;
+ };
+ 
+ struct max310x_one {
 -- 
-Cheers,
-Nathan
+2.53.0
+
+
+
