@@ -1,52 +1,53 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795037138;
-	b=ci1hdWDwcnnoDhUxQJ+HRnVFmHvF4FOnN2M3tE1AMM1WlFA4hv5DpwSp4UPQXOxZsNu+
-	 lhKgErrPiy6bcwCr0+PMGHmN64MfjxB6OpHb+grCyMWQWqXkUdSOCZJ4deDXbBqJ3LDwX
-	 /KpMlvMbQQdBMDd5+yAuvSEbvYtIgCf41/uI8zWIpJ775kyUZmndmuXJeSisNthmrPN9c
-	 2Ty2foBMTHfUqz4P2RZeRvUEFFr3UAMrYnt9QOdoHEZK5COlw0CPDoaOiK7VgXqEvw7R8
-	 DvQepxsHlhhUifncr7q5Yss3OvPD7iVN2bKFCto2Id9EWUrbO7WUEHtbm3Ao/kMSq4Q==
+	t=1795037141;
+	b=cWt/XK3BzawwPa8V3QpAa1+6BE2NMcQwFlL9uXWwDdp7mO7gv5jpGhHjPQtKv0o4oPUG
+	 NNL7X1w3gDkR4ymQ6QWALAbl2vfh+DKFI1gJ9ycwjfdns9Rn3XIi1aWJ02iGuk4Oyjw2q
+	 O/sgDTnn2ssftmYiSum15RMMNtgWcUGEzbYSu8jXLYUi1UUEWpTFw6g+4orKNREYYbioe
+	 nZDukZ0o88Ta0JpehGF7Wxd7SnJl/FxAHHx3NcoBIo0MPZyX+g//2q9ZJwvy/K2MVn4OK
+	 Av64H6ArL4fbBQ1MQ40cvwxv9Ou3kQdB8p9mgtwaIIqaHFCw3Bz3DVes0K2kSomcdag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795037138;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795037141;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=kwRwDS6hQcPJm93NX6EQOOg3ELXcvBUoE3jKrUjb7jo=;
-	b=CC7iQbMDSgm4v9p0ASu9p2P5dnjmCZZ04FFNV6Ff+BvtXUxKfPWgYTFgeKBljpjGRELL
-	 xJfP7vdIUfkVIzPnEaYQrOjEfAYJWMAPGLa+WgFGJS5aSZzPyaXoIj4jYF12jwbUiQqKy
-	 UfrTA5h9clHL+4XoEHNbn1aAA8YL5AyfW9S36wSMGiEsj7YOgGQOqAuKl4dGX4T4WlT4P
-	 zLgciZTQ6tVvbTO8jFCD2UIFMkt8HFoFR1+XjqGnYMK9gndMZZmE8KSDlb3UmaAEMXtAu
-	 /K6NjN7C5v9ebtsZrMf70dzPXrbaSO79PpOfzh1lgearNdqy1gRrMTviCkV5/sYVaXw==
+	bh=/2tG1T3SpAjWBYmu8fJjzx2DpSE2wYD8GpLvauYmW5o=;
+	b=QwK7RQRJT+KxP6bMD1ctxZ9mV5/ECPz40w0Pa3byPAqDgWGfrXOXVywP0WVcuyjYSrmG
+	 pEsNE6HPRwLYJO1uJTeh7emd1S/g1QvPQGgNJ7xtl3WvVD4pkVfJMnUjbd3IQfDfiSDMp
+	 v0YK1vVB50UCzvxJNB3RsX898dow2SC6//NYD40XtATeE5XuOrFLjqoq0HD9l9dh5ZePB
+	 mTttZj1EYb2H4TZs0Bu4yxa/7C2+gcVdhAjLua/3wViU5sT5ibTxqCzDO9IXPv1KkFRfu
+	 aFrYVMgtuKZJICzYSOAxfxLxTAPCOGHA5+Xvj+qHyhZunExmSZZ655olxoQALmzbMgg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Xn/lH9y4";
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="kTOF/zW+";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C92460A3828;
-	Wed, 18 Nov 2026 21:25:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A523606A33D;
+	Wed, 18 Nov 2026 21:25:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Xn/lH9y4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B63FD1F000C8;
-	Wed, 18 Nov 2026 21:25:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kTOF/zW+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8264D1F000C7;
+	Wed, 18 Nov 2026 21:25:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795037138;
-	bh=kwRwDS6hQcPJm93NX6EQOOg3ELXcvBUoE3jKrUjb7jo=;
+	s=korg; t=1795037141;
+	bh=/2tG1T3SpAjWBYmu8fJjzx2DpSE2wYD8GpLvauYmW5o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Xn/lH9y4zXngOv/Nk3anbC+ASiTYLS7yECHdNIO2EgmGDGumpx+5l1O8t1awP8Jhr
-	 2Kzix0IVdax+m1RLzkzXJga5ifwHWXzi1NZ2TcyKnBMH1/ih5uHYjCptDJIm4ERde1
-	 CdGj8tNyDICxRqNL6ti5Abt/RVkuq+pRJWbtlAoc=
+	b=kTOF/zW+oW5ADm8IQkDIS4YA5qB2aaGYFVUTkSKAaYUUKPMs9R19lHxyDjxKOr6M0
+	 7ziScrUBzcf+I2HCYEL6Lis0BJaktDzIaw5suS3jTUHrvjUdOU73oaxzloiZNHv7qV
+	 NmS+LWwQlrqUzJF899XyeVaNp8xV3d1Qsw5pPrEA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Chris Mason <mason@kernel.org>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Jinwang Li <jinwang.li@oss.qualcomm.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Siwei Zhang <oss@fourdim.xyz>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1290/3318] aio: fix NULL deref when a fault races ring truncation
-Date: Wed, 18 Nov 2026 15:31:52 +0100
-Message-ID: <20261118150358.965173549@linuxfoundation.org>
+Subject: [PATCH 6.6 1308/3318] Bluetooth: L2CAP: Ignore connection responses with wrong ident
+Date: Wed, 18 Nov 2026 15:32:10 +0100
+Message-ID: <20261118150359.506409498@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
 References: <20261118150313.527275416@linuxfoundation.org>
@@ -68,94 +69,49 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Chris Mason <mason@kernel.org>
+From: Jinwang Li <jinwang.li@oss.qualcomm.com>
 
-[ Upstream commit d53b5aa5cfae27e4d236fc0ab9581085d27f7d33 ]
+commit a9f9eeb5344fc7dc625e5700ccf09891bc2603b5 upstream.
 
-The aio ring lives in a file on the aio pseudo filesystem and the ring
-VMA uses filemap_fault(). aio_ctx_aops doesn't have a ->read_folio
-because aio_setup_ring() puts all folios of the ring into the page
-cache. So a fault on the ring only works as long as it finds its folio
-in the page cache. If it doesn't, filemap_fault() calls ->read_folio
-without checking and we jump to NULL.
+Adjusted context as stable does not have the lockdep_assert_held()
+call in l2cap_connect_create_rsp().
 
-We already fixed this twice this year. A forked child could inherit the
-ring mapping, fixed by commit c03ce4173c7b ("fs: aio: set
-VMA_DONTCOPY_BIT in mmap to fix NULL-pointer-dereference error"). And a
-partial mremap() could leave part of the ring mapped, fixed by
-commit 3adf7ae18bf4 ("fs: aio: reject partial mremap to avoid
-Null-pointer-dereference error"). Both times a VMA outlived the ring and
-the ring file was truncated under it.
+L2CAP/COS/CED/BI-28-C requires the IUT to ignore a Connection Response
+that carries an invalid Identifier.
 
-There's a third way to get there. kill_ioctx() and the error path of
-ioctx_alloc() unmap the ring with vm_munmap() and ignore the return
-value. If vm_munmap() has to wait for mmap_lock and a fatal signal is
-pending it returns -EINTR and the VMA stays. free_ioctx() then calls
-put_aio_ring_file() which truncates the ring file to zero. A fault that
-passed the i_size check in filemap_fault() before that doesn't find its
-folio anymore, allocates a new one and calls ->read_folio:
+l2cap_connect_create_rsp() only checks that a connection request is
+outstanding, not that the response answers it. Add an ident check
+against the pending request so that a mismatched response is dropped.
 
-    fault on the ring                 io_destroy() with SIGKILL pending
-    =================                 =================================
-                                      vm_munmap() returns -EINTR
-    filemap_fault()
-      i_size check passes
-                                      free_ioctx()
-                                        put_aio_ring_file()
-                                          truncate_setsize(inode, 0)
-      no folio, allocate a new one
-      filemap_read_folio()
-        ->read_folio == NULL
-
-All that's needed is a second process that shares the mm. If a CLONE_VM
-child calls io_destroy() and gets SIGKILLed while it waits for mmap_lock
-the ring stays mapped for the threads of the parent. Any user can do
-that.
-
-Instead of plugging the routes one by one give the ring a ->read_folio
-that unlocks the folio and returns -EIO. All folios of a live ring are
-in the page cache so a fault can only end up there if the ring was
-truncated. The fault now gets SIGBUS. Nothing else reads the ring file
-and the aio filesystem uses noop_backing_dev_info so there's no
-readahead either.
-
-Making vm_munmap() unkillable in those two places would only close this
-one route and bring back what commit ae7987835643 ("mm: make vm_munmap
-killable") fixed.
-
-Fixes: 36bc08cc0170 ("fs/aio: Add support to aio ring pages migration")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Link: https://patch.msgid.link/20261029-work-fs-ai-fixes-v1-1-88f22792f6f7@kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: Jinwang Li <jinwang.li@oss.qualcomm.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Siwei Zhang <oss@fourdim.xyz>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/aio.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+ net/bluetooth/l2cap_core.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/fs/aio.c b/fs/aio.c
-index 918ef4fea8531..8a4d95a825678 100644
---- a/fs/aio.c
-+++ b/fs/aio.c
-@@ -483,7 +483,18 @@ static int aio_migrate_folio(struct address_space *mapping, struct folio *dst,
- #define aio_migrate_folio NULL
- #endif
+diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
+index 24e72a40e61af..070211b7a9094 100644
+--- a/net/bluetooth/l2cap_core.c
++++ b/net/bluetooth/l2cap_core.c
+@@ -4283,11 +4283,11 @@ static int l2cap_connect_create_rsp(struct l2cap_conn *conn,
  
-+/*
-+ * filemap_fault() reads a folio that it did not find in the page cache. All
-+ * folios of a live ring are there, so the ring was truncated under the fault.
-+ */
-+static int aio_read_folio(struct file *file, struct folio *folio)
-+{
-+	folio_unlock(folio);
-+	return -EIO;
-+}
-+
- static const struct address_space_operations aio_ctx_aops = {
-+	.read_folio	= aio_read_folio,
- 	.dirty_folio	= noop_dirty_folio,
- 	.migrate_folio	= aio_migrate_folio,
- };
+ 	l2cap_chan_lock(chan);
+ 
+-	/* Only accept a response to a connection request we sent and that
+-	 * is still outstanding. A channel waiting in BT_CONNECT for security
+-	 * or the feature mask has not sent one yet.
++	/* Only accept a response matching a connection request we sent and
++	 * that is still outstanding. A channel waiting in BT_CONNECT for
++	 * security or the feature mask has not sent one yet.
+ 	 */
+-	if (!l2cap_chan_connect_pending(chan))
++	if (!l2cap_chan_connect_pending(chan) || chan->ident != cmd->ident)
+ 		goto done;
+ 
+ 	switch (result) {
 -- 
 2.53.0
 
