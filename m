@@ -1,58 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795039662;
-	b=2yFE8TvMsX77fjZYP0ax7jCp+PRpxAcduh/u7T4sdlAKT++TmKtH6NqmTE8NcWWK4V3A
-	 r3v/etTi6CkfnCqSlLMlSDSLLKmZ2ublb4VHJM4akRphERe8vHmUGSwuaQJ14hCVtzjXK
-	 LsH57vpvUemj3ryuXyAjci/26qmOXJP039elbFeSk9Rn9COSrvwn9Ldwlebbls2DzWTx3
-	 IklFj5VrLcVFeV5Lzd2JXzbDKuJmqEvsGAEUIudXHFKF4Y38Qa2PsDlh7xr7QDBQGQByd
-	 6j/+MEw6EAOh1PsIIPrSqcwNpoItqLBsuRstEu9hqbz2vi5EFmUmaBkJrO0dEhz5KnQ==
+	b=CIqyMFxdmt1qKYF8tzRNSy+CMxTpw2inJGcLmUgwywAW95hLA+tS14YXlH/pHmYjrMGy
+	 P1ZRpyQpIiggKbYKTwB8QIm2vwjy4Q9/jHzFEd9wZgCpGZ6egFqo/Pu6sQ0J0EMEnVnPz
+	 WEfpRu1ELCIZVUuViIOtl3iNxVV3cbJKGYe4M7Mgry8oRFgmovgNgx/eTFFTySL1w+8Qt
+	 e8F5Jn0q7NThclF6epbJaeiYcAboXhd9cXpdEp6Ln1z4alEhGUENpphrKKAE4Tn+s7POX
+	 Yn4iNt59BFV9VCvsrXJqYplgBO8emOivvKiss9DviZohhXHH3e43yz18DW9j3npVusA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795039662;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=7xwG0Z4xhwS7a4xoCpxIE1EgUFoZnBzOzmQXccongNE=;
-	b=YjGsg6i2qQkavjuB0Fm1MJFTUTv+khHSG5VWOqcCESfpR/Faw3iggyVSNG/K+IbvubH6
-	 5MA6LCmgBVOc1Yny1ZlKuDBggtagrLiSk0DjwsR3Z5h2xFb0+rSvEZPXqgeWv8/TlCH+J
-	 8CY1HkF1Yd1VPqjM8/+Oai8VqA6A/kPhbZIgoJyVT0u0/u3IwchRr+bygdzwGzA5opOfx
-	 qrZsKJn5IadO6xMIfnplFqwHpai8Xe5CzqA53cUV7NrFSh7etW/9dtqt8POXfPA9/nNVL
-	 riEThhRWYtHsbi9YdjeOgs1aZK7dUir36xRaqd5LjjDDXStVAFyEPV6CLK8YnRycnpA==
+	bh=mGGAH9zwZqlB4RSR5d8imk8M2AT/E+I9ZFv5C+97Tg4=;
+	b=VDXi2E8VeICdlwibhX0PONXvj9wxhiaC4BMiq8Ltk8jfkOtumPj5TvdfEtohV4xFJBF6
+	 iRGItcRd7drt4kQonHOyKTGtUl9BbredJC8ogsgPmZemW1Eha5hVF4RtolaUq2UFyynHY
+	 hYYqfHLsOTuwIeas5pbXi7qv7LtA8WZvdv5WTaxHqsPGtB2VvTKxisetfZf/9MhkI4I0Q
+	 2imMufKokALa6fGxxT2VFZyHM9UFH552pWHQ8/r1sK9xBNlR0CA83cpZY00ut/XFcBWcK
+	 65lKEg4hegWnUHhiVQo8nT/D13ZoDLAf/+amVlhqNhhOQOiTXg+y9q9XM5v3oFmf8yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TowtX0Bn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FoX7dFU3;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91DCC606A33F;
-	Wed, 18 Nov 2026 22:07:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A014606A33D
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 22:07:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A014606A33D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=TowtX0Bn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5D71F000C5;
-	Wed, 18 Nov 2026 22:07:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795039662;
-	bh=7xwG0Z4xhwS7a4xoCpxIE1EgUFoZnBzOzmQXccongNE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TowtX0BnIwzo9OE7HZhh3DfE4jpVxqBKVMXHOzoBfOlO66e3G9tivLWNnsl0HAuaH
-	 MTFXMufzUIgkyY2medad7VGcIxJR72SeAmOFBlrMSbdYdqyezKonPap+ffMGRNV2zh
-	 yjKyKDQ8/1JxlACgbWUGU7Wd4tdAaXSMPtHIcdr8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Xueqin Luo <luoxueqin@kylinos.cn>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 2178/3318] cpuidle: menu: Do not return a disabled idle state
-Date: Wed, 18 Nov 2026 15:46:40 +0100
-Message-ID: <20261118150427.309953468@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
-References: <20261118150313.527275416@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FoX7dFU3
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-4a42b34e930so1257823f8f.2
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 14:07:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795039661; x=1795644461; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=mGGAH9zwZqlB4RSR5d8imk8M2AT/E+I9ZFv5C+97Tg4=;
+        b=FoX7dFU385w67J1ryrceOj3KbgzdpkBdi6EtKp1JZT2snD+6G2ckyl76WgIkgFNUGM
+         e2m6Ov41KgSqCwYGCxUY9K3CNvx+vIa/b8aDUC5MtzvNG80MLYK2IAHvCUzQgCmf6/D1
+         cfSTwqX5+uJhddEUAb9pJmJzZVFINv+xbwh4dWup9bJ+2YOAYHZmnBuIszpbV06JbJfw
+         WR3Ud4UJPUtS1rii8OsK4xSxhn1nOalf8ROIYJ+F1pmKXafqmtUCp81HJzhit6ywLX3y
+         X7bjTAdbSSji1kI4qgkjKbxT+/krlRscab2hRBpKjaVsbP+0bhVIhluFvwpfrx3q5OuD
+         /gvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795039661; x=1795644461;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mGGAH9zwZqlB4RSR5d8imk8M2AT/E+I9ZFv5C+97Tg4=;
+        b=zuZdkWno2+OcQwuxxYI9QWzzvzNgCiBqAl6GY4BaO+2ZIU2yGIXRRXg1DkxYfZ7GVv
+         g8RelYtSCIA2tBiG4oPSOKMCxOoB1oYbj4FBRPslcX2SzKvW49Pgor0ICQ9En9kIokjb
+         5aRep8SeIqc5kv6iuS3jxL92p64I1vqfurLvaxBG0PesSbDCrZQtDXM4kpZ6GHWqvwLK
+         jnkU7XC9X4kN8nEzsbEiUI6CpkSdupZw7Tejij0FhGMW9SKPSDJ3mUfnY/UJoyc22+7D
+         OaHICh1+YAl0NZg3H1wSMTQqlOb6MGVjY9TdwmKWVNta1GK2vv2PYCBe5wTdVzs0+cwp
+         q9pw==
+X-Forwarded-Encrypted: i=1; AL+hErE4S0/H/tgarJblCj334S8slwsyPLaLAsBKzJRd/plKtXMAWpKXmqHPTkFD0PrPJxqCWHoQQ9g=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/eVaV5pin0Y9QEZKapEBzQxCzSyd+zp2nGxPxdWaKJJKh5FgIH
+	d16W7BcCFb03vq12ZZ97ODFEmUg3WCksf+sPRldhZsS8jzLW/AwS7JK1
+X-Gm-Gg: AZFdTZcGE0oeq21M+Z2pL5YWNd3GckCVss9uKq1KHKI0PA/oprDya1Hd+vz5RDsISNr
+	hzMabmTHgrSlfdFV4aaNDw7VdT68/gs+UAtuAwFxelewAabCUHfvL5X+q/BhsybT3/Ll3nP3Tde
+	JRluwj0AuYNhvlTNDHusQIVuHre0aA+/Cx0hUWC87wffXdDJOFGgNqCTAKMz4Dg7kj0jLQnBH4P
+	Pf2GVOGR46l2HUtDTI9dSzDyDUWKLkPRHPPAvr12nxNrmGznM9DvBEKzGjbAB9gkitbZ9VbCf4n
+	rsuFNoVMIqgnBZGUkQtzZ/gNbd/trFMNSfbzWd4/wunSarNY3V8PryAW+QCjWXkGgVUIehA5myH
+	+8+FQqSeAtcEGK/W9WMqcaVdXmm1rRcKYzWPPgIngPSGnEy01VkGFtjKmy8/1el8v4tSg8yNOuJ
+	wiTu6ztqyRvO5s7JeUCxhryHB/7CKj2fWtMut3ROGmSVrJgsPv72MfLaJsOePsmlqctdrEdgk2w
+	c3F+9lNwo5LY6vPK6I4TMpqFz17+MA8O69q0H2b4JPc7v6yZjKcLe1uMQOSsBjc6LactNtIrRiv
+	Cgt1ty4Z2lR006Bqn2v+cdfUccb61jV/ccVW+0JrIzPk8bUCAuXCGxOOtfYVTTnwBlZjb6CRevl
+	MuDF8MKXYM67KpJ7Ykg==
+X-Received: by 2002:a05:6000:220f:b0:49f:800e:aefc with SMTP id ffacd0b85a97d-4a639475777mr9194709f8f.14.1795039660723;
+        Wed, 18 Nov 2026 14:07:40 -0800 (PST)
+Received: from Enricos-MacBook-Pro ([2a01:4b00:b82b:de00:c5e0:cc6:391:83e5])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a65541f3f7sm7541073f8f.24.2026.11.18.14.07.40
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 18 Nov 2026 14:07:40 -0800 (PST)
+From: Enrico Lorenzoni <enricolorenzoni59@gmail.com>
+To: linux-media@vger.kernel.org,
+	Yasunari Takiguchi <Yasunari.Takiguchi@sony.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Enrico Lorenzoni <enricolorenzoni59@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 2/3] media: cxd2880-spi: keep the TS thread alive until kthread_stop()
+Date: Wed, 18 Nov 2026 22:07:31 +0000
+Message-ID: <20261118220732.29246-3-enricolorenzoni59@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261118220732.29246-1-enricolorenzoni59@gmail.com>
+References: <20261118220732.29246-1-enricolorenzoni59@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,54 +104,68 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+cxd2880_ts_read() is started with kthread_run() when the first feed is
+started, and cxd2880_stop_feed() calls kthread_stop() on it when the last
+feed goes away. The thread, however, returns as soon as an SPI command
+fails, both for the initial TS buffer clear and for the buffer info read
+in the main loop.
 
-------------------
+Returning from the thread function ends the task just as kthread_exit()
+does, and the task can be freed before cxd2880_stop_feed() runs; the
+kthread_stop() call then uses a task_struct that may no longer exist.
+The kthread_stop() documentation asks the caller to make sure the
+task_struct cannot go away if the thread may exit by itself, and this
+driver does not hold a reference to it.
 
-From: Xueqin Luo <luoxueqin@kylinos.cn>
+Keep the thread in its loop until kthread_should_stop() is true: report
+SPI errors with a rate-limited message, wait for the same 10 ms that the
+loop uses when no data is ready, and retry.
 
-[ Upstream commit d594187cafd5ad65afc5f00242f8fa20e1d8c0f1 ]
+A change with the same loop behaviour (plus extra locking and counters
+not included here) has been running in an out-of-tree build of this
+driver on Raspberry Pi systems with TV HATs for several weeks; a 60 s
+full-mux stream (19.5 Mbit/s) with concurrent register reads showed no
+continuity errors. I do not have a reproducer for the use-after-free
+itself, which needs an SPI error at the right time; this fix is from code
+inspection.
 
-When idle state 0 is disabled and the PM QoS latency constraint is
-zero (latency_req == 0), the first branch of the || in the early-return
-condition of menu_select() is taken immediately, so state 0 is returned
-regardless of its disable flag.
+The change and this changelog were prepared with the help of an AI coding
+assistant (Anthropic Claude). I have reviewed them.
 
-Address this by making the !disable check a prerequisite for the entire
-early-return condition, so that when state 0 is disabled the normal
-state selection loop is used instead, which already skips disabled
-states.
-
-Fixes: 53812cdc9100 ("cpuidle: menu: Move the latency_req == 0 special case check")
-Signed-off-by: Xueqin Luo <luoxueqin@kylinos.cn>
-Link: https://patch.msgid.link/20260827094820.3900062-1-luoxueqin@kylinos.cn
-Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: bd24fcddf6b8 ("media: cxd2880-spi: Add support for CXD2880 SPI interface")
+Cc: stable@vger.kernel.org
+Signed-off-by: Enrico Lorenzoni <enricolorenzoni59@gmail.com> 
 ---
- drivers/cpuidle/governors/menu.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/media/spi/cxd2880-spi.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/cpuidle/governors/menu.c b/drivers/cpuidle/governors/menu.c
-index 54bc2ccdf8e06..f00c65ce274bd 100644
---- a/drivers/cpuidle/governors/menu.c
-+++ b/drivers/cpuidle/governors/menu.c
-@@ -311,10 +311,10 @@ static int menu_select(struct cpuidle_driver *drv, struct cpuidle_device *dev,
- 		data->bucket = which_bucket(KTIME_MAX);
+diff --git a/drivers/media/spi/cxd2880-spi.c b/drivers/media/spi/cxd2880-spi.c
+index 36207940b..8e31771ac 100644
+--- a/drivers/media/spi/cxd2880-spi.c
++++ b/drivers/media/spi/cxd2880-spi.c
+@@ -278,18 +278,17 @@ static int cxd2880_ts_read(void *arg)
  	}
  
--	if (latency_req == 0 ||
--	    ((data->next_timer_ns < drv->states[1].target_residency_ns ||
--	      latency_req < drv->states[1].exit_latency_ns) &&
--	     !dev->states_usage[0].disable)) {
-+	if (!dev->states_usage[0].disable &&
-+	    (latency_req == 0 ||
-+	     data->next_timer_ns < drv->states[1].target_residency_ns ||
-+	     latency_req < drv->states[1].exit_latency_ns)) {
- 		/*
- 		 * In this case state[0] will be used no matter what, so return
- 		 * it right away and keep the tick running if state[0] is a
+ 	ret = cxd2880_spi_clear_ts_buffer(dvb_spi->spi);
+-	if (ret) {
++	if (ret)
+ 		pr_err("set_clear_ts_buffer failed\n");
+-		return ret;
+-	}
+ 
+ 	start = ktime_get();
+ 	while (!kthread_should_stop()) {
+ 		ret = cxd2880_spi_read_ts_buffer_info(dvb_spi->spi,
+ 						      &info);
+ 		if (ret) {
+-			pr_err("spi_read_ts_buffer_info error\n");
+-			return ret;
++			pr_err_ratelimited("spi_read_ts_buffer_info error\n");
++			usleep_range(10000, 11000);
++			continue;
+ 		}
+ 
+ 		if (info.pkt_num > MAX_TRANS_PKT) {
 -- 
-2.53.0
-
-
+2.47.3
 
