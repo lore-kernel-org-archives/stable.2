@@ -1,51 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795044754;
-	b=tT4GyJdxnLJ+7+lAHrpL4XKRF2xhEb6Q5Qdttyu4FLLKIQFDwuNq+Iwa9anGAPGaoWfX
-	 Qc0LncZS5LI46tKTmBEkAVazynPs66NhoLR2QY7s+JYY2236BANAmkOGMErxnFNHexyVG
-	 i8ZVpVMi5bLOHNYdIX9hXkNXJrwquWs6/ROK7NDi/rf17wJB+jK97aYSfo7MO7PHRGeoT
-	 NliOtr9DMC5sG98npj8/2aT6LPEQeaXfyIohdkoMkGC/mkx0mJmOjBt7nMC2vZZtMA0dw
-	 hcjoYX+1miTGc6gWEmh0mH82VyaK5pBwZVqgsTei7rL3GcU/dfIN60QHBltIxpUTdjw==
+	t=1795044760;
+	b=xEsmqPSe3dx4ag7fwHBBNuJmpNhBOG1UIKojqFzcMRIBAtSaqkG+v3kbT2N0DN4muk2U
+	 gKaAhTnseS//YQ/6v0L3Qp2CmHrQjJVvN3HsD6pzYvlbtL+iKsJh8AvZDJPCulLp6h+Lq
+	 BRFFZLiba6t9Zkfr9mOjN2m0eAY4yydeH504hqNNFwEKwESBvK/aPIWkFRGQF9CI5GMx1
+	 DKmjT9aEmQwiQPSOK0zoGkUtIRx4+eYf3yKs582ipuniLcPoc9W2E4iwlh1WkGCa7Me3X
+	 qkeLBCvwfINcEqQ2bATnuhfdeNihdNMS22Net4NtOq5KBzZ/7g8g/oM3eGSwXxbggiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795044754;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795044760;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=eYXUGuV/1xwt1yAM5kemfo/ehK7kykSH+lt5RjssGnc=;
-	b=wkvMasHejOoknF01uB+0IHeVQKn4Pgl1n0zOku9Yitfz5liXvWCntKcE7VzOPWrGsuOv
-	 jgDej4kRnrT7tqXzcvvsHa8kFnQsllYjDz2FzaF1ykcVg8eVgf2e8QsE08zmOziniSFR1
-	 OB5Cf8ojuvmidI3urMPWEF4baLJrQsMPWfXs3TO98f3zkXy+cw1yeHeFBFAzYRHTflAJZ
-	 IqxSiMs95nxNeEMFPinFdxVfCm7Ue8dInP1wm08S0Urz2IhZHb8zw44LRf4e9hko1UU6a
-	 a713LN9pn4n0a1p4zMRzp+2nr9qmUSdUuDDe8NgdqbM4IZzel0ryqPn2eIJG44kvn+g==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YGlz02wBiplppSEd42GpV7DigA/Csi88oYCU/dpyGL8=;
+	b=TVIEA6UniIDwBC5W5I07VqjTkBbuIuSiuotaC+KwbxgN2ok62PmUirydHNpnyypI7TNO
+	 649T4hl8Q/9VBeuJwPGFwtbD/ZLHAwqQwBWS32TbNNOnz+FuZcBzycZnkwuZlXuEKAEYV
+	 qg4HFpis+NU8sHoOyIl/Bl9wAqwQEwI1J0NXY5Yj/BIDDh/33gWHe4XQ1M5uR6HZgeLKL
+	 7d2X5CAY4UJN6FUWsf7S5fgG61JoWBRzOh2RQdsHC2/A5I0ke+DA8MT3mjQ0gt/QYooab
+	 jzXU0kVACnWVocV7lThU0wt6bPns089wkQ57b1Sird9bPUykGjFxIxRMXFhZIV1xF5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZWZF0XLi;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kbK7ukfF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95003606A32C;
-	Wed, 18 Nov 2026 23:32:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57BBE60A2601;
+	Wed, 18 Nov 2026 23:32:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZWZF0XLi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2ADA1F000C4;
-	Wed, 18 Nov 2026 23:32:33 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=kbK7ukfF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 825121F00931;
+	Wed, 18 Nov 2026 23:32:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795044754;
-	bh=eYXUGuV/1xwt1yAM5kemfo/ehK7kykSH+lt5RjssGnc=;
+	s=korg; t=1795044760;
+	bh=YGlz02wBiplppSEd42GpV7DigA/Csi88oYCU/dpyGL8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZWZF0XLiv3fKOZfWeMbLxs/FSRZwvYry/GhJd2yRQim1oLituMoGJ87LVoZKWVHHR
-	 v9t3lVj9FLP/HIwLANWbDnkEWTjrjC/mAAo5o+MbvEm1XbKVeGOTf8rIXTFsa2j2vY
-	 /VFi8CRR5lFlr0u5bnN3y1G25XuuqNL4IryFcAfc=
+	b=kbK7ukfF1hE1UTqbo+XmBF3jlaWFsaKf9fipf4lhF6F1v+nb1wEJPqc4+gCkq5E2f
+	 oUXeHgdexFYqxINM7E2+3NpCSoRiWCdOw60Ld+jUbQCIv531ccGCUG+XzJfiOKJhM2
+	 CHnHLyvTZundFaq5fxFklDT85wDx1EnR+vjVbxUM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Amit Machhiwal <amachhiw@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>
-Subject: [PATCH 6.1 0629/2857] KVM: PPC: Fix get_d_signext() 12-bit displacement for paired-single D-form
-Date: Wed, 18 Nov 2026 15:27:43 +0100
-Message-ID: <20261118150224.148192315@linuxfoundation.org>
+	Andrej Scek <scek.andrej@gmail.com>,
+	Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+	Jiri Kosina <jkosina@suse.com>
+Subject: [PATCH 6.1 0631/2857] HID: amd_sfh: Remove unsupported motion-state field from accelerometer report
+Date: Wed, 18 Nov 2026 15:27:45 +0100
+Message-ID: <20261118150224.222298641@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
 References: <20261118150201.293410965@linuxfoundation.org>
@@ -61,62 +62,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.1-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Amit Machhiwal <amachhiw@linux.ibm.com>
+From: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
 
-commit 31895b0ff96778b524c74b43a108090581271603 upstream.
+commit 6ff86122906357687735dd379c6279e3b2fa26af upstream.
 
-get_d_signext() has two compounding bugs since its introduction in 2010:
+The accelerometer HID report descriptor declares a trailing motion-state
+field (usage 0x0451), but the Sensor Fusion Hub never reports this data,
+so each accelerometer input report is one byte shorter than the descriptor
+advertises.
 
-1. The extraction mask 0x8FF silently drops bits 8-10 of the 12-bit D
-   field (PPC ISA bits 21-23), corrupting any displacement that has any
-   of those bits set.
+This was previously harmless because hid-core zero-padded short reports.
+Since commit 0a3fe972a7cb ("HID: core: Mitigate potential OOB by removing
+bogus memset()") such reports are rejected instead:
 
-2. The sign-magnitude idiom "-(d & 0x7ff)" is wrong for two's-complement:
-   for D=0xFFC (encoding of -4) it returns -252 instead of -4.
+  hid-sensor-hub 0020:1022:0001.0003: Event data for report 1 was too short (15 vs 14)
 
-Together these errors produce a wrong effective address for psq_l, psq_lu,
-psq_st, and psq_stu whenever the displacement is negative or is a positive
-value >= 0x100 with bits 8-10 set — essentially any real-world paired-
-single stack-relative access.
+As a result the accelerometer input events are dropped and screen
+auto-rotation stops working on AMD SFH systems.
 
-The D field occupies the bottom 12 bits of the instruction word (confirmed
-by the adjacent W and I extractions via inst_get_field(inst,16,16) and
-inst_get_field(inst,17,19)). Replace the open-coded logic with the standard
-sign_extend32(inst & 0xfff, 11), which correctly performs two's-complement
-sign extension from 12 bits to 32 bits.
+Remove the motion-state field from the accelerometer report descriptor and
+drop the unused in_accel_shake_detection member, so the descriptor matches
+the report actually provided by the hardware.
 
-Fixes: 831317b605e7 ("KVM: PPC: Implement Paired Single emulation")
+Fixes: 1434f9fc0e47 ("SFH: Create HID report to Enable support of AMD sensor fusion Hub (SFH)")
+Reported-by: Andrej Scek <scek.andrej@gmail.com>
+Closes: https://lore.kernel.org/linux-input/CADrS85612m-Hh-G4BJmOhy-y6r3Ni3kD8_GM-2QRBeWWEEZWuA@mail.gmail.com/
 Cc: stable@vger.kernel.org
-Signed-off-by: Amit Machhiwal <amachhiw@linux.ibm.com>
-Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
-Link: https://patch.msgid.link/20260928122837.8782-4-amachhiw@linux.ibm.com
+Signed-off-by: Basavaraj Natikar <Basavaraj.Natikar@amd.com>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- arch/powerpc/kvm/book3s_paired_singles.c |    7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ drivers/hid/amd-sfh-hid/hid_descriptor/amd_sfh_hid_desc.h        |    2 --
+ drivers/hid/amd-sfh-hid/hid_descriptor/amd_sfh_hid_report_desc.h |    7 -------
+ 2 files changed, 9 deletions(-)
 
---- a/arch/powerpc/kvm/book3s_paired_singles.c
-+++ b/arch/powerpc/kvm/book3s_paired_singles.c
-@@ -479,12 +479,7 @@ static bool kvmppc_inst_is_paired_single
+--- a/drivers/hid/amd-sfh-hid/hid_descriptor/amd_sfh_hid_desc.h
++++ b/drivers/hid/amd-sfh-hid/hid_descriptor/amd_sfh_hid_desc.h
+@@ -48,8 +48,6 @@ struct accel3_input_report {
+ 	int in_accel_x_value;
+ 	int in_accel_y_value;
+ 	int in_accel_z_value;
+-	/* include if required to support the "shake" event */
+-	u8 in_accel_shake_detection;
+ } __packed;
  
- static int get_d_signext(u32 inst)
- {
--	int d = inst & 0x8ff;
+ struct gyro_feature_report {
+--- a/drivers/hid/amd-sfh-hid/hid_descriptor/amd_sfh_hid_report_desc.h
++++ b/drivers/hid/amd-sfh-hid/hid_descriptor/amd_sfh_hid_report_desc.h
+@@ -169,13 +169,6 @@ static const u8 accel3_report_descriptor
+ 0x95, 1,		/* HID report count (1) */
+ 0x55, 0x0E,		/* HID unit exponent(0x0E) */
+ 0X81, 0x02,		/* HID Input (Data_Arr_Abs) */
 -
--	if (d & 0x800)
--		return -(d & 0x7ff);
--
--	return (d & 0x7ff);
-+	return sign_extend32(inst & 0xfff, 11);
- }
+-0x0A, 0x51, 0x04,	/* HID usage sensor data motion state */
+-0x15, 0,		/* HID logical Min_8(0) False = Still*/
+-0x25, 1,		/* HID logical Min_8(1) True = In motion */
+-0x75, 8,		/* HID report size(8) */
+-0x95, 1,		/* HID report count (1) */
+-0X81, 0x02,		/* HID Input (Data_Arr_Abs) */
+ 0xC0			/* HID end collection */
+ };
  
- static int kvmppc_ps_three_in(struct kvm_vcpu *vcpu, bool rc,
 
 
