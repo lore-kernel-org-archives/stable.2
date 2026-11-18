@@ -1,58 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795019431;
-	b=uiXultaPdjVW5S5VmycK9jrf23tTeRSuKBJiiVLNRA5Pd2OtF9Xv/vFs5167IgUZ9ctc
-	 bgvG+V6DQJ0U/Y3bGKHdwomW1seYgYVOp3lmVE5QXksVY8W7fgLhrq7frDtAqrBeJSOdM
-	 yMObBUJ15NmpuELCf1HMiyXBx/N/igKxKafPaWLSg6gTEv4aOIPTBt7wC7u2+qaz960EF
-	 5V+B0uyIPMsZ3E6vhkeQkPVD9vqc++agpke/l0NCQjNP6CnWT+nq98ubr6UqugPJAUeXo
-	 +eo210aPKccslW+oZn/eSxZxcwhY+oAgfiTpn1TE2hmJTy2IRqCe8XNz6h2lkuN5WGw==
+	t=1795019433;
+	b=DXHoxEwtsJFH/hDiSHWn8ZMPnEljekAc8H7ndLIYb3F8swuL56VZs2G8PX54e8skNrea
+	 D2OwkNk3FwJFOm9CFo9gzGn9Z8uiYXSXc474IbwLdR/3862QmChdl7nhkQ3TVJDs+gfqV
+	 tC3wKwkCh0RfFwM7LtmnGH8MNbRpruSmSHmdDifuSmffKm0vs9dwEHFCx88N9XDu6U5v0
+	 YG7uqzK3zE5wCuN9/8L6stoQF5S6NwcVryuCCjL4BqmHdehAt6FkxepGVBf5SqE+eR0DR
+	 +XfJ/tCN32oYdcDPi2XVC+wXjsbVRt+klbo1GbV3Tn/jyUsk47xIvF8b1tE/zzCwt3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795019431;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hBiVUu1NQgaIk17LdxSbl6n0+gRvdlpP62OHjCu+CR8=;
-	b=t8X+M2SMKn+g8wqh4Xq0JDoX/lc36XTHcDIfkIc6bhk7cx215ySoUD51anKQ3HWOhDEw
-	 e3TjxRywQmhH8tCe1x6AZCI5+yfNtw2Bv/8AQ5fU5qZ3VMd+/ZWKSCiRmMNGhNZr5EEx6
-	 sl8mc47gI9DqCp4KHTzP5/dmzXfmNBusJpR9q70B0ZcMbaL/fChCGayeuqMoEkWLnBV/F
-	 h17YI3gHdCL4IQafhDIxCG/d03MQh+0BYcEHn9dtoo/o4OpNr8YJ6kFX6FXXiN5AB2+0g
-	 AGn+b4mdeHP85PD6gAf0ZKHDKlT3euONqKPuf6MNBIoNJziXgdP/gOn3XpH9AjSyoeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795019433;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=r6qnE+rrPP/+WIwyrf6W7iyVRQaaxGpUn+33m8pv7AQ=;
+	b=AGIcOrU6qPJKwucwQVvuy112AVT3JOdRhbLUUQrG82MqCX+Sf86rryv2o7KVdz7O14dN
+	 r7QEt7hoSNRAZo6jb7gX4WqgVQzH4MWCiqz+xY4UnmM+R9ZFRuYtDjpuK5XqigHh87Tpl
+	 ovU+EWf87Hi/ClHa5T84E5+PLqaVyt1ngGPsUw7PT61+khvpwfStnSJD6KsD7Bfx2NX/g
+	 1xVM3BwiD4eW7qDqFVesuJDm99BG6vVC9T2s6H30u574NHyUAI9g50fY9p3/tfbSImP+V
+	 wRdnHbKqXSpEMMCUgJ8+qhH41xYVU+G1CKCSMISnnqqnVZKiGaPYMpjXJ37PAX65XQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GsbDIYbF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hI3yErJg;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C30B60A3836;
-	Wed, 18 Nov 2026 16:30:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13349606C3C2
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:30:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13349606C3C2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GsbDIYbF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14FEA1F000D2;
-	Wed, 18 Nov 2026 16:30:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795019430;
-	bh=hBiVUu1NQgaIk17LdxSbl6n0+gRvdlpP62OHjCu+CR8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GsbDIYbFb7vXQ3HAjgEorYEL7YfaqMFx99QpmmhhW9s+qYGE23iXleKRYLXfwKIF1
-	 lZioOEcvEiTJ1DjZTAwdz6XEMu2Y06TfEz2U9hO06jEOXaJuAwE4tZJgmxn60se9Jp
-	 nF+D8fYQvfmqonwDQA+Lgb15/xA/ysrsj6Jt/oAk=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Matthew Wood <thepacketgeek@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 1593/2651] bpf, arm64: Fix racy plt target update in bpf_arch_text_poke()
-Date: Wed, 18 Nov 2026 15:47:13 +0100
-Message-ID: <20261118150345.249654487@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=hI3yErJg
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795019432;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=r6qnE+rrPP/+WIwyrf6W7iyVRQaaxGpUn+33m8pv7AQ=;
+	b=hI3yErJg7aq2RxIqVxCbgWPcvX9GD7yq2sNP5Rv43oSQvaaZFC+9c8uChdwiEcdbK2RVMa
+	ML/StDbsDQb8ImpHusk0g/7YQ3qF2Ak/G3yfzIy3p9IZJyyrtgF1ZAlzLhQ07norjYiOle
+	RiHOq1sCLaSJ/Qpi+Pwi6Z0lWlFNH7A=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-144-ykpJEus6P_-OoU9HyaJLdg-1; Wed,
+ 18 Nov 2026 11:30:25 -0500
+X-MC-Unique: ykpJEus6P_-OoU9HyaJLdg-1
+X-Mimecast-MFC-AGG-ID: ykpJEus6P_-OoU9HyaJLdg_1795019423
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 39B6F1800365;
+	Wed, 18 Nov 2026 16:30:22 +0000 (UTC)
+Received: from onestero-thinkpadp1gen7.tpbc.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id D9A5930000E8;
+	Wed, 18 Nov 2026 16:30:18 +0000 (UTC)
+Received: by onestero-thinkpadp1gen7.tpbc.csb (nbSMTP-1.00) for uid 13628
+	oleg@redhat.com; Wed, 18 Nov 2026 17:30:21 +0100 (CET)
+Date: Wed, 18 Nov 2026 17:30:17 +0100
+From: Oleg Nesterov <oleg@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>,
+	Breno Leitao <leitao@debian.org>,
+	Christian Brauner <brauner@kernel.org>,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	tz2294@columbia.edu, stable@vger.kernel.org,
+	Mani Tofigh <mt4022@columbia.edu>
+Subject: Re: [PATCH] pipe: keep per-write wakeups for EPOLLEXCLUSIVE consumers
+Message-ID: <av3SmRMGDLVAwMzK@redhat.com>
+References: <20261111-pipe-epollexclusive-wakeup-v1-1-0af6283e9fda@columbia.edu>
+ <avxWKI795DthE8Sb@redhat.com>
+ <CAHk-=wjOq+G=6gte4vX_YxOD_VfE1uZh7=+KHs8N0wU75xyHEg@mail.gmail.com>
+ <avyODoFhZ_M7YDU5@redhat.com>
+ <CAHk-=wgcBSBtHE+3ceKGjq1jyF64OyoEqf5JPpixowAa80GqNQ@mail.gmail.com>
+ <avyVwg-5ef-pXZkG@redhat.com>
+ <CAHk-=wjJF8uZLfVbbqei9-fhs9K70i2OnVreCV-rQF9EGKAxJg@mail.gmail.com>
+ <CAHk-=wjqParwoB8wb9KfGVpbwUwvKvObpLOo=XPM0GGfkn3ibw@mail.gmail.com>
+ <av2juQijIISJAgyf@redhat.com>
+ <CAHk-=wg4RgBYZcUU+c16XxdZ4UbAaazJkUS=R6=tpN4xUBdDRw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,129 +93,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAHk-=wg4RgBYZcUU+c16XxdZ4UbAaazJkUS=R6=tpN4xUBdDRw@mail.gmail.com>
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On 11/18, Linus Torvalds wrote:
+>
+> Some duplication - with explicit naming of the locking status for the
+> special cases that are called with the lock already held - is much
+> preferable to dynamically doing the locking
 
-------------------
+OK, this was my plan B ;) I'll try to make a patch this week.
 
-From: Matthew Wood <thepacketgeek@gmail.com>
-
-[ Upstream commit 6335e6719fd323c345427b7cf2d5d17c28fdbc41 ]
-
-When a long-jump trampoline is attached to or detached from a bpf prog,
-bpf_arch_text_poke() updates the plt target at the end of the prog by
-temporarily making the page writable:
-
-	set_memory_rw(page);
-	WRITE_ONCE(plt->target, plt_target);
-	set_memory_ro(page);
-
-Since commit 1dad391daef1 ("bpf, arm64: use bpf_prog_pack for memory
-management"), bpf progs are allocated from the bpf prog pack, so
-unrelated progs and their plts commonly share a page. The sequence
-above is not serialized against other pokers, it runs before text_mutex
-is taken and callers only hold the lock of the trampoline being
-updated. Two CPUs attaching to or detaching from different target progs
-in the same page can therefore race:
-
-	CPU A                           CPU B
-	set_memory_rw(page)
-	                                set_memory_rw(page)
-	                                WRITE_ONCE(plt_B->target, ...)
-	                                set_memory_ro(page)
-	WRITE_ONCE(plt_A->target, ...)  <- permission fault
-
-This was hit on an arm64 server with 64K pages while attaching fentry
-programs to bpf progs:
-
-  Unable to handle kernel write to read-only memory at virtual address ffff80008f46d5f8
-  ESR = 0x000000009600004f
-  FSC = 0x0f: level 3 permission fault
-  pte=00c00200ea5a0783
-  Internal error: Oops: 000000009600004f [#1]  SMP
-  pc : bpf_arch_text_poke+0x214/0x238
-  lr : bpf_arch_text_poke+0x200/0x238
-  Call trace:
-   bpf_arch_text_poke+0x214/0x238 (P)
-   __bpf_trampoline_link_prog+0x1c8/0x470
-   bpf_trampoline_link_prog+0x64/0x90
-   bpf_tracing_prog_attach+0x318/0x4a8
-   bpf_raw_tp_link_attach+0x104/0x258
-   bpf_raw_tracepoint_open+0x6c/0x90
-   __sys_bpf+0x134c/0x3e10
-
-Rather than serializing the permission changes, stop changing page
-permissions altogether and write the plt target with
-aarch64_insn_write_literal_u64(). It writes through the text patching
-fixmap under patch_lock, the same way the rest of the prog pack is
-written, and performs a single-copy atomic 64-bit store. The plt target
-is naturally aligned (see build_plt()), so CPUs concurrently executing
-the plt still observe either the old or the new target. This is the
-same helper ftrace and static calls use to update 64-bit literals that
-are loaded concurrently.
-
-Fixes: 1dad391daef1 ("bpf, arm64: use bpf_prog_pack for memory management")
-Signed-off-by: Matthew Wood <thepacketgeek@gmail.com>
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Link: https://patch.msgid.link/20261009173802.1248441-1-thepacketgeek@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- arch/arm64/net/bpf_jit_comp.c | 32 ++++++++++++++++----------------
- 1 file changed, 16 insertions(+), 16 deletions(-)
-
-diff --git a/arch/arm64/net/bpf_jit_comp.c b/arch/arm64/net/bpf_jit_comp.c
-index c1279fabce473..d393fa6bfbf4d 100644
---- a/arch/arm64/net/bpf_jit_comp.c
-+++ b/arch/arm64/net/bpf_jit_comp.c
-@@ -22,7 +22,6 @@
- #include <asm/debug-monitors.h>
- #include <asm/insn.h>
- #include <asm/text-patching.h>
--#include <asm/set_memory.h>
- 
- #include "bpf_jit.h"
- 
-@@ -3237,21 +3236,22 @@ int bpf_arch_text_poke(void *ip, enum bpf_text_poke_type old_t,
- 		 */
- 		plt_target = (u64)&dummy_tramp;
- 
--	if (plt_target) {
--		/* non-zero plt_target indicates we're patching a bpf prog,
--		 * which is read only.
--		 */
--		if (set_memory_rw(PAGE_MASK & ((uintptr_t)&plt->target), 1))
--			return -EFAULT;
--		WRITE_ONCE(plt->target, plt_target);
--		set_memory_ro(PAGE_MASK & ((uintptr_t)&plt->target), 1);
--		/* since plt target points to either the new trampoline
--		 * or dummy_tramp, even if another CPU reads the old plt
--		 * target value before fetching the bl instruction to plt,
--		 * it will be brought back by dummy_tramp, so no barrier is
--		 * required here.
--		 */
--	}
-+	/*
-+	 * non-zero plt_target indicates we're patching a bpf prog,
-+	 * which is read only. The prog may share its page in the bpf
-+	 * prog pack with other progs, so write the aligned target
-+	 * through the text patching fixmap without flipping the
-+	 * page permissions to avoid racing with concurrent pokers.
-+	 *
-+	 * since plt target points to either the new trampoline
-+	 * or dummy_tramp, even if another CPU reads the old plt
-+	 * target value before fetching the bl instruction to plt,
-+	 * it will be brought back by dummy_tramp, so no barrier is
-+	 * required here.
-+	 */
-+	if (plt_target &&
-+	    aarch64_insn_write_literal_u64(&plt->target, plt_target))
-+		return -EFAULT;
- 
- 	/* if the old target and the new target are both long jumps, no
- 	 * patching is required
--- 
-2.53.0
-
-
+Oleg.
 
