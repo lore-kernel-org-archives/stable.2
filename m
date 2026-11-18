@@ -1,55 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795003173;
-	b=J/6iVerU9kOVK+Qw6A0PI1iz4ldy8XIKpJhg/TYStyiL+VPIiaBqlFYGJG/a1hw3h18z
-	 SUa/qVbWcKYyx/lv1BpLsBKTGe2/P/z/NXwZoFEyoqEs32gH8zdSNylGVG8IEatCufBwC
-	 26I1jhxXrubZv0q+r/xKAI2P8vSn2AsmYvJ3XmJLuPpdE6TcOidMZCOX/IuJ6TgXW5Spa
-	 sGmETtxJpBc5zDe3Ls8J8qwU1w3euiWJkll4kzmAg3MBjg5EfeoESSTDPlF5Eq/2ZTMC1
-	 BrjttE02OIgLspqtHeZY4eHN5H7q3siwxt9z18mJtZoSn8+vAp625LqLyF2gl0IDdKQ==
+	t=1795003364;
+	b=WFWiFS8xha8wWcyuUR0nsC7PhnLcqhkYHhR+ysk2dFbStcdnNOHiVXYQQE66INBtGdGO
+	 X2Uv5Qz7RzMYDJACx8fYrcPhyQCqVALijKCQ+CyW5DV8WMZJ/rhRWjHmMZTKpmkxIN4v4
+	 sP29jAnGB8MlLg6zCBbKQuXgTDXzgzEJq3I2E/b6H+Btgys4oEXTAfREqkQjc3WYcAUJe
+	 t4G7fCry6K8ASNKha0W1zaC/mWB19I3E8WsnpVYcFld8KsqJmlCKVBz1Li7DwBsSMF8Q7
+	 5o38eRGKEtTpti9ey3r4tslGrySqxO67DdINucUMWkKpxW+WaMXCs1vhxrUlfE0J0xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795003173;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=bH6ZQZME+UP8h4wG+aB33LFx7GanxI9Syn/JAZf9Ig0=;
-	b=JXS8IFLLCYDlIgOwLC1+1ujzO4P2x3XnP4D0vPB2j9OaEClzUl51N5xHFbjGYXy/ihwu
-	 KhEU9oM4/EZ5LQhU2e98WJBlML9xAejg64liCjX8C5Ps8TKzBIs+ZobxZq0pbXA52G+DX
-	 JpZjs1pgYk8orR9mjPCBAGjjngHywyclcKTRuH7pM1lSMjedHGunoseIUg8LPMzeNErKl
-	 Ia3SE4KiTEwh81Usd1P405NS+cg0X/eF5gr+1wTNZQbF1aDAv9F+s1iJorQrSO3L5WJ5i
-	 Mb9zNOlIMa3l3INVQ3Hhb1rUu5ISkzWIGj2+ocwoi9E7pNrCGfGB5//X0/RSfdDkI9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795003364;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=d/gqrN+T8f/X92LPtrI/NRhzp7WqXSe1x4eYWu588a8=;
+	b=txbHRdSUIJQFf5HvQc9c94EBV60Bo4HwfHrp2gg9jyP8S1lMOIoK29Ot+5mhrBcnfKVk
+	 K1P7w+BdhE8ptUHHzTtWeQdN2D05ax++Bm2CfiGwlozi/hLRzFvuvVVkkg+4BOqx/7M/z
+	 +/MnHFJL2NegTPs56YbtjHe+YJsGs5lZT/9zOq660z2vlNf1Y4k83l+wKagA1I1iEhXpu
+	 3HO1DOhEqyMBc2wUwaTjmBZe+72sIGuW/FWOBVCLeZdyXLWaZT9rE/+XbcH27qn6EzqgN
+	 hTfvEUIoJ+3rQgUsiUd4aU64Qisp+w8T1H4R0YJcfEM3ouhIl/Aw8c2pxIed1kWP1Aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bKFIY6XU;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=suse.cz;
+	spf=pass smtp.mailfrom=suse.cz;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Awu0qdCb;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8PvYtibk;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=YTzCAvja;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ghfpXtsR;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB7760A2633
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:59:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAC4A606A32F;
+	Wed, 18 Nov 2026 12:02:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DAC4A606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bKFIY6XU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C617A1F000C8
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:59:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795003172;
-	bh=bH6ZQZME+UP8h4wG+aB33LFx7GanxI9Syn/JAZf9Ig0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bKFIY6XU2YYUsOecjd3tLHcjepljyJH467mRnE0AJXl4hfJOSVjobJrGSgpow+jue
-	 5wXKoLqG+z3KP5jhahdtxYzbbgqk8vXHP814+fQiIbhsw1KQiMjnL0tqV+lf/la5Ho
-	 7HcueY0YIEL5KzodtSNdh9s7lSxMVR4RLFDiLs71SE5Op6E5t85eVUtDKjpZjzdt4C
-	 9yVuJjl1hhzJ7wBvfctumEliZpQzJjGP3wbRlirzIDm0uATkhrdcBF2Lr6blKPhZXo
-	 q8161LGkuJCTIqQmVwvSHWJ/ePGd58lbYgqKHErT1UXxSObo1YUMBGs8qPLaP25C+Q
-	 leD+M3+7SlMwA==
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b894a5ce3dso841295a12.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 03:59:32 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFaZdJv9DkY5KKUTu+I3nF3t1JXiI0KHPo7nPd0gw3F4m8NXgdakdd1zbu286Pt7t3TPIhcpoc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+2OeYzWpvI1hL0ENXSFXKL8FlseOpd5ci3dHDIw3Ga3AzptD15
-	vZgjXDKFAZcEgfe7DFarpR9qK2weWbSPpPrX6zxdVwjvVnX0dALxgp2Tdw4yt49HyF8lplz0Vk5
-	nLgNGztUqlKZWgdRVyAQuqAcMg6/VYyk=
-X-Received: by 2002:a05:6402:42c2:b0:6b8:981e:9896 with SMTP id
- 4fb4d7f45d1cf-6b8981e9a77mr1167842a12.15.1795003171385; Wed, 18 Nov 2026
- 03:59:31 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=Awu0qdCb;
+	dkim=pass header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8PvYtibk;
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.a=rsa-sha256 header.s=susede2_rsa header.b=YTzCAvja;
+	dkim=neutral header.d=suse.cz header.i=@suse.cz header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=ghfpXtsR
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D7B661F8CD;
+	Wed, 18 Nov 2026 12:02:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795003361; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d/gqrN+T8f/X92LPtrI/NRhzp7WqXSe1x4eYWu588a8=;
+	b=Awu0qdCbJfUtrk6IjY1gulHMhK1xcyydaepV8v85dgYYhMmXk0q04itRySukxXCgL1EsZ7
+	CNBNqsfMmMKLQZZTn08Mqq2ztbxTkkKcETqxGJRGOUFQO2DMrrlhDGlUYqWyFfbaAL7y0J
+	b8grKHtSKoxIjDBPDvToLt3UQazemHI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795003361;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d/gqrN+T8f/X92LPtrI/NRhzp7WqXSe1x4eYWu588a8=;
+	b=8PvYtibkVoHCNjqHAcp0h3cMQ9HbyolDO3HuCbbrSVL8iiEPNBbZcu/Rb7g5mwMh1jYA3T
+	Uh9SrXYlhasWQmAw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1795003359; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d/gqrN+T8f/X92LPtrI/NRhzp7WqXSe1x4eYWu588a8=;
+	b=YTzCAvjaJ0U2kSsI6gutYXc9Z0odrKI0tin3WohBMFHqBH0E1KVnaI/Q3V403PJmdi5r7x
+	4pOkNV9Eqm2/2yhWuGMRIDFqEis1A0RgVpEOtidVI1p3XF4MQLVG6V9fGt0aCa0tZrc6+j
+	IT4UUfbRORfO43xl+UjdgsRfCyHY55c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1795003359;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=d/gqrN+T8f/X92LPtrI/NRhzp7WqXSe1x4eYWu588a8=;
+	b=ghfpXtsR2c2N4OAgDYxN6eV15cc/h9ClfXQFJtrilhTD3fnOc1OrcQx2E4Uh0KWubg/rIN
+	m1Dgw+L0CYMxEGDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id AEED8134E9;
+	Wed, 18 Nov 2026 12:02:39 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id sg7LId+T/WpbIwAAD6G6ig
+	(envelope-from <jack@suse.cz>); Wed, 18 Nov 2026 12:02:39 +0000
+Received: by quack.suse.cz (Postfix, from userid 1000)
+	id 3D3A525028; Wed, 18 Nov 2026 13:02:39 +0100 (CET)
+Date: Wed, 18 Nov 2026 13:02:39 +0100
+From: Jan Kara <jack@suse.cz>
+To: Alan <3164729207@qq.com>
+Cc: tytso@mit.edu, adilger.kernel@dilger.ca, libaokun@linux.alibaba.com, 
+	jack@suse.cz, ojaswin@linux.ibm.com, ritesh.list@gmail.com, 
+	yi.zhang@huawei.com, harshadshirwadkar@gmail.com, linux-ext4@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] ext4: reserve inode write access before unlinking
+ entry
+Message-ID: <zkqch3frmclz7yjyllhcvehbpnfeofs3zt5ylg6ska7hdkf6th@gvd7pv5zrehv>
+References: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com>
+ <tencent_69B311F4356254E166A5EFDC981AA138D80A@qq.com>
+ <otvuclstcoaysrnywzdttapxbxg7hq3p7lp3iexy7u5cuj6plx@waqfsi2dg2p4>
+ <tencent_58D8BEFB60308A7011D26F6F7E8C941C2A09@qq.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,161 +115,133 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261118071444.10258-1-dongtai.guo@linux.dev>
-In-Reply-To: <20261118071444.10258-1-dongtai.guo@linux.dev>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 18 Nov 2026 19:59:20 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H4TNuXk60LyzZhFwQTfNtdzLEFQTwS84u3ZMQ6b=8S0NA@mail.gmail.com>
-X-Gm-Features: AclHuK9RMXtq8INuqJyxShDP1iB7lCD0ZsGtokFdu5T-DLvL7gz_akNiwodRTL0
-Message-ID: <CAAhV-H4TNuXk60LyzZhFwQTfNtdzLEFQTwS84u3ZMQ6b=8S0NA@mail.gmail.com>
-Subject: Re: [PATCH v2] LoongArch: BPF: Fix the offset of stptr.w and stptr.d stores
-To: George Guo <dongtai.guo@linux.dev>
-Cc: yangtiezhu@loongson.cn, hengqi.chen@gmail.com, guodongtai@kylinos.cn, 
-	bpf@vger.kernel.org, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <tencent_58D8BEFB60308A7011D26F6F7E8C941C2A09@qq.com>
+X-Spamd-Result: default: False [-11.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_RHS_NOT_FQDN(0.50)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	MISSING_XM_UA(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_TO(0.00)[qq.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com,qq.com];
+	TO_DN_SOME(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[mit.edu,dilger.ca,linux.alibaba.com,suse.cz,linux.ibm.com,gmail.com,huawei.com,vger.kernel.org];
+	RCVD_COUNT_THREE(0.00)[3];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_TLS_LAST(0.00)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:email,inode_iloc.bh:url,qq.com:email,dir_iloc.bh:url,imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -11.30
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-On Wed, Nov 18, 2026 at 3:15=E2=80=AFPM George Guo <dongtai.guo@linux.dev> =
-wrote:
->
-> From: George Guo <guodongtai@kylinos.cn>
->
-> When testing bpf selftests "jit_insns" and "jit_insns_blinded", the
-> "ldst_offsets" subtest fails for word and doubleword stores:
->
->   $ sudo ./test_progs -t jit_insns/ldst_offsets | grep FAIL | head -1
->   store_offsets:FAIL:stx size=3D0 base=3Dr0 src=3Dr1: byte at offset -163=
-84
->
-> The JIT incorrectly treats the signed 14-bit immediate of stptr.w
-> and stptr.d as a byte offset. For offsets outside the signed 12-bit
-> range of st.w and st.d, it checks the byte offset with
-> is_signed_imm14() and encodes it unchanged. However, the hardware
-> scales the encoded immediate by 4 when calculating the memory
-> address. For example, a store at offset -4096 writes at offset -16384
-> instead, outside the memory range checked by the verifier.
->
-> Pass the offset in units of 4 bytes when emitting stptr.w and stptr.d
-> for both immediate and register stores. Use these instructions only
-> for offsets that are multiples of 4 in the range [-32768, 32764], and
-> keep the register-offset fallback for other offsets that do not fit
-> the signed 12-bit immediate of st.w or st.d.
->
-> Before:
->   $ sudo ./test_progs -t jit_insns/ldst_offsets | tail -1
->   Summary: 0/0 PASSED, 0 SKIPPED, 2/2 FAILED
->
-> After:
->   $ sudo ./test_progs -t jit_insns/ldst_offsets | tail -1
->   Summary: 2/2 PASSED, 0 SKIPPED, 0/0 FAILED
->
+On Tue 17-11-26 11:39:38, Alan wrote:
+> __ext4_unlink() removes the directory entry before decrementing the target
+> inode's link count. It then dirties the parent inode. If the parent
+> inode-table block cannot be read, parent inode dirtying fails after the
+> entry has been removed, and unlink returns without dropping the target
+> inode's link count. With errors=continue, this read error need not abort
+> the journal transaction, so the directory update can be committed without
+> the corresponding link-count update.
+> 
+> Reserve the inode locations and journal write access for the parent and
+> target inodes before removing the directory entry. This makes inode-table
+> read and access errors fail before the namespace is changed. Keep the
+> existing namespace and link-count update order, and release the inode
+> location references on every exit path. Fast-commit replay can skip the
+> parent update when the directory entry does not match the target inode, so
+> reserve only the target inode in that case.
+> 
+> The original source-derived injection at the journal write-access boundary
+> is not evidence for a committed inconsistency: an error after the journal
+> has already aborted cannot establish a committed transaction. The relevant
+> failure is an actual inode-table READ EIO before journal write access.
+> 
+> Tested on Linux 7.4-rc3 (torvalds/linux commit
+> aebb7274476403040d582c61478df8f4a7bf9cd3) with QEMU blkdebug and
+> errors=continue. On the unpatched kernel, the READ EIO leaves the directory
+> entry removed with Links: 1 after normal unmount; the JBD2 trace shows no
+> journal abort and records the transaction commit, and e2fsck -fn reports
+> an unattached inode. With this patch, the same error is returned before the
+> directory entry is removed; the file remains present with Links: 1 and
+> e2fsck -fn passes. No-fault controls pass on both kernels. Also built
+> fs/ext4/namei.o with W=1.
+> 
+> Fixes: 4209ae12b122 ("ext4: handle ext4_mark_inode_dirty errors")
+> Link: https://lore.kernel.org/linux-ext4/tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com/
 > Cc: stable@vger.kernel.org
-> Fixes: 5dc615520c4d ("LoongArch: Add BPF JIT support")
-> Signed-off-by: George Guo <guodongtai@kylinos.cn>
+> Signed-off-by: Alan <3164729207@qq.com>
 > ---
+>  fs/ext4/namei.c | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
+> 
 > v2:
-> - Rename is_ptr_off() to is_aligned_signed_imm16() and drop its comment (=
-Tiezhu)
-> - Remove the now unused is_signed_imm14() (Tiezhu)
-> - Reword the commit message
-> v1: https://lore.kernel.org/all/20261118030219.6230-1-dongtai.guo@linux.d=
-ev/
->
->  arch/loongarch/net/bpf_jit.c | 16 ++++++++--------
->  arch/loongarch/net/bpf_jit.h |  6 +++++-
->  2 files changed, 13 insertions(+), 9 deletions(-)
->
-> diff --git a/arch/loongarch/net/bpf_jit.c b/arch/loongarch/net/bpf_jit.c
-> index 15af1abb5cb6..906f34f420f1 100644
-> --- a/arch/loongarch/net/bpf_jit.c
-> +++ b/arch/loongarch/net/bpf_jit.c
-> @@ -1400,8 +1400,8 @@ static int build_insn(const struct bpf_insn *insn, =
-struct jit_ctx *ctx, bool ext
->                         move_imm(ctx, t1, imm);
->                         if (is_signed_imm12(off)) {
->                                 emit_insn(ctx, stw, t1, dst, off);
-> -                       } else if (is_signed_imm14(off)) {
-> -                               emit_insn(ctx, stptrw, t1, dst, off);
-> +                       } else if (is_aligned_signed_imm16(off)) {
-> +                               emit_insn(ctx, stptrw, t1, dst, off >> 2)=
-;
->                         } else {
->                                 move_imm(ctx, t2, off);
->                                 emit_insn(ctx, stxw, t1, dst, t2);
-> @@ -1411,8 +1411,8 @@ static int build_insn(const struct bpf_insn *insn, =
-struct jit_ctx *ctx, bool ext
->                         move_imm(ctx, t1, imm);
->                         if (is_signed_imm12(off)) {
->                                 emit_insn(ctx, std, t1, dst, off);
-> -                       } else if (is_signed_imm14(off)) {
-> -                               emit_insn(ctx, stptrd, t1, dst, off);
-> +                       } else if (is_aligned_signed_imm16(off)) {
-> +                               emit_insn(ctx, stptrd, t1, dst, off >> 2)=
-;
->                         } else {
->                                 move_imm(ctx, t2, off);
->                                 emit_insn(ctx, stxd, t1, dst, t2);
-> @@ -1460,8 +1460,8 @@ static int build_insn(const struct bpf_insn *insn, =
-struct jit_ctx *ctx, bool ext
->                 case BPF_W:
->                         if (is_signed_imm12(off)) {
->                                 emit_insn(ctx, stw, src, dst, off);
-> -                       } else if (is_signed_imm14(off)) {
-> -                               emit_insn(ctx, stptrw, src, dst, off);
-> +                       } else if (is_aligned_signed_imm16(off)) {
-> +                               emit_insn(ctx, stptrw, src, dst, off >> 2=
-);
->                         } else {
->                                 move_imm(ctx, t1, off);
->                                 emit_insn(ctx, stxw, src, dst, t1);
-> @@ -1470,8 +1470,8 @@ static int build_insn(const struct bpf_insn *insn, =
-struct jit_ctx *ctx, bool ext
->                 case BPF_DW:
->                         if (is_signed_imm12(off)) {
->                                 emit_insn(ctx, std, src, dst, off);
-> -                       } else if (is_signed_imm14(off)) {
-> -                               emit_insn(ctx, stptrd, src, dst, off);
-> +                       } else if (is_aligned_signed_imm16(off)) {
-> +                               emit_insn(ctx, stptrd, src, dst, off >> 2=
-);
->                         } else {
->                                 move_imm(ctx, t1, off);
->                                 emit_insn(ctx, stxd, src, dst, t1);
-> diff --git a/arch/loongarch/net/bpf_jit.h b/arch/loongarch/net/bpf_jit.h
-> index 2bd0dc5b911c..777c76112d95 100644
-> --- a/arch/loongarch/net/bpf_jit.h
-> +++ b/arch/loongarch/net/bpf_jit.h
-> @@ -45,13 +45,17 @@ do {                                                 =
-                               \
->  } while (0)
->
->  #define is_signed_imm12(val)   signed_imm_check(val, 12)
-> -#define is_signed_imm14(val)   signed_imm_check(val, 14)
-Is there instructions really take a 14bit imm (not something like
-ldptr.d/stptr.d)?
-If yes, I suggest keeping is_signed_imm14() because maybe we need it in fut=
-ure.
+> - Clarify that the committed inconsistency is reproduced by an inode-table
+>   READ EIO before journal write access, not by an already-aborted journal.
+> - Revalidate the unmodified and fixed paths on current Linux 7.4-rc3 mainline.
 
-Huacai
+Ah, OK, now it makes more sense. Thanks! One nit below:
 
->  #define is_signed_imm16(val)   signed_imm_check(val, 16)
->  #define is_signed_imm26(val)   signed_imm_check(val, 26)
->  #define is_signed_imm32(val)   signed_imm_check(val, 32)
->  #define is_signed_imm52(val)   signed_imm_check(val, 52)
->  #define is_unsigned_imm12(val) unsigned_imm_check(val, 12)
->
-> +static inline bool is_aligned_signed_imm16(int off)
-> +{
-> +       return !(off & 3) && is_signed_imm16(off);
-> +}
+> @@ -3269,6 +3270,22 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
+>  	if (IS_DIRSYNC(dir))
+>  		ext4_handle_sync(handle);
+>  
+> +	/*
+> +	 * Read the inode-table blocks and get journal write access before
+> +	 * removing the directory entry. Otherwise, a read error while updating
+> +	 * either inode can leave the name removed but the link count unchanged.
+> +	 */
+> +	dir_iloc.bh = NULL;
+> +	inode_iloc.bh = NULL;
+> +	if (!skip_remove_dentry) {
+> +		retval = ext4_reserve_inode_write(handle, dir, &dir_iloc);
+> +		if (retval)
+> +			goto out_handle;
+> +	}
+> +	retval = ext4_reserve_inode_write(handle, inode, &inode_iloc);
+> +	if (retval)
+> +		goto out_handle;
+
+Let's first grab inode_iloc and move grabbing of dir_iloc into the
+	if (!skip_remove_dentry) {
+branch below so that we don't test for it twice.
+
+Otherwise the patch looks good.
+
+								Honza
+
 > +
->  static inline int bpf2la_offset(int bpf_insn, int off, const struct jit_=
-ctx *ctx)
->  {
->         /* BPF JMP offset is relative to the next instruction */
->
-> base-commit: aebb7274476403040d582c61478df8f4a7bf9cd3
-> --
+>  	if (!skip_remove_dentry) {
+>  		retval = ext4_delete_entry(handle, dir, de, bh);
+>  		if (retval)
+> @@ -3293,6 +3310,10 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
+>  	if (dentry && !retval)
+>  		ext4_fc_track_unlink(handle, dentry);
+>  out_handle:
+> +	if (dir_iloc.bh)
+> +		brelse(dir_iloc.bh);
+> +	if (inode_iloc.bh)
+> +		brelse(inode_iloc.bh);
+>  	ext4_journal_stop(handle);
+>  out_bh:
+>  	brelse(bh);
+> 
+> base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+> -- 
 > 2.53.0
->
+> 
+-- 
+Jan Kara <jack@suse.com>
+SUSE Labs, CR
