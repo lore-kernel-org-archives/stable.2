@@ -1,88 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795028986;
-	b=J3uc1mfLR0+DNA90WGA+LDccIoWngghgiYhYDVcF34rO+ZFj4H9wSpSHIF5magKkMfxo
-	 32CmAEG7Bhtd5dgywinP1sXrPeYiXinJsjaZ0QqKX/2ud5M2vzApcSwGgEZBxB5IoRW8i
-	 P+yvmp7L/n8iMZJjZQX3F+IHr+S3iW3YjO71QhP7B9YGAJZG2ViQ+f9DNhwlllLkJXRyT
-	 BNyWfs+dc3ykG/0KTxJD3eQ9fgcfXr60vK3/Bs6HdHuwPi+4w3Cqpki/ZHQTWhmUmlqOk
-	 ETgWSx7p6WYz9MOX89VOOLgOG/YdFbcPtkKJGSzZqdEqkeElHSNBGHC7kJ5t/2guIxg==
+	t=1795028987;
+	b=0wihli8d391TH/BbNmpxVwr4Y+kPToM5UiKTVIhFMkVt1mbXaAIwbj3dgob1UH5hpcbh
+	 3rnRjMiEJazxAQREfm955z+fMwGYCyk0VlG0sK+b7C6tLXV9xEP6JzJ5jc3bcPjDcQXHq
+	 jB03xpYC0NP4YmdD7GmZ3hjg9e9bTwc22WeBaiEa2T2LLQMtTBFX+xb/vXpqmzy8plo0i
+	 y3KeBV47vLw9arSYQA3r1OXH9WKKftW+U39LfIz6Jua7a7amXJW7XfM7WEbdCoKqoftEX
+	 l5D5BtmXhsuceiR3foCwzM545hFq7+yI14abUAFFyGbJC+kLZtFA13E/HcDZ5Xa8W9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795028986;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=brrMobb22TVB7XAlElAFp7KL45XZpi3Q5Uug9IjkUY8=;
-	b=kU064y9/oSI1ZlonsjpIP0ekBAP4mgSzBTmZV/nrOcCz6805ff6rUOn+oQnvlzFJ6tKC
-	 IYuCf9bI5iXzk13JTlvQKp+WO+HrY+ZdLReUtOql58yQgOtvRHeHS8iiru/sJ2eTqd81E
-	 al9/pMEQKMV3eW9QQnfcPGWFb4nD2w8Vgz1drh5s3x63slw+M+LJ2Zg1LpTp9mFLRGK+Q
-	 m5YjW1AQJgIXPlaP0B9T04GNjP02XhQA357UV8U/p79IKemv/AYZTqhkFoS8r4BI0XViZ
-	 eyF6F5gA7myRLmcmDOmJdxtYYwADUDWO5Dydr1Z7J3MfTe3//h7tlnSmG6W5ZWjaMlQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795028987;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=8Mo75NaH+U9f4LVdQt1OLL+UmM6Ivzl0XmXxbdqrPD4=;
+	b=tKTcKGXGBe2DHQc1ZbdWQ1CK10AqOqy1wJ5xCSPZ9UMwrAvpbvCSEcSR//ZhJ1OGmnH2
+	 KGtaA/9CZ66Y0sRMAEY3MM85iSmQdxHxnI4TsA6jhm63H0ppfXXGlpGY0mbSL6dKlmj6Z
+	 Vq8WHWO5Hgi9qfm36os0LK9aUASos3LY6ZZn+9lsHKJd9tr38nD8MTM/WwqA3uawe6Q6+
+	 stpwApBBzL2LcG72DOqOCzsbr276ylPBrrpWvi3Kax0zlQZTMHoBtloCnUM5gsCIWvdjM
+	 f/YsDf8xVT89alowlMIlNSmWaKabvXXQYDNR+78aSYL8pIPs7CXX/JfRzauuu1YBLzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gT+EETXY;
-	arc=none smtp.remote-ip=209.85.210.180
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UmtevTMN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BB5606A325
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 19:09:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95BB5606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6C1606A334;
+	Wed, 18 Nov 2026 19:09:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=gT+EETXY
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8b32bc605d9so867855b3a.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:09:46 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795028986; x=1795633786; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=brrMobb22TVB7XAlElAFp7KL45XZpi3Q5Uug9IjkUY8=;
-        b=gT+EETXYIE010bwxKo6vWpa7kf0l4yi8HQnH7m1lMN7Wh5ilMCZOoPC27ui0OnQ6Xq
-         DlitK6G2tGPyXdSNdFI0wnxICAsHb/JS8TjVu3Aw6bj7BBNBC//kSvugcV2q8Jrd64p4
-         WSn2DmTbPXAS7YD3xc2YD8VanB7KJNp9ejN73TQqKDP+rQcHgM6j0J9fIsNywpuL+FuN
-         N0dcbf5Hd7CVxYc5E7sJ8m6hFfD6tNKuSWuTnzuwdyI9LV6B6mFJSQCqPcQRzDck5yOQ
-         hWuDfjTk0B9zyfiEftR3Ev28PCj06NZbVIWjwvSJjhFtREKz+r6PM6h8k5VncprWhpGd
-         aNYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795028986; x=1795633786;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=brrMobb22TVB7XAlElAFp7KL45XZpi3Q5Uug9IjkUY8=;
-        b=gqyTF/aevJypx5pJNhcALro8Sf6XhT+Op3kACvLMn2rCIujUeUn3HNR6N2Stesangu
-         Q7xBqw8XAesCIxETN+CVsmNADn9Bpbe8v+fDYjn66oxzT5ehAvnlnq519Du+1ikwzf+w
-         X1vrDLr9qlAUIYZafRQkU2NHx1kjp/xiO2WL2bu0JRfuGq3+3lo3QYU8wrPc54l8dnx3
-         el/ixbedpu6h6gQxVfTN14iQbSyI2ReaP++uxk1kTZkFBo2X6BseuHwfqcmkevnHsGml
-         ZF10VqmA7HjYqTkFugKnEzmlk85UcRUXrF/1LqEAxbinRVXGnUhu77vBMJX14NX2yhzB
-         bV7g==
-X-Forwarded-Encrypted: i=1; AL+hErGkagsBrs59zlryBYTAM2VlVK/XHsBSaTf9bASdqB6OVP/mFt0LsEIKHEWEKi/eG1ZOk8XDh/M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+McBMgPxsH/LZoMoOrrEEy0+tfCm9h7zVxq/lq/WSZTn6xV0K6
-	Us73JvP7l4RmGu8bHzQn+G/gibG00DDrSPNH965ZfW8cTgACXYXThjsk
-X-Gm-Gg: AYBFou2CatdsUsGTcpPEksSjvIml69BgQ4JPDGdmtA55ElDyH03hpK3E5PoRHXAvWl6
-	SBBBNx0DrXkdKTjEo3MvkWZ7t+fElWDMYiK5IeovmlpanN3g3CmDd3KUmx/KCVI46VU9cHNA2dG
-	KiT3Y0VbTAr7vaio9hAxhE9rV+QO16hxm/ck+A0zgkKMEXyFsakQAkSaalccm7A9679cU56xVx8
-	JbRLSaCpMCGxooMlcJ1J1GZTT51kM6jVM+O9Hop5tBdvpiDmKIYdieAwiidB0l3KKlvnouybW6h
-	MaAwW4A2CIwHP7+n81N8mAhuwe9HjRGyRErGuVCzVnsbMhkTeu+g19FX6sjc3TCPT5e8MVgWfAN
-	lhilBTnLXSZVeOfrYFUvgebpIDsj9fqKaruS0wRy1r8iI28NxDeCNbl9/oS/yjXchTmr5Wl1YXM
-	60guEzLT71QaSnuq/kUNlHeKttJoT5YlRRxEhb9uCDMRZCekP95/17zghGlBJUOji0zlVCtCYzO
-	fHPPAaTAwZnHBDWy3OLJqHomnamvb/mczjL3gqd6KymuUArWx14OtCS2y2qfElYInfnS+U/PZFb
-	eaVXXziNnDQIQ7Pq0dsPtXhG+Py9o5phm3QVKnILgxY9vOGjpLcKRVw6
-X-Received: by 2002:a05:6a21:32a0:b0:3f5:ef59:3aaa with SMTP id adf61e73a8af0-3fe970fafc7mr3891623637.16.1795028985604;
-        Wed, 18 Nov 2026 11:09:45 -0800 (PST)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cde53462820sm453966a12.10.2026.11.18.11.09.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 11:09:44 -0800 (PST)
-Message-ID: <42cce255-f459-4386-a763-ff46e77d5f6f@gmail.com>
-Date: Wed, 18 Nov 2026 11:09:42 -0800
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=UmtevTMN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 250231F000CA;
+	Wed, 18 Nov 2026 19:09:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795028987;
+	bh=8Mo75NaH+U9f4LVdQt1OLL+UmM6Ivzl0XmXxbdqrPD4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UmtevTMNBXpd+LLz/fTdugEzV9Ehdvrqbgd/b+MiKrucA3MeARCvNxOBOhnS4kP2u
+	 zdvTbit974ghxvewBV5KjKjeYNx0REaJ1Fbcv2A47gr/G8us1G7r/RfDYyyNrs6QDx
+	 zN7CMlx9Cmj4BByLU1DRQzcAv/v2WrD8ILPbyBGE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Michael Straube <straube.linux@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 0189/1756] staging: rtl8723bs: move rtw_recv_indicatepkt to rtw_recv.c
+Date: Wed, 18 Nov 2026 15:38:36 +0100
+Message-ID: <20261118150015.926496005@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150007.957976754@linuxfoundation.org>
+References: <20261118150007.957976754@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -92,55 +62,138 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5.10 0000/1848] 5.10.275-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com
-References: <20261118145911.150052362@linuxfoundation.org>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <f.fainelli@gmail.com>
-In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 11/18/26 06:33, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 5.10.275 release.
-> There are 1848 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Fri, 20 Nov 2026 14:55:32 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v5.x/stable-review/patch-5.10.275-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-5.10.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-perf fails to build with:
+------------------
 
-util/jitdump.c: In function 'jr_entry_pid':
-util/jitdump.c:416:31: error: 'struct nsinfo' has no member named 'in_pidns'
-   416 |         if (jd->nsi && jd->nsi->in_pidns)
-       |                               ^~
-util/jitdump.c: In function 'jr_entry_tid':
-util/jitdump.c:423:31: error: 'struct nsinfo' has no member named 'in_pidns'
-   423 |         if (jd->nsi && jd->nsi->in_pidns)
-       |                               ^~
+From: Michael Straube <straube.linux@gmail.com>
 
-which is coming from 428d7a722786 ("perf inject jit: Add namespaces 
-support") we need to also back port 2b51c71be599 ("perf namespaces: Add 
-'in_pidns' to nsinfo struct") as a dependency.
+[ Upstream commit f97151eb17dcdc8d7a27e05f2ec8c55bbb16c7a9 ]
+
+Move the function rtw_recv_indicatepkt from os_dep/recv_linux.c to
+core/rtw_recv.c to reduce code in the os_dep directory.
+
+Signed-off-by: Michael Straube <straube.linux@gmail.com>
+Reviewed-by: Hans de Goede <hansg@kernel.org>
+Link: https://lore.kernel.org/r/20250822135418.118115-3-straube.linux@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Stable-dep-of: baa84b1bb164 ("staging: rtl8723bs: disable SDIO function on block size failure")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/staging/rtl8723bs/core/rtw_recv.c     | 37 +++++++++++++++++++
+ .../staging/rtl8723bs/include/recv_osdep.h    |  1 -
+ drivers/staging/rtl8723bs/os_dep/recv_linux.c | 37 -------------------
+ 3 files changed, 37 insertions(+), 38 deletions(-)
+
+diff --git a/drivers/staging/rtl8723bs/core/rtw_recv.c b/drivers/staging/rtl8723bs/core/rtw_recv.c
+index 96630315d46a7..65629f0de6243 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_recv.c
++++ b/drivers/staging/rtl8723bs/core/rtw_recv.c
+@@ -1740,6 +1740,43 @@ static void recv_indicatepkts_pkt_loss_cnt(struct debug_priv *pdbgpriv, u64 prev
+ 
+ }
+ 
++static int rtw_recv_indicatepkt(struct adapter *padapter, union recv_frame *precv_frame)
++{
++	struct recv_priv *precvpriv;
++	struct __queue	*pfree_recv_queue;
++	struct sk_buff *skb;
++	struct rx_pkt_attrib *pattrib = &precv_frame->u.hdr.attrib;
++
++	precvpriv = &(padapter->recvpriv);
++	pfree_recv_queue = &(precvpriv->free_recv_queue);
++
++	skb = precv_frame->u.hdr.pkt;
++	if (!skb)
++		goto _recv_indicatepkt_drop;
++
++	skb->data = precv_frame->u.hdr.rx_data;
++
++	skb_set_tail_pointer(skb, precv_frame->u.hdr.len);
++
++	skb->len = precv_frame->u.hdr.len;
++
++	rtw_os_recv_indicate_pkt(padapter, skb, pattrib);
++
++	/* pointers to NULL before rtw_free_recvframe() */
++	precv_frame->u.hdr.pkt = NULL;
++
++	rtw_free_recvframe(precv_frame, pfree_recv_queue);
++
++	return _SUCCESS;
++
++_recv_indicatepkt_drop:
++
++	/* enqueue back to free_recv_queue */
++	rtw_free_recvframe(precv_frame, pfree_recv_queue);
++
++	return _FAIL;
++}
++
+ static int recv_indicatepkts_in_order(struct adapter *padapter, struct recv_reorder_ctrl *preorder_ctrl, int bforced)
+ {
+ 	struct list_head	*phead, *plist;
+diff --git a/drivers/staging/rtl8723bs/include/recv_osdep.h b/drivers/staging/rtl8723bs/include/recv_osdep.h
+index ea0b58aa0ba05..f31c87b21206b 100644
+--- a/drivers/staging/rtl8723bs/include/recv_osdep.h
++++ b/drivers/staging/rtl8723bs/include/recv_osdep.h
+@@ -13,7 +13,6 @@ extern void _rtw_free_recv_priv(struct recv_priv *precvpriv);
+ 
+ 
+ extern s32  rtw_recv_entry(union recv_frame *precv_frame);
+-extern int rtw_recv_indicatepkt(struct adapter *adapter, union recv_frame *precv_frame);
+ extern void rtw_recv_returnpacket(struct net_device *cnxt, struct sk_buff *preturnedpkt);
+ 
+ extern void rtw_handle_tkip_mic_err(struct adapter *padapter, u8 bgroup);
+diff --git a/drivers/staging/rtl8723bs/os_dep/recv_linux.c b/drivers/staging/rtl8723bs/os_dep/recv_linux.c
+index f76aaff15fd01..3d79e16c4e734 100644
+--- a/drivers/staging/rtl8723bs/os_dep/recv_linux.c
++++ b/drivers/staging/rtl8723bs/os_dep/recv_linux.c
+@@ -182,40 +182,3 @@ void rtw_handle_tkip_mic_err(struct adapter *padapter, u8 bgroup)
+ 	memset(&wrqu, 0x00, sizeof(wrqu));
+ 	wrqu.data.length = sizeof(ev);
+ }
+-
+-int rtw_recv_indicatepkt(struct adapter *padapter, union recv_frame *precv_frame)
+-{
+-	struct recv_priv *precvpriv;
+-	struct __queue	*pfree_recv_queue;
+-	struct sk_buff *skb;
+-	struct rx_pkt_attrib *pattrib = &precv_frame->u.hdr.attrib;
+-
+-	precvpriv = &(padapter->recvpriv);
+-	pfree_recv_queue = &(precvpriv->free_recv_queue);
+-
+-	skb = precv_frame->u.hdr.pkt;
+-	if (!skb)
+-		goto _recv_indicatepkt_drop;
+-
+-	skb->data = precv_frame->u.hdr.rx_data;
+-
+-	skb_set_tail_pointer(skb, precv_frame->u.hdr.len);
+-
+-	skb->len = precv_frame->u.hdr.len;
+-
+-	rtw_os_recv_indicate_pkt(padapter, skb, pattrib);
+-
+-	/* pointers to NULL before rtw_free_recvframe() */
+-	precv_frame->u.hdr.pkt = NULL;
+-
+-	rtw_free_recvframe(precv_frame, pfree_recv_queue);
+-
+-	return _SUCCESS;
+-
+-_recv_indicatepkt_drop:
+-
+-	/* enqueue back to free_recv_queue */
+-	rtw_free_recvframe(precv_frame, pfree_recv_queue);
+-
+-	return _FAIL;
+-}
 -- 
-Florian
+2.53.0
+
+
+
