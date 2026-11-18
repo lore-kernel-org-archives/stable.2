@@ -1,56 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795033946;
-	b=YKS4vMDc+bAByx/DWBYLR5Az/cfVdLRwLJuO/4/+ViVmGaojaf/2rzGPmS+GHReUAkCm
-	 choiMcNXW4Mrnp2rGQHAtg+T76JutzKSLLVbNWCldx5MkexgzPnzHg9zVRUusLRrVyf6P
-	 V1gac6GmAtuTGyZGKClMYsWtwpQkNGYO6wiEFdwhO2/JTmlvny7qL2rzpem+uUqsBxeS1
-	 oPuWAF3iVcUfcuCmGE7zLaGSg1OJCvONrqWzbPilPm5OJQo2eVr26aSpvt5oYYxUa0oJj
-	 8MfimsAXFMTWrPiI082epAqR2KHX38jTUn1nfy8GdHMQG1zCx8N+Mvpj85iDysgNRIw==
+	t=1795033948;
+	b=0yqVO2uGeZe6PhoLsbbU3BKlS7LtGjZIWoz4AvhVEsz/l2m3bKCdrOR7m6yF3wwF4aLb
+	 PkuFxTWzCbui9swQ46xKIjP4QJLBqB40BReCy0qx2xOSQhjHAx+sskydRzeYrvhgTxsYc
+	 /TNVrQfT892uLU7NXiN/Wd7cFBlA3tXuQvg9R2xhEff7/EPanSU7jh8cNneHTZL3wOUu4
+	 M73QqFuXuiEsHIjZ0i1gfumafJKp1msYyVRAPsz9ohlwJRzs7YU0oEE8O8AKMgkxBwf+q
+	 wBZud+dtGdwuyJsMj0EwK/pxwU7iKU93v1a4PiuZbZ7LZKWKBumfAYIzRXGiRsFPfYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795033946;
-	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:
-	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
-	bh=oKvaPy0lIh3ckFW6p5LBHOOwcup0EIqtLrLFD9khroo=;
-	b=1pjv6VcjZvj6rOWZE+k9G5kTkjP73ARJTpPcHQXf+QvrnmK6Cs/3a4RvIju0py7DxiII
-	 UzSpMfpLHfqYzNMJwg0pAr6B9y4zx3hvN/RyIX5DsIYf6cPcaw4RrzWqgpfsJiudaSfDV
-	 XZtwVcDa7B9NTm/d42NMRWEbdhocqTs8KkuEee1IPZpkmwtceimmA/ZQc4WYzJdiNUXvo
-	 q2+xVoO3zFTCXo4h4CujKmqri+Spa2gZ5E2XNRJN+Mt4sstNqyBLVrChzbzaYvK9+7Ly7
-	 WqFHBXTNa3w/GF4qWoxbfG4So296DrPXPer/D7WohDXjaxg286W6Z0w8lebTpFSG3VA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795033948;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=WHpYmDzQIf2Xa1d4V9f4ZL+o5+MXMqsAl6kB2Surj5s=;
+	b=D12hlUrB83yJ81q/rHZDcpEjtmkNzqF6GoqjpGVOlBxFh/UaG3vp3FSjPiXiYlGsLLbS
+	 bjScHjVI+ip2Ha+5MArDRodS7GoQq5U5/dPlwwrDLc/5eoMwEw3LjbSPtFM3Rd7Lpremg
+	 5Sepj1P8PJlEyL1RO26AAXQyGO7ZvgBnYMDcVyu40Wvr0Am1wy0aJMpvLV8pFV1gymTs6
+	 DuiErvZI3hh1dB5PWnRPiA7ShinQdJvpEFo9I9HQ4G5YL1+IE38NKg7UQngTGgb7FoKnp
+	 zMi5XKpIZLl8OgGc6Kl4dF+PWEXV4izb/VgyTggTABLG8f1P4Z5N98n8at485GnRlEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=goodmis.org;
-	spf=pass smtp.mailfrom=goodmis.org;
-	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=h8EKwDq7;
-	arc=none smtp.remote-ip=216.40.44.13
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dvjGeNl9;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C16E606A31C;
-	Wed, 18 Nov 2026 20:32:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2C16E606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAFC3606A33F;
+	Wed, 18 Nov 2026 20:32:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=h8EKwDq7
-Received: from omf18.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay05.hostedemail.com (Postfix) with ESMTP id 8410C4086E;
-	Wed, 18 Nov 2026 20:32:23 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf18.hostedemail.com (Postfix) with ESMTPA id B1A7833;
-	Wed, 18 Nov 2026 20:32:21 +0000 (UTC)
-Date: Wed, 18 Nov 2026 15:32:20 -0500
-From: Steven Rostedt <rostedt@goodmis.org>
-To: David Carlier <devnexen@gmail.com>
-Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] tracing: Reject .function on the function trace event
-Message-ID: <20261118153220.15542786@gandalf.local.home>
-In-Reply-To: <20261114195914.2678414-1-devnexen@gmail.com>
-References: <20261114195914.2678414-1-devnexen@gmail.com>
-X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=dvjGeNl9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C21E61F000C4;
+	Wed, 18 Nov 2026 20:32:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795033948;
+	bh=WHpYmDzQIf2Xa1d4V9f4ZL+o5+MXMqsAl6kB2Surj5s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dvjGeNl9pPlIxE8DTd7FMDJrmr4kod2SbfQmiRvlXQMrL6jzbqwuZW50WDAPUoQYH
+	 57aBX6I7GRBf5oVg18HqPRRTGvSAFLW+/ajzOgXUa+Gw10QFtcdk4217D7rvzP1wgg
+	 No6hsUy5uNfTBLpsBTr7r/onLBKhzHhWrFR5wV74=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Bob Song <songxiebing@kylinos.cn>,
+	Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 0195/3318] ALSA: hda/realtek: add missing error checks for COEF index reads in alc269
+Date: Wed, 18 Nov 2026 15:13:37 +0100
+Message-ID: <20261118150320.673182966@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
+References: <20261118150313.527275416@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,70 +62,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: B1A7833
-X-Stat-Signature: q9faisecotch4ibgz7tjniy1wnrgd7ko
-X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
-X-Session-ID: U2FsdGVkX1/AM9kBChS00RDKpvMDzSCB8eK9Xxc9hgk=
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=oKvaPy0lIh3ckFW6p5LBHOOwcup0EIqtLrLFD9khroo=; b=h8EKwDq73i9O4XxvjwmIisd2ObSMhM/rCdn2aNwHMwiaUBUVzd1xnIYak7UjweEGnrw9AB964qLOmc172QNEB3tE11E9FSkk98njsbGZPQs1ARZS6hNvl6Fmy+QUk7M5EdPHLcRh8LX/SI40JU7btkc2DhyrykM1SodiaVyVmfk=
-X-HE-Tag: 1795033941-994633
-X-HE-Meta: U2FsdGVkX18+9pwbS/sGlAPJpJbi0SLDIvZuhM7I8xhRlVTz292KWaqeIr2lUnAb5eEZQT0JqEo8i//AakzknduJOD3KTyvskFDnzHEJWQZBBn6AoxR4wI3NLt/maduHUMOUpWRP8y4EIKTv9rNYKrpPmcWUXajl2SM0nmWoW1ivc1ebwUXXHx7Sn2DZvsJllRepfhBWqCuOpKGj71ZiF6K4D1cTE9enzEvruWQRHv5YuY3uBIwg7kWHJu4hJopxMjgargA72phWfYX6afM76rNvJj7ReZZsQgsQbt5AvhJzAYj3Fr8VRWUxNghDggTQvKEce+i1qyitC2LizOfq8S+eU5x8vAUGQ7iELSx+UtJoMw9qaW7ZV7ggrA/6k2X+KIFbnMTiBCs=
+Content-Transfer-Encoding: 8bit
 
-On Sat, 14 Nov 2026 19:59:14 +0000
-David Carlier <devnexen@gmail.com> wrote:
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-> For the function event, parse_pred() handles the .function suffix
-> before the ftrace_event_is_function() case, so "ip.function == schedule"
-> builds a predicate with no regex. Setting it through perf then
-> dereferences the NULL pred->regex in ftrace_function_set_filter_pred().
-> 
-> The "ip" field of that event already takes a function name, so reject
-> the suffix there.
-> 
-> Fixes: e6745a4da964 ("tracing: Add a way to filter function addresses to function names")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
->  kernel/trace/trace_events_filter.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-> index c10951bcfc5f..11bb751c4388 100644
-> --- a/kernel/trace/trace_events_filter.c
-> +++ b/kernel/trace/trace_events_filter.c
-> @@ -1743,6 +1743,12 @@ static int parse_pred(const char *str, void *data,
->  	pred->op = op;
->  
->  	if (function) {
-> +		/* Function events already take a function name on 'ip' */
-> +		if (ftrace_event_is_function(call)) {
-> +			parse_error(pe, FILT_ERR_ILLEGAL_FIELD_OP, pos + i);
-> +			goto err_free;
-> +		}
-> +
->  		/* The field must be the same size as long */
->  		if (field->size != sizeof(long)) {
->  			parse_error(pe, FILT_ERR_ILLEGAL_FIELD_OP, pos + i);
+------------------
 
-Instead of rejecting it, why not just ignore it?
+From: Bob Song <songxiebing@kylinos.cn>
 
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index a1c298210059..e64c44ab3ee5 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -1742,7 +1742,9 @@ static int parse_pred(const char *str, void *data,
+[ Upstream commit 5b106b40ed22098f2bc049efb645148d038444bd ]
+
+alc_read_coef_idx() and alc_read_coefex_idx() can return -1 on error
+via snd_hda_codec_read(). Several codec initialization and shutdown
+functions save these return values and later write them back to
+hardware registers without checking for errors, potentially corrupting
+COEF register state on a read failure.
+
+Add error checks in:
+- alc282_init() and alc282_shutup(): check coef78 before write-back
+- alc285_hp_init(): check coef38/coef0d/coef36 before update, check
+  val before write-back, and break polling loop on error
+- alc294_hp_init(): break polling loop on read error
+
+Signed-off-by: Bob Song <songxiebing@kylinos.cn>
+Link: https://patch.msgid.link/20260730015302.253008-1-songxiebing@kylinos.cn
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/pci/hda/patch_realtek.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
+
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 6141b813b21ab..16ad87a2c6f07 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -3430,7 +3430,8 @@ static void alc282_init(struct hda_codec *codec)
+ 		msleep(100);
  
- 	/* See if the field is a kernel function name */
- 	if ((len = str_has_prefix(str + i, ".function"))) {
--		function = true;
-+		/* Ignore if event is already a function */
-+		if (!ftrace_event_is_function(call))
-+			function = true;
- 		i += len;
+ 	/* Headphone capless set to normal mode */
+-	alc_write_coef_idx(codec, 0x78, coef78);
++	if (coef78 != -1)
++		alc_write_coef_idx(codec, 0x78, coef78);
+ }
+ 
+ static void alc282_shutup(struct hda_codec *codec)
+@@ -3467,7 +3468,8 @@ static void alc282_shutup(struct hda_codec *codec)
+ 
+ 	alc_auto_setup_eapd(codec, false);
+ 	alc_shutup_pins(codec);
+-	alc_write_coef_idx(codec, 0x78, coef78);
++	if (coef78 != -1)
++		alc_write_coef_idx(codec, 0x78, coef78);
+ }
+ 
+ static const struct coef_fw alc283_coefs[] = {
+@@ -3719,15 +3721,19 @@ static void alc285_hp_init(struct hda_codec *codec)
+ 
+ 	alc_write_coefex_idx(codec, 0x58, 0x00, 0xf888); /* HP depop procedure start */
+ 	val = alc_read_coefex_idx(codec, 0x58, 0x00);
+-	for (i = 0; i < 20 && val & 0x8000; i++) {
++	for (i = 0; i < 20 && val != -1 && val & 0x8000; i++) {
+ 		msleep(50);
+ 		val = alc_read_coefex_idx(codec, 0x58, 0x00);
+ 	} /* Wait for depop procedure finish  */
+ 
+-	alc_write_coefex_idx(codec, 0x58, 0x00, val); /* write back the result */
+-	alc_update_coef_idx(codec, 0x38, 1<<4, coef38);
+-	alc_update_coef_idx(codec, 0x0d, 0x110, coef0d);
+-	alc_update_coef_idx(codec, 0x36, 3<<13, coef36);
++	if (val != -1)
++		alc_write_coefex_idx(codec, 0x58, 0x00, val); /* write back the result */
++	if (coef38 != -1)
++		alc_update_coef_idx(codec, 0x38, 1<<4, coef38);
++	if (coef0d != -1)
++		alc_update_coef_idx(codec, 0x0d, 0x110, coef0d);
++	if (coef36 != -1)
++		alc_update_coef_idx(codec, 0x36, 3<<13, coef36);
+ 
+ 	msleep(50);
+ 	alc_update_coef_idx(codec, 0x4a, 1<<15, 0);
+@@ -3992,7 +3998,7 @@ static void alc294_hp_init(struct hda_codec *codec)
+ 
+ 	/* Wait for depop procedure finish  */
+ 	val = alc_read_coefex_idx(codec, 0x58, 0x01);
+-	for (i = 0; i < 20 && val & 0x0080; i++) {
++	for (i = 0; i < 20 && val != -1 && val & 0x0080; i++) {
+ 		msleep(50);
+ 		val = alc_read_coefex_idx(codec, 0x58, 0x01);
  	}
+-- 
+2.53.0
 
-The above fixes the issue as well, and allows things to work as expected. 
 
--- Steve
+
