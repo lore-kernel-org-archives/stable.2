@@ -1,49 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794984163;
-	b=mjIg1EG1fGrR+r2wJ4KANnn9Nn5mNsAjSuYNDze8eSvHrICnasMRXJfBmrFWGtdxr78h
-	 R8w6bif/EL3RDD2WIYoBijbp2tryjxECPURl0sfNuJEVH/t/cGy9CJsY6qtckkm5QqUzi
-	 k99tyeUActSYbr3EUc1lgb5wACIRVjJNnY/F77rSQ2KHII40Je05wE9uKRIH6feMPTqqt
-	 qTWw2yUra2xK6bzuJjAzd/PR84ALTeOnCmpndUBBUosor/p67uPiTkH2hKoflRHr2cCnQ
-	 UcwHsecturGZaQeyowRqpgytfjT5p2D80iAJta7CBxwBVIMtaUcqVcWh2ePTpu7pYeg==
+	t=1794984620;
+	b=3DvlqkA0MIl5n3LrAXUSRzSoW4hV6nAermFXeU8zgA2pW/gb0heKLEeKX3vfJBqAbfkg
+	 AMcTJJFIzBh3zT9DlnPblMDpadoRTlAd8FrVt4DHVZo1kx3bAW96sLuPnvKYJvTwkZVM8
+	 FLDSY59CZ4I5BhQB7ba30gQYzMsgN+0698noq+TffOIwsLxjDehG84bspXg11BE6ugD0s
+	 xPMaNnznMyjSK88NZr/7J5hfJ3ISDmL7xNjPMKJE5O71gDqZVzsBZGR4HoWBg9Z1IHP+3
+	 bP23eDBe/A6O6FD4a2CkOE6BdP//DnOeUEwpoPSt7YWhI70x9gWVMafqHfnSKtMC6uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794984163;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
-	 X-Spam-Checker-Version;
-	bh=NhLiqpRhYR+jbB7aXfZbX1GKQMokOJpkHTiOlAJk1JI=;
-	b=d1wb1yg6gIIsAVF4Z5ihRcsHu2kzaTvDFuMKhA5klBrxTdh/vAwj+H2TiOc+KXz0qI+l
-	 US8no/n5kr1BOTDLNSVo7qG8UK/Ac2vs8hiVrJVfEGu5Qk95ZsTqrafJIzS91W2oTNXg/
-	 PHeUpkPJr9cZoGtGszuFSaDVT0+yoIN00eYdNXMCRdjloz375X3pQcfEasNtwVL5Hqouj
-	 BJvGuhxi4fHwinEl2c6AKCBcslb654Y69BectkGTCwhPBEsTccFXAU3Ma/Xi6dVJHaRgG
-	 TcheLCGPS0IHQN+QRgXD+cT5F0v0MXr6+6HF+G3qt216rvNnNYFeD3WNzfkScp1YXBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794984620;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=U8jV7OnHEFz0j+0ag5AfooSr+IDZRuR+qja3G5heTVk=;
+	b=uOsS99uUNfwCzh9BXeDOuoGkPBXvjBohQ1hW802ocITkfcDJma70ntP6UfmIE33r+x33
+	 ZCvWMzqV//FhVHLVlCL76i+BufZrMgJVelnmwlFj2J+XJy1ZQXvp4s0KzniruM4vGf7ud
+	 vxk1iD6BLb3zSuC7MZN53r74CydP0YrOs1BenoTWa7TfF9C7/Xoc5Ku6Ek0FbqjlQTGtO
+	 baliE+K2eEhtzrBLs9xE/cV9fju+BKU0YcD5t208SIN/yZMr+cHptPbjpFfj2Ns5hVmNP
+	 WAnyibbZZ+2/z/Vyd+Wr+586txhQDh8l79tG750+zBIVLvVlf/t5kfllbWLhUPWrZNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=npP161yt;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DFE22606A31C;
-	Wed, 18 Nov 2026 06:42:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFE22606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s0uXzD84;
+	arc=none smtp.remote-ip=209.85.214.182
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809A2606A325
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 06:50:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 809A2606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=npP161yt
-Received: from [192.168.1.70] (unknown [4.194.122.136])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 5762B20B7169;
-	Tue, 17 Nov 2026 22:42:34 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5762B20B7169
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1794984161;
-	bh=NhLiqpRhYR+jbB7aXfZbX1GKQMokOJpkHTiOlAJk1JI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=npP161yt+2NqKpdXWKorUJL7rANBYxWfjlN+h2ZbAyLjzQjgrjBc8bK7FKPd4cdZJ
-	 rIfGZpG4BEXgsWY4PZbmQpQTNfsy6RLgBXQVFrZUO9MbyosSoz9Ynb6Czw9ucNI+6q
-	 p6Dhyso0ZZNTaFoYDykV1L4ZmO1DiMEPmP23Q0Z4=
-Message-ID: <ba47e0f4-d076-4680-93e2-df4d673f742b@linux.microsoft.com>
-Date: Wed, 18 Nov 2026 12:12:32 +0530
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=s0uXzD84
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2ed408b0d9dso2819495ad.2
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 22:50:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794984620; x=1795589420; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U8jV7OnHEFz0j+0ag5AfooSr+IDZRuR+qja3G5heTVk=;
+        b=s0uXzD84SDYX/NyRfUu+pmyAx3omQcq/Npa12/ohehJ37cs5tojh1o1ewVq72p+t6O
+         2ANwHvn3nZk/qCYXz+8aAB2FH9S3QPhqMog0+dT0kw4pOXg2G4UekNHEoVeYR7HLYWq5
+         8/7l9qh1/kg2m3BmGP/zIZh1bIr198lrZRgAvzORwYbzlzXiCdkhHVpnY8o5+Oj5O3j5
+         QCvwpKBRNpKYGu9ucjJjfmZqIB/R5KccPX6rIMNVF7CNmb37v6OU1g8/oxh9DFiD2BK1
+         V0ZqfK2pr9GKZ4+gXnPH876yIB7FOGlU7q/Ohynk3hTGvUXGTPbs2w8AO6Ux+DweHVYi
+         yhIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794984620; x=1795589420;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U8jV7OnHEFz0j+0ag5AfooSr+IDZRuR+qja3G5heTVk=;
+        b=EmZEJGFelIaREQyFWdq581nyr8aYFzHEJDZG/+9lYkh3rL9tv3UfCQa//ijjS8V1Lv
+         pZW+Agy7wuYTADKrvZKXGkaxS5sTYNoeWcNfXFBd78srUP2j4iyiyLm5LcoZPmMEzHLW
+         Yw74/mcxsChK21WNiUjolB7yIJuJEemGyXECGTm/6bgDxeP+n46eMmE9HUNbImbuxUoT
+         Qqr5ACwwTmPfSKV4qH3XLWwpRdEUR7oUVsFd11PnSNHPJeVAzCDpEctUthGNOebAsAZE
+         BWqLPsvbSj42SEkpYN/OxNQeU03TDfQh0qGK3zVDJyfDCBMNgrC7fmN65/pQgiRr0W5T
+         +cqA==
+X-Forwarded-Encrypted: i=1; AL+hErH7FXCi7MiD/dWhPFiiCgLow4heznlqq/nIcjdiq3onYnSYkKfW7nEPF5O3WhMM8PCse0Qvw7Q=@vger.kernel.org
+X-Gm-Message-State: APuU4Z82kmNMiOz8JLiCfLCD3psXYpVnro1+VGi82z7vz2nI2w2z983h
+	jRcIdHYsSOaL6HptXyLihIADV6Ghi+M+nO9vb9a5y+lLXQYtEkP7978y
+X-Gm-Gg: AZFdTZdUW6Ep8GXXoS8WJvd68JGtp/5qck6UAan0XxIsWAdjZUOiWlYXNG7ZC0m+KZm
+	sT6NkhCHUDjbqV9k2BckJp/zs4eE8YQhRJmue+ufzvJiCws3v9d4NZDOZcbmBBpZoIIdEUehMkM
+	MQ5VPn4uWVIXc3gk8L6UwYZp5Eo3fRHq/B17nyFxz5IHyo4Z0Q86laVppm9U4/shdDm2FS6yKGp
+	qZg6oGadx4StApmT4cJaBzwazwvBUHpXDfUTmyWbdhoz0MPIOjduzDRzitIDjVthWSSvNJyGTnv
+	kqCbhgYjveFWBdwV40RhUiG8zWxQHa3dkVUFgXYhKIpqbHRZDsZ4AiqTc2llQBZ0TT0XQuOQJyZ
+	2T22lUhthT/D3T8VXe7rW34kbf2Jyxaw2/SRT9bq/zBj+paNke2N/HoJ6i40qZ5v63L4qryW77p
+	jM8E5WXTMrJ78YFqcwK+9n28fA4nNBzawOUuBV0GG878u3WZATH548ZTUPefuVfdFtgrp3Ilvvh
+	a+XNxAB2olHU2CilFZC6bMi0AkFL5n691k+AQR8ERhkkAakwwMlnG2lId+GGPi1cuwcbejOfItE
+	VYR7wAEUxhipEX4prZX2Ckq5wMH59Rd1VlOn0oVFCoPlyRPXpEe8HkAi0dWW31xpFYVc/cysMl3
+	mHqOYDLocgPnWGM7e8Ts=
+X-Received: by 2002:a17:902:cf10:b0:2ed:e22b:77a2 with SMTP id d9443c01a7336-2eff7560dd4mr16662645ad.55.1794984619740;
+        Tue, 17 Nov 2026 22:50:19 -0800 (PST)
+Received: from li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com ([129.41.58.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eff62897d0sm7773615ad.64.2026.11.17.22.50.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 22:50:19 -0800 (PST)
+Date: Wed, 18 Nov 2026 12:20:12 +0530
+From: Mukesh Kumar Chaurasiya <mkchauras@gmail.com>
+To: Shrikanth Hegde <sshegde@linux.ibm.com>
+Cc: maddy@linux.ibm.com, linuxppc-dev@lists.ozlabs.org, 
+	chzigotzky@xenosoft.de, mpe@ellerman.id.au, npiggin@gmail.com, 
+	christophe.leroy@csgroup.eu, linux-kernel@vger.kernel.org, msuchanek@suse.de, 
+	ritesh.list@gmail.com, harshpb@linux.ibm.com, gautam@linux.ibm.com, 
+	amachhiw@linux.ibm.com, venkat88@linux.ibm.com, nnmlinux@linux.ibm.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v5 1/3] PPC32: Fix hard_irq_disable to follow tracing and
+ lockdep state
+Message-ID: <av1KYTtbzgwtDKn_@li-1a3e774c-28e4-11b2-a85c-acc9f2883e29.ibm.com>
+References: <20261118051419.783878-1-sshegde@linux.ibm.com>
+ <20261118051419.783878-2-sshegde@linux.ibm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,108 +103,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] mm/huge_memory: only compare PFNs of huge entries on
- huge fault insert
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, "Liam R. Howlett"
- <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Alex Williamson <alex@shazbot.org>,
- Peter Xu <peterx@redhat.com>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Wei Liu <wei.liu@kernel.org>,
- Roman Kisel <romank@linux.microsoft.com>,
- Saurabh Sengar <ssengar@linux.microsoft.com>,
- Michael Kelley <mhklinux@outlook.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Eliav Farber <farbere@amazon.com>, stable@vger.kernel.org
-References: <20261115-huge-pfnmap-fault-races-v1-0-537605643f6f@kernel.org>
- <20261115-huge-pfnmap-fault-races-v1-3-537605643f6f@kernel.org>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <20261115-huge-pfnmap-fault-races-v1-3-537605643f6f@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118051419.783878-2-sshegde@linux.ibm.com>
 
-
-
-On 11/16/2026 2:28 AM, Lorenzo Stoakes (ARM) wrote:
-> A driver that implements both ->fault and ->huge_fault must anticipate
-> concurrent use of both.
+On Wed, Nov 18, 2026 at 10:44:17AM +0530, Shrikanth Hegde wrote:
+> On PPC32, the code for hard_irq_disable has diverged and it doesn't
+> do lockdep/tracing anymore, leading to use of both local_irq_disable
+> and hard_irq_disable on PPC32 to overcome those.
 > 
-> This can happen, for example, if a user calls prctl(PR_SET_THP_DISABLE)
-> concurrent with faulting, as that only holds the mmap write lock and thus
-> does not exclude faulting threads stabilised by VMA lock.
+> That is un-necessary, instead simply calling local_irq_disable is
+> enough. It disables EE bit and does lockdep tracking.
 > 
-> insert_pmd() and insert_pud() have issues with this as they both assume
-> that, if the page table entry being populated is not empty, it must a
-> present huge entry.
+> Subsequent patch uses this API in KVM code to avoid the warnings.
+> Wider use of it is possible, but it will be taken subsequently.
 > 
-> This is problematic as if it is a write fault, it compares its PFN against
-> the one being inserted, warning if they differ, on the assumption that the
-> entry is a huge leaf.
-> 
-> Since the entry may be a page table, this is invalid and can result in
-> spurious warnings.
-> 
-> Equally, the entry might be non-present. Nothing can install such an entry
-> in the VMAs that reach this code today, but there is no reason to rely upon
-> that.
-> 
-> Therefore only examine the PFN if the entry is both present and huge, and
-> otherwise simply return VM_FAULT_NOPAGE so the fault is retried and handled
-> at the appropriate level.
-> 
-> This is what already happens for a read fault, for which the existing entry
-> is not examined at all.
-> 
-> Target the commit which introduced the first driver which both mixes fault
-> orders and passes the write flag for the fix (since this commit, both
-> drm_gem_shmem and panthor are prey to this issue).
-> 
-> Reported-by: Eliav Farber <farbere@amazon.com>
-> Closes: https://lore.kernel.org/all/20261112051440.16140-4-farbere@amazon.com/
-> Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Cc: <stable@vger.kernel.org> # v7.2+
+> Suggested-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
 > ---
->   mm/huge_memory.c | 8 ++++++++
->   1 file changed, 8 insertions(+)
+> PS: New warnings would have started since commit 
+> 12013e3d4695 ("KVM: powerpc: Use generic xfer to guest work function")
+> which added local_irq_disable for 32 bit. The proper fix may date back
+> years ago. To avoid backport complications, keeping it backported till
+> 7.2. So removed fixes tag and cc'ed stable.
 > 
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 0d589be136d2..da632c3e834b 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -1643,6 +1643,10 @@ static vm_fault_t insert_pmd(struct vm_area_struct *vma, unsigned long addr,
->   		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
->   					  fop.pfn;
->   
-> +		/* We may have raced a fault which installed a page table. */
-> +		if (!pmd_present(*pmd) || !pmd_trans_huge(*pmd))
-> +			goto out_unlock;
-> +
->   		if (write) {
->   			if (pmd_pfn(*pmd) != pfn) {
->   				WARN_ON_ONCE(!is_huge_zero_pmd(*pmd));
-> @@ -1770,6 +1774,10 @@ static vm_fault_t insert_pud(struct vm_area_struct *vma, unsigned long addr,
->   		const unsigned long pfn = fop.is_folio ? folio_pfn(fop.folio) :
->   					  fop.pfn;
->   
-> +		/* We may have raced a fault which installed a page table. */
-> +		if (!pud_present(*pud) || !pud_trans_huge(*pud))
-> +			goto out_unlock;
-> +
->   		if (write) {
->   			if (WARN_ON_ONCE(pud_pfn(*pud) != pfn))
->   				goto out_unlock;
+> Also, 32 bit shouldn't need hard_irq_disable. But that can only be taken
+> up subsequently.
 > 
+> Also, below fix isn't needed anymore.
+> https://lore.kernel.org/linuxppc-dev/a14571be1897955f43d9994f0e093de3ada6ecde.1793447880.git.ritesh.list@gmail.com/
+> 
+>  arch/powerpc/include/asm/hw_irq.h | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/powerpc/include/asm/hw_irq.h b/arch/powerpc/include/asm/hw_irq.h
+> index b7eee6385ae5..ddb850e62abd 100644
+> --- a/arch/powerpc/include/asm/hw_irq.h
+> +++ b/arch/powerpc/include/asm/hw_irq.h
+> @@ -464,7 +464,7 @@ static inline bool arch_irqs_disabled(void)
+>  	return arch_irqs_disabled_flags(arch_local_save_flags());
+>  }
+>  
+> -#define hard_irq_disable()		arch_local_irq_disable()
+> +#define hard_irq_disable()		local_irq_disable()
+>  
+>  static inline bool regs_irqs_disabled(struct pt_regs *regs)
+>  {
+> -- 
+> 2.54.0
+> 
+Cool, this makes things simple.
 
-Acked-by: Naman Jain <namjain@linux.microsoft.com>
 
-Regards,
-Naman Jain
+Reviewed-by: Mukesh Kumar Chaurasiya (IBM) <mkchauras@gmail.com>
