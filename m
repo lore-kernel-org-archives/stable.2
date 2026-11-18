@@ -1,95 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.130.202.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794986591;
-	b=XiFw1FGD/QVgnAhKzVLUEyJsDKQ3CInMKlB6ZuSL1dFfxiNYoBV0NjyIwnGIdtyMjc/P
-	 C6QRSq9Y5+NNRfh59ZhG/IBf2KT8SY0Ze421KnjTNW3qAR6hOpuqKhVhBRMGsqLSg5nFd
-	 1g+/64FVNO/n0qru981Si//byE9iTx9Lg/RCzJOHnMDUkttf61MVeq6EsL4R6RXxKj5xC
-	 CFJHdnOBgivlZpO99+EEjpTuaNyHJwzZBLZh9L+nbuASIy0rZNbyAtCdh9FwKfe3OYtCh
-	 8l66e1ucpmKE2BQfPId1oaYXW/o47FxvDoWMHTcjTdCHWjncGqQNYIbeMXXa8O3nT5A==
+	t=1794986808;
+	b=rinPa5Z0emuuU0tgVuBLtLykb/aXnv1r3b/IscLSjLvA3N1k12GptLiYI/FEDeFE+99x
+	 7TD748HQUD7toN2q0AZdGeJnxxbOcKFIpuMXwMWg32MITnNC7GVnLhGwxijK3aqPvJLCM
+	 +ZrR2Aau/JJTBnpmG5ntBWsCaHH/wXBpX0QZLYNF5uET9k4jYBHKIdMFT4lz3EP2rpt/e
+	 /rLU/6OTApvB/Eb0iK6RkzPJEK82m3/i1nnBNHk0IpUpHAmiorApHYnXYBuAKT+0l+Sn8
+	 M9kiCnKZ5/SDXvnn3eCvcwo+93SHrxtfJ0cCEAIqrW1Mg1ygoNc3LDiVWrZCPQI6l+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794986591;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=b8jhD9NyOgBY8U4+x22CAnEoBAUGT7c8YHeC5TZXIJI=;
-	b=DEm+DVnr37hm2zqTuRaiFmwnZevAO5nJGWAUFXd+cQ5k12gcrgIyU+KPEOnLaFettSPT
-	 Lqpd+l4LdJqnc3QN9YhaeEsqzV467wZD/fY6n5kYOOFPDHID9ati+l+ZHzZ7Fjry4Rglp
-	 AXS3hVyn7aAKDx77XwGPl3SyxMU0nOffFATLSlqd9+drf/FKB/R2yKZqUVSjofn2MLKi6
-	 P0/INMZwl/+XZ4Sq6DWAZE2uLRX+ZIuREJNItVP84Uhqg+N4U56TSvYVMeM2QqrW+oQCO
-	 kgrujYw7ywCUkamgH98sc9XE/x4Xt2FQiDPvYW75kDLvjZlfMoVes94CH3yvgzJQcRg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794986808;
+	h=DMARC-Filter:DKIM-Signature:Received:X-Iguazu-Qid:X-Iguazu-QSIG:
+	 Received:From:To:Cc:Subject:Date:X-TSB-HOP2:Message-Id:X-Mailer;
+	bh=z3ZP6oVZ1OcWNdOE7xEo8+5SCqEaoKkv/Yt2cpff3Xg=;
+	b=cfO3xap9GK1NXF8Ktr3XIFuFuCZRoM6fFgXsjXwQmlOgTjhfb9k+Fbe61/XgTZy634/P
+	 1zfrXyKuvb5w+cGNfaWb8xbSEgMqYOXuv+hm5cHPJ35j8aemiJd5+A+PeLRhdamCuS/eQ
+	 ebbZtCLpQ5ze+LGS3dRJ84LF5ofV6x7uXqzKUTS2LY6S7nAgasLfB+UeWdiX/v89NP/6s
+	 p96/kJeJHCG3HSY6fmvQvW13xpqHgTAuOEFPhoThSlNv835AJ5SCFuRz/4miYKG1kN3oY
+	 SrckcPymUK/MJBod241fTu2VYY6vdIXPMOdUTGKtOp/OsWMG6JG0cmYsQ+xdv1fZWZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z1frDFoe;
-	arc=none smtp.remote-ip=209.85.216.49
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mail.toshiba;
+	spf=pass smtp.mailfrom=mail.toshiba;
+	dkim=pass header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=tiGyKf07;
+	arc=none smtp.remote-ip=210.130.202.134
+Received: from mo-csw.securemx.jp (mo-csw1800.securemx.jp [210.130.202.134])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDEB606A32F
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:23:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CDEB606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FAC3606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:26:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FAC3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.toshiba
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.toshiba
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z1frDFoe
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3ae6b4c669fso1262015a91.0
-        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 23:23:11 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794986590; x=1795591390; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b8jhD9NyOgBY8U4+x22CAnEoBAUGT7c8YHeC5TZXIJI=;
-        b=Z1frDFoem+7o/vGx2nbbSolor5KaZatEeUez6FRBzfmKkNIGkihGO9242gyljdFDrw
-         P67bp1EjuAjEpwpwMw7T9kvfvVNpt7vjBOgI3BPtTAIR0Y8e8LFuUjX/COS7qFddQs/C
-         vK5twTT7XHWS/D93Fvp9IF7aK8f4Ct3iV26cEJzS/V2VSERAZrxC61e4yDZiZKC3/dMn
-         9iklpy1phor7eFJOg9GogU9VlxAVTnVRqA/SARD5y1Ok0c/MKmumhOkcsi8tFv44uEYw
-         cm6cdKCA3F0BlaAhc66siWJbWTOOueL+xRIz4YMwbOgvvyeHJiNn0ib1MTjMgprZIeYb
-         TyOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794986591; x=1795591391;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b8jhD9NyOgBY8U4+x22CAnEoBAUGT7c8YHeC5TZXIJI=;
-        b=CIwOHcDZ2NZA5miqIXfi3+5e4wDSOMCojFsLCmXJOYYe3Zx7u9GuKh7K7FjULfDR0S
-         GNTz9CcDgsufDEvf1cMwqK7aKgw9+vexnyjAaxvPPf3XSo6O6WbWMiLpn1jslY5u2e4F
-         z2MAmThT4ry7cLrLGx7IHVk2xCiXrHt4QnVqGwgt4bQrY7apgx3Tn70cz8FabXdMi3jh
-         YfTsoUU1FobUXVoedmvCIW3CLr6sWE0qy9LY0t4Tso24srbzdEeJWVbzn1oWPUEfDXyn
-         nATjp1ys+SUtah8kXWrPlu3hkUSdP/V43WbknLAJ2Nd3iG9kAdoTGkDKGdoT+o+CrAVR
-         nOQQ==
-X-Forwarded-Encrypted: i=1; AL+hErE9mRa2GCrcvC2Cl8k+7moU/HWruGWJs8MZJK0pBjZ4Of+rlWF7VLxwktsVHnuFKB+2OPs9z5c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ERBVF+uPhxeLRQlQcBLJy/ObZDYgBfzxA8gYFi/rLqVOLtg+V
-	BXeftFMzXYYqc3EfjY3SURI5JuIZl8g4AxL4VfmZuw4Y2Bae2fy8lqIm
-X-Gm-Gg: AZFdTZftK9He1HmlXnlmqYPt0okukKWIy+iWKxRt8N2bALwFFbrSZOWUQhEMPUNVMBD
-	l5EVP4PTNuhU4yGVNf/8HD3+Yc8vycC5DQcygwvl8FoyRJLcDy4Vsvao4IMYAS1p1DEhShhV2LR
-	XLqb99D2qV5prDy7Q4FpavH82qJHK639cgUfypmkM2PST9db6Lt+M2il8EXKxjoNBlH3/HJX9fW
-	nQODFYF0meBgdSkQ5H6BCEaDp2iJx+d4dMMb8tg8BLD6m1Vq7YBu2N3JZV9MpB+i7AgpW9vxb+S
-	SXSG/B3fhV6Zcf1o8EKuDiUU9Ha/ADsZGl/yYHZPqbdf+ulVQAD/3ZPGh7sQpSD3bvsObAa0jH2
-	W3ihdEjSB8ATTdKUni0nMwlJFMcbcSFecUjAHiJaomVOPLMgcIPZM9h/a5rH46PSVoeyrrKtMsB
-	3mrwn19vY76givic11thrkEOtQLEPL1WHZMeYoKvKDJzFbHlQPFvPVzP0TrHMMP4VyRDzTwKN9c
-	+xpHnpW/aeN9l2tTq5rTmu9tpnag07/1SEz09ugTOX8kbhu400Fa4zTnZYp5aqgJQ40f2otV1E8
-	tvcUVUBD4rQEPPFIlKLRnsQswq3XARZHGYYvg6QurVysAaYEmlLD7Hq5wG3C+aDujIM7GA==
-X-Received: by 2002:a17:90b:3147:b0:3ac:7406:b49 with SMTP id 98e67ed59e1d1-3b3d07bef84mr1108974a91.15.1794986588823;
-        Tue, 17 Nov 2026 23:23:08 -0800 (PST)
-Received: from hj.. ([163.239.22.29])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d56c9c2csm1031783a91.3.2026.11.17.23.23.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 17 Nov 2026 23:23:08 -0800 (PST)
-From: Hyunjung Ko <hj351016@gmail.com>
-To: Prasanth Ksr <prasanth.ksr@dell.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Dell.Client.Kernel@dell.com,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hyunjung Ko <hj351016@gmail.com>
-Subject: [PATCH] platform/x86: dell-wmi-sysman: fix heap OOB when scanning for a newline
-Date: Wed, 18 Nov 2026 16:22:53 +0900
-Message-ID: <20261118072253.896390-1-hj351016@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=mail.toshiba header.i=nobuhiro.iwamatsu.x90@mail.toshiba header.a=rsa-sha256 header.s=key2.smx header.b=tiGyKf07
+DKIM-Signature: v=1;a=rsa-sha256;c=relaxed/simple;d=mail.toshiba;h=From:To:Cc:
+	Subject:Date:Message-Id;i=nobuhiro.iwamatsu.x90@mail.toshiba;s=key2.smx;t=
+	1794986786;x=1796196386;bh=3wpxiOziBCJJPQwSkTWlDgUYcuQPme5EJKY3L3m3MJc=;b=tiG
+	yKf07L/oIEi7PbjpGjCs2FofBneJZG0Do4sh4eIF1acWneJ+85mFs4iuJyVusRNGK2f3nmBNSi4Gg
+	XpJ0XuYQeVS6oJJPVsdMRDzwiKbQgGEYAphg8n3BRykYY/kKSCnLDDT16enKONQ5Hh3CkpeGAXCz+
+	gZIhE7W10nLfyPz4kJhUCIELmDjwAuT4aFD82KxC8bJ0Fa9OMns9ZqMGGg6WWEdTdr1GwWPGAqgzr
+	EfkkxgCVaENqSajE3+DNyPmmAo0SYIL94m/oT/wHPdqhcjBH7g36QVPsgKwKvBisE1L3P1OKqw4Yt
+	vYKt0jM3SEXHsADF+jzfyeBvKMiKwVA==;
+Received: by mo-csw.securemx.jp (mx-mo-csw1800) id 6AI7QQwd2306111; Wed, 18 Nov 2026 16:26:26 +0900
+X-Iguazu-Qid: 2yAbofA4kxyEEKpVjw
+X-Iguazu-QSIG: v=2; s=1; t=1794986786; q=2yAbofA4kxyEEKpVjw; m=td+8VKpqhdKXbSP7KW6Uwy061/6BgNW7vXkZtl4Mo2o=
+Received: from imx2-a.toshiba.co.jp (imx2-a.toshiba.co.jp [106.186.93.35])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	 id 4jTtSc3yNPzyQ2; Wed, 18 Nov 2026 16:26:24 +0900 (JST)
+From: Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, sashal@kernel.org, Liang He <windhl@126.com>,
+        Mark Brown <broonie@kernel.org>,
+        Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
+Subject: [PATCH 5.10.y] ASoC: mt6359: Fix refcount leak bug
+Date: Wed, 18 Nov 2026 16:26:10 +0900
+X-TSB-HOP2: ON
+Message-Id: <1794986770-15554-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
+X-Mailer: git-send-email 2.7.4
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,55 +66,39 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The current_value and new_password store handlers copy the input with
-kstrdup(), which stops at the first NUL, and then search the copy for a
-newline with memchr() over the full write size. If the written data
-contains an embedded NUL, memchr() reads past the end of the copy, and
-a newline found there is overwritten with a NUL byte.
+From: Liang He <windhl@126.com>
 
-The copy is NUL-terminated, so use strchr() instead.
+commit a8d5df69e2ec702d979f7d04ed519caf8691a032 upstream.
 
-This is the same issue that was fixed in hp-bioscfg by commit
-ea146aaac690 ("platform/x86: hp-bioscfg: fix heap OOB in
-hp_enforce_single_line_input()").
+In mt6359_parse_dt() and mt6359_accdet_parse_dt(), we should call
+of_node_put() for the reference returned by of_get_child_by_name()
+which has increased the refcount.
 
-Fixes: e8a60aa7404b ("platform/x86: Introduce support for Systems Management Driver over WMI for Dell Systems")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
+Fixes: 683530285316 ("ASoC: mt6359: fix failed to parse DT properties")
+Fixes: eef07b9e0925 ("ASoC: mediatek: mt6359: add MT6359 accdet jack driver")
+Signed-off-by: Liang He <windhl@126.com>
+Link: https://lore.kernel.org/r/20220713102013.367336-1-windhl@126.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+[iwamatsu: Drop patch for sound/soc/codecs/mt6359-accdet.c]
+Signed-off-by: Nobuhiro Iwamatsu (CIP) <nobuhiro.iwamatsu.x90@mail.toshiba>
 ---
- drivers/platform/x86/dell/dell-wmi-sysman/dell-wmi-sysman.h    | 2 +-
- drivers/platform/x86/dell/dell-wmi-sysman/passobj-attributes.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/codecs/mt6359.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/platform/x86/dell/dell-wmi-sysman/dell-wmi-sysman.h b/drivers/platform/x86/dell/dell-wmi-sysman/dell-wmi-sysman.h
-index eb48ced55823..808ff9e70add 100644
---- a/drivers/platform/x86/dell/dell-wmi-sysman/dell-wmi-sysman.h
-+++ b/drivers/platform/x86/dell/dell-wmi-sysman/dell-wmi-sysman.h
-@@ -144,7 +144,7 @@ static ssize_t curr_val##_store(struct kobject *kobj,				\
- 	buf_cp = kstrdup(buf, GFP_KERNEL);					\
- 	if (!buf_cp)								\
- 		return -ENOMEM;							\
--	p = memchr(buf_cp, '\n', count);					\
-+	p = strchr(buf_cp, '\n');						\
- 										\
- 	if (p != NULL)								\
- 		*p = '\0';							\
-diff --git a/drivers/platform/x86/dell/dell-wmi-sysman/passobj-attributes.c b/drivers/platform/x86/dell/dell-wmi-sysman/passobj-attributes.c
-index be939b731063..9677811436bc 100644
---- a/drivers/platform/x86/dell/dell-wmi-sysman/passobj-attributes.c
-+++ b/drivers/platform/x86/dell/dell-wmi-sysman/passobj-attributes.c
-@@ -79,7 +79,7 @@ static ssize_t new_password_store(struct kobject *kobj,
- 	buf_cp = kstrdup(buf, GFP_KERNEL);
- 	if (!buf_cp)
- 		return -ENOMEM;
--	p = memchr(buf_cp, '\n', count);
-+	p = strchr(buf_cp, '\n');
+diff --git a/sound/soc/codecs/mt6359.c b/sound/soc/codecs/mt6359.c
+index 81aafb553bdd..4eb199a190c9 100644
+--- a/sound/soc/codecs/mt6359.c
++++ b/sound/soc/codecs/mt6359.c
+@@ -2668,6 +2668,7 @@ static int mt6359_parse_dt(struct mt6359_priv *priv)
  
- 	if (p != NULL)
- 		*p = '\0';
+ 	ret = of_property_read_u32(np, "mediatek,mic-type-2",
+ 				   &priv->mux_select[MUX_MIC_TYPE_2]);
++	of_node_put(np);
+ 	if (ret) {
+ 		dev_warn(priv->dev, "%s() failed to read mic-type-2\n",
+ 			 __func__);
 -- 
-2.43.0
+2.55.0
+
 
