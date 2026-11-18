@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795040357;
-	b=AY3ttsufJZm5wvouKpfMaYuEipI024iPY2ObOliEP6DMat69+7+X3pHGzFwTVzYBzQQC
-	 gwcQxsUJhzPXapO2D5TRTikL0Jv/5JEZtVNEymJjfnfPt9yOfr1LEIr/ng+AtC7Pu6ZBe
-	 XcSpTi+zNpRYeYEY6WT9FgB+tRdpN2Zjc8C2ocYIuqZsI3cmioDDud4vVTj44KagWfQfW
-	 4CzHXvwXSSR17DxPy3XC1KTn7p7EfuCnu1rUpgPGAc0Rzq2ZzdYCifYUEUTBNw77ggaYC
-	 toXMPMrUMe9bkDNb4EjGKXfp5WC/mDASJULOgDMGQ94fqgMBjVjo1FA2EIBmrWbFS/A==
+	t=1795040360;
+	b=V986Ees7ncPxUw9Js+4X+6oACz5cslM7ehy3PyRS+Ic/aBR/rX8gqC6tIWFAgeOTp3bd
+	 i1U2wweTtDSOyBve7vCK8AI3tB9dl0IBfp5jBBW43XGJMpJS9XxhpxdcdphkQ2z0k1Z29
+	 Z2W/YKcGQf+hfV+ob1f5obiednh42M1yE89B6QKiuDodH1gaTR05Ol4DrUK1IzL6QGR9l
+	 610cmh4SpdD4xwPmt8gpPxGiv3fuUsmv1BBxqeYa5Cxc2hOuCqC5pYCExp/ioTdSvKaMK
+	 bMFnvtjfiray1MdiYLW/B3+45XIsX7jK8kAS7wOXDMX1g+xLgWQ4TNzvajXLBjus6Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795040357;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NWiuGmtfwh1XEIKr3dt+AE3Mk7DC39GH+n9JwN6HxUg=;
-	b=O29Ys/vRRwC7wI5AaxsmgzEykCMQpRKah4uPh/kgt52ZXIOVq2drXEzsVTEXZYyAxCDq
-	 5qxJFjWscTOkQFeqXGQ+X9tMeaF3rYE2JLxYq0c9snbLxWd5ZT7/XKUSCeqLUpnXldVZN
-	 q6CoBC0b1pCQN8HPFBkrXij/hCrMdrcwiHzL5GlOvo06cOX0rV9wSXruaa2oXEXgy/xUg
-	 dct3lcKwbgnJ4q0Gp7G8ULIkafhUf8ki5sX6rEriyUzu6od7G9sf80jP5ieDmum7I55Z0
-	 FwF9mmds3eci31F6jfSLYbOkL8sKACMbhNAg/RC7gTJweUisNs0mtAg/kv6b4OSA0Lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795040360;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=sPuA6klLt6ipgQRC8lOszhMzi1m+N/35iXaLAzIOmDI=;
+	b=rRmICTZj4iQjL4g4IZBY0ZM65Vs3RxOyspHvoP3BakQv6oL5cLQxdaG2lxc7evCxoTBw
+	 UDMbklNFGnrotB1JR+XtpI/QXvudDMH6sc/vSy+WWbW0Mb8lT+8raoIR5BxKS8mPr5Yl1
+	 jNnNDvvFGkQBDJ+J5bTlunGpM6zu+6pgMRh0o/pAaZQG98ylwspS1r9NUpGkYVryP/uFg
+	 g2DoB0pHJr/SIRPZrnQsiwNWi/qksYOjp3004oEtazLxkBdS3Ny8RJLfzCEeYI1dnBHvu
+	 PcXqoKlOBVfGfb80hnDiFQV9mYKDEuQ79pTwFNIiF2yKmOF6GmDR9cogZ0X9Rc75ZYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Uka7yfQg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fm1CbH3u;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B30F0606A31C;
-	Wed, 18 Nov 2026 22:19:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C102606A31C;
+	Wed, 18 Nov 2026 22:19:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Uka7yfQg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C5761F000C4;
-	Wed, 18 Nov 2026 22:19:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795040357;
-	bh=NWiuGmtfwh1XEIKr3dt+AE3Mk7DC39GH+n9JwN6HxUg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Uka7yfQgydDmLO0PD7I0TbLUYCsTdGkBLwIcQF8YRJPbUwWD1IwLdnYogA4g8v/AZ
-	 cTzrtWAUVQyk3Dowj7Gr50z9uMZHJCw/8LZg7jmVL9rdg4DQgWb1qhWMaiEBAgMEOg
-	 LXRvtQOwATFel2tT1bCUmbKmF4YebzgHJOr/SmNs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	bui duc phuc <phucduc.bui@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 2428/3318] ASoC: mediatek: mt8192: Handle regcache_sync() failure in runtime resume
-Date: Wed, 18 Nov 2026 15:50:50 +0100
-Message-ID: <20261118150434.304650767@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
-References: <20261118150313.527275416@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Fm1CbH3u
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 961CE1F000C4;
+	Wed, 18 Nov 2026 22:19:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795040360;
+	bh=sPuA6klLt6ipgQRC8lOszhMzi1m+N/35iXaLAzIOmDI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Fm1CbH3uAby8Net5mrmNaqxSG4nHXdc3BOthS1xFwFsrvTbExuhiBF44wJw2dSPkB
+	 d+bymk5/TGFSTNnj+vunBHTyqaIrMBOUHVAUYIkpR1IGKGHfFUlw3xo+JMGaaAwBFs
+	 fZh8SN8p4eeZ10NfDI/ITr7fXQMS/kMMBE7l9LCBWoSG6ur8SVPaqt9GeCf0dmIeCH
+	 tVCkcp0vNf+F9IgF83u7eESHFxkClc7GB29JCgPDYQLv6dtkU9IXJ41ONt1Qnbc5vo
+	 Hk/IRA1Ssj27BPSul/YwMQZNtBINeR5h7QVivROmEeCbXH8eGtHmyOhRUHPGl+5e1r
+	 UeBJB796uyvww==
+Subject: Re: [PATCH net 06/11] can: isotp: always start the rx timeout in
+ ISOTP_WAIT_DATA state
+From: netdev-bot+sashiko@kernel.org
+To: mkl@pengutronix.de
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ linux-can@vger.kernel.org, kernel@pengutronix.de, zhuling0805@qq.com,
+ stable@vger.kernel.org, socketcan@hartkopp.net, mailhol@kernel.org,
+ o.rempel@pengutronix.de
+Date: Wed, 18 Nov 2026 22:19:19 +0000
+Message-ID: <179504035916.3136.12986898667697830880@kernel.org>
+In-Reply-To: <20261117220818.1142581-7-mkl@pengutronix.de>
+References: <20261117220818.1142581-7-mkl@pengutronix.de>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,52 +64,130 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-------------------
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-[ Upstream commit d9e264741b041fc9dffc555bc1ab68708658cefd ]
+- [High] The fix is incomplete.
 
-Currently, the return value of regcache_sync() in
-mt8192_afe_runtime_resume() is ignored. If regcache_sync() fails, the
-function continues execution with clocks enabled and regcache out of sync.
+--
 
-Fix this by checking the return value of regcache_sync(). On failure,
-restore regcache to cache-only mode and disable the clocks enabled
-earlier in the function.
+can: isotp: always start the rx timeout in ISOTP_WAIT_DATA state
 
-Fixes: 125ab5d588b0 ("ASoC: mediatek: mt8192: add platform driver")
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-Link: https://patch.msgid.link/20260918133912.133799-11-phucduc.bui@gmail.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- sound/soc/mediatek/mt8192/mt8192-afe-pcm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+This patch starts the rx timeout in isotp_rcv_ff() and isotp_rcv_cf()
+whenever reception continues in ISOTP_WAIT_DATA state. Previously the
+timeout could be missing when isotp_send_fc() failed, in listen mode, or
+at the end of a block. Without it, a socket whose CAN device was removed
+could stay in ISOTP_WAIT_DATA, and isotp_bind() would keep returning
+-EAGAIN.
 
-diff --git a/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c b/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-index 988d9b2d28bf4..713870f1f823a 100644
---- a/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-+++ b/sound/soc/mediatek/mt8192/mt8192-afe-pcm.c
-@@ -2104,7 +2104,11 @@ static int mt8192_afe_runtime_resume(struct device *dev)
- 		goto skip_regmap;
- 
- 	regcache_cache_only(afe->regmap, false);
--	regcache_sync(afe->regmap);
-+	ret = regcache_sync(afe->regmap);
-+	if (ret) {
-+		regcache_cache_only(afe->regmap, true);
-+		mt8192_afe_disable_clock(afe);
-+	}
- 
- 	/* enable audio sys DCM for power saving */
- 	regmap_update_bits(afe_priv->infracfg,
+Link: https://patch.msgid.link/20261117-can-bcmlock-memcg-v6-6-6826a6227d36@hartkopp.net
+
+> diff --git a/net/can/isotp.c b/net/can/isotp.c
+> index 8229b6a69ecd0..0293d590186c4 100644
+> --- a/net/can/isotp.c
+> +++ b/net/can/isotp.c
+
+[ ... ]
+
+> @@ -726,13 +730,13 @@ static int isotp_rcv_cf(struct sock *sk, struct canfd_frame *cf, int ae,
+>  		return 0;
+>  	}
+>  
+> +	/* start rx timeout, isotp_send_fc() restarts it */
+> +	hrtimer_start(&so->rxtimer, ktime_set(ISOTP_FC_TIMEOUT, 0),
+> +		      HRTIMER_MODE_REL_SOFT);
+> +
+
+[Severity: High]
+Does isotp_rcv_cf() still have paths that leave so->rx.state in
+ISOTP_WAIT_DATA with no rx timer armed?
+
+Earlier in isotp_rcv_cf(), the timer is cancelled unconditionally. Two
+length checks after that cancel return before this new hrtimer_start()
+is reached:
+
+net/can/isotp.c:isotp_rcv_cf() {
+    ...
+	hrtimer_cancel(&so->rxtimer);
+    ...
+	/* CFs are never longer than the FF */
+	if (cf->len > so->rx.ll_dl)
+		return 1;
+
+	/* CFs have usually the LL_DL length */
+	if (cf->len < so->rx.ll_dl) {
+		/* this is only allowed for the last CF */
+		if (so->rx.len - so->rx.idx > so->rx.ll_dl - ae - N_PCI_SZ)
+			return 1;
+	}
+    ...
+}
+
+Neither path restarts the timer or sets rx.state to ISOTP_IDLE.
+
+Both paths look reachable from the bus, because isotp_rcv() only checks
+skb->len against so->ll.mtu and never checks cf->len:
+
+- On a CAN CC socket, padlen() gives rx.ll_dl = 8 for the first frame.
+  A following CF with len < 8, sent while more than 7 bytes are still
+  outstanding, takes the second return.
+
+- On a CAN FD socket, a first frame with len 8 (ll_dl = 8) followed by
+  a CF with len 12..64 takes the first return.
+
+The frames could come from any remote node, or from a local CAN_RAW
+socket on vcan.
+
+Suppose such a malformed CF is the last frame before NETDEV_UNREGISTER.
+isotp_notify() does not reset rx.state, and isotp_rx_timer_handler() is
+not armed. So isotp_bind() would still return -EAGAIN until the socket
+is closed:
+
+net/can/isotp.c:isotp_bind() {
+    ...
+	if (READ_ONCE(so->tx.state) != ISOTP_IDLE ||
+	    READ_ONCE(so->rx.state) != ISOTP_IDLE) {
+		err = -EAGAIN;
+		goto out;
+	}
+    ...
+}
+
+This is the failure the commit message says it removes.
+
+The later patch in this series, "can: isotp: reject socket options while
+a transfer is active", adds the same rx.state != ISOTP_IDLE -> -EAGAIN
+check to isotp_setsockopt_locked(). So setsockopt() would be blocked in
+the same stuck state.
+
+There is also a case before the device is removed. In
+CAN_ISOTP_HALF_DUPLEX mode, isotp_rcv() drops every incoming FC frame
+while rx.state is not ISOTP_IDLE. That lasts until the next FF or SF
+arrives.
+
+Could these two returns also re-arm the rx timer (or set ISOTP_IDLE)? An
+alternative would be to restructure the function so that every return
+after hrtimer_cancel() that keeps ISOTP_WAIT_DATA re-arms the timer.
+
+>  	/* perform blocksize handling, if enabled */
+> -	if (!so->rxfc.bs || ++so->rx.bs < so->rxfc.bs) {
+> -		/* start rx timeout watchdog */
+> -		hrtimer_start(&so->rxtimer, ktime_set(ISOTP_FC_TIMEOUT, 0),
+> -			      HRTIMER_MODE_REL_SOFT);
+> +	if (!so->rxfc.bs || ++so->rx.bs < so->rxfc.bs)
+>  		return 0;
+> -	}
+
+[ ... ]
+
 -- 
-2.53.0
-
-
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261117220818.1142581-2-mkl%40pengutronix.de
