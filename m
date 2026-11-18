@@ -1,58 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795017929;
-	b=AwjpmwBQxc3T1VFjTSagO+g5sn/+9Qes2k6aNqKM7VMctxQKZ5iWH1cI+yVFGIh4Qscj
-	 Y7S8/nNq9BL4JkXt/nL1YtSjbXwV50+COfC4JZpoXM3ZY8JGB3pLTb+9evNWM9Zv4/agT
-	 YUw3pHKLMng2NTNLewmbuC8A2B9/NAnN6mZq8L5DB8Bff9RXeyXZUHVhQm7SGQfQs2N4n
-	 Y0GdrxyWvj9YiswHUl6tGDhHgkInf63uDR20dr93VfBdqGTrQgp01ctOF2v70Xlgj05Xn
-	 9aKBXZxuwc52t1+c+KnzhA/XP8AR6pLD0F+luzFNuAkafuIiDVNfTB+DqSHZLhQh/pg==
+	t=1795017930;
+	b=e9Imj/yhlSEgKIM5O4RMfpLOF3OXNLlBS0p9wpiyNnsH9l3oAi/pUWSQYyR7VRzKT0+H
+	 k0/y9I7mbhbEJmbxJNiFvCHCb8dA5g7PerqWItBAK7g1eYG80/wLiXw4QzTAxnjCsN30V
+	 hNdLOT85349cmC49hwvmHhEy8s0Ch4H8Jm71QMpL3jMKqIvb9O5WFEbz1utnm5fnbLsrY
+	 tDkLiw/ufjXzuA/klwue6ojarwaqjJWOSLS246prwLGEgHtB5f2qmST8BY/PYZfglz1T4
+	 fxfJXtXrQFQQa4AE7vLODCa/9Oq6HflA9OgpvgvCcK7B/cJ4yqEYDlGYc6vKagWfX1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795017929;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Wa9YsBb5p93d7mXGwwbsWVR77EnBef4SflIhqtIEHAE=;
-	b=f9dybEy6l173KMAe7fbPbL6y6XsczFTQjnWLODewYJPp0SS1wneheDtYcHMV+0KdvKU8
-	 x0arAZzHYfrSCPPVVWf2NSGx4LyTGKVOhsZAaBQ6BewOKWspQqkNVsnuCLcnSUo0JxI7M
-	 93/ZxfQCM1YYmN/Zn9o3ldAjLw18qfmz2Ol4Q1DlWewjj441Dp88ceUusBUUbVQEcuHKg
-	 KUbQ//zJlXhzp45R/rBkJKLUNxm7XvtbH4i157kT4tHfIGhZktSfMTMaK/VNdYKmTILRh
-	 W/SOr63XW+FwL/y9soKJGg48YIwHXjqkTzBeqxeb6fxyXAvv/m2YyNdlECqEKvadqyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795017930;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=HRPLTzRrv6fW92M9cJ9cmOC6B1lii9nz4yl+pVUSZMo=;
+	b=uEKy7pcJztadS9IUbc3a67W15vbH9TQBtuKMGzMZIYfPo5Z2CR9pdYU1+HZDSie7tBGb
+	 8HfSdghHdYzT2EYUpfcX4t2ICcflXnjHQ8lahc0odhXoJ56fJg7l9BtbyLYEiJVyXkR2Z
+	 CWRb8ORwvEb8v72O8of50vFE1xdxVRHtibZ2R0uxmiyEveU/I4KEJxbH5d9VR86D5sZHJ
+	 o4yr2JC37gIUEEeSFM2mGGuwSEtenWHviBXJv8EpxyepvSmSyBvJjPbhkrXJ2bThxnpDy
+	 sZFiiYnd2QObhJDGAOtb7ctEuzHFnRP93Dd3Z9DHkgZ6pNgf0FSsEKgr39OKO/H7HbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MYFOTpWu;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aMdTnBOn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 127E5606A325;
-	Wed, 18 Nov 2026 16:05:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88C50606A330;
+	Wed, 18 Nov 2026 16:05:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=MYFOTpWu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62C3E1F000C6;
-	Wed, 18 Nov 2026 16:05:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795017928;
-	bh=Wa9YsBb5p93d7mXGwwbsWVR77EnBef4SflIhqtIEHAE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MYFOTpWu8JQ8tpdV925glZrGIUbynYlwkaBbLiZ30Fg90hgHDL0SilbpRnyJgAO7L
-	 XxKwkvtpiNNibendjPMQI4mp8CdFbN6ek7D91d3m3D4wi9mh8EaBdko/dyc2MxRnUt
-	 QioyRjH1zVkZkTMqVap0nY25BPUog+NX8Y3DnJ9Q=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	Linus Walleij <linusw@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 1060/2651] pinctrl: nuvoton: Fix clock reference leak in ma35_get_bank_data()
-Date: Wed, 18 Nov 2026 15:38:20 +0100
-Message-ID: <20261118150326.141186852@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aMdTnBOn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9C0C1F000C4;
+	Wed, 18 Nov 2026 16:05:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795017930;
+	bh=HRPLTzRrv6fW92M9cJ9cmOC6B1lii9nz4yl+pVUSZMo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aMdTnBOn7BZx3f1c4qgSwoVvjMJaTayBxmi4P3UkT7TnMM/iJv8x2xEdcIsJo+x8z
+	 tMbCL4heAIMiLzwrsfM/WSReHyVwienwz5th5/5HOmvkOcktKP+oQ1iHyYE7E4Cg8B
+	 k8SAmQcCOodgOovdeuFUQ3H1f0BdxX5I14K0MmCjZmTZm3+04ccfbL9rCcGk4/KFLC
+	 a/wThZRyEqYb3tJ8padldJDYUvj6dNzWC9KIsiAsPQQcCEmdWkZC6gb8hUlM5c8cd/
+	 YfBpWgrBTWuYYXXPBkM9Q97yz6vxyd/w6C4xu7x3KbGLlNBy2nF01m4mYs8OmJuiuN
+	 vVrp/jEkokpbA==
+Message-ID: <8dc563e1-b5f4-49d3-80bc-5bd54e58392b@kernel.org>
+Date: Wed, 18 Nov 2026 10:05:28 -0600
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,59 +51,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-
-7.3-stable review patch.  If anyone has any objections, please let me know.
-
-------------------
-
-From: Wentao Liang <vulab@iscas.ac.cn>
-
-[ Upstream commit a854aa8e550502ef05c2836a4b426141d735bed1 ]
-
-ma35_get_bank_data() obtains the bank clock with of_clk_get() and
-stores it in bank->clk, but returns clk_prepare_enable() directly.  If
-that call fails, the reference taken by of_clk_get() is never dropped,
-and the driver has no other clk_put() for it.
-
-Drop the reference when clk_prepare_enable() fails.
-
-Fixes: f805e356313b ("pinctrl: nuvoton: Add ma35d1 pinctrl and GPIO driver")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Signed-off-by: Linus Walleij <linusw@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/pinctrl/nuvoton/pinctrl-ma35.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-ma35.c b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-index dafa85c105a13..a79ebf4be2c3c 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-@@ -557,6 +557,8 @@ static int ma35_gpiolib_register(struct platform_device *pdev, struct ma35_pinct
- 
- static int ma35_get_bank_data(struct ma35_pin_bank *bank)
- {
-+	int ret;
-+
- 	bank->reg_base = fwnode_iomap(bank->fwnode, 0);
- 	if (!bank->reg_base)
- 		return -ENOMEM;
-@@ -569,7 +571,11 @@ static int ma35_get_bank_data(struct ma35_pin_bank *bank)
- 	if (IS_ERR(bank->clk))
- 		return PTR_ERR(bank->clk);
- 
--	return clk_prepare_enable(bank->clk);
-+	ret = clk_prepare_enable(bank->clk);
-+	if (ret)
-+		clk_put(bank->clk);
-+
-+	return ret;
- }
- 
- static int ma35_pinctrl_get_soc_data(struct ma35_pinctrl *pctl, struct platform_device *pdev)
--- 
-2.53.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] crypto: ccp - fix misc_register() failure paths in
+ SEV and SFS
+Content-Language: en-US
+To: Kim Phillips <kim.phillips@amd.com>,
+ Tom Lendacky <thomas.lendacky@amd.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ "David S . Miller" <davem@davemloft.net>
+Cc: Ashish Kalra <ashish.kalra@amd.com>,
+ Rijo Thomas <Rijo-john.Thomas@amd.com>, linux-crypto@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261117221901.746427-1-kim.phillips@amd.com>
+From: Mario Limonciello <superm1@kernel.org>
+In-Reply-To: <20261117221901.746427-1-kim.phillips@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
 
+On 11/17/26 16:18, Kim Phillips wrote:
+> sev_misc_init() and sfs_misc_init() both publish their newly allocated
+> sev_misc_dev/sfs_misc_dev to a file-global pointer before registering
+> the misc device, then return early if misc_register() fails.  Neither
+> frees the allocation nor clears the global, and the early return is
+> ahead of the kref_init(), so the embedded refcount is left at the zero
+> from kzalloc_obj().
+> 
+> Both features can be detected on more than one device, and a failure
+> here only aborts the probe of the device that hit it.  The next device
+> to probe therefore sees a stale non-NULL global, takes the else branch,
+> and calls kref_get() on a zeroed refcount:
+> 
+>    refcount_t: addition on 0; use-after-free.
+> 
+> The count stays at zero, so the matching kref_put() on teardown warns in
+> the same way and never reaches sev_exit()/sfs_exit().  What is left is a
+> leaked allocation plus a device whose ->misc points at a miscdevice that
+> was never registered, while the driver still reports the feature as
+> available and no /dev/sev or /dev/sfs node exists.
+> 
+> Both patches free the allocation and reset the global on the
+> misc_register() error path.
+> 
+> Note the differing Fixes: tags.  The SEV stale-pointer half goes back to
+> the original SEV support commit, but the allocation was devm_kzalloc()
+> then, so backporting the kfree() that far would turn the leak into a
+> double free; the tag points at the commit from which the fix is safe.
+> 
+> Found by review of the equivalent bug reports; no hardware failure was
+> observed, as misc_register() only fails here on minor exhaustion or an
+> OOM.  Compile-tested on x86_64 with CONFIG_CRYPTO_DEV_SP_PSP=y.
+> 
+> The two patches are independent of each other, and of the pending
+> 
+>    https://lore.kernel.org/linux-crypto/20261116203622.615371-1-kim.phillips@amd.com/
+> 
+> which touches psp-dev.c only.  This series applies on top of it, but
+> also applies cleanly to cryptodev master without it.
+> 
+> Kim Phillips (2):
+>    crypto: ccp - fix leak and stale misc_dev on SFS misc_register()
+>      failure
+>    crypto: ccp - fix leak and stale misc_dev on SEV misc_register()
+>      failure
+> 
+>   drivers/crypto/ccp/sev-dev.c | 5 ++++-
+>   drivers/crypto/ccp/sfs.c     | 5 ++++-
+>   2 files changed, 8 insertions(+), 2 deletions(-)
+> 
+> 
+> base-commit: 26ca5f34841f0a86d0883664a1c13be89a01d351
+
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
