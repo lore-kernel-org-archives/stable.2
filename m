@@ -1,84 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795014178;
-	b=tYW72sxUpXa9/Nc7UpEBHjG5cFGeyH5dayWSkM1QV2fP0mrHRIzb7AoYwzSvjmbFsZKV
-	 A2JYc9V01SebFyY/zRpCQV2yaJXBavC4D/amv3Rhb9OEWJFycC83Z+T3xRgEZYyYvz/Ee
-	 VRsycJqvsHiadmYTuwy7xyku8MeEWqMldFnvWWFC8iqZfZbH4CbFxr8LaS0B+K0Rwwljd
-	 dry7Q+I0Kt2jZ2rfAJOzPSuAlAQnHSM68bZaRx+qdAjcDASEuoDqZD5PR4/ZIdJsWSQAh
-	 Q6qBZ4UUeU1G7zVSwDU5ZkZsXF40DZvaqBZ7M4c1UnNo3krVAYxOHH6TLjhhTW5pEcA==
+	t=1795014255;
+	b=nG261qwijfx819LklZjzY/HGN0DjAKHYhAp6b5rqWm50XQf17SjuzfQloicI9f9LeUBs
+	 S4QeDIsqiJQirQ7E6Ba3dVuPcsUREhB27beYULw3imVusxF7DYOy9Hdsm0GzNIOzDtihV
+	 +5J2EP5kMxnmM18qM2cpgfEWT15xnYrZowVjlTrmxIocb0HhIUBUix4XyjFy3O1Uds42S
+	 9FpVUTT6uxiaukA1AJ43lNyZQVsIUZO3IaKoKl5EHEyN0HRlZikUEVSML3hxnK15l5SO+
+	 B6A36SVYE8U4JUt0azBoC8yR1HeIA7QPlv3q2But++d4KlFCQhJ0rGIdbZQMl13hyaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795014178;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=7LYxGGwIkqePbtMipPF4iM+09AE8uF1vkCzbobCtyac=;
-	b=2PqjQkGkC6ZpxPsc7SySSvIOc11r+P26H4QsJRhjZX2WwmawFJYxFCoL6jkuZzoNhSqI
-	 wvAA0IdzbYmHiT2UeL6EcfcqDbg/Co7AHhc8OsYOT7YEicvL5xoc9v1w0uphi0hyFJC66
-	 IUinbvEZudEZLzv6sLJeftbbYPbDO5wIW9qdTCALA/DwIS6zwnIcTpmrkCO7CyGTzXRUk
-	 1lYoOSZ1anwgQCa3WGXUuqB1fB+eIBzRChTN+wpZAL6kdgY6kp/n5UUIGV79Xt6R/YPNa
-	 ZNXErCZpvCUxqqh9C1EmS1JicqQ+0lykM6J9qmogYI1ZPJAllrahYTDr9lS9TwYEzgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795014255;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Disposition-Notification-To:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=Z/tQwtb+guAS1R6/OD9tZmRzv2qN3TXj6uh+KCQvyAk=;
+	b=jCNEarizzTGR5G1PWP6aqiAX5Aj9CUucotgzgVlLJsmVP90LjvvcDytFaiD3MWR11q//
+	 f3tmMGAschWpDtgiaIkYzXpN7elq6m0oqLx+F+qYMGh9j/gLtwYiSSOoad8C+UpcROw/V
+	 djicoBUzyuL9tWnFa2YQbZVqZHFaY9kFv68YT3WaRUPku6wWEwvKPkZmKZD49gIW/6qm8
+	 OUg994RgEqxaimh3R/KesLBd2qqpl2DF7Shgsfmr+fY81g9/BEEV2MEn9m360XY41oRQs
+	 IWVby2u1sRBdMCT0U5AZ5ayOnJXW3IXpHYDAWmv9MDt2UpuK0VLLvXk7eU4PH2Vji5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=JYDWX0e3;
-	arc=none smtp.remote-ip=43.163.128.43
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.43])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BZgNY5oh;
+	arc=none smtp.remote-ip=209.85.218.41
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AB7606A325
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:02:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71AB7606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586DD606A338
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:04:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 586DD606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=JYDWX0e3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795014166; bh=7LYxGGwIkqePbtMipPF4iM+09AE8uF1vkCzbobCtyac=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JYDWX0e3ERQ2MvAjP+6TjPbFRcYyJNk4Dyb39y82WG9YlfYnavY9l9+Zwn5tK1zaw
-	 gk2lg2GI6QouMsnpThsdSRY22WWTSsETWjOhhvGOvHJTAmkUxUH1tRp9iN6epFzqmg
-	 Av5JUQiObtsiRIWy/Q4hlW8zjkAptdgyNlB3fk8s=
-Received: from ikun ([221.176.157.242])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id A9848DD; Wed, 18 Nov 2026 23:02:41 +0800
-X-QQ-mid: xmsmtpt1795014161tiywfohef
-Message-ID: <tencent_D2DD501AA53948B131F7FD6358E036A4E70A@qq.com>
-X-QQ-XMAILINFO: Mdc3TkmnJyI/5h8nstZLCzm3Dpl64DrEY1Rthw00rDHQ9TnQPdPdqSKLTvDdcG
-	 vwQDBZp4e/C5KksNGyNtjB2wVN696Pt5U5PhlSFlglEoRGa8mORmjUlz8lBJMSEJ7BqWy7WaeDBH
-	 akb5lMj5rqUUKyIxa6v7vfGCzuYLMnlaHt2Uw0VbCN0ABe7YhV29pbDLZNT71ZmhggOqdhG74nUG
-	 od4UyVzIj1vXrt/2OTYbU/XGcpF2zPO0rbIriaBmxZ15yaZQ4oblM+ZwiNlUmvPBzfVmEve6vzCt
-	 4KV6rlIX2Q3dWq0F1xgAgtKkkaE6pXgNJEPI8/i8M2W+f2taOzG/9ycNtfFX8RWAziZN/878KlHm
-	 SMhzr9211sUuoZGQeNi6Sly1m0I2QRXa4FRYS2SVSvCwE9NP8a3q/rf4hN7RhcmE3tuW4JJNc3QF
-	 leBJsFXrIGgdYfe3h2H3glUWnveg3Xcmw2ZHh1lqjvW4JfnJEaK+9mEBxejwuD069XSnstIav4o/
-	 VBCtg41BSFHxKqDwxaDI/mQWqjK4GVPrnc6U5MocErquiBfItizI7m8US32M30LrhjlZe1renRAw
-	 XvoZlnG4IcKA6Qr1HWPHh83aY0tiOhVkW9XTkBhRNYr15CrRfrXsKXEwvlxh45PeNGi0q/Ea3Zw2
-	 Ch6UsMXNFZ7GL3NAe4lzJ8++BJjb+Zpe+njCwASFAFBWYkVXtp1Vz4tYIzCo3KMw/Vk0dSUl8Rhw
-	 0bS99QRMTDu5GJpAlAXrJtbvmimF3dsps8AwyXBr0zZPTvGaTXoUKxnC3qazrfgd/nAjO48ObbPL
-	 g1bqUMZE79GZx/35jvEywRRh3mQwfl3or6s4bHKYKE/+bH4l5NY0Ieyl6Qvve350qvAtrG3BczYe
-	 y8BZkuHdC3Rm/iW3G9tvjd1JMYmWE/LGFX3mertRMXEOWdkzcxh8u7jsV8xdTEzKuo+MaDax+46C
-	 U5eFMCrxptKIASs7JQI6NCMvBDI4ERzumBtLNrcHQar2wCSTD+vS5s0O4rRNqeEj+cN6cM+MCtub
-	 7WmMnzz4+STnwxjC/AC3jqnZo/JSb7CaDYmbZyVddN6/qYGfFHD67b/jO4+BYE4by0XPtGF2Nmd8
-	 b9Z+mBRsjlt1xxOMI=
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-From: Alan <3164729207@qq.com>
-To: tytso@mit.edu
-Cc: adilger.kernel@dilger.ca,
-	libaokun@linux.alibaba.com,
-	jack@suse.cz,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	yi.zhang@huawei.com,
-	harshadshirwadkar@gmail.com,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4] ext4: reserve inode write access before unlinking entry
-Date: Wed, 18 Nov 2026 23:02:41 +0800
-X-OQ-MSGID: <20261118150241.6679-1-3164729207@qq.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <tencent_6D3188701BD3C36F588C221C4CD924FB7809@qq.com>
-References: <tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com> <tencent_69B311F4356254E166A5EFDC981AA138D80A@qq.com> <tencent_58D8BEFB60308A7011D26F6F7E8C941C2A09@qq.com> <zkqch3frmclz7yjyllhcvehbpnfeofs3zt5ylg6ska7hdkf6th@gvd7pv5zrehv> <tencent_6D3188701BD3C36F588C221C4CD924FB7809@qq.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BZgNY5oh
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c506187deb9so17619966b.2
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:04:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795014254; x=1795619054; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :disposition-notification-to:references:in-reply-to:date:cc:to:from
+         :subject:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z/tQwtb+guAS1R6/OD9tZmRzv2qN3TXj6uh+KCQvyAk=;
+        b=BZgNY5ohqoEFQkAOL/iufDJibOewT3UgU2WVfwz5xpbqpBVbkYqnhc5ABRsYqWLPj7
+         8GTikK+xnUaXefdEgttPL5Dir2FKlQPUJi8SXvikn6YoJ8UbiIxeNQg7jnDHaaDw3Osc
+         7HMiGLt7nV5j86eNOAMOXcwjFXjU5ruEQXU4NglemLKDqQEaYmweQOhUf6y5XignaU7O
+         piEJezvPTns6OaohWw2T+dnTPhfD44fRRmw2aW3DQLnvkEuv9wCRY/p7kGA0jZIVhCLa
+         ud9DSv7W/UVw0VCagPDTiXYbdGPHJa2o2Mgq0t6CGcMtFx8rf8QAjg9T8icFuXsQLdxF
+         VUFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795014254; x=1795619054;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :disposition-notification-to:references:in-reply-to:date:cc:to:from
+         :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z/tQwtb+guAS1R6/OD9tZmRzv2qN3TXj6uh+KCQvyAk=;
+        b=0ymEw7mc1x0cst7CRxQM3TjQBoDktl+yBH0b/Wpz5Oj7lfkFsV7I6qIkllXTrBqLZC
+         KmKY8xcbbJ0kh5AGyshyj8Ily54KwW5FCSY8KkNzSzy5dtoB+A5wgEQVdjJyEt1tgrab
+         o4OzgH8sd1pRNni1AaDjEM5/3Zyq74N482a58E+Xf8lyGY3015XSOXQu2C2egsTzbk1c
+         YcJ5Q7ELHguxYV75EowVOg2Y59vuMc33BgBFxXIy8XxrSEndchrIk8yFyBV4h/xCuCeB
+         xa+CiIPRfarg7shLm1FWqox5FKxQ/sdZqO2uOHajbhX5pTIP+fn/A/5aX3ETeu+ge5U/
+         C8tg==
+X-Forwarded-Encrypted: i=1; AL+hErH0FGSKhl5Kzf3kxVpPGXdNvgMbMfxwcjm6Il4QUPG982ZEbDhNC+Zvk6SjAOe0w0Lp9WWhFrU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/BViBF6ErPvvxySWxyvLhXWZJ4Ed/D8Rv75QtdZC55JPgKpG2J
+	tvhrZDVa+nlO3BjqG+aRuggRbRjLbjS/PeEkU41Zn1wFYwxDq2PGgmrK
+X-Gm-Gg: AYBFou2dMUrbhxvtXtj9aJCzzczvPYhC4sCj1P2cTRVpzAu1/4DbrWqdaP27vJ2SqHX
+	6vmcLsleTN4nLAMNUJ/1PVlRKp1r3nO+ikLq7p/oz94yz6h7R/8UOGumBVLyXIwwIOLnaj8mVM1
+	PDlxUW5kuOEeJ0n+7hEBuI7ljExKEq815wkZfKFy5KtgZp/67rnEVs4fw7iS24CK9OHSPRA2nn0
+	cNftJeLGbPTLOv+PEh6k5JvXm3sr46Lqzz++dlSPkoPrT64htRVAJfZnoU3aw6te7Z8GPYQ3Bu7
+	Ac+MU6QNRvCuqTNjOAg8zpR01snCg2nB0x+ge0zwRpfpdTQZtE0MC9rxrQylODZ2grfQmpCA4vr
+	rsQx9skosP1ssh9aDs9IvD1B+G6Jm/DCWTraBxk9ollchuqFvj5ONvv+HHRJIkWna6fS5juCHyV
+	0GgpihhzSt/MH1EuzZypKZsY5ovIYV8Sxo0y98jx11Q2Wf1cvnB6RXC4nI4NW+MQep0O3GoU97D
+	Hd66V2ZJDXmBDM77lZfGQ9TQzjXulz/YMA6uZPOUrII/Z1PWqsiqZs4hwbtcpCOEiMHd6FTwjZJ
+	0SC2Ie3k8/yqlyB+fnnqskWnHm2jMldBpotRPiYG2b/k8dnSlKuC3Q+99Lpdjl94oUxrfH76zuo
+	zZFKnnr/Hm6UxEQ==
+X-Received: by 2002:a17:906:7085:b0:c2e:8801:9139 with SMTP id a640c23a62f3a-c510deb9e53mr253754166b.1.1795014253543;
+        Wed, 18 Nov 2026 07:04:13 -0800 (PST)
+Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51233c4d52sm7516566b.14.2026.11.18.07.04.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 07:04:12 -0800 (PST)
+Message-ID: <b6b45a76699f8b5dcfb2fdb1ee682bac0ed501df.camel@gmail.com>
+Subject: Re: [PATCH v3] HID: pidff: bound the unit exponent rescaling loop
+From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
+To: Shengzhuo Wei <me@cherr.cc>, Oleg Makarenko <oleg@makarenk.ooo>, Jiri
+ Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ =?UTF-8?Q?Micha=C5=82_Kope=C4=87?=
+	 <michal@nozomi.space>, Paul Dino Jones <paul@spacefreak18.xyz>
+Cc: linux-input@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Wed, 18 Nov 2026 16:04:07 +0100
+In-Reply-To: <c80644469f01ae6d2ba0339a7a2fcd7c6080c310.camel@gmail.com>
+References: <20261104-b4-pidff-rescale-exponent-v3-1-f45e64cf488c@cherr.cc>
+	 <c80644469f01ae6d2ba0339a7a2fcd7c6080c310.camel@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.1 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -88,101 +107,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-__ext4_unlink() removes the directory entry before decrementing the target
-inode's link count. It then dirties the parent inode. If the parent
-inode-table block cannot be read, parent inode dirtying fails after the
-entry has been removed, and unlink returns without dropping the target
-inode's link count. With errors=continue, this read error need not abort
-the journal transaction, so the directory update can be committed without
-the corresponding link-count update.
+On Wed, 2026-11-04 at 08:41 +0100, Tomasz Paku=C5=82a wrote:
+> On Wed, 2026-11-04 at 03:44 +0800, Shengzhuo Wei wrote:
+>=20
+> Works as expected. Thanks!
 
-Reserve the target inode location and journal write access first. When the
-directory entry is being removed, reserve the parent inode in the existing
-branch before deleting the entry. This makes inode-table read and access
-errors fail before the namespace is changed. Keep the existing namespace
-and link-count update order, and release inode location references on every
-exit path. Fast-commit replay can skip the parent update when the directory
-entry does not match the target inode, so only the target inode is reserved
-in that case.
-
-The original source-derived injection at the journal write-access boundary
-is not evidence for a committed inconsistency: an error after the journal
-has already aborted cannot establish a committed transaction. The relevant
-failure is an actual inode-table READ EIO before journal write access.
-
-Tested on Linux 7.4-rc3 (torvalds/linux commit
-aebb7274476403040d582c61478df8f4a7bf9cd3) with QEMU blkdebug and
-errors=continue. On the unpatched kernel, the READ EIO leaves the directory
-entry removed with Links: 1 after normal unmount; the JBD2 trace shows no
-journal abort and records the transaction commit, and e2fsck -fn reports
-an unattached inode. With this patch, the same error is returned before the
-directory entry is removed; the file remains present with Links: 1 and
-e2fsck -fn passes. No-fault controls pass on both kernels. Also built
-fs/ext4/namei.o with W=1.
-
-Fixes: 4209ae12b122 ("ext4: handle ext4_mark_inode_dirty errors")
-Link: https://lore.kernel.org/linux-ext4/tencent_D60E766CE07D3A1847B81DE9BC37B4466908@qq.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Alan <3164729207@qq.com>
----
- fs/ext4/namei.c | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
-
-v4:
-- Restore the omitted Signed-off-by trailer. No code changes from v3.
-
-v3:
-- Follow Jan Kara's suggestion: reserve the target inode first and move
-  the parent-inode reservation into the existing !skip_remove_dentry
-  branch.
-
-diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 354fc2d22df1aa..27fe5e82d6e12b 100644
---- a/fs/ext4/namei.c
-+++ b/fs/ext4/namei.c
-@@ -3233,6 +3233,7 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
- 	int retval = -ENOENT;
- 	struct buffer_head *bh;
- 	struct ext4_dir_entry_2 *de = NULL;
-+	struct ext4_iloc dir_iloc, inode_iloc;
- 	handle_t *handle;
- 	int skip_remove_dentry = 0;
- 
-@@ -3269,7 +3270,21 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
- 	if (IS_DIRSYNC(dir))
- 		ext4_handle_sync(handle);
- 
-+	/*
-+	 * Read the inode-table blocks and get journal write access before
-+	 * removing the directory entry. Otherwise, a read error while updating
-+	 * either inode can leave the name removed but the link count unchanged.
-+	 */
-+	dir_iloc.bh = NULL;
-+	inode_iloc.bh = NULL;
-+	retval = ext4_reserve_inode_write(handle, inode, &inode_iloc);
-+	if (retval)
-+		goto out_handle;
-+
- 	if (!skip_remove_dentry) {
-+		retval = ext4_reserve_inode_write(handle, dir, &dir_iloc);
-+		if (retval)
-+			goto out_handle;
- 		retval = ext4_delete_entry(handle, dir, de, bh);
- 		if (retval)
- 			goto out_handle;
-@@ -3293,6 +3308,10 @@ int __ext4_unlink(struct inode *dir, const struct qstr *d_name,
- 	if (dentry && !retval)
- 		ext4_fc_track_unlink(handle, dentry);
- out_handle:
-+	if (dir_iloc.bh)
-+		brelse(dir_iloc.bh);
-+	if (inode_iloc.bh)
-+		brelse(inode_iloc.bh);
- 	ext4_journal_stop(handle);
- out_bh:
- 	brelse(bh);
-
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
-
+BTW Jiri, I'll re-send this as part of a series shortly as I ended up
+doing another big overhaul of most of the driver code. It's currently
+waiting for Oleg's review.
