@@ -1,94 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.94
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1794983025;
-	b=ARyWjLIsNx7OVcryiuzAx5TaYyxRVXftmli+nEaXFh7KgOoR+EArg9vnayJ/uGYj0RWS
-	 tJuD683Yf2D1t/GsIdXvuPF9jj2KJVjp/+0jkUFuQsxd8YbQ+HDv5wx/peUROzaZZKIK5
-	 oqC6KvziN1yA4Q7PGrcxHsnKe+KplxtT3KjIPkKlBNMzdW/3RnmNnCM4nkfWNgaCVBBlX
-	 q//R/gEdpO1ESp5W4yZx4HMN+lQaQgBnWuQKH6uI0HaPZspakttGxdC5YcpG70IjbtS0G
-	 RGUR/q7eUNt2ASVdfQUBBNuyCwJKPqkRsDouGqBP0qPx9ZDTbvoym3WcyzxOzyLMvNg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794983025;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=f7sIVxw5Vv7BVcCvdFUAtha2zMQR6FOZMtxRw5P0y0w=;
-	b=QOHqd7A5NWl7KJjXHvPLOdH02/yGdFbWV6NLun6x1VwwahQJ1LyIxGM2ejpLZ0EYdNZ0
-	 eHR8wxUi0XUh00yIvie+SmOx1Fv6pPB7TMkO01mPHbtGjjUqMeKuac5CaZUy1KmQwifxA
-	 qhiskT4BXKBZ6GUw1XFN334ckuniaduz4to9Osqlog85W9plejebPYH0lJZw0SczEnuzg
-	 6WfnyMjfjadKpsgLrv3g7lkBiw++fhDR2TWcgeFAHqHvCwqQir0ED9k75jxy+az6cr1ab
-	 +AxNqV9B8PsESNcCyaglRQFyZdTiVBFjQjuTYGv7UyPJqXraXYIncGSBDve2F2gjGBw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=vaisala.com;
-	spf=pass smtp.mailfrom=vaisala.com;
-	dkim=pass header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=dlCokYll;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.94
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11023094.outbound.protection.outlook.com [52.101.83.94])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.177
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1794983273;
+	b=V6nT+Tsdp82l1YcGQqNaYM5l7t2TrIWAni+M3s5UcvvKpLt7GFoW2/H9X7CgwbDY611m
+	 yV0nRi8iMGarZ9jDaPjsGQFtzC5Ad6oW3tCYQi380ai+RXkwGVeYWnxDTeP+yGfWbiBVz
+	 XQ0457+7zYvO6uK0iSLci/kWgT0CKM6pt3MJEcGPGuBw6OQ6W0FTd3VpnyJ1Whk5OZs1U
+	 jvjIyTm82D8khDeWWjZsD4yQFN1/ONT6WsxDIneI/l1vhLa0/XzpOnBdfCSde/cj+bKIs
+	 VWAJ0snMgMYbChyPZmKLOSdSe8tOkh1fzdQ+d9aNYdMZvooCxf88Wdz/A9XC43fmE6Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794983273;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
+	bh=u5Ctav/yDjXLRSHJvbAGfgAiHawDLtclHE70KW98KZA=;
+	b=2DDgEnJWHB2XtU+djSLVocbiJQ5k+DpszKSHoG3+6YkrfgfHlh7CAbDl6/2+T6qLyJlT
+	 B/D/QNtkzFN8rzRf2DKpSF6Ei+9tJrNi2/agpnz5eS1uliyxSEkSGIv4kQPU49GCkZuZ5
+	 nY3A1tMF1Gu+RlfmB40ihBeSFBedStEZkPbmd3RMi5xhlKuFnMyHRnwE/2T25d9WL6epT
+	 g6D7KmrfhvG0dZkjd5vGl86E7uO5HsvpUcUJPcTRj3C2ZL14/KoqUKSkCeGm3LkkPnoc5
+	 etASM1goaRshutvw3AurTogFaHEZ4+IeM2xm3SRTpfvGHnN3ZpUfjx+x4DkIyS3d5RQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WXeG34R6;
+	arc=none smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90C21606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 06:23:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90C21606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vaisala.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vaisala.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5B5606A330
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 06:27:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A5B5606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=vaisala.com header.i=@vaisala.com header.a=rsa-sha256 header.s=selector1 header.b=dlCokYll
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QFQqg8JuZ0y08PDa8LdX2bttybm8EeKgrRDNJjolnZOaTtBsxxa8sAF218ey5C/cwfuE5qUEG6M8XNOQLAYEwKDYXu4GQadi0/hjHNw0aAalYiDqXi0pGyoJRdz2IZogwosFKYU/FSpCguGimnGFz3qOOvsS3GrMXnZs7I77Uw75RXnVhGbltSLK6rO2/tVZlxpQ4y5i4vDR9e+00a9aIHeyy3Tju/y7PWNaMx9AyNmluBE6sAAHIBLiRXE7HkbLLF6IyCXFIYShbfvCFC7skLlNI7SmxTf8uauPQLbunh8fEMhzoiyQZm/sf/4FnLPMmOJWz97DmYFg9ig6JN7zSw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=f7sIVxw5Vv7BVcCvdFUAtha2zMQR6FOZMtxRw5P0y0w=;
- b=J3hslca0yFzRg1JRDiQWyxxI/otr4uEwOsHD7e4/6gpQfAnc5sy6s/lR2iydNiHVS/9NMKCfZDpahWcmKx4p/e457luEBi9ZKJVBoy7jNP1BIgAVIEkuE3LsJrzOxH+jvk+VseBfa8K3iq0JkxQc+Cb6chbYKWhIgVE8nWS9bmxfvq1h/iOQxrgPnV0n21+6PJaT0xI5l+g5ycp2v20pVuuolJV/9zNH/IV2OpcDvDhEC9joCuGbFS0krUVlDh4L0KWJrY++vlwSFQ5iRGY/WPYn5NfRof+5JXkBaimH7lQ7x0nVgaXZ3eVkj7JbuV7QZi3RlHnF0pfN4Z9uG0klpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=vaisala.com; dmarc=pass action=none header.from=vaisala.com;
- dkim=pass header.d=vaisala.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vaisala.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=f7sIVxw5Vv7BVcCvdFUAtha2zMQR6FOZMtxRw5P0y0w=;
- b=dlCokYllBT8IMQs53cLXjP1VqRzJCY6+OptYJjUleTwovWJJaT4BlDGXurO2we9dVLtGEbRdRt4fm2XAhq/YoVJ8O42RNfXvQ+W4JNn4AcOeZdEV/91fBzK5XX3U646aooqekMrU8hSJJVbYFQ+bGpZHaEGJqVV4Lbc5H0FwufxeF9fqfmGonwKHIzTaLyl2w5mojNoxytep2UNwn/wkJDdA0+PZuM3nGqZsGv7yIZY6ZT+xUUS5E2tSv22GhZFxQeENDepNgaB69dKZQdpTVbMtHjR07fVLHRNvbodlFCAwlYBCBXoGTvO3NArd5yzYP1QZMgBJypIiCkhye+AtfQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=vaisala.com;
-Received: from PA2PR06MB9176.eurprd06.prod.outlook.com (2603:10a6:102:407::17)
- by DB9PR06MB7659.eurprd06.prod.outlook.com (2603:10a6:10:261::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Wed, 18 Nov
- 2026 06:23:36 +0000
-Received: from PA2PR06MB9176.eurprd06.prod.outlook.com
- ([fe80::b6d:8160:d324:3bfc]) by PA2PR06MB9176.eurprd06.prod.outlook.com
- ([fe80::b6d:8160:d324:3bfc%7]) with mapi id 15.21.0615.013; Wed, 18 Nov 2026
- 06:23:36 +0000
-Message-ID: <b68885fe-223b-4b55-aae9-768456d4fa30@vaisala.com>
-Date: Wed, 18 Nov 2026 08:23:34 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: Patch "serial: max310x: drive RTS in software when hardware
- delays are too short" has been added to the 7.3-stable tree
-To: stable@vger.kernel.org, sashal@kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>
-References: <20261117144521.1678735-1-sashal@kernel.org>
-Content-Language: en-US
-From: Tapio Reijonen <tapio.reijonen@vaisala.com>
-In-Reply-To: <20261117144521.1678735-1-sashal@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: GVX0EPF0005F69D.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:400::136) To PA2PR06MB9176.eurprd06.prod.outlook.com
- (2603:10a6:102:407::17)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WXeG34R6
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cd6acc50b8dso364568a12.3
+        for <stable@vger.kernel.org>; Tue, 17 Nov 2026 22:27:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1794983272; x=1795588072; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=u5Ctav/yDjXLRSHJvbAGfgAiHawDLtclHE70KW98KZA=;
+        b=WXeG34R6DDZWngdAiJaA7PHvZ+uKaDZCO7R75Gb/fZ5hR4hqnw+Oj05fyFYLPZ20aH
+         lbxhyngcn0slgj164eujmb5/+SJC+8ah9Tennp1z0ZQ3ShlHv7Nr3QsQ4SPr9dl2JlZ8
+         ogZVVmxe4pIimIDxBdPJ7Ev5355PJdJp97ovhBknNamNrmYhhK/SGJjxNb4gjOpvwCpq
+         t9hd6TV4/OzNpS+/lUjU4QM8KWrgzA1VkT2iceUk5HB+c6kjU6pfzdSPP+C4fHNQr64a
+         uqidN6z5JhYNhWASGiplpEFeVCNXuRFK5QyLHAC/1A0CIvrpq+XDyZqcCyky9HqyaRq5
+         3LTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1794983272; x=1795588072;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=u5Ctav/yDjXLRSHJvbAGfgAiHawDLtclHE70KW98KZA=;
+        b=TS/Ny0ywg+GXQ/wGnAX9q+QxNLQ9ayP4gvTg/m+RbqCNkjQbbShycVtMAK2RdDV3Ec
+         hdwWmF23fvccPWPUYjjm8bTiZytupayfV1jfo6lzgF3haAFlDtr4AXy/ZX7jb/GID7hQ
+         REvD9Ww8fDjMsiY7gkiKOnqQecYiOx4jBbb2r/HF+pB85/nRPM+odtkYQBdig6hceUPf
+         ZvkTMcj8ze1/JN2OQQl5rgLb2RR7/C7bqMkr7cRx7zJla67y1gDJbctuRc2SjinB0Fg7
+         rCPDRc8xM/NOq55I5Cc1iTRBoyGJU6Ja5CnZ41bqubV15JqXsgNAnHVuOZdJtz1ig4Ix
+         OGBw==
+X-Forwarded-Encrypted: i=1; AL+hErFWxMKnNw0kHIDQQAaNjJpSOge2/7+sbwMLTvOl99k9oySM/gQAS7P8mQfiHf1AGnvvB/h4suw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+amMSuyfHXX8zontYQbKnKodDE9zt3sJEBT/a8ebMZR/cPs9dv
+	EmBXV0UsnjsmP0YvOgudC3X3vvGbK/Kz6L0HlZgn0jJ2JxCg9Y0o3Ir0CgUhbA==
+X-Gm-Gg: AZFdTZe3UDG1rJjuUiTKSXWNBcXodI65L3bPPvsDwsJuIk9n7vXbDhgFVXsD0qUwaci
+	gcZrjeLLsUahCppso+ktndZnP9luLTICgAhqVwW750QbG3Js/m5hGxlLzcX9ZcztjlkMFBsT8YZ
+	+jphYAsD5Pu8IbL7EZEXAcZ/cmEKNtXre1jtJJCZVqhVHaQoiXpJvPleJRr4iQeZkD7uJG9AqTj
+	e9+rhP00a1amx2exEmXt7HF9f9aCgfkkMlEkaGMyAPRZLuxZKiADOXFbhhtfxJY50uMPaHyegUA
+	jTYuJ3HDKWT4abjj9J0AEUYxCcybHl8uvCOnmOsjQbW1L29sQNaNO7HO1FD6M4mqYY9QBlJKUEt
+	IgBVOm27ddUUK4OCm7U7o9+ulqKXRRCVM5BqWTepI6rgTfzTj4YOjS5WSfeiZJTw1985XZvlY4b
+	ufP/8tB+eGxEj0wg0iouMn5DPR0sFCeVZ5vJWSFiE57ZT/ge/izx+9/+u6wzsF/zfd/QEYPCpFg
+	fD3nhQoi0rIyiHK7frO4sL8eS4qABPj/USy0lAfPfn2TnBV7muoqZ2orbtd29VvElm5QQ90kVuH
+	q2bLwmVwJVl/+gOOBo0ReneNjWEXHBYNwFzuTGpAxyZo9gE6m5PmdgNPyaNwy+Mu7NMSm45U0qH
+	ZzfgFGHfxyb5X03+qi+efV2vg2pHw6KwT8+ngQV66itrA7uVDZa++27XN
+X-Received: by 2002:a17:90b:2d88:b0:3ae:8106:6074 with SMTP id 98e67ed59e1d1-3b3d07649c6mr1578634a91.16.1794983272450;
+        Tue, 17 Nov 2026 22:27:52 -0800 (PST)
+Received: from [169.254.3.1] ([143.248.188.96])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b3d1acd118sm2576836a91.12.2026.11.17.22.27.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 17 Nov 2026 22:27:52 -0800 (PST)
+From: SeungJong Ha <engineer.jjhama@gmail.com>
+Date: Wed, 18 Nov 2026 15:27:44 +0900
+Subject: [PATCH net] net: release netpoll dev_lock when NETDEV_PRE_UP
+ vetoes an open
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,96 +92,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA2PR06MB9176:EE_|DB9PR06MB7659:EE_
-X-MS-Office365-Filtering-Correlation-Id: 48300635-1cf7-4cbf-0ed6-08df453c7a7d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|10067099003|56012099006|11063799006|261026140227099003|261026121527099003|261022075727099003|261021121427099003|261021123027099003|261022105027099003|261102123227099003|261028144727099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	+o+pqlf3EJLxz2w6AQupDfdwQ4YvSRD3LnOa2YASm5WCdRdAsXPjGQkfcODIEKgKsaCUFtynhC3iudVZ8p+w3R1g9C4YGmlxC8RSfWvl+/swwpMYhxKoBn0B8VxsD5UEyRFL24213bcOFd2NI2AZaHAAIABOt5/uxO7GSicaCxyU6SVMyyN5ts5jbqdkFPRSN9Q/yGh8qQSKAtIS33JWXr6NGDKktnleUvycHggwCvJYxIw+fZYECq9kMS6T6tGACLKNqebPuW3w7axDooHKMZ4SlAIBrKyHOecNneDv0EOTyJpDJ8gy7xbJno+eQmNH/IWsxuHlrYN+fVb4a/8dQejfq7/Zoo5smApwJ7zvaTvBCkyo87bZANRhKXDvPinZ5t0yVgQ1SCvfP5Zv0jlyN9Id8vBMwIHUHPbrc07/McViAktQWa4iOCmo9qdHrUE1XtX9cchGpf7fcHw8fmj1jZYcTn2aaY2bH2+KF6AZYNF/ZneVbjaAkGU6nwHtzIH0DRVbkDjoZTpNin1f0Ubb50nDDFzrGk1RngijxX+/20SOzIGynvnv8ih4RR01aRJmoTYa3Hl4vCcHbUS6jjiJbGgcaCr+drWn6xVsHmuawu4h05bxy6UzbYB5S/WyEDE1BKLh6IzuYbF/wRNgSFrklVsCU8w1nKBCCEWb4UTBZgo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA2PR06MB9176.eurprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(10067099003)(56012099006)(11063799006)(261026140227099003)(261026121527099003)(261022075727099003)(261021121427099003)(261021123027099003)(261022105027099003)(261102123227099003)(261028144727099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VXE2QWZlam1yQll5ek4rbXJMVjU4Wm9qTmJVRFJnTHpma1QySmtOYmNWN1VI?=
- =?utf-8?B?UWxXcmZXMkhmdXRzZmw1blBVeGdtUzc2amtNME5sRE1HRXQvcFU2c0RpSFIw?=
- =?utf-8?B?cUlLaGFaZTkyN2V0N0Y5Wk13U2ZnYndBZ2Q4aVFEYkl2ODh0MStqdGFOQUFP?=
- =?utf-8?B?YnFhL2FQN08zYjR2RmJmZ3lYRkJMZUxzQUlwOUFxamNMb1ZnWExFTWdNVmlX?=
- =?utf-8?B?cmxIM1YzMHF0bG1yODI3WXFpbFBFblpLdWk4NjNXd0txTGxTS3EwdlBMbUVR?=
- =?utf-8?B?Yi9acmE2OG9PbVJRNXdkS2lKQzh6UXkwamliRDRWZVpPN2tBUXVUU2xKZmE0?=
- =?utf-8?B?SGpTcUswQ1VSaFRVMFJGWjhjbnJxeEtuSlkrelU2aWg0ZlV6akJ6Wis3b01I?=
- =?utf-8?B?T0pkdU9ic1M3YTNaaG95RGRsQjR4MVRqdGZHZm9jbHBwMWhoWTI4emJ6YUg3?=
- =?utf-8?B?Vit3S1RtaFpqamhMRVRZRlZZTmlZR0ZxR1VNamtwZnV4eENDdlVZRWk1Q1Zk?=
- =?utf-8?B?RGZhUjRtQWFCemFXdkpMVjNJcE1qcTBneTdPTk1xWm1pNzFCbXhRYUFXeTBI?=
- =?utf-8?B?VDJ0UVgwRlVNNHRoNzd4ellLTDkzZTk2N0xiMVpQcnFvby9XdlRHT3lCcVhm?=
- =?utf-8?B?c0d5aHVLcHBpeFd3THVJcXgyOUl6STBNTW9ycExYcGxMM3g1dlNOcTlBR0pr?=
- =?utf-8?B?NXV4KzBuOWhtM3ZKa05pS2JNcVY0U3h0MWVpMWtmQzBwaU04R1JlTlV1amkw?=
- =?utf-8?B?VU81cHdtaTNKdVpWUjRYQVR1SjlyS3RzTlorQWN4dEZoZ05zUTBMUmx6ejhI?=
- =?utf-8?B?ZjdGb3lES3lRYnA2VENmS3lSY2pGL3lQVHppK0VkN2Z4S09YeUxqL3cxMzFY?=
- =?utf-8?B?Z0tSbU43M2FZNWdiYmhIdmk0cDJzOTJqVW44dUNJYVdLY0h3N2puN2NueUFZ?=
- =?utf-8?B?ZkZZTTU2bjBNemFiNW8xNER2dWZ4aVFIVElRUjlLZ0hNTHZ5ZXhlMUpid0hR?=
- =?utf-8?B?VUNIUnJBMFBBNjBTSHlST0NDOE5MZENCNFFlbW0zMC9SYzNkK0o3RVlWZWNV?=
- =?utf-8?B?UzZqZ2o4WHZra1duYXFzSUUwOGdrMlZDSUhqbUxsbWFlblJnTXZYT1NyVHNl?=
- =?utf-8?B?TmpkU3FEVzBGZ2tjcTgrUDdyZExPUnVDWE1yNzVxQnlrenZ0ZkxZZ0J1RE41?=
- =?utf-8?B?bW50WVk2Y010b0RiWFM0RmZHK21yVUFEL1pqN2NIT0Z1VXdFVzF2Ykx6azh1?=
- =?utf-8?B?VFExU0Rzdk1vWTVkK2ZYN2xta2VHU1FOUHZYUU1WZ3RjYVpVMDU0eEdTSTNG?=
- =?utf-8?B?Qm5LODAwUGlhT3RMNVNZYVpCZlFpS2ZDM0Znc1kyQmdBWXpzMFB0NlI5aHUx?=
- =?utf-8?B?dVdPNTl1dUpSS3VhTlZjNWdFbmtwVjFaOEFES203Yy9CVGQ3MW1ZMWd0Nktw?=
- =?utf-8?B?VzQ1U0RwOG1YZGloTzA0L3lOU05pZTdCMTlmMFNpbGZDcDN6a0dkdm5May8v?=
- =?utf-8?B?SUJONTNUMU1NeXNFMFJGai8zNm92Yk9HSTk4TEpkTlZ6Skx6OXhSRXpmQ0xY?=
- =?utf-8?B?WWtpTDhZWTJOODVhbGVkUXd6UmV5K01hRmdtdEhGUXBXZmNrQ2VXczZGQ09K?=
- =?utf-8?B?YzFUbEFZSHczaGdhTFNnUm4vMjh5bGdRQ2tpMmxnMlRWYUxid2tmZlBQSG54?=
- =?utf-8?B?c2V4Tktzb0ZsSWpoTGt5bW5JTHZUa01TR0x4eWIxcEdWWHpVdmVaR2hHMkls?=
- =?utf-8?B?Y1Z0enRZV2FwbzQwWTN4SFFWNGpDS3pNNXcxNWdMOXNxTWR6V245azJjZ0dK?=
- =?utf-8?B?SXJESk4xcFpsSHlyczZHTXRKTnFyZE1JS0cxZE9ORWVLam1Ra1BxalZsQm9l?=
- =?utf-8?B?Z05uZmVKUWRwbDJJRVY4UnVkenBaTkdDL29iNU9wRjlLOG5sZmZGcEIwaDFv?=
- =?utf-8?B?ZmYyNDMzSHYyRUZuaVFWVU1xUDhGZTNpVFhCV1NBVUQyZ0tLYXlXc3llekJK?=
- =?utf-8?B?SGo5b256Q3dIVVFnU3hSOWUwaHBmVmg4czFnSXZrUU5nTmR2c25ldzV2YllV?=
- =?utf-8?B?eU5TZkMwYXcvMG5aaXZoUXdob3hlRjkxdHJnRU1lNklJQ1BIQStYdjNpVThV?=
- =?utf-8?B?SVh5TGRIUFlCUmVXREc3d1FXOThpK2Y5Q2QycTFlQ2R5cEZqV2QrMHBPV1hI?=
- =?utf-8?B?RStaWGhZbXVxU1lrK3V6RGtqWnNmOE5MQ1owSm5FckdwOXVnZ2RHV3dKZTJN?=
- =?utf-8?B?LzBkaGpnVmxySVJGTzNlNzc1YkJXc0Z1SUhPNE95eWdNS1UxakJhZS83b2hC?=
- =?utf-8?B?d0g5N2ZMek9ZRENycDV4NjI5WnFLK0xSaU5ycXNIVHBpbVlDTGlwaGNUa3VU?=
- =?utf-8?Q?wbopDF3zsU7Dx+i4=3D?=
-X-OriginatorOrg: vaisala.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 48300635-1cf7-4cbf-0ed6-08df453c7a7d
-X-MS-Exchange-CrossTenant-AuthSource: PA2PR06MB9176.eurprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Nov 2026 06:23:36.6443
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 6d7393e0-41f5-4c2e-9b12-4c2be5da5c57
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MSdODGq5cxCwGekr8DbFICPV7BgrDyMeFeAfF/xf3cxcI+lPazvSGzWkZgGLXLzcsyc5E6IbR/snR82D/V1h9gtYQYmB0EEoNmKZvi1qHL4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR06MB7659
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261118-netpoll-preup-veto-v1-1-7d3fdf101d3a@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAF9F/WoC/yWMywrCMBBFf6XctQOdGiP6K+LC1qmOlCQkaRFK/
+ 91Rl+c+zooiWaXg3KzIsmjRGAx412B43sJDSO/G6NrOM/ORgtQUp4lSljnRIjXSye1bdxidZ9/
+ DjlaN+v5JL7A9rv+wzP1LhvrVYds++xXTS3sAAAA=
+X-Change-ID: 20261117-netpoll-preup-veto-943045f4616b
+To: "David S. Miller" <davem@davemloft.net>, 
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+ Neil Horman <nhorman@tuxdriver.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, SeungJong Ha <engineer.jjhama@gmail.com>
+X-Mailer: b4 0.15.2
 
-> This is a note to let you know that I've just added the patch titled
->
->     serial: max310x: drive RTS in software when hardware delays are
-> too short
->
-> to the 7.3-stable tree
+When netpoll is attached to a device, __dev_open() takes
+npinfo->dev_lock through netpoll_poll_disable() before calling the
+NETDEV_PRE_UP notifiers, but returns without releasing it when a
+notifier vetoes the open. The next attempt to open the device then
+sleeps in down() with RTNL held, and every other RTNL user blocks
+behind it.
 
-This patch depends on
+For example, with netconsole on a wireless interface, cfg80211 vetoes
+the open while the wiphy is rfkill-blocked. Release the lock on that
+path, as the ndo_open() error path does.
 
-  c06fcc258db0 ("serial: max310x: schedule tx_work directly from the
-  IRQ handler")
+Found by an AI coding assistant reviewing __dev_open(). Reproduced in
+QEMU on an unmodified net tree with mac80211_hwsim built in and
+netconsole bound to wlan0:
 
-which is in neither the 7.3 nor the 6.18 queue. Both queues have this
-patch.
+  ip link set wlan0 down
+  echo 1 > /sys/class/ieee80211/phy0/rfkill0/soft
+  ip link set wlan0 up    # fails: RF-kill
+  echo 0 > /sys/class/ieee80211/phy0/rfkill0/soft
+  ip link set wlan0 up    # hangs in D state:
+    down
+    __dev_open
+    __dev_change_flags
+    netif_change_flags
+    do_setlink
 
-Without c06fcc258db0 the interrupt handler calls max310x_start_tx()
-on TXEMPTY, without the port lock. With this patch applied,
-start_tx() also starts the RTS envelope and can drop and retake the
-port lock, so a TXEMPTY that is handled after the transmission has
-ended can start an empty RTS envelope.
+With this patch the last command succeeds. Selftests were not run.
 
-Please queue c06fcc258db0 before this patch in 7.3 and 6.18. If that
-is not wanted, please drop this patch and ae588038e31c ("serial:
-max310x: don't transmit while an RS485 reconfigure is pending") from
-both trees; the second one builds on the first.
+Fixes: ca99ca14c95a ("netpoll: protect napi_poll and poll_controller during dev_[open|close]")
+Cc: stable@vger.kernel.org
+Signed-off-by: SeungJong Ha <engineer.jjhama@gmail.com>
+---
+The fix just drops the lock on the veto path, the same way the
+ndo_open() error path a few lines below already does.
 
-Thanks,
-Tapio
+I tested it in QEMU on net (297ae1590173) with mac80211_hwsim and
+netconsole built in: the reproducer from the commit message hangs
+without the patch and completes with it. W=1 allyesconfig and
+allmodconfig builds are clean for net/core/dev.c.
+
+The bug was found, and the reproducer and patch written, with Claude
+Code (Claude Opus 5.5). I reviewed all of it by hand and re-ran the
+reproducer myself.
+---
+ net/core/dev.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/net/core/dev.c b/net/core/dev.c
+index 3c58db732761..0be9e78572ff 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -1748,8 +1748,10 @@ static int __dev_open(struct net_device *dev, struct netlink_ext_ack *extack)
+ 
+ 	ret = call_netdevice_notifiers_extack(NETDEV_PRE_UP, dev, extack);
+ 	ret = notifier_to_errno(ret);
+-	if (ret)
++	if (ret) {
++		netpoll_poll_enable(dev);
+ 		return ret;
++	}
+ 
+ 	set_bit(__LINK_STATE_START, &dev->state);
+ 
+
+---
+base-commit: 297ae15901733df7562a6781613fb49f3d270401
+change-id: 20261117-netpoll-preup-veto-943045f4616b
+
+Best regards,
+--  
+SeungJong Ha <engineer.jjhama@gmail.com>
+
