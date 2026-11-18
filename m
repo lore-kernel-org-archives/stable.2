@@ -1,102 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795026305;
-	b=XrX4kxvdZz2E3yeg4j9Mnx9hc04YesTNx11fwYSV5K+IVkbfeWqOW3boTQEXwewYaTuo
-	 DO56yn08wXRe4Vmrzi1JijjqWhnp/9ZHlrxGtGCGHkESbrAo8LdlesFKrUomK8Nng6Hyt
-	 +tTKNgyIQmYEKT1TTYmZ1pd+IWHDt50pYSgOEll2HM1y2q4vTsP+rab7OvYS6Xe6nZbwa
-	 biyddJMOJS/9RQfnzMr93cGIxvBNu0oLm6z1OKGO75HScjDeKcZ9bcWHMX2k/T6ZAUv7Q
-	 uoFRymbH+NA6J54coB080FqfbaHEA/dfyuxG+WwohLhQpdsHnP5b5H84kwWASBm13lA==
+	t=1795026308;
+	b=Z4H9IPCTm7IUtbb5smBUMmobvcb8R6po3WdY/ZN7Q8GLe14qepDOFYzJlkELBDengOYe
+	 X+rSM/X7dEcJr3wYrFM+46AiEx3lexjfje2i+zH4soIAw6eenlOm1CZd/7q3eWo1TO/ke
+	 r7rj/QIhJ1hmLHpVxGPhVHfiKGZIhtPdlZzXbjabNhFZMFegoLXDVMvB/Fz+Hw1sjxD1F
+	 eprvZ08EeshzwAXWL7+0+AzQo5DQsmrdc4TmksWw9vNOFNf7G9cIeCei+8Kmv5I7XY6Md
+	 s/7AqSvxDwiPB9bIMgJXVYxCdr6z/rRjnc1CuvZuICs4apZXXDu3DVwxtjCjqn5GpZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795026305;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=aPm8bMtN0XCic6a8OKv6xXRC+l+0XGJs8lRtJHx2mLw=;
-	b=vU4CXY16Dwu2DnykRHEo10JfLOX2y6Na94nZAri1pHNJCNeFtcLIbE5pRhPtCjcLTOsb
-	 Qhz+AQebbFdWdJYGvyKvfUeqq2RJQQJGUsmK5VFk+Roi3CE6WAYbp4x4GTUbvLuTOIq21
-	 jhguN/1sZNlkD45WaiJ0flFpFKtu0vSkBQ+zGGeSmgeNxHhtCqtxSMLJS8TWo8ItcBNXx
-	 eAV7wOVV57G3SAjGXYDJ/ObHhxUXYQ1O+ye1e3V97WPVu9hbdWcFk25RZmCaudn2n+gxb
-	 qi+bkJ+a3s79EfnTGMcQUG3YIu7YSYgOBA3ne5iSLtOkuJbZV7m2mcOeURpNMaobYwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795026308;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=PvehK0GFW+LNJT5ElML0fgtlnppj4SRWpx0HEmSCe3k=;
+	b=YqsS00edCVT6Ikp3OKwdX/aUIoL1gcqmIjPvst3IQqNwpygaU56Dng0j5PZSkcL4dFWF
+	 DTpWBkVA5qMmQlkXJqMW46iYgMbI7WOFr7cKmzjiKeMAwH+Z22KT+k6RMHEIwDjpSGfy/
+	 ZSXfgfgYA8J0T995h8FA/3dz4bg26anZxHgVvZi4qoXl1d3bP4l5ace+uopBNFPGk+duG
+	 SljUb8cI/rehvbbxiMx7kY2owisuLJRUmaQ4oZHLu8wXxrSJI5AmdiDtQSmFy51e5Nfk2
+	 ygvjr2ykOgd0zd02t3kmaJhosDWYmTX8OfM45+xksmWLrrpUtdqkAuAZ033YJa9+few==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aDukXne6;
-	arc=none smtp.remote-ip=209.85.210.171
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Yykq6UyH;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D957606A32A
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 18:25:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D957606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42026606A32C;
+	Wed, 18 Nov 2026 18:25:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aDukXne6
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-8b5a6f2f27fso692190b3a.3
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 10:25:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795026304; x=1795631104; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aPm8bMtN0XCic6a8OKv6xXRC+l+0XGJs8lRtJHx2mLw=;
-        b=aDukXne6qZLB4OGhduaO1ZScJ6sh787QT/POYB0Kof2Bza+lT4qRtqvmYVraMMR82f
-         2ullkMEbpOLOz4Ut2lnHlnuFATEz3nLbHMsG7enezp0W/zkZANczH+MT5CArnBUBCZ0J
-         gHA6SXt3R81BrFARYotuK8H7q40DRrajh/ILSQB5IwVhOl4lqFt5y3lukw2i0AXM5fgz
-         mVXGSFOQ9sxcSy3d2sIovYHGx2BvyXKIC1YUZ2iLIG1UweT21F2f+72VI9cu0yig8WO5
-         WSiE6SoKBgcYBWY9EoNclQz+Fp6pTHbsJPn5fVWjQjglPoxx01PtK0V58rKf+FGPh76+
-         LO6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795026304; x=1795631104;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aPm8bMtN0XCic6a8OKv6xXRC+l+0XGJs8lRtJHx2mLw=;
-        b=PE6tTYIWJvdHKeQUtnQWHmK9MfsA+EXy8gkkAviUPAVOdZaW1mKUWSDoDD2pTVObPA
-         hoHIbkwSqFgfWvdNKtOnzQ612zYyctKAMn6Mw9u5Ia20BEiXuKVs5kO9w3M0bDwCcwAY
-         0SMvwyHO8rTjV8oY367zpIisc/jlFKKrUJhVJ5Ipow4DuIxRyhS6UQUvVwo1Hjg+tiVF
-         2nQTldx/NC8ffqNm/3WNC5W5wttaNOlszwSyCazMjbxJQ4NWxrGoDrFrTEqtT9nwyXpN
-         g6ENK/xmnVfVZW1N+I/QPNRXlWIY7aIciiV5TT/3ZEmwEEzHau9eD0pCdNmvvPY9mCuf
-         lDFA==
-X-Forwarded-Encrypted: i=1; AL+hErFqpAZHGkZuvmCP5js0m43Wy/tZfrKWyooHdt5Jla+X5RoBl6BoEpx1zmzHNVcmigFN98oaES0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9GYKP1lY0/aS15St4zoFEPmzekfc34CFRe4/bONFLyQ/Nbb1Qs
-	U0za19ogm/jUZxgEnBO79ZKGeWxmuyAsYxTKVJidKo69KmjjWn38KPO3
-X-Gm-Gg: AYBFou1qj03BOMrTa2q/NbGbv5ra2PrYgq2MyIYgFUA02VGVTaKe3Mvipg3KnCDYaXs
-	lIg92+K7N1ULp2Uc6YmEOKD707+0IeFuNNCIUhyGquH4ViBKWlG0jdrj+YKru9GGlJSgljhK6t2
-	85xwQzSKw+bgoJ86LJZbGhCYkVLnWMsZl3ptCksbhgPNHgX+2CdE/XAOqRJxHuQBWWIx8s05ul1
-	6NCSQBz1osz9mZbBSkdtG1jfaobXHVVYXdk3HmEllZ9Aivm5uQVabH1YrJXUYRnw/C8vyK/oNNj
-	M73HVpbXu734gY+zcihkcBpaZHCT9s3XtJ0Vst0w4I7N4GX03KwihVFgsfaUuJcMjVvE7annhl1
-	Zt+3S4bEo8KQsdd7nsVav/z+0a+OZLZg23CKEGVpPLZz7Ws2N5/lywCE0p25oNvDmNeYBiPfleL
-	ZSjdBFQll0UWaZosJ5ms//IEDVBWtkhagxrbWmz7A5LSCGTdZEZPe/5qbjpYWT99zJB2W3RhxHF
-	K1GsG7bz75kTsU6c80kmD8W3ib2gtuuvOIGf0/F5clUcAfSWFgGz+l+750KQsS4u3dwsTvRwT4z
-	Mmtp+Zce1IyHZNvTwJBJIQTxO662FxHqV99BF7L3I1627ZpcyuzOJ1plVM0mcOGAbcFLcxBmw9V
-	1rbK8
-X-Received: by 2002:a05:6a00:230c:b0:8ba:f51a:1bc1 with SMTP id d2e1a72fcca58-8c5d3639dadmr3086650b3a.24.1795026303092;
-        Wed, 18 Nov 2026 10:25:03 -0800 (PST)
-Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:2c16:ada8:2d24:d03])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c5cac8ffe6sm1669954b3a.23.2026.11.18.10.24.53
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 18 Nov 2026 10:25:02 -0800 (PST)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Eric Woudstra <ericwouds@gmail.com>,
-	=?UTF-8?q?Bj=C3=B8rn=20Mork?= <bjorn@mork.no>,
-	"Lucien . Jheng" <lucienzx159@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Zhao Li <enderaoelyther@gmail.com>
-Subject: [PATCH net] net: phy: air_en8811h: check PBUS register read errors
-Date: Thu, 19 Nov 2026 02:24:36 +0800
-Message-ID: <20261118182436.32455-1-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Yykq6UyH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F3331F000C4;
+	Wed, 18 Nov 2026 18:25:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795026308;
+	bh=PvehK0GFW+LNJT5ElML0fgtlnppj4SRWpx0HEmSCe3k=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Yykq6UyHac22fJY8CDD0DW4vKzGClGyAi1o/1x+VmiriSh2/dLGQRBU2G7UhmnwPO
+	 G2QuUkOiS8VuWolaar8/+Da6EcIHXCrjcen3wnDPG24/fK+dLtbPKcxf19eMaJVLcQ
+	 ho6fLXPYoEU4zoH4rIKjm5iQifHHM+MWoHGNlUY0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH 6.18 1390/2151] PCI: qcom: Honor IOMMU providers #iommu-cells in qcom_pcie_config_sid_1_9_0()
+Date: Wed, 18 Nov 2026 15:52:05 +0100
+Message-ID: <20261118150212.638011927@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
+References: <20261118150121.603863898@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,111 +65,191 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-an8811hb_check_crc() ignores the return value of its PBUS reads. When
-the status read fails, the loop tests a stale or uninitialized
-pbus_value and can stop waiting before the check has finished. When the
-result read fails, the PASS or FAIL message tests the status value.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-en8811h_print_fw_version() also ignores a failed read, which leaves
-priv->firmware_version at 0 on the first firmware load.
-en8811h_read_status() then handles it as firmware older than 24011202
-and guesses the link partner's 2.5GBASE-T ability from the link speed.
+------------------
 
-Return the error from each of these reads. A failed version read now
-fails the firmware load or the probe, as the other PBUS errors there
-do.
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Found by an AI code review agent; not triggered. Compile-tested with W=1.
+[ Upstream commit 5121d76cb9dde74662962cd5678a64abeaf3b3e4 ]
 
-Fixes: 71e79430117d ("net: phy: air_en8811h: Add the Airoha EN8811H PHY driver")
-Fixes: 5afda1d734ed ("net: phy: air_en8811h: add Airoha AN8811HB support")
-Cc: stable@vger.kernel.org # needs adjustments for <= 7.1
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+qcom_pcie_config_sid_1_9_0() reads the "iommu-map" property as an array
+of fixed four-word {rid-base, phandle, sid, rid-len} entries to program
+the BDF to SID translation table. But that layout only holds for an
+IOMMU with '#iommu-cells = <1>'. The PCIe SMMUs on these SoCs use
+'#iommu-cells = <2>' (SID and mask), so per the pci-iommu binding each
+entry is really five cells long.
+
+This used to work only because the DTs were themselves broken. They
+described iommu-map with four-cell entries that omitted the SID mask,
+which of_map_id() tolerated via its of_check_bad_map() fallback, and the
+four-word parsing coincidentally matched that malformed shape.
+
+Since commit ccb2fd725d41 ("of: Respect #{iommu,msi}-cells in maps") the
+OF core parses such maps correctly, so the device trees were converted
+to proper five-cell entries, e.g. commit c41749e9554d ("arm64: dts:
+qcom: sm8250: Fix the PCIe iommu-map entries"). With five-cell entries
+the fixed four-word stride slips by one cell for each entry after the
+first, so qcom_pcie_config_sid_1_9_0() reads the endpoint mapping's RID
+from the preceding entry's length cell and its SID from the phandle cell.
+As the RID is the hash key, the endpoint's real RID is never programmed
+into the BDF to SID table. Its DMA then hashes to an unprogrammed slot,
+gets tagged with SID 0 and the SMMU faults like below on QCS8300:
+
+  arm-smmu 15200000.iommu: Unhandled context fault: fsr=0x402, iova=0xffa00000, cbfrsynra=0x0, cb=1
+
+To fix this, walk the map with a stride of 3 + '#iommu-cells' of the
+referenced IOMMU and take the SID from the first specifier cell, which is
+all the BDF to SID table needs. Validate the layout instead of trusting
+the array size. Also, preserve the legacy behavior of the old DTs by
+detecting the same pattern that of_check_bad_map() recognizes and
+falling back to a stride of four.
+
+Fixes: 4c9398822106 ("PCI: qcom: Add support for configuring BDF to SID mapping for SM8250")
+Reported-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Tested-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Tested-by: Neil Armstrong <neil.armstrong@linaro.org> # on SM8650-HDK
+Link: https://patch.msgid.link/20260907143349.317495-1-mani@kernel.org
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-No new W=1, sparse or smatch warnings.
+ drivers/pci/controller/dwc/pcie-qcom.c | 90 ++++++++++++++++++--------
+ 1 file changed, 64 insertions(+), 26 deletions(-)
 
- drivers/net/phy/air_en8811h.c | 31 +++++++++++++++++++++++--------
- 1 file changed, 23 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/net/phy/air_en8811h.c b/drivers/net/phy/air_en8811h.c
-index 81aa9df08dee..da9a5deccdac 100644
---- a/drivers/net/phy/air_en8811h.c
-+++ b/drivers/net/phy/air_en8811h.c
-@@ -378,18 +378,25 @@ static int an8811hb_check_crc(struct phy_device *phydev, u32 set1,
- 					  AN8811HB_CRC_RD_EN);
- 	if (ret < 0)
- 		return ret;
--	air_phy_buckpbus_reg_read(phydev, set1, &pbus_value);
-+	ret = air_phy_buckpbus_reg_read(phydev, set1, &pbus_value);
-+	if (ret < 0)
-+		return ret;
+diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
+index fbdb5a9264785..559aa85902d51 100644
+--- a/drivers/pci/controller/dwc/pcie-qcom.c
++++ b/drivers/pci/controller/dwc/pcie-qcom.c
+@@ -1063,50 +1063,90 @@ static void qcom_pcie_deinit_2_7_0(struct qcom_pcie *pcie)
  
- 	do {
- 		msleep(300);
--		air_phy_buckpbus_reg_read(phydev, mon2, &pbus_value);
-+		ret = air_phy_buckpbus_reg_read(phydev, mon2, &pbus_value);
-+		if (ret < 0)
-+			return ret;
- 
- 		/* We do not know what errors this check is supposed
- 		 * catch or what to do about a failure. So print the
- 		 * result and continue like the vendor driver does.
- 		 */
- 		if (pbus_value & AN8811HB_CRC_ST) {
--			air_phy_buckpbus_reg_read(phydev, mon3, &pbus_value);
-+			ret = air_phy_buckpbus_reg_read(phydev, mon3,
-+							&pbus_value);
-+			if (ret < 0)
-+				return ret;
- 			phydev_dbg(phydev, "CRC Check %s!\n",
- 				   pbus_value & AN8811HB_CRC_CHECK_PASS ?
- 					"PASS" : "FAIL");
-@@ -403,14 +410,20 @@ static int an8811hb_check_crc(struct phy_device *phydev, u32 set1,
- 	return -ENODEV;
- }
- 
--static void en8811h_print_fw_version(struct phy_device *phydev)
-+static int en8811h_print_fw_version(struct phy_device *phydev)
+ static int qcom_pcie_config_sid_1_9_0(struct qcom_pcie *pcie)
  {
- 	struct en8811h_priv *priv = phydev->priv;
-+	int ret;
+-	/* iommu map structure */
+-	struct {
+-		u32 bdf;
+-		u32 phandle;
+-		u32 smmu_sid;
+-		u32 smmu_sid_len;
+-	} *map;
+ 	void __iomem *bdf_to_sid_base = pcie->parf + PARF_BDF_TO_SID_TABLE_N;
+ 	struct device *dev = pcie->pci->dev;
++	struct device_node *iommu_np;
+ 	u8 qcom_pcie_crc8_table[CRC8_TABLE_SIZE];
+-	int i, nr_map, size = 0;
+-	u32 smmu_sid_base;
++	const __be32 *map;
++	u32 iommu_cells, entry_cells, phandle, smmu_sid_base;
++	int i, nr_cells, nr_map, size = 0;
+ 	u32 val;
+ 
+-	of_get_property(dev->of_node, "iommu-map", &size);
+-	if (!size)
++	map = of_get_property(dev->of_node, "iommu-map", &size);
++	if (!map || !size)
+ 		return 0;
+ 
++	if (size % sizeof(*map)) {
++		dev_err(dev, "Malformed iommu-map property\n");
++		return -EINVAL;
++	}
++	nr_cells = size / sizeof(*map);
 +
-+	ret = air_phy_buckpbus_reg_read(phydev, EN8811H_FW_VERSION,
-+					&priv->firmware_version);
-+	if (ret < 0)
-+		return ret;
- 
--	air_phy_buckpbus_reg_read(phydev, EN8811H_FW_VERSION,
--				  &priv->firmware_version);
- 	phydev_info(phydev, "MD32 firmware version: %08x\n",
- 		    priv->firmware_version);
++	/*
++	 * Each iommu-map entry is: rid-base (1 cell), phandle (1 cell),
++	 * IOMMU specifier (#iommu-cells cells), length (1 cell). Read
++	 * #iommu-cells from the IOMMU provider referenced by the first
++	 * entry to compute the per-entry stride.
++	 */
++	phandle = be32_to_cpu(map[1]);
++	iommu_np = of_find_node_by_phandle(phandle);
++	if (!iommu_np) {
++		dev_err(dev, "Failed to find IOMMU node in iommu-map\n");
++		return -ENODEV;
++	}
 +
-+	return 0;
- }
++	if (of_property_read_u32(iommu_np, "#iommu-cells", &iommu_cells))
++		iommu_cells = 1;
++	of_node_put(iommu_np);
++
++	entry_cells = 3 + iommu_cells;
++
++	/*
++	 * Retain backward compatibility with DTs that describe iommu-map
++	 * with 4-cell entries against an IOMMU declaring #iommu-cells = 2,
++	 * matching the fallback in drivers/of/base.c::of_check_bad_map().
++	 */
++	if (iommu_cells == 2 && !(nr_cells % 4)) {
++		bool legacy = true;
++
++		for (i = 0; i < nr_cells; i += 4) {
++			if (be32_to_cpu(map[i + 1]) != phandle ||
++			    be32_to_cpu(map[i + 3]) != 1) {
++				legacy = false;
++				break;
++			}
++		}
++
++		if (legacy) {
++			dev_warn_once(dev, "iommu-map has 1-cell entries with #iommu-cells=2, using 1-cell\n");
++			entry_cells = 4;
++		}
++	}
++
++	if (nr_cells % entry_cells) {
++		dev_err(dev, "Malformed iommu-map property\n");
++		return -EINVAL;
++	}
++	nr_map = nr_cells / entry_cells;
++
+ 	/* Enable BDF to SID translation by disabling bypass mode (default) */
+ 	val = readl(pcie->parf + PARF_BDF_TO_SID_CFG);
+ 	val &= ~BDF_TO_SID_BYPASS;
+ 	writel(val, pcie->parf + PARF_BDF_TO_SID_CFG);
  
- static int an8811hb_load_file(struct phy_device *phydev, const char *name,
-@@ -560,7 +573,7 @@ static int en8811h_load_firmware(struct phy_device *phydev)
- 	if (ret < 0)
- 		goto en8811h_load_firmware_out;
+-	map = kzalloc(size, GFP_KERNEL);
+-	if (!map)
+-		return -ENOMEM;
+-
+-	of_property_read_u32_array(dev->of_node, "iommu-map", (u32 *)map,
+-				   size / sizeof(u32));
+-
+-	nr_map = size / (sizeof(*map));
+-
+ 	crc8_populate_msb(qcom_pcie_crc8_table, QCOM_PCIE_CRC8_POLYNOMIAL);
  
--	en8811h_print_fw_version(phydev);
-+	ret = en8811h_print_fw_version(phydev);
+ 	/* Registers need to be zero out first */
+ 	memset_io(bdf_to_sid_base, 0, CRC8_TABLE_SIZE * sizeof(u32));
  
- en8811h_load_firmware_out:
- 	release_firmware(fw2);
-@@ -1164,7 +1177,9 @@ static int an8811hb_probe(struct phy_device *phydev)
- 		goto err_dev_create;
+ 	/* Extract the SMMU SID base from the first entry of iommu-map */
+-	smmu_sid_base = map[0].smmu_sid;
++	smmu_sid_base = be32_to_cpu(map[2]);
+ 
+ 	/* Look for an available entry to hold the mapping */
+ 	for (i = 0; i < nr_map; i++) {
+-		__be16 bdf_be = cpu_to_be16(map[i].bdf);
+-		u32 val;
++		u32 bdf = be32_to_cpu(map[i * entry_cells]);
++		u32 sid = be32_to_cpu(map[i * entry_cells + 2]);
++		__be16 bdf_be = cpu_to_be16(bdf);
+ 		u8 hash;
+ 
+ 		hash = crc8(qcom_pcie_crc8_table, (u8 *)&bdf_be, sizeof(bdf_be), 0);
+@@ -1128,12 +1168,10 @@ static int qcom_pcie_config_sid_1_9_0(struct qcom_pcie *pcie)
+ 		}
+ 
+ 		/* BDF [31:16] | SID [15:8] | NEXT [7:0] */
+-		val = map[i].bdf << 16 | (map[i].smmu_sid - smmu_sid_base) << 8 | 0;
++		val = bdf << 16 | (sid - smmu_sid_base) << 8 | 0;
+ 		writel(val, bdf_to_sid_base + hash * sizeof(u32));
  	}
  
--	en8811h_print_fw_version(phydev);
-+	ret = en8811h_print_fw_version(phydev);
-+	if (ret < 0)
-+		goto err_dev_create;
+-	kfree(map);
+-
+ 	return 0;
+ }
  
- 	/* mcu has just restarted after firmware load */
- 	priv->mcu_needs_restart = false;
-
-base-commit: 2a324a58a084c5cfd7e5a2f55e0786bee170a4a5
 -- 
-2.56.1
+2.53.0
+
+
 
