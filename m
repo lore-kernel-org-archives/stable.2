@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794993693;
-	b=D6776Ip6LOg956uie3T38v45tx7paMYb/Fx3+mlUmoiFU4fXbpG+LA9mQnG/OdcXPthq
-	 SYG49L4Fx+3ji4YgjjE7gp1YLwDS5Beg+zQI1y8Tr1DSRlzuaShwTiF2IW52UMudkv6J3
-	 mUvYy1Hh8pvy5tk3q6TQgxFM4ih5J8HYrINl16dkgK4LPYAu8PoUQG12FsK0MYvyPpdaI
-	 MS5O4ITuQmbp5JJ3DQ/AfYjNrtWgp83yNkPOMXW/SHLwYp5GOk8KNx7PkwDvjuNwosr7J
-	 NfCOSB9ZsDejDQbU5EPv2KZuHDMoG0fvjagCUMIWc0YWsnHG+VRDz+UPEUOZJeu+c5w==
+	t=1794993705;
+	b=Fx5CVNFimDVUYnLFSb6YpOhO77fyihJpehX6uTTcS0eyreOFznCGEVb8vxUAff892hZF
+	 vmpX7+vzDxRJ0v9TnIJ/s4Lnz6P9Yt8QUSzdK2Ix5RzaGGkjaBN3BmOY45F4OC+YOFaex
+	 n91efU+lFTJegdVu92pgZLdCGfzGVl0g40Th56WHe/AtdhbA2VtuoSIgVOnlit1mM4T+a
+	 NVPl+8atdavYtr6At+R7k4NCUMYQTF6VLAsHwjvj/K19phZcxZEPfarNl1gDAsZJC1uUg
+	 K3NgnWRVgKkCyNcJVOEmf9yHufr30/3JgWCGgdLhl+SnKYkpJZdXfHarAjuC69/pyHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794993693;
+	a=rsa-sha256; c=relaxed/relaxed; t=1794993705;
 	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
 	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=lcN03BFrUVuRLyZhzYAenj3/VDeI8OU1AfZJ+NJkCIg=;
-	b=ohOtJi92p9tPXLXxUMJur0x60KzU5tf1+zcvLf5E7AaZwvdS9IoNMGTh5rXlvI6P+Hxc
-	 44kPK5v+meIXxRfKVwGFUA4NCASTi6BbZ66JxSBE31sT7V/CA6WN/qghlj2kZ9t6hdGHr
-	 ivnczjkaxE1C07GeNIIA+7r5C/FlmbG5ABrpNgYfmqHzhmQL6NjlJtOJqYr9WBuSKfmYy
-	 dweraYfC2MonjK8oKwrOdvGBgVg2L8pi9oE+Ursm+oIu++cRtjWMsc6a2YJsBIDSaGN1i
-	 L64uhPcpV9C9gjwuYn9W9mtmqkPhZERbkXvg98BYlk/IjUjLh5us0ZmUFlsii9nOJig==
+	bh=+A+DaVuQhI2BpuaRmABmCIOJxadlMBJlLIpCJggjeU4=;
+	b=F5zpFTAjkCiLAboIJqNDAMgH1qzUQyk8FeGrZicsPQ0701rKdTBxdoPpWE10Y5Be54Ap
+	 qvvv54oT1g04OOpDKRmll83bl6RW3fl4LjR5AIUy1Ct00jaO0DC32dpjzrC4m9p9IMF47
+	 /98zwNERtpvVQ7Lxw5y3IJFkrmhSS+r2NhlrkwreW03O8QdF/rzKHOruD1cqEzAMrC6ch
+	 3blP4VuudEI6FT/LlQ/0jQ+FpDf7kS71eOk+xELZ0PNco9XzWNQG5mNwvxfD6F3HcF7C5
+	 bR2gKEW5nwqm57HMKE1g0pmdzX7Ea6UnTtpHGa1gGgACZrCIyvpOzziBzx/lbjL4taw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HzZLpbCK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgJTmamX;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B80E606A31C;
-	Wed, 18 Nov 2026 09:21:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0F3606A31C;
+	Wed, 18 Nov 2026 09:21:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HzZLpbCK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 362CC1F000C4;
-	Wed, 18 Nov 2026 09:21:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HgJTmamX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0FC1F000C5;
+	Wed, 18 Nov 2026 09:21:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794993693;
-	bh=lcN03BFrUVuRLyZhzYAenj3/VDeI8OU1AfZJ+NJkCIg=;
+	s=k20260515; t=1794993704;
+	bh=+A+DaVuQhI2BpuaRmABmCIOJxadlMBJlLIpCJggjeU4=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=HzZLpbCK9AGaEnuP4cFp3OGO+VnzS4PHvl2aJ/d4Rc1W4oOUBXGlvkpHcGrUaytVJ
-	 wcxCe/JTjMIULeKrzpUPwLMfE+/0tb5AMfpANxx3MRFklA5sIXW15u8H24VCUf7jn1
-	 Ok7PXGqOw5T7NtvDM1j4+aMBK+2yX9uJ9fHxRG4I+o7MperUm21DHkExkJ+8BCJb0Q
-	 HVOkl/4urAo6Ab3ZBQIbQB2/0kxKajG7dUtKyhs2BCWedrZPiXzOI1AsgzB5uxPLq3
-	 PyWcuYgeVkrPDHd4G7mt9wdGizua/w58hbyiqZlSJvRNmS9/LFngCZYFK200TQ9zLx
-	 bhDgVuxNeoVhQ==
+	b=HgJTmamXcwBkMFxTwdykgx7KqlV4Ktekk+Qe4xLRjXPqboOoKSeqoYV1GFf0OMUF5
+	 JtAOInPU+60WggS4ut7zIKa/dJvBCN15zcdvLrgv9vkstJvQztZ//S/nbx+Be6iJ1C
+	 6bCELygGMS95/1npJTaM+YkIKoIlPq/peyKQ6HFiIoZ7oMAhfHRk5tyW32CiA4KwEb
+	 cDGHj6o/mpIlqUubU4B5a8o0cIR603JITxUdlkNzYSYuKJkYaraWeIaUYThmJSWaFO
+	 G9KEPEIIfhfk+6wnnqOO6c+6+3om+zsg/F8BNc3Wwv/ZJa/HGwIzq0J3DYwpHIDxnE
+	 7D9oYQZyeWB0w==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 18 Nov 2026 10:20:37 +0100
-Subject: [PATCH 2/4] mm/vmscan: flush deferred writable TLB entries before
- unlocking the folio
+Date: Wed, 18 Nov 2026 10:20:38 +0100
+Subject: [PATCH 3/4] RFC: mm/rmap: don't defer TLB flushes when unmapping
+ lazyfree folios
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,7 +55,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-file_folio_flush-v1-2-e9e739ed14e0@kernel.org>
+Message-Id: <20261118-file_folio_flush-v1-3-e9e739ed14e0@kernel.org>
 References: <20261118-file_folio_flush-v1-0-e9e739ed14e0@kernel.org>
 In-Reply-To: <20261118-file_folio_flush-v1-0-e9e739ed14e0@kernel.org>
 To: Lorenzo Stoakes <ljs@kernel.org>, 
@@ -85,74 +85,111 @@ To: Lorenzo Stoakes <ljs@kernel.org>,
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
  stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2390; i=david@kernel.org;
- h=from:subject:message-id; bh=w4iaf/Vfi3av01ERqlZd2baVtI78nCv5zLerY8P7EDY=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLL+5v6c83aReG8Nl90RhW+nKhPaYlqenO/X/xQnXuIbJ
- c6WmDu/o5SFQYyDQVZMkSUo+L7By5fraqvd+Jhh5rAygQxh4OIUgIlsZmdkWGO7Uyn66WXpJ7NO
- NPOuWaTv23Ly9tSQjVvC3Hae3LwgT5Xhr3T94+vKwXku1pIqUd0HpOYwJQYJHGiYkXZZTtMliuM
- BPwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3960; i=david@kernel.org;
+ h=from:subject:message-id; bh=ONBH5D/i+VTsWjjM57E4YzlaWuBVMuDrbAIt1Zwyipg=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLL+5v4UllTgfdLg97P48S/GDg/BkpdPNQRcjoud3dYSY
+ d/ptG5CRykLgxgHg6yYIktQ8H2Dly/X1Va78THDzGFlAhnCwMUpABM5k8nIMCNpsWeVtukXplm7
+ ZQ/8WtQY7W/U837tdJfDh1NulV1WamZkONY+qdhs6qULUu8dA04+OKP1Xuowy+WuuzzsysLVq0+
+ 28AMA
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-try_to_unmap() with TTU_BATCH_FLUSH transfers the PTE dirty bit to the
-folio and defers the TLB flush.
+When reclaim discards a lazyfree folio, it clears the PTE but delays the
+TLB flush. Until flushed, mapping a new folio into the now-none PTE
+can leave some CPUs still reading from the old folio while others
+already write to the new folio.
 
-Reclaim must flush the TLB before unlocking the folio, otherwise stale
-writable TLB entries might be left behind temporarily: writeback started
-by other mechanisms (e.g., fsync) will not find any mappings in
-folio_mkclean(), so it will neither write-protect nor flush anything.
+This is hard to trigger in practice and would mostly look like a weird
+use-after-free bug in an allocator that uses MADV_FREE, but it can be
+reproduced reliably with three threads pinned to different CPUs:
 
-A write through a stale TLB entry after the folio was cleaned gets lost
-once the folio is reclaimed.
+(1) Thread A populates the pages, MADV_FREE's them and then
+    MADV_PAGEOUT's them.
+(2) Thread B reads all pages to keep TLB entries cached and verifies the
+    content of pages published by thread C.
+(3) Thread C waits until mincore() indicates that a page is no longer
+    present, writes a new value to it, and publishes it to thread B.
 
-However, reclaim currently does not flush the TLB if the now-dirty folio
-does not get written back (e.g., gets activated or kept instead). Fix it
-by flushing right after try_to_unmap() if the folio is dirty, which makes
-the existing flush before pageout() unnecessary.
+Thread B can then read the old value after the new folio was mapped and
+the content updated.
 
-For dirty page-cache folios that reclaim activates, we will now flush the
-TLB immediately after unmapping them instead of batching the flush, which
-is the right thing to do. Performance-wise, it shouldn't really matter
-much, because folios with dirty PTEs are usually young and reclaim won't
-even try to unmap them.
+One way to handle it would be adding conditional flushes to
+do_anonymous_page(), migrate_vma_insert_page(), UFFDIO_COPY and
+UFFDIO_MOVE ... essentially anywhere we install new anonymous folios,
+which would mean that these places flush quite frequently on concurrent
+reclaim.
 
-Fixes: d950c9477d51 ("mm: defer flush of writable TLB entries")
+To perform targeted flushes, we'd have to keep some PTE markers behind,
+which is also rather nasty and not an easy fix.
+
+So let's not defer the TLB flush for lazyfree folios, which includes
+folios in VM_DROPPABLE mappings.
+
+To avoid flushing if the folio was redirtied or has additional
+references, perform all non-deferred TLB flushes only once we know that
+we won't restore the PTEs, right before removing the rmap.
+
+The downside is that we no longer batch TLB flushes when discarding
+lazyfree folios, which harms performance, but is the right thing to do
+for now.
+
+Fixes: 854e9ed09ded ("mm: support madvise(MADV_FREE)")
 Cc: stable@vger.kernel.org
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
- mm/vmscan.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ mm/rmap.c | 15 +++++++++++++--
+ 1 file changed, 13 insertions(+), 2 deletions(-)
 
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 5495d9be90e88..af7831643ecf5 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -1455,6 +1455,12 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 				flags |= TTU_SYNC;
+diff --git a/mm/rmap.c b/mm/rmap.c
+index 09c33b9ec5850..3935eed23a361 100644
+--- a/mm/rmap.c
++++ b/mm/rmap.c
+@@ -2228,6 +2228,7 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 	struct mmu_notifier_range range;
+ 	enum ttu_flags flags = (enum ttu_flags)(long)arg;
+ 	unsigned long nr_pages = 1, end_addr;
++	bool flush;
+ 	unsigned long pfn;
+ 	int ptes = 0;
  
- 			try_to_unmap(folio, flags);
-+			/*
-+			 * Flush deferred writable TLB entries before we could
-+			 * drop the folio lock and others could start writeback.
-+			 */
-+			if (folio_test_dirty(folio))
-+				try_to_unmap_flush_dirty();
- 			if (folio_mapped(folio)) {
- 				stat->nr_unmap_fail += nr_pages;
- 				if (!was_swapbacked &&
-@@ -1496,12 +1502,6 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 			if (!sc->may_writepage)
- 				goto keep_locked;
+@@ -2253,6 +2254,7 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
  
--			/*
--			 * Folio is dirty. Flush the TLB if a writable entry
--			 * potentially exists to avoid CPU writes after I/O
--			 * starts and then write it out here.
--			 */
--			try_to_unmap_flush_dirty();
- 			switch (pageout(&ctx, mapping, folio, folio_list)) {
- 			case PAGE_KEEP:
- 				goto keep_locked;
+ 	while (page_vma_mapped_walk(&pvmw)) {
+ 		nr_pages = 1;
++		flush = false;
+ 
+ 		/*
+ 		 * If the folio is in an mlock()d vma, we must not swap it out.
+@@ -2339,11 +2341,18 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 			 * architecture must guarantee that a clear->dirty
+ 			 * transition on a cached TLB entry is written through
+ 			 * and traps if the PTE is unmapped.
++			 *
++			 * If we don't defer the flush, we flush only once we
++			 * know that we won't restore the PTEs below. We never
++			 * defer the flush for lazyfree folios: if we discard
++			 * them, the PTE will be none, and a page fault could
++			 * map a new folio while stale TLB entries still exist.
+ 			 */
+-			if (should_defer_flush(mm, flags))
++			if (!folio_test_lazyfree(folio) &&
++			    should_defer_flush(mm, flags))
+ 				set_tlb_ubc_flush_pending(mm, pteval, address, end_addr);
+ 			else
+-				flush_tlb_range(vma, address, end_addr);
++				flush = true;
+ 			if (pte_dirty(pteval))
+ 				folio_mark_dirty(folio);
+ 		} else {
+@@ -2402,6 +2411,8 @@ static bool try_to_unmap_one(struct folio *folio, struct vm_area_struct *vma,
+ 			add_mm_counter(mm, mm_counter_file(folio), -nr_pages);
+ 		}
+ finish_unmap:
++		if (flush)
++			flush_tlb_range(vma, address, end_addr);
+ 		folio_remove_rmap_ptes(folio, page, nr_pages, vma);
+ 		if (vma_test_any_mask(vma, VMA_LOCKED_MASK))
+ 			mlock_drain_local();
 
 -- 
 2.56.1
