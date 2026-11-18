@@ -1,55 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795022033;
-	b=n8KBmr6z15HPzeWB4mwZB2ti4mrpfJ8M2jEPOZAj5mpQyYER5WChImq8tsnNJoJrKVMk
-	 x+VkevKxdPKWCwy5MHsSxBl83C82F1GOScAZbKsIqP2ziL63Wqg+uwaO2Ds0TlcQ4/cik
-	 Z1cDRnb/zw1swjdJ4/53kDwqyrk25QgKG7fz/jMLrwbUoNYLdx3kYgHs1RLijo8dj9Yej
-	 bJMQVO5NA//DI60JBXSeO4BvjNzmqyblX5DI4uCEXvZViISLQpmNKJDmMM/f9nCkPl8fu
-	 ZIEkzUWFPwWG2s9KWWgeJdno6kURsphQs0enhu9ZqJIMajiJkjj96xlV6Whho6EG2nw==
+	t=1795022039;
+	b=z8Yx3UVSmwgN/lXQKawYtMym/jaGBCDBmUh95XJrdShGGkOtMNTgh06Fs8bY9JKi4ipO
+	 bDuBuW6FxZgAWskRiOHlCSFl6EY7EZ+eyBdn1Vs6VnVqWskBGZ1b+hrbdUUZeh2/Vuqjl
+	 gaSGk/Y7Ol4WwAKaGo1+hg0UmNI6ozAFTfCl8cJmDzxEmXHCI3/Kcl/zQzz7E2O96/O9P
+	 PPLUCatA7if6yVPM9kv4EJvTWF9JeqiBrvDvXGXGL8DDXHmVSnQ0yMxMtBMhvCYgStogr
+	 w+4xYmndR/ZVf7KvTx6fIWwu44MM3NtDmW7dWIs2tiFlgG3kyrCZ3G4Ka+1ycxCBqkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795022033;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795022039;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=FiLuGxAkGP1KEAfqVeiwDdbqCjf8AnGDNZo/Dtj+/k4=;
-	b=beisQgvaDOD9fvIEhqKhc5ghBFNeLP/X39fxMbsJy0n9CmAsC62+T2VCxtb8NEMqzlX4
-	 Il6VSdj9nwuW6EufO3gl2R+BuLnwVJOVvvAOZbycmwpU/nGWc0LaiVqgNwAv/bU0AzzMK
-	 55GCTA8crbp7PMSg2EqFeozqqhBfySMQgobg7jzzQdhc3Gs0sFWeAe/8A1aYC/38+ap0J
-	 ohsHJ7krNFf7c6XEQ9y4ky52p+ioWsNF6/dcVInIy5vr0X1K7WyKsQHvtMWbqHLUJG7P9
-	 zuUkf2ErY+obXc/SI7CjpaP2ECVQkHmqxZJNeV/wmjMrNTVBY2GbzHWGg+J4PZnNYgg==
+	bh=/JOnQIm6SP7ZTFe1zJGicgTM9X/KdIKBFgH57vt3/1Y=;
+	b=s1Z58lhOHGi6C74EPQaDAxRF8BXjOXUvh9L38df1900UuicHwwjjwc4DMSrrGZnU/zNX
+	 Jf/HZr4ClIanMtob4sgolVZuT3bNeRykeCRQMjVIl9zOyQpez98JFgC6HObVMjJD3B/et
+	 cdBqbuEOB/L8jxiwhKcotSyk8hzmB/sXDv9RLL8jX3An6BI23dhTf6VKJagkI5DcHEkCe
+	 7rmnwYB/vecJlaX6+pEwanErlAMZhNZ/EN4ahfBbdz/Pu7cIX/fB1AUi4/htbeUSV4siU
+	 6bGSY56DzbU4v0jEatTyovGbp4JTkohSlW61Q95YIj2HiYERWqKf0VVGBsQ0AgjA/Qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gy+aDJbV;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QBVb+q5X;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC65B606A33F;
-	Wed, 18 Nov 2026 17:13:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFF4606A332;
+	Wed, 18 Nov 2026 17:13:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gy+aDJbV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17E841F000C8;
-	Wed, 18 Nov 2026 17:13:52 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=QBVb+q5X
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BC751F000C4;
+	Wed, 18 Nov 2026 17:13:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795022033;
-	bh=FiLuGxAkGP1KEAfqVeiwDdbqCjf8AnGDNZo/Dtj+/k4=;
+	s=korg; t=1795022039;
+	bh=/JOnQIm6SP7ZTFe1zJGicgTM9X/KdIKBFgH57vt3/1Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gy+aDJbVD+RHP/D5swMd3fphstzhBFgoHHdiYXsj6SJ2yYCWMBl8p4SuDCrQ+TVmz
-	 0nU/h2+zM+ZxzfazFUqjh0cfChhNUIb3srdeRn2dSklPHth/dUKe9wt6IW9thc59ZQ
-	 yGxkV3FDllXUmfeIVjskGWRWX/o+9weTgnnYZPh0=
+	b=QBVb+q5XwifvLW9sEButif9T42Mb8zl2FW/9BmxgQsUCEuWcC3o91A0k5rAbUL7jQ
+	 wtPpz+YfOdFiCCfzFmnRDMuHA+Eode6hhBfqQJ1KHI3DKXTv4xXChYVNDQfOLfvH3k
+	 WrZ5uSE1iMGFUwws6fEYSteLnzTY+qOYS5PIpPGU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	syzbot+7736960b837908f3a81d@syzkaller.appspotmail.com,
-	syzbot+262a71e9d2faf8747085@syzkaller.appspotmail.com,
-	syzbot+cfc6e8106bec1c524f7d@syzkaller.appspotmail.com,
-	Yun Zhou <yun.zhou@windriver.com>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Leon Romanovsky <leon@kernel.org>,
+	Peter Morrow <pdmorrow@gmail.com>,
+	Simon Horman <horms@kernel.org>,
+	Daniel Machon <daniel.machon@microchip.com>,
+	Tariq Toukan <tariqt@nvidia.com>,
+	Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 2518/2651] ntfs3: release ni_lock before dir_emit in ntfs_readdir to fix deadlocks
-Date: Wed, 18 Nov 2026 16:02:38 +0100
-Message-ID: <20261118150415.348745190@linuxfoundation.org>
+Subject: [PATCH 7.3 2520/2651] net/mlx4: always create the eth and ib auxiliary devices
+Date: Wed, 18 Nov 2026 16:02:40 +0100
+Message-ID: <20261118150415.406729866@linuxfoundation.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
 References: <20261118150247.972732815@linuxfoundation.org>
@@ -71,89 +72,77 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Yun Zhou <yun.zhou@windriver.com>
+From: Peter Morrow <pdmorrow@gmail.com>
 
-[ Upstream commit 7a5aa6c45072b54c8d97c5d54bbdf18aabf0ee6d ]
+[ Upstream commit 557d80138618b9d17407733d4ec25b33d3971d60 ]
 
-ntfs_readdir() holds ni_lock while calling ntfs_read_hdr(), which calls
-dir_emit() to copy directory entries to userspace.  If the user buffer
-triggers a page fault, the fault handler may need mmap_lock or
-mapping->invalidate_lock, creating lock-order inversions with paths
-that acquire those locks before ni_lock (e.g. ntfs_fallocate, mmap).
+Since commit 7d22b1cb9d84 ("mlx4: Connect the infiniband part to the
+auxiliary bus"), mlx4_core creates the "ib" auxiliary device only for
+an IB port or a device that advertises IBoE. Before it, each mlx4
+interface was offered every device and decided in its own add callback.
+mlx4_ib_add() accepted Ethernet ports without IBoE and registered them
+for raw packet QPs only.
 
-Fix by releasing ni_lock before calling ntfs_read_hdr():
+ConnectX-3 VFs on Azure have an Ethernet port and no IBoE, so since
+v6.6 they get no RDMA device. DPDK's mlx4 PMD, which needs only raw
+packet QPs, then cannot open them:
 
-- For non-root index nodes, indx_read_ra() returns data in a kmalloc'd
-  buffer (node->index) that remains valid after ni_unlock.
+  net_mlx4: cannot access device, is mlx4_ib loaded?
 
-- For the root index header, the data lives in the main MFT record
-  whose lifetime is bound to the inode.  i_rwsem shared prevents
-  concurrent directory modifications, so it is safe to access after
-  ni_unlock.
+Restore the old behaviour by creating both auxiliary devices for every
+device and letting mlx4_en and mlx4_ib decide in probe, as their add
+callbacks did. mlx4_ib_probe() returns -ENODEV when there are no usable
+ports, and mlx4_en_probe() binds a device without Ethernet ports but
+creates no netdevs, as mlx4_en_add() did.
 
-Reported-by: syzbot+7736960b837908f3a81d@syzkaller.appspotmail.com
-Reported-by: syzbot+262a71e9d2faf8747085@syzkaller.appspotmail.com
-Reported-by: syzbot+cfc6e8106bec1c524f7d@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=7736960b837908f3a81d
-Closes: https://syzkaller.appspot.com/bug?extid=262a71e9d2faf8747085
-Closes: https://syzkaller.appspot.com/bug?extid=cfc6e8106bec1c524f7d
-Fixes: d62cf685d12e ("fs/ntfs3: hold ni_lock across readdir metadata walk")
-Signed-off-by: Yun Zhou <yun.zhou@windriver.com>
-Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Tested on 6.12.111 on an Azure VM with two ConnectX-3 VFs: each gets an
+eth and an ib auxiliary device, and DPDK attaches both VFs and passes
+traffic through them.
+
+Fixes: 7d22b1cb9d84 ("mlx4: Connect the infiniband part to the auxiliary bus")
+Closes: https://lore.kernel.org/r/20261014133951.3219055-1-pdmorrow@gmail.com
+Suggested-by: Leon Romanovsky <leon@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Peter Morrow <pdmorrow@gmail.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
+Reviewed-by: Daniel Machon <daniel.machon@microchip.com>
+Acked-by: Tariq Toukan <tariqt@nvidia.com>
+Signed-off-by: Dave Miller <davem@davem-thinkpadp1gen8.ibmlond.csb>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs3/dir.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ drivers/net/ethernet/mellanox/mlx4/intf.c | 15 ++-------------
+ 1 file changed, 2 insertions(+), 13 deletions(-)
 
-diff --git a/fs/ntfs3/dir.c b/fs/ntfs3/dir.c
-index 58dc1ae34d412..c82f3222bf350 100644
---- a/fs/ntfs3/dir.c
-+++ b/fs/ntfs3/dir.c
-@@ -553,12 +553,22 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
- 	if (pos >= sbi->record_size) {
- 		bit = (pos - sbi->record_size) >> index_bits;
- 	} else {
-+		/*
-+		 * Release ni_lock before dir_emit (which may fault into
-+		 * user pages).  root->ihdr lives in the main MFT record
-+		 * whose lifetime is bound to the inode, and i_rwsem shared
-+		 * prevents concurrent directory modifications.
-+		 */
-+		ni_unlock(ni);
-+
- 		/*
- 		 * Add each name from root in 'ctx'.
- 		 */
- 		err = ntfs_read_hdr(sbi, ni, &root->ihdr, 0, pos, name, ctx);
- 		if (err)
- 			goto out;
-+
-+		ni_lock(ni);
- 		bit = 0;
- 	}
+diff --git a/drivers/net/ethernet/mellanox/mlx4/intf.c b/drivers/net/ethernet/mellanox/mlx4/intf.c
+index 82e467c45d231..31860b4abe43f 100644
+--- a/drivers/net/ethernet/mellanox/mlx4/intf.c
++++ b/drivers/net/ethernet/mellanox/mlx4/intf.c
+@@ -43,23 +43,12 @@ static DEFINE_IDA(mlx4_adev_ida);
  
-@@ -587,6 +597,12 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
- 		if (err)
- 			goto out;
+ static bool is_eth_supported(struct mlx4_dev *dev)
+ {
+-	for (int port = 1; port <= dev->caps.num_ports; port++)
+-		if (dev->caps.port_type[port] == MLX4_PORT_TYPE_ETH)
+-			return true;
+-
+-	return false;
++	return true;
+ }
  
-+		/*
-+		 * node->index is a kmalloc'd buffer, safe after ni_unlock.
-+		 * Release lock before dir_emit to avoid lock-order issues.
-+		 */
-+		ni_unlock(ni);
-+
- 		/*
- 		 * Add each name from index in 'ctx'.
- 		 */
-@@ -595,6 +611,8 @@ static int ntfs_readdir(struct file *file, struct dir_context *ctx)
- 				    pos, name, ctx);
- 		if (err)
- 			goto out;
-+
-+		ni_lock(ni);
- 	}
+ static bool is_ib_supported(struct mlx4_dev *dev)
+ {
+-	for (int port = 1; port <= dev->caps.num_ports; port++)
+-		if (dev->caps.port_type[port] == MLX4_PORT_TYPE_IB)
+-			return true;
+-
+-	if (dev->caps.flags & MLX4_DEV_CAP_FLAG_IBOE)
+-		return true;
+-
+-	return false;
++	return true;
+ }
  
- out:
+ static const struct mlx4_adev_device {
 -- 
 2.53.0
 
