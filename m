@@ -1,103 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795014255;
-	b=nG261qwijfx819LklZjzY/HGN0DjAKHYhAp6b5rqWm50XQf17SjuzfQloicI9f9LeUBs
-	 S4QeDIsqiJQirQ7E6Ba3dVuPcsUREhB27beYULw3imVusxF7DYOy9Hdsm0GzNIOzDtihV
-	 +5J2EP5kMxnmM18qM2cpgfEWT15xnYrZowVjlTrmxIocb0HhIUBUix4XyjFy3O1Uds42S
-	 9FpVUTT6uxiaukA1AJ43lNyZQVsIUZO3IaKoKl5EHEyN0HRlZikUEVSML3hxnK15l5SO+
-	 B6A36SVYE8U4JUt0azBoC8yR1HeIA7QPlv3q2But++d4KlFCQhJ0rGIdbZQMl13hyaA==
+	t=1795014316;
+	b=hgbwnIU7trdbLloDXT/8Bw0NpA57Hn38aWj1hojo98lJbvFw1gxMjglAVJgTkP4ovgCe
+	 7YE6WQrUJ7+5hKKhGG2YLSStiHd2fSJSLEOC+2lnAXlfp35CcwuHQKN9XDeuunRg/Dxg0
+	 Se/xXxUodueCYR9bSRXzCCuDr1Qda5jLJb4y8uazKczGHFzT2GRsg8mcpKxDd4dbREz8V
+	 B8VE9HLIKRiW0bghZ7TfMLgOY7US1kMoXh2Mo40KqZqB6YjoxKk0TlO++xmSm5/VxzwW6
+	 ydrFz8BDv4dJK50EXWq5dGVVYW7Vh2fMy0ALjBSCQz1Nyi+Ji8onduvLHXuVcELJU9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795014255;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Disposition-Notification-To:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=Z/tQwtb+guAS1R6/OD9tZmRzv2qN3TXj6uh+KCQvyAk=;
-	b=jCNEarizzTGR5G1PWP6aqiAX5Aj9CUucotgzgVlLJsmVP90LjvvcDytFaiD3MWR11q//
-	 f3tmMGAschWpDtgiaIkYzXpN7elq6m0oqLx+F+qYMGh9j/gLtwYiSSOoad8C+UpcROw/V
-	 djicoBUzyuL9tWnFa2YQbZVqZHFaY9kFv68YT3WaRUPku6wWEwvKPkZmKZD49gIW/6qm8
-	 OUg994RgEqxaimh3R/KesLBd2qqpl2DF7Shgsfmr+fY81g9/BEEV2MEn9m360XY41oRQs
-	 IWVby2u1sRBdMCT0U5AZ5ayOnJXW3IXpHYDAWmv9MDt2UpuK0VLLvXk7eU4PH2Vji5g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795014316;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Lz1QdUMe27LCdf6G1Y1DFNn2GN9+azDTK9VSxTlk49k=;
+	b=HFo+yCJFGGkbvXWy/GVPsA9cY+qjUlNzPB6W493CQYsGt/SnegiAhdL70pz0PsF1cTYw
+	 UIZefg6kRwxQc1VHgFjJ1gdYf2T3DnQNCaMIyITTDwMVY3L/g5VB5r/LzorsUrQo8ZhX5
+	 xxfNAgpTagLmcfOqjYEXmYZWA4ooQwYE+sjdB+2FWiKliSSOPu9ILi43IX/ZGmlHZ4Ilt
+	 Xmk0fqeN/v/elTMBo6Q1EBPF0Uh8vmvMvSTCilIhM2ZDLOvETUFeF6OjOE7cocGPJpUYV
+	 RZmdIDV+3sx0Tb9zdqtQBQrbqdn991p71Fnj6dnx8mvy1ABJjmdWDUisSo29BQRfhmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BZgNY5oh;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JG/Pgo8g";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586DD606A338
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:04:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 586DD606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31633606A336
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:05:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BZgNY5oh
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c506187deb9so17619966b.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:04:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795014254; x=1795619054; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :disposition-notification-to:references:in-reply-to:date:cc:to:from
-         :subject:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Z/tQwtb+guAS1R6/OD9tZmRzv2qN3TXj6uh+KCQvyAk=;
-        b=BZgNY5ohqoEFQkAOL/iufDJibOewT3UgU2WVfwz5xpbqpBVbkYqnhc5ABRsYqWLPj7
-         8GTikK+xnUaXefdEgttPL5Dir2FKlQPUJi8SXvikn6YoJ8UbiIxeNQg7jnDHaaDw3Osc
-         7HMiGLt7nV5j86eNOAMOXcwjFXjU5ruEQXU4NglemLKDqQEaYmweQOhUf6y5XignaU7O
-         piEJezvPTns6OaohWw2T+dnTPhfD44fRRmw2aW3DQLnvkEuv9wCRY/p7kGA0jZIVhCLa
-         ud9DSv7W/UVw0VCagPDTiXYbdGPHJa2o2Mgq0t6CGcMtFx8rf8QAjg9T8icFuXsQLdxF
-         VUFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795014254; x=1795619054;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :disposition-notification-to:references:in-reply-to:date:cc:to:from
-         :subject:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Z/tQwtb+guAS1R6/OD9tZmRzv2qN3TXj6uh+KCQvyAk=;
-        b=0ymEw7mc1x0cst7CRxQM3TjQBoDktl+yBH0b/Wpz5Oj7lfkFsV7I6qIkllXTrBqLZC
-         KmKY8xcbbJ0kh5AGyshyj8Ily54KwW5FCSY8KkNzSzy5dtoB+A5wgEQVdjJyEt1tgrab
-         o4OzgH8sd1pRNni1AaDjEM5/3Zyq74N482a58E+Xf8lyGY3015XSOXQu2C2egsTzbk1c
-         YcJ5Q7ELHguxYV75EowVOg2Y59vuMc33BgBFxXIy8XxrSEndchrIk8yFyBV4h/xCuCeB
-         xa+CiIPRfarg7shLm1FWqox5FKxQ/sdZqO2uOHajbhX5pTIP+fn/A/5aX3ETeu+ge5U/
-         C8tg==
-X-Forwarded-Encrypted: i=1; AL+hErH0FGSKhl5Kzf3kxVpPGXdNvgMbMfxwcjm6Il4QUPG982ZEbDhNC+Zvk6SjAOe0w0Lp9WWhFrU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/BViBF6ErPvvxySWxyvLhXWZJ4Ed/D8Rv75QtdZC55JPgKpG2J
-	tvhrZDVa+nlO3BjqG+aRuggRbRjLbjS/PeEkU41Zn1wFYwxDq2PGgmrK
-X-Gm-Gg: AYBFou2dMUrbhxvtXtj9aJCzzczvPYhC4sCj1P2cTRVpzAu1/4DbrWqdaP27vJ2SqHX
-	6vmcLsleTN4nLAMNUJ/1PVlRKp1r3nO+ikLq7p/oz94yz6h7R/8UOGumBVLyXIwwIOLnaj8mVM1
-	PDlxUW5kuOEeJ0n+7hEBuI7ljExKEq815wkZfKFy5KtgZp/67rnEVs4fw7iS24CK9OHSPRA2nn0
-	cNftJeLGbPTLOv+PEh6k5JvXm3sr46Lqzz++dlSPkoPrT64htRVAJfZnoU3aw6te7Z8GPYQ3Bu7
-	Ac+MU6QNRvCuqTNjOAg8zpR01snCg2nB0x+ge0zwRpfpdTQZtE0MC9rxrQylODZ2grfQmpCA4vr
-	rsQx9skosP1ssh9aDs9IvD1B+G6Jm/DCWTraBxk9ollchuqFvj5ONvv+HHRJIkWna6fS5juCHyV
-	0GgpihhzSt/MH1EuzZypKZsY5ovIYV8Sxo0y98jx11Q2Wf1cvnB6RXC4nI4NW+MQep0O3GoU97D
-	Hd66V2ZJDXmBDM77lZfGQ9TQzjXulz/YMA6uZPOUrII/Z1PWqsiqZs4hwbtcpCOEiMHd6FTwjZJ
-	0SC2Ie3k8/yqlyB+fnnqskWnHm2jMldBpotRPiYG2b/k8dnSlKuC3Q+99Lpdjl94oUxrfH76zuo
-	zZFKnnr/Hm6UxEQ==
-X-Received: by 2002:a17:906:7085:b0:c2e:8801:9139 with SMTP id a640c23a62f3a-c510deb9e53mr253754166b.1.1795014253543;
-        Wed, 18 Nov 2026 07:04:13 -0800 (PST)
-Received: from [192.168.1.239] (87-205-5-123.static.ip.netia.com.pl. [87.205.5.123])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51233c4d52sm7516566b.14.2026.11.18.07.04.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 07:04:12 -0800 (PST)
-Message-ID: <b6b45a76699f8b5dcfb2fdb1ee682bac0ed501df.camel@gmail.com>
-Subject: Re: [PATCH v3] HID: pidff: bound the unit exponent rescaling loop
-From: Tomasz =?UTF-8?Q?Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>
-To: Shengzhuo Wei <me@cherr.cc>, Oleg Makarenko <oleg@makarenk.ooo>, Jiri
- Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
- =?UTF-8?Q?Micha=C5=82_Kope=C4=87?=
-	 <michal@nozomi.space>, Paul Dino Jones <paul@spacefreak18.xyz>
-Cc: linux-input@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 18 Nov 2026 16:04:07 +0100
-In-Reply-To: <c80644469f01ae6d2ba0339a7a2fcd7c6080c310.camel@gmail.com>
-References: <20261104-b4-pidff-rescale-exponent-v3-1-f45e64cf488c@cherr.cc>
-	 <c80644469f01ae6d2ba0339a7a2fcd7c6080c310.camel@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.62.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JG/Pgo8g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D731F000C9
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:05:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795014315;
+	bh=Lz1QdUMe27LCdf6G1Y1DFNn2GN9+azDTK9VSxTlk49k=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JG/Pgo8gq5RRuSQIIC/oWtlyuaLjVTXUMApB/FzwjyuvGbjJ5wBxWtqTaD1s8LXYM
+	 DaE7qoKV2BpLPGJjGusUhCLmcvgDyoUv92i3ZAfk3NbOE+TaII+s8jR+qF2JjUfeD+
+	 SXsjgAHOb4e90orULfw4au9xxURZzyWuHIsQAYMPjf/sdL1vDGsW4maYFzaEXEwslZ
+	 b9kIqgXfcoRZH43QOcECH1OBRK6d3ybxEhdIsU2AFSfanldRpJmKJ6EToi2cAT+zUn
+	 gvjnaLE4wcVQRzOAN07fTxCsLqoUoZceIezuoMglooKc2Xgw9+9gwBkXbKFjPBzxjY
+	 AkfJkTINQyoag==
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-71ada4644f8so670357eaf.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:05:15 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErEflf7fPj2068BpisJ4bR+BVz1O9p+Q5h4qMkl7qIUF3uTtNs32cO8+78YwLg3SdQe3WAs+Xj4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ukXd5fDPV02DohE1OyUb/3ir+wenypBiZtPjpaUCyoAxlLx1/
+	0Hm2xwa8xvny3T9+CozXgxSYm/GR/ex7QNL+In4guJpTqHcv/y7utT14UJHbmDnWC4TqEk4JWbc
+	Lmlc+kvOHSaXM/BxrfllMDFdGnmlgQBM=
+X-Received: by 2002:a05:6820:c3c8:b0:717:da:ba3e with SMTP id
+ 006d021491bc7-71b1843987dmr1511462eaf.19.1795014315202; Wed, 18 Nov 2026
+ 07:05:15 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -107,12 +59,96 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261118144249.358481-1-jiayuan.chen@linux.dev>
+In-Reply-To: <20261118144249.358481-1-jiayuan.chen@linux.dev>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Wed, 18 Nov 2026 16:05:03 +0100
+X-Gmail-Original-Message-ID: <CAL4Wiiqo2f7WxE0uccUOvGyLMhu66cwYWSFS1ZCQU=Lkaxp1Bg@mail.gmail.com>
+X-Gm-Features: Aa3M54piHjPwp_y_R61vPpndNd95o_tqH2TJpVGd8jo1PrAJ9sbocGNqFSQPXG4
+Message-ID: <CAL4Wiiqo2f7WxE0uccUOvGyLMhu66cwYWSFS1ZCQU=Lkaxp1Bg@mail.gmail.com>
+Subject: Re: [PATCH net v3 1/2] tcp: fix shift-out-of-bounds in SYN-ACK
+ retransmit timers
+To: Jiayuan Chen <jiayuan.chen@linux.dev>
+Cc: netdev@vger.kernel.org, stable@vger.kernel.org, 
+	"David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Neal Cardwell <ncardwell@google.com>, Kuniyuki Iwashima <kuniyu@google.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2026-11-04 at 08:41 +0100, Tomasz Paku=C5=82a wrote:
-> On Wed, 2026-11-04 at 03:44 +0800, Shengzhuo Wei wrote:
->=20
-> Works as expected. Thanks!
+Le mer. 18 nov. 2026 =C3=A0 15:43, Jiayuan Chen <jiayuan.chen@linux.dev> a =
+=C3=A9crit :
+>
+> req->num_timeout counts the SYN-ACK timeouts of a request and is used as
+> a shift amount:
+>
+>         /* tcp_reqsk_timeout() */
+>         u64 timeout =3D (u64)req->timeout << req->num_timeout;
+>         /* tcp_fastopen_synack_timer() */
+>         req->timeout << req->num_timeout
+>
+> Once it climbs past the width of the shifted type the shift is UB. Seen
+> with tcp_synack_retries=3D255 and a peer that never completes the
+> handshake:
+>
 
-BTW Jiri, I'll re-send this as part of a series shortly as I ended up
-doing another big overhaul of most of the driver code. It's currently
-waiting for Oleg's review.
+> The sysctl is not needed: TCP_SYNCNT=3D127 on the listener gets there
+> too, and the TFO shift is 32-bit, so it is UB from num_timeout 32.
+>
+> The value can also wrap to 0 before the shift count is out of range,
+> which arms a zero-length timer. E.g. with HZ=3D1000 and req->timeout =3D=
+=3D
+> 1000, (u64)1000 << 61 and (u32)1000 << 29 are both 0.
+>
+> num_timeout is a 7-bit field. Once a retransmit limit is above 127 the
+> "num_timeout >=3D limit" check can never be true, the request is never
+> expired by that limit, and after the field wraps to 0
+> reqsk_timer_handler() decrements queue->young again on the next expiry.
+>
+>  - split tcp_reqsk_timeout() into tcp_reqsk_timeout_sk() and cap the
+>    shift at 32 there, same as inet_csk_rto_backoff() in the next patch.
+>    req->timeout << 32 is already above tcp_rto_max(), so the clamped
+>    result does not change.
+>  - cap max_retries / max_syn_ack_retries at MAX_TCP_SYNCNT (127), the
+>    largest value the field can hold. The sysctl range is left alone:
+>    narrowing it would make setups that write 128..255 fail with
+>    -EINVAL, and the caps are needed anyway for TCP_DEFER_ACCEPT and the
+>    TFO "+ 1". 128..255 now act as 127.
+>  - cap the TCP_DEFER_ACCEPT conversion in secs_to_retrans() at 127 too;
+>    larger values kept an acked request from ever expiring. getsockopt()
+>    now reports at most 14527 instead of 29887 seconds.
+>  - route the TFO path through the same helper.
+>  - document that tcp_synack_retries values above 127 act as 127.
+>
+> Found by checking sysctl ranges against their users. Reproduced in a VM
+> with UBSAN: tcp_synack_retries=3D255 and tcp_rto_max_ms=3D1000 on the
+> server, and an iptables rule dropping the final ACK of the handshake.
+> The splat shows up after about 64 seconds, and is gone with this patch.
+>
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Fixes: e6c022a4fa2d ("tcp: better retrans tracking for defer-accept")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
+> ---
+> v2 -> v3:
+>  - drop READ_ONCE(req->timeout), cap the shift at 32, reuse
+>    MAX_TCP_SYNCNT, simplify the doc text (Neal)
+>  - changelog: mention TCP_SYNCNT, the wrap to 0, why the sysctl range
+>    is not narrowed, how it was found and tested (Neal)
+>  - add Fixes: 1da177e4c3f4, the shift was already there
+> v1 -> v2: reworded the commit message, no code change.
+> v2: https://lore.kernel.org/netdev/20261026123244.239766-1-jiayuan.chen@l=
+inux.dev/
+> v1: https://lore.kernel.org/netdev/20261023064915.401112-1-jiayuan.chen@l=
+inux.dev/
+> ---
+
+Note this might conflict with Chris series, which changes __tcp_set_rto():
+
+https://lore.kernel.org/netdev/20261118005048.53393-2-mason@kernel.org/
+
+No big deal, just FYI.
+
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
