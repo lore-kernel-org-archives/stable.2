@@ -1,78 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795049677;
-	b=y8awZPZPDH0myH5PW6BwxG8wpymdov2cUcrN9z4XzRejJAoB8nRcqDXAFiuF6nD75m4/
-	 L8xw+Y9VkIvSwSgKKlEHhTEsWdDcMHWzlIQb05y7TeIk9j88LvvemXS05gcg2Bk0J1sS8
-	 E2AeoSzV+vf3W3E9wiiUsE7cAOPsIrQJSDcRam/9PMD8stk9qsmFurH+rl+9ecGWtmUXV
-	 wpNeyl62OP03S/4aN40hmfznKHpuO7MrdFBFK0Ubo0Yd/MJ+kxPAAm4HWO285JdfEAFkk
-	 /IwSWsgm7FjOKcqsKYn1pDeR/6R1hS/2dg1hXhkjf2nD5q32u25SWTmlfYwBx5cAICQ==
+	t=1795049680;
+	b=kPX+6R2i3F1SUQUQ9dd4s66Qd0KIpK6uPyx70pjP9PJEPlK2pIJz1FPzAEFGYpyCVl8b
+	 Y28hL76EJsDASz0nPqFEiweTtLWQvCLBh6W/uSMleFPYtzzBZWXeLqU+jonUFnXDs0OjJ
+	 80txnc0zVFx7Iat0hnrz3iVtq+7v3BKrnzgKZ9E8pbJmY+jihmNIeKTnsz+tPSQARPkP2
+	 RCgAi9EzgHq8GG6PtTikAj2iaqVTC8SFQhoyJzLZp6vZj+ZhLko+Qn1DseASlnlW8Sfcc
+	 ZMBsRrQDsZajvMUngubWjOyZQqd+n9fh0sLYIlQrU3eZiTR8pgbcTFZI7MIkbgG64nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795049677;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=MVGagyXqrwdo7dH2O8hLICXoxaxNUg6CLkCz21qglC0=;
-	b=JrsFR2HS22pxh0+Smai5Vye48lxi10S9zaLJsyber9WjN97JqNoYVd6JN4Hyb46b1suh
-	 yzdi3RsFvP0Mh63qR3sEvpsXJxcOdNXj5tbWU89rijmlx2raJOvU8GqsXYE9ZQGFUV1fh
-	 VKOPqqn6JNogDJIxdHhY8rytKqqfnE1quKbAhy2iZ9BK4VZL7jEJUI4HVa7r1qkatCfnl
-	 l5rOtbQumgK31X+dOH0lERH9S2b21K8buATRArbsHxcAlvB4BgPx14NCvJxvb/l+fS972
-	 +t75HZ54hT5MzvUtGKQf1csbSBFsDy8HDL499614mKOg1gLlKtbSVxnE8f6v7LfNt4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795049680;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=kUdHDsjCkpoob9gXjr6WXCgq4eNB05N13uuLSGRu4Qc=;
+	b=ceBFTmkuuyhXhibBOjSRFoecJoIyP/ZiaiPI1ndsCgdaU8L7RqsGk16zdMjTux6RFwia
+	 hWT89oBKBBCX2H23vzQfAH7MBlhi7czOqtas8aqsCBWjXtHXGcMVPlR0KXYfwiyax/cPk
+	 A0u4cy4WZy4qf5mrolJhPgz37EIxswF/Pg7GY5Vzk0Frjmm78eb/5UBRiTUZTA1aEV4Is
+	 1OlMoL9AAhwBAjtaSVmqiERlZUJMnhSosN16HATCMmwvXzGgv2i4x4vQ7GcRBLutzR7AS
+	 2njt8RK7hKGEQdR4gl/GUZiE5x5/IESE/++cxPRzJ35BC1UI3xR8iKrAOGvQPuEpxOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=yAsIEfaj;
-	arc=none smtp.remote-ip=162.62.57.210
-Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xIf9genO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9010606A320;
-	Thu, 19 Nov 2026 00:54:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9010606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029B6606A333;
+	Thu, 19 Nov 2026 00:54:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=yAsIEfaj
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1795049664; bh=MVGagyXqrwdo7dH2O8hLICXoxaxNUg6CLkCz21qglC0=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=xIf9genO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585E21F000C9;
+	Thu, 19 Nov 2026 00:54:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795049679;
+	bh=kUdHDsjCkpoob9gXjr6WXCgq4eNB05N13uuLSGRu4Qc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=yAsIEfajW107SmrTKjNjPhJLH+X/+VSNGrrzfo2H7TPbThBRHjbF5aeQloG7dqN5+
-	 5gq93499ydiV26drT5SfrsXYz1OM8V7fUi71tCpKyeYG4+qUntKpkjH/aMGNkTUltS
-	 y5uraQTcCkQ129l2UoWSXWrGxqk44A6uPNlDz6Jo=
-Received: from localhost.localdomain ([59.46.81.208])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id D9612A37; Thu, 19 Nov 2026 08:54:22 +0800
-X-QQ-mid: xmsmtpt1795049662tfile5mo1
-Message-ID: <tencent_F0BECCFBD52CC861F260A0F6169273C41209@qq.com>
-X-QQ-XMAILINFO: OSjQccS6YHkHyle7B+8Ip3eSzrvH5Q03e6f89n8ZGPjwggK8/4mkkisve2dTR6
-	 DByaM+B2SpJK5E0zgA/a7IDdyLsFMGFZP+TQ3b+9NgZJfxPaP4oBzdtwRjPu4lZvJ0qXERrS5pW4
-	 aCQrpNMuKYux8gxYDASf4+GrGGD4UFyi5oZi7NCSuq1rTeWubSe6lf9gVJlSBm7bN6iHN8orUj3F
-	 A2MgCsxVYNYyPijKjE2G7R8eVsFo6asqhgsrePDIYRsplCYi0prARe2pDFHeYEcqa4aiLzxCD+Xc
-	 gCJ3XH02GnKCEv0W9ISJHdPALaR2Ejc/cY5tX5pPbqmF3GUClWm4O7Xr/XnQltu/fQonsbsTDKei
-	 T4eugew9RyA6tj2+RKKG7NAVwVRA03iO5Hyfx6ESsYLsTeWkViRtnY5akaT4q7JJ/AJOd4PL1ONG
-	 qOWgoDDMPeKheXjasPgIG58CHNfrSLhdb+gkPhIX2BAvD7p393HPWaCGlmGsHZnWmBiqdL1mirjO
-	 jXOVXRtITQhtQ+vqhsxLl3CdOzU2TNuZ/l7NDUUKrvNVW5Mv0IMHmTXoq3KtM1lhAmvhDJxfB1H6
-	 UCvtrMyIFz9LjSWju5c+APVJSIvqytKWPO4t/x3exij4PdSb7EGTEEwQk5OcaRHV71MzaOdVblPz
-	 ZqygC87LBf7NgVCJXBQSr7wDuJx8hRLEi9l56BwnCJBKjb0TxNWWjCMFZvMn7HBCFtnnGoL0Lddd
-	 oYBUzO8nJlugT7AfeTMnZdjSTnllQvyrCgN3BHEs4Ub3hcODgrWlQjb6KIwSkbU84WrSg738Qtk/
-	 JdWTiz2PFZnk+5ytXR+mwWn02jO2odseFL1O6iqn8i8nusARhsw6Te1HgsoS0YGu/lrPmDxl9Q/b
-	 7mOMtsXw5nEtJvdnmBjvJEr9Ls1XnhwB4skWMGHiSEnDp7F9/CBehRRIcD4zRuUQhPy0YdWwVJMT
-	 CS15sNK5TuRnq5l7VaIoAjvu46Bmm0wHfIiesgJd5E844aeKDmrDFhFonpsctZtnRC/O31kaej3c
-	 cZxiKxPpGui3u7Mu1CZ4gYfVifpYQ=
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: Lei Qiu <750592120@qq.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3] hfs/hfsplus: validate uid and gid mount options
-Date: Thu, 19 Nov 2026 08:54:20 +0800
-X-OQ-MSGID: <20261119005420.35222-1-750592120@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <85c26064db32f34da57b313a2e5d505f60ad1df4.camel@dubeyko.com>
-References: <85c26064db32f34da57b313a2e5d505f60ad1df4.camel@dubeyko.com>
+	b=xIf9genOPIKeIfT0KBnyzGkH2lYkVbDbbVoEr/PnpzEobh/KRUhA1iYhCUNGxVUzY
+	 KNzH0zmWt6BVS4UYMsyy57IG3TnloE13dNsFlyWvqwry7YXTrAgOsTfWV9fRBFcw4g
+	 SuUkXlOWDg8URmk0fHiSSlu4IDPyLop3FzrVcggs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	bui duc phuc <phucduc.bui@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1 2437/2857] ASoC: amd: raven: Fix acp3x_dma_close() being skipped on rollback
+Date: Wed, 18 Nov 2026 15:57:51 +0100
+Message-ID: <20261118150329.319043589@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
+References: <20261118150201.293410965@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,68 +64,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The conversions to the new mount API declare uid and gid as fsparam_u32
-but consume result.uid and result.gid. This bypasses make_kuid() and
-make_kgid() as well as the validity checks in the old parsers. As a
-result, both filesystems accept the invalid ID 4294967295, and IDs
-supplied through fsconfig() in a non-initial user namespace are treated
-as raw kernel IDs instead of being translated through that namespace.
+6.1-stable review patch.  If anyone has any objections, please let me know.
 
-Use fsparam_uid and fsparam_gid so the shared parser translates the IDs
-and rejects invalid or unmapped values before storing the typed result.
+------------------
 
-Verify both modules with W=1 builds and a before/after QEMU test covering
-fsconfig(), legacy mounts, and a filesystem context configured from a
-user namespace mapping ID 0 to ID 1000. The fix rejects invalid IDs with
-EINVAL and preserves the mapped ownership and valid mount options.
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-OpenAI Codex assisted with identifying the issue, implementing the fix
-and reproducer, and running the validation.
+[ Upstream commit 37ceef26df57c4a86a5e984b1951995aa96d4342 ]
 
-Fixes: ffcd06b6d13b ("hfs: convert hfs to use the new mount api")
-Fixes: 432f7c78cb00 ("hfsplus: convert hfsplus to use the new mount api")
-Cc: stable@vger.kernel.org
-Signed-off-by: Lei Qiu <750592120@qq.com>
+snd_pcm_hw_constraint_integer() may return 1, which is then returned
+from acp3x_dma_open(). ASoC only marks the component as opened
+when .open() returns 0, so .close() can be skipped on rollback.
+
+Return 0 explicitly on success.
+
+Fixes: 703a6e22888b ("ASoC: amd: Enabling I2S instance in DMA and DAI")
+Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
+Link: https://patch.msgid.link/20261008103831.542533-5-phucduc.bui@gmail.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes since v2: drop the build.log artifact that was accidentally
-included in the patch; no functional change.
-Changes since v1: realigned the new fsparam_uid/gid entries with the
-existing column style in both option tables (no functional change).
----
- fs/hfs/super.c       | 4 ++--
- fs/hfsplus/options.c | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ sound/soc/amd/raven/acp3x-pcm-dma.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/hfs/super.c b/fs/hfs/super.c
-index 5e6d66ff4..5ff04a7c4 100644
---- a/fs/hfs/super.c
-+++ b/fs/hfs/super.c
-@@ -203,8 +203,8 @@ enum {
- };
+diff --git a/sound/soc/amd/raven/acp3x-pcm-dma.c b/sound/soc/amd/raven/acp3x-pcm-dma.c
+index 6aec11cf0a6ae..1ad2e70704eb9 100644
+--- a/sound/soc/amd/raven/acp3x-pcm-dma.c
++++ b/sound/soc/amd/raven/acp3x-pcm-dma.c
+@@ -237,7 +237,7 @@ static int acp3x_dma_open(struct snd_soc_component *component,
  
- static const struct fs_parameter_spec hfs_param_spec[] = {
--	fsparam_u32	("uid",		opt_uid),
--	fsparam_u32	("gid",		opt_gid),
-+	fsparam_uid	("uid",		opt_uid),
-+	fsparam_gid	("gid",		opt_gid),
- 	fsparam_u32oct	("umask",	opt_umask),
- 	fsparam_u32oct	("file_umask",	opt_file_umask),
- 	fsparam_u32oct	("dir_umask",	opt_dir_umask),
-diff --git a/fs/hfsplus/options.c b/fs/hfsplus/options.c
-index 9b377481f..28717b6c7 100644
---- a/fs/hfsplus/options.c
-+++ b/fs/hfsplus/options.c
-@@ -33,8 +33,8 @@ static const struct fs_parameter_spec hfs_param_spec[] = {
- 	fsparam_string	("creator",	opt_creator),
- 	fsparam_string	("type",	opt_type),
- 	fsparam_u32oct	("umask",	opt_umask),
--	fsparam_u32	("uid",		opt_uid),
--	fsparam_u32	("gid",		opt_gid),
-+	fsparam_uid	("uid",		opt_uid),
-+	fsparam_gid	("gid",		opt_gid),
- 	fsparam_u32	("part",	opt_part),
- 	fsparam_u32	("session",	opt_session),
- 	fsparam_string	("nls",		opt_nls),
+ 	i2s_data->acp3x_base = adata->acp3x_base;
+ 	runtime->private_data = i2s_data;
+-	return ret;
++	return 0;
+ }
+ 
+ 
 -- 
-2.43.0
+2.53.0
+
+
 
