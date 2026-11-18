@@ -1,62 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794967494;
-	b=1KZDAlGwOP/Df3oZYJFh8qrbVOfJkl1E6VVSzsemcy6GAuYT+Yk/de3HimHMo6E6nt/O
-	 DYhu2FWO0YXDMdr19xeOhBk/O19ulWGaYfcCjOCVctJJvtpUGF15zvkfEWKbb5cOy7lED
-	 onYMg5KzDu9xDBS8tynmjJ/fGq4jJaG5STpwaGihptbPd+5pzsxu3aLbG4VFrNb9ljNK9
-	 U+tUTLjg1kToUwHihUXUOoGrjBZ079X1pLCJZUgtWjawiC1bpB9iW5LZSGDBEFoZbCqTl
-	 soFO7g1JX5T+0KstXqvv2B2iW48Wylp90CN0TcJx+1QE0iXM6UG8xnLLBt75+rL536A==
+	t=1794967512;
+	b=bBR5uWB98i8JQRVVQf/lkaZW8QSi3zI4oTf+2hGxfrSpyvVjoRk1O+I3wmTfKyWrrjry
+	 560u9snjFVhnoLy8ZqrP1t0VMOV3GSUr+xkuygWGqtTFIPFDNGCENNUKd4vE4fuW7f57g
+	 IFaDuOz2fSRwSYQkobR2g4C3bYcmp77pacqmMfOr2cRWJFSod5lGqj9I11nhAx2CUwEbt
+	 ViAdfsi7EVMrBG0kszrdF2TLv6FH4Q6c9pZrTZoML/IOFLPYCZVosGO+bWV20Rn371C5w
+	 C4aieCMKUGWfCMidi9jOT+8KVaaXNCypoek5hbCYTY3thoeQGWCw8k4wkSXqaeAltSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794967494;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=7idpOK0uLj0IeEH4I8ykLNX0Cq8hKyMbZ0eKNeKvegk=;
-	b=tzwrfX3nKg2IZtmfO9OtoWeroCqaALNstO1IqOIZvxVtjap3gjeDLZVjULylpv+7ocwb
-	 nq/gdYhq0Feyjal1F8/hGWTViIWnoBn0QqSN7e94T+lWCA6BnSnfGXTu7GTNGDgC1JTxb
-	 krVvJPLLn90FHT0cGTO2A7oW61/+Lcm+Na5egYNNkOcmBtZLHB+skCCfY6nTyo5l8vmZX
-	 DkuCMIUJTICQBnbJ2o6gs6BEJXPCQXQStDe2EnkN+G6MgFfhvB0Q1IQIfNfRi5DOH5ck0
-	 CWxHV9y2vdQDJyyfdc2SD4NV+CvBcFDcXOUpCZEU7Y6vRokKu4Uw9FJiU5Hs6gubomg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794967512;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=zCLXkYAKL0HKldd5qjdjzOdKmuBMa8ky/YhC47nvTcA=;
+	b=ASzFk2+dRsqK7os5h16V3ISPMesT/Qq36AJAb7yYHdAFJxLDe+fOwnkCTKZFiBQ0qkAz
+	 3kmMStW/3OZdqR2jUzJumj9ghfpQIL9E/q9IsrlPJ6IJXwCbZWRU9hJGvibJQwRsb9yTF
+	 /uen4Ko4iZBz91zTfl0wK61ZJwZegntOgj5sIkAx+S30tTGHOZvcFgNJye0ebuL/5o1PS
+	 pOUj51WUvTwZbbU0dxpcTBLYJW47BqC0VooFv0sw/BxPZEJGvQohsVao/uDVEGPnTn74P
+	 +WiC1kSMIC6u7OD+SphWV5K+jI4wjR9HQUWJIqZNaAXajbiYNscP6CZGsMCl4m9he3A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTFcnP8M;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=doMYTeNd;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C7D606A31C;
-	Wed, 18 Nov 2026 02:04:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B70A606A881;
+	Wed, 18 Nov 2026 02:05:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B70A606A881
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nTFcnP8M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216141F000C4;
-	Wed, 18 Nov 2026 02:04:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794967494;
-	bh=7idpOK0uLj0IeEH4I8ykLNX0Cq8hKyMbZ0eKNeKvegk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=nTFcnP8MbRS5d4pxU3UnKAsWRer/12OXCwy/dor8M6yoTHEA6ZXvCCEieve4SwUmx
-	 9Q7uoAMK4V62w5DhJfeKkPM4tynL4KQp4+4lhQVRQ2EhHxDbcAD6K+0fQ3Ck24TkCH
-	 DZkLfUFrugvmrJbypvhvABHyS9vW6J5ZNQfyO18Lriqrksd3UxTTE+Hv3gWlP4YUGR
-	 A+OSdRId3pCz94FLWEo4tuJ05im+g/nFdgHylmnR7NAUp6I5P++IlPiNYVaEz0kZW7
-	 J6lipFXnG1ggEWg8XE+MMXF7VVuJGAZDorzd7ebeKRKO9Fs4j5RH1U1ZJP/QR6ywxl
-	 nB1s8h5XxRrdQ==
-Subject:
- Re: [PATCH net] mac802154: remove redundant security_enabled assignment
-From: netdev-bot+sashiko@kernel.org
-To: petrvaganoff@gmail.com
-Cc: alex.aring@gmail.com, stefan@datenfreihafen.org, miquel.raynal@bootlin.com,
- linux-wpan@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- phoebe.buckheister@itwm.fraunhofer.de, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- stable@vger.kernel.org
-Date: Wed, 18 Nov 2026 02:04:52 +0000
-Message-ID: <179496749259.3136.6007006994790888929@kernel.org>
-In-Reply-To: <20261116065235.27348-1-petrvaganoff@gmail.com>
-References: <20261116065235.27348-1-petrvaganoff@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=doMYTeNd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1794967512; x=1826503512;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=c+DGJYiKoRxY19HXbBWcOxRfxZ9WSWBFgf/e7nZq9TA=;
+  b=doMYTeNdu2w+yLeCFBR471221HUwQ/pJSYIApnG+2tpWNW3JEOv5v2Ux
+   GxRSRYPyYdehNhLkprt5uquWjJnwWXU1XvVfUYhHVUtz1s8SC96FWraxI
+   AGNs5VRfOcCZHWgQp6vsx0eUE6PogNw7hYfBp0ZI3OgZiBpug6q1QX7jT
+   P9WuNMiYW/kpJrM+snTG4kelSfymWi3bOxPnmJARR4NWc0bZY+2zDActr
+   F2wm6VLWktit/JlC9pircbempJ9/1PL+27DJEa1Q63ViBMH4URTkzP2BG
+   i1IQcPixDZPfwm0Z32sZCNFm1aCa+5Z/+9cZDglmt30OMyT77hUK2HVuN
+   Q==;
+X-CSE-ConnectionGUID: dL+GrTgQTJChoH/yr/FeZg==
+X-CSE-MsgGUID: OwoMtUBGThilgcfdaJW7UQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11969"; a="3653104"
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="3653104"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 18:05:12 -0800
+X-CSE-ConnectionGUID: uUkNA5I9TxiXFAOrntU3eA==
+X-CSE-MsgGUID: px2HxreTQQaslvTkquyKjg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,219,1787036400"; 
+   d="scan'208";a="10244426"
+Received: from ly-workstation.sh.intel.com (HELO ly-workstation) ([10.239.182.64])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Nov 2026 18:05:09 -0800
+Date: Wed, 18 Nov 2026 10:05:05 +0800
+From: "Lai, Yi" <yi1.lai@intel.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Kent Gibson <warthog618@gmail.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v6 1/8] gpiolib: wait for pending label frees before
+ cleaning up desc_srcu
+Message-ID: <av0H0VfZM81smF55@ly-workstation>
+References: <20261116-gpiolib-chip-removal-v6-0-aambrozewicz@nvidia.com>
+ <20261116-gpiolib-chip-removal-v6-1-aambrozewicz@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,122 +88,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-gpiolib-chip-removal-v6-1-aambrozewicz@nvidia.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] The fix relies on an invariant that does not hold.
-- [Low] The subject 'mac802154: remove redundant security_enabled
-  assignment' presents a bug fix as a cleanup.
-
---
-
-mac802154: remove redundant security_enabled assignment
-
-The commit removes the assignment hdr.fc.security_enabled = cb->secen from
-ieee802154_header_create(). After that, mac802154_set_header_security() is
-the only place that sets the security bit. This targets a KMSAN uninit-value
-report in ieee802154_hdr_push_sechdr(), triggered by a stale cb->secen after
-WPAN_SECURITY_ON followed by WPAN_SECURITY_DEFAULT.
-
-> mac802154: remove redundant security_enabled assignment
-
-[Severity: Low]
-This isn't a bug, but is "redundant" the right word for this line?
-
-Removing it changes the transmitted frame. When
-mac802154_set_header_security() takes this early return, the removed line
-was the only thing setting fc.security_enabled:
-
-	if (!params.enabled ||
-	    (cb->secen_override && !cb->secen) ||
-	    !params.out_level)
-		return 0;
-
-This is a fix tagged for stable. Would a subject like "mac802154: fix
-uninit-value in ieee802154_header_create()" be more accurate?
-
-> diff --git a/net/mac802154/iface.c b/net/mac802154/iface.c
-> index f437b8daa00d0..7b7332805ecce 100644
-> --- a/net/mac802154/iface.c
-> +++ b/net/mac802154/iface.c
-> @@ -368,7 +368,6 @@ static int ieee802154_header_create(struct sk_buff *skb,
->  
->  	memset(&hdr.fc, 0, sizeof(hdr.fc));
->  	hdr.fc.type = cb->type;
-> -	hdr.fc.security_enabled = cb->secen;
-
-[Severity: High]
-Does this fully close the uninitialized hdr.sec read in
-ieee802154_hdr_push_sechdr()?
-
-The commit message relies on mac802154_set_header_security() keeping the
-invariant that security_enabled = 1 implies hdr->sec is initialized. That
-function only writes some of the fields:
-
-net/mac802154/iface.c:mac802154_set_header_security() {
-    ...
-	hdr->fc.security_enabled = 1;
-	hdr->sec.level = level;
-	hdr->sec.key_id_mode = params.out_key.mode;
-	if (params.out_key.mode == IEEE802154_SCF_KEY_SHORT_INDEX)
-		hdr->sec.short_src = params.out_key.short_source;
-	else if (params.out_key.mode == IEEE802154_SCF_KEY_HW_INDEX)
-		hdr->sec.extended_src = params.out_key.extended_source;
-	hdr->sec.key_id = params.out_key.id;
-    ...
-}
-
-It never writes sec.frame_counter or the reserved bits that share a byte
-with level and key_id_mode. In ieee802154_header_create(), hdr is on the
-stack and only hdr.fc is cleared by the memset above.
-mac802154_header_create() has the same pattern.
-
-So on the normal llsec TX path (llsec enabled, out_level != 0),
-ieee802154_hdr_push_sechdr() still copies stack memory into the skb:
-
-	memcpy(buf, hdr, 1);
-	memcpy(buf + 1, &hdr->frame_counter, 4);
-
-frame_counter is overwritten only later, in mac802154_llsec_encrypt(). By
-then, packet taps in dev_queue_xmit_nit() have already seen the header, as
-the TODO comment in net/mac802154/tx.c notes:
-
-dgram_sendmsg()
-  wpan_dev_hard_header()
-    ieee802154_header_create()
-      mac802154_set_header_security()
-      ieee802154_hdr_push()
-        ieee802154_hdr_push_sechdr()
-  dev_queue_xmit()
-    dev_queue_xmit_nit()
-    ieee802154_subif_start_xmit()
-      mac802154_llsec_encrypt()
-
-If encryption fails with -ENOKEY or -EOVERFLOW, mac802154_llsec_encrypt()
-returns before it pushes the header again. The 4 uninitialized
-frame_counter bytes then stay in the data that AF_PACKET taps copy to
-userspace.
-
-The reserved bits survive the memcpy(hdr, buf, 1) in
-ieee802154_hdr_get_sechdr(). mac802154_llsec_encrypt() then pushes them
-again, so they also go out over the air and into the CCM AAD.
-
-Should hdr (or at least hdr.sec) be zero-initialized in both
-ieee802154_header_create() and mac802154_header_create()? Another option
-is to memset hdr->sec in mac802154_set_header_security() before filling it.
-
->  	hdr.fc.ack_request = cb->ackreq;
->  	hdr.seq = atomic_inc_return(&dev->ieee802154_ptr->dsn) & 0xFF;
+On Mon, Nov 16, 2026 at 03:47:04PM +0200, Adrian Ambrozewicz wrote:
+> desc_set_label() frees the old label with call_srcu() on
+> gdev->desc_srcu, and gpiodev_release() calls synchronize_srcu() before
+> cleanup_srcu_struct(). synchronize_srcu() waits for a grace period, not
+> for queued callbacks. Once the srcu_struct uses per-CPU callback lists,
+> a label freed by gpiochip_free_hogs() can still be pending, and
+> cleanup_srcu_struct() warns:
+> 
+>   WARNING: kernel/rcu/srcutree.c:706 at cleanup_srcu_struct+0x239/0x330, CPU#0: init/1
+>   Call Trace:
+>    gpiodev_release
+>    device_release
+>    kobject_put
+>    devres_release_all
+>    device_release_driver_internal
+>    platform_device_unregister
+>    gpio_sim_device_deactivate
 >
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261116065235.27348-1-petrvaganoff%40gmail.com
+After this patch applied, the call trace can no longer be reproduced.
+
+Tested-by: Yi Lai <yi1.lai@intel.com>
+ 
+> Use srcu_barrier(), which waits for them.
+> 
+> Reproduced with a hogged gpio-sim line, setting the chip live and back
+> on a 4-CPU guest with srcutree.convert_to_big=1: it warns within 60
+> cycles; with this change, 1000 cycles pass.
+> 
+> Fixes: a86d27693066 ("gpiolib: fix the speed of descriptor label setting with SRCU")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+> Signed-off-by: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+> ---
+>  drivers/gpio/gpiolib.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
+> index 6f8f30b767ef..ce04277a8900 100644
+> --- a/drivers/gpio/gpiolib.c
+> +++ b/drivers/gpio/gpiolib.c
+> @@ -897,7 +897,7 @@ static void gpiodev_release(struct device *dev)
+>  	struct gpio_device *gdev = to_gpio_device(dev);
+>  
+>  	/* Call pending kfree()s for descriptor labels. */
+> -	synchronize_srcu(&gdev->desc_srcu);
+> +	srcu_barrier(&gdev->desc_srcu);
+>  	cleanup_srcu_struct(&gdev->desc_srcu);
+>  
+>  	ida_free(&gpio_ida, gdev->id);
+> -- 
+> 2.43.0
+> 
