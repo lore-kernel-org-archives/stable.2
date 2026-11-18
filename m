@@ -1,58 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795032803;
-	b=wDZXxa1cpPXUhfvCn6Sp30aTQvuSoCevLeI1KfoI1R2MSJkncmII47r62btnHEMdxBPw
-	 0rX/lsVVS2hn0ztGaJ1D8JtOiDrqG/JTrzMiW51kOtrianwyqQ/315ELWB/Jzv78VKWTY
-	 g+1zT5ZgCBFOfi81McSjnrm+5k2zwEBzs1CyJ2WdgGOq95+zRFPChjydcro6VFUusgYYt
-	 pLOyM9Qc5iB16hfaImyOeqOnrcyUoS7Xnp0Rx2wB42zFeod0fDEhjCGoMCvyASuiUK+ob
-	 9+QuwrBnCtVAMdjIDArSaBCQQEwFJNQ0xs3nX41320sOavyvrGaig/B0nvq7KKLpJcw==
+	t=1795032804;
+	b=1nV0ioSe/laVgI/xbtHANega8ZnKILLmRlJKejlfJRkH8/0OHYEDnP78o+DPG6fUmJO+
+	 O6JGlRsxzB1fnDdRZvQ5fEHg+4G+Ob0hRDXx9PLx0lZPhz3jq/w0uAjWxqJutyg1XcFoh
+	 sj+U8bSjZ/hJrF472wFZjseFTCXgaHypxyqn6b9XIFgACeXtUOBn3D6Fbt0d3CDW215Gs
+	 VkXrWNqkvTawbo/1kATkDyLJjiw7dgSN2JeOatd5v/kiRWw3XaS/ykPhBps0XlNPkbcEu
+	 LKCz0Whifwxb64xoparBKoIOTpAOOmisk3Cjvcj4JESHfBj6fYrpXKFvL3DI9P9lvkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795032803;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=U0lXGC0LQPb9lp5RJodL9wQIz/DDqeJm6AfvJpW1IVw=;
-	b=zlu+OFt4Wza27yB09wxmFtmHZFDz4iOG4qr8lNC4vdE/x/9VuoyzXji9ODfBpg1bbysD
-	 BXvhr7x6Q/4CGNybwbHrYkkbTj5fwIqR1cBHZmK7db78yKPrwmzvSlbKAGdc86YFo8AEF
-	 /SgW/Hem1k+wcjwC37UQw0wEw7NM3i91UzrfiEXWPxCBgUxUP+WQSAbb0e973VkvjBtlQ
-	 pYKPbB7izz4Jije7iAwuVU4nJLF8UMowqdtxaiFHUYQkeqvThsrLxsfiZQgU4zdFyXyRi
-	 8aScRbBPQCbo3ygBpDH9bKr24sfLYtdaIa5oruJpCO9+j1WXdth+aBA2QacveZRDbBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795032804;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=CWo9gG2M1aL8kOtpEn9bnir/HcJAmR4CCoFL4v530ak=;
+	b=45NTiKV6s3md3fHS2KmntZIQt4HStkt1Oh3AB+b4Pxo/FIBFDfOYCIHf7KNvURs0qfAF
+	 rXCVMLmIPrvvufY7aJBfgknWmcVpOD+WLg3HXyHGSGRKVk2aQDiQ04Yyq7TWC+3pPcR6Z
+	 Dqwd7d3JU15clejv+kjTf/UPcAHJx4KC3M5R9PbJ6ee4VPG+Iwpt9zWeT1ipoK4+cS+nT
+	 oilsdrWYFa15zfDV/Ovws7GshfVIgSVtcS6DPfJuGD9Xa2ytkeGndK4X+lA0LNj5ASvZK
+	 LT779zRsm5rF/QweAyENizFeclAWK6JDOORpqtK7Z0nsl04eIkcPi3dEnC7ZpNnsWRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gMCiX6V6;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RFoe4SGS;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFE4F606A31C;
-	Wed, 18 Nov 2026 20:13:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9389E606A32C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 20:13:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9389E606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=gMCiX6V6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D3F61F000C4;
-	Wed, 18 Nov 2026 20:13:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795032802;
-	bh=U0lXGC0LQPb9lp5RJodL9wQIz/DDqeJm6AfvJpW1IVw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gMCiX6V6akSuvuQDjB6atba+RbrFPKuZPCK1w5fFgzPrn6QriZpfOF2xSMOv6GecD
-	 iT0SFALC6vGB61W9GSiawxv437Isg7n12OQ5qU4BU3MH0elzUjsftEol3CiuFlXqg0
-	 wL85UZvvv1ODeK7Vm1/ShtK5a6WrksxAcM22ROE0=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Allison Henderson <achender@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1540/1756] net/rds: keep the connected peers scope id apart from the bound one
-Date: Wed, 18 Nov 2026 16:01:07 +0100
-Message-ID: <20261118150110.249339703@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150007.957976754@linuxfoundation.org>
-References: <20261118150007.957976754@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RFoe4SGS
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb64ef5a00so11226525e9.3
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 12:13:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795032802; x=1795637602; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CWo9gG2M1aL8kOtpEn9bnir/HcJAmR4CCoFL4v530ak=;
+        b=RFoe4SGSoAriNsO7IBJF+93KSgN7VqcuHBIqO/XDArIqXiKGxaz9iQNC9Qqix7DdlV
+         xAWFF5MI8jkawVifyg8d0vzokL84+v3zLoLoNvM352wDBwYSn95qnzdl7h1fcjruenRO
+         uDaig58D01pppI3Fjm4VYEIqKvkPPnEReWN8GE1FejzlIJVmPAuAKusdOhY/9umO4+yN
+         j45sRvIvdmd23/yGunQWXb64EePXYy9GOw8L/bUwMITt1sD3gZ7S/N75gJWDsTPP76d0
+         yrxLez2avHI+QHpEQUEuXTZTxaqhn1Bf0Mtwb4dgB9v9MTVsG3/dKJI8rIG7nBsllIB7
+         Dyaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795032802; x=1795637602;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CWo9gG2M1aL8kOtpEn9bnir/HcJAmR4CCoFL4v530ak=;
+        b=G+7BXrfRvYqrIKUw8Wg8+nxcVGEaFWSSQwi1dTqatQlIM8qez5ZAQ54SnH7RI7XVVx
+         MC2KAsbp3gilBf6B2k+9MzsXcS7XljatbolUoyx+VhbfGWGhlq9M5qkkvHtmpt/EWcT3
+         qAHCnfslO5Uj+rZ/p+/YcPf4wF1mI8ulmEKd0tl6XDTifAM3EeOneAcXXDEe1+KsA3iM
+         dJEGW+UfIB5DDMh1182T0hLR+xIh4Ajid5uqvFffJSG5dL+GPzbJfj35abYgSZ+THDPJ
+         qmaC9XSF2iMET0S0Yg8rPTTDc+x+JJqqGh5R+OMrSsdas6Ca8MR3Q5Z2HwT1d6HXlMmX
+         oDhQ==
+X-Forwarded-Encrypted: i=1; AL+hErGbKR1Wrezm6acASWEepYqbdnxHhPT27ElH1Jts0EyddDgEpBYEH6vHY1KlZdZcNE/j6g0VQy4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xE9Dc9lJUmvb19aeeF3YWeNXW9/q8LDfQ/e7h81rfrU1xhzb5
+	ElQZ6X4XqOIPQTB0Q4T+esRGzCjuSxCe1TJqzhhubusSjfpCn76ERBth
+X-Gm-Gg: AYBFou2VQJFF/YKJYs73qFer/9Jh9vt6f4hTzANIZ2lzbF1BMpiaY0Cj61jTRx2mNW3
+	mLKyCx3IKYhkEP3Z8kG42YLiCI9+7qky2gNRFq0T9BXg/lqiEkqMltn8ttYRLDMGBp48GGXuhmI
+	wVuCPSBmz4sUrhOucOKhXJ7bp3dwsNuwB7RKUy5ZyNpdq2gFG5468q0IVNFccPe5WqDDH0OAoMt
+	ZCgTx9AP/176yTf+0fL5DCcp7IK0ofKCp/mIz2x/LZ4528p13pX/tmBDr7tBD4kOHaYn+TwcWwt
+	qyC15pOCM8riY1qF3jdcNfEIP1Qoq7FXSB3kvPgnms6M49JLL/XKTQAtz9tsIGZO0YaObhLo7mz
+	kT+V5zvUXkFEJYWQ3LkTHMUPc1wt/YO561FLARUCaF910bKQkbisMMtioVbq7Lbk8/3az0VURc5
+	7Tq16Prxz6hID4QrSv3AuKXlmNqpKw0JZafcECjtznFY7+gSMz09wV9foEgdx5on8LegUlJFmJX
+	anZe+afCaESxBd3wT6Z/vq/uR5nFd92B2xxWdI5sg6q4vYv1YGm8435nqi7CfT3eBxNteQTxN4k
+	RiMIQWcorFbkDQw46c2FZMUFYRH9BADyKw==
+X-Received: by 2002:a05:600c:3492:b0:4ab:e27d:e241 with SMTP id 5b1f17b1804b1-4bb7da1a5b8mr67234445e9.15.1795032801596;
+        Wed, 18 Nov 2026 12:13:21 -0800 (PST)
+Received: from localhost ([2603:c027:c000:3cde::f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7e588eabsm47120145e9.3.2026.11.18.12.13.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 12:13:21 -0800 (PST)
+From: Louis Sautier <sautier.louis@gmail.com>
+To: Sathya Prakash <sathya.prakash@broadcom.com>,
+	Sreekanth Reddy <sreekanth.reddy@broadcom.com>,
+	Suganath Prabu Subramani <suganath-prabu.subramani@broadcom.com>,
+	Ranjan Kumar <ranjan.kumar@broadcom.com>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <mkp@kernel.org>
+Cc: MPT-FusionLinux.pdl@broadcom.com,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: mpt3sas: Fix out-of-bounds cpu_msix_table read on CPU hotplug
+Date: Wed, 18 Nov 2026 21:13:16 +0100
+Message-ID: <20261118201316.326943-1-sautier.louis@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,177 +103,111 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+mpt3sas_base_attach() allocates cpu_msix_table based on the highest CPU
+online at probe time, but _base_get_msix_index() indexes it with
+raw_smp_processor_id() without a bounds check. Once a CPU with a higher
+id comes online, I/O submitted from it causes an out-of-bounds read of
+the table. The value read is sent to the firmware as the reply queue
+index. When it is not a valid queue, the IOC faults and I/O fails.
 
-------------------
+On a SAS3224 (FW 16.00.01.00) running v7.4-rc3 with KASAN, booted with
+maxcpus=1 and CPUs 1-95 onlined later, read-only fio pinned to each CPU
+in turn triggers, on CPU 1:
 
-From: Allison Henderson <achender@kernel.org>
+  BUG: KASAN: slab-out-of-bounds in _base_get_msix_index+0x1de/0x230 [mpt3sas]
+  Read of size 1 at addr ffff88812fdf51c1 by task kworker/1:1H/1528
 
-[ Upstream commit 3fe64a5f670dbd6c7c84c2345b0b9726b3b79b31 ]
+and, on CPU 16:
 
-rds_connect() has nowhere to keep the scope of a link-local peer, so
-it stores it in rs_bound_scope_id, the scope of the socket's own
-bound address, for rds_bind() to check a later link-local bind
-against.  That field is then also what a send without a destination
-uses as the request's scope, what getpeername() and recvmsg() report
-as the peer's scope, and what a later bind() overwrites:
-rds_add_bound() stores the bound address's scope unconditionally,
-which for a non-link-local address is 0.
+  mpt3sas_cm0: fault_state(0x1500)!
+  mpt3sas_cm0: sending diag reset !!
+  I/O error, dev sda, sector 3873068048 op 0x0:(READ) flags 0x800000 phys_seg 1 prio class 2
+  mpt3sas_cm0: removing unresponding devices: start
+  sd 0:0:0:0: [sda] Synchronizing SCSI cache
 
-So after connect(fe80::x%ifA) followed by bind(global), a send() with
-no destination asks for fe80::x with scope 0.  rds_conn_lookup() keys
-on the interface, so that finds or creates a connection with c_dev_if
-0, which the TCP transport then tries to connect through
-sin6_scope_id 0 and tcp_v6_connect() rejects for a link-local peer:
-the connected socket's data is queued on a connection that can never
-come up.  In the other order, bind(global) then connect(fe80::x%ifB),
-the connect leaves a global-bound socket with rs_bound_scope_id ifB,
-so sends to other link-local peers are refused as off-link and sends
-to global peers inherit a meaningless interface.
+Allocate the table based on nr_cpu_ids instead, and map every CPU in
+each reply queue's affinity mask, including offline ones. Managed IRQ
+affinity already spreads the vectors over all possible CPUs, so a CPU
+onlined later uses the queue whose affinity mask contains it.
 
-Give the connected peer its own rs_conn_scope_id.  rds_connect()
-records it there and leaves the bound scope alone, rds_bind()'s
-connected-socket check compares against it, and the destination-less
-send takes its scope from it - falling back to the bound scope for a
-non-link-local peer, so that send() and sendto() to the connected
-peer compute the same scope, and so the same connection.
-getpeername() reports the connected peer with its own scope.
-recvmsg() used to report every sender with the socket's bound scope;
-a connected socket receives from any peer, so neither the bound scope
-nor the connected peer's scope is right for an arbitrary sender.  It
-now reports a link-local sender with the interface recorded on its
-connection, c_dev_if: the TCP accept path takes it from the incoming
-socket, and the IB passive side resolves it from the local address,
-the closest the CM gets to the arrival interface.  Any other sender
-is reported with scope 0, the inet6 convention.  Either way, a reply
-to the address an application was given reaches the same connection.
+The online-mask restriction and the bounds check added by commit
+4a8842de8db4 ("scsi: mpt3sas: fix an out of bound write") are no longer
+needed, since the table now has an entry for every possible CPU.
 
-Found by inspection while reworking the sendmsg connection cache; not
-observed in the field.
+When smp_affinity_enable=0 or a reply queue has no affinity mask, the
+fallback path still sets only the entries of the CPUs online at probe
+time. A CPU onlined later then reads 0 from the zeroed table, and queue
+0 is always a valid queue.
 
-Fixes: 1e2b44e78eea ("rds: Enable RDS IPv6 support")
-Signed-off-by: Allison Henderson <achender@kernel.org>
-Link: https://patch.msgid.link/20261020002816.3087414-3-achender@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+With the change, the same fio test runs without errors, also while
+CPUs 1-95 are taken offline and back online in a loop. With maxcpus=12
+(12 reply queues), I/O from each of the 96 CPUs completes on the vector
+whose affinity mask contains that CPU.
+
+Fixes: f92363d12359 ("[SCSI] mpt3sas: add new driver supporting 12GB SAS")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Louis Sautier <sautier.louis@gmail.com>
 ---
- net/rds/af_rds.c | 15 +++++++++------
- net/rds/bind.c   |  4 ++--
- net/rds/rds.h    |  2 ++
- net/rds/recv.c   | 11 ++++++++++-
- net/rds/send.c   |  6 +++++-
- 5 files changed, 28 insertions(+), 10 deletions(-)
+The table is used when there is a single blk-mq hardware queue, i.e. on
+SAS2 and gen 3 chips, and on gen 3.5 chips with host_tagset_enable=0,
+smp_affinity_enable=0 or a single non-high-iops reply queue. Gen 3.5
+chips also use it for internal commands. It is not used in
+msix_load_balance mode.
 
-diff --git a/net/rds/af_rds.c b/net/rds/af_rds.c
-index 85f6471ee6543..63b6d6e6b035d 100644
---- a/net/rds/af_rds.c
-+++ b/net/rds/af_rds.c
-@@ -135,8 +135,7 @@ static int rds_getname(struct socket *sock, struct sockaddr *uaddr,
- 			sin6->sin6_port = rs->rs_conn_port;
- 			sin6->sin6_addr = rs->rs_conn_addr;
- 			sin6->sin6_flowinfo = 0;
--			/* scope_id is the same as in the bound address. */
--			sin6->sin6_scope_id = rs->rs_bound_scope_id;
-+			sin6->sin6_scope_id = rs->rs_conn_scope_id;
- 			uaddr_len = sizeof(*sin6);
- 		}
- 	} else {
-@@ -568,6 +567,7 @@ static int rds_connect(struct socket *sock, struct sockaddr *uaddr,
- 		}
- 		ipv6_addr_set_v4mapped(sin->sin_addr.s_addr, &rs->rs_conn_addr);
- 		rs->rs_conn_port = sin->sin_port;
-+		rs->rs_conn_scope_id = 0;
- 		break;
- 
- #if IS_ENABLED(CONFIG_IPV6)
-@@ -612,11 +612,14 @@ static int rds_connect(struct socket *sock, struct sockaddr *uaddr,
- 				ret = -EINVAL;
- 				break;
+SAS2 and gen 3.5 cards were not tested.
+
+This patch does not fix the fallback path in
+_base_assign_reply_queues(), which walks cpu_online_mask without
+cpus_read_lock(). A CPU going offline during probe can make
+cpumask_next() return nr_cpu_ids, and the loop then writes the byte
+after the end of the table.
+
+ drivers/scsi/mpt3sas/mpt3sas_base.c | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/scsi/mpt3sas/mpt3sas_base.c b/drivers/scsi/mpt3sas/mpt3sas_base.c
+index 5c957044eded..b33a3e49608d 100644
+--- a/drivers/scsi/mpt3sas/mpt3sas_base.c
++++ b/drivers/scsi/mpt3sas/mpt3sas_base.c
+@@ -3264,11 +3264,8 @@ _base_assign_reply_queues(struct MPT3SAS_ADAPTER *ioc)
+ 				goto fall_back;
  			}
--			/* Remember the connected address scope ID.  It will
--			 * be checked against the binding local address when
--			 * the socket is bound.
-+			/* Remember the connected address scope ID.  It is
-+			 * checked against the binding local address when
-+			 * the socket is bound, and gives a send without a
-+			 * destination its scope.
- 			 */
--			rs->rs_bound_scope_id = sin6->sin6_scope_id;
-+			rs->rs_conn_scope_id = sin6->sin6_scope_id;
-+		} else {
-+			rs->rs_conn_scope_id = 0;
- 		}
- 		rs->rs_conn_addr = sin6->sin6_addr;
- 		rs->rs_conn_port = sin6->sin6_port;
-diff --git a/net/rds/bind.c b/net/rds/bind.c
-index 97a29172a8eec..70237a3243f02 100644
---- a/net/rds/bind.c
-+++ b/net/rds/bind.c
-@@ -233,8 +233,8 @@ int rds_bind(struct socket *sock, struct sockaddr *uaddr, int addr_len)
- 	 * non-link local address (scope_id is 0).
- 	 */
- 	if (!ipv6_addr_any(&rs->rs_conn_addr) && scope_id &&
--	    rs->rs_bound_scope_id &&
--	    scope_id != rs->rs_bound_scope_id) {
-+	    rs->rs_conn_scope_id &&
-+	    scope_id != rs->rs_conn_scope_id) {
- 		ret = -EINVAL;
- 		goto out;
- 	}
-diff --git a/net/rds/rds.h b/net/rds/rds.h
-index a1dd83c2f9a29..5a1789ace8fbf 100644
---- a/net/rds/rds.h
-+++ b/net/rds/rds.h
-@@ -613,6 +613,8 @@ struct rds_sock {
- 	struct in6_addr		rs_conn_addr;
- #define rs_conn_addr_v4		rs_conn_addr.s6_addr32[3]
- 	__be16			rs_conn_port;
-+	/* scope of rs_conn_addr when it is link-local, 0 otherwise */
-+	__u32			rs_conn_scope_id;
- 	struct rds_transport    *rs_transport;
  
- 	/*
-diff --git a/net/rds/recv.c b/net/rds/recv.c
-index 110fb22c3e2e4..b205943803570 100644
---- a/net/rds/recv.c
-+++ b/net/rds/recv.c
-@@ -755,7 +755,16 @@ int rds_recvmsg(struct socket *sock, struct msghdr *msg, size_t size,
- 				sin6->sin6_port = inc->i_hdr.h_sport;
- 				sin6->sin6_addr = inc->i_saddr;
- 				sin6->sin6_flowinfo = 0;
--				sin6->sin6_scope_id = rs->rs_bound_scope_id;
-+				/* A link-local sender is reported with the
-+				 * interface recorded on its connection (the
-+				 * accepting socket's device for TCP, the one
-+				 * resolved for the local address on IB); any
-+				 * other sender has no scope.
-+				 */
-+				sin6->sin6_scope_id =
-+					(ipv6_addr_type(&inc->i_saddr) &
-+					 IPV6_ADDR_LINKLOCAL) ?
-+					inc->i_conn->c_dev_if : 0;
- 				msg->msg_namelen = sizeof(*sin6);
- 			}
+-			for_each_cpu_and(cpu, mask, cpu_online_mask) {
+-				if (cpu >= ioc->cpu_msix_table_sz)
+-					break;
++			for_each_cpu(cpu, mask)
+ 				ioc->cpu_msix_table[cpu] = reply_q->msix_index;
+-			}
  		}
-diff --git a/net/rds/send.c b/net/rds/send.c
-index d38964cbf3aa1..f9f6482ffb79f 100644
---- a/net/rds/send.c
-+++ b/net/rds/send.c
-@@ -1222,7 +1222,11 @@ int rds_sendmsg(struct socket *sock, struct msghdr *msg, size_t payload_len)
- 		lock_sock(sk);
- 		daddr = rs->rs_conn_addr;
- 		dport = rs->rs_conn_port;
--		scope_id = rs->rs_bound_scope_id;
-+		/* The connected peer's scope for a link-local peer, else
-+		 * the bound scope, as an explicit send to that peer would
-+		 * compute below.
-+		 */
-+		scope_id = rs->rs_conn_scope_id ?: rs->rs_bound_scope_id;
- 		release_sock(sk);
+ 		return;
  	}
+@@ -8409,15 +8406,18 @@ int
+ mpt3sas_base_attach(struct MPT3SAS_ADAPTER *ioc)
+ {
+ 	int r, i, rc;
+-	int cpu_id, last_cpu_id = 0;
  
+ 	dinitprintk(ioc, ioc_info(ioc, "%s\n", __func__));
+ 
+ 	/* setup cpu_msix_table */
+ 	ioc->cpu_count = num_online_cpus();
+-	for_each_online_cpu(cpu_id)
+-		last_cpu_id = cpu_id;
+-	ioc->cpu_msix_table_sz = last_cpu_id + 1;
++	/*
++	 * Allocate an entry for every possible CPU, because
++	 * _base_get_msix_index() indexes the table with
++	 * raw_smp_processor_id(), which can be a CPU brought online after
++	 * the adapter was attached.
++	 */
++	ioc->cpu_msix_table_sz = nr_cpu_ids;
+ 	ioc->cpu_msix_table = kzalloc(ioc->cpu_msix_table_sz, GFP_KERNEL);
+ 	ioc->reply_queue_count = 1;
+ 	if (!ioc->cpu_msix_table) {
+
+base-commit: 141b164bbe186423e295b139e40e8e2d11cf1341
 -- 
-2.53.0
-
-
+2.56.0
 
