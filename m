@@ -1,58 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795016500;
-	b=Bfx3x2yUODV3uZb1tenRuPSz8GkTCwIf8CKMiWSI1Cyw5CBk2HJ9ymCNl5yPgNtpr0oG
-	 ROav33Ld1s+NrcumtIPfDc1aXvurJFygPIbjCevZZ18JeYcxTeQQ2UcAfrCAWWYQ1J3KZ
-	 xmBENAKGSAMpZGS3FNkPnrj5IiqkQRLt+c4bJ7kgVJGL4E7lsIQey5PWq7R+hEIEvunc0
-	 0U0wxS2IdpwoGIFfIBPIifzR7oNzi6lYcM1ckgSGYcLe16lmzmjrAvoomO2N+aus46Wbv
-	 xv7WG+5Lym2CrqV5MojqoijSAMRsr0SDVCPJGnihy4eC67dU6d15fushoP5eNrnT8bw==
+	t=1795016495;
+	b=IOByD6or/SNPrVBznYMktpCkhu8fwwK2kk5AV6zwHsnBG4Pwmjgxs85v1maDlM0HVx/T
+	 hknGG/w7r0ZQKVEF7PUSVbiXeccEEeqDRGtsEs8UBsQOQCFD+xEu9T/Q/u6Uk7ZSem6Zv
+	 GNraAPVx+9xp5RvxzLixcfQCNlRnZOaYIkEt7VSpJBEpRfz+AGvfls9zwYegcm+YxK4Pj
+	 SADt4T3xc0FhMC18Uqh9PqcgGUmPyhrkKAWBTvTTvk1nRsG6yIOEiyYFLKlMte4IMKjHU
+	 MnXhDczJFeCFibiQG+TZLCAiPa7OmFTyhlfqI2gB6Nw8HfGJHFHBOiKY26y2ODa2VMQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795016500;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=Zo8pmpW72/B/zV+FBt5FzyUwQWFRKm1NSJhS/ezTtWk=;
-	b=CH/lfOxk18MMfkSBjVsrTs1Rh34VsN6PxRQHDKyfw4WRwiHEgQqVrZ2unEJs6eLBfuzp
-	 rQALIyLGIZbs9+slcBXrIc7kP0V0WzVkQYUqA/+dcuaLN5V1b0pOM6dQa0RSO3aLzIojX
-	 l9cYGKZxdZfGVdBxDK99yqAKlH3l6ZUkcMLJHdAaVK4KWNLiDlKqlQslsSNTb1iW+XcPt
-	 k2gNc9oHxBkRLnQtrN5QpulyU1NJ/J6LCQgra+EICNfk0vjaS9V36Pg1Y+VTMqRztSIh0
-	 aZVrqIE9TuHfuibWCSyjofVnuo9RMJ+lERF8oSihyC9W6JFZ+EPvL6REAcLZZrxqS3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795016495;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=cD/07tCbP0c2PveFePONvl73YWhDWOPfUwb001eQKwE=;
+	b=tkoY9rpAZ7+kkadw7ceQr/lszJxmMuhsFFq9Me1fJUYUiq1E1e0wWw+j7K9+pVQNo5Kp
+	 Qvva4dEH6mmPXT5omhx+MgHAHd0TR+5szFzOBvgi+lqn1jVuz2AzX0vKUpzOHVODtxSJJ
+	 5AzRhRB/+5NkxZjvKT/u1JFPFYfs66XKSVXfWTj6Hkrq4o4qiQolpJmrm1W+TW10QAGc7
+	 RG2fhgGnqO+SXw4OTLfZrB4kwviAJyO8ijJNwqqK6B2umSd/qI9t0HWVEp8l7H7+oTYx2
+	 ofouHzIP/bGWhi80ZcBacB67ylelrRzahOHG4qov6QPkxp6eIsSMA0plZoAG2/65uhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IZHfMndq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xh4RhHqr;
+	arc=none smtp.remote-ip=209.85.208.43
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE22606A32C;
-	Wed, 18 Nov 2026 15:41:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DC18606A320
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 15:41:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6DC18606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=IZHfMndq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF7751F000C4;
-	Wed, 18 Nov 2026 15:41:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795016500;
-	bh=Zo8pmpW72/B/zV+FBt5FzyUwQWFRKm1NSJhS/ezTtWk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IZHfMndqEH4+9jpMHSssgiTbJuHqyU+9tsJCvaSScjGaGHrbDS9ikEbdq7kDH8LFH
-	 ToRNYYqN5DCncC1tnFyDsxc/Z5uuzrXxEeHOqp1RFTWSsT1hNqJMACDkp53hzYpiPX
-	 RN7RI6LQd+km++2Lm8DnAFM8+lmCydDA5ui16V7g=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Max Zhen <max.zhen@amd.com>,
-	Lizhi Hou <lizhi.hou@amd.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0550/2651] accel/amdxdna: Fix race between unmap and free BO
-Date: Wed, 18 Nov 2026 15:29:50 +0100
-Message-ID: <20261118150307.550855949@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Xh4RhHqr
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6b894a5ce3dso1262865a12.2
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 07:41:35 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795016494; x=1795621294; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cD/07tCbP0c2PveFePONvl73YWhDWOPfUwb001eQKwE=;
+        b=Xh4RhHqrHc3yc56+v81B6EtxtJ0ODDySLnhAH6Bcyo+2KI4tb4m0sow/x8cyaDqfJO
+         8Q+GA32xhbsvG9hVZ54LsAdBS8FFPPokzwLwGrQKCbwVfwV2vmeKVJ3C/5b8PX71niNC
+         WgAHlQxGht204JVx93ADZwzNuyhN1HX2gaOxQjuZBijmqfBBjB/y8GerqI7D9v4uBTHt
+         TWnxI7Rvl1PkKhiKF+n1daFsNkmMPYiqIX0/orF6Lxw7IgqtJnpp0OYKfEgvJJCyBWmE
+         e9VhAkiD5Uw+s2MVjs4DGBkwBAJh4QgIIu65X56e50h5v1v8WE/rzC95z0A1Ph6CFlrv
+         nhUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795016494; x=1795621294;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cD/07tCbP0c2PveFePONvl73YWhDWOPfUwb001eQKwE=;
+        b=kv4YC2Fg1s23fg4A1uHX5zcysdcI8hOonXBjhMWrh90QvWeI+u62xXyNAA5l++c6sz
+         3VFEIeX19GcTqG0BH5CG06StzL1UscUkkLSj7jJ311Mi4hnt8b+hm2jalrR54V8jqM+1
+         BYQPPhywJ0YpXMP5fGh3JcYNAjqEfjVyZBHbOiclENdL2wlDZqkWnk0H3p84lHK72Dcr
+         PcequG3IbWpx8HehXD8Bg8QTe0mGs9x1GXym5mkA3uVSoWilTWP1NEkr8i+CZ/aUl8s+
+         tN+3INiLI4ykzw3/cvxVMOxWvTt6C92kuYXBSmjdEi2kL+LvdLpP9m5cTkEi9MrrvYtD
+         2LEQ==
+X-Forwarded-Encrypted: i=1; AL+hErE2xSrmMkgmVY0rHTna1qEGf4QiXxhGnmCqaepjcu4K24aZIKwe6RB+dpeTmBdKUGCimps0l3I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+KoWpH8l6robI6a+qi5J6qL6pwllmjOrpdeY3Ip44vnUqOnSso
+	yCJefcpMYT18/AmAK6Ll+mh6XObyqmXjFYT1UCuI6ziKTm+CthJegDhR
+X-Gm-Gg: AYBFou3dI/IWj2a53s+gmqK5Zc88SH7qXz9ufaWuJ5ZpgFCdoBMnGFG/m2j7VWcIq0V
+	Qf74YYzNdhEqlaXtfiYzwOndK6CeTWux6jfM/3sZa/C71+zFwLiWAYK3i7q843gOyzzgaj0eu2G
+	HRTrysdlB1iyN0ZSl79sBKG1iLTfFAm18vPX44SF0owoiZbUBjRfKyOBJPyYo2/tefqNlaofceB
+	RZv6hBMNgcZmmEP5gCUDM/mvKrkm6mJmGUIR7fsCW2FVooXsAwLV/mcx1Vj0JChdMW1GwEv96VL
+	4UUlt5L1+8n5lsB4app0M4Y5qbIDRPhHKBgqNNvf9Ukv9sYsA1Jc2WycqVN9+tK+bLRF8zvf8nK
+	mhsn2k4a6zCM1C9/LlXEF0/OHhotOYE9EmKpYjJzBz/IK6CrmKH1uikCSBTfRSkOQWTT9Rwz8op
+	VUF6sXRR279Z3xBmEMb/xOha7iBM4Xxym+lV/t96EUHdVV8tUHRzCYsNtU43We5AIzpF9l60xvH
+	q3RBj0bajhimWMQO4BT60iGtyKYQF3cCajchHviEuiCzN4cqYjHSR0dxWpDhxNbE6LWWUfuAAcW
+	2pNvtW3podyHeGwekNSQ/hhs//ZgObWbxxraV2jp8HcHuv1Jiw==
+X-Received: by 2002:aa7:d0d1:0:b0:6b5:8cd9:fc1b with SMTP id 4fb4d7f45d1cf-6b887f0e5fcmr1777268a12.23.1795016493632;
+        Wed, 18 Nov 2026 07:41:33 -0800 (PST)
+Received: from rigel (106-68-220-184.tpgi.com.au. [106.68.220.184])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b88a0021d0sm1192372a12.22.2026.11.18.07.41.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 07:41:31 -0800 (PST)
+Date: Wed, 18 Nov 2026 23:41:21 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Jia Jia <physicalmtea@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v6 5/8] gpiolib: cdev: don't leak the IRQ name when the
+ chip is removed
+Message-ID: <20261118154121.GC46152@rigel>
+References: <20261116-gpiolib-chip-removal-v6-0-aambrozewicz@nvidia.com>
+ <20261116-gpiolib-chip-removal-v6-5-aambrozewicz@nvidia.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,236 +105,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261116-gpiolib-chip-removal-v6-5-aambrozewicz@nvidia.com>
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On Mon, Nov 16, 2026 at 03:47:08PM +0200, Adrian Ambrozewicz wrote:
+> The character device requests line IRQs with a copy of the consumer
+> label as the name, and frees the name that free_irq() returns. When
+> gpiochip_remove() frees the IRQ first, it drops that name and the copy
+> leaks:
+> 
+>   unreferenced object (size 8):
+>     comm "gpio-hold"
+>     backtrace (crc dc8eac94):
+>       kstrdup
+>       kstrdup_and_replace
+>       edge_detector_setup
+>       linereq_create
+>       gpio_ioctl
+> 
+> Keep the name with the line or v1 line event, and free it there,
+> whoever freed the IRQ.
+> 
+> Reproduced with gpio-sim: remove the chip under an open request with
+> edge detection and a consumer label. kmemleak reports up to 23 such
+> objects after 30 cycles; with this change, none after 100.
+> 
 
-------------------
+Reviewed-by: Kent Gibson <warthog618@gmail.com>
 
-From: Lizhi Hou <lizhi.hou@amd.com>
-
-[ Upstream commit ac18f34f5927e420ae529be72aec86201a262d04 ]
-
-A userspace process can concurrently trigger an unmap, which queues
-hmm_unreg_work, and free BO. If amdxdna_hmm_unreg_work() executes
-list_del(&mapp->node) and is preempted before calling amdxdna_umap_put(),
-amdxdna_hmm_unregister_all() can fail to find the mapping in the list
-and return without calling cancel_work_sync(). This allows object
-destruction to proceed while the worker still holds a pointer to the BO
-in the umap structure.
-
-Moving the work item from struct amdxdna_umap to struct amdxdna_gem_obj.
-The worker no longer holds a pointer to an individual mapping, so there
-is no longer a window where the umap has been unlinked from umap_list but
-work is still pending against it. The work item now lives in the BO
-itself, so use a single cancel_work_sync() in the free path to drain the
-work.
-
-Fixes: 445d20910429 ("accel/amdxdna: Fix unexpected wait when flushing notifier_wq")
-Reviewed-by: Max Zhen <max.zhen@amd.com>
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Link: https://patch.msgid.link/20260917154824.1872220-1-lizhi.hou@amd.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/accel/amdxdna/amdxdna_gem.c | 95 +++++++++++++----------------
- drivers/accel/amdxdna/amdxdna_gem.h |  3 +-
- 2 files changed, 42 insertions(+), 56 deletions(-)
-
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-index e861db6f93693..398d0a58b53a7 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.c
-+++ b/drivers/accel/amdxdna/amdxdna_gem.c
-@@ -164,30 +164,6 @@ void amdxdna_gem_heap_free(struct amdxdna_client *client, struct amdxdna_gem_obj
- 	mutex_unlock(&client->mm_lock);
- }
- 
--static struct amdxdna_gem_obj *
--amdxdna_gem_create_obj(struct drm_device *dev, size_t size)
--{
--	struct amdxdna_gem_obj *abo;
--
--	abo = kzalloc_obj(*abo);
--	if (!abo)
--		return ERR_PTR(-ENOMEM);
--
--	abo->pinned = false;
--	abo->assigned_hwctx = AMDXDNA_INVALID_CTX_HANDLE;
--	mutex_init(&abo->lock);
--
--	abo->mem.dma_addr = AMDXDNA_INVALID_ADDR;
--	abo->mem.uva = AMDXDNA_INVALID_ADDR;
--	abo->mem.size = size;
--	abo->open_ref = 0;
--	abo->internal = false;
--	INIT_LIST_HEAD(&abo->mem.umap_list);
--	xa_init_flags(&abo->heap_xa, XA_FLAGS_ALLOC);
--
--	return abo;
--}
--
- static void
- amdxdna_gem_destroy_obj(struct amdxdna_gem_obj *abo)
- {
-@@ -278,10 +254,8 @@ static bool amdxdna_hmm_invalidate(struct mmu_interval_notifier *mni,
- 
- 	if (range->event == MMU_NOTIFY_UNMAP) {
- 		down_write(&xdna->notifier_lock);
--		if (!mapp->unmapped) {
--			queue_work(xdna->notifier_wq, &mapp->hmm_unreg_work);
--			mapp->unmapped = true;
--		}
-+		mapp->unmapped = true;
-+		queue_work(xdna->notifier_wq, &abo->hmm_unreg_work);
- 		up_write(&xdna->notifier_lock);
- 	}
- 
-@@ -311,13 +285,13 @@ static void amdxdna_hmm_unregister(struct amdxdna_gem_obj *abo,
- 		if (!compare_range(mapp, vma->vm_mm, vma->vm_start, vma->vm_end))
- 			continue;
- 
--		queue_work(xdna->notifier_wq, &mapp->hmm_unreg_work);
- 		mapp->unmapped = true;
-+		queue_work(xdna->notifier_wq, &abo->hmm_unreg_work);
- 	}
- 	up_write(&xdna->notifier_lock);
- }
- 
--static void amdxdna_hmm_unregister_all(struct amdxdna_gem_obj *abo)
-+static void amdxdna_hmm_unreg_umaps(struct amdxdna_gem_obj *abo, bool force)
- {
- 	struct amdxdna_dev *xdna = to_xdna_dev(to_gobj(abo)->dev);
- 	struct amdxdna_umap *mapp, *tmp;
-@@ -325,16 +299,18 @@ static void amdxdna_hmm_unregister_all(struct amdxdna_gem_obj *abo)
- 
- 	down_write(&xdna->notifier_lock);
- 	list_for_each_entry_safe(mapp, tmp, &abo->mem.umap_list, node) {
-+		if (!force && !mapp->unmapped)
-+			continue;
-+
- 		mapp->unmapped = true;
--		mapp->cleanup = true;
- 		list_move(&mapp->node, &dead);
- 	}
-+	if (list_empty(&abo->mem.umap_list))
-+		abo->mem.uva = AMDXDNA_INVALID_ADDR;
- 	up_write(&xdna->notifier_lock);
- 
--	list_for_each_entry_safe(mapp, tmp, &dead, node) {
--		cancel_work_sync(&mapp->hmm_unreg_work);
-+	list_for_each_entry_safe(mapp, tmp, &dead, node)
- 		amdxdna_umap_put(mapp);
--	}
- }
- 
- static void amdxdna_umap_release(struct kref *ref)
-@@ -353,24 +329,10 @@ void amdxdna_umap_put(struct amdxdna_umap *mapp)
- 
- static void amdxdna_hmm_unreg_work(struct work_struct *work)
- {
--	struct amdxdna_umap *mapp = container_of(work, struct amdxdna_umap,
--						 hmm_unreg_work);
--	struct amdxdna_gem_obj *abo = mapp->abo;
--	struct amdxdna_dev *xdna;
-+	struct amdxdna_gem_obj *abo = container_of(work, struct amdxdna_gem_obj,
-+						   hmm_unreg_work);
- 
--	xdna = to_xdna_dev(to_gobj(mapp->abo)->dev);
--	down_write(&xdna->notifier_lock);
--	if (mapp->cleanup) {
--		up_write(&xdna->notifier_lock);
--		return;
--	}
--
--	list_del(&mapp->node);
--	if (list_empty(&abo->mem.umap_list))
--		abo->mem.uva = AMDXDNA_INVALID_ADDR;
--	up_write(&xdna->notifier_lock);
--
--	amdxdna_umap_put(mapp);
-+	amdxdna_hmm_unreg_umaps(abo, false);
- }
- 
- static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
-@@ -422,8 +384,6 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
- 	mapp->abo = abo;
- 	kref_init(&mapp->refcnt);
- 
--	INIT_WORK(&mapp->hmm_unreg_work, amdxdna_hmm_unreg_work);
--
- 	ret = mmu_interval_notifier_insert_locked(&mapp->notifier,
- 						  current->mm,
- 						  addr,
-@@ -449,6 +409,31 @@ static int amdxdna_hmm_register(struct amdxdna_gem_obj *abo,
- 	return ret;
- }
- 
-+static struct amdxdna_gem_obj *
-+amdxdna_gem_create_obj(struct drm_device *dev, size_t size)
-+{
-+	struct amdxdna_gem_obj *abo;
-+
-+	abo = kzalloc_obj(*abo);
-+	if (!abo)
-+		return ERR_PTR(-ENOMEM);
-+
-+	abo->pinned = false;
-+	abo->assigned_hwctx = AMDXDNA_INVALID_CTX_HANDLE;
-+	mutex_init(&abo->lock);
-+
-+	abo->mem.dma_addr = AMDXDNA_INVALID_ADDR;
-+	abo->mem.uva = AMDXDNA_INVALID_ADDR;
-+	abo->mem.size = size;
-+	abo->open_ref = 0;
-+	abo->internal = false;
-+	INIT_LIST_HEAD(&abo->mem.umap_list);
-+	xa_init_flags(&abo->heap_xa, XA_FLAGS_ALLOC);
-+	INIT_WORK(&abo->hmm_unreg_work, amdxdna_hmm_unreg_work);
-+
-+	return abo;
-+}
-+
- static void amdxdna_gem_dev_obj_free(struct drm_gem_object *gobj)
- {
- 	struct amdxdna_dev *xdna = to_xdna_dev(gobj->dev);
-@@ -756,7 +741,9 @@ static void amdxdna_gem_obj_free(struct drm_gem_object *gobj)
- 	struct amdxdna_dev *xdna = to_xdna_dev(gobj->dev);
- 	struct amdxdna_gem_obj *abo = to_xdna_obj(gobj);
- 
--	amdxdna_hmm_unregister_all(abo);
-+	/* No notifier survives this, so no new work can be queued. */
-+	amdxdna_hmm_unreg_umaps(abo, true);
-+	cancel_work_sync(&abo->hmm_unreg_work);
- 
- 	if (abo->pinned)
- 		amdxdna_gem_unpin(abo);
-diff --git a/drivers/accel/amdxdna/amdxdna_gem.h b/drivers/accel/amdxdna/amdxdna_gem.h
-index 5dfefdcf13560..9b4aa21a37c99 100644
---- a/drivers/accel/amdxdna/amdxdna_gem.h
-+++ b/drivers/accel/amdxdna/amdxdna_gem.h
-@@ -14,13 +14,11 @@
- struct amdxdna_umap {
- 	struct mmu_interval_notifier	notifier;
- 	struct hmm_range		range;
--	struct work_struct		hmm_unreg_work;
- 	struct amdxdna_gem_obj		*abo;
- 	struct list_head		node;
- 	struct kref			refcnt;
- 	bool				invalid;
- 	bool				unmapped;
--	bool				cleanup;
- };
- 
- struct amdxdna_mem {
-@@ -44,6 +42,7 @@ struct amdxdna_gem_obj {
- 	struct mutex			lock; /* Protects: pinned, mem.kva, open_ref */
- 	struct amdxdna_mem		mem;
- 	int				open_ref;
-+	struct work_struct		hmm_unreg_work;
- 
- 	/* Below members are initialized when needed */
- 	struct drm_mm_node		mm_node; /* For AMDXDNA_BO_DEV */
--- 
-2.53.0
-
-
-
+Cheers,
+Kent.
