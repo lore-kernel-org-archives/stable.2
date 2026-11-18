@@ -1,47 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795039448;
-	b=gtyCONIevq1J/3uh2W+Yt/wcU28DK4AqRWQbT09AYjLlm8HMMo+udUQqFTrH5fnZ5jx/
-	 tsH4FIHqId95iXapK6lGzH2JO633PEhzD8lNv51K5L1GKCYe+c0B8U2r+9kJmYMGknWl3
-	 IccToBVd1pc4Mo/gbtKFSVq6FQtGdZ0zwFsK/BTLJggMjlD8/NomrTAcWMSW/f46s+1kg
-	 iN/uBmM4/2FfPHjpgbsI2BMMswwmZ0hdb5VRzsOpxH5kppvK95GPuYUWY0PnujuHjluSD
-	 IlrpvbnT/+bTcGu1Tr/Cps26CBHULORV/cbBx7bdNkoZVmsapq8Rsn3cp3x8oZO6SYQ==
+	t=1795039451;
+	b=qn9Qj1yIsSkk9bMdfK0S6xN2raR6Um1XR8UG/iH2EIoHM5wP7TNGDh7a6n81dXRe52wo
+	 jQsMed67HtWzbwD48esp1Wj8xJKpQhmHAlE1qbz12zh6l3x10UCrSYQjbuaZELe7WHbFS
+	 UkK75ViHWrZZJQS+JZ6DMKOUwwx7R7e8wRV3EiMJpf6ibbQSZzLaP62qih25ecDv5PNEC
+	 pWAF7vOvMbZnpkgY4fbryrf8YrR4eEJEC1jq8JcFghLANJhhzM7OV6Iqmmso6c1IH0k6B
+	 /8JNXSGguTX0ifK0kGVc8MyzjeK5XU1yiva0XTWp7JlkiEU2AhwdUGf2IZKtocTsWmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795039448;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
-	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=F99TcS6GS6LcOdl28JA1aAD6HB54WK+n8tF0clR+7AI=;
-	b=AeGrWUQhW/QSj7btltwtyCWHhqg2dVy32rjckHFOMiPa4dv+0Pih8YiP0jSqsIEaRHke
-	 qJ5Ix5XS5XMoIjVycVBDF+rhksIIS2eZWHPfEWA/cp0Q1vqqr01xS6vr2/ZW3uMgYDFJ3
-	 lJ/4uQ1m8WBAFoz80Xl1VWWMZgrIkzDyOa7/yLPHRv1FWWX3xUivp5ovaIo+k1veueyWV
-	 MfOfQfHV54h/5AIvFQCMW2P/KosmMWmvoj7K8MrJIb31Flmxjiq9dfshz2nczUsi/7SV8
-	 yRWT7QAy6h6B5GETtQ75mVJXMhHSCH5EJrWoq45OARkzhrkn51AP/SjrEWUyHGYu0RQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795039451;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=0BzLZDPH7mJf1dLncaLOs1bNCFJYev0cUhVMK1/1tn0=;
+	b=ZJFokaa5KEcOKo3WlNBEL30ICWpjSfWLtQN5232V2xllWMy9XF2ScVo3LG07Z+z2Mglr
+	 bji+5EoLszn6Mm0arQNCbTHSmOM7lPPw9QG21kXFptZXhv1kjmdBSoHlMmhUIZHFIgB1I
+	 MtfUyWexQE3WTEMeTwhcGx21yGMGg2Qi6SKlEbiS6LwnLYhUEVtak82VY9oTK/D98h5Nf
+	 Z6PM7gNB2qvWA/ayLp7NKqt4FpF5czntGfQaqLcRYnSb8aPuVQwc0RGcYlYbRGPYw9GSZ
+	 NrS+aw6D/836j7oLATnAg/AbmAgolr+fJzu/IUXsKuNds3iDRU4M1VrZsycxD5qO0Gw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MGgJeIAF;
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qqWGu333;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D6B606A32F;
-	Wed, 18 Nov 2026 22:04:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A5F460A2602;
+	Wed, 18 Nov 2026 22:04:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MGgJeIAF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A58E61F000C6;
-	Wed, 18 Nov 2026 22:04:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795039448;
-	bh=F99TcS6GS6LcOdl28JA1aAD6HB54WK+n8tF0clR+7AI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MGgJeIAFYJOLUucACRpOikWVSrTX5JBCW6ZfRp6krQF2Ae7+TKTq1JhwKRodhqJrj
-	 Cnz06N7E/NljW4ayIMf0ATaGXdF6Wc7w9a2G2C3TCe7wLlxtzTkj5GPE/fjlsdD5s6
-	 j9wLTPRxsP6VVTfhko7oAl+gr7DpjQ05wE6QyZ761TOqxLhcGwJhcVvCNpS/OpnC/C
-	 FWGkfKNSmJ8R7m67ji0C+5B8hAZFsZoHe2iKONS9G0UZ63GUfbDjEszEydwgXnucQN
-	 xnfjgqJw3CkDtl6YYhS49OpBBUkE7JG3WrCQMRU8uzfrsmb4tFTb4PWqK/NHtwm64u
-	 RvyFG3AhepxCA==
-Message-ID: <4c783bb9-d988-48c3-8849-8ec0c9ea1eb3@kernel.org>
-Date: Wed, 18 Nov 2026 23:04:02 +0100
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qqWGu333
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85A981F000C5;
+	Wed, 18 Nov 2026 22:04:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795039451;
+	bh=0BzLZDPH7mJf1dLncaLOs1bNCFJYev0cUhVMK1/1tn0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=qqWGu333oCRrg20b/AXCD1/qbpjNLTNHPjDOihGxnoJvssTdmA0YVg5Jsz68vT08m
+	 grXQxceoygNehMh8WKIijNn6LkBIgsTXqMMmpT14wtirGEdzvQEx2tLUz+/sabM7zz
+	 NkBjAR3fg+P40vsBWf2/u+riDoYSLcpyikBykNdM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Nicolas Escande <nico.escande@gmail.com>,
+	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6 2106/3318] wifi: ath11k: fix locking problem in ath11k_dp_rx_tid_del_func()
+Date: Wed, 18 Nov 2026 15:45:28 +0100
+Message-ID: <20261118150425.259324174@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
+References: <20261118150313.527275416@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,114 +64,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH net 7/7] mptcp: fix dummy mapping of overlapping segments
-Content-Language: fr
-To: netdev-bot+sashiko@kernel.org
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- fw@strlen.de, dmytro@shytyi.net, netdev@vger.kernel.org,
- mptcp@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- mason@kernel.org
-References: <20261116-net-mptcp-misc-fixes-7-4-rc4-v1-7-bf7656de653e@kernel.org>
- <179495459243.3136.9349092580555178374@kernel.org>
-From: Matthieu Baerts <matttbe@kernel.org>
-Autocrypt: addr=matttbe@kernel.org; keydata=
- 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
- lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
-Organization: NGI0 Core
-In-Reply-To: <179495459243.3136.9349092580555178374@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hello,
+6.6-stable review patch.  If anyone has any objections, please let me know.
 
-On 17/11/2026 23:29, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
-> 
-> Low priority / nit picks for your consideration:
+------------------
 
-(...)
+From: Nicolas Escande <nico.escande@gmail.com>
 
-> Link: https://lore.kernel.org/4c48d016490d43b6892c622cbae858b48f176cff.1794304840.git.tanggeliang@kylinos.cn [1]
-> 
->> Author: Geliang Tang <geliang@kernel.org>
-> 
-> [ ... ]
-> 
->> Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
-> 
-> [Severity: Low]
-> This isn't a bug, but the author address and the address in the author's
-> sign-off are different. The author is geliang@kernel.org, and the only
-> sign-off from Geliang uses tanggeliang@kylinos.cn. No sign-off uses the
-> author address.
-> 
-> scripts/checkpatch.pl reports this as a FROM_SIGN_OFF_MISMATCH warning
-> ("From:/Signed-off-by: email address mismatch"). The names match exactly
-> but the addresses do not, and checkpatch does not look at .mailmap.
-> 
-> .mailmap already maps the two addresses to the same person:
-> 
->     Geliang Tang <geliang@kernel.org> <tanggeliang@kylinos.cn>
-> 
-> So this only affects the consistency of the tags. The DCO itself is not
-> in question.
-> 
-> Since this carries Cc: stable, could the author be set to the kylinos.cn
-> address, or the sign-off use geliang@kernel.org (changed or added), before
-> the patch is applied?
+[ Upstream commit c7555d47b1d051e0406474349deccf74b491ae01 ]
 
-False positive: the author is tanggeliang@kylinos.cn, see the "From:"
-line at the top of the email body. geliang@kernel.org comes from
-.mailmap.
+In this function, we iterate over dp->reo_cmd_cache_flush_list using
+list_for_each_entry_safe(), under dp->reo_cmd_lock for concurrent access,
+and for each expired entries we :
+  - drop the lock
+  - call ath11k_dp_reo_cache_flush()
+  - kfree() the entry
+  - retake the lock to keep on iterating
 
-This looks like a bug in Clashiko, Sashiko didn't report that.
+list_for_each_entry_safe() protects us from deleting the entry during
+iteration but doesn't protect for concurrent access. So another thread can
+take the lock and modify the list in between and crash like below.
 
-Cheers,
-Matt
+To fix the issue, move all entries that needs to be freed to a local list
+while under the lock and then iterate over the list to free the entries
+without holding the lock.
+
+	BUG: Unable to handle kernel paging request at virtual address 00000010ddbeef8c
+	Call trace:
+	ath11k_dp_rx_tid_del_func+0x164/0x3c8
+	ath11k_dp_process_reo_status+0x1d4/0x2fc
+	ath11k_dp_service_srng+0x334/0x338
+	ath11k_pcic_ext_grp_napi_poll+0x30/0xc0
+	__napi_poll+0x34/0x184
+	napi_threaded_poll+0xb4/0x1d8
+	kthread+0xdc/0xe0
+	ret_from_fork+0x10/0x20
+
+Tested-on: QCN9074 hw1.0 PCI WLAN.HK.2.9.0.1-01977-QCAHKSWPL_SILICONZ-1
+
+Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
+Suggested-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Signed-off-by: Nicolas Escande <nico.escande@gmail.com>
+Reviewed-by: Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Reviewed-by: Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Link: https://patch.msgid.link/20260813-ath11k-locking-v2-1-f4113a0bd0f4@gmail.com
+Signed-off-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/wireless/ath/ath11k/dp_rx.c | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath11k/dp_rx.c b/drivers/net/wireless/ath/ath11k/dp_rx.c
+index b3059e2084469..ce31830bac079 100644
+--- a/drivers/net/wireless/ath/ath11k/dp_rx.c
++++ b/drivers/net/wireless/ath/ath11k/dp_rx.c
+@@ -762,6 +762,9 @@ static void ath11k_dp_rx_tid_del_func(struct ath11k_dp *dp, void *ctx,
+ 	struct ath11k_base *ab = dp->ab;
+ 	struct dp_rx_tid *rx_tid = ctx;
+ 	struct dp_reo_cache_flush_elem *elem, *tmp;
++	struct list_head flush_list;
++
++	INIT_LIST_HEAD(&flush_list);
+ 
+ 	if (status == HAL_REO_CMD_DRAIN) {
+ 		goto free_desc;
+@@ -783,23 +786,25 @@ static void ath11k_dp_rx_tid_del_func(struct ath11k_dp *dp, void *ctx,
+ 	list_add_tail(&elem->list, &dp->reo_cmd_cache_flush_list);
+ 	dp->reo_cmd_cache_flush_count++;
+ 
+-	/* Flush and invalidate aged REO desc from HW cache */
++	/* identify aged REO desc that needs removal */
+ 	list_for_each_entry_safe(elem, tmp, &dp->reo_cmd_cache_flush_list,
+ 				 list) {
+ 		if (dp->reo_cmd_cache_flush_count > DP_REO_DESC_FREE_THRESHOLD ||
+ 		    time_after(jiffies, elem->ts +
+ 			       msecs_to_jiffies(DP_REO_DESC_FREE_TIMEOUT_MS))) {
+-			list_del(&elem->list);
++			list_move_tail(&elem->list, &flush_list);
+ 			dp->reo_cmd_cache_flush_count--;
+-			spin_unlock_bh(&dp->reo_cmd_lock);
+-
+-			ath11k_dp_reo_cache_flush(ab, &elem->data);
+-			kfree(elem);
+-			spin_lock_bh(&dp->reo_cmd_lock);
+ 		}
+ 	}
+ 	spin_unlock_bh(&dp->reo_cmd_lock);
+ 
++	/* remove aged REO desc from HW */
++	list_for_each_entry_safe(elem, tmp, &flush_list, list) {
++		ath11k_dp_reo_cache_flush(ab, &elem->data);
++		list_del(&elem->list);
++		kfree(elem);
++	}
++
+ 	return;
+ free_desc:
+ 	dma_free_noncoherent(ab->dev, rx_tid->unaligned_size,
 -- 
-Sponsored by the NGI0 Core fund.
+2.53.0
+
+
 
