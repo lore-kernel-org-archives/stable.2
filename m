@@ -1,57 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795038464;
-	b=hSlZJ3k1mV0ZfykmehvjYjQJaj2kB4Vi667bfV4v27awWzAs17oawKCkjC7/IrQEAQvu
-	 TSmIw8uBQ+BkZuvFexhglmnmdkCpasCQHzAinZEWfELjQGttwNRzPwfcyHfvMaKckv8Nq
-	 lON3g3JdnjBq0VuvFbSL/vwKu11YIxv0LD71SfIu72RDjP8YR+LzB+uJlqH6Nq8wvno1r
-	 okP4WJ580WmH36chyWH5DkJ9DIxGS08628vxvT1gmQKx4kqRmIYn9sn9whWXjSI6/7v3K
-	 0IKPYwvOEgDbmdr4JTH3EJLbcaE5t9VxPmMvsqoiNBMzMFk09P8KxZ5H7kAlVOOYh0w==
+	t=1795038465;
+	b=y3wlKKhvN28rS+OleE900P0WoqDrMFHzPUoysvC3Qtmk2PLZ4V51UiPMN/tu6gtl20P2
+	 E/jYVIhj6Rugjt8O47vN6gbywkgeBF37aQSow5yDuxW8AbE28dZp51CZHECwv2IN6qVmw
+	 9lOfxcFU4ur8VHxEtMkv4B85l0KRt2QzniacAlc5cVJqLHVaIm1EQVPVf40qrG8NVkZA2
+	 lL0DX8nlJI87zLmsO3TFH9XsIKDkUrf8yPaGh5ceKrX3BCT0xQ+KfOOkRLgF6OvU1K+kr
+	 XhO73ujMxdRwUthl0/WfSwT2QV0jNvsC7RKPa23NcS9OYMmzdqn6rDulg5HWIeVAZkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795038464;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=JcDSX7f5TPbKJ9nFT7CVlrgCr24I1Ek0Vwje7myLr1Q=;
-	b=y1yuo4FQeOo4Yw+SAzrNkOzyic4MqtEkJ31HsCFV0Pc+mi6juoPR4CcLraiQfwjv0OSh
-	 txKFQVfOjKuX5GZlBm31oGdnNnqJ089FtdWsIF12S3gIFPD7z18t2UFd+Z2Olp9XhWwPZ
-	 4y/+ZGrnrHVyPnp/CcSsPKQIrIFj3r4muo/AUastXcglrGi1xKCKs/W1rNiQrpABiW2Yt
-	 3RjQzR2hkpcmOEvl7SwRLVSDG1+wtARPnOHFqtvT6EK1j6XV/FYuDdX9SLybw/i2BfXrp
-	 FdHiFGM2+RMrE3oDD0Nle2OEJVB1QkH/fQCK65PZ6M8+FyeHhh0omKYo9wXzrF4F5uQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795038465;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=CNB6iSHvxedKweBduiq/ZM5d60BtJ26KViuAeTWVp6k=;
+	b=3OODQrQnjZN8ohVRihi/4BoED8jn0ln/2KNXolQiv7Cw631Lkiab716YwY3/gd1JO6Sm
+	 /c8cgpiRK+opUAM6hzEGLD11uBIEsNIbjD8VirtyvYwQU+i5aaZdtLxRKtatYbgwjziUj
+	 HvIFNI0j+iMgbRX1kNKARWalLwWrj4sFeqnAkeOuR102rFu4KI4jKC8ZPMAaAWtHhVRzz
+	 P9voft4CfihARveAkVb2nZt4B6A+SormEt3yRyZuDlho1cR8wPO3JRm638leG6THOXctG
+	 nnD9Hn3DLQPDdmFcjAB9E0c7iCmlxgBoorZUUK7+GjWmA8ehL/LyL5T+eWq0wSA9yhw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Kp8MdOGT;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ZHlcdu8k;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D9F8606A330;
-	Wed, 18 Nov 2026 21:47:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BED8606A31C
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 21:47:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BED8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Kp8MdOGT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4DE1F000C5;
-	Wed, 18 Nov 2026 21:47:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795038463;
-	bh=JcDSX7f5TPbKJ9nFT7CVlrgCr24I1Ek0Vwje7myLr1Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kp8MdOGTq0B+JOnF4BnovlcR6Gqz08f53fdAJp7UrXlV19yVcZzTYlgJV9neXnrhS
-	 Ffc0E78ftRD9sL8BXM6CJ7iNwuScD8qJHboY2oShKYv8Vxq9P/FeMWOjQTImGxPX4m
-	 0jtTQWoru81AqHIJo5bdU0a5/9xXw4hIPupgWocw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6 1753/3318] ALSA: synth: Use guard() for spin locks
-Date: Wed, 18 Nov 2026 15:39:35 +0100
-Message-ID: <20261118150414.449469595@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150313.527275416@linuxfoundation.org>
-References: <20261118150313.527275416@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=ZHlcdu8k
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Cc:To:Message-Id:Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Subject:Date:From:From:Reply-To;
+	bh=CNB6iSHvxedKweBduiq/ZM5d60BtJ26KViuAeTWVp6k=; t=1795038465; x=2110398465; 
+	b=ZHlcdu8kPK4u+NYWRIqPEfpK+Ec3aQa+0Cu/kdUGkTcpBa3Jco66EaFcA7D+/g69KidJr0LcVlh
+	2dwjnUom1XmPWTW7JQRb7LKQA+2/NhPnKqRFhP33lDn9CVqAL4e50w3uSb/Xaxj8PrfmCsXQkEEDO
+	uysaQxisVnStFP6wTBv1e+EiCvcwGPb48QkKzssa8srrfVDuMmdV3EYsCFUR0aDuQg/1T5JaQRCMx
+	i7wSFqROzlg/+xCuyubNar6SQmDEgYqiBiZva84StUb984fnq9BMFBfIb2LEs3vLneovB+9PGEAWY
+	scvNuo+F1d1B/Vh7pxMH1HiuVKLalqWyON0Q==;
+Received: from [179.105.94.163] (helo=[10.0.0.1])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1xTnVG-00000001DOD-1t8O;
+	Wed, 18 Nov 2026 22:47:42 +0100
+From: =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Date: Wed, 18 Nov 2026 18:47:28 -0300
+Subject: [PATCH 1/4] drm/vc4: Fix off-by-one in the shader record BO handle
+ check
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,511 +60,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Message-Id: <20261118-vc4-icache-workaround-v1-1-5b8adc2c84fe@igalia.com>
+References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
+In-Reply-To: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
+To: Iago Toral <itoral@igalia.com>, 
+ "Juan A. Suarez Romero" <jasuarez@igalia.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
+ stable@vger.kernel.org, =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1014; i=mcanal@igalia.com;
+ h=from:subject:message-id; bh=XNYsBpRqYjrTgWPoLRTtBGrva2YK8YUh+MlM1gtp31w=;
+ b=owEBbQGS/pANAwAKAT/zDop2iPqqAcsmYgBq/hz2xNPULxF58DQPnhhBojGn/EVjzHQ2RAFOB
+ CP0ZALTyG+JATMEAAEKAB0WIQT45F19ARZ3Bymmd9E/8w6Kdoj6qgUCav4c9gAKCRA/8w6Kdoj6
+ qscBB/9yU+UMVgOZ9oiRUZq5czxN4GvmCGKveOviF2YA647bNP7YDSSm3gWpne69cVfAD228lKK
+ hP4E2X9JEYhjWNtGo3uSCyKBIdQcEryOlhyYAkjok7VePUBMeGACuF0t7cD+N7ErRKjwRudeMgu
+ HlI3+CWHj91ieQEbxKJigp4u3KUlYYUzeqhlE9RjIenkIN9MwOi09ffakRkRuk4YGKwnJxyvOOp
+ KBkIpvsKQLXxoCLlDI1ldQh5131Ay23nuuR6um3/p0lz1w8y0Piskdbv3EtVfqy5Jw0FupJ5Fns
+ u44x6Sjs6ZZZjGOgawnD3QHbeT6c6OTFgkiOjf3bQ+FblRsI
+X-Developer-Key: i=mcanal@igalia.com; a=openpgp;
+ fpr=F8E45D7D0116770729A677D13FF30E8A7688FAAA
 
-6.6-stable review patch.  If anyone has any objections, please let me know.
+validate_gl_shader_rec() accepts a shader BO handle equal to
+exec->bo_count, reading one entry past the end of exec->bo[] and
+using it as a GEM object.
 
-------------------
+Reject handles that aren't below exec->bo_count.
 
-From: Takashi Iwai <tiwai@suse.de>
-
-[ Upstream commit 59ede7178d402b3bfa0266cbd9ad348d5612c295 ]
-
-Clean up the code using guard() for spin locks.
-
-Merely code refactoring, and no behavior change.
-
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Link: https://patch.msgid.link/20250829151335.7342-5-tiwai@suse.de
-Stable-dep-of: 34e3e04b8a17 ("ALSA: emux: Fix UAF of soundfont zones at note-on")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
+Signed-off-by: Maíra Canal <mcanal@igalia.com>
 ---
- sound/synth/emux/emux_effect.c | 29 ++++++++--------
- sound/synth/emux/emux_synth.c  | 54 +++++++----------------------
- sound/synth/emux/soundfont.c   | 63 ++++++++++++----------------------
- 3 files changed, 49 insertions(+), 97 deletions(-)
+ drivers/gpu/drm/vc4/vc4_validate.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/synth/emux/emux_effect.c b/sound/synth/emux/emux_effect.c
-index 3c7314f5fb19c..bfe383fa90ba1 100644
---- a/sound/synth/emux/emux_effect.c
-+++ b/sound/synth/emux/emux_effect.c
-@@ -168,7 +168,6 @@ snd_emux_send_effect(struct snd_emux_port *port, struct snd_midi_channel *chan,
- 	unsigned char *srcp, *origp;
- 	struct snd_emux *emu;
- 	struct snd_emux_effect_table *fx;
--	unsigned long flags;
+diff --git a/drivers/gpu/drm/vc4/vc4_validate.c b/drivers/gpu/drm/vc4/vc4_validate.c
+index 565227657b43..0d2b08abf1ad 100644
+--- a/drivers/gpu/drm/vc4/vc4_validate.c
++++ b/drivers/gpu/drm/vc4/vc4_validate.c
+@@ -815,7 +815,7 @@ validate_gl_shader_rec(struct drm_device *dev,
+ 	exec->shader_rec_size -= packet_size;
  
- 	emu = port->emu;
- 	fx = chan->private;
-@@ -195,22 +194,22 @@ snd_emux_send_effect(struct snd_emux_port *port, struct snd_midi_channel *chan,
- 		offset++;
- #endif
- 	/* modify the register values */
--	spin_lock_irqsave(&emu->voice_lock, flags);
--	for (i = 0; i < emu->max_voices; i++) {
--		struct snd_emux_voice *vp = &emu->voices[i];
--		if (!STATE_IS_PLAYING(vp->state) || vp->chan != chan)
--			continue;
--		srcp = (unsigned char*)&vp->reg.parm + offset;
--		origp = (unsigned char*)&vp->zone->v.parm + offset;
--		if (parm_defs[i].type & PARM_IS_BYTE) {
--			*srcp = *origp;
--			effect_set_byte(srcp, chan, type);
--		} else {
--			*(unsigned short*)srcp = *(unsigned short*)origp;
--			effect_set_word((unsigned short*)srcp, chan, type);
-+	scoped_guard(spinlock_irqsave, &emu->voice_lock) {
-+		for (i = 0; i < emu->max_voices; i++) {
-+			struct snd_emux_voice *vp = &emu->voices[i];
-+			if (!STATE_IS_PLAYING(vp->state) || vp->chan != chan)
-+				continue;
-+			srcp = (unsigned char *)&vp->reg.parm + offset;
-+			origp = (unsigned char *)&vp->zone->v.parm + offset;
-+			if (parm_defs[i].type & PARM_IS_BYTE) {
-+				*srcp = *origp;
-+				effect_set_byte(srcp, chan, type);
-+			} else {
-+				*(unsigned short *)srcp = *(unsigned short *)origp;
-+				effect_set_word((unsigned short *)srcp, chan, type);
-+			}
+ 	for (i = 0; i < shader_reloc_count; i++) {
+-		if (src_handles[i] > exec->bo_count) {
++		if (src_handles[i] >= exec->bo_count) {
+ 			DRM_DEBUG("Shader handle %d too big\n", src_handles[i]);
+ 			return -EINVAL;
  		}
- 	}
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- 
- 	/* activate them */
- 	snd_emux_update_channel(port, chan, parm_defs[type].update);
-diff --git a/sound/synth/emux/emux_synth.c b/sound/synth/emux/emux_synth.c
-index 02e2c69d7f18e..b3c8296840a56 100644
---- a/sound/synth/emux/emux_synth.c
-+++ b/sound/synth/emux/emux_synth.c
-@@ -49,7 +49,6 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
- 	int i, key, nvoices;
- 	struct snd_emux_voice *vp;
- 	struct snd_sf_zone *table[SNDRV_EMUX_MAX_MULTI_VOICES];
--	unsigned long flags;
- 	struct snd_emux_port *port;
- 
- 	port = p;
-@@ -77,7 +76,7 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
- 	terminate_note1(emu, key, chan, 0);
- #endif
- 
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	for (i = 0; i < nvoices; i++) {
- 
- 		/* set up each voice parameter */
-@@ -124,7 +123,6 @@ snd_emux_note_on(void *p, int note, int vel, struct snd_midi_channel *chan)
- 			vp->ontime = jiffies; /* remember the trigger timing */
- 		}
- 	}
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- 
- #ifdef SNDRV_EMUX_USE_RAW_EFFECT
- 	if (port->port_mode == SNDRV_EMUX_PORT_MODE_OSS_SYNTH) {
-@@ -147,7 +145,6 @@ snd_emux_note_off(void *p, int note, int vel, struct snd_midi_channel *chan)
- 	int ch;
- 	struct snd_emux *emu;
- 	struct snd_emux_voice *vp;
--	unsigned long flags;
- 	struct snd_emux_port *port;
- 
- 	port = p;
-@@ -158,7 +155,7 @@ snd_emux_note_off(void *p, int note, int vel, struct snd_midi_channel *chan)
- 	if (snd_BUG_ON(!emu || !emu->ops.release))
- 		return;
- 
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	for (ch = 0; ch < emu->max_voices; ch++) {
- 		vp = &emu->voices[ch];
- 		if (STATE_IS_PLAYING(vp->state) &&
-@@ -180,7 +177,6 @@ snd_emux_note_off(void *p, int note, int vel, struct snd_midi_channel *chan)
- 				emu->ops.release(vp);
- 		}
- 	}
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
- /*
-@@ -192,10 +188,9 @@ void snd_emux_timer_callback(struct timer_list *t)
- {
- 	struct snd_emux *emu = from_timer(emu, t, tlist);
- 	struct snd_emux_voice *vp;
--	unsigned long flags;
- 	int ch, do_again = 0;
- 
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	for (ch = 0; ch < emu->max_voices; ch++) {
- 		vp = &emu->voices[ch];
- 		if (vp->state == SNDRV_EMUX_ST_PENDING) {
-@@ -212,7 +207,6 @@ void snd_emux_timer_callback(struct timer_list *t)
- 		emu->timer_active = 1;
- 	} else
- 		emu->timer_active = 0;
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
- /*
-@@ -224,7 +218,6 @@ snd_emux_key_press(void *p, int note, int vel, struct snd_midi_channel *chan)
- 	int ch;
- 	struct snd_emux *emu;
- 	struct snd_emux_voice *vp;
--	unsigned long flags;
- 	struct snd_emux_port *port;
- 
- 	port = p;
-@@ -235,7 +228,7 @@ snd_emux_key_press(void *p, int note, int vel, struct snd_midi_channel *chan)
- 	if (snd_BUG_ON(!emu || !emu->ops.update))
- 		return;
- 
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	for (ch = 0; ch < emu->max_voices; ch++) {
- 		vp = &emu->voices[ch];
- 		if (vp->state == SNDRV_EMUX_ST_ON &&
-@@ -244,7 +237,6 @@ snd_emux_key_press(void *p, int note, int vel, struct snd_midi_channel *chan)
- 			update_voice(emu, vp, SNDRV_EMUX_UPDATE_VOLUME);
- 		}
- 	}
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
- 
-@@ -257,7 +249,6 @@ snd_emux_update_channel(struct snd_emux_port *port, struct snd_midi_channel *cha
- 	struct snd_emux *emu;
- 	struct snd_emux_voice *vp;
- 	int i;
--	unsigned long flags;
- 
- 	if (! update)
- 		return;
-@@ -266,13 +257,12 @@ snd_emux_update_channel(struct snd_emux_port *port, struct snd_midi_channel *cha
- 	if (snd_BUG_ON(!emu || !emu->ops.update))
- 		return;
- 
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	for (i = 0; i < emu->max_voices; i++) {
- 		vp = &emu->voices[i];
- 		if (vp->chan == chan)
- 			update_voice(emu, vp, update);
- 	}
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
- /*
-@@ -284,7 +274,6 @@ snd_emux_update_port(struct snd_emux_port *port, int update)
- 	struct snd_emux *emu; 
- 	struct snd_emux_voice *vp;
- 	int i;
--	unsigned long flags;
- 
- 	if (! update)
- 		return;
-@@ -293,13 +282,12 @@ snd_emux_update_port(struct snd_emux_port *port, int update)
- 	if (snd_BUG_ON(!emu || !emu->ops.update))
- 		return;
- 
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	for (i = 0; i < emu->max_voices; i++) {
- 		vp = &emu->voices[i];
- 		if (vp->port == port)
- 			update_voice(emu, vp, update);
- 	}
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
- 
-@@ -365,16 +353,14 @@ terminate_note1(struct snd_emux *emu, int note, struct snd_midi_channel *chan, i
- {
- 	int  i;
- 	struct snd_emux_voice *vp;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	for (i = 0; i < emu->max_voices; i++) {
- 		vp = &emu->voices[i];
- 		if (STATE_IS_PLAYING(vp->state) && vp->chan == chan &&
- 		    vp->key == note)
- 			terminate_voice(emu, vp, free);
- 	}
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
- 
-@@ -407,9 +393,8 @@ snd_emux_terminate_all(struct snd_emux *emu)
- {
- 	int i;
- 	struct snd_emux_voice *vp;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	for (i = 0; i < emu->max_voices; i++) {
- 		vp = &emu->voices[i];
- 		if (STATE_IS_PLAYING(vp->state))
-@@ -424,7 +409,6 @@ snd_emux_terminate_all(struct snd_emux *emu)
- 	}
- 	/* initialize allocation time */
- 	emu->use_time = 0;
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
- EXPORT_SYMBOL(snd_emux_terminate_all);
-@@ -438,7 +422,6 @@ snd_emux_sounds_off_all(struct snd_emux_port *port)
- 	int i;
- 	struct snd_emux *emu;
- 	struct snd_emux_voice *vp;
--	unsigned long flags;
- 
- 	if (snd_BUG_ON(!port))
- 		return;
-@@ -446,7 +429,7 @@ snd_emux_sounds_off_all(struct snd_emux_port *port)
- 	if (snd_BUG_ON(!emu || !emu->ops.terminate))
- 		return;
- 
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	for (i = 0; i < emu->max_voices; i++) {
- 		vp = &emu->voices[i];
- 		if (STATE_IS_PLAYING(vp->state) &&
-@@ -459,7 +442,6 @@ snd_emux_sounds_off_all(struct snd_emux_port *port)
- 				emu->ops.reset(emu, i);
- 		}
- 	}
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
- 
-@@ -472,9 +454,8 @@ exclusive_note_off(struct snd_emux *emu, struct snd_emux_port *port, int exclass
- {
- 	struct snd_emux_voice *vp;
- 	int  i;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	for (i = 0; i < emu->max_voices; i++) {
- 		vp = &emu->voices[i];
- 		if (STATE_IS_PLAYING(vp->state) && vp->port == port &&
-@@ -482,7 +463,6 @@ exclusive_note_off(struct snd_emux *emu, struct snd_emux_port *port, int exclass
- 			terminate_voice(emu, vp, 0);
- 		}
- 	}
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
- /*
-@@ -916,9 +896,8 @@ snd_emux_init_voices(struct snd_emux *emu)
- {
- 	struct snd_emux_voice *vp;
- 	int i;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	for (i = 0; i < emu->max_voices; i++) {
- 		vp = &emu->voices[i];
- 		vp->ch = -1; /* not used */
-@@ -929,23 +908,19 @@ snd_emux_init_voices(struct snd_emux *emu)
- 		vp->emu = emu;
- 		vp->hw = emu->hw;
- 	}
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
- /*
-  */
- void snd_emux_lock_voice(struct snd_emux *emu, int voice)
- {
--	unsigned long flags;
--
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	if (emu->voices[voice].state == SNDRV_EMUX_ST_OFF)
- 		emu->voices[voice].state = SNDRV_EMUX_ST_LOCKED;
- 	else
- 		dev_warn(emu->card->dev,
- 			 "invalid voice for lock %d (state = %x)\n",
- 			 voice, emu->voices[voice].state);
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
- EXPORT_SYMBOL(snd_emux_lock_voice);
-@@ -954,16 +929,13 @@ EXPORT_SYMBOL(snd_emux_lock_voice);
-  */
- void snd_emux_unlock_voice(struct snd_emux *emu, int voice)
- {
--	unsigned long flags;
--
--	spin_lock_irqsave(&emu->voice_lock, flags);
-+	guard(spinlock_irqsave)(&emu->voice_lock);
- 	if (emu->voices[voice].state == SNDRV_EMUX_ST_LOCKED)
- 		emu->voices[voice].state = SNDRV_EMUX_ST_OFF;
- 	else
- 		dev_warn(emu->card->dev,
- 			 "invalid voice for unlock %d (state = %x)\n",
- 			 voice, emu->voices[voice].state);
--	spin_unlock_irqrestore(&emu->voice_lock, flags);
- }
- 
- EXPORT_SYMBOL(snd_emux_unlock_voice);
-diff --git a/sound/synth/emux/soundfont.c b/sound/synth/emux/soundfont.c
-index 03f70cceb4a86..c124d6c27a945 100644
---- a/sound/synth/emux/soundfont.c
-+++ b/sound/synth/emux/soundfont.c
-@@ -66,11 +66,9 @@ static void snd_sf_clear(struct snd_sf_list *sflist);
- static void
- lock_preset(struct snd_sf_list *sflist)
- {
--	unsigned long flags;
- 	mutex_lock(&sflist->presets_mutex);
--	spin_lock_irqsave(&sflist->lock, flags);
-+	guard(spinlock_irqsave)(&sflist->lock);
- 	sflist->presets_locked = 1;
--	spin_unlock_irqrestore(&sflist->lock, flags);
- }
- 
- 
-@@ -80,10 +78,8 @@ lock_preset(struct snd_sf_list *sflist)
- static void
- unlock_preset(struct snd_sf_list *sflist)
- {
--	unsigned long flags;
--	spin_lock_irqsave(&sflist->lock, flags);
-+	guard(spinlock_irqsave)(&sflist->lock);
- 	sflist->presets_locked = 0;
--	spin_unlock_irqrestore(&sflist->lock, flags);
- 	mutex_unlock(&sflist->presets_mutex);
- }
- 
-@@ -94,14 +90,11 @@ unlock_preset(struct snd_sf_list *sflist)
- int
- snd_soundfont_close_check(struct snd_sf_list *sflist, int client)
- {
--	unsigned long flags;
--	spin_lock_irqsave(&sflist->lock, flags);
--	if (sflist->open_client == client)  {
--		spin_unlock_irqrestore(&sflist->lock, flags);
--		return close_patch(sflist);
-+	scoped_guard(spinlock_irqsave, &sflist->lock) {
-+		if (sflist->open_client != client)
-+			return 0;
- 	}
--	spin_unlock_irqrestore(&sflist->lock, flags);
--	return 0;
-+	return close_patch(sflist);
- }
- 
- 
-@@ -119,7 +112,6 @@ snd_soundfont_load(struct snd_card *card,
- 		   long count, int client)
- {
- 	struct soundfont_patch_info patch;
--	unsigned long flags;
- 	int  rc;
- 
- 	if (count < (long)sizeof(patch)) {
-@@ -155,12 +147,10 @@ snd_soundfont_load(struct snd_card *card,
- 	}
- 
- 	/* check if other client already opened patch */
--	spin_lock_irqsave(&sflist->lock, flags);
--	if (sflist->open_client != client) {
--		spin_unlock_irqrestore(&sflist->lock, flags);
--		return -EBUSY;
-+	scoped_guard(spinlock_irqsave, &sflist->lock) {
-+		if (sflist->open_client != client)
-+			return -EBUSY;
- 	}
--	spin_unlock_irqrestore(&sflist->lock, flags);
- 
- 	lock_preset(sflist);
- 	rc = -EINVAL;
-@@ -223,14 +213,11 @@ open_patch(struct snd_sf_list *sflist, const char __user *data,
- {
- 	struct soundfont_open_parm parm;
- 	struct snd_soundfont *sf;
--	unsigned long flags;
- 
--	spin_lock_irqsave(&sflist->lock, flags);
--	if (sflist->open_client >= 0 || sflist->currsf) {
--		spin_unlock_irqrestore(&sflist->lock, flags);
--		return -EBUSY;
-+	scoped_guard(spinlock_irqsave, &sflist->lock) {
-+		if (sflist->open_client >= 0 || sflist->currsf)
-+			return -EBUSY;
- 	}
--	spin_unlock_irqrestore(&sflist->lock, flags);
- 
- 	if (copy_from_user(&parm, data, sizeof(parm)))
- 		return -EFAULT;
-@@ -244,10 +231,10 @@ open_patch(struct snd_sf_list *sflist, const char __user *data,
- 		return -ENOMEM;
- 	}
- 
--	spin_lock_irqsave(&sflist->lock, flags);
--	sflist->open_client = client;
--	sflist->currsf = sf;
--	spin_unlock_irqrestore(&sflist->lock, flags);
-+	scoped_guard(spinlock_irqsave, &sflist->lock) {
-+		sflist->open_client = client;
-+		sflist->currsf = sf;
-+	}
- 
- 	return 0;
- }
-@@ -305,12 +292,10 @@ is_identical_font(struct snd_soundfont *sf, int type, unsigned char *name)
- static int
- close_patch(struct snd_sf_list *sflist)
- {
--	unsigned long flags;
--
--	spin_lock_irqsave(&sflist->lock, flags);
--	sflist->currsf = NULL;
--	sflist->open_client = -1;
--	spin_unlock_irqrestore(&sflist->lock, flags);
-+	scoped_guard(spinlock_irqsave, &sflist->lock) {
-+		sflist->currsf = NULL;
-+		sflist->open_client = -1;
-+	}
- 
- 	rebuild_presets(sflist);
- 
-@@ -1243,17 +1228,14 @@ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
- 			  struct snd_sf_zone **table, int max_layers)
- {
- 	int nvoices;
--	unsigned long flags;
- 
- 	/* this function is supposed to be called atomically,
- 	 * so we check the lock.  if it's busy, just returns 0 to
- 	 * tell the caller the busy state
- 	 */
--	spin_lock_irqsave(&sflist->lock, flags);
--	if (sflist->presets_locked) {
--		spin_unlock_irqrestore(&sflist->lock, flags);
-+	guard(spinlock_irqsave)(&sflist->lock);
-+	if (sflist->presets_locked)
- 		return 0;
--	}
- 	nvoices = search_zones(sflist, notep, vel, preset, bank,
- 			       table, max_layers, 0);
- 	if (! nvoices) {
-@@ -1262,7 +1244,6 @@ snd_soundfont_search_zone(struct snd_sf_list *sflist, int *notep, int vel,
- 					       def_preset, def_bank,
- 					       table, max_layers, 0);
- 	}
--	spin_unlock_irqrestore(&sflist->lock, flags);
- 	return nvoices;
- }
- 
+
 -- 
-2.53.0
-
-
+2.56.0
 
