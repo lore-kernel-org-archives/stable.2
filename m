@@ -1,90 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795020725;
-	b=MWYHyVURyzTh7vn7eL6oatW5o57tQEodKLrFSz50e5zhnDJWsqRxpceZmC4X7Na7MhtL
-	 e8xkCLxQTWGN16uq5xekrh38MYJZFPeDZ6PZHV2rJCnTOmTLKHRLVNHN6ACCOSMzJA2l+
-	 otx+cFZ4RI/ziyOL7NPpw63AP8kTCO+ToIk0rKZl8aa8ek5OlTUo5H2pnai2HgHuglrPv
-	 c/BsdktXM6DkqJtyYyQZOkgV2GB5mDGXGaXPj8rx7jcEy899zoJaSruU7hmC0JFtU4Mqk
-	 wTjfTng2ihHqsORGZ2E4/6ru8WE4RTkZTVJVtfcPD6nkcSsKAKTAhWoS+mYpa+3Q2aQ==
+	t=1795020728;
+	b=3oDy591hlD1CeCAZ0xbBgMer+bTnAw/rtTwujKQt+0cVz3aSPDSHVePnOOEz3/hvzPPS
+	 btNPi6/EFFn/0Mlvm9EIQl5MSg/f4SAtZbnYW4Anb+ZDi2JZgDcylE6Y4uVok1nfHtehQ
+	 dz1DdOEb+LcAgbWKrL03ms4j7RwQMWwmZZc0h2QvZCnXldxPgR5IN88Sa6UbO6P3sUUJy
+	 RYznxrb4zneJv9UmXDMR8Y0KH2SJn37TpEfCC2S/pPtRONQOrf6ud3qFn47ZqC9QQ/Q0f
+	 /mbpH/kr/iujfdGFwjK4FH4fL6+Gm1kfmTKg+76F97tiism2+QBsVB5UeOuza6w4RMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795020725;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=lp+PumDUYSckbLI7kydkOXPsLnRNnUF1SFah0ZOKP64=;
-	b=cOj4Pih4gfC2NKRRaW2ewZkQeXBLoNtecEhTmsU3Wm/3YOX3zGmR2kkTLmoiKu+4rfD+
-	 lyblrHRme+jjrj8dQCDwFK5bufnqQ3TZ3+YGEDZBN30ISreVsyZB+m9n+v8x2jcRUHDIw
-	 9TllfyQDQJrJsWw7FwYQvlk8pgt0pNCYZ9kQ58x4zAGQDxUXg565KuuDbJbjJuewU6UF7
-	 5rE8NNIkoIDiWtMBTyDiVNMhbBwOuBysd4Lwh/JO//KDbtpmc+rDaJwlZcC2NHTXfDcvs
-	 zFeDOXhzVeeNeueB4Mgz6HibG6jVq74jyYLS+RSYlFVRcgUqOxSfG6fqcLByS/f9QNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795020728;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=9TzY6/FEuOjQPByux21ub2UYCEG5defgrhNxJDPpRew=;
+	b=zg0cHvIiOXc9TPigkQTjcl1EmBtULbW9YTF2e85zz5qHV1mSatqK6z6xLCaIs3TrnNiX
+	 P7Dn8u52JNeS5GcriVdTeVNN75G3xvUquMO86Fv0pmhoA4kAICq1EZuG1Fo4t5hXMPhWq
+	 dyE2uu+QPMny1F1lrql9Wj+3WaiJWvGKod515UoAYqF4/GasEurDracK6f+sUMkyo2sTv
+	 gi4eRjPfYXQhGcOiOJ6ApFyiYo1CkyDXqj71E5cUQGh05jqlO+HDfo45VsJQyhw0ryZbj
+	 io1bSenOCoHIpLgp19/rZ+wLhDhzMDnjzpydxnYhtKa5i0qGnL1HW1w7fnvwSKHHt1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ONoBF3aj;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Ytr/jCfX";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8633660A381E
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:52:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8633660A381E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67869606A33A;
+	Wed, 18 Nov 2026 16:52:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ONoBF3aj
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c40e30c26a4so3731666b.0
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 08:52:05 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795020724; x=1795625524; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lp+PumDUYSckbLI7kydkOXPsLnRNnUF1SFah0ZOKP64=;
-        b=ONoBF3aj05UMAoHktbPtPdrDWFZqTLusibCB7TzP/QP3cs4jxg8XZ6i8mQYeszW5x3
-         3PRnMm7t+Gft+LpwzTYgyx6DKfVLTdiuR5SEJbFCLgeS7grQMIbD5cvCdnfEgVgXCbOn
-         eeD1X9lDIgAe+d3zFl3oPgB9+ihlyMOXSWtHk=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795020724; x=1795625524;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=lp+PumDUYSckbLI7kydkOXPsLnRNnUF1SFah0ZOKP64=;
-        b=i+fhoBkiacPoIxY+LXegJEoUPmxWoLlngUM1nAnxNoT9m/JsxpxLUrIGOxPZQaMqsV
-         jlYrfK0CugTtlH1xfnpeUEdbkFstzkLPmX01stC8nhpV5VrffiMdOFL1ZtJw0dmNQ3AG
-         8QoDGMoQ9Vj68XNNK6YK/Sh2JRXghdLP0wfo+MHRHW8woxgfkCQnQXYLPP+RCdZ7LQW0
-         5PEjFaMFxvnO2nG5BFbgJXrpvSEQdyDuPklQEONF6/HmF+9E5YxOhjw5Ws76LDecHLRH
-         3IjM24RClfFbVyGih+CLTlrszZ7IMDCIG5Q0yH/0r4/3WddnSouWYRpYBeBeORK+fhXh
-         wl7w==
-X-Forwarded-Encrypted: i=1; AL+hErFXeV0fBxqWRYVHL8V7nfYNs8THX7a3vztiLQa2vYU9W4AYFXNTI1g58/yWi7CAepEwWGV+IpE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+9/zVWWXyc9CXEw3nw9rfNF/Uovh+ZuFrfeqRqNsKEV5VEm9Ol
-	ZsdkPzu9E5aO3uRyzHsS96cybpCYG7ksduurTvCFdtBJWzXU5gXz06BUgzHQSN2hS+IsD25EHAj
-	FJvIVwJIw
-X-Gm-Gg: AYBFou3+B9EGd6V9aBnk73kLXFoaY+ZutgnuLXVT5M3F9tXC0ykE7fAVn4Hrbf+R6cl
-	5yaP5KmODFtJJt4RZIseecCdksw1jOkrn1NZwCuBeCCLIObP8Lo5uNwEvFs7jlS02UjHKNl+H/t
-	XLnegKCjxm9cormlqPaAWQanZh1/CTckiRXVUYqMaXbl/gbmW7C8GZjy+W3LfRVI2JRyOSPq8Yk
-	Dsq8Dfk2sujZmFyNW7np7mvCuGhHw6ae11mdug9RtFfZ+236Da/J1O3vhOba3cEVJaisXWCar+E
-	Zn5rnpv1nyFvIioO1El25tbhPZju6TKmrYJ5hd28Yk22O0jA1/PYzsha2w5PGonK5mmFVnLhZ3D
-	mY15rrLWWlKEt70YWPgYwv5RrKux1C8StYGsOH/RrXetdva0tvyqoUoAjrUqo1HPAfot65kLy+L
-	AC+dCvyjFdjujioB12ovZFkRZAGPfFbwFZ8sO79prQ0GNyVr8SzLwW5niw+BysdAGMzfxImKkFy
-	LAdGwyBoSSgojSjYwfrsQUDpR72YHQME61wynMSXJSggb7X3T+PbVR6xElDMokmtzYxyPAN6H98
-	MSdycaFmd2W9byspvpPvvolMnWMO+noMQLGkav3GKGfsux7e1lIXmsjcQwt6jKYRo2Zi
-X-Received: by 2002:a17:907:9252:b0:c51:45a:1a5a with SMTP id a640c23a62f3a-c5125c836eamr10263566b.0.1795020723654;
-        Wed, 18 Nov 2026 08:52:03 -0800 (PST)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com. [209.85.221.50])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51231ba848sm25308366b.1.2026.11.18.08.52.02
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 08:52:03 -0800 (PST)
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-490f38e9688so10093f8f.0
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 08:52:02 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFQvcI6pDqtZu5zcGkXg1Iu5MGhsb6AdAFQdPYSU/20fIMUKD7R7675LoiNLrgNuhS/OeUWZvI=@vger.kernel.org
-X-Received: by 2002:a05:6000:4212:b0:498:364d:7509 with SMTP id
- ffacd0b85a97d-4a8ee39ac6fmr44021f8f.24.1795020720874; Wed, 18 Nov 2026
- 08:52:00 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Ytr/jCfX
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE4931F000C5;
+	Wed, 18 Nov 2026 16:52:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795020728;
+	bh=9TzY6/FEuOjQPByux21ub2UYCEG5defgrhNxJDPpRew=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ytr/jCfXupbrWxWPfEBHr94NsJRHbhdCDB5FsYARyvt71p1GFFL+o1iQmTzQNlMGM
+	 8T64a5bjnffi/5tkK2TtcFqSB+uz16ApOLjffmN3fzgn8hxM/7uzz+JVktKu9p00Fz
+	 N/JBWSkm6NwqCveQ67R/1JtqWF8wDzsDLPMBmQ5Y=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	KaFai Wan <kafai.wan@linux.dev>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.3 2015/2651] selftests/bpf: Fix prog_tests framework subtest count checks
+Date: Wed, 18 Nov 2026 15:54:15 +0100
+Message-ID: <20261118150358.784237670@linuxfoundation.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -94,53 +62,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261118072853.1578323-1-a.kazinsky@ideco.ru>
-In-Reply-To: <20261118072853.1578323-1-a.kazinsky@ideco.ru>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 18 Nov 2026 08:51:49 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=W5MJMfjYvaW+5y+SwSXiNSGoMyJGWKVyGyQJU33+1QRg@mail.gmail.com>
-X-Gm-Features: Aa3M54rw4QWacAhRxyIy-HlXKopfZ8-xwOmR9x3eFc-lDVUcxQsDNdYLgHWCWl0
-Message-ID: <CAD=FV=W5MJMfjYvaW+5y+SwSXiNSGoMyJGWKVyGyQJU33+1QRg@mail.gmail.com>
-Subject: Re: [PATCH v2] kdb: Reject non-positive BYTESPERWORD before division
-To: Alex Kazinsky <a.kazinsky@ideco.ru>
-Cc: Daniel Thompson <danielt@kernel.org>, Naveen Kumar Chaudhary <naveen.osdev@gmail.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Tim Bird <tim.bird@sony.com>, 
-	Martin Hicks <mort@sgi.com>, kgdb-bugreport@lists.sourceforge.net, 
-	linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+7.3-stable review patch.  If anyone has any objections, please let me know.
 
-On Tue, Nov 17, 2026 at 11:29=E2=80=AFPM Alex Kazinsky <a.kazinsky@ideco.ru=
-> wrote:
->
-> kdb_md() uses BYTESPERWORD as a divisor when calculating the initial
-> repeat count, before validating the word width. A zero width causes a
-> division by zero. kdbgetintenv() also casts an unsigned long to int,
-> so the resulting width can be negative. If the width is -1 and the
-> scaled count is INT_MIN, the quotient overflows and raises a divide
-> error on x86.
->
-> Return KDB_BADWIDTH for non-positive widths before calculating the
-> repeat count.
->
-> Found by Linux Verification Center (linuxtesting.org) with SVACE static
-> analysis tool.
->
-> Fixes: 5d5314d6795f ("kdb: core for kgdb back end (1 of 2)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
-> ---
-> v1: https://lore.kernel.org/all/20261113111152.4190309-1-a.kazinsky@ideco=
-.ru/
->
-> Changes in v2:
-> - Reject negative BYTESPERWORD values as well as zero.
-> - Explain the signed division overflow in the commit message.
->
->  kernel/debug/kdb/kdb_main.c | 3 +++
->  1 file changed, 3 insertions(+)
+------------------
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+From: KaFai Wan <kafai.wan@linux.dev>
+
+[ Upstream commit c87652656a55e5e8cf994364314a75fa95fb2d69 ]
+
+The hardcoded expected skip_cnt/error_cnt in test_prog_tests_framework()
+mismatch the real count when the binary is run with -t or -n filters,
+since some subtests are not selected. Count the executed subtests and
+compare against that value instead.
+
+Fixes: 2324257dbd68 ("selftests/bpf: Refactor prog_tests logging and test execution")
+Signed-off-by: KaFai Wan <kafai.wan@linux.dev>
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Link: https://patch.msgid.link/20261012140202.2754552-2-kafai.wan@linux.dev
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../selftests/bpf/prog_tests/prog_tests_framework.c    | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/tools/testing/selftests/bpf/prog_tests/prog_tests_framework.c b/tools/testing/selftests/bpf/prog_tests/prog_tests_framework.c
+index 7607cfc2408c2..1dc112e5b9719 100644
+--- a/tools/testing/selftests/bpf/prog_tests/prog_tests_framework.c
++++ b/tools/testing/selftests/bpf/prog_tests/prog_tests_framework.c
+@@ -13,6 +13,7 @@ static void clear_test_state(struct test_state *state)
+ void test_prog_tests_framework(void)
+ {
+ 	struct test_state *state = env.test_state;
++	int subtest_cnt;
+ 
+ 	/* in all the ASSERT calls below we need to return on the first
+ 	 * error due to the fact that we are cleaning the test state after
+@@ -30,25 +31,30 @@ void test_prog_tests_framework(void)
+ 		return;
+ 	clear_test_state(state);
+ 
++	subtest_cnt = 0;
+ 	if (test__start_subtest("test_skip_subtest")) {
+ 		test__skip();
+ 		test__end_subtest();
++		subtest_cnt++;
+ 	}
+ 	if (test__start_subtest("test_skip_subtest")) {
+ 		test__skip();
+ 		test__end_subtest();
++		subtest_cnt++;
+ 	}
+-	if (!ASSERT_EQ(state->skip_cnt, 2, "skip_cnt_check"))
++	if (!ASSERT_EQ(state->skip_cnt, subtest_cnt, "skip_cnt_check"))
+ 		return;
+ 	if (!ASSERT_EQ(state->subtest_num, 3, "subtest_num_check"))
+ 		return;
+ 	clear_test_state(state);
+ 
++	subtest_cnt = 0;
+ 	if (test__start_subtest("test_fail_subtest")) {
+ 		test__fail();
+ 		test__end_subtest();
++		subtest_cnt++;
+ 	}
+-	if (!ASSERT_EQ(state->error_cnt, 1, "error_cnt_check"))
++	if (!ASSERT_EQ(state->error_cnt, subtest_cnt, "error_cnt_check"))
+ 		return;
+ 	if (!ASSERT_EQ(state->subtest_num, 4, "subtest_num_check"))
+ 		return;
+-- 
+2.53.0
+
+
+
