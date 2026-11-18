@@ -1,58 +1,135 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795028773;
-	b=IU+MQJFCxqRqiok9dBtQQt/EgImpPNMN2mXfhwUrHNYMWykJjN31BiwqziYnLtBkmtVk
-	 vDwFIuQ2INxSWRXMVqxduxSWAa/G10IAfnuQSuNMqqS0By7Koxc+V6RwTRAK2lM77NG3z
-	 L0aPzwdnV1XNFXlefKxTuwu+vTLn5511y8QobKV0wiRme90/+idzyPt6IaoUywoz2PTCI
-	 NKSXjj8K4aKlfIF4e+Bi8OMbQyiuLaoRaqGAtaH0Eo7aSZtlt5KV5id0GP2Qyj4foihLR
-	 eawMsW1nd88zPWI73cj0ExWydg8XRjmIZnsVp9nVYoOs1Zz+O6/nR3yU3xv5BJBosfw==
+	t=1795028775;
+	b=G4X6wlCoujnHj9dlSOnWqBFHplaLtXTxmjx82AQ5Ldb0nhijbkuxf9xA9C4v16vifxec
+	 Bg1T9FKeyuJmq3WXI2szLLDxrWIqVqtGf/ZQihjYeFSUFcVMbkgblUJHhCP4JSIGLLPFn
+	 g+qPl4Soj6i42tT7bQAK5/vqU0Gl+SMMZ+TtdZoerGZImLZMHp/lOR69qWMDH/5k7GP02
+	 2VzYnhzL3DsVwhRWhiXrdmFvnzbovbBxtB3cs5EtULmnixcxsz9RZ9pcPobyPWlkIndB2
+	 V0pJUNcASugfYfM0WDVxYlaKn8X1eUE59N2NJ4qJ01CinO5APGim2UKrxAMRA8smehA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795028773;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=/I1SBE1FBVbQ/RGvpkqPRguCgIkRbdhEAmaE07btLj0=;
-	b=R+rUBbwq7LIe4z4tJSrCW/EqLX3G+7VwxUrfcmmlTaXFMM5Zf9wmvAX46KJm/Gn1tJhi
-	 jEZ1lGnHPlQe5F469r0TMm1qMjzUJcbXY1WPV16jVSfKm7wsRLSzqQw1xj4H+2DQ9VGth
-	 d5jOJH0xwwCGtXNlCHVFJv8r5mp2cC62FRlJdQMU14FJQq+/EjJL/uDMJaSk3glIVSR7l
-	 E+W07NLUa9ZD4KQWURI9SCLzy4StWnRqztJyc0SdbZM7227hgJeJq+WvDQIrjXg4Rt1aO
-	 lH8z1OvZ3NeqT7udp4C/OcEZPea245lqSQVy8WGuerER7cxUzJRNBsgLDi/B/FLkkww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795028775;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=K3ymRzhdwjzx+FHWbWjH8FmcD60wOZPkk81WKbPdQck=;
+	b=4NECKhiuymBlwzXMZqn75+aeBDhITOT5I63/um10dKNx49osCjUAGf+LGB3rI7nkDuuV
+	 DjS7zz3YU7J77hQSdIOORv9npfoYY/JgGP8dUCRK1v+BZ2ISnheIelMJkRMflqYbX8Wdz
+	 dGzfFmTgFiyQCpPj1fzkFb77xDbtMhllw9GLlyqhysnhwBTExh6XBndWz6Lc6s8HzQ+7g
+	 napOlbeTfIGCRinr0Odk21PYDFIRjnphp3wcRv1rtUO0YxuP5F3ep8rbpxRHcwXQrlA+W
+	 80BCypmApMLH70oaP+QUojt70y7L5NbyFsr3/Kko1+LRCGlIKDBY/CwWwgG7Qnn8AEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GdCRxBir;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=dubeyko.com;
+	spf=pass smtp.mailfrom=dubeyko.com;
+	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VqcbGsbm;
+	arc=none smtp.remote-ip=209.85.128.172
+Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AB3606A33D;
-	Wed, 18 Nov 2026 19:06:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F8E606A320
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 19:06:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77F8E606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=GdCRxBir
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D41D1F000C4;
-	Wed, 18 Nov 2026 19:06:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795028773;
-	bh=/I1SBE1FBVbQ/RGvpkqPRguCgIkRbdhEAmaE07btLj0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GdCRxBire5xqVxASiGL9V9kdbGj7TRRh9l+WETA3NI/APcfgJjapfuaVmWIfHN/Zy
-	 Ihi+IPeqccfwwad64hzxNh2XIBcqEPaope23mwc2VnIzOWHLf+PVQNBpHBXBfTl3Gu
-	 y1LL35h8FRZpMJQVH9+to50DZhESasnx9bV4MIUE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0073/1756] l2tp: snapshot sequencing state when building transmit headers
-Date: Wed, 18 Nov 2026 15:36:40 +0100
-Message-ID: <20261118150011.216541350@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150007.957976754@linuxfoundation.org>
-References: <20261118150007.957976754@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VqcbGsbm
+Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8b30ff12f84so9204937b3.2
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 11:06:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1795028773; x=1795633573; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=K3ymRzhdwjzx+FHWbWjH8FmcD60wOZPkk81WKbPdQck=;
+        b=VqcbGsbmDaeaML4RSnH8xjyVvH/4tJRsVJ52dyy0Tmf6pKzrGWlfvkvtzm26IeECQ/
+         iaMahTPY+rJcp8O4xYwQIzzQsDobGjsQviEXlQqYoSFl5rILQjtBmU/uL+HSZo2sf6yw
+         9ttvZlqHJzOYU572Hiz8F6iNHkS9QDt8rBcxRO15uNNr+G34/MoIfA3it+67pVHrNy7g
+         Krn79JfetVz15s8KVUaubz8xwTfss9fkDdFzhOJIo8V1/ivrWlmsySMfizJUOgez0OCQ
+         62fWog+dUG954OE+tWqOpQjhWcGmcMFilbermyIkAFs2Sz+qmAaISGb48OGPo6Hn9qIy
+         aBVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795028773; x=1795633573;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=K3ymRzhdwjzx+FHWbWjH8FmcD60wOZPkk81WKbPdQck=;
+        b=1JQcXJCfJs137AlXGg3kVUBPn36I82KhYALYv31SYW6DqghA592kcX0wZxMuFUC+by
+         lrOuyBR/S/sUw+BoTbRqk08n/sn3QqXwbCI65VUeK5ePrSFZIaT1qrUnQrC9Bupa0bsz
+         BNV1dOCQ2OLHOuQeUtSeoN9wtq2kTEe0/u+77H64WUFBGchx6z9PJY2KiYf9o8kcxzNW
+         TzsE0MnzmStcuoWGpLicTPZtpZWrU6z5RAKrbthjUiPw67lLbOMigmbmy13Ry05Vfqnw
+         ukntk87ZoQ3vgv6jshRlwcjUrGrioeWe+nvH1fcnpajl++gMUzpQ8Z2u1A6IyBxhvgSu
+         JgEw==
+X-Forwarded-Encrypted: i=1; AL+hErHoSvpBAfUXaQ9L+Msx7luzYeYu2U6/eZu7ov+eGBLrV1T0o783BJKD4vtP3p0TBRYrgLt65Pw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z90GtTXB6tmxkh1bKXuQatKZMIrfgdVE2pw9O6AKPpOrlWWMFvJ
+	qfWeVJupqutNxv1hhikeVvvnzrIeN3zMroBuRcpVsOH24/z5rTwbPKLV5sTFtdspwS0=
+X-Gm-Gg: AZFdTZcCS/QW+/B5hjx5IcvqeX6NF4oVss0oZmCDALdt1IrfCRqmtmOXiy3OToTA6Np
+	zKO/5E9T6CZPGWMsqAgBlCKOIyDLORzFwZE8f4yOzluVczVGqgfMAj9U5rzE8Y7C0o/fXCaYEXE
+	5I44y5b8MMnZmLaiGwwX/GopQqosJ/COmxE29lx2t+EDENCnyL8K5F7d7vH9y0NP23qzp6OHr/f
+	gDI34tHQLOY9pR7gmeR2Bs7o1qm1PTcnUR5jvkhLl1cCyPiO2SLfrV84cIpIVZzNRHJ7nKt9xHd
+	JHsQtI3d3iEXhf5qxDXPvLR9f2B37SYayzPo9CuemZ67D60BWksQ/nYJP/fFWc/l3r8WSiBTT/U
+	PMp/5heis/CvPX82aZ78cQLTAVVVds5rUNR6gc3q7GhzYaFrk8MaMHjOxspqmTlohnuipQn4Ekl
+	jVkAli0bEPTf0nFf6V4ov+xGo9uEK7M5gB0Orhfp9J49erzrlHNbX7wszXwZMbFLIxlxwbQW0b7
+	Q1ddrAyC0MX/Wmheoyk6v5PB91G7ks9Leyfc3YTZRJCFLcNrohiPqLRlrf+R7fwoYKFPCsFbwdW
+	5fso85GqvE0qPznVtqYq6LKw2WjVFBUH+MjcBGNxrTSqloew+THFQV11OpLiReDLBOAz8dlkHkG
+	4KBFvHwBBH7Jsb1UbFZrpDhA62LkqAr3nfhU4/ZVTcVQwdalsEvKUP9C+27S2mVIgUXod0VqUcd
+	cs66viSOugDkagkJNq9qs=
+X-Received: by 2002:a05:690c:6087:b0:8b4:b5e4:e7a4 with SMTP id 00721157ae682-8b4fed37af3mr17906877b3.21.1795028773351;
+        Wed, 18 Nov 2026 11:06:13 -0800 (PST)
+Received: from ?IPv6:2600:1700:6476:1430:5fae:4d02:7055:94ad? ([2600:1700:6476:1430:5fae:4d02:7055:94ad])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b4fe0e8d9csm22451747b3.35.2026.11.18.11.06.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 11:06:12 -0800 (PST)
+Message-ID: <906a3c99edd0b9216fecf4994c96a5fed9ca5253.camel@dubeyko.com>
+Subject: Re: [PATCH v2 1/2] hfsplus: pass the key buffer size to
+ hfs_bnode_read_key()
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: ozgun kultekin <ozgunkultekin@gmail.com>, glaubitz@physik.fu-berlin.de, 
+	frank.li@vivo.com
+Cc: linux-fsdevel@vger.kernel.org, yangguikun19@qq.com,
+ stable@vger.kernel.org
+Date: Wed, 18 Nov 2026 11:06:11 -0800
+In-Reply-To: <20261118013725.90985-2-ozgunkultekin@gmail.com>
+References: <20261114043522.48764-1-ozgunkultekin@gmail.com>
+	 <20261118013725.90985-1-ozgunkultekin@gmail.com>
+	 <20261118013725.90985-2-ozgunkultekin@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+ NFdvziOa4FgUBC4X71upsZIoZJeii2V/Jtc3B4g==
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-9 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,348 +139,228 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On Tue, 2026-11-17 at 17:37 -0800, ozgun kultekin wrote:
+> hfs_bnode_read_key() reads the key length of leaf records (and of all
+> records of variable-key and attributes trees) from disk and only
+> checks
+> it against sizeof(hfsplus_btree_key), 518 bytes. The destination is
+> always one of the two key buffers hfs_find_init() allocates, each
+> tree->max_key_len + 2 bytes long. For the extents tree max_key_len is
+> fixed at 10, so the whole allocation is 24 bytes and a crafted leaf
+> key
+> writes up to 516 bytes from the image into kmalloc-32. The error path
+> clears 518 bytes of the same buffer.
+>=20
+> hfs_brec_insert() reaches this with a key that was never validated:
+> when the tree root is 0 it reads the key of record 0 of the leaf it
+> inserts into, and after a split it reads the first key of the new
+> node.
+> A read-write mount that extends the catalog, or an append to a file
+> whose extents spill into the extents tree, is enough.
+>=20
+> Do not let hfs_bnode_read_key() assume the size of the buffer. Record
+> the size of each key buffer in struct hfs_find_data in
+> hfs_find_init(),
+> allocate the two buffers from it, and pass it to every
+> hfs_bnode_read_key() call. Keys longer than the buffer are rejected
+> as
+> before, and the error path clears only the buffer.
+>=20
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Fixes: bb5e07cb9277 ("hfs/hfsplus: fix slab-out-of-bounds in
+> hfs_bnode_read_key")
+> Reported-by: Guikun Yang <yangguikun19@qq.com>
+> Closes:
+> https://lore.kernel.org/all/tencent_F85118A9AFDF9B230D4E8FA672510A3E2F08@=
+qq.com/
+> Suggested-by: Viacheslav Dubeyko <slava@dubeyko.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: ozgun kultekin <ozgunkultekin@gmail.com>
+> ---
+> v2: pass the key buffer size to hfs_bnode_read_key() and keep it in
+> =C2=A0=C2=A0=C2=A0 hfs_find_data, as suggested by Viacheslav
+> v1:
+> https://lore.kernel.org/all/20261114043522.48764-1-ozgunkultekin@gmail.co=
+m/
+>=20
+> =C2=A0fs/hfsplus/bfind.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 6 ++++--
+> =C2=A0fs/hfsplus/bnode.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 7 ++++---
+> =C2=A0fs/hfsplus/brec.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 9 +++++----
+> =C2=A0fs/hfsplus/hfsplus_fs.h | 5 ++++-
+> =C2=A04 files changed, 17 insertions(+), 10 deletions(-)
+>=20
+> diff --git a/fs/hfsplus/bfind.c b/fs/hfsplus/bfind.c
+> index ca9813f58..5ec72fc98 100644
+> --- a/fs/hfsplus/bfind.c
+> +++ b/fs/hfsplus/bfind.c
+> @@ -19,11 +19,13 @@ int hfs_find_init(struct hfs_btree *tree, struct
+> hfs_find_data *fd)
+> =C2=A0	fd->tree =3D tree;
+> =C2=A0	fd->bnode =3D NULL;
+> =C2=A0	hfs_find_result_init(fd);
+> -	ptr =3D kzalloc(tree->max_key_len * 2 + 4, GFP_KERNEL);
+> +	/* search_key and key, each holding one key of the largest
+> size */
+> +	fd->key_size =3D tree->max_key_len + 2;
 
-------------------
+Do you mean + 4?
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+> +	ptr =3D kzalloc(2 * fd->key_size, GFP_KERNEL);
 
-[ Upstream commit d06ae66516e1aaf023808912af6292aef09d46c3 ]
+This is why I would like to exchange this tree->max_key_len * 2 + 4 on
+the statement that includes named constants instead of hardcoded 2 and
+4. Please, rework it.
 
-Updates to send_seq from netlink, PPP setsockopt and receive-side
-negotiation race with packet transmission. The header length is updated
-separately, while transmit reads both fields repeatedly without
-synchronization.
+> =C2=A0	if (!ptr)
+> =C2=A0		return -ENOMEM;
+> =C2=A0	fd->search_key =3D ptr;
+> -	fd->key =3D ptr + tree->max_key_len + 2;
+> +	fd->key =3D ptr + fd->key_size;
+> =C2=A0	hfs_dbg("cnid %d, caller %ps\n",
+> =C2=A0		tree->cnid, __builtin_return_address(0));
+> =C2=A0	mutex_lock_nested(&tree->tree_lock,
+> diff --git a/fs/hfsplus/bnode.c b/fs/hfsplus/bnode.c
+> index 3a1a1fa6f..e2335c6d7 100644
+> --- a/fs/hfsplus/bnode.c
+> +++ b/fs/hfsplus/bnode.c
+> @@ -71,7 +71,8 @@ u8 hfs_bnode_read_u8(struct hfs_bnode *node, u32
+> off)
+> =C2=A0	return data;
+> =C2=A0}
+> =C2=A0
+> -void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off)
+> +void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off,
+> +			u32 key_size)
+> =C2=A0{
+> =C2=A0	struct hfs_btree *tree;
+> =C2=A0	u32 key_len;
+> @@ -84,8 +85,8 @@ void hfs_bnode_read_key(struct hfs_bnode *node,
+> void *key, u32 off)
+> =C2=A0	else
+> =C2=A0		key_len =3D tree->max_key_len + 2;
+> =C2=A0
+> -	if (key_len > sizeof(hfsplus_btree_key) || key_len < 1) {
+> -		memset(key, 0, sizeof(hfsplus_btree_key));
+> +	if (key_len > key_size || key_len < 1) {
+> +		memset(key, 0, key_size);
+> =C2=A0		pr_err("hfsplus: Invalid key length: %u\n",
+> key_len);
+> =C2=A0		return;
+> =C2=A0	}
+> diff --git a/fs/hfsplus/brec.c b/fs/hfsplus/brec.c
+> index f416e562d..779d7df0b 100644
+> --- a/fs/hfsplus/brec.c
+> +++ b/fs/hfsplus/brec.c
+> @@ -148,7 +148,8 @@ int hfs_brec_insert(struct hfs_find_data *fd,
+> void *entry, u32 entry_len)
+> =C2=A0	 * at the start of the node and it is not the new node
+> =C2=A0	 */
+> =C2=A0	if (!rec && new_node !=3D node) {
+> -		hfs_bnode_read_key(node, fd->search_key, data_off +
+> size);
+> +		hfs_bnode_read_key(node, fd->search_key, data_off +
+> size,
+> +				=C2=A0=C2=A0 fd->key_size);
+> =C2=A0		hfs_brec_update_parent(fd);
+> =C2=A0	}
+> =C2=A0
+> @@ -166,7 +167,7 @@ int hfs_brec_insert(struct hfs_find_data *fd,
+> void *entry, u32 entry_len)
+> =C2=A0		entry_len =3D sizeof(cnid);
+> =C2=A0
+> =C2=A0		/* get index key */
+> -		hfs_bnode_read_key(new_node, fd->search_key, 14);
+> +		hfs_bnode_read_key(new_node, fd->search_key, 14, fd-
+> >key_size);
 
-For example, transmit can push a ten-byte L2TPv2 header, then a concurrent
-writer clears send_seq before the header builder reads it. The builder
-writes only six bytes, leaving four bytes of uninitialized skb headroom
-in the outgoing packet. The reverse mismatch overwrites the beginning of
-the payload. A later hdr_len read can also make the UDP length disagree
-with the skb length.
+We need finally rework this 14 on named constant.
 
-KCSAN reported:
+> =C2=A0		__hfs_brec_find(fd->bnode, fd, hfs_find_rec_by_key);
+> =C2=A0
+> =C2=A0		hfs_bnode_put(new_node);
+> @@ -464,7 +465,7 @@ static int hfs_brec_update_parent(struct
+> hfs_find_data *fd)
+> =C2=A0		}
+> =C2=A0		fd->bnode =3D hfs_bnode_find(tree, new_node->parent);
+> =C2=A0		/* create index key and entry */
+> -		hfs_bnode_read_key(new_node, fd->search_key, 14);
+> +		hfs_bnode_read_key(new_node, fd->search_key, 14, fd-
+> >key_size);
 
-  BUG: KCSAN: data-race in l2tp_session_set_header_len / l2tp_xmit_skb
+Ditto.
 
-  write to 0xffff888100d0944a of 2 bytes by task 116 on cpu 1:
-   l2tp_session_set_header_len+0x81/0xc0
-   l2tp_nl_cmd_session_modify+0x122/0x2c0
-   genl_family_rcv_msg_doit+0x170/0x1d0
+> =C2=A0		cnid =3D cpu_to_be32(new_node->this);
+> =C2=A0
+> =C2=A0		__hfs_brec_find(fd->bnode, fd, hfs_find_rec_by_key);
+> @@ -476,7 +477,7 @@ static int hfs_brec_update_parent(struct
+> hfs_find_data *fd)
+> =C2=A0			if (new_node =3D=3D node)
+> =C2=A0				goto out;
+> =C2=A0			/* restore search_key */
+> -			hfs_bnode_read_key(node, fd->search_key,
+> 14);
+> +			hfs_bnode_read_key(node, fd->search_key, 14,
+> fd->key_size);
 
-  read to 0xffff888100d0944a of 2 bytes by task 115 on cpu 0:
-   l2tp_xmit_skb+0x9c/0xc80
-   pppol2tp_sendmsg+0x21c/0x2a0
-   __sys_sendto+0x28c/0x2a0
+Ditto.
 
-The bug can lead to leak kernel base address for KASLR bypass, the
-corresponding reproducer can be provided per request.
+> =C2=A0		}
+> =C2=A0		new_node =3D NULL;
+> =C2=A0	}
+> diff --git a/fs/hfsplus/hfsplus_fs.h b/fs/hfsplus/hfsplus_fs.h
+> index 6f240f87f..d0d4fea94 100644
+> --- a/fs/hfsplus/hfsplus_fs.h
+> +++ b/fs/hfsplus/hfsplus_fs.h
+> @@ -268,6 +268,8 @@ struct hfs_find_data {
+> =C2=A0	int record;
+> =C2=A0	int keyoffset, keylength;
+> =C2=A0	int entryoffset, entrylength;
+> +	/* size of each of the search_key and key buffers */
 
-Initialize hdr_len to the maximum header size and leave it unchanged
-when sequencing is toggled. Snapshot send_seq once per packet and use
-that snapshot for the actual header length and header construction,
-including the sequence flag. Use the same length for headroom, the header
-push and the UDP length. PPP callers can safely reserve the maximum size;
-L2TPv3 header sizes do not depend on sequencing.
+We need to have a comment before structure declaration. Ideally, it
+will be good to comment every field.
 
-Make send_seq a separate bool so READ_ONCE() and WRITE_ONCE() can be used
-without sharing a bitfield storage unit with other configuration flags.
-Preserve the netlink attribute's existing low-bit truncation.
+> +	u32 key_size;
 
-Fixes: 3557baabf280 ("[L2TP]: PPP over L2TP driver core")
-Cc: stable@vger.kernel.org
-Assisted-by: GPT-6 Astra
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Link: https://patch.msgid.link/20261013090500.1180376-1-nicoyip.dev@gmail.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-[ sashal: adapted the setsockopt change to preserve existing PPP channel header-length updates ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/l2tp/l2tp_core.c    | 51 +++++++++++++++++++----------------------
- net/l2tp/l2tp_core.h    |  6 ++---
- net/l2tp/l2tp_debugfs.c |  4 ++--
- net/l2tp/l2tp_netlink.c | 11 ++++-----
- net/l2tp/l2tp_ppp.c     |  8 +++----
- 5 files changed, 35 insertions(+), 45 deletions(-)
+This is not proper place for this declaration.
 
-diff --git a/net/l2tp/l2tp_core.c b/net/l2tp/l2tp_core.c
-index 6c83cb02d4345..4f7f2d986c00a 100644
---- a/net/l2tp/l2tp_core.c
-+++ b/net/l2tp/l2tp_core.c
-@@ -924,11 +924,9 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
- 		 * check if we sre sending sequence numbers and if not,
- 		 * configure it so.
- 		 */
--		if (!session->lns_mode && !session->send_seq) {
-+		if (!session->lns_mode && !READ_ONCE(session->send_seq)) {
- 			trace_session_seqnum_lns_enable(session);
--			session->send_seq = 1;
--			l2tp_session_set_header_len(session, tunnel->version,
--						    tunnel->encap);
-+			WRITE_ONCE(session->send_seq, true);
- 		}
- 	} else {
- 		/* No sequence numbers.
-@@ -946,12 +944,10 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
- 		 * If we're the LNS and we're sending sequence numbers, the
- 		 * LAC is broken. Discard the frame.
- 		 */
--		if (!session->lns_mode && session->send_seq) {
-+		if (!session->lns_mode && READ_ONCE(session->send_seq)) {
- 			trace_session_seqnum_lns_disable(session);
--			session->send_seq = 0;
--			l2tp_session_set_header_len(session, tunnel->version,
--						    tunnel->encap);
--		} else if (session->send_seq) {
-+			WRITE_ONCE(session->send_seq, false);
-+		} else if (READ_ONCE(session->send_seq)) {
- 			pr_debug_ratelimited("%s: recv data has no seq numbers when required. Discarding.\n",
- 					     session->name);
- 			atomic_long_inc(&session->stats.rx_seq_discards);
-@@ -1147,7 +1143,8 @@ static void l2tp_udp_encap_err_recv(struct sock *sk, struct sk_buff *skb, int er
- 
- /* Build an L2TP header for the session into the buffer provided.
-  */
--static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
-+static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf,
-+				    bool send_seq)
- {
- 	struct l2tp_tunnel *tunnel = session->tunnel;
- 	__be16 *bufp = buf;
-@@ -1156,14 +1153,14 @@ static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
- 	u32 tunnel_id = tunnel->peer_tunnel_id;
- 	u32 session_id = session->peer_session_id;
- 
--	if (session->send_seq)
-+	if (send_seq)
- 		flags |= L2TP_HDRFLAG_S;
- 
- 	/* Setup L2TP header. */
- 	*bufp++ = htons(flags);
- 	*bufp++ = htons(tunnel_id);
- 	*bufp++ = htons(session_id);
--	if (session->send_seq) {
-+	if (send_seq) {
- 		*bufp++ = htons(session->ns);
- 		*bufp++ = 0;
- 		session->ns++;
-@@ -1174,7 +1171,8 @@ static int l2tp_build_l2tpv2_header(struct l2tp_session *session, void *buf)
- 	return bufp - optr;
- }
- 
--static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf)
-+static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf,
-+				    bool send_seq)
- {
- 	struct l2tp_tunnel *tunnel = session->tunnel;
- 	char *bufp = buf;
-@@ -1200,7 +1198,7 @@ static int l2tp_build_l2tpv3_header(struct l2tp_session *session, void *buf)
- 	if (session->l2specific_type == L2TP_L2SPECTYPE_DEFAULT) {
- 		u32 l2h = 0;
- 
--		if (session->send_seq) {
-+		if (send_seq) {
- 			l2h = 0x40000000 | session->ns;
- 			session->ns++;
- 			session->ns &= 0xffffff;
-@@ -1234,19 +1232,24 @@ static int l2tp_xmit_queue(struct l2tp_tunnel *tunnel, struct sk_buff *skb, stru
- static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, unsigned int *len)
- {
- 	struct l2tp_tunnel *tunnel = session->tunnel;
-+	bool send_seq = READ_ONCE(session->send_seq);
- 	unsigned int data_len = skb->len;
- 	struct sock *sk = tunnel->sock;
-+	u16 hdr_len = session->hdr_len;
- 	int headroom, uhlen, udp_len;
- 	int ret = NET_XMIT_SUCCESS;
- 	struct inet_sock *inet;
- 	struct udphdr *uh;
- 
-+	if (tunnel->version == L2TP_HDR_VER_2 && !send_seq)
-+		hdr_len -= 4;
-+
- 	/* Check that there's enough headroom in the skb to insert IP,
- 	 * UDP and L2TP headers. If not enough, expand it to
- 	 * make room. Adjust truesize.
- 	 */
- 	uhlen = (tunnel->encap == L2TP_ENCAPTYPE_UDP) ? sizeof(*uh) : 0;
--	headroom = NET_SKB_PAD + sizeof(struct iphdr) + uhlen + session->hdr_len;
-+	headroom = NET_SKB_PAD + sizeof(struct iphdr) + uhlen + hdr_len;
- 	if (skb_cow_head(skb, headroom)) {
- 		kfree_skb(skb);
- 		return NET_XMIT_DROP;
-@@ -1254,9 +1257,9 @@ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, uns
- 
- 	/* Setup L2TP header */
- 	if (tunnel->version == L2TP_HDR_VER_2)
--		l2tp_build_l2tpv2_header(session, __skb_push(skb, session->hdr_len));
-+		l2tp_build_l2tpv2_header(session, __skb_push(skb, hdr_len), send_seq);
- 	else
--		l2tp_build_l2tpv3_header(session, __skb_push(skb, session->hdr_len));
-+		l2tp_build_l2tpv3_header(session, __skb_push(skb, hdr_len), send_seq);
- 
- 	/* Reset skb netfilter state */
- 	memset(&(IPCB(skb)->opt), 0, sizeof(IPCB(skb)->opt));
-@@ -1299,7 +1302,7 @@ static int l2tp_xmit_core(struct l2tp_session *session, struct sk_buff *skb, uns
- 		uh = udp_hdr(skb);
- 		uh->source = inet->inet_sport;
- 		uh->dest = inet->inet_dport;
--		udp_len = uhlen + session->hdr_len + data_len;
-+		udp_len = uhlen + hdr_len + data_len;
- 		if (udp_len > U16_MAX) {
- 			kfree_skb(skb);
- 			ret = NET_XMIT_DROP;
-@@ -1768,16 +1771,11 @@ static void l2tp_session_del_work(struct work_struct *work)
- 	l2tp_session_put(session);
- }
- 
--/* We come here whenever a session's send_seq, cookie_len or
-- * l2specific_type parameters are set.
-- */
--void l2tp_session_set_header_len(struct l2tp_session *session, int version,
--				 enum l2tp_encap_type encap)
-+static void l2tp_session_set_header_len(struct l2tp_session *session, int version,
-+					enum l2tp_encap_type encap)
- {
- 	if (version == L2TP_HDR_VER_2) {
--		session->hdr_len = 6;
--		if (session->send_seq)
--			session->hdr_len += 4;
-+		session->hdr_len = 10;
- 	} else {
- 		session->hdr_len = 4 + session->cookie_len;
- 		session->hdr_len += l2tp_get_l2specific_len(session);
-@@ -1785,7 +1783,6 @@ void l2tp_session_set_header_len(struct l2tp_session *session, int version,
- 			session->hdr_len += 4;
- 	}
- }
--EXPORT_SYMBOL_GPL(l2tp_session_set_header_len);
- 
- struct l2tp_session *l2tp_session_create(int priv_size, struct l2tp_tunnel *tunnel, u32 session_id,
- 					 u32 peer_session_id, struct l2tp_session_cfg *cfg)
-diff --git a/net/l2tp/l2tp_core.h b/net/l2tp/l2tp_core.h
-index ffd8ced3a51ff..25ae4c25d3eff 100644
---- a/net/l2tp/l2tp_core.h
-+++ b/net/l2tp/l2tp_core.h
-@@ -76,7 +76,7 @@ struct l2tp_session {
- 	u8			peer_cookie[8];
- 	int			peer_cookie_len;
- 	u16			l2specific_type;
--	u16			hdr_len;
-+	u16			hdr_len;	/* maximum L2TP header length */
- 	u32			nr;		/* session NR state (receive) */
- 	u32			ns;		/* session NR state (send) */
- 	struct sk_buff_head	reorder_q;	/* receive reorder queue */
-@@ -94,8 +94,8 @@ struct l2tp_session {
- 
- 	char			name[L2TP_SESSION_NAME_MAX]; /* for logging */
- 	char			ifname[IFNAMSIZ];
-+	bool			send_seq;	/* send packets with sequence numbers? */
- 	unsigned int		recv_seq:1;	/* expect receive packets with sequence numbers? */
--	unsigned int		send_seq:1;	/* send packets with sequence numbers? */
- 	unsigned int		lns_mode:1;	/* behave as LNS?
- 						 * LAC enables sequence numbers under LNS control.
- 						 */
-@@ -257,8 +257,6 @@ void l2tp_recv_common(struct l2tp_session *session, struct sk_buff *skb,
- int l2tp_udp_encap_recv(struct sock *sk, struct sk_buff *skb);
- 
- /* Transmit path helpers for sending packets over the tunnel socket. */
--void l2tp_session_set_header_len(struct l2tp_session *session, int version,
--				 enum l2tp_encap_type encap);
- int l2tp_xmit_skb(struct l2tp_session *session, struct sk_buff *skb);
- 
- /* Pseudowire management.
-diff --git a/net/l2tp/l2tp_debugfs.c b/net/l2tp/l2tp_debugfs.c
-index 90fc0a59d50ac..17c3a6db4c227 100644
---- a/net/l2tp/l2tp_debugfs.c
-+++ b/net/l2tp/l2tp_debugfs.c
-@@ -182,12 +182,12 @@ static void l2tp_dfs_seq_session_show(struct seq_file *m, void *v)
- 		   session->pwtype == L2TP_PWTYPE_ETH ? "ETH" :
- 		   session->pwtype == L2TP_PWTYPE_PPP ? "PPP" :
- 		   "");
--	if (session->send_seq || session->recv_seq)
-+	if (READ_ONCE(session->send_seq) || session->recv_seq)
- 		seq_printf(m, "   nr %u, ns %u\n", session->nr, session->ns);
- 	seq_printf(m, "   refcnt %d\n", refcount_read(&session->ref_count));
- 	seq_printf(m, "   config 0/0/%c/%c/-/%s %08x %u\n",
- 		   session->recv_seq ? 'R' : '-',
--		   session->send_seq ? 'S' : '-',
-+		   READ_ONCE(session->send_seq) ? 'S' : '-',
- 		   session->lns_mode ? "LNS" : "LAC",
- 		   0,
- 		   jiffies_to_msecs(session->reorder_timeout));
-diff --git a/net/l2tp/l2tp_netlink.c b/net/l2tp/l2tp_netlink.c
-index fbdd3d055dbc7..a9221c7360b70 100644
---- a/net/l2tp/l2tp_netlink.c
-+++ b/net/l2tp/l2tp_netlink.c
-@@ -697,12 +697,9 @@ static int l2tp_nl_cmd_session_modify(struct sk_buff *skb, struct genl_info *inf
- 	if (info->attrs[L2TP_ATTR_RECV_SEQ])
- 		session->recv_seq = nla_get_u8(info->attrs[L2TP_ATTR_RECV_SEQ]);
- 
--	if (info->attrs[L2TP_ATTR_SEND_SEQ]) {
--		struct l2tp_tunnel *tunnel = session->tunnel;
--
--		session->send_seq = nla_get_u8(info->attrs[L2TP_ATTR_SEND_SEQ]);
--		l2tp_session_set_header_len(session, tunnel->version, tunnel->encap);
--	}
-+	if (info->attrs[L2TP_ATTR_SEND_SEQ])
-+		WRITE_ONCE(session->send_seq,
-+			   nla_get_u8(info->attrs[L2TP_ATTR_SEND_SEQ]) & 1);
- 
- 	if (info->attrs[L2TP_ATTR_LNS_MODE])
- 		session->lns_mode = nla_get_u8(info->attrs[L2TP_ATTR_LNS_MODE]);
-@@ -745,7 +742,7 @@ static int l2tp_nl_session_send(struct sk_buff *skb, u32 portid, u32 seq, int fl
- 	    (session->peer_cookie_len &&
- 	     nla_put(skb, L2TP_ATTR_PEER_COOKIE, session->peer_cookie_len, session->peer_cookie)) ||
- 	    nla_put_u8(skb, L2TP_ATTR_RECV_SEQ, session->recv_seq) ||
--	    nla_put_u8(skb, L2TP_ATTR_SEND_SEQ, session->send_seq) ||
-+	    nla_put_u8(skb, L2TP_ATTR_SEND_SEQ, READ_ONCE(session->send_seq)) ||
- 	    nla_put_u8(skb, L2TP_ATTR_LNS_MODE, session->lns_mode) ||
- 	    (l2tp_tunnel_uses_xfrm(tunnel) &&
- 	     nla_put_u8(skb, L2TP_ATTR_USING_IPSEC, 1)) ||
-diff --git a/net/l2tp/l2tp_ppp.c b/net/l2tp/l2tp_ppp.c
-index c67ba1eab4769..dda3d12337802 100644
---- a/net/l2tp/l2tp_ppp.c
-+++ b/net/l2tp/l2tp_ppp.c
-@@ -1193,15 +1193,13 @@ static int pppol2tp_session_setsockopt(struct sock *sk,
- 			err = -EINVAL;
- 			break;
- 		}
--		session->send_seq = !!val;
-+		WRITE_ONCE(session->send_seq, !!val);
- 		{
- 			struct pppox_sock *po = pppox_sk(sk);
- 
- 			po->chan.hdrlen = val ? PPPOL2TP_L2TP_HDR_SIZE_SEQ :
- 				PPPOL2TP_L2TP_HDR_SIZE_NOSEQ;
- 		}
--		l2tp_session_set_header_len(session, session->tunnel->version,
--					    session->tunnel->encap);
- 		break;
- 
- 	case PPPOL2TP_SO_LNSMODE:
-@@ -1311,7 +1309,7 @@ static int pppol2tp_session_getsockopt(struct sock *sk,
- 		break;
- 
- 	case PPPOL2TP_SO_SENDSEQ:
--		*val = session->send_seq;
-+		*val = READ_ONCE(session->send_seq);
- 		break;
- 
- 	case PPPOL2TP_SO_LNSMODE:
-@@ -1557,7 +1555,7 @@ static void pppol2tp_seq_session_show(struct seq_file *m, void *v)
- 		   state, user_data_ok);
- 	seq_printf(m, "   0/0/%c/%c/%s %08x %u\n",
- 		   session->recv_seq ? 'R' : '-',
--		   session->send_seq ? 'S' : '-',
-+		   READ_ONCE(session->send_seq) ? 'S' : '-',
- 		   session->lns_mode ? "LNS" : "LAC",
- 		   0,
- 		   jiffies_to_msecs(session->reorder_timeout));
--- 
-2.53.0
+struct hfs_find_data {
+	/* filled by caller */
+	hfsplus_btree_key *search_key;
+	hfsplus_btree_key *key;
+	/* filled by find */
+	struct hfs_btree *tree;
+	struct hfs_bnode *bnode;
+	/* filled by findrec */
+	int record;
+	int keyoffset, keylength;
+	int entryoffset, entrylength;
+};
 
+This is the field is prepared by caller. So, it should be group in the
+first section.
 
+From my point of view, keylength and key_size are not semantically
+different. Could we suggest some better word here?
 
+Thanks,
+Slava.
+
+> =C2=A0};
+> =C2=A0
+> =C2=A0struct hfsplus_readdir_data {
+> @@ -372,7 +374,8 @@ void hfs_bmap_free(struct hfs_bnode *node);
+> =C2=A0void hfs_bnode_read(struct hfs_bnode *node, void *buf, u32 off, u32
+> len);
+> =C2=A0u16 hfs_bnode_read_u16(struct hfs_bnode *node, u32 off);
+> =C2=A0u8 hfs_bnode_read_u8(struct hfs_bnode *node, u32 off);
+> -void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off);
+> +void hfs_bnode_read_key(struct hfs_bnode *node, void *key, u32 off,
+> +			u32 key_size);
+> =C2=A0void hfs_bnode_write(struct hfs_bnode *node, void *buf, u32 off, u3=
+2
+> len);
+> =C2=A0void hfs_bnode_write_u16(struct hfs_bnode *node, u32 off, u16 data)=
+;
+> =C2=A0void hfs_bnode_clear(struct hfs_bnode *node, u32 off, u32 len);
