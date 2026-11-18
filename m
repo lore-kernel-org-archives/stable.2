@@ -1,51 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794996090;
-	b=2pwKFeT0dYlYY0wIvZpJf9yE1WXEYpItr33NwwDRC3efymdmsVVUzpSaGO+b+EKIVkbZ
-	 D1IEbMgj1KJMiIzCD4GIkeNYzL7ZRen5LetwLQGLKAhekrADRLpmy3Rs/RkAAQ4Gl2Knx
-	 3sFCpQKRB+4z3Z71FeBGO9MUYmb3Hdx93DHQV3h1wdoCNN+b+oli9H+MEAdOLXeD5LnnX
-	 UmtPk8Qn7ZDk6m7ySgivwOhPMEg4DwqGJETK22vOKqszga9Pl/Zi6NTl2pu401v78MmS0
-	 2oGH5cizIB7hREzagzU+dHjQxEfZoYnaMnps+uNGi0+WYzxOIgJl8D41OUpJ0Gc4ROQ==
+	t=1794996220;
+	b=Xdefx03kaSPEMWrh7tFsFnp/EOKMBRKwrzIXgWxaTAxNjGRmN8WGbYeJFxRJhW/A9bDf
+	 Xduop4povEJQcR+IXCgOES1RqDscyNxehiInU13aJiKbYhedEhi3bZNF2s1BCMfcbhHRK
+	 3dd6rRBa/GV6DXn0tfSoJD/4WvR1emzuTJTn6ImPjxKjSpzJcz5t6oKw1e19Hr7YESbWv
+	 dNeKTWZgUnDtnNkVGRchTMDvB8IKqioS0TcEfd25Bk18r8JnSAbgvTjPvXYu4/dOgO7Dj
+	 TgtKCXxZjt4+CDuo6y6dNh8y2vIfw9NxwYy5sOcalBtIvXNX7Y+tphTo3SqGUR4jRFw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794996090;
-	h=DMARC-Filter:Received:Received:Subject:To:Cc:References:From:
-	 Message-ID:Date:User-Agent:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Language:Content-Transfer-Encoding:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=UKWjVZpbhwfl1kXwmyPrP7TMuw/VD84DqotItrop890=;
-	b=SZ7pzLHu4Wjh6CoJTZRQH4t5KWcMtBqV8tvmx78ZPhRFzgFnHP0nP8xO0QyAcfeIN5vY
-	 pabucS6NAwT6kErqn68/wQdBiDy/Dq7jdHY+CgH7bu1EjE1/B6VSrQ9bYyy2W9o2pm0Ib
-	 e7HBtWEl4AT2qddj24r0yvIrQ4oflpBG7Z52Aeeoxxcesvs9RVquBIqukC6MBP4eUuCCq
-	 9JaaQl/9tssDhxcTPXtrlh3c7KDAg1DS62JCgbSSdARt8WhrPSwE5177l8DFBaffVxG7/
-	 W/OgfgbW/NwfG9CfnpAk0AEal3n3gT0lHteNMLdnVMGGE9lrVacdNvBAOTHaRnB28wg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794996220;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=E6Wjea5xNlseMIU1gabJ1JMwd0McL/hKQzFqGCqzeOU=;
+	b=kzQGmEXgOT1KbCMrlHFN1dyHsOWhax7aZFtzJNa2NghUgKLbHFt23rn2P2UWczdywDnL
+	 Fe7R8oiw8hvxiQwKyHpCY7DPnWe5Q6KHtCbuQf1y1bpA4JpYfKSpImukxVuMCkwyAjwu6
+	 LR6nOENiWK/dZwTE3blomXKEkGjefM330hQZ7J9q1ttKRXVruMtcDX3miNgoTnPzDniEc
+	 xpYSD3kNH79DBK8Jl0BvE2uFCfDswEsXC5XMyBuvSbEiB92koKOR3dSoocHgkmodhAPN1
+	 3v4Ttf/4un1EkjUMwOb0RxEWYLYVay0ODRZifsH9WF3dhXKLafsAmNtxZtUqiAsyZgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=loongson.cn;
-	spf=pass smtp.mailfrom=loongson.cn;
-	arc=none smtp.remote-ip=114.242.206.163
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 97B47606A895;
-	Wed, 18 Nov 2026 10:01:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97B47606A895
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [123.138.236.242])
-	by gateway (Coremail) with SMTP id _____8AxntJ1d_1qJscgAA--.28616S3;
-	Wed, 18 Nov 2026 18:01:25 +0800 (CST)
-Received: from [127.0.0.1] (unknown [123.138.236.242])
-	by front1 (Coremail) with SMTP id qMiowJAx3c50d_1q0JQ1AA--.41976S2;
-	Wed, 18 Nov 2026 18:01:24 +0800 (CST)
-Subject: Re: [PATCH v2] LoongArch: BPF: Fix the offset of stptr.w and stptr.d
- stores
-To: George Guo <dongtai.guo@linux.dev>, chenhuacai@kernel.org
-Cc: hengqi.chen@gmail.com, guodongtai@kylinos.cn, bpf@vger.kernel.org,
- loongarch@lists.linux.dev, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261118071444.10258-1-dongtai.guo@linux.dev>
-From: Tiezhu Yang <yangtiezhu@loongson.cn>
-Message-ID: <25a0f5b9-93aa-7d80-423e-b283efcc4b89@loongson.cn>
-Date: Wed, 18 Nov 2026 18:01:24 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XjrPMthP;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 466AA606A32A;
+	Wed, 18 Nov 2026 10:03:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 466AA606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=XjrPMthP
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id A15561596;
+	Wed, 18 Nov 2026 02:03:36 -0800 (PST)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7AEBA3F882;
+	Wed, 18 Nov 2026 02:03:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1794996219; bh=zFDjf1tMOA6qI/SmwbQt0R6XTPbVY8wCmM4cP6BRPJY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XjrPMthPZZfI1pBWz21Dv7UZ9xPXCvUH9GxyzTikPLlrPxsm3gpOlQ9g+DNsUd2Co
+	 BW9VbSH8/9g/5nUPh1Z0wFnR5ltkZUqfqSXj3dUaE1hzd0oi5vsFGywqUtIQB4EylE
+	 VVeX7op+xub0tx2bTp4azVsAuuVLIRixMyPzBuxk=
+Message-ID: <8b078536-4101-42d4-bbad-d251cedba4f0@arm.com>
+Date: Wed, 18 Nov 2026 11:03:40 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,43 +53,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <20261118071444.10258-1-dongtai.guo@linux.dev>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Language: en-US
+User-Agent: Mozilla Thunderbird
+Subject: Re: Patch "arm_mpam: let low level MSC accessors return an error" has
+ been added to the 7.3-stable tree
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
+ stable-commits@vger.kernel.org
+Cc: James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
+ Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
+References: <ab81e90a-fdc4-426b-8da7-45b1a80e88f0@arm.com>
+ <2026-11-17-1-daily-reply-0009@kernel.org>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <2026-11-17-1-daily-reply-0009@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:qMiowJAx3c50d_1q0JQ1AA--.41976S2
-X-CM-SenderInfo: p1dqw3xlh2x3gn0dqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7
-	ZEXasCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29K
-	BjDU0xBIdaVrnRJUUUBmb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26c
-	xKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vE
-	j48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxV
-	AFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x02
-	67AKxVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6x
-	ACxx1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E
-	87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7I2V7IY0V
-	AS07AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCF54CYxVAaw2AFwI0_Jrv_JF1l4I8I3I0E
-	4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGw
-	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48J
-	MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
-	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E
-	87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcVc_UUUUU
 
-On 11/18/26 3:14 PM, George Guo wrote:
-> From: George Guo <guodongtai@kylinos.cn>
+Hi,
+
+On 11/18/26 01:20, Sasha Levin wrote:
+>> Instead of back-porting this patch too, we can just drop the (pointless)
+>> error handling in this fix patch.
 > 
-> When testing bpf selftests "jit_insns" and "jit_insns_blinded", the
-> "ldst_offsets" subtest fails for word and doubleword stores:
+> Thanks. Both of these (this one and the "propagate MSC access errors" one) stay
+> as plain upstream cherry-picks, and 197a7a41e6e0 ("arm_mpam: On saving mbwu
+> state read the monitors before clearing CFG_MBWU_CTL") applies on top of them
+> as is, so no adapted backport is needed.
 
-...
+Sorry, but why? This patch (and the other) are complete churn as such, 
+and introduce a lot of unneeded code to the stable branch. The adapted 
+backport is very simple (just moving a single line within a function), 
+which seems to me much better suited than pulling in three patches, two 
+of which quite large and pointless.
+I will send the stable backport patch ASAP.
 
-> Cc: stable@vger.kernel.org
-> Fixes: 5dc615520c4d ("LoongArch: Add BPF JIT support")
-> Signed-off-by: George Guo <guodongtai@kylinos.cn>
-
-Acked-by: Tiezhu Yang <yangtiezhu@loongson.cn>
-Tested-by: Tiezhu Yang <yangtiezhu@loongson.cn>
-
-Thanks,
-Tiezhu
+Cheers,
+Andre
 
