@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005605;
-	b=r5+sO8Ci3R4VA+JbrNlSM7sazdiHuse2XkiZxJVhL/u/5b3aYcdKcTL/BFo71weWRdHm
-	 veqxL7JoWyU86WytFQinE4T72TIM5IddKctIVD5Av2jsMS0gFolVqq4+T61Z0U0FfrN5m
-	 TOp/1OZAie60KtPBgczZLkZmlf8rNULe0r1D9fcLDenj6wYMICRFnxU7zNfwoKoEX0AZS
-	 xOvdJv8imvcjpiGuRstUin+dd5am0Yg1dpcpwc22dTleLrSIYJ22AQbws/IE6dETU10mq
-	 fPNjLJgqeIDb+y4hDDKRN5mPjrnsFl4CeKNX0ajYpQgJRQgYt7CdTw/X4JI5K9676BA==
+	t=1795005606;
+	b=tleSRDds9fuKrPDz3+/hTixnJlGeK/WPfL8RXggze2DlnSB/rbsBMQUnZc97FKUskpqH
+	 FsK1yQNO+89f/DleLBluSQ70USIkDIHtwh2GD4pXDh9uf4XFuG5aDUXvm3WeVHrO8PQuU
+	 7KEwQCyIsbHvdXTJy9oXe3bLMGshDispD7YU5UHQ/0yX4pgM0PtlJ/RhExF7CQVylP7j7
+	 Q6L0Fmdb9RBuc5/p/oQ4ndSFZeBeGjwhJZYH1uUL77BaC9NTKhW2UIfW5IWGinB4zGKiR
+	 vZ90Z88lXsi+ad/ArzhecHMM7Xt0fWq8ahCg7TwWqxprVI26hx2zQL+8uuLn0F4aDtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005605;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005606;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=fEwBFRFlykVi78THwcp9kuiT6jItZpH6ih9H1rJHzJU=;
-	b=KlYQ0qlUZlhGbS79tCEoTsavXr+kiXozQLxpGkQbDoJtX3bytK9qHbgu+jnrLvkMyU0+
-	 +qQ5UpRpctzocuvu1mTdpH/2bJ0KUvSLLvN7jGd85hrbS1aCnrKFqRFo4GcRIcqDiYe7E
-	 vo5oFwCReovJRs+JU2lJEu7AB/XTUCEqn6CD8L6+e82RmjWO60OtRErVTaoZC0VXkbiVd
-	 U1WeA+OVKNkQV6lHDQhYWOYb2IEf9weU55IwzC+yucJDHlWBCg2CK0xl/oIlei31fPbgF
-	 4CM/Oqd1k+A5On1Po9PQB7vVz9qPOWcbi2/T6nDVqofuylVBmyIl4u4fl5ZF9ugDjZQ==
+	bh=q77K6mTBp/Yq7Q7Il+okXaZvOp3BjyFzkJbKUioWPIM=;
+	b=xO780i2b/Lv7eKjmxQ6VeFa19XhDnbiJOAJt4ELm0xQrjp2LnrE0Jk9i1RB8xnJxG6MH
+	 fNqBfOxZPGXm42vt55PZPWPyGrXYs9bbDAMJlbrRLzrgbzgOqOUgMuBU1s5k6UBECcq4n
+	 hD6zSyf6/wpRp4MVdhKx1FTcbFwu/MusWAUEDpSabhy4+M5U7LU/lV1ZiohPqupVDbKZh
+	 ETaTbmFWWtsQisp7OWzFzUAR9JlyKyYb6kPJ3FCQ4/JtKrMZv+0uOtwyhfSUSfREBz6YD
+	 tWh/jkp4pMUyA/u8alfCo2ICfg7uGhlD6fQjFD01fQCa1W6vHvQ3lxbcZOe1n6CnX/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NjIHXa+E;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhvHB0uG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070AF606A320;
-	Wed, 18 Nov 2026 12:40:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CFF0606A31C;
+	Wed, 18 Nov 2026 12:40:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NjIHXa+E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FC081F000C4;
-	Wed, 18 Nov 2026 12:40:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DhvHB0uG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2605E1F000C9;
+	Wed, 18 Nov 2026 12:40:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795005604;
-	bh=fEwBFRFlykVi78THwcp9kuiT6jItZpH6ih9H1rJHzJU=;
+	s=k20260515; t=1795005605;
+	bh=q77K6mTBp/Yq7Q7Il+okXaZvOp3BjyFzkJbKUioWPIM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NjIHXa+E0Oi/Yb9NPF9Es9gRIPbYkqn67uzYcZMQYmUUXQxjG3Sk58SqhhODT6rNi
-	 Xy5Wqa3UpPrjkD5qN+Cv3/LWRTJt0Jrc3hzghyl/TNXm84+Ty8yj9afkB/n7g8ueT1
-	 JP04RDDPKeIY2tl98Fx4140yW0dgQUqBZgaYrxgvw+29GNoXWfqjW31ZHENbC9NtsG
-	 V7F6x5Y87aCJY0LF00ZyuxJcOKynFrO/z8FxlOHEwm3Zy21Hg9cVZah6H6lPnG2h6w
-	 H28U+PXavZVu74ITmRM2BlCtERFxexM6Y+lhZiL5ETD7IlI0TnY3epfdLqYA1t9iCi
-	 r8pjGZtOVrRRw==
+	b=DhvHB0uGdsRIzbrkxYmMH0647yCwifcfecY18/T0iF40ggVskeD3ucMsBX1l1aC7e
+	 V71sT6GyMa+B/Jq3Tr6niIYO/O/FjzH90HHcgZoYTZhY0rFjHL4EAFA9ATXHD2mSC9
+	 UCe1VAHWI2C+1I+YkmrzL6bCpZ0HSHs2GnnJBObl7VubFtIah6Ouv5HRdTeJeiVk0M
+	 yr9PyjhfJC45e2xp0UKr8cGwXq28rWYqjpodd4FMCSKWomdqrKfwGfm1URDE8PgV5a
+	 fSqR/+LBpscGi09ZdecpovixQulu4d2WToi7dEjJhkJwu9fyjEIGJITh9SuBwi32ql
+	 5Wg9Biz12B8yw==
 From: Sasha Levin <sashal@kernel.org>
-To: =?utf-8?q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	stable@vger.kernel.org
+To: Andre Przywara <andre.przywara@arm.com>,
+	stable@vger.kernel.org,
+	stable-commits@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable-commits@vger.kernel.org,
-	Sebastian Reichel <sre@kernel.org>
-Subject: Re: Patch "power: supply: core: implement extension API" has been added to the 6.12-stable tree
-Date: Wed, 18 Nov 2026 07:39:57 -0500
-Message-ID: <20261118124002.3727477-1-sashal@kernel.org>
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: Patch "dt-bindings: vendor-prefixes: Add vendor prefix for Teclast" has been added to the 6.6-stable tree
+Date: Wed, 18 Nov 2026 07:39:58 -0500
+Message-ID: <20261118124002.3727477-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <6ffbbf17-c105-4ff3-94bb-ede950f574c2@t-8ch.de>
-References: <20261117173125.2151200-1-sashal@kernel.org> <6ffbbf17-c105-4ff3-94bb-ede950f574c2@t-8ch.de>
+In-Reply-To: <c1cb0981-b152-4c5f-a296-bdf3417bf665@arm.com>
+References: <20261117175632.2198155-1-sashal@kernel.org> <c1cb0981-b152-4c5f-a296-bdf3417bf665@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,19 +66,12 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Wed, Nov 18, 2026 at 09:47:41AM +0000, Thomas Weißschuh wrote:
-> This feature backport should not be necessary.
+On Wed, Nov 18, 2026 at 10:48:59AM +0100, Andre Przywara wrote:
+> So unless there is a specific reason I am missing, please drop this
+> backport.
 
-Dropped the extension API backports from the 6.12 queue again, together with
-5b4bd13e0552 ("power: supply: core: prevent unregistering a power supply while
-a callback runs") and 9f7f7a859451 ("power_supply: serialize property access
-with unregister"), which is what pulled them in this time.
-
-9f7f7a859451 is also dropped from the 7.3 and 6.18 queues for now, because with
-it mt6370-charger, qcom_smbx and cpcap-battery call power_supply_get_property()
-on their own supply from inside a callback and so take epc_sem for read
-recursively, which can hang power_supply_unregister(). Mainline has the same
-code.
+Dropped from the 7.3, 6.18, 6.12, 6.6 and 6.1 queues, along with the
+vendor-prefix patches that were only queued as its dependencies.
 
 -- 
 Thanks,
