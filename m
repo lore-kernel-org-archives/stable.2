@@ -1,102 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794992443;
-	b=d2cD1hDzjT1rCJKJxzMLtEagZY4PPsfv901CbnSVuqQTgwxXPiBRBjYvZrhSmnzWUZGE
-	 wquTA8LbAWGQIELnAsDBplqdMmobnBc3YbRYRbNMha2u+07XSv4kKGkC9X6UKCzYySuJV
-	 HlToOs7wDZYfvXN/1CicZgXEfMo2kGhNxOSOditMTkl+MHnQ4n9jMdr6VCE2DkQ+uiHl2
-	 acITwxbA6FarGvcl2jA810j03aQUGsPYW6DN/Y9i/KXeXDkb8NgylRsMvjUOQOsfJrAiC
-	 oR28SAoMjFZnuK6cddMJrImv0D2xdShm1VfoO+APivo6d8FJcn9XIRBMeufxMEKEBww==
+	t=1794992455;
+	b=MbWpKdTAWSklxkF86GWN0ndbFXOC/gMKDgDdWFDmT7IaEsKm++CfCFeIqg0mKnxyqbHv
+	 HaRdGb54fb7Raqh5NwcigPt3EnWJGq2NjdmohAhmeGgc7wSqqG3Zrm2B7pLLcp2nEqt7E
+	 4ofwnPG/Nx1ZDLG8rB/wYrUSlhRBZOq8EVSy6Dff32Yn96EKJIGIrybNEOGM2WwhwaKgk
+	 scpGTdthChGGNCgWzIhZJnO9bwpSU77R7swrBV/8Upg9YjhSoyeNTt4tZQDZsVtyKC+N9
+	 ZWaa7OqRyfw9GdsAQmiB36MykDbO0DUhhmYe4WObjAP4X9IofBTxgcK4HssBC2a4VQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794992443;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jqxyrzbxVSXD607utnRg/dtiDVgdF2PcAOp0S72RBFQ=;
-	b=eB4o5uncYZbgPeO3QE4UfwEfvSKq5Mr5w8BiptTuNVY0H7wpPlyw2d6BPJYaWHtglbhJ
-	 DDn57gpW8gPb43CpTV34jNH/bBnlYVR971C8ZXyjLz9bbjzJr0YP/gZPnx+d/e9w1QsF6
-	 qxdtw17ta8VZ4a5iQkhpRtvXvgx2WNONDE+6ga9XjCGNxiUgzIgohjC4FnGJgG97TPbCl
-	 305WO74gOhH0ybFPRroqNRS9VLVAtNINl9XtCCVHx+DM/DcpYFXWxw2VSh2agSb8uzH23
-	 BJ69KEbxKomDBIASDyvaLTbxRg6V8e890KkwitqPbKuBzb3eUK3DNX96yHeBgpb5LRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794992455;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=Uj1wQ+u+WrEAOr0W1pZvk6npPUvkHVt74zvzLZ7zUR0=;
+	b=MTvVb3o2toUUJRr99S7UQfxbF/Bpmb4nIkspyYOshHWstsaK6MSZhXHIwG8LdwJm4Tzu
+	 7oNSTPIMH0nmcqAb5U0P8353fplqvt6S43+M7bOhd/eiy+qFNaGEMVL2pEVgTNgXbQ5Lx
+	 M/gxQicsp7VIyIoYcnOb+E7TGHdMlIjpRmksv0Ax3AoU6YinSLB/VNkiK6YIjNbjAwCvw
+	 MW5IOT7mAkSmi7nH3IXNQCMP5FTEYMz5op7rq+sQfxQW+J8Hn8s6dKycNJeYvTjYozHcv
+	 SO7j8+BcA35HN4C6+4KoMqZsfMKBS/TXcXgVoHc3nt9IY18zJPo0F4ccWIiLMIoAnpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zKwPzUGZ;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IsS2jxpU;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58820606A320
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 09:00:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58820606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCE9606A320
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 09:00:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zKwPzUGZ
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4bb6886d30aso6183055e9.3
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 01:00:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1794992442; x=1795597242; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jqxyrzbxVSXD607utnRg/dtiDVgdF2PcAOp0S72RBFQ=;
-        b=zKwPzUGZYmdddYPdPMlo97JJvnFLGwWmfOZ2NpMlLSl2+n8Auivewm5aGXoLjURAxQ
-         I1heZ3JZhkSdFNxoDh31PW1FSzHrnBG9kyJMTMvuA1y057v5Ivks3AJuhHbR4WAtmy+y
-         R4TKWqFzoRYIjwGeHJEjfTPM6cnkbk3rM/TUkbb6BDB4wl1dEx1VbnK8drtttqGrcGTk
-         pGRWttYEMGz8iS6TsKajCCkGuqVyCNriXWYVikyvuCEsYfaqNKHJP71fLUYIk89zRDIF
-         nggT8+l2Mip1jNisBJLGRcLWc6arfR9T2WqN41GNM0FN4K8iVCU6hYQkxoBCeNE6zp9U
-         ADpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1794992442; x=1795597242;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jqxyrzbxVSXD607utnRg/dtiDVgdF2PcAOp0S72RBFQ=;
-        b=CfQhJkORPrs/yF5e5t6Y98O2RVr5uTvrPV346eIpnZng9PSRjEszsxUYLuCfHTPxmX
-         snS2AvCVLFL7Vk3YK5csqHdK8nBYA3GicVRpU77shONKACHtRyufHEVHOopsPj4Vo3QX
-         wVmAc3M/FTHv4CoyUCEp6tGRcdBSsRxkltQbsXFcRj5UI5zg/pc+4ubujyq63wQdmnfO
-         UYNClaWYNlivDUu3r0V8FqnBrvwhA/9Ld/gnSPTZeQR5TY3MIUMWaI44DFpzoa1SL0M9
-         MCn3+q30VcwwyQBxBbzLCvm+2G/hkhcdXUFi75XKXauAzW7vdszHA7CYwpJfcs8io4ys
-         couw==
-X-Forwarded-Encrypted: i=1; AL+hErGGUiSV6OyOeYmQe+0YVKc2a7sfgMReTAyX3jo0yo/tTYuxj5atIV0uEAsT//EQnKm8Fhxqx2I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9INWBkXxJJhcSgoKANdZsi+XwNwQcB4nDT4b82hzJcUOTRR7Bl
-	dwaNKaSKNiJAuwOHzXwCCaxnvGD92qes0rEutLSzyZMyOLpk9PJEoKJju9e/R4uU
-X-Gm-Gg: AYBFou2a63UsVcM9E6NJAIBXuWMD+MvoUc+9jffpB4Ui0aCosTGLWU0MmfEmzwkDGRd
-	KvMd6zyzodcydCFHW8BOkDFVVTPXcX9kwisadd5GLurORvcpLWOYr1q5q+jKt5Lnv+SejJ/t7VP
-	GJWdHQtmFNByf/t8jP25JIxLWnAhecDyou/DO672VC5kVJPQjFWlZIvcxHKghH/uTzjnwacicYB
-	6pPb5uK30KUWutpFwQq9Whx4GK8iua2UUe/4THQIRXKmnhIs733mHGZa98s6EZo6WLuHjvFUkcr
-	OZpS2Hzjnt37LoxpJB70Gfm5sytAtW9iHc+8ejb+FRA6AjobbytHEAoiOSPT45oHJUfzKVYt922
-	20qNt7HQaTR3x+lRLnwJWM7dQJ6K0xsLHMjoLxMQPJyVf9fv1oIZqkGEfgFt/8TU6xsrsx8Zbiy
-	zuibJ06OLAAqM+X1peeKa6apQ4QLM+l/+FvzSElx2ZLWlSX7uUyJVhjD3UyPUK570Ko/LV2zhTQ
-	NvkQuGoyOo7wcFhOGXM11WUXhX5WFViCcAyTtbjohJtm3McJc34Rg0mHWOwDQLPBSdpH5YSz3gZ
-	TpyuqvmpnJQb3IsN5PW24PWVaZVbAc23gDVe3F8HMh9P3wXh4qvvV/bTGVNe0Hs3FQ==
-X-Received: by 2002:a05:600c:8904:b0:4bb:6f77:1e35 with SMTP id 5b1f17b1804b1-4bb7daa7fe1mr24609405e9.21.1794992439985;
-        Wed, 18 Nov 2026 01:00:39 -0800 (PST)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb7d2b979bsm50470825e9.11.2026.11.18.01.00.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 01:00:36 -0800 (PST)
-Date: Wed, 18 Nov 2026 09:00:35 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Ingo Molnar
- <mingo@kernel.org>, linux-kernel@vger.kernel.org,
- linux-tip-commits@vger.kernel.org, "Borislav Petkov (AMD)" <bp@alien8.de>,
- stable@vger.kernel.org, x86@kernel.org
-Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
- enabled when compile testing
-Message-ID: <20261118090035.15ced20c@pumpkin>
-In-Reply-To: <20261118072848.GA325225@ax162>
-References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
-	<avrPcQ4sOkgJPbkZ@gmail.com>
-	<20261116130159.GA1327949@ax162>
-	<CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
-	<20261116223628.5a6139a7@pumpkin>
-	<20261118072848.GA325225@ax162>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IsS2jxpU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DB171F000CC
+	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 09:00:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794992455;
+	bh=Uj1wQ+u+WrEAOr0W1pZvk6npPUvkHVt74zvzLZ7zUR0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=IsS2jxpU23Tid1ZhUl+72sUwhQaBpoRBevoakbTBmgwww50jea5WT9B0TJ+QaASRk
+	 86K1ALa9ztAtacrfcwp+03AV5Q9IT/REH7Q3nvrb2oV9T2IeJB8+oIQ005UOJ6Lk6g
+	 jDVRFmwZzGp25KSIufn6s7zAKgzd8PHO8pxLuGnm/TH+6Ng4P3SdcIZEVQvjB1LcVH
+	 u3zqE24PMVTaGeGVRwfL2OZhnv9TxAh1T1URST8El9iPvAGNmiaK2pQhBCEpTSqZBf
+	 k2SCww7F8Q+vmyq/Q3NZzYuk3vlfaImzHW5zk1PDleAO8hmVCxkoA2OI1Exux47vyz
+	 SLO3YaXbtOaxA==
+Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-717080a2d50so648693eaf.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 01:00:55 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGaDII2XOTmi9LOqYjeHzMeMIdEDXe+He6va/owtSIaeYYg0mMVL9TCfYeeZpUATAJhNUGOq7c=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+r6KPSR7LdPbYIs/N4qvv/mVepXN4KEmzqS8bzfy/8P5aTjOk5
+	ooFqD85mgUGUd2nn3qRkI4bQCsLN3ofzWcz4MhLqeZrhoUBNxZtBhQDZovapJB2Bha4pXvqacno
+	uZtpl1EEk8C+gnS4ua0lnIXI9req+bJA=
+X-Received: by 2002:a05:6820:a70e:20b0:71a:bb8e:7cc1 with SMTP id
+ 006d021491bc7-71b184d9757mr1107988eaf.41.1794992454939; Wed, 18 Nov 2026
+ 01:00:54 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,30 +59,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20261118084927.1756747-1-bsdhenrymartin@gmail.com>
+In-Reply-To: <20261118084927.1756747-1-bsdhenrymartin@gmail.com>
+From: Eric Dumazet <edumazet@kernel.org>
+Date: Wed, 18 Nov 2026 10:00:44 +0100
+X-Gmail-Original-Message-ID: <CAL4WiirJ4qR5koewZwzr44tJypJk5asS5j84CwUCwb=msMgkpQ@mail.gmail.com>
+X-Gm-Features: Aa3M54rKylK6gYh2OnpK0KukidPcty2oOxAkcrYMg7Uk1187Kfw4ZwuAz843W5A
+Message-ID: <CAL4WiirJ4qR5koewZwzr44tJypJk5asS5j84CwUCwb=msMgkpQ@mail.gmail.com>
+Subject: Re: [PATCH] net: initialize sk_peer_lock in cloned sockets
+To: Henry Martin <bsdhenrymartin@gmail.com>
+Cc: Kuniyuki Iwashima <kuniyu@google.com>, Paolo Abeni <pabeni@redhat.com>, 
+	Willem de Bruijn <willemb@google.com>, "David S . Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, 18 Nov 2026 00:28:48 -0700
-Nathan Chancellor <nathan@kernel.org> wrote:
+Le mer. 18 nov. 2026 =C3=A0 09:49, Henry Martin <bsdhenrymartin@gmail.com> =
+a =C3=A9crit :
+>
+> sock_copy() clones a struct sock with two memcpys that both include
+> sk_peer_lock.  sk_clone() re-initializes sk_lock, but nothing resets
+> sk_peer_lock, so a clone created while the parent's sk_peer_lock is held
+> inherits the lock in the locked state.
+>
+> The first getsockopt(SO_PEERCRED) on such a child spins forever in
+> queued_spin_lock_slowpath().  spin_lock() disables preemption, so the
+> task never schedules and its CPU stops reporting quiescent states; RCU
+> grace periods then stop and callers of synchronize_rcu(), such as
+> expand_files() from accept(), hang.
+>
+> Initialize sk_peer_lock explicitly for the clone.
+>
+> This issue was discovered by Tencent CodeBuddy Security.
+>
+> Fixes: 35306eb23814 ("af_unix: fix races in sk_peer_pid and sk_peer_cred =
+accesses")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+> ---
+>  net/core/sock.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+>
+> diff --git a/net/core/sock.c b/net/core/sock.c
+> index ad414878dc5b..b5e2a2a7741c 100644
+> --- a/net/core/sock.c
+> +++ b/net/core/sock.c
+> @@ -2545,6 +2545,10 @@ struct sock *sk_clone(const struct sock *sk, const=
+ gfp_t priority,
+>
+>         sk_node_init(&newsk->sk_node);
+>         sock_lock_init(newsk);
+> +       /* sock_copy() copies the parent's sk_peer_lock verbatim, includi=
+ng a
+> +        * held state, so the clone must start with a fresh lock.
+> +        */
+> +       spin_lock_init(&newsk->sk_peer_lock);
 
-> On Mon, Nov 16, 2026 at 10:36:28PM +0000, David Laight wrote:
-> > I don't even remember a check that the compiler is right for the architecture.
-> > I'm sure I've got strange errors when I've forgotten I need to specify the
-> > compiler for a cross build - and then forgotten where I'd put the compiler,  
-> 
-> Yeah, I guess having some internal check that the correct compiler is
-> being used could be useful/user friendly but given how fast things
-> explode otherwise, I am not sure it is worth the additional complexity.
-> 
-> > Oh and forgotten all the things you need to set to get clang to do a
-> > cross compile.  
-> 
->   $ make ARCH=... LLVM=1
-> 
-> is generally all you need to do nowadays.
-> 
+The comment is not needed, the changelog already explains this.
 
-That requires that you also get the correct clang on $PATH.
-I'm sure I remember that not being as easy as it might seem.
+Also, please use [PATCH net] in the subject for the next version
+(after a 24 hours delay)
 
-David
+With these addressed:
+
+Reviewed-by: Eric Dumazet <edumazet@kernel.org>
+
+Two side notes, nothing to change in your patch:
+
+sk_stamp_seq has the same problem on 32-bit kernels. SCTP can clone
+a socket while SIOCGSTAMP holds the seqlock in sock_gettstamp().
+We will send a separate fix for this one.
+
+For net-next, I am considering to restrict SO_PEERCRED, SO_PEERGROUPS and
+SO_PEERPIDFD to the families that actually set peer credentials
+(AF_UNIX and bluetooth), so that other sockets no longer touch
+sk_peer_lock at all.
