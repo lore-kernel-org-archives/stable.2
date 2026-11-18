@@ -1,60 +1,85 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795015274;
-	b=FTSKkInG5B0OVCceaDm0UAWQTs5szwWixTmnpWFH0IO+W0Yd4ymSC1biRDqoHWIOa331
-	 oOR/UyDdEWCsDzgyEgNo7MiXIEe8kuqFFlIkDjzlnXbCfVeZDkM3vrik7RxG1qS+IzFvL
-	 KtcHtDiQKxxj/uUAlsJgW4XDj1JvKrOOmfNnxc3uOG5JfOFRPaAU7Rr9KjD8BySRUPHPV
-	 zyjoSuyN5mxyjrZfsUZt2DtKPUlF/AsM3ZXtVhAcupJvJFg3Lf/hqmY68wHNrPnLEOay9
-	 FAsM4bD957vYDztje8AowEShJcKoF/gBES+JCuRX8g2U6jl8IfN2GinhmKxpWOKG0sg==
+	t=1795015270;
+	b=3wIvtEEpNknWpnC30KPDmcLBQptkSe3AYnj1zyKq3aYBvQQzpfn7Ks0I+xqpEa8nKsHE
+	 7B8Ufr4pxWcF9m+c1svCzhlbnGYNyUTjejZpW1KoxN6urZvmwn+q3erXkdD+HSTiZI/9x
+	 5Si1jKQLr/pxp/X406w4IXVniX9HwEjDmQ7QYlejA466sL8d45y2o9weHweYTI42/XKYd
+	 4X1L2Bujcu9YHXFuvQvHDf5uC4ctyZiJ7EnARgNEXAXF+qfolqrOPZx2r26l7gl0WNXWU
+	 vWnxRMYzMEyH+SM7MQkPfdGZcOzh/4siVOWEESPRxirmbr/dQLJJgvy8qwAlaKgysiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795015274;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3sblvstiAGQRq0r66W9wLaKyQ2puvlwblIhWZFkyK9Q=;
-	b=D0FzqKOkVeS/3sCSvDTwJcKUVeRctOU9LWN/4AZPpD1ZkEZ4bc9sWWZ28ZVo3sR2CoRE
-	 0fKdaQch3xc0Ht4bBEkThDOJk6bjaI/LBvUZU8YD/RAUsJM7AIUgLuF1nr9TQ7SGGX8RP
-	 dMrdzxDzz1lcKHL99t7XR1pG4O8sSzQ0i81Z+wBl85dwO3KuuJZ4ps7M/lYrjQe1xEpq8
-	 GM01Tsnwfmvm7tQ4LgM2GM5jbNfJm9ubXjN/n8WCF1X/L32HLMHMPfwmrIu2oBBJOVLO5
-	 tNcF7Caz/LreN9Ot5LKfU0phcFZcG/C0EkOq6UqS5cpCugWIwlKx7vBgWy2aauytjjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795015270;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=1shZqnP71Ukitlfj99kedJcZBJQFJWYHeZCXEuiVk/I=;
+	b=RRZcwjiBpF+M8tZqu1mq57PWUZmv40JX1q36AINgk6SDp4fQ1j5HiBNWyzYny3yL7/ac
+	 Bqgu8URAVutD9aFVJsx03RQfCHC6VfBBGAOyrGuB3YWdxMjQ6vHsdegWpRNDp+tlgpHG/
+	 HTiz2owEvC68+hCuU9nhWF9lsaPK5MdBawDtqNWVq1mGA5AlOAQJlGtrmU2Jx4Iy4IRfC
+	 w03Mgf4OiOtkHkt0GRm5sKcHo7utXERfTJ2/Tvjv+pPNGHTc6MmaSWBsIjYIcRnEQQOuM
+	 A9y6Xxon30alu8xuDaHw8ZzrmMjcanF0xs6jlSVM3lXSL3kNTG3DdrcAU5nM6+KBIqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JbLR2bV2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AhFelVEj;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E8D606A33B;
-	Wed, 18 Nov 2026 15:21:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E415F606A32A;
+	Wed, 18 Nov 2026 15:21:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=JbLR2bV2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 358141F000CF;
-	Wed, 18 Nov 2026 15:21:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795015273;
-	bh=3sblvstiAGQRq0r66W9wLaKyQ2puvlwblIhWZFkyK9Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JbLR2bV2Tv6gUUHU9GEz8r24vfyvZUfCUybK/sDtmItxj5smOpMws2/XyKpS39OMT
-	 +wCxo9nK/h6sTJ0CTSWmibYd+pAOMZbctDLRQ9G1TbAaby3VRlpASzaak5zawnm3Ra
-	 MKQkpFs/41TSQokavZOFIk5b3lCW91g2gokzNjz8=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	sashiko-bot <sashiko-bot@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Stephane Eranian <eranian@google.com>,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.3 0113/2651] perf jitdump: Free event in jit_repipe_code_move()
-Date: Wed, 18 Nov 2026 15:22:33 +0100
-Message-ID: <20261118150251.951034486@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-References: <20261118150247.972732815@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AhFelVEj
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE1F51F000C5;
+	Wed, 18 Nov 2026 15:20:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795015269;
+	bh=1shZqnP71Ukitlfj99kedJcZBJQFJWYHeZCXEuiVk/I=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=AhFelVEjfmme1YPI9SS+ALRaQvFt+2IMeiCSN+WgOjeEnv+/SuTNf01cZy6ptDUYR
+	 qv/tiHy46NDQyvohLFArJuLSsfy6vAVfAjVqoLBPTlszEbf04FN8CMxzRsJ9d1yi7R
+	 brtXqyu94yBnimenwmhETIFopB0rebgPYtlPWVNdluMDvPyVu17HWeotXEe7kmazyQ
+	 HNRJ/F03FfU1PSeSYm1vlKEpMz6j4DKS/RCdxpK0FURFwbqKlYl3v8M1e9YzI023ra
+	 ifwZgVYhoaeH5afzbCuCVdd7EprCvOeqhwy3A/kfibbP3cMGU1Y7oDipu3gRnSFzLC
+	 3i7iv0Q6NGlsg==
+From: David Hildenbrand <david@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ Mike Rapoport <rppt@kernel.org>, Peter Xu <peterx@redhat.com>, 
+ James Houghton <jthoughton@google.com>, 
+ Andrea Arcangeli <aarcange@redhat.com>, 
+ Suren Baghdasaryan <surenb@google.com>, Balbir Singh <balbirs@nvidia.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Vlastimil Babka <vbabka@kernel.org>, Jann Horn <jannh@google.com>, 
+ Pedro Falcato <pfalcato@suse.de>, David Hildenbrand <david@kernel.org>, 
+ Michal Hocko <mhocko@suse.com>, 
+ =?utf-8?q?Micha=C5=82_Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>, 
+ Andrei Vagin <avagin@gmail.com>, Muhammad Usama Anjum <usama.anjum@arm.com>, 
+ Stephen Rothwell <sfr@canb.auug.org.au>, Arnd Bergmann <arnd@arndb.de>, 
+ Zi Yan <ziy@nvidia.com>, Matthew Brost <matthew.brost@intel.com>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
+ Gregory Price <gourry@gourry.net>, 
+ Ying Huang <ying.huang@linux.alibaba.com>, 
+ Alistair Popple <apopple@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Nico Pache <nico.pache@linux.dev>, Ryan Roberts <ryan.roberts@arm.com>, 
+ Dev Jain <dev.jain@arm.com>, Barry Song <baohua@kernel.org>, 
+ Lance Yang <lance.yang@linux.dev>, Usama Arif <usama.arif@linux.dev>, 
+ Kiryl Shutsemau <kas@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Oscar Salvador <osalvador@suse.de>, 
+ =?utf-8?q?Miko=C5=82aj_Lenczewski?= <miko.lenczewski@arm.com>, 
+ Tal Zussman <tz2294@columbia.edu>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+ linux-fsdevel@vger.kernel.org, stable@vger.kernel.org, 
+ Breno Leitao <leitao@debian.org>, 
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
+ Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Felix Kuehling <Felix.Kuehling@amd.com>, Jason Gunthorpe <jgg@ziepe.ca>, 
+ Leon Romanovsky <leon@kernel.org>, dri-devel@lists.freedesktop.org, 
+ intel-xe@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+ amd-gfx@lists.freedesktop.org
+In-Reply-To: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
+References: <20261117-uffd-state-fixes-v3-0-b617009d1a4a@columbia.edu>
+Subject: Re: (subset) [PATCH v3 0/9] userfaultfd: assorted fixes (part 1)
+Message-Id: <179501525761.13527.5348420494097607881.b4-ty@b4>
+Date: Wed, 18 Nov 2026 16:20:57 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,49 +89,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-7.3-stable review patch.  If anyone has any objections, please let me know.
+On Tue, 17 Nov 2026 23:28:40 -0500, Tal Zussman wrote:
+> This is a first batch of userfaultfd fixes, with more to come.
+> 
+> These were found by a mix of regular old LLM review and by having an LLM
+> write a TLA+ model of uffd interactions with PTE bits and other state
+> and seeing what issues fell out.
+> 
+> Most of these fix places where mm code loses uffd-wp or RWP protection
+> while moving or migrating an entry. Userspace then either misses writes
+> and accesses, or gets pages reported that nobody touched.
+> There is also a hang in UFFDIO_MOVE, and UFFDIO_ZEROPAGE modifying a
+> file through a private mapping.
+> 
+> [...]
 
-------------------
+Applied, thanks!
 
-From: Arnaldo Carvalho de Melo <acme@redhat.com>
+tree: mm/core.git
+branch: thp-7.5.misc
 
-[ Upstream commit 7fc5851aac606b9e4143f6857710cc5f346770c5 ]
+Applied patches will appear soon in mm-next, followed by linux-next.
 
-jit_repipe_code_move() allocates a perf_event with calloc but never
-frees it — the 'out' label exits with only perf_sample__exit().
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
 
-The sibling function jit_repipe_code_load() correctly calls
-free(event) at its out label.  Add the same free(event) to
-jit_repipe_code_move().
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
 
-Fixes: 9b07e27f88b9 ("perf inject: Add jitdump mmap injection support")
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Reviewed-by: Ian Rogers <irogers@google.com>
-Cc: Stephane Eranian <eranian@google.com>
-Assisted-by: LLM
-Signed-off-by: Arnaldo Carvalho de Melo <acme@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- tools/perf/util/jitdump.c | 1 +
- 1 file changed, 1 insertion(+)
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
 
-diff --git a/tools/perf/util/jitdump.c b/tools/perf/util/jitdump.c
-index ae63366b86c6d..91aa1eea8229f 100644
---- a/tools/perf/util/jitdump.c
-+++ b/tools/perf/util/jitdump.c
-@@ -685,6 +685,7 @@ static int jit_repipe_code_move(struct jit_buf_desc *jd, union jr_entry *jr)
- 		build_id__mark_dso_hit(tool, event, &sample, jd->machine);
- out:
- 	perf_sample__exit(&sample);
-+	free(event);
- 	return ret;
- }
- 
+[6/9] mm/huge_memory: build the moved huge zero PMD from the destination VMA
+      https://git.kernel.org/mm/core/c/ec36bf72
+
 -- 
-2.53.0
+Cheers,
 
-
+David
 
