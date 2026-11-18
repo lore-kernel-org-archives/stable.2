@@ -1,48 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794972670;
-	b=fJjI3AIo8WXDAc831Hbo+I6cDwAu3hdkBp51WzUoxuy1l7QyNyOWt0RmH2lR1rEZa0qR
-	 vkMbD6W9X6Fzxk7YuXrQhOv7535Cks3mRHOUzVgnrHaslpG99Envsex1sZFMozD9C7wsD
-	 8OwiU9P1rSF3ygwbdmQ1wVdmRl1ApGzkH9sjfmEXt8RodbWfPIqU5qOZik2knjPkq6VsL
-	 9B5N9/qlKWbnTCsVIKAjXJS9klasfzij2R7YGjGdQz63LjFgOQaAx8v8X8zebqVwvH91k
-	 A8ybiGUrPc4nWY0yk228RgM4cpo7behKeMprhMOR3+DESfhRpExMaw020xyD1nNjUlA==
+	t=1794972704;
+	b=LbBgsApxuUdNQa89w13Z8LEGv6OB3gGbQy7uVuxXLWSGXcj9ebZp30f7QIFEGTPfpPCh
+	 1fbTidZthflV6Nj6DM9R6vimyloMRmlyF/VaA7RoJwlfK/6cS2G9JWmlafT0iPocQHFXW
+	 NJmXvArD2aiDlwu1J3Eqwn2d/XfWke8fVX8hFIbPS7SYvPG+Zl8XeNTOI8au9dKXz/EQv
+	 NSh2qiiXSY/gfYDoQJlu2/cy4iZzCkKaVxPD1wIWoVMVKKIo/F+yhABS5O+Zj7fJDV7be
+	 Xk6n121Je8y3IWPA79oXp9dojxAlAG2Oz+oqrX797x4yADYYaA2xXAqZk7SPOweU66g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794972670;
-	h=Received:DKIM-Signature:Date:To:From:Subject:Message-Id;
-	bh=WtCJmE3omcfhXFnEoGiBmwOEi3wFX0+OZraH1FpgzP0=;
-	b=ONKxf5VWI+GK8T1zaN41gn8zmwr3HrhgssYEihdxMawCU8puxQiSfT5Cb9ObAq//mjn4
-	 cC0B1PH1/N58Mikj4iz6BBamQAqh9bBPJPuYCxjxJJBn9WZ7LbkEiGjLgEyu7rZ/F7hLm
-	 zFMwpSSE6Q4Ohzr/sGzAQ24SXSrW8x2zplVBjvxeTg7lYZ8jBNxoQwkmOn+CRoaAGwaOF
-	 2Tgh66oE2o7miUPjBAfuLNKGmH4dMZm0cO1pAAOn/JsHzLAb5Qt/ypHYLWqzts3uml6oB
-	 xsSPCgUDVt+ZhPj/m8LCHIQQBrO6FSRsydWOT2TCpOvVD+42cw4FqxTIRcWz6xhKCBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794972704;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
+	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RDAl4DPrVyeM/Qmsde852AME5qEbxVQSkAby9TkRa0w=;
+	b=S2a0wqGlWcF93AxbnCR6LsOX0zAEuSRWsH/P4y6YbtWq/uHqnCNnKWsaeIobaFWh+HaL
+	 vY681fCw1uwmmXWeAQbvHR2vlw3aAlvgLYGiP0baSZ9GgoIhINi6+5kPkvJz84wVfV94y
+	 Pk0m6pwmWcQz5Af8Q5XjPLyYdJIHUhSqEN94lLoi+VEMQlcGFsN+RLq1zwWJqXKtSB+QG
+	 npUeUGM+L1pAGQacYWeLzPQ9dhiLWjFOYXYUruvjQJ7fTnHQQhSQONNqJRECL9Zl3MKzw
+	 vMvEHgIjQbrZ28So/Wcfs897OxlNbUlgMISQ3Hf1UneBUruAvSAYgN9q9e6UcjJAJXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=uQ9dt3o+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0kz2tDg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328B9606A325;
-	Wed, 18 Nov 2026 03:31:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8589E606A31C;
+	Wed, 18 Nov 2026 03:31:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=uQ9dt3o+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F091D1F000C7;
-	Wed, 18 Nov 2026 03:31:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1794972670;
-	bh=WtCJmE3omcfhXFnEoGiBmwOEi3wFX0+OZraH1FpgzP0=;
-	h=Date:To:From:Subject;
-	b=uQ9dt3o+KAYkkQYAkcJNMePMB68tAg3mU/7jum7iSU+cJXrc9Y/En2WvXXfOrYIk5
-	 m72J0vuuf5y9sTyfUJAhVcDjaFXycjDK8/syAi8zh1kvkY9ObeGJtYXgpaDRiAKrEy
-	 DyMdPJoNflntZmcLBgYfgauwPcDwP4TjfMTVI3F0=
-Date: Tue, 17 Nov 2026 19:31:09 -0800
-To: mm-commits@vger.kernel.org,wangkefeng.wang@huawei.com,
-	stable@vger.kernel.org,osalvador@suse.de,osalvador@kernel.org,
-	muchun.song@linux.dev,lance.yang@linux.dev,fvdl@google.com,david@kernel.org,
-	azpijr@gmail.com,zhengqi.arch@bytedance.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-hugetlb-fix-gfp-mask-propagation-to-cma.patch added to mm-new branch
-Message-Id: <20261118033109.F091D1F000C7@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X0kz2tDg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6174F1F000C4;
+	Wed, 18 Nov 2026 03:31:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1794972703;
+	bh=RDAl4DPrVyeM/Qmsde852AME5qEbxVQSkAby9TkRa0w=;
+	h=Date:Cc:Subject:To:References:From:In-Reply-To;
+	b=X0kz2tDgyNVd8qpPzEPDzUiKbnTnniyWC5wBnmEw5nWH9AQ5LLqr/Re/S6CfzrOya
+	 L7O41EXLOG0BLbqV8iwbGxN5rQ+zqKi/xy+isV31eQerlSu/2ktAfi1X+dcc8SYNG5
+	 1+d+h0UFXrHtLesFyJSSBvjGfzN04UHlMn/3Fc/nT4AA8AL+8u9ncDmUjOFwDFMA1a
+	 X1POksg59iZRLM1zQJBmDo7FgsL8yjjkg3EMNja9w4s6zzm1UGGvAyIZCP/OrQ/kli
+	 iY+u2QLxtHDe8YcI9Q5NDb+Ow5sZPP4h+7PKdJzZ1g4RxVlQskkYXIQvp8jmO73t5J
+	 aBim1FYiJAlug==
+Message-ID: <8f11cfb9-7178-426d-b328-a024e57cb8c5@kernel.org>
+Date: Wed, 18 Nov 2026 11:31:40 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,128 +50,62 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: chao@kernel.org, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Sandeep Dhavale <dhavale@google.com>
+Subject: Re: [PATCH v2] block: fix PF_BLOCK_TS/current->plug ordering in
+ blk_finish_plug()
+To: zi-hao.huang@mediatek.com, Jens Axboe <axboe@kernel.dk>
+References: <20261118-blk-plug-fix-v2-1-4acbeec5d512@mediatek.com>
+Content-Language: en-US
+From: Chao Yu <chao@kernel.org>
+In-Reply-To: <20261118-blk-plug-fix-v2-1-4acbeec5d512@mediatek.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 11/18/26 10:31, Zi-Hao Huang via B4 Relay wrote:
+> From: Zi-Hao Huang <zi-hao.huang@mediatek.com>
+> 
+> blk_plug_invalidate_ts() runs on context switch and assumes that
+> PF_BLOCK_TS set implies current->plug != NULL. blk_finish_plug() breaks
+> this: it clears PF_BLOCK_TS in __blk_flush_plug() and then sets
+> current->plug = NULL, with plain accesses.
+> 
+> clang inlines __blk_flush_plug() and emits the store to current->plug
+> before the store that clears the flag (arm64, Android common kernel):
+> 
+>   ldr  w8, [x20, #0x44]     // w8 = current->flags
+>   str  xzr, [x20, #0xaa8]   // current->plug = NULL
+>   and  w8, w8, #0xdfffffff  // w8 &= ~PF_BLOCK_TS  <- preempted here
+>   str  w8, [x20, #0x44]     // current->flags = w8
+> 
+> If an interrupt hits there and preempts the task, the task is later
+> scheduled back in with PF_BLOCK_TS set and no plug, and
+> blk_plug_invalidate_ts() writes to NULL + 0x20 (plug->cur_ktime):
+> 
+>   Unable to handle kernel NULL pointer dereference at 0000000000000020
+>   pc : __schedule+0x108c
+>    preempt_schedule_irq+0x48/0xa8
+>    el1_interrupt+0x48/0x8c
+>    blk_finish_plug+0x6c/0x18c
+>    ext4_do_writepages+0xd3c/0xef8
+> 
+> The window is only a few instructions wide, so this is rare. It was hit
+> at cycle 127 of a warm reboot stress test.
+> 
+> Add a compiler barrier so the flag is cleared before the plug is
+> dropped. A compiler barrier is enough because the race is with
+> preemption of the same task on the same CPU. With the barrier, the same
+> build stores current->flags before current->plug.
+> 
+> Fixes: fad156c2af22 ("block: invalidate cached plug timestamp after task switch")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Zi-Hao Huang <zi-hao.huang@mediatek.com>
+> Reviewed-by: Sandeep Dhavale <dhavale@google.com>
+Oh, I didn't notice your v1 before sending mine, it looks good to me.
 
-The patch titled
-     Subject: mm: hugetlb: fix GFP mask propagation to CMA
-has been added to the -mm mm-new branch.  Its filename is
-     mm-hugetlb-fix-gfp-mask-propagation-to-cma.patch
+Reviewed-by: Chao Yu <chao@kernel.org>
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-hugetlb-fix-gfp-mask-propagation-to-cma.patch
-
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-Subject: mm: hugetlb: fix GFP mask propagation to CMA
-Date: Tue, 17 Nov 2026 17:33:59 +0800
-
-cma_alloc_frozen_compound() uses GFP_KERNEL, allowing direct reclaim
-during the first MPOL_PREFERRED_MANY allocation attempt even though
-the caller clears __GFP_DIRECT_RECLAIM.
-
-Pass the caller's GFP mask through the helper so CMA respects its
-reclaim constraints when trying the preferred nodes.
-
-Link: https://lore.kernel.org/990efc61c4c3b2a4186cd578a56c6a74348fcdb1.1794907279.git.zhengqi.arch@bytedance.com
-Fixes: 9bda131c6093 ("mm: cma: add cma_alloc_frozen{_compound}()")
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Muchun Song <muchun.song@linux.dev>
-Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
-Reviewed-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
-Cc: Oscar Salvador <osalvador@suse.de>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>
-Cc: Frank van der Linden <fvdl@google.com>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
-Cc: <stable@vger.kernel.org>
-
- include/linux/cma.h |    2 +-
- mm/cma.c            |   10 ++++++++--
- mm/hugetlb_cma.c    |    4 ++--
- 3 files changed, 11 insertions(+), 5 deletions(-)
-
---- a/include/linux/cma.h~mm-hugetlb-fix-gfp-mask-propagation-to-cma
-+++ a/include/linux/cma.h
-@@ -56,7 +56,7 @@ extern bool cma_release(struct cma *cma,
- 
- struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
- 		unsigned int align, bool no_warn);
--struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order);
-+struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp);
- bool cma_release_frozen(struct cma *cma, const struct page *pages,
- 		unsigned long count);
- 
---- a/mm/cma.c~mm-hugetlb-fix-gfp-mask-propagation-to-cma
-+++ a/mm/cma.c
-@@ -837,9 +837,15 @@ struct page *cma_alloc_frozen(struct cma
- 	return __cma_alloc_frozen(cma, count, align, gfp);
- }
- 
--struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
-+struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order, gfp_t gfp)
- {
--	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
-+	/*
-+	 * The only caller of cma_alloc_frozen_compound() is hugetlb, and
-+	 * hugetlb constructs its gfp mask via htlb_alloc_mask(), which already
-+	 * sets __GFP_COMP. Check here for usecases bypassing htlb_alloc_mask().
-+	 */
-+	if (WARN_ON_ONCE(!(gfp & __GFP_COMP)))
-+		return NULL;
- 
- 	return __cma_alloc_frozen(cma, 1 << order, order, gfp);
- }
---- a/mm/hugetlb_cma.c~mm-hugetlb-fix-gfp-mask-propagation-to-cma
-+++ a/mm/hugetlb_cma.c
-@@ -69,14 +69,14 @@ retry_cpuset:
- 	}
- 
- 	if (hugetlb_cma[nid] && node_isset(nid, *nmask))
--		page = cma_alloc_frozen_compound(hugetlb_cma[nid], order);
-+		page = cma_alloc_frozen_compound(hugetlb_cma[nid], order, gfp_mask);
- 
- 	if (!page && !(gfp_mask & __GFP_THISNODE)) {
- 		for_each_node_mask(node, *nmask) {
- 			if (node == nid || !hugetlb_cma[node])
- 				continue;
- 
--			page = cma_alloc_frozen_compound(hugetlb_cma[node], order);
-+			page = cma_alloc_frozen_compound(hugetlb_cma[node], order, gfp_mask);
- 			if (page)
- 				break;
- 		}
-_
-
-Patches currently in -mm which might be from zhengqi.arch@bytedance.com are
-
-x86-hugetlb-disable-default-cma-reservations-on-32-bit-kernel.patch
-mm-gup-allow-long-term-pins-of-cma-allocated-hugetlb-folios.patch
-mm-hugetlb-fix-gfp-mask-propagation-to-cma.patch
-
+Thanks,
