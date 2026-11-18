@@ -1,49 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=14.137.139.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1794993716;
-	b=4r843/u1IPwTvDIyfoRyAvKPWkMfyEw+2K8kBm4WOXZmoXUX2qrPLoloX0WEam0skZlV
-	 9QeCpjaJcc1we7/f6SjKulfHg8RaKhxKLYAQDgtbRTqGwghOFlAEm0JH1UyvaFqyVoXsc
-	 GIHiGDpTRVaDNSJgM5IcQHmuYAPwLKzl1IR4/im+S0Bow2p5bVExTcxUJ7tM6y6oh85Z1
-	 woYFGiu9uYTb9XVtiEtY/wfLSNTuD0dvsphA3ThXZvRxlM+R9Bcag9DlbGaKGMZWr/Crv
-	 oPYk+Azr/FB07KTt7cv7PcZnYGhw4a0C1ON9hhR4THUUrs9lYFvs2eL5A55nz82nHNA==
+	t=1794993742;
+	b=SE7q0vySiry6Bnna04yRHRn1A+Tl6scj62cPY2n3rKoMC7JF35t2rjckVjaNsGh2W4CT
+	 rHMp37iDP6lcG4gGYkoeenVMvS++RIGeaHn68OTUe4o5NxHKDAhmDMgMu6Ch8cfrQu6dT
+	 3UgiVLqIuE1OuZisGZ3Qg4UR9EuaSPIpaLEEpvoOXu3/AO7ivvxq7EHg86ndOo9ReoWd0
+	 /Sm7kbBZWoLasMvmhN1ee487Sl+wV4UwigHZJG8H4AiLRPABiDxf8XZEP0jKGvs4EwPXu
+	 Lg14jCtjHYSf8v+z4HlBXBfAJpeI2kXQ3RORG+BfuZ3aP4FwsatxCqvGZELd1xy11IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1794993716;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=wS0Us7CQpCD0WTbwehZzt06gr0ePGvS25DDYj5+ZQAw=;
-	b=VGd+wCmh1UuckoigRmAjVtQ6iLiwu5P8e2odo052EqwKcRAjiWSOtzY6w2AS/G5KDBCN
-	 qnS1tx5nl9rVH2HID7m0r1vKvI+2CRhna6Q60PUxuSnwMWysYm6VhTpCtN7zfY2Zv6Agj
-	 XKzUCU5VBgmebDBFNA4dF2ImmqCHwI+zCIALe0CAqX2iC9pP7DMen3qZYcJ1smXJg0B3z
-	 /IWsu56bRxHM898pEnyvr4S5gi9T8AhRGpfdkJSzpiIwDInFGH3jMV0J4H9zMTtiRAOBz
-	 whRZXExhm4sBLgalq73TA3uoKzbDsj9vRCgNxqw77xFDsVPPBp3+EVKthq4m6gIfcDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1794993742;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Subject:From:To:
+	 Cc:Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=y3A5nvaHb6xbMymh3D7AhfMioV+P8pBA8YDNGDeqscY=;
+	b=m1tMvfu8YQdRjUl60+NElv7+VLEcc57Mk9Nb2Jf+LEMT3f2xBti/UmpDv7BQSJZT8gVz
+	 te2p+EkcGHg+l/ldaid667K+mfAAkmAViITXszeUzS8/3w47VPdQ1XOmmdXusxdoM0+BQ
+	 DLbzSWk8xR45TyL79Ci2o8AhGNHx65bXT/rLk1EYHCmEkcBe39C/QgDMoWlTc21roUc+f
+	 kKcaTipzEJ1GXoVz+5qDrzZ2CNDicqSyNBT9i06q0fcTAIcuxMaHJwOmlwVGGW6ELrQxQ
+	 XwKIavtWB4NqZUrimR692HWKWrlT6+59NoMbYbynClA0cAwl7GqWLAjUtnwAtXsNTmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoqhNNdt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=14.137.139.46
+Received: from frasgout13.his.huawei.com (frasgout13.his.huawei.com [14.137.139.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D638B606A31C;
-	Wed, 18 Nov 2026 09:21:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VoqhNNdt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A5251F000D2;
-	Wed, 18 Nov 2026 09:21:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1794993716;
-	bh=wS0Us7CQpCD0WTbwehZzt06gr0ePGvS25DDYj5+ZQAw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VoqhNNdt+V+c8FvWfmPUoV8DESgpKxJPPFDfvnbSUzCnRwkfjncKSSHF36coBnaXf
-	 MXiSi/bQXgvTNCS4lmgbsMIO+YxRvaKQ71jTWgaTEc3asD0HEcIKDaDmZNMMJS+/Y0
-	 xd0uHtGTqreiHIGW2YG4Mq/1KxxbHTeqmfpWVIt+XzYlO01FozY3VZOlasGCNBJZhD
-	 yFjA3weMIh7XTbo3IfLIyKGG2kiI708zwyHbEUNSiCe90JLIvSObaNzdtLDxH1eQW6
-	 nXh5hJTnq84nsv6ajy74a6XalBnCO+zQWM1B/fUVNf/x+jVvZy+IZwcs3Hfx38JlMr
-	 r8wV9PDi4n/0w==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Wed, 18 Nov 2026 10:20:39 +0100
-Subject: [PATCH 4/4] RFC: mm/vmscan: unlock unmapped folios only after the
- deferred TLB flush
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41766606A331;
+	Wed, 18 Nov 2026 09:22:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41766606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.18.224.196])
+	by frasgout13.his.huawei.com (SkyGuard) with ESMTPS id 4jTx1Y35f7zpTty;
+	Wed, 18 Nov 2026 17:21:37 +0800 (CST)
+Received: from mail02.huawei.com (unknown [7.182.16.157])
+	by mail.maildlp.com (Postfix) with ESMTP id 2ED9840545;
+	Wed, 18 Nov 2026 17:22:12 +0800 (CST)
+Received: from [10.204.63.22] (unknown [10.204.63.22])
+	by dep2_app1 (Coremail) with UTF8SMTPA id nRC2B0AmBlw5bv1q8LMbAA--.13214S2;
+	Wed, 18 Nov 2026 10:22:11 +0100 (CET)
+Message-ID: <7d0ec1b06038d1a6f3279e28447602342835c1e3.camel@huaweicloud.com>
+Subject: Re: [PATCH v4] ima: fix races when deleting measurement list records
+From: Roberto Sassu <roberto.sassu@huaweicloud.com>
+To: Weibin Liu <liuwb@xiaopeng.com>, linux-integrity@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg
+ <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, James Morris
+ <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, Steven Chen
+ <chenste@linux.microsoft.com>,  stable@vger.kernel.org, Zhu Guanglei
+ <zhugl3@xiaopeng.com>, Lin Qiaojie <linqj@xiaopeng.com>
+Date: Wed, 18 Nov 2026 10:21:58 +0100
+In-Reply-To: <20261113145610.1826692-1-liuwb@xiaopeng.com>
+References: <20261113145610.1826692-1-liuwb@xiaopeng.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,504 +66,298 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261118-file_folio_flush-v1-4-e9e739ed14e0@kernel.org>
-References: <20261118-file_folio_flush-v1-0-e9e739ed14e0@kernel.org>
-In-Reply-To: <20261118-file_folio_flush-v1-0-e9e739ed14e0@kernel.org>
-To: Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- "Borislav Petkov (AMD)" <bp@alien8.de>, 
- =?utf-8?q?Cenk_Y=C4=B1lmaz?= <cenk@deepfinresearch.com>, 
- Zhang Peng <zippermonkey@icloud.com>, Mike Rapoport <rppt@kernel.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, 
- Gregory Price <gourry@gourry.net>, 
- Ying Huang <ying.huang@linux.alibaba.com>, 
- Alistair Popple <apopple@nvidia.com>, Chris Li <chrisl@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>, 
- Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>, 
- Mel Gorman <mgorman@suse.de>, Sasha Levin <sasha.levin@oracle.com>, 
- Rik van Riel <riel@redhat.com>, Ingo Molnar <mingo@kernel.org>, 
- Peter Xu <peterx@redhat.com>, Hugh Dickins <hughd@google.com>, 
- Axel Rasmussen <axelrasmussen@google.com>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Andrea Arcangeli <aarcange@redhat.com>, Thomas Gleixner <tglx@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=16608; i=david@kernel.org;
- h=from:subject:message-id; bh=2kxKir3pFctf+HjAbEk4CCWEoO4hFl+Fq7j1hctv2ho=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLL+5v5cYS19JNiyZOKRw68MF1S49vLOFY8J+Tip8phaX
- s2KG9Y1HaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAEzEPZmR4XRufufVz1adGZMX
- GMf/0/1++MCXF7tkvVvNykLvPZ973omR4axn0arYuM2fNgSaBPL9lT86JetldLrZweVbev8+URS
- r4QcA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+X-CM-TRANSID:nRC2B0AmBlw5bv1q8LMbAA--.13214S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3CFWfJF15Xr4UWryfXw1xuFg_yoWDtr47pa
+	9Y9a48Cr1kJ3yfKr1xGa13Zr4ru395Ka1DWr1DG34xAF15Jr1q9FW3Ar12yFs8Kr9xAr10
+	qa1YqrZ8uan0yFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvjb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
+	6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+	vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
+	xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIEc7CjxV
+	AFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+	x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+	0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AF
+	wI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWU
+	JVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUF1
+	v3UUUUU
+X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAQAHDWr9GE1FpgAAsq
 
-try_to_unmap() with TTU_BATCH_FLUSH zaps the PTEs, transfers the PTE
-dirty bit to the folio and defers the TLB flush. Until the TLB is
-flushed, other CPUs might still access the folio through stale TLB
-entries.
+On Fri, 2026-11-13 at 22:56 +0800, Weibin Liu wrote:
+> Without this patch, ima_queue_delete_partial() looks up the queue entry
+> at which the measurement list has to be cut without holding
+> ima_extend_list_mutex, and only takes the mutex afterwards for
+> __list_cut_position().  The comment above the cut justifies this with
+> "ima_fs.c enforces single-writer exclusion".
+>=20
+> That exclusion only covers cross-process opens and is only enforced at
+> open() and release() time.  ima_measure_lock() registers measure_writer
+> at open() time and even lets the same task open the file again by
+> incrementing measure_writer_extra_writes, while
+> _ima_measurements_write() never checks the caller's identity.  A
+> privileged task can therefore open several descriptors for the
+> measurement list and use them concurrently from its own threads.  Each
+> open() creates a separate struct file, so the f_pos_lock taken by
+> fdget_pos() serializes neither these writers nor their readers.
+>=20
+> Two racing writers can then resolve the same, or an overlapping, trim
+> position, and the second one dereferences a queue entry that the first
+> one has already detached and handed to ima_queue_delete().  Depending
+> on the interleaving this corrupts the measurement list, reads freed
+> memory in __list_cut_position(), or frees the same entry twice.
+>=20
+> Reproducer: generate some tens of thousands of measurement records,
+> open() the measurement list for writing several times from one task,
+> then write "20000\n" from that many threads using one descriptor each.
+> KASAN reports a stack-out-of-bounds access in ima_queue_delete(),
+> called from ima_queue_delete_partial().
+>=20
+> The extend mutex alone cannot protect readers: the binary and ASCII
+> file operations call seq_read()/seq_lseek(), which traverse the list
+> without taking ima_extend_list_mutex.  Readers from other processes
+> are already excluded at open time, but an independent O_RDWR descriptor
+> lets a reader thread of the writer process race with deletion from
+> another thread.  Adding a concurrent reader to the writer reproducer
+> triggers a general protection fault in ima_measurements_show(), reached
+> from seq_read().
+>=20
+> Introduce ima_measure_rwsem at the file-operation layer.  Writers use
+> down_write_killable() around _ima_measurements_write(); readers use
+> down_read_killable() around seq_read() and seq_lseek().  If a fatal
+> signal interrupts lock acquisition, return -EINTR without entering the
+> protected operation.  Cover the binary/ASCII and current/staged file
+> operations, since they all expose the same list traversal and deletion
+> commands.  The resulting lock order is rwsem followed by seq_file's
+> lock on the read side, or ima_extend_list_mutex on the write side.
+> Freeing the private trimmed list remains outside the extend mutex but
+> inside the rwsem write-side critical section.  The existing open-time
+> exclusion remains unchanged, so one task cannot delete a staged list
+> belonging to another.
+>=20
+> Keep the existing list_for_each_entry_rcu() traversal outside
+> ima_extend_list_mutex.  The rwsem serializes staging/delete writers, so
+> only ima_add_template_entry() can race with the traversal by appending
+> an entry.  The selected entry stays valid until the cut.  Take the
+> extend mutex only for the suspended check, the cut and the accounting
+> updates.  Preserve the error precedence: a short list returns -ENOENT
+> before the suspended check.
+>=20
+> Suggested-by: Roberto Sassu <roberto.sassu@huawei.com>
+> Fixes: e9b491e27bf6 ("ima: Add support for staging measurements with prom=
+pt")
+> Fixes: fcb0318a2969 ("ima: Support staging and deleting N measurements re=
+cords")
+> Cc: stable@vger.kernel.org # v7.2+
+> Reviewed-by: Lin Qiaojie <linqj@xiaopeng.com>
+> Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
 
-However, reclaim unlocks folios it keeps and removes folios it frees
-from the page-cache / swap-cache before performing the deferred TLB
-flush.
+Reviewed-by: Roberto Sassu <roberto.sassu@huawei.com>
 
-Stale writable TLB entries are currently handled by flushing them right
-after try_to_unmap() if the folio is dirty, so writes through stale TLB
-entries cannot get lost, but they are also not batched.
+Thanks
 
-Stale read-only TLB entries, on the other hand, are problematic:
+Roberto
 
- (1) A page fault can map a new page-cache folio, or swap in a new folio
-     once reclaim removed the old one from the swap-cache (e.g., a clean
-     swap-cache folio, or a dirty folio mapped by clean PTEs after
-     synchronous swap-out to zram or zswap). Modifications of the new
-     folio (e.g., through write() or page table mappings) are then not
-     visible to CPUs that still read the old folio.
-
- (2) A CoW fault in a MAP_PRIVATE mapping can copy a page-cache folio
-     that reclaim kept. Writes go to the new anon folio, while other CPUs
-     still read the old folio.
-
- (3) Invalidation (e.g., invalidate_inode_pages2()) can remove a folio
-     that reclaim kept from the page-cache without flushing the TLB, as
-     the folio is no longer mapped. A page fault can then map a new
-     folio while other CPUs still read the old folio.
-
-This can be reproduced easily by swapping out an anon memory range with
-MADV_PAGEOUT, reading it back in, and swapping it out again
-(MADV_PAGEOUT) while one thread keeps reading the range and another
-thread writes to pages as soon as reclaim removed the folios from the
-swap-cache. The first thread will occasionally read the old content.
-
-Fix it by reclaiming folios in batches of up to 64 folios:
-
- (a) Lock each folio, check whether we want to reclaim it, and unmap it.
-     Keep the folio locked if any deferred TLB flush is pending after
-     unmapping it, otherwise unlock it right away.
-
- (b) Flush the TLB once, and unlock all folios that are still locked.
-
- (c) Lock the folios again, one at a time, to try reclaiming them.
-     Activate folios that are still or again mapped, and skip folios
-     that are under writeback or poisoned by now, or that somebody else
-     holds locked.
-
-As others might map or unmap folios while they are unlocked, we might
-now activate or reclaim some folios that we would previously have kept
-or activated, which is fine.
-
-Keeping folios locked until the TLB flush makes sure that nobody can
-remove them from the page-cache / swap-cache, copy them or start
-writeback. Page faults will either wait on the folio lock, or find the
-old folio and map it again, which is fine.
-
-Unlocking folios before trying to reclaim them makes sure that we never
-hold more than one folio lock while performing I/O or waiting on the
-filesystem.
-
-The idea of unlocking folios and locking them again using a trylock
-before trying to reclaim them was inspired by [1] from Zhang Peng.
-
-As nobody can start writeback before the TLB flush, we no longer have to
-flush stale writable TLB entries right after try_to_unmap(), so remove
-the try_to_unmap_flush_dirty() call and batch these flushes as well.
-This effectively enables batching TLB flushes of stale writable TLB
-entries, which is what [1] tried to achieve.
-
-We must not wait for a folio lock, a folio flag or I/O while keeping
-other folios locked, as that could deadlock. So flush the TLB and unlock
-the batch early before waiting for writeback (legacy memcg), and before
-allocating swap space would perform synchronous discard I/O
-(folio_alloc_swap() now returns -EBUSY if allocation failed but retrying
-with synchronous discard might help).
-
-Allocating swap space can otherwise only sleep when allocating memory
-for the swap table, which cannot enter direct reclaim or compaction,
-as reclaim runs with PF_MEMALLOC.
-
-We'll limit batching to 64 folios for now; the limit mostly matters for,
-e.g., MADV_PAGEOUT and DAMON that can pass more, or when reclaim splits
-large folios.
-
-Note that khugepaged and batched (async) folio migration already keep up
-to HPAGE_PMD_NR (e.g., 512 with 4 KiB pages) small folios locked after
-unmapping them with a deferred TLB flush; migration even allocates new
-folios, possibly entering direct reclaim, before flushing the TLB and
-unlocking them. Both also call MMU notifiers while keeping other folios
-locked, just like we do now.
-
-Keep code churn to a minimum. Some follow-up cleanups and optimizations
-make sense, in particular:
-
- (1) Cleanly separate the stages of shrink_folio_list() (see the TODO).
-
- (2) Avoid unlocking and locking folios again that do not require a TLB
-     flush. But only if it's worth it and doesn't make the code too
-     ugly.
-
- (3) Remove the remaining try_to_unmap_flush() calls before freeing
-     folios; we only free folios that we flushed already or that we
-     never unmapped.
-
- (4) Remove the now-unused try_to_unmap_flush_dirty() infrastructure.
-
-[1] https://lore.kernel.org/linux-mm/20261031-batch-tlb-flush-v6-0-190539839eec@tencent.com/
-
-Fixes: 72b252aed506 ("mm: send one IPI per CPU to TLB flush all entries after unmapping pages")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
----
- mm/internal.h |   5 ++
- mm/rmap.c     |   5 ++
- mm/shmem.c    |   2 +-
- mm/swap.h     |   5 +-
- mm/swapfile.c |   7 ++-
- mm/vmscan.c   | 155 ++++++++++++++++++++++++++++++++++++++++++++++++++++++----
- 6 files changed, 165 insertions(+), 14 deletions(-)
-
-diff --git a/mm/internal.h b/mm/internal.h
-index 8a204f7352364..0d89968648b37 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -1253,6 +1253,7 @@ extern struct workqueue_struct *mm_percpu_wq;
- #ifdef CONFIG_ARCH_WANT_BATCHED_UNMAP_TLB_FLUSH
- void try_to_unmap_flush(void);
- void try_to_unmap_flush_dirty(void);
-+bool try_to_unmap_flush_pending(void);
- void flush_tlb_batched_pending(struct mm_struct *mm);
- #else
- static inline void try_to_unmap_flush(void)
-@@ -1261,6 +1262,10 @@ static inline void try_to_unmap_flush(void)
- static inline void try_to_unmap_flush_dirty(void)
- {
- }
-+static inline bool try_to_unmap_flush_pending(void)
-+{
-+	return false;
-+}
- static inline void flush_tlb_batched_pending(struct mm_struct *mm)
- {
- }
-diff --git a/mm/rmap.c b/mm/rmap.c
-index 3935eed23a361..399cba0395742 100644
---- a/mm/rmap.c
-+++ b/mm/rmap.c
-@@ -731,6 +731,11 @@ void try_to_unmap_flush_dirty(void)
- 		try_to_unmap_flush();
- }
- 
-+bool try_to_unmap_flush_pending(void)
-+{
-+	return current->tlb_ubc.flush_required;
-+}
-+
- /*
-  * Bits 0-14 of mm->tlb_flush_batched record pending generations.
-  * Bits 16-30 of mm->tlb_flush_batched bit record flushed generations.
-diff --git a/mm/shmem.c b/mm/shmem.c
-index 5cb628cc9c6bb..3757bc1208068 100644
---- a/mm/shmem.c
-+++ b/mm/shmem.c
-@@ -1936,7 +1936,7 @@ int shmem_writeout(struct swap_io_ctx *ctx, struct folio *folio,
- 		folio_mark_uptodate(folio);
- 	}
- 
--	ret = folio_alloc_swap(folio);
-+	ret = folio_alloc_swap(folio, /* may_sync_discard= */ true);
- 	if (!ret) {
- 		bool first_swapped = shmem_recalc_inode(inode, 0, nr_pages);
- 		int error;
-diff --git a/mm/swap.h b/mm/swap.h
-index d5bf21f517dce..b77c8a071a0a8 100644
---- a/mm/swap.h
-+++ b/mm/swap.h
-@@ -243,7 +243,7 @@ extern int swap_retry_table_alloc(swp_entry_t entry, gfp_t gfp);
-  *
-  * folio_put_swap(): does the opposite thing of folio_dup_swap().
-  */
--int folio_alloc_swap(struct folio *folio);
-+int folio_alloc_swap(struct folio *folio, bool may_sync_discard);
- int folio_dup_swap(struct folio *folio, struct page *page);
- void folio_put_swap(struct folio *folio, struct page *page);
- 
-@@ -363,7 +363,8 @@ static inline struct swap_info_struct *__swap_entry_to_info(swp_entry_t entry)
- 	return NULL;
- }
- 
--static inline int folio_alloc_swap(struct folio *folio)
-+static inline int folio_alloc_swap(struct folio *folio,
-+		bool may_sync_discard)
- {
- 	return -EINVAL;
- }
-diff --git a/mm/swapfile.c b/mm/swapfile.c
-index 2d2df53fc51a9..242a361513301 100644
---- a/mm/swapfile.c
-+++ b/mm/swapfile.c
-@@ -1732,16 +1732,19 @@ static int swap_dup_entries_cluster(struct swap_info_struct *si,
- /**
-  * folio_alloc_swap - allocate swap space for a folio
-  * @folio: folio we want to move to swap
-+ * @may_sync_discard: whether we may wait for synchronous discard I/O
-  *
-  * Allocate swap space for the folio and add the folio to the
-  * swap cache.
-  *
-  * Context: Caller needs to hold the folio lock.
-  * Return: %0 on success, %-E2BIG if splitting the folio might allow swapout,
-+ * %-EBUSY if allocation failed but retrying with @may_sync_discard might
-+ * succeed,
-  * %-ENOSPC if no global swap space is available, or %-ENOMEM if splitting
-  * would not help.
-  */
--int folio_alloc_swap(struct folio *folio)
-+int folio_alloc_swap(struct folio *folio, bool may_sync_discard)
- {
- 	unsigned int order = folio_order(folio);
- 	unsigned int size = 1 << order;
-@@ -1774,6 +1777,8 @@ int folio_alloc_swap(struct folio *folio)
- 	local_unlock(&percpu_swap_cluster.lock);
- 
- 	if (!order && unlikely(!folio_test_swapcache(folio))) {
-+		if (!may_sync_discard)
-+			return -EBUSY;
- 		if (swap_sync_discard())
- 			goto again;
- 	}
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index af7831643ecf5..11dbe19b170da 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -1155,6 +1155,91 @@ static bool may_enter_fs(struct folio *folio, gfp_t gfp_mask)
- 	return false;
- }
- 
-+/*
-+ * Maximum number of staged folios that shrink_folio_list() collects before
-+ * it flushes the TLB.
-+ */
-+#define MAX_STAGED_FOLIOS	64
-+
-+struct staged_folios {
-+	/* Locked folios, waiting for the TLB flush. */
-+	struct list_head unflushed;
-+	/* Unlocked folios, after the TLB flush (if required). */
-+	struct list_head flushed;
-+	/* Number of folios in the current batch. */
-+	unsigned int nr_folios;
-+};
-+
-+static bool staged_folios_empty(struct staged_folios *staged)
-+{
-+	return list_empty(&staged->unflushed) &&
-+	       list_empty(&staged->flushed);
-+}
-+
-+static void staged_folios_add(struct staged_folios *staged,
-+		struct folio *folio, bool unmapped)
-+{
-+	if (unmapped && try_to_unmap_flush_pending()) {
-+		/* Keep the folio locked until we flushed the TLB. */
-+		list_add_tail(&folio->lru, &staged->unflushed);
-+	} else {
-+		folio_unlock(folio);
-+		list_add_tail(&folio->lru, &staged->flushed);
-+	}
-+	staged->nr_folios++;
-+}
-+
-+static void staged_folios_flush(struct staged_folios *staged)
-+{
-+	struct folio *folio;
-+
-+	try_to_unmap_flush();
-+	list_for_each_entry(folio, &staged->unflushed, lru)
-+		folio_unlock(folio);
-+	list_splice_tail_init(&staged->unflushed, &staged->flushed);
-+}
-+
-+static struct folio *staged_folios_next(struct staged_folios *staged,
-+		struct list_head *folio_list)
-+{
-+	struct folio *folio;
-+
-+	if (staged_folios_empty(staged))
-+		return NULL;
-+	/* Collect more folios until we have enough or there are no more. */
-+	if (staged->nr_folios < MAX_STAGED_FOLIOS && !list_empty(folio_list))
-+		return NULL;
-+
-+	/* Flush the TLB and unlock the folios that waited for the flush. */
-+	staged_folios_flush(staged);
-+
-+	folio = list_first_entry(&staged->flushed, struct folio, lru);
-+	list_del(&folio->lru);
-+	/* We handed out all folios: start collecting again. */
-+	if (list_empty(&staged->flushed))
-+		staged->nr_folios = 0;
-+	return folio;
-+}
-+
-+static int staged_folios_alloc_swap(struct staged_folios *staged,
-+		struct folio *folio)
-+{
-+	bool may_sync_discard = list_empty(&staged->unflushed);
-+	int ret;
-+
-+	ret = folio_alloc_swap(folio, may_sync_discard);
-+	if (ret != -EBUSY)
-+		return ret;
-+
-+	/*
-+	 * Don't wait for synchronous discard I/O while keeping other folios
-+	 * locked: there is potential for deadlocks and long delays.
-+	 */
-+	staged_folios_flush(staged);
-+	may_sync_discard = true;
-+	return folio_alloc_swap(folio, may_sync_discard);
-+}
-+
- /*
-  * shrink_folio_list() returns the number of reclaimed pages
-  */
-@@ -1166,6 +1251,10 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 	struct folio_batch free_folios;
- 	LIST_HEAD(ret_folios);
- 	LIST_HEAD(demote_folios);
-+	struct staged_folios staged = {
-+		.unflushed = LIST_HEAD_INIT(staged.unflushed),
-+		.flushed = LIST_HEAD_INIT(staged.flushed),
-+	};
- 	unsigned int nr_reclaimed = 0, nr_demoted = 0;
- 	unsigned int pgactivate = 0;
- 	bool do_demote_pass;
-@@ -1177,15 +1266,41 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 	do_demote_pass = can_demote(pgdat->node_id, sc, memcg);
- 
- retry:
--	while (!list_empty(folio_list)) {
-+	/*
-+	 * We take folios from folio_list to pre-process them (lock, check,
-+	 * unmap). Then, they move to the staged(unflushed) list, from where
-+	 * they move to the staged(flushed) list after a batched TLB flush
-+	 * and after unlocking them. If no TLB flush is pending for a folio,
-+	 * it moves to the staged(flushed) list directly.
-+	 *
-+	 * We then take folios from the staged(flushed) list to actually
-+	 * reclaim them, or to activate them if they are still mapped.
-+	 *
-+	 * So we pre-process folios from folio_list until we collected a batch
-+	 * of staged folios, or until there are no more folios to
-+	 * pre-process. Then, we perform a single TLB flush and reclaim all
-+	 * folios of that batch, before we pre-process more folios.
-+	 *
-+	 * Once all lists are empty, we are done.
-+	 *
-+	 * TODO: the stages of this algorithm should be cleanly separated.
-+	 */
-+	while (!list_empty(folio_list) || !staged_folios_empty(&staged)) {
- 		struct address_space *mapping;
- 		struct folio *folio;
- 		enum folio_references references = FOLIOREF_RECLAIM;
- 		bool dirty, writeback;
-+		bool unmapped = false;
- 		unsigned int nr_pages;
- 
- 		cond_resched();
- 
-+		folio = staged_folios_next(&staged, folio_list);
-+		if (folio) {
-+			nr_pages = folio_nr_pages(folio);
-+			goto reclaim_staged;
-+		}
-+
- 		folio = lru_to_folio(folio_list);
- 		list_del(&folio->lru);
- 
-@@ -1324,6 +1439,11 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 			/* Case 3 above */
- 			} else {
- 				folio_unlock(folio);
-+				/*
-+				 * Don't wait for writeback while keeping
-+				 * staged folios locked.
-+				 */
-+				staged_folios_flush(&staged);
- 				folio_wait_writeback(folio);
- 				/* then go back and try same folio again */
- 				list_add_tail(&folio->lru, folio_list);
-@@ -1382,7 +1502,7 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 				    split_folio_to_list(folio, folio_list))
- 					goto activate_locked;
- 			}
--			ret = folio_alloc_swap(folio);
-+			ret = staged_folios_alloc_swap(&staged, folio);
- 			if (ret) {
- 				int __maybe_unused order = folio_order(folio);
- 
-@@ -1401,7 +1521,7 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 				}
- #endif
- 				count_mthp_stat(order, MTHP_STAT_SWPOUT_FALLBACK);
--				if (folio_alloc_swap(folio))
-+				if (staged_folios_alloc_swap(&staged, folio))
- 					goto activate_locked_split;
- 			}
- 			/*
-@@ -1455,21 +1575,36 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 				flags |= TTU_SYNC;
- 
- 			try_to_unmap(folio, flags);
--			/*
--			 * Flush deferred writable TLB entries before we could
--			 * drop the folio lock and others could start writeback.
--			 */
--			if (folio_test_dirty(folio))
--				try_to_unmap_flush_dirty();
-+			unmapped = true;
- 			if (folio_mapped(folio)) {
- 				stat->nr_unmap_fail += nr_pages;
- 				if (!was_swapbacked &&
- 				    folio_test_swapbacked(folio))
- 					stat->nr_lazyfree_fail += nr_pages;
--				goto activate_locked;
- 			}
- 		}
- 
-+		staged_folios_add(&staged, folio, unmapped);
-+		continue;
-+
-+reclaim_staged:
-+		if (!folio_trylock(folio))
-+			goto keep;
-+
-+		/*
-+		 * We failed to unmap the folio, or it was mapped again while it
-+		 * was unlocked.
-+		 */
-+		if (folio_mapped(folio))
-+			goto activate_locked;
-+		/*
-+		 * While the folio was unlocked, writeback might have started, or
-+		 * it might have been poisoned.
-+		 */
-+		if (folio_test_writeback(folio) ||
-+		    folio_contain_hwpoisoned_page(folio))
-+			goto keep_locked;
-+
- 		/*
- 		 * Folio is unmapped now so it cannot be newly pinned anymore.
- 		 * No point in trying to reclaim folio if it is pinned.
-
--- 
-2.56.1
+> ---
+> Changes in v4:
+> - Rename ima_measurements_rwsem to ima_measure_rwsem.
+> - Use killable rwsem acquisition in all four read/lseek/write wrappers,
+>   returning -EINTR if a fatal signal interrupts the wait.
+> - Clarify the open()/release() exclusion, reader threads and RCU list
+>   traversal in the commit message; fix the append function name.
+> - Add a Fixes tag for the staging-with-prompt change.
+> - Rebuild and rerun the current and staged KASAN+LOCKDEP QEMU tests.
+>   Add a deterministic userfaultfd/SIGKILL test covering all four
+>   interrupted lock-acquisition paths.
+>=20
+> Link: https://lore.kernel.org/all/20261110071909.2056650-1-liuwb@xiaopeng=
+.com/ [v3]
+>=20
+>  security/integrity/ima/ima_fs.c    | 78 ++++++++++++++++++++++++++++++++=
+------
+>  security/integrity/ima/ima_queue.c |  7 ++--
+>  2 files changed, 70 insertions(+), 15 deletions(-)
+>=20
+> diff --git a/security/integrity/ima/ima_fs.c b/security/integrity/ima/ima=
+_fs.c
+> index 3b8174a91a34..5c2919e35332 100644
+> --- a/security/integrity/ima/ima_fs.c
+> +++ b/security/integrity/ima/ima_fs.c
+> @@ -39,6 +39,8 @@ static DEFINE_MUTEX(ima_measure_mutex);
+>  static long ima_measure_users;
+>  static struct task_struct *measure_writer;
+>  static long measure_writer_extra_writes;
+> +/* Lock order: ima_measure_rwsem -> ima_extend_list_mutex. */
+> +static DECLARE_RWSEM(ima_measure_rwsem);
+> =20
+>  bool ima_canonical_fmt;
+>  static int __init default_canonical_fmt_setup(char *str)
+> @@ -161,7 +163,11 @@ void ima_putc(struct seq_file *m, void *data, int da=
+talen)
+>   */
+>  int ima_measurements_show(struct seq_file *m, void *v)
+>  {
+> -	/* the list never shrinks, so we don't need a lock here */
+> +	/*
+> +	 * seq_file callers hold ima_measure_rwsem.  The kexec dump caller
+> +	 * relies on reboot notifier ordering: measurements are suspended and
+> +	 * staging/deletion are forbidden while it walks the lists locklessly.
+> +	 */
+>  	struct ima_queue_entry *qe =3D v;
+>  	struct ima_template_entry *e;
+>  	char *template_name;
+> @@ -400,32 +406,80 @@ static ssize_t _ima_measurements_write(struct file =
+*file,
+>  	return datalen;
+>  }
+> =20
+> +static ssize_t ima_measurements_read(struct file *file, char __user *buf=
+,
+> +				     size_t datalen, loff_t *ppos)
+> +{
+> +	ssize_t ret;
+> +
+> +	ret =3D down_read_killable(&ima_measure_rwsem);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D seq_read(file, buf, datalen, ppos);
+> +	up_read(&ima_measure_rwsem);
+> +
+> +	return ret;
+> +}
+> +
+> +static loff_t ima_measurements_llseek(struct file *file, loff_t offset,
+> +				      int whence)
+> +{
+> +	loff_t ret;
+> +
+> +	ret =3D down_read_killable(&ima_measure_rwsem);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D seq_lseek(file, offset, whence);
+> +	up_read(&ima_measure_rwsem);
+> +
+> +	return ret;
+> +}
+> +
+>  static ssize_t ima_measurements_write(struct file *file, const char __us=
+er *buf,
+>  				      size_t datalen, loff_t *ppos)
+>  {
+> -	return _ima_measurements_write(file, buf, datalen, ppos, false);
+> +	ssize_t ret;
+> +
+> +	ret =3D down_write_killable(&ima_measure_rwsem);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D _ima_measurements_write(file, buf, datalen, ppos, false);
+> +	up_write(&ima_measure_rwsem);
+> +
+> +	return ret;
+>  }
+> =20
+>  static ssize_t ima_measurements_staged_write(struct file *file,
+>  					     const char __user *buf,
+>  					     size_t datalen, loff_t *ppos)
+>  {
+> -	return _ima_measurements_write(file, buf, datalen, ppos, true);
+> +	ssize_t ret;
+> +
+> +	ret =3D down_write_killable(&ima_measure_rwsem);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D _ima_measurements_write(file, buf, datalen, ppos, true);
+> +	up_write(&ima_measure_rwsem);
+> +
+> +	return ret;
+>  }
+> =20
+>  static const struct file_operations ima_measurements_ops =3D {
+>  	.open =3D ima_measurements_open,
+> -	.read =3D seq_read,
+> +	.read =3D ima_measurements_read,
+>  	.write =3D ima_measurements_write,
+> -	.llseek =3D seq_lseek,
+> +	.llseek =3D ima_measurements_llseek,
+>  	.release =3D ima_measurements_release,
+>  };
+> =20
+>  static const struct file_operations ima_measurements_staged_ops =3D {
+>  	.open =3D ima_measurements_staged_open,
+> -	.read =3D seq_read,
+> +	.read =3D ima_measurements_read,
+>  	.write =3D ima_measurements_staged_write,
+> -	.llseek =3D seq_lseek,
+> +	.llseek =3D ima_measurements_llseek,
+>  	.release =3D ima_measurements_release,
+>  };
+> =20
+> @@ -440,7 +494,7 @@ void ima_print_digest(struct seq_file *m, u8 *digest,=
+ u32 size)
+>  /* print in ascii */
+>  static int ima_ascii_measurements_show(struct seq_file *m, void *v)
+>  {
+> -	/* the list never shrinks, so we don't need a lock here */
+> +	/* The caller holds ima_measure_rwsem. */
+>  	struct ima_queue_entry *qe =3D v;
+>  	struct ima_template_entry *e;
+>  	char *template_name;
+> @@ -497,9 +551,9 @@ static int ima_ascii_measurements_open(struct inode *=
+inode, struct file *file)
+> =20
+>  static const struct file_operations ima_ascii_measurements_ops =3D {
+>  	.open =3D ima_ascii_measurements_open,
+> -	.read =3D seq_read,
+> +	.read =3D ima_measurements_read,
+>  	.write =3D ima_measurements_write,
+> -	.llseek =3D seq_lseek,
+> +	.llseek =3D ima_measurements_llseek,
+>  	.release =3D ima_measurements_release,
+>  };
+> =20
+> @@ -519,9 +573,9 @@ static int ima_ascii_measurements_staged_open(struct =
+inode *inode,
+> =20
+>  static const struct file_operations ima_ascii_measurements_staged_ops =
+=3D {
+>  	.open =3D ima_ascii_measurements_staged_open,
+> -	.read =3D seq_read,
+> +	.read =3D ima_measurements_read,
+>  	.write =3D ima_measurements_staged_write,
+> -	.llseek =3D seq_lseek,
+> +	.llseek =3D ima_measurements_llseek,
+>  	.release =3D ima_measurements_release,
+>  };
+> =20
+> diff --git a/security/integrity/ima/ima_queue.c b/security/integrity/ima/=
+ima_queue.c
+> index 67782c004cdf..b35aa0c42f8a 100644
+> --- a/security/integrity/ima/ima_queue.c
+> +++ b/security/integrity/ima/ima_queue.c
+> @@ -429,8 +429,8 @@ int ima_queue_delete_partial(unsigned long req_value)
+> =20
+>  	/*
+>  	 * list_for_each_entry_rcu() without rcu_read_lock() is fine because
+> -	 * only list append can happen concurrently. No list replace due to the
+> -	 * staging/delete writers mutual exclusion.
+> +	 * only list append can happen concurrently: staging/delete writers are
+> +	 * serialized by ima_measure_rwsem.
+>  	 */
+>  	list_for_each_entry_rcu(qe, &ima_measurements, later, true) {
+>  		size_to_remove +=3D get_binary_runtime_size(qe->entry);
+> @@ -451,7 +451,8 @@ int ima_queue_delete_partial(unsigned long req_value)
+>  	}
+> =20
+>  	/*
+> -	 * qe remains valid because ima_fs.c enforces single-writer exclusion.
+> +	 * qe remains valid because staging/delete writers are serialized by
+> +	 * ima_measure_rwsem.
+>  	 */
+>  	__list_cut_position(&ima_measurements_trim, &ima_measurements,
+>  			    &qe->later);
 
