@@ -1,57 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795005610;
-	b=mFRmRCvNK4qXdKBQY8UBJrQBpS41tITOGlyM4n7LIu0drS6UCFrvMRRFbl8xDMPO7Du1
-	 JUwt6KQc2WoP/bcNLTUHyB5BBMgVJNUl8KBj4jOYQz8U4bLt2zcAqQC4DcP4GP4Lpa9RD
-	 zG8B3DgQXidtcWQy9Yjj1Cm1VnkVQA5/f2pRrtZAjO5phqzApIn/ciJD5JQ37sJzZ0RzH
-	 gIclEQoNL0xqN23HKx7pfgLHn8m+jXz+FKcnVyQl3X/zYFgLFAY2S/ei6n+0Q19R9zdWe
-	 t+oYlPUb6WSmFNbHeQtPCa2P0MfO0A90XL98hACJLF1AbnLDcUqqn87B6yeBmqWNntw==
+	t=1795005659;
+	b=vMGj22EMu9Z20PnB0Hfl8pO3a4w7tsquQuTdMiHPLh2wVtZ63uxozJDNL9Wm8IWE/0e8
+	 G3Q3AXwtcdbedHks3/qgAil6zE7Nl4FKjJerju76/ATxqqaTiCzeX2ZEb+g87ZuEHIj/C
+	 nGTfrx0OHkXuyA/3ombVMFHBhY2HazQbWudr2abWdZXcYIcx7A/Jyd+9peaWjnXpqphVP
+	 cPZbnvtQAXk64uan81R3IPye7jBfTwu9OWJ/i7XR76NFuApzf2J/Rv9YiZ5pTo1KpNKfl
+	 zKWMKSjOB40KeBCZ7GbG5wormhf8ACtSYx34Azk3/TLfIf/FRRqj4kzQOgcuBJWJcDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795005610;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=NWRRBL/nkj/qiw0FA+M+8kPBJmXsdrkEuh/cCE1zcS4=;
-	b=bRp6prUWPlOXoZFGHWV07SKbtRcPg631OsAXJw58R5ePOVzwAo4Mhtol76uajbwZMtv6
-	 EushYgYsPKv/klGCf7pKXUozv0UhmSMq1LryI0vO9oqufobCDWVRhqmWP0clbSwaLYUK1
-	 SRqS62hGY9elW3pLPRXRYw1Si/xAchYqu2pNVcCxOehoc2BzPmtSmtV4tNXpgApfYWw3i
-	 NOmMT+HUziaBFPH1MDbaYLn9xR6BgI6YsosENAhJIPbepBwQsNIZ5064TpsoY8HxZEY0q
-	 +cNNL9T89K49rf6UW6bxOgYnjLAfiaug0pU5NmaUFOu/qTwhylB7QMoi7xMlgVu4KpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795005659;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=VZ51au4RonPigHEfbkNsWVqDM0KTWvC8Bkvcgfsi/r0=;
+	b=clsD18tApKSbxnlXCnjeYRQhHhN0v8HyADgiFSsZA/dWQoHKLK+yZs595GvOOjrvUZDr
+	 V4dsc3afkWRbu162h0demvlGoOQNDwMNjVziW1qTQg1PKWR6MnaTWL6SqqbpDwA0G9i78
+	 xAHYFSOsSNc0P2j+2DP3swM3Q2eEpMLK5cDHSkIKkmtRPnZJro+ROEG5s4JcLpAzNeXSu
+	 b18TJFq0+NZPwkzTkMRjUiXMmGDYlJUFHgeUj/UTgdfyS1A2O3+N+ERt/0uuvi41cshWA
+	 PUrsiKkBg+9yOs+jCiO7W2rtH24Ph8XimrpYYc1kLN90e69RjWvalfuzfqpgh/AO3YA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQKiFR3s;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ex/cmMe5";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5695606A31C
-	for <stable@vger.kernel.org>; Wed, 18 Nov 2026 12:40:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056DA606A320;
+	Wed, 18 Nov 2026 12:40:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQKiFR3s
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04F631F000C7;
-	Wed, 18 Nov 2026 12:40:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ex/cmMe5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 814C31F000C9;
+	Wed, 18 Nov 2026 12:40:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795005610;
-	bh=NWRRBL/nkj/qiw0FA+M+8kPBJmXsdrkEuh/cCE1zcS4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eQKiFR3suRGrAbBQu/9v+UXrj9sh2Fc+z6Lyjn2oc9MSvNmVG24t/TSpB3fT/NWya
-	 D402e6YSF992XUfq84+9D/4GUGXA0XoD7sws+f/BSCmNa0EkEC+3h6WUb2PH+/e180
-	 6KuUtNl2ZufP3Paa0j2SPkY4VoIOsIMxCBbNUek1WQo9F63006NiAqZUWM4miDVALU
-	 gUH3A/UDc16VeXWzRf5eivABYvFdDlKttYd6O6l9mmyLYIbnuWrI6nRew9GIaXg2Le
-	 gfkD4gPVS4BFNjx++gU4ibN1VO/9dBRMaaXHCBFM6cofRqzheI28IwsVYxxC6fbl9M
-	 5Ml+AbbwJohyg==
-From: Sasha Levin <sashal@kernel.org>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>,
-	stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Subject: Re: Patch "serial: max310x: drive RTS in software when hardware delays are too short" has been added to the 7.3-stable tree
-Date: Wed, 18 Nov 2026 07:40:02 -0500
-Message-ID: <20261118124002.3727477-6-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <b68885fe-223b-4b55-aae9-768456d4fa30@vaisala.com>
-References: <20261117144521.1678735-1-sashal@kernel.org> <b68885fe-223b-4b55-aae9-768456d4fa30@vaisala.com>
+	s=k20260515; t=1795005658;
+	bh=VZ51au4RonPigHEfbkNsWVqDM0KTWvC8Bkvcgfsi/r0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ex/cmMe5bYC5eWxfcXVWKFzUvQ2k36gWLlFLC48Ih3lpzVF5Ayu9dEH49FU0xpudu
+	 Tn0tK2Z1zqowhfaQUWqEN9dc9ah01Y0LqldcJJl3hyq4v4MMrN1Crr+FTdN57Rx3Lj
+	 Ku5kaZ2V/QpI20q4HTqUMqKeWvLM+9HJWlCDlsD1nz3T6cKz8+nNYXhtRF8qS2XnmW
+	 w2SHyoo/J7v7i977B9NqcFIk/mA98C5Z/8nvlo5QnLEs6WJEfCA4nmshFIz2zEX2tf
+	 GXqbsXkS0aMEdM/gvSITQa2L1u9JqOQ1bQXhBqCYnsVD0V/mRXfAIr917xWR23pLPI
+	 5X863xrPlShsw==
+From: Christian Brauner <brauner@kernel.org>
+To: Jan Kara <jack@suse.cz>, Joseph Qi <joseph.qi@linux.alibaba.com>
+Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20261112064009.2313455-1-joseph.qi@linux.alibaba.com>
+References: <20261112064009.2313455-1-joseph.qi@linux.alibaba.com>
+Subject: Re: [PATCH v2] ufs: free cylinder group structures on late mount
+ failure
+Message-Id: <20261118-pfeifen-reift-heimfahren-8a2f3de7729c@brauner>
+Date: Wed, 18 Nov 2026 13:40:55 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,19 +58,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev-04696
 
-On Wed, Nov 18, 2026 at 08:23:34AM +0200, Tapio Reijonen wrote:
-> Please queue c06fcc258db0 before this patch in 7.3 and 6.18. If that
-> is not wanted, please drop this patch and ae588038e31c ("serial:
-> max310x: don't transmit while an RS485 reconfigure is pending") from
-> both trees; the second one builds on the first.
+On Thu, 12 Nov 2026 14:40:09 +0800, Joseph Qi wrote:
+> ufs_fill_super() reads the cylinder group structures before it creates
+> the root dentry, and the two failures that remain after the read, a
+> failed ufs_iget() and a failed d_make_root(), jump to a label that only
+> frees the in-core superblock information.  generic_shutdown_super()
+> calls put_super only inside its if (sb->s_root) block, so with s_root
+> left NULL the s_csp allocation, the s_ncg buffer heads behind s_ucg[]
+> and the UFS_MAX_GROUP_LOADED s_ucpi[] entries are leaked, once per
+> mount attempt.  Neither failure needs an I/O error: ufs_iget() rejects
+> a root inode number outside the s_ncg * s_ipg range the image claims,
+> and s_ipg is not validated.
+> 
+> [...]
 
-c06fcc258db0 ("serial: max310x: schedule tx_work directly from the IRQ
-handler") is now queued for 7.3 and 6.18, ahead of 33632215e1bb ("serial:
-max310x: drive RTS in software when hardware delays are too short").
+Applied to the vfs-7.5.misc branch of the vfs/vfs.git tree.
+Patches in the vfs-7.5.misc branch should appear in linux-next soon.
 
--- 
-Thanks,
-Sasha
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
+
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs-7.5.misc
+
+[1/1] ufs: free cylinder group structures on late mount failure
+      https://git.kernel.org/vfs/vfs/c/0f97da93e617
+
