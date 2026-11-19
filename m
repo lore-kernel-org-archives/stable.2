@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795104532;
-	b=cfXQAaWrwFV/XQYirQXrWXnjjxHFhN+GvD/DESh7r5D3p/UjmlaUg20Zey9lN3LioD5g
-	 qO3yjjVNQgXtDNVJ0MGW5FsT8QKdI4ryhkHenXOQTb8UKiWoExKHVh+ZH1JwfZXSu7dO/
-	 dp7O0VQSSXUo06z043cFCZw2k4yQ72sm3xag0g9XTnzAHcPNob+RR/3/5eVTXcEWtd+Mj
-	 lc7cAeIwP/6euNUENbsWRP5f9RTepMx7YEs9NdHtQFZR0M3BNgBoHvzJqwwJ3FTxK4ANO
-	 OXVHExsB0L8x4eW32zb5tHPzwe5iqRD3lvfqc5ZERoVRV1zuP4uQGVAswg/kFAeFFuA==
+	t=1795104533;
+	b=AhoezvouSgScu2MRxPtk123lXeNTzMqNqvEe08llTejhDuOBpBCmqadIFNx8kBIqiSJy
+	 4oPrvwwqhLhMrFgR7sFNsyxx/ED6w8QlOToZU3dOHEUxTyzjRtE8a0yt9cCsvStNR7KAE
+	 l7kDvR5bducTCkCNpBPl821yMTU8PHg1ReL4fvsX3ctWIPbZY2ADhACKpOoaZTtkAe3Wd
+	 juj3GLP2AW8U6sTQ7RzelFJCs7F0fYY2ISrnkOqcV3zlAqptvGykrWbNkJ6KzrbiIT9d/
+	 araLOn0eHeX0c4tjtK2JOW76ozcKnfZ2/sKi1WKN2EEXWqMu/Mh4A1UxKwgGcws/TEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795104532;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795104533;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=k0WC7e4wPNkzIKZpd9PM9ryuIzRDi8P8kUXWxiMsJh8=;
-	b=uxp1Qaf9LR36hzW3njAOaW7ZtrWaWkvk8JVwBcRRpIcRg81bl2eNKWHm2j94x7oMu1EK
-	 yvoW0lIBAIeb41/i2zwBn0SqJJlOWS9hO8NW9HrQb80kIcN5FE0k13cjXje9BAGPI9BwA
-	 D5iqWoUOV2pBd7DTKVyMR1CNrxeAFuGrw8+CYDVdp8Ix+pIvwf1xIcuZSH/gTgpoB8rEH
-	 4L9pIcwz+y/f4dR2RqzKoasOuvevHjwzs4d0gbz4yRP89tSky70Pz3iXKQnLDyjqXMk76
-	 fqMeLjPQ1J9AfCe8CBhtife7rhEyCATpof0Q4VZLxB5v16hinjAgu5jbaKLGiYKZoxQ==
+	bh=iGI7cF3Rgd9trKFvpA201zuW9sW+rUBojNQVkSuXAk8=;
+	b=5lFZyuMPXSbmIxK8oYbAtpowOaCKGmKn7AIMkfGH5uk0h44M3bmoVWsFImrkQtwWURn2
+	 yuNiU6GFQdkZTAqURYD1/krSGl6LHwyoGHVpVO9L50nM+81WXFaFAUfVCPVsRzXFVBKL3
+	 mTaQeVcKYHuQmocIpbheNQqOx2C8ePlTkM/W+DHki54hyQ0vBPI2LM8QuA87yzxLA+G5v
+	 THoquRqRT36oZ7irCZFCZokw7Hqy6v40iSHx7dN74/vI1bvvAuKqpSh1Ky8X2p6q6MEcY
+	 SKWjwc6f1sGIsbQgW1ollt2mvGh/8yok0zdaljdzvVMH2Sx0RioGQeWF3hcFfRwbLzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ve7XG6db;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UphGAnmG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C88606A334;
-	Thu, 19 Nov 2026 16:08:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BDA7606A320
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 16:08:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ve7XG6db
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54B871F000C4;
-	Thu, 19 Nov 2026 16:08:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UphGAnmG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63EC41F000C6;
+	Thu, 19 Nov 2026 16:08:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795104532;
-	bh=k0WC7e4wPNkzIKZpd9PM9ryuIzRDi8P8kUXWxiMsJh8=;
+	s=k20260515; t=1795104533;
+	bh=iGI7cF3Rgd9trKFvpA201zuW9sW+rUBojNQVkSuXAk8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ve7XG6db4R63CvxjZvxQAsKpvZWzzAm0w6wJiYIbwTKNSTTAw6cTGyhW4yAqxJBw4
-	 4DU/l+8SCX1pVwt/K1rWBvTHEpO+Hww4VyykBxHPhNNkOrnbRx7rUaaH0NnTcBoHlu
-	 5Jgd/+/NFu7SOS4HWpKo8uG3D4H6Q+MBmGayDZk7+wWqRMcVF8RyAp/SVhIiw/jzU2
-	 ADfF7OloRHjv0CkiV18XmAzMQ72k4haOIaQ+iVHqIijxM4/uwkBYtT0u/xB7p4ntit
-	 aNUbUtUxwrLUuC3/jyrgFQwWqUqmskIAT7deuv5z6Ddu470sG5kFiTbQFzr03j+fNz
-	 bWKjIpr72LSZg==
+	b=UphGAnmG0B2Jp1w/XuQbGgOdUJyLgc+9xZBmNMAKA4DU8VqgjC6DDQ3uAJ/yE5PuK
+	 fDEPUhwDC2i0iypZI4GkiFstday5DOLScBS7HCwFZc28+3RhWTVzGJTn7V3mito/hh
+	 wdDdqdmtI+Rmdz8LvN7JR87iZvQc1cQAGDP9CeZMvKwR/Q8V100PQPpFvT9A0evkmG
+	 VOFsXDxSQuoijKJX+iV8MVB7QZeCiQs1EJJ7+lgzpx7mTseGKBmFgy1q7FKi/kwVV1
+	 TC94VwkeHQTD1ESw/WetOtcOjj2/J+mFCaLwx6MXz18LVSU+fcYhV1bfCtJCbtplbP
+	 asOcc1Dcbemqg==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	Yilin Chen <1479826151@qq.com>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Subject: Re: [PATCH 7.3 0949/2651] rust: configfs: require thread-safe callback data
-Date: Thu, 19 Nov 2026 11:08:19 -0500
-Message-ID: <2026-11-19-1-daily-reply-0017@kernel.org>
+	gregkh@linuxfoundation.org,
+	Zilin Guan <zilin@seu.edu.cn>,
+	Felix Fietkau <nbd@nbd.name>,
+	Nobuhiro Iwamatsu <nobuhiro.iwamatsu.x90@mail.toshiba>
+Subject: Re: [PATCH 5.10.y] mt76: mt7615: Fix memory leak in mt7615_mcu_wtbl_sta_add()
+Date: Thu, 19 Nov 2026 11:08:20 -0500
+Message-ID: <2026-11-19-1-daily-reply-0018@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <9c8d1253-ca72-4adb-a324-8dc86c8b6e9f@kernel.org>
-References: <9c8d1253-ca72-4adb-a324-8dc86c8b6e9f@kernel.org>
+In-Reply-To: <1794979939-14045-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
+References: <1794979939-14045-1-git-send-email-nobuhiro.iwamatsu.x90@mail.toshiba>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +63,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> > This errors out too:
-> [ 494s] error[E0277]: `UnsafeCell<MaybeUninit<blk_mq_tag_set>>` cannot be shared between threads safely
+> commit 53d1548612670aa8b5d89745116cc33d9d172863 upstream.
 
-Queued the missing prerequisite for 7.3 and 6.18, thanks.
+Queued for 5.10, thanks.
 
 -- 
 Thanks,
