@@ -1,61 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102359;
-	b=eTxAK/DnwH2IJKmkJ/ZkJ6kAcIl8kG5g6bIpK7Kzo+df0X4DGpZnBYZLHqky8cQbGBZY
-	 oqozEUSU2dULIkjXorreJiWVLxat0WM6NCuv90mSB4FOy2y7R3wyAQn52f3LAzwZoJgYn
-	 aKCFFwV7jr9T0b2eSjkBI3rrB9Gfn0XovdTst9VZu5D5Py6AyolWl1EgatrkUKABlUi0r
-	 ATmFs9ksU62J8931hSHjIQp+2hHNxMKeCkW4Kuc0aJCHLDjVRQ8d8JF3jZV7RnUf42bk8
-	 gpHddEJObeSTcjfo2cjf8ylwZ7IlPR3+2ECQMcJCkZ+vBndvP0TaaYZ8iYDmmtWZuyA==
+	t=1795102366;
+	b=OWPZfCbfKxN36ORqHsAEQcu4ZU+mw5aWG8UTrX6HRibVqhgdRWYX3Lqz5bIXr9DfVVJM
+	 WDuC21nmvti+2ctkCtaucm6NG3KZV9VDe5r78M0Y5R/mdU/FYwNID0iH199Kzt/EgAdb6
+	 EVCzgu/8eZ8k3iMOD4EcChUS50ahpLA1wrzewZUCpwaGokcSOy0tV6+j2dnwTOF2cmfTP
+	 VxcMln4ow/FhCK/TgQbleXEdD0f+KX2FZHgtq8z+YEGJ3ExsxKzW5eBOjk8nCiZTPX4xd
+	 YCwOz1dBVCH8JC7ICWaJpnDHv+CB52ZLYXrNpv373wAV0KsmSY/X/aVZwKJIX3Jk9pQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102359;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102366;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=BsLuHizLc3GlxB5hI1TsZDP3spN/v/I/xr4RF7IafvM=;
-	b=aDUSyRYB2f9mPb+z6oxBFWbke+46ST6qG80QztY8P/ynJfwIpDE7OId+DXhmfjBZTYt1
-	 FEGOGY0uLIJB+9XHNMnJrooeBRsCdbLrQra5RrfQkojeGC4UX72Bq0a5rJO196NvMOft8
-	 oFAmDlRuZs9epMYkUxMVSygWExB8pvMY9j3DvAaj2IX5F63hlmNnD2ehxSoxbEISEFoZa
-	 a4G92Q5VuMRDIMf2+oCGFYcGbTE5IAxgbbMSp+nwLas+66TEAmg7K9DklGbDhnDKmD2Ow
-	 6HP+j1Y4Hw4wdy9sHz2IUX/BVSxnM3UStyi0rAxdDUH74uosWU1ipd/LpNchjOEPLYA==
+	bh=lA1w/HPqgREMk3LSOcc2vVbyuDL7Ipujn9ZkHz8l3fg=;
+	b=dXhZuhXleyTqM6HBfkDC1leuuUkkqnbXgh6OHsxbp5nAoqWgQKDjr15juMPkhzsyyaEp
+	 fb9kc2s5x2031PlTi3TNmgFoaN7pYi1P4nb+gdcxpqNKx24gClqVIeXDfIFW+8/fS46Zm
+	 o4M+Kq1vs+lZu63SQAdMFrqxBVr7dkYOu33qahIZD+DbWJcKsU3CIBaC58SGXZ+fTs513
+	 IMoo8cZr+yRev58LyG9Brvp4QEpP4ZpU15anvKg1Aj/FowHpro0awT9HosE+hQSOyQ3YC
+	 jWUt3z50X7fCK1Hqxkx/xfM8D0djOVQtM4OwTwemAix5o8op7TWN1B+C1MI4mvqjOgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hy6qf2nV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rt8u9bvh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBF560A2604;
-	Thu, 19 Nov 2026 15:32:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDC5606A331;
+	Thu, 19 Nov 2026 15:32:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hy6qf2nV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 310641F000C7;
-	Thu, 19 Nov 2026 15:32:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rt8u9bvh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1751F000C4;
+	Thu, 19 Nov 2026 15:32:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795102359;
-	bh=BsLuHizLc3GlxB5hI1TsZDP3spN/v/I/xr4RF7IafvM=;
+	s=k20260515; t=1795102366;
+	bh=lA1w/HPqgREMk3LSOcc2vVbyuDL7Ipujn9ZkHz8l3fg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hy6qf2nV6wPs9dnIIEAqyqg2colUxWUMNsgrywbi91vwTXifk/S9u9mxmvSwqDRve
-	 eOdQm4XwpMtSoXk8udNOhqslvXaLjHPLhjH/OVAEvspa7bU24n440OjUqsx1Wll4yU
-	 4bSjXgngyUzutntbJqeSqcRjvpTeYiHZEzZ5AzScTGY06CXl1Z/0eGwCZS8TZzuUNC
-	 ep6UbnRf1ZwDpaE5ZiL7IHbO67VNz/tXuIgjgTLq+DXde0NoiINVGjqUbBQUmmpeCV
-	 efNBIeYZ2n+yat7QbR4V9FUuo+Cc3QtVcmkuvyhIlTtikjRv9NTAK6Mn5jTbYeDiPd
-	 kbGJZIu02RjWg==
+	b=Rt8u9bvhI6ZNLtyKv1NVRnGij9j/cnmA+pzueBpBN96wrhMvmMZxJTgu6achGnd2q
+	 POZKvWFVik0TsgbJBI9ElJ6zih2weNRUgbu5MZocy9laG0ALkXrB+ioaWJOKUtx/TF
+	 zY1WrNGvLgeQlgXo8nBaXpyU86OLN3Lu1WWl4v0ozskiXZ5IevahQomR3wPYQKpuHz
+	 bL9W+bzUbE/zIzhx/zJbUOoi3oHNajJLEJdDWlBhRYAD16d+pXnEh6zy1XQRx82GVG
+	 5b7JD26nOfTS3RM1C7DzOvz9LHa8NZQNqXuDnsG+7ahEa+jhzX11rnHuUGSWJ8WQIz
+	 1rWqfD1XIoLsg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
+	Marius Cristea <marius.cristea@microchip.com>,
 	Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
 	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
 	Andy Shevchenko <andy@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	linux-iio@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
+	Bogdan Bolocan <bogdan.bolocan@microchip.com>,
+	linux-iio@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 05/10] iio: adc: stm32-adc: Detach chained IRQ handler before removing domain
-Date: Thu, 19 Nov 2026 15:30:38 +0000
-Message-ID: <20261119153151.1397003-6-lee@kernel.org>
+Subject: [PATCH 06/10] iio: adc: pac1934: Fix custom attribute allocation and channel bounds
+Date: Thu, 19 Nov 2026 15:30:39 +0000
+Message-ID: <20261119153151.1397003-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
 In-Reply-To: <20261119153151.1397003-1-lee@kernel.org>
 References: <20261119153151.1397003-1-lee@kernel.org>
@@ -70,46 +67,87 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-stm32_adc_irq_remove() disposes of the child IRQ mappings and removes
-priv->domain before clearing the parent chained IRQ handlers.  Because
-the parent hardware interrupt lines remain unmasked while child devices
-use dummy_irq_chip, an interrupt arriving during teardown invokes
-stm32_adc_irq_handler() after irq_domain_remove() has freed
-priv->domain, and irq_set_chained_handler() also leaves handler_data
-dangling.
+pac1934_prep_custom_attributes() sizes the pac1934_custom_attr pointer
+array using sizeof(*pac1934_group) instead of
+sizeof(*pac1934_custom_attr) and adds 1 byte rather than one pointer
+element for the terminating NULL entry.  When active_channels_count is
+zero, only a single byte is allocated and iio_device_register_sysfs()
+reads past the allocation when scanning the attribute list.
 
-Detach the chained handlers and clear handler_data with
-irq_set_chained_handler_and_data() before tearing down the mappings and
-removing the domain.
+In addition, active_channels_count is counted over info->phys_channels,
+whereas the population steps unconditionally inspect all four entries of
+info->active_channels[], which can write past the end of the array on
+1-, 2-, and 3-channel chip variants.
 
-Fixes: 1add69880240 ("iio: adc: Add support for STM32 ADC core")
-Closes: https://sashiko.dev/#/bug/linux-27c38690-bc20-43aa-a3fc-1ddd6f1bb74e
+Allocate active_channels_count + 1 attribute pointers with
+devm_kzalloc_objs() and bound the population loop by
+info->phys_channels.
+
+Fixes: 0fb528c8255b ("iio: adc: adding support for PAC193x")
+Closes: https://sashiko.dev/#/bug/linux-e7b7eab1-9ed4-4d4b-b9c7-889bf720aa5b
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/iio/adc/stm32-adc-core.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/iio/adc/pac1934.c | 33 +++++++++++++++------------------
+ 1 file changed, 15 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
-index 4b532db3db62..13b75475046c 100644
---- a/drivers/iio/adc/stm32-adc-core.c
-+++ b/drivers/iio/adc/stm32-adc-core.c
-@@ -467,12 +467,12 @@ static void stm32_adc_irq_remove(struct platform_device *pdev,
- 	int hwirq;
- 	unsigned int i;
+diff --git a/drivers/iio/adc/pac1934.c b/drivers/iio/adc/pac1934.c
+index 1d7608e8246a..c3da0c519456 100644
+--- a/drivers/iio/adc/pac1934.c
++++ b/drivers/iio/adc/pac1934.c
+@@ -1435,10 +1435,17 @@ static IIO_DEVICE_ATTR(in_shunt_resistor3, 0644,
+ static IIO_DEVICE_ATTR(in_shunt_resistor4, 0644,
+ 		       pac1934_shunt_value_show, pac1934_shunt_value_store, 3);
  
-+	for (i = 0; i < priv->nb_irqs; i++)
-+		irq_set_chained_handler_and_data(priv->irq[i], NULL, NULL);
++static struct attribute * const pac1934_shunt_attrs[] = {
++	PAC1934_DEV_ATTR(in_shunt_resistor1),
++	PAC1934_DEV_ATTR(in_shunt_resistor2),
++	PAC1934_DEV_ATTR(in_shunt_resistor3),
++	PAC1934_DEV_ATTR(in_shunt_resistor4),
++};
 +
- 	for (hwirq = 0; hwirq < priv->nb_adc_max; hwirq++)
- 		irq_dispose_mapping(irq_find_mapping(priv->domain, hwirq));
- 	irq_domain_remove(priv->domain);
--
--	for (i = 0; i < priv->nb_irqs; i++)
--		irq_set_chained_handler(priv->irq[i], NULL);
- }
+ static int pac1934_prep_custom_attributes(struct pac1934_chip_info *info,
+ 					  struct iio_dev *indio_dev)
+ {
+-	int i, active_channels_count = 0;
++	int i, j, active_channels_count = 0;
+ 	struct attribute **pac1934_custom_attr;
+ 	struct attribute_group *pac1934_group;
+ 	struct device *dev = &info->client->dev;
+@@ -1451,26 +1458,16 @@ static int pac1934_prep_custom_attributes(struct pac1934_chip_info *info,
+ 	if (!pac1934_group)
+ 		return -ENOMEM;
  
- static int stm32_adc_core_switches_supply_en(struct stm32_adc_priv *priv,
+-	pac1934_custom_attr = devm_kzalloc(dev,
+-					   (PAC1934_CUSTOM_ATTR_FOR_CHANNEL *
+-					   active_channels_count)
+-					   * sizeof(*pac1934_group) + 1,
+-					   GFP_KERNEL);
++	pac1934_custom_attr = devm_kzalloc_objs(dev, *pac1934_custom_attr,
++						PAC1934_CUSTOM_ATTR_FOR_CHANNEL *
++						active_channels_count + 1);
+ 	if (!pac1934_custom_attr)
+ 		return -ENOMEM;
+ 
+-	i = 0;
+-	if (info->active_channels[0])
+-		pac1934_custom_attr[i++] = PAC1934_DEV_ATTR(in_shunt_resistor1);
+-
+-	if (info->active_channels[1])
+-		pac1934_custom_attr[i++] = PAC1934_DEV_ATTR(in_shunt_resistor2);
+-
+-	if (info->active_channels[2])
+-		pac1934_custom_attr[i++] = PAC1934_DEV_ATTR(in_shunt_resistor3);
+-
+-	if (info->active_channels[3])
+-		pac1934_custom_attr[i] = PAC1934_DEV_ATTR(in_shunt_resistor4);
++	j = 0;
++	for (i = 0; i < info->phys_channels; i++)
++		if (info->active_channels[i])
++			pac1934_custom_attr[j++] = pac1934_shunt_attrs[i];
+ 
+ 	pac1934_group->attrs = pac1934_custom_attr;
+ 	info->iio_info.attrs = pac1934_group;
 -- 
 2.56.1.708.g77570a6a1d-goog
 
