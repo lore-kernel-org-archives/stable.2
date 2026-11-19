@@ -1,63 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795084908;
-	b=A8bl7U8GVMPQZOkPlCZvgx229f8Zu7SE9OFIk1qkPGHCxAdM5vLFyL6b5/Psx1snJpJ3
-	 OQPGVl6hxAeHFFX36xUNgweCcQJgIHJ/BJmozVBdObbZxPoxwOP0cQfwrIWVDncxzT25R
-	 IR+0dQTaFcLmsUOvGd+RChBeZ4Cmq4PRMMMB4Wh454KrIVZp+wi0WlobKdeDfNHOAIg2X
-	 CCtzDXCjnO71A4BkvgKBbUoXriqSLJlwYgN07y8XoGXRZjxHnkiEkMluhf79CiStUjny+
-	 qwJk/cSzSbJhEPk8i4cPaLYy3vs3IKrKyt1lngZjf6aSO3u66YlVQg3nfxZeETz7MLQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795084908;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=uy4T6cflb/kJniJb1PNJJOnjjLFYntgpduBnhf88Gok=;
-	b=LQ1Ysf+zppzhbX2Ux0Cr1YedQiojN361RGpdXMwxpXHTF9rOrxX2iOazGHBk2uFtXrWU
-	 RH20JwpQ9qgKjfvJNmVpdU/vmhH3FjeL/1whS8CXth8jd3dry9TW5Mo+sNO3pLmp7zwub
-	 BpeU5THh9oAGDAuSv6GJWb8jmmGNRovb9SMm6J+iUPvr8P3A2XMEgIU+5kXID7GImMxc+
-	 eOwt2xwqq/q8/p9e1ODBwKT1mpMykZ5Fxk04DvboMCS7VRO3zXUeklQx+7OD3uvIzc/Qu
-	 sjlJQI2mscFSjlY/2DskZdHOYdrtYjCd4ztyeOObS+QlKerY9KB2s7YRBcP6fggWwqw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G6Wo7S5b;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795085417;
+	b=JetRzYaBrpETi3vYgpMN1MWr5po6oFB4xhvJSU4rnvZiqvKOuH6GUVrSxpMHZbDRg6Wl
+	 Q9mLInzFNJCzSPgFkDzDDjSWS6j0kIrr2w5ZXF8M3TkWfJtoS8ypA1K03j3AlT81xqvOw
+	 NLPoZDnRaNp4dSmy4Gr4UGvqF6Vkk3ndZH7B56nF0S8jCIZnvGyMVgVN1Q/UpqSWX7azc
+	 aO0VzcnTchr6gNWeTDk7P9XgHF5nH6i7D1Ghi9TUuRX94OmhbgI7WN72ag5qSF2hE7ljS
+	 D2EGcIx6sCL0XWFh12Utqxe1AJ2CKEGX1/QXfNzAe+EBzmvjIMT8qTbt+QxYtYTTv4w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795085417;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/R2gBmUJNOHulxN5FyC8S+OCRx4mvbTbvxpNTATZDD8=;
+	b=M1gWkUyrAAm9NkGI21cwhmFh6HfRB0MSxd0p1aCBNIOcTlLBkdVWVmXGEGUAH6c5yHcw
+	 7sAC5Sio7axmJa30jQhZC/yUBndoq7mWLZ2DYdj5JilvfQha648hTfiS8SZmQ8yU3fJZW
+	 Rr8DyUZDVrT/CL1BAkzovmCHvgFpdOaKPCgxCKkV88si6XqUQcrRQcD3fsoPC7mylzFaP
+	 J8aVaNxlPIhC0wWhKzAcYA/Ve5ZgkMMGK9WYxEKrlhwhywgRAh5VvvwblsWDpLtgMuJRI
+	 fZ/Ine5aL4GmO3b4YQXWhiD6sN85SfWzDvuHIJ8pFZwNp6h/v9w2j6GuD0RgfSJpKaA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oXkGkiWN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F20460A260C;
-	Thu, 19 Nov 2026 10:41:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BE57606A320;
+	Thu, 19 Nov 2026 10:50:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G6Wo7S5b
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 923E81F000C5;
-	Thu, 19 Nov 2026 10:41:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oXkGkiWN
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795085416;
+	b=Xg5Cf4wl+B+BXpoGiony+rE8aTag3oLCvLOi/fT2Ndbz82DBKAC8/6sIJmq+Q4ZxDt1z
+	 22/6op75jI6vjAzsfU7AS8NFUtS5U910MxMpKV46NrheLEHKCrGHGMpYwKv0CnTeftYdF
+	 2fLJKfZFku7k1Si7H33/SrrEsffLWPPdM3ThM7UHgE+9JGOxd2lynAgNw307DXFC1h7n7
+	 IVoKKv0armyuzpCm3aFzb+RJ0OBjDBU/c79aZMiWY8DkqJO43x/UcLspdiKhFUwu9GGz6
+	 JiS+DCT0G1/sgaElAMD50z4M7fvx45GS1E4SiRUukiqHyaHB4cEf9MRMUX9B+iN5yHg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795085416;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/R2gBmUJNOHulxN5FyC8S+OCRx4mvbTbvxpNTATZDD8=;
+	b=Dz4M5mcvD/O+oX0/RR8VXKlb6hEsj6V/ess5whtRpg1YpC5sFD1qO2wGqPRyhSxfjSRu
+	 Udg7wexK4Vv+iAuzQAxDUCDPr9/yGUYvxEizWM5t1TZ5SFCZUaTDicUDVhBR/TX1Jasbl
+	 BHJypVLLyQPE/RAVjYp41SzJVEMgqCZ7WkyX1KOLqXaSIg/2eE3dUatQ9KrPhdhs3A4Oz
+	 uPoyyoGtiboCrRiD1PUGEQDau04B0UZg4g7e+9QT1vdzD8xRn9S6CfiPcRdzpCFTOQ+5W
+	 pehIuTpfWAZ0BYO/2eXJA3cFbfvXqjyEXHYc72EMmNCX1BmF3QsVgFuiemSjHUgo2mw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 68BD31F000CA;
+	Thu, 19 Nov 2026 10:50:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795084907;
-	bh=uy4T6cflb/kJniJb1PNJJOnjjLFYntgpduBnhf88Gok=;
-	h=From:To:Cc:Subject:Date;
-	b=G6Wo7S5bfZhjooeJEaaMz0fss3LMl2nOfy//f10m0ddx5ycM/w0jmulc3fnnB5fa+
-	 VtEecDTv/nTmi5zaM+/edchvkq8k4+IgmvY07o5Gk5+XxlK9xOc3J6xRy0v2/p2cdE
-	 kjYM753TkVL9k7X5Cq8UNriGpr+Dwn8mRPsK4zfUwDDZ/RFs3oFeMspjaIx0oVITwW
-	 LtS314m1mppUWh8a5efSoFX46wO9DcLxvq+bJat7LQqgAujNQ+zsllWiIHrZEderAn
-	 aYJYVIwaggNJ+dRnDT7d+sDINkEZHnnHior8dcTJBVkCH5PPxNealu9y9rlBmyXLN1
-	 BcoZSoGdCTkyw==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Philipp Stanner <phasta@kernel.org>,
-	Simona Vetter <simona.vetter@ffwll.ch>,
-	Chris Wilson <chris@chris-wilson.co.uk>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
-	"Paul E . McKenney" <paulmck@kernel.org>
-Cc: dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3] dma-buf/dma-fence: Prevent misordering for error checks
-Date: Thu, 19 Nov 2026 11:40:32 +0100
-Message-ID: <20261119104030.2381685-3-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1795085416;
+	bh=/R2gBmUJNOHulxN5FyC8S+OCRx4mvbTbvxpNTATZDD8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=oXkGkiWN9fww46X6ujRGrxl4BbnMghUxh4j54SrCuWRg0eXnr7TeRnf98gJvGTmDg
+	 1j4JRHYBBneCGD5Jt6jXPdGcFFafUXdEZ58gCPEGBBfcR5DsDuODRLwNT3CQ5+r+k2
+	 CYfLn4xp5r+spzmqtC3YKfrIiVDRjY3EOdihf0LvFPOBUoe7HkDekdQmC9eJEZ9z71
+	 nmEbOdnNo0VOfxuaeTctR3XAvqhYu+d2JUwCqxUoTNV8sAclBI8MyK++kSeaT3Ksuk
+	 H8R94R7Yi/BXEOjNQICB7ojeD2uK8cbG/oiBODKQyNwLBwp2v/WEyfKTdzV0SYGmSo
+	 SRvcfa6jA8Ryg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id BCDF74B24E;
+	Thu, 19 Nov 2026 10:50:15 +0000 (UTC)
+From: Blake Alexander via B4 Relay <devnull+blake.alexander.airbus.com@kernel.org>
+Date: Thu, 19 Nov 2026 11:50:00 +0100
+Subject: [PATCH net] net: dsa: mv88e6xxx: do not override PHYIDs on
+ external MDIO
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,81 +83,91 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261119-mv88e6xxx-fix-v1-1-2db604f3516f@airbus.com>
+X-B4-Tracking: v=1; b=H4sIAFfU/moC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQ0MD3dwyC4tUs4qKCt20TCA2skw1NzI0sbA0T1UC6ikoSgUKg82LjoX
+ wi0uTslKTS0CGKNXWAgC4JhAocQAAAA==
+X-Change-ID: 20261110-mv88e6xxx-fix-f29e7214897e
+To: Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Florian Fainelli <f.fainelli@gmail.com>, 
+ Vivien Didelot <vivien.didelot@gmail.com>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Blake Alexander <blake.alexander@airbus.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795085413; l=2771;
+ i=blake.alexander@airbus.com; s=20261109; h=from:subject:message-id;
+ bh=DEvRstpM6J0VNGLN6y0A8zWK7GLAM0NdyvBdHfH9s/U=;
+ b=OfmZz6PPSSGr42KEyWN02aE+/S0tChV3uv/5keBZmbwX94dTMLQ3JST8THEblY1iUhcjGJTor
+ PcoeOc1NVP9CU9KhwH9V2k2jdVF2C4+8B3cJI0a1dYM6k4gwFWPfUAX
+X-Developer-Key: i=blake.alexander@airbus.com; a=ed25519;
+ pk=cfpa2FQbYHF1zxIJuHbr8W+NR9T4DK/baAknnTv2I68=
+X-Endpoint-Received: by B4 Relay for blake.alexander@airbus.com/20261109
+ with auth_id=1461
+X-Original-From: Blake Alexander <blake.alexander@airbus.com>
+Reply-To: blake.alexander@airbus.com
+Content-Transfer-Encoding: 7bit
 
-Many users of dma_fence do things like:
+From: Blake Alexander <blake.alexander@airbus.com>
 
-// Thread A
-dma_fence_set_error(f, -EINVAL);
-dma_fence_signal(f); // <- test_and_set_bit() orders against the above.
+Some variants of the Marvell 88E6xxx family (such as MV88E6390) support
+an external MDIO bus (in addition to the internal MDIO bus for
+configuring internal PHYs). A typical use-case for the external bus is
+to configure PHYs that are external to the switch. On switches that do
+not assign a PHYID for internal PHYs (i.e. the value is 0), the
+mv88e6xxx_mdio_read() function traps read calls to the PHYID registers
+and sets the PHYID equal to the family ID of the switch.
 
-// Thread B
-if (dma_fence_is_signaled(f)) // <- Does test_bit(), no ordering.
-	pr_info("err: %i\n", f->error); // <- Can be loaded first.
+The mv88e6xxx_mdio_read() function is reused for both internal and mdio
+bus operations. The PHYID overwrite trap does not check whether the MDIO
+bus is internal or external and wrongly modifies the PHYID of devices on
+the external bus when their PHYID2 register reports a value of 0. When a
+C22 device reports a PHYID of 0, get_phy_device() will reprobe the
+device as C45 and if successful create a C45 device. Overriding the
+PHYID in this case will prevent a C45 device (such as Aquantia AQR115)
+from being reprobed and their driver will fail to bind.
 
-There is no memory ordering between reading of the signaled-bit and
-reading of the error code. This can result in outdated, wrong error
-codes being evaluated by the user. That's a significant bug when we
-consider that fences' purpose is to propagate the state of jobs running
-on hardware.
+This was observed on a development board during the bring-up phase. The
+board included an MV88E6393X with external AQR115 PHYs. The MDIO bus of
+the PHYs was connected to the external MDIO bus of the Marvell switch.
+Prior to applying this patch, the aquantia driver failed to detect the
+AQR115 and instead detected a generic C22 device (as a PHYID of
+0x00000393 does not match a known PHY). After applying this fix, the
+external AQR115s were detected correctly and their respective driver
+bound to them successfully.
 
-dma_fence_get_status() does take the fence lock, presumably to ensure
-ordering, but it is broken, too, because the read misordering can simply
-happen within the critical section.
+Do not modify the returned PHYID in mv88e6xxx_mdio_read() when reading
+from a device on the external MDIO bus.
 
-It's not entirely clear since when this bug exists, but at least since
-dma_fence_get_status() was added, which is why its birth commit is
-marked as the Fixes commit here.
-
-Ensure ordering for everyone evaluating the error code centrally by
-using test_bit_acquire() in dma_fence_test_signaled_flag().
-
+Fixes: da9f33018e2c ("net: dsa: mv88e6xxx: Workaround missing PHY ID on mv88e6390")
 Cc: stable@vger.kernel.org
-Fixes: d6c99f4bf093 ("dma-fence: Wrap querying the fence->status")
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
+Signed-off-by: Blake Alexander <blake.alexander@airbus.com>
 ---
-Let's go with Gary's proposal for now, and have this patch here remain
-simple so that it can be trivially be backported, since this is a
-severe potential bug.
+ drivers/net/dsa/mv88e6xxx/chip.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v3:
-  - Be more precise in code comments and commit message about how the
-    ordering works. (Gary)
-  - Update the function's documentation to inform about ordering
-    semantics.
----
- include/linux/dma-fence.h | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
-
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index dd07d128adc3..a41b9a7792e1 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -487,16 +487,20 @@ const char __rcu *dma_fence_timeline_name(struct dma_fence *fence);
-  * with the fence in any way. The user must, therefore, ensure through other
-  * means that fences get signaled eventually.
-  *
-- * This function uses test_bit(), which is thread-safe. Naturally, this function
-- * should be used opportunistically; a fence could get signaled at any moment
-- * after the check is done.
-+ * This function provides acquire ordering. This means that all stores
-+ * preceding signaling a fence are visible in correct order to users of this
-+ * function.
-  *
-  * Return: true if signaled, false otherwise.
-  */
- static inline bool
- dma_fence_test_signaled_flag(struct dma_fence *fence)
- {
--	return test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
-+	/*
-+	 * The release counterpart is the test_and_set_bit() in
-+	 * dma_fence_signal_timestamp_locked().
-+	 */
-+	return test_bit_acquire(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags);
- }
+diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
+index 46aef6dfe77e..bf077e476fd1 100644
+--- a/drivers/net/dsa/mv88e6xxx/chip.c
++++ b/drivers/net/dsa/mv88e6xxx/chip.c
+@@ -3779,7 +3779,7 @@ static int mv88e6xxx_mdio_read(struct mii_bus *bus, int phy, int reg)
+ 	mv88e6xxx_reg_unlock(chip);
  
- /**
--- 
-2.56.0
+ 	/* Some internal PHYs don't have a model number. */
+-	if (reg == MII_PHYSID2 && !(val & 0x3f0) &&
++	if (!mdio_bus->external && reg == MII_PHYSID2 && !(val & 0x3f0) &&
+ 	    chip->info->family < ARRAY_SIZE(family_prod_id_table)) {
+ 		prod_id = family_prod_id_table[chip->info->family];
+ 		if (prod_id)
+
+---
+base-commit: af6f95c3300e3d234c813b80f831dd7b80b3eaf2
+change-id: 20261110-mv88e6xxx-fix-f29e7214897e
+
+Best regards,
+--  
+Blake Alexander <blake.alexander@airbus.com>
+
 
