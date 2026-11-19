@@ -1,91 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795115239;
-	b=SQtuyWRSKDaEoNiycnbS4WBFi8ZeDA2sllK1oE0mKrLMy1Mvtq1dtRj4QThLQwDpXwi0
-	 3jish4Egyq3BhfW7r+DIHxtjwM2yiykdoay0UMybHcDKifoq02MuQLWkSEFdi/UivYuKd
-	 6uKoxC/qllfioOB44jaN6HAckZvYpMhIGVya9fpXcXChmUBqePge2QYzLGJt25P2qE7vp
-	 ivKMax5Z9Cf2Xlh8ammfvNYLHiWdmgts27sKV4dwpT8NVcnV+bicfawBrUTimWLJogf9T
-	 DhMGmjLaOciNIBda240rwApizKYsqceUgXtBWRzT2V90LUxYZBKIIkrrIQP/UxOXxOw==
+	t=1795115410;
+	b=XzrYbGvpkbUUDtAyG3EcZaCg7StylrvT/A33W39qvLCaXcbM3zCY6n19Y7UYs37/JbID
+	 DzCxeux3OVnV93sVNZro/PO38QiPj1aDOx52fAB6Xidy4ziWWNKF7vNvVdDVYMyEtbrjc
+	 lGou0Ofapv9RaDuKKxo4L1movBj03XHXrx3jvoKQNSK+lOwnjdnsTnRbjX4dTeDN1a0dv
+	 XrzGcfqYq7cKGimQlUCVebLa4iVR8nfnRnMNTOB9IpKhyJXUSJUYtQXqbBdGAjnWR9nAg
+	 K0gHPfWuCVvwPXO2C15s8d2WvFCryu9XkcFyr5ODtuTfNVtxnZTf5xbQPjRxsEFlWkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795115239;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=schCkJgVSGiRxCPk76qh6qIbje+oX3udn8Gxxhdusb0=;
-	b=WMJpo7XOfzBN0a0gU7k0cHxoqDm+F3x7gkALoK08zwJqzjKMhzpAvs4OR1eu03Ua4F8U
-	 OBRLx5Rq+88xL8UAMrZ0cESazuWzVUt7P/6CqzUqakWWSFNI3pcqdstb2OFG5GcV6YHI2
-	 KeTeQ1pxCjGL7SqpP+8gzNjtqQXFEtApIMcV+OomZAE0LldLpgP5xcdMTFnaKw9vedYux
-	 0133r5RZaFFsmSDz4QqgU54oOKhIlGM6W9Oe3yq9ZDLuIxfihjna29I7pi46u7qHk/phP
-	 T0DqJ7l/rx/nFQrVXlqHM53Glu2Ebn0+4NF+nJRF98L4b0Sq8AM3sX6U3Lwo4e/MWaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795115410;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=OWfWBSws9gh+iPoR7/7oxTfW1366liBJpIftUQNS3TI=;
+	b=o5oUshSotd5CoOVTDjdsxszFPQ7V+kQSvJh4OsplbZvaEjKMIrA53Am4KMcTjQhqq+Rs
+	 iJQjr9yLbPO472z2zQXNOY0uF25kGFOR70yakLDLZtXJTAgBJqWrWJWQVpmCNKcsjE+LH
+	 APcGGfjpPQGmO7hVKYtY4QebSdU3PYZKwYdcYs+cfr2A78fvp2NNAk7634eNax2/WbpKQ
+	 sWKNHChf7gdMIozrLeafHTMdXJ6lQkjVCFaGqGo5KGf2vrbCckFsaRK0EigZXgZbOa3O0
+	 oZ7ElNvaiabeOLL4NLpk7VI10jQ11ZkM2SFrmJaZc1eZ3Zz8eS6VqQHzlBuSqwq/8jg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=xgDveZY4;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="g/nsiqsd";
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5412960A261B;
-	Thu, 19 Nov 2026 19:07:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5412960A261B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBBB606A334
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 19:10:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEBBB606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=xgDveZY4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795115238;
-	bh=schCkJgVSGiRxCPk76qh6qIbje+oX3udn8Gxxhdusb0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=xgDveZY4p8wbKWOuWeMH9N6C47tco4Gp3d5WcXxZ8Sn8NLHZNggZDyXfoVwSNXmPe
-	 LXtjCtI6TLdlbVEYwy0gaZV4cs+TYv4pUaeNgNEG0APN65E82F1O2WyC5MaRlXIWED
-	 ZExi/EZf+hxqq5YSWTyosKzqWdKKTGlbhwaUsCexv9nhDKllaZakQi5UJj2/x0N3Ur
-	 rQHVNZbmLIT3lv4gcEwt3JttRdUq2Dpfa2rOIsBF3PepFPGMMxe35A3mIN24lYIrb9
-	 /9sW3uIsrYOzGhUi/UW/daix++ZOqoR7Sb+9gMlFQMLo8D1x0VvIO2FG4yiXe92hYc
-	 9YNim5yBafSxw==
-Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVnyt2F1tzRqf;
-	Thu, 19 Nov 2026 14:07:18 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: juri.lelli@redhat.com,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	vincent.guittot@linaro.org
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	tglx@kernel.org,
-	will@kernel.org,
-	boqun@kernel.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org,
-	longman@redhat.com,
-	ridong.chen@linux.dev,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shuah@kernel.org,
-	bigeasy@linutronix.de,
-	clrkwllms@kernel.org,
-	parri.andrea@gmail.com,
-	m.szyprowski@samsung.com,
-	kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com,
-	linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g/nsiqsd
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b41188c8b9so144685a91.0
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:10:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795115408; x=1795720208; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OWfWBSws9gh+iPoR7/7oxTfW1366liBJpIftUQNS3TI=;
+        b=g/nsiqsdt4pH/tzBHE10yBClAItvjaLryQElgWH80JZmkqIvvDL1r10plqAcCXico5
+         mOJMbZBqyrQIX5gIDYrNv3ltUPLHCFFKjjq0z7n07DkPSGNT8OSpbx8+8wPGW4mHgpkb
+         MxZyFbSHhym0sV7UIudMlWJok1NPjVZIoiWwSNko3m2AMEM1Rufx2lsk/oT+AGXVpkfL
+         gv1MZjw9rMmvJSKLSBe4JSYcx+OGP6hzJ20yKs1jfTaQu5LwHJNcluI/H1dTb7cNvsP6
+         szl7egJk/kq7eofTpBMsq3hufiD2K1CtZcF+FhKJ/vjfxmADLHMVoF7RaMDFWPQvxtMj
+         9bUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795115408; x=1795720208;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OWfWBSws9gh+iPoR7/7oxTfW1366liBJpIftUQNS3TI=;
+        b=gPlvaF2JktamT8QIxkyWvBS1pZIT2zqrW1NIDUJZP7Y+OkC45QPfpKiyQTmI2HOb0d
+         ecPLBsD138JoOiTz80gMYgu88hIGpHxA39I+lJ2Ya1LMOs1XTwJ/hh47js3IbmTLuOUF
+         EofB4rlW4Ons8MU+Yu9NYiAahK3Mp95E3egiyXNy3kfcFYRSK2kztOVu3SVpK2bNYKiC
+         h1bAcm85eS8qv/3+TG9f5FvE8bnMm49nCoh7GOjmbqObUoAGbF9XIw3EHWlIZmgwl7z7
+         ikOmJnUH+QSDPrpShQEhiS6fISkMEIJj0MZVkOQMifsKw4cg5vJb4b+zHgt2Zn40LIW+
+         2XXA==
+X-Forwarded-Encrypted: i=1; AL+hErFeQBQheKF/VSmFJwYv2KBWspbGC5ysrl4q2ttZLjvS/jOxImW74LWo1dMELKKLRMtZY6DdOpc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/kyxSDWXHUiVm7iPvCyS3PKyqA0RdRSRUE5E/nzC4oRAGBPZaQ
+	OihfCMdXOK/9CUwgzFPYmt6nNZP1EDLk4eGDHJl3dbERUXnjzuEjpyGURNvTBmLZCC29pg==
+X-Gm-Gg: AZFdTZfODQwUVu5ID1nl1Bio2r/hCoyZ05OTTrcBwcWJdldXQbc8mFQNBsdx8/r9tsN
+	IbowTTEFTrfklAaJExqlhjrlGwAZuay0wozYow73iev6/7rghMu5+D0rkdCTv02VUIKlvUgNtdf
+	Ko5RQgph5+G+wAQQzLoUkSVleDMl1LoynFJmSRhxRxH02FuR3guHwsn6NT3pe8VVJWvNMkBQNT0
+	tXqVZEqGONQLwgOZ7Yo8s4g8rKEqRMgleFWux6gqmlmTtWkYrtbDGN8QpjhxMntpW1LLnOpm+ff
+	ZAzOliBRQqkM1z98w2L0IvFZ7/K6K1Hi5r34ThsM1bbps89mUF3Tl3OzK8oEbFX79faBHiwUywL
+	Z/B9Mw4/MlGEnEh/Ba5//GEnKHCdmfhcSS2Gf7Blxw0KCbKQj9qVRwzRpc0KT1084CNiBZQDPO1
+	zOx42KOBvT7yFm3cQKN/g1aANhN8QkWk3dxbxDxVV59Iz6IxUUhNOQX35/tVRR5uj84ylBinhNv
+	biLHVfMKxGD/P8+cnGN7is5UVxHQc4xopdG7mITgtVqQ+Zsx6fAEXyQWnJwAJsAzM+DGhCp+V9H
+	igsrFXpMqwPpWqTHy01T9pgqSbqTz+6bqLHb22PWeVjQXjsJv63p/GVqZCAHj6gd+5GzABtmmN3
+	z0C2BrMdcXlOh4V41w2KqaDdram/3fTEe6QQuT3H5sInFUZ37x9Ong/fXG3wmRNSH109p3L5Iv7
+	gGvEXynSkVSmTo6/ssbtYaeuL4z90o8mB7MfapIKsyml3aE35JfRjOeG86Ir2fgr1wH5k3R2NtT
+	uoK9HitwNlkY5U=
+X-Received: by 2002:a17:90b:2f8f:b0:3b3:bd07:665b with SMTP id 98e67ed59e1d1-3b41c9325b1mr290487a91.40.1795115408162;
+        Thu, 19 Nov 2026 11:10:08 -0800 (PST)
+Received: from josephctchan-96c-1t.c.googlers.com.com (95.100.125.34.bc.googleusercontent.com. [34.125.100.95])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d1361fsm3678174a91.6.2026.11.19.11.10.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 11:10:07 -0800 (PST)
+From: Joseph CT Chan <jctchan@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org,
+	David Lechner <dlechner@baylibre.com>,
+	Bart Van Assche <bvanassche@acm.org>,
+	Joseph CT Chan <josephctchan@google.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v5 08/17] sched/deadline: Do not replenish a boost from cleared parameters
-Date: Thu, 19 Nov 2026 14:07:05 -0500
-Message-Id: <ae7a53ee206a422a9debf0cbbeb241c8b233d160.1795115075.git.mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1795115075.git.mathieu.desnoyers@efficios.com>
-References: <cover.1795115075.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH v3 1/2] spi: spi-ti-qspi: finalize message on transfer error
+Date: Thu, 19 Nov 2026 19:10:00 +0000
+Message-ID: <20261119191001.878454-2-jctchan@gmail.com>
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+In-Reply-To: <20261119191001.878454-1-jctchan@gmail.com>
+References: <20261119191001.878454-1-jctchan@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -97,156 +105,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a SCHED_DEADLINE waiter boosts the owner of an rt_mutex, the owner
-runs on the waiter's parameters, through dl.pi_se. Commit 2d3d891d3344
-("sched/deadline: Add SCHED_DEADLINE inheritance logic") calls this a
-temporary solution. The owner is never throttled. When its runtime runs
-out, replenish_dl_entity() refills it at once from the waiter's
-dl_runtime.
+From: Joseph CT Chan <josephctchan@google.com>
 
-The waiter can leave SCHED_DEADLINE before the chain walk deboosts the
-owner. Its parameters can be cleared in between, at its 0-lag time.
-replenish_dl_entity() then loops forever on a dl_runtime of 0. It
-holds the rq lock with interrupts off, so the owner's CPU locks up.
+When ti_qspi_start_transfer_one() hits an error in qspi_transfer_msg(),
+such as a transfer timeout (-ETIMEDOUT), it unlocks qspi->list_lock and
+returns -EINVAL directly without writing QSPI_INVAL to QSPI_SPI_CMD_REG,
+setting m->status, or calling spi_finalize_current_message(host).
+Because the message is never finalized, spi_sync() or the spi_async()
+callback waits forever on queued transfers. If spi_sync() took the
+no-queue path, it returns -EINPROGRESS instead of the error, and the
+message's optimize state is never released. The frame is also left
+open, because the QSPI_INVAL write that ends it is skipped.
 
-O is a SCHED_OTHER task that holds the rt_mutex L. W is a SCHED_DEADLINE
-task. T is any other task:
+Set status to the transfer error and leave the transfer loop, so the
+error goes through the existing tail: unlock list_lock, write
+QSPI_INVAL, set m->status, and finalize the message. This fixes both
+paths, and the caller now gets the error from qspi_transfer_msg()
+instead of -EINVAL or -EINPROGRESS.
 
-  CPU 0 (O)                         CPU 1 (W)                     CPU 2 (T)
+Tested at runtime with KUnit (spi_ti_qspi, ti_qspi_test, added later in
+this series) by injecting a QSPI_SPI_STATUS_REG WC poll timeout
+(-ETIMEDOUT) via logic_iomem emulated MMIO on ARCH=um.
 
-  locks L
-                                    blocks on L
-                                      rt_mutex_setprio(O, W)
-                                        O->dl.pi_se = &W->dl
-                                    sleeps
-                                      task_non_contending()
-                                        arms W's inactive timer
-                                                                  sched_setscheduler(W)
-                                                                    W leaves SCHED_DEADLINE
-                                                                    task_rq_unlock(W)
-                                    <W's inactive timer>
-                                    inactive_task_timer()
-                                      __dl_clear_params()
-                                        W->dl.dl_runtime = 0
-  <tick>
-  update_curr_dl_se()
-    enqueue_task_dl()
-      replenish_dl_entity()
-        runtime += W->dl.dl_runtime
-        loops forever
-                                                                    rt_mutex_adjust_pi(W)
-                                                                      rt_mutex_setprio(O, W)
-                                                                        spins on O's rq lock
+Developed with help from the Claude and Gemini AI assistants.
 
-Fix this by not refilling from cleared parameters. The donor's
-parameters are cleared under the donor's rq lock, not the owner's, so
-replenish_dl_entity() can see them change under it. Read dl_runtime,
-dl_deadline and dl_period once, and bail out if any of them is 0.
-
-On bailing out, the owner gets no new runtime, but stays runnable and
-unthrottled. It runs until the chain walk deboosts it, or until it
-releases the lock. Keeping it runnable also covers sysrq-n:
-normalize_rt_tasks() changes the waiter without a chain walk, so a
-throttled owner might never get to release the lock.
-
-The bandwidth the owner consumed while boosted belongs to the donor, so
-a negative runtime is reset to 0 rather than charged to the owner's own
-reservation. An owner with no parameters of its own gets a deadline of
-now. Its deadline must not stay 0: the dl_rq uses an earliest deadline
-of 0 to mean that no deadline entity is queued (see inc_dl_deadline()).
-
-Until the deboost (which should happen "soon enough"), such an owner
-sorts first on its CPU's dl_rq and runs ahead of the other deadline
-tasks there.
-
-The warning is kept for an entity that is not boosted.
-
-The reset bounds the overrun. But a runtime of 0 still counts as
-exceeded. So until the deboost, update_curr_dl_se() still requeues the
-owner at each update. An owner with SCHED_FLAG_DL_OVERRUN still gets
-SIGXCPU.
-
-With a 300ms debug delay before rt_mutex_adjust_pi(), v7.4-rc2 locks
-up in 8-CPU VMs. A kernel with this patch does not.
-
-The Sashiko AI review of this series found the lockup.
-
-Fixes: a5e7be3b28a2 ("sched/deadline: Clear dl_entity params when setscheduling to different class")
-Suggested-by: Juri Lelli <juri.lelli@redhat.com>
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Fixes: 505a14954e2d ("spi/qspi: Add qspi flash controller")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/avL8oOtjKqVNR7-l@jlelli-thinkpadt14gen4.remote.csb/
+Signed-off-by: Joseph CT Chan <josephctchan@google.com>
 ---
- kernel/sched/deadline.c | 40 +++++++++++++++++++++++++++++++++++-----
- 1 file changed, 35 insertions(+), 5 deletions(-)
+v3: Rebased on spi/for-7.5. Fixed the commit message: the old code returns -EINVAL, not ret.
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index e4d7cbf4861d..71b1c155c242 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -807,8 +807,38 @@ static void replenish_dl_entity(struct sched_dl_entity *dl_se)
- {
- 	struct dl_rq *dl_rq = dl_rq_of_se(dl_se);
- 	struct rq *rq = rq_of_dl_rq(dl_rq);
-+	struct sched_dl_entity *pi_se = pi_of(dl_se);
-+	u64 runtime = READ_ONCE(pi_se->dl_runtime);
-+	u64 deadline = READ_ONCE(pi_se->dl_deadline);
-+	u64 period = READ_ONCE(pi_se->dl_period);
+ drivers/spi/spi-ti-qspi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/spi/spi-ti-qspi.c b/drivers/spi/spi-ti-qspi.c
+index 7e796aafd2bb..9e270c30d0d2 100644
+--- a/drivers/spi/spi-ti-qspi.c
++++ b/drivers/spi/spi-ti-qspi.c
+@@ -718,8 +718,8 @@ static int ti_qspi_start_transfer_one(struct spi_controller *host,
+ 		ret = qspi_transfer_msg(qspi, t, transfer_len_words * wlen);
+ 		if (ret) {
+ 			dev_dbg(qspi->dev, "transfer message failed\n");
+-			mutex_unlock(&qspi->list_lock);
+-			return -EINVAL;
++			status = ret;
++			break;
+ 		}
  
--	WARN_ON_ONCE(pi_of(dl_se)->dl_runtime <= 0);
-+	/*
-+	 * A boosted entity runs on the parameters of its donor, the top
-+	 * waiter of an rt_mutex. The donor can leave the class and have them
-+	 * cleared before the chain walk deboosts this entity. They are
-+	 * cleared under the donor's rq lock, which can be another one. So
-+	 * read each of them once, and check all three. Refilling from a
-+	 * runtime of 0 would loop forever. Leave the entity runnable
-+	 * instead: the walk deboosts it, or its task releases the lock.
-+	 *
-+	 * Add no runtime. Do not keep a negative one: the overrun comes
-+	 * from the boost, and the entity's own reservation does not pay for
-+	 * it. A task with no parameters of its own gets a deadline of now,
-+	 * as a donor's relative deadline of 0 would give. A deadline of 0
-+	 * means an empty dl_rq to inc_dl_deadline().
-+	 */
-+	if (unlikely(!runtime || !deadline || !period)) {
-+		WARN_ON_ONCE(!is_dl_boosted(dl_se));
-+		if (!dl_se->dl_deadline) {
-+			dl_se->deadline = rq_clock(rq);
-+			dl_se->runtime = 0;
-+		}
-+		if (dl_se->runtime < 0 || dl_se->dl_yielded)
-+			dl_se->runtime = 0;
-+		dl_se->dl_yielded = 0;
-+		dl_se->dl_throttled = 0;
-+		return;
-+	}
- 
- 	/*
- 	 * This could be the case for a !-dl task that is boosted.
-@@ -822,8 +852,8 @@ static void replenish_dl_entity(struct sched_dl_entity *dl_se)
- 	 */
- 	if (dl_se->dl_deadline == 0 ||
- 	    (dl_se->dl_defer_armed && dl_entity_overflow(dl_se, rq_clock(rq)))) {
--		dl_se->deadline = rq_clock(rq) + pi_of(dl_se)->dl_deadline;
--		dl_se->runtime = pi_of(dl_se)->dl_runtime;
-+		dl_se->deadline = rq_clock(rq) + deadline;
-+		dl_se->runtime = runtime;
- 	}
- 
- 	if (dl_se->dl_yielded && dl_se->runtime > 0)
-@@ -836,8 +866,8 @@ static void replenish_dl_entity(struct sched_dl_entity *dl_se)
- 	 * arbitrary large.
- 	 */
- 	while (dl_se->runtime <= 0) {
--		dl_se->deadline += pi_of(dl_se)->dl_period;
--		dl_se->runtime += pi_of(dl_se)->dl_runtime;
-+		dl_se->deadline += period;
-+		dl_se->runtime += runtime;
- 	}
- 
- 	/*
+ 		m->actual_length += transfer_len_words * wlen;
 -- 
-2.47.3
+2.56.0.679.gc527c65306-goog
 
