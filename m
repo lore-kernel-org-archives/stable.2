@@ -1,58 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795104515;
-	b=MSfHInNPaD6I0r11rJ7EQxPd7urYtf9ktFvDa1NpZtLg5y0dEISfzIbdle1H5cOobxe6
-	 0euc/Wdv9BYoMXqqx85r9cA0uX1aI5O3jTBMwkn+9GBvCOETw6XzyuCVrf2A0g2/GxC7b
-	 rmWGW21Bv5vdM4UdaBxXxo+StdNnxzEeHNSmdNZzLg8I/v6NdqGho67FKoHwRP1G+qNua
-	 Wa75HA68Q+DrkSIzvcNh6aIScXEUPtYZeOpAiwtbVk21PPx9q3dcoQjBrDI+rCo7AHjhT
-	 MFRA4OPUMei8LBZb1RiPnyvNBQDk1ahSf4an7zxvxJrKaDpb6n5pxq6arLGEPQJe18w==
+	t=1795104521;
+	b=5Pcqh4vOiqZLOdrjt8uMPOQIRxvtPyT6vY7gBu3IGeQhzZY98zfCVMEuK8wnTIcJlPeL
+	 2OD83jdFNpTsSPnWylX4mR4SlunW10XJNw3ybPXgdhlV07yQUwnGFdl9TtQ0kmJvp06Zr
+	 FvlptZB+rivUUqDqL6F6KHWqbtdUNX0PoxZMOMWdTjFl3kVfWHlh/K/RMLNodtHEow6c5
+	 fhfKFWQ0XZ4OSmUgcI9wY/AFmERse23znB+2Dugdr5ZC12NVv+iQy3tNs0uTahh/Qqsa4
+	 booXr0/zVEEbAXqJSLOUdnTFveLah/nXzzsBkhJOuLga1h6Lh1zmdaN+l03I6wLL1Xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795104515;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795104521;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=bZfjBB+NvI1E2Soa/17thc1NgrU0Uw+IcpLMdQOiwS4=;
-	b=cMbVyfiFQ2ptG09lN6XIk2JJGuXDRvk1Edlmq6UGP2x+FuysRaGEtX/RLE4o90E8M6Mw
-	 XtcpNcRCJvT+UOhtK3zU0jx1aJ6ZNXWbdAgob7pHoSftUKr7glDj7ihdyWJjWucyrqgpo
-	 zcBAEQ9h2/nnwoNv5e/2axr/T8UCWBhpVkwdYVHwtYakw3FaAh+K/+G/412TlBKRtzZ8E
-	 kk1aqWJT+382i7tIMgHOVszIbaBg7dbC42mpNf83+FMc5zrWvxs/RIV1NXtFSSM27w7qL
-	 cOpiQKaOS6xXyxyDTSwaSGhKyry6rpqP1yC+oDX7OGs8Nv3EnkGkvyZAPKATBW0/0SA==
+	bh=fPfABin4zzIRr7ReQXMWWiy9FQlcsVTjrkEn4IKaZYo=;
+	b=nQWHkSjZZiVVDnrQ4A+05DTQyv/Z4ETMvfpIb/0xefsnQzyd4vHAowY7EFWsxB85eCnd
+	 LAm+E/XuqIAwHvuqiQOHshVziNiSbQsY7d+atUwWkrODLyb0JqTl4g0qdOTU5MgqTQBH5
+	 0DPvJX1KHgUFPyjbnAuOQfFjrCmlWDaMc6zVbKb8+0Wadt1HLlJyWFC66OwTU4F1H6a7H
+	 1jYmjuHd89e1cXbJi/5XYMK7ye2dLb3kXuhTKfftxb6kIoUyara1N44NLVIEbYO9s74j9
+	 ys5QsyWLqsZ4yyQn/7eNGmcSGd02mnyJdJ1CtW9PRLErFhoXvoYTFHRbvZ86eFrf1AQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNuRkuX5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebM6nepB;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FFC606A326;
-	Thu, 19 Nov 2026 16:08:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D63560A261A;
+	Thu, 19 Nov 2026 16:08:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNuRkuX5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFEFA1F000C4;
-	Thu, 19 Nov 2026 16:08:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ebM6nepB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04A8E1F000C8;
+	Thu, 19 Nov 2026 16:08:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795104514;
-	bh=bZfjBB+NvI1E2Soa/17thc1NgrU0Uw+IcpLMdQOiwS4=;
+	s=k20260515; t=1795104521;
+	bh=fPfABin4zzIRr7ReQXMWWiy9FQlcsVTjrkEn4IKaZYo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nNuRkuX51N5XiRgXUvS6KHv4gd9qFf+Uf5fJi9cZJ3U3fgkogv3awgA1TDbA0Tjdk
-	 efWw6KMXDi3i8XekPuqVyddrUnjcExDDQ5XPfAuEeijPI09TMbP2QkYsEpJKTCvQV0
-	 PfTQkQE7nWE3nAEWAh0GlnKHf/x49fnPsx/k1jPvzKhaMaeMSct5oJlleJ8BtvyTth
-	 I/HCGzxRTv2y50fJ+gc9H0iKDdHfVh9mnLaGy2Rt5MuvkTGF7c4aPAzD9m1syZgknJ
-	 0cdFih1yBVezqNq/GJ2OE/6Py4KhXk5bbaT1rrxIq23JYc4YxUxSr1TzjgYLmCROmv
-	 P8g4EwhpVUMBw==
+	b=ebM6nepBrDLUPYTBpVWop19Gk+w/PL+ZFDLSERRPmWWnMR1IbmJebBn5UqZ2NV00M
+	 /1LeaG9L2lmqmJ2uEtgbID+DA5jRDqcNCOqB/nk3JfSeaHQu0jP5hzhZrGd2LjiMFM
+	 9sAxYNdqUf8WViSu3F96301E8VG8D0syrGz82zgG2bfasEqhWzn3gDE2DKP60jJISz
+	 sC7+bjVxllAK9MeqXyn9WfDxvSz+XKN6+gwLnqeYzupd/WqOlDDjgOEn9YqRCeTiPK
+	 xqkUwBGPeAdX6FKkLIhq4VY8cytr8406OvMelNYw31j1OPmT8nF9JRFsPefNYgbkZt
+	 eXTTnVSw5Akdw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	leon@kernel.org,
-	jgg@ziepe.ca,
-	kaishen@linux.alibaba.com,
-	linux-rdma@vger.kernel.org,
-	Cheng Xu <chengyou@linux.alibaba.com>
-Subject: Re: [PATCH 6.1.y] RDMA/erdma: Use IRQ-safe XArray helpers for QP and CQ tables
-Date: Thu, 19 Nov 2026 11:08:03 -0500
-Message-ID: <2026-11-19-1-daily-reply-0001@kernel.org>
+	patches@lists.linux.dev,
+	Pauli Virtanen <pav@iki.fi>,
+	Eulgyu Kim <eulgyukim@snu.ac.kr>,
+	Jaeyoung Chung <jjy600901@snu.ac.kr>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	"Barry K. Nathan" <barryn@pobox.com>
+Subject: Re: [PATCH 7.3 1870/2651] Bluetooth: L2CAP: take chan->lock for l2cap_chan_add/ready/del
+Date: Thu, 19 Nov 2026 11:08:08 -0500
+Message-ID: <2026-11-19-1-daily-reply-0006@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261118032858.92963-1-chengyou@linux.alibaba.com>
-References: <20261118032858.92963-1-chengyou@linux.alibaba.com>
+In-Reply-To: <b5b8bc11-35bd-45f9-adac-648c1646ac32@pobox.com>
+References: <b5b8bc11-35bd-45f9-adac-648c1646ac32@pobox.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,10 +66,11 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Use IRQ-safe XArray helpers for all QP and CQ create-path updates,
-> including the GSI QP store and error paths.
+> This is breaking the build for me with clang 23.1.6 (also 23.1.5) for arm64, amd64 and i386:
+>
+> net/bluetooth/l2cap_core.c:708:2: error: calling function '__l2cap_chan_add' requires holding mutex 'chan->lock' exclusively
 
-Queued for 6.1, thanks.
+Queued the missing annotations patch for 7.3, thanks.
 
 -- 
 Thanks,
