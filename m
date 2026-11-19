@@ -1,63 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795087994;
-	b=X50EGaqL5+XEEECHx21At0O3h0wJCs/2V+wmuJ2+PXmZrmU1i0wfQuvEFaZJJRqiUJlh
-	 ZhYPLPB9z5Z96ftzR3Rvc+CzvrfllZIRf7ofIaXMUZJX505w+LoxiAizmeBfHWUgGZYiF
-	 ie1D1eB6CUiFdjFhxxCfiMvx+HYXzRN7Q9frf3ZT07YTKm9Yims1RRiXo+OEzOgLn2MLj
-	 9aKROflLQKy/++r9RsZCgXnMGQ1/pKOzr9GYafceQXl+LxsSfmTsQqAFO2Y+ktluYOFUw
-	 BLiHhqzuNGEXbWszEuSMeL0AKEKhgY8KRi8axiHb7jeaweuOyn2VoPwHv+ToAryOZuw==
+	t=1795088072;
+	b=PhI5ZAmcdfwUlTK5J0yW9MhGa7ljF+WWyTCk0Mh2/atLNKrOeDWzmfYocdC8qEZpEQxc
+	 /znIgken1cmFi2HBNWHphzL1IwjZ6S2uCxpN5un1ts4bygJzZNZTU/RziYXOLEUFI2N0B
+	 9ykPR2gWw/cRZo2SPVqhX3RZK2tUV/suzR4LqBHboSf4eFhKTCDk/ldgHDIgMMyPwAH8b
+	 jTbv9AYXClWrHsRTw3+AlHQlPGwjFCQtsRy1abikNCEq9M8IyxUsCax3YgTceSrFGSR/p
+	 +nBBZPqlHYzTehbc1bnwt10Vkz80GpAkoE7+h/XPs6aI9an9KZd3n7hWGGGnOGocHMA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795087994;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=3jA+oZ+5iHu+6qDUVQHLEuIm2QvBD2uST/vEYY3WW1M=;
-	b=dFnVYciJaLRTTYyIKgcLneFomYYpv7q+6lbWjImUWqTbZ1uYOXIxRIcdRDtL5LyMl6p0
-	 OL7O/sGORWxsREzCv2csQzLlrKjmVVOw7ItdCqlpZiv6ud6CL4LRXfUMN7zSYdFvus69s
-	 FN3cB85OyeI+9S6zzhXGIZyyTwgQF6rlLvzDSgMR2TxFaRWZUrmKOxPF1UqfTuPdw2yru
-	 Qn3gu4+QrvHFbiwgGlTasIERlojwmS+TrH/4JJe0tbK7p75QvuBXAZIg+Ayqz5EyVKxo2
-	 WMv+rpVQEkqvRfXkaV3db9aOTrslQLibuOqSxPRfMPTghBvy7T/GL8VRhlx0O9soEGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795088072;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:From:Content-Language:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=as/xbQd6btjek9NqkbwnfZXg1yO8+Tx8iUfeqSMu6CE=;
+	b=3+gTSRke54tNXrjk9wwvI9W2z78YJ4PcpqEX2M+EG2i9kNHESBlMGN720P+uNxTJizoZ
+	 mJun+Rrc5Hv2GXRd3igv5BaAo0okf1cLcD57jODBepFFNyHzzVbpt2mLchvet0bq82InC
+	 i3vy0XAdwsJZBz18fUIfE2v+GJ0VC6lOvKO2PubbduLa+YgMa16lKz6i9x+NBc6SvJkVw
+	 HdsOwDqsW4BgmmCEsUlTRd19t6Js1YeII80zl3lLwux9w+iJpgwYAMgUaRzGIsDFa4cBw
+	 d/6Zv709j19jUAsU/7KHbFvPwV3/mwAausXLzT3MJaowslc5nvur9FidgFum5h/U3cQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GURvDvKB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=igalia.com;
+	spf=pass smtp.mailfrom=igalia.com;
+	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=iVajAg4V;
+	arc=none smtp.remote-ip=213.97.179.56
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F575606A320;
-	Thu, 19 Nov 2026 11:33:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAD0606A320
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:34:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FAD0606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GURvDvKB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B52A61F000C8;
-	Thu, 19 Nov 2026 11:33:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795087994;
-	bh=3jA+oZ+5iHu+6qDUVQHLEuIm2QvBD2uST/vEYY3WW1M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GURvDvKBbWgEGx0orgwtNauW3gLt2TOPbl2oLQ797swNjSd+tOF6ti/U/myWq/oDx
-	 OePh4v1sE3qP1ttZduAMVjZ3daFXGbkOnFmcsG7H5GKN4Esr7lRaguphv57fT9Pj26
-	 JdLakKqfdjvkVXCK3p1JP0N0RzLjlN83OO8VtiUglo+sQgyvynPVbmkwoUHUk4uSsM
-	 Ift8s/gM+NRwen4hkUOyiCOaieIAW2pT05wgbPR9X88d9J/7+iVKlTp5q6G0EDf2Rp
-	 UGkDxNavpvDyMYUtJsegN6Qw1IgLo2+MKMZnheS68iS/R/HhFaQ5KrzA0cZnDBtGZx
-	 XRxCk8VoWdy7A==
-Date: Thu, 19 Nov 2026 11:33:03 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
-	Michal Hocko <mhocko@suse.com>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	Kees Cook <kees@kernel.org>, Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
-	Mathieu Poirier <mathieu.poirier@linaro.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Song Liu <songliubraving@fb.com>, Yonghong Song <yhs@fb.com>, Ingo Molnar <mingo@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
-	Chris Mason <mason@kernel.org>, Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] fork: clear p->mm when copy_process() fails
-Message-ID: <av7b64FqD9Op5Avz@gremlin>
-References: <20261119-mm_failed_fork-v1-1-b3019f43d197@kernel.org>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=iVajAg4V
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=as/xbQd6btjek9NqkbwnfZXg1yO8+Tx8iUfeqSMu6CE=; t=1795088071; x=2110448071; 
+	b=iVajAg4VPfYi+VDf+oUB7GRS/+e5TJT+/CmqB5xo9TI4kS7TRb07kKeoR+0aGUx2SauMFA5JtJ4
+	OKOFkYfIsuez3jX79dhRLoslPMSNIJ5qt5JzHjLsFFaLNw8a8FOsnZXTxlZwQgK8LYT17S9wsyEGW
+	zrl+heR6ZF0QqmnzUlhCI72rpn0ljEoMBTJPIp7lqJnMcobDrg9TkYXakDCbp7IdkcEiSmfHzyYJh
+	JMnJHkZCaqkXutViTiIZrcVrwkugWaxIPYJeJNhKg2CUENTfevpv9oY89p18HJHe/AZcvrByvEUWO
+	c3cP6DIGhROwiKlKRZzu1oogKyT8k+qiGkDA==;
+Received: from [179.105.94.163] (helo=[192.168.0.4])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1xU0PK-00000001Qjw-3oGx;
+	Thu, 19 Nov 2026 12:34:27 +0100
+Message-ID: <584c3855-5fa5-4b06-a95f-c6c0816cea08@igalia.com>
+Date: Thu, 19 Nov 2026 08:34:20 -0300
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,120 +58,144 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261119-mm_failed_fork-v1-1-b3019f43d197@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] drm/vc4: Work around GFXH-16 instruction cache
+ livelock
+To: Iago Toral <itoral@igalia.com>,
+ "Juan A. Suarez Romero" <jasuarez@igalia.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ stable@vger.kernel.org
+References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
+ <e945bdd00b4eecec4b7e451e35cb39855ad2e0de.camel@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <e945bdd00b4eecec4b7e451e35cb39855ad2e0de.camel@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 19, 2026 at 09:04:58AM +0100, David Hildenbrand (Arm) wrote:
-> From: Chris Mason <mason@kernel.org>
->
-> When copy_process() fails after copy_mm(), the error path drops the mm
-> reference but leaves p->mm set. Perf and BPF can still reach the
-> task, and take a reference on the already freed mm through get_task_mm()
-> or bpf_find_vma(), resulting in a use-after-free:
+Hi Iago,
 
-Good lord :)
+On 19/11/26 05:17, Iago Toral wrote:
+> Looks good to me:
+> Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
+> 
+> I was not aware that hang checks were happening at second boundaries,
+> regardless of the time at which the hangcheck was queued, it doesn't
+> sound like a good idea, so I think it is good to change that.
+> 
+> On the other hand, now we rearm the hang check every 100ms instead
+> which is a much smaller window. I understand this reduces visible
+> impact of the workaround when the issue happens, but I am wondering
+> whether this alone has any visible performance impact for the 99% of
+> the time we are not hitting the problem, I presume you haven't seen
+> any?
+> 
 
->
->     copy_process()               PERF_EVENT_IOC_SET_FILTER
->     ==============               =========================
->     perf_event_init_task(p)
->     copy_mm(p)
->     a later step fails
->     mmput(p->mm)
->       /* frees the mm */
->                                  perf_event_addr_filters_apply()
->                                    get_task_mm(p)
->                                      /* use-after-free */
->
-> Similarly, a BPF program on the task_free LSM hook can call bpf_find_vma(p)
-> before the task is freed.
->
-> Fix it by clearing p->mm under task_lock() before dropping the reference,
-> just like exit_mm() does.
+I benchmarked glmark2-wayland --off-screen (800x600, under labwc) and
+glmark2-es2-drm (1920x1080 fullscreen), which I believe are
+representative applications for RPi 3B+, and I observed no performance
+impact. I even tested 50 ms and I didn't observe a performance impact as
+well.
 
-Sounds sensible.
+If you have other applications you would like to see the benchmark
+results, just let me know and I can test it.
 
->
-> Further, if copy_process() fails before copy_mm(), p->mm is still the
-> parent's mm pointer copied by dup_task_struct(), without having taken a
-> reference. While nobody can access it concurrently, there is the
-> chance that it might get accessed later when a BPF program is attached
-> to free_task().
->
-> With CONFIG_MEMCG the task is freed after an RCU grace period, so the
-> parent might already be gone and p->mm in the child points at something
-> that was already freed. So let's just clear p->mm before freeing the
-> task. No lock is required as there cannot be concurrent access (and we
-> might not even have the lock initialized yet).
->
-> This has medium urgency.
+Best regards,
+- Maíra
 
-It sounds... horrendous though :) but I guess possibly hard to hit?
+> Iago
+> 
+> El mié, 18-11-2026 a las 18:47 -0300, Maíra Canal escribió:
+>> Mesa issue #16652 [1] reports GPU resets every few minutes on the
+>> Raspberry Pi 3. They happen when text labels are drawn over their
+>> shadows:
+>> two different threaded fragment shaders, plus untextured single-
+>> threaded
+>> ones, in the same tiles.
+>>
+>> During a hang, the performance counters show four QPUs fetching
+>> instructions with 0 cache hits, ~6.5M misses per 100 ms, and 0 valid
+>> instructions executed. This matches HW erratum GFXH-16: the QPUs of a
+>> slice share one instruction cache and can livelock, evicting each
+>> other's
+>> fills. Since shader code always starts at offset 0 of a page-aligned
+>> BO,
+>> every shader competes for the same cache sets.
+>>
+>> This series works around it:
+>>
+>>    - Patch 3 starts each shader's code at one of four offsets in its
+>> BO,
+>>      spreading shaders across cache sets.
+>>
+>>    - Patch 4 clears the slice instruction and uniforms caches when the
+>>      hangcheck finds no progress, and resets the GPU only if the stall
+>>      persists. It is meant to recover from livelocks the offsets don't
+>>      prevent.
+>>
+>> Patches 1 and 2 fix an off-by-one in the shader BO handle check and a
+>> NULL pointer dereference in validate_gl_shader_rec(), found while
+>> working
+>> on patch 3.
+>>
+>> Tested on a Raspberry Pi 3B+ with the issue's reproducer, 4 x 15 min
+>> runs:
+>>
+>>    without the series:  29 GPU resets
+>>    with patches 1-3:     0 GPU resets
+>>
+>> [1] https://gitlab.freedesktop.org/mesa/mesa/-/issues/16652
+>>
+>> Best regards,
+>> - Maíra
+>>
+>> ---
+>> Maíra Canal (4):
+>>        drm/vc4: Fix off-by-one in the shader record BO handle check
+>>        drm/vc4: Check for a validated shader before reading its thread
+>> mode
+>>        drm/vc4: Start shader code at varying offsets in its BO
+>>        drm/vc4: Clear the slice caches before resetting a stalled GPU
+>>
+>>   drivers/gpu/drm/vc4/vc4_bo.c               | 43
+>> +++++++++++++++++++++++-------
+>>   drivers/gpu/drm/vc4/vc4_drv.h              | 15 ++++++++++-
+>>   drivers/gpu/drm/vc4/vc4_gem.c              | 20 ++++++++++++--
+>>   drivers/gpu/drm/vc4/vc4_validate.c         | 17 +++++++-----
+>>   drivers/gpu/drm/vc4/vc4_validate_shaders.c |  7 ++---
+>>   5 files changed, 79 insertions(+), 23 deletions(-)
+>> ---
+>> base-commit: 80ac6d197218c3399d66674167a4d7c9051a25e2
+>> change-id: 20261112-vc4-icache-workaround-d11b444bc7e8
+>>
+>>
+> 
 
->
-> Fixes: 375637bc5249 ("perf/core: Introduce address range filtering")
-> Fixes: 7c7e3d31e785 ("bpf: Introduce helper bpf_find_vma")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/sashiko-outbox-180866@kernel.org/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Chris Mason <mason@kernel.org>
-> [ david: simplify description and comments ]
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-
-LGTM so:
-
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-
-> ---
-> I can take this through my tree (rather soonish) unless someone else
-> wants to pick this up.
-> ---
->  kernel/fork.c | 15 +++++++++++++--
->  1 file changed, 13 insertions(+), 2 deletions(-)
->
-> diff --git a/kernel/fork.c b/kernel/fork.c
-> index 5efceb8d58a78..77d6c8fc38c66 100644
-> --- a/kernel/fork.c
-> +++ b/kernel/fork.c
-> @@ -2628,8 +2628,14 @@ __latent_entropy struct task_struct *copy_process(
->  bad_fork_cleanup_mm:
->  	sched_cache_fork_cleanup(p);
->  	if (p->mm) {
-> -		mm_clear_owner(p->mm, p);
-> -		mmput(p->mm);
-> +		struct mm_struct *mm = p->mm;
-> +
-> +		/* Perf events and BPF programs can still reach p. */
-> +		task_lock(p);
-> +		p->mm = NULL;
-> +		task_unlock(p);
-> +		mm_clear_owner(mm, p);
-> +		mmput(mm);
->  	}
->  bad_fork_cleanup_signal:
->  	if (!(clone_flags & CLONE_THREAD))
-> @@ -2663,6 +2669,11 @@ __latent_entropy struct task_struct *copy_process(
->  	exit_cred_namespaces(p);
->  	exit_creds(p);
->  bad_fork_free:
-> +	/*
-> +	 * If set, p->mm points at the parent's mm without a reference. Nobody
-> +	 * can access it concurrently anymore, but prevent later access.
-> +	 */
-> +	p->mm = NULL;
->  	WRITE_ONCE(p->__state, TASK_DEAD);
->  	exit_task_stack_account(p);
->  	put_task_stack(p);
->
-> ---
-> base-commit: 4405c18c95d2d0f99f6c581ef0ee8591a1aa6ccd
-> change-id: 20261119-mm_failed_fork-a46141b503d0
->
-> Best regards,
-> --
-> David Hildenbrand (Arm) <david@kernel.org>
->
-
---
-Cheers, Lorenzo
