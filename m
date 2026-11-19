@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795096188;
-	b=DvLCMIyTvlOnhdEsfSqQpMvKZoFeV27Re4iK5yF0au87LtyN9KMvWUNjXitLsyA/G68F
-	 wzht87yxCt/efTR2wCRkEfK6gkzgtd3Kten6r4IIruENo9ogGulhqmd67mNdU7Jyx6coR
-	 ivSW/czCQM6ZnjOewXsS50ocLw9PAaLqRrXXAXVHzvTyHi+rELsOIYbCw15D3X9M05whZ
-	 7zqPdWTCDgos4uG8/RNMYdoBRtzfYzFyv1TJSZXtF+1JLYTFur1odV4n50xtbollgCPoI
-	 AYV7Ps/PQJD+IRwv8Rf5yVX6u/aihgnivyKYXvR5vsmqm6mJFMWu2IAqnXBWuoLsFcA==
+	t=1795096189;
+	b=AHogA4x4F855Q8Ya3KiwHxQQj31kNn+yCEhgpUjuQWNnIDul/ZIj2qy9oM+5/UiZfBAC
+	 jVPUc1FiD5YOU9Q3JPGCN3Jb344hI2IKvh/JtEtd0MvnXO4oy3muGpJiGVjTFdMr/yREl
+	 bXRh9laB0Ibt0GsTyG0NEX4XA8ucRVsowZ51z8ZtDQmR1wg+x8tRsmZuY0C+4GHbW0lKA
+	 L4BnFt3EdRsNLLYYNcvyp249KLKMdQ23pcf5ij0V8EiE8N33+4BFb6Pqqio1q+JCqL1K4
+	 t87IjXxqNyI2j4Ingpkdum5GxtZct+NPHouzkP8qqsOFx/T1NS/94DOTz2vgPnxEsGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795096188;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795096189;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=lPW7UW3GHuGpa4dFIKqxopKAl8WODzwP7xfNkdwUcGs=;
-	b=JJmGerZU2HyOaBWNMWIy3J7xrkzltGFkLN0Sb65Z0tAd2EW5r4nonyplpBCwj3EqIJmR
-	 XJrnO4RJyJSYo2qRgx6oKM0AbBVVIxdLA50MRhZxun9ZByTNJuRRsKSPC+MnxeidJdrqC
-	 9ezw6n3AdnQtciASDsfoKyNVpVN0KrVpxDiiUInQqjZ++v61df3pP/7eC6vwkEwQv+bq/
-	 t8ZDEHzeKBS41BfhzF7ehmJZ57qAeEIJwaaBuBJzPVgDFIgsz+vVO50o04ubjY+p6EfqQ
-	 7NDWPqYoWn79RFT84UlTifnV3PEbpvJbgM0xG0bLV1crQAzyZ3vFJAWzXNi4FDZgICA==
+	bh=J+xqGM/XTVoLXbet9Pqsqr3DEOW4nOHD7WQm9LFTgGg=;
+	b=TjdhYnyc152qMYHtUsWBrkyP0ORZu149VEUpX/4IqPpDTifqAJzsYRSHbOdZhMCP1pTx
+	 F8q4fIUmPhU/25D2qlTsWhD9Xh17B5WVGEZ5+hqLsc0zVJHwcD8ZYhKJnEK2elopxYbCG
+	 uUoCO7WrYDIvmEh5lyMYuXeArMag71/ylfZzJ23HWhGH4x4G4QKa/lDjmLv1j1nGweDor
+	 1bikOwmSvhWAtmOx1y+nBArRxG070O0xx4W3x3DqPpwqiX30hJI+6F8ocMSG3qo/fSTCe
+	 avqsnHvA9yE0FlXsHp1bJXkPkDosTswkLe6iSWlpEtMnkgWofzIQ6kluMHZOvjltgdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=nk+FP1xx;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=WPKG3kgw;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC4E60A5BD0;
-	Thu, 19 Nov 2026 13:49:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADC4E60A5BD0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF0760A5BE8;
+	Thu, 19 Nov 2026 13:49:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EF0760A5BE8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=nk+FP1xx
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=WPKG3kgw
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1795096186;
-	bh=lPW7UW3GHuGpa4dFIKqxopKAl8WODzwP7xfNkdwUcGs=;
+	bh=J+xqGM/XTVoLXbet9Pqsqr3DEOW4nOHD7WQm9LFTgGg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=nk+FP1xxXQNqxGu3zU8Bb5ftkrCsC0cVH6jTdIR9akpg1K0xuuOlmGakpwvwxtf5x
-	 Qxyq6pVyRiI5iYJJMUGrULWIE3Ai1dERBCVkvlUkXNP2m0VabaTPetBUcUXbllVnIf
-	 FPwq6tG/sqxJqhUUI14+WAsEwxcgrqyg4+5/9z8LDt7+0Zj0E+AtvdUOgMEOwJrn9J
-	 y8r1jbhK3w+1JHywM8tNpVHicnfqK6YBXPyCavJkaDG9X3LWGzYl7lSS5IxEpA26oa
-	 FlS/uNGRmoM9BalZCIHXuatMTYAV0XeJtbzQlBVMcxN00G1lcnk2I/BaOf+c4tg2Zw
-	 GGV7l1TpP8/Rw==
+	b=WPKG3kgw1ThQ9Iqi7X8MWA9b6KPQV1tqb0+w2/sN0QKEHT/ljXEz1g1x4JV2Z4TlT
+	 qQl2pMi245ZPYX/CBdrWWcH77k4FpZlTY3CE+ek7GPARommgoMObmTKkddG/u2S1SU
+	 GRdITqReuXPA3v3cr0phl/3IxrDG++3HxRsmYCfofj3YuONHH4g3iisava0wLP3eCS
+	 jmpY3X1w39tnA6lb0IsmyHx3CidVZ0YE4kB53zqe+4tC3ZfnX/CGwTq44JnfO6HGAQ
+	 yJYwxbLPTgSEwOuy6qwI3LaW502a5TgqVNi/P/+uWhXkGHnpA94gb10cS6WM/aO3rl
+	 pJrFXJMRgq/xA==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVfwV004szRqD;
-	Thu, 19 Nov 2026 08:49:45 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVfwV1CwxzSDZ;
+	Thu, 19 Nov 2026 08:49:46 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -80,9 +80,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v3 13/17] sched/deadline: Fix this_bw when a task is changed during a remote wakeup
-Date: Thu, 19 Nov 2026 08:49:36 -0500
-Message-Id: <8e7539af63125943227f9b5c537bb57bff6218df.1795092090.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH v3 14/17] sched/deadline: Check SCHED_DEADLINE affinity under the rq lock
+Date: Thu, 19 Nov 2026 08:49:37 -0500
+Message-Id: <dc18e01ba2fe2212524f69641f5e173bcc3d801d.1795092090.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1795092090.git.mathieu.desnoyers@efficios.com>
 References: <cover.1795092090.git.mathieu.desnoyers@efficios.com>
@@ -97,181 +97,138 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The this_bw of a runqueue is the bandwidth of the deadline tasks
-assigned to it, running or not. GRUB uses it to compute the inactive
-utilization of the runqueue. When a task wakes up on another CPU,
-migrate_task_rq_dl() takes its bandwidth off the old runqueue. The
-enqueue adds it to the new one.
+From: Andrea Parri <parri.andrea@gmail.com>
 
-Between these two steps, no runqueue counts the bandwidth.
-try_to_wake_up() can leave the enqueue to the wake list of the new CPU,
-and return before it runs. task_cpu() already points at the new CPU. A
-change of the task in that window gets this_bw wrong.
+A task can end up SCHED_DEADLINE with an affinity narrower than its root
+domain when sched_setaffinity() and sched_setattr() race on it. Both
+calls succeed, although each fails when made after the other:
+sched_setattr() with -EPERM, sched_setaffinity() with -EBUSY.
 
-In this example, T is a deadline task. S is another task. It changes
-the bandwidth of T from "old bw" to "new bw":
+__sched_setaffinity() calls dl_task_check_affinity() before
+__set_cpus_allowed_ptr() takes task_rq_lock(), whereas
+__sched_setscheduler() runs its admission test and switches the policy
+under a single task_rq_lock(). So both calls can pass their checks:
 
-  CPU 0                               CPU 1                       CPU 2
-  T blocks
-  this_bw of CPU 0 counts T
-  <timer> try_to_wake_up(T)
-    set_task_cpu(T, 1)
-      migrate_task_rq_dl()
-        sub_rq_bw(): CPU 0 drops T
-    T on the wake list of CPU 1
-    return
-                                                                  S: sched_setattr(T)
-                                                                    task_rq_lock(T): CPU 1
-                                                                    T is not queued
-                                                                    dl_change_utilization()
-                                                                      this_bw of CPU 1:
-                                                                      - old bw + new bw
-                                      sched_ttwu_pending()
-                                        enqueue_task_dl(T)
-                                          task_contending()
-                                            add_rq_bw():
-                                            this_bw of CPU 1:
-                                            + new bw
+  CPU 1: sched_setaffinity(p, cpu0)    CPU 2: sched_setattr(p, DEADLINE)
 
-CPU 1 then counts the new bandwidth twice, less the old one. Repeated,
-this makes this_bw drift until it underflows. If T left the class in
-that window, switched_from_dl() would take its bandwidth off CPU 1 the
-same way. A task that enters the class in that window would be counted
-twice, by switched_to_dl() and by the enqueue.
+  dl_task_check_affinity()
+    !task_has_dl_policy(p): return 0
+                                       task_rq_lock()
+                                       admission test passes
+                                       p->policy = SCHED_DEADLINE
+                                       task_rq_unlock()
+  __set_cpus_allowed_ptr()
+    task_rq_lock()
+    p->cpus_mask = cpu0
 
-This needs a wakeup that moves the task, so a root domain of more than
-one CPU, with busy CPUs. CONFIG_SCHED_PROXY_EXEC=y makes such wakeups
-more common. In testing, a task sleeps and wakes in a busy two-CPU
-partition root, and another CPU changes its runtime. The kernel warns
-within a second in each of 8 VMs:
+The window includes CPU 1 spinning on task_rq_lock() while CPU 2 holds
+it. With one thread narrowing a sleeping task to CPU 0 while another
+makes it SCHED_DEADLINE, 923514, 959547 and 983997 of 1000000 rounds
+ended with both calls succeeding on three boots of a 4-CPU guest.
 
-  WARNING: kernel/sched/deadline.c:352 at dl_rq_change_utilization+0x71/0x2e0, CPU#0: wake_race/109
-   __sub_rq_bw(): this_bw underflow
-  WARNING: kernel/sched/deadline.c:316 at task_contending+0x244/0x260, CPU#6: swapper/6/0
-   __add_running_bw(): running_bw overflow
+Move the check into __set_cpus_allowed_ptr_locked(), next to the
+PF_NO_SETAFFINITY re-check, under the same lock as the admission test.
+Whichever call takes task_rq_lock() second then sees the other's
+result: sched_setaffinity() fails with -EBUSY if p is already
+SCHED_DEADLINE, and sched_setattr() fails with -EPERM if p's affinity
+is already cpu0.
 
-Fix this with a new bit, dl_bw_oncpu, that tells whether a runqueue
-counts the bandwidth of the task. add_rq_bw() adds the bandwidth only if
-no runqueue counts it. sub_rq_bw() takes it off only if one does.
-dl_change_utilization() does nothing while no runqueue counts the
-bandwidth. The enqueue adds the new one.
+A new SCA_DL_CHECK flag selects the check, and only
+__sched_setaffinity() sets it, so sched_setaffinity() and
+relax_compatible_cpus_allowed_ptr() keep the check and other callers
+stay unchecked. restrict_cpus_allowed_ptr() already does its deadline
+check this way.
 
-With this patch, none of the 8 VMs warns. deadline_bw_test, added later
-in this series, tests this in params_waking. The Sashiko
-AI review of this series found the double count, and a bit that the
-first version of this patch left set.
+__sched_setaffinity() clears SCA_DL_CHECK before the second
+__set_cpus_allowed_ptr() call it makes after racing with a cpuset
+update, so the cpuset mask still wins there, as it does when
+cpuset_update_tasks_cpumask() narrows a deadline task. SCA_CHECK stays
+set for the PF_NO_SETAFFINITY re-check.
 
-Fixes: 8fd27231c330 ("sched/deadline: Track the "total rq utilization" too")
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+With this applied, the same test ends with both calls succeeding in 0
+of 1000000 rounds on each of three boots, and sched_setaffinity()
+fails with -EBUSY whenever it loses.
+
+The race was reported by Sebastian. The fix was written with the help
+of an LLM.
+
+Fixes: 332ac17ef5bf ("sched/deadline: Add bandwidth management for SCHED_DEADLINE tasks")
+Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Closes: https://lore.kernel.org/20261103081149.DuyWNhVe@linutronix.de
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 Cc: stable@vger.kernel.org
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- include/linux/sched.h   |  5 +++++
- kernel/sched/deadline.c | 39 +++++++++++++++++++++++++++++++++++----
- 2 files changed, 40 insertions(+), 4 deletions(-)
+ kernel/sched/core.c     | 11 +++++++++++
+ kernel/sched/sched.h    |  1 +
+ kernel/sched/syscalls.c | 12 +++++++-----
+ 3 files changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index e4f6323d7855..88cda9c10cb8 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -706,6 +706,10 @@ struct sched_dl_entity {
- 	 * contributes to the root domain's total_bw. Only meaningful for server
- 	 * entities (@dl_server == 1). Allows toggling the reservation on/off
- 	 * without losing the configured @dl_runtime/@dl_period.
-+	 *
-+	 * @dl_bw_oncpu tells if the this_bw of a runqueue counts the task's
-+	 * @dl_bw: add_rq_bw() and sub_rq_bw() set and clear it, under that
-+	 * runqueue's lock. Not for servers, which keep @dl_bw_attached.
- 	 */
- 	unsigned int			dl_throttled      : 1;
- 	unsigned int			dl_yielded        : 1;
-@@ -718,6 +722,7 @@ struct sched_dl_entity {
- 	unsigned int			dl_defer_running  : 1;
- 	unsigned int			dl_defer_idle     : 1;
- 	unsigned int			dl_bw_attached    : 1;
-+	unsigned int			dl_bw_oncpu       : 1;
- 
- 	/*
- 	 * Bandwidth enforcement timer. Each -deadline task has its
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 80ef31cede28..9596f6fa7779 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -267,18 +267,35 @@ void __sub_rq_bw(u64 dl_bw, struct dl_rq *dl_rq)
- 	WARN_ON_ONCE(dl_rq->running_bw > dl_rq->this_bw);
- }
- 
-+/*
-+ * @dl_se->dl_bw_oncpu tells whether the this_bw of a runqueue counts the
-+ * bandwidth of @dl_se. add_rq_bw() adds the bandwidth only if no runqueue
-+ * counts it. sub_rq_bw() subtracts it only if one does.
-+ *
-+ * A wakeup on another CPU takes the bandwidth off the old runqueue. The
-+ * enqueue on the new CPU adds it back later. A change of the task in
-+ * between must not count the bandwidth twice, nor take it off a runqueue
-+ * that does not count it.
-+ *
-+ * The servers track their bandwidth with dl_bw_attached. They call
-+ * __add_rq_bw() and __sub_rq_bw() directly.
-+ */
- static inline
- void add_rq_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
- {
--	if (!dl_entity_is_special(dl_se))
--		__add_rq_bw(dl_se->dl_bw, dl_rq);
-+	if (dl_entity_is_special(dl_se) || dl_se->dl_bw_oncpu)
-+		return;
-+	__add_rq_bw(dl_se->dl_bw, dl_rq);
-+	dl_se->dl_bw_oncpu = 1;
- }
- 
- static inline
- void sub_rq_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
- {
--	if (!dl_entity_is_special(dl_se))
--		__sub_rq_bw(dl_se->dl_bw, dl_rq);
-+	if (dl_entity_is_special(dl_se) || !dl_se->dl_bw_oncpu)
-+		return;
-+	__sub_rq_bw(dl_se->dl_bw, dl_rq);
-+	dl_se->dl_bw_oncpu = 0;
- }
- 
- static inline
-@@ -347,6 +364,14 @@ static void dl_change_utilization(struct task_struct *p, u64 new_bw)
- 	if (task_on_rq_queued(p))
- 		return;
- 
-+	/*
-+	 * The task is waking up on another CPU, and no runqueue counts its
-+	 * bandwidth. The enqueue adds it, with the new parameters that
-+	 * __setparam_dl() sets right after this.
-+	 */
-+	if (!p->dl.dl_bw_oncpu)
-+		return;
-+
- 	dl_rq_change_utilization(task_rq(p), &p->dl, new_bw);
- }
- 
-@@ -2737,6 +2762,11 @@ static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused
- 		 */
- 		cancel_inactive_timer(&p->dl);
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 5ed660f099a5..32fe889e02fb 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -3195,6 +3195,17 @@ static int __set_cpus_allowed_ptr_locked(struct task_struct *p,
+ 		goto out;
  	}
-+	/*
-+	 * set_task_cpu() points task_cpu() at the new CPU next. The runqueue
-+	 * of that CPU counts this bandwidth only once the enqueue there adds
-+	 * it. Until then, no runqueue counts it, as dl_bw_oncpu now says.
-+	 */
- 	sub_rq_bw(&p->dl, &rq->dl);
- 	rq_unlock(rq, &rf);
- }
-@@ -4036,6 +4066,7 @@ static void __dl_clear_params(struct sched_dl_entity *dl_se)
- 	dl_se->dl_defer			= 0;
- 	dl_se->dl_defer_running		= 0;
- 	dl_se->dl_defer_armed		= 0;
-+	dl_se->dl_bw_oncpu		= 0;
  
- #ifdef CONFIG_RT_MUTEXES
- 	dl_se->pi_se			= dl_se;
++	/*
++	 * Check under the same lock that __sched_setscheduler() holds for
++	 * its admission test, so that p cannot become SCHED_DEADLINE
++	 * between this check and the mask update below.
++	 */
++	if (ctx->flags & SCA_DL_CHECK) {
++		ret = dl_task_check_affinity(p, ctx->new_mask);
++		if (ret)
++			goto out;
++	}
++
+ 	if (!(ctx->flags & SCA_MIGRATE_ENABLE)) {
+ 		if (cpumask_equal(&p->cpus_mask, ctx->new_mask)) {
+ 			if (ctx->flags & SCA_USER)
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 92134ce326a4..20ad13f388cb 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2972,6 +2972,7 @@ extern struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf);
+ #define SCA_MIGRATE_DISABLE	0x02
+ #define SCA_MIGRATE_ENABLE	0x04
+ #define SCA_USER		0x08
++#define SCA_DL_CHECK		0x10
+ 
+ extern void update_group_capacity(struct sched_domain *sd, int cpu);
+ 
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index b87b878be63f..5983232476a9 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -1225,11 +1225,7 @@ int __sched_setaffinity(struct task_struct *p, struct affinity_context *ctx)
+ 	cpumask_and(new_mask, ctx->new_mask, cpus_allowed);
+ 
+ 	ctx->new_mask = new_mask;
+-	ctx->flags |= SCA_CHECK;
+-
+-	retval = dl_task_check_affinity(p, new_mask);
+-	if (retval)
+-		goto out_free_new_mask;
++	ctx->flags |= SCA_CHECK | SCA_DL_CHECK;
+ 
+ 	retval = __set_cpus_allowed_ptr(p, ctx);
+ 	if (retval)
+@@ -1258,6 +1254,12 @@ int __sched_setaffinity(struct task_struct *p, struct affinity_context *ctx)
+ 			if (empty)
+ 				cpumask_copy(new_mask, cpus_allowed);
+ 		}
++
++		/*
++		 * The cpuset mask must win here, as it does when
++		 * cpuset_update_tasks_cpumask() sets it on a deadline task.
++		 */
++		ctx->flags &= ~SCA_DL_CHECK;
+ 		__set_cpus_allowed_ptr(p, ctx);
+ 		retval = -EINVAL;
+ 	}
 -- 
 2.47.3
 
