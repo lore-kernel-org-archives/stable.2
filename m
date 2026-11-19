@@ -1,96 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795074989;
-	b=HRm4VScwkB9bfU3iuDfwoDbFofXupbQhDdTpOr78xIBePRlcGZYts0pD6epQn9OVwV8h
-	 Bd7fpVnWPv+alE88vSVTtxmE9M7KB3gSzE1YOp3jD8j5d8oD33SklJ/pF6osbra6xaJqz
-	 qEcd4YImIqSZ5oyOHXIHYnl8BB8HfXv/6F5hKUpZnxsUhqm0rijfU/pOkp7kATEjEsIpc
-	 suO3Vr3QOJIgwYE/AkW0x8jr8832l4jL7YcTAMOHwkuT+YG3T2unW2mCM8vN5qHfGktGZ
-	 6YMq0x1fT0v7pGF1+vp+sLvPhnLw03hpTDFNUrEIxGVXkCkm9EeeIFplYrWXf7q7aBg==
+	t=1795075013;
+	b=jX66Dumgo6OsNyWHucjSvGttPYayTZLsNtmG8FpYo3qw8B2v2edtmd/iOVcyyDvSURlZ
+	 l8BWaZ2mXxBNi+5WDuo47LEm6xhZNzr1BNRXuR9//e8YL28PY4usL5nDl7CEjXvneu/BT
+	 F7VpDY8opFGW24WLYA5jshTQUyJsZ63wvcAe7IwUmmy/ZWyaP8L8ZrBVv0ofNfa+w/hZ9
+	 4hr4RWRnwu7djwcCFnPslc5Un72dhd0GFwMPsjm5IkfQG3mwe13Q3ygnYdA8Z47Jnxgqn
+	 aSjtLwhJEdx9axfPsu5etYa1+e8Eui1oVVFPLeOZrx/yov9El3NTOPwxVNbTGGgQa1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795074989;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795075013;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=zD4vWVrzj0m5l3wwaVzmZX6fctqf45aDG3D9ksl4C6c=;
-	b=uTwm0aoQswfPjG0nugBRDvIEtZGuULX7WcNCTd+okS+vwLxMNqyc9VNyfLyw+X6wF/th
-	 LLUUP/vAr+W3q5r3JFJ//D028qUb3v1oIB5sAi3MsyWvQb/RSNYkEQa4HmDOWoRTTJLSj
-	 0XJv2ux6v9iOlZbJgYFaftS1HWRt7PrSmbgzYoGS4QLfhWTRx28YNUl1OS5TRX1lerZIR
-	 EMwhpuw6oOSm9YTZeB5JzizKVcAOBAxozr3zJfOoeikys0YmYtY6vAOu3bsbFj+TtQkxP
-	 N/vVPEGsGiMbdoDzfiThfpoo4MpfkH9iIGo9JFgC2/ZmU6femJjvSf0cIXyCrz3Yrow==
+	bh=xEoymSwj1gcF4QUAT7oBs9Zbj8EvbnCEDrEiMBfoV2Q=;
+	b=sHS03L2nmW25fR9fxPW6Dp9ZUPH6CeQqBakSp6tgpoNGHrNbLG0KInmYGL6n8gqEQMs0
+	 sLByJQGz0Ic0KtBy/yhF3xG4KRXIKKucTBWQOWKVzqun1RxNHwEhYFN9SFh+GB4U8z5Nq
+	 gcakdIxNJ4We5jUWjIFl/r1ACWJVwH1Ij1lB5F+FEFZa8JErtLIqOOeBkFQ+5LwOtBGTn
+	 MT6GmGoJgOISQ6WYsQ/jnRzQVgtBLgszD5OBRCb4G7rSQJHS1L1UQM0ubm4IYYmRmg92i
+	 B4wu0kwvOigivq7IflUMFkS9Z2I16HwB3+njjdXvKqYIVmjVccEqY1ymifGYgeGXeiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YB4Hwqg0;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MRgw5kVy;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544FC606A325
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:56:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 544FC606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DDE606A325
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:56:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49DDE606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YB4Hwqg0
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2efd659464aso7932545ad.3
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 23:56:28 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MRgw5kVy
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1b3acec6677so2877405c88.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 23:56:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795074987; x=1795679787; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795075012; x=1795679812; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zD4vWVrzj0m5l3wwaVzmZX6fctqf45aDG3D9ksl4C6c=;
-        b=YB4Hwqg0DiuGEH09AUeOt3wJvoIWEDxxJr+bQEPUE/yv227htIMm1ypFAL/7XjQ0EC
-         J9gBdTDOEvnceKo4pbdKyyWEFpAK26KWd3jIEpCzqgtuH8WqzcmY3YIWcwtdImFwI/sx
-         fdJqpu3MCWQh8i7Qf306MWqM8NGl1LGE8eH144xnFUqZxtRpzvijTgq6D5x96Okrk1cI
-         guKoL1BhmJ+UxI2nPcwqW7/OSf0CfaESi0dfvz0vei89aoRLQe2t13Y0HO9jqHcZQc4f
-         +r7WrTosr0CblSIzkDrWu0yJJQlL/y7Xj22sxCPh9KCQeL7v2F0EXBw/LIXHK7W3l+cI
-         PnMA==
+        bh=xEoymSwj1gcF4QUAT7oBs9Zbj8EvbnCEDrEiMBfoV2Q=;
+        b=MRgw5kVyPUNazSm4uS4KTyeR/7mwxUHLlA0GOOXHBznIY7dMo3LbCKZAs427tPRDM8
+         KxnsItMUzyWJTC9as/BSibq9zfCUK0yfnU4UU/MVPGjn3skJd5LTrNQTKYgTYfIoV0RV
+         VCDdMl/WA6yF3Xo9FF0SL6cRrsn7LCEo5ulLcGu8GCXbSPT5jTyTCVw5dHepQA7ujgI5
+         yFK9tkMFFSw7/lSoO3QaDejHUmTaXMjcjGfJnNk3BjOSqHl2WMFe5yhww3r3u9RyIyHD
+         U2GPhy49W45ixBifHQqF1rBdY/Xlhm4IzO/9uNr1+MnX5RatCJ/uxjrMOSrnihi0us6+
+         os1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795074987; x=1795679787;
+        d=1e100.net; s=20260707; t=1795075012; x=1795679812;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=zD4vWVrzj0m5l3wwaVzmZX6fctqf45aDG3D9ksl4C6c=;
-        b=M3Wrefy2zorhrMyU7Wj3GfWYbb6fbZv5HgpmOgFtNrWvZi4V4caBs1nKC769UA0iAo
-         U/FFxVgocey1NmsinFVbm4+K+jUTEBOabBxepjc7c26wDjGf875z23xlN3Z3FUaKmwro
-         XWWZapBJJi4EEXz2rKm8N0OdbX8RrVFm9kUbjybjX4OK+vGmHYRgKMxkMO/+ymRnomCh
-         FLsKE15JDl5bDCad6wM97PoaLsofeHu9ZoY8qngsHuJ6DVceY66yBDPcqk9+6E5Gj90F
-         spTQBpwhbWJYIcpgeynUEMCwc6vaNfpbD8GGviTs/Sj3CL3hZgNekNgpPHJVQPp2kwOB
-         Z6+Q==
-X-Forwarded-Encrypted: i=1; AL+hErEGf+izV02tu8Ai6Tl45KBRYZWPo7GaANeMQaWWGzbgZRidKPL8L+XPxbEPxPnMcmydrZDFx0I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9oO5LXk/SnlscE/7/Yt4hiGxZ/tVRP+hiPBqwHtXaMgWh7fxye
-	NCYh5bjBbJq+PdC1YMnZkjJKjb8BJW3vOPoMPJno/AUmKgUXJCEx6zpW
-X-Gm-Gg: AZFdTZfoFDMcf1A0JXf5NtvvfI/+Jr6/rQbFreu7IkMjb6DpHgXy1iGAaGyzmTW+eD9
-	K+lFYHjdAC8CUJalcjtL+b9Y5w82ZXaGATBmfoaSXVn95+ttcqwOM0c48bHG9x0Oe72PYaHtWJh
-	2ugbPBQ9NgKufsOs1e8RXYk6UE7aKahA6jtt4usR9VAef0vWHeDz04gtB4seoIqbcHNuhBKKU2a
-	WGIl3osgvmK98Ye5zf5FdBsn9XfoeN9MkLXujj9TKkZ1qi1Ll4DJFVswKHONJQnBBo5/biBgr5E
-	hv5/H3YEVq59N8xuo3EkkQhbLfLlkpWLay377qLetLCNuvi+AJKJ5XGb032Qc4eO088TwNnSEjS
-	2ayIjZlkG22HswMtP7E7S6hAVPTTOOFZX06fqvW4ErA3aCcbvq9mh/QzPX3Ejt4N1qDjnMWinlA
-	yNg1n7gL7rDvrsxC6XDDGOfoWepOxEkX/FboU4kVRHItTt2H9PzdHgCDeIvCyzfLGzVPQ4Y+w/S
-	7N09KIC4hnKEOBBPHAvzXEo3f7j029zjCv0tV/T5bj0wuHlf9wpeT4890ShjQRu781NfrxHs1Bk
-	8BigO/B/AMDQiv7EX6b1WInEhPXY0zjzPpE7L7k0qterauybuV6IM5pZ/rMC
-X-Received: by 2002:a17:902:ea03:b0:2df:90d4:7758 with SMTP id d9443c01a7336-2eff72f4385mr44649885ad.23.1795074987036;
-        Wed, 18 Nov 2026 23:56:27 -0800 (PST)
-Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:84c0:a687:3d35:47b0])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eff6183f8csm25817825ad.31.2026.11.18.23.56.16
+        bh=xEoymSwj1gcF4QUAT7oBs9Zbj8EvbnCEDrEiMBfoV2Q=;
+        b=ACJoxYXQ4ArBdnQcJjf4qX/yyDL7B3PWmT3Rdg9rSODsuKIuKEa0a4zCLEcZBu8xYP
+         3L4IiIjPLHhiHFHGCBUCxv7C89szk2avgBN536FgBfo1WBuMcvKb+CraZAgf1IIZMpX6
+         t7Wj1351S/rXk0/HRH+HVh/p8Gcwm71AjILK0QfpAY+ON2gc2d7lTc7pntnukjB6++RD
+         KqzOmxBV+OUHAOh1pbIuIyva6cB/M/hyrYSjRuN1XujKUpetq2MBvmzivaK26dReJbum
+         bdeq0i8MOJkH+5k6TZlit4f8SaoMSBNpTZ0mE7PUSAt+0h4Lo5ofLS1xNQXu9cfNo6Iw
+         /1Sw==
+X-Forwarded-Encrypted: i=1; AL+hErEMoQ1SzOAZIiPUWSy04w+CyC7a2N1Oj+qr0LEPSbP8CWOFsqBHCLfIpP1cQm2pD/RSdYWCM3A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uluxEhGvnp2UoV0Rsk0UR2ks09kD/OCoRtDLWKh+E0iDEbPVK
+	EfFD4NOA762xFtI8LFEPgoz5hBNZswR7gt24dCe57mxigEP5mXvO4oB1
+X-Gm-Gg: AYBFou34lOFW2f1zJq3yKk7Zdb1/xq1OSSl3YPcTZ3WxLBA29b6vhtVvzr2Qh+uOxYk
+	5H5UIkQhoYbLU55eZBND07kiOVop/qUZmIfB46RdjjCpSLajEvfNecVPadj5S0ZLV1G1T6Ci6Cn
+	7wIuO3Eb90fA/ZlT0bahRwX8jqp8/3HcpaB65STSmGQDaoAFRVsSlSKhWOKjnUyaqRBIAbZBuKs
+	eTjSAgdtUhCzjR4tqnSJ9aMjjxfH1u3kx5qLYdC3pIhg+0QYodOi2R27Lwbzj5kMVszdSEaGGjI
+	r6cyDtVAhzsBfSYy+DLiqxefepXwH4GvoEDc07O6iixABJXbHVKmfgrqVTan7w5DGZUh26qUA01
+	VDosePhY+ENxloSBh1EoRVoPwwnxKgxgF3UkongRi/qVokBnqsD5mBieVzSyLXtkYRV0N1MPYuO
+	kXyJCIgv/6lr10KqYR1hgi7g6I090EjhJovnZAwHZPWp2ajR57nhp9gsDnE972a3DsCMv/gPdnM
+	9WuIRs+i4nTuRPibrt3/Rp0nsMmSFUZPPUajUrQFV5oLTKhDXRdGh5kVJLPvSL9o43w0hKLN4kd
+	ynp6AC1vSX8dOeJ/tmSqT0hbZtmBod2VFg8N8f3yV4NwAkRhfA==
+X-Received: by 2002:a05:701b:2202:b0:188:e51:e86a with SMTP id a92af1059eb24-1b543c14aaamr3714450c88.2.1795075011818;
+        Wed, 18 Nov 2026 23:56:51 -0800 (PST)
+Received: from G7XWH7K1F3 ([139.177.225.240])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5445eb29esm12778151c88.0.2026.11.18.23.56.46
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 18 Nov 2026 23:56:26 -0800 (PST)
+        Wed, 18 Nov 2026 23:56:51 -0800 (PST)
 From: Zhao Li <enderaoelyther@gmail.com>
 To: Jeff Johnson <jjohnson@kernel.org>
 Cc: Pradeep Kumar Chitrapu <quic_pradeepc@quicinc.com>,
+	Bhagavathi Perumal S <quic_bperumal@quicinc.com>,
 	Karthikeyan Periyasamy <quic_periyasa@quicinc.com>,
-	John Crispin <john@phrozen.org>,
-	Kalle Valo <kvalo@kernel.org>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
 	linux-wireless@vger.kernel.org,
-	ath11k@lists.infradead.org,
+	ath12k@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Zhao Li <enderaoelyther@gmail.com>
-Subject: [PATCH ath-current] wifi: ath11k: fail the start when a service ready event fails
-Date: Thu, 19 Nov 2026 15:55:59 +0800
-Message-ID: <20261119075559.10177-1-enderaoelyther@gmail.com>
+Subject: [PATCH ath-current] wifi: ath12k: fail the start when a service ready event fails
+Date: Thu, 19 Nov 2026 15:56:28 +0800
+Message-ID: <20261119075628.11096-1-enderaoelyther@gmail.com>
 X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -103,7 +103,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ath11k_core_start() waits for the service ready handshake, in which the
+ath12k_core_start() waits for the service ready handshake, in which the
 firmware sends SERVICE_READY, SERVICE_READY_EXT and, if it supports it,
 SERVICE_READY_EXT2. Only the last of these events completes the wait,
 whenever its own TLVs parse, so the start goes on after an earlier event
@@ -115,12 +115,11 @@ running driver.
 Track the next service ready event that this start accepts. Each handler
 takes only its own event in turn, closes the handshake before parsing
 and opens it for the next event only on success. A failed event then
-makes ath11k_wmi_wait_for_service_ready() time out, and any event out of
+makes ath12k_wmi_wait_for_service_ready() time out, and any event out of
 turn, including one after the handshake completed, is ignored.
 
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-Fixes: bd6478559e27 ("ath11k: Add direct buffer ring support")
-Cc: stable@vger.kernel.org # needs adjustments for <= 6.1
+Fixes: d889913205cf ("wifi: ath12k: driver for Qualcomm Wi-Fi 7 devices")
+Cc: stable@vger.kernel.org # needs adjustments for <= 6.12
 Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
 Found by code review. Tested in a QEMU guest with KASAN and a test hook
@@ -134,102 +133,102 @@ No new W=1, sparse or smatch warnings.
 
 AI assistance was used.
 
- drivers/net/wireless/ath/ath11k/wmi.c | 22 +++++++++++++++++++++-
- drivers/net/wireless/ath/ath11k/wmi.h |  9 +++++++++
+ drivers/net/wireless/ath/ath12k/wmi.c | 22 +++++++++++++++++++++-
+ drivers/net/wireless/ath/ath12k/wmi.h |  9 +++++++++
  2 files changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
-index 08fd6795ed9e..5f9b18338478 100644
---- a/drivers/net/wireless/ath/ath11k/wmi.c
-+++ b/drivers/net/wireless/ath/ath11k/wmi.c
-@@ -612,6 +612,11 @@ static int ath11k_service_ready_event(struct ath11k_base *ab, struct sk_buff *sk
- 	struct wmi_tlv_svc_ready_parse svc_ready = { };
+diff --git a/drivers/net/wireless/ath/ath12k/wmi.c b/drivers/net/wireless/ath/ath12k/wmi.c
+index 75b259990c79..89e4dec07534 100644
+--- a/drivers/net/wireless/ath/ath12k/wmi.c
++++ b/drivers/net/wireless/ath/ath12k/wmi.c
+@@ -732,6 +732,11 @@ static int ath12k_service_ready_event(struct ath12k_base *ab, struct sk_buff *sk
+ 	struct ath12k_wmi_svc_ready_parse svc_ready = { };
  	int ret;
  
-+	if (ab->wmi_ab.svc_rdy_next != ATH11K_WMI_SVC_RDY)
++	if (ab->wmi_ab.svc_rdy_next != ATH12K_WMI_SVC_RDY)
 +		return -EPROTO;
 +
-+	ab->wmi_ab.svc_rdy_next = ATH11K_WMI_SVC_RDY_NONE;
++	ab->wmi_ab.svc_rdy_next = ATH12K_WMI_SVC_RDY_NONE;
 +
- 	ret = ath11k_wmi_tlv_iter(ab, skb->data, skb->len,
- 				  ath11k_wmi_tlv_svc_rdy_parse,
+ 	ret = ath12k_wmi_tlv_iter(ab, skb->data, skb->len,
+ 				  ath12k_wmi_svc_rdy_parse,
  				  &svc_ready);
-@@ -622,6 +627,8 @@ static int ath11k_service_ready_event(struct ath11k_base *ab, struct sk_buff *sk
+@@ -740,6 +745,8 @@ static int ath12k_service_ready_event(struct ath12k_base *ab, struct sk_buff *sk
+ 		return ret;
+ 	}
  
- 	ath11k_dbg(ab, ATH11K_DBG_WMI, "event service ready");
- 
-+	ab->wmi_ab.svc_rdy_next = ATH11K_WMI_SVC_RDY_EXT;
++	ab->wmi_ab.svc_rdy_next = ATH12K_WMI_SVC_RDY_EXT;
 +
  	return 0;
  }
  
-@@ -5118,6 +5125,11 @@ static int ath11k_service_ready_ext_event(struct ath11k_base *ab,
- 	struct wmi_tlv_svc_rdy_ext_parse svc_rdy_ext = { };
+@@ -5148,6 +5155,11 @@ static int ath12k_service_ready_ext_event(struct ath12k_base *ab,
+ 	struct ath12k_wmi_svc_rdy_ext_parse svc_rdy_ext = { };
  	int ret;
  
-+	if (ab->wmi_ab.svc_rdy_next != ATH11K_WMI_SVC_RDY_EXT)
++	if (ab->wmi_ab.svc_rdy_next != ATH12K_WMI_SVC_RDY_EXT)
 +		return -EPROTO;
 +
-+	ab->wmi_ab.svc_rdy_next = ATH11K_WMI_SVC_RDY_NONE;
++	ab->wmi_ab.svc_rdy_next = ATH12K_WMI_SVC_RDY_NONE;
 +
- 	ret = ath11k_wmi_tlv_iter(ab, skb->data, skb->len,
- 				  ath11k_wmi_tlv_svc_rdy_ext_parse,
+ 	ret = ath12k_wmi_tlv_iter(ab, skb->data, skb->len,
+ 				  ath12k_wmi_svc_rdy_ext_parse,
  				  &svc_rdy_ext);
-@@ -5128,7 +5140,9 @@ static int ath11k_service_ready_ext_event(struct ath11k_base *ab,
- 
- 	ath11k_dbg(ab, ATH11K_DBG_WMI, "event service ready ext");
+@@ -5156,7 +5168,9 @@ static int ath12k_service_ready_ext_event(struct ath12k_base *ab,
+ 		goto err;
+ 	}
  
 -	if (!test_bit(WMI_TLV_SERVICE_EXT2_MSG, ab->wmi_ab.svc_map))
 +	if (test_bit(WMI_TLV_SERVICE_EXT2_MSG, ab->wmi_ab.svc_map))
-+		ab->wmi_ab.svc_rdy_next = ATH11K_WMI_SVC_RDY_EXT2;
++		ab->wmi_ab.svc_rdy_next = ATH12K_WMI_SVC_RDY_EXT2;
 +	else
  		complete(&ab->wmi_ab.service_ready);
  
  	kfree(svc_rdy_ext.mac_phy_caps);
-@@ -5180,6 +5194,11 @@ static int ath11k_service_ready_ext2_event(struct ath11k_base *ab,
- 	struct wmi_tlv_svc_rdy_ext2_parse svc_rdy_ext2 = { };
+@@ -5871,6 +5885,11 @@ static int ath12k_service_ready_ext2_event(struct ath12k_base *ab,
+ 	struct ath12k_wmi_svc_rdy_ext2_parse svc_rdy_ext2 = { };
  	int ret;
  
-+	if (ab->wmi_ab.svc_rdy_next != ATH11K_WMI_SVC_RDY_EXT2)
++	if (ab->wmi_ab.svc_rdy_next != ATH12K_WMI_SVC_RDY_EXT2)
 +		return -EPROTO;
 +
-+	ab->wmi_ab.svc_rdy_next = ATH11K_WMI_SVC_RDY_NONE;
++	ab->wmi_ab.svc_rdy_next = ATH12K_WMI_SVC_RDY_NONE;
 +
- 	ret = ath11k_wmi_tlv_iter(ab, skb->data, skb->len,
- 				  ath11k_wmi_tlv_svc_rdy_ext2_parse,
+ 	ret = ath12k_wmi_tlv_iter(ab, skb->data, skb->len,
+ 				  ath12k_wmi_svc_rdy_ext2_parse,
  				  &svc_rdy_ext2);
-@@ -9315,6 +9334,7 @@ int ath11k_wmi_attach(struct ath11k_base *ab)
+@@ -10788,6 +10807,7 @@ int ath12k_wmi_attach(struct ath12k_base *ab)
  	/* TODO: Init remaining wmi soc resources required */
  	init_completion(&ab->wmi_ab.service_ready);
  	init_completion(&ab->wmi_ab.unified_ready);
-+	ab->wmi_ab.svc_rdy_next = ATH11K_WMI_SVC_RDY;
++	ab->wmi_ab.svc_rdy_next = ATH12K_WMI_SVC_RDY;
  
  	return 0;
  }
-diff --git a/drivers/net/wireless/ath/ath11k/wmi.h b/drivers/net/wireless/ath/ath11k/wmi.h
-index b2dade0516ac..c69037c8a114 100644
---- a/drivers/net/wireless/ath/ath11k/wmi.h
-+++ b/drivers/net/wireless/ath/ath11k/wmi.h
-@@ -5849,6 +5849,13 @@ struct wmi_peer_sta_ps_state_chg_event {
- 	u32 peer_ps_timestamp;
- } __packed;
+diff --git a/drivers/net/wireless/ath/ath12k/wmi.h b/drivers/net/wireless/ath/ath12k/wmi.h
+index b508aa759bd8..59bf691352bd 100644
+--- a/drivers/net/wireless/ath/ath12k/wmi.h
++++ b/drivers/net/wireless/ath/ath12k/wmi.h
+@@ -5397,6 +5397,13 @@ struct ath12k_hw_mode_info {
+ 							    [MAX_RADIOS];
+ };
  
-+enum ath11k_wmi_svc_rdy {
-+	ATH11K_WMI_SVC_RDY_NONE,
-+	ATH11K_WMI_SVC_RDY,
-+	ATH11K_WMI_SVC_RDY_EXT,
-+	ATH11K_WMI_SVC_RDY_EXT2,
++enum ath12k_wmi_svc_rdy {
++	ATH12K_WMI_SVC_RDY_NONE,
++	ATH12K_WMI_SVC_RDY,
++	ATH12K_WMI_SVC_RDY_EXT,
++	ATH12K_WMI_SVC_RDY_EXT2,
 +};
 +
- struct ath11k_wmi_base {
- 	struct ath11k_base *ab;
- 	struct ath11k_pdev_wmi wmi[MAX_RADIOS];
-@@ -5857,6 +5864,8 @@ struct ath11k_wmi_base {
+ struct ath12k_wmi_base {
+ 	struct ath12k_base *ab;
+ 	struct ath12k_wmi_pdev wmi[MAX_RADIOS];
+@@ -5405,6 +5412,8 @@ struct ath12k_wmi_base {
  
  	struct completion service_ready;
  	struct completion unified_ready;
 +	/* Next service ready event this start accepts */
-+	enum ath11k_wmi_svc_rdy svc_rdy_next;
++	enum ath12k_wmi_svc_rdy svc_rdy_next;
  	DECLARE_BITMAP(svc_map, WMI_MAX_EXT2_SERVICE);
  	wait_queue_head_t tx_credits_wq;
  	u32 num_mem_chunks;
