@@ -1,56 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795105750;
-	b=43NUbfMFUNyVsu53ZaSjCooKJOeHQgQJLNwl4x1EzFZ8ztXg0zLZ8GWqivO/3Ex9JGet
-	 R79pbgsPxjYeK9L5FtKo2sjealXmM5ZfSrHaZMYg7hn+FVk1n2Z2upax+OaLK3T1cfLdn
-	 t8wIQV93qY0Mn64EktRYc5aNk3oBkJ0TFGWngTdNNgbT5fXTWRikQy+YMue6dClt94hIa
-	 zhNUqLS0XIfFrEjeZHghreyQVcapI9FEnEcNX5OZtLex70Nnpb7BJ9c2bDgfockIxh5mI
-	 flmqhPc6gPufPD5r2j9feLbYjipixiaUHtJnrsHm42GeYr80SBQyl7LLuWpQuK0n1DQ==
+	t=1795105923;
+	b=ngsipipkn+CIjV5jomhcfe1ZPie5PuiQ2j78yqLMyOm1YsqY9SHHHTLJtiWD6xz0Khkk
+	 muC/LPa/Maxopamn9VjbtSxOzmxQZkqDZIVyUC1ZVyVWLrNkOmN5lsm4jg0oYHT7OQIfN
+	 bDyXPExTb8HK8iacnSWI/cKIJgctDRRKswZHs2+u1yzeRcsQdhKUsu9TOPCL5vuihTOXA
+	 oLEPWidt3FtC3R6VcUxU7SF8Z6V8w1yss3EBNUSl2PdXZ4/Ob8W3j3OAvETJf1JeExxKP
+	 M76+caJLtNH+X1aeEBB/qGLpxR84OCFtjVYks8a0Tvd4+0PRQav4vDNvKt8f18QuPfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795105750;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=42Xkf+DQSCY8fUGWy5Dgjmg4jz1IvOnKxBh9Nb2cSkw=;
-	b=meCF8giZn3rC3lacXqSlplmqDN2fIckktpIMoW3A2ede0atrlHbwpMRQWjDUXbZXjR8Q
-	 SpRZYd6bcLecevfBmKY90sFqvuMtc96am6mNaqkdv7gh9RQ5zejhGRdA9I/p1Sm6aEbzO
-	 xWAU7SZvn5yNNhJJrlpzXZcSfPYMohmCowxv7MQIjx8CSgKmQNb4sq44GlgtWZjCvoHQ3
-	 9akqjnoMDAhoCuYNrSk+5baZXlirIQxd+h/3X3sdLrDA580VpLJSqH1xyaxa60JXXX50B
-	 zUfAKKLK6g8lZXY18bhgfquY6wrjUWkqXQa6ctCshcb45DPWeNICvB7CRrCuNmxWZUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795105923;
+	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
+	 X-SA-Exim-Scanned;
+	bh=Y4L+6oVmWqwrFfx2LJ3E+02/7jmDMc+Yi0esheg1PZo=;
+	b=xxOdLzYTyx2rUQQ7MzZAy49nk263OHhBBLXWN/7TOoMbh/C4xa8ss0XzIShy4IdH/n+/
+	 hoAKrfHNl6XQzV2uHt1viXwdEl4euizhnbTlaeTYCTF0m9rMKouqBvmyKS0JKEv8GbOkI
+	 oetso1CZLteOkH0+xN3wFk4Dc6Oo5L/cqjwfBb69ZqH0SftEQmgv29eI0JF9PAjmzsl/H
+	 V2t3A3sv3pqvFpn0TemvPRCW+fg052Prw8X+rY4IPZPkp+QYrmKAoHFwf5bivKW42Ie6I
+	 bW/Zdn0/+yxBg/rYm0npYk5QUmDGfw8xwfcWHjifDmDtERQCpGGxqTr4r9+WkWTB0LA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQbErtCI;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SEdJ2gix;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080D6606A320;
-	Thu, 19 Nov 2026 16:29:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDCA606A32C;
+	Thu, 19 Nov 2026 16:32:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQbErtCI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026131F000C5;
-	Thu, 19 Nov 2026 16:29:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SEdJ2gix
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBC61F000C8;
+	Thu, 19 Nov 2026 16:32:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795105749;
-	bh=42Xkf+DQSCY8fUGWy5Dgjmg4jz1IvOnKxBh9Nb2cSkw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RQbErtCIb26JdRuNcimbrV7z97THCLSkfa1S78CIAbuF0HYJheUFJI3wnyW2GZMHg
-	 wIo+fdAxQSKOqMQCD/PW0b2x98x2ZNzqsW18zMqpYMVODOCPo7vqH185Y16Fu3pN0j
-	 5MLSCJST6yLsd2DA6uPHtkWtn46OdK/ROXJLFFLrMBFXTGQXCNFQWSz2xt2WMO1LLn
-	 0r6ZdaIyNQlSwZfSClT3FkbNJDynBBNb7vuA87BNwNslbpx1V3ftOv2GLcImsneTgr
-	 lY+28ef6LGaECrijglUaLdKU2zDzzP0BMG+5mNeyVnKhcckzuLxywCquSG6MLGWgk3
-	 b/b0MZKOLleVg==
-Date: Thu, 19 Nov 2026 17:29:06 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Haoli Zhang <26031212468@stu.xidian.edu.cn>
-Cc: tglx@kernel.org, anna-maria@linutronix.de, linux-kernel@vger.kernel.org,
-	richardcochran@gmail.com,
-	syzbot+667788430769ef9ddf25@syzkaller.appspotmail.com,
-	stable@vger.kernel.org, 25031212117@stu.xidian.edu.cn,
-	byu@xidian.edu.cn
-Subject: Re: [PATCH] posix-clock: initialize cdev state before publishing
-Message-ID: <av8j0vUFpUg2aZyf@localhost.localdomain>
-References: <20261116032853.825-1-26031212468@stu.xidian.edu.cn>
+	s=k20260515; t=1795105923;
+	bh=Y4L+6oVmWqwrFfx2LJ3E+02/7jmDMc+Yi0esheg1PZo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=SEdJ2gixFVuzYzP+ru8fvUB8Cxdv+1ZP3Q959zolej54XHbW4rtTZnq0Ix6KsegGj
+	 OPVIpR0lDjbq0cTNq9cqVCvRO9dN21mIAHyMnjGdEagvszWaPna26n4KeUJN//PiDY
+	 TN7YnyDOOJewc9wkFPhusCjjRHuRfYN5tJagEh4ZyQwpzBeF2rLLF0g0kTgfbQ3TbU
+	 cbwEQHLSiFcijQ7SxQEvzN44a/RwkuO/Aj0wQ+lbp3wOeHETY84qIsAM99zvcL4GX4
+	 663rlB1T0xPt23bVZezzy8uQJjbZoQZOcZimguv3zI7/K5SPxS/dClhuAZbxU0eSfz
+	 Y9tm075JDb0HQ==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1xU53I-00000000Yep-3czz;
+	Thu, 19 Nov 2026 16:32:00 +0000
+Date: Thu, 19 Nov 2026 16:32:00 +0000
+Message-ID: <86wlq8zssf.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Dan Carpenter <dan@pereq.eu>
+Cc: Oliver Upton <oupton@kernel.org>,	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,	Zenghui Yu
+ <yuzenghui@huawei.com>,	Catalin Marinas <catalin.marinas@arm.com>,	Will
+ Deacon <will@kernel.org>,	Mark Rutland <mark.rutland@arm.com>,	Jintack Lim
+ <jintack.lim@linaro.org>,	linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,	Karthik Bhargavan <karthik@pereq.eu>,
+	=?UTF-8?B?Q2zDqW1lbnQ=?= Blaudeau <clement@cryspen.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] KVM: arm64: Trap TCR2_EL1 writes when S1PIE or S1POE is hidden
+In-Reply-To: <20261119-nv-tcr2-v2-2-3deb1a6cdba8@pereq.eu>
+References: <20261119-nv-tcr2-v2-0-3deb1a6cdba8@pereq.eu>
+	<20261119-nv-tcr2-v2-2-3deb1a6cdba8@pereq.eu>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,28 +75,65 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261116032853.825-1-26031212468@stu.xidian.edu.cn>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: dan@pereq.eu, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, jintack.lim@linaro.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, karthik@pereq.eu, clement@cryspen.com, stable@vger.kernel.org
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Le Mon, Nov 16, 2026 at 11:28:53AM +0800, Haoli Zhang a écrit :
-> cdev_device_add() may expose the cdev before it returns. Initialize
-> clk->cdev.owner and clk->dev before calling it, so an open racing with
-> registration takes the matching module and device references.
+On Thu, 19 Nov 2026 13:25:35 +0000,
+Dan Carpenter <dan@pereq.eu> wrote:
 > 
-> If cdev_device_add() fails after cdev_add() made the cdev available,
-> open files may still exist. Mark the clock as a zombie under rwsem before
-> returning the error, so subsequent read, poll, ioctl, and dynamic clock
-> operations on those files fail while the caller tears down registration
-> state. Keep clk->dev valid so the release path can drop any reference
-> acquired by a successful open.
+> A VMM can offer FEAT_TCR2 to a guest but hide FEAT_S1PIE or FEAT_S1POE,
+> for example this is done to keep the VM migratable.  KVM then stops
+> loading the PIR_EL1, PIRE0_EL1 and POR_EL1 registers for that guest.  But
+> the guest's writes to the TCR2_EL1 register don't trap, and the CPU still
+> acts on its PIE, POE and E0POE bits.
+> 
+> If a guest turned these features on, it would run with the permission
+> settings another VM left on the CPU.  Technically this is a kind of
+> information leak and a guest could figure out another guests permission
+> setting based on which accesses fault.
+> 
+> For these VMs, set the TCR_EL1 bit in HFGWTR_EL2 so that writes to
+> TCR_EL1 and TCR2_EL1 trap, and clear the hidden bits in a new
+> access_tcr2_el1() handler.
+> 
+> Fixes: 58627b722ee2 ("KVM: arm64: Make PIR{,E0}_EL1 UNDEF if S1PIE is not advertised to the guest")
+> Fixes: b86c9bea6349 ("KVM: arm64: Save/restore POE registers")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Dan Carpenter <dan@pereq.eu>
+> ---
+> v2: This is a new patch
+> 
+> This is only a partial fix, I will update nested virtualization in the
+> next patch and the !vcpu_has_nv(vcpu) condition in __compute_hfgwtr() will
+> go away.
 
-Is the device made available before device_add()?
+No, I really don't want to go down that road.
 
-Thanks.
+Trapping TCR_EL1 is an absolute performance sink, and at this point it
+is not worth running VMs (it puts everyone at the level of AmpereOne).
+It also puts the penalty on well behaved guests which should be able
+to access TCR_EL1 as much as they want without penalties.
+
+Yes, the architecture is terrible, and we have to work around it.  I
+can see two ways to address this:
+
+- load PIR/PIRE0/POR unconditionally so that they do not contain any
+  state that logically belong to another guest, preferably with values
+  that prevent any access (0 is a good candidate for the permissions).
+  It means that if the guest plays with us, it will lose permission to
+  its own memory accesses.
+
+- Move TCR2_EL1 to the sanitised set, and make sure that these bits are
+  never evaluated by KVM, and will be cleared on each entry (we
+  already do this for TCR2_EL2).
+
+Thanks,
+
+	M.
 
 -- 
-Frederic Weisbecker
-SUSE Labs
+Without deviation from the norm, progress is not possible.
