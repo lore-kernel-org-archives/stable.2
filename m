@@ -1,58 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795061847;
-	b=zDK1pZr7wj0GxILmpyTM2PGMCdFeMH8YTXsjcfkRZ39TTylfNoVhgYxUWwynmg8tnfCI
-	 1qEZZuc67Rtf8vIzuyYs/Jcx/R6SHsankZ+at7y3Rppt5sPwiFGm0ptjgnqrSc1byu7ix
-	 Wc8qlgcRVWZctImREfHi2HhKfWFESrJZgR2Koo4oJkhJjpO+2QMAWUunrPBh15q+f00+k
-	 BlTlmKgeRuUlh+vfHVjt9ChpDNRCtZ6F5pcbcvtgbNZAPTa9XrsIcCj9jtAQottcTW0Lz
-	 QO2o86wAb3tW5Nm6Cz2Jd+kzVMBhSDhFrdc2YoPn0Ua/kUa8UnQTY7H6iyK8g+m9pMA==
+	t=1795061842;
+	b=e4/XNHvmiwJ7WKxr4BF2XPrYiJGc2xqeCRmR5MUrXbh2j562m+RQEBhuH148xGxXn0NQ
+	 1hcnnAGjZ1NvBARG/81yCGkMnXQlUWU5CASjHhl4FYxQ41W8DwyEywb/ET8bEYgkFE+Nz
+	 qnhifc8DDbEh0nADp9R4H3KAG2eprg6hyn8rnMRM3PAg1CU/uvndJeJI7iAPKhK1LdN0/
+	 46VL1026tglQ2jPGUoBC+zzRJpYHzVc45eH06g4na2of+twaMbucAARt5y1+iyW12whc0
+	 cwxf5r3dUyY0klZs4f6UPIxVO/+MwqlUBmnDJvRz6KgKUwyKC7rxczxa6gVuEk1wdKQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795061847;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=wnJ3gkBVP3mGdaqzFzBV4LOfqPvoinSIg+/rUx4ZArU=;
-	b=166ahZl9wXbeckRq6XRorKsfb3Mvk1avzL6qyRlcMX2JhJIvrI7Adkr1hRi7gDMoU5zg
-	 OXNydJdmMgFkL+kHYRXKUh+iE4w7H034XH/XurXyTZFiUcALznSjWSqYITjlb4cWAX7Nq
-	 BmTSQF9GivN/dRn0NoMRFKb8LO9A0jBoDDdzYAdXq3A0RF2TkgxzrFtD0RXmD5fmyMvR9
-	 eUMaR3gzWOJdRkDGy5Y4UkwXB4fwo2ExQmSg78Pwif8rmTczTwDA4/nKZSQsQalnvPolA
-	 1r6DtTYkOGmlOLsD4JmyiXvkwG6MPFiarZ81qo4/dAS3y6L+7ikqn0v0/9KnJAlD6hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795061842;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=bime9q+xt/mMyBljVd8JNlkAWoM91LP/FgSUS7yT3ek=;
+	b=kKqeHev/vWQuv0xYgLkvkvmx5X7NfmvCHAd8ir7m0+xXbTQd5tywn3qp5f3/xv7vkE6v
+	 wxvlEvQVtuf1iHC5V/yMun7N0MsgeUTBIYbZAbo9Lsb16KmfgC88xF2I4iQBDJe9KVH4Z
+	 +9QnHI1VvuByy6dbrzlZ1RCuT2tj4iP0fhSFA8Nfyi1cA//1f9Qq95/QvevqdCfrvRlCk
+	 jIsImuspAswT3gmfo4D4IYik+CK/+s9sWKBSxosjEguuaCpzUral8qpQIBh3NZPmleDGH
+	 zpcXIafBnaR68yiM7q36Jq43jT9WtuoCvNn1B/dOoWBYWGXAAZUTvtb67jf5soP/+Zw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="zdpLn/ys";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hB4mqCxl;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03581606A325;
-	Thu, 19 Nov 2026 04:17:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76DC9606A326;
+	Thu, 19 Nov 2026 04:17:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=zdpLn/ys
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51CE51F000C7;
-	Thu, 19 Nov 2026 04:17:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795061846;
-	bh=wnJ3gkBVP3mGdaqzFzBV4LOfqPvoinSIg+/rUx4ZArU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=zdpLn/ysXC5slbTEA1jiC+twpxV1lCF3MZIWcj0leysda8rdQFMpXWLQJFr5vZHoc
-	 vIpFzZ6ScDmBIThmg1essAi5ViRfyh0GLqBlVYYsMR+rb6L9wOqzg5aD2z3bigfISb
-	 EXiZXQ12zdKj0WGNEfAEOZWvGzAGhrMiZyQOq7Bo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Josef Bacik <josef@toxicpanda.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 1700/1848] bpf: Dont take an extension for an iterator program
-Date: Wed, 18 Nov 2026 16:02:18 +0100
-Message-ID: <20261118150030.915812310@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
-References: <20261118145911.150052362@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hB4mqCxl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F6301F000C4;
+	Thu, 19 Nov 2026 04:17:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795061842;
+	bh=bime9q+xt/mMyBljVd8JNlkAWoM91LP/FgSUS7yT3ek=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hB4mqCxlbre1uxuf/1qmW6YA6JfyokrzDz1UjD7wtFh1PQudHZTk7DrSZ4tjUgkqz
+	 D136E46di7e139AmptrOn51NWoCU/EJSGnOD9o3+1bnwpxzf5qtCRQfAUTj1O6+UGx
+	 cFJlsX0cF8NyFKuQO67dQ6p/sQoR+8NRLX/rRufXSS9BVwgqYdQRh13/2r7aame2H6
+	 RCstza6l9RuGTdHsId4ci17KiFmsF7sB+eAi/jqNCcSxNnZuNPh63Acln7fKTLOg2v
+	 ZIMGpY4pKdF61CaQzOQ1OFH8xDllWo1HHcsyC2KWp41M+kEmsXKsFuIKJCtBnCx35U
+	 epDWiXFaaYjoQ==
+Date: Wed, 18 Nov 2026 21:17:17 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: David Laight <david.laight.linux@gmail.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-tip-commits@vger.kernel.org,
+	"Borislav Petkov (AMD)" <bp@alien8.de>, stable@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
+ enabled when compile testing
+Message-ID: <20261119041717.GB1218811@ax162>
+References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
+ <avrPcQ4sOkgJPbkZ@gmail.com>
+ <20261116130159.GA1327949@ax162>
+ <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
+ <20261116223628.5a6139a7@pumpkin>
+ <20261118072848.GA325225@ax162>
+ <20261118090035.15ced20c@pumpkin>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,62 +66,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118090035.15ced20c@pumpkin>
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Nov 18, 2026 at 09:00:35AM +0000, David Laight wrote:
+> On Wed, 18 Nov 2026 00:28:48 -0700
+> Nathan Chancellor <nathan@kernel.org> wrote:
+> >   $ make ARCH=... LLVM=1
+> > 
+> > is generally all you need to do nowadays.
+> > 
+> 
+> That requires that you also get the correct clang on $PATH.
+> I'm sure I remember that not being as easy as it might seem.
 
-------------------
+Since
 
-From: Josef Bacik <josef@toxicpanda.com>
+  e9c281928c24 ("kbuild: Make $(LLVM) more flexible")
 
-[ Upstream commit 7cc639dc45c5d3b69acb2a2fc834e9eec51e0214 ]
+in 5.18, you can pass a full prefix to clang, which can help ensure you
+are using the right toolchain since the build will error if you do not
+point it to the right path:
 
-An extension inherits the expected_attach_type of the program it extends.
-If that is BPF_TRACE_ITER, check_attach_btf_id() hands the extension to
-bpf_iter_prog_supported(), which goes by the name of the attach function.
-For an extension that is the name of the subprogram it replaces, so the
-load fails with -EINVAL, unless that subprogram is called like the function
-of a target, bpf_iter_bpf_map_elem for example.
+  $ make -skj"$(nproc)" ARCH=arm64 LLVM=/doesnt/exist/bin/ mrproper defconfig
+  make[3]: /doesnt/exist/bin/clang: No such file or directory
+  make[3]: /doesnt/exist/bin/clang: No such file or directory
+  /bin/sh: line 1: /doesnt/exist/bin/clang: No such file or directory
+  make[4]: *** [scripts/Makefile.host:114: scripts/basic/fixdep] Error 127
 
-Then the extension gets the context of that target.  If the subprogram
-has as many arguments, it can use the key and the value as buffers, but
-how far it reaches is noted in the extension, where the test of the
-iterator link does not look: it reads and writes behind the elements of
-the map.  And the id of the subprogram in the BTF of the program is cached
-as the id of the target, so that programs of that target which are loaded
-already cannot be attached.
+I use that when I am building with the kernel.org toolchains because
+they live on disk in my home folder then I have clang tip in my path
+that I can use with just LLVM=1.
 
-Refuse all extensions here.
-
-Fixes: 15d83c4d7cef ("bpf: Allow loading of a bpf_iter program")
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
-Link: https://patch.msgid.link/20261017163745.3341787-27-alexei.starovoitov@gmail.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/bpf/bpf_iter.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/kernel/bpf/bpf_iter.c b/kernel/bpf/bpf_iter.c
-index e8957e911de31..73e9b584275ee 100644
---- a/kernel/bpf/bpf_iter.c
-+++ b/kernel/bpf/bpf_iter.c
-@@ -321,6 +321,13 @@ bool bpf_iter_prog_supported(struct bpf_prog *prog)
- 	int prefix_len = strlen(prefix);
- 	bool supported = false;
- 
-+	/*
-+	 * The attach function of an extension is a subprogram of the iterator
-+	 * program that it extends, whatever its name is.
-+	 */
-+	if (prog->type == BPF_PROG_TYPE_EXT)
-+		return -EINVAL;
-+
- 	if (strncmp(attach_fname, prefix, prefix_len))
- 		return false;
- 
 -- 
-2.53.0
-
-
-
+Cheers,
+Nathan
