@@ -1,54 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.144
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795108874;
-	b=qnas28YaI+0m8kAYgc78riB/4sfk/mFG5u1gp/6TanvTzpgNM3P9Q6e+wjvrYVWsZDay
-	 yx3xQMFhNeDJUG9W1llx0K5m8s/hAeNjZOoX/6QAJgzxlyRLLRZ9EA6+gKOjmiH+YhqAC
-	 YE+mStLUiXxJTgLi7OieC5euPHaLoHtyaL7D0dO6+UpOvBr30/ZPuTSDVzvyZLbiNyQzW
-	 f/zvAA84KGrQJPQpudDpvzDA0+SrK01N1RiTrdRbAMeZL6cafOQuVYaI3yxskMTLr3sx7
-	 S4vKHYsnY9vviVhjeoMZRzPg5YA7DSqCl8HVvgnwCPIKj7uqifzBUNcCSJcn6xDkvyw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795108874;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=XdED9eR4y5ifUgKd7CctMUIndCPjoT0qvFTq9/Do+VQ=;
-	b=BbMTJ738ek7bBt734QJv5TrQK/u+xtk+sCnLVUHBx3e6lTW6BkPh3sdXyF+xsPifNADi
-	 +D3DVQcArFrB70ddaU6HrHba2X7oyOVWtPQij2EQap9Odnaa2jEAAMMUD9WDlpX76SNQ3
-	 +Cc65LgV8yNDD0X8BVBvKfcMJ9M7Y2pvog3YAOMyH0hHaXnllW+MX8z34KY9PeW86fscj
-	 k2Orzu4oNtwY0JOyWMn94nxW3RFNz9veyKfXLw7uIb6EoF8DrEkUC9aBefKJp73Qb5B06
-	 erBcQ2Y40M8iIA8WYt5qYONQVrJGbARx5kJ0EQtlMF5oETXZkFef7Li+PezCeqh5d1g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mNz3J1C8;
-	arc=none smtp.remote-ip=95.215.58.144
-Received: from mta1.migadu.com (out-144.mta1.migadu.com [95.215.58.144])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.63
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795108899;
+	b=5f5OG82mj9jGeHPXbzFY1sxjkzJ5X/Bt5u2B+H5/3Rpps82aGF6Re2xOVBghzP2vEb6k
+	 Oi8kNXwN5PAgPKcealgM/tkK1daHLwiQWnZGChM290/d0CbzWuhsPBkfY56Z4r8PT9fKQ
+	 1I+EEpL/lohJLSbULf7a6mRp7N9CDvfVoV1ohiM/z5KcVLbgblXLfqG/eccE+rNDnA5Dk
+	 uQ6wiZVTj4vzgGxGurkf0WI/i/2eb/79hZeh23ulEKWcr/QlXgNkwsQMETfgsnkwsdzPy
+	 sZZeByIHeScb7Cjd52+3/ARX5ni9ucb5HuaIfOvysMs5PQnXsWJzcxHvXuLQynwf0Mw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795108899;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=PQ8lb09By7IMwhlDoq1OIOXFDfAWkqGAsKuPB8hve+o=;
+	b=jJDm8sZLrs2JzyzsBsCUfpjGm9It8Vcl4uRiDBb1ukWD9jiaJa2fNihYHJgVGIdeBruk
+	 jjydsgk3MLblNc5qFRTSBLbog2ED8KuSZm0aaJcmxCWe/JPk2w5BMAQCnIHV0koLDj9tm
+	 iwhodpjjZAdq4iVktI4uDYQjM1VV3SIHTZ9e5kAgDdL3JZbUT0vzq5Jyvfw33aK3TZK6e
+	 FWZztiHowR3kQd+hJVQFkg+Wz7N2qD2JdM/ro1x3jbUk+UrRtaMLgazwZ40JMC3kaP4jV
+	 OmBRKiC5sABlKO6TwW2G1FHrniyUIBa4LCjQdIHY8FbST4sRc6orFjTCOEbGVWPoJwA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xBps1yQz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.63
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012063.outbound.protection.outlook.com [40.93.195.63])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D74606A324
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 17:21:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12D74606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85D0D606A332
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 17:21:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85D0D606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mNz3J1C8
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=sOswK0QnaKHmU3QatFBxqViiRvCRLsYYOvUns0Kes0k=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795108871; v=1; x=1795713671;
- b=mNz3J1C8srKM79V3RO/Lli7dLeXuiEJ5akyDkZGo0pyS8CYc0pzsRNR5t36BRj8fnj1xZmhn
- rJ10q2nmgXkggzoFwWZUTcxRnzA6mptrgHzXKP5Oj8+5qxEnSHkpUTh1kGpYKig8aPF3JJo5to6
- 4L50yE0wNG6Ot4UXZ3x8jBOU=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a14ab644d5b40bce;
-	Thu, 19 Nov 2026 17:21:10 +0000
-X-Mizu-Trace-ID: a14ab644d5b40bce
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <299b3f93-f7dd-490a-8a6b-68afe4b0e473@linux.dev>
-Date: Thu, 19 Nov 2026 09:21:04 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=xBps1yQz
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NvkcT+oVd0evi//e+aSsORCcIgWgDAoPwju8yCjKxKx3RZ7Aht5T+Jj7AF+DMuVHuyuZjgmMJNHhtXxE7npUo8A9LKFWriCHPB6Yqfx1pXMsHv3rY9EV885Upe7exxRsFLuNaFSkAxS6BBsJ+kYPMquzTmzJw5LvqlUCbSLDdzBLPc6koZrxIb87ZK2fAOf7rf1eyxwoI2NYcCGOue76zOW0w1BLX9yNjXcI8xcLe20IXfwJpC85cIhrOACQmv0FPmvVRXLzjBFnDpSHVq0FMoDBAnQsqMMICSy7gm1PG7KAnSkVglpgH22133tk2K2RE5X3grThfZaC0SG9SeitPw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PQ8lb09By7IMwhlDoq1OIOXFDfAWkqGAsKuPB8hve+o=;
+ b=Yd9uaeO3QY8C7ji4TUmBZwx7O5A8royn+ElTGL8OfWkoGghg8GXCcfOL/ZlOceG6vO2Vljqt9kFWGzVkda0n+ncroXSaW7puMZl9OU542xixNP4wCXiRU3pj+Xivfs3Sfv0eWHrt6H4lDfH4E2t3K8D63Esiq+I8vYRjiFNDuLHWNISE2b5/kdIpiRtPfLxblYJw2MQqR3XE34KBLP6BjkNnzaQPtMY2llfNRfIFZc5SGEhu6z2GwJn3OPDQlarvoIKozRYnW+yroqBPJu0sJANp0akDwlkGavUXR/TKiKgToXLABOpGdZ+Dscxp8EWUzy9IcP9JX5Q9myLrisN1tg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PQ8lb09By7IMwhlDoq1OIOXFDfAWkqGAsKuPB8hve+o=;
+ b=xBps1yQzsIoego+jHP2eSVPzUffjYkWSbvnRV2pu3ck4fMEXW0WWwMn17IwZXNYgx6k7AbH7i2vwLDw+ojXfNsG7mjRN44eoyiVH03HlBhtePZd04luI0jTpZtsKhZQCETkCnVKI6uL8qyvLWtd9w0ytcfZhGm5sZEsJigRWZbw=
+Received: from BN9PR03CA0266.namprd03.prod.outlook.com (2603:10b6:408:ff::31)
+ by MN0PR12MB6126.namprd12.prod.outlook.com (2603:10b6:208:3c6::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
+ 2026 17:21:35 +0000
+Received: from BL4PEPF000003EF.namprd04.prod.outlook.com
+ (2603:10b6:408:ff:cafe::40) by BN9PR03CA0266.outlook.office365.com
+ (2603:10b6:408:ff::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.615.10 via Frontend Transport; Thu,
+ 19 Nov 2026 17:21:35 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BL4PEPF000003EF.mail.protection.outlook.com (10.167.249.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.639.5 via Frontend Transport; Thu, 19 Nov 2026 17:21:35 +0000
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Thu, 19 Nov
+ 2026 11:21:33 -0600
+Received: from p8.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.57 via Frontend
+ Transport; Thu, 19 Nov 2026 11:21:32 -0600
+From: Alex Deucher <alexander.deucher@amd.com>
+To: <stable@vger.kernel.org>, <gregkh@linuxfoundation.org>,
+	<sashal@kernel.org>
+CC: Philip Yang <Philip.Yang@amd.com>, Felix Kuehling
+	<felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Subject: [PATCH] drm/amdkfd: Dequeue user queues when process mm released
+Date: Thu, 19 Nov 2026 12:21:18 -0500
+Message-ID: <20261119172118.3738253-1-alexander.deucher@amd.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,249 +107,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/madvise: fix MADV_FREE handling for PMD-mapped THPs
-To: "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
- Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
- Ying Huang <huang.ying.caritas@gmail.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- Chris Mason <mason@kernel.org>, Sashiko <sashiko-bot@kernel.org>
-References: <20261119-madv_free_thp-v1-1-a312919e1ee5@kernel.org>
-Content-Language: en-US
-From: Usama Arif <usama.arif@linux.dev>
-In-Reply-To: <20261119-madv_free_thp-v1-1-a312919e1ee5@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL4PEPF000003EF:EE_|MN0PR12MB6126:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d3d1efa-2f06-4f87-5345-08df46619047
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|23010399003|261009223327099003|18002099003|261009223027099003|261009221227099003|261009221727099003|261009220027099003|261021121427099003|261021123027099003|261022105027099003|56012099006|261026140227099003|261102123227099003|261028144727099003|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	URo4hKNevhpgDuUWvFVh2vHTCVpvQP/7Q1esRcBiwJAaOAcjpZ74RiKvpznxRlIR4eA8g45cscfqr2rNc3dqTpmTEZNlpFsPvkZmAbTR5OoAFUdEVd/jCwrMzcYbdmHPTQTVP4z7OCPvUPpZ7YpAG+kNK5GRhuD/fKUTDZJfWizzkwR38ngWstbc6R4DbTGfVBIB9vdUjM48e9zPPZcdo+vrkWDa6r+i8DqMj1RVyBZDRx7g1F1lAsvTRj94fMR8L4TbpIqP9GWaaSbQbYHcdZQ1L9iwzRUb6lRoeaOxmAEve577JLwYbtqzODpO9yPCWUhV50OU4Ov/BJ3bMB/hGajHS5wrhnLApSyyhqLbcsPACRRxN5zczF0jQDAfKqcXLiKp/Xab3qIXOH2DybWQMFYO8lz2xqEL5FYfjsM2Io6GDjaYCQUvPZVaRIs7dhA/CytyY00tKx21//q+vgheBE1oOGWVT0aruupV04ygKSd2cfGIhGjNV5ZesZayHaX8Jl3M+i2oDyUr+KaPrF8tG+ZoHthDr4kAlJLttb81DDQS4QDsKHjlDu7bnmJxP9U4Irh5hU9xplxPBx1Yr37AmxIZn9hcXBBJSSU5WWkVOWiuz2O692MPE0iGkyafj+1w4o4t6rIhOhoJw9ELirLYp60I9VkFT3BWwAWFup0I33n9m/o+s+jWpzclNnL9hVTiX2TLRtqgcOpf/OhCf956dg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(23010399003)(261009223327099003)(18002099003)(261009223027099003)(261009221227099003)(261009221727099003)(261009220027099003)(261021121427099003)(261021123027099003)(261022105027099003)(56012099006)(261026140227099003)(261102123227099003)(261028144727099003)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	blt3lX0EcXfwIBpg2EDFNTzpkfUo8YpbMEpElyGqV+sucjBCssHgaCCBbNCu+a79iV6xi9lq4oBf/0IlENdaj2oUvDqCSFZGflpsekORXV6SrWEoISWnd6+cgw5/5E6lcL1lV6YdiarvlGlZkydBP7CdX+lnFwMZfvf+hr92YBnz5ckwcafQ6r4SKBKq9vvnL5HohmZhxah4cYTIea0YOxZCY/KQvBgWNcIXtA1CrbVjOU3W1qRlf9sQ/KnvzdFDqA+fUbzSQSc3iTHNHV2a9a5VOT3emSdUL7NGCe7Y9RQcG3DCxZhTMj8WSOb3OxOwyLjAo6Vt4Uho5FrF5mBguUDQ8yYzrreOdKlEeK/1PsCd/o410DVq0egIcvVq+HXsaiIX/6/VDxfJCm1Yd/5P0I85Xot8Iuk21JrV72MLI+8amnPCxg6Y7c1Vk9mANDS0
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 17:21:35.5823
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d3d1efa-2f06-4f87-5345-08df46619047
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL4PEPF000003EF.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6126
 
+From: Philip Yang <Philip.Yang@amd.com>
 
+Move dequeue user queues and destroy user queues from
+kfd_process_wq_release to mmu notifier release callback, to ensure no
+system memory access from GPU because the process memory is going to
+free from CPU after mmu release notifier callback returns.
 
-On 19/11/2026 08:04, David Hildenbrand (Arm) wrote:
-> After MADV_FREE cleared the dirty flag of an anonymous folio, reclaim will
-> later free the folio without writing it back if no mappings are dirty.
-> 
-> If our folio is still in the swap cache, the swap entries then point at
-> swap slots that were never written, exposing stale content of the swap
-> device. Bad.
-> 
-> madvise_free_pte_range() therefore frees the swap slots first, and skips
-> the folio if that is impossible. madvise_free_huge_pmd() does not, and a
-> PMD-mapped THP can be in the swap cache if try_to_unmap() failed during
-> reclaim, for example due to a racing mlock().
-> 
-> Further, madvise_free_huge_pmd() checks whether the THP is mapped by
-> other processes before taking the folio lock. Another process that still
-> has swap entries for the THP can concurrently map it from the swap cache,
-> and we might end up clearing the dirty flag of a shared folio.
-> 
-> Fix it by factoring out the folio handling of madvise_free_pte_range()
-> into madvise_free_try_prepare_folio(), and using it for PMD-mapped THPs
-> as well. Hopefully this prevents further bugs.
-> 
-> For PMD-mapped THPs, this change implies:
-> 
-> 1. We free the swap slots of a THP in the swap cache, and skip the THP if
->    that is impossible.
-> 2. We check the mapcount under the folio lock.
-> 3. We no longer lock and check THPs that are neither dirty nor in the
->    swap cache, just like for PTE-mapped folios.
-> 
-> For PTE-mapped folios, this means:
-> 
-> 4. We check the mapcount once before taking the folio lock, to not lock
->    folios that are mapped by other processes.
-> 
-> Only compile madvise_free_huge_pmd() with CONFIG_ADVISE_SYSCALLS to keep
-> !CONFIG_ADVISE_SYSCALLS builds working.
-> 
-> Chris and Sashiko reported the missing swap cache handling for PMD-mapped
-> THPs, the other issue was found by code inspection.
-> 
-> This has medium urgency.
-> 
-> Fixes: bd4c82c22c36 ("mm, THP, swap: delay splitting THP after swapped out")
-> Cc: stable@vger.kernel.org
-> Reported-by: Chris Mason <mason@kernel.org>
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/sashiko-outbox-202086@kernel.org/
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> ---
-> I would queue this fairly soon on mm-core/for-next-fixes
-> ---
->  mm/huge_memory.c | 19 ++++++-----------
->  mm/internal.h    |  1 +
->  mm/madvise.c     | 65 +++++++++++++++++++++++++++++---------------------------
->  3 files changed, 41 insertions(+), 44 deletions(-)
-> 
+Destroy queue releases the svm prange queue_refcount, this also removes
+fake flase positive warning message "Freeing queue vital buffer" message
+if application crash or killed.
 
-Yeah looking at pmd swap, I imagine there might be more cases
-which are correctly handled by pte path but not pmd.
+Suggested-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Philip Yang <Philip.Yang@amd.com>
+Reviewed-by: Felix Kuehling <felix.kuehling@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 22d9e071e5028815accf26956ed0b9634a4c0b8d)
+Cc: stable@vger.kernel.org
+---
+ drivers/gpu/drm/amd/amdkfd/kfd_process.c | 11 ++++++++---
+ 1 file changed, 8 insertions(+), 3 deletions(-)
 
-Acked-by: Usama Arif <usama.arif@linux.dev>
-
-> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> index 79d400ea9553d..e22daf846dbe3 100644
-> --- a/mm/huge_memory.c
-> +++ b/mm/huge_memory.c
-> @@ -2421,6 +2421,7 @@ vm_fault_t do_huge_pmd_numa_page(struct vm_fault *vmf)
->  	return 0;
->  }
->  
-> +#ifdef CONFIG_ADVISE_SYSCALLS
->  /*
->   * Return true if we do MADV_FREE successfully on entire pmd page.
->   * Otherwise, return false.
-> @@ -2455,21 +2456,13 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
->  	if (folio_is_zone_device(folio))
->  		goto out;
->  
-> -	/*
-> -	 * If other processes are mapping this folio, we couldn't discard
-> -	 * the folio unless they all do MADV_FREE so let's skip the folio.
-> -	 */
-> -	if (folio_maybe_mapped_shared(folio))
-> -		goto out;
-> -
-> -	if (!folio_trylock(folio))
-> -		goto out;
-> -
->  	/*
->  	 * If user want to discard part-pages of THP, split it so MADV_FREE
->  	 * will deactivate only them.
->  	 */
->  	if (next - addr != HPAGE_PMD_SIZE) {
-> +		if (folio_maybe_mapped_shared(folio) || !folio_trylock(folio))
-> +			goto out;
->  		folio_get(folio);
->  		spin_unlock(ptl);
->  		split_folio(folio);
-> @@ -2478,9 +2471,8 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
->  		goto out_unlocked;
->  	}
->  
-> -	if (folio_test_dirty(folio))
-> -		folio_clear_dirty(folio);
-> -	folio_unlock(folio);
-> +	if (!madvise_free_try_prepare_folio(folio, 1))
-> +		goto out;
->  
->  	if (pmd_young(orig_pmd) || pmd_dirty(orig_pmd)) {
->  		pmdp_invalidate(vma, addr, pmd);
-> @@ -2498,6 +2490,7 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
->  out_unlocked:
->  	return ret;
->  }
-> +#endif /* CONFIG_ADVISE_SYSCALLS */
->  
->  static inline void zap_deposited_table(struct mm_struct *mm, pmd_t *pmd)
->  {
-> diff --git a/mm/internal.h b/mm/internal.h
-> index 85cf7becf8588..96cb55d7816b1 100644
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -61,6 +61,7 @@ void lru_add_drain_cpu(int cpu);
->  void lru_add_drain_cpu_zone(struct zone *zone);
->  void folio_deactivate(struct folio *folio);
->  void folio_mark_lazyfree(struct folio *folio);
-> +bool madvise_free_try_prepare_folio(struct folio *folio, int nr_mappings);
->  
->  /* mm/vmscan.c */
->  unsigned long zone_reclaimable_pages(struct zone *zone);
-> diff --git a/mm/madvise.c b/mm/madvise.c
-> index 0214efd2a014f..ebb4ce7daf6cb 100644
-> --- a/mm/madvise.c
-> +++ b/mm/madvise.c
-> @@ -661,6 +661,38 @@ static long madvise_pageout(struct madvise_behavior *madv_behavior)
->  	return 0;
->  }
->  
-> +bool madvise_free_try_prepare_folio(struct folio *folio, int nr_mappings)
-> +{
-> +	if (!folio_test_swapcache(folio) && !folio_test_dirty(folio))
-> +		return true;
-> +
-> +	if (folio_mapcount(folio) != nr_mappings || !folio_trylock(folio))
-> +		return false;
-> +
-> +	/*
-> +	 * KSM folios can gain new mappings at any time, so we must
-> +	 * not clear their dirty flag.
-> +	 */
-> +	if (folio_test_ksm(folio))
-> +		goto unlock;
-> +
-> +	/*
-> +	 * Check under the folio lock that the folio is exclusive: we own all
-> +	 * mappings, and there are no references from swap entries.
-> +	 */
-> +	if (folio_mapcount(folio) != nr_mappings)
-> +		goto unlock;
-> +	if (folio_test_swapcache(folio) && !folio_free_swap(folio))
-> +		goto unlock;
-> +
-> +	folio_clear_dirty(folio);
-> +	folio_unlock(folio);
-> +	return true;
-> +unlock:
-> +	folio_unlock(folio);
-> +	return false;
-> +}
-> +
->  static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
->  				unsigned long end, struct mm_walk *walk)
->  
-> @@ -753,37 +785,8 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
->  			}
->  		}
->  
-> -		if (folio_test_swapcache(folio) || folio_test_dirty(folio)) {
-> -			if (!folio_trylock(folio))
-> -				continue;
-> -			/*
-> -			 * KSM folios can gain new mappings at any time, so we must
-> -			 * not clear their dirty flag.
-> -			 */
-> -			if (folio_test_ksm(folio)) {
-> -				folio_unlock(folio);
-> -				continue;
-> -			}
-> -
-> -			/*
-> -			 * If we have a large folio at this point, we know it is
-> -			 * fully mapped so if its mapcount is the same as its
-> -			 * number of pages, it must be exclusive.
-> -			 */
-> -			if (folio_mapcount(folio) != folio_nr_pages(folio)) {
-> -				folio_unlock(folio);
-> -				continue;
-> -			}
-> -
-> -			if (folio_test_swapcache(folio) &&
-> -			    !folio_free_swap(folio)) {
-> -				folio_unlock(folio);
-> -				continue;
-> -			}
-> -
-> -			folio_clear_dirty(folio);
-> -			folio_unlock(folio);
-> -		}
-> +		if (!madvise_free_try_prepare_folio(folio, folio_nr_pages(folio)))
-> +			continue;
->  
->  		if (pte_young(ptent) || pte_dirty(ptent)) {
->  			clear_young_dirty_ptes(vma, addr, pte, nr, cydp_flags);
-> 
-> ---
-> base-commit: 5e600d79135124a4eb8e9db30ad524224c267c07
-> change-id: 20261119-madv_free_thp-3c2a9887a722
-> 
-> Best regards,
-> --  
-> David Hildenbrand (Arm) <david@kernel.org>
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+index 1c591953cc80..d387733e39d1 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
+@@ -1163,9 +1163,6 @@ static void kfd_process_wq_release(struct work_struct *work)
+ 					     release_work);
+ 	struct dma_fence *ef;
+ 
+-	kfd_process_dequeue_from_all_devices(p);
+-	pqm_uninit(&p->pqm);
+-
+ 	/*
+ 	 * If GPU in reset, user queues may still running, wait for reset complete.
+ 	 */
+@@ -1227,6 +1224,14 @@ static void kfd_process_notifier_release_internal(struct kfd_process *p)
+ 	cancel_delayed_work_sync(&p->eviction_work);
+ 	cancel_delayed_work_sync(&p->restore_work);
+ 
++	/*
++	 * Dequeue and destroy user queues, it is not safe for GPU to access
++	 * system memory after mmu release notifier callback returns because
++	 * exit_mmap free process memory afterwards.
++	 */
++	kfd_process_dequeue_from_all_devices(p);
++	pqm_uninit(&p->pqm);
++
+ 	for (i = 0; i < p->n_pdds; i++) {
+ 		struct kfd_process_device *pdd = p->pdds[i];
+ 
+-- 
+2.56.1
 
