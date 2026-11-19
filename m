@@ -1,53 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=64.215.233.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795114282;
-	b=Rb44OiIX3uhRlVTq6QYrv3rwTYvIsBxNrmx5HkZ62e9k0JRhVdBaFe7GRQ71ish4QCeR
-	 SBlr0ePEHUefSanNto+Ti8f+md5d9nHMWpfSYw4YCfL7+K0Ms5FBYpCEp9IkB8tpdkdOZ
-	 kOvlKW+ITPINaKnGYy0rnYqxwiib/TF4bSHd8hP5UT1Q4GvYkG2wbpshGfv/RQYyXLaMz
-	 8Ud+jsGfLxIW+k9gjMFyxTkwJy/CjVQXKdA/12G0mVQ4UVlF4dfCIwE6tNvPqx6tfNUpX
-	 YX8pn6hy+xDmXqWIAIaGPKBxGqh8mevEX1ed3P6dJg++fQjF8Q2d+mVBRkK6GsDTEqA==
+	t=1795114359;
+	b=S/uDpblW7ITbvWiM73cHm1pXOZSdqVp0hUfSCOKLyj9hpJzUxDWqHgnvDu0vAQiqNzfq
+	 2W297eN9mZuhna5dB4R28rwtucwNJ2LfkdoKxvc+u6fHYH+oERZ2AZe/OcOJ3SFFB5zGB
+	 HCuvCQrntEq0/xdZQifB6n/T0hs9vy/LGbGviANt4ESosphxjcO3tkjxChDFhrXhXEGnY
+	 Z4fccF34C1WqOi09IIjqeK6WxPQZFG7H68x7ssFIpoL8yvNqJqiMSnR+y/t1md4StYcyo
+	 7DlRd6u6aIe6V4GxHvPJFqoPHRUIsM4t2UDezK41QLgauM4K60LPU1VrLkmX8nGuEjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795114282;
-	h=DMARC-Filter:DKIM-Signature:From:To:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795114359;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
 	bh=t0Ic1mzIR68UWnq2c+X05T/4Ui6CKPSbnUPVfSE8g04=;
-	b=kLASdhbG855DYX1K4LU+VPuYVEj/P6Vb+f+8op0wrb+zxkkqqlAnap54ykvsZwczD/nA
-	 pKZiMYyVSnpz/I/F+qyiR3fe8X1yrsBdfYoONDigOOQZk06Cg0dSax2b4TMJmcSjnZLLu
-	 7755OUU7zxb0VBkkYy37B8F4f2phYLhoUZyAUdm4V6UOoBbFwV8x3uqdhyufFum+qvB2B
-	 28GDa+ViDwSGevA9EeW3FU7M24E31wicA5/rueg9HFeIZBfTdautDajkB4UckthJ6HKNe
-	 R6iVx1Ui43pu82ph7Yf0g9ReORVxtrwGI5thgcRYNuL91hjyZqe+DCVZLxQO2Rw5eRQ==
+	b=drzu+JoRQ9J21juv9BOLGMQzUGZgrdoCFw0BERv5Vy+mryMETRl+XzTNoVKV1eKQ215K
+	 rM9jNRrI2dAnD7TwZmzsbtAGCR8++RKeZHfBEsD8jhspNXH3aagi8qRBF5ksyXxQaiWgH
+	 VkN8Fq0jVRFJfN8Fkvz2a1T3EOqDECedlkWwQt8/cfn3iU0v2NbM54/ddM7ixFySG6adr
+	 DCVhdB5APDSyrn5yAl830kkjNQJz94J3M49mKx1OZSBEAZHXo5o8pMvH/LSKPbvGLlQ6s
+	 h6f393IaJAqdbPOSP5zUqNbyDQ6ezbv6vc7BmNcEN7wO7UV0vgRQkrQQ4y23sl+r37w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=janestreet.com;
 	spf=pass smtp.mailfrom=janestreet.com;
-	dkim=pass header.d=janestreet.com header.i=@janestreet.com header.a=rsa-sha256 header.s=waixah header.b=AkMPtywx;
+	dkim=pass header.d=janestreet.com header.i=@janestreet.com header.a=rsa-sha256 header.s=waixah header.b="m/G4DBHs";
 	arc=none smtp.remote-ip=64.215.233.18
 Received: from mxout5.mail.janestreet.com (mxout5.mail.janestreet.com [64.215.233.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B374C606A326
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 18:51:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B374C606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130EE606E8F4
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 18:52:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 130EE606E8F4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=janestreet.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=janestreet.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=janestreet.com header.i=@janestreet.com header.a=rsa-sha256 header.s=waixah header.b=AkMPtywx
+	dkim=pass (2048-bit key) header.d=janestreet.com header.i=@janestreet.com header.a=rsa-sha256 header.s=waixah header.b=m/G4DBHs
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=janestreet.com;
-  s=waixah; t=1795114275;
+  s=waixah; t=1795114358;
   bh=t0Ic1mzIR68UWnq2c+X05T/4Ui6CKPSbnUPVfSE8g04=;
-  h=From:To:Subject:Date;
-  b=AkMPtywxQois2uXKTf80I/8snbM1TT4kM6y/l48WG6R0ppmJJ4/Uid4F/USe7TRSY
-  dvmMnYas9GvCiYk4fqsCJ8/Iz3UybvYx0I5aXl/bM3JZ6qD9NOIVKlxTuv68Xv4baZ
-  iAQKa7Gk4Z3LTejvOsXy4JlxKwIe2nmv63Z3rbBK0RUJml1lxu1YSKDf13FDBLlJoD
-  KXqOYsARuIRx/EVkVZkUQz+UN2dEJYrsKtRsr/fzFz9OuEcZi3wAtfCE7LCaYZ98bA
-  CU4iPrMnibuZsxSo05e0BsYXNvP69Ye1vgSXNsvKfw8sizPgVDhuXdlbRu/BG4YC9/
-  wEm2HGb+g+XsA==
+  h=From:To:Cc:Subject:Date;
+  b=m/G4DBHstImSa6u2UmSNW9J+5pWcSrnCUlzciL2P3VQJMRvO1BQhATPyKBFes7/wa
+  n/SVh+zJXNIrm3Ar1ehugGQht8+Hm3BYMIfl1tpKNZKIaBzU4x8YYeZjTzozinoPsM
+  yOChphFXGJxbgfQRCL7AurJXUf2A/Ll439NMOF+DMgtJshD1N8zzaShIDMbCNg8SJo
+  ePCvbtkQBnum33s5ooNdvZixO8+mVimdJSitBkqNEzC0zpicdgna4uW68q7k5afDHi
+  Hs7WilIFvB459B7YsZC+L4kuY7jRLgyzoEfz8qVmvJTx3bsoAHPQoGTrOcLhnpDx3S
+  aCEHM2dyopHWQ==
 From: Eric Hagberg <ehagberg@janestreet.com>
-To: ehagberg@janestreet.com,
- 	stable@vger.kernel.org
+To: stable@vger.kernel.org
+Cc: Baokun Li <libaokun@linux.alibaba.com>,
+ 	Jan Kara <jack@suse.cz>,
+ 	Christian Brauner <brauner@kernel.org>,
+ 	Tejun Heo <tj@kernel.org>,
+ 	linux-fsdevel@vger.kernel.org,
+ 	Eric Hagberg <ehagberg@janestreet.com>
 Subject: [PATCH 6.18.y] writeback: use a per-sb counter to drain inode wb switches at umount
-Date: Thu, 19 Nov 2026 13:51:15 -0500
-Message-ID: <20261119185115.1146144-1-ehagberg@janestreet.com>
+Date: Thu, 19 Nov 2026 13:52:14 -0500
+Message-ID: <20261119185222.1147448-1-ehagberg@janestreet.com>
 X-Mailer: git-send-email 2.43.7
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
