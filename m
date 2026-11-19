@@ -1,56 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795121445;
-	b=gnqrSfcxCVAUHoFu4q8wHBBUBd6pHs8/nvBANkkjU2bSzqSkCReBW+7beaTx34i82F6J
-	 r45/QS43R14gNRhcpq7S5PzwHuQNsu9fxRKBNxZTdJg9/k52fQpCkXn0Y895K7rN9dDWB
-	 zfeaM+aWaHqmdDkRSi2R1ZuMBSohbZighyrUMayppkoLJKvtNJdXeMHeA2nusqhYMJ+Xs
-	 9yqWUJMuodjH8JPW8dTzOXHnbjPIj6rWW2XQZiEtITelOGfnmL2+iFgjXar0va9dd0Jl3
-	 qf8HW0BubNDxRwgsTf09NBaJ4pMdTdENlxcNovfmM8AiFixYQYBD19LKdaXDgC4ht9g==
+	t=1795121451;
+	b=EQetHNaJ2rg/rQCICBKD/8kLTIrKEax4WF5urckg/0pg5HGbEjJrzHeI/66EUYlmxt5c
+	 cntsGLcpySDDJ7yfOkfGgi8Dt/mQ+69LbmNVuKAwUKpen4Jc0MYORC0X5dxlYk4U+If4t
+	 CF/6dUrIlzDFmWsVaWZ3dAndIU1lu+W+og/1cnLvrply4M0EL2h/p926/d85LeBYzMJhS
+	 ajPMWrzN++5uehnVq6hWOsExCsZXC0PWTPQfPGLm1sMbDiwXzyGT30MOR9kAUwZQiaMMR
+	 HcWGgA7EwmgCpCUhKUNSIWmf06DINqPKtCcltIUlc3sxqZxSE9DSFmwpcA5IK000agA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795121445;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795121451;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=FDB56P32FDl6bNezdwAQqP1h7o3uxulTq1XdU+fw3Dc=;
-	b=EuE5Os0SlGvOwZdzl+jznqu7IanATT9lkq4+JO7izqUIENIwzrJld0uW2o15SScVAq6p
-	 DXk1jIYipC/ES+3SfKoj6Ey1IAlFP05bD/uEB22KSaCjAo4nWEQJehGAHagCkl3QcHPhD
-	 zk9K+WB9g1zeTF5M+Dju84iBWpvQXQ+dC0zm2KzTIkrUDAhxEs2padP2a0XqaDAEYyEBR
-	 /mEG8Jg+yohIaHLABfSZwcnOnqpZLd4lLhFnHySSYkfcrpdp6lSpVJbshZcfaUm208vrV
-	 /JszYB3rzH18d1O6Hg5As0VfJ1J2TQkiH88PC9jRdiPdLhoFG0ramexwrwpgJZYfM9g==
+	bh=NAbaLn8TdjdIV7Xo1u11Mt4D9oXgJ+jd79pxsi7Y87k=;
+	b=N+GmuWBbu59GJqv+rwqSc3K90BYJQBOo8JkwvQ5AmrDQqPGXXwEH5rdQsAqQ19GQFK1G
+	 J/hMABfSMOrQcsjHdSHcUQlzsp9U+M6DbOPSjXDDi/enlPh4vPsCwBamnrSYNvm1C8Aqc
+	 7xmA1ZVSBhVq4gqOPIly3jqlMd2mSdWwQK3cCp88wI/pTMZ7/6UHIhL7+UE+qJ0rHKq83
+	 IPiBIQ79rF63ei97IRNthlpjKDI7wIkWi6kpgPVHebCoAi/TVz8/2B9HZX5QxJofmp8m4
+	 QTKuOqrVpYO3jDhqlZDyPBoMaEL3AjhzXwHVXrD9mn1ZgRYDWCBpsVnlSLlnUpuxDMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7n02MHz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CgWgPwRF;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A405606A904;
-	Thu, 19 Nov 2026 20:50:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE30606A929;
+	Thu, 19 Nov 2026 20:50:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=k7n02MHz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACA301F000C4;
-	Thu, 19 Nov 2026 20:50:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CgWgPwRF
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9E9D1F000CA;
+	Thu, 19 Nov 2026 20:50:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795121445;
-	bh=FDB56P32FDl6bNezdwAQqP1h7o3uxulTq1XdU+fw3Dc=;
+	s=k20260515; t=1795121451;
+	bh=NAbaLn8TdjdIV7Xo1u11Mt4D9oXgJ+jd79pxsi7Y87k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k7n02MHztF0PvsBN+690dzA3kvbjK4CRb1fMM0D3f0cFAmO5F267CgygHQZ9Z0/AC
-	 jIDOp9koldOGaQcEwCo92stfsidMLOcD3n3w3Id07rWsw6q3fm2/gpeSHTR1wgastJ
-	 mY/1XbhhrF0xC4sudKcprrg7SVuGwklHHxSdhJe4Mpvc9e4gv1SLLXZF5lkvfMp1oO
-	 Zsyn/1p51f0X2s7/pAUjTSpjYshV0sC8SQ2zXJz7Ejg/JrfQp3b5+hVz38bzQwVzzV
-	 IPRScHZgjSYZ0u5V8ljPaFELbkHtoONu28JUxQJWlN2TYUlWjNfhGMjkZAqWLcfYT5
-	 rfjdaF4pyYKPQ==
+	b=CgWgPwRFr2ako7TveUhLXhNrzitfBeCb2Y+IMK8imEzw8ylJXdOOrq5eK26ZYSeEX
+	 pZjCZSRLCgKgexHyFivzzejiaBRoR6uuxdEy5/DvrIOwtLvrFm3Nl+bvFVpxjTd68c
+	 Fr3WlTdRm3M4JGY65SQsGoqsa4q77Ts+U7y+bsVOLyLHbXk8ssM2kadikIWfBUwHyc
+	 fb/mVrFk2pEaP/C49Y43ukSrdoMj+Y3/aMX8hdunexdNrBmO5HJB3zIsMlkFw2B/n7
+	 7RB9Va/YG6u0SZkPNVRKH4rjvKieKZ64Zja2DDxA4a96QFtFpWaHzm/qwUxqui4foh
+	 o6iwI3d+QpGyQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Jacky Huang <ychuang3@nuvoton.com>,
 	Shan-Chun Hung <schung@nuvoton.com>,
 	Linus Walleij <linusw@kernel.org>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 04/12] pinctrl: nuvoton: ma35: Assign fwnode to gpio_chip in ma35_gpiolib_register()
-Date: Thu, 19 Nov 2026 20:49:00 +0000
-Message-ID: <20261119205013.2563811-5-lee@kernel.org>
+Subject: [PATCH v2 05/12] pinctrl: nuvoton: ma35: Avoid leaking map when parent node is missing
+Date: Thu, 19 Nov 2026 20:49:01 +0000
+Message-ID: <20261119205013.2563811-6-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
 In-Reply-To: <20261119205013.2563811-1-lee@kernel.org>
 References: <20261119205013.2563811-1-lee@kernel.org>
@@ -65,38 +66,58 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ma35_gpiolib_register() registers all 14 GPIO banks under the same
-parent platform device without setting bank->chip.fwnode to the child
-bank node.  Consequently, all GPIO banks share the parent pinctrl node
-for OF/fwnode lookups, preventing consumer drivers from resolving
-phandles to individual GPIO bank child nodes (&gpiob, &gpioc, etc.).
+Commit 3fd976afe974 ("pinctrl: nuvoton: fix a double free in
+ma35_pinctrl_dt_node_to_map_func()") switched new_map from
+devm_kcalloc() to unmanaged kcalloc() without freeing new_map on the
+!parent error path.  Because pinctrl_dt_to_map() does not invoke
+dt_free_map() when dt_node_to_map() returns an error, new_map is leaked
+if of_get_parent() returns NULL.
 
-Set bank->chip.fwnode to bank->fwnode before registering each GPIO
-chip.
+Look up the parent node before allocating new_map, and release the
+parent node reference if the allocation fails.
 
-Fixes: f805e356313b ("pinctrl: nuvoton: Add ma35d1 pinctrl and GPIO driver")
-Closes: https://sashiko.dev/#/bug/linux-cbafd8f2-6541-4311-b97b-f7285d2e1992
+Fixes: 3fd976afe974 ("pinctrl: nuvoton: fix a double free in ma35_pinctrl_dt_node_to_map_func()")
+Closes: https://sashiko.dev/#/bug/linux-ae0c2737-0408-4808-9bae-f7389beb51d0
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 
-v1 => v2: No changes
+v1 => v2:
+ - Correct description of commit 3fd976afe974 in commit message
+   (Sashiko)
 
- drivers/pinctrl/nuvoton/pinctrl-ma35.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/pinctrl/nuvoton/pinctrl-ma35.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/pinctrl/nuvoton/pinctrl-ma35.c b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-index c9e09c14a101..a92945b7821f 100644
+index a92945b7821f..92c1c40339f1 100644
 --- a/drivers/pinctrl/nuvoton/pinctrl-ma35.c
 +++ b/drivers/pinctrl/nuvoton/pinctrl-ma35.c
-@@ -519,6 +519,7 @@ static int ma35_gpiolib_register(struct platform_device *pdev, struct ma35_pinct
- 		bank->irqinten = 0;
- 		bank->chip.label = bank->name;
- 		bank->chip.parent = &pdev->dev;
-+		bank->chip.fwnode = bank->fwnode;
- 		bank->chip.request = ma35_gpio_core_to_request;
- 		bank->chip.direction_input = ma35_gpio_core_direction_in;
- 		bank->chip.direction_output = ma35_gpio_core_direction_out;
+@@ -202,17 +202,19 @@ static int ma35_pinctrl_dt_node_to_map_func(struct pinctrl_dev *pctldev,
+ 		return -EINVAL;
+ 	}
+ 
++	parent = of_get_parent(np);
++	if (!parent)
++		return -EINVAL;
++
+ 	map_num += grp->grp.npins;
+ 	new_map = kzalloc_objs(*new_map, map_num);
+-	if (!new_map)
++	if (!new_map) {
++		of_node_put(parent);
+ 		return -ENOMEM;
++	}
+ 
+ 	*map = new_map;
+ 	*num_maps = map_num;
+-	/* create mux map */
+-	parent = of_get_parent(np);
+-	if (!parent)
+-		return -EINVAL;
+ 
+ 	setting = grp->data;
+ 
 -- 
 2.56.1.750.gf70dc682cf-goog
 
