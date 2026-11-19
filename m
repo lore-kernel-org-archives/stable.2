@@ -1,60 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102344;
-	b=Tn1o+RB2Jf/Gaf+Bs1evd4BPv2QYt7tLlULL05niFtdP3tkL5GymV8RSqj999m4NdZoc
-	 FVggg9JvmNsQkNjqFPUsz/5IxdG0qaFUdshVNH8hy55TlhgjxVvEVx2mg9rGEk3KCG0fK
-	 XA6gFnJSDdneAq+MYTHAOkFEtl6JkyhKwANudz5n9cEZcfIra0P7KcuXSQuD2nlVk8Pfz
-	 BxUKDtLqYytz/dGn2wnJRn5F/gV6jRAAaWAw8iFx53smZYX0XLFqz9ET8k1RJVlXobcwi
-	 H4vZrwGT8Cxl69ZoTFq8jfIPhXA7LIXPKcbi7qLU+fjNiRO2xp2TAeHRkygLDleusRw==
+	t=1795102352;
+	b=y5wz+vzzWPRDhYXyocfNxZC8GLboSvyMQc7ECKPGAHhQdy1XGzN3v/8Dhd7Il7e7b1G6
+	 YrDsGyxCZV2mmCFxb2RwK1w/8Gg9uYX3rU2TcMiSrb3I83RG3tkglCLEQh+f3eUpxWjMq
+	 Qwgc9/Xq4qAX3JKR+cOFO3nL1/BaVo0Z7Nvexy4EbNCjy9t4l6geanzT3Teo+MruAR0nM
+	 TadWSFi3bUFWwb0jmy5GNnuH2Q+xJP8Ny8hsvs+zoZFupmQ2kFyXLFBYBNjQrGYnp6GlE
+	 uIc+KYDOtBvoPUQ7v6wzrDIBEFFU7i8bdamk65xL+D38Z1YEdgTIWTH/dhdNrpus5pQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102344;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102352;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=0dZXDVmpIj4s6SbDHEBP5PTHYwtd3ILCgixyaG+S4j8=;
-	b=Ae0tm7dESGDFpcep6VooIqwyEgm8teh6KaxjQUe4AbF8ayaul7c2G4hbZS101dSuk6wj
-	 OkUl2f8GGPzhj2VvxQE49Oy9658sbkdRwN26mT56WqAlNd0Aq0/MMu9g+sYSBLbJzaZoJ
-	 pCQuwnklWXHH7sjgIPy8Hs8hqqvrQ3c+53tM2W+PYOvRKv9YEfOW9YjzPCOgdaZWSJ+jJ
-	 1/vBkm/9zo66bvuENzeTuIgOJqIsalL2TukgV0ie6GoMehacmK8Bipo1ijC+a3KL+DJD4
-	 GeN5yJhMfchZDlwJeWM1AHUBDPBZXpOQs6ibl8oiD3yuyBAlhDF+cNH1T0QlQTA9TPg==
+	bh=D8f1UahNUjgzMsm8znFE5WLj649JFdIGcxM6MQpNpD4=;
+	b=49VpKk2hdS2ND/atMy5S/Rt/XUWnwL1I0Oa7tDq501o22maJBYXxpw2FAxLvTtZcivcu
+	 efi/id7d6Uc+DU4Jh8IW9r3n/ufO2oPtzzv+8HmhDjASLSGCSAtMKCOWrpcCKZ5E481ru
+	 vv5hKo0104jO+hMGVNDW+dLB0LESDooXVExTRD3Tzjk9j2UAbFEiBttW5nV4wqyuxiPnZ
+	 oROvLaoGg5WYOnsYMFayjagQS9kd9TPAGboNnYCMA0bYcRjIUUqArfhuIGntCL3Q4Dl+0
+	 JG/skhcsITUq6wjod/Fkw0oXUIJvhqXjTP604q8YT7znnUQr2+mRDGmOcrz57k/UQbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NrsjcNwc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSHRraet;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6411D60A5BE3;
-	Thu, 19 Nov 2026 15:32:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A5560A380B;
+	Thu, 19 Nov 2026 15:32:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NrsjcNwc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05DA91F000C6;
-	Thu, 19 Nov 2026 15:32:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSHRraet
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 690581F000C6;
+	Thu, 19 Nov 2026 15:32:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795102344;
-	bh=0dZXDVmpIj4s6SbDHEBP5PTHYwtd3ILCgixyaG+S4j8=;
+	s=k20260515; t=1795102351;
+	bh=D8f1UahNUjgzMsm8znFE5WLj649JFdIGcxM6MQpNpD4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NrsjcNwcoHipyWiUCWB5wQ4wkFiAfcoX3fRD6zowF8QDjnKKOUMvAucTciEeE3QEr
-	 WJHvdlASUVVKkC7R00W9QKxr8f+fvn1ss4U/+y8jX9FTiJsjkvB2wdv9IHsCHgze3/
-	 u9NWKBG3Z2+X25NoNuKeqoDZwV0cFG/2vYTuw9gxXQ83rJDY7mT07iIUhTB2HgjnYY
-	 IfzGzHSuQCBxbo9hoUNIlR3CFkOTLilnRqyaIVbo9zhivE4GzMvRglDRhHQkMMMHQy
-	 gKqM9xBRz7nJTf6++XNgKVTPrb0ZR+O1vvoaDMY5ITe6F+igxzRI3oOGpT5OvNCH9C
-	 PaOrv1rYyfgqw==
+	b=BSHRraettQJFilRi/O+p2hhBy2E8UGAg3xN6SR5ZTBFoZJUw4gbvb2Cj4N8fztkfB
+	 G5eqFErOREBSDVBzOjDkSQ+z5B/exnZLMjuPVJuE2O5BPBnJVbvbo4TjZiCeFkMdR2
+	 qW9d+oJ+mB3aQVEScK4J7vaoRCGiRD+NxDcDA2KK0KbcM6kLVybYwvRUhurWv1xnEU
+	 QsTFjrwQnwzrUekmr2aJV2oUWuV0OKGwiq5+jWE3goJ8/DCpq7A5OrzpSfVyylcnB2
+	 jvKRGKA163gJxFStcCi6ccL7RHHQyeVX6tIHxmtKspw4o8/RHagVSFae8kqe3RbrlD
+	 /KrDBhfOwBcAw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Lucas Stankus <lucas.p.stankus@gmail.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
 	Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
 	Andy Shevchenko <andy@kernel.org>,
-	Alexandru Ardelean <ardeleanalex@gmail.com>,
-	linux@analog.com,
-	linux-iio@vger.kernel.org
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	linux-iio@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 03/10] iio: accel: adxl313: Reject sub-base ODR codes in adxl313_read_raw()
-Date: Thu, 19 Nov 2026 15:30:36 +0000
-Message-ID: <20261119153151.1397003-4-lee@kernel.org>
+Subject: [PATCH 04/10] iio: adc: stm32-adc: Validate channel index before writing chan_name
+Date: Thu, 19 Nov 2026 15:30:37 +0000
+Message-ID: <20261119153151.1397003-5-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
 In-Reply-To: <20261119153151.1397003-1-lee@kernel.org>
 References: <20261119153151.1397003-1-lee@kernel.org>
@@ -69,43 +71,62 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When reading IIO_CHAN_INFO_SAMP_FREQ, adxl313_read_raw() extracts the
-4-bit rate field (0..15) from ADXL313_REG_BW_RATE and subtracts
-ADXL313_RATE_BASE (6) to index adxl313_odr_freqs[].
+stm32_adc_generic_chan_init() reads the child node's reg property into a
+signed int and, when the optional label property is present, writes into
+adc->chan_name[val] and calls stm32_adc_populate_int_ch() before
+checking whether val exceeds adc_info->max_channels.  Because val is
+signed, values with the top bit set also become negative and bypass the
+upper-bound check altogether.
 
-ADXL312 and ADXL314 support sub-6.25 Hz rate codes 0..5 and do not
-perform a soft reset during setup, and debugfs register writes or a
-faulty bus read can likewise yield codes below ADXL313_RATE_BASE.  When
-that happens, subtracting ADXL313_RATE_BASE produces a negative index
-and reads before the start of adxl313_odr_freqs[].
+Store val as a u32, matching fwnode_property_read_u32(), and move the
+max_channels bounds check immediately after reading reg.
 
-Return -EINVAL if the rate field is below ADXL313_RATE_BASE.
-
-Fixes: 636d44633039 ("iio: accel: Add driver support for ADXL313")
-Closes: https://sashiko.dev/#/bug/linux-d6086ee0-d732-43b6-b8ac-24e5bf86a9f8
+Fixes: 95bc818404b2 ("iio: adc: stm32-adc: add support of generic channels binding")
+Closes: https://sashiko.dev/#/bug/linux-efd2944a-ec30-488d-b2ac-1c7feb831095
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/iio/accel/adxl313_core.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ drivers/iio/adc/stm32-adc.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/iio/accel/adxl313_core.c b/drivers/iio/accel/adxl313_core.c
-index 72ef8652d398..811218953c2a 100644
---- a/drivers/iio/accel/adxl313_core.c
-+++ b/drivers/iio/accel/adxl313_core.c
-@@ -647,7 +647,11 @@ static int adxl313_read_raw(struct iio_dev *indio_dev,
- 		if (ret)
- 			return ret;
+diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
+index ab99116aea0a..42f1fc64250a 100644
+--- a/drivers/iio/adc/stm32-adc.c
++++ b/drivers/iio/adc/stm32-adc.c
+@@ -2745,9 +2745,9 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
+ 	const struct stm32_adc_info *adc_info = adc->cfg->adc_info;
+ 	struct device *dev = &indio_dev->dev;
+ 	const char *name;
+-	int val, scan_index = 0, ret;
++	int scan_index = 0, ret;
+ 	bool differential;
+-	u32 vin[2];
++	u32 val, vin[2];
  
--		ret = FIELD_GET(ADXL313_RATE_MSK, regval) - ADXL313_RATE_BASE;
-+		regval = FIELD_GET(ADXL313_RATE_MSK, regval);
-+		if (regval < ADXL313_RATE_BASE)
-+			return -EINVAL;
+ 	device_for_each_child_node_scoped(dev, child) {
+ 		ret = fwnode_property_read_u32(child, "reg", &val);
+@@ -2755,6 +2755,10 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
+ 			return dev_err_probe(dev, ret,
+ 					     "Missing channel index\n");
+ 
++		if (val >= adc_info->max_channels)
++			return dev_err_probe(dev, -EINVAL,
++					     "Invalid channel %u\n", val);
 +
-+		ret = regval - ADXL313_RATE_BASE;
- 		*val = adxl313_odr_freqs[ret][0];
- 		*val2 = adxl313_odr_freqs[ret][1];
- 		return IIO_VAL_INT_PLUS_MICRO;
+ 		ret = fwnode_property_read_string(child, "label", &name);
+ 		/* label is optional */
+ 		if (!ret) {
+@@ -2773,10 +2777,6 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
+ 			return dev_err_probe(dev, ret, "Invalid label\n");
+ 		}
+ 
+-		if (val >= adc_info->max_channels)
+-			return dev_err_probe(dev, -EINVAL,
+-					     "Invalid channel %d\n", val);
+-
+ 		differential = false;
+ 		ret = fwnode_property_read_u32_array(child, "diff-channels", vin, 2);
+ 		/* diff-channels is optional */
 -- 
 2.56.1.708.g77570a6a1d-goog
 
