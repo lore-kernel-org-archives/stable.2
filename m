@@ -1,79 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795107003;
-	b=KH5PxwXQTfuHl3QEJp5By9WoSgVRXELNuoQXLbGIm9ztaLX+7USB0cc9gVOVY0Fv0/E2
-	 1aCU/7C+ltiGHeQlaVdRgp9a9Bm045itSDSHi56r8Koe5DAEFBFIYh14uYG1fNcADlsGc
-	 q+HQfZSvuo04Yywt1zXPi/gZhM/xkqfpuxTfJUGW887CYi/0G8kfjk/8D80HC1AOoh4ue
-	 VdckelcmKWsm7CqV1HuPxPN6DUdHdPBRncnWSpP9FJkvMpKswSIeZql87Lqdqg6a9/NkR
-	 i7UxwiOlSlP2yBRUuRd1huv5hzyhc+N7wUq3xQZk07XxSHfbex8XyaE8tVOT+ZlpmUA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795107003;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=t7ZlhucEC/u0UAB1aTqRNEmwSPkcPE43eUSStCiHFrs=;
-	b=3dM+JF2ZmV9lB1IlouZRf0CEiMKFT4FLHtBMp3DNWk0uzgxmffdjMTp7a0pOzLxMbcJW
-	 omCNwi6HRl8vG7EQGsOKK0ugLr1XI+ArzW7fpoVzdQErj8AjRn7AFQ/NlVjsahq5/GA/q
-	 HUzckO7w5dqX4vvW3AW/LVeszmZeAEXlv02cLrXkf60pQQGb1sdb6arHxBhU3rAR2sXy+
-	 YaHduRPHjEHF+DRjaCgSueC3rbTdon1P7sdJMrbu1E0mGt0vtDqLZGhhsohhGGos4ukDu
-	 f+WnMAJ5pr3JIWvG1mSddnYisHweYN7q9vx4+84ZCujwtFQHZrU8Lz23afz0CGZUbIw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNjdYSJy;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795107023;
+	b=4/ZlRtpaft7BD43MkEyrU8FaGgOGmknFCYOKD0yJjL3I8UmYSQffxD4POK0DSWp3XSx4
+	 QVgtX8T9WiX5T5n7bvgPfqNQKGUcDWcyherpeelMhlPeY1KBOvSqrJnDeYMOUDCCLt1zS
+	 koW5wBwmIuW3qHXc6e6uD5Bk4JLjV58vC70nEzvdrxNva72DG0aC4EWmnmJ8Mb+QfOPGQ
+	 H9/9jR4B481PqEjTRc66Q+KwCRX7q5H4yyR5BaYGBHFWAPHs1WrNBK8UMRnGZp6QRXPb7
+	 khkUm1yZPyRPw3804JprOKD5isjHqGE/C63QUrDhWm9vK62W5HdmuSRAv+PSwCvbXjQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795107023;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=hUa6qtyR+bKsAjDIc2Frk2r+gPhHATaP3VnRqdLJXZc=;
+	b=CKvYpFkpds9M6sMmEXgK3Hc72bBm3EpAPRdbM1XBFw/wwQAcd0koDwU8GXwbUlRtI9kJ
+	 QxehI+2w5gDw9OYcYnR7D/rrpjvVEM/2JUDBCA/MCPx5/e2AmFYSELJScBF5Vnj8Bwaxu
+	 pDJX3p7n9WRhH1bVoY1G4LJyvhXjFRM9n3vlNyR9fLwrERBbFgakpP7vgb/ciOWrQPzNH
+	 Nqtc7r6qoxJ22oHGgNrjRNtVP/6XatHFpSESRs1caHIHtLG/3a0u0zPy+BZm4pQc4Np1I
+	 4Nsq2pSbuYUY5il8Sr1xuKcvP6hfUh9BovnYEb+E2e7lIsrd0daoYBrn+CQ1pMCk1yg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iVHon8/h";
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F3A606A333;
-	Thu, 19 Nov 2026 16:50:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46C6060A2601;
+	Thu, 19 Nov 2026 16:50:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNjdYSJy
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795107003;
-	b=q1MN0i1PVYyL8JvN1aztRlH4RWk7jJuqztjfmdDb1UKoMJ95Dwzf7ZbpEoiUGj2soBaY
-	 EUwhqhdSsu1uGF+ZRM43VGROU1RrNqhsaGUgQ2svNvJjKRSxB2HESToeET1BaudcDdBgI
-	 qzCGfpd4zC/Ja0QnFO/lbSSqxV90D48KBQAG6CCevnzXC2fMwvPcLMhq8Ku1H3kTN78TZ
-	 Sz679EalPVqXLp2WlplDzI8/1maCGeGxtGqoOuweahiX3gYWcn6lnPVWsUv0puGBVUsZ5
-	 2k0aLPZKQQcZsjpkfvHM5lwrUE2pWCa1ivGUf8p1hWjDpDFioIo2+stDPg0PTWpqtFw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795107003;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=t7ZlhucEC/u0UAB1aTqRNEmwSPkcPE43eUSStCiHFrs=;
-	b=bnNy5eDsvw8lM4/J90PDiESX1IP1jfr3r+kf0gp+vuIdXKDFEY+Fp2ONnKGa2Ff6yikq
-	 WCUkXgNjA7AkYJCrqRN3b/1s0wOnh71ydJkPPioUtEHiRSWkIzfyRPBSz3i54rUVdnh52
-	 8Gd6ViiOlWOuIqHpfOBAeUAN9N3nDi7ozkot1q0Hra6ztgBrZpo9UXZLPz4ElIENfqtjB
-	 bMywJfVoIi4YVR1lwKZZld5et1LyS5AM8Ob8oSdudpxzP0tGD4SATy79WdyG74aRrp1zq
-	 1rgA/TNwwLAUhG24d7hVk6YAVygIQc+cQS30Ctoid0RMZpqJkOpSodN95wAYTCaiPtg==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 248791F000CC;
-	Thu, 19 Nov 2026 16:50:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iVHon8/h
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EEF31F000C5;
+	Thu, 19 Nov 2026 16:50:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795107003;
-	bh=t7ZlhucEC/u0UAB1aTqRNEmwSPkcPE43eUSStCiHFrs=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=QNjdYSJyO3j31eCA6WuQj9uLfDNvn5ooup+8cXstEogM4y9ruI09/rNPj3K+g/xO5
-	 em9bQ6y8omWbVJz8QZXPKzO+xP6CwNxRHF5Y4N72sitDqXS2x9t/pzXY4aKypVoDf/
-	 2GZyCTqVQ4YjBwHyFATh43ADLGZpw8ZazhKkCl36Hlt7nXuODBEdC82uzsPTEop4og
-	 WwXA8JP1Lr3JMT7ih7sDf+O03gauzbc59267E2AacvfJqI8zRwyfhE311tdMPklQK+
-	 Pj0GUNeWXuZ073kgwXvWoIa6IX3c2uHCR7F+VRH7EwdjxLp7nYPogopYq02lj06p3S
-	 cj2hhTvIL5xrw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A5ED44B348;
-	Thu, 19 Nov 2026 16:50:01 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 19 Nov 2026 16:50:01 +0000
-Subject: [PATCH] regmap: mmio: Don't attach the clock if clk_prepare()
- fails
+	s=k20260515; t=1795107023;
+	bh=hUa6qtyR+bKsAjDIc2Frk2r+gPhHATaP3VnRqdLJXZc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iVHon8/hQ0lCib8xtzWqtEYQnvShVsVRaKPJyMC9Zr4szBXFQjfBUp9xP5GPRKHpc
+	 lyCd4M7E36MoVUsr8CdhJhxF5tFWNwrbmb2MuRbvVSvlt5GZJ3NMI4PAQROQgp3FbH
+	 sktGMeK84iyJujHGF5T1+z8ToYq21E4T4XBPTyooDO05KegTTTwTZbFnf0ANu2zWf2
+	 250FOM4RzwP3e7C9kflNE3XKIicGLM2FpDzX7VOgtmqbfa0Jno6RmOwEXrXUMkqx3w
+	 Yb+V52OQGzyQTXA8cHiYAwA7YaWBY1GjRgSiC9HWTrT6XDkHyHCcxramFJR5g74bAA
+	 AJ4YfEaHkLNPQ==
+Date: Thu, 19 Nov 2026 16:50:16 +0000
+From: Simon Horman <horms@kernel.org>
+To: Haiyang Zhang <haiyangz@linux.microsoft.com>
+Cc: linux-hyperv@vger.kernel.org, netdev@vger.kernel.org,
+	Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Wei Hu <weh@microsoft.com>,
+	Konstantin Taranov <kotaranov@microsoft.com>,
+	Long Li <longli@microsoft.com>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Aditya Garg <gargaditya@linux.microsoft.com>,
+	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
+	Manish Awasthi <mawasthi@linux.microsoft.com>,
+	Breno Leitao <leitao@debian.org>, linux-kernel@vger.kernel.org,
+	linux-rdma@vger.kernel.org, paulros@microsoft.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net] net: mana: Set 1 usec / 1 comp as default and
+ minimum interrupt moderation
+Message-ID: <20261119165016.GA860048@horms.kernel.org>
+References: <20261113204427.1922848-1-haiyangz@linux.microsoft.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,89 +72,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-regmap-mmio-attach-clk-v1-1-91291802ac53@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDvQGNqiV5EuxmSio0YliVIQ7
- 97YLt/i/wMiB+EIdXFA4F2iLHOGuhVgepo7RrHZUN7Lp1KqwsCdpxW9lwUpJTI9mmlEVz3Ivpz
- VmjTkeA3s5PMbN++/49YObNJ1g/P8AhNfZa16AAAA
-X-Change-ID: 20261119-regmap-mmio-attach-clk-f95ad7fd33a3
-To: Mark Brown <broonie@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
- Johan Hovold <johan@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
- linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
- stable@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795107001; l=1957;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=i99wsC+7/XSg8MNOgqgqgUZ46RlYbMj6RkR/Vf2Of1c=;
- b=9jiDl8QoEqCknvUZMfHJ+ua9PFRbCuLKzsSUKI6x99WZcMsI0+i45tMlgFNggee5UeHYEJgsp
- 6iRbXf9hNrcBfAAPty5w9VsnUBkl6THsynckgmxjhPdAbA0acQ3h+t1
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261113204427.1922848-1-haiyangz@linux.microsoft.com>
 
-From: Arun Iyengar <aiyengar1990@gmail.com>
+On Fri, Nov 13, 2026 at 12:44:04PM -0800, Haiyang Zhang wrote:
+> From: Haiyang Zhang <haiyangz@microsoft.com>
+> 
+> The existing code sets interrupt moderation defaults to 0 usec and 0
+> completions, which may cause CQ starvation of our NIC HW, and TX time
+> out error like:
+> mana 7870:00:00.0 ens1: NETDEV WATCHDOG: CPU: 14: transmit queue 4 timed out 63434 ms
+> 
+> To fix, change the default and minimal rx/tx usecs and frames to 1.
+> When the HW supports interrupt moderation, reject ethtool rx/tx usecs
+> and frames below 1.
+> Also clamp the values written by mana_gd_ring_dim() to [1, max], so
+> no caller, including the DIM work, programs a zero value.
+> On the HW without interrupt moderation support, do not request CQ
+> moderation, the usecs and frames stay at 0, and cannot be modified by
+> ethtool.
+> The PF capability is queried again when the device resumes from a
+> reset or suspend, so re-initialize these settings before re-attaching
+> the vPorts.
+> 
+> Advertise this change to the PF with the new driver capability flag
+> GDMA_DRV_CAP_FLAG_1_SET_MIN_INTR_MOD_VALUE.
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 433f482add31 ("net: mana: Add Interrupt Moderation support")
+> Signed-off-by: Haiyang Zhang <haiyangz@microsoft.com>
+> ---
+>  .../net/ethernet/microsoft/mana/gdma_main.c   |  5 ++
+>  drivers/net/ethernet/microsoft/mana/mana_en.c | 76 +++++++++++++------
+>  .../ethernet/microsoft/mana/mana_ethtool.c    | 26 +++++--
+>  include/net/mana/gdma.h                       |  6 +-
+>  include/net/mana/mana.h                       |  9 ++-
+>  5 files changed, 88 insertions(+), 34 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/microsoft/mana/gdma_main.c b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> index ab942d5bfe05..10be69e97ceb 100644
+> --- a/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> +++ b/drivers/net/ethernet/microsoft/mana/gdma_main.c
+> @@ -646,6 +646,11 @@ void mana_gd_ring_dim(struct gdma_queue *cq, u32 mod_usec, bool mod_usec_vld,
+>  	struct gdma_context *gc = cq->gdma_dev->gdma_context;
+>  	u32 dim_val;
+>  
+> +	mod_usec = clamp_t(u32, mod_usec, MANA_INTR_MODR_USEC_MIN,
+> +			   MANA_INTR_MODR_USEC_MAX);
+> +	mod_comps = clamp_t(u32, mod_comps, MANA_INTR_MODR_COMP_MIN,
+> +			    MANA_INTR_MODR_COMP_MAX);
 
-regmap_mmio_attach_clk() stores the clock before preparing it. If
-clk_prepare() fails, regmap_exit() later unprepares a clock that was
-never prepared, and the caller may already have put it.
+mod_comps is u32 and MANA_* are positive constants.
+I believe that clamp() is sufficient here. And if so it's preferred.
 
-Only attach the clock once it is prepared.
+That notwithstanding, this looks good to me.
 
-Fixes: 31895662f9ba ("regmap: mmio: Add function to attach a clock")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/179493691305.3136.16311404541139130213@kernel.org
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
----
-Found while fixing the error path of of_syscon_register(); that mfd patch
-is sent separately and neither depends on the other.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Tested on an Orange Pi 5 (RK3588S), 7.3 with KASAN, together with the mfd
-patch: with a forced clk_prepare() failure in of_syscon_register(), a
-use-after-free in clk_unprepare() is reported without the two patches and
-nothing with both. This patch was not run on its own.
-
-Developed with Claude (Anthropic), which wrote the code and the commit
-message. I reviewed every change.
----
- drivers/base/regmap/regmap-mmio.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/base/regmap/regmap-mmio.c b/drivers/base/regmap/regmap-mmio.c
-index 1de2278fa572..6adbc950877c 100644
---- a/drivers/base/regmap/regmap-mmio.c
-+++ b/drivers/base/regmap/regmap-mmio.c
-@@ -590,11 +590,16 @@ EXPORT_SYMBOL_GPL(__devm_regmap_init_mmio_clk);
- int regmap_mmio_attach_clk(struct regmap *map, struct clk *clk)
- {
- 	struct regmap_mmio_context *ctx = map->bus_context;
-+	int ret;
-+
-+	ret = clk_prepare(clk);
-+	if (ret)
-+		return ret;
- 
- 	ctx->clk = clk;
- 	ctx->attached_clk = true;
- 
--	return clk_prepare(ctx->clk);
-+	return 0;
- }
- EXPORT_SYMBOL_GPL(regmap_mmio_attach_clk);
- 
-
----
-base-commit: 50b3d8bb527b11384153c4ca854c8610f4a55649
-change-id: 20261119-regmap-mmio-attach-clk-f95ad7fd33a3
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
-
+...
