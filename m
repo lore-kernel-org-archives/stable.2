@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795048685;
-	b=B5padTwwUAyhFWjvsVPPndwmS2I8TWN3Idv6k3SJQxmrUg3ISLFie8+IIeWJj0HF3R3+
-	 zMJ05gN7FbAp+n+11l7zIB1+2wx57LQD6YfcvovSSedM7BJ3xJ6eYbd19M2zVbi0Vrz/C
-	 B79P0fyVnZOWTnj+Zr3m1xzPUlWzKjpTkXT9qXKQPRDZAKYUVY8upH1BH2S2Jk+V7bwOB
-	 tpyalRrpU+PMSkLPfhbnt9XxtT6OLrSgCsHsdhFazAQOPtCLOzYj9bOiJTaQJEwTAQ9ev
-	 dcr/214NvlH4EjXxEsggF2IFoiTCEY9iS6bjhXivBgjlPX0fI7bY+z2YTdpshqlR+Bw==
+	t=1795048686;
+	b=5KlAUl6klxrAK4b9eM3z5ZrNx8kObU387lBARmeJ3c1p0laO/8DP6IgILv9cVCFo/UZJ
+	 fzuhWVum9yxAM9/bvImqk01XI/4jNIXZbV+o+65Sd16MvtUdfO0BP1hUdsshDy47MsYQP
+	 G8YMu7ArR4RT1LrJBlLX+yh61H2++20y7S12kEQJhRJGJHo7FtJrRPt/iXgUlbPtNrIgL
+	 agGNkmz7xE+h92fVSVq5v9bqRYcS/rOUshRWHmR4tFf5cHJupzhhkNKZQ+LoiRXxxdXJs
+	 Rl7AOle+aUobrF8a86f9jIGOhc36/WvXWgniHQZ4+/ZGlLRYHWwEaio+mREJbE3jO9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795048685;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dnvAos0m1tBPDhKcyQ3Z03v8+QW9E1VLcJYgraERi8w=;
-	b=1dVijg1aZWKBIFkKysxxc1/5YfcfklUdkNHjEfR82NAtuPbJdINnrfdzdxE3TyUWnGf6
-	 JZQIo+E6mdiX+7D5vtbrVPb9jRkkfgtJAJQ11mj6Xb2fn6qFEx2mZMjGKooXncs4W+ewO
-	 t5sdWL4+ImUDl+kzQBp4wKVzeNl8o1FJUpA5rvdk69U+vv8/jjB8T8aDDDm5DI2PWW3Eh
-	 rG9DwuhqRwUma7LiJqlz0xBrLZKCREoxkB/K/bil2YoOkzO58qcf+kAXQi/5+uevI8uSu
-	 4lC+JSy21eu3Hd5OdAi0s0URrK1zHqpXQzg3rNy1w6CBeFptVEIfvhyJIkk+NATj+QA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795048686;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=PtNQN5iYY+jY31+2PAsZJiMk/VcCexNZzkbg/hmJWTs=;
+	b=bn1ZUPrBpHAyav3VCTkxmj81EL+W8bGxwyk/ANUg+lugrQunVC9Emk5HBeAkyE/loF0K
+	 cQmy+E8enFEAupV2ytMoUF4ccwb+Rczw+75gV2PWoXvWWh4WXmOxkVhhYAuj37lQHqGbC
+	 GjNOwIXwm+GdNQn5WYKSFr7ZcZO9lkTTKIUdyEZt33n5LpM9b6U69Yomh6aEXO17VkqTy
+	 /jPnF8imprnglJ48X9GV1OHEoyVa22lJgZyVb6VKFQAmtOHvIu32zZajmpB4MZFtEfUpU
+	 OAk+NmqK10fV5FerSJTWJTyGSPZPR7KM3R3zTar9ZDXmudndIKCQxwR/lE5yG1CbEXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KvGpxudf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JJWSzLfr;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DABD9606A31C;
-	Thu, 19 Nov 2026 00:38:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA0A606A32A
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:38:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=KvGpxudf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CF181F000C4;
-	Thu, 19 Nov 2026 00:38:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795048685;
-	bh=dnvAos0m1tBPDhKcyQ3Z03v8+QW9E1VLcJYgraERi8w=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KvGpxudfIkok18Kuxc/Jvj6Ai/8LzyATCQYaEoGRtZJmUHxSeD7+NTTq0abgaeQ1l
-	 J2Cz8mvS/72QzRgo+XR/CkKfb3zZscQWRXukAXJz+SAq/4Aj7CR10gC1oiRmMSqRqi
-	 5hY0YevGlXuuial0JyQeCmS/Dkf/nDKxZSdbLigQ=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Yishai Hadas <yishaih@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 2084/2857] RDMA/hns: Pin CQ buffer writable to match device DMA write access
-Date: Wed, 18 Nov 2026 15:51:58 +0100
-Message-ID: <20261118150316.444895159@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
-References: <20261118150201.293410965@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JJWSzLfr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35AF51F000C9
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:38:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795048686;
+	bh=PtNQN5iYY+jY31+2PAsZJiMk/VcCexNZzkbg/hmJWTs=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JJWSzLfrLWZLBh+bEY0S4ycyK9l/DjHDUguV84PKMcPNyaeevfvpGwjeP5NMi9c71
+	 iO1zRMc4UNpYSZkasBAbCngTGqNTi6rJFXgWvtRq2s8zFweQezKoGi+adSu3FXCJ6O
+	 Jz2zEwZ5MpvW8GBWHGmgpbcp4rFbHt5FGxPTYixIUfmHWnFt1Au65Knobt94LrSEPq
+	 OBpFWYzlhRjvHuF0u8FwPAw53oZZ7YBYF9tAksGmXgb9jk+TO5LUqz1kmmCgQoezRx
+	 OtPAjoCfGE1+4hu1Qk1FjFpPlcPfQFYdasd9AECJnfzFloDA6WQMdZa2IRDCpktwWn
+	 yQv6f181rk53Q==
+Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c511c0e2826so135384966b.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:38:06 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFvJyGB5tDILZq3o9/jrulThLt8D7AHUid3zdX/Bc0UWAMAqxdpudlMKNKH5alhDiTDFQZmSHs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+W9sf77MsqFgAI3tSv5lnEEIhzvURTVmP3cXpKPsoUG2dabmi3
+	01Qztfj3csCmt9QYoJrmpmkHDGu+mnFH3yULx82mIN2IG1sp0CXQUWWBD4mmNTp3gpyWQynJKPY
+	k9aM6uVAZZPtLfKIH8ubtm8IW833CHr8=
+X-Received: by 2002:a17:907:2d0a:b0:c42:4750:8d49 with SMTP id
+ a640c23a62f3a-c510e19f1d9mr421000666b.25.1795048684847; Wed, 18 Nov 2026
+ 16:38:04 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,43 +59,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261118173454.76416-1-icb@fastmail.org>
+In-Reply-To: <20261118173454.76416-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 19 Nov 2026 09:37:52 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-KFizCjxU=qm65Aw+3NYoMWGHZhuaJ_7G5w_+4jFp5MA@mail.gmail.com>
+X-Gm-Features: AclHuK8obTmEl6pbQBPLiW6u_HRdn8tgal2Bb23iPchjtvXRpFt8tnpt1hRJ6bo
+Message-ID: <CAKYAXd-KFizCjxU=qm65Aw+3NYoMWGHZhuaJ_7G5w_+4jFp5MA@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: allocate the security descriptor reply at its
+ padded size
+To: Ian Bridges <icb@fastmail.org>
+Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
+	manizada@pm.me, linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
-
-------------------
-
-From: Yishai Hadas <yishaih@nvidia.com>
-
-[ Upstream commit ce29f6e741844a78ad1977f2a550ede27ecf95f8 ]
-
-alloc_cq_buf() leaves user_access zero-initialized, but the device
-writes CQEs into the CQ buffer. Set IB_ACCESS_LOCAL_WRITE so the buffer
-is pinned writable, matching the device's write access.
-
-Fixes: 744b7bdfa79e ("RDMA/hns: Support 0 hop addressing for CQE buffer")
-Signed-off-by: Yishai Hadas <yishaih@nvidia.com>
-Link: https://patch.msgid.link/20260915140933.40580-3-yishaih@nvidia.com
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/infiniband/hw/hns/hns_roce_cq.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/infiniband/hw/hns/hns_roce_cq.c b/drivers/infiniband/hw/hns/hns_roce_cq.c
-index c72bbf21f1aeb..7d79273b39cd5 100644
---- a/drivers/infiniband/hw/hns/hns_roce_cq.c
-+++ b/drivers/infiniband/hw/hns/hns_roce_cq.c
-@@ -206,6 +206,7 @@ static int alloc_cq_buf(struct hns_roce_dev *hr_dev, struct hns_roce_cq *hr_cq,
- 	buf_attr.region[0].size = hr_cq->cq_depth * hr_cq->cqe_size;
- 	buf_attr.region[0].hopnum = hr_dev->caps.cqe_hop_num;
- 	buf_attr.region_count = 1;
-+	buf_attr.user_access = IB_ACCESS_LOCAL_WRITE;
- 
- 	ret = hns_roce_mtr_create(hr_dev, &hr_cq->mtr, &buf_attr,
- 				  hr_dev->caps.cqe_ba_pg_sz + PAGE_SHIFT,
--- 
-2.53.0
-
-
-
+On Thu, Nov 19, 2026 at 2:35=E2=80=AFAM Ian Bridges <icb@fastmail.org> wrot=
+e:
+>
+> smb2_get_info_sec() allocates the security descriptor reply with the
+> size that smb_acl_sec_desc_scratch_len() estimates. A compound response
+> pads the reply to 8 bytes inside that buffer, so after build_sec_desc()
+> the query fails with -EFBIG when the padded length does not fit. The
+> estimate is not padded, so a descriptor that fits the estimate can
+> still fail. A query with AdditionalInformation 0 always fails with
+> -EFBIG. Its reply is the 20-byte header, the estimate is 20 bytes, and
+> the padded length is 24. The client gets an error instead of the
+> header.
+>
+> Round the allocation up to 8 bytes, as READ does for its data buffer.
+>
+> Fixes: fda9522ed6af ("ksmbd: fix OOB write in QUERY_INFO for compound req=
+uests")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ian Bridges <icb@fastmail.org>
+Applied it to #ksmbd-for-next.
+Thanks!
