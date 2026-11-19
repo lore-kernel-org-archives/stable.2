@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102352;
-	b=y5wz+vzzWPRDhYXyocfNxZC8GLboSvyMQc7ECKPGAHhQdy1XGzN3v/8Dhd7Il7e7b1G6
-	 YrDsGyxCZV2mmCFxb2RwK1w/8Gg9uYX3rU2TcMiSrb3I83RG3tkglCLEQh+f3eUpxWjMq
-	 Qwgc9/Xq4qAX3JKR+cOFO3nL1/BaVo0Z7Nvexy4EbNCjy9t4l6geanzT3Teo+MruAR0nM
-	 TadWSFi3bUFWwb0jmy5GNnuH2Q+xJP8Ny8hsvs+zoZFupmQ2kFyXLFBYBNjQrGYnp6GlE
-	 uIc+KYDOtBvoPUQ7v6wzrDIBEFFU7i8bdamk65xL+D38Z1YEdgTIWTH/dhdNrpus5pQ==
+	t=1795102359;
+	b=eTxAK/DnwH2IJKmkJ/ZkJ6kAcIl8kG5g6bIpK7Kzo+df0X4DGpZnBYZLHqky8cQbGBZY
+	 oqozEUSU2dULIkjXorreJiWVLxat0WM6NCuv90mSB4FOy2y7R3wyAQn52f3LAzwZoJgYn
+	 aKCFFwV7jr9T0b2eSjkBI3rrB9Gfn0XovdTst9VZu5D5Py6AyolWl1EgatrkUKABlUi0r
+	 ATmFs9ksU62J8931hSHjIQp+2hHNxMKeCkW4Kuc0aJCHLDjVRQ8d8JF3jZV7RnUf42bk8
+	 gpHddEJObeSTcjfo2cjf8ylwZ7IlPR3+2ECQMcJCkZ+vBndvP0TaaYZ8iYDmmtWZuyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102352;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102359;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=D8f1UahNUjgzMsm8znFE5WLj649JFdIGcxM6MQpNpD4=;
-	b=49VpKk2hdS2ND/atMy5S/Rt/XUWnwL1I0Oa7tDq501o22maJBYXxpw2FAxLvTtZcivcu
-	 efi/id7d6Uc+DU4Jh8IW9r3n/ufO2oPtzzv+8HmhDjASLSGCSAtMKCOWrpcCKZ5E481ru
-	 vv5hKo0104jO+hMGVNDW+dLB0LESDooXVExTRD3Tzjk9j2UAbFEiBttW5nV4wqyuxiPnZ
-	 oROvLaoGg5WYOnsYMFayjagQS9kd9TPAGboNnYCMA0bYcRjIUUqArfhuIGntCL3Q4Dl+0
-	 JG/skhcsITUq6wjod/Fkw0oXUIJvhqXjTP604q8YT7znnUQr2+mRDGmOcrz57k/UQbQ==
+	bh=BsLuHizLc3GlxB5hI1TsZDP3spN/v/I/xr4RF7IafvM=;
+	b=aDUSyRYB2f9mPb+z6oxBFWbke+46ST6qG80QztY8P/ynJfwIpDE7OId+DXhmfjBZTYt1
+	 FEGOGY0uLIJB+9XHNMnJrooeBRsCdbLrQra5RrfQkojeGC4UX72Bq0a5rJO196NvMOft8
+	 oFAmDlRuZs9epMYkUxMVSygWExB8pvMY9j3DvAaj2IX5F63hlmNnD2ehxSoxbEISEFoZa
+	 a4G92Q5VuMRDIMf2+oCGFYcGbTE5IAxgbbMSp+nwLas+66TEAmg7K9DklGbDhnDKmD2Ow
+	 6HP+j1Y4Hw4wdy9sHz2IUX/BVSxnM3UStyi0rAxdDUH74uosWU1ipd/LpNchjOEPLYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSHRraet;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hy6qf2nV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A5560A380B;
-	Thu, 19 Nov 2026 15:32:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBF560A2604;
+	Thu, 19 Nov 2026 15:32:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BSHRraet
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 690581F000C6;
-	Thu, 19 Nov 2026 15:32:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hy6qf2nV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 310641F000C7;
+	Thu, 19 Nov 2026 15:32:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795102351;
-	bh=D8f1UahNUjgzMsm8znFE5WLj649JFdIGcxM6MQpNpD4=;
+	s=k20260515; t=1795102359;
+	bh=BsLuHizLc3GlxB5hI1TsZDP3spN/v/I/xr4RF7IafvM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BSHRraettQJFilRi/O+p2hhBy2E8UGAg3xN6SR5ZTBFoZJUw4gbvb2Cj4N8fztkfB
-	 G5eqFErOREBSDVBzOjDkSQ+z5B/exnZLMjuPVJuE2O5BPBnJVbvbo4TjZiCeFkMdR2
-	 qW9d+oJ+mB3aQVEScK4J7vaoRCGiRD+NxDcDA2KK0KbcM6kLVybYwvRUhurWv1xnEU
-	 QsTFjrwQnwzrUekmr2aJV2oUWuV0OKGwiq5+jWE3goJ8/DCpq7A5OrzpSfVyylcnB2
-	 jvKRGKA163gJxFStcCi6ccL7RHHQyeVX6tIHxmtKspw4o8/RHagVSFae8kqe3RbrlD
-	 /KrDBhfOwBcAw==
+	b=hy6qf2nV6wPs9dnIIEAqyqg2colUxWUMNsgrywbi91vwTXifk/S9u9mxmvSwqDRve
+	 eOdQm4XwpMtSoXk8udNOhqslvXaLjHPLhjH/OVAEvspa7bU24n440OjUqsx1Wll4yU
+	 4bSjXgngyUzutntbJqeSqcRjvpTeYiHZEzZ5AzScTGY06CXl1Z/0eGwCZS8TZzuUNC
+	 ep6UbnRf1ZwDpaE5ZiL7IHbO67VNz/tXuIgjgTLq+DXde0NoiINVGjqUbBQUmmpeCV
+	 efNBIeYZ2n+yat7QbR4V9FUuo+Cc3QtVcmkuvyhIlTtikjRv9NTAK6Mn5jTbYeDiPd
+	 kbGJZIu02RjWg==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Jonathan Cameron <jic23@kernel.org>,
@@ -48,15 +48,14 @@ To: lee@kernel.org,
 	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
 	Alexandre Torgue <alexandre.torgue@foss.st.com>,
 	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
 	linux-iio@vger.kernel.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-arm-kernel@lists.infradead.org
 Cc: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 04/10] iio: adc: stm32-adc: Validate channel index before writing chan_name
-Date: Thu, 19 Nov 2026 15:30:37 +0000
-Message-ID: <20261119153151.1397003-5-lee@kernel.org>
+Subject: [PATCH 05/10] iio: adc: stm32-adc: Detach chained IRQ handler before removing domain
+Date: Thu, 19 Nov 2026 15:30:38 +0000
+Message-ID: <20261119153151.1397003-6-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
 In-Reply-To: <20261119153151.1397003-1-lee@kernel.org>
 References: <20261119153151.1397003-1-lee@kernel.org>
@@ -71,62 +70,46 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-stm32_adc_generic_chan_init() reads the child node's reg property into a
-signed int and, when the optional label property is present, writes into
-adc->chan_name[val] and calls stm32_adc_populate_int_ch() before
-checking whether val exceeds adc_info->max_channels.  Because val is
-signed, values with the top bit set also become negative and bypass the
-upper-bound check altogether.
+stm32_adc_irq_remove() disposes of the child IRQ mappings and removes
+priv->domain before clearing the parent chained IRQ handlers.  Because
+the parent hardware interrupt lines remain unmasked while child devices
+use dummy_irq_chip, an interrupt arriving during teardown invokes
+stm32_adc_irq_handler() after irq_domain_remove() has freed
+priv->domain, and irq_set_chained_handler() also leaves handler_data
+dangling.
 
-Store val as a u32, matching fwnode_property_read_u32(), and move the
-max_channels bounds check immediately after reading reg.
+Detach the chained handlers and clear handler_data with
+irq_set_chained_handler_and_data() before tearing down the mappings and
+removing the domain.
 
-Fixes: 95bc818404b2 ("iio: adc: stm32-adc: add support of generic channels binding")
-Closes: https://sashiko.dev/#/bug/linux-efd2944a-ec30-488d-b2ac-1c7feb831095
+Fixes: 1add69880240 ("iio: adc: Add support for STM32 ADC core")
+Closes: https://sashiko.dev/#/bug/linux-27c38690-bc20-43aa-a3fc-1ddd6f1bb74e
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/iio/adc/stm32-adc.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
+ drivers/iio/adc/stm32-adc-core.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index ab99116aea0a..42f1fc64250a 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -2745,9 +2745,9 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
- 	const struct stm32_adc_info *adc_info = adc->cfg->adc_info;
- 	struct device *dev = &indio_dev->dev;
- 	const char *name;
--	int val, scan_index = 0, ret;
-+	int scan_index = 0, ret;
- 	bool differential;
--	u32 vin[2];
-+	u32 val, vin[2];
+diff --git a/drivers/iio/adc/stm32-adc-core.c b/drivers/iio/adc/stm32-adc-core.c
+index 4b532db3db62..13b75475046c 100644
+--- a/drivers/iio/adc/stm32-adc-core.c
++++ b/drivers/iio/adc/stm32-adc-core.c
+@@ -467,12 +467,12 @@ static void stm32_adc_irq_remove(struct platform_device *pdev,
+ 	int hwirq;
+ 	unsigned int i;
  
- 	device_for_each_child_node_scoped(dev, child) {
- 		ret = fwnode_property_read_u32(child, "reg", &val);
-@@ -2755,6 +2755,10 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
- 			return dev_err_probe(dev, ret,
- 					     "Missing channel index\n");
- 
-+		if (val >= adc_info->max_channels)
-+			return dev_err_probe(dev, -EINVAL,
-+					     "Invalid channel %u\n", val);
++	for (i = 0; i < priv->nb_irqs; i++)
++		irq_set_chained_handler_and_data(priv->irq[i], NULL, NULL);
 +
- 		ret = fwnode_property_read_string(child, "label", &name);
- 		/* label is optional */
- 		if (!ret) {
-@@ -2773,10 +2777,6 @@ static int stm32_adc_generic_chan_init(struct iio_dev *indio_dev,
- 			return dev_err_probe(dev, ret, "Invalid label\n");
- 		}
- 
--		if (val >= adc_info->max_channels)
--			return dev_err_probe(dev, -EINVAL,
--					     "Invalid channel %d\n", val);
+ 	for (hwirq = 0; hwirq < priv->nb_adc_max; hwirq++)
+ 		irq_dispose_mapping(irq_find_mapping(priv->domain, hwirq));
+ 	irq_domain_remove(priv->domain);
 -
- 		differential = false;
- 		ret = fwnode_property_read_u32_array(child, "diff-channels", vin, 2);
- 		/* diff-channels is optional */
+-	for (i = 0; i < priv->nb_irqs; i++)
+-		irq_set_chained_handler(priv->irq[i], NULL);
+ }
+ 
+ static int stm32_adc_core_switches_supply_en(struct stm32_adc_priv *priv,
 -- 
 2.56.1.708.g77570a6a1d-goog
 
