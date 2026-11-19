@@ -1,55 +1,143 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.104.111.126
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795109128;
-	b=RBbVEtt9xXypHqcP02Clz3v3HVN4jSSA6ebhAv5FEDvMug22jciTM1B1CJ3+pa+lSLMN
-	 wX10AlUMsl1ORZ9SnVcQOgKw0iTEnDB4Bncd3AYmwKWiQ6yj2+E9M6mfnWgfIfVulQAxd
-	 eLsh8SBpH9oCrkqgAD5foljjoHDxyIdErLAODgNRlP4QmBzoqaIs5FeytAQ9WVZ1uVnqX
-	 AjWrv5Pp0tpUjdQNKeEsJi80v1ocqtSblLEX7c45DgtV7x+3zpjPEVkyxVmy3MzNnh8RG
-	 GzQb1+5dtwfSrrFAWqGWDoecsrjfku5FgGJNndU42o7qf8blj+8aNVVc76pUbr+HUzg==
+	t=1795109416;
+	b=12DhQH8gX62VbwR570PRWtojNFq/EDHhsoefpNjNcM8ZqIOgsQ25m9Nt3yIDMufV1lBg
+	 TeE6SbZvAfBIfAkpYg49OniXaJ+OXMPVCvT43TD5TULWDroxW9uj/rzkF6SVK7uRpc5nq
+	 jyJ6lyJ64O8xdwJ/ehWmyWr1T6lm6lwIJZt68fB3uN5q2RdVgHE3dslf6t/zQGtMTB4P0
+	 RzPzxTXu33pin1/jP5U9y9X7XArbrUyY9G7CLLoymK4re0E0R8Gr5S/ysQBtsCZECBGKp
+	 v8eYNy73KAKzOojz6rM+lJQQBK+Zok8gqn2EZoJIs1D2PTtn0Czc3InqvRYZuIGOr9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795109128;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=3NoSJfl1tqPHZMrjtjOr+avKcj2bGSnTS+mj2gEXY4g=;
-	b=5ly9MI3NVctIa5mYQ9Filktx/GF1gbnTnNimq2iS02cLiD6Ev1jtKE7kIsjkDIk18Y1S
-	 DbIsAo0+30jiZX0TGjrAbG9GdL0qjCPqaMpReM+7Fmal0bu81tpeRP4138GKD9F4mIKrL
-	 P5FMo0dX93K8feRByfoMnG7LEA/CJ4rmwB4rPpNB7iz74hHC0pYcYExeiokIAxVq7XdYU
-	 7FRcRHXlQp0UIwIlEi/PsDNNG0kq4eH0/BbDIUrcKM5fPk5VR6y1yC3LeTf/K6GBXmANT
-	 q/fpR0VbsiG1826U05tRYs+uUjdR5sQQtVB3xvDo5M/L/e2aTInNzBMRdiCLo0Hp66Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795109416;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:msip_labels:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:MIME-Version:
+	 X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Mimecast-Spam-Score:X-Mimecast-MFC-PROC-ID:X-Mimecast-Originator:
+	 Content-Language:Content-Type:Content-Transfer-Encoding;
+	bh=y7cjZzv1IlDLrfgzr3NrNfR2FLKP9U+YpXy2c9bC5sI=;
+	b=igyLrp5YjGVVzcJKEdzi2WnWZxHVOWiLMqYaGbEK8SeMa/M0P97P2yRzYieih/oIJAmZ
+	 nVVODxYlYrUgpbzzexoSemPscv497J5khiqZ9RTz1uT0KJyvRgND0Pz8TBeU9XIprFQce
+	 oreLKurnI1pwk3NiWfH7MJiFDUssFyvToSfJRwUxJNp+XGcsRQN2Bkf/rSm7EmXwP/NON
+	 fvXYSvVTvs/2JPlfDqXNFVTpoAQsBrMT63n7kvHGz2ve6oas4ZgfyoXdWMzwvv+gxtaJd
+	 NO+6GnO0zKZmXeKC65meUkz3jg+0FjgXGR8HDTKhzROtzZ5vRPZpgWAZpKMbVQNFHxA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9sxPLmp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=francetv.fr;
+	spf=pass smtp.mailfrom=francetv.fr;
+	dkim=pass header.d=francetv.fr header.i=@francetv.fr header.a=rsa-sha256 header.s=mc20251209 header.b=W1XBgqp1;
+	arc=none smtp.remote-ip=194.104.111.126
+Received: from de-smtp-delivery-126.mimecast.com (de-smtp-delivery-126.mimecast.com [194.104.111.126])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22786606A325
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 17:25:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3B0606A338
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 17:30:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F3B0606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=francetv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=francetv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i9sxPLmp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B85111F000CA
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 17:25:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795109127;
-	bh=3NoSJfl1tqPHZMrjtjOr+avKcj2bGSnTS+mj2gEXY4g=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=i9sxPLmpU/uHzsHSeSBEmSkGOLpfHXZX5pm+/F0Kx4GRHKanFH21C+etGgFQ/qaSF
-	 E3vDHPY+j43vwEGvErHRK0xLbXC3C09HCHTBANWn89f7+C8CaZAOakxDBBbfsCL+Mw
-	 gjsNNVBAXu1Fl36G9RYd9oCK7G9KFiQevyZa1mmGTd9SpXpYgprwxgEFjPFoNYQU4j
-	 QSJpHEzraxL2f0bSUsO8vYvcsbY5ydkuZkQF8UiBs6ccsQ3rKDb5Ieoush2xEdPpPl
-	 xBTKMffUa1wJgum2i/zWn7mmQ31yu8UWzVue6W5wg/Y0/DSFbgRghF0U2Ab4q7CgLo
-	 i164QxuA/sKww==
-Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-7d2ca055399so798020137.3
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 09:25:27 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErFaZWseYrgDs/x7XQqtaQMwo7oQjTixilRpzdU0Fy7annKHVEflM0jr7b2Ku0un9DyI9gwbTGs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9sxsJS8V4m+lByr13Ln+2z6b2TuMMjujQJupmVCgxgIoIa0MYL
-	7PsqVdJHT93Ep9BCU8duOIJM37wDCzOpxcC88b2Sm/owxfKExd1iR19ehL4smpy610yEUvY8mZ4
-	LwKrtEX5PybNs/+LH0LW+AKYB4xaVkV0=
-X-Received: by 2002:a05:6102:f86:b0:7d6:5e38:3418 with SMTP id
- ada2fe7eead31-7d72b361662mr77131137.1.1795109126797; Thu, 19 Nov 2026
- 09:25:26 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=francetv.fr header.i=@francetv.fr header.a=rsa-sha256 header.s=mc20251209 header.b=W1XBgqp1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=francetv.fr; s=mc20251209;
+	t=1795109408;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=y7cjZzv1IlDLrfgzr3NrNfR2FLKP9U+YpXy2c9bC5sI=;
+	b=W1XBgqp1k35Uc9fj02z1U2gaukPpsulFDTBpXIbh7wD6Ra/AtzJaO1eFOSFgIKvHBgrDZJ
+	3SQapWX/5fNJUAx3k51O62a3AVqp8ihHGKEIba5r/X8VEzlvMkXtNuFjiKtYU+eHZY9s+G
+	s5YMYcSCDhpENyexQh3UJxl0vfajuaRPPoDOYavB7k38IEPZI8CZtNAv2BOryob/lO2dRJ
+	TR/GB8CxF4nGKSIl/7aQ57Ko9+VMVdHSSpvnA81D9cYe+2K+ScMGXoF7tRS2i2Rg2tKsV7
+	YBJhE97EbZX/kvlwPSMiPq9s5PTzpEvgGxU9KJW+ZMxds2ZwYp4SPlIynn08Ow==
+Received: from PA5P264CU001.outbound.protection.outlook.com
+ (mail-francecentralazon11010061.outbound.protection.outlook.com
+ [52.101.167.61]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ de-mta-40-nXv_n2i6Mty82DRMYAAcfQ-1; Thu, 19 Nov 2026 17:30:00 +0000
+X-MC-Unique: nXv_n2i6Mty82DRMYAAcfQ-1
+X-Mimecast-MFC-AGG-ID: nXv_n2i6Mty82DRMYAAcfQ_1795109400
+Received: from PR1P264MB1805.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:1b2::19)
+ by MR1P264MB3475.FRAP264.PROD.OUTLOOK.COM (2603:10a6:501:20::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Thu, 19 Nov
+ 2026 17:29:58 +0000
+Received: from PR1P264MB1805.FRAP264.PROD.OUTLOOK.COM
+ ([fe80::f6d2:e60e:fbde:58fe]) by PR1P264MB1805.FRAP264.PROD.OUTLOOK.COM
+ ([fe80::f6d2:e60e:fbde:58fe%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
+ 17:29:58 +0000
+From: =?iso-8859-1?Q?DESNO=CBS_Jordan?= <jordan.desnoes@francetv.fr>
+To: Sasha Levin <sashal@kernel.org>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+CC: Ilya Dryomov <idryomov@gmail.com>, Alex Markuze <amarkuze@redhat.com>,
+	Xiubo Li <xiubo.li@clyso.com>, Viacheslav Dubeyko <slava@dubeyko.com>,
+	"ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>
+Subject: Re: [PATCH 6.18.y 0/4] libceph: add CEPH_CRYPTO_AES256KRB5 support
+Thread-Topic: [PATCH 6.18.y 0/4] libceph: add CEPH_CRYPTO_AES256KRB5 support
+Thread-Index: AQHdeAQFdZHh8UJ140Gs2wrkimE5e7c1kFYAgAAVJ84=
+Date: Thu, 19 Nov 2026 17:29:58 +0000
+Message-ID: <PR1P264MB18059C3971471D3CD7E5F7DD88792@PR1P264MB1805.FRAP264.PROD.OUTLOOK.COM>
+References: <20261119-aes256k-6-18-y-v1-0-bd5db87da2f5@francetv.fr>
+ <2026-11-19-1-daily-reply-0014@kernel.org>
+In-Reply-To: <2026-11-19-1-daily-reply-0014@kernel.org>
+Accept-Language: fr-FR, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PR1P264MB1805:EE_|MR1P264MB3475:EE_
+x-ms-office365-filtering-correlation-id: ced8e9b4-818c-4fbb-0984-08df4662bc1f
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|376014|366016|1800799024|38070700021|10067099003|4143699003|56012099006|261022075727099003|261026121527099003|261021121427099003|261102123227099003|261009223027099003|18002099003|22082099003|6133799003
+x-microsoft-antispam-message-info: JsjnZ40YQJCrfZ8skealskAOtRKHlA5FK+Qn+i7XQPCxnFAGP0qf1JrtXfxXu5/XfXJ7GGETN/JbmQnx1xCBU3umEfTczHDvx7Tmj+ynkpuGexyr8ZUtwx/jCHIAYrAWtKIRj6MVwOcRLtmm5R4lJ+4MOUOSsvSPaQ4dAuqd6RWo9wAqvpWSNZmFHeKO6LIrZeomtKoJSJju7YMU9pshUIa0fYb0QNPoWrYSno3e0Uz7mij5f3tbzivtrXQ3RIsCfznzBTKjcP8nKl/cNk3puutarU8qldz87MMTd9WWWVWM9ij45ElyoDAv33gqwtvWH0XBaEtuf+9O0tK04gVyLYLixyJsSm8ZZRkUPw6lRwIrTHY8mUa0Igy6lV1NrM1kRi8YvLY369GPQVGWEjdh9Ldh3Gmm8iYM2/rbr93gQqiLeL2ADo1BwFJAGGwb3Hu3CpMFEy2aX7YYaLafSuMLCfNB6khaBSxXccMc1IeH2HAI4AtDFJkM15feyOZVJ73h4gJfLaueIZ2BOjeiC/l3StUKIMxBA8rx/FD/vnOVEhTpg0oWv7e0FgZb/72Qvl87VapyU1b/FQ8ZcSXqU8MQ+2nDlj4QuGOlk31/VCbSOpkpE4W7V5nqnZhCQlPxPLAzDRJg6STE2bLZ5INItdyr8fUYAidD8biJ3o9uok/JYfo=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PR1P264MB1805.FRAP264.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(366016)(1800799024)(38070700021)(10067099003)(4143699003)(56012099006)(261022075727099003)(261026121527099003)(261021121427099003)(261102123227099003)(261009223027099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?XPAd0Ve5XaDTrW7LZ+rfx7qZWL8SJZBGcFpD2TMBv9st+AzkGPKr1B5Nmy?=
+ =?iso-8859-1?Q?n0PFLYrXfEMtIdLBsSRSzosQxk4BUww8r80t87uPTY2K4aJsMfiX/phKUs?=
+ =?iso-8859-1?Q?jTMfBmTKECQnDciNZ5U8Il8/TMgWXOk7auQ+Q2F8xpjY2LP9CfezISTqp9?=
+ =?iso-8859-1?Q?PcrUDLzuNiXq9l+O3td/hGSsiilCq4YX6/pnTNwyDS/fkOoENLEX7/qEqL?=
+ =?iso-8859-1?Q?LqAKWfzTmxg2oSYqtHZq59sTlZfIKiOVhvFS5QTQY6trzT3qfzZFuSIIJ+?=
+ =?iso-8859-1?Q?YyQe7YUndRasyDLtcGso//oE3lUAZGZhHSgRm3WGoPN0A1rohJs/t1kEvk?=
+ =?iso-8859-1?Q?znXM4DA4v5MiewrG0FyKl4i4rgbo0ztP2OOJZHRslGYgrP//ayNK4soxwk?=
+ =?iso-8859-1?Q?KquugcGay5T/8M7o2dbaAMS/kzPJsuZYywMIpvyw4Wft1f4ew4eUMR6yVt?=
+ =?iso-8859-1?Q?KMbWVst/RnCvNyNqms5a2/Kjve0TQkwwJ8Al3wZK1YXy7cLOHizmE1Klzv?=
+ =?iso-8859-1?Q?r71PqEQwDezlLTybN7UirNM7LtBn8mIJTLJ5EwPku1z6U3Rw7JjNyawsZk?=
+ =?iso-8859-1?Q?G4d13amS6trjCdhjmdoSbc6pdysoDDR/N8MFcfxhgIUtYy2ARjguzZYtJD?=
+ =?iso-8859-1?Q?NhRAgtRWXDn84f85PklasWXZkdvxjP00s3k2FBtro5QGZr08aYHvTnO0Ba?=
+ =?iso-8859-1?Q?B2rIjPA9ahHPJeRwJJkYg5XLVlScKSLUCgfVhs9Vu/GfyQYHNUFJ5VrNJf?=
+ =?iso-8859-1?Q?YLjZH1jz4iTaZIOX5eusOFcgCdl2tYeCC1QUJ8fLU417Uz5aLHCzWMM2ua?=
+ =?iso-8859-1?Q?zyhrGAElrL2twy47PpQ+Pgb86V/IdNfcY/aPteU9BkqemtQQ4jkuuNWgq8?=
+ =?iso-8859-1?Q?uNiLYp3HG/swytNTBjpnov5RtlLsXM29uerjPt5OTMT7csVDiVVaCoBB01?=
+ =?iso-8859-1?Q?E4W7ftcTiDM7nhrLVbpNsld8IEYE5DGtNNkytOwgSn9VCO/pmsz5TTbJKK?=
+ =?iso-8859-1?Q?Q7xbirduXG6stcJNXgDet1q1G6equMX1La+PKi596cXFv4DIomgFed7tbx?=
+ =?iso-8859-1?Q?p475zDpL+PhofnvYRb6gB9B4KrLNZWp/vM++tBpAXvybpJgH+vzoyCyECU?=
+ =?iso-8859-1?Q?dzMGN8a37KLPmHU6cYntwERgcjBisyRhvaRxOQegYAOTYeyaxRPn8cKwL+?=
+ =?iso-8859-1?Q?cPY+3me/ID7LzXQUOu9NFim1mV4HgD9u0lSkN32eF35L3eqhkSLwyOqW1c?=
+ =?iso-8859-1?Q?d48J6K4QJ+J3PWg3dG3nsta4irGmhDbWkD0jzaFoq3c06tHD+3FpHcyNHC?=
+ =?iso-8859-1?Q?eXGMicjTML0IL9Usvk7F5dn6Sowz8eCo3/sLCunr96DtBEYziFXLqMtz3+?=
+ =?iso-8859-1?Q?ud/mjBgoXGKcdwZIgv/OCNU1ITbDXyCsVlgebeUQVr7Vvj+5eUU592ctgC?=
+ =?iso-8859-1?Q?GHxJ4/VVIa8KJBS0iKgL2gPKkx5GRbIzHKrpQblo7+VajW8u+Ta8cLM5PG?=
+ =?iso-8859-1?Q?kEzyVvfCW2vDgQ8EBCBSZ7xWZcQDTviYx4tTs4bSFUy04uq5Qd1RVLF/N7?=
+ =?iso-8859-1?Q?TQ7kqZ2lh3eKGK/GKn1r7Z49Tu/x+Kmi3ysrO35CKYwGnfDTFbgMVB3kV5?=
+ =?iso-8859-1?Q?fQ1u2hcqR6z5hVaQdwpCqmOF5UA8VPND20xQ7EwkpgvD5ck9b74Fqi9o+O?=
+ =?iso-8859-1?Q?SmvgQCNhR6EZ1uzWTSC8TXutpJtFra9vFi9t9hFlxmE5wpdZtXynpUBQme?=
+ =?iso-8859-1?Q?eEDBkeaIBRcjyieDVbnOSSu5fJkM7wWI6JM9260ADAFPnWzgtjt6d64EWf?=
+ =?iso-8859-1?Q?/nHcNjZTpw=3D=3D?=
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,424 +147,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117-my-btrfs-patch-v1-1-4b934a7ff69a@shangen.org>
-In-Reply-To: <20261117-my-btrfs-patch-v1-1-4b934a7ff69a@shangen.org>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Thu, 19 Nov 2026 17:24:50 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H6zzrx-oHoiXqMA6U=GoS8rZpWE7gjtZDkrA-87UycM-Q@mail.gmail.com>
-X-Gm-Features: Aa3M54qLUJH02-K1Z64C4KQNI1pPF-WbaI7fXt34O8XuDtnG3g3eFGBh7xxyv50
-Message-ID: <CAL3q7H6zzrx-oHoiXqMA6U=GoS8rZpWE7gjtZDkrA-87UycM-Q@mail.gmail.com>
-Subject: Re: [PATCH] btrfs: pin folios before dropping the last extent buffer reference
-To: Shang En Sim <sim@shangen.org>
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, Boris Burkov <boris@bur.io>, 
-	Daniel Vacek <neelx@suse.com>, Filipe Manana <fdmanana@suse.com>, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+X-Exchange-RoutingPolicyChecked: h+4bteAny4TDIFwLqC/RWXzCjDFh/Z3ncu+je03OQwKfFGO84xJSCace3OlRC7xrbJuNLcnSbO7zey82ijnW4PgY0T69mw2Vvk1XqwtorWQE6Lgtu6HS08XXjupv8C6/gfNZtsJOmCmnZL2hpbevlhmERb709exd1f4Y/L3eEMHSxLTAEuxGNMPPKxuEjINdB8G9PseiosoeUOiNR9lK/MnjPQ1V1X6W+SsdxObeGa/OxdAMp9V03yM5qRfH5KxnmMqimie9kg6tngE2C/uOY1+9Pmm7BpYVG2MDF/JWsDi3uNO9gbvyc5hu6R91cev99bIVfLrhRCGHXXx417q73g==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: 1auuWAjIyTNIbkcO8kyBqj79sXFYIz4OV9lRHpuLZ7wHg/gg/g2sm3fnDfsTJ2Xuy2L9/NLQGx4a3cRANcT5Xh9ohD8M2m5aT/e3geQxX3cQgdm+b2EeLy5zgpg6WCDkAia4RZ3YTuSl5ykTNE6/tKKazVNZQKUDuDggPRwIVAZ8X+h1H1Ry0yhKPLSlq3FPyOnW7l7rbJ7+dbVn+ISCYefRVHHXGomulnJIr73FeibDvegqqs8YCSmVnvSyfcWSRddJQqoDPR48Ky0C90l5Vu+wWKJALa8uHjfnecXV9QWBxVdhCrwsNUiP1Rt4iSlo4BzEz3q2ou20hOG1/df2iQiUTVOtmyF9/j6Xg2joF1WfXwmklLSsKuoCisNCQbwNBFA8gWbgd9ETVZRW4x6S4f1D86reBFrgxO341hd9qsUisbY1kfa2B975X+tKA32qc3VN8dFc0hkCYZAmk1Egu3kixlfMoNanONSHuvW7uji3NbmKCT3+A3V8fk5MPivT/88iISmPuKqq9OqwyFla9Vvq9bwEVPYZ6K+6OeTv8btcs1V2jt0qEirfA88xWhLxuVduCp6gR29vce42OAl7gPyFLTE/cHafx6hyQ3NfWqucUtg9VufUbOWJH68TMOC+
+X-OriginatorOrg: francetv.fr
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PR1P264MB1805.FRAP264.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: ced8e9b4-818c-4fbb-0984-08df4662bc1f
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Nov 2026 17:29:58.6612
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: aed0e243-afb5-4e96-af34-ea4e5df4979e
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: fyJgBpva+6tD/0iqNQzKigIFFzYteRXX5Ve9CkhevJU+45o8Tp0NL23wdyYIdqHUkiWv1Uk3uYsoUda0vfgj0Yup4V46tnWLV7Wl6rKVotQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MR1P264MB3475
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: Xvsp32-MtsbMloo7dg-H5SHfOSSlPj0WyfXZJIryz_s_1795109400
+X-Mimecast-Originator: francetv.fr
+Content-Language: fr-FR
+Content-Type: text/plain; charset=WINDOWS-1252
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Nov 18, 2026 at 12:20=E2=80=AFAM Shang En Sim <sim@shangen.org> wro=
-te:
->
-> release_extent_buffer() drops the last reference to a mapped extent
-> buffer (eb) before detaching its folios.
+On Thu, Nov 19, 2026 Sasha Levin wrote:=0A> Ugh, this really looks like a b=
+rand new feature... Is it not?=0A=0AIt is, but it's the client side of a se=
+curity fix: aes256k is Ceph's=0Aremediation for CVE-2025-30156 (CephX auth =
+bypass via the old "aes" key=0Atype) [1]. Completing the remediation means =
+disallowing "aes", which=0Abreaks kernel clients older than 7.0 [2]. CentOS=
+ Stream 9 and 10 already=0Acarry a backport, and Ilya is fine with this one=
+ [3].=0A=0A[1] https://docs.ceph.com/en/latest/security/CVE-2025-30156/=0A[=
+2] https://docs.ceph.com/en/latest/rados/configuration/auth-config-ref/#cep=
+hx-upgrade=0A[3] https://lore.kernel.org/stable/PR1P264MB1805408F7C4A11E6F4=
+D2F6BE887B2@PR1P264MB1805.FRAP264.PROD.OUTLOOK.COM/T/#u=0A=0AThanks,=0AJord=
+an=0A
 
-To mapped and unmapped extent buffers, so remove the "mapped" part.
-
-> The eb holds no reference to
-> the folios themselves.
->
-> Since commit 3649833a58b6 ("btrfs: fix broken drop_caches on extent
-> buffer folios"), the page cache owns the allocation reference. Once the
-> eb's reference count reaches zero, another eb can take over the folios.
-> They can then be evicted before the original eb detaches them:
->
->   task A                         task B                    task C
->   release_extent_buffer(eb)
->    refs: 1 -> 0
->    remove eb from buffer_tree
->                                  alloc_extent_buffer()
->                                   attach_eb_folio_to_filemap()
->                                    grab_extent_buffer()
->                                     refs is 0, take over
->                                     the folios
->                                  ... new eb released ...
-
-It's not "new eb released", it's the new folio that is released and we
-take the existing folio into the new eb.
-
->                                                            drop_caches
->                                                             folio->mappin=
-g
->                                                             =3D NULL
-
-And where does this happens?
-Please be detailed, add the call chain triggered by drop_caches that
-results in setting the folio's mapping to NULL.
-
-I don't see how that is happening, because when we end up in
-try_release_extent_buffer(), eb->refs is 0 and that
-makes us return immediately with 0:
-
-spin_lock(&eb->refs_lock);
-if (refcount_read(&eb->refs) !=3D 1 || extent_buffer_under_io(eb)) {
-        spin_unlock(&eb->refs_lock);
-        spin_unlock(&folio->mapping->i_private_lock);
-        return 0;
-}
-spin_unlock(&folio->mapping->i_private_lock);
-
-Thanks.
-
->    btrfs_release_extent_buffer_folios()
->     detach_extent_buffer_folio()
->      mapping =3D folio->mapping (NULL)
->      spin_lock(&mapping->i_private_lock)
->
-> The result is a NULL pointer dereference. With a delay added in the
-> window (not part of this patch), it reproduces as:
->
->   BUG: kernel NULL pointer dereference, address: 0000000000000074
->   RIP: 0010:_raw_spin_lock+0x18/0x30
->   Call Trace:
->    detach_extent_buffer_folio+0x68/0x140
->    release_extent_buffer+0xac/0x120
->    btrfs_release_path+0x17/0x80
->    btrfs_free_path+0x17/0x30
->    btrfs_getxattr+0xe2/0x110
->    ...
->
-> Compaction can also hit this window, since it calls
-> release_extent_buffer() through btree_migrate_folio() ->
-> btree_release_folio().
->
-> Even without the NULL mapping, the folio can already be freed and
-> reused when detach_extent_buffer_folio() looks at it.
->
-> This race requires nodesize >=3D PAGE_SIZE. With subpage metadata,
-> grab_extent_buffer() never takes over folios, and a shared folio keeps
-> folio->private set until every eb on it is detached, so
-> try_release_subpage_extent_buffer() does not release it while an eb is
-> in this window.
->
-> Fix this in two parts:
->
-> - In release_extent_buffer(), when refs is 1 and the eb is mapped, take
->   a reference on each folio before dropping the eb reference, and drop
->   those references after the folios are detached. This keeps the folios
->   alive across the window, as the eb's own folio reference did before
->   the commit above.
->   Checking refs =3D=3D 1 under refs_lock is enough: free_extent_buffer()
->   only decrements a mapped eb's refs without refs_lock while refs is
->   above 3, so no one else can drop it to 0 under us.
->
-> - In detach_extent_buffer_folio(), take i_private_lock from the btree
->   inode instead of from folio->mapping. A pinned folio can still be
->   removed from the page cache. All folios of a mapped eb belong to the
->   btree inode, so this is the same lock in every other case.
->
-> Fixes: 3649833a58b6 ("btrfs: fix broken drop_caches on extent buffer foli=
-os")
-> Cc: stable@vger.kernel.org # 6.16+
-> Signed-off-by: Shang En Sim <sim@shangen.org>
-> ---
-> I reproduced the oops with the test-only delay below.
->
-> Testing, on btrfs for-next 6f4bbde7e036, 8 vCPUs, 2 NUMA nodes, 120 s
-> per run of the reproducer below:
->
-> - delay only: oops in 3 of 4 runs (at 61 s, 83 s, 46 s), trace as in
->   the commit message
-> - delay + this patch: no oops in 3 runs
->
-> Subpage, arm64 with 64K pages, nodesize 16K, emulated in QEMU:
->
-> - delay only: no oops in 3 runs (expected: grab_extent_buffer() does
->   not take over folios for subpage)
-> - delay + this patch: no oops in 3 runs
->
-> Builds with W=3D1 with no new warnings in fs/btrfs/.
->
-> Test-only delay patch:
->
->   @@ -4037,6 +4038,10 @@ static int release_extent_buffer(struct extent_b=
-uffer *eb)
->                                GFP_ATOMIC);
->
->                 btrfs_leak_debug_del_eb(eb);
->   +             /* TEST ONLY: widen the window between last ref drop and =
-folio detach. */
->   +             if (!test_bit(EXTENT_BUFFER_UNMAPPED, &eb->bflags) &&
->   +                 ((eb->start >> 14) & 7) =3D=3D 0 && (jiffies & 3) =3D=
-=3D 0)
->   +                     mdelay(20);
->                 /* Should be safe to release folios at this point. */
->                 btrfs_release_extent_buffer_folios(eb);
->    #ifdef CONFIG_BTRFS_FS_RUN_SANITY_TESTS
->   (plus #include <linux/delay.h>)
->
-> Reproducer, run on a 128M loop btrfs with -n 16384, mounted -o commit=3D1=
-:
->
->   ./repro-xattr 120 /mnt
->
->   // SPDX-License-Identifier: GPL-2.0
->   /*
->    * btrfs: release_extent_buffer() vs. folio reuse and eviction.
->    *
->    *   task A                         task B                    task C
->    *   release_extent_buffer(eb)
->    *    refs -> 0, removed from tree
->    *                                  alloc_extent_buffer()
->    *                                   grab_extent_buffer()
->    *                                    takes over eb's folios
->    *                                  ... new eb released ...
->    *                                                            drop_cach=
-es
->    *                                                             folio->m=
-apping =3D NULL
->    *    detach_extent_buffer_folio()
->    *     spin_lock(&folio->mapping->i_private_lock)   <-- NULL deref
->    *
->    * I have only seen this program crash a kernel that has the TEST ONLY
->    * delay patch applied.
->    *
->    * Usage: repro-xattr <seconds> <btrfs mountpoint>
->    */
->   #define _GNU_SOURCE
->   #include <fcntl.h>
->   #include <pthread.h>
->   #include <sched.h>
->   #include <stdint.h>
->   #include <stdio.h>
->   #include <stdlib.h>
->   #include <string.h>
->   #include <sys/stat.h>
->   #include <sys/types.h>
->   #include <sys/xattr.h>
->   #include <unistd.h>
->
->   #define NFILES 64
->
->   static volatile int stop_flag;
->   static int fds[NFILES];
->   static int root_fd =3D -1;
->
->   static void pin_cpu(int cpu)
->   {
->         cpu_set_t set;
->
->         CPU_ZERO(&set);
->         CPU_SET(cpu % 8, &set);
->         sched_setaffinity(0, sizeof(set), &set);
->   }
->
->   /* Readers take and drop references on the leaves that hold the xattrs.=
- */
->   static void *xattr_reader(void *arg)
->   {
->         char buf[256];
->
->         pin_cpu((int)(intptr_t)arg);
->         while (!stop_flag) {
->                 for (int i =3D 0; i < NFILES && !stop_flag; i++) {
->                         fgetxattr(fds[i], "user.a", buf, sizeof(buf));
->                         fgetxattr(fds[i], "user.miss", buf, sizeof(buf));
->                 }
->         }
->         return NULL;
->   }
->
->   /* Writers COW the leaves and commit, so old leaves become clean and st=
-ale. */
->   static void *xattr_cow_writer(void *arg)
->   {
->         char val[128];
->         int tick =3D 0;
->
->         pin_cpu((int)(intptr_t)arg);
->         memset(val, 'X', sizeof(val));
->         while (!stop_flag) {
->                 val[0] =3D (char)('A' + (tick & 15));
->                 fsetxattr(fds[tick & (NFILES - 1)], "user.b", val, sizeof=
-(val), 0);
->                 if ((tick & 7) =3D=3D 0)
->                         syncfs(root_fd);
->                 tick++;
->         }
->         return NULL;
->   }
->
->   /* Evict clean btree folios from the page cache and migrate the rest. *=
-/
->   static void *evict_and_compact(void *arg)
->   {
->         int cfd =3D open("/proc/sys/vm/compact_memory", O_WRONLY);
->         int dfd =3D open("/proc/sys/vm/drop_caches", O_WRONLY);
->         int iter =3D 0;
->
->         pin_cpu((int)(intptr_t)arg);
->         while (!stop_flag) {
->                 if ((iter & 1) =3D=3D 0 && dfd >=3D 0)
->                         (void)!write(dfd, "1\n", 2);
->                 if (cfd >=3D 0)
->                         (void)!write(cfd, "1\n", 2);
->                 iter++;
->         }
->         return NULL;
->   }
->
->   int main(int argc, char **argv)
->   {
->         int duration =3D (argc > 1) ? atoi(argv[1]) : 60;
->         const char *mnt =3D (argc > 2) ? argv[2] : "/mnt";
->         char init_val[180];
->         pthread_t tids[10];
->         int nt =3D 0;
->
->         root_fd =3D open(mnt, O_RDONLY | O_DIRECTORY);
->         if (root_fd < 0) {
->                 perror("open mountpoint");
->                 return 2;
->         }
->         memset(init_val, 'Z', sizeof(init_val));
->         for (int i =3D 0; i < NFILES; i++) {
->                 char path[256];
->
->                 snprintf(path, sizeof(path), "%s/file_%03d", mnt, i);
->                 fds[i] =3D open(path, O_CREAT | O_RDWR | O_TRUNC, 0644);
->                 if (fds[i] < 0) {
->                         perror("open file");
->                         return 2;
->                 }
->                 fsetxattr(fds[i], "user.a", init_val, sizeof(init_val), 0=
-);
->                 fsetxattr(fds[i], "user.b", init_val, 128, 0);
->         }
->         syncfs(root_fd);
->
->         for (int i =3D 0; i < 4; i++)
->                 pthread_create(&tids[nt++], NULL, xattr_reader, (void *)(=
-intptr_t)i);
->         for (int i =3D 0; i < 2; i++)
->                 pthread_create(&tids[nt++], NULL, xattr_cow_writer, (void=
- *)(intptr_t)(4 + i));
->         for (int i =3D 0; i < 4; i++)
->                 pthread_create(&tids[nt++], NULL, evict_and_compact, (voi=
-d *)(intptr_t)(4 + i));
->
-> printf("[repro-xattr] %d threads on %d files for %ds\n", nt, NFILES, dura=
-tion);
->         fflush(stdout);
->         for (int s =3D 0; s < duration; s++) {
->                 sleep(1);
->                 if ((s + 1) % 10 =3D=3D 0) {
->                         printf("[repro-xattr] %d/%ds\n", s + 1, duration)=
-;
->                         fflush(stdout);
->                 }
->         }
->         stop_flag =3D 1;
->         for (int i =3D 0; i < nt; i++)
->                 pthread_join(tids[i], NULL);
->         printf("[repro-xattr] finished %ds, no panic\n", duration);
->         return 0;
->   }
-> ---
->  fs/btrfs/extent_io.c | 33 ++++++++++++++++++++++++++++++---
->  1 file changed, 30 insertions(+), 3 deletions(-)
->
-> diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
-> index b2739838c646..ce6880b1d64e 100644
-> --- a/fs/btrfs/extent_io.c
-> +++ b/fs/btrfs/extent_io.c
-> @@ -3155,15 +3155,18 @@ static bool folio_range_has_eb(struct folio *foli=
-o)
->  static void detach_extent_buffer_folio(const struct extent_buffer *eb, s=
-truct folio *folio)
->  {
->         struct btrfs_fs_info *fs_info =3D eb->fs_info;
-> -       struct address_space *mapping =3D folio->mapping;
-> +       struct address_space *mapping =3D NULL;
->         const bool mapped =3D !test_bit(EXTENT_BUFFER_UNMAPPED, &eb->bfla=
-gs);
->
->         /*
->          * For mapped eb, we're going to change the folio private, which =
-should
-> -        * be done under the i_private_lock.
-> +        * be done under the i_private_lock. Do not use folio->mapping, t=
-he
-> +        * folio may have left the page cache, see release_extent_buffer(=
-).
->          */
-> -       if (mapped)
-> +       if (mapped) {
-> +               mapping =3D fs_info->btree_inode->i_mapping;
->                 spin_lock(&mapping->i_private_lock);
-> +       }
->
->         if (!folio_test_private(folio)) {
->                 if (mapped)
-> @@ -4011,8 +4014,27 @@ static inline void btrfs_release_extent_buffer_rcu=
-(struct rcu_head *head)
->  static int release_extent_buffer(struct extent_buffer *eb)
->         __releases(&eb->refs_lock)
->  {
-> +       struct folio *pinned[INLINE_EXTENT_BUFFER_PAGES];
-> +       int nr_pinned =3D 0;
-> +
->         lockdep_assert_held(&eb->refs_lock);
->
-> +       /*
-> +        * Once refs drops to 0 our folios can be taken over and freed, s=
-o pin
-> +        * them until they are detached. refs only drops below 3 under
-> +        * refs_lock, so checking for 1 is enough. Keep the folios in a l=
-ocal
-> +        * array: if refs does not hit 0, another holder may free the eb.
-> +        */
-> +       if (refcount_read(&eb->refs) =3D=3D 1 &&
-> +           !test_bit(EXTENT_BUFFER_UNMAPPED, &eb->bflags)) {
-> +               for (int i =3D 0; i < INLINE_EXTENT_BUFFER_PAGES; i++) {
-> +                       if (!eb->folios[i])
-> +                               continue;
-> +                       folio_get(eb->folios[i]);
-> +                       pinned[nr_pinned++] =3D eb->folios[i];
-> +               }
-> +       }
-> +
->         if (refcount_dec_and_test(&eb->refs)) {
->                 struct btrfs_fs_info *fs_info =3D eb->fs_info;
->
-> @@ -4039,6 +4061,8 @@ static int release_extent_buffer(struct extent_buff=
-er *eb)
->                 btrfs_leak_debug_del_eb(eb);
->                 /* Should be safe to release folios at this point. */
->                 btrfs_release_extent_buffer_folios(eb);
-> +               for (int i =3D 0; i < nr_pinned; i++)
-> +                       folio_put(pinned[i]);
->  #ifdef CONFIG_BTRFS_FS_RUN_SANITY_TESTS
->                 if (unlikely(test_bit(EXTENT_BUFFER_UNMAPPED, &eb->bflags=
-))) {
->                         kmem_cache_free(extent_buffer_cache, eb);
-> @@ -4050,6 +4074,9 @@ static int release_extent_buffer(struct extent_buff=
-er *eb)
->         }
->         spin_unlock(&eb->refs_lock);
->
-> +       for (int i =3D 0; i < nr_pinned; i++)
-> +               folio_put(pinned[i]);
-> +
->         return 0;
->  }
->
->
-> ---
-> base-commit: 6f4bbde7e0364b3676d7644af2d4be386f512b0e
-> change-id: 20261117-my-btrfs-patch-984742ed64b0
->
-> Best regards,
-> --
-> Shang En Sim <sim@shangen.org>
->
->
