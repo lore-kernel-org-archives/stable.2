@@ -1,60 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795105303;
-	b=S5wLNPIQRC+ENefop1ftRcxj0Etcar8Ri35pDsy1n8OLEWdct7ha3x2wLQCBPu9SllbX
-	 eXQVyLqxusJtEJZB5WSqTCiGqrHL9dj1qAy5+C3m1AYgxfhKdyJrdDrXlsv1RCpQeS7IS
-	 tMbDTqPlazVSyjscnzZmG32n+PR7FZx3N8+mpmX687rTtUfjk4EbU7GImvyHvOFD7EWx0
-	 r2cCdlkVpEpxsQjowOxcJJ7knWuD/RBe/cn6SDYY27vLc6JrMFDYJ772cmY+1zL32akge
-	 xqN6US+Nfra6rQR7EXhNY4yIxctyrtNaAHsg0rvZyptTC97RcPlc3X5kmgmH2BFDB1Q==
+	b=Ml4O8kQozrEa3FYElcuEhCT/EixKDY5mfO9nEv7WslklfkfsWtPleZFcHrSJAMCHPKmK
+	 FeSmg+H7dnEemMTGLnsSFouApl6Ku6SNLmv/vMYTnth0VV3hmS1Xw4xssketdclpT+Esj
+	 ktlVwlpf1stXwRnsoMSSI1prrvR90BFSUYR0DCsi2uzFT5biqXQDRi/uNdZYKsA98f1ZA
+	 RQ0htPJbeuRYkpOTq3rNYkQBGw+bVA1+ToIiRphCu/ILBSkM5NaEe3HUKGU0PyN5Zt9Wy
+	 JDWYs4y6l5NNXIxPc/ohI7Y8bR1bA2ZNDwF+FgN8ElDNdIh2hbe+stOqOlPy8FR9cdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795105303;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=schCkJgVSGiRxCPk76qh6qIbje+oX3udn8Gxxhdusb0=;
-	b=G+wAfCqPN0PZdOjoF+8YvYRWYeLtZ/6pyVjPgKPanDbGbBtDsWpTpMnByciGOFTuILvc
-	 oqA/Cw5JM1odSUVcp7CNl7r1Abb9XlK4YELFUtQFYiDjXCa/5VZzbo9UdtFeihVYWEPiw
-	 KSNfrw9eWjDfS1JTQSTVBeJubXHAW3TGgn1QrjX3fTowz+SPw3xuTsylxlqIKIuL/IXLh
-	 BRpRcYU3fRGnr3cKkl3CFysJ60KtNgXdlZtwFlYIOnt6HZ7bkyKavYpcwYYj1hj0CPPK2
-	 wJrxxwo0jaV7SJFORykp8HeZscgYx0r0jKDq9HNI1yGYRzr6Op6M1Dw+jQkx0yavZow==
+	bh=J+xqGM/XTVoLXbet9Pqsqr3DEOW4nOHD7WQm9LFTgGg=;
+	b=TAbQ7Fwt6DJV/TQbEABtVzy++YbyZnTQJb7Vfnb9bH0wWm6a7paX0gl06VKyWd/r7z4o
+	 W95WoiDGlqndT4V4UYHH1k0ZxBs8AXng3wA1aZ5wOVguN/GaudZ/NHwNK2R5GKT8DMvrh
+	 Mjc3zeFMbnbsT8FGPGTdsmXJ6/W0u7KpTjjvth2ADT6ZDyFCs9Z20/Z6+yxmmV6vexUt6
+	 3mBaXj+iOXF+GSMPhWbMXxvJuPNVqALW1dil8W3Vu8oXZgU7OA0Af+9P97LUf/m/cOuxe
+	 XoY86EILrjTFFqSx+iZKsIREyprdaEIWlnjfGPyRjAHkuHzbTJFjr4+JmOSnQR0gR1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=KHZZyckS;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=WZDIu15N;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FB2360A2606;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BA060A2628;
 	Thu, 19 Nov 2026 16:21:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2FB2360A2606
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0BA060A2628
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=KHZZyckS
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=WZDIu15N
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795105300;
-	bh=schCkJgVSGiRxCPk76qh6qIbje+oX3udn8Gxxhdusb0=;
+	s=smtpout1; t=1795105301;
+	bh=J+xqGM/XTVoLXbet9Pqsqr3DEOW4nOHD7WQm9LFTgGg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=KHZZyckSnaFCzdGqH7DqclUPwPz2W6b5oTXQbv7ehasr9pZzyyYTvBT8/KHA2rJHt
-	 aSxw9mQtVuChu75IbxftXXlYKwz136kM2KL96tJIxjdHAstDQGIM0XSpo+K5ZEXVdF
-	 nr9f2b3TEp4xUXvF2TJ2aOMF8+rSUT/N/BrJlbO3BFArga0mjML4VgdjE/YcuznZtu
-	 FoVD2+3zbFC5h2XsJldhoTk0ut3Vt1IgpInQEyO9Yry/prvF+WQgXcuer/Nh6vwlFC
-	 xgpTE9Mgco/loqtuDOUgteGjOPZaNKyVg8vJplGwlJBSE03CAqz80rzm8Csyf/Kfbt
-	 zNHJur0MaE50w==
+	b=WZDIu15N83G8mSAF6XASc8PhGXZlNkHw1SjeFhm+O5RZ9iXe2cLxMKWjE/qqBR9m7
+	 ro8C0LtRnQG92Al4nnHPUx9Ea6IyPZ8eMF3H4TGFjRtp6rQRvOH5zcDVs1iM4M0lF6
+	 5pA8J+rtsepVKmrGT4WNXlpvQZxa98gZ2rAuLnWRF3t/Ris2zBjMoQ8LvcWcG/Fq7Y
+	 2SEuF8Bof1uqp0hzapf1efSwOpQ4/g6qtMGYCNd6982HIL+V0ZSKkyE4P9SZM0Rk6+
+	 jfENqtPeE/DaDwlVxSRoIjGDWI+HhN3vDVBah4xk8GsSMQeohD4TegpN1x8oBEevBw
+	 /lu3rLRh3cQPA==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVkHm6FNrzSSq;
-	Thu, 19 Nov 2026 11:21:40 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVkHn3ky8zSSr;
+	Thu, 19 Nov 2026 11:21:41 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: 
 Cc: linux-kernel@vger.kernel.org,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
+	Andrea Parri <parri.andrea@gmail.com>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
 	stable@vger.kernel.org
-Subject: [PATCH v4 08/17] sched/deadline: Do not replenish a boost from cleared parameters
-Date: Thu, 19 Nov 2026 11:21:29 -0500
-Message-Id: <ae7a53ee206a422a9debf0cbbeb241c8b233d160.1795103339.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH v4 14/17] sched/deadline: Check SCHED_DEADLINE affinity under the rq lock
+Date: Thu, 19 Nov 2026 11:21:35 -0500
+Message-Id: <2051d70ce37924806b86b8883abe9a62ae6fae8d.1795103339.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1795103339.git.mathieu.desnoyers@efficios.com>
 References: <cover.1795103339.git.mathieu.desnoyers@efficios.com>
@@ -69,156 +70,138 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a SCHED_DEADLINE waiter boosts the owner of an rt_mutex, the owner
-runs on the waiter's parameters, through dl.pi_se. Commit 2d3d891d3344
-("sched/deadline: Add SCHED_DEADLINE inheritance logic") calls this a
-temporary solution. The owner is never throttled. When its runtime runs
-out, replenish_dl_entity() refills it at once from the waiter's
-dl_runtime.
+From: Andrea Parri <parri.andrea@gmail.com>
 
-The waiter can leave SCHED_DEADLINE before the chain walk deboosts the
-owner. Its parameters can be cleared in between, at its 0-lag time.
-replenish_dl_entity() then loops forever on a dl_runtime of 0. It
-holds the rq lock with interrupts off, so the owner's CPU locks up.
+A task can end up SCHED_DEADLINE with an affinity narrower than its root
+domain when sched_setaffinity() and sched_setattr() race on it. Both
+calls succeed, although each fails when made after the other:
+sched_setattr() with -EPERM, sched_setaffinity() with -EBUSY.
 
-O is a SCHED_OTHER task that holds the rt_mutex L. W is a SCHED_DEADLINE
-task. T is any other task:
+__sched_setaffinity() calls dl_task_check_affinity() before
+__set_cpus_allowed_ptr() takes task_rq_lock(), whereas
+__sched_setscheduler() runs its admission test and switches the policy
+under a single task_rq_lock(). So both calls can pass their checks:
 
-  CPU 0 (O)                         CPU 1 (W)                     CPU 2 (T)
+  CPU 1: sched_setaffinity(p, cpu0)    CPU 2: sched_setattr(p, DEADLINE)
 
-  locks L
-                                    blocks on L
-                                      rt_mutex_setprio(O, W)
-                                        O->dl.pi_se = &W->dl
-                                    sleeps
-                                      task_non_contending()
-                                        arms W's inactive timer
-                                                                  sched_setscheduler(W)
-                                                                    W leaves SCHED_DEADLINE
-                                                                    task_rq_unlock(W)
-                                    <W's inactive timer>
-                                    inactive_task_timer()
-                                      __dl_clear_params()
-                                        W->dl.dl_runtime = 0
-  <tick>
-  update_curr_dl_se()
-    enqueue_task_dl()
-      replenish_dl_entity()
-        runtime += W->dl.dl_runtime
-        loops forever
-                                                                    rt_mutex_adjust_pi(W)
-                                                                      rt_mutex_setprio(O, W)
-                                                                        spins on O's rq lock
+  dl_task_check_affinity()
+    !task_has_dl_policy(p): return 0
+                                       task_rq_lock()
+                                       admission test passes
+                                       p->policy = SCHED_DEADLINE
+                                       task_rq_unlock()
+  __set_cpus_allowed_ptr()
+    task_rq_lock()
+    p->cpus_mask = cpu0
 
-Fix this by not refilling from cleared parameters. The donor's
-parameters are cleared under the donor's rq lock, not the owner's, so
-replenish_dl_entity() can see them change under it. Read dl_runtime,
-dl_deadline and dl_period once, and bail out if any of them is 0.
+The window includes CPU 1 spinning on task_rq_lock() while CPU 2 holds
+it. With one thread narrowing a sleeping task to CPU 0 while another
+makes it SCHED_DEADLINE, 923514, 959547 and 983997 of 1000000 rounds
+ended with both calls succeeding on three boots of a 4-CPU guest.
 
-On bailing out, the owner gets no new runtime, but stays runnable and
-unthrottled. It runs until the chain walk deboosts it, or until it
-releases the lock. Keeping it runnable also covers sysrq-n:
-normalize_rt_tasks() changes the waiter without a chain walk, so a
-throttled owner might never get to release the lock.
+Move the check into __set_cpus_allowed_ptr_locked(), next to the
+PF_NO_SETAFFINITY re-check, under the same lock as the admission test.
+Whichever call takes task_rq_lock() second then sees the other's
+result: sched_setaffinity() fails with -EBUSY if p is already
+SCHED_DEADLINE, and sched_setattr() fails with -EPERM if p's affinity
+is already cpu0.
 
-The bandwidth the owner consumed while boosted belongs to the donor, so
-a negative runtime is reset to 0 rather than charged to the owner's own
-reservation. An owner with no parameters of its own gets a deadline of
-now. Its deadline must not stay 0: the dl_rq uses an earliest deadline
-of 0 to mean that no deadline entity is queued (see inc_dl_deadline()).
+A new SCA_DL_CHECK flag selects the check, and only
+__sched_setaffinity() sets it, so sched_setaffinity() and
+relax_compatible_cpus_allowed_ptr() keep the check and other callers
+stay unchecked. restrict_cpus_allowed_ptr() already does its deadline
+check this way.
 
-Until the deboost (which should happen "soon enough"), such an owner
-sorts first on its CPU's dl_rq and runs ahead of the other deadline
-tasks there.
+__sched_setaffinity() clears SCA_DL_CHECK before the second
+__set_cpus_allowed_ptr() call it makes after racing with a cpuset
+update, so the cpuset mask still wins there, as it does when
+cpuset_update_tasks_cpumask() narrows a deadline task. SCA_CHECK stays
+set for the PF_NO_SETAFFINITY re-check.
 
-The warning is kept for an entity that is not boosted.
+With this applied, the same test ends with both calls succeeding in 0
+of 1000000 rounds on each of three boots, and sched_setaffinity()
+fails with -EBUSY whenever it loses.
 
-The reset bounds the overrun. But a runtime of 0 still counts as
-exceeded. So until the deboost, update_curr_dl_se() still requeues the
-owner at each update. An owner with SCHED_FLAG_DL_OVERRUN still gets
-SIGXCPU.
+The race was reported by Sebastian. The fix was written with the help
+of an LLM.
 
-With a 300ms debug delay before rt_mutex_adjust_pi(), v7.4-rc2 locks
-up in 8-CPU VMs. A kernel with this patch does not.
-
-The Sashiko AI review of this series found the lockup.
-
-Fixes: a5e7be3b28a2 ("sched/deadline: Clear dl_entity params when setscheduling to different class")
-Suggested-by: Juri Lelli <juri.lelli@redhat.com>
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Fixes: 332ac17ef5bf ("sched/deadline: Add bandwidth management for SCHED_DEADLINE tasks")
+Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Closes: https://lore.kernel.org/20261103081149.DuyWNhVe@linutronix.de
+Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/avL8oOtjKqVNR7-l@jlelli-thinkpadt14gen4.remote.csb/
+Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 ---
- kernel/sched/deadline.c | 40 +++++++++++++++++++++++++++++++++++-----
- 1 file changed, 35 insertions(+), 5 deletions(-)
+ kernel/sched/core.c     | 11 +++++++++++
+ kernel/sched/sched.h    |  1 +
+ kernel/sched/syscalls.c | 12 +++++++-----
+ 3 files changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index e4d7cbf4861d..71b1c155c242 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -807,8 +807,38 @@ static void replenish_dl_entity(struct sched_dl_entity *dl_se)
- {
- 	struct dl_rq *dl_rq = dl_rq_of_se(dl_se);
- 	struct rq *rq = rq_of_dl_rq(dl_rq);
-+	struct sched_dl_entity *pi_se = pi_of(dl_se);
-+	u64 runtime = READ_ONCE(pi_se->dl_runtime);
-+	u64 deadline = READ_ONCE(pi_se->dl_deadline);
-+	u64 period = READ_ONCE(pi_se->dl_period);
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index 5ed660f099a5..32fe889e02fb 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -3195,6 +3195,17 @@ static int __set_cpus_allowed_ptr_locked(struct task_struct *p,
+ 		goto out;
+ 	}
  
--	WARN_ON_ONCE(pi_of(dl_se)->dl_runtime <= 0);
 +	/*
-+	 * A boosted entity runs on the parameters of its donor, the top
-+	 * waiter of an rt_mutex. The donor can leave the class and have them
-+	 * cleared before the chain walk deboosts this entity. They are
-+	 * cleared under the donor's rq lock, which can be another one. So
-+	 * read each of them once, and check all three. Refilling from a
-+	 * runtime of 0 would loop forever. Leave the entity runnable
-+	 * instead: the walk deboosts it, or its task releases the lock.
-+	 *
-+	 * Add no runtime. Do not keep a negative one: the overrun comes
-+	 * from the boost, and the entity's own reservation does not pay for
-+	 * it. A task with no parameters of its own gets a deadline of now,
-+	 * as a donor's relative deadline of 0 would give. A deadline of 0
-+	 * means an empty dl_rq to inc_dl_deadline().
++	 * Check under the same lock that __sched_setscheduler() holds for
++	 * its admission test, so that p cannot become SCHED_DEADLINE
++	 * between this check and the mask update below.
 +	 */
-+	if (unlikely(!runtime || !deadline || !period)) {
-+		WARN_ON_ONCE(!is_dl_boosted(dl_se));
-+		if (!dl_se->dl_deadline) {
-+			dl_se->deadline = rq_clock(rq);
-+			dl_se->runtime = 0;
-+		}
-+		if (dl_se->runtime < 0 || dl_se->dl_yielded)
-+			dl_se->runtime = 0;
-+		dl_se->dl_yielded = 0;
-+		dl_se->dl_throttled = 0;
-+		return;
++	if (ctx->flags & SCA_DL_CHECK) {
++		ret = dl_task_check_affinity(p, ctx->new_mask);
++		if (ret)
++			goto out;
 +	}
++
+ 	if (!(ctx->flags & SCA_MIGRATE_ENABLE)) {
+ 		if (cpumask_equal(&p->cpus_mask, ctx->new_mask)) {
+ 			if (ctx->flags & SCA_USER)
+diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
+index 92134ce326a4..20ad13f388cb 100644
+--- a/kernel/sched/sched.h
++++ b/kernel/sched/sched.h
+@@ -2972,6 +2972,7 @@ extern struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf);
+ #define SCA_MIGRATE_DISABLE	0x02
+ #define SCA_MIGRATE_ENABLE	0x04
+ #define SCA_USER		0x08
++#define SCA_DL_CHECK		0x10
  
- 	/*
- 	 * This could be the case for a !-dl task that is boosted.
-@@ -822,8 +852,8 @@ static void replenish_dl_entity(struct sched_dl_entity *dl_se)
- 	 */
- 	if (dl_se->dl_deadline == 0 ||
- 	    (dl_se->dl_defer_armed && dl_entity_overflow(dl_se, rq_clock(rq)))) {
--		dl_se->deadline = rq_clock(rq) + pi_of(dl_se)->dl_deadline;
--		dl_se->runtime = pi_of(dl_se)->dl_runtime;
-+		dl_se->deadline = rq_clock(rq) + deadline;
-+		dl_se->runtime = runtime;
+ extern void update_group_capacity(struct sched_domain *sd, int cpu);
+ 
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index b87b878be63f..5983232476a9 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -1225,11 +1225,7 @@ int __sched_setaffinity(struct task_struct *p, struct affinity_context *ctx)
+ 	cpumask_and(new_mask, ctx->new_mask, cpus_allowed);
+ 
+ 	ctx->new_mask = new_mask;
+-	ctx->flags |= SCA_CHECK;
+-
+-	retval = dl_task_check_affinity(p, new_mask);
+-	if (retval)
+-		goto out_free_new_mask;
++	ctx->flags |= SCA_CHECK | SCA_DL_CHECK;
+ 
+ 	retval = __set_cpus_allowed_ptr(p, ctx);
+ 	if (retval)
+@@ -1258,6 +1254,12 @@ int __sched_setaffinity(struct task_struct *p, struct affinity_context *ctx)
+ 			if (empty)
+ 				cpumask_copy(new_mask, cpus_allowed);
+ 		}
++
++		/*
++		 * The cpuset mask must win here, as it does when
++		 * cpuset_update_tasks_cpumask() sets it on a deadline task.
++		 */
++		ctx->flags &= ~SCA_DL_CHECK;
+ 		__set_cpus_allowed_ptr(p, ctx);
+ 		retval = -EINVAL;
  	}
- 
- 	if (dl_se->dl_yielded && dl_se->runtime > 0)
-@@ -836,8 +866,8 @@ static void replenish_dl_entity(struct sched_dl_entity *dl_se)
- 	 * arbitrary large.
- 	 */
- 	while (dl_se->runtime <= 0) {
--		dl_se->deadline += pi_of(dl_se)->dl_period;
--		dl_se->runtime += pi_of(dl_se)->dl_runtime;
-+		dl_se->deadline += period;
-+		dl_se->runtime += runtime;
- 	}
- 
- 	/*
 -- 
 2.47.3
 
