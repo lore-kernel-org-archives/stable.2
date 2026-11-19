@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795084720;
-	b=OEWbDRqRIp+DMexgWJQvQ0tt/r3iJIgtNBGpjnseJcUyPNgJODjdNsXNcqOeeh9BGHv8
-	 He8/4Y1XqqG4f1+DrERR+EoRl7NSOS+bZfsBMdQ2RZNpM7CUUnTz6eHyZ8Ad7f1fAVAJ7
-	 6wj4WdOmgsTkGdyD1gwxyuyZ7+mDsutPv1EHxEmLhDCTldZ5Jg9Sauttr5wBX0IvQw4I/
-	 v1rw4PXBBC5+66ECAvndzOKxviBBCwJs1KnRZYLquvuBk17i2eiqkY7Ic6oA2/EQjtxdB
-	 h9wTA+St19LUf82x7RXinFWvXOOCF3i8tZh/d0MQpLjs+d13rgXHel434676eeHV49w==
+	t=1795084722;
+	b=2PspMUv1HT+ed8/sipJntLi1yX8GIGCNat0DzDb13RhOok495UvgtiWQ0+MmiUb+mCyt
+	 Ogf7y1wnSedXH8D7ygETBAiB5RCZblaVuAjCucnOlOk8aAIFOJiVYEibk/85M9Ak3mOSX
+	 Mk1L+LUF5rOf3du2mVjSlo8Za36htDL1Onr9AmV+M4C65A3juukP6FQcUc8k1NKqvdUhg
+	 O7Ibktc4ojHgawThACoeklLyDiWgoAdi7BE/aE0DqCMRd65O7ZuiqOp1+Ysxv66YIu5sO
+	 IwrEx24GrPEiX47kP9oQHBcHOFqT60UZIfwFH7PlEEoIzjP8joqKNUC6nGe1XObQpYg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795084720;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795084722;
 	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
 	 In-Reply-To:References:X-sashiko-severity:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version;
-	bh=Er7R+lRdSvopXynFBt+niPP1ZQkZ289VWaNWEImXUo8=;
-	b=b7IpRHX6wWCjcid34Q0QyMUibwSnMN6aEa1eGX8xED3C0vJiVpuSuDLVjGsk3d0Jojwg
-	 5SIKFaAONebzJM6TZD2fRELJj56K0AEne4pA28Ik1EMzCKa2EslhhjPC/FC2et8UOB/WX
-	 Z1nlyhvtlsKgqHTVBwV5jVH154/r+fS0Oz++1FTOOUNs2S5CEPsgjNS4ogKUgVQcZX9Si
-	 iJRvz4WXkba+y3Ij/hrHlxA4UWhgLituIi4f91/jewBXMwYM5nNjwY6wimUJv2SpRZSFs
-	 +iHhXH3azC05AvhgBHwed3bBmmBgLs2hPcMgbKk0aImmoGsm+/AS7pXzv3CUjHZV1kw==
+	bh=nzKHjSzRWrH9V9MmPTb7bDSHDOandNdhRmo9KqnTcUs=;
+	b=mxOU5/3zoBMYUoQ0ljsrAJWDdinuRRGLQpy7swSwL+F03bSDk0VB02qsJdBWSQLlYfUg
+	 Ucs+NC3xxe6oAjptJJWfwRyCdthILQ9SDqLGYxOdU6eBoOuZVGGC5uy1X+uUtLOCbJ2aw
+	 1Ncfxl5glVh7S5OM6X2iXBPHoTTKjhQXfDKWo6RbdVLxP5QZs6PLLw7tsOzSdnf/K5amM
+	 6Q167u9qAlZwcFEje2RnihUA5EaN+ynS2qrNeeqvTWqROs3zWM8Yr3Ny5j6kBqnQn0jV6
+	 TtW5Bz/Q2QuI7HhX5/KBQCBgZAGqJDwgu04NNO/X/lfzKzTQ2WBewDjprkIK5cPXrtA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTcNsa2x;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QeRlA3cD;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0ED606A320;
-	Thu, 19 Nov 2026 10:38:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A638606A32C;
+	Thu, 19 Nov 2026 10:38:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LTcNsa2x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05BEF1F000C5;
-	Thu, 19 Nov 2026 10:38:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QeRlA3cD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 254121F000C7;
+	Thu, 19 Nov 2026 10:38:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795084720;
-	bh=Er7R+lRdSvopXynFBt+niPP1ZQkZ289VWaNWEImXUo8=;
+	s=k20260515; t=1795084721;
+	bh=nzKHjSzRWrH9V9MmPTb7bDSHDOandNdhRmo9KqnTcUs=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LTcNsa2xJeJdejCs0dQTmZ1f78J583KlW8GI/67N4fglwoQstvomBrqKX7CZNaOCa
-	 rRlQY1zBnO2tRWffnD8kKQLuf3saef3AgX2R0jiua6mj6O53xCoVzVbZcqoxcTENql
-	 zOIBkBfsP3kgdnEuCKKUxk5bghAU2nYsTttbZwdDkppFjKge74ixBv0n9p+M6N+6nR
-	 a77i8BNHjFt6Py3Cs90FdD9CvrhC6CpJS9qSLaUbml98p2GnQILt1PwnRZRlGP4TMt
-	 4qAGh2Klt2XsUe1CJRLNO3zAyp755Ju9e9F8pUQNuTubtGv8gblMn6rNYNJ9LnXcmI
-	 fFwkX9D4aPiRg==
-Subject: Re: [PATCH net v5 2/3] net: neighbour: reinject a parked skb through
- a headerless output device
+	b=QeRlA3cDT8Pc2gM234B5g/bsU5q2HTlE5qpGMe4ogmLU5pEsWz1It9/KdbayqcdP5
+	 5wnU4zvVXGC77yZq7d87qiWZ6sjcDBYl9YDrfEDaSeGXOfiTTyWKZfAKr3GB62LX+c
+	 AjPmICswFKeQ9PzKOisi56PXNs9Oz7QYuzuYWTzaWguIYWNfrqWZPEAalAnzgG+8z4
+	 hPgj+im4OCNPIrYC6yn3Aw3TqGfiAiANjkIZ2vvZYBItz5UIBaLytUDBAnRtv345gB
+	 KlRwkR0nySMc0WdEw4qri0Y5pT1rhgAtBBrItrS0qZcerENyaaiv1BHML47wtGU/wc
+	 MupC3vFHdqVgw==
+Subject: Re: [PATCH net v5 3/3] net/sched: sch_teql: keep skb->dev consistent
+ on the arp-queue path
 From: netdev-bot+sashiko@kernel.org
 To: jhs@mojatatu.com
 Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us,
  davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
  horms@kernel.org, stable@vger.kernel.org, sashiko-bot@kernel.org
-Date: Thu, 19 Nov 2026 10:38:39 +0000
-Message-ID: <179508471960.3136.3982985100644358215@kernel.org>
-In-Reply-To: <QDISC-6HS9.v5.r0.20261116052927-2@mojatatu.com>
-References: <QDISC-6HS9.v5.r0.20261116052927-2@mojatatu.com>
+Date: Thu, 19 Nov 2026 10:38:40 +0000
+Message-ID: <179508472073.3136.1625322377662676881@kernel.org>
+In-Reply-To: <QDISC-6HS9.v5.r0.20261116052927-3@mojatatu.com>
+References: <QDISC-6HS9.v5.r0.20261116052927-3@mojatatu.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -67,7 +67,7 @@ MIME-Version: 1.0
 Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 1
+Critical: 0 · High: 0 · Medium: 2 · Low: 0
 
 If you believe none of the issues are legitimate, please reply to each
 issue of Medium severity or higher and explain why the AI is wrong.
@@ -75,150 +75,149 @@ If any of them are legitimate and you plan to respin, please let patchwork
 know by including "pw-bot: cr" as a separate line at the end of your reply
 (one such reply per series is enough).
 
-- [Medium] New regression in neigh_update_process_arp_queue()
-  (net/core/neighbour.c:1343-1345).
-- [Low] The commit message describes sch_teql as parking the skb "naming
-  the slave", with skb->dev differing from n1->dev.
-
-Pre-existing issues:
-- [Medium] neigh_update_process_arp_queue() re-homes skb->dev only when
-  n1->dev has no header_ops.
+- [Medium] The patch carries `Cc: stable@vger.kernel.org` and only works
+  if a net/core/neighbour.c fix is applied first, but the commit message…
+- [Medium] The ICMP error for a failed neighbour resolution is now routed
+  in the teql slave's L3 context instead of the master's.
 
 --
 
-net: neighbour: reinject a parked skb through a headerless output device
+net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
 
-This patch changes neigh_update_process_arp_queue() so that skb->dev is
-set to n1->dev before n1->output is called, when n1->dev has no
-header_ops. With that, neigh_direct_output() transmits on the device the
-neighbour belongs to, not on whatever device the producer left in
-skb->dev. The motivating producer is sch_teql, which parks skbs on the
-slave's neighbour.
+This patch moves the skb->dev = slave assignment in teql_master_xmit() so
+that it happens before teql_resolve(). An skb parked on the slave's
+arp_queue then names the slave instead of the teql master. This avoids a
+use-after-free when sch_teql is unloaded and the master is freed while the
+skb is still queued.
 
+Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@mojatatu.com/
+Link: https://lore.kernel.org/netdev/20261026160747.283702-1-horms@kernel.org/
+Link: https://lore.kernel.org/netdev/20261031165925.780930-1-horms@kernel.org/
+Link: https://lore.kernel.org/netdev/179363700308.3131.11778179538290251434@kernel.org/
 Link: https://lore.kernel.org/netdev/20261110101908.2e64e8e9@kernel.org/
 
-> sch_teql is the producer that hits this: it parks the skb on the slave's
-> neighbour while the top-level neighbour is the master's, so skb->dev and
-> n1->dev differ and the reinjection has to come back through the master to
-> leave with a header.
+> A parked skb is reinjected by neigh_update_process_arp_queue(), and a
+> device that transmits straight on skb->dev has to be handed its skb back
+> there. That is a change to net/core/neighbour.c, posted as its own fix,
+> and it has to be applied before this one: without it the parked packet
+> leaves the slave directly, with no link header, because teql_master_xmit()
+> has already pulled it.
 
-[Severity: Low]
-Is this accurate for the tree this patch applies to?
+[ ... ]
 
-At this commit, teql_master_xmit() sets skb->dev = slave only inside
-case 0, right before netdev_start_xmit(). It then restores skb->dev = dev
-at the end of each iteration. So the skb that __teql_resolve() parks via
-neigh_event_send() still names the master, and n1->dev == skb->dev.
-
-That makes the new assignment a no-op for teql at this commit, and the
-"Conditions to recreate the bug" recipe does not reproduce on this commit
-alone.
-
-The last patch in the series, "net/sched: sch_teql: keep skb->dev
-consistent on the arp-queue path", moves skb->dev = slave ahead of
-teql_resolve(). Its message says this neighbour change has to be applied
-first, so the ordering is fine.
-
-This patch carries Fixes: and Cc: stable. Could the message name the
-sch_teql patch it depends on, and say that the behaviour it describes
-only exists once that patch is applied? The phrase "reached once sch_teql
-parks the skb naming the slave" hints at this, but it is easy to miss.
-
-> diff --git a/net/core/neighbour.c b/net/core/neighbour.c
-> index d6e9c7c59a892..1b556fa17c57c 100644
-> --- a/net/core/neighbour.c
-> +++ b/net/core/neighbour.c
-> @@ -1339,6 +1339,9 @@ static void neigh_update_process_arp_queue(struct neighbour *neigh)
->  			if (n2)
->  				n1 = n2;
->  		}
-> +		/* headerless output transmits on skb->dev, not n1->dev */
-> +		if (!n1->dev->header_ops)
-> +			skb->dev = n1->dev;
+> Cc: stable@vger.kernel.org
 
 [Severity: Medium]
-Can this gate send nft fwd ... neigh and bpf_redirect_neigh() skbs back
-through the original device's egress path?
+This patch carries Cc: stable, so could the prerequisite be named
+explicitly? The text only says the neighbour.c change is "posted as its
+own fix". It gives no commit id, subject or Link, and the stable tag has no
+"# depends on" note.
 
-nft_fwd_neigh_eval() in net/netfilter/nft_fwd_netdev.c is allowed on
-NF_NETDEV_EGRESS. It decrements the TTL or hop_limit and then does:
+The prerequisite looks like "net: neighbour: reinject a parked skb through
+a headerless output device". It adds this to
+neigh_update_process_arp_queue():
 
-    skb->dev = dev;
-    skb_clear_tstamp(skb);
+	/* headerless output transmits on skb->dev, not n1->dev */
+	if (!n1->dev->header_ops)
+		skb->dev = n1->dev;
+	READ_ONCE(n1->output)(n1, skb);
 
-    nf_dev_xmit_recursion_inc();
-    neigh_xmit(neigh_table, dev, addr, skb);
+neigh_update_process_arp_queue() was only split out of __neigh_update() by
+commit 705ef89ac98648 ("net: core: neighbour: Extract ARP queue processing
+to a helper function"). So the neighbour fix will not apply cleanly to
+older stable trees.
 
-It does not drop the dst of the original route first.
+This sch_teql hunk is a one-line move. Given the earlier sch_teql patch
+that adds the &hlen argument, it would apply to those trees on its own.
 
-bpf_out_neigh_v4() and bpf_out_neigh_v6() in net/core/filter.c do the
-same when explicit nexthop parameters are passed. The dst is only
-replaced in the !nh branch of __bpf_redirect_neigh_v4/v6().
+If this patch reaches a stable tree without the neighbour fix, would an skb
+parked on the slave's arp_queue go out with no link header?
 
-If the neighbour of the target device B is unresolved, the skb is parked
-on B's arp_queue with the dst of the original device A still attached.
-When B resolves:
+When the neighbour resolves, neigh_update_process_arp_queue() looks up n1
+again from the dst and gets the teql master's neighbour. The master has no
+header_ops, so n1->output is neigh_direct_output(). That transmits on
+skb->dev, which is now the slave:
 
 neigh_update_process_arp_queue()
-    n2 = dst_neigh_lookup_skb(dst, skb);   /* A's neighbour */
-    if (!n1->dev->header_ops)              /* A is ppp, p2p GRE, teql */
-        skb->dev = n1->dev;                /* skb->dev goes from B to A */
-    READ_ONCE(n1->output)(n1, skb);        /* neigh_direct_output() */
-        dev_queue_xmit(skb);               /* A's qdisc, nf/tc egress */
+  n1->output() == neigh_direct_output()
+    dev_queue_xmit(skb)   /* skb->dev == slave, header already pulled */
 
-The skb then goes through A's qdisc, netfilter egress and tc egress a
-second time:
+Would something like "Cc: stable@vger.kernel.org # depends on <commit>"
+help keep the two patches together?
 
-- nft fwd neigh decrements the TTL again, so packets that arrive with
-  ttl == 2 are now dropped.
-
-- Counters, limits and quotas are charged twice.
-
-- Non-idempotent rules (mark-guarded, an exhausted limit or quota,
-  numgen) can let the packet leave on A, the device the redirect was
-  meant to steer around.
-
-Before this patch these skbs left B without a link header, which was
-also broken. Running A's egress hooks a second time is new, though.
-
-The commit message acknowledges this:
-
-    Those forwards supply their own device and nexthop and do not consult
-    the retained dst, so dropping it at those two sites is where that is
-    fixed; that is a separate change to the producers.
-
-That change does not appear to be part of this series. The last patch,
-"net/sched: sch_teql: keep skb->dev consistent on the arp-queue path",
-only touches sch_teql.c.
-
-Since this patch is tagged for stable, could the dst drop in
-nft_fwd_neigh_eval() and bpf_out_neigh_v4/v6() go into the same series,
-ordered ahead of this change?
-
->  		READ_ONCE(n1->output)(n1, skb);
+> diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
+> index 626dc001ec231..e60d8f3b127de 100644
+> --- a/net/sched/sch_teql.c
+> +++ b/net/sched/sch_teql.c
+> @@ -374,13 +374,13 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
+>  			continue;
+>  		}
+>  
+> +		skb->dev = slave;
+>  		switch (teql_resolve(skb, skb_res, slave, slave_txq, &hlen)) {
 
 [Severity: Medium]
-This isn't a bug introduced by this patch, but the same mismatch between
-skb->dev and n1->dev remains when n1->dev does have header_ops.
+skb->dev is now set to the slave before teql_resolve(). So when
+__teql_resolve()->neigh_event_send() parks the skb, skb->dev is the slave
+while skb_dst(skb)->dev is still the master.
 
-neigh_resolve_output() and neigh_connected_output() build the header
-from neigh->dev and then transmit on skb->dev:
+Does this change the L3 context used to route the ICMP error when
+resolution fails?
 
-    err = dev_hard_header(skb, dev, ntohs(skb->protocol),
-                          neigh->ha, NULL, skb->len);
-    ...
-    rc = dev_queue_xmit(skb);
+neigh_invalidate()
+  arp_error_report() / ndisc_error_report()
+    dst_link_failure()
 
-Take an nft fwd neigh redirect, or bpf_redirect_neigh() with nh, from
-Ethernet A to Ethernet B. Would the frames queued while B resolves leave
-B carrying A's source and next-hop MACs?
+For IPv4, the path is
+ipv4_link_failure()->ipv4_send_dest_unreach()->__icmp_send()->icmp_route_lookup().
+icmp_route_lookup() calls icmp_get_route_lookup_dev(), which prefers
+skb->dev:
 
-Re-homing skb->dev unconditionally here would be wrong for those
-producers. This case would probably also be fixed by the producer-side
-dst drop that the commit message defers.
+	route_lookup_dev = icmp_get_route_lookup_dev(skb_in);
+	fl4->flowi4_oif = l3mdev_master_ifindex(route_lookup_dev);
 
->  		if (n2)
->  			neigh_release(n2);
+So the oif and the inet_addr_type_dev_table() checks now come from the
+slave rather than the master.
+
+For IPv6, icmp6_send() takes iif from skb->dev:
+
+	if (__ipv6_addr_needs_scope_id(addr_type)) {
+		iif = icmp6_iif(skb);
+	} else {
+		...
+		iif = l3mdev_master_ifindex(skb->dev);
+	}
+
+icmp6_dev() only falls back to the dst device for loopback or l3 master
+devices, so the slave is used as is.
+
+A teql master can be enslaved to a VRF, since vrf_add_slave() only rejects
+l3 masters, existing l3 slaves and loopback. The slave is normally not in
+the VRF.
+
+In that setup, the host-unreachable error would now be looked up with
+oif 0 in the main tables, not in the VRF table that holds the master's
+address. Could it then fail routing, or follow a main-table default route
+off the box?
+
+The same seems to apply to an IPv6 link-local source on the master. There
+the strict oif=slave lookup would not match the master's local route.
+
+Without a VRF and with global addresses, l3mdev_master_ifindex() is 0 for
+both devices, so nothing changes in that case.
+
+The commit message says the error path "names the slave on that path too".
+It does not mention this change in routing context. Is it intended?
+
+>  		case 0:
+>  			if (__netif_tx_trylock(slave_txq)) {
+>  				unsigned int length = qdisc_pkt_len(skb);
+>  				int rc = NETDEV_TX_BUSY;
+>  
+> -				skb->dev = slave;
+>  				if (!netif_xmit_frozen_or_stopped(slave_txq))
+>  					rc = netdev_start_xmit(skb, slave, slave_txq, false);
+>  				__netif_tx_unlock(slave_txq);
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-6HS9.v5.r0.20261116052927%40mojatatu.com
