@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795046518;
-	b=mdqhFfa0aCLxu6sfcTvZl/M2DLn+x+cf/QiuAW5oQaenpNCDw2j5nGFJXRImZrkTpO/A
-	 A2AEGYoCHkFq60d/yrGnjw/QTOWL5oXWFNn9IBR4kj/Nhsau/lmxd/uLe+44I8hVj6WrL
-	 t+MAX3I0QGSCO6qOsA6o0ZpTHUspaLyBNm1SHf0u2FQdHdDg07fR7eO55rs4GLAQ7I3yY
-	 6rcTf3TOs5M31b/AcKo9m58nD93DjIeICTw9bTZ0UVJoctFBVHhG6aSpqjDFvaSkHL7Ee
-	 5Ic1dDxy2Qgr4Tn1upoEf6Mbw4WJoZ4/22bI2JuUKNC5rime7KnP1ZagYpq/aFLtndQ==
+	t=1795046519;
+	b=YOYe+AKix/4NVVBFT32xAppWc8nHcHlI7ohBAy7g07zAgwOsLjt59v0REUl1df3rODkG
+	 EQOk1BD2d1COZw9rayX8Q0iIiR5zDRPbfW+nRlhvbulNfJyPQ40PXnMEBP1PsV7ZSRvei
+	 pDby8PDd0xbXWPXvLo99dZ4iBvqs0JzNQRkJozc/7XC6FxNtxbuMZhF33b8nAVZ8Z95Jm
+	 DyZw+EyfQ2SWXMG6LzQ6ZI20KBKKpGB6Sos7LXsrt2mrk3R2T0UtPT2Du5xZP1pGtr5c1
+	 zlXmPufwfP/B7YpODzVy/KNz6APRRVDzHTs5JRXbhBH/FzOoNnHiQOaiczLGxiUfD3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795046518;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795046519;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=41FntGxP/JrSQUL3JU9Vl/TX8BufIuwpx4VCpW10ByM=;
-	b=Q6HAK14nCkx4EZYZjUolVDykAPw5ol1D7f9Epd4E3XIUXjHIPzGiiW6h6ZyQdoyL2hCv
-	 LqZMe8C28naAOYSKV+56P7vsnQ9tdCCiduTs/O0ETFdv2AW9xKd63sdL0qNVKEYyVqnrO
-	 vLHol3jywlFFaGa8AhY3JmZ+GXnDPhB/Y9EOy6hJA6hfRV2HqECkHR6L10g+0d58Lj2VZ
-	 +VSlQybfMFRmyqRNQ6NwV3HMAOz/g21KX0YdqfsToFye4qQdn1DBniXd8u+AviRP89vjT
-	 20OTs2LTI2b1CyBYFwXZn7Fj30BUQS8AJzMa1BE+lSDZ9oS3liYz9jiAUushrXHJ3ZQ==
+	bh=w7Woz9FOzyEI61pXAlfURrfx9J9JG5qwKCh+RDSinsc=;
+	b=DbS0nsbCiSoANkL8uOr4HNGcEiL9A3XRd0qdDOIJWvxV8HEUgbuIsUBfLg62Qy3yZh0S
+	 JAbo+43YoGryoGX4W5fWljUn697uAyzj1/79OoZWWGvFzUUdhYzX7zQPWs5KRRvkj2CXj
+	 F/6+94PAp11BHgOjkUeGxV3aHlT4p+7LeEdbWUR5AQdvICtFiMKslipBz5lnJIe7sz6zh
+	 2rYOp2qTFTesLmFvUcouve/QwgYav5Iq2c8byWRQ0Df5i2DN8Gi8/cr4hfoYLU9bq0Y6X
+	 IyJsgB0JMe90+ETKD9BByh2oCBZEpCw6/ek6dA27yMXspJh5L84HQ+uLbRLdlYzeL8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AehvaMbj;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nsRGs9Ga;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38ABB606A33E
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:01:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38ABB606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CECB60A261A
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:01:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CECB60A261A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AehvaMbj
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4cc89e86e9eso1694503b6e.3
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:01:57 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=nsRGs9Ga
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-547ae874949so2097777b6e.2
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:01:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795046517; x=1795651317; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1795046518; x=1795651318; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=41FntGxP/JrSQUL3JU9Vl/TX8BufIuwpx4VCpW10ByM=;
-        b=AehvaMbj1k9TBvJJ1jyf5MdUL6JKJ5hLpUxINJVb0vwuDtavVmkYzsoNnbzoOIS333
-         wvS/elj55DI0lBEdV1F0nu3X40NyuNZokt2o0V+JZvznUsP2e8gp+SFdVZEiCgANXZfC
-         1iDhaQrKz0Q2qOMJ1ayB9jrIkxUjyYI6VOg9iXiVHHpTpM7FUFA15aPNpJv7r8xWqOMr
-         MMM1b9nlh5EU+75pPoHxv0VbZEGQWxIkaMRSUiVo1L4dC/efrkblHg1lyPIhVUygXGLM
-         9JSkcIjxT6BtaTfeoNd3zUuKIlCO6uI/UEee2kl5oN0GQzIhi6tWyqknPL4oyKgXiwgm
-         mSgA==
+        bh=w7Woz9FOzyEI61pXAlfURrfx9J9JG5qwKCh+RDSinsc=;
+        b=nsRGs9GaEnVL8fDz7RDR30xI5x0zjXluUYy96pdI+goVmdQ/rT3JwxAmAhoLV7IDji
+         FS84Q+VArgYKbMS6JeL5lnSR17EEK/kS8NluDXXIf5fdaK0K5/O4hA4LhOdIVwsQHusy
+         tNa0z0tp7R9qIDPlxXbE45AY95n18rw2FY54ZBHmWxHVQHEbSMqXosjNYqECUWKhjng1
+         Kb1rirxYgDO2Sg1zDFL9Ma0uNUMmPJH1ugn6x0cPwmpaRO8Db8iomGD0Tv/c0yl7CPah
+         rIaMJ6cz4p4Hm9pWzg/iaGIZtw3bj5dZUCnbxRPsamBCwXb0jav8YU19AMB2vkXnm1rD
+         hQaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795046517; x=1795651317;
+        d=1e100.net; s=20260707; t=1795046518; x=1795651318;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=41FntGxP/JrSQUL3JU9Vl/TX8BufIuwpx4VCpW10ByM=;
-        b=S2y9zpIQkY5XymIMivmQ8KX6J3C6PX5W3WN7Vs7JmU1kgs3PUd2F2zo4dspf8N8Bh0
-         74o9tV4XdpUcPrt16iVUcT/+ncgnpjpJPBBs0s/tXYOa78n6ndAvdRC/n+ph66t94RgM
-         loDJhTUcRJgwcbtluaxKcdXjcsRDEg/i7LMscV4Z2b9k5mMhqPcC8KzT9jrZCGuzKO+z
-         Dy5KM7gLpBVw3xT+taZCzAfHs6zrFsVO3+TXjMJlSof+aFpWsR0Lr3YLbpQBe3mCRs1C
-         VBlexr2lFnrhYd1/kn2oJCo8O6kxS1YtV2bHxTISrQzje+8CxCHKKo/rr2gpbwWAsrPF
-         pcgg==
-X-Forwarded-Encrypted: i=1; AL+hErG5WD4gdQZ1G8H3loXAFXsSRxK5WQVOLUU+WnhI4EvMwrUJGoJejGgV1j0ulyBZzCJeeNkuLos=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cC2Wlb+m5LTjvWTyja5tJkhyA8LyEMv3HQz6+hZ1nNujcmoqI
-	hoOo9ShElr7V1E71HyXD0xvz9nLE0HdUxiREReinyCpID/n0Ywr0cFsaH7+FeWS0oh/0bzW3A34
-	5Ohw5KSMiYTZ9QA==
-X-Received: from ilsl18.prod.google.com ([2002:a05:6e02:5d2:b0:53d:4922:80ea])
+        bh=w7Woz9FOzyEI61pXAlfURrfx9J9JG5qwKCh+RDSinsc=;
+        b=wcEfz3VX3tVCZ3cHh8RPY78WAptInwfNO4dpyppCi/UoTQX2O+VscIs0d8sA6xjlx3
+         ZgUGBafhQVSairlH3Z5baqQW5D/ITIbIilKAugYz+OFfSCVe5FXbDN37sNpEZ4MFkxX5
+         tN48xqcjMEzuZseRX3QY43Qp1G1x9xHKfqleF0x8qvmLPdxW5wI9JuJPV7z8WJ4CbWJb
+         q4tKIL9zxdhyFXHnHP4gZKOfpJd1AZi0PbMGMawwyzoHR+gshZ+2ysX3XApzMhwa/Cui
+         XP/X1yAP9yFN7hsfvaxxdeuaT4UHjiWMDREKPBLnqcQ9yglDfvAzM36m9LT8MS1Ilkh1
+         TqIw==
+X-Forwarded-Encrypted: i=1; AL+hErFeaEnFn9v98sIdJ9BeHvF3XIyfjKmwqBG8gpmrl0IB7NU3b3fyZJzLJ+PEohrPMOZtdEQuh5I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8RMMTwVx+4ULjxEZKs6fl4B1zl70g5EFZDUaMRaEsQc7keqgWI
+	nZ0B8dM5YdlcbBmbI3b4QiW34bD/J2IXvgytOrmPmE+trgOmlyO/8aEHvVZ9XBEpAT5kagv2uiE
+	OoiXtB6I9LqkRFg==
+X-Received: from ioi14-n1.prod.google.com ([2002:a05:6602:c64e:10b0:9ca:d7a7:e72f])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:87d1:b0:571:9bab:e8b7 with SMTP id 5614622812f47-5773ace5fb8mr5271853b6e.0.1795046516811;
- Wed, 18 Nov 2026 16:01:56 -0800 (PST)
-Date: Thu, 19 Nov 2026 00:01:43 +0000
+ 2002:a05:6808:518b:b0:4f5:d3bf:edf3 with SMTP id 5614622812f47-57742b303c1mr4468950b6e.59.1795046518039;
+ Wed, 18 Nov 2026 16:01:58 -0800 (PST)
+Date: Thu, 19 Nov 2026 00:01:44 +0000
 In-Reply-To: <20261119000151.442543-1-dmatlack@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,8 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261119000151.442543-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
-Message-ID: <20261119000151.442543-2-dmatlack@google.com>
-Subject: [PATCH v2 1/8] vfio/pci: Hold memory_lock for all calls to vfio_pci_set_power_state()
+Message-ID: <20261119000151.442543-3-dmatlack@google.com>
+Subject: [PATCH v2 2/8] vfio/pci: Annotate lockless accesses to vdev->sriov_active
 From: David Matlack <dmatlack@google.com>
 To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
@@ -91,110 +91,49 @@ Cc: Abhishek Sahu <abhsahu@nvidia.com>, Alex Williamson <alex@shazbot.org>,
 	Vipin Sharma <vipinsh@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Hold vdev->memory_lock for write when calling vfio_pci_set_power_state()
-from vfio_pci_core_disable() and vfio_pci_core_register_device(), and
-assert that the lock is held for all power state transitions, not just
-transitions out of D0.
+Use READ_ONCE() and WRITE_ONCE() to annotate the read of
+vdev->sriov_active in vfio_pci_set_power_state() and the lockless write
+that clears it in vfio_pci_core_sriov_configure().
 
-vfio_pci_core_disable() calls vfio_pci_set_power_state(vdev, PCI_D0)
-without holding memory_lock, which allows it to race with
-vfio_pci_core_sriov_configure() when userspace writes to sriov_numvfs
-while the device is being closed. If the user left the device in D3hot
-via a config space write, both threads can transition the device from
-D3hot to D0 concurrently. Since a config space write does not change
-the runtime PM status, the device stays RPM_ACTIVE, pm_runtime_resume()
-in the close path is a no-op, and vfio_pci_set_power_state() performs
-the D3hot->D0 transition.
+vfio_pci_core_sriov_configure() intentionally clears sriov_active
+without holding memory_lock, so the write can race with the read in
+vfio_pci_set_power_state() (which runs under memory_lock). The race is
+benign: at worst it causes a spurious -EBUSY while the device stays in
+D0. Mark the accesses anyway to document the intentional data race and
+avoid KCSAN reports.
 
-For devices with vdev->needs_pm_restore set (NoSoftRst-), this can
-result in:
+The write that sets sriov_active is done under memory_lock and is
+serialized against the lockless write by device_lock, so it does not
+need to be annotated.
 
- - vfio_pci_core_disable() restoring the PF's BARs after
-   vfio_pci_core_sriov_configure() has enabled VFs, since the D3hot->D0
-   transition sleeps before restoring device state. This reproduces
-   reliably with vfio_pci_power_state_test and triggers the following
-   warning:
-
-     vfio-pci 0000:01:00.0: can't update enabled VF BAR0 [mem 0xe0200000000-0xe020001ffff 64bit pref]
-     WARNING: drivers/pci/iov.c:1062 at pci_iov_update_resource+0x170/0x3b0
-     Call Trace:
-      pci_update_resource+0x1a3/0x5b0
-      __pci_set_power_state+0x597/0xb90
-      vfio_pci_core_disable+0x13b/0x1180
-      vfio_pci_core_close_device+0x144/0x260
-      vfio_df_close+0xf2/0x210
-      vfio_df_unbind_iommufd+0x89/0x140
-      vfio_device_fops_release+0x85/0xf0
-      __fput+0x2d6/0x720
-      fput_close_sync+0xe8/0x180
-      __x64_sys_close+0x7f/0xc0
-      do_syscall_64+0xbc/0x320
-      entry_SYSCALL_64_after_hwframe+0x76/0x7e
-
- - Both threads observing pdev->current_state >= PCI_D3hot and calling
-   pci_load_and_free_saved_state(pdev, &vdev->pm_save) concurrently,
-   resulting in a double-free of vdev->pm_save.
-
-vfio_pci_core_register_device() cannot race with other callers since
-the device is not yet registered and device_lock is held across probe,
-but take the lock there as well so that the lockdep assertion can be
-made unconditional and catch any future unlocked callers.
-
-Taking memory_lock in these paths does not introduce any new lock
-dependencies. vfio_pci_core_disable() already acquires memory_lock
-under dev_set->lock via vfio_pci_runtime_pm_exit(), and
-vfio_pci_core_register_device(), like vfio_pci_core_sriov_configure(),
-runs under device_lock, which is already taken before memory_lock.
-
-Fixes: f4162eb1e2fc ("vfio/pci: Change the PF power state to D0 before enabling VFs")
-Cc: stable@vger.kernel.org
+Fixes: 40ef3edf151e ("vfio/pci: Use a private flag to prevent power state change with VFs")
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- drivers/vfio/pci/vfio_pci_core.c | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ drivers/vfio/pci/vfio_pci_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index fcbb2da860e2..4289ec9bc32f 100644
+index 4289ec9bc32f..511dcb49d2f6 100644
 --- a/drivers/vfio/pci/vfio_pci_core.c
 +++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -325,12 +325,12 @@ int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev, pci_power_t stat
- 	bool needs_restore = false, needs_save = false;
- 	int ret;
+@@ -329,7 +329,7 @@ int vfio_pci_set_power_state(struct vfio_pci_core_device *vdev, pci_power_t stat
+ 	lockdep_assert_held_write(&vdev->memory_lock);
  
-+	/* Serialize power state changes and accesses to vdev->pm_save. */
-+	lockdep_assert_held_write(&vdev->memory_lock);
-+
  	/* Prevent changing power state for PFs with VFs enabled */
--	if (state > PCI_D0) {
--		lockdep_assert_held_write(&vdev->memory_lock);
--		if (vdev->sriov_active)
--			return -EBUSY;
--	}
-+	if (state > PCI_D0 && vdev->sriov_active)
-+		return -EBUSY;
+-	if (state > PCI_D0 && vdev->sriov_active)
++	if (state > PCI_D0 && READ_ONCE(vdev->sriov_active))
+ 		return -EBUSY;
  
  	if (vdev->needs_pm_restore) {
- 		if (pdev->current_state < PCI_D3hot && state >= PCI_D3hot) {
-@@ -699,7 +699,9 @@ void vfio_pci_core_disable(struct vfio_pci_core_device *vdev)
- 	 * reset without restoring the original state (saved locally in
- 	 * 'vdev->pm_save').
+@@ -2393,7 +2393,7 @@ int vfio_pci_core_sriov_configure(struct vfio_pci_core_device *vdev,
+ 	 * state transition would at most result in an -EBUSY, leaving the
+ 	 * device in PCI_D0.
  	 */
-+	down_write(&vdev->memory_lock);
- 	vfio_pci_set_power_state(vdev, PCI_D0);
-+	up_write(&vdev->memory_lock);
+-	vdev->sriov_active = false;
++	WRITE_ONCE(vdev->sriov_active, false);
  
- 	/* Stop the device from further DMA */
- 	pci_clear_master(pdev);
-@@ -2273,7 +2275,9 @@ int vfio_pci_core_register_device(struct vfio_pci_core_device *vdev)
- 	 * be able to get to D3.  Therefore first do a D0 transition
- 	 * before enabling runtime PM.
- 	 */
-+	down_write(&vdev->memory_lock);
- 	vfio_pci_set_power_state(vdev, PCI_D0);
-+	up_write(&vdev->memory_lock);
- 
- 	pm_runtime_allow(dev);
- 	if (!vdev->disable_idle_d3)
+ 	mutex_lock(&vfio_pci_sriov_pfs_mutex);
+ 	list_del_init(&vdev->sriov_pfs_item);
 -- 
 2.56.1.708.g77570a6a1d-goog
 
