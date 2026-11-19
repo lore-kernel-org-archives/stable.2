@@ -1,88 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795072303;
-	b=zak19cFuXTNWuTqkt+Ft+7+98YFNpOXiQjH5s8eXriPsJ3BUwSRafrbieK6OmGDDcYgb
-	 DsY22ICehU9GP4uQNeuH3wRzPPfNgB38oVaRikJfgxHCi6QYQWkq0jeNjHKi/ahYVwZH9
-	 lTFohRh15merV3nl9A+5xvYmSnmOsiP+Rdamar3pDVNjzhl0+cLKhLW02lA9AmfPnr7Sb
-	 0nwNwsLHBzEraPjG3i6XYbGt9qDr8eYYOo52khdl8ywUxMnBjJZsiBaQDNYjB9/8R0USp
-	 W1Drm4Jfy/3A9LZYpMedA6mqrIsIjbR1b79BKTtWMKeGogQfcce7rHju6Vv5qEBxNhw==
+	t=1795072349;
+	b=Q8PamheILBNTgud6roSknkf6xD0dzj52NyE6t/1YBDsWfjO1MWjmOc7ZQxBTv4aHLVCM
+	 vlfIoy1lVtXNsWtfotoq9uiff2ayadVgxMHj+cBr67jOdNLGbuwcr1YJC14FYU2kAx6ar
+	 vuqhoAEV9oVi+Kf7wwmXhyNjStPr5KHUtSwSQZwSN1zCHOcTZlXOf0PhPsZeaHMAUy5Ov
+	 7SmpVLygxPArCMh83VoZpQE79+8Xfz9t6UOFx3K8AKzfxh3p75ii8DQSoSfiRRFBlOc5t
+	 i8kQVzF9/CDLCVJpQWiw9r5STgg+mQXRLeQeiLua5WEivj4DfP0zNKzFXQr5eZN2zJA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795072303;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=56K4FbTqN9iuqeBa4x5ePXVEpS5MDyK7GetIQvheO7c=;
-	b=CwuEwsF0MX4Af+NZkaMyJg1vE47Mu24XhORjc30NhHweNEX4G8oG6nUsiC4Ti4ZPnTKd
-	 pS1unE+wsb94UVT4f9juVy61x4ei2nrJDZy2iRxV/Imc2VsZQF4Ri03TlrrHK7I6MvUx7
-	 BoY7DIX3Vzj4JBO23ZN9R6sdie6P8tHGAw/kjyWFndxFQsDtFh8+Mz5RUrCX/s+5vzilF
-	 MORkEorhtc+QrfEV9p1Mr1AHDPyJZMUwPQKCCsKxN+B3R9R/SgWjbIBvPykroNVGwPxXC
-	 FaIxm2j0MvLA+j1GE0Ynu1bFBRI2ko80LgtroiMF8ZjMFuNbP3bEHO8E7pIpK3HWylA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795072349;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=HRTOMsxmxzZbjnQgnTFcfl9MhnENbv2l7b0g6/Bf7Jo=;
+	b=zE/W5ksJ1vr4uVWi/wIqP0G99m3lo9dMwHy+ROrWtm/2s5c9Sw0ZvO/+dAeGO1rcmS5l
+	 u5FoPYnkRaz08mYPKtPxm2QZdPxZZ+SXoXUoWjcAZ9+o6pu0DY6sc18G5bEpBhTul06wS
+	 edjMsPGU1aeSQRcF2yRmGhER5+7dibILVwGFRuPO5/ab6TkT8mvvX++9LpIwZUYZtSihO
+	 hsO2a6gdj8vyh4XOtm21jeeH2U5c+VFfpxHE4aERV7Kn0cihshzSJ2I6Tu1ryADhqAgJe
+	 hRruBTnU5fI6VqvobN+hBeDPUpso5ZlKRC9X+OcSXgNKu3Gc8OudtPCukYs1L3uCpEA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dp2jz6sl;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="UVO18r/W";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACDEC606A330
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:11:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACDEC606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2EC2606A324;
+	Thu, 19 Nov 2026 07:12:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dp2jz6sl
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cdb75699c7cso969894a12.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 23:11:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795072302; x=1795677102; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=56K4FbTqN9iuqeBa4x5ePXVEpS5MDyK7GetIQvheO7c=;
-        b=Dp2jz6slsa2nPA1ODcfYoYVFZ8fVvJy6eA9FuBu2d4k5NVYVdmhp5yOXVYQEwJtNH2
-         zbXbU1hyNloT8Cn9/XX1Fu5Hjpyz8o5Hhvh8f939/QQTZ3WrNtO+FYSZOkySzqzRLZDP
-         EzUXcmsebAvM79a8wqhaBXa74UwdrTTC9bL4nZIWYDPMXPjVUH3lpoSTvz9BbxKeg1zZ
-         NXQE3tpd+Hsfhk/OMvAosDVsVoiSWNncBZn8RXrGnwID1uep42kebuVPJJ+3H3NH9P5h
-         2bq/OYKpauyHaMHbCQLrD+paPL4qR7CM0NY+UtNJyhLjKSjueVOy4adFafLb4XwoCAQU
-         w7DA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795072302; x=1795677102;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=56K4FbTqN9iuqeBa4x5ePXVEpS5MDyK7GetIQvheO7c=;
-        b=si+sTavSArXiy/YLawD53mYXVQ7nEt6grgLpiGk3HnFfBibEGVmAVdx/1Z0Q7iDZrA
-         wRy1Z/MFF9SczX/2lW+WSG5L3J7aaSzfY0A7nA7aDcKD9CE5XhMlhBXJp9fc23m8x4pX
-         xttzoU/GHBkq8xP90T4CFv6obTNjDLcrS57e2nlDCOZ4b2kaTIjh9IYdhLSjSXUqrto6
-         1BPWqnN90gYBy79nOYyef3tqwMaqIgS7Rtt4Qlg+Iwo+zcodVwICsFE6Y4alzN2O5ACE
-         wfsQDgCovLijo8qnK57KB6mgcEKuqRaxYZbJLiL1nIgxlOXyERvtZ/lZR0PwOpl/2jGX
-         GQ5w==
-X-Forwarded-Encrypted: i=1; AL+hErF1VX/NaP2o50J7GJrQRpBnfZt2DTfQesf5+X84oHo7TvpOahBocLNkC/8nj+uM/eJ1tanEHYg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+ihRZw8cQaib6qQZMCdKFPGZzVoklRg8WkxsGC4DR5YifI+oJH
-	wS7W/6hze3QxIKXyL2KPyCk7aHy6kg3JVcHtfZ1kGqNzb4ZCHK2gqFCH
-X-Gm-Gg: AZFdTZe/9Pc6kPzWGIf93yVgUeNWXWQoLQncv6TjuphK2O7tKWt5rxjLRGl4JCNFcJY
-	sWITROaGHZhNkf0ZTx35Ji/mCIx/ZgT1STF/HPoNqG6jaBTTSiWsG3bJgSmYeE0DlkDG8o/c/P2
-	GedO7monjBLa5ByqzWDRnb1A1LRuGL0KKgwsWnlurbt0oR7IejBldnXb3RS0qLQtHPZA1Qirfye
-	Zmi02tqgzjNtspaSZK5D8Ka4LE8D1mefu3K4rb5g4SExXAbXHh/7s3JYSmg72OhYGiSxB80TJnl
-	Kt/IahHIS8neXfOX0FSxGS6pXxaF6hzcYBUJOS+e6kypLw4iFjardd5W5NOQMfxplfslC9YjGXe
-	QBD6gV2VRs8WnzEGpX8PiiuGOEWHCZaU8oAnSEB6VG/MY/oETfI2K7bgCxhp+o2woiMOqinza36
-	4OeYBdrrvjcAbMKA3KXkvfsA7NsNTwJjewnSsd419m6pVmaEOwgCOTpM+0bU/RQBiy0oZ1HZGaj
-	SqaVlhIDymCeyum6njlwuU8oUqbcljf/DoIet7SL+kKKYmoydaWnY3j5wMvDiF1c+v5vFu1hBP/
-	EBstty3a5POZP9b6PppeS3sPbk1wCQ==
-X-Received: by 2002:a17:90a:d886:b0:3b3:b36e:8c40 with SMTP id 98e67ed59e1d1-3b3d07cd39dmr4957649a91.62.1795072302037;
-        Wed, 18 Nov 2026 23:11:42 -0800 (PST)
-Received: from [10.222.0.188] ([59.20.222.201])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ecb486sm1183692a91.16.2026.11.18.23.11.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 18 Nov 2026 23:11:41 -0800 (PST)
-Message-ID: <69c61b39-1b78-4c9c-8289-8ab40cd13c96@gmail.com>
-Date: Thu, 19 Nov 2026 16:11:37 +0900
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UVO18r/W
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB561F000C4;
+	Thu, 19 Nov 2026 07:12:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795072348;
+	bh=HRTOMsxmxzZbjnQgnTFcfl9MhnENbv2l7b0g6/Bf7Jo=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UVO18r/W1B3P6ipKbXGpCk228hsftOzuCH3dU/hs9YhHSM+Nqxmiz7U4cXpv0udmy
+	 td7PKqcl0zHXTwYfYlAahHcAV1tjl4KmAdBHQR1WqkIWIb8s8yB6JqIJWBPlT9yQS2
+	 15pgcLqQq3PyeHIZPdT6/CQFI9+j0D2i5N+6GU7iIftZP9f9AnsxAKsCo9jIUP5fGN
+	 qp5sYn+KvifobV4ASLESVBgMmpQt59u1i4qoveHQyA2FTc1g7ScEnwk0R8ClJAyKAn
+	 KVIuYRJilBv87rHBuid5H6xsv/d2KFrNe2OX2iC1h0S2Ei7p/0Zt2Q1i5Tqby42Ik7
+	 XhNVxpD8/LAyQ==
+Message-ID: <c73ab715-394b-4edc-a52b-2035f00b9a63@kernel.org>
+Date: Thu, 19 Nov 2026 08:12:25 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,52 +52,116 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 0000/2651] 7.3.6-rc1 review
+Subject: Re: [PATCH 7.3 0578/2651] rust: pin-init: internal: init: support
+ tuple structs in `[pin_]init!`
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
+Cc: patches@lists.linux.dev, Mohamad Alsadhan <mo@sdhn.cc>,
+ Gary Guo <gary@garyguo.net>, Sasha Levin <sashal@kernel.org>
 References: <20261118150247.972732815@linuxfoundation.org>
+ <20261118150308.536638917@linuxfoundation.org>
 Content-Language: en-US
-From: Joungmin Lee <leejm516@gmail.com>
-In-Reply-To: <20261118150247.972732815@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <20261118150308.536638917@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 11/18/26 11:20 PM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.3.6 release.
-> There are 2651 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
+On 18. 11. 26, 15:30, Greg Kroah-Hartman wrote:
+> 7.3-stable review patch.  If anyone has any objections, please let me know.
 > 
-> Responses should be made by Fri, 20 Nov 2026 14:55:47 +0000.
-> Anything received after that time might be too late.
+> ------------------
 > 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.3.6-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.3.y
-> and the diffstat can be found below.
+> From: Mohamad Alsadhan <mo@sdhn.cc>
 > 
-> thanks,
+> [ Upstream commit d48aa955cb91745ef2e5089f9277a7a95060cce3 ]
 > 
-> greg k-h
+> Extend the initializer syntax so that a field can be named by an index,
+> addressing tuple struct fields the same way a struct expression does:
+> 
+>      pin_init!(Foo { 0: value, 1 <- initializer })
+> 
+> Tuple fields are not exposed by a `let` binding to the fields after them,
+> since they have no name to bind; `_0` would shadow a user variable.
+> 
+> Signed-off-by: Mohamad Alsadhan <mo@sdhn.cc>
+> [ Fixed incorrect index calculation and cleaned up the code - Gary ]
+> Link: https://patch.msgid.link/20260904-tuple-struct-v1-3-72c50bd037fd@garyguo.net
+> Signed-off-by: Gary Guo <gary@garyguo.net>
+> Stable-dep-of: e30decc3f9a0 ("rust: pin-init: internal: init: emit `slot` using mixed site hygiene")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   rust/pin-init/internal/src/init.rs | 115 +++++++++++++++++------------
+>   rust/pin-init/src/lib.rs           |  32 +++++++-
+>   2 files changed, 95 insertions(+), 52 deletions(-)
+> 
+> diff --git a/rust/pin-init/internal/src/init.rs b/rust/pin-init/internal/src/init.rs
+> index fd0b5ea4a0a30..5920bb281a500 100644
+> --- a/rust/pin-init/internal/src/init.rs
+> +++ b/rust/pin-init/internal/src/init.rs
+> @@ -8,10 +8,13 @@
+>       parse_quote,
+>       punctuated::Punctuated,
+>       spanned::Spanned,
+> -    token, Attribute, Block, Expr, ExprCall, ExprPath, Ident, Path, Token, Type,
+> +    token, Attribute, Block, Expr, ExprCall, ExprPath, Ident, LitInt, Member, Path, Token, Type,
+>   };
+>   
+> -use crate::diagnostics::{DiagCtxt, ErrorGuaranteed};
+> +use crate::{
+> +    diagnostics::{DiagCtxt, ErrorGuaranteed},
+> +    util::*,
+> +};
 
-Hi, Greg:
+Now I see:
+[   70s] error[E0432]: unresolved import `crate::util`
+[   70s]   --> ../rust/pin-init/internal/src/init.rs:17:5
+[   70s]    |
+[   70s] 17 |     util::*,
+[   70s]    |     ^^^^ could not find `util` in the crate root
+[   70s]
 
-I see the same rust build error as that reported by Thorsten.
-That error was not observed with 6.18.65-rc1.
+-- 
+js
+suse labs
 
-Distribution: Gentoo Linux
-Architecture: x86_64 (ASUS Zenbook UM3504DA)
-CPU: AMD Ryzen 7 7735U
-iGPU: AMD Radeon 680M
-
-Tested-by: Joungmin Lee <leejm516@gmail.com>
-
-Best,
-Joungmin
