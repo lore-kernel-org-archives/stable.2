@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795046526;
-	b=g3ieyy6XxloZFSAv9cY82B7hbiYvletYOWru5TCIGo/ULW1/Ffkk259TysPBpzutcG9i
-	 76SPWJzDUFf8ChyiFEFwOFoPAB4O1d8Lz/boXkgPohU6RMiexzxo/MbJ9M9UjX0UmnwXP
-	 K70BtzCsv9/OLCA7MqkCdh6hIN5Dt5bbtL+o6qDms8iHGSrxB3O0F6rVdOTfAeYTlHXh3
-	 W+E1tHSSJVNPuLx7uKOPSrT1mzmGdZiyCutGnccg+qQU+HBX5IGuxOk8JALfrXvFrXXie
-	 WSIw7dRfaNZZ+zzKqFsgBDreJeQ6P3hylYFvKa9lhBNyu6AoXhfXPz7J7wXg11UShXg==
+	t=1795046527;
+	b=Jk5DXJqjkwkz5Mp/za2dulcIl9g5sWTYFjE5w0e07SCXZ6hN85yIfykKlHGP+pKV64+w
+	 tjieVqJchGLxkQonAL7s7LBCVNCNbbB4+jvSHkPdgPkBA1m9eQXJ0V1KCXHXzoUNuKpxa
+	 UrtbpbKt0TFVdZCcg7Pue1cX1YhGuBxiuolN6rZlrSHO80en2/LrUxCMhA4zg9nv3DXJM
+	 cDlJOuD17AWG5LYlrwdG910u+hKwCiFcJl4Ei79T/zm4SSAoWY8kmJ+AfkussBmKlIDWe
+	 bK9CYYTFw024PLVMsmKCpc72w/SboWfbBcfbfwDuEdhGCpuhLHLt3/SaOoGwzEjSU7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795046526;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795046527;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=Kf/xUikSTcSaNla9drEguiRcgIHVSZVJsfZjqN52TlM=;
-	b=IOtFnxQSgUxtR34N8lmHrdCwBty4jm5evNfOx/brttjmNNfWqvIDn7EX/L0yp+s4fhAA
-	 UBwbkkgtDrfAdADdSPtWlFJGOgMqpA4+rMkQJcSvp7Rx9T7jCTVNxjmDjpbKkkq2CdLZa
-	 FlYp0s1LtBmbRiap52US8/75CuJieAnHcqu/fxvy7kLpMFihixDRdK7scPrmBeLJZ59Mm
-	 kQP71oW3CV7W3MqErzw4iccpyB3eNpGu2ucIGrkZav8oR7M8wpgXUBEaA42fscbg1EfHR
-	 Avk6KoH5bVtFDzGAxmd8X+zxg3B/WtTkH/pmzqxDTRnUg67pCDLFi1xctUsyneeAqjw==
+	bh=HPFw4rbLyAAw0EodXoO87GmwMVo+rA3zhzGO26T6THI=;
+	b=p5QSGCXU3lF+aduW1Klfag5UWR2zORn011Chb94+jHfHT8Ecx1X0v5i9YJbZFLJcjIP4
+	 OBFtVo8NSktm69tTCI8NmD3+XBAaaLs9VhPEf11hyQuKNvS5gkKbo0MPpiUgt0wX6tTz/
+	 gSeJkSkwGenaRLF/m400qXE1588yVXnEsuHtQesNq/4y6k1bk6sYF30aaPba/2aUUKQ/L
+	 2JP4W4fdcpXALse5Rqp79Sts2N+eg/CYe3FQBAhrsgBy4N6N7qdoxGFz5CrNgeVe2Ugr3
+	 2U2NgAFERbSlMbL5ucR0gWN2xux9AazgxiVY2yJp87DOnaEnBqIAfdl05t29mzfbyJQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VtBJYuvg;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BiepogfD;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93D060A5BCA
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:02:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E93D060A5BCA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4132B60A5BE3
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:02:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4132B60A5BE3
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--dmatlack.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VtBJYuvg
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-55bf11583d9so503136b6e.1
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:02:05 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BiepogfD
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4dab94dc3e7so2864346b6e.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:02:07 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795046525; x=1795651325; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1795046526; x=1795651326; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Kf/xUikSTcSaNla9drEguiRcgIHVSZVJsfZjqN52TlM=;
-        b=VtBJYuvgE6DA9d3Trvx/CDub8htw+jY558C/tA57TBfxaym3OEt4DsJICNdZ/uVLf6
-         mc8GBF3/065gwbz0TuxO1KVzcv1Q/RDXwyi2N7UQ0SPxhhwZDh0gnR1XB+MK6fwGq4z+
-         2twqHMrB9fB9SKZy4PJXOY7OFSX+gDSqwizd8CkrTnlE2p6N9fb/NzGqIKi3nF2eaOtM
-         WMQLuqVOM4uFXYKgdiZ7cS6D+If3wzvCvaG/iOaAWR+a58+XigEZXcI3cHGbvwgpJkmX
-         hJq2QvYGnHdjy3h1fqkDRKX+NmFdvFOh4tn0jZA4GWbxMuOcqf2YLQBKiTLZhL1sWPQs
-         wwow==
+        bh=HPFw4rbLyAAw0EodXoO87GmwMVo+rA3zhzGO26T6THI=;
+        b=BiepogfDCoyJSnNNxOFQ3GVuPvwSSkEtR5JE47DUJAFBDLSoemWcscI0twJF1A0Xqf
+         p0cJL9ezvcvgfrc0rR79qbTjJlsB0t5xUGrMCaWTzFprqtOT6HjQ2doboKJeHHdIXh1P
+         st7UMk5yopQXRNBlFMmxRNFdusjlh/DnwCu+X7FEw4SyBDc95qzQ2EiZTTLphuMqWc3l
+         86XWAblJ8O3ro4nvDaFFP1cNd7Lx+tu0LeS6tdSA572STVHGsURQDHEW+lj2C0FyckxL
+         IooOmyGRcrRgEuFpvWos3leSp25riYlEGZAELshd3xc859zsJlSr1Z5GUa+zzsLG3dFe
+         3LrQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795046525; x=1795651325;
+        d=1e100.net; s=20260707; t=1795046526; x=1795651326;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Kf/xUikSTcSaNla9drEguiRcgIHVSZVJsfZjqN52TlM=;
-        b=H2SniMv4/pMfhJUrS6J1D3fjj46letlkQnNzFyu3x5ezfclP7HIW5JCRBkjdI6393S
-         0+KD7NlFCdrVC1a9m1BpRZeD6IQPZTJtd6jTxB5S2xpO189HMIQtu3Y1k53bxEQGlmCn
-         t83nua2Dte30FkGXAKpXJqi1XvBjggSJivPeGBqsB9YKkRGSqkq/Dbt6frtuc8NqsMCp
-         eQ79WB59hxMlJMiAtV8qtOUjNcncy4fPAdaEvAh/3ZQ14aSWgqTl/s5UkygtzWJhhjYv
-         fPeHKxkt3adebuEMnlF45hv5Ye2dFxV3vMByDICEjdgbFl05ZW7y+G/ZHFhngBqA/AS1
-         vX/A==
-X-Forwarded-Encrypted: i=1; AL+hErG3BICsQrv5kTYgbbV/AEPJYtcaQ1TYTvGHLpZYwstHJZbpd3RRgcYXpgV8g4IoFNol4Zj0W4g=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wpF5BByfYEUawgLO+8HRXExqd0W45ow2l/6yHOFMMTBvxWcyV
-	GYPRphDuSX4Z1EXXiVopPFnGYMM0OuBTcZLKYeWyDgcg8/HqLzg5xqCUobC2873XvDGYb041MgB
-	K1YBFhJVJljUQvw==
-X-Received: from ilbdz27-n1.prod.google.com ([2002:a05:6e02:441b:10b0:54b:28b4:c3d5])
+        bh=HPFw4rbLyAAw0EodXoO87GmwMVo+rA3zhzGO26T6THI=;
+        b=iAedDKI+AbI0Joighnfo9x9rZTB0xeS2PGMcRzOuAADgsmMCJq8FZDJwvQk5dFfeul
+         vo6NkSE8AubMKSPzKBwC6QNXTX/e9XhXi+ke8hsSxNa+MK4/f7zigw+w976bfeECC2Bp
+         NAV+A9bfCwcWHBKYTP+LdR+K7RCcGNPyS685VBBeiiOm7A6MD6MQC/NimOMrDq3BY1NR
+         5abhDYUBCHKJr8fAavaTM5UG0apnD6dXLOwIxklkJrbzspHy+sEVS/6cF4L6IIjya1Jt
+         7N+bXUyF0T6W9SDpemf1vZzblIV9CIoiybjtiRfUmB3w3K3ca8kQTrQgL3SnUnv2kcHw
+         uPAw==
+X-Forwarded-Encrypted: i=1; AL+hErEVOYjhtkKNeCbZK2wdpdaIKGgxbt1guNI+Vq1iosc9zDOspDpbXELMSGyXh4vCYXZby8XCVKg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+mNg7UQ1/GRCQ2lDQhYuhotxzavGnzjTaG2//EYalTObq5z5i3
+	samqzkLzbE1g2UZmnrOw6ui09aHBXrqwwCpXjzBOZ+vAc0Ec21stXufZafCOgJzUPgiKG73MfFc
+	/RZ1lHCMTkP766A==
+X-Received: from ioai18.prod.google.com ([2002:a05:6602:72d2:b0:9c7:d55f:a8af])
  (user=dmatlack job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6808:2385:b0:4c2:e32c:1ee2 with SMTP id 5614622812f47-57907050044mr339534b6e.22.1795046524477;
- Wed, 18 Nov 2026 16:02:04 -0800 (PST)
-Date: Thu, 19 Nov 2026 00:01:49 +0000
+ 2002:a05:6808:4f07:b0:564:3fe1:2f95 with SMTP id 5614622812f47-57741c1af9bmr5343225b6e.56.1795046525841;
+ Wed, 18 Nov 2026 16:02:05 -0800 (PST)
+Date: Thu, 19 Nov 2026 00:01:50 +0000
 In-Reply-To: <20261119000151.442543-1-dmatlack@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261119000151.442543-1-dmatlack@google.com>
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
-Message-ID: <20261119000151.442543-8-dmatlack@google.com>
-Subject: [PATCH v2 7/8] vfio: selftests: Add helpers to print kernel warnings
- from /dev/kmsg
+Message-ID: <20261119000151.442543-9-dmatlack@google.com>
+Subject: [PATCH v2 8/8] vfio: selftests: Add test for device power state transitions
 From: David Matlack <dmatlack@google.com>
 To: kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
@@ -92,210 +91,312 @@ Cc: Abhishek Sahu <abhsahu@nvidia.com>, Alex Williamson <alex@shazbot.org>,
 	Vipin Sharma <vipinsh@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Add kmsg_open() and kmsg_print_warnings() to the library. kmsg_open()
-opens /dev/kmsg positioned after the last message in the kernel log, and
-kmsg_print_warnings() prints any kernel messages at KERN_WARNING or
-higher priority that have been logged since.
+Add vfio_pci_power_state_test to exercise VFIO's handling of device
+power state changes initiated by userspace through the PM capability in
+config space.
 
-Bound how much kmsg_print_warnings() reads and prints, since other
-processes (e.g. tests running in parallel) may log a large number of
-messages, and note in the output when messages were lost because the
-kernel log wrapped. If /dev/kmsg cannot be opened, kmsg_open() prints a
-message saying that kernel warnings will not be printed, so that callers
-do not each need to.
+The test covers:
 
-This will be used in a subsequent commit to print kernel warnings to
-the test log when a test triggers one, so the failure can be debugged
+ - Closing a device in D3hot and then reopening it, which must leave
+   the device in D0.
+ - Enabling SR-IOV while the PF is in D3hot, which must return the PF to
+   D0 and prevent it from leaving D0 while VFs are enabled.
+ - Racing a close of the device while it is in D3hot against enabling
+   SR-IOV, both of which transition the device back to D0.
+
+The SR-IOV tests are skipped if the device does not support SR-IOV,
+already has VFs enabled, or SR-IOV cannot be configured on it (e.g.
+vfio-pci with vfio_pci.enable_sriov=N). If an SR-IOV test case fails,
+any VFs it left enabled are disabled so they don't affect later test
+cases.
+
+Fail the test if /sys/kernel/warn_count changes between fixture setup
+and teardown, since bugs such as the close vs. SR-IOV enable race show
+up only as kernel warnings. When that happens, print the warnings
+logged to /dev/kmsg during the test so that the failure can be debugged
 from the test log.
 
 Signed-off-by: David Matlack <dmatlack@google.com>
 ---
- .../selftests/vfio/lib/include/libvfio.h      |   1 +
- .../selftests/vfio/lib/include/libvfio/kmsg.h |   8 ++
- tools/testing/selftests/vfio/lib/kmsg.c       | 134 ++++++++++++++++++
- tools/testing/selftests/vfio/lib/libvfio.mk   |   1 +
- 4 files changed, 144 insertions(+)
- create mode 100644 tools/testing/selftests/vfio/lib/include/libvfio/kmsg.h
- create mode 100644 tools/testing/selftests/vfio/lib/kmsg.c
+ tools/testing/selftests/vfio/Makefile         |   1 +
+ .../vfio/vfio_pci_power_state_test.c          | 256 ++++++++++++++++++
+ 2 files changed, 257 insertions(+)
+ create mode 100644 tools/testing/selftests/vfio/vfio_pci_power_state_test.c
 
-diff --git a/tools/testing/selftests/vfio/lib/include/libvfio.h b/tools/testing/selftests/vfio/lib/include/libvfio.h
-index 07862b470777..dca9a9af961e 100644
---- a/tools/testing/selftests/vfio/lib/include/libvfio.h
-+++ b/tools/testing/selftests/vfio/lib/include/libvfio.h
-@@ -5,6 +5,7 @@
- #include <libvfio/assert.h>
- #include <libvfio/iommu.h>
- #include <libvfio/iova_allocator.h>
-+#include <libvfio/kmsg.h>
- #include <libvfio/sysfs.h>
- #include <libvfio/vfio_pci_device.h>
- #include <libvfio/vfio_pci_driver.h>
-diff --git a/tools/testing/selftests/vfio/lib/include/libvfio/kmsg.h b/tools/testing/selftests/vfio/lib/include/libvfio/kmsg.h
+diff --git a/tools/testing/selftests/vfio/Makefile b/tools/testing/selftests/vfio/Makefile
+index 2c32c48db509..e2b152528560 100644
+--- a/tools/testing/selftests/vfio/Makefile
++++ b/tools/testing/selftests/vfio/Makefile
+@@ -12,6 +12,7 @@ TEST_GEN_PROGS += vfio_iommufd_setup_test
+ TEST_GEN_PROGS += vfio_pci_device_test
+ TEST_GEN_PROGS += vfio_pci_device_init_perf_test
+ TEST_GEN_PROGS += vfio_pci_driver_test
++TEST_GEN_PROGS += vfio_pci_power_state_test
+ TEST_GEN_PROGS += vfio_pci_sriov_uapi_test
+ 
+ TEST_FILES += scripts/cleanup.sh
+diff --git a/tools/testing/selftests/vfio/vfio_pci_power_state_test.c b/tools/testing/selftests/vfio/vfio_pci_power_state_test.c
 new file mode 100644
-index 000000000000..9b9e89129b8f
+index 000000000000..5b185c174036
 --- /dev/null
-+++ b/tools/testing/selftests/vfio/lib/include/libvfio/kmsg.h
-@@ -0,0 +1,8 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_KMSG_H
-+#define SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_KMSG_H
-+
-+int kmsg_open(void);
-+void kmsg_print_warnings(int fd);
-+
-+#endif /* SELFTESTS_VFIO_LIB_INCLUDE_LIBVFIO_KMSG_H */
-diff --git a/tools/testing/selftests/vfio/lib/kmsg.c b/tools/testing/selftests/vfio/lib/kmsg.c
-new file mode 100644
-index 000000000000..a25770d2247a
---- /dev/null
-+++ b/tools/testing/selftests/vfio/lib/kmsg.c
-@@ -0,0 +1,134 @@
++++ b/tools/testing/selftests/vfio/vfio_pci_power_state_test.c
+@@ -0,0 +1,256 @@
 +// SPDX-License-Identifier: GPL-2.0-only
-+#include <errno.h>
-+#include <fcntl.h>
-+#include <stdbool.h>
-+#include <stdio.h>
-+#include <string.h>
-+#include <syslog.h>
++#include <pthread.h>
++#include <stdlib.h>
 +#include <unistd.h>
++
++#include <linux/pci_regs.h>
 +
 +#include <libvfio.h>
 +
-+/* Large enough to hold any single /dev/kmsg record. */
-+#define KMSG_RECORD_MAX 8192
++#include "kselftest_harness.h"
 +
-+/* Limit how much is printed if the kernel logs a flood of warnings. */
-+#define KMSG_PRINT_MAX 512
++/* PCI_PM_CTRL_STATE_MASK values */
++#define D0	0
++#define D3HOT	3
++
++static const char *device_bdf;
++
++static u16 power_state_get(struct vfio_pci_device *device, u8 pm_cap)
++{
++	return vfio_pci_config_readw(device, pm_cap + PCI_PM_CTRL) &
++	       PCI_PM_CTRL_STATE_MASK;
++}
++
++static void power_state_set(struct vfio_pci_device *device, u8 pm_cap,
++			    u16 state)
++{
++	u16 pmcsr = vfio_pci_config_readw(device, pm_cap + PCI_PM_CTRL);
++
++	pmcsr &= ~PCI_PM_CTRL_STATE_MASK;
++	pmcsr |= state;
++
++	vfio_pci_config_writew(device, pm_cap + PCI_PM_CTRL, pmcsr);
++}
 +
 +/*
-+ * Limit how many records are read, so that this terminates even if other
-+ * processes are logging messages faster than they can be read.
++ * Set by test cases that enable VFs, so that disable_vfs() can disable any VFs
++ * left enabled if the test case fails. Only set in the child process that runs
++ * the test case.
 + */
-+#define KMSG_READ_MAX 65536
++static bool test_enabled_vfs;
 +
-+/**
-+ * kmsg_open() - Open /dev/kmsg to read kernel messages logged from now on
-+ *
-+ * Open /dev/kmsg positioned after the last message currently in the kernel
-+ * log, so that kmsg_print_warnings() only prints messages logged after this
-+ * call. If /dev/kmsg cannot be opened, e.g. because the caller is not allowed
-+ * to read the kernel log, print a message saying that kernel warnings will not
-+ * be printed.
-+ *
-+ * Return: A file descriptor on success, or a negative errno on failure.
++/*
++ * Disable VFs left enabled by a failed test case, so they don't affect later
++ * test cases. Called from fixture teardown, which runs when an ASSERT fails,
++ * and from an atexit() handler, which runs when a library helper exits the
++ * test process early (e.g. on a VFIO_ASSERT() failure).
 + */
-+int kmsg_open(void)
++static void disable_vfs(void)
 +{
-+	int fd, ret;
-+
-+	fd = open("/dev/kmsg", O_RDONLY | O_NONBLOCK | O_CLOEXEC);
-+	if (fd < 0) {
-+		ret = -errno;
-+		goto out_err;
-+	}
-+
-+	if (lseek(fd, 0, SEEK_END) < 0) {
-+		ret = -errno;
-+		close(fd);
-+		goto out_err;
-+	}
-+
-+	return fd;
-+
-+out_err:
-+	fprintf(stderr,
-+		"# kmsg: Failed to open /dev/kmsg (%s), kernel warnings will not be printed\n",
-+		strerror(-ret));
-+	return ret;
++	if (test_enabled_vfs && sysfs_sriov_numvfs_get(device_bdf) > 0)
++		__sysfs_sriov_numvfs_set(device_bdf, 0);
 +}
 +
-+/**
-+ * kmsg_print_warnings() - Print kernel warnings logged since kmsg_open()
-+ * @fd: File descriptor returned by kmsg_open().
-+ *
-+ * Print all kernel messages at KERN_WARNING or higher priority that have been
-+ * logged since kmsg_open() (or since the last call to this function), e.g. to
-+ * provide context for a test failure caused by a kernel warning.
-+ *
-+ * Messages may be missing if the kernel log wrapped since they were logged,
-+ * and output is limited if the kernel logged a large number of messages. A
-+ * note is printed in either case.
++/*
++ * Check whether the test can enable VFs on the device, briefly enabling one VF
++ * to find out. Returns the reason to skip the test, or NULL if it can run.
 + */
-+void kmsg_print_warnings(int fd)
++static const char *sriov_skip_reason(void)
 +{
-+	char buf[KMSG_RECORD_MAX];
-+	bool truncated = true;
-+	bool lost = false;
-+	int printed = 0;
-+	int omitted = 0;
++	int ret;
++
++	if (sysfs_sriov_totalvfs_get(device_bdf) <= 0)
++		return "Device does not support SR-IOV";
++
++	if (sysfs_sriov_numvfs_get(device_bdf) != 0)
++		return "SR-IOV is already enabled on the device";
++
++	/* From here on, any VFs on the device were enabled by this test. */
++	test_enabled_vfs = true;
++
++	/* -ENOENT means SR-IOV cannot be configured on the device. */
++	ret = __sysfs_sriov_numvfs_set(device_bdf, 1);
++	if (ret == -ENOENT)
++		return "Cannot enable SR-IOV on the device (vfio-pci requires enable_sriov=1)";
++
++	VFIO_ASSERT_EQ(ret, 0);
++	sysfs_sriov_numvfs_set(device_bdf, 0);
++	return NULL;
++}
++
++FIXTURE(vfio_pci_power_state_test) {
++	struct iommu *iommu;
++	struct vfio_pci_device *device;
++	u8 pm_cap;
++	int warn_count;
++	int kmsg_fd;
++};
++
++FIXTURE_SETUP(vfio_pci_power_state_test)
++{
++	/*
++	 * Snapshot the kernel's warning count so that teardown can check that
++	 * the test did not trigger any kernel warnings, which are otherwise
++	 * invisible to the test. Open /dev/kmsg first so that any warning
++	 * counted after the snapshot can be printed if the check fails.
++	 */
++	self->kmsg_fd = kmsg_open();
++	self->warn_count = sysfs_kernel_warn_count_get();
++
++	self->iommu = iommu_init(default_iommu_mode);
++	self->device = vfio_pci_device_init(device_bdf, self->iommu);
++
++	self->pm_cap = vfio_pci_find_capability(self->device, PCI_CAP_ID_PM);
++	if (!self->pm_cap)
++		SKIP(return, "Device does not have a PM capability\n");
++
++	ASSERT_EQ(power_state_get(self->device, self->pm_cap), D0);
++}
++
++FIXTURE_TEARDOWN(vfio_pci_power_state_test)
++{
++	disable_vfs();
++
++	if (self->device)
++		vfio_pci_device_cleanup(self->device);
++
++	iommu_cleanup(self->iommu);
++
++	if (self->warn_count >= 0) {
++		int warn_count = sysfs_kernel_warn_count_get();
++
++		if (warn_count != self->warn_count && self->kmsg_fd >= 0)
++			kmsg_print_warnings(self->kmsg_fd);
++
++		EXPECT_EQ(warn_count, self->warn_count);
++	}
++
++	if (self->kmsg_fd >= 0)
++		close(self->kmsg_fd);
++}
++
++/*
++ * Put the device into D3hot via config space, close it, and then reopen it.
++ * Closing the device while it is in D3hot must not trigger any kernel warnings
++ * (checked during fixture teardown), and the device must be in D0 when it is
++ * reopened.
++ *
++ * Note that this does not verify that VFIO returns the device to D0 during
++ * close, since that is not reliably observable from userspace: the device may
++ * runtime suspend after it is closed, and opening it also transitions it to
++ * D0.
++ */
++TEST_F(vfio_pci_power_state_test, reopen_after_close_in_d3hot)
++{
++	power_state_set(self->device, self->pm_cap, D3HOT);
++	ASSERT_EQ(power_state_get(self->device, self->pm_cap), D3HOT);
++
++	vfio_pci_device_cleanup(self->device);
++
++	self->device = vfio_pci_device_init(device_bdf, self->iommu);
++	ASSERT_EQ(power_state_get(self->device, self->pm_cap), D0);
++}
++
++/*
++ * Put the device into D3hot via config space and then enable SR-IOV. VFIO
++ * must return the PF to D0 before enabling VFs, and must not allow the PF to
++ * leave D0 while VFs are enabled.
++ */
++TEST_F(vfio_pci_power_state_test, sriov_enable_in_d3hot)
++{
++	const char *skip_reason = sriov_skip_reason();
++
++	if (skip_reason)
++		SKIP(return, "%s", skip_reason);
++
++	power_state_set(self->device, self->pm_cap, D3HOT);
++	ASSERT_EQ(power_state_get(self->device, self->pm_cap), D3HOT);
++
++	sysfs_sriov_numvfs_set(device_bdf, 1);
++	EXPECT_EQ(power_state_get(self->device, self->pm_cap), D0);
++
++	power_state_set(self->device, self->pm_cap, D3HOT);
++	EXPECT_EQ(power_state_get(self->device, self->pm_cap), D0);
++
++	sysfs_sriov_numvfs_set(device_bdf, 0);
++
++	power_state_set(self->device, self->pm_cap, D3HOT);
++	EXPECT_EQ(power_state_get(self->device, self->pm_cap), D3HOT);
++
++	power_state_set(self->device, self->pm_cap, D0);
++	EXPECT_EQ(power_state_get(self->device, self->pm_cap), D0);
++}
++
++struct sriov_enable_args {
++	pthread_barrier_t barrier;
++	int delay_us;
++};
++
++static void *sriov_enable_thread(void *arg)
++{
++	struct sriov_enable_args *args = arg;
++
++	pthread_barrier_wait(&args->barrier);
++	usleep(args->delay_us);
++	sysfs_sriov_numvfs_set(device_bdf, 1);
++	return NULL;
++}
++
++/*
++ * Race closing the device while it is in D3hot against enabling SR-IOV. Both
++ * paths transition the device back to D0, which must be serialized by VFIO,
++ * e.g. to avoid restoring the PF's BARs after VFs have been enabled or
++ * double-freeing the saved PM state.
++ *
++ * The D3hot->D0 transition during close includes a delay (10ms by default)
++ * before the device's state is restored. Use a barrier to start closing the
++ * device and enabling SR-IOV at the same time, and then delay enabling SR-IOV
++ * by a few milliseconds so that it lands inside that window. Vary the delay
++ * across iterations to account for differences in timing across systems and
++ * kernel configs.
++ */
++TEST_F(vfio_pci_power_state_test, close_in_d3hot_races_sriov_enable)
++{
++	struct sriov_enable_args args;
++	pthread_t thread;
++	const char *skip_reason;
 +	int i;
 +
-+	for (i = 0; i < KMSG_READ_MAX; i++) {
-+		char *text, *end;
-+		ssize_t len;
-+		int prio;
++	skip_reason = sriov_skip_reason();
++	if (skip_reason)
++		SKIP(return, "%s", skip_reason);
 +
-+		len = read(fd, buf, sizeof(buf) - 1);
-+		if (len < 0 && errno == EPIPE) {
-+			/* Messages were overwritten before being read. */
-+			lost = true;
-+			continue;
-+		}
++	ASSERT_EQ(pthread_barrier_init(&args.barrier, NULL, 2), 0);
 +
-+		/* Stop at EAGAIN (no more messages) or on any other error. */
-+		if (len <= 0) {
-+			truncated = false;
-+			break;
-+		}
++	/*
++	 * Keep the number of iterations low since each one enables and
++	 * disables SR-IOV, which can take over a second.
++	 */
++	for (i = 0; i < 10; i++) {
++		args.delay_us = 2000 + i * 500;
 +
-+		buf[len] = '\0';
++		power_state_set(self->device, self->pm_cap, D3HOT);
++		ASSERT_EQ(power_state_get(self->device, self->pm_cap), D3HOT);
 +
-+		/*
-+		 * Each record is "<prio>,<seq>,<ts>,<flags>;<message>\n",
-+		 * optionally followed by " KEY=VALUE\n" lines. See
-+		 * Documentation/ABI/testing/dev-kmsg.
-+		 */
-+		text = strchr(buf, ';');
-+		if (!text || sscanf(buf, "%d,", &prio) != 1)
-+			continue;
++		ASSERT_EQ(pthread_create(&thread, NULL, sriov_enable_thread, &args), 0);
++		pthread_barrier_wait(&args.barrier);
++		vfio_pci_device_cleanup(self->device);
++		self->device = NULL;
++		ASSERT_EQ(pthread_join(thread, NULL), 0);
 +
-+		text++;
-+		end = strchr(text, '\n');
-+		if (end)
-+			*end = '\0';
++		sysfs_sriov_numvfs_set(device_bdf, 0);
 +
-+		if (LOG_FAC(prio) != LOG_FAC(LOG_KERN) || LOG_PRI(prio) > LOG_WARNING)
-+			continue;
-+
-+		if (printed < KMSG_PRINT_MAX) {
-+			fprintf(stderr, "# kmsg: %s\n", text);
-+			printed++;
-+		} else {
-+			omitted++;
-+		}
++		self->device = vfio_pci_device_init(device_bdf, self->iommu);
++		ASSERT_EQ(power_state_get(self->device, self->pm_cap), D0);
 +	}
 +
-+	if (omitted)
-+		fprintf(stderr, "# kmsg: (%d more messages omitted)\n", omitted);
-+
-+	if (lost)
-+		fprintf(stderr, "# kmsg: (some messages were lost, see the kernel log)\n");
-+
-+	if (truncated)
-+		fprintf(stderr, "# kmsg: (stopped reading, see the kernel log)\n");
++	ASSERT_EQ(pthread_barrier_destroy(&args.barrier), 0);
 +}
-diff --git a/tools/testing/selftests/vfio/lib/libvfio.mk b/tools/testing/selftests/vfio/lib/libvfio.mk
-index eff95828719e..f8af0c14c3d0 100644
---- a/tools/testing/selftests/vfio/lib/libvfio.mk
-+++ b/tools/testing/selftests/vfio/lib/libvfio.mk
-@@ -5,6 +5,7 @@ LIBVFIO_SRCDIR := $(selfdir)/vfio/lib
- 
- LIBVFIO_C := iommu.c
- LIBVFIO_C += iova_allocator.c
-+LIBVFIO_C += kmsg.c
- LIBVFIO_C += libvfio.c
- LIBVFIO_C += sysfs.c
- LIBVFIO_C += vfio_pci_device.c
++
++int main(int argc, char *argv[])
++{
++	device_bdf = vfio_selftests_get_bdf(&argc, argv);
++	VFIO_ASSERT_EQ(atexit(disable_vfs), 0);
++
++	return test_harness_run(argc, argv);
++}
 -- 
 2.56.1.708.g77570a6a1d-goog
 
