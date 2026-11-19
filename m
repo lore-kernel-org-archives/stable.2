@@ -1,69 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795118712;
-	b=1fDbkGpXMe5Hxh/8DhohrhjoV+nZg4GoBy5s9m9XaTlLImZ/6d7iLf+RQWLlm2+I6F4e
-	 ul2wJpkuF73kME/wgR5vn2pQ0SIDEJj1I3tAU0AGO29OQjAGkB6+7zdaiPPuSl2r8+NEz
-	 z2ZKykFUCsgGI3t49LZb35c7g3KnC8Nb4Ix7AsS1q1f2NJrOp6LmXCtaRGaDuYHywh1rN
-	 guM8qf7Hf9pCd1+jL6mZU8+StoRlVdFU3jfx5ht+UZyx8s4WVqvqt71GJBz2s/YV9v5k8
-	 EUzgr9hlHo/ziXze1J+Aub4DfwXSxWmwcJJURmc39ITgPGjwS0v/Wr+VcXgL5dq3z8g==
+	t=1795118752;
+	b=IBho1sbzUqycCjepN+MmBOeShLdIY/2/9/c6iPZ4EfXX+ATyvmYQp28jxv47aNTb1pl6
+	 wcMm3g2NZkC96SgFAP3H4mfUxvdQSJJcwWX1MF0waIbFCkY2sh00Ddn5AWtKdMSVD7Vmi
+	 k7/uE1e4RsCUrmWUZU801O9rhgH4KS1lrY9JKo7SkJU+PTTT5YnSLF1lBiVa8XgPazKXH
+	 +YRdwHZAycSf9L8a5gPlbELeJRVMXRsG5p+E/R6URZaliAgg7GPoT+ZBiqucQEOPH4kox
+	 1hEQ94yZw8F6mXJNGv0nipxDQDm8o4II26A59FvNXM7nH3JQ8uuONnfuYOoMJ2v61Mw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795118712;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pmEqAprUI9Ka1b+cT75gbEclXdVG5O2jXgAq6Y++HCY=;
-	b=kJ+s3twUUp4GnfEjN+YTlvwDpFKf4sbZk8CwZG+0wgHFEVCtu7c7zo9cI+YXrzbFIUCa
-	 87kLhDOwHDBhCKF53fyxDQYJ77COnbM13KqGLLH5vytZ68kfnwOK3Z7lXd9HMyGOCIRYw
-	 QeJmpCtGQucsn2Y+/OJ9alnq0ImWOyVhIyjESqTh08ZRoxZzrsGJcToySByNCzhZ+b022
-	 aEJmiPf5+HewvJCLpZz807/l7LxdlZtNzV/ec7oIU4T2CYlESx0vtfmHqnVwtcI/4fplG
-	 bbvzVE6TTZwkcNbbWQqo3yT27z28FppJAOfoBj/duwXG+kDc+wx3iQeofAjkCMKUbew==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795118752;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:Date:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=VEkqpd2RoxZ9GRJkgcd4TxF/KKNHXP8mBeFHzci9J80=;
+	b=GXdAuaqUYlKjwbB2PefBxOGJyIOv5zpkEOo/mVpcDdEZsSl1Dhv6JZj9j92QenJLbH4X
+	 PeiGAbHtxnGSLmDwF6SO3eW0z4UOca6NT/GkjRla6U7hc2zL6ZLJyGSqHTQu09Kx0iG4G
+	 cup0fefXVp+e5LZqQeSkr+3XAtxsk1fsCCZxZpHnLqO86aeKpzMxPdYNJFQlJjWrcGbLb
+	 gvkThmv0OWA2k6R5cjxs20AeIiAZvkY6ReCI6hx9ft69J+R7F/CstJmmIwketHzZCgJdl
+	 Q9PzMsI6Gj0GXmuUvFYtE5Jo0vPM9K7ny/kyDeMEd9rGTdP6AeZQaYqBBARNoQsJI5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="BT/UH/Vp";
-	arc=none smtp.remote-ip=198.175.65.20
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U8kap+ui;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353BB606A324;
-	Thu, 19 Nov 2026 20:05:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 353BB606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9118F606A325
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 20:05:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9118F606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BT/UH/Vp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795118712; x=1826654712;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=M9h6fquN+Bcj8CTTmf5eSTB6s6zm+g8iWEPOazkw2do=;
-  b=BT/UH/VpeWdpNudB8slPVSonwJzBKdFACzP+NBKP9h9zEknIVl3OM5qd
-   bK7z9Pdwr4AKS8K+g5Gw0/27e4KitxBPMqzySE8PwELoEei3oNeWb8v+A
-   Y8KGT41yxYhHtLoA7vgnDPmA6zvmt1GWSDU7LsZdNviS2PF4x0RbdPUuD
-   mTp94DOQVYd7WtIQBKP+WPitk3w1FtP0MavdeRvutp2JK1wshMJ6wgLHD
-   zgehkv7so41qc+7OWKW+/R+1O+6B8umXGVT92ojEs2oMTWtsj2YNHzbWF
-   SKXeSyDaxgIS+Kcks9sL9GNKuiZpvViJYxbaEDWiME/VeoLwRJZ3driek
-   w==;
-X-CSE-ConnectionGUID: kvbVam1tS46Q0pscgLHWsg==
-X-CSE-MsgGUID: okBXEPzCQv6fvISRajEcuw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4027098"
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="4027098"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 12:05:11 -0800
-X-CSE-ConnectionGUID: VJif7ihFTwWGTN9RwwUDLA==
-X-CSE-MsgGUID: aMLciR08TZO3r5v0GajycQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="10603979"
-Received: from aduenasd-mobl5.amr.corp.intel.com (HELO [10.125.109.68]) ([10.125.109.68])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 12:05:10 -0800
-Message-ID: <55034934-8aab-4e8a-a74a-b30c977670ed@intel.com>
-Date: Thu, 19 Nov 2026 12:05:04 -0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U8kap+ui
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4bb85e07aadso1234675e9.1
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 12:05:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795118750; x=1795723550; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VEkqpd2RoxZ9GRJkgcd4TxF/KKNHXP8mBeFHzci9J80=;
+        b=U8kap+uiMZ33ZZ7fx3ualzidBqymKwK1L+aYTWKFPrQdqccOtZLLGbr5/LBFP6Ry83
+         7Y93SNsln6Fbf+K8GJHPn8iYNAK8PAbHPbrZkhp3bbpPul7MXXJNjDuEVyL0s7Xdm9KB
+         ugPt9d6PP/fSws8kfJLYG3bZtDhSD+aFVZ7t6e4C1XvkRKD962qnZeQEJo36cqsBkZBx
+         QaWqBC5VHKG/iDQWqlOgIXeb+4SsDudqOTBkYTqqJV9IkCf02pnu+xW1b1Mte4OO1qfQ
+         +OzXdUMRH31yEHgOBDXoiu/H57ArVbXCbnNv58mZE9PQKYtD8lS/VBC0aNTSWRCn8pUl
+         pGsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795118750; x=1795723550;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:date
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=VEkqpd2RoxZ9GRJkgcd4TxF/KKNHXP8mBeFHzci9J80=;
+        b=AjKmfZkDfa1VMfl11e8CJnT8VfSP4M1rIXqhJ6Yl50Q4F9jX4mhzBvtOVSfUu5tnfb
+         wjkHDnwqTvs6xzEi+6N65UqQwRMY0yzhmhCp7oRtlIrKHHm1Zy80Rt9ZypOf9jpYiVuP
+         IE2qEEoBOa2ySI6quKSmsOGZ2DC+PWLowqm8eVpj3tM3OyggLyjClRoUK4X1HcC4YQaz
+         5FpzufFwwZpzjB21YGr7DdD2P6xI4QesT247JRpbGxFsvvw6OCAFZq9UcjQ6nAHz0vHE
+         7kKQlQ8swFGh7dE3xejRwlyixR+7DusyGqeCzGjyX1COvRa23Gpo4Cp62yVC8LXFX/Ou
+         im4g==
+X-Forwarded-Encrypted: i=1; AL+hErF3mwCm+Fue5BKwZAtjMlBi8bKyCfDRs1E8yya741ilPRu6vuw/qOvQ3jZRGOYgcUZlCKr8hDM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8xqjfYr/S6iHjthBOqq2ZESRvr9wCXjidx/d2ss39txCikXGT7
+	S+eRbCiKYzya6YfB/p4ZzL6aRavJ4JUZv7yQCblmBRSYNlnnhutl+9CL
+X-Gm-Gg: AYBFou3XYLnh7RM0syPYkpxnXYdFtMNwyT33H3Nwj/7gSrtKxL0Fuh9+hxEvrLo45a8
+	UY5OykZsx2Sck4oAJ8czYJvSTDO1wQ7XFKAdwhtQVghmB/WhG+cB2J94exWXN9Z8oGkq/vDx4cN
+	t8JA36GKVU349DmNTd4jJ8LXWi4gEBJAwGZNT6Vu9qptNLz51uutpnmzTExX1dEq1JMyIjFf81S
+	l4YtNsxOR28tHwHxtWpwJK60fLUdXOR6ikmTCt+LQiZRfi0JIxV398oTpZafIB+KykxjCDwyk9I
+	ZRVujaDIOkySwcTW/0Z6hgYU4hQiMZ8Gdd17N3HyEkd8zJZNDSg0Bc1o8PTQz9/7FdW2NmX3y+a
+	peWcDHQu5ixTsqjh2+miufX0m0QEFYXJBP6nQc2ofYMwawg4tqv5r21G6QCjPAMuhBvdJygUVDX
+	dwaGzWLAHLtjDGmKLdOikljVuLgWfPlGIr/KaUe2m9u6izW3SbrFc6dJP9yAsomNgcZFcqIPUcm
+	yAdPz1Oh/uojc8nzl+gAedh0H+EwiejDnZCqijU4HFx/YoPaQPMG2VUC42y0KVYs4ACzCCYrqZ8
+	OMXiBWTxgavaefmm
+X-Received: by 2002:a05:600c:3f0a:b0:4a5:75d2:c104 with SMTP id 5b1f17b1804b1-4bb8880cde7mr12400535e9.22.1795118749858;
+        Thu, 19 Nov 2026 12:05:49 -0800 (PST)
+Received: from krava ([176.74.159.170])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb8849e598sm20190405e9.8.2026.11.19.12.05.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 12:05:49 -0800 (PST)
+From: Jiri Olsa <olsajiri@gmail.com>
+X-Google-Original-From: Jiri Olsa <jolsa@kernel.org>
+Date: Thu, 19 Nov 2026 21:05:47 +0100
+To: Yingke Xiao <inkxiao12@gmail.com>
+Cc: bpf@vger.kernel.org, Trond Myklebust <trondmy@kernel.org>,
+	anna@kernel.org, linux-nfs@vger.kernel.org,
+	steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
+	ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH bpf v2 1/3] bpf: Replace DECLARE_EVENT_CLASS names in
+ raw_tp_null_args[]
+Message-ID: <av9Wm6HQ-DIgFhfw@krava>
+References: <CAMcAce-ytH2Xt_0+1fKXzxy+a8fi0Md-4SSoLZ1RQxKQoLq-tw@mail.gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,88 +102,94 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/hmm: reject shadow-stack mappings
-To: Andrew Morton <akpm@linux-foundation.org>,
- Jason Gunthorpe <jgg@nvidia.com>
-Cc: "Gregory Price (Meta)" <gourry@gourry.net>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com, leon@kernel.org,
- david@kernel.org, kas@kernel.org, dave.hansen@linux.intel.com, bp@alien8.de,
- rppt@kernel.org, stable@vger.kernel.org,
- "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-References: <20261113195536.2660763-1-gourry@gourry.net>
- <20261113200303.GA395967@nvidia.com>
- <179460249376.482102.14669935557901467762.b4-reply@b4>
- <20261114002027.GE3706007@nvidia.com>
- <20261113181025.6e8b9475b29c13d29f59e02e@linux-foundation.org>
- <20261115000005.GG3706007@nvidia.com>
- <20261114170127.3d29199864eb352d9045eaba@linux-foundation.org>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20261114170127.3d29199864eb352d9045eaba@linux-foundation.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAMcAce-ytH2Xt_0+1fKXzxy+a8fi0Md-4SSoLZ1RQxKQoLq-tw@mail.gmail.com>
 
-On 11/14/26 17:01, Andrew Morton wrote:
-> On x86, a shadow-stack PTE has its ordinary write bit clear.  The CPU
-> rejects ordinary stores, but pte_write() reports it writable because
-> shadow-stack instructions can write it.  HMM consequently sets
-> HMM_PFN_WRITE.  Nouveau uses that flag for GPU write permission, and
-> RDMA on-demand paging can use it to grant device write permission to a
-> registered memory region.  A device, or an RDMA peer with write access
-> to that region, can then overwrite the process's shadow stack,
-> potentially corrupting return addresses or bypassing that protection.
+On Thu, Nov 19, 2026 at 02:18:29AM -0500, Yingke Xiao wrote:
+> btf_ctx_access() strips the "btf_trace_" prefix from attach_btf_id
+> and matches tname with strcmp(tname, raw_tp_null_args[i].func). Because
+> each attachable tracepoint typedef corresponds to a DEFINE_EVENT() name
+> rather than its DECLARE_EVENT_CLASS() template, three existing entries
+> in raw_tp_null_args[] never match any program:
 > 
-> Reject shadow-stack VMAs in hmm_vma_walk_test(), including read access.
-> A requested fault returns -EFAULT; a snapshot records HMM_PFN_ERROR.
+>   1. "nfs4_inode_callback_event" and "nfs4_inode_stateid_callback_event"
+>      are DECLARE_EVENT_CLASS templates in fs/nfs/nfs4trace.h whose
+>      DEFINE_EVENT instances are nfs4_cb_getattr (:1455) and
+>      nfs4_cb_recall (:1518). fs/nfs/callback_proc.c:50,106 pass literal
+>      NULL for arg 2 (const struct inode *inode), and TP_fast_assign
+>      (:1424, :1481) checks !IS_ERR_OR_NULL(inode). Keeping 0x200
+>      (0x2ULL << (2 * 4)) sets ptr_err_raw_tp = true so btf_ctx_access()
+>      assigns SCALAR_VALUE to ctx[2], rejecting any pointer dereference
+>      even under if (inode) and matching existing raw_tp_null_args[]
+>      0x2-nibble convention (0x300 yields the identical SCALAR_VALUE).
+> 
+>   2. "iptfs_ingress_postq_event" is the DECLARE_EVENT_CLASS template in
+>      net/xfrm/trace_iptfs.h:108 whose DEFINE_EVENT instances (:130-148)
+>      are iptfs_first_dequeue, iptfs_first_fragmenting,
+>      iptfs_first_final_fragment, and iptfs_first_toobig.
+>      net/xfrm/xfrm_iptfs.c:2025 and :2051 pass literal NULL for arg 3
+>      (struct iphdr *iph), requiring mask 0x1000 (PTR_MAYBE_NULL).
+> 
+> Replace these dead template names with their DEFINE_EVENT tracepoints.
+> Verified in QEMU on x86_64 7.4.0-rc3 (iptfs_first_{fragmenting,
+> final_fragment} and nfs4_cb_{getattr,recall} flip from LOADED to
+> REJECTED) and 6.12.118 (nfs4_cb_{getattr,recall} flip from LOADED to
+> REJECTED; iptfs_first_* absent in 6.12).
+> 
+> Fixes: c83e2d970bae ("bpf: Add tracepoints with null-able arguments")
+> Cc: stable@vger.kernel.org # 6.12+ (nfs4_cb_*)
+> Signed-off-by: Yingke Xiao <inkxiao12@gmail.com>
+> ---
+> v1 -> v2:
+>   - Correct sender identity and Signed-off-by with real legal name per DCO.
+>   - Remove drafting notes.
+>   - No functional code changes.
+> 
+>  kernel/bpf/btf.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
+> 
 
-This is a fun one.
+patch is mangled/broken, can't apply it (check Documentation/process/email-clients.rst)
 
-I almost wonder if we want to go one step further and disallow GUPs with
-FOLL_WRITE on these PTEs. There should be precious few reasons for
-devices to be writing to shadow stack pages.
+> diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+> index a123456..b234567 100644
+> --- a/kernel/bpf/btf.c
+> +++ b/kernel/bpf/btf.c
+> @@ -6605,10 +6605,13 @@ static const struct bpf_raw_tp_null_args
+> raw_tp_null_args[] = {
+>   { "bcache_journal_entry_close", 0x20 },
+>   { "bch2_journal_entry_close", 0x20 },
+>   { "fsnotify_bump_event_seq", 0x20 },
+> - { "nfs4_inode_callback_event", 0x200 },
+> - { "nfs4_inode_stateid_callback_event", 0x200 },
+> + { "nfs4_cb_getattr", 0x200 },
+> + { "nfs4_cb_recall", 0x200 },
 
-Isn't this a bigger issue than HMM? Should the fix be in HMM?
+seems correct
+
+>   { "nilfs2_transaction_entry", 0x4 },
+> - { "iptfs_ingress_postq_event", 0x1000 },
+> + { "iptfs_first_dequeue", 0x1000 },
+> + { "iptfs_first_fragmenting", 0x1000 },
+> + { "iptfs_first_final_fragment", 0x1000 },
+> + { "iptfs_first_toobig", 0x1000 },
+
+llm says:
+
+  ▎ Only iptfs_first_fragmenting and iptfs_first_final_fragment pass NULL
+  ▎ for iph (net/xfrm/xfrm_iptfs.c:2024, :2050). iptfs_first_dequeue and
+  ▎ iptfs_first_toobig always pass ip_hdr(skb). Since the old class entry
+  ▎ never matched, adding those two would start rejecting existing
+  ▎ programs that use iph without a NULL check, even though it can't be
+  ▎ NULL there. Should we add only the two NULL-passing events?
+
+jirka
+
+>  };
+> 
+>  static bool is_raw_tp_null_arg(const struct bpf_raw_tp_null_args *entry,
+> -- 
+> 2.43.0
+> 
