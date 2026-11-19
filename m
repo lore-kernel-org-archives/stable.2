@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795061529;
-	b=y3cipDun3rdRTM8sQHp0ZxxvSkLQjd8er32JWiNC4DgqF1mGCgCVicdpiCTUAPXfL+tZ
-	 Bt42huaRZEHT/y7RbSXEthxey7xBCelTuW9WPW6ozkfPJV+9qn9+41WbOzNPz6fl7lgU8
-	 6RjRhPRrfUuiYGU8EY8Z37cOuB9FvHkDt9en9BB5DSrRQo3A38AXeEN6SmeprOTePTmSp
-	 6YnoblvmlNCC4xqywibqjczVT6r5ySRsKmu+rrLIVEHVr7FYQcLxjm0DYh7TEFBdHZ0cO
-	 y5SoLpbDoEB0e41p0bwgXtdSPgeV2z1k1+G3JB0kd1Gv2FM+WI87j59kjKH/LLpAviA==
+	b=xKP2WsWzIZI2QJbNmHlrn8y377hp9GKXyai3xdaK4XmbDen8WpDcdDlT4mgcXhQyrDUy
+	 yy1wiyLiz04ibZvk5a6/o/hsHA8NYcoaWvh0ztdfL0B6tCxTu6Lh/feOwkuPWj0gIzBy3
+	 00A1V41bq5p+CUMA/bHISfpTVuRtyOHdisYLW20R9uvYVdNugz+KmRuLVZK16hsoSEW4b
+	 qvj8KC/eg9vAsPte5w71b10BTZe8jPmvj3cfH1PKytlpf6JnkfyNmz1bcqQ+B7O3b+EHw
+	 Jw1Pl6Db0p5DrF+tSMU8rNrlH1Yap57JGWT0YZ8TFcNhnzYhj+cvxhSKmVSk3du4G/w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795061529;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=F7fczbKsISMj84UnNjhH6JkmOTE/VQGpWwOlLsiuBpI=;
-	b=Pq0zX1JYauBqsEriFLgDMEtplAn7iP3qtN42hDlJnWBjCTZ9sR8TH5H1vOMcPcEioUNo
-	 raYNAvihBnYUrPX0Piz/bbAJ8ZZ1DoOD9fCsVWFZx60n6l8sqGPfx5jy/rEuYi2L6JFlT
-	 yVF+wUaqfEmTtbIK+/uyn0hEh1yNCwR5vFeRQ+YARPIJ85pyy1UINZWy1iAUYG5uy+x0Q
-	 fePPX59oQ0aLsAtIc9Eovjs5YxCYRyQ81Ror5JABV4vDMDtcfIByEbNjIO5mVFGgdtSsz
-	 1QKKyMGrLE5gB9W+JWI3THNpCKYIspdchC6agKcLS0Snuim3rfQE5tEUKdtmE+umlEQ==
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Cd/IXAd36BHiEDGk7QEjHc+1HbQrSiTqxqdslEATza4=;
+	b=qZicgLPC69YWD7McmlFUKFoebYkn2i+UkFelQgMZkBYgSgj60u7FMo6Dblx91m5ukevW
+	 KGS0Gpx9Kh0lfwxXRGzFNxEWUltzsrjj7jIYgePqtL6Ehkl9jsNXvJ77o99o7BUduQQvy
+	 oX5kVhSl7MoAHdJbYQL2Gc+a/DG6UXjxUQoKXTiogb8neVcprJ0Pf9plpxRH2ZTeg4tCL
+	 Qq0A98K80h/XfDxOf1R6XZTsnqRP4pqbvifgMfCS9MsVbEq3cw8K6UCTEewd9ePOm0umB
+	 MlaqKB1/t7/6YgmLfqsUnlE/WfIDiOG6lMWjtjZc4qZ3yC9tSKov6GEPpNBEeGWKFBA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x339d4gB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RVmduHop;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20075606A33F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D311C606A330;
 	Thu, 19 Nov 2026 04:12:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=x339d4gB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7844C1F000C5;
-	Thu, 19 Nov 2026 04:12:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795061529;
-	bh=F7fczbKsISMj84UnNjhH6JkmOTE/VQGpWwOlLsiuBpI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=x339d4gBBtIhHi0v8Z9QR0RZtTUbVaXF5RGM2c3vibwJlUQzYPb3qHXUpDbnbzCOV
-	 2DaF7TXYlhxTdD5EQMDD1WMGmdz4Mhq9YRtHWkEpmv3QRkGS5IGkuiudpTIS9WF2Xb
-	 Ks52t+H6DYItTylUMHE3TdgZB608KS0+ZzjeWixc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 1584/1848] serial: max310x: remove trailing whitespaces
-Date: Wed, 18 Nov 2026 16:00:22 +0100
-Message-ID: <20261118150025.866748741@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
-References: <20261118145911.150052362@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RVmduHop
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 032011F000C4;
+	Thu, 19 Nov 2026 04:12:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795061529;
+	bh=Cd/IXAd36BHiEDGk7QEjHc+1HbQrSiTqxqdslEATza4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=RVmduHopSC66FMRf2Ta7rbnscP97GeAHYr1J87nQCFQOQTip0W2JXhKgMVIkMTGFF
+	 dq1SqQcNt6tGlhrlBzPxLw6hwHkx56VeRVAbLSOazeG6pmLKGAmo0keF0YfD+krVS4
+	 mnd6Ls1aBjkYAkQw8fxyLxbIqxdHs94D3LNf1Sk2L3s3sXSL7xuYP9r7LhiMkgCTCD
+	 94d82Z+5+W5eGCotK4hnydTT3Hd1qwvr6t2d7CIrems5qXgqqfpUEtkinZfLMFV6wf
+	 b2MGQNVr6jctzXOApjnOLw8bCCvFC4Oxh4T7ClnWGbanzyrdai+zwn/cwS6Fzhjete
+	 BRwm6KUFpLxKQ==
+Date: Wed, 18 Nov 2026 21:12:05 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Borislav Petkov <bp@alien8.de>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-tip-commits@vger.kernel.org, stable@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
+ enabled when compile testing
+Message-ID: <20261119041205.GA1218811@ax162>
+References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
+ <avrPcQ4sOkgJPbkZ@gmail.com>
+ <20261116130159.GA1327949@ax162>
+ <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
+ <20261116204517.GB1037705@ax162>
+ <20261119031635.GFav5qExslqQpbK2Oj@fat_crate.local>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,42 +64,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261119031635.GFav5qExslqQpbK2Oj@fat_crate.local>
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+On Wed, Nov 18, 2026 at 07:16:35PM -0800, Borislav Petkov wrote:
+> On Mon, Nov 16, 2026 at 01:45:17PM -0700, Nathan Chancellor wrote:
+> > Hmmm, not a bad idea. That does seems to work based on my initial tests,
+> 
+> So I'm going to zap what I had queued until we figure out what we really wanna
+> do here.
 
-------------------
+If there are no objections, I'll send v3 within the next few days. Let's
+take it for 7.5 instead of 7.4 just to give it time to soak, I don't
+think this is really high priority (and I am testing -next most of the
+time anyways).
 
-From: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-
-[ Upstream commit cee8e0cc9308ab55d4c3bd8eae5f6b4b65898e59 ]
-
-Fix coding style. No functional changes.
-
-Signed-off-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Link: https://lore.kernel.org/r/20231011130317.3562401-1-hugo@hugovil.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: 4efacb600bf9 ("serial: max310x: fix breaks not reaching the wire in RS485 mode")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/tty/serial/max310x.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
-index 8a706ab80706d..36f63519ebc33 100644
---- a/drivers/tty/serial/max310x.c
-+++ b/drivers/tty/serial/max310x.c
-@@ -412,7 +412,7 @@ static int max14830_detect(struct device *dev)
- 	ret = s->if_cfg->extended_reg_enable(dev, true);
- 	if (ret)
- 		return ret;
--	
-+
- 	regmap_read(s->regmap, s->if_cfg->rev_id_reg, &val);
- 	s->if_cfg->extended_reg_enable(dev, false);
- 	if (((val & MAX310x_REV_MASK) != MAX14830_REV_ID)) {
 -- 
-2.53.0
-
-
-
+Cheers,
+Nathan
