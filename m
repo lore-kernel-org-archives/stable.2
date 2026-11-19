@@ -1,55 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795079906;
-	b=B8wzJkmrKxBnvx0dW0HlfyBhyd4FIoP54ua8siSxmUWtuE0ix25zo5DHb9ssVqL9kgdi
-	 eDhLRrIik6K8ScEl+TxWQG6ZCnjUaL1rcxpxljjZkBj5vKM+sobCQJmI9fvcXdb8qljl9
-	 Whh616fp8s/vIUcNhLFcEmwNQ3tcNLyHDqlp+6SqposmFD3W5R/H9bpRjLj2QoB3F4/0R
-	 WU45QgGm63DK2UsZSfISAGeZpn9iCOOKM4lXtRchoSc0461o+w9YRV8xNlQPIvr99IHVU
-	 2i+KX6Iho3dOoUl2G4UWboD1RQFkZp5liBhhEHEr1qz8hcLpMFv8c+d0TgS9eg2vM9g==
+	t=1795079913;
+	b=L7eHXVnGTNJmv4OojyBvAqGP5eB1YhTVxauZ/a00Gbv5E8JJBLrwcyZKYaz4YXqvVK7G
+	 5FwldR6jYyXTBvXRVBtIlDwnAdBEK1yGpJGh7964nQfkNM/ckej1R4tWLgR5lRpCNQ+3Q
+	 wmS7g5gbH2QjrYPjDXPoSXPgx06DQh5wcHSnnyaFy/nKo+UlbkMb87VGp5m7Vj2TEvKwG
+	 x2/dGKMKINhQhNtGpkHyV4/MxkNLReZ6kX2DeRU9PCZYRK1AEl98Pl0rk7rTXfPdlpssv
+	 aEJiBxrN7yRzF4lcPseuI9OTcP7w36VZSt10v1JzViY65ViePwM4KTLeqXNXRNlVwcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795079906;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795079913;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=iSVxYVewHdrNAA/zA9iTU0SwXTokhEOkG37PjddJWpY=;
-	b=jpgWo62JcOVlqDAytSpjfTCn4mLB+hOpX2oHpD7AkyEAvaxAurYCtQRhQ8vSjrPKW0Y9
-	 xi8+C/jJFCI2A4NshSoxVsp30bMwl3NtxgxoLEkh3jZs9kmzHWI/g/ei8K5lu0gc25Ee+
-	 sq3bHfDlhjPrzm0nzAyarxYFeuQLfY6R49YVk+2gGbDX5pSnEEncaQfD7E0CKux80Tikk
-	 C0WfDOHIYS2ljIa7sTT5LUEfFBJyoCMLLvnRzYBiQVe2qvvh4RyEHN8EWqlO+rU6TLUVS
-	 Hom217+IjrTGk2l2JPaU54tZVgdoXOMrPnS6NkLAsG61+tVnTnLU4pX4Jsv/X7bqv2w==
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=bcoYPNQ1e9JiGf7bcR7Apnx0REpWA8L8Z0wsD4xAwOM=;
+	b=mVwH969l2zZ8/ExXiJujHi4pdlTSM6E3AtahHyn3pRhuu3rQ1Ju5Pr+ES5xE5YrPnT7m
+	 xIlT1eZQe4HY4qnqFoHfuuaRxaJvQ8uBkFoTGtQw8Od5vtIRVsxUdhqV+MVAJKJ6hX34V
+	 i0b/l1BO2ezIuDCaCwADFNV8ZS4zOQiEAhHl14y8k7K3hv6GP/jDbvPK6ilE8cEG4ZBV7
+	 HTHbRq+Yb1y2BcNbM4Dq95L9PXaYKrhNkd4nIerO5X9R6V2XKuY8wTL6PBedriEoPTCJH
+	 psfHN5YmyJxkpQslwGGfsA+hBZX7s98SuDjXBGZqzSkktFC5o8B86YvGWoCyjRl1U6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cRXnAIKm;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ksN/hkSr";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BBCF606A326;
-	Thu, 19 Nov 2026 09:18:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63AD6606A324;
+	Thu, 19 Nov 2026 09:18:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cRXnAIKm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 612881F000C9;
-	Thu, 19 Nov 2026 09:18:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ksN/hkSr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30331F000C4;
+	Thu, 19 Nov 2026 09:18:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795079905;
-	bh=iSVxYVewHdrNAA/zA9iTU0SwXTokhEOkG37PjddJWpY=;
+	s=k20260515; t=1795079913;
+	bh=bcoYPNQ1e9JiGf7bcR7Apnx0REpWA8L8Z0wsD4xAwOM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cRXnAIKmqaa6Xz5Q1PZo8++oOWj1elK4J0uQ3uNX5TIfKiTkJwqtiTm2wQ/dczLZt
-	 m/YOLU5NQFM0pea3+9OPjALA4FelshvYZcVgp2iMmHie+89jSdmSaG7c0H1bQIzrNn
-	 1VCJ2XdIxaKSD/Vca0RCmVw89XnIyxhy36PQtt8JQWV1/fWKj5jYpHRGNQjvqyoQYs
-	 tHtFshX2mqV2GtIZAAh+5Ry1oFEfiTbUY6HhobDOd50mwQc46MLsJ0fd0lLbkMh7mr
-	 es5Di7beA8iqMvJK7ExEbifvIa6gcEnfYiVYMQ54nfNCqeIwGxjm7U3wnVX11ODDcU
-	 jkbFth7g3K5Ug==
+	b=ksN/hkSr+gJP5LsCZT870PhevDKD0dgh6KPfF7Yu3TCs91hOP+TjiMrUWdJ5TMam+
+	 dorqqx+axs5BBnLhJtUHA+Wh+mnj5clmKVDmfAOqvPi3IujBmPCTJmuh0MN0D6+ZRq
+	 Tzkb94RPnG1kjxxyaXa5jHlZS6IR/kDwAcsoSUPSMkfbjyqXAihVEtXJCrpBRQ2FZF
+	 5lo5UI78eJta06nxNEWEazfuadfT4uo2gq8M48AMiBaXWoVQij0iib2nvf1pdYoSEm
+	 RgpOa+pzerxevgJI6ivArDbPdrq1dAAw5ypfOvpNFUbRD6lemb71N389D7cWbgNTtR
+	 IpaducJBN3D4g==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Mark Brown <broonie@kernel.org>,
-	Anton Vorontsov <avorontsov@ru.mvista.com>,
-	Giulio Benetti <giulio.benetti@benettiengineering.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Gabor Juhos <juhosg@openwrt.org>,
+	Chris Boot <bootc@bootc.net>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	linux-spi@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 01/10] spi: fsl-cpm: Map the zero page's address, not its struct page
-Date: Thu, 19 Nov 2026 09:17:13 +0000
-Message-ID: <20261119091810.3440619-2-lee@kernel.org>
+Subject: [PATCH 02/10] spi: bcm2835: Store native chip-select GPIO descriptor per device
+Date: Thu, 19 Nov 2026 09:17:14 +0000
+Message-ID: <20261119091810.3440619-3-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
 In-Reply-To: <20261119091810.3440619-1-lee@kernel.org>
 References: <20261119091810.3440619-1-lee@kernel.org>
@@ -62,43 +71,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-fsl_spi_cpm_init() maps a dummy TX buffer which is used for transfers
-that have no tx_buf.  Since the conversion from empty_zero_page to
-ZERO_PAGE(0), the struct page pointer returned by ZERO_PAGE() has been
-handed directly to dma_map_single(), which expects a kernel virtual
-address.
+When a device uses a native chip-select, bcm2835_spi_setup() requests a
+GPIO descriptor for it and stores the result in the controller-wide
+bs->cs_gpio.  A second device using a native chip-select overwrites the
+first device's descriptor, which is then leaked.
 
-As a result the mapping covers a PAGE_SIZE window of the memory map
-rather than a page of zeroes, and that struct page metadata is then
-clocked out onto the SPI bus for every RX-only transfer.
+bcm2835_spi_cleanup() subsequently calls gpiod_put(bs->cs_gpio) for
+every device, including devices whose chip-select was requested by the
+SPI core from the cs-gpios property.  The same descriptor can therefore
+be released several times, and the descriptor released is not
+necessarily the one which belongs to the device being cleaned up.
 
-Pass page_address(ZERO_PAGE(0)) instead, so that the zero page itself is
-mapped.
+Move the descriptor into the per-device struct bcm2835_spidev, which is
+zero-initialised, so that each device releases only the descriptor it
+requested itself.
 
-Fixes: 3be6acda8241 ("spi: fsl-cpm: substitute empty_zero_page with helper ZERO_PAGE(0)")
-Closes: https://sashiko.dev/#/bug/linux-8dbfe527-3ba3-488a-a6fb-d4ee650b8ca7
+Fixes: 21f252cd29f0 ("spi: bcm2835: reduce the abuse of the GPIO API")
+Closes: https://sashiko.dev/#/bug/linux-677b4cdb-2c6c-4cad-8a5a-45a24dc5cbab
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/spi/spi-fsl-cpm.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/spi/spi-bcm2835.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/spi/spi-fsl-cpm.c b/drivers/spi/spi-fsl-cpm.c
-index 23ad1249f121..ccdd62f3c74b 100644
---- a/drivers/spi/spi-fsl-cpm.c
-+++ b/drivers/spi/spi-fsl-cpm.c
-@@ -350,7 +350,8 @@ int fsl_spi_cpm_init(struct mpc8xxx_spi *mspi)
- 		goto err_bds;
+diff --git a/drivers/spi/spi-bcm2835.c b/drivers/spi/spi-bcm2835.c
+index 9d589df90933..af118cccee1b 100644
+--- a/drivers/spi/spi-bcm2835.c
++++ b/drivers/spi/spi-bcm2835.c
+@@ -85,7 +85,6 @@ MODULE_PARM_DESC(polling_limit_us,
+  * struct bcm2835_spi - BCM2835 SPI controller
+  * @regs: base address of register map
+  * @clk: core clock, divided to calculate serial clock
+- * @cs_gpio: chip-select GPIO descriptor
+  * @clk_hz: core clock cached speed
+  * @irq: interrupt, signals TX FIFO empty or RX FIFO ¾ full
+  * @tfr: SPI transfer currently processed
+@@ -120,7 +119,6 @@ MODULE_PARM_DESC(polling_limit_us,
+ struct bcm2835_spi {
+ 	void __iomem *regs;
+ 	struct clk *clk;
+-	struct gpio_desc *cs_gpio;
+ 	unsigned long clk_hz;
+ 	int irq;
+ 	struct spi_transfer *tfr;
+@@ -153,6 +151,7 @@ struct bcm2835_spi {
+  * @clear_rx_desc: preallocated RX DMA descriptor used for TX-only transfers
+  *	(cyclically clears RX FIFO by writing @clear_rx_cs to CS register)
+  * @clear_rx_addr: bus address of @clear_rx_cs
++ * @cs_gpio: native chip-select GPIO descriptor requested by the driver
+  * @clear_rx_cs: precalculated CS register value to clear RX FIFO
+  *	(uses target-specific clock polarity and phase settings)
+  */
+@@ -160,6 +159,7 @@ struct bcm2835_spidev {
+ 	u32 prepare_cs;
+ 	struct dma_async_tx_descriptor *clear_rx_desc;
+ 	dma_addr_t clear_rx_addr;
++	struct gpio_desc *cs_gpio;
+ 	u32 clear_rx_cs ____cacheline_aligned;
+ };
+ 
+@@ -1157,7 +1157,6 @@ static void bcm2835_spi_cleanup(struct spi_device *spi)
+ {
+ 	struct bcm2835_spidev *target = spi_get_ctldata(spi);
+ 	struct spi_controller *ctlr = spi->controller;
+-	struct bcm2835_spi *bs = spi_controller_get_devdata(ctlr);
+ 
+ 	if (target->clear_rx_desc)
+ 		dmaengine_desc_free(target->clear_rx_desc);
+@@ -1168,8 +1167,7 @@ static void bcm2835_spi_cleanup(struct spi_device *spi)
+ 				 sizeof(u32),
+ 				 DMA_TO_DEVICE);
+ 
+-	if (!IS_ERR(bs->cs_gpio))
+-		gpiod_put(bs->cs_gpio);
++	gpiod_put(target->cs_gpio);
+ 	spi_set_csgpiod(spi, 0, NULL);
+ 
+ 	kfree(target);
+@@ -1232,6 +1230,7 @@ static int bcm2835_spi_setup(struct spi_device *spi)
+ 	struct bcm2835_spi *bs = spi_controller_get_devdata(ctlr);
+ 	struct bcm2835_spidev *target = spi_get_ctldata(spi);
+ 	struct gpiod_lookup_table *lookup __free(kfree) = NULL;
++	struct gpio_desc *cs_gpio;
+ 	static const char * const pinctrl_compats[] = {
+ 		"brcm,bcm2835-gpio",
+ 		"brcm,bcm2711-gpio",
+@@ -1334,14 +1333,15 @@ static int bcm2835_spi_setup(struct spi_device *spi)
+ 
+ 	gpiod_add_lookup_table(lookup);
+ 
+-	bs->cs_gpio = gpiod_get(&spi->dev, "cs", GPIOD_OUT_LOW);
++	cs_gpio = gpiod_get(&spi->dev, "cs", GPIOD_OUT_LOW);
+ 	gpiod_remove_lookup_table(lookup);
+-	if (IS_ERR(bs->cs_gpio)) {
+-		ret = PTR_ERR(bs->cs_gpio);
++	if (IS_ERR(cs_gpio)) {
++		ret = PTR_ERR(cs_gpio);
+ 		goto err_cleanup;
  	}
  
--	mspi->dma_dummy_tx = dma_map_single(dev, ZERO_PAGE(0), PAGE_SIZE,
-+	mspi->dma_dummy_tx = dma_map_single(dev, page_address(ZERO_PAGE(0)),
-+					    PAGE_SIZE,
- 					    DMA_TO_DEVICE);
- 	if (dma_mapping_error(dev, mspi->dma_dummy_tx)) {
- 		dev_err(dev, "unable to map dummy tx buffer\n");
+-	spi_set_csgpiod(spi, 0, bs->cs_gpio);
++	target->cs_gpio = cs_gpio;
++	spi_set_csgpiod(spi, 0, cs_gpio);
+ 
+ 	/* and set up the "mode" and level */
+ 	dev_info(&spi->dev, "setting up native-CS%i to use GPIO\n",
 -- 
 2.56.1.708.g77570a6a1d-goog
 
