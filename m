@@ -1,58 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102366;
-	b=OWPZfCbfKxN36ORqHsAEQcu4ZU+mw5aWG8UTrX6HRibVqhgdRWYX3Lqz5bIXr9DfVVJM
-	 WDuC21nmvti+2ctkCtaucm6NG3KZV9VDe5r78M0Y5R/mdU/FYwNID0iH199Kzt/EgAdb6
-	 EVCzgu/8eZ8k3iMOD4EcChUS50ahpLA1wrzewZUCpwaGokcSOy0tV6+j2dnwTOF2cmfTP
-	 VxcMln4ow/FhCK/TgQbleXEdD0f+KX2FZHgtq8z+YEGJ3ExsxKzW5eBOjk8nCiZTPX4xd
-	 YCwOz1dBVCH8JC7ICWaJpnDHv+CB52ZLYXrNpv373wAV0KsmSY/X/aVZwKJIX3Jk9pQ==
+	t=1795102380;
+	b=ONjcrqLLUCIhN+3mXOgGIV6cK//4sSSB+C/I2jmg/++bmxmAnDerZKQbHQIeORJuB8AM
+	 WUsA/w6sE0X+xrcVI3DH1xZ3vGouCncNRWr9Oi+Uas4R1zebCfdJeK/of9/QRY3av1NVA
+	 aRKQ+beIxkD1V6SiIgiCRARf5+qC2C3ZmLjwAfkZGXxngTjdlwQn15oT9v9g8fwBNPK8Q
+	 KYyJnLzWcLmHnmrZU4sOREGL1tm+rF3+zUfoql/17N64tmmdZIhLOqO3q8uN0VOJGMMXQ
+	 1yH4Or8w/mVo8bn2BwgWMkJUWtOKtJubhs9rzcx0op6rIH6Ora/lJajmmEALZr+4qug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102366;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102380;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=lA1w/HPqgREMk3LSOcc2vVbyuDL7Ipujn9ZkHz8l3fg=;
-	b=dXhZuhXleyTqM6HBfkDC1leuuUkkqnbXgh6OHsxbp5nAoqWgQKDjr15juMPkhzsyyaEp
-	 fb9kc2s5x2031PlTi3TNmgFoaN7pYi1P4nb+gdcxpqNKx24gClqVIeXDfIFW+8/fS46Zm
-	 o4M+Kq1vs+lZu63SQAdMFrqxBVr7dkYOu33qahIZD+DbWJcKsU3CIBaC58SGXZ+fTs513
-	 IMoo8cZr+yRev58LyG9Brvp4QEpP4ZpU15anvKg1Aj/FowHpro0awT9HosE+hQSOyQ3YC
-	 jWUt3z50X7fCK1Hqxkx/xfM8D0djOVQtM4OwTwemAix5o8op7TWN1B+C1MI4mvqjOgA==
+	bh=o3dKSUXwzpHlMu8hRVlVzuUR+DCxdptQ4xWbHuYHzfc=;
+	b=MreH1IdYBKr3+Lsig+dvbymNHCqgnFzlcj+MuFrRAMP4IuB14DqpWpQvUJxKV8KsN+UK
+	 c/7dhk37eutM1UgA7nedAdETC+AOAsgRzfQ67eMOJBHrvRe0F+Mecz6L5d76bSc1MvqRy
+	 QXLp0mek4d+SigKAjP8AddQn2uJ3EhFMNTe+B4is7HhWU7RquH1MUOgSZENZYhHcwr0b3
+	 3NELriKL2bhcOTmPv8yA+WErziZpLitkMNMKfyWx6FNopjg4Nlc+3ttKKEVGL0DXAV4mY
+	 Ch9Rf2wq63NmULyq7mKOUlUvZGpZTXb09pJ6Hw6lvsFHnjwI+6gSbzXniu7q0VCOoPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rt8u9bvh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=No+g73Xh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DDC5606A331;
-	Thu, 19 Nov 2026 15:32:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0982E606A333;
+	Thu, 19 Nov 2026 15:32:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rt8u9bvh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1751F000C4;
-	Thu, 19 Nov 2026 15:32:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=No+g73Xh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E20701F000C5;
+	Thu, 19 Nov 2026 15:32:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795102366;
-	bh=lA1w/HPqgREMk3LSOcc2vVbyuDL7Ipujn9ZkHz8l3fg=;
+	s=k20260515; t=1795102379;
+	bh=o3dKSUXwzpHlMu8hRVlVzuUR+DCxdptQ4xWbHuYHzfc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Rt8u9bvhI6ZNLtyKv1NVRnGij9j/cnmA+pzueBpBN96wrhMvmMZxJTgu6achGnd2q
-	 POZKvWFVik0TsgbJBI9ElJ6zih2weNRUgbu5MZocy9laG0ALkXrB+ioaWJOKUtx/TF
-	 zY1WrNGvLgeQlgXo8nBaXpyU86OLN3Lu1WWl4v0ozskiXZ5IevahQomR3wPYQKpuHz
-	 bL9W+bzUbE/zIzhx/zJbUOoi3oHNajJLEJdDWlBhRYAD16d+pXnEh6zy1XQRx82GVG
-	 5b7JD26nOfTS3RM1C7DzOvz9LHa8NZQNqXuDnsG+7ahEa+jhzX11rnHuUGSWJ8WQIz
-	 1rWqfD1XIoLsg==
+	b=No+g73XhDjBViduEqBQ4n3MG9HKKzqd8aN7OihB7z9+BkasyDcp++vVAEi2EvjcwM
+	 K0hcDUDRACHsrwTyqYW9lf7ZhrTe+jkK+Yf3nse1HQRZTDpx++NQfYvWyrnLD8NTya
+	 Hau+KH9QygCrlOTDhkwLJ5BvzD1ICEXOyUO7RDvhfyBPhQJpzZrTkE8+MyKgRTi1Yp
+	 hA0LQkHoNuSC9jxcJVSvECagW2QS3RmDkDwn1Tql7opR/w5OsHKwDM8jz9JTlY3zSV
+	 vbJ3ncsNIEuPew2hxwXZep9JH8lX5qhmxCsDTDR1y93aAwYbRBOurhEtzpFvYCf2OZ
+	 tck4lOr6thvtQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Marius Cristea <marius.cristea@microchip.com>,
 	Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
 	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
 	Andy Shevchenko <andy@kernel.org>,
-	Bogdan Bolocan <bogdan.bolocan@microchip.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
 	linux-iio@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 06/10] iio: adc: pac1934: Fix custom attribute allocation and channel bounds
-Date: Thu, 19 Nov 2026 15:30:39 +0000
-Message-ID: <20261119153151.1397003-7-lee@kernel.org>
+Subject: [PATCH 07/10] iio: adc: qcom-spmi-adc5-gen3: Free TM auxiliary device wrapper in release callback
+Date: Thu, 19 Nov 2026 15:30:40 +0000
+Message-ID: <20261119153151.1397003-8-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
 In-Reply-To: <20261119153151.1397003-1-lee@kernel.org>
 References: <20261119153151.1397003-1-lee@kernel.org>
@@ -67,87 +67,109 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-pac1934_prep_custom_attributes() sizes the pac1934_custom_attr pointer
-array using sizeof(*pac1934_group) instead of
-sizeof(*pac1934_custom_attr) and adds 1 byte rather than one pointer
-element for the terminating NULL entry.  When active_channels_count is
-zero, only a single byte is allocated and iio_device_register_sysfs()
-reads past the allocation when scanning the attribute list.
+struct tm5_aux_dev_wrapper embeds a reference-counted struct
+auxiliary_device, whose memory must be released from its dev.release
+callback once the final device reference is dropped.
 
-In addition, active_channels_count is counted over info->phys_channels,
-whereas the population steps unconditionally inspect all four entries of
-info->active_channels[], which can write past the end of the array on
-1-, 2-, and 3-channel chip variants.
+Allocating the wrapper with devm_kzalloc_obj() on the parent ADC device
+and providing an empty adc5_gen3_aux_device_release() causes parent
+devres teardown to free the wrapper immediately after
+auxiliary_device_uninit(), even if external references to the embedded
+struct device are still held.
 
-Allocate active_channels_count + 1 attribute pointers with
-devm_kzalloc_objs() and bound the population loop by
-info->phys_channels.
+Allocate the wrapper with kzalloc_obj(), release it from
+adc5_gen3_aux_device_release(), and unwind cleanly on early error paths
+in adc5_gen3_add_aux_tm_device().
 
-Fixes: 0fb528c8255b ("iio: adc: adding support for PAC193x")
-Closes: https://sashiko.dev/#/bug/linux-e7b7eab1-9ed4-4d4b-b9c7-889bf720aa5b
+Fixes: baff45179e90 ("iio: adc: Add support for QCOM PMIC5 Gen3 ADC")
+Closes: https://sashiko.dev/#/bug/linux-b738d116-f32b-4edf-aa73-77827b79a407
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/iio/adc/pac1934.c | 33 +++++++++++++++------------------
- 1 file changed, 15 insertions(+), 18 deletions(-)
+ drivers/iio/adc/qcom-spmi-adc5-gen3.c | 30 +++++++++++++++++++++------
+ 1 file changed, 24 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/iio/adc/pac1934.c b/drivers/iio/adc/pac1934.c
-index 1d7608e8246a..c3da0c519456 100644
---- a/drivers/iio/adc/pac1934.c
-+++ b/drivers/iio/adc/pac1934.c
-@@ -1435,10 +1435,17 @@ static IIO_DEVICE_ATTR(in_shunt_resistor3, 0644,
- static IIO_DEVICE_ATTR(in_shunt_resistor4, 0644,
- 		       pac1934_shunt_value_show, pac1934_shunt_value_store, 3);
+diff --git a/drivers/iio/adc/qcom-spmi-adc5-gen3.c b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
+index 351c4fff17b4..52f039795418 100644
+--- a/drivers/iio/adc/qcom-spmi-adc5-gen3.c
++++ b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
+@@ -24,6 +24,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/property.h>
+ #include <linux/regmap.h>
++#include <linux/slab.h>
+ #include <linux/types.h>
+ #include <linux/unaligned.h>
  
-+static struct attribute * const pac1934_shunt_attrs[] = {
-+	PAC1934_DEV_ATTR(in_shunt_resistor1),
-+	PAC1934_DEV_ATTR(in_shunt_resistor2),
-+	PAC1934_DEV_ATTR(in_shunt_resistor3),
-+	PAC1934_DEV_ATTR(in_shunt_resistor4),
-+};
+@@ -607,14 +608,20 @@ static void adc5_gen3_delete_aux(void *data)
+ 	auxiliary_device_delete(data);
+ }
+ 
+-static void adc5_gen3_aux_device_release(struct device *dev) {}
++static void adc5_gen3_aux_device_release(struct device *dev)
++{
++	struct tm5_aux_dev_wrapper *aux_device =
++		container_of(dev, struct tm5_aux_dev_wrapper, aux_dev.dev);
 +
- static int pac1934_prep_custom_attributes(struct pac1934_chip_info *info,
- 					  struct iio_dev *indio_dev)
++	kfree(aux_device);
++}
+ 
+ static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc, int id)
  {
--	int i, active_channels_count = 0;
-+	int i, j, active_channels_count = 0;
- 	struct attribute **pac1934_custom_attr;
- 	struct attribute_group *pac1934_group;
- 	struct device *dev = &info->client->dev;
-@@ -1451,26 +1458,16 @@ static int pac1934_prep_custom_attributes(struct pac1934_chip_info *info,
- 	if (!pac1934_group)
+ 	struct tm5_aux_dev_wrapper *aux_device;
+ 	int i, ret, i_tm = 0;
+ 
+-	aux_device = devm_kzalloc_obj(adc->dev, *aux_device);
++	aux_device = kzalloc_obj(*aux_device);
+ 	if (!aux_device)
  		return -ENOMEM;
  
--	pac1934_custom_attr = devm_kzalloc(dev,
--					   (PAC1934_CUSTOM_ATTR_FOR_CHANNEL *
--					   active_channels_count)
--					   * sizeof(*pac1934_group) + 1,
--					   GFP_KERNEL);
-+	pac1934_custom_attr = devm_kzalloc_objs(dev, *pac1934_custom_attr,
-+						PAC1934_CUSTOM_ATTR_FOR_CHANNEL *
-+						active_channels_count + 1);
- 	if (!pac1934_custom_attr)
+@@ -626,8 +633,10 @@ static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc, int id)
+ 	aux_device->tm_props = devm_kzalloc_objs(adc->dev,
+ 						 *aux_device->tm_props,
+ 						 adc->n_tm_channels);
+-	if (!aux_device->tm_props)
++	if (!aux_device->tm_props) {
++		kfree(aux_device);
  		return -ENOMEM;
++	}
  
--	i = 0;
--	if (info->active_channels[0])
--		pac1934_custom_attr[i++] = PAC1934_DEV_ATTR(in_shunt_resistor1);
--
--	if (info->active_channels[1])
--		pac1934_custom_attr[i++] = PAC1934_DEV_ATTR(in_shunt_resistor2);
--
--	if (info->active_channels[2])
--		pac1934_custom_attr[i++] = PAC1934_DEV_ATTR(in_shunt_resistor3);
--
--	if (info->active_channels[3])
--		pac1934_custom_attr[i] = PAC1934_DEV_ATTR(in_shunt_resistor4);
-+	j = 0;
-+	for (i = 0; i < info->phys_channels; i++)
-+		if (info->active_channels[i])
-+			pac1934_custom_attr[j++] = pac1934_shunt_attrs[i];
+ 	aux_device->dev_data = &adc->dev_data;
  
- 	pac1934_group->attrs = pac1934_custom_attr;
- 	info->iio_info.attrs = pac1934_group;
+@@ -643,8 +652,10 @@ static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc, int id)
+ 	aux_device->n_tm_channels = adc->n_tm_channels;
+ 
+ 	ret = auxiliary_device_init(&aux_device->aux_dev);
+-	if (ret)
++	if (ret) {
++		kfree(aux_device);
+ 		return ret;
++	}
+ 
+ 	ret = devm_add_action_or_reset(adc->dev, adc5_gen3_uninit_aux,
+ 				       &aux_device->aux_dev);
+@@ -652,12 +663,19 @@ static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc, int id)
+ 		return ret;
+ 
+ 	ret = auxiliary_device_add(&aux_device->aux_dev);
+-	if (ret)
++	if (ret) {
++		devm_release_action(adc->dev, adc5_gen3_uninit_aux,
++				    &aux_device->aux_dev);
+ 		return ret;
++	}
++
+ 	ret = devm_add_action_or_reset(adc->dev, adc5_gen3_delete_aux,
+ 				       &aux_device->aux_dev);
+-	if (ret)
++	if (ret) {
++		devm_release_action(adc->dev, adc5_gen3_uninit_aux,
++				    &aux_device->aux_dev);
+ 		return ret;
++	}
+ 
+ 	return 0;
+ }
 -- 
 2.56.1.708.g77570a6a1d-goog
 
