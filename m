@@ -1,98 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795072843;
-	b=2+Pgtj7FHnAuxr4q7OGP+ZgyfSmwPcwN05jQm0a2Oj7+Ebth+O5gZoJAeM5G/cl3PWcv
-	 yLOpAMMtqcBk5gcBMzT45goq2KNnUja6pq0k4322yfbuYR1Gf1FjWKmUIZ9IG5DyoBct3
-	 Oo/5th8rGyOz7tBIh7BfENKgw+sh7B+BKDBzUIr512rTjrxTkTWTSpgipoX566sVu23ih
-	 yXKbsZKEDi4y5Fb1rclq3avZffetECVVKhknTPXA02wlYVtg8wAX+kdxm50Gy3UPg6K68
-	 JLVeV7wfFd9gqAn//8Nv2Zp7rZ45+ziWfMBj3BWN89Y4j48YZTn+Hd/6Lr9npzM1bTw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795072843;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=3lF3ame2k0Qlq5DDaiC3kZk755RYfgn7652S/tZaZ34=;
-	b=2BVbI+WTC91sUL+jIgcvQ2DLEtiQWOAIIYnu44ft/osX7UnxCRo5KuH/rT+N8BTI+3Lv
-	 smSRjbZmS53kBUetiDTVY6HbrYL6Urh819R4b/hysAY0lng4R18uuN3X/1SwANkFENBV8
-	 2fXvKqVlGlUW9Z/6r06eDvwWSRClYb0qRgo7O/ZbGVKwpSiUkssJAzXiQl+qxc5ISmklG
-	 z6l3ZFNq+zsDQkPjwEX7vnWYkF3UtgOkq5RG+YeaE7nbyT26vK7MSwrTkM+Z7qiTi+kDY
-	 DDCFx6e0YbZIAoNMxGxeiPqKB1E9CQGLLRSQ2AHlyHxf/eGjShY1IeUJziac+ZhnfJg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Gf/6VXN6";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.170
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795073028;
+	b=RkHgnW0727o33q7FzuFyL3HFskmpjuoEwD3Fbs5Bs3xD4njsFKpyEsZ0k8tVgNJ36mRA
+	 7Tw/VO0Ecoo+f0c1uovR/ca9GYliff87euVODqlIAVMuqMwSyMPyWUofrZXV2Qzqks3LA
+	 0Fuw5wFoyiqB6HN69S+tzkf4p0bmplqcQcaV81T5yjFs9o9lcxqjhDf+D+7edpLRnwxva
+	 /0TL6j/AWfgp/8kS7pDDBeaZrB5ef8gstgCeLDGBDufKVYbsugqa6Y6NQWaZUfuAThXiM
+	 PtP1glCVuVZpH1gXqPknTDSZKyG7iIf/Hggdtquib8116qHKCtuRr71zn5LdTPwJL8Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795073028;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=s1E7amwr2Ec6lhWT6IJc+C+PoDVlMOHKsEuqBzS/k0s=;
+	b=j9EDRm3JmlBtKg2SZQ58B1e4sq2GHF17cEzv/fgbOu+UhU/1T30m99tOI3tMqhueYwap
+	 GoK1p0tnhGhBLVqNB1InEOOvfNa2EULTwu5ImXTm9rTGFAmXhEVPDQaToHtRXVVNBFzNH
+	 gCh5MU4diK2HtQTD4NyzWeNDYRKklMISY39bjnZuZ5bLnE687xXxUbrna3dn/YMIfcu0A
+	 62V7ejAvRbdk9CmYjUbSQM5zKjvAMrXs/FJK6CBYSXAk4FY11w3lnUvJtbjxPADQNobc3
+	 OMB9yH0nLst0Agb6E8QWXnUmge1Sj8ZtS+xgRzGcuWc1Ko58BHOR/IOI+kPVsheOQLw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IyNXhNy/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463B6606A325
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:20:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 463B6606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CD5606A320;
+	Thu, 19 Nov 2026 07:23:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gf/6VXN6
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-949657a20d7so236084785a.1
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 23:20:43 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795072842; cv=none;
-        d=google.com; s=arc-20260327;
-        b=QUeX/jVUQ1m2yG+in1zCN77muBFHtGtX9k/HJMH9JosF5fFb6tN8KOyFePzU34xqHC
-         gxiQoxiAUJv/l7Te2TDp3BQGed7305O3OnAGnZqwamxeEwjXw9gEJpsHp44KsP63ISCY
-         +A4/VdGGyyXaVOFeSq5dQfyiP8825UPF083Ffw3zIQWSCG1RJwHHACD30tFsQ8H7PYxG
-         Setzs1qdQR2NMk1RkmNhIk8SZFAY2gMPF4K/IeDPyFiNKkzgu0yfw1EUhDNs78jIXrQI
-         J2Jx36HDod/bf1xrKtOK2vxeBRZGJMdRVqQrGszL+GFr4fPOqQwHauvW3Q5BpwBuXymE
-         3e4Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=3lF3ame2k0Qlq5DDaiC3kZk755RYfgn7652S/tZaZ34=;
-        fh=ZuxoyUMQgX4m+TGJoDtDYDpjE6ye6oHuT9L4IwoS9F8=;
-        b=l3fK2n1EE/rnIAK8nizhPRjNY/X1LW0S6TvhiY25chbCKRhtPOzqgQklH1oNmD8Kdb
-         FisOuSwgM487GRLQApM1gIrC5i8s+hvPybs9WxLaEp403lsuqwZ0jza27lY91+46PI4G
-         Co0tYqNAlvJBcIiD/JZSwDQSgW73U2XkkDdUFx+MGYi02haiwBEudrSqz5a9zPFkpvZS
-         XIDc+YEFcEhPXpvr6EYYqZKE4LAiCfxWZlC0hHyQFv4BM9Yh1cQIa2o5T06KLRc7dAfd
-         h0xlOZt7WacKP9Sss7dILKU5bp5ZOKXdia5KzAaiPPuuObDtKh7IKprUk2z7X3P8iwbd
-         0BUw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795072842; x=1795677642; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3lF3ame2k0Qlq5DDaiC3kZk755RYfgn7652S/tZaZ34=;
-        b=Gf/6VXN6vKTfzF5IRK/PaOVmORNq5ZETohNcqZx/uOl4ChwjAVa8FOfjTrDEmgjZ7Q
-         07IuhTNq3ucjzj/KdUxLJHCl3gGj3aIHrQRd2OU1xoMlCXqFIhbR1UgLIcb7ZKIF7+6V
-         EmDMCSFCXq2d5xEkkQorr25I7QTF1mShKSPYfaVbAsEOVA2n3s66cAGOAnAEm6E0LNQ3
-         DftjKttKMEBya8nsQHm+FuFxEvRt/VYmPPz07Fo7b3fmnFh255l+LJBKHaxonhY8wPgi
-         o4DPJ/y5zHHheyow0GQyqyE0CqdL/TQcKcubv8ngSe084UYz3hTI0ijqfPRYHn85ztyW
-         gKmQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795072842; x=1795677642;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=3lF3ame2k0Qlq5DDaiC3kZk755RYfgn7652S/tZaZ34=;
-        b=QWoQXFjJ6EJCQ5Lq44ud+uI1W/SfO7aYN0AUo8umy+Ai3VPm8hzhmo3/dLVslCbFGf
-         7M/Xr2Fd1XxTubvAn3mcg15bLXqccwcvlcqrFbnsKPAFC/XtitVS4mxpxqunMiP01rZu
-         eB2TkEs1flvSl7PjJIgpjIYbXnx1hj0W1EEIRhf+A8hsnPpGtnVY5hsVYwpTcEkDmrbP
-         08G3Y/B4nK745oVL8qGWyypnAzQxty4hNbseH2Hi8upcenwsKCZwr/amGH4M8euvNVGv
-         iEEHSKu06KQj+spXz3W0Hx/ZKXmdaF6PtGJZQdXG9c+FQC9t43k67sH9vjrE+mwYPW8F
-         I5CA==
-X-Forwarded-Encrypted: i=1; AL+hErEBSxSQIxgV5un/GALFe8KQtHyzOWB+bOUfWICePdkOy1poTKOsVjiMdO6gZAc6ii5SL+9udHA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z959y9F9Pw0aY+ZBGSQDk+I1ft4llh1HRaF+uoLa4EXQ7YzD4pE
-	g8tAt3ART8+2jB/aU8GVHWZ5Lm+LxYrAZYAus726g1vVjUXaAxY4p/L4peqyyGzFP9N4fLd2bux
-	NAao9T0KkkgIyD0/h+g5lWEAy16NWHUk=
-X-Gm-Gg: AZFdTZcIQFPinYA1V462mDhlBoUGflMxfJ79txfR25wN1GtpszRztTUpiqzbGV87Jjz
-	IEbGg6cbDFTdtluxXzTbbVGm4Z4Fq3muB+fISRwO3wHXH5fbsG+ajYBkEyThTpgLUfJkyfwof1t
-	o8iUck0Uz7bdvx1yRkfSQBK+9MKo7ahRA9MqCrCSdmrNREoPnJIjXa3fxl1Pj7E2no02HBVn1m9
-	4MY4He0mEGOIxlLec6C6yDjdz1KJVEWoRXliIBLtClEnzKDgjZ5AkdwoV+Ei+ReyzsPosyv2CaX
-	0VItwMNzy2aLjfjv7h7wKSoLrpQW+fn1EeIvI+BFxc70CAnbYH66UsIO7w/RQqF/5Oc7KqqUIHa
-	K06T9epDV7ZwdUj0/bKKnFzxqaqVOwv5D/RLspB+fe2/tDx/py2H0OpjVo3aOM0nRJcDeub6yMk
-	4QpZSr4S/W0oyXGKwHvfc=
-X-Received: by 2002:a05:6214:4015:b0:91f:2135:3ade with SMTP id
- 6a1803df08f44-92114e00a13mr83187596d6.22.1795072842111; Wed, 18 Nov 2026
- 23:20:42 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IyNXhNy/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B1721F000C5;
+	Thu, 19 Nov 2026 07:23:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795073027;
+	bh=s1E7amwr2Ec6lhWT6IJc+C+PoDVlMOHKsEuqBzS/k0s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=IyNXhNy/v9KLUUKWji3e8YUuhdPEiIe9COxX/6VugvBqzngldqF9xxsZD7Iq75Ojv
+	 9i+Ee5gIKM9t4E02yikUh/d6aWCJOt2QrWs0xaXq7BYCm9MkaC6ud/lirwWYiJGu17
+	 wku6rZjZMXpRE1wRY33w52k4TLTvB/s8gMWk6UPsNbA4IYkiz4h9FLXJtf4d/UOP9h
+	 A7R9Wxcn21nyLF4wIG9dCYRBL5fAHh03zC9CKs3Jufq1Qjf82HsCBvzxtbIJx479G1
+	 XVaL1qDVkQPBCsM+rttWOolUBtIzufKIOIz2zgopLGeuGCEpbOsHZ9RBi0K++Aj282
+	 CfChWn9F0vSqA==
+Message-ID: <a646c127-dab8-481e-b9e5-d6eaa839c2c3@kernel.org>
+Date: Thu, 19 Nov 2026 08:23:44 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,60 +51,147 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Yingke Xiao <inkxiao12@gmail.com>
-Date: Thu, 19 Nov 2026 02:20:29 -0500
-X-Gm-Features: Aa3M54q-mZ4P5PGu6GGOD9RruuTh8D4C8_LYaREl-xwIG6PxH9jKICc7mqXhR5w
-Message-ID: <CAMcAce9XkYo7gPHMnmRX5EY2dNYO+ECuUF3RkPLnoGHgh8P7tw@mail.gmail.com>
-Subject: [PATCH bpf v2 2/3] bpf: Fix missing raw_tp_null_args masks for NFS
- and pNFS
-To: bpf@vger.kernel.org
-Cc: Trond Myklebust <trondmy@kernel.org>, anna@kernel.org, linux-nfs@vger.kernel.org, 
-	ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 0286/2651] perf trace: Enhance BTF type formatting to
+ symbolise kernel function pointers
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Aaron Tomlin <atomlin@atomlin.com>,
+ Ian Rogers <irogers@google.com>, Arnaldo Carvalho de Melo <acme@redhat.com>,
+ Sasha Levin <sashal@kernel.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+ <20261118150258.204483253@linuxfoundation.org>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ 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
+In-Reply-To: <20261118150258.204483253@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Several NFS client and pNFS layout driver tracepoints pass literal NULL
-or conditionally NULL pointers for struct inode, rpc_task, or struct
-pnfs_layout_hdr:
+On 18. 11. 26, 15:25, Greg Kroah-Hartman wrote:
+> 7.3-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Aaron Tomlin <atomlin@atomlin.com>
+> 
+> [ Upstream commit c6dd6161815d0c10ed24ad13fdad847bec63d961 ]
 
-  1. nfs4_xdr_badoperation (fs/nfs/nfs4xdr.c:981) passes NULL for arg 2
-     (const struct rpc_task *task) when decoding compound replies outside
-     RPC task context.
-  2. nfs4_set_delegation (fs/nfs/delegation.c:380) passes NULL for arg 1
-     (const struct inode *inode) when stateid refers to an unlinked file.
-  3. pnfs_update_layout (fs/nfs/pnfs.c:1980) passes NULL for arg 4
-     (const struct pnfs_layout_hdr *lo) during first-time allocation.
+...
+This does not build on i386:
 
-Add mask entries to raw_tp_null_args[] so the verifier marks these
-arguments as PTR_MAYBE_NULL instead of assuming non-null pointers.
-Verified on x86_64 7.4.0-rc3 and 6.12.118 LTS.
+> --- a/tools/perf/builtin-trace.c
+> +++ b/tools/perf/builtin-trace.c
+...
+> @@ -1079,33 +1135,40 @@ static size_t btf_struct_scnprintf(const struct btf_type *type, struct btf *btf,
+>   }
+>   
+>   static size_t trace__btf_scnprintf(struct trace *trace, struct syscall_arg *arg, char *bf,
+> -				   size_t size, int val, char *type)
+> +				   size_t size, unsigned long val, char *type)
+>   {
+>   	struct syscall_arg_fmt *arg_fmt = arg->fmt;
+>   
+>   	if (trace->btf == NULL)
+>   		return 0;
+>   
+> -	if (arg_fmt->type == NULL) {
+> -		// Check if this is an enum and if we have the BTF type for it.
+> -		syscall_arg_fmt__cache_btf_enum(arg_fmt, trace->btf, type);
+> -	}
+> +	if (!arg_fmt->btf_type_cached)
+> +		syscall_arg_fmt__cache_btf_type(arg_fmt, trace->btf, type);
+>   
+>   	// Did we manage to find a BTF type for the syscall/tracepoint argument?
+>   	if (arg_fmt->type == NULL)
+>   		return 0;
+>   
+> +	if (type && strchr(type, '*')) {
+> +		if (btf_is_enum(arg_fmt->type) || btf_is_func_ptr(trace->btf, arg_fmt->type))
+> +			return 0;
+> +	}
+> +
+>   	if (btf_is_enum(arg_fmt->type))
+>   		return btf_enum_scnprintf(arg_fmt->type, trace->btf, bf, size, val);
+>   	else if (btf_is_struct(arg_fmt->type) || btf_is_union(arg_fmt->type))
+>   		return btf_struct_scnprintf(arg_fmt->type, trace->btf, bf, size, arg);
+> +	else if (btf_is_func_ptr(trace->btf, arg_fmt->type)) {
+> +		arg->val = val;
+> +		return syscall_arg__scnprintf_ksym(bf, size, arg);
 
-Fixes: c83e2d970bae ("bpf: Add tracepoints with null-able arguments")
-Cc: stable@vger.kernel.org # 6.12+
-Signed-off-by: Yingke Xiao <inkxiao12@gmail.com>
----
-v1 -> v2:
-  - Correct sender identity and Signed-off-by with real legal name per DCO.
-  - Remove drafting notes.
-  - No functional code changes.
+builtin-trace.c:1164:24: error: implicit declaration of function 
+‘syscall_arg__scnprintf_ksym’; did you mean 
+‘syscall_arg__scnprintf_buf’? [-Wimplicit-function-declaration]
 
- kernel/bpf/btf.c | 3 +++
- 1 file changed, 3 insertions(+)
+> +	}
+>   
+>   	return 0;
+>   }
+>   
+>   #else // HAVE_LIBBPF_SUPPORT
+>   static size_t trace__btf_scnprintf(struct trace *trace __maybe_unused, struct syscall_arg *arg __maybe_unused,
+> -				   char *bf __maybe_unused, size_t size __maybe_unused, int val __maybe_unused,
+> +				   char *bf __maybe_unused, size_t size __maybe_unused, unsigned long val __maybe_unused,
+>   				   char *type __maybe_unused)
+>   {
+>   	return 0;
+> @@ -2529,7 +2592,8 @@ static size_t syscall__scnprintf_args(struct syscall *sc, char *bf, size_t size,
+>   
+>   			default_scnprintf = sc->arg_fmt[arg.idx].scnprintf;
+>   
+> -			if (trace->force_btf || default_scnprintf == NULL || default_scnprintf == SCA_PTR) {
+> +			if (trace->force_btf || default_scnprintf == NULL ||
+> +			    default_scnprintf == SCA_PTR || default_scnprintf == SCA_KSYM) {
 
-diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
-index b234567..c345678 100644
---- a/kernel/bpf/btf.c
-+++ b/kernel/bpf/btf.c
-@@ -6607,6 +6607,9 @@ static const struct bpf_raw_tp_null_args
-raw_tp_null_args[] = {
-  { "fsnotify_bump_event_seq", 0x20 },
-  { "nfs4_cb_getattr", 0x200 },
-  { "nfs4_cb_recall", 0x200 },
-+ { "nfs4_xdr_badoperation", 0x200 },
-+ { "nfs4_set_delegation", 0x20 },
-+ { "pnfs_update_layout", 0x1000 },
-  { "nilfs2_transaction_entry", 0x4 },
-  { "iptfs_first_dequeue", 0x1000 },
-  { "iptfs_first_fragmenting", 0x1000 },
+
+builtin-trace.c:2597:82: error: ‘SCA_KSYM’ undeclared (first use in this 
+function)
+
+>   				btf_printed = trace__btf_scnprintf(trace, &arg, bf + printed,
+>   								   size - printed, val, field->type);
+>   				if (btf_printed) {
+
 -- 
-2.43.0
+js
+suse labs
+
