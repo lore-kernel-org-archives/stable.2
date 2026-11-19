@@ -1,83 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=54.92.39.34
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795077798;
-	b=tPkC6QeFw9Yxo8ysh0Z00kkSXAipieekmzXLEp8onAiU9+z545LAMb2ZBLc5vQadR20N
-	 t9VZO2JSnFWzrmW1LR/6AJcPLi31iVSCD4Ef/RXVl4Dy30vk00YufAzshpEa1BGrWim5u
-	 eRQqUPwfyta9G2NOvLLXaP7pFFmzyyRBJaj4VInUtvTv5hkhnZe1NQojtcVi/vLee0aRI
-	 Vb0xPl6wK934XchaHzabMBzPtlxrGII6s0W/Dhk6lrNk2QLbr962Mnzw3o8wABPkffvsi
-	 pywS/zsgc5kmu3sCcaLvLsri63Z2PvS5mN8Axn5ga8n4JyQRso1fyfY8HWwnEQ0+ZTA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795077798;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:EX-QQ-RecipientCnt:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:
-	 X-QQ-XMRINFO:X-QQ-RECHKSPAM;
-	bh=lpvUcFdcfCKRwb5Cx+YbGLdBgQjkCAW3ss4qQgjYQB4=;
-	b=MIRUIQfnknZM5PQn4fh1YzwaXdK8KVB4ILn5mHLi3rEmNpUN0N8xIP50wURos5QMHTHP
-	 sYns/SbRfaLF/gnhVlsQ4eipK+qOvwud0SIpEtH7ompM8/Fytm8o/cKfsnrTbDUh3MyMX
-	 BzRUReayk/Hawbtx3M8gEldqWAeRdggV8eUqyl9VH5ZFnINaixdxPdbdo7G+JQwv460ov
-	 X1i55R6EWFSLdwReQX2xd4Rw4K6AdHqBbvqcYVXrwcc4hquDNCja4z2CNtnN7Xw8LFIWR
-	 Bdvg+fzJhzKQ54nmbNgSzLEsIpPdjrRA6M7rM2eLYbDZEJ6S1PP2FCzHy/DsjMbXwkA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=uniontech.com;
-	spf=pass smtp.mailfrom=uniontech.com;
-	dkim=pass header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XafYExIt;
-	arc=none smtp.remote-ip=54.92.39.34
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795077845;
+	b=2z2noF2QXBlJdRkHC/ybFSIxoWoK+YrKF/iHxkzmH8arvsz5cPsJIHR08oiLg+sKpscD
+	 KGSZFM+iOkCo5xD8jYU9eJL6Yw+7cy0ZGtG7YAJOwoBu7ho5YAaYqSKE3n67baNAr9ahW
+	 Rcwhtcw6DK5waFpABbwW2FSog5yq//VhjBd11NqamjLbDaqZ5UHqMW+Bw6GuvEYw6Odgv
+	 7UOeuABCgqD3lBhIKM+tILd65RWXwnl4U8E212Gtm5Q2kbW4Yh0iwKw8rqQIiB0mt2cVQ
+	 snRFZql3a+YzYKtOVW+qmaiC7obJD8oEyL0/zSy331a29rGcAkPGLqjo91AuDISNxEw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795077845;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=m3i+HRIGIUiqcgfax9l6q9GaA7Wh6NDEMTSkux3S4EM=;
+	b=pNfRu+d1CUw0UPM6dc4xAvgyj2lmS355qa3gy4Q2IuD29mHVWeDr/lHHlFaiAbbxvAzS
+	 fMk5/q3b/JlXmddEHXToMQavdYT+nPk+T0L01lUq0IgeTj6KsFe5lKDKwkZ+qu0DzCiL+
+	 24KKxoBmsY3iKzCm1FxDUeoEODg5f1iIQBJ64hoAR2wm+WbzLfsoN0cPsWzvlxXhCHKJv
+	 sJ8VeQ02CC8UAbnLBFmYaAVO3fMIx5ew0Vr1VzPN5+a9B1AZ4aXZo2FVCTlgT2h5Wui4n
+	 0rSEY037vQT8TfIBM10+9r7vS0GqPvYAUfZhE74cR7GMnAD9fQSsLjioZkaBSFxAGFg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=slBPKnTY;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F9C606A320;
-	Thu, 19 Nov 2026 08:43:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95F9C606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E01AA606A326
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 08:44:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E01AA606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.a=rsa-sha256 header.s=onoh2408 header.b=XafYExIt
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1795077731;
-	bh=lpvUcFdcfCKRwb5Cx+YbGLdBgQjkCAW3ss4qQgjYQB4=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=XafYExItyLcBwW0O5vejKgHPbUm5NBGKPk0amrKMWZeu6e3jt7oG4eJEMMZSyDtzR
-	 XK4eXhOGsSzaxuXe1exmuJQF/9s9bNYkje19Apj1Y5SK4NU/8Yvcbbg31y0I3vjWUN
-	 GKSg5YI2g60Olse0SkRlS2ACzYMDfvyZylCiGZ30=
-X-QQ-mid: esmtpgz12t1795077725t62f63861
-X-QQ-Originating-IP: bDs//Vc7rTiHiET7Hjj4zCytEBia8xXCEiZKxUC1xs8=
-Received: from localhost.localdomain ( [61.183.83.60])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 19 Nov 2026 16:41:18 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 11313103928963220471
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.18 0000/2151] 6.18.65-rc1 review
-Date: Thu, 19 Nov 2026 16:41:13 +0800
-Message-ID: <310E160BE2CF5E67+20261119084112.3616604-2-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261118150121.603863898@linuxfoundation.org>
-References: <20261118150121.603863898@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=slBPKnTY
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3b3a42a4bcdso1005822a91.0
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:44:04 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795077844; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ThqTg60rE80ORthp/AWGK40TskgZWrxjFKtGiEq8jJcT/dxqOQIba8ua7qI4SFQkxF
+         dN3Bx8rkL1HuDAd/EzsEaJThkwrpedWyHRpgu3Wy0e7Mne0etN51RrnpkITLa72N1R+u
+         u56H3J1oAnncl95T/nwOJKKXuzA7DY3D9bhbesI9av9t+0ue8a3zRYWrwRyymCOj4XyT
+         MdHp7yLvVxzUhKTZ42Tb+XNqGFzXEYj9zU8DR0f9hzpaej49HE8e8HIv4Ib2EMrw+LBR
+         OakIhp4jS36oiF/nuoOgsyAhFdTw1Ma2lwXXaP1HLJ5AFfK1t6W7pBj8D0IKxitchTap
+         GbFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=m3i+HRIGIUiqcgfax9l6q9GaA7Wh6NDEMTSkux3S4EM=;
+        fh=S2L/LFjLOm4rrBD3llVaYpuwarbOZY4hOGpCe9oUF9s=;
+        b=djZcGKeRzAUujYTd/gDTRcahc3Ma8aKRFVwfpX5PTGBiUJ1GpMSjc2DVp7ClT/c+t9
+         /f+j7PXcbiqIxTZ76DGu2WN/1DDf1WebYRjZQ+/B6ck0EJpi7SVus4CsYcQA36HlGkKf
+         Rcnq2n7HA6Yo3tE31zbkhZVCuat+PVEkF2oSSLdqo051+piL6c6itWR8yseeR3UGLRJ4
+         Vb3XhONHVer7joZU3/l2NH+pLyOCt64ojHLM2Ft8WCzWTnWiQ1STEnd1furtKPZ5VX4N
+         4hOvoNjOYE8YWxvorojLrH3p9cWRFKA1/se8GkK0296dKbeTzYWef78D/10/et0dxeYf
+         zfGw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795077844; x=1795682644; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m3i+HRIGIUiqcgfax9l6q9GaA7Wh6NDEMTSkux3S4EM=;
+        b=slBPKnTYaPqbmnDLJvwAQGK91gBcgN6CSXU7rKZQ1yh5W/cTJwQn3qoMuP4gxnvwDN
+         gX3OBjMeJHJYN8XISPfWe/Y7RRfMCFX7CvRUFsmeJdkI701wO0REcJVcqSZX0JUU6aoz
+         uklUbDz/QvKrOAon3wObPLz6DZIShtmyO3UuLyictFGRY3rdF7RkxjCTcWgazHXJyPAP
+         fDMPDAlLtoru8MsG7loUvW6XyAJ1exZ5rRC7/ol8HWUnSYI1xXm5OBfHWDll7Qvua1eH
+         swTfTi22sS8Xk3JszXt8iQOgwq478W74Z6zCAKZ6cXeCyckXuU8xBz4F1S6+T/slAUmC
+         yTGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795077844; x=1795682644;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=m3i+HRIGIUiqcgfax9l6q9GaA7Wh6NDEMTSkux3S4EM=;
+        b=GnCOTcG9RbDbad80egraMga6kWjbgM5KK181NLb4tUezeFvyUkK4irDW1SeMbB61si
+         e/S7UEx3ESA95GnnCxwOSjYr2+U5SRAFnkUuB+I7sUKNAT6alMuYkLTc1ggJ64nWpiz4
+         kulVcSz4GB/jw4FsSZ8AEkT6QTMhqS/mqInKMGpsZyXOPdmtV3V6dHFARXApq/SyI5bO
+         YxzQ+QqWCDMv6f15fu2mdjznP5tPTP/xh6Ky6Qcgm6RjYWs4aQHs0xoZO1kLhb8MRox6
+         j8gVCNxPqQaHl3c+JTOphdJkUNoIdcsjGC2N5LawJ5e+qUMqtZ/6V4NvIMwcfVJzoDKL
+         poRg==
+X-Forwarded-Encrypted: i=1; AL+hErGD/UYwhWg/WvoD3w+bx3TdmWC2FxALI3SXz6TLriI2epMxyEblNi6hf5W/zLApAxwcFcBazdE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+VAcYiVIfgm0lgF7M3WI2Ma+LvZM9SnYo761zAKhKgmUf64Yoq
+	aJclv+89jFtbCVLaZq8HnZpxCaUglo4oBU8c9+2FNBhTxhX8CMR+PSX9jj7Xym1agUppXF33i+7
+	HKfH0YIih7o5RrsxjoLsKND0MNAxcdBs=
+X-Gm-Gg: AZFdTZcpHlj5046GlLz/OMQ5MB5wtz82AohUt3x0qrU+04gkeXQnnSZtHntxuX++h3A
+	3yA9FMqQOyr5L0vs+DmpVfNU38wLt5ltO3rG4OZwY0OLs3hsYRx8thVYJC87V+PysJpveuwSDeu
+	wnp7cAH9Ku9hilSK+E2kzExEdjZ4ebCAnbjQfrgzCZBp6kPqy3Zxv1Zj39hWDXjTjwunRrYK6gM
+	Y8gbs/QvFnAYQBiGbSSd4Ape4kI6oJBT4MKh/OFTHBxmX2y0h7aOOhi0mRlUv60/OLL86ZsJ9DP
+	fpe+tYQmGmVv9kRC4lZsmuJIuYYKZdptrIwn2mC57urEORmBm6g28/WJFpIFhphUFEGs1FIQjRO
+	btKmZwM7+lPvZuRxVrGZNNzxmSBZUwnXHi28YOOaJgwY4CEpR0ReSP0qmwa3UIB79tXyUMbRvKm
+	ZIKJ7OcBd0KjvcDmBLnd8=
+X-Received: by 2002:a17:90b:55c7:b0:3b0:ad59:7199 with SMTP id
+ 98e67ed59e1d1-3b3d07c653amr4418993a91.32.1795077844104; Thu, 19 Nov 2026
+ 00:44:04 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -87,39 +104,35 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: M/ESU50hZOEX1dufSpouXcCbrwQ3ditX3iPeFtGsSinWzIl7JI9uGwmt
-	ef2FOdbzvLRmU/bipLEq2VYlfz2dkDAq3s3dcsm1nTPxtd/zCTbszsDp9lBsePY4vWPLtpn
-	RczUytMmQzmS3QZRdTQsoZI2tieAHfrQAPw78bgAKVHq1Z2S4qV5Xn2eXUC0F6VV4DHZ4VP
-	Mp8OuEOpM3dSluGyAyQ1Ewm9l7vU4XJBW1x4T7jrKknI1q1XcEU8xhqr2Uoai+pQBB6uy/b
-	h9EFTSrcFNDXaA4MNaVg3EAl0tu8p6fpCxy2mR/df3q60T+fwQGJNiP1tBs6dACh+rqOoAm
-	fLdhHeqRIpeEaSNYEYml+4xi0gOgaWpQshwymjXa7grkZFe/592HSjva6muGpCfDXWyhW3M
-	v4Aj9EBStNo7J1LXfvzKB+g6AsK+p0epm8illUWheqx3C+CqaioLM1bprIXrjIVfimBR58u
-	J0NNYQ0ro6EmpvWaqBPs/S+dAhbJwvw1zHkfA6zwoutnKWCZVDtxzdXQ1pVIiTZOkOSagDy
-	5PbtCkgGCyB22fo0HZzgey8ZeFoWgidqmtVs/3hLhLXi/yUpAabq/rXKgRMwoSDVEjfGjxh
-	Q+SsPd6lD6cZ+vwDsSmj/Q81nIu8tXHmSVRBDWpmZINSQGK+f94nmfOPRCZuzcedhorzPVr
-	LztQhO3vfOvt7IzY3sLkT0NaXt4aYS/RY7izLsNAPUFSjbj42SHn2torkdZkIq6Jhbx7q2Q
-	nJk0wDS0mrK2AfBs8xgqFVrP+WwYyIZO6dNq7fwEUClxoMxVwg85DmZZu7tZ4hqbUwagyuP
-	lqAidc8Tl1uMGL2mYUyXfep8+vCgHlfjExpPU2C4NeLv+sBhlyPK8/JXXQNpWP+MTG7jc6q
-	tWbo+RhJOLa9V4FvcZiDFbL2XlBV6xDPGFfX9Sy1mhvavwuIg8nzPdgqe9hWrs3BNnUI4UO
-	XRa/3Ft1KLpBoiZyMvlbSaRxQTruJG1FflqFtEgEHv3DQ+2I9bZbOS+hACWrrojGDfcozr/
-	QtM/jvYIlVaLlYU4LSOImiR+RzDmwhu+dfR+1Y5cTSgEYJXWGAS6V0HmMK0Uf1FLuORKUN4
-	UQtYB9AMNUZ
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-X-QQ-RECHKSPAM: 0
+References: <20261118150247.972732815@linuxfoundation.org> <20261118150355.645960710@linuxfoundation.org>
+ <fd52d21a-34c3-4686-a9d1-099933e7cae2@kernel.org>
+In-Reply-To: <fd52d21a-34c3-4686-a9d1-099933e7cae2@kernel.org>
+From: Semih Baskan <strst.gs@gmail.com>
+Date: Thu, 19 Nov 2026 11:43:52 +0300
+X-Gm-Features: AclHuK8QPMFHYltRaH7S413ogSf_lQahbS4zUjRoVVdhquYP1vCMz_GsTwBswJw
+Message-ID: <CAAsRjRmbj+f_v8d99EgGi_z_rfmw+0rnKN8Y2ZwuHarPKP4NEQ@mail.gmail.com>
+Subject: Re: [PATCH 7.3 1913/2651] PCI: iproc: Use the EROM outbound window on BCMA
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, 
+	patches@lists.linux.dev, 
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Sasha Levin <sashal@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+On Thu, Nov 19, 2026 at 08:19:21AM +0100, Jiri Slaby wrote:
+> On 18. 11. 26, 15:52, Greg Kroah-Hartman wrote:
+[...]
+>> +    ret = devm_add_action_or_reset(dev, devm_pci_alloc_host_bridge_release,
+>> +                       bridge);
+>
+> This does not build on armv7hl:
+> drivers/pci/controller/pcie-iproc-bcma.c:72:45: error:
+> 'devm_pci_alloc_host_bridge_release' undeclared (first use in this
+> function); did you mean 'devm_pci_alloc_host_bridge'?
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+This needs commit 39d1c645bb99 ("PCI: Expose
+devm_pci_alloc_host_bridge_release()") from the same series. The two
+apply cleanly on 7.3.5 in that order.
 
-Best Regards
-Wentao Guan
-
-Log:
-Linux version 6.18.65-rc1-gb8cc618d685d (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Thu Nov 19 15:59:55 CST 2026
-Linux version 6.18.65-rc1-gb8cc618d685d (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Thu Nov 19 16:17:18 CST 2026
-Linux version 6.18.65-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Thu Nov 19 16:34:22 CST 2026
-Linux version 6.18.65-rc1-gb8cc618d685d (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Thu Nov 19 15:39:59 CST 2026
-
+Best regards,
+Semih
