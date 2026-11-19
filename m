@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795048501;
-	b=49oiHgoG/LdrHRxHB+vbM+M9iN4w3S4Qc9VD/kLYmbRrUBd8LHlhnIdgH76hVLqF7Ijo
-	 MqUvY7Pwer8LpovDoBhQ5CDKplI1/suUDvjhAaAWGKz+iL3rzH2mDz4jZt6VuFJn8mmds
-	 j8ulrXCLqOQLeg5CCvpwYq8qPs06wSXR+6ZvNdJGE5PQXOEXC1T936mUaefV3R5Kr+nO9
-	 j8Om0nnIacsVYT6onuR6yhNtg8j3dORDaFh765SBpP5JxvNWTtymQpInS7RTae5GGnKrX
-	 Qkzpyoxaytj80PUuHgQts7VEGQtIJy3qUt8ZaDr3L9KgnAvOb15mzRiDUV7864yya0Q==
+	t=1795048503;
+	b=qp2OXSTLNprdRkL0W62VWCglKcx5xoRszKpNlTetNndirlrJCxllOIpHe6v1VLs709gE
+	 BjIL0h3x3968nXedBjDjOEI8Cz+yNlX9J0IwZ/UpN3bU91beLgxJ5H4Acf3Rn87gSfkOr
+	 w5PK1ZFkAknTe1FxNVkv7WWlJCmToPviLX9woOHDy4j41DXDQGPavOnkkthTK4DslqcU8
+	 L/7jv5JRV4lXeojFrC56QOwSk1B8NO7cBDcXBwRGSAR61hSxlQwq7/2ZC0RhjrqtMfWdc
+	 bzv6Wthr0e1cVLFFsB6BjTaF7GnPstVR1vijHxWtyYRogCOSWsEtbTqEHajdh17y9rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795048501;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ujYPvRi5a3fblbtWH+15owzbTUOla20wFbYnDZkFo1c=;
-	b=h+DwLyWIZHIkmE+wZ7Ivy9q6WZ6bRiX6P+Ja8XnePyeMcd5+76olKUzL3+TS3uW70YKE
-	 w3s92KTKYBpFyHWsg8YLa+2+ttujvlSqHyCX6Cl44te4E+kFT/OXJBrOi3RNEsrUTeGrn
-	 358zi+hFB5EQr39MGnbM6rGmZt6dMdSCbxClbgWfNzrnx2R0Hkp1v6pogaANFjfCJ43xz
-	 koedxkW0CVQpOEunMbRwIQ1Tb/RNUT5ZzLzOZCBeU9skkvSqjDHeqjAEygB6vF/ly0eI1
-	 7Blqt4ZKEWiCh+tNxNtKRviS22roIEl6Mm7DQc8abJLLx9OVrj9ZVyr2EZW4mIzkQaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795048503;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=MBBdgGDR7k0GmtCp45XGw03/tk3C3N8PKF7SzK43N5U=;
+	b=MviQg+qDQrSZ4YuDLhdMdkyJRbCDrJhz3pWq4Ct/tPEYSL99KG+taKdNkFFMBDRokp5i
+	 SjwOoNKHVvhNbvWJKNVK1KQqJOqU1V0EGwTaGDfAe0+LNUuzPePNLZPnFdpo9Fnfm6utJ
+	 RO3E1VvudShXbL3btKoaH8ddSR95Z618LXl2+OcXGLUFHHggNQCl4pGH4UoshJvmHyzfs
+	 Z0JXUZCpL+mwHr/8gB9AISEoXrpEk3LIMdVnh0CoJforA21xJYvLH4DvCU/+9JUvbhExE
+	 q2wLB+K2e4fXQK6+fiX6F8wdvTG5a83IniaAGOjbhwfrs3jWfsuInHKmKnsbZIsPh1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lUhXcySr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hzdZfoOz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60323606A31C;
-	Thu, 19 Nov 2026 00:35:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2EF606A32F
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:35:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=lUhXcySr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B13FA1F000C4;
-	Thu, 19 Nov 2026 00:35:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795048501;
-	bh=ujYPvRi5a3fblbtWH+15owzbTUOla20wFbYnDZkFo1c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lUhXcySr4mfyZJYWQvCdZVDm5kBFNM2KSMx3ovfXHIUwWAdzLt8AU/VtfC4wFa6z6
-	 kFLsXV+xVEorEeFV0p9ZmzTaGBMX0up75SNjWnrslD5xMYWJW9ZHmvXs0Uw7/cRyNo
-	 EGtKvIy1bzMQ20YnaDzeKTvAP5exEqoTLyuKm5jY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Miles Krause <mileskrause5200@gmail.com>,
-	Lee Jones <lee@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 1990/2857] leds: lp8860: Fix device_node leak in lp8860_probe()
-Date: Wed, 18 Nov 2026 15:50:24 +0100
-Message-ID: <20261118150313.024955397@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
-References: <20261118150201.293410965@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hzdZfoOz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD07D1F000C7
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:35:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795048502;
+	bh=MBBdgGDR7k0GmtCp45XGw03/tk3C3N8PKF7SzK43N5U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=hzdZfoOz4qhWIzfgruDW1Kd+gft1453MXvX7LgOndhJMKzkuW7bajHsyoNI4vFFEy
+	 35C3B7xRaej32NwRr0CIJIsPQlhjCgBOc/d9antnXYkHB4Ly+PjIF3vek2LprObnXZ
+	 dA84J4lXBePzLxKz3NwVFD4e5nlB5V+RZgGD25rpRsD6I/LHJ1ytwQ2vQkAZJ82LVh
+	 0p2NF/kSGjeYoKbo+H/nEtfQoRGSpzTx07vkJeCiuKb6T9DiiadItZAZ7BfD4er4jf
+	 43BZbYwB2Z4s7Dk7uyz5MXBeatmUqbgiShw4HNaLmJ5w1tS8GL5hZQdY3lADZ0XMyO
+	 kg7KLNwdyoG8g==
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c511c0e2826so135164166b.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:35:02 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGoAvwSV2Z3dw1pds4mAMVa374nnHZbNl8DE6wg3oMD3iedIhkAhQbedBpjAcXWSNRty04L2hk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/PW8G7GBvUv1LbziQA2IHJeOwc7REDTGUcseoYWL1shVV0VbkQ
+	shRfsAmoT/oytP/rYdhSXCNgvSur17suSAgn26gQMMym/6TCWflmxRmxbuTff3lxU/VVXCqNDiR
+	VCP+PMban2e4gDqbKZqpyAnLgU4u7Z8U=
+X-Received: by 2002:a17:907:9811:b0:c2a:cf73:63fe with SMTP id
+ a640c23a62f3a-c510debebf5mr392519766b.6.1795048501493; Wed, 18 Nov 2026
+ 16:35:01 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,90 +59,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261118174000.76954-1-icb@fastmail.org>
+In-Reply-To: <20261118174000.76954-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 19 Nov 2026 09:34:48 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd8FnWOeohb9gzST+x0oe6_QK_=JqXfqLKZYzzq6Z8EBzA@mail.gmail.com>
+X-Gm-Features: AclHuK97zaeMYjWZZ83Hgsf-wGk-vKxVOO46xSw5KQzFmTQ4PV1AujEyr7nL6Xs
+Message-ID: <CAKYAXd8FnWOeohb9gzST+x0oe6_QK_=JqXfqLKZYzzq6Z8EBzA@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: clear DACL_PRESENT when the query omits the DACL
+To: Ian Bridges <icb@fastmail.org>
+Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
-
-------------------
-
-From: Miles Krause <mileskrause5200@gmail.com>
-
-[ Upstream commit f9879086c4eb4b3b0f4baa80139a5720b99b229e ]
-
-lp8860_probe() looks up the driver's single LED child node with
-of_get_next_available_child() and hands it to the LED core as
-init_data.fwnode, but never drops the reference that lookup returned:
-
-	child_node = of_get_next_available_child(np, NULL);
-	if (!child_node)
-		return -EINVAL;
-	...
-	init_data.fwnode = of_fwnode_handle(child_node);
-
-of_get_next_available_child() returns the node with its refcount
-incremented, and the LED core does not take a reference of its own:
-led_classdev_register_ext() only reads properties out of
-init_data.fwnode and then stores the bare pointer with
-device_set_node().  The reference therefore stays owned by the driver
-for as long as it holds the node.
-
-Nothing in lp8860_probe() ever releases it, so it is leaked on every
-error return taken after the lookup - the enable GPIO, the vled
-regulator, devm_mutex_init(), the regmap allocation, the optional
-EEPROM programming and the LED class registration - and on a fully
-successful probe alike.  A device that binds and unbinds repeatedly
-leaks one device_node reference per bind.
-
-Sibling drivers already get this right: leds-lm3692x.c, from the same
-TI LED family, calls fwnode_handle_put(init_data.fwnode) once after
-devm_led_classdev_register_ext() to cover both outcomes, while
-leds-ktd2692.c and leds-aat1290.c take the node with __free(device_node).
-
-Use __free(device_node) here too.  Unlike a single of_node_put() at the
-end of probe it also covers the intermediate error returns, and it keeps
-the node alive for the whole function, which the LED core still needs
-when it reads the child's properties during registration.
-
-Fixes: 99ca0ea57309 ("leds: lp8860: Use generic support for composing LED names")
-Signed-off-by: Miles Krause <mileskrause5200@gmail.com>
-Link: https://patch.msgid.link/20260910-leds-lp8860-of-node-leak-v1-1-d333cff4345b@gmail.com
-Signed-off-by: Lee Jones <lee@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/leds/leds-lp8860.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/leds/leds-lp8860.c b/drivers/leds/leds-lp8860.c
-index b7da47333cd8b..2733c3864b07d 100644
---- a/drivers/leds/leds-lp8860.c
-+++ b/drivers/leds/leds-lp8860.c
-@@ -7,6 +7,7 @@
-  * Author: Dan Murphy <dmurphy@ti.com>
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/i2c.h>
- #include <linux/init.h>
- #include <linux/leds.h>
-@@ -381,14 +382,14 @@ static int lp8860_probe(struct i2c_client *client,
- 	int ret;
- 	struct lp8860_led *led;
- 	struct device_node *np = dev_of_node(&client->dev);
--	struct device_node *child_node;
- 	struct led_init_data init_data = {};
- 
- 	led = devm_kzalloc(&client->dev, sizeof(*led), GFP_KERNEL);
- 	if (!led)
- 		return -ENOMEM;
- 
--	child_node = of_get_next_available_child(np, NULL);
-+	struct device_node *child_node __free(device_node) =
-+		of_get_next_available_child(np, NULL);
- 	if (!child_node)
- 		return -EINVAL;
- 
--- 
-2.53.0
-
-
-
+> @@ -1077,8 +1077,9 @@ int build_sec_desc(const struct mnt_idmap *idmap,
+>         pntsd->sacloffset = 0;
+>         pntsd->revision = cpu_to_le16(1);
+>         pntsd->type = cpu_to_le16(SELF_RELATIVE);
+> +       /* DACL_PRESENT is set below when the DACL is requested */
+>         if (ppntsd)
+> -               pntsd->type |= ppntsd->type;
+> +               pntsd->type |= ppntsd->type & ~cpu_to_le16(DACL_PRESENT);
+ksmbd can set DACL_PROTECTED or DACL_AUTO_INHERITED as well as
+DACL_PRESENT. But this patch only removes DACL_PRESENT.
+Thanks.
