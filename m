@@ -1,123 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795116014;
-	b=1pX+uzJQRCzdlov6EX/q0PLQq6eb7ETLQJ0J+WKlbBy4ZeWChrr8HoDjCc/wn5VKAyRW
-	 5SPSMCEKeaVkQ9KCJe/facpq6Bw+Iby6SEzramaFO/oajBv4F5SaTOn755Ov+99bqZ9+J
-	 milMf2RLVzd6aG8R2CetVA8Fri28ZLK6O8Rnze2IVijYsfyU+Ojnuf9Q4pEGKlPZKkVid
-	 kA4UkbEYh9qHsHxbTJnelYLdIW4dWp6nFXDyUcNhcyr6Gqsx52rG8Ew6qXT8Qf68RnEkz
-	 oJzZneIg4FddW5MiZQYARaHq10GjhVRxYWeRmgE9t7Ig0oNLiiJQKpIoYqthhrJji9Q==
+	t=1795116030;
+	b=Aum065zXg/0JNrRAv/M+WErmgMOOi6/k5v84uIyEnn2vdJqaVVmAT9nO8KycJj3b18VQ
+	 kpM96OezUaLQwMCzKcYlc4utXJcqvcWeZVFmmHBBIv9PiZJx3OkKH/h1hqmsW9gZI7RaE
+	 w2ZVUHFsfIxX5p8FbnY4iEdTy6iq44qfz0HKfGQCf1MDl0hHURf6kmCMtRyEDeV300Yal
+	 Rgv2XXeFzHLcQTlJq/daznri+BexgUXLpA/owh9thZohDgibU0+Q1SdkwDe3Szo/DQ34Z
+	 LJiqqXvy6fLvfN89dojxNgNbiqytdRKfGTfNIxhvktd2hEK02zyZ+8LpuHyes/EiMvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795116014;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=wv7me2iXP1ImG2ZXWpCgdwR4YIJXXEoQFMyFT5W6z7U=;
-	b=vwKR0sAwNIn3lcnjJOkuP5l4/Y1fKeLNlAKZVraIvcaj9gzeg/v6I7d+L3wl6aYVzqPU
-	 TtW3djB+nMzov2z9UNsM7qrUCNJsIryWHSvXb30o3pHJ6RycA9EOLqz1TvcjIhKem/k/T
-	 G2nCvhWe5v2Qi7Sda+vktHKsvR7GyVwh15216dymyfocc8oKALUm57aEZ1p57H0/KfJwE
-	 v3140CpahCE/OTKLf8bITLYfpvEjfkwEdAfOFg2e3VnEEPwWzPHSCR/wV0loS8HnrV3Bq
-	 Ow9Ck7xHpULAGOV0l5Pf1HV8ZL1mh9F7V86Br44SWLor3t44PdAXOuC6YRltKFefawQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795116030;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Scanned-By;
+	bh=DfTV47JjtP50GhGwZ7AfK3DVBWS/1obgYuiq0TribuQ=;
+	b=BCEtBaVBuZLn3JUI4zmm+FJ2JRF4UONdygKPrDE/+0LsmxjxbYClKpsx1FZ97N/rZCBt
+	 KCwRA5yIGAywhg3x23DZtHchDjFC6pfNmvavJmXFaNbJnYTBJyYZemIDV37XQyG+UeHEB
+	 7ZZSuqEuQhXH4btU1hzAyRt/kvWw7QfpaiNv4sNTSk5YYPBIYkil2WoESrPaJEdXyz8Rp
+	 jVy65nmUiV7oYRIoCnffKRGLZNDdG7OXs+tRHAfnIEEGpNIprXfMjTuxo6IYk0yH/z30l
+	 dRY7RVew06CAyZMlQK20wooxKtDgONfopNyZ1b70JceTaUziTeGhMQJDB9KaiBrz+Tg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=EEtF43TB;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=gwjgHzxq;
-	arc=none smtp.remote-ip=103.168.172.152
-Received: from fhigh-a1-smtp.messagingengine.com (fhigh-a1-smtp.messagingengine.com [103.168.172.152])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OUwLpUMB;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0437606A325
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 19:20:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0437606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC8F606A320
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 19:20:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC8F606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=EEtF43TB;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=gwjgHzxq
-Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 303FA14001AA
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 14:20:12 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-11.internal (MEProxy); Thu, 19 Nov 2026 14:20:12 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1795116012; x=1795202412; bh=wv7me2iXP1ImG2ZXWpCgd
-	wR4YIJXXEoQFMyFT5W6z7U=; b=EEtF43TBjzSpeHxCfsKHqoXa45GBv6uujSzyt
-	FpZKeJ8Qp3VznuEIQZ6UEChndhF+zIitokFGlCx/lF1TKMRYrKKUUPQdxOFv85NG
-	iMMb5sFxX/k9ihtAaIpLiZc67PyjEQ2/SvM+CvfVbSizHsExC2F9JRRJ3zXFzzA5
-	8sdZBHCm440npapH2L8xVP42BLbFIRTwJutYSRNxzSUA7JSpXpGQQwz3ZDD8MogD
-	qe4CfYxdBI7ut3/K2a+F1p4RvlKpF6WnLQ+s9GKVhv3SiobMYm0gwyeRrCRzyb3z
-	MbUOog/z+Q0ND83Ncbm1bypUdgyM1pjUrV0EDM+XE+zLZm0hg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1795116012; x=1795202412; bh=wv7me2iXP1ImG2ZXWpCgdwR4YIJXXEoQFMy
-	FT5W6z7U=; b=gwjgHzxqYeSmMRp/YXcvlsrFWwg5uF25GRY3FGwRUNbwKXxXRHg
-	6iNLKi0XK3egLIKeCNefaRD/cE3Kvs/Kj1Aol1lq+CQA9GTzT1sx14IeZ+8iB1gf
-	/RuVPfVQM8LN6F+WcdwosxyoJ/OLwOFRHLSOMv3JqNSTXj88yle1FC3f1qP/k0xR
-	rtRlfSIDB46itymBta6DtMlqYimb7wFJ7S5X8BPBM14b3vH7Vy3n+np/bO3SCxw9
-	+NV4TWohCpg985mjlXrOo7XXkZ0spksJsJitHhc2Nxe64Za8nZBAaERSidMSER+T
-	tylSNe5Khao4hb7/2Onfw3fmbV7pWctvLDw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795116012; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:H3Qlen9J+aeNSxyUjipZJ2rpiPUHSdYi8Ap4dYmc+/NlNle
-	Wa4Tpanqu2x6+uzls4jnhW6NZxk4cb2k7ybxQ4hCYXWMCUioy+m16ixg0BGE97gI
-	oeGnewCtClaBitxBNDPtXFHBeQRk592J2SYz0WPQVZbWELSuZtiIkaGoDv1uw3gd
-	xiui8SBc1LuPRbbUkIRG/OLiZM8CsrQFRLFii/SxJm7gojd0XoNPmE89Q8c0zBK/
-	VZfifhh8Jq4jMKMb+QtGqTmTLMWwb75oZ+1Hipb1p6U0aONnBUX2eHTzH+XxTYkm
-	G0lRc/+fWoOH+m/JLQbh5heWfwby/O+yxPQ2RXA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:cCXQDtsYhX9arB5JmmB736+eZy7+msVDW6enYqxI8Wg=:fI0NJ3/HRVLGu5s4IgwZ+FTffuBVVGh/zT8k622NL4c=;
-X-ME-Sender: <xms:60v_al1SxSlRAeFrBInsHSur9D6gI88iuGjt9O8XxHV6Yo5Tjm_4QA>
-    <xme:60v_ashVYbYQlu5hCi0Qn2JyTCbb05AMONGz7u1yoMWOftW06Nvbg4iWNBA2Ng0z9
-    u2j62ZzqetPNxfEMbJ8xLSPDX92kBEyNPugRujNj7iGWgecATfjbDkw>
-X-ME-Received: <xmr:60v_amky6mcHCboDAKOAEOSJ9FodWfiDkZryhD_vydWwdREc8iuj0HuFIZ9Avr8n>
-X-ME-Proxy-Cause: dmFkZTE7ccEftIdaGzVvEpGNmivS36tOWNZGwhj8tgj0iJ07c4smmDRo9eupzB7KMMdZiN
-    l3KpTGbIBZhMB9aejkW8W+RalTvIhfoXfhP8KtoUTaO/FsBESMcxD0Nreo43qO5Yz831qa
-    KVW/RZO1in3c3hmxKXl2lwj9TucIRXCVWVk5GgXkD98PkYflXp2LeHzpKUduTBOzC2x/uh
-    3ArJu+YBYedh0C820GTKXw2Im3Kdqp0AABTemwbl4inATJQ85J7nAMqDRG3b6f34fSV3vD
-    KsgyXd+rLEbS0UCL3gpME6ZsCsRlLVPNA1DuXZHEpLTEnrELK8lWfBXwkQryF7evlz4lGV
-    QrwIHQ23DZ5RCXk8zXebBrhdIZ4E//drwi2nFoWAOG0BZZdJwD4KCIbYlmZLADaeWuUOob
-    WsV2MC3hQ+5PKO74PzjIH+KjGDfNqMYDkIQtZA7urcb9tnjskKAUXUU84JN8mPsJSL6nzb
-    oXt6eK+0YZph5wH1QjV+kJ00TxIfK+kW8n8ZIwxv6bf2cjg4U1WBIkmmgBETEPValzcLIJ
-    CdJakkWsj2vkHRpEq+PGQLCBrs3QvLa3LZ81Po35rEVpLEn4MNzNe4sBmP7Bk3K1KRbIh5
-    NE/JcGt9M/3HijQiCX/8nkdEWvVqsMwq7beBHTtxqHmhYP0kTgCx2zYVzpdQ
-X-ME-Proxy: <xmx:60v_aqazmaYyEs5pvnLCjU8-HV_v75ngsgVhaTx7_tE0Fx7GtbTNNw>
-    <xmx:60v_apHahgvLbIsZAQpt9onXmbhvL7VjQE4aNp1kdLjwaL6HQ37ozw>
-    <xmx:60v_ahZX6nwhe3UlfFsZHamcktmlTq7jwaOZEVy4pTc_L86R8B2i7Q>
-    <xmx:60v_alywanIkQ0UGdCJzYqTo-F26to2ADgqyaOyewabQP2H70vLtSA>
-    <xmx:7Ev_ando-lwvPNltHdhxeehhXvSFixEmuYtugRj2TlMiCdoFQUnJZqVZ>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 19 Nov 2026 14:20:11 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	tristan@talencesecurity.com,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: count the ACL header when bounding the DACL size
-Date: Thu, 19 Nov 2026 13:20:07 -0600
-Message-ID: <20261119192007.198258-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=OUwLpUMB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795116028;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=DfTV47JjtP50GhGwZ7AfK3DVBWS/1obgYuiq0TribuQ=;
+	b=OUwLpUMBkqcsyWr+yq3+gDi03zR6482RAKvOAPCZYmWs2O1ODkPF1U9s/09/lYsPU6SQQQ
+	EtPUZVTNf42JnsEMWnFpP8gIavvv+fpqjBnM19AJJnNSxbJKFhqMDUI1Ua6Ujudqta9a8K
+	YudYbork0xsCF28vyB+0+Ns59dqvAV4=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-643-oOVQDF-1McuTwF7-NU5rNA-1; Thu,
+ 19 Nov 2026 14:20:22 -0500
+X-MC-Unique: oOVQDF-1McuTwF7-NU5rNA-1
+X-Mimecast-MFC-AGG-ID: oOVQDF-1McuTwF7-NU5rNA_1795116021
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E3BCB18004FC;
+	Thu, 19 Nov 2026 19:20:20 +0000 (UTC)
+Received: from bmarzins-01.fast.eng.rdu2.dc.redhat.com (bmarzins-01.fast.eng.rdu2.dc.redhat.com [10.6.23.12])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 6CE111956087;
+	Thu, 19 Nov 2026 19:20:20 +0000 (UTC)
+Received: from bmarzins-01.fast.eng.rdu2.dc.redhat.com (localhost [127.0.0.1])
+	by bmarzins-01.fast.eng.rdu2.dc.redhat.com (8.18.1/8.17.1) with ESMTPS id 6AJJKJeZ880720
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 19 Nov 2026 14:20:19 -0500
+Received: (from bmarzins@localhost)
+	by bmarzins-01.fast.eng.rdu2.dc.redhat.com (8.18.1/8.18.1/Submit) id 6AJJKGKv880698;
+	Thu, 19 Nov 2026 14:20:16 -0500
+Date: Thu, 19 Nov 2026 14:20:16 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Qiliang Yuan <qiliang.yuan@linux.dev>
+Cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+        Mikulas Patocka <mpatocka@redhat.com>, dm-devel@lists.linux.dev,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] dm thin: keep a thin on active_thins until its
+ last reference is dropped
+Message-ID: <av9L8MWVWbhGcON6@redhat.com>
+References: <20261119-bug-dm-thin-rcu-gp-v3-0-c80ecc475e1e@linux.dev>
+ <20261119-bug-dm-thin-rcu-gp-v3-2-c80ecc475e1e@linux.dev>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -127,100 +86,69 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261119-bug-dm-thin-rcu-gp-v3-2-c80ecc475e1e@linux.dev>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-set_posix_acl_entries_dacl() and set_ntacl_dacl() stop adding ACEs when
-their total size would no longer fit in 16 bits. The 8-byte ACL header
-is added to that total afterwards, so when the ACEs take 65528 to 65535
-bytes, the DACL size wraps to a value below 8. A POSIX ACL with about
-1800 entries is enough, and tmpfs and XFS can hold one. The security
-descriptor built for a new file is then stored cut off before its DACL,
-and a query returns DACL_PRESENT with no DACL, which reads as a NULL
-DACL.
+On Thu, Nov 19, 2026 at 06:05:07AM -0500, Qiliang Yuan wrote:
+> get_first_thin() and get_next_thin() let the pool worker process the
+> thins on pool->active_thins without holding rcu_read_lock() while it
+> does: they take a reference on a thin under the lock, and
+> get_next_thin() continues from that thin in a new read-side section.
+> thin_dtr() takes the thin off the list, waits for a grace period and
+> then for the references still held.
+> 
+> Once thin_dtr() has removed a thin that the worker holds, nothing
+> updates its list.next pointer any more. If the thin after it is removed
+> and freed before the worker calls get_next_thin(), the walk continues
+> from freed memory:
+> 
+>   BUG: KASAN: slab-use-after-free in get_next_thin+0x8b/0x240 [dm_thin_pool]
+>   Write of size 4 at addr ff11000116371cc8 by task kworker/u128:0/13
+>   Workqueue: dm-thin do_worker [dm_thin_pool]
+>   Call Trace:
+>    get_next_thin+0x8b/0x240 [dm_thin_pool]
+>    process_deferred_bios+0x34/0x650 [dm_thin_pool]
+>    do_worker+0x2b7/0x4f0 [dm_thin_pool]
+>    process_one_work+0x8ce/0x1850
+>    worker_thread+0x639/0x1190
+>   Allocated by task 2290:
+>    thin_ctr+0x130/0x1260 [dm_thin_pool]
+>    dm_table_add_target+0x65f/0xf60 [dm_mod]
+>    table_load+0x1c2/0x480 [dm_mod]
+>   Freed by task 2391:
+>    kfree+0x15d/0x550
+>    thin_dtr+0x21c/0x2c0 [dm_thin_pool]
+>    dm_table_destroy+0x13c/0x570 [dm_mod]
+>    __dm_destroy+0x2eb/0x5d0 [dm_mod]
+>    dev_remove+0x2f1/0x3c0 [dm_mod]
+> 
+> Mark the thin as dying in thin_dtr() instead of removing it, and take it
+> off the list only after the last reference is dropped, so that removing
+> its neighbours keeps its list.next valid. Take references with
+> refcount_inc_not_zero() and skip dying thins, so that thin_dtr() only
+> waits for the references already taken, and have requeue_bios() and
+> error_retry_list_with_code() skip dying thins as they skipped the thins
+> already off the list.
+> 
+> With a test-only 3 s msleep() added to the worker after each thin it
+> processes, thins 1 and 2 of a pool with three thins are suspended and
+> then removed while the worker holds thin 1. Trials in which KASAN reports
+> a slab-use-after-free in get_next_thin():
+> 
+>                  before (trials)   after (trials)   change
+>   KASAN report            3 of 3           0 of 5     -100%
+> 
+> Fixes: 17181fb7a0c3 ("dm thin: fix a race in thin_dtr")
+> Cc: stable@vger.kernel.org
+> Reported-by: Benjamin Marzinski <bmarzins@redhat.com>
+> Closes: https://lore.kernel.org/r/avz7qDWd2g-uubmL@redhat.com
+> Co-developed-by: Benjamin Marzinski <bmarzins@redhat.com>
+> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> Signed-off-by: Qiliang Yuan <qiliang.yuan@linux.dev>
 
-Leave room for the header when bounding the ACEs.
+Thanks for updating this.
 
-Fixes: 299f962c0b02 ("ksmbd: use check_add_overflow() to prevent u16 DACL size overflow")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
-
-Tested on ksmbd-for-next 4616bbc5389a with KASAN, on tmpfs. For a new
-file whose POSIX ACL has 1819 named users and one named group, a query
-now returns a DACL of 65516 bytes, which leaves out the last ACE.
-POSIX ACLs with 1800 and 1820 named users give the same results as
-before. smbtorture results match the base.
-
-This patch was developed with LLM assistance.
-
- fs/smb/server/smbacl.c | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index 2651214c939a..86a59878ae87 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -628,6 +628,18 @@ static int parse_dacl(const struct mnt_idmap *idmap,
- 	return ret;
- }
- 
-+/*
-+ * Add the size of an ACE to the size of the ACEs in a DACL. Fail when the
-+ * DACL with its header would no longer fit in its 16-bit size.
-+ */
-+static bool dacl_add_ace_size(u16 *size, u16 ace_sz)
-+{
-+	if (*size + ace_sz > U16_MAX - sizeof(struct smb_acl))
-+		return false;
-+	*size += ace_sz;
-+	return true;
-+}
-+
- static void set_posix_acl_entries_dacl(const struct mnt_idmap *idmap,
- 				       struct smb_ace *pndace,
- 				       struct smb_fattr *fattr, u16 *num_aces,
-@@ -685,8 +697,7 @@ static void set_posix_acl_entries_dacl(const struct mnt_idmap *idmap,
- 		ntace = (struct smb_ace *)((char *)pndace + *size);
- 		ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED, flags,
- 				pace->e_perm, 0777);
--		if (check_add_overflow(*size, ace_sz, size)) {
--			*size -= ace_sz;
-+		if (!dacl_add_ace_size(size, ace_sz)) {
- 			kfree(sid);
- 			break;
- 		}
-@@ -700,8 +711,7 @@ static void set_posix_acl_entries_dacl(const struct mnt_idmap *idmap,
- 			ntace = (struct smb_ace *)((char *)pndace + *size);
- 			ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED,
- 					0x03, pace->e_perm, 0777);
--			if (check_add_overflow(*size, ace_sz, size)) {
--				*size -= ace_sz;
-+			if (!dacl_add_ace_size(size, ace_sz)) {
- 				kfree(sid);
- 				break;
- 			}
-@@ -746,8 +756,7 @@ static void set_posix_acl_entries_dacl(const struct mnt_idmap *idmap,
- 		ntace = (struct smb_ace *)((char *)pndace + *size);
- 		ace_sz = fill_ace_for_sid(ntace, sid, ACCESS_ALLOWED, 0x0b,
- 				pace->e_perm, 0777);
--		if (check_add_overflow(*size, ace_sz, size)) {
--			*size -= ace_sz;
-+		if (!dacl_add_ace_size(size, ace_sz)) {
- 			kfree(sid);
- 			break;
- 		}
-@@ -798,10 +807,8 @@ static void set_ntacl_dacl(const struct mnt_idmap *idmap,
- 				goto next_ace;
- 
- 			memcpy((char *)pndace + size, ntace, nt_ace_size);
--			if (check_add_overflow(size, nt_ace_size, &size)) {
--				size -= nt_ace_size;
-+			if (!dacl_add_ace_size(&size, nt_ace_size))
- 				break;
--			}
- 			num_aces++;
- 
- next_ace:
--- 
-2.47.3
+-Ben
 
