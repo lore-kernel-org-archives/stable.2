@@ -1,61 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795121296;
-	b=5Tjb8cACHQlNu241R/oOoCYq9mIMjIlTGvOStzMOVABwK/GK4I4H4z+X92ud3lHAC9H8
-	 SBRzEFEcRFwBQPtXgDhTDKBh7QPr88BnzVelmb1TeNSAth69Xk3LQTSyBp6JGopHRk76P
-	 ZFDCVzeRCWwNXhPt4TJfuIYVdFKhLjtCRgcpO3j+wm/Jyiz02bsBwEgVbuBDwit9malt+
-	 Kg6T9IGXxrHyQctdyQXb5fqdXu3obJNDjM0qNk8k6KUYvcZsWoBWGeTouLQGM/vY5nCsR
-	 CQHrd1zOWMYasT747RSvM43SndjI2bbsm8MtdPAqIbd/RYhu/FTvBXlMUF1sr1rM7jQ==
+	t=1795121303;
+	b=bOdutgjc5JGMMWHOZuX74A2w6gowozWnyVZmiaf4QzD9KRFk7m6ftJt4F6PEc+Cam0ig
+	 wmudzjcvphZYMLrlnWH38d6FULwaL6Qrzqqqx+Fhbq+VbChBju/+DamaBrIREEUJDdU2Z
+	 YxejiwZr3AUXYq9WVL9SF0fmu/4SR/VtgTwSUxpJdY7XEoHuDKZVvrZvQH/Mfjj0VbYt0
+	 Q3DqBlsTCEyV/16ao4cAMm/xacRbEELhL0LAMfHdpf+oSIEpxup5xTERslLeM11kCNNYE
+	 zXSb0eCnlY7JKqIKidebpJ2bb28zfx3jbR//hYHtNYwfMbu+T1aJQCKYErVCKzCSXMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795121296;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795121303;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=wlYjz4H7PCBDiZQa8+1jdG4sriSVI/tDAKiU2tNjwaA=;
-	b=4uFaH3AGRmrbslJjrh7RknDRQ2ydP7kApDwLoYbYB+T14nmYMuWDAOnD0CdUnNBTBwk6
-	 YNh8DbYqLOHIstjU+aeJuevKKJHUDdiOEmaW40D8Hljy06YlSuhSdHAwMEOS93qpbCVIw
-	 m6XwGtzgOhKvu2GETtX50RVYwfrHa9koJXRe3SUjM136uMyZ4vsL7eVygcvLAPhGhGuob
-	 cLaBnxgpKjAm5w8QQ8nSfqxc1v2Ep2p4MHm3CYNZtiDd1Wdf07OODadAdTsHVDBFRxCyR
-	 NvPNhtKXCONRwBOnEQmGpufVH//Ig0G5j979wmrrAMJ8YZJDyLOP7jNa7HcrZKTOQrA==
+	bh=EndSbXDsC0y1ohJLGeRrBlrjI2WFQTAdaGmEEeAXUf8=;
+	b=TXwrkUikdGqm/PhFcK4Ub6QOjY8cyZVAzWOe53XqoUQbGwBOiE4YYtoyZq7+wSjPjQK5
+	 ADIABJ2PETDZkYH+JUmS3KCXd7OZJOZyCHOe6V1gge/RC7e/qSmaRYyB9qiUpFVBiPZp5
+	 zDz3mwtro4gAVzGF0ydGuygjV2dc3cH+v15IJ73rS3+BI5Wyh5fRgu84V8x/RmCOrpAxn
+	 J+yu6rgHqivMUSK22DeoOGjQcsTStMZ7EgPoKx+PM0bP7dZevdzZ3izVmTUF9Roq85YiA
+	 JfJ7cdL8pGTa8T0o7GIy7q89ms3inRjj1N7hn+dppvhMC7zztv6ilgkREdaNa3h/CXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4nEQinT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EItI03EO;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94778606CC7F;
-	Thu, 19 Nov 2026 20:48:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF207606CC61;
+	Thu, 19 Nov 2026 20:48:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4nEQinT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E1A91F000C0;
-	Thu, 19 Nov 2026 20:48:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EItI03EO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1988F1F000C0;
+	Thu, 19 Nov 2026 20:48:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795121296;
-	bh=wlYjz4H7PCBDiZQa8+1jdG4sriSVI/tDAKiU2tNjwaA=;
+	s=k20260515; t=1795121303;
+	bh=EndSbXDsC0y1ohJLGeRrBlrjI2WFQTAdaGmEEeAXUf8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V4nEQinTN3jJh5hGW7AZFmTrf/urY2z6q3EAakxo7y0sapSfJocohchQGbmkT8RYs
-	 YycrpfvSwqBeWFJtWKnYY41PUuazCpXCNzgkd7+QlmtXobWyLcnUlqCMKjauUF1eEh
-	 FYYwLQqOSFNv6jXSy/33mI+14EfbARiFfkW+l6XCiEfhOw1RwPiANBYmEXZrMk25Nn
-	 3EJzXOJ4JjcPy5RBjBuIr26Ywh5I7e6KMOF57PRb4JPvT966ELmyOv6wvO3ssckNIy
-	 uaCcCe2g5wzqdv8VqJ4kuQroVEFCp3hiMgaEPel7iHB5shw3ul0Rlhx/OIEPiZoCtG
-	 QQBhWx/DJS6XA==
+	b=EItI03EOLoaZUJBsGnIempT8JfESUSibqtx3QFNiORQYCOtFwBKn3cIOmHem25V2G
+	 ioqYDVHI4Spy+O37sYF6fl5immdCW9nggS8BzQzsg7gLbmfTd/UR5zQmWGHAC3iEJW
+	 DVGP8ThBAFdQEV0KmT4HrC3bgvh2lVoEzEu+akT1bWF+hsNixqG+28ff/SYbkMtzVV
+	 545QugZgLpja1i3aW72iJn/TD5JNZvKZcBK2SskNsu38NEp4fPiawaL36i1aTljOT5
+	 RHWwoN3wPOXLxo/oKoJyduO5YY09RWL2wq4TMhsetSEpKU0D+l89E9Kq0netIxGBK/
+	 XtNO+3wawbKJQ==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Sean Wang <sean.wang@kernel.org>,
 	Linus Walleij <linusw@kernel.org>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sam Shih <sam.shih@mediatek.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Rob Herring <robh@kernel.org>,
+	Maoguang Meng <maoguang.meng@mediatek.com>,
+	Hao Chang <ot_chhao.chang@mediatek.com>,
+	Qingliang Li <qingliang.li@mediatek.com>,
+	Nicolas Boichat <drinkcat@chromium.org>,
 	linux-mediatek@lists.infradead.org,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 3/6] pinctrl: mediatek: mt7981: Add missing entries to mt7981_ant_sel_funcs
-Date: Thu, 19 Nov 2026 20:47:18 +0000
-Message-ID: <20261119204748.2558209-4-lee@kernel.org>
+Subject: [PATCH v2 4/6] pinctrl: mediatek: Guard against NULL eint in mtk_eint_do_suspend() and mtk_eint_do_resume()
+Date: Thu, 19 Nov 2026 20:47:19 +0000
+Message-ID: <20261119204748.2558209-5-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
 In-Reply-To: <20261119204748.2558209-1-lee@kernel.org>
 References: <20261119204748.2558209-1-lee@kernel.org>
@@ -70,39 +71,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mt7981_ant_sel_pins[] defines 14 pins (pins 14..25, 34, and 35), all of
-which select ANT_SEL at function mux mode 6, but mt7981_ant_sel_funcs[]
-only contains 12 entries.  When mtk_pinmux_set_mux() iterates over
-grp->grp.npins (14), it reads two int elements past the end of
-mt7981_ant_sel_funcs[].
+mtk_paris_pinctrl_probe() treats mtk_build_eint() failure as non-fatal,
+logging a warning and completing probe with hw->eint left as NULL
+whenever EINT initialisation is skipped or fails.  However, the system
+sleep callbacks pass pctl->eint unconditionally to
+mtk_eint_do_suspend() and mtk_eint_do_resume(), both of which
+dereference eint without checking for NULL.
 
-Add the two missing mode 6 entries to mt7981_ant_sel_funcs[] so its
-length matches mt7981_ant_sel_pins[].
+Return 0 early from mtk_eint_do_suspend() and mtk_eint_do_resume() when
+eint is NULL.
 
-Fixes: 6c83b2d94fcc ("pinctrl: add mt7981 pinctrl driver")
-Closes: https://sashiko.dev/#/bug/linux-6233f285-1487-4d2d-afe3-d4ce3c445054
+Fixes: 5c0904488a20 ("pinctrl: mediatek: Add pm_ops to pinctrl-paris")
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 
-v1 => v2: No changes
+v1 => v2:
+ - New patch, avoiding a NULL dereference on suspend/resume when EINT
+   setup fails (Sashiko)
 
- drivers/pinctrl/mediatek/pinctrl-mt7981.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pinctrl/mediatek/mtk-eint.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/pinctrl/mediatek/pinctrl-mt7981.c b/drivers/pinctrl/mediatek/pinctrl-mt7981.c
-index 2325cc8b9345..62fec909408b 100644
---- a/drivers/pinctrl/mediatek/pinctrl-mt7981.c
-+++ b/drivers/pinctrl/mediatek/pinctrl-mt7981.c
-@@ -800,7 +800,7 @@ static int mt7981_mt7531_int_funcs[] = { 1, };
+diff --git a/drivers/pinctrl/mediatek/mtk-eint.c b/drivers/pinctrl/mediatek/mtk-eint.c
+index 827231dc0d24..ca47a416c666 100644
+--- a/drivers/pinctrl/mediatek/mtk-eint.c
++++ b/drivers/pinctrl/mediatek/mtk-eint.c
+@@ -427,6 +427,9 @@ static void mtk_eint_irq_handler(struct irq_desc *desc)
  
- /* ANT_SEL */
- static int mt7981_ant_sel_pins[] = { 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 34, 35 };
--static int mt7981_ant_sel_funcs[] = { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 };
-+static int mt7981_ant_sel_funcs[] = { 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6 };
+ int mtk_eint_do_suspend(struct mtk_eint *eint)
+ {
++	if (!eint)
++		return 0;
++
+ 	mtk_eint_chip_write_mask(eint, eint->wake_mask);
  
- static const struct group_desc mt7981_groups[] = {
- 	/* @GPIO(0,1): WA_AICE(2) */
+ 	return 0;
+@@ -435,6 +438,9 @@ EXPORT_SYMBOL_GPL(mtk_eint_do_suspend);
+ 
+ int mtk_eint_do_resume(struct mtk_eint *eint)
+ {
++	if (!eint)
++		return 0;
++
+ 	mtk_eint_chip_write_mask(eint, eint->cur_mask);
+ 
+ 	return 0;
 -- 
 2.56.1.750.gf70dc682cf-goog
 
