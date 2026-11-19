@@ -1,89 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795081888;
-	b=s/I4peWH36KufJRnRQwutItAojhtpWyW91MDDx30hXaUNVjnIsKdD4ZQ8455EQPlI5R8
-	 bgaHiA1vfjGwlmHKXUj6xQ129iJfc1STbvjkOwiDhGchwcqBAqBSCey3nZGTUAUrhx5L8
-	 ofk4eao89Db39Vj6CwI9fCszGNi7ngNdatVI0mlcUPC97y7KcZGrATVvKDv6U9yZw7yiO
-	 EZa9hADjwveulWIjuJgtcRLjxocpEloBvmD3ykqk60YlLk2gT+x8ue9VOXFTFkALkQS7n
-	 aki4uZu/bljRwIK0vDVrmBb+HKzvujpr//kPVItUod6btU2Y3t0FZyH9aImjtgpB4Sw==
+	t=1795082242;
+	b=oSfwsTnCe3SjBI25rKfkVCoCva9CjwchZO2eGhWP9FQvPDZ3obcOR7u9auLU8eSUO/Wb
+	 tT2KHAUubDpBN3x2dvdBDDtAE2fEDLYT5Uz3byCtKOKft9csCF1jQRYQKf5v8IHFORunY
+	 2q5rdECUdY2SRaLB8YMk9UaI4F2Wan710HgWqLf/3DmEkuSSKuNzYDYfEzqR6+k1Qzjpg
+	 +yGJ8DWENpIfUehJ7XUXJ9jDSkps0jQ9noUM4XaqaIrYAB6Dy2RVfsnhZVTkaEC71Te5X
+	 zViE/X77oX4+1hDzqKeGVON9NsXMlPJkPg4g+HJFNbn7J71rsHfdkXUXSp4gEl85GnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795081888;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795082242;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Subject:Date:Message-Id:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=miRDDdwyAGE8kK5Ez7Kp3L+1oDitSC4QAxpqcs7Tz2Y=;
-	b=pdelfSnRG/A0r9WtN3qj6FiARNrRt5IBK6VT2MXdsG/tYd0VvAKZpMymgIzbnonHzzeO
-	 6LqS5uHITLXRkxw6PMsqDPX249g4H9UcXSTqaZqiIwraKW+FLyHY9L80tC+MAvOi+CYLx
-	 iFlCMyx+Vl9+5z9UJOv1tPIE0eB1D5XKbFZJ/sVgwQ8bkqHd4INmBgl7+hoiGOCZYKYi5
-	 8R1CXgJcZsqiWMBji5TgkXQdJs3+XeRxy91puHaDyVWftBH86AcVFWLSgYozdz/ga2I38
-	 5lbagngL2nFUh2asAxrLLJeYFoiW1RXY8pJQolyXrWf1nD50UxicY3TnwSoH8cFY5WQ==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=2V+wGVkR/bmuUwxagpFjiS03nC66w3wqlw9sy1FL35g=;
+	b=pX/fyR6ss0nBJWSnYZIxfEyAaUGzsFLjQXTe3wV6mH8CROsCJu4k4WpxT7wNhK13yznr
+	 ukGptl6A3esCB5LTQr2D65103apfGI9ILytmx2a1FJshS2+CpO2wfHv1jUc91Uv6IMleE
+	 etpCmBL3VkVNuotcI3atJAXzeBlci7K2+qKK0HXVJ10F0fdaOLZPm8J5SvuBA+2CFYQRy
+	 6XR2wtujsmVaBsw13IgP02EK49n3pN+1+SB1bg7f16rAZqcWKZb3SXRN9vsbv4sCSuVGa
+	 BozFefaJdpy3JNf6sz4lZsUGc6W8Kt2ffsLptgYGPPIxoIeO1K7HiYkxP+l4TkFgEEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fairphone.com;
-	spf=pass smtp.mailfrom=fairphone.com;
-	dkim=pass header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=l7wB9BRn;
-	arc=none smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mOOvgliG;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88CB1606A330
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 09:51:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88CB1606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0B3606A33A
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 09:57:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C0B3606A33A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.a=rsa-sha256 header.s=fair header.b=l7wB9BRn
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c50a2efbe1dso352675866b.3
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 01:51:26 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mOOvgliG
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3282db206d3so5472608eec.0
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 01:57:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1795081885; x=1795686685; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=miRDDdwyAGE8kK5Ez7Kp3L+1oDitSC4QAxpqcs7Tz2Y=;
-        b=l7wB9BRnTpdVrHTtVNpulXaVzZZHz6U0HuTknPXZVuTgOLrpMZpuTfeBxyjqSwb0tI
-         GNjAkko0T7ZxjVCK5YCtczM2UtvTiM4s7l+wjN8k6ILeocUzluTGQ6P3rtBgwSqggYuX
-         gDevutH0FgjNuV2e8KrvSlKjh51cAH2D3jhc9ESCA1Zv6tkmPdBtuMRbzGb5sipFfzFA
-         evq/DPfcVTz6zaLU3IUoWffhlZMdiFIGzQ9MigleadceW5hoHZZXkNSUpAIygk+HccUu
-         2vJ+aS8wrqPL5OASX02/0RmXn/OyzrgfAVw2F96Trtr6UVe+l5W4VEuH04ypy1pMzWg7
-         aL4A==
+        d=gmail.com; s=20260707; t=1795082240; x=1795687040; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2V+wGVkR/bmuUwxagpFjiS03nC66w3wqlw9sy1FL35g=;
+        b=mOOvgliG/IXzKqHUJra+5P9TKS0iPzaUt8dyPM425Qo11zKK59R2lrMDP0jwsZnSui
+         0evw30p1b8ZMLuxaEwjDJJSENgZ8DRtfnIHZ5kdovnZvzMvg7ePgWfikU0AHOW/eNJCQ
+         RHYO6zkU0JLh/QMfGNZO9Qh3erPMNaq7oP9X1N7g3vnteWNmpYke4uB6XQY5jDmT8vYu
+         Dt0DbnVWxxcWreHW1C1UcEJuQ8aUWcdJWY/PXgSLTNj2Qn7+mxqLMv21rEVLa8815prH
+         76z/dy6w9Eegcz/W2AqOPLXJDtLpfASR9XsJ9D5aH8gle4US48OJX3R3jX4hlTG0WJku
+         bjpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795081885; x=1795686685;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=miRDDdwyAGE8kK5Ez7Kp3L+1oDitSC4QAxpqcs7Tz2Y=;
-        b=W9xE1BYvUwuqtmklDME5Y4XO8rpCVD7ZMgKcl/8NAH0kmYyqhOnJWnAo4FvmcwGPaB
-         tA7qJkOwzV4sclG17ssiBrhr6bnZxLjCHtAoK32IsODr52+rKOCAEM2nnHKi/NzvhBwU
-         j8w4x2d1yxr7RW90CBYWLHjbKPM4+0TttoI/czgKXIGBTSE8+AdSDrV8nO7jmnqKnkoE
-         SAdqUMQUwd1qcR23e5sjhiefwUFomx4DoX6RhIYsp0jU1lYZThaePikE8TyHXd3yzLtj
-         jHQBBfV2GZ5ztZpo9OmSLQM88oenwX/NLVF2ADiGewbr2BBrmshl48ROdzmQOKqPcXzv
-         FQBw==
-X-Forwarded-Encrypted: i=1; AL+hErFDWFc9eHp3hEWqg0eDPebiDkRxVrmiY4++n55fk5jDtHITDk02gDls7JDKUglBHGa917YUPgM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z85VPim7rZh3p+zUYRgSfS4A29Vcdi+0uTO2XSgeccq4L0jcrXb
-	vXT+xaY01+2G256Q+mUWRIOYrsBHnIDJ6h6SulpdmPmmKJv5GbTR2i4IB8lgvv6kEjA=
-X-Gm-Gg: AYBFou3PC6YQmKIBGPSBhwwtmNk10dDxWSNP3REfl7/bxUD0hDJfnMhtoVwHqqEQJH9
-	ZB6lKIOfHVqRwpyAainoBEef13z8FSLjZREzbULSQ+skRvvCN7KxlfmEr9DIawgpH/v/rlhns06
-	+sWlFQt1u3PzoLDXKFXuuJeEwQjONqpDIkjm49IsNojzYNKuBIZYgNT3/7HmJBvCFdg9sBxzxfQ
-	fjFo8Ctbs4MoivTPnFeN6SyHXJgiXLfJWkmRO03o355fO6WoHQEHUoWslx8o409vEEAxcASqskR
-	Ut/m3dYILfh7tcFJit/OsD9Rlkwc9TOVpQz9Xz+vCRTRCwi4Nhb99Em3pvgp8JEzcNN+iGIvX0C
-	cKUxWndOTHoEDfY1x/8NQj+X9B4dgBg62L4EK4NiZ9CSJy3hF73V1yVnl1qgEjGwiKCHbwGvVnG
-	V89ZP43T+CXx4WZoR5es6Fln6u544SzO2ihv8iRL6rQB2K4MnyFp+ZaWXl1urbt3mZYAe+S0ku/
-	PfPfrkJ8QThShGxNiKvlwZni8F27ksouXkEi+qIK631IBubQ7E9uVVbNvNH8d/0ZYmxavMmqB50
-	WKsQh5/WZmbP9P+aXEcKxO8FIsBE8Nk1xoEAO4LhWEL283w6jrVyKoj1A9nXZ4a7xRwu83yHkXn
-	NHaerJHtOM/M=
-X-Received: by 2002:a17:907:6d13:b0:c50:4983:5d8c with SMTP id a640c23a62f3a-c510e4c7dc5mr462265166b.34.1795081884916;
-        Thu, 19 Nov 2026 01:51:24 -0800 (PST)
-Received: from [172.16.220.224] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c51231bc213sm95057166b.12.2026.11.19.01.51.24
+        d=1e100.net; s=20260707; t=1795082240; x=1795687040;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2V+wGVkR/bmuUwxagpFjiS03nC66w3wqlw9sy1FL35g=;
+        b=cNhKLdPfSBOJpANFLjj1NNZ6LmigIGAiiAqxNN7gs2qWlCUP9aCwwsovHQ6GgYo3ZT
+         +NdBVuxekQcmkCW44EKdpj5upt37CFpRyIYT+Y0GJ+0764XbJ6TNg+vLhHi+yXWnkofw
+         dF8xWi6xEnHIrHHh0AJM4Pau7bvsP7wgIsSlD+vgG58aLNPtSe2tvfdfDgRnFXO0Ivqa
+         FZcQVkAiegk3LCieH+VTrQ0ArdjSVaNicRboNlArEa8kvtME28tcMG2Ze2lgNfR1Mpv1
+         R74pC4NotcCsQzVNKY0PkBrdUwPBZoCheGODR3fEiAxt6i9WWogDW2+6ROe7VfYy8zbW
+         fYiw==
+X-Forwarded-Encrypted: i=1; AL+hErFeBvdzV38n2i90Nq1u9RxgovXvDYzho1NO8WjkZvc8cghifzLNfuSzYbpul1UpUNqVVwc9l7k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+sUVrUuA+UGShnfHEZ8AtHzhC/l//P6BER/HVs6kOA3tgNI2PX
+	6JgB87KLBciESRm6ST0pEBIKiV1HgN3cEmZvrcOji3Not06Gb8Ouio+TisSpgA==
+X-Gm-Gg: AZFdTZeagk/0+eiVNBtqHVxXf3qIwD+6vv6F0817qM65jcdkPZZTqKwVRRyEo3yOF8M
+	B8UFG2RsUeFA+VLTrdPEDhhkum+1NM33bvWScqWJFZYFOMSJJwE2CsLA5AiYd12+fDTwvwGMLNt
+	YRI6zUz9OeN9tpMtudkv7INbJgBdUpDLf2IjjfM5Fem9BTzwC6kukMHOJCW4Hs1WEhuTkYrxm9B
+	2qMI7IeDUfBhh5lJUG7JmTsZh/7fBA9TS+az8F3cpxc6aAAnc3w6IaRAcqobombdnKF7Jt1V+ty
+	jzSK4+Ef0/hIjhN9/eX3qUvUJ1aF6nphjZ5ZjDWpa4IvsRqXT3QScrHRPKd0u09MDAqWPlMXkly
+	DMnIf2vqb87TXh4QB/YBGosNEPzlrFPv0qgq5dmOXdvg0wyxFaPH3nnveKDwh+nRPIPyg9aZf1U
+	6IniatstE2tBJ3fpXISRz38Qt7QSIuz3vidAlcpxg349yI0eyyW+zMZdKUxFMFVFcmI9G7m6nLt
+	gpQ9yrQ1IWujGCdnH0dbH1V9qe6VQ9ZHBCBIvW+hFuT7yomjjMmlJ8Q/swYESaTpTOrI2OlhvAf
+	DBkIzxPwU7ueWf0OUGN4Fogl3xGLYqegTJu9bpy8Et8ayR5ivgiMoWimC7VKLE8hQA7f0SAL8S0
+	=
+X-Received: by 2002:a05:693c:415c:20b0:384:4451:f6d with SMTP id 5a478bee46e88-38444511167mr1764888eec.11.1795082239992;
+        Thu, 19 Nov 2026 01:57:19 -0800 (PST)
+Received: from csl-conti-dell7858.ntu.edu.sg ([155.69.195.57])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-382a63059e3sm24172665eec.5.2026.11.19.01.57.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 01:51:24 -0800 (PST)
-From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Subject: [PATCH v4 0/3] Dongwoon DW9800K update patchset
-Date: Thu, 19 Nov 2026 10:51:22 +0100
-Message-Id: <20261119-b4-dw9800k_cleanup-v4-0-df26c431595e@fairphone.com>
+        Thu, 19 Nov 2026 01:57:19 -0800 (PST)
+From: Maoyi Xie <maoyixie.tju@gmail.com>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH ath-current] wifi: ath6kl: avoid A-MSDU subframe overread in aggr_slice_amsdu()
+Date: Thu, 19 Nov 2026 17:57:14 +0800
+Message-Id: <20261119095714.991770-1-maoyixie.tju@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -93,78 +97,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJrG/moC/22Q3W7CMAyFX6XK9YKcv5b2au+BEHKDWbNB2yVt2
- IR4dxIquEDIV0c+/o7tCwvkHQXWFBfmKbrghj4J/VEw22H/Rdztk2YSZAm1AN5qvj/Xa4CfnT0
- S9vPIoa2xQiNI6JqlwdHTwf3doZvtosPcfpOdMik7Ohemwf/fU6PMvkeAfhcQJQdeGqNkpRBRq
- c8DOj92Q08rO5xYDonqiRECzFuMypi1AaISTapXzHVZ1tPvnB4xLRewFgPx1D+5qSlitdLcW5X
- M1xuAQwriPQEAAA==
-X-Change-ID: 20260910-b4-dw9800k_cleanup-0b9a7a51e149
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Luca Weiss <luca.weiss@fairphone.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- stable@vger.kernel.org, Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795081884; l=1866;
- i=griffin.kroah@fairphone.com; s=20250804; h=from:subject:message-id;
- bh=wt4hIVeK/o47k3U4oT+VKM8Utd3/8tsRODOOzKhUBVQ=;
- b=Z9r7Y/VSolQbt86bB4HMFdlXQsAfQN7L4Y900nrfMljELYc1gQAUGiXcH6vqhfusGhM0t6Fif
- uSkXV6JjcHdBe9nTaPUETQrlFLuv1Rj4mEt5uhAUjdQzAYpB1bJR6hp
-X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
- pk=drSBvqKFiR+xucmLWONHSq/wGrW+YvcVtBXFYnYzn8U=
+Content-Transfer-Encoding: 8bit
 
-This patchset edits the dw9800k driver and related files, to properly
-match previously mismatched register writes, variables, and logic now
-that we have the datasheet for the dongwoon dw98900k.
+For each subframe from the device, aggr_slice_amsdu() checks the
+payload length only against the range 46 to 1508, not against
+amsdu_len, the bytes left. A subframe longer than the bytes left makes
+memcpy() read past the received data. The u16 amsdu_len also wraps
+when the frame ends inside the padding of a subframe or is shorter
+than an Ethernet header. The loop then reads past the frame.
 
-This is a breaking change, but is necessary to ensure proper bindings
-and driver behavior. The previous naive approach did not ensure proper
-functionality with different device tree properties.
+Check each subframe and its padding against the bytes left. Treat a
+frame shorter than an Ethernet header as empty.
 
-Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Found with a CodeQL-based static analysis tool that we are developing.
+Reproduced in a userspace harness under AddressSanitizer, which reports
+nothing in aggr_slice_amsdu() with this patch. Not tested on hardware,
+only compile-tested with W=1 on next-20261116.
+
+Fixes: bdcd81707973 ("Add ath6kl cleaned up driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Maoyi Xie <maoyixie.tju@gmail.com>
 ---
-Changes in v4:
-- Fix typo in dtb example.
-- Fix build error in switch statement case
-- Link to v3: https://lore.kernel.org/r/20261105-b4-dw9800k_cleanup-v3-0-6850ee6a5a5a@fairphone.com
+I used an LLM to help write the harness and this patch.
 
-Changes in v3:
-- Added more detailed descriptions of the changes actually made
-  to the driver.
-- Reverted to using vcm-prescale attribute to avoid unneeded breaking
-  with dtb.
-- Link to v2: https://lore.kernel.org/r/20260914-b4-dw9800k_cleanup-v2-0-6553273aaa33@fairphone.com
+ drivers/net/wireless/ath/ath6kl/txrx.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
-Changes in v2:
-- Expanded commit messages to be more verbose with their changes.
-- Link to v1: https://lore.kernel.org/all/20260910-b4-dw9800k_cleanup-v1-0-608255ea61ab@fairphone.com
+diff --git a/drivers/net/wireless/ath/ath6kl/txrx.c b/drivers/net/wireless/ath/ath6kl/txrx.c
+index 609d458ca6c5730..7ae14d470627276 100644
+--- a/drivers/net/wireless/ath/ath6kl/txrx.c
++++ b/drivers/net/wireless/ath/ath6kl/txrx.c
+@@ -997,14 +997,15 @@ static void aggr_slice_amsdu(struct aggr_info *p_aggr,
+ 
+ 	mac_hdr_len = sizeof(struct ethhdr);
+ 	framep = skb->data + mac_hdr_len;
+-	amsdu_len = skb->len - mac_hdr_len;
++	amsdu_len = skb->len > mac_hdr_len ? skb->len - mac_hdr_len : 0;
+ 
+ 	while (amsdu_len > mac_hdr_len) {
+ 		hdr = (struct ethhdr *) framep;
+ 		payload_8023_len = be16_to_cpu(hdr->h_proto);
+ 
+ 		if (payload_8023_len < MIN_MSDU_SUBFRAME_PAYLOAD_LEN ||
+-		    payload_8023_len > MAX_MSDU_SUBFRAME_PAYLOAD_LEN) {
++		    payload_8023_len > MAX_MSDU_SUBFRAME_PAYLOAD_LEN ||
++		    payload_8023_len + mac_hdr_len > amsdu_len) {
+ 			ath6kl_err("802.3 AMSDU frame bound check failed. len %d\n",
+ 				   payload_8023_len);
+ 			break;
+@@ -1035,6 +1036,8 @@ static void aggr_slice_amsdu(struct aggr_info *p_aggr,
+ 		 * Round to nearest word.
+ 		 */
+ 		frame_8023_len = ALIGN(frame_8023_len, 4);
++		if (frame_8023_len > amsdu_len)
++			break;
+ 
+ 		framep += frame_8023_len;
+ 		amsdu_len -= frame_8023_len;
 
----
-Griffin Kroah-Hartman (3):
-      dt-bindings: media: i2c: dw9800: Redocument DW9800K
-      media: i2c: dw9719: Update DW9800K driver
-      arm64: dts: qcom: qcm6490-fairphone-fp5: Fix DW9800K support
-
- .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
- .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts |  5 +-
- drivers/media/i2c/dw9719.c                         | 68 +++++++++++++---
- 4 files changed, 152 insertions(+), 13 deletions(-)
----
-base-commit: 19d1b4de6d37bccecc3ad9144d279f1baa405eb1
-change-id: 20260910-b4-dw9800k_cleanup-0b9a7a51e149
-
-Best regards,
+base-commit: 7e1392a42ea288d70a266f6553fe06f57f8647ea
 -- 
-Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+2.34.1
 
