@@ -1,67 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795108943;
-	b=3oVjyRBSvcU2GWrbKdG8J5UKq/m0H9aJSHiAu2T4+ncBJKFexr0xRwrSJh4g+izYWGzK
-	 DuxbnEuntmGyw4Nmkt/ko9kSzuLTHO92VU4U741qHDgNYtFys43H2Ee+TQR02OBALQvwk
-	 JAGTphdkyiArRCx1kbDRdH363Ci9ta4WjOOViDTXV4vNGRdpr03Nc12iTjMaT5NxAoBC4
-	 VyOvDVOIaK8xW5Tfwk+mAzEpsHDlaWQYToCoc5uxM63Z6W7dP1uRRPN28e7b1yLnc5re7
-	 icg6bZ+pYPJEXDrknzkUHDCBmbBvxX9dOnpEsodE3IyjS56chJN6fDe2jqQvlBcdjKw==
+	t=1795108998;
+	b=wPQwDOOJC8z7/BuwdyM7/ArrRA2vQudzj1ksELcamYv8X4d/yR9+O8IzgAdqb34l+ETO
+	 ydnnhnxUBdP+9fPE5ZUW10g7cYiElp8h2XOvUimkCkbcgmaMSOs40OQk/K4Rt0kZsOUuK
+	 FHBMwyn/aieLkhucxYCqJUJGITe4wHj8GtnG0q6DTY4u+QyiUcIX9cJnxlUoGc3wJuOAW
+	 BrXb201cQn/cVVKvBlgInQ+jWlBdWiN4L6uPRFoH64qCNuW99VNBvbDVS+uXhQDos+YyE
+	 VJv2Wk69paYTFoL9EPMQllXdrYykRA3CjMsjSjz2p9NJA6AOWXOhdepqwLY1wfwEeWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795108943;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795108998;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
 	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
 	 Subject:Message-ID:References:MIME-Version:Content-Type:
 	 Content-Disposition:In-Reply-To:Organization;
-	bh=LFTcJDjmQNamNWl0i13a+B1pqLhYbuJ5BQzFwJtb1Ak=;
-	b=qPNc27ztT4Nbi8j56QwSNjwrsUumVBAtHjyyZ0TcOAcFnazUBvhCz4hwGYIcUUKXDe6V
-	 WNXtDFR+Y+hGyJphEwvh7ce6G3sH8rCRkqiabmjxe5BEl2/AO4DZ7Bz/2SjQu3sDvSR8E
-	 oT+1I+NSL3G2E8hvi+b+BYPZITkv7gXa/6buVKFht8+jF1AKRrLMccgLqCLZhrODRoUmE
-	 EoEMviYt18wR6XL4YwkUBpVJATVGNZzVLFCWmXJT0iCgCWESEDBfCUBGIYiutEzyVeacp
-	 pv2dVOmdJ9K0Cgea8EdC/qINMs9vxs/zoEUZTGlc0E/OnlbI4sDwztSkS9LbCOD9BRg==
+	bh=T/doD335ORQ2aR4heO4AYNHnuzIPWGmhftw39sxPBYA=;
+	b=VGtHsntSsLRHt/Z8EYMEQPzidwtuZG6CJPz66g+nKP/1nPIOmLpY6jCUM+Ml6UMcrofI
+	 VZFmqou/iDBmqh1WfjRyOd9eHDYAI16ym9Z7lVuC2Gc+7jHpa40gzEaGJ5bMX9xdSQ9wg
+	 jm06H8wFX4sP7mTdN64gwC8GYRo6o7aA9chLJWR/1RkL0GyXadcnOcclAdiJ0+fMsMXaC
+	 Ohso/c61RC2FdhO51QB41+znureHTNFORPH7amnqfqiVsxANzLSsqgGzUeWOOjwSG4oSV
+	 vNXvTGRbxmLLI+AV1Cvn7KDasof41qF9hsaYcAKdxhARTMDL76oZ1XsaOECvcldGr2A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=intel.com;
 	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WpPUdVSY;
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YWFW2jy2;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3480606A320;
-	Thu, 19 Nov 2026 17:22:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3480606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106F8606A337;
+	Thu, 19 Nov 2026 17:23:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 106F8606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WpPUdVSY
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YWFW2jy2
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795108943; x=1826644943;
+  t=1795108997; x=1826644997;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=WD1V4uwNJWIfTh4IzBkdti1BKZInvd5fb14FvohizjE=;
-  b=WpPUdVSYX17FDHtlj81s2AlI1godU7pePITjQYgE2w7WdsiZKP+vB4U9
-   XawUOxYfLinGz6uu/t+YspUWzutFAVrWH0pBzcq7EdN1fqic/mPx3uohn
-   TwOASDdtNAMZt4fmXwfJOFPjkXKv29urmS7YREO9Jac3tr0qN6bBBHw+Z
-   ub1rncfTswAYN9dZmXwK0MCHNqK1iY2BeddY3N4FsFO6hLqSVcC0tKV84
-   leYUH0eLkdSxWItlrrVHpxIboU3Mk//JDr3Rm4C+ea3VMza87dUf4BgLz
-   cYHnoCOMLWWqQVRptH8G9LAMenYfks2VO89tjm7WekClM8/JrHJuJsXlS
-   w==;
-X-CSE-ConnectionGUID: fGOac/1qQQm73uPabro01A==
-X-CSE-MsgGUID: LQcZDEGkQi6b7Y8OElWV/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3855453"
+  bh=rbeulK9tHwSJXS4GzNoiB5ScFduP8tzxNEkcrLh/28w=;
+  b=YWFW2jy2/5BjRUbVprN2UxlTPZR3cAlx54OhKMgyldhxo6VFfBdgvTX/
+   pXkQbQEweBrVVdm9uLUWMyA0QxfMCZ6wGC2AmiiEumu7Nb5dpon6dkvTy
+   hx79aoLZM+Y2pVg3pOmcx2BrmzViynTNcbP+tB+CtnNLSHoaY1Zh+lS6H
+   1kkn/ylH1Za++QN6VUdMMXsFY28t/c0wtceVnNpdKyP9YRGIKxPCDi4QT
+   ySrkM1ksHwL4pDpPSTxGn/iDvOI1lhqFTUCVPpbdtiK0LtMh++4H+U/sM
+   vXgZVsESP5sHsDivH7RwA5eIcWyCrJ9C49nyvIqUeG58AzgvV+qFvYUh0
+   A==;
+X-CSE-ConnectionGUID: CrgmSbswTUms7nPrj6o/lg==
+X-CSE-MsgGUID: 1rvKQaLWTBGk9q26W0f5Rw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4014145"
 X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="3855453"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 09:22:22 -0800
-X-CSE-ConnectionGUID: 1+mZrb/XQgyvlx5hwfvc8Q==
-X-CSE-MsgGUID: QrSmd2FPSQ24MxVfp8hH9A==
+   d="scan'208";a="4014145"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 09:23:14 -0800
+X-CSE-ConnectionGUID: 4dDni44YSrK+KNrtBlUfGQ==
+X-CSE-MsgGUID: /0+wv7ofQxy15cnzuEHhag==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="12326946"
+   d="scan'208";a="10576996"
 Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.61])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 09:22:19 -0800
-Date: Thu, 19 Nov 2026 19:22:17 +0200
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 09:23:09 -0800
+Date: Thu, 19 Nov 2026 19:23:07 +0200
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
 To: Lee Jones <lee@kernel.org>
 Cc: Lucas Stankus <lucas.p.stankus@gmail.com>,
@@ -70,14 +70,14 @@ Cc: Lucas Stankus <lucas.p.stankus@gmail.com>,
 	Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
 	Andy Shevchenko <andy@kernel.org>,
-	Lothar Rubusch <l.rubusch@gmail.com>, linux@analog.com,
+	Alexandru Ardelean <ardeleanalex@gmail.com>, linux@analog.com,
 	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH 02/10] iio: accel: adxl313: Prevent FIFO buffer overflow
- in adxl313_fifo_transfer()
-Message-ID: <av8wSW6-ukmvRDnp@ashevche-desk.local>
+Subject: Re: [PATCH 03/10] iio: accel: adxl313: Reject sub-base ODR codes in
+ adxl313_read_raw()
+Message-ID: <av8we4c71xsdi7-6@ashevche-desk.local>
 References: <20261119153151.1397003-1-lee@kernel.org>
- <20261119153151.1397003-3-lee@kernel.org>
+ <20261119153151.1397003-4-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -89,37 +89,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261119153151.1397003-3-lee@kernel.org>
+In-Reply-To: <20261119153151.1397003-4-lee@kernel.org>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Nov 19, 2026 at 03:30:35PM +0000, Lee Jones wrote:
-> The ADXL313 32-entry FIFO plus one sample held in the output filter can
-> yield up to 33 3-axis samples (ADXL313_FIFO_SIZE + 1).  Because of
-> missing parentheses in ADXL313_NUM_AXIS * ADXL313_FIFO_SIZE + 1,
-> fifo_buf is sized at 97 16-bit elements instead of 99, overflowing the
-> buffer by four bytes whenever all 33 entries are read.
+On Thu, Nov 19, 2026 at 03:30:36PM +0000, Lee Jones wrote:
+> When reading IIO_CHAN_INFO_SAMP_FREQ, adxl313_read_raw() extracts the
+> 4-bit rate field (0..15) from ADXL313_REG_BW_RATE and subtracts
+> ADXL313_RATE_BASE (6) to index adxl313_odr_freqs[].
 > 
-> In addition, adxl313_get_samples() returns the 6-bit FIFO_STATUS entries
-> field (0..63) without bounds checking, allowing a malfunctioning or
-> spoofed bus device to overflow fifo_buf on the heap in
-> adxl313_fifo_transfer().
+> ADXL312 and ADXL314 support sub-6.25 Hz rate codes 0..5 and do not
+> perform a soft reset during setup, and debugfs register writes or a
+> faulty bus read can likewise yield codes below ADXL313_RATE_BASE.  When
+> that happens, subtracting ADXL313_RATE_BASE produces a negative index
+> and reads before the start of adxl313_odr_freqs[].
 > 
-> Parenthesise (ADXL313_FIFO_SIZE + 1) when sizing fifo_buf and reject
-> entry counts exceeding ADXL313_FIFO_SIZE + 1 in adxl313_get_samples().
+> Return -EINVAL if the rate field is below ADXL313_RATE_BASE.
 
 ...
 
-> -	return FIELD_GET(ADXL313_REG_FIFO_STATUS_ENTRIES_MSK, regval);
-> +	/* 32 FIFO entries plus 1 entry at the output filter */
-> +	ret = FIELD_GET(ADXL313_REG_FIFO_STATUS_ENTRIES_MSK, regval);
-> +	if (ret > ADXL313_FIFO_SIZE + 1)
-> +		return -EINVAL;
+> -		ret = FIELD_GET(ADXL313_RATE_MSK, regval) - ADXL313_RATE_BASE;
+> +		regval = FIELD_GET(ADXL313_RATE_MSK, regval);
+> +		if (regval < ADXL313_RATE_BASE)
+> +			return -EINVAL;
 
-ERANGE? EIO? EPROTO? (I think from the listed the first suits better, but maybe
-in errno.h a better one is lurking.)
+Here seems ERANGE is good.
 
-> +	return ret;
+> +		ret = regval - ADXL313_RATE_BASE;
 
 -- 
 With Best Regards,
