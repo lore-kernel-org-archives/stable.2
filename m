@@ -1,75 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.71
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795097580;
-	b=i8Kp/i0ynQblJDt+MpuOnDGR0ppZdjDUNq/DECx1YIY91lZu6KV1/sb4bEOXZX/tVnsj
-	 191FckBM0dbOqdSkyoeW8O+PbDW4WmqJUtBTkp9UtwG8lKtJqfGLVZha+LRM6Dga2xnf/
-	 rIa71mXGSIqx9StzAk1U5+vIJcgxDk04U3UhPO5qqJKrnZeMm4qy+DLtGj73/WuLC9z3i
-	 7Wgprde5Tkph5L/S+r16mMFN8gX702b/Ias7NyxoW7VCQk5Nr7UvE1vr+Q4XUZDehqp6p
-	 w+Ky6k5gpX/Q8laSUsiddlv2vr+AvQgLs+u4dHrmmg/m59i9Rf98tYUzNV7cVifV7xw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795097580;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795097582;
+	b=pycJeX9bflrv0VuU/jhTkfjR07Hje2LIBnH08Ud4G4NHcmmf1MG0Mhz8cGBMjMmMcvsx
+	 Nxkm5feHG504pZDeKEM/6onRuHnJJzX1dOq++A9uY9wMyaprBZICmr7yBgON0EuSG3Nee
+	 tCMk0e3i+C4Y0kH4xEFuLHMZIEhyTgxIkJ0+5xFFyA/7jiMTP/TedKTMQtKCr9AXdjs0O
+	 v03SgzUUp8ElA4GDzKfeDQ8RW/GKmaLkAgZufyaEu+oYchf5JWApw4t9gUhahAi7K37wO
+	 oCZhEacFL78Y16raldSuth34ESZL98o1AECvu0h0ZHn6KdQtX6scHN8B72EhZEnGEzg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795097582;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Developer-Key:X-Developer-Signature:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=h4XtWA1ZlEFtabMN7MuXGTzxwKlfoTdqYE31n0Pgw94=;
-	b=mSPCgcIRb2KVcpozG++qiaapM4bG45au6r3Q7OWQK/kcMuRfkpXuWj4IDq8D8lQme/da
-	 d/r9z0+6oB3bAamTJIhp5Zj/lsY0WbVr/pI8opsN9a2sLvP0Q7LgKgLnMuFCzgEQsIINk
-	 B4UzykwNWPQcO9URzob82k6W7MrhHQS0e4Sg3zFEHPGOSdExr2iru6iOecG7LEpaypENf
-	 17fa42IIe0xMFsdFgH7Lcv9A4y+yjZKLN901CXwHDCRW6KUNViJpbN9bHTh0jfEVdn7Se
-	 GqFRqhHj9cWfx22XnDJercaQylNCIMjZmpOMg1y+/dWCvbE1kOrF54CFDrIkjUuleZw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=w/ilLozYd3yRSspJfrhijv1emqLes2PCX8KGijxL0l8=;
+	b=ds30I+Cttc8n61ejI/qvXPlnmxVC5YYcSG7NwzLB5BKN5dTENF9BUUtRJrgX+OnQckcx
+	 bC2y8LmE0irRbN6f7zX6NDqjNP1gWdr+gbucAV+kuMOcNEt/KFxcfEMbst4qH/Sikxnfd
+	 RJzHPc4KbCDHY3Dzuw/L/lFzoWxeDaQ6UI8Cl4Q9sjVsSplUOVvjMaFWQ6aStlFQB1caw
+	 DbNR18IeXnHEbK+qDql/nLhutIMF8U6mhOgOWWarx9ZoWyXgEKAWbP10wuQWMokruC/Yu
+	 /iGh8RM5MX+kBpO5J/YtXLiDVFLltwxIkZtIQvQ1bBop9md/lBXwAa60y9FK1vKzn5A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TBjlJK4O;
-	arc=none smtp.remote-ip=209.85.221.71
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com [209.85.221.71])
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pB+6HyHB;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F148606A32A
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 14:13:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F148606A32A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97ADD606A32F
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 14:13:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97ADD606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TBjlJK4O
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48e0ef019a4so1783967f8f.3
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 06:12:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pB+6HyHB
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c5133831027so68749566b.2
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 06:13:01 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795097580; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LJLZcmv6x1OElR8upyvg/M4xZupEJ0KLGZdZPbrC67ZP/KKhiasOGFK/pKYtx54Xb+
+         A5HemN0KfE56PFTdJsIL7jqPU0HiERySPxhWkWbpggsojhYZQ12X9VX0ztUTTXCDCMiZ
+         AtN23nqo5tiVAYt6Oe2+/5mrx4Nwc39JsSwSy0unRzY6h2+NcU3z42OvVZcx09nf7TAV
+         C4QA6maHZMN/rOIuMacgmrmNwlXR+6YoerKGPsA5kp1f1DywbqJrmeiVuY9Yn3ueOjBc
+         W7GkW1skrkZbayfPx/PPxfPwb+LeN+ohUfEDDeDzbkXr5cm1vi20vSd9K80M/o2rhzg0
+         KlYg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=w/ilLozYd3yRSspJfrhijv1emqLes2PCX8KGijxL0l8=;
+        fh=ZGsnJxf9YHb7+AiTl12LKBfJkSc7JPILC/K9uqe7Pgk=;
+        b=oUg+HUVlV6kgcgTrwUi51bwDYUXBrY9RlfPf2IW0tMgfaFQ4827eJaHkyrxzw7Gi1C
+         aiarQaZ8KPUvLnY0kWr2FPCPgZ17/r54379yS4J06RZ7QW94ux18JRmQGACVOkKwZDfl
+         fzn2p/Frzjrsrm3vXK9Vt0taMQ+nynjIwWVBw1zS7pMYloH5pOQWZdzV7jP5BM2ipJhw
+         qS+tRYV1ClCtA9frgxE1EAG6DJ7jlJKDFeM8Rwzol6chASIDg5N+iBC6j/u4jCWiKIZo
+         ajWPSGiqgURyYB+RMylzvm8sDPof/jYSZPind1Z0E/qWUtwpg9dYhGloHF+8CbjcAXEu
+         LDWw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795097578; x=1795702378; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=h4XtWA1ZlEFtabMN7MuXGTzxwKlfoTdqYE31n0Pgw94=;
-        b=TBjlJK4Oepa4hYJjmEkXhxlwuQK/XzPFcJwRyi3RUEU0RAghTY+cOqC/OXwSfUeoq2
-         fonhszHYQ4RGc3Q17eS9kekGeEwkHjtj5C6p8rLLzJ/YJxDhtcpaOQgzg76mCTxL2A5q
-         DHfdgtpdqZq3TDvaSpCEwSru4e01jiXtI/pw5OeQ+xA7fiuqv8aA+JUqVRORETzy8ytV
-         FTp1dsRCwz8xpWuCbDODIKLeNjI7D4rHhMO3TjxS/N0LyRMZIf81hdOpVloEkj1mReUd
-         ilTEp7x/glMlCcHaWZedJIdBSPeG2h3qaA78+CF80kcq/PrN8CkdLPbE3kN6RWpTrPZv
-         0E6g==
+        d=google.com; s=20260707; t=1795097580; x=1795702380; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=w/ilLozYd3yRSspJfrhijv1emqLes2PCX8KGijxL0l8=;
+        b=pB+6HyHBq795Hz10gM850FSsxP7zowkhuGNbEpeovCZdBGyaWC0s7AIXlE00N/gtcW
+         Ar9oMTjXyINVaLNgnFgEJ6PpC0vNshHkeYa590GKgbrQ8+BNdFXnqgJNcyh8EjarIA23
+         O2oUEEoQNkQzjt4dihOFEIRqmOUtp6IdpEyYMDi3PUWkCzWYFkLkTqgyqU0zjQz8lIu/
+         zTRW2K37Mlg8hjWJuz8TlJ8bsZr8JMCKZ8i0AW8MxQmHdbM3VMZ3QkCVerxATW4opIRi
+         bnX+dIkHttZIG5ljy0CUAH8SiL3py6BDHE7S9OLa7+v57idNTW3y7j9xemrcDaz3aPxu
+         /YxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795097578; x=1795702378;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h4XtWA1ZlEFtabMN7MuXGTzxwKlfoTdqYE31n0Pgw94=;
-        b=r5BzSGhqI7roOQpMUTFDWo5Nifau/RRRmTmXvKncrFyjdbSeD86VqoEu7oXC3766+n
-         WHg49gbcgjciia3lJTEwzEzpJ+ZzL6EIuOd+sjG7gnsKFttrOppy2BFInHNTYW/bXWGl
-         LE0Rkda1XwdQpkJbFnG6NwREQoMkDJg+wTOR50elCVm+0vtP4Fv1hD/oswACxvNDl+Gj
-         USofNT0PZR3Ec1DxTaDjor61f0Nu60sNcSVCmC0NKZOiXNHK0877MynEdzTce7wXspl7
-         ByweCA7VdIfV9xdXjmaz5GZUAzGJcVx4iZxnOhtJjXe9vvUXPJuvSsRl8UYkAsA4/qbD
-         GILQ==
-X-Forwarded-Encrypted: i=1; AL+hErG4ScNrQcjnfDXYgZz6WPy/l+i5kEt29+mNlrtGod79g8baThU69izvNeSEq35ZmU9A2p2yyp0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8KFUcav5o4nUdTPuITJsFhGnS+vZ48MOhuQ6KA6Khldre7DDgA
-	KzCYI/n/v/sPfaTbQwORE7QfRwn/52xkhe7r4u99F/2KscSXmr0z7343CBEBtQs7wckMocFuunj
-	bJp/PfWdhAGszgOq53w==
-X-Received: from wroc4.prod.google.com ([2002:adf:ed84:0:b0:4a3:2cb4:4f6a])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6000:2602:b0:48e:824:f0b9 with SMTP id ffacd0b85a97d-4a63ae5678fmr11825158f8f.45.1795097578307;
- Thu, 19 Nov 2026 06:12:58 -0800 (PST)
-Date: Thu, 19 Nov 2026 14:12:43 +0000
-In-Reply-To: <20261119-rust-workqueue-v4-0-707c68994940@google.com>
+        d=1e100.net; s=20260707; t=1795097580; x=1795702380;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w/ilLozYd3yRSspJfrhijv1emqLes2PCX8KGijxL0l8=;
+        b=KMqo8drAa0Hyj2RwAPoS4pT6wseAuphNSroHm2I/pudsJazXGUeo2R5Eej79Lw5xFz
+         oQmXTh/bRtl5sVBLJEjCJshU3xBqusgFcsF1EHM5tSM1FQn4e57uN62wtwuQ6lUWffJj
+         7MqhseKllhsl1ZFbikLCl9JfxbA5WPchMfUnc0BlaaY25FhPOelSD9WPqNrvazaOerpZ
+         o5sJca0aUkxsqJpiuzU1r77M3niXPr7qcOukyahbfPj2VROKnXsGUhq33nNyyYiBeEaq
+         pPlJFO+CxKO4fQ5ipMOB9+7fBudrl773aziqBNaiYudgfJ1VNosxPbmA7hJQ4UJKt0Y4
+         9UUg==
+X-Forwarded-Encrypted: i=1; AL+hErGDX/SekYxQj2FLNKCkcMLo1sYp8p9CzR83oPwfR2xkg85mN0kPzRiGzxyOhmKN4/TjtJH3fME=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8uA/Vw8gVbO3R5Diwp9ClBNigiuIn5bE2rHM8QwblSI6qWJkBL
+	w/Z8zJuPsXHq4X4hyPOpVfez/BaUcBHfHHPIVZwGTK6OzM7G2HMV0eo1o2BlKCfFnpv9Gjo5vyK
+	xAqNZGcevdF3em17UjAjh+ihHMV62y4qC+RCAfBmL
+X-Gm-Gg: AYBFou2ROtQUvjnHd7dihb4Kul/GF8ojtqfbXrjNTC0UjZWUVq36b149u4E+5ioxIhd
+	ZBuCmauH7vnshB5WkkxivZ2iJ6s0M1cbRCM4sGtuVlKo5GN7pLzJyY/XPGNAQsVUFM518qIjXbr
+	+9YYWdx9vPITkEw6ihp210zZ4CWq80kTrEbGZcMovs/llb1Z+lSfwlrqukNcZ2GMheGdyPyz9wJ
+	fmzjAaJdnohNrWI2+gQflSiw9ESJq7gzWb/4ZkvJiwy8GAOnoE9klIDJ/bInpXxESlBcgAnksik
+	ABRqPc1Q2RQDyQj30vACAPxiV18hgyOhLZWI7IvoJIreXiSbLGLpWt33QiG/FZV43z/UuUHiLzi
+	a+Tl039jT5K8466EkeJettBTvSenQnuBWQOITia4gDgnvbxNNmgdPic8Qs0kFsSBHfQY3rIP6gw
+	KrL+neHKHR9jPaZcU=
+X-Received: by 2002:a17:906:c104:b0:c2a:ad55:b3fa with SMTP id
+ a640c23a62f3a-c513a434889mr1072366b.7.1795097579236; Thu, 19 Nov 2026
+ 06:12:59 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -78,80 +104,184 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261119-rust-workqueue-v4-0-707c68994940@google.com>
-X-Developer-Key: i=aliceryhl@google.com; a=openpgp; fpr=49F6C1FAA74960F43A5B86A1EE7A392FDE96209F
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1874; i=aliceryhl@google.com;
- h=from:subject:message-id; bh=5sQiayq21AJaQOqbklWWBdtbINqEna/wJifMJMxolCI=;
- b=owEBbQKS/ZANAwAKAQRYvu5YxjlGAcsmYgBq/wPjTLxLRE6bF8To20FERIvaafMs+3+IlhPd9
- VF/U38MG1mJAjMEAAEKAB0WIQSDkqKUTWQHCvFIvbIEWL7uWMY5RgUCav8D4wAKCRAEWL7uWMY5
- RqWrD/9saTvcm0dmVaK6ZU6wMav3kkCa8+lP25N7dtJPuKanuA8Z+vpFUw2cmuir67lB089fACL
- maBtektbUuhdKLtwyN1t+KQlERluM/9OL7C3M47uzuevqBg0IObtB7MpUBXpYzO0EdsVUwH0vlm
- 8M78WlElwh0vjDLil0VID04Mif/W47fXKczY22Wi6XptBS0VE2Fg3dhzvGJ8O45s1v4e89DtOSJ
- zLzjPIw30AHbGP0YGflcjDoT1qhRjpx6jgV/r2AlLZt+29YdPe/JGON1DO793nknP9fdsGlrzB2
- hLg5jvgvirAttTeS4RlecETf+LbmhwuECmoV9HM23tArEA70h4fypQa8Ivas7a2KOwzrDLQgEMn
- PBDGIXKPTSHGYz5JI0Uy8YnUDZfR05t+hfeX7PD3lAtrxxVngwWSbilRl5keJEHdFQVNE2vkXoO
- sZAN6ZCd9p8Y57gVOcdDsItZZXCNW2kvFF4TV2UkZE9oX5ykwilAFMTcOjOQNiws+HC+xKgnZeo
- VwYLm1QThwHzk1TXq9B0zLQlopICV+i0iOIyY9kZui/9Rm5QqUu0pSkuzhF7wp/nHfLUmJC4YAH
- csOFHqyicA5dNtRAOInOoQ5E1v9EQxh/PwLX10x2Ao1WIGBjZoye8mPJZwtuttOSQuqd/y+9W4q ah0e6zGJ5zyUPBA==
-X-Mailer: b4 0.14.3
-Message-ID: <20261119-rust-workqueue-v4-2-707c68994940@google.com>
-Subject: [PATCH v4 2/5] rust: workqueue: restrict delayed work to global wqs
-From: Alice Ryhl <aliceryhl@google.com>
-To: Tejun Heo <tj@kernel.org>, Lai Jiangshan <jiangshanlai@gmail.com>, 
-	Danilo Krummrich <dakr@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?utf-8?q?Bj=C3=B6rn_Roy_Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, "=?utf-8?q?Onur_=C3=96zkan?=" <work@onurozkan.dev>, 
-	John Hubbard <jhubbard@nvidia.com>, Philipp Stanner <phasta@kernel.org>, rust-for-linux@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
-	Alice Ryhl <aliceryhl@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+References: <20261116224308.986555-1-joshwash@google.com> <179495835918.3136.2006086240050992361@kernel.org>
+ <CAJcM6BGpwRPm6bhRWp6BWLsaTzwYd__x=tyQqpAcbOKsBCxekQ@mail.gmail.com>
+In-Reply-To: <CAJcM6BGpwRPm6bhRWp6BWLsaTzwYd__x=tyQqpAcbOKsBCxekQ@mail.gmail.com>
+From: Ankit Garg <nktgrg@google.com>
+Date: Thu, 19 Nov 2026 06:12:47 -0800
+X-Gm-Features: AclHuK8WoTWkqmw29NUYRmt8h6v6x5oiORA3vRlTHvm3zvXH5MgdiZe-ehExt1k
+Message-ID: <CAJcM6BF1HLM2MPUrsEpq+qE8H788vxn7JTNVOcd3B+0ReCtdeA@mail.gmail.com>
+Subject: Re: [PATCH net v2] gve: fix checksum state and gso_segs of HW-GRO packets
+To: netdev-bot+sashiko@kernel.org
+Cc: joshwash@google.com, netdev@vger.kernel.org, hramamurthy@google.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
+	kuba@kernel.org, pabeni@redhat.com, jordanrhee@google.com, thostet@google.com, 
+	willemb@google.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	pkaligineedi@google.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When a workqueue is shut down, delayed work that is pending but not
-scheduled does not get properly cleaned up, so it's not safe to use
-`enqueue_delayed` on a workqueue that might be destroyed. To fix this,
-restricted `enqueue_delayed` to static queues.
+On Tue, Nov 17, 2026 at 8:33=E2=80=AFPM Ankit Garg <nktgrg@google.com> wrot=
+e:
+>
+> On Tue, Nov 17, 2026 at 3:32=E2=80=AFPM <netdev-bot+sashiko@kernel.org> w=
+rote:
+> >
+> > Thank you for your contribution! Sashiko AI review found 1 potential
+> > issue(s) to consider.
+> >
+> > Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
+> >
+> > If you believe none of the issues are legitimate, please reply to each
+> > issue of Medium severity or higher and explain why the AI is wrong.
+> > If any of them are legitimate and you plan to respin, please let patchw=
+ork
+> > know by including "pw-bot: cr" as a separate line at the end of your re=
+ply
+> > (one such reply per series is enough).
+> >
+> > - [Medium] gve_rx_complete_rsc()
+> >   (drivers/net/ethernet/google/gve/gve_rx_dqo.c) works out where the TC=
+P=E2=80=A6
+> >
+> > --
+> >
+> > gve: fix checksum state and gso_segs of HW-GRO packets
+> >
+> > This patch makes gve_rx_complete_rsc() set the network and transport
+> > headers on HW-GRO packets. For device-verified packets it also seeds
+> > th->check with the TCP pseudo-header checksum and calls tcp_gro_complet=
+e(),
+> > so forwarded HW-GRO skbs can be resegmented correctly. IPv4 and IPv6 ar=
+e
+> > now told apart by EtherType, and gso_segs is computed from the TCP payl=
+oad
+> > length.
+> >
+> > > diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/n=
+et/ethernet/google/gve/gve_rx_dqo.c
+> > > index 82ed5e48b00ab..b4dbfb1ba39b0 100644
+> > > --- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+> > > +++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
+> >
+> > [ ... ]
+> >
+> > > @@ -1049,10 +1061,50 @@ static int gve_rx_complete_rsc(struct sk_buff=
+ *skb,
+> > >               skb_frag_off_add(frag, hdr_len);
+> > >               skb->data_len -=3D hdr_len;
+> > >               skb->tail +=3D hdr_len;
+> > > +             /* napi_gro_frags() pulls the Ethernet header later. */
+> > > +             nhoff =3D ETH_HLEN;
+> > > +     }
+> > > +
+> > > +     /* The header lengths come from the packet, so make sure the he=
+aders are
+> > > +      * in the linear part before reading them and writing th->check=
+.
+> > > +      */
+> > > +     if (unlikely(skb_headlen(skb) < nhoff + sizeof(struct iphdr)))
+> > > +             return -EINVAL;
+> > > +
+> > > +     skb_set_network_header(skb, nhoff);
+> > > +     proto =3D nhoff ? ((struct ethhdr *)skb->data)->h_proto : skb->=
+protocol;
+> > > +     switch (proto) {
+> > > +     case htons(ETH_P_IP):
+> > > +             gso_type =3D SKB_GSO_TCPV4;
+> > > +             thoff =3D nhoff + ip_hdrlen(skb);
+> > > +             break;
+> > > +     case htons(ETH_P_IPV6):
+> > > +             gso_type =3D SKB_GSO_TCPV6;
+> > > +             thoff =3D nhoff + sizeof(struct ipv6hdr);
+> >
+> > [Severity: Medium]
+> > Is it safe to assume the TCP header comes right after the fixed IPv6
+> > header here?
+> >
+> > Nothing checks ipv6_hdr(skb)->nexthdr =3D=3D IPPROTO_TCP or desc->ipv6_=
+ex_add.
+> > The IPv4 case above also uses ip_hdrlen() without checking
+> > ip_hdr(skb)->protocol =3D=3D IPPROTO_TCP. The only sign that L4 is TCP =
+is the
+> > ptype.l4_type check at the top of gve_rx_complete_rsc().
+> >
+> > The descriptor suggests the device does parse IPv6 extension headers:
+> >
+> > gve_desc_dqo.h:
+> >         /* Set when IPv6 packet contains a destination options header o=
+r routing
+> >          * header.
+> >          */
+> >         u8 ipv6_ex_add: 1;
+> >
+> > gve_rx_skb_csum() only holds back CHECKSUM_UNNECESSARY when that bit is
+> > set:
+> >
+> >         } else if (ptype.l3_type =3D=3D GVE_L3_TYPE_IPV6) {
+> >                 /* Checksum should be skipped if this flag is set. */
+> >                 if (unlikely(desc->ipv6_ex_add))
+> >                         return;
+> >         }
+> >
+> > So an IPv6/TCP packet with a hop-by-hop header and a device-verified
+> > checksum would still be CHECKSUM_UNNECESSARY when it gets here.
+> >
+> > Suppose the device coalesces such a packet, or a tunnelled packet whose
+> > ptype reports the inner L4 as TCP. Then thoff would point into the
+> > extension or tunnel header, and tcp_hdrlen() would read doff from the
+> > wrong bytes.
+> >
+> > gve_rx_fixup_gro_checksum() would then write the pseudo-header seed at
+> > that offset:
+> >
+> >         th->check =3D ~tcp_v6_check(len, &ipv6_hdr(skb)->saddr,
+> >                                   &ipv6_hdr(skb)->daddr, 0);
+> >
+> > tcp_gro_complete() would also set csum_start, csum_offset and
+> > CHECKSUM_PARTIAL at that offset.
+> >
+> > Wouldn't a forwarded packet then leave through TSO/GSO with a bad
+> > checksum? That is the same blackholing this patch sets out to fix.
+> >
+> > The destination-options and routing cases are CHECKSUM_NONE, but they
+> > still hit the wrong doff. That could drop a valid packet with -EINVAL o=
+r
+> > give it a wrong gso_segs. It could also take the new early return:
+> >
+> >         payload =3D skb->len - thoff - tcp_hdrlen(skb);
+> >         if (payload <=3D rsc_seg_len)
+> >                 return 0;
+> >
+> > and deliver a multi-segment coalesced packet without gso_size.
+> >
+> > Before this patch the RSC path never read or wrote the TCP header, so
+> > this assumption is new. The changelog gives the VLAN guarantee ("The
+> > device does not coalesce VLAN tagged frames"), but says nothing about
+> > IPv6 extension headers or encapsulation.
+> >
+> > For comparison, bnx2x_set_gro_params() documents the matching hardware
+> > guarantee ("TPA aggregation won't have either IP options or TCP options
+> > other than timestamp or IPv6 extension headers"). The mlx5 SHAMPO path
+> > checks ipv6->nexthdr =3D=3D IPPROTO_TCP.
+> >
+> > Could the device guarantee be documented in the changelog and in a
+> > comment? Alternatively, could this check ip_hdr(skb)->protocol and
+> > ipv6_hdr(skb)->nexthdr against IPPROTO_TCP (and ihl >=3D 5), and skip t=
+he
+> > GSO and checksum fixup otherwise?
+> >
+> GVE device doesn't coalesce IPv6 packets with extension headers. I
+> will send a v3 documenting that guarantee in changelog.
+> > --
+> > Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/pat=
+chset/20261116224308.986555-1-joshwash%40google.com
+> pw-bot: cr
 
-This may be fixed in the future by an approach along the lines of [1].
+This is superseded by v3
+(https://lore.kernel.org/netdev/20261118212045.3575303-1-joshwash@google.co=
+m/).
+Replying again to get patchwork bot to mark v2 as such.
 
-Cc: stable@vger.kernel.org
-Fixes: 7c098cd5eaae ("workqueue: rust: add delayed work items")
-Reviewed-by: John Hubbard <jhubbard@nvidia.com>
-Reviewed-by: Danilo Krummrich <dakr@kernel.org>
-Reviewed-by: Gary Guo <gary@garyguo.net>
-Reviewed-by: Andreas Hindborg <a.hindborg@kernel.org>
-Reviewed-by: Daniel Almeida <daniel.almeida@collabora.com>
-Link: https://lore.kernel.org/r/20250423-destroy-workqueue-flush-v1-1-3d74820780a5@google.com [1]
-Signed-off-by: Alice Ryhl <aliceryhl@google.com>
----
- rust/kernel/workqueue.rs | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/rust/kernel/workqueue.rs b/rust/kernel/workqueue.rs
-index 6eb6c40138f2..5ef807ed6a33 100644
---- a/rust/kernel/workqueue.rs
-+++ b/rust/kernel/workqueue.rs
-@@ -302,8 +302,15 @@ pub fn enqueue<W, const ID: u64>(&self, w: W) -> W::EnqueueOutput
-     ///
-     /// This may fail if the work item is already enqueued in a workqueue.
-     ///
-+    /// This is only valid for global workqueues (with static lifetimes) because those are the only
-+    /// ones that outlive all possible delayed work items.
-+    ///
-     /// The work item will be submitted using `WORK_CPU_UNBOUND`.
--    pub fn enqueue_delayed<W, const ID: u64>(&self, w: W, delay: Jiffies) -> W::EnqueueOutput
-+    pub fn enqueue_delayed<W, const ID: u64>(
-+        &'static self,
-+        w: W,
-+        delay: Jiffies,
-+    ) -> W::EnqueueOutput
-     where
-         W: RawDelayedWorkItem<ID> + Send + 'static,
-     {
-
--- 
-2.56.1.708.g77570a6a1d-goog
-
+pw-bot: cr
