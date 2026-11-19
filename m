@@ -1,95 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795075303;
-	b=NIcj7V5UfOkpLEvnaw9A4So2nXEMClbZFkzWv3ZAv+5zBVTySVNYSwGL2cQZIB3zWw0U
-	 lvyrlcxKb/P9hwjNWRWPoddnquIMtbG72g6yQrVCWJFXUafKCgmEkPdgRydTgfqVv1zxO
-	 FeOphHBKoC/gbobLLvmknhKqMWSX3hvY2uhFFbanRBr7aG+vkng0MccwPbXyQXyV62B7e
-	 9KFYp74o0PxuclyuZptI/FGFkT0U9Qd8fKL7BUDoakRF4eK514weJG5Seq76RBftigzRX
-	 iExAI1uzRalo2D41m4nFs2MzckFvsVUFAj3enGAo4A+zz/FUDLCoq7v6xWDq6T3irXA==
+	t=1795075384;
+	b=e86kCs1DCImo0yv0NChioKIstWq8AWQVSgkcVGGMO6Wb0/YEPhv60mO03XIrFv5YaROe
+	 wsMb80PWq3M5E/gakgsDX3YA7NxQf+puKVU/Z0Ykr39Ips2RXiYmpRTzoocXQFCl0i+2a
+	 neBP/5mvc2PJswKVQwNHM8rnegw9/bu+4lyqDi453/dafRkcWD8+urdsS6/bysrDQ31fl
+	 Ci6RmZy/dBGM44hsFYfoNX82d+ZHt5SLL8vxCjc5Vr8jHz5DuWb5h5zLLzPRmHNFhdL2w
+	 owFQbsNClGlj0cAB6Ty4y9HqCnQEYpZq96bbt+MS0+UunUrIwm5d8RpGDEGFxqH7AhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795075303;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BI3GiHZy5PM41ztBgWptxPosjP5yVUX7sfT56sMb9/k=;
-	b=GwQeoQZeNwk2KhieTNnKq+GGXps9Ori2QeH+t52B8gGk4ehgZsctBq4Sw0yeO8BVLkuv
-	 JBTBk0R3Ev9lNzbjFOZ7fgXDQWiGlOh87W42ihbFGbAZcSFyGcaqwU5H019AadaIk1Kwu
-	 makaihSsEXgshxu4zgvNyr5SBvfIt8h4pNa4hx2Jm5ic4IdCbTL21xjm9y0hV92pDZzmA
-	 4wLarofgjB7A8S9VgRLszRvnwwLhoz6ukxyMvK3hjKeL2bT9W7mjsBbboeTJ8QQp14LPY
-	 KMhtlssPlrUBfirZ1HSV//y0Aizn3GDzIe+9el812fQg7tULTEDyzBCxymSwuR3EcNA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795075384;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=HLwTOkZME4+q/IRqHLheQVJBWbOBTtkaYUd1FwN2NEs=;
+	b=F4XTG2BfurqSs4teJN7YoppA94S9cfGTRK5sfO6AYxNAG0e/pIWNMPlMsSAcZO5lGYNH
+	 IvKrGMnx/vjVmthgaV8rNjRpp99MYqW+JRvyi2JMd/YKfd3DtHz25BCiBPps1AcuQ/ZQO
+	 2IEx5EZXVITf9L9hfAe8dsOojz+5Ui/wfchni+7XemaaVoMRXiri8NNIlVQn9wTbfUH/e
+	 GleL2xyZ3vfh594+irakIS5Sv5lY478pOJJ+hw+ujRerqDEvgzMUOHCKzgB58A0cTYBh5
+	 SRynmz1jgZW0VIDhepDEz2+anfakQrhpxw2JP5XFMKb9C4EhSH/ObS1YBCx1Y2vb+uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bMu2ZlI2;
-	arc=none smtp.remote-ip=209.85.128.42
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=H1qypOyo;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAA6606A324
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 08:01:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DAA6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D816C606A320;
+	Thu, 19 Nov 2026 08:03:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bMu2ZlI2
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so16598005e9.2
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:01:42 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795075301; x=1795680101; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BI3GiHZy5PM41ztBgWptxPosjP5yVUX7sfT56sMb9/k=;
-        b=bMu2ZlI2o6HCtUAxMfEv1ledyJ03bapITiRAATkmdTsD09Vx/yhmG65NF47xEQyFYM
-         yyUHFv/l3p9H9os8ztvdv5Y0xu28YstZXhjuJBo13XU6nqBkRVl4YzAehVMUsAfk+url
-         wRi3jJszRTnEDG4/Zo5veRySKoTFPrhH/rByARHkF1AQKsJkrHSZRR5FW4O1AwClPeZ5
-         rZoWQ7RwrOLHbxRYnc1bRyGj5fGgHJ4liIAbd3FkXKhVdjDdZFkLMn7bcbQGxNBr5Zqz
-         z2DvuN7cJShasX6d2OmreaIpVZUSKLYyB8mKk0ACrEbp86SLBarcz32UGenx2mjGds38
-         M/8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795075301; x=1795680101;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BI3GiHZy5PM41ztBgWptxPosjP5yVUX7sfT56sMb9/k=;
-        b=ZlMhZkrsnMTZUeZtY5Kv616y0ZXte7r9HrEY6fnUHzjN9bC0IIAAh2PpWh+m6pQiT1
-         bfa+Lm6Gzm/TKz++/2ddtJaoaRf1ZUaK1TJVruHDEfxYX8w0PI9EPJQSsIMA9+LGxOuR
-         XORx7TrFNGqXwH9Yo0sTfr02OUUfHI1N0nkEu9l8mtKFU2x4kFgMK0qNcJTAbMMMgJJu
-         qc76GF7BmUvStTcnKq3/4DLmIdCZe2wGtEOIwLWQ8fpUWsLT5zUUuVzKw/+7oKQf19WT
-         zp0Zgh6tFSgOeADXBDcS3uikCnuTCakdjdxtiUjEDt3FFBdj5sV/o9YBIi7PLPR1/kAj
-         Q1CQ==
-X-Forwarded-Encrypted: i=1; AL+hErF2+XxVxTpKPbA13FKzNaCfYTn8ud9QTtcun+0MukcLiZaLlm/VJINQyT49Bjj5JldBrvnr2h8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8eFeMOpOGozetWfIoCNaUr3WMbbPM4JCDi/ZQ3qprjSJzBEgb1
-	ZvXPxcWPdtyvwROIgca3xuNvIt33ESeSwOUlSgb3gefmiUyELM5n9Lgf
-X-Gm-Gg: AYBFou2/tNetBOSzYet6yD+e1DhSKSpDlblHUqHtQW1sZG307bzehw41nkC+P1YPUys
-	pIM8ujfbq/MkSH1j6ADQvNnDi+gTTvuJzr7b2RlXSG16GDDLwWng51BKKdBJE25rGTF+Vd2o+0q
-	41y+uknLg0qLFoITlIANuD7z3+Lx8LNGZ4P7LQ/GAwnE3ASvR29Ar46yViam/TeTybnU88f90yA
-	kqaZwCSybHAMaDV9lMKA3X25ms68O5Z1b0KygdF+X2EMFevTdwHtDkVTKLcqWDSii9wJvTjsFhA
-	ptN4sv+rPbCohXIm8CLYS4kcOUdI+1swNui7exvK+VcK9UY+y3cRgLiA0IWnmOxdJcz4CrC26kF
-	nlugLmSTLnt3RKBzDbrB7GAsAbdOqRQXcyXqm8eRhb4Qpona0hrEMQyKwrLuEU9VKqKo9zkxNGD
-	qlNsr9oiRWUhEW/O9tO8Za3g2lJ1UWQtMFzx2Ee5lLQdPty+RjMRKAw7ojmaswQv8bNtLU+UAgK
-	oPoFti9/+KMC+a7dlXIc6kB2N3NWrlM5e8FwDGBOZiSpeKIivE5C0Pi/qbDNs6xHuqRk9kfcKE8
-	jr5iDnhhyyhl1lVAm/9xiqYbI+ayQow9fj4CoyaZ8EuoMDvRNowFCEgsRFKywxF9pGlhXKbTgnt
-	idJnUZQxnLgNUpQ==
-X-Received: by 2002:a05:600c:1396:b0:4a4:4d57:8462 with SMTP id 5b1f17b1804b1-4bb7da21b76mr103724785e9.24.1795075301248;
-        Thu, 19 Nov 2026 00:01:41 -0800 (PST)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb84e50512sm11628805e9.3.2026.11.19.00.01.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 00:01:40 -0800 (PST)
-From: David Carlier <devnexen@gmail.com>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Daniel Wade <danjwade95@gmail.com>,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] tracing: Ignore .function on the function trace event
-Date: Thu, 19 Nov 2026 08:01:39 +0000
-Message-ID: <20261119080139.131834-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=H1qypOyo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7FD31F000C5;
+	Thu, 19 Nov 2026 08:03:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1795075384;
+	bh=HLwTOkZME4+q/IRqHLheQVJBWbOBTtkaYUd1FwN2NEs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H1qypOyoPH/0JEYteoo0AxE4edeunSMtU4MhG2RmUA3Y3LWLOF0zbcsILSDzCLiJB
+	 gd45j5Phm3Ydfpp/ZDLxFbTpmjfYg1M5b0oTp0EfwPQaYY7XXwEXYtuhxoQsrg90zW
+	 BfaNY0ZIvss8pGCWOW4YX2xTLy+JGEK4JfcQvrVA=
+Date: Thu, 19 Nov 2026 09:03:01 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Steven Rostedt <rostedt@goodmis.org>
+Cc: workflows@vger.kernel.org, stable <stable@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: Re: Can we get stable patches in a digest mode?
+Message-ID: <2026111940-rimmed-swampland-2546@gregkh>
+References: <20261118101248.6b90b25f@gandalf.local.home>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,44 +54,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261118101248.6b90b25f@gandalf.local.home>
 
-For the function event, parse_pred() handles the .function suffix
-before the ftrace_event_is_function() case, so "ip.function == schedule"
-builds a predicate with no regex. Setting it through perf then
-dereferences the NULL pred->regex in ftrace_function_set_filter_pred().
+On Wed, Nov 18, 2026 at 10:12:48AM -0500, Steven Rostedt wrote:
+> Hi,
+> 
+> With all the AI patches that have been coming my way where I apply them and
+> they have a Cc to stable a new issue has arose. As AI finds bugs from the
+> beginning of time (when the code was first introduced decades ago) these
+> patches are applicable to go back through all the currently maintained
+> stable releases.
+> 
+> Each release a patch is backported to will be emailed out. Thus, if you
+> have a fix that affects all stable releases, you will get an email for each
+> of those releases:
+> 
+>   5.10, 5.15, 6.1, 6.6, 6.12, 6.18, 7.3
+> 
+> That is 7 emails for a single fix that went upstream. When I have 20 AI
+> fixes of old code, that means I'm likely to get 140 emails for them. To
+> make matters worse, some of these fixes will have dependency patches that
+> get backported as well, and I get emailed on those too!
+> 
+> I actually like to know what patches are being backported to stable. But
+> honestly, I don't care which stables they are being backported to. It would
+> be really nice to have a way to say "this patch is being backported to
+> these stable releases" and not a separate email for each release.
+> 
+> Now I want to say I really appreciate the time that Greg and Sasha spend on
+> doing these backports, and I hate to ask them to do any more work than they
+> already do. But because I get so many emails for stable backports I tend to
+> ignore all of them as there are too many of them to see if there is an
+> issue where one of them should not be backported.
+> 
+> Yesterday I added a filter to simply filter out the stable patches into
+> their own folder, but that means I'm pretty much guaranteed to ignore them
+> completely.
+> 
+> Does anyone else have any ideas on how to improve the situation without
+> causing too much work for anyone?
 
-The "ip" field of that event already takes a function name, so ignore
-the suffix there and let the function event case handle it.
+Sasha had a script that would do this for the patches in the queue, I'll
+dig it up and see if I can get it to work next week.  But that would
+just cause one-message-per-patch showing that it was applied to multiple
+queues (note, 5.10 and 5.15 are going end-of-life in 10 days, so that
+will cut down on the "noise" as well) so it might help out some, but not
+a huge lot.
 
-Fixes: cfb58e278c6a ("tracing/filters: Dynamically allocate filter_pred.regex")
-Cc: stable@vger.kernel.org
-Suggested-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
-Changes in v2:
-- Ignore the suffix instead of rejecting it (Steven)
-- Fixes: points at the commit that made regex a pointer (Daniel Wade)
-- v1: https://lore.kernel.org/linux-trace-kernel/20261114195914.2678414-1-devnexen@gmail.com/
+thanks,
 
- kernel/trace/trace_events_filter.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
-index c10951bcfc5f..2bbcc2abe794 100644
---- a/kernel/trace/trace_events_filter.c
-+++ b/kernel/trace/trace_events_filter.c
-@@ -1708,7 +1708,9 @@ static int parse_pred(const char *str, void *data,
- 
- 	/* See if the field is a kernel function name */
- 	if ((len = str_has_prefix(str + i, ".function"))) {
--		function = true;
-+		/* Ignore if event is already a function */
-+		if (!ftrace_event_is_function(call))
-+			function = true;
- 		i += len;
- 	}
- 
--- 
-2.55.0
-
+greg k-h
