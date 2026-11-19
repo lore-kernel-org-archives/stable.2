@@ -1,99 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795115410;
-	b=XzrYbGvpkbUUDtAyG3EcZaCg7StylrvT/A33W39qvLCaXcbM3zCY6n19Y7UYs37/JbID
-	 DzCxeux3OVnV93sVNZro/PO38QiPj1aDOx52fAB6Xidy4ziWWNKF7vNvVdDVYMyEtbrjc
-	 lGou0Ofapv9RaDuKKxo4L1movBj03XHXrx3jvoKQNSK+lOwnjdnsTnRbjX4dTeDN1a0dv
-	 XrzGcfqYq7cKGimQlUCVebLa4iVR8nfnRnMNTOB9IpKhyJXUSJUYtQXqbBdGAjnWR9nAg
-	 K0gHPfWuCVvwPXO2C15s8d2WvFCryu9XkcFyr5ODtuTfNVtxnZTf5xbQPjRxsEFlWkg==
+	t=1795115443;
+	b=INgIpXZ+DdZKd3s49678KeeaH2KQL9cdotNcPWE1XdE4upsm4ho9pZUMmVIPYZxUEVCe
+	 Wxne5mwVZtzLgDjh3MdXaeb97Sljk6WPC1lAUo7Z4QUy50v3HiR+SvQ7SPtO/Wkj6iEzj
+	 ci8upmVt09gfnuG6Lw9IfY5kzykp1uO7alei/7lgTH8zEnp6oCjpRodRD1KUIKF1Xt4vF
+	 PsnNpD3T0vq4jSMLiLxdkpAzDEk5gBhtxDgCp7/R0x7WEvEZ2Msab61BTxF1g1Ay1d5GK
+	 5Lvq6SQqN507Egr3l5RFTz7PkooiLCh7h6SJw03m0ZeW3Tmw++r1s7Knyldj+GS8mcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795115410;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=OWfWBSws9gh+iPoR7/7oxTfW1366liBJpIftUQNS3TI=;
-	b=o5oUshSotd5CoOVTDjdsxszFPQ7V+kQSvJh4OsplbZvaEjKMIrA53Am4KMcTjQhqq+Rs
-	 iJQjr9yLbPO472z2zQXNOY0uF25kGFOR70yakLDLZtXJTAgBJqWrWJWQVpmCNKcsjE+LH
-	 APcGGfjpPQGmO7hVKYtY4QebSdU3PYZKwYdcYs+cfr2A78fvp2NNAk7634eNax2/WbpKQ
-	 sWKNHChf7gdMIozrLeafHTMdXJ6lQkjVCFaGqGo5KGf2vrbCckFsaRK0EigZXgZbOa3O0
-	 oZ7ElNvaiabeOLL4NLpk7VI10jQ11ZkM2SFrmJaZc1eZ3Zz8eS6VqQHzlBuSqwq/8jg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795115443;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QhS3+5ZWFz6FmTqcuqu7zzkTtZ4CAdsfKAs5TGkgHgU=;
+	b=sfoxq6I6loswtBvlHwe2PTk18ajgWH8ugkIVmghKq6dYZ9ekVfg6hzTBlu3R1EGo9UEh
+	 hPz2v4eRF1KtAj5TAVlG7D8Vnhxfle2zlmmE6ChKPCePVxftSLKlVeAvmo9/dNamVsvVG
+	 y2L3RrIL5sz8loR8cDzGJIZbmgize9idFQUcttHbLv6JMNVxKXaLj+IFwk3i11hnHiBO2
+	 TsEdgqRZov3tAwoeQyRSRoIYh8ImNcL6/G7Nyf7jsaBY+rk2RC2SwnG16DH0T6LHFPxPM
+	 kbt4PfBQZqZYaQRow0sEyqY5ESf2E08/FxzcSgN0MkTaUnKJkf3uoJXRDrNkx7r7Guw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="g/nsiqsd";
-	arc=none smtp.remote-ip=209.85.216.44
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=ZNzHW0nW;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=RdwjBXeA;
+	arc=none smtp.remote-ip=103.168.172.144
+Received: from fout-a1-smtp.messagingengine.com (fout-a1-smtp.messagingengine.com [103.168.172.144])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBBB606A334
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 19:10:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEBBB606A334
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 349DD606A33C
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 19:10:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 349DD606A33C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g/nsiqsd
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3b41188c8b9so144685a91.0
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:10:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795115408; x=1795720208; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OWfWBSws9gh+iPoR7/7oxTfW1366liBJpIftUQNS3TI=;
-        b=g/nsiqsdt4pH/tzBHE10yBClAItvjaLryQElgWH80JZmkqIvvDL1r10plqAcCXico5
-         mOJMbZBqyrQIX5gIDYrNv3ltUPLHCFFKjjq0z7n07DkPSGNT8OSpbx8+8wPGW4mHgpkb
-         MxZyFbSHhym0sV7UIudMlWJok1NPjVZIoiWwSNko3m2AMEM1Rufx2lsk/oT+AGXVpkfL
-         gv1MZjw9rMmvJSKLSBe4JSYcx+OGP6hzJ20yKs1jfTaQu5LwHJNcluI/H1dTb7cNvsP6
-         szl7egJk/kq7eofTpBMsq3hufiD2K1CtZcF+FhKJ/vjfxmADLHMVoF7RaMDFWPQvxtMj
-         9bUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795115408; x=1795720208;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OWfWBSws9gh+iPoR7/7oxTfW1366liBJpIftUQNS3TI=;
-        b=gPlvaF2JktamT8QIxkyWvBS1pZIT2zqrW1NIDUJZP7Y+OkC45QPfpKiyQTmI2HOb0d
-         ecPLBsD138JoOiTz80gMYgu88hIGpHxA39I+lJ2Ya1LMOs1XTwJ/hh47js3IbmTLuOUF
-         EofB4rlW4Ons8MU+Yu9NYiAahK3Mp95E3egiyXNy3kfcFYRSK2kztOVu3SVpK2bNYKiC
-         h1bAcm85eS8qv/3+TG9f5FvE8bnMm49nCoh7GOjmbqObUoAGbF9XIw3EHWlIZmgwl7z7
-         ikOmJnUH+QSDPrpShQEhiS6fISkMEIJj0MZVkOQMifsKw4cg5vJb4b+zHgt2Zn40LIW+
-         2XXA==
-X-Forwarded-Encrypted: i=1; AL+hErFeQBQheKF/VSmFJwYv2KBWspbGC5ysrl4q2ttZLjvS/jOxImW74LWo1dMELKKLRMtZY6DdOpc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/kyxSDWXHUiVm7iPvCyS3PKyqA0RdRSRUE5E/nzC4oRAGBPZaQ
-	OihfCMdXOK/9CUwgzFPYmt6nNZP1EDLk4eGDHJl3dbERUXnjzuEjpyGURNvTBmLZCC29pg==
-X-Gm-Gg: AZFdTZfODQwUVu5ID1nl1Bio2r/hCoyZ05OTTrcBwcWJdldXQbc8mFQNBsdx8/r9tsN
-	IbowTTEFTrfklAaJExqlhjrlGwAZuay0wozYow73iev6/7rghMu5+D0rkdCTv02VUIKlvUgNtdf
-	Ko5RQgph5+G+wAQQzLoUkSVleDMl1LoynFJmSRhxRxH02FuR3guHwsn6NT3pe8VVJWvNMkBQNT0
-	tXqVZEqGONQLwgOZ7Yo8s4g8rKEqRMgleFWux6gqmlmTtWkYrtbDGN8QpjhxMntpW1LLnOpm+ff
-	ZAzOliBRQqkM1z98w2L0IvFZ7/K6K1Hi5r34ThsM1bbps89mUF3Tl3OzK8oEbFX79faBHiwUywL
-	Z/B9Mw4/MlGEnEh/Ba5//GEnKHCdmfhcSS2Gf7Blxw0KCbKQj9qVRwzRpc0KT1084CNiBZQDPO1
-	zOx42KOBvT7yFm3cQKN/g1aANhN8QkWk3dxbxDxVV59Iz6IxUUhNOQX35/tVRR5uj84ylBinhNv
-	biLHVfMKxGD/P8+cnGN7is5UVxHQc4xopdG7mITgtVqQ+Zsx6fAEXyQWnJwAJsAzM+DGhCp+V9H
-	igsrFXpMqwPpWqTHy01T9pgqSbqTz+6bqLHb22PWeVjQXjsJv63p/GVqZCAHj6gd+5GzABtmmN3
-	z0C2BrMdcXlOh4V41w2KqaDdram/3fTEe6QQuT3H5sInFUZ37x9Ong/fXG3wmRNSH109p3L5Iv7
-	gGvEXynSkVSmTo6/ssbtYaeuL4z90o8mB7MfapIKsyml3aE35JfRjOeG86Ir2fgr1wH5k3R2NtT
-	uoK9HitwNlkY5U=
-X-Received: by 2002:a17:90b:2f8f:b0:3b3:bd07:665b with SMTP id 98e67ed59e1d1-3b41c9325b1mr290487a91.40.1795115408162;
-        Thu, 19 Nov 2026 11:10:08 -0800 (PST)
-Received: from josephctchan-96c-1t.c.googlers.com.com (95.100.125.34.bc.googleusercontent.com. [34.125.100.95])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d1361fsm3678174a91.6.2026.11.19.11.10.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 11:10:07 -0800 (PST)
-From: Joseph CT Chan <jctchan@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Joseph CT Chan <josephctchan@google.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=ZNzHW0nW;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=RdwjBXeA
+Received: from phl-compute-12.internal (phl-compute-12.internal [10.202.2.52])
+	by mailfout.phl.internal (Postfix) with ESMTP id 59DE2EC0099
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 14:10:41 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-12.internal (MEProxy); Thu, 19 Nov 2026 14:10:41 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm3; t=1795115441; x=1795201841; bh=QhS3+5ZWFz6FmTqcuqu7z
+	zkTtZ4CAdsfKAs5TGkgHgU=; b=ZNzHW0nWAAfboU8EyKQwwgw1uQks0clxMbXAf
+	9VIyKmBsupWzAbiR1OQ1MsyBmleCW7qMR6u4MkkNIpOejcxoumhYPlblXXNmGxK8
+	BvvqBJs622jDLLTtejIkRTqEvAQgjfApgsMYcht/bllL64xsEHHxlv+5m2PNfLZD
+	/Yq3HC+12K1ZhtFCtiyydxIcXtThxVgF2pUjx1nZaBXHe8sPVd2tl/C15bc+1kiG
+	1Usw9hulVGMClOt4Rrj0jOM0mbBl8pova78yU2mdjaiaT0OumpLRWMevOmPIVsT7
+	O25jS8lU3n/gvqhJ/PsOaKFB3DoO4wBWpj/WZQLoECwIvqGHg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+	1795115441; x=1795201841; bh=QhS3+5ZWFz6FmTqcuqu7zzkTtZ4CAdsfKAs
+	5TGkgHgU=; b=RdwjBXeAofrvIM3iV5eVbF7DfiEvObND7GwRBVljJ2zUvaKNHJ5
+	T7RAcbZWQIZfLh8/i6Ii4nNnZr4ToYUORgXYReTpv6DNvf1pP9rtSbTm9CNMCIsm
+	8lVD9WTEZbvy3wDPKMmQF4SU1q0RnWclQBlqLI7BU1CcYbgNFDVMLSR/DVln5E5K
+	NtJNa0gcWrlxodydwWapFIMulahvJhB79dXCZtcxQyXAmCr1OHiKSER5R4ODU7dY
+	IHLsmO8Mp+iEjBHpP9VGwGiKNoG1Jvy9kuwtZDLatQCPHY7cr4J/Am4YGswsSegk
+	IJC7DI0t8/mhyJyalgesm+30IgF2vALeGjA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795115441; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:XDTZfs0ZJr72X0R12FU3L9PVatUXDEOSqS28Uf7G9S9AkNs
+	aZjehK9jL5KQhRDBQKOZ3KAsts3/yS8bNXGtix3mHr1/a+Wf1wPVcZ8uZHd9C/FN
+	h9roRxC+JZ8OK+3RyUrs9zIfrMUXE6H9/w2ajqLS7NcfvQGaRraLKvHZjydzFir4
+	NeAn2QizgCaz/BG3UHcPWaiwjKL5nLRz1r1xW7I3fN/HiNnGoxOKWRSLsssNeoOO
+	Rile52X+jrkBNr0rAQZxj315AFBtt9LpGogA/R2IymMz1KTHQ5li90jmNZATsTYO
+	9PXahJjaaDyFhNX8fWmD6WNFqcggtKa6H85bkww==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:wlB2svHdKyZa1viQV5vX71PPiuMCapCRlfsHesGu8zs=:9fqV3LrC0at5NyGG27h8nb7q9IdGyAW/RBSfSqamxE0=;
+X-ME-Sender: <xms:sEn_atjXM_dSoO7dM3vRa_wm0JW2PjMl2BpJ3oeF0GiBSITZLvO5uA>
+    <xme:sEn_aoxH4qINCH6s9Uz0c7JuC5mkkO3jzt5WzQnkOJR83m_9Yl-OdTjJMjOwm5HVX
+    VePdaCjbtNlGN7OgZgEUIigf2Ha0KxhLioORJ_4jF4XLjBmxqCWhR71HQ>
+X-ME-Received: <xmr:sEn_au0eZDY7xi-csq2vmSyqHUSW79Tw-Q_mjW9ML-skeOLfgA6eRPw1I8est_Q8>
+X-ME-Proxy-Cause: dmFkZTGUt+/3QKC1CH1vRfgQM6ezMSGdit/xsisMl79bbyGJuqdQRHAHbQ0xVFcvlX2FwK
+    Pyg0tyLLdzZ3sF9Uwqa2uCeuhpqdFrJroejVz/rwAKhVxzQKf/zf1WIoRSHDe5ZcAlP2sN
+    c6SsS0w3zV9GKmXzZz1vNFcCPgjlN8DNVJbAMuxyJ3iTj9wFLB9gRYJ8ptfNackdAaflN7
+    p4RNzDS2YwDjD4JPWnSquPXlzz9lPTIka6YJPjkFzVNP+P9gX0If7erpvBIA5hcvVcK8oQ
+    Lmv+VxNNcwNX/nfqxzOLsKvkixmdluwg0yrI0kYfkj/F+8SpujIfimcbJCPVriKKyYHYsn
+    5gYei5oi7C/PcFBQAKita9XQh72RgG2Af+oQJp+plQ9vwbmbZ6jFlaQHnNjV+Zi/qkCIic
+    eEicZF/7TdZbljaxuqXWqB4BatOub8NWpK0erAgje5GzYo6eU15HYWXvsMQ5symtvfGy8o
+    Pkbow55yktakEp0C2RpWhi49bfrLxWJF1fpGG48J8TscxhNJSZtHoD6f3SLzZjkur/5mRs
+    zcC4AUkCPR5HgX1yNQc6HaBJfjelx7E8zRmclj9uEr1S72Y1fQCLd21GZDa1IdHzHYN/kq
+    as64TPHNvwXvVGFMoijI3UzO1np3c6HcNacZyX20xGHxbhvvsDbQTcDAroPw
+X-ME-Proxy: <xmx:sEn_at_tA6wh6FVM1UuXlNQU0DiOOptAyHLUjge3QFfCq9f_mcKrcg>
+    <xmx:sEn_ampXg37vyS3pUlhZR1V9_q3B40tUZuTCO5LpYvmRnsDjCz1LbA>
+    <xmx:sEn_avSjreEGNleRkSrGaiqBPXyJ9Z79kwB8190m0IZDJ0B2JbRTIg>
+    <xmx:sEn_ahO9zeZ6xeyXqqugg3s1cOow10loBbvV7ojIIjgg_q1fmpCdZA>
+    <xmx:sUn_aiwF_bYQYNIRIgU5mN9DIpev5DSDM983oLEcYigvAku1WRdUouho>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 19 Nov 2026 14:10:39 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: linkinjeon@kernel.org
+Cc: senozhatsky@chromium.org,
+	tom@talpey.com,
+	chenxiaosong@chenxiaosong.com,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ian Bridges <icb@fastmail.org>,
 	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] spi: spi-ti-qspi: finalize message on transfer error
-Date: Thu, 19 Nov 2026 19:10:00 +0000
-Message-ID: <20261119191001.878454-2-jctchan@gmail.com>
-X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
-In-Reply-To: <20261119191001.878454-1-jctchan@gmail.com>
-References: <20261119191001.878454-1-jctchan@gmail.com>
+Subject: [PATCH] ksmbd: compare the whole SID when adding POSIX ACL entries to a DACL
+Date: Thu, 19 Nov 2026 13:10:36 -0600
+Message-ID: <20261119191036.197225-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,54 +128,94 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Joseph CT Chan <josephctchan@google.com>
+When a query returns a stored DACL, set_posix_acl_entries_dacl() adds
+an ACE for each POSIX ACL entry that the stored DACL does not already
+have. It checks that by comparing only the last sub-authority of the
+SIDs. A POSIX entry is then left out when a stored ACE for another
+principal ends in the same number. For example, a stored ACE for unix
+group 1300 hides the POSIX entry for the user with uid 1300, so the
+query does not show that this user has access.
 
-When ti_qspi_start_transfer_one() hits an error in qspi_transfer_msg(),
-such as a transfer timeout (-ETIMEDOUT), it unlocks qspi->list_lock and
-returns -EINVAL directly without writing QSPI_INVAL to QSPI_SPI_CMD_REG,
-setting m->status, or calling spi_finalize_current_message(host).
-Because the message is never finalized, spi_sync() or the spi_async()
-callback waits forever on queued transfers. If spi_sync() took the
-no-queue path, it returns -EINPROGRESS instead of the error, and the
-message's optimize state is never released. The frame is also left
-open, because the QSPI_INVAL write that ends it is skipped.
+Compare the whole SID. A POSIX entry for uid 0 is shown as S-1-22-1-0,
+but sid_to_id() maps the domain SID with RID 0 to uid 0, so a stored
+ACE with that SID also counts for it.
 
-Set status to the transfer error and leave the transfer loop, so the
-error goes through the existing tail: unlock list_lock, write
-QSPI_INVAL, set m->status, and finalize the message. This fixes both
-paths, and the caller now gets the error from qspi_transfer_msg()
-instead of -EINVAL or -EINPROGRESS.
-
-Tested at runtime with KUnit (spi_ti_qspi, ti_qspi_test, added later in
-this series) by injecting a QSPI_SPI_STATUS_REG WC poll timeout
-(-ETIMEDOUT) via logic_iomem emulated MMIO on ARCH=um.
-
-Developed with help from the Claude and Gemini AI assistants.
-
-Fixes: 505a14954e2d ("spi/qspi: Add qspi flash controller")
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
 Cc: stable@vger.kernel.org
-Signed-off-by: Joseph CT Chan <josephctchan@google.com>
+Signed-off-by: Ian Bridges <icb@fastmail.org>
 ---
-v3: Rebased on spi/for-7.5. Fixed the commit message: the old code returns -EINVAL, not ret.
 
- drivers/spi/spi-ti-qspi.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Tested on ksmbd-for-next 4616bbc5389a with KASAN. A file whose stored
+DACL has an ACE for unix group 1300 and whose POSIX ACL has an entry
+for uid 1300 now shows both in a query. A stored ACE for uid 0 with the
+domain SID still covers the POSIX entry for uid 0. Queries of the
+other tested files are unchanged. smbtorture results match the base.
 
-diff --git a/drivers/spi/spi-ti-qspi.c b/drivers/spi/spi-ti-qspi.c
-index 7e796aafd2bb..9e270c30d0d2 100644
---- a/drivers/spi/spi-ti-qspi.c
-+++ b/drivers/spi/spi-ti-qspi.c
-@@ -718,8 +718,8 @@ static int ti_qspi_start_transfer_one(struct spi_controller *host,
- 		ret = qspi_transfer_msg(qspi, t, transfer_len_words * wlen);
- 		if (ret) {
- 			dev_dbg(qspi->dev, "transfer message failed\n");
--			mutex_unlock(&qspi->list_lock);
--			return -EINVAL;
-+			status = ret;
-+			break;
- 		}
+This patch was developed with LLM assistance.
+
+ fs/smb/server/smbacl.c | 27 ++++++++++++++++++++++++---
+ 1 file changed, 24 insertions(+), 3 deletions(-)
+
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index 2651214c939a..03d771ea6676 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -628,6 +628,25 @@ static int parse_dacl(const struct mnt_idmap *idmap,
+ 	return ret;
+ }
  
- 		m->actual_length += transfer_len_words * wlen;
++/*
++ * Whether a stored ACE is for the principal of a POSIX ACL entry. The entry
++ * for uid 0 is shown as S-1-22-1-0. sid_to_id() also maps the server domain
++ * SID with RID 0 to uid 0, so a stored ACE with that SID counts as well.
++ */
++static bool ace_is_for_entry(const struct smb_sid *ace_sid,
++			     const struct smb_sid *sid, bool root)
++{
++	const struct smb_sid *dom = &server_conf.domain_sid;
++
++	if (ace_sid->num_subauth == sid->num_subauth &&
++	    !compare_sids(ace_sid, sid))
++		return true;
++
++	return root && ace_sid->num_subauth == dom->num_subauth + 1 &&
++	       !compare_sids(ace_sid, dom) &&
++	       !ace_sid->sub_auth[dom->num_subauth];
++}
++
+ static void set_posix_acl_entries_dacl(const struct mnt_idmap *idmap,
+ 				       struct smb_ace *pndace,
+ 				       struct smb_fattr *fattr, u16 *num_aces,
+@@ -646,6 +665,7 @@ static void set_posix_acl_entries_dacl(const struct mnt_idmap *idmap,
+ 	pace = fattr->cf_acls->a_entries;
+ 	for (i = 0; i < fattr->cf_acls->a_count; i++, pace++) {
+ 		int flags = 0;
++		bool root = false;
+ 
+ 		sid = kmalloc_obj(struct smb_sid, KSMBD_DEFAULT_GFP);
+ 		if (!sid)
+@@ -656,8 +676,10 @@ static void set_posix_acl_entries_dacl(const struct mnt_idmap *idmap,
+ 			unsigned int sid_type = SIDOWNER;
+ 
+ 			uid = posix_acl_uid_translate(idmap, pace);
+-			if (!uid)
++			if (!uid) {
+ 				sid_type = SIDUNIX_USER;
++				root = true;
++			}
+ 			id_to_sid(uid, sid_type, sid);
+ 		} else if (pace->e_tag == ACL_GROUP) {
+ 			gid_t gid;
+@@ -672,8 +694,7 @@ static void set_posix_acl_entries_dacl(const struct mnt_idmap *idmap,
+ 		}
+ 		ntace = pndace;
+ 		for (j = 0; j < existing_nt_aces; j++) {
+-			if (ntace->sid.sub_auth[ntace->sid.num_subauth - 1] ==
+-					sid->sub_auth[sid->num_subauth - 1])
++			if (ace_is_for_entry(&ntace->sid, sid, root))
+ 				goto pass_same_sid;
+ 			ntace = (struct smb_ace *)((char *)ntace +
+ 					le16_to_cpu(ntace->size));
 -- 
-2.56.0.679.gc527c65306-goog
+2.47.3
 
