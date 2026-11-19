@@ -1,97 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795074960;
-	b=UJ3ix93nznxB+FxFL+OqinV+5kriKtH1iNrvZKexbQq5v0a1xNKLYxue8SADaHsSAl92
-	 J0Qce3Cq7YJsFTnf2roUH7ZBAr/KoaW4vadCRHqhdUsKX2DSiF9fHi3bvgYRGEwaL7MdW
-	 ZVd/k7JQkWYNN+aNBoc2gFzsiUw7MOjrokSIxkE3CxPMXOeKsq3OoyS4Z0UL83sdG4/CW
-	 qIDj6bfloNYnWdYZKPdu22AiJGnxA3p1of7wbqGI+Ti6PQ2r4++K3UWnLa+lnAAZcZXDE
-	 u/kQqBdmyv4hPuHJSMebCMkVuHJBv87w9dk++eIC/zgIEeSrzdrjAh9UujqCa463SZQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795074960;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795074989;
+	b=HRm4VScwkB9bfU3iuDfwoDbFofXupbQhDdTpOr78xIBePRlcGZYts0pD6epQn9OVwV8h
+	 Bd7fpVnWPv+alE88vSVTtxmE9M7KB3gSzE1YOp3jD8j5d8oD33SklJ/pF6osbra6xaJqz
+	 qEcd4YImIqSZ5oyOHXIHYnl8BB8HfXv/6F5hKUpZnxsUhqm0rijfU/pOkp7kATEjEsIpc
+	 suO3Vr3QOJIgwYE/AkW0x8jr8832l4jL7YcTAMOHwkuT+YG3T2unW2mCM8vN5qHfGktGZ
+	 6YMq0x1fT0v7pGF1+vp+sLvPhnLw03hpTDFNUrEIxGVXkCkm9EeeIFplYrWXf7q7aBg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795074989;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=glNQGelvD/kDLrH/fiSkPVz0Z5oOzNw/2XFScRnp138=;
-	b=CBRnLzGtQdfOKAHoNX6Lzia+WUe1wfDF/UD9ItqC/NyiShEku995TSHIEdD04ZE6dc7U
-	 xpwvszohq58Ezk/8CAN/hCgA6yWFEqzOnqYVeW7kQVC1ZvMrEqpmEi0EfOCRnMln6dCJL
-	 OKLnjqwLqAo5CDnHNoPznYFLZDBwcDH9sTtZAU6P2PnuRPPRTqZYExGj86XEkCDlb/exu
-	 mwrqSNYS0nm75uC4w5ntCzuTOk3/lOBNk0ZemlnSF+0N2RVF8TZHicZlq4kXFXzo4BHwq
-	 cZHgd89rUUdceIe7n1dq6BZ2CwJ/P31tYKnVK6+NZV6Muz5ma8Qn3XdX3z+Bcz+RzuA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PVYFBKnq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.45
-Received: from mail-yx1-f45.google.com (mail-yx1-f45.google.com [74.125.224.45])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zD4vWVrzj0m5l3wwaVzmZX6fctqf45aDG3D9ksl4C6c=;
+	b=uTwm0aoQswfPjG0nugBRDvIEtZGuULX7WcNCTd+okS+vwLxMNqyc9VNyfLyw+X6wF/th
+	 LLUUP/vAr+W3q5r3JFJ//D028qUb3v1oIB5sAi3MsyWvQb/RSNYkEQa4HmDOWoRTTJLSj
+	 0XJv2ux6v9iOlZbJgYFaftS1HWRt7PrSmbgzYoGS4QLfhWTRx28YNUl1OS5TRX1lerZIR
+	 EMwhpuw6oOSm9YTZeB5JzizKVcAOBAxozr3zJfOoeikys0YmYtY6vAOu3bsbFj+TtQkxP
+	 N/vVPEGsGiMbdoDzfiThfpoo4MpfkH9iIGo9JFgC2/ZmU6femJjvSf0cIXyCrz3Yrow==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YB4Hwqg0;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7D3606A324
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:55:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF7D3606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544FC606A325
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:56:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 544FC606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PVYFBKnq
-Received: by mail-yx1-f45.google.com with SMTP id 956f58d0204a3-67bee1f693bso1608969d50.1
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 23:55:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795074959; cv=none;
-        d=google.com; s=arc-20260327;
-        b=aFQv4i7LZitrloE2fLn2lSiABrjOBsbj2Jrc4abZerjizJw2aDuwCf+yGW0VlbzVC9
-         0MU7HxnpdAoc7Zif1bB3cHmzCNS1kcXw9R7MQPJUD9RT+ve0mfUniThJQ6dstbDfNB1H
-         TB6JUwX3tMfhU19bjRF6U0NchEwRAJzBkw9jjaPeu1oqz9k49eA+IQQxKolMtyLtWjTq
-         e7gTtnrgn25KI+nJNDQsWpvZ2Dp5HVglu9yTvVJ9J2yH/uTKO6AxAgrUCCSxHTGjeTg3
-         mmpQpHbKMz3ZQFpXqk4U1JSGARNl3fqE3QF6ZeBu1MjAYOCnDHwyEkyyIJhJC4d4gkPk
-         qKtg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=glNQGelvD/kDLrH/fiSkPVz0Z5oOzNw/2XFScRnp138=;
-        fh=LzzoAOfs1jXZwLG2Rb1RF1oK2ZYWmrbJfV91tSG6ZpM=;
-        b=J5q/+Vl5fYE5A7rr95JM9nr1gouqs9q7e5yYZgEE6GrmGpiXwZCKRK7txWXiWPa+J3
-         p2n89XiFYRT5pav3byJnFCu6WHqYCdWvLLoR0gne7Q9TRntMl6msO7FmG5SVrbxkyEnM
-         f8TZTVbCQHYavMAUJI6s2N1/RJuxceNCAa2+o5dfaNsYPyfmGDy7hBW9oPFw8Lhtiyqd
-         z5AgkdarQPOZM0coJPRHSc6ho4WOi6rvQkGlvLuPROs8XizE9oucYeU8MVw5WlneeOfF
-         JGsFgylwim2FSUx6qiAjY4j5vT170a2RIEJdS4ausQHIKyUNEvg6CUOAYJ9bp2vBHIPr
-         0oFQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YB4Hwqg0
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2efd659464aso7932545ad.3
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 23:56:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1795074959; x=1795679759; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=glNQGelvD/kDLrH/fiSkPVz0Z5oOzNw/2XFScRnp138=;
-        b=PVYFBKnqIYi8G5pSLWwcT7zZHYcZEN1a6HlNWUl7FyInIBVHF0nAHNB2clR4xpKZzH
-         xxMZGABs3emLJXMqzBtBvGDG69uW3bSbCCT4Ep0bD8mq32Jtv0YLIYY5098DzRjRUfYn
-         C3bHdetInuTfQnx6zYaqGkm2PuHd8Cm2rpZAA=
+        d=gmail.com; s=20260707; t=1795074987; x=1795679787; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zD4vWVrzj0m5l3wwaVzmZX6fctqf45aDG3D9ksl4C6c=;
+        b=YB4Hwqg0DiuGEH09AUeOt3wJvoIWEDxxJr+bQEPUE/yv227htIMm1ypFAL/7XjQ0EC
+         J9gBdTDOEvnceKo4pbdKyyWEFpAK26KWd3jIEpCzqgtuH8WqzcmY3YIWcwtdImFwI/sx
+         fdJqpu3MCWQh8i7Qf306MWqM8NGl1LGE8eH144xnFUqZxtRpzvijTgq6D5x96Okrk1cI
+         guKoL1BhmJ+UxI2nPcwqW7/OSf0CfaESi0dfvz0vei89aoRLQe2t13Y0HO9jqHcZQc4f
+         +r7WrTosr0CblSIzkDrWu0yJJQlL/y7Xj22sxCPh9KCQeL7v2F0EXBw/LIXHK7W3l+cI
+         PnMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795074959; x=1795679759;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=glNQGelvD/kDLrH/fiSkPVz0Z5oOzNw/2XFScRnp138=;
-        b=PlgIkyEyTeLu13k9EB57f6jAELLrCd3r8Xl+XxTQggP8tpcrLjzeYbjMck/AkqrZ1w
-         l/b+Nu0EwWZGLX9G8DvzYVLA69AGPXrZe5IEl65PVFozKWewzcCks7712Q0Xp1h370k9
-         HErp4aXRQ+TWiKHd1uUGmG92s/q6QdACr5OWgAP0IRLghMWymGJq0vw+oNfq/oU3eMV7
-         L/SEn2v4u1nyTnU+4lyfa5oI0aFlF4erRrXT83SU8imGVFQG2EIIHq3jJ/EeCIos8Yf+
-         /Bs+V86RV5KcKKiVHJho1/N0CC2Ijw2HNgJJ+Ez2J8rv6+08uG1lwfb8FNn0u1StIKuF
-         zuiA==
-X-Forwarded-Encrypted: i=1; AL+hErHX7zPQpNW2Xtm2I70Y+/lAIYluMCQs9raaiyZ8o+w06Ijbjzq1Ii3JwJiN/aWwHGbK1F4CmZc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+gGiTV0MZ1sx+RqPQnbprFIJnF4BXI4MbLjj2wCJyB5AfoAOT1
-	nbr6EyrSsUxVeH6gUqfdiNSnuTkT5zuYqiuEomz6qmmrS1+M/BH5uRiK32cSvTyp/PG+bbT/T0L
-	0YrOv9O/tirhx6b45isJBY1j53QKnX8QOUrnMsHQ4
-X-Gm-Gg: AZFdTZc+FGYsgW2VicGKRbGjSNa1PU2yKcYvKQMnTX/B/H1i7jgSSPqzqt9ZQilbatB
-	EM8pj4WF93mzxlw2WgT8JNYp3wGPWnf4sGH2uuz/LylQ7b/ZOBldhsLUSp2xF7hlJFVqmATDmz4
-	kbpA6viuMw4h6z7RjFydBEcluxhVbsyCKWH2KX7f253N+BflQkgY3/GZBzFCFjdP/wd7MMIzMOA
-	aMUZYWlVIeYknsfjAG9QGIrS+FpKbcYcP9zx7BD5OkvVo0Vaew+iM4AJrbOlE4QcVrRhsxf0N45
-	JlJs83dRiEPAjv+BtVXfGR01/l4xK/hukuQvPn8s/BmCkAiDZU9wDAWBaF8xQpSPpezIiIRV5Dc
-	knVpN1Ki8FtlAh+HhYP6GNx5gdvUFCYG3+PlVfn3YgCpgXgJ8nkOeSz6kh3P91hP2xfY=
-X-Received: by 2002:a05:690e:4853:b0:67d:a059:2f39 with SMTP id
- 956f58d0204a3-67dd3f1b3efmr1369617d50.21.1795074958750; Wed, 18 Nov 2026
- 23:55:58 -0800 (PST)
+        d=1e100.net; s=20260707; t=1795074987; x=1795679787;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zD4vWVrzj0m5l3wwaVzmZX6fctqf45aDG3D9ksl4C6c=;
+        b=M3Wrefy2zorhrMyU7Wj3GfWYbb6fbZv5HgpmOgFtNrWvZi4V4caBs1nKC769UA0iAo
+         U/FFxVgocey1NmsinFVbm4+K+jUTEBOabBxepjc7c26wDjGf875z23xlN3Z3FUaKmwro
+         XWWZapBJJi4EEXz2rKm8N0OdbX8RrVFm9kUbjybjX4OK+vGmHYRgKMxkMO/+ymRnomCh
+         FLsKE15JDl5bDCad6wM97PoaLsofeHu9ZoY8qngsHuJ6DVceY66yBDPcqk9+6E5Gj90F
+         spTQBpwhbWJYIcpgeynUEMCwc6vaNfpbD8GGviTs/Sj3CL3hZgNekNgpPHJVQPp2kwOB
+         Z6+Q==
+X-Forwarded-Encrypted: i=1; AL+hErEGf+izV02tu8Ai6Tl45KBRYZWPo7GaANeMQaWWGzbgZRidKPL8L+XPxbEPxPnMcmydrZDFx0I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9oO5LXk/SnlscE/7/Yt4hiGxZ/tVRP+hiPBqwHtXaMgWh7fxye
+	NCYh5bjBbJq+PdC1YMnZkjJKjb8BJW3vOPoMPJno/AUmKgUXJCEx6zpW
+X-Gm-Gg: AZFdTZfoFDMcf1A0JXf5NtvvfI/+Jr6/rQbFreu7IkMjb6DpHgXy1iGAaGyzmTW+eD9
+	K+lFYHjdAC8CUJalcjtL+b9Y5w82ZXaGATBmfoaSXVn95+ttcqwOM0c48bHG9x0Oe72PYaHtWJh
+	2ugbPBQ9NgKufsOs1e8RXYk6UE7aKahA6jtt4usR9VAef0vWHeDz04gtB4seoIqbcHNuhBKKU2a
+	WGIl3osgvmK98Ye5zf5FdBsn9XfoeN9MkLXujj9TKkZ1qi1Ll4DJFVswKHONJQnBBo5/biBgr5E
+	hv5/H3YEVq59N8xuo3EkkQhbLfLlkpWLay377qLetLCNuvi+AJKJ5XGb032Qc4eO088TwNnSEjS
+	2ayIjZlkG22HswMtP7E7S6hAVPTTOOFZX06fqvW4ErA3aCcbvq9mh/QzPX3Ejt4N1qDjnMWinlA
+	yNg1n7gL7rDvrsxC6XDDGOfoWepOxEkX/FboU4kVRHItTt2H9PzdHgCDeIvCyzfLGzVPQ4Y+w/S
+	7N09KIC4hnKEOBBPHAvzXEo3f7j029zjCv0tV/T5bj0wuHlf9wpeT4890ShjQRu781NfrxHs1Bk
+	8BigO/B/AMDQiv7EX6b1WInEhPXY0zjzPpE7L7k0qterauybuV6IM5pZ/rMC
+X-Received: by 2002:a17:902:ea03:b0:2df:90d4:7758 with SMTP id d9443c01a7336-2eff72f4385mr44649885ad.23.1795074987036;
+        Wed, 18 Nov 2026 23:56:27 -0800 (PST)
+Received: from G7XWH7K1F3 ([2408:8256:2e80:7371:84c0:a687:3d35:47b0])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eff6183f8csm25817825ad.31.2026.11.18.23.56.16
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 18 Nov 2026 23:56:26 -0800 (PST)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: Pradeep Kumar Chitrapu <quic_pradeepc@quicinc.com>,
+	Karthikeyan Periyasamy <quic_periyasa@quicinc.com>,
+	John Crispin <john@phrozen.org>,
+	Kalle Valo <kvalo@kernel.org>,
+	linux-wireless@vger.kernel.org,
+	ath11k@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Zhao Li <enderaoelyther@gmail.com>
+Subject: [PATCH ath-current] wifi: ath11k: fail the start when a service ready event fails
+Date: Thu, 19 Nov 2026 15:55:59 +0800
+Message-ID: <20261119075559.10177-1-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,65 +101,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030103418.2355854-1-wenst@chromium.org> <179491350817.164578.3923681659802112857.b4-ty@b4>
-In-Reply-To: <179491350817.164578.3923681659802112857.b4-ty@b4>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Thu, 19 Nov 2026 15:55:47 +0800
-X-Gm-Features: AclHuK_NKKojwe2jAIh6fAUopYilD5lO7S60sKZvTblPy9cW1Wbrg51aFpv1c_s
-Message-ID: <CAGXv+5FiRyp6MzTdOo3KygM1w20YPD+eCG=-K+VVbPZUYsQQnA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] arm64: dts: mediatek: mt8192-asurada: Add ramp-delay
- for MT6315 regulators
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, linux-mediatek@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Nov 17, 2026 at 7:05=E2=80=AFPM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
->
-> On Fri, 30 Oct 2026 18:34:15 +0800, Chen-Yu Tsai wrote:
-> > On Asurada, the MT6315 buck regulators (Vbcpu, Vlcpu, and Vgpu) are
-> > missing the regulator-ramp-delay property. Without the slew rate
-> > specified, voltage increases may not have settled before switching CPU
-> > or GPU to higher operating points, risking undervoltage crashes.
-> >
-> > Add regulator-ramp-delay properties matching the slew rates configured
-> > by firmware, with values provided by MediaTek: 8000 uV/us for Vbcpu, an=
-d
-> > 4500 uV/us for Vlcpu and Vgpu.
-> >
-> > [...]
->
-> Applied to v7.4-next/dts64, thanks!
->
-> [1/3] arm64: dts: mediatek: mt8192-asurada: Add ramp-delay for MT6315 reg=
-ulators
->       commit: 9c9f83e3368d27d1e0ba55827a171ebf551c3d0c
+ath11k_core_start() waits for the service ready handshake, in which the
+firmware sends SERVICE_READY, SERVICE_READY_EXT and, if it supports it,
+SERVICE_READY_EXT2. Only the last of these events completes the wait,
+whenever its own TLVs parse, so the start goes on after an earlier event
+failed (for example, on -ENOMEM or a malformed TLV), with capabilities
+that were only partly extracted. An event that arrives again, even after
+the start, is handled again and rewrites the capabilities under a
+running driver.
 
-It looks like commit 9c9f83e3368d27d1e0ba55827a171ebf551c3d0c ("arm64: dts:
-mediatek: mt8192-asurada: Add ramp-delay for MT6315 regulators") ended up
-with the regulator-ramp-delay values for Vbcpu and Vlcpu swapped:
+Track the next service ready event that this start accepts. Each handler
+takes only its own event in turn, closes the handshake before parsing
+and opens it for the next event only on success. A failed event then
+makes ath11k_wmi_wait_for_service_ready() time out, and any event out of
+turn, including one after the handshake completed, is ignored.
 
-- mt6315_6_vbuck1 (Vbcpu) got regulator-ramp-delay =3D <4500> (should be 80=
-00)
-- mt6315_6_vbuck3 (Vlcpu) got regulator-ramp-delay =3D <8000> (should be 45=
-00)
+Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
+Fixes: bd6478559e27 ("ath11k: Add direct buffer ring support")
+Cc: stable@vger.kernel.org # needs adjustments for <= 6.1
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+---
+Found by code review. Tested in a QEMU guest with KASAN and a test hook
+that feeds service ready events to a synthetic device: without this
+change the start completed after a failed SERVICE_READY or
+SERVICE_READY_EXT, and duplicate or out-of-turn events were parsed again
+after the handshake; with it the failed start timed out and those events
+were dropped before parsing.
 
-Do you want me to send a followup patch to swap them around, or do you
-want to handle it and fix it up directly in your tree?
+No new W=1, sparse or smatch warnings.
 
+AI assistance was used.
 
-Thanks,
-ChenYu
+ drivers/net/wireless/ath/ath11k/wmi.c | 22 +++++++++++++++++++++-
+ drivers/net/wireless/ath/ath11k/wmi.h |  9 +++++++++
+ 2 files changed, 30 insertions(+), 1 deletion(-)
 
-> [2/3] arm64: dts: mediatek: mt8195-cherry: Fix ramp-delay for Vgpu
->       commit: 04560888cde5fd8adc325a6ce47466f80b8c668f
-> [3/3] arm64: dts: mediatek: mt8186-corsola-voltorb: Add MT6319 ramp-delay
->       commit: 929638df9f3b36665efd60ac71f1eed4ba36a0a5
->
-> Cheers,
-> Angelo
->
->
+diff --git a/drivers/net/wireless/ath/ath11k/wmi.c b/drivers/net/wireless/ath/ath11k/wmi.c
+index 08fd6795ed9e..5f9b18338478 100644
+--- a/drivers/net/wireless/ath/ath11k/wmi.c
++++ b/drivers/net/wireless/ath/ath11k/wmi.c
+@@ -612,6 +612,11 @@ static int ath11k_service_ready_event(struct ath11k_base *ab, struct sk_buff *sk
+ 	struct wmi_tlv_svc_ready_parse svc_ready = { };
+ 	int ret;
+ 
++	if (ab->wmi_ab.svc_rdy_next != ATH11K_WMI_SVC_RDY)
++		return -EPROTO;
++
++	ab->wmi_ab.svc_rdy_next = ATH11K_WMI_SVC_RDY_NONE;
++
+ 	ret = ath11k_wmi_tlv_iter(ab, skb->data, skb->len,
+ 				  ath11k_wmi_tlv_svc_rdy_parse,
+ 				  &svc_ready);
+@@ -622,6 +627,8 @@ static int ath11k_service_ready_event(struct ath11k_base *ab, struct sk_buff *sk
+ 
+ 	ath11k_dbg(ab, ATH11K_DBG_WMI, "event service ready");
+ 
++	ab->wmi_ab.svc_rdy_next = ATH11K_WMI_SVC_RDY_EXT;
++
+ 	return 0;
+ }
+ 
+@@ -5118,6 +5125,11 @@ static int ath11k_service_ready_ext_event(struct ath11k_base *ab,
+ 	struct wmi_tlv_svc_rdy_ext_parse svc_rdy_ext = { };
+ 	int ret;
+ 
++	if (ab->wmi_ab.svc_rdy_next != ATH11K_WMI_SVC_RDY_EXT)
++		return -EPROTO;
++
++	ab->wmi_ab.svc_rdy_next = ATH11K_WMI_SVC_RDY_NONE;
++
+ 	ret = ath11k_wmi_tlv_iter(ab, skb->data, skb->len,
+ 				  ath11k_wmi_tlv_svc_rdy_ext_parse,
+ 				  &svc_rdy_ext);
+@@ -5128,7 +5140,9 @@ static int ath11k_service_ready_ext_event(struct ath11k_base *ab,
+ 
+ 	ath11k_dbg(ab, ATH11K_DBG_WMI, "event service ready ext");
+ 
+-	if (!test_bit(WMI_TLV_SERVICE_EXT2_MSG, ab->wmi_ab.svc_map))
++	if (test_bit(WMI_TLV_SERVICE_EXT2_MSG, ab->wmi_ab.svc_map))
++		ab->wmi_ab.svc_rdy_next = ATH11K_WMI_SVC_RDY_EXT2;
++	else
+ 		complete(&ab->wmi_ab.service_ready);
+ 
+ 	kfree(svc_rdy_ext.mac_phy_caps);
+@@ -5180,6 +5194,11 @@ static int ath11k_service_ready_ext2_event(struct ath11k_base *ab,
+ 	struct wmi_tlv_svc_rdy_ext2_parse svc_rdy_ext2 = { };
+ 	int ret;
+ 
++	if (ab->wmi_ab.svc_rdy_next != ATH11K_WMI_SVC_RDY_EXT2)
++		return -EPROTO;
++
++	ab->wmi_ab.svc_rdy_next = ATH11K_WMI_SVC_RDY_NONE;
++
+ 	ret = ath11k_wmi_tlv_iter(ab, skb->data, skb->len,
+ 				  ath11k_wmi_tlv_svc_rdy_ext2_parse,
+ 				  &svc_rdy_ext2);
+@@ -9315,6 +9334,7 @@ int ath11k_wmi_attach(struct ath11k_base *ab)
+ 	/* TODO: Init remaining wmi soc resources required */
+ 	init_completion(&ab->wmi_ab.service_ready);
+ 	init_completion(&ab->wmi_ab.unified_ready);
++	ab->wmi_ab.svc_rdy_next = ATH11K_WMI_SVC_RDY;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/net/wireless/ath/ath11k/wmi.h b/drivers/net/wireless/ath/ath11k/wmi.h
+index b2dade0516ac..c69037c8a114 100644
+--- a/drivers/net/wireless/ath/ath11k/wmi.h
++++ b/drivers/net/wireless/ath/ath11k/wmi.h
+@@ -5849,6 +5849,13 @@ struct wmi_peer_sta_ps_state_chg_event {
+ 	u32 peer_ps_timestamp;
+ } __packed;
+ 
++enum ath11k_wmi_svc_rdy {
++	ATH11K_WMI_SVC_RDY_NONE,
++	ATH11K_WMI_SVC_RDY,
++	ATH11K_WMI_SVC_RDY_EXT,
++	ATH11K_WMI_SVC_RDY_EXT2,
++};
++
+ struct ath11k_wmi_base {
+ 	struct ath11k_base *ab;
+ 	struct ath11k_pdev_wmi wmi[MAX_RADIOS];
+@@ -5857,6 +5864,8 @@ struct ath11k_wmi_base {
+ 
+ 	struct completion service_ready;
+ 	struct completion unified_ready;
++	/* Next service ready event this start accepts */
++	enum ath11k_wmi_svc_rdy svc_rdy_next;
+ 	DECLARE_BITMAP(svc_map, WMI_MAX_EXT2_SERVICE);
+ 	wait_queue_head_t tx_credits_wq;
+ 	u32 num_mem_chunks;
+
+base-commit: b1ed5a45b994a6473ca1cf34f35a1bf87f1d8e2a
+-- 
+2.56.1
+
