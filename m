@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795113898;
-	b=bgPB4B8InsIbZXEEuYj+mNLQxHtC+KbbyYq9XUnmVQF8ceEhI2Ww48D5o2/oC/tmSU8F
-	 uPPIrmqoAmzC/JNaulxJgLBGmfY87QTfr/REO2riyYyVWoI7Q/jthns0dYlZgWZOKV+5W
-	 eW3NANVyz9KRPdjfxDydSDBFa+3mCKHGPHGbnbClFXbNdNLoF51/NA0tDRU94/3UlOtDm
-	 Ay/Lg3h8nT2XHgrJVS6hfOZ42gYnwsl8eDSKQFbikV8FVtnsWkdw+JNpkQUDcWWUedSTo
-	 DNcMQrpye25J1rxDY2vpdjKpd2u4T+JtcPS3QI+nCMdDrOK5xHHbZvFpL7AEM2vRTQQ==
+	t=1795114009;
+	b=eEhTlsDYMNsOsrrKiET+/GCZdzAjqEMjc7kCYTIX6/j0uVX7WRhNbPsr/FIMeg2K/SsD
+	 mTV2DPyZBG0yw77fmcxNMh1LBun9xeWKaCYxYxPhpCqGkyinKQhZXN7C9uDTiFrfiMnCS
+	 qCjAwwhwWy9lu9M0sqLk/M1VVkxgfj7IK1/gMivL7etuaVpyoETCabqSaMhkjS3eM2sJY
+	 EDmgBxKywFAHCQmd5THg/T3Kb7JQK3bWjcfq/kEcUVsPUVvQaDkvmoRtBYBpPmrg8XQm9
+	 Ym2wNlV77uQJyr2NijC2wdJ+0rH2QVDQZcgD8dvc5+0JhP3zBtmmwUU325S3vpoqjBw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795113898;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795114009;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
 	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=FoOYfrCJ0RM3XgYN7ilUtYspHzNWp7F/T1g5Er6pE/I=;
-	b=3cSF0SkBd7bSIPWe7hiyYbtKFjNTY52wntjbz4J6Z70fRPt7kbC5Hjwq7gAJvuceJvdC
-	 yqqpH8Nc5vVajIVqV1HSkMoMB1Ktj2NUw6SkuLHStRi4elV5rbb/JnhkfeA2Ho2Idm6YY
-	 V8Dv/zftJDlMPloe3GvRJ9mSo48PDjZ52bByWc/1wIe5DzHL1txCDgucepkBSnEdc8GVq
-	 QmAaM4uT+nU4g0fiJiRejPIdi1wHM4wTzMD3Ipip1r0Iauy/HaIJbwIQoBQgeCdd4NqYN
-	 eVYJnj9YxWwJb6lnUTDz2eHDPtdKqclZ03aussnBErQqfZ6EU13Ib00Qjdl2G7aZyRg==
+	bh=17nSu4oCnI9EKB0f3S0cCLEfWg/WYeKxC2nHokdNeaw=;
+	b=ZDRpLyJCbeuh0mN6/ApmzBCae8bCTYD5bl9sR9bdF1Wzl5t4lt1Vx1HCVFXNicBBgjlM
+	 GpYNjclgbyQgQ9NECwZXbuFyJZxN4YhtqsF8MD3gCpgQGlKuaEK3JI4z35hz+m3XCNuTB
+	 5d/m2VJYK7afgizs/nBpaIVNIhoJY3KacK0OAaTDgGvDClnmNoKijY6BRJvx88aVH4ofX
+	 xuhWFy4cSZlLORI2/h0voyc0v+uePGW/Iro1/DkHvchpleA6sYrV0DYuRxP+fUUrykZLX
+	 gyrlzkSGywWHRiZ6BP2JbSs81USS2No9zdsJaUUiJhfgyryvabjIuV30P6vo5YhuQOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STuuezqh;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nm26n6KJ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89AB606A336;
-	Thu, 19 Nov 2026 18:44:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E699606A324;
+	Thu, 19 Nov 2026 18:46:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STuuezqh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EED11F000C4;
-	Thu, 19 Nov 2026 18:44:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nm26n6KJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B915A1F000C5;
+	Thu, 19 Nov 2026 18:46:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795113898;
-	bh=FoOYfrCJ0RM3XgYN7ilUtYspHzNWp7F/T1g5Er6pE/I=;
+	s=k20260515; t=1795114008;
+	bh=17nSu4oCnI9EKB0f3S0cCLEfWg/WYeKxC2nHokdNeaw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=STuuezqh92oxbMso4yQLcP31hzljchN61owOK0wWsn7w4JfjDxDQikunNwNukETMG
-	 NLTjRJNsn8iH5llFO/eLIW54dETS2cAZgLZTEB8MqCDJacp5d5rsZGxEAo4ECa1yk+
-	 5Ir6LLstlu7V8Zy2MH0lUeYtbHYtw9IkPfvxbcgVwL7rXV2kceCH0VkMftme+JMnFb
-	 MkCpLQPgYHZfUJUP6i00rjARaNluivvMGpFRHcFIgIiiHge+qPr2eCgjEnJ2912eb6
-	 g4SjmTnLXsXkUoa/qhgNto1a76sYVV1slBGD43zYN+fppVp1n8CGu+Z81vvvfuAv+f
-	 zfnZWu4zBM+Ww==
-Message-ID: <015b7838-f1d7-4ac1-94db-2078c88674e9@kernel.org>
-Date: Thu, 19 Nov 2026 19:44:53 +0100
+	b=nm26n6KJC++pWSBnb08WDCHWeqwCfJHKKBm81ioLILgarFJJr5zwUnNVD7K9+rqLm
+	 Mf8uYKlsjtoqqlfv2gatTdW2IUQJnr6/Ujf3seylUMGNdOkqnyxh+qrTWPcU8+CB35
+	 2X116uSNGfutg7hae7+D5sNZI/OW/n+XOwI6pRvk4SAH85pi/ArhpMj3FEsm2g+cfF
+	 8HYETWuRUbhgIm9/EWyux6huyf0XoeX3X7zkzb31UuWaPEI/RM7ueX/hrYwGWi53gl
+	 mVgwyD4sQ16xxcPFYEPeGNwCvWYTfaQX9yoBoMUTrkUgz0EHOnN5eoqJIsrvTsB3bg
+	 jKX91A4FZaypg==
+Message-ID: <e5f84697-3459-4f6a-a835-314d128576a0@kernel.org>
+Date: Thu, 19 Nov 2026 19:46:43 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,7 +52,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 5.15 1251/2214] mm/mremap: recheck PUDs under the page
+Subject: Re: [PATCH 6.1 1649/2857] mm/mremap: recheck PUDs under the page
  table lock
 Content-Language: fr
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -61,8 +61,8 @@ Cc: stable@vger.kernel.org, patches@lists.linux.dev,
  Muhammad Usama Anjum <usama.anjum@arm.com>, Lance Yang
  <lance.yang@linux.dev>, "David Hildenbrand (Arm)" <david@kernel.org>,
  Sasha Levin <sashal@kernel.org>
-References: <20261118150009.797899913@linuxfoundation.org>
- <20261118150101.721156922@linuxfoundation.org>
+References: <20261118150201.293410965@linuxfoundation.org>
+ <20261118150300.709668987@linuxfoundation.org>
 From: Matthieu Baerts <matttbe@kernel.org>
 Autocrypt: addr=matttbe@kernel.org; keydata=
  xsFNBFXj+ekBEADxVr99p2guPcqHFeI/JcFxls6KibzyZD5TQTyfuYlzEp7C7A9swoK5iCvf
@@ -108,14 +108,14 @@ Autocrypt: addr=matttbe@kernel.org; keydata=
  JY6dglzGKnCi/zsmp2+1w559frz4+IC7j/igvJGX4KDDKUs0mlld8J2u2sBXv7CGxdzQoHaz
  lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
 Organization: NGI0 Core
-In-Reply-To: <20261118150101.721156922@linuxfoundation.org>
+In-Reply-To: <20261118150300.709668987@linuxfoundation.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 Hi Greg,
 
-On 18/11/2026 15:48, Greg Kroah-Hartman wrote:
-> 5.15-stable review patch.  If anyone has any objections, please let me know.
+On 18/11/2026 15:44, Greg Kroah-Hartman wrote:
+> 6.1-stable review patch.  If anyone has any objections, please let me know.
 > 
 > ------------------
 > 
@@ -151,26 +151,20 @@ On 18/11/2026 15:48, Greg Kroah-Hartman wrote:
 > Link: https://patch.msgid.link/20261031-fixes_core-v3-31-d6437171ecc3@kernel.org
 > Reviewed-by: Lance Yang <lance.yang@linux.dev>
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> [ sashal: adjusted context for separate vma and old_addr parameters instead of pagetable_move_control ]
-
-Our CI seems to have some issues with this patch:
+> [ sashal: adjusted context for move helpers using direct vma and old_addr arguments instead of pagetable_move_control ]
+Similar to what I reported on v5.15, our CI also has an issue with this
+one on v6.1:
 
   mm/mremap.c: In function 'move_huge_pud':
-  mm/mremap.c:363:19: error: implicit declaration of function '__pud_trans_huge_lock'; did you mean 'pud_trans_huge_lock'? [-Wimplicit-function-declaration]
-    363 |         old_ptl = __pud_trans_huge_lock(old_pud, vma);
+  mm/mremap.c:395:19: error: implicit declaration of function '__pud_trans_huge_lock'; did you mean 'pud_trans_huge_lock'? [-Wimplicit-function-declaration]
+    395 |         old_ptl = __pud_trans_huge_lock(old_pud, vma);
         |                   ^~~~~~~~~~~~~~~~~~~~~
         |                   pud_trans_huge_lock
-  mm/mremap.c:363:17: error: assignment to 'spinlock_t *' {aka 'struct spinlock *'} from 'int' makes pointer from integer without a cast [-Wint-conversion]
-    363 |         old_ptl = __pud_trans_huge_lock(old_pud, vma);
+  mm/mremap.c:395:17: error: assignment to 'spinlock_t *' {aka 'struct spinlock *'} from 'int' makes pointer from integer without a cast [-Wint-conversion]
+    395 |         old_ptl = __pud_trans_huge_lock(old_pud, vma);
         |                 ^
 
-See: https://github.com/multipath-tcp/mptcp_net-next/actions/runs/44566582776/job/135709990767#step:9:504
-
-Is it just us? Maybe because of our .config?
-
-  https://github.com/multipath-tcp/mptcp_net-next/actions/runs/44566582776/artifacts/14553005859
-
-Or an #include is missing? Sorry, I didn't investigate more.
+https://github.com/multipath-tcp/mptcp_net-next/actions/runs/44566582776/job/135709990661#step:9:407
 
 Cheers,
 Matt
