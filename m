@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795094389;
-	b=wXUOBQ/58DbtZ3DsUNXNueZTrdoRSe1QvisUjkx/bIkjdFa+dlWirmficEPIJ9S9dn4k
-	 57qsiaqp2hfs/xlsjpAb9ukfpsRac07pYa1yilxnNEmavyC1gfwdljG1FCeaNXjwWuxz4
-	 8NQnwZ/ohWaCKL44ABRcqh1pCT2DFBxXZ5TmL0aYaGNx9Ls4p08LM2q6MwjkrAdUUwbMH
-	 oYsymR6eem7DlXfPawo1YAX1YnwPKb4lyT6gy0fZZaolAiPudYjFpYqEuVNznLWlgSUVa
-	 Sv4oObaQlQ9PPGqiug69O7/AgHatnVRXFfJ3VpciXStF+fNg1GSDUEJHOu79EfggWfw==
+	t=1795094395;
+	b=k51sa5ViVPmJ+vivIlkw4wQ5+rdNOEOUGnecgV2FvTMp1cgYUtiLypC1jsvXVDJwJx6K
+	 czIFCUsfY4Q3Qebyguq5oBlxQQMzMHa1RKIBMsTAVbe8JdK1tvlIZ+Haeqf2P3bFOzp/B
+	 Y/d1tLo0ZtxrwU13t+j6WnVCCpn1ibdj+hAI+5u7OsuDf4TActDjF7oIPpACYDmnvVaNW
+	 X5y/36TYp6RQIBwRRkxSq/CemxR1uYApDzLiyodqNoz8kRb257fC5o6vM9doZhfud2VMS
+	 Vno7tDOlbdpecIvDPGbLI9zryyouuEBY1SPIAhY9YRlmnknB8/u0S0nYSx5zM0cuqcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795094389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795094395;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=AvbwH9Y5JevoXi9lMUsj5Ll88ttiIsFxxF+BtKfWlmw=;
-	b=KyouJj4O0dBhbzetKdGA7te9JDC+k+VLar0oKCV0IQhaTkzLCE+YtJtBI/4DBKWYAZ+Y
-	 UsfhLZY0uQRYISQXvfQGJ0eldpvOxGQmXnRQdPpBDQiACxL0GU81h3hUa6BWlpzwuQsQw
-	 +3+9RXynDRqnhbbrq8CXK546hVeYSQqEG3PP3SijGith2AbQTBlYh5gKREp4n4WQmXUuS
-	 2r/f7Q+QbZT4yrkBjsS2IVG6IGBi7xQqGXhADdi531yuKG50zOO0+dolpZFGOhyrjq3NB
-	 a0SyAZiE3n4CqwclwLLYrmO3bm0AVjSXGRUK3jJKRYxi44PUv/kQuqcLsocBzDiYCLA==
+	bh=Lttm65rr0Emb5GQAhMwCGlWva+mW8MFSIkZED0kELt0=;
+	b=mgO1QKXrixcfwCihpyA5NM61qC2B9Xc2ZgS4t0CIZvjcdZgIdgzTsYWgldsEUowxEul/
+	 OgIyBxeNjUVOgIzpBGhYASouB/pqwTSeJfytwpA5GoIcuoJjc27X8ue6wNly56RwpYI5C
+	 pkzRJN9x6lp8ng6UuhO4+w7LWbskSedf9umXO3E7aV4O3n+cDpobcFeWm6mHufbwNQlRg
+	 uF4d6iGtywnzBrpPq3cKYonmmzN+qTwai/6WPmnuR8GshdsLcgI1Tum8nyHQzazDopt92
+	 nHM0fJnjj88tkJB+TXXZfAvihpLqbkklAstS2+Ar867yi/s5KuYdW6Zfr6tIJ9+KHDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bsdMZiq6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZUI8I6O;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C460B606A330;
-	Thu, 19 Nov 2026 13:19:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 863CF606A326;
+	Thu, 19 Nov 2026 13:19:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bsdMZiq6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85DD61F000D1;
-	Thu, 19 Nov 2026 13:19:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XZUI8I6O
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 232CD1F000C4;
+	Thu, 19 Nov 2026 13:19:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795094389;
-	bh=AvbwH9Y5JevoXi9lMUsj5Ll88ttiIsFxxF+BtKfWlmw=;
+	s=k20260515; t=1795094395;
+	bh=Lttm65rr0Emb5GQAhMwCGlWva+mW8MFSIkZED0kELt0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bsdMZiq6Eiul/chqMrOMove8RWik4U638CdUM/Ho3cxG20J1TXFbRIyMdmcxChAMg
-	 IxoDA9xRArEP/4K/+izpDc2Gx5/3SivsubFflekLq/Tb/rdX9Iry31StAJApI3M+Gn
-	 MjKv+g56ACMIh8LD5okcyPJTJUwfT/aQV/IdX89Ixf8qPkUmFCgqhOZw19e1CSHgXA
-	 OntwljjtP6c/vpeszQL9S8ix3MlNSsH9yT1Jx6sny/vbNrd+equmj312s/paMy9B3I
-	 AgnvWLLNQNmhP529ieXoJspvgk8+KYa/LeFDpoLLurp03lFmW78VZ4h2mQP+VZdyli
-	 sXILWAh4vsmXQ==
+	b=XZUI8I6O2fW4O6fBLyZz0ma41X7iKCcL9Q2JLyPNJGWx3/V6dMDv0Qq920BCXDJ/H
+	 4RcHbec5BGa6zAHdd0EzqzeM4MTXE0xDRMscDUvcbE/foQ7598YSkG2khiwxYgWKil
+	 krJdmSznt3TrCC4cWdZE+hO5GmI1dDbGpj40JskooZr5rYrZVHJUZxy/Twu8fVthwI
+	 llBPUboCo//iXEImpVZTvFm+tKYVvo4c70yZOPRTqPojrgF8zdsaLo2RZf+MQI7lHQ
+	 KxPU4oaezp1Lbl3RJViTtOgrlG1Bis8xuldrnIWc1m2ErdUDHDBnK0GuQUUHIg4KBW
+	 FmJssBd1KXkbA==
 From: Philipp Stanner <phasta@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -62,9 +62,9 @@ Cc: linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 2/3] dma-buf: dma-fence: Add dma_fence_overwrite_timestamp()
-Date: Thu, 19 Nov 2026 14:18:30 +0100
-Message-ID: <20261119131830.2535266-4-phasta@kernel.org>
+Subject: [PATCH 3/3] drm/sched: Fix memory ordering with dma_fence_overwrite_timestamp()
+Date: Thu, 19 Nov 2026 14:18:31 +0100
+Message-ID: <20261119131830.2535266-5-phasta@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261119131830.2535266-2-phasta@kernel.org>
 References: <20261119131830.2535266-2-phasta@kernel.org>
@@ -79,74 +79,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A fence's timestamp is just an opportunistic data point for debugging
-information etc. drm_sched, for example, uses the timestamps for its
-scheduling algorithms.
+There is a memory ordering bug in drm_sched_get_finished_job(). The
+manual timestamp flag check with test_bit() is not ordered.
 
-In rare situations it can make sense to allow users to overwrite a
-timestamp with a more accurate value. This is relatively harmless since
-the timestamp has no meaning for the implementation itself.
+The dma_fence framework now provides dma_fence_overwrite_timestamp(), a
+function to overwrite a timestamp in a safe manner with correct memory
+ordering.
 
-Add dma_fence_overwrite_timestamp().
+Solve the bug with dma_fence_overwrite_timestamp().
 
 Cc: stable@vger.kernel.org
+Fixes: f7fe64ad0f22 ("drm/sched: Split free_job into own work item")
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/dma-buf/dma-fence.c | 28 ++++++++++++++++++++++++++++
- include/linux/dma-fence.h   |  1 +
- 2 files changed, 29 insertions(+)
+ drivers/gpu/drm/scheduler/sched_main.c | 28 +++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index bd58688b81a7..f1b7e90864bf 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -412,6 +412,34 @@ void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp)
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 99252674e266..a065a6d2eb1c 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -66,6 +66,7 @@
+  * This implies waiting for previously executed jobs.
+  */
+ 
++#include <linux/dma-fence.h>
+ #include <linux/export.h>
+ #include <linux/wait.h>
+ #include <linux/sched.h>
+@@ -898,6 +899,22 @@ drm_sched_select_entity(struct drm_gpu_scheduler *sched)
+ 	return IS_ERR(entity) ? NULL : entity;
  }
- EXPORT_SYMBOL(dma_fence_signal_timestamp);
  
 +/**
-+ * dma_fence_overwrite_timestamp - overwrite a fence's timestamp
-+ * @fence: the fence whose timestamp shall be overwritten
-+ * @timestamp: the timestamp
++ * drm_sched_overwrite_scheduled_timestamp - make timestamp more accurate
 + *
-+ * A dma_fence's timestamp is merely an opportunistically evaluated value to
-+ * obtain information such as scheduling granularity. In some situations it can
-+ * make sense to overwrite with a custom value. This function provides said
-+ * functionality with the correct memory ordering.
-+ *
-+ * Return: 0 on success, -EAGAIN if the fence was not yet signaled.
++ * Overwrites the timestamp of the provided scheduled fence with the one from
++ * the finished fence, if the scheduled fence is already signaled. Does nothing
++ * otherwise.
 + */
-+int dma_fence_overwrite_timestamp(struct dma_fence *fence, ktime_t timestamp)
++static void
++drm_sched_overwrite_scheduled_timestamp(struct dma_fence *finished,
++					struct dma_fence *scheduled)
 +{
-+	unsigned long flags;
-+	int ret = 0;
++	ktime_t timestamp = dma_fence_timestamp(finished);
 +
-+	dma_fence_lock_irqsave(fence, flags);
-+	if (dma_fence_test_signaled_flag(fence))
-+		fence->timestamp = timestamp;
-+	else
-+		ret = -EAGAIN;
-+	dma_fence_unlock_irqrestore(fence, flags);
-+
-+	return ret;
++	dma_fence_overwrite_timestamp(scheduled, timestamp);
 +}
-+EXPORT_SYMBOL(dma_fence_overwrite_timestamp);
 +
  /**
-  * dma_fence_signal_locked - signal completion of a fence
-  * @fence: the fence to signal
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 34aefb63a7fe..815471b844f0 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -447,6 +447,7 @@ bool dma_fence_check_and_signal_locked(struct dma_fence *fence);
- void dma_fence_signal_locked(struct dma_fence *fence);
- void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp);
- void dma_fence_signal_timestamp_locked(struct dma_fence *fence, ktime_t timestamp);
-+int dma_fence_overwrite_timestamp(struct dma_fence *fence, ktime_t timestamp);
- signed long dma_fence_default_wait(struct dma_fence *fence,
- 				   bool intr, signed long timeout);
- int dma_fence_add_callback(struct dma_fence *fence,
+  * drm_sched_get_finished_job - fetch the next finished job to be destroyed
+  *
+@@ -928,11 +945,12 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
+ 		next = list_first_entry_or_null(&sched->pending_list,
+ 						typeof(*next), list);
+ 		if (next) {
+-			/* make the scheduled timestamp more accurate */
+-			if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
+-				     &next->s_fence->scheduled.flags))
+-				next->s_fence->scheduled.timestamp =
+-					dma_fence_timestamp(&job->s_fence->finished);
++			/* Try to make the scheduled timestamp more accurate. */
++			drm_sched_overwrite_scheduled_timestamp(
++					&job->s_fence->finished,
++					&next->s_fence->scheduled
++					);
++
+ 
+ 			/* start TO timer for next job */
+ 			drm_sched_start_timeout(sched);
 -- 
 2.56.0
 
