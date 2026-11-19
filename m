@@ -1,47 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795108721;
-	b=Jry7cze4u2o3/8fjLxr6vq2cgSQ398NM06TMj0TyieQ6EkpYie1URY+7BuGBNif2mjLO
-	 ipZu4XeUJg1LO491GGB/MAy2LwY44zEVpxs+9EQrha+YEKakk6DlpbP7ydewzQfDeHp0P
-	 Fs2gTJWHbr7VEstsdDfFT2QzuJllv9sR2qg9chuZycnQvRi68vvrUDzLYBd+7GGJ5gV/5
-	 2zY8Xd0oeNImhPh8lbwVcuZ10h+irgL+3wMZen68KW7yndvlXxXgSIyEW+bpNVxxtI4Mq
-	 J6f/OZoghQ/oQJfn6r06XDQNChYQGRFT5on551s4ywwusVaZL7yFi6Y+djDlgIrOlwA==
+	t=1795108874;
+	b=qnas28YaI+0m8kAYgc78riB/4sfk/mFG5u1gp/6TanvTzpgNM3P9Q6e+wjvrYVWsZDay
+	 yx3xQMFhNeDJUG9W1llx0K5m8s/hAeNjZOoX/6QAJgzxlyRLLRZ9EA6+gKOjmiH+YhqAC
+	 YE+mStLUiXxJTgLi7OieC5euPHaLoHtyaL7D0dO6+UpOvBr30/ZPuTSDVzvyZLbiNyQzW
+	 f/zvAA84KGrQJPQpudDpvzDA0+SrK01N1RiTrdRbAMeZL6cafOQuVYaI3yxskMTLr3sx7
+	 S4vKHYsnY9vviVhjeoMZRzPg5YA7DSqCl8HVvgnwCPIKj7uqifzBUNcCSJcn6xDkvyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795108721;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795108874;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=4L0w+DFxg/0odSH0y21BfLvOwBrjEBLFbY6kPt4vqpY=;
-	b=oDgjnynyKjb4DP1+QDuqOroollxG6ODXxxb854w1+rzbbTVCKoCn/0M8oCxAmQhat0sX
-	 CjfPSBCiXWTjl8xHtlt17zln7PEDEktsl4vdSH/qtqxTl6rxxAMhKG/WbocbaUe/tN8Vw
-	 XuNeQl2v/HmajESa6ji5/vyQHGb4oIyBkxUoWZmfPwys6FqclqXeIbAHI6XvVPY8jGMw0
-	 btYRjHXfdYdbKhp0f6KaUOlMhnAZIhEcDfrPy5Ta4EGDq7/xOABIZm2AK6fUQoAmj2NPX
-	 qPumc5ZR3/6WFywOgsbdAJvYE1bzrgUsZEhLdfastXRQ99hGdLSl232k7B2lkBtAx5Q==
+	bh=XdED9eR4y5ifUgKd7CctMUIndCPjoT0qvFTq9/Do+VQ=;
+	b=BbMTJ738ek7bBt734QJv5TrQK/u+xtk+sCnLVUHBx3e6lTW6BkPh3sdXyF+xsPifNADi
+	 +D3DVQcArFrB70ddaU6HrHba2X7oyOVWtPQij2EQap9Odnaa2jEAAMMUD9WDlpX76SNQ3
+	 +Cc65LgV8yNDD0X8BVBvKfcMJ9M7Y2pvog3YAOMyH0hHaXnllW+MX8z34KY9PeW86fscj
+	 k2Orzu4oNtwY0JOyWMn94nxW3RFNz9veyKfXLw7uIb6EoF8DrEkUC9aBefKJp73Qb5B06
+	 erBcQ2Y40M8iIA8WYt5qYONQVrJGbARx5kJ0EQtlMF5oETXZkFef7Li+PezCeqh5d1g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hkq4EUV0;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mNz3J1C8;
+	arc=none smtp.remote-ip=95.215.58.144
+Received: from mta1.migadu.com (out-144.mta1.migadu.com [95.215.58.144])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27434606A320;
-	Thu, 19 Nov 2026 17:18:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12D74606A324
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 17:21:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12D74606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hkq4EUV0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51FA1F000C5;
-	Thu, 19 Nov 2026 17:18:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795108720;
-	bh=4L0w+DFxg/0odSH0y21BfLvOwBrjEBLFbY6kPt4vqpY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Hkq4EUV05WUov7YKaYc0/J/ur8O24lq7e79/JUlnftw6ebY6emqsbYTqlU9NtvD+L
-	 7ad3Tfs9O1YZv7zwz7T9Ad26OptCK7iiLRF0oM4NFwtkIf2ny+ymNvcPIcDzIpkw9q
-	 ZHo8V5J4FsSpfmpY82ejFQ9jStTmfQsR+kppDfb4wylfIMjwCW4f+4lVzaQ1bXnTiS
-	 7Or5HAd80uDEEey7GHie2yyosK4lpGLcRgtUwIqQveLI0SdgZd33mJQnleqaWlTy8f
-	 x8l9AifeFzO9OLpUDLrfGziobyImTVlAxcY790teu3Qf16STCo4WRA6RlFxk27z/0W
-	 2JJUqe9+ly0xA==
-Message-ID: <41242382-1cfc-4dd1-8f8f-f9486f80b424@kernel.org>
-Date: Thu, 19 Nov 2026 18:18:36 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=mNz3J1C8
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=sOswK0QnaKHmU3QatFBxqViiRvCRLsYYOvUns0Kes0k=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795108871; v=1; x=1795713671;
+ b=mNz3J1C8srKM79V3RO/Lli7dLeXuiEJ5akyDkZGo0pyS8CYc0pzsRNR5t36BRj8fnj1xZmhn
+ rJ10q2nmgXkggzoFwWZUTcxRnzA6mptrgHzXKP5Oj8+5qxEnSHkpUTh1kGpYKig8aPF3JJo5to6
+ 4L50yE0wNG6Ot4UXZ3x8jBOU=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a14ab644d5b40bce;
+	Thu, 19 Nov 2026 17:21:10 +0000
+X-Mizu-Trace-ID: a14ab644d5b40bce
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <299b3f93-f7dd-490a-8a6b-68afe4b0e473@linux.dev>
+Date: Thu, 19 Nov 2026 09:21:04 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -52,102 +59,248 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/ksm: do not inherit ksm_zero_pages counter or PTE
- markers on fork
-To: "Xu Xin (vivo)" <xu.xin@linux.dev>
-Cc: akpm@linux-foundation.org, chengming.zhou@linux.dev,
- donettom@linux.ibm.com, linux-kernel@vger.kernel.org, linux-mm@kvack.org,
- stable@vger.kernel.org
-References: <e971c3f2-e8cf-4eb0-ae25-e7e4d9ea02ee@kernel.org>
- <20261118031038.75525-1-xu.xin@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
+Subject: Re: [PATCH] mm/madvise: fix MADV_FREE handling for PMD-mapped THPs
+To: "David Hildenbrand (Arm)" <david@kernel.org>, Zi Yan <ziy@nvidia.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+ Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Jann Horn <jannh@google.com>,
+ Ying Huang <huang.ying.caritas@gmail.com>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ Chris Mason <mason@kernel.org>, Sashiko <sashiko-bot@kernel.org>
+References: <20261119-madv_free_thp-v1-1-a312919e1ee5@kernel.org>
 Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261118031038.75525-1-xu.xin@linux.dev>
+From: Usama Arif <usama.arif@linux.dev>
+In-Reply-To: <20261119-madv_free_thp-v1-1-a312919e1ee5@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
->>
->> But ... they were placed by KSM?
->>
->> Just like any other KSM folios deduplicated before fork and then shared with the
->> child?
+
+
+On 19/11/2026 08:04, David Hildenbrand (Arm) wrote:
+> After MADV_FREE cleared the dirty flag of an anonymous folio, reclaim will
+> later free the folio without writing it back if no mappings are dirty.
 > 
-> I see your point, but in practice, people evaluating use_zero_pages=1 often
-> look at ksm_zero_pages to gauge how much memory KSM actually saved. Since
-> forked pages already share the same physical frame via COW even without KSM,
-> counting them across many forked children can give a somewhat misleading
-> impression of KSM's actual savings.
+> If our folio is still in the swap cache, the swap entries then point at
+> swap slots that were never written, exposing stale content of the swap
+> device. Bad.
 > 
-> Also, ksm_merging_pages right next to it is already reset to 0 on fork (even
-> when regular KSM folios are shared with the child), so resetting ksm_zero_pages
-> keeps the two counters consistent. 
+> madvise_free_pte_range() therefore frees the swap slots first, and skips
+> the folio if that is impossible. madvise_free_huge_pmd() does not, and a
+> PMD-mapped THP can be in the swap cache if try_to_unmap() failed during
+> reclaim, for example due to a racing mlock().
 > 
->>
->> So won't there be an inconsistency when MADV_UNMERGEABLE?
->>
+> Further, madvise_free_huge_pmd() checks whether the THP is mapped by
+> other processes before taking the folio lock. Another process that still
+> has swap entries for the THP can concurrently map it from the swap cache,
+> and we might end up clearing the dirty flag of a shared folio.
 > 
-> As for MADV_UNMERGEABLE, leaving the child's mapping as a normal read-only shared
-> zero page is safe and avoids extra allocations. Plus it naturally avoids the
-> skipped-VMA (MADV_DONTFORK) accounting bug you spotted, and does so
-> without extra per-PTE overhead.
+> Fix it by factoring out the folio handling of madvise_free_pte_range()
+> into madvise_free_try_prepare_folio(), and using it for PMD-mapped THPs
+> as well. Hopefully this prevents further bugs.
 > 
-> What do you think?
+> For PMD-mapped THPs, this change implies:
+> 
+> 1. We free the swap slots of a THP in the swap cache, and skip the THP if
+>    that is impossible.
+> 2. We check the mapcount under the folio lock.
+> 3. We no longer lock and check THPs that are neither dirty nor in the
+>    swap cache, just like for PTE-mapped folios.
+> 
+> For PTE-mapped folios, this means:
+> 
+> 4. We check the mapcount once before taking the folio lock, to not lock
+>    folios that are mapped by other processes.
+> 
+> Only compile madvise_free_huge_pmd() with CONFIG_ADVISE_SYSCALLS to keep
+> !CONFIG_ADVISE_SYSCALLS builds working.
+> 
+> Chris and Sashiko reported the missing swap cache handling for PMD-mapped
+> THPs, the other issue was found by code inspection.
+> 
+> This has medium urgency.
+> 
+> Fixes: bd4c82c22c36 ("mm, THP, swap: delay splitting THP after swapped out")
+> Cc: stable@vger.kernel.org
+> Reported-by: Chris Mason <mason@kernel.org>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/sashiko-outbox-202086@kernel.org/
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+> I would queue this fairly soon on mm-core/for-next-fixes
+> ---
+>  mm/huge_memory.c | 19 ++++++-----------
+>  mm/internal.h    |  1 +
+>  mm/madvise.c     | 65 +++++++++++++++++++++++++++++---------------------------
+>  3 files changed, 41 insertions(+), 44 deletions(-)
+> 
 
-We should then definitely document the behavioral change, and how ksm_zero_pages
-interacts with fork.
+Yeah looking at pmd swap, I imagine there might be more cases
+which are correctly handled by pte path but not pmd.
 
-For clearing the dirty bit we should have a dedicated helper, such the handling
-is hidden like in is_ksm_zero_pte().
+Acked-by: Usama Arif <usama.arif@linux.dev>
 
+> diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+> index 79d400ea9553d..e22daf846dbe3 100644
+> --- a/mm/huge_memory.c
+> +++ b/mm/huge_memory.c
+> @@ -2421,6 +2421,7 @@ vm_fault_t do_huge_pmd_numa_page(struct vm_fault *vmf)
+>  	return 0;
+>  }
+>  
+> +#ifdef CONFIG_ADVISE_SYSCALLS
+>  /*
+>   * Return true if we do MADV_FREE successfully on entire pmd page.
+>   * Otherwise, return false.
+> @@ -2455,21 +2456,13 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+>  	if (folio_is_zone_device(folio))
+>  		goto out;
+>  
+> -	/*
+> -	 * If other processes are mapping this folio, we couldn't discard
+> -	 * the folio unless they all do MADV_FREE so let's skip the folio.
+> -	 */
+> -	if (folio_maybe_mapped_shared(folio))
+> -		goto out;
+> -
+> -	if (!folio_trylock(folio))
+> -		goto out;
+> -
+>  	/*
+>  	 * If user want to discard part-pages of THP, split it so MADV_FREE
+>  	 * will deactivate only them.
+>  	 */
+>  	if (next - addr != HPAGE_PMD_SIZE) {
+> +		if (folio_maybe_mapped_shared(folio) || !folio_trylock(folio))
+> +			goto out;
+>  		folio_get(folio);
+>  		spin_unlock(ptl);
+>  		split_folio(folio);
+> @@ -2478,9 +2471,8 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+>  		goto out_unlocked;
+>  	}
+>  
+> -	if (folio_test_dirty(folio))
+> -		folio_clear_dirty(folio);
+> -	folio_unlock(folio);
+> +	if (!madvise_free_try_prepare_folio(folio, 1))
+> +		goto out;
+>  
+>  	if (pmd_young(orig_pmd) || pmd_dirty(orig_pmd)) {
+>  		pmdp_invalidate(vma, addr, pmd);
+> @@ -2498,6 +2490,7 @@ bool madvise_free_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
+>  out_unlocked:
+>  	return ret;
+>  }
+> +#endif /* CONFIG_ADVISE_SYSCALLS */
+>  
+>  static inline void zap_deposited_table(struct mm_struct *mm, pmd_t *pmd)
+>  {
+> diff --git a/mm/internal.h b/mm/internal.h
+> index 85cf7becf8588..96cb55d7816b1 100644
+> --- a/mm/internal.h
+> +++ b/mm/internal.h
+> @@ -61,6 +61,7 @@ void lru_add_drain_cpu(int cpu);
+>  void lru_add_drain_cpu_zone(struct zone *zone);
+>  void folio_deactivate(struct folio *folio);
+>  void folio_mark_lazyfree(struct folio *folio);
+> +bool madvise_free_try_prepare_folio(struct folio *folio, int nr_mappings);
+>  
+>  /* mm/vmscan.c */
+>  unsigned long zone_reclaimable_pages(struct zone *zone);
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index 0214efd2a014f..ebb4ce7daf6cb 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -661,6 +661,38 @@ static long madvise_pageout(struct madvise_behavior *madv_behavior)
+>  	return 0;
+>  }
+>  
+> +bool madvise_free_try_prepare_folio(struct folio *folio, int nr_mappings)
+> +{
+> +	if (!folio_test_swapcache(folio) && !folio_test_dirty(folio))
+> +		return true;
+> +
+> +	if (folio_mapcount(folio) != nr_mappings || !folio_trylock(folio))
+> +		return false;
+> +
+> +	/*
+> +	 * KSM folios can gain new mappings at any time, so we must
+> +	 * not clear their dirty flag.
+> +	 */
+> +	if (folio_test_ksm(folio))
+> +		goto unlock;
+> +
+> +	/*
+> +	 * Check under the folio lock that the folio is exclusive: we own all
+> +	 * mappings, and there are no references from swap entries.
+> +	 */
+> +	if (folio_mapcount(folio) != nr_mappings)
+> +		goto unlock;
+> +	if (folio_test_swapcache(folio) && !folio_free_swap(folio))
+> +		goto unlock;
+> +
+> +	folio_clear_dirty(folio);
+> +	folio_unlock(folio);
+> +	return true;
+> +unlock:
+> +	folio_unlock(folio);
+> +	return false;
+> +}
+> +
+>  static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
+>  				unsigned long end, struct mm_walk *walk)
+>  
+> @@ -753,37 +785,8 @@ static int madvise_free_pte_range(pmd_t *pmd, unsigned long addr,
+>  			}
+>  		}
+>  
+> -		if (folio_test_swapcache(folio) || folio_test_dirty(folio)) {
+> -			if (!folio_trylock(folio))
+> -				continue;
+> -			/*
+> -			 * KSM folios can gain new mappings at any time, so we must
+> -			 * not clear their dirty flag.
+> -			 */
+> -			if (folio_test_ksm(folio)) {
+> -				folio_unlock(folio);
+> -				continue;
+> -			}
+> -
+> -			/*
+> -			 * If we have a large folio at this point, we know it is
+> -			 * fully mapped so if its mapcount is the same as its
+> -			 * number of pages, it must be exclusive.
+> -			 */
+> -			if (folio_mapcount(folio) != folio_nr_pages(folio)) {
+> -				folio_unlock(folio);
+> -				continue;
+> -			}
+> -
+> -			if (folio_test_swapcache(folio) &&
+> -			    !folio_free_swap(folio)) {
+> -				folio_unlock(folio);
+> -				continue;
+> -			}
+> -
+> -			folio_clear_dirty(folio);
+> -			folio_unlock(folio);
+> -		}
+> +		if (!madvise_free_try_prepare_folio(folio, folio_nr_pages(folio)))
+> +			continue;
+>  
+>  		if (pte_young(ptent) || pte_dirty(ptent)) {
+>  			clear_young_dirty_ptes(vma, addr, pte, nr, cydp_flags);
+> 
+> ---
+> base-commit: 5e600d79135124a4eb8e9db30ad524224c267c07
+> change-id: 20261119-madv_free_thp-3c2a9887a722
+> 
+> Best regards,
+> --  
+> David Hildenbrand (Arm) <david@kernel.org>
 
-So clean up that code (reducing the code comment drastically) and properly
-document all that for ksm_zero_pages.
-
--- 
-Cheers,
-
-David
