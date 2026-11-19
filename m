@@ -1,57 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.43.8.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795077261;
-	b=NSDRQ8xPmVIspF5QJjOuhz6tr53veLa/oSut5k6cNT1AVcdKkwCdKbIJxaOU9DoMnfqA
-	 urytobTfNneYPJm16HFUa1LXucH4mRHCa0uBucklbGTuZZrtS8t7FGAgVxMHBF1kJ29Pe
-	 ydz/pU++lu8a2UUOfVgnSDu4DvrR4M8EgwZWVbXAijdmCtJlMpHHSPILB9MIY+x02TDUL
-	 VAZMXJuHVH1WtjZwrDSt45zKFZXLTTL5RY6LbrUK68pYUodiVGNZ/BszOzcgTI9RKsULP
-	 hB77Ayj0fCJHsunQluQBxGuPrEEghr6mH2ejV4fnNekwyrUIBhdvoVpeUiVUl69IAAg==
+	t=1795077514;
+	b=pgDsUs5lw2gz22mKiKmRP3TyaN3aphbB9sJfKkojvhl3Oxh58ZX/PBibB3Nydwojq4Ma
+	 5u/+thUaJ3HEtPyGvwDYBvD3huEnnWNS5PlL55s6A/yAF3OsrlWm8DUItCwD2xAUzoRC+
+	 qWWmSLUt3XU/dSF+FY0FCDorCGGXMfN4sRbwQgYM0F97Ypp2MpqKievUM91WkdOqXCFjy
+	 meKvVnEqYY6Aj0fLQY1m5biXs2YhcKnO+pm3a+n39uGF8+mpd34+erU5mZzuwftGN6+RD
+	 YRUP7sgrSKOnJXRhSpxbmdVnKUn+7bKkH0z3PffNJfduOAaBdp0pPduJ/XVACmYkvXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795077261;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dP3y9LfuJCevZvvA+PZYGeaqMsVwR5fMNr2PjeoMC+k=;
-	b=pvh4j6MmvJyjS0NIGvW5QppZb4ZClOFk4I3UiMwseCubexTeMfXi7cn6erGz7O1eQtjx
-	 fq82EHKnqrGTVAa2eY7goygQJ00PNN1jYz/AnZQXJs13ncreTak07o4PsudB7ER6+QdhO
-	 lluP32657mY4ExquqSB7WeLLR/LWGwyMXlZXqJW1RgHXgc0gxzMlXt51RooJWB/eV/FYg
-	 1ydZ77STDNUKY/l1epeqI9keeVsaBDAICYt1imlEpDw7f33/hUf/8yMUaJQHvzQAgGTSR
-	 5EeHTHh2kWrTdlcIujQc5MVr/PeNzopMVEic22r1PJ5i50gDURX63jn+PIlJGEppuXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795077514;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-Spam;
+	bh=4qnkKXVLfR9dHrecU4cjyuI/0rJgMrWvUcQTGWejsbw=;
+	b=TJjLcsLR1KrJWcCjNGt25Go/9OrLMq/1x06ZU335YVSERTbZxM8gsWBPsrCJdUeNPytf
+	 B9I2kF/znHyZBX4gkcERwCzNOktwamGxQx8oFzh2BjgCYhLXneuZq99dY2R2qEEre8cER
+	 kkAyi9xXSPFOfL2f7DEEsVjEwQgMtpqU5vF1mwC1bXICKVEQDYStbuRIkuMx3sqLqhr4D
+	 kzFOz1EAZrtSbIZC3MI92QsWVhSXl7F5rOLzDIhknzGqdhzom7JvZlqHHDKUUhiQDgo99
+	 WQZzn14sUrs3CgQsG3Wnja3rPW0KjkqjYT05qR/i+tgpStx2zSUkfeSQQXvcGnqOvkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=becholey.ch;
-	spf=pass smtp.mailfrom=becholey.ch;
-	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=bg1CK1+L;
-	arc=none smtp.remote-ip=185.70.43.20
-Received: from mail-4320.protonmail.ch (mail-4320.protonmail.ch [185.70.43.20])
+	dmarc=none header.from=altlinux.org;
+	spf=pass smtp.mailfrom=altlinux.org;
+	arc=none smtp.remote-ip=193.43.8.18
+Received: from air.basealt.ru (air.basealt.ru [193.43.8.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09B4606A320;
-	Thu, 19 Nov 2026 08:34:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B09B4606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=bg1CK1+L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
-	s=protonmail; t=1795077257; x=1795336457;
-	bh=dP3y9LfuJCevZvvA+PZYGeaqMsVwR5fMNr2PjeoMC+k=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=bg1CK1+LEQFwgYvzqXraiNLRGwMhG9cx10x5aQ6SGD4DlKrJEkiT5PZEpvPJ+B+2M
-	 +x1Rgd9ZY2azlaeS9BRoepZw8unnMUx8CCaUYrcwF1ACHIVjVVSzhl0o2MVI4cznbs
-	 rWjdQyCgavk+wxx9zdo/z2S//mpHl222qUAt6+icMCCSVU/ROQ/R02fog+dhzRWJfB
-	 IsNe3sHgL8ProI83YuazKKryBqL3+CD68aVvlpsFecGBwhmRQB4I/R6KX/SzDiQbs7
-	 GD73uBPLjIxJuMr2b4dC0Mmoo5MlXpR73LGpTzXZqKuZaecUZmuoJx+FA4KsUvdCzD
-	 D5NMYhZc6RRmQ==
-Date: Thu, 19 Nov 2026 08:34:12 +0000
-To: Michael Krufky <mkrufky@linuxtv.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Charles Kim <ckim@maxlinear.com>, Asaf Fishov <afishov@maxlinear.com>
-From: Alexandre Becholey <alex@becholey.ch>
-Cc: Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, linux-media@vger.kernel.org
-Subject: [PATCH] media: mxl5007t: release tuner state when attach fails
-Message-ID: <20261119083359.530446-1-alex@becholey.ch>
-Feedback-ID: 60743817:user:proton
-X-Pm-Message-ID: 81f33d76bc318d7eccb58d9229a271231fede0ac
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C59B6606A32F;
+	Thu, 19 Nov 2026 08:38:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C59B6606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=altlinux.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altlinux.org
+Received: from workstation (obninsk.basealt.ru [217.15.195.17])
+	(Authenticated sender: petrykinpa)
+	by air.basealt.ru (Postfix) with ESMTPSA id DB5F6233C0;
+	Thu, 19 Nov 2026 11:38:22 +0300 (MSK)
+From: silverducks@altlinux.org
+To: linux-gpio@vger.kernel.org
+Cc: Mika Westerberg <westeri@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	linux-acpi@vger.kernel.org,
+	stable@vger.kernel.org,
+	silverducks <silverducks@altlinux.org>
+Subject: [PATCH] gpiolib: acpi: Add ignore_wake quirk for Gigabyte B650 GAMING X AX
+Date: Thu, 19 Nov 2026 11:38:13 +0300
+Message-ID: <20261119083813.390337-1-silverducks@altlinux.org>
+X-Mailer: git-send-email 2.50.1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,61 +55,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Spam: Yes
 
-mxl5007t_attach() takes a shared tuner instance with
-hybrid_tuner_request_state() but sets fe->tuner_priv only on success.
-When a register access fails during attach, mxl5007t_release() finds no
-tuner_priv and the instance stays on the global list, still pointing to
-the bridge's i2c adapter. Once the USB device is gone, the next
-mxl5007t_attach() walks the list and uses the freed adapter.
+From: silverducks <silverducks@altlinux.org>
 
-Set fe->tuner_priv right after hybrid_tuner_request_state(), as the
-other users of the helper do.
+The firmware's _AEI table on the Gigabyte B650 GAMING X AX declares AMD
+GPIO pin 3 as GpioInt(Edge, ActiveLow, ExclusiveAndWake). gpiolib-acpi
+requests it as "ACPI:Event" and amd_gpio_irq_set_wake() arms the hardware
+S3 wake bit for that pin. The firmware then sends the signal a few seconds
+after entering S3, so the machine resumes on it's own six to ten seconds
+after suspend.
 
-The bug was found, and the reproducer and this fix were written, by AI
-agents (Claude Mythos and Claude Opus models). The analysis and the
-patch were reviewed by a human.
+Pin 3 is the only wake signal the OS can see for the whole GPP7 PCIe
+domain, and GPP7 has no _PRW, so ignoring this wake flag is the only way to
+keep S3 reliable on this board. Wake from USB keyboards/mouse and
+Wake-on-LAN through that domain is lost as a consequence, but I figure S3
+not working at all is worse. The power button still wakes the machine as
+normal
 
-Fixes: 2a83e4d5e40f ("V4L/DVB (8528): add support for MaxLinear MxL5007T si=
-licon tuner")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexandre Becholey <alex@becholey.ch>
+Quirk tested on upstream kernel v7.4-rc2.  Also tested on stable kernel
+6.12, which is the version where the issue was originally diagnosed.
+
+Signed-off-by: silverducks <silverducks@altlinux.org>
 ---
-A device that fails one tuner register access and then re-enumerates
-triggers it (KASAN, v7.3.1 and master 9d66f26fefac; clean with the fix).
-Reproducer available on request.
+ drivers/gpio/gpiolib-acpi-quirks.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
- drivers/media/tuners/mxl5007t.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/tuners/mxl5007t.c b/drivers/media/tuners/mxl5007=
-t.c
-index 03c46a62bf26..4a765a7b0ad8 100644
---- a/drivers/media/tuners/mxl5007t.c
-+++ b/drivers/media/tuners/mxl5007t.c
-@@ -844,6 +844,8 @@ struct dvb_frontend *mxl5007t_attach(struct dvb_fronten=
-d *fe,
- =09instance =3D hybrid_tuner_request_state(struct mxl5007t_state, state,
- =09=09=09=09=09      hybrid_tuner_instance_list,
- =09=09=09=09=09      i2c, addr, "mxl5007t");
-+=09/* let the fail path drop the reference taken above */
-+=09fe->tuner_priv =3D state;
- =09switch (instance) {
- =09case 0:
- =09=09goto fail;
-@@ -893,8 +895,6 @@ struct dvb_frontend *mxl5007t_attach(struct dvb_fronten=
-d *fe,
- =09if (mxl_fail(ret))
- =09=09goto fail;
-=20
--=09fe->tuner_priv =3D state;
--
- =09mutex_unlock(&mxl5007t_list_mutex);
-=20
- =09memcpy(&fe->ops.tuner_ops, &mxl5007t_tuner_ops,
---=20
-2.53.0
-
+diff --git a/drivers/gpio/gpiolib-acpi-quirks.c b/drivers/gpio/gpiolib-acpi-quirks.c
+index 3f89a87601c1..5455784e67c2 100644
+--- a/drivers/gpio/gpiolib-acpi-quirks.c
++++ b/drivers/gpio/gpiolib-acpi-quirks.c
+@@ -465,6 +465,23 @@ static const struct dmi_system_id gpiolib_acpi_quirks[] __initconst = {
+ 			.ignore_wake = "GTCH7503:00@10",
+ 		},
+ 	},
++	{
++		/*
++		 * Spurious wake from S3: the firmware _AEI table declares AMD GPIO
++		 * pin 3 (GPP7 group) as Edge/ActiveLow ExclusiveAndWake, so gpiolib-acpi
++		 * requests it as ACPI:Event and amd_gpio_irq_set_wake() arms the
++		 * hardware S0i3/S3 wake bit. The firmware asserts this signal during
++		 * S3 entry regardless of the PCI wake sources configured by the OS,
++		 * waking the machine a few seconds after suspend.
++		 */
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "Gigabyte Technology Co., Ltd."),
++			DMI_MATCH(DMI_PRODUCT_NAME, "B650 GAMING X AX"),
++		},
++		.driver_data = &(struct acpi_gpiolib_dmi_quirk) {
++			.ignore_wake = "AMDI0030:00@3",
++		},
++	},
+ 	{} /* Terminating entry */
+ };
+ 
+-- 
+2.50.1
 
