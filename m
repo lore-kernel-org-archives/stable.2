@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795094384;
-	b=fsQpr6dbH6uxlgFWtpRVJ0/L029BC+HPsx37QGPMuD2A5YsuHi6FxJ3s+WiYf8IOzd0V
-	 pBfCkhRm+gpk4+cFhLH/GsI1abKytbmOoLO8mbJeTMzt28wo8K+bVhAnqwit3McYhSx2N
-	 aVoZMqnfGyjMVm2IqpdYZe36e2hBt6e69h/Y6DXKjb0QSEa3StCl79da7p3CBTZuEYWpq
-	 kTzY+b+RYNFMjnG+q88e7VivutySiU+oIbRzxU8pCtQS9h/xqBF0gkwo+ouKN0cxKTQdJ
-	 cg2zvKaxMGI2z4+DS0bw4nMZTbMmlP7YYu+n1g33EGaTskhq8KrjFuVM3isYi/m4ycw==
+	t=1795094389;
+	b=wXUOBQ/58DbtZ3DsUNXNueZTrdoRSe1QvisUjkx/bIkjdFa+dlWirmficEPIJ9S9dn4k
+	 57qsiaqp2hfs/xlsjpAb9ukfpsRac07pYa1yilxnNEmavyC1gfwdljG1FCeaNXjwWuxz4
+	 8NQnwZ/ohWaCKL44ABRcqh1pCT2DFBxXZ5TmL0aYaGNx9Ls4p08LM2q6MwjkrAdUUwbMH
+	 oYsymR6eem7DlXfPawo1YAX1YnwPKb4lyT6gy0fZZaolAiPudYjFpYqEuVNznLWlgSUVa
+	 Sv4oObaQlQ9PPGqiug69O7/AgHatnVRXFfJ3VpciXStF+fNg1GSDUEJHOu79EfggWfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795094384;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795094389;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=tqYW6qfCA89hjEn5S9pqMagRU23Yv0iJY1QqK9VwBZY=;
-	b=0sIrkDT2FZ+PMpnLna+9Hau1H0Gn38Zuy8YPgC4zOyn95IezvXePCgTsAOlZnWNQkESy
-	 6cpIIjRXFeueDl9TLSCrJRETtE7ulpYIwLGpPztEOmHEqYV30f+sqX0TOKglosDlv95hA
-	 XpRLiYHr27QEIgNEIchhFeulQdGvIo2W1/J1xZCyG+Nzlmlr23FFpENGe0PRvO4RQ5XRg
-	 FdBTEaq3v2NeYgB0DHEohnVrIKMWWvxhh28zzFZHLeCP+bVPHEmAYUalfn30+XQpbAK27
-	 9ZgKRNK1d7QsytVVy0KZn949+OHCNWR4caOWTghaHZrRLqFoUfiBzq7ec00Gz3L5/0g==
+	bh=AvbwH9Y5JevoXi9lMUsj5Ll88ttiIsFxxF+BtKfWlmw=;
+	b=KyouJj4O0dBhbzetKdGA7te9JDC+k+VLar0oKCV0IQhaTkzLCE+YtJtBI/4DBKWYAZ+Y
+	 UsfhLZY0uQRYISQXvfQGJ0eldpvOxGQmXnRQdPpBDQiACxL0GU81h3hUa6BWlpzwuQsQw
+	 +3+9RXynDRqnhbbrq8CXK546hVeYSQqEG3PP3SijGith2AbQTBlYh5gKREp4n4WQmXUuS
+	 2r/f7Q+QbZT4yrkBjsS2IVG6IGBi7xQqGXhADdi531yuKG50zOO0+dolpZFGOhyrjq3NB
+	 a0SyAZiE3n4CqwclwLLYrmO3bm0AVjSXGRUK3jJKRYxi44PUv/kQuqcLsocBzDiYCLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUMdBXQW;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bsdMZiq6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7228F606A320;
-	Thu, 19 Nov 2026 13:19:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C460B606A330;
+	Thu, 19 Nov 2026 13:19:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cUMdBXQW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45BD31F000C4;
-	Thu, 19 Nov 2026 13:19:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bsdMZiq6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85DD61F000D1;
+	Thu, 19 Nov 2026 13:19:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795094384;
-	bh=tqYW6qfCA89hjEn5S9pqMagRU23Yv0iJY1QqK9VwBZY=;
+	s=k20260515; t=1795094389;
+	bh=AvbwH9Y5JevoXi9lMUsj5Ll88ttiIsFxxF+BtKfWlmw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cUMdBXQWPwrmExTjmd3k4UHdq3e3AF8tfw03kNLYOkIghQLXXrteSD0JgH7nrp1WO
-	 kDoUisHmRH+urygOeK5JGPGx/YP9DMmKH+lZrji6Xp5C183puetxI3m9ngILxtDYtv
-	 vRFkeav0jbcQx8gjVvCVLG4Qfya7FKTO2HvwmJ20X3pWeGuWEXyS/tEMZIn8pCvBwv
-	 /Me5CdsmwbHBwb2/mxWvPcSvDHoRMVD1p/skM/7VDHr/cJLWGAnqlrAmXb5DrWltS6
-	 Jw2gLuAniYfQvNFrldjuaJQJ2TgqA1b9qCulsW0iVZWhCgEQfmBNuc84UbEngjXZA+
-	 os/qBDoL8d0tw==
+	b=bsdMZiq6Eiul/chqMrOMove8RWik4U638CdUM/Ho3cxG20J1TXFbRIyMdmcxChAMg
+	 IxoDA9xRArEP/4K/+izpDc2Gx5/3SivsubFflekLq/Tb/rdX9Iry31StAJApI3M+Gn
+	 MjKv+g56ACMIh8LD5okcyPJTJUwfT/aQV/IdX89Ixf8qPkUmFCgqhOZw19e1CSHgXA
+	 OntwljjtP6c/vpeszQL9S8ix3MlNSsH9yT1Jx6sny/vbNrd+equmj312s/paMy9B3I
+	 AgnvWLLNQNmhP529ieXoJspvgk8+KYa/LeFDpoLLurp03lFmW78VZ4h2mQP+VZdyli
+	 sXILWAh4vsmXQ==
 From: Philipp Stanner <phasta@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -62,9 +62,9 @@ Cc: linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/3] dma-buf/dma-fence: Ensure correct ordering in dma_fence_timestamp()
-Date: Thu, 19 Nov 2026 14:18:29 +0100
-Message-ID: <20261119131830.2535266-3-phasta@kernel.org>
+Subject: [PATCH 2/3] dma-buf: dma-fence: Add dma_fence_overwrite_timestamp()
+Date: Thu, 19 Nov 2026 14:18:30 +0100
+Message-ID: <20261119131830.2535266-4-phasta@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261119131830.2535266-2-phasta@kernel.org>
 References: <20261119131830.2535266-2-phasta@kernel.org>
@@ -79,50 +79,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dma_fence_timestamp() tests two fence flags with test_bit(), not
-providing any ordering.
+A fence's timestamp is just an opportunistic data point for debugging
+information etc. drm_sched, for example, uses the timestamps for its
+scheduling algorithms.
 
-The while loop + cpu_relax() seem to satisfy the desire to avoid
-locking, effectively rebuilding a locks spinning behavior in the rare
-case that a fence is signaling right now. Contrary to proper locking,
-however, correct memory ordering is not guaranteed.
+In rare situations it can make sense to allow users to overwrite a
+timestamp with a more accurate value. This is relatively harmless since
+the timestamp has no meaning for the implementation itself.
 
-Ensure correct ordering with locking.
+Add dma_fence_overwrite_timestamp().
 
 Cc: stable@vger.kernel.org
-Fixes: b83ce9cb4a46 ("dma-buf: add dma_fence_timestamp helper")
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- include/linux/dma-fence.h | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+ drivers/dma-buf/dma-fence.c | 28 ++++++++++++++++++++++++++++
+ include/linux/dma-fence.h   |  1 +
+ 2 files changed, 29 insertions(+)
 
+diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
+index bd58688b81a7..f1b7e90864bf 100644
+--- a/drivers/dma-buf/dma-fence.c
++++ b/drivers/dma-buf/dma-fence.c
+@@ -412,6 +412,34 @@ void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp)
+ }
+ EXPORT_SYMBOL(dma_fence_signal_timestamp);
+ 
++/**
++ * dma_fence_overwrite_timestamp - overwrite a fence's timestamp
++ * @fence: the fence whose timestamp shall be overwritten
++ * @timestamp: the timestamp
++ *
++ * A dma_fence's timestamp is merely an opportunistically evaluated value to
++ * obtain information such as scheduling granularity. In some situations it can
++ * make sense to overwrite with a custom value. This function provides said
++ * functionality with the correct memory ordering.
++ *
++ * Return: 0 on success, -EAGAIN if the fence was not yet signaled.
++ */
++int dma_fence_overwrite_timestamp(struct dma_fence *fence, ktime_t timestamp)
++{
++	unsigned long flags;
++	int ret = 0;
++
++	dma_fence_lock_irqsave(fence, flags);
++	if (dma_fence_test_signaled_flag(fence))
++		fence->timestamp = timestamp;
++	else
++		ret = -EAGAIN;
++	dma_fence_unlock_irqrestore(fence, flags);
++
++	return ret;
++}
++EXPORT_SYMBOL(dma_fence_overwrite_timestamp);
++
+ /**
+  * dma_fence_signal_locked - signal completion of a fence
+  * @fence: the fence to signal
 diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index dd07d128adc3..34aefb63a7fe 100644
+index 34aefb63a7fe..815471b844f0 100644
 --- a/include/linux/dma-fence.h
 +++ b/include/linux/dma-fence.h
-@@ -708,13 +708,17 @@ static inline void dma_fence_set_error(struct dma_fence *fence,
-  */
- static inline ktime_t dma_fence_timestamp(struct dma_fence *fence)
- {
--	if (WARN_ON(!test_bit(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)))
--		return ktime_get();
-+	unsigned long flags;
-+	ktime_t ret;
- 
--	while (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags))
--		cpu_relax();
-+	dma_fence_lock_irqsave(fence, flags);
-+	if (WARN_ON(!dma_fence_test_signaled_flag(fence)))
-+		ret = ktime_get();
-+	else
-+		ret = fence->timestamp;
-+	dma_fence_unlock_irqrestore(fence, flags);
- 
--	return fence->timestamp;
-+	return ret;
- }
- 
- signed long dma_fence_wait_timeout(struct dma_fence *,
+@@ -447,6 +447,7 @@ bool dma_fence_check_and_signal_locked(struct dma_fence *fence);
+ void dma_fence_signal_locked(struct dma_fence *fence);
+ void dma_fence_signal_timestamp(struct dma_fence *fence, ktime_t timestamp);
+ void dma_fence_signal_timestamp_locked(struct dma_fence *fence, ktime_t timestamp);
++int dma_fence_overwrite_timestamp(struct dma_fence *fence, ktime_t timestamp);
+ signed long dma_fence_default_wait(struct dma_fence *fence,
+ 				   bool intr, signed long timeout);
+ int dma_fence_add_callback(struct dma_fence *fence,
 -- 
 2.56.0
 
