@@ -1,74 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795069387;
-	b=wGTrXgbPykxNDOGVZN6J33vXy/tXNdUIflGjm0c2nYeuLzR6eqrmJ2jkjyCDe0sJFssF
-	 Gjd4PZ22uE0Zuf07BPuylIZqvp/2EiqqZj0TW1YE0TC2J6lndc5OXmqz2gGedsDC8OrEn
-	 K+CRWNgCQGz+KfSjLMVTaWa1XOpJhu8NyKoh5oEHwz5A6bk6NHHcj5KP6bPkt4oPsrys7
-	 HVhXrXT9E5xhr/uRciNz7+3wOzSE/dztKrim3VQatYXDu1IkP+M4F5bn9DU2No2G345U/
-	 CFZgyz6Op9T0rF9YCZYsZIMrzLbAplfsrAYWtdV/PjDq3kOVqSjQMr+vXYO4vlpfWGg==
+	t=1795069438;
+	b=0zuA7kfWieMu0R233MA8Q/fWHDvGC/Ms7wmn2KQIb4bEjXVheojlROz2iDHWFEX+tsO9
+	 rqvs1Cjez43QnIqWZtrmKJxbEHg4gxfaTxYOr7uybgzrr8MkIThJcTRggAXMjI9SzfFaG
+	 vinsISY4RdL8MYKQUKeHeYBsk9rbtJao/FVl/g73rsMKlCGPfcg7G01UpdvzxIW8xkpRp
+	 jMdQ1CnOnxySQfW2V18tLOg58BnxMVhQAOlQ51Zt+h94ryG1wTx5+JXhY7yD5LLbW/4G/
+	 baynKQWz1i8/WLhToinXpQ8h/FL9pFKhwnXkLL9ne4Oc5aowlQsPQlVxr12I50jerMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795069387;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=V3V+gW+4QnpXlZqmDyQKdC1vPF8DCpUTnjwDnqaNguw=;
-	b=lhxgCb2K98d7tZN9FuthMtI7j9VWCFWKl2mBT9kz4T294l59/BHoZ6N3IMEs6rOa/Y2c
-	 tWe48uAH89uQHdrwpf2L0jdXaPEup4pNuE3sdYQZ77bvBgHX0kUMwm2qOhYl6hPiZtOfP
-	 1ypGzbx0fZjD+ajUeFgkk1XhKTqYvT2KAwGOSDVnxyHNUhbjVh7ncAV8k9uFZXLbpSstZ
-	 mz0hgYyZBx1x9jMvviz2Ou7LKWdwR6eScSSdUwabVzYyEX90NLsoFQqnw2xjW2ildWESc
-	 O0iO7PjX/oJm6yW+30+7Ane5ZustLnxbO9ii15+iK8eslkdTlcQoxPQmYhDkOXSpPsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795069438;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=oj2zs7YpNjut+Fle9NDI2/nVbuq1xcuWOh/20pAlrQ0=;
+	b=s3tkgzYJkcpsUA+Nw1aGNm4ArJbdTfhLKelINm5eGy6N/Ym74E48BAfUn9itCETiCTU2
+	 YcfcbKDa7+K9TfU0C+JnpuDhP7WmCklwJ0uMgi3XJfOcETYsXzInw4V9kJVw8OqSBMUpH
+	 UcRp3tWSJnSIPPHLJNxvSAguVc8brajohVDENEakRaeBHBynLzvU4bVJQOeY9D/G8k4eb
+	 GgtG1fBitq1QBkw1qXxLUfEA8BOazq37DYAFK72gA/j9GKCCz429jJ3A6hMzA3Udrct/x
+	 5WEyx7QTF2ldn+vdJFkQ1RLQ858wKxNij4jcYKtfurXP+XCRiAJPvAdwf9PbIkdRS6A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KOgBuV34;
-	arc=none smtp.remote-ip=209.85.214.197
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmobXEA8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E65606A325
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 06:23:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39E65606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D3E7606A326;
+	Thu, 19 Nov 2026 06:23:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KOgBuV34
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2eddadcce7cso11230585ad.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 22:23:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795069386; x=1795674186; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V3V+gW+4QnpXlZqmDyQKdC1vPF8DCpUTnjwDnqaNguw=;
-        b=KOgBuV34NzYfNY8Y7g70SamQjhVlLaZKeKfEStrlLEqNrkjEQMxs+mWIdztfPe2IuW
-         ld2bTPY+ZMcX8gQxhvn/YUwDKaBBodHQNG27lxWcTw3Xp3cQRZeW5kKOtH5pWWqI5lRs
-         td4jULqH+ziG/zKS7VwPoDi2kgyXbjx9DRxm4njhquRZnAWZUmh/Ih3KffQXWQyRT+Mm
-         1rsg/R2Ej58t6Qrk4pSFNyypN71dg4Pfuci1g71q36JkoDt/v6o52jJeA4FJTij9QmW8
-         a5s/bCeUqPkm4q1kxGmovmgSvFhNXKf2s9o6x8BTnK2qwSksvKwBboTij8xvZRvF60YT
-         8WEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795069386; x=1795674186;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V3V+gW+4QnpXlZqmDyQKdC1vPF8DCpUTnjwDnqaNguw=;
-        b=wRL5FdRvzZLIY/y9ndtzuHgLCXTVoD3MV4S6qrQ5fGp6CclD+zn3qM+Y9fMl1b9BGx
-         e/CDx4vGYjy1Y2cRmkCULwBNOLatjLEnFucNghxk5TpoKhikyH9Wicy2H3ZiciYkzjlz
-         vs0QvLSAG1nBiFam78fHQcuFdxoFzwlSn789zVvYNjS6zonwSr4+TsAjvniyQMeEGx6Y
-         5zs8khzaOygN3MM5NXa4EqPcjyi/wQ4fGTm4DFh2A9qNwud+eFZCGrdd6k9wzejEgSEC
-         CI69IDNs3pkYzKUhThpJaLv2m4IJfvcGJqwp6D8ZhzTzrULgCN3ALOTGCvYqDuU5T7gr
-         EUoQ==
-X-Forwarded-Encrypted: i=1; AL+hErFu9u9fnfkl4jmmUZFaJBDd2X6Ph+Ln8QFePq1vHwIvfoAm75svQjqmbgxGpWcytZ/zLBwdrkU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9BgZdZNrn5bMr+wluQk71IR8HAPQKnY++zUvzKn3aGNnzLJjti
-	Ehp/26p1qLeGa9sincHDplmSMslPrMQqmMizlLFcRZ6sPPv8oUJho7XUcAGCi5+WsF4bFSSevaY
-	cnl2RXg==
-X-Received: from plgi10.prod.google.com ([2002:a17:902:cf0a:b0:2e8:f377:a4d4])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:903:19e3:b0:2ef:ced7:9ff4
- with SMTP id d9443c01a7336-2eff740c243mr51107455ad.31.1795069369890; Wed, 18
- Nov 2026 22:22:49 -0800 (PST)
-Date: Thu, 19 Nov 2026 06:22:49 +0000
-In-Reply-To: <0907415D86226AEA+20261119025619.3485277-2-guanwentao@uniontech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmobXEA8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4498D1F000C4;
+	Thu, 19 Nov 2026 06:23:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795069438;
+	bh=oj2zs7YpNjut+Fle9NDI2/nVbuq1xcuWOh/20pAlrQ0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nmobXEA8BY8H8yKoYGfvS0Ym1tOcAYN3VYvO3aifoMfyvBhEffu08cnHXGZi90qJq
+	 QPPnALrqPsdSGnpUqLFx1U1BLh6b2xbWNFj6sYAX60Zij//ti3LZ5PCp4v6DB11nAX
+	 qyr1iV3XTig+OHxucPEbnM/2ky0hnz4S35tShrs+zNPWYLezw70BpRORDfL9jmKywi
+	 cMcisIhbu0W1ZRg2B/wamV6+reVmqxe4N+ctPFYMCD20aPx+kDnrtMLJv5U3vpKUlh
+	 dImjPnrVV/n21OrQmhXY8XIQNGX3d4Ak14Cls9ddcWn69aJlkO648bBJOwhgLBk9lh
+	 qK47uGlQ7L36g==
+From: netdev-bot+sinfo@kernel.org
+To: Fang Xieyan <fangxy@xiaopeng.com>
+Cc: Chandrashekar Devegowda <chandrashekar.devegowda@intel.com>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+ Ilpo =?utf-8?q?J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+ netdev@vger.kernel.org, Liu Haijun <haijun.liu@mediatek.com>,
+ Johannes Berg <johannes@sipsolutions.net>,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Lin Qiaojie <linqj@xiaopeng.com>
+Subject: 
+ Re: [PATCH net] net: wwan: t7xx: validate PIT data offset before skb_reserve
+Date: Thu, 19 Nov 2026 06:23:56 +0000
+Message-ID: <179506943682.3291.10326179398413921657@kernel.org>
+In-Reply-To: <20261119062044.72261-1-fangxy@xiaopeng.com>
+References: <20261119062044.72261-1-fangxy@xiaopeng.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -77,43 +69,27 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <0907415D86226AEA+20261119025619.3485277-2-guanwentao@uniontech.com>
-Message-ID: <av6VHCsEnrAMOx0M@google.com>
-Subject: Re: [PATCH net] tcp: cancel cloned request timers without waiting
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Wentao Guan <guanwentao@uniontech.com>
-Cc: edumazet@google.com, ncardwell@google.com, kuba@kernel.org, 
-	netdev@vger.kernel.org, melotti@google.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 
-On Thu, 19 Nov 2026 10:56:20 +0800, Wentao Guan wrote:
-> When a cloned request is migrated again, its timer has the same lockdep
-> class as the running request callback. Using timer_delete_sync() through
-> __inet_csk_reqsk_queue_drop(..., false) can therefore trigger a
-> recursive-locking splat and disable lockdep.
+Hi!
 
-This is net-next material.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-> 
-> The clone is unhashed when inet_ehash_insert() fails, so
-> reqsk_queue_unlink() is a no-op. Its timer is pinned to the current CPU,
-> allowing it to be cancelled without waiting for its callback. Use
-> timer_delete() and drop the timer reference directly instead of
-> synchronously deleting it through the queue helper.
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by LLM and not proven at runtime). If it was triggered
+   please include the symptoms, like the stack trace or kernel messages.
 
-This change depnds on 4e2b3ef19e0e, without that, __reqsk_free()
-frees reqsk immediately and timer triggers UAF.
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account.
 
-So please mention the commit.
-
-
-> 
-> Fixes: 97c8a3c1f73d ("tcp: Fix potential UAF in reqsk_timer_handler().")
-> Cc: stable@vger.kernel.org
-
-Please drop two tags above.
-
----
-pw-bot: cr
+*IMPORTANT*: If you do repost (for other reasons) - please include
+the relevant info in the cover letter or commit messages.
+-- 
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
