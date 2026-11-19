@@ -1,72 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795105923;
-	b=ngsipipkn+CIjV5jomhcfe1ZPie5PuiQ2j78yqLMyOm1YsqY9SHHHTLJtiWD6xz0Khkk
-	 muC/LPa/Maxopamn9VjbtSxOzmxQZkqDZIVyUC1ZVyVWLrNkOmN5lsm4jg0oYHT7OQIfN
-	 bDyXPExTb8HK8iacnSWI/cKIJgctDRRKswZHs2+u1yzeRcsQdhKUsu9TOPCL5vuihTOXA
-	 oLEPWidt3FtC3R6VcUxU7SF8Z6V8w1yss3EBNUSl2PdXZ4/Ob8W3j3OAvETJf1JeExxKP
-	 M76+caJLtNH+X1aeEBB/qGLpxR84OCFtjVYks8a0Tvd4+0PRQav4vDNvKt8f18QuPfw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795105923;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=Y4L+6oVmWqwrFfx2LJ3E+02/7jmDMc+Yi0esheg1PZo=;
-	b=xxOdLzYTyx2rUQQ7MzZAy49nk263OHhBBLXWN/7TOoMbh/C4xa8ss0XzIShy4IdH/n+/
-	 hoAKrfHNl6XQzV2uHt1viXwdEl4euizhnbTlaeTYCTF0m9rMKouqBvmyKS0JKEv8GbOkI
-	 oetso1CZLteOkH0+xN3wFk4Dc6Oo5L/cqjwfBb69ZqH0SftEQmgv29eI0JF9PAjmzsl/H
-	 V2t3A3sv3pqvFpn0TemvPRCW+fg052Prw8X+rY4IPZPkp+QYrmKAoHFwf5bivKW42Ie6I
-	 bW/Zdn0/+yxBg/rYm0npYk5QUmDGfw8xwfcWHjifDmDtERQCpGGxqTr4r9+WkWTB0LA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SEdJ2gix;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795106509;
+	b=w/ec9qzbPC2bqcYkZ53jYUpoKGngTL1IJlsv51uBsilA4mTh/8oph4kK38b6/LYOdfLF
+	 31mkJCs90d/8X9LqrAiNINZk9rKmpOxNQlo1TLXxqY+IOp5OFkNuDCypJLDno4s5Uzs+i
+	 nHQrSG8h6vggTdXBwNop/WtcWGjRKuIvSyYGiHI5m2e9lP3ibCjXPmDvdRqEXx5H3PQTe
+	 wdsTsadhwa3ub2fkwvWjNhL3PnNh8anwhl/p1WlUXRMN+vHMFbbD/X76u7vJMaBPiBOJK
+	 SIYKV2OciiJSLpsuEm4bipu3seqDn7a9a1PF9+l64B2t23mgNSWV8E6v13ihmlSDR+Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795106509;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+hgwoC1mnHPTdL47hn44vDvOyskXgKTvzaFRmNqiUuw=;
+	b=SiXPOCHPppB/U1yunHrSmKe5TG0rTen9X6qadQO44sBUIoly0/trtIcbPst6HGYEeV/x
+	 DfhTdZ64E7aWQrdoxNmG2KcdxWzZw/BONlKpINA5kxq3dkU05Hs3clcT8xu1pvNeb2Grb
+	 QUnQLllseG071P9rt4PEUU4RAYmF0RKm3blsEBnehsefiBhDeXzvb+nvAaPC8XDWOus+R
+	 Bf01f+wOyt3/KtJXVbaOLHAoDDprTUgP9oZ1XaW/YZTAWkSMaEZ57rVK77v2d7O0V7SKr
+	 bDuwdMoSpv8RNdYjNs1zHQ7KeJD6+i5sGggKt9n755agCoDaxCZGWAyRH34KMcw/5qA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b="nrps/ajE";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.65.44
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011044.outbound.protection.outlook.com [52.101.65.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDCA606A32C;
-	Thu, 19 Nov 2026 16:32:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31836606A332;
+	Thu, 19 Nov 2026 16:41:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31836606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SEdJ2gix
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBC61F000C8;
-	Thu, 19 Nov 2026 16:32:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795105923;
-	bh=Y4L+6oVmWqwrFfx2LJ3E+02/7jmDMc+Yi0esheg1PZo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=SEdJ2gixFVuzYzP+ru8fvUB8Cxdv+1ZP3Q959zolej54XHbW4rtTZnq0Ix6KsegGj
-	 OPVIpR0lDjbq0cTNq9cqVCvRO9dN21mIAHyMnjGdEagvszWaPna26n4KeUJN//PiDY
-	 TN7YnyDOOJewc9wkFPhusCjjRHuRfYN5tJagEh4ZyQwpzBeF2rLLF0g0kTgfbQ3TbU
-	 cbwEQHLSiFcijQ7SxQEvzN44a/RwkuO/Aj0wQ+lbp3wOeHETY84qIsAM99zvcL4GX4
-	 663rlB1T0xPt23bVZezzy8uQJjbZoQZOcZimguv3zI7/K5SPxS/dClhuAZbxU0eSfz
-	 Y9tm075JDb0HQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xU53I-00000000Yep-3czz;
-	Thu, 19 Nov 2026 16:32:00 +0000
-Date: Thu, 19 Nov 2026 16:32:00 +0000
-Message-ID: <86wlq8zssf.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Dan Carpenter <dan@pereq.eu>
-Cc: Oliver Upton <oupton@kernel.org>,	Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,	Zenghui Yu
- <yuzenghui@huawei.com>,	Catalin Marinas <catalin.marinas@arm.com>,	Will
- Deacon <will@kernel.org>,	Mark Rutland <mark.rutland@arm.com>,	Jintack Lim
- <jintack.lim@linaro.org>,	linux-arm-kernel@lists.infradead.org,
-	kvmarm@lists.linux.dev,	Karthik Bhargavan <karthik@pereq.eu>,
-	=?UTF-8?B?Q2zDqW1lbnQ=?= Blaudeau <clement@cryspen.com>,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=nrps/ajE
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=loLq2bQLUPmAWRri5CEpMSvvzZrkyszYO88oZqBoHAoWT4CB0ROcuY86yvaq7t0anbO7ftdGklwcMQjpyDYTBrMQNoJ+fjpHuF6N8OyqLBtSjcnOji6IVgIaNnV0M7vaP5XX5G/NN7rqiBtRl8eB8WgknhM942yv41RdGMB0KPfhUwQ1ZQyNelnfWlQsP2czQ99RQG+8mYhpWyXX1/IZiUpp6SYl34YxjWhPGNwdEqtFAtjT8tXcfCKVLy8JT32pYam1nP31uhvV/uFP8tti50khDb64sM+FqWCd2UqukQUPtMSctjAySCwDTHduVE74wwK+cikRRfdMHmy5qqVP5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+hgwoC1mnHPTdL47hn44vDvOyskXgKTvzaFRmNqiUuw=;
+ b=x5hoqXqYWvVlOz0hvSmS7ANBrfxAQX+Ih9ODkcgysQ+P8fIVTcu+sPD6+axl2sWYngJscSM0EQEOLnaNvbUSqlXthZVnJ2UVFO3t1I0jaiH08HemPVBtdKFm6m2X9y2Qa+kxSan2yLFXTSNGrfR04ksdKWXRxQxn8cAzzfy/B/o4cUDufcHBeYuWj2/oOjTdTJHmFDr7ByzWabs1N7DfogMyL6FwGA/1gkvAsuiol9A8dU6iYIeVI4OXDzj87WFq91Xw/HaoTCxq26e8QhE8Qx6eVQwXfADIjuYOvvoEWK+u9AOGOAkqxTZOP3gDnbGbmxGw4BNJSKLuivPWQAY2Jw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+hgwoC1mnHPTdL47hn44vDvOyskXgKTvzaFRmNqiUuw=;
+ b=nrps/ajEXl6S0YCY2JYBHtcPpsnPMaVhi6p+GQEXWMM3XXmaqB1xBVVCkx6L/z5tkZ0O4ntptMb4u2w9NhiJBPGwWGa5gBLYotADMM1WHxUm9vxXHUkDspnar+kSwnpr+R1iJPMCgTxvwl5erDXgyt1szcGd8JDDXb9Thlj6qGfgfYV5Zq2lkQAwAPbcLIxz74s0BsEqDbKur5a0w+la7uGfAXpCZIBxrPliq3j/SZyLNcMmtWmUdwAf0lHEB1LmxQ/JComXSnkx22LgJywPngojYJfT7uzF3jwrbr5fuSb1uTCSVfOOkQ8uVtC0k9JsbuU5ioxPwhTL4oLpc0pt0w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AS1PR04MB9239.eurprd04.prod.outlook.com (2603:10a6:20b:4c5::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.10; Thu, 19 Nov
+ 2026 16:41:40 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
+ 16:41:40 +0000
+Date: Thu, 19 Nov 2026 10:41:31 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Sergey Khimich <serghox@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Sia Jee Heng <jee.heng.sia@intel.com>,
+	Baruch Siach <baruch@tkos.co.il>,
+	Mitch Barnett <mitch@accuratesound.ca>, dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Wang YuWei <1973615295@qq.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] KVM: arm64: Trap TCR2_EL1 writes when S1PIE or S1POE is hidden
-In-Reply-To: <20261119-nv-tcr2-v2-2-3deb1a6cdba8@pereq.eu>
-References: <20261119-nv-tcr2-v2-0-3deb1a6cdba8@pereq.eu>
-	<20261119-nv-tcr2-v2-2-3deb1a6cdba8@pereq.eu>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+Subject: Re: [PATCH v8 6/9] dmaengine: dw-axi-dmac: retain descriptors until
+ callbacks drain
+Message-ID: <av8mu_ZFxNKSgFTK@SMW015318>
+References: <20261119-submit-dw-axi-dma-stop-pause-v1-v8-0-f8e7fe60594c@gmail.com>
+ <20261119-submit-dw-axi-dma-stop-pause-v1-v8-6-f8e7fe60594c@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261119-submit-dw-axi-dma-stop-pause-v1-v8-6-f8e7fe60594c@gmail.com>
+X-ClientProxiedBy: PH7PR17CA0028.namprd17.prod.outlook.com
+ (2603:10b6:510:323::8) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,65 +103,138 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: dan@pereq.eu, oupton@kernel.org, fuad.tabba@linux.dev, joey.gouly@arm.com, seiden@linux.ibm.com, suzuki.poulose@arm.com, yuzenghui@huawei.com, catalin.marinas@arm.com, will@kernel.org, mark.rutland@arm.com, jintack.lim@linaro.org, linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev, karthik@pereq.eu, clement@cryspen.com, stable@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS1PR04MB9239:EE_
+X-MS-Office365-Filtering-Correlation-Id: 5e9e3260-fc62-47ed-f417-08df465bfc65
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|366016|376014|1800799024|19092799006|23010399003|10067099003|260925022911599003|11063799006|4143699003|260925021911599003|260925021311599003|261022113327099003|56012099006|261021130227099003|261022105027099003|261021135927099003|261021121427099003|261022075727099003|261102123227099003|261021123027099003|261022115727099003|261009223027099003|261026130827099003|261026140227099003|261026121527099003|261028144727099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	LsbqNOYcI5Xxz0VkcHtt43MdBaRRIyH9SeF6QQa91mG4vkxyyFZMVma22gFfbrb9PXEl75eW+jFw5ZN1/EALKPqWPwbUVWJ+yD5XVXjSUETXhcJp0/vMzUEDDmVAx15fm9sv/Xz0nziIm236qOQyvJVlECUJNAdWmsqNZBvTdLc/y5W6vYaSO/UPyzocRb9CzFEL03j15F97QYZ8hE982qFHoFnifIgMiEHEpYsHwYF1ulzlEoQO/Yv97Ql8kcd2xqA2uUOHxrl0+KS1hN3YFgPxmmgBeUekref7DHLwVW9lUxWNNLpzpinld7pI8qY643lL+wlmuZq4ih99Rqr1aiuTqhY27lfWPWjg22/Y3hpab08ridgFIX1lz2NVgh1fEkeJtTSPNOfIHnz8sJwA8hP9rs7thLtr3a80vEV+yPTq/oXE9RqJvugDjtw7xR4t1DKavZFJ0dLiRMdQq6jAg5AzNf1Spa5vBmmOVZMnlIt81Cfvqfce+ObfIkvcssV3Ei0HRV7uLrG742QyvE+pVqAdM+PB4U1J7j2jEjVb6RTUuZ9pkWbDKMvcKtu7Gk+WTeSFluQ29B+f1eYAFsFlG2MRXp7QqK5uDAU3EOCe23oIslkhM61pePJ99ODVVhmQ
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(19092799006)(23010399003)(10067099003)(260925022911599003)(11063799006)(4143699003)(260925021911599003)(260925021311599003)(261022113327099003)(56012099006)(261021130227099003)(261022105027099003)(261021135927099003)(261021121427099003)(261022075727099003)(261102123227099003)(261021123027099003)(261022115727099003)(261009223027099003)(261026130827099003)(261026140227099003)(261026121527099003)(261028144727099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?3oOlZ3NEH01XX7A4yG6s+eMun0XGPSp/WYnLp0qpFY5KR3DvYefrYxyuSgeM?=
+ =?us-ascii?Q?EYdjt8+D4HF8lep3lypGBYHFjkZoCD94WW0NrlMwYGLNnp7eX4h5Qpiz2/jT?=
+ =?us-ascii?Q?PQf/XIdrFnQ/vS/xi8liyMRasbGCdnpWYM/hfN4P/lR7w1h+Ys96T4N4wHrJ?=
+ =?us-ascii?Q?ddMvxubNCS2zcwmDOhzIQuGvtSPz7f6Fhh/7QaUMWeALkY5DxqpvjHuUvzQL?=
+ =?us-ascii?Q?VhomnQpoIEz+0pQwW81/e13HzdF26Db+hL5cd55DkvtQtSezoTx/wzg0fEI5?=
+ =?us-ascii?Q?5ZMofVlTCTJRBktT4B+1yelsrQzYusAFRIgnu9pBDya+bddNVYZuHJ0LzOIq?=
+ =?us-ascii?Q?K84LWG1aeme9hH8aaFzyGe6PPDIagvDon5LF3/jCN9mcj7Kkyx4LOn33i/io?=
+ =?us-ascii?Q?DtxJ127L9c8wZvva5QmgMAIHl5QjPUtlxSicMMMU3rq4OkTrTMP6iD4nEDC+?=
+ =?us-ascii?Q?kFcBYAAxNIPWjQN6Ze4nri/uMs4nDYqMDtzS5d56R37qBGS/ruTyp3vvbfq6?=
+ =?us-ascii?Q?5GyG48hApR0rpDGMCL6IY4vizsnZ9fPCXNDfrs2osdh1bTpHAbu/xo6sSee9?=
+ =?us-ascii?Q?ARlPWADcQ7CQ4N05hSYvh1vO1edzZMLCQghSk/r6YD5Ebbp5WATIYQJRQ7HN?=
+ =?us-ascii?Q?mn9Oiw1zY9omtN9fVGo0s/HdkaefJ1iZy2/kbgUv0HRVVXvlhdPUKU/AfCDP?=
+ =?us-ascii?Q?JF2jALUIFX4UES4JLOJ1Xw5CM4/NiGVMyLmXHBdo18v8pvld8iwmun6bKBqI?=
+ =?us-ascii?Q?7svFXEH8T75yRO9DenlYitmiRSw7n/yGpCCc2aWclPSUTSgDitS7UAqL9GFV?=
+ =?us-ascii?Q?JuebVE1r+2IgCiCd9HWalq2jt9JQTu+Hx3XKKnzFogZlpqOLvL+sgwL04Nv6?=
+ =?us-ascii?Q?WR0bPuDoee7jNloWVYgsvBqV6HzTEjHXPCYKARZKTo3c1a5W3Jw+CieoSlGH?=
+ =?us-ascii?Q?gIA00Px9e0m2AvnumG4a/3PEF4dX7UEfKHDaTqc+ITKSVWDme7V9JyCbUcgz?=
+ =?us-ascii?Q?mc46KJ0FPr+MnqBFSfz7jfnr/dyiKH3KdOJ4+7fjerJB5jIG8amS9zNUQ/lU?=
+ =?us-ascii?Q?Seh9szXSXtiX/uYIRfCEEe2LjsqvLrK+Ddo6TO79jDTdI66n+PLmtHtHJMur?=
+ =?us-ascii?Q?zo2vAH1Dj2boARQyPzY9gbVWwtbLDWYo1nFJMPd34O5XrLoLyYimHXjGCp4M?=
+ =?us-ascii?Q?9RKBx/RWJ90D3cCtvKKErtTHkI7iJEbJ5hGMkMRVcEj2ypOhFhchi4iyfMjC?=
+ =?us-ascii?Q?cjKFFWW9RHWeXnHH9OKuHl5JLviuo9oAmVb/vE5XZMaqlaRWAu7QqR37mnjj?=
+ =?us-ascii?Q?6/WuBK8wzO5LXnMmSgBtH9HamOXCanzzm9i4UCEcGdZvB7+tsrClEukN1Amd?=
+ =?us-ascii?Q?bmYHc3KTejxo6Z6vyrX+dfngR1eORs/VK6bcGGy6ga80jH7nWYGwvoBp/j+7?=
+ =?us-ascii?Q?8ndp1z1Da1y/ZhwxNCVSv+AlnjL1BgHx+GXU5fUb0k7nJBcgac9DfniHch5+?=
+ =?us-ascii?Q?znSfoPWJEqpT56REkLjuT7Ga5vw0K+ugQY4uzpji/GQndoN2egEgmGTD49MH?=
+ =?us-ascii?Q?hwpFXGEjIKBVzVx+3NtfGX9Fm5NS7CDEJpL0UoDQ2NHH970lN6Vvxd8VdLUe?=
+ =?us-ascii?Q?FT9XHI+wqagMREJ5nkRluPS45Bc5Wqg2TbdcLTCVzscC3aD32E3TWmkALUie?=
+ =?us-ascii?Q?LZy1l877LLwnWVqSBWJ8cXSXgV1YTtTnsgQH1Jlfr7HUSdNNULZIph9MF/22?=
+ =?us-ascii?Q?SUxYqqo/epXyFOlUQaTXwHe6geETsxl5jVGcK14tr5v73tNn0JK1?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 5e9e3260-fc62-47ed-f417-08df465bfc65
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 16:41:40.1640
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: f+NO1TLFvqs1Ir63ZjQALWWwGIILzChLNAAah4EnoBIfYCCGfev/KSD1TIXU1ryvp4I7Qyaz1pGi730tS2EHhhjkzDns3rYQ0r/BR6amJ6DWumsw+sDarPSx8oDznqeQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS1PR04MB9239
 
-On Thu, 19 Nov 2026 13:25:35 +0000,
-Dan Carpenter <dan@pereq.eu> wrote:
-> 
-> A VMM can offer FEAT_TCR2 to a guest but hide FEAT_S1PIE or FEAT_S1POE,
-> for example this is done to keep the VM migratable.  KVM then stops
-> loading the PIR_EL1, PIRE0_EL1 and POR_EL1 registers for that guest.  But
-> the guest's writes to the TCR2_EL1 register don't trap, and the CPU still
-> acts on its PIE, POE and E0POE bits.
-> 
-> If a guest turned these features on, it would run with the permission
-> settings another VM left on the CPU.  Technically this is a kind of
-> information leak and a guest could figure out another guests permission
-> setting based on which accesses fault.
-> 
-> For these VMs, set the TCR_EL1 bit in HFGWTR_EL2 so that writes to
-> TCR_EL1 and TCR2_EL1 trap, and clear the hidden bits in a new
-> access_tcr2_el1() handler.
-> 
-> Fixes: 58627b722ee2 ("KVM: arm64: Make PIR{,E0}_EL1 UNDEF if S1PIE is not advertised to the guest")
-> Fixes: b86c9bea6349 ("KVM: arm64: Save/restore POE registers")
+On Thu, Nov 19, 2026 at 09:01:01AM -0700, James Hilliard wrote:
+> Termination frees every descriptor while a pending period callback can
+> still refer to one through vc->cyclic. An executing callback has already
+> cleared that pointer, but still receives a pointer to the descriptor's
+> tx_result and can use it after termination frees the descriptor.
+>
+> An error interrupt can also move the cyclic descriptor to desc_completed
+> before termination. Looking only at the head of desc_issued therefore
+> does not cover every pending cyclic callback.
+>
+> Use vchan_terminate_all() after stopping the channel to clear the pending
+> alias and move the collected descriptors to desc_terminated. The existing
+> synchronize callback drains the tasklet before reclaiming that list.
+> Descriptors already detached onto the tasklet's private completed list
+> remain owned by the tasklet. Repeated termination preserves the retired
+> list, including when called from a completion callback.
+>
+> Fixes: 1deb96c0fa58 ("dmaegine: dw-axi-dmac: Support device_prep_dma_cyclic()")
+> Reported-by: Wang YuWei <1973615295@qq.com>
+> Link: https://lore.kernel.org/r/tencent_C00D995A9F70206DFD1330DCB1222EEBCB07@qq.com/
+> Reported-by: Mitch Barnett <mitch@accuratesound.ca>
+> Cc: Wang YuWei <1973615295@qq.com>
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Dan Carpenter <dan@pereq.eu>
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 > ---
-> v2: This is a new patch
-> 
-> This is only a partial fix, I will update nested virtualization in the
-> next patch and the !vcpu_has_nv(vcpu) condition in __compute_hfgwtr() will
-> go away.
+>  drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 5 +----
+>  1 file changed, 1 insertion(+), 4 deletions(-)
+>
+> diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+> index 99b648d4ca76..2547f9596ae6 100644
+> --- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+> +++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+> @@ -1202,7 +1202,6 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
+>  {
+>  	struct axi_dma_chan *chan = dchan_to_axi_dma_chan(dchan);
+>  	int ret;
+> -	LIST_HEAD(head);
+>
+>  	scoped_guard(spinlock_irqsave, &chan->vc.lock) {
+>  		bool enabled;
+> @@ -1219,7 +1218,7 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
+>  		if (chan->direction == DMA_MEM_TO_DEV)
+>  			dw_axi_dma_set_byte_halfword(chan, false);
+>
+> -		vchan_get_all_descriptors(&chan->vc, &head);
+> +		vchan_terminate_all(&chan->vc);
 
-No, I really don't want to go down that road.
+I have not found this function, Any dependence I missed?
 
-Trapping TCR_EL1 is an absolute performance sink, and at this point it
-is not worth running VMs (it puts everyone at the level of AmpereOne).
-It also puts the penalty on well behaved guests which should be able
-to access TCR_EL1 as much as they want without penalties.
+And keep allocate_queue when terminate,
 
-Yes, the architecture is terrible, and we have to work around it.  I
-can see two ways to address this:
+https://lore.kernel.org/dmaengine/20261104-dma40-fixes-v1-1-48c5180f5210@kernel.org/
 
-- load PIR/PIRE0/POR unconditionally so that they do not contain any
-  state that logically belong to another guest, preferably with values
-  that prevent any access (0 is a good candidate for the permissions).
-  It means that if the guest plays with us, it will lose permission to
-  its own memory accesses.
+Look like we new APIs to distingiush terminate_all() and free channel.
 
-- Move TCR2_EL1 to the sanitised set, and make sure that these bits are
-  never evaluated by KVM, and will be cleared on each entry (we
-  already do this for TCR2_EL2).
+when free channel, need clean alloc queue, but termiate_all() should be
+keep alloc queue.
 
-Thanks,
+terminate should means terminate all DMA engine own's queue, before
+submit, desc should be own by consumer.
 
-	M.
+Frank
 
--- 
-Without deviation from the norm, progress is not possible.
+>
+>  		axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
+>  		chan->desc = NULL;
+> @@ -1234,8 +1233,6 @@ static int dma_chan_terminate_all(struct dma_chan *dchan)
+>  		return ret;
+>  	}
+>
+> -	vchan_dma_desc_free_list(&chan->vc, &head);
+> -
+>  	dev_vdbg(dmaengine_chan_dev(dchan), "terminated: %s\n", axi_chan_name(chan));
+>
+>  	return 0;
+>
+> --
+> 2.53.0
+>
