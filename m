@@ -1,64 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795109549;
-	b=v5CpCUwthkBZW91oKhvCuV/XkTLWEucuRH5Q5uXHMrfaiO9MifJg9O1E+m9PBsBmlE/6
-	 0dh5X2Utc6ohnGwOxb/D2k18507LUSKB4IlNMkXz9an3jVLWR5XdKN6L3hCe42fYzVqtS
-	 5UItsJr5/JNjCBpFjlsdaApabnfODVsVZVy2EPxdIZgvGyzaDmahVmi74nGP9xpxQNeDn
-	 FfeXW08azPH+lj2dGbvYkhaO4bx54Gl+CngQEhFqnLKtC7APh216n0BhcXyMHWB/VeklX
-	 RF0F5sIz85xGf+OAYDzirRffs6dzo9JZ+YLr5z7tZybTBqx/50+p3O6lLGykqxqgAUg==
+	t=1795109662;
+	b=c/S3vXx6CjL0cqRdvUNh/1uONmJkdlIBHdbtranqJxqo3fyh95Aa9EmbxVFTD41upD4z
+	 yZ8YrhauIcdOlG7KW3Q2hw/G6HuJ+FgIzr1uoQZCQuAx84sJIELOKjFU50sBRUBNfoAL1
+	 60xKfH/mdu4eB9w+BRdfk6iaotyGwOJuZC3Mu0j2hMHxdnRQyKqhWjwh/6ieVgvpfuwWl
+	 Dgemape0vN5AXcriERgx/SPDQuGF+RchEASLVKGMXFk8R5AOH0cBpDQxdIP3FYOaGpNdn
+	 7mTD8QKhnGDkkpBbD6LUdp7eexL9x5nYdSOIaF9Sgd2D2zAj1zHuRH7/2Fw4bs82Tgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795109549;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=8evx/OnDv2YPWD6aIwDbgZ+0tUSDkhKzy6/0pfCa9R4=;
-	b=EHZfwqs4IHx+XhOe7Jp8z5UAt0xF96CxhO7qZdLSiZXe3/Y+BLTP88OouRc8s2GkyExJ
-	 jwJFAonTcLFIg/K97hzvlUQWeltzXmhjFkae/kDFN5qgoMZqCcVVOZW/jVTbukHHWvt09
-	 rmqXafluXchukL2gF2gniWRYTeCfd/cr7lzmUsZwsUhZCoAsA4NYJNIInZhlC2tlR9CsI
-	 1LDzRMVEIh+Z+AzqlZY28nllSPeTolGKPTwpmCMwEl2GpyUHXQWzKpft+a0P7SeEMrDfS
-	 z0CTQ7NXWo3t/OVPMBldx9JQNYJcooRBD41LFJAJ7nz0v55gvkJE3s3exPbmB87VccA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795109662;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=Rujiu5z69Ch+cWckCro087llWTMTfJcyA8eIXXNMcbo=;
+	b=DG5ihFSkAkBn4DRpLLctRcZLiFsZXxAx0RVdoNHkH+hWc+mQKcz3COxTBXj4W4m9veUm
+	 Gy+3VN7cX79MgM7Alwx60Wbi1/e1chK30YvbKILcrc3fz1z1AonzTGatFWu4PP9+muReU
+	 zOvuJmnlLWau2mA8HVmk/EmXCxYCRe2xdIuVWdQMvF4yoPT1nXZr966u3rA5D+OZiBQq1
+	 VfT1WkF9k8DqeTCUZ8e0syUk4LnOgm0EVKlcr3z0CKdk4IqT7I0cJ5MendXERePyiL5lQ
+	 vdasJL3FQGZxy1wmhsY4akW1YBgaIDXHig5pTu2L3HuzzsQyCCrtIntpYzkRE9dzwCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFWfkF5M;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="BWxg/3eb";
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B59606A324;
-	Thu, 19 Nov 2026 17:32:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138B3606A32A;
+	Thu, 19 Nov 2026 17:34:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 138B3606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QFWfkF5M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F231F000C5;
-	Thu, 19 Nov 2026 17:32:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795109548;
-	bh=8evx/OnDv2YPWD6aIwDbgZ+0tUSDkhKzy6/0pfCa9R4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QFWfkF5MFqECFm/ONqh0GfMItM4A93vTc/TBcvj6O/vqZO/X1Q6n88h3KFQc836tZ
-	 RLqwoitUZ3cpgCoLNL2G1mtKOWPtVnrJgED/cgpPGmBorDmjhJMxZWHct138p9bRQN
-	 edUNTLD9OSwX+jWfEbFAAyAbu9UBXKG1A73c8V4h5qPKQbcRSMP7y8c82qYFoG3iCf
-	 qxaWnT+xXRMrmmDts42W+XOoTKqo1IjDfmrfMA2ZZad6h0YOGY2lhH9IlTH3b07wQl
-	 xV01+40vanE3Ha1necrLGocmmsEolUYlf4yhFTxmusUfloSAkneP2MeOflIhvJ/lVU
-	 GIBulwDEPtQTw==
-Date: Thu, 19 Nov 2026 18:32:25 +0100
-From: Frederic Weisbecker <frederic@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>,
-	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
-	Joel Fernandes <jfern@kernel.org>,
-	Josh Triplett <josh@joshtriplett.org>,
-	Boqun Feng <boqun@kernel.org>, Uladzislau Rezki <urezki@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Lai Jiangshan <jiangshanlai@gmail.com>,
-	Zqiang <qiang.zhang@linux.dev>,
-	Puranjay Mohan <puranjay@kernel.org>, rcu@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] rcu/nocb: Avoid unsequenced accesses to jiffies in
- show_rcu_nocb_state()
-Message-ID: <av8yqfimCeSkQrq0@localhost.localdomain>
-References: <20261114-rcu-tree_nocb-wunsequenced-v1-1-057996a86f0e@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BWxg/3eb
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795109662; x=1826645662;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LPXHRcSnIba10GcheUlL+DWif/qpX3CwCRVi2ePPTIg=;
+  b=BWxg/3ebGoKGCoLVoGrd4Eu330GlBw087Z01J7wnGVa3aB8flumj8EdH
+   3tsjtorVyUFB1ZKEJhjkHsGj5UAdPbZIftNeDeia8Iv1y2aAvNQLFFcPV
+   dTZNzCkZIk2hSJcVm4uB24rytyBURuACEzWsXaADX8GUcZ0+SBath6goL
+   s7u3wKpbOX2d4rvro9wp6nJX7i/Kz/PaWlGUCqYLIzMU5YvAG6prfyMry
+   8ZQXfvRsf4pGrHskqgdTdTFKDDSY3ppHgJjWsAWnAN6wSmTTcWa2idPBQ
+   zrRsc4/xgev5Bp54O/0k/lEp3jLeAHYkrJo0oKpAUj6REipyw1WcAjB4Z
+   g==;
+X-CSE-ConnectionGUID: YQVtli/KQMewPMZyipHUtw==
+X-CSE-MsgGUID: XO+WNVbQTs+ivghZFqz1GQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3858536"
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="3858536"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 09:34:19 -0800
+X-CSE-ConnectionGUID: 62sRMc+1QmyKVyBumj+7wQ==
+X-CSE-MsgGUID: Mqf4wRE7Qz6ujJDux7LlpA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="12330860"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.61])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 09:34:16 -0800
+Date: Thu, 19 Nov 2026 19:34:11 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Mathieu Othacehe <othacehe@gnu.org>, linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH 09/10] iio: proximity: isl29501: Fix division by zero and
+ overflow in isl29501_set_freq()
+Message-ID: <av8zEwS8KnZoSUb9@ashevche-desk.local>
+References: <20261119153151.1397003-1-lee@kernel.org>
+ <20261119153151.1397003-10-lee@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,90 +84,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261114-rcu-tree_nocb-wunsequenced-v1-1-057996a86f0e@kernel.org>
+In-Reply-To: <20261119153151.1397003-10-lee@kernel.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Le Sat, Nov 14, 2026 at 09:26:10PM -0700, Nathan Chancellor a écrit :
-> After a recent improvement in clang to warn on unsequenced accesses to
-> volatile variables [1], an instance appears in show_rcu_nocb_state(),
-> which can break the build with CONFIG_WERROR=y / W=e:
+On Thu, Nov 19, 2026 at 03:30:42PM +0000, Lee Jones wrote:
+> isl29501_set_freq() computes freq = val * 1000000 + val2 % 1000000 in a
+> signed 32-bit int and passes it directly to do_div() without checking
+> for zero or negative inputs.  Writing 0 to the sampling_frequency
+> attribute triggers a division by zero in the kernel, while valid
+> frequencies above 2147 Hz up to the sensor's 2222 Hz limit overflow
+> signed int.
 > 
->   In file included from kernel/rcu/tree.c:5123:
->   kernel/rcu/tree_nocb.h:1651:3: error: unsequenced accesses to volatile qualified 'jiffies' [-Werror,-Wunsequenced]
->    1650 |                 jiffies - rdp->nocb_bypass_first,
->         |                 ~~~~~~~
->    1651 |                 jiffies - rdp->nocb_nobypass_last,
->         |                 ^
-> 
-> Per C11 5.1.2.3.2, accessing a volatile object is a side effect. Per C11
-> 6.5.2, unsequenced side effects on the same scalar object are undefined
-> behavior. Per C11 6.5.2.2.10/12, the evaluation of arguments in a
-> function call is indeterminately sequenced, meaning any side effects in
-> the arguments are unsequenced.
-> 
-> Add a local variable to hold the value of jiffies before the function
-> call so that there are no unsequenced side effects, clearing up the
-> warning.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: f7a81b12d6af ("rcu/nocb: Print no-CBs diagnostics when rcutorture writer unduly delayed")
-> Closes: https://github.com/ClangBuiltLinux/linux/issues/2192
-> Link: https://github.com/llvm/llvm-project/commit/955715460eaf9188c241c74750637fc82dfcc423 [1]
-> Signed-off-by: Nathan Chancellor <nathan@kernel.org>
+> Validate that val and val2 are non-negative, compute freq as an unsigned
+> int within [1, 2222000000], and return -ERANGE otherwise.
 
-We indeed want a coherent snapshot for debugging.
+...
 
-Reviewed-by: Frederic Weisbecker <frederic@kernel.org>
+> -	int freq;
+> +	unsigned int freq;
+>  	unsigned long long sample_time;
 
+Make it reversed xmas tree while at it?
 
-> ---
->  kernel/rcu/tree_nocb.h | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
-> 
-> diff --git a/kernel/rcu/tree_nocb.h b/kernel/rcu/tree_nocb.h
-> index b6cfee4e5039..8448a7c578e8 100644
-> --- a/kernel/rcu/tree_nocb.h
-> +++ b/kernel/rcu/tree_nocb.h
-> @@ -1618,6 +1618,7 @@ static void show_rcu_nocb_state(struct rcu_data *rdp)
->  	struct rcu_segcblist *rsclp = &rdp->cblist;
->  	bool waslocked;
->  	bool wassleep;
-> +	unsigned long j;
->  
->  	if (rdp->nocb_gp_rdp == rdp)
->  		show_rcu_nocb_gp_state(rdp);
-> @@ -1639,6 +1640,7 @@ static void show_rcu_nocb_state(struct rcu_data *rdp)
->  		rsclp->gp_seq[RCU_NEXT_READY_TAIL].exp);
->  	sprintf(bufn, "%ld", rsclp->seglen[RCU_NEXT_TAIL]);
->  	sprintf(bufb, "%ld", rcu_cblist_n_cbs(&rdp->nocb_bypass));
-> +	j = jiffies;
->  	pr_info("   CB %d^%d->%d %c%c%c%c%c F%ld L%ld C%d %c%s%c%s%c%s%c%s%c%s q%ld %c CPU %d%s\n",
->  		rdp->cpu, rdp->nocb_gp_rdp->cpu,
->  		nocb_next_rdp ? nocb_next_rdp->cpu : -1,
-> @@ -1647,8 +1649,8 @@ static void show_rcu_nocb_state(struct rcu_data *rdp)
->  		"lL"[raw_spin_is_locked(&rdp->nocb_lock)],
->  		"sS"[!!rdp->nocb_cb_sleep],
->  		".W"[swait_active(&rdp->nocb_cb_wq)],
-> -		jiffies - rdp->nocb_bypass_first,
-> -		jiffies - rdp->nocb_nobypass_last,
-> +		j - rdp->nocb_bypass_first,
-> +		j - rdp->nocb_nobypass_last,
->  		rdp->nocb_nobypass_count,
->  		".D"[rcu_segcblist_ready_cbs(rsclp)],
->  		rcu_segcblist_segempty(rsclp, RCU_DONE_TAIL) ? "" : bufd,
-> 
-> ---
-> base-commit: 18b332441bbf59fa537929fe390238e137a6caff
-> change-id: 20261114-rcu-tree_nocb-wunsequenced-02d11678cf42
-> 
-> Best regards,
-> --  
-> Cheers,
-> Nathan
-> 
+> +	if (val < 0 || val2 < 0 || val > 2222)
+> +		return -ERANGE;
+
+I would see it be grouped by variable
+
+	if (val < 0 || val > 2222 || val2 < 0)
+
+>  	/* sample_freq = 1 / (0.000450 * (sample_time + 1) * 10^-6) */
+> -	freq = val * 1000000 + val2 % 1000000;
+> +	freq = val * 1000000U + val2 % 1000000U;
+
+While at it Use HZ_PER_MHZ and similar multipliers from units.h.
+
+> +	if (!freq || freq > 2222000000U)
+> +		return -ERANGE;
 
 -- 
-Frederic Weisbecker
-SUSE Labs
+With Best Regards,
+Andy Shevchenko
+
+
