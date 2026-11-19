@@ -1,95 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.96
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795092120;
-	b=ecstEr6IPow1y3gMgv6+dvpO6spCXgME2FCtdjPWiyIVfT8D2cOBjelTX5faGN4wWA61
-	 QzVaaoN+Y7/2620/LNSsV8qUEmwJNL1kG3sYrORSz9mGhtPlgvKZesA7L3D5zx4e04c5l
-	 20oKdqD4l5EQZl2biacU276IX4OBRBf2cJSyWdl2CswRWBpjmbctHLDYuOIiCOvwkbfhg
-	 PWwAkAw8CHbdPqpaZ9fdZqiwUsHcpZvKqyrdqQAbUkHem7Y3MhDnOkIgDF2+IglN0wV8j
-	 IZm+FCTwiOWQ5UdVByaNFS4onGeIHXHfmwesqs2xH6Ejt3J8iJd9AyCA+qOGwhUktHA==
+	t=1795092250;
+	b=jfOWuX0+NtJ1T6oFueqNnXid5GrSMADIalbIrBoe/D3Ad68vwfG//R+hEIT8FFrxc5KV
+	 7a/aSynHuHs0suamyO3pIkOHFVn1k71DWMTriMG9CDP7Z0l7Ed9qZkRt8+RUDZZzeLVb/
+	 tCiBxqvuqgWiDT2dQLs+28jAM5tFXRlMGHQwsXEBTGQrKyp51rNBDspxWswYzuE+t7R0J
+	 /wff+nw5V3RsxLdU7RlUwoURgTimcPURVIQ3PNrmOk5kkwokrJjqVEoxgPkaVifsSZ5fQ
+	 wOLr6FTgKb1gGWL9QUq2eNXOBNSYUKvRukxRRjCoUFnu5+yRmT09mheerfj8Skx7SQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795092120;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=mOE3Rbuw9z95CS+e89nm2qahBlkxcAeUx3ho/7BXMuo=;
-	b=IeBIToB1qdv3NWiypZ0v16cmNNldwfcmMq7XSfqAl7UYn1wyLn/Oy6cSOam164YHXXRf
-	 1h6himL6qsgRltq39eWIIOn+GKmKZxwFyWXgiiOtE8Kj/ZaHnqnilzYZMui1rDA7NTv/y
-	 UpmedYN6lrKfIMcltJm5ZQ9cTosGVwPBYxzJRlNlFa+3I7J9iUMqXSSmdNo219Mt5ZyCM
-	 2jMtODDphpaXxuZuG2281xCeYcXc+miilxWRtB46sQXMWMg0tYcOejg6rQqpB4O5pYzK1
-	 MOG/NbcghGonfMarsWLZt+IT2cKE0GPYKcHa+7QKFqHdGI8CX61CDzUEOywGWsMLDgg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795092250;
+	h=DMARC-Filter:Content-Type:Content-Transfer-Encoding:Message-ID:To:Cc:
+	 Subject:X-Priority:X-Mailer:X-Originating-IP:In-Reply-To:References:
+	 MIME-Version:Received:From:Date:X-HM-Tid:X-HM-MType:X-HM-NTES-SC:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=qLPZEX0epsWd7es1kW82u4+2WFeyQwtuYOTDlogKltk=;
+	b=MDJ1Kaij4XeY4hgOc27yfJXvedOkkPPkS4OBdG4DfPEeuiQhBSqPFwyMHqDTNOwSO1zo
+	 rtdI1FyPK2Ke7YSMCjCpuQ7wK4KPNlC3I1FG758qVSg5vqjyAwqo/kNs7UudEas7OAPge
+	 LIHZ6xPTmWduLQPxh2BYk29jS3Dgw/Ed6195R/iFrDCDp2HChXYDiziJ/NQBEq743hF7b
+	 sO1q964KT2b9J/SrmYKNu68smv/ZTQ7aubsDwOT7CGd1hjOhsMlxI2IVujAmoEzDH3qe/
+	 fd+II+28VVm4jdLIit3zdqr1CRvDAPKhTEcIX76w8MnwAYRLdRkNHI2LKDMZbSqxnsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudlinux.com;
-	spf=pass smtp.mailfrom=cloudlinux.com;
-	dkim=pass header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=Y+hvqyrA;
-	arc=none smtp.remote-ip=209.85.221.49
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b="eaiTa/aG";
+	arc=none smtp.remote-ip=210.79.60.96
+Received: from mail-m6096.netease.com (mail-m6096.netease.com [210.79.60.96])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA7E606A326
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 12:41:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2BA7E606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cloudlinux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudlinux.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD1E606A338;
+	Thu, 19 Nov 2026 12:44:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBD1E606A338
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=Y+hvqyrA
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4a3e706b5dfso1399443f8f.2
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 04:41:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudlinux.com; s=google; t=1795092118; x=1795696918; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mOE3Rbuw9z95CS+e89nm2qahBlkxcAeUx3ho/7BXMuo=;
-        b=Y+hvqyrAvGs1ec1QqlTmDLvfzSnWLZKXPNuQfzHstZzH6CQDJajImBeCM9q8kNfhlC
-         mMAu4BmEHpD0TWRgFv0ncKdEXUrid59k9CHQPoHAMYq9YUV1cDOgePkSgyZT3CWwo8mc
-         zb315Ys+BB30Y9yA9VQwZiroXOyIPodeVJ4YXiN1Mxs9HizQO9omoJIqcaK66mYpkH3b
-         7ClQZBJRXaMrhdPPhMO8lizh0XGQEGU5arOWoQo8pvyFM6INoa4ENeB+tAj8m1VS0C0p
-         xB5rgeun8fSdPb49E6voZgYy/s8YPz9GYSlN6SoxpO61zrNHQzMsX96yraVB55dIPoRN
-         N78w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795092118; x=1795696918;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mOE3Rbuw9z95CS+e89nm2qahBlkxcAeUx3ho/7BXMuo=;
-        b=MKrRP2jZB/yYztFYVucU4DfZU70q8xa1kteIV+E1nhOWHth8i3rU+1EoOitvdlgtQH
-         qis/M2cgSrf+AgYnpORLVFXLDPfnqMFM4hDf33hePxSrseKKvWPk31GYi4JBGgR6phlr
-         b8gqrx2o34Jq5IOqVg3vEFLoknsT0W1XuY4iZQtueD/hGyzZrVeW6Yl1wt+SEBLXwdWR
-         ukIlLSQOwL2qqoDJvZ+mdCmUYvYVEUbGuoerwgZhLI58Itnxbl49Aqid3RhPKAQ7Occ0
-         Y6QojRYS+6Vpk+vkT9bMWBwQX4iDGRt+xxu4pR0/dw6qY8gaVx2ZsZNRHe3fcSmDzbxO
-         Nh5Q==
-X-Forwarded-Encrypted: i=1; AL+hErGTQ33Le1IuNQ70nim3ZrLJnVfMCpLOwehVQxWJTiP6QEC1c+NDXS5LiutgrznccttP7s+IsP4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8qTYgIh8kd1a5owOKocJQY+xBdbhleK/+W0a5xthdlZJRaVmvT
-	j7M7/MAfU6Uox+wSslaZR+9oiLtM1t/eop5H5UQAqjfssr3WKr/mJ5gdk7dEG7DLMotVCz0odW6
-	EemnMJEg2Mg==
-X-Gm-Gg: AZFdTZfAROB3lC8NntkDRiLI7Zo6hF3jDK105lWabl080b/0OpY5X17oTWkITKPIAyp
-	8SJReaKO8A9ct9SrsP8/Ct+Od9DTEyYnzgUKjsrJwO/W/4Mf/tyeQ3yMPNO/7WT4zO0sekNLezq
-	diFvzMo1By8Lg8XnbmJWN4tkzqnOZ7F3NgGMwzDexU9BU+tnrz2Q3PKrJmedsUADAnwzvlrk7w0
-	LzmtW9RsOKnq9qMsxk/DXemEyFvMvnFRLma1CdPVkIslwAIKRr/FWvJjASoK76ZllE5AnwjXUVf
-	pxihd7QJ6XenHq5tN0pWuaFN+ynvPVrqfBSFmUHljYqYU4/xu2u9s+TsL8RF7ug9vwWRjbXpQd+
-	G9fQ4nmrbyjT8nH4AkrRyhqTCyWAwJ8/++HIjN4ShrAZq7MOXqXW3VLCQg1UkCWibgjpozY3uDw
-	hlOKtLcS0GF3VVMbadn7W+8rztHWgdJeH7lA2Zk9Drws5MJpfyN+Ts5B+7c4IydjaR4BERAmuWK
-	f+hKurAeOg1SAVZVzbBnkYpTQH1Mb5U7+UjqMtmll9w/7VsE+xrg8SI1TqY59/D/nSaq47QdvJ2
-	Or5WWYn+jqAcNV1N4+49BV5p
-X-Received: by 2002:a05:6000:25c6:b0:49d:7e8c:e89c with SMTP id ffacd0b85a97d-4a63d985dc9mr11927185f8f.42.1795092118533;
-        Thu, 19 Nov 2026 04:41:58 -0800 (PST)
-Received: from dev1.kernelcare.com ([2a01:4f8:172:1c85::2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a656a28b8esm10787266f8f.50.2026.11.19.04.41.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 04:41:58 -0800 (PST)
-From: Andrey Misiurov <amisiurov@cloudlinux.com>
-To: Jason Gunthorpe <jgg@nvidia.com>,
-	Leon Romanovsky <leonro@nvidia.com>
-Cc: linux-rdma@vger.kernel.org,
-	Quanye Yang <quanyeyang@proton.me>,
-	linux-kernel@vger.kernel.org,
-	Andrey Misiurov <amisiurov@cloudlinux.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] RDMA/ucma: reject a second join of the same multicast address
-Date: Thu, 19 Nov 2026 13:41:53 +0100
-Message-ID: <20261119124153.1745521-1-amisiurov@cloudlinux.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=eaiTa/aG
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: base64
+Message-ID: <ACoAEgCeLDq4C5*UjRtdZKp9.3.1795092235677.Hmail.202321181@mail.sdu.edu.cn>
+To: Lee Jones <lee@kernel.org>
+Cc: stable@vger.kernel.org, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+	Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, 
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+	linux-omap@vger.kernel.org, mfd@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSCAzLzZdIG1mZDogcGFsbWFzOiBGaXggcG90ZW50aWFsIElSUSBhY3Rpb24gbGVha3Mgb24gcmVtb3ZhbA==?=
+X-Priority: 3
+X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
+In-Reply-To: <179370041880.793788.14407997006744050474@kernel.org>
+References: <cover.1793377422.mfd.git.liguangshuo@mail.sdu.edu.cn> <fe4ee2ff4b3ad6675a46a169d6de6410db32b652.1793377422.git.liguangshuo@mail.sdu.edu.cn> <179370041880.793788.14407997006744050474@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -99,73 +58,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Received: from 202321181@mail.sdu.edu.cn( [101.76.249.61] ) by ajax-webmail ( [127.0.0.1] ) ; Thu, 19 Nov 2026 20:43:55 +0800 (GMT+08:00)
+From: =?UTF-8?B?5p2O5bm/56GV?= <liguangshuo@mail.sdu.edu.cn>
+Date: Thu, 19 Nov 2026 20:43:55 +0800 (GMT+08:00)
+X-HM-Tid: 0aa1f3d57aaed0cdkusycbd0c45d1600e
+X-HM-MType: 1
+X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMVHpP02bZAKsMEiErRSAekjx+ys+KNZNl0PLwl
+	f2MeqR5lbiqKsoq8sm3hZVy9q3VVBNOjIUwfWq1GfV2NBR9WJV5pp9Gwt04oeFjraKOA9z4Ebfb5
+	HaGbLSL75hBggy81rjpsAjN1bCk8YhhNfCILQ=
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTBkdVkMfTh9MSBgeSRpMTFYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVCQk
+	lOS1VKS0tVSkJLQlkG
+DKIM-Signature: a=rsa-sha256;
+	b=eaiTa/aGsGbIQ/8Mdo5kvUqyOX9/1GaNuGgnh/funKCyHIn8yUSpxUTYtsujWX0yle5mnVu1/4y+PjYrYQQ26EboSFFmN/+QyOMw0LqqbyJLNPYs9ERCjMBoYGU1N9XIqp4d0XHYG3a6Ne020O5REcTbn1YfFEjJBzO+khZfua8=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
+	bh=qLPZEX0epsWd7es1kW82u4+2WFeyQwtuYOTDlogKltk=;
+	h=date:mime-version:subject:message-id:from;
 
-ucma_process_join() lets one cm_id join the same multicast address twice,
-creating two ucma_multicast objects (A and B) and, via
-rdma_join_multicast(), two cma_multicast entries that both point back at
-the ucma object.
-
-rdma_leave_multicast() matches a leave only by sockaddr and destroys the
-first entry it finds. So LEAVE_MCAST on A destroys B's cma_multicast and
-frees ucma object A, while A's cma_multicast stays on the list with a
-context pointing at freed memory. The next event for it is a use-after-free:
-
-  BUG: KASAN: slab-use-after-free in ucma_create_uevent+0xb11/0xb70 [rdma_ucm]
-  Workqueue: rdma_cm cma_iboe_join_work_handler [rdma_cm]
-  Call Trace:
-   ucma_create_uevent+0xb11/0xb70 [rdma_ucm]
-   ucma_event_handler+0xd5/0xa10 [rdma_ucm]
-   cma_cm_event_handler+0x98/0x310 [rdma_cm]
-   cma_iboe_join_work_handler+0xac/0x170 [rdma_cm]
-   process_scheduled_works+0xb59/0x1890
-   worker_thread+0x470/0xe40
-   kthread+0x33a/0x450
-   ret_from_fork+0x59/0x90
-   ret_from_fork_asm+0x1a/0x30
-
-Any user with access to /dev/infiniband/rdma_cm can trigger it.
-
-Reject a second join of an address already joined on the same cm_id. The
-incomplete fix 662ade4de9ff ("RDMA/ucma: Serialize join and leave on
-copy_to_user failure") left this path open.
-
-Fixes: 662ade4de9ff ("RDMA/ucma: Serialize join and leave on copy_to_user failure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Andrey Misiurov <amisiurov@cloudlinux.com>
----
-Found during a backport review.
-
-Reproduced on debian13 6.12.88 debug (KASAN=y) over Soft-RoCE: two joins of
-one address on a cm_id, then LEAVE -> the KASAN use-after-free above within
-one run. With the fix the second join returns -EADDRINUSE and the run is clean.
-
- drivers/infiniband/core/ucma.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/infiniband/core/ucma.c b/drivers/infiniband/core/ucma.c
---- a/drivers/infiniband/core/ucma.c
-+++ b/drivers/infiniband/core/ucma.c
-@@ -1509,7 +1509,7 @@
- {
- 	struct rdma_ucm_create_id_resp resp;
- 	struct ucma_context *ctx;
--	struct ucma_multicast *mc;
-+	struct ucma_multicast *mc, *tmp;
- 	struct sockaddr *addr;
- 	int ret;
- 	u8 join_state;
-@@ -1544,6 +1544,13 @@
- 	memcpy(&mc->addr, addr, cmd->addr_size);
- 
- 	xa_lock(&multicast_table);
-+	/* leave matches by address only; refuse a duplicate */
-+	list_for_each_entry(tmp, &ctx->mc_list, list)
-+		if (!memcmp(&tmp->addr, addr, cmd->addr_size)) {
-+			ret = -EADDRINUSE;
-+			goto err_free_mc;
-+		}
-+
- 	if (__xa_alloc(&multicast_table, &mc->id, NULL, xa_limit_32b,
- 		     GFP_KERNEL)) {
- 		ret = -ENOMEM;
+CkhpIExlZSwKClRoYW5rcyBmb3IgdGhlIHJldmlldy4KCkZyb206IExlZSBKb25lcyA8bGVlQGtl
+cm5lbC5vcmc+CkRhdGU6IDIwMjYtMTEtMTMgMjE6MDk6MTgKVG86ICBHdWFuZ3NodW8gTGkgPGxp
+Z3VhbmdzaHVvQG1haWwuc2R1LmVkdS5jbj4KQ2M6ICBzdGFibGVAdmdlci5rZXJuZWwub3JnLEFh
+cm8gS29za2luZW4gPGFhcm8ua29za2luZW5AaWtpLmZpPixBbmRyZWFzIEtlbW5hZGUgPGFuZHJl
+YXNAa2VtbmFkZS5pbmZvPixLZXZpbiBIaWxtYW4gPGtoaWxtYW5AYmF5bGlicmUuY29tPixSb2dl
+ciBRdWFkcm9zIDxyb2dlcnFAa2VybmVsLm9yZz4sVG9ueSBMaW5kZ3JlbiA8dG9ueUBhdG9taWRl
+LmNvbT4sbGludXgtb21hcEB2Z2VyLmtlcm5lbC5vcmcsbWZkQGxpc3RzLmxpbnV4LmRldixsaW51
+eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnClN1YmplY3Q6IFJlOiBbUEFUQ0ggMy82XSBtZmQ6IHBh
+bG1hczogRml4IHBvdGVudGlhbCBJUlEgYWN0aW9uIGxlYWtzIG9uIHJlbW92YWw+T24gU2F0LCAz
+MSBPY3QgMjAyNiwgR3VhbmdzaHVvIExpIHdyb3RlOgo+Cj4+IFRoZSByZW1vdmUgY2FsbGJhY2sg
+ZGVsZXRlcyB0aGUgSVJRIGNoaXAgYmVmb3JlIG1hbmFnZWQgT0YgY2hpbGRyZW4KPj4gYXJlIHJl
+bW92ZWQuIFRoZWlyIGxhdGVyIGZyZWVfaXJxKCkgY2FsbHMgY2Fubm90IGZpbmQgdGhlIGRpc3Bv
+c2VkIElSUQo+PiBkZXNjcmlwdG9ycywgcG90ZW50aWFsbHkgbGVha2luZyBpbnRlcnJ1cHQgYWN0
+aW9ucy4gRGVwb3B1bGF0ZSB0aGUKPj4gY2hpbGRyZW4gYmVmb3JlIGRlbGV0aW5nIHRoZSBJUlEg
+Y2hpcCBhbmQgYXV4aWxpYXJ5IEkyQyBjbGllbnRzLgo+Pgo+PiBUaGlzIGlzc3VlIHdhcyBmb3Vu
+ZCBieSBvdXIgc3RhdGljIGFuYWx5c2lzIHRvb2wgdW5kZXIgZGV2ZWxvcG1lbnQuCj4+Cj4+IEZp
+eGVzOiAxMjRlOWRlYjFjNDAgKCJtZmQ6IHBhbG1hczogVXNlIGRldm1fb2ZfcGxhdGZvcm1fcG9w
+dWxhdGUoKSIpCj4+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4+IEFzc2lzdGVkLWJ5OiBP
+cGVuQUk6Z3B0LTYtYXN0cmEKPj4gU2lnbmVkLW9mZi1ieTogR3VhbmdzaHVvIExpIDxsaWd1YW5n
+c2h1b0BtYWlsLnNkdS5lZHUuY24+Cj4+IC0tLQo+PiBCdWlsZC10ZXN0ZWQgdGhlIGNoYW5nZWQg
+b2JqZWN0IHdpdGggeDg2XzY0IGRlZmNvbmZpZyBwbHVzIENPTVBJTEVfVEVTVAo+PiBhbmQgdGhl
+IGRyaXZlciBkZXBlbmRlbmNpZXMgKFc9MSkuCj4+IE5vIHJ1bnRpbWUgb3IgZmF1bHQtaW5qZWN0
+aW9uIHRlc3Rpbmcgd2FzIHBlcmZvcm1lZC4KPj4KPj4gIGRyaXZlcnMvbWZkL3BhbG1hcy5jIHwg
+MyArKysKPj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykKPj4KPj4gZGlmZiAtLWdp
+dCBhL2RyaXZlcnMvbWZkL3BhbG1hcy5jIGIvZHJpdmVycy9tZmQvcGFsbWFzLmMKPj4gaW5kZXgg
+N2ZjODg2ZjRmODBlLi44YTBiN2IxZTg5ZDcgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvbWZkL3Bh
+bG1hcy5jCj4+ICsrKyBiL2RyaXZlcnMvbWZkL3BhbG1hcy5jCj4+IEBAIC02NzcsNiArNjc3LDkg
+QEAgc3RhdGljIHZvaWQgcGFsbWFzX2kyY19yZW1vdmUoc3RydWN0IGkyY19jbGllbnQgKmkyYykK
+Pj4gIAlzdHJ1Y3QgcGFsbWFzICpwYWxtYXMgPSBpMmNfZ2V0X2NsaWVudGRhdGEoaTJjKTsKPj4g
+IAlpbnQgaTsKPj4KPj4gKwlpZiAoaTJjLT5kZXYub2Zfbm9kZSkKPj4gKwkJZGV2bV9vZl9wbGF0
+Zm9ybV9kZXBvcHVsYXRlKCZpMmMtPmRldik7Cj4KPkkgdGhpbmsgaXQgd291bGQgYmUgbmljZSB0
+byBkZXZtXyogcmVnbWFwX2FkZF9pcnFfY2hpcCgpIGluc3RlYWQuCj4KPklmIHlvdSBhbHNvIGNv
+bnZlcnQgdGhlIGF1eGlsaWFyeSBJMkMgY2xpZW50cyBhbmQgJ3BtX3Bvd2VyX29mZicKPnRlYXJk
+b3duIHRvIGRldm0sIHlvdSBjb3VsZCBkcm9wIHBhbG1hc19pMmNfcmVtb3ZlKCkgYWx0b2dldGhl
+ci4KPgo+PiArCj4+ICAJcmVnbWFwX2RlbF9pcnFfY2hpcChwYWxtYXMtPmlycSwgcGFsbWFzLT5p
+cnFfZGF0YSk7Cj4+Cj4+ICAJZm9yIChpID0gMTsgaSA8IFBBTE1BU19OVU1fQ0xJRU5UUzsgaSsr
+KSB7Cj4KPi0tIAo+TGVlIEpvbmVzCj4KClRoZSBJUlEgY2hpcCBpcyByZWdpc3RlcmVkIGJlZm9y
+ZSBkZXZtX29mX3BsYXRmb3JtX3BvcHVsYXRlKCkuIFdpdGgKZGV2bV9yZWdtYXBfYWRkX2lycV9j
+aGlwKCksIHRoZSBjaGlsZHJlbiB3b3VsZCBiZSByZW1vdmVkIHdoaWxlIHRoZWlyCklSUSBtYXBw
+aW5ncyBhcmUgc3RpbGwgdmFsaWQuCgpJZiB0aGUgYXV4aWxpYXJ5IEkyQyBjbGllbnRzIGFuZCB0
+aGUgcG93ZXItb2ZmIGhhbmRsZXIgdXNlIG1hbmFnZWQKY2xlYW51cCB0b28sIEkgdGhpbmsgcGFs
+bWFzX2kyY19yZW1vdmUoKSBjYW4gZ28gYXdheS4gSXMgdGhhdCB3aGF0IHlvdQpoYWQgaW4gbWlu
+ZD8gSWYgc28sIEknbGwgc2VuZCBhIHYyIGZvciBwYWxtYXMgYWxvbmcgdGhvc2UgbGluZXMuCgpU
+aGFua3MsCkd1YW5nc2h1bwo=
