@@ -1,58 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.154.241.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795101579;
-	b=w19EFEmVMfF+G7vawRw3tqaxp1n8s3hkytcSVjY2T5krGAfMyHC1n8BFQ2xsf/03Fb/z
-	 NJVku2MVnor2Dax17/i8VOp7RP2OTTepdbD1v95kGYidQvVPPAj95Cy7sITgPunkfjl6x
-	 1MnHOVZ1S82ptkTZpVbsxvQHTmksFrYXkqMRMLZXQJzZq8SYlkXbjDh8ShbYBOx2m0nDV
-	 ePisQ3Aq588OR7oxbKFQaf/yfrrYL7FlwFE4VYV7BW/fC1LdyoghgH/3VWvGg+pptc+fQ
-	 +VVh/hfhUWkZpZG2JZOwmPFwfmOBd0OVV6z87ksRIRuMPEDmInGQKQB8VDVF0bP9ZmA==
+	t=1795101601;
+	b=jIWiGgadgjvU7gsuYe1nkRHTMjtbr9hVZWuyA+Z5e+mSlh/d/3OFwawqz3g/kP8Mz9gj
+	 vc4dxfX30HoCxfSNRI5Psy136gu9zAcjpcPwzPlVov90cDFSu+MngCfh6pDVXOxjIYEwv
+	 p7phUTTpHhZXFzFXCMGRDcLYXNs1XMdJac8soYL+fmTkS4pSs03oE/HKhhyj0JiA6/ml6
+	 Xo5vwdFcmm2JVzPeQskFUSxELUGZ+VYlKYLkAhuVc0wi508GF/9zV24/kf9UVTdYPE7xH
+	 80HdrCxHpuJZ+kpoiT2LgLQKgNVPZOIsBdJXI3wOTE7eT0E0nRjA9VuKZogZb3pfueg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795101579;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=0c0iYf8SnsF78dce9dVRMwoU6TCYhcEsgg4tPhKPWUk=;
-	b=e9JZfUrS8p6tTwdEPmTpmsqPWIRmi1DEGDALpS9gukuObSWODCwP8Fp2ODs33z2hXA7/
-	 sJtlswVkCjPK0+C3FNCBPSrnJ80MrWX6kvDny0mJjO+9feeyc+mZYWCOtDIw9Pp+/JkJ2
-	 Kh4KU7R53fYnJf7cPGzRJJBk7ay6V1Vq5Sv6ykG7C41a/Hau4048IRBdQdMBTYr8BX2wu
-	 hH/pvAKzRXzI887cS/eGix6mQB/ui8nJWmKkXFLgWBBEWTppLK7Px/FodeBxxKDUh/A9B
-	 Tl35M1NX9xa6ptEcpLIQTE2nH8EHSmblTq76Zqiecz867MKmmymopLRRiZTv76wacbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795101601;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-Bm-Milter-Handled:X-Bm-Transport-Timestamp;
+	bh=FurqrIAPM85UON09aO72ujx4pHuxjDLH5EoJY08rtMU=;
+	b=Aj19vbODLNnAa7YEC6wsR9qcMvQlvuN0Tz2juQrvmT9ZlPE87qtuN+NQkb2bHfxHtLkR
+	 BtyMgmJ2lpEj+uk+7mdmlhVRALKj5ip6wmacNvOnStwFoaJ4+NI7aKq/Urz47JnyWoi8Z
+	 WvyBkxUGeQAxBWbV0mxFiDCwGjYe9X6nyofRsUOjTO29qauos9rwN61zNRXiVbaf+vEWO
+	 1WTc44UPO2Fxj2DwK4A/I314+OGpmkwiQpN4jbj2BuYwaTKQziA8y2DQOmTaIeXocdJ6B
+	 D5X6Wh+H0VbtLA8AWibgK59+jc3+8J2vVIym2WlHRnMvdNL0GiJuI77dPO4tjzvES1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZPIty8Ws;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF841606A324;
-	Thu, 19 Nov 2026 15:19:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF841606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZPIty8Ws
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 372251575;
-	Thu, 19 Nov 2026 07:19:35 -0800 (PST)
-Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BA0E93F882;
-	Thu, 19 Nov 2026 07:19:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795101578; bh=c0VxNeat9RMxxsyhQ2qh1+xhFnQ8+vLDzzO8XL7Quv4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=ZPIty8Ws7WrVO1fl7WCU84seph01KQl4vKV+x2sjxQ8rcxebW0s6IzZvwt4jqXR1g
-	 khMfT1py8V9sEUMWSeM71b8jeMlFT2ihV+r112yiFWbF/p+T3KQAYcKK6F7V2WWNbG
-	 Q8NK0rg+yQ/Z2/qGk6anL64au0AGDflLrzKg4V24=
-From: Andre Przywara <andre.przywara@arm.com>
-To: stable@vger.kernel.org
-Cc: Ben Horgan <ben.horgan@arm.com>,
-	James Morse <james.morse@arm.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Fenghua Yu <fenghuay@nvidia.com>,
-	Sasha Levin <sashal@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 7.3.y] arm_mpam: On saving mbwu state read the monitors before clearing CFG_MBWU_CTL
-Date: Thu, 19 Nov 2026 16:19:31 +0100
-Message-ID: <20261119151931.335561-1-andre.przywara@arm.com>
-X-Mailer: git-send-email 2.43.0
+	dmarc=none header.from=lauterbach.com;
+	spf=pass smtp.mailfrom=lauterbach.com;
+	arc=none smtp.remote-ip=62.154.241.218
+Received: from bm.lauterbach.com (bm.lauterbach.com [62.154.241.218])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D8B606A32C;
+	Thu, 19 Nov 2026 15:20:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49D8B606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lauterbach.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lauterbach.com
+Received: from ingpc2.intern.lauterbach.com (unknown [10.2.10.44])
+	(Authenticated sender: ingo.rohloff@lauterbach.com)
+	by bm.lauterbach.com (Postfix) with ESMTPSA id 1A01A4303CC3;
+	Thu, 19 Nov 2026 16:19:53 +0100 (CET)
+From: Ingo Rohloff <ingo.rohloff@lauterbach.com>
+To: gregkh@linuxfoundation.org
+Cc: viro@zeniv.linux.org.uk,
+	nkapron@google.com,
+	me@samcday.com,
+	michael.bommarito@gmail.com,
+	linux-usb@vger.kernel.org,
+	Ingo Rohloff <ingo.rohloff@lauterbach.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3 1/2] usb: gadget: f_fs: register cancellation handler only after request queueing
+Date: Thu, 19 Nov 2026 16:19:41 +0100
+Message-ID: <20261119151942.44304-2-ingo.rohloff@lauterbach.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261119151942.44304-1-ingo.rohloff@lauterbach.com>
+References: <20261119151942.44304-1-ingo.rohloff@lauterbach.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,63 +59,128 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Bm-Milter-Handled: 166a2dfb-2e12-4590-8fa5-72e30323519f
+X-Bm-Transport-Timestamp: 1795101593159
 
-From: Ben Horgan <ben.horgan@arm.com>
+Call kiocb_set_cancel_fn() only after usb_ep_queue() completes
+successfully.
 
-commit 197a7a41e6e006916fe68c952e96d768933104fe upstream
+This also undoes commit e78dcb1f7ec2 ("usb: gadget: f_fs: Fix
+Use-After-Free in AIO error path"): The described error is avoided by
+making sure the cancellation handler is only registered, if there is
+something to cancel.
 
-In mpam_save_mbwu_state() the monitor values are read using
-__ris_msmon_read_locked() which checks if the configuration provided
-matches that in the hardware and if not then resets the monitor. To avoid
-resetting the monitor before reading the value that needs saving only clear
-the configuration after the monitor is read.
+Registering the cancellation handler adds the kiocb to the context's
+active request list (active_reqs in aio.c).  If usb_ep_queue() fails, the
+request was never actually submitted to the hardware, which means the
+request is not active.  The aio framework already deals with calling the
+completion function ki_complete() automatically if you do not return
+-EIOCBQUEUED.
 
-Fixes: d056d29aefbe ("arm_mpam: Use __ris_msmon_read() for saving MBWU state")
-Signed-off-by: Ben Horgan <ben.horgan@arm.com>
-Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
-[backport: drop error returns, adjust to changed context]
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+Fixes: e78dcb1f7ec2 ("usb: gadget: f_fs: Fix Use-After-Free in AIO error path")
+Link: https://lore.kernel.org/linux-usb/20261110171222.22633-3-ingo.rohloff@lauterbach.com/
+Cc: stable@vger.kernel.org
+Signed-off-by: Ingo Rohloff <ingo.rohloff@lauterbach.com>
 ---
-Hi,
+ drivers/usb/gadget/function/f_fs.c | 30 ++++++++++++++++--------------
+ 1 file changed, 16 insertions(+), 14 deletions(-)
 
-this is the backport version of this patch for v7.3, as discussed on the
-list before. This avoids backporting two lengthy patches that do not
-make any sense for v7.3 (introduction of error return checks only used
-in v7.4-rc1 code).
-
-Applies on top of stable-rc/linux-7.3.y (commit "Linux 7.3.6-rc1").
-
-Please apply for v7.3.6!
-
-Cheers,
-Andre
-
- drivers/resctrl/mpam_devices.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
-index 30d08d1634a2b..aabbe2ad8f1af 100644
---- a/drivers/resctrl/mpam_devices.c
-+++ b/drivers/resctrl/mpam_devices.c
-@@ -1716,7 +1716,6 @@ static int mpam_save_mbwu_state(void *arg)
+diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
+index 704cfae49f11..cf0287064923 100644
+--- a/drivers/usb/gadget/function/f_fs.c
++++ b/drivers/usb/gadget/function/f_fs.c
+@@ -246,6 +246,7 @@ struct ffs_buffer {
+ struct ffs_io_data {
+ 	bool aio;
+ 	bool read;
++	bool aio_active;
  
- 		cur_flt = mpam_read_monsel_reg(msc, CFG_MBWU_FLT);
- 		cur_ctl = mpam_read_monsel_reg(msc, CFG_MBWU_CTL);
--		mpam_write_monsel_reg(msc, CFG_MBWU_CTL, 0);
- 
- 		cfg->mon = i;
- 		cfg->pmg = FIELD_GET(MSMON_CFG_x_FLT_PMG, cur_flt);
-@@ -1748,6 +1747,8 @@ static int mpam_save_mbwu_state(void *arg)
- 			mbwu_state->correction = val;
- 		}
- 
-+		mpam_write_monsel_reg(msc, CFG_MBWU_CTL, 0);
-+
- 		mpam_mon_sel_unlock(msc);
+ 	struct kiocb *kiocb;
+ 	struct iov_iter data;
+@@ -887,6 +888,8 @@ static void ffs_user_copy_worker(struct work_struct *work)
  	}
+ 	mmdrop(io_data->mm);
  
-
-base-commit: 62eba995b019cddac60e54392601f157010821e9
++	/* Make sure kiocb_set_cancel_fn() was already called. */
++	smp_cond_load_acquire(&io_data->aio_active, VAL == true);
+ 	io_data->kiocb->ki_complete(io_data->kiocb, ret);
+ 
+ 	if (io_data->ffs->ffs_eventfd && !kiocb_has_eventfd)
+@@ -1014,8 +1017,11 @@ static struct ffs_ep *ffs_epfile_wait_ep(struct ffs_epfile *epfile, struct file
+ 	return ep;
+ }
+ 
++static int ffs_aio_cancel(struct kiocb *kiocb);
++
+ static ssize_t ffs_epfile_io(struct file *file, struct ffs_io_data *io_data)
+ {
++	struct kiocb *kiocb = io_data->kiocb;
+ 	struct ffs_epfile *epfile = file->private_data;
+ 	struct usb_request *req;
+ 	struct ffs_ep *ep;
+@@ -1205,6 +1211,14 @@ static ssize_t ffs_epfile_io(struct file *file, struct ffs_io_data *io_data)
+ 			usb_ep_free_request(ep->ep, req);
+ 			goto error_lock;
+ 		}
++		kiocb->private = io_data;
++		kiocb_set_cancel_fn(kiocb, ffs_aio_cancel);
++		/*
++		 * prevent ffs_user_copy_worker() from calling
++		 *    io_data->kiocb->ki_complete()
++		 * before kiocb_set_cancel_fn() was called.
++		 */
++		smp_store_release(&io_data->aio_active, true);
+ 
+ 		ret = -EIOCBQUEUED;
+ 		/*
+@@ -1285,21 +1299,15 @@ static ssize_t ffs_epfile_write_iter(struct kiocb *kiocb, struct iov_iter *from)
+ 	p->data = *from;
+ 	p->mm = current->mm;
+ 
+-	kiocb->private = p;
+-
+-	if (p->aio) {
++	if (p->aio)
+ 		mmgrab(p->mm);
+-		kiocb_set_cancel_fn(kiocb, ffs_aio_cancel);
+-	}
+ 
+ 	res = ffs_epfile_io(kiocb->ki_filp, p);
+ 	if (res == -EIOCBQUEUED)
+ 		return res;
+ 	if (p->aio) {
+-		kiocb->ki_complete(kiocb, res);
+ 		mmdrop(p->mm);
+ 		kfree(p);
+-		return -EIOCBQUEUED;
+ 	} else {
+ 		*from = p->data;
+ 	}
+@@ -1335,23 +1343,17 @@ static ssize_t ffs_epfile_read_iter(struct kiocb *kiocb, struct iov_iter *to)
+ 	}
+ 	p->mm = current->mm;
+ 
+-	kiocb->private = p;
+-
+-	if (p->aio) {
++	if (p->aio)
+ 		mmgrab(p->mm);
+-		kiocb_set_cancel_fn(kiocb, ffs_aio_cancel);
+-	}
+ 
+ 	res = ffs_epfile_io(kiocb->ki_filp, p);
+ 	if (res == -EIOCBQUEUED)
+ 		return res;
+ 
+ 	if (p->aio) {
+-		kiocb->ki_complete(kiocb, res);
+ 		mmdrop(p->mm);
+ 		kfree(p->to_free);
+ 		kfree(p);
+-		return -EIOCBQUEUED;
+ 	} else {
+ 		*to = p->data;
+ 	}
 -- 
-2.43.0
+2.55.0
 
