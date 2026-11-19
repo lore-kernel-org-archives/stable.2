@@ -1,102 +1,115 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.42
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795108398;
-	b=bi/gzZP4efLfLPrjx7EuIsl/BRCiyS5xiW4mU/NEV6TdbZbMqONXBlXn0REe2QLk9Q04
-	 TqSS0uv1mFIRpXawS5aYiZVFISs392QN2VcHWDNpa/BHSlSIY8qKOVT/K3QhvsaRwkUzX
-	 DSFfCOeo9zMDnxyzVzQj4Co8VP0ELfEE0UBaZMNwdFy6zcHMtM/bXBuX5CCMHsYHe1my3
-	 q9ha6El89d2XwE9T0qZAxr17Q4ThHfk7n23UPjP7qeZFqxGDBtyMjgY3ivc2BUpFwCHLS
-	 fndHYrDUInH27hbEnUnE6dkcxp35QeI5gp4Lx72vfSAIEcWEH4JYsUf+aIOinDODk9w==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795108398;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=w2EnSjdigFnp2O6d4NnYI+986RpKhw8XyhaQWjzHOYw=;
-	b=G8OJx2xcx/qUr9UYWuldMXcMTQGc+o4VWcLK6P4d4OD6+Nu9FxG16TlJ83PytygVZ7Kh
-	 z7FPy8nLikXVX+vL933Ox07o/vJhU+5FnftwHBxtRNz54i9M1W4dbGoFCQx+4i4XjCB4s
-	 g9MhAQLS1bgPitTNjC6H6zwg4Z/sTQe0VQ1nWFKX/Zw9WJE8WOfIctnlCU1+/YsYg4ed1
-	 Tm4zBEZw45v404LIwu9YyUdbCLlq1sgTRwCl0jpp4yjY3Egzz5MQtOZNXWaqOtny3jb2p
-	 n5ALfZG1lxSb/JNI3/3vsuz8K5MHZG5GaVM1v7I/0/jvxwq4yU5zHLsStGWLIaxZQ/g==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a95DEfaf;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.42
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.146
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795108546;
+	b=MIIwdspJH/mEQtt3HfGhtWMAWGC9g2blnUgCxSI1cMjV/fdSpoznk6BIG3BcSK+FzNOQ
+	 x8gAxFaUBEy5bsvmLXI5OKysBwh4+zAxXOu8UlBk7ViDEydBdhb5Ssb9yaCvFJkweJy39
+	 kDZJ0xgkkwO1dNum4BXaYucLQW7stcnWQJkHK5WDHmzxN/XyMPqov98G69+pd++/zijtS
+	 FH4SHiOy8SpgKtpWBm1SjYdIJgZEANbwt9rnSj8mOiRyo7UNZ42T3QmxEHYBEpYQd3Bmb
+	 /TGOTdx/mCApWzh3PJVvU9HHwcq8VwdEAxpsriW1A05BV0Dmxh8QeKDlP2P1JnRgXbQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795108546;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=gG6SYRci2tonbzUE1w7siSj6Ls8OXf6NC7m+gjOpDgc=;
+	b=DIyiXyquNhKPJTTjXK4G5hyBLLTDj1TPFgK3ywXoOG+1Leh6nHzlPVzu3bYWAxQZitrO
+	 Ohd2blAf4D1ujHNqoid0c+o8H2yEAg3slgoLqP9fdp71CNDzaMV0sL0kbE/ciFhJMkdH1
+	 8JS5x6J5RaMnwG55Nw6frKQCFdWqt/zcYYoZHHhCNJwTMRdYU6ITuqUFqT2752YDRlHZu
+	 eM5Jt/l/PD/ams0SBttGq33PrDI+9giTU9gANdI21qYodmhrI3/94V62A58b2gfwtlaH9
+	 l4PZEsDVlEG77dOIMbKPLDUBH7nHncPZRBpYtyPZZlTkSSmyG4jwL9Zlt1XtRlWPx+g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=pobox.com;
+	spf=pass smtp.mailfrom=pobox.com;
+	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=eoXscN5N;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b="F/E61bVD";
+	arc=none smtp.remote-ip=103.168.172.146
+Received: from fout-a3-smtp.messagingengine.com (fout-a3-smtp.messagingengine.com [103.168.172.146])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE2A606A333
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 17:13:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3BE2A606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE413606A324
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 17:15:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE413606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a95DEfaf
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7d2da166818so1419766137.0
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 09:13:18 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795108397; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Auzdb1dXE2u6mKoAK2uSTFeXdbFkcgv7m71o/Yi++okmqhE7SR26OJ3VeW99+R6mqg
-         PbR77tkxW/OVYl8Fq9ol8+c+kHaxPIVyA/fs660ri7Iy4tUD69odQ+FkYDMvEJLWX/Ug
-         AI1TbIaVBHwBX8bMlceSzJfUu65jHI88+hHq/9lHzXfLuFH1jMjHujOBwmKI6f7q1/Cd
-         yy0MjZtbt4CoMoCLdhFKV2ZguOa+ye2k1rcRsOS510ZspTMWMWrKpk1sKgHgkhw0yvdw
-         sP1lPa+bKf+Kmv722R7VyhfR2U5A1gZAl1EwdfeoIeo/aY6iVBlbgBeiDPgdujticB/f
-         LHHg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=w2EnSjdigFnp2O6d4NnYI+986RpKhw8XyhaQWjzHOYw=;
-        fh=BeRxF5MoWpmUrxGd6A7CBWeUg5/FgR8pe54mjd/iwtA=;
-        b=c0lknQsBDnlnSnGnFlB7Qrz+q60jaXA1W9WXHgNxAjQh1WpY873B1y1BFC5Lf79yK2
-         6skKq3qeUmQNBJD3+Nht1h6XZLCtrHuQtzZAtjEKLSTCca2ew3Bpra8/arHQOC4FBbJ1
-         9YWwCvfZdo3XM1bH4kS2+VeazlcZWHa2hHg4uyAWJhOw+I66PqV5zQBlHEGd4KptZLY2
-         rov3dakG7yZi8S3ldeQDjJhx6bGvOyFDwdJodRECE9a4jDujgc+NYobxpdvPgPsFh5Ry
-         X2GWEHGxzHJsh5V/4HUZVb9GiSwTKa/sfl+pd5VuSxUNJwS+GWkeK/nQPNfu+NTOTVOn
-         pAVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795108397; x=1795713197; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w2EnSjdigFnp2O6d4NnYI+986RpKhw8XyhaQWjzHOYw=;
-        b=a95DEfaf41H00JrahzY7J/OxFUh+RpvPFLnD2bhT/kb9/isZuj7SQVofTbV0nRoqJM
-         gE/W39r4fHb6MVGMH00YxWnuHwQVI9rUCXdd7/QzfLaEvlj3wLNVSlNXnZARiKR9+CSe
-         U5KTtPgOUp85JflcZvfWHMqBTMTYYrAa0JfKizqkV6Ol/a8tOrsyiEW3T1YZgjv51D9b
-         CNDohO3QnBXunkt4yW5s6zGnuOUfBcaDsWPDxXpA1Wfn6CHhSWuiEC+VtjhT1THyHwgv
-         r4Q0WyMQz/bEEirUW7JJVOBLjb144GNd+RYK0/m6UNCVbumuOWQIkHoDqhJmE7EArW9K
-         PeSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795108397; x=1795713197;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w2EnSjdigFnp2O6d4NnYI+986RpKhw8XyhaQWjzHOYw=;
-        b=1Gs5SeJ0UnSj18O1zgYH7+vc1IXcXr0jUzTpuBDLc+hx6RS+Zp6rbudAWd/ozkhc+x
-         Hw2xylvK9F6uHHtM/kkF1gjbw/+SU06pwWf7PNLMMVZtGkXTnk22jwlKlKbIuM2s2Ws5
-         EykP223wGrHYtEQIsjkncbgcLVQeP7XY9/ot+xvrKc9n2Ccjc+AG4XgWPdNQfEAWOCBH
-         aJbkMxMxfqldyQzotDinyeCE1gNNsIYgDvUiELCMUZoKf6OsysPUSGKMm9hpfhMiq/Ef
-         6nMWNh9sBKQ5EaRfCp14Ev8X8zmPhQMqIKIpg7PvBpW6blodxhNHvwhztJj7lcdGjEUN
-         DIWA==
-X-Forwarded-Encrypted: i=1; AL+hErF/y8s3DzbveMckWCG91GdXdt1zFFPcreuz5J/Ldf4yV5z2mWj7VEEbjqDl/B3Qu25ejndV/Go=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/tirUb5+bX+0HsJDmc9VZbc237eF361u1A7FfezFBnAVe4L7NB
-	IYT+9Jf31i/4wqs5wwV+sEzK/ijcYpHy8i0BXB1kuCMQC4mlYhyTcJkHqgpblGM9dlddASEs2FJ
-	fLBI9RkLw3xvoTKAhCxmVQEEtWYV/3XA=
-X-Gm-Gg: AYBFou2ZJ3B4hNttn9Clrb1KZvMoGUajEyKlicTN7giTOh4gOdkEVbg5v34C5/hZZLO
-	DkntZn3oWGcCEPu8bFwRfFZ5debTKqKcE0d5zIveUMaxVmxO067+5QnAt2NoxGQBQVpTkg/1qvz
-	2gPzc5F/kMgqUVY/0n0KsXc4IAxq2nRG8GaVkoNwTuNop497z9is9hv/m9TwoKuNzdfI6gwAlwN
-	JWLAA5pPb8KtS1frXddcPphhE8Q3+E9hCApsq0mwi+1gYOIzuMoaYLLxT0OhlLIxx39dDKUPc2c
-	rhaepv6q/KaWYAbtO83wzBIKjLrUfm6ZPwCS0sOGdSmmrIZPjy0dYRFD9K9xc77kZBvhnePKiEr
-	oQzyzadaU4P4t6cgFksLcwWyp28KyO2+ieGYJNiaN29wMAT/nXhCjYebiOKO/EbuN5ko71bOi/M
-	TyRqNzWuE9S5lL15oX0O6iCZlfXmsFWwB60EePLKuZrskl+5mphasZs3TIAZKX7j4tqW8g5xh9j
-	dxQl9Su8IYFlrdjSdeW8G7QJvwKKA==
-X-Received: by 2002:a05:6102:508f:b0:7cc:94e0:ad23 with SMTP id
- ada2fe7eead31-7d73967085bmr11341137.31.1795108397165; Thu, 19 Nov 2026
- 09:13:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm2 header.b=eoXscN5N;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=F/E61bVD
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfout.phl.internal (Postfix) with ESMTP id B52CDEC0C2F
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 12:15:44 -0500 (EST)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-07.internal (MEProxy); Thu, 19 Nov 2026 12:15:44 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1795108544;
+	 x=1795194944; bh=gG6SYRci2tonbzUE1w7siSj6Ls8OXf6NC7m+gjOpDgc=; b=
+	eoXscN5Nj9q4jiqalo9mYF0oufP9vTqeoprACfIkmZXSVYSBo1IbIOiEyF4g1ztG
+	V41UTpSvQ7Ipfy0yVIr0E2wFPas8Xxfdv6zHjNfKcHlJjuxWjGJUAYVak5dis90D
+	7qVijXTKFf7TW3wZjmsmRh+j81HgLatgqi+RerrNukTm36gQUKbrPjCP4WR97XV5
+	2myRZ3mOaAZdwOhUS1ZzkgWuMQaeGWo4rrcffd72YF0qmVz2s0jO+hO7IhupOOeL
+	dQzIUEjDkH9AM+kHKXWvnh1AgOE9rXa1MIzJ6L0za0QZu98GsA/HZg3fmydCIa2J
+	nXQy80Sz6B6OegrVW+OSAQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1795108544; x=
+	1795194944; bh=gG6SYRci2tonbzUE1w7siSj6Ls8OXf6NC7m+gjOpDgc=; b=F
+	/E61bVDv71yRAmjSEdxh1HDrVBVrEeRCip0SNHe7wbSIHi1L8wQpGI3EYErnXNPL
+	zrijnqzPy6gch1lrtbh/tnXPhtciNoAbDYCYeqZad6OH9TCG4e+jj405AQrM6pRa
+	DnzqEll/Caww9P6reFgzQ5WhkMhZZbBl1mHSOck3OMJV/BUADr+WXCTe25MBQIQx
+	703PldSVy6STuGt899bx/vvOKjeErAlqt80KV6f2r2/Plz5k4Dte+RLmAUMjMfha
+	NB3sjTbLfOVsDV1PFWR7P1n32OXZ2VadnVdGSrh19DdthbgWvzKrh/ntElwPFmPi
+	YRLcVq9lkqQwE7G86JTig==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=sign d=pobox.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795108544; d=pobox.com;
+	mf=PGJhcnJ5bkBwb2JveC5jb20+;
+	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:Au5lTF3tgpKUeeekHSeMdIu5spMSHvLRmNv2Wx4zOjxTYSU
+	a5Co+2G0V2nxv/sE29oTmXXccyKYt1q2OHRSvH6MmtjJRnN+kRoRAaUZ2o4In9pj
+	ZvOQeIPhrgUA3AB7jmsKK43DjIyBuPBNw9wnlIFc55N7jL0oKf/DNe1DU9FMA3zx
+	Yr4cRf5aTWN1tsUwQBeLN2dohWb9x8xGJ/qVsoNcIqgc4f21OWunk6h44jBDXkav
+	9IAPHLFu763y7+Fn3fNrOsDm6+aYfpGTIc/LZ7hCMmOM9wqfOKIa2x7+kvTqGI9n
+	ZQ1c6ah9/4BqRMhRWxlD6NXfll4tF1yYFguLEpA==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+	action=mi-m=1; hc=14;
+	hn=cc,content-language,content-transfer-encoding,content-type,
+	date,feedback-id,from,in-reply-to,message-id,mime-version,
+	references,subject,to,user-agent;
+Message-Instance: m=1; h=sha256:pGBvPEtwbu7eCKvBM3T0V7LOG3cvubmQlEJNZ40voiE=:mcQiFjwtrUBkBqjUTquaTH4QwwtpnIJfEZfCyR0L8fo=;
+X-ME-Sender: <xms:wC7_ahG13iklQ3gcWzcRZsHrmPkk4u3lnv-bIpMg2RSvREtFZB_CyQ>
+    <xme:wC7_ao4-4Mbud9COKEyxO8YjhR2D6Ok1fn3wDPBYUd1MjAwoPALZqPfcp-bDDebyU
+    _dzZkhT2cIEMK5eECE0pjak4mEwjg2_VNGnNoH0t2F64bpjVJf_ZqRS>
+X-ME-Received: <xmr:wC7_amwLtHv07LLjqho0b5svEC7yJGJs5DS7b1eFfxxU9SzZktwWxRNGqDoo-iBxGUjFCMZtZsr_t76nzb9py0RmigOeCkoQ>
+X-ME-Proxy-Cause: dmFkZTGdkiJzzzCzyI1jy5TCHKoTNJWWxSYnGVXcajI8Ple3sqqoQ7ClKp8Xp95dRD+8kN
+    fkkoAmQG1Iqer1YmKloXlDjLBpSncTLbPTAcwSOcw+WmULhGH3XEdK2zax2oHD73jN4p1x
+    MNAWdJ7f+l2DL++6LToaYq/sYof7c/Ht0jgboQtc50Zn9BTSfKcr1izg2B/JOig804uP3l
+    c13UyZMADySV4oT+xkhVF1xp9ZA0H+EIlGyIx67pV5LCASVyVAW9fk1zT7/kqFHmLh5P+u
+    ZbBMQ/0T/YZtWnvUXzXeKrvbCqz1cuWsnLQhAZKOpUsoetGE7ecAR2NJDEkHyl1QkXhmfG
+    F8THCmMXKVD6MSXfFQFbHvJTx/7Ds7G5OGMyfS0aKq8RQ2eXfM3J4ug8s0LNUlmRZmPelu
+    N9T+FfwXkmH/8/wDOXTx1GrCmK054nUnGkx6pbWGpzmljLgLZ5ti5Tkz6OUzH712ICVpdq
+    Kx05MTmL6Nk78/gMkQxrEESkrp/7GKML3dyZhKRiPpOxSyUwnQGFZtUZQKIjjc0ORlV/Y1
+    bG3eR1dVyj76PYEc2CZ8ixx9KFEfvGbg9MCRhhmaZzmKRWUBFQUJE3Kqmsal3PXIH3mBpm
+    R7xGvXl/I6CJY0ceq/filwkQsSuhsWlaqNXv8V8SRE17vBAzemuDkcMbo5QA
+X-ME-Proxy: <xmx:wC7_anOaCKuQXkjTJbhQ6WHKsIB2vsSDgFml9agWU_c2hAE6a3Jqbg>
+    <xmx:wC7_aslE8SrQY7X5e1wk9O_dCBHB3nhHqxlSqR4p0fQyvTOjbL7JIA>
+    <xmx:wC7_asSVdNW_-Q1T0DkxhYSMhG8ggDCrSjq8S-EJv4pcbGUFYWzwLA>
+    <xmx:wC7_arXY6HIQep-REVCLDJDBMIupplePXAxDHXyPC6Mvu3SR4LRwgA>
+    <xmx:wC7_agF0KH_hOXMk3bFVfKo_fGME-BuPtlfnJmAiLBGpCBYY7Xklivaq>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 19 Nov 2026 12:15:43 -0500 (EST)
+Message-ID: <42da5e9b-1db9-410e-9c72-9f9f4e9489f7@pobox.com>
+Date: Thu, 19 Nov 2026 09:15:42 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,71 +119,85 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117-submit-nvmem-wp-serialization-v1-v1-1-539d121f8f5e@gmail.com>
- <faiy43d7khj6d3adwhnbdkkq2h2cdg7bue4lpawtzrhv3vsm3f@3372slynbcbc>
-In-Reply-To: <faiy43d7khj6d3adwhnbdkkq2h2cdg7bue4lpawtzrhv3vsm3f@3372slynbcbc>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Thu, 19 Nov 2026 10:13:05 -0700
-X-Gm-Features: Aa3M54rAJ1Mkv9PZFikrBwu2LdRSge9Gu2YTNgX8QQ8FL9Kc05ECu88O9Wlq0uw
-Message-ID: <CADvTj4rkBApMzBk0fmKym3iSxqjuGOPiPyTnBGKoVRgYcz_Usg@mail.gmail.com>
-Subject: Re: [PATCH] nvmem: keep write protection disabled while writers are active
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Khouloud Touil <ktouil@baylibre.com>, 
-	Linus Walleij <linusw@kernel.org>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 1870/2651] Bluetooth: L2CAP: take chan->lock for
+ l2cap_chan_add/ready/del
+To: Sasha Levin <sashal@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Pauli Virtanen <pav@iki.fi>,
+ Eulgyu Kim <eulgyukim@snu.ac.kr>, Jaeyoung Chung <jjy600901@snu.ac.kr>,
+ Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+References: <b5b8bc11-35bd-45f9-adac-648c1646ac32@pobox.com>
+ <2026-11-19-1-daily-reply-0006@kernel.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <2026-11-19-1-daily-reply-0006@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 19, 2026 at 6:25=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.or=
-g> wrote:
->
-> On Tue, Nov 17, 2026 at 03:09:08PM -0700, James Hilliard wrote:
-> > The core deasserts the WP GPIO before calling the provider and asserts
-> > it again on return. Two concurrent writes can both deassert WP before
-> > the first one finishes. That writer then protects the device while the
-> > other is still writing or waiting for the provider lock.
-> >
-> > Count active writers per device under a mutex. Only the first writer
-> > deasserts WP and only the last one restores it, including on provider
-> > errors. Keep the mutex outside the provider callback so providers that
-> > forward writes to another NVMEM device can still nest.
-> >
-> > Fixes: 2a127da461a9 ("nvmem: add support for the write-protect pin")
-> > Cc: stable@vger.kernel.org
-> > Link: https://lore.kernel.org/r/sashiko-outbox-219526@kernel.org/
-> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> > ---
->
-> This adds a mutex where there was previously none in nvmem core.
-> Synchronization was left to the underlying providers.
->
-> Can we not use atomic ops and avoid the mutex? I'm talking about
-> something like:
+On 11/19/26 8:08 AM, Sasha Levin wrote:
+>> This is breaking the build for me with clang 23.1.6 (also 23.1.5) for arm64, amd64 and i386:
+>>
+>> net/bluetooth/l2cap_core.c:708:2: error: calling function '__l2cap_chan_add' requires holding mutex 'chan->lock' exclusively
+> 
+> Queued the missing annotations patch for 7.3, thanks.
 
-There's a race on the first write as well. The first writer can
-increment the count from 0 to 1 and be preempted before it deasserts
-WP. A second writer then sees a nonzero count, skips the GPIO call
-and enters the provider's write callback while WP is still asserted.
+Now I get the following when building the current 7.3 stable-queue
+(commit 5252483124e6cf016c4a6f41fe1e44f5e1949648) with clang 23.1.6,
+same config as before:
 
->
->         if (atomic_fetch_inc(nvmem->wp_cnt) =3D=3D 0)
->                 gpiod_set_value_cansleep(nvmem->wp_gpio, 0);
->
->         if (atomic_dec_return(nvmem->wp_cnt) =3D=3D 0)
->                 gpiod_set_value_cansleep(nvmem->wp_gpio, 1);
->
-> The only problem here is when we put the last reference, start setting
-> the value to 1 to enable WP, while another writer bumps it back up and
-> we drive WP pin back low. But then we expect the GPIO chip driver to
-> handle synchronization in this case.
+net/bluetooth/l2cap_core.c:128:9: error: mutex
+       'l2cap_chan_hold_unless_zero(c).lock' is not held on every path through
+       here [-Werror,-Wthread-safety-analysis]
+   128 |         return c;
+       |                ^
+net/bluetooth/l2cap_core.c:125:4: note: mutex acquired here
+   125 |                         l2cap_chan_lock(c);
+       |                         ^
+net/bluetooth/l2cap_core.c:147:9: error: mutex
+       'l2cap_chan_hold_unless_zero(c).lock' is not held on every path through
+       here [-Werror,-Wthread-safety-analysis]
+   147 |         return c;
+       |                ^
+net/bluetooth/l2cap_core.c:144:4: note: mutex acquired here
+   144 |                         l2cap_chan_lock(c);
+       |                         ^
+net/bluetooth/l2cap_core.c:4589:2: error: releasing mutex
+       'l2cap_get_chan_by_scid(conn, dcid).lock' that was not held
+       [-Werror,-Wthread-safety-analysis]
+  4589 |         l2cap_chan_unlock(chan);
+       |         ^
+net/bluetooth/l2cap_core.c:4703:2: error: releasing mutex
+       'l2cap_get_chan_by_scid(conn, scid).lock' that was not held
+       [-Werror,-Wthread-safety-analysis]
+  4703 |         l2cap_chan_unlock(chan);
+       |         ^
+net/bluetooth/l2cap_core.c:4741:2: error: releasing mutex
+       'l2cap_get_chan_by_scid(conn, dcid).lock' that was not held
+       [-Werror,-Wthread-safety-analysis]
+  4741 |         l2cap_chan_unlock(chan);
+       |         ^
+net/bluetooth/l2cap_core.c:4769:3: error: releasing mutex
+       'l2cap_get_chan_by_scid(conn, scid).lock' that was not held
+       [-Werror,-Wthread-safety-analysis]
+  4769 |                 l2cap_chan_unlock(chan);
+       |                 ^
+net/bluetooth/l2cap_core.c:4778:2: error: releasing mutex
+       'l2cap_get_chan_by_scid(conn, scid).lock' that was not held
+       [-Werror,-Wthread-safety-analysis]
+  4778 |         l2cap_chan_unlock(chan);
+       |         ^
+net/bluetooth/l2cap_core.c:5295:2: error: releasing mutex
+       'l2cap_get_chan_by_dcid(conn, cid).lock' that was not held
+       [-Werror,-Wthread-safety-analysis]
+  5295 |         l2cap_chan_unlock(chan);
+       |         ^
+net/bluetooth/l2cap_core.c:7200:2: error: releasing mutex
+       'l2cap_get_chan_by_scid(conn, cid).lock' that was not held
+       [-Werror,-Wthread-safety-analysis]
+  7200 |         l2cap_chan_unlock(chan);
+       |         ^
+9 errors generated.
 
-The GPIO driver can serialize both calls and still execute them in
-the wrong order. If the last writer drops the count to zero and is
-preempted, a new writer can deassert WP and start writing. The old
-writer can then resume and assert WP in the middle of that write.
-
-The mutex keeps the count change and the GPIO transition together.
-It's released before calling the provider, so it doesn't serialize
-the writes themselves.
-
->
-> Bart
+-- 
+-Barry K. Nathan  <barryn@pobox.com>
