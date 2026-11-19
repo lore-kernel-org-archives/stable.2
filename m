@@ -1,56 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795115035;
-	b=4KSFbaRvYgw39QnzqumVrPzLDdT8Cd/9y2E2fsvN9Hu9xJfcGz9nfs/RbefkWwT05how
-	 aLWhHh6r4PFFywb2g2XNKZJmVexnLws0+/mtjzAv2IRl+Xx78U3pnH8NZHHMp2mbQi27d
-	 yDl90D5KSrf+tIbsqVXQfB3WW+9S+Y6pL28tMsAsvpCWaeaSTB6o8LEkKVoSJNZHKnsKc
-	 gnViV7KdItwbwKzO39rNEyTRpyGQIZbcDNzTyasoH4gWM8qN+CFvvFMUq3kyuP5n3J48T
-	 E8e+0Ljarwoub4MmCqhUQXcwcL2dybe5N7vYYMEsvVPoufvJJRFADr5A16LjjjfDwCw==
+	t=1795115238;
+	b=2REOV6jeBs23r+m9CelxSZGc0lrs8p+rVQuu963Ug2gYxnhaFHqd71QQTNTYednwhyRg
+	 SHFczOdRmpeSu3Lf44bJnHnu0Ejz8ZDXDNuBzYawIMYCEJ6nNlmU2kugBi9ELjuW2LkmR
+	 2ElSJEQu3yYguZMky+FNr7/wcV1wo7wwM/wCJLwOWUqgO35zHER/SjVTJhtbfYowa/b5Q
+	 JHRia47MkoAV0UxS7qlEboaUiuslSNChB0zq6kA/zy2ome9RrGZsZhFuzP54iW6I2W/1y
+	 hizXR9/qfRfQctqthyjqHIP0ZEk3WExdcpZD4984uzMj8Zr9uo7XxswnW1ffayOzFmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795115035;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=UrVO8XGwHaQjZz8zm07ChJM1EQesX9Q557uM+EHmj+M=;
-	b=e0TO2iGaTH2PRcHRWJw21EG9fMFK6x1tcuTt+yKd5m6lEFd0B4gYg7g17ejmv2Khe1cg
-	 BuzLpdlQmtAt3GiiSPjBICCtB8sUpnfUN82lOieFqy2MM8sAoQmv7qTtYP7Yu+rp4jafv
-	 r8mRmTmJeNqtDA50Xj94Fl+4oZJ6+2kRQGC+4R1LU1pLb7NlCdRnjy9g63c6rBvnLZ2iX
-	 klkLnTZs/L4b9j6T6/7K8g5L4rFIt7aL3YxvINtUr53vFyboLwnCQR10miGKi2IWOa8az
-	 hfTQ3njLmCWUf0rbabpdGQiJX/Gay/6OVNXeGPwUDft/P9VNHB0QZFAYbpfmOTEhbiA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795115238;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=/0vNi3WzQ0meDFvL7gP2Mj945lYjPQyLZhg0rrA4/Ew=;
+	b=B5G9qx+jUARwGh0AVYo6duXguXUO4+IIMW42WDuB3SLu+hwJS+jAgQ/A+ImRh1+jlFUB
+	 F6spz5MoQcEnqGHcQBIjVn2yGNsEBi7zmep6rJW1rMBrBJg6EQGzSo1Oy1lzf2b4apt/q
+	 uIaKIDISX8kvhZfjke6JxJHYzI2O7kNOn2BEORqtLccvbpwhZHgC68nJuzl5mTo5diBar
+	 1p98WsgrJjBCf4GtgIDmoU/IKy/6fVYn06vmjUzn3DBOGVX9yVwhtv+IVMyodSBXbKCQz
+	 IZyWGm1XyIjBtAkHMwzYvragopic6lTP5IojXyHdahvkGXcaB+Y/m7+/MEBmYQ6EmrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2p3cSUI;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=efficios.com;
+	spf=pass smtp.mailfrom=efficios.com;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=YykGvBfa;
+	arc=none smtp.remote-ip=158.69.130.18
+Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31945606A32C;
-	Thu, 19 Nov 2026 19:03:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B13606A325;
+	Thu, 19 Nov 2026 19:07:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08B13606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E2p3cSUI
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C82B31F000C5;
-	Thu, 19 Nov 2026 19:03:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795115034;
-	bh=UrVO8XGwHaQjZz8zm07ChJM1EQesX9Q557uM+EHmj+M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E2p3cSUIza9WEyze8LYVC3oD5uhjdLoZC9UdoslJtq0ndKAWrosz64U3W+g7Ri7Bp
-	 kYUtvQdtPNBbyxgf4SejJfAX3gJwfTGaU/ZEpAT1hvAYmD84gBTfEdvjUn9Aq+tUwE
-	 xNDvzHOrgYvZdH6Ud9X5Np/8YHvd3TGEQdHfHxvxitG33PupQFYzyP9waNFq9gfp3q
-	 A4N5jNcYnQqA8pvtZZ3Z86bLVTzoUu+EoAMl8Vy99Kb8hDfO8z0cp2y9hY1rQoknjN
-	 HaztoZWZJt5545xxxXfNsD/Uhs/P4Nwukzsa4vnazWeu/CpeCYrpnKDTdlGfyYHl+W
-	 9zF4syv18i1ZA==
-Date: Thu, 19 Nov 2026 19:03:50 +0000
-From: Lee Jones <lee@kernel.org>
-To: "Thomas Richard (congatec GmbH)" <thomas.richard@bootlin.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Werner Gartner <Werner.Gartner@congatec.com>, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v6 00/10] Congatec Board Controller: Add storage devices
- support
-Message-ID: <20261119190350.GB70182@joneslee-macbookpro.roam.internal>
-References: <20261117-cgbc-i2c-storage-devices-support-v6-0-bb070ad3e9aa@bootlin.com>
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=YykGvBfa
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
+	s=smtpout1; t=1795115237;
+	bh=/0vNi3WzQ0meDFvL7gP2Mj945lYjPQyLZhg0rrA4/Ew=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=YykGvBfauueTH9TUjS7MnqB68phTMdgDBZqXTfzhwadjyrswMRl050SiqI7VmT3rN
+	 PJI87Aaq3YYmC9xZ106BBr43okBuLAGM4+Wi7j0g7Yc6h52IliY3+aGPytt9IBoMVY
+	 1kTV6aiybsR4gOBz27ofzpf9BUPTTM/VPqtkEKw4tLJIP/pKjhKKo8q9CfTkB5LNpc
+	 V6/QDAAFkVSAYeyzCggV87eIYJY79XA0KGoVcCgEp1UrZ5cius5OGDdgRGdhrg8oo6
+	 hS1zMp8I0ULHZj2Yfkq9pEOluD0Xh4k3F+36DL4miI0DnzpnSydVfY/VpobDPpBwiJ
+	 2VoWwF21yQvVg==
+Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVnys10JZzS7g;
+	Thu, 19 Nov 2026 14:07:17 -0500 (EST)
+From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+To: juri.lelli@redhat.com,
+	peterz@infradead.org,
+	mingo@redhat.com,
+	vincent.guittot@linaro.org
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	tglx@kernel.org,
+	will@kernel.org,
+	boqun@kernel.org,
+	dietmar.eggemann@arm.com,
+	rostedt@goodmis.org,
+	bsegall@google.com,
+	mgorman@suse.de,
+	vschneid@redhat.com,
+	kprateek.nayak@amd.com,
+	luca.abeni@santannapisa.it,
+	mathieu.poirier@linaro.org,
+	longman@redhat.com,
+	ridong.chen@linux.dev,
+	tj@kernel.org,
+	hannes@cmpxchg.org,
+	mkoutny@suse.com,
+	shuah@kernel.org,
+	bigeasy@linutronix.de,
+	clrkwllms@kernel.org,
+	parri.andrea@gmail.com,
+	m.szyprowski@samsung.com,
+	kayracizmeci@gmail.com,
+	weihengqiuu@gmail.com,
+	linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH v5 01/17] sched: Refuse SCHED_FLAG_KEEP_PARAMS that would change the policy or the class
+Date: Thu, 19 Nov 2026 14:06:58 -0500
+Message-Id: <ba41e54ddc52f13b1889c204220882fb79e9099d.1795115075.git.mathieu.desnoyers@efficios.com>
+X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1795115075.git.mathieu.desnoyers@efficios.com>
+References: <cover.1795115075.git.mathieu.desnoyers@efficios.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,90 +95,114 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117-cgbc-i2c-storage-devices-support-v6-0-bb070ad3e9aa@bootlin.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, 17 Nov 2026, Thomas Richard (congatec GmbH) wrote:
+A sched_setattr() request with SCHED_FLAG_KEEP_PARAMS can ask for
+another policy. __sched_setscheduler() then applies only half of the
+change, and returns 0:
+- SCHED_OTHER to SCHED_BATCH leaves the policy as it was.
+- SCHED_DEADLINE to SCHED_OTHER sets DEQUEUE_CLASS. switched_from_dl()
+  then runs on a task that stays in the class. It would release
+  bandwidth the task still uses.
+- SCHED_DEADLINE on a task of another policy reserves bandwidth in
+  sched_dl_overflow(). The task keeps its policy and a dl_bw of 0, so
+  nothing releases that bandwidth. For a task boosted into the deadline
+  class, it is not even a class change.
 
-> This is the 6th iteration. As discussed with Lee [1] I just picked his I2C
-> patch [2] (to handle the conflict) and rebased the series on top of
-> next-20261116.
-> 
-> [1] https://lore.kernel.org/all/c9d26395-93f8-4e63-9cd0-586ce913931b@bootlin.com/
-> [2] https://lore.kernel.org/all/20261027093306.2812695-27-lee@kernel.org/
+SCHED_FLAG_KEEP_PARAMS came with utilization clamping. With
+SCHED_FLAG_KEEP_POLICY, it lets sched_setattr() change only the clamps
+of a task. So __sched_setscheduler() skips __setscheduler_params(),
+which sets p->policy, and the sched_class assignment. Nothing checks
+that the request keeps the policy.
 
-I assume this all needs to go in at once?
+In testing on v7.4-rc2, a deadline waiter boosted a SCHED_OTHER mutex
+owner with a 40ms slice. One such call on the owner left 0.4 CPU in
+total_bw, until the next rebuild of the root domains.
 
-So we just need the I2C Acks, then I can take the set and send out a PR.
+Fix this by refusing a request for another policy or class with
+EINVAL. Move sched_dl_overflow() after it, as the last check. Nothing
+gives back the bandwidth it reserves. A refused request also leaves
+sched_reset_on_fork alone.
 
-> Signed-off-by: Thomas Richard (congatec GmbH) <thomas.richard@bootlin.com>
-> ---
-> Changes in v6:
-> - rebased on top of next-20261116.
-> - add Lee's I2C patch (PATCH 2).
-> - Link to v5: https://patch.msgid.link/20261103-cgbc-i2c-storage-devices-support-v5-0-ac11f23fae51@bootlin.com
-> 
-> Changes in v5:
-> - mfd: fix error message in case we fail to get session handle.
-> - fix I2C bus names earlier in the series.
-> - Link to v4: https://patch.msgid.link/20261002-cgbc-i2c-storage-devices-support-v4-0-eb42e0f1df59@bootlin.com
-> 
-> Changes in v4:
-> - Fix struct cgbc_i2c_platform_data comment (kernel-doc warning)
-> - Move struct cgbc_i2c_platform_data from linux/platform_data/i2c-cgbc.h to
->   linux/mfd/cgbc.h
-> - Use MFD_CELL_NAME macros.
-> - Link to v3: https://patch.msgid.link/20260911-cgbc-i2c-storage-devices-support-v3-0-594b53fbc5ea@bootlin.com
-> 
-> Changes in v3:
-> - rebased on v7.3-rc2
-> - use PLATFORM_DEVID_AUTO for child devices
-> - move I2C bus and I2C device definition in the MFD driver
-> - Link to v2: https://patch.msgid.link/20260811-cgbc-i2c-storage-devices-support-v2-0-3efa998e0ef5@bootlin.com
-> 
-> Changes in v2:
-> - i2c: fix typo in CGBC BIOS EEPROM label.
-> - mfd: make cgbc_devs const
-> - Link to v1: https://patch.msgid.link/20260804-cgbc-i2c-storage-devices-support-v1-0-fed38510671c@bootlin.com
-> 
-> To: Thomas Richard <thomas.richard@bootlin.com>
-> To: Lee Jones <lee@kernel.org>
-> To: Andi Shyti <andi.shyti@kernel.org>
-> Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-> Cc: Werner Gartner <Werner.Gartner@congatec.com>
-> Cc: mfd@lists.linux.dev
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-i2c@vger.kernel.org
-> 
-> ---
-> Lee Jones (1):
->       i2c: cgbc: Propagate hardware errors when polling read status
-> 
-> Thomas Richard (congatec GmbH) (9):
->       mfd: cgbc: Fix use of negative error code as valid session handle
->       i2c: cgbc: Use real I2C bus names
->       mfd: cgbc: Add I2C platform data
->       i2c: cgbc: Use plateform data to get bus ID and adapter name
->       mfd: cgbc: Use PLATFORM_DEVID_AUTO for child device registration
->       i2c: cgbc: Add support for fixed frequency buses
->       mfd: cgbc: Add virtual I2C bus support
->       mfd: cgbc: Add virtual storage devices on the virtual I2C bus
->       i2c: cgbc: Register known I2C devices on the bus
-> 
->  drivers/i2c/busses/i2c-cgbc.c | 135 ++++++++++++++++--------------
->  drivers/mfd/cgbc-core.c       | 187 +++++++++++++++++++++++++++++++++++++++---
->  include/linux/mfd/cgbc.h      |  16 ++++
->  3 files changed, 265 insertions(+), 73 deletions(-)
-> ---
-> base-commit: 749a4de370409464cf8501ec5b2451df45c84eb4
-> change-id: 20260717-cgbc-i2c-storage-devices-support-b3ee7cea3320
-> 
-> Best regards,
-> --  
-> Best Regards,
-> Thomas Richard
-> 
+With this patch, that call is refused and total_bw does not change. The
+params_keep_boosted case of deadline_bw_test, added later in this
+series, tests it.
 
+Juri Lelli found the class change, from a report by Tejun Heo. The
+Sashiko AI review of this series found the policy change and the boosted
+case.
+
+Fixes: a509a7cd7974 ("sched/uclamp: Extend sched_setattr() to support utilization clamping")
+Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/2b5fb3f22bca6aa383be8f4781923392@kernel.org/
+Link: https://lore.kernel.org/all/20261103-b4-sched-dl-bw-fixes-v1-3-dd761fe005b4@redhat.com/
+---
+ kernel/sched/syscalls.c | 40 +++++++++++++++++++++++++++++-----------
+ 1 file changed, 29 insertions(+), 11 deletions(-)
+
+diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
+index 0ec401af80d1..89b0d5787f45 100644
+--- a/kernel/sched/syscalls.c
++++ b/kernel/sched/syscalls.c
+@@ -647,17 +647,6 @@ int __sched_setscheduler(struct task_struct *p,
+ 		goto recheck;
+ 	}
+ 
+-	/*
+-	 * If setscheduling to SCHED_DEADLINE (or changing the parameters
+-	 * of a SCHED_DEADLINE task) we need to check if enough bandwidth
+-	 * is available.
+-	 */
+-	if ((dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
+-		retval = -EBUSY;
+-		goto unlock;
+-	}
+-
+-	p->sched_reset_on_fork = reset_on_fork;
+ 	oldprio = p->prio;
+ 
+ 	newprio = __normal_prio(policy, attr->sched_priority, attr->sched_nice);
+@@ -677,9 +666,38 @@ int __sched_setscheduler(struct task_struct *p,
+ 	prev_class = p->sched_class;
+ 	next_class = __setscheduler_class(policy, newprio);
+ 
++	/*
++	 * With SCHED_FLAG_KEEP_PARAMS, the change below skips
++	 * __setscheduler_params() and the sched_class assignment. The
++	 * policy and the class stay as they are. Refuse a request for
++	 * another policy or class, rather than carry out half of it.
++	 *
++	 * The class depends on the priority, which priority inheritance
++	 * can raise. It also depends on whether a BPF scheduler is in
++	 * charge. So test the class too, not only the policy.
++	 */
++	if ((attr->sched_flags & SCHED_FLAG_KEEP_PARAMS) &&
++	    (policy != p->policy || prev_class != next_class)) {
++		retval = -EINVAL;
++		goto unlock;
++	}
++
+ 	if (prev_class != next_class)
+ 		queue_flags |= DEQUEUE_CLASS;
+ 
++	/*
++	 * If setscheduling to SCHED_DEADLINE (or changing the parameters
++	 * of a SCHED_DEADLINE task) we need to check if enough bandwidth
++	 * is available. Keep this check last. If a later check failed,
++	 * nothing would give back the bandwidth it reserves.
++	 */
++	if ((dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
++		retval = -EBUSY;
++		goto unlock;
++	}
++
++	p->sched_reset_on_fork = reset_on_fork;
++
+ 	scx_prepare_setscheduler(p, policy);
+ 
+ 	scoped_guard (sched_change, p, queue_flags) {
 -- 
-Lee Jones
+2.47.3
+
