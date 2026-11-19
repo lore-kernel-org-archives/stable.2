@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795078356;
-	b=vqBQQ021kQbK5ca98Zn5HHPXmJBTp2SvZFMoHi4RYPWtO6GEwvqk2l4HiN9YjkezRKt7
-	 0phUFi18xiIN39kALMZ4oTjeh46FEwrLxjFfFb6NeHK7adbESXcDftc2IHk1qSSkx+ahv
-	 xnrRVaSkCm78xxZFiFQ43iG3TbsqDBbvu0nFnKj73ZsN1UZRLNb0kOpvG17bCWcF1FcJ+
-	 8prNpv1C0qgW74I6ZKb87tpqvnDzkQ60DH2eVTyc8GMa0BvUBUmp4LnIw4qyR1jE/LXLK
-	 T752WnrlXK7JLay6hGiHkGn4YSw0fQMuQkWJPZ6lMBSUkEA4MW1d6CH+B7GP9jDutBw==
+	t=1795078361;
+	b=SoWZ/IyOeJ7raeu6gDjI0ccvWY1A5pD9FZzeib5SXDrZYR1pM5V4gv7l3J4cIvOBZN9X
+	 nrkwmgXkcUjPQmzUr7fzyfFp5XSDuig1gKqvqhcrdUo5KYFB2yasXT7qsZQLTzM4V7WCi
+	 x4iJzuM6kdewAlsw/StAqzv3AKk6X+tEeqo4BIF2lDhmaAmgxcY86uUSGGS8zTy2XaXob
+	 t8HoSH3LgjxZ60gSVoEWN2vxeHdDlxPtxZZEjflN/muZOf18oTcX7ERdGoFDyouNDsO95
+	 BiBbRQiADfiSRPr3KejIoLu/gQh1kSr+HGh3e7c/WEwcTIMwTqoA8/sA+U4EF7RZFsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795078356;
-	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=IPndn90TrWiuxkQkUrYep5mzt6mXRFlXBfoASzSRQGU=;
-	b=HckjKOtvL9F+G5LRSF4Hep4Xtime03pWItqLFyrii7/rcNlhDW5z6henGRbAxEy95+UY
-	 nrG4lsv+5fdISssaEd6FiHtPZzXgY1P2S+v7IlV9lJ+9l1Cg7YfXBWAsW3ibljgfJjbEw
-	 +m2hVIWUtnne7RU0NA+PpB0mq7vpCBBe+0lNfU2HKVgJ7ac+8mHycvhvjSQLM5XqVy7ng
-	 Lvv0ddGfw/tJRxRz+T4RnrE2t9X7pySDq+qFPmjgVeuZro/6zMq4NKQhWjXQnqja4Hwip
-	 JojKv+K8S2oKEBX6gxWpy1eeDiZ+D9qsCamsQgvUYEWs1nQfmh34DkAoPPHLYpj6o4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795078361;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=slP12k1/UmuSqVqj4kei7CXwqTFf5wNJ5fzGochv76w=;
+	b=T1DUNtwxLQi7FkKHykBbJUlTZCzWLKCd7iz7sD9D4rUOHQ+u7dcBtIjacYg5etClsbf4
+	 O/JUlw0JW9IMDtQiCWvTaWdd9LYfVqj0ZkD8+aXxn8ur9WCgJT+OSlXw8uot29MuyF7tm
+	 GsJ+HayPnOOwXu7svm8FsDkc7Ljd0QpYti6/s+obWRKkjwpbnJ03Sg+pwz/6cT/u/PEuU
+	 ymMT2nNVcYajXYUcBGpBu/cqVQ/8RxDtuUTCNsFvSN3yOoWKhbKF8QgWTa2flCwl4YGOo
+	 3QjPcg3R97SdghlFq67Mb9WDY9353Ry8eKJ18V04ZC1rVyETMuyBOV4rVX+Htd++xUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j1Nz+8cR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQkCpeqt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3793C606A320
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 08:52:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E924E606A325
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 08:52:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j1Nz+8cR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FE001F000C4;
-	Thu, 19 Nov 2026 08:52:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AQkCpeqt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F741F000C5;
+	Thu, 19 Nov 2026 08:52:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795078355;
-	bh=IPndn90TrWiuxkQkUrYep5mzt6mXRFlXBfoASzSRQGU=;
-	h=From:Subject:Date:To:Cc;
-	b=j1Nz+8cR0jTce7Lp+aDCmO2fQowwUJsL1pf8Qlim9IPCU5cSF9GJDtXCEhrOFoGx2
-	 j1QZyZsXieQmfRHnwmre7bjUH7/mRoJWdXGYPmuzoqjhjHQ8IAw+g+NuVicE2HsgsB
-	 MarSJWRIFV4o2pte5enKAV5QrizPpKEtCcykq1M/0xJzL/o7pa/5q0UfOKHnBEf9hT
-	 aSExsypAUGBR7OTzqNq/MTVjl8laEYCAtfG8gQldsH2vBoHIUgpCUDGqUOHhVJDxXw
-	 XWNtIvzvxLXYauMlcTju6j4Pd4tVD3f1FC6xCWgGn4ExBG+beaCsHId1qfl/r+ADwa
-	 g5MYsDz4abbTA==
+	s=k20260515; t=1795078360;
+	bh=slP12k1/UmuSqVqj4kei7CXwqTFf5wNJ5fzGochv76w=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=AQkCpeqtER/pRkRAMr/L2oDOE2ERxJrbyHH375vGguYu8CugXOzlCmh4jy8w+SA69
+	 nxiVYh0Pd2RZq2Y+8m/6KRT/ZMyIBco0fV5jRyZf+cLbEFn4FSS0+OhJVvXDj1C4OY
+	 J2DYaVfSdMGNxKaxJT3UTd5u0xOkfStA4kBgZflLhKugqXPXlxrMn0EkOaIqvWySo8
+	 yAhl8SVOdu0rGqfS+Gp4BJB2FhDgBt6qBNEfD4kj3ujBCNF/yUlEBKdWvaJpRR2PNS
+	 I8PNugYeamptXxk/vL3L1NFXzT8H8wX1B4iHruU9Aq5ouc7CiYZBqWDFH6YJdQV6+S
+	 LqamHn8KuBjww==
 From: "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: [PATCH 0/3] alloc_tag: two fixes and one cleanup
-Date: Thu, 19 Nov 2026 09:52:19 +0100
-Message-Id: <20261119-alloc_tag-v1-0-efcccfd3a9c9@kernel.org>
+Date: Thu, 19 Nov 2026 09:52:20 +0100
+Subject: [PATCH 1/3] alloc_tag: handle a NULL tag in
+ alloc_tag_set_inaccurate()
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,10 +55,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXM0QqCQBAF0F8Z7rMLzoZa+ysRsU2zOiEauxaB+
- O9SPZ6Xs6JoNi0ItCLr24rNEwJxRZAhTr06uyMQfO1bZj65OI6zXJfYu6Y7+DZxEjk2qAjPrMk
- +v+t8+bu8bg+V5Rtg23ZSZGd0bQAAAA==
-X-Change-ID: 20261119-alloc_tag-57326f1fcc85
+Message-Id: <20261119-alloc_tag-v1-1-efcccfd3a9c9@kernel.org>
+References: <20261119-alloc_tag-v1-0-efcccfd3a9c9@kernel.org>
+In-Reply-To: <20261119-alloc_tag-v1-0-efcccfd3a9c9@kernel.org>
 To: Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>, 
  Vlastimil Babka <vbabka@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
  Michal Hocko <mhocko@suse.com>, Brendan Jackman <brendan.jackman@linux.dev>, 
@@ -70,44 +69,70 @@ To: Suren Baghdasaryan <surenb@google.com>, Hao Ge <hao.ge@linux.dev>,
 Cc: linux-mm@kvack.org, "David Hildenbrand (Arm)" <david@kernel.org>, 
  stable@vger.kernel.org, Chris Mason <mason@kernel.org>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=988; i=david@kernel.org;
- h=from:subject:message-id; bh=pTjq0ySpnKkGB96QfwvsYQaekk2YVWDvbC/xe0dtpSY=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLL+7TjhMY9nipNo7srX+5Ov2c6RiDDZepnxXTnjF+20/
- 272P6KVOkpZGMQ4GGTFFFmCgu8bvHy5rrbajY8ZZg4rE8gQBi5OAZiIgivD/3LRO8tiHh63iFpa
- efzgHrGD6Qc/KWn6v3vsW1grnVt37hwjQ9euXI8qntVm5sfbdpZvbn+UXH+7InVl2zQHP6fPk6e
- JMQEA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2198; i=david@kernel.org;
+ h=from:subject:message-id; bh=pQCOEBuVtuHz63BHCaKRIv21JHUplhwXXCn7IFnZRLo=;
+ b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLL+7Th/8FPU1reKDbNDJlruSM7v6VQ4JH3O3P6fc2h1V
+ JKWpsicjlIWBjEOBlkxRZag4PsGL1+uq61242OGmcPKBDKEgYtTACbS9ILhn2JhTcmi67mXXfX2
+ KLxMXHRR1tA3pyzhxfp/RY/7XqzXDWb47709PKBozbaH4v5yUs9epYTKLVT0+LeuJ2vlpkpho61
+ CnAA=
 X-Developer-Key: i=david@kernel.org; a=openpgp;
  fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-Hi,
+With memory allocation profiling enabled after boot, a slab allocation
+can dereference a NULL pointer if current->alloc_tag is not set and
+allocating the slab object extensions fails:
+__alloc_tagging_slab_alloc_hook() passes current->alloc_tag to
+alloc_tag_set_inaccurate(), which does not handle a NULL tag currently.
 
-two fixes (one for alloc_tag as triggered by slab, one for mempool) and
-one related cleanup to make things consistent.
+One way to trigger it is through rhashtable: rhashtable_init() records
+current->alloc_tag in ht->alloc_tag, which is NULL while profiling is
+disabled. Once profiling gets enabled, alloc_hooks_tag() sets
+current->alloc_tag to that NULL tag when allocating a bucket table.
 
-Quickly reproduced and tested the warnings in a x86-64 VM.
+Fix it by handling NULL tags in alloc_tag_set_inaccurate(), just
+like alloc_tag_add() and alloc_tag_sub() already do, and drop the now
+unnecessary check in __pgalloc_tag_add().
 
-This should go through Andrew's tree. No need to rush, it can wait until
-the next merge window.
+This has low urgency.
 
+Fixes: b9e2f58ffb84 ("alloc_tag: mark inaccurate allocation counters in /proc/allocinfo output")
+Cc: stable@vger.kernel.org
+Reported-by: Chris Mason <mason@kernel.org>
 Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 ---
-Chris Mason (1):
-      mempool: fix missing alloc tagging in mempool_resize()
+ include/linux/alloc_tag.h | 3 ++-
+ mm/page_alloc.c           | 3 +--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
-David Hildenbrand (Arm) (2):
-      alloc_tag: handle a NULL tag in alloc_tag_set_inaccurate()
-      mempool: account the element array to the caller
+diff --git a/include/linux/alloc_tag.h b/include/linux/alloc_tag.h
+index 7f2d80a597924..0f9909c6701a7 100644
+--- a/include/linux/alloc_tag.h
++++ b/include/linux/alloc_tag.h
+@@ -227,7 +227,8 @@ static inline void alloc_tag_sub(union codetag_ref *ref, size_t bytes)
+ 
+ static inline void alloc_tag_set_inaccurate(struct alloc_tag *tag)
+ {
+-	tag->ct.flags |= CODETAG_FLAG_INACCURATE;
++	if (tag)
++		tag->ct.flags |= CODETAG_FLAG_INACCURATE;
+ }
+ 
+ static inline bool alloc_tag_is_inaccurate(struct alloc_tag *tag)
+diff --git a/mm/page_alloc.c b/mm/page_alloc.c
+index 2fef4092c913c..0b76923145456 100644
+--- a/mm/page_alloc.c
++++ b/mm/page_alloc.c
+@@ -1262,8 +1262,7 @@ void __pgalloc_tag_add(struct page *page, struct task_struct *task,
+ 		 * clear the tag ref later when page_ext is initialized.
+ 		 */
+ 		alloc_tag_add_early_pfn(page_to_pfn(page), alloc_flags);
+-		if (task->alloc_tag)
+-			alloc_tag_set_inaccurate(task->alloc_tag);
++		alloc_tag_set_inaccurate(task->alloc_tag);
+ 	}
+ }
+ 
 
- include/linux/alloc_tag.h |  3 ++-
- include/linux/mempool.h   |  7 +++----
- mm/mempool.c              | 23 ++++++++++++-----------
- mm/page_alloc.c           |  3 +--
- 4 files changed, 18 insertions(+), 18 deletions(-)
----
-base-commit: 4405c18c95d2d0f99f6c581ef0ee8591a1aa6ccd
-change-id: 20261119-alloc_tag-57326f1fcc85
-
-Best regards,
---  
-David Hildenbrand (Arm) <david@kernel.org>
+-- 
+2.56.1
 
