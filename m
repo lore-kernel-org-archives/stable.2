@@ -1,60 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795105302;
-	b=XQrUjD3hNq/GzPgO9w5AlcJO/nupxECqatn/uJrfTMkydLtRO0REcuQVHCReKfWvsHMq
-	 6y6C5S102yrwgqU9Nmojj/In9jZ3yBZFKc2oX7Nec707k4S51ZKKVTJ4sBM8iJzp+B01J
-	 gli8ihWNeGuHHubGMv3aXwgl6v/+aO1oPE/IuKxzVBlpHolToek5XG38WpkatWnN7yYgd
-	 AIDkDChU6w0WSLg+chQpDk87DQUlfBUW78cdaQR7T+92IiGadepYOjBJCNOBvllI22LOd
-	 vfPjW/g7bFr38U8pR6mLBf1G4IDKZP6Z16YuDXU7ktNPkltyQmplC0vr9JjoV/NakXg==
+	b=bE5AhO92FHwLEMVR+7qUXC/nfU0BuyovbBkBEh0F8G1t/fg5LsorwLQWYPXoq4qZC0No
+	 +e//btgdU5whuR6G8xSSwPn2G1y7TqSaLnKbVHkCrGR4GLBja7CwskhKxVWB9/mQkBSCI
+	 iuseC+mp7AojfQnsv8LkicyzYMFP/bGC3aECh4oqH6CCAPAbn0uncgV2C3jc/7wFG55RO
+	 oT5/GiINSOauTikx/nlFHa0IHQuIp1O8K6kcIIJOqsmB34yRXPWZOKHOeNkzpFjJD8C1m
+	 ps91TyK8oH8I+Miugg636ZzaZcjHrJfvQeZwH/l21Sp9fOdHUvEhqDfLs+vy5XaJfRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795105302;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=YUpRYsuuZ9zTOzlFogFq/lthSpzrXEJar3Q39+/3IbQ=;
-	b=BYEyTiFCyytpfAuYAjE23PJh2nq6NsHMdwvy9LigG08fhA8gQ+q2JOCKAnlRB18DiiyW
-	 iyrrtNF9CZIg+uTcrUaqe7w7GBmr1Sdq241uUGxbUprY9SdyGwG/F40pT+8Zvjv5/FoIg
-	 zdGpmb6bASIzJ922W+beUPLRq8NnU9PArlbWU9XOSspzNs8tUwsZL8FSzUkW/yOJaOwOv
-	 Xk1KHvYTf4yDCEHm1uhEEXqpk4LJe0dx8vwR5c8BVo/PsF77eZOJFi/YouC7AYrbzA0wm
-	 QhmTcNJaHJ6nVOAgjCXToPO+b+3qTlcxTH5e7Zs/66VzsGy+ljsikuIYMgv4GiWcO1g==
+	bh=Ax5wFK1/QAbEDyO/3UGGlfePRTUbY1SVXNP1qt/Fk88=;
+	b=FSnIMmm0CB7ZwOQtEWgA55IGK/2QU0JqGN6xCHWEl5IGbooTMjwjrelZV7XhGALiuppf
+	 Wlcm2U+YCHIP+K7s5O3I1ekvPmR8oJKANJOX8BCdCdIwnBnd7bukYUumgyQ1RXGtG8eBi
+	 vVEob2KLNLAc269dWL5K0ZoEXLgClPcuJYbPuvG+Im9jR0G974nioyUZ4UsIiACuTDYE4
+	 5B1+zVAdEbxo7ihwhaz6D+TUPioaebg0w3CrX2Lx5avXWAbLpEYu75zlMrpaNyExRkGfU
+	 iGZCmdbpUSrgpiRUZAtGqPSTF32zrMvKMfBmSYIN5/TfUPtUQUUyxUGjtjPdTnjFW/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=ccqCjSmi;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=r35La4Rj;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D13D60A2612;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7202A60A2613;
 	Thu, 19 Nov 2026 16:21:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D13D60A2612
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7202A60A2613
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=ccqCjSmi
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=r35La4Rj
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
 	s=smtpout1; t=1795105301;
-	bh=YUpRYsuuZ9zTOzlFogFq/lthSpzrXEJar3Q39+/3IbQ=;
+	bh=Ax5wFK1/QAbEDyO/3UGGlfePRTUbY1SVXNP1qt/Fk88=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ccqCjSmiUTYRBtlf3YUYHVeC5wXz8HBLgbmz8C9Z5iYvUqZapFz+HLVxBwBDr8b2D
-	 Byvf3w0oFA966agPhiNo2hmYicRButzyyOxlgPqTbZUJbCYz5L0NGM3cMbcQqmboHv
-	 qDf4Fh9RUQzcMplnLYQOuDdQ6Wuls9l5oy22EYdTb20V/3g2o4A2mCHpHoFxLmz0d2
-	 LPd8+RVh05pIJBN9DAYKkFTWUWZsG11XXhipJF5u44L24o6ZiQ65sgymwHov4mjWZU
-	 Iec0e/d8EkSSA/o4HvyHC3YwE9pEAfbpfJAhtxSNt+riGS1dpmcovIfAQ/AgpCf4ic
-	 5gQ7t4SegvRKw==
+	b=r35La4Rjn79+onCoeAN2r3AjZS+svx6bFCeB/ULnhmfX7cnfHo2J9+uO80lpGAKLx
+	 Vj3CcZt9QHj+2YCFxJswsyayjB8Ccj0dZJUlaue7yPwxO+x6embWixUPcttiqJ5KmA
+	 VihoSzTV4JAQN2DMI5fqdjhojpf9SbkVQ4h6EUl2FiL5w64yx2pvOyPH2H7MSSsMmX
+	 SvI118MHHMvSn5rZ0RUQbCZUStTv5+A8I6GZACboGg40s9kJla8VeMZi7XZ8ig7/09
+	 3z+QIlE+l8wm58igJQIJnTNdT8nfmspc75llOPad65K4TvveC5HIuM0zTwBynp+QBf
+	 wt9p85jeFjwwQ==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVkHm71smzRqT;
-	Thu, 19 Nov 2026 11:21:40 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVkHn0hKqzRqV;
+	Thu, 19 Nov 2026 11:21:41 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: 
 Cc: linux-kernel@vger.kernel.org,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Juri Lelli <juri.lelli@redhat.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v4 09/17] sched/deadline: Reset the deadline and the runtime with the parameters
-Date: Thu, 19 Nov 2026 11:21:30 -0500
-Message-Id: <07a810645c5ab919a52ffe2cc4b63074a84751fb.1795103339.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH v4 10/17] sched/deadline: Fix an overflow of the 0-lag time with long periods
+Date: Thu, 19 Nov 2026 11:21:31 -0500
+Message-Id: <abbad2aa0ec392b1b0ede00b66b2d177d2b7b2df.1795103339.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1795103339.git.mathieu.desnoyers@efficios.com>
 References: <cover.1795103339.git.mathieu.desnoyers@efficios.com>
@@ -69,86 +68,122 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A task that leaves SCHED_DEADLINE keeps its parameters until its 0-lag
-time, so that leaving and coming back gains nothing. Commit 209a0cbda7a0
-("sched/deadline: Improve the tracking of active utilization") moved
-their reset to that time. Before it, the replenishment timer did the
-reset at the deadline. So a task back after the reset found its
-deadline passed, and started a new period. But __dl_clear_params()
-resets neither the deadline nor the runtime.
+When a deadline task blocks, task_non_contending() computes its 0-lag
+time:
 
-Now a task back after its 0-lag time can be enqueued on its old
-deadline and runtime. With runtime left, its 0-lag time comes before
-its deadline. Back before that deadline, it would first spend the runtime
-of the reservation it gave back. Back after it, a constrained task
-would be throttled until its old period ends. "sched/deadline: Do not
-lose a throttled task switched out and back" moves the deadline of a
-throttled task on. This widens the window before the deadline to about
-a period.
+  zerolag_time = deadline - runtime * dl_period / dl_runtime
 
-A task with no parameters of its own, boosted by a deadline waiter,
-keeps the donor's deadline and runtime after its deboost. If it then
-enters SCHED_DEADLINE before that deadline, it runs on the donor's
-runtime. On v7.4-rc2, a task of 10ms per 100ms ran 40ms of its first
-period.
+A task that ran at its reserved bandwidth would use up its runtime left
+at that time. Until then, the task still counts in running_bw. A task
+that leaves SCHED_DEADLINE also keeps its bandwidth in total_bw until
+then. This comes from commit 209a0cbda7a0 ("sched/deadline: Improve the
+tracking of active utilization"), which adds the inactive timer of the
+GRUB algorithm.
 
-Fix this by resetting the deadline and the runtime in
-__dl_clear_params(), and in switched_from_dl() at the deboost of a task
-with no parameters. The next enqueue then starts a new period.
+The product runtime * dl_period is computed on 64 bits, then divided as
+an s64 by div64_long(). With a period of 4s, it passes S64_MAX once the
+runtime left is above 2.3s. The default limit on the period is about
+4.2s, so no sysctl change is needed. The quotient is then negative, and
+the 0-lag time lands after the deadline.
 
-The Sashiko AI review of this series found the first case and the
-deboost. The deboost_resets_period case of deadline_bw_test, added later
-in this series, tests the deboost.
+On 32-bit, div64_long() also truncates dl_runtime to an s32. A
+dl_runtime above about 2.1s then gives a wrong 0-lag time too. If root
+raises the period limit, a dl_runtime that is a multiple of 2^32 ns
+would divide by zero. This was found by reading.
+
+The bandwidth is then released seconds late. Until then, the root domain
+refuses deadline tasks that would fit. In an x86-64 guest, a task took a
+reservation of 3.1s every 4s, then went back to SCHED_OTHER at once.
+Another task asking for the same reservation got EBUSY for 5.95s.
+
+Fix this by multiplying on 128 bits with mul_u64_u64_div_u64(). Its
+operands are unsigned. So take the magnitude of the runtime, which is
+negative after an overrun, and add or subtract the result. With the fix,
+the second task got its reservation at once.
+
+The quotient must still fit in 64 bits. On x86-64, mul_u64_u64_div_u64()
+traps with a divide error otherwise. After a change of parameters, the
+runtime and the deadline stay those of the old parameters until the
+next period. The 0-lag time uses the new dl_runtime and dl_period. So
+the runtime left can be far above dl_runtime. For example, root can
+raise the period limit and give a task 150s every 300s. The task can
+then shrink its runtime to 1024ns. Before the division, compare the
+runtime left with the runtime that the parameters give until the
+deadline. If it is larger, the 0-lag time has passed, and the bandwidth
+is released at once. Otherwise, the quotient is at most the time to the
+deadline.
+
+The params_switched_asleep and params_shrunk_long_period cases of
+deadline_bw_test, added later in this series, test this second part.
 
 Fixes: 209a0cbda7a0 ("sched/deadline: Improve the tracking of active utilization")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Acked-by: Juri Lelli <juri.lelli@redhat.com>
 Cc: stable@vger.kernel.org
 ---
- kernel/sched/deadline.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+ kernel/sched/deadline.c | 41 +++++++++++++++++++++++++++++++++--------
+ 1 file changed, 33 insertions(+), 8 deletions(-)
 
 diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index 71b1c155c242..d6d2657dcddd 100644
+index d6d2657dcddd..5e4aff28e9bc 100644
 --- a/kernel/sched/deadline.c
 +++ b/kernel/sched/deadline.c
-@@ -3569,6 +3569,16 @@ static void switched_from_dl(struct rq *rq, struct task_struct *p)
- 	if (task_on_rq_queued(p) && p->dl.dl_runtime)
- 		task_non_contending(&p->dl, false);
+@@ -411,7 +411,7 @@ static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
+ 	struct hrtimer *timer = &dl_se->inactive_timer;
+ 	struct rq *rq = rq_of_dl_se(dl_se);
+ 	struct dl_rq *dl_rq = &rq->dl;
+-	s64 zerolag_time;
++	s64 zerolag_time, left;
  
-+	/*
-+	 * A task with no parameters of its own was boosted into the class.
-+	 * Its deadline and runtime are the donor's. Reset them, so that its
-+	 * next entry into the class starts a new period.
-+	 */
-+	if (!p->dl.dl_runtime) {
-+		p->dl.deadline = 0;
-+		p->dl.runtime = 0;
-+	}
-+
  	/*
- 	 * In case a task is setscheduled out from SCHED_DEADLINE we need to
- 	 * keep track of that on its cpuset (for correct bandwidth tracking).
-@@ -3984,7 +3994,8 @@ bool __checkparam_dl(const struct sched_attr *attr)
- }
+ 	 * If this is a non-deadline task that has been boosted,
+@@ -425,15 +425,40 @@ static void task_non_contending(struct sched_dl_entity *dl_se, bool dl_task)
  
- /*
-- * This function clears the sched_dl_entity static params.
-+ * Clear the static parameters of @dl_se. Also reset its deadline and its
-+ * runtime, so that its next enqueue starts a new period.
-  */
- static void __dl_clear_params(struct sched_dl_entity *dl_se)
- {
-@@ -3995,6 +4006,9 @@ static void __dl_clear_params(struct sched_dl_entity *dl_se)
- 	dl_se->dl_bw			= 0;
- 	dl_se->dl_density		= 0;
+ 	WARN_ON(dl_se->dl_non_contending);
  
-+	dl_se->deadline			= 0;
-+	dl_se->runtime			= 0;
-+
- 	dl_se->dl_throttled		= 0;
- 	dl_se->dl_yielded		= 0;
- 	dl_se->dl_non_contending	= 0;
+-	zerolag_time = dl_se->deadline -
+-		 div64_long((dl_se->runtime * dl_se->dl_period),
+-			dl_se->dl_runtime);
+-
+ 	/*
+-	 * Using relative times instead of the absolute "0-lag time"
+-	 * allows to simplify the code
++	 * The 0-lag time is the deadline minus the runtime left, scaled by
++	 * dl_period / dl_runtime. The product of the runtime and dl_period
++	 * can overflow s64 with periods of a few seconds, so multiply on 128
++	 * bits. Compute the 0-lag time relative to now.
++	 *
++	 * After a change of parameters, the runtime and the deadline stay
++	 * those of the old parameters until the next period. The 0-lag time
++	 * uses the new dl_runtime and dl_period. The runtime left can then be
++	 * far above dl_runtime, and the quotient too large for 64 bits. So
++	 * first compare the runtime left with the runtime that the new
++	 * parameters give until the deadline:
++	 *
++	 *   (deadline - now) * dl_runtime / dl_period
++	 *
++	 * If it is larger, the 0-lag time has passed, and the bandwidth is
++	 * released now.
++	 *
++	 * The runtime is negative after an overrun. The next tick throttles
++	 * the task, so the overrun is short and its quotient fits.
+ 	 */
+-	zerolag_time -= rq_clock(rq);
++	left = dl_se->deadline - rq_clock(rq);
++	if (dl_se->runtime < 0)
++		zerolag_time = left +
++			mul_u64_u64_div_u64(-dl_se->runtime, dl_se->dl_period,
++					    dl_se->dl_runtime);
++	else if (left < 0 ||
++		 dl_se->runtime > mul_u64_u64_div_u64(left, dl_se->dl_runtime,
++						      dl_se->dl_period))
++		zerolag_time = -1;
++	else
++		zerolag_time = left -
++			mul_u64_u64_div_u64(dl_se->runtime, dl_se->dl_period,
++					    dl_se->dl_runtime);
+ 
+ 	/*
+ 	 * If the "0-lag time" already passed, decrease the active
 -- 
 2.47.3
 
