@@ -1,63 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795101553;
-	b=ITNTDJoEAu056qyc/oQMKezsMyq92wiEduQDE2bvPGBx+PzQjcgqaxAae6K83scAz/Y6
-	 OC2Onr/3YFqqlq5FPljBjOiVINKaCNoWlHLtXR1+X56FoorFWeIdY3i1okqHC4jAXIeo8
-	 6IB2SP02Iw0JaYyEMVpKWX8OUjaVpV8i5YjVqt8gS+WqvOHjUYEF8cj7TsPtmNuk42xi8
-	 pQIQbY1r0lMyp+SngbF1ZslO2aUUlqkqj/ifqRmAbFz6B7+635xUKeU7U929C/8auGnHG
-	 kU1TMe8nwvUgM4y5SV/+jiqlkEn3dlnqmT8twTOp1wNlNP4NwBiRV8d6nYPO0ZvUoHw==
+	t=1795101579;
+	b=w19EFEmVMfF+G7vawRw3tqaxp1n8s3hkytcSVjY2T5krGAfMyHC1n8BFQ2xsf/03Fb/z
+	 NJVku2MVnor2Dax17/i8VOp7RP2OTTepdbD1v95kGYidQvVPPAj95Cy7sITgPunkfjl6x
+	 1MnHOVZ1S82ptkTZpVbsxvQHTmksFrYXkqMRMLZXQJzZq8SYlkXbjDh8ShbYBOx2m0nDV
+	 ePisQ3Aq588OR7oxbKFQaf/yfrrYL7FlwFE4VYV7BW/fC1LdyoghgH/3VWvGg+pptc+fQ
+	 +VVh/hfhUWkZpZG2JZOwmPFwfmOBd0OVV6z87ksRIRuMPEDmInGQKQB8VDVF0bP9ZmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795101553;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=ECrV0gi2Y6wf3ZJ9yS8kBi1Aams8XEvdCePJJ8gqujI=;
-	b=p5L4SlMK5zrPT004LWVFQq3af7kAnXfxSo1zLcN7a80CKSUKGYj+eg7Y7ofudoj/9iAa
-	 NGYG4lcK0jF7Wwzyeqx5YMO/+/N4BburVwEk57zIMhISUu4kmC+O65bhvrrpK5aNr3Pna
-	 O9WPtU0rfynGKuFSZx1MArX59lrEvtSwKHLK4DLCwet7pmYzddgK+51zgzlyS4ARksuFk
-	 6SmAOqi0xK5/P77lk0TPkFh92BJQmp8SkmmZwxE3XS1ScfDZggTicjymph2uyeVUeClGo
-	 0RxkWo++klukjXGJmCSRJreJZVCvVufYkGZVo8XLyFlbIdd3aTBSWUUg2XklACEBZmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795101579;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=0c0iYf8SnsF78dce9dVRMwoU6TCYhcEsgg4tPhKPWUk=;
+	b=e9JZfUrS8p6tTwdEPmTpmsqPWIRmi1DEGDALpS9gukuObSWODCwP8Fp2ODs33z2hXA7/
+	 sJtlswVkCjPK0+C3FNCBPSrnJ80MrWX6kvDny0mJjO+9feeyc+mZYWCOtDIw9Pp+/JkJ2
+	 Kh4KU7R53fYnJf7cPGzRJJBk7ay6V1Vq5Sv6ykG7C41a/Hau4048IRBdQdMBTYr8BX2wu
+	 hH/pvAKzRXzI887cS/eGix6mQB/ui8nJWmKkXFLgWBBEWTppLK7Px/FodeBxxKDUh/A9B
+	 Tl35M1NX9xa6ptEcpLIQTE2nH8EHSmblTq76Zqiecz867MKmmymopLRRiZTv76wacbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=kXHG49xI;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED68606A320;
-	Thu, 19 Nov 2026 15:19:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3ED68606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZPIty8Ws;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF841606A324;
+	Thu, 19 Nov 2026 15:19:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF841606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=kXHG49xI
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=ECrV0gi2Y6wf3ZJ9yS8kBi1Aams8XEvdCePJJ8gqujI=; b=kXHG49xIlSzvygzBv8mcM8VI94
-	ra7JV3DBdiPGRmvrpon1/VAaI8ZRpHSCB+U3HvZtubBYE+i/W221bWCzu2smt4huBScifQ9hiPF0s
-	HrB7D1EBNBh4zPTXBD2MWX92eq90+sqvFbta4rWzMyT1+KVgiIfK9ITmrn7sv7IH8ubI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xU3ui-00048Y-9e; Thu, 19 Nov 2026 16:19:04 +0100
-Date: Thu, 19 Nov 2026 16:19:04 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: blake.alexander@airbus.com
-Cc: Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Vivien Didelot <vivien.didelot@gmail.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net] net: dsa: mv88e6xxx: do not override PHYIDs on
- external MDIO
-Message-ID: <d2feec60-232b-4aeb-9da2-8912dc9ee6ef@lunn.ch>
-References: <20261119-mv88e6xxx-fix-v1-1-2db604f3516f@airbus.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ZPIty8Ws
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 372251575;
+	Thu, 19 Nov 2026 07:19:35 -0800 (PST)
+Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id BA0E93F882;
+	Thu, 19 Nov 2026 07:19:36 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1795101578; bh=c0VxNeat9RMxxsyhQ2qh1+xhFnQ8+vLDzzO8XL7Quv4=;
+	h=From:To:Cc:Subject:Date:From;
+	b=ZPIty8Ws7WrVO1fl7WCU84seph01KQl4vKV+x2sjxQ8rcxebW0s6IzZvwt4jqXR1g
+	 khMfT1py8V9sEUMWSeM71b8jeMlFT2ihV+r112yiFWbF/p+T3KQAYcKK6F7V2WWNbG
+	 Q8NK0rg+yQ/Z2/qGk6anL64au0AGDflLrzKg4V24=
+From: Andre Przywara <andre.przywara@arm.com>
+To: stable@vger.kernel.org
+Cc: Ben Horgan <ben.horgan@arm.com>,
+	James Morse <james.morse@arm.com>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Fenghua Yu <fenghuay@nvidia.com>,
+	Sasha Levin <sashal@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 7.3.y] arm_mpam: On saving mbwu state read the monitors before clearing CFG_MBWU_CTL
+Date: Thu, 19 Nov 2026 16:19:31 +0100
+Message-ID: <20261119151931.335561-1-andre.przywara@arm.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,43 +62,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261119-mv88e6xxx-fix-v1-1-2db604f3516f@airbus.com>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 19, 2026 at 11:50:00AM +0100, Blake Alexander via B4 Relay wrote:
-> From: Blake Alexander <blake.alexander@airbus.com>
-> 
-> Some variants of the Marvell 88E6xxx family (such as MV88E6390) support
-> an external MDIO bus (in addition to the internal MDIO bus for
-> configuring internal PHYs). A typical use-case for the external bus is
-> to configure PHYs that are external to the switch. On switches that do
-> not assign a PHYID for internal PHYs (i.e. the value is 0), the
-> mv88e6xxx_mdio_read() function traps read calls to the PHYID registers
-> and sets the PHYID equal to the family ID of the switch.
-> 
-> The mv88e6xxx_mdio_read() function is reused for both internal and mdio
-> bus operations. The PHYID overwrite trap does not check whether the MDIO
-> bus is internal or external and wrongly modifies the PHYID of devices on
-> the external bus when their PHYID2 register reports a value of 0. When a
-> C22 device reports a PHYID of 0, get_phy_device() will reprobe the
-> device as C45 and if successful create a C45 device. Overriding the
-> PHYID in this case will prevent a C45 device (such as Aquantia AQR115)
-> from being reprobed and their driver will fail to bind.
+From: Ben Horgan <ben.horgan@arm.com>
 
-Ah, my bad. I added this code. I did not think an external PHY would
-return 0. But at that time, C22 PHYs dominated.
+commit 197a7a41e6e006916fe68c952e96d768933104fe upstream
 
-> This was observed on a development board during the bring-up phase. The
-> board included an MV88E6393X with external AQR115 PHYs.
+In mpam_save_mbwu_state() the monitor values are read using
+__ris_msmon_read_locked() which checks if the configuration provided
+matches that in the hardware and if not then resets the monitor. To avoid
+resetting the monitor before reading the value that needs saving only clear
+the configuration after the monitor is read.
 
-We probably have not seen this before because most Marvell switches
-are paired with Marvell PHYs.
+Fixes: d056d29aefbe ("arm_mpam: Use __ris_msmon_read() for saving MBWU state")
+Signed-off-by: Ben Horgan <ben.horgan@arm.com>
+Signed-off-by: Catalin Marinas <catalin.marinas@arm.com>
+[backport: drop error returns, adjust to changed context]
+Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+---
+Hi,
 
-> Fixes: da9f33018e2c ("net: dsa: mv88e6xxx: Workaround missing PHY ID on mv88e6390")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Blake Alexander <blake.alexander@airbus.com>
+this is the backport version of this patch for v7.3, as discussed on the
+list before. This avoids backporting two lengthy patches that do not
+make any sense for v7.3 (introduction of error return checks only used
+in v7.4-rc1 code).
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Applies on top of stable-rc/linux-7.3.y (commit "Linux 7.3.6-rc1").
 
-    Andrew
+Please apply for v7.3.6!
+
+Cheers,
+Andre
+
+ drivers/resctrl/mpam_devices.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
+index 30d08d1634a2b..aabbe2ad8f1af 100644
+--- a/drivers/resctrl/mpam_devices.c
++++ b/drivers/resctrl/mpam_devices.c
+@@ -1716,7 +1716,6 @@ static int mpam_save_mbwu_state(void *arg)
+ 
+ 		cur_flt = mpam_read_monsel_reg(msc, CFG_MBWU_FLT);
+ 		cur_ctl = mpam_read_monsel_reg(msc, CFG_MBWU_CTL);
+-		mpam_write_monsel_reg(msc, CFG_MBWU_CTL, 0);
+ 
+ 		cfg->mon = i;
+ 		cfg->pmg = FIELD_GET(MSMON_CFG_x_FLT_PMG, cur_flt);
+@@ -1748,6 +1747,8 @@ static int mpam_save_mbwu_state(void *arg)
+ 			mbwu_state->correction = val;
+ 		}
+ 
++		mpam_write_monsel_reg(msc, CFG_MBWU_CTL, 0);
++
+ 		mpam_mon_sel_unlock(msc);
+ 	}
+ 
+
+base-commit: 62eba995b019cddac60e54392601f157010821e9
+-- 
+2.43.0
+
