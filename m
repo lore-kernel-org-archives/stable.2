@@ -1,92 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795113379;
-	b=EoJxc2eU+/8k0l9NKhgdgEJ1tbjFcIMcE5QsSNla33M5xCuNiNmetQrRVy5JjzEBqVte
-	 qZGOs2j7ln3bOC638hhS6ICXKvnLw+DTHTyXACKQ5pd77QIBJbP7gKDz8AwbHh/K/p39S
-	 Se2YNQx9uQU79f1LSHQhUayDXyHYtwlJE2kF8nNJh5zKG13B240SBNCIxH65dTw0ucMaf
-	 0hjsXmCsQ3usUtIqvkK1jJ2Vs5QDdpbzAhiiktjvIxiMrlh2NdKnlljB4jzDGDtit5nW0
-	 8jH0VjGilO7gqTqbW9Sai6kR4zo6G0Ij6uwKPjnAL+Weudy8GRKorwlMrlHLD2PPQNw==
+	t=1795113898;
+	b=bgPB4B8InsIbZXEEuYj+mNLQxHtC+KbbyYq9XUnmVQF8ceEhI2Ww48D5o2/oC/tmSU8F
+	 uPPIrmqoAmzC/JNaulxJgLBGmfY87QTfr/REO2riyYyVWoI7Q/jthns0dYlZgWZOKV+5W
+	 eW3NANVyz9KRPdjfxDydSDBFa+3mCKHGPHGbnbClFXbNdNLoF51/NA0tDRU94/3UlOtDm
+	 Ay/Lg3h8nT2XHgrJVS6hfOZ42gYnwsl8eDSKQFbikV8FVtnsWkdw+JNpkQUDcWWUedSTo
+	 DNcMQrpye25J1rxDY2vpdjKpd2u4T+JtcPS3QI+nCMdDrOK5xHHbZvFpL7AEM2vRTQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795113379;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=FULaFNtrULKtjyIOf20Z7zfzpc6DhShhuKKqg8qTcek=;
-	b=49T7LU+4YS8aXZL0w538dmMFcay7zsrY7bs/vGG/+GsHpvtvKpkIPzs248x+WaGvjhvC
-	 2P5H1O8u0uPExmU3p9KSkRqblrzCI9dB9rhDphlnsYcnkSnj06xOTPyLqCymx1NkgBOap
-	 cCzwt+dJ+FjxsoDKk6YeFyuY+z1x1r9KpULcOlSqQj+a3ItjAGQogFswX//P16ykveHXu
-	 ifPDRcaQHd6xqtvAaqftoj3MMkpmGFcJZR5Uj9QrcdH1dfwfw9tgYSNa++2+o9PfAQmlz
-	 jjGeZ8HWqtn4V40qmpy2HO98wDYbqSB+UMBLvY+Bx+ccA+0FOsv+/YtCCTJvh9goNLQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795113898;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:Content-Language:To:Cc:References:From:Autocrypt:Organization:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=FoOYfrCJ0RM3XgYN7ilUtYspHzNWp7F/T1g5Er6pE/I=;
+	b=3cSF0SkBd7bSIPWe7hiyYbtKFjNTY52wntjbz4J6Z70fRPt7kbC5Hjwq7gAJvuceJvdC
+	 yqqpH8Nc5vVajIVqV1HSkMoMB1Ktj2NUw6SkuLHStRi4elV5rbb/JnhkfeA2Ho2Idm6YY
+	 V8Dv/zftJDlMPloe3GvRJ9mSo48PDjZ52bByWc/1wIe5DzHL1txCDgucepkBSnEdc8GVq
+	 QmAaM4uT+nU4g0fiJiRejPIdi1wHM4wTzMD3Ipip1r0Iauy/HaIJbwIQoBQgeCdd4NqYN
+	 eVYJnj9YxWwJb6lnUTDz2eHDPtdKqclZ03aussnBErQqfZ6EU13Ib00Qjdl2G7aZyRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GXRzv2vi;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STuuezqh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884CB606A330;
-	Thu, 19 Nov 2026 18:36:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 884CB606A330
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89AB606A336;
+	Thu, 19 Nov 2026 18:44:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GXRzv2vi
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1795113377;
-	bh=T0pI6QoapOdjZGBfMviw/VjaDgMcZ0ZLY/0s1FdOCz8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=GXRzv2viFAwjbxAOLNWsmzavPED2g8LFVjMa9FNCzMdEvFnpd3cKQ9/5N8zyBbawb
-	 Nv41WlfmgXmmK2Zy463yIHU61hlVhYDD2Gh7s1zJMaTy7yptllR3ZLdXBoQY0kPB12
-	 wyy0zhnZbPbwWPNPOrMx7/f2v8XrmMJnGOdxavlaiCKqA2A9LnQ8b2gr2uZS1IYpvr
-	 c3OTki0lGjdRRvmf5EDZG/7yKk5DMZUfpPFjibZ/4JjcHjeVWINHe80wLZg/Oiz76e
-	 dXn9TI1KBZ4aq/AhnoCaw+m9Zx+rdGlisChHzBLbFy0mKqSDQDys3pDijm3O6GQFj6
-	 jj2wTnmIurvMQ==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 85D3317E0406;
-	Thu, 19 Nov 2026 19:36:14 +0100 (CET)
-Message-ID: <5ff0d8de9df06706f3c5412b642e150d5f068851.camel@collabora.com>
-Subject: Re: [PATCH 2/3] media: verisilicon: hantro: cancel watchdog work
- before m2m release
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Shengzhuo Wei <me@cherr.cc>, Mirela Rabulea <mirela.rabulea@nxp.com>, 
- Mauro Carvalho Chehab	 <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer	 <s.hauer@pengutronix.de>, Pengutronix Kernel Team
- <kernel@pengutronix.de>,  Fabio Estevam <festevam@gmail.com>, Hans Verkuil
- <hverkuil@kernel.org>, Ming Qian <ming.qian@nxp.com>,  Benjamin Gaignard
- <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Ezequiel Garcia	 <ezequiel@vanguardiasur.com.ar>, Bin Liu
- <bin.liu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>, irui
- wang <irui.wang@mediatek.com>,  kyrie wu <kyrie.wu@mediatek.com>
-Cc: imx@lists.linux.dev, linux-media@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
-Date: Thu, 19 Nov 2026 13:36:13 -0500
-In-Reply-To: <20260825-media-timeout-work-v1-2-ebfebbeb6c31@cherr.cc>
-References: <20260825-media-timeout-work-v1-0-ebfebbeb6c31@cherr.cc>
-	 <20260825-media-timeout-work-v1-2-ebfebbeb6c31@cherr.cc>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-1wAt75ie9F4gKgzfOH9h"
-User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=STuuezqh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EED11F000C4;
+	Thu, 19 Nov 2026 18:44:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795113898;
+	bh=FoOYfrCJ0RM3XgYN7ilUtYspHzNWp7F/T1g5Er6pE/I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=STuuezqh92oxbMso4yQLcP31hzljchN61owOK0wWsn7w4JfjDxDQikunNwNukETMG
+	 NLTjRJNsn8iH5llFO/eLIW54dETS2cAZgLZTEB8MqCDJacp5d5rsZGxEAo4ECa1yk+
+	 5Ir6LLstlu7V8Zy2MH0lUeYtbHYtw9IkPfvxbcgVwL7rXV2kceCH0VkMftme+JMnFb
+	 MkCpLQPgYHZfUJUP6i00rjARaNluivvMGpFRHcFIgIiiHge+qPr2eCgjEnJ2912eb6
+	 g4SjmTnLXsXkUoa/qhgNto1a76sYVV1slBGD43zYN+fppVp1n8CGu+Z81vvvfuAv+f
+	 zfnZWu4zBM+Ww==
+Message-ID: <015b7838-f1d7-4ac1-94db-2078c88674e9@kernel.org>
+Date: Thu, 19 Nov 2026 19:44:53 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,63 +51,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-
---=-1wAt75ie9F4gKgzfOH9h
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-Le mardi 25 ao=C3=BBt 2026 =C3=A0 03:34 +0800, Shengzhuo Wei a =C3=A9crit=
-=C2=A0:
-> Each job arms vpu->watchdog_work, cancelled only by the
-> job-completion path. If a job stalls, hantro_remove() drops the last
-> reference to vpu->m2m_dev via v4l2_m2m_put() with the watchdog still
-> pending, and hantro_watchdog() then dereferences the freed m2m_dev --
-> a use-after-free.
->=20
-> Drain the watchdog before the m2m device is released.
->=20
-> Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
-> Assisted-by: GLM:5.3
-> ---
->  drivers/media/platform/verisilicon/hantro_drv.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
-dia/platform/verisilicon/hantro_drv.c
-> index 2e81877f640fb429b18d2f4fd64bc0c392cf600e..1b04b98371a48184f390a1379=
-1243fd00d6b80ef 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -1284,6 +1284,7 @@ static void hantro_remove(struct platform_device *p=
-dev)
->  =09hantro_remove_dec_func(vpu);
->  =09hantro_remove_enc_func(vpu);
->  =09media_device_cleanup(&vpu->mdev);
-> +=09cancel_delayed_work_sync(&vpu->watchdog_work);
-
-Same comment as for mediatek driver.
-
-Nicolas
-
->  =09v4l2_m2m_put(vpu->m2m_dev);
->  =09v4l2_device_unregister(&vpu->v4l2_dev);
->  =09clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
-
---=-1wAt75ie9F4gKgzfOH9h
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 5.15 1251/2214] mm/mremap: recheck PUDs under the page
+ table lock
+Content-Language: fr
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, Pedro Falcato <pfalcato@suse.de>,
+ Muhammad Usama Anjum <usama.anjum@arm.com>, Lance Yang
+ <lance.yang@linux.dev>, "David Hildenbrand (Arm)" <david@kernel.org>,
+ Sasha Levin <sashal@kernel.org>
+References: <20261118150009.797899913@linuxfoundation.org>
+ <20261118150101.721156922@linuxfoundation.org>
+From: Matthieu Baerts <matttbe@kernel.org>
+Autocrypt: addr=matttbe@kernel.org; keydata=
+ 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
+ lzVbFe7fduHbABmYz9cefQpO7wDE/Q==
+Organization: NGI0 Core
+In-Reply-To: <20261118150101.721156922@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
+Hi Greg,
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9BnQAKCRDZQZRRKWBy
-9GSlAP9EsaWLG8JyqO/cX436Nctw6ISzDKmkLD6Z0tjeBm29fgEAtpOfRfVkBMCN
-IJuqlSJQ3i9bJ1WiaUzaUfiM4xTi3As=
-=N4qZ
------END PGP SIGNATURE-----
+On 18/11/2026 15:48, Greg Kroah-Hartman wrote:
+> 5.15-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: David Hildenbrand (Arm) <david@kernel.org>
+> 
+> [ Upstream commit 402882943dfa8bab5c2bcc66189f9fb2828f248e ]
+> 
+> Once get_old_pud() is fixed to accept PUD leaves, unmap_mapping_range() can
+> clear a leaf between the lookup and the move. Holding mmap_lock in write
+> mode does not prevent this.
+> 
+> If the zap happens before move_page_tables() tests the entry, an empty
+> PUD can reach move_normal_pud(), where pud_populate() turns it into a
+> present page table entry. If it happens after the test, move_huge_pud()
+> can instead try to move an empty entry, triggering CONFIG_DEBUG_VM
+> warnings on powerpc.
+> 
+> Recheck the source under the page table lock in both helpers. Treat an
+> empty source in move_normal_pud() as a completed move, and use
+> __pud_trans_huge_lock() in move_huge_pud().
+> 
+> In the future we should likely have the code lookup a PUD/PMD lockless
+> once, instead of multiple times, because one of the problematic bits
+> here is the:
+> 
+> 	pud_trans_huge(*old_pud)
+> 
+> Fixes: 0881ace292b6 ("mm/mremap: use pmd/pud_poplulate to update page table entries")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Reviewed-by: Pedro Falcato <pfalcato@suse.de>
+> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
+> Link: https://patch.msgid.link/20261031-fixes_core-v3-31-d6437171ecc3@kernel.org
+> Reviewed-by: Lance Yang <lance.yang@linux.dev>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> [ sashal: adjusted context for separate vma and old_addr parameters instead of pagetable_move_control ]
 
---=-1wAt75ie9F4gKgzfOH9h--
+Our CI seems to have some issues with this patch:
+
+  mm/mremap.c: In function 'move_huge_pud':
+  mm/mremap.c:363:19: error: implicit declaration of function '__pud_trans_huge_lock'; did you mean 'pud_trans_huge_lock'? [-Wimplicit-function-declaration]
+    363 |         old_ptl = __pud_trans_huge_lock(old_pud, vma);
+        |                   ^~~~~~~~~~~~~~~~~~~~~
+        |                   pud_trans_huge_lock
+  mm/mremap.c:363:17: error: assignment to 'spinlock_t *' {aka 'struct spinlock *'} from 'int' makes pointer from integer without a cast [-Wint-conversion]
+    363 |         old_ptl = __pud_trans_huge_lock(old_pud, vma);
+        |                 ^
+
+See: https://github.com/multipath-tcp/mptcp_net-next/actions/runs/44566582776/job/135709990767#step:9:504
+
+Is it just us? Maybe because of our .config?
+
+  https://github.com/multipath-tcp/mptcp_net-next/actions/runs/44566582776/artifacts/14553005859
+
+Or an #include is missing? Sorry, I didn't investigate more.
+
+Cheers,
+Matt
+-- 
+Sponsored by the NGI0 Core fund.
+
