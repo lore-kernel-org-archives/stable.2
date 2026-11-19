@@ -1,122 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795073741;
-	b=qiVJ8u8mkjkDM8P43h1ZKnGs9iyb9CUYfAY5ZjG4hSWRDu2Grj/KrFII3QIl7nRArOTa
-	 n344qN8vBXL70Mlo4fGExMlPSPdScXTD+vtOYVaUgeBMwgXqjem6D5+CZ0NTtecRZ4svB
-	 ayf+6qxk4GvjbKtF51b+XlVJGzgNVvT+vWObyTFLYPvSyXi8f735MTEgJ3Vgi2e/Pjotc
-	 0IgfZhxvjE1MrWrO4oqVNnxLYqZYwYrMcoa8soErkWYh32iz9h1C+vXzsF+SUCj9tpBnc
-	 pzgDUyjfLyWgHu4Oiq25uVkpAJOOcy6XTqkVleRzk1Kur1SxT26esuwFMQ+oFyuxLlA==
+	t=1795073803;
+	b=WPnEaLdvuUHrCxHFWITmH1hNwh5VKrmZoczDCBeOGu5Ihx5EPIFRlypICLS1VsNrulax
+	 kRRnFQtPldNRgcyLwEhXRpMNPnObCfP6WvXaWNsSTZIX81urNAVtRfZuz8ZwHEH6tXjEt
+	 nE2aPHxgXatOgVNFyQxthtNunfMo7Jb3JN/2cVhhZ/zV1GFm2yZZOEf5VodUbmq293Hp0
+	 Qjt6nheGc75FAztDQ/NtNavGub7QyBXl97Wd72HGYJUjaPuaHE7Uh/ndxK7A2Dyw2qLFP
+	 0fVVDN5BdZTRlv8Q+ZSFC3yGN8/lfEfmJu5jXMPJT2maY8UfXtz4XAdExunfSraE0og==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795073741;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=oi0aNVIBMCm8d4UjKD3/O0s9LgNgYotreQH795dQowA=;
-	b=FiRrNazakOQmSGqL8SWalp6euXu/Gq4GBw/o1kQlGrc86NyUjaUfSrLrj5zo2Z+pVshI
-	 ZosOnU3qecOkT3FCZpP7E285DABKyymheElR/lsVQC0rlYsYtk6ev5NYXwjb6RgESxBsK
-	 g/Xn28DDVkKPv6oYOR+935UNiJ7aq/73g6j8BDYEOatOvMazq8KUmwTZP/R7z7fEiavgP
-	 aEDCX8jbPesi4ZNvKrZ+K8OLSIDQOEEwvNYw70GzktjkNKFOeCQyTqFkOu7RtHUomrJez
-	 YBPW3H5x5Og4I82Z+m9VU+a2Loj3TEwBGkayoYfmTFa6/EPEUrPnERAYF1ZbgLgk9iQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795073803;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=bdQ/tUWKSbxbUywOJKWVBD/5Q2mj2vvJKi7y7kCM6wQ=;
+	b=WqDnOMHHZgBZp0GSnvLlSKxCrPr4U8BeTkwPCMXCI5O4Kba7/xupPx4dbL5ldHlsGQUA
+	 y87k8LciR5XACFBlTc0Qi8/hqMNUkYkZNSPfVpcDkiW0Lt3yoMISCPAZjdflQ5IJx1tTh
+	 wDevhOe5z5fTuQLVT3xVS5L0oQsDy5oxWPfZ4Ap5s0B5Jo+mPx2/3gnU/KgHu6cSHQIAh
+	 AFxjvl+/mxoswm/0sBw9WYniNoCnOAKf5SHjxi20dvNcxT91cv7SlO11izizsAgexvBlr
+	 xq5Q7IA2Q74tqYOmkW3hTt7iyWVtii6m5C1J1uy01szvY1PUUKmj1LsrysW0IuJ0yWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=qIrk9Gj9;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Ne0p2TvK;
-	arc=none smtp.remote-ip=202.12.124.147
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OsEESh5L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC07606A325
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:35:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDC07606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6027E606A320;
+	Thu, 19 Nov 2026 07:36:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=qIrk9Gj9;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=Ne0p2TvK
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfout.stl.internal (Postfix) with ESMTP id 6B9EE1D00243
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 02:35:40 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-10.internal (MEProxy); Thu, 19 Nov 2026 02:35:40 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1795073739; x=1795160139; bh=oi0aNVIBMCm8d4UjKD3/O
-	0s9LgNgYotreQH795dQowA=; b=qIrk9Gj9SKkbn21jzQqcCaRG+CDEz4iT7bmzw
-	WKkVSBHc16ZtcAFdiR8vHnAoskYlVpQI6+wXFBQ3mpwQQOWpi5xJSF8qIGKK4pkX
-	eWByc7HPvhQJ2URjmPvsfxxAF2yhUV3CMM6qY0JykeVJSgjq2LwjTtiEmrnCHD+A
-	8TyxGLXCh4she3dA0Pq8SvYOxY2SLltBxKwG3pE0hesY1oGgrLqpdCNXPTQKlXqY
-	bpGb9yTjbN1Fx6Q0ltaaF5rPfJetfv9mjLzrD3goG3yq5KciBopbgjZdIBwpp4N6
-	uwkdGyOUJLKroJW4cIdjejJsOjYl1IxZYNSdLwTcdmLFh1/wA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1795073739; x=1795160139; bh=oi0aNVIBMCm8d4UjKD3/O0s9LgNgYotreQH
-	795dQowA=; b=Ne0p2TvKZ1QDvBisBLjiwZRIXAQH3r4VROE4RcjwA48MofdZfR9
-	Lt7m7rca0so3MudGTpVTEtmbl2fIlIUzdomvONtrzUCQ5KjFQOMtXhTr7mIV/gTz
-	F2Gn7fGUTbM+CK/5DdUxnDHqeIw37K5c1cenfoZIL5A/1LxF7ntXr5djiqjzytXp
-	Xsy5cyIsNdNKAn4OTFfnNW11AJc+IwjO/3FLHuIjK063dLxJR2ARNmzUCIBzI+nX
-	ls7mhHF7V3EPF1bLsyG1PPED3MorxnLuA9HvhjYZaqrykz7qa0nlj5+PEKSdsY3t
-	zH4HxbZOZYGpD/dKo7mu+5lkF+evbQ9i7Jw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795073739; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:jCjH9byTEPq/Ex9cv4RWLkcu7QHPAgK9gn4MCcZ37lMdiHR
-	UTgNNZUObg8NtyDVBuVLYf9ku1EdMVmmqq2hI0zrDuMyVw4oafQZEWsYDUtyto0S
-	nEqIxHLbkYNF3dDjiwm9PBXsB1xT/2aX/Vng/4OsyhChle0X2L21MV//YrboOLyO
-	mJJIpbjVBq189HANlZhJzGgt7+vKzuZLA1qyvZpz9Eojl7Fh6U1gWyDYDGYyKsj9
-	D5lN6rmVF54kGI2ecccUcHWW6o2LfJQVcYbGlM/RVQ6GUpucD2nPfz3PODnWrrzd
-	UquQjzuMydCWDJRuUQsy6WxPQUBGqvqK0NvhAmg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:i4lRE6kRnqMrehNxJD906+fU4MXzmCN80dJV+0vuKak=:Emy2iT/KeEv2BIGFTgfSGrS6ZkMD1uAT/6jyRR3fI9A=;
-X-ME-Sender: <xms:yqb-anv38pEbSxMrfy906CVhW6TO6nfo2jHV9WenxTH4cwVpt7lw-w>
-    <xme:yqb-akff5x45G-m3VBuFIA9NGQS15UNLduXeQ7Zsx8SIEv4oQVwKWMTOVmWEQcKFY
-    en6q9Ay1C_BroGFbVIvi8-zWWA5L4LyvBGzakFOrpsuhvbLwz3o1bkt>
-X-ME-Received: <xmr:yqb-as8ri2WoGhXq0X1Q0JhkHAJJ6rFHGSfxRe0n3vxP6TPY8ikKoP37cj1a7pMI>
-X-ME-Proxy-Cause: dmFkZTGdM2SSko0BN9tk7pzVunvYEY0ZzuuT7qsrn7kV+2rxI1QfDbD99o77ZbcBPTQjul
-    jvrY7bcbsHQSVDFTqNd3UYtAP1mL/Ybt+PAqXxfoAudQk4JTx3ozXWAtghIMZh77QNOK6i
-    OlEX7Hrt4wOiMefkY0fpcPXFfY+WHeXOqnlZ5KSh4P+gfk3olQoYfqZMzzGdrSLT3qrL2D
-    CaL49EH74j67mx7UWzk5IXsn1qmQ6XzOUWhBmQwseAE+4Fs8PbY45tCd8ObPIIOndWUdMK
-    KFqKH7/7zSvJSh5lxp+H95hvpY5xeF/tHoKDMxFpy85yH/IiE7R5srdS5jfC9+DtIvFYCD
-    ZjjvnKG25+C/QRB2sCUOzLCVa9ksh7Nn7ZD0rwsEvdw8zYfsY2G7Y3cgqmwpYYMLlDFTKG
-    WxbxJmxIepW0vgmaBmUvnzTnlOSj6U2i5Aj6F9RjzJ7TN278W8vLCCITNkHj0RkFMwjlDO
-    TaZRRfp4q2jH9ts7fG8TVK/BFktc+hCdwPcLE2hSuxIuZIwX7D1HzZKvfp6eOSJ7oUnuWU
-    Xe0/fhU9U95QXy68NnuhRawQP7hC0F9HXA0nPCoRkg11m0mp3dgRfKgXbbE0AJ7vurmGk6
-    rxeSqNv1Zw1car8Rt2DfKoL0ZSdVZPjpXLJDKCdGX/Tbtwx6BQaXerzlbwfg
-X-ME-Proxy: <xmx:yqb-anSBJV1UvyfJ92eNt3zv4aPhar7guaPSlh5yBf0u326vu92dRQ>
-    <xmx:yqb-alorVNEBSn5HgDCOxcFlDowrazfuQ2Y7Q2SjhAXtX90Z-GOADw>
-    <xmx:yqb-askGTtDVPj-mrMl0t1XvKhDh1hkEbTgZXeQMgAillh2DkSmWng>
-    <xmx:yqb-amepHdwtfZIMulgNBk6PTu6BX3hM6_IFLEKBBGEoBb5eTf-45Q>
-    <xmx:y6b-ag2aW87dEOjkpp5OpDNS-iPfHWR57XNfNSrE0dK2Y7hNvXihR65c>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 19 Nov 2026 02:35:37 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH] ksmbd: build an inherited security descriptor with its own offsets
-Date: Thu, 19 Nov 2026 01:35:34 -0600
-Message-ID: <20261119073534.118732-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OsEESh5L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14CB1F000C4;
+	Thu, 19 Nov 2026 07:36:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795073803;
+	bh=bdQ/tUWKSbxbUywOJKWVBD/5Q2mj2vvJKi7y7kCM6wQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=OsEESh5Lf75GHVMF1u+VghTbsweUc+8SSAu16sDewRKg1avPKax/v8J0I2oMHEODs
+	 1+sEJAEHQd+fKbw9qRm41WCKmHBBPMEP5wHqpqxz8bimhSHOiwY2LagD4E/XMBYNK2
+	 XmlCC+FU79jgFViDmd48DyOCwTErI55dUP0Xj/TsSfUA1Ric5W/6Ag5T1NAZcJPbKn
+	 KfN3SwU5gyckFtiaLDA5Ns9VriVQziCBvXVp+Rim+b+IZ/wvQnf7wJ6UJ1xvTGT+px
+	 4iZ5BN9IkalEqpFD630IPWC3O4x/wZhx7kJs0IHupLtCh0dZHNwxVLXQpl+u+ViaGs
+	 fPEO7HRNo1Fvg==
+Message-ID: <9c8d1253-ca72-4adb-a324-8dc86c8b6e9f@kernel.org>
+Date: Thu, 19 Nov 2026 08:36:39 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,127 +51,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.3 0949/2651] rust: configfs: require thread-safe
+ callback data
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Yilin Chen <1479826151@qq.com>,
+ Andreas Hindborg <a.hindborg@kernel.org>, Sasha Levin <sashal@kernel.org>
+References: <20261118150247.972732815@linuxfoundation.org>
+ <20261118150322.070825488@linuxfoundation.org>
+Content-Language: en-US
+From: Jiri Slaby <jirislaby@kernel.org>
+Autocrypt: addr=jirislaby@kernel.org; keydata=
+ xsFNBE6S54YBEACzzjLwDUbU5elY4GTg/NdotjA0jyyJtYI86wdKraekbNE0bC4zV+ryvH4j
+ rrcDwGs6tFVrAHvdHeIdI07s1iIx5R/ndcHwt4fvI8CL5PzPmn5J+h0WERR5rFprRh6axhOk
+ rSD5CwQl19fm4AJCS6A9GJtOoiLpWn2/IbogPc71jQVrupZYYx51rAaHZ0D2KYK/uhfc6neJ
+ i0WqPlbtIlIrpvWxckucNu6ZwXjFY0f3qIRg3Vqh5QxPkojGsq9tXVFVLEkSVz6FoqCHrUTx
+ wr+aw6qqQVgvT/McQtsI0S66uIkQjzPUrgAEtWUv76rM4ekqL9stHyvTGw0Fjsualwb0Gwdx
+ ReTZzMgheAyoy/umIOKrSEpWouVoBt5FFSZUyjuDdlPPYyPav+hpI6ggmCTld3u2hyiHji2H
+ cDpcLM2LMhlHBipu80s9anNeZhCANDhbC5E+NZmuwgzHBcan8WC7xsPXPaiZSIm7TKaVoOcL
+ 9tE5aN3jQmIlrT7ZUX52Ff/hSdx/JKDP3YMNtt4B0cH6ejIjtqTd+Ge8sSttsnNM0CQUkXps
+ w98jwz+Lxw/bKMr3NSnnFpUZaxwji3BC9vYyxKMAwNelBCHEgS/OAa3EJoTfuYOK6wT6nadm
+ YqYjwYbZE5V/SwzMbpWu7Jwlvuwyfo5mh7w5iMfnZE+vHFwp/wARAQABzSFKaXJpIFNsYWJ5
+ IDxqaXJpc2xhYnlAa2VybmVsLm9yZz7CwXcEEwEIACEFAlW3RUwCGwMFCwkIBwIGFQgJCgsC
+ BBYCAwECHgECF4AACgkQvSWxBAa0cEnVTg//TQpdIAr8Tn0VAeUjdVIH9XCFw+cPSU+zMSCH
+ eCZoA/N6gitEcnvHoFVVM7b3hK2HgoFUNbmYC0RdcSc80pOF5gCnACSP9XWHGWzeKCARRcQR
+ 4s5YD8I4VV5hqXcKo2DFAtIOVbHDW+0okOzcecdasCakUTr7s2fXz97uuoc2gIBB7bmHUGAH
+ XQXHvdnCLjDjR+eJN+zrtbqZKYSfj89s/ZHn5Slug6w8qOPT1sVNGG+eWPlc5s7XYhT9z66E
+ l5C0rG35JE4PhC+tl7BaE5IwjJlBMHf/cMJxNHAYoQ1hWQCKOfMDQ6bsEr++kGUCbHkrEFwD
+ UVA72iLnnnlZCMevwE4hc0zVhseWhPc/KMYObU1sDGqaCesRLkE3tiE7X2cikmj/qH0CoMWe
+ gjnwnQ2qVJcaPSzJ4QITvchEQ+tbuVAyvn9H+9MkdT7b7b2OaqYsUP8rn/2k1Td5zknUz7iF
+ oJ0Z9wPTl6tDfF8phaMIPISYrhceVOIoL+rWfaikhBulZTIT5ihieY9nQOw6vhOfWkYvv0Dl
+ o4GRnb2ybPQpfEs7WtetOsUgiUbfljTgILFw3CsPW8JESOGQc0Pv8ieznIighqPPFz9g+zSu
+ Ss/rpcsqag5n9rQp/H3WW5zKUpeYcKGaPDp/vSUovMcjp8USIhzBBrmI7UWAtuedG9prjqfO
+ wU0ETpLnhgEQAM+cDWLL+Wvc9cLhA2OXZ/gMmu7NbYKjfth1UyOuBd5emIO+d4RfFM02XFTI
+ t4MxwhAryhsKQQcA4iQNldkbyeviYrPKWjLTjRXT5cD2lpWzr+Jx7mX7InV5JOz1Qq+P+nJW
+ YIBjUKhI03ux89p58CYil24Zpyn2F5cX7U+inY8lJIBwLPBnc9Z0An/DVnUOD+0wIcYVnZAK
+ DiIXODkGqTg3fhZwbbi+KAhtHPFM2fGw2VTUf62IHzV+eBSnamzPOBc1XsJYKRo3FHNeLuS8
+ f4wUe7bWb9O66PPFK/RkeqNX6akkFBf9VfrZ1rTEKAyJ2uqf1EI1olYnENk4+00IBa+BavGQ
+ 8UW9dGW3nbPrfuOV5UUvbnsSQwj67pSdrBQqilr5N/5H9z7VCDQ0dhuJNtvDSlTf2iUFBqgk
+ 3smln31PUYiVPrMP0V4ja0i9qtO/TB01rTfTyXTRtqz53qO5dGsYiliJO5aUmh8swVpotgK4
+ /57h3zGsaXO9PGgnnAdqeKVITaFTLY1ISg+Ptb4KoliiOjrBMmQUSJVtkUXMrCMCeuPDGHo7
+ 39Xc75lcHlGuM3yEB//htKjyprbLeLf1y4xPyTeeF5zg/0ztRZNKZicgEmxyUNBHHnBKHQxz
+ 1j+mzH0HjZZtXjGu2KLJ18G07q0fpz2ZPk2D53Ww39VNI/J9ABEBAAHCwV8EGAECAAkFAk6S
+ 54YCGwwACgkQvSWxBAa0cEk3tRAAgO+DFpbyIa4RlnfpcW17AfnpZi9VR5+zr496n2jH/1ld
+ wRO/S+QNSA8qdABqMb9WI4BNaoANgcg0AS429Mq0taaWKkAjkkGAT7mD1Q5PiLr06Y/+Kzdr
+ 90eUVneqM2TUQQbK+Kh7JwmGVrRGNqQrDk+gRNvKnGwFNeTkTKtJ0P8jYd7P1gZb9Fwj9YLx
+ jhn/sVIhNmEBLBoI7PL+9fbILqJPHgAwW35rpnq4f/EYTykbk1sa13Tav6btJ+4QOgbcezWI
+ wZ5w/JVfEJW9JXp3BFAVzRQ5nVrrLDAJZ8Y5ioWcm99JtSIIxXxt9FJaGc1Bgsi5K/+dyTKL
+ wLMJgiBzbVx8G+fCJJ9YtlNOPWhbKPlrQ8+AY52Aagi9WNhe6XfJdh5g6ptiOILm330mkR4g
+ W6nEgZVyIyTq3ekOuruftWL99qpP5zi+eNrMmLRQx9iecDNgFr342R9bTDlb1TLuRb+/tJ98
+ f/bIWIr0cqQmqQ33FgRhrG1+Xml6UXyJ2jExmlO8JljuOGeXYh6ZkIEyzqzffzBLXZCujlYQ
+ DFXpyMNVJ2ZwPmX2mWEoYuaBU0JN7wM+/zWgOf2zRwhEuD3A2cO2PxoiIfyUEfB9SSmffaK/
+ S4xXoB6wvGENZ85Hg37C7WDNdaAt6Xh2uQIly5grkgvWppkNy4ZHxE+jeNsU7tg=
+In-Reply-To: <20261118150322.070825488@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-A new file or directory can lose the access rules it should inherit from
-its parent. smb_inherit_dacl() sizes the child's descriptor for its SIDs
-and inherited ACEs but copies the parent's offsets. The owner and group
-SIDs keep their sizes, while the child's DACL can be smaller or larger.
-The parent's offsets may therefore be wrong for the child.
+On 18. 11. 26, 15:36, Greg Kroah-Hartman wrote:
+> 7.3-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Yilin Chen <1479826151@qq.com>
+> 
+> [ Upstream commit ec27f3b700010d2ebae1cde2df0246197689d159 ]
+> 
+> The Rust configfs abstractions do not fully constrain callback data for
+> cross-thread use. Add the missing `Send` and `Sync` requirements.
+> 
+> Specifically, make the following changes:
+> 
+> 1. Require `Data: Send` when implementing `Send` for `Subsystem<Data>`,
+>     since the subsystem stores its data by value.
+> 2. Make `GroupOperations` a `Sync` supertrait because `make_group` and
+>     `drop_item` receive `&self` from foreign threads. Require `Child: Send`
+>     because configfs may release child groups on an arbitrary thread.
+> 3. Require `AttributeOperations::Data: Sync` because its callbacks receive
+>     `&Data` from foreign threads.
+> 4. Update the safety comments in FFI callbacks that call `get_group_data`
+>     to cite these bounds as justification for sharing the returned
+>     references with the callback thread.
+> 5. Remove redundant `Child: 'static` bounds from `GroupOperationsVTable`
+>     and `new_with_child_ctor`.
 
-ksmbd preserves the component order sent by the client. The Linux
-cifs client puts the DACL before the owner and group SIDs, so their
-offsets depend on the parent's DACL size. If the child's DACL is
-smaller, the copied SID offsets can fall outside the allocation.
-ksmbd then uses a default descriptor, losing inherited deny ACEs.
-If the child's DACL is larger, it can overwrite the SIDs.
+This errors out too:
+[  494s] error[E0277]: `UnsafeCell<MaybeUninit<blk_mq_tag_set>>` cannot 
+be shared between threads safely
+[  494s]    --> ../drivers/block/rnull/configfs.rs:45:18
+[  494s]     |
+[  494s]  45 |     type Child = DeviceConfig;
+[  494s]     |                  ^^^^^^^^^^^^ 
+`UnsafeCell<MaybeUninit<blk_mq_tag_set>>` cannot be shared between 
+threads safely
+[  494s]     |
+[  494s]     = help: within `TagSet<NullBlkDevice>`, the trait `Sync` is 
+not implemented for `UnsafeCell<MaybeUninit<blk_mq_tag_set>>`
+[  494s] note: required because it appears within the type 
+`Opaque<blk_mq_tag_set>`
+[  494s]    --> ../rust/kernel/types.rs:332:12
 
-Build the child in owner, group, DACL order and calculate each offset
-as its component is copied. These writes exactly fill the allocation,
-so the checks on the copied parent offsets are no longer needed.
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
----
-
-The inherited SIDs and ACEs are unchanged. Only their placement in the
-child descriptor changes.
-
-Tested on ksmbd-for-next 267029b35ad1 with KASAN. Children of DACL-first
-parents now retain inherited deny ACEs and refuse the denied read.
-Smaller child DACLs inherit correctly, and larger ones leave the owner
-and group SIDs intact. Across the tested parent DACLs, both component
-orders produce the same child DACL. Children of parents already in
-owner, group, DACL order are byte-for-byte unchanged. smbtorture results
-match the base. Windows client layouts were not tested.
-
-This patch was developed with LLM assistance.
-
- fs/smb/server/smbacl.c | 63 ++++++++++++++----------------------------
- 1 file changed, 20 insertions(+), 43 deletions(-)
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index a87c22fa9a6e..891bfb6f54e2 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1392,56 +1392,33 @@ int smb_inherit_dacl(struct ksmbd_conn *conn,
- 		if (le16_to_cpu(parent_pntsd->type) & DACL_AUTO_INHERITED)
- 			pntsd->type |= cpu_to_le16(DACL_AUTO_INHERITED);
- 		pntsd_size = sizeof(struct smb_ntsd);
--		pntsd->osidoffset = parent_pntsd->osidoffset;
--		pntsd->gsidoffset = parent_pntsd->gsidoffset;
--		pntsd->dacloffset = parent_pntsd->dacloffset;
- 
--		if ((u64)le32_to_cpu(pntsd->osidoffset) + powner_sid_size >
--		    pntsd_alloc_size) {
--			rc = -EINVAL;
--			kfree(pntsd);
--			goto free_aces_base;
--		}
--
--		if ((u64)le32_to_cpu(pntsd->gsidoffset) + pgroup_sid_size >
--		    pntsd_alloc_size) {
--			rc = -EINVAL;
--			kfree(pntsd);
--			goto free_aces_base;
--		}
--
--		if ((u64)le32_to_cpu(pntsd->dacloffset) + sizeof(struct smb_acl) + nt_size >
--		    pntsd_alloc_size) {
--			rc = -EINVAL;
--			kfree(pntsd);
--			goto free_aces_base;
--		}
--
--		if (pntsd->osidoffset) {
--			struct smb_sid *owner_sid = (struct smb_sid *)((char *)pntsd +
--					le32_to_cpu(pntsd->osidoffset));
--			memcpy(owner_sid, powner_sid, powner_sid_size);
-+		/*
-+		 * Lay out the child as owner, group and DACL. The parent may
-+		 * store its components in another order, so its offsets do
-+		 * not fit the child.
-+		 */
-+		if (powner_sid) {
-+			pntsd->osidoffset = cpu_to_le32(pntsd_size);
-+			memcpy((char *)pntsd + pntsd_size, powner_sid,
-+			       powner_sid_size);
- 			pntsd_size += powner_sid_size;
- 		}
- 
--		if (pntsd->gsidoffset) {
--			struct smb_sid *group_sid = (struct smb_sid *)((char *)pntsd +
--					le32_to_cpu(pntsd->gsidoffset));
--			memcpy(group_sid, pgroup_sid, pgroup_sid_size);
-+		if (pgroup_sid) {
-+			pntsd->gsidoffset = cpu_to_le32(pntsd_size);
-+			memcpy((char *)pntsd + pntsd_size, pgroup_sid,
-+			       pgroup_sid_size);
- 			pntsd_size += pgroup_sid_size;
- 		}
- 
--		if (pntsd->dacloffset) {
--			struct smb_ace *pace;
--
--			pdacl = (struct smb_acl *)((char *)pntsd + le32_to_cpu(pntsd->dacloffset));
--			pdacl->revision = cpu_to_le16(2);
--			pdacl->size = cpu_to_le16(sizeof(struct smb_acl) + nt_size);
--			pdacl->num_aces = cpu_to_le16(ace_cnt);
--			pace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
--			memcpy(pace, aces_base, nt_size);
--			pntsd_size += sizeof(struct smb_acl) + nt_size;
--		}
-+		pntsd->dacloffset = cpu_to_le32(pntsd_size);
-+		pdacl = (struct smb_acl *)((char *)pntsd + pntsd_size);
-+		pdacl->revision = cpu_to_le16(2);
-+		pdacl->size = cpu_to_le16(sizeof(struct smb_acl) + nt_size);
-+		pdacl->num_aces = cpu_to_le16(ace_cnt);
-+		memcpy((char *)pdacl + sizeof(struct smb_acl), aces_base, nt_size);
-+		pntsd_size += sizeof(struct smb_acl) + nt_size;
- 
- 		ksmbd_vfs_set_sd_xattr(conn, idmap, path, pntsd, pntsd_size);
- 		kfree(pntsd);
+> Fixes: 446cafc295bf ("rust: configfs: introduce rust support for configfs")
+> Link: https://rust-for-linux.zulipchat.com/#narrow/channel/288089-General/topic/Should.20add.20Data.3A.20Send.2FSync.20bounds.20in.20configfs.3A.3ASubsystem.3F/with/623719979
+> Assisted-by: Gpt-5.6 Sol
+> Signed-off-by: Yilin Chen <1479826151@qq.com>
+> Link: https://msgid.link/tencent_5449081195EDDF5726C709CF648DD4044A08@qq.com
+> [ Andreas: Add Send/Sync bounds for `Group<Data>`, add `Send` bounds to
+> `GroupOperationsVTable`, `ItemOperationsVTable` and `ItemType` macro
+> implementation. ]
+> Signed-off-by: Andreas Hindborg <a.hindborg@kernel.org>
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
 -- 
-2.47.3
+js
+suse labs
 
