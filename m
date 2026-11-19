@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795079960;
-	b=pg4//QADUST2aOV3cDon4KSqwp9AUugYp1eb/BV8EtitcImWfCwtXymAQzxEag5hXTNb
-	 i5fBRuKPTO9lJfkBLT8Bi1K+agmg4GTU16AEPgIwFnwrwLZxcAjI3ucFZFr26UI/F6n93
-	 z9SSd9GcUotFAJfXl1Xpsb/76uJfwfoaKSZWNcHy0Gwgn6c5ubkhxd6Tcm1dcS5cjrMof
-	 ZkN/dEMUZZpxsEtb4bhRgSMK8IDobDckXXXJGcNl8CtJE8qCJ5LyO0JDKGkQmaG2dF1u/
-	 aWuuvcAiMP97xGXsKxmRfJP/Zq/ss0mnbpKyzDCdDkAliwZn04p3eyi1Nj03bMBjjUA==
+	t=1795079967;
+	b=g8FsLA5tDZfIBO0hTj0kX9qXM/Ilse/KsY1lEzWiOU6Fo5vBT3Tt5I5/zOcaRXNI8bTj
+	 Z8bm1AJfDaSdcQRUyqOA8l8wKS3VALaGqPn3SUnfJdQSNcZhrmV9jbNQiU3OtHXuBR7B8
+	 P/hRClvsMVx/FotYZI2yFjNjE3n15mamWiHBH9ahc2qDj5jPj5xveaO3csksy3IH9gZzW
+	 8IROqldKpF5jbsLsgCmQb6h1LUhmPXQe5qCeFEw/vsJPiyemyh5Zk7kxB/AEIEjGtQalB
+	 kKrUsm5KWJKPLP9w4YcHPKmlCsh3bfqjNncTQ0pBN5i2DQokkmtOla4zaIgFpjHMywQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795079960;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795079967;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=vy7dQdwcLjuJGzzYP6/5w/8O3IX+03j/FcYO1YTEpQA=;
-	b=hMXZr9uw6087MKBG7lHs8y3eNwFQObxji0iG6WCjIQbWCFuNKK81gxKodj/3BfR1Q9U5
-	 pkAme7dKKhzhM1ttUIWZVt6qtY2CMJFm2tTFfX6RxxbTz3y+Vi+OftzRY6Ev9XuQq5dip
-	 2ulsnyrjxUpNg3guSaBLea5vmJ+oqoeFgYYCZsuEVkazRS7MdEOcGIUa5MpSM1ozdG2WH
-	 CxCDcvG3STyO9C9v+MaKgSd2WzPVG2fDQFSjRVUKNjT1GsMWdy/ESaPEDtO836Z/qUzY2
-	 iJRfPb+/nK3Vfey27ModKufF+6GFrB4kP2eOY+H2htivQQh7EwNK4QBYRa4u+ZWAs4Q==
+	bh=STK9ZpfNos3+Nxtqh4zAepk2/6TXCoH1pGSTeeq0pDg=;
+	b=j86Dn7VCaWc8hcq0H/c/C/Ssd9hwuanhwCQjgIYN2xsgZ7aOHTK91tKLYasgpXvfQT1e
+	 pPXG56ceegTsXLsCq+0SWgwaC+n14AznKbWstWKVpCJY6bmxOFNghgJrt7KuOLH53tPEm
+	 E3HksfQMT2+tWC1kXuToZaJKMlHxFJcUlqBDvryhAGs+3avsnl/Sp0OZOCpHRuIQu8Aew
+	 JHlkbcIqi82mGxZgiEgmMTor4NPQy0U8F/MQoplJCw9xc3QexwRzIWJIYwuUGb/21s7QP
+	 muclkA65MrWnnHzVbX9hGopzC8xMlCvO5Bc4X1dEVuDkdT+0itQl9oBzAAAyHP3kPGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X7IFV685;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="BiL/fK68";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78677606A324;
-	Thu, 19 Nov 2026 09:19:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598E6606A33D;
+	Thu, 19 Nov 2026 09:19:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X7IFV685
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26921F000C6;
-	Thu, 19 Nov 2026 09:19:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BiL/fK68
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831501F000C8;
+	Thu, 19 Nov 2026 09:19:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795079960;
-	bh=vy7dQdwcLjuJGzzYP6/5w/8O3IX+03j/FcYO1YTEpQA=;
+	s=k20260515; t=1795079967;
+	bh=STK9ZpfNos3+Nxtqh4zAepk2/6TXCoH1pGSTeeq0pDg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=X7IFV685e9SSCvDcxCfQ6vM3+LAXZYL5UDDrOU8MsVZ1n5z7AiVj5HNI1rM7oNaEA
-	 IreAEUEdzYBCZfEHPAZOHwGsigyPZrB+BLMF0WAmKXgEdUMpXwBLEB11TlsNHg4++y
-	 8uGVLXVkBXTfMF/QzUCfhyeLWNmg0hmSfyJSoazh9FLOV5qEUAoRRMSDPBg+uddKBk
-	 INfMIiRnT5P2Ie3BtS5LGAtPOXoHdtHxtsL7UhvXFqjSWAEm9k561Lr+u2Mul/edPc
-	 Uj6PEQI4zlTdINDiY0UzMv8qajCKJ+10F9o+AJr3V6FRa+jSDtYH7UJEyWKxUhXF1f
-	 anw6Qrw43KxAw==
+	b=BiL/fK68j70Yyx5AXjXgMLkcAe3z7dEAKCA392ik7Nfn/EXK99tdLvAWobuwSfY/Q
+	 F5bGqPG563i8+IzTNPuaMPcjPVJm+PKBA0cy2MXWgj29YZBTOM4lVzqsUABW247YiV
+	 lg0R7siAzWSs/xOU7GV0GiBK9rKKs75qOZ/cT1CijT404R6nvdliZlId1mG850y/Yd
+	 5CKLEiAFkt1ulPOG/DQLeHUCtHsPs/qO1U+A2iClnY3Qf89IeWegyeKKE2NFom6Nj0
+	 BMRn+vd5ZQbfds8rmwg8qYpT7GmZkdHy9RZSN0EXBlvx82maEk0oorD2bhq8M6yJ5Q
+	 N1qBSW/OVR/qw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Mark Brown <broonie@kernel.org>,
@@ -50,9 +50,9 @@ To: lee@kernel.org,
 	linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 09/10] spi: cadence-xspi: Advance tx pointer between Marvell b0 chunks
-Date: Thu, 19 Nov 2026 09:17:21 +0000
-Message-ID: <20261119091810.3440619-10-lee@kernel.org>
+Subject: [PATCH 10/10] spi: cadence-xspi: Skip tail read for qword-aligned Marvell b0 receives
+Date: Thu, 19 Nov 2026 09:17:22 +0000
+Message-ID: <20261119091810.3440619-11-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
 In-Reply-To: <20261119091810.3440619-1-lee@kernel.org>
 References: <20261119091810.3440619-1-lee@kernel.org>
@@ -67,39 +67,42 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cdns_xspi_transfer_one_message_b0() splits transfers which are larger
-than MRVL_XFER_MAX_LEN into chunks, but never advances txd between
-them.  For every chunk after the first, the leading byte is sent from
-txd[0] again, and a short trailing chunk retransmits the start of the
-buffer instead of its tail.  The out_buffer pointer used for the rest
-of each chunk is advanced correctly, so the data on the bus ends up
-inconsistent.
+In cdns_xspi_transfer_one_message_b0() the receive path reads len / 8
+full qwords and then always calls cdns_xspi_finish_read() to collect
+the remaining bytes.  cdns_xspi_finish_read() unconditionally advances
+current_xfer_qword, even when there are no remaining bytes to read.
 
-Advance txd by the size of each chunk when the transfer carries TX data.
-TX-less transfers continue to use the zeroed scratch buffer, which is
-only ever as large as a single chunk.
+The TX-only path only accounts for an extra qword when the length is
+not a multiple of 8, so for qword-aligned receives the read index runs
+one qword ahead and later chunks and transfers in the same message read
+the wrong READ_DATA registers.
+
+Only call cdns_xspi_finish_read() when there is a partial qword left to
+read, matching the accounting used by the TX-only path.
 
 Fixes: 931e389ded0f ("spi: cadence: Add Marvell xfer operation support")
-Closes: https://sashiko.dev/#/bug/linux-e2ba3b72-ead8-4562-bdb2-4992253c59b4
+Closes: https://sashiko.dev/#/bug/linux-13cf6f1e-c300-4fa1-9cd4-08a48ec4f4b9
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/spi/spi-cadence-xspi.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/spi/spi-cadence-xspi.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
-index c4fcbf5ae091..4c9af6146a5d 100644
+index 4c9af6146a5d..bd0fdbbd4060 100644
 --- a/drivers/spi/spi-cadence-xspi.c
 +++ b/drivers/spi/spi-cadence-xspi.c
-@@ -1319,6 +1319,8 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
- 				cdns_xspi->current_xfer_qword %= MRVL_XFER_QWORD_COUNT;
- 			}
- 			cs_change = t->cs_change;
-+			if (t->tx_buf)
-+				txd += current_transfer_len;
- 			t->len -= current_transfer_len;
- 		}
- 		spi_transfer_delay_exec(t);
+@@ -1309,7 +1309,9 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ 
+ 				for (j = 0; j < current_transfer_len / 8; j++)
+ 					marvell_xspi_read_single_qword(cdns_xspi, &rxd);
+-				cdns_xspi_finish_read(cdns_xspi, &rxd, current_transfer_len);
++				if (current_transfer_len % MRVL_XFER_QWORD_BYTECOUNT)
++					cdns_xspi_finish_read(cdns_xspi, &rxd,
++							      current_transfer_len);
+ 			} else {
+ 				cdns_xspi->current_xfer_qword += current_transfer_len /
+ 								 MRVL_XFER_QWORD_BYTECOUNT;
 -- 
 2.56.1.708.g77570a6a1d-goog
 
