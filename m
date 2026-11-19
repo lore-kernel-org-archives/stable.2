@@ -1,122 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.155
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795071420;
-	b=d9QfROIPgMPXW9FQyTu/gYT79t6XSaYAnHxzlp5hYhmt/L6ij40/4LRrwMGtNYVc5rhS
-	 Op0cu/ZCQ9wau5ALQr5FgBd8k9ywzWywSr9dPnvN3+/XO1zPcU4gZWdsaS7leKKUM7XuF
-	 aY5RdempTRjFAuvIJtSaYFV1mdjkH5rGdf5w5z9+Xd2YQelNDvmBOtx7J6j+SNk+y1e5s
-	 8UnoY7iRDKy0zgHe6yFnnnBwe61Pn5Xygg0azkholWx+WoqAaoa2L+PXwtzBpoSK3I5Ai
-	 jTVtf2JAtK6MW/uwKXlaHqrjiIZ1mKAc9Sqdv8KF8xPB83s3lJ8Il+1EUa3tL2pch5Q==
+	t=1795071601;
+	b=URW/7DwJDPxHfzHp4NK3Z1JJm/z+vxBw5i73gGVQfwMlZVfvVUzUK4CjZV2XfCsHuaUR
+	 Bldk/+Hv8A1fx7wEG/uulJ4znibhp7H39FklI20TPmjWpKiboB4i0I+8CSvaaRYnUlWBV
+	 oSAk9ECSrx34W41qdnregTsoRkNz0fcJyPuXRRqixl92fqxisSvC9K5lQSJgtOYOt292x
+	 RT3lRyA0g5ZzpHbTFQHo/AOawtxaPg1KEfsUcMF0eGHDKJ6NUxYwJOTdbISKl6OrEUPoZ
+	 JWUTcPpyrVMjhZYQe3PQQCXR/GSAV2+77JSVQKvPZY7T7I2bE7jGmfbMbjOJzjhKtAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795071420;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=qej1/CHUhZwkwtfhOBDbH7m01T/a601vvQfVfLTMO0g=;
-	b=ZWlCw0zjYXcF3bTnoTKMBvGTv/wtd+6aDMXW695ni84UdNW+3lzW9c3HsUTBrhsYvVJp
-	 3wevDbP8XuweRnRw151FdQU2KrpziM9w93Hxsun9K67lilBVACgKZ8AT3ccDfOPeZY2jF
-	 Db9WTGb4cyXQ6cTiRPDSKMuJFe8oroKHgbOGj3pD5+69YFSMhuvWYoh4xUKzGoB7Pszjc
-	 jPXCAgu8POcmFUGSayEByZVUwl6o6FUBS5NChGs39Ct1zSTIqUS3bmfMVQIXne+Gtstjb
-	 pnKI7+Tzzy5LzkPyAZYNg1B5K6OfhNNNlcGb9hUIaUeXGfCmGosGR1ZtpCUi6z/bhHQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795071601;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=N5eSPNBlwV7KKPmI6DqqlrxRRkqVZeqqeoXHkxOFY4E=;
+	b=29CKMQFXLND0dQnqHNzUN/NHHUjo5bpf8K8Cc9OTtCq4PzI0XaD4WhIGWeRfEjLsXnE8
+	 xbm1ujJ/9Gdv/GRaf2MmiBfKVsSSDl3pplTojVqGrEGJc6m4fna5wUCmA8j36YCGyl3lo
+	 RGGXCLaz+b+vYep8eszSUq4Yd43XX2TUM1DeJQy+SM+kV2rl3+0IheUCB+Tqitvp0gPSS
+	 qjK3CTPUeRfbLJIOE0ajvOCZ/zFBaTGvzdZCFi3+vcOpWixHefGGXrITrYMUAxhjqNwLG
+	 tvE+sPkrYgm+M2lJc62jz+EXsbEjEFkk5QBlJxPN3jG8nqZGtFLxcxp8ZEucO/cwUNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=C79bcwi8;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=tnhPTCHL;
-	arc=none smtp.remote-ip=202.12.124.155
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2FB606A325
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 06:57:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A2FB606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm3 header.b=C79bcwi8;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=tnhPTCHL
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id DC3D47A02DF
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 01:56:59 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Thu, 19 Nov 2026 01:56:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm3; t=1795071418; x=1795157818; bh=qej1/CHUhZwkwtfhOBDbH
-	7m01T/a601vvQfVfLTMO0g=; b=C79bcwi8YyHKu2KZn0HOKWhhcT/RQ/q1z6xmj
-	nkmOWL+msmKOW3FKDHIUs4bc8xTHzKQaDy60MxLiQx+PWNXpBf7tNdch9FJ3YM6/
-	i44RtFWZkLD+roVys2a27yp15RqgRrRfbGqOw4RMupgbLCv/0FXV7zyd1ld1Wc8P
-	3qed81cRjjCXFIDwGpPBCaltgRzup6fasLfQXJBVqDIPDjVu5JJnHNfl1G+LlYuc
-	EKxfh2KyXUt1k9ygmfZbBKs5njzpvO9kamUpOuXB+CXFLN3gcuUejnkYpvr4igDk
-	L2KyivFKVwrtgoLlthj/vdBbq9uFKm3+gV94GUPXIiC1nYF5w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
-	1795071418; x=1795157818; bh=qej1/CHUhZwkwtfhOBDbH7m01T/a601vvQf
-	VfLTMO0g=; b=tnhPTCHLihIRTnfnTwgEPTR17OwAl97jIKTfKFHWYElnqA1BkH8
-	otbCPZOuXP8K+52+f4JptE8XIatqTiKx/9fsRNHWdNYSpvuov6K5G4XAKXtXyM88
-	xp+8MccncIy8BueAVkG5Dk9Bp3czmuqP2HGt8d7dYpqFyMRq+TydK97ca+qWBpa9
-	h8+ZBhTPIzfOzb+eYvlup34gLNibWqzXRNsw1orHrFHi2yTtBXYlqMo5O+7XIe2d
-	Nwbpae048yilDRQZO2xiDdVJn0M8M5a5f6Rj/9UAS9QX7rHXHAwDsMVPpj5d3JHK
-	U6hejJI0g8D8e3Gy0qtibp2vGh2+Y/o24XA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1795071418; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:2+qWHvwLdOzEnLGGJGY0DuTMX9K3bKqyozOb8bAY2tFGjRj
-	o3F2kHz1/dqTK9iHroWUJc9yXID/JZJjpPRjkuoHlEsT5elE6sR6hv2l55HIRohQ
-	HMMTKKhxiJQfMsAoKUh+pXINAzsABSRUuXKtD29Jrnrhu/gs3YRuOq0fpB/trCMf
-	/hiqf/JXy+RGoP2CMODIEkVFw5MkUP+y+BNJ3orEmbVdVBv7W2KkzPbGkPjqyNcS
-	id7XCblYpXT1Jw3ykQeXY/I/To+JT8hCsFidGalR5kM82e6ZjOvAyfwV9oQL/t7D
-	qMiitFM6BoqJvTio8h572ab8HdQ21pr8zrxdbUg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
-	repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
-	action=mi-m=1; hc=9;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	message-id,mime-version,subject,to;
-Message-Instance: m=1; h=sha256:9Type4bs5sGYnLrV2c+Fj4G4UrwAA394vJAyH+p3Fw4=:3GXWP1/asZ1BzgZfsPnspWQPC3190DlfNCgSqGNEjBQ=;
-X-ME-Sender: <xms:up3-al3FFXyZpq8yJMtVQ89EhLgu2dZWP9sz0KLreeMHrDntZiVCvQ>
-    <xme:up3-aoGUCt3CFBbEIJ_i3t8zF50am88o3Ie9whsao7cko8iwEJ6dApOdcrFpH-HNg
-    P3N3KB1XKy41kZRHFUEmomV3diXmKp0fdSt_yxpK7TIV-AYwvFWnHpJ>
-X-ME-Received: <xmr:up3-aoFxnOY_u9g29t1PPdZJMKSIkJTm96WWszuGSTTQz-5wRkhs-Vix1SWqKDyj>
-X-ME-Proxy-Cause: dmFkZTEUeSj65Ijj5tNpWOjFDh7KBEQCBr9G5I8Llv6XdNa+Rju/WdxqTfnOW/rSoNM961
-    an+qTAX4G+2CZIeC+1LaBq45al8NiB4rnS/Yol7V2iOkUIcRMdvnr5JxT+vbUY3Mn6yzla
-    OZHhkRJNI+yPYxUaBVPnSOJr9zF7Y88xOgHDWLaVYeDCjkPD02OBcPHlB/ScO8Ci/hohqV
-    l3NB5jAtBnvKSBLhHAZHNRPwiEwG41CCXO4NYuSDMLUsP+BUvWncAEI4d2BzDee+hr92YL
-    KAzigc7oxCuYk3w5Tnj+h0Gzhz5NBZ+gHgyzhPxT9OYgDTJZQckAQ678SEV30h2/qV5BDv
-    W2fYnOtNPeCc5D+FjKeL56U/1AQuw+H4nwqAWXHfyOLDN3KQ2QAUB8IbTagNXHCUQHw59n
-    s8RY0lc98DVt+MJRiOJ8dMklQE20EgayKeXm8+KIiQ3yj/aVn+o4n5w9hLPndWzPIwES+O
-    9raeDEmxnyXi1P6ymIBjHe4EI8yMf2TATbjJkC5LWK5tMrGHAf+0S5hWyIOvAjiuqhb8fF
-    zWdt6bQ9xD5r/fgQvyPyOtien2AUb5NwqpUDhHS92CN+NheXqemaifREReFZIocDqONf/X
-    mzOTtfVktxcdp+gusvBV3TgjM2+UwdHEMLpyYxWOPgHlKLsB4gaTeJSc7gdw
-X-ME-Proxy: <xmx:up3-aj4aNnIHmOWHi1Fja1rCcAEHvzi6HCkEz3zW4fms7NU3kQNdiw>
-    <xmx:up3-aly14rhpS4lhcfVB-tNcJcsueQWBsPc54QOYZ2THxWIXQ-SJGw>
-    <xmx:up3-aqOV1G2OtYjq0sZpXeZNqZEg2AmV8MnAB8he32DBOFSq_4TX4g>
-    <xmx:up3-ajlYuI9GDQMFNBguI1dSE4yMEp8Ok0lcMc0SHXLlj3M61EoBKA>
-    <xmx:up3-ar_jokRD4C53r6gimDJ_2UTFuJZT446mVA-RQoWl6yZPTii0hexE>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 19 Nov 2026 01:56:56 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: linkinjeon@kernel.org
-Cc: senozhatsky@chromium.org,
-	tom@talpey.com,
-	chenxiaosong@chenxiaosong.com,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ian Bridges <icb@fastmail.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ksmbd: omit the DACL flags when the query omits the DACL
-Date: Thu, 19 Nov 2026 00:56:52 -0600
-Message-ID: <20261119065652.116074-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245B1606A332
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:00:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 245B1606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b26d8d2498so2023479b6e.2
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 23:00:00 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795071600; x=1795676400;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=N5eSPNBlwV7KKPmI6DqqlrxRRkqVZeqqeoXHkxOFY4E=;
+        b=nVSO5lrpRxopMa+MAs84BWdFKW1U5WDQsHvbHCNUqgUoGUD0BlX2M6jwk6p2nPXq9q
+         ClOENU83M1zHwm0ifpPbeDu9uJqkIJRhQdQ3GYTUuCnLzp5najiJ9uWVnTUgR/dOGjYZ
+         KDnICWE+8or9ockpyz2Ujn5YppoPBv7hCWXwcsCtQ/j0QgGkgrrQ3XQrR5p+1fL77UZr
+         rt0IqkZjU32U7bXEoxgvFkeMqW3NAFn+f8qgsit7D4a6UgKNwmFqy/7cbjF0OHp3rWw1
+         rQ/3L930QOyQ9iFDERwqljZ9sfdijvBiZAiPrG9rh6IonjrYFHP1ofCh2mLenSgWsowW
+         z/ZA==
+X-Forwarded-Encrypted: i=1; AL+hErE8rzJtHVm8b8UFIo5ulTsmViljaPfjIPT1HU9i3lgSSmbYPKnTpi0zoqbTnwuzD0m9lq946hQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9R7iKwB9Hqm3rOBGtBFFhq1TZnKtoTdW3v1w+PCF6TlHjFFytc
+	aU3m9gxeOXgYDXIMqDgFJojq8dJzFl/g+EuiSPzUrZJ7rcy/gMRRjdwtNwhVEQAVM5GbMi4ANkG
+	KFQPjXMm1nnpc03KDYOhWfSugNAIKZFFkti5G1Mq5vM90ZQ50EF8fouAoXjc=
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -126,65 +58,172 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1992:b0:567:bfc4:c94f with SMTP id
+ 5614622812f47-577422121bdmr6168455b6e.67.1795071600207; Wed, 18 Nov 2026
+ 23:00:00 -0800 (PST)
+Date: Wed, 18 Nov 2026 23:00:00 -0800
+In-Reply-To: <20261115121722.206-1-enscrpt@pm.me>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6afe9e70.902182b0.170f33.0005.GAE@google.com>
+Subject: [syzbot ci] Re: keys: serialise instantiation against keyctl_chown_key
+From: syzbot ci <syzbot+ci69a2f6975b022dfa@syzkaller.appspotmail.com>
+To: dhowells@redhat.com, enscrpt@pm.me, jarkko@kernel.org, jmorris@namei.org, 
+	keyrings@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-security-module@vger.kernel.org, paul@paul-moore.com, serge@hallyn.com, 
+	stable@vger.kernel.org
+Cc: syzbot@lists.linux.dev, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-A client can query a file's owner or group without requesting its
-DACL. ksmbd leaves the DACL out of that reply but copies the control
-flags from the stored security descriptor.
+syzbot ci has tested the following series
 
-The reply then has DACL_PRESENT set with a zero DACL offset. That
-combination describes a NULL DACL, rather than saying that the client
-did not request DACL information. The reply can also claim that the
-omitted DACL is protected or auto-inherited. These flags are wrong only
-in the reply. The server still enforces the file's stored DACL.
+[v1] keys: serialise instantiation against keyctl_chown_key
+https://lore.kernel.org/all/20261115121722.206-1-enscrpt@pm.me
+* [PATCH] keys: serialise instantiation against keyctl_chown_key
 
-When the query omits the DACL, clear DACL_PRESENT,
-DACL_AUTO_INHERITED and DACL_PROTECTED from the copied flags. Preserve
-the other control bits, including those describing the owner or group.
+and found the following issue:
+possible deadlock in key_move
 
-Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ian Bridges <icb@fastmail.org>
+Full report is available here:
+https://ci.syzbot.org/series/51455b74-3344-42d0-9ba7-b64be2ff0b40
+
+***
+
+possible deadlock in key_move
+
+tree:      torvalds
+URL:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux
+base:      4405c18c95d2d0f99f6c581ef0ee8591a1aa6ccd
+arch:      amd64
+compiler:  Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+config:    https://ci.syzbot.org/builds/309e9321-2f31-411e-ac93-724f183b5510/config
+syz repro: https://ci.syzbot.org/findings/89658ad2-f692-4500-bd4e-ef9d90dc18e5/syz_repro
+
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz.0.17/5852 is trying to acquire lock:
+ffffffff908c1a40 (keyring_serialise_link_lock){+.+.}-{4:4}, at: __key_move_lock security/keys/keyring.c:1305 [inline]
+ffffffff908c1a40 (keyring_serialise_link_lock){+.+.}-{4:4}, at: key_move+0x1d3/0x7b0 security/keys/keyring.c:1634
+
+but task is already holding lock:
+ffff888104aa1290 (&type->lock_class/1){+.+.}-{4:4}, at: __key_move_lock security/keys/keyring.c:-1 [inline]
+ffff888104aa1290 (&type->lock_class/1){+.+.}-{4:4}, at: key_move+0x16a/0x7b0 security/keys/keyring.c:1634
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #2 (&type->lock_class/1){+.+.}-{4:4}:
+       down_write_nested+0x98/0x200 kernel/locking/rwsem.c:1757
+       __key_instantiate_and_link+0x9d/0x4d0 security/keys/key.c:451
+       key_instantiate_and_link+0x331/0x4b0 security/keys/key.c:549
+       keyring_alloc+0x6f/0xb0 security/keys/keyring.c:541
+       system_trusted_keyring_init+0x67/0x120 certs/system_keyring.c:231
+       do_one_initcall+0x250/0x870 init/main.c:1419
+       do_initcall_level+0x10a/0x1a0 init/main.c:1481
+       do_initcalls+0x59/0xa0 init/main.c:1497
+       kernel_init_freeable+0x29d/0x3e0 init/main.c:1732
+       kernel_init+0x22/0x1d0 init/main.c:1622
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #1 (key_construction_mutex){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       __key_instantiate_and_link+0x8f/0x4d0 security/keys/key.c:443
+       key_instantiate_and_link+0x466/0x4b0 security/keys/key.c:549
+       keyring_alloc+0x6f/0xb0 security/keys/keyring.c:541
+       look_up_user_keyrings+0x376/0x670 security/keys/process_keys.c:116
+       do_one_initcall+0x250/0x870 init/main.c:1419
+       do_initcall_level+0x10a/0x1a0 init/main.c:1481
+       do_initcalls+0x59/0xa0 init/main.c:1497
+       kernel_init_freeable+0x29d/0x3e0 init/main.c:1732
+       kernel_init+0x22/0x1d0 init/main.c:1622
+       ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
+       ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+-> #0 (keyring_serialise_link_lock){+.+.}-{4:4}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       __key_move_lock security/keys/keyring.c:1305 [inline]
+       key_move+0x1d3/0x7b0 security/keys/keyring.c:1634
+       keyctl_keyring_move+0xd6/0x110 security/keys/keyctl.c:618
+       __do_sys_keyctl security/keys/keyctl.c:2023 [inline]
+       __se_sys_keyctl+0x85a/0xbc0 security/keys/keyctl.c:1885
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  keyring_serialise_link_lock --> key_construction_mutex --> &type->lock_class/1
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(&type->lock_class/1);
+                               lock(key_construction_mutex);
+                               lock(&type->lock_class/1);
+  lock(keyring_serialise_link_lock);
+
+ *** DEADLOCK ***
+
+locks held by syz.0.17/5852: 2, on CPU#0:
+ #0: ffff888104aa1090 (&type->lock_class#2){+.+.}-{4:4}, at: __key_move_lock security/keys/keyring.c:-1 [inline]
+ #0: ffff888104aa1090 (&type->lock_class#2){+.+.}-{4:4}, at: key_move+0x159/0x7b0 security/keys/keyring.c:1634
+ #1: ffff888104aa1290 (&type->lock_class/1){+.+.}-{4:4}, at: __key_move_lock security/keys/keyring.c:-1 [inline]
+ #1: ffff888104aa1290 (&type->lock_class/1){+.+.}-{4:4}, at: key_move+0x16a/0x7b0 security/keys/keyring.c:1634
+
+stack backtrace:
+CPU: 0 UID: 0 PID: 5852 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.2-debian-1.16.2-1 04/01/2014
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+ __key_move_lock security/keys/keyring.c:1305 [inline]
+ key_move+0x1d3/0x7b0 security/keys/keyring.c:1634
+ keyctl_keyring_move+0xd6/0x110 security/keys/keyctl.c:618
+ __do_sys_keyctl security/keys/keyctl.c:2023 [inline]
+ __se_sys_keyctl+0x85a/0xbc0 security/keys/keyctl.c:1885
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x171/0x540 arch/x86/entry/syscall_64.c:89
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f417a9a8fd9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f417b7c9028 EFLAGS: 00000246 ORIG_RAX: 00000000000000fa
+RAX: ffffffffffffffda RBX: 00007f417ac25fa0 RCX: 00007f417a9a8fd9
+RDX: fffffffffffffffe RSI: 00000000326b97d4 RDI: 000000000000001e
+RBP: 00007f417aa37fed R08: 0000000000000000 R09: 0000000000000000
+R10: 00000000326b97d4 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f417ac26038 R14: 00007f417ac25fa0 R15: 00007ffc44b5b118
+ </TASK>
+
+
+***
+
+If these findings have caused you to resend the series or submit a
+separate fix, please add the following tag to your commit message:
+  Tested-by: syzbot@syzkaller.appspotmail.com
+
 ---
-
-Since v1
-- Also clear DACL_AUTO_INHERITED and DACL_PROTECTED, as requested by
-  Namjae Jeon.
-
-Tested on ksmbd-for-next 267029b35ad1 with KASAN. Queries for the owner,
-the group or both now omit all three flags. Tested protected and
-auto-inherited DACLs, separately and together, with descriptors stored
-through SET_INFO or inheritance. Descriptors stored without
-DACL_PRESENT also keep their unrelated flags. Other tested query
-results and smbtorture results match the base.
-
-This patch was developed with LLM assistance.
-
-v1: https://lore.kernel.org/linux-cifs/20261118174000.76954-1-icb@fastmail.org/
-
- fs/smb/server/smbacl.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
-
-diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
-index a87c22fa9a6e..1aa29966953a 100644
---- a/fs/smb/server/smbacl.c
-+++ b/fs/smb/server/smbacl.c
-@@ -1077,8 +1077,14 @@ int build_sec_desc(const struct mnt_idmap *idmap,
- 	pntsd->sacloffset = 0;
- 	pntsd->revision = cpu_to_le16(1);
- 	pntsd->type = cpu_to_le16(SELF_RELATIVE);
--	if (ppntsd)
-+	if (ppntsd) {
- 		pntsd->type |= ppntsd->type;
-+		/* These DACL flags are returned only with the DACL */
-+		if (!(addition_info & DACL_SECINFO))
-+			pntsd->type &= ~cpu_to_le16(DACL_PRESENT |
-+						    DACL_AUTO_INHERITED |
-+						    DACL_PROTECTED);
-+	}
- 
- 	if (addition_info & OWNER_SECINFO) {
- 		pntsd->osidoffset = cpu_to_le32(offset);
--- 
-2.47.3
-
+This report is generated by a bot. It may contain errors.
+syzbot ci engineers can be reached at syzkaller@googlegroups.com.
