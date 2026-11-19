@@ -1,58 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=135.181.196.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795132213;
-	b=h/pMiyg5XmZfBcpAOIyvCZAwTzfALihKT8WiwSY/MCqveJo5jIHaFF2EmOXK15bq6ZHS
-	 eSag5DyJprxqLLFsWDdjR27G21fwxkGMOJLuHVorAESyv5SdHhbpQ5Ry/fQdiCw0tomsS
-	 bxziqV9nUrzG9426dyfWGfj6zdlz5wniE4seX7cBd94RsCYRWtkklmWyrTJkwOhVkS9jc
-	 o5Rj/mwB8ugtPT33wwUNEIgoj4Kl9w9ZAQSnTW4504r2kietJy7pkc6hTXD0uvCjnl1Nj
-	 mZikeLdFQfS8txGPbXNhRbTWVwgucSZGGOdesWXZtPS+J6U69bgzxJoqinSthbJ76fw==
+	t=1795132861;
+	b=5e7bnzetJuukCmfOkoRTjF35kdB9kGk02EQBOPJsrwZre4iBSoLqEJFbGcJqMencp0gR
+	 NuSTMxgmpWTKuOdQbUBGEC8OtV0O2l0cgnzB9ef/Hx/cRtPh6ujOT8/AAMxpu9faqTOWX
+	 R86F3vLha8kACoObktliSHOV/tjpo/txutqzo5XKQKDqgzCfEmdyYjQFO81tMy91GGsl7
+	 Iz+yTnOg+mZYBX/zvgCFubewhAMq2A+vI63NHrqP6oHuv0hQP427F/XSIIHSgqilRH21M
+	 qu6XCGH84ddPTjmjMuiW8dTJGkYTG/ld8dl4+PSUtiNYWzC/V8K12XXhRTVU/dRD8FQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795132213;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=o1b6XXG9QMuEtUFsFeAjrs4YtDdCD4bIxlLFk9Mv7hU=;
-	b=F/MtRu12yDYrgEOd8cAQIMxRayx27tXsSgpL280vi+wI4HC8v7wNuAjpcUO71i60bTze
-	 rJBjyx3cWMcmWMxMdXJRNsxhnyEbiOyKtT5VS0KOI3+YoVpVVLRLnNkwVa9mAI6qPUpTn
-	 tJE7l3rfrlkErLToaprCUYebY3Q0fPxOd03P7j/7umehqKE0rlgdKLgNmZiyU2l+vGLbm
-	 PWFEQABcqaN+Zftq44kXKtyoLc/G+SUoyluabUfF+otBPbi1fZlVjscJzmS7qr90IDda6
-	 P5aPMna1uAyxIvYsqP9O/Owm5+SaaFH011vX4slP+mcYpWSKGHAe3LHb5JPZstRs8vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795132861;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=5FJBzUYikHTz9Jwg01bNdUYmr9ueJ0Ev2tfSqj/4shQ=;
+	b=Ioac4Ivhx/fpSQM3Td2B0kq48bTnJdq44tElwSww+HKmGa3UkTIIrnbdVp0LcFpk8EbC
+	 xdHHWzRaUKJ2CF6funEY1uNHoLpwQrqBo7eMxYC1dXVHphLBd/JJAqUBhJDrFPDFGt99M
+	 Hy7s2YlwRIyWe+Gifh4vmWMqtIOCvPEzXMWVDpORqLnqcJdtDkGJm8B3MxVXXgUyt/93V
+	 pNbSVDX4zt+LmKuKigwjo6LRJEUAKr7L4zYJhmI9FwncqVQ+OBY0pNYNC0qHGAi244KBu
+	 r0/vRibqA1Gs8U/L0DrFcqsmK6d6u2Uq9jXuseZfRCio1RUg5LenbyTU52vfiJbaEkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jcjiQ0uk;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=puri.sm;
+	spf=pass smtp.mailfrom=puri.sm;
+	dkim=pass header.d=puri.sm header.i=@puri.sm header.a=rsa-sha256 header.s=smtp2 header.b=GWdmvqhq;
+	arc=none smtp.remote-ip=135.181.196.210
+Received: from ms.puri.sm (ms.puri.sm [135.181.196.210])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C61606A326;
-	Thu, 19 Nov 2026 23:50:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB2F606A32C;
+	Fri, 20 Nov 2026 00:01:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BB2F606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=puri.sm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jcjiQ0uk
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADFFD1F000CF;
-	Thu, 19 Nov 2026 23:50:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795132213;
-	bh=o1b6XXG9QMuEtUFsFeAjrs4YtDdCD4bIxlLFk9Mv7hU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jcjiQ0ukTo1DYmaKQHSBSGnwTZ0hRS2j5A2ym1lb/o9vwEphuvyHEvlwEOOqvTSH2
-	 ucUVDjZsW5wp2dqcPDkg8Ll9E8mbYMv15HgGz5Ecpb+v53wBCXEPOIGdsfAPFrDv8n
-	 YrcRIYeN+WpRa0oKeb++Albg89p5plCZdX6q42h/CpIbfENsEP5ZjN6sNbWfhGJ4L9
-	 okiBJC296xaxkZVkbYPTgyIwZG5dpkIQfszV1/TXX/JWMtt3ySeqOojb/HuU0CIiJV
-	 MnMu5k6EPxz/XniqWVHN95pClOE6JjYqy3Lt5WBkr/wtAeJMj4NLvDNjMypeLIg3tb
-	 XXwuqqod+rCxw==
-Subject: Re: [PATCH] net: initialize sk_peer_lock in cloned sockets
-From: netdev-bot+sashiko@kernel.org
-To: bsdhenrymartin@gmail.com
-Cc: edumazet@kernel.org, kuniyu@google.com, pabeni@redhat.com,
- willemb@google.com, davem@davemloft.net, kuba@kernel.org, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 19 Nov 2026 23:50:12 +0000
-Message-ID: <179513221226.3136.10545319024086149359@kernel.org>
-In-Reply-To: <20261118084927.1756747-1-bsdhenrymartin@gmail.com>
-References: <20261118084927.1756747-1-bsdhenrymartin@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=puri.sm header.i=@puri.sm header.a=rsa-sha256 header.s=smtp2 header.b=GWdmvqhq
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=puri.sm; s=smtp2;
+	t=1795132853; bh=SiwjhZMnEdkRN2oANYVb8ccwnFJVVPfeFZQs/1CS3is=;
+	h=From:Date:Subject:To:Cc;
+	b=GWdmvqhqktMJerRbqIhgH8P6eflIwNH3kL2B/4RlJa9SQ/JDYI0mIb2jOQ8ow/ARg
+	 75H0+nzlxU92R9lvuYxAexr6POka6nOtCV0teCCDQmWj4rPETCxvDZQcLvwG/deT66
+	 L1F8DFTofKOjH9ODNt3k0kBrrHDW6BU9sGWcs0ZBAqPvJ9Q+gCBHrC0D8Vs4znQUdk
+	 FSADZLaqCgMUn9o9tldo/F9BKKI/BjSCyCTuXgfZbv2SMwoK1ajnDxCWGhKx8WD5fh
+	 THwfD0YDTUZNeLhhZta6vwftuGqr/gdb99BVlTgIHK3NK/6dYlJ7oRoQwSoFflgqhu
+	 D39gHKVoNHt0Q==
+Received: from pliszka.localdomain (83.24.14.135.ipv4.supernova.orange.pl [83.24.14.135])
+	by ms.puri.sm (Postfix) with ESMTPSA id 6FF661F770;
+	Thu, 19 Nov 2026 16:00:52 -0800 (PST)
+From: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+Date: Fri, 20 Nov 2026 00:59:57 +0100
+Subject: [PATCH] crypto: caam - handle empty message in ahash_finup_first
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,144 +57,111 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261120-caam-empty-v1-1-d82106209428@puri.sm>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/z1Py26DMBD8FeRzjQFVSPArVQ7GmYITbMh6qagQ/
+ x4bV73tPDV7iACyCKIvDkH4scEuPoL6oxBm0n6EtPeIRVM1bV03lTRaOwm38q/s2s+u0mgroyF
+ iYCV82/0q+7plHLbhAcOpITkGHSAH0t5MifLYWTkdGPSXJ7y2uIFzSfYzAX0xMa+hV2q0XD5BH
+ nO50KjWbVDBODVbv+0qC8mjru6LleksI/e/wCzOWe6LJMj8Wd2J23m+AaxZ3coPAQAA
+X-Change-ID: 20261120-caam-empty-96490ae60cae
+To: =?utf-8?q?Horia_Geant=C4=83?= <horia.geanta@nxp.com>, 
+ Pankaj Gupta <pankaj.gupta@nxp.com>, 
+ Sahil Malhotra <sahil.malhotra@nxp.com>, 
+ Herbert Xu <herbert@gondor.apana.org.au>, 
+ "David S. Miller" <davem@davemloft.net>
+Cc: kernel@puri.sm, linux-crypto@vger.kernel.org, stable@vger.kernel.org, 
+ Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2459;
+ i=sebastian.krzyszkowiak@puri.sm; h=from:subject:message-id;
+ bh=SiwjhZMnEdkRN2oANYVb8ccwnFJVVPfeFZQs/1CS3is=;
+ b=owEBbQKS/ZANAwAKAejyNc8728P/AcsmYgBq/420fMctKLZ8q5RAt1ZYuFXIEnWduLKmclRe+
+ jNgeF5JUUSJAjMEAAEKAB0WIQQi3Z+uAGoRQ1g2YXzo8jXPO9vD/wUCav+NtAAKCRDo8jXPO9vD
+ /+5+D/9WRgZ7yFruzo+TOC/w/FVrEQQv+fjuX2QuiPy08qtBgDidocLnXvaRlkVNyzCSsCf7ZpR
+ 6KqWGj6BBlyRJbGkc70VJxHLFSnZ7O7UY0Nd31IPzjnrgFiSebDB7S/GdF25eFf7VUhrU1dtJRV
+ QLEbHGLqTq2LFvoeCbOydAt6vz9F1S1+KRqbF5O4ju15QHPUKU4SyAYm1wdLv6gYeb86ve3SvVW
+ KP9eCO+ICPRqBFZPNHyG1PlqBxEL4Z7Zdt5j/FYT63sg0wzXcyDohJrlN33J+J23hOyXfqsgfyL
+ oI8FUbePIdYRNlE9uotdGIGvb4E8ahmKVYRuwkLJ28P5eLVYEBeVY+V5/ocGLgd+nYb6GVZiaoF
+ qVw2e6zZ/Vf9gCznTqNaWXRPQ5xn12xIFIdUdm/8uOKY15fiv0Q8d0UByCw850VO7btFe8j7vDu
+ ZXcF9mOhCq65oPz45sBr6OImvXdHemhkKm4VGUCUHTMnN7SrHPXy+7GDct5/sCdcHJuPbuOrGd2
+ giFgJrHyy3sFWrOSyo+lADqjBO3KFxmuZBCcQ1+XCHcEQK+anBgvMQLn/Ie9TEol+Wtjbta0T6b
+ ittqDH1akhkf5En3SHpYwidrMgLnqdCx5JCFQ9Ei+GGAEuC4OYnZiYQ4kHPUEg1wJh1ZaNxciXw
+ xk8JCbXfQGg6q8A==
+X-Developer-Key: i=sebastian.krzyszkowiak@puri.sm; a=openpgp;
+ fpr=22DD9FAE006A11435836617CE8F235CF3BDBC3FF
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+Since commit 9d7a0ab1c753 ("crypto: ahash - Handle partial blocks in API"),
+crypto_ahash_final calls crypto_ahash_finup with req->nbytes == 0.
+This leads to an oops on an empty message to hash when ahash_edesc_add_src
+calls sg_dma_address(req->src) if the caller passes NULL as req->src:
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 1
+    Unable to handle kernel NULL pointer dereference at virtual
+    address 0000000000000010
+    Call trace:
+     ahash_edesc_add_src+0x40/0x390 (P)
+     ahash_digest+0xcc/0x250
+     ahash_finup_first+0x18/0x30
+     ahash_finup+0x24/0x38
+     ahash_do_req_chain+0xc0/0x1b0
+     crypto_ahash_finup+0x168/0x200
+     hash_recvmsg+0xb0/0x1f0 [algif_hash]
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+It can be reproduced on i.MX 8M Quad with the following Python snippet:
 
-- [High] The fix is incomplete: on 32-bit kernels, sk_clone() still
-  inherits sk->sk_stamp_seq in a held state.
-- [Low] The commit message says sock_copy() clones a struct sock 'with
-  two memcpys that both include sk_peer_lock'.
+    import socket
+    s = socket.socket(socket.AF_ALG, socket.SOCK_SEQPACKET, 0)
+    s.bind(("hash", "sha256"))
+    op, _ = s.accept()
+    print(op.recv(32).hex())
 
---
+The oops was observed being triggered by iwd.
 
-Here is the LKML reply:
+ahash_finup_first runs only when nothing has been hashed yet, so handle
+the empty-message case by routing it to ahash_final_no_ctx.
 
-net: initialize sk_peer_lock in cloned sockets
+Fixes: 9d7a0ab1c753 ("crypto: ahash - Handle partial blocks in API")
+Cc: stable@vger.kernel.org
+Signed-off-by: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
+---
+ drivers/crypto/caam/caamalg_qi2.c | 3 +++
+ drivers/crypto/caam/caamhash.c    | 3 +++
+ 2 files changed, 6 insertions(+)
 
-This commit adds a spin_lock_init() of sk_peer_lock in sk_clone(). Without
-it, a clone made while the parent's sk_peer_lock is held starts with the
-lock already locked, and the first getsockopt(SO_PEERCRED) on the child
-hangs.
+diff --git a/drivers/crypto/caam/caamalg_qi2.c b/drivers/crypto/caam/caamalg_qi2.c
+index ef67122bef57..d449634a9bfb 100644
+--- a/drivers/crypto/caam/caamalg_qi2.c
++++ b/drivers/crypto/caam/caamalg_qi2.c
+@@ -4331,6 +4331,9 @@ static int ahash_update_first(struct ahash_request *req)
+ 
+ static int ahash_finup_first(struct ahash_request *req)
+ {
++	if (!req->nbytes)
++		return ahash_final_no_ctx(req);
++
+ 	return ahash_digest(req);
+ }
+ 
+diff --git a/drivers/crypto/caam/caamhash.c b/drivers/crypto/caam/caamhash.c
+index 3cd71810380f..5794c26e0efb 100644
+--- a/drivers/crypto/caam/caamhash.c
++++ b/drivers/crypto/caam/caamhash.c
+@@ -1499,6 +1499,9 @@ static int ahash_update_first(struct ahash_request *req)
+ 
+ static int ahash_finup_first(struct ahash_request *req)
+ {
++	if (!req->nbytes)
++		return ahash_final_no_ctx(req);
++
+ 	return ahash_digest(req);
+ }
+ 
 
-> sock_copy() clones a struct sock with two memcpys that both include
-> sk_peer_lock.  sk_clone() re-initializes sk_lock, but nothing resets
+---
+base-commit: d785d132202e8e8e93335ebf74ad5b29fca0951f
+change-id: 20261120-caam-empty-96490ae60cae
 
-[Severity: Low]
-Is the "two memcpys that both include sk_peer_lock" part accurate? The
-first copy in sock_copy() stops at sk_dontcopy_begin, which sits inside
-__sk_common:
+Best regards,
+--  
+Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
 
-net/core/sock.c:sock_copy() {
-    ...
-	memcpy(nsk, osk, offsetof(struct sock, sk_dontcopy_begin));
-
-	unsafe_memcpy(&nsk->sk_dontcopy_end, &osk->sk_dontcopy_end,
-		      prot->obj_size - offsetof(struct sock, sk_dontcopy_end),
-		      /* alloc is larger than struct, see sk_prot_alloc() */);
-    ...
-}
-
-sk_peer_lock is a field in the struct sock body, well after __sk_common.
-So only the second unsafe_memcpy() copies it.
-
-The conclusion that the lock is copied verbatim still holds. Could the
-commit message describe the mechanism more precisely?
-
-> diff --git a/net/core/sock.c b/net/core/sock.c
-> index ad414878dc5ba..b5e2a2a7741cd 100644
-> --- a/net/core/sock.c
-> +++ b/net/core/sock.c
-> @@ -2545,6 +2545,10 @@ struct sock *sk_clone(const struct sock *sk, const gfp_t priority,
->  
->  	sk_node_init(&newsk->sk_node);
->  	sock_lock_init(newsk);
-> +	/* sock_copy() copies the parent's sk_peer_lock verbatim, including a
-> +	 * held state, so the clone must start with a fresh lock.
-> +	 */
-> +	spin_lock_init(&newsk->sk_peer_lock);
-
-[Severity: High]
-Does the same problem remain for sk_stamp_seq on 32-bit kernels?
-
-sk_stamp_seq is a seqlock_t (a spinlock plus a seqcount) declared under
-BITS_PER_LONG==32 in struct sock:
-
-include/net/sock.h:
-#if BITS_PER_LONG==32
-	seqlock_t		sk_stamp_seq;
-#endif
-
-It lies outside the sk_dontcopy range, so sock_copy() copies it along with
-sk_peer_lock. It is only initialized by seqlock_init() in
-sock_init_data_uid(), which the clone path never runs. Neither sk_clone()
-nor sk_init_common() resets it.
-
-The writer takes the spinlock and leaves the sequence count odd:
-
-include/net/sock.h:sock_write_timestamp() {
-	write_seqlock(&sk->sk_stamp_seq);
-	sk->sk_stamp = kt;
-	write_sequnlock(&sk->sk_stamp_seq);
-}
-
-sock_gettstamp() (ioctl SIOCGSTAMP) calls that writer without lock_sock
-whenever sk_stamp is 0:
-
-net/core/sock.c:sock_gettstamp() {
-    ...
-	if (ts.tv_sec == 0) {
-		ktime_t kt = ktime_get_real();
-		sock_write_timestamp(sk, kt);
-    ...
-}
-
-On an SCTP one-to-many socket, sk_stamp becomes 0 after the first
-sctp_recvmsg()->sock_recv_cmsgs(). With that state, can the following
-happen?
-
-CPU0
-ioctl(SIOCGSTAMP)
-  sock_gettstamp()
-    sock_write_timestamp()
-      write_seqlock(&parent->sk_stamp_seq)
-
-CPU1
-getsockopt(SCTP_SOCKOPT_PEELOFF)
-  sctp_getsockopt()            /* lock_sock() held */
-    sctp_do_peeloff()
-      sctp_clone_sock()
-        sk_clone()
-          sock_copy()
-
-The lock_sock() taken on CPU1 does not exclude CPU0's lockless write. The
-child would then get a locked spinlock and an odd seqcount.
-
-After that, sock_read_timestamp() on the child would spin forever in
-read_seqbegin(). That covers SIOCGSTAMP, and recvmsg via
-sock_recv_cmsgs(). On PREEMPT_RT it would block on the copied held lock
-instead.
-
-Any sock_write_timestamp() on the child would spin forever in spin_lock()
-with preemption disabled. That is the same RCU-stall hang the commit
-message describes for sk_peer_lock.
-
-Two threads of an unprivileged user could trigger this. Would it make
-sense to also add a seqlock_init(&newsk->sk_stamp_seq) under
-BITS_PER_LONG==32 next to the new spin_lock_init()? Another option is to
-move all lock re-initialization for clones into one helper.
-
->  
->  	if (lock)
->  		bh_lock_sock(newsk);
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261118084927.1756747-1-bsdhenrymartin%40gmail.com
