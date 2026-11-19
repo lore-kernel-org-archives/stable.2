@@ -1,61 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795060089;
-	b=z0PKMBww+QJj+pDLKxIVmbXCITALWaxEvpHO31LaHsBL2v4hMA9HHF5mnpkHlaWngAj7
-	 Bfu7fpsFL1jtYK9yVJuIY9SuqVCHQ9uBZf0zGMexh1rNwOQjb9TQGpMdE6aFGk+7COOD/
-	 G198i9TrMpVXKs6foRvORBo3XdLAu2nbwQQoH8A/uVtyxgaDJsVVK+abD90hVz6/opE2R
-	 ian9nJaOKYWkFgBaU508PgWT8tUASWABvhqZP//2mF6CoRwWIYG1STdESmgx04+43Sv+t
-	 ryf5Om54UQ/g6ua9tM32L8mX73OWM7H/BKzM30qZMU/ZGhBBlvlF1Jq4bHUHmxKzTVQ==
+	t=1795060091;
+	b=Ciro2sPIDqw9rnUNB6DIFkXO20d7PAPv8Fz8jAW6HI3Gzf1Mij7t9wq7BHVmR95KMyw3
+	 rA2KYy7be3TyqVqcPh5dF+QHfsyLsSbW9XiYtiopzx0m1JvJDt56/hXgJ22TananD8PY/
+	 j7+9VZJPHxSBrfENJVxv7qvY+o4eldxyrELBhyQEeus/kG7CshFxdUd8uqWFCSoCT47G7
+	 KosLy+8P+OspEU6nMg1eu1Qv4bSOkljNPJ0qi74gWmydAB+N22g+Vp1zGTTiQCH+n0lxc
+	 yXHatxWt0nfVXp1QXTPZ2jE052N9OFUWB6o0p4STYw3NSyLDfec9fppdNRN9JJK3Lwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795060089;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ksFIthFuClpzOkbk5pjx0YU1r5LhBVtI3keIHMYRB04=;
-	b=3XkSf2RU9zRK5VeLbqQTi+9xS7YpKI0JJrJQdPpAUmqY0ZWir3HeQYsmMeSakpsfTDRg
-	 CnDZ622QhvVjkEwf1+c1muNwVBzotZrV+fewNDjGubJ9t1bLUg7pF6KdNU9pxkPTlRk1c
-	 qXOUgfN8NJ4TsKmnF85/V2wuvc/E/X4eCf/vJPhZDDUPF32yZt1cCPTfocxdlcMQoijBm
-	 gm6jAhuWdPgSZotu641tMMe+AYOOGC4+9eZTVeEE6kBx9WKrbFX7BuamNecTpMmGrjPom
-	 GKkPU4vM6e/8w7g3TUvwzEXVr42yj+14tPJrQEFQDaHFrayJyvlm188BGRoAYlnWLng==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795060091;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=S5D8kWPJIdUaQq5yb68+AQ6+c9WqO7R4Em+vte/XbIk=;
+	b=DpmweOZ/bO7wdQ1KcXOGs+E3YFa7jybYr5aZw3M6ypWxr4zQjrfC4Zofyc/KUoMZ04WL
+	 6qaHXl1WCIQpoKraOvkF1egxTrbUnl5t0pWmlFOWc7ii+ak/JdSD9rBzzyXYPDiprN22Q
+	 0L2gJvLffO+QZeTk78aRfI9MEji39jprk4+N208M4EsIZudmJV+uzNW+5M5RDUUz/2sba
+	 7SafUaCbCV1xXl+7PtKQ5uyrG8TtsZwTnOKx7aVsDoGe+Yl5Z9XaFpzOJDBIGps9wyLD1
+	 pImAtxaQ71TkJgboBkHgGwdorsyd/09GIefVU0fItxm8tikPDcmKp8DT+A5ZVLcZE2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="u2F/yTjA";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X9R2psxl;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202CB606A320;
-	Thu, 19 Nov 2026 03:48:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C3E606A325
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 03:48:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5C3E606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=u2F/yTjA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79FD61F000C4;
-	Thu, 19 Nov 2026 03:48:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795060089;
-	bh=ksFIthFuClpzOkbk5pjx0YU1r5LhBVtI3keIHMYRB04=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=u2F/yTjA1f+FZ/Czp+aQylAx9FFWiOXgzGP/OgNP3SGE+AA46iBbfI+sX+cAkQLPn
-	 Q5kOglWVKvcDVLQAuQ8ZnJBsTPQXZq24nxxF/E36zW3iHVHhh+YdKfJX8bdlF8c494
-	 Gg9VqeiT+vM1l6fFzi9w+bCUUm9FoX8xkWo48sGE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Chris Mason <mason@kernel.org>,
-	"Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Muhammad Usama Anjum <usama.anjum@arm.com>,
-	"David Hildenbrand (Arm)" <david@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 1075/1848] mm/memory: reject remote COW faults on PFN mappings
-Date: Wed, 18 Nov 2026 15:51:53 +0100
-Message-ID: <20261118150003.055431075@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
-References: <20261118145911.150052362@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=X9R2psxl
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3b3b3c072eeso1098775a91.3
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 19:48:10 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795060090; x=1795664890; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S5D8kWPJIdUaQq5yb68+AQ6+c9WqO7R4Em+vte/XbIk=;
+        b=X9R2psxl/Q2649gdnN0PuQFx0A8OsZgJ0zF36kzeEn8A1fSUVc/ZNrRMUYVTDRTkvm
+         jbPvHL/++HGajfR+RBB5T4zjK6ZpNxLyUFe9kCR4YfcyLlD3QDZ9Eg6YVPyUzJ4jfrS1
+         XVsNfJp+6KfEIy0usrBzX1UBz8w05UWjg526OgPCShxgbLZDEY5Xs7TFNhTASXEg6sCS
+         yBPzowEPMiroW64x3VCdt1GwRLVdw6CSAon+0w07S0fwujpCrwqMI3CWl7omXHaOE/TM
+         wmQH5wlSMXS7T2o3hRC5aa23/p/N6ekNt6+YiizVQ+JsxMb1aYFD2nQ+VUAJDJmh7GSy
+         1OTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795060090; x=1795664890;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S5D8kWPJIdUaQq5yb68+AQ6+c9WqO7R4Em+vte/XbIk=;
+        b=sQGsnZGsIz3G0lNMsFg9+8sVg5Wi4X0mmzF4LkV1WUTm/5A19w+xu/mk4IwhVfq/+9
+         pzJN2/WmWeNKa8Okp3la5nH/oj69MI7MPAT+SX3iFYMTMwMmRY5kzWEa97YBsWA6aOhz
+         kdGAEgciClPwatbEt+OsCfhl4I6uMd2Rw2i+qObEcZlc/gmaqphCR36pP20CqGDE/AHh
+         4pnbuEkM4RQIeDRmJGCw64DP64HfUK11itE5Y04XVaA3cSqd/qXwKmHa1HLkAHSf7fE8
+         BFQ8GYHLqsahiSCOAdppm6Qd+/yzntljY4gNwKlsnDtBMFLsSHSYAn6l5GHpmDpRYE/f
+         8KbA==
+X-Forwarded-Encrypted: i=1; AL+hErGZc0GoF0hGGSrrtcDo5QeoSCG7OMNI8DwGPgl6Er4USue06a3suF/QJIBpA0yi4pmlD4CWVbg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9a8pIshrf+mqmfo0EPtvP7VwMzk239ub5qrTUBClNdLqSxVe+L
+	un2Ya8ukKmvStOxGhBIn64joIWMJbaBFLltq3oUYmQ81tPyVkVAIioRv
+X-Gm-Gg: AZFdTZeNeCjtSALotFmofqw5r3rgvheGE+vrCOuI+fBbsqehDEHKA8Sbhx7m+S03Zx9
+	oOJsHLABZDwotytUZHFgVtgcORvNVYzM235bLVWAalmTAXNibOghV3sfjXrtN9cMcXQJr/RRI5O
+	3WcnBWKfdbEcGygjC9FXgyMOQAWU+Y/40PCTZlLjr4Bk/QQWsiTdYXOBskjuKx6FWXpsvhM+sGp
+	Jq7jDJ7Irtf68FZF5gSz+6T+RNh179Lx29ibrbibXp/xQ+Q72xUY6u6ig+un/x5wrCQpUI54VsE
+	n6dIAv2Qf2DLWCsFD4fWXzS6wCOn5J5EootRGW2CFyAA9RjobbVCAUyhsn8hk0TA9WC8zwL++K4
+	sUc8nWJwXEhF/b0doPUqfH+RkZaDP62qRPR9xDBR2xKpzMWZbtGOUN5s0zbEKftdm2uKvYpwCiq
+	5dyQd2rc0QBAO5rWqUibPmIE6LP08nr6WZUDXwJeo7lkgGRajKo/1cPnKNEFLaBYh2ekJnE4eMR
+	fF8WmSoDTNvxTULGQK7v1I0K1jQuy1ev28obybY2O8lylm+HRWDFGYm95OP+ZD4hBffmxnlf0UY
+	Y7gzcQAhsOrqhC8DVcnIWMLX6eqDa5C77fo06HiNzQk2hugR
+X-Received: by 2002:a17:90a:d445:b0:3ac:8897:7bab with SMTP id 98e67ed59e1d1-3b3d0686792mr4179890a91.6.1795060089811;
+        Wed, 18 Nov 2026 19:48:09 -0800 (PST)
+Received: from hj.. ([163.239.22.29])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405d629ccsm316045a91.7.2026.11.18.19.48.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 19:48:09 -0800 (PST)
+From: Hyunjung Ko <hj351016@gmail.com>
+To: Madhavan Srinivasan <maddy@linux.ibm.com>
+Cc: Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Hyunjung Ko <hj351016@gmail.com>
+Subject: [PATCH] powerpc/papr_scm: initialise metadata_size before reading it
+Date: Thu, 19 Nov 2026 12:47:45 +0900
+Message-ID: <20261119034745.1460361-1-hj351016@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,140 +101,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+papr_scm_probe() reads "ibm,metadata-size" into metadata_size without
+checking the return value, and the property is optional, as the comment
+right above the call says.  of_property_read_u32() only writes the output
+when it can decode a value, so for a device tree without that property
+p->metadata_size is set from an uninitialised stack value.
 
-------------------
+p->metadata_size is the bound for the metadata get/set commands:
 
-From: Chris Mason <mason@kernel.org>
+	if ((hdr->in_offset + hdr->in_length) > p->metadata_size)
 
-[ Upstream commit 8db6921cc07b74197a3866d62ed262b68aeadcf3 ]
+so a garbage value decides which metadata accesses are accepted.
+Initialise it to zero, which makes those commands reject every access
+when the platform does not advertise a metadata area.
 
-When handling a COW fault without a normal source page (PFN mappings),
-__wp_page_copy_user() copies from the faulting user address. For remote
-faults, this accesses the wrong address space, resulting in wrong data
-getting copied.
-
-For example, user_events updates an enable bit in the registering
-process's memory. If that memory needs to be faulted in,
-user_event_enabler_fault_fixup() calls fixup_user_fault() from a work
-item. Placing the enable bit in a private PFN mapping can trigger this
-remote COW path.
-
-Reject these faults with VM_FAULT_SIGBUS when the target mm differs from
-current->mm: remote faults. Ordinary (non-PFN) mappings are not affected.
-
-The user-address copy dates back to commit 6aab341e0a28 ("mm: re-architect
-the VM_UNPAGED logic"); likely, actual ways to get remote faults in
-there on COW PFN mappings appeared afterwards. But the fix is simple and
-straight forward.
-
-Fix generated by an LLM and sent by Chris Mason in private.
-
-Fixes: 6aab341e0a28 ("mm: re-architect the VM_UNPAGED logic")
+Signed-off-by: Hyunjung Ko <hj351016@gmail.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-[ david: simplify comment and description ]
-Reviewed-by: Pedro Falcato <pfalcato@suse.de>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Link: https://patch.msgid.link/20261031-fixes_core-v3-35-d6437171ecc3@kernel.org
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-[ sashal: converted cow_user_page() from boolean to errno returns to match the upstream __wp_page_copy_user() interface ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- mm/memory.c | 26 +++++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
+ arch/powerpc/platforms/pseries/papr_scm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/mm/memory.c b/mm/memory.c
-index ad8184041a75b..ba72c16b1fb46 100644
---- a/mm/memory.c
-+++ b/mm/memory.c
-@@ -2648,10 +2648,10 @@ static inline int pte_unmap_same(struct mm_struct *mm, pmd_t *pmd,
- 	return same;
- }
- 
--static inline bool cow_user_page(struct page *dst, struct page *src,
-+static inline int cow_user_page(struct page *dst, struct page *src,
- 				 struct vm_fault *vmf)
+diff --git a/arch/powerpc/platforms/pseries/papr_scm.c b/arch/powerpc/platforms/pseries/papr_scm.c
+index 5c3bf06bb59b..e9895e9b070c 100644
+--- a/arch/powerpc/platforms/pseries/papr_scm.c
++++ b/arch/powerpc/platforms/pseries/papr_scm.c
+@@ -1361,7 +1361,7 @@ static struct notifier_block mce_ue_nb =
+ static int papr_scm_probe(struct platform_device *pdev)
  {
--	bool ret;
-+	int ret;
- 	void *kaddr;
- 	void __user *uaddr;
- 	bool locked = false;
-@@ -2661,9 +2661,16 @@ static inline bool cow_user_page(struct page *dst, struct page *src,
- 
- 	if (likely(src)) {
- 		copy_user_highpage(dst, src, addr, vma);
--		return true;
-+		return 0;
- 	}
- 
-+	/*
-+	 * __copy_from_user_inatomic() only works as expected for local faults.
-+	 * Reject remote faults.
-+	 */
-+	if (unlikely(mm != current->mm))
-+		return -EFAULT;
-+
- 	/*
- 	 * If the source page was a PFN mapping, we don't have
- 	 * a "struct page" for it. We do a best-effort copy by
-@@ -2688,7 +2695,7 @@ static inline bool cow_user_page(struct page *dst, struct page *src,
- 			 * and update local tlb only
- 			 */
- 			update_mmu_tlb(vma, addr, vmf->pte);
--			ret = false;
-+			ret = -EAGAIN;
- 			goto pte_unlock;
- 		}
- 
-@@ -2713,7 +2720,7 @@ static inline bool cow_user_page(struct page *dst, struct page *src,
- 		if (!likely(pte_same(*vmf->pte, vmf->orig_pte))) {
- 			/* The PTE changed under us, update local tlb */
- 			update_mmu_tlb(vma, addr, vmf->pte);
--			ret = false;
-+			ret = -EAGAIN;
- 			goto pte_unlock;
- 		}
- 
-@@ -2732,7 +2739,7 @@ static inline bool cow_user_page(struct page *dst, struct page *src,
- 		}
- 	}
- 
--	ret = true;
-+	ret = 0;
- 
- pte_unlock:
- 	if (locked)
-@@ -2908,12 +2915,15 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
- 		if (!new_page)
- 			goto oom;
- 	} else {
-+		int err;
-+
- 		new_page = alloc_page_vma(GFP_HIGHUSER_MOVABLE, vma,
- 				vmf->address);
- 		if (!new_page)
- 			goto oom;
- 
--		if (!cow_user_page(new_page, old_page, vmf)) {
-+		err = cow_user_page(new_page, old_page, vmf);
-+		if (err) {
- 			/*
- 			 * COW failed, if the fault was solved by other,
- 			 * it's fine. If not, userspace would re-fault on
-@@ -2923,6 +2933,8 @@ static vm_fault_t wp_page_copy(struct vm_fault *vmf)
- 			put_page(new_page);
- 			if (old_page)
- 				put_page(old_page);
-+			if (err == -EFAULT)
-+				return VM_FAULT_SIGBUS;
- 			return 0;
- 		}
- 	}
+ 	struct device_node *dn = pdev->dev.of_node;
+-	u32 drc_index, metadata_size;
++	u32 drc_index, metadata_size = 0;
+ 	u64 blocks, block_size;
+ 	struct papr_scm_priv *p;
+ 	u8 uuid_raw[UUID_SIZE];
 -- 
-2.53.0
-
-
+2.51.0
 
