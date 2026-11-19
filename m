@@ -1,54 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.154.241.218
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795101601;
-	b=jIWiGgadgjvU7gsuYe1nkRHTMjtbr9hVZWuyA+Z5e+mSlh/d/3OFwawqz3g/kP8Mz9gj
-	 vc4dxfX30HoCxfSNRI5Psy136gu9zAcjpcPwzPlVov90cDFSu+MngCfh6pDVXOxjIYEwv
-	 p7phUTTpHhZXFzFXCMGRDcLYXNs1XMdJac8soYL+fmTkS4pSs03oE/HKhhyj0JiA6/ml6
-	 Xo5vwdFcmm2JVzPeQskFUSxELUGZ+VYlKYLkAhuVc0wi508GF/9zV24/kf9UVTdYPE7xH
-	 80HdrCxHpuJZ+kpoiT2LgLQKgNVPZOIsBdJXI3wOTE7eT0E0nRjA9VuKZogZb3pfueg==
+	t=1795102138;
+	b=H4riB8mOiZoQ7ThwW2b67qzE3xbtiry2LcAFsLCUWpAvo90VFH30Ebeh5rdpJn0B02B3
+	 xsPlrZWaUsA3Vjd5kjpAHXY+l7uP1CUgsaBvVlckNNXfj1tbxJxT5uiPRjAyCtaaPgtWV
+	 +Bx5AmpRlaEmBKQlaluM+n5K86OdwHI+B0ochwLcmqPPHyypzWxIkXSmYj7NpggpMJ9w7
+	 Vx95AhQcXrvEkYPT69uWEC4mT7qk2HD62upwah1RFt2rVEasIB4cMY5Y5OVddvXmx4hWC
+	 iVtAwirTAvA5Y8/w8lnJ+55vEbry0DPi6aS6nomvCE3R8AzII1WsOiZIygh49/SM9ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795101601;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-Bm-Milter-Handled:X-Bm-Transport-Timestamp;
-	bh=FurqrIAPM85UON09aO72ujx4pHuxjDLH5EoJY08rtMU=;
-	b=Aj19vbODLNnAa7YEC6wsR9qcMvQlvuN0Tz2juQrvmT9ZlPE87qtuN+NQkb2bHfxHtLkR
-	 BtyMgmJ2lpEj+uk+7mdmlhVRALKj5ip6wmacNvOnStwFoaJ4+NI7aKq/Urz47JnyWoi8Z
-	 WvyBkxUGeQAxBWbV0mxFiDCwGjYe9X6nyofRsUOjTO29qauos9rwN61zNRXiVbaf+vEWO
-	 1WTc44UPO2Fxj2DwK4A/I314+OGpmkwiQpN4jbj2BuYwaTKQziA8y2DQOmTaIeXocdJ6B
-	 D5X6Wh+H0VbtLA8AWibgK59+jc3+8J2vVIym2WlHRnMvdNL0GiJuI77dPO4tjzvES1A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102138;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=7WhtRZ2k/7EVm4x6FvChP8GlYWSfjSHXh2T11MAOs8c=;
+	b=v8cgU/3LB6hSEUiYrs2zJ/F9I5mtk9YTgXxZPPG9EjZP3kYGArn0RwcdPhCcm6+Qq1g9
+	 Y8Xhrf1Rt2lsXhgW0P1aw0FE0xkIDEIBIEI931b2QaB+ScdvYY4xmP4QnBB1go6OBjOnn
+	 pyR1aJRaWQhubkuRFWYeLgjDHdMKubzXWAVb1LLRM8JhZ/p72cCvE/wYnyOwXpX/G9hfC
+	 sBrUdq5GlGqCbCeTGyKdPLm8+eaLZIPGYVECcqY1QjNmH/4VJl9xmlR523HeWlJ8uBzpB
+	 qiukK41w8/Obd3My4Ga4nd8UacqXtep5JzmeXWWn2O5x6lyGGM5dbXLPWfUryPe+XrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=lauterbach.com;
-	spf=pass smtp.mailfrom=lauterbach.com;
-	arc=none smtp.remote-ip=62.154.241.218
-Received: from bm.lauterbach.com (bm.lauterbach.com [62.154.241.218])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gn45WquT;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49D8B606A32C;
-	Thu, 19 Nov 2026 15:20:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49D8B606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lauterbach.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lauterbach.com
-Received: from ingpc2.intern.lauterbach.com (unknown [10.2.10.44])
-	(Authenticated sender: ingo.rohloff@lauterbach.com)
-	by bm.lauterbach.com (Postfix) with ESMTPSA id 1A01A4303CC3;
-	Thu, 19 Nov 2026 16:19:53 +0100 (CET)
-From: Ingo Rohloff <ingo.rohloff@lauterbach.com>
-To: gregkh@linuxfoundation.org
-Cc: viro@zeniv.linux.org.uk,
-	nkapron@google.com,
-	me@samcday.com,
-	michael.bommarito@gmail.com,
-	linux-usb@vger.kernel.org,
-	Ingo Rohloff <ingo.rohloff@lauterbach.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3 1/2] usb: gadget: f_fs: register cancellation handler only after request queueing
-Date: Thu, 19 Nov 2026 16:19:41 +0100
-Message-ID: <20261119151942.44304-2-ingo.rohloff@lauterbach.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261119151942.44304-1-ingo.rohloff@lauterbach.com>
-References: <20261119151942.44304-1-ingo.rohloff@lauterbach.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B4260A260D;
+	Thu, 19 Nov 2026 15:28:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74B4260A260D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gn45WquT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795102138; x=1826638138;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=hf+2gJBPqhjtTEobz463VsJzmbD+2TL1IcZlEbk4ZNw=;
+  b=gn45WquTAHJ6eHNkHWFWCKg/SwfactxMyqEWa8C1mvT6FPTpo51fKGhO
+   5kFpIIkdn0u3zNFP3AA1+2gPk1f6cM6h2kSj22IJlMW6t7wEWVR4DtQYu
+   itMhvvTtzmElhRNDDL918zGTZqxc8ihMoMe2oMixYAs8Te4Yq2dwdCmHO
+   +fmysHkR5l2O8SALBLws8+iteHz0fx8BZjQgoVSUEKnTOPVYSOP5Ec9Hb
+   bnnUQeIOntmyT6hcoFlDMtr8K/4XF9fYYFAyoens1QZ0EwcHZsfdvvNBX
+   pBSFMsTrX842tDcdg68RKiqe5/alJ1lfKhncbErooEgBYZkIfP5kt0Ygl
+   g==;
+X-CSE-ConnectionGUID: X2aG+Q8qTYC650gujhIuWQ==
+X-CSE-MsgGUID: g7e8BNl8SROUe9ijbEYS8w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4033863"
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="4033863"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 07:28:54 -0800
+X-CSE-ConnectionGUID: 8dXNTts8TL2AMDKYgCzYBQ==
+X-CSE-MsgGUID: N155q6NUQFCHjtcd4AtUDw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="11028600"
+Received: from aduenasd-mobl5.amr.corp.intel.com (HELO [10.125.109.68]) ([10.125.109.68])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 07:28:53 -0800
+Message-ID: <4cabfb0e-c21d-4f73-9b41-9fb7eca5ea69@intel.com>
+Date: Thu, 19 Nov 2026 07:28:49 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,129 +73,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Bm-Milter-Handled: 166a2dfb-2e12-4590-8fa5-72e30323519f
-X-Bm-Transport-Timestamp: 1795101593159
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] x86/cpu/hygon: Work around XSAVES Erratum 1386
+To: Tina Zhang <zhang_wei@open-hieco.net>, x86@kernel.org
+Cc: puwen@hygon.cn, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
+ dave.hansen@linux.intel.com, hpa@zytor.com, linux-kernel@vger.kernel.org,
+ yangzhen@hygon.cn, dengqiming@hygon.cn, stable@vger.kernel.org
+References: <20261028235712.383977-1-zhang_wei@open-hieco.net>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20261028235712.383977-1-zhang_wei@open-hieco.net>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Call kiocb_set_cancel_fn() only after usb_ep_queue() completes
-successfully.
+> +#define X86_MATCH_HYGON_MODEL_STEP_UCODE(model, step, ucode) \
+> +	X86_MATCH_VFM_STEPS(VFM_MAKE(X86_VENDOR_HYGON, 0x18, model), \
+> +			    step, step, ucode)
+> +
+> +static const struct x86_cpu_id erratum_1386_microcode[] = {
+> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x00, 0x9040000f),
+> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x01, 0x9041000f),
+> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x00, 0x9060000f),
+> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x01, 0x9061000f),
+> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x10, 0x00, 0x91000004),
+> +	{}
+> +};
 
-This also undoes commit e78dcb1f7ec2 ("usb: gadget: f_fs: Fix
-Use-After-Free in AIO error path"): The described error is avoided by
-making sure the cancellation handler is only registered, if there is
-something to cancel.
+This part is good.
 
-Registering the cancellation handler adds the kiocb to the context's
-active request list (active_reqs in aio.c).  If usb_ep_queue() fails, the
-request was never actually submitted to the hardware, which means the
-request is not active.  The aio framework already deals with calling the
-completion function ki_complete() automatically if you do not return
--EIOCBQUEUED.
+> +static void fix_erratum_1386(struct cpuinfo_x86 *c)
+> +{
+> +	/*
+> +	 * Affected processors enumerate no supervisor XSAVE state components,
+> +	 * so XSAVEC is equivalent and is not affected by Erratum 1386.
+> +	 * Disable XSAVES unless the microcode is known to contain the fix.
+> +	 */
 
-Fixes: e78dcb1f7ec2 ("usb: gadget: f_fs: Fix Use-After-Free in AIO error path")
-Link: https://lore.kernel.org/linux-usb/20261110171222.22633-3-ingo.rohloff@lauterbach.com/
-Cc: stable@vger.kernel.org
-Signed-off-by: Ingo Rohloff <ingo.rohloff@lauterbach.com>
----
- drivers/usb/gadget/function/f_fs.c | 30 ++++++++++++++++--------------
- 1 file changed, 16 insertions(+), 14 deletions(-)
+This comment is in the wrong place and is really hard to read. I think
+you're somehow trying to say here that the kernel *COULD* just use
+XSAVEC instead of XSAVES instead of disabling XSAVES.
 
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index 704cfae49f11..cf0287064923 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -246,6 +246,7 @@ struct ffs_buffer {
- struct ffs_io_data {
- 	bool aio;
- 	bool read;
-+	bool aio_active;
- 
- 	struct kiocb *kiocb;
- 	struct iov_iter data;
-@@ -887,6 +888,8 @@ static void ffs_user_copy_worker(struct work_struct *work)
- 	}
- 	mmdrop(io_data->mm);
- 
-+	/* Make sure kiocb_set_cancel_fn() was already called. */
-+	smp_cond_load_acquire(&io_data->aio_active, VAL == true);
- 	io_data->kiocb->ki_complete(io_data->kiocb, ret);
- 
- 	if (io_data->ffs->ffs_eventfd && !kiocb_has_eventfd)
-@@ -1014,8 +1017,11 @@ static struct ffs_ep *ffs_epfile_wait_ep(struct ffs_epfile *epfile, struct file
- 	return ep;
- }
- 
-+static int ffs_aio_cancel(struct kiocb *kiocb);
-+
- static ssize_t ffs_epfile_io(struct file *file, struct ffs_io_data *io_data)
- {
-+	struct kiocb *kiocb = io_data->kiocb;
- 	struct ffs_epfile *epfile = file->private_data;
- 	struct usb_request *req;
- 	struct ffs_ep *ep;
-@@ -1205,6 +1211,14 @@ static ssize_t ffs_epfile_io(struct file *file, struct ffs_io_data *io_data)
- 			usb_ep_free_request(ep->ep, req);
- 			goto error_lock;
- 		}
-+		kiocb->private = io_data;
-+		kiocb_set_cancel_fn(kiocb, ffs_aio_cancel);
-+		/*
-+		 * prevent ffs_user_copy_worker() from calling
-+		 *    io_data->kiocb->ki_complete()
-+		 * before kiocb_set_cancel_fn() was called.
-+		 */
-+		smp_store_release(&io_data->aio_active, true);
- 
- 		ret = -EIOCBQUEUED;
- 		/*
-@@ -1285,21 +1299,15 @@ static ssize_t ffs_epfile_write_iter(struct kiocb *kiocb, struct iov_iter *from)
- 	p->data = *from;
- 	p->mm = current->mm;
- 
--	kiocb->private = p;
--
--	if (p->aio) {
-+	if (p->aio)
- 		mmgrab(p->mm);
--		kiocb_set_cancel_fn(kiocb, ffs_aio_cancel);
--	}
- 
- 	res = ffs_epfile_io(kiocb->ki_filp, p);
- 	if (res == -EIOCBQUEUED)
- 		return res;
- 	if (p->aio) {
--		kiocb->ki_complete(kiocb, res);
- 		mmdrop(p->mm);
- 		kfree(p);
--		return -EIOCBQUEUED;
- 	} else {
- 		*from = p->data;
- 	}
-@@ -1335,23 +1343,17 @@ static ssize_t ffs_epfile_read_iter(struct kiocb *kiocb, struct iov_iter *to)
- 	}
- 	p->mm = current->mm;
- 
--	kiocb->private = p;
--
--	if (p->aio) {
-+	if (p->aio)
- 		mmgrab(p->mm);
--		kiocb_set_cancel_fn(kiocb, ffs_aio_cancel);
--	}
- 
- 	res = ffs_epfile_io(kiocb->ki_filp, p);
- 	if (res == -EIOCBQUEUED)
- 		return res;
- 
- 	if (p->aio) {
--		kiocb->ki_complete(kiocb, res);
- 		mmdrop(p->mm);
- 		kfree(p->to_free);
- 		kfree(p);
--		return -EIOCBQUEUED;
- 	} else {
- 		*to = p->data;
- 	}
--- 
-2.55.0
+But this isn't the place to litigate your solution. That's for the
+changelog. This just needs to say what it does.
 
+> +	if (c->x86 != 0x18)
+> +		return;
+> +
+> +	/* Models affected by Erratum 1386. */
+> +	switch (c->x86_model) {
+> +	case 0x00 ... 0x06:
+> +	case 0x10:
+> +		break;
+> +	default:
+> +		return;
+> +	}
+
+This part is not.
+
+Why do you need an explicit 0x18 check if there's already an implicit
+one in x86_match_min_microcode_rev()? If there are unfixed
+model/steppings, then list those too.
+
+I also don't get what the switch statement does.
+
+> +	if (x86_match_min_microcode_rev(erratum_1386_microcode))
+> +		return;
+> +
+> +	clear_cpu_cap(c, X86_FEATURE_XSAVES);
+> +}
+
+My overall suggestion is to do more in erratum_1386_microcode[] and less
+in code.
