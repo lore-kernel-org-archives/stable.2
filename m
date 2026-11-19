@@ -1,100 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795119081;
-	b=kFo2reWjPgyLn1+jKei+qKWlfRn8J+KIEj3eABjHL4oY+MoWJ56zXO3KieTMoyFI8Zo0
-	 wErefXSHCMR/xXGKjntmo546c7i61X8ks7xa0KUFOOwbn15mDxMjBUNQHLGVRn7hP8pFE
-	 i8DOBkEaP7JoZ023lbDOKmeSnacXTWPGL3OWCtxfuP03gKHQLd8Mu58sQ++QD1XfkI4T5
-	 A8zvWmJyT00CdG1ROeOxhbrZRXzBglbRMSpTq+V/dTqkniujawMhUU8dDoDkeG+D/1ovX
-	 8G7iLcTs2/dxdjYCPlVXgVjc4ubEbZOkAZwuQ0HmpqGavUuCtK9/v09sNfcCV21IqCw==
+	t=1795119087;
+	b=puLGSVQasN8aaAMtu4CnTsxL4eLbETn9gfRaSWtx9XYLFbZYt2fQ6piMNeXK8l5pokU/
+	 xqkhbez2bTQXScOEGu9/1fFSgfXiusCfg/XpXt79rcGRZHxIMWgdeW5wE6U2cz30nN39f
+	 cj7dVJ0CXDa8dMA0OxERqz+fmImwioNNvp8ZvhLhHVhrGT++d1R0E6L/jlSpGF7hJMA/3
+	 yxNK38SRgztmdmQDKbY2fLO4A94xvBah62QDUfm1TXGkHuxJ20TZmqpkrpa5c38hnanns
+	 qS++/ZcOw3ENPasFdzvi1BEtPhou/9inwL61f4lpMEBijRLwmZzNruw9tSUmdsiO2lw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795119081;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Spam-Flag:X-Spam-Level:X-Spamd-Result:
-	 X-Spam-Score;
-	bh=uO/73pEQQIy9LNgk43pvXgxG7QnNaIlPQRRcRPUpu9Y=;
-	b=P510qtHSG0hgEVSweGD/IHYxefmTNFHsK3qWEfL/T0PRdJ0//Tco61fihGcg+4yxGi98
-	 n7RwxRtxbJUSR3WcvXuGewAajVRK6C7VihwiJ2sx2lfUaiGic6wW4xxOYDn4mDGVTnDDU
-	 ZaRJmvpANOVgGcywDAGeMo9TaYmQ6qHzivZyzVGQZ9PAtzpCgsc15XjV/FgVTW+QJLr4N
-	 mrR/VcZdCAUcbf1Z4YKxrqbeQrTR+nwVzZqRljWO0lJIobOryaOYDdY54sgD6uBP+uQ5v
-	 P9ZI9dE66abCRoDpLqNA/8tnJJSbkVQfuYMH6qkmV0sXeu4a0WiXNFmsGffv1YevYww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795119087;
+	h=DMARC-Filter:Received:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Rspamd-Pre-Result:
+	 X-Rspamd-Server:X-Spamd-Result:X-Spam-Flag:X-Spam-Score:X-Spam-Level:
+	 X-Rspamd-Queue-Id:X-Rspamd-Pre-Result:X-Rspamd-Action;
+	bh=/7+jDmw9PPr5XQtRbOeCRcxjCTyR2570BzVPmXYCK3M=;
+	b=B1wuAAGdeh6YRQIEksH96ijKbFJj/JxfPeSGPLKLwv5o8MWhkrjlbtzs/+Cnw1yWGx5g
+	 7chfFODaptaU9K2RqxtPvLpiqGQoCWI1UMFKr2On3NtcQ0FxK4VDkTcBZhFvQLpsiTs7b
+	 eAmu6+2I/TouErPUKFe7tiBXSNpnT7cIl7nLvQGSYtPRRVQtDwPK8wm0a7U71FOjUpXna
+	 mLiLZzmTSrKTJnKRzRmgc3+3C9JZhkyhNiBjsafYaHohSOx+It+fz6NBEsK2TnuUCuooK
+	 3Bwxskt/4SXl0EgXL4oiAUGio1l40LPT9DIzpD7nFvO18xYoEQGW05F82gXRI9v+0tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=suse.de;
 	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wZQwmvk1;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wnMVpHge;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wZQwmvk1;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wnMVpHge;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4188D606A320;
-	Thu, 19 Nov 2026 20:11:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4188D606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2CA760A263D;
+	Thu, 19 Nov 2026 20:11:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2CA760A263D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wZQwmvk1;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wnMVpHge;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=wZQwmvk1;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=wnMVpHge
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id DBBA121DE6;
-	Thu, 19 Nov 2026 20:11:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795119078; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=uO/73pEQQIy9LNgk43pvXgxG7QnNaIlPQRRcRPUpu9Y=;
-	b=wZQwmvk1rBkHTOGo0aaJmNHq3PmqE9nd/LDfPHCgQW+ssoFkA7fEGg8LOAZfzZzaDwd6iw
-	zxTIboIlb4U8dQIxDYNADVhgO+Of6UaAXJH+3rQ6iLiUXeIDpCVG6VzQWcTpV4vPkw9SCi
-	/av7zxFVW2ds8MrBpwky9ITiRW8MB2Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795119078;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=uO/73pEQQIy9LNgk43pvXgxG7QnNaIlPQRRcRPUpu9Y=;
-	b=wnMVpHgek02PbsETbBVemF6lgfm1Fsk4bBIq9tRzTup6j8Y0Me5JaFXw+2l4lKIx40xr7j
-	x//LK/PqLjgitlAQ==
-Authentication-Results: smtp-out1.suse.de;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id F2E4B1FCEE;
+	Thu, 19 Nov 2026 20:11:24 +0000 (UTC)
+Authentication-Results: smtp-out2.suse.de;
 	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1795119078; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=uO/73pEQQIy9LNgk43pvXgxG7QnNaIlPQRRcRPUpu9Y=;
-	b=wZQwmvk1rBkHTOGo0aaJmNHq3PmqE9nd/LDfPHCgQW+ssoFkA7fEGg8LOAZfzZzaDwd6iw
-	zxTIboIlb4U8dQIxDYNADVhgO+Of6UaAXJH+3rQ6iLiUXeIDpCVG6VzQWcTpV4vPkw9SCi
-	/av7zxFVW2ds8MrBpwky9ITiRW8MB2Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1795119078;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=uO/73pEQQIy9LNgk43pvXgxG7QnNaIlPQRRcRPUpu9Y=;
-	b=wnMVpHgek02PbsETbBVemF6lgfm1Fsk4bBIq9tRzTup6j8Y0Me5JaFXw+2l4lKIx40xr7j
-	x//LK/PqLjgitlAQ==
 Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id C3C581334C;
-	Thu, 19 Nov 2026 20:11:16 +0000 (UTC)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id E409A134F6;
+	Thu, 19 Nov 2026 20:11:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
 	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id OqV1JuRX/2pPYQAAD6G6ig
-	(envelope-from <pfalcato@suse.de>); Thu, 19 Nov 2026 20:11:16 +0000
+	id OqV1JuRX/2pPYQAAD6G6ig:T4
+	(envelope-from <pfalcato@suse.de>); Thu, 19 Nov 2026 20:11:22 +0000
 From: Pedro Falcato <pfalcato@suse.de>
-Subject: [PATCH RFC 0/5] mm: GUP dirty + ->release_folio() fixes
-Date: Thu, 19 Nov 2026 20:10:43 +0000
-Message-Id: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
+Date: Thu, 19 Nov 2026 20:10:46 +0000
+Subject: [PATCH RFC 3/5] mm/vmscan: avoid releasing FS metadata for
+ !FOLL_PIN gup folios
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -106,10 +65,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDQ0Mz3fTSAt2UzKKSSt3yjMQS3SRz45REcxOLNNMUQyWgpoKi1LTMCrC
- B0UpBbs5KsRDB4tKkrNTkEpBRSrW1APU/QoF3AAAA
-X-Change-ID: 20261116-gup-dirty-what-b73da748f5d1
+Message-Id: <20261119-gup-dirty-what-v1-3-236d69f25c24@suse.de>
+References: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
+In-Reply-To: <20261119-gup-dirty-what-v1-0-236d69f25c24@suse.de>
 To: David Hildenbrand <david@kernel.org>, 
  Andrew Morton <akpm@linux-foundation.org>, Zi Yan <ziy@nvidia.com>, 
  "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
@@ -130,116 +88,70 @@ Cc: linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org,
  Michal Hocko <mhocko@kernel.org>, linux-fsdevel@vger.kernel.org, 
  Pedro Falcato <pfalcato@suse.de>, stable@vger.kernel.org
 X-Mailer: b4 0.15.2
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spamd-Result: default: False [-4.00 / 50.00];
+	REPLY(-4.00)[]
 X-Spam-Flag: NO
+X-Spam-Score: -4.00
 X-Spam-Level: 
-X-Spamd-Result: default: False [-13.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	RCPT_COUNT_TWELVE(0.00)[37];
-	MIME_TRACE(0.00)[0:+];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	MID_RHS_MATCH_FROM(0.00)[];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	R_RATELIMIT(0.00)[to_ip_from(RL8d8xedm6iu8o66torxsk6bwd)];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:email]
-X-Spam-Score: -13.30
+X-Rspamd-Queue-Id: F2E4B1FCEE
+X-Rspamd-Pre-Result: action=no action;
+	module=replies;
+	Message is reply to one we originated
+X-Rspamd-Action: no action
 
-Sooo.... It turns out GUP dirty and ->release_folio() interact really
-weirdly. This was initially reported by some AI agent, and David let me
-know.
+The check added in commit d824ec2a1546
+("mm: do not reclaim private data from pinned page")
+is correct. However, it only handles pages pinned for DMA, using
+pin_user_pages(). It completely skips any other get_user_pages() user,
+that does not pass FOLL_PIN.
 
-The basic issue is:
- - ->dirty_folio() relies on buffers/IFS/etc being attached to the
-   folios. It _cannot_ attach them itself, as dirty_folio() cannot
-   block.
- - certain MM paths (reclaim, khugepaged, folio split, etc) are very
-   trigger-happy when it comes to asking filesystems to release them. In
-   most cases, barring any dirty folios, buffers, it will just drop
-   them.
- - there is no problem in usual IO submission, but issues start to pop
-   up with GUP, where the code flow (roughly) becomes:
-        [get_user_pages(), etc]
-           ->page_mkwrite() called here, or before
-             ->private correctly populated with whatever the filesystem
-               expects.
-             folio is marked as dirty, initially.
-       *write finishes*
-       folio_lock();
-       folio_mark_dirty();
-         ->dirty_folio()
-              dirty_folio expects ->private to be populated by
-              ->page_mkwrite(), ->write_begin().
-       folio_unlock();
+Replace the folio_maybe_dma_pinned() check with
+filemap_may_release_folio().
 
-What happens if any filemap_release_folio() runs (and succeeds) between
-the initial dirtying (plus eventually writeback) and the write to the
-folio completes? Welp, it's unpredictable. ext4 for example will
-WARN_ONCE, and likely drop data (see ext4_dirty_folio()).
-
-So, what can we do about it? It's complicated, hence why this is an RFC.
-For the possible solutions:
- - ->dirty_folio() attaching this FS information itself is not really
-   possible in many cases. ->dirty_folio() can't block, nor is it even
-   guaranteed to hold the folio lock while being called.
- - Can pincount help? Kind of. Things like folio_maybe_dma_pinned() are
-   rough, and don't deal with the usage of get_user_pages(FOLL_WRITE).
-   pincount itself isn't available in the common order-0 case, and not
-   available on order-1 as well on 32-bit, but who cares about that^W^W^W^W^W
- - Could get_user_pages() ban FOLL_WRITE? Mayhaps. I would not be
-   opposed to that, but that's probably a larger change than ideal for stable,
-   and I'm not familiar enough with GUP requirements to decide to go that way.
-   This would require migrating all FOLL_WRITE users to
-   pin_user_pages().
- - Can the whole system be reworked? Probably, but not for stable.
-
-This patch series is really rough but kind-of works. Instead of using
-folio_maybe_dma_pinned(), which only interacts with pin_user_pages(), I
-introduce a new helper that helps places deal with the folio refcount
-directly. In that case, we can also deal with GUP. On the other end,
-moar problems:
- - NFS private data itself takes refs on folios. Now private data (that
-   we could perhaps release if only we tried) is keeping us from
-   releasing that same data. What?
- - ext4 data=journal has some funky usage of buffer_heads. Data journalled
-   filesystems will not, in any way, dirty BHs. Instead it will,
-   *only if it was DMA pinned*, set the checked flag. ext4 skips
-   dropping those buffers if the checked flag is set.
- - ext4 move_extents seems to have suspicious usage of
-   filemap_release_folio() as well.
-
-Many of these have suspicious Fixes: (which are definitely wrong). I
-targeted these patches to complement Jan's original fix. Anything before
-that (or which is missing that patch) is hopelessly broken anyway.
-Proper Fixes: can be added, but many of them go back quite far.
-
+Reported-by: David Hildenbrand <david@kernel.org>
+Cc: stable@vger.kernel.org
+Fixes: d824ec2a1546 ("mm: do not reclaim private data from pinned page")
 Signed-off-by: Pedro Falcato <pfalcato@suse.de>
 ---
-Pedro Falcato (5):
-      mm/khugepaged: fix filemap_release_folio() interaction with GUP dirty
-      mm/huge_memory: fix filemap_release_folio() interaction with GUP dirty
-      mm/vmscan: avoid releasing FS metadata for !FOLL_PIN gup folios
-      mm/vmscan: be more careful when releasing FS metadata if buffer_heads_over_limit
-      mm/filemap: refuse releasing maybe_dma_pinned folios
+ mm/vmscan.c | 13 ++-----------
+ 1 file changed, 2 insertions(+), 11 deletions(-)
 
- mm/filemap.c     |  3 +++
- mm/huge_memory.c | 22 +++++++++++-----------
- mm/internal.h    | 48 ++++++++++++++++++++++++++++++++++++++++++++++++
- mm/khugepaged.c  | 19 +++++++++++++------
- mm/vmscan.c      | 18 ++++++------------
- 5 files changed, 81 insertions(+), 29 deletions(-)
----
-base-commit: 9663aa0da7070d958e333477ce0720512e9fa016
-change-id: 20261116-gup-dirty-what-b73da748f5d1
+diff --git a/mm/vmscan.c b/mm/vmscan.c
+index 6a1af9b92349..d80bbb607a15 100644
+--- a/mm/vmscan.c
++++ b/mm/vmscan.c
+@@ -1464,16 +1464,6 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
+ 			}
+ 		}
+ 
+-		/*
+-		 * Folio is unmapped now so it cannot be newly pinned anymore.
+-		 * No point in trying to reclaim folio if it is pinned.
+-		 * Furthermore we don't want to reclaim underlying fs metadata
+-		 * if the folio is pinned and thus potentially modified by the
+-		 * pinning process as that may upset the filesystem.
+-		 */
+-		if (folio_maybe_dma_pinned(folio))
+-			goto activate_locked;
+-
+ 		mapping = folio_mapping(folio);
+ 		if (folio_test_dirty(folio)) {
+ 			if (folio_is_file_lru(folio)) {
+@@ -1566,7 +1556,8 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
+ 		 * the folio on the LRU so it is swappable.
+ 		 */
+ 		if (folio_needs_release(folio)) {
+-			if (!filemap_release_folio(folio, sc->gfp_mask))
++			if (!filemap_may_release_folio(folio, 1) ||
++			    !filemap_release_folio(folio, sc->gfp_mask))
+ 				goto activate_locked;
+ 			if (!mapping && folio_ref_count(folio) == 1) {
+ 				folio_unlock(folio);
 
 -- 
+2.56.1
 
