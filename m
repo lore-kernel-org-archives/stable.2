@@ -1,49 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795100612;
-	b=nMsUUnEX1PGa95Uoi3rmZhAVQvFFYgpVxJsJN1cxXF7Wtiu1i/lj0XqiNgGoR8Tziv1O
-	 WSXEf6BrvhM6r2Nn8eFFGyKxerx0MfYSMcqwN6a7+iSdhiqIl4hpJhkfkg44tKbUkIw74
-	 njdTn94DuXq3bc/pLGsoBR/OSocEuHHdVcad2CQIlJd2k/AJ1dLZcsdnxYTQ5p7BHj94Z
-	 /9Kig8g8l1993u1jwajAlNImU+WXNywffBJBH6CWjHHg+Nr/yjVP0LYrm05U3Av0mmJpG
-	 p3zq8i753Yw9/uaBq1b2prkCut8rQ4ED1fUudp2/cLNvIRv3d0d9QnFoJLxXcwzr3Zg==
+	t=1795101186;
+	b=kuzvHVNpbjiaIaocSBEo7pMg4ARA1jcDOKOnawjpydqK+DfD9T+bUR+MP8u1Ae/vgzBa
+	 jqoxxOrW3VI2fasIvQOslCTHkjQGZDu3/VB2/0aEBR9lZl/zeDdWupEZHl+L44dq4nk8e
+	 FhL6vtCxwW8fvuDNO9/ouh8+Mlz9w9OFo6omV0nfnpADQNkiJX25e/hjU9hBPXXH9mh9g
+	 j0ORyGfrYD+Xf/ecPUbdbJsLItD4HmQctrpJ8WRYrZFMvOBNHgG+Jm+NnyI79dmwAjuqr
+	 9Umuzw5bL29lDDtVPHx/DUkv8FeObuuynSBniK82JNavl0SCowOHsl3DeqUKP6QDrrg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795100612;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:From:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=IvXht9rKxgXPMf5xVPL2KCxkW3rV79KskWZxHYkWX/M=;
-	b=1RNWXMr3usj2aCopGvvT+OLnfXzNKb27kI26DclmHXvUClhQxsPr4/ULSqUl29z7dqsH
-	 dVVrjFKpHkhtnwVGwmhFlr3a5SPtoIo4H+bSGNYKdIJq3fCaJpcgAIu5MxJhChQO4DGO0
-	 Ra4z7FF/OkZAT4N4p5Ne9tobRc/DkVmFO/sUxbpPwNNsVF6G8CS9a2quw6A2Wpq/+R/Ui
-	 Cy8OC8WNPzdeiqOf9pgX62Bhljb04Lg4oycJSLFXi0VJuipS8Nr2c1F4nWl7CTuIbKOWb
-	 ohsUx310BBgD/9cFQd9V/7tm7yBzRgb1ef3lw+eeuoMgEJRDdXjfA4Zye51CpzePO+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795101186;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JpxIvevc+k3PDqIuz3tCAw053u2XWq+vX93HZah6pos=;
+	b=zT3l7G3ynbO31VZmPLGOIXfEiZtIUf5KavzI36O3dkvPOa+PZ7jaEHIPl4Rgi5wQJZ60
+	 VdSJrGziUE7iSWTN0i/FSt6hU4nJ9cjVtsOB63sey2Gs60r0zJZWUNHa2OB8bDcNFQQKf
+	 HUrP6UQXXO2h+4vtCC3+rHRJkBfRRcvwsii39pZtz8a39+fZUKTSYGrHDXJbWfVcCKGA7
+	 4WbVKUtATd3BOmXvd3ZJEpj3mK8sISVrGrm5QZ5BPH2gDaJ+VrR39ptvg/AioHzisTVWJ
+	 1Groi2QAtPY8e6uFhQWWWqDVVfyhV0aD5AGB9xGA+j6qZ1u/t79PVLfNgR/my6MKEGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arm.com;
-	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=oISKYwkY;
-	arc=none smtp.remote-ip=217.140.110.172
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 89E47606A326;
-	Thu, 19 Nov 2026 15:03:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 89E47606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=heYsYuub;
+	arc=none smtp.remote-ip=209.85.214.170
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB8E606A320
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 15:13:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEB8E606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=oISKYwkY
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 293171575;
-	Thu, 19 Nov 2026 07:03:28 -0800 (PST)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C725D3F882;
-	Thu, 19 Nov 2026 07:03:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1795100611; bh=gRyRX+lqJrdSAjmhZqLOmUIsf/m7p4kFu+2CzAVJ0pg=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=oISKYwkYfAmZdcTNIxOqgLieQPrT1J9kR2R/8TYZPdmiZP2XI9V9Lz9wPPHm0V6x9
-	 Dz08TtGGK7u3u6p1IwKOFfMiHldz7VBHA1XxbZDziqj/X+tXAl+uGywKXY8dv7qdvu
-	 XqqdkrZ149lSNfyanoAFTZQkHNJRR8duCTmbLdOE=
-Message-ID: <e943446d-a563-471f-81a8-1a69d3884097@arm.com>
-Date: Thu, 19 Nov 2026 16:03:28 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=heYsYuub
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2eff722a480so5812065ad.0
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:13:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795101185; x=1795705985; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JpxIvevc+k3PDqIuz3tCAw053u2XWq+vX93HZah6pos=;
+        b=heYsYuubAj88xnLDnGgzj33y+P1bBnOQgnMwpeSoNMQBvdFMY9nGds0yIZ4w9VXDc/
+         3pNXMT8IaGtnKgrk4iIyma+lBML4cs2BSD2HRKhs/BqR6ekgYn5aPgCkjgGxgRPV8GyD
+         KGqQUD8+SiJaRYV9iVJa6aLafMCfNI32HqlnrOUxKz4UOiDXzjL1uSfWTC6P3A2HtLPt
+         x/FgSYLhO+SamhZiZAo6h4TS8LvmCP5cxDJngN+6UCSI+HYIrR1MD9xcBdfPmmRh5HVX
+         DOrXAtrzaMzYBjTVmdQg5ELPpH+OMtQ1HMUI09+AT/2lfsd8GpKmquTA3YZJHDw9IGUc
+         1u1Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795101185; x=1795705985;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JpxIvevc+k3PDqIuz3tCAw053u2XWq+vX93HZah6pos=;
+        b=aPuzgzB5Y/kmONDMdZ8XmvRRiGGOKdO4XQY42JYNGTBjhtRl1ToUdA4Jl8Vq/ANWC6
+         mUL9peo13qeiaGiOM0Ig3kNj+uWbwz7KwkyUk/W8YVz8c6Q+g60Szq1flm6fZpacy/Ba
+         hdZJLBOUuEJL9gVMYCqz4ydPEkZQmHQyTxQBDQfbkQeC5GB84d9Xxedlf1TgQs6DXJiz
+         VzHhuYL9BqlLPeUVdsFvIKT3LJuoJiQZT/csN4T5qMz0w0IyQoyAYq0P0dMj2Ah8bo8A
+         9CRQe8tZECrMo9u5RSwamLqn3fhDyDbJb44qxzYRrv/bRZdp9YAOCmQkFUeq0/kC8Zr9
+         57qA==
+X-Forwarded-Encrypted: i=1; AL+hErEOWYR2WRHy0ihH5kpXLLmvBtuCeN1PwfezSKk3Ccn5LrUxt7ExactADFDTTCz0ftsSL0+KtxA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Y97put/jhQCBzwUMiqgGqxkXPLWPjTfr9UPkJET5hguqmq2j4
+	fdPu1w94njUjdD4fH4CAAbX2iz/L70/rmVxPHvxsesLl7wyyEHe4yM2N
+X-Gm-Gg: AYBFou3Eljcz9ZDFy4YNJzOChyC84FTtsr9LwCDfv/fz0qLAfa2Qd+D2XpTqps4a1/q
+	14dNJAHrLVqNYpYE8cLdmgxzygpsWmnGUT1O7pRQNEXso4r7pIu6uqcm2u40wskdY4bPK6tq7I6
+	DWBHI5+J8GP4oZkB5F4pvfZyNSOhc3bg5OxFMMiGO476WYC0Spp/zZDWaM/J/JHZn7IQWDLZEor
+	ElppAihunyPpctf2T4SSigRHQD+neTqU/72ttzCHVk0Hyglr1IyPIgILCX3t1ErLKGLouNLef4n
+	Zz5uaW4l9ix4yCohINWfjRIje8cWk9ndeYahd5/t3b9ewbVafNa28qU2mufixMrG2v6Z5xeQs/Q
+	iBEdO3sncezKEqq2e2P2qXdpCHCqOPhkQ6ELBoLart6/68G8cNsHZIETe/VbnZU1XRrzkGPRQid
+	whjYqXrS/xheJw94P3bndIThbCYngaXo9w7EW6gGXfzd+en75ptX0+aY7cV0sqZjYr/ZngkOSur
+	DGagaSOayixZ77cyb4KKHPKu3Dr8eaj+eJdKX+hj+RdVsZgG9Iqym0dkF1gLWdWq+kQjsuP7vX6
+	7j89GDGO20EgG7spDmbsWlsL2cc02lb0amUqkBQWxpRJ+Q==
+X-Received: by 2002:a17:903:198b:b0:2e8:95d8:6423 with SMTP id d9443c01a7336-2f0320782aemr12269375ad.38.1795101184871;
+        Thu, 19 Nov 2026 07:13:04 -0800 (PST)
+Received: from osman.mioffice.cn ([43.224.245.178])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2f03f1276c5sm1157095ad.67.2026.11.19.07.13.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 07:13:04 -0800 (PST)
+From: Zhan Xusheng <zhanxusheng1024@gmail.com>
+To: almaz.alexandrovich@paragon-software.com
+Cc: ntfs3@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	zhanxusheng@xiaomi.com
+Subject: [PATCH] fs/ntfs3: don't prepare private mappings for writing
+Date: Thu, 19 Nov 2026 23:12:59 +0800
+Message-ID: <20261119151259.3965463-1-zhanxusheng1024@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -53,59 +96,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Patch "arm_mpam: let low level MSC accessors return an error" has
- been added to the 7.3-stable tree
-From: Andre Przywara <andre.przywara@arm.com>
-To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org,
- stable-commits@vger.kernel.org
-Cc: James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
- Reinette Chatre <reinette.chatre@intel.com>, Fenghua Yu <fenghuay@nvidia.com>
-References: <ab81e90a-fdc4-426b-8da7-45b1a80e88f0@arm.com>
- <2026-11-17-1-daily-reply-0009@kernel.org>
- <8b078536-4101-42d4-bbad-d251cedba4f0@arm.com>
- <20261118124002.3727477-3-sashal@kernel.org>
- <cd17d0fc-2859-4969-9677-692aaa2db0b7@arm.com>
-Content-Language: en-GB
-In-Reply-To: <cd17d0fc-2859-4969-9677-692aaa2db0b7@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Sasha,
+From: Zhan Xusheng <zhanxusheng@xiaomi.com>
 
-On 11/18/26 17:48, Andre Przywara wrote:
-> Hi Sasha,
-> 
-> On 11/18/26 13:39, Sasha Levin wrote:
->> On Wed, Nov 18, 2026 at 11:03:40AM +0100, Andre Przywara wrote:
->>> I will send the stable backport patch ASAP.
->>
->> Dropped 84e8795c271a ("arm_mpam: let low level MSC accessors return an 
->> error"),
->> a3a94c13c442 ("arm_mpam: propagate MSC access errors for state saving
->> function") and 197a7a41e6e0 ("arm_mpam: On saving mbwu state read the 
->> monitors
->> before clearing CFG_MBWU_CTL") from the 7.3 queue. I'll pick up your 
->> adapted
->> 7.3 backport of 197a7a41e6e0 once it's posted.
-> 
-> Thanks! It turns out that this backport patch here logically depends on 
-> another fix (197a7a41e6e0, you mention above). So I need a bit more time 
-> to figure out what's exactly going on here, will try to send something 
-> tomorrow.
+ntfs_file_mmap_prepare() allocates the clusters of a sparse file and
+zeroes the file up to the end of the mapping when the mapping has
+VMA_WRITE.  A MAP_PRIVATE mapping never writes the file, but it gets
+the same treatment, so any user who can read a file can make ntfs3
+write to the volume, also when it is mounted read-only.
 
-Ah, because there are almost a dozen of MPAM patches now being 
-backported into v7.3.y, the context differs slightly, depending on the 
-base, but it all works out cleanly on top of v7.3.6-rc1.
-Will send the backport fix in a minute.
+With -o ro, a MAP_PRIVATE mapping with PROT_WRITE by uid 1000 of a
+4 MiB sparse file zeroes 4 MiB on the device and marks 1024 clusters
+used in the bitmap.  The runlist is not updated, so the clusters are
+lost.  The same mapping of a 4 MiB file with 4096 initialized bytes
+writes 4190208 bytes of zeroes.  On a writable mount, it allocates all
+clusters of a sparse file that the user cannot write.
 
-Cheers,
-Andre
+Only prepare shared writable mappings.
 
->> Also dropped 643b64025650 ("arm_mpam: Release the mon_sel lock on
->> mpam_save_mbwu_state() errors"), which needs the mon_sel_lock guard 
->> class that
->> 7.3 does not have.
->>
-> 
+Fixes: 4342306f0f0d ("fs/ntfs3: Add file operations and implementation")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhan Xusheng <zhanxusheng@xiaomi.com>
+---
+Tested in a VM on 7.4-rc3 (20eef29b7c84): with the patch, both read-only
+cases leave the device unchanged and the sparse file is not allocated.
+fsx with mmap on 4K and 64K cluster volumes and on sparse and compressed
+files gives the same results as before.
+
+ fs/ntfs3/file.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ntfs3/file.c b/fs/ntfs3/file.c
+index 6c84a3e1c7fe..3da8b65793e1 100644
+--- a/fs/ntfs3/file.c
++++ b/fs/ntfs3/file.c
+@@ -388,6 +388,8 @@ static int ntfs_file_mmap_prepare(struct vm_area_desc *desc)
+ 	struct inode *inode = file_inode(file);
+ 	struct ntfs_inode *ni = ntfs_i(inode);
+ 	const bool rw = vma_desc_test(desc, VMA_WRITE_BIT);
++	/* A private mapping never writes the file. */
++	const bool shared_rw = rw && vma_desc_test(desc, VMA_SHARED_BIT);
+ 	int err;
+ 
+ 	/* Avoid any operation if inode is bad. */
+@@ -417,7 +419,7 @@ static int ntfs_file_mmap_prepare(struct vm_area_desc *desc)
+ 		file->f_ra.ra_pages = 0;
+ 	}
+ 
+-	if (rw) {
++	if (shared_rw) {
+ 		u64 from = (u64)desc->pgoff << PAGE_SHIFT;
+ 		u64 to = min_t(u64, i_size_read(inode),
+ 			       from + vma_desc_size(desc));
+@@ -452,7 +454,7 @@ static int ntfs_file_mmap_prepare(struct vm_area_desc *desc)
+ 	}
+ 
+ 	err = generic_file_mmap_prepare(desc);
+-	if (!err && rw)
++	if (!err && shared_rw)
+ 		desc->vm_ops = &ntfs_file_vm_ops;
+ out:
+ 	return err;
+
+base-commit: 20eef29b7c8465ac98d7dd6d6f2ac07a8d8056ca
+-- 
+2.43.0
 
