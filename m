@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795096189;
-	b=AHogA4x4F855Q8Ya3KiwHxQQj31kNn+yCEhgpUjuQWNnIDul/ZIj2qy9oM+5/UiZfBAC
-	 jVPUc1FiD5YOU9Q3JPGCN3Jb344hI2IKvh/JtEtd0MvnXO4oy3muGpJiGVjTFdMr/yREl
-	 bXRh9laB0Ibt0GsTyG0NEX4XA8ucRVsowZ51z8ZtDQmR1wg+x8tRsmZuY0C+4GHbW0lKA
-	 L4BnFt3EdRsNLLYYNcvyp249KLKMdQ23pcf5ij0V8EiE8N33+4BFb6Pqqio1q+JCqL1K4
-	 t87IjXxqNyI2j4Ingpkdum5GxtZct+NPHouzkP8qqsOFx/T1NS/94DOTz2vgPnxEsGg==
+	t=1795096185;
+	b=NqB3esV4TTXDfI/vZw5GIoqGza6EL+7Qpwh7dRuZddFqvnADq/KjG8KPd3BH1c3S4TW+
+	 GyzwdgeXQSxPn6jYssnpgc9H3d3uNidU3I6W1/3bcFPFjz8ggqRVL63Ef4RtUJI2r9uJB
+	 XozRkGMbIUtMpbhb0YnNJ8B0/nEVoG3AoBedkQPEQ+QvyDpBcB8P9QExbP6JAeHhojvkl
+	 9p7CTUdmHKikszQ/H1ekuZghv8A7rgMc9lzCxVhqA+txfn90d3SKHl1EfXkqu4BEGnm6k
+	 uNVzdo37ya472Ba6uPlPPz+QSmblyzcBZyfawTwHBzGmxF6Mn5mlBmr6Jj8+qlQqjlg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795096189;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795096185;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=J+xqGM/XTVoLXbet9Pqsqr3DEOW4nOHD7WQm9LFTgGg=;
-	b=TjdhYnyc152qMYHtUsWBrkyP0ORZu149VEUpX/4IqPpDTifqAJzsYRSHbOdZhMCP1pTx
-	 F8q4fIUmPhU/25D2qlTsWhD9Xh17B5WVGEZ5+hqLsc0zVJHwcD8ZYhKJnEK2elopxYbCG
-	 uUoCO7WrYDIvmEh5lyMYuXeArMag71/ylfZzJ23HWhGH4x4G4QKa/lDjmLv1j1nGweDor
-	 1bikOwmSvhWAtmOx1y+nBArRxG070O0xx4W3x3DqPpwqiX30hJI+6F8ocMSG3qo/fSTCe
-	 avqsnHvA9yE0FlXsHp1bJXkPkDosTswkLe6iSWlpEtMnkgWofzIQ6kluMHZOvjltgdw==
+	bh=VF8D/NpkOVfXwYS7vocB3YSAlBjCCPP6hp45RuIin7I=;
+	b=QL20OMXSMZQ8d94EByPFZFlUdhfAWpo1ififH3ZKBBRZyjh35lvut8QCCxka4XqwW25v
+	 +fYU20fPHxv8n2NyLDj2/OaX6/tjAoFAqQrbqvlFFrSLYkN4xDlvAF9e0V5eKgkyxHNZn
+	 nE636DZjaCdj0rTabhbCyBY1E01zyw5sPIJJPL2Yt4ZZQFBs89grfLfH47mz80kHfMerK
+	 PqbBPl6z317bUp25uLevybWKn38RNkNn5xEi4RnlN5zuzJ59R1wWAeCn0pdeJXSzbXCmx
+	 kjkIsrXZbFPr9oP6zFEVRwc85z17NJmlXlt2MsYWYI1V8pVydBai7A1EcVvG/lVaD6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=WPKG3kgw;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=JkMS5KGC;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EF0760A5BE8;
-	Thu, 19 Nov 2026 13:49:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EF0760A5BE8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF482606A32C;
+	Thu, 19 Nov 2026 13:49:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF482606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=WPKG3kgw
+	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=JkMS5KGC
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795096186;
-	bh=J+xqGM/XTVoLXbet9Pqsqr3DEOW4nOHD7WQm9LFTgGg=;
+	s=smtpout1; t=1795096184;
+	bh=VF8D/NpkOVfXwYS7vocB3YSAlBjCCPP6hp45RuIin7I=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=WPKG3kgw1ThQ9Iqi7X8MWA9b6KPQV1tqb0+w2/sN0QKEHT/ljXEz1g1x4JV2Z4TlT
-	 qQl2pMi245ZPYX/CBdrWWcH77k4FpZlTY3CE+ek7GPARommgoMObmTKkddG/u2S1SU
-	 GRdITqReuXPA3v3cr0phl/3IxrDG++3HxRsmYCfofj3YuONHH4g3iisava0wLP3eCS
-	 jmpY3X1w39tnA6lb0IsmyHx3CidVZ0YE4kB53zqe+4tC3ZfnX/CGwTq44JnfO6HGAQ
-	 yJYwxbLPTgSEwOuy6qwI3LaW502a5TgqVNi/P/+uWhXkGHnpA94gb10cS6WM/aO3rl
-	 pJrFXJMRgq/xA==
+	b=JkMS5KGCdrAAyJr/6GlBCW303t/UdNmymt4owZaDqKKccoJEp8Lwhz8fr7OHQDg/M
+	 2qQwu1a+gV0ciCPc2dyVrl/2Zgw5HnPsHZo+NCZWHGMlbKrBbv1UTB1wf3PKfzAQNx
+	 7j8sWcTaz1l87XRioH3TIx5ACzW76wfIpsDTHTPJqwOvY76xdl65mNYJ7WkWA6os0X
+	 +soN3u8jDIfL8fm3bPD5UqGHiJHZhh1aOj1EvE2rQH7F9qXNVAnPCDcSMag3JQ7eyl
+	 Og1nfac5EM17gIKYEVLGQXNpKyco8OSipdS8BqguFeFgen5OYG9VC6w/jpFFA8neZD
+	 116SgwAwVdyDw==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVfwV1CwxzSDZ;
-	Thu, 19 Nov 2026 08:49:46 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVfwR6MTFzRM6;
+	Thu, 19 Nov 2026 08:49:43 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -80,9 +80,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v3 14/17] sched/deadline: Check SCHED_DEADLINE affinity under the rq lock
-Date: Thu, 19 Nov 2026 08:49:37 -0500
-Message-Id: <dc18e01ba2fe2212524f69641f5e173bcc3d801d.1795092090.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH v3 02/17] sched/deadline: Do not admit bandwidth for parameters that are kept
+Date: Thu, 19 Nov 2026 08:49:25 -0500
+Message-Id: <ab5b150fe61d5db767aa98f1b1255661ad5de333.1795092090.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1795092090.git.mathieu.desnoyers@efficios.com>
 References: <cover.1795092090.git.mathieu.desnoyers@efficios.com>
@@ -97,137 +97,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Andrea Parri <parri.andrea@gmail.com>
+__sched_setscheduler() runs the deadline admission test on a request
+with SCHED_FLAG_KEEP_PARAMS. But the task keeps its parameters: the
+call skips __setscheduler_params().
 
-A task can end up SCHED_DEADLINE with an affinity narrower than its root
-domain when sched_setaffinity() and sched_setattr() race on it. Both
-calls succeed, although each fails when made after the other:
-sched_setattr() with -EPERM, sched_setaffinity() with -EBUSY.
+Commit f4dddf90d58d ("sched: Skip priority checks with
+SCHED_FLAG_KEEP_PARAMS") made sys_sched_setattr() copy the task's own
+parameters into such a request. Then the priority checks pass.
+get_params() copies them without a lock.
 
-__sched_setaffinity() calls dl_task_check_affinity() before
-__set_cpus_allowed_ptr() takes task_rq_lock(), whereas
-__sched_setscheduler() runs its admission test and switches the policy
-under a single task_rq_lock(). So both calls can pass their checks:
+Another call can change the task's parameters before
+__sched_setscheduler() takes the runqueue lock. The request is then
+stale, and dl_param_changed() takes it for a change. sched_dl_overflow()
+would put the stale bandwidth in place of the task's own in total_bw,
+and in this_bw for a sleeping task. But the task keeps its own dl_bw.
+Its release at the 0-lag time takes that dl_bw, and the difference
+stays behind.
 
-  CPU 1: sched_setaffinity(p, cpu0)    CPU 2: sched_setattr(p, DEADLINE)
+Fix this by skipping sched_dl_overflow() for SCHED_FLAG_KEEP_PARAMS.
+There is nothing to admit for parameters that are kept.
 
-  dl_task_check_affinity()
-    !task_has_dl_policy(p): return 0
-                                       task_rq_lock()
-                                       admission test passes
-                                       p->policy = SCHED_DEADLINE
-                                       task_rq_unlock()
-  __set_cpus_allowed_ptr()
-    task_rq_lock()
-    p->cpus_mask = cpu0
+Found by reading, after the Sashiko AI review of this series raised the
+boosted case of the previous patch. Not reproduced: the parameter change
+must land inside that window.
 
-The window includes CPU 1 spinning on task_rq_lock() while CPU 2 holds
-it. With one thread narrowing a sleeping task to CPU 0 while another
-makes it SCHED_DEADLINE, 923514, 959547 and 983997 of 1000000 rounds
-ended with both calls succeeding on three boots of a 4-CPU guest.
-
-Move the check into __set_cpus_allowed_ptr_locked(), next to the
-PF_NO_SETAFFINITY re-check, under the same lock as the admission test.
-Whichever call takes task_rq_lock() second then sees the other's
-result: sched_setaffinity() fails with -EBUSY if p is already
-SCHED_DEADLINE, and sched_setattr() fails with -EPERM if p's affinity
-is already cpu0.
-
-A new SCA_DL_CHECK flag selects the check, and only
-__sched_setaffinity() sets it, so sched_setaffinity() and
-relax_compatible_cpus_allowed_ptr() keep the check and other callers
-stay unchecked. restrict_cpus_allowed_ptr() already does its deadline
-check this way.
-
-__sched_setaffinity() clears SCA_DL_CHECK before the second
-__set_cpus_allowed_ptr() call it makes after racing with a cpuset
-update, so the cpuset mask still wins there, as it does when
-cpuset_update_tasks_cpumask() narrows a deadline task. SCA_CHECK stays
-set for the PF_NO_SETAFFINITY re-check.
-
-With this applied, the same test ends with both calls succeeding in 0
-of 1000000 rounds on each of three boots, and sched_setaffinity()
-fails with -EBUSY whenever it loses.
-
-The race was reported by Sebastian. The fix was written with the help
-of an LLM.
-
-Fixes: 332ac17ef5bf ("sched/deadline: Add bandwidth management for SCHED_DEADLINE tasks")
-Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Closes: https://lore.kernel.org/20261103081149.DuyWNhVe@linutronix.de
-Signed-off-by: Andrea Parri <parri.andrea@gmail.com>
-Cc: stable@vger.kernel.org
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Fixes: a509a7cd7974 ("sched/uclamp: Extend sched_setattr() to support utilization clamping")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Cc: stable@vger.kernel.org
 ---
- kernel/sched/core.c     | 11 +++++++++++
- kernel/sched/sched.h    |  1 +
- kernel/sched/syscalls.c | 12 +++++++-----
- 3 files changed, 19 insertions(+), 5 deletions(-)
+ kernel/sched/syscalls.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 5ed660f099a5..32fe889e02fb 100644
---- a/kernel/sched/core.c
-+++ b/kernel/sched/core.c
-@@ -3195,6 +3195,17 @@ static int __set_cpus_allowed_ptr_locked(struct task_struct *p,
- 		goto out;
- 	}
- 
-+	/*
-+	 * Check under the same lock that __sched_setscheduler() holds for
-+	 * its admission test, so that p cannot become SCHED_DEADLINE
-+	 * between this check and the mask update below.
-+	 */
-+	if (ctx->flags & SCA_DL_CHECK) {
-+		ret = dl_task_check_affinity(p, ctx->new_mask);
-+		if (ret)
-+			goto out;
-+	}
-+
- 	if (!(ctx->flags & SCA_MIGRATE_ENABLE)) {
- 		if (cpumask_equal(&p->cpus_mask, ctx->new_mask)) {
- 			if (ctx->flags & SCA_USER)
-diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 92134ce326a4..20ad13f388cb 100644
---- a/kernel/sched/sched.h
-+++ b/kernel/sched/sched.h
-@@ -2972,6 +2972,7 @@ extern struct task_struct *pick_task_idle(struct rq *rq, struct rq_flags *rf);
- #define SCA_MIGRATE_DISABLE	0x02
- #define SCA_MIGRATE_ENABLE	0x04
- #define SCA_USER		0x08
-+#define SCA_DL_CHECK		0x10
- 
- extern void update_group_capacity(struct sched_domain *sd, int cpu);
- 
 diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index b87b878be63f..5983232476a9 100644
+index 89b0d5787f45..6f8ce5fd94a1 100644
 --- a/kernel/sched/syscalls.c
 +++ b/kernel/sched/syscalls.c
-@@ -1225,11 +1225,7 @@ int __sched_setaffinity(struct task_struct *p, struct affinity_context *ctx)
- 	cpumask_and(new_mask, ctx->new_mask, cpus_allowed);
- 
- 	ctx->new_mask = new_mask;
--	ctx->flags |= SCA_CHECK;
--
--	retval = dl_task_check_affinity(p, new_mask);
--	if (retval)
--		goto out_free_new_mask;
-+	ctx->flags |= SCA_CHECK | SCA_DL_CHECK;
- 
- 	retval = __set_cpus_allowed_ptr(p, ctx);
- 	if (retval)
-@@ -1258,6 +1254,12 @@ int __sched_setaffinity(struct task_struct *p, struct affinity_context *ctx)
- 			if (empty)
- 				cpumask_copy(new_mask, cpus_allowed);
- 		}
-+
-+		/*
-+		 * The cpuset mask must win here, as it does when
-+		 * cpuset_update_tasks_cpumask() sets it on a deadline task.
-+		 */
-+		ctx->flags &= ~SCA_DL_CHECK;
- 		__set_cpus_allowed_ptr(p, ctx);
- 		retval = -EINVAL;
+@@ -690,8 +690,16 @@ int __sched_setscheduler(struct task_struct *p,
+ 	 * of a SCHED_DEADLINE task) we need to check if enough bandwidth
+ 	 * is available. Keep this check last. If a later check failed,
+ 	 * nothing would give back the bandwidth it reserves.
++	 *
++	 * With SCHED_FLAG_KEEP_PARAMS, the task keeps its parameters, so
++	 * there is nothing to admit. Such a call changes other attributes,
++	 * such as the utilization clamps. A deadline task does not use its
++	 * clamps, but keeps them for when it leaves the class. The
++	 * parameters in attr may also be stale: sys_sched_setattr() read
++	 * them from the task without a lock.
+ 	 */
+-	if ((dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
++	if (!(attr->sched_flags & SCHED_FLAG_KEEP_PARAMS) &&
++	    (dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
+ 		retval = -EBUSY;
+ 		goto unlock;
  	}
 -- 
 2.47.3
