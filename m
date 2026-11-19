@@ -1,59 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795049505;
-	b=zv19kmwVweEHNKz/tf1XYcD3rn10Xi+kk+MosPWp6kADke7zXcR+iEd2/uDlSCFgaQSE
-	 mvEBcBiFZYELPAZq4KzQuekd9KrNuNC23r4RzPWJ31PLrniAh9EomfkpM1D5yc3bZ2uZe
-	 eaQL+bl+MxM2U/tAeLht+rKf5FjvO5sxX2i1z4J6v4i9/ew3muErI0FcIvmy6pDoMJT9y
-	 0jXjeWvbkAQVQTmxH3lNfD2q0y3bWZadyMYyUAIWp50kv6oXDawubI0wLGXCHogFJCTq4
-	 F1f9g6h+UdM2k663ArAu6guwnCmRC1jx3yBwqXnks2GE9FU4ht4NgfnIiA5qmwixJnw==
+	t=1795049506;
+	b=5p8lyNu4DwVKFJo4WZUbwud3Eq30eDqfsMPnXHqT25+DF/iuE/YS2JneNBZgCH6jjCvw
+	 P1M78kGQn1G3bjaQTLJTFi4HpUr46qcluvq4xFDhxFf12j2/5i+bAKBM9CzQwABhPyvix
+	 nf96mSjSjnEo9lwiqSrAncEScWhzTjnkvqYwAn1AvtbjLvpgR44pEeCdgh+es1CpmnCkT
+	 y56mTUVnz1uAorEYGByM8gNKr1BXHExbvm2YSInshzVXJAJHJMOypVE44kkf2Bq/Iic+G
+	 7G+CHUt9FaWqQJTeORY2G0afMeMCfEaeJOW4CoNC1D1ESuKVVP4o82Hq8VYyLPJia0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795049505;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=TSeXUgOs0k/ghxfWmnE4c1NaiHDxBhQJn7thKCJdwTU=;
-	b=PNuN+CvfOrxI7XLMgSJDstUhFeHdAzzu4hpbMaocmgUx5MDBM14ap/VCHA/MJG2Oqv1+
-	 KRqIb6jC3U4e7k2Ie0IKYHNKMjGGOj/lu4a9mWCoqh2Sa/QZ7Vvvwco2Ufpp3suutxsTX
-	 2xg4MdxG6iv5vYGPNDnAYAx3KZFQzT8eX0XTAKcrXKTLEJkTAIH/mVxwKdm8Frq9g0Lus
-	 YCfYi8pDmob3zcQPiDLJe9UDos4kLI0Bw7MFGpWQZXs1e+5si/RE/PzezpR0qA5If7uIV
-	 7EUsOlDbE7zgarccLWNKEWfs9MGZ0aEEXgV5O2HB1MgaTomXX+FH4/L7fs0lpO/9IVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795049506;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
+	 Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ya32YBMmsW8Ze+/UEBRzxYHvc+64tNFlziG219hEuQ0=;
+	b=5bzHYdXsQH1EkYvATVxzgOOBqHFX1o5gsYjEpqeAas3U7meJBT/ne+OYU1gsX7R069E1
+	 Yerhl8MbbkFd+CkCZQoxyaGbaQZesrWi/7m7XPrxbZCZWE/9y9QPG3uFI+Lk3s5T+VYye
+	 T/sZGEjComorQPI2fl17HTgbKfvhWXFUXkfio37tpb1KHVhABtiRm+T6kkEKD/sYIMmzP
+	 DjVEq9bVEphpqKpGj6GzaozEH/i3XLRxS1pYOKKIkiB7cBFrIqCv8r7SuFeEBD4vN/BCC
+	 6uFeaHyoR8V2oGZbSxzFTrTcuTAKIpOAsaQHxYfonG2L7d6uc3fsdClVFBlS0bLrFAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0o9zDkvl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=dqFekl+8;
+	arc=none smtp.remote-ip=209.85.221.42
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43774606A320;
-	Thu, 19 Nov 2026 00:51:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77DAE606A333
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:51:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77DAE606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=0o9zDkvl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B2CD1F000C4;
-	Thu, 19 Nov 2026 00:51:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795049505;
-	bh=TSeXUgOs0k/ghxfWmnE4c1NaiHDxBhQJn7thKCJdwTU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0o9zDkvlhtC3i7R7hW19jN6O/TfqUfOpS7ZlNXjWozsZ+e25pqapcQ/gSqIJXgcd9
-	 qxcqsJ0pVeiEe9XLlVv/i3X4/qHsXV6bLNQ45/t3kzrQfzu6/Wt+NLD6Eex760vY97
-	 7n+JAYISvoHkPqM8wxmFfrDy6vI7MKRn37JnobZU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Qu Wenruo <wqu@suse.com>,
-	Filipe Manana <fdmanana@suse.com>,
-	David Sterba <dsterba@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 2376/2857] btrfs: qgroup: fix swapped blocks existence check when tracing after COW
-Date: Wed, 18 Nov 2026 15:56:50 +0100
-Message-ID: <20261118150327.075370477@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
-References: <20261118150201.293410965@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=dqFekl+8
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48e47347279so1007552f8f.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:51:46 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1795049505; x=1795654305; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ya32YBMmsW8Ze+/UEBRzxYHvc+64tNFlziG219hEuQ0=;
+        b=dqFekl+8A1vtYbwxBLsBIuT8BHV3yJy0PAqLGYIrHkaOqRyivGS8Ysi+WuInLupOzn
+         3WAy7RONq2rlsJMsR8n1j45AIfxJQI3nht1LJ4C5A8VSUiq/QXuonHJT5w99T+fMLfie
+         DhyKXey85k4ZclPMB0+9jftg6tsUsOcffHMv/ijC9q8GF5GsV/uIKESbKtZ+HkUZWy7a
+         oKQsKBQI3BZlEKd8FdbW0rk+VFvKkIB/gXS6v1wCrzF+xS9YLPGC45KOdJxjNFerJiZ8
+         I5TefHL3JvBSsSYxX/QdEuWawkmitrPyAGH7WDt+n9JO0zL/7l3tU8PiX4xK0d78dOkT
+         YeyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795049505; x=1795654305;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ya32YBMmsW8Ze+/UEBRzxYHvc+64tNFlziG219hEuQ0=;
+        b=tKicIb0sNPHlldnH+xBhzRByj+qtk7j91ee8a66nmID39gzBcRFyCJnLNxNvCp8asl
+         hdkgyejggo66z+cFTIrV7n1GGeZQfr4nKeWccN4joZ3Q8a9F8fhCtz0rWeQEe0l2MY3B
+         jaC4mgS5GfQEFwQIIIqXj9zPQ+2VDrFZWfs6QJiC7cHqtcb1HwT9RTAg+dTgkOXYPuYg
+         x7F7LtTf1GSLKOK2BeZL/TvDay1DJDJjtjeFt7JPAga5jt1PFwkCXkRcQd8hm69HfPww
+         Asf3f6a9YGzZqGN8Nne5ccdF2t8mJ2DBPm5vLASOMKoRN6LBQjX6JCYyw9TCBq8xbUtw
+         ojqQ==
+X-Forwarded-Encrypted: i=1; AL+hErFOsRRAuLYDsVfAmJ2zpXWaQu2iG3KzVymnV4z3TaiAHPfZBXXX1KIp08ScL8GlJeSLP9dGTzc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/UwRppjDyZ2tygZUDtGOhKKeMv+VzYVT7mgXx5EvEJNJzWZtOu
+	YjWCZSUBJZ6Y20GEON37EQim4w5CZIsIlsVMRFNC3pruXHYQWBJuBxE=
+X-Gm-Gg: AYBFou0cvVpo02K1b5iBZjDm0Q1JqqEl8Y5NImVakxR76o4XQlLAUXnOjRWuJz9U0rh
+	FeMYfZ0B/wk4TOsJEPu8pHDgqPl7KAgwPOUVt2M43GIOpQ+jXpjW8y/VRbiR4eag/o3CNoAKiUp
+	a6+KBWAo5Cq8/glndrVGkLpnJAbcLKac8M8o4TPCqkIs4OtxAOEVXXO7/b0/Vzvr/61J9NToop2
+	CC2EZ/JwlzIMpObchZec+Kh0xkwFPDjac7ayTxU2Dn+rh8jK64xcFBQSjl3FpIoJ5sQZTqytRV1
+	t1fh1Qf2oZcnxNe97LFDLIg2Mvlqka7Ve4XKZbWm+d82UKDaAhoNHq/FDzwcPA+aBY1KmnNV/oG
+	+qmcfu9BZhHpFIxtODf/NQ0age5Y3An3Ni9qvkw97PuqcBhTWb1eeTYrSU0zkuD8SQFDEN5+Mas
+	Wi2QoUBeMjID83DMqSE+NOyfzLWHvtNVn72h6fKTWB75RJ/gKPRo8i7iVOWqR0NtlcpMnKMwyd8
+	vaRRtv7VQee8jdPYGmDQHeGIQoknpwlI2LTVFkR9xLA25ZuXG6A8srYmwV67ToAAEM2XPm82wPu
+	rjd/xLt2b3Ii7+k+qmoEwMIlc2K1oMX5FelSjJsYSD00N8/bG1c5qHOMG7PRSvGL6t+xfU7xiBA
+	5cLOdYQ==
+X-Received: by 2002:a05:600c:4504:b0:4ba:7e6:53d6 with SMTP id 5b1f17b1804b1-4bb7da52ad6mr78902545e9.33.1795049504793;
+        Wed, 18 Nov 2026 16:51:44 -0800 (PST)
+Received: from [192.168.1.3] (p5b2acb64.dip0.t-ipconnect.de. [91.42.203.100])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb842f9348sm10626015e9.8.2026.11.18.16.51.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 18 Nov 2026 16:51:44 -0800 (PST)
+Message-ID: <a67ab2fd-505a-47d2-9689-fb4086377da2@googlemail.com>
+Date: Thu, 19 Nov 2026 01:51:43 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,67 +92,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.12 0000/1756] 6.12.119-rc1 review
+Content-Language: de-DE
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20261118150007.957976754@linuxfoundation.org>
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20261118150007.957976754@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+Am 18.11.2026 um 15:35 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.12.119 release.
+> There are 1756 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-------------------
 
-From: Filipe Manana <fdmanana@suse.com>
+Builds, boots and works on my 2-socket Ivy Bridge Xeon E5-2697v2 server. No dmesg oddities or regressions found.
 
-[ Upstream commit 0388b5bd3a6eb8bcb20208c3b6dbee96fd30bbe0 ]
+Tested-by: Peter Schneider <pschneider1968@googlemail.com>
 
-In btrfs_qgroup_trace_subtree_after_cow(), after we erase the swapped
-block, iterate over all possible tree levels to check if we sill have
-other swapped blocks. However the check is wrong, it considers that there
-are other swapped blocks if any rbtree for any level is empty, instead of
-not empty. As a consequence we set blocks->swapped to true basically every
-time since we always find an empty rbtree at least at level 7, since in
-practice it's nearly impossible to find such a huge btree. This makes
-every future call to btrfs_qgroup_trace_subtree_after_cow() do an
-unnecessary rbtree search instead of returning immediately.
 
-Fix this by updating the condition to set swapped to true if we find an
-rbtree that is not empty.
+Beste Grüße,
+Peter Schneider
 
-Fixes: f616f5cd9da7 ("btrfs: qgroup: Use delayed subtree rescan for balance")
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: Filipe Manana <fdmanana@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/btrfs/ctree.h  | 2 +-
- fs/btrfs/qgroup.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/fs/btrfs/ctree.h b/fs/btrfs/ctree.h
-index c1cfc03fefbe9..7f8c7b518cd46 100644
---- a/fs/btrfs/ctree.h
-+++ b/fs/btrfs/ctree.h
-@@ -1306,7 +1306,7 @@ static inline void btrfs_wake_unfinished_drop(struct btrfs_fs_info *fs_info)
-  */
- struct btrfs_qgroup_swapped_blocks {
- 	spinlock_t lock;
--	/* RM_EMPTY_ROOT() of above blocks[] */
-+	/* True if any of the rbtrees in the blocks array below is not empty. */
- 	bool swapped;
- 	struct rb_root blocks[BTRFS_MAX_LEVEL];
- };
-diff --git a/fs/btrfs/qgroup.c b/fs/btrfs/qgroup.c
-index d3cecf863d70f..8b949920b6cbd 100644
---- a/fs/btrfs/qgroup.c
-+++ b/fs/btrfs/qgroup.c
-@@ -4423,7 +4423,7 @@ int btrfs_qgroup_trace_subtree_after_cow(struct btrfs_trans_handle *trans,
- 	/* Found one, remove it from @blocks first and update blocks->swapped */
- 	rb_erase(&block->node, &blocks->blocks[level]);
- 	for (i = 0; i < BTRFS_MAX_LEVEL; i++) {
--		if (RB_EMPTY_ROOT(&blocks->blocks[i])) {
-+		if (!RB_EMPTY_ROOT(&blocks->blocks[i])) {
- 			swapped = true;
- 			break;
- 		}
 -- 
-2.53.0
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
-
-
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
