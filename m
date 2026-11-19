@@ -1,63 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795104518;
-	b=w3FltQxhE8KGl0wIulo/Bywo8L//G5tlnmnAUdehBBp0RIngHFvnBVcrDsuLsZYfkogb
-	 Vo77jxvsn7MhVd/wZlQ6k2fOHrO6uHrFbOVh+x0dS+NSelHjWPbP4SgPfsmS1GJ+bil+v
-	 bPxHZaf+V4GbaIpxFzh2asv5n/+tksvCT0f7ml03hSBxRtbnWc/uHeMFC2g4nyP7p4b3v
-	 HUDW92Uxbh+VUEBB6aulm9HgJtMymKeK7aPh8aZ8hqYdBo1XCU7JLyhnDY8BCsXxMQS+D
-	 TXy/eaKzyXw8tO/Pg0gaVZV3Uq8ZE/WZW3fz3iSRROGGpYtE0TQmMxBDWZg+VebD6qw==
+	t=1795104515;
+	b=MSfHInNPaD6I0r11rJ7EQxPd7urYtf9ktFvDa1NpZtLg5y0dEISfzIbdle1H5cOobxe6
+	 0euc/Wdv9BYoMXqqx85r9cA0uX1aI5O3jTBMwkn+9GBvCOETw6XzyuCVrf2A0g2/GxC7b
+	 rmWGW21Bv5vdM4UdaBxXxo+StdNnxzEeHNSmdNZzLg8I/v6NdqGho67FKoHwRP1G+qNua
+	 Wa75HA68Q+DrkSIzvcNh6aIScXEUPtYZeOpAiwtbVk21PPx9q3dcoQjBrDI+rCo7AHjhT
+	 MFRA4OPUMei8LBZb1RiPnyvNBQDk1ahSf4an7zxvxJrKaDpb6n5pxq6arLGEPQJe18w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795104518;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795104515;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=eaqwS3/vkcbFCW/Aj1ah0AA9Pa736iPqNtZZpbNIeA4=;
-	b=mSdyubIC7b1GWmzsvtoPNJ5BnHepUW8AZPkBrdT8+aVs3W0O+gj2UHCcmZzPZuedoHTn
-	 pJqe/DE0c48sBV9hNMWKX5LRHLqF46CQW9n0p7TtKkryZkd2gUgRqM3GkXkl2XKtP8YCX
-	 JA9BmJMWh9wpRZ+QJrs5il/JPjSkYAO6dNfeYUp0hfHhPclccZa0jHndDMvJXMeOHT4yl
-	 UGHFUUSk3iiY9QwQtiXRXtN02fb66pHUjmZZ+bderw6LvoJ5riKRfD5NVb9kXV17gg27N
-	 D4Atceex6QgVqozhiaQ4CLLoPWEpZasp5Bo46fleizLsIJhkxarTvu/eYKd4whwMMgw==
+	bh=bZfjBB+NvI1E2Soa/17thc1NgrU0Uw+IcpLMdQOiwS4=;
+	b=cMbVyfiFQ2ptG09lN6XIk2JJGuXDRvk1Edlmq6UGP2x+FuysRaGEtX/RLE4o90E8M6Mw
+	 XtcpNcRCJvT+UOhtK3zU0jx1aJ6ZNXWbdAgob7pHoSftUKr7glDj7ihdyWJjWucyrqgpo
+	 zcBAEQ9h2/nnwoNv5e/2axr/T8UCWBhpVkwdYVHwtYakw3FaAh+K/+G/412TlBKRtzZ8E
+	 kk1aqWJT+382i7tIMgHOVszIbaBg7dbC42mpNf83+FMc5zrWvxs/RIV1NXtFSSM27w7qL
+	 cOpiQKaOS6xXyxyDTSwaSGhKyry6rpqP1yC+oDX7OGs8Nv3EnkGkvyZAPKATBW0/0SA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5Ne8CFF;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNuRkuX5;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF7060A2608;
-	Thu, 19 Nov 2026 16:08:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FFC606A326;
+	Thu, 19 Nov 2026 16:08:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g5Ne8CFF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5ADA51F000C8;
-	Thu, 19 Nov 2026 16:08:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nNuRkuX5
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFEFA1F000C4;
+	Thu, 19 Nov 2026 16:08:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795104518;
-	bh=eaqwS3/vkcbFCW/Aj1ah0AA9Pa736iPqNtZZpbNIeA4=;
+	s=k20260515; t=1795104514;
+	bh=bZfjBB+NvI1E2Soa/17thc1NgrU0Uw+IcpLMdQOiwS4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g5Ne8CFFkCoPbyxapveGkmyoaiJ75TDtrwZK9MusojecOx74x2lDFroVtmTUMC3Ot
-	 bA4kT9x/Kw+ms7XlUvdugdYaDqz7zBaUjrmo88SKHyc95kNxl9ci7m7XkcDlhwbseN
-	 avF+a7qq3PU3GHjB3Pj7fCC9ieBG9tyigkOegXXyyl9NPIs2Vf+tGiDIFW9+w7Zfj5
-	 BTH7/DsInBMK/dcFLsfYH3i44EGrG2tW7qcMlygAzEZCaUXkf08i+7alDCV0xZcu1H
-	 z6zAmuZD0x0Ntzo7sZZvLlguGhA6sXZx8LsWKPEm+GaQaOKMZlMXtbXyeiGuh18Sze
-	 AMQ8nJe3OwC4g==
+	b=nNuRkuX51N5XiRgXUvS6KHv4gd9qFf+Uf5fJi9cZJ3U3fgkogv3awgA1TDbA0Tjdk
+	 efWw6KMXDi3i8XekPuqVyddrUnjcExDDQ5XPfAuEeijPI09TMbP2QkYsEpJKTCvQV0
+	 PfTQkQE7nWE3nAEWAh0GlnKHf/x49fnPsx/k1jPvzKhaMaeMSct5oJlleJ8BtvyTth
+	 I/HCGzxRTv2y50fJ+gc9H0iKDdHfVh9mnLaGy2Rt5MuvkTGF7c4aPAzD9m1syZgknJ
+	 0cdFih1yBVezqNq/GJ2OE/6Py4KhXk5bbaT1rrxIq23JYc4YxUxSr1TzjgYLmCROmv
+	 P8g4EwhpVUMBw==
 From: Sasha Levin <sashal@kernel.org>
-To: mptcp@lists.linux.dev,
-	matttbe@kernel.org,
-	stable@vger.kernel.org,
-	pabeni@redhat.com
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Mat Martineau <mathew.j.martineau@linux.intel.com>,
-	Matthieu Baerts <matthieu.baerts@tessares.net>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5.15.y v1 1/1] mptcp: fix UAF of child socket on listener close
-Date: Thu, 19 Nov 2026 11:08:06 -0500
-Message-ID: <2026-11-19-1-daily-reply-0004@kernel.org>
+	leon@kernel.org,
+	jgg@ziepe.ca,
+	kaishen@linux.alibaba.com,
+	linux-rdma@vger.kernel.org,
+	Cheng Xu <chengyou@linux.alibaba.com>
+Subject: Re: [PATCH 6.1.y] RDMA/erdma: Use IRQ-safe XArray helpers for QP and CQ tables
+Date: Thu, 19 Nov 2026 11:08:03 -0500
+Message-ID: <2026-11-19-1-daily-reply-0001@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261118125032.200934-2-jiayuan.chen@linux.dev>
-References: <20261118125032.200934-2-jiayuan.chen@linux.dev>
+In-Reply-To: <20261118032858.92963-1-chengyou@linux.alibaba.com>
+References: <20261118032858.92963-1-chengyou@linux.alibaba.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -69,11 +64,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> mptcp_close() orphans the listener subflow before inet_csk_listen_stop()
-> runs on it. A child created in that window inherits SOCK_DEAD, so a
-> following RST frees it while it is still in the accept queue
+> Use IRQ-safe XArray helpers for all QP and CQ create-path updates,
+> including the GSI QP store and error paths.
 
-Queued for 5.15, thanks.
+Queued for 6.1, thanks.
 
 -- 
 Thanks,
