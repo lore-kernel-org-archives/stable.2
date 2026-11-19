@@ -1,56 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795104523;
-	b=i5KSrkl2bSMFcHJrm2d6Bnvle2nM5L+1YVFYDvgGDhRAxwLP29omUkgN20qqRP7Puels
-	 LxcSO3eKS0TPKZfSooDICMlhLE+Kx+2acZhjGW2wZ+3fuJNoIHJGxO02S9+XJY8nd4E9B
-	 /YFBWRDOJAaY+XgGDCZiTsR7MJB49EW5InBOag43ZexPWbkZlehgIp9dm3LyNUB/N4YZt
-	 l2ACow7Iy0V3kHuAixgKQXgdbnRomBKolRexiJhBu4qczuOnLJAmxzgl0kqFBLgRIwV7H
-	 wZmS4WQtK172VDTeRN+Kq9jU0gnUrDEPUOgoaIG4ZdNzfMwWySMmBR5U47eJLYfEl7g==
+	t=1795104519;
+	b=Rho1gS2/1BLMjCeJJLNydaQJvuqqsXVIprgHAiCKXy6oIcWALEJekaQv6goh68ypMI4m
+	 mIM3HojnZzOIOX3G/ZPQbI3UGIktKmIkta7dqMnC38VFyfUwGx4HPcTCnuAQewlwfiXOp
+	 3PJtlro2GLPUmWLzu22fWZCIsY0B6syJEYoS2/F7bXD9MG2/jhEFjV3+2SVg26RxY/V7s
+	 fjuYiayH0p+BTOJFW7j7I3+uFY5iB2OBlkp96KLZfjQdjhTXQ/MvfpbonU0/aXQn20MmS
+	 ZQY4qTrA80HFgbeT/NxoHkH6RaNquUnTJ6vwTUKf2Kgprw0VfEfmxcWqQyuwskpophQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795104523;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795104519;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=mTY9bnZUOt9ThwvvKPosXBpIs6tF3ni53KBNNTm1a48=;
-	b=TYf/wUoB468MFYybc7ISr5+jCFEwALCT5XuIe3QAGxLEqMKwLjHdJeFBLVyNUZLKOX27
-	 ME+shQZ3uCz52Qty+FAWRP+C31+4fT1kiFTmhqMwUCZBAPoBQBepC5YL85KDAYxgwBPaq
-	 dFMWG+Vz4VQMU/DQPQM5auvHUV12/C4/TxVuXdoDkXoUHGblhIkfhGK+LUdAQz/R5eBWT
-	 xR7iAMisS1muD+GwsqU+IG4DluPi7QA5fPKrtNip/lS0iVH5b2xutBFpPLQSQnbKqfgrw
-	 audpGc6G1HvIBNpH2JVtRW6SWOSFPHtXs+l+U+dHm4dJPn2xhCsHh+njuZFSpfqJT4A==
+	bh=nQzuY4eTt4o8Je2TgprHx3t3erfXmz/v+b5bATdP9VA=;
+	b=3OSjakUYE4MxsW538DXdwTcaytsok+nw5WgZJKfStvtBadQxnyl1ncEfoUvCIuGdgsu0
+	 cgBnXL1RNTjAYjxHYEBCiWCdvI/QCFqBzUVAMJ4TQLhpLlm3lmzOC63G3r1UAX1Nzf3Bf
+	 kdap55RUv8pXWnnthNLmK5re1j0qI/FlzWMqjhbN5srKVxUzm2yrcoXAwEtFWrLbu3ynU
+	 6WBbFfZvkx9kmXjCX+US55BK//lrftdR2iB8jEYxP8iyydWp5LHM6iwGjnmtIO2vPreao
+	 +qV9Z7WajFSDuFw1uEHg3EI8Y25i+O5Fr9JS+ahgk2kPU1b/Ye6jDS46T23Vm6fZxmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjSng88j;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W21dMh8B;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAD8660A2609;
-	Thu, 19 Nov 2026 16:08:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAA860A2611;
+	Thu, 19 Nov 2026 16:08:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kjSng88j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 026611F000C5;
-	Thu, 19 Nov 2026 16:08:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=W21dMh8B
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D79B81F000C4;
+	Thu, 19 Nov 2026 16:08:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795104523;
-	bh=mTY9bnZUOt9ThwvvKPosXBpIs6tF3ni53KBNNTm1a48=;
+	s=k20260515; t=1795104519;
+	bh=nQzuY4eTt4o8Je2TgprHx3t3erfXmz/v+b5bATdP9VA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=kjSng88jykUwE76mLql8L+qAgE77c6lqBLkbtuVoeD8R9yONvS0oQymxROZlgvFPe
-	 Haqbbva3/kAoDuikA884Kfi4HvRNne06ECCRsJIFqv8uVcj5vCZbz1a4cY6KJglYPo
-	 2qKmRyyx6IbZrcEvhqfF12gtjcgslzpAk2N+XCND9CO447ImoD0rD4V7vux0SQ060c
-	 HUFEfjMHs9qwjsjf+fDLlgRXPe0nRtuvx/ttX/lNQl0kxFE+NktuuZsfxMi9Wq/dBF
-	 HWkIK0M5lX1T0+vkyWlIBpSUwYGurSll4Vg+ZMrZeZxbzE0slL2egf6sy8VdBcorF7
-	 51cXiiobDe3yg==
+	b=W21dMh8BL2RmTg/CRIvILQQacvJrUl/EbgVp4cLa8bbyVekW0EqN4i3RZtaIUasOr
+	 pO7fyyrODBA+rkjAHxR08sjtgpb1hQsGO5qGzKZrOR/LpzkIXoD7JIRjI6ar4BKtmd
+	 b52ab7Uuwe29Zo2shtz9pDfgXM9xfhS8LLTPmsw+yVPmyCOGy1Un7C64iIDl5RZp2m
+	 zjV+oDVvwrkZWXisAWxzIGAka7DS0pqZZBpBazB7g1gre3t8JP3Iu5+qXs6lqJ31kK
+	 n4qPAsjfMvwRn4xwFhUTJU8C8wdYRmsqYdhYXmhWn1kqxtDVPOUWkYPLTUrQGJi1wH
+	 842o/k0KYpy8w==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: "stable@vger.kernel.org" <stable@vger.kernel.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	bpf@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	=?utf-8?b?5qKT5bed5ZKy5aSq?= <inkxiao12@gmail.com>
-Subject: Re: [PATCH 6.12.y] Backport request: 49b18315be4e ("bpf: Add NULL check for dynptr in bpf_verify_pkcs7_signature")
-Date: Thu, 19 Nov 2026 11:08:11 -0500
-Message-ID: <2026-11-19-1-daily-reply-0009@kernel.org>
+	Eric Dumazet <edumazet@kernel.org>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	James Sawyer <jamessawyer@outlook.com>
+Subject: Re: Request: 44378d02c5aa and 73e08d50eb13 (virtio UDP tunnel GSO validation) for 6.18.y and 7.3.y
+Date: Thu, 19 Nov 2026 11:08:07 -0500
+Message-ID: <2026-11-19-1-daily-reply-0005@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAMcAce8eFDXx_BqjMPd-94uX5Hk4KNxkjPtRXW7wOvy_hWjAHA@mail.gmail.com>
-References: <CAMcAce8eFDXx_BqjMPd-94uX5Hk4KNxkjPtRXW7wOvy_hWjAHA@mail.gmail.com>
+In-Reply-To: <DU4P194MB2971D02EB218B47CFBC82525A77A2@DU4P194MB2971.EURP194.PROD.OUTLOOK.COM>
+References: <DU4P194MB2971D02EB218B47CFBC82525A77A2@DU4P194MB2971.EURP194.PROD.OUTLOOK.COM>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,18 +65,14 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Please consider backporting upstream commit:
+> Please consider these two mainline commits for 6.18.y and 7.3.y, in
+> this order:
 >
->   49b18315be4e590fae0fc39c87d46c87e9ec903c ("bpf: Add NULL check for
-> dynptr in bpf_verify_pkcs7_signature")
->
-> to linux-6.12.y.
+>   44378d02c5aa ("net: always dissect GSO packets in __virtio_net_hdr_to_skb()")
+>   73e08d50eb13 ("net: virtio: validate outer protocol of UDP tunnel GSO packets")
 
-Queued for 6.18, thanks.
-
-On 6.12 bpf_verify_pkcs7_signature() lives in kernel/trace/bpf_trace.c, so
-49b18315be4e ("bpf: Reject NULL data/sig in bpf_verify_pkcs7_signature")
-does not apply. Please send a [PATCH 6.12.y] backport if you want it there.
+Queued both for 6.18 and 7.3, thanks (7.3 already had the first one). I also
+queued the tun skb->protocol follow-up on both.
 
 -- 
 Thanks,
