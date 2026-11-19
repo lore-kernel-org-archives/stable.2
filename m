@@ -1,51 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.119.170.32
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.26
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795080838;
-	b=yTRtvRg7NOLShuAHGN7OHJa8eOTHdTK3557yu9+cpvtHNMxUvssK2zlfxx7fGZsoP52L
-	 DkgUR7PQbMY4lf+ao7WSICGm+RKk0oT8s2vCWR3S+NGsDau/6QvFoifxrEi8Vfp36TB9T
-	 fiobOeMHEV2L+ieMdDTP7qycnCI81h5QLlCOYevkUOmm+axunY4DzQ1KJn6FbpCKZox8j
-	 f5CNagVH1IIQ7YyXi1Tc2g4n9K6fvFtzhkAh1r10mifgyrHDTl5nRwQ1jMbq2oO6cEbrD
-	 XsoPp7Jj18fERjEoagvhR5MVowE1W0eSt+VgOlx+kmRYKqIymyQiQQqogDWxMwDLCRw==
+	t=1795080937;
+	b=CC3EcCP7zZwrJP33R72DJh8QSTH/GMqTAOrAn5tKNGVSeKY14zjBSdSwphXK5kiEzaqS
+	 7IiIOZ1fgsAxlrGL752Ghncgs4GjxuEV0gRA9U8OJUj4ZCUFIIFyWASn/vYWFtgwlG7Jm
+	 Rxn1CZQQ8N7FmG8rpULG+Bzz44j43MbbigxNbsLJSNIVyHvSUyoLAPWNw6iIgd78hWiuh
+	 rMkYObAUhEXg4uX+S4cRhmwxXIOPIZeJRko/L6SKirsAhC65lZf6Ndakei3UL+ne85GN6
+	 M5AbhRJNfb0+Ov4Jo4dGXLlIAH3xfz8UL0O7jSODVZ8a+UCiCqcHOwWpwFs+EaeIVnA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795080838;
-	h=DMARC-Filter:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=3FdYbGM4BmO4PXujten7LVhc0nlTJDBtBmP+989ACPo=;
-	b=m1TKpOsibUie+Q9GtIyDUMTuRHxOzTI9qlLgSx1DuZhsZvRZXU+eKwWh0xFXD2oskXIj
-	 TZKnew2zwas4Laol3pohHXvacq2lxYZtWeckAkZ2zhr/0Wee1SGKb70AS4L7pVIrFHMev
-	 lAjUKJcJT5JoJEmp4XbQbDEIc/tFgOROLHupZ0XO0CKeBSzC8tFlWtd4i48WI+DAAFais
-	 qibOXCgOMgAbOFO6fdCpd6nwGuFScDGV+BVcs+2qk65MwR0KGaP3Abxx9/qttxFko+kab
-	 5/wmFDZ5z8KzsPAiiDmuo2n7aS8E1l/y1muWJ11ma223Ha5pU5/6MpShwPrmQOABv3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795080937;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+vyuFtZZY82piBVNfH5j8rx0gFBhiL1nUBtOUXY/BpM=;
+	b=WFSsJ8lNOfj3xw1a0CZk0kwWteJQTf9X60OqbmNxTcIMlKiOSF+rqbFq1wOqXXgQDtT4
+	 jIvlKqtFEl6laG0Y+JKxT2YuH9q+ef3fx+4Om7wbkAjiC3NFkfGNMqn+A9Il6GLIT9ECC
+	 itVgHGjYBjPaFDvIhmjZ54LmECwWrgihiJ38mbUiPEW8Xnvf99h2GFfu705HIFs+pySGJ
+	 OITOftlrGBLS0fnizRIThgO2bfI9JZfRo0dj2rJNxBMOMLo1D8O3L6DoypKwCECjISkIM
+	 +eIgFCRjLXdEe49lxZuWXmw0YO9Lz0dVcUi2fO1oxrYKjmQ/AJGuWrFZkqXF/hLpSwg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=crapouillou.net;
-	spf=pass smtp.mailfrom=crapouillou.net;
-	arc=none smtp.remote-ip=185.119.170.32
-Received: from aposti.net (aposti.net [185.119.170.32])
+	dmarc=pass header.from=becholey.ch;
+	spf=pass smtp.mailfrom=becholey.ch;
+	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=Q0cvf+Am;
+	arc=none smtp.remote-ip=79.135.106.26
+Received: from mail-10626.protonmail.ch (mail-10626.protonmail.ch [79.135.106.26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8C5606A324;
-	Thu, 19 Nov 2026 09:33:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D8C5606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=crapouillou.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=crapouillou.net
-Message-ID: <1aea100330532a23abb11dd55235970da48107e5.camel@crapouillou.net>
-Subject: Re: [PATCH v4 2/7] pinctrl: ingenic: Fix hardware dual-edge
- interrupts on X1600
-From: Paul Cercueil <paul@crapouillou.net>
-To: "H. Nikolaus Schaller" <hns@goldelico.com>, Linus Walleij	
- <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bartosz
- Golaszewski	 <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
-	letux-kernel@openphoenux.org, stable@vger.kernel.org
-Date: Thu, 19 Nov 2026 10:33:53 +0100
-In-Reply-To: <12e66f571e8765b1eefeab5939c2c874b71b28af.1795022736.git.hns@goldelico.com>
-References: <cover.1795022736.git.hns@goldelico.com>
-	 <12e66f571e8765b1eefeab5939c2c874b71b28af.1795022736.git.hns@goldelico.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1001F60A2612
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 09:35:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1001F60A2612
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=Q0cvf+Am
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
+	s=protonmail; t=1795080929; x=1795340129;
+	bh=+vyuFtZZY82piBVNfH5j8rx0gFBhiL1nUBtOUXY/BpM=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=Q0cvf+Am4NaPgrtTMYdOe7xKYf1Bzy6U3yeBfP7mmo5VgE/OOUe5k0xr4A8ZBeydt
+	 bHGgUIvrJ8xszUz8nGwp4nif1863OWfF3NydKygNOXKkuMgHnKkTVFeGiGZfzUvUIa
+	 sOhwgsfdLIRNzWXKj0FoU8pCKIdwgbUt6Dzsw54F12cTndyNRDBveSPfaI5/EPYn23
+	 g0BKR7VTV4F6rJiI3f/Y7xaPAwfSsxhdcsGcHfRw50e5VSgBudNiPtmFvDm9X/lp3l
+	 m2ibMvcxJOXnB6OJNg4pIFbhLexxu682lqX/SVU5Hl4JgBINo7cU893ZgBDLtEZsoe
+	 QPJ4lA8Kqb3/Q==
+Date: Thu, 19 Nov 2026 09:35:25 +0000
+To: Christian Lamparter <chunkeey@googlemail.com>, "John W. Linville" <linville@tuxdriver.com>
+From: Alexandre Becholey <alex@becholey.ch>
+Cc: Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, linux-wireless@vger.kernel.org
+Subject: [PATCH] wifi: carl9170: take the URB reference before queueing the TX frame
+Message-ID: <20261119093511.558151-1-alex@becholey.ch>
+Feedback-ID: 60743817:user:proton
+X-Pm-Message-ID: 9cf7b70c87a101fc6fb649e362f16d52d3b8ebd9
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -55,110 +61,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Nikolaus,
+carl9170_tx() puts a frame on ar->tx_status[] while it holds only its
+initial reference and takes the reference for the URB afterwards. A TX
+status for the frame's cookie that is processed on another CPU in
+between drops the only reference, and mac80211 frees the frame. The
+driver then increments the dead refcount and submits the freed skb as
+URB buffer and context.
 
-Le mercredi 18 novembre 2026 =C3=A0 18:25 +0100, H. Nikolaus Schaller a =C3=
-=A9crit=C2=A0:
-> Use the hardware dual-edge detector on X1600 and X2000.
->=20
-> Set PAT1 when configuring both edges and program EDG on X1600.
-> Keep software edge switching for older SoCs without EDG.
->=20
-> Tested on X1600 and X2000 using GPIO buttons and register readback.
->=20
-> Fixes: 4da56f9c6f14 ("pinctrl: ingenic: add x1600 support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: H. Nikolaus Schaller <hns@goldelico.com>
+A device can hit this window by reporting TX status for the small,
+predictable cookies while the host transmits, which gives a KASAN
+slab-use-after-free in carl9170_usb_tx() and carl9170_tx_callback().
 
-Reviewed-by: Paul Cercueil <paul@crapouillou.net>
+Take the reference before the frame is queued, as the driver did
+before commit caf1eae20668 ("carl9170: improve unicast PS buffering").
 
-Cheers,
--Paul
+The bug was found, and the reproducer and this fix were written, by AI
+agents (Claude Mythos and Claude Opus models). The analysis and the
+patch were reviewed by a human.
 
-> ---
->=20
-> Notes:
-> =C2=A0=C2=A0=C2=A0 Changes V4:
-> =C2=A0=C2=A0=C2=A0 - Fix Fixes: and stable Cc trailers.
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (suggested by Paul Cercueil and Sashiko-Bo=
-t)
-> =C2=A0=C2=A0=C2=A0 - Merge the common shadow-register paths and simplify =
-EDG handling.
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 (suggested by Paul Cercueil)
-> =C2=A0=C2=A0=C2=A0 - Retested hardware dual-edge interrupts on X1600/X200=
-0 after the
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 shadow-register refactoring. Verified both=
- button transitions
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 with evtest and confirmed via devmem2 that=
- PAT1, PAT0 and EDG
-> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 remain unchanged across GPIO input transit=
-ions.
->=20
-> =C2=A0drivers/pinctrl/pinctrl-ingenic.c | 17 ++++++++---------
-> =C2=A01 file changed, 8 insertions(+), 9 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/pinctrl-ingenic.c b/drivers/pinctrl/pinctrl-
-> ingenic.c
-> index 88c5edeaaddcc..7f65f3abf05f5 100644
-> --- a/drivers/pinctrl/pinctrl-ingenic.c
-> +++ b/drivers/pinctrl/pinctrl-ingenic.c
-> @@ -3601,7 +3601,8 @@ static void irq_set_type(struct ingenic_gpio_chip *=
-jzgc,
-> =C2=A0
-> =C2=A0	switch (type) {
-> =C2=A0	case IRQ_TYPE_EDGE_BOTH:
-> -		val1 =3D val2 =3D false;
-> +		val1 =3D false;
-> +		val2 =3D is_soc_or_above(jzgc->jzpc, ID_X1600);
-> =C2=A0		val3 =3D true;
-> =C2=A0		break;
-> =C2=A0	case IRQ_TYPE_EDGE_RISING:
-> @@ -3635,15 +3636,13 @@ static void irq_set_type(struct ingenic_gpio_chip
-> *jzgc,
-> =C2=A0		return;
-> =C2=A0	}
-> =C2=A0
-> -	if (is_soc_or_above(jzgc->jzpc, ID_X2000)) {
-> -		ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
-> -		ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
-> -		ingenic_gpio_shadow_set_bit_load(jzgc);
-> -		ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset, val3);
-> -	} else if (is_soc_or_above(jzgc->jzpc, ID_X1000)) {
-> +	if (is_soc_or_above(jzgc->jzpc, ID_X1000)) {
-> =C2=A0		ingenic_gpio_shadow_set_bit(jzgc, reg2, offset, val1);
-> =C2=A0		ingenic_gpio_shadow_set_bit(jzgc, reg1, offset, val2);
-> =C2=A0		ingenic_gpio_shadow_set_bit_load(jzgc);
-> +
-> +		if (is_soc_or_above(jzgc->jzpc, ID_X1600))
-> +			ingenic_gpio_set_bit(jzgc, X2000_GPIO_EDG, offset,
-> val3);
-> =C2=A0	} else {
-> =C2=A0		ingenic_gpio_set_bit(jzgc, reg2, offset, val1);
-> =C2=A0		ingenic_gpio_set_bit(jzgc, reg1, offset, val2);
-> @@ -3718,7 +3717,7 @@ static void ingenic_gpio_irq_ack(struct irq_data *i=
-rqd)
-> =C2=A0	bool high;
-> =C2=A0
-> =C2=A0	if ((irqd_get_trigger_type(irqd) =3D=3D IRQ_TYPE_EDGE_BOTH) &&
-> -	=C2=A0=C2=A0=C2=A0 !is_soc_or_above(jzgc->jzpc, ID_X2000)) {
-> +	=C2=A0=C2=A0=C2=A0 !is_soc_or_above(jzgc->jzpc, ID_X1600)) {
-> =C2=A0		/*
-> =C2=A0		 * Switch to an interrupt for the opposite edge to the one
-> that
-> =C2=A0		 * triggered the interrupt being ACKed.
-> @@ -3758,7 +3757,7 @@ static int ingenic_gpio_irq_set_type(struct irq_dat=
-a
-> *irqd, unsigned int type)
-> =C2=A0		irq_set_handler_locked(irqd, handle_bad_irq);
-> =C2=A0	}
-> =C2=A0
-> -	if ((type =3D=3D IRQ_TYPE_EDGE_BOTH) && !is_soc_or_above(jzgc->jzpc,
-> ID_X2000)) {
-> +	if (type =3D=3D IRQ_TYPE_EDGE_BOTH && !is_soc_or_above(jzgc->jzpc,
-> ID_X1600)) {
-> =C2=A0		/*
-> =C2=A0		 * The hardware does not support interrupts on both edges.
-> The
-> =C2=A0		 * best we can do is to set up a single-edge interrupt and
-> then
+Fixes: caf1eae20668 ("carl9170: improve unicast PS buffering")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexandre Becholey <alex@becholey.ch>
+---
+An emulated AR9170 that answers TX status for cookies 1..4 while the
+host sends traffic (an unprivileged UDP socket is enough) triggers
+"refcount_t: addition on 0" and KASAN use-after-free on v7.3.1 and
+"kernel BUG at lib/refcount.c:34" on master 666539eecdf4. With the fix:
+no report in 68 patched trigger boots (9 on xHCI, 9 on master); traffic
+with a well-behaved device (also HT/A-MPDU) is unchanged.
+Reproducer available on request.
+Applies to master 4405c18c95d2 (tx.c unchanged since the tests).
+ drivers/net/wireless/ath/carl9170/tx.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
+
+
+diff --git a/drivers/net/wireless/ath/carl9170/tx.c b/drivers/net/wireless/=
+ath/carl9170/tx.c
+index 06aaf281655b..46d8bc6647e3 100644
+--- a/drivers/net/wireless/ath/carl9170/tx.c
++++ b/drivers/net/wireless/ath/carl9170/tx.c
+@@ -1364,13 +1364,6 @@ static void carl9170_tx(struct ar9170 *ar)
+=20
+ =09=09=09atomic_inc(&ar->tx_total_pending);
+=20
+-=09=09=09q =3D __carl9170_get_queue(ar, i);
+-=09=09=09/*
+-=09=09=09 * NB: tx_status[i] vs. tx_status[q],
+-=09=09=09 * TODO: Move into pick_skb or alloc_dev_space.
+-=09=09=09 */
+-=09=09=09skb_queue_tail(&ar->tx_status[q], skb);
+-
+ =09=09=09/*
+ =09=09=09 * increase ref count to "2".
+ =09=09=09 * Ref counting is the easiest way to solve the
+@@ -1378,9 +1371,18 @@ static void carl9170_tx(struct ar9170 *ar)
+ =09=09=09 *=09carl9170_tx_callback
+ =09=09=09 * and wlan tx status functions:
+ =09=09=09 *=09carl9170_tx_status/janitor.
++=09=09=09 * It must be taken before the frame is queued on
++=09=09=09 * tx_status[], where the status path can find it.
+ =09=09=09 */
+ =09=09=09carl9170_tx_get_skb(skb);
+=20
++=09=09=09q =3D __carl9170_get_queue(ar, i);
++=09=09=09/*
++=09=09=09 * NB: tx_status[i] vs. tx_status[q],
++=09=09=09 * TODO: Move into pick_skb or alloc_dev_space.
++=09=09=09 */
++=09=09=09skb_queue_tail(&ar->tx_status[q], skb);
++
+ =09=09=09carl9170_usb_tx(ar, skb);
+ =09=09=09schedule_garbagecollector =3D true;
+ =09=09}
+--=20
+2.53.0
+
+
