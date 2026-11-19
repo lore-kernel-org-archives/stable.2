@@ -1,62 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795121509;
-	b=MvdWT0BXR1uQZ7tXPtaf9LQj234l32YrDO9qYT2gRB/XiD93A4AQ/FJ8RiwtRCMB3sYU
-	 bMTKVWH/kk5aDTIRwJ4rw5ITT7AWQfltZpL9D96a/qVPp9CTGsbLu3wAzPxOy3E3R0BaD
-	 EtlzXZhlnqn76KWoLROF7pPdmB+hUb3iPAbCPWJFFoZep2XYUSUXS1At31czd3eb19AB+
-	 kvYCqJhK3nzw/iMgbzbvd0nb6eXEvFiOjZpz9rfb+/XKhMvS1D26hEKWCvVoGfgn5ARH0
-	 l31NnltxWU9mYYXKisRjja5sygoTEady2bMR1sV1vFG3AXzZFazbOJrxwK5GdW47DTg==
+	t=1795121749;
+	b=pKcDjcVPweoz4guXDyRMGYaaPgYvVv4DWZ23OyojiJITibVXWC11aTnT5WoicLZsmjOS
+	 UHPqAqQYFNf1XFlm+JuGDYljR1bjjc8zm7+iN+YR84V7khDKQwHM+N8nR+vA5L9qcOggV
+	 KFyFExHqPNza3S7oWlf8FC8y4/WeOW+nz51gV3WIDnFbz6Jv/x8j4BvOm/Ni+Fo5NTceb
+	 PzpLIr57tGb0D/6Byrqw55CPunopscu+iP6+Y9hM/J+uZIzbxwuxK2hIci0rNYFTU/bDf
+	 zI75C/EhGfm4rIJDq18OqGaFatVtg+kEsbaHQEM7U+eDuf/zjtwQO5EpJx+beG7Qibg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795121509;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=ozleJ+L+uNTLaGMigNL/2EmL/Gas2wcTiKBPcA8A+ng=;
-	b=FUu/ywyWlvrQ2laRdIqbrnI8U6H8rZNj46qgduL7FTwzOrlxLVj/j4UgtZ3tNZIcf4SZ
-	 nYxwu/YPyvM3pln3MDI6uyO9Gp8kmzibXr8/PGgx34fTi3wwOm/2CMmkhGOz6bbR/lPAH
-	 toPBv84DYy7ZZHN+DY8W6cGAfYavqKuuYlIRe40UjJ2eQxPZgNg8uX8e2Ogap6+351RUd
-	 QoAC0syMsFPSnwSnVATZmgdaWisKIZF9bRfhVYa3arqvtyTy5OgAJng4W6U2x79V3xnjr
-	 6InBxPivka1tBmtvEmragTwcv6Z1+1JJRGYGGl1g0BYX1Dc6/tP09hMas4tPHML0hPQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795121749;
+	h=Received:DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:
+	 Message-ID:References:MIME-Version:Content-Type;
+	bh=VmFIuhYfP2v45XhFsesPKtjzFx6PdLailA1+NFQsFxc=;
+	b=SDS0aDZzXPjX4L8ZPzn9zVqT58g7CJjFlGp9OvsJVSs9Bf9DVwHKa4ccQE2x6Gfk/ZZr
+	 7650S3vPMk55w2BOZYkcvvhijfDpNSUxldd7jaOD1h1imTdbFwyLMoqwIi3u0Tet+Lcet
+	 WDSXlOjyy8NHqwnXDqRnOlMz96QU64Tt7UTeJbNOUQq3UfLyHjP7bDzZ9ZGXKe1DqhTN8
+	 Yp/Q3u699c+IjoazWh+ZkYlzMKQNQGGsLq0YYibWlPFEnyfcNUbMuSCsu2S3DnOL37uR8
+	 2F8QJ5yve4iaC/3EOwrgzgQg6AutlVw0HO1pl8B1D/hr4EONrETETmxrvn+eTSzQaNQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6lvy8Sr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bfYJbHsg;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1117F606A901;
-	Thu, 19 Nov 2026 20:51:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491A7606A320;
+	Thu, 19 Nov 2026 20:55:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=b6lvy8Sr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C97C51F000C0;
-	Thu, 19 Nov 2026 20:51:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bfYJbHsg
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EEB31F000C0;
+	Thu, 19 Nov 2026 20:55:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795121508;
-	bh=ozleJ+L+uNTLaGMigNL/2EmL/Gas2wcTiKBPcA8A+ng=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=b6lvy8SrMm1caN0nwEFipqehaDace7R5FngazPpcN8ApF8n2IWLmcxHhA5Fnl1a+u
-	 lD0jQnMmVwXbAcsatXZUh723s23r7zFfmyj6AJiqDEbosc9UpKnghaS5g/HgzoZYjb
-	 QVPvSK9k2/chgan4mu/4p4e8S/tvjkLaW5/m+KqiZexAxDOx8UsP3AMIy4S1yqYZhg
-	 EUnUHyYSB32BTIgHyQQowruyw194Kclm7GjLrlIBZZ7bliRF3+IZgAi8hqgEyFqOLd
-	 ne+oCuBIJal3q4MHYjibt2rEM4ADrDPLv574FsMKgn9gsU4EjQ3knS4Wy4oR4RoQ6m
-	 c6J8eXZXNBOow==
-From: Lee Jones <lee@kernel.org>
-To: lee@kernel.org,
-	James Tai <james.tai@realtek.com>,
-	Yu-Chun Lin <eleanor.lin@realtek.com>,
-	=?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Tzuyi Chang <tychang@realtek.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-realtek-soc@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH v2 12/12] pinctrl: realtek: rtd1625: Set dcycle_offset to NA for pins without duty-cycle support
-Date: Thu, 19 Nov 2026 20:49:08 +0000
-Message-ID: <20261119205013.2563811-13-lee@kernel.org>
-X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
-In-Reply-To: <20261119205013.2563811-1-lee@kernel.org>
-References: <20261119205013.2563811-1-lee@kernel.org>
+	s=k20260515; t=1795121748;
+	bh=VmFIuhYfP2v45XhFsesPKtjzFx6PdLailA1+NFQsFxc=;
+	h=Date:From:To:cc:Subject:In-Reply-To:References;
+	b=bfYJbHsg7ayESzygWUmQpu8CReYiL28GmUFbYPdLGqbcshAsXGweYjDSb2F5rLY45
+	 kU+Q4NbL81lZ5NStlB8eMEsCXBcWSIEAXTf477Q0sfFYgWSJducvXDEePKEvTmN924
+	 B3w9eRkrDv7SteU4nKu6H2R8XK0nXQuHYxlCoI96gUJJjeX2FudV07ansgmkxZEEPR
+	 /yD/apNSH+hIxuztRsqO+RUrCTvcWfNoEVXV/UhFaLWq1cSbcO5Ci6Gj3DmyVOBPp7
+	 I6nbr+qvKVb5tYhBfRU1OazG/II4Qa4kEvGqG7iSFHf7ojE5v6A7wgZAKOC3TpPDDT
+	 BoIcd7pKsSqZA==
+Date: Thu, 19 Nov 2026 21:55:46 +0100 (CET)
+From: Jiri Kosina <jikos@kernel.org>
+To: Krish Gulati <krishgulati7@gmail.com>
+cc: Benjamin Tissoires <bentiss@kernel.org>, Andy Lutomirski <luto@kernel.org>, 
+    linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+    syzbot+bc537ca7a0efe33988eb@syzkaller.appspotmail.com, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH] HID: core: serialize report_descriptor_read() against
+ probe and remove
+In-Reply-To: <20261010095211.12831-1-krishgulati7@gmail.com>
+Message-ID: <578s4770-23p5-78qs-9po9-49oq2sprsos8@xreary.bet>
+References: <20261010095211.12831-1-krishgulati7@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,52 +60,48 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-In rtd1625_main2_sconfigs[], pins gpio_86 through gpio_91 do not support
-clock duty-cycle adjustment (dcycle_maskbits is 0), but specify 0
-instead of NA for dcycle_offset.  Because rtd_pconf_parse_conf() tests
-sconfig_desc->dcycle_offset == NA to determine whether duty-cycle
-configuration is supported, an offset of 0 causes it to compute
-GENMASK(0 - 1, 0) and corrupt the pad control register.
+On Sat, 10 Oct 2026, Krish Gulati wrote:
 
-Set dcycle_offset to NA for gpio_86 through gpio_91.
+> Since commit 54f32fd5dff9 ("HID: Make report_descriptor available for
+> all devices"), the "report_descriptor" sysfs attribute is part of the
+> device's attribute group, so it exists from device_add() until
+> device_del(). It reads hdev->rdesc, but that buffer only lives from
+> hid_open_report() until hid_close_report(), that is, for the duration
+> of a driver binding. For a driver with a report_fixup() callback,
+> rdesc is a private copy that hid_close_report() frees, so a read that
+> races with the driver being unbound accesses freed memory. syzbot
+> reports this as:
+> 
+>   BUG: KASAN: slab-use-after-free in report_descriptor_read+0xb5/0x100
+>   Read of size 24 at addr ffff888078d61f00 by task fido_id/7281
+>   ...
+>   Allocated by task 10:
+>    kmemdup_noprof+0x2b/0x70
+>    hid_open_report+0x1fa/0xf00
+>    lg_probe+0x29c/0x890
+>    hid_device_probe+0x46a/0x870
+>    ...
+> 
+> Because hid_close_report() also clears rdesc and rsize, the same missing
+> serialization can make the reader see a NULL rdesc with a non-zero
+> rsize.
+> 
+> Hold the device lock in report_descriptor_read(). The driver core
+> already holds it across probe and remove, so a read can no longer
+> overlap with them.
+> 
+> Reported-by: syzbot+bc537ca7a0efe33988eb@syzkaller.appspotmail.com
+> Tested-by: syzbot+bc537ca7a0efe33988eb@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=bc537ca7a0efe33988eb
+> Fixes: 54f32fd5dff9 ("HID: Make report_descriptor available for all devices")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Krish Gulati <krishgulati7@gmail.com>
 
-Fixes: e309dbd523b8 ("pinctrl: realtek: add rtd1625 pinctrl driver")
-Closes: https://sashiko.dev/#/bug/linux-8a8f690f-15e7-4dbd-a3a2-87bc00edf7b9
-Cc: stable@vger.kernel.org
-Reviewed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-Signed-off-by: Lee Jones <lee@kernel.org>
----
+Applied, thanks.
 
-v1 => v2: Collect Yu-Chun's Reviewed-by
-
- drivers/pinctrl/realtek/pinctrl-rtd1625.c | 12 ++++++------
- 1 file changed, 6 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/pinctrl/realtek/pinctrl-rtd1625.c b/drivers/pinctrl/realtek/pinctrl-rtd1625.c
-index 88f2be37f743..f6e038e4bbdd 100644
---- a/drivers/pinctrl/realtek/pinctrl-rtd1625.c
-+++ b/drivers/pinctrl/realtek/pinctrl-rtd1625.c
-@@ -2993,12 +2993,12 @@ static const struct rtd_pin_sconfig_desc rtd1625_main2_sconfigs[] = {
- 	RTK_PIN_SCONFIG(gpio_65, 0x34, 16, 3, 19, 3, 22, 3),
- 	RTK_PIN_SCONFIG(gpio_66, 0x38, 3, 3, 6, 3, 9, 3),
- 	RTK_PIN_SCONFIG(gpio_67, 0x38, 16, 3, 19, 3, 22, 3),
--	RTK_PIN_SCONFIG(gpio_86, 0x3c, 0, 0, 14, 4, 18, 4),
--	RTK_PIN_SCONFIG(gpio_87, 0x3c, 0, 0, 24, 4, 28, 4),
--	RTK_PIN_SCONFIG(gpio_88, 0x40, 0, 0, 2, 4, 6, 4),
--	RTK_PIN_SCONFIG(gpio_89, 0x40, 0, 0, 12, 4, 16, 4),
--	RTK_PIN_SCONFIG(gpio_90, 0x40, 0, 0, 22, 4, 26, 4),
--	RTK_PIN_SCONFIG(gpio_91, 0x44, 0, 0, 2, 4, 6, 4),
-+	RTK_PIN_SCONFIG(gpio_86, 0x3c, NA, 0, 14, 4, 18, 4),
-+	RTK_PIN_SCONFIG(gpio_87, 0x3c, NA, 0, 24, 4, 28, 4),
-+	RTK_PIN_SCONFIG(gpio_88, 0x40, NA, 0, 2, 4, 6, 4),
-+	RTK_PIN_SCONFIG(gpio_89, 0x40, NA, 0, 12, 4, 16, 4),
-+	RTK_PIN_SCONFIG(gpio_90, 0x40, NA, 0, 22, 4, 26, 4),
-+	RTK_PIN_SCONFIG(gpio_91, 0x44, NA, 0, 2, 4, 6, 4),
- 	RTK_PIN_SCONFIG(hif_clk, 0x44, 13, 3, 16, 3, 19, 3),
- 	RTK_PIN_SCONFIG(hif_data, 0x48, 3, 3, 6, 3, 9, 3),
- 	RTK_PIN_SCONFIG(hif_en, 0x48, 16, 3, 19, 3, 22, 3),
 -- 
-2.56.1.750.gf70dc682cf-goog
+Jiri Kosina
+SUSE Labs
 
