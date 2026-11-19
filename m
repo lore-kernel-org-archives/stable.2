@@ -1,71 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795089101;
-	b=X3VK4gVOTBmuR/+bY18llUa9+QVjdshT3t/z+5cD1PSxi6MGRmK0rMBlxhLxLIrF7gKK
-	 kYeIt8vGnVukoCuMRGia4IouDxGJmNg+sIl8OO3liOulwgMJDb420NKbcESiiKpaWifxb
-	 anHrikxj0/CJlGWP+5eaHltTW7dRpgD6t4FcdR8TUOxua7lGDbUL2uTXMEgIgKoFPWGUe
-	 U1L3EpQLTVhdkWe+eGGwOXSG72QTLAULMFsYfQmN85T/XJf0R5xROn75LgT/CrGyleuBE
-	 2RWty/xXlKdVUrkEFUMkbdBcmjCtlJDn4vLTFMGY9dwJBX/vh9PEzG9sWBxMFxmDGdw==
+	t=1795089147;
+	b=tIA8qM8gyy9eeOYabNg7SON9WPF/AgG8qw+uqRyyrnD6I8aXFddsKnnvZtta6IJa1obw
+	 DW3X75DblcmMCCVFvUdOc/k1uNiluSn9J55dhxxH8HgnA6+jRlrlHpnxO6lQiwZP6hNKo
+	 QAf8+0fcy/Il8BfuR7WatZnBAiVDRXCYS7XD9AO+vCYzUGNuLIOYLS7pVJPfssLZy3ULG
+	 DUZTrecAuHyvgZ97c2w5q0EeVzLrvM73qkjgcFI6MdJrH+QeFjZfNh83rNtFfcXHAHms2
+	 mppnNta6toViA3930UUPbWc4cgV9RsTtV5eiI2dHWnF5798EtTShOL2uWBpQNoSo7Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795089101;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version;
-	bh=Gaiu6KeZj3bJ+9tvYTb007XoS5/RLmD1wLbF+GZ9AZI=;
-	b=fzzY538jGoihuQLdtJFEFExXvlVJxdFxZp9ThIwtl2QDwBvH+fBQ/aW7oOO79JJRRUeZ
-	 xKAQFa01FUaJLHczWm7FDhQ0qRspiQulkZeenQ7M6HJTuXFJnosA5GBDGbMAhNv3Pt22w
-	 Fu1gMOqlaO5shK6OHrInJ/X1BWSKUul36UyJqz2P9keFKa8oTfG1/JQSEyLkTSf4xvkM8
-	 NwM+WQFAWdt8ODIVE+8js7nSteQb+68Qk6txt7MTny2JgdpRRgj+rrIHpH2cqmBcSlfID
-	 Ihx4oVa9NQWaLgHzLXJAC+CIbK+Yb/x3c1UCPJ7jb4z+FB47cxy1mCKetx0BiFtJjMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795089147;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=b2nlTxRHLxUzz9SMo1MtlIFyMY2HxFy4FtJp9Rq7rss=;
+	b=DaFaPM2uEWWWCG1LrCzPGoZ4Q4Rxy1aYGSF8rG40+qceXd5iqSqzAkr+oUAtkGkki87q
+	 Dl1//tE/sDBnEkCBcMollBp29+Z+Ilnjlvx6VgCwa8lzq4VZK5JlDRjA1xNXh1I19Wf4b
+	 Ua0SjHh6pjMfHeNsQImpxMGIr/nXo6s9vC60PHZKWa8bLg+FOdU1n/2/QuWb5/SSQYbPS
+	 7CYKaB/1wNdRAmXVcfh9+EA3X5DaJi2fbqOZlG7bCR0GuLq0REoyGOrqw/i81l4SZyagW
+	 bqnUhsZeHmLuTCHrMKaXBwxOBi11Ptc/wWLUC9+s+uWfpW6YaKb3MYB36JpWUhff6yA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=hSNfNROq;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMzC65+w;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC08606A324
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:51:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AC08606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5EE606A326
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:52:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=hSNfNROq
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=MIME-Version:Content-Transfer-Encoding:Content-Type:Date:Cc:To:
-	From:Subject:Message-ID:From:Reply-To;
-	bh=Gaiu6KeZj3bJ+9tvYTb007XoS5/RLmD1wLbF+GZ9AZI=; t=1795089100; x=2110449100; 
-	b=hSNfNROqZBtpRPZPtaJL43PzHrKRUayUm1VxwbQXzuDWKlGLDbJ4wyN9aOojdWr9roXqqc258wz
-	ycbOfF45zxE9pvJPjzPn6UDCsjwKv5c9Kb+7bZV780Szwy0Ei+qKjPSFz2o44dSwLdVvgUMzo4EnZ
-	FVe2YrM42jM8yRwYAf6VYKEVRI+s56OPbyGEoniNwedbmuYAr3nP4FTmp93EU5KTeWHAvSDwIZ6MR
-	lIc6W4pa6Bya4ncLAj5xUvsA/FfLGlxc3D7zfXENnoZ2Q2mIHxVVp9SJezwJ0UeNNWd2G830JOKSz
-	Uv+j47XBVHQQt3HIchXzTgPyqgVPVyFUIBOg==;
-Received: from [192.168.12.229]
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xU0fw-00000001R6U-3HR9;
-	Thu, 19 Nov 2026 12:51:36 +0100
-Message-ID: <cdcb2fff01938818f26a08fff847c711ad7fb3be.camel@igalia.com>
-Subject: Re: [PATCH 0/4] drm/vc4: Work around GFXH-16 instruction cache
- livelock
-From: Iago Toral <itoral@igalia.com>
-To: =?ISO-8859-1?Q?Ma=EDra?= Canal <mcanal@igalia.com>, "Juan A. Suarez
- Romero" <jasuarez@igalia.com>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, Raspberry Pi Kernel Maintenance
- <kernel-list@raspberrypi.com>, Maxime Ripard <mripard@kernel.org>, David
- Airlie <airlied@gmail.com>,  Simona Vetter <simona@ffwll.ch>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org, 
-	stable@vger.kernel.org
-Date: Thu, 19 Nov 2026 12:51:36 +0100
-In-Reply-To: <584c3855-5fa5-4b06-a95f-c6c0816cea08@igalia.com>
-References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
-	 <e945bdd00b4eecec4b7e451e35cb39855ad2e0de.camel@igalia.com>
-	 <584c3855-5fa5-4b06-a95f-c6c0816cea08@igalia.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fMzC65+w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21F081F000CB
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:52:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795089147;
+	bh=b2nlTxRHLxUzz9SMo1MtlIFyMY2HxFy4FtJp9Rq7rss=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=fMzC65+wDLVYxkRWtrrel5Gz3z1gdzPEBWCD79LTgUuDlvj3XkVjLJNZ8lupjHd5h
+	 Ft2FkxSQL+6qxq1cCIErKl3YYlo6zpykWHZlFrW9UA68ou1WlxWiTu9/ndxZoS6bl2
+	 RoJUPVXScjPTUm1EZvSPLMRyI1TR71y6cGjBwOBdsCmk8yIEr3i26fPdXIur5HsA14
+	 vLB3n8mYYVxUgKPNzLaFfAkw4HIHnuR848hQ7ixWaSkyL5NwvIPNXi8m7s5e6jxVPl
+	 zpIE9DiRnYJXOZDcPVMtKAAnxJ+JOMOj2I6LMZXtL9oaM63tqfsiEf4Csa1iQ+vyh1
+	 6Iji3qMKOPeUA==
+Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-6b85b58d303so583128a12.0
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 03:52:27 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFmFdiy8kevdLzqmlBrHNvWvPiKrcqCcMZGLpZp+fRlEeYmWtb3PHbsFKvsTSwadp/ejUiOt9s=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+EaYUnfE3JJxmOuyP3eWxD1YBMfPjoAZmYge7ic89EyvGj9WVN
+	EW1aOyMtRMK0EhCDIaIWpp5gdCZn7M2UvxAITChEjywZo6qpWI+lCekrshE/Qxl5H7jC1AddSEM
+	+Fu4Orl8DcmV1jOtMhNubzKvs0jnYoQc=
+X-Received: by 2002:a05:6402:3642:b0:6b8:b0d6:53e4 with SMTP id
+ 4fb4d7f45d1cf-6ba1f76a935mr1052480a12.3.1795089145657; Thu, 19 Nov 2026
+ 03:52:25 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -75,141 +59,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261118071444.10258-1-dongtai.guo@linux.dev> <CAAhV-H4TNuXk60LyzZhFwQTfNtdzLEFQTwS84u3ZMQ6b=8S0NA@mail.gmail.com>
+ <0f79389b-ceb3-8c2f-16bb-1111ac40fc43@loongson.cn>
+In-Reply-To: <0f79389b-ceb3-8c2f-16bb-1111ac40fc43@loongson.cn>
+From: Huacai Chen <chenhuacai@kernel.org>
+Date: Thu, 19 Nov 2026 19:52:10 +0800
+X-Gmail-Original-Message-ID: <CAAhV-H5F-T1QqnKaz9GY12qmx-NMFQxw5VOPvkkhWee9tiJBkQ@mail.gmail.com>
+X-Gm-Features: AclHuK_c3lTQadkoQKEF9eyTGKOydeIat8h__CjivNc1X8M3Ip0VknAEs3E4RMY
+Message-ID: <CAAhV-H5F-T1QqnKaz9GY12qmx-NMFQxw5VOPvkkhWee9tiJBkQ@mail.gmail.com>
+Subject: Re: [PATCH v2] LoongArch: BPF: Fix the offset of stptr.w and stptr.d stores
+To: Tiezhu Yang <yangtiezhu@loongson.cn>
+Cc: George Guo <dongtai.guo@linux.dev>, hengqi.chen@gmail.com, guodongtai@kylinos.cn, 
+	bpf@vger.kernel.org, loongarch@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-El jue, 19-11-2026 a las 08:34 -0300, Ma=C3=ADra Canal escribi=C3=B3:
-> Hi Iago,
->=20
-> On 19/11/26 05:17, Iago Toral wrote:
-> > Looks good to me:
-> > Reviewed-by: Iago Toral Quiroga <itoral@igalia.com>
-> >=20
-> > I was not aware that hang checks were happening at second
-> > boundaries,
-> > regardless of the time at which the hangcheck was queued, it
-> > doesn't
-> > sound like a good idea, so I think it is good to change that.
-> >=20
-> > On the other hand, now we rearm the hang check every 100ms instead
-> > which is a much smaller window. I understand this reduces visible
-> > impact of the workaround when the issue happens, but I am wondering
-> > whether this alone has any visible performance impact for the 99%
-> > of
-> > the time we are not hitting the problem, I presume you haven't seen
-> > any?
-> >=20
->=20
-> I benchmarked glmark2-wayland --off-screen (800x600, under labwc) and
-> glmark2-es2-drm (1920x1080 fullscreen), which I believe are
-> representative applications for RPi 3B+, and I observed no
-> performance
-> impact. I even tested 50 ms and I didn't observe a performance impact
-> as
-> well.
->=20
-> If you have other applications you would like to see the benchmark
-> results, just let me know and I can test it.
->=20
+On Thu, Nov 19, 2026 at 9:11=E2=80=AFAM Tiezhu Yang <yangtiezhu@loongson.cn=
+> wrote:
+>
+> On 11/18/26 7:59 PM, Huacai Chen wrote:
+> > On Wed, Nov 18, 2026 at 3:15=E2=80=AFPM George Guo <dongtai.guo@linux.d=
+ev> wrote:
+> >>
+> >> From: George Guo <guodongtai@kylinos.cn>
+> >>
+> >> When testing bpf selftests "jit_insns" and "jit_insns_blinded", the
+> >> "ldst_offsets" subtest fails for word and doubleword stores:
+>
+> ...
+>
+> >>   #define is_signed_imm12(val)   signed_imm_check(val, 12)
+> >> -#define is_signed_imm14(val)   signed_imm_check(val, 14)
+> > Is there instructions really take a 14bit imm (not something like
+> > ldptr.d/stptr.d)?
+> > If yes, I suggest keeping is_signed_imm14() because maybe we need it in=
+ future.
+>
+> According to the LoongArch Reference Manual, there are 8 instructions
+> in total that take a 14-bit signed immediate (si14):
+> ldptr.{w,d}, stptr.{w,d}, ll.{w,d}, and sc.{w,d}.
+>
+> All of them implicitly shift si14 left by 2 bits when calculating the
+> virtual address (vaddr =3D GR[rj] + SignExtend({si14, 2'b0}, GRLEN)),
+> so none of them take an unscaled 14-bit immediate directly.
+>
+> In the JIT, byte offsets for all these instructions should be validated
+> with is_aligned_signed_imm16() and encoded as (off >> 2). Removing the
+> unused is_signed_imm14() macro also helps prevent similar misuse in the
+> future.
+>
+> So there is no need to keep is_signed_imm14(), and v2 should be good
+> to go.
+OK, make sense, queued.
 
-Thanks for checking, I think this is fine then.
+Huacai
 
-Iago
-
-> Best regards,
-> - Ma=C3=ADra
->=20
-> > Iago
-> >=20
-> > El mi=C3=A9, 18-11-2026 a las 18:47 -0300, Ma=C3=ADra Canal escribi=C3=
-=B3:
-> > > Mesa issue #16652 [1] reports GPU resets every few minutes on the
-> > > Raspberry Pi 3. They happen when text labels are drawn over their
-> > > shadows:
-> > > two different threaded fragment shaders, plus untextured single-
-> > > threaded
-> > > ones, in the same tiles.
-> > >=20
-> > > During a hang, the performance counters show four QPUs fetching
-> > > instructions with 0 cache hits, ~6.5M misses per 100 ms, and 0
-> > > valid
-> > > instructions executed. This matches HW erratum GFXH-16: the QPUs
-> > > of a
-> > > slice share one instruction cache and can livelock, evicting each
-> > > other's
-> > > fills. Since shader code always starts at offset 0 of a page-
-> > > aligned
-> > > BO,
-> > > every shader competes for the same cache sets.
-> > >=20
-> > > This series works around it:
-> > >=20
-> > > =C2=A0=C2=A0 - Patch 3 starts each shader's code at one of four offse=
-ts in
-> > > its
-> > > BO,
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 spreading shaders across cache sets.
-> > >=20
-> > > =C2=A0=C2=A0 - Patch 4 clears the slice instruction and uniforms cach=
-es
-> > > when the
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 hangcheck finds no progress, and resets the =
-GPU only if the
-> > > stall
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 persists. It is meant to recover from livelo=
-cks the offsets
-> > > don't
-> > > =C2=A0=C2=A0=C2=A0=C2=A0 prevent.
-> > >=20
-> > > Patches 1 and 2 fix an off-by-one in the shader BO handle check
-> > > and a
-> > > NULL pointer dereference in validate_gl_shader_rec(), found while
-> > > working
-> > > on patch 3.
-> > >=20
-> > > Tested on a Raspberry Pi 3B+ with the issue's reproducer, 4 x 15
-> > > min
-> > > runs:
-> > >=20
-> > > =C2=A0=C2=A0 without the series:=C2=A0 29 GPU resets
-> > > =C2=A0=C2=A0 with patches 1-3:=C2=A0=C2=A0=C2=A0=C2=A0 0 GPU resets
-> > >=20
-> > > [1] https://gitlab.freedesktop.org/mesa/mesa/-/issues/16652
-> > >=20
-> > > Best regards,
-> > > - Ma=C3=ADra
-> > >=20
-> > > ---
-> > > Ma=C3=ADra Canal (4):
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Fix off-by-one in the s=
-hader record BO handle
-> > > check
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Check for a validated s=
-hader before reading its
-> > > thread
-> > > mode
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Start shader code at va=
-rying offsets in its BO
-> > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 drm/vc4: Clear the slice caches =
-before resetting a stalled
-> > > GPU
-> > >=20
-> > > =C2=A0=C2=A0drivers/gpu/drm/vc4/vc4_bo.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 43
-> > > +++++++++++++++++++++++-------
-> > > =C2=A0=C2=A0drivers/gpu/drm/vc4/vc4_drv.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 15 ++++++++++-
-> > > =C2=A0=C2=A0drivers/gpu/drm/vc4/vc4_gem.c=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 20 ++++++++++++--
-> > > =C2=A0=C2=A0drivers/gpu/drm/vc4/vc4_validate.c=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 17 +++++++-----
-> > > =C2=A0=C2=A0drivers/gpu/drm/vc4/vc4_validate_shaders.c |=C2=A0 7 ++--=
--
-> > > =C2=A0=C2=A05 files changed, 79 insertions(+), 23 deletions(-)
-> > > ---
-> > > base-commit: 80ac6d197218c3399d66674167a4d7c9051a25e2
-> > > change-id: 20261112-vc4-icache-workaround-d11b444bc7e8
-> > >=20
-> > >=20
-> >=20
->=20
->=20
-
+>
+> Thanks,
+> Tiezhu
+>
