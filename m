@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795079954;
-	b=fPUP0ax5qex5GckfjJ7NqK684btpJW6QtAKNZF4sKo/nw6MYovaDVKSrkTVnbBGbSidC
-	 O7RTZQz1ePcrNGvuk7R+mcet27RZ4PoKgGzOOC55HEggJyxQqGqaGPvgqHaSDNbONKk6E
-	 3+5OoF8/28z8rljt4EQUZ7AIOLzwKWdqnuP1AwQw3YhJWA3c2Z7z5O1p02Q3ZdAmPW0p5
-	 3emPzlZuQrvnBVyFJ3Y3EHMY2JnDt33khXvz1lHZHpWdmsoxy2+gG2TK/RKiliF5zPwJK
-	 I4ab9Upk/Md6rm7CiGdqyNlK0DgVMudGPPuUJQ25OlHs6mWD5TgaRBvFcUJbMGilbJw==
+	t=1795079960;
+	b=pg4//QADUST2aOV3cDon4KSqwp9AUugYp1eb/BV8EtitcImWfCwtXymAQzxEag5hXTNb
+	 i5fBRuKPTO9lJfkBLT8Bi1K+agmg4GTU16AEPgIwFnwrwLZxcAjI3ucFZFr26UI/F6n93
+	 z9SSd9GcUotFAJfXl1Xpsb/76uJfwfoaKSZWNcHy0Gwgn6c5ubkhxd6Tcm1dcS5cjrMof
+	 ZkN/dEMUZZpxsEtb4bhRgSMK8IDobDckXXXJGcNl8CtJE8qCJ5LyO0JDKGkQmaG2dF1u/
+	 aWuuvcAiMP97xGXsKxmRfJP/Zq/ss0mnbpKyzDCdDkAliwZn04p3eyi1Nj03bMBjjUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795079954;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795079960;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=zBJiwp2wWDrj/B4RvWE10jcGB1z0Sox6oHmVSi3ycQo=;
-	b=069JZ3SwL2xccKfChKjUimEBz1rAr8NpQLRRpYyDKqWvSsQHGN81zpAvULcRTbWf/R0c
-	 357ROHdu+biPNPFCTpLI3/YlA+tqU+CPhKxiXkFDiJ1QDUf8SAlSh/KwMcoh86S0dK2s/
-	 Z3U3WNjlOxKyUoJnIAhC+9Zyw7EN4roJGjz8jLVchx/nXD1FxJI+b0CDE6jpFUpRQcFIz
-	 gcg8WMN0sSJnswITc1Pc+kQFgqIr96qfZmuWeQf9XOUwskRWRl9UL/KYYI74JiO+fZj1J
-	 rEN5IVfoHxI495S5l5URtN1YLsqd12zr7zL4gnodK5HIkZYcFbRrR8w61gqKd6HYBLg==
+	bh=vy7dQdwcLjuJGzzYP6/5w/8O3IX+03j/FcYO1YTEpQA=;
+	b=hMXZr9uw6087MKBG7lHs8y3eNwFQObxji0iG6WCjIQbWCFuNKK81gxKodj/3BfR1Q9U5
+	 pkAme7dKKhzhM1ttUIWZVt6qtY2CMJFm2tTFfX6RxxbTz3y+Vi+OftzRY6Ev9XuQq5dip
+	 2ulsnyrjxUpNg3guSaBLea5vmJ+oqoeFgYYCZsuEVkazRS7MdEOcGIUa5MpSM1ozdG2WH
+	 CxCDcvG3STyO9C9v+MaKgSd2WzPVG2fDQFSjRVUKNjT1GsMWdy/ESaPEDtO836Z/qUzY2
+	 iJRfPb+/nK3Vfey27ModKufF+6GFrB4kP2eOY+H2htivQQh7EwNK4QBYRa4u+ZWAs4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lixcimYr;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X7IFV685;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D055606A320;
-	Thu, 19 Nov 2026 09:19:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78677606A324;
+	Thu, 19 Nov 2026 09:19:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lixcimYr
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5D9A1F000C7;
-	Thu, 19 Nov 2026 09:19:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X7IFV685
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A26921F000C6;
+	Thu, 19 Nov 2026 09:19:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795079953;
-	bh=zBJiwp2wWDrj/B4RvWE10jcGB1z0Sox6oHmVSi3ycQo=;
+	s=k20260515; t=1795079960;
+	bh=vy7dQdwcLjuJGzzYP6/5w/8O3IX+03j/FcYO1YTEpQA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=lixcimYrWxtOrPI8IoID28nrcPKaInR6ZKaeWIqbOFwwrJKgFXc2KWFgfsHfDptpJ
-	 EQV9NBoTeocqkb/AUo2p1R8Lq+f/agvHXuHgUvsRyVl36kf5WjjeNgX83SzsH7Bgbj
-	 2ICCgWnlwu+ozydKOX5kc/9bHYMfmcsxdVHleFRa+CeHXoxYXjZtJLUGdQa34g1JRv
-	 Rs7EB3lczd3spFK1E0ZJGeOPzwHKd7oEz5kTXP0nt7IeBhCm66eIDWrcC53aGTrvPM
-	 WqNeFR8HvMKNeg7bn0ffOJ9tTsNHWFznenEGlMQjsXpxJpin6Qof/d2Kwo7ddCsyVk
-	 TnonrNeJ1W+jA==
+	b=X7IFV685e9SSCvDcxCfQ6vM3+LAXZYL5UDDrOU8MsVZ1n5z7AiVj5HNI1rM7oNaEA
+	 IreAEUEdzYBCZfEHPAZOHwGsigyPZrB+BLMF0WAmKXgEdUMpXwBLEB11TlsNHg4++y
+	 8uGVLXVkBXTfMF/QzUCfhyeLWNmg0hmSfyJSoazh9FLOV5qEUAoRRMSDPBg+uddKBk
+	 INfMIiRnT5P2Ie3BtS5LGAtPOXoHdtHxtsL7UhvXFqjSWAEm9k561Lr+u2Mul/edPc
+	 Uj6PEQI4zlTdINDiY0UzMv8qajCKJ+10F9o+AJr3V6FRa+jSDtYH7UJEyWKxUhXF1f
+	 anw6Qrw43KxAw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
-	Han Xu <han.xu@nxp.com>,
 	Mark Brown <broonie@kernel.org>,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Frieder Schrempf <frieder.schrempf@kontron.de>,
-	Yogesh Gaur <yogeshnarayan.gaur@nxp.com>,
-	Suresh Gupta <suresh.gupta@nxp.com>,
+	Jisheng Zhang <jszhang@kernel.org>,
+	Konrad Kociolek <konrad@cadence.com>,
+	Jayshri Pawar <jpawar@cadence.com>,
+	Parshuram Thombare <pthombar@cadence.com>,
+	Witold Sadowski <wsadowski@marvell.com>,
 	linux-spi@vger.kernel.org,
-	imx@lists.linux.dev,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 08/10] spi: fsl-qspi: Propagate clock errors from fsl_qspi_select_mem()
-Date: Thu, 19 Nov 2026 09:17:20 +0000
-Message-ID: <20261119091810.3440619-9-lee@kernel.org>
+Subject: [PATCH 09/10] spi: cadence-xspi: Advance tx pointer between Marvell b0 chunks
+Date: Thu, 19 Nov 2026 09:17:21 +0000
+Message-ID: <20261119091810.3440619-10-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
 In-Reply-To: <20261119091810.3440619-1-lee@kernel.org>
 References: <20261119091810.3440619-1-lee@kernel.org>
@@ -68,103 +67,39 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fsl_qspi_select_mem() returns void and silently gives up if either
-clk_set_rate() or fsl_qspi_clk_prep_enable() fails.  fsl_qspi_exec_op()
-then carries on with the operation regardless.
+cdns_xspi_transfer_one_message_b0() splits transfers which are larger
+than MRVL_XFER_MAX_LEN into chunks, but never advances txd between
+them.  For every chunk after the first, the leading byte is sent from
+txd[0] again, and a short trailing chunk retransmits the start of the
+buffer instead of its tail.  The out_buffer pointer used for the rest
+of each chunk is advanced correctly, so the data on the bus ends up
+inconsistent.
 
-When switching between devices, a failed rate change leaves q->selected
-pointing at the previously selected chip, so the operation is issued
-through the previous device's SFAR and AHB window.  If the failure
-happens on the first operation, q->selected is still -1 from probe, so
-those offsets are derived from a negative chip select.  On controllers
-which need the clocks disabled while the rate is changed, a
-clk_set_rate() failure also leaves the clocks off while registers
-continue to be accessed.
+Advance txd by the size of each chunk when the transfer carries TX data.
+TX-less transfers continue to use the zeroed scratch buffer, which is
+only ever as large as a single chunk.
 
-Re-enable the clocks even when setting the rate failed, return any error
-to the caller, and have fsl_qspi_exec_op() abort the operation when
-selecting the device fails.
-
-Fixes: 84d043185dbe ("spi: Add a driver for the Freescale/NXP QuadSPI controller")
-Closes: https://sashiko.dev/#/bug/linux-719261ef-312e-4a94-9a84-fd42a411bee0
+Fixes: 931e389ded0f ("spi: cadence: Add Marvell xfer operation support")
+Closes: https://sashiko.dev/#/bug/linux-e2ba3b72-ead8-4562-bdb2-4992253c59b4
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/spi/spi-fsl-qspi.c | 26 +++++++++++++++++---------
- 1 file changed, 17 insertions(+), 9 deletions(-)
+ drivers/spi/spi-cadence-xspi.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/spi/spi-fsl-qspi.c b/drivers/spi/spi-fsl-qspi.c
-index d2c2090442f8..30f39adb5a6b 100644
---- a/drivers/spi/spi-fsl-qspi.c
-+++ b/drivers/spi/spi-fsl-qspi.c
-@@ -546,15 +546,15 @@ static void fsl_qspi_invalidate(struct fsl_qspi *q)
- 	qspi_writel(q, reg, q->iobase + QUADSPI_MCR);
- }
- 
--static void fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi,
--				const struct spi_mem_op *op)
-+static int fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi,
-+			       const struct spi_mem_op *op)
- {
- 	unsigned long rate = op->max_freq;
- 	int ret;
- 
- 	if (q->selected == spi_get_chipselect(spi, 0) &&
- 	    q->selected_freq == op->max_freq)
--		return;
-+		return 0;
- 
- 	if (needs_4x_clock(q))
- 		rate *= 4;
-@@ -563,19 +563,24 @@ static void fsl_qspi_select_mem(struct fsl_qspi *q, struct spi_device *spi,
- 		fsl_qspi_clk_disable_unprep(q);
- 
- 	ret = clk_set_rate(q->clk, rate);
--	if (ret)
--		return;
- 
- 	if (needs_clk_disable(q)) {
--		ret = fsl_qspi_clk_prep_enable(q);
--		if (ret)
--			return;
-+		int err;
-+
-+		err = fsl_qspi_clk_prep_enable(q);
-+		if (!ret)
-+			ret = err;
- 	}
- 
-+	if (ret)
-+		return ret;
-+
- 	q->selected = spi_get_chipselect(spi, 0);
- 	q->selected_freq = op->max_freq;
- 
- 	fsl_qspi_invalidate(q);
-+
-+	return 0;
- }
- 
- static void fsl_qspi_read_ahb(struct fsl_qspi *q, const struct spi_mem_op *op)
-@@ -682,7 +687,9 @@ static int fsl_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
- 	fsl_qspi_readl_poll_tout(q, base + QUADSPI_SR, (QUADSPI_SR_IP_ACC_MASK |
- 				 QUADSPI_SR_AHB_ACC_MASK), 10, 1000);
- 
--	fsl_qspi_select_mem(q, mem->spi, op);
-+	err = fsl_qspi_select_mem(q, mem->spi, op);
-+	if (err)
-+		goto out_unlock;
- 
- 	if (needs_amba_base_offset(q))
- 		addr_offset = q->memmap_phy;
-@@ -725,6 +732,7 @@ static int fsl_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
- 	/* Invalidate the data in the AHB buffer. */
- 	fsl_qspi_invalidate(q);
- 
-+out_unlock:
- 	mutex_unlock(&q->lock);
- 
- 	return err;
+diff --git a/drivers/spi/spi-cadence-xspi.c b/drivers/spi/spi-cadence-xspi.c
+index c4fcbf5ae091..4c9af6146a5d 100644
+--- a/drivers/spi/spi-cadence-xspi.c
++++ b/drivers/spi/spi-cadence-xspi.c
+@@ -1319,6 +1319,8 @@ static int cdns_xspi_transfer_one_message_b0(struct spi_controller *controller,
+ 				cdns_xspi->current_xfer_qword %= MRVL_XFER_QWORD_COUNT;
+ 			}
+ 			cs_change = t->cs_change;
++			if (t->tx_buf)
++				txd += current_transfer_len;
+ 			t->len -= current_transfer_len;
+ 		}
+ 		spi_transfer_delay_exec(t);
 -- 
 2.56.1.708.g77570a6a1d-goog
 
