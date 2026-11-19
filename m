@@ -1,47 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795073173;
-	b=MJlGkOA3KdDzX5ESYnjoniF+OGqBU9HrYOE0LQ5A7hsjvAPVjjtTkoFYNZJAPvgSA1O/
-	 sNxf3q/00Da1XnO4ieLLi8N6OhUdEKfAm6W3UVb5BMoG4KJ49B6gPW2QlL/06t6SbEBoL
-	 3tirWbXe+8kmxrGeI9A+ftbsf/ThErpjwdUN/Z935cLQho8AQXAUrEocVuKHVuET4rDp1
-	 uU2RSUF5W2Z0bGwoW8vdl24XDJffFzrBjGL4Yjsobd1MpEmJRucIfW/sKYre6zmQG2Fw7
-	 O1OkMUOo0+z4vCv0hGo0hVtGKxKlWHVk5/nY892ofoQM3IDLBB+pKl8ocClJfrYyV2A==
+	t=1795073184;
+	b=rAD9J702yf2dBPKdhOAY/PgoV2F9iXY6VhF/+IibBweKUqLiAxJu7jux8R22jbG0w2A0
+	 TlFsaFnW0vpgop2KLsc1CEJVf5a2pfRpPAPrJrBDaFD2EJsVHBkgfKo5IXMQLPcOesaUu
+	 5RkiHUVLcmyLmsxeQGPUk6iIe9jAN4TjPiTJzJ+ItkzEwVEVlSNy03gvxO+LuUfgExaOT
+	 sCQ39cGwpDGl0S/s9Qsv0UwImOSO4CRxWHKXwi5vxxzDt8JBHCkzvJyJgKZJZTS5Zd8/D
+	 Lomm4k92UIYosCD5apiak5VP8EF/TErO6xbZj+cC1WpaSeOjtklcoqfDvwIVda5DQ3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795073173;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=e3RmIyg+sqDNJ434dD8xi+wJRQR6wg3BW/At88s145Y=;
-	b=1xmNe0KjGbIYpDPadV1+2Y8UiGSC33vr/iSFTh9UPPhQUgxM4bzQPbGEjK0aHmblJzwH
-	 /yM+r7otpXW9lFypjli4JGXqcBpcEKNjFmx/8pd4qXqhmkLJVJ+ZFTFjp2D9c6ZnIjGZN
-	 0P9/xTD+j32AmlpWN4W0bqN+9UeeAFc5Yk+Bg5n3w8BT6ni7TWGl1llBu5vQn832MAfwf
-	 wZ2Ka0MxWGr17LVOmNTH1QajJwmM95q6SJM7NUWpf004DSwpuKftDQS9OCILCLBFlSmGM
-	 VXBfWlWY5uOtTtO0aun0855+/gjSLO2zDa73Ri0hTs6/dpGqC+mHBnAR9iUG9vCrSsA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795073184;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:MIME-Version:
+	 Content-Type:Content-Disposition:X-Mutt-Fcc;
+	bh=3j6KmbtXLvsmTJiTThzFS5hiEYdNxo/Fgv8rfbB+Ypg=;
+	b=SETmJm5nmdPTIn+EpN/hXc0Z+2d1+mTiWvjota1Tg8lrcbul6ZIuZNJ3HYb9L9N542BY
+	 wi8rZEcvfJc9NEFbTYCV+LNJbFW0x9FLLKIKFsu1KyOGLG728EFy2TXAjDO9HTVdHg1pl
+	 G6tmQG/I7JVXU/Ju6bgaJGC56Nsj+FK/AwGukfDBgUths5k05wJiWrOF6Po0HTlYEX0US
+	 8VYM+88nDBmzUTQXj9BT94Liy+yByTxMvEOm7SKEDQ2QePeU7IoZoohw2YeTugyj0tWZL
+	 r8qJdZPc7xdqwmOxudRBhR3GREKATGxtwa57w62ojXHDr2ArBnuQsLHxKIscFPaZpGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="IoR/0XHD";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=c70w9kVd;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=F7rRIAyt;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04B56606A320;
-	Thu, 19 Nov 2026 07:26:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141D5606A335
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:26:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 141D5606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IoR/0XHD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A6231F000C5;
-	Thu, 19 Nov 2026 07:26:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795073172;
-	bh=e3RmIyg+sqDNJ434dD8xi+wJRQR6wg3BW/At88s145Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=IoR/0XHD7Muc0pZmCj5yguME1mrdvcu/jmgcpD7e1SHj0BRY27o4nM/sFS31SqKqJ
-	 CaAm9OF6oRs6zz1LLoCfrbrqfWWylJ4qYy7I3LmUnISxR8kPzv5Dvkv2kGb+wcFvXI
-	 i3xP98HrgVAMbb6ZBRgTUxyh9OMj77jIxWjAN9kU6Wv93G6I6DUr8CSgq3k/DbErz9
-	 +Sc3YqGgnUbSwOnXQELuISu2sZ82pgpCu8LMJU4tdssh3FczSuzwJdiH27eIPXusPp
-	 Rziln8WutVv9lpPjLc4ZIcIjCj6Ko4WwkVMo1TteiYe/FjTjqfF2L47CmLeaMQpc1P
-	 8Jln52QpRAL6Q==
-Message-ID: <ffb3b09b-7575-4e5a-ad98-022801346fa8@kernel.org>
-Date: Thu, 19 Nov 2026 08:26:09 +0100
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=c70w9kVd;
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=F7rRIAyt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1795073183;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
+	bh=3j6KmbtXLvsmTJiTThzFS5hiEYdNxo/Fgv8rfbB+Ypg=;
+	b=c70w9kVdENByQp5gaWTGVw9HtxsZcdVMRWaTJWqnwsgOT1FJX2hCQJyDAgFLjrz3sPNQ8T
+	l1HLd7fBRgwHbjgiUPDbJuLmHm3HHZLcZCC7ggy2Mua0Fl25BzeOfEHBQ7Q9/Mf3vsGRm5
+	DQIDfiqp4fxFjyto/MvpPrRiQSD0OB4=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-649-kWOKzBxfPQeA0FuQ9Xbfpg-1; Thu, 19 Nov 2026 02:26:20 -0500
+X-MC-Unique: kWOKzBxfPQeA0FuQ9Xbfpg-1
+X-Mimecast-MFC-AGG-ID: kWOKzBxfPQeA0FuQ9Xbfpg_1795073179
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-48e29c25101so874964f8f.3
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 23:26:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1795073179; x=1795677979; darn=vger.kernel.org;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3j6KmbtXLvsmTJiTThzFS5hiEYdNxo/Fgv8rfbB+Ypg=;
+        b=F7rRIAyt3wWCkr/uIq7CcsZAeA9N2ckYQaSb9PfrHzzdrhLoatK0jPKUtp+a7bx4zw
+         Ke1VCtmj7C1COq4SH1DMhKo2Ccl9K7tOI42jExCQFi7YHv1F+j0DeQnYLHFOJllMVk5T
+         t2Hal6qIZufy2ggOPnNvB12f4qax7PvUPO5vOts5DVv1q8s8jnGomTr9maN07NLHj81v
+         GsL59um+fiT/322vCvC1fsnbBl1QmFpLuvWWvkOEpUPm4fWEQ51aFMUTyFQ7v0lGn2U6
+         ZCM/9e2zx93L7vZkG4kMo77jDjMqrJlJiTu6EWtXGU/v1melySXVeVmdbJPyQnN6s+gP
+         LWAg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795073179; x=1795677979;
+        h=content-disposition:content-type:mime-version:message-id:subject:cc
+         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3j6KmbtXLvsmTJiTThzFS5hiEYdNxo/Fgv8rfbB+Ypg=;
+        b=sQlg6n/5gMiy9Wo4tPMvl/Al6CoWgieEjHmzYkY+cOjx8rax1LrAmxeTzp2hDJzkNd
+         nlHt1FjNCOQI8vnPXRT4rPCARzoidgG2YwtrjD3gM7pgaiag0ayf7UEB5IO6q1scCfzU
+         zmHb9FuCauy3GDcSB17SOhzzemNubN7PxEGz+MiXGryN7h6SO8+BdsxMP8FC0aqAuq1l
+         i8m3hXQYF5AAxlRyHR1dz0RBDXPyRWxXe2MiNdl2vPWg2JiEIehlRIr5i+5cgOsyB52S
+         uF7c0e6brcxbgKnKPz59SbTrDSddWP7lejx5AhR+CCrnHnz3Qd79YNlrVfvq9r7Z/TpZ
+         jTNw==
+X-Forwarded-Encrypted: i=1; AL+hErHQXOqP+82/4PhsuK7IZN55G5Lfm8q1yjUbYPiMEnvDpwj+ctzpHf7ZJSrrsQgP1+LeuGXGkcs=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dg1cnEslsd47XrqvkAzSkTqtikLwCSd0o+tBPtD9g1GRCNLu6
+	MA1/jV31neID/tjo3+kLdlczWabravE+j8IosK9Z7rj5LOq/rF60AcMW9Rz3ii4qrm8PFI62s19
+	vj4naMVpgINBww4+KTyCiziE4CDVoXu8X1shg1uKKuHxDeiQnDcdtcdUUQQ==
+X-Gm-Gg: AZFdTZdA1OdcCcyYTXmAefq1cqVKFQBFKc/4NjmgM2o0nVX4LsTNd+ZAPxZwe2Bz7zt
+	ynF3NZ8VUchnK9/BQdrtoDmW15KCa9rcC5sUmfIfSF2b/ZRJEHKE4lYwgaig1GJ0RrgUHRADT1h
+	uR0jBGCetlCyv138/Gp2/7kt/lRDbqDpsUlH9mJDMFMqHtAV/vSZWsp0xIERXnw/8rGqR1G17X4
+	V8seO4tpPrSeLYFMHM8AmnnaInyO2u+dX6caiaVe2revgj1opiqx/efSmGj1l3egfy/Ejk2fRy4
+	a61j5aqlO30e19znK1WsbRVCg1Qtj1BokEG0+iEAkJ+PlyXA7Ozc0VlBX7ZGRw201uvLoqfEKxA
+	rnmLYLL0/c6HtmSrTXWjjk9cOFdGYWG90G1twnN+Pm5A=
+X-Received: by 2002:a05:6000:4703:b0:4a6:4f35:336b with SMTP id ffacd0b85a97d-4a64f353379mr8871403f8f.5.1795073178857;
+        Wed, 18 Nov 2026 23:26:18 -0800 (PST)
+X-Received: by 2002:a05:6000:4703:b0:4a6:4f35:336b with SMTP id ffacd0b85a97d-4a64f353379mr8871351f8f.5.1795073178254;
+        Wed, 18 Nov 2026 23:26:18 -0800 (PST)
+Received: from redhat.com ([2a0d:6fc0:1520:4400:d78d:7b2d:2f5d:e08f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4a65541f3f7sm9540259f8f.24.2026.11.18.23.26.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 23:26:17 -0800 (PST)
+Date: Thu, 19 Nov 2026 02:26:15 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: kvm@vger.kernel.org, virtualization@lists.linux-foundation.org,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	bioloidgp@gmail.com, jasowangio@gmail.com, minki@morningstarsec.dev,
+	mst@redhat.com, stable@vger.kernel.org
+Subject: [GIT PULL] vhost: bugfix
+Message-ID: <20261119022615-mutt-send-email-mst@kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,103 +113,33 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 0865/2651] perf annotate-data: Resolve type DIEs in
- the debug file they came from
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Ian Rogers <irogers@google.com>,
- Namhyung Kim <namhyung@kernel.org>,
- Arnaldo Carvalho de Melo <acme@redhat.com>, Sasha Levin <sashal@kernel.org>
-References: <20261118150247.972732815@linuxfoundation.org>
- <20261118150318.997111678@linuxfoundation.org>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20261118150318.997111678@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+X-Mutt-Fcc: =sent
 
-On 18. 11. 26, 15:35, Greg Kroah-Hartman wrote:
-> 7.3-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Arnaldo Carvalho de Melo <acme@redhat.com>
-> 
-> [ Upstream commit 14ca0a28de37849afdda6ffd4c9047f58d8906c2 ]
+The following changes since commit 1a577f9402c1780cc1e663f48d5dd54c02051b09:
 
-This does not build either:
+  virtio_pci: don't take the MSI mutex under cpu_hotplug_lock (2026-11-03 07:32:14 -0500)
 
-> --- a/tools/perf/util/annotate-data.c
-> +++ b/tools/perf/util/annotate-data.c
-...
-> @@ -778,12 +782,14 @@ static void global_var__collect(struct data_loc_info *dloc)
->   			if (pos->reg != -1)
->   				continue;
->   
-> -			if (!dwarf_offdie(dwarf, pos->die_off, &type_die))
-> +			if (!die_get_type_die(dwarf, pos->die_off, pos->die_tag,
+are available in the Git repository at:
 
-util/annotate-data.c:785:30: error: implicit declaration of function 
-‘die_get_type_die’; did you mean ‘die_get_typename’? 
-[-Wimplicit-function-declaration]
+  https://git.kernel.org/pub/scm/linux/kernel/git/mst/vhost.git tags/for_linus
 
-> +					      pos->from_alt, &type_die))
->   				continue;
->   
->   			get_global_var_info(dloc, pos->addr, &var_name, &var_offset);
->   
-> -			global_var__add(dloc, pos->addr, var_name, &type_die);
-> +			global_var__add(dloc, pos->addr, var_name, &type_die,
-> +					pos->from_alt);
->   		}
->   
->   		delete_var_types(var_types);
+for you to fetch changes up to 5570a998b884c988dbe105430d7e2d8e9411e37e:
 
+  vhost: split out-of-order used ring batches at every wrap (2026-11-12 07:44:36 -0500)
 
+----------------------------------------------------------------
+vhost: bugfix
 
--- 
-js
-suse labs
+One bugfix here. I am testing a couple more
+
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+
+----------------------------------------------------------------
+Michael S. Tsirkin (1):
+      vhost: split out-of-order used ring batches at every wrap
+
+ drivers/vhost/vhost.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
