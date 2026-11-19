@@ -1,113 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795088780;
-	b=run/eKz5a0uHefDRy/+nwnJZ+oX+zXAgMQgo4rsydZjbR4igKdWRgIwdm+C0AOwhuDed
-	 LmgICo3sADxwcFaaE7KPEN2wxq5iAvqZi33Fj8jncFPFW2zu/EvtfksXSCVWZXcKnbvNm
-	 kBvCBR5WiLsRRMNy/QnzRounDmPMvavrxneJuaLmRjKs5AbV7yFRaO2NDSsxSGqYOontZ
-	 mH16OewmclK06S/9GrogT8p9tlmBawWtLyS0WvcrcpLZdMUuYXeuQyOcV3z6SoOfStIEP
-	 znnBa27cFcFy/vQ93h8fL4YG6i3L7gUQ2JJ6cw+MISheAkDAT/QEUyEOM/Ad5svzysA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795088780;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=P5hRMCbh8zeA7xTvrHto2CFQeRiZsjYuDhpYld4hdUY=;
-	b=aJsoJKhkPuXKAwguy/yV0y6h5lFML7mCIAdroClOCIlWISiLA+xdm4h4FgnwvVdY50BA
-	 BZNyvkSEg3eIzjqBEqOmEklQv3OrT9KwtqIFWgHzjReULeoCC+Quc0dKkPVXGwjSQDedZ
-	 6Rmo2E4LfOqwyBam1nUYkkFQXt6pCZo61TvZOztWw02txpz9PGWqL88XP7dAxmteoK1Tp
-	 +K9b8zuaQdn5nRW3KjSea79FYcfxkp2ISRBBXbytBS/7xoLnEVjfS8W5sSGhFoXD7A7to
-	 He+d48rAPmnf3yd5bb6WJtbWv8/HyJVJx65h5JZ4IaNCSuD77X+7+l0j2ferufEC7HA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dPIVgrO1;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FIdvR4Ib;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795088806;
+	b=YWJuWDZZTx1tAJKaQExKRQsMCv0kZG6Z9PvtozGiWHWEHX9S2mSnGT/3k8yWaXifhKmQ
+	 s0sn8tJdJky+XqWS6xcH/XGZtn9q0IuLX2YiMtAjm8Z6xYa8Dxa1QIKgWfCwSK7bCROAs
+	 8x5YW36meqyPnrbWF6d20o/+3coqNcd+NKXPTQP39JT00jHcYv1Tlu781IaWBlFXWDWtx
+	 qAbhRtwHhfentnZncv8ueCypAyyDMf9dlmpBhfMszvU7LKYTXutNJJZBmytxaHbTqaNKB
+	 fz6z738lmPhYOrroBlJLaQ2JahctupkmLe9d4serTdNCwVKhm0HWQdw7niojWMRM05A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795088806;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=n3NKvZrmFHDvhIsjI4a9eQW4iq3tg5C0X/EydFEpmyI=;
+	b=0ZDpn1+dC3gV+ftEWpaHKua7oEbGmQtHlG/mpctijjj862c0xAhtAjclUeqUEGL3zp4m
+	 NiZbvFsSyGJzdeikkSjsYI2t8xnfUBozE5oWyOgm3N1u3u9Hqimc7QCch6BEZx99viQlW
+	 XGpgKt9Z52DHnk2P8Gtm+y1unpMuWoGjnmGf75Q+I+Dcr/d3dulO0KxT9X6Mf4gpG9d4x
+	 oWMNsduCY03LXECmig2NiYzV2N+c+zKb4ihTYQICR7m5ELPdwVZhlNXBStxutVzAhhpuM
+	 Z0HlMgMGLzRpmXQwNJx0LVKXdbvOu9R0Ygpe0yvZWCjnX0mrda+5ZWbVF4u/bsAOYzw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=mojatatu.com;
+	spf=none smtp.mailfrom=mojatatu.com;
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=y2K722iD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.215.177
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F74A60A2600
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:46:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F74A60A2600
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C8B606A324
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:46:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15C8B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dPIVgrO1;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FIdvR4Ib
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6AJBjsEx2609123
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:46:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	P5hRMCbh8zeA7xTvrHto2CFQeRiZsjYuDhpYld4hdUY=; b=dPIVgrO1Xdu3l5b2
-	HBz8pH1615O6QtJgdsI7jixd7HZgPbzPLdf9csX6r5pGByflcyMAzeqNmtTmTY5S
-	r/nz+7eoFQY5+2+qhWjAqSkVyRutDY7Tydm+EK73hzmy6+AtsyJTQxtq82sD5002
-	lMPFmgLoq6vO3g2yhMaNUzSEGVcyuCgVS9WhsJnE7cmBcYTJfbc4J8lJ9q+1aUV/
-	r1hOzBeG66Dk5+f8WUTPpZ5iN1/fM/yMSEEy7wepBpVdfDHHUjuSpJQxXX1QRr+k
-	mKH5M9rXCZej16NCrBVHwA+l3/1pzoOy6c+m7eWw+MKthNbcXAZm5FQWxMVest9F
-	KqSjnQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j1gxcv55b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:46:18 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3b08364cdc7so1956546a91.0
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 03:46:18 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=y2K722iD
+Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cd60c5da24cso1544484a12.0
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 03:46:45 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795088805; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BciuJFzOPBBl/xuSntt+ozSrIDsXXuj72AN4KRWz3ao5/sJZbKO8yxGIW6fMDc3m/k
+         7WwbFC5HM8Chb/HZco732CGg61OZjKWBrprl8k+Afn+s4q3sKCpssN5COBzcfB5zE7y4
+         QdmCah+X+BIljOskVw6bMuWw2OvKBp4dkr3oGt/UL91LEz1e+EMxFuBiBC+IKGY9W5Wf
+         6kw95QZUjIcfiEqzRibKK+QScTCsOlu7Gz4QYWTvRp/o7jS6ie+rTjv+DtjYBb75GboM
+         AIGoyPbtwrBeTAUuDUqLeSfJizozTRpzoqTK6H4ro/rLp8gDsOfvsceSIb3dbgKzloGY
+         PK7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=n3NKvZrmFHDvhIsjI4a9eQW4iq3tg5C0X/EydFEpmyI=;
+        fh=EEHP8naVrdKWH44ytXix6phBIz62vQ8C8chKTTx1zUM=;
+        b=Hy+hwVauoWOdD8Gr1YXNfRwhM3wQMzfc+YrUu7aQ4aPOTCoZwNhD9LGgAWA+msjkVW
+         WUutKV9SlHiS4CUSlFX2C/9VVzkm3idu6xlO2grMLqiT2L/l+jezP2lpmcPd7NU7Wh0o
+         QFM8Yq9Cga3qpmBBMQkKl2nbhJHxDXXRC3kXr2EHj8n1Q5rWjvcU1yBCT34Ji/FLlW+G
+         5vQFYmGSC63/s72k3gJckMfBt0eCyjUbLxyk7At9Cn29lmMRRcmeNr+VB8d53JaQcRPO
+         4u4eE4NYOF56EfHqHApPximg18W8Vm+0fDOIsDdJ6wFhzmHFqUNa7yFBQiW0nw0Gdivn
+         4x0Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1795088778; x=1795693578; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=P5hRMCbh8zeA7xTvrHto2CFQeRiZsjYuDhpYld4hdUY=;
-        b=FIdvR4Ib/rEtFYRFPlJZFEi9E5ssrwPSr8tOtbCbj6u0dw3Q8BJwLBpXfOXyCiPWRn
-         PqndUveRFWLUsrZVc6cYos6XzH5hUWxnkk6PdhryichZD6Xr/jAkkYg0I78idrnL5+eL
-         +w6ChVwNRwywTUiWcYj89RhhsuCmTjyUPqIgS3zibT8/U/41WdZt30D+kvBikHYXjMMM
-         Fq0UaYoJuYaSn5dmHt9pkkX7HeJEVxb+o3fCl8kiGe1VkiMHyVEXDr1GVkkVNdekTdAc
-         7uXS9C5jqdgnM4QMjXPq2fMGmpqGhW8G4gpK68rjE4IHpI9xlrUneski2L3udH0Sso61
-         +jMQ==
+        d=mojatatu.com; s=google; t=1795088805; x=1795693605; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=n3NKvZrmFHDvhIsjI4a9eQW4iq3tg5C0X/EydFEpmyI=;
+        b=y2K722iD4TZBAt1+ApF9lkntXDYvDI2UdBkVLdYXYM09H1T1qQZ/L8lgwuVRvL9rfv
+         Ly8h0bCiOCHN3KS2Xq1wAfQW0BTfciTxK9j/B5Yc1NMCQUcW4I8ZTipdGq78/tIV5J1S
+         LjAq7LHU6F/o1kcfMbyzj0Idft+b7DyiZRRWA=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795088778; x=1795693578;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1795088805; x=1795693605;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=P5hRMCbh8zeA7xTvrHto2CFQeRiZsjYuDhpYld4hdUY=;
-        b=WemyiC8LHezZogO6bt8pYlhMyya1hx/d5hRoKHVscbvQrHX/3wy6f5b4Ao06sRMJ41
-         HGd4OYKRqWNxkSt7blmgTfOOVT3Mr5uZ4lqANAD9hMonm7afoZ74D4MTc2Ubl+LdBqII
-         3F8Hw0mukdDRMa6t8c3suXZbNb2EI6mBgjVOOn3mW5hEk3n7lGxlSbZqz2nnFsgXlCAT
-         HnlKFdj4ej1g+E5nzd6gcExOOfEhx+H941y2vK9bAH0Uy+Qf12hB1JvkYxvJ2mjCQrvW
-         79/Mkj/N91gGxg/nr0vKakmR1a4T13VV36L/uBp+bFvpvy+nmKi4yGht9fTGphK1GR96
-         GiwQ==
-X-Forwarded-Encrypted: i=1; AL+hErEwBuYHhy+9i7qoUQ93Lh2g2YveV8fScxt9H+dHSI6gZzC2ev9tnXm6WwU4bG/fcsepR39+gLQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+J9W0YEIv9zXkU9GRVu7Mi0qzoZ6KdujlYp66xbGxCQd2d91Fb
-	3PT38vb7QAjp7KvhZOGXi8FlSgISKV7fcH4lWaL8PACx+sz2aS5bB8WpqtktZbNwjTeRvrlCswJ
-	BJrzGRHj9gIJ2s8MI8UY1CYUrTlU+3JYNr02lrGYrPAbjWZmHqbyMAUkKojPnbiwqyGA=
-X-Gm-Gg: AZFdTZdUXQNZFOyKQL1qdctf/KtHY/B+I1o4krAqMyRa5e+rAKKlcoK1booM7grsJPJ
-	PZveGqz9skkwqk9RXqEIQRohm09ViqEeQslD268Mt6PX4o7x5zKVUiGZboIcSZ3/W3EiNCfsXZQ
-	3L060iYSh7p3LrUlXAEhtgJfbkHxjLCPHDY40aGYYuuBKBi4LZniJRzgE+vuMAzcamDMsngkcVX
-	OW3gCSSYPitgF7MgKGppwWP/xxB+XmLtmvmFkcj8Z29zciyx0qJtgN3NKQqH6XknR+0cYXkgULX
-	uRrUdceSospRxUfGV9VzwcL3M3O9mNiYY0JhXhSGaoyScejr/Ae++sM+5yHjT1QG7zQBngpmCu1
-	4FXz2LLdE4C/lFBg5GjlEJTwxOIu9uil0F9kzKu1NARusR+mvBe6C6X1D3PYaDLQc5uB9JVA1vf
-	Erisms+6M=
-X-Received: by 2002:a17:90a:d2d0:b0:3b3:b621:4026 with SMTP id 98e67ed59e1d1-3b3d04d00e7mr5729443a91.0.1795088777733;
-        Thu, 19 Nov 2026 03:46:17 -0800 (PST)
-X-Received: by 2002:a17:90a:d2d0:b0:3b3:b621:4026 with SMTP id 98e67ed59e1d1-3b3d04d00e7mr5729427a91.0.1795088777243;
-        Thu, 19 Nov 2026 03:46:17 -0800 (PST)
-Received: from hu-bvisredd-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b405ecbd0bsm2397030a91.15.2026.11.19.03.46.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 03:46:16 -0800 (PST)
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Date: Thu, 19 Nov 2026 17:15:33 +0530
-Subject: [PATCH v3 4/4] media: iris: Wake up blocked clients when the
- driver is removed
+        bh=n3NKvZrmFHDvhIsjI4a9eQW4iq3tg5C0X/EydFEpmyI=;
+        b=OGqTb62lHxLk3S3Ro5Ep7skEgh6Vwgn8BEwVhlwWhftrPBT4ksEDNTp7J+C6U1WKhf
+         uH2W9c1V7XnvS0N0uYKZfv2oQG06m7ucpVKj9rJMQwN59BtJfFq1p6ukkL3IG7UNrEph
+         kfWtzCgX4GxjezkVT8/xU5kvuqj6QmknEN60+bDVBI+j8phip+Ob/E5onQfRnK02arN3
+         lLWS3j0ImWNL72MaN38g3Ag9fHjAfqdFlW6bPmnmZsxKyXdEEevG30iMGTgfJ/CFx7fd
+         HGxl72p1EX2LfXqHKZiTiRuZfqEMcgYcmQupcVQeWQQyrmoHmbVl/a2+tB2bWMkzhcQf
+         ZOAg==
+X-Forwarded-Encrypted: i=1; AL+hErECNyaOscusXV0Iz4hIOgQ6NmCf66/gTMy4V3gGwNlFndjFeNl/jipuB7TIwKVZcNFhWPp/HM4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9snuYgGggzdtQHDNGiqFtLbF+wf9EviVHdSTk5Abur+SjHYREj
+	adfTSJ4albrDm6sLZgCwAFEVIA4fGCvjbNi98roxmtDVVHHNvyfIpreCGVoGFl8o7kTBUxDXgQS
+	bKpNuCTFwCWwAbHaiQ+fw+6Byfiw2mscnRvl/J3beh5ET3uZ+LXs=
+X-Gm-Gg: AYBFou1NE7+B+Ln5aA9fx0KNxLl6gdF7ZZfIeUnrUsQi94dXIbxuGiR2I9utqdcKAR/
+	7+en1uE6Qocvw8JXdrbE9pIkGJVVH1UwHlVB33vzwK9LjuVchRZFpP7qFWr4cu+K5N/kTl4f9+u
+	zZA1TfbHoRisfslv0VivcPZvTFaxvIW2QGNci7cWR6qx75kir+b67x7ah6EbxMt/uw6hPd8tGyE
+	uCqZGQmUS3l3bW+b1RoSNbirHeWMOhtJstv6hKbKB+3VYbZLFXHnzgFNXrEHCzfTU2J/klkig5N
+	TO0ocoOn4dtxxbqif7nWo1AfEY6HD/UjTuhuRY1xDRdA7F6OKYET4ZpmHt1qHBztxdoM96vSeaT
+	TkfGGu4Sr7aD84+PI+YmPMtg7eDQE2YxnTc79fa4s8JMtbDVweQ9+w4sToScWQquJ4KVp310mhh
+	K+eN9g3QuC9GedIPE=
+X-Received: by 2002:a05:6a21:a8d:b0:3eb:292d:6667 with SMTP id
+ adf61e73a8af0-3fe8a70ccbamr6504022637.45.1795088805334; Thu, 19 Nov 2026
+ 03:46:45 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -117,158 +102,185 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261119-iris-handle-unbind-v3-4-52d467a13907@oss.qualcomm.com>
-References: <20261119-iris-handle-unbind-v3-0-52d467a13907@oss.qualcomm.com>
-In-Reply-To: <20261119-iris-handle-unbind-v3-0-52d467a13907@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Hungyu Lin <dennylin0707@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795088753; l=3688;
- i=busanna.reddy@oss.qualcomm.com; s=20260216; h=from:subject:message-id;
- bh=HKcMkuZKb6s+vqIE767BoluWCKDfeOxDrf3OBQqzR6Y=;
- b=QgFtPD4XYcIztd2kVwil4os1V8xEgdiu6qpuQ8nVUgzKCmc7NK3my50qeIaKF2SZWgMaX+gFi
- fCph+HWf0MzC052bjPuFmnPAQMllGpoYyXRG5JMHJn0kuxfgPbiW9Jb
-X-Developer-Key: i=busanna.reddy@oss.qualcomm.com; a=ed25519;
- pk=9vmy9HahBKVAa+GBFj1yHVbz0ey/ucIs1hrlfx+qtok=
-X-Authority-Analysis: v=2.4 cv=LZapeTfi c=1 sm=1 tr=0 ts=6afee18a cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=OLikLUY__WNYvvbHpiEA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-ORIG-GUID: lOW9YufZrYrw-sxmTucwNgsvapdnDm0a
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTE5MDA0NiBTYWx0ZWRfX77lywieM9U22
- 2mUgPs8hR2mO4O5POo91EFuu1W6A78PuELOCkddM8oTaSyWYnlKPkpqU19Tah02y5jokHtOKvwO
- EF5iI+QB4p5Eej3qL9K6lFBeBiPlsggL1W5arsnYE8hzYDC7eu6kUR5Vlurd424EjkxK5ny4Jw8
- bxLMlt7DGly9SX4nKJAHycx6byZj4Khc5iA/scK825sDXW03+dQrgE6i+7ejRZKcoOKl/cS0d2x
- rdob9BKDe/xvtw06hr+oeUWkMaOVpb+SU/UH1uhYEyWl1nrbMvFKNUW23+b0BdXlwl+BAEgF5sQ
- tb90b5xidaR3v2fQghNcGcwX0FyQwpvyzqUc6B7lEmr8ESw+hN4j0HPVKdRDx+3VAjXUtKKs+8R
- XL0dqDVAxBNtTYE8OYVlqUJh0iqLYB1Vh7jJDrQK/ZmndwkoSlktbD/ibTkbJoqKNDM27we8G5I
- iBKsb37K6E2cL1VCfbA==
-X-Proofpoint-GUID: lOW9YufZrYrw-sxmTucwNgsvapdnDm0a
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTE5MDA0NiBTYWx0ZWRfX74b2VFgLEuRf
- 5qKq8YHfuf7R6gLaSQI1P03YVhm5upkSyZ0GOLP9lYP4yHFk47APfosJIh0Ls1XtSitVBunwRZn
- vMoWXZA1db3O8LbE+xty/96m83IWghU=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-19_03,2026-11-19_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 phishscore=0 priorityscore=1501 suspectscore=0
- bulkscore=0 adultscore=0 impostorscore=0 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611190046
+References: <QDISC-6HS9.v5.r0.20261116052927-1@mojatatu.com> <179508471843.3136.7272721682226577890@kernel.org>
+In-Reply-To: <179508471843.3136.7272721682226577890@kernel.org>
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+Date: Thu, 19 Nov 2026 06:46:34 -0500
+X-Gm-Features: AclHuK_PySmCHoLheqoX5I-yhkl7sxxQIvgxTN4EizCqKQ_gZio1vjuLcbHanCo
+Message-ID: <CAM0EoMmHD-kxZZDyiV8ezTFzJ4D5ZSG16fimgyCq6Vq=wVcf+w@mail.gmail.com>
+Subject: Re: [PATCH net v5 1/3] net/sched: sch_teql: unshare the header before
+ writing and fix retry strip
+To: netdev-bot+sashiko@kernel.org
+Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, stable@vger.kernel.org, sashiko-bot@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-iris_remove() does not wake up a client that is blocked in
-VIDIOC_DQBUF or poll() on an open session. The client stays blocked and
-keeps its file descriptor open.
+On Thu, Nov 19, 2026 at 5:38=E2=80=AFAM <netdev-bot+sashiko@kernel.org> wro=
+te:
+>
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider.
+>
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
+>
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>
+> - [Medium] This patch changes how teql_master_xmit()
+>   (net/sched/sch_teql.c) retries when an skb has a dst attached and=E2=80=
+=A6
+>
 
-Flag the vb2 queues of all open instances as errored after the core is
-shut down. This wakes up the blocked clients, which fail with an error
-and can close the file descriptor. Skip the instances that are already
-closing, as iris_close() releases their queues.
+yes, this is legit. I will send a v6.
 
-Fixes: 38506cb7e8d2 ("media: iris: add platform driver for iris video device")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
----
- drivers/media/platform/qcom/iris/iris_instance.h |  2 ++
- drivers/media/platform/qcom/iris/iris_probe.c    | 16 ++++++++++++++++
- drivers/media/platform/qcom/iris/iris_vidc.c     |  5 +++++
- 3 files changed, 23 insertions(+)
+pw-bot: cr
 
-diff --git a/drivers/media/platform/qcom/iris/iris_instance.h b/drivers/media/platform/qcom/iris/iris_instance.h
-index 771269e705d9..cb84753e4f91 100644
---- a/drivers/media/platform/qcom/iris/iris_instance.h
-+++ b/drivers/media/platform/qcom/iris/iris_instance.h
-@@ -50,6 +50,7 @@ struct iris_hfi_session_ops;
-  * @icc_data: structure of interconnect data
-  * @m2m_dev:	a reference to m2m device structure
-  * @m2m_ctx:	a reference to m2m context structure
-+ * @closing: set on close, skips the queue error during removal
-  * @sequence_cap: a sequence counter for capture queue
-  * @sequence_out: a sequence counter for output queue
-  * @tss: timestamp metadata
-@@ -98,6 +99,7 @@ struct iris_inst {
- 	struct icc_vote_data		icc_data;
- 	struct v4l2_m2m_dev		*m2m_dev;
- 	struct v4l2_m2m_ctx		*m2m_ctx;
-+	bool				closing;
- 	u32				sequence_cap;
- 	u32				sequence_out;
- 	struct iris_ts_metadata		tss[VIDEO_MAX_FRAME];
-diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/media/platform/qcom/iris/iris_probe.c
-index 57185dc432eb..a086e519a55f 100644
---- a/drivers/media/platform/qcom/iris/iris_probe.c
-+++ b/drivers/media/platform/qcom/iris/iris_probe.c
-@@ -12,8 +12,10 @@
- #include <linux/reset.h>
- #include <linux/soc/qcom/ubwc.h>
- 
-+#include "iris_buffer.h"
- #include "iris_core.h"
- #include "iris_ctrls.h"
-+#include "iris_instance.h"
- #include "iris_vidc.h"
- 
- static int iris_init_icc(struct iris_core *core)
-@@ -259,6 +261,18 @@ static void iris_core_put(void *data)
- 	v4l2_device_put(&core->v4l2_dev);
- }
- 
-+static void iris_instances_vb2_queue_error(struct iris_core *core)
-+{
-+	struct iris_inst *inst;
-+
-+	mutex_lock(&core->lock);
-+	list_for_each_entry(inst, &core->instances, list) {
-+		if (!inst->closing)
-+			iris_vb2_queue_error(inst);
-+	}
-+	mutex_unlock(&core->lock);
-+}
-+
- static void iris_remove(struct platform_device *pdev)
- {
- 	struct iris_core *core;
-@@ -281,6 +295,8 @@ static void iris_remove(struct platform_device *pdev)
- 
- 	iris_core_deinit(core);
- 
-+	iris_instances_vb2_queue_error(core);
-+
- 	pm_runtime_dont_use_autosuspend(core->dev);
- 	pm_runtime_disable(core->dev);
- 
-diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media/platform/qcom/iris/iris_vidc.c
-index 4c9961206f9b..19d1583c20a7 100644
---- a/drivers/media/platform/qcom/iris/iris_vidc.c
-+++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-@@ -322,6 +322,11 @@ static void iris_check_num_queued_internal_buffers(struct iris_inst *inst, u32 p
- int iris_close(struct file *filp)
- {
- 	struct iris_inst *inst = iris_get_inst(filp);
-+	struct iris_core *core = inst->core;
-+
-+	mutex_lock(&core->lock);
-+	inst->closing = true;
-+	mutex_unlock(&core->lock);
- 
- 	v4l2_ctrl_handler_free(&inst->ctrl_handler);
- 	v4l2_m2m_ctx_release(inst->m2m_ctx);
-
--- 
-2.34.1
-
+cheers,
+jamal
+> --
+>
+> net/sched: sch_teql: unshare the header before writing and fix retry stri=
+p
+>
+> This patch calls skb_cow_head() in __teql_resolve() before the slave
+> neighbour can write or queue the skb, so a cloned header is not
+> corrupted. It also changes the retry path in teql_master_xmit(). The
+> retry now pulls back only the bytes the current slave pushed, instead of
+> pulling to the network header, so AF_PACKET frames without a dst keep
+> their own link header.
+>
+> Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-6HS9.v4.r=
+0.20261111094338-1%40mojatatu.com
+> Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@moja=
+tatu.com/
+> Link: https://lore.kernel.org/netdev/20261110101908.2e64e8e9@kernel.org/
+>
+> > diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
+> > index dc21cd9704a25..626dc001ec231 100644
+> > --- a/net/sched/sch_teql.c
+> > +++ b/net/sched/sch_teql.c
+>
+> [ ... ]
+>
+> >       if (neigh_event_send(n, skb_res) =3D=3D 0) {
+> > +             int off =3D skb_network_offset(skb);
+> >               char haddr[MAX_ADDR_LEN];
+> >
+> >               neigh_ha_snapshot(haddr, n, dev);
+> >               if (dev_hard_header(skb, dev, ntohs(skb_protocol(skb, fal=
+se)),
+> >                                   haddr, NULL, skb->len) < 0)
+> >                       err =3D -EINVAL;
+> > +             /* The bytes prepended above skb->data, pulled back on re=
+try. */
+> > +             *hlen =3D skb_network_offset(skb) - off;
+> >       } else {
+> >               err =3D (skb_res =3D=3D NULL) ? -EAGAIN : 1;
+> >       }
+>
+> [ ... ]
+>
+> > @@ -408,8 +421,10 @@ static netdev_tx_t teql_master_xmit(struct sk_buff=
+ *skb, struct net_device *dev)
+> >                       nores =3D 1;
+> >                       break;
+> >               }
+> > +             /* Pull back only the header this slave added. */
+> > +             if (hlen > 0)
+> > +                     __skb_pull(skb, hlen);
+> >               skb->dev =3D dev;
+> > -             __skb_pull(skb, skb_network_offset(skb));
+> >       } while ((q =3D rcu_dereference(NEXT_SLAVE(q))) !=3D start);
+>
+> [Severity: Medium]
+> What happens on retry when the skb has a dst and already carries
+> link-layer bytes in front of its network header?
+>
+> The old retry reset skb->data to the network header. That matches what
+> neigh_resolve_output() and neigh_connected_output() do before building
+> a header:
+>
+> net/core/neighbour.c:neigh_resolve_output() {
+>     ...
+>                 do {
+>                         __skb_pull(skb, skb_network_offset(skb));
+>                         seq =3D read_seqbegin(&neigh->ha_lock);
+>                         err =3D dev_hard_header(skb, dev, ntohs(skb->prot=
+ocol),
+>                                               neigh->ha, NULL, skb->len);
+>     ...
+> }
+>
+> __teql_resolve() pushes the slave header at skb->data without pulling
+> to the network header first, and hlen only counts that push. So with
+> the new retry, any L2 bytes already present when teql_master_xmit() was
+> entered stay in place across every retry.
+>
+> One path that still delivers such an skb, even with the rest of the
+> series applied, is nft fwd ... neigh on a netdev egress chain.
+> nft_fwd_validate() allows NF_NETDEV_EGRESS, and nft_fwd_neigh_eval()
+> neither pulls to the network header nor drops the dst:
+>
+> net/netfilter/nft_fwd_netdev.c:nft_fwd_neigh_eval() {
+>     ...
+>         skb->dev =3D dev;
+>         skb_clear_tstamp(skb);
+>
+>         nf_dev_xmit_recursion_inc();
+>         neigh_xmit(neigh_table, dev, addr, skb);
+>     ...
+> }
+>
+> teql0 has no header_ops, so arp_constructor() installs
+> neigh_direct_output() for it:
+>
+> nft_fwd_neigh_eval()
+>   neigh_xmit()
+>     neigh_direct_output()
+>       dev_queue_xmit(teql0)
+>         teql_master_xmit()
+>           __teql_resolve()
+>
+> The skb arrives with eth0's header in front of the IP header (network
+> offset 14) and eth0's route dst still attached. Because dst->dev !=3D
+> slave, __teql_resolve() looks up the slave's neighbour. From there:
+>
+> If the slave neighbour is resolved, dev_hard_header() pushes 14 bytes
+> and hlen =3D 14. If the trylock then fails or the slave returns
+> NETDEV_TX_BUSY, the retry pulls only 14 bytes. The next slave sends
+> slave header + eth0 header + IP, while the old code pulled 28 bytes
+> and sent a single header.
+>
+> If the slave neighbour is unresolved (-EAGAIN, nores), hlen =3D 0 and
+> nothing is pulled. The next slave in the same pass gets the double
+> header, while the old code pulled the stale 14 bytes.
+>
+> At this commit alone there is a second trigger: an arp_queue skb
+> drained back into teql0 after neigh_resolve_output() wrote an eth0
+> header. Here skb->dev =3D slave is only set inside case 0, so the parked
+> skb still has skb->dev pointing at teql0.
+>
+> That second trigger is closed later in the series. "net/sched: sch_teql:
+> keep skb->dev consistent on the arp-queue path" sets skb->dev =3D slave
+> before teql_resolve(). "net: neighbour: reinject a parked skb through a
+> headerless output device" only reverts skb->dev to a headerless
+> n1->dev, whose output is neigh_direct_output(), so no header is written
+> in that case. The nft fwd path above is not affected by either change.
+>
+> The AF_PACKET case in the commit message only seems to need the
+> dst =3D=3D NULL early return in teql_resolve(), where hlen is always 0.
+> Would it work to keep pulling to the network header for skbs with a
+> dst? Another option would be to pull to the network header in
+> __teql_resolve() before dev_hard_header(), as neigh_resolve_output()
+> does.
+>
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/QDISC-6HS9.v5.r0.20261116052927%40mojatatu.com
