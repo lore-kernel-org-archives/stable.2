@@ -1,45 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795097486;
-	b=tTRaRlxiQImsy95yIPr+zhDQtYXEv+Baf6knimNs5/goNhc3IPqNeusBI0B4+3WRf8sK
-	 AW6Z0VjQ3u0kMX9AHDiAJ0cUlH1Oxvx/WLQMYouoJOfCdiIbT+64qwGK6/7AEEEIWRyQN
-	 6F904f1UZvs/ZnMfvAykSVS1XjE0mlBCLKcIbqmsCHXZyzfmxGDdIzpafyaQ+QUWJrsMG
-	 Zrg+mOSFBv8rKqaX8sKJByRNM17Di1H1sBJPfUq9NJxkWNHKD+gGoRcfvBlNqxGUzhVbL
-	 cZ8zR3uJLTH2Yvs+FPJgTY2vlenS/qvJIE1mCakBK30uBd5nhat6iEI/Qbnd/xyl05w==
+	t=1795097526;
+	b=f9M9fH145/YA+qXHB6bUy2yAhq0fjgmcAqfVrVqwlK545OKkcEyRywqd83QrUkIcDI+4
+	 KcYC6lPzYZnQ1DFYSfWmFObItuiu0+npTkP7IjfwL8b4DQCAfl1VnxJVR7Q1hFToFIpPR
+	 akrbJr5GDcyi/hXokPY4wUs9/yYfZHlGO9E3nSEpKpzV8CX3VeH0OPZYn+kGIp8w39gC9
+	 LNWPMX7LUpZzIVaCSo3fCl7ngYivGy/18XUyeaNvWoa3Ym5gi+ccxtQpIwFgaPbwtk/7b
+	 OHGlGNaWUznfHPAGrvi2jZe+mWHZ8vCj65B6YOqnlTPalak4EJDN2Fz5tyAD9xUHeTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795097486;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=bf3s9RgIY82SmvQaR+hK80LHud4bx2Ddycs3hcBL9WE=;
-	b=0d0jJWvCN79UOh0Oi4/qUmyAb2lNVdnI/N89sapk1ZzsZ+4Mx8BN2s9MDoy8SVt5Dyz7
-	 RrMl/ifCFVC2HBPnVr1KPykLozt9wzFYWbHK/TU1NFrBfracaHp2YI/ApGSz9bJd1uBiu
-	 hoO+XQyCJnTgK58Tlr+TB9ZDj4011Hj8qkRWMz4JLAa435q1Yo4DPNRIbphtRqB34+edj
-	 zeQyJ8hbaul2yoCGx2tDfm1w+88I3eIuYHYfGTIs22/lSSgGKztp6950rD8Dr8bBrlRp0
-	 8GrbfXh/J9pJwHXrZE7I/auYP6d5kNcmqXBSffQ+ZNvDQgfeHkaMRODh7UHv40j1Kog==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795097526;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=K2eaO5KthBm6xqXpWKBCvrCFiONFqgpc2DtBPnCprW8=;
+	b=kVIoeVSKkYOJ8amcf0xOTmmy4t3leEgA9OTKxlEqceWsbVL4ib6FmYXK29IHa7xwnRYN
+	 c6F6Qh3vthEQ9kU3nLK+DirHSMt9nrUNXSIikF7VwuunO6Eo/bePg3PkvacVP3EJlAA6n
+	 NSK7g86zkqSoiELU+Tkw0ljYc7rmmcptgKLoNWCDP/pk7GWeAw//qEm0U/fyBRxccdsRF
+	 fNHepf4aBtVPZwifrVc/GGc9opHjvbll9M2COiFvroeHV16lVfEvbgy9mFvZUs2+++Scx
+	 aSq+jq2bcebgXrme40hWTJm59ZMQ3vELdv+ptVYXRxbyCdlbURhO+MgLVB6JL74RFSA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omL137Mu;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fTwcoXXD;
+	arc=none smtp.remote-ip=192.198.163.10
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F71760A260D;
-	Thu, 19 Nov 2026 14:11:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7E3606A330
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 14:12:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D7E3606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=omL137Mu
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E7C51F000C4;
-	Thu, 19 Nov 2026 14:11:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795097485;
-	bh=bf3s9RgIY82SmvQaR+hK80LHud4bx2Ddycs3hcBL9WE=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=omL137MuvhpSe/wi/xx9MkwCYV21C8J9Cb4ElascXr7mkFMGFmXiY8OnZVKOOR3mL
-	 3bL0SAe1KMfdMgTA9wEg7Fs5s/Tn4PKAqn4xrzYQ4zr7BgRwLQWSOtxP6ezTe2LNaD
-	 a/V/epuUf6QZhSWcmV41KLbjXam4m9+1m6qQn3dBzC5e9r96Jgp36R51qTo1OMUFHm
-	 J0G2fxgmvx5w18IQ5tlJEeSib9VGzFw23oMyJeUiUXTDJRri43ILTYRovHvHjO9l7s
-	 lHtxfXqi1Qpur9WnmJjwlyCbIJ8fHxSduGm/+N82MzRTkKDzJq/oBO1/gx+i1mrKwa
-	 uHuZPEBYhTjaw==
-Content-Type: multipart/mixed; boundary="===============5181703165338020747=="
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fTwcoXXD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795097526; x=1826633526;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=n/iBxPET2SIFQ0ptF5C2r+HLozj9+RShh/zl8NhljwU=;
+  b=fTwcoXXDvFs/AcgD0nD/8AfLuQhe+d4uSgQL/ZIW0ccEza6cg99DFpnf
+   btjuwUtAEz2WaKrcAu9P738HMa170Yq0hTt5lyDEmRI2HbF5pWfch7Sdi
+   Bx2rZBvxb7idwYg8/iSqV7+BTNEKLnz2uEEvylVGV+LBHtMMSawaTF3Ip
+   FVJfSJSgulW9T6PyoF+KJJNOdFEcg8TcqbPc5rzDU1bmjvKKZcS+KgZNX
+   yQYpSGW5t42DUAwfJyEuzTtIJxPgf80f6hKljQFho75gzZGaNezCKxldL
+   0JqM1QsLrEYm2sh+htPq1DZ5glzwHNJKH3kXcGd34RRc54SDMQ4ozSBTS
+   g==;
+X-CSE-ConnectionGUID: aB45UH2bQJq8DBUMhTFCEg==
+X-CSE-MsgGUID: q/ckWXlOQASgg9f+0+qgXg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3835626"
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="3835626"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 06:12:05 -0800
+X-CSE-ConnectionGUID: A1pAg2sNQf2v8YOtHncBqQ==
+X-CSE-MsgGUID: tsS8m9EKTmq2ttgkO+wf+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="10476150"
+Received: from newjersey.igk.intel.com ([10.102.20.203])
+  by orviesa002.jf.intel.com with ESMTP; 19 Nov 2026 06:12:04 -0800
+From: Alexander Lobakin <aleksander.lobakin@intel.com>
+To: intel-wired-lan@lists.osuosl.org
+Cc: Alexander Lobakin <aleksander.lobakin@intel.com>,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH iwl-next v3 1/3] idpf: always reserve one empty descriptor on XDPSQs
+Date: Thu, 19 Nov 2026 15:09:36 +0100
+Message-ID: <20261119140938.1363722-2-aleksander.lobakin@intel.com>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261119140938.1363722-1-aleksander.lobakin@intel.com>
+References: <20261119140938.1363722-1-aleksander.lobakin@intel.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -49,92 +82,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <fd9b43958f6297b0031158bd33bdc6cc54f3c9338a4ee2e30bd6e50acf775a60@mail.kernel.org>
-In-Reply-To: <20261119133032.2015656-3-sst@poczta.fm>
-References: <20261119133032.2015656-3-sst@poczta.fm>
-Subject: Re: [PATCH v7 bpf 2/5] xdp: introduce xdp_convert_skb_to_buff()
-From: bot+bpf-ci@kernel.org
-To: sst@poczta.fm,ast@kernel.org,daniel@iogearbox.net,davem@davemloft.net,kuba@kernel.org,hawk@kernel.org,john.fastabend@gmail.com,sdf@fomichev.me
-Cc: bpf@vger.kernel.org,netdev@vger.kernel.org,maciej.fijalkowski@intel.com,tianyi@cloudflare.com,tavip@google.com,toke@redhat.com,aleksander.lobakin@intel.com,ilias.apalodimas@linaro.org,lorenzo@kernel.org,magnus.karlsson@intel.com,ihor.solodrai@linux.dev,edumazet@kernel.org,pabeni@redhat.com,andrew+netdev@lunn.ch,horms@kernel.org,andrii@kernel.org,martin.lau@linux.dev,eddyz87@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,memxor@gmail.com,shuah@kernel.org,linux-kselftest@vger.kernel.org,syzbot+ff145014d6b0ce64a173@syzkaller.appspotmail.com,stable@vger.kernel.org,sst@poczta.fm,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Thu, 19 Nov 2026 14:11:22 +0000 (UTC)
+Content-Transfer-Encoding: 8bit
 
---===============5181703165338020747==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+idpf-powered HW requires at least one Tx descriptor to be always
+free, so that head and tail are never equal, otherwise the HW will
+deadlock. This is already taken into account in the XSk xmit code,
+however, not in regular XDP Tx, xmit, and XSk Tx -- these are much
+slower and are in fact almost unable to trigger that.
 
-> xdp: introduce xdp_convert_skb_to_buff()
+Either way, be better safe than sorry and always reserve one empty
+Tx descriptor by passing `free - 1` (this can't underflow since
+`free` is always at least 1 due to this reservation).
 
-TL;DR:
-- Commit message calls the bug a page leak; it may be a use-after-free of
-  page_pool pages
-- Stable Cc 6.4.x predates the Fixes: tag (v6.9)
-- kdoc may overstate mem type usage (nit)
+Found by Sashiko.
 
-> Then when bpf_xdp_adjust_tail() calls
-> __xdp_return(), it acts incorrectly due to mem type not being set to
-> MEM_TYPE_PAGE_POOL and causes a page leak.
-
-Is "causes a page leak" the full impact?
-
-The mechanism is bpf_xdp_adjust_tail() -> bpf_xdp_frags_shrink_tail() ->
-bpf_xdp_shrink_data() -> __xdp_return(netmem, MEM_TYPE_PAGE_SHARED) ->
-page_frag_free().  That ends in put_page_testzero() on a page_pool page.
-
-With page checks enabled this is reported as "page_pool leak" and the page
-is not freed.  Without them, page_pool keeps _refcount at 1 and counts
-fragment users in pp_ref_count, and skb_pp_cow_data() allocates
-fragment-sized chunks.  A single page_frag_free() can therefore hand back
-to the buddy allocator a page that other skbs or pool->frag_page still
-use, which looks like a use-after-free rather than only a leak.
-
-Could the commit message describe that?
-
-> Cc: <stable@vger.kernel.org> # 6.4.x
-
-The Fixes: tag points at e6d5dbdd20aa, which first landed in v6.9.  Before
-that, generic XDP linearized every skb and never set the frags flag, so
-this bug cannot occur on 6.4 through 6.8.
-
-The later veth patch in this series (1d3541dbf827) appears to be why 6.4.x
-is listed, since it uses this helper and needs it as a backport
-prerequisite.  Could the commit message either say that, or align the
-stable range with the Fixes: tag?
-
-> diff --git a/include/net/xdp.h b/include/net/xdp.h
-> --- a/include/net/xdp.h
-> +++ b/include/net/xdp.h
-
-[ ... ]
-
-> +/**
-> + * xdp_convert_skb_to_buff - build an xdp_buff on top of an skb
-> + * @skb: skb to describe, packet data is taken from its MAC header onwards
-> + * @xdp: xdp_buff to initialize
-> + * @xdp_rxq: Rx queue info to attach to @xdp
-> + *
-> + * The memory type set on @xdp_rxq is only used to release fragments that
-> + * the XDP program consumes; the head can not be freed from under the skb.
-> + * A non-linear @skb is expected to have gone through skb_pp_cow_data(), so
-> + * all of its fragments are page_pool backed.
-> + */
-
-This isn't a bug, but is the "only used to release fragments" statement a
-property of this helper, or of its current caller?
-
-It holds for generic XDP.  However, the veth patch later in this series
-(1d3541dbf827) converts the xdp_buff to an xdp_frame on XDP_TX and
-XDP_REDIRECT, where the head is released through the same mem type, and it
-has to overwrite rq->xdp_rxq.mem after calling this helper.
-
-The kdoc also does not mention that the mem type stays set on the caller's
-possibly shared @xdp_rxq after the call.  Should the kdoc say that these
-properties depend on the caller?
-
-
+Fixes: cba102cd7190 ("idpf: add support for XDP on Rx")
+Fixes: 9705d6552f58 ("idpf: implement Rx path for AF_XDP")
+Cc: stable@vger.kernel.org # 6.18+
+Signed-off-by: Alexander Lobakin <aleksander.lobakin@intel.com>
 ---
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
+ drivers/net/ethernet/intel/idpf/xdp.c | 2 +-
+ drivers/net/ethernet/intel/idpf/xsk.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/44535627869
---===============5181703165338020747==--
+diff --git a/drivers/net/ethernet/intel/idpf/xdp.c b/drivers/net/ethernet/intel/idpf/xdp.c
+index cbccd4546768..1d8ed7ac3e17 100644
+--- a/drivers/net/ethernet/intel/idpf/xdp.c
++++ b/drivers/net/ethernet/intel/idpf/xdp.c
+@@ -351,7 +351,7 @@ static u32 idpf_xdp_tx_prep(void *_xdpsq, struct libeth_xdpsq *sq)
+ 		.xdp_tx		= &xdpsq->xdp_tx,
+ 	};
+ 
+-	return free;
++	return free - 1;
+ }
+ 
+ LIBETH_XDP_DEFINE_START();
+diff --git a/drivers/net/ethernet/intel/idpf/xsk.c b/drivers/net/ethernet/intel/idpf/xsk.c
+index 5a0a1d8a7a86..ef079d2cfaa5 100644
+--- a/drivers/net/ethernet/intel/idpf/xsk.c
++++ b/drivers/net/ethernet/intel/idpf/xsk.c
+@@ -294,7 +294,7 @@ static u32 idpf_xsk_tx_prep(void *_xdpsq, struct libeth_xdpsq *sq)
+ 		.xdp_tx		= &xdpsq->xdp_tx,
+ 	};
+ 
+-	return free;
++	return free - 1;
+ }
+ 
+ static u32 idpf_xsk_xmit_prep(void *_xdpsq, struct libeth_xdpsq *sq)
+-- 
+2.56.1
+
