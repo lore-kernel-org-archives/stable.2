@@ -1,59 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795049566;
-	b=WX5OsHaeDwZHawLfV3tArQzeFwsFTWYhDC6EdB1U6iYR3igfa6S1vI+WAEI9tIGxQz+Z
-	 MaObGVdPEuxHZbwvZcGTZMk3t6ltmDEnpnVX3izv50ua4BvY2aVnJAGhKiVAi/zTJnBEI
-	 2URCQw265PpL7pjFzECjisFAwfmy2BuTNTKnEUGU6lqxH72C/bKzEY5PcgWPEwbyGZB4G
-	 Y7ndT22YE7Xv7oCY89eFgdbPFFO8yewzuo5RTUmSYQB4XeWCgootdMBpqcHohhQM+55i5
-	 ngT8acSwVTbw2pF3j1/RhTfsMoLxMS44ub5pHmjjN41IQFs9Btoo/vcxQ1OuzKNXZOw==
+	t=1795049568;
+	b=oLin4wBXape0Q12Ttaau0L/x1I3tptMgtv4ZXZ643Utul2a+QnnB8E2ghWhSK1vJfKo0
+	 ERIxBThGTu1rQ44xtkpPOVTo/AqwNq9h/LazLixxiaadnzxw0brOWrWoYY3w1i4gYjHX5
+	 D2CzJcAoyO9DY/v8FNGAHNPTawMIqos+HLkiBCY/Q9XtDPfYXFabrWG02GhrG4ABrK5YK
+	 U0DxmGo9wGdcFu5qINy7QPdT1WxFjJ3JMd6LmWY1SgEqLhLcC2QZUYx/7XT7Lh6HkpCKQ
+	 MZe0WV3kc8/H3cryirjPhZDIkMmFvEnkdZMnmpksAqxha02xFij/TWGCZfgHdmrf6Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795049566;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=TcFX9C679+DPQXiYu+kBgFh7A74M25Mq/zhEn3jppyk=;
-	b=TYkoVMBdiQH/TEOC/E+efUaf7FFrdRHCaO2PoFMoCHrGmc+idQpg01uSjgMv+CONjJHJ
-	 Lcvv52qFpGWJ2kYYCe9OcQ5i62ckr/MtkMcNCWk3ZuDgfBunWCw41Ez1bGugN4tnd2laj
-	 HGGh/f1HcfbkvLQgaSsJ4fmY6MRGDcT2ZIlsBrTnbmCzgwLYNSwrfk6phFlnhArcvU3Lb
-	 9ZEDRVrtNpUdEHLZZPswD7ZTbRE3jDcZJnjGPyzFlqCFn8gQM46pXr16CdvgycvQsik0I
-	 SqShkGvMUrLtbsck72iYT3c+yKfMCDF59cWeqhsXK10asAPqyrKfySl8O25F69CHi4g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795049568;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=3fqxcRA59nGG2GFaHTxSrJALKfPpvhTXvqIt6jzDVGQ=;
+	b=leODru0ss2MxeKG0kRcLCijoLn/6kK63mrVHfBA64uHb+aOD/XcdK05+2CGYaY4EdJDs
+	 i72I32R7dhrrHi4xAjFq/M7kuXMbbyqU+06r65l5yvedbWdXVV7xfE7YhuhygynplFXV1
+	 HTne8MSZTdECuL2BeD99gS4hoOpQ8+2ATOvGYzd8gf6G8wE9Gp/3Qsj9OnQwIIqlX1yMJ
+	 UY17xtLFqfq8j2QoPw4OMkP4h2nOQejTdySRyoJxxewYfvZLI9BzJMtFBTGBGs4naMxZC
+	 JN/KsrMERfs12Ox3dwpdzmFz+qJB8hjlZlq/61XcJEMIbP3U5hwh8HoJLT+95GQwttw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b="Eq/ONQkT";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbxgtOSe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 412C8606A32A;
-	Thu, 19 Nov 2026 00:52:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CCE606A33E
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:52:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=Eq/ONQkT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A1B71F000C4;
-	Thu, 19 Nov 2026 00:52:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795049566;
-	bh=TcFX9C679+DPQXiYu+kBgFh7A74M25Mq/zhEn3jppyk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Eq/ONQkTinuqcErqAWb8rDzHP+7M6o4ebqZheqUKlcg1DezKdfTgNL5h1eA5k9cIG
-	 QX6bBjwRtu22rno5NbVWYbVcUDzzE42PpcL/y+OiXP+qa5w2vnNhNbVXsEOs2RLXy4
-	 GlhE3lO71GByIPLi3MNxanxL5dBAA7WSGqfhO9hc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Haitam Lazaar <haitam@lazaarsec.com>,
-	Bernard Metzler <bernard.metzler@linux.dev>,
-	Leon Romanovsky <leon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 2396/2857] RDMA/siw: Enforce IB_ACCESS_REMOTE_READ for read responses
-Date: Wed, 18 Nov 2026 15:57:10 +0100
-Message-ID: <20261118150327.790675436@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
-References: <20261118150201.293410965@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AbxgtOSe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1FF1F000C7
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:52:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795049568;
+	bh=3fqxcRA59nGG2GFaHTxSrJALKfPpvhTXvqIt6jzDVGQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=AbxgtOSe8H5zVOQqseLvd6hauju7xcjsA9MMWd1u1ANcmQoP9da5w7EeEBSjNDxfy
+	 X+mOhSJUDZtbGbRgHG+dDvdVlubim5OC5GPCWX0n+yLdoeFZB75/NaHp7zS5uZ5UF7
+	 sPPn0DLO9zBorpMAF9Tsn6+iyETmZ3ZS03AxEBKiCJx0trJVxavfjAwh411/MuaW1I
+	 Yy5xvqODqAXf9NiPci/wn3qS1bvDAVMpoPH7eASO73+zYWPG3JOKMsxkZQjRXNFcIP
+	 96HVRyUfJL3239fBf7qj9YrSH3FST1vsf4K/Y6tex0/9gjhxoU07iwqwCvlThs64QN
+	 J0+1Q1DbCGCOQ==
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c50933bdf4bso104802266b.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 16:52:47 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErFE95IOTq0dLE7I3jWVUHfGxa2vg9a1WzacBtjFKznyhmU2IyJfvyfYq1IorisPlX0nnTr2dTc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9rQaUJ619MrBO6DImnMpNAIuspsvAQ62z0sjIG8094IZhKZVD6
+	H5h6td5WC35abBditXgKRvSHfJL34HvEDujE3S7vnTTm6oRLd/uLkCTUyiK6LLo0CvN16fIg4aj
+	YaE9Ay64tQoJyPuUkqjUEJpl5ESlLUZA=
+X-Received: by 2002:a17:906:7306:b0:c29:4b57:503e with SMTP id
+ a640c23a62f3a-c512b4373d1mr21641066b.1.1795049566753; Wed, 18 Nov 2026
+ 16:52:46 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,79 +59,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261118155521.70611-1-icb@fastmail.org>
+In-Reply-To: <20261118155521.70611-1-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Thu, 19 Nov 2026 09:52:33 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9=4OfQ6HESrMFhuffHANTWDjYyrt9VDQpBFdV8i4Mi4w@mail.gmail.com>
+X-Gm-Features: AclHuK9fpIXSg-K6iwftVqFnqQORnobjsfqgoT_nBWRu89S49TH0_lVl20XZ0Hw
+Message-ID: <CAKYAXd9=4OfQ6HESrMFhuffHANTWDjYyrt9VDQpBFdV8i4Mi4w@mail.gmail.com>
+Subject: Re: [PATCH] ksmbd: fail SET_INFO when the security descriptor cannot
+ be stored
+To: Ian Bridges <icb@fastmail.org>
+Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
+	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+> diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+> index a87c22fa9a6e..3770dda2b3ed 100644
+> --- a/fs/smb/server/smbacl.c
+> +++ b/fs/smb/server/smbacl.c
+> @@ -1984,7 +1984,14 @@ int set_info_sec(struct ksmbd_conn *conn, struct ksmbd_tree_connect *tcon,
+>         if (test_share_config_flag(tcon->share_conf, KSMBD_SHARE_FLAG_ACL_XATTR)) {
+>                 /* Update WinACL in xattr */
+>                 ksmbd_vfs_remove_sd_xattrs(idmap, path);
+> -               ksmbd_vfs_set_sd_xattr(conn, idmap, path, pntsd, ntsd_len);
+> +               rc = ksmbd_vfs_set_sd_xattr(conn, idmap, path, pntsd, ntsd_len);
+> +               /*
+> +                * The CREATE context (type_check) stays best effort because
+> +                * the file exists already. A filesystem without the xattr is
+> +                * not an error either.
+> +                */
+> +               if (type_check || rc == -EOPNOTSUPP)
+> +                       rc = 0;
+-ENOMEM and -E2BIG fall through to STATUS_INVALID_INFO_CLASS. Please
+map -ENOMEM to STATUS_INSUFFICIENT_RESOURCES and assign an appropriate
+status to -E2BIG.
 
-------------------
-
-From: Haitam Lazaar <haitam@lazaarsec.com>
-
-[ Upstream commit f74eac4fc6c56274fb96c2c44ffad8f01c325f17 ]
-
-When generating an RDMA READ response (SIW_OP_READ_RESPONSE),
-siw_check_sgl_tx() unconditionally passes 0 as the required permission
-mask:
-
-    /* Reference memory to be tx'd w/o checking access for LOCAL_READ */
-    rv = siw_check_sgl_tx(qp->pd, wqe, 0);
-
-Because perms is 0, siw_check_mem()'s authorization test:
-    if ((mem->perms & perms) < perms)
-evaluates to (mem->perms & 0) < 0, which is always false. Consequently,
-an untrusted remote peer can issue an RDMA Read targeting any valid
-STag in the Protection Domain, even if the memory was registered strictly
-as write-only (IB_ACCESS_REMOTE_WRITE) without IB_ACCESS_REMOTE_READ.
-
-Enforce that the target memory region was granted IB_ACCESS_REMOTE_READ
-when answering SIW_OP_READ_RESPONSE work queue entries, while preserving
-perms = 0 for standard local sends.
-
-Fixes: b9be6f18cf9e ("rdma/siw: transmit path")
-Signed-off-by: Haitam Lazaar <haitam@lazaarsec.com>
-Link: https://patch.msgid.link/1a12ad1d83f.19cd98924357428.7073029566232810804@lazaarsec.com
-Acked-by: Bernard Metzler <bernard.metzler@linux.dev>
-Signed-off-by: Leon Romanovsky <leon@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/infiniband/sw/siw/siw_qp_tx.c | 18 +++++++++++-------
- 1 file changed, 11 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/infiniband/sw/siw/siw_qp_tx.c b/drivers/infiniband/sw/siw/siw_qp_tx.c
-index bb81558246ae6..701d730c19629 100644
---- a/drivers/infiniband/sw/siw/siw_qp_tx.c
-+++ b/drivers/infiniband/sw/siw/siw_qp_tx.c
-@@ -820,17 +820,21 @@ static int siw_qp_sq_proc_tx(struct siw_qp *qp, struct siw_wqe *wqe)
- 
- 	if (wqe->wr_status == SIW_WR_QUEUED) {
- 		if (!(wqe->sqe.flags & SIW_WQE_INLINE)) {
--			if (tx_type(wqe) == SIW_OP_READ_RESPONSE)
--				wqe->sqe.num_sge = 1;
--
- 			if (tx_type(wqe) != SIW_OP_READ &&
- 			    tx_type(wqe) != SIW_OP_READ_LOCAL_INV) {
-+				enum ib_access_flags perms = 0;
-+
- 				/*
--				 * Reference memory to be tx'd w/o checking
--				 * access for LOCAL_READ permission, since
--				 * not defined in RDMA core.
-+				 * Local READ permission doesn't exist in RDMA core.
-+				 * A READ RESPONSE source is read by the remote peer,
-+				 * so it must be checked for REMOTE_READ permission.
- 				 */
--				rv = siw_check_sgl_tx(qp->pd, wqe, 0);
-+				if (tx_type(wqe) == SIW_OP_READ_RESPONSE) {
-+					perms = IB_ACCESS_REMOTE_READ;
-+					wqe->sqe.num_sge = 1;
-+				}
-+
-+				rv = siw_check_sgl_tx(qp->pd, wqe, perms);
- 				if (rv < 0) {
- 					if (tx_type(wqe) ==
- 					    SIW_OP_READ_RESPONSE)
--- 
-2.53.0
-
-
-
+Thanks.
