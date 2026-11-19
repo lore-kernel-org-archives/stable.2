@@ -1,51 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795067697;
-	b=kcqwaXUcG0n654iDeIIi4w0TtRHydZd5cZDN9z/40u/14Y9KMqVm8V/8297RvqWzMQLj
-	 AvHcphQbK0CVhfcwnuDSIcxD44GssR81jj+ANJnP/8F3chEGAFWMAiQ/hQk6FyMzi0XLN
-	 PSulJknjUkT4edP3bciW6/xJsleDzanQ3siGJztkvZgg+yE+XtBW/5ihbrEiHeDgb50U8
-	 d6+X+F5xKd+tLszD7oNPojzamUwE8IboUAdkGv9C3Pnm3xLrJZLN+R1MVFREeIPexBXwL
-	 DCj8hxH+UqMsOZAJOjQBX24USa203M5/av7VKhtiPgkrEHeLkV92e6sbBSd5DgIhG/g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795067697;
-	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
-	 Message-Id;
-	bh=cQA+RdxhVaQg2wcsA1jTurGlIukrWJe77QMg4sxsFbM=;
-	b=pZ7mrJVTobfJJCvEp8dhyPpVh8PXK11RwOi+5hreTRT/w9lmVPE0oXH+WnZxuSyWZJsV
-	 63ai8CSKz5F3jRzRzb7RF/iSs7kQcA9d9yCDVpohf05boeyTyMU/4K/u87oiafB+QLAVH
-	 /x378Q3hbp1YeLL/OnIKWsZmR9ftdet3f8rTg1EoCz4sIsZgJDzsRxStvJB1ZnTfISLzX
-	 MPPkITIbpcIIso90uIfhS2q8lt64wkaYrxgrghP3vnAuUifyLEWFSw6uf5T2d0GHR+ujD
-	 9glqlEORUPenT0ZBtUKxIsK4lj9km3N8TgQepA4pjei+2OcMC9lrWrObnAFv+ErfzXw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=BJxCRKjf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.174
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795067738;
+	b=liARUrJdWJnwXXfpitZVXaeoXslBqneVlamwfB61UofKP2DmsNHfde4oVhbkcGEFryKN
+	 emU8O1GJNfCEem0bQKCKwcY5G1+Pyf2k0sUBh0zQjXuYMDcnm6JgjMvbXySqC/5T9QrmR
+	 NmEgp1ttslLTNWzDlsGeZDwFUI3fVB5GaMELmcFQt4TKkPwFubPKVtfouR5evYdbJTglB
+	 jYV8Mt76qexEt6PUxy273bADwuARDPC7fljDUnZGoOn0Koh+WzvPhYWVYrFx26/35a6fX
+	 79xmUl8aqgN05urHRKfvR/uaUUudc3GkJQcZaOPS5NvbtWaTqFqGC5Fx9dU4PCXYrpA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795067738;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=DjEQLmEJOM/wymBBE+U6O32DcFNbSABmNjSjqPA8HkI=;
+	b=b9dmFXYH0w0Bb7C5vD4/KPAs+2O9ig2EwZiuS+c93vuB1dH2pDwmR0ygPVcj3Hx80hSa
+	 vUV8qWaB2jpXWBgBXDrGQo7kEAZ5k/vFfNpjZVMbxZIcWnlSiSfHTqRx7n2OzDtjDeTgX
+	 Cw6YIjtIjKrmUqjwZGfPsKWHATVNhsh7oDTejdA2PaRM1KSJS3f9gi4zaNEhlTLCY7my9
+	 sh1qtyykmBvua/S+6txMm6Jc8fxEbZ9Wxuh8/SB/yJ4XU1i2yk0JvN8lAqgriBXqsbcfM
+	 qevfB9udhGOMCOIGyNAzjQkJZm9v9e7S4GvT2L6EHx1J0tIE8z0d8LwzHd3xiu5AUqA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YbuOgokn;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.174
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB6260A2603;
-	Thu, 19 Nov 2026 05:54:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF04606A320
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 05:55:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DF04606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=BJxCRKjf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83F941F000C7;
-	Thu, 19 Nov 2026 05:54:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YbuOgokn
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-5430f70c827so26689251cf.2
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 21:55:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795067737; cv=none;
+        d=google.com; s=arc-20260327;
+        b=maUGBK8USSJTJ3sRmjUzLf9yPFQw1zmd8zZL5Dx1CaJ29L2ryWThpBs89RO+eJL9uW
+         bUsSDeQd6gNKkiXIipENzB9lDkhpfrsXM+qJZkL9qwkWYEVC4UCqROSUnUmPK0+sfqQ6
+         f705Xn/c4Ke8aFH/ON8YqmULKts6ukr/jA+j44w8sOMAmNnrPqDXMmflaiRfOZsW2/EU
+         hqGPxzAYGYDORS+cD3VspdmsTn4Pjz+K2j+nI81sL9KILpSeWzIp9pL/X7nOy17q5PBm
+         zmM+cotWr77oQyrBhKUcnCNVJsRjAphE2tIXELIx7pNVjka8gqJQEqIUYO5PFAmLUlSo
+         wOGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=DjEQLmEJOM/wymBBE+U6O32DcFNbSABmNjSjqPA8HkI=;
+        fh=hh64WXw32xDCPRIwo8kqdpPDKtEO7rcNvFi6kTS088k=;
+        b=ZlzmQlAv/fciOSF9Nku9oVYpVbuVznsRIhqZgJTXM+6f+qy32bo8ZD4Sb2O733hd9Q
+         82PYFEUXnSVtclQKQjFFiy7tAw6sOcIAcQezE/yN6z3a6kDwdx/9PmTGqT9dLYBMMMAv
+         LETCUjAH1TEf3EqrECjscaaOICFivim6LBj4N7X4kmF9x3EzVlJEK/pEjVbS7/wP2xvi
+         YnYmJQF+XJVoXtNpHRK0nS23bixVjpFtv32JsNqitQWwLlFh7qAsknrTNDAgzJuYsszX
+         ZuOgb+ZQQcR6Wvo661RUZrGWexTY5hlUQbIvhlzDP0rTJ8dENWmyyYV/ESj00JflzRIy
+         4cSA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1795067696;
-	bh=cQA+RdxhVaQg2wcsA1jTurGlIukrWJe77QMg4sxsFbM=;
-	h=Date:To:From:In-Reply-To:References:Subject;
-	b=BJxCRKjfwLKB5GP/LWiCdz4vOlLMTpyMyldIG5PdWJIEvJFTYc7DyOzC0cL8DyCoh
-	 BrdCoc49KRgQNXjLhsBOQKrqte5Efw7MB+wDuHRq84s8vIDM4sfK9aL2gM3ETbnPtx
-	 iBcY1g2dAM5VnKXUPOl1MFFjxh+bhAcLnJEWYXqA=
-Date: Wed, 18 Nov 2026 21:54:56 -0800
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,surenb@google.com,
-	stable@vger.kernel.org,pfalcato@suse.de,ljs@kernel.org,liam@infradead.org,
-	jannh@google.com,ahuang12@lenovo.com,adrianhuang0701@gmail.com,
-	akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-In-Reply-To: <20261118103421.776-1-adrianhuang0701@gmail.com>
-References: <20261118103421.776-1-adrianhuang0701@gmail.com>
-Subject: + fs-proc-task_mmu-avoid-spurious-seq_file-warning-on-interrupted-vma-lookup.patch added to mm-new branch
-Message-Id: <20261119055456.83F941F000C7@smtp.kernel.org>
+        d=gmail.com; s=20260707; t=1795067737; x=1795672537; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DjEQLmEJOM/wymBBE+U6O32DcFNbSABmNjSjqPA8HkI=;
+        b=YbuOgoknImPI74dkeDko9dpj5c4Cb5rCJh+DtFAF1+VA5OoZsNx6xZ7ahto3GzLFj3
+         Nfgd+11PhrZRn3OBt1TZZ3QunJv8ZhlbyZt6uqgH8AswyRUREOyfCUyM3j8vXKuXWGCf
+         56dR3A91S0TTcCwV8dl4vTvXxLoloTAfyu9WzQOgiY1HFqE1BDdpRiRqHzJEOpY5yFP2
+         YPDmXK2360I0/kUVaA6oy6fyTy/Y0eBGty845OASH/pKckqUPkO0KxaYsZV9IN5Dd2xV
+         rA8CmzOYY4LEINVPttDRQ4OHja7FMva1I0+IkIOgMThd6nrb7EvnYvEgXhQF8lF+kumc
+         c2MA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795067737; x=1795672537;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DjEQLmEJOM/wymBBE+U6O32DcFNbSABmNjSjqPA8HkI=;
+        b=ZCp1RWFMfU4aF+6u754MfEwjA3PQ6AwnVrPzrx1nF5B2qyUgiUDEtjNydShwd08xf5
+         Z0onm/9pzuZtQeXgEUsZPBvNqFnHII/ymdiB4tKzB6MTe8YXFW4/yDBT+i1cHkf22hbp
+         FfaWn+QASIEVbaHXjA9SYLNhShdEP3Rx7qp5ZvvSqn94Fjn5aBKFTFkiskUCbNPuIDvd
+         eHYBUXsDiBUPtEy09zw+WfkuDMxZDt1cD5wqlUUaUsOJFGpnABDMSd/G5NKavRpGXfiU
+         bgbMDmoPY8j15+2DiFyq0A9ZRrvnXghp1fXi/OeQx/Q4WxsTKgrPs0MQQGeBv6cOQYnj
+         ThxA==
+X-Gm-Message-State: APuU4Z8w0uB555WxJOXIcUJS+mRH79lc3D4o4NehxA0rxxWUBB050ESq
+	H5M/1shr+nu3ZKAsNcL9gbtfNaBy8958DA92koWxnYrgx5vuQewCOJugTSxoDYpMeUpP8C5A3Wc
+	KGq3nczGDka+3wB0sUq9jxHdv/Ib1WL/DmaMjt0aYxKb1
+X-Gm-Gg: AYBFou2USHwJS/woSAIBczIGEIKHiLm7sxrVZlzjIhdRHwKRIU+8d2L+8iCziU/+oNx
+	RO5F+ru5PCu7kaPqBFV/uZklZOb1yQVu5l1AUxFjnuzo4+/QyiPqnoUvhCGTDiZsHZ0Lro/5MbT
+	dIRugRnAafixXEwiHVhB5led2awSUKBgWhoqbxStu3GDsjFl9cytAJcVmnVxKFojhSo+27pqv+U
+	zvS9Di7i8hc0AcQ3n17ZFazpPS+0pbjjLnOX78CBYEZtlSe3FvlR9NEx6LcfGBm1gcSF/XfGIry
+	GUt4UcbrNrbtFxYaMyfI08exICaOm9n8b88wdku82n98ExAIZU2XZ/6kldU5xpRnjDA1/Dqo/CD
+	fJmwbYovmJmdGcQA7Qgasch4ObAYwQ4qrUWTXxJq6LLrvxncYQy9OzQwyjnXDdLxTbhPt3uQM4g
+	ucT+5QEukhN+Mjq4D4XA==
+X-Received: by 2002:a05:622a:1a90:b0:536:352d:65f6 with SMTP id
+ d75a77b69052e-55d5a62eb65mr76732251cf.64.1795067737385; Wed, 18 Nov 2026
+ 21:55:37 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -54,114 +99,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+From: =?UTF-8?B?5qKT5bed5ZKy5aSq?= <inkxiao12@gmail.com>
+Date: Thu, 19 Nov 2026 00:55:26 -0500
+X-Gm-Features: Aa3M54pnSDUBBRf3lpLwcke7tzjfHBwFC7TFUZGPR-wTAHAk3o_xI9NvaAJLh0g
+Message-ID: <CAMcAce8eFDXx_BqjMPd-94uX5Hk4KNxkjPtRXW7wOvy_hWjAHA@mail.gmail.com>
+Subject: [PATCH 6.12.y] Backport request: 49b18315be4e ("bpf: Add NULL check
+ for dynptr in bpf_verify_pkcs7_signature")
+To: stable@vger.kernel.org
+Cc: bpf@vger.kernel.org, gregkh@linuxfoundation.org, sashal@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Stable Maintainers,
 
-The patch titled
-     Subject: fs/proc/task_mmu: avoid spurious seq_file warning on interrupted VMA lookup
-has been added to the -mm mm-new branch.  Its filename is
-     fs-proc-task_mmu-avoid-spurious-seq_file-warning-on-interrupted-vma-lookup.patch
+Please consider backporting upstream commit:
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/fs-proc-task_mmu-avoid-spurious-seq_file-warning-on-interrupted-vma-lookup.patch
+  49b18315be4e590fae0fc39c87d46c87e9ec903c ("bpf: Add NULL check for
+dynptr in bpf_verify_pkcs7_signature")
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+to linux-6.12.y.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+In v6.12.118, bpf_verify_pkcs7_signature() dereferences data_ptr->data
+without checking whether the dynptr is empty/null, which allows an attached
+eBPF program to trigger a NULL pointer dereference in kernel space.
 
-The mm-new branch of mm.git is not included in linux-next
+Upstream commit 49b18315be4e applies to kernel/bpf/helpers.c, whereas in
+v6.12.118 this function resides in kernel/trace/bpf_trace.c:1403. The patch
+logic is identical.
 
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
+Verified on x86_64 QEMU v6.12.118: passing an uninitialized/empty dynptr to
+bpf_verify_pkcs7_signature() loads cleanly under lsm.s/file_open pre-patch;
+with this check backported, the verifier/helper rejects it safely.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Fixes: e917c6999a09 ("bpf: Add bpf_verify_pkcs7_signature() kfunc")
+Signed-off-by: BoBppy <inkxiao12@gmail.com>
+---
+ kernel/trace/bpf_trace.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+--- a/kernel/trace/bpf_trace.c
++++ b/kernel/trace/bpf_trace.c
+@@ -1384,8 +1384,12 @@ __bpf_kfunc int
+bpf_verify_pkcs7_signature(struct bpf_dynptr *data_p,
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+  data_len = __bpf_dynptr_size(data_ptr);
+  data = __bpf_dynptr_data(data_ptr, data_len);
++ if (!data)
++ return -EINVAL;
++
+  sig_len = __bpf_dynptr_size(sig_ptr);
+  sig = __bpf_dynptr_data(sig_ptr, sig_len);
++ if (!sig)
++ return -EINVAL;
 
-------------------------------------------------------
-From: "Adrian Huang (Lenovo)" <adrianhuang0701@gmail.com>
-Subject: fs/proc/task_mmu: avoid spurious seq_file warning on interrupted VMA lookup
-Date: Wed, 18 Nov 2026 18:34:21 +0800
-
-Commit 5631da56c9a8 ("fs/proc/task_mmu: read proc/pid/maps under per-vma
-lock") introduced the possibility of returning -EINTR from proc_get_vma()
-when a fatal signal interrupts mmap_read_lock_killable().
-
-The issue can be reproduced using stress-ng's VMA stressor, which reads
-/proc/self/maps while concurrently modifying VMAs and periodically
-terminates child processes with SIGKILL.  The reproduced command is:
-
-  # stress-ng --vma 0 -t 60
-
-When the VMA lookup is interrupted, proc_get_vma() returns an error
-pointer without advancing the position index.  Consequently,
-seq_read_iter() emits the following rate-limited informational message:
-
-  seq_file: buggy .next function m_next did not update position index
-
-Save the current position in priv->last_pos before checking the VMA lookup
-result, allowing it to be reused by both successful and error paths. 
-Advance the position index when returning an error to avoid the spurious
-warning, while preserving the original error handling.
-
-Link: https://patch.msgid.link/20261118103421.776-1-adrianhuang0701@gmail.com
-Signed-off-by: Adrian Huang (Lenovo) <adrianhuang0701@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Suggested-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Adrian Huang <ahuang12@lenovo.com>
-Cc: <stable@vger.kernel.org>
-
- fs/proc/task_mmu.c |    7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
-
---- a/fs/proc/task_mmu.c~fs-proc-task_mmu-avoid-spurious-seq_file-warning-on-interrupted-vma-lookup
-+++ a/fs/proc/task_mmu.c
-@@ -216,16 +216,17 @@ static struct vm_area_struct *proc_get_v
- 
- retry:
- 	vma = get_next_vma(priv, *ppos);
--	/* EINTR of EAGAIN is possible */
-+	/* Store previous position to be able to restart if needed */
-+	priv->last_pos = *ppos;
- 	if (IS_ERR(vma)) {
- 		if (PTR_ERR(vma) == -EAGAIN && fallback_to_mmap_lock(priv, *ppos))
- 			goto retry;
- 
-+		/* Advance to avoid spurious buggy seq warning in dmesg */
-+		(*ppos)++;
- 		return vma;
- 	}
- 
--	/* Store previous position to be able to restart if needed */
--	priv->last_pos = *ppos;
- 	if (vma) {
- 		/*
- 		 * Track the end of the reported vma to ensure position changes
-_
-
-Patches currently in -mm which might be from adrianhuang0701@gmail.com are
-
-mm-damon-core-remove-unnecessary-zero-initialization-in-damon_new_ctx.patch
-docs-admin-guide-mm-damon-fix-various-typos.patch
-docs-admin-guide-mm-damon-lru_sort-fix-copy-paste-mistakes.patch
-docs-admin-guide-mm-damon-usage-fix-incorrect-option-syntax-in-perf-example.patch
-fs-proc-task_mmu-avoid-spurious-seq_file-warning-on-interrupted-vma-lookup.patch
-
+  return verify_pkcs7_signature(data, data_len, sig, sig_len,
