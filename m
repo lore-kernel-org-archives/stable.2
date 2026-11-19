@@ -1,58 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795057847;
-	b=AUAP8ZjBIlPG0vqZce/4O+iO9vmMQzRM2kC5Cz+F5Lh1VuPXDs2lycBEC7ysxLccMKG0
-	 XSdEX7qjkOJKMsm9Rsp76EzW9K91eodytRY8aKEZFQsAAQj/Xv5Bz2H/MWeboKmJQeu/U
-	 sDgZhP6x7ZEGkx3ZRgbwy8ce85GxI0ePR2l0WShoKH7PNZJaPK7o5cFQeBmBGk9Zb2rxV
-	 Vr7DnKZCQqizrA9P0oX+aFI/XiVTr32Gb0Qj2tB6YV+Q41cWAC1VMgGlSKYAZODc/j0Bk
-	 U3hf6Lxp/e/2bk+57yblnP1JbhNNjNakVQEUQXJfaNuiUmStJtaabnm/NOt0l2QRYsA==
+	t=1795057849;
+	b=wYfjOVcP6gBtUB2CkFM2pGCq1xbHxXDF5XnYyK4jsdQIaqRB3eo0f+d9+buXp4SqX2eR
+	 MTNCVdWUWasq5xWWIvWSwKMSPeKXL8za2C0S43P/EbtLaroXv5+XbZYlOpW2be7UAA5S8
+	 QCVHz/quQSIfy973s8H2E4PIyIWCt4Wqh/GFn0OuvEgbwlLYtadaoY7FLRka10a0HT76W
+	 WhYbC1rY53IYknt3VC5RYzkNOHBouxD0oUYXTkCwkz4nlVyR1XFAqTDWaRe6S8u1ExNHi
+	 WceLcStZUa0gbW9INuN4l9Hn0GBoby5ldNiTbTPT+gC7NDs/889NQDgpk7xp3XjZmcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795057847;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795057849;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=u2ymRVV0uS5rB/gaLJLXDPiU+1EUqGWEy5FvDGVgYpE=;
-	b=aLSZHJ7PNHiwEHqwAZiMNhfQmImvE/b/yD5+qxrQmshZyZa2JWnRZHWD5Aum4J+dvdKy
-	 bQ+k8PVqPfENxgY4Km+xNsoNrvDQjTooHaveTP47PckBG023UM0zp/5cIh8NNKgWeclVd
-	 Lk2b7BH6HIi+P8LuPaED9ZU6USENAj6P/mawKOzfNnyFrSIRcYfcCqHZVUnlU63SnlonT
-	 NdeTgCisrjiRFR67P7UYEPRuPdeS9msYDd2coqpOPLeu7iT8U+zTmS9Js5/RVMXs2zAG4
-	 16QZpM6nPQ2wgdr8YTFtbxnxwHJChKaM4NP8R/uv26PPicpJ3rUwRhtcxoccVdGp/fg==
+	bh=w1YOVY/Doh6e0864P1i6+EBgq5MNuINhZbLgi234zvI=;
+	b=OEqX5Wo8hbMHBjYYySTw83Cjds0TXSmxHqoO8uvhjNXg+EgyTqbMbXDCTzSXkisMdaNG
+	 nWU4GKq05nCw5P+qlSjHkaay9Afqj1mAlofTcAbBE2QSarL4rVnLp/EMpSMupxazkcrWN
+	 UUwBbChG4Y2ds5s/Cc/+c/4lMKf3XVC5if0in913XW1vkbNzkjS/waujHCmHv9GgWZ5x9
+	 L2NR5tIoOZfyWmt68jZhpZaxU1akWeYPeFP9gL5pfN2hlq8QuJ8i8TIZb2HId0LhL5M1m
+	 uPWAF8b1ZK4RQWqCVvasTD76lDChA+LkSRdaI/7wUXfCLp1r72JPrIAvZuh5IE15t5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qegVytmE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OjMOQRNd;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272DE60A260D;
-	Thu, 19 Nov 2026 03:10:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D826B60A2616
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 03:10:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D826B60A2616
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=qegVytmE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A11B1F000D0;
-	Thu, 19 Nov 2026 03:10:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795057847;
-	bh=u2ymRVV0uS5rB/gaLJLXDPiU+1EUqGWEy5FvDGVgYpE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=qegVytmE8PJ3gwxdeDIRNLfF8pAjbjsbyFBAaLWNq/tJkX4QlWYD7EKVWRSM/2r9I
-	 ywAqX53B6IQBQR1R/u64ZtDBEbZfQJcMpGX/rwIqmwdlyWE+Y4j+7lO8Mip2WbhSKo
-	 Wvjjtd5Om6sYeYOBBDaa2buVNyPHXx1DfRknnxQA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>
-Subject: [PATCH 5.10 0276/1848] xfs: reject out-of-range attribute value lengths in xfs_attr_copy_value
-Date: Wed, 18 Nov 2026 15:38:34 +0100
-Message-ID: <20261118145923.790141819@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
-References: <20261118145911.150052362@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OjMOQRNd
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1b3b4944a0eso1532689c88.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 19:10:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795057848; x=1795662648; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w1YOVY/Doh6e0864P1i6+EBgq5MNuINhZbLgi234zvI=;
+        b=OjMOQRNdJeLJg5azmRkBB5RW5pkDklRxxPZrFuCIDm7OU+S7G0Dg/yw0sCsiyypQOq
+         g5xFwpHBQw+6l4NiCO7NbmKg6AneWrbRGdHARf8ZFk4QN5SLNKVuykO2/bTSXbM9n7wS
+         PRlHLWhQK7XaCIYZ/4kT7Bzamg1H+6MXS4pSobmIYryDP/dTloLkTJ5ZIc58S5nTyGmD
+         kq/s/VbhA0BvrG1n42/nx7ZjP+MPi06M/Uryt3Rvb+1niar2d2c/UA0gIDyK2IF5aI53
+         +Rs8tq6Iobqrakn+myFQo+BV/UgeR9tZ16VpC9s5u0UeZYPoXW2jcFOwUO2O2jRhpEX9
+         Mp8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795057848; x=1795662648;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w1YOVY/Doh6e0864P1i6+EBgq5MNuINhZbLgi234zvI=;
+        b=d02NCZ8iqeFiIlT/9jAbQgoT4qiqxGbRjdU8Fi3U43gudm6Ph71dbOMmumJe1BhlJI
+         nELiHytSrlKTEIv8pQ8+wb7RZxtZNuiVAoSsWX8FqZMROpQ629mIWnKzvAIJqKbDxOmk
+         ftBLL/6786WzqQI/vsVDh0YpTSPAOdPYtzDMaGT0urQ9Ydj823onccFeN35tBaz+DZYZ
+         Q9G24S0B2uNEh1qUjUDRZYCFrcsS+W1cbNCn9uURpNjjd5yfPIqaEG75v5Ndw5P/DCh0
+         te6rYKJD5zaOKLIEOD0x+Bpkbwmcy+sq9WEwzAMrvlX2U6bVD+ZbBxHrxMv1Wzcj96Rb
+         wQmw==
+X-Forwarded-Encrypted: i=1; AL+hErGj5QNl+oURpd/3syzP2JdZbdg4E8WubMmWS58r1/4Ygtn5EOFNVKJpAv5senuOGLOsthef/AU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z84Vn6cGJo/in4hez2bkhJlBTb1KqCVg5+WukLQyQ41lNPvnvmD
+	gAkT1yyYeh4NZBtVKWve0OgFb2wrF/ZrfKpmKLC8npxkTo6gfjRHeGsM
+X-Gm-Gg: AYBFou0TDtBFN1ooqTTfhE94NfRfiOpspa8IP44orQHeeCDCPrICJjKTMRHnn8D8uKz
+	TnEkOCbGdqv1hmVOG5xDVgAo+biID0pCjn7hABDj9/0Iexa1ElEAw8972GKZZtW2cIMA3aki+I+
+	zYo9+1NJqN49RARZrXf5R62abMKaNBTTY3mDKzNLB0atIiKEYUYDZEvHC7WW5wsyRAK9JHF2sVw
+	Ijgn86R1Vf5nctMEqebvfsp3bmp2IibuKlbAoqabLW97S1lkkAXQAdVKkCC+TpctVvUcRrnXutL
+	FfrDZ07r+Tvaw3oeYD44I7KQwyebgL6RYUTYmQLZGMG13+FwA5VL3Cq3EBnSkeHDCSg9NwLACNs
+	bBMZ1EAQdboiD/fjn5JtwWd5c1F/x4a+L+K4A1KaFuGpgpFu6XBC8+kUxsz3B4NIUIyZ98gvsQZ
+	nVoXKfFaG+/vYk/GTRpw2NSGrryev0L0kswMUPpOpRbKfhFbcYT0HKNILsZ+xaOplqaHHbc/m9y
+	gw52CpGAoskGwk5F919nTNyrXrMxsDu+mkx1SvCCWIdtz5B8pbua5LOG3OEWWVLNXh4ONjywYXA
+	oLn/QZPin9jqy8j2lWRZFnsQk50iomGtPk1Ebr0sT6UkajteDg==
+X-Received: by 2002:a05:7022:4183:b0:18d:5ef2:1644 with SMTP id a92af1059eb24-1b543be5439mr5394453c88.30.1795057847918;
+        Wed, 18 Nov 2026 19:10:47 -0800 (PST)
+Received: from MacBook-Pro-8.lan ([27.125.146.195])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b5447f4e19sm15028118c88.13.2026.11.18.19.10.45
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 18 Nov 2026 19:10:47 -0800 (PST)
+From: Ding Feng <dingf3ng@gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
+	Damien Le Moal <dlemoal@kernel.org>
+Cc: Ding Feng <dingf3ng@gmail.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Naohiro Aota <naohiro.aota@wdc.com>,
+	Johannes Thumshirn <jth@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 2/2] zonefs: ignore RLIMIT_FSIZE above LLONG_MAX in zonefs_write_check_limits()
+Date: Thu, 19 Nov 2026 11:10:26 +0800
+Message-ID: <20261119031026.7985-3-dingf3ng@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261119031026.7985-1-dingf3ng@gmail.com>
+References: <20261119031026.7985-1-dingf3ng@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,64 +106,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+zonefs_write_check_limits() follows generic_write_check_limits() and
+has the same problem: it stores rlimit(RLIMIT_FSIZE), an unsigned long,
+in a loff_t, so a soft limit between 2^63 and RLIM_INFINITY is negative
+and every write fails with -EFBIG and raises SIGXFSZ.
 
-------------------
+Keep the limit unsigned and apply it only when it is at most LLONG_MAX,
+as the generic helper now does.
 
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-
-commit 0643549ffecaeb716c0b75590a9b76dfa5eb35b3 upstream.
-
-xfs_attr_copy_value() takes the value length as a signed int and, for a
-remote xattr, is handed args->rmtvaluelen.  That field is filled from the
-on-disk __be32 xfs_attr_leaf_name_remote.valuelen in
-xfs_attr3_leaf_getvalue(), so a crafted length such as 0x80000000 is
-stored into the signed rmtvaluelen as a negative number.
-
-The "buffer too small" guard in xfs_attr_copy_value() is a signed
-comparison:
-
-	if (args->valuelen < valuelen)
-		return -ERANGE;
-
-A negative valuelen therefore compares as smaller than the caller's
-buffer size, skips the -ERANGE path, and is then used as a copy length,
-leading to an out-of-bounds copy of a full remote block into a small
-getxattr(2) buffer on a mounted crafted image.
-
-Reject a value length that is negative or larger than the maximum xattr
-size before it is used, so a bogus on-disk length can no longer slip
-through the value copier.
-
-Fixes: 9df243a1a9e6 ("xfs: consolidate attribute value copying")
+Fixes: ebfd68cd0c1e ("zonefs: Fix O_APPEND async write handling")
 Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Assisted-by: Claude:claude-opus-5-5 Frama-C
+Signed-off-by: Ding Feng <dingf3ng@gmail.com>
 ---
- fs/xfs/libxfs/xfs_attr_leaf.c |   11 +++++++++++
- 1 file changed, 11 insertions(+)
 
---- a/fs/xfs/libxfs/xfs_attr_leaf.c
-+++ b/fs/xfs/libxfs/xfs_attr_leaf.c
-@@ -486,6 +486,17 @@ xfs_attr_copy_value(
- 	int			valuelen)
+Notes:
+    v2: hold the limit in a u64, as in patch 1.
+
+ fs/zonefs/file.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/fs/zonefs/file.c b/fs/zonefs/file.c
+index 319d950..c9293e3 100644
+--- a/fs/zonefs/file.c
++++ b/fs/zonefs/file.c
+@@ -399,15 +399,16 @@ static loff_t zonefs_write_check_limits(struct file *file, loff_t pos,
  {
- 	/*
-+	 * A value length that is negative or larger than the maximum xattr
-+	 * size is on-disk corruption.  The remote value length is an on-disk
-+	 * __be32 stored into the signed args->rmtvaluelen, so a crafted value
-+	 * such as 0x80000000 becomes negative and would slip past the
-+	 * "args->valuelen < valuelen" check below and be used as a copy
-+	 * length.  Reject it before that can happen.
-+	 */
-+	if (valuelen < 0 || valuelen > XFS_XATTR_SIZE_MAX)
-+		return -EFSCORRUPTED;
-+
-+	/*
- 	 * No copy if all we have to do is get the length
- 	 */
- 	if (!args->valuelen) {
-
+ 	struct inode *inode = file_inode(file);
+ 	struct zonefs_zone *z = zonefs_inode_zone(inode);
+-	loff_t limit = rlimit(RLIMIT_FSIZE);
++	u64 limit = rlimit(RLIMIT_FSIZE);
+ 	loff_t max_size = z->z_capacity;
+ 
+-	if (limit != RLIM_INFINITY) {
+-		if (pos >= limit) {
++	/* No file position reaches a limit above LLONG_MAX. */
++	if (limit != RLIM_INFINITY && limit <= LLONG_MAX) {
++		if (pos >= (loff_t)limit) {
+ 			send_sig(SIGXFSZ, current, 0);
+ 			return -EFBIG;
+ 		}
+-		count = min(count, limit - pos);
++		count = min(count, (loff_t)limit - pos);
+ 	}
+ 
+ 	if (!(file->f_flags & O_LARGEFILE))
+-- 
+2.55.0
 
