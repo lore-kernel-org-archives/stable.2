@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.182
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795062443;
-	b=gtcM0qewT5Y3tusAtEx48ljh/SzbpcqSzimX7UxwgsNgyTNqGrkJvJ5WFvp5E0BDD+pA
-	 c+/D7XrAufMAIkIhVOu/lMpWNXsxykLQjdPYhlDFV9HMj4DyzM/0LKeWaTcxhTc3Bzh17
-	 qZDAT0gghtz1LwGRZpXf/uW8zWqsXb1C0V1N+K4xMI3d3cEyjOwddGpog0OraB2KpmfIR
-	 HwD84lOCkPZ24v4aKo+3oDMWjNPtG91MnIoYg4pmAoGEytr2PrbN83Ev0wM387E1ys/ur
-	 KYYVwo6pfhLY5QJs+A5pqHhzrgwVrJPGEUxvXtIodCVIx8RJYO4z4VPHaLoCa4JGn5w==
+	t=1795062445;
+	b=H+k4/IqxIGtGx8ofJyzODdJAZY9A1K3WqMvp3ozfvc6GV6fiKeMoJ6fjsKPPCKqgti0P
+	 fceMTe8srOzrNhOG0aPX3ZY3sALpza1i/pTzcl34yVJyBVXpFybkTJxPYrJGVwW17IBmA
+	 XnXGI+HEUu2rnDJX2Q5+Bt9sSlEagN/SkD4UQQZWzQKxIpGUIYYkNKp/AFRkpmJd1Hs3C
+	 324S6auV9IAm/q4zquHKg/3aVtnhR4udEQTFGGxhuBlL1hW9fLICl5LTOSN8OQjQG6dp9
+	 bCwa3c9jJGCSJGKFfLujVftWPn5KxCmIF9Kz2obNYlMtvCBxVc2+Ax7GXNl8yYDN6PQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795062443;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795062445;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=3Hxcc3mWV4vpK8u9zPUdfbWlyMV/Lx3auErCWtJ/vww=;
-	b=o+EHfV7UzzVLQubpeDljp9VVhoIldja5q/R7LCL1Z6Jca/Ey2KRX1B2Js6BSSb64VJ1z
-	 MQQmDkPYaFyDitBhu6gq/M+lq8M9EqDEzu4qVnfIIasBGl2rJPM0MGhBR31C9h9saeAY5
-	 L7CIV0u23wDhSBTNoUVqSl/yQTuoVzkNpGQpgq4tU+DWb454jVl6NKOc43kQEvHbkcSWu
-	 62xeQ9W1MB56eWg1N6nwIrYoke18yrpAwGk/7JZX81qVrVCHvS7TRNb5edOC46lWIDeox
-	 tRrY1LiKCWdjZYUHyDLIQgK+LRixl7LuWEAqBvk++D/4ZiBvcxb9tXR27IfMrcJ6CGA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tSiAuw+fLK+lCzb9iyG0L3kqF9lC30AMcxOsyhH7NTo=;
+	b=ZPxVEuf5OuRehW0gFKfPpFj3XAqPdIUnyOdjSXnOP3ckaXS+v6RADPJFkPtzDGF0ppOb
+	 K8BHuABcnhgotnuIj0kayHA5Ztkqz2dSSstoKyqambJ7qt+3xN14pmk6P94Ar/w959ZyR
+	 T2jo5CKu2uKMwb2vMXuhplSQEeIJ3mjknkl55mFnhVXM0lsXWjhkqaWR6zV5x8a39tuld
+	 xJzhdcrOhjlPhg/i/8n8aALwLP9bIMtWdRKkXF9mX0x6BAsfU9KzNaIIvhYmwzv0mkGws
+	 f1ip76+j9rxS7tP0pEb0tJlPrXqs72k2gqYVTBXDA03OmWjKk+fLze9XZ3ZA9/YX1Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bdZ5luSc;
-	arc=none smtp.remote-ip=209.85.210.178
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ijSkVf8o;
+	arc=none smtp.remote-ip=209.85.210.182
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D071606A330
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 04:27:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D071606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8BD60A2610
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 04:27:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA8BD60A2610
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bdZ5luSc
-Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8b68e59ab33so1409322b3a.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 20:27:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ijSkVf8o
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-8a05b210703so1055502b3a.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 20:27:24 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795062442; x=1795667242; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3Hxcc3mWV4vpK8u9zPUdfbWlyMV/Lx3auErCWtJ/vww=;
-        b=bdZ5luScc7SG3YNewnCwCgsSUxO4L668OOhIJJW+3KnwrEKUzPXmaSbigfrzIcBnmx
-         KSSVyoP2KeqXVWwDmBezvL61+GjMSe5jcv1IZ3far/x5lRc83bqAxViV0F4PAEXwxPKL
-         c1u1XZLNxpy68zHWWUf1R50aWbfH2GW5QDf10KXIb/BEDYi/a/FbdDYN187YRU2YMrN9
-         3OO0SSj2PDmW3LtQ2oRzhDhpjoLpJ88j/9KCYJQv/9E//M1g5b0AYOtCWcAwR7EVpmgi
-         /AuSMNFGnNZ+OqO1BMWddOQU0ex6UIrbgjooIM/z8mfpUy56tsAX+bwPOpNgxnPwt896
-         Z4Ew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795062442; x=1795667242;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1795062444; x=1795667244; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3Hxcc3mWV4vpK8u9zPUdfbWlyMV/Lx3auErCWtJ/vww=;
-        b=bmhIbboPlSSyoLWJBb4Toeh5p/DVRekEhO2y0b5lIs5buAOI0SY11O4tnLXdJGwZio
-         JcAcy27hvnbDuAGT7hwl2gGrSWia+2JlTgsnSKzeqRS4hlcacr7FiNa20cJVp/HMnvBy
-         Y53R89/U8+8SDM80HEtAJGMUokQI1SreOiZarFheg7w1okeA9KEdOKlfbmfNa4eMSRJT
-         rnOxlGLDz1b7T0rRjs8dkfa4zHiKqtfILfpwfE9DaewGkzYPkatiR+TguXs7oDtg8EW4
-         LwkKS2Q5TeVhBXt6+mIVSn+qR0yWYDYhDPVzUUkQhpLe5oRIo5CMOrBF+s4F2DlrypAD
-         YEqA==
-X-Forwarded-Encrypted: i=1; AL+hErH2Qu+OyqMNAZ4rL5txw0TP6dQn4nuwfGui8uA5ZotYGgRTXMxDi0CXHRThPovydG4MpScC89I=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+F0dsjQbxc4YWHPqH4yXBH4IHAh5LyE/PxwgeiXBg5Kc5ZyMwL
-	CUcM2E1THJE24oTpzKKf8dtF1+ZRXC+71ZPmjRiz/P+UY4FI+YsS3My7
-X-Gm-Gg: AYBFou2ah8B3r/2wSmAeb/OGt7fmhbN9qoEIfV6FIXWOj9pUHv5W6ZrdWeb9TspI5XI
-	6AjMe7ko4nOVZBnQT2RrfCFW4pZ8keDJAtJOgmBTRHxyewKgk4gaH7vlp37jFSe4t9qaGpHbOX5
-	pSNftsyKA1xreV/PcCPwARxdUclfeaWOOqLTW3/YcpaZnUtgfz99XBpRjLpX/aO2oQ79+7JKLY7
-	KHlQQWAxf5QjIoIcANjDJedIri3SECRiU1kf4p7WM9rHW06dvmvCMuTtnCZQ6dw+uPX+zVeebQV
-	Rh8QYHyAQ2HcDwOZETPHaTnu/qyGYfAHLwnwhpQxojKLyx9xl9M3k/v465nMFiwemUGA4KNrmxW
-	aW084KqhubnsPyihIjHwLIhyCVhfNo4zQ4i4j5DXjV8ZRGgOQQbq7eh6ERtG3agjjLGIiMtFoFg
-	c6xO0XnuPkNTPp84IAvQUt0cmgODpjD39Jd80jlj625dVeWnBw080pCpESA18HVY8T7AsqLddqw
-	DgnyNImOhUNdqAUxq/fVf5JEEZPEY79tawvNy2LydgJWC4iGW3/yI1xyPKepaESvBWI41lSNDqf
-	+57qKDQtPeKmUF3Z
-X-Received: by 2002:a05:6a00:4c17:b0:89d:eb23:4e83 with SMTP id d2e1a72fcca58-8c5d3d12f10mr4182188b3a.30.1795062441855;
-        Wed, 18 Nov 2026 20:27:21 -0800 (PST)
+        bh=tSiAuw+fLK+lCzb9iyG0L3kqF9lC30AMcxOsyhH7NTo=;
+        b=ijSkVf8odaohJDYaOEx6cqXbQnlhIQihKGsFIcJFz61cKPYnyl/41fSLYGuGRj0yNp
+         EucHis20gwjVUWkkXwIHvmFksgxpYo4UIZ1Z+HfDGicuBzd9sbnYlOiROjGOvX/r0/BR
+         nWK4sGy/EebGcVfUgzS6nuq6nFM3D0/lYWGH23K4xxgh3GrDCzJOrehT1rtuLLq1jTvV
+         Jfr/FKkcun3J1Adln7brtzHttpIXCrwZUC9NyUw+u8TPjAgcHFB1uqgsU7YDECUx6VHx
+         1Xe3/SNeU4rpdz2PzM+EhKCL3beVemkhCSp72+lL/5/uTNW002G5H2N2aFuGyYBvtQ+l
+         5vaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795062444; x=1795667244;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tSiAuw+fLK+lCzb9iyG0L3kqF9lC30AMcxOsyhH7NTo=;
+        b=u1Z59CyNetafq91YPiodesvaLzdlp0eJl6nxcEPJ6L3EDpO/o2ecZ0rm4xyvQTcD6W
+         ZU8a6IIRQ4250/KgTqCQcAJxNj1UCSOI7+F5qDrElKSZ0OqPGqPRI0v4wPWC6a1p2ly/
+         30OCE3uwTqFYrr8lXuQLVjE8ae5ogjUx+gSV43j5rkjUnqyXhteAzvJSrLKf5/zZWD98
+         G6nhs5cVhLgeazuOrK9x9oD4OfT4aoyhKQ/junEE2bRWZK8c+pqdfLvHOwqK9Sn/bVsN
+         QgumlLKLbCQ47mYGAdh0vax5Nec2vUeGc6e3GX3JUmn6nGiTBczCxVYPGQoHiXKbxAGU
+         WS7w==
+X-Forwarded-Encrypted: i=1; AL+hErGhOVhCmXw9E6LyBi4lwy/ivSkLeZGlPlufBKD9jnEAczVoVepxnA5Fh3iSukAjZH7GpHQnOP4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/3wgsVJ6bLTTuuGRe6AEhiHJg53V9ooji88S4iD5nzrbel6gI8
+	aek6wAZFOzC4zIHsbXBWNVqDJTVhMy35LD+Whf33/Zkiroy/mqHMT+je
+X-Gm-Gg: AYBFou2qkCQ/fWt5yabG2VtCB1OrKhLU4ABYW0ChRuGuYVqncImysaCiloUv4v5umes
+	JBIZbqyBhs8iIdf8AQhR+fqUg24KAfPIRjV4Pnkw+EHEz0oMOQIdPafFyzOPHuZJG5U16zjE9eU
+	Z43Vhhw6Syagsh8A46JvSK0N+5YCeX7LODjqF2rIwQOlZDopF9yBFndI5BPdHSJGqsVIMemzAgS
+	ADhEw5Cfr75uCJhfdCGZChLZatSy1vh4wJ3ryZJjWXkfoyg8QiBTPcPlzh9CzNLfI0zpiWfIxDQ
+	muB9DIo/Q/InBcbDmvnZKwgQxKGq6YdbF0iJyZQOxdttge9BJBo1lEyeaQXTiXSBX0//henNPT+
+	IXWr5yiqo+crY1qY5UK7vT2rMPndTlEo779E8+/AbnZwdeO7fMqUPmi0yyVzGlkwrq8OVkpmyWn
+	7gqW88C4v8gBeY3f/nTdzDvwMWp1PVsoIGYjzoMwSrgo0jATK1BsbtxrLs2N03MDnpCwImceBV8
+	cE2p1mlMCP5yJ1NORrWWDSm4i4a+s4raARmkym6EgpOKnE7PF17/4cIYda4TE3xojbu3Nj2DSdj
+	oRXEggFwIKIE1oJC
+X-Received: by 2002:a05:6a21:47c7:b0:3e9:176f:ab86 with SMTP id adf61e73a8af0-3fe980f7bdemr4008545637.44.1795062444071;
+        Wed, 18 Nov 2026 20:27:24 -0800 (PST)
 Received: from x1.hs.local ([2601:600:a482:7d70::5e59])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c5cb35830bsm2077636b3a.33.2026.11.18.20.27.21
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c5cb35830bsm2077636b3a.33.2026.11.18.20.27.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 20:27:21 -0800 (PST)
+        Wed, 18 Nov 2026 20:27:23 -0800 (PST)
 From: David Westen <davidlwesten@gmail.com>
 To: netdev@vger.kernel.org
 Cc: loic.poulain@oss.qualcomm.com,
@@ -93,10 +94,12 @@ Cc: loic.poulain@oss.qualcomm.com,
 	nihaal@cse.iitm.ac.in,
 	David Westen <davidlwesten@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v2 1/2] net: wwan: iosm: cancel the ADB timer on cleanup
-Date: Wed, 18 Nov 2026 20:27:13 -0800
-Message-ID: <20261119042714.505405-1-davidlwesten@gmail.com>
+Subject: [PATCH net v2 2/2] net: wwan: iosm: fix S3 resume by re-binding the driver around it
+Date: Wed, 18 Nov 2026 20:27:14 -0800
+Message-ID: <20261119042714.505405-2-davidlwesten@gmail.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261119042714.505405-1-davidlwesten@gmail.com>
+References: <20261119042714.505405-1-davidlwesten@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -108,13 +111,33 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ipc_imem_cleanup() cancels the other imem hrtimers but not adb_timer,
-which the UL aggregation path arms for 500 us. If it is still pending
-when the device is removed, its callback queues a task that finishes
-the ADB on the freed MUX, and the hrtimer itself is freed with the
-imem.
+On platforms where S3 cuts power to the WWAN card, the modem boots
+again while the system sleeps, but the driver still treats it as
+running. After resume its execution stage reads BOOT, and by the
+first port open the boot code has crashed into the CD_READY stage:
 
-Cancel it along with the other timers.
+  iosm 0000:03:00.0: PORT open refused, phase A-CD_READY
+
+The modem then stays unusable until an ACPI reset.
+
+Unbind the driver before S3 and bind it again after resume, as
+commit 0b6f6593aa8c ("net: wwan: iosm: Fix hibernation by re-binding
+the driver around it") already does for hibernation. The driver is
+then torn down while the modem still answers, and the modem is probed
+again once it has booted.
+
+The target state isn't known yet when the PM notifier runs, so the
+default suspend mode decides: the driver is re-bound unless "mem" maps
+to suspend-to-idle, which keeps using the suspend/resume callbacks.
+This changes behavior in a few cases:
+
+- On platforms that keep the card powered in S3, the modem is now
+  probed again on resume, which drops data sessions and recreates its
+  ports.
+- Entering suspend-to-idle or standby explicitly while the default is
+  S3 also re-binds the driver.
+- A suspend to S3 that calls pm_suspend(PM_SUSPEND_MEM) directly while
+  the default is suspend-to-idle is not covered and fails as before.
 
 Fixes: 1f52d7b62285 ("net: wwan: iosm: Enable M.2 7360 WWAN card support")
 Cc: stable@vger.kernel.org
@@ -122,30 +145,54 @@ Signed-off-by: David Westen <davidlwesten@gmail.com>
 ---
 
 Notes:
-    Build-tested, and run as part of this series on an XMM7360 that uses
-    MUX aggregation, so the timer is armed there. I haven't reproduced the
-    race itself.
+    Changes in v2:
+    - New patch before this one: cancel the ADB timer in ipc_imem_cleanup().
+    - Describe the changes in behavior and the remaining limits in the
+      changelog, and say in the comment that the modem "may" lose power.
+    - I also tried detecting the power loss on resume instead; my reply to
+      the v1 review explains why v2 keeps unbinding before suspend.
+    - Correction to that reply: the XMM7360 here does use MUX aggregation
+      (CP capability 0x300), so the ADB timer is armed on it too.
     
-    It comes before the S3 fix in the next patch, which makes this teardown
-    run on every S3.
+    v1: https://lore.kernel.org/r/20261116031148.333990-1-davidlwesten@gmail.com
+    
+    Tested on an XMM7360 (ThinkPad X1 Carbon 6th gen, deep sleep) with this
+    series applied to 7.2.15: the driver is unbound before suspend, and
+    after resume the modem is probed again and comes up without an ACPI
+    reset. Not tested on the XMM7560.
+    
+    The investigation and the patches were done with an AI coding assistant
+    (Claude Opus 5.5). It read the driver and added temporary debug logging
+    to record the execution stage around suspend and resume. We wrote the
+    changes and the changelogs together, and I ran the tests.
 
- drivers/net/wwan/iosm/iosm_ipc_imem.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/wwan/iosm/iosm_ipc_pcie.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wwan/iosm/iosm_ipc_imem.c b/drivers/net/wwan/iosm/iosm_ipc_imem.c
-index 4405c8531888..20f8da53a3ea 100644
---- a/drivers/net/wwan/iosm/iosm_ipc_imem.c
-+++ b/drivers/net/wwan/iosm/iosm_ipc_imem.c
-@@ -1239,6 +1239,7 @@ void ipc_imem_cleanup(struct iosm_imem *ipc_imem)
- 	hrtimer_cancel(&ipc_imem->tdupdate_timer);
- 	hrtimer_cancel(&ipc_imem->fast_update_timer);
- 	hrtimer_cancel(&ipc_imem->startup_timer);
-+	hrtimer_cancel(&ipc_imem->adb_timer);
+diff --git a/drivers/net/wwan/iosm/iosm_ipc_pcie.c b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
+index 49052eb511ba..13e81012d818 100644
+--- a/drivers/net/wwan/iosm/iosm_ipc_pcie.c
++++ b/drivers/net/wwan/iosm/iosm_ipc_pcie.c
+@@ -534,12 +534,17 @@ void ipc_pcie_kfree_skb(struct iosm_pcie *ipc_pcie, struct sk_buff *skb)
  
- 	/* cancel the workqueue */
- 	cancel_work_sync(&ipc_imem->run_state_worker);
-
-base-commit: e203d8a4751d48aa00eda31e3b320ba8e0d47dbf
+ static int pm_notify(struct notifier_block *nb, unsigned long mode, void *_unused)
+ {
+-	if (mode == PM_HIBERNATION_PREPARE || mode == PM_RESTORE_PREPARE) {
++	/* The modem may lose power in S3 and S4 and boot again on resume,
++	 * which the suspend/resume callbacks can't handle, so probe it again.
++	 */
++	if (mode == PM_HIBERNATION_PREPARE || mode == PM_RESTORE_PREPARE ||
++	    (mode == PM_SUSPEND_PREPARE && !pm_suspend_default_s2idle())) {
+ 		if (pci_registered) {
+ 			pci_unregister_driver(&iosm_ipc_driver);
+ 			pci_registered = false;
+ 		}
+-	} else if (mode == PM_POST_HIBERNATION || mode == PM_POST_RESTORE) {
++	} else if (mode == PM_POST_HIBERNATION || mode == PM_POST_RESTORE ||
++		   mode == PM_POST_SUSPEND) {
+ 		if (!pci_registered) {
+ 			int ret;
+ 
 -- 
 2.56.0
 
