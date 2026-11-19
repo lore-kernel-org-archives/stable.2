@@ -1,63 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795098832;
-	b=SRYHwillY+9xFlGrVFZq4+NGu+cz8sHbzyStM088BoFsSg6PZk/0xas6Rz8yW6TWqx5g
-	 vzByXCgofd4p+bWmkfCvgjyfr1ygAj3kEuVSHZW/oMbdfqyKvZqR7S07aE5DFhcf/Lkpr
-	 1t3nYfLxWPLJL2a33EubavtfvOveKrZzEbYmnOY9k5BHUDQVNy6Cd/dVqYHG5dB0usXca
-	 L3yniuSn4tean4gHNdRK3P4VaBnawcZhd2wOe6zLEte1IB2sqyGZDlwKZV5auMyG9mXkT
-	 W9xfw7CmM6EJamvLOeW60SudHLB9vtprKcJOO6pVr8ax3X9rMomevU3jSoVzAO9deWw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795098832;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=dhlf17hlYcth1/KTGn94gfBGdrOLHnQzSpQfypZZWDE=;
-	b=VmSTCg98xxFXf8AcJ8ptt0HXdZ66IoeXpM0Gq5kDNMIXSxuzhA4ueSDHY4Qc5TAV/FcB
-	 wHz94WVOOHVg8UDgS1Q+y9j8/GU1IOIva5dubA0c8dQlspCobMnghjbWBh8NZjyYhPtt4
-	 tnOO5UeDDu3Yct9YdQkEKmUdoOabe31jaQ4lI13EEmWP9R6u1fyqzbZk3IXmuIfgxzw+0
-	 Y4NeEpLC+EhZuJPNf4Zmo9JAJ4wYNsFPV8qYwr23GF7LGJDDSfWTg4auvViFc08CgFRN1
-	 xNX60Gpi4tzC5lqCkYEnzpU0eTrCQ6eS+qTvrkFFNBupyVlQPiscayOtSYjfEoWzNiQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HR2nC5z/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795098937;
+	b=SmkbUXbPD+luoh886XvWjbw8hsQh6A387Qi+IPRZQYWMw+aGMmXuI5yhk+WtKnYvoN00
+	 GJ6gxGdGYlcAydhCQxdTNI+f6HbNYbGfO4xwhurjbOnN4Mmek3M52GnffXfns2fYZOStB
+	 r3QMrp2Fa/PTyUaQ7Lsf5bd4WwV7TNiM8wzVA5hs5O85MLwzM/L4RNCxtcO3FhnzhCI8C
+	 h8/KwFqpcoIJhlOPsAVmzssPW7v2mKb2KkSw8afEq/Hfp1KLGbxxwzkW5GlnL4G8S8UsX
+	 bgGWnv2FpRCRdrN75jqqYyL4i2QmZlSIIiQeJsKapkk6kcnBSL2P754aH2cRekVsg/A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795098937;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=fwc9Vs0eCwtckZGOJ96a7MsJ3RS29UxqFWSheZDmdJQ=;
+	b=MTyZykzGrt21iwdjMeb2FbP9M1V/GtcdK5UQyiLtC6K3Awz1ND2Z1zPqCKHD7S6Lsf7r
+	 csO5IATL/43NPTsX9eh4UVOvQIZvybl39BOFzlw/DIJ9DTpmILwn3oJzqYfPXWffZXpfI
+	 +X0PSTFpjsnAdkXQlk7PrSi125JNPC5LkJiXtVjS7qSSznD2Sg5A/caWrjgpRlzTcIAV0
+	 sBVdqoCWmTthrlG+atJh12KahOBDnuT8SOwCFenujYzHrnbf4inzK+xqlUJl7thragmUw
+	 6If9wRGOBptmWnd6vI162B3spsIL7/ABYVWBQAs9cRj3JhlvNUjGHjFpsm7RP0ok/qA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=cloud.ionos.com;
+	spf=pass smtp.mailfrom=ionos.com;
+	dkim=pass header.d=cloud.ionos.com header.i=@cloud.ionos.com header.a=rsa-sha256 header.s=google header.b=NhOZekIj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.41
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF1D3606A324;
-	Thu, 19 Nov 2026 14:33:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FF2606A325
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 14:35:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1FF2606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HR2nC5z/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B0371F000C9;
-	Thu, 19 Nov 2026 14:33:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795098832;
-	bh=dhlf17hlYcth1/KTGn94gfBGdrOLHnQzSpQfypZZWDE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HR2nC5z/FErj3cW4XSsKXHudQkhpI524f3NBI+iQ7JnwaZQCgZW0E4VIwpf7XCeJO
-	 3J8ks5U8kMTx1bsFT7NmhyTM06RZm6tUiDNV5p/74fYxR2IDTSq0ch2xWP7FW7+guO
-	 5Sb6Jd9UKjGApQ8imxnMSG7vR1Vp99hFO0bNBmzB/q0noEPVNuXUhSDAC3a4tH+dDO
-	 eB3nzmBZduue3hMPCFYBGr234z33RPxAwz+iX/2q9ztB04fBANJNHxz/GP11/RFAjZ
-	 oZsjWTlmMZKYlnR2BsbrUShf6kLyeyp0PGonlNhhGZjn/bgJz3G9sTVvD0jVsd6SXQ
-	 z2DxN6StUusmA==
-Date: Thu, 19 Nov 2026 14:33:47 +0000
-From: Lee Jones <lee@kernel.org>
-To: =?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>
-Cc: Mark Brown <broonie@kernel.org>, Foon Tan <lftan@altera.com>,
-	Graham Moore <grmoore@opensource.altera.com>,
-	Murugan R <vadivel.muruganx.ramuthevar@intel.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Pratyush Yadav <p.yadav@ti.com>, Dhruva Gole <d-gole@ti.com>,
-	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	=?iso-8859-1?Q?Miqu=E8l?= Raynal <miquel.raynal@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 06/10] spi: cadence-quadspi: Bound chip select against
- f_pdata array size
-Message-ID: <20261119143347.GS98456@joneslee-macbookpro.roam.internal>
-References: <20261119091810.3440619-1-lee@kernel.org>
- <20261119091810.3440619-7-lee@kernel.org>
- <DMZ3XW6ZEFDF.2WJ1XU4UKTRAH@bootlin.com>
+	dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.a=rsa-sha256 header.s=google header.b=NhOZekIj
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a642495d81so4096505a12.2
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 06:35:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795098935; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Dkjf2r94i3AXbsm4pBaWh9al2de48fgaViOIaX7IwbOGO1jCsuwV9AvUpZx9FNeAx2
+         HUm+E4gVbAXbXxxxfxU0D6ZIqpcqGkaJzPw9zIPue0AuaOyLvpdc47l0Q7ieekhv2xfv
+         ipkADNxyFbIGOpViMpwNXw3Qa0pE9oYrEn/YWWZxnPNAyHlT2TSD0VdS1TylEL/we6Xy
+         0S/oY3MwBDBnvHCvb+KdBk0RwMrHCe70ixayZkfaJpcVwPwbuc+rKkxlO3trZTClUGOt
+         r2IEl7+UT2rdch3PwgAnMPJ/J+nZxniqb3V/l4XlsEgHrO/DYu13OTXf+u8YHLPIR42r
+         8u/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fwc9Vs0eCwtckZGOJ96a7MsJ3RS29UxqFWSheZDmdJQ=;
+        fh=5hZWZSR/1CGgJcjH9Z4BPbZ2ngyev7KW+ZEWfCAoSA8=;
+        b=Ugoc0RgEoyUV5e62wIuLYsMVR3vvBaMy/hHzQifDfDJgSSzTl6ZrRz4pRvf8zOQ7mt
+         O5fUWbRZOz4716spasB70j8zGmKNEJhiNTOHlAdLgCyKwlomWWlQT3vsUip4ewf4/70M
+         n8pY6V4Sz85GW7rUeM8AQvVNy9Yp8LFt13E4+YytPU3Hr+j2NoasMWnMomc5fTYGQoFh
+         NHjVulaPVUMnTE7Z06aB79BJAn4BIW1KBIHmn/JW9nbu5Hn9auwWbq0W6eMRqnRdfD6i
+         2Xc87JH2V4VwkihoTKifrXT15AV81r3UUrty+pxaH09zfBy5o6VMSIu6fAQaBnrDTPoD
+         GDjA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.ionos.com; s=google; t=1795098935; x=1795703735; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fwc9Vs0eCwtckZGOJ96a7MsJ3RS29UxqFWSheZDmdJQ=;
+        b=NhOZekIjKl+gZPOJkVw1+HzMbctt5GPFnFQMSIHry8p29Xw5DKPG2gE/PmTV7ECZrH
+         /oXFDRFf/BW+XNp33vjHJo9ZshhlcZAq+fVT1pn5tWXzptpfVkqALva3cBnpL0JcQn8u
+         n+CW1+z448/pzfdgYk6qjSbSLzZsGNUAnAs+wZbUZg8t7zVhKjjTFyBsB2oODMGLvFxq
+         EQ9ir4URj/VNwkx8yAMbiddJPiXEIqgU94LSVZBqxSJZKMbz7kEIzZPnnF5E4mxQ6mGa
+         TTqAXnW09x1CIO3BIKsguu2CTx2p1NJzioujg0nAc4Bqp4tk17RkD0iwxmmUUHd2OHSB
+         /GYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795098935; x=1795703735;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fwc9Vs0eCwtckZGOJ96a7MsJ3RS29UxqFWSheZDmdJQ=;
+        b=1n50UzP3PpBOhOzYtTsRUi8n+zfpnPT2oprVa1tpJfJFgnwVWeDuaiAVCwAXKDaBkN
+         hJTm8o+lEcGd+3yPi1kWPs/J+vOGsP7egGj2K26oE5amBD9YGNbdwwBam+63h75gPlLk
+         +RI0A3h4Wt5BoFUIhKRq3SnpUfj9J8jK3P0u4o+8axEhQC+Y/6bDEP6434w9C4DAowo8
+         A31ooPkopnX3ONoa9nlFMy980kgHLz7EpFLNfQQcacLp8MgFh6tlNvO+O3KcOKhdAMYE
+         UbgzeroUO3FW//D6PbCgtVlClk9YGtZmNNba8r+JAACI86MqNKWlIw+AvCcd/uJlOCwS
+         nB9w==
+X-Forwarded-Encrypted: i=1; AL+hErHq2NP/FUE/+pJXLhHAmirj9c47fJJvOIjnJ3F0D0pkABwP8uLH5pvz5gPhzwiuxIjw0/JLAdY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/tKkedmYNm9rTsftgDstbQ7+Ir4n+FOhlhuW91Z19QWKnASXdV
+	c5SscR7PqyM++Gz7C1bMfjmFbyy9bOGcSGeJFtoidOt7DYJ8B6GOYpSciI59vt94fXjzxjStJtm
+	ge7Dv9KbhzdTrNHtNGNO74/7GIq/Fv2dqquO00h6gaw==
+X-Gm-Gg: AYBFou0fn8gcxlH5x/Ekf/D+faxE9k1KPby9Y6SXAnaoQonNbZ9I4sV4VyHtxF+PWfm
+	AMPRRaeXLkqnkec6uyNGmnXf4tXi3AKH2l+MikZAZePp9KdV1R2bPO9Q2rusPdz/pg5Qx1HUt+m
+	ImWX1lBo0rfuiu3yyviR/e5QSuVcLCdQJ9g5vB9uhMV+QFHVi/T4P4iYIf+Jyl+lgQaFcRxeEnI
+	J6h1/80sYC0dGehUTR2nIIGycehpqk8Isb9CLD820iFBBsO9tRDCuKlW7x/dzT1Pq/q50fU0pJR
+	TQQYO2SScqy09SAhYqx4VVqMIDI5HwlkyXxLYfangFC+HhS7E7tvWTurzeDahp/c+1s0/3RmiKk
+	VGAp+Cuvjj2n6Co3cyWMtOcDPEkREwqST8c3qD3aBv2R8FaTcAbl+mluuSzHqSN41E0aexCfqSF
+	BlHYLG2TtqmNH57Jm5DGnYailAo/MI1eYLj8FSVYKwzUyvXGfttRe5ri6IPUJNgMHyWsYcCLJKE
+	BdjvOvVD+657VjVo6DEhLEc
+X-Received: by 2002:a05:6402:321f:b0:6ba:12e2:4701 with SMTP id
+ 4fb4d7f45d1cf-6ba12e24bb7mr1989016a12.14.1795098935183; Thu, 19 Nov 2026
+ 06:35:35 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,113 +106,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <DMZ3XW6ZEFDF.2WJ1XU4UKTRAH@bootlin.com>
+References: <ddd08640709b149408b616c3eec8fee847af757e.1793455791.git.liguangshuo@mail.sdu.edu.cn>
+ <20261109111652.GD8635@unreal> <APEA3wD5LFuJxkDei2Ikqqq4.3.1794229006784.Hmail.202321181@mail.sdu.edu.cn>
+ <20261112190948.GV8635@unreal> <AJcAXwCpLMe4Pb1NjRYKDqpi.3.1795092059235.Hmail.202321181@mail.sdu.edu.cn>
+In-Reply-To: <AJcAXwCpLMe4Pb1NjRYKDqpi.3.1795092059235.Hmail.202321181@mail.sdu.edu.cn>
+From: Haris Iqbal <haris.iqbal@cloud.ionos.com>
+Date: Thu, 19 Nov 2026 15:35:23 +0100
+X-Gm-Features: AclHuK-dPTcWt0IIuZ2rE6NHM7-T7hU0j5p8pba_SiQNJGR2-xv8Hf6i-TIdF0w
+Message-ID: <CAJpMwyg1iPJUzMYRz-3rWjnRr=9n=rQrii7x-FMmFMS7Wn5OZA@mail.gmail.com>
+Subject: Re: Re: Re: [PATCH] RDMA/rtrs: Fix potential use-after-free on client
+ sysfs setup failure
+To: =?UTF-8?B?5p2O5bm/56GV?= <liguangshuo@mail.sdu.edu.cn>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, stable@vger.kernel.org, 
+	Jack Wang <jinpu.wang@ionos.com>, linux-rdma@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 19 Nov 2026, Théo Lebrun wrote:
-
-> Hello Lee,
-> 
-> On Thu Nov 19, 2026 at 10:17 AM CET, Lee Jones wrote:
-> > cqspi_setup_flash() uses the chip select taken from each flash child
-> > node's reg property to index the fixed-size cqspi->f_pdata[] array,
-> > which has CQSPI_MAX_CHIPSELECT entries.
+On Thu, Nov 19, 2026 at 1:41=E2=80=AFPM =E6=9D=8E=E5=B9=BF=E7=A1=95 <liguan=
+gshuo@mail.sdu.edu.cn> wrote:
+>
+>
+> Hi Leon,
+>
+> Thanks for the review.
+>
+> =E5=8F=91=E4=BB=B6=E4=BA=BA=EF=BC=9ALeon Romanovsky <leon@kernel.org>
+> =E5=8F=91=E9=80=81=E6=97=A5=E6=9C=9F=EF=BC=9A2026-11-13 03:09:48
+> =E6=94=B6=E4=BB=B6=E4=BA=BA=EF=BC=9A"=E6=9D=8E=E5=B9=BF=E7=A1=95" <liguan=
+gshuo@mail.sdu.edu.cn>
+> =E6=8A=84=E9=80=81=E4=BA=BA=EF=BC=9AJason Gunthorpe <jgg@ziepe.ca>,stable=
+@vger.kernel.org,"Md. Haris Iqbal" <haris.iqbal@ionos.com>,Jack Wang <jinpu=
+.wang@ionos.com>,linux-rdma@vger.kernel.org,linux-kernel@vger.kernel.org
+> =E4=B8=BB=E9=A2=98=EF=BC=9ARe: Re: [PATCH] RDMA/rtrs: Fix potential use-a=
+fter-free on client sysfs setup failure>On Mon, Nov 09, 2026 at 08:56:46PM =
++0800, =E6=9D=8E=E5=B9=BF=E7=A1=95 wrote:
+> >> Hi Leon,
+> >>
+> >> Thanks for reviewing.
+> >>
+> >> From: Leon Romanovsky <leon@kernel.org>
+> >> Date: 2026-11-09 19:16:52
+> >> To:  Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+> >> Cc:  Jason Gunthorpe <jgg@ziepe.ca>,stable@vger.kernel.org,"Md. Haris =
+Iqbal" <haris.iqbal@ionos.com>,Jack Wang <jinpu.wang@ionos.com>,linux-rdma@=
+vger.kernel.org,linux-kernel@vger.kernel.org
+> >> Subject: Re: [PATCH] RDMA/rtrs: Fix potential use-after-free on client=
+ sysfs setup failure>On Sat, Oct 31, 2026 at 10:14:46PM +0800, Guangshuo Li=
+ wrote:
+> >> >> rtrs_clt_create_path_files() drops the path reference on failure, b=
+ut
+> >> >> its callers still close connections and free the path. This can acc=
+ess
+> >> >> freed memory and free the path twice.
+> >> >
+> >> >Sorry, but how?
+> >> >
+> >> Consider an allocation failure while setting the name of the path
+> >> kobject in rtrs_clt_create_path_files(). kobject_init_and_add() has
+> >> already initialized the reference count to one when setting the name
+> >> fails with -ENOMEM. The stats kobject has not been created yet, and
+> >> adding the path to clt->paths_list did not take a kobject reference.
+> >>
+> >> The error branch then calls kobject_put(&clt_path->kobj). This drops
+> >> the only reference. With CONFIG_DEBUG_KOBJECT_RELEASE=3Dn,
+> >> rtrs_clt_path_release() runs synchronously and calls free_path(), whic=
+h
+> >> does kfree(clt_path).
+> >>
+> >> Back in rtrs_clt_open(), the first statement on that error path is:
+> >>
+> >>         list_del_rcu(&clt_path->s.entry);
+> >>
+> >> That accesses the list node embedded in the path that was just freed.
+> >> This is the use-after-free I meant.
 > >
-> > The range check now compares the chip select against num_chipselect,
-> > which comes straight from the num-cs property and is never clamped to
-> > CQSPI_MAX_CHIPSELECT.  A device tree which specifies num-cs greater than
-> > CQSPI_MAX_CHIPSELECT together with a flash node at a correspondingly
-> > high reg value therefore causes writes beyond the end of f_pdata[].
+> >The error handling appears to be incorrect. rtrs_clt_create_path_files()
+> >should undo only the changes it made internally and error handling of
+> >call to rtrs_clt_create_path_files() should undo what was done in
+> >rtrs_clt_open().
 > >
-> > Reject chip selects which do not fit in f_pdata[] as well as those which
-> > exceed num-cs.  While at it, store the chip select in a u32, matching
-> > of_property_read_u32(), so that values with the top bit set cannot
-> > become negative and slip past the bounds checks.
-> 
-> This commit message was hard to read! Can we do better?
-> The issue at hand is super simple.
-> 
-> Repeating the last sentence:
-> 
-> > While at it, store the chip select in a u32, matching
-> > of_property_read_u32(), so that values with the top bit set cannot
-> > become negative and slip past the bounds checks.
-> 
-> Come on! 2147483648 chip selects?
-
-Fair point!
-
-Since cqspi->num_chipselect is already u32, C's unsigned promotion meant
-a negative int would only have slipped past if num-cs itself also had
-BIT(31) set.  Matching the u32 * expected by of_property_read_u32() is
-reason enough on its own without the dramatic justification.  =;-D
-
-Will fix.
-
-> > Fixes: 0d62c64a8e48 ("spi: cadence-qspi: assert each subnode flash CS is valid")
-> > Closes: https://sashiko.dev/#/bug/linux-cd463fc8-1b94-4bcf-8d06-fae21b88894c
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Lee Jones <lee@kernel.org>
-> 
-> Is this worthy of backporting to all stable releases? It is a indeed
-> a bug fix but which can only occur with a broken DT, probably during
-> development. It sounds like a lot of churn.
-
-Fine by me.  Will be dropped in v2.
-
-> > ---
-> >  drivers/spi/spi-cadence-quadspi.c | 8 +++++---
-> >  1 file changed, 5 insertions(+), 3 deletions(-)
+> >Thanks
 > >
-> > diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-quadspi.c
-> > index 844df97111d7..fbb917c104b0 100644
-> > --- a/drivers/spi/spi-cadence-quadspi.c
-> > +++ b/drivers/spi/spi-cadence-quadspi.c
-> > @@ -1751,7 +1751,8 @@ static int cqspi_setup_flash(struct cqspi_st *cqspi)
-> >  	struct platform_device *pdev = cqspi->pdev;
-> >  	struct device *dev = &pdev->dev;
-> >  	struct cqspi_flash_pdata *f_pdata;
-> > -	int ret, cs, max_cs = -1;
-> > +	int ret, max_cs = -1;
-> > +	u32 cs;
-> >  
-> >  	/* Get flash device data */
-> >  	for_each_available_child_of_node_scoped(dev->of_node, np) {
-> > @@ -1761,8 +1762,9 @@ static int cqspi_setup_flash(struct cqspi_st *cqspi)
-> >  			return ret;
-> >  		}
-> >  
-> > -		if (cs >= cqspi->num_chipselect) {
-> > -			dev_err(dev, "Chip select %d out of range.\n", cs);
-> > +		if (cs >= cqspi->num_chipselect ||
-> > +		    cs >= CQSPI_MAX_CHIPSELECT) {
-> > +			dev_err(dev, "Chip select %u out of range.\n", cs);
-> >  			return -EINVAL;
-> >  		}
-> 
-> OK this does fix the bug. Here is another proposal though:
-> ensure at probe that cqspi->num_chipselect <= CQSPI_MAX_CHIPSELECT.
+> >>
+> >> Thanks,
+> >> Guangshuo
+> >
+>
+> My understanding is that rtrs_clt_create_path_files() should undo its
+> own sysfs setup on failure. The caller still needs the path to unlink
+> it and close the connections, so it should hold its reference until
+> both are done.
+>
+> Is that the split you meant? If so, I'll send a v2 using it in both
+> rtrs_clt_open() and rtrs_clt_create_path_from_sysfs().
 
-One slight hesitation with this.
+Thank you Guangshuo for the patch and Leon for the review.
+The bug is real. We verified it internally, and somewhere between this
+patch and the first one Guangshuo sent in May, we solved this
+internally but missed sending it upstream. It was a miss from us,
+apologies for that.
 
-In cqspi_of_get_pdata(), CQSPI_MAX_CHIPSELECT used to be 16 prior to:
+We will send the version we have soon, alongside with other fixes.
 
-7cc3522aedb5 ("spi: cadence-qspi: set maximum chip-select to 4")
+>
+> Thanks,
+> Guangshuo
 
-... and cqspi_setup_flash() overwrites cqspi->num_chipselect with max_cs
-+ 1 at the end anyway.
 
-Thus if an older or out-of-tree DTB (e.g. with cdns,is-decoded-cs) still
-has `num-cs = <16>` while only populating flash@0, failing probe in
-cqspi_of_get_pdata() would break a working board, whereas clamping
-num_chipselect or checking cs against CQSPI_MAX_CHIPSELECT only rejects
-child nodes that would actually overflow f_pdata[].
 
-That said, no in-tree DTS hits this, so if you prefer rejecting
-(cqspi->num_chipselect > CQSPI_MAX_CHIPSELECT) or clamping it, let me
-know and I will happily make it so.
+--=20
 
--- 
-Lee Jones
+Regards
+-Haris
