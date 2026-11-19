@@ -1,88 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795107448;
-	b=O6hY87zkUIpL+oTW8mvGE/klWZ34ngwRMrY4ZomBcxJEsrHFhc2oLHIFonb+d6+4YYbh
-	 2OOTjbe2xEdV9lBl7zEgAYeL+/x8ziKEop4Fhk4iqF1bU1Vt62ZNfBfbPgiLe6HIs6yrw
-	 4PIsUSyEW8ZICCsEj03MMM7hKo3NX+FeGVXLVCFvKM5u25OJGlGgV9x2PucQPApSIkUtt
-	 ZesbVDOOTaz7OIdZ3uZwaB94LFTyW3Vn99VivB6gorc+URd2iciDA4uTQ78zKJFybEwVW
-	 xCtox2ySng/rctTG/lFV1W+g4Jy/sbow2erKrbFfJNtdrudItjQtYii0mbCHAuNzaGQ==
+	t=1795107652;
+	b=EIknIrrOhrCSuGyMP0iScEcGA9tMCkDVuEY612pdYPrs7j9rO6y8jHTuNbhHO5awsgW8
+	 HD4KvhT29JOlVwDYhegvWcuSUTD8YZbkfIYZPOvyw0BLZj56bhxU7jy7EEwHmRs9UpJMs
+	 lEL98CJec8F1P2kCdkQQskmzLqWjwkGlwfMkMoe1fe3l0l/3zNrFzIxFe9i17wqAQ4mrP
+	 D104hrYSuTchqEXB53igEvkSsF2d2THdvmX6av6F24nzS3PvlhptSPDdYXS39iDlTQWcw
+	 19R2fSuZCDWhmcHJPprJ1qfTJ2u7yF40W1fH32i0fo3wYSuRiD8yYzJjNe0lt76f+aA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795107448;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=76oqwEH/SPEJYq2mPir1GKyIN8scXu14LeMlRXgXqmY=;
-	b=3v4gB1gKeVerxb5xvfjDzTpnuWsSwwjl8x4M81CFnrZCBoz6n3qxq0jS4dVKwJecYYI3
-	 XztyW2zmjB+36LoPAH7PbNhLOWRf22RX3pxGzGOGVNvQWKRN5NGZTX6Vc0gzSoAUkB5BV
-	 hXXA/1s7v4/1IhQBdIjU7h1MQb3GK6997dV37OhZRDWXUMltDi+xKwcbR8zOI2JsIwE5Q
-	 vF/kcsid1QhaN+njLiigP86Eh6dOsu/Z51eXvMvvN59krse59mGJkYEwqNgyOQ6SCEy8c
-	 GwZqXRUyw//bqOWvyHdxYXsyrBOqmXZAM0X8IxzhXDISPYBrgnr2V2ZlUc5wW/76ksA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795107652;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZAGuNfK4PGkEBhiPgllG38LiVsfLG3yw/JzSv5KJ1FY=;
+	b=2KAGlMD+KUYrav0uALPELv0OZOJOv7/3HtyCn4UXuuPUOnvEOyF28khQS0lyxUJ5WkxW
+	 uSECpm+rVxg1Ny7Y7XUJ9u03grNHLjY1R4YbV7pEXvu5zVZPgqcHD9CttbVI8xLh6auPr
+	 qVB+7ObExPde6D4eLLZaFPILTw5eJtudyEtlTcvZaACcQirHPBopNV73stXDD0gMGJO4m
+	 5i8FsASEngiyc7bvxcO0I99EUyjVi+FoG2JXVQ9/uHyZg5Dh8Bnmk4aFMo5OhJoLXo7vr
+	 P9g17CGBR/Hq2hYW2+2sbVarstgMPXJ1GXSCB4Nd/0HDifPgbNrJxDHRLGQb1TL+Slw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSSltwZp;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=LkGb8lMG;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC79606A325
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 16:57:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E4A606A324;
+	Thu, 19 Nov 2026 17:00:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSSltwZp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94B351F000C6;
-	Thu, 19 Nov 2026 16:57:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795107448;
-	bh=76oqwEH/SPEJYq2mPir1GKyIN8scXu14LeMlRXgXqmY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OSSltwZpESqK7nNLmY7WRiVmhTRWYO0hZFa3a+trJ2prNa4igRPBY2AuKXZY12ogC
-	 txDIQuNqFP3jsy/p2RyVlRgYfTF+0+s5fJmlYOgr/5XQxrZbrWSuL8T1u+K+DqbG3j
-	 iU9bVdze77bVPSI0rYbkZjgG6pgFw14O2nShSUJsVv+ZCMqGNNEwJIGCNGT7KOm6RP
-	 pTJMlC1Lj7yOJrHP8kOxohrgeTr4pf4r2fU2CN/74ojMaRZroHw6aiElI5w40NUHah
-	 fIKRhzpvVMV4AoPPqonF+dGGlxLCR4REbWM3QkuRkn3G/YEOm6pmb7vsqKUUxV0fJb
-	 lPi851LAmBUEw==
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfauth.ams.internal (Postfix) with ESMTP id EA703198003A;
-	Thu, 19 Nov 2026 11:57:21 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 19 Nov 2026 11:57:24 -0500
-X-ME-Sender: <xms:cSr_ameBHFzvTpO_rIXLLBLXU1EtHVEWsAz5WbTam7k2-UcX2tEZ-Q>
-    <xme:cSr_aiELSNQKkENGP3HW8vjyZECX5yYGKnnsGQbir0ZYCD14tsQ80C5UM_PegQTYl
-    3xX9WuG7w1QIT8XkuUWnqCQOrrT624B54a4tr0RtjKQrIHOnLKl-0ew>
-X-ME-Received: <xmr:cSr_asKf2AeJxBNI7ovLT5AEEGIVGzvlqgo1NZUyJTdeY0FiJzdNb7ZFqGk>
-X-ME-Proxy-Cause: dmFkZTECkGlHxkJe4+gF+AuCoU2k+QynF2HxgU91M7WpbV+jxcinlrLiUAlopmwL7pHS5E
-    LvY6KmYY1CnLULCOYDnE2aQ2kgo6IRkiKhm5LxtPn7IKmVmSl2K8sC9zJ+8pm5OpVnzjuV
-    fRWuCOJXOSfgZZ0NkT7vXFT++F+DtOtufWah4kNGqv0AwZp9zJ7UIAFYHuSk7ZKn+oKO77
-    hexhpL8B097bMkGS9j+v2YfQdGxHotBzVpmnoDqvMgHoIT2OPWTvtsHXVEcKybYF5MiCOu
-    QBbkrn+m9VqknXPorWw0kxlwBeqOuuMMg1FBjguaOglb0CToJNjxQFXxizDM16c5bm81am
-    MQdruA6/0IfuLeflv6gkoGd/RzA33YQ+gVJWyfajlr4b2zUvj7EKK6V6uri26hZLd9Fk07
-    uRye4XSksbK4D7dJTLukd8gIWDKjXBKBQWu5lEK9vXNd8LheaZBcDuADP52l8yEYBUCr+2
-    DDOTfElQhr4JVbCzxUqHvc+6tyt98Kcqpo/VcKjX2Lq7R5OIW9psl9ujJb3DIm04IkPYyP
-    43qVgEm00n+VtDmVU5fl92UBcjQ6g/HCyqDASf14U4YufP/sanWDvA8RoIXG38gG0vwq81
-    CGXsuaIZRC4FvA2NYxcawcSeI50G0guJ56YSlhsow17BXCtkgZyx9HvlWvyQ
-X-ME-Proxy: <xmx:cSr_aieaBQ0adQssbpm_F0KnQw-naYjUY-pfKsIJM6hUXsyMdJ6QYA>
-    <xmx:cSr_aisiYnPHW5UqVSnLtXnONHB5_fQxajEnNOqxKlUlmmm6TklXjQ>
-    <xmx:cSr_amvPG3SzOYQyCtsQtO9lhAl-pv1WMQVs-hObBl4F3kHaz_tyIQ>
-    <xmx:cSr_ap8HNqsgR41UYIHUbDEfE_pga_SiO9X66FWCEcKwQmTU2Ov9sA>
-    <xmx:cSr_an9RX_WxlPHzmJ-uefd-csKOGhiCfcaO5lya0XFI7x-RrfKxX4RP>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 19 Nov 2026 11:57:20 -0500 (EST)
-Date: Thu, 19 Nov 2026 16:57:19 +0000
-From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
-To: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Vladimir Murzin <vladimir.murzin@arm.com>, Marc Zyngier <maz@kernel.org>, Breno Leitao <leitao@debian.org>, 
-	Jinjie Ruan <ruanjinjie@huawei.com>, Doug Anderson <dianders@chromium.org>, 
-	Linus Walleij <linusw@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Thomas Huth <thuth@redhat.com>, Dawei Li <dawei.li@linux.dev>, 
-	mrigendrachaubey <mrigendra.chaubey@gmail.com>, kernel-team@meta.com, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] arm64: entry: sdei: always set VBAR_EL1 on SDEI entry
-Message-ID: <av8p2WL4R2tlU1HX@shutemov.name>
-References: <20261117174814.95936-1-ada.coupriediaz@arm.com>
- <20261117174814.95936-2-ada.coupriediaz@arm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=LkGb8lMG
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 649FE1F000C4;
+	Thu, 19 Nov 2026 17:00:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1795107651;
+	bh=ZAGuNfK4PGkEBhiPgllG38LiVsfLG3yw/JzSv5KJ1FY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LkGb8lMGrcmpPfcxmFdF4FwE6VN7ukOvtg016rCSOGbcS5HWRH58fh0XjLJyeXm30
+	 tOBPIIZy6TPV3JEmcklLtPc/oax9XC0iKigQYdzgT6GaAy6I5XpCe3MVuEH6HhSjG8
+	 kc0mE9oC7MNHp1oO0lIASjx9P4W2ZCLOwMgaT1CQ=
+Date: Thu, 19 Nov 2026 09:00:50 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Muchun Song <songmuchun@bytedance.com>
+Cc: Oscar Salvador <osalvador@suse.de>, Miaohe Lin <linmiaohe@huawei.com>,
+ Muchun Song <muchun.song@linux.dev>, David Hildenbrand <david@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Joao Martins <joao.m.martins@oracle.com>, Lorenzo Stoakes <ljs@kernel.org>,
+ Sashiko <sashiko-bot@kernel.org>, Jiaqi Yan <jiaqiyan@google.com>,
+ "Jose A . Perez de Azpillaga" <azpijr@gmail.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 0/3] mm/hugetlb_vmemmap: Fix HVO races and deadlock
+Message-Id: <20261119090050.6858fd2871d2756c6d3c809a@linux-foundation.org>
+In-Reply-To: <20261114112523.75208-1-songmuchun@bytedance.com>
+References: <20261114112523.75208-1-songmuchun@bytedance.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,51 +60,71 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261117174814.95936-2-ada.coupriediaz@arm.com>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 17, 2026 at 05:48:12PM +0000, Ada Couprie Diaz wrote:
-> diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
-> index beb56891fc4f..cb122163a68d 100644
-> --- a/arch/arm64/kernel/entry-common.c
-> +++ b/arch/arm64/kernel/entry-common.c
-> @@ -1079,19 +1079,22 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
->  	far = read_sysreg(far_el1);
->  
->  	/*
-> -	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
-> -	 * EL0 until the next exception from EL0 maps the kernel. They only
-> -	 * handle exceptions from EL0: an exception taken here would run their
-> -	 * empty current-EL half and never come back. Switch to the kernel
-> -	 * vectors. The IRQ-like resume keeps using the interrupted VBAR, so it
-> -	 * still goes through the trampoline.
-> +	 * As an SDEI event can take over at any point, VBAR_EL1 might not allow
-> +	 * us to take an exception safely :
-> +	 * - With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
-> +	 *   EL0 until the next exception from EL0 maps the kernel. They only
-> +	 *   handle exceptions from EL0: an exception taken here would run their
-> +	 *   empty current-EL half and never come back ;
-> +	 * - With VHE, the kernel runs at EL2 and VBAR_EL1 accesses VBAR_EL2.
-> +	 *   KVM might be running a guest and switched VBAR_EL2 to the
-> +	 *   hypervisor vectors.
-> +	 *
-> +	 * Switch to the kernel vectors unconditionally and restore
-> +	 * the interrupted VBAR_EL1 before returning.
->  	 */
->  	vbar = read_sysreg(vbar_el1);
-> -	if (arm64_kernel_unmapped_at_el0() &&
-> -	    vbar == (unsigned long)raw_cpu_read(this_cpu_vector)) {
-> -		write_sysreg((unsigned long)vectors, vbar_el1);
-> -		isb();
-> -	}
-> +	write_sysreg((unsigned long)vectors, vbar_el1);
-> +	isb();
+On Sat, 14 Nov 2026 19:25:20 +0800 Muchun Song <songmuchun@bytedance.com> wrote:
 
-This makes the comment I added in do_sdei_event() wrong: it still says
-that an exception taken during a KVM world switch goes to the hyp
-vectors and hyp-panics. Could you drop it in this patch?
+> This series fixes three HVO issues reported by Sashiko.
+> 
+> The first patch serializes HWPoison updates and removal against HVO
+> remapping so raw_hwp_page state cannot be lost or freed while a
+> replacement vmemmap head page is being installed. The second patch uses
+> an HVO-private rwsem to prevent deferred PMD splits from racing with PTE
+> remapping before the TLB flush. The last patch switches the vmemmap walk
+> to the lockless walker so a PMD split allocation cannot recurse into
+> init_mm.mmap_lock through reclaim.
+> 
 
--- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+Thanks, tested in a VM.  The series did everything it claimed to do and
+the LLM couldn't fid a way to break it.
+
+Tested-by: Andrew Morton <akpm@linux-foundation.org>
+
+
+: I tested the three patches in x86-64 QEMU guests. A had the series
+: removed; B had it applied. Both used the same kernel configuration and
+: fresh boots. The main tests used four CPUs, two NUMA nodes, 8 GiB RAM
+: and 2 MiB HugeTLB pages. I added the same temporary delays and log
+: messages to A and B, guarded by the test processes' current->comm, so
+: other processes did not take those delays.
+: 
+: [1/3] mm/hugetlb_vmemmap: fix HWPoison state races during optimization
+: 
+: I put a three-second pause immediately after HVO copied the vmemmap
+: head, then poisoned a tail page during that pause. On A, the HWPoison
+: state was lost and the huge page remained in the free pool; B kept it
+: out. Poisoning the last 4 KiB tail page gave the same result. For the
+: reverse race, I also paused before the copy to poison the page, then
+: unpoisoned it during the post-copy pause. A left stale HWPoison flags
+: on the head and tail; B cleared them.
+: 
+: [2/3] mm/hugetlb_vmemmap: fix PMD split TLB flush race
+: 
+: I put a three-second pause immediately before the deferred
+: flush_tlb_all(), after the split PMDs had been published. During that
+: pause, separate processes allocated huge pages in the affected range.
+: Temporary log messages recorded the old and new backing PFNs at each
+: remap. A changed PTE mappings before the flush; B did not. Four
+: simultaneous allocations repeated the early remapping on A across
+: both split PMD ranges. I did not observe a processor using a stale
+: TLB entry.
+: 
+: [3/3] mm/hugetlb_vmemmap: fix deadlock during PMD split
+: 
+: This test used a separate four-CPU, one-node, 4 GiB QEMU guest. An
+: emulated QXL device initialized TTM. Because QXL's own pages were
+: cached, a small test module used TTM's page-pool interfaces to return
+: 512 write-combined pages to its pool. A process held about 2.5 GiB
+: of guest memory.
+: 
+: I created an init_mm.mmap_lock writer before HVO entered the PMD
+: split. At the split, I released that writer, paused for 300 ms to let
+: it wait on the lock, then called TTM's actual shrinker from the HVO
+: task. A reached set_pages_wb() and blocked trying to take
+: init_mm.mmap_lock; the huge-page allocation did not finish. On B,
+: the writer completed, the shrinker freed the pool pages, and the
+: allocation finished. The shrinker call was forced at this point.
+: This tests TTM's page-freeing path and the lock order, but does not
+: show that ordinary reclaim would select TTM at that instant.
