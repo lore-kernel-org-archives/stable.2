@@ -1,62 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.192
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795092257;
-	b=gfqjAkgzePE2Shvm50k5KLu4pUFdzfGok1rH/uu0GC3WCRjnICadUp0gTQzzA4+cWiVD
-	 Jk6eGiFusrgEbS8OzOnkU3ubct7rjs87Z/LQVvw3sLNnc+b6LDjZ3qvW79ZYGBrk5lIzJ
-	 41ZYfvnOlknbJ+lZAkNESoX5vBecMlOWscT5PwQNnxLLSxS2GF1XJ/slYMs5YoV4530kE
-	 iuMA6LgnlpCQHrsMd/VmxH+QbFj/BCm378IYxCsC8fcwN2mmJ0GvURQWmBMDDpsi8fJux
-	 NaCVRzyN+bkeqEDryrW1LDGHsoieDYg4gA2CrS6yGvAH5iHz7yxhm4DfNgSB70kRPjA==
+	t=1795092265;
+	b=J5sBLDb302/rIUJII+sMO3hF5E8bKe8KB7l85TGB43lYJuoOj3/S8T9tXvXCZ4z5Hwub
+	 DMZGoGgXFL5XxoBtVoCDTZmbbN6NvT7SJ5beAJZ4us8IevWHWSlD9P8djI67fdg2GVYy4
+	 sTjA4XDiDgL/HGLRny6PvKYmU7v9gCruOhNBAng3mFMeJn/zOqP2auOk7mZO6DJt+2R3p
+	 rjMIormxJqnTDeia7uiIip8SMQu189ikew/9Hw6+1bygjJhWynGBd/CY5DypEwQHgdu8q
+	 VR5RMy7ew/PrCqxmkTMOQHmm8VqgOcucROJczzHIztUt/3dms/ecW+FtqDNMTYNKw4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795092257;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type;
-	bh=odGKjtuO2fcSEp2Bw94sYra7hu3Cvd+3dwpUXKWdflc=;
-	b=0+8ik0vpQMGxLlzUkkyEuUbjg63bz7c6aVwFLT4TvpV8GFryZSkf1UeBUUVvQYr335w4
-	 P0OVUk5BIjcPKTU0X0a3So9jeP8aMTrFA3K0+zlIL3rSc3e7kDY7FszlJUe/tyaw+9sSM
-	 GZ1dufGdkEx2+sA+sMh8RS2r70WlsT5crcMcggFwUKzX6kn86MYLeS8IIXaXOIat1/99P
-	 jOlr2WMPrsyp2pxnWblM3/m0SsDolshDTL2Ir1P8AU4fN0F8bU9Xxc3+bm6eA/n8Wf4N4
-	 qvuYBjCWA5gbaSLfVVZX4ZpghYFVR3GmRqFNexP5mHOKw44rJzAOJp9t+DA1HNQEDFA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795092265;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=gEUF5j3SdmghZnwmnMhcNly6K4nfdpDAoolOXRPv4r4=;
+	b=aLcNonFggjpude7o62vRSW+A3asB0D1380P12Jb/p9MR58OYwaLH3SU6L6dqkFdi5F9l
+	 jApD/tsU5DwzxJgPjSlReaiaPaSVcGhiGdqYfuFtusTYjg550B3S13s2fVa9XaY/ZipzJ
+	 XVCk3GnZ+l8NYOfH0Poo/aAyVQFiUG4DnYO4i99qN8cs3quJxolNplNUZZ0KM0A+da+R/
+	 qy95I36Q3PrNVL3KJgd7iEYrK8bc+zIDMrkYBoa78YYDVIWZBs1tIu/co5ma7tEkhYESp
+	 N1lbZtnR7bjlTWIIGFa5yt1G/pkra7LcWk0J1/j9pW0k1hcVtDFASzBpX/V+L5NbiVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Xm5K9aUy;
-	arc=none smtp.remote-ip=95.215.58.192
-Received: from mta1.migadu.com (out-192.mta1.migadu.com [95.215.58.192])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UoPrbboG;
+	arc=none smtp.remote-ip=113.46.200.221
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6143160A262E
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 12:44:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6143160A262E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DFDB60A3812;
+	Thu, 19 Nov 2026 12:44:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DFDB60A3812
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Xm5K9aUy
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=odGKjtuO2fcSEp2Bw94sYra7hu3Cvd+3dwpUXKWdflc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1795092254; v=1; x=1795697054;
- b=Xm5K9aUypliUEN5W5tlLqwSvf5vjzoa3e/CT6q1LEZa5hLPqMRcmR9ayLYTJBsZsnapm+m2S
- 23fByICux5qIvvIPrFRC21cniwWgGgHef4Mts/CijyVMTpMPjMplYXRcDz2SvIt2MGOeDB/Dw9j
- rOnsSNri/aFkuDWngWhVsj4w=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4bd90a8046ddf6e9;
-	Thu, 19 Nov 2026 12:44:14 +0000
-X-Mizu-Trace-ID: 4bd90a8046ddf6e9
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be58ad9600so8105e87.0
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 04:44:10 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGxHu9zU1kgg8Ll63+haL31YgorQPEskllQSmGhWRHXecqG3fmNrwXtrbEG6tLyXfgfrvum6o0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8b7Maf/LczZhMtpdkhPhQeTOUvqbZJTYhNnPixU2UOJGWWiSuN
-	pMEvfAtHXtItsCscmg7Oa5BstQXmwldnMaS9AgMOnoa013fMtGfbcLmvwQyDLn7bLS1d1Jl1dgq
-	+yO9B8s30xc7cHn1IhJD8Or55BX/XnquEqly2ww3r
-X-Received: by 2002:a05:6512:4011:b0:5c1:4d61:20ff with SMTP id
- 2adb3069b0e04-5c1b6774040mr72185e87.10.1795092249237; Thu, 19 Nov 2026
- 04:44:09 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=UoPrbboG
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=gEUF5j3SdmghZnwmnMhcNly6K4nfdpDAoolOXRPv4r4=;
+	b=UoPrbboGhx2qW0Kg7zd2CG0dtQDrGZGHFOQp1Bqe9Ybfnd/6d+43Y4GKoWw53lyDM6gHWgE34
+	TKlckZ7drSVXqmHCbWS+2BFCytHUrbx6yNwS+7CyoYkpf1SJo2Vz64cIkPIoRm0cXDPeiUrACN4
+	43BlHpWvUdCe+vDBJ1KBkz0=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jVdSb3wySzRhQS;
+	Thu, 19 Nov 2026 20:43:59 +0800 (CST)
+Received: from whupemo500017.china.huawei.com (unknown [7.152.184.243])
+	by mail.maildlp.com (Postfix) with ESMTPS id BF9E14057D;
+	Thu, 19 Nov 2026 20:44:14 +0800 (CST)
+Received: from huawei.com (10.67.174.49) by whupemo500017.china.huawei.com
+ (7.152.184.243) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 19 Nov
+ 2026 20:44:13 +0800
+From: Ye Weihua <yeweihua4@huawei.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Peter Ujfalusi
+	<peter.ujfalusi@linux.intel.com>, Bard Liao
+	<yung-chuan.liao@linux.intel.com>, Daniel Baluta <daniel.baluta@nxp.com>, Kai
+ Vehmanen <kai.vehmanen@linux.intel.com>, Pierre-Louis Bossart
+	<pierre-louis.bossart@linux.dev>, Vijendar Mukunda
+	<Vijendar.Mukunda@amd.com>, Mark Brown <broonie@kernel.org>, Jaroslav Kysela
+	<perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+CC: <sound-open-firmware@alsa-project.org>, <linux-sound@vger.kernel.org>,
+	<stable@vger.kernel.org>, Ye Weihua <yeweihua4@huawei.com>
+Subject: [PATCH -next 2/2] ASoC: SOF: topology: Free bytes control backup on unload
+Date: Thu, 19 Nov 2026 12:14:46 +0000
+Message-ID: <20261119121446.124833-2-yeweihua4@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261119121446.124833-1-yeweihua4@huawei.com>
+References: <20261119121446.124833-1-yeweihua4@huawei.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,39 +76,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261117074428.7544-1-fuad.tabba@linux.dev> <20261117074428.7544-2-fuad.tabba@linux.dev>
- <avxfgWNePsGPK9mm@gremlin> <CA+EHjTzUrDxLSMEo6X66XhKtQ-=ew3zZhMdFWR6U9Ga17WLWkw@mail.gmail.com>
- <av5CBjbeidUUWiLq@seanjc-mac.roam.internal> <av7bYb1geEGzaj8e@gremlin>
-In-Reply-To: <av7bYb1geEGzaj8e@gremlin>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Thu, 19 Nov 2026 12:43:32 +0000
-X-Gmail-Original-Message-ID: <CA+EHjTwzdsMKw2MFB9kpV=Xtm4JFpTbWRn0BOSwSB+x=RJhVMA@mail.gmail.com>
-X-Gm-Features: AclHuK9ExBlvjAlpEcQpW7OIX1pR4w0klOAvsUXwgDHyVbn5Bw8uFWJCaQ8SOYE
-Message-ID: <CA+EHjTwzdsMKw2MFB9kpV=Xtm4JFpTbWRn0BOSwSB+x=RJhVMA@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's
- dirty ring is full
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Alexandru Elisei <alexandru.elisei@arm.com>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ whupemo500017.china.huawei.com (7.152.184.243)
 
-Hi Lorenzo,
+sof_ipc4_bytes_ext_put() and sof_ipc3_bytes_ext_put() keep a backup of the
+last known good bytes control data in scontrol->old_ipc_control_data.
+This backup is only released when it is restored, so it is leaked when
+the control is freed while the backup is still present.
 
-On Thu, 19 Nov 2026 11:18:48 +0000, "Lorenzo Stoakes (ARM)"
-<ljs@kernel.org> wrote:
-[...]
-> > > (note that it skips CSR, SBI also with a changed exit_reason).
-> >
-> > Ack.
->
-> Probably worth referencing in commit msg I guess?
+Free old_ipc_control_data in sof_control_unload() and
+sof_widget_unload(), which are the two paths that release the control
+data, along with the rest of the control data.
 
-Will add one in v3.
+Fixes: 299f6c752f8f ("ASoC: sof: Improve sof_ipc3_bytes_ext_put function")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ye Weihua <yeweihua4@huawei.com>
+---
+ sound/soc/sof/topology.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Cheers,
-/fuad
+diff --git a/sound/soc/sof/topology.c b/sound/soc/sof/topology.c
+index 4dcacafb9cdb..c21a0199db9c 100644
+--- a/sound/soc/sof/topology.c
++++ b/sound/soc/sof/topology.c
+@@ -1069,10 +1069,11 @@ static int sof_control_unload(struct snd_soc_component *scomp,
+ 			dev_err(scomp->dev, "failed to free control: %s\n", scontrol->name);
+ 	}
+ 
+ 	/* free all data before returning in case of error too */
+ 	kfree(scontrol->ipc_control_data);
++	kfree(scontrol->old_ipc_control_data);
+ 	kfree(scontrol->priv);
+ 	kfree(scontrol->name);
+ 	list_del(&scontrol->list);
+ 	kfree(scontrol);
+ 
+@@ -1717,10 +1718,11 @@ static int sof_widget_unload(struct snd_soc_component *scomp,
+ 		default:
+ 			dev_warn(scomp->dev, "unsupported kcontrol_type\n");
+ 			goto out;
+ 		}
+ 		kfree(scontrol->ipc_control_data);
++		kfree(scontrol->old_ipc_control_data);
+ 		list_del(&scontrol->list);
+ 		kfree(scontrol->name);
+ 		kfree(scontrol);
+ 	}
+ 
+-- 
+2.34.1
+
