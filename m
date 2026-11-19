@@ -1,60 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795066704;
-	b=lqfTHTu8/NdQj6KZLCMcGFXa5zcnrhAS8fizvfwyfP05njjyCZo2EQcJjmGj1CZXZO3K
-	 qsHye+jTvF0IsKRGtVIwOjLQmX1AD0BztMpZWGyZG9IuL2bcjV7dKJFpiJnmP++Plh7hY
-	 ECFiSdRmp0Ms6L0XXykTMalx2fE8ZESqUd3RdtLqVyoCKYCyHeoA+/AwJxhRtz/JWzxg9
-	 pob+j07VFk+MBJb/HoodLXlqNbjf2JdZoo7oc0Uc2KeS+7EYfiY10VPeyI3ZDh4ds99TO
-	 1cgqzwEDL0CkJcWJWa010LMRpRqixr9hLXhNrqfmeD7svZoXoDvN8cO/yF7oyU6NvWg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795066704;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=R25rAJ2/bRQZbcpu1wkz5IDIm8PQU+pT8fh7Bl5TT58=;
-	b=1RiKUj6dVmEwgoCEUfL6QXoCFcZ6t2Q2sfoSah/mA4XPnbVh6Nw/l/nXmhgsqWnP7hjm
-	 7erc+JCG6wR/+ReTYabmI74U/lz8AY5zxSo5S/AAiNgtGllmTKcWYSQ2zc1KpdMBfum/h
-	 OZobDT7W8SXdsBYQeaq4UBoOEUh1EJb5SfvNkdD53IwBBbVGP8PNybnXNLHsjs+9pE/mL
-	 wRBeG8UnZS9YP7HzHmU/S0U87fVySFmfjNY5tF2tto0lfRDJHRgJGhF1jBe9PMDE9mo7S
-	 lqR3vlkthbiHfNW52ajtg9NUBU+y/GGrnrRauNcyduYyQzF7PGs7V4zwJGRZz+lUsvg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="i4W2g/bn";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.45
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795066738;
+	b=QA5yQjoZR4pQrtVrC7h5i7QW/p7o7so/q2p287LVrAjIOYW/eEzTFBCTW4awJmdoDSgD
+	 8wXPJ9W6Lb4B3JUnt975NgLNelwEMcC726t+6Ty4hnbMTV9zDvFFgiYnZjCO3w2HwesjE
+	 yQWUVOYulViNJkdjq6HswvgAKBXGUomWF2VEohpJQftqWXAkZczhRrnDTE23vIf9FO9wd
+	 pH/3/+w2zxC0FYZcoYBhGl7YWKVB7B3Lxup9ZYKJEL8iSGErpR2oupXhkMCZNsLgJuITu
+	 FSgNZEQkG3ojOcanaw4XXa81KHHCP+HmQl8EmGmksLv7IySnjY9MDv3Gjp6/5h4292g==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795066738;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=kcKaUxQvxPFuqo5bK8jwEn+I9F8nJq4UHxe2jr5Cj68=;
+	b=1XckzoHbB/FwcIg+bG8YjqHCRO0Hhr9UnN10RhJHMs+t0kyCbwvcTuhaDp7KC+ZR+T0a
+	 GoX26yyMhnwj+Ca1HHj5rklveoRdW+obUn3g7Z3KpkjA4JPb1MAME5YLuyhT5TpvVzgLJ
+	 wJLADP0kHvpyvnXMQcgEDdng67uHLvHUgiQq4vqaBiOlXaNSTzaue4JcqehKsuhqECy2+
+	 JoUPY/ujkJ5GNyV7xu91t6Ekx7x6w7AxdOXr6dzCY9SMqokX/qlBvYHVGhguTehX8Pg7K
+	 lRrrJtouuoQ/3NHVkxK5O7xL+MJ5y1QNtzs4hQOsoueMGw6QcsIehSPB1bkdBLJ65SQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bWPvuhAu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.45
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010045.outbound.protection.outlook.com [52.101.201.45])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54695606A32A;
-	Thu, 19 Nov 2026 05:38:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 406AF606A325;
+	Thu, 19 Nov 2026 05:38:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 406AF606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i4W2g/bn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5606E1F000C5;
-	Thu, 19 Nov 2026 05:38:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795066704;
-	bh=R25rAJ2/bRQZbcpu1wkz5IDIm8PQU+pT8fh7Bl5TT58=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=i4W2g/bnjee/9TFtciHpyCgJ6WzfN3ADmdGr+DEjTUOdCKVANvuducRiqTgfRGH8n
-	 Xbb6BnmbLv/tVcDh8VnIYC4xzlHZEFt2Umrq8zu5iPdHq7FipLqy9tkEFGN53H+2Tw
-	 7HlR0RzBebzKPdqofjlL2fQy3e91zxMW+KhXK2o2hDLTbtZqDzBs+8AGcl+ubuMPNk
-	 YgyatkydpG8g/Zn9rzvRVVhj559x+KtoxoaU5VGl7QaNBu14eNiSAxGz25TO/X7W7v
-	 Ayd9rQCWyeg38KRUDYLUlH5rZCiW20TA9zDukwFAZ2lrlsNS+yyBMEyvjFu6/bVOaw
-	 5N769JnXrzfkw==
-Subject: Re: [PATCH net 1/2] net: keep txq->trans_start on repeated
- netif_tx_stop_queue()
-From: netdev-bot+sashiko@kernel.org
-To: cmcburney@telcobridges.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
- willemb@google.com, toke@redhat.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Thu, 19 Nov 2026 05:38:22 +0000
-Message-ID: <179506670286.3136.15475785780493881467@kernel.org>
-In-Reply-To: <20261116143716.367451-2-cmcburney@telcobridges.com>
-References: <20261116143716.367451-2-cmcburney@telcobridges.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=bWPvuhAu
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Rtnqp6xmCO1Rn16D6Vxg1k7HM6Doq7rFpOoou7Ez3IJBUXDB6Zeh2A6GfGFpAph+kxZjDZVu2YHp5F0JoH9qi1CQIjJcqesTi2do6Sz8XYI5dqpLrZsGrZmA+GgwZqIxThsgAvP8H39jLtgRj4z+dxXGbIYBya9mOftYBYY4XpPNqrtmvIGZ5H7MDkpA4sXS/i4L0FFkMraDoZGLf1YEUAhfi4h7Zlj5c1zn5nmMPVmkREmRsHUISa5jwxYsSwG1HRKNIoShtAL+2LOAo/p2osLtsL2vlZ1EJaZ9hxwtLsncjRmxyp6A5BRSboMi8SnXzMLCz38ub2QmWEhNAPcnKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kcKaUxQvxPFuqo5bK8jwEn+I9F8nJq4UHxe2jr5Cj68=;
+ b=UoAhlrChsey3olkz3+jPpJR1LmDFiZjVwRJb7RUEZZJ7j6/aI+BUasUJUrjTAAxqEdDtpIk2/emY+zPP5wFgf+T31G5xTO6B3xbU6Kx//3ZuN/mma92mk8n5DcQ0UK6GKd3pVP7kasI3i0Zsmbwc7xtaE/KlNWnFMj9bgmSXtL5uKzaWVUprHEnSj0ZxLoKGhLRabsQlcGZfUUcXa3kK2dKQWSA5wge2oEtsM0paReD3/2eh0a2sZT7MwTrUsZf48A1CdaNHeT/4C3dsK18Ysa8aSlz/mKCDWeySD0Y4kwRZ5u5GgBv9CoXP39Ma3zST3AhgJzjgoZz6W3ekVcw3WA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kcKaUxQvxPFuqo5bK8jwEn+I9F8nJq4UHxe2jr5Cj68=;
+ b=bWPvuhAupB2CjqQTpCoRE+eBBkbMZZQGFFcZXFDqkaMibxAgNcuIG3ZZjf/9pZMGeGl19Z0JF0oDi+5gkOpe+tDvwxONfR7U4l9zDqDSlSeSTPrmkvL8AZ540B8TSANQbJH3zdwIv7b+s8gdv3rdKqmTI9FFoz8NA2Wc4OuT7I0=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from DS0PR12MB6559.namprd12.prod.outlook.com (2603:10b6:8:d1::6) by
+ BY5PR12MB4212.namprd12.prod.outlook.com (2603:10b6:a03:202::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.14; Thu, 19 Nov 2026 05:38:55 +0000
+Received: from DS0PR12MB6559.namprd12.prod.outlook.com
+ ([fe80::3f99:f532:cf6b:ea46]) by DS0PR12MB6559.namprd12.prod.outlook.com
+ ([fe80::3f99:f532:cf6b:ea46%5]) with mapi id 15.21.0615.013; Thu, 19 Nov 2026
+ 05:38:55 +0000
+Message-ID: <3618947d-c367-4838-9319-556bd974d4a0@amd.com>
+Date: Thu, 19 Nov 2026 11:08:49 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 04/11] dmaengine: ptdma: Unmap descriptor in
+ pt_do_cleanup()
+To: Lee Jones <lee@kernel.org>, Basavaraj Natikar
+ <Basavaraj.Natikar@amd.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Gary R Hook <gary.hook@amd.com>,
+ dmaengine@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20261117163809.622249-1-lee@kernel.org>
+ <20261117163809.622249-5-lee@kernel.org>
+Content-Language: en-US
+From: Basavaraj Natikar <bnatikar@amd.com>
+In-Reply-To: <20261117163809.622249-5-lee@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA5P287CA0045.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:175::11) To DS0PR12MB6559.namprd12.prod.outlook.com
+ (2603:10b6:8:d1::6)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,153 +99,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS0PR12MB6559:EE_|BY5PR12MB4212:EE_
+X-MS-Office365-Filtering-Correlation-Id: 729afa6b-81da-4b88-259e-08df45ff66b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|22082099003|18002099003|261009223027099003|11063799006|56012099006|4143699003|261026121527099003|261102123227099003|10067099003|261021121427099003;
+X-Microsoft-Antispam-Message-Info:
+	QeHRh4IMR/gNarO6E8LiMg4Qw3YE1/ToZZ90U6z++5domkDnsdIts8LtBXVBZ5TtGuiCw5TI19hoQhnK1IVfZByLfd/HAoGF5oFjkGgr5X2snuKf6x+GR8zr0fUYbsEoDXgBW+gSTuXGGW7KCpDyee8lnKuJ80u5KPkspruE7wzGWCKy8i28quhA7e3yo8cu7I/ZZD5SCNZDU/i+xvlDZPOzgmeY3u0uBiJt9hyi7i9O0cMMkEMeCMzXueBBEpX5jwiks2mf/pU1ulnGyQCWS5AY/FMttjvPLn/dQepfLEu+zBg5p/QtOq4g9e/QgtguuZ2KXtp/XeSVikdHN4BqsBaydktJxPxd8f0O/WUxjOJhvAfl7m8WNk86rIRtlTw7s7pnYlOgyKHyjOUk9K/aaTdifo9vLfR2tftBhaSTftIPv8nsbMm4HW33uyZeE5X37LkARMtYvW3vjVGsLPEx3w3gq9ZNIC1kqqyZH7s2wQlRTVtCSEqlGY70lTEvUkFwdBVQf/4Spp205JM0FyW09JuJ5K5QzDJYedXhnpmo2VixU7Cm4+pLEBh39i5iTu1C+4y+2AsDmpDxzY6uhEpU4o/1PSWQTIzvayx1y2XmxKc=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB6559.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(22082099003)(18002099003)(261009223027099003)(11063799006)(56012099006)(4143699003)(261026121527099003)(261102123227099003)(10067099003)(261021121427099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ejRpczlqVnZEemxvUkxDaEcwSmo4VjZoYkwyTVlPS1IrQjlTOWxLNVZvS01R?=
+ =?utf-8?B?eDY2ZFpVWFRIVnhaSWtDb3lBY1IxZTJlWlZyYklhTlZQQTJyRkxEcHJJRmdw?=
+ =?utf-8?B?TUU5TU9EbEE0N29rNnVUUmJIUVlTUGZ2Z0VSZ2pUSjV3RjdvaExYb24ySmdq?=
+ =?utf-8?B?WDJ1dDN1a1d4dGJSdlp1ZjNEQlJPRWlVblFtd25GS0U1b2toQUFDbE5JSlJh?=
+ =?utf-8?B?R1ZMTlVwT28wVTFsdmplK0JiQUVHNk1NTUZMVUI2eDhsRHZOM2pEL0RYSlFj?=
+ =?utf-8?B?Y2xHTnZFaXlqWW1tZUQ2SGUvQ2owQmRMc20rZ2g1cGRKQW1iTVljVjdMRnlv?=
+ =?utf-8?B?YThhKzlkTGNheE1VNTZybk91R1JaZGFlZ25mYysxWGFhL29CSVRIREU0M0Vs?=
+ =?utf-8?B?TWt6STlyWGFUYzZyL3lONlZvTHlWU2FlK3lPRmRlK1NZTTJ5emhjVm9pZHZV?=
+ =?utf-8?B?c0E1b25WSWxMbjVEQS9IY3p3YVprN0JTTnNNK2NaeXhjbFdFZ2NONGJNeW0r?=
+ =?utf-8?B?M2lKMEQ5VDJSZkpHQmQ5QjdBZ0o0TFJqR280MHUraEJiQW9mV2dKOGcySVNs?=
+ =?utf-8?B?S2NaVlNIOTFiODhzOHNlam42aVVXVE1zVENWVzJsRnlSWUVuMUxUVHN4M0Fn?=
+ =?utf-8?B?VEdmTUVtS1ZPTUNhaXNPSmZKcHBVcTg2Z3JSUDZoVXNOZXoyM1l4b0dBd0NW?=
+ =?utf-8?B?S0QvOWdMdmM1UjFQUFI4T1pQT0pYRi9kOFN4VjV1Y2VTRWUySmVlbVJSQ2Ft?=
+ =?utf-8?B?UWZMY2s5QmRqMTBGYUJRQlU1RTBzRUJvY0hER0F4OE1LbkppdW9PWTBJano1?=
+ =?utf-8?B?YzhzNjNvQ3dmdjJjOXhpTllTaVJ5YVNKak1qZFlqbTduQ3VHMTNxeXJiMHFx?=
+ =?utf-8?B?MTRERzFiNXVaQU9ZSXdqSlM0TS92SW9JckF4Z2VIaHZiNGlOTlBseStObVlu?=
+ =?utf-8?B?cDl1TjRRdXBEWUQvNXQ5b2hPamkwTEJSOGVzQ0w2OCt5Wmthc0pFS05xaXhj?=
+ =?utf-8?B?cWZiVDNsVnlId0JsQk5pQlFwWncvZnJBZ0d1Q0QzWDNYZXZwaFBrQytVYktv?=
+ =?utf-8?B?M3YwQkdCM01hSW1wVldweGVCd2hDdWFrcTE2NnYwQ1NGeXJaMXAvdUZNSVdh?=
+ =?utf-8?B?bXRiSXZTQWVNWmFsSkZISzZYZFVzejVuMDVaalNYb2hvSDcwZk50ME9FNGlt?=
+ =?utf-8?B?S3RsdkoxMU1QcFhXaWxFMWJnRWkxc09Da1pObkUzWVRxanNFM3hCRnFuOThT?=
+ =?utf-8?B?NklFYTE1ZDd6N0hyTFdUeFJrS1IxTG5JU2lmdTRsVE44NnNTOU5jaEl2T01i?=
+ =?utf-8?B?cVJWQTBCbkhjdEtLL09ETHF2R2J3NFFCa04vc0dJcGI0ZTF0aERiNWgzalll?=
+ =?utf-8?B?dU1ZUWptV2F5ZnVqdWZPdmlNVXhRdFNtRFdScGNSOFhVaE0vZ21IbjZXOW44?=
+ =?utf-8?B?UkVzbGExNDNmL0dNOGQ2dGhNZTNybFovNVVrVkdHWFllUlFheG52NHJ4Q0gy?=
+ =?utf-8?B?WHFlSFV4MkFRUlVXS0swS1VOeGtoeFdHdTdWY0lzUTBzTXY4amtpd0ZkY1cw?=
+ =?utf-8?B?WFozdnNYOGJHdWpyYWZ5Nnh6K0tFVkJjeWptMVQvS21QSk5JdWhGL09mSW03?=
+ =?utf-8?B?VzlEMkU2cVdVNEhDT3NURmc5eEt5STdNdmJvaThvQUZLT211aEI4dnlNTE9J?=
+ =?utf-8?B?b2NHV3RHUk50R0E2RGttNml0cm5NNWlaWmw1cTNFM2UyUlgxa0V5MjlNbmU0?=
+ =?utf-8?B?SEFJTmtjUUkvM1RZTVNiaHdyRjcyZ0FGclpucy9CNWlueW1FMytTeFNnOUdC?=
+ =?utf-8?B?c0Q4Q2p3WkxGSXdNbmUvcGhVSC9aTy9zcmlxNnNDZDc1aVhDcXR4TllVNlRa?=
+ =?utf-8?B?MnhxSHBIMDZoRWwxRFNjQWozcnRGYXZiSDJ2TmpJMnYrQWFhNjhMcUpoNGpB?=
+ =?utf-8?B?UW9zbXhiZU1KZy82SzFwSFA2NDJCc2JhVGVKaGNjakJuOGdWL0Jzdy9vOXNv?=
+ =?utf-8?B?dTRwVFdqM05MM0dHY2NoRHRXb2QvcXlhdHR6OU8yOWxKQTFBRzI2dG52ZUo3?=
+ =?utf-8?B?N1N2emxNcXl0dUdEK2xwUzJxRmhvdFVFYXM1RSsyQjY4VVhCUUc2MWJtS2tD?=
+ =?utf-8?B?dnJzcnhQQ25IbWMxbnBVMFFDK3ZNb0E0K29Ga3ZkcVEwcFVpK29oblNObFR5?=
+ =?utf-8?B?MnhPb0d4Q1ZOdHY1OXJidDBHRGZsd1hvOWlpQk5LVTliclgrMzN4alQ3SHNS?=
+ =?utf-8?B?ZWNBbG5aa3loNCsvMFJDaG0yWUF0Zm1iM0RaMmhucTVmaEdVRU15dXlHOHls?=
+ =?utf-8?B?NlZycFo1R251Z0YrTEU0eTZHVm5lYU1CTnNrTTA2a2hQRjh1MVpsZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 729afa6b-81da-4b88-259e-08df45ff66b7
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB6559.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 05:38:55.6011
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oi9d3G6pYFNzsXV2Na8pMPz4WJAHoxfKktXWZAmhUO5bV2aL0UQNdUpKfePgTmPNjgF8d7HWNWodA3g9e/Ubhg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4212
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+On 11/17/2026 10:07 PM, Lee Jones wrote:
+> When descriptors are freed on abort via vchan_dma_desc_free_list(),
+> pt_do_cleanup() frees the descriptor without calling
+> dma_descriptor_unmap(), leaking any attached dmaengine_unmap_data and
+> DMA mappings.
+>
+> Call dma_descriptor_unmap(&vd->tx) in pt_do_cleanup() before freeing the
+> descriptor.
+>
+> Fixes: b0b4a6b10577 ("dmaengine: ptdma: register PTDMA controller as a DMA resource")
+> Closes: https://sashiko.dev/#/bug/linux-58b8113b-167a-4398-9be2-c2f3cbf73358
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Lee Jones <lee@kernel.org>
+> ---
+>
+> v1 => v2: No changes
+>
+>   drivers/dma/amd/ptdma/ptdma-dmaengine.c | 1 +
+>   1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/dma/amd/ptdma/ptdma-dmaengine.c b/drivers/dma/amd/ptdma/ptdma-dmaengine.c
+> index 628c49ce5de9..a0a1c7ec2ae5 100644
+> --- a/drivers/dma/amd/ptdma/ptdma-dmaengine.c
+> +++ b/drivers/dma/amd/ptdma/ptdma-dmaengine.c
+> @@ -91,6 +91,7 @@ static void pt_do_cleanup(struct virt_dma_desc *vd)
+>   	struct pt_dma_desc *desc = to_pt_desc(vd);
+>   	struct pt_device *pt = desc->pt;
+>   
+> +	dma_descriptor_unmap(&vd->tx);
+>   	kmem_cache_free(pt->dma_desc_cache, desc);
+>   }
+>   
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Acked-by: Basavaraj Natikar<Basavaraj.Natikar@amd.com>
 
-- [Medium] The patch makes netif_tx_stop_queue() skip the trans_start
-  write when `test_bit(__QUEUE_STATE_DRV_XOFF)` reads the bit as set,…
-- [Low] The new comment in netif_tx_stop_queue()
-  (include/linux/netdevice.h) says trans_start is written "only ... on…
 
+
+Thanks,
 --
+Basavaraj
 
-net: keep txq->trans_start on repeated netif_tx_stop_queue()
 
-With this patch, netif_tx_stop_queue() writes txq->trans_start only when
-__QUEUE_STATE_DRV_XOFF is not already set. e1000, e1000e, igb and igc stop
-the queue again on every periodic hang check. Since commit 95ecba62e2fd,
-each of those calls moved trans_start forward, so dev_watchdog() never
-fired.
-
-> diff --git a/include/linux/netdevice.h b/include/linux/netdevice.h
-> index 435be7880d7e5..6a488245db1ea 100644
-> --- a/include/linux/netdevice.h
-> +++ b/include/linux/netdevice.h
-> @@ -3805,8 +3805,15 @@ static inline void netif_tx_wake_all_queues(struct net_device *dev)
->  
->  static __always_inline void netif_tx_stop_queue(struct netdev_queue *dev_queue)
->  {
-> -	/* Paired with READ_ONCE() from dev_watchdog() */
-> -	WRITE_ONCE(dev_queue->trans_start, jiffies);
-> +	/* Only write trans_start on the initial state transition
-> +	 * (when the DRV_XOFF bit changes from 0 to 1).
-> +	 * This prevents recursive driver watchdog polls from continuously
-> +	 * resetting the timeout timeline and blinding dev_watchdog().
-
-[Severity: Low]
-Is this comment accurate? The code below it calls test_bit() and then a
-separate set_bit() after smp_mb__before_atomic(). Because of that, DRV_XOFF
-can really go from 0 to 1 at set_bit() without any trans_start write.
-
-That happens if netif_tx_wake_queue() clears the bit between the two:
-
-net/core/dev.c:netif_tx_wake_queue() {
-	if (test_and_clear_bit(__QUEUE_STATE_DRV_XOFF, &dev_queue->state)) {
-	...
-}
-
-In that case set_bit() in netif_tx_stop_queue() makes the 0 to 1
-transition, but the WRITE_ONCE() was already skipped.
-
-The changelog describes this race. The comment, though, says the timestamp
-follows every 0 to 1 transition. Readers of dev_watchdog() and
-netif_xmit_timeout_ms() could take that at face value. Could the comment
-mention the race?
-
-Also, the repeated hang check stops are periodic, not recursive. Would
-"repeated" be a better word than "recursive" here?
-
-> +	 *
-> +	 * Paired with READ_ONCE() from dev_watchdog()
-> +	 */
-> +	if (!test_bit(__QUEUE_STATE_DRV_XOFF, &dev_queue->state))
-> +		WRITE_ONCE(dev_queue->trans_start, jiffies);
-
-[Severity: Medium]
-Can this leave a newly stopped queue with a stale trans_start, and lead to
-a spurious "NETDEV WATCHDOG" timeout?
-
-Take a queue that has been DRV_XOFF since T0:
-
-CPU A                                  CPU B
-netif_tx_stop_queue()
-  test_bit(DRV_XOFF) == true
-  (trans_start write skipped)
-                                       netif_tx_wake_queue()
-                                         test_and_clear_bit(DRV_XOFF)
-  smp_mb__before_atomic()
-  set_bit(DRV_XOFF)
-
-The queue is now held by a new stop, but trans_start is still T0.
-
-If nothing is transmitted between the wake and the re-stop,
-txq_trans_cond_update() does not run. dev_watchdog() then sees
-netif_xmit_stopped() and checks:
-
-net/sched/sch_generic.c:dev_watchdog() {
-	...
-	trans_start = READ_ONCE(txq->trans_start);
-	...
-	if (time_after(jiffies, trans_start + dev->watchdog_timeo)) {
-	...
-}
-
-This can call ndo_tx_timeout() and reset the adapter, even though the
-current stop is much shorter than watchdog_timeo.
-
-T0 can be quite old. netif_device_detach() stops all queues at suspend
-time, and netif_device_attach() wakes them without refreshing trans_start:
-
-net/core/dev.c:netif_device_attach() {
-	if (!test_and_set_bit(__LINK_STATE_PRESENT, &dev->state) &&
-	    netif_running(dev)) {
-		netif_tx_wake_all_queues(dev);
-		netdev_watchdog_up(dev);
-	}
-}
-
-Suppose a stop of an already stopped queue races with this wake, for
-example from a driver hang check. The queue stays stopped with a timestamp
-from before the suspend, just as the watchdog is armed.
-
-The window has no fixed limit either. Drivers call
-netif_tx_stop_all_queues() from preemptible process context (ndo_stop,
-reset, ring reconfiguration) without the tx lock. Preemption or an
-interrupt between test_bit() and set_bit() can make the window longer.
-
-dev_activate() does not have this problem, because transition_one_qdisc()
-writes trans_start for each tx queue.
-
-The changelog says:
-
-    A timeout is then reported only if both stops together last longer than
-    watchdog_timeo.
-
-Does that hold only when the wake and the re-stop come back to back?
-Otherwise, the interval that dev_watchdog() measures also includes the time
-the queue was running.
-
-Before this patch, every stop wrote jiffies before set_bit(), so a queue
-seen as stopped always had a current timestamp. The KUnit test patch later
-in the series does not change netif_tx_stop_queue(), so the window is still
-there at the end of the series.
-
-Would any of these work instead: rewriting trans_start when an atomic RMW
-on DRV_XOFF shows the bit was actually clear, keeping a separate "stopped
-since" timestamp, or refreshing trans_start in the wake path?
-
->  
->  	/* This barrier is paired with smp_mb() from dev_watchdog() */
->  	smp_mb__before_atomic();
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261116143716.367451-1-cmcburney%40telcobridges.com
