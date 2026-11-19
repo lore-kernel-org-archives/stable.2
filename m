@@ -1,68 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795099686;
-	b=dkOkVoRAzfaxV7r8FmIVUMgSmrmmfpn29OgWwEo3hXCiiSUFQTmvT+FxS55lyW+QpN4t
-	 9wNo0254VVod6AsW0iZeIQj2L51bEjqKs5KXgrOcHl1y3BiYgFnYduwNHiYFcG8MQSCqe
-	 +goLYuQXCoD2u/SE3+xniQXJyWCkCI5DiFsqn6n9ZWUH1uL9LJ5Sdxpa3yIXv/5Mo0I8R
-	 gvy4OuapSYK9hDTp0xf6Y8GdkBX8KWQOmBHBY+6APy40u9nfjuZibtUXVfsDVLUnW6vYJ
-	 FYUSqtQlOJ/HBrv06y9U35zZVyC70WGE2pPIqHV2ScKIH+5k11YqtMv/mTwViVVLYQw==
+	b=qNOt83tagEGrHEI2gBB0MM4UVDtLjPxBMJW/8DT+9I0hGDhSGASBqsycoM9Bper3sxIY
+	 oC/5ZkBtMDhigK2jMtA6HcC36yDBPgB8pA4IUQ8OvjB0KSDkrV2+RbIgY9cfYDa4chHFo
+	 p7yOSF6zzrAmkLC5QEGQew9IHYSy3euvA5Qfb62savQ3b9WTI073oHYYt+WkB3fyRogJe
+	 exTyvtYOESfVZtIDhKEGVQZ3sNM0fYS2AVVgsUTe6ocMEz+4CtuWU/+qsxGMSglJdwpjX
+	 /DOAJG6qe4zOcpFsLCY1mU/8/2Qk77xXABgn3sxOnzQhcQw9pnFhB+l3haGjvRId2cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795099686;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=ILpmCzdrOhZhus3RgSR2/cL8gaOaX2QhVSOKx5A4FFk=;
-	b=tu8x68Qd/633dsMnaMTbu+tIHgEiEK2MxTsg+90WDIbYUeCElAisqoO908dnco+3J560
-	 uslLI5HVJyBuxioAe94sJQqA6qI5YrbQ5zcQ2gAyal8jTLkw5sDMOM40VlGfzM+MoPFPk
-	 PjNxputexwRG0T0tjF+WVfGsCtTw0OCK9Sj9VmdaEO0cRqErPG/DD+YnaHgs4xRm/CxWJ
-	 TPXex65S0vM9SY6Rb/0ovW8Ns5mJdnz5nOxbE/ZVND9Fs3o7ANVgqPZcQj0XL9FCKOUMa
-	 wlys4yj0SswjGD5Y/0sFJ+nW5ctFmcATwdm9qWZWQ5uZ321rmIkfxkJZfMq3F204Hfg==
+	bh=6HBvvlIub12wrSr52ZlJQDUQHfx6B9c7JQjlNcoZPgk=;
+	b=ss57UEDCTHCujzFhu2x1Ein6WdVs5KoY+EPuN7OfSwFZkAOJWi0jYZ7Np28wZ3D52GXO
+	 9thyJN4P9B5OFxmANS/Kto9E3BWovdm8VAvXlKH7iw0aOEjlblj6yXWWPQqwW/pW7vi2D
+	 UXk5IqmizgT+n4UREBMq7ppqM6YqqscbJ2L5fpSMeSP9XDXDqBm3C9ENRjexChVk6E5Jz
+	 2WNUaSYaevLUAoaFXPgpTGy1OL6cHAPuUy9E08qw4pCFhQuiEVo4SC7b5uWD5/oZgQcfW
+	 jxvtQLXYzttDiyRQc0XDaxLat45v4OVTujFo0utWkgH+aOV6/XeM1gRasLXYr8gQTcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mit.edu;
 	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b="UU/ZTdla";
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b="aNvEM7/W";
 	arc=none smtp.remote-ip=18.9.28.11
 Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D1D60A2625
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 14:48:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0D1D60A2625
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4E660A5BDD
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 14:48:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A4E660A5BDD
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=UU/ZTdla
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=aNvEM7/W
 Received: from trampoline.thunk.org (pool-173-48-114-214.bstnma.fios.verizon.net [173.48.114.214])
 	(authenticated bits=0)
         (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6AJElcPT017978
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6AJElfSP018223
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 19 Nov 2026 09:47:39 -0500
+	Thu, 19 Nov 2026 09:47:42 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1795099662; bh=ILpmCzdrOhZhus3RgSR2/cL8gaOaX2QhVSOKx5A4FFk=;
+	t=1795099664; bh=6HBvvlIub12wrSr52ZlJQDUQHfx6B9c7JQjlNcoZPgk=;
 	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	b=UU/ZTdlamL1B1juqeNL4Sps0PXWzyjyuKzTA0ytsaE0DM3fKhe4iyIzP0ujZkVSuE
-	 fcqUKxSiXDh9BdYtDBpfD+e+yerdRqu+YIAiYAAdb3hoDZzfSxsYU1owZgYagnu+sv
-	 oFlZXLosjTKbGI7ZnJWxdGxTbIKx2GDgC45iXX4rp1CDLWSqmjtLT7k5fCnFppHg8o
-	 7PHYa68oEljbhlkxdPYdPNskB7PlYiExPjQJb9POX/K73egxz+UXbFeivXrF8clGR6
-	 oS7b07n+78F2OJV3BsPa5ze5zDykZ072EA1FgMlHxmBsOr/KXsgFhne0fhZ3bbH4xF
-	 AZj8tAPx95oyw==
+	b=aNvEM7/WCycX4QKbTcA1DaaI6Mf21EFld8dhfYgMCqJHKmAbZOLiSzQbIS35lm8s6
+	 qew5iE9JnIPX8iV2q0S59LgC+Hi6AcuAPm56IaGApuHk50Q1Oj837jtcTe4kKHY96u
+	 R6/W6erKGjIKdMRleMEu43/uZJ3hH3S7C7jRWCOno8ldiOD9PtJ/jbTnO4Ld4h91xk
+	 izYiEPehsr1b2KwOrU+3YQ3qAWtEZxIJATlMxKXWKgLl6kV0QB9fhKn/KO74q52jch
+	 zIDfl3SpCwcG8X1sgwoGmG6ZDC/etl4043Dto0+bDp/+su73qnB7W+pF8Kvhfr+Msz
+	 PDsUi4Lud+akQ==
 Received: by trampoline.thunk.org (Postfix, from userid 15806)
-	id F24182E0159; Thu, 19 Nov 2026 09:47:32 -0500 (EST)
+	id 65C862E0197; Thu, 19 Nov 2026 09:47:33 -0500 (EST)
 From: "Theodore Ts'o" <tytso@mit.edu>
-To: Ext4 Developers List <linux-ext4@vger.kernel.org>,
-        Fan Wu <fanwu01@zju.edu.cn>
-Cc: "Theodore Ts'o" <tytso@mit.edu>, adilger.kernel@dilger.ca,
-        libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com,
-        ritesh.list@gmail.com, yi.zhang@huawei.com,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Song Li <songl@zju.edu.cn>
-Subject: Re: [PATCH v3] ext4: fix discard work use-after-free on failed mount
-Date: Thu, 19 Nov 2026 09:46:50 -0500
-Message-ID: <179509948665.1938961.14789019043094337911.b4-ty@b4>
+To: Ext4 Developers List <linux-ext4@vger.kernel.org>, jack@suse.cz,
+        adilger.kernel@dilger.ca, Jiaming Zhang <r772577952@gmail.com>
+Cc: "Theodore Ts'o" <tytso@mit.edu>, libaokun@linux.alibaba.com,
+        linux-kernel@vger.kernel.org, ojaswin@linux.ibm.com,
+        ritesh.list@gmail.com, stable@vger.kernel.org, yi.zhang@huawei.com
+Subject: Re: [PATCH v2] ext4: clear in-inode xattr space before adding the first xattr
+Date: Thu, 19 Nov 2026 09:47:20 -0500
+Message-ID: <179509948712.1938961.7903640953071741786.b4-ty@b4>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909113703.698544-1-fanwu01@zju.edu.cn>
-References: <20260909113703.698544-1-fanwu01@zju.edu.cn>
+In-Reply-To: <20261021085635.3633692-1-r772577952@gmail.com>
+References: <20261021085635.3633692-1-r772577952@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -76,28 +74,24 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 09 Sep 2026 11:37:03 +0000, Fan Wu wrote:
-> ext4_put_super() shuts the journal down before it releases the mballoc
-> structures, but the failure unwind of __ext4_fill_super() runs the two
-> steps in the opposite order: failed_mount6 calls ext4_mb_release(),
-> which flushes sbi->s_discard_work, and the journal is destroyed only
-> later, just above failed_mount3a.
+On Wed, 21 Oct 2026 16:56:35 +0800, Jiaming Zhang wrote:
+> An inode can hold extended attributes in the space that follows its extra
+> fields, whose size is given by i_extra_isize.  When ext4 loads an inode,
+> ext4_iget_extra_inode() validates that space only if it starts with the
+> xattr magic, and only then sets EXT4_STATE_XATTR.  Without the magic, the
+> space is treated as empty and is not checked.
 > 
-> With -o discard, that journal destroy re-arms the work after the flush:
-> ext4_journal_destroy() calls ext4_force_commit(), and the commit
-> callback, registered once mballoc is initialized, queues s_discard_work
-> whenever the discard option is set, even with an empty freed-data list.
-> A running transaction can be live at that point: replaying the orphan
-> list is the easiest way to get one, and the quota paths on
-> failed_mount8/failed_mount9 can leave one too. The final force commit
-> is not necessarily a no-op.
+> ext4_xattr_ibody_set() passes the space to ext4_xattr_set_entry() whether
+> or not EXT4_STATE_XATTR is set.  ext4_xattr_set_entry() walks the entries
+> there to find min_offs, the lowest value offset.  That offset decides
+> whether the new value fits and where the value is copied:
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] ext4: fix discard work use-after-free on failed mount
-      commit: 7d7c94601664d19cea230601f377e5fb8a2ec4fe
+[1/1] ext4: clear in-inode xattr space before adding the first xattr
+      commit: ab7d0fdc084fa3812613378af181fcc047c81beb
 
 Best regards,
 -- 
