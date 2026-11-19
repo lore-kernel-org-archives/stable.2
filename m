@@ -1,61 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795104516;
-	b=RyhlZz1ht7/JjjyilbCf0OTPj5oPhLWqEih3VyqYomqIrSCjGhJjMo/XquaoMHPX8k29
-	 En5QGuFafQwGsRckstVvxRpD9gMVz9pXL49pFNqcitN0XX5QiU9aBmWmsJM/9bNELlCyf
-	 sN21qkvvkgo6MBzYKS+HOVf4qELaNH6MuOWxdaZaXdsH4TM+ErhgD2e07uYpXT0C0IEFl
-	 gnuBjznqu4WHeB1n342M1SIJK1kF7YbKHRVYqwBb+QNlpN1C6EwrfrrsEwiMt6s/uefUc
-	 OERJGU0k+SKctnZvbhDC0DwULMlkQWumcoH1A8D0OHwVmgXf+JnbGfguVoQADMuSCzQ==
+	t=1795104517;
+	b=Wdmbi5CPCELNDAXKkOZnh2UY44XBGNQeKrHcEVJoXTlhOll1zX2laWFQ/muombFzgVQy
+	 /K6N+NNQFyKIiRs/GzPGEM4GDC0cTpmT/JDUhLz6hwNl4fBbOGp0VdxMD/rf5uMSlASTi
+	 q2ua2BpIHeUHrNYzMO+b8rAEHkKfJAseY9Xab4JA4I3WbzyI7Zh21mtw9/fVrU43LBj/l
+	 qKsUEE5X63AUMHnzW2AyKYh/lNYCuX5vlbrdZ8hqABhvVug1Nj7rPCSZP/+lFnOXB5RFk
+	 x/V/ctN5RHavckLGWdHsq24NvIpIxcJj7Q4AN1Zbra1VW2d/RTEMOeJ4JrWtQgz3qfw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795104516;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795104517;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=UUMbqy+TiISpQgDGl3gDWRmwEP4ubm4k5QKg0vigiAs=;
-	b=ziJhlpmxbTueeiKLj+I4IdiGDc9jyYdYIwHHPZXc1VOiQMLWPXh/gEfnzmAiX9dW1siq
-	 z7GPfhQSt58M3u8eC1nseKcR5P7Zs3w4/GVOT6TByRgkLOnqi4Qecy4T0OMr8Tsv/sV/R
-	 /sw06k6b212oMz8iMz8f6IflKwfqFrl3HCIXHOh+ICCcewu+bDSG3u25clpQOesgy7cAy
-	 rFv3wBHlNNhbSHAMuRUJLiIrgFk1xUG1sjXgfg1wamuc5YUnTJiotp2PuqZlexIXCbpGY
-	 Pn1f/k3q9mh2HxZbz+JDd0x5G+koqLeVknXMl0lSYof3Jc5v4jogqVlZ5UvXnRNUFHA==
+	bh=YGpkrtG0U4OoqMAB2Rys3huSMrs5r5rFJ8rRWTRRKE0=;
+	b=FAF6CxgYE4YrkszIcopo0Q3PY4tn1WKYEdmNkxYmJ0UnFAK277fFfgcBrkdRI4IYKbF5
+	 eYsYzGU61EFQ4T3Y505PB+J+FCvGQRK3gG9vRkz/RaxJpitVT8XxfuUn5IZ5b8RPFgI0k
+	 rFSsILQX57z6TzUVBuptZELSeYyOg//qEk6Z38oy4e3KqWWB8W8OHAvT4R1sCsQ6u0z1Z
+	 aaZKVzQf56akjla56tcq0y5GtCxBEuTRMKNRU4Xnb+B4O5nqurODqNbzLMJFBwUAd61ET
+	 vHAvzp7HClMLwMnHC3sOkkm7gS5K4CaE5Fb0+dOQhAEu4AubW6w7Xy/j0vFCFwxPUtg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mnww0mgg;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeQ9szDe;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82049606A320;
-	Thu, 19 Nov 2026 16:08:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E9E860A2601
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 16:08:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Mnww0mgg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271731F000C4;
-	Thu, 19 Nov 2026 16:08:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EeQ9szDe
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FB2E1F000C5;
+	Thu, 19 Nov 2026 16:08:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795104516;
-	bh=UUMbqy+TiISpQgDGl3gDWRmwEP4ubm4k5QKg0vigiAs=;
+	s=k20260515; t=1795104517;
+	bh=YGpkrtG0U4OoqMAB2Rys3huSMrs5r5rFJ8rRWTRRKE0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mnww0mggEmYPmwCPjcWHPU+nD/5VpbiQ1Lq4SOaAEcdHBvRLX8Vm6ysXTnk7IVZq3
-	 kavZ8kfoSZ0i47fJcsiu1okzgwZvOC4eEYTSsHq/oUwQ4bSY9929tXhbyUfQh0x/uw
-	 2m+d1+nc6HTnVXtrWhE9YpvO08VSWt0LDHYU9yvtFi98WbXlI9zGZs0YB+Dt1diQuZ
-	 lanqX/o3/9LtIWrfOsNqij+QKNayon8zASOnmGy2Hz40hed0tMI5csVuPSZUeZAcRs
-	 tD8dBGkDcqi+IXZ1na08KdOkY6RKVpvSmcDIWYgVwHoWvtFpn9DG++HQWN59qjW2wQ
-	 aKYd+c2y6pdgw==
+	b=EeQ9szDegkPyKaWh30MoQMOnYB6cTrBFew6jsNd/T9KtibfgTnIuqnbj8ZrxR3hyF
+	 CDkW9yX3dD4bF7Y/6S75RFWenNj0y6mx2XBH68CPM8VQJ0DEycwwlfwJpmN4Se89gs
+	 8tung6K+d0BP3iA2UUntuPXLv5DylH0WzTciGIA9DIDMcXZsQtEcBVEXTgwb/pgjqE
+	 FVibtETHxyuKbydxi1IpSQk9SiNjtx92TT2Ku8RKpO+q9aLk+ityiwveOti2enRNCk
+	 xdbPle/WEoA+xTZQS54pEB74jTA1Kn9T5gmsdsGMBOjpCyJ9G3vaacpLy6avyWqmbs
+	 uO1/Wxl08Mq4w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	chenchangcheng <chenchangcheng@kylinos.cn>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans Verkuil <hverkuil@xs4all.nl>,
-	Naoki Matsumoto <naoki.matt.matsumoto@sony.com>
-Subject: Re: [REGRESSION] 5.15.y, 5.10.y: media: uvcvideo: please backport 5b9c75c794ce
-Date: Thu, 19 Nov 2026 11:08:04 -0500
-Message-ID: <2026-11-19-1-daily-reply-0002@kernel.org>
+	Mark Bundschuh <mkbund@amazon.com>
+Subject: Re: [PATCH 6.18.y 0/2] netfilter: nft_ct: move custom expectation support to helper
+Date: Thu, 19 Nov 2026 11:08:05 -0500
+Message-ID: <2026-11-19-1-daily-reply-0003@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <avxKOmxCBLF+7qdT@jpc00229873>
-References: <avxKOmxCBLF+7qdT@jpc00229873>
+In-Reply-To: <20261117232211.stolba-3679da4ad8be-linux-6.18.y-v1-0@amazon.com>
+References: <20261117232211.stolba-3679da4ad8be-linux-6.18.y-v1-0@amazon.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,10 +60,12 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> I use a UVC device of USB3 at v5.15.y. I found the frame rate down with
-> the below message after updating stable version.
+> Also in this series:
+>   - 6fb421bd07f1 ("netfilter: nft_ct: expectation timeouts are passed in
+>     milliseconds") from v7.2-rc1 is included because it fixes the
+>     timeout unit bug this branch has
 
-Queued for 5.15 and 5.10, thanks.
+Queued the series for 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks.
 
 -- 
 Thanks,
