@@ -1,79 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795113328;
-	b=VibWfMg3NgYdmNIRmKx6gCLkK09rGmVf1S2atEUp7sHFJzg2YhGLP876et4tj7hDBrEj
-	 Q5RCOTOgAtvH5Y9EAIv86HJgegE/FzIf+ClmAfeTizvq/MjDVj88YsjhET/wu76dEibtf
-	 tVutEMsl4HfaE7q5qqMxMLA/FRKEwZG3bt1tpan8w966q3h8fsssyKLEhXwYIa5k33l+L
-	 SNZ1ElJE0b+ZY6j3EVvozfAmCxdvFe6Zq+lkHSEHl+Vt+Y2/d7JEPKjZO8WZc4y9Fahwx
-	 p26dlKQcFt0SM1FuzMC2bwLIdJG8ueqmQYR35hlqrGo9CCHSsSzXcyWJfCuVZIMr0PQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795113328;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QnZ+p1swNdzA0fWsdaVxUGvKn+58FxkU5Hx8GSDOHNs=;
-	b=hVjgjGgmEsgUcLqVrO0JBh3euHWpBtPa5lwsbZxapYqa6DaadThpGjVqHgvubxDOLMUq
-	 7EGf4f4yJ2N17h1tDZDJXQD/MndXiSViv9VFzORa/nEZnw9l7zq1wzQMVgYETzGA1YfAh
-	 FdaH/Q5xgBmFlqajSM/QUZsRfxBXuiwgD3EbhGRgRpJ75GXmXyMT6bVVGAOl8cfERi7Yx
-	 QjAvKmziaPDy+87vkMHUABfAqgYkI54Ia8zV5ckEEeQxjpjbEo/B01/ZrsCzRdoqXzNgV
-	 ckkobIjwIiccLdIPvhh7KVBhFtmkzEXpMJMqVsIaujGxx9AA35no/hZKhrq6Rxe+8eA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=boKp0Iqn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795113379;
+	b=EoJxc2eU+/8k0l9NKhgdgEJ1tbjFcIMcE5QsSNla33M5xCuNiNmetQrRVy5JjzEBqVte
+	 qZGOs2j7ln3bOC638hhS6ICXKvnLw+DTHTyXACKQ5pd77QIBJbP7gKDz8AwbHh/K/p39S
+	 Se2YNQx9uQU79f1LSHQhUayDXyHYtwlJE2kF8nNJh5zKG13B240SBNCIxH65dTw0ucMaf
+	 0hjsXmCsQ3usUtIqvkK1jJ2Vs5QDdpbzAhiiktjvIxiMrlh2NdKnlljB4jzDGDtit5nW0
+	 8jH0VjGilO7gqTqbW9Sai6kR4zo6G0Ij6uwKPjnAL+Weudy8GRKorwlMrlHLD2PPQNw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795113379;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=FULaFNtrULKtjyIOf20Z7zfzpc6DhShhuKKqg8qTcek=;
+	b=49T7LU+4YS8aXZL0w538dmMFcay7zsrY7bs/vGG/+GsHpvtvKpkIPzs248x+WaGvjhvC
+	 2P5H1O8u0uPExmU3p9KSkRqblrzCI9dB9rhDphlnsYcnkSnj06xOTPyLqCymx1NkgBOap
+	 cCzwt+dJ+FjxsoDKk6YeFyuY+z1x1r9KpULcOlSqQj+a3ItjAGQogFswX//P16ykveHXu
+	 ifPDRcaQHd6xqtvAaqftoj3MMkpmGFcJZR5Uj9QrcdH1dfwfw9tgYSNa++2+o9PfAQmlz
+	 jjGeZ8HWqtn4V40qmpy2HO98wDYbqSB+UMBLvY+Bx+ccA+0FOsv+/YtCCTJvh9goNLQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GXRzv2vi;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C995860A2609;
-	Thu, 19 Nov 2026 18:35:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 884CB606A330;
+	Thu, 19 Nov 2026 18:36:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 884CB606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=boKp0Iqn
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795113328;
-	b=ea0+dlfXeQ0XMn6+FnTAWYry4aPn64OhFC9zGw84Aj24ufPgDXHzNa4wB9tGhEm2dD8n
-	 uGjxuW//rQNA3rOmuesrEsN5o4wd092+6EDWjQUjCbB06FIeq+ATRC3h6jkyACj6p3a6k
-	 npuGXtIeeO21uZ/Rf8TPv/c+EesbVq0y3DhQ2Rzv8Z2cyrBElB46wRNkkQ0DqKUe6TZ0b
-	 sI659w7FPKLOkLYTQ3qG+88LApgds4KTh5qg9tMSzK79rMNthAILag5UYL/EIoyuZ194M
-	 xqGj1fp1tlFxCgEXTUO9ql3THlhRBwmcglVTKoWLn1NgWU0TwUJxmhZn/3a/eMimqfw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795113328;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=QnZ+p1swNdzA0fWsdaVxUGvKn+58FxkU5Hx8GSDOHNs=;
-	b=urP1k2o/Av2Au1c98yfZHTgHoo5N7BrOGjn+h+8g3DSHkc0TDyf0NXy4SeoK55cEruAN
-	 3P+bMka2cI0WLh964B69cXt+ZAYb5Giir3Ub33dRet93JSVikSys+vd/iwdshs2S82vds
-	 aUKuOUdUpziXGg1SQXumEwbQkoKxOh6tJXqEwRhvmGaOjKbhdNaJB/m7vl+Za/hk2KpQF
-	 7H7iSFLcSvDlcGZbtTtotnHD8UA1edeefkDkq4Jhw+WZ7pv11KiOy8DX9jEbcNYJuUW4h
-	 0Q/CgZTkTlTuXZSyTgTryjkw6E7AMfhMj31dbfO+FUuymJLLZgmN76RdRU9YRXmPo9g==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=GXRzv2vi
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795113377;
+	bh=T0pI6QoapOdjZGBfMviw/VjaDgMcZ0ZLY/0s1FdOCz8=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=GXRzv2viFAwjbxAOLNWsmzavPED2g8LFVjMa9FNCzMdEvFnpd3cKQ9/5N8zyBbawb
+	 Nv41WlfmgXmmK2Zy463yIHU61hlVhYDD2Gh7s1zJMaTy7yptllR3ZLdXBoQY0kPB12
+	 wyy0zhnZbPbwWPNPOrMx7/f2v8XrmMJnGOdxavlaiCKqA2A9LnQ8b2gr2uZS1IYpvr
+	 c3OTki0lGjdRRvmf5EDZG/7yKk5DMZUfpPFjibZ/4JjcHjeVWINHe80wLZg/Oiz76e
+	 dXn9TI1KBZ4aq/AhnoCaw+m9Zx+rdGlisChHzBLbFy0mKqSDQDys3pDijm3O6GQFj6
+	 jj2wTnmIurvMQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange secp256r1)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 05E4A1F000CA;
-	Thu, 19 Nov 2026 18:35:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795113328;
-	bh=QnZ+p1swNdzA0fWsdaVxUGvKn+58FxkU5Hx8GSDOHNs=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=boKp0Iqn3RGduRp53tcuwF4nYGfLsk6qrKFMIowbGpdmd6DyDESMNziWR0snn8IUJ
-	 wsbBb3uj/rJxYRB7ANpe3LbnfRAIAS6y/Wh+JFk6/QQOg1Q9qertBKVjE8W6m7sB3e
-	 aa4N4bU2FTExEAPPrs+Bm7dlQlGsnOQZERuq9CZeURXjr8kWih0IVin4NnGJs1ZykN
-	 FrBWiQnrduAo2ZXnV0EtbbZFy52Awzoe8K/sHkCMJKDcqcqqJVOHYywUEAV6aMxwOh
-	 Bk9ZiMlESSS4muA70wVpXGkbfib5HPQLAAoj+u5KN1t/l/KMx6Djv16zPKUPj8rxGI
-	 sQ6Zm8UC9JE5w==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8C88C4B3C0;
-	Thu, 19 Nov 2026 18:35:27 +0000 (UTC)
-From: Ahmed Abdelfattah via B4 Relay <devnull+me.ahmedabdelfattah.dev@kernel.org>
-Date: Thu, 19 Nov 2026 20:35:25 +0200
-Subject: [PATCH] ACPI: APEI: Don't disable HEST for a disabled IA-32 CMC
- structure
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 85D3317E0406;
+	Thu, 19 Nov 2026 19:36:14 +0100 (CET)
+Message-ID: <5ff0d8de9df06706f3c5412b642e150d5f068851.camel@collabora.com>
+Subject: Re: [PATCH 2/3] media: verisilicon: hantro: cancel watchdog work
+ before m2m release
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Shengzhuo Wei <me@cherr.cc>, Mirela Rabulea <mirela.rabulea@nxp.com>, 
+ Mauro Carvalho Chehab	 <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer	 <s.hauer@pengutronix.de>, Pengutronix Kernel Team
+ <kernel@pengutronix.de>,  Fabio Estevam <festevam@gmail.com>, Hans Verkuil
+ <hverkuil@kernel.org>, Ming Qian <ming.qian@nxp.com>,  Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Ezequiel Garcia	 <ezequiel@vanguardiasur.com.ar>, Bin Liu
+ <bin.liu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>, irui
+ wang <irui.wang@mediatek.com>,  kyrie wu <kyrie.wu@mediatek.com>
+Cc: imx@lists.linux.dev, linux-media@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
+Date: Thu, 19 Nov 2026 13:36:13 -0500
+In-Reply-To: <20260825-media-timeout-work-v1-2-ebfebbeb6c31@cherr.cc>
+References: <20260825-media-timeout-work-v1-0-ebfebbeb6c31@cherr.cc>
+	 <20260825-media-timeout-work-v1-2-ebfebbeb6c31@cherr.cc>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-1wAt75ie9F4gKgzfOH9h"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,105 +96,63 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-acpi-hest-cmc-disabled-v1-1-87644a1bf0ca@ahmedabdelfattah.dev>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDtgIlXrVYqLZDLWKa1KRkUQ7
- 95ol2/x/w7KUVihyXaIvIrKOCSYWwbUu+HFKCEZbG5LY8wDHU2CPeuM9CUMos5/OGAgV1Tlvau
- tryHFU+ROtmv8bP/Wxb+Z5vMGx/ED4XwbL3oAAAA=
-X-Change-ID: 20261119-acpi-hest-cmc-disabled-dca3765f82b8
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
- Hanjun Guo <guohanjun@huawei.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Shuai Xue <xueshuai@linux.alibaba.com>, Len Brown <lenb@kernel.org>, 
- Will Deacon <will@kernel.org>
-Cc: linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795113327; l=2913;
- i=me@ahmedabdelfattah.dev; s=20261106; h=from:subject:message-id;
- bh=tT5kjIxpoyje3RI718C4NeyvvkC2yB2rkjIZMzaQ/gs=;
- b=DU7PcSDgrwAM011pR5s8vkBX9zEaLMl9JFtCT393FbK3ZkuiuosNuZnn4fhM6SckqGcdVHoJd
- YqjzT/HskosDNPbD9y7pts1YxsN5tG16XFKJsVcqDBgkL3PFbUUEqYn
-X-Developer-Key: i=me@ahmedabdelfattah.dev; a=ed25519;
- pk=DHEHKU4PddrkJ/iYMZpwyyXsFyIQ6ySjTttKLrt9YqI=
-X-Endpoint-Received: by B4 Relay for me@ahmedabdelfattah.dev/20261106 with
- auth_id=1438
-X-Original-From: Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
-Reply-To: me@ahmedabdelfattah.dev
+
+--=-1wAt75ie9F4gKgzfOH9h
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+Le mardi 25 ao=C3=BBt 2026 =C3=A0 03:34 +0800, Shengzhuo Wei a =C3=A9crit=
+=C2=A0:
+> Each job arms vpu->watchdog_work, cancelled only by the
+> job-completion path. If a job stalls, hantro_remove() drops the last
+> reference to vpu->m2m_dev via v4l2_m2m_put() with the watchdog still
+> pending, and hantro_watchdog() then dereferences the freed m2m_dev --
+> a use-after-free.
+>=20
+> Drain the watchdog before the m2m device is released.
+>=20
+> Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+> Assisted-by: GLM:5.3
+> ---
+>  drivers/media/platform/verisilicon/hantro_drv.c | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/me=
+dia/platform/verisilicon/hantro_drv.c
+> index 2e81877f640fb429b18d2f4fd64bc0c392cf600e..1b04b98371a48184f390a1379=
+1243fd00d6b80ef 100644
+> --- a/drivers/media/platform/verisilicon/hantro_drv.c
+> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
+> @@ -1284,6 +1284,7 @@ static void hantro_remove(struct platform_device *p=
+dev)
+>  =09hantro_remove_dec_func(vpu);
+>  =09hantro_remove_enc_func(vpu);
+>  =09media_device_cleanup(&vpu->mdev);
+> +=09cancel_delayed_work_sync(&vpu->watchdog_work);
+
+Same comment as for mediatek driver.
+
+Nicolas
+
+>  =09v4l2_m2m_put(vpu->m2m_dev);
+>  =09v4l2_device_unregister(&vpu->v4l2_dev);
+>  =09clk_bulk_unprepare(vpu->variant->num_clocks, vpu->clocks);
+
+--=-1wAt75ie9F4gKgzfOH9h
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
-From: Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
+-----BEGIN PGP SIGNATURE-----
 
-On x86, a HEST whose IA-32 Architecture Corrected Machine Check
-structure has Enabled = 0 makes acpi_hest_init() give up on the whole
-table. hest_disable is set to HEST_DISABLED, no GHES device is
-registered, and every other error source in the table is ignored. The
-only trace of it is "GHES: HEST is not enabled!".
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9BnQAKCRDZQZRRKWBy
+9GSlAP9EsaWLG8JyqO/cX436Nctw6ISzDKmkLD6Z0tjeBm29fgEAtpOfRfVkBMCN
+IJuqlSJQ3i9bJ1WiaUzaUfiM4xTi3As=
+=N4qZ
+-----END PGP SIGNATURE-----
 
-arch_apei_enable_cmcff() returns 0 for a disabled structure and 1
-otherwise. hest_parse_cmc() returns the negation, so a disabled
-structure stops apei_hest_parse() with 1, which acpi_hest_init() takes
-as an error. Enabled = 0 is a valid value: ACPI 6.5, Table 18.5, says
-that the error source is then not to be enabled. It does not make the
-table invalid.
-
-Before commit 9f9a35a7b654 ("ACPI / APEI / ARM64: APEI initial support
-for ARM64"), the result of this walk was ignored. That commit inverted
-the callback's return value and started checking the result.
-
-There is nothing to report from hest_parse_cmc(), and the spec allows
-only one structure of this type, so ignore the return value of
-arch_apei_enable_cmcff() and let the walk go on.
-
-Fixes: 9f9a35a7b654 ("ACPI / APEI / ARM64: APEI initial support for ARM64")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
----
-I hit this with a hand-built HEST in a QEMU guest: clearing Enabled in
-its IA-32 Corrected Machine Check structure also took away the generic
-error source next to it.
-
-Tested on v7.4-rc3+ (4405c18c95d2) with a HEST loaded through
--acpitable that holds two error sources, an IA-32 CMC structure
-(FIRMWARE_FIRST, bank 8) and a polled GHESv2:
-
-  CMC structure   without the patch               with it
-  Enabled = 1     HEST initialized, "Enabling     the same
-                  Firmware First mode for
-                  corrected errors", GHES.1 bound
-  Enabled = 0     "GHES: HEST is not enabled!",   HEST initialized,
-                  no GHES device                  GHES.1 bound
-  Enabled = 0,    HEST initialized, GHES.1        the same
-  acpi=nocmcff    bound
-
-Every boot also prints "GHES: Failed to enable APEI firmware first
-mode", because the guest's firmware has no APEI _OSC; that is the same
-with and without the patch.
----
- drivers/acpi/apei/hest.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/acpi/apei/hest.c b/drivers/acpi/apei/hest.c
-index 20d757687e3d..881dd0b25939 100644
---- a/drivers/acpi/apei/hest.c
-+++ b/drivers/acpi/apei/hest.c
-@@ -185,7 +185,7 @@ static int __init hest_parse_cmc(struct acpi_hest_header *hest_hdr, void *data)
- 		return 0;
- 
- 	if (!acpi_disable_cmcff)
--		return !arch_apei_enable_cmcff(hest_hdr, data);
-+		arch_apei_enable_cmcff(hest_hdr, data);
- 
- 	return 0;
- }
-
----
-base-commit: 4405c18c95d2d0f99f6c581ef0ee8591a1aa6ccd
-change-id: 20261119-acpi-hest-cmc-disabled-dca3765f82b8
-
-Best regards,
---  
-Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
-
-
+--=-1wAt75ie9F4gKgzfOH9h--
