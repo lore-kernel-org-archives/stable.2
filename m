@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795106998;
-	b=NlJ9X5uK1CnfbAyIEwW6fENNBAItB2c9B9zyIKN6EGNLqAnjknZ0ioGXvs+ko+EiOQXM
-	 Hu83Loo1xRfTini3cOHCSmGDzPifneOV1ALf3Rlg6fYr9Wxa+OcNUVQ9SoQR4kdccPQqx
-	 KzQhboZh2Kv1UuccBlvuF+bVWPRthh8SyEV6AehKyUDkBfhptCJEJwz0JR3qs1umFESNY
-	 3rDePhpIymFc+6mC8VTu9PlEdVGBnSQdykYbmR9WSM4QEEPGbFTLZpU6Q1OjHrb+N+7uP
-	 r7kXYWaH6YhJzuzj0vSZ3nerzT8KSFQjWMGVTXEuO4rEW8zpwv0wcYfEHtRUvy782Rg==
+	t=1795107003;
+	b=KH5PxwXQTfuHl3QEJp5By9WoSgVRXELNuoQXLbGIm9ztaLX+7USB0cc9gVOVY0Fv0/E2
+	 1aCU/7C+ltiGHeQlaVdRgp9a9Bm045itSDSHi56r8Koe5DAEFBFIYh14uYG1fNcADlsGc
+	 q+HQfZSvuo04Yywt1zXPi/gZhM/xkqfpuxTfJUGW887CYi/0G8kfjk/8D80HC1AOoh4ue
+	 VdckelcmKWsm7CqV1HuPxPN6DUdHdPBRncnWSpP9FJkvMpKswSIeZql87Lqdqg6a9/NkR
+	 i7UxwiOlSlP2yBRUuRd1huv5hzyhc+N7wUq3xQZk07XxSHfbex8XyaE8tVOT+ZlpmUA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795106998;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795107003;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=mAqiKgS+wwdvfgXgvcuSoH83FNvbFLBFfGQ6xTqp5ow=;
-	b=KqqFzsKdW0HNCI/XpkOBTYLlZdMrZ/WK93DAT5pm24LLwib9DDf3wfNrHB7M/dwkfSuf
-	 HXuyhYBILTNM0NrumBYHxtfT+eiN8HjseqML2KgtuWFYCpW7haCJEcC4Wzpli5gzoxvsY
-	 8QdiLUm4H6Sj+mqRahucYWaHqdcthohWP5XTmChK0mdenpyNPn2pWdlDuUoBJzPWqvp2H
-	 3kFomycT1J8StTcS/Xnml8IH4/dnDiwk6QhN9DtVPV7KkvWK6mASBPT60RU0z9ZgTG5wa
-	 DGvJCf3c4DulMdmKapRChyzvHuIAzPhVLoRSwEp3OZpEJeeNYuOCUla79ZUorW11/gg==
+	bh=t7ZlhucEC/u0UAB1aTqRNEmwSPkcPE43eUSStCiHFrs=;
+	b=3dM+JF2ZmV9lB1IlouZRf0CEiMKFT4FLHtBMp3DNWk0uzgxmffdjMTp7a0pOzLxMbcJW
+	 omCNwi6HRl8vG7EQGsOKK0ugLr1XI+ArzW7fpoVzdQErj8AjRn7AFQ/NlVjsahq5/GA/q
+	 HUzckO7w5dqX4vvW3AW/LVeszmZeAEXlv02cLrXkf60pQQGb1sdb6arHxBhU3rAR2sXy+
+	 YaHduRPHjEHF+DRjaCgSueC3rbTdon1P7sdJMrbu1E0mGt0vtDqLZGhhsohhGGos4ukDu
+	 f+WnMAJ5pr3JIWvG1mSddnYisHweYN7q9vx4+84ZCujwtFQHZrU8Lz23afz0CGZUbIw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhwhXNHd;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNjdYSJy;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE90606A33F;
-	Thu, 19 Nov 2026 16:49:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F3A606A333;
+	Thu, 19 Nov 2026 16:50:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mhwhXNHd
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QNjdYSJy
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795106998;
-	b=eDqxqAtRqDVW8gwrSnOK423WiWrzjSXDlXGJK6D9E/GTW1fDfijdLhBKmof7+YJUHlB4
-	 xXmFsTl++KdhrHXExyl10V98gg/1Bclww4/tioTWnl5DesXl1/8lxX0j0+dsl65UBnZks
-	 i/1t6OCGV45/Ysna/3Dv3yssbGGQUdE4ZNExiiNusdAIBXo5/imTQMNBXverH+SQ3AL8o
-	 t0x030OEYI20whv2sK1BXEKCTqKjFtxMwQlwN6ArIvsTqJt9QRUGfOAfa+n4IoAe/kq7K
-	 K58TtNZ/oEmEaDNy25GWcYOP8eDH0b87odh+kDekUZc9iQ6H5x3YZjkVq7pusvFG6qw==
+	t=1795107003;
+	b=q1MN0i1PVYyL8JvN1aztRlH4RWk7jJuqztjfmdDb1UKoMJ95Dwzf7ZbpEoiUGj2soBaY
+	 EUwhqhdSsu1uGF+ZRM43VGROU1RrNqhsaGUgQ2svNvJjKRSxB2HESToeET1BaudcDdBgI
+	 qzCGfpd4zC/Ja0QnFO/lbSSqxV90D48KBQAG6CCevnzXC2fMwvPcLMhq8Ku1H3kTN78TZ
+	 Sz679EalPVqXLp2WlplDzI8/1maCGeGxtGqoOuweahiX3gYWcn6lnPVWsUv0puGBVUsZ5
+	 2k0aLPZKQQcZsjpkfvHM5lwrUE2pWCa1ivGUf8p1hWjDpDFioIo2+stDPg0PTWpqtFw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795106998;
+	c=relaxed/relaxed; t=1795107003;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=mAqiKgS+wwdvfgXgvcuSoH83FNvbFLBFfGQ6xTqp5ow=;
-	b=xu3pk8C/EIvj93driW32R/rKvxw8UbAMRSpW6ojdTeCNTNFe+uvZ7QEM7QwBoIA9n5KF
-	 ul79pHWjWnX+z2caM8xqd18aFPvXuYJKdCAfIN8vAom/xlaCSS4soSlbxfoOzvGEzuYso
-	 T5iXluN/d73yhepxldc8669TNK8iEJ1NCYHYk8HgZ45xNEXeLaSjUqVaKCLHL9jy2UrUt
-	 17zJ79JywglhpfjZX492zwzagLGMjITeuH0GLwHbvp6FXTOSWhhnkGbZfxE39G+0GqvrE
-	 IHNKtUfHLL0NORWZpV2bySdLjvUh7CukseowwLTXY5V1QIdTjIXDx/0jtdGUeE1Mwkw==
+	bh=t7ZlhucEC/u0UAB1aTqRNEmwSPkcPE43eUSStCiHFrs=;
+	b=bnNy5eDsvw8lM4/J90PDiESX1IP1jfr3r+kf0gp+vuIdXKDFEY+Fp2ONnKGa2Ff6yikq
+	 WCUkXgNjA7AkYJCrqRN3b/1s0wOnh71ydJkPPioUtEHiRSWkIzfyRPBSz3i54rUVdnh52
+	 8Gd6ViiOlWOuIqHpfOBAeUAN9N3nDi7ozkot1q0Hra6ztgBrZpo9UXZLPz4ElIENfqtjB
+	 bMywJfVoIi4YVR1lwKZZld5et1LyS5AM8Ob8oSdudpxzP0tGD4SATy79WdyG74aRrp1zq
+	 1rgA/TNwwLAUhG24d7hVk6YAVygIQc+cQS30Ctoid0RMZpqJkOpSodN95wAYTCaiPtg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 79A401F000C7;
-	Thu, 19 Nov 2026 16:49:57 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 248791F000CC;
+	Thu, 19 Nov 2026 16:50:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795106997;
-	bh=mAqiKgS+wwdvfgXgvcuSoH83FNvbFLBFfGQ6xTqp5ow=;
+	s=k20260515; t=1795107003;
+	bh=t7ZlhucEC/u0UAB1aTqRNEmwSPkcPE43eUSStCiHFrs=;
 	h=From:Date:Subject:To:Cc:Reply-To;
-	b=mhwhXNHd28S4hqgXDUZ8sqZXHziiHxz97dozbCZ8WlPS5/hVl4tOHnprVoEAmM0h5
-	 lncj1xXm5IUgYPLCDLbeDSKrimMTjUa1bbeFkhDCHCHfoXi/q261ccKufEaX7MFajw
-	 Kj+k6vrdBFMA9ma5BFZXM4nrJhjNI1LdTqAk+miQgYiNtBh2nzMKzL6fbMI1jUujRj
-	 DraGoaurYnDtW93PWDFP+0NoJUS/BCX+5ouA+FDRuGUAUudJw5pEnPZ3g/3codVRc/
-	 Fr7mg0n16AsFsxhhipQGaFKdjOtehsvZTHtnietZw98rdniiUSL2YfYXDEaYaZgGe3
-	 S5DsLAoCLKtTA==
+	b=QNjdYSJyO3j31eCA6WuQj9uLfDNvn5ooup+8cXstEogM4y9ruI09/rNPj3K+g/xO5
+	 em9bQ6y8omWbVJz8QZXPKzO+xP6CwNxRHF5Y4N72sitDqXS2x9t/pzXY4aKypVoDf/
+	 2GZyCTqVQ4YjBwHyFATh43ADLGZpw8ZazhKkCl36Hlt7nXuODBEdC82uzsPTEop4og
+	 WwXA8JP1Lr3JMT7ih7sDf+O03gauzbc59267E2AacvfJqI8zRwyfhE311tdMPklQK+
+	 Pj0GUNeWXuZ073kgwXvWoIa6IX3c2uHCR7F+VRH7EwdjxLp7nYPogopYq02lj06p3S
+	 cj2hhTvIL5xrw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id CB21E4B35E;
-	Thu, 19 Nov 2026 16:49:56 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id A5ED44B348;
+	Thu, 19 Nov 2026 16:50:01 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 19 Nov 2026 16:49:56 +0000
-Subject: [PATCH] mfd: syscon: Put the clock after regmap_exit()
+Date: Thu, 19 Nov 2026 16:50:01 +0000
+Subject: [PATCH] regmap: mmio: Don't attach the clock if clk_prepare()
+ fails
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,22 +84,23 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-syscon-clk-uaf-v1-1-dc4a4c1be353@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQqDMAyA4VeRnA2YQgfuVcRD7ZIt26jSqGyI7
- 77qjt/h/zcwzsoG12qDzKuajqmA6griI6Q7o96KwTXuQkQt2tfimDC+X7gEQS/ifMuNBPJQoim
- z6Occdv3ftgxPjvNxgX3/AasTtmlyAAAA
-X-Change-ID: 20261119-syscon-clk-uaf-5ff259e0fa15
-To: Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>
-Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, 
- Jeremy Kerr <jk@codeconstruct.com.au>, mfd@lists.linux.dev, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>
+Message-Id: <20261119-regmap-mmio-attach-clk-v1-1-91291802ac53@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDvQGNqiV5EuxmSio0YliVIQ7
+ 97YLt/i/wMiB+EIdXFA4F2iLHOGuhVgepo7RrHZUN7Lp1KqwsCdpxW9lwUpJTI9mmlEVz3Ivpz
+ VmjTkeA3s5PMbN++/49YObNJ1g/P8AhNfZa16AAAA
+X-Change-ID: 20261119-regmap-mmio-attach-clk-f95ad7fd33a3
+To: Mark Brown <broonie@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Johan Hovold <johan@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
+ linux-kernel@vger.kernel.org, driver-core@lists.linux.dev, 
+ stable@vger.kernel.org, Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795106996; l=2258;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795107001; l=1957;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=Xle/0X0eA0Wa8LPqfRsJuOjguZ9Uh3tFLZYrD/TPVc0=;
- b=CSfb7vPXlkbnKosHL34ELamSXGEOplysb5QTiVCvPbHPMuJkNOoLYHgzqU5XwlnEDa9kflzrR
- tEPKbFI7j9vBF0OOASG/uy9G7lt0p7E2xUVIEsYLHbr2QX63JuvTAI5
+ bh=i99wsC+7/XSg8MNOgqgqgUZ46RlYbMj6RkR/Vf2Of1c=;
+ b=9jiDl8QoEqCknvUZMfHJ+ua9PFRbCuLKzsSUKI6x99WZcMsI0+i45tMlgFNggee5UeHYEJgsp
+ 6iRbXf9hNrcBfAAPty5w9VsnUBkl6THsynckgmxjhPdAbA0acQ3h+t1
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -109,70 +111,58 @@ Content-Transfer-Encoding: 7bit
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-On the error path, of_syscon_register() puts the clock before
-regmap_exit(), which then unprepares the freed clock. This happens
-when the reset lookup fails, e.g. with -EPROBE_DEFER.
+regmap_mmio_attach_clk() stores the clock before preparing it. If
+clk_prepare() fails, regmap_exit() later unprepares a clock that was
+never prepared, and the caller may already have put it.
 
-Put the clock after regmap_exit().
+Only attach the clock once it is prepared.
 
-Fixes: a00406b71c5f ("mfd: syscon: Add optional clock support")
-Fixes: 7d1e3bd94828 ("mfd: syscon: Allow reset control for syscon devices")
+Fixes: 31895662f9ba ("regmap: mmio: Add function to attach a clock")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-bot@kernel.org>
 Closes: https://lore.kernel.org/r/179493691305.3136.16311404541139130213@kernel.org
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-A related regmap patch ("regmap: mmio: Don't attach the clock if
-clk_prepare() fails") is sent separately; neither depends on the other.
+Found while fixing the error path of of_syscon_register(); that mfd patch
+is sent separately and neither depends on the other.
 
-Tested on an Orange Pi 5 (RK3588S), 7.3 with KASAN, together with the
-regmap patch: with a forced reset lookup failure, a use-after-free in
-clk_unprepare() is reported without the two patches and nothing with both.
+Tested on an Orange Pi 5 (RK3588S), 7.3 with KASAN, together with the mfd
+patch: with a forced clk_prepare() failure in of_syscon_register(), a
+use-after-free in clk_unprepare() is reported without the two patches and
+nothing with both. This patch was not run on its own.
 
 Developed with Claude (Anthropic), which wrote the code and the commit
 message. I reviewed every change.
 ---
- drivers/mfd/syscon.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/base/regmap/regmap-mmio.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/mfd/syscon.c b/drivers/mfd/syscon.c
-index 21a7fcdd2737..3ff4e024542b 100644
---- a/drivers/mfd/syscon.c
-+++ b/drivers/mfd/syscon.c
-@@ -132,13 +132,13 @@ static struct syscon *of_syscon_register(struct device_node *np, bool check_res)
- 		} else {
- 			ret = regmap_mmio_attach_clk(regmap, clk);
- 			if (ret)
--				goto err_attach_clk;
-+				goto err_clk;
- 		}
+diff --git a/drivers/base/regmap/regmap-mmio.c b/drivers/base/regmap/regmap-mmio.c
+index 1de2278fa572..6adbc950877c 100644
+--- a/drivers/base/regmap/regmap-mmio.c
++++ b/drivers/base/regmap/regmap-mmio.c
+@@ -590,11 +590,16 @@ EXPORT_SYMBOL_GPL(__devm_regmap_init_mmio_clk);
+ int regmap_mmio_attach_clk(struct regmap *map, struct clk *clk)
+ {
+ 	struct regmap_mmio_context *ctx = map->bus_context;
++	int ret;
++
++	ret = clk_prepare(clk);
++	if (ret)
++		return ret;
  
- 		reset = of_reset_control_get_optional_exclusive(np, NULL);
- 		if (IS_ERR(reset)) {
- 			ret = PTR_ERR(reset);
--			goto err_attach_clk;
-+			goto err_clk;
- 		}
+ 	ctx->clk = clk;
+ 	ctx->attached_clk = true;
  
- 		ret = reset_control_deassert(reset);
-@@ -155,11 +155,10 @@ static struct syscon *of_syscon_register(struct device_node *np, bool check_res)
+-	return clk_prepare(ctx->clk);
++	return 0;
+ }
+ EXPORT_SYMBOL_GPL(regmap_mmio_attach_clk);
  
- err_reset:
- 	reset_control_put(reset);
--err_attach_clk:
--	if (!IS_ERR(clk))
--		clk_put(clk);
- err_clk:
- 	regmap_exit(regmap);
-+	if (!IS_ERR(clk))
-+		clk_put(clk);
- err_regmap:
- 	iounmap(base);
- 	return ERR_PTR(ret);
 
 ---
-base-commit: e5bcc8e02e570e3eee46d4cebefd552cc7c9e843
-change-id: 20261119-syscon-clk-uaf-5ff259e0fa15
+base-commit: 50b3d8bb527b11384153c4ca854c8610f4a55649
+change-id: 20261119-regmap-mmio-attach-clk-f95ad7fd33a3
 
 Best regards,
 --  
