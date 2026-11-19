@@ -1,58 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795124293;
-	b=HK6Byom9A6ze1gkEZ7xFX/zQMP1AbnfWl1roNti+cpkQ1uHbubkbHWRkTugkNriLqGiC
-	 EWMcWqpXahgCHwiMKDmZFw5f+pNuqCnkmnttaBH5yN4qib+8+9CHBC3GqVmOQDGTD4lSW
-	 KwDTrnHol3jfg18vH4iIjzBPgqiye8SUel2Xlv2pJdUKXSzdMgcPf0cqcATKMvpaMzhdA
-	 0A1NIO18ExH8BS/ffwZrDKqS/uJTi1Tc3koZ2soYucctXt+zMDFh2kNEjKKUgqamJfbxT
-	 YvkV878t0QmPIHmsongooh1f6BPBlEh4TguIsynU5GmHjUiwopidOxyjg+NlWCw3ltA==
+	t=1795124630;
+	b=I1M3Sew004dGYeDVl93dqxNjObTTJwWE8oeV4uNQMoedEPARmrFa/gojHKXYhB0LLWzC
+	 03Iwd487U5InfsJLG62xAa6NRiFqbueJ5cLoSoHk6SwEQ8Jiqtg0/VDGLId50/gINp8cA
+	 7xTZzuYNFwyRPcBjUN/3FAzOukmpgsNCkEUMHmMvcc3nKVP9w11LYbUrPSoKaYDpDd2Q0
+	 iA5ebwm0s9lORoREBdLZKBJXR7jhmBTirZ8vz4gtpebn2Idx4YddqRnUrFQ40EZWKrUy3
+	 lrzrAK3nPZR7Bja8o+k8t22+2QqAuJn8yeU+bnKXgFO1A2PCCpTA7ROHyn4ZlqJrMaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795124293;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795124630;
 	h=Received:DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:
 	 Message-ID:References:MIME-Version:Content-Type;
-	bh=PnTwqTAd6zPrVDdCBBgYNiAIBZrwMCrGj4srPVWYgRc=;
-	b=SncmAP3iFi7IY8yF5hd/tO6ZMRwFqihZN8yw15Do5Mtlj9gH/LqUhnjm4q4r5IVH8cF2
-	 nsfujC6wAZt6yrGlZs7nUK1qpZKkvt0RA/YuImM1bHHg2lfyDlcUSseYvgsB4ixdkDeyH
-	 tJtE5iWx9iyRjwysX50bINPoIaKxx/tDVu0yyIgZR8y7GQjP8gNRJJAAp+ynGjRy6sW7c
-	 ZIfdCT5WY/N3Yge5Joiv6JddaBBupij/gDaOl28haouueFkzcmPR8yV+DF2qU8Y4e0A9X
-	 5+CPRwzhe4aHpJ8iyZSDd4zAymtMGj1DEoaPLLSXIyPd3BMEPrESIgW7CHbe7jaUiBg==
+	bh=5Tw89trH96Xpm50XPeAndztRNUxh8o55+6VxfKE9qb4=;
+	b=Zv34f89RSKAgM8Bmp+qOve9+mleiwFGxuy8Owir6Zh4i9HZpf4iV2P3SM+SBPO8IN4HR
+	 xhn9k4KfDYOPOz6h3+QdqD6TAxkFFhPYtB3ZtQql1YW31KslHw7oICFXO+YJGsySEoQlo
+	 AMNtjIQ/mpHh8t9vcR3ch4jM4mrSMgztrZvM/E4op4+kf+cZ0RVwJCzr+MCj2OM0ElKq5
+	 81k1pbCcnpEle1w61IrkAUsiFY6BXAP5dFOwAgpWIY3hmd7lqPK7uo/zShlD1dc8A5Pgi
+	 s79IwmIQ5va2UBWQtNHNXTx3+xd03Zt5C/448IqUWtRxQ+PWp9i6CUg4Eu633Idwsdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDll02Pn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBjhMj8C;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5167606A320;
-	Thu, 19 Nov 2026 21:38:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05139606A320;
+	Thu, 19 Nov 2026 21:43:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDll02Pn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCB641F000C4;
-	Thu, 19 Nov 2026 21:38:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RBjhMj8C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48E141F000C0;
+	Thu, 19 Nov 2026 21:43:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795124292;
-	bh=PnTwqTAd6zPrVDdCBBgYNiAIBZrwMCrGj4srPVWYgRc=;
+	s=k20260515; t=1795124629;
+	bh=5Tw89trH96Xpm50XPeAndztRNUxh8o55+6VxfKE9qb4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=kDll02Pn+Thrq+vwsbZGhKT0LgGJJFSprxmF4aHPRnHvVc6wo2fcQLjIrK+bqeyKT
-	 hR6yNlJ3Ix7WK73ArODdRpoZ4vhLvKmA7j5O80kOYDdI0eQqL43yqKW36u+WwYJimC
-	 zGUAedoEnCvIkEp9gWtM/IEegad6FN05a59a6SaGqrmKxUoyyAXQSfRdCORN5mfbx1
-	 jadChw3FQd0P8jc936i5e6/GBkjSRPcFfgYZ1vzcp9pmClqsDftouvbOZWM1nX7iEm
-	 Kc11XMkb+oQ1OvRchkdlb4tjyEzXnRzzTgJT+AiS3Oj0gTo3+p4JH/GmLUFtEaoTD4
-	 G58luDBUhh38Q==
-Date: Thu, 19 Nov 2026 22:38:09 +0100 (CET)
+	b=RBjhMj8CRY9tZBa0eZluTmf2UolaKLmOQd/bjdik299obZe+kRsVrQ7xvPbCjnagF
+	 4djnnuR5RrYr2fFDzatmYLejnMraodfSl4jiB4fjDR5nAVBChEAeaTuCsQ2QP7HVwh
+	 RpQuZpuPVQYGJsKuXl5mWvDWUAyfWMJGnoCoiaP1/1ca1WpV8Ut2P1dLtQ5NOPGBxM
+	 DOynrcguitnZZ3MXxPQW3VUdEOu8fzHGqpenFP/apRSkzu5YsSWKqb6NpzIJtXhKXQ
+	 qq3pRLLo4djx0C5Tm8XDDPTROtAKlpRwdAl9ycxsvPYj1FQHUjh/OOlN5ksbOJhae2
+	 Ph3fg8m+1jp8Q==
+Date: Thu, 19 Nov 2026 22:43:47 +0100 (CET)
 From: Jiri Kosina <jikos@kernel.org>
-To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-cc: Benjamin Tissoires <bentiss@kernel.org>, 
-    Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-input@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, 
-    Harald Brinkmann <hbrinkmann@braincalibration.de>, 
-    syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH v2] HID: saitek: don't dereference a NULL hidinput in
- saitek_event()
-In-Reply-To: <20261015151318.208115-1-ngocthang2710.1999@gmail.com>
-Message-ID: <n2s8q6oo-4348-8q5n-1rp8-668373s3s402@xreary.bet>
-References: <20261015151318.208115-1-ngocthang2710.1999@gmail.com>
+To: Jinmo Yang <jinmo44.yang@gmail.com>
+cc: ping.cheng@wacom.com, jason.gerecke@wacom.com, bentiss@kernel.org, 
+    dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4 0/6] HID: wacom: guard against NULL input devices on
+ successful probe
+In-Reply-To: <20261024033040.316652-1-jinmo44.yang@gmail.com>
+Message-ID: <o25qn5o2-2257-6rop-oo57-9o4o54sn688o@xreary.bet>
+References: <20260927041138.4112920-1-jinmo44.yang@gmail.com> <20261024033040.316652-1-jinmo44.yang@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,40 +61,26 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 15 Oct 2026, Nguyen Ngoc Thang wrote:
+On Sat, 24 Oct 2026, Jinmo Yang wrote:
 
-> hid_process_event() calls the driver's ->event() for every usage of a
-> report, including fields that hidinput did not map to any input device,
-> e.g. a constant input item. For those fields field->hidinput is NULL,
-> and saitek_event() loads field->hidinput->input unconditionally:
+> When wacom_setup_{pen,touch,pad}_input_capabilities() returns -ENODEV,
+> the corresponding input pointer is set to NULL but probe still succeeds.
+> Subsequent irq handlers dereference those pointers unconditionally,
+> causing NULL-pointer dereferences reachable from a spoofed HID device.
 > 
->   KASAN: null-ptr-deref in range [0x0000000000000018-0x000000000000001f]
->   RIP: 0010:saitek_event+0x51/0x2b0 drivers/hid/hid-saitek.c:154
->    hid_process_event drivers/hid/hid-core.c:1572
->    hid_report_raw_event drivers/hid/hid-core.c:2109
->    hid_input_report drivers/hid/hid-core.c:2180
->    hid_irq_in drivers/hid/usbhid/hid-core.c
+> This series adds per-function NULL guards across all affected handlers.
 > 
-> A device that claims to be a Saitek MMO7 and uses such a descriptor
-> triggers it with a single input report.
-> 
-> Bail out early when the input side is not claimed or the field has no
-> input device, as the other HID drivers implementing ->event() do. The
-> claimed check also covers a failed hidinput_connect(), which frees the
-> hid_input structures without clearing field->hidinput.
-> 
-> Fixes: 37c492c8f6a9 ("HID: quirk for Saitek RAT7 and MMO7 mices' mode button")
-> Reported-by: syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=eba2b3201bd25a97cddf
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> ---
-> v2: also check HID_CLAIMED_INPUT. hidinput_disconnect() frees the hid_input
->     structures without clearing field->hidinput, so after a failed
->     hidinput_connect() the pointer dangles while the probe still succeeds
->     (->raw_event is set). Reported by Sashiko.
+> Changes in v4:
+>   - wacom_intuos_pad() now returns 2 for the normal path, 1 for the
+>     NULL-guard path; wacom_intuos_irq() applies "result - 1" uniformly,
+>     suppressing the spurious input_sync() the old "return 1" would
+>     trigger (Jason).
+>   - Added pen_input NULL guard at the top of wacom_intuos_irq() to
+>     protect its helpers wacom_intuos_inout() and
+>     wacom_intuos_general() (Jason).
+>   - Added pen_input NULL guard to wacom_bpt_pen() (Jason).
 
-Applied, thanks.
+v4 now in hid.git#for-7.4/upstream-fixes, sorry for the delay.
 
 -- 
 Jiri Kosina
