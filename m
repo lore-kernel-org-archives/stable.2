@@ -1,99 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795092039;
-	b=DDj/Xm2LarCptoA+XC/MWs9nvQqCkUs5q783D84H/9g169lF3RAUXX96R+XdoYIBZeBF
-	 AoCKoHHdjBxCAsYjIzkx+W/JPQqG0+luekNlnw/oSiO12e5LyIstzPmd+a6xtXNgi4jvY
-	 dniAOyQrY1QVuY+fIeY+DIMaTKoaeiT/Ln5b4mOcd33m0FHBQpFy10/dNVcoCNOd4P437
-	 gb8SV9zw6U8xkWOpIXa1J7MiHPovgA9RtfW106uAdowUYbpVx8vcQD2SGKJpUsMxqwqq2
-	 8JUrF+ZzUmAlkhJrhnbhaxg1CZF8Y05uAy+5K4Y9EE2nq8nLApzVb29hR61M97u8E9g==
+	t=1795092043;
+	b=cZnu/gOIXWdXp/WsVeEEMR1cqkJmC3fPh+ILrNa1Sctm5HKWD6xBwf/lJo3zrbut0GnF
+	 T/y6kMduvyCLkwqmJdFBn5XOzjjkXmsCUnho9dulHgZUTGoGks3xlNiBugu+04izpr7TH
+	 EUeWT7bn2PPSmpmf99sIjxOrNBmc+qx+FKuAof7mI1AiZEnL8hlUPsNeLkPpM6kBE1hbX
+	 50sv23kPwl9tEjkorEzBCfJk+q8kT/0bRCDM2U+u093n53zlbzH1z/izFkhE/QLNUGyIR
+	 iU6SOZF3uwyxj0x5I+281LsriueZxEOonREciHoMBuOgUigyl2ET2q4pybAfPRRHSQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795092039;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795092043;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=/HBktdhhH40COOtgFHhMziUMTJYpM/f/9inUmvkMpn0=;
-	b=Jelyt8k15itndTUAoqbX1PFLeu34V0tnhHAd7zQ3/0n96UUVJbXx1MMYklWdXwcRvVJT
-	 YDq/WYHVyc1JYwFHSMgOvQFrrViMqOEYoJo55dpOvywT6cgDiJuKpMNZtAex1zs/E4szn
-	 Vm0DJwaSl4pDnrOIKK73EdOe0NcfYo8yJlaXkuYb7XRsKZPkeNYHjmTo8N2vNkwreHs0Z
-	 vRSUkYeDBqZaBjTY4teRU8S5uFTtAylm7JaEeYfQv+WdwReAoZwVKzqB0CJWZoRfFbGWS
-	 wv1bFRbAbNX9+M6nx0VjsMs4Tv4WVzftgmHrGw66vSBbb/7EcPunxxZSXGRQ8bvwi+w==
+	bh=kZTCP0FZNEDqOM0wu+GOAnEdBFK1bkrsKWVusL46FiY=;
+	b=NHllRbcOZOzHHllptsDPXJ6CFGJuYL8XhixVB8Iu1hSwMrnZ5cc4NN3sh6yVNRUx0kIJ
+	 E4MH8Yonf2PAbf6ax6HYq+K+PwJ+ZBAoaEQZkCC4W7G8EuRxb/8FDYGvxmzVOpWqTGhae
+	 08CUxvLJvvFRkohU0gWHHlAhTJmRqNlfFr+P0LsvRlgUew4mBT1REa9NnqYjC5icDCzyZ
+	 MipAr/oHgRC7khhS1t3IGAlgTXaLU1SpcNbttGkMxrZd2Sb4o+9EnyK0h1TMMclatcD3u
+	 a677My5jmQ1v9wy6HnKQVgKAjJqRi5D2iMhe2zqto4nkmJGxxfuirNmnc/Ie3sDiqdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=mojatatu.com;
 	spf=none smtp.mailfrom=mojatatu.com;
-	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=TG59cT47;
-	arc=none smtp.remote-ip=209.85.160.169
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com [209.85.160.169])
+	dkim=pass header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=K7L2IfUY;
+	arc=none smtp.remote-ip=209.85.160.178
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com [209.85.160.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 930F3606A330
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 12:40:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 930F3606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD777606A326
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 12:40:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD777606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=TG59cT47
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5366ae57896so20824041cf.3
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 04:40:38 -0800 (PST)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.a=rsa-sha256 header.s=google header.b=K7L2IfUY
+Received: by mail-qt1-f178.google.com with SMTP id d75a77b69052e-55d30c054dfso23095761cf.0
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 04:40:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1795092037; x=1795696837; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1795092041; x=1795696841; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/HBktdhhH40COOtgFHhMziUMTJYpM/f/9inUmvkMpn0=;
-        b=TG59cT47d78F1RoC28G8m4TwPz6aL4pqdP6Eo2YIKsEOX6vagNfv3qWajo+aP3L6vL
-         bJobuGx0zpMVC8S5LTj4VZvIyTLEPzCcs1u5Pn1oHPdt3yXV2H4YHlQ/lAUaBDuINIhS
-         NTPjMyB8ek/ZQ2OCKgWgzvG06qpqF/XuuLApE=
+        bh=kZTCP0FZNEDqOM0wu+GOAnEdBFK1bkrsKWVusL46FiY=;
+        b=K7L2IfUY7aIUMAtlGpyNlKkhWLEAVoQL8wsmimnJ6u15saxEqjKdVDOfkwxeLFJw7q
+         i+ik/8Ws8HPt565O9RU7tISIHu/tOAZQtN8FjxUnSBVvLIP3GqWT/xv9TS6jHGu+AaWy
+         buzhP99wPVbQtKTZMrc8cB81kqQxEFbQfDdhU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795092037; x=1795696837;
+        d=1e100.net; s=20260707; t=1795092041; x=1795696841;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/HBktdhhH40COOtgFHhMziUMTJYpM/f/9inUmvkMpn0=;
-        b=Zn6dip1ZeaSKwaecKJhPQrFDn6Q3kl4dDGDSLFZBWdxcbaWxiuEnIBSDFh7eMVYCYi
-         fP6KVP1F0mM4fxKo5IWewjRvjakEh9RhyswkNmnRxAHMNnKE6X+obUlQzZ6paCox9mld
-         5qwbogTfGWqthu9bZqNFjguLXc8SeRW9ed41VxbX1Kiqkr1zEdAas/YmhBMm3AeXpArk
-         TQsyjtcO68q/9yUPwgdco447YubaVAHkxX5OoeG2mRvfztsJoWiaWOEcA7MamS1YTitH
-         UL9+g10VfekTTtj6y3HkiqehyI624xsjLRYGW/O5c+PAQ+SBqkf5AX1t6kD88/QwWCA/
-         TsbA==
-X-Forwarded-Encrypted: i=1; AL+hErHxC3qQDqw9WwwUr186uAQnBVT22WKZUcPsnfBtggX8nbeMRTOBNb1zWEtYxFYr40zB0vZSewg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+SA3tDpyEompWwlYuxGZA8oszpIN9k2jFlE4Ofi/qS2BiPUyX/
-	eg4fPnGLmSZF/B2tSq6e3LQq/ySJyok5cfCLViJ0LsA6pqd87dY6A8w64K4fPOSGXA==
-X-Gm-Gg: AYBFou0TvXPkARPQZLCPMg6KugI9i9n648QdxjQRhueA2qudGfybeLM5HIzNBVjExpr
-	HFg6c294m+GNZ+/AKEqZRFzVPkVGyxntXn/AflcuqaqTDgIGFZSY5EmMkaDJG3hXhZ921JsajlG
-	pZHaz9hK+q3V0+rtxicGxlJKkUrbf/7Sf0WXzKGmKwAZFJpz4Mf5E/+n67060Q8EYmuTaN/BYc2
-	tQjZ9Wdzt+CeOTWP6zoFlVU4WChvBVNalmW9AfhOl3g5TaajIMGlJxp6RifCrCbvoDOi6bBxNJY
-	BVcczkXrBwTJ7jewNRjrxUiboOpg9241ghYF5vqp5UlaSjIjQOfVyj7E94dmqc2O752uId8G4jV
-	LLSVkFOpJYStHZdpnAg1gQAyFmAN2R3wXGeXpVRQfEpg5GA8g912WCJp0Dx6ze/8xq6ldQeSP0q
-	xObvEPp2aaFtipvBpZMgnAolPXKKXmUjJjZvrFaKvkt6WxzSFXtvuGUXHFMRkG56Z9CF8+mUbVK
-	qXlWbRxdstk55qbwIAdrrNk1qCDYbaJzDO94t8pRJGcbOw8WvMm8M/aUDwhkQvQqUrQKo9f/U34
-	p4cEJqM6m3wh9LJxrl7jyPOetByhfih32x603w5U70MP1/b+pz+XJzdPTDQJBX/6Qu/z7CbbY0N
-	I
-X-Received: by 2002:a05:622a:40b:b0:55d:37d8:5037 with SMTP id d75a77b69052e-55d5a75b268mr87571091cf.77.1795092037457;
-        Thu, 19 Nov 2026 04:40:37 -0800 (PST)
+        bh=kZTCP0FZNEDqOM0wu+GOAnEdBFK1bkrsKWVusL46FiY=;
+        b=c3fidJ4mjb9W6eQbJI9BeR1cmKxm6wPh2fTcHkGcKe3DxA4Eh1NZnjU6l5znHf4pWl
+         x3RXiDeu65hzpQlTlHuNppcd2uwcFyEKxHcYFDAI7MntlISXXmhSdPev5UNi5sQAOETX
+         j6PqnRh1EEatOw46yoS/ZIPUFmWme8NGRsU04AXE6X1wG6FAADcUu4dV0uM3z+WAdSa7
+         rx9Cggn//mHmFUv6wRfQl7XElu6JQrHG7NBGjyZ6Eky9VYD7oMLTPPiIx2ko1MHbCWIS
+         VLkgfmeq2ONrQVPP+QhRydBhIEqgDFziZ15AGy+WpUctA2/YyHEgs80jg1tw14CZBNtS
+         SsGQ==
+X-Forwarded-Encrypted: i=1; AL+hErHN43vu23YHVqQJMg+CGOHUPFKywfPQP0n40MUyEvbSgOXucoaI/IVB8PLVjpdtjDBqWmJQDow=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9QtDfp8/gfyzQt175ThO+d33Icl+6yv0tVcwAz00XktqCRZzaG
+	peKhX+/tnVywNBQMugdnWPj/ykPJM9g8BrC4R2+BUMbFwSry16PX8KaXJOhfjCH97w==
+X-Gm-Gg: AYBFou2iw2Yv+0hF9UN7P4TOY5WZRm/N7hS4sqhJ9O/BvC9LxtXKmmqQK4jDcTS71Ip
+	yS/lm7MLyLEj8WQcJy7EQztdN27qd5lqJ7GCeMZIZLi4rPtnaESh5fyHn8zdTCTiHTfJqUT9AVk
+	v4Rb8/akbfVXx1fwzi0OKj7S34/b55nwpQgIZt+B9m4weZvWMrqIHosNbfFZP/KVT0WUwQXpeWx
+	0zZvCV8qQN9sT9j4LLcFqIwdDJB/3R45qTOeUaYE1CWTVqUOoZkum/LE8h56V06nZ9tBY7ItBUg
+	hADxR+7BvjIGuSr+GZauTFGumhAuCeZbF4D6FmCjmQ4MKHGk2PV7r4Or9PKzGHw3sszXrYq+5LA
+	bU3YtVCR0ow2zdfP2JFlzvMP0lkhMKXCso9gTYfrc/E5qxycqUTSly8NTnPMVdAo3oYA9fpprJ+
+	0uKF1TrY0msQvQ12N5FFSsmANVTnIUHQaWmQ7GYqbqxp1DHtsR4uCefptn3SqB5CX6giiMTfM6/
+	siDvgQK0DjuvZBl4d4yxC33TH9Yw0v1EwDFawcFiUk7yYR09SJFtY/JDIzNrXeiTtkfvTvbcInN
+	Muh4bQcPxXtmquQMwX+m6tD5AHTMTiqB55pQzPuQ6oaLoEm+6maOAOEdeVotmYlj8OdFT/ZynB0
+	=
+X-Received: by 2002:a05:622a:1822:b0:55c:8e35:c71c with SMTP id d75a77b69052e-55d5a69b306mr91009941cf.47.1795092041468;
+        Thu, 19 Nov 2026 04:40:41 -0800 (PST)
 Received: from mbili.waya ([64.203.83.2])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d66b75823sm22370191cf.13.2026.11.19.04.40.35
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-55d66b75823sm22370191cf.13.2026.11.19.04.40.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 04:40:36 -0800 (PST)
+        Thu, 19 Nov 2026 04:40:38 -0800 (PST)
 From: Jamal Hadi Salim <jhs@mojatatu.com>
 To: netdev@vger.kernel.org
 Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
 	Victor Nogueira <victor@mojatatu.com>,
 	Jiri Pirko <jiri@resnulli.us>,
 	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
 	Simon Horman <horms@kernel.org>,
-	bpf@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH net v6 2/3] net: neighbour: reinject a parked skb through a headerless output device
-Date: Thu, 19 Nov 2026 07:40:24 -0500
-Message-Id: <QDISC-6HS9.v6.r0.20261119070330-2@mojatatu.com>
+	stable@vger.kernel.org,
+	sashiko-bot@kernel.org
+Subject: [PATCH net v6 3/3] net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
+Date: Thu, 19 Nov 2026 07:40:25 -0500
+Message-Id: <QDISC-6HS9.v6.r0.20261119070330-3@mojatatu.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <QDISC-6HS9.v6.r0.20261119070330@mojatatu.com>
 References: <QDISC-6HS9.v6.r0.20261119070330@mojatatu.com>
@@ -108,55 +105,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
+This is a follow-up to commit dc4b95b8fee9 ("net/sched: sch_teql: restore
+skb->dev on the slave failure path") by Victor Nogueira, which covered the
+slave side of the same mismatch.
+
 The issue:
-neigh_update_process_arp_queue() drains a neighbour's arp_queue and
-reinjects every skb through READ_ONCE(n1->output)(n1, skb), where n1 is
-the top-level neighbour re-looked-up from the skb's dst, not the neighbour
-the skb was queued on. skb->dev is whatever the producer left there.
-Note: skb->dev and n1->dev are not guaranteed to be equal.
-
-When n1->dev has no header_ops, arp_constructor() and ndisc_constructor()
-install neigh_direct_output(), a plain dev_queue_xmit() that transmits on
-skb->dev and builds no link header. Such an output sends the skb out
-whatever device skb->dev names, not out n1->dev, so a producer that
-parked the skb naming a lower device has it leave without the link header
-its own transmit path builds.
-
-sch_teql is the producer that hits this: it parks the skb on the slave's
-neighbour while the top-level neighbour is the master's, so skb->dev and
-n1->dev differ and the reinjection has to come back through the master to
-leave with a header. It names the slave on purpose, so that a parked skb
-does not outlive the master it came from.
-
-This was split out of the sch_teql fix on review, so that the neighbour
-restore carries its own commit log and its own Cc set. It is the first
-half of that pair and is applied first. The behaviour it describes
-exists once the second half, "net/sched: sch_teql: keep skb->dev
-consistent on the arp-queue path", moves skb->dev = slave ahead of
-teql_resolve(): until then the parked skb still names the master, so the
-assignment is a no-op and the recipe below does not reproduce on this
-patch alone. The two are taken together.
+teql_master_xmit() sets skb->dev = slave only right before the slave's
+ndo_start_xmit(). If the slave's neighbour is unresolved, teql_resolve()
+parks the skb on the slave's arp_queue with skb->dev still naming the teql
+master. teql_exit() frees the masters on module unload and a slave can
+outlive them, so a queued skb can be reinjected through freed memory.
 
 The Fix:
-Put skb->dev back to n1->dev before the output call when that device
-builds no link header, so a headerless output transmits on the device the
-neighbour belongs to, whatever the producer left in skb->dev.
+Set skb->dev = slave before teql_resolve() so the parked skb names the
+device whose neighbour owns it.
 
-A forward that steers the skb to another device, nft fwd ... neigh or
-bpf_redirect_neigh() with explicit nexthop parameters, parks it with the
-dst of the original route still attached. When the original route is
-itself a headerless device this gate matches there and the skb goes back
-out the original device, running its egress hook a second time. Those
-forwards supply their own device and nexthop and do not consult the
-retained dst, so dropping it at those two sites is where that is fixed;
-that is a separate change to the producers.
+The parked skb has a second consumer: when the neighbour fails instead of
+resolving, neigh_invalidate() hands it to error_report() and
+dst_link_failure(), which read skb->dev to report the failure, so it names
+the slave on that path too.
+
+A parked skb is reinjected by neigh_update_process_arp_queue(), and a
+device that transmits straight on skb->dev has to be handed its skb back
+there. That is the previous patch, "net: neighbour: reinject a parked
+skb through a headerless output device", which has to be applied before
+this one: without it the parked packet leaves the slave directly, with
+no link header, because teql_master_xmit() has already pulled it. The
+helper it changes, neigh_update_process_arp_queue(), was split out of
+__neigh_update() by commit 705ef89ac986 ("net: core: neighbour: Extract
+ARP queue processing to a helper function"), so the previous patch does
+not apply to stable trees older than that.
+
+Some context:
+Only a module unload frees a master. teql_master_setup() installs no
+rtnl_link_ops and default_device_exit_net() moves the device to init_net
+when its namespace exits, so the window is a parked skb plus CAP_SYS_MODULE
+on an unloaded sch_teql.
+
+The error now names the slave, so it is also routed for the slave: IPv4
+takes the ICMP output interface from icmp_get_route_lookup_dev() and IPv6
+from skb->dev. A teql master enslaved to a VRF had its host-unreachable
+looked up in the VRF and now has it looked up in the main tables with
+oif 0. The parked skb cannot keep naming the master there, because
+naming it is what lets teql_exit() free it under this path.
 
 Conditions to recreate the bug:
-CONFIG_NET_SCH_TEQL=m and CONFIG_VETH=y, run as root. This is the
-neighbour half of the sch_teql parked-skb fix, reached once the sch_teql
-half parks the skb naming the slave: create a veth pair, make one end a
-teql slave, give the master an address and a route, flush the slave's
-neighbour entry and send one packet:
+CONFIG_NET_SCH_TEQL=m and CONFIG_VETH=y, run as root. Create a veth pair,
+make one end a teql slave, give the master an address and a route, flush
+the slave's neighbour entry and send one packet:
 
   ip link add v0 type veth peer name v0p
   ip link set v0 up;  ip link set v0p up
@@ -165,42 +161,98 @@ neighbour entry and send one packet:
   ip addr add 10.0.0.1/24 dev teql0
   ip route add 10.0.0.99/32 dev teql0
   ip neigh flush dev v0
-  ping -I teql0 -c 1 10.0.0.99
+  ping -I teql0 -c 1 10.0.0.99 &
+  sleep 1
 
-The packet parks on v0's arp_queue. When the solicitation resolves,
-neigh_update_process_arp_queue() reinjects it; without this change it
-leaves v0 directly, with no link header, and never reaches the peer.
+The skb waits on v0's arp_queue while the solicitation is in flight.
+Remove the qdisc, which drops the module reference it holds, and unload
+the module while the skb still waits:
 
-The window that frees the master, and the unload recipe that shows it,
-are in the sch_teql patch.
+  tc qdisc del dev v0 root
+  rmmod sch_teql
+
+teql_exit() frees teql0 there. When the solicitation then fails,
+neigh_invalidate() drains the queue through arp_error_report() and
+ipv4_link_failure(), whose __icmp_send() reads skb_in->dev; that is the
+freed master before this patch and v0 after it. A resolved neighbour
+drains the same queue through neigh_update_process_arp_queue().
+
+On the unfixed tree the skb is parked on v0's arp_queue while skb->dev
+still names teql0, so the reinjection can reach a master that teql_exit()
+has freed.
+
+The park and the headerless delivery reproduce without the unload.
+Freeing the master while the skb waits needs sch_teql built as a module,
+as above.
+
+An unfixed kernel reports this when the timer drains that queue:
+
+  ==================================================================
+  BUG: KASAN: slab-use-after-free in __icmp_send+0x3f9/0x1680
+  Read of size 4 at addr ffff8880039bc0b0 by task swapper/3/0
+
+  CPU: 3 UID: 0 PID: 0 Comm: swapper/3
+  Call Trace:
+   <IRQ>
+   ...
+   __icmp_send+0x3f9/0x1680
+   ipv4_link_failure+0x3a0/0x5b0
+   arp_error_report+0x5b/0xc0
+   neigh_invalidate+0x125/0x240
+   neigh_timer_handler+0x47d/0x750
+   call_timer_fn+0x138/0x410
+   ...
+  Allocated by task 307:
+   alloc_netdev_mqs+0x81/0x930
+   ...
+  Freed by task 335:
+   netdev_release+0x45/0x60
+   device_release+0x7d/0x120
+   kobject_put+0xf3/0x2e0
+   put_device+0x13/0x30
+   free_netdev+0x3b3/0x4a0
+   ...
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Sashiko (nipa) <sashiko-bot@kernel.org>
+Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260824115928.4099988-1-victor@mojatatu.com
+Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@mojatatu.com/
+Link: https://lore.kernel.org/netdev/20261026160747.283702-1-horms@kernel.org/
+Link: https://lore.kernel.org/netdev/20261031165925.780930-1-horms@kernel.org/
+Link: https://lore.kernel.org/netdev/179363700308.3131.11778179538290251434@kernel.org/
 Link: https://lore.kernel.org/netdev/20261110101908.2e64e8e9@kernel.org/
 Cc: stable@vger.kernel.org
 Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+Reviewed-by: Simon Horman <horms@kernel.org>
 Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
 v5 -> v6:
-- the commit log names the sch_teql half this neighbour restore is
-  applied before.  Considered comments from Sashiko (nipa).
+- the commit log names the neighbour patch this one has to be applied
+  after, and the ICMP error routing the skb->dev move also changes.
+  Considered comments from Sashiko (nipa).
 
- net/core/neighbour.c | 3 +++
- 1 file changed, 3 insertions(+)
+ net/sched/sch_teql.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/core/neighbour.c b/net/core/neighbour.c
-index ae2db3912454..d36d86cfc441 100644
---- a/net/core/neighbour.c
-+++ b/net/core/neighbour.c
-@@ -1342,6 +1342,9 @@ static void neigh_update_process_arp_queue(struct neighbour *neigh)
- 			if (n2)
- 				n1 = n2;
+diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
+index 44730a5e8917..d1c66bd039d1 100644
+--- a/net/sched/sch_teql.c
++++ b/net/sched/sch_teql.c
+@@ -379,13 +379,13 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
+ 			continue;
  		}
-+		/* headerless output transmits on skb->dev, not n1->dev */
-+		if (!n1->dev->header_ops)
-+			skb->dev = n1->dev;
- 		READ_ONCE(n1->output)(n1, skb);
- 		if (n2)
- 			neigh_release(n2);
+ 
++		skb->dev = slave;
+ 		switch (teql_resolve(skb, skb_res, slave, slave_txq, &hlen)) {
+ 		case 0:
+ 			if (__netif_tx_trylock(slave_txq)) {
+ 				unsigned int length = qdisc_pkt_len(skb);
+ 				int rc = NETDEV_TX_BUSY;
+ 
+-				skb->dev = slave;
+ 				if (!netif_xmit_frozen_or_stopped(slave_txq))
+ 					rc = netdev_start_xmit(skb, slave, slave_txq, false);
+ 				__netif_tx_unlock(slave_txq);
 -- 
 2.34.1
 
