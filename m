@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.10.208.40
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795097070;
-	b=EOutLXvy2hM/zSb9e10KfE7swkx9i5Q4uMz6xLfhJKdb4Kylq62yJUYy0oTyq8jlGfId
-	 PbditCbtAjhcGLuyHuOvRWUa2LMMcPuxIHo7+eRkunCg+LuUEwvZzGTnNvdNNXi5a66UA
-	 eoYD/QLRDAm/qia20ciLaJ+/ZtKi4OKaJNIk71WNhWcLqq1S0K7sH8lrsGvURFU3Vxk/r
-	 skeUyBN7+hQv00UgIH48KNUE0Q0B+gXeq3iULJj7uz5QNDsvLbZ3r0puAMQfNBkiyyx1J
-	 g/V8DAqh0NI603AfUw70Hi35mwIQbrXANJ8H6LQ9QIfUwfg2ExmYrA0gXwEVXTa3wDQ==
+	t=1795097072;
+	b=m/NipnLy3gjyqbpz4Do4HvRXqn2Hx/T7jQwsXtUPs91Tgg+oHPUqkVsI7TVzuXDRbDZ0
+	 f08KravDBdnN1zpwXthieFU1YKjeQ9Z166NXqnI/iQtRk6i8Mjh95y+M+sLvnfjCG1X8z
+	 qZ1C7MSS7qEfrYtsjbO6RhCvdr+Gq6VBqvsvq5PBpOubOEwaIyoxJZvsLp8rUsVC9zFop
+	 beJ8k/tU85c4nAmisSVZyTPSEhDC+mFbvCGj0cA93nia9MfBZLNEI4tp7aEDTqmzvYHjh
+	 zXf2t6h0K0V6keRzygauB9/b0+tKbQ1L+5hMt5eqiMk/EFfBVRtHBOEa7oKAaV9QX5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795097070;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795097072;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=xYY+5HYcpNDrOfdei6j2b8H2Y6Y1Y5HfYq8ATs9GwvY=;
-	b=4pjREa/uN13o2RkHh98KM5WZebl8mXTn891eUZh3pqEZnBA8qXLSKU4F6IEnX6QbvFZg
-	 4OsiGFvY9A2FwurYzCk4UKd3LLuYE+lsL6tMMiJalby9RByuh9HHV43AvDZQsrMf8Woxn
-	 8B77OsfaEzrvvRI84K61HsJ1I/T/B/efDMPbMVuEKtLcct+44leVfACUw4oljvY08vj4H
-	 lizXZRkhYWJxq9F9aBMfF3gZd6DJzTl2Sl18NdiRoJizBgpLSGJTlBauiLrieycwouszN
-	 u87g36v+0lAFJhvZIer5T9GmbervOnq1QsQ30T/x9I9ZPBa4BGRRCrl57cgtPr32pOA==
+	bh=vGRcRbB2ziFhxyWI2QvN4m+vvYLWQzf1owkGu4UysCg=;
+	b=ke1mfr5pD57Fps+zqWZjS0Mug7P0fBdRPaCR5Zc46BywvRhauajrZ/WnAw5rmdgXtoA+
+	 u7ytfNmqfqu7uYbftbS4moTPOa33OmCQpaSQw4udNKC4unX/R3/YBu2cXTNKlcswolaqC
+	 ovHgQltv/ppvpyNjJkcsuHVEFPexdLzYfn3Ipz5XI+p1UURJdxW3I43NoAXd8rAGcXMFZ
+	 caUeD17jb3bAIUIq/qMxeQlT3oiQzdUMFPwjCR7yDNhRCITvZARwieBUt/44f0n6ihO2M
+	 CiBs4kQfZ0Yhh3R38eGd79YbJiaLTbXaiLoRJ0uqA9e2ZRPx+Dwlpn6vi45ct3sXDcw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=mandelbit.com;
 	spf=pass smtp.mailfrom=mandelbit.com;
-	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=MOBe5Kq+;
+	dkim=pass header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=xPNoUUdM;
 	arc=none smtp.remote-ip=195.10.208.40
 Received: from mout-b-210.mailbox.org (mout-b-210.mailbox.org [195.10.208.40])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C85760A2607;
-	Thu, 19 Nov 2026 14:04:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8C85760A2607
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6898560A262D;
+	Thu, 19 Nov 2026 14:04:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6898560A262D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=MOBe5Kq+
+	dkim=pass (2048-bit key, unprotected) header.d=mandelbit.com header.i=@mandelbit.com header.a=rsa-sha256 header.s=MBO0001 header.b=xPNoUUdM
 Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-b-210.mailbox.org (Postfix) with ESMTPS id 4jVgFH6qWZzFqsh;
-	Thu, 19 Nov 2026 15:04:19 +0100 (CET)
+	by mout-b-210.mailbox.org (Postfix) with ESMTPS id 4jVgFL6clVzFq3F;
+	Thu, 19 Nov 2026 15:04:22 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1795097059;
+	s=MBO0001; t=1795097062;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=xYY+5HYcpNDrOfdei6j2b8H2Y6Y1Y5HfYq8ATs9GwvY=;
-	b=MOBe5Kq+9i67JBIuH4JepPP8x9ydZ9f+9oenk5G9dddPi/wLCoTf7EzLwBnp9iLdeBOOU6
-	sFvP3Yrv9lz71QhKDuxrdx94QZOsfERRjzOuWC5oCmJXj46sxz3bTaavHYl8UU+QYDpQH/
-	xCikJ6XUxYRyFTAAubWmUaUfDweOjFxpzbjV24CzPR3DC062qYiznuj0kGOGeutVjbf/g1
-	NRJuqc6hPUnvE8zcRiPJ0M2/8XRok5RU0izhNw+Y5rikPo0pIXoh7ncs+y8JL9JZEtm6Ko
-	8hGNNiB+mmesCNbZBTA8XvVXnTHoZNQNN0FObx0z/CT/SA6RjvEBJAeimpOnwg==
+	bh=vGRcRbB2ziFhxyWI2QvN4m+vvYLWQzf1owkGu4UysCg=;
+	b=xPNoUUdMtGpPd1ZBksgZS4Reu7at+KlhwHfvxUgIQM6UZ/UugnPFiIDLFzGvYxwfOLKuRh
+	5TZRftTVIVXQIp0OWRz0rx3aMRGKKpns0vWCRp13Asj+bYBli3Cgp6KPcc8Mwafo0yZjGS
+	ueCIGPB1X+FYu+w/LseiyY/CL0OD/anaoo1clluySZ+PiyYr7xDrJQ4kn3LUjJhtxb/acq
+	XC6UL/KinioRcVgKw7QEqTsW3cX/yNi1h8TRDofTon7vnIC+rkSnNPSb0jPw7E/dPh1iU7
+	PJGvxNvSDWINbHmVoga34xQ+Gg4NXKcqpyjVnP8hYczwKbF98Q8psvosywsxBw==
 Authentication-Results: outgoing_mbo_mout;
 	dkim=none;
 	spf=pass (outgoing_mbo_mout: domain of antonio@mandelbit.com designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=antonio@mandelbit.com
@@ -65,21 +65,12 @@ Cc: Antonio Quartulli <antonio@mandelbit.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Janis Edvarts Lacis <janislacis06@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Jesper Dangaard Brouer <hawk@kernel.org>,
-	John Fastabend <john.fastabend@gmail.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Sriram Yagnaraman <sriram.yagnaraman@ericsson.com>,
-	Kurt Kanzenbach <kurt@linutronix.de>,
-	Maciej Fijalkowski <maciej.fijalkowski@intel.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	bpf@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH net v3 1/4] igb: don't disable rings that don't exist when disabling an XSK pool
-Date: Thu, 19 Nov 2026 15:04:07 +0100
-Message-ID: <20261119140412.163202-2-antonio@mandelbit.com>
+Subject: [PATCH net v3 4/4] igb: only allow runtime PM if the device can wake up
+Date: Thu, 19 Nov 2026 15:04:10 +0100
+Message-ID: <20261119140412.163202-5-antonio@mandelbit.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261119140412.163202-1-antonio@mandelbit.com>
 References: <20261119140412.163202-1-antonio@mandelbit.com>
@@ -93,48 +84,59 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jVgFH6qWZzFqsh
+X-Rspamd-Queue-Id: 4jVgFL6clVzFq3F
 
-xsk_get_pool_from_qid() checks the queue id against the stack's real
-queue counts, which can be higher than the number of rings the device
-has, e.g. after igb falls back from MSI-X to MSI on resume. Disabling
-the pool of such a queue then passes a NULL ring to
-igb_txrx_ring_disable().
+igb lets the device be runtime suspended even if it can't signal a
+wake-up from D3. Such a device doesn't notice the link coming back, so
+the port stays down until it is resumed from user space.
 
-Only disable and re-enable the rings the device has, as
-igb_xsk_pool_enable() and igb_xsk_wakeup() already check.
+Allow runtime PM only if pci_dev_run_wake() is true, as e1000e and
+r8169 do. Devices that can't wake up no longer runtime suspend, even
+with power/control set to auto.
 
-Compile-tested only: the XSK pool path isn't reachable with the QEMU
-82576 setup used for the rest of the series.
+Tested with the 82576 emulated by QEMU.
 
-Fixes: 80f6ccf9f116 ("igb: Introduce XSK data structures and helpers")
-Cc: stable@vger.kernel.org # 6.14+
-Link: https://lore.kernel.org/netdev/20261116153041.3002666-2-antonio@mandelbit.com/
+Fixes: 749ab2cd1270 ("igb: add basic runtime PM support")
+Cc: stable@vger.kernel.org
+Closes: https://bugzilla.ipfire.org/show_bug.cgi?id=13562
 Signed-off-by: Antonio Quartulli <antonio@mandelbit.com>
 ---
-v3: new patch.
+v3: no changes
+v2: no code changes; mention the tested hardware
 
- drivers/net/ethernet/intel/igb/igb_xsk.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+Note: igc has the same issue: igc_probe() also allows runtime PM
+regardless of pci_dev_run_wake().
 
-diff --git a/drivers/net/ethernet/intel/igb/igb_xsk.c b/drivers/net/ethernet/intel/igb/igb_xsk.c
-index ce4a7b5..8ed82bb 100644
---- a/drivers/net/ethernet/intel/igb/igb_xsk.c
-+++ b/drivers/net/ethernet/intel/igb/igb_xsk.c
-@@ -148,7 +148,12 @@ static int igb_xsk_pool_disable(struct igb_adapter *adapter, u16 qid)
- 		return -EINVAL;
+ drivers/net/ethernet/intel/igb/igb_main.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+index 6196d7a..72eeaf3 100644
+--- a/drivers/net/ethernet/intel/igb/igb_main.c
++++ b/drivers/net/ethernet/intel/igb/igb_main.c
+@@ -3654,7 +3654,11 @@ static int igb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
  
- 	rx_ring = adapter->rx_ring[qid];
--	if_running = netif_running(adapter->netdev) && igb_xdp_is_enabled(adapter);
-+	/* The stack can know more queues than the device has, e.g. after a
-+	 * fallback to fewer queues on resume: skip the rings it doesn't have.
+ 	dev_pm_set_driver_flags(&pdev->dev, DPM_FLAG_NO_DIRECT_COMPLETE);
+ 
+-	pm_runtime_put_noidle(&pdev->dev);
++	/* A device that can't wake up wouldn't notice the link coming back
++	 * while runtime suspended
 +	 */
-+	if_running = netif_running(adapter->netdev) &&
-+		     igb_xdp_is_enabled(adapter) &&
-+		     qid < adapter->num_rx_queues;
- 	if (if_running)
- 		igb_txrx_ring_disable(adapter, qid);
++	if (pci_dev_run_wake(pdev))
++		pm_runtime_put_noidle(&pdev->dev);
+ 	return 0;
  
+ err_register:
+@@ -3876,7 +3880,8 @@ static void igb_remove(struct pci_dev *pdev)
+ 	struct igb_adapter *adapter = netdev_priv(netdev);
+ 	struct e1000_hw *hw = &adapter->hw;
+ 
+-	pm_runtime_get_noresume(&pdev->dev);
++	if (pci_dev_run_wake(pdev))
++		pm_runtime_get_noresume(&pdev->dev);
+ #ifdef CONFIG_IGB_HWMON
+ 	igb_sysfs_exit(adapter);
+ #endif
 -- 
 2.56.1
 
