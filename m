@@ -1,59 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795116807;
-	b=xNxz1kdAVsZQXK123b//L9EuZISbxslRCJ2QN0HJXD4kG6aQVsc4XLdjI6AsVKCS/dol
-	 T++a8Bni9WZCHEXMmpgJH6T/HACOnuOg4U3LaFbwSRDBG5QLa7bXNkDZtLLH/I9ZTFFIy
-	 3rTmJM96ZSdqYefPf11KWs/5lckzK+KTQg6DzgJYH4lCqbWvamaFuKLhMwJ4hy8z0jXkq
-	 hv9IcG36nRtB676zZvV3pnuF94VqdPnc8V4B4Mx1tl7cn2x8CW9F1S2mA9i+GLK84xvZq
-	 bD6swIKxmSJQJe0HEbFTJ1N6i4JKgmIXDgIaVMx1qIEFJb/diBAt3fIss3uqO/xSfnQ==
+	t=1795117781;
+	b=0GiG7OPEfSHqP/IMHxx3oPHP7Y7qkUrOnbmoaPlT8Gnk0IK+xTtOaS9bgH12WphovvVF
+	 2i7kU9cEIEq/4Q2PoAVYiOz9dVSeiXiDHPP5rQaeE0IGUyxT0qFp9+WBELNt8/yqCG9M6
+	 LPoT+68vSvHHvdW76+UlBJwMrXQvmnlUwGt+Y8vecrziq89LKu2OSrGuQoblzcEBMRsk4
+	 nD5efxndBqMW1AjT5QQtHLFPLzdc0IqKEWc84jvYMc1OFekEWdca9gLZt1Lp++lag/KRD
+	 czdSOcKG/uhhJSmqClMCWPCUOhXQatVU0SpABYIy9f+bYi2a5Wewn71TvqQgcDJiXbg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795116807;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=PWJMTYSDW6iAsrTqVmB1Qlvs30ErsSN50koeWjTGSHw=;
-	b=2dL6uiamvg2Z9MRW6hTIX6KGzEFi/6QPc4qPPHLDxzcEOXf4edHRQqeiPTwS3QSlpDfC
-	 cP1QWToBVb9KF60S0liwJKuJPvz/90v+8b6i3HXPcSIsSRYDHzNJSX5P6/zCuQUXTwI0w
-	 leg8L5hvjrjoAjQD2LgmeezICNmqZO1IxW2Lk3aPZr2hV/TCfPwqgYDXet+V7NNFuaT6f
-	 wAPsy/VhdIQf6mMCyHFiVN2pqrmRaF5ik03RuB3EVCaDKAmQ3HImQd6O4/IkS1ckU4tFX
-	 9UT8RVzdHLHqKYN2blNpXRBN3I5jKZrqEre5oC0yDhN1i+f9zIC1XihyCoZx5KJORqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795117781;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:Reply-To:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=M/cTVLWcrP6wdweYhfAlqnzE5SnDU1HjoH6S98HjutE=;
+	b=dlTno0OeZ/KPh9MKx/PMNltCXoFgBvT1n6ufxA4U1EVjK9dydscq3J7Thrt/6eAubv2j
+	 eQ/WlMX1QhNK/cBD2Ja3KS71GeQgl7fxvxwSml8e/VitjgwSWiODCVEVxwlpEMsBae7sv
+	 FKQM9ijJLi+CNDAchvQBsQDdmUgUJQV8UdgwtlBGYjxUSahoLcwErNdouAoylETEtEgol
+	 IoCur98VYWKUZ9PwF0cO0nBIZNi7E2PI42ymnzlLMbVWd2aec1oFA5TG374hjjbZLCm7R
+	 v4qLk+cIccQ3QEVxz+9DyJF5Swwt0n7OS8yYjm2cc7hpEP5tKSkL5bZheDg4X19DCdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMbOZnZA;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=minyard.net;
+	spf=pass smtp.mailfrom=minyard.net;
+	dkim=pass header.d=minyard.net header.i=@minyard.net header.a=rsa-sha256 header.s=google header.b=b8Xyyhnk;
+	arc=none smtp.remote-ip=209.85.210.49
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6352F606A324;
-	Thu, 19 Nov 2026 19:33:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55E38606A326
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 19:49:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55E38606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=minyard.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=minyard.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jMbOZnZA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13C531F000C6;
-	Thu, 19 Nov 2026 19:33:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795116807;
-	bh=PWJMTYSDW6iAsrTqVmB1Qlvs30ErsSN50koeWjTGSHw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=jMbOZnZA8j4robSgY6UyfOJcpZdRYUZ3spw9ZtNR6lt3NqIPu7/4myaHxXzZ9Hvss
-	 uVJFX8XXVocA4XEn1+0TuAoQJJPRFBQNGIrWHYEwqCWEMhyWPGle9UTNwmXDmyOEtQ
-	 9JSwE0tk2mO/sYdAPWhDras1nnNN7jdFQqH6t+RR7C5XI7SJlYvbDDoYuJkA25K4kk
-	 5GaRj6XWg7cQ+c/aQ7tNv/8YyohIH9AtXsxSgSdjdD/mzeUq5vQNjXjhxfUN7MgkM4
-	 4QONZxAhnJ6Yb/P7yqnl1a0NAAK6jObYhIk4z/kFlbxH9eUNkuqHcj/OOzpxkmDlxD
-	 f+LRLD1/Q7mZw==
-From: Mark Brown <broonie@kernel.org>
-To: Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Orson Zhai <orsonzhai@gmail.com>, Lee Jones <lee@kernel.org>, 
- Weibin Liu <liuwb@xiaopeng.com>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- linux-spi@vger.kernel.org, Chunyan Zhang <zhang.lyra@gmail.com>, 
- mfd@lists.linux.dev, Guanglei Zhu <zhugl3@xiaopeng.com>, 
- Sashiko <sashiko-bot@kernel.org>
-In-Reply-To: <20261026153253.689525-1-liuwb@xiaopeng.com>
-References: <20261026153253.689525-1-liuwb@xiaopeng.com>
-Subject: Re: (subset) [PATCH v3 0/2] mfd/spi: sprd: fix ADI transfer length
- handling
-Message-Id: <179510519992.116416.10027054295285849555.b4-ty@b4>
-Date: Thu, 19 Nov 2026 16:19:59 +0000
+	dkim=pass (2048-bit key) header.d=minyard.net header.i=@minyard.net header.a=rsa-sha256 header.s=google header.b=b8Xyyhnk
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-86298f9267fso107286a34.0
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:49:40 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=minyard.net; s=google; t=1795117779; x=1795722579; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:reply-to:message-id:subject:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=M/cTVLWcrP6wdweYhfAlqnzE5SnDU1HjoH6S98HjutE=;
+        b=b8XyyhnkF8vi61fWIpOmo3vBz4Kk8ItXPFhW6M2e/n8qgsypfAy0yobR9uEm5ASzes
+         eK9RMwlZhMLX+Az0w7NGKDQ0er+lJK9OGmE0Iuzmo6pjaF7KykNqaEthTVt6tj0cDKSz
+         mcG0K37URVUGtETIwLzvsv0fBs9yIRobm+NsGRVMJZxxAYhouKOlV1k5Hx4x73le4V9l
+         uayhtXfnqswddPlLcevqOqia8X4IPRiPQyBiFuKKg17kNRs3g265qcyXEc9Q0wl2xpbW
+         9bJEKVMWyfaIpU2/3j9f4mefcwoXWtypgwQ+D5JJcx2twv3gPjrWnjEFut0wlBFZczcW
+         R/Qw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795117779; x=1795722579;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M/cTVLWcrP6wdweYhfAlqnzE5SnDU1HjoH6S98HjutE=;
+        b=yn+KtyzQBTNb/oOT6cmyY64cAmFGubXaH+r05iGrzzVeDvoxNWk2KIr9I/F97vJoyN
+         EjLslH9+wcx+Z4htRLF5FMCMl7cp1VsKIy1WMysrFwqNQurazbsPFMHOAW1ikHvd/1R/
+         sjahwyj3L6MiT8CbPTS2N/r3JpFsB1K5zXSn9R1IJMh2dUC4fuOcAFBnzCudnGnO4c06
+         OW4BPbvXfHsGaX0mr6KcEgt7RRPLPBuSRB+HrrjfvowZKNezVtbfEvnHpYZeghYlibp+
+         MiYggLd8pdke3mGDOyglgxPnJW6OhmmZbxSqzFIdmR1M1sL1Ze52/eIFVMYegHsvRlOW
+         zz6w==
+X-Forwarded-Encrypted: i=1; AL+hErEnvnu2nRE9tYoVIumcBeiasEw7c0ecgjDmMcWpL9yDTRmoKM3swWszeVAOmlJ3gILFaSQ+5lY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8yIZPohIMxxgIkxSZine+2DxtMsqSbaOBRXeiC5BhxS/bM1EvF
+	qRZYWNj9KVfSENc26WwoQ8dTRgd/iTzhXmCt1yWVgpqPmK9OtV9iZ5G+uil4J0SLJAI=
+X-Gm-Gg: AYBFou31urbmF5JW8TkJeNAOwYRpZyX/72uIeRcthyJ+aRalSIpGexExj3srPI71f/d
+	2Hv2+RhzGpFHAcMsp+ebhRXWAM+C5fLTdf/WYT+mTIQ1C4DjSlRq2xPz1rQkxxx3ERyxZxuV0xJ
+	I56LmPeq6Dr/gMSYiBJ+UzdGS6D3BlB66k2qdqtWAvz/Hzy8sHDL+Xs04JtASYwpqsUQCumYkr5
+	8eJJUhelOnDGsy0A3l9sNd4JBguKEVbElgNudqJ1YaUu5pGfiLyvSXangN3z69WEktSo9DJxn3k
+	KtswVAcSMOyyR1eS+/IcIuxe3/gbviawsQc4j2W38sYwtIikC65w2657TzkF/nT1zO9PsrZW3Zc
+	CNqCUS5GCq8Sr4u5UdR+s5adiIQ9mpzRcdOpB65q8lGlbUGXWC/b6gI+n3wgV+EbfDQpoEuotZI
+	4KYMZAkSZhlrzBWW1twIgM7LgF9s8TX0c1b1ywlo0Lfn7TdYjSriXWbv+3GWBnLSo5GwJV9LFw7
+	1YUhFq86r6zG4c8akibduuMIBOxbTNFYu4AIBXQ245JDoHdumhYNxvbtKl+y0lI3zszEq3Asa2z
+	QYVLG5iO6IF8l3e2b53sU5ztHFTzveGlSZa8gMrA1joU9hlCChUX4C3XuUO6AN37qstZTWrkGi3
+	ndlRIaKV9rkI9YLNuOLwTrgTQMKgndxzbOLKqdZeMvhmu3/lA
+X-Received: by 2002:a05:6830:6412:b0:862:a901:21fe with SMTP id 46e09a7af769-86315a0bc57mr1315957a34.29.1795117779142;
+        Thu, 19 Nov 2026 11:49:39 -0800 (PST)
+Received: from mail.minyard.net ([2001:470:b8f6:1b:c1ac:4946:698e:41d])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-863168dd6e7sm468800a34.12.2026.11.19.11.49.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 19 Nov 2026 11:49:38 -0800 (PST)
+Date: Thu, 19 Nov 2026 13:49:34 -0600
+From: Corey Minyard <corey@minyard.net>
+To: Deepak Gudiseva <deepakgudiseva@nexthop.ai>
+Cc: openipmi-developer@lists.sourceforge.net, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] ipmi:ssif: Stop the thread before shutting down the
+ timers
+Message-ID: <av9SzjAnkoPaqYea@mail.minyard.net>
+Reply-To: corey@minyard.net
+References: <20261119-ipmi-add-smi-races-v1-1-3b8b3648c512@nexthop.ai>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,54 +99,90 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1324; i=broonie@kernel.org;
- h=from:subject:message-id; bh=iDO03AS99K8NiTkPwHwoUiyjlCJKa8PanZB+Y4CFVDM=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLL++zNvVJnZu8Fg6lvRC7XTLpbfEPe7/Vji/dl3Sq+Cx
- SU7hc/ydZSyMIhxMciKKbLEZXG/rC95vYbv4MI2mDmsTCBDGLg4BWAiK/MZGa5XhM/+cut3VqSQ
- L39a5RrmU2FMRyKu/D+ww2G/7I7UhIcM/wtrWF4fn6r25dq+2UZWm78+v9Z5zPP9VNmLty+qlxu
- K8XMCAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261119-ipmi-add-smi-races-v1-1-3b8b3648c512@nexthop.ai>
 
-On Mon, 26 Oct 2026 23:32:51 +0800, Weibin Liu wrote:
-> mfd/spi: sprd: fix ADI transfer length handling
+On Thu, Nov 19, 2026 at 06:53:39PM +0000, Deepak Gudiseva wrote:
+> shutdown_ssif() deletes retry_timer and watch_timer and only then stops
+> the kssif thread. The wait at the start of shutdown_ssif() only waits
+> for ssif_state to become SSIF_IDLE, but a normal message is sent in
+> SSIF_IDLE with curr_msg set (see IS_SSIF_IDLE()), so the thread may
+> still be sending one. If that write fails, msg_written_handler() arms
+> retry_timer again after timer_delete_sync() has returned. The caller
+> then frees ssif_info with the timer pending, and the timer fires on
+> freed memory.
+
+Yeah, I see the problem.  Thanks for the detailed description.
+
+This is queued for next release.
+
+-corey
+
 > 
-> Thanks to Sashiko for reviewing v2.
+> We hit this on a kernel without commit 88f65f903d25 ("ipmi:ssif:
+> Improve detecting during probing"), with a BMC that NAKs every SSIF
+> request: registration failed and the interface was shut down while a
+> request was still being retried. When the freed slot had been reused,
+> call_timer_fn() jumped to whatever was then in timer->function:
 > 
-> v3 only rate-limits the two new invalid-length error messages in
-> patch 2. The exact transfer length checks and the SC27xx caller fix
-> are unchanged.
+>   kernel tried to execute NX-protected page - exploit attempt? (uid: 0)
+>   BUG: unable to handle page fault for address: ffff888101f30900
+>   RIP: 0010:0xffff888101f30900
+>   Call Trace:
+>    <IRQ>
+>    call_timer_fn+0x24/0xf0
+>    __run_timers+0x197/0x200
 > 
-> [...]
-
-Applied to
-
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.5
-
-Thanks!
-
-[2/2] spi: sprd-adi: enforce the exact transfer length
-      https://git.kernel.org/broonie/spi/c/ac867057db66
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
-
+> Since that commit the probe gives up on such a BMC. On current mainline
+> this needs a BMC that stops answering after the probe, for example
+> while it resets, and an unbind or unload of ipmi_ssif while a request
+> to it is being retried.
+> 
+> Checking ->stopping before that mod_timer(), as the other retry_timer
+> users do, would not close the window: shutdown_ssif() can set ->stopping
+> and delete the timer between the check and the mod_timer(). Stop the
+> thread first, then shut the timers down with timer_shutdown_sync(), so
+> that nothing can arm them again.
+> 
+> Fixes: 00bb7e763ec9 ("ipmi:ssif: Add a timer between request retries")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Deepak Gudiseva <deepakgudiseva@nexthop.ai>
+> ---
+> Not reproduced on mainline; the trace is from an older kernel, where
+> the fix was tested on hardware. Mainline is build-tested (W=1) only.
+> 
+> If this does not apply to older stable trees, I can send backports.
+> ---
+>  drivers/char/ipmi/ipmi_ssif.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/char/ipmi/ipmi_ssif.c b/drivers/char/ipmi/ipmi_ssif.c
+> index 3a11fc4f35..10393aca05 100644
+> --- a/drivers/char/ipmi/ipmi_ssif.c
+> +++ b/drivers/char/ipmi/ipmi_ssif.c
+> @@ -1285,12 +1285,13 @@ static void shutdown_ssif(void *send_info)
+>  		schedule_timeout(1);
+>  
+>  	ssif_info->stopping = true;
+> -	timer_delete_sync(&ssif_info->watch_timer);
+> -	timer_delete_sync(&ssif_info->retry_timer);
+>  	if (ssif_info->thread) {
+>  		kthread_stop(ssif_info->thread);
+>  		ssif_info->thread = NULL;
+>  	}
+> +
+> +	timer_shutdown_sync(&ssif_info->watch_timer);
+> +	timer_shutdown_sync(&ssif_info->retry_timer);
+>  }
+>  
+>  static void ssif_remove(struct i2c_client *client)
+> 
+> ---
+> base-commit: 63fdb511c27afcebce797e3db580b3534ddfa639
+> change-id: 20261118-ipmi-add-smi-races-0b8bce266803
+> 
+> Best regards,
+> --  
+> Deepak Gudiseva <deepakgudiseva@nexthop.ai>
+> 
