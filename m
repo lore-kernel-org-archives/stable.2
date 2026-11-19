@@ -1,78 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795113272;
-	b=yh14kscar+P8L6fISXn/zm8OaI4lSwSKLckGts/+kMtyl1BuOudAmQ9BiUNgD8NuPIG8
-	 eJOHp79/8/YzRTUkHmd1b3dDhZe7As+fZWb9V06RLuzCobjVMIkatKjFs6nAeFp6cynCo
-	 PulI+SJZ2DMfuMtpP5NkuvnpN87/WNbdmCAIv+XLVHGXhXLzripOcFgYCpCXTiZaJHipj
-	 z/2ehTbCP0SX4cTevmMWhweBuCGXcrFzZPPg1E42J69MUZrl7tYlbbPlDMZDY2WjQG7/z
-	 KWLIuViateXP3RJDcWZT0pkHclEFRUalUhWb1lyqD5XXNwELdKNiPqYnNaCx/oDG3Og==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795113272;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9C0R1zG9R3KGeBNZdWacOw6zD9W9DL6aPU4uR+4N8Oc=;
-	b=ZJQy09AI9o35IkYMQ953WEJC0b8V2vEl3kSUjXvsM8LYvI6oghfErzmFPsl6Bd0iL4jo
-	 bIZvNZx5B+hy0ETJU9u9RZUXLp5VoDdKwmvp//ix+EESEg5LNeJDPkKxxdC5CYdfkrB0D
-	 +ARff7fFTD3WcWKvlODyQJBs5v+s0Sdh52SJS6/9a8WkbkG8aqVA2JIJfYtTT4h+KJGEN
-	 l63U2ayS0iyWFszCJLf+zRqPAPLU8Wg10yQy4TcVOvueeH5HCgTeQYfkgGwMsKN5dMJPD
-	 OUGDdmV/9HUUHKOMb6O4+5ySenmO7ZD4G5ArkWmBBT2JWIaqcmoUQyieR9OQrKy4bxw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OeKbqjo1;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF070606A32A;
-	Thu, 19 Nov 2026 18:34:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OeKbqjo1
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795113271;
-	b=XWt8v+6UjnYlLcFwOzmkPdub1Rp/BmP3hVsUo3fSBprL2rs8H2/14Gqg46aBUwcxKA0/
-	 eIOOcbJ7Nc7TjqETK9muR6hNHm2poqaDjTCzBQQgCR1jP4DNI+X9+CCacUBqKB3VOidRk
-	 4SbQh16rRVJGx1HKnXp0lO4h4+233XGqjZhuhRc9Kv18amdkD1IFr4b2RVo1TsG56N/Dp
-	 xKwSLqVD88vXLc2mXjfqB4fniNgUvgGx9Un+PxjrCGisE2fV9lJac6Yuv6ZP1WHJ4+3N9
-	 /XRJU3JRk2PzYD91OtTg1K3lyLGwDseg/GHYhQKCEgUDb7CH5sGuy2Rg5HpeWwPi3OQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795113271;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=9C0R1zG9R3KGeBNZdWacOw6zD9W9DL6aPU4uR+4N8Oc=;
-	b=qd9+Wf3wK+tvjaI1pabwXToEYf67gA8vN3BfPbXbG6L6Oe8Tnel+5KjC5K4TECDd4gol
-	 x3W+S/hf5NdKygqyJzGZb8GDaxS5LZEOVGPYNK0S9vjWvDis4XKTQGrm1gHOED0Uxbe7F
-	 KdKDNOz5gxsxF9j4mu8sPn0x+OcfOgRuNgcZ9cpHSuGhynJG+TQFlCysP5cDNYOiBjopH
-	 oH+Ydp4AXEmBClNgXjINz+V7Mw6SinzuZdz+ti7ipcIyFAYKCn1m/ccsvh6T6mPe+EFMZ
-	 nTdh3YTxa8DXwFmHbuBllDyv84gCop527JxdhotUiX2wZSLgkuc1iiIjcCNhuf6pTpQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795113325;
+	b=L6V8NO6iJQqOYa9qN+v6KJAv48CGuqev9B1zyhne8/iVg/MejrJlY1A4+9ss0UIlef5c
+	 3qOnGd2RQ44FLYWEFhOtd0YKvb9QSrrTNLzfjZ0whlJYi24d6rEbUMj7Xrd5ZzHnkaIv8
+	 OMILClbyKuSrVYq4u8ohmR91h+HvrdOtbl4al+xasmZD0GcJl5T17cVC29iOYw/w0Gsw7
+	 IojHPDGyUlOuxtZsYQ/aJk8a+QhwjBLOXHcg8nnDRB3t6BOzcydDbGIzj1yyMtNySGf1u
+	 e8ewFexSVMtohkUfFRgg9N36sNuA7W60Ln2hhAP8UYOaQqyqO+inGjlaAq11uUEh1Og==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795113325;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=5hBiRR3uvhlqcGyHW7g80rM4DQMM7cCTGVY4OSFhmyo=;
+	b=4QGRp8qacdVHrjk7QpKHIzgPbyExoNFjq6miTr9lRqPBOVxMSe8voCgOlsYTsuSrrPVp
+	 oZ0EJuDfe2GN1ryvKCgP/2hFZbg3xexlalHoRMOVTa459zoB0c1NY+teZuCbcc7dbKtmm
+	 /T84wX33Y6d7CJnnGl2lQ3YuceWRFPZ9SCQ/FheaGRjRCVgDIMqqjvJ+yqNrM04XlU0s1
+	 T3a7KPiu9nAEZtOmDNfucKGf/M6vDh/gkg0pbg9bBfOc7NAm1YyFb19JRmeoZyyKr2JU3
+	 cncYvf8SQUYujLj2NUqXf3I78Ko6aAJvm1wTOstkFHvE9k036v7kkf46n9Gnv+lg2Eg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=mfLkeLyp;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 027571F000C5;
-	Thu, 19 Nov 2026 18:34:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795113271;
-	bh=9C0R1zG9R3KGeBNZdWacOw6zD9W9DL6aPU4uR+4N8Oc=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=OeKbqjo14KQTdhGfXYFzGTia79SIsOV4t2K7Zix/tV3vToEwpNNAsD1eWyI9Ts8Zn
-	 VcJLC7qj8y0IV0DNIf/ZzFTyiFqOVhNQTs68CkvrsP2ACQE/BK6yYQlfMEgB9AkTqt
-	 r+Ak5/PAXPcskaWYLU3ss/lJSL17aPEbJhiHZ6d66XAIiBWmizmMqOO8rK8qdDFVWo
-	 mVQ8SafchbqOdVkE5Qv74UemaQ8kNaXtYpGmmBk3yPx/B3k6AWOgfh1Q8/rjpEXIR3
-	 26zPWKo4FySMSzdAeuzOMFOWdbrvFZrKRHYxhLw9aRDQjD09t55NQOpG07DImvRYWo
-	 lMNdGBkzoj84Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 88EDB4B3C4;
-	Thu, 19 Nov 2026 18:34:30 +0000 (UTC)
-From: Ahmed Abdelfattah via B4 Relay <devnull+me.ahmedabdelfattah.dev@kernel.org>
-Date: Thu, 19 Nov 2026 20:34:29 +0200
-Subject: [PATCH] x86/mce/intel: Skip storm tracking on CPUs without CMCI
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A780606A333;
+	Thu, 19 Nov 2026 18:35:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A780606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=mfLkeLyp
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795113322;
+	bh=PtkjMJxHJnazgCHS2pnc/zi0BG90FbjTzcafaQp3k/g=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=mfLkeLypR+LQoCVSxoXfM7L6HGYOOKdDfv4CkkBaVejLFDifoR4yaSPwg638W/Ftp
+	 MC7VhltkNZPC2Gv6//sMXHz9ziRkLeNYXTsZGW4wnZDD4/lHzNZhUxqCI6OzCiyXeb
+	 lsQ/OejEfa1FhAY6HgNEI6t3+o0kaKwHchWo80qVricLa594YxS33h1pjEgYoF4/+p
+	 wXr6zyM/OKtUTP/NWmvWlZ/A261Z4a7D67XUfitb8F7p+dk24S54a8qlFqVr7P7y5O
+	 5V/X5yxk7JcfAFM0VAix5TwKJfuwseFvPwGOmDmy+uKtnsZ0sqx/EIN81OZ2jaui8a
+	 QVO6xEJ3ebQEA==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 7AEC717E052F;
+	Thu, 19 Nov 2026 19:35:20 +0100 (CET)
+Message-ID: <e323dfe8a9b848833332599d6d5df6d302b5fd20.camel@collabora.com>
+Subject: Re: [PATCH 3/3] media: mediatek: jpeg: cancel job timeout work
+ before m2m release
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Shengzhuo Wei <me@cherr.cc>, Mirela Rabulea <mirela.rabulea@nxp.com>, 
+ Mauro Carvalho Chehab	 <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer	 <s.hauer@pengutronix.de>, Pengutronix Kernel Team
+ <kernel@pengutronix.de>,  Fabio Estevam <festevam@gmail.com>, Hans Verkuil
+ <hverkuil@kernel.org>, Ming Qian <ming.qian@nxp.com>,  Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Ezequiel Garcia	 <ezequiel@vanguardiasur.com.ar>, Bin Liu
+ <bin.liu@mediatek.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>, irui
+ wang <irui.wang@mediatek.com>,  kyrie wu <kyrie.wu@mediatek.com>
+Cc: imx@lists.linux.dev, linux-media@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, stable@vger.kernel.org
+Date: Thu, 19 Nov 2026 13:35:18 -0500
+In-Reply-To: <20260825-media-timeout-work-v1-3-ebfebbeb6c31@cherr.cc>
+References: <20260825-media-timeout-work-v1-0-ebfebbeb6c31@cherr.cc>
+	 <20260825-media-timeout-work-v1-3-ebfebbeb6c31@cherr.cc>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-rr4R+OXCofjTXy4WSX5A"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -82,126 +96,78 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-x86-mce-storm-no-cmci-v1-1-bc593e90abaf@ahmedabdelfattah.dev>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ6CQAxA4auQrm0yJfyIVzEspBSsycyYKRASw
- t0ddfkt3jvAJKkY3IoDkmxqGkMGXQrg5yPMgjpmQ+nKhog63K8Neha0JSaPISJ7VhTnuqGitq2
- 4hty+k0y6/773/m9bh5fw8p3BeX4AXuIeqHkAAAA=
-X-Change-ID: 20261119-x86-mce-storm-no-cmci-e009b41774c5
-To: Tony Luck <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>
-Cc: linux-edac@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795113270; l=4058;
- i=me@ahmedabdelfattah.dev; s=20261106; h=from:subject:message-id;
- bh=+IGv9ts+tUHChssTiMksbwVuf1yvkKjDV1B4cog6MXU=;
- b=tvOaJa26EnpVx7ufzXx/144eaBj0/zWiKkd2RXNYvphoyQrC99jznM5mQq7eL2EofhemWNUb+
- IuUVEU2vbY1BVLsAQms74aipDi3B6BN5zWSE7b/sbMa2c8E4oGocn8u
-X-Developer-Key: i=me@ahmedabdelfattah.dev; a=ed25519;
- pk=DHEHKU4PddrkJ/iYMZpwyyXsFyIQ6ySjTttKLrt9YqI=
-X-Endpoint-Received: by B4 Relay for me@ahmedabdelfattah.dev/20261106 with
- auth_id=1438
-X-Original-From: Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
-Reply-To: me@ahmedabdelfattah.dev
+
+--=-rr4R+OXCofjTXy4WSX5A
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi,
+
+Le mardi 25 ao=C3=BBt 2026 =C3=A0 03:34 +0800, Shengzhuo Wei a =C3=A9crit=
+=C2=A0:
+> Each job arms jpeg->job_timeout_work, cancelled only by the IRQ
+> completion path. If a job stalls, mtk_jpeg_remove() frees
+> jpeg->m2m_dev via v4l2_m2m_release() with the timeout still pending,
+> and mtk_jpeg_job_timeout_work() then dereferences the freed m2m_dev
+> and the stale ctx it returns -- a use-after-free.
+>=20
+> Drain the work before the m2m device is released. The device-level
+> job_timeout_work was missed by the earlier fix for ctx->jpeg_work.
+>=20
+> Fixes: 5fb1c2361e56 ("mtk-jpegenc: add jpeg encode worker interface")
+> Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interfac=
+e")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+> Assisted-by: GLM:5.3
+> ---
+>  drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> index d147ec48308110ae8520662e182dc0445447d8d0..f0fe14e83d515f5011cbfe051=
+abbf565568013d0 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> @@ -1405,6 +1405,7 @@ static void mtk_jpeg_remove(struct platform_device =
+*pdev)
+> =20
+>  =09pm_runtime_disable(&pdev->dev);
+>  =09video_unregister_device(jpeg->vdev);
+> +=09cancel_delayed_work_sync(&jpeg->job_timeout_work);
+
+A similar fix was made by Fan We, instead of doing it in remove, it actuall=
+y
+sync on the delayed work in stop streaming:
+
+https://lore.kernel.org/lkml/20260623103031.3051-1-fanwu01@zju.edu.cn/
+
+This way, whatever gets added in the timeout later won't possibly outlive t=
+he
+instance. Might be just extra cautious for this specific driver, but I'd ra=
+ther
+fix it once, then having this fixed again later.
+
+In some ways, your Sashiko review tends to verbosely lean toward this.
+
+Nicolas
+
+>  =09v4l2_m2m_release(jpeg->m2m_dev);
+>  =09v4l2_device_unregister(&jpeg->v4l2_dev);
+>  }
+
+--=-rr4R+OXCofjTXy4WSX5A
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
-From: Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
+-----BEGIN PGP SIGNATURE-----
 
-On an Intel CPU without CMCI (MCG_CAP[10] clear) the MCE timer polls
-every bank, and machine_check_poll() hands each of them to
-mce_track_storm(). That skips a bank only when its poll_only flag is
-set, and only cmci_claim_bank() sets the flag, which never runs when
-cmci_supported() is false.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav9BZgAKCRDZQZRRKWBy
+9GVlAQCOGnpSOIJSn4V/Ho12zuZ5598wym0rXnC1VlAS9AoqvQEAsOTBEYfjI0RJ
+PU17Ybkq4kAlomadhU0ku0C5hgSy+g4=
+=Kc9h
+-----END PGP SIGNATURE-----
 
-So a bank that has a corrected error on five polls in a row is taken
-for a CMCI storm, and then:
-
- - mce_intel_handle_storm() reads and writes IA32_MCi_CTL2, which does
-   not exist without CMCI, and both accesses fault ("unchecked MSR
-   access error: RDMSR from 0x289" and "WRMSR to 0x289").
-
- - When the storm subsides, cmci_storm_end() clears the bank's bit in
-   mce_poll_banks. On a CPU with CMCI this hands the bank back to the
-   interrupt. Without CMCI nothing sets the bit again, so the CPU never
-   polls that bank again and later errors in it are not reported.
-
-KVM guests run into this easily, as QEMU does not offer CMCI.
-
-Mark every bank poll_only when CMCI is not supported. Clear the flag
-in cmci_claim_bank() when CMCI does get enabled on a bank, so that it
-stays right if CMCI is switched on through sysfs after booting with
-mce=no_cmci.
-
-Fixes: 1f68ce2a0272 ("x86/mce: Handle Intel threshold interrupt storms")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
----
-This showed up in a KVM guest on QEMU, whose vCPUs don't set
-MCG_CAP.CMCI_P: five corrected errors in one bank on successive polls
-are enough to start a "CMCI storm".
-
-Tested on v7.4-rc3+ (4405c18c95d2) in that guest, with check_interval
-set to 1 s and corrected errors injected into bank 9 through QEMU's
-monitor. Without the patch the fifth error logs "CPU0 BANK9 CMCI storm
-detected" and two unchecked MSR access errors, a read and a write of
-0x289. After the storm ends, CPU 0 polls with a mask of
-0xfffffffffffffdff, and a sixth error in bank 9 is never logged; it is
-still in MC9_STATUS after three polls. With the patch there is no
-storm and no MSR error, the mask stays at all ones and the sixth error
-is logged by the next poll.
-
-I also ran the CMCI side of the same tests with a QEMU carrying a local
-patch that sets CMCI_P and delivers CMCI to the vCPUs: a storm on a
-CMCI bank is still detected and ends after 30 quiet polls, and
-thresholds, cmci_disabled, check_interval and CPU offline/online behave
-the same with and without the patch.
-
-The reset in cmci_claim_bank() is for booting with mce=no_cmci and then
-writing 0 to cmci_disabled. I could not exercise it: that write sets
-MCi_CTL2.EN on every bank, but APIC_LVTCMCI is only programmed in
-intel_init_cmci() at boot, so it stays masked, no CMCI arrives, and the
-claimed banks are not polled either. That looks like a separate
-problem, which this patch does not change.
----
- arch/x86/kernel/cpu/mce/intel.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/arch/x86/kernel/cpu/mce/intel.c b/arch/x86/kernel/cpu/mce/intel.c
-index 4655223ba560..556fb70b9918 100644
---- a/arch/x86/kernel/cpu/mce/intel.c
-+++ b/arch/x86/kernel/cpu/mce/intel.c
-@@ -244,6 +244,7 @@ static void cmci_claim_bank(int bank, u64 val, int bios_zero_thresh, int *bios_w
- 
- 	/* This CPU successfully set the enable bit. */
- 	set_bit(bank, (void *)this_cpu_ptr(&mce_banks_owned));
-+	storm->banks[bank].poll_only = false;
- 
- 	if ((val & MCI_CTL2_CMCI_THRESHOLD_MASK) == CMCI_STORM_THRESHOLD) {
- 		pr_notice("CPU%d BANK%d CMCI inherited storm\n", smp_processor_id(), bank);
-@@ -407,6 +408,13 @@ void intel_init_cmci(void)
- 	int banks;
- 
- 	if (!cmci_supported(&banks)) {
-+		struct mca_storm_desc *storm = this_cpu_ptr(&storm_desc);
-+		int i;
-+
-+		/* Without CMCI there is no storm to mitigate. */
-+		for (i = 0; i < MAX_NR_BANKS; i++)
-+			storm->banks[i].poll_only = true;
-+
- 		mc_poll_banks = cmci_mc_poll_banks;
- 		return;
- 	}
-
----
-base-commit: 4405c18c95d2d0f99f6c581ef0ee8591a1aa6ccd
-change-id: 20261119-x86-mce-storm-no-cmci-e009b41774c5
-
-Best regards,
---  
-Ahmed Abdelfattah <me@ahmedabdelfattah.dev>
-
-
+--=-rr4R+OXCofjTXy4WSX5A--
