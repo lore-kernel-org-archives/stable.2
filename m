@@ -1,98 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.41
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795069200;
-	b=gEG4J8t9FDra9NsU9H19YM3tU222AP1XpqKqZHLLB1zUwA6Yv+ECD8qNmZyI/qPlAbZ2
-	 qMZz4IoNOOr62g2X1c/UmOB0euFfipnS4LUMbQNw47/hmbZTVdDL3H9gp1bFoclKky8kt
-	 n0SUOrrvINTZ9ytx98bZZInHA+9MXg70Waah2f8StqjDq0KqL6oblLnsdGcEvfgqkFSYM
-	 SwtDKaLUUDELkIAMHTtTo6WLFs5b7qTVyOJXKFi4PJvKx4GFMdbTOWxqTFQpTtJo4sOXV
-	 l/0g+r2xdIZCtlsBxYAk87900F5K7K4SeZSjcdofvqiurPGo+yghPbuA9TN7UVOCGVw==
+	t=1795069208;
+	b=C3iG7+RcChREMRUGa9O9AvD91AhdFHW2X/EM3P+Y++rm9KA9yBAzdrNKHDt0xSs1N2rn
+	 tByGzYH0uaBMuom9XbzHneNPMNSz4zG+A8FkBB+WiHGOxDRyp1ZquUML5xTrGg4X2I5ga
+	 Woqb7+U2bj1Ff24nJeClQuMq0jZhYL0I6bxcx6OdNY4QVWZSe5hCBguDWXR6td2Etjcjx
+	 2Dz6Sbm/HTm/QLaEpqQt8KEu0hwJKd7fjRVHx8Wyp61Wnm85HKeedoS3mZWNOVIGmL0zH
+	 61JRITdfETWYSL1kvmwg4LIg5nfw7+BS4admPNXkFh44Z5ovZpaDs4YM7/oL3pvBZUg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795069200;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type;
-	bh=xoCndVwrvCSfCd0BaHKCqL9ELaacWGRyWSDCytAWBDI=;
-	b=ZWTDGb4eb7IcRbFZJY9HBRxmnFIucrKbf6pYIGJnHAyNE4HI6tLV0wd+Lv86ooVCpDKL
-	 4zZxRu+FfeM8jB6gN3GA6nMy9k5xsoDcX0wiFivzrmFkbfLWX0cO2SszC93tIjd9QcmAD
-	 SlqXfEH6zOUXNMgam+luNsPM4X2ziSNBVPd1FYCmipNu8O7S2vtb2+L6S/JJaAj6UBIwK
-	 iWHmiGsEPs5Vb8cgb5bGiGfvBvHX5+Czz/FAkgyfTUvnqwK7QY85legZgcRKVRwWeJ38b
-	 Lnx3ht7R0pW7jt+Mah/CgcKyODiOJN83CesZzbCmhp9wRjGxiKpFgnHtR79Rs3yM7uA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795069208;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=z59izcFqmV87WVb5c9g9cMWduIXw60LHpxtAQlDqhc4=;
+	b=PHjfivIOJTuA6qlOIeP7i+uFo6vPranFADYsuAgTe21h8cNR1u7cyKloon57L+2je2T4
+	 FGx3oGwryv+OxLCk3/mYmwPs3S359jcQlfRvWRsNXEWd240dLQvvTRmTo2R8/R8fokiFI
+	 r55ZRs4VxkPG1s60ABiE2hRzWIsOmJxZg43rxpQpXb9nJRP6+5wr9tPIZnkO4U0jMUSPC
+	 SdqDMQvwUYv+CIL/kMIXKiorJ6OiiUIt0cy/zEH8qXrYKFdODhaDlmrRh7zZ2DSmZIsja
+	 7L+sejbjAdFB/RXFyeiwJniUyNfGbo2Lh2DGcPMDcNpWksnISnmhK+5YFseGRwf7s4Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UT7r6HIM;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.41
-Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com [209.85.219.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nqk91pTM;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0960606A32C;
+	Thu, 19 Nov 2026 06:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nqk91pTM
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795069208;
+	b=cWzz+UYdUY1p2lOskyegZVHVL/DSIcps9zLGsJmwkKEE8cy1M6ro/hEZn6agGwyU1duM
+	 guyaHJ87dRUgI/8taY4ONUm9vcedr8r3Om8GVTIuqwTYJTPeqeB9op/rMnTeIAmZQo3b7
+	 J3/VQ7GWQ3KnrXeRiAVjt58znHJgP5Qp37cXMXTUEr2+rHRc9HaG+Aecn1EE51E7PKLsp
+	 iXp2g7Dvbqp4St4KMuL0hQxlgPfXLB5VudedIfNjkc1YsJVGvYJhETfnwAChbffdKsmGk
+	 VsYBvCAeUXjXsXElb6uXWDig5tJNzmRqHVd6gYQCRi6xMWlSJyGxJ7RgGavlg7iCUgw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795069208;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=z59izcFqmV87WVb5c9g9cMWduIXw60LHpxtAQlDqhc4=;
+	b=a4kvX/drJG9KyMCK5EjC1CuxdOd3y46URgUt+llnlVW4Qm9/sBAjGGnuGsB3WtKJYXW4
+	 oXFLpoutYkgpsdnhOl9w3unQfGoKLzurVvWq1AN9tglIqGjv4G7jDLtvfrAAFyaTI2ASG
+	 xFJQL8m79l1WXsM/ZnqGnsWgqZ/zAvhm6A6uL43gsPaOUtHC+3LYMBdrrYt0n2NxROmZx
+	 0bigbvl2mgHM2EOQY6+qRsMlJri9Q9aNikmrin9j+g7zBDfS/9BcZUpb3herVOEmEb0ho
+	 FYMQgB+w+gGzxDKVNcUvu+yHdtKMQ+I2FqDYeesan4cvbpS/8KqAoGD6p4ku2GBSJHA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AB5606A320
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 06:19:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12AB5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UT7r6HIM
-Received: by mail-qv1-f41.google.com with SMTP id 6a1803df08f44-9212dac247aso755266d6.1
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 22:19:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795069199; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GFD9QnY0gAk/jgw01N1TS6jWtSgR+aCEBVck58VRkUQUbGUhUnhNB9Rg6hlfxScbX3
-         tEmk8sSq9le/RxlssTuvIG6mtaHdoR19oyXePwFeyD69WEWZocvj4aqKAR4dZ0mouBct
-         PzRqqN3QCfQCJsIV7OOW9ttMGZTpYu5Eu69lBhfjrKzsyG7h0jucyuiSxMFRzLRcQlAZ
-         s3qRRNLex9M/JXFTchtIUOL8wndGbAbQ6+bCMiy5UMI2L2gqqiULwr82ZjBfrpLG8Tq+
-         +8FB1ZbYUip2lYFql8+0LHd9s9UyxhNKD8hpZl+A9huG9s3MNZRpXwrEno+9YFRXfZ2o
-         /pMw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=xoCndVwrvCSfCd0BaHKCqL9ELaacWGRyWSDCytAWBDI=;
-        fh=doG9+8O0Hg1Y4xQ4XjYNx49rTNCOX5bZawSPjAuqGKY=;
-        b=WaSocDodZbk1kaY7PLf/GT3U6axoPMDv/Rov94kYbcwF02s1aJPHy3CJlCJFli5p+C
-         H6pazSA1zB58AHMjcW5KV+WtKw/7nvcwrvcOTTkZvDjL/yFRf0FCYOYRbh15VukkAPSY
-         f1WMGF/dPXFdhcz2ViBHRzTUtdcR8SWqAbKwLWqTL32U1OmB1nwqRdm6kiQmH8z9ZMRY
-         FAPojXc78FeTgGMwxKX+xHnA8CAHvs4pHiaMbbBLutNSqw8CVVFVKEmsmxjQb/eSeTCF
-         U1RIjceAPv+jqy63XVbAj5ojNKwiW9Z9K2SXbny2parXuELGNlBuvcaLK6L9f7DTr8lc
-         IaFw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795069199; x=1795673999; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xoCndVwrvCSfCd0BaHKCqL9ELaacWGRyWSDCytAWBDI=;
-        b=UT7r6HIMP8x6DmYZaQezLkvtfE9jNe8QAZNjoZ+BDLGzqxB4OhFh83dq2c2fciCrs0
-         7fuwCWV8wQqIvxi9O3MUE0IR/oZMWHzvUTGYfc1aN+Z//8i+lhbV8PKSw89euW0ZQk+H
-         8q5pGCTpngISoL3G/Cb+omZLqqhIVPdvAFuv6b2+g7FV5AWky6L+uVa71XJbPqKri9I1
-         dZXoe+f8xzF4CDQJKfgEocHcqWxhEpQOfdD3u1P1GtLbiAv6i41ol3ck/rANGAfP9rnU
-         Gug2I0Kyk+h0n1UkYk86LPFEZ1RNs0GugUbSr7SGaIIAhH6643rg0QYLZACAQp2am9Bp
-         BvdA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795069199; x=1795673999;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xoCndVwrvCSfCd0BaHKCqL9ELaacWGRyWSDCytAWBDI=;
-        b=LwXe4H7ARSGxc7+Ywg418z3RAEQqF6FloaEZ6jcgEVFjfpy/nG4991phYJJsqmv9rL
-         OPuHtjpGOoXeVPJINSMiYuTK0GIrdRUXspATPLnQpq1YWUKbAYZ6ix/qQ5nxqjdUEj49
-         eUSh/moflRwLL2tcHt6H2Xkh4mWpIpoz/1RiBOqWj7E1y3BEzk7aCGPzTAWs4VZSUWjV
-         CmUmOSmfmD8XECo+pgC3AFGZVjAa/4K81TtnIar59UosHqDeELsB1zSS/eMGMB7pSaxW
-         Zhvnw5l4Qih4AgmXUVSwD3X0xOxojAO/TbZqueLKV19j6A4FnhWJEdoBzO6Tck3gvfC6
-         UN5A==
-X-Forwarded-Encrypted: i=1; AL+hErEV33gaJ4WVot/2H6IK/ssvVoWkQX+VSpFmbd9V5Hb/sLAEBlY3fKqPf18GHcwGNQUpNIYRDfA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/W17jYpSHTsGuRK/BH8hr1tgmDITACt28jJKI2Xvk7QjluLgsW
-	X5ppKneG88JPOOh5jIhK6c8bpaLwK5xCevavt8/johLdmhvBt2Ko2Ql8h+9nHwbjOm20iCY5MHi
-	zlhHyYuPe91WNTfbc0tPT5V+0miac8K0=
-X-Gm-Gg: AZFdTZdcfEhs0CN1MsmfrUiQ/c6RXrBFeMUxTznjmFJfQ6FRQ63+x4pobrqxztXSxmo
-	bgL11lxy6IxQXsFugCXBtuQ0edtq562xqk9TltYX7a+tokVu3tLv3VtuO9ssdTj5AhJ6SH8T4Wy
-	6xmfhksgj+rEFFPxfVtEGm5dRPZCBTdRoA9RRRR8g/n41Mm3b7wBvhvks3d4rOmLtFWtEfWRxCl
-	R7NQyqKQ3FR7AZ9i1lG8yk0AKgYxFsHpfNRrKCXMgxq3H/WTzW0f3Sd0NSpUDS6PyxLi2jJg7D/
-	nm+NC938E7MyJED3jeZyBwRjEwmkLg73hLZHQ1AxERAUQ+wx2f4zTT72fjKHggb8Owwi21/ykPK
-	7VTiYzznf6NHBGrwTzdP//Fs/pZDYl6EEEDrKYJJMGAxdrlrXxPgbubdxhgqKEKjiKMLXN3aiX1
-	k1mqbb39XnKsILJrLpuw==
-X-Received: by 2002:a05:6214:21e3:b0:91c:7a3f:f548 with SMTP id
- 6a1803df08f44-92114f7d496mr80145356d6.49.1795069198906; Wed, 18 Nov 2026
- 22:19:58 -0800 (PST)
+	by smtp.kernel.org (Postfix) with ESMTPS id D0A3D1F000CA;
+	Thu, 19 Nov 2026 06:20:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795069208;
+	bh=z59izcFqmV87WVb5c9g9cMWduIXw60LHpxtAQlDqhc4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=Nqk91pTMLB1F2yBqJVfN2nNZws3FwKm63iBewfKaqNMAHpTNnHyFjO2ubsp7qZghI
+	 RhM7VwnzmtkRnGtMo5iC++PpMQcXVw3qGM0gRzfnXmm6trUrFtjPhJkFnO+RdXr5L5
+	 +bHll+Z7aIUJDCHlS0953//R73aFFdQHHPGNSfJl/OVGB0fh7C0U0gPP7YUpzx9TNw
+	 k851fuj2iLbUCOimHYmwnXavuSQ5YgcTkEVNJ1VB5CnqVgmEBODcJSjdP7ihsPQvYT
+	 U/QWHipsLfSTRs8OnZ3KaNp8t5GDSR+fr+WS6Kt3gVMueZHkT70TWjn/0OkNSEvTEa
+	 yZaYzqK2ezIsQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 5EADB4B134;
+	Thu, 19 Nov 2026 06:20:07 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Thu, 19 Nov 2026 06:20:08 +0000
+Subject: [PATCH 2/2] media: verisilicon: Reset the VDPU2 decoder after an
+ error
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,82 +83,106 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: =?UTF-8?B?5qKT5bed5ZKy5aSq?= <inkxiao12@gmail.com>
-Date: Thu, 19 Nov 2026 01:19:46 -0500
-X-Gm-Features: Aa3M54oxphJvWdfM-fUHq_7nMxHgG-ail465DDEoF5yzwUuPEfq0cOpWCDpLL0o
-Message-ID: <CAMcAce-4z6mGO70Bb32quoTj0aRmVERxPKCfb2VpY_w3wHjaRQ@mail.gmail.com>
-Subject: [PATCH bpf 1/3] bpf: Replace DECLARE_EVENT_CLASS names in raw_tp_null_args[]
-To: bpf@vger.kernel.org
-Cc: Trond Myklebust <trondmy@kernel.org>, anna@kernel.org, linux-nfs@vger.kernel.org, 
-	steffen.klassert@secunet.com, herbert@gondor.apana.org.au, ast@kernel.org, 
-	daniel@iogearbox.net, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261119-vdpu2-errreset-v1-2-f8fa403b6a3a@gmail.com>
+References: <20261119-vdpu2-errreset-v1-0-f8fa403b6a3a@gmail.com>
+In-Reply-To: <20261119-vdpu2-errreset-v1-0-f8fa403b6a3a@gmail.com>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Jonas Karlman <jonas@kwiboo.se>, 
+ Boris Brezillon <boris.brezillon@collabora.com>, 
+ Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795069206; l=2516;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=sjdfbb38xSnpl2qcZS+zDoOlunwHqKwXDRUV5q2wqsU=;
+ b=WqxcSouqA+T7MzDgKzey3DPKmJA8dW53kZv4m7HQO81sYEsEG+IJCli/vrtWW45S9MVoiAsd6
+ VTWS9aKvOQrA9Hchq40aPRHhC6X+5r+aY/2O3OnU+sNYNNkNS62RQ7Z
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Reply-To: aiyengar1990@gmail.com
+Content-Transfer-Encoding: 7bit
 
-btf_ctx_access() strips the "btf_trace_" prefix from attach_btf_id
-and matches tname with strcmp(tname, raw_tp_null_args[i].func). Because
-each attachable tracepoint typedef corresponds to a DEFINE_EVENT() name
-rather than its DECLARE_EVENT_CLASS() template, three existing entries
-in raw_tp_null_args[] never match any program:
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-  1. "nfs4_inode_callback_event" and "nfs4_inode_stateid_callback_event"
-     are DECLARE_EVENT_CLASS templates in fs/nfs/nfs4trace.h whose
-     DEFINE_EVENT instances are nfs4_cb_getattr (:1455) and
-     nfs4_cb_recall (:1518). fs/nfs/callback_proc.c:50,106 pass literal
-     NULL for arg 2 (const struct inode *inode), and TP_fast_assign
-     (:1424, :1481) checks !IS_ERR_OR_NULL(inode). Keeping 0x200
-     (0x2ULL << (2 * 4)) sets ptr_err_raw_tp = true so btf_ctx_access()
-     assigns SCALAR_VALUE to ctx[2], rejecting any pointer dereference
-     even under if (inode) and matching existing raw_tp_null_args[]
-     0x2-nibble convention (0x300 yields the identical SCALAR_VALUE).
+After a stream or bus error the decoder can still access the buffers of
+the failed picture. On RK3588 these accesses hit buffers userspace had
+already freed: IOMMU page faults, an IOMMU that can no longer stall and
+corrupted output for the next job.
 
-  2. "iptfs_ingress_postq_event" is the DECLARE_EVENT_CLASS template in
-     net/xfrm/trace_iptfs.h:108 whose DEFINE_EVENT instances (:130-148)
-     are iptfs_first_dequeue, iptfs_first_fragmenting,
-     iptfs_first_final_fragment, and iptfs_first_toobig.
-     net/xfrm/xfrm_iptfs.c:2025 and :2051 pass literal NULL for arg 3
-     (struct iphdr *iph), requiring mask 0x1000 (PTR_MAYBE_NULL).
+Soft-reset the decoder on every error interrupt, as the vendor driver
+does, and wait for the reset to complete.
 
-Replace these dead template names with their DEFINE_EVENT tracepoints.
-Verified in QEMU on x86_64 7.4.0-rc3 (iptfs_first_{fragmenting,
-final_fragment} and nfs4_cb_{getattr,recall} flip from LOADED to
-REJECTED) and 6.12.118 (nfs4_cb_{getattr,recall} flip from LOADED to
-REJECTED; iptfs_first_* absent in 6.12).
-
-Fixes: c83e2d970bae ("bpf: Add tracepoints with null-able arguments")
-Cc: stable@vger.kernel.org # 6.12+ (nfs4_cb_*)
-Signed-off-by: BoBppy <inkxiao12@gmail.com>
+Fixes: 879dee56a40c ("media: rockchip/vpu: Add MPEG2 decoding support to RK3399")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- kernel/bpf/btf.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ .../media/platform/verisilicon/rockchip_vpu_hw.c    | 21 +++++++++++++++++++--
+ 1 file changed, 19 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
-index 7e866bf..0044156 100644
---- a/kernel/bpf/btf.c
-+++ b/kernel/bpf/btf.c
-@@ -7403,8 +7403,8 @@ static const struct bpf_raw_tp_null_args
-raw_tp_null_args[] = {
-  /* nfs4 */
-  { "nfs4_setup_sequence", 0x1 },
-  { "pnfs_update_layout", 0x10000 },
-- { "nfs4_inode_callback_event", 0x200 },
-- { "nfs4_inode_stateid_callback_event", 0x200 },
-+ { "nfs4_cb_getattr", 0x200 },
-+ { "nfs4_cb_recall", 0x200 },
-  /* nfs from pnfs_layout_event */
-  { "pnfs_mds_fallback_pg_init_read", 0x10000 },
-  { "pnfs_mds_fallback_pg_init_write", 0x10000 },
-@@ -7441,8 +7441,11 @@ static const struct bpf_raw_tp_null_args
-raw_tp_null_args[] = {
-  { "btree_path_free", 0x100 },
-  /* hfi1_tx */
-  { "hfi1_sdma_progress", 0x1000 },
-- /* iptfs */
-- { "iptfs_ingress_postq_event", 0x1000 },
-+ /* iptfs from iptfs_ingress_postq_event */
-+ { "iptfs_first_dequeue", 0x1000 },
-+ { "iptfs_first_fragmenting", 0x1000 },
-+ { "iptfs_first_final_fragment", 0x1000 },
-+ { "iptfs_first_toobig", 0x1000 },
-  /* neigh */
-  { "neigh_update", 0x10 },
-  /* snd_firewire_lib */
+diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+index 4bc1bdb41c70..01cd449f3ab2 100644
+--- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
++++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+@@ -7,6 +7,7 @@
+  */
+ 
+ #include <linux/clk.h>
++#include <linux/iopoll.h>
+ 
+ #include "hantro.h"
+ #include "hantro_jpeg.h"
+@@ -384,6 +385,21 @@ static irqreturn_t rockchip_vpu1_vepu_irq(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
++/*
++ * After an error the decoder can still have bus accesses of the failed
++ * picture in flight; reset it before its buffers go back to userspace.
++ */
++static void rockchip_vpu2_dec_soft_reset(struct hantro_dev *vpu)
++{
++	u32 val;
++
++	vdpu_write(vpu, 0, VDPU_REG_EN_FLAGS);
++	vdpu_write(vpu, 1, VDPU_REG_SOFT_RESET);
++	if (read_poll_timeout_atomic(vdpu_read, val, !val, 0, 5, false, vpu,
++				     VDPU_REG_SOFT_RESET))
++		dev_warn_ratelimited(vpu->dev, "decoder soft reset timed out\n");
++}
++
+ static irqreturn_t rockchip_vpu2_vdpu_irq(int irq, void *dev_id)
+ {
+ 	struct hantro_dev *vpu = dev_id;
+@@ -396,6 +412,8 @@ static irqreturn_t rockchip_vpu2_vdpu_irq(int irq, void *dev_id)
+ 
+ 	vdpu_write(vpu, 0, VDPU_REG_INTERRUPT);
+ 	vdpu_write(vpu, 0, VDPU_REG_AXI_CTRL);
++	if (state != VB2_BUF_STATE_DONE)
++		rockchip_vpu2_dec_soft_reset(vpu);
+ 
+ 	hantro_irq_done(vpu, state);
+ 
+@@ -482,8 +500,7 @@ static void rockchip_vpu2_dec_reset(struct hantro_ctx *ctx)
+ 	struct hantro_dev *vpu = ctx->dev;
+ 
+ 	vdpu_write(vpu, VDPU_REG_INTERRUPT_DEC_IRQ_DIS, VDPU_REG_INTERRUPT);
+-	vdpu_write(vpu, 0, VDPU_REG_EN_FLAGS);
+-	vdpu_write(vpu, 1, VDPU_REG_SOFT_RESET);
++	rockchip_vpu2_dec_soft_reset(vpu);
+ }
+ 
+ static void rockchip_vpu2_enc_reset(struct hantro_ctx *ctx)
+
+-- 
+2.55.0
+
+
