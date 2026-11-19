@@ -1,92 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795088304;
-	b=PIOeUomkpugJHIWFjbxq/V5p8wd5VCeXYB+EEbfX8clbyvR4vT3P0ipjcUq7xV8vySVn
-	 nJXUzVALTFqm/hC6uLfotegd0U94iStmNxZJZ3gUZHRJjJBf41tzB0ZJfwwYl0g2Mvr1x
-	 D5hiSZ2L3RlOr3ZKeodXzg6/MWqlRCThXvjekT5dRw0OW7vfydc0tjWOe+iqbrWRvEnGX
-	 9UOOX87SpZoi7eFCXfWuyik9wfxK0lYPPru1LFYjdcsbqbNC9nYp8PKrdWEZNluVdyVZN
-	 qI4oOCYX8zdsf3Awg+G4DC19bnxymkh8D3OGOxHm+6yBsPI7TNgkN2nm4suiHuKNvGg==
+	t=1795088717;
+	b=wo+ue4a3tpESK1Lmb7UYmUT6geDnMrjLxTElFdfamOd0qrNiJXgLp151CwZ/vbAE80+R
+	 kMhV1Qh0Klpp5FkMvb1JATXya7loRccLtLPUBlQNHWnxywJthbPE1xHbS/PN2gTi9rs5o
+	 srLI/MAtNUHV0pyaBX3RFnEdjAgdQF2kF0T+XGrcZgp97ejuwhbp4/rWmyYyVwmzUh9sY
+	 qlowaSaMyJnQWynrpmPHCiwk6IOLcjEL/9n+z+GAyAXIsTn8Wj7IYvvzStOhOHm7bO2FM
+	 2Yo6PurzgP57elllTZEe3O+99KtyxLVMfsGqb6YVv6sgr+EbnRFIXkTmg7hQzJYViJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795088304;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=BwG6pO180ts3EsXk8dPvrXRrI1JUEETTIVLE0jahKVc=;
-	b=3lky5ajcIjq0lztowg49jgDxQN2Nak5CTZ3RFVVbJCAxLnfu6mkLnLD7CVvdwFurJpX0
-	 3ox4XVf62tphPMaBe4QaoQ+gVcGeo7b8MuTsxKwg/r1HDI88wlAiHZibuvtaxOKl3OoY+
-	 BYmKm/ged21iE2DJSyp9/3JsxmQrwZd84sikQdk5xzbqRvApcV1wcx/gATwMD0rlzuGk8
-	 WuEPtXSODYLqkrLfSCxhiJoh/EPgh+31IgFOunw6cIUqwS1Dv86QHaKhK2vWrxHZMgUH0
-	 fS1Kwg4kK5lROdCdNQ7Qyl5tcwhJCTxqnEd4b8/PO3k2aLmV8kERNqFX+fkbI4eL6tw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795088717;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=zh6vGIi1cn8nLgq25z2IUTb+iqyzGxr2ajVOKqOgZe8=;
+	b=3rKhqRfbD63F5oOBRT7bwOGfcU56rWaKvvhW1UnjbaN22H4lPg/y0rreE1pegU6YX/CP
+	 Vp74tYGNJKsp66AGNgNXCsxJdQuKq+4p2x/tKo9Sb2TRSt2BU9f4K8f7kNvLhwkG/Cjxg
+	 HHUKYjurEgc6GyeE0i0QyCgcSfH7cnGCxTAjIBQWi1WLlPXzk5Jg4AO12E0irOs+yP/9G
+	 WTbitpi0KXha27Rqy5JtjpL0vbMUsUmD99Ysi5qV7ixMCttf/X4A4nINvGOyuW9yJc8aZ
+	 mNH0pfvmcq3A/oud5ypuGRgq6jhjDRy4+77IstE2bxB6ud++zb9pqWzUKi6rGWlHQ4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1l7Upd4u;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dxxFflYH;
+	arc=none smtp.remote-ip=192.198.163.15
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E66606A324;
-	Thu, 19 Nov 2026 11:38:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C5E66606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEBD8606A326;
+	Thu, 19 Nov 2026 11:45:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEBD8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1l7Upd4u
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 6DDAB1A170C;
-	Thu, 19 Nov 2026 11:38:22 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3AE7E60237;
-	Thu, 19 Nov 2026 11:38:22 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4409411BC1249;
-	Thu, 19 Nov 2026 12:38:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795088296; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=BwG6pO180ts3EsXk8dPvrXRrI1JUEETTIVLE0jahKVc=;
-	b=1l7Upd4uTZdbbbvfHSuMTHUhvapkpfFGqkwgtq7Fn6XGui7RzpF++cOrWUJLq5hs+RTtKi
-	DIBLjOIpJ2KpU0aumygE6CBmMVJ21lCP5/ur7i1672TBxmHOBkk9coN917WZ/dGlBLBDIe
-	2Xbys0dC3kMrFUyOipQg8sIqz2XQzDaw5Dt+htEBYweJQ4w3Enl3Msf2MUNPZzYoABmtAG
-	F4nQiCERIut8IPSfoN+E+XD82HkeSPSmf7RiJLzV84IvkKF+G8iq80TfkzBH166U561hpq
-	23qojzjxRpovEOTdataKYcH5eUedT9kb3+PHF6w+7fazvuHSYFz6MD2e1Jo3Cg==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Kalle Niemi <kaleposti@gmail.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: linux-omap@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	driver-core@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Sashiko <sashiko-bot@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dxxFflYH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795088717; x=1826624717;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=1/6LAGJBHClDVL9Ne1gNjU6JeFi1vntvqEaI95GEOnw=;
+  b=dxxFflYHWAF95QLXuq40OTAXnPQnSfnEsw3xLyDCuUQyXrSMCK0aoUlJ
+   1pRW6lmYSERmjLAvp6JdXTZ5CO+A+XvP9ISszmapcpXGe4M4FI2swWbzK
+   1ytqSTlnQvZRxaAAhXO7/u+mCa07AQxvnp+vfsDWpQlBZ5ptGEIPJBE8b
+   XEm0zTId7XDg8P8OlAHOyudEGtcvEYFtp1cpA/H/LT5eanWHY8VlodwN4
+   eWUlUD81iKETsYxCIkJ0+TPh/+exhz+omOeuMLgqaPxtTwh2AbWZsaOR8
+   3bT2FAT1emDSw4hXdiQqEhP4529JK8HhcoDPJJPPnKpAyomzCQicQPP/2
+   w==;
+X-CSE-ConnectionGUID: 3j7rxseLQ7eD14bwzOmjGw==
+X-CSE-MsgGUID: Ro8HuDY7QFOcXvn13j3UJg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3941594"
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="3941594"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 03:45:16 -0800
+X-CSE-ConnectionGUID: 3X2QGbLZQP2DRfHaJ8mRSA==
+X-CSE-MsgGUID: zzEqJzeIRxS+sBDMZOVVtg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="10225399"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.61])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 03:45:13 -0800
+Date: Thu, 19 Nov 2026 13:45:11 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: silverducks@altlinux.org
+Cc: linux-gpio@vger.kernel.org, Mika Westerberg <westeri@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v11 1/5] bus: simple-pm-bus: Avoid inconsistencies between probe() and remove()
-Date: Thu, 19 Nov 2026 12:37:52 +0100
-Message-ID: <20261119113758.603074-2-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261119113758.603074-1-herve.codina@bootlin.com>
-References: <20261119113758.603074-1-herve.codina@bootlin.com>
+Subject: Re: [PATCH] gpiolib: acpi: Add ignore_wake quirk for Gigabyte B650
+ GAMING X AX
+Message-ID: <av7hR1X9HC2QSJYs@ashevche-desk.local>
+References: <20261119083813.390337-1-silverducks@altlinux.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,74 +81,41 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261119083813.390337-1-silverducks@altlinux.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-At probe(), operations done depends on device_has_driver_override().
+On Thu, Nov 19, 2026 at 11:38:13AM +0300, silverducks@altlinux.org wrote:
 
-At remove() a call to device_has_driver_override() is also present to
-identify operations that need to be done in order to revert operations
-previously done at probe().
+Thanks for the report and fix!
 
-Nothing prevents device_has_driver_override() to return a different
-value when called at probe() and when called at remove(). Indeed, a user
-can set driver_override (or clear it) after the probe() call and before
-the remove() call.
+> The firmware's _AEI table on the Gigabyte B650 GAMING X AX declares AMD
+> GPIO pin 3 as GpioInt(Edge, ActiveLow, ExclusiveAndWake). gpiolib-acpi
+> requests it as "ACPI:Event" and amd_gpio_irq_set_wake() arms the hardware
+> S3 wake bit for that pin. The firmware then sends the signal a few seconds
+> after entering S3, so the machine resumes on it's own six to ten seconds
+> after suspend.
+> 
+> Pin 3 is the only wake signal the OS can see for the whole GPP7 PCIe
+> domain, and GPP7 has no _PRW, so ignoring this wake flag is the only way to
+> keep S3 reliable on this board. Wake from USB keyboards/mouse and
+> Wake-on-LAN through that domain is lost as a consequence, but I figure S3
+> not working at all is worse. The power button still wakes the machine as
+> normal
 
-In that case, inconsistencies are present between pm_runtime_enable()
-called at probe() and pm_runtime_disable() called at remove().
+> Quirk tested on upstream kernel v7.4-rc2.  Also tested on stable kernel
+> 6.12, which is the version where the issue was originally diagnosed.
 
-In order to ensure that pm_runtime_disable() is called only if
-pm_runtime_enable() has been called at probe(), use the devres version
-of pm_runtime_enable().
+This can be moved to the comment block after '---' line below.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260630105701.7D0471F00A3A@smtp.kernel.org/
-Fixes: 98e96cf80045 ("drivers: bus: simple-pm-bus: Add support for probing simple bus only devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
----
- drivers/bus/simple-pm-bus.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
+> Signed-off-by: silverducks <silverducks@altlinux.org>
 
-diff --git a/drivers/bus/simple-pm-bus.c b/drivers/bus/simple-pm-bus.c
-index c920bd6fbaaf..4322a778e801 100644
---- a/drivers/bus/simple-pm-bus.c
-+++ b/drivers/bus/simple-pm-bus.c
-@@ -29,6 +29,7 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
- 	struct device_node *np = dev->of_node;
- 	const struct of_device_id *match;
- 	struct simple_pm_bus *bus;
-+	int ret;
- 
- 	/*
- 	 * Allow user to use driver_override to bind this driver to a
-@@ -66,7 +67,9 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
- 
- 	dev_dbg(&pdev->dev, "%s\n", __func__);
- 
--	pm_runtime_enable(&pdev->dev);
-+	ret = devm_pm_runtime_enable(&pdev->dev);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed enable pm_runtime\n");
- 
- 	if (np)
- 		of_platform_populate(np, NULL, lookup, &pdev->dev);
-@@ -76,14 +79,7 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
- 
- static void simple_pm_bus_remove(struct platform_device *pdev)
- {
--	const void *data = of_device_get_match_data(&pdev->dev);
--
--	if (device_has_driver_override(&pdev->dev) || data)
--		return;
--
- 	dev_dbg(&pdev->dev, "%s\n", __func__);
--
--	pm_runtime_disable(&pdev->dev);
- }
- 
- static int simple_pm_bus_runtime_suspend(struct device *dev)
+We need a real name.
+
 -- 
-2.56.0
+With Best Regards,
+Andy Shevchenko
+
 
