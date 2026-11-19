@@ -1,98 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.170
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795072777;
-	b=qcoalIMjmjYLN9dKdLn4B81Z6OtE0PDWHO2ESOQjEW6ELLRKMRIKaZunBaR/YtM20yDc
-	 WIW3R13Baf1crfdSAHzAhNkDiic4f5NMpM8hFHvc5D2YQyeSy1YlEzjhzAglQJyRrhJrE
-	 LCEIUM2/zPV7ijC57YCDMqTWQJ6dpQJD2EAomVxF901Zcs43iPnqxOGNAFZ+iWwz3+LpA
-	 vz+p+75S+BRJTtMiUvt8VcAxR+uvuJwQA/cvmNpDqOE4CsKAa+dl+WXmDlh+zwaGjUG6O
-	 +WfjfyLeLjIJVDEVMOdu3VAowvstBkWAuLdFkSowCW/daeeu1xID4PuEHKrmELaWFEQ==
+	t=1795072843;
+	b=2+Pgtj7FHnAuxr4q7OGP+ZgyfSmwPcwN05jQm0a2Oj7+Ebth+O5gZoJAeM5G/cl3PWcv
+	 yLOpAMMtqcBk5gcBMzT45goq2KNnUja6pq0k4322yfbuYR1Gf1FjWKmUIZ9IG5DyoBct3
+	 Oo/5th8rGyOz7tBIh7BfENKgw+sh7B+BKDBzUIr512rTjrxTkTWTSpgipoX566sVu23ih
+	 yXKbsZKEDi4y5Fb1rclq3avZffetECVVKhknTPXA02wlYVtg8wAX+kdxm50Gy3UPg6K68
+	 JLVeV7wfFd9gqAn//8Nv2Zp7rZ45+ziWfMBj3BWN89Y4j48YZTn+Hd/6Lr9npzM1bTw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795072777;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795072843;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
 	 Content-Type;
-	bh=anpfjOBmsHIUC3TQqXl6CPDDEhejvdqvM3KrtY3UP0Q=;
-	b=e5qX3LMz5aKcADUtprpYlN5+6xBGcK0Lm1ebCiMr1v++q2lzlJjVFRjG+eJWyQdkEeri
-	 t5yudgJmWiiz4uD7NqAdUk5IBuUn5kUQkzho22xPPj1j5rLHGC/Nvb0jbPvdhvwvKh8yj
-	 4rsyiIotcfhHt8mlacabN9tXg0ewoxuR6IhZ7LF6TnK8k84sSxE9IRj6QMlPCzhdZe2bf
-	 Dt6Q7AcDUkldop4z0L+JPPhjtFbBhvw8Be2YwUnL8WO1zpZqd3/0yAjqrGUnt+QsddpRc
-	 U6VqLEHb7RgVs7F5y8QQJF9twdC4rRdv9IuaKVnI1zN9mB9ZbtyV9Gdy89eDSvI2h1Q==
+	bh=3lF3ame2k0Qlq5DDaiC3kZk755RYfgn7652S/tZaZ34=;
+	b=2BVbI+WTC91sUL+jIgcvQ2DLEtiQWOAIIYnu44ft/osX7UnxCRo5KuH/rT+N8BTI+3Lv
+	 smSRjbZmS53kBUetiDTVY6HbrYL6Urh819R4b/hysAY0lng4R18uuN3X/1SwANkFENBV8
+	 2fXvKqVlGlUW9Z/6r06eDvwWSRClYb0qRgo7O/ZbGVKwpSiUkssJAzXiQl+qxc5ISmklG
+	 z6l3ZFNq+zsDQkPjwEX7vnWYkF3UtgOkq5RG+YeaE7nbyT26vK7MSwrTkM+Z7qiTi+kDY
+	 DDCFx6e0YbZIAoNMxGxeiPqKB1E9CQGLLRSQ2AHlyHxf/eGjShY1IeUJziac+ZhnfJg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ipgbtKzO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.53
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Gf/6VXN6";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.222.170
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8535E60A2601
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:19:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8535E60A2601
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 463B6606A325
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:20:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 463B6606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ipgbtKzO
-Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-91e7af9a67fso12081336d6.2
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 23:19:36 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795072775; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Gf/6VXN6
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-949657a20d7so236084785a.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 23:20:43 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795072842; cv=none;
         d=google.com; s=arc-20260327;
-        b=ZIMC7L9OH/HapS2dhamE3t1uYcCfMxsDlhNbCngZLJPIXINwJq16yRRPOV050Lpzt0
-         iZkTjz4b8hscPBN0dOkQm29r9CuFOOl386JxhKaOStUDsKAumAyTXCmWcMKEieittDfj
-         mSv6fSbTv65vgEXl49RrzqIVrQcqEd++z+b3iZO3qijzcKPa9e2VCKxJTLJNw/UGcvzN
-         SyPMXiAmqCu6YjQuB9zMW2XO3CDoQ2ybAayhx7fWWlS1KtPZI9PTUCF2gQIXqZHbnF81
-         sMnMDu/X8PdtUUJEv7c57FF1lZy/42RV9LX9vCyBgUYgRG49trtbsxeTrmrJ89PhHmRB
-         6n+Q==
+        b=QUeX/jVUQ1m2yG+in1zCN77muBFHtGtX9k/HJMH9JosF5fFb6tN8KOyFePzU34xqHC
+         gxiQoxiAUJv/l7Te2TDp3BQGed7305O3OnAGnZqwamxeEwjXw9gEJpsHp44KsP63ISCY
+         +A4/VdGGyyXaVOFeSq5dQfyiP8825UPF083Ffw3zIQWSCG1RJwHHACD30tFsQ8H7PYxG
+         Setzs1qdQR2NMk1RkmNhIk8SZFAY2gMPF4K/IeDPyFiNKkzgu0yfw1EUhDNs78jIXrQI
+         J2Jx36HDod/bf1xrKtOK2vxeBRZGJMdRVqQrGszL+GFr4fPOqQwHauvW3Q5BpwBuXymE
+         3e4Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=anpfjOBmsHIUC3TQqXl6CPDDEhejvdqvM3KrtY3UP0Q=;
-        fh=wEWh4/e6Ac6Fld+unEmoSWqGOsEZJfYUn4BftsSy46Y=;
-        b=IAq1xmp0uYzuEX8btu128vAyA02rXy0qJW3fQwi/iQBucbh8PR328rrYFZfYzCGQ6G
-         zngxZVpC/qAxmweHZ0tsPeQKilqi8SNPh61xfn73t/9hr9rfDVqN6KiPC11ilk5iLxK2
-         5R2LolqhMlQM7w1UtMUZqwAhxnFWnTKKlEayVzpgobovhJkVekjfU2CZl3y3qlmA4A1m
-         qetiU6sXRveqEjVGEcP/rJV9Tfmiv1QBAv8tF9PfSghmlMKW5Qawc35i/e6zSXx/5Rpf
-         Dfz+mXLPxDor0rvd2xZ7wZuDwjMPD2ytD5ki8ivV6dzYK6ATlm3DAcEYU53XErzt36Wq
-         kmCQ==;
+        bh=3lF3ame2k0Qlq5DDaiC3kZk755RYfgn7652S/tZaZ34=;
+        fh=ZuxoyUMQgX4m+TGJoDtDYDpjE6ye6oHuT9L4IwoS9F8=;
+        b=l3fK2n1EE/rnIAK8nizhPRjNY/X1LW0S6TvhiY25chbCKRhtPOzqgQklH1oNmD8Kdb
+         FisOuSwgM487GRLQApM1gIrC5i8s+hvPybs9WxLaEp403lsuqwZ0jza27lY91+46PI4G
+         Co0tYqNAlvJBcIiD/JZSwDQSgW73U2XkkDdUFx+MGYi02haiwBEudrSqz5a9zPFkpvZS
+         XIDc+YEFcEhPXpvr6EYYqZKE4LAiCfxWZlC0hHyQFv4BM9Yh1cQIa2o5T06KLRc7dAfd
+         h0xlOZt7WacKP9Sss7dILKU5bp5ZOKXdia5KzAaiPPuuObDtKh7IKprUk2z7X3P8iwbd
+         0BUw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795072775; x=1795677575; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1795072842; x=1795677642; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:mime-version:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=anpfjOBmsHIUC3TQqXl6CPDDEhejvdqvM3KrtY3UP0Q=;
-        b=ipgbtKzO47kTqztaxtvQrPaEEJkMqagfg4PklqZem6C5iY8BSrJ1dqhz+10BPSuIoC
-         cSZWcWhzzPX8z6eZGM7m4yZ3Foh0d6BcV3IKA74DloeR4YoLXUDaCrV5zP9Wba+hntww
-         CP5YsvJMuKXaNeue5C3tkzE8PtSLDRxoENoJXzB9nm9wT7N3FS5PD2eXX55BdR7ShxO5
-         dtWLJLhIeZppiht6yOQwd9ySj7byEXFmAJPJYaPsd3/qMm8k/MxhKeI8GNmGaKBHT/Ze
-         kIdRNNEpVwRBA1IvUYjU1u4uAuZnf4puMJwAfuZ+kt+p2wPzHbs5cpPKg/Nmk9Ms5pLH
-         NIxw==
+        bh=3lF3ame2k0Qlq5DDaiC3kZk755RYfgn7652S/tZaZ34=;
+        b=Gf/6VXN6vKTfzF5IRK/PaOVmORNq5ZETohNcqZx/uOl4ChwjAVa8FOfjTrDEmgjZ7Q
+         07IuhTNq3ucjzj/KdUxLJHCl3gGj3aIHrQRd2OU1xoMlCXqFIhbR1UgLIcb7ZKIF7+6V
+         EmDMCSFCXq2d5xEkkQorr25I7QTF1mShKSPYfaVbAsEOVA2n3s66cAGOAnAEm6E0LNQ3
+         DftjKttKMEBya8nsQHm+FuFxEvRt/VYmPPz07Fo7b3fmnFh255l+LJBKHaxonhY8wPgi
+         o4DPJ/y5zHHheyow0GQyqyE0CqdL/TQcKcubv8ngSe084UYz3hTI0ijqfPRYHn85ztyW
+         gKmQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795072775; x=1795677575;
+        d=1e100.net; s=20260707; t=1795072842; x=1795677642;
         h=content-type:cc:to:subject:message-id:date:from:mime-version
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=anpfjOBmsHIUC3TQqXl6CPDDEhejvdqvM3KrtY3UP0Q=;
-        b=Rd0a0FhVEpDv09XFCwgmQTQsSPBbDzhjGdFPIbWiCCe7DX+UanLBbO58Aj7pY4r9RY
-         +l1oUPkGlgLcGQXpLJR9KLNeXae5UMbchnA3OCwDDSzGaaFDapIXlgh+/qMSTOeJ7IWC
-         Zwm2MqMltDNgQda1RLGi/fPdkMZfk57cwe76YMn+J6LpfGFJDCs6SCXfiWHEaJlfY5FP
-         qpBIXkVTiHZ2G/H0X5H0R7/xQ26sszjn8fXpoQUnx5NASIgfEpT1h+F9J1lG0gs0QOsM
-         5wv2Eg+UjmBvK0A7mWV0EJQkMDRrFdkNr34R7kqAee/AFio8RL+Vjz1CTMZwc63Pf2aM
-         litQ==
-X-Forwarded-Encrypted: i=1; AL+hErG3qUHdMM9Mx0MFGO7rkvvflNbl79oCin5Uy+t6ItJan1naOozlWX1DKNDaf/TEEuFMw3+x+Kc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/c4wP16J1+9FatQ0lL69GiqbBOn5ibJoQFIVNX+N2I0Qb5joU9
-	5iQ7OmmI/QHxinhNDfLpDMroS+83PAjth4yN5Ene606Mbq7w2sjwe7b0ofaRHlqLORduYaXF+OA
-	XrM3nnudIbATg7s/U7KYVv3OU0xD+3KE=
-X-Gm-Gg: AZFdTZfd9L7IWMmmrZEcEzQn7ckDV2/9q0vguCbIv5r/VQxBKehBQO8WcyxLID4Sd+s
-	cTNe3vMYoQW79yn2AJ5I6P+MuYSKn9GPmj5lmOTUI4fA1wuqJ6oAfYfpVmN6lePjxd9t2aClQeM
-	HWYqIAK4R2iS0hk1C1gQWQ/LiKK7sMFcI33vxBI1g7oTRFf8T4n9Jm2CwplQ2XhEREabYNBOqNC
-	J6MBC5GiJYIgjLBE5GIhI3OSBYZsrwqr1f/UKeiqyVxQajEZDEbgjDDGYIYf4CxcA+82iuVAhBL
-	dWi84v1DkBdAKVl5Q3jvVfLKNk/dX8i9RHG04SuRKdFOewf3romWYdt9mSB0/2n4Lvnyve2qys4
-	jU0Hyuy0S8+hbxzdGeEbFNviPk/jq9QecmEv8SlGE3vpWIRLay413zOaltjmIXIj7ItXiyldWpe
-	0kLiaKJcp1GBFv1pwJpg==
-X-Received: by 2002:a05:6214:4784:b0:921:1cc7:80c with SMTP id
- 6a1803df08f44-9211cc71c9emr52693146d6.34.1795072775342; Wed, 18 Nov 2026
- 23:19:35 -0800 (PST)
+        bh=3lF3ame2k0Qlq5DDaiC3kZk755RYfgn7652S/tZaZ34=;
+        b=QWoQXFjJ6EJCQ5Lq44ud+uI1W/SfO7aYN0AUo8umy+Ai3VPm8hzhmo3/dLVslCbFGf
+         7M/Xr2Fd1XxTubvAn3mcg15bLXqccwcvlcqrFbnsKPAFC/XtitVS4mxpxqunMiP01rZu
+         eB2TkEs1flvSl7PjJIgpjIYbXnx1hj0W1EEIRhf+A8hsnPpGtnVY5hsVYwpTcEkDmrbP
+         08G3Y/B4nK745oVL8qGWyypnAzQxty4hNbseH2Hi8upcenwsKCZwr/amGH4M8euvNVGv
+         iEEHSKu06KQj+spXz3W0Hx/ZKXmdaF6PtGJZQdXG9c+FQC9t43k67sH9vjrE+mwYPW8F
+         I5CA==
+X-Forwarded-Encrypted: i=1; AL+hErEBSxSQIxgV5un/GALFe8KQtHyzOWB+bOUfWICePdkOy1poTKOsVjiMdO6gZAc6ii5SL+9udHA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z959y9F9Pw0aY+ZBGSQDk+I1ft4llh1HRaF+uoLa4EXQ7YzD4pE
+	g8tAt3ART8+2jB/aU8GVHWZ5Lm+LxYrAZYAus726g1vVjUXaAxY4p/L4peqyyGzFP9N4fLd2bux
+	NAao9T0KkkgIyD0/h+g5lWEAy16NWHUk=
+X-Gm-Gg: AZFdTZcIQFPinYA1V462mDhlBoUGflMxfJ79txfR25wN1GtpszRztTUpiqzbGV87Jjz
+	IEbGg6cbDFTdtluxXzTbbVGm4Z4Fq3muB+fISRwO3wHXH5fbsG+ajYBkEyThTpgLUfJkyfwof1t
+	o8iUck0Uz7bdvx1yRkfSQBK+9MKo7ahRA9MqCrCSdmrNREoPnJIjXa3fxl1Pj7E2no02HBVn1m9
+	4MY4He0mEGOIxlLec6C6yDjdz1KJVEWoRXliIBLtClEnzKDgjZ5AkdwoV+Ei+ReyzsPosyv2CaX
+	0VItwMNzy2aLjfjv7h7wKSoLrpQW+fn1EeIvI+BFxc70CAnbYH66UsIO7w/RQqF/5Oc7KqqUIHa
+	K06T9epDV7ZwdUj0/bKKnFzxqaqVOwv5D/RLspB+fe2/tDx/py2H0OpjVo3aOM0nRJcDeub6yMk
+	4QpZSr4S/W0oyXGKwHvfc=
+X-Received: by 2002:a05:6214:4015:b0:91f:2135:3ade with SMTP id
+ 6a1803df08f44-92114e00a13mr83187596d6.22.1795072842111; Wed, 18 Nov 2026
+ 23:20:42 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,27 +103,32 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 From: Yingke Xiao <inkxiao12@gmail.com>
-Date: Thu, 19 Nov 2026 02:19:24 -0500
-X-Gm-Features: Aa3M54qXFrwgtFLlrgRKJFJJgccYJHjtkJLvYiWNUjzb-GPFdVBg-cmr6Ghvh1E
-Message-ID: <CAMcAce_827HxqEcwcN9Pp9n1J_vRb15qGaKC-U+ERtQgoKn2Ow@mail.gmail.com>
-Subject: [PATCH bpf v2 3/3] bpf: Add missing raw_tp_null_args entries for fs tracepoints
+Date: Thu, 19 Nov 2026 02:20:29 -0500
+X-Gm-Features: Aa3M54q-mZ4P5PGu6GGOD9RruuTh8D4C8_LYaREl-xwIG6PxH9jKICc7mqXhR5w
+Message-ID: <CAMcAce9XkYo7gPHMnmRX5EY2dNYO+ECuUF3RkPLnoGHgh8P7tw@mail.gmail.com>
+Subject: [PATCH bpf v2 2/3] bpf: Fix missing raw_tp_null_args masks for NFS
+ and pNFS
 To: bpf@vger.kernel.org
-Cc: viro@zeniv.linux.org.uk, brauner@kernel.org, linux-fsdevel@vger.kernel.org, 
+Cc: Trond Myklebust <trondmy@kernel.org>, anna@kernel.org, linux-nfs@vger.kernel.org, 
 	ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Multiple VFS and filesystem tracepoints pass NULL pointer arguments
-under valid error or uninitialized conditions:
+Several NFS client and pNFS layout driver tracepoints pass literal NULL
+or conditionally NULL pointers for struct inode, rpc_task, or struct
+pnfs_layout_hdr:
 
-  1. fsnotify_destroy_event (fs/notify/notification.c:82) passes NULL for
-     arg 1 (struct fsnotify_group *group) during queue cleanup.
-  2. vfs_open (fs/open.c:1012) passes NULL for arg 2 (const struct path *path)
-     when opening anonymous files or unnamed sockets.
+  1. nfs4_xdr_badoperation (fs/nfs/nfs4xdr.c:981) passes NULL for arg 2
+     (const struct rpc_task *task) when decoding compound replies outside
+     RPC task context.
+  2. nfs4_set_delegation (fs/nfs/delegation.c:380) passes NULL for arg 1
+     (const struct inode *inode) when stateid refers to an unlinked file.
+  3. pnfs_update_layout (fs/nfs/pnfs.c:1980) passes NULL for arg 4
+     (const struct pnfs_layout_hdr *lo) during first-time allocation.
 
-Add raw_tp_null_args[] entries to enforce null checks on raw tracepoint
-BPF programs attaching to these hooks. Verified on x86_64 7.4.0-rc3 and
-6.12.118 LTS.
+Add mask entries to raw_tp_null_args[] so the verifier marks these
+arguments as PTR_MAYBE_NULL instead of assuming non-null pointers.
+Verified on x86_64 7.4.0-rc3 and 6.12.118 LTS.
 
 Fixes: c83e2d970bae ("bpf: Add tracepoints with null-able arguments")
 Cc: stable@vger.kernel.org # 6.12+
@@ -134,22 +139,23 @@ v1 -> v2:
   - Remove drafting notes.
   - No functional code changes.
 
- kernel/bpf/btf.c | 2 ++
- 1 file changed, 2 insertions(+)
+ kernel/bpf/btf.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
-index c345678..d456789 100644
+index b234567..c345678 100644
 --- a/kernel/bpf/btf.c
 +++ b/kernel/bpf/btf.c
-@@ -6604,6 +6604,8 @@ static const struct bpf_raw_tp_null_args
+@@ -6607,6 +6607,9 @@ static const struct bpf_raw_tp_null_args
 raw_tp_null_args[] = {
-  { "sunrpc_task_run_action", 0x20 },
-  { "bcache_journal_entry_close", 0x20 },
-  { "bch2_journal_entry_close", 0x20 },
-+ { "fsnotify_destroy_event", 0x20 },
-+ { "vfs_open", 0x200 },
   { "fsnotify_bump_event_seq", 0x20 },
   { "nfs4_cb_getattr", 0x200 },
   { "nfs4_cb_recall", 0x200 },
++ { "nfs4_xdr_badoperation", 0x200 },
++ { "nfs4_set_delegation", 0x20 },
++ { "pnfs_update_layout", 0x1000 },
+  { "nilfs2_transaction_entry", 0x4 },
+  { "iptfs_first_dequeue", 0x1000 },
+  { "iptfs_first_fragmenting", 0x1000 },
 -- 
 2.43.0
