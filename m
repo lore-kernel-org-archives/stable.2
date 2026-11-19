@@ -1,58 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795049299;
-	b=2iwMiKznGOWIj/zpuZYoiE63De5+J1FJaRUG2xjbrvRl4xWrrSal13oV5t5id3sgz1UO
-	 Tl+xetevb8CFGDlFscehHifCfEQORd4ULWXpFEYYnkUB89r6kVvBZzfyNjxI8J/7oTS3l
-	 YQSK8CYNkfnfVrQ7ouHe7Gr0vKNP0ZgDlYSYiEgzUoIrTsbzuvzCFWGPdmklGMEPDKTe/
-	 tI4gEN3CajSCj5U5zdP2ybHi9j5yMKG5zQF3Qaa7IuJmWQ0glOTxzBvQAHQIscxvdqgsk
-	 fMXjkYRa8ynLwBE5grB/yCnlZ4TUTUjEyL14fUfGvUVyIMY+B+MtlQgbpMH6bwPF3bA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795049299;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=jdGG5x1L2jvigheGtLL6ZuD97nsN08gJtH546XNweuM=;
-	b=aTTdAWHYJdZhU1liumIt7qjar9PLYL31rofSEsMIWcT1t1+mjU86aL4gX38GaLEOfBc4
-	 nFODyn3C/4JEgAj2OSdv9YhG3B3QHAZYgmP4FMncvfzaCqNpz0RmNvenE1iS176EOAVHw
-	 u3UyHtJQzsRq/UYKtR3eEf/uuwfWm7jeiP785a9JCeRRka6mWNl3ibxb4EXIaBuiA/vg6
-	 XjoZGBDEe4eUXFztA0X8cL1m+AaZgrjZfE/pPAY9qBYOLQWa5XjXdSMJBAjSA+WRwGGJH
-	 BwA96vGl1nuF4oE7Smb7TRhvXCN1zu3WUV2/mAlYFb55/ASrNJBZkAplZMKOJXQGN5Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=boCf9tOf;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795049302;
+	b=hNDB3962G99fHF5mT9aswAwJhKb3dIR7rlaIVvh9LqAWXMi5FnOpUdQSgtKNrmBzDzbl
+	 HL69ArHmWHtv95PCkXskA2UoYTbf+gAD36SDuhEfPLIq+HyUYEzSV+m54QIkPhwjQIiXp
+	 2Fr1f7tXM3FcORxOa8WEnDNRDnmbDuTEkxopZPxOENier66QN+RVs5t57EVzLRG9sqImA
+	 pO8+cFsU8nQXpi6F5jjC6y2rtCfnsxG9ppVake6VXfrqwNcjxG7Og4NF/I7tNmKrfb5Uq
+	 XZMmr611oG2PA6IxCjbbKG/ATLPyHS6q4T5EH/lUESdBVzEC6St6/dorT03vQ/s/zZA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795049302;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=5Xh8yKRlhBfEpQNEhsMcynrEiq1Ep9eqggMSvfIFRus=;
+	b=xS/DoBr+O6UsSuF0MP8ccqNjYw+TJSve7ThaK0BBuryvRFJ5YTtVZE3gklkx5fHo/e+S
+	 d62bz6dNO2NTYAtYv27swd+bboJwgwvkWvS9yqUzVNS8wCRSChmim103QFutl0L/BNYoR
+	 R2GYZECIUO4+wE2pn6yX/sTRFKa6Zbhiyp1I7oHCP4g5gOAvrASKVmgVtiWRpiLQvpVhR
+	 jMJSMgOfqmCbKUkhai48udb0nSSIpBzQbICFqf+JewGYCXLz9tVkg6z5BfxVrhnaqfQb8
+	 CzA5dmkqoL0JUS4i4AcMK8WbMEiQnu7PQ6SSmBX3XCxQHbkCO1RkYTrlIU2pW1C3cJA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gupwqcAW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E1E606A333;
-	Thu, 19 Nov 2026 00:48:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F6C606A33F;
+	Thu, 19 Nov 2026 00:48:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=boCf9tOf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4EBE1F000C4;
-	Thu, 19 Nov 2026 00:48:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795049299;
-	bh=jdGG5x1L2jvigheGtLL6ZuD97nsN08gJtH546XNweuM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=boCf9tOfGXMeb36c3BiRStMJ4yYI7XkwTkxrgmP1LUhqZjfz4xh0uMqW+PhNXZT8y
-	 FpKCJ4FnGO5wOc6Cjg9DKJyVtDaTpJ1z6njBDwJqmoL+tGHs+DlQ1jlIrLfsOtnoS0
-	 qEqD/sbjX4+qad4lIgAXevRaP6ekIC9yKkzmv9oA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Devin Wittmayer <lucid_duck@justthetip.ca>,
-	Felix Fietkau <nbd@nbd.name>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1 2301/2857] wifi: mt76: mt7921: fix lock inversion between dev->mutex and iflist_mtx
-Date: Wed, 18 Nov 2026 15:55:35 +0100
-Message-ID: <20261118150324.333509475@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150201.293410965@linuxfoundation.org>
-References: <20261118150201.293410965@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gupwqcAW
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1795049302;
+	b=zetupSLD8QCv2gM+YTgKRONi4DmoX0edZgXeQah7sgVBvigSbC1+JpDMe7hSkPlBBsCp
+	 4WhkM/Um0V2P/4Df+5atr7NLrSHfPwEpbGDS4eRBB7/MvBmjHy2Is3oR5H2BhwWW2t5t+
+	 PKEDFZsgzqH99Yl2c6Ti++AVyKfCMrejeJX6kXQ31jIzcFEHTlr6KG2L1GiaH4w7hXbG3
+	 nN7w011FrHfX17Lydivu9lIOUJ0RHYq0wOu+8aLSR34vtcBWGyV+4r3jstNURiJd5EMGT
+	 VIiE821vU9X5HpFee9fakvE3oA5pVKfPhexCn2h2TLXoJMbAahcrKjL57RXb1VqXvjg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1795049302;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=5Xh8yKRlhBfEpQNEhsMcynrEiq1Ep9eqggMSvfIFRus=;
+	b=HyFCGVXLiik0vt3odBsW+Kk1pue0INbX4TJAJVXNVEha+kuY6xt5K87dwZ3YLRY5i3b9
+	 s/nAzzLunDPAFS+OEZi9y9gU8zQhhEFeutQPci8lJQQYnrBaY+P1ROI3VkQ3zk3W+8QIv
+	 1cjjfNr9TPktnO6ytEJVgzsvhbKxecJAaWbB/7L9N8XqzUN8qxDU0uEReAFPFjhmHTlpj
+	 G2Im3a93bbq6mxOlcEQE5jCEyiCQeU8Txzt11rOMbKVuP+gQjwN36gykbO2HGXJ1l4HzC
+	 pL5gq0rDDIVevFtTn2lgnlr/qCnTIiaxx23p8PcTSV6stxi0r+wpPvMczH3GCfTxVKQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id AA6631F000C4;
+	Thu, 19 Nov 2026 00:48:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795049302;
+	bh=5Xh8yKRlhBfEpQNEhsMcynrEiq1Ep9eqggMSvfIFRus=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=gupwqcAWgdG4vpYWnZotfPHnC7siDyWnGUbiT/Ptt0Yj4WpkA7/ytlmq1r1gqJi9f
+	 wrRCJXpHHtRmqrX3rldB+jFtBJFIvE6gY9HQgiMXEyLv1ij5FHzQ6Ho2YybUgfA424
+	 j1e2A18z+4FzB713/IJw0o6ADWtBioYapfesJY2kJWdMXM+NHZNq+rpEn+J6JsFHYp
+	 OZHK7EdayteJSUEfhx0sb67rueYqz9A/yQPbpNn20aXhp5QM4FoS4WN6aOCISOOMxi
+	 GQHusZU17TToPuLQL68Gp1uMg3DYlF2ovOGGRzDCnJEfTu4wjD2wtiLfOen7bvqVF/
+	 9UtmikDewnUtg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 0B0454B053;
+	Thu, 19 Nov 2026 00:48:21 +0000 (UTC)
+From: =?utf-8?q?Alexandru_Andrie=C8=99_via_B4_Relay?= <devnull+alex.andries.aa.gmail.com@kernel.org>
+Date: Thu, 19 Nov 2026 01:47:58 +0100
+Subject: [PATCH] drm/msm/dpu: use single DSC encoder when slice_count is 1
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,65 +82,95 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261119-upstream-drm-msm-dpu-dsc-single-slice-v1-v1-1-4744ad5b9747@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNQQrCMBCF4auUWTtgirXWq4iLOBnrSBPDTFOE0
+ rsbdfX4Nv9bwViFDc7NCsqLmLxShds1QA+fRkYJ1dDu26NzbsCSbVb2EYNGjFY3FwxGaJLGidE
+ mIcbFYdf1RL6n4XQgqLmsfJf37+py/dvK7ck0f/uwbR/+4X6DjAAAAA==
+X-Change-ID: 20261119-upstream-drm-msm-dpu-dsc-single-slice-v1-557cca7c984c
+To: Rob Clark <robin.clark@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, 
+ =?utf-8?q?Alexandru_Andrie=C8=99?= <alex.andries.aa@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795049300; l=2415;
+ i=alex.andries.aa@gmail.com; s=20261118; h=from:subject:message-id;
+ bh=f5QJmSYrdCgoJ98DDgeJ718yQzeQFrq5DX9OKNMAinQ=;
+ b=rXC2vTGceRQp0u2V8QoFCw7XfnzFKhnBDOn2ug/aufs/tPdEbAjHloh/v8jz8fV6yqUYOOnsT
+ ZnHYpjgXT73D+qJA46bwgRoo3hvneMu/5Zh6S3+xMEJw2zW2w+qLN80
+X-Developer-Key: i=alex.andries.aa@gmail.com; a=ed25519;
+ pk=kNAqgavfB7uUd1mA8o8TszhGxzyqBwY71PGO/oK4v84=
+X-Endpoint-Received: by B4 Relay for alex.andries.aa@gmail.com/20261118
+ with auth_id=1564
+X-Original-From: =?utf-8?q?Alexandru_Andrie=C8=99?= <alex.andries.aa@gmail.com>
+Reply-To: alex.andries.aa@gmail.com
 Content-Transfer-Encoding: 8bit
 
-6.1-stable review patch.  If anyone has any objections, please let me know.
+From: Alexandru Andrieș <alex.andries.aa@gmail.com>
 
-------------------
+dpu_encoder_update_topology() currently selects 2 DSC encoders whenever
+catalog->dsc_count >= 2, even when the panel only uses a single DSC
+slice (dsc->slice_count == 1).
 
-From: Devin Wittmayer <lucid_duck@justthetip.ca>
+A single slice cannot be split across two DSC encoders: merge mode
+halves the per-encoder input width below slice_width and, on DPU 7.0+,
+computes num_active_slice_per_enc = dsc->slice_count / 2 = 0 in
+dpu_hw_dsc_config_1_2(), dividing by zero in
+_dsc_calc_output_buf_max_addr().
 
-[ Upstream commit 3dcb98c5cb51a70750ae8dc006d6d787ca09f425 ]
+Require dsc->slice_count >= 2 before selecting 2 DSC encoders on a
+single interface so single-slice panels use 1 DSC encoder.
 
-mt7921_config() holds dev->mutex across
-ieee80211_iterate_active_interfaces(), which takes local->iflist_mtx.
-mac80211 uses the opposite order: ieee80211_del_virtual_monitor() holds
-iflist_mtx while calling drv_unassign_vif_chanctx(), and
-mt792x_unassign_vif_chanctx() takes dev->mutex.
-
-Deleting a monitor interface that has a channel assigned reaches the
-second order and lockdep reports the cycle. The driver side of it:
-
-  -> #1 (&local->iflist_mtx){+.+.}-{4:4}:
-         __mutex_lock+0xda/0x1070
-         ieee80211_iterate_interfaces+0x34/0x70 [mac80211]
-         mt7921_config+0xb8/0xe0 [mt7921_common]
-         drv_config+0x63/0x1d0 [mac80211]
-
-.config is only reached through drv_config(), which asserts the wiphy
-mutex, so ieee80211_iterate_active_interfaces_mtx() can be used. It walks
-the same list under the wiphy mutex and never takes iflist_mtx, which
-drops the driver's dev->mutex -> iflist_mtx edge.
-
-Fixes: cbaa0a404f8d ("mt76: mt7921: fix up the monitor mode")
-Link: https://lore.kernel.org/linux-wireless/20260730053916.109426-1-lucid_duck@justthetip.ca/
-Signed-off-by: Devin Wittmayer <lucid_duck@justthetip.ca>
-Link: https://patch.msgid.link/20260810045338.118923-2-lucid_duck@justthetip.ca
-Signed-off-by: Felix Fietkau <nbd@nbd.name>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: b6090ffb30f3 ("drm/msm/dpu: Fall back to a single DSC encoder (1:1:1) on small SoCs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexandru Andrieș <alex.andries.aa@gmail.com>
 ---
- drivers/net/wireless/mediatek/mt76/mt7921/main.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+Testing:
+- Tested on a Xiaomi MIX 4 (SM8350, DPU 7.0) with a 1080x2400@120Hz
+  single-DSI single-slice DSC panel; dual-DSI topologies were not
+  hardware-tested.
 
-diff --git a/drivers/net/wireless/mediatek/mt76/mt7921/main.c b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
-index 2576548957096..9f104c4ec99ea 100644
---- a/drivers/net/wireless/mediatek/mt76/mt7921/main.c
-+++ b/drivers/net/wireless/mediatek/mt76/mt7921/main.c
-@@ -580,9 +580,9 @@ static int mt7921_config(struct ieee80211_hw *hw, u32 changed)
- 	}
- 
- 	if (changed & IEEE80211_CONF_CHANGE_MONITOR) {
--		ieee80211_iterate_active_interfaces(hw,
--						    IEEE80211_IFACE_ITER_RESUME_ALL,
--						    mt7921_sniffer_interface_iter, dev);
-+		ieee80211_iterate_active_interfaces_mtx(hw,
-+							IEEE80211_IFACE_ITER_RESUME_ALL,
-+							mt7921_sniffer_interface_iter, dev);
- 	}
- 
- out:
--- 
-2.53.0
+AI disclosure:
+- Debugged and drafted with assistance from Gemini 4 Carbon
+  (Antigravity), and reviewed and tested on hardware by the submitter.
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+index 0a6be69a3e83..ffccee6b41f1 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_encoder.c
+@@ -680,13 +680,14 @@ void dpu_encoder_update_topology(struct drm_encoder *drm_enc,
+ 		/*
+ 		 * Use 2 DSC encoders, 2 layer mixers and 1 or 2 interfaces
+ 		 * when Display Stream Compression (DSC) is enabled,
+-		 * and when enough DSC blocks are available.
++		 * and when enough DSC blocks and slices are available.
+ 		 * This is power-optimal and can drive up to (including) 4k
+ 		 * screens.
+ 		 */
+ 		WARN(topology->num_intf > 2,
+ 		     "DSC topology cannot support more than 2 interfaces\n");
+-		if (topology->num_intf >= 2 || dpu_kms->catalog->dsc_count >= 2)
++		if (topology->num_intf >= 2 ||
++		    (dpu_kms->catalog->dsc_count >= 2 && dsc->slice_count >= 2))
+ 			topology->num_dsc = 2;
+ 		else
+ 			topology->num_dsc = 1;
+
+---
+base-commit: 97d73c8251226cf27cc6656b4c542869bb8c69fa
+change-id: 20261119-upstream-drm-msm-dpu-dsc-single-slice-v1-557cca7c984c
+
+Best regards,
+--  
+Alexandru Andrieș <alex.andries.aa@gmail.com>
 
 
