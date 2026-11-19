@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795077592;
-	b=swzW4k8cEdWWsFuh/035UkijSV+uiw/ZRdCEJ69X1t/aL2ArOPcseEnfC/LWCEgcFwGz
-	 TLr+9lk+n6vzBqax/aKqYGsCXYF+UMrMPvobd5Vbrs8vmbMSOG3EIw+BPdS3gRr2sCxEf
-	 FczX/vsURpRPi9aoZeiD1jzjorM7wC3VH7vnIBpC5QbQChaJdA/veu5LOmHmBj3MW8N9T
-	 6BlN3c4GgI2BCuHQtIVyXCYDNwd//bgMVaGZx7hEo+cKtGdnmwD7eZFBDwmFhCx/kJgL5
-	 uOHaCQpQr0WjMfcm1rq9QlosZn+93Jd67z+j4N+WQA8I8tOvr2E2iXXUyrXuQ2kV/9g==
+	t=1795077596;
+	b=wDzdhzRxGOqG3a4BLlCEemOz5KYoH78vBElD2dMvuOmkWuBgPlTHOu8e89SaDt42M8On
+	 YPqynb8GyVym7pVZDF0aVR2CAOkrGCqrMYxTf4kZp0CLAo+kcRin7sDaWjK7L0bskAM+q
+	 Qkudglbht9lKjhVt6e4xc2j3+WHvFoRLpanXpfpeSy4BMv2FC9zrCGoBJE0xUpVLdyShm
+	 qAlcUOeTlcekgtfj2l8bz/2+rlu5MGjy/wCAa3gR3VOhCWYTFRiXpV3zOOqdFX1SI41Lw
+	 RcctUFYrzVGxqD3nNy27HyUP7dGekCmcvTQj96zdsn785D3rET8dqTvYEZ4yBaHTcSg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795077592;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795077596;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SmfqLW0njMHVAElbM144ihWRMq91ThFMl9WUWCjIe2o=;
-	b=PhFUTASuk58ryWbcP8h4XtvmaykPBPDd7yAN2YJjt5UQCGC/qdxsA3Puu9ghGV/N2fRh
-	 0kHTHTduT7QVqlSy8u5p4H9HFAyKPqIHHiz93T8+bDkNUnLMkQCU7SVpbcV8hX1Cilky+
-	 a/qEfTR9PVcqKqmFOdzQ5km04W+nED0njpVWFTW4CQ/X7vk9N7HhVWAAOMThEzp5WOcGJ
-	 L7ndtwOAhmWeLg4T92Lc3TlATJ4VUjRQNnIvQTW+DpvXgsNHwKn5CELBrpAGLjant3MEl
-	 M1KPw5OjSS9Bq9mRA0ata6cHx3Qj7VGntymDs23FmmkdnINTJ0NXgm92uzymoU0TrnA==
+	bh=nb33FLiwRdggqM+tRgldLojfC3XMycjwBpBhzpwRiSU=;
+	b=VCQWxK7UE1Z/L1Ra0EdqEguM+/yADyJhuXVYT+xAb9t08Dz9YLM8LPr6gYAz4waxQb8s
+	 U0ikqO9frqLEcOr2dP+H78feKMdlfLepgSa0ucz7/m0VX9WEkZX71rPFEODXH0/CtDE+U
+	 7jsyHf7wajckkbhLR5M1WJY8l4AJRxa9C0Pn7eb20/FcffglYmcZIcuu0ZBrThk3GWUzp
+	 5jpQlZj5+fyRuS6YBwNTR9TWqreNG+TtckuB1dxbouOKyLYwOqRg9gZl4jMlaxZvguX6r
+	 Rgq+MPqwJn/CxcLcSn59Z7nE8VXq2Zse3idnhzq31OQaJxPDd8PVwYPlINqRHDvesOQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JfweLxyz;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aJZSv4kr;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7EA60A381F;
-	Thu, 19 Nov 2026 08:39:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DDC60A6F53;
+	Thu, 19 Nov 2026 08:39:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JfweLxyz
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aJZSv4kr
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795077592;
-	b=EVKJXSu36Wum7zYHcqH9hf2XGL3qE71qDX8SvQNbEi/xffgI+XoBkRtmOoxhx6QUjpl+
-	 8a8/JVQIvuO3Z7yQaJgHJWNkP9eh9VR7R5389ijQU/X98Bf72cWJI6H5iuj2N4ZK1ZCKa
-	 MVUVW+ggkjafDwJuDy2j2PEOLXvc/Wf2gJ+Kfo5o94c/Y593PENhaeSpsdA7scsyxkEUz
-	 La1dj76lbDpltP5bVOt7rnW4nUa/qlrnlAL8j3Q+45FyqwrAGBB+/S+F/wcD7MOr++t76
-	 FXvNPOXB1v8BHAPzO2jf7xg5EIV9vflR6l9705f7E1ie7ZqM4blbfiJ9jVqOyVXWVDg==
+	t=1795077596;
+	b=Pb3fMXXPap2+6U3cegj+6oo2uNzQTvwC+4uTQ/gMSa7tVJJbaLUxFT5HAj/+2XhPMrwO
+	 6zXu+gS0hyhzuWvKcsB8gtFcdNYgoV5OfXfgKCh9kbSHszPNrAMYcuN6dZtoIACW1XU3k
+	 1V4MEQyQcGkPUxvOpPW+IdnhNEGQkNi9XnXxgndn3LnP9DP9u3WjpSvrzq3Etj5SKNz6F
+	 xFNINMmsVop29SqLhVGPtNQc6RhfYcIiB7l8cH8eUZ1O1B8hCVwtgCijLZW7kVumC8eTi
+	 1VtI6h+UExI5KgCAgnM3/0kU6oL8v7LZlgqcxZAxwRwOGUoJlnWFrQ31oJqFuq4G15w==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795077592;
+	c=relaxed/relaxed; t=1795077596;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=SmfqLW0njMHVAElbM144ihWRMq91ThFMl9WUWCjIe2o=;
-	b=gp6oTZoP+3T0t4dTh30lk+MUpYUHusQQeYB+ui16omXE/QFYWVF5koIIPeTvPITBRzSI
-	 cI65MwYacImWveIrjouqBzfV6ay3g0iZpTE/r0eXvLwfHMmPORFdlmrfj0j/nTBqjnFd0
-	 UUtdMHSO8hEOdmmn+ZauXcpO9wOmMu7A1eP5Rjz3ClA/SwT0O4SVPwL4ooyKnjeTA0nY2
-	 6CScFxP0mmV+4APlF2Nj6Gf/w1+BdL4W49B1llLLEc8VwEE6oe9eU4XhlvY4pfmRjqn8v
-	 2UeGCuqruUlpqbpw7hlFwYWPnY86jHMLEXcTHYXG6ppg5WBqAUbMTaXPjSevqdKMNJA==
+	bh=nb33FLiwRdggqM+tRgldLojfC3XMycjwBpBhzpwRiSU=;
+	b=3A8kM9ZIJV92280H/AeRg265T8NhJVQef9bRHP4PQ9ycIAciE35g75P1C7Z5GywktyvK
+	 7eEX6sn6JGan154CQkIzlnIVnk5qwal4Zt/FfWPfh5GAGzKfqwmI+rcMNyKusJd9wDg/+
+	 Gn6oAiA1iVsjSTP/TUOmPlrLEn2OZ50XG1LFfVU6/xY2fU2MtbcUB4bXE0yLHnzG6eGq8
+	 vOzK10pIS07MQ9PCaM3w7DO8xGBSHGUaywn/dxG6oJmodcbnEVwitpnyrp3PqoSYM+R3+
+	 OiA/ptWMUvWtUUD+a8OVYljVQOeLEqMLAVSSYWRJjuqspXQ3BvHBu6QPXcxbSHYnHNQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 27EC21F00923;
-	Thu, 19 Nov 2026 08:39:50 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id B3FB41F0092A;
+	Thu, 19 Nov 2026 08:39:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795077592;
-	bh=SmfqLW0njMHVAElbM144ihWRMq91ThFMl9WUWCjIe2o=;
+	s=k20260515; t=1795077596;
+	bh=nb33FLiwRdggqM+tRgldLojfC3XMycjwBpBhzpwRiSU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=JfweLxyzilzjOd7Be5BdVSf5pRnyDZwGxrhz3AOwBujjjO51LqsguO06MyqSShfSl
-	 9c5aApD4iXHjmBU4IoYFoB+2TVuZpVRU4cEbxu4kHcKtmSpQiPLrShwIKAEoZfwRrS
-	 tFoibXjATWqtyMI/W+/YHEXeOPraxREKm+aHzMc/2IYKKA+hv3NEVmsQYslhm/8edZ
-	 WBJK2XUkP6W/7CbzJO25rCKmtlw+bNxhd3ek9nYWgD8wn2sF1btUeEwAH46t8vJh8f
-	 sVGLYXRu+zEepkp1/p+Szw+cdVhe0Kw5itq1LhzGk3ES5mOnTE5i5R02Pvg59AZbb/
-	 w2Q5DRxn0clnw==
+	b=aJZSv4krsStYFoWhOK9y6LONPayuJ6pO6YMc/vfa+hZCqF20WS1L1Zd0x5G/sn5Dm
+	 DjiXRdyJNsNlC3isv9T1CfPtx9yTX51m1+yiPikcDV1vArai1PH8efpdQsfqzymGT2
+	 hPsRfitYAfZSX3Q4Vxg9/vh+UG+NM2KcyUFcdTxtelD58MwDMGtrstLIkGFxO7X8Jv
+	 YiZGs0eAiqNpTjWgzH93Ta0nJd2Ct+VwGj5ETRMTvSYZWqypoeiej90Hj+Y+WHMA5P
+	 8M32GyCVTZAV4sJi91tLNa0nIjFS6jtAg8jro3qPMJrC/KZZ/5qp5DoVXWJn3dsaiH
+	 38mwL0KgA5TcQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A6A2A4B1B2;
-	Thu, 19 Nov 2026 08:39:49 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 262664B1C6;
+	Thu, 19 Nov 2026 08:39:50 +0000 (UTC)
 From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
-Date: Thu, 19 Nov 2026 16:39:45 +0800
-Subject: [PATCH net v10 04/10] can: dev: add
- close_candev_cancel_restart_sync()
+Date: Thu, 19 Nov 2026 16:39:50 +0800
+Subject: [PATCH net v10 09/10] can: rockchip_canfd: prevent timestamp work
+ from rearming after bus-off
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261119-rockchip-canfd-restart-close-v10-4-df23913aa33a@qq.com>
+Message-Id: <20261119-rockchip-canfd-restart-close-v10-9-df23913aa33a@qq.com>
 References: <20261119-rockchip-canfd-restart-close-v10-0-df23913aa33a@qq.com>
 In-Reply-To: <20261119-rockchip-canfd-restart-close-v10-0-df23913aa33a@qq.com>
 To: Marc Kleine-Budde <mkl@pengutronix.de>, kernel@pengutronix.de, 
@@ -101,11 +101,11 @@ Cc: linux-can@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-doc@vger.kernel.org, Cunhao Lu <1579567540@qq.com>, 
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795077587; l=2569;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795077587; l=4527;
  i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
- bh=Oh0l4Hj6DLFLNs+Pl9fZvvNbgUu+HHvweePhd3Jg4SY=;
- b=5WBUGNaXVNmpaWLzQAv121VnBDVxwVlXxT3h197bb+CBAS67pN/mPp7Lm1ahCljaFErXoOn4J
- 90V6xrVXQ8CCoAeOT5PWG48ZmmYvsXT6DfME37ZArkfbUVmE2Fy4j93
+ bh=fMicjRoi9porUx2jYrhugbQCU5FEXS7CEYjjEugBLtQ=;
+ b=Y2QPBO/LHPCXCMOEjyWwvUcrVNB2PH7ZZ2+2Ywd7fxfc/ekF/3s2Ryx6cwiHiMTsJCR+GQz6q
+ v183FYoSvodBcRTHJzC0G8wOHZbagHc1pJvyG0awd7bVTCV+QnIsYzO
 X-Developer-Key: i=1579567540@qq.com; a=ed25519;
  pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
 X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
@@ -116,77 +116,126 @@ Content-Transfer-Encoding: 7bit
 
 From: Cunhao Lu <1579567540@qq.com>
 
-Drivers may need to wait for bus-off recovery before tearing down the
-IRQ and hardware resources used by their restart callback. Calling
-close_candev() at that point also flushes echo skbs, which belongs after
-the driver has quiesced the users of those buffers.
+The bus-off IRQ cancels timestamp work asynchronously. If the worker
+is already running, it can requeue itself after cancellation and keep
+polling during bus-off, causing unnecessary wakeups and counter reads.
 
-Extract the synchronous cancellation from close_candev() into
-close_candev_cancel_restart_sync(). Drivers can then cancel restart
-work early and call close_candev() after stopping its producers. The
-final close still cancels restart work before flushing echo skbs.
+Use disable_delayed_work() to block requeueing on bus-off. Initialize
+the work disabled and enable it after initializing the timecounter.
 
-Cc: stable@vger.kernel.org # prerequisite for the Rockchip restart/close fix
+Keep the active check and counter read under timestamp_lock so stop
+waits for an in-flight read before the controller is reset. Use the
+active flag to avoid disabling work twice when restart or close follows
+bus-off.
+
+Keep workqueue operations outside timestamp_lock; the IRQ and restart
+paths already serialize start and stop. Synchronous stop waits for the
+callback before reinitialization or clock shutdown.
+
+Fixes: 4e1a18bab124 ("can: rockchip_canfd: add hardware timestamping support")
+Cc: stable@vger.kernel.org
 Signed-off-by: Cunhao Lu <1579567540@qq.com>
 
 ---
-Changes in v6:
-- Describe the helper's use by the following Rockchip fix.
+Changes in v9:
+- Use disable_delayed_work() to block self-requeueing, with balanced
+  enable/disable calls across repeated stops.
+- Move worker requeueing and initial scheduling outside timestamp_lock.
 ---
- drivers/net/can/dev/dev.c |  4 +---
- include/linux/can/dev.h   | 17 +++++++++++++++++
- 2 files changed, 18 insertions(+), 3 deletions(-)
+ .../net/can/rockchip/rockchip_canfd-timestamp.c    | 30 ++++++++++++++++++++--
+ drivers/net/can/rockchip/rockchip_canfd.h          |  3 +++
+ 2 files changed, 31 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/can/dev/dev.c b/drivers/net/can/dev/dev.c
-index a893a49a3381..39271a3ef0fa 100644
---- a/drivers/net/can/dev/dev.c
-+++ b/drivers/net/can/dev/dev.c
-@@ -537,9 +537,7 @@ EXPORT_SYMBOL_GPL(of_can_transceiver);
-  */
- void close_candev(struct net_device *dev)
+diff --git a/drivers/net/can/rockchip/rockchip_canfd-timestamp.c b/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
+index ad582afbbd68..7c7b95343aa8 100644
+--- a/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
++++ b/drivers/net/can/rockchip/rockchip_canfd-timestamp.c
+@@ -30,18 +30,26 @@ static void rkcanfd_timestamp_work(struct work_struct *work)
  {
--	struct can_priv *priv = netdev_priv(dev);
--
--	cancel_delayed_work_sync(&priv->restart_work);
-+	close_candev_cancel_restart_sync(dev);
- 	can_flush_echo_skb(dev);
+ 	const struct delayed_work *delayed_work = to_delayed_work(work);
+ 	struct rkcanfd_priv *priv;
++	unsigned long flags;
+ 
+ 	priv = container_of(delayed_work, struct rkcanfd_priv, timestamp);
+-	timecounter_read(&priv->tc);
++	spin_lock_irqsave(&priv->timestamp_lock, flags);
++	if (priv->timestamp_active)
++		timecounter_read(&priv->tc);
++	spin_unlock_irqrestore(&priv->timestamp_lock, flags);
+ 
+ 	schedule_delayed_work(&priv->timestamp, priv->work_delay_jiffies);
  }
- EXPORT_SYMBOL_GPL(close_candev);
-diff --git a/include/linux/can/dev.h b/include/linux/can/dev.h
-index 346faddee02e..2a286f906394 100644
---- a/include/linux/can/dev.h
-+++ b/include/linux/can/dev.h
-@@ -22,6 +22,7 @@
- #include <linux/can/skb.h>
- #include <linux/ethtool.h>
- #include <linux/netdevice.h>
-+#include <linux/workqueue.h>
  
- /*
-  * CAN mode
-@@ -115,6 +116,22 @@ struct can_priv *safe_candev_priv(struct net_device *dev);
+ void rkcanfd_timestamp_work_init(struct rkcanfd_priv *priv)
+ {
++	spin_lock_init(&priv->timestamp_lock);
++	priv->timestamp_active = false;
+ 	INIT_DELAYED_WORK(&priv->timestamp, rkcanfd_timestamp_work);
++	disable_delayed_work(&priv->timestamp);
+ }
  
- int open_candev(struct net_device *dev);
- void close_candev(struct net_device *dev);
++/* The caller must quiesce IRQs and timestamp work before reconfiguration. */
+ void rkcanfd_timestamp_init(struct rkcanfd_priv *priv)
+ {
+ 	const struct can_bittiming *dbt = &priv->can.fd.data_bittiming;
+@@ -93,17 +101,35 @@ void rkcanfd_timestamp_init(struct rkcanfd_priv *priv)
+ 
+ void rkcanfd_timestamp_start(struct rkcanfd_priv *priv)
+ {
++	unsigned long flags;
 +
-+/**
-+ * close_candev_cancel_restart_sync() - cancel bus-off restart synchronously
-+ * @dev: CAN network device
-+ *
-+ * Call before tearing down resources used by the restart callback.
-+ * The driver must quiesce restart work producers before calling
-+ * close_candev() for the final cleanup.
-+ */
-+static inline void close_candev_cancel_restart_sync(struct net_device *dev)
-+{
-+	struct can_priv *priv = netdev_priv(dev);
++	spin_lock_irqsave(&priv->timestamp_lock, flags);
+ 	timecounter_init(&priv->tc, &priv->cc, ktime_get_real_ns());
++	priv->timestamp_active = true;
++	spin_unlock_irqrestore(&priv->timestamp_lock, flags);
+ 
++	enable_delayed_work(&priv->timestamp);
+ 	schedule_delayed_work(&priv->timestamp, priv->work_delay_jiffies);
+ }
+ 
+ void rkcanfd_timestamp_stop(struct rkcanfd_priv *priv)
+ {
+-	cancel_delayed_work(&priv->timestamp);
++	unsigned long flags;
 +
-+	cancel_delayed_work_sync(&priv->restart_work);
-+}
++	/* Stop counter reads before the caller resets the controller. */
++	spin_lock_irqsave(&priv->timestamp_lock, flags);
++	if (!priv->timestamp_active) {
++		spin_unlock_irqrestore(&priv->timestamp_lock, flags);
++		return;
++	}
++	priv->timestamp_active = false;
++	spin_unlock_irqrestore(&priv->timestamp_lock, flags);
 +
- void can_set_default_mtu(struct net_device *dev);
- void can_set_cap_info(struct net_device *dev);
- int __must_check can_set_static_ctrlmode(struct net_device *dev,
++	disable_delayed_work(&priv->timestamp);
+ }
+ 
+ void rkcanfd_timestamp_stop_sync(struct rkcanfd_priv *priv)
+ {
++	rkcanfd_timestamp_stop(priv);
+ 	cancel_delayed_work_sync(&priv->timestamp);
+ }
+diff --git a/drivers/net/can/rockchip/rockchip_canfd.h b/drivers/net/can/rockchip/rockchip_canfd.h
+index 07fc5bc605df..9fa0327b3e74 100644
+--- a/drivers/net/can/rockchip/rockchip_canfd.h
++++ b/drivers/net/can/rockchip/rockchip_canfd.h
+@@ -477,6 +477,8 @@ struct rkcanfd_priv {
+ 
+ 	/* Serialize TX submission/completion with bus-off and restart. */
+ 	spinlock_t tx_lock;
++	/* Serialize timestamp work with start/stop. */
++	spinlock_t timestamp_lock;
+ 	void __iomem *regs;
+ 	unsigned int tx_head;
+ 	unsigned int tx_tail;
+@@ -487,6 +489,7 @@ struct rkcanfd_priv {
+ 
+ 	bool tx_enabled;
+ 	bool irq_suspended;
++	bool timestamp_active;
+ 	bool tx_retry_enabled;
+ 	bool tx_retry_pending;
+ 
 
 -- 
 2.34.1
