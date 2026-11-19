@@ -1,96 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795107320;
-	b=HMYF7JzJYKjwuHnTeuiNw5HWulxkkEQhjy9UU/5NXzvl/HDO9cQKT037cjNkdZTwUzeJ
-	 tk/QD3MpAwmjpzCwPCZBMSafDmwZHRIbEiIgUkgnvHI5mIbP+ZOB1XTJlHKI6wUsfqly1
-	 UsO0ne51fNGywWslCfigtjhVJIFisFkDbNDDPV3viX4M2K6wdOPHo7WmrbaWP0bnRJe9k
-	 4i2pun+medEfES+XHS6lEc9Vht1QUe+Zy4qo0yeyfyxgfracz+diA0bumf9K3/hi+pUb/
-	 WCIcw8b+MpAbyPsqKULjfOoCOm6MLg+1Po76dTTm2G3jubKKOyLlP0y1VkqD+4yXFLw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795107320;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
-	bh=iriD5MXJPRwsKgyB4ypuM5BIJR6iatqq6n6kcm3cbqM=;
-	b=Wf27SqjgwKB5d62+HO045b7EnE0SsXqr7oc7FNm7je3Wb1DyeqHiZia0K1lGQxJN7mdj
-	 kZCpJ0ur5mgHx7XdRHgZTLJ1gFIK1EH0uebJUtYdo4A3G+G2XWhAxnzyUQR1Vy+BMaL+K
-	 qNgYkATjTbZ7vifDizssz3NA7ps6pdr4xJKbK+8nURvTQrHGo1eBumWX2wnrLawUu5mYU
-	 6l1TWuOZzPw2WP/WyfWtVsr68EUq7w2tX6q+i9TRweYaRV/WWHHqe1wmThsa9bkROyZP/
-	 0pdLSMJqprdXVRiPWi1y2ntUukuL9aqufI5JGIhTEPO8X1bd5pHb8zu0lGpsKiON0kQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dj6Q02wh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.179
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795107448;
+	b=O6hY87zkUIpL+oTW8mvGE/klWZ34ngwRMrY4ZomBcxJEsrHFhc2oLHIFonb+d6+4YYbh
+	 2OOTjbe2xEdV9lBl7zEgAYeL+/x8ziKEop4Fhk4iqF1bU1Vt62ZNfBfbPgiLe6HIs6yrw
+	 4PIsUSyEW8ZICCsEj03MMM7hKo3NX+FeGVXLVCFvKM5u25OJGlGgV9x2PucQPApSIkUtt
+	 ZesbVDOOTaz7OIdZ3uZwaB94LFTyW3Vn99VivB6gorc+URd2iciDA4uTQ78zKJFybEwVW
+	 xCtox2ySng/rctTG/lFV1W+g4Jy/sbow2erKrbFfJNtdrudItjQtYii0mbCHAuNzaGQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795107448;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=76oqwEH/SPEJYq2mPir1GKyIN8scXu14LeMlRXgXqmY=;
+	b=3v4gB1gKeVerxb5xvfjDzTpnuWsSwwjl8x4M81CFnrZCBoz6n3qxq0jS4dVKwJecYYI3
+	 XztyW2zmjB+36LoPAH7PbNhLOWRf22RX3pxGzGOGVNvQWKRN5NGZTX6Vc0gzSoAUkB5BV
+	 hXXA/1s7v4/1IhQBdIjU7h1MQb3GK6997dV37OhZRDWXUMltDi+xKwcbR8zOI2JsIwE5Q
+	 vF/kcsid1QhaN+njLiigP86Eh6dOsu/Z51eXvMvvN59krse59mGJkYEwqNgyOQ6SCEy8c
+	 GwZqXRUyw//bqOWvyHdxYXsyrBOqmXZAM0X8IxzhXDISPYBrgnr2V2ZlUc5wW/76ksA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSSltwZp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29ED7606A331
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 16:55:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29ED7606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC79606A325
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 16:57:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dj6Q02wh
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-55ade1de0b4so25737341cf.3
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 08:55:19 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795107319; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FHKpSM+DBAE4tCwNDUAtONHJsp8YKBuvllCEgGGJ3FPxZiyyGHGwSa1UQuOiqibDA5
-         yLcEeC8LnZezHzNfDCaEU9LBpribahUTdmKfpCY21Cw0xab84YmWWI/w12oeAGyhgkEH
-         oTB4G6FcSaUlcBY+qxOgnHfeOlB63GA9CZ6tU30uJTaIsSGdn11k4rPfco4HsVnWgqIL
-         BSg+hd2BShJkp/pt46zmf0MjRrWAHxTEisIgfi1wcltfzeZAN5dQsp5UygqAudPZ8dYK
-         EwBYTvW0waey6csNrTs87xBtW/ZqQFmZG7QtOUnHzm5YVDjFxcQbSpuGdd1Coe3+XOrD
-         nzpw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=iriD5MXJPRwsKgyB4ypuM5BIJR6iatqq6n6kcm3cbqM=;
-        fh=4Z8kUo7ZQAE52QDzrWjAPPpNicBFhQXYM+Ho8XX93z0=;
-        b=sJjo4vi6Tt1FMK2NmJk5T/dUaVqsCV7g3iWP7Rkp3RISgjnPiBO35tTLKT7Ij5XY03
-         90kRJHcq9g0eRTiUiwDjqJq42YGLlvgOpNmHdxuphBZsm5nKtqbF2K+FXXm4uOJv2KMb
-         W08TGrARSrs5MB56Lwel+yLRAKhskFuzgS7QcxG0zqz3nTNCXU6qFfQiTirmLfVE3lLx
-         30EiLLmLL1GHd9AG0moQfCszZwOXavwpXszoILwezESv34emE//XV4VMS6AcObyMnIRn
-         Nt1l+LM0OkPkpSICA3RFi0/nQbIT9Orrnb/Fx42Q3+A2rHtW1kG58HlnPjVGX1euw8qW
-         RPRQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795107319; x=1795712119; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iriD5MXJPRwsKgyB4ypuM5BIJR6iatqq6n6kcm3cbqM=;
-        b=Dj6Q02whB6jrBbzwMSXDdZSXLTQx9U55nvIhh8VsfEtTdU0iyT/o5kPY7DNq+u0nYX
-         LOZg0I3QLlaCJIkJvIrIbQb13qmp5ktE+mmgtpE0tt01WzUdeODyogZmCTJRrgMPVl2X
-         M0D+NQ77UpNz2/SGH5KO/NylJPHiCmrW58WvbKq5CkN3aNYjSuFLd0AOvebek1seWTHg
-         CCnbeIcuwLnxBUbtekh2wL9uZ4l8/89Rf1OjkSxNpQOAkm7rE8Lp9QDgOQuNqrIgklGp
-         pUt1yNUQRVirdiTXvErC+NL51Am8phRLGCrwvoT5xjkoQhc6UAcJeywZPocdIxTSv1/R
-         GD5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795107319; x=1795712119;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=iriD5MXJPRwsKgyB4ypuM5BIJR6iatqq6n6kcm3cbqM=;
-        b=DjdItmPY7AmG0qNZ4q87U5RFCtX9+rFw9r65iB6MVAUIUKUICOSZFMlHfEe0maRDsr
-         iU5+cuB4rGuhRjBUeSXcuBInqnuaYsMYGt8mUxNS6Q1FN+73xyiheYwC2akg0mT+iZ5A
-         NqNyNmp8JhWlJzaF08qRzIsbrB+xq2NdZ0a077jEPjffhF9Sf1UoVHRaq+JmrbA39sSi
-         hjxgFMboxPZS5gwVnxt+oDGG9TWhwKdExGJ3dfdkm095ep118dKBaXk8Fj7R1e9tCQKU
-         pL6IRq0pHvBLouTTyQUt44wnEqFNtQ4x+QbQNsN2u0eM/6a7aUd9gdkFZk3IyIAoyIwl
-         oFzw==
-X-Gm-Message-State: APuU4Z8QR1LrYTN0OeiNq8c5hZ0OdaaCb99wdn5d0Bb7Amm3s8QqY3lS
-	u57mu6JJYOLhrZ+E2qqbk6TcxTJickS/nIu9MsnTBaIjLMq7IbS5KNHl9iXgMfNBHiMhn0OhvYx
-	ETSyA2lS9/r7xy/ki4kBDLziI9xhVoSlnqlUVH6EBSh5b
-X-Gm-Gg: AYBFou3AVweBYlIF4uxugMpnGaiV532Cjbhp2jjmvccvXRsSMlGGyHy3UCtaotIJNb0
-	X7ius5AwsTg2TL6jE6gfjYc47ht22mPpRp8xLPZELcEdwIxL8joVf2/R6i5pzQ/9/XCQUacLabv
-	BHyZX/5xz+S65edIPYavpo36tQhDGrP2UlDQtx5s0qUgWlKXmrosQzkFsy1rL4t3/VZ2Y8N5rRu
-	HFfPxJORzaM0svIC6Ki5hmCq+GvRPoX3ntjifAnzMRmjCKs7xeNMcmaAUqMkcKcxN+GSbm0jsoN
-	6Upz1pPOjVTucT1+2MD9mN+M3QjunGOlCHhARMfWF5u1M2N0j/m3/DRClq+JikpRCBXj0hEEVv3
-	AGUB/o7zl7UAR0xzZ0H9/FYJ6nMcplFHSaj8u/6oNWyxpIG28fS0by6kdASqns6nkPjH3lqLs9L
-	iHbRU4zJI94uqsEao/6A==
-X-Received: by 2002:a05:622a:2586:b0:536:5696:165e with SMTP id
- d75a77b69052e-55d7698ee3emr8706221cf.2.1795107319050; Thu, 19 Nov 2026
- 08:55:19 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OSSltwZp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94B351F000C6;
+	Thu, 19 Nov 2026 16:57:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795107448;
+	bh=76oqwEH/SPEJYq2mPir1GKyIN8scXu14LeMlRXgXqmY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OSSltwZpESqK7nNLmY7WRiVmhTRWYO0hZFa3a+trJ2prNa4igRPBY2AuKXZY12ogC
+	 txDIQuNqFP3jsy/p2RyVlRgYfTF+0+s5fJmlYOgr/5XQxrZbrWSuL8T1u+K+DqbG3j
+	 iU9bVdze77bVPSI0rYbkZjgG6pgFw14O2nShSUJsVv+ZCMqGNNEwJIGCNGT7KOm6RP
+	 pTJMlC1Lj7yOJrHP8kOxohrgeTr4pf4r2fU2CN/74ojMaRZroHw6aiElI5w40NUHah
+	 fIKRhzpvVMV4AoPPqonF+dGGlxLCR4REbWM3QkuRkn3G/YEOm6pmb7vsqKUUxV0fJb
+	 lPi851LAmBUEw==
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfauth.ams.internal (Postfix) with ESMTP id EA703198003A;
+	Thu, 19 Nov 2026 11:57:21 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Thu, 19 Nov 2026 11:57:24 -0500
+X-ME-Sender: <xms:cSr_ameBHFzvTpO_rIXLLBLXU1EtHVEWsAz5WbTam7k2-UcX2tEZ-Q>
+    <xme:cSr_aiELSNQKkENGP3HW8vjyZECX5yYGKnnsGQbir0ZYCD14tsQ80C5UM_PegQTYl
+    3xX9WuG7w1QIT8XkuUWnqCQOrrT624B54a4tr0RtjKQrIHOnLKl-0ew>
+X-ME-Received: <xmr:cSr_asKf2AeJxBNI7ovLT5AEEGIVGzvlqgo1NZUyJTdeY0FiJzdNb7ZFqGk>
+X-ME-Proxy-Cause: dmFkZTECkGlHxkJe4+gF+AuCoU2k+QynF2HxgU91M7WpbV+jxcinlrLiUAlopmwL7pHS5E
+    LvY6KmYY1CnLULCOYDnE2aQ2kgo6IRkiKhm5LxtPn7IKmVmSl2K8sC9zJ+8pm5OpVnzjuV
+    fRWuCOJXOSfgZZ0NkT7vXFT++F+DtOtufWah4kNGqv0AwZp9zJ7UIAFYHuSk7ZKn+oKO77
+    hexhpL8B097bMkGS9j+v2YfQdGxHotBzVpmnoDqvMgHoIT2OPWTvtsHXVEcKybYF5MiCOu
+    QBbkrn+m9VqknXPorWw0kxlwBeqOuuMMg1FBjguaOglb0CToJNjxQFXxizDM16c5bm81am
+    MQdruA6/0IfuLeflv6gkoGd/RzA33YQ+gVJWyfajlr4b2zUvj7EKK6V6uri26hZLd9Fk07
+    uRye4XSksbK4D7dJTLukd8gIWDKjXBKBQWu5lEK9vXNd8LheaZBcDuADP52l8yEYBUCr+2
+    DDOTfElQhr4JVbCzxUqHvc+6tyt98Kcqpo/VcKjX2Lq7R5OIW9psl9ujJb3DIm04IkPYyP
+    43qVgEm00n+VtDmVU5fl92UBcjQ6g/HCyqDASf14U4YufP/sanWDvA8RoIXG38gG0vwq81
+    CGXsuaIZRC4FvA2NYxcawcSeI50G0guJ56YSlhsow17BXCtkgZyx9HvlWvyQ
+X-ME-Proxy: <xmx:cSr_aieaBQ0adQssbpm_F0KnQw-naYjUY-pfKsIJM6hUXsyMdJ6QYA>
+    <xmx:cSr_aisiYnPHW5UqVSnLtXnONHB5_fQxajEnNOqxKlUlmmm6TklXjQ>
+    <xmx:cSr_amvPG3SzOYQyCtsQtO9lhAl-pv1WMQVs-hObBl4F3kHaz_tyIQ>
+    <xmx:cSr_ap8HNqsgR41UYIHUbDEfE_pga_SiO9X66FWCEcKwQmTU2Ov9sA>
+    <xmx:cSr_an9RX_WxlPHzmJ-uefd-csKOGhiCfcaO5lya0XFI7x-RrfKxX4RP>
+Feedback-ID: i10464835:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 19 Nov 2026 11:57:20 -0500 (EST)
+Date: Thu, 19 Nov 2026 16:57:19 +0000
+From: "Kiryl Shutsemau (Meta)" <kas@kernel.org>
+To: Ada Couprie Diaz <ada.coupriediaz@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Vladimir Murzin <vladimir.murzin@arm.com>, Marc Zyngier <maz@kernel.org>, Breno Leitao <leitao@debian.org>, 
+	Jinjie Ruan <ruanjinjie@huawei.com>, Doug Anderson <dianders@chromium.org>, 
+	Linus Walleij <linusw@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Thomas Huth <thuth@redhat.com>, Dawei Li <dawei.li@linux.dev>, 
+	mrigendrachaubey <mrigendra.chaubey@gmail.com>, kernel-team@meta.com, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] arm64: entry: sdei: always set VBAR_EL1 on SDEI entry
+Message-ID: <av8p2WL4R2tlU1HX@shutemov.name>
+References: <20261117174814.95936-1-ada.coupriediaz@arm.com>
+ <20261117174814.95936-2-ada.coupriediaz@arm.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -100,57 +92,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Yingke Xiao <inkxiao12@gmail.com>
-Date: Thu, 19 Nov 2026 11:55:07 -0500
-X-Gm-Features: Aa3M54o80hka7iVgEuzkvF5iRLkH-0ir8Ksq0bm_-gLkDHL4y7vTsKz_LHD8a-E
-Message-ID: <CAMcAce97zgo7c2f5Th9FguAHEL5gL87NrJ9MJkJghMm6M44g6Q@mail.gmail.com>
-Subject: [PATCH 6.12.y v2] bpf: Reject NULL data/sig in bpf_verify_pkcs7_signature
-To: stable@vger.kernel.org
-Cc: bpf@vger.kernel.org, kpsingh@kernel.org, sashal@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261117174814.95936-2-ada.coupriediaz@arm.com>
 
-[ Upstream commit 49b18315be4e590fae0fc39c87d46c87e9ec903c ]
+On Tue, Nov 17, 2026 at 05:48:12PM +0000, Ada Couprie Diaz wrote:
+> diff --git a/arch/arm64/kernel/entry-common.c b/arch/arm64/kernel/entry-common.c
+> index beb56891fc4f..cb122163a68d 100644
+> --- a/arch/arm64/kernel/entry-common.c
+> +++ b/arch/arm64/kernel/entry-common.c
+> @@ -1079,19 +1079,22 @@ __sdei_handler(struct pt_regs *regs, struct sdei_registered_event *arg)
+>  	far = read_sysreg(far_el1);
+>  
+>  	/*
+> -	 * With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
+> -	 * EL0 until the next exception from EL0 maps the kernel. They only
+> -	 * handle exceptions from EL0: an exception taken here would run their
+> -	 * empty current-EL half and never come back. Switch to the kernel
+> -	 * vectors. The IRQ-like resume keeps using the interrupted VBAR, so it
+> -	 * still goes through the trampoline.
+> +	 * As an SDEI event can take over at any point, VBAR_EL1 might not allow
+> +	 * us to take an exception safely :
+> +	 * - With KPTI, VBAR_EL1 holds the trampoline vectors from the return to
+> +	 *   EL0 until the next exception from EL0 maps the kernel. They only
+> +	 *   handle exceptions from EL0: an exception taken here would run their
+> +	 *   empty current-EL half and never come back ;
+> +	 * - With VHE, the kernel runs at EL2 and VBAR_EL1 accesses VBAR_EL2.
+> +	 *   KVM might be running a guest and switched VBAR_EL2 to the
+> +	 *   hypervisor vectors.
+> +	 *
+> +	 * Switch to the kernel vectors unconditionally and restore
+> +	 * the interrupted VBAR_EL1 before returning.
+>  	 */
+>  	vbar = read_sysreg(vbar_el1);
+> -	if (arm64_kernel_unmapped_at_el0() &&
+> -	    vbar == (unsigned long)raw_cpu_read(this_cpu_vector)) {
+> -		write_sysreg((unsigned long)vectors, vbar_el1);
+> -		isb();
+> -	}
+> +	write_sysreg((unsigned long)vectors, vbar_el1);
+> +	isb();
 
-bpf_verify_pkcs7_signature() passes the return values of
-__bpf_dynptr_data(data_ptr, data_len) and __bpf_dynptr_data(sig_ptr, sig_len)
-directly to verify_pkcs7_signature() without checking for NULL. If an
-empty/null dynptr or non-linear skb/xdp dynptr is passed, __bpf_dynptr_data()
-returns NULL, leading to a NULL pointer dereference in verify_pkcs7_signature().
+This makes the comment I added in do_sdei_event() wrong: it still says
+that an exception taken during a KVM world switch goes to the hyp
+vectors and hyp-panics. Could you drop it in this patch?
 
-Check for NULL and return -EINVAL.
-
-[ In 6.12.y, bpf_verify_pkcs7_signature() is located in
-  kernel/trace/bpf_trace.c instead of kernel/bpf/helpers.c. Adapt upstream
-  commit 49b18315be4e to kernel/trace/bpf_trace.c. ]
-
-Fixes: 9b2d3e911295 ("bpf: Add bpf_verify_pkcs7_signature kfunc")
-Signed-off-by: KP Singh <kpsingh@kernel.org>
-Signed-off-by: Yingke Xiao <inkxiao12@gmail.com>
----
-v1 -> v2:
-  - Fix diff formatting and line wrapping in patch body.
-
- kernel/trace/bpf_trace.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
-index bac2db7..41e237d 100644
---- a/kernel/trace/bpf_trace.c
-+++ b/kernel/trace/bpf_trace.c
-@@ -1384,8 +1384,13 @@ __bpf_kfunc int
-bpf_verify_pkcs7_signature(struct bpf_dynptr *data_p,
-
-  data_len = __bpf_dynptr_size(data_ptr);
-  data = __bpf_dynptr_data(data_ptr, data_len);
-+ if (!data)
-+ return -EINVAL;
-+
-  sig_len = __bpf_dynptr_size(sig_ptr);
-  sig = __bpf_dynptr_data(sig_ptr, sig_len);
-+ if (!sig)
-+ return -EINVAL;
-
-  return verify_pkcs7_signature(data, data_len, sig, sig_len,
-       trusted_keyring->key,
 -- 
-2.56.1
+  Kiryl Shutsemau / Kirill A. Shutemov
