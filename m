@@ -1,58 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795060983;
-	b=N2GFgRCQnIFzkf8LQbGm11I2BF25Wzaxd12VWwzvjQf3ffRNvE57lYa8aWY75UQ34WMI
-	 8tgGFyXFtBAxla5m+tktnZsLjESWZ3IdRoqh83Mou9zJ6EOOj8mflvScDA9D9xh3OeVzT
-	 XbET3rRxzspHhCStpRsjWnVViRHIFO8oBkp4lW2rUbM6dDwa3j1oAxPAonErjMRpTmWd1
-	 GwiettWJajfb6bht9CsMMeQyWTqFkxEivImc7DVxLoVSIg2lowk5LJSafjiAB1K28u+2+
-	 M2DuANdYk6W31vll3P7xjcdYHjfh2XBrpQKID6ANkcgqSxmg0cOvp92Gmm/OqQsDJwA==
+	t=1795060985;
+	b=RD7QvAMMbLqZacjGt7U8lsc22F4eZtlJwcG0voaHDMQ0IQRu/VzUT7V+hVqDD1a6jU9u
+	 33qHvVQNyYjIRKBvI/BqrPJ9+tVMwyavJpckCdlIKyvRAjLtWKoIZOI2gnjOUyS50hS0m
+	 +7WcL9t46h5drora91mHRxywUUNk/F255kdP98ZNUoVS841PkHbr0R70PG6o4trcNJ+qm
+	 AqztpgzQW2JD/2FhgFGsTuOkRvQoTDQ8tGby9SH/7NMCFZh/HpD0FLzZySLKuYDDYI9C3
+	 4LLnlq07/r6R3Q+tKwJQ/DOVK6gtTcA1BSe/7r/2/PQnLwHDNFlKvjFrXiOjUXF0zIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795060983;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
+	a=rsa-sha256; c=relaxed/relaxed; t=1795060985;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=2FnqxXptTo8N+XyCyH7bB/59808O3rZ7UxGx5QBcz00=;
-	b=adpVOuqAybEdzYvpINiI1EaUaajvHk3ObGlfd3UeNk4281mWY7hzCq51I2jYX13GI+DN
-	 sJ2qEQByJMoDIp/AztN5tCx/x7WpJSq2xKZrXaRxfccjwT5UUOFY7bMfzcfCk4r+IzpX1
-	 f9470nkE/2kKN9aovkgV9q92YZ9/Q6saX5zG7D33eJVTr6TsULkhBd4UcRs192vmWVkEm
-	 St85Y8guWGbVP4opxZkWfVJnyug5pZlCHepkIwcSZVrgdzL9C5kEEaNP+TXH43lA17mZQ
-	 vHXzVnQyF9AKzCxRNs9oIJRt2LqkD81+CvAJmRyidQJgMNr7Tc9kkQ4HGMIiJ3ZjH1w==
+	bh=uJTeJR5eoOxAAfYNVIbKciM1+UPVngasXpXnnN+uSGo=;
+	b=ZWm1l/E24EQ+FIVEPH19MTYBPJZ7G5dxpoC146znbdVPUtnm1ObtOxrQ8zIKMHMy0R0w
+	 6GUtVyBiAf79/mh07s4Abf5OjLi2FSRP1pLPdXXC0wJvaZGpPzWM3F9gLKxrkPR+7fGzB
+	 ZT7vFaik2NVfwmZcnkMTilj1J6Ics0JnnDuSsp+hnINxyR+Ooa20ONpobz7lGmGXl0pnG
+	 PpY2PkuQNRL1mJ0FTT0AeFQ7Wy/zfN6SyTC3k+yOpN6CrdmAr3AUrYuMPDN4QxB++a9Ka
+	 Y5w6Dq4KaShM/k8ZTfh9l8Et2qyI4n6edDxFeHC6KYgIj8hlSDUpEPWH3/UNwUnl8Jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZCT2bKQS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=octane.security;
+	spf=pass smtp.mailfrom=octane.security;
+	dkim=pass header.d=octane.security header.i=@octane.security header.a=rsa-sha256 header.s=google header.b="q5yBZsL/";
+	arc=none smtp.remote-ip=209.85.216.52
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D01E606A338;
-	Thu, 19 Nov 2026 04:03:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9FF606A331
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 04:03:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B9FF606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=octane.security
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=octane.security
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=ZCT2bKQS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DD5A1F000C5;
-	Thu, 19 Nov 2026 04:03:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795060983;
-	bh=2FnqxXptTo8N+XyCyH7bB/59808O3rZ7UxGx5QBcz00=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZCT2bKQSdLytC1+v996/p2lwriXVHTzfsH1nCMWkM9w0cwHcVuY4r9rhLHt05IwTX
-	 zvy85yTGRhmrgiE6vAFFf651pkYTcFpQeP7CmNGwXj6AShXi89UBlxo9v5tYmoYCq+
-	 oVg1Nj6PWzoyeT2uFOAlG/Iz8h9ICbv81uj1QjAA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Logan Odell <loganodell@google.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 1394/1848] PCI/IOV: Read VF config values that need not match PF
-Date: Wed, 18 Nov 2026 15:57:12 +0100
-Message-ID: <20261118150017.882127166@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
-References: <20261118145911.150052362@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=octane.security header.i=@octane.security header.a=rsa-sha256 header.s=google header.b=q5yBZsL/
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3b3d4d3bba3so978704a91.3
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 20:03:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=octane.security; s=google; t=1795060984; x=1795665784; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uJTeJR5eoOxAAfYNVIbKciM1+UPVngasXpXnnN+uSGo=;
+        b=q5yBZsL/8yJqOmoc/FcG5Jj/8qa8rEUK/0dN9HZn0wfTASOKJYgl5qB/7FCPvWwrsQ
+         zmOWZoXqjAZdykBK8EODOOXC9wMrj+Z9QEK/67J8H3TLYCUtm6MspNiuVLrAJxDvhtDr
+         xULCDb+PmbPs9+JqZ3rDVp7BwdThJsc4XoMqcHVj45AHX6XFN3QBzCG4E2gb6GKCd9IL
+         TnItF5E+paR3hkiDw6CkqSlS9kJL3WCJFuv6NGGQGUmYGoQtb09asicA87rFe39tNPoP
+         5SNHbsHtS+/fzdWhIqLD89grrj584OhZ/74xa3Q290fLPavvovay4KPTENP5emdM6u2D
+         eAxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795060984; x=1795665784;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uJTeJR5eoOxAAfYNVIbKciM1+UPVngasXpXnnN+uSGo=;
+        b=0Lq6pGwhbBM6rd+F9y7oXTC5rPe7/Eqgafj7dt57QryerbuNyN+BGCmkW+Htvu2ciL
+         OWxTsKE9PG2gsAaOU3x9PEI/w/YhpqNGFb3QPIpfdHArTO4mPzLiSY20qY5EKktEPGnd
+         aBzUMi3YACYoDqInn5dqP/siZeUVzZE3kt+7w5LYHm4RO+FB2rkWKWdFewzXFB2EIZIF
+         ZDrrXHYrvcxwTryLpozSeytvh8tYpI91gvCw5+O6tad7E01UJAeFT32JM/7W/WTd38eQ
+         4FACSM4aBw1fd5uYjc/8SnU+GBbElvGHuQy445os0QEOdYsE0boHqWVNdSe32Igi3EFe
+         2qdA==
+X-Forwarded-Encrypted: i=1; AL+hErGI1ZifxfkLzaJmbNgUFdQRzNm7wBiUFHTt7Ue8Sd/YDMCkrqAA53rBfhsXnHL30PSkfMx4A60=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8AkPfXlJfAWrSaHVzAlhYK7glfA+gmjOhkmdQ70DI9AL+nJwMF
+	6vbQL1ev0ZY7AdzPR0NZGd9bFmCedwStBqWpiXUITNBHTfwLqs9R8Krd7N1bc4QAL0w=
+X-Gm-Gg: AZFdTZf76sP0tTngMJvUUVSnu0NSTySaAJhTcnGb3tlGBicCtgC7rq9exlkNXSKtYyK
+	+3spyBOYoo2BO/KmT8b4xjZiVc3oGCEx4Kno5Ulai4dtjfUHe3IKbfNLBwCY/pIwy38XD+0Foth
+	JiNJbLLg7hUAxQaJp90asMtM3xhY46UByjZQGVcICzduX4ogl1e+BV929fxp3qsWLZkwV/0TLV+
+	1c7DLB1xAraO4LVwfuqiGpyRf08oYYOjcZ81Ed+EJVPZH5rjiNTERtSEDJICi8865GmhaQYH+bH
+	CERiX5hXsuH8xSnMfwoVMQOEMPj5aE5fAB1kCZ5EQUdQY4wvt0LUW9iCiIb3R4JJkGqXKS0NzhE
+	gveo8MQha0Z3qa3VQfekTXptNe3lnGhFmdEjl2xPl+RSAq0J+i4cWleoIWeNIi4/6feC7ZhU73z
+	vGKqGIG1M50CMhGHD8XZc3d9Ic1PCQV9WSmVeEZmMyBVY/KRj0VoajI+8oiZRwBvnVLT7mr1a7y
+	MxDHQbk/5Fo1jNDEK4aBHSz4DC5P2GayfNCmXxahKyfU34C9KKAuA+lZvJP++iVBpq/JwQYg6UD
+	vjTRZGTpmz6iqGTxCYUeEP5yXUvPLk0OKvsSGq0Nb/G8HNOX860WiocXG5Wrdf/h0R1p+sX0m6M
+	xMv2qD2twiTD03A0pgY2z3tM1sj/rI9EtPWez0JZbNMqf/HE/gVM=
+X-Received: by 2002:a17:90b:448b:b0:3b0:9782:8721 with SMTP id 98e67ed59e1d1-3b3d07b9f34mr4659096a91.36.1795060983787;
+        Wed, 18 Nov 2026 20:03:03 -0800 (PST)
+Received: from localhost.localdomain ([103.207.175.108])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b4057af4e2sm406863a91.7.2026.11.18.20.03.01
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 18 Nov 2026 20:03:03 -0800 (PST)
+From: Shubham Antil <shubham@octane.security>
+To: netdev@vger.kernel.org
+Cc: oe-linux-nfc@lists.linux.dev,
+	david@ixit.cz,
+	horms@kernel.org,
+	gio@octane.security,
+	stable@vger.kernel.org
+Subject: [PATCH net v8 2/4] nfc: reject overlapping firmware downloads
+Date: Thu, 19 Nov 2026 09:32:51 +0530
+Message-ID: <20261119040253.15986-3-shubham@octane.security>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261119040253.15986-1-shubham@octane.security>
+References: <20261119040253.15986-1-shubham@octane.security>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,137 +103,122 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+nfc_fw_download() records an asynchronous download before calling the
+driver, but does not reject another request while that download is active.
+If the driver rejects the second request with -EBUSY, the core clears
+fw_download_in_progress even though the first request is still running.
+Firmware frames can then be routed through the normal receive path and the
+device can be brought up before the original download completes.
 
-------------------
+Check the core state while holding the NFC device lock and reject an
+overlapping request without changing that state.  Keep asynchronous
+completion lockless because drivers can report completion while holding
+their own locks, while the start path calls into those drivers with the NFC
+device lock held.  Nesting the device lock in both directions would create
+an inverse lock order.  Use one-copy accesses in the completion, receive,
+and transmit callbacks, which cannot take the device lock, so all contexts
+observe the state without a data race.
 
-From: Logan Odell <loganodell@google.com>
+Discovered during an AI-assisted source audit using OpenAI Codex,
+gpt-5.6-sol.  Patch development and test planning used the same assistant.
+Confirmed using an unmodified kernel and a pty-backed user-space controller
+which issued two NFC_CMD_FW_DOWNLOAD requests and checked that the second
+returned -EBUSY without disrupting the first; no error injection was used.
 
-[ Upstream commit ae43799529c480510dcc14bd0ed141a1d85b9259 ]
+With the final v8 fix applied, 105 first/overlapping request pairs
+passed under KASAN, UBSAN, and lockdep, and 105 pairs passed under
+strict-mode KCSAN.
+No in-tree selftest covers the NFC firmware-download path.
 
-Per PCIe r7.0, sec 7.5.1.1.5 and 7.5.1.2.3, VF Revision IDs and Subsystem
-IDs may differ from the PF's.  Read these values from VF config space
-instead of using cached values from VF 0.
-
-Per 7.5.1.1.6 and 7.5.1.2.3, VF Class Codes and Subsystem Vendor IDs must
-be the same as the PF's.  Use the PF's value instead of reading from VF
-config space.
-
-Per 7.5.1.1.9, the Header Type for a VF must be 0, so hardcode that
-assignment.
-
-Fixes: cf0921bea66c ("PCI/IOV: Use VF0 cached config registers for other VFs")
-Signed-off-by: Logan Odell <loganodell@google.com>
-[bhelgaas: commit log, move "rev" decl inside block that uses it]
-Signed-off-by: Bjorn Helgaas <bhelgaas@google.com>
-Link: https://patch.msgid.link/20260910173648.1304517-1-loganodell@google.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 9674da8759df ("NFC: Add firmware upload netlink command")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shubham Antil <shubham@octane.security>
 ---
- drivers/pci/iov.c   | 25 -------------------------
- drivers/pci/pci.h   |  4 ----
- drivers/pci/probe.c | 15 ++++++++++-----
- 3 files changed, 10 insertions(+), 34 deletions(-)
+ drivers/nfc/nfcmrvl/main.c |  2 +-
+ drivers/nfc/nfcmrvl/uart.c |  4 ++--
+ net/nfc/core.c             | 13 +++++++++----
+ 3 files changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/pci/iov.c b/drivers/pci/iov.c
-index f939cbada3755..9a7780b30e5fb 100644
---- a/drivers/pci/iov.c
-+++ b/drivers/pci/iov.c
-@@ -110,29 +110,6 @@ resource_size_t pci_iov_resource_size(struct pci_dev *dev, int resno)
- 	return dev->sriov->barsz[resno - PCI_IOV_RESOURCES];
- }
- 
--static void pci_read_vf_config_common(struct pci_dev *virtfn)
--{
--	struct pci_dev *physfn = virtfn->physfn;
--
--	/*
--	 * Some config registers are the same across all associated VFs.
--	 * Read them once from VF0 so we can skip reading them from the
--	 * other VFs.
--	 *
--	 * PCIe r4.0, sec 9.3.4.1, technically doesn't require all VFs to
--	 * have the same Revision ID and Subsystem ID, but we assume they
--	 * do.
--	 */
--	pci_read_config_dword(virtfn, PCI_CLASS_REVISION,
--			      &physfn->sriov->class);
--	pci_read_config_byte(virtfn, PCI_HEADER_TYPE,
--			     &physfn->sriov->hdr_type);
--	pci_read_config_word(virtfn, PCI_SUBSYSTEM_VENDOR_ID,
--			     &physfn->sriov->subsystem_vendor);
--	pci_read_config_word(virtfn, PCI_SUBSYSTEM_ID,
--			     &physfn->sriov->subsystem_device);
--}
--
- int pci_iov_sysfs_link(struct pci_dev *dev,
- 		struct pci_dev *virtfn, int id)
- {
-@@ -182,8 +159,6 @@ int pci_iov_add_virtfn(struct pci_dev *dev, int id)
- 	virtfn->physfn = pci_dev_get(dev);
- 	virtfn->no_command_memory = 1;
- 
--	if (id == 0)
--		pci_read_vf_config_common(virtfn);
- 
- 	rc = pci_setup_device(virtfn);
- 	if (rc)
-diff --git a/drivers/pci/pci.h b/drivers/pci/pci.h
-index 8802bf0f48b46..0b31b914adc08 100644
---- a/drivers/pci/pci.h
-+++ b/drivers/pci/pci.h
-@@ -355,10 +355,6 @@ struct pci_sriov {
- 	u16		driver_max_VFs;	/* Max num VFs driver supports */
- 	struct pci_dev	*dev;		/* Lowest numbered PF */
- 	struct pci_dev	*self;		/* This PF */
--	u32		class;		/* VF device */
--	u8		hdr_type;	/* VF header type */
--	u16		subsystem_vendor; /* VF subsystem vendor */
--	u16		subsystem_device; /* VF subsystem device */
- 	resource_size_t	barsz[PCI_SRIOV_NUM_BARS];	/* VF BAR size */
- 	bool		drivers_autoprobe; /* Auto probing of VFs by driver */
- };
-diff --git a/drivers/pci/probe.c b/drivers/pci/probe.c
-index c8dc988df4c39..030b7d71505c6 100644
---- a/drivers/pci/probe.c
-+++ b/drivers/pci/probe.c
-@@ -1724,8 +1724,13 @@ static u32 pci_class(struct pci_dev *dev)
- 	u32 class;
- 
- #ifdef CONFIG_PCI_IOV
--	if (dev->is_virtfn)
--		return dev->physfn->sriov->class;
-+	if (dev->is_virtfn) {
-+		u8 rev;
-+
-+		if (pci_read_config_byte(dev, PCI_REVISION_ID, &rev))
-+			rev = 0;
-+		return (dev->physfn->class << 8) | rev;
-+	}
- #endif
- 	pci_read_config_dword(dev, PCI_CLASS_REVISION, &class);
- 	return class;
-@@ -1735,8 +1740,8 @@ static void pci_subsystem_ids(struct pci_dev *dev, u16 *vendor, u16 *device)
- {
- #ifdef CONFIG_PCI_IOV
- 	if (dev->is_virtfn) {
--		*vendor = dev->physfn->sriov->subsystem_vendor;
--		*device = dev->physfn->sriov->subsystem_device;
-+		*vendor = dev->physfn->subsystem_vendor;
-+		pci_read_config_word(dev, PCI_SUBSYSTEM_ID, device);
- 		return;
+diff --git a/drivers/nfc/nfcmrvl/main.c b/drivers/nfc/nfcmrvl/main.c
+index 6efa83219..b9b66127f 100644
+--- a/drivers/nfc/nfcmrvl/main.c
++++ b/drivers/nfc/nfcmrvl/main.c
+@@ -205,7 +205,7 @@ int nfcmrvl_nci_recv_frame(struct nfcmrvl_private *priv, struct sk_buff *skb)
+ 		}
  	}
- #endif
-@@ -1750,7 +1755,7 @@ static u8 pci_hdr_type(struct pci_dev *dev)
  
- #ifdef CONFIG_PCI_IOV
- 	if (dev->is_virtfn)
--		return dev->physfn->sriov->hdr_type;
-+		return 0;
- #endif
- 	pci_read_config_byte(dev, PCI_HEADER_TYPE, &hdr_type);
- 	return hdr_type;
+-	if (priv->ndev->nfc_dev->fw_download_in_progress) {
++	if (READ_ONCE(priv->ndev->nfc_dev->fw_download_in_progress)) {
+ 		nfcmrvl_fw_dnld_recv_frame(priv, skb);
+ 		return 0;
+ 	}
+diff --git a/drivers/nfc/nfcmrvl/uart.c b/drivers/nfc/nfcmrvl/uart.c
+index 9aedd1687..4b989fc4e 100644
+--- a/drivers/nfc/nfcmrvl/uart.c
++++ b/drivers/nfc/nfcmrvl/uart.c
+@@ -159,7 +159,7 @@ static void nfcmrvl_nci_uart_tx_start(struct nci_uart *nu)
+ {
+ 	struct nfcmrvl_private *priv = (struct nfcmrvl_private *)nu->drv_data;
+ 
+-	if (priv->ndev->nfc_dev->fw_download_in_progress)
++	if (READ_ONCE(priv->ndev->nfc_dev->fw_download_in_progress))
+ 		return;
+ 
+ 	/* Remove BREAK to wake up the NFCC */
+@@ -173,7 +173,7 @@ static void nfcmrvl_nci_uart_tx_done(struct nci_uart *nu)
+ {
+ 	struct nfcmrvl_private *priv = (struct nfcmrvl_private *)nu->drv_data;
+ 
+-	if (priv->ndev->nfc_dev->fw_download_in_progress)
++	if (READ_ONCE(priv->ndev->nfc_dev->fw_download_in_progress))
+ 		return;
+ 
+ 	/*
+diff --git a/net/nfc/core.c b/net/nfc/core.c
+index f52166929..b03b34b40 100644
+--- a/net/nfc/core.c
++++ b/net/nfc/core.c
+@@ -48,15 +48,20 @@ int nfc_fw_download(struct nfc_dev *dev, const char *firmware_name)
+ 		goto error;
+ 	}
+ 
++	if (READ_ONCE(dev->fw_download_in_progress)) {
++		rc = -EBUSY;
++		goto error;
++	}
++
+ 	if (!dev->ops->fw_download) {
+ 		rc = -EOPNOTSUPP;
+ 		goto error;
+ 	}
+ 
+-	dev->fw_download_in_progress = true;
++	WRITE_ONCE(dev->fw_download_in_progress, true);
+ 	rc = dev->ops->fw_download(dev, firmware_name);
+ 	if (rc)
+-		dev->fw_download_in_progress = false;
++		WRITE_ONCE(dev->fw_download_in_progress, false);
+ 
+ error:
+ 	device_unlock(&dev->dev);
+@@ -73,7 +78,7 @@ int nfc_fw_download(struct nfc_dev *dev, const char *firmware_name)
+ int nfc_fw_download_done(struct nfc_dev *dev, const char *firmware_name,
+ 			 u32 result)
+ {
+-	dev->fw_download_in_progress = false;
++	WRITE_ONCE(dev->fw_download_in_progress, false);
+ 
+ 	return nfc_genl_fw_download_done(dev, firmware_name, result);
+ }
+@@ -104,7 +109,7 @@ int nfc_dev_up(struct nfc_dev *dev)
+ 		goto error;
+ 	}
+ 
+-	if (dev->fw_download_in_progress) {
++	if (READ_ONCE(dev->fw_download_in_progress)) {
+ 		rc = -EBUSY;
+ 		goto error;
+ 	}
 -- 
-2.53.0
-
-
+2.54.0
 
