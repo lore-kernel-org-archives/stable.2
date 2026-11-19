@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795121471;
-	b=PAJ1kzK4Gx1uynsMqAQWICGW9C4R+8a6zUJJ0mcrmGkcahyKwl0lSh9MAtoEpE/+6Rn8
-	 3hEhUJLuz20dkiN65Qh39jsAoHoen1JDz8mO4wirCGrqepcAcrdKZIsZvM8jwwkU7GsxV
-	 6THrL28qnuEHhl80zVqrUB0Kk+kj18Qsa6SKZ0EMD45tp8dRmz+72183RXcOf/t4ckMM2
-	 JRpEuwJaTslCYvPSzAFJt4B9P1PvbIkz3cGblZze7zao5PlbpnzXgb0qQ3ZttBnwsGhN/
-	 ONsGdyjU21M9RNK3G5t2Tmnaezs5gi0WLIdulvAjmDorqiytb7stL7wklMWnjymmSHQ==
+	t=1795121478;
+	b=kUDD/4gTUCy/Ld5GhPPSJxF6cl3Goyd+Cuz32GRUn16x7rPQq4RqpuJ9pSKJQTuCrPfK
+	 HwBJSe8XwzXUkL1zHKhrVy3iLIQR7URQIHY304cAeCCG62AoerwYQT8iW5F8lhsnNHZh8
+	 ir365g6jMUswAZxprHqcusXCZHrGQxNHgB+zxSlPeP4FV7+/bgo5STSIh6Mjs/wtzCMNM
+	 0bw5J2p6JgMreKQzzS2yuCbCj9byOq+fn5QR/n8IuARUjAeR307Pa9eGEJ/fy3YKSVBVS
+	 eZDsiblv1kcIjnqTmeQ2GNYOL5CqzkRc7z8c6Q5ovovVe93LBj75EDfnIZPfLiaTyvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795121471;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795121478;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=w785jD0T5Pisp+wBka588XQ3quIRcHgbBG4Ss1sWiiM=;
-	b=DTW0zNxPh2yakbwlByIGIBnf4X4OfzJ6EIdOkend1PIKGIZ4xhxhhZg7yc08c4aQoSTy
-	 9nOKPRKqgJuOgY5t9Lld8yQ4az8X0t5daUT77CTib5475L3mxeJUHprVe+zTwbjhyouDZ
-	 sg9NP85Cn33OyHIOdOkNKSRqiwtd213KEsh07SLQto/uy/LVRLWcLVrKP8jIVG8nS6BYm
-	 OFw67ULby9VlgrDYxZMB+Tvwi7+C11NMyBNkO1lgYmj6EQT9plm/jWLqgAYL2bWIFxTl5
-	 FA2ehlpnBu0N/dRmQZGijLiMOLP3Wq1/ysIk7qE+zSxUHdqhDAAgPll+YP6Mp3jn+mA==
+	bh=2/xhsmajeOTWb9TKDJR/qiksAhZWeEjLp5YMMU353/g=;
+	b=dSwfkmWRedQI5kxdZpQqa8mQjn0FvUA2yNwDlag/eYA2LClz1Z2JwVVvxIAboY4/9dP4
+	 3aYlxKcvxqlq7zFDQtBTcXppNJ9OHDnCcwRH1fklekUFAT6P562uVsJX1LNc0eoWspIml
+	 jYF4lqU84yMH9bLLLR6L9ADdRIpzZwoPRHIxIrxevaQOyb91n5VaaGc/FymQogWQZ+M3X
+	 e4WoZq1iVuoBHsZxhtiDkhamEPkuycrtQeR5NII3GVpW4KCmldPoJ1mV1UTiB3JD4JvvG
+	 hSPXVhJPI6zDKmRPjYIJj0HmamjNxPaYAes9jvc3U43AjX3vPlxJJ2SRgmF3gqgvqWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHlDrqmA;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PV4qyeKo;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1CB7606A337;
-	Thu, 19 Nov 2026 20:51:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B827606A337;
+	Thu, 19 Nov 2026 20:51:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FHlDrqmA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EB431F000C0;
-	Thu, 19 Nov 2026 20:51:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PV4qyeKo
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF4B1F000C4;
+	Thu, 19 Nov 2026 20:51:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795121470;
-	bh=w785jD0T5Pisp+wBka588XQ3quIRcHgbBG4Ss1sWiiM=;
+	s=k20260515; t=1795121477;
+	bh=2/xhsmajeOTWb9TKDJR/qiksAhZWeEjLp5YMMU353/g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FHlDrqmAGyVJJ7jlxOJX97khMiyrO1bJh1YQjOX338pdI0aV/CFTHOAc8TKSHLpLh
-	 JfrK09s/D/DV6NTZwWzyUEabN0dZH8HONmxWe2LeJUowptsHR/BH4L+78qkkhY4k/l
-	 dsyL84ggcTSqpAbOTXwR4Mx0nh5d8nQhwFLMimJWyBlwwIaQfYKjEpkuBzkYN1nZ/l
-	 iXAHia1aHVkb0muu7TjpjyXiuUReXqF1H13//gNbxwgizzCSnN/QkGvaLOVm/dZ9ne
-	 2eCDUzTE1ea72iXo6mPXAT7W8HD3JrzxwSULikzcWzaH+m9ZtzAHP+zJ8Q/txAt1Op
-	 Yx32gyc4zJI6A==
+	b=PV4qyeKoMQS3aDNLmBQ/LvHdDXPOF8bb14HpuXjHSb5psK1uBZjKpCjDERXg1bcsQ
+	 seMu+5GhBo6NKKAd+YjadpKDSfZSRM1I5L7ljIQLV73v7IyxW1a4VniVmd/nEvYmbo
+	 SA1ISzGvchk7LjPXIFEkK/v3tHg/IgPbz5lFNJaDLc+68vsZOIGV2N/ppOV4FiRgt5
+	 WR+fqTb4KR2wJwBRNB54E1A2yCeoH0Hay7cm1vLwxQw6a7R/2mqjaAeuxuHRhKijVz
+	 sk32dTXv/hHKD3JH6s0X4IqXPMOrPLzBkUd1+gXQadlb+Rl46LplsHsdDMubtlEyFT
+	 SIyM0DHosEeOw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Andrew Jeffery <andrew@codeconstruct.com.au>,
@@ -49,14 +49,16 @@ To: lee@kernel.org,
 	Nancy Yuen <yuenn@google.com>,
 	Benjamin Fair <benjaminfair@google.com>,
 	Linus Walleij <linusw@kernel.org>,
+	jordan_hargrave@dell.com,
 	tomer.maimon@nuvoton.com,
+	Andy Shevchenko <andy.shevchenko@gmail.com>,
 	openbmc@lists.ozlabs.org,
 	linux-gpio@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH v2 07/12] pinctrl: nuvoton: npcm8xx: Propagate npcm8xx_gpio_register() error in probe
-Date: Thu, 19 Nov 2026 20:49:03 +0000
-Message-ID: <20261119205013.2563811-8-lee@kernel.org>
+Subject: [PATCH v2 08/12] pinctrl: nuvoton: npcm7xx: Fix fwnode_irq_get() error check in npcm7xx_gpio_of()
+Date: Thu, 19 Nov 2026 20:49:04 +0000
+Message-ID: <20261119205013.2563811-9-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
 In-Reply-To: <20261119205013.2563811-1-lee@kernel.org>
 References: <20261119205013.2563811-1-lee@kernel.org>
@@ -71,34 +73,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-npcm8xx_pinctrl_probe() logs an error with dev_err_probe() when
-npcm8xx_gpio_register() fails, but omits the return statement and
-returns 0 instead.  Propagate the error returned by dev_err_probe().
+Commit 693c9ecd8326 ("pinctrl: nuvoton: Reduce use of OF-specific APIs")
+replaced irq_of_parse_and_map(), which returns 0 on failure, with
+fwnode_irq_get(), which returns a negative errno on failure (including
+-EPROBE_DEFER), while leaving the !ret check unchanged.  As a result,
+negative error codes are stored in pctrl->gpio_bank[id].irq and passed
+as large unsigned IRQ numbers when registering the GPIO chip instead of
+aborting or deferring probe.
 
-Fixes: acf4884a5717 ("pinctrl: nuvoton: add NPCM8XX pinctrl and GPIO driver")
-Closes: https://sashiko.dev/#/bug/linux-cff468bb-80b4-4cb3-a5ff-2b3a8fdb151f
+Check for ret < 0 and propagate the error code, matching the NPCM8XX
+driver.
+
+Fixes: 693c9ecd8326 ("pinctrl: nuvoton: Reduce use of OF-specific APIs")
+Closes: https://sashiko.dev/#/bug/linux-95c9d7d3-32bb-4f4e-ab7f-84872957de4f
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
 
-v1 => v2: No changes
+v1 => v2:
+ - Rebase onto pinctrl for-next, dropping manual fwnode_handle_put()
+   now handled by __free(fwnode_handle)
 
- drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-index f300c3cd924a..6c124d8129bb 100644
---- a/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-+++ b/drivers/pinctrl/nuvoton/pinctrl-npcm8xx.c
-@@ -2598,7 +2598,7 @@ static int npcm8xx_pinctrl_probe(struct platform_device *pdev)
+diff --git a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+index 3e763a097b91..72480603ce6b 100644
+--- a/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
++++ b/drivers/pinctrl/nuvoton/pinctrl-npcm7xx.c
+@@ -1871,10 +1871,9 @@ static int npcm7xx_gpio_of(struct npcm7xx_pinctrl *pctrl)
+ 		fwnode_handle_put(args.fwnode);
  
- 	ret = npcm8xx_gpio_register(pctrl);
- 	if (ret < 0)
--		dev_err_probe(dev, ret, "Failed to register gpio\n");
-+		return dev_err_probe(dev, ret, "Failed to register gpio\n");
- 
- 	return 0;
- }
+ 		ret = fwnode_irq_get(child, 0);
+-		if (!ret) {
+-			dev_err(dev, "No IRQ for GPIO bank %u\n", id);
+-			return -EINVAL;
+-		}
++		if (ret < 0)
++			return dev_err_probe(dev, ret,
++					     "No IRQ for GPIO bank %u\n", id);
+ 		pctrl->gpio_bank[id].irq = ret;
+ 		pctrl->gpio_bank[id].irqbase = id * NPCM7XX_GPIO_PER_BANK;
+ 		pctrl->gpio_bank[id].pinctrl_id = args.args[0];
 -- 
 2.56.1.750.gf70dc682cf-goog
 
