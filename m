@@ -1,98 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795131682;
-	b=mSspxfoew4HT8LbVxpwjbmOsude7rQMN9n/D7W1C4yxMhD5fYLmm4wllm507fn4t0xD4
-	 Oznj0lTB3qaxsbLDoBIQvV4K4a8hI3h0xDUbX2ip9Z+GTTYcGaUWbhqS1I5VUfMYTWlgN
-	 FqZthyV3TT8Y5dHJTeFs+6RQk8cMF6K+Wl5j/U9cYX2Nme14CgrIjBsXvecrz93mVZRla
-	 aU45F/hZgnHDJxxrYPGv6478XXz9949xVsM6reronIfdwn2aBqw8HLaS/46juENpA1o4b
-	 +SMbsgjpsh8jo/TloRJQaOzQaG3B6DSJrM7VRqhJa6ecu9Nq8JXxx3YfrxDyPqA8ToA==
+	t=1795132111;
+	b=CHkKksKHI3qN5WuR807QQBPDCKXg9y95Mf9GUlburb83v3rjHH5n2ew+47SaSQLyTtVi
+	 k1pmE5l6EbOKaCMqGm0odfKxS1wcXW2RFto1yLt7WOmyGRCW4EyuIuL8hMlVISJPHN3Hk
+	 05NS1mBb2AWeEsDOPOFGr16MeWh/J96ykUcra+2Rl5pLpHkOdwjFNfxFh6uqaua8xXc0/
+	 Yq3O7yg6aFTh7g3Eh6TA8fXUUrHZe2ZtapIzttjWzOx6PvCoyhAyuKkQEEyJfV8vR+SES
+	 m1G1X9ngOdjl6vj6G0V2to4Sgrbvb+vblX0FB0rU8QF1H5yXODg1qgQViMg0EdgpLWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795131682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795132111;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nKWdvn5g3LWqbr6kSTOS4+Q+mYE0fgsqV+kyH0HAgJc=;
-	b=tZDjghCkuXAn/g7Qr+IkX1AFAI8GMS6HRYaeuASZNcRtNAlNgLvO8EeCtAsMqsotfVSk
-	 kzEM3riDmw/Kpq3W4VhTLZxSrrl8BAIRrfcSwrxfwVh1FlP3x+cKBwTkxrTJd4BHtjfPE
-	 2whj+PZMpmBhnaZQXIEkz3yZ3JNKIbE9eZvPZI8y7x6P/x++Cu0+N2lq4d9GRRmRYk03+
-	 h50imDaNBR8oDN/pvg0gtrmYfh8BNpDwAPXqfBWW1e3sFX7crrj0/dBpHM+lwxModFQ3+
-	 +9NZL56PC93GeWigqLorQi7tbwtDN16UnRXSQ5XO1xvdnEFnJsHOMH0PTK5V7PgSKrg==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=YUybhKhz7iS/HEeHDZ9aby2NzinwtFQFRqsE5uPznD0=;
+	b=z1XuWcz4wKGpWnkcaLlba2MQU9JOK3I3nOa4mKSM/mcV/iMxpndSZGtgep+vXkNfPjiS
+	 3Ms2ZlrMP9SfSWxqUkW6fZL3R5HfULS1OSdqr58nDCQEHLQSIT8I7PBSF2+vg6TsEoTFg
+	 tB19nrff7TgGZa6KieCbJb9iZePBHsprOtzpSCwLAyYgzJbJ+sxjSx+v6v0iW/RGxwOn4
+	 3ED41iq2MOXJuBCoapA7eUljxMlh/jQQVHc9WLQJ3Syj67NjWXQWspj1RJMstLq8PwhZa
+	 RcRDAdnzcasVBJT+7v1HSxUpPzzErkxba6dvINtxs5av2l61lQENVBCPqrd20slC2HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dubeyko.com;
-	spf=pass smtp.mailfrom=dubeyko.com;
-	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=uavAA8Gu;
-	arc=none smtp.remote-ip=74.125.224.52
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bCuR3rJ9;
+	arc=none smtp.remote-ip=74.125.82.70
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620C660A2638
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 23:41:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 620C660A2638
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF4D9606A335
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 23:48:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF4D9606A335
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--nilayvaish.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=uavAA8Gu
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67da69e7c31so414141d50.3
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 15:41:22 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bCuR3rJ9
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1a5005fd0f8so700765c88.0
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 15:48:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1795131681; x=1795736481; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nKWdvn5g3LWqbr6kSTOS4+Q+mYE0fgsqV+kyH0HAgJc=;
-        b=uavAA8Guf8WpnuTNpWimlPENJzUf8jbi7z9vm+4+bM3r6bbHArdER6HHyjbhAroXL9
-         tX1WDOkGFYXp/Z8PZbeNdlWudF/fgIs6dmff5+n8b55qWrsGD0lXa5aNLl1svV+NQSik
-         BInwZLE8LD5tLiSiqOjLoRe73LDHVO8WtEP2iZ5IEuzF0pnoIcjBi7nBgmlgFW1uvgEL
-         dNeqagXulZh2q8aM4G6lvtAj50AfM4xSaQD2ti4kX3T23AiGMymqbTuPwp+G1acY/ZcK
-         rBP2PmLWd8jaYjY/2GLCYVawno+kEBBao6Uesp3u3pcN9WPYQtrAfALrEojDy6Vu/DB0
-         suoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795131681; x=1795736481;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20260707; t=1795132110; x=1795736910; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nKWdvn5g3LWqbr6kSTOS4+Q+mYE0fgsqV+kyH0HAgJc=;
-        b=jVhqBlQrK9sXgqKgQ/7HdtNejZSFHX5q1rttE5gIncg3N7tZ/6PWMH8zHbcn84X6jx
-         t/yCeb+SED5wZKeUkl0YTOE7EqtYHTbBEwHo43TyRqW4SIc1m/QPwycYVHmm2ZbX6shb
-         mk2J8Lv1PXFpbHuuk7QfErLPIOAwgF/Q3BRuq0RV0SXD/TPhXNyqQuCi5Qlf+0CzFQDl
-         k0WBTmLDzoFtw1UIfJrxGiz5uYR2xACVPVcGp7dvJnV1KA5vsRbCHsN26eJG/nRxHUL3
-         Ie0i4ZrK/O8jlkMfCTJxHukHKmI1JxuCnUGM0GAOUk8rX0lAJ0G5seLhF3bMhyPIBC0Z
-         guCw==
-X-Forwarded-Encrypted: i=1; AL+hErEUvl9YWczI57RuYDNKqSPKBzfACNlc+YE/svGwZu1XqkLrGQM59Hzs0FCtjEMaHJqFGD5pOjY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8lCpfpl1QHPshoaRBES0d3tw2KBqxYwiX0ew5MDKUEe68MCFXw
-	v3AQIh36rkcduNGnkZsJ/2du+MD12GaCNkRjD4veSWrVxx3xJTGuZr767Yv3FSRFHqw=
-X-Gm-Gg: AZFdTZefeSKzT9c4sQj2zUImL6FYMl3Bk6MzAkz7A3Gb2KC9hBcBk6Yb3gkMytcxZ/+
-	plgTtlzTCNsHinlo+2dc7m7JS73ws6oiZyBYVeULRCs9W3h7WuAXiqZ4DO/VQi7LOrmHOnDpAZG
-	SB42+3YRNJ/Ratr610cqG1zauS5/F5Ckj20W6RDr2m+4pJg50KdWG17YxwxUOVbKJ1msjdxjXpM
-	lS2+6lJF6iyZnnSRZa7IsyTYmtSFDoGJsRiRXsL7oIaMEA91Vhfhw+BBFDcchfmcDVetzrJEvsO
-	vVQ6Argd8871KMGj/wA2YNTcYngNRe8DA5opJU/XlPx80KikBMFlJ0/Za8kTDBN2So/ONmbHYPu
-	TMEbJ448v8INnZ5xOXUPi0E3fOF2/BvaPe3AjCYLjuih8vSfK1HUfaDKUtuY0v5cLdFOIVDC2AH
-	pIJm/ECc49ZXPhdL38p+qrUbgKa0Ib8rI6/MtEb4J+IZmwMdmD9qvw3MV3JIrHkAuKMUox6zHgW
-	7j3tilw9Lj1l4ntnYixdwJ7CgL/261Ln4qX2OFNxpU3tm7tTki6GiNhnd1iWUCtNDQ1trP1qE6K
-	sHUIUnOuInfwj0w7TOpl5ZfTpv5KUOBa6XTsFcPhvnvulANGUc7zzfXuz5nnS6enKfGnHe8Bxh2
-	bYXoRya5b4g2izhnqjZjoxMUTCpKyVxYM203PjuGIgEKLEXRpTktUsgcV6S1U+Y/3IaauDkM=
-X-Received: by 2002:a05:690e:419c:b0:679:f97f:fdf6 with SMTP id 956f58d0204a3-67df448c769mr466727d50.66.1795131681346;
-        Thu, 19 Nov 2026 15:41:21 -0800 (PST)
-Received: from system76-laptop.attlocal.net ([2600:1700:6476:1430:1932:ad09:1827:11fb])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67df338e8fesm796893d50.16.2026.11.19.15.41.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 19 Nov 2026 15:41:20 -0800 (PST)
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: glaubitz@physik.fu-berlin.de,
-	frank.li@vivo.com
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	vdubeyko@coreweave.com,
-	Viacheslav Dubeyko <slava@dubeyko.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 4/5] hfsplus: reject an allocation bitmap that does not cover the volume
-Date: Thu, 19 Nov 2026 15:41:11 -0800
-Message-ID: <20261119234112.720963-5-slava@dubeyko.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261119234112.720963-1-slava@dubeyko.com>
-References: <20261119234112.720963-1-slava@dubeyko.com>
+        bh=YUybhKhz7iS/HEeHDZ9aby2NzinwtFQFRqsE5uPznD0=;
+        b=bCuR3rJ9nBfCFTt0gHqNBBKqM5t35lscp2X2cNZuWT+I11NokWHBJBiuLddOCNEVTU
+         0GtzVy9bj57CSHwL9VPJTSFvshW7YDIFJ5aojjey/UNTO4yIRozJDK+x6sEkN/8m9ZK5
+         4HjC+6vIFl35prqF1sWrM4UgG4ir8vc/AYW2Ocjrk4Y8+kZW3v67k3peXnnme2dpNzQ5
+         5LHMueXnV2veVi3AV7URbLazcXK/aM3i8ZYn8h/tXVHiF+LEDcSQIkVQMNUyEtTuV4eU
+         BpW3uetHw0MgTxWnFq7loKH/ND4tQIPV4wXKw79lpH5vw5yxMisNlmqvWirTNS1Ugl5i
+         vcXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795132110; x=1795736910;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YUybhKhz7iS/HEeHDZ9aby2NzinwtFQFRqsE5uPznD0=;
+        b=HtEQNVUSUqzjwOvqMhYX920r1gIJnE4p+Y6XVsW1LBX4hH/4RcST878EkBbyPNM42c
+         WW17JpU4SqwTE1mILalflVYHROzBN0LdTODng+EfkSW4+KDmySd6R09B+g9Zdi2k2MmX
+         ufM7A2BJnovq5shws+ZKHIwhaEw3Lw1J1Odog0rzKdyU6A3aQea1zPBnRiyRFvg7YTzr
+         rWOzLzlLpxKUfBR6RXWQ5//Z6IN1GZ5CYIi5qrr5Ull0F+TL6yxUpN2tNJ/xmaQTT+u0
+         PTXO2YYxHw6WUSXPyCAUsUhduA0mPv+ighoiaweJ2CMH3ZphbYeLYPuofC0d6ifjLpMq
+         p/0A==
+X-Forwarded-Encrypted: i=1; AL+hErGWmemHTb6b9DiT76RLW557RCSMSglu1e7Y0N0TrlNmw0QeYve4ekULPlRznqaEWsYZEhruLx4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+intlScVxlgp6rQTsiPn4mB4+POs0DzBeuVyLB06B0bF2h7TV3
+	XGkxqAP5mKljaY+fwTz8DsLMFNu1FyVNke0XbYXf0su6qCaQMXoAhAeTwHY7M2Qq4TZ9f3Uc8E5
+	TfLi9R5ltBLzVWGbXqkyHcg==
+X-Received: from dlbsj7.prod.google.com ([2002:a05:7022:f907:b0:1ad:2ffe:151b])
+ (user=nilayvaish job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:701b:4354:b0:17a:e684:b497 with SMTP id a92af1059eb24-1b55682369bmr1123328c88.5.1795132109309;
+ Thu, 19 Nov 2026 15:48:29 -0800 (PST)
+Date: Thu, 19 Nov 2026 15:48:04 -0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -101,67 +75,130 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.1.750.gf70dc682cf-goog
+Message-ID: <20261119234804.1740734-1-nilayvaish@google.com>
+Subject: [PATCH v2] mm/page_owner: fix double decrement of stack count on unpoison
+From: Nilay Vaish <nilayvaish@google.com>
+To: Andrew Morton <akpm@linux-foundation.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Oscar Salvador <osalvador@kernel.org>
+Cc: "Jose A . Perez de Azpillaga" <azpijr@gmail.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, 
+	Marco Elver <elver@google.com>, Andrey Konovalov <andreyknvl@gmail.com>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Naoya Horiguchi <nao.horiguchi@gmail.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Nilay Vaish <nilayvaish@google.com>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The allocation file is a bitmap with one bit per allocation block, so
-it has to be at least DIV_ROUND_UP(total_blocks, 8) bytes long. This is
-not checked at mount. hfsplus_block_allocate() and hfsplus_block_free()
-look up any block below total_blocks in the bitmap, so with a shorter
-allocation file they read and modify bitmap bits beyond its end, which
-are never written back.
+page_owner counts, for each allocation stack, how many pages allocated
+from that stack are still in use. The count is incremented when a page
+is allocated and decremented in __reset_page_owner() when it is freed.
 
-The only guard is in hfsplus_file_extend(), which fails with -ENOSPC
-("extend alloc file!") once the blocks in use approach the bitmap size,
-and hfsplus_block_free() has none. On a 64M volume created with
-"mkfs.hfsplus -b 4096" whose allocation file size in the volume header
-was changed from 4096 to 1024 bytes (fsck.hfsplus reports the volume as
-OK), writing two 24M files fails with -ENOSPC at half of the volume,
-and after unmount fsck.hfsplus reports:
+A page that is hwpoisoned while in use and later unpoisoned passes
+through free_pages_prepare() twice:
 
-  Volume bitmap needs minor repair for under-allocation
+  1. On poisoning, the last reference is dropped. free_pages_prepare()
+     calls reset_page_owner() but, because the page is PageHWPoison(),
+     keeps it off the free lists.
 
-Fail the mount if the allocation file is too small for the volume.
+  2. On unpoisoning, unpoison_memory() drops the poison reference and
+     free_pages_prepare() calls reset_page_owner() again, this time
+     really freeing the page.
 
-Tested on a KASAN and lockdep kernel: the volume above is rejected at
-mount with "allocation file size 1024 is too small for 16384 blocks",
-the same volume with an allocation file of 2048 bytes (the minimum) or
-4096 bytes mounts.
+__reset_page_owner() decrements the stack count both times, although
+the page was allocated only once. The first call clears
+PAGE_EXT_OWNER_ALLOCATED, but the second call never checks it.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+If this drives the count to zero while the stack is still in use,
+stackdepot treats the record as freed and warns on every later
+allocation or free that uses the same stack:
+
+  dec_stack_record_count: refcount went to 0 for 92274844 handle
+  WARNING: lib/stackdepot.c:517 at depot_fetch_stack+0x5c/0x70
+  Call Trace:
+   __set_page_owner+0x110/0x290
+   get_page_from_freelist+0x1225/0x1440
+   __alloc_frozen_pages_noprof+0x1fc/0x1b00
+   __folio_alloc_noprof+0x12/0xa0
+   alloc_migration_target+0x81/0x1e0
+   migrate_pages_batch+0x1f2/0x14c0
+   migrate_pages+0x9c3/0xca0
+   soft_offline_page+0x189/0x570
+
+A single soft offline followed by an unpoison is enough to trigger it,
+because the migration-target stack that the offlined page is accounted
+to usually has very few pages.
+
+Fix it by decrementing the stack count only if PAGE_EXT_OWNER_ALLOCATED
+was still set, i.e. only the first time the page is freed.
+
+To reproduce, boot with page_owner=on and CONFIG_HWPOISON_INJECT, soft
+offline anonymous pages with madvise(MADV_SOFT_OFFLINE), and unpoison
+each old PFN through debugfs hwpoison/unpoison-pfn. Without this patch
+the first cycle prints the message above and 2200 cycles produce 6597
+warnings. With it, the same run is clean and all stack counts return
+to their initial values.
+
+Fixes: 217b2119b9e2 ("mm,page_owner: implement the tracking of the stacks count")
 Cc: stable@vger.kernel.org
-cc: John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>
-cc: Yangtao Li <frank.li@vivo.com>
-cc: linux-fsdevel@vger.kernel.org
-Signed-off-by: Viacheslav Dubeyko <slava@dubeyko.com>
+Reviewed-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+Reviewed-by: Oscar Salvador (SUSE) <osalvador@kernel.org>
+Signed-off-by: Nilay Vaish <nilayvaish@google.com>
 ---
- fs/hfsplus/super.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+v2:
+- Expand the comment in __reset_page_owner() to explain the allocated
+  check (Oscar)
+- Collect Reviewed-by tags from Jose and Oscar
 
-diff --git a/fs/hfsplus/super.c b/fs/hfsplus/super.c
-index d23594d12064..6e4068e53b4f 100644
---- a/fs/hfsplus/super.c
-+++ b/fs/hfsplus/super.c
-@@ -777,6 +777,19 @@ static int hfsplus_fill_super(struct super_block *sb, struct fs_context *fc)
- 	}
- 	sbi->alloc_file.inode = inode;
+v1: https://lore.kernel.org/linux-mm/20261118212819.403059-1-nilayvaish@google.com/
+
+ mm/page_owner.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/mm/page_owner.c b/mm/page_owner.c
+index 02bb304b53cf..09a3c2958079 100644
+--- a/mm/page_owner.c
++++ b/mm/page_owner.c
+@@ -320,11 +320,13 @@ void __reset_page_owner(struct page *page, unsigned short order)
+ 	depot_stack_handle_t alloc_handle;
+ 	struct page_owner *page_owner;
+ 	u64 free_ts_nsec = local_clock();
++	bool allocated;
  
-+	/*
-+	 * The allocation bitmap has one bit per allocation block. The
-+	 * bitmap code looks up any block below total_blocks in it, so it
-+	 * must cover all of them.
-+	 */
-+	if (inode->i_size < DIV_ROUND_UP((u64)sbi->total_blocks,
-+					 BITS_PER_BYTE)) {
-+		pr_err("allocation file size %lld is too small for %u blocks\n",
-+		       inode->i_size, sbi->total_blocks);
-+		err = -EIO;
-+		goto out_put_alloc_file;
+ 	page_ext = page_ext_get(page);
+ 	if (unlikely(!page_ext))
+ 		return;
+ 
++	allocated = test_bit(PAGE_EXT_OWNER_ALLOCATED, &page_ext->flags);
+ 	page_owner = get_page_owner(page_ext);
+ 	alloc_handle = page_owner->handle;
+ 	page_ext_put(page_ext);
+@@ -339,8 +341,15 @@ void __reset_page_owner(struct page *page, unsigned short order)
+ 	__update_page_owner_free_handle(page, handle, order, current->pid,
+ 					current->tgid, free_ts_nsec);
+ 
+-	if (alloc_handle != early_handle)
++	if (allocated && alloc_handle != early_handle) {
+ 		/*
++		 * Not every page that gets here is still accounted as
++		 * allocated: a hwpoisoned page that is later unpoisoned is
++		 * freed twice, and the first free already cleared
++		 * PAGE_EXT_OWNER_ALLOCATED and dropped the count. Only
++		 * decrement the allocation stack's count if the page was
++		 * still marked as allocated.
++		 *
+ 		 * early_handle is being set as a handle for all those
+ 		 * early allocated pages. See init_pages_in_zone().
+ 		 * Since their refcount is not being incremented because
+@@ -348,6 +357,7 @@ void __reset_page_owner(struct page *page, unsigned short order)
+ 		 * their refcount either.
+ 		 */
+ 		dec_stack_record_count(alloc_handle, 1 << order);
 +	}
-+
- 	err = hfsplus_ext_load_alloc_file(sb);
- 	if (err)
- 		goto out_put_alloc_file;
+ }
+ 
+ noinline void __set_page_owner(struct page *page, unsigned short order,
 -- 
-2.53.0
+2.56.1.750.gf70dc682cf-goog
 
