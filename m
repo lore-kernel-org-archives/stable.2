@@ -1,47 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.87
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795064635;
-	b=nfeQ2pJTazqYsN86jzuy2jTTAfC+3WKMVIhRo7YPs88ljM+TOvfLlozKseZjGL05ctpR
-	 e80/GJtICZOPVkGVun7q6YjaHOBXvIrrvCLKbNmBCTTflCtM42j9DuH6/5PWddBWppTK6
-	 du9mdQTe2jvs9ldyfNP1fpphLpaWeUxPHiffsQ3nB8Kzv2UDHAgrvlFilEP46zahKTwvb
-	 n4uqfrzbPhU+gasCToI38wRCQtjvw0acrfFmrxyU98k4S6nw2qH3/F82xS23FFotqXO2T
-	 ckAkBE/lRnXBrF0iq5olsGp4oIdaMeQ9akPLq34b/GrJkbRlKuAhaVRk3zyB1Bshvog==
+	t=1795064929;
+	b=KKKmcjemfG3nnPrZnxHpIciBEoiqHnJ+U7Fkhk2oVR85BVbBxpw0thZOwBviz1WA0SpP
+	 Gkf3+gllfYs+GuWEkdBPF8OOhm3Yl35XGJ0e0B68iEYpBaNzlyfTqXAkl6zuOpf2nRNyC
+	 zWyQBmmCMboVlz888NAQRB6PuozKsleVu2+bHtLRto/dI8W7O1oyqiCs4d+/hQyFfS/3Q
+	 ZuxjXFcIZlGTLWX9UF9wjEC/ssP40zIIm7MkCw5oUdq9LMlHWFzxUN3JX08nomSGWvij6
+	 65i8w4iKtkaugGJIz5sgkjOx796fBypZppK+hJ515llNo73nxmwWszUzYZAClMtOoSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795064635;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=GBL+w+gKm4BciOel47s2fVIuHWYFXENW2ii/MuaXrB8=;
-	b=hIJ9rkGAFHukIgGkuOTVMnYCHp79LGW+PHTgiFwGii1RpX20T7zqT2a2VkrbeyEVj2p8
-	 hYEjbhODYfqGG4UPhb9WFZqLvk/UzgOQhp6kxY4Qqfcy/BUV6TBB2aRTztmXXeodVUH49
-	 HUdXM2Swkwbz0pJcHAdxyc95adUq9XIBL86tnK9c3O40w7+6hdyWa8K12AJjiRA45ClQx
-	 EFQZ87u83FOAUjerpefcNxY5G/8BMvJHIz1Kgl4WRFKse4qWCQfKek4p5IdKsdCpi4IPD
-	 0ynuFyGyt1IYiHwPhZkdhGtd8TTGvrZlgcdoXqXj2sOGqBn7Lhd5w1ZpxwBdNd3y1sQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795064929;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JsbfZY3YpWLLXS47DzvZ2q2Kiq9RcJQNoyxoisr/Mwo=;
+	b=k7DGG3d6wLLEjW+Kax3aHoopKWaItk1q3UORuOJwJ3rBvixq1+Fk3aegioBUyXtQykHn
+	 7hJp+92EjDNUowuDYuqrJkp5RurrHpyc0mAwVE99a861XJb71wt0QmF+O22f4Z1IEZmb4
+	 XOO20FufJaMzh9tLh60/5hhVUCUD8MuFRs5Z8tFjzZR4wxOK34FK5o3jab4farsaVreku
+	 5GFOyCZUlHcQHmiGETjuGYY624ty0yVi7UwJpkuG4DjQ4lgPlNMZDNxEaaKH0mgjnlOB6
+	 cd8bL09bO+pgwUFeJj/mwu5/8VjKWR6Sm2Lbwu085PDgYb9E1zazx0xKOn9U84kaueA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZRsnGfw;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=OvL4dOcN;
+	arc=none smtp.remote-ip=162.62.57.87
+Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00581606A320;
-	Thu, 19 Nov 2026 05:03:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC42606A320;
+	Thu, 19 Nov 2026 05:08:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC42606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NZRsnGfw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9041F000C4;
-	Thu, 19 Nov 2026 05:03:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795064634;
-	bh=GBL+w+gKm4BciOel47s2fVIuHWYFXENW2ii/MuaXrB8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=NZRsnGfw/AOrtXjMIy0XOgVBNrbz25Sh+zzn0MP8oLekKRW+9wHqm6KrfSzRtxZnE
-	 gZnPKBgPMTwn6Ev6Wy2jLxCDV6QFmkHK/nte+la7lTFAdElsCTfxmbOiaHj1TC/+a4
-	 n1STA9ZxgN9qeVTm3BNuVnYmfc22qvn+70FNmox1CFzGeOa1AwJJltekvnUAdTOB0d
-	 +sakOwO7dExv4OV6hv+NYqX/s9kuMBGLtdgKdgyKrnX4xhlYOq37/GfUdJjR4PgyBS
-	 tagaMzy4uDO4h+qJ35RwXZ9vwk/LZ9My6jf87EoReQcbJ/zP9HBr2FAY6O6R0OdiqD
-	 1FtKaTqeLDBlQ==
-Message-ID: <9d7a979a-59ad-4e88-964c-573b31778fff@kernel.org>
-Date: Thu, 19 Nov 2026 06:03:51 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=OvL4dOcN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1795064897; bh=JsbfZY3YpWLLXS47DzvZ2q2Kiq9RcJQNoyxoisr/Mwo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OvL4dOcNp6G7yW3vYLDoGPVA/W81Kn9Wo/dkHdV+nYQN9FatSielf3ceLBZxuYeLX
+	 pecY/v0li4SID7cUjkQVKYashEWxQ0mfpDqf+psV8l7A4LiJKdRn6WBsRDN4ZjlTUV
+	 bH6kxfnNEYi5bxPG+0ccimBLBkH3H9TdgEvj0xqU=
+Received: from shuai-VMware-Virtual-Platform.. ([117.158.156.199])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 20E0EA98; Thu, 19 Nov 2026 13:08:14 +0800
+X-QQ-mid: xmsmtpt1795064894tzj3vxw18
+Message-ID: <tencent_46F20906773869221623F9FA26275C133107@qq.com>
+X-QQ-XMAILINFO: NC4p7XQIBeahL9Rdr7kBZOzUd7hBssibtBW4fxsYFWhzn7D8Sf7HKB89xOZPch
+	 10V03tpg9+cy26bKqWWlouNaA27Jn/eUYrbStSxuWlXR98X6UzwDlsjSxvMH3yfEdVHYSUH8oVbX
+	 RXiuN3/BHyPZybjZleWHnUhoPcwjVaN5GqO/aU6bzev9zzXz/IL4H5dhZ69VygR/8KuXtbCfbmZY
+	 2dRsaWeE0L16T0gwfxqWn0fL2OHKPvRfCFn12GN6l5AgnGICougkR6S0syjbwWucZdjO4oaLazzk
+	 qPx2/b5eBwmcCRbBlonCU8P7P7RXfR32+LY5+arDX6g6qucUU+XHs2Gvn0v//Vix72HhEBoh7e4K
+	 gMi/CWhLMcGPICHO4yrJhqVXOBl5htc7AVhatLinSLcwk3yi759A7KBof5u8lx2ftdvVvNKtHxJH
+	 ehpZjxcB+AE5qshvlsj5FylUk4w3BXhqzs0Saxi8SX6h+6eizTtnCoUohNYZiXjz2qPqsjcVwE+F
+	 R/cNfEMWYUKee3KFuy6EbcXHHDNxMIXbBjhqgcCiMJ7QCSoNU3r+7kTFXco+muk57BaHgGQRhTKE
+	 PrJ9FvdqWYF8qETmyzE6H+BRYjvYdZe44IT7RM4szLNlQCUzjJTiH15zKPmOLGvMHbJ3LEAamlix
+	 sPeateQz240FWT2S6d6HBfeXVKmbJSEAojQ3tDVrr+6QfsiYO1jNA50H0cgbKdcZ2J6MkWraLee5
+	 XhG7WL54KM08mFg/M+tdW8d5wcBIaytLh4RHa40VAdJfb5DrIcL3OHYowRIB5O2JZacc41J+slBb
+	 I8zb0I97QL1mlBLZp5BSO5SGFLrrCgcsAgP7y4GPYIUHqOD1DCgI31K0G7TKATENlkcuH0weiAit
+	 CZZWCjI7IYtKgrbIxC2MVHJ9zVCqP9VPxkm8kscAq+afyJpt4IsNBkFV7vd4D+0iT8HI3D+3T5eA
+	 B98pmD6Hce4DPIZ0eBiY2D6Xq7C21pGENpTCWT3mP41LTDHUWw0vUGRDw0n26swdMXkkKUvvdM3c
+	 LtIV+E3bQDqj4hRNITSBSQKhIh+hPB7+kcBMJbVx1auwVRpv8NpIGo6IzwDpfz2wPSTETo5kE73U
+	 TVDT7vkV+PZYdVvItYCYaehwxSxtsKk7pBPnwq
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+From: Shuai Liu <847807867@qq.com>
+To: netdev@vger.kernel.org,
+	steffen.klassert@secunet.com
+Cc: herbert@gondor.apana.org.au,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	q.h.hack.winter@gmail.com,
+	stable@vger.kernel.org,
+	syzbot+d29af9ef5c96a3f5e96c@syzkaller.appspotmail.com,
+	Shuai Liu <847807867@qq.com>
+Subject: [PATCH net] xfrm: interface: drop non-IP packets before pskb_inet_may_pull()
+Date: Thu, 19 Nov 2026 13:08:14 +0800
+X-OQ-MSGID: <20261119050814.1788751-1-847807867@qq.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <6afdcf01.ca6cd63e.174a34.0001.GAE@google.com>
+References: <6afdcf01.ca6cd63e.174a34.0001.GAE@google.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -51,115 +88,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.3 2347/2651] gpiolib: Propagate emulated drive errors
- when setting arrays
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Sasha Levin <sashal@kernel.org>
-References: <20261118150247.972732815@linuxfoundation.org>
- <20261118150409.562185124@linuxfoundation.org>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20261118150409.562185124@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 18. 11. 26, 15:59, Greg Kroah-Hartman wrote:
-> 7.3-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Baek Kyu, Kim <pocj8ur4in@gmail.com>
-> 
-> [ Upstream commit 15665047024e30f9c2227563d03034061c99ac2c ]
-> 
-> gpiod_set_array_value_complex() ignores errors from the open-drain and
-> open-source emulation helpers. If a direction change fails,
-> GPIO_V2_LINE_SET_VALUES_IOCTL still reports success, including when
-> updating a single line.
-> 
-> Return the first emulation error after freeing the temporary bitmaps.
-> Keep updates already made to earlier lines and stop processing the
-> remaining lines, as for errors from gpiochip_set_multiple().
-> 
-> Fixes: 8ce258f62f90 ("gpiolib: make value setters have return values")
-> Signed-off-by:
+AF_XDP sockets bound to an xfrm interface submit skbs with
+skb->protocol unset (0) and skb->network_header still 0 from the
+__alloc_skb() zero-initialization; skb_reserve() only moves data
+NET_SKB_PAD bytes into the headroom.
 
-How much illegal is to have this without the author's proper S-O-B?
+Since commit 86de3a1118a16 ("xfrm: interface: validate the IP header
+on xmit"), xfrmi_xmit() calls pskb_inet_may_pull() unconditionally.
+For such a skb, pskb_inet_may_pull_reason() selects nhlen = 0 for the
+unknown protocol and pskb_may_pull_reason() receives
+len = skb_network_offset(skb) = network_header - data = -64, which as
+unsigned int exceeds INT_MAX and trips the
+DEBUG_NET_WARN_ON_ONCE(len > INT_MAX) in pskb_may_pull_reason():
 
-> Link: https://patch.msgid.link/20261020172601.221861-1-pocj8ur4in@gmail.com
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->   drivers/gpio/gpiolib.c | 8 ++++++--
->   1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpio/gpiolib.c b/drivers/gpio/gpiolib.c
-> index 9c05d36ccd74f..90731a547ed63 100644
-> --- a/drivers/gpio/gpiolib.c
-> +++ b/drivers/gpio/gpiolib.c
-> @@ -3950,9 +3950,13 @@ int gpiod_set_array_value_complex(bool raw, bool can_sleep,
->   			 * open drain and open source outputs are set individually
->   			 */
->   			if (test_bit(GPIOD_FLAG_OPEN_DRAIN, &desc->flags) && !raw) {
-> -				gpio_set_open_drain_value_commit(desc, value);
-> +				ret = gpio_set_open_drain_value_commit(desc, value);
-> +				if (ret)
-> +					goto cleanup_bitmap;
->   			} else if (test_bit(GPIOD_FLAG_OPEN_SOURCE, &desc->flags) && !raw) {
-> -				gpio_set_open_source_value_commit(desc, value);
-> +				ret = gpio_set_open_source_value_commit(desc, value);
-> +				if (ret)
-> +					goto cleanup_bitmap;
->   			} else {
->   				__set_bit(hwgpio, mask);
->   				__assign_bit(hwgpio, bits, value);
+  WARNING: ./include/linux/skbuff.h:2856 at pskb_may_pull_reason [inline]
+  WARNING: ./include/linux/skbuff.h:3286 at pskb_network_may_pull_reason [inline]
+  WARNING: ./include/net/ip_tunnels.h:483 at pskb_inet_may_pull_reason [inline]
+  WARNING: ./include/net/ip_tunnels.h:488 at pskb_inet_may_pull [inline]
+  WARNING: ./include/net/ip_tunnels.h:488 at xfrmi_xmit+0x1844/0x1eb0
+    net/xfrm/xfrm_interface_core.c:534
+  RIP: 0010:pskb_may_pull_reason include/linux/skbuff.h:2856 [inline]
+  Call Trace:
+   __dev_direct_xmit+0x4b6/0x730 net/core/dev.c:5164
+   __xsk_generic_xmit net/xdp/xsk.c:1288 [inline]
+   xsk_generic_xmit+0x27d8/0x47a0 net/xdp/xsk.c:1344
+   xsk_poll+0x326/0x670 net/xdp/xsk.c:1472
 
+The packet is dropped by the pull returning PKT_TOO_SMALL and hitting
+the default case afterwards anyway, so the only visible effect is the
+warning; reject unknown protocols before the pull to restore the
+pre-86de3a1118a16 behavior of dropping them silently via the switch
+default.
+
+Reported-by: syzbot+d29af9ef5c96a3f5e96c@syzkaller.appspotmail.com
+Closes: https://syzbot.org/bug?extid=d29af9ef5c96a3f5e96c
+Fixes: 86de3a1118a16 ("xfrm: interface: validate the IP header on xmit")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shuai Liu <847807867@qq.com>
+---
+ net/xfrm/xfrm_interface_core.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/net/xfrm/xfrm_interface_core.c b/net/xfrm/xfrm_interface_core.c
+index 9835fbe63ccb8..aa6e42c3e0e2e 100644
+--- a/net/xfrm/xfrm_interface_core.c
++++ b/net/xfrm/xfrm_interface_core.c
+@@ -531,6 +531,14 @@ static netdev_tx_t xfrmi_xmit(struct sk_buff *skb, struct net_device *dev)
+ 
+ 	memset(&fl, 0, sizeof(fl));
+ 
++	switch (skb->protocol) {
++	case htons(ETH_P_IPV6):
++	case htons(ETH_P_IP):
++		break;
++	default:
++		goto tx_err;
++	}
++
+ 	if (!pskb_inet_may_pull(skb))
+ 		goto tx_err;
+ 
 -- 
-js
-suse labs
+2.43.0
 
