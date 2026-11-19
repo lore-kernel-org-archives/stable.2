@@ -1,99 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795110592;
-	b=k4s+QUqmMc+5LDjeYGdWBnoB6SAzwlSUTcEUK0IbUx56iEPy/9x2Bz+cyJCciwk3qplw
-	 52YsUIOYZ959NRVdZuiBb+BND8rwio2PLdHJi2+ntQedJlCscPIN3kBtMcfPNvOtTlfoO
-	 pbFxNZIGtUjCl3K5P0fU7SU6NGSZgKwHnvJNP615noSPOyDg92m3r4hp51yxSWnXTcS4u
-	 tv1W96mjOwAGYf0iN2BgEbTz2xQ1ixt58snaIu/Waf8xO2c+mxd+IIGP3LUAKXvuQjrAn
-	 mIVhcCyguq75hAf2DwbGAdFh1uGw6SDqsna0KA4Ou8U8loccjwdJ1dkzCKqdeeRnw6Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795110592;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=/O0/GX+7ajqO6zTAHBdQP6c0ZEI97XrYu3SAglUaXjY=;
-	b=u7QTb/YsCgb74qUavvo0AOShidYscNl3eNvGYmryZ4yZodM0G8xRBaGt8gkJbYZ3Eq4S
-	 XQkx3xektBL+E4brbcLqP93StkWiHmP5nEvsymm6bnh0fu7DiGfpXueNFYMRyRFxFHCc1
-	 EBAXAojNgXorqVdBI/7nNRer6BkFaAy+hvUy9e9NJqQETAdf2MzVDYymJGoHZp8O7q16N
-	 LpORjIXJqSUDESWa3lnZOmX4k/l5/EC4x1oGqC99Qoc3bGYNge11FLHP4tDc+JG2W2HiW
-	 FOBsTCiBPf/5jN+yl0jFqIISoKVQbVkB+CaCtUn6+g8VpLdOIQmKFYRdGiJDXNhB0Ew==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cloudlinux.com;
-	spf=pass smtp.mailfrom=cloudlinux.com;
-	dkim=pass header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=BDFzAuNp;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795111405;
+	b=cLNeja1Ki0vPbRZomNOyakBGdcGidH4kGXiAEs4y4ADPDDWObN0ZqTj2ywc+tXK9RhLZ
+	 QABxKuZno72VWQL87CElMs9TOAIoFUMR9QteG+HZQ1tCJkQFhFwblSI4gwWHS7wbHZ0X5
+	 9Uzp8mcvn/jXfNtXm2mEsdvdgfNAXeGvqUJCtNq/Xi8VaL79C8M7nkCEsWGhxtP6Sx4O+
+	 9vFy/M+IPPrr1nHEpvCPzcGM6a5LAK+kgG8NqW6z+KIrKakJSFLWUscY5yBmbGZii2oIW
+	 041/B/3xvBDu4X61rHoyjZ4wAuI+eobJt49KwZodDCl5qPf5U4lGjhyIiyz7IYQRAFg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795111405;
+	h=Received:DKIM-Signature:Date:To:From:In-Reply-To:References:Subject:
+	 Message-Id;
+	bh=KJuxHKBoS2oEPsq5B19tqzGhSzTY1MgHiydTaFUrvsI=;
+	b=Vyo5F1+UHh5Vcik8+vdGz3Y3PQ7U64pVAry3Y2D/CE6EfqXB0UWVFh0UazeFnSKSRAFp
+	 6sRamsVKwtEgfR7wBkW9nHLKI/gsJAKXybIzmRb6Sb3xtr82ykOl/yw4EtF4tFven28gf
+	 yRKIsOzkV7ja+xjx9QTjAxF+M411Q4cAkcL1106zdwjDaydeeyQpAFZzkodNz0NdpRCgD
+	 5fFpAbY3Xv3cWpvMJOmZfTWoKmj7jhF+pT8ZxoALdSF3eeXV5HwBVnRb/hf385eO/7ldT
+	 y4S8szuq7xxe4QFiQOZPDeuu+NYxFvh5j3LgjIFK9PQnGt6/pCNTD7XH6mJ+/QfCwDQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=lxSBNDpi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96BE7606A32C
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 17:49:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 96BE7606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cloudlinux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cloudlinux.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334B8606A325;
+	Thu, 19 Nov 2026 18:03:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloudlinux.com header.i=@cloudlinux.com header.a=rsa-sha256 header.s=google header.b=BDFzAuNp
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c51239b0e3bso5470966b.2
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 09:49:51 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795110590; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ez4cljGOhPIoRrTNiEHSWaDS72FA6z+Gnk1zZotnVd49NJpEvRwo3jzTbja0w/UwPg
-         olJaNzCgL99bzqOF1jXXU13PWSsuseEu+Szr1LdUs8oBmeif2MZxRwpwcSY9qH+LmkKP
-         yfM6kj4O/e7syfK3gX8cP6eacWeMChZiBvYWjj31DS6puqs7HMcjvacvEwjd3KDJatZA
-         kOOH4tpQnJ8kjb6eSPc0eq39drCs6ORcYCRfJbR5ixP/mqkBgWA6IveeIOVcteq/oULT
-         qyLfAI3wA50US1El1exNji4msoUbNN7f+YigIv4b/pjwcRJvbYb89FyqIZQitvmIq6kc
-         RlbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=/O0/GX+7ajqO6zTAHBdQP6c0ZEI97XrYu3SAglUaXjY=;
-        fh=S5L1jsy+2+3qKLKWrzb0fNiCGQHBHIdd0OXLT7Cs9ZU=;
-        b=F4/5xOJK9rMM5DiPx9Sgg6dHPO0tmlyK1fB68xBnUmXXQyeXf5QsW1wHI1qd5mBNLs
-         m90mdWs64K0YwstJ5UBi2jzKEmGVqVQPj3QYu3stFSQfPLdT2M6H2ecyQ23Tm6nB3G5b
-         su0DLvo+NEP2/KD6muk4lYkBYMfxT5VonAzuQQdePCMq7Nn2vBDzmksAE6UsUbicuLVI
-         H/2ESOst/fyBzwufc74+laux/xuWKQ/EiA/WSe4j51VQ4P91LGB5Q1kUoLT3JX0xt535
-         FmFgXlLpvAbiHdaj+0NLxb4T6L12qoaS8IcBcMuUE2eroV+JHY85jF7rvZkkXon181wq
-         o7tQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=lxSBNDpi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D39341F000C9;
+	Thu, 19 Nov 2026 18:03:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloudlinux.com; s=google; t=1795110590; x=1795715390; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/O0/GX+7ajqO6zTAHBdQP6c0ZEI97XrYu3SAglUaXjY=;
-        b=BDFzAuNpRvvcKd/LuWfKHb0Up3yVJK+lUdRHw+QAkLWhRGbKgaDhPyUL+XgX1qkSB0
-         KO7wVl3Injn8WCdGcF6KS5G6p4PzoZxufMdeSy+FshWVIeuVb0XURSX4XNfGitKoED9+
-         2SHwoor2xnYoAyS+HVcqrAu49HdzMTILfgwi8W9Scl5Bm3P9ijv6S2No9HS4l+9xe5p7
-         dTG3SJGgGaxbQDUFXAZjmta1OcEL7s9+bRWSoMeFMzRKF/8w5pa/F9Sq29fDmyWUqSqw
-         CrB7DFdjOySfyTim15Ah3kei8YaR/HGLNrwLSWFaH8JEqaVA+juXKaEcD+MtgLP3YpOb
-         iStg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795110590; x=1795715390;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=/O0/GX+7ajqO6zTAHBdQP6c0ZEI97XrYu3SAglUaXjY=;
-        b=e5kkYwDYUCuC2Va9sQkdFAagN6HskwDF3lkVDaWcZxiQ8BvifJIRtE2JdjY05z7EOI
-         SErNUF6+/hYFirwwUWFmfb5JaTSlwjdFv2KSlzbjpqPTKTKjcm0icLpuXbImhR8isaol
-         UPACDNL69jTKtWQtGq4xxiyk+ghXKMUu6UdADG8VOqkJf4iyMILCfUEqVkSeqsrmK4ge
-         je9h1OlKCtXH2G6cEvDfvMi45P3TbSgQAu/TlC7iMltmoFvg+W5ju+zswCGwFTYTZcVZ
-         VRKh89X0QOM/dTZVnSEIjJucl3tcl8JjCQ4VWlkY0fwU+DQz8PyhXwFZWl40C2++UVCB
-         Y/qg==
-X-Forwarded-Encrypted: i=1; AL+hErHLmq9PeB7lgNi207QC1q7r4N2PHSnL3jxH46jvUlatHrAzczy2+kEe2NJ1WZOdSRA4B1IbNn0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8S+HrIdj4g0RV8OPXG5+XABeARJEQYAEk5XqcV1tzjwPVnpBnS
-	emHvgRU/qPYqrpjOG47bozAqOTgTEv9FOCrU1A4I+tNjQvZQFFD6f/3/bvWa3HgKw98YwolzAl0
-	guQxsPWr6T8kPwVS4akEBgv5oSH35Lt7pcfQTl4/lug==
-X-Gm-Gg: AYBFou2mhf7iQV+F35wmIwBFDxHWEoLDrCdmd9bi5Hp0C7JRhJJX9DQ6BrhrEBdnivJ
-	vXjGJPULXJvDAAophqNGKh4aqMcs76BPyctvhM87vEVXWoA6qybKlMOT+uW0f3aFoXEjtKBrthX
-	NrvRMos/qIpUfCSdMPjL7YyOQ+8y2K8pBkdN8gTFtlbO65UnkyJDwviWlG+Y9j64FAV1Cajkt3J
-	sFKeEAfJ/GJJCF2kmJAP4sOJ0iFOy9GWYFtyLC1Xy7SQUZr5pyAX8ILpFJ3pSrlbvUhjIbDQJBq
-	f+P/auNCv13Ns0BVbQ1orqBG5yysEc/2QDuPxXSbNUtaWlVKvYPoQK/eHKeqHEZZ/Ao5Zplf/17
-	8C+k/Xx3nY9QqYd9zHR4ucQfoQgV/TdtgGg==
-X-Received: by 2002:a17:906:3b94:b0:c26:1649:47ad with SMTP id
- a640c23a62f3a-c513ab209f4mr54087866b.35.1795110589931; Thu, 19 Nov 2026
- 09:49:49 -0800 (PST)
+	d=linux-foundation.org; s=korg; t=1795111404;
+	bh=KJuxHKBoS2oEPsq5B19tqzGhSzTY1MgHiydTaFUrvsI=;
+	h=Date:To:From:In-Reply-To:References:Subject;
+	b=lxSBNDpiViI6flZHVXIot/WqCCpVcTtf6eofu/Yh1LyC1xITvSTEOnHBf856gaNsz
+	 4D7pBlqVvFCDxIbdrAM4XG6Pnv0EtYnlyGFEhJfA11KGhLqMWXA67MjDlxHFrG8d+Y
+	 H74bshhOJ7Vbyl7jYvq4gsmJlZhfirXkTmG9qOXM=
+Date: Thu, 19 Nov 2026 10:03:24 -0800
+To: mm-commits@vger.kernel.org,viro@zeniv.linux.org.uk,tz2294@columbia.edu,
+	stable@vger.kernel.org,l1za0.sec@gmail.com,kbusch@kernel.org,hch@lst.de,
+	hare@kernel.org,brauner@kernel.org,axboe@kernel.dk,4ncienth@gmail.com,
+	akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+In-Reply-To: <20261015061907.2713943-1-4ncienth@gmail.com>
+References: <20261015061907.2713943-1-4ncienth@gmail.com>
+Subject: [merged] iov_iter-validate-extracted-segment-for-bvec-alignment.patch removed from -mm tree
+Message-Id: <20261119180324.D39341F000C9@smtp.kernel.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -102,61 +54,96 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <alvD5nOP15O5B8Ai@kernel.org> <20261117104838.2650999-1-rmustafin@cloudlinux.com>
- <avwzid1Ovl4ACkaQ@kernel.org> <avxJ9MxZ0PoWbQTc@kernel.org>
- <avxKqn-PlzJyxVdK@kernel.org> <CAG6=z5sxUo1x6mpotkNZXk=nQYvD2AyMLSDhzD3B3kqxJ1=iaw@mail.gmail.com>
- <av23L5HBpy2gbm3m@kernel.org>
-In-Reply-To: <av23L5HBpy2gbm3m@kernel.org>
-From: Rustam Mustafin <rmustafin@cloudlinux.com>
-Date: Fri, 20 Nov 2026 00:49:37 +0700
-X-Gm-Features: AclHuK9Q0IcDkucYCJnM_63DevcnoFoQpfJyHRtWSFgpZWzV5JY0H-0a_Kp8-CU
-Message-ID: <CAG6=z5u+qK3JQ4OwqS8e9ncfcasYPWLQhU9Y4iBFi1pEf0QFuQ@mail.gmail.com>
-Subject: Re: [PATCH] tpm: track the response read position internally, not via
- the file offset
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: Peter Huewe <peterhuewe@gmx.de>, Jason Gunthorpe <jgg@ziepe.ca>, Jaewon Yang <yong010301@gmail.com>, 
-	Tadeusz Struk <tadeusz.struk@intel.com>, linux-integrity@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Nov 18, 2026 at 9:33 PM Jarkko Sakkinen <jarkko@kernel.org> wrote:
-> I wrote that out of my memory. I did not expect to be exactly out.
->
-> Block uring.
 
-Hi Jarkko,
+The quilt patch titled
+     Subject: iov_iter: validate extracted segment for bvec alignment
+has been removed from the -mm tree.  Its filename was
+     iov_iter-validate-extracted-segment-for-bvec-alignment.patch
 
-I looked at three ways to do it:
+This patch was dropped because it was merged into mainline or a subsystem tree
 
-1. ->read_iter and ->write_iter that just return -EINVAL.
+------------------------------------------------------
+From: Daehyeon Ko <4ncienth@gmail.com>
+Subject: iov_iter: validate extracted segment for bvec alignment
+Date: Thu, 15 Oct 2026 15:19:07 +0900
 
-   Simple, but readv() and single-iovec writev() stop working.
+iov_iter_extract_bvecs() validates iter_iov_addr() and iter_iov_len()
+before iov_iter_extract_pages() selects the first nonempty segment and
+limits it by iter->count.  The checks can therefore cover a different
+range after a leading empty segment or iov_iter_truncate().
 
-2. ->read_iter and ->write_iter that keep readv()/writev() working
-   and fail with:
+An unprivileged O_DIRECT preadv() reproduced the empty-segment case: an
+aligned empty segment followed by a misaligned one completed 4096 bytes
+instead of returning -EINVAL.  A truncated iterator has the same mismatch
+when its full segment length is aligned but its remaining count is not.
 
-       if (!is_sync_kiocb(iocb) ||
-           (iocb->ki_flags & IOCB_NOWAIT) ||
-           (current->flags & PF_IO_WORKER))
-               return -EINVAL;
+The worst effect I have confirmed is an alignment-contract bypass.  An
+unprivileged O_DIRECT preadv() produced bvecs with offset/length pairs
+(1, 4095) and (0, 1).  The bio reached brd_submit_bio(), and the read
+completed 4096 bytes instead of failing with -EINVAL.
 
-   The first check catches normal io_uring reads/writes and AIO. The
-   other two are for IORING_OP_READ_MULTISHOT, which uses a sync kiocb.
+I have not demonstrated harmful behavior on real DMA hardware.  For a
+normal blk-mq target, blk_mq_submit_bio() calls
+__bio_split_to_limits(), where bio_split_io_at() rejects the misaligned
+bvec before queue_rq().  Virtio-blk and loop both returned -EINVAL in
+my controls.
 
-3. A new per-request flag set by io_uring and checked by TPM.
+So a bio-based driver can receive a bvec which violates its advertised
+dma_alignment, but any further effect is driver-specific.  I have not
+reproduced memory corruption or a crash on real hardware.
 
-   Needs io_uring/VFS changes and is harder to backport.
+Bound the normal fast-path length by iter->count.  Keep
+first_iovec_segment() for leading empty segments so validation covers the
+remaining portion of the segment available for extraction.
 
-With 2 and 3, vfs_iter_read() callers such as Coda (which forwards
-reads to a file passed in by its userspace daemon) can reach
-tpm_common_read() with their own offset. Today these calls fail,
-because the TPM files have no ->read_iter.
+Link: https://patch.msgid.link/20261015061907.2713943-1-4ncienth@gmail.com
+Fixes: 14b007e17881 ("block: validate user space vectors during extraction")
+Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Closes: https://lore.kernel.org/r/20261012065520.1089147-1-4ncienth@gmail.com
+Cc: Al Viro <viro@zeniv.linux.org.uk>
+Cc: Jens Axboe <axboe@kernel.dk>
+Cc: Keith Busch <kbusch@kernel.org>
+Cc: Hannes Reinecke <hare@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>
+Cc: Haocheng Yu <l1za0.sec@gmail.com>
+Cc: Tal Zussman <tz2294@columbia.edu>
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: <stable@vger.kernel.org>
 
-I have 2 implemented and tested. It would also need a check of *off
-in tpm_common_read(), because of the above.
+ lib/iov_iter.c |    9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-Which one do you prefer?
+--- a/lib/iov_iter.c~iov_iter-validate-extracted-segment-for-bvec-alignment
++++ a/lib/iov_iter.c
+@@ -1042,7 +1042,7 @@ static ssize_t iter_xarray_get_pages(str
+ 	return maxsize;
+ }
+ 
+-/* must be done on non-empty ITER_UBUF or ITER_IOVEC one */
++/* must be used on a non-empty ITER_UBUF, ITER_IOVEC or ITER_KVEC */
+ static unsigned long first_iovec_segment(const struct iov_iter *i, size_t *size)
+ {
+ 	size_t skip;
+@@ -1959,8 +1959,13 @@ ssize_t iov_iter_extract_bvecs(struct io
+ 		   iter_is_iovec(iter) ||
+ 		   iov_iter_is_kvec(iter))) {
+ 		unsigned long start = (unsigned long)iter_iov_addr(iter);
++		size_t seg_size = min(iter_iov_len(iter), iter->count);
+ 
+-		if ((start | iter_iov_len(iter)) & mem_align_mask)
++		if (unlikely(!seg_size && iter->count)) {
++			seg_size = iter->count;
++			start = first_iovec_segment(iter, &seg_size);
++		}
++		if ((start | seg_size) & mem_align_mask)
+ 			return -EINVAL;
+ 	} else if (iov_iter_alignment(iter) & mem_align_mask) {
+ 		return -EINVAL;
+_
 
-Br,
-Rustam
+Patches currently in -mm which might be from 4ncienth@gmail.com are
+
+mm-hugetlb_cgroup-prevent-use-after-free-during-cgroup-offlining.patch
+
