@@ -1,55 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795079933;
-	b=fKEXeSs0PJTcrJZTxYYG2QpfMZnHynUdEecX486N8jMdrlPkK4RBzj9JtHhP/qyu5B/n
-	 SeKn+HYn+APZuZUSaZ4Nbvy+mxEqPs6PdQedQABUIjLlYhpPvImFnmNZm1RPD3wvykxvs
-	 LLNMI8vj6YctNyi8guWVY1HJkFGbaN+GHQqzjoivAUSxKDYavl44s9XitEZZuTdGW54xM
-	 bXRw58/aPxUtnKpKc5DTRFeh2rnZBFQqCWBptauiyP3OwRA7Q5H5HiD2sfiVtMuNN+hzs
-	 zpMl201TZ938bBFypFQh4jUdxP3fVoNYzJZJwTZ+6Dsm5k49WtsGGUvVPSx5rF1OQag==
+	t=1795079940;
+	b=Z48VC3Cv+lxEU5XcsP95yRw5xsjOQwPt3flR3hycaFsNKMTcbD5CbrMuUndD2a852apj
+	 Ap6rZ4MPTgBXhXNp/oFmxxh9bg55z1a9Y1g18lbcfPx0f+ybqzgq1XRsQ/1uB+u42kyyD
+	 t0zdpqa9TaEmJI0+sbrURgca7SyI+3VqST5Qo0GoQVyy3aIFq873J1/o6bIDP6zIz3inG
+	 ayaeVvcNtE/bKCwGAiTodtY5Qda2YmVqO6Z9YUr/Nca9m8HpIcwBWPhisin8UWEoJtRE3
+	 u0irwFpY4szyEJ57F7QM8a/SKD8J3fq0D+KLcWgGSnl6cQsY0YO9Oyn2OUQagV5KYXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795079933;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795079940;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=589dD2JUC4L0PJxzRZvDg0zDc5A2k8fOfmKe7QntBu8=;
-	b=S0NF/39GDtZ9TDD0qyEDbAv/6PIBRFxRCM9U+8gRy/g30DdYFd9aNviqNFa85536bYZ6
-	 HfDV3Z/LI1xDfSVwoTIJxJAqvqDlZBTp/ZN8F7fxahFwPsLHzb6ghrNYJ9k7dGsJ0JsiH
-	 xY8dMyaB3HOiO5ZhsbP37Pf4xITDuEfXQNoEWohWzuC6xpLkS5UvrdfZhqOhYBcB/bE9b
-	 TlwZhwFIGHBf/5oPc9RLTRcIkOwDCUMmWd8eaXMtoMCpAMufzz7zax0SgoirzUccTa9YO
-	 g1JU9fCLFaw63hGDtJKg4vWZOZaOZT7ZEgU3KKDUDUji0WF0FQDaHJqPr9cUdXZrrTA==
+	bh=wWAHpRMjEIilTLG34gMrrF5Fp3ne+eOLzz4gXxJz6oM=;
+	b=IoAM6pjLvp9Y4EGawnrZSLvzdWovo8wYmoQD0v1I4rmC4HzZ+347xR+rip8vyMVI7YPf
+	 60bFmzDiJOIzGPLt4kXMo1/2Bkd1y/nBXJdh+iKprHiB+f+EKTkBd+MpmPq4TbD4sSaDm
+	 vVRjbQG4tJWGdas25XKj1CY7zc4krwevHIOGS887SijouDVi51OD3JvRFtIhvMfEsHMER
+	 U8aiBlqDwxOb85CcSzqv0Zy7ytbivjBMyTuPD7xp/GnzWaliZPKA0devMzcqX3ntbZKxg
+	 h20teAULP07ceJb3L5BHvnNCdbCfQ8sDgeYV2Su7bjHu9nKArRB8O9Y0Bk60Mu9QA3Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DSKHGfc5;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZO3U2tRq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599BA606A334;
-	Thu, 19 Nov 2026 09:18:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFE260A2600;
+	Thu, 19 Nov 2026 09:19:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DSKHGfc5
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B330A1F000C6;
-	Thu, 19 Nov 2026 09:18:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZO3U2tRq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08E371F000C4;
+	Thu, 19 Nov 2026 09:18:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795079933;
-	bh=589dD2JUC4L0PJxzRZvDg0zDc5A2k8fOfmKe7QntBu8=;
+	s=k20260515; t=1795079940;
+	bh=wWAHpRMjEIilTLG34gMrrF5Fp3ne+eOLzz4gXxJz6oM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DSKHGfc5q/D7fqJnkceCBSJzmtvzyiAA94BOzGOg6bkVrg3YPAEV6s9qeGvU/WuhC
-	 /oRtId5KwaTZpMa5AZCfBBDKh8dqpGk3b5vkrY19kcYWb3OxJYJP0TGirWOllila1c
-	 rdE2sNqwn2VTnfBbqEx1gb3t5H0e8WnYr8UcjS+gvXjvujyIzzUCGAzLjYI7KR/jxe
-	 idN9sfTeqRV4nH+GY0w16W9CT8IP1KC5xiFSWd7CK7bsk2ue4bOREZyF+Ara5P8+vH
-	 XgGLN64w7R+Jsh0S9T98V5QYk5QPI4vLCt4m+NTwWRIhpRHaT8clNb0g0a+XgZKW8L
-	 Fa4rRVgP2o9KA==
+	b=ZO3U2tRqu5hdUq8RLfE9AL+8v5QM1DBGrFkHLz6okbyF3Yih3Ur3kT1WmETbMtLuy
+	 g6kncYPF2cy9PcZG0kGkqtcj/gQNzIO/pcpO3/pSV9IczkyLUW+YRbF3wZHX+SMCnp
+	 Ubr8Z+e4RmfVSmrZSkmJOZ8qD+fbwcING/YmcuErIMosTt8P+4/WL8Q+dv/QiRj4xS
+	 3rywm6ZydP+iqC6OXBl2Je7qVKnyj0zvm3QuhotvKx8044LQ93KqCEsnglIQXQYKqc
+	 FBH1FHQlKv2fXOmZR1BraD59/XZGA7iRCpLtgS4nzUK7AXdLcQ3z7vPBWfxI3xG74M
+	 G95Z7MOfIQTsw==
 From: Lee Jones <lee@kernel.org>
 To: lee@kernel.org,
 	Mark Brown <broonie@kernel.org>,
-	Tomoya MORINAGA <tomoya.rohm@gmail.com>,
-	Grant Likely <grant.likely@secretlab.ca>,
+	Foon Tan <lftan@altera.com>,
+	Graham Moore <grmoore@opensource.altera.com>,
+	Murugan R <vadivel.muruganx.ramuthevar@intel.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Pratyush Yadav <p.yadav@ti.com>,
+	=?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
+	Dhruva Gole <d-gole@ti.com>,
 	linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-Subject: [PATCH 05/10] spi: topcliff-pch: Advance tx_buf between DMA chunks
-Date: Thu, 19 Nov 2026 09:17:17 +0000
-Message-ID: <20261119091810.3440619-6-lee@kernel.org>
+Subject: [PATCH 06/10] spi: cadence-quadspi: Bound chip select against f_pdata array size
+Date: Thu, 19 Nov 2026 09:17:18 +0000
+Message-ID: <20261119091810.3440619-7-lee@kernel.org>
 X-Mailer: git-send-email 2.56.1.708.g77570a6a1d-goog
 In-Reply-To: <20261119091810.3440619-1-lee@kernel.org>
 References: <20261119091810.3440619-1-lee@kernel.org>
@@ -64,72 +69,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In DMA mode, pch_spi_process_messages() splits transfers larger than
-PCH_BUF_SIZE into chunks and calls pch_spi_handle_dma() once per chunk.
-pch_spi_handle_dma() copies the TX data through a local pointer and
-never stores the advanced position back into the transfer, so every
-chunk after the first retransmits the data from the first chunk.
+cqspi_setup_flash() uses the chip select taken from each flash child
+node's reg property to index the fixed-size cqspi->f_pdata[] array,
+which has CQSPI_MAX_CHIPSELECT entries.
 
-The RX side already writes its advanced pointer back and restores the
-original rx_buf once the transfer is complete.
+The range check now compares the chip select against num_chipselect,
+which comes straight from the num-cs property and is never clamped to
+CQSPI_MAX_CHIPSELECT.  A device tree which specifies num-cs greater than
+CQSPI_MAX_CHIPSELECT together with a flash node at a correspondingly
+high reg value therefore causes writes beyond the end of f_pdata[].
 
-Do the same for tx_buf, so that each chunk sends the correct slice of
-the buffer, and restore the original tx_buf once the transfer has
-completed or failed.
+Reject chip selects which do not fit in f_pdata[] as well as those which
+exceed num-cs.  While at it, store the chip select in a u32, matching
+of_property_read_u32(), so that values with the top bit set cannot
+become negative and slip past the bounds checks.
 
-Advancing tx_buf by the number of bytes copied relies on the following
-commit, which ensures that each chunk covers no more than the bytes
-accounted for by the loop in pch_spi_process_messages():
-
-commit 3515e312e096 ("spi: topcliff-pch: clamp DMA bpw_len by bytes not words")
-
-Fixes: 7d05b3e868ee ("spi-topcliff-pch: Fix issue for transmitting over 4KByte")
-Closes: https://sashiko.dev/#/bug/linux-625e2f07-fb68-446b-b1a8-b1f66aacb62e
+Fixes: 0d62c64a8e48 ("spi: cadence-qspi: assert each subnode flash CS is valid")
+Closes: https://sashiko.dev/#/bug/linux-cd463fc8-1b94-4bcf-8d06-fae21b88894c
 Cc: stable@vger.kernel.org
 Signed-off-by: Lee Jones <lee@kernel.org>
 ---
- drivers/spi/spi-topcliff-pch.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/spi/spi-cadence-quadspi.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/spi/spi-topcliff-pch.c b/drivers/spi/spi-topcliff-pch.c
-index 0bec3012a6bc..cbe76c4ae2e8 100644
---- a/drivers/spi/spi-topcliff-pch.c
-+++ b/drivers/spi/spi-topcliff-pch.c
-@@ -947,11 +947,13 @@ static void pch_spi_handle_dma(struct pch_spi_data *data, int *bpw)
- 			tx_dma_buf = dma->tx_buf_virt;
- 			for (i = 0; i < data->bpw_len; i++)
- 				*tx_dma_buf++ = *tx_buf++;
-+			data->cur_trans->tx_buf = tx_buf;
- 		} else {
- 			tx_sbuf = data->cur_trans->tx_buf;
- 			tx_dma_sbuf = dma->tx_buf_virt;
- 			for (i = 0; i < data->bpw_len; i++)
- 				*tx_dma_sbuf++ = *tx_sbuf++;
-+			data->cur_trans->tx_buf = tx_sbuf;
+diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-quadspi.c
+index 844df97111d7..fbb917c104b0 100644
+--- a/drivers/spi/spi-cadence-quadspi.c
++++ b/drivers/spi/spi-cadence-quadspi.c
+@@ -1751,7 +1751,8 @@ static int cqspi_setup_flash(struct cqspi_st *cqspi)
+ 	struct platform_device *pdev = cqspi->pdev;
+ 	struct device *dev = &pdev->dev;
+ 	struct cqspi_flash_pdata *f_pdata;
+-	int ret, cs, max_cs = -1;
++	int ret, max_cs = -1;
++	u32 cs;
+ 
+ 	/* Get flash device data */
+ 	for_each_available_child_of_node_scoped(dev->of_node, np) {
+@@ -1761,8 +1762,9 @@ static int cqspi_setup_flash(struct cqspi_st *cqspi)
+ 			return ret;
  		}
- 	}
  
-@@ -1180,10 +1182,12 @@ static void pch_spi_process_messages(struct work_struct *pwork)
- 		if (data->use_dma) {
- 			int i;
- 			char *save_rx_buf = data->cur_trans->rx_buf;
-+			const void *save_tx_buf = data->cur_trans->tx_buf;
+-		if (cs >= cqspi->num_chipselect) {
+-			dev_err(dev, "Chip select %d out of range.\n", cs);
++		if (cs >= cqspi->num_chipselect ||
++		    cs >= CQSPI_MAX_CHIPSELECT) {
++			dev_err(dev, "Chip select %u out of range.\n", cs);
+ 			return -EINVAL;
+ 		}
  
- 			for (i = 0; i < cnt; i++) {
- 				pch_spi_handle_dma(data, &bpw);
- 				if (!pch_spi_start_transfer(data)) {
-+					data->cur_trans->tx_buf = save_tx_buf;
- 					data->transfer_complete = true;
- 					data->current_msg->status = -EIO;
- 					data->current_msg->complete
-@@ -1196,6 +1200,7 @@ static void pch_spi_process_messages(struct work_struct *pwork)
- 				pch_spi_copy_rx_data_for_dma(data, bpw);
- 			}
- 			data->cur_trans->rx_buf = save_rx_buf;
-+			data->cur_trans->tx_buf = save_tx_buf;
- 		} else {
- 			pch_spi_set_tx(data, &bpw);
- 			pch_spi_set_ir(data);
 -- 
 2.56.1.708.g77570a6a1d-goog
 
