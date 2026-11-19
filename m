@@ -1,76 +1,75 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.2.82.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795120708;
-	b=1r5qDEHc3JZnSoZygX0OgFYl3qOWLBmuFBO32VHmzq4ZG0xBSV1JjI1J9EC0CuxuPGGv
-	 MCOpdWASzy6PgugHHUKGf0wqmBYZgG2mOlhhVLUEQIYHdSG+RGrZUHBv8xVpdhIkkDx5r
-	 3h4AQjRfeBg7PUGi5ziDfLcp7zbOHedHgiAyWVuODihVNYMUG+LB5GJjwpKTfbds0TCdO
-	 +jMpB/CwT00LonPAIrJKUbs8PGmRhJu6VEMQhcwr+NhXwP4P+77WjxtDyf1+nZQ+O/Cjb
-	 Sc64m0gchm8YtDow5Df+feghROsyrCqDS5O5SxB1vf8FoJ/An+1toT0Xf0P8b9FIxKw==
+	t=1795120714;
+	b=HbCAYzjDro5cl6brp9Cb5Rth3zDh+V8q88YOuvRVg9yvcZC1xU3Hr5g+XEppm0W/2LL1
+	 sS/9rXOkce9sMjdyTceNTespvXUl1obtc5Ji/GkKgOuTbblCnuePSusKock8Jeyj/RXvW
+	 2TqNDs73dw09Lk4EJ4eiKTBzUhbkjasVSpuSV4vnM6S84RA8DrBDtXejYQZyTzAz0mGKo
+	 wFeC/iPibaRjfo0ZhPCuFnPjubMBOjMLODtxmgGr8g5a5u714w0vHjWj0iElJps054txe
+	 lk3MF69g6+jf5YozjQx/GayTAP4YEMAl5HHWXDfb1ZBNdpqP+Y2jPCzyqgDdKhgoPuQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795120708;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795120714;
 	h=DMARC-Filter:DKIM-Signature:X-SONIC-DKIM-SIGN:X-YMail-OSG:X-Sonic-MF:
 	 X-Sonic-ID:Received:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Type:X-Change-ID:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
-	 References;
-	bh=7a5KXBMGWiXvI5h5MdzscclJ8kMFpFBavCEcOmC6V0A=;
-	b=YT4ydQuH3erAIqIXyHdubXpCtAijImz3Zp2rgal+slnzKaezua2nsUhKWw9sA3KNRwlF
-	 x2zKXjzF68LHf/QYUYMUEah74ztE+Fv4T0sBJxxmHCgOhCXQzd0KelyScBNfGZKnbuQAS
-	 cepGdmsBQvp4qV+OPyVyUKtNyqbyvfbmA0jTCDJ1G8LGT9veMrrSyVfegkW9CV7edTHUp
-	 TxuJVoWSyTDEQh08PjGcJVhcp3RZUZ8NZdktjG3iJqkrEJHHr8Zu4X7F7VMSP4ew+q+w0
-	 QnIMVNcYC+SyfmM9VUipKpQR6ETCTnhyIDrLVGBTnMD5bnUraVu0jairVnXQ+Vzs+WA==
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=ls12ewtahYys3BgXs1i5K4jfY5UsBzb56tMFJsHUcT8=;
+	b=P9UKoCmxvxQXuhwfpi7a+CtYGm2AIlSgg2ssedqf/ztu4NVxhcIC229A+Rpup8upA5ip
+	 8kBldUKyPXregHgqv39JDlJ1qnD18yaCnQjy3gMqqBFxfbUh5DppbsgvCvVAywL8l3tKD
+	 IqfI4E061cfnLPY4J6VQOIjH4FjEbjp+YfPPSKmzwTCKk1ysth/rWbOWJeUKKuzCXkoq+
+	 +w020+0s1KwHW1CmkO9jlHZYUmx1ADIceHJxqeqTtpQcP1gBfx3h69MFongvmaSUP+5ob
+	 lZgfkmSaI8WnJqLTuCVEHeSCxgT3ePkqWLAz5Zh6o61B/1DHx+6/1wNj5GJlKTH/m2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=yahoo.pl;
 	spf=pass smtp.mailfrom=yahoo.pl;
-	dkim=pass header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=OkOKZ+IJ;
+	dkim=pass header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=OUzChRI4;
 	arc=none smtp.remote-ip=34.2.82.16
 Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFA70606A907
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 20:38:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CFA70606A907
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A5EE606A911
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 20:38:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A5EE606A911
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=OkOKZ+IJ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1795120705; bh=7a5KXBMGWiXvI5h5MdzscclJ8kMFpFBavCEcOmC6V0A=; h=From:To:Cc:Subject:Date:Content-Type:References:From:Subject:Reply-To:Content-Type; b=OkOKZ+IJdgzzFgottAwZazfgP+cnZcOOZ7Ou1uiGiDH683jwSlFgCddSDUt7cCXeyJUulnl+lIhCaB/BgDpyB/4IFBMCdFWy4qHYoWkHgNTOx2biejQILph742uDNc73WhHT+Iz2metnIW7E2V66fur+Ddr1W06dD6KKwTcrUkbt0Fjlqt2OyBbA97lctuIsK8vNS304vX2aR+SQwRd6YYYELpJqZe/2HVgwi2QdQg6VfseTqxKtogf2lUvZuoN5b9rkk+5b4JT7Lm6OTQWQetB1pkGPlhi6/ZkTw6OGbEoBbnJ3kSZ/vLXAzUkWd1b/q85e5sotgTfLFzzk7MUYlA==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1795120705; bh=o4qZVizyGGrgzfXgUFZfzs048sFhh93+J+2tql5WkpS=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=lLJADHEf4+b8aBmFa97ymqyUQ81Qnik0mm+g+rzXK7mpn+HdMUNC4B1gdzExoX1g/9xEMOeMbgXar6uP4qQSX32XeefEhSdsHprg6C3S+tSPErWOJutS1OTmaQLsU0l1PoF6zHLXXID+YqOHvBjpb+BAPcjvyVlGRunM+Stlf9tDw95uxoBKrLVts5E39Y6L4Zo0e4LOqv64/mS9lzALepst55loIxy2gdRCad/U/tWJZq3Vml1R+ENVywLO03PodHM1CSmie3kxhhVBlgL54wQiTdv3iJ5zdveuYgVtyiaq99yuHv7ji0qiuaWrW3jrCo8fwBvntwBoDgODmJJLgw==
-X-YMail-OSG: FXioNcUVM1nhCns2TFMtRc2PlWEsl9tHr1LPfTj0VdXmb2EUFN1FFEIhjndKpC0
- pfdjYFejpACyHcLBbs609N3jBTZj3X9HunCVCo6lm_TqoecdhjlT08FQot2YV6YG08g.pUlLs6fJ
- OzHOtH6GLJLlml1fH6K4SQZiYZl8znZPbgZOwzawXeBPMwnbV4NHADjHTZO4wrKrz_grqVQA7XBu
- EJtM8W56SXhFJD5hFYP1tfcDkO9JK0FROHXyJd6oPb_JGNp7B9xFiZ58p5Ag4jnMT3SJYBGRZ6bJ
- 1sn4sOz2R9uygwvYVzh8jGqe8X0A9s5Y7RaSM7EKUJdWheZ2wYjnhqxjMuPyH_vTi.dqkosBafnT
- wVINYlIx9wcjgDunOYEACs18zVYOSuOyK8Nl8D7NrI7Vkaaf4QaX2lVB7KHZAItC6r_iWKdp4b7X
- poqWHg8i0vabympImo5TQGBChTgcequsfPwelbBgSJBc4Xt60v5qaPKDrFh42CmMnj7Ow0Jvfw4b
- dLodFIMtvY9Wth3MNB.Ks08epauEOqnuaKZ0G4DbfPXj4f3LrxbbSFehoDoQukVfxYJA5y5JglDn
- ZK5W95vJDVihJISmCps8KUOjGigdZKKDcery0xd_UrnLr9y7KmgtlFehhOt9a.4mm1xt5Ev98Tyx
- Qw1SwHB5O.OTeSv_j7E0mjx25IglL7IFLJZ.ed25yWNj6AtqOlaLGiGyJ72ZBAtFZgpdlUEys73V
- fk_ORHe6s0fdbD_9TrqqZPIpVZp8E8BqbVgZwOBX5I3u3dHhA0kDIFZojs9LzC47tMSXiL9IO6eT
- UnOPkPyLbj54X2r8gYB6ryzVmQpYsPafnRlkB.Ze9JtmPmUTLyhNpl8RPyev3.KrGqcQ6_XnASDi
- df3IAWTnV2b_c8D44ujReAeGbcgeSaNTxL07rEN3ga7K0YXfwMjAkfBeGSZE3enqZ5SfyYdwGBHp
- NglIMveE1bnf.b2NFTlC7ozgVoJVvX3l_4F98MVKvLC94Yu9xsGERrZmFbnbv5fk7K1FrdtuDq0f
- N.2RgENYYpEgDBuCpPK49WppT1Kbur0OkV.tZLjS41tLd9bRYPKkN1W712jTxRFJkfjhHFC.nhsS
- QZAjftlKnGnlijMSvkIzfHRY_bEqVotyQWb77NYoaYXXgvBL_C29Lp8FkPMfjMKw1uQc.bVQvrFN
- u.Z0rtqQ5okHbdB3v_rsNDbDA9mddNM71yS3gVE2Daf.rSzRYF..TQ3.jOVUiwumo3lmBZNCAQ6c
- g0O7V0i9lkKBUfJgbnmUHfSeEb8jLZbHJzIf.qAWqHkijJm2wPK_apc48MqKQvN6vi5wvylPTo9P
- kVOUs0Pu.Gd.iqEc4dDMbkRI99Y5AYD9CoYRfJ0LaFnMyeK2y1D.FlofBF8pnizai7UtrJisBkYF
- 77QNxVt5bSdMG9RvG_ZAw6nF_1meRSmeZ5BL.SWTlRj_pSPExg2kOfxD9pmFpyn5D2g8Mob8mF8W
- wqFQqmNkz6mAE9YQyyeVuqtbg0CQuGpPWslmknbtSPJSbxLTKY7E6Nf1v_OKGSnpBaZ4uMWyxIgg
- BLDdm_ft1tt84wgvft5oKx1Bg7HrJHhA5YQ7PKb7Fjkb0HNII5caRtKtj0MCxuwZLIjn6WHOHgXZ
- qfPUO705sA075RjeaUxYdMapJTLskeF.pDZZr8DQ9WaiH8sqUPQV8alMJ6y3Ib3DTGlBoYIiofhV
- VvIPfqymUeIlC8Ik_G.pgB2tnf3Zq7EZRQe39Vz4GgudbajntU9obUxAkP.bWv9FxmVhbsgFcDmA
- KZqJ3dgyFP43qDrOkIR26qJCTOM41Wl8xnBnFhjI3kVGjYvEch.xm2VTH.Ml.2AMTcC98vnyjzow
- hYpKbmhLpSoaZTLZBM3LeVBTvq.6WoUH7dY18LEA7hyd3CSy5kOZF89dGJS.KPnLintLOe8YAJrc
- uxcmm3Oc3x10mXyVBdrxqMYL2DWgz3r7lsogQDFYbR2faGiIRiXbu.EI4GIi_vzTgMyjsmC6R.uz
- 0.7x8chGVSfFD37l8IIO1FI.zBaRPrRD3JpM-
+	dkim=pass (2048-bit key, unprotected) header.d=yahoo.pl header.i=@yahoo.pl header.a=rsa-sha256 header.s=s2048 header.b=OUzChRI4
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1795120711; bh=ls12ewtahYys3BgXs1i5K4jfY5UsBzb56tMFJsHUcT8=; h=From:To:Cc:Subject:Date:In-Reply-To:References:Content-Type:From:Subject:Reply-To:Content-Type; b=OUzChRI4DyBXuCYN/2I6N4f5pQa65bpk0VKQwJrvwWkRmWrE1nmZwLMFEW4COWobBLGLX5nRzAF14mlwM7E0QeqDojSUYniILpsyU2C4COyEKuaIfm/ueHBlZvJl303H72uwyy2CLi+kHi0SdlgBKkV6MK8S4zm1UiI0S2JsoyjQZEc4BccljNQTtpxJyHRCJ+qV52mIh/ecrbeTO3fa+kXtjW6ZWESJB+6jJa4a76nyM+NNlb5u8ho+JvSrFe1snSi3rmtoMYIlWxWNTwk62iWhGhVlICmxFAoB0I0kUQAvFQQ4pW/rRw1e7PFQZK9jujxLZrAD/T8L9lYCB4pwTQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1795120711; bh=6pUe0tO7lSoHJezBiuuWKD7pgGPjsueue3ohJIooHw+=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=S2Bgl2dqDIRcIaCaVOzB3KFq3eTAWf/eJN03Nun0wTCpQV2pEwn+gI53yYPIYc9OiygtXaHYkGQaOp8l5kT+am6+qGRLRy4zjiEDK6JuXlK30cCfcGWC3yHlNeS44juQ7Gjko3qHeoO44FrWsxBz0eVfnUOD/SR+xa33B5R58gPo8k05jgcRYiXWQ/lruvbLsv4J0TtlrN6eeQE5OnYViZP0xhSwZ2ibyEZGz0bKlWMGZtcFc0zFDnkKDKHczqSbB7lJyBQCKbrtDe8VVcIulNeX/9TO0/mL3NZGg50PYiTAWok8jhWPeQB3bPaP/cFciDr4xMfjEMQISDP5Y5xa0Q==
+X-YMail-OSG: rB3NTKsVM1lvXQTaMHCMZtjB8Lq_AdSDccRXBpVBKJdto.PPdF1YQMs2RaYwwsc
+ 6sNSZaESsiFHNbty1nvub.Ea547Xa1REYq.yBSOxgMQEASqYrgyQ0LqO_FYAOBdUKK6AUntyRqsa
+ 7fS7gWNA4vS2M3OhYN5bBGWDs.bjsTkRsXapkhVs.AZQw2rupPnpDRXH_uVzn8j1ddXMOitTK907
+ FVDVIkltFPhbplikwW4pHzqYnR3KIJL_.QQast.sprZJ4PVxuLKfKiusVD2VUEQhM6j08zOEzeAe
+ uc6jcU_KKZ_1NumDIbZ5M9v5l2T2DLGq.M8ACmY4PXVEsUk2dGC3hdERdNpwlT6NejARbBF.Zca1
+ 5ibMbFooR5koNRHDUdFCopCAAqesJ1YdQDlKSbt73MbznOYVtrb2MoonUgNIXTxY2F8FZiWftd7x
+ VOVNCkoAzJcuJCbVGcUrVgv1NGFrr_jhG9gtda2A3KkJLm2uY4nzo707nue_k53h_UmMLcKRR7Vs
+ BXUnwwJz4X9rX792emnpKPIeTwiIRPu8S2d4pyOPpj58UIhCPD5Da7DSavAv0oSAJYC3ATu2ShQA
+ JhAPVy6SltZah0baRPOTAXOru65QIhCcQECfb9Kexxpozfx2M3BrxRHx6IDcsMFaeKGdHts8mX6p
+ e9W16NSJaTf93CSoXEl8lNOaHA4uw_UpHOm_bF0XRFrN63C7ooXk3xhuffAcXmraUtixs7YFdEzU
+ SSmgWKtTWAnStb70AqPnK4McltCxslfuc5eJlZk2i1qj8BzsXhwq04udny5U3hSJY04PlmRDJfKP
+ 8vUNsox9HmPjMXXaw.vcO2B7ac81k6RYodhVv9YJ3Cr9q7CftCfplwqeaZ8npUtuqMzHlFerHxJJ
+ SBc6TX95TdZr8d4xQKOzjwLoXg3pu0i_rBkaf7XYH_0qa5_O4HKajty5r4BsV7dLjs9om2Ocj7Ts
+ 69yDhlSUo6J1RG_P_HWsTkEV5mKKbOaF4MAIFAglWQUARnRgtfpl60OFXSupbjEddrVrPCFCmqju
+ XwsCh5KjCrIt85btQGul5RfLRMTXAeDRkiYCFUP6VQxZ65v5PnQymU3Bt9BYq3phAQ_M_zQgUJ0K
+ Gpa5CrcfKm2782Wlc3e6ftbbWbNLsgJp1jRjWAH_d7P.dJ4khID0GXsCpnFICNdnWOW2iNkHD.6y
+ 4sGSRzv_6ZAA2jWKggmAd9.K80kdjpg6liHepRkS0eEftrLIuHRuIEKlIDhC4i0jo_xLwEDBC2WQ
+ 9.mCcAi3MQ_RWIja9npl5McY.TcohjpgJcHygWd10ngkkbzCpyQuaEyOl1N_7oNNSCzNRP2ei4rQ
+ s5kxa4q0UjArOgwV7OSA0RAoknV4_xLfekbBNuVxmfQ_8LWybK7uclfczfh85_N80N7ueWlBQCqr
+ 4fm647ztWngyQfUhhCKfLyEinN4kYCHSxNEDLbdyuV_7XNIBfjN6oBVKbEx6Tv_OsJhqTVdkLdHk
+ N5zF49oFfRy4rSr_LJxM4p0DtSK9KQ0qRABvQZb6Wursi8d_SooHiMdcUVud9v.IQMsl0B9x3pR_
+ BrO520YQg7SbrM54o_ug.Ft3Cz62n7h_kdSKsXScjMaIc4zceHYl.6TP_HqFo804rAqm4v8w2wh8
+ X9Eu4k_CK.Acf9A.Bvb12GYq0ZVme9o2EuIRx9cOuJoW9KQPevB3jIeK53nKWjN8HPp_z8YYDV4N
+ H8FJE6tLNQe1SwPw5XXxfSicpYNpv5V.TONX8MhuYwqYwzNhtoe5qBL3gtt8cIS_8hSQlg1GSVPT
+ JdHYzZhpnuSXS6S2E83UGtVOx9WvqjtUjMJSLsGVPGGNXbXRQQmRcJXNqEig_ZiT5YmpNDxBXtfo
+ EPxFvQuHKBUyr9sInRl.U3VPrLm1hYXhOu1ChGlyY_SuoN2NkfDqzux8X5gcYgiHOqpFgvLSmmRm
+ fVPpvBwNJwOCg5sEtzCuhfRcR3MrG1VtGgCveAYyomeavMYuNcKL4EkXG2OwOr6vua99mxemDqP.
+ 9YmXwDeLqp0ZHtLNfLu4zohmaXiwac24rZZmxgNJnNWzbnPGF
 X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: 07da5095-3fc7-45bd-b873-9cdcf08538c9
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-106 with HTTP; Thu, 19 Nov 2026 20:38:25 +0000
-Received: from dip71.lsn.ir2.yahoo.com ([87.248.99.80])
-          by hello (SMTP) with SMTP ID addd1d6f2e071d3be06230aa2a74c031;
-          Thu, 19 Nov 2026 20:38:22 +0000 (UTC)
+X-Sonic-ID: 6240ea9e-c2d8-4f5d-9117-4dc5138b176e
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-101 with HTTP; Thu, 19 Nov 2026 20:38:31 +0000
+Received: from dip160.lsn.ir2.yahoo.com ([87.248.99.169])
+          by hello (SMTP) with SMTP ID 899fb1d7cdfdb5134d8b21ee8fa17d65;
+          Thu, 19 Nov 2026 20:38:28 +0000 (UTC)
 From: Tomasz Unger <tomasz.unger@yahoo.pl>
 To: Vinod Koul <vkoul@kernel.org>,
 	Florian Fainelli <florian.fainelli@broadcom.com>
@@ -84,10 +83,12 @@ Cc: Tomasz Unger <tomasz.unger@yahoo.pl>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH v2 0/2] dmaengine: bcm2835-dma: Fix OF DMA controller lifetime
-Date: Thu, 19 Nov 2026 21:38:19 +0100
-Message-ID: <20261119-bcm2835-dma-of-dma-free-v2-0-ebde4846d206@yahoo.pl>
+Subject: [PATCH v2 1/2] dmaengine: bcm2835-dma: Add missing of_dma_controller_free()
+Date: Thu, 19 Nov 2026 21:38:25 +0100
+Message-ID: <20261119-bcm2835-dma-of-dma-free-v2-1-ebde4846d206@yahoo.pl>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261119-bcm2835-dma-of-dma-free-v2-0-ebde4846d206@yahoo.pl>
+References: <20261119-bcm2835-dma-of-dma-free-v2-0-ebde4846d206@yahoo.pl>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -98,52 +99,84 @@ List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20261115-bcm2835-dma-of-dma-free-ef85776c0914
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795120634; l=1733; i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id; bh=TBSamSeez8zQQ9fCugauBqXaGRUEYL1qWXPb93Tu3sE=; b=gbbk1HzLPzHWC9sHX05ahBgSbM3yozVxZHuMRSczgyXyM/hm9IX9Zi9wq7Wg8GZmVSgMKFebr tLBgaKdAyvKDXpdoXu+wHyWGIyKCVi/c11IzqdG1TC2FFQyg2p5ATrY
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795120634; l=2640; i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id; bh=r54SCDH096Sq3Qy3Zo0S70bcX0NWETfM5biEJT1w4Mo=; b=0uZV/zAhJ6Ds9dajZVw4cxsGMcv4KWpk+NpClNwwzyolMekaeU4BZ7yGIiW/dKZxaoPHA1mgT 12YQ3HQLz2XDVy2DFeHWQ4wvyzPcpZTd6jSViPzdPM/NqyJNJMlDQC/
 X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519; pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
 Content-Transfer-Encoding: 8bit
-References: <20261119-bcm2835-dma-of-dma-free-v2-0-ebde4846d206.ref@yahoo.pl>
 
-Patch 1 is the minimal fix from v1: free the OF DMA controller in
-remove and on the probe error path. It is unchanged and meant for
-stable.
+bcm2835_dma_probe() registers the controller with
+of_dma_controller_register(), but of_dma_controller_free() is never
+called, neither when dma_async_device_register() fails nor in
+bcm2835_dma_remove().
 
-Patch 2 converts the driver to devres as suggested by Frank Li in the
-v1 review. The OF controller is now registered last, after the DMA
-device, and freed first, which also closes the window in probe where
-a channel could be requested from a device that was not registered
-yet. It uses devm_of_dma_controller_register(), so it is not meant
-for stable.
+The entry stays on the global of_dma_list and keeps a pointer to the
+driver data, which is devm-allocated and freed when the device is
+unbound. The next DMA channel request for this node is passed to
+bcm2835_dma_xlate() with the freed structure and, depending on what
+that memory holds by then, either fails or crashes. As the stale entry
+is found first, this still happens after the controller has been bound
+again.
 
-Verified on a Raspberry Pi 4 Model B: unbinding vc4 and the DMA
-controller and binding vc4 again oopses without the series. With
-patch 1 alone and with the whole series, binding vc4 is deferred while
-the controller is unbound, and HDMI audio gets its DMA channels back
-once it is bound again. The remove path and a forced probe failure
-were also run under KASAN in QEMU raspi4b, again with patch 1 alone
-and with the whole series: slab-use-after-free in find_candidate()
-without the series, no report with it.
+On a Raspberry Pi 4 Model B, unbinding vc4 and the DMA controller and
+then binding vc4 again results in:
 
+  Unable to handle kernel NULL pointer dereference at virtual address
+  0000000000000018
+  Call trace:
+   find_candidate+0x64/0x210 (P)
+   dma_get_any_slave_channel+0x64/0xd0
+   bcm2835_dma_xlate+0x24/0x48
+   of_dma_request_slave_channel+0x178/0x2a8
+   dma_request_chan+0x20c/0x380
+   snd_dmaengine_pcm_register+0xa4/0x2a0 [snd_soc_core]
+   devm_snd_dmaengine_pcm_register+0x60/0xc0 [snd_soc_core]
+   vc4_hdmi_bind+0x4d4/0x8e8 [vc4]
+
+Free the controller on the probe error path and in remove. In remove,
+do it before unregistering the DMA device, so that no channel can be
+requested through the node while the device is going away.
+
+The bug was found and the fix drafted with the help of an AI coding
+assistant (Claude).
+
+Fixes: 96286b576690 ("dmaengine: Add support for BCM2835")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-fable-5-2
 Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
 ---
-Changes in v2:
-- Add patch 2: devres conversion (Frank Li)
-- Patch 1 unchanged
-- Link to v1: https://patch.msgid.link/20261115-bcm2835-dma-of-dma-free-v1-1-d539234bfec5@yahoo.pl
+ drivers/dma/bcm2835-dma.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
----
-Tomasz Unger (2):
-      dmaengine: bcm2835-dma: Add missing of_dma_controller_free()
-      dmaengine: bcm2835-dma: Convert to managed resources
+diff --git a/drivers/dma/bcm2835-dma.c b/drivers/dma/bcm2835-dma.c
+index 06d830d36882..cf29d897450e 100644
+--- a/drivers/dma/bcm2835-dma.c
++++ b/drivers/dma/bcm2835-dma.c
+@@ -1011,13 +1011,15 @@ static int bcm2835_dma_probe(struct platform_device *pdev)
+ 	if (rc) {
+ 		dev_err(&pdev->dev,
+ 			"Failed to register slave DMA engine device: %d\n", rc);
+-		goto err_no_dma;
++		goto err_of_dma;
+ 	}
+ 
+ 	dev_dbg(&pdev->dev, "Load BCM2835 DMA engine driver\n");
+ 
+ 	return 0;
+ 
++err_of_dma:
++	of_dma_controller_free(pdev->dev.of_node);
+ err_no_dma:
+ 	bcm2835_dma_free(od);
+ 	return rc;
+@@ -1027,6 +1029,7 @@ static void bcm2835_dma_remove(struct platform_device *pdev)
+ {
+ 	struct bcm2835_dmadev *od = platform_get_drvdata(pdev);
+ 
++	of_dma_controller_free(pdev->dev.of_node);
+ 	dma_async_device_unregister(&od->ddev);
+ 	bcm2835_dma_free(od);
+ }
 
- drivers/dma/bcm2835-dma.c | 53 ++++++++++++++++++++++++-----------------------
- 1 file changed, 27 insertions(+), 26 deletions(-)
----
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-change-id: 20261115-bcm2835-dma-of-dma-free-ef85776c0914
-
-Best regards,
---  
-Tomasz Unger <tomasz.unger@yahoo.pl>
+-- 
+2.56.1
 
