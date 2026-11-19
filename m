@@ -1,55 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.143.211.150
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795087665;
-	b=AN1iqh8h/0RBorE3aCWUeg6dObmlQ94PaXSPyTGWtanG+o4LHyTSbHEHQXKKEUH9lC9U
-	 n1HYXUDqsOy1jloJML0mV+AfbKu+nFJHBffsHQFrmgdpM+pl4M1Mz3dArBaD2ATV6dXLD
-	 JFpoiaTQpnMB5+lb1RtkleR0SDRngw/uU1ABFLD2mInGnnG3O7EJDCy9igPcoQUg0b3NB
-	 kqU26kfn3gP4I6nYDPW+7kVChMniAKZJuNNUem66AcNKk1iBbeoW0ZQqbQOSLSoznX2AF
-	 F4bJlz83lDwJVy0ig0YA8Tq81r6yTLsYiWFaaXfukH+bcsug1OExB1JWNzC1EyxhbMg==
+	t=1795087842;
+	b=c1EMGXVhNR+Ld5y0rzV1G1SCpg42pnYZBjqHt7ZxRP0+BuJynpDFw/DcmvMIFRUOe/SW
+	 UWulxlf3vQ65U6vSb/CMy4zZVgEvIPmxHE9DFbG8QHtHPT3gcaYDVNUmqtjVP5tQ1K9S8
+	 U8FTqYn9wP/La/CUJJcNfh1dAz1J6Bkd4NF2leEt1Yxn6OaI+n183hVpE2m1n4jh8fI0A
+	 xcS0wLZnf597IGTi7sg6bMhRYSzvBP9s66018uFKC5C5YvRB2q+JGFiwpY/ykYkSijuAW
+	 iLo4OqbK25nwhOm8CtZ3WlbsneTAOJEP09iuD+DY8pmsEP0URLZC9J8+YllWn1WKtJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795087665;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=C10/UwY0vgcLZUDt7ami1ayVX3pRMgH9t04Cv6vtLks=;
-	b=BBHaDe2FXSxE72U5/hQ/iadVXSV9mgr5LBHXM2NgzP4p/B6t5abp0Zvgwn9llmeplhGS
-	 LzvBp/NR3mmliqk6dmbmlfDsKxMWzMP7G2wVHJfYQQkzL9UWuAOJ5n0E6VFEY04rYstG4
-	 iIq9pusg/E5m3k6knxDyRFVr5zD5+OY+DYa/Bny04MDCg1mVlp4VNBvWbSBgol+2g8c12
-	 SwzHz3ASHQ+a3UqxdKeuzG73cn6TCW6cqrLmOFa4qNCmvv8wyejrUh1vSYsBj98WZ2vsK
-	 A/UJpjHooOHLd/xXOzcjJdqxpiNPExQpcsq6/ww7As+bKj/2S5BJujX+Ggss4k98qAg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795087842;
+	h=DMARC-Filter:From:DKIM-Signature:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=YLq833Da6iVYeGdT+KadJJm72vxSoeHnYAbiFsDpxsQ=;
+	b=FJh3dCCHGHPpCegov5EkJ5LVQELonnB5ORB85a/ReXazdcJz3DVY3/SzAw6F4ODZE1kY
+	 tz4ajGQmwiKd1+gc3Ri3qQuNOon5rGCL4suHRVwCYlpysJH5fojLppTK7vkrSpn6uecto
+	 MA2rLPcbdZZKlSClG3j4Yi5ULwBqx+AXCsNK3YL/1h5131gAbbBBKgYuvoV1FAjpbxRvB
+	 LeF2FhdqBhdrc6ZfAP92rcrZl6yafkL0m6m34Spw5tou6demLGY3ESjP4pr+G71NJ8YTa
+	 oEvDpY9vmEcyNmfK+PD1GhCTKyB9Wvpw5uoRaUCGa4hSRGC061AjBtIRFrVsypNTPJw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lruVJiHg;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=swemel.ru;
+	spf=pass smtp.mailfrom=swemel.ru;
+	dkim=pass header.d=swemel.ru header.i=@swemel.ru header.a=rsa-sha256 header.s=mail header.b=WdApNlaR;
+	arc=none smtp.remote-ip=95.143.211.150
+Received: from mx.swemel.ru (mx.swemel.ru [95.143.211.150])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 574A1606A320
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:27:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE813606A320;
+	Thu, 19 Nov 2026 11:30:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE813606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=swemel.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swemel.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lruVJiHg
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF9691F000C4
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:27:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795087664;
-	bh=C10/UwY0vgcLZUDt7ami1ayVX3pRMgH9t04Cv6vtLks=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=lruVJiHg73pqTOwyz8gqmX3D1HROGYBqLpjhYFcSkRpKTEzXFRMHFFhEfK/XR3K9x
-	 /9+iW+N3LMq1NFcGojQb19LyQXUIlgdDpvwbzDW8gDN/nTcOHe2IyFJkCGA6wE99aH
-	 xWn9LF77gMU1rj42itXkMHjOoQsvk9qZAmuK5TeMCsJOiN7G18HPJuX0K015bt3LGo
-	 4Nf5D9TVWjc8dR6BHUf5EJ1Y7AaOmO9KWBEQXy5YNBSYb4gyPI4sAkVxxnH1Lu/Y8p
-	 LXNf6xR/wctV/SPhxg9BSLDmCRthuYJI1OqPLg1YR6FpcG6B027ylyQzCi/5AakyWy
-	 HFhpOnU6xMLaA==
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c5124dc427dso140021866b.3
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 03:27:44 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AL+hErGXYrC8nQNGT25YBfU92RHuawdV4CVgMeK2Qu2dlWGckphhEiKZcArQ7qQOt4TVMTZP72Tsx4M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/GMBKe5dtUl86hcorZyKh1QqiEJyt6lSbeQocljdT3BCsFdT7/
-	uaiCVFKtUttN0Ay8hv09Ha/8rZtj5uuoVeQg6og2igjQWM5aA1uoNs0Qyk6AY4dnJxGclR8zfaQ
-	yc8O96hVje3vw+COiXVBDYL39mzrUJCY=
-X-Received: by 2002:a17:906:7946:b0:c50:d92b:6f40 with SMTP id
- a640c23a62f3a-c510e2d5928mr493622866b.20.1795087663605; Thu, 19 Nov 2026
- 03:27:43 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=swemel.ru header.i=@swemel.ru header.a=rsa-sha256 header.s=mail header.b=WdApNlaR
+From: Denis Arefev <arefev@swemel.ru>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=swemel.ru; s=mail;
+	t=1795087831;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=YLq833Da6iVYeGdT+KadJJm72vxSoeHnYAbiFsDpxsQ=;
+	b=WdApNlaReVWiFHY24zJ4gDKi+BvJ5U13eP9wS2Du8AQcs3H+OddwFwSO2ekqbiQy/Ou4et
+	ikzVVHXbdXOsBpTAv2AM3zczklWZTEgROPYgxJOmfPW1fJbItOakXQrGaaNSOZEL/fCCxs
+	8/XDogI/TrR4ycseRX0I6sHyW+g8EMU=
+To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+Cc: Lucas Stach <l.stach@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	=?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>,
+	dri-devel@lists.freedesktop.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	stable@vger.kernel.org
+Subject: [PATCH] drm: imx-dcss: Check return value of drm_mode_config_helper_suspend()
+Date: Thu, 19 Nov 2026 14:30:29 +0300
+Message-ID: <20261119113031.36945-1-arefev@swemel.ru>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -59,40 +72,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261119065652.116074-1-icb@fastmail.org>
-In-Reply-To: <20261119065652.116074-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Thu, 19 Nov 2026 20:27:30 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-WY1s-4rk37QZ1TKchby_+n1LD44tPiEVWPPQsVh-TUQ@mail.gmail.com>
-X-Gm-Features: AclHuK8gH4_BlZQVcilNEIdLYT7RBGGX5b1cm_i5R1sumAtwAaGEqiEf_qqO1PY
-Message-ID: <CAKYAXd-WY1s-4rk37QZ1TKchby_+n1LD44tPiEVWPPQsVh-TUQ@mail.gmail.com>
-Subject: Re: [PATCH v2] ksmbd: omit the DACL flags when the query omits the DACL
-To: Ian Bridges <icb@fastmail.org>
-Cc: senozhatsky@chromium.org, tom@talpey.com, chenxiaosong@chenxiaosong.com, 
-	linux-cifs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 19, 2026 at 3:57=E2=80=AFPM Ian Bridges <icb@fastmail.org> wrot=
-e:
->
-> A client can query a file's owner or group without requesting its
-> DACL. ksmbd leaves the DACL out of that reply but copies the control
-> flags from the stored security descriptor.
->
-> The reply then has DACL_PRESENT set with a zero DACL offset. That
-> combination describes a NULL DACL, rather than saying that the client
-> did not request DACL information. The reply can also claim that the
-> omitted DACL is protected or auto-inherited. These flags are wrong only
-> in the reply. The server still enforces the file's stored DACL.
->
-> When the query omits the DACL, clear DACL_PRESENT,
-> DACL_AUTO_INHERITED and DACL_PROTECTED from the copied flags. Preserve
-> the other control bits, including those describing the owner or group.
->
-> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ian Bridges <icb@fastmail.org>
-Applied it to #ksmbd-for-next.
-Thanks!
+dcss_dev_suspend() ignores the return value of 
+drm_mode_config_helper_suspend(). On failure that helper rolls back its
+partial work (re-enables fbdev and polling) and leaves
+mode_config.suspend_state unset, i.e. the DRM side is not suspended.
+Continuing to suspend the context loader and disable the clocks then
+leaves the device in an inconsistent state.
+
+Check the return value and propagate the error to the PM core, as the
+other DRM drivers calling this helper do.
+
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
+
+Fixes: 9021c317b770 ("drm/imx: Add initial support for DCSS on iMX8MQ")
+Cc: stable@vger.kernel.org
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
+---
+ drivers/gpu/drm/imx/dcss/dcss-dev.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/imx/dcss/dcss-dev.c b/drivers/gpu/drm/imx/dcss/dcss-dev.c
+index 45a91e43bab1..0b12ce2498f0 100644
+--- a/drivers/gpu/drm/imx/dcss/dcss-dev.c
++++ b/drivers/gpu/drm/imx/dcss/dcss-dev.c
+@@ -253,7 +253,9 @@ static int dcss_dev_suspend(struct device *dev)
+ 	struct drm_device *ddev = dcss_drv_dev_to_drm(dev);
+ 	int ret;
+ 
+-	drm_mode_config_helper_suspend(ddev);
++	ret = drm_mode_config_helper_suspend(ddev);
++	if (ret)
++		return ret;
+ 
+ 	if (pm_runtime_suspended(dev))
+ 		return 0;
+-- 
+2.43.0
+
