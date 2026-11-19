@@ -1,54 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795124136;
-	b=nQB1zZoDZZmNkJvxRuHoZN4bmBsnCBvf1aFzCxR72T++XRKUtg7mMJFmhyogsrWTHrEb
-	 a2H0LogmuziIcZ8yUInvt1WQSzoRFb+YX4NHq/L8I6Df8xEesMqiv4nmH5A7dcwVYHkZf
-	 GdtwbMVCONm3gf2CsDiPOzb9MTcZuULRhLPa7Ahva/HvD9N8Cy3JWwyLjn2O3XfMb2Jdq
-	 Dri9QdoXb+qIarA5VrNvedmNW0pqvSxbzTOZMaeLxl8xvBEs52x44r4lhJClEqpyxLPG4
-	 CZkCpxTy182iS1DGY3KdZ4qshFdqMAGL0GWo57Z+/ivfUwqnoVsGyAaNwUy7nMIZMDA==
+	t=1795124293;
+	b=HK6Byom9A6ze1gkEZ7xFX/zQMP1AbnfWl1roNti+cpkQ1uHbubkbHWRkTugkNriLqGiC
+	 EWMcWqpXahgCHwiMKDmZFw5f+pNuqCnkmnttaBH5yN4qib+8+9CHBC3GqVmOQDGTD4lSW
+	 KwDTrnHol3jfg18vH4iIjzBPgqiye8SUel2Xlv2pJdUKXSzdMgcPf0cqcATKMvpaMzhdA
+	 0A1NIO18ExH8BS/ffwZrDKqS/uJTi1Tc3koZ2soYucctXt+zMDFh2kNEjKKUgqamJfbxT
+	 YvkV878t0QmPIHmsongooh1f6BPBlEh4TguIsynU5GmHjUiwopidOxyjg+NlWCw3ltA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795124136;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795124293;
 	h=Received:DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:
 	 Message-ID:References:MIME-Version:Content-Type;
-	bh=36E1OyuSAPV7X4+4WcIua+s8Q58mSHGZB0W0hhOOVr8=;
-	b=QSnHSyFCFcRsNsb7tkR2Tdd5NmZJMfYob2dbOevdl7nfAOVjuZ9+lpDmcmwydlu8fFGG
-	 L6HouPpjDHnywJ1HsC2bEqNOzNZ+9A3Z9DhkyMq6PCxdDnYGqw2fM3I9m/mlVwJ9EE1ls
-	 33dy0JmTIm5EbXiXb+dZKF6uaj6ynkz123pOUJARn144GbBKe442Cpu7Op8/iciP8SIoi
-	 Xq8o48wEvBIuZJtJa2NyvC3/zIsuu3B0ljmKRhpnxZLN2ztf01HpUBaAKfLo4bKI+NUQb
-	 X86fud+Cu2/4DGk/iNbspgyUU4uHrbUw7V29n0GZ21rKrGONRDVIGUG/tfphOX18zgQ==
+	bh=PnTwqTAd6zPrVDdCBBgYNiAIBZrwMCrGj4srPVWYgRc=;
+	b=SncmAP3iFi7IY8yF5hd/tO6ZMRwFqihZN8yw15Do5Mtlj9gH/LqUhnjm4q4r5IVH8cF2
+	 nsfujC6wAZt6yrGlZs7nUK1qpZKkvt0RA/YuImM1bHHg2lfyDlcUSseYvgsB4ixdkDeyH
+	 tJtE5iWx9iyRjwysX50bINPoIaKxx/tDVu0yyIgZR8y7GQjP8gNRJJAAp+ynGjRy6sW7c
+	 ZIfdCT5WY/N3Yge5Joiv6JddaBBupij/gDaOl28haouueFkzcmPR8yV+DF2qU8Y4e0A9X
+	 5+CPRwzhe4aHpJ8iyZSDd4zAymtMGj1DEoaPLLSXIyPd3BMEPrESIgW7CHbe7jaUiBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GwWGA/ul";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDll02Pn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E987606A324;
-	Thu, 19 Nov 2026 21:35:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5167606A320;
+	Thu, 19 Nov 2026 21:38:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GwWGA/ul
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43BC81F000C0;
-	Thu, 19 Nov 2026 21:35:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kDll02Pn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCB641F000C4;
+	Thu, 19 Nov 2026 21:38:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795124135;
-	bh=36E1OyuSAPV7X4+4WcIua+s8Q58mSHGZB0W0hhOOVr8=;
+	s=k20260515; t=1795124292;
+	bh=PnTwqTAd6zPrVDdCBBgYNiAIBZrwMCrGj4srPVWYgRc=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=GwWGA/ulz08qobge5x962HV1PohVZEPZTlv0JCI7I9HlAcPyxho1658WyJ32Ot5OA
-	 kY5nOqWvYxi86J97ki72HLMyFbzqqQMQQ8alQj96dov0RkgMoYkErMbTgxQcsiNbdP
-	 xh56cbmqngZJsCyI1EZsJ3X22L9oMrfxrNL+7n0e0vAzCPXg+SoT3JoqCpwqSR9Nhm
-	 fX3SRAG2HAekcowsvQiJ7IPJSdSbvDZU8GK+QqqlQX0OXAYeNON4aEnFiT/VTmC0ls
-	 PQULJcEmN/QLMM5bPrkwC5VC8WnJ8T26JGsWQzGyZbvvujHNMQrmLkj0djp3PeXtsN
-	 7eYiCCxn3ZNjQ==
-Date: Thu, 19 Nov 2026 22:35:33 +0100 (CET)
+	b=kDll02Pn+Thrq+vwsbZGhKT0LgGJJFSprxmF4aHPRnHvVc6wo2fcQLjIrK+bqeyKT
+	 hR6yNlJ3Ix7WK73ArODdRpoZ4vhLvKmA7j5O80kOYDdI0eQqL43yqKW36u+WwYJimC
+	 zGUAedoEnCvIkEp9gWtM/IEegad6FN05a59a6SaGqrmKxUoyyAXQSfRdCORN5mfbx1
+	 jadChw3FQd0P8jc936i5e6/GBkjSRPcFfgYZ1vzcp9pmClqsDftouvbOZWM1nX7iEm
+	 Kc11XMkb+oQ1OvRchkdlb4tjyEzXnRzzTgJT+AiS3Oj0gTo3+p4JH/GmLUFtEaoTD4
+	 G58luDBUhh38Q==
+Date: Thu, 19 Nov 2026 22:38:09 +0100 (CET)
 From: Jiri Kosina <jikos@kernel.org>
-To: Ho Jie Feng <hjf3108@gmail.com>
-cc: basavaraj.natikar@amd.com, stable@vger.kernel.org, 
-    Benjamin Tissoires <bentiss@kernel.org>, linux-input@vger.kernel.org, 
-    linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] HID: amd_sfh: Use shared interrupts
-In-Reply-To: <20261023081803.21761-1-hjf3108@gmail.com>
-Message-ID: <77539o3q-1nq4-pn33-96qn-5n4s6s808qp7@xreary.bet>
-References: <20261023081803.21761-1-hjf3108@gmail.com>
+To: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+cc: Benjamin Tissoires <bentiss@kernel.org>, 
+    Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-input@vger.kernel.org, 
+    linux-kernel@vger.kernel.org, 
+    Harald Brinkmann <hbrinkmann@braincalibration.de>, 
+    syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com, 
+    stable@vger.kernel.org
+Subject: Re: [PATCH v2] HID: saitek: don't dereference a NULL hidinput in
+ saitek_event()
+In-Reply-To: <20261015151318.208115-1-ngocthang2710.1999@gmail.com>
+Message-ID: <n2s8q6oo-4348-8q5n-1rp8-668373s3s402@xreary.bet>
+References: <20261015151318.208115-1-ngocthang2710.1999@gmail.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -60,35 +64,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Fri, 23 Oct 2026, Ho Jie Feng wrote:
+On Thu, 15 Oct 2026, Nguyen Ngoc Thang wrote:
 
-> The AMD SFH driver requests interrupts without IRQF_SHARED.
-> This can cause VFIO PCI passthrough initialization to fail
-> when a passed-through device shares the interrupt with AMD MP2.
+> hid_process_event() calls the driver's ->event() for every usage of a
+> report, including fields that hidinput did not map to any input device,
+> e.g. a constant input item. For those fields field->hidinput is NULL,
+> and saitek_event() loads field->hidinput->input unconditionally:
 > 
-> Request the interrupt with IRQF_SHARED. Check for a pending MP2
-> interrupt before clearing and acknowledging it, and return IRQ_NONE
-> when no MP2 interrupt is pending so the interrupt can be shared with
-> other devices.
+>   KASAN: null-ptr-deref in range [0x0000000000000018-0x000000000000001f]
+>   RIP: 0010:saitek_event+0x51/0x2b0 drivers/hid/hid-saitek.c:154
+>    hid_process_event drivers/hid/hid-core.c:1572
+>    hid_report_raw_event drivers/hid/hid-core.c:2109
+>    hid_input_report drivers/hid/hid-core.c:2180
+>    hid_irq_in drivers/hid/usbhid/hid-core.c
 > 
-> On an AMD Ryzen 7 7735HS host running 7.0.0-38-generic kernel
-> from Ubuntu, trying to pass through an xHCI controller
-> (1022:161d, 0000:e6:00.3) fails with this message:
+> A device that claims to be a Saitek MMO7 and uses such a descriptor
+> triggers it with a single input report.
 > 
->   genirq: Flags mismatch irq 45.
->   00200080 (vfio-intx(0000:e6:00.3)) vs. 00200000 (pcie_mp2_amd)
+> Bail out early when the input side is not claimed or the field has no
+> input device, as the other HID drivers implementing ->event() do. The
+> claimed check also covers a failed hidinput_connect(), which frees the
+> hid_input structures without clearing field->hidinput.
 > 
-> QEMU reports:
-> 
->   vfio 0000:e6:00.3: Failed to set up TRIGGER eventfd signaling for
->   interrupt INTX-0: VFIO_DEVICE_SET_IRQS failure: Device or resource busy
-> 
-> With this change, the passthrough is successful through VFIO
-> on the same host.
-> 
-> Fixes: 7f016b35ca76 ("HID: amd_sfh: Add interrupt handler to process interrupts")
+> Fixes: 37c492c8f6a9 ("HID: quirk for Saitek RAT7 and MMO7 mices' mode button")
+> Reported-by: syzbot+eba2b3201bd25a97cddf@syzkaller.appspotmail.com
+> Closes: https://syzkaller.appspot.com/bug?extid=eba2b3201bd25a97cddf
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+> Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+> ---
+> v2: also check HID_CLAIMED_INPUT. hidinput_disconnect() frees the hid_input
+>     structures without clearing field->hidinput, so after a failed
+>     hidinput_connect() the pointer dangles while the probe still succeeds
+>     (->raw_event is set). Reported by Sashiko.
 
 Applied, thanks.
 
