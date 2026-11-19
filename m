@@ -1,58 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795062285;
-	b=Ue4IXoYMWiix/o6zt2XAMJOAAxYBOxRVyBNec8knqKA9OMqkDg/Fv7taYLPN3nvNOiMB
-	 6Eaka2XD/LEbqQVm3/5FZ6PRXw7QknVPDWcR4cAtK1R24gSVVQ/JU0kBDAgEo0709A0KF
-	 eP8Ma6fVlgkCXGXT2fLzUinP65w4RV6p0Kr9sFPj+V3ugN8SnxnBkTx97QjA7+2TTFTDh
-	 og4GoqbGc5Tw8hivXGGd/NMo1PSl0XD2iLiXV4j9Mdj15/uAh5yvQEDjYDcQDlnWHD8yO
-	 KZYYf05Wt9sYm2DpfOAFtWJxwIXXYP9QSTaYb0yelONKjvwcp/9Fmjhm8TMSSWNfnQA==
+	t=1795062443;
+	b=gtcM0qewT5Y3tusAtEx48ljh/SzbpcqSzimX7UxwgsNgyTNqGrkJvJ5WFvp5E0BDD+pA
+	 c+/D7XrAufMAIkIhVOu/lMpWNXsxykLQjdPYhlDFV9HMj4DyzM/0LKeWaTcxhTc3Bzh17
+	 qZDAT0gghtz1LwGRZpXf/uW8zWqsXb1C0V1N+K4xMI3d3cEyjOwddGpog0OraB2KpmfIR
+	 HwD84lOCkPZ24v4aKo+3oDMWjNPtG91MnIoYg4pmAoGEytr2PrbN83Ev0wM387E1ys/ur
+	 KYYVwo6pfhLY5QJs+A5pqHhzrgwVrJPGEUxvXtIodCVIx8RJYO4z4VPHaLoCa4JGn5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795062285;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=gUKqJFgVhFibLoyM0+uwD02unrSdCKOWXrij1LX3wpU=;
-	b=nhuHA8oyK5QtlWV2KxEiMzyUkMkeobcBrrPt3EBmOTljkKOE/tY+e+Fhy9ejTiVmh0PF
-	 tTA7QGUWxUw7PyAtIayIbkx8mT9CN+a4qooSGowCRUacPNYIf+LUrNnlFAJp3Bq5cmXrO
-	 9/KCubOIrJ4gKra0UQTh+rC2gI9CoaoYP4o/Cmtx1/SSiIdxzeIt4+QNhS7Jlq9HddyT2
-	 JxnR/6U1DzrlOzVSgnDgmGfyR3qaZLXcJ+aVgdR/Sbj8hQtiZpT59bzAnPvZdMSwin66H
-	 ma/UmSZiyS9vvCrW3hoFgcBX2Y/JT/uU872nq8hS/nJ15eA+M/YI+a+RtuzBL+dkDHw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795062443;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=3Hxcc3mWV4vpK8u9zPUdfbWlyMV/Lx3auErCWtJ/vww=;
+	b=o+EHfV7UzzVLQubpeDljp9VVhoIldja5q/R7LCL1Z6Jca/Ey2KRX1B2Js6BSSb64VJ1z
+	 MQQmDkPYaFyDitBhu6gq/M+lq8M9EqDEzu4qVnfIIasBGl2rJPM0MGhBR31C9h9saeAY5
+	 L7CIV0u23wDhSBTNoUVqSl/yQTuoVzkNpGQpgq4tU+DWb454jVl6NKOc43kQEvHbkcSWu
+	 62xeQ9W1MB56eWg1N6nwIrYoke18yrpAwGk/7JZX81qVrVCHvS7TRNb5edOC46lWIDeox
+	 tRrY1LiKCWdjZYUHyDLIQgK+LRixl7LuWEAqBvk++D/4ZiBvcxb9tXR27IfMrcJ6CGA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RBF2P0f2;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bdZ5luSc;
+	arc=none smtp.remote-ip=209.85.210.178
+Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com [209.85.210.178])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A1B606A32A;
-	Thu, 19 Nov 2026 04:24:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D071606A330
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 04:27:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D071606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=RBF2P0f2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1586E1F000C4;
-	Thu, 19 Nov 2026 04:24:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795062285;
-	bh=gUKqJFgVhFibLoyM0+uwD02unrSdCKOWXrij1LX3wpU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RBF2P0f2JsUdQ2UN0VvaOKBB6vwad/MWB95HLTxjbHN2PYLQW0HmCzSYW9O5LJ1hJ
-	 1+KYHmJMl2/dqoFtASfdw9dCEDZuqTCpkhhu/vEQXgNRRtN9SCSprhu3vB9iBk1+oc
-	 LqXqr+2o78h+/GaiYrF3h2rI82VwuanofyqxPrMA=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	John Johansen <john.johansen@canonical.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 1817/1848] apparmor: Fix namespace reference leak in __aa_find_or_create_ns()
-Date: Wed, 18 Nov 2026 16:04:15 +0100
-Message-ID: <20261118150035.587326939@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bdZ5luSc
+Received: by mail-pf1-f178.google.com with SMTP id d2e1a72fcca58-8b68e59ab33so1409322b3a.2
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 20:27:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795062442; x=1795667242; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3Hxcc3mWV4vpK8u9zPUdfbWlyMV/Lx3auErCWtJ/vww=;
+        b=bdZ5luScc7SG3YNewnCwCgsSUxO4L668OOhIJJW+3KnwrEKUzPXmaSbigfrzIcBnmx
+         KSSVyoP2KeqXVWwDmBezvL61+GjMSe5jcv1IZ3far/x5lRc83bqAxViV0F4PAEXwxPKL
+         c1u1XZLNxpy68zHWWUf1R50aWbfH2GW5QDf10KXIb/BEDYi/a/FbdDYN187YRU2YMrN9
+         3OO0SSj2PDmW3LtQ2oRzhDhpjoLpJ88j/9KCYJQv/9E//M1g5b0AYOtCWcAwR7EVpmgi
+         /AuSMNFGnNZ+OqO1BMWddOQU0ex6UIrbgjooIM/z8mfpUy56tsAX+bwPOpNgxnPwt896
+         Z4Ew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795062442; x=1795667242;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3Hxcc3mWV4vpK8u9zPUdfbWlyMV/Lx3auErCWtJ/vww=;
+        b=bmhIbboPlSSyoLWJBb4Toeh5p/DVRekEhO2y0b5lIs5buAOI0SY11O4tnLXdJGwZio
+         JcAcy27hvnbDuAGT7hwl2gGrSWia+2JlTgsnSKzeqRS4hlcacr7FiNa20cJVp/HMnvBy
+         Y53R89/U8+8SDM80HEtAJGMUokQI1SreOiZarFheg7w1okeA9KEdOKlfbmfNa4eMSRJT
+         rnOxlGLDz1b7T0rRjs8dkfa4zHiKqtfILfpwfE9DaewGkzYPkatiR+TguXs7oDtg8EW4
+         LwkKS2Q5TeVhBXt6+mIVSn+qR0yWYDYhDPVzUUkQhpLe5oRIo5CMOrBF+s4F2DlrypAD
+         YEqA==
+X-Forwarded-Encrypted: i=1; AL+hErH2Qu+OyqMNAZ4rL5txw0TP6dQn4nuwfGui8uA5ZotYGgRTXMxDi0CXHRThPovydG4MpScC89I=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+F0dsjQbxc4YWHPqH4yXBH4IHAh5LyE/PxwgeiXBg5Kc5ZyMwL
+	CUcM2E1THJE24oTpzKKf8dtF1+ZRXC+71ZPmjRiz/P+UY4FI+YsS3My7
+X-Gm-Gg: AYBFou2ah8B3r/2wSmAeb/OGt7fmhbN9qoEIfV6FIXWOj9pUHv5W6ZrdWeb9TspI5XI
+	6AjMe7ko4nOVZBnQT2RrfCFW4pZ8keDJAtJOgmBTRHxyewKgk4gaH7vlp37jFSe4t9qaGpHbOX5
+	pSNftsyKA1xreV/PcCPwARxdUclfeaWOOqLTW3/YcpaZnUtgfz99XBpRjLpX/aO2oQ79+7JKLY7
+	KHlQQWAxf5QjIoIcANjDJedIri3SECRiU1kf4p7WM9rHW06dvmvCMuTtnCZQ6dw+uPX+zVeebQV
+	Rh8QYHyAQ2HcDwOZETPHaTnu/qyGYfAHLwnwhpQxojKLyx9xl9M3k/v465nMFiwemUGA4KNrmxW
+	aW084KqhubnsPyihIjHwLIhyCVhfNo4zQ4i4j5DXjV8ZRGgOQQbq7eh6ERtG3agjjLGIiMtFoFg
+	c6xO0XnuPkNTPp84IAvQUt0cmgODpjD39Jd80jlj625dVeWnBw080pCpESA18HVY8T7AsqLddqw
+	DgnyNImOhUNdqAUxq/fVf5JEEZPEY79tawvNy2LydgJWC4iGW3/yI1xyPKepaESvBWI41lSNDqf
+	+57qKDQtPeKmUF3Z
+X-Received: by 2002:a05:6a00:4c17:b0:89d:eb23:4e83 with SMTP id d2e1a72fcca58-8c5d3d12f10mr4182188b3a.30.1795062441855;
+        Wed, 18 Nov 2026 20:27:21 -0800 (PST)
+Received: from x1.hs.local ([2601:600:a482:7d70::5e59])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8c5cb35830bsm2077636b3a.33.2026.11.18.20.27.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 18 Nov 2026 20:27:21 -0800 (PST)
+From: David Westen <davidlwesten@gmail.com>
+To: netdev@vger.kernel.org
+Cc: loic.poulain@oss.qualcomm.com,
+	ryazanov.s.a@gmail.com,
+	johannes@sipsolutions.net,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	m.chetan.kumar@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	mail@maciej.szmigiero.name,
+	nihaal@cse.iitm.ac.in,
+	David Westen <davidlwesten@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 1/2] net: wwan: iosm: cancel the ADB timer on cleanup
+Date: Wed, 18 Nov 2026 20:27:13 -0800
+Message-ID: <20261119042714.505405-1-davidlwesten@gmail.com>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
-References: <20261118145911.150052362@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -64,50 +108,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+ipc_imem_cleanup() cancels the other imem hrtimers but not adb_timer,
+which the UL aggregation path arms for 500 us. If it is still pending
+when the device is removed, its callback queues a task that finishes
+the ADB on the freed MUX, and the hrtimer itself is freed with the
+imem.
 
-------------------
+Cancel it along with the other timers.
 
-From: Wentao Liang <vulab@iscas.ac.cn>
-
-[ Upstream commit 8f1f7f664c1822af34c5465f9820b4e39146786b ]
-
-When the namespace already exists, the reference taken by aa_get_ns() is
-overwritten with ERR_PTR(-EEXIST) without being released. The caller in
-apparmorfs.c clears ns on IS_ERR() and so cannot drop it either, leaking
-the reference on raced mkdir of an existing namespace.
-
-Release the reference before returning -EEXIST.
-
-Fixes: 73688d1ed0b8 ("apparmor: refactor prepare_ns() and make usable from different views")
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Signed-off-by: John Johansen <john.johansen@canonical.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 1f52d7b62285 ("net: wwan: iosm: Enable M.2 7360 WWAN card support")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Westen <davidlwesten@gmail.com>
 ---
- security/apparmor/policy_ns.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/security/apparmor/policy_ns.c b/security/apparmor/policy_ns.c
-index bb952451205e1..c32e008dc5b83 100644
---- a/security/apparmor/policy_ns.c
-+++ b/security/apparmor/policy_ns.c
-@@ -291,10 +291,12 @@ struct aa_ns *__aa_find_or_create_ns(struct aa_ns *parent, const char *name,
- 	/* try and find the specified ns */
- 	/* released by caller */
- 	ns = aa_get_ns(__aa_find_ns(&parent->sub_ns, name));
--	if (!ns)
-+	if (!ns) {
- 		ns = __aa_create_ns(parent, name, dir);
--	else
-+	} else {
-+		aa_put_ns(ns);
- 		ns = ERR_PTR(-EEXIST);
-+	}
+Notes:
+    Build-tested, and run as part of this series on an XMM7360 that uses
+    MUX aggregation, so the timer is armed there. I haven't reproduced the
+    race itself.
+    
+    It comes before the S3 fix in the next patch, which makes this teardown
+    run on every S3.
+
+ drivers/net/wwan/iosm/iosm_ipc_imem.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/wwan/iosm/iosm_ipc_imem.c b/drivers/net/wwan/iosm/iosm_ipc_imem.c
+index 4405c8531888..20f8da53a3ea 100644
+--- a/drivers/net/wwan/iosm/iosm_ipc_imem.c
++++ b/drivers/net/wwan/iosm/iosm_ipc_imem.c
+@@ -1239,6 +1239,7 @@ void ipc_imem_cleanup(struct iosm_imem *ipc_imem)
+ 	hrtimer_cancel(&ipc_imem->tdupdate_timer);
+ 	hrtimer_cancel(&ipc_imem->fast_update_timer);
+ 	hrtimer_cancel(&ipc_imem->startup_timer);
++	hrtimer_cancel(&ipc_imem->adb_timer);
  
- 	/* return ref */
- 	return ns;
+ 	/* cancel the workqueue */
+ 	cancel_work_sync(&ipc_imem->run_state_worker);
+
+base-commit: e203d8a4751d48aa00eda31e3b320ba8e0d47dbf
 -- 
-2.53.0
-
-
+2.56.0
 
