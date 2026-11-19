@@ -1,62 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795092971;
-	b=qGSq1VkNpZyyx+f1ljss3ayPR7y4YT5uGUSwzpqQAbT6Ir4l27z2PhBrSkaShLFffpBb
-	 Im1hV9yPVUoSFrwEhrtcXVKMZptGLZ0BOaoXYjoGRMyt4oZl04LorPwzgpWU6B5gDOlmj
-	 eqKWB7dJtwNgFop1/xgz7iHkZTziiV3EeVX3JcvezmAg/qbHNndv8Rvlia94LbUQU5E5r
-	 Yp5tU/pFOsw+9QCXN3tMjw2KJjA60ofgxuOsdQdfa7SYNEel7Sk1tUr/FZ9LBmnJMS2L2
-	 IqIcKlm6z8YH2OMh6Dt+Z0U8rHdJsw/puZNWKMSWXfQPhzpFakyQjk//R934y5JOdmQ==
+	t=1795093410;
+	b=cMQGNrMMhDNBbUf2VkrZl8pBgvWeFJxWWtXQcqReiGqAR9x+oPoPkJhqT1+AzNLWahiR
+	 m+I4lZuPuRgs/P0QsoRLQhZRGT8hMIDVwzZqVcKs+W7US9La7ra6ZkSGZsL+ni4VSOn8X
+	 sKxqHu+ySauADH4QDogaUKREQ9YCy29sTTQOXoVGz2xep0id7GYff3L6wgo7UGXibVoaD
+	 wzk2WwUe8OvI56Q02Tny4obGw6V6Q7w7JXrcSwj+3VloZKlIwad1HFSkl3fi9UGlwP5Dn
+	 kd2QdBv4KXf2TqKxyZ1eZS28zywU7W1LtTlYoLYZbCnj6gsKV4S7dGfKXJFVicEvhYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795092971;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=u2MLAZSC7Lrge7y5EMGWmll3Yf/qRKL/eAJllxB4zv4=;
-	b=TfoCOxTfpDcDG0/GGY7vErEybG8mEJBXxu7HUXb4q6rnfKTPHa/w3ACQ3nkUvTLewxaA
-	 DsDU4gp66jxPXm1Qd5QvA96UFa3P0r00mIZGFNdWgTxwcD6fa5mhvU2buCeiaAVpTJnq2
-	 T1IwirHSPbyBEFCQMzWEihoN2Tnr8kqd/Ar4CVtURIi9xDcg38aNcra0oq9L5z+MSJ1wW
-	 UdB9MNEfs8YyW7oMuXLs8PaEzhzZD3SNS2jg5YOd0lWuBU0MFCs7iy65ZpOOm1VpPHB0y
-	 9P7VJQWlCQcvHVs5s+KRDieZerZE4oLwttSvLqD4y8iUKduZYPZELymHiIY5oQsBS8A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795093410;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
+	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key;
+	bh=Z/OSGHvHVnn2Ph/Qe+hZsNnhnmtZwlUM7JMP60OxvfQ=;
+	b=qi8z6u6aR/9YmUVuZa5qdfRtQ7eSYjp0W6FrCeOK/hlivUM2mzOidODxjL4eZ5OuxavW
+	 b+0Oq9ag2x+prtq4lPC4N5LrkclwWSu0TVkmFdLCfbt3xSUaqj8M7XoHbvl+wyEexjxPP
+	 yLiX5SpcjbhnnTkGpfuJQy9F6KJ5K4jFF5ICTO7B06ccgDLVRnVqyOSWAlnpP8Ze8Picb
+	 uKVmO2EKN/sLhVYMrOw/bwx0ZExfg+l6iUMFOPu48OqaUxKtEMskTcetiaMvs0SViB85w
+	 EBUWeRg6wfoSrydeeuqoqm03Q68y/MLmK8VN61rQdZMGleMx+9EoZsrX5XGemDqPVHA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HwrPWC3B;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=m7WXrInM;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B4A6D606A320;
-	Thu, 19 Nov 2026 12:56:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43ABE606A326;
+	Thu, 19 Nov 2026 13:03:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 43ABE606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HwrPWC3B
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id C298E1F000C7;
-	Thu, 19 Nov 2026 12:56:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795092971;
-	bh=u2MLAZSC7Lrge7y5EMGWmll3Yf/qRKL/eAJllxB4zv4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HwrPWC3BSab+933wJQw/GlQUNcmXs89wCSQJc0FseJ5x5jmF9TVPGlMao2CjdQVEv
-	 V7Cg20rmto5D76gtaOYLGbvKEMuwlPtQ5/xdILXL//6mbDi72cQTABQJCTvvIjiuV7
-	 BVbpEdYTCQJWZ8KlqvfylA2r/eta85PEZ9IX0rov2fhQ3eK0B+n2349J56jXsgPdOm
-	 vbQMTt+qcCLrqWV8eqNHQyP+TeV+ZDRpz+800lu58ssazIjp5unR+g7eF4kA56yy19
-	 uFyjaJEwegG70OCnnQB8sM3mv1c7bu4ZpSEQxFgAhIjCXnryzX3+pGHU1QMYhDUdbp
-	 GGSUmMiogGzyw==
-Date: Thu, 19 Nov 2026 14:56:07 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Rodolfo Giometti <giometti@enneenne.com>
-Cc: florian.bauckholt@cispa.de, David Howells <dhowells@redhat.com>,
-	Lukas Wunner <lukas@wunner.de>, Ignat Korchagin <ignat@linux.win>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>, Hui Peng <benquike@gmail.com>,
-	Stefan Berger <stefanb@linux.ibm.com>, keyrings@vger.kernel.org,
-	linux-crypto@vger.kernel.org, linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] KEYS: fix signature length passed to
- KEYCTL_PKEY_VERIFY
-Message-ID: <av7x53CigERu-cf2@kernel.org>
-References: <20261119-keyctl-pkey-fixes-v2-0-9e2d1c7db7ec@cispa.de>
- <20261119-keyctl-pkey-fixes-v2-1-9e2d1c7db7ec@cispa.de>
- <80ded1ae-51a7-46d1-bb67-02b4b06de71b@enneenne.com>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=m7WXrInM
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795093403;
+	bh=r/7DOVU3zbP/DiBvAk5lk/ApUFqwoCwJJqDxg9WSfaM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=m7WXrInM9CokMzVQlOEoy7QlC4SI7aRVqm5756P9gienxG9OA2pGNCFAs1MKwkG+J
+	 b3Peawd3yS5KjBnj5vQ5a9pSQDKNS2eQ9c1wBHFjhgoS489yJF5CG3XMC2hzyg75DU
+	 Oc2Mu8gCFt/JsBea13K0FPDtSmmKLGw9yWOZyWjt35xo6StZECT7KCGdIIwnc7NAiM
+	 58kEUVEOsGXUT0FxBs+Sb4RU/hjWC/LZIAtXK2IU/BJI7GCPw67O66VofGcIJpHoOw
+	 rb0HkhRkAu534ppMTC44CcI3TjJk+PP4P6kuPEb+swJjdMnJvHHX1l2IcfkJpMzEI1
+	 sTmL2tVOvmwhw==
+Received: from jupiter.universe (unknown [100.64.1.62])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: sre)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id D797317E0DE8;
+	Thu, 19 Nov 2026 14:03:22 +0100 (CET)
+Received: by jupiter.universe (Postfix, from userid 1000)
+	id 92F6A480031; Thu, 19 Nov 2026 14:03:22 +0100 (CET)
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+Date: Thu, 19 Nov 2026 14:01:53 +0100
+Subject: [PATCH v4 03/11] PM / devfreq: rockchip-dfi: drop incorrect shift
+ of LP5 bank mode
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -66,81 +66,74 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <80ded1ae-51a7-46d1-bb67-02b4b06de71b@enneenne.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261119-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v4-3-517a68c008fe@collabora.com>
+References: <20261119-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v4-0-517a68c008fe@collabora.com>
+In-Reply-To: <20261119-rockchip-dfi-rk3588-cleanups-and-rk3576-support-v4-0-517a68c008fe@collabora.com>
+To: Chanwoo Choi <cw00.choi@samsung.com>, 
+ MyungJoo Ham <myungjoo.ham@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, kernel@collabora.com, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1522;
+ i=sebastian.reichel@collabora.com; h=from:subject:message-id;
+ bh=r/7DOVU3zbP/DiBvAk5lk/ApUFqwoCwJJqDxg9WSfaM=;
+ b=owJ4nAFtApL9kA0DAAoB2O7X88g7+poByyZiAGr+85rzgztPrhe15mOzQThqgubzxnmjjDiXZ
+ Re4lABkofhTmYkCMwQAAQoAHRYhBO9mDQdGP4tyanlUE9ju1/PIO/qaBQJq/vOaAAoJENju1/PI
+ O/qaxUcP/AnyYv/h/Ex+H+Nh4DTzdozserjwNba7o4OWerriSN68xuqqyLGrcRoM8jUZYlN63ey
+ QiXp/QTPSsUyBCzsmjyEnyIVlGljGY+8BsezHg6rTBTh3SZ1XG+dJiTzmFELf6gvRDudr2acOEU
+ zfWLRMidmbGZAE36uhiCIrkwow0VglA4GTnmHs4NcoPSNzsOtSfxmpgzGH4gQaksbzNHuXRuCHu
+ EDqrXfOHZkWit0P8Y6IEtxP6IdfjyfRjjm4RvQDdYAfOrsFgXb43r0rX7D8DUF9qgvRmIDdxoap
+ 90Oy5iHbRZKQCiQBQGhiC5BhhRF001SUf0HlqpcVUPkH70JW3f4OnMUkpiDpD+aTok2Yx0fqZBk
+ o3UtucIsnbBIUMsBZC7qoIyrKqNM/jps+6Aj6r1U/Ep4rgS+oL5CgZ2bFv0u5UHzPuo7SsacnkD
+ 4vW7gxgfDi+p94PxsciUBb10YZaWPs6kY8KL+nMB0COLzHCggm++6j/jS1XOge4zaDEJCSoapYS
+ /PCAIiKv9A6b2Kz3OJmqSLXY6VpAP+ZXCMocr0ywm+PD1TMEfw/JqhiSKgRDGr788PEQjeRe+/N
+ rYqPEUQHKE+0MwTYi92Uv/8laxoxM6NFlh5+4qiBy/Ncxg8CVOpbtc2MMLg493JhA5kIZWokc+D
+ 6mumnCqh66/SbB1gExoguLA==
+X-Developer-Key: i=sebastian.reichel@collabora.com; a=openpgp;
+ fpr=EF660D07463F8B726A795413D8EED7F3C83BFA9A
 
-On Thu, Nov 19, 2026 at 11:25:07AM +0100, Rodolfo Giometti wrote:
-> On 19/11/2026 00:19, Florian Bauckholt via B4 Relay wrote:
-> > From: Florian Bauckholt <florian.bauckholt@cispa.de>
-> > 
-> > Commit cb481e59ea6c ("KEYS: fix overflow in keyctl_pkey_params_get_2()")
-> > made keyctl_pkey_params_get_2() set params->out_len to the maximum
-> > output size of the operation instead of the size provided by the caller.
-> > It does so for KEYCTL_PKEY_VERIFY as well, but verify has no output
-> > buffer: out_len shares a union with in2_len, the length of the
-> > signature.
-> > 
-> > As a result keyctl_pkey_verify() ignores the signature length passed by
-> > the caller and always reads max_sig_size bytes from the signature
-> > pointer. A shorter signature is extended with whatever follows it in
-> > the caller's memory, or the call fails with -EFAULT if that memory is
-> > not readable.
-> > 
-> > The x962 ECDSA template currently ignores data following a DER-encoded
-> > signature, which hides the problem there. A truncated RSA signature,
-> > however, is accepted if the bytes following it happen to match the ones
-> > that were cut off, as reported by Rodolfo Giometti [1].
-> > 
-> > Use the length provided by the caller, which has already been checked
-> > against max_sig_size.
-> > 
-> > Fixes: cb481e59ea6c ("KEYS: fix overflow in keyctl_pkey_params_get_2()")
-> > Cc: stable@vger.kernel.org
-> > Link: https://lore.kernel.org/all/20260919221742.3709658-1-benquike@gmail.com/
-> > Link: https://lore.kernel.org/all/0e20f799-e389-40d2-aaee-2f174748faae@enneenne.com/ [1]
-> > Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
-> > Tested-by: Stefan Berger <stefanb@linux.ibm.com>
-> > Signed-off-by: Florian Bauckholt <florian.bauckholt@cispa.de>
-> > ---
-> >  security/keys/keyctl_pkey.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > 
-> > diff --git a/security/keys/keyctl_pkey.c b/security/keys/keyctl_pkey.c
-> > index e7121523b9c9..722521a014ab 100644
-> > --- a/security/keys/keyctl_pkey.c
-> > +++ b/security/keys/keyctl_pkey.c
-> > @@ -175,7 +175,7 @@ static int keyctl_pkey_params_get_2(const struct keyctl_pkey_params __user *_par
-> >  			goto out_up_key_sem;
-> >  		}
-> >  
-> > -		params->out_len = info.max_sig_size;
-> > +		params->in2_len = uparams.in2_len;
-> >  		break;
-> >  	default:
-> >  		ret = -EOPNOTSUPP;
-> >
-> 
-> I ran test3008 of craf 2000 times on a UML kernel of current mainline
-> (666539eecdf4) with this change applied: no failures, against 4 out of
-> 2000 without it.
-> 
-> Tested-by: Rodolfo Giometti <giometti@enneenne.com>
+When the driver got converted to the FIELD_PREP_WM16 macro, it was
+missed that the lp5_bank_mode variable is already shifted in
+rk3588_dfi_init() resulting in FIELD_PREP_WM16() effectively doing a
+double shift and thus writing 0.
 
-Thanks.
+As most Rockchip boards use LPDDR4 (incl. all of mine) and DFI is more
+or less exclusively used for debugging with upstream kernel so far, this
+hasn't been noticed until now.
 
-Reviewed-by: Jarkko Sakkinen <jarkko@kernel.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-219117@kernel.org/
+Cc: stable@vger.kernel.org
+Fixes: 7e85ac9da1ac ("PM / devfreq: rockchip-dfi: switch to FIELD_PREP_WM16 macro")
+Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+---
+ drivers/devfreq/event/rockchip-dfi.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/devfreq/event/rockchip-dfi.c b/drivers/devfreq/event/rockchip-dfi.c
+index e0b942028e50..22f82cb6e33f 100644
+--- a/drivers/devfreq/event/rockchip-dfi.c
++++ b/drivers/devfreq/event/rockchip-dfi.c
+@@ -800,7 +800,7 @@ static int rk3588_dfi_init(struct rockchip_dfi *dfi)
+ 
+ 	if (dfi->ddr_type == ROCKCHIP_DDRTYPE_LPDDR5) {
+ 		regmap_read(regmap_pmu, RK3588_PMUGRF_OS_REG6, &reg6);
+-		dfi->lp5_bank_mode = FIELD_GET(RK3588_PMUGRF_OS_REG6_LP5_BANK_MODE, reg6) << 7;
++		dfi->lp5_bank_mode = FIELD_GET(RK3588_PMUGRF_OS_REG6_LP5_BANK_MODE, reg6);
+ 		dfi->lp5_ckr = FIELD_GET(RK3588_PMUGRF_OS_REG6_LP5_CKR, reg6);
+ 		if (dfi->lp5_ckr)
+ 			dfi->count_multiplier *= 2;
 
-> 
-> Ciao,
-> 
-> Rodolfo
-> 
-> -- 
-> GNU/Linux Solutions                  e-mail: giometti@enneenne.com
-> Linux Device Driver                          giometti@linux.it
-> Embedded Systems                     phone:  +39 349 2432127
-> UNIX programming
+-- 
+2.53.0
 
-Br, Jarkko
