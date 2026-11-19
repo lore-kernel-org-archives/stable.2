@@ -1,99 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795106834;
-	b=NkXw0+cGSBix+nEjPhliR/VxmtuZxdU8VSJv99JkjZ7PiEKwarARq4LtZ9s4ntaom/Ds
-	 MrZjcIFUzJq26J3CucTLNe6PnBCDDUpozUy8a6IbHo6/I/rc8sOBzyudriqZRdAgMmSrI
-	 EQQwJTzKuQ25e8EWLfaQ13u371QpBJycj3oqc86OHNuzdpyePvDud/gQTry9f6U63zN71
-	 M9lQSNKBGeVwSesUssVR2HUp6irqI+SLrboIshLirEdNq6jfwv5UaExQRBV9oWPbn9ePZ
-	 x/LSBdpI8smjxMlO/dH0QtBY3Cbv1eiJTkZzFvDh7lGWJNj2gVkVvQ48fGEdiDQHnHA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795106834;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=gAo8ULyYNAYY908k84VdgpVWLTup3VEHr23sPp3ZfoA=;
-	b=WOCvTg9I9wDm66PJ3XWx1kXmdboVndLOE/2Nw51DtjYM0yIHgxPSA5P4NyTZv+xocNOi
-	 212b5Yex/x22FeSSxCi7Uq38jDbbyUyTY4tqeoGQltWLS8NrGMU0HfeDSLPK+f9movTyv
-	 giJZWpd7lA1WHVBZEVp8VRGxP59G5J+KrTPbpbh/o9TPL07RN6otRQUD0GbXGDMR2SAKC
-	 mOpSnXrJDBVWBF4YKZH8dbSFvztAfnEWKPvVvp0YBzm/qJFa9mx0rJEmKyCCTnL7hKGMn
-	 7BtMBqk0Ys28wjUbQW4JCZ/R4su4m8w4KFwYVdCeHuXG7HnauH2/T/lBVQHN8mbN3Qw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lfu5VRG8;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.130.44
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011044.outbound.protection.outlook.com [40.107.130.44])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795106968;
+	b=nkiXENZBsCJow8HjMWryRLoiU11ac3jdwHVuCx+imwno4rQgZTJOoJAN5a6LbOajqM8M
+	 9oV0X+KsRJMGG/hAD2/4+Jw9Fr8//AJ4+XckLCQO7qlyRBaloEzAdpaa7urcPWlAaCodw
+	 CUNbE4PC1u3sInek5mXjsrLrG6PxpB+6nVxZgBKu8xqMsqR8+bQah3RsW2IT7nSkb20BQ
+	 SLWLOKOkx/2knFzDUdXedI41vYJcTGu4vNfcCkcfRvZ1wMf/P5aZM+I8iVFsnMWESig3U
+	 6LPHGF1SClnNvT79k9ZrFJenIayuN3IL3nbEOKQQSfF6SNpgbaPGhD9rUZM8LSduVfg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795106968;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=g2NLCWMzCBs5iISki7pmWBULLDwgxILgVxkU7maNnjk=;
+	b=UXi4XVqS9ZDNiBdUDGDHaFufEfPTukDXpVlRV8VakSYJ1MhqswEty6KmVPaPHUY4VnW4
+	 Jk+xdjUGCr5AqSPxjZIWWASYP6dZVx4VOccY+ueZXAyyuwBGJs0iAK0qPWOsRcScA/PIJ
+	 gg3v8pOKcWB0Jid0chhUrlTUT4zBsvCo7yO/KC7sV40PzxN0Xa5G8RWeoVsqDa/047R0w
+	 kvAwxZe0E1cL9yVyxNWek5PYkmHTvyOS+5xyr9O8aEKxCVonGimF+TcehwX3lBn9hbZHB
+	 I2ajouoVUkS448lw5G7Xj1OqkUiQ4vHBzsXVKtacL2Tj0tOkWPoYZXzogNsbDCrvSZw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BN+3RWfc;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D87260A261A;
-	Thu, 19 Nov 2026 16:47:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D87260A261A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BE19606A32F;
+	Thu, 19 Nov 2026 16:49:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=lfu5VRG8
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=v0dXFxV/mV7Lum1JV7dfx18NDOdmPJDM74eAGh3vJBMV0FrtlRHTmySGg9O06GYNMuaF4TSwPl8pL/hjSDAjMEdemoo49uL2NYhXSSchIfDNoqS5sGwT9hXv3ybZZQkAD/B1PqiNxcXaEEq7Sywf/dxRQ2mrGzD0oKVue5hc5BvI8kOMOZL+EXnz3tC9/h5HpwNT5IdAOpeHnpzJd8wyw2jybtwgmOwlTLxOgfQU9gDfUOv7ETjM1GleKu+OKFjpnWn7XXnjIBV0ggBqwTiclpL2GI4UQnr8DB/+Y6RWsnX/3qHp3T4xKzegdYn0OjiTSQfHWD7VelqU5BbzmyO4Dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gAo8ULyYNAYY908k84VdgpVWLTup3VEHr23sPp3ZfoA=;
- b=wFw8QmQXQI/THK7WKdHDhBps6hWuSbAdUpDdB4h7E5cDn9KetulCGbT0cH83pnEWDm51UPRpSdLX1pcXKtCBzg59dSofyxgiNhLwrAs0cj9fUYPYj09JuJ/LxdLfhcvd15JI71atfnowZDD4ikTC9lxcOqSw2DHQjpA4QmaAsbMk/gCqVryXi0FUt8bTBcK52C5JqvIfqoqjjK012zW7SnuVZnGe8Dt83XhJZbUufleS7ET7ZkqeVmXKplXZAXcOgPzhq5x5y6Ytnn2Aw0Yck21pN2737v8NoNPcHAnu0fu6STHYnJdMd+SIeM/i4eLzFKQEboy2P6bM1lQxOnycxQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gAo8ULyYNAYY908k84VdgpVWLTup3VEHr23sPp3ZfoA=;
- b=lfu5VRG8Y++9CEB1Fy6x33QGoqQv/7dKyXrUuykrQGk/atRIjPI6ctCnPGPd7oKwKIEFfF0TzPFS35+gabtRGSsUGyS+eIxnnp8mzPlaby+Vj84U5LUtOm1k4twvY+ltZ/yUqQmekT2kV37O1vU7QsOG1rJM8irSHjpygDxK7zF8cyiNx8AzxfqdSZWUxGZz5jvpNqOVU8pXlOl6Qxfjy9xlOYD9qeFIyfvxLh4EYqJ10as1jzf11Fqia0DWzOi05e0COFnYt60qmb5TbqSgJd2xAsiSjfEtJpwBz+ek3viqt3/vBhWpBxMMWA51oK4haLC3DmAQ1i2sGIz3MonzRg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by DUZPR04MB9783.eurprd04.prod.outlook.com (2603:10a6:10:4b0::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.615.14; Thu, 19 Nov
- 2026 16:47:08 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0639.010; Thu, 19 Nov 2026
- 16:47:08 +0000
-Date: Thu, 19 Nov 2026 10:47:00 -0600
-From: Frank Li <Frank.li@oss.nxp.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Sergey Khimich <serghox@gmail.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Sia Jee Heng <jee.heng.sia@intel.com>,
-	Baruch Siach <baruch@tkos.co.il>,
-	Mitch Barnett <mitch@accuratesound.ca>, dmaengine@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v8 8/9] dmaengine: dw-axi-dmac: require an IRQ before
- registering the controller
-Message-ID: <av8oBJNCYRkTBBW-@SMW015318>
-References: <20261119-submit-dw-axi-dma-stop-pause-v1-v8-0-f8e7fe60594c@gmail.com>
- <20261119-submit-dw-axi-dma-stop-pause-v1-v8-8-f8e7fe60594c@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261119-submit-dw-axi-dma-stop-pause-v1-v8-8-f8e7fe60594c@gmail.com>
-X-ClientProxiedBy: PH7P220CA0039.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:32b::26) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BN+3RWfc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E551F000C4;
+	Thu, 19 Nov 2026 16:49:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795106968;
+	bh=g2NLCWMzCBs5iISki7pmWBULLDwgxILgVxkU7maNnjk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BN+3RWfcKIFzUoeKmqEttwtFOgparQ1eTm7XKtYs9babzr++yx++Fr1ZrRXsyMU8N
+	 w/jWMc1zmZ2nECqFd9bOGmta/8PKHTHx8j9WY8WFfq4UmZTxtDDNwE77ymvgQQUuz/
+	 8/3e6YWD8QQrYDXEVUurh10ZYVSK4qK3TlfVZez8ppJSL+Tsi6zgFUZw4xjxjYfI9n
+	 b0X5erlrq83HrCnEitf1nfP0DFb3XhypMIv6uUKXm0LByyyTAo8OwIPGROeP0HQK42
+	 5vCYXSk+9q07ln4NcWBqGvsgqElmiLVNyUmnYVnTceWqrOTlZR3Z50nawAfzlBO+dB
+	 rOJ4VQ/8z6pSA==
+Message-ID: <98be89bc-1394-406b-8723-0032a7b57ad1@kernel.org>
+Date: Thu, 19 Nov 2026 17:49:15 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -103,96 +51,178 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|DUZPR04MB9783:EE_
-X-MS-Office365-Filtering-Correlation-Id: 76d35d28-608c-4b12-e2d3-08df465cc023
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|19092799006|10067099003|56012099006|11063799006|4143699003|261028144727099003|261026140227099003|261021121427099003|261022105027099003|261102123227099003|261009223027099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	vkZF196d1LHbsa0yg6EwrjH6yIxmnAhPFChRRlZZAO+SCJudS/BrMKqGYPwtel2QBwHOPdGLGaMf0i3hXG1hKMZdeu9Exy4XK/86Qams4TtOcvFsRiincRqn47xTH476eHrn1C0JAy3xNZSuN68lUExT5wXiMRmNTYPAmlUGBfmNH/ERscLvCmcYPs0bapNijTa5ZwqRWXLfhDd5/n8lS/V/xo8zriwkGY9Arrwg6aywVYh2n7OYZcxUsfYzJUc2QQDXbHwQNBUv0IO5nRKIWp2Bg/Iaw/NnLSyZEbz4+v/KlrO8rj2iCPBSuj1iQ0+ixgFdoq2EVZfxUYZAbWrJTzIYatNFMIYW0/tkjOy8BEeLsKlVSkEm8vQidHdEQeQWhJJZ+rpyD/gs0w3nsN2zL+Z3pBM7VyYoaQ26jm4N63ZWG2QdYrSdSP+nBxNC+ytDqMtYYXf/CoF6isYxYc30wlyaSKF57rbN6fvE+vpTyrOtolCiMrQQ2wTT6VMmISmNiB8NmsafdnFoR8TKAKYnZRQ77L2qxv+XjdEclwpL9dF4Zy927mCz0c1lq8bK4Ixz4feQ/+HUEo6jJ4shdCunb1zeuEnHvlGlRM2WYR9cr97hHj/YNmBlNon9wfAy6zYThnyRbPnzHDCXs40zoyE8oa0H/jnM2MLIX119A/8rF5E=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(19092799006)(10067099003)(56012099006)(11063799006)(4143699003)(261028144727099003)(261026140227099003)(261021121427099003)(261022105027099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?HgNm51iL7D8VZ1lC+IA6swIuwswXBV0W+Zp83hOYrtibwqfpkncMWx/ilTUM?=
- =?us-ascii?Q?bhFkbG0kwInT35VUaQoaZ/kNqWBcua725msPT2PvDZJqVLASLMfM/AlC2oSL?=
- =?us-ascii?Q?iM0/IwxLl6+Lav9+Cbt4NazEFhvTvdwoFkG/bg5LHnqpHiHqLSq98aDRTvtF?=
- =?us-ascii?Q?22XMA6Ac6Es4esWfh6LPV0Y2mHBlivfr20HAWxSon2UbeHMoOlUc9BogMtIr?=
- =?us-ascii?Q?oCvpEdtrjTz6Zfrc0bItzoo5m3qKQoCuh45Lc1iIFv/0UB308WqMlNKk3NEY?=
- =?us-ascii?Q?cfDfoJ9SMzGJPmeWWS1QeNi22OacPaN2Uzaf3MwGJAM7hZrnDDEm+6h/If7t?=
- =?us-ascii?Q?+W7Xb8OjU0Cl/+rmaz9NBju5qBSXLe+0jLeLuo0uOEylMcG8xJ8AWNIr33vu?=
- =?us-ascii?Q?qnHzHx95zI74FUxXu4q+wuCp1LMphJV/yTOCSvPyGk9XgrfkbWYE4KL31y10?=
- =?us-ascii?Q?bvfSfHyiWSIcTzfBwrczoftCwCZsJqDkLi9UNpT3RIxQAAi9h/xOm/RMWgv3?=
- =?us-ascii?Q?0iRG/+3P3QwXT2ImrIn63KdK6Pb4TvLA5e4N2HWXZzPgHwqBBTff1/kZRtPy?=
- =?us-ascii?Q?/p86FULgOUofjTMqzKzm8cNNqMMelRwIniqR4nhLfVMLIBFQBodvQzAHDtXQ?=
- =?us-ascii?Q?OuRxnW4ojMmOhZEULP9rfTFopwRUf/JnTj6z2P3b9D6xYHLm4jI+yJWOYqH1?=
- =?us-ascii?Q?stRTfpoc89Xu6t5JbIcPGB9Ro2Wa2F4TQ0FRVVCiV+gnnUfjnPM49h0BHMHq?=
- =?us-ascii?Q?ZZ5vXIdDnzKw8WwT0xS7SMg3vT+/KzltZESrjaCoCtLcHmee9xYi52ubd1j5?=
- =?us-ascii?Q?YcfXr5H7/0pUriJgHVprIWwIOFFIYazRMiZfTeUIIzlrcJBN7MFuW2GzX8yE?=
- =?us-ascii?Q?fokLJRMEoM2rNO492HnrBf4ytUu4hC0Yo7qlw3lKm5meyBbAyaj9Ke+6L2IV?=
- =?us-ascii?Q?MpeAgBeWNq4mBNDCTi4oEHC33Fli2l6S4DrsFczRs+x80dwbwHwIxLK7GJr6?=
- =?us-ascii?Q?zJSghpAKynAntqyd4ylq5Q3qvce4W5mC/83DvgC3L475pbEs8F+EXdQupVfd?=
- =?us-ascii?Q?5+xKNOK+iwizc+yxDuM7aDUN27TyHH8Oy3Lxuze8niQ+wXq3QYFuNQ+yNyGG?=
- =?us-ascii?Q?WN506P+S51GLsgCgRlIovCUyfhJACq/QKJir+RN7OvSsK00KgR9/NV3UbSml?=
- =?us-ascii?Q?JtgpB8jIyOKGxM0Sc59XjaoejwnozT28w/g+ubm1AehDkdALphrNJNZJOQcp?=
- =?us-ascii?Q?ZC+5YlMVhuY9qHTrcaTJVz1BL+Sw26jAmoRscUGLPkl5ue7TTuNxtRqF4vO8?=
- =?us-ascii?Q?HX/M78BUp2GHfa8CNkTu8G3aQs8+vnRhvg2BLjMT7DbCrJ3gRwJvoWYLgpwm?=
- =?us-ascii?Q?JKOx6TrcFN5P2ZQXdGTtNlbbQt/cBaeENBqrniNPY3LD4xeCyZGeBohixA/1?=
- =?us-ascii?Q?OKLHMiDwjg8QVIoa9ZQyY3UYMCSYv5G6e3Kh4RxEt9n2dcBOAMLiYCdd03tF?=
- =?us-ascii?Q?9x+ihq/ZNLwR/ZuvoxI9vR4UIhSE3S4hkmc9Cv4Gyjpfmo7uP7HZjfUebAQU?=
- =?us-ascii?Q?tw8BFKRlmvqi8u42rWAzd+9a6nW9k2BnWf1SO/Oi+xjMxQAAx413qjPrKDFD?=
- =?us-ascii?Q?8Cqu6+Pq5BgSsxxwcLorXMkbNTTJoLpidtwGU1bT0ZJWZVqNBC7hJ7QkpXzc?=
- =?us-ascii?Q?b5Xjgp4mBj95sslrehwoAuw7ATWmmoSw2j3UTZcTYWN9QjxaaVo6uRghsd+U?=
- =?us-ascii?Q?xeqtN4zw/xkWP3B9TbZTvbYefRka6aFyfLvZUgb4hOwzX0ZUHtUg?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76d35d28-608c-4b12-e2d3-08df465cc023
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Nov 2026 16:47:08.6649
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LMjeRCfoOjYpGmM+GyudZqWcfDEye7LNGt+b3wnyUEyeE7jd7A7rdtN56IL25nqJX7ihWff7Wr42lt7n8MX+Yws825s2s9aeEoJfl2v/A1xMIBAKe6Sa3ecku0OZIrlL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB9783
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] mm: flush stale TLB entries before installing a
+ CoW'ed folio
+To: Zi Yan <ziy@nvidia.com>
+Cc: Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>, "Borislav Petkov (AMD)" <bp@alien8.de>,
+ =?UTF-8?Q?Cenk_Y=C4=B1lmaz?= <cenk@deepfinresearch.com>,
+ Zhang Peng <zippermonkey@icloud.com>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>,
+ Gregory Price <gourry@gourry.net>, Ying Huang
+ <ying.huang@linux.alibaba.com>, Alistair Popple <apopple@nvidia.com>,
+ Chris Li <chrisl@kernel.org>, Kairui Song <kasong@tencent.com>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Youngjun Park <youngjun.park@lge.com>, Mel Gorman <mgorman@suse.de>,
+ Sasha Levin <sasha.levin@oracle.com>, Rik van Riel <riel@redhat.com>,
+ Ingo Molnar <mingo@kernel.org>, Peter Xu <peterx@redhat.com>,
+ Hugh Dickins <hughd@google.com>, Axel Rasmussen <axelrasmussen@google.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Andrea Arcangeli <aarcange@redhat.com>, Thomas Gleixner <tglx@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261118-file_folio_flush-v1-0-e9e739ed14e0@kernel.org>
+ <20261118-file_folio_flush-v1-1-e9e739ed14e0@kernel.org>
+ <22DF2F1E-2692-48AC-AEE5-79B61947D86D@nvidia.com>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <22DF2F1E-2692-48AC-AEE5-79B61947D86D@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Nov 19, 2026 at 09:01:03AM -0700, James Hilliard wrote:
-> If the interrupt controller is not ready, the DMA driver can bind
-> without an IRQ handler. Clients can then submit transfers but never
-> receive completion callbacks. platform_irq_count() returns -EPROBE_DEFER
-> in this case, which skips the IRQ request loop just like a zero count.
->
-> Propagate the error so the driver core retries probe when the IRQ
-> provider is ready. Return -ENXIO if there are no IRQs.
->
-> Fixes: e32634f466a9 ("dma: dw-axi-dmac: support per channel interrupt")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
+On 11/19/26 17:47, Zi Yan wrote:
+> On 18 Nov 2026, at 4:20, David Hildenbrand (Arm) wrote:
+> 
+>> Zapping PTEs in zap_pte_range() defers the TLB flush until after dropping
+>> the PTL for clean page-cache folios.
+>>
+>> A concurrent write fault in a MAP_PRIVATE mapping can then CoW the
+>> page-cache folio and install a new anon folio without a prior TLB
+>> flush:
+>>
+>> 	CPU0				CPU1
+>> 	LOAD(ADDR)
+>> 	 -> #PF
+>> 	    installs R/O PTE -> A
+>> 					fuse_open()
+>> 					 -> invalidate_inode_pages2()
+>> 					    -> zap_pte_range()
+>> 					       clears R/O PTE
+>> 					       // delayed flush
+>> 	// Other CPUs (incl CPU0) still cache ADDR -> A
+>> 	STORE(ADDR)
+>> 	 -> #PF
+>> 	    do_cow_fault()
+>> 	    copies A to B, installs R/W PTE -> B
+>> 	    // no TLB flush: PTE was none
+>>
+>> CPUs with stale TLB entries will still read from the old folio while writes
+>> go to the new folio, until the TLB is flushed.
+>>
+>> We really must process pending TLB flushes if we are not faulting the
+>> same folio back in.
+>>
+>> Fix it by flushing the TLB before installing an anon (CoW'ed) folio in
+>> set_pte_range() if a TLB flush is pending. Zapping itself stays as fast
+>> as before.
+>>
+>> Other faults are not affected: unmap_mapping_*() users only remove
+>> folios from the page-cache after their own TLB flush, so until then, a
+>> refault maps the same folio again. The exception is a concurrent
+>> invalidation that removes the already-unmapped folio from the
+>> page-cache before the zapper flushed the TLB; that is an unlikely corner
+>> case that we'll not handle for now.
+>>
+>> Note that we don't care about MADV_DONTNEED followed by a new read
+>> fault, as MADV_DONTNEED only guarantees its semantics once the operation
+>> completed. CoW faults will flush the TLB either way.
+>>
+>> For example, imagine that MADV_DONTNEED zaps a page-cache folio and
+>> doesn't flush the TLB (but still holds a reference). If the page-cache
+>> replaces the folio, a new read fault might map the new folio without
+>> flushing the TLB. That's okay, as MADV_DONTNEED did not complete yet.
+>> Same applies to MADV_DONTNEED of CoW'ed folios when re-faulting the
+>> page-cache folio.
+>>
+>> Memory reclaim, which removes folios from the page-cache before performing
+>> its own batched TLB flush, will be handled separately.
+>>
+>> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> 
+> This is really old.
+> 
+>> Reported-by: Cenk Yılmaz <cenk@deepfinresearch.com>
+>> Debugged-by: Cenk Yılmaz <cenk@deepfinresearch.com>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+>> ---
+>>  mm/memory.c | 6 ++++++
+>>  1 file changed, 6 insertions(+)
+>>
+>> diff --git a/mm/memory.c b/mm/memory.c
+>> index d2f48d78b0d7b..e1d9759e6fde1 100644
+>> --- a/mm/memory.c
+>> +++ b/mm/memory.c
+>> @@ -5888,6 +5888,12 @@ void set_pte_range(struct vm_fault *vmf, struct folio *folio,
+>>  	/* copy-on-write page */
+>>  	if (write && !(vma->vm_flags & VM_SHARED)) {
+>>  		VM_BUG_ON_FOLIO(nr != 1, folio);
+>> +		/*
+>> +		 * Concurrent zapping might have dropped the PTL but not flushed
+>> +		 * the TLB yet. Flush before installing a new folio.
+>> +		 */
+>> +		if (mm_tlb_flush_pending(vma->vm_mm))
+>> +			flush_tlb_page(vma, addr);
+> 
+> This looks like an adhoc fix, but it is minimal for backport.
+> Hopefully we can find a cleaner refactoring later.
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+I'm afraid if we don't want to throw away performance there is no way around it.
 
->  drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-> index 2eeb902eaad3..531705f8f89b 100644
-> --- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-> +++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
-> @@ -1518,6 +1518,10 @@ static int axi_req_irqs(struct platform_device *pdev, struct axi_dma_chip *chip)
->  	int irq_count = platform_irq_count(pdev);
->  	int ret;
->
-> +	if (irq_count <= 0)
-> +		return dev_err_probe(chip->dev, irq_count ?: -ENXIO,
-> +				     "failed to get controller IRQs\n");
-> +
->  	for (int i = 0; i < irq_count; i++) {
->  		chip->irq[i] = platform_get_irq(pdev, i);
->  		if (chip->irq[i] < 0)
->
-> --
-> 2.53.0
->
+We have similar handling on the uffd-wp path ...
+
+-- 
+Cheers,
+
+David
