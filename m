@@ -1,77 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.15.15
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795108092;
-	b=hrbCYzWfAS+hNCPXgtRWvZky1pFF5FQ9EeK+7yqvBsXpmOlfsB1pF0XOAtVvu+hUWrWz
-	 60Nh9nQfxiNhqq0ZRB8GWXbM5jV7FSKwdm5q2MtxwNN/8SMBMXwjPyM5BE4iRs23yc9tI
-	 GFGBCymjo+5z5EB8xGzf+NwoyEUrXfmBFc+dSgiCGfdU5FN+tWtXZ8U81shKgTz+X9YAO
-	 lHQuDdGqRFXqjwFmr6kRb62CdIQVmaNQnTbQ9+/6pg9Ew30J4/rVvowe1lIYYDT9amDV8
-	 ELewphQd57qEpeMxmbpJ/Gyh1TjpHsNwmKmfQRYn9ZgwPMlKQcAMCQwIp5a4x+dg3Ag==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795108092;
-	h=DMARC-Filter:DKIM2-Signature:Message-Instance:DKIM-Signature:
-	 X-UI-Sender-Class:Received:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:
-	 UI-OutboundReport;
-	bh=szr30qfed7aFxjATf+PSRuOQatUbk1IVD8s71KyY62w=;
-	b=dIi4et9WSTfY+sHbMemGA4P+lW5buFg1ql+qCY6QnFDov9aJVOXlUNmf/U8CCeTQ5oO/
-	 lBcu0bTcO4gH/zo/fic2/kfhuvTcYrFMOyqVmLFOLTB24OWTJP8u/+4A0RPMcPLSWpx/0
-	 CP+WcJ7veNJc2zcn5rXXY9lJVlfhPEg8+yuu1BvukVkF5Pnpro817tmbuHpw/zRu5smCT
-	 vMyaXeUKrCULG0OAGFxYLP0M9tIVzTJpujVQoHJqYVFA6QvybyvWjgD+bVZwqsKXI44z0
-	 5oy9SuxAlga9Ho1GUe5nnSQWfQ3hcCkJ/eJOgIN8bG0Slcc76Y3QPQB29lecWuYNExQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.de;
-	spf=pass smtp.mailfrom=gmx.de;
-	dkim=pass header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=Ix7Q8scf;
-	arc=none smtp.remote-ip=212.227.15.15
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795108094;
+	b=YQkZ0DldrQEX6YXgnyFBzLg3LfFMtp59SPOnGcAGu4aevyGn69xGRhTGueO4Gwde2yrk
+	 J+RGLMmxnuIXZX3RQLyXhmXnSunBQPd810xTsY0fHc/qc1kYz56YOkHSqZugnS8lHBtzi
+	 9aw6Gfefk6WQkh/+mTQ1KyfEAzQDoA6DE50HIK2oWDjgJKuo4/A/MgqvpW2MaL/EPiBo0
+	 fry98Y581t02vawkdhYk0kbb1rijZvc0dndjVmYGrRlztXNcMcoTd/wPMfSJZ52jr9ES7
+	 xBXB+ZjTOxybDh4XDy8PGKksoaONEYLZW1DfIBbDWp/lOFdahE3zrbQpIa/coCbLJNw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795108094;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=5+9Af2auHdiAbr4leGPmH+sT3gFAEFvlw0HHsc15WGc=;
+	b=TdDyRKLRLFsNk4FVqglkASxC9JNNENaImTKNyXcYHq6NqB0E9g3digBPaVYiChATn/Gs
+	 1NQ2qDqBt+f654PfH++mOzsYP60jBzZTCIpQ34taHqMq6uYuOY8bVZNYh2DiOo97wF+I/
+	 bUUKeonIpH+hEC2NiGdCQRVw2F+tWgGn7S1R9X+ZwXNr/NfFRASe9YVe/wBwuoWwjlU3c
+	 /lziKuT8Q525khToS+QN1pxjN2NDqCtXrfsrsQ10Rqmv1qSyLLVf1CNKDB0Wcn9oKhiyY
+	 /Wng9REP/8BAv/D3nQMIU7wgLuAcvxj/WOKtc5jOi8ErajKVT4n2x2hmer/PWVqeBfQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=djsZe68E;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.49
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416F260A260D
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 17:08:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 416F260A260D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB1160A260F
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 17:08:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABB1160A260F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=deller@gmx.de header.a=rsa-sha256 header.s=s31663417 header.b=Ix7Q8scf
-DKIM2-Signature:  i=1; m=1; t=1795108089;
- mf=PGRlbGxlckBnbXguZGU+;
- rt=PHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmc+;
- d=gmx.de;
- s=s31663417:rsa-sha256:KwKMJLep594nIqt8wgpK28zZ4uby
-   Zp+rXuzVg0n0kgf5oPks5TD3CHvkGfaG1UL2+nYdyukdGItxZrwpgtlJWUb0ulrIK9CuHIhuLou
-   6tUqCBOGNOBB87G8zm3/c6M8GormCgu3Es2Eg3WcXFwcWSh+E5Hc3cxio7uFaYn8BBzNK3l9JwV
-   17HQnahulpAuKbIsN6WoQhfpe73NtLpApf+3yQsbJL89s7c1Yh3GX5OvIUccnrb4KkMrkqyKCm4
-   RPobM/Btp6dqgCgCcHvPZnj1dlug0Zq3bYPi5Tj3SK6ySAWs7IwUHxQZJJFa2RxM3s1NuwhJVRQ
-   Twrz1oQxDZA1WQ==;
-Message-Instance:  m=1;
- h=sha256:
-   /keZ7M0FYczsNruQciTCQVi/goAQd1G6FnOliPa+L8A=:
-   OXSP4KUFVqvyFbxwbF+XV8f63ESoiSpr7jEXOeobsn0=,
-  sha512:
-   367jVGINKBOzy7OhDa+eCsZaubzzyHbszPfNmfplAOoAJ4y447y4XOKgmmffjEq5dHQYv2w33LSk9+tMgf4G9Q==:
-   AI3Yw2KF7dDS554c5lTFb5IG8Qn4nIYH+bqUCJNnqlnFt24wUkzau6mP+P5Jlx5dtrUWPR+dAmPUqjy2NHBxwQ==;
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1795108078; x=1795712878; i=deller@gmx.de;
-	bh=szr30qfed7aFxjATf+PSRuOQatUbk1IVD8s71KyY62w=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=Ix7Q8scfljXRZ/Z8qs0OyZfWUQBOeCXhURd8lE6H9OS0mY+ZKGJ1pV/lcfc3u3E5
-	 GM60L+2Ei+HCqMZUwbCYO4ci58PTPQpErDMGzyXQudPnuCmGv9F8HO47S4TvAcIcO
-	 +Yt9REpGaUI9N20ABNwEYyqGTvhFooJ/UZCRpljLzLkPtHkF4mjJ6oDjuRYKXtEeX
-	 CvL5ATD22kJhjyU/Ctq3UoRmMbW1WiLq/2m2/q85N2EJvhE3SjpWjfS8lsCh6a7nE
-	 LnKgbTJAQeqdjbV/Ly32jUzaLWWePzfnfmBnOtT+P6wZROrvaTQvRIGe5GdUDy5nO
-	 pA1qn8PCZvccr9S4Fw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1N7zBR-1wPSb03lkh-013xZV; Thu, 19
- Nov 2026 18:07:57 +0100
-Message-ID: <ccc56bc9-704e-43bd-b284-faf834ec4d10@gmx.de>
-Date: Thu, 19 Nov 2026 18:07:56 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=djsZe68E
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b4bd3d98bfso3287306a12.1
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 09:08:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795108092; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BrsKuiIyBPHtO6M3Mzj7Kp06Fkm6ovr6Viq2bKxeqIuxRvdX+JFlXbGuQoHH1p56B+
+         ru9zAaGxvFH1ujc4vQ8GkryBd0ohizrI3c22IHjTz4EGzqBDekZD+nZtCgiP2bNBZYOL
+         +SyVd7GGp5DEDyUIt2p66dtKRiTnYh1JzHaCdM/9aVkI6vYA4KfPgrq1PCdXZUhlA1nQ
+         J4O9zbKz3zmr2noop/Ouc7zQltV6G0v6UTWnqzEFuv4HHSAbDbkCPS8mL3gdUAPvtSEI
+         BDJxVAMJ4cH3NQ43J+/6EnESNJbFPh/JWHQ2eEa/lPt8s5ZMtrq2Ci2xi/vdBfj4YJBt
+         +W3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5+9Af2auHdiAbr4leGPmH+sT3gFAEFvlw0HHsc15WGc=;
+        fh=rU8p1K4Q1AUVWDRvlDKpbOOvgLvZg2Ahg8mHysYML3A=;
+        b=mKXh5ZmhbUvd9aVKZ3pbUJWeMBhbDtz6MBE1nVwYGQXfVYrLbYmCuf+CM0hqczkAxE
+         cl8CREhlenwHgY8JmlHPst14KWevUvVkS8nEhPfSwCBHREpQ0V4ai+uLe/84+5mGf++6
+         OncgB+eiRYUD5ZCRId9Es0fXGkB3jnP7nceaRDCQM3qZD0jdVoYVxLgzuFy9wJz96CU5
+         yeGNhYOtnbxo+cttnHm4ROQtVv4KiBklV9cNBxDmOyG1G6I4dnDe1/DAyY7d7Dt/CrmP
+         1RDz6lLvrGzbnoVayx0+8TlAGkf+t5/0XPlb3SLLQYoRsexw5WfAMD3IUDcOXuinOroE
+         RcsQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795108092; x=1795712892; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5+9Af2auHdiAbr4leGPmH+sT3gFAEFvlw0HHsc15WGc=;
+        b=djsZe68EQnlDuap90ac+sKyt4pfBgdQLtIjpGnLTNQdMCJgqVSMQ75FPlPJf5mLjTk
+         0NyL87FbwwpzA4CkRPSv/XPpBjrAsIYuDaedSz1mnoafDW64hmeVrAny7ZJ25MIGVP9i
+         /yejFUz5kfSZ1I+FJBKnvcXWHRZD2iHQnTSbfqMcBed/I639kb7eRD29wFtUZUhChQ2Z
+         F7VyILdTp9pu0OXGJ7biHdUqG6uk6tiAV8EcH5u8xG38U8EhmL52DbN5w/6Di6waUfvd
+         KdZAkd1LVwvfUFy+MxVgqgMjV78QXs6pB6TDiTGWVsHJcCwN+MqwUiIWHN9vtsnytVmh
+         KtKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795108092; x=1795712892;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5+9Af2auHdiAbr4leGPmH+sT3gFAEFvlw0HHsc15WGc=;
+        b=JAKGwe4Wi2neG31GvWqXcwlQEoKM7BmmisJC0g43tVjtgaDLX9oPK5rVfdMHoDJHpO
+         qraVIZh/B2pDIZAsWFsOu34QcrRrw+LW8IC2mWbXoBdEWSE0GY6XGOsSQlldhbSG3qd7
+         dOcbZaQvZRjrSpuGvViFd3SXvC4nF/+0+d/PRcp8FiUKPDhfYMrNevsllZWFaIUMp+9e
+         Uv+zxIq5hPMPeoZRU9KYLeOBhukfQQDaXJVjdul1UbY14zHnXBfwxzqYVC9SKgnjFlX0
+         lT7Xl0qjMT4PagKl4AfMrmLqZkrEyN0nALrh2hPvxr/g7N1CycMBVYAh8hnyqx6ueSq1
+         bfuw==
+X-Forwarded-Encrypted: i=1; AL+hErHj/7lGqhIjb1FNI0v5bwfuwVhlWPRLxlHmr5Ei2/xjX2/uZWHRj/1MJJg1GYYO42HZy6cZmzc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ifF0Ii7kt5jDA/ZR0NYhLHkNjrfl+rGPy4Yoxt+sJDLAkMR44
+	bdcbDIK4wZZJZqRIdI+p2yJEUU31KoCVrpjndLdbrVkq+rtk+FsDfv/LeqOCYtdJpWuV4qRmcow
+	r0bkqOsSfYwqa+kUgd9LPj9yNJ5+TLY4=
+X-Gm-Gg: AYBFou3xpZWPNhEKZQBYrMh6bFGLg9x6iadvx21n0pYkzoLGvD1u3hHKwIW2dtUGfQa
+	Ljccy5sAMJdLZtuLD8EbDLRfil5TDMvHmJyqD02iNzpGYuWNlMEBg7SbvH1nI38SwJPlj585eMN
+	MKyuH/SOemRPjBdi41rOAGy11QBQ6nk8toCJFIcEN/8VepHrIc/ktxTKr+ZVl4ILUkPKV5N2s7t
+	lUuuLpmALatvtLcf0AcJjMss3v0Qofwe0B0gtU95HUbxLlGqeQA8btOBUJRoMjKY0nOR+Xr3NVZ
+	ZVNEFoPuRXa2NU+TDKzSu2ve1NMD+xgyjteXA107K8BJAA98S6Axl/cN7LZS4LfjFyLw14KRglK
+	VGDXtvf1vBiQFtScACnDFEKad6sxNuXF8CQe2fLLnePU4cd/4abP9WL/8fAUCmzMiI6warPPB8p
+	YFvx2azrk/724AvCfZ+b1p+vg0jhhuLK2R5NwnCttjOPzA9aK6aHBniUDde0yYjDqsJRfBGjacJ
+	/Blqh0QyQAFTirTyqmvZXgXa/onnX0RbGYy830ihM5x1vIdZYM=
+X-Received: by 2002:a05:6402:5cd:b0:6b8:7769:fffc with SMTP id
+ 4fb4d7f45d1cf-6b887eb2136mr5368008a12.15.1795108092010; Thu, 19 Nov 2026
+ 09:08:12 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -81,219 +106,327 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fbdev: s3c-fb: Fix potential registration corruption on
- probe failure
-To: =?UTF-8?B?5p2O5bm/56GV?= <liguangshuo@mail.sdu.edu.cn>
-Cc: Jingoo Han <jingoohan1@gmail.com>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20261118-324f82bd41-fbdev-0@mail.sdu.edu.cn>
- <4fba8bdb-de77-4418-8ffc-7ad6982e8027@gmx.de>
- <AB2AtQBLLG04vL*MjX4Nuap6.3.1795092368475.Hmail.202321181@mail.sdu.edu.cn>
-Content-Language: en-US
-From: Helge Deller <deller@gmx.de>
-Autocrypt: addr=deller@gmx.de; keydata=
- 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
-In-Reply-To: <AB2AtQBLLG04vL*MjX4Nuap6.3.1795092368475.Hmail.202321181@mail.sdu.edu.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: <20261119-submit-dw-axi-dma-stop-pause-v1-v8-0-f8e7fe60594c@gmail.com>
+ <20261119-submit-dw-axi-dma-stop-pause-v1-v8-5-f8e7fe60594c@gmail.com> <av8jamIp8oT_M_eU@SMW015318>
+In-Reply-To: <av8jamIp8oT_M_eU@SMW015318>
+From: James Hilliard <james.hilliard1@gmail.com>
+Date: Thu, 19 Nov 2026 10:07:58 -0700
+X-Gm-Features: AclHuK9A144CvlmfACCQifWSoNELDRDyoYtLquyalg4FrmtKj7AedmTpR5B7M_8
+Message-ID: <CADvTj4pPHr6-30iHU3VQnQvc_hfcGxjY6aeS4Sx7fBEOc6QowA@mail.gmail.com>
+Subject: Re: [PATCH v8 5/9] dmaengine: dw-axi-dmac: preserve pending pause requests
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, Vinod Koul <vkoul@kernel.org>, 
+	Frank Li <Frank.Li@kernel.org>, Sergey Khimich <serghox@gmail.com>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Sia Jee Heng <jee.heng.sia@intel.com>, 
+	Baruch Siach <baruch@tkos.co.il>, Mitch Barnett <mitch@accuratesound.ca>, dmaengine@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:ll2IOIM/V1nYWbw6D3QjvqxWPKKJ/VkAY5JEZW+8mWionSINDp6
- aZ2C0ujfZE3nl3p8JKJa2C1sTw6zbGgZ442Ri/+I7VYPcuOMGrRWSFKV9pBpvwiqUTPvotd
- xUO1nHipR/je84nkd8N9d2o/LvAbiaMHjqCAhYzGTatkLEbKc4q6B7uZ2w531TcScM+PLdV
- mitlo5ab5bqPmY2+mBq6A==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:wh+jUNnLESM=;ip4bcnYeVXk8GLORRfIWEPpGTqB
- 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
- +8d5K9TzqA==
 
-On 11/19/26 13:46, =E6=9D=8E=E5=B9=BF=E7=A1=95 wrote:
->=20
->=20
-> Hi Helge,
->=20
-> Thanks for the review.
->=20
-> From: Helge Deller <deller@gmx.de>
-> Date: 2026-11-19 02:17:08
-> To:  Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,Jingoo Han <jingoohan1@g=
-mail.com>
-> Cc:  linux-fbdev@vger.kernel.org,dri-devel@lists.freedesktop.org,linux-k=
-ernel@vger.kernel.org,stable@vger.kernel.org
-> Subject: Re: [PATCH] fbdev: s3c-fb: Fix potential registration corruptio=
-n on probe failure>On 11/18/26 15:22, Guangshuo Li wrote:
->>> Probe failure cleanup calls unregister_framebuffer() even when the
->>> window has not been registered. Its zero-initialized node can then
->>> remove another framebuffer from registered_fb[0].
->>>
->>> Track successful registration and only unregister those framebuffers.
->>> Also skip empty window slots while unwinding a failed probe.
->>>
->>> This issue was found by our static analysis tool under development.
->>
->> I think s3c_fb_probe_win() needs to clean up when some things
->> like cmap fail to be allocated.
->> Your patch seems to just work around one of the possible pitfalls.
->>
->> Helge
->>
->=20
-> s3c_fb_probe_win() sets *res early and carries on if fb_alloc_cmap()
-> fails. I think it should unwind the current window on failure and set
-> *res only after register_framebuffer() succeeds. That would leave the
-> caller with just the registered windows to clean up.
->=20
-> Is that where you'd put the cleanup?
+On Thu, Nov 19, 2026 at 9:27=E2=80=AFAM Frank Li <Frank.li@oss.nxp.com> wro=
+te:
+>
+> On Thu, Nov 19, 2026 at 09:01:00AM -0700, James Hilliard wrote:
+> > dma_chan_pause() clears SUSPENDED even when polling times out. Hardware
+> > can set that status after the last poll, and the unconditional clear th=
+en
+> > discards an acknowledgment the caller never observed. Another channel's
+> > interrupt can also consume the status because the shared IRQ handler
+> > clears every channel's status before taking its lock.
+> >
+> > Leave SUSPENDED to the pause and resume paths. Track the suspend reques=
+t
+> > separately from its acknowledgment so a timeout can be followed by eith=
+er
+> > a pause retry or a resume. Wait for acknowledgment before clearing the
+> > hardware request, since hardware ignores an earlier clear. If that wait
+> > also times out, return -EAGAIN with the request still pending.
+> >
+> > A completed transfer is also quiescent, but its completion handler may
+> > still need to advance a cyclic descriptor. Defer that restart while a
+> > pause is pending, and resume it without reprogramming the first LLI.
+> > Track the active descriptor until its completion handler runs so that
+> > resume and issue_pending cannot restart a completed cyclic segment or
+> > reissue a completed noncyclic descriptor while its IRQ is pending.
+> > Start queued work after the active descriptor is retired, respecting th=
+e
+> > pause request.
+> >
+> > Clear stale suspension status at the start of a new descriptor rather
+> > than at each cyclic restart. Reset the software state after successful
+> > termination and when allocating a channel for a new client.
+> >
+> > Store the lock-protected pause flags as bitfields in existing padding.
+> >
+> > Fixes: 1fe20f1b8454 ("dmaengine: Introduce DW AXI DMAC driver")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> > ---
+> >  drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c | 99 ++++++++++++++++++=
+++++----
+> >  drivers/dma/dw-axi-dmac/dw-axi-dmac.h          |  8 ++-
+> >  2 files changed, 91 insertions(+), 16 deletions(-)
+> >
+> > diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/d=
+ma/dw-axi-dmac/dw-axi-dmac-platform.c
+> > index 8c115d20728b..99b648d4ca76 100644
+> > --- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+> > +++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+> > @@ -482,6 +482,8 @@ static void axi_chan_block_xfer_start(struct axi_dm=
+a_chan *chan,
+> >       irq_mask |=3D DWAXIDMAC_IRQ_SUSPENDED;
+> >       axi_chan_irq_set(chan, irq_mask);
+> >
+> > +     axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
+> > +     chan->desc =3D first;
+> >       axi_chan_enable(chan);
+> >  }
+> >
+> > @@ -490,6 +492,9 @@ static void axi_chan_start_first_queued(struct axi_=
+dma_chan *chan)
+> >       struct axi_dma_desc *desc;
+> >       struct virt_dma_desc *vd;
+> >
+> > +     if (chan->desc || chan->pause_requested)
+> > +             return;
+> > +
+> >       vd =3D vchan_next_desc(&chan->vc);
+> >       if (!vd)
+> >               return;
+> > @@ -544,6 +549,10 @@ static int dma_chan_alloc_chan_resources(struct dm=
+a_chan *dchan)
+> >               pm_runtime_put(chan->chip->dev);
+> >               return -ENOMEM;
+> >       }
+> > +     chan->desc =3D NULL;
+> > +     chan->pause_requested =3D false;
+> > +     chan->is_paused =3D false;
+> > +     chan->cyclic_restart =3D false;
+> >       dev_vdbg(dmaengine_chan_dev(dchan), "%s: allocating\n", axi_chan_=
+name(chan));
+> >
+> >       return 0;
+> > @@ -1088,6 +1097,8 @@ static noinline void axi_chan_handle_err(struct a=
+xi_dma_chan *chan, u32 status)
+> >       vchan_cookie_complete(vd);
+> >
+> >       /* Try to restart the controller */
+> > +     chan->desc =3D NULL;
+> > +     chan->cyclic_restart =3D false;
+> >       axi_chan_start_first_queued(chan);
+> >
+> >  out:
+> > @@ -1135,11 +1146,18 @@ static void axi_chan_block_xfer_complete(struct=
+ axi_dma_chan *chan)
+> >                       }
+> >               }
+> >
+> > -             axi_chan_enable(chan);
+> > +             if (chan->pause_requested) {
+> > +                     chan->is_paused =3D true;
+> > +                     chan->cyclic_restart =3D true;
+> > +             } else {
+> > +                     axi_chan_enable(chan);
+> > +             }
+> >       } else {
+> >               /* Remove the completed descriptor from issued list befor=
+e completing */
+> >               list_del(&vd->node);
+> >               vchan_cookie_complete(vd);
+> > +             chan->desc =3D NULL;
+> > +             axi_chan_start_first_queued(chan);
+> >       }
+> >
+> >  out:
+> > @@ -1161,6 +1179,8 @@ static irqreturn_t dw_axi_dma_interrupt(int irq, =
+void *dev_id)
+> >       for (i =3D 0; i < dw->hdata->nr_channels; i++) {
+> >               chan =3D &dw->chan[i];
+> >               status =3D axi_chan_irq_read(chan);
+> > +             /* Leave suspension status for the pause and resume paths=
+. */
+> > +             status &=3D ~DWAXIDMAC_IRQ_SUSPENDED;
+>
+> If you don't clean DWAXIDMAC_IRQ_SUSPENDED, does it cause irq flood?
 
-Yes, I think s3c_fb_probe_win() should be able to handle every possible
-error inside this function and do nice cleanups if it fails.
+No. SUSPENDED is enabled in CH_INTSTATUS_ENA so the pause path can
+poll it, but not in CH_INTSIGNAL_ENA. Leaving the status bit set
+therefore doesn't assert the IRQ line.
 
-> If so, I'll send a v2 without the extra registration flag.
-Thanks!
+That matters if the acknowledgment arrives just after a pause times
+out. A retry can still observe it, even if a shared interrupt ran in
+the meantime. The pause path clears the bit once it has seen it.
 
-Helge
+>
+> Frank
+> >               axi_chan_irq_clear(chan, status);
+> >
+> >               dev_vdbg(chip->dev, "%s %u IRQ status: 0x%08x\n",
+> > @@ -1200,6 +1220,12 @@ static int dma_chan_terminate_all(struct dma_cha=
+n *dchan)
+> >                       dw_axi_dma_set_byte_halfword(chan, false);
+> >
+> >               vchan_get_all_descriptors(&chan->vc, &head);
+> > +
+> > +             axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
+> > +             chan->desc =3D NULL;
+> > +             chan->pause_requested =3D false;
+> > +             chan->is_paused =3D false;
+> > +             chan->cyclic_restart =3D false;
+> >       }
+> >
+> >       if (ret) {
+> > @@ -1215,16 +1241,49 @@ static int dma_chan_terminate_all(struct dma_ch=
+an *dchan)
+> >       return 0;
+> >  }
+> >
+> > +static bool axi_chan_is_suspended(struct axi_dma_chan *chan)
+> > +{
+> > +     if (axi_chan_is_hw_enable(chan))
+> > +             return axi_chan_irq_read(chan) & DWAXIDMAC_IRQ_SUSPENDED;
+> > +
+> > +     /* A completed transfer cannot acknowledge a new suspend request.=
+ */
+> > +     axi_chan_disable(chan);
+> > +     return true;
+> > +}
+> > +
+> > +/* A timed-out request can still be acknowledged. */
+> > +static int axi_chan_wait_for_suspend(struct axi_dma_chan *chan)
+> > +     __must_hold(&chan->vc.lock)
+> > +{
+> > +     bool suspended;
+> > +     int ret;
+> > +
+> > +     if (chan->is_paused)
+> > +             return 0;
+> > +
+> > +     ret =3D read_poll_timeout_atomic(axi_chan_is_suspended, suspended=
+, suspended,
+> > +                                    2, 40, false, chan);
+> > +     if (ret)
+> > +             return -EAGAIN;
+> > +
+> > +     axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
+> > +     chan->is_paused =3D true;
+> > +     return 0;
+> > +}
+> > +
+> >  static int dma_chan_pause(struct dma_chan *dchan)
+> >  {
+> >       struct axi_dma_chan *chan =3D dchan_to_axi_dma_chan(dchan);
+> >       unsigned long flags;
+> > -     u32 status;
+> >       int ret;
+> >       u64 val;
+> >
+> >       spin_lock_irqsave(&chan->vc.lock, flags);
+> >
+> > +     chan->pause_requested =3D true;
+> > +     if (chan->is_paused || !axi_chan_is_hw_enable(chan))
+> > +             goto wait;
+> > +
+> >       if (chan->chip->dw->hdata->nr_channels >=3D DMAC_CHAN_16) {
+> >               val =3D axi_dma_ioread64(chan->chip, DMAC_CHSUSPREG);
+> >               if (chan->id >=3D DMAC_CHAN_16) {
+> > @@ -1251,17 +1310,11 @@ static int dma_chan_pause(struct dma_chan *dcha=
+n)
+> >               }
+> >       }
+> >
+> > -     ret =3D read_poll_timeout_atomic(axi_chan_irq_read, status,
+> > -                                    status & DWAXIDMAC_IRQ_SUSPENDED,
+> > -                                    2, 40, false, chan);
+> > -
+> > -     axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
+> > -
+> > -     chan->is_paused =3D true;
+> > -
+> > +wait:
+> > +     ret =3D axi_chan_wait_for_suspend(chan);
+> >       spin_unlock_irqrestore(&chan->vc.lock, flags);
+> >
+> > -     return ret ? -EAGAIN : 0;
+> > +     return ret;
+> >  }
+> >
+> >  /* Called in chan locked context */
+> > @@ -1295,6 +1348,8 @@ static inline void axi_chan_resume(struct axi_dma=
+_chan *chan)
+> >               }
+> >       }
+> >
+> > +     axi_chan_irq_clear(chan, DWAXIDMAC_IRQ_SUSPENDED);
+> > +     chan->pause_requested =3D false;
+> >       chan->is_paused =3D false;
+> >  }
+> >
+> > @@ -1302,15 +1357,31 @@ static int dma_chan_resume(struct dma_chan *dch=
+an)
+> >  {
+> >       struct axi_dma_chan *chan =3D dchan_to_axi_dma_chan(dchan);
+> >       unsigned long flags;
+> > +     int ret;
+> >
+> >       spin_lock_irqsave(&chan->vc.lock, flags);
+> >
+> > -     if (chan->is_paused)
+> > -             axi_chan_resume(chan);
+> > +     ret =3D 0;
+> > +     if (!chan->pause_requested)
+> > +             goto out;
+> > +
+> > +     /* Hardware ignores resume until the suspend request is acknowled=
+ged. */
+> > +     ret =3D axi_chan_wait_for_suspend(chan);
+> > +     if (ret)
+> > +             goto out;
+> > +
+> > +     axi_chan_resume(chan);
+> > +     if (chan->cyclic_restart) {
+> > +             chan->cyclic_restart =3D false;
+> > +             axi_chan_enable(chan);
+> > +     } else {
+> > +             axi_chan_start_first_queued(chan);
+> > +     }
+> >
+> > +out:
+> >       spin_unlock_irqrestore(&chan->vc.lock, flags);
+> >
+> > -     return 0;
+> > +     return ret;
+> >  }
+> >
+> >  static int axi_dma_suspend(struct axi_dma_chip *chip)
+> > diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac.h b/drivers/dma/dw-axi=
+-dmac/dw-axi-dmac.h
+> > index 3c86e5d468ea..b18c9880711a 100644
+> > --- a/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
+> > +++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac.h
+> > @@ -42,6 +42,12 @@ struct axi_dma_chan {
+> >       void __iomem                    *chan_regs;
+> >       u8                              id;
+> >       u8                              hw_handshake_num;
+> > +
+> > +     /* Protected by vc.lock. */
+> > +     bool                            pause_requested:1;
+> > +     bool                            is_paused:1;
+> > +     bool                            cyclic_restart:1;
+> > +
+> >       atomic_t                        descs_allocated;
+> >
+> >       struct dma_pool                 *desc_pool;
+> > @@ -50,8 +56,6 @@ struct axi_dma_chan {
+> >       struct axi_dma_desc             *desc;
+> >       struct dma_slave_config         config;
+> >       enum dma_transfer_direction     direction;
+> > -     /* these other elements are all protected by vc.lock */
+> > -     bool                            is_paused;
+> >  };
+> >
+> >  struct dw_axi_dma {
+> >
+> > --
+> > 2.53.0
+> >
