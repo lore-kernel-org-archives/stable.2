@@ -1,79 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.46
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795069208;
-	b=PcUeEmA+oYMt0SGo1F0+BCrjwGyMrVGGB0VcYfkhMD1Ea9g+o/Jo8g6m8neHrluaQE2g
-	 hb088p7NiBi/U52V8rSOmqaDFZ8MXZTyAS9ptfubLJW+9Kvcs5yLcZr0NtC31fDOmsALF
-	 ZeMRzckD5a/xwu/R07kFkZPjXAGqwCzRHdGRQtK+nHuOd1FlkPFPTX2KcvOUe7QllEUFe
-	 3ZTffQXv1zBWXFG7v9PCBJxdg7RHCAB+cX5yVRtF4QzUoVOAqwMWJnimX4uDlSFXqknk8
-	 vkN4iQNK40FSx034FtXPkOLR9WA+mbiS0c0wbNzlnL8IjHaylDyAhE0QqoaI8redExA==
+	t=1795069247;
+	b=I08TrbYuCZdbmpBqrCzO9rN6ocFczGrcrSlgdGOYHSt7D6gaCWt2bYgf1mbOB9cX6xot
+	 vzoH55+bbhf7nR7VO/vgXyIY1lIuuVXiVbmHv12esryGJJYkULzGMASTJxUt20UdDZIaP
+	 8vODw+bAEV6rR7kPWhe5ZcHEwXm2KiZ++YDU6OxelI1u5TknctgB0VSwMGFaJuJMhB1Q0
+	 kTg+0cMASSS5g1K0YBzPvr+1AilVJlDwo1Yk2mhBJHDhsPPlPRKtH6QCTBRzBbZd4Hclx
+	 Rj076osjszceI7Eb3YFXtjeuqYLO/3WZ75NoWen8A9dtky+RukezEEF6eJFRIe4z4Ag==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795069208;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=P51zQnnlFN29NM1R8E8OMTMjHLC0aAOfMUy/UOhFuHY=;
-	b=fxPhhsXHBby+U06wY864B3bk5RKdNOt117Sm/aNc1Z3PJCKBlAa0FlRHCyRBZhL1v9+M
-	 rwqhWh+eLBfLrr0YHGNqF6HWudd+IarMvh45TWq41lJhxCgJkZ5/7R7bn8hgQfZ+Z13kq
-	 cPo51G3GUf6p8T/5pqpAdt9GByl83cV/Q8abkdYX4/79Xvv5p44XUxtwLOfNrTGFLLksU
-	 r+qRI5nVugspEMHO+NxExHMeV0lDRGklAQ3Wpdvsbpz5l7qD12O1X0kl7qMx1ujUn0byG
-	 M7wBAXVYUDvo6Cq9LWXwXBqAc67er0GJJmce1eR/P9bVtpDZ3wtE0P9quW6h25hU22A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795069247;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=R72tSyuvoCt5/QGm7uguOsGtVeCA2C72cLraw6uBskI=;
+	b=NCEKNq2wpEXKSVE3lOoUbotQPI3Gbd2845+w3iSJOseyPimlevIMjhC70frQvTxJ/y77
+	 nGamoOFZ95edgp5AjjhDJPoGYxI+c+ya0gcwFXh433Z2B9W695JeZflHyzCRMkXMPL1Qr
+	 v6tEnRS3z1A0fVULVFlCOkdXzYaZQGvodPTOP0UgjJjhhW61VkTeFLVAUq4fETNdBPbAy
+	 AEt0C+QrnxE1P43RoJkQbLb51d4LoBkljA/hRxmAB7H8mMw5T0LyGrijOucHfY8TepUHP
+	 BEeYPCFQFm2IzqLBbWzRWe73o2R/pEnwMtfQy9jEr91NbEmJeitlfoFxHZc/XF8+ohg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ma4EZ4Mz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBE0606A320;
-	Thu, 19 Nov 2026 06:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ma4EZ4Mz
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1795069208;
-	b=Qi/id70l3RB72kxMY9/BLZI9e07QZ7filVhVDTK7iadWz9Fhp/L2cnheQjh15yWfEnNg
-	 FQS35BIvXgjCQWAMTweViqP64ShDeqNSjoSIV1oGuUPl1Rf4ao0xViwHFlnmWBbyxhGH+
-	 cApyP0kC/sQyThEA4ajZ+ZxUAnuu35qVWBZN8QA9PFfZ2iRpsBE8GSptlkFam59Wgt+Os
-	 AXVG7BtTqACTyqXUpCecrlLPxaGaXVBTxycTeiw+q6cgCW3WnUYLHAhH5zG8YAoFkPLNR
-	 VJOIbQlN+cJ9CtobJM5IFoC5niL629pJXHL0lDF7amxeAaDzq3SUX9wf7h14ve9EGiQ==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1795069208;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=P51zQnnlFN29NM1R8E8OMTMjHLC0aAOfMUy/UOhFuHY=;
-	b=AVakpmYKl5HWCI831C0NdDiYD+qT7c6E5/RAKuzwO3tr3YDcMtSqLdpcKRvlCxtMVPnU
-	 5l5vvmRMZ3tcOnx5TdiLTns28SwWMUR2RFwaipQrjyx5Ln41toqz22y94bPO1RCU6Npzm
-	 P7Oa1HIpfUNC5hHsRRGfS3Lqotw4jRGKlRM1aOaeJ2UGSucaNOpY3kAXxzGUcitmUKOah
-	 nNxtDyFQfuLy3b0RN/IEtqDWoZjMTv2uIkaft9jmTmNfmcP7CcPbWcbr7BqLpuQG9TcSC
-	 6liAN6YfkIowHSJ70EIFbkwvS3o2f9MnRUwHEAooNgaGxYcl8QyFm1b4QlGM+oQBQgA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K3oxpHUL;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.46
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BC7661F000C9;
-	Thu, 19 Nov 2026 06:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795069208;
-	bh=P51zQnnlFN29NM1R8E8OMTMjHLC0aAOfMUy/UOhFuHY=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=ma4EZ4MzINVfA6Pkkyhoq9WX4oO0jz4QRd0NedKsHkClM0FuSzkJQzBg94zdaTldQ
-	 YbFKym6983FEj0tl3T2v0OFnqteCehGQiAgGC7MjAWLZISqEBuy9Yy3TcQk2EfNlOE
-	 RvXRBPa0DUOTH5IXKr3R76IQ2Ca0NgGwzPeTK0ibXjmlr+CGEvxtHgNdYpQJVCrmkg
-	 yUySdVXayWgB/jmmOgqN83E7/WNlyCZzv57CNT/hejydRhOI8BkuOP5CsYN37ESac8
-	 Sq815wy2rjYBWw9LZONKpIg7X+pNVrO67g4lTFKtQ454GFDxpStMnSyJGTcd9GgSEj
-	 x/69bpPdIi4rA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 1DE334B130;
-	Thu, 19 Nov 2026 06:20:07 +0000 (UTC)
-From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Subject: [PATCH 0/2] media: verisilicon: Fix VDPU2 decoder error handling
-Date: Thu, 19 Nov 2026 06:20:06 +0000
-Message-Id: <20261119-vdpu2-errreset-v1-0-f8fa403b6a3a@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B182A606A326
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 06:20:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B182A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=K3oxpHUL
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-91ea0c05c92so18505516d6.0
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 22:20:46 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795069246; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NVeJL/4gkhPjPPel0ozgB5Q1gL0qbDD4EGFfWxQcPKaJNrU/S1WKQNtLwTaG6DedTv
+         tLLm/cUDhZG9EcFKRiHgbStYOkO0TZdlmtDr6g6yERxgBkRJ2p9L5alHXBM/8rcbGN9d
+         OFnmuftF8BJLQw2dDj8YwQ1CFAY3PENYB8KAdSP5rG1EZXgYptXQOfY4zoCfTS64t8gt
+         MqjAJtpxTDZDJKji2Zsmwxj1jTIFlcknnJdVA6KIHseQ3MSP4WzqPoZzgSAsbTNnE1kI
+         Nv/EWeMXPpHl23XFB3mfdLbH9mMHr/6Adz5O4T+igYcOsmiy3VIQLZhyUxrLN55wsQj8
+         nmxQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=R72tSyuvoCt5/QGm7uguOsGtVeCA2C72cLraw6uBskI=;
+        fh=2OTr/MhwV3BNFclTrB9x0I5AMSunYDWO/Uhl9SpHoms=;
+        b=sdgL9Sq8Cso/+6mvWQDAHrM+Ij0mRSB/mu1EszazCnZGb/l23/jFg1my8Ru4jMFxiU
+         jsNtmo+d19QjGYvaOn3xdJv1to8WvI72G/rjonhXdU7+DBm4bJZZMeBmQNiw3CXQlTM6
+         vSm3SkgBFpIlhncjL0aaWhFQb4Ii9sRSk4zt32U9IybTb+5/cW/VqYT06Nyxn96dfLba
+         po1UPlreuyPULxyXK/56xk9dxoVri/xN2n4pTPGqMjcsPImIAtCu2mvn3ay7pkwo+Y3a
+         PBm1Ui/EjcIUQrMrkiVcZhiqwmlKrYo1JWCauD3SX96xWa0PFLRrlKSAY6cfYmCdQLV9
+         OtWQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795069246; x=1795674046; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=R72tSyuvoCt5/QGm7uguOsGtVeCA2C72cLraw6uBskI=;
+        b=K3oxpHULF4L+vV1q+0GdTBv3uOvLHlttlMr7OApOglNWVl+Zu9hnmsfBh8ArpL5nos
+         0Cp5+2skbP0ZCKEDEDLtPxweHy1c/1NSt6N68MGuiUtoCU/ddPCHUsx5Pcx+AJ5lx3l/
+         4f7UJPrMJgYaPHi3y5ZzjqrX8tNmwRvhBoc5WTpy4NoLLVMEo0FHTyqgMPrqR/R0J9XI
+         fJRVS6H1aLtMQwDm4aahimGeHRiCYiipcu0FD0Ll6DtrvUvcqhq9gim+3Y0YzSNYYenN
+         Xh0uaI5/fA8UB01kXzaOOTmXD9Bc97UfjMZ5RrjNmn9ReLJHBkhF4ykhtWf4pNu6tD6c
+         MtDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795069246; x=1795674046;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=R72tSyuvoCt5/QGm7uguOsGtVeCA2C72cLraw6uBskI=;
+        b=S6GAzTKk4jtTDdhveQT6btGUNn+Z9XAX8KYkNt5KellDFXOnQ7gF8cASlhyP46v7O1
+         eUApPOR4BrcQo0/sdIFJc7En9K+EgsLtlevK3RMenmO2sWXNguV5pnbBv8Y+bHGngpGW
+         bJNxqzHyzAj16CVZqHXNzhlWme3CmcRSW23NX8yUO6bRNHblfavuPtkf/GDZVYQwpI2V
+         yrZQ9tnEtcSVKrimDexA6EVy7J2+T+Dv5ArQtExTZphutcDHfvC7xXhzhnNfX6yveC7d
+         4/obhcG2nFiwwp3V+ntGX+ZkYXmK7MMHwwkKXR7NZhiMcDkH0TxeYCjaGt6Il/ztS9TB
+         hxmA==
+X-Forwarded-Encrypted: i=1; AL+hErFTd7vp++ju4X9qHr/PG0UQcWr6uH0k9jsXydTeZpK62ZDvfqqn3u+YBseCEeKVtVGPDS+2BKk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/YvkcByZGaVIaV7UImLbXjiZZpWUYB348rhyEgiu1oU8SXnNgf
+	Q/cLJUWF/ArT86Ouq1hh98ldDNmq/+Hu489BinrvFYf/t7eHBgU0FkXTFfkz4RbXgZy+CgoGxqw
+	jShR9R1TFtIuWlly/EPe4RLR5VH6eD8w=
+X-Gm-Gg: AZFdTZfXGeV43p46NJXTQaBaMjVqrpKOVrLARoDAfvHqyxSZBcN1GjT2n4v1c0ZIMgE
+	BPn6AqOojdX6WDANhDc9vbAgN6nxeWNYGfM98b59JZhd6LE0CqI5Q5fGNuTZtgvTKYPLDUvczvY
+	cK/IauQ+Fap7S/hmSuvsFOb5yzc96DGqK4bo6yS7CL222cnTOqkCRK1qU7z9etGxltZ01fhMYBt
+	UH85UEfIf2g1rVmBKNoIM4EN9IKPBOTFGcZdd7DlF/Yig5EJUuDrfxNR53FcNxsOOUG2VYOtzHr
+	NbOFzKEkoGz4B/avFUXdV4Zxp2cAdGYZ8mXDKxg6Frqafb5IclmtGjRYstGyZ2VKT3nnIwyLSZS
+	Wm4HV/grb0octt43HN3Hk7f0+3TZlU7AeLJdakxBGLKZDl2cF8Ig7DH/s3gwN63m9gTcwqqOGeU
+	BvBi6GvhBXSZxcMcthzg==
+X-Received: by 2002:a05:6214:8010:b0:921:18e2:4b8 with SMTP id
+ 6a1803df08f44-92118e205f4mr59170016d6.12.1795069245648; Wed, 18 Nov 2026
+ 22:20:45 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -83,67 +102,83 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSwqDQBBF0a1IjdPQHzStWwkZ+HmJ5UClSiUg7
- t3WDM/g3p0UwlCqsp0EGytPY4J7ZNT29fiF4S6ZvPWFcy43Wzev3kBEoFhMLGJ8WhvKUAdK0Sz
- 48O8evt5/69oMaJfrQsdxAjWqA61yAAAA
-X-Change-ID: 20261115-vdpu2-errreset-8688700393a3
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Heiko Stuebner <heiko@sntech.de>, Jonas Karlman <jonas@kwiboo.se>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Arun Iyengar <aiyengar1990@gmail.com>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795069206; l=1334;
- i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=2RFAUR3ng5/QnrGOQnWU+xGFztNU4gfgufFi7kzRutU=;
- b=OjJRsu4+0DdVHmvl5f/yUFh9DPg7MhS/pT7qenF5H07QM1yFTfJx6KXvTla6h9Fqw68gjmIuo
- mtkobnUna1sCg+BTTpBZtAsQOddm23UGyyBfLbCHqFHog2CZUfoSsl2
-X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
- pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
-X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
- auth_id=1480
-X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
-Reply-To: aiyengar1990@gmail.com
+From: =?UTF-8?B?5qKT5bed5ZKy5aSq?= <inkxiao12@gmail.com>
+Date: Thu, 19 Nov 2026 01:20:34 -0500
+X-Gm-Features: Aa3M54peGcZ3HW3rbZ6EtpU-sE3Eis0PWV29zDNE9SCTxw0n7cbFv5MbYn1qN6c
+Message-ID: <CAMcAce9pi3BwKUAdsfx8GFwMMFx-=-UkkUkqsCDOqbwaL9eSxA@mail.gmail.com>
+Subject: [PATCH bpf 2/3] bpf: Fix missing raw_tp_null_args masks for NFS and pNFS
+To: bpf@vger.kernel.org
+Cc: Trond Myklebust <trondmy@kernel.org>, anna@kernel.org, linux-nfs@vger.kernel.org, 
+	ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The VDPU2 decoder reports failed decodes as done and is not reset
-after an error, so it can keep accessing freed buffers.
+Audit of NFS/pNFS tracepoint callers against raw_tp_null_args[] reveals
+several missing or incomplete argument masks:
 
-Tested on an Orange Pi 5 (RK3588S), KASAN v7.3 based kernel: 72 H.264
-fluster runs, no IOMMU faults or stalls; with patch 1 alone, an earlier
-run faulted. The VP8 test vectors pass (61/61). Two H.264 vectors
-(FI1_Sony_E, MR8_BT_B) fail in 1 to 4 of 249 runs each, with patch 1
-alone as with both. Build-tested on media next. MPEG-2, RK3399 and
-RK3568 untested.
+  1. pnfs_update_layout (fs/nfs/nfs4trace.h:1990): raw_tp_null_args[]
+     currently sets only 0x10000 (arg 4, lo), omitting arg 5 (lseg).
+     fs/nfs/pnfs.c passes both literal NULL (:2166, :2177, :2337) and
+     ERR_PTR(...) (:2205-2206, :2300-2301) for lseg. Set 0x200000
+     (0x2ULL << (5 * 4)) alongside 0x10000 so btf_ctx_access() marks
+     ctx[5] as SCALAR_VALUE, preventing both NULL and ERR_PTR
+     dereferences even behind a NULL check.
 
-Independent of "Recover the Rockchip VPUs from faults and timeouts"
-v3 [1]; the two only conflict in one #include line.
+  2. pnfs_mds_fallback_pg_{init_read,init_write,get_mirror_count}:
+     raw_tp_null_args[] sets only 0x10000 (arg 4, lo). In
+     fs/nfs/flexfilelayout/flexfilelayout.c:1225-1231,
+     ff_layout_pg_get_mirror_count_write() returns early whenever
+     pgio->pg_lseg != NULL, so trace_pnfs_mds_fallback_pg_get_mirror_count()
+     (:1228) unconditionally receives arg 5 (lseg) == NULL.
+     pg_init_read (:1128) and pg_init_write (:1201) are likewise
+     reached when pgio->pg_lseg == NULL. Update all three to 0x110000.
 
-Developed with Claude (Anthropic), which wrote the code and the commit
-messages. I reviewed every change.
+  3. nfs4_cb_layoutrecall_file (fs/nfs/nfs4trace.h:1520): absent from
+     raw_tp_null_args[]. fs/nfs/callback_proc.c:262-267,320 passes
+     ino = ERR_PTR(-ENOENT) / ERR_PTR(-EAGAIN) as arg 2 (inode) on the
+     out_noput path; TP_fast_assign (:1546) checks !IS_ERR_OR_NULL(inode).
+     Add { "nfs4_cb_layoutrecall_file", 0x200 }.
 
-[1] https://lore.kernel.org/r/20261113-hantro-robust-v3-0-82383c722ad2@gmail.com
+  4. nfs4_test_delegation_stateid and nfs4_test_open_stateid
+     (fs/nfs/nfs4trace.h:1119-1120): absent from raw_tp_null_args[]
+     while fs/nfs/nfs4proc.c:2910 and :3003 pass literal NULL for arg 1
+     (const struct nfs4_lock_state *lsp). Add both with mask 0x10.
 
-Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+Verified in QEMU on x86_64 7.4.0-rc3 (20eef29b7c84) and 6.12.118
+when CONFIG_NFS_FS=y and CONFIG_NFS_V4=y (all reproducers flip from
+LOADED pre-patch to REJECTED post-patch, including pnfs_update_layout
+and nfs4_cb_layoutrecall_file under if (!ptr) scalar enforcement).
+
+Fixes: c83e2d970bae ("bpf: Add tracepoints with null-able arguments")
+Cc: stable@vger.kernel.org # 6.12+
+Signed-off-by: BoBppy <inkxiao12@gmail.com>
 ---
-Arun Iyengar (2):
-      media: verisilicon: Don't report VDPU2 decoder errors as success
-      media: verisilicon: Reset the VDPU2 decoder after an error
+ kernel/bpf/btf.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
- .../media/platform/verisilicon/rockchip_vpu_hw.c   | 23 +++++++++++++++++++---
- 1 file changed, 20 insertions(+), 3 deletions(-)
----
-base-commit: aa0f4c41d4870a18e65772a1817af16427200371
-change-id: 20261115-vdpu2-errreset-8688700393a3
-
-Best regards,
---  
-Arun Iyengar <aiyengar1990@gmail.com>
-
-
+diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
+index 0044156..ef10af2 100644
+--- a/kernel/bpf/btf.c
++++ b/kernel/bpf/btf.c
+@@ -7402,13 +7402,16 @@ static const struct bpf_raw_tp_null_args
+raw_tp_null_args[] = {
+  { "nfsd_file_cons_err", 0x1 },
+  /* nfs4 */
+  { "nfs4_setup_sequence", 0x1 },
+- { "pnfs_update_layout", 0x10000 },
++ { "pnfs_update_layout", 0x10000 | 0x200000 },
+  { "nfs4_cb_getattr", 0x200 },
+  { "nfs4_cb_recall", 0x200 },
++ { "nfs4_cb_layoutrecall_file", 0x200 },
++ { "nfs4_test_delegation_stateid", 0x10 },
++ { "nfs4_test_open_stateid", 0x10 },
+  /* nfs from pnfs_layout_event */
+- { "pnfs_mds_fallback_pg_init_read", 0x10000 },
+- { "pnfs_mds_fallback_pg_init_write", 0x10000 },
+- { "pnfs_mds_fallback_pg_get_mirror_count", 0x10000 },
++ { "pnfs_mds_fallback_pg_init_read", 0x110000 },
++ { "pnfs_mds_fallback_pg_init_write", 0x110000 },
++ { "pnfs_mds_fallback_pg_get_mirror_count", 0x110000 },
+  { "pnfs_mds_fallback_read_done", 0x10000 },
+  { "pnfs_mds_fallback_write_done", 0x10000 },
+  { "pnfs_mds_fallback_read_pagelist", 0x10000 },
