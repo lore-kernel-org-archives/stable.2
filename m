@@ -1,62 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795087245;
-	b=iODWqSc+0gtXmrlsIUyHabLMVxJ06xDS7UPqmTe+/E12/nAITNJxdMHrZoABePSGnd+7
-	 6+u6A7pCLUM7nz9amtUk53YU5WtdWzGIe8poWU2/d+0UWtw1976LPk3SsiEhJLZ2MWhXl
-	 rhEhVMnNe9lurz3ErMdPr25vrDPx6uMMH1iM+rY39N4x63543Y161wxn14ZwAsec4jWOA
-	 sK3QsMNVBqUJz8+jyIwtVZYpa1y/mAl1Go9kXr2Na1MZj5SfYr72dA36PX2qtwDI17JYv
-	 z2fYXIP0jhDzJ/XlW6CB5tMBE5PwoGZD8QEc0I/Pj5wGClURT7U83GaIt+dbqGkO/SA==
+	t=1795087456;
+	b=Pd7+fV/LpZdHwiDYwVQpsFPxj4Dopz/nM3nkYP2NZcGmWUWfOc5u+ANb6T03WJh0CDXd
+	 sKEOY+9HoZaVHmIqBzE96KAktR+4jqYpul3cr+RKBckv/lpfB42FUhMqiSYxLNZZnPb3k
+	 xAWO2okHXHQlA/aTlGrwrYfL1PLMH4pHG3kts5jebPzDBsumRjDebIuPIpg9U/l1kIka8
+	 +60OwKRBtU/O0fvny8WjjphfCE2NZlyQvD79GMMIJz4yiEjJJPziCVnlqwHrdJhxVSfYh
+	 n6hSpTsbDIdS3s55Ju5PxjG9vVEjTQKrfZDuhlAR40h6pT7ryHpAnIaDV5lATK22e+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795087245;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795087456;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/P5mabH0JHkQS/tGtMzwsxMvwb/yv9fD2MpxixKyD8U=;
-	b=ZBAX9nImM5qE7+kamuGX3kBQ6dbP9k5MhavUDjWUTIPSYftX9BxJr5BhqnuXvkbuD+/J
-	 oSx+FvwX4Nh1WEGeNhRhCsEtKIrJ9Yg6xNPNqnsKhDJGepvHYqSIyXuxt2va5r+ZWzo+J
-	 HgVirMh56G7k3rDdyuf9DgIXXOMQ123N3vxGx8unIpEUaiNNDXO5KHJyf4+zkns5ZISmQ
-	 e8h3aDXYHPMIDisV1rSFpAFMDjurlKYeS8RKb5v0aCPuUMjRDLTbFedoAHF+nqO9UG8Qc
-	 2xdKg6u+gdQGiXyAwhRyA1RnHPxa6PJqZCNapWjaolqmQR8Om8IAylXm0mioZyUR7rA==
+	bh=PAbCKhxpRkBffJWgsRtKYvAYQkiZqg3MoFHOfafjj7I=;
+	b=mP7VnehN6+a5Qtxel0q+efgxHWtZESxmyUZWWZJ0zo+y4Tek4a4Bv1Z4FKxuTk8yC2ZI
+	 GLJpgY9rgybE6hjgtXVx6hVqr7NzI3eTYlYPvWQdoV8uRvrdlXQk7PbDKre8ndj2Zq5Pb
+	 Q0EVttlzuhWMEGaRMFk0LZDGZ+QBoi48KCKC74ifLbwyOhnC3Uc1EyGT9wpB2n37pQTjr
+	 Ahga01hqBgHzSguswVWDdkLwkXvyUCRhOlPrpcB1mDT9/oHtpPBB2aCDhONGvkVIS22GU
+	 uQp6SvqvaxdY7LTspQyqW97CwsI1bFbnXvTden/XGsVqPNT6YHoOGZkTNtk1KugsaBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6QRnhqe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQlFHyVn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D07F7606A320;
-	Thu, 19 Nov 2026 11:20:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0773606A326;
+	Thu, 19 Nov 2026 11:24:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6QRnhqe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 320261F000C5;
-	Thu, 19 Nov 2026 11:20:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQlFHyVn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DE071F000C5;
+	Thu, 19 Nov 2026 11:24:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795087245;
-	bh=/P5mabH0JHkQS/tGtMzwsxMvwb/yv9fD2MpxixKyD8U=;
+	s=k20260515; t=1795087455;
+	bh=PAbCKhxpRkBffJWgsRtKYvAYQkiZqg3MoFHOfafjj7I=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=J6QRnhqeiU7je1XkiTOaqNrgMzrdoqP/BPZSq+iaDn+oJkHi+orLkPCpF8TyD1CJw
-	 lIE0ZQgzfPutKfLZwqyvZguVZaw9OvPeTT/qEZsGxXTylHmdhhHW9qXcLM+Asinnil
-	 AABvpa8cMTRXIbsymHkB0WFv9VyoUftBs38JkcgsHR+xm0RaA1E0qqsBt6TCkTM6oX
-	 qR6iqG9DfHXJ2+YGHLWmNevEs5VG2yy+n3mtoZYWY/TtWu0Im0ExGSeuqrjEhBqwF7
-	 vRs93CTwLCONIKIsH7e8vNqdzBjiaNH01eBP3cb4bLKR7PSle64WJLqRjoky4S3MpZ
-	 tbJdB43hK8U5g==
-Date: Thu, 19 Nov 2026 11:20:38 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>, Paolo Bonzini <pbonzini@redhat.com>, 
-	kvm@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
-	Rick Edgecombe <rick.p.edgecombe@intel.com>, Alexandru Elisei <alexandru.elisei@arm.com>, 
-	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
-	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's
- dirty ring is full
-Message-ID: <av7bYb1geEGzaj8e@gremlin>
-References: <20261117074428.7544-1-fuad.tabba@linux.dev>
- <20261117074428.7544-2-fuad.tabba@linux.dev>
- <avxfgWNePsGPK9mm@gremlin>
- <CA+EHjTzUrDxLSMEo6X66XhKtQ-=ew3zZhMdFWR6U9Ga17WLWkw@mail.gmail.com>
- <av5CBjbeidUUWiLq@seanjc-mac.roam.internal>
+	b=PQlFHyVnL719LmbhVpx+mjI6xRk6OVIKiMmHw+GvFflDKHLBFnA6zci52jYLuOSzo
+	 NR3pt0KAtun2FasVaOmNk9Goes6SYI/S3z11jEp131dN9pfVEj5G6+70AFwJR7/rC0
+	 xL+MxScusFNHVhNp84bPq1FIcloF1DPuHrolJw79YJMHRPNGNaWC7gV8bzMu0qF8q4
+	 4riiillfyhA9JZ9Pibu2KHH8MKff+15mr+Hon6kkW0dtC0Fi2F5pFh6Rrep+KlMk+R
+	 FInoyKoua3H2uw37uIiL4n5VHQztII/f66agXZ4ex/FSw1XwrzW5MoF874KGpt85P/
+	 +RrDtrl55zTDQ==
+Date: Thu, 19 Nov 2026 11:24:09 +0000
+From: Simon Horman <horms@kernel.org>
+To: Vincent Choiniere <choiniere.vincent@hydroquebec.com>
+Cc: Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	intel-wired-lan@lists.osuosl.org,
+	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
+	Michal Kubiak <michal.kubiak@intel.com>,
+	Wojciech Drewek <wojciech.drewek@intel.com>,
+	Mateusz Polchlopek <mateusz.polchlopek@intel.com>,
+	Paul Menzel <pmenzel@molgen.mpg.de>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v4] ice: fix Tx hang dump using stale tx_buf[0].skb
+Message-ID: <20261119112409.GU860048@horms.kernel.org>
+References: <20261112-ice-tx-hang-dump-v4-1-9125f687669b@hydroquebec.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,63 +70,121 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <av5CBjbeidUUWiLq@seanjc-mac.roam.internal>
+In-Reply-To: <20261112-ice-tx-hang-dump-v4-1-9125f687669b@hydroquebec.com>
 
-On Wed, Nov 18, 2026 at 04:25:42PM -0800, Sean Christopherson wrote:
-> On Tue, Nov 17, 2026, Fuad Tabba wrote:
-> > > But the overflow bug only applies to x86 (see below), so is this something
-> > > we should worry about at all?
-> >
-> > The ring overflows on arm64 too (below). As for exit_reason, I asked
-> > Sean about the arm64 MMIO case on v1, and his answer was that a VMM
-> > that pre-faults between a KVM_EXIT_MMIO return and the next KVM_RUN
-> > "gets to deal with the fallout" [1]. I think the same goes for riscv's
-> > exits.
-> >
-> > [...]
-> > > > diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-> > [...]
-> > > >  The dirty ring can get full.  When it happens, the KVM_RUN of the
-> > > > -vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL.
-> > > > +vcpu will return with exit reason KVM_EXIT_DIRTY_RING_FULL, and
-> > > > +KVM_PRE_FAULT_MEMORY on the vcpu will process no more pages until the
-> > > > +ring has been harvested and reset.
-> > >
-> > > Maybe worth mentioning the exit_reason thing if we keep this arch-generic?
-> >
-> > Sure, I'll document that userspace should complete a pending exit with
-> > KVM_RUN before it pre-faults on that vCPU.
->
-> If we're going to do a documentation update, I vote to keep it vague and scary,
-> otherwise readers might think the exception proves the rule.  I.e. if we say
-> that KVM_PRE_FAULT_MEMORY isn't supported, then userspace might think all other
-> ioctls are safe, which is most definitely not the case.  E.g. something like
+On Thu, Nov 12, 2026 at 01:45:56PM -0500, Vincent Choiniere wrote:
 
-Yes definitely, like drivers, users can get up to all sorts of mischief if not
-properly forewarned :>)
+...
 
->
-> diff --git a/Documentation/virt/kvm/api.rst b/Documentation/virt/kvm/api.rst
-> index e95c9cda085d..45dc1e3c0b03 100644
-> --- a/Documentation/virt/kvm/api.rst
-> +++ b/Documentation/virt/kvm/api.rst
-> @@ -6971,10 +6971,13 @@ to the byte array.
->
->        The pending state of the operation is not preserved in state which is
->        visible to userspace, thus userspace should ensure that the operation is
-> -      completed before performing a live migration.  Userspace can re-enter the
-> -      guest with an unmasked signal pending or with the immediate_exit field set
-> -      to complete pending operations without allowing any further instructions
-> -      to be executed.
-> +      completed before performing a live migration.  In general, userspace should
-> +      exercise extreme caution when invoking ioctls other than KVM_RUN prior to
-> +      completing the original operation.
+> @@ -424,6 +429,78 @@ void ice_prep_tx_hang_report(struct ice_pf *pf, struct ice_tx_ring *tx_ring,
+>  	buf->vsi_num = vsi_num;
+>  	buf->head = head;
+>  	buf->intr = intr;
+> +	buf->queue = tx_ring->q_index;
+> +	buf->next_to_clean = tx_ring->next_to_clean;
+> +	buf->next_to_use = tx_ring->next_to_use;
+> +}
 > +
-> +      Userspace can re-enter the guest with an unmasked signal pending or with
-> +      the immediate_exit field set to complete pending operations without
-> +      allowing any further instructions to be executed.
->
->  ::
+> +/**
+> + * ice_tx_hang_snapshot - copy the timed-out queue's ring at report time
+> + * @pf: PF on which the Tx hang was detected
+> + * @tx_ring: ring saved by ice_tx_timeout(), possibly stale
+> + * @ev: event to fill in
+> + *
+> + * The saved ring may have been freed or replaced since the timeout (e.g. by
+> + * ethtool -G or -L), and a freed ring may be reused for another queue. Use it
+> + * only if the timeout was on the PF VSI, that VSI is up and the timed-out
+> + * queue still maps to it. Those paths, and the reset paths, replace or free
+> + * the rings under RTNL or from the service task itself, so with RTNL held the
+> + * accesses below are to live memory for them. The ring may still have been
+> + * reset in place since the timeout (e.g. by ethtool -G or an MTU change); as
+> + * before, its state is read when the report is generated. Driver removal and
+> + * devlink reload tear the VSIs down before the service task is stopped and are
+> + * not covered here. ice_clean_tx_irq() may still run and free the skb at
+> + * next_to_clean at any time, so only the pointer value is recorded and the skb
+> + * itself is never dereferenced.
+> + */
+> +static void ice_tx_hang_snapshot(struct ice_pf *pf, struct ice_tx_ring *tx_ring,
+> +				 struct ice_tx_hang_event *ev)
+> +{
+> +	struct ice_vsi *vsi = ice_get_main_vsi(pf);
+> +	struct ice_q_vector *q_vector;
+> +	struct ice_tx_buf *tx_buf;
+> +	u16 ntc, ntu;
+> +	void *desc;
+> +	u32 size;
+> +
+> +	ASSERT_RTNL();
+> +
+> +	if (!tx_ring || !vsi || !vsi->tx_rings ||
+> +	    test_bit(ICE_VSI_DOWN, vsi->state))
+> +		return;
+> +
+> +	if (ev->vsi_num != vsi->vsi_num || ev->queue >= vsi->num_txq ||
+> +	    vsi->tx_rings[ev->queue] != tx_ring)
+> +		return;
+> +
+> +	q_vector = tx_ring->q_vector;
+> +	if (!q_vector || !tx_ring->desc || !tx_ring->tx_buf || !tx_ring->count)
+> +		return;
+> +
+> +	size = tx_ring->count * sizeof(struct ice_tx_desc);
+> +	desc = kvmalloc(size, GFP_KERNEL);
+> +	if (!desc)
+> +		return;
+> +
+> +	ntc = READ_ONCE(tx_ring->next_to_clean);
+> +	ntu = READ_ONCE(tx_ring->next_to_use);
+> +
+> +	if (ntc < tx_ring->count) {
 
---
-Cheers, Lorenzo
+Sorry to nit-pick, but I wonder if it would be nicer to move the kvmalloc()
+call and associated error checking be moved here...
+
+> +		tx_buf = &tx_ring->tx_buf[ntc];
+> +		if (tx_buf->type == ICE_TX_BUF_SKB)
+> +			ev->skb_ptr = READ_ONCE(tx_buf->skb);
+> +
+> +		memcpy(desc, tx_ring->desc, size);
+> +		ev->next_to_clean = ntc;
+> +		ev->next_to_use = ntu;
+> +		strscpy(ev->irq_name, q_vector->name);
+> +		ev->desc_ptr = tx_ring->desc;
+> +		ev->dma = tx_ring->dma;
+> +		ev->desc_size = size;
+> +		ev->desc = desc;
+> +	} else {
+> +		kvfree(desc);
+
+... and remove the else arm of the condition.
+
+> +	}
+>  }
+
+And further, the sense of the condition could be reversed, saving some
+indentation:
+
+	if (ntc >= tx_ring->count)
+		return
+
+	desc = kvmalloc(size, GFP_KERNEL);
+	if (!desc)
+		return;
+
+	tx_buf = &tx_ring->tx_buf[ntc];
+	if (tx_buf->type == ICE_TX_BUF_SKB)
+		ev->skb_ptr = READ_ONCE(tx_buf->skb);
+
+	memcpy(desc, tx_ring->desc, size);
+	ev->next_to_clean = ntc;
+	ev->next_to_use = ntu;
+	strscpy(ev->irq_name, q_vector->name);
+	ev->desc_ptr = tx_ring->desc;
+	ev->dma = tx_ring->dma;
+	ev->desc_size = size;
+	ev->desc = desc;
+
+Regardless, this looks good to me.
+
+Reviewed-by: Simon Horman <horms@kernel.org>
+
