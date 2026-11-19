@@ -1,54 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.96
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.192
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795092250;
-	b=jfOWuX0+NtJ1T6oFueqNnXid5GrSMADIalbIrBoe/D3Ad68vwfG//R+hEIT8FFrxc5KV
-	 7a/aSynHuHs0suamyO3pIkOHFVn1k71DWMTriMG9CDP7Z0l7Ed9qZkRt8+RUDZZzeLVb/
-	 tCiBxqvuqgWiDT2dQLs+28jAM5tFXRlMGHQwsXEBTGQrKyp51rNBDspxWswYzuE+t7R0J
-	 /wff+nw5V3RsxLdU7RlUwoURgTimcPURVIQ3PNrmOk5kkwokrJjqVEoxgPkaVifsSZ5fQ
-	 wOLr6FTgKb1gGWL9QUq2eNXOBNSYUKvRukxRRjCoUFnu5+yRmT09mheerfj8Skx7SQw==
+	t=1795092257;
+	b=gfqjAkgzePE2Shvm50k5KLu4pUFdzfGok1rH/uu0GC3WCRjnICadUp0gTQzzA4+cWiVD
+	 Jk6eGiFusrgEbS8OzOnkU3ubct7rjs87Z/LQVvw3sLNnc+b6LDjZ3qvW79ZYGBrk5lIzJ
+	 41ZYfvnOlknbJ+lZAkNESoX5vBecMlOWscT5PwQNnxLLSxS2GF1XJ/slYMs5YoV4530kE
+	 iuMA6LgnlpCQHrsMd/VmxH+QbFj/BCm378IYxCsC8fcwN2mmJ0GvURQWmBMDDpsi8fJux
+	 NaCVRzyN+bkeqEDryrW1LDGHsoieDYg4gA2CrS6yGvAH5iHz7yxhm4DfNgSB70kRPjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795092250;
-	h=DMARC-Filter:Content-Type:Content-Transfer-Encoding:Message-ID:To:Cc:
-	 Subject:X-Priority:X-Mailer:X-Originating-IP:In-Reply-To:References:
-	 MIME-Version:Received:From:Date:X-HM-Tid:X-HM-MType:X-HM-NTES-SC:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=qLPZEX0epsWd7es1kW82u4+2WFeyQwtuYOTDlogKltk=;
-	b=MDJ1Kaij4XeY4hgOc27yfJXvedOkkPPkS4OBdG4DfPEeuiQhBSqPFwyMHqDTNOwSO1zo
-	 rtdI1FyPK2Ke7YSMCjCpuQ7wK4KPNlC3I1FG758qVSg5vqjyAwqo/kNs7UudEas7OAPge
-	 LIHZ6xPTmWduLQPxh2BYk29jS3Dgw/Ed6195R/iFrDCDp2HChXYDiziJ/NQBEq743hF7b
-	 sO1q964KT2b9J/SrmYKNu68smv/ZTQ7aubsDwOT7CGd1hjOhsMlxI2IVujAmoEzDH3qe/
-	 fd+II+28VVm4jdLIit3zdqr1CRvDAPKhTEcIX76w8MnwAYRLdRkNHI2LKDMZbSqxnsg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795092257;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type;
+	bh=odGKjtuO2fcSEp2Bw94sYra7hu3Cvd+3dwpUXKWdflc=;
+	b=0+8ik0vpQMGxLlzUkkyEuUbjg63bz7c6aVwFLT4TvpV8GFryZSkf1UeBUUVvQYr335w4
+	 P0OVUk5BIjcPKTU0X0a3So9jeP8aMTrFA3K0+zlIL3rSc3e7kDY7FszlJUe/tyaw+9sSM
+	 GZ1dufGdkEx2+sA+sMh8RS2r70WlsT5crcMcggFwUKzX6kn86MYLeS8IIXaXOIat1/99P
+	 jOlr2WMPrsyp2pxnWblM3/m0SsDolshDTL2Ir1P8AU4fN0F8bU9Xxc3+bm6eA/n8Wf4N4
+	 qvuYBjCWA5gbaSLfVVZX4ZpghYFVR3GmRqFNexP5mHOKw44rJzAOJp9t+DA1HNQEDFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b="eaiTa/aG";
-	arc=none smtp.remote-ip=210.79.60.96
-Received: from mail-m6096.netease.com (mail-m6096.netease.com [210.79.60.96])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Xm5K9aUy;
+	arc=none smtp.remote-ip=95.215.58.192
+Received: from mta1.migadu.com (out-192.mta1.migadu.com [95.215.58.192])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBD1E606A338;
-	Thu, 19 Nov 2026 12:44:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBD1E606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6143160A262E
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 12:44:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6143160A262E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=eaiTa/aG
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-Message-ID: <ACoAEgCeLDq4C5*UjRtdZKp9.3.1795092235677.Hmail.202321181@mail.sdu.edu.cn>
-To: Lee Jones <lee@kernel.org>
-Cc: stable@vger.kernel.org, Aaro Koskinen <aaro.koskinen@iki.fi>, 
-	Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, 
-	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
-	linux-omap@vger.kernel.org, mfd@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Subject: =?UTF-8?B?UmU6UmU6IFtQQVRDSCAzLzZdIG1mZDogcGFsbWFzOiBGaXggcG90ZW50aWFsIElSUSBhY3Rpb24gbGVha3Mgb24gcmVtb3ZhbA==?=
-X-Priority: 3
-X-Mailer: HMail Webmail Server V2.0 Copyright (c) 2016-163.com web
-In-Reply-To: <179370041880.793788.14407997006744050474@kernel.org>
-References: <cover.1793377422.mfd.git.liguangshuo@mail.sdu.edu.cn> <fe4ee2ff4b3ad6675a46a169d6de6410db32b652.1793377422.git.liguangshuo@mail.sdu.edu.cn> <179370041880.793788.14407997006744050474@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Xm5K9aUy
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=odGKjtuO2fcSEp2Bw94sYra7hu3Cvd+3dwpUXKWdflc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795092254; v=1; x=1795697054;
+ b=Xm5K9aUypliUEN5W5tlLqwSvf5vjzoa3e/CT6q1LEZa5hLPqMRcmR9ayLYTJBsZsnapm+m2S
+ 23fByICux5qIvvIPrFRC21cniwWgGgHef4Mts/CijyVMTpMPjMplYXRcDz2SvIt2MGOeDB/Dw9j
+ rOnsSNri/aFkuDWngWhVsj4w=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 4bd90a8046ddf6e9;
+	Thu, 19 Nov 2026 12:44:14 +0000
+X-Mizu-Trace-ID: 4bd90a8046ddf6e9
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5be58ad9600so8105e87.0
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 04:44:10 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AL+hErGxHu9zU1kgg8Ll63+haL31YgorQPEskllQSmGhWRHXecqG3fmNrwXtrbEG6tLyXfgfrvum6o0=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8b7Maf/LczZhMtpdkhPhQeTOUvqbZJTYhNnPixU2UOJGWWiSuN
+	pMEvfAtHXtItsCscmg7Oa5BstQXmwldnMaS9AgMOnoa013fMtGfbcLmvwQyDLn7bLS1d1Jl1dgq
+	+yO9B8s30xc7cHn1IhJD8Or55BX/XnquEqly2ww3r
+X-Received: by 2002:a05:6512:4011:b0:5c1:4d61:20ff with SMTP id
+ 2adb3069b0e04-5c1b6774040mr72185e87.10.1795092249237; Thu, 19 Nov 2026
+ 04:44:09 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -58,64 +66,39 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Received: from 202321181@mail.sdu.edu.cn( [101.76.249.61] ) by ajax-webmail ( [127.0.0.1] ) ; Thu, 19 Nov 2026 20:43:55 +0800 (GMT+08:00)
-From: =?UTF-8?B?5p2O5bm/56GV?= <liguangshuo@mail.sdu.edu.cn>
-Date: Thu, 19 Nov 2026 20:43:55 +0800 (GMT+08:00)
-X-HM-Tid: 0aa1f3d57aaed0cdkusycbd0c45d1600e
-X-HM-MType: 1
-X-HM-NTES-SC: AL0_4z5B86Wr4Tz9jdMF+bhXMVHpP02bZAKsMEiErRSAekjx+ys+KNZNl0PLwl
-	f2MeqR5lbiqKsoq8sm3hZVy9q3VVBNOjIUwfWq1GfV2NBR9WJV5pp9Gwt04oeFjraKOA9z4Ebfb5
-	HaGbLSL75hBggy81rjpsAjN1bCk8YhhNfCILQ=
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTBkdVkMfTh9MSBgeSRpMTFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWU9LSFVCQk
-	lOS1VKS0tVSkJLQlkG
-DKIM-Signature: a=rsa-sha256;
-	b=eaiTa/aGsGbIQ/8Mdo5kvUqyOX9/1GaNuGgnh/funKCyHIn8yUSpxUTYtsujWX0yle5mnVu1/4y+PjYrYQQ26EboSFFmN/+QyOMw0LqqbyJLNPYs9ERCjMBoYGU1N9XIqp4d0XHYG3a6Ne020O5REcTbn1YfFEjJBzO+khZfua8=; c=relaxed/relaxed; s=default; d=mail.sdu.edu.cn; v=1;
-	bh=qLPZEX0epsWd7es1kW82u4+2WFeyQwtuYOTDlogKltk=;
-	h=date:mime-version:subject:message-id:from;
+References: <20261117074428.7544-1-fuad.tabba@linux.dev> <20261117074428.7544-2-fuad.tabba@linux.dev>
+ <avxfgWNePsGPK9mm@gremlin> <CA+EHjTzUrDxLSMEo6X66XhKtQ-=ew3zZhMdFWR6U9Ga17WLWkw@mail.gmail.com>
+ <av5CBjbeidUUWiLq@seanjc-mac.roam.internal> <av7bYb1geEGzaj8e@gremlin>
+In-Reply-To: <av7bYb1geEGzaj8e@gremlin>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Thu, 19 Nov 2026 12:43:32 +0000
+X-Gmail-Original-Message-ID: <CA+EHjTwzdsMKw2MFB9kpV=Xtm4JFpTbWRn0BOSwSB+x=RJhVMA@mail.gmail.com>
+X-Gm-Features: AclHuK9ExBlvjAlpEcQpW7OIX1pR4w0klOAvsUXwgDHyVbn5Bw8uFWJCaQ8SOYE
+Message-ID: <CA+EHjTwzdsMKw2MFB9kpV=Xtm4JFpTbWRn0BOSwSB+x=RJhVMA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] KVM: Stop KVM_PRE_FAULT_MEMORY when the vCPU's
+ dirty ring is full
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Isaku Yamahata <isaku.yamahata@intel.com>, 
+	Rick Edgecombe <rick.p.edgecombe@intel.com>, Alexandru Elisei <alexandru.elisei@arm.com>, 
+	Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>, kvmarm@lists.linux.dev, 
+	Wei-Lin Chang <weilin.chang@arm.com>, Will Deacon <will@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-CkhpIExlZSwKClRoYW5rcyBmb3IgdGhlIHJldmlldy4KCkZyb206IExlZSBKb25lcyA8bGVlQGtl
-cm5lbC5vcmc+CkRhdGU6IDIwMjYtMTEtMTMgMjE6MDk6MTgKVG86ICBHdWFuZ3NodW8gTGkgPGxp
-Z3VhbmdzaHVvQG1haWwuc2R1LmVkdS5jbj4KQ2M6ICBzdGFibGVAdmdlci5rZXJuZWwub3JnLEFh
-cm8gS29za2luZW4gPGFhcm8ua29za2luZW5AaWtpLmZpPixBbmRyZWFzIEtlbW5hZGUgPGFuZHJl
-YXNAa2VtbmFkZS5pbmZvPixLZXZpbiBIaWxtYW4gPGtoaWxtYW5AYmF5bGlicmUuY29tPixSb2dl
-ciBRdWFkcm9zIDxyb2dlcnFAa2VybmVsLm9yZz4sVG9ueSBMaW5kZ3JlbiA8dG9ueUBhdG9taWRl
-LmNvbT4sbGludXgtb21hcEB2Z2VyLmtlcm5lbC5vcmcsbWZkQGxpc3RzLmxpbnV4LmRldixsaW51
-eC1rZXJuZWxAdmdlci5rZXJuZWwub3JnClN1YmplY3Q6IFJlOiBbUEFUQ0ggMy82XSBtZmQ6IHBh
-bG1hczogRml4IHBvdGVudGlhbCBJUlEgYWN0aW9uIGxlYWtzIG9uIHJlbW92YWw+T24gU2F0LCAz
-MSBPY3QgMjAyNiwgR3VhbmdzaHVvIExpIHdyb3RlOgo+Cj4+IFRoZSByZW1vdmUgY2FsbGJhY2sg
-ZGVsZXRlcyB0aGUgSVJRIGNoaXAgYmVmb3JlIG1hbmFnZWQgT0YgY2hpbGRyZW4KPj4gYXJlIHJl
-bW92ZWQuIFRoZWlyIGxhdGVyIGZyZWVfaXJxKCkgY2FsbHMgY2Fubm90IGZpbmQgdGhlIGRpc3Bv
-c2VkIElSUQo+PiBkZXNjcmlwdG9ycywgcG90ZW50aWFsbHkgbGVha2luZyBpbnRlcnJ1cHQgYWN0
-aW9ucy4gRGVwb3B1bGF0ZSB0aGUKPj4gY2hpbGRyZW4gYmVmb3JlIGRlbGV0aW5nIHRoZSBJUlEg
-Y2hpcCBhbmQgYXV4aWxpYXJ5IEkyQyBjbGllbnRzLgo+Pgo+PiBUaGlzIGlzc3VlIHdhcyBmb3Vu
-ZCBieSBvdXIgc3RhdGljIGFuYWx5c2lzIHRvb2wgdW5kZXIgZGV2ZWxvcG1lbnQuCj4+Cj4+IEZp
-eGVzOiAxMjRlOWRlYjFjNDAgKCJtZmQ6IHBhbG1hczogVXNlIGRldm1fb2ZfcGxhdGZvcm1fcG9w
-dWxhdGUoKSIpCj4+IENjOiBzdGFibGVAdmdlci5rZXJuZWwub3JnCj4+IEFzc2lzdGVkLWJ5OiBP
-cGVuQUk6Z3B0LTYtYXN0cmEKPj4gU2lnbmVkLW9mZi1ieTogR3VhbmdzaHVvIExpIDxsaWd1YW5n
-c2h1b0BtYWlsLnNkdS5lZHUuY24+Cj4+IC0tLQo+PiBCdWlsZC10ZXN0ZWQgdGhlIGNoYW5nZWQg
-b2JqZWN0IHdpdGggeDg2XzY0IGRlZmNvbmZpZyBwbHVzIENPTVBJTEVfVEVTVAo+PiBhbmQgdGhl
-IGRyaXZlciBkZXBlbmRlbmNpZXMgKFc9MSkuCj4+IE5vIHJ1bnRpbWUgb3IgZmF1bHQtaW5qZWN0
-aW9uIHRlc3Rpbmcgd2FzIHBlcmZvcm1lZC4KPj4KPj4gIGRyaXZlcnMvbWZkL3BhbG1hcy5jIHwg
-MyArKysKPj4gIDEgZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKykKPj4KPj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvbWZkL3BhbG1hcy5jIGIvZHJpdmVycy9tZmQvcGFsbWFzLmMKPj4gaW5kZXgg
-N2ZjODg2ZjRmODBlLi44YTBiN2IxZTg5ZDcgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvbWZkL3Bh
-bG1hcy5jCj4+ICsrKyBiL2RyaXZlcnMvbWZkL3BhbG1hcy5jCj4+IEBAIC02NzcsNiArNjc3LDkg
-QEAgc3RhdGljIHZvaWQgcGFsbWFzX2kyY19yZW1vdmUoc3RydWN0IGkyY19jbGllbnQgKmkyYykK
-Pj4gIAlzdHJ1Y3QgcGFsbWFzICpwYWxtYXMgPSBpMmNfZ2V0X2NsaWVudGRhdGEoaTJjKTsKPj4g
-IAlpbnQgaTsKPj4KPj4gKwlpZiAoaTJjLT5kZXYub2Zfbm9kZSkKPj4gKwkJZGV2bV9vZl9wbGF0
-Zm9ybV9kZXBvcHVsYXRlKCZpMmMtPmRldik7Cj4KPkkgdGhpbmsgaXQgd291bGQgYmUgbmljZSB0
-byBkZXZtXyogcmVnbWFwX2FkZF9pcnFfY2hpcCgpIGluc3RlYWQuCj4KPklmIHlvdSBhbHNvIGNv
-bnZlcnQgdGhlIGF1eGlsaWFyeSBJMkMgY2xpZW50cyBhbmQgJ3BtX3Bvd2VyX29mZicKPnRlYXJk
-b3duIHRvIGRldm0sIHlvdSBjb3VsZCBkcm9wIHBhbG1hc19pMmNfcmVtb3ZlKCkgYWx0b2dldGhl
-ci4KPgo+PiArCj4+ICAJcmVnbWFwX2RlbF9pcnFfY2hpcChwYWxtYXMtPmlycSwgcGFsbWFzLT5p
-cnFfZGF0YSk7Cj4+Cj4+ICAJZm9yIChpID0gMTsgaSA8IFBBTE1BU19OVU1fQ0xJRU5UUzsgaSsr
-KSB7Cj4KPi0tIAo+TGVlIEpvbmVzCj4KClRoZSBJUlEgY2hpcCBpcyByZWdpc3RlcmVkIGJlZm9y
-ZSBkZXZtX29mX3BsYXRmb3JtX3BvcHVsYXRlKCkuIFdpdGgKZGV2bV9yZWdtYXBfYWRkX2lycV9j
-aGlwKCksIHRoZSBjaGlsZHJlbiB3b3VsZCBiZSByZW1vdmVkIHdoaWxlIHRoZWlyCklSUSBtYXBw
-aW5ncyBhcmUgc3RpbGwgdmFsaWQuCgpJZiB0aGUgYXV4aWxpYXJ5IEkyQyBjbGllbnRzIGFuZCB0
-aGUgcG93ZXItb2ZmIGhhbmRsZXIgdXNlIG1hbmFnZWQKY2xlYW51cCB0b28sIEkgdGhpbmsgcGFs
-bWFzX2kyY19yZW1vdmUoKSBjYW4gZ28gYXdheS4gSXMgdGhhdCB3aGF0IHlvdQpoYWQgaW4gbWlu
-ZD8gSWYgc28sIEknbGwgc2VuZCBhIHYyIGZvciBwYWxtYXMgYWxvbmcgdGhvc2UgbGluZXMuCgpU
-aGFua3MsCkd1YW5nc2h1bwo=
+Hi Lorenzo,
+
+On Thu, 19 Nov 2026 11:18:48 +0000, "Lorenzo Stoakes (ARM)"
+<ljs@kernel.org> wrote:
+[...]
+> > > (note that it skips CSR, SBI also with a changed exit_reason).
+> >
+> > Ack.
+>
+> Probably worth referencing in commit msg I guess?
+
+Will add one in v3.
+
+Cheers,
+/fuad
