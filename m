@@ -1,66 +1,66 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=18.9.28.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795099686;
-	b=qNOt83tagEGrHEI2gBB0MM4UVDtLjPxBMJW/8DT+9I0hGDhSGASBqsycoM9Bper3sxIY
-	 oC/5ZkBtMDhigK2jMtA6HcC36yDBPgB8pA4IUQ8OvjB0KSDkrV2+RbIgY9cfYDa4chHFo
-	 p7yOSF6zzrAmkLC5QEGQew9IHYSy3euvA5Qfb62savQ3b9WTI073oHYYt+WkB3fyRogJe
-	 exTyvtYOESfVZtIDhKEGVQZ3sNM0fYS2AVVgsUTe6ocMEz+4CtuWU/+qsxGMSglJdwpjX
-	 /DOAJG6qe4zOcpFsLCY1mU/8/2Qk77xXABgn3sxOnzQhcQw9pnFhB+l3haGjvRId2cw==
+	b=twk9wbq/yZosZQ3KnoiaLzO5Xl6AR5HmIogRMSTODHCH57ujOfboqQBHRDScnIMB8yIr
+	 gIzUQxFjJuLhZGhA/ZBoaQzK14NH7bI9h9gGN7f0IwGn/ONWn42L1/YoAOeYeiT3O/1c8
+	 TrBN8VJwJq67frLxQZdjJysxYiej0iQasdNyCCCfvimzTOYqSZQsnZnqWgl+jGuH07we+
+	 deqXU7gllD6J11IMf1AnI7y7ppJEJfIEsurekxGm4uwd5/qvopHNfdYAAowDNYWV5J5pt
+	 58nHIwwOu06/MAJOTTwhYUmOTDMDXSIpYRPQhU+r8okZK98HnToqnK79kNGWJU5qv3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795099686;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=6HBvvlIub12wrSr52ZlJQDUQHfx6B9c7JQjlNcoZPgk=;
-	b=ss57UEDCTHCujzFhu2x1Ein6WdVs5KoY+EPuN7OfSwFZkAOJWi0jYZ7Np28wZ3D52GXO
-	 9thyJN4P9B5OFxmANS/Kto9E3BWovdm8VAvXlKH7iw0aOEjlblj6yXWWPQqwW/pW7vi2D
-	 UXk5IqmizgT+n4UREBMq7ppqM6YqqscbJ2L5fpSMeSP9XDXDqBm3C9ENRjexChVk6E5Jz
-	 2WNUaSYaevLUAoaFXPgpTGy1OL6cHAPuUy9E08qw4pCFhQuiEVo4SC7b5uWD5/oZgQcfW
-	 jxvtQLXYzttDiyRQc0XDaxLat45v4OVTujFo0utWkgH+aOV6/XeM1gRasLXYr8gQTcw==
+	bh=M5K/tJPXmyJaUUYyH2fmddvlz+57j12jPWxyjZyaUnM=;
+	b=jGSSax+BV3OLkE+JJ7TgIWkYa5juAL+XYdu5+yVbN71yhq7q1Z7ZAPdR644oSjIGNKT/
+	 BQU4/HYd3FrTyG3vlw3M3JAKJxpaSSwgvb8crr3xCCdjEaSKbZEIwsK0UsrV8z0wL+pij
+	 Tsr4lLFLGcZEgmGfCx772VPCpKNBnXPnTdn3ovdfkFuNt73ZJ68YFUwCZ31K530suLEeC
+	 jwFVqTiMY9ss8cCYE/OabGyou5fLyKwF6PdpMgf4GU/e2RPQgy1ZN1PKgFE5TyW5vvS1l
+	 TXEKcsypRg4Avo6J5jKZyvbyCOF2mekbpWLEitgSIR3Ng4UK72KNdFQO+ehpvNr6F4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mit.edu;
 	spf=pass smtp.mailfrom=mit.edu;
-	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b="aNvEM7/W";
+	dkim=pass header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=F9+HBP78;
 	arc=none smtp.remote-ip=18.9.28.11
 Received: from outgoing.mit.edu (outgoing-auth-1.mit.edu [18.9.28.11])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4E660A5BDD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D34F60A5BDE
 	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 14:48:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A4E660A5BDD
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2D34F60A5BDE
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mit.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=aNvEM7/W
+	dkim=pass (2048-bit key) header.d=mit.edu header.i=@mit.edu header.a=rsa-sha256 header.s=outgoing header.b=F9+HBP78
 Received: from trampoline.thunk.org (pool-173-48-114-214.bstnma.fios.verizon.net [173.48.114.214])
 	(authenticated bits=0)
         (User authenticated as tytso@ATHENA.MIT.EDU)
-	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6AJElfSP018223
+	by outgoing.mit.edu (8.14.7/8.12.4) with ESMTP id 6AJElftL018141
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
 	Thu, 19 Nov 2026 09:47:42 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mit.edu; s=outgoing;
-	t=1795099664; bh=6HBvvlIub12wrSr52ZlJQDUQHfx6B9c7JQjlNcoZPgk=;
+	t=1795099663; bh=M5K/tJPXmyJaUUYyH2fmddvlz+57j12jPWxyjZyaUnM=;
 	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	b=aNvEM7/WCycX4QKbTcA1DaaI6Mf21EFld8dhfYgMCqJHKmAbZOLiSzQbIS35lm8s6
-	 qew5iE9JnIPX8iV2q0S59LgC+Hi6AcuAPm56IaGApuHk50Q1Oj837jtcTe4kKHY96u
-	 R6/W6erKGjIKdMRleMEu43/uZJ3hH3S7C7jRWCOno8ldiOD9PtJ/jbTnO4Ld4h91xk
-	 izYiEPehsr1b2KwOrU+3YQ3qAWtEZxIJATlMxKXWKgLl6kV0QB9fhKn/KO74q52jch
-	 zIDfl3SpCwcG8X1sgwoGmG6ZDC/etl4043Dto0+bDp/+su73qnB7W+pF8Kvhfr+Msz
-	 PDsUi4Lud+akQ==
+	b=F9+HBP78nainxjSXCXUUrBgCBB528PY+OUqNb3CrAJDlunonyHckrl3r9/dtxSOXl
+	 v54HzNoaqtXW3gr0ig58s8G+Ji7YfcQA+4HUX4kC1Wq3quxWnghTZBShI3TqxnGeM0
+	 i3glcsiiInxQvkACwtHHiOa5QTOj3Aw6DpIFNBeYYPagZYsvjUDASYquynOLg9TYfs
+	 5DdLdMQJ42lfkiEzS8CGxYsna+qU1eNm+morHGQUkgXpwRb5zJAAlMb3XvDvHaXdjA
+	 UsCKyXIfQQ7C2ZeJ3ZTwtmVEHu17Z+gu8/GClKj+HIEtWxD1YKz/yAq4L7pz1BdYHL
+	 tCGwcSFi/C40g==
 Received: by trampoline.thunk.org (Postfix, from userid 15806)
-	id 65C862E0197; Thu, 19 Nov 2026 09:47:33 -0500 (EST)
+	id 40C332E018C; Thu, 19 Nov 2026 09:47:33 -0500 (EST)
 From: "Theodore Ts'o" <tytso@mit.edu>
-To: Ext4 Developers List <linux-ext4@vger.kernel.org>, jack@suse.cz,
-        adilger.kernel@dilger.ca, Jiaming Zhang <r772577952@gmail.com>
-Cc: "Theodore Ts'o" <tytso@mit.edu>, libaokun@linux.alibaba.com,
-        linux-kernel@vger.kernel.org, ojaswin@linux.ibm.com,
-        ritesh.list@gmail.com, stable@vger.kernel.org, yi.zhang@huawei.com
-Subject: Re: [PATCH v2] ext4: clear in-inode xattr space before adding the first xattr
-Date: Thu, 19 Nov 2026 09:47:20 -0500
-Message-ID: <179509948712.1938961.7903640953071741786.b4-ty@b4>
+To: Ext4 Developers List <linux-ext4@vger.kernel.org>,
+        Baokun Li <libaokun@linux.alibaba.com>
+Cc: "Theodore Ts'o" <tytso@mit.edu>, adilger.kernel@dilger.ca, jack@suse.cz,
+        yi.zhang@huawei.com, ojaswin@linux.ibm.com, ritesh.list@gmail.com,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] ext4: skip eof zeroing when the zero range covers the eof block
+Date: Thu, 19 Nov 2026 09:47:09 -0500
+Message-ID: <179509948714.1938961.6080612648602152942.b4-ty@b4>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261021085635.3633692-1-r772577952@gmail.com>
-References: <20261021085635.3633692-1-r772577952@gmail.com>
+In-Reply-To: <20261022122625.1744363-1-libaokun@linux.alibaba.com>
+References: <20261022122625.1744363-1-libaokun@linux.alibaba.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,24 +74,32 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 21 Oct 2026 16:56:35 +0800, Jiaming Zhang wrote:
-> An inode can hold extended attributes in the space that follows its extra
-> fields, whose size is given by i_extra_isize.  When ext4 loads an inode,
-> ext4_iget_extra_inode() validates that space only if it starts with the
-> xattr magic, and only then sets EXT4_STATE_XATTR.  Without the magic, the
-> space is treated as empty and is not checked.
+On Thu, 22 Oct 2026 20:26:25 +0800, Baokun Li wrote:
+> ext4_zero_range() drops the page cache of the range before allocating,
+> to avoid exposing stale cached data.  However, the dropped page can be
+> read back by the eof zeroing:
 > 
-> ext4_xattr_ibody_set() passes the space to ext4_xattr_set_entry() whether
-> or not EXT4_STATE_XATTR is set.  ext4_xattr_set_entry() walks the entries
-> there to find min_offs, the lowest value offset.  That offset decides
-> whether the new value fits and where the value is copied:
+>   fallocate(fd, FALLOC_FL_ZERO_RANGE, 0, 4096)
+>     ext4_zero_range()
+>       ext4_truncate_page_cache_block_range(0, 4096)
+>         truncate_pagecache_range(0, 4095)
+>           truncate_inode_pages_range()
+>             delete_from_page_cache_batch()  # drops the page
+>       ext4_alloc_file_blocks(..., 4096)
+>         ext4_block_zero_eof(512, LLONG_MAX) # not block aligned
+>           ext4_load_tail_bh()
+>              __filemap_get_folio(FGP_WRITEBEGIN | FGP_ACCESSED)
+>              # FGP_CREAT reads the dropped page back
+>              # zeroes [512,1024), marks the buffer dirty
+>         ext4_map_blocks(...)  # converts the extent to unwritten
+>         ext4_update_inode_size(4096)
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] ext4: clear in-inode xattr space before adding the first xattr
-      commit: ab7d0fdc084fa3812613378af181fcc047c81beb
+[1/1] ext4: skip eof zeroing when the zero range covers the eof block
+      commit: 3c498dda252e1729e831c48300f17d1e6a7abb71
 
 Best regards,
 -- 
