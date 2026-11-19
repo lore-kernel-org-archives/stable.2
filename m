@@ -1,70 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795096492;
-	b=w25SRdw7cFqwumq0n7YYHE9afyEWZ1KCmmgwm19l4zLN3uYnL0xPGNxqxJGHU+iDaLRj
-	 C4w9313NFf9okNaKCRPXfXbXm5GXCP8IDWrhN5ba6fQbc1/shhBAwVwU84AXO178aZae6
-	 v89TeiV1CXUvpfm79dAZD7hkvmxEnzXuXAGj7MskezKZjrf5iqDW08I4Cbd6raJMKXOF5
-	 zEuv8V8aJeuIG3TmgIyYH6JHlkihzHVXpTSqErjG5pm6z/RoApHPjlu/V0Dtae2QxLzK6
-	 jgI/ExheqNDhxJhZ247FEXzVPFccpN3x4LsZA8XVQZhNmt3BU9DVykYQgGW+FxDBayA==
+	t=1795096502;
+	b=cZdV/GjnXV3Dc8xb5UIUYBWsPyYE20MNC/0KL7XvkHEH2+Wh7T4Vb4qRY+9xUzaU/UtU
+	 uS665YZJE8RSuzu5ilkG4XHPO7f0vyrrdO2ZcVcQKBne7mRmkREmDq/p0yqRAW86862eN
+	 dlR4PTUUXXQUVZDa6Zcb24EwH12+SJQ2r2lMxF1VEg28mH5gGV6eh1Ok96NGEnh9DsL/w
+	 NdlsBgU9TxyfYTIaXzsVQ7OSpyNGj1BrRieENhEps2qRnS3W69X2PLKmIVGQxYauZDA5y
+	 gDUMofehH73cM3aJeAA9TMFSXk3ce5iWy1LPaO7QEqiYHB2y09sPKWLw5Km8GpJ78dA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795096492;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=bs3e533bt5D0o+EpSdAjhPVi/JGC5ZQYFdjvbtCNaXk=;
-	b=WLsvWbilaScqde2jTrZ80cQCwrsRXpTa3KnJQANMPaPE/grn+20rtTwRAyYgu4yZkzfX
-	 tsQGrDNW1Pbn6UMuihXmEsTrelH0mPp/UiXlxhhVpn66vdDNJ9hdAvllgulMGEjvfu9KU
-	 QXTRUbl/JjurBtOAOovL63YiBIwcMoXVKyVH/lidTQOLr+jSTHgJJuPeL0SkBgDkWggkh
-	 oLmO7zS+Rb1vgcYpv10EVZaLYBNlcHGwa5eZ8ROwNOQIlGn/R7FuQcq/zf+4cp0phQxAh
-	 S7jkrCPKkAU3/fZ9w2FTp0tSEqwb4KQABRFmBwV6083t3XS4qk3rDJ099UijueyvuQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795096502;
+	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
+	 In-Reply-To:References:Subject:From:To:Cc:Date;
+	bh=ZGEipZ4iBR2zaM8nIfLYPQOtXWPI6XNJ5IhWI9P6vEU=;
+	b=qyVOKuLQn4FAxGfmkMVfRMI2kBTrgrcrfaDEPHRjbwPVHq9oEyoaZDLOl/n1GDCHBk6P
+	 KD6nRRMCX6zHuQD9cEczj+anUMy3rOLKgUUi3fdN5MKXehXVARlqdAPvLESmpl7MuX2oY
+	 7FKoiXd15ZxWz4rz/3EBcRoSUhFp04otJLrCFkN3ITo0tAcKrIsk7gm7c5TAzsaAfl9As
+	 nldm+haPK2cWFoNavl4uNwmvqEqcUzY4GxZWeH/QYpx7IaNrwhI2ncVdbVoMbHC1zFauP
+	 YO7I+OQmPwesN2hUk7HcJBX3AqMdZVPMZgKxh/oWVyEDVJMOLBfJg1RH7bRFdVejSLA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=igalia.com;
-	spf=pass smtp.mailfrom=igalia.com;
-	dkim=pass header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=nTkeLZtp;
-	arc=none smtp.remote-ip=213.97.179.56
-Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQRbLvoI;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252BE606A333
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 13:54:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 252BE606A333
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AAC1606A324;
+	Thu, 19 Nov 2026 13:55:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=nTkeLZtp
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
-	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
-	Date:Subject:Cc:To:From:From:Reply-To;
-	bh=bs3e533bt5D0o+EpSdAjhPVi/JGC5ZQYFdjvbtCNaXk=; t=1795096490; x=2110456490; 
-	b=nTkeLZtpFfwqXlsy/IzqCfKpoW3l+GZ2EOZzoVwrCfXX09WPAsCq4SMVbomo50gnxHuKE69zLXk
-	mBT0HRohMgE9Ly5fH1DbASeUXk+PKPh9m9In2DGeAG3aBAn47qNMCrBW9CMcgZrQdoSrimye3z04R
-	Az3Bd72DXi7NUk9P7HYSWDNpbsMh1tTG792WPJkYz0uS0tYpVBQ+tn/5p/ssGnToJ44diG98v7eQU
-	Z4KhYKL59vzG3aDdgDckpNenT32ihTan3QB4rDT+p/pxA+WIWHdBWuNXKSNSzPEiLu0PSPUyEICNm
-	miXF5YHYYPVSsdhyttwQTX8jxlzPiARj5niA==;
-Received: from [179.105.94.163] (helo=prince)
-	by fanzine2.igalia.com with esmtpsa 
-	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
-	id 1xU2b3-00000001TSi-3SwJ;
-	Thu, 19 Nov 2026 14:54:42 +0100
-From: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-To: Iago Toral <itoral@igalia.com>,
-	"Juan A. Suarez Romero" <jasuarez@igalia.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	=?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Cc: kernel-dev@igalia.com,
-	dri-devel@lists.freedesktop.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 0/4] drm/vc4: Work around GFXH-16 instruction cache livelock
-Date: Thu, 19 Nov 2026 10:54:10 -0300
-Message-ID: <179509644527.2610316.12481910514496776613.b4-ty@igalia.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
-References: <20261118-vc4-icache-workaround-v1-0-5b8adc2c84fe@igalia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QQRbLvoI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 653D81F000C4;
+	Thu, 19 Nov 2026 13:54:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1795096502;
+	bh=ZGEipZ4iBR2zaM8nIfLYPQOtXWPI6XNJ5IhWI9P6vEU=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=QQRbLvoIJinWyRQldOtBxVUdCVpyfbzWr90u5YSTrgn3k4N0dht0N6J6uzl7BuWP+
+	 avKZHcSvJsw3LZlDI0YRqvZqG/htWdzznUrrOI4v0ft+ESHJTQB87CfthYhIh0OlYd
+	 bG2KBnZ0ryNxjMo0A/CmNl2cCf3PLkS4A1NbzFGpTaJ0Cn1VIy1PzJhJQrgh3w54E8
+	 EJQVu73lMMQQ/hB3pX8Jtel1vvmdiXQlEqCSLoaN5qupBXZx22PejDrynJUi2Q/8nT
+	 SQ58ywjic2yLCM4xpxsP50+vTxvf1feT0vV3sftjwgoBcrPz4s65OKp44AncqKH+58
+	 yvMXJtXXDYhRw==
+Content-Type: multipart/mixed; boundary="===============0493837293160669566=="
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -74,35 +49,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Message-Id: <9a5a1487a4676381f4c3d98cb5a22f50e2f54d9d4ec7947891c889b64ac12693@mail.kernel.org>
+In-Reply-To: <20261119133032.2015656-4-sst@poczta.fm>
+References: <20261119133032.2015656-4-sst@poczta.fm>
+Subject: Re: [PATCH v7 bpf 3/5] veth: use the frame mem type when running XDP on an xdp_frame
+From: bot+bpf-ci@kernel.org
+To: sst@poczta.fm,ast@kernel.org,daniel@iogearbox.net,davem@davemloft.net,kuba@kernel.org,hawk@kernel.org,john.fastabend@gmail.com,sdf@fomichev.me
+Cc: bpf@vger.kernel.org,netdev@vger.kernel.org,maciej.fijalkowski@intel.com,tianyi@cloudflare.com,tavip@google.com,toke@redhat.com,aleksander.lobakin@intel.com,ilias.apalodimas@linaro.org,lorenzo@kernel.org,magnus.karlsson@intel.com,ihor.solodrai@linux.dev,edumazet@kernel.org,pabeni@redhat.com,andrew+netdev@lunn.ch,horms@kernel.org,andrii@kernel.org,martin.lau@linux.dev,eddyz87@gmail.com,song@kernel.org,yonghong.song@linux.dev,jolsa@kernel.org,memxor@gmail.com,shuah@kernel.org,linux-kselftest@vger.kernel.org,sst@poczta.fm,stable@vger.kernel.org,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Thu, 19 Nov 2026 13:54:58 +0000 (UTC)
+
+--===============0493837293160669566==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+
+> veth: use the frame mem type when running XDP on an xdp_frame
+
+TL;DR: Commit message only: the Fixes: tag (718a18a0c8a6) looks wrong, since
+it only touches the skb path; the review suggests naming the commit that
+introduced the stale rxq mem type problem.
+
+> veth: use the frame mem type when running XDP on an xdp_frame
+>
+> veth_xdp_rcv_one() runs the XDP program on frames queued by
+> ndo_xdp_xmit(), i.e. redirected to veth or sent back by the peer with
+> XDP_TX. The xdp_buff points at rq->xdp_rxq, whose mem type is whatever
+> the previous packet left there: the queue's MEM_TYPE_PAGE_SHARED, or
+> the type of an earlier frame or skb. frame->mem_type is copied in only
+> for XDP_TX and XDP_REDIRECT, after the program has run.
+> bpf_xdp_adjust_tail() and bpf_xdp_pull_data() release whole frags with
+> the rxq mem type.
+[ ... ]
+> Set the rxq mem type from the frame before running the program, as
+> cpumap and devmap do, and drop the now redundant updates in the XDP_TX
+> and XDP_REDIRECT paths.
+[ ... ]
+> Fixes: 718a18a0c8a6 ("veth: Rework veth_xdp_rcv_skb in order to accept non-linear skb")
+> Cc: <stable@vger.kernel.org>
+> Reviewed-by: Tianyi Gao <tianyi@cloudflare.com>
+> Signed-off-by: Slawomir Stepien <sst@poczta.fm>
+
+Is this Fixes: tag pointing at the right commit?
+
+718a18a0c8a6 only reworks the skb path (veth_xdp_rcv_skb() and
+veth_convert_skb_to_xdp_buff()), and does not touch veth_xdp_rcv_one(),
+which is the only function this patch changes.
+
+The stale rxq mem type on the xdp_frame path comes from the
+XDP_TX/XDP_REDIRECT-only "xdp->rxq->mem = frame->mem" assignments, which
+predate that commit and were added by d1396004dd86 ("veth: Add XDP TX and
+REDIRECT").
+
+The stale type only becomes harmful once frag release uses the rxq mem type,
+which happened in bf25146a5595 for bpf_xdp_adjust_tail() and in 4dce1a0d7cf3
+for bpf_xdp_pull_data().
+
+Could the tag be changed to name the commit that actually introduced the
+problem?
 
 
-On Wed, 18 Nov 2026 18:47:27 -0300, Maíra Canal wrote:
-> Mesa issue #16652 [1] reports GPU resets every few minutes on the
-> Raspberry Pi 3. They happen when text labels are drawn over their shadows:
-> two different threaded fragment shaders, plus untextured single-threaded
-> ones, in the same tiles.
-> 
-> During a hang, the performance counters show four QPUs fetching
-> instructions with 0 cache hits, ~6.5M misses per 100 ms, and 0 valid
-> instructions executed. This matches HW erratum GFXH-16: the QPUs of a
-> slice share one instruction cache and can livelock, evicting each other's
-> fills. Since shader code always starts at offset 0 of a page-aligned BO,
-> every shader competes for the same cache sets.
-> 
-> [...]
+---
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-Applied, thanks!
-
-[1/4] drm/vc4: Fix off-by-one in the shader record BO handle check
-      commit: 1fbbd14add401c70c178f0fa13016a3a53ef0de5
-[2/4] drm/vc4: Check for a validated shader before reading its thread mode
-      commit: 15da41dff1f66a389d238db60a1c19fa83582d07
-[3/4] drm/vc4: Start shader code at varying offsets in its BO
-      commit: c0e1ed41ad86cf5230d64dc5f2c6d2e3aeb59937
-[4/4] drm/vc4: Clear the slice caches before resetting a stalled GPU
-      commit: af1cf92e8617a7f7aa24b415596cbf64b76a12e7
-
-Best regards,
-- Maíra
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/44535627869
+--===============0493837293160669566==--
