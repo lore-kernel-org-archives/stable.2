@@ -1,59 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795058211;
-	b=UDK+9Tc353qW0+gH1Q78zUUpLtejlC7fYcQVParWh/9mCDD+Qes8nd15PqpLSOIi6Gzi
-	 wkebA/CPkLQQHt5P2ALDiVEWB2+yGjrIQAj9PwlI/ctbBDOnDiSsAODAeeMVeXasLgzal
-	 XNrZcyWu3OgyNZ4figH2Yj9rc7zUAeNaKFRSfnSiLzIYOvuPXkJPFBtFpMYa8G1fLvDxQ
-	 hnDSZpWW5WobMnV81iCOvRrTw/ATba3O2xquokYRgyuOntuyZCB7p1SjK7ps3HW3aWoVL
-	 CoKhl0HUa7IezNNZ8yychupqRnw058hhsXZdgTPM9oIgr6HlDXC7V235AcbT6eQbktA==
+	t=1795058213;
+	b=Z4dfFQQLU0Ui0aaAyv3IvAvTx/jlabLMjSi94Td00qjEp4MnI6kkVGoauu9IIq0tgpCB
+	 mgRi7juYXK8jb2QtBZZZSOGjqQc2LnfrJ6osR8uPU1031Q7BnhrhwA2LQvOUELN5TrZ0y
+	 G2wPLRQprE/t/6MWgyerHmFHvXUyIPZGY9kGtKrfbGnjWEhJDwkMw6IkwQqeb1x9XcCqD
+	 TAMXJQvMOizs8jNpL4yT3PGZg9XFrxMmS7ilKFciMbyd6/s1beU/HgGuvnESj+4Fklnfo
+	 6YTJSmct8+g/V+14Ekq/X2txJSrcUfPSi8cgcT3+gK5AdQIM+oBGuckyJWyweteG6iA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795058211;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=2w6oSlklnmQarxzebeoDjZxHvKjdB0SqdWuxQiBzt+0=;
-	b=Phw2ZuiFnSxKBnwWQIeCWQu20nW+LZDnTFI9gNrRR5q+e1AzFP670ig3OiRdUdfALS2G
-	 X0Q9WKGy3zjZ9c9kPni9fxLEBUtOktwMBJ+7FEQ2jK2k89PcFsCX1ujQeb0Vh2eUR4Yed
-	 6iTNWzgy+c/752s3ZHcMiA5gbcl2BjDfbzdRLfTcD/QeocU5qST/hBQhh8U48e6unZMaU
-	 8FbZjzd/mEMA6/Yejet60qUtHzRN08BBY9a9ZNWntjOjHuwmbIhB5DpbP0FcYGrRGzQ6v
-	 vXsQgyJ8M16Nepp9vKruPWXsYG1PipaNhC8Q0MW3SOuJ++huigBUItN5L9OJIKumObw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795058213;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=VtkJ3Z4Keaaf0a1f0xzm9Icf8cIV2tuP8cugNZuGT54=;
+	b=pnEWw+KM12h0HynhF/6Uy6Z8cmMD0mwhWtBjZkYnGOSZNaM2DZgm5Xaoek72Rg4K27Qd
+	 BoqftT/n8vBKUiocIAz4YQYlaObA18wvbtHhiB+taMqIdhATyM8wglG8Y1HGmkWZiprP8
+	 fnEM401sPXGjUSbnEYeSHUyDuX+NnZ5CDq1AmPQOX2bN7OGcbVAWsZL8KzR4V4N/9njf6
+	 8czoc7BgKlyUCgM67e6bCUJP6RzLHmIVVLm19q8C5A1p66mZltnJu3eOZhn2ziLi0rIE8
+	 qGEXDiwKaa9LiZZ5AuP9sGrWjQOAoxlN8tW8Jagwmbl83A9pzD69N3It1WMzxvW0+9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=S3nw4NQn;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=V3EMdyEr;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69796606A31C;
-	Thu, 19 Nov 2026 03:16:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A10C0606A31C;
+	Thu, 19 Nov 2026 03:16:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A10C0606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=S3nw4NQn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3A791F000C4;
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=V3EMdyEr
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 4DD8940E0218;
 	Thu, 19 Nov 2026 03:16:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795058211;
-	bh=2w6oSlklnmQarxzebeoDjZxHvKjdB0SqdWuxQiBzt+0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=S3nw4NQn7Erdk9tfsMM8MVvRMezGJyNJ5JB8TFr211fln8Es/1lRsdAq9BnyALmjf
-	 Vdpqww6tMksAux5XR97y5heeePsiLMzKaJ8XLt/Cwv5k5+Q10a75RFu2X34Dqamgqv
-	 AuQ+ftLNa86uUUacwbCE7dDIcRKVc7vkpVpThcTM=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Junrui Luo <moonafterrain@outlook.com>,
-	Martin Wilck <mwilck@suse.com>,
-	Yu Kuai <yukuai@fygo.io>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10 0406/1848] md/raid5: validate payload size before calculating payload_len
-Date: Wed, 18 Nov 2026 15:40:44 +0100
-Message-ID: <20261118145930.845151602@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118145911.150052362@linuxfoundation.org>
-References: <20261118145911.150052362@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id VpHH9U9LXYh2; Thu, 19 Nov 2026 03:16:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1795058207; bh=VtkJ3Z4Keaaf0a1f0xzm9Icf8cIV2tuP8cugNZuGT54=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=V3EMdyErtl3+eb0ARlj5hDQnMTaOP6JbLxR5nOtglrX+Ro8LaD/q3mQURtXEWna27
+	 3K5MkmKqMoPCcAeb424PU0F8PGncmwrn7EUL7zyWITen+uDb4W0o1Lo1QMfkCPqIMs
+	 +OM6C1dDQXz9Exj7dPafMT9B5STAkxMRa0ztA5uS2GmmAbclZmk314f824ajt0yayE
+	 Ksp6rvUURy9xOPb0Z/rOAteEPgyEDeNaXSHFuwXzPVjv1Mnz7CrA3eJfXFLxgAp6hS
+	 oeWiWJ6LcwlPxrDyl+09JNuG6tOPxpWPsjnsrzDsEwghAkNxYi+VA3XLXlolEOSbKp
+	 u5SpgFBBt1UjLoA8bW5uxxcbPu+PHWiwUrv+Pj6imULat7l0JW9/duqZNYPcqJIZKb
+	 XTQmCLNs9CygKamvnjBmmK32rqigDjLgdKGi+ObTeKIfKyhkMXlQjgA5nIJQUal+jJ
+	 u8cF4TSftjQC8I22sVeCaJdoxCGbav7IeEfpq2aVpQBT4DGI/0s3NvV906ONWsfLms
+	 OoGqh+R4plMdxcfKJob6C5uJppt0J58q+kCFgNpsvKR0Y3K6H7uX4zZ0VHgZSZaLGd
+	 ZAe0GW+RjWKIdnXGiOfn+8OlRrersmS1xfkP9DEC8RIjym+iMLkZHoScoCt78q1lRg
+	 U2ZxYRP4ALWvcg0hLR68Irv4=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::2b])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 0A9AD40E0140;
+	Thu, 19 Nov 2026 03:16:38 +0000 (UTC)
+Date: Wed, 18 Nov 2026 19:16:35 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Nathan Chancellor <nathan@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Ingo Molnar <mingo@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-tip-commits@vger.kernel.org, stable@vger.kernel.org,
+	x86@kernel.org
+Subject: Re: [tip: x86/urgent] x86/build: Do not allow X86_NATIVE_CPU to be
+ enabled when compile testing
+Message-ID: <20261119031635.GFav5qExslqQpbK2Oj@fat_crate.local>
+References: <179480914308.3191731.6125228756396043444.tip-bot2@tip-bot2>
+ <avrPcQ4sOkgJPbkZ@gmail.com>
+ <20261116130159.GA1327949@ax162>
+ <CAHk-=wgmkoWHWwaQ6nsGoCiBp0hrpJuiwmoVbQ=Efun8JyUNKw@mail.gmail.com>
+ <20261116204517.GB1037705@ax162>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,132 +86,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261116204517.GB1037705@ax162>
 
-5.10-stable review patch.  If anyone has any objections, please let me know.
+On Mon, Nov 16, 2026 at 01:45:17PM -0700, Nathan Chancellor wrote:
+> Hmmm, not a bad idea. That does seems to work based on my initial tests,
 
-------------------
+So I'm going to zap what I had queued until we figure out what we really wanna
+do here.
 
-From: Martin Wilck <martin.wilck@suse.com>
+Thx.
 
-[ Upstream commit 38c795105992bbaa3418dd39cbff7348ad17537c ]
-
-Commit b0cc3ae97e89 ("md/raid5: validate payload size before accessing
-journal metadata") introduced a bounds check to verify that a given payload
-fits into the current metadata block. In order to calculate the payload
-size, it has to access the members payload->header.type and payload->size,
-the offset of which may already be past the end of the metadata block,
-because the loop condition only checks that the first byte of the payload
-is inside, and the payload entries have variable sizes. Later on,
-payload->checksum[0] and payload->checksum[1] are accessed without
-verifying that payload->size is large enough.
-
-Add another check to make sure that payload->size can be safely
-accessed, and make sure that the checksum fields are accessible.
-
-This issue has been found by AI (gemma4, Gemini) during a backport
-review.
-
-Cc: Junrui Luo <moonafterrain@outlook.com>
-Cc: stable@vger.kernel.org
-Fixes: b0cc3ae97e89 ("md/raid5: validate payload size before accessing journal metadata")
-Signed-off-by: Martin Wilck <mwilck@suse.com>
-Link: https://patch.msgid.link/20260907155103.2325511-1-mwilck@suse.com
-Signed-off-by: Yu Kuai <yukuai@fygo.io>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/md/raid5-cache.c | 34 ++++++++++++++++++++++++++--------
- 1 file changed, 26 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/md/raid5-cache.c b/drivers/md/raid5-cache.c
-index eb12155b6cb5e..a67984c3d2f4e 100644
---- a/drivers/md/raid5-cache.c
-+++ b/drivers/md/raid5-cache.c
-@@ -2016,27 +2016,36 @@ r5l_recovery_verify_data_checksum_for_mb(struct r5l_log *log,
- 	if (!page)
- 		return -ENOMEM;
- 
--	while (mb_offset < le32_to_cpu(mb->meta_size)) {
-+	while (mb_offset + sizeof(struct r5l_payload_header) <= le32_to_cpu(mb->meta_size)) {
-+		u32 payload_size;
- 		sector_t payload_len;
- 
- 		payload = (void *)mb + mb_offset;
- 		payload_flush = (void *)mb + mb_offset;
- 
- 		if (le16_to_cpu(payload->header.type) == R5LOG_PAYLOAD_DATA) {
-+			if (mb_offset + sizeof(struct r5l_payload_data_parity)
-+			    > le32_to_cpu(mb->meta_size))
-+				goto mismatch;
-+			payload_size = le32_to_cpu(payload->size) >> (PAGE_SHIFT - 9);
- 			payload_len = sizeof(struct r5l_payload_data_parity) +
--				(sector_t)sizeof(__le32) *
--				(le32_to_cpu(payload->size) >> (PAGE_SHIFT - 9));
--			if (mb_offset + payload_len > le32_to_cpu(mb->meta_size))
-+					(sector_t)sizeof(__le32) * payload_size;
-+			if (mb_offset + payload_len > le32_to_cpu(mb->meta_size) ||
-+			    payload_size < 1)
- 				goto mismatch;
- 			if (r5l_recovery_verify_data_checksum(
- 				    log, ctx, page, log_offset,
- 				    payload->checksum[0]) < 0)
- 				goto mismatch;
- 		} else if (le16_to_cpu(payload->header.type) == R5LOG_PAYLOAD_PARITY) {
-+			if (mb_offset + sizeof(struct r5l_payload_data_parity)
-+			    > le32_to_cpu(mb->meta_size))
-+				goto mismatch;
-+			payload_size = le32_to_cpu(payload->size) >> (PAGE_SHIFT - 9);
- 			payload_len = sizeof(struct r5l_payload_data_parity) +
--				(sector_t)sizeof(__le32) *
--				(le32_to_cpu(payload->size) >> (PAGE_SHIFT - 9));
--			if (mb_offset + payload_len > le32_to_cpu(mb->meta_size))
-+					(sector_t)sizeof(__le32) * payload_size;
-+			if (mb_offset + payload_len > le32_to_cpu(mb->meta_size) ||
-+			    payload_size < conf->max_degraded)
- 				goto mismatch;
- 			if (r5l_recovery_verify_data_checksum(
- 				    log, ctx, page, log_offset,
-@@ -2050,6 +2059,9 @@ r5l_recovery_verify_data_checksum_for_mb(struct r5l_log *log,
- 				    payload->checksum[1]) < 0)
- 				goto mismatch;
- 		} else if (le16_to_cpu(payload->header.type) == R5LOG_PAYLOAD_FLUSH) {
-+			if (mb_offset + sizeof(struct r5l_payload_flush)
-+			    > le32_to_cpu(mb->meta_size))
-+				goto mismatch;
- 			payload_len = sizeof(struct r5l_payload_flush) +
- 				(sector_t)le32_to_cpu(payload_flush->size);
- 			if (mb_offset + payload_len > le32_to_cpu(mb->meta_size))
-@@ -2111,7 +2123,7 @@ r5c_recovery_analyze_meta_block(struct r5l_log *log,
- 	mb_offset = sizeof(struct r5l_meta_block);
- 	log_offset = r5l_ring_add(log, ctx->pos, BLOCK_SECTORS);
- 
--	while (mb_offset < le32_to_cpu(mb->meta_size)) {
-+	while (mb_offset + sizeof(struct r5l_payload_header) < le32_to_cpu(mb->meta_size)) {
- 		sector_t payload_len;
- 		int dd;
- 
-@@ -2121,6 +2133,9 @@ r5c_recovery_analyze_meta_block(struct r5l_log *log,
- 		if (le16_to_cpu(payload->header.type) == R5LOG_PAYLOAD_FLUSH) {
- 			int i, count;
- 
-+			if (mb_offset + sizeof(struct r5l_payload_flush) >
-+			    le32_to_cpu(mb->meta_size))
-+				return -EINVAL;
- 			payload_len = sizeof(struct r5l_payload_flush) +
- 				(sector_t)le32_to_cpu(payload_flush->size);
- 			if (mb_offset + payload_len >
-@@ -2145,6 +2160,9 @@ r5c_recovery_analyze_meta_block(struct r5l_log *log,
- 		}
- 
- 		/* DATA or PARITY payload */
-+		if (mb_offset + sizeof(struct r5l_payload_data_parity) >
-+		    le32_to_cpu(mb->meta_size))
-+			return -EINVAL;
- 		payload_len = sizeof(struct r5l_payload_data_parity) +
- 			(sector_t)sizeof(__le32) *
- 			(le32_to_cpu(payload->size) >> (PAGE_SHIFT - 9));
 -- 
-2.53.0
+Regards/Gruss,
+    Boris.
 
-
-
+https://people.kernel.org/tglx/notes-about-netiquette
