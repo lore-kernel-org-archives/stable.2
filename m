@@ -1,51 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795096185;
-	b=NqB3esV4TTXDfI/vZw5GIoqGza6EL+7Qpwh7dRuZddFqvnADq/KjG8KPd3BH1c3S4TW+
-	 GyzwdgeXQSxPn6jYssnpgc9H3d3uNidU3I6W1/3bcFPFjz8ggqRVL63Ef4RtUJI2r9uJB
-	 XozRkGMbIUtMpbhb0YnNJ8B0/nEVoG3AoBedkQPEQ+QvyDpBcB8P9QExbP6JAeHhojvkl
-	 9p7CTUdmHKikszQ/H1ekuZghv8A7rgMc9lzCxVhqA+txfn90d3SKHl1EfXkqu4BEGnm6k
-	 uNVzdo37ya472Ba6uPlPPz+QSmblyzcBZyfawTwHBzGmxF6Mn5mlBmr6Jj8+qlQqjlg==
+	t=1795096187;
+	b=nHECj93Mksh79PaxKMWy88ywpXdcNSRY+dO+RMNIVd8i5stSJipLAlwkmRs/0rbNJFRr
+	 /oetvnfrvDJNo9NNbBI5KjBzBpXYaXek0hCSDKQW+Mk2e+qJPVkhwrVjEyJPuvy+OIxQI
+	 A4/t6fzoa3HdDTAl90GAIcWCqtzbWpEWHVMCyfxq0PefnbzQYwdavRcm0silpXLKf7DKt
+	 ZHLAfwRDbBXIAEQejcrpKMEm0jXiZSc4qSGjzlWjULDAZLssn4FVNeffLFI9rkAapvZWG
+	 CgvTc5ibfTSlvfz3ktDav0whe/E3zNHGCAbVoPuEOloHCK5wYFxadcbMSzjn8n/kqwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795096185;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795096187;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=VF8D/NpkOVfXwYS7vocB3YSAlBjCCPP6hp45RuIin7I=;
-	b=QL20OMXSMZQ8d94EByPFZFlUdhfAWpo1ififH3ZKBBRZyjh35lvut8QCCxka4XqwW25v
-	 +fYU20fPHxv8n2NyLDj2/OaX6/tjAoFAqQrbqvlFFrSLYkN4xDlvAF9e0V5eKgkyxHNZn
-	 nE636DZjaCdj0rTabhbCyBY1E01zyw5sPIJJPL2Yt4ZZQFBs89grfLfH47mz80kHfMerK
-	 PqbBPl6z317bUp25uLevybWKn38RNkNn5xEi4RnlN5zuzJ59R1wWAeCn0pdeJXSzbXCmx
-	 kjkIsrXZbFPr9oP6zFEVRwc85z17NJmlXlt2MsYWYI1V8pVydBai7A1EcVvG/lVaD6Q==
+	bh=YUpRYsuuZ9zTOzlFogFq/lthSpzrXEJar3Q39+/3IbQ=;
+	b=x66nzJXZumQwNnSU2Q+8T6EvvH6HlpVovPT3xliRSwp/iL6eke8wQWW8lAXpGgNhbyFL
+	 J8V7usnZ6PUEscl8a08V0ErbdIlhcUxfHtRPOxiyyZn7WLzXQEM/AmflxE2s6ZSzD101/
+	 G2nzdomXdwU2ZPCCaoNx0eGq9U4+5N4jAww0ME1+uqeDa0+TLZmkGzR3jY/bC1QGqbfNZ
+	 tJ59sxRSVph5YgcLXzUwv2hov/eQx927YTRPofrZ7Nl/q0qFbwo86yb8rKm15Jdv8/itY
+	 z2YxKSykXa8apw966TnbvFG6D/ul5iIFFcQLTD7lYwzNn1g3keXg50w8xvq6PZE1hFQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=JkMS5KGC;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=hbKXENpL;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF482606A32C;
-	Thu, 19 Nov 2026 13:49:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AF482606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1E560A2636;
+	Thu, 19 Nov 2026 13:49:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F1E560A2636
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=JkMS5KGC
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=hbKXENpL
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795096184;
-	bh=VF8D/NpkOVfXwYS7vocB3YSAlBjCCPP6hp45RuIin7I=;
+	s=smtpout1; t=1795096185;
+	bh=YUpRYsuuZ9zTOzlFogFq/lthSpzrXEJar3Q39+/3IbQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=JkMS5KGCdrAAyJr/6GlBCW303t/UdNmymt4owZaDqKKccoJEp8Lwhz8fr7OHQDg/M
-	 2qQwu1a+gV0ciCPc2dyVrl/2Zgw5HnPsHZo+NCZWHGMlbKrBbv1UTB1wf3PKfzAQNx
-	 7j8sWcTaz1l87XRioH3TIx5ACzW76wfIpsDTHTPJqwOvY76xdl65mNYJ7WkWA6os0X
-	 +soN3u8jDIfL8fm3bPD5UqGHiJHZhh1aOj1EvE2rQH7F9qXNVAnPCDcSMag3JQ7eyl
-	 Og1nfac5EM17gIKYEVLGQXNpKyco8OSipdS8BqguFeFgen5OYG9VC6w/jpFFA8neZD
-	 116SgwAwVdyDw==
+	b=hbKXENpL4INeV/TK/ZoylljQOOpF4A1MtYUHCywwjIKpdEPWRrugVUMEGl6A3puFe
+	 7RYbkk/yBeP+rGXL4/XxFSD7LdBQfcbHK2e3YjjdU1fbObxka2SAH8w/e3N6JbWCn8
+	 4GNVDZ5sOjmycyVXOiVO1utFrchAlqkoaX4GwZ8wc5Cbzc+0SKLh+iQOBlvlrDApXW
+	 falMbdO0XAJY+qhMUwuxc80RPCWx7szMQEWZUXOVSlj8ns7rrRGjjnsdLbaVStVWsg
+	 8cV3uXQpE0gUJzLNn4OcB2VZ7RekKP9cy8c3HF3BfIe38DsgpWsA1gKcBPXK8wa8He
+	 Yop+PEHuOSMWg==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVfwR6MTFzRM6;
-	Thu, 19 Nov 2026 08:49:43 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVfwT1gGnzRf9;
+	Thu, 19 Nov 2026 08:49:45 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: juri.lelli@redhat.com,
 	peterz@infradead.org,
@@ -80,9 +80,9 @@ Cc: linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-rt-devel@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH v3 02/17] sched/deadline: Do not admit bandwidth for parameters that are kept
-Date: Thu, 19 Nov 2026 08:49:25 -0500
-Message-Id: <ab5b150fe61d5db767aa98f1b1255661ad5de333.1795092090.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH v3 09/17] sched/deadline: Reset the deadline and the runtime with the parameters
+Date: Thu, 19 Nov 2026 08:49:32 -0500
+Message-Id: <07a810645c5ab919a52ffe2cc4b63074a84751fb.1795092090.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1795092090.git.mathieu.desnoyers@efficios.com>
 References: <cover.1795092090.git.mathieu.desnoyers@efficios.com>
@@ -97,60 +97,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__sched_setscheduler() runs the deadline admission test on a request
-with SCHED_FLAG_KEEP_PARAMS. But the task keeps its parameters: the
-call skips __setscheduler_params().
+A task that leaves SCHED_DEADLINE keeps its parameters until its 0-lag
+time, so that leaving and coming back gains nothing. Commit 209a0cbda7a0
+("sched/deadline: Improve the tracking of active utilization") moved
+their reset to that time. Before it, the replenishment timer did the
+reset at the deadline. So a task back after the reset found its
+deadline passed, and started a new period. But __dl_clear_params()
+resets neither the deadline nor the runtime.
 
-Commit f4dddf90d58d ("sched: Skip priority checks with
-SCHED_FLAG_KEEP_PARAMS") made sys_sched_setattr() copy the task's own
-parameters into such a request. Then the priority checks pass.
-get_params() copies them without a lock.
+Now a task back after its 0-lag time can be enqueued on its old
+deadline and runtime. With runtime left, its 0-lag time comes before
+its deadline. Back before that deadline, it would first spend the runtime
+of the reservation it gave back. Back after it, a constrained task
+would be throttled until its old period ends. "sched/deadline: Do not
+lose a throttled task switched out and back" moves the deadline of a
+throttled task on. This widens the window before the deadline to about
+a period.
 
-Another call can change the task's parameters before
-__sched_setscheduler() takes the runqueue lock. The request is then
-stale, and dl_param_changed() takes it for a change. sched_dl_overflow()
-would put the stale bandwidth in place of the task's own in total_bw,
-and in this_bw for a sleeping task. But the task keeps its own dl_bw.
-Its release at the 0-lag time takes that dl_bw, and the difference
-stays behind.
+A task with no parameters of its own, boosted by a deadline waiter,
+keeps the donor's deadline and runtime after its deboost. If it then
+enters SCHED_DEADLINE before that deadline, it runs on the donor's
+runtime. On v7.4-rc2, a task of 10ms per 100ms ran 40ms of its first
+period.
 
-Fix this by skipping sched_dl_overflow() for SCHED_FLAG_KEEP_PARAMS.
-There is nothing to admit for parameters that are kept.
+Fix this by resetting the deadline and the runtime in
+__dl_clear_params(), and in switched_from_dl() at the deboost of a task
+with no parameters. The next enqueue then starts a new period.
 
-Found by reading, after the Sashiko AI review of this series raised the
-boosted case of the previous patch. Not reproduced: the parameter change
-must land inside that window.
+The Sashiko AI review of this series found the first case and the
+deboost. The deboost_resets_period case of deadline_bw_test, added later
+in this series, tests the deboost.
 
-Fixes: a509a7cd7974 ("sched/uclamp: Extend sched_setattr() to support utilization clamping")
+Fixes: 209a0cbda7a0 ("sched/deadline: Improve the tracking of active utilization")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
+Acked-by: Juri Lelli <juri.lelli@redhat.com>
 Cc: stable@vger.kernel.org
 ---
- kernel/sched/syscalls.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ kernel/sched/deadline.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index 89b0d5787f45..6f8ce5fd94a1 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -690,8 +690,16 @@ int __sched_setscheduler(struct task_struct *p,
- 	 * of a SCHED_DEADLINE task) we need to check if enough bandwidth
- 	 * is available. Keep this check last. If a later check failed,
- 	 * nothing would give back the bandwidth it reserves.
-+	 *
-+	 * With SCHED_FLAG_KEEP_PARAMS, the task keeps its parameters, so
-+	 * there is nothing to admit. Such a call changes other attributes,
-+	 * such as the utilization clamps. A deadline task does not use its
-+	 * clamps, but keeps them for when it leaves the class. The
-+	 * parameters in attr may also be stale: sys_sched_setattr() read
-+	 * them from the task without a lock.
- 	 */
--	if ((dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
-+	if (!(attr->sched_flags & SCHED_FLAG_KEEP_PARAMS) &&
-+	    (dl_policy(policy) || dl_task(p)) && sched_dl_overflow(p, policy, attr)) {
- 		retval = -EBUSY;
- 		goto unlock;
- 	}
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index 71b1c155c242..d6d2657dcddd 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -3569,6 +3569,16 @@ static void switched_from_dl(struct rq *rq, struct task_struct *p)
+ 	if (task_on_rq_queued(p) && p->dl.dl_runtime)
+ 		task_non_contending(&p->dl, false);
+ 
++	/*
++	 * A task with no parameters of its own was boosted into the class.
++	 * Its deadline and runtime are the donor's. Reset them, so that its
++	 * next entry into the class starts a new period.
++	 */
++	if (!p->dl.dl_runtime) {
++		p->dl.deadline = 0;
++		p->dl.runtime = 0;
++	}
++
+ 	/*
+ 	 * In case a task is setscheduled out from SCHED_DEADLINE we need to
+ 	 * keep track of that on its cpuset (for correct bandwidth tracking).
+@@ -3984,7 +3994,8 @@ bool __checkparam_dl(const struct sched_attr *attr)
+ }
+ 
+ /*
+- * This function clears the sched_dl_entity static params.
++ * Clear the static parameters of @dl_se. Also reset its deadline and its
++ * runtime, so that its next enqueue starts a new period.
+  */
+ static void __dl_clear_params(struct sched_dl_entity *dl_se)
+ {
+@@ -3995,6 +4006,9 @@ static void __dl_clear_params(struct sched_dl_entity *dl_se)
+ 	dl_se->dl_bw			= 0;
+ 	dl_se->dl_density		= 0;
+ 
++	dl_se->deadline			= 0;
++	dl_se->runtime			= 0;
++
+ 	dl_se->dl_throttled		= 0;
+ 	dl_se->dl_yielded		= 0;
+ 	dl_se->dl_non_contending	= 0;
 -- 
 2.47.3
 
