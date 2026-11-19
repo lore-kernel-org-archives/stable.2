@@ -1,101 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1795097582;
-	b=pycJeX9bflrv0VuU/jhTkfjR07Hje2LIBnH08Ud4G4NHcmmf1MG0Mhz8cGBMjMmMcvsx
-	 Nxkm5feHG504pZDeKEM/6onRuHnJJzX1dOq++A9uY9wMyaprBZICmr7yBgON0EuSG3Nee
-	 tCMk0e3i+C4Y0kH4xEFuLHMZIEhyTgxIkJ0+5xFFyA/7jiMTP/TedKTMQtKCr9AXdjs0O
-	 v03SgzUUp8ElA4GDzKfeDQ8RW/GKmaLkAgZufyaEu+oYchf5JWApw4t9gUhahAi7K37wO
-	 oCZhEacFL78Y16raldSuth34ESZL98o1AECvu0h0ZHn6KdQtX6scHN8B72EhZEnGEzg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795097582;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=w/ilLozYd3yRSspJfrhijv1emqLes2PCX8KGijxL0l8=;
-	b=ds30I+Cttc8n61ejI/qvXPlnmxVC5YYcSG7NwzLB5BKN5dTENF9BUUtRJrgX+OnQckcx
-	 bC2y8LmE0irRbN6f7zX6NDqjNP1gWdr+gbucAV+kuMOcNEt/KFxcfEMbst4qH/Sikxnfd
-	 RJzHPc4KbCDHY3Dzuw/L/lFzoWxeDaQ6UI8Cl4Q9sjVsSplUOVvjMaFWQ6aStlFQB1caw
-	 DbNR18IeXnHEbK+qDql/nLhutIMF8U6mhOgOWWarx9ZoWyXgEKAWbP10wuQWMokruC/Yu
-	 /iGh8RM5MX+kBpO5J/YtXLiDVFLltwxIkZtIQvQ1bBop9md/lBXwAa60y9FK1vKzn5A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pB+6HyHB;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.50
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.12
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1795097785;
+	b=1i6bXJTFmCU/2GbUjIxeXOPU9+T/eAEj+9OkKu917d9CQDJY3oy9s0J8gdspuVYxRU/j
+	 Q5E8dbKWM4q9uZ2xErNLhA2MYUFG1BFN6sfTmZLSzLxWTJkjUh4px+ESLemVRLgqkZjQu
+	 tLA0jv1Aq/i0Ntl2Ufm4VaXW03rAARnxotdx6Eu1hE4KXzm8QYdIx47J/XAqddn/sH0vI
+	 IosW68h58tuqyYTa8YYTdtDtR757TOTCtj6lmH/gSBGsA11LIBwbm9TimCQtPMJO3R1tM
+	 tcOJCzcVKJT/m8yeDVr8fDD1piXrUHWXkWkYnUNe7F9BABO1UxvCaJCkLWdQBKcw5Lw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795097785;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=RvP7hMRsWVM8btK1nsXQy/u5gRKUh/9shR14WhIy4BM=;
+	b=nBKVMx/qfRi4Fpf3a0n9n6nKiE16s/6VCjV4UIQA5CskHwda5JuAGUI1+n9w7spIFcc5
+	 FQtHfyhIW6AP9859n0232S5wic0hnUUik2lFig2QklcgdbovoigyxPa7Yazp+IOabxmB7
+	 G7RBpc8OYXj0q/vE0SXMEQuu4IbQhFoBJcJnPU9xeRwhRIC0JcV9ICEtaNN8aTKbshTS/
+	 HhiuqQ0XPCajXyL4GeOIR33lIxgo2jKI7jN8/JZGjQ3Aq7o+k+xO44LZD25GZehY3+vfq
+	 nvjQYalFo9HrYfHchA4KODXyuGnuH8LwNhISMbLRHr7vMeZXc9a4HnMd3ISMZYuaPNQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Dys+RchT;
+	arc=none smtp.remote-ip=198.175.65.12
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97ADD606A32F
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 14:13:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97ADD606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECAEA606A320;
+	Thu, 19 Nov 2026 14:16:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECAEA606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=pB+6HyHB
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c5133831027so68749566b.2
-        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 06:13:01 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795097580; cv=none;
-        d=google.com; s=arc-20260327;
-        b=LJLZcmv6x1OElR8upyvg/M4xZupEJ0KLGZdZPbrC67ZP/KKhiasOGFK/pKYtx54Xb+
-         A5HemN0KfE56PFTdJsIL7jqPU0HiERySPxhWkWbpggsojhYZQ12X9VX0ztUTTXCDCMiZ
-         AtN23nqo5tiVAYt6Oe2+/5mrx4Nwc39JsSwSy0unRzY6h2+NcU3z42OvVZcx09nf7TAV
-         C4QA6maHZMN/rOIuMacgmrmNwlXR+6YoerKGPsA5kp1f1DywbqJrmeiVuY9Yn3ueOjBc
-         W7GkW1skrkZbayfPx/PPxfPwb+LeN+ohUfEDDeDzbkXr5cm1vi20vSd9K80M/o2rhzg0
-         KlYg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=w/ilLozYd3yRSspJfrhijv1emqLes2PCX8KGijxL0l8=;
-        fh=ZGsnJxf9YHb7+AiTl12LKBfJkSc7JPILC/K9uqe7Pgk=;
-        b=oUg+HUVlV6kgcgTrwUi51bwDYUXBrY9RlfPf2IW0tMgfaFQ4827eJaHkyrxzw7Gi1C
-         aiarQaZ8KPUvLnY0kWr2FPCPgZ17/r54379yS4J06RZ7QW94ux18JRmQGACVOkKwZDfl
-         fzn2p/Frzjrsrm3vXK9Vt0taMQ+nynjIwWVBw1zS7pMYloH5pOQWZdzV7jP5BM2ipJhw
-         qS+tRYV1ClCtA9frgxE1EAG6DJ7jlJKDFeM8Rwzol6chASIDg5N+iBC6j/u4jCWiKIZo
-         ajWPSGiqgURyYB+RMylzvm8sDPof/jYSZPind1Z0E/qWUtwpg9dYhGloHF+8CbjcAXEu
-         LDWw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1795097580; x=1795702380; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w/ilLozYd3yRSspJfrhijv1emqLes2PCX8KGijxL0l8=;
-        b=pB+6HyHBq795Hz10gM850FSsxP7zowkhuGNbEpeovCZdBGyaWC0s7AIXlE00N/gtcW
-         Ar9oMTjXyINVaLNgnFgEJ6PpC0vNshHkeYa590GKgbrQ8+BNdFXnqgJNcyh8EjarIA23
-         O2oUEEoQNkQzjt4dihOFEIRqmOUtp6IdpEyYMDi3PUWkCzWYFkLkTqgyqU0zjQz8lIu/
-         zTRW2K37Mlg8hjWJuz8TlJ8bsZr8JMCKZ8i0AW8MxQmHdbM3VMZ3QkCVerxATW4opIRi
-         bnX+dIkHttZIG5ljy0CUAH8SiL3py6BDHE7S9OLa7+v57idNTW3y7j9xemrcDaz3aPxu
-         /YxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795097580; x=1795702380;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w/ilLozYd3yRSspJfrhijv1emqLes2PCX8KGijxL0l8=;
-        b=KMqo8drAa0Hyj2RwAPoS4pT6wseAuphNSroHm2I/pudsJazXGUeo2R5Eej79Lw5xFz
-         oQmXTh/bRtl5sVBLJEjCJshU3xBqusgFcsF1EHM5tSM1FQn4e57uN62wtwuQ6lUWffJj
-         7MqhseKllhsl1ZFbikLCl9JfxbA5WPchMfUnc0BlaaY25FhPOelSD9WPqNrvazaOerpZ
-         o5sJca0aUkxsqJpiuzU1r77M3niXPr7qcOukyahbfPj2VROKnXsGUhq33nNyyYiBeEaq
-         pPlJFO+CxKO4fQ5ipMOB9+7fBudrl773aziqBNaiYudgfJ1VNosxPbmA7hJQ4UJKt0Y4
-         9UUg==
-X-Forwarded-Encrypted: i=1; AL+hErGDX/SekYxQj2FLNKCkcMLo1sYp8p9CzR83oPwfR2xkg85mN0kPzRiGzxyOhmKN4/TjtJH3fME=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8uA/Vw8gVbO3R5Diwp9ClBNigiuIn5bE2rHM8QwblSI6qWJkBL
-	w/Z8zJuPsXHq4X4hyPOpVfez/BaUcBHfHHPIVZwGTK6OzM7G2HMV0eo1o2BlKCfFnpv9Gjo5vyK
-	xAqNZGcevdF3em17UjAjh+ihHMV62y4qC+RCAfBmL
-X-Gm-Gg: AYBFou2ROtQUvjnHd7dihb4Kul/GF8ojtqfbXrjNTC0UjZWUVq36b149u4E+5ioxIhd
-	ZBuCmauH7vnshB5WkkxivZ2iJ6s0M1cbRCM4sGtuVlKo5GN7pLzJyY/XPGNAQsVUFM518qIjXbr
-	+9YYWdx9vPITkEw6ihp210zZ4CWq80kTrEbGZcMovs/llb1Z+lSfwlrqukNcZ2GMheGdyPyz9wJ
-	fmzjAaJdnohNrWI2+gQflSiw9ESJq7gzWb/4ZkvJiwy8GAOnoE9klIDJ/bInpXxESlBcgAnksik
-	ABRqPc1Q2RQDyQj30vACAPxiV18hgyOhLZWI7IvoJIreXiSbLGLpWt33QiG/FZV43z/UuUHiLzi
-	a+Tl039jT5K8466EkeJettBTvSenQnuBWQOITia4gDgnvbxNNmgdPic8Qs0kFsSBHfQY3rIP6gw
-	KrL+neHKHR9jPaZcU=
-X-Received: by 2002:a17:906:c104:b0:c2a:ad55:b3fa with SMTP id
- a640c23a62f3a-c513a434889mr1072366b.7.1795097579236; Thu, 19 Nov 2026
- 06:12:59 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Dys+RchT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795097785; x=1826633785;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cYUbJ6JlPEmLhq2na7DI0qoGMRjgS9yB45BhkEJbc30=;
+  b=Dys+RchTqL1eqXy2saJIVF+GNhr9xbXZQ7Vd0bU/oGjbKtUOGMr+LlKp
+   Zn7QFLIz8HnZQYMWqs/Bkfs5W+aJu2g5lKb5eUcITE28JR8OWUhguupC1
+   wdNzRokqQe2v3Xw3+oJTH1ik6vdt2o6U3PKGj8fxk8bMfblsU18gggpkD
+   FVy8Gbv9IfAK6LXLvY5NXvuFiDMeF9kELn8az7wvdmRg2/DO2dVc1+xfc
+   Mzrz4FjzDgQwkCdZpvUVjiRdXkXRHbdxBvDHx0E+MPMQuaQGbrnvQg0wa
+   DQ2LUJyhV3qe+2j4tzn+d6ZZwaomX6GhOloqW1rPVrXA7Mq1nnlGZMiA/
+   Q==;
+X-CSE-ConnectionGUID: gVrcFUu6S82rKhshTzMfdg==
+X-CSE-MsgGUID: BtvjOTMvSqSBNufiLrQAfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="3829150"
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="3829150"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 06:16:24 -0800
+X-CSE-ConnectionGUID: QH6PJbYKQTqH6/WBBp8Z7Q==
+X-CSE-MsgGUID: B26etjMyShm5utmiEYgYEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
+   d="scan'208";a="10669841"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.61])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 06:16:22 -0800
+Date: Thu, 19 Nov 2026 16:16:19 +0200
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: silverducks@altlinux.org, Basavaraj Natikar <Basavaraj.Natikar@amd.com>,
+	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
+Cc: linux-gpio@vger.kernel.org, Mika Westerberg <westeri@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-acpi@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] gpiolib: acpi: Add ignore_wake quirk for Gigabyte
+ B650 GAMING X AX
+Message-ID: <av8EszUWsJIq3hIV@ashevche-desk.local>
+References: <20261119083813.390337-1-silverducks@altlinux.org>
+ <20261119122844.445945-2-silverducks@altlinux.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -105,183 +83,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261116224308.986555-1-joshwash@google.com> <179495835918.3136.2006086240050992361@kernel.org>
- <CAJcM6BGpwRPm6bhRWp6BWLsaTzwYd__x=tyQqpAcbOKsBCxekQ@mail.gmail.com>
-In-Reply-To: <CAJcM6BGpwRPm6bhRWp6BWLsaTzwYd__x=tyQqpAcbOKsBCxekQ@mail.gmail.com>
-From: Ankit Garg <nktgrg@google.com>
-Date: Thu, 19 Nov 2026 06:12:47 -0800
-X-Gm-Features: AclHuK8WoTWkqmw29NUYRmt8h6v6x5oiORA3vRlTHvm3zvXH5MgdiZe-ehExt1k
-Message-ID: <CAJcM6BF1HLM2MPUrsEpq+qE8H788vxn7JTNVOcd3B+0ReCtdeA@mail.gmail.com>
-Subject: Re: [PATCH net v2] gve: fix checksum state and gso_segs of HW-GRO packets
-To: netdev-bot+sashiko@kernel.org
-Cc: joshwash@google.com, netdev@vger.kernel.org, hramamurthy@google.com, 
-	andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org, 
-	kuba@kernel.org, pabeni@redhat.com, jordanrhee@google.com, thostet@google.com, 
-	willemb@google.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	pkaligineedi@google.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261119122844.445945-2-silverducks@altlinux.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Nov 17, 2026 at 8:33=E2=80=AFPM Ankit Garg <nktgrg@google.com> wrot=
-e:
->
-> On Tue, Nov 17, 2026 at 3:32=E2=80=AFPM <netdev-bot+sashiko@kernel.org> w=
-rote:
-> >
-> > Thank you for your contribution! Sashiko AI review found 1 potential
-> > issue(s) to consider.
-> >
-> > Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 0
-> >
-> > If you believe none of the issues are legitimate, please reply to each
-> > issue of Medium severity or higher and explain why the AI is wrong.
-> > If any of them are legitimate and you plan to respin, please let patchw=
-ork
-> > know by including "pw-bot: cr" as a separate line at the end of your re=
-ply
-> > (one such reply per series is enough).
-> >
-> > - [Medium] gve_rx_complete_rsc()
-> >   (drivers/net/ethernet/google/gve/gve_rx_dqo.c) works out where the TC=
-P=E2=80=A6
-> >
-> > --
-> >
-> > gve: fix checksum state and gso_segs of HW-GRO packets
-> >
-> > This patch makes gve_rx_complete_rsc() set the network and transport
-> > headers on HW-GRO packets. For device-verified packets it also seeds
-> > th->check with the TCP pseudo-header checksum and calls tcp_gro_complet=
-e(),
-> > so forwarded HW-GRO skbs can be resegmented correctly. IPv4 and IPv6 ar=
-e
-> > now told apart by EtherType, and gso_segs is computed from the TCP payl=
-oad
-> > length.
-> >
-> > > diff --git a/drivers/net/ethernet/google/gve/gve_rx_dqo.c b/drivers/n=
-et/ethernet/google/gve/gve_rx_dqo.c
-> > > index 82ed5e48b00ab..b4dbfb1ba39b0 100644
-> > > --- a/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-> > > +++ b/drivers/net/ethernet/google/gve/gve_rx_dqo.c
-> >
-> > [ ... ]
-> >
-> > > @@ -1049,10 +1061,50 @@ static int gve_rx_complete_rsc(struct sk_buff=
- *skb,
-> > >               skb_frag_off_add(frag, hdr_len);
-> > >               skb->data_len -=3D hdr_len;
-> > >               skb->tail +=3D hdr_len;
-> > > +             /* napi_gro_frags() pulls the Ethernet header later. */
-> > > +             nhoff =3D ETH_HLEN;
-> > > +     }
-> > > +
-> > > +     /* The header lengths come from the packet, so make sure the he=
-aders are
-> > > +      * in the linear part before reading them and writing th->check=
-.
-> > > +      */
-> > > +     if (unlikely(skb_headlen(skb) < nhoff + sizeof(struct iphdr)))
-> > > +             return -EINVAL;
-> > > +
-> > > +     skb_set_network_header(skb, nhoff);
-> > > +     proto =3D nhoff ? ((struct ethhdr *)skb->data)->h_proto : skb->=
-protocol;
-> > > +     switch (proto) {
-> > > +     case htons(ETH_P_IP):
-> > > +             gso_type =3D SKB_GSO_TCPV4;
-> > > +             thoff =3D nhoff + ip_hdrlen(skb);
-> > > +             break;
-> > > +     case htons(ETH_P_IPV6):
-> > > +             gso_type =3D SKB_GSO_TCPV6;
-> > > +             thoff =3D nhoff + sizeof(struct ipv6hdr);
-> >
-> > [Severity: Medium]
-> > Is it safe to assume the TCP header comes right after the fixed IPv6
-> > header here?
-> >
-> > Nothing checks ipv6_hdr(skb)->nexthdr =3D=3D IPPROTO_TCP or desc->ipv6_=
-ex_add.
-> > The IPv4 case above also uses ip_hdrlen() without checking
-> > ip_hdr(skb)->protocol =3D=3D IPPROTO_TCP. The only sign that L4 is TCP =
-is the
-> > ptype.l4_type check at the top of gve_rx_complete_rsc().
-> >
-> > The descriptor suggests the device does parse IPv6 extension headers:
-> >
-> > gve_desc_dqo.h:
-> >         /* Set when IPv6 packet contains a destination options header o=
-r routing
-> >          * header.
-> >          */
-> >         u8 ipv6_ex_add: 1;
-> >
-> > gve_rx_skb_csum() only holds back CHECKSUM_UNNECESSARY when that bit is
-> > set:
-> >
-> >         } else if (ptype.l3_type =3D=3D GVE_L3_TYPE_IPV6) {
-> >                 /* Checksum should be skipped if this flag is set. */
-> >                 if (unlikely(desc->ipv6_ex_add))
-> >                         return;
-> >         }
-> >
-> > So an IPv6/TCP packet with a hop-by-hop header and a device-verified
-> > checksum would still be CHECKSUM_UNNECESSARY when it gets here.
-> >
-> > Suppose the device coalesces such a packet, or a tunnelled packet whose
-> > ptype reports the inner L4 as TCP. Then thoff would point into the
-> > extension or tunnel header, and tcp_hdrlen() would read doff from the
-> > wrong bytes.
-> >
-> > gve_rx_fixup_gro_checksum() would then write the pseudo-header seed at
-> > that offset:
-> >
-> >         th->check =3D ~tcp_v6_check(len, &ipv6_hdr(skb)->saddr,
-> >                                   &ipv6_hdr(skb)->daddr, 0);
-> >
-> > tcp_gro_complete() would also set csum_start, csum_offset and
-> > CHECKSUM_PARTIAL at that offset.
-> >
-> > Wouldn't a forwarded packet then leave through TSO/GSO with a bad
-> > checksum? That is the same blackholing this patch sets out to fix.
-> >
-> > The destination-options and routing cases are CHECKSUM_NONE, but they
-> > still hit the wrong doff. That could drop a valid packet with -EINVAL o=
-r
-> > give it a wrong gso_segs. It could also take the new early return:
-> >
-> >         payload =3D skb->len - thoff - tcp_hdrlen(skb);
-> >         if (payload <=3D rsc_seg_len)
-> >                 return 0;
-> >
-> > and deliver a multi-segment coalesced packet without gso_size.
-> >
-> > Before this patch the RSC path never read or wrote the TCP header, so
-> > this assumption is new. The changelog gives the VLAN guarantee ("The
-> > device does not coalesce VLAN tagged frames"), but says nothing about
-> > IPv6 extension headers or encapsulation.
-> >
-> > For comparison, bnx2x_set_gro_params() documents the matching hardware
-> > guarantee ("TPA aggregation won't have either IP options or TCP options
-> > other than timestamp or IPv6 extension headers"). The mlx5 SHAMPO path
-> > checks ipv6->nexthdr =3D=3D IPPROTO_TCP.
-> >
-> > Could the device guarantee be documented in the changelog and in a
-> > comment? Alternatively, could this check ip_hdr(skb)->protocol and
-> > ipv6_hdr(skb)->nexthdr against IPPROTO_TCP (and ihl >=3D 5), and skip t=
-he
-> > GSO and checksum fixup otherwise?
-> >
-> GVE device doesn't coalesce IPv6 packets with extension headers. I
-> will send a v3 documenting that guarantee in changelog.
-> > --
-> > Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/pat=
-chset/20261116224308.986555-1-joshwash%40google.com
-> pw-bot: cr
+On Thu, Nov 19, 2026 at 03:28:45PM +0300, silverducks@altlinux.org wrote:
 
-This is superseded by v3
-(https://lore.kernel.org/netdev/20261118212045.3575303-1-joshwash@google.co=
-m/).
-Replying again to get patchwork bot to mark v2 as such.
++Cc: AMD folks.
 
-pw-bot: cr
+> The firmware's _AEI table on the Gigabyte B650 GAMING X AX declares AMD
+> GPIO pin 3 as GpioInt(Edge, ActiveLow, ExclusiveAndWake). gpiolib-acpi
+> requests it as "ACPI:Event" and amd_gpio_irq_set_wake() arms the hardware
+> S3 wake bit for that pin. The firmware then sends the signal a few seconds
+> after entering S3, so the machine resumes on it's own six to ten seconds
+> after suspend.
+> 
+> Pin 3 is the only wake signal the OS can see for the whole GPP7 PCIe
+> domain, and GPP7 has no _PRW, so ignoring this wake flag is the only way to
+> keep S3 reliable on this board. Wake from USB keyboards/mouse and
+> Wake-on-LAN through that domain is lost as a consequence, but I figure S3
+> not working at all is worse. The power button still wakes the machine as
+> normal.
+
+Hmm... And you are running the latest BIOS?
+
+> ---
+> v2 - Put real name in signoff; Moved testing information to comment.
+> 
+> Quirk tested on upstream kernel v7.4-rc2.  Also tested on stable kernel
+> v6.12, which is the version where the issue was originally diagnosed.
+
+...
+
+> +	{
+> +		/*
+> +		 * Spurious wake from S3: the firmware _AEI table declares AMD GPIO
+> +		 * pin 3 (GPP7 group) as Edge/ActiveLow ExclusiveAndWake, so gpiolib-acpi
+> +		 * requests it as ACPI:Event and amd_gpio_irq_set_wake() arms the
+> +		 * hardware S0i3/S3 wake bit. The firmware asserts this signal during
+> +		 * S3 entry regardless of the PCI wake sources configured by the OS,
+> +		 * waking the machine a few seconds after suspend.
+> +		 */
+> +		.matches = {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "Gigabyte Technology Co., Ltd."),
+> +			DMI_MATCH(DMI_PRODUCT_NAME, "B650 GAMING X AX"),
+> +		},
+> +		.driver_data = &(struct acpi_gpiolib_dmi_quirk) {
+> +			.ignore_wake = "AMDI0030:00@3",
+> +		},
+> +	},
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
