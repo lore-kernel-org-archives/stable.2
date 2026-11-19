@@ -1,64 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.119
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795068555;
-	b=ufbw4JuNzN1cS9rCr66dMSfkVZV+21/vDM1N+vZgk7LnLBEh8B5mnIcFja+yPRdpIwI3
-	 b4lkgfTDZpjelNDCZ95l4qz9q/zuuYd86tODGbTPJ3iSfH9Gx+En18O++h85vId1M3BXQ
-	 13LkZpgNvKOK4KQU4zPIm3QAA5ZWtmgdAC1MYNWYn243SmTM7R5gD3aCkPbOtM9pH+Qjt
-	 zcZDdVFm1WuqvJmhC9+LqB8LbssT81fcU9nlLrB6qRwInFD8W2qNIZw/PQgMYnSO+fF9M
-	 9OqEFglKQsg6nlcC9V0uZ42CfEj4R0Y6TZX1gG8YhQ7ferONUNxgy/x0Ow74lVkONIg==
+	t=1795068933;
+	b=C3D+1uOC76kE0FA3KVUJGTHaqPu6bFHWcreX47CKo6Gal2B/e/h96/NDlAue8Im38daO
+	 OSwZWDqnvgxVccnA8OOOB+Jho5xaPRawWkLLjk8ucrcRwthCZlTUCZ03QYGjmmvEzeyb3
+	 Mz65PojFUu77rgXdSGvJSYcyEBrQ/VP5fOToLMvFtkBfapLfYpLhbFOBZtQIlGD+tEJOq
+	 eSOYX2RvYsCi+HDhjRNRygj3f9peqkmkjZ/TmzC2XDWQArzVIviyMD6Q96agWDn2Q70SH
+	 ZfcogRk4qQH8hTOm7q5+GDP0AQMenhEk5n7tbRCi2iBvBeyciK96VLBXtBS4h54aaRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795068555;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:In-Reply-To:References:X-NTES-SC:Content-Transfer-Encoding:
-	 Content-Type:MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=V7SUYsmuNsMVcT0DsDg2UAzZ3vjHnuoSv5f9GMfd370=;
-	b=WwnqutiziLdqmazTa1vQTrGyNK1Gk0Xei/RLdJqB6pIY/9ayZKT/ipCIMYeePMGJvlNa
-	 SXaE/yQboe9H0hhKPLcYOrO1swxlVMxF98bBgxnuCTsOxk1n3wvuXfMHUOoYXzuyYTBWV
-	 EVvsBH3okG/7H91EhmyZg3CKFN/7dNLwAI5MTKZKnr3nncHyt7j05C9Bz/M0u4gnVKItq
-	 Me8+kko9lNc7N2vV3Mbyjp1mGnB5pLatqzQM3UxH48rXIZwTYXqbLlxd04G1xaB6cjuq9
-	 ht+CMqI9FEGrRzeT7WCf1GmAYjhuGr23/fFjZ3XQJg325CgOEWLO73hSv2VfL8X7Vnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795068933;
+	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
+	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=R3JG0m7GdfGZgb2/08YY/8/yhRY8uSU5SGTLypBdqfU=;
+	b=FDITw001emc3eJ9a9fRZQ0ObGer9GhPaWXmqTOI/9h+YwzOltKSdfoOucaporvMgJm/c
+	 w3mdhHGrlL85AjlFufQ2TFfXYzRaKqqioo+WbyBAeVhYdtd0D8x+NMsbVhGidonJrb3sP
+	 C+hAMLcfyiZLzc30yTdysT++JWQUy+vXtpCh96BFZwohqOPdYajKUKLndRoBqK92Anl1I
+	 E6QK2Dv49wOUfA8VjjwnFxAlVzctkurdh46PoxU/kaUMP9rG36wpE5v68F4ZRb/YlkEov
+	 5ie3Wpr1R04h67ZDZvHfcl6uxbuqK2RyZO7HNwA8e0gR0ebZ/OPoMJSSjEQhDqUZk4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jqWynYDR;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dmarc=pass header.from=modelmiser.com;
+	spf=pass smtp.mailfrom=modelmiser.com;
+	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=FD7Q8tHy;
+	arc=none smtp.remote-ip=109.224.244.119
+Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch [109.224.244.119])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24D5606A320;
-	Thu, 19 Nov 2026 06:09:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C24D5606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41510606A320
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 06:15:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41510606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jqWynYDR
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=V7SUYsmuNsMVcT0DsDg2UAzZ3vjHnuoSv5f9GMfd370=; b=j
-	qWynYDR87IlsJ3B/ioAghTt4Ssr41ZMUOXkOGnFZRV5J+QFt+kMg7Nlzx6LNqWBU
-	DRg6hqMEWVRBJo2Cr5u/7CtYB2YnTQxSkWFutNBJsQhcBLV8+5/EpKrfd3OKgBeL
-	YEgK8bWCUyovzg+9nnDtWJIUJ31dKJ2Uu6BZQIDOUA=
-Date: Thu, 19 Nov 2026 14:07:27 +0800 (CST)
-From: =?GBK?B?wO7T07roIA==?= <dayou5941@163.com>
-To: syzbot <syzbot+a53c2918175b36cfd601@syzkaller.appspotmail.com>
-Cc: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev,
-	linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org,
-	liyouhong@kylinos.cn, magiclinan@didiglobal.com, mpatocka@redhat.com,
-	sashiko-bot@kernel.org, snitzer@kernel.org, song@kernel.org,
-	stable@vger.kernel.org, syzkaller-bugs@googlegroups.com,
-	xiao@kernel.org, yukuai@fygo.io
-Subject: Re:Re: [syzbot] [raid?] BUG: unable to handle kernel paging request
- in remove_spares
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <6afdad2f.15a38f0c.5f8d.0009.GAE@google.com>
-References: <6afdad2f.15a38f0c.5f8d.0009.GAE@google.com>
-X-NTES-SC: AL_Qu2SB/ydt0wv4SCYYekckk4Wjug8Wcexufwj34NTc+YEmAXC2w8GZ1NtN2vK8OCWGw6FnxuRfzZf5el7d5VHUp+cYpb4HWPHb9xVc3dyxA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=FD7Q8tHy
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
+	s=protonmail; t=1795068929; x=1795328129;
+	bh=R3JG0m7GdfGZgb2/08YY/8/yhRY8uSU5SGTLypBdqfU=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=FD7Q8tHyzpy9DJGEA71ObWikfGNiqiy2dP1uEVWh1BegTcWcb+JU/mu1RPMc6iCqo
+	 O6Gq+QPPjmKJxCGAQH5W3hLlmG7X5R36My9wQSm8HyqR5hY8aR4QHKv1d0Mx4pQ7XB
+	 PVU651bTrct77KJeNIWpdYpWEvazhbOq4d0FCvVNhBjAL5S8pbI/MjBSfbhX5lxcK2
+	 MDXoT1pLS7GyXvsuKPi4KZUYW+nAMzWYiRrDFGUbyxEFHl/gyXbf6EUf7a/zNXFFj9
+	 Oq9s10PWpRDgvaE/Hm+Gd8Vw3zxhc8s+yJWWi9yMYazTJqTQgFQyVGrnpm8HcBLL+a
+	 ij/ma2U5qCDkA==
+Date: Thu, 19 Nov 2026 06:15:26 +0000
+To: Richard Cochran <richardcochran@gmail.com>, David Woodhouse <dwmw2@infradead.org>
+From: Chad Aldreda <ca@modelmiser.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Shuangpeng Bai <shuangpeng.kernel@gmail.com>, netdev@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH net v3] ptp: vmclock: keep the device state until the last file is closed
+Message-ID: <20261119061517.1142436-2-ca@modelmiser.com>
+Feedback-ID: 232753253:user:proton
+X-Pm-Message-ID: 77707bca80c96b18c97343ae274d70d7d9c489d8
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -68,110 +61,274 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <4ac2cebb.48be.1a1f26ac925.Coremail.dayou5941@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:bigvCgD331sgkv5q2GJxAA--.369W
-X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC3QAHtWr+kiAJPwAA3-
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-CgoKCgoKCgoKCgoKCgoKCgpBdCAyMDI2LTExLTE4IDIxOjUwOjM5LCAic3l6Ym90IiA8c3l6Ym90
-K2E1M2MyOTE4MTc1YjM2Y2ZkNjAxQHN5emthbGxlci5hcHBzcG90bWFpbC5jb20+IHdyb3RlOgo+
-c3l6Ym90IGhhcyBmb3VuZCBhIHJlcHJvZHVjZXIgZm9yIHRoZSBmb2xsb3dpbmcgaXNzdWUgb246
-Cj4KPkhFQUQgY29tbWl0OiAgICAyMGVlZjI5YjdjODQgTWVyZ2UgdGFnICdhcmMtZml4ZXMtNy40
-JyBvZiBnaXQ6Ly9naXQua2VybmVsLi4KPmdpdCB0cmVlOiAgICAgICB1cHN0cmVhbQo+Y29uc29s
-ZSBvdXRwdXQ6IGh0dHBzOi8vc3l6a2FsbGVyLmFwcHNwb3QuY29tL3gvbG9nLnR4dD94PTExODZm
-ZjNkNTgwMDAwCj5rZXJuZWwgY29uZmlnOiAgaHR0cHM6Ly9zeXprYWxsZXIuYXBwc3BvdC5jb20v
-eC8uY29uZmlnP3g9MWNmMTg5Mzk0YTg1NmYxMQo+ZGFzaGJvYXJkIGxpbms6IGh0dHBzOi8vc3l6
-a2FsbGVyLmFwcHNwb3QuY29tL2J1Zz9leHRpZD1hNTNjMjkxODE3NWIzNmNmZDYwMQo+Y29tcGls
-ZXI6ICAgICAgIGdjYyAoRGViaWFuIDE0LjIuMC0xOSkgMTQuMi4wLCBHTlUgbGQgKEdOVSBCaW51
-dGlscyBmb3IgRGViaWFuKSAyLjQ0Cj5zeXogcmVwcm86ICAgICAgaHR0cHM6Ly9zeXprYWxsZXIu
-YXBwc3BvdC5jb20veC9yZXByby5zeXo/eD0xN2Y4Zjk0ZDU4MDAwMAo+QyByZXByb2R1Y2VyOiAg
-IGh0dHBzOi8vc3l6a2FsbGVyLmFwcHNwb3QuY29tL3gvcmVwcm8uYz94PTE3M2Y5NDExNTgwMDAw
-Cj4KPkRvd25sb2FkYWJsZSBhc3NldHM6Cj5kaXNrIGltYWdlIChub24tYm9vdGFibGUpOiBodHRw
-czovL3N0b3JhZ2UuZ29vZ2xlYXBpcy5jb20vc3l6Ym90LWFzc2V0cy9kOTAwZjA4M2FkYTMvbm9u
-X2Jvb3RhYmxlX2Rpc2stMjBlZWYyOWIucmF3Lnh6Cj52bWxpbnV4OiBodHRwczovL3N0b3JhZ2Uu
-Z29vZ2xlYXBpcy5jb20vc3l6Ym90LWFzc2V0cy9iYjg1MmExZGRiNzYvdm1saW51eC0yMGVlZjI5
-Yi54ego+a2VybmVsIGltYWdlOiBodHRwczovL3N0b3JhZ2UuZ29vZ2xlYXBpcy5jb20vc3l6Ym90
-LWFzc2V0cy80YzYzNmMzZjQyNDIvYnpJbWFnZS0yMGVlZjI5Yi54ego+Cj5BSS1nZW5lcmF0ZWQg
-cm9vdCBjYXVzZSBzdW1tYXJ5Ogo+SW4gdGhlIE1EIChNdWx0aXBsZSBEZXZpY2VzIC8gUkFJRCkg
-c3Vic3lzdGVtLCBtZF9zdGFydF9zeW5jIGlzIHNjaGVkdWxlZCBhcyBhCj53b3JrIGl0ZW0gb24g
-dGhlIG1kX21pc2Mgd29ya3F1ZXVlIHRvIGluaXRpYXRlIHJlc3luY2hyb25pemF0aW9uIG9yIG1h
-bmFnZSBzcGFyZQo+ZGV2aWNlcy4gRm9yIHJlYWQtb25seSBhcnJheXMgKCFtZF9pc19yZHdyKG1k
-ZGV2KSksIG1kX3N0YXJ0X3N5bmMgZXhlY3V0ZXMKPnJlbW92ZV9hbmRfYWRkX3NwYXJlcygpLCB3
-aGljaCBpbnZva2VzIHJlbW92ZV9zcGFyZXMoKS4gSG93ZXZlciwgbWRfc3RhcnRfc3luYwo+ZmFp
-bHMgdG8gdmVyaWZ5IHdoZXRoZXIgdGhlIGFycmF5J3MgcGVyc29uYWxpdHkgKG1kZGV2LT5wZXJz
-KSBpcyBzdGlsbCB2YWxpZAo+YmVmb3JlIGNhbGxpbmcgaW50byBwZXJzb25hbGl0eSBvcGVyYXRp
-b25zLCBhbmQgYXJyYXkgc3RvcC9kZXRhY2ggc2VxdWVuY2VzIGRvCj5ub3QgZW5zdXJlIHRoYXQg
-bWRkZXYtPnN5bmNfd29yayBpcyBjb21wbGV0ZWx5IGhhbHRlZCBvciBwcmV2ZW50ZWQgZnJvbSBy
-dW5uaW5nCj5hZnRlciBtZGRldi0+cGVycyBpcyBjbGVhcmVkLiBXaGVuIHJlbW92ZV9zcGFyZXMo
-KSBleGVjdXRlcyB3aXRoIG1kZGV2LT5wZXJzID09Cj5OVUxMLCBpdCBhdHRlbXB0cyB0byBpbnZv
-a2UgbWRkZXYtPnBlcnMtPmhvdF9yZW1vdmVfZGlzayAobG9jYXRlZCBhdCBvZmZzZXQKPjB4NTAp
-LCB0cmlnZ2VyaW5nIGEgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlIGNyYXNoLgo+Cj5mdWxsIGFu
-YWx5c2lzOiAgaHR0cHM6Ly9zeXprYWxsZXIuYXBwc3BvdC5jb20veC9haV9yb290X2NhdXNlP3g9
-YTUzYzI5MTgxNzViMzZjZmQ2MDEKPgo+SU1QT1JUQU5UOiBpZiB5b3UgZml4IHRoZSBpc3N1ZSwg
-cGxlYXNlIGFkZCB0aGUgZm9sbG93aW5nIHRhZyB0byB0aGUgY29tbWl0Ogo+UmVwb3J0ZWQtYnk6
-IHN5emJvdCthNTNjMjkxODE3NWIzNmNmZDYwMUBzeXprYWxsZXIuYXBwc3BvdG1haWwuY29tCj4K
-Pk9vcHM6IGdlbmVyYWwgcHJvdGVjdGlvbiBmYXVsdCwgcHJvYmFibHkgZm9yIG5vbi1jYW5vbmlj
-YWwgYWRkcmVzcyAweGRmZmZmYzAwMDAwMDAwMGE6IDAwMDAgWyMxXSBTTVAgS0FTQU4gTk9QVEkK
-PktBU0FOOiBudWxsLXB0ci1kZXJlZiBpbiByYW5nZSBbMHgwMDAwMDAwMDAwMDAwMDUwLTB4MDAw
-MDAwMDAwMDAwMDA1N10KPkNQVTogMiBVSUQ6IDAgUElEOiA2NiBDb21tOiBrd29ya2VyLzI6MiBO
-b3QgdGFpbnRlZCBzeXprYWxsZXIgIzAgUFJFRU1QVChmdWxsKSAKPkhhcmR3YXJlIG5hbWU6IFFF
-TVUgU3RhbmRhcmQgUEMgKFEzNSArIElDSDksIDIwMDkpLCBCSU9TIDEuMTYuMy1kZWJpYW4tMS4x
-Ni4zLTIgMDQvMDEvMjAxNAo+V29ya3F1ZXVlOiBtZF9taXNjIG1kX3N0YXJ0X3N5bmMKPlJJUDog
-MDAxMDpyZW1vdmVfc3BhcmVzKzB4MTQ3LzB4NTQwIGRyaXZlcnMvbWQvbWQuYzoxMDE4Mgo+Q29k
-ZTogNjcgNjAgZjkgNDUgODQgZmYgNzQgNTUgZTggZTYgNmMgNjAgZjkgNDggOGIgNDQgMjQgMTAg
-ODAgMzggMDAgMGYgODUgODMgMDMgMDAgMDAgNDkgOGIgNDUgMDggNDggOGQgNzggNTAgNDggODkg
-ZmEgNDggYzEgZWEgMDMgPDQyPiA4MCAzYyAyMiAwMCAwZiA4NSA3OCAwMyAwMCAwMCA0OCA4OSBk
-ZSA0YyA4OSBlZiA0OCA4YiA0MCA1MCAyZQo+UlNQOiAwMDE4OmZmZmZjOTAwMDBkNDdhMTAgRUZM
-QUdTOiAwMDAxMDIwNgo+UkFYOiAwMDAwMDAwMDAwMDAwMDAwIFJCWDogZmZmZjg4ODA1OTY0OTEw
-OCBSQ1g6IDAwMDAwMDAwMDAwMDAwMDAKPlJEWDogMDAwMDAwMDAwMDAwMDAwYSBSU0k6IGZmZmZm
-ZmZmODhhZTFiZmEgUkRJOiAwMDAwMDAwMDAwMDAwMDUwCj5SQlA6IDAwMDAwMDAwMDAwMDAwMDAg
-UjA4OiAwMDAwMDAwMDAwMDAwMDAwIFIwOTogMDAwMDAwMDAwMDAwMDAwMQo+UjEwOiBmZmZmODg4
-MDU5NjQ5MWNmIFIxMTogMDAwMDAwMDAwMDAwMDAwMCBSMTI6IGRmZmZmYzAwMDAwMDAwMDAKPlIx
-MzogZmZmZjg4ODA1OTY0ODA1OCBSMTQ6IGZmZmY4ODgwNTk2NDgwNzAgUjE1OiAwMDAwMDAwMDAw
-MDAwMDAxCj5GUzogIDAwMDAwMDAwMDAwMDAwMDAoMDAwMCkgR1M6ZmZmZjg4ODBkNDY2OTAwMCgw
-MDAwKSBrbmxHUzowMDAwMDAwMDAwMDAwMDAwCj5DUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAg
-Q1IwOiAwMDAwMDAwMDgwMDUwMDMzCj5DUjI6IDAwMDAwMDFiMzA5MjQwMDggQ1IzOiAwMDAwMDAw
-MDUxY2EzMDAwIENSNDogMDAwMDAwMDAwMDM1MmVmMAo+Q2FsbCBUcmFjZToKPiA8VEFTSz4KPiBy
-ZW1vdmVfYW5kX2FkZF9zcGFyZXMrMHg2YzcvMHg3ZjAgZHJpdmVycy9tZC9tZC5jOjEwMjA3Cj4g
-bWRfc3RhcnRfc3luYysweDczNi8weGVhMCBkcml2ZXJzL21kL21kLmM6MTAzMjMKPiBwcm9jZXNz
-X29uZV93b3JrKzB4YWM3LzB4MWIxMCBrZXJuZWwvd29ya3F1ZXVlLmM6MzQ5NQo+IHByb2Nlc3Nf
-c2NoZWR1bGVkX3dvcmtzIGtlcm5lbC93b3JrcXVldWUuYzozNTc4IFtpbmxpbmVdCj4gd29ya2Vy
-X3RocmVhZCsweDVlZi8weGU1MCBrZXJuZWwvd29ya3F1ZXVlLmM6MzY1OQo+IGt0aHJlYWQrMHgz
-NzMvMHg0NTAga2VybmVsL2t0aHJlYWQuYzo0MzYKPiByZXRfZnJvbV9mb3JrKzB4NzMwLzB4ZDYw
-IGFyY2gveDg2L2tlcm5lbC9wcm9jZXNzLmM6MTU4Cj4gcmV0X2Zyb21fZm9ya19hc20rMHgxYS8w
-eDMwIGFyY2gveDg2L2VudHJ5L2VudHJ5XzY0LlM6MjQ1Cj4gPC9UQVNLPgo+TW9kdWxlcyBsaW5r
-ZWQgaW46Cj4tLS1bIGVuZCB0cmFjZSAwMDAwMDAwMDAwMDAwMDAwIF0tLS0KPlJJUDogMDAxMDpy
-ZW1vdmVfc3BhcmVzKzB4MTQ3LzB4NTQwIGRyaXZlcnMvbWQvbWQuYzoxMDE4Mgo+Q29kZTogNjcg
-NjAgZjkgNDUgODQgZmYgNzQgNTUgZTggZTYgNmMgNjAgZjkgNDggOGIgNDQgMjQgMTAgODAgMzgg
-MDAgMGYgODUgODMgMDMgMDAgMDAgNDkgOGIgNDUgMDggNDggOGQgNzggNTAgNDggODkgZmEgNDgg
-YzEgZWEgMDMgPDQyPiA4MCAzYyAyMiAwMCAwZiA4NSA3OCAwMyAwMCAwMCA0OCA4OSBkZSA0YyA4
-OSBlZiA0OCA4YiA0MCA1MCAyZQo+UlNQOiAwMDE4OmZmZmZjOTAwMDBkNDdhMTAgRUZMQUdTOiAw
-MDAxMDIwNgo+UkFYOiAwMDAwMDAwMDAwMDAwMDAwIFJCWDogZmZmZjg4ODA1OTY0OTEwOCBSQ1g6
-IDAwMDAwMDAwMDAwMDAwMDAKPlJEWDogMDAwMDAwMDAwMDAwMDAwYSBSU0k6IGZmZmZmZmZmODhh
-ZTFiZmEgUkRJOiAwMDAwMDAwMDAwMDAwMDUwCj5SQlA6IDAwMDAwMDAwMDAwMDAwMDAgUjA4OiAw
-MDAwMDAwMDAwMDAwMDAwIFIwOTogMDAwMDAwMDAwMDAwMDAwMQo+UjEwOiBmZmZmODg4MDU5NjQ5
-MWNmIFIxMTogMDAwMDAwMDAwMDAwMDAwMCBSMTI6IGRmZmZmYzAwMDAwMDAwMDAKPlIxMzogZmZm
-Zjg4ODA1OTY0ODA1OCBSMTQ6IGZmZmY4ODgwNTk2NDgwNzAgUjE1OiAwMDAwMDAwMDAwMDAwMDAx
-Cj5GUzogIDAwMDAwMDAwMDAwMDAwMDAoMDAwMCkgR1M6ZmZmZjg4ODBkNDY2OTAwMCgwMDAwKSBr
-bmxHUzowMDAwMDAwMDAwMDAwMDAwCj5DUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1IwOiAw
-MDAwMDAwMDgwMDUwMDMzCj5DUjI6IDAwMDAwMDFiMzA5MjQwMDggQ1IzOiAwMDAwMDAwMDUxY2Ez
-MDAwIENSNDogMDAwMDAwMDAwMDM1MmVmMAo+LS0tLS0tLS0tLS0tLS0tLQo+Q29kZSBkaXNhc3Nl
-bWJseSAoYmVzdCBndWVzcyk6Cj4gICAwOgk2NyA2MCAgICAgICAgICAgICAgICAJYWRkcjMyIChi
-YWQpCj4gICAyOglmOSAgICAgICAgICAgICAgICAgICAJc3RjCj4gICAzOgk0NSA4NCBmZiAgICAg
-ICAgICAgICAJdGVzdCAgICVyMTViLCVyMTViCj4gICA2Ogk3NCA1NSAgICAgICAgICAgICAgICAJ
-amUgICAgIDB4NWQKPiAgIDg6CWU4IGU2IDZjIDYwIGY5ICAgICAgIAljYWxsICAgMHhmOTYwNmNm
-Mwo+ICAgZDoJNDggOGIgNDQgMjQgMTAgICAgICAgCW1vdiAgICAweDEwKCVyc3ApLCVyYXgKPiAg
-MTI6CTgwIDM4IDAwICAgICAgICAgICAgIAljbXBiICAgJDB4MCwoJXJheCkKPiAgMTU6CTBmIDg1
-IDgzIDAzIDAwIDAwICAgIAlqbmUgICAgMHgzOWUKPiAgMWI6CTQ5IDhiIDQ1IDA4ICAgICAgICAg
-IAltb3YgICAgMHg4KCVyMTMpLCVyYXgKPiAgMWY6CTQ4IDhkIDc4IDUwICAgICAgICAgIAlsZWEg
-ICAgMHg1MCglcmF4KSwlcmRpCj4gIDIzOgk0OCA4OSBmYSAgICAgICAgICAgICAJbW92ICAgICVy
-ZGksJXJkeAo+ICAyNjoJNDggYzEgZWEgMDMgICAgICAgICAgCXNociAgICAkMHgzLCVyZHgKPiog
-MmE6CTQyIDgwIDNjIDIyIDAwICAgICAgIAljbXBiICAgJDB4MCwoJXJkeCwlcjEyLDEpIDwtLSB0
-cmFwcGluZyBpbnN0cnVjdGlvbgo+ICAyZjoJMGYgODUgNzggMDMgMDAgMDAgICAgCWpuZSAgICAw
-eDNhZAo+ICAzNToJNDggODkgZGUgICAgICAgICAgICAgCW1vdiAgICAlcmJ4LCVyc2kKPiAgMzg6
-CTRjIDg5IGVmICAgICAgICAgICAgIAltb3YgICAgJXIxMywlcmRpCj4gIDNiOgk0OCA4YiA0MCA1
-MCAgICAgICAgICAJbW92ICAgIDB4NTAoJXJheCksJXJheAoKPiAgM2Y6CTJlICAgICAgICAgICAg
-ICAgICAgIAljcwoKCnY1IGZpeCBpcyBoZXJlOgpodHRwczovL2xvcmUua2VybmVsLm9yZy9saW51
-eC1yYWlkLzIwMjYxMTEyMDEzNTIzLjEyMDQyOC0xLWRheW91NTk0MUAxNjMuY29tLwoKVGhhbmtz
-LApMaSBZb3Vob25n
+vmclock_probe() allocates struct vmclock_state with devm_kzalloc_obj()
+and maps the shared page with devm_memremap(), so both are released
+when the driver is unbound, but an open /dev/vmclockN keeps using them
+through its file state. After an unbind, read() runs on the freed
+struct and reads through the released mapping, and a poll() in
+progress sleeps on a wait queue in the freed struct. KASAN reports a
+slab-use-after-free in vmclock_miscdev_read(). In testing, the same
+read() faulted on the unmapped page once the device had been bound
+again.
+
+Allocate the state with kzalloc_obj() and map the page with memremap(),
+and release both on the last reference: open() takes a reference and
+release() drops it, and a devm action drops the device's own reference
+after vmclock_remove() has called misc_deregister(). misc_open() calls
+open() with misc_mtx held, and misc_deregister() takes misc_mtx, so
+open() always runs while the device's reference is held.
+
+vmclock_remove() now marks the device as removed and wakes every waiter
+on the wait queue. A read() or mmap() on a file that is still open fails
+with -ENODEV once it sees the mark. On a device that supports
+notifications, poll() returns EPOLLHUP | EPOLLERR, including a poll()
+that was already waiting; it tests the mark after poll_wait(), so it
+cannot miss the wake-up. The wake-up uses wake_up_interruptible_all(),
+because no later notification will reach a waiter that the remove-time
+wake-up skips, such as a second epoll instance that registered the file
+with EPOLLEXCLUSIVE. Without notifications poll() already returns
+POLLHUP.
+
+Separately from the report below, the bug was also found by a
+Coccinelle script that reports device nodes in devm-allocated memory,
+posted at
+https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.com,
+and reproduced in QEMU 10.2.4 with -device vmclock. There is no access
+to EC2 hardware with this device, so the fix has only been tested in
+QEMU. QEMU's device has no notifications, so the poll() path was tested
+with a local change that lets poll() wait without them.
+
+Fixes: 205032724226 ("ptp: Add support for the AMZNC10C 'vmclock' device")
+Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+Closes: https://lore.kernel.org/all/178144969601.60470.14493569608271069160=
+@gmail.com/
+Cc: stable@vger.kernel.org # 7.0+
+Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+---
+v3:
+- Rebased on net/main e203d8a4751d, after the devm_kmalloc() family
+  was converted to devm_kmalloc_obj() (4dd10fbbeb9c). The line this
+  patch removes from vmclock_probe() is now devm_kzalloc_obj(dev, *st);
+  the commit message says devm_kzalloc_obj() to match. Requested by
+  Jakub Kicinski.
+- Wrapped two lines that were over 80 columns (a comment in
+  vmclock_miscdev_poll() and the container_of() in vmclock_free()).
+  No other change.
+- Dropped the Assisted-by: tag, which Documentation/process no longer
+  describes (1e035297ffda); the tool use is described at the end of
+  these notes instead.
+
+v2: https://lore.kernel.org/r/20261112161514.1647680-2-ca@modelmiser.com
+- vmclock_remove() wakes the wait queue with wake_up_interruptible_all()
+  instead of wake_up_interruptible(), so every epoll waiter gets
+  EPOLLHUP | EPOLLERR at remove, not only the first EPOLLEXCLUSIVE one.
+  Pointed out by Paolo Abeni, from the Sashiko review.
+- The commit message says how the bug was found and tested.
+- Cc: stable carries "# 7.0+" (see below).
+
+v1: https://lore.kernel.org/r/20261107150344.3946529-2-ca@modelmiser.com
+
+Testing, all in QEMU 10.2.4 with -device vmclock, KASAN enabled, rerun
+on v3 as posted:
+- A guest process opens /dev/vmclock0, unbinds the driver through
+  /sys/bus/platform/drivers/vmclock/unbind, and reads the open file
+  again. On net/main without this patch KASAN reports the
+  slab-use-after-free in vmclock_miscdev_read(), and if the device is
+  bound again first, the read oopses on the unmapped page. With the
+  patch the read returns -ENODEV, KASAN reports nothing, and the
+  rebound device reads normally.
+- The wake-up test from v2: three threads each add the same open file
+  to their own epoll instance with EPOLLEXCLUSIVE and block in
+  epoll_wait(), then the driver is unbound. QEMU's device does not set
+  VMCLOCK_FLAG_NOTIFICATION_PRESENT, so for this test only, a local
+  change (not part of this patch) made poll() take the waiting path
+  without that flag. A run counts only if all three waiters are asleep
+  in do_epoll_wait before the unbind. All three woke at the unbind in
+  each of 4 runs, and KASAN reported nothing; without EPOLLEXCLUSIVE
+  they woke as well. As a control, v1 with the same local change (on
+  v1's base, the kernel used as v2's control) was run alongside: one
+  waiter woke and two slept until their timeout, as in v2's control
+  runs.
+- Not tested: EC2 hardware, a real notification, and mmap() after
+  unbind. There are no selftests for this driver.
+
+This is for v7.0 and later, where the per-file state was added. Before
+v7.4-rc2 the line this patch removes is still devm_kzalloc(dev,
+sizeof(*st), GFP_KERNEL), so the stable trees need that context line
+adjusted. Earlier kernels have the same bug through the devm-allocated
+state and need a separate backport.
+
+Lorenzo Stoakes' "ptp: vmclock: convert mmap hook to mmap_prepare"
+(2026-11-05, part of an mm series) also changes vmclock_miscdev_mmap()
+and is not in net/main. If the two meet I can send a resolution or
+rebase as needed.
+
+Not changed here: in vmclock_probe(), !st->miscdev.minor is never true,
+because an unregistered dynamic miscdevice keeps MISC_DYNAMIC_MINOR, so
+a device with neither interface still binds. That is a separate fix.
+
+The code, changelog and reproducers were written with an AI assistant
+(Claude Opus 5.5), and the assistant ran the tests above. I ran the
+final version myself and got the same results.
+
+ drivers/ptp/ptp_vmclock.c | 63 ++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 55 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/ptp/ptp_vmclock.c b/drivers/ptp/ptp_vmclock.c
+index 7f25fe6c2ce2..3e32a9030661 100644
+--- a/drivers/ptp/ptp_vmclock.c
++++ b/drivers/ptp/ptp_vmclock.c
+@@ -17,6 +17,7 @@
+ #include <linux/io.h>
+ #include <linux/interrupt.h>
+ #include <linux/kernel.h>
++#include <linux/kref.h>
+ #include <linux/miscdevice.h>
+ #include <linux/mm.h>
+ #include <linux/module.h>
+@@ -51,6 +52,8 @@ struct vmclock_state {
+ =09enum clocksource_ids cs_id, sys_cs_id;
+ =09int index;
+ =09char *name;
++=09struct kref kref;
++=09bool removed;
+ };
+=20
+ #define VMCLOCK_MAX_WAIT ms_to_ktime(100)
+@@ -369,6 +372,9 @@ static int vmclock_miscdev_mmap(struct file *fp, struct=
+ vm_area_struct *vma)
+ =09struct vmclock_file_state *fst =3D fp->private_data;
+ =09struct vmclock_state *st =3D fst->st;
+=20
++=09if (READ_ONCE(st->removed))
++=09=09return -ENODEV;
++
+ =09if ((vma->vm_flags & (VM_READ|VM_WRITE)) !=3D VM_READ)
+ =09=09return -EROFS;
+=20
+@@ -398,6 +404,9 @@ static ssize_t vmclock_miscdev_read(struct file *fp, ch=
+ar __user *buf,
+ =09uint32_t seq, old_seq;
+ =09size_t max_count;
+=20
++=09if (READ_ONCE(st->removed))
++=09=09return -ENODEV;
++
+ =09if (*ppos >=3D PAGE_SIZE)
+ =09=09return 0;
+=20
+@@ -450,6 +459,10 @@ static __poll_t vmclock_miscdev_poll(struct file *fp, =
+poll_table *wait)
+=20
+ =09poll_wait(fp, &st->disrupt_wait, wait);
+=20
++=09/* After poll_wait(), so vmclock_remove()'s wake-up is not missed */
++=09if (READ_ONCE(st->removed))
++=09=09return EPOLLHUP | EPOLLERR;
++
+ =09seq =3D le32_to_cpu(st->clk->seq_count);
+ =09if (atomic_read(&fst->seq) !=3D seq)
+ =09=09return POLLIN | POLLRDNORM;
+@@ -466,6 +479,12 @@ static int vmclock_miscdev_open(struct inode *inode, s=
+truct file *fp)
+ =09if (!fst)
+ =09=09return -ENOMEM;
+=20
++=09/*
++=09 * misc_open() calls this with misc_mtx held, and vmclock_remove()
++=09 * calls misc_deregister(), which takes misc_mtx, before the device's
++=09 * own reference is dropped.
++=09 */
++=09kref_get(&st->kref);
+ =09fst->st =3D st;
+ =09atomic_set(&fst->seq, 0);
+=20
+@@ -474,9 +493,22 @@ static int vmclock_miscdev_open(struct inode *inode, s=
+truct file *fp)
+ =09return 0;
+ }
+=20
++static void vmclock_free(struct kref *kref)
++{
++=09struct vmclock_state *st =3D
++=09=09container_of(kref, struct vmclock_state, kref);
++
++=09if (st->clk)
++=09=09memunmap(st->clk);
++=09kfree(st);
++}
++
+ static int vmclock_miscdev_release(struct inode *inode, struct file *fp)
+ {
+-=09kfree(fp->private_data);
++=09struct vmclock_file_state *fst =3D fp->private_data;
++
++=09kref_put(&fst->st->kref, vmclock_free);
++=09kfree(fst);
+ =09return 0;
+ }
+=20
+@@ -649,9 +681,20 @@ static void vmclock_remove(void *data)
+ =09if (st->miscdev.minor !=3D MISC_DYNAMIC_MINOR)
+ =09=09misc_deregister(&st->miscdev);
+=20
++=09/* Files still open now fail, and a poll() in progress returns */
++=09WRITE_ONCE(st->removed, true);
++=09wake_up_interruptible_all(&st->disrupt_wait);
++
+ =09dev->driver_data =3D NULL;
+ }
+=20
++static void vmclock_put(void *data)
++{
++=09struct vmclock_state *st =3D data;
++
++=09kref_put(&st->kref, vmclock_free);
++}
++
+ static void vmclock_put_idx(void *data)
+ {
+ =09struct vmclock_state *st =3D data;
+@@ -665,9 +708,15 @@ static int vmclock_probe(struct platform_device *pdev)
+ =09struct vmclock_state *st;
+ =09int ret;
+=20
+-=09st =3D devm_kzalloc_obj(dev, *st);
++=09/* Open files can outlive the device, so st is not devm memory */
++=09st =3D kzalloc_obj(*st);
+ =09if (!st)
+ =09=09return -ENOMEM;
++=09kref_init(&st->kref);
++
++=09ret =3D devm_add_action_or_reset(dev, vmclock_put, st);
++=09if (ret)
++=09=09return ret;
+=20
+ #if IS_ENABLED(CONFIG_ACPI)
+ =09if (has_acpi_companion(dev))
+@@ -686,13 +735,11 @@ static int vmclock_probe(struct platform_device *pdev=
+)
+ =09=09=09 resource_size(&st->res));
+ =09=09return -EINVAL;
+ =09}
+-=09st->clk =3D devm_memremap(dev, st->res.start, resource_size(&st->res),
+-=09=09=09=09MEMREMAP_WB | MEMREMAP_DEC);
+-=09if (IS_ERR(st->clk)) {
+-=09=09ret =3D PTR_ERR(st->clk);
++=09st->clk =3D memremap(st->res.start, resource_size(&st->res),
++=09=09=09   MEMREMAP_WB | MEMREMAP_DEC);
++=09if (!st->clk) {
+ =09=09dev_info(dev, "failed to map shared memory\n");
+-=09=09st->clk =3D NULL;
+-=09=09return ret;
++=09=09return -ENXIO;
+ =09}
+=20
+ =09if (le32_to_cpu(st->clk->magic) !=3D VMCLOCK_MAGIC ||
+--=20
+2.43.0
+
+
