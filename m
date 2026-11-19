@@ -1,61 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795122893;
-	b=zQvYka3Zk5PD2tYFzLcoPVvu/6TTRrq3Q1FMMN/Dv8Urp2Wd6TX82xtvct1qk0W6jKqb
-	 1s1JeY4UXidw/3LXMWriyIxxd6vOXEjsVpyyXum0r525weWEiGPYIQYF7KUU77CL2VnZE
-	 2t1rEn7EuIqiikhHwcQAnKce6WCp/AHnezK9TZix/ge1/TABB/0hoMcuSlVi5Qmf6KtZ0
-	 JlALYQMHutvdHfUyoBd6sz7pmHEMrrvEMQhg7ZTBFJC9WUa5s4ha7Mv6D/ThPmneIWnuE
-	 xGvtIi27f4iKAOPDTpxg4qRd5+MpuDNVRTXYa7uaE19b8vVdbu0PyVqDEghqejA4tzQ==
+	t=1795123455;
+	b=gRX51OQIcuigsamBOxVF0FG+T6tzgFBf9l4TBIYKpfun/eD4D1jAPciimKL7y1Ws8kn3
+	 wpgcHl3LvC7XJBLYC11N60LVOCPP+GnqkjBHjw54/C6rNr4nGEx6f+5lN8REauND6qE9A
+	 DLh7Ei4zmiozjx4PTsQV2o7INV4MPCgc1UdgpQGpxzffWkDZz2VdD1gezJUE55H+dyI+V
+	 yTEfPYtNLtILzoioa8PuZgm91yCaD7L0kv8Ao+joKIOYNOY/piz1emOPRyYdJWWTHPUWj
+	 qw0STzF+pdCjs7+Ho63UAWNL4XWDZdGPQMOSGmUG7nyPJsHvo07jFSVkoLGaGlvZRcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795122893;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795123455;
 	h=Received:DKIM-Signature:Date:From:To:cc:Subject:In-Reply-To:
 	 Message-ID:References:MIME-Version:Content-Type;
-	bh=vYYYorz+cZ58m91YhfS+Si8tK666WrlVnfvwVckDI2M=;
-	b=Hswnbeuv/DotBVf7KEk/GMohR2o/LEbfCVsuREEo9J8BBh7g6SZeFzn4Fkt/2wl96GXY
-	 zvhBMRVkgBLPCLBEbmZFuMp6Ja7cFG7W2nD4+FcyKU92E8hyoomqHBi7+2lCBqDiqwDeL
-	 sTq3PDxsU60r62EtJAJ7m/nGQRQLcMwHZ0Zgl45H/6X9KbD6rGum+G+qAtdhM030aQ0lr
-	 hzq6gyjZTBwtlQgF/5STh6HiTQ8A8fThQ+iN7eVUJGEu8wX+iK55p1FydAcbv1sTdl/bC
-	 LsVSmQyHZQSEzHuN5pePvwcFjjiDn1cQOpoWSNYVu7CaW6hJonWnZBYK00h/+u3eIVQ==
+	bh=4o1WwxWxpRB8UhJWCwwLn8HVjWB/mnjVMwmhpHPC3p4=;
+	b=SmTU4UTBfYfvGHxZ87gGyDHnXRoSJvXILAlZ9s4YgupvHzJl3n9H2wfcz+GDrXyWxurj
+	 /AYmMYGBL0mT7rqm7nf5C/dQN6BWGumANf6b6s72avXjG/Z7fXJAHVsibNdOTHgD15AjV
+	 x5NB5WNMQaEO20IZ+XqTIyhEYmeAucADxeKK2B0GL0t1O29o7wlexxEpxysAz9LLlAZtp
+	 muRv4oMu5rRxByvnW/voqHEnW7j0LDs5SKf/rU+JgEUeg26riuFWx1HmqSVUfklqXEfl0
+	 rvciZQgZ208KwCSNwamENj3/YRIUkYBE+XthWna3nsg0uEoXiXAPrRqG0YkuZaZuwIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDf5lvkS;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RmDmkKj6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88E8606A320;
-	Thu, 19 Nov 2026 21:14:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE86606A325;
+	Thu, 19 Nov 2026 21:24:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DDf5lvkS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A577C1F000C0;
-	Thu, 19 Nov 2026 21:14:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RmDmkKj6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5C131F000C0;
+	Thu, 19 Nov 2026 21:24:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795122893;
-	bh=vYYYorz+cZ58m91YhfS+Si8tK666WrlVnfvwVckDI2M=;
+	s=k20260515; t=1795123455;
+	bh=4o1WwxWxpRB8UhJWCwwLn8HVjWB/mnjVMwmhpHPC3p4=;
 	h=Date:From:To:cc:Subject:In-Reply-To:References;
-	b=DDf5lvkSext3cSoCtwRQbCIqRgccgn+UDR7qQaeWro2qrL5U536Dhjn6mP27GFrA2
-	 +FcGimcXhfGVo6X9zOXFNzVoZjGrlvA2pKe2UQ48tloEWSW1Lm9ImCV5Ct9DUNrR82
-	 j81Pbh0syQxwJiisEeuNQWZSiXUIyZQm6Gff5slHCZctTEPTJn2hUtgcXO9ukFsyfO
-	 FzlJPxv30agFk0f8Vee5mlpMMvbYAJKtrnqtQO5hXvRpIwiWO1o/FzJesGs4X9cwDZ
-	 wlPESuPO4SJFBxLpLshAZG8DlV8lrXaBWBjM44fhg0maTcDVLpJ8wJPqpYcI19mxQf
-	 0sIhDSeywQ//Q==
-Date: Thu, 19 Nov 2026 22:14:49 +0100 (CET)
+	b=RmDmkKj6giHitYkoiD0LE4hnFptcOfuP01uz5iBkAalmHplNmlAQNYQEWeXjyBCaT
+	 +i85mhugFSi/8m7npe5EgDUX8Ht9O5FKH0Gk1Rwtfyx+1tI5DkDnY1r36ZojONdoip
+	 imyICKbMHb8k4yVaMRfLNMt8p6MG4R2c86cGZC9/MzN/v8ofLkAh9qiGGP1M4O65nl
+	 Gi5g/OVT2AMo44wgNDuR+QmAFHLJakCQ2a/DVtb619rGpX7ICRkz3AZ/T0d2z2UDhE
+	 A1F88yVEoiBkzFDGwM8WDgj4L0orlED1X6BDAnuSUNrz8oMslOIWa4VOOMaLkdXqSe
+	 aKOjRzhG7qAmg==
+Date: Thu, 19 Nov 2026 22:24:12 +0100 (CET)
 From: Jiri Kosina <jikos@kernel.org>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-cc: Benjamin Tissoires <bentiss@kernel.org>, 
-    Gideon Heinz <gideonheinz02@gmail.com>, 
-    =?ISO-8859-15?Q?Filipe_La=EDns?= <lains@riseup.net>, 
-    Bastien Nocera <hadess@hadess.net>, Hans de Goede <hansg@kernel.org>, 
-    Edwin Velds <e.velds@gmail.com>, 
-    Stuart Hayhurst <stuart.a.hayhurst@gmail.com>, 
-    Andrey Smirnov <andrew.smirnov@gmail.com>, linux-input@vger.kernel.org, 
-    linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 00/33] HID: logitech-hidpp: G920 force-feedback fixes,
- rework, and cleanups
-In-Reply-To: <av9mLqY8TMOhJK2-@google.com>
-Message-ID: <n50o4sn6-s12o-7q3s-6q1o-s9p3o57s2285@xreary.bet>
-References: <20261110-hid-logitech-hidpp-v2-0-30743e91d83b@gmail.com> <p6p98p0s-5p97-q584-14sn-ns404p6s3orn@xreary.bet> <49nqon1r-32pr-19r1-0r65-50494sq350n5@xreary.bet> <sr340r82-n378-035n-78ns-nrq4p808r3pp@xreary.bet> <av9lbJa8VlQTeatR@google.com>
- <av9mLqY8TMOhJK2-@google.com>
+To: Ping Cheng <pinglinux@gmail.com>
+cc: bentiss@kernel.org, linux-input@vger.kernel.org, dmitry.torokhov@gmail.com, 
+    stable@vger.kernel.org, Ping Cheng <ping.cheng@wacom.com>, 
+    kernel test robot <lkp@intel.com>
+Subject: Re: [PATCH] HID: wacom: Access shared touch input by
+ rcu_dereference()
+In-Reply-To: <20261104010108.21895-1-ping.cheng@wacom.com>
+Message-ID: <n28pnr60-p91o-2r9p-3s7p-54pn910qr7r1@xreary.bet>
+References: <20261104010108.21895-1-ping.cheng@wacom.com>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -67,15 +61,19 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 
-On Thu, 19 Nov 2026, Dmitry Torokhov wrote:
+On Tue, 3 Nov 2026, Ping Cheng wrote:
 
-> Oops, sorry, I forgot there were couple of Sashiko comments. Let's me
-> send out the updated series (I already made changes earlier).
+> Allow the __rcu-annotated wacom_wac->shared->touch_input to be accessed
+> inside an RCU read-side critical section by using rcu_dereference().
+> 
+> Cc: stable@vger.kernel.org
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202610180015.KsRqmoTE-lkp@intel.com/
+> Fixes: 9183319a5ba4 ("Input: wacom - Setup SW_MUTE_DEVICE according to the order of input registration")
+> Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Signed-off-by: Ping Cheng <ping.cheng@wacom.com>
 
-OK, I am moving v2 out of sight, thanks.
-
-While you're at it, if you can send it as two separate series (fixes for 
-7.4 and improvements for 7.5), that'd be appreciated.
+Applied, thanks.
 
 -- 
 Jiri Kosina
