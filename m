@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.26
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.183
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795080937;
-	b=CC3EcCP7zZwrJP33R72DJh8QSTH/GMqTAOrAn5tKNGVSeKY14zjBSdSwphXK5kiEzaqS
-	 7IiIOZ1fgsAxlrGL752Ghncgs4GjxuEV0gRA9U8OJUj4ZCUFIIFyWASn/vYWFtgwlG7Jm
-	 Rxn1CZQQ8N7FmG8rpULG+Bzz44j43MbbigxNbsLJSNIVyHvSUyoLAPWNw6iIgd78hWiuh
-	 rMkYObAUhEXg4uX+S4cRhmwxXIOPIZeJRko/L6SKirsAhC65lZf6Ndakei3UL+ne85GN6
-	 M5AbhRJNfb0+Ov4Jo4dGXLlIAH3xfz8UL0O7jSODVZ8a+UCiCqcHOwWpwFs+EaeIVnA==
+	t=1795080972;
+	b=jcAeACIlXJYLHjUqzgc/ot/Tg17Ug2MtAbMMchLcdLsE1hPIM64nsUNiKVyGH54sp0xz
+	 cYcj1o1NeFsiR/Nx7PFq4XpsVJXwZBfdGK1svCHrbzNYJMZbBeD53aTnYOz/8DNd6xQIX
+	 So73lbmmU5nw+SmTkoQYlN/7iNkDCZk42WugnT8te7hP4eiy5YPS0l553R7xjqAU7ELqw
+	 9YpM0Eg/Jp0mERDQAb/K+tMr10gj63AVW9CQb8UafZwGLgAFA3FZqCW8MzhpNTKccf5v/
+	 jGNQo+kV62zLcOyMdhZWwTgqsg+t+9VqeqDewPcBzTxhxYHCTekfOBfFZZp1QRkJ/MA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795080937;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+vyuFtZZY82piBVNfH5j8rx0gFBhiL1nUBtOUXY/BpM=;
-	b=WFSsJ8lNOfj3xw1a0CZk0kwWteJQTf9X60OqbmNxTcIMlKiOSF+rqbFq1wOqXXgQDtT4
-	 jIvlKqtFEl6laG0Y+JKxT2YuH9q+ef3fx+4Om7wbkAjiC3NFkfGNMqn+A9Il6GLIT9ECC
-	 itVgHGjYBjPaFDvIhmjZ54LmECwWrgihiJ38mbUiPEW8Xnvf99h2GFfu705HIFs+pySGJ
-	 OITOftlrGBLS0fnizRIThgO2bfI9JZfRo0dj2rJNxBMOMLo1D8O3L6DoypKwCECjISkIM
-	 +eIgFCRjLXdEe49lxZuWXmw0YO9Lz0dVcUi2fO1oxrYKjmQ/AJGuWrFZkqXF/hLpSwg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795080972;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=igdFWy6CMNTS7sv5o5j1ZIrF2rr0ZWKOfYYSmUoY0q4=;
+	b=LfVcHr4B6O3RS2AqTJLCsatWHeh8cFNoCkAyGSBGvuPm5B/5T6Iu8+2R1zX6EoA3oMIR
+	 f+rLVd076SUgc8gMSn+2ukVJ22bHrrjE2b/mnD/K+GUWAAskJzGujpX3zSjnccpMpwliI
+	 ZXTmXRhzVFMT19LUdYb/OIMc9+UnbmRCmG/SVGXkjYNDqDvLMKvqcpaAM9KpDbGPECYLt
+	 fO8b4bvmQKuNaQGImG+kbn8l3ROcqOv7kuXnoa1sAyGN2IugzqHZntbeF3J2gE0LQoma1
+	 s6JJ410hSQ26OQphLBNTU9quYIriXQ02W55tbaM2LRB8lUVFHDkLq8T0nUPWhAkgyXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=becholey.ch;
-	spf=pass smtp.mailfrom=becholey.ch;
-	dkim=pass header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=Q0cvf+Am;
-	arc=none smtp.remote-ip=79.135.106.26
-Received: from mail-10626.protonmail.ch (mail-10626.protonmail.ch [79.135.106.26])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Kjagh+CI;
+	arc=none smtp.remote-ip=95.215.58.183
+Received: from mta1.migadu.com (out-183.mta1.migadu.com [95.215.58.183])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1001F60A2612
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 09:35:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1001F60A2612
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=becholey.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=becholey.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD19606A334
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 09:36:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADD19606A334
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=becholey.ch header.i=@becholey.ch header.a=rsa-sha256 header.s=protonmail header.b=Q0cvf+Am
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=becholey.ch;
-	s=protonmail; t=1795080929; x=1795340129;
-	bh=+vyuFtZZY82piBVNfH5j8rx0gFBhiL1nUBtOUXY/BpM=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Q0cvf+Am4NaPgrtTMYdOe7xKYf1Bzy6U3yeBfP7mmo5VgE/OOUe5k0xr4A8ZBeydt
-	 bHGgUIvrJ8xszUz8nGwp4nif1863OWfF3NydKygNOXKkuMgHnKkTVFeGiGZfzUvUIa
-	 sOhwgsfdLIRNzWXKj0FoU8pCKIdwgbUt6Dzsw54F12cTndyNRDBveSPfaI5/EPYn23
-	 g0BKR7VTV4F6rJiI3f/Y7xaPAwfSsxhdcsGcHfRw50e5VSgBudNiPtmFvDm9X/lp3l
-	 m2ibMvcxJOXnB6OJNg4pIFbhLexxu682lqX/SVU5Hl4JgBINo7cU893ZgBDLtEZsoe
-	 QPJ4lA8Kqb3/Q==
-Date: Thu, 19 Nov 2026 09:35:25 +0000
-To: Christian Lamparter <chunkeey@googlemail.com>, "John W. Linville" <linville@tuxdriver.com>
-From: Alexandre Becholey <alex@becholey.ch>
-Cc: Alexandre Becholey <alex@becholey.ch>, stable@vger.kernel.org, linux-wireless@vger.kernel.org
-Subject: [PATCH] wifi: carl9170: take the URB reference before queueing the TX frame
-Message-ID: <20261119093511.558151-1-alex@becholey.ch>
-Feedback-ID: 60743817:user:proton
-X-Pm-Message-ID: 9cf7b70c87a101fc6fb649e362f16d52d3b8ebd9
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Kjagh+CI
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=FyyB2+EMJUxYLUau/jQ5mXJ3d+z/p5uRxFEljvc09D0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795080969; v=1; x=1795685769;
+ b=Kjagh+CIAdQ/9Ozz+5xSZ+gQdakx8nHUEPACuc82FbvgqVLjd0XadE+gvS4egwVwjQOxjzYL
+ IuMu4bC/HXZUHYSjK5+E1Zt4VkEE3f8K3seAIEzEswIx1bjPNYfA9ikeIC/i3xgm7RPtECvzOrl
+ zHjbt5ZuiwvRzbirJ+OZ0JNU=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2da72c0dcd2ffa2e;
+	Thu, 19 Nov 2026 09:36:08 +0000
+X-Mizu-Trace-ID: 2da72c0dcd2ffa2e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <0e42e0c4-c1f9-4778-a979-404fbb68130a@linux.dev>
+Date: Thu, 19 Nov 2026 17:35:58 +0800
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,82 +58,165 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-
-carl9170_tx() puts a frame on ar->tx_status[] while it holds only its
-initial reference and takes the reference for the URB afterwards. A TX
-status for the frame's cookie that is processed on another CPU in
-between drops the only reference, and mac80211 frees the frame. The
-driver then increments the dead refcount and submits the freed skb as
-URB buffer and context.
-
-A device can hit this window by reporting TX status for the small,
-predictable cookies while the host transmits, which gives a KASAN
-slab-use-after-free in carl9170_usb_tx() and carl9170_tx_callback().
-
-Take the reference before the frame is queued, as the driver did
-before commit caf1eae20668 ("carl9170: improve unicast PS buffering").
-
-The bug was found, and the reproducer and this fix were written, by AI
-agents (Claude Mythos and Claude Opus models). The analysis and the
-patch were reviewed by a human.
-
-Fixes: caf1eae20668 ("carl9170: improve unicast PS buffering")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexandre Becholey <alex@becholey.ch>
----
-An emulated AR9170 that answers TX status for cookies 1..4 while the
-host sends traffic (an unprivileged UDP socket is enough) triggers
-"refcount_t: addition on 0" and KASAN use-after-free on v7.3.1 and
-"kernel BUG at lib/refcount.c:34" on master 666539eecdf4. With the fix:
-no report in 68 patched trigger boots (9 on xHCI, 9 on master); traffic
-with a well-behaved device (also HT/A-MPDU) is unchanged.
-Reproducer available on request.
-Applies to master 4405c18c95d2 (tx.c unchanged since the tests).
- drivers/net/wireless/ath/carl9170/tx.c | 16 +++++++++-------
- 1 file changed, 9 insertions(+), 7 deletions(-)
+User-Agent: Betterbird (macOS/Intel)
+Subject: Re: [PATCH] mm: mglru: reset the mm iteration cursor in
+ try_to_inc_max_seq_nowalk()
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: Andrew Morton <akpm@linux-foundation.org>,
+ Kairui Song <kasong@tencent.com>, Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>, Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>,
+ Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Harry Yoo <harry@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>,
+ stable@vger.kernel.org
+References: <20261117113700.453044-1-hui.zhu@linux.dev>
+ <av6lVy5fW47XPxre@fedora>
+Content-Language: en-US
+From: Hui Zhu <hui.zhu@linux.dev>
+In-Reply-To: <av6lVy5fW47XPxre@fedora>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
-diff --git a/drivers/net/wireless/ath/carl9170/tx.c b/drivers/net/wireless/=
-ath/carl9170/tx.c
-index 06aaf281655b..46d8bc6647e3 100644
---- a/drivers/net/wireless/ath/carl9170/tx.c
-+++ b/drivers/net/wireless/ath/carl9170/tx.c
-@@ -1364,13 +1364,6 @@ static void carl9170_tx(struct ar9170 *ar)
-=20
- =09=09=09atomic_inc(&ar->tx_total_pending);
-=20
--=09=09=09q =3D __carl9170_get_queue(ar, i);
--=09=09=09/*
--=09=09=09 * NB: tx_status[i] vs. tx_status[q],
--=09=09=09 * TODO: Move into pick_skb or alloc_dev_space.
--=09=09=09 */
--=09=09=09skb_queue_tail(&ar->tx_status[q], skb);
--
- =09=09=09/*
- =09=09=09 * increase ref count to "2".
- =09=09=09 * Ref counting is the easiest way to solve the
-@@ -1378,9 +1371,18 @@ static void carl9170_tx(struct ar9170 *ar)
- =09=09=09 *=09carl9170_tx_callback
- =09=09=09 * and wlan tx status functions:
- =09=09=09 *=09carl9170_tx_status/janitor.
-+=09=09=09 * It must be taken before the frame is queued on
-+=09=09=09 * tx_status[], where the status path can find it.
- =09=09=09 */
- =09=09=09carl9170_tx_get_skb(skb);
-=20
-+=09=09=09q =3D __carl9170_get_queue(ar, i);
-+=09=09=09/*
-+=09=09=09 * NB: tx_status[i] vs. tx_status[q],
-+=09=09=09 * TODO: Move into pick_skb or alloc_dev_space.
-+=09=09=09 */
-+=09=09=09skb_queue_tail(&ar->tx_status[q], skb);
-+
- =09=09=09carl9170_usb_tx(ar, skb);
- =09=09=09schedule_garbagecollector =3D true;
- =09=09}
---=20
-2.53.0
+2026/11/19 15:29, Baoquan He:
+> On 11/17/26 at 07:37pm, Hui Zhu wrote:
+>> From: Hui Zhu <zhuhui@kylinos.cn>
+>>
+>> iterate_mm_list_nowalk() and try_to_inc_max_seq_nowalk() both advance
+>> mm_state->seq without walking the mm_list, but only the former drops the
+>> cursor. When the latter races with an ongoing page table walk, head is
+>> left pointing into the middle of the fifo.
+>>
+>> The next walker reads that as "this generation already started": it skips
+>> reset_bloom_filter() and resumes after the cursor. Every mm before the
+>> cursor is skipped, and none of them have bits in the filter being read, so
+> Nit:
+> Isn't it that mm after the cursor is skipped, none of them have bits in
+> the filter being read? Because bits in the filter are set in the last
+> generation iteration, mm after cursor didn't iterate, so no bites set
+> for them?
+You are right, thanks for catching it. test_bloom_filter() reads
+filters[walk->seq % 2], and that buffer was filled by the aborted walk of
+the previous generation, which only got as far as the cursor. So the mm
+the resumed walk visits -- the ones after the cursor -- are exactly the
+ones with no bits in it, and they lose their non-leaf walk. The mm before
+the cursor are simply left out of this generation. I will fix the wording
+in v2.
+>> walk_pmd_range() descends into none of their PMDs and harvests no accessed
+>> bits. try_to_shrink_lruvec() ignores the failed try_to_inc_max_seq() and
+>> keeps evicting, so those hot folios become reclaim candidates and refault
+>> in the parent memcg, until head wraps around a generation later.
+>>
+>> Factor the pattern into skip_mm_iteration(), which carries the rationale
+>> that used to sit in a comment in try_to_inc_max_seq_nowalk(), so the two
+>> callers cannot drift apart again. The wrap-around in iterate_mm_list() is
+>> left open-coded on purpose: there head is already back at the fifo, and
+>> tail has to survive for the force_scan test. Dropping the cursor is safe:
+>> get_next_mm() holds an mmgrab() reference, and a concurrent walker bails
+>> out at "walk->seq <= mm_state->seq" before touching head again. The
+>> unwalked part of the fifo restarts from the head next generation, as
+>> iterate_mm_list_nowalk() already does.
+>>
+>> Only reachable from memcg_reparent_objcgs() -> max_lru_gen_memcg(); not a
+>> memory safety issue, since lru_gen_del_mm() repoints head and tail under
+>> mm_list->lock.
+>>
+>> Fixes: f304652609ea ("mm: vmscan: prepare for reparenting MGLRU folios")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+>> ---
+>>   mm/vmscan.c | 23 +++++++++++++++--------
+>>   1 file changed, 15 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/mm/vmscan.c b/mm/vmscan.c
+>> index 6a1af9b92349..0dc4017b87e4 100644
+>> --- a/mm/vmscan.c
+>> +++ b/mm/vmscan.c
+>> @@ -3235,6 +3235,7 @@ static bool iterate_mm_list(struct lru_gen_mm_walk *walk, struct mm_struct **ite
+>>   	do {
+>>   		mm_state->head = mm_state->head->next;
+>>   		if (mm_state->head == &mm_list->fifo) {
+>> +			/* head is back at the fifo; keep tail for force_scan below */
+>>   			WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
+>>   			last = true;
+>>   			break;
+>> @@ -3263,6 +3264,18 @@ static bool iterate_mm_list(struct lru_gen_mm_walk *walk, struct mm_struct **ite
+>>   	return last;
+>>   }
+>>   
+>> +/*
+>> + * Advance mm_state->seq without walking the mm_list. The cursor must be
+>> + * dropped as well: iterate_mm_list() resumes from head, and resets the Bloom
+>> + * filter only when head == &mm_list->fifo.
+>> + */
+> This looks like a good catch, while the function name here is a little bit
+> confusing. From the code block inside, we can't see it's doing iteration,
+> just a pair of pointer resetting and a max_seq advancing. I would rather
+> not wrap up them if no good name is concluded. Personal opinion.
+How about inc_mm_state_seq(), after inc_max_seq(), leaving the "why"
+to the comment:
 
+     /*
+      * The cursor must be dropped along with mm_state->seq:
+      * iterate_mm_list() resumes from head, and resets the Bloom filter
+      * only when head == &mm_list->fifo.
+      */
+     static void inc_mm_state_seq(struct lru_gen_mm_state *mm_state)
 
+If that still does not read well to you, I will drop the helper in v2 and
+keep the two lines open-coded.
+>
+> Other than the nits,
+>
+> Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+
+Thank you!
+
+Best,
+Hui
+
+>
+>> +static void skip_mm_iteration(struct lru_gen_mm_state *mm_state)
+>> +{
+>> +	mm_state->head = NULL;
+>> +	mm_state->tail = NULL;
+>> +	WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
+>> +}
+>> +
+>>   static bool iterate_mm_list_nowalk(struct lruvec *lruvec, unsigned long seq)
+>>   {
+>>   	bool success = false;
+>> @@ -3275,9 +3288,7 @@ static bool iterate_mm_list_nowalk(struct lruvec *lruvec, unsigned long seq)
+>>   	VM_WARN_ON_ONCE(mm_state->seq + 1 < seq);
+>>   
+>>   	if (seq > mm_state->seq) {
+>> -		mm_state->head = NULL;
+>> -		mm_state->tail = NULL;
+>> -		WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
+>> +		skip_mm_iteration(mm_state);
+>>   		success = true;
+>>   	}
+>>   
+>> @@ -4686,15 +4697,11 @@ static void try_to_inc_max_seq_nowalk(struct mem_cgroup *memcg,
+>>   	DEFINE_MAX_SEQ(lruvec);
+>>   	bool success = false;
+>>   
+>> -	/*
+>> -	 * We are not iterating the mm_list here, updating mm_state->seq is just
+>> -	 * to make mm walkers work properly.
+>> -	 */
+>>   	if (mm_state) {
+>>   		spin_lock(&mm_list->lock);
+>>   		VM_WARN_ON_ONCE(mm_state->seq + 1 < max_seq);
+>>   		if (max_seq > mm_state->seq) {
+>> -			WRITE_ONCE(mm_state->seq, mm_state->seq + 1);
+>> +			skip_mm_iteration(mm_state);
+>>   			success = true;
+>>   		}
+>>   		spin_unlock(&mm_list->lock);
+>> -- 
+>> 2.53.0
+>>
