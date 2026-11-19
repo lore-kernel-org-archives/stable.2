@@ -1,57 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.119
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795068933;
-	b=C3D+1uOC76kE0FA3KVUJGTHaqPu6bFHWcreX47CKo6Gal2B/e/h96/NDlAue8Im38daO
-	 OSwZWDqnvgxVccnA8OOOB+Jho5xaPRawWkLLjk8ucrcRwthCZlTUCZ03QYGjmmvEzeyb3
-	 Mz65PojFUu77rgXdSGvJSYcyEBrQ/VP5fOToLMvFtkBfapLfYpLhbFOBZtQIlGD+tEJOq
-	 eSOYX2RvYsCi+HDhjRNRygj3f9peqkmkjZ/TmzC2XDWQArzVIviyMD6Q96agWDn2Q70SH
-	 ZfcogRk4qQH8hTOm7q5+GDP0AQMenhEk5n7tbRCi2iBvBeyciK96VLBXtBS4h54aaRg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795068933;
-	h=DMARC-Filter:DKIM-Signature:Date:To:From:Cc:Subject:Message-ID:
-	 Feedback-ID:X-Pm-Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=R3JG0m7GdfGZgb2/08YY/8/yhRY8uSU5SGTLypBdqfU=;
-	b=FDITw001emc3eJ9a9fRZQ0ObGer9GhPaWXmqTOI/9h+YwzOltKSdfoOucaporvMgJm/c
-	 w3mdhHGrlL85AjlFufQ2TFfXYzRaKqqioo+WbyBAeVhYdtd0D8x+NMsbVhGidonJrb3sP
-	 C+hAMLcfyiZLzc30yTdysT++JWQUy+vXtpCh96BFZwohqOPdYajKUKLndRoBqK92Anl1I
-	 E6QK2Dv49wOUfA8VjjwnFxAlVzctkurdh46PoxU/kaUMP9rG36wpE5v68F4ZRb/YlkEov
-	 5ie3Wpr1R04h67ZDZvHfcl6uxbuqK2RyZO7HNwA8e0gR0ebZ/OPoMJSSjEQhDqUZk4g==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=modelmiser.com;
-	spf=pass smtp.mailfrom=modelmiser.com;
-	dkim=pass header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=FD7Q8tHy;
-	arc=none smtp.remote-ip=109.224.244.119
-Received: from mail-244119.protonmail.ch (mail-244119.protonmail.ch [109.224.244.119])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795069115;
+	b=slaHirwe6UNVjzEiHJcC7ngpWbHBRpAPRNaARdE7jRFPRRC3cI4i7xA2DSUlO0uj6bGm
+	 eDxJdakA6r2U0AUTlRAaFfXqCkppweAn+sh20rV8nJPWsXMv09EZV6T6dSNCKTW2OCMy+
+	 PNyxZsPTbFX7xo7ujJgv1CK3fW/Q6ALinhdHmTqpDevmo4E7KhQhZnDZGCJ57rjhPFxIK
+	 U2aPB8/wawsB06oOl6i6HFYY/nF4MF9OiXJv0Vbp35p45LiV0nJ+3AmamM4ngXZLOfKe5
+	 pYngQ4QVXroEU0pPJVFukaJpbE9J2nkFn1nsVOPd2WxtmXpOEODpSTms1EIWSXsp7vg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795069115;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=FkwRSQFDonsNjEAPB2zFYO6lMt6WVqW7I67T9GbDWzM=;
+	b=pHyNSOhz/0AzT/zyfRP9VvOXWIdlqJVZx8wVGA6LmzswxRF5tlwFG6PlCqFGRcxaR4nm
+	 2CgkxIa7WFRkGuEr6xy3ALVdv+n70ITSJYWFNinf/Rr6kwdYatbXvU7Pa7UDvcO6y4lzX
+	 F++mauQatyvupFjKCbEzJrN3CvcHM0lmq7s/FKB51HwozGi+7hm7VW+u4s/GyBulbHGT3
+	 Fb4aun5iTBUfXQmpkW8nfueBR/pR7b6flF+m3up68tE5Oc3ldZBUjhlld4dIMh7FMRMU5
+	 UBUmOLHazOyvaYjD8MdL92WOrq/rP7loItBBkYAruR3ILPpp+txjMC0a6SRfg7go8BQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j7XBeknV;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.219.52
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41510606A320
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 06:15:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 41510606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=modelmiser.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=modelmiser.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD46606A325
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 06:18:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FD46606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=modelmiser.com header.i=@modelmiser.com header.a=rsa-sha256 header.s=protonmail header.b=FD7Q8tHy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=modelmiser.com;
-	s=protonmail; t=1795068929; x=1795328129;
-	bh=R3JG0m7GdfGZgb2/08YY/8/yhRY8uSU5SGTLypBdqfU=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=FD7Q8tHyzpy9DJGEA71ObWikfGNiqiy2dP1uEVWh1BegTcWcb+JU/mu1RPMc6iCqo
-	 O6Gq+QPPjmKJxCGAQH5W3hLlmG7X5R36My9wQSm8HyqR5hY8aR4QHKv1d0Mx4pQ7XB
-	 PVU651bTrct77KJeNIWpdYpWEvazhbOq4d0FCvVNhBjAL5S8pbI/MjBSfbhX5lxcK2
-	 MDXoT1pLS7GyXvsuKPi4KZUYW+nAMzWYiRrDFGUbyxEFHl/gyXbf6EUf7a/zNXFFj9
-	 Oq9s10PWpRDgvaE/Hm+Gd8Vw3zxhc8s+yJWWi9yMYazTJqTQgFQyVGrnpm8HcBLL+a
-	 ij/ma2U5qCDkA==
-Date: Thu, 19 Nov 2026 06:15:26 +0000
-To: Richard Cochran <richardcochran@gmail.com>, David Woodhouse <dwmw2@infradead.org>
-From: Chad Aldreda <ca@modelmiser.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Shuangpeng Bai <shuangpeng.kernel@gmail.com>, netdev@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH net v3] ptp: vmclock: keep the device state until the last file is closed
-Message-ID: <20261119061517.1142436-2-ca@modelmiser.com>
-Feedback-ID: 232753253:user:proton
-X-Pm-Message-ID: 77707bca80c96b18c97343ae274d70d7d9c489d8
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=j7XBeknV
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-92106d5371dso7726366d6.1
+        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 22:18:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795069114; cv=none;
+        d=google.com; s=arc-20260327;
+        b=anvaYeF3w1x6o18C2U1QoBS6+6Dz4sNptX1Msol4gkQlKT/UIT1Q1KLD/a2cRRVXHa
+         zgxr4VAZQ/lIzbekCdYHYH1cxkZi1F//g9QsiRHvopraw6ocKV6Pv1UcKwVaYwm9cY8D
+         cp2Jg+4KEQ/w0bqsQvQp85nleBuTmfJvcpZ3EaXe1p6C6WAsAKq3HqWGqmi2YZtwXwIX
+         WKuM7TMnYvmRQtLZ6Oie0Dhw8v1It2fkfCVKBrniJk8bNGN7YdZv1Pk4UiOFMA7fmcKx
+         iFP0qvZFy0VS23ckna2/zAcCLvcVTeDO6qrp+Ez9/vqHZG4GICRnIMIrOMxFfQStpvx9
+         ilSQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=FkwRSQFDonsNjEAPB2zFYO6lMt6WVqW7I67T9GbDWzM=;
+        fh=zD5wSbWu6XTPcoa0xHul7FftLqnLGKoQDb0K9kWIrrk=;
+        b=MNXjLCg/G8cojm9szQxOhMaYG/d4u0HjQGifQutlm/CD6DYbj3GHYlwSoLSSEw3DTC
+         OCRSUYgANqwilQwjy8an1edBshnXr2a+9b9iDl0uWF0RQjYhtddBmAexWxwWqhw3mFeP
+         v+4uiPcNozSzKNmtTbYkOFqKSUmQYhhHwpuiEkK12mbYExHq3qMecdSS7NcvoSzuwxYb
+         KyXCRDUaeQX2qdByeimGfPfPpBWxzPruqdUc2AEC5uGX1vTC/h3mW9tWHUfpUV1/h+ee
+         zo8mVEjU9zNU85PwzN0QApL4wfE/6Txd/kv+X+dPbe3wHATmSpQFrFeyxoUryvrlspDG
+         ibwg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795069114; x=1795673914; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FkwRSQFDonsNjEAPB2zFYO6lMt6WVqW7I67T9GbDWzM=;
+        b=j7XBeknV5sIlnxlFuRpkyMchLbY9nrTW1brjVrqw6QAEZr1JwjhL3KEueCnPsuhxTM
+         hrOQJrwovvArkCYAEoSyjQrOADbOS53Ys+HcB61CbRLwrPncMi7Isz8FI3lSSbNNUANJ
+         rGDpTrwmQYHyOUwNwpR19HtOTJVoHb28ANOaJxPaI1eVrEdANXHbOL5BqfvRm7rT9tat
+         okT7uIfrVsHnV6SwOPhAQ7i4xxeXieD6bksBtKvCjuYmNCndxetspKINIZbOJ37mzzjZ
+         eqdtbeipNAx9PmYuGxOqv2mbXFWP/eb4719QqFFDj3lIX7pSSjRLyYrh6F6K21f0vx/h
+         LT3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795069114; x=1795673914;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=FkwRSQFDonsNjEAPB2zFYO6lMt6WVqW7I67T9GbDWzM=;
+        b=RjC7ri1OMkx70lDarwGWXb8SHcmx4sPxvBw0vOAcOnQ82/xMh9Hkp8NZvkZQWeYN+j
+         s67MCtQtOJ8OJYPCsyA0dW07jI6+sCCV4lIWPsDDUWVm4S8EBN+dd+HS0cS9EZr5TJTq
+         tZA+Tq0XMs88ueYW5QK8Gdk/BgasA0rJEmhaqSGuR30XP9gfVrBoUAPr47LpMANDXraV
+         j6RfnXK1ff8QxGyQE7rjdoHDFPAUuFUEDtnMCySfZWd567XaVmHbRJmpOdtF5Z71Zgl+
+         s9tOmP2hxy1s/DUskMYWw0W3gu666sHDFeJWBPy05V/3whbqV3Haz0+u7Ws6YkjxkDwb
+         kPEg==
+X-Forwarded-Encrypted: i=1; AL+hErHbPGtzNtMtiHa/T1nDieVmV0gZOUB6nIjEHiC1+P6h2EXUP2vwNnRImSL2U8WDbYCFrheqhSU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/6hbdh9/WiKB5N6oYBs/cHOva78dmaAm+n3ugTGpW24ruZsGU7
+	KUQufPtwzkewp2Ivf4a6t1pBtcyy/veVr/CdcZKaaizujhtp8UPUYPw2HKbGn4855PshygVna4E
+	0TlOR517ithQpPDZKVvEBexpK+qWjAeA=
+X-Gm-Gg: AZFdTZf3oS5MjXpR6JdEv3a3SmPb7flJ00fASeRrroty21N5nqpmrNQeTCJlLqDh4T0
+	M8PTW33erWns9yWpFsS/4fiJ6eJest71SxJr/Afwyz0Sznzh43lsG866Hx8MZ90bc0Fp2axdMEf
+	tVm5v23xDApbwf+FAULoTM+cXlfxwo9TQbcCol4HX9rai8U5ToBmatScyEiwF/sCk5fgY71cydr
+	qCeGd2cEN1djgFz/YTi+c7Cv5ZKC2kfBx/E1V152fVKqsxiwG2bFRaQPpF4WULGSCvRUkj0tTAf
+	FQ1++gk49ePj8OHwh1/a7j5O+Y4SRfVPfOVgf/741LsyalCuFxgHXWB1QjM4J9aJOnY91Q2i4Rq
+	XzRYArJfoj477MLhOjF4m8fGEMpFQr5KlXMGUGWwXqvZ4ESzbAViud4C13iR1WL6RlHM7vKsi7+
+	qYcQcHiahxLcc6SGl7iA==
+X-Received: by 2002:a05:6214:627:b0:921:2c0:a46 with SMTP id
+ 6a1803df08f44-9212de35a74mr2230366d6.2.1795069114246; Wed, 18 Nov 2026
+ 22:18:34 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -61,274 +102,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+From: =?UTF-8?B?5qKT5bed5ZKy5aSq?= <inkxiao12@gmail.com>
+Date: Thu, 19 Nov 2026 01:18:22 -0500
+X-Gm-Features: Aa3M54qvL-gkZG-PDrhf4v1NxnLtVHwK458mPPxFaslFbH2AjBYMlncoZPd-AZU
+Message-ID: <CAMcAce8_ZR9xr8KJe6kvDNxr-JW2A5Ya5tn_2SO86hn7oR1KCQ@mail.gmail.com>
+Subject: [PATCH bpf] bpf, lsm: Remove bpf_lsm_release_secctx from sleepable_lsm_hooks
+To: bpf@vger.kernel.org
+Cc: security@kernel.org, kpsingh@kernel.org, matt@bobrowski.net, 
+	ast@kernel.org, daniel@iogearbox.net, andrii@kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-vmclock_probe() allocates struct vmclock_state with devm_kzalloc_obj()
-and maps the shared page with devm_memremap(), so both are released
-when the driver is unbound, but an open /dev/vmclockN keeps using them
-through its file state. After an unbind, read() runs on the freed
-struct and reads through the released mapping, and a poll() in
-progress sleeps on a wait queue in the freed struct. KASAN reports a
-slab-use-after-free in vmclock_miscdev_read(). In testing, the same
-read() faulted on the unmapped page once the device had been bound
-again.
+security_release_secctx() invokes release_secctx LSM callbacks
+(selinux_release_secctx() and apparmor_release_secctx()), which only
+kfree(cp->context) and never sleep. Because the hook is non-blocking,
+Netfilter callers legitimately invoke security_release_secctx() under
+atomic, RCU, or softirq context:
 
-Allocate the state with kzalloc_obj() and map the page with memremap(),
-and release both on the last reference: open() takes a reference and
-release() drops it, and a devm action drops the device's own reference
-after vmclock_remove() has called misc_deregister(). misc_open() calls
-open() with misc_mtx held, and misc_deregister() takes misc_mtx, so
-open() always runs while the device's reference is held.
+  1. net/netfilter/nf_conntrack_standalone.c: ct_seq_start() acquires
+     rcu_read_lock() and holds it across ct_seq_show() ->
+     ct_show_secctx() -> security_release_secctx(&ctx) until ct_seq_stop().
+  2. net/netfilter/nfnetlink_queue.c: nfqnl_enqueue_packet() runs under
+     rcu_read_lock() in packet RX softirq and calls
+     nfqnl_build_packet_message(), which allocates with GFP_ATOMIC and
+     calls security_release_secctx(&ctx).
+  3. net/netfilter/nf_conntrack_netlink.c: ctnetlink_conntrack_event()
+     allocates with GFP_ATOMIC and calls ctnetlink_dump_secctx() ->
+     security_release_secctx(&ctx).
 
-vmclock_remove() now marks the device as removed and wakes every waiter
-on the wait queue. A read() or mmap() on a file that is still open fails
-with -ENODEV once it sees the mark. On a device that supports
-notifications, poll() returns EPOLLHUP | EPOLLERR, including a poll()
-that was already waiting; it tests the mark after poll_wait(), so it
-cannot miss the wake-up. The wake-up uses wake_up_interruptible_all(),
-because no later notification will reach a waiter that the remove-time
-wake-up skips, such as a second epoll instance that registered the file
-with EPOLLEXCLUSIVE. Without notifications poll() already returns
-POLLHUP.
+Listing BTF_ID(func, bpf_lsm_release_secctx) in sleepable_lsm_hooks
+lets BPF_PROG_TYPE_LSM sleepable programs (lsm.s/release_secctx) call
+blocking helpers/kfuncs such as bpf_copy_from_user() in atomic/RCU/softirq
+context, causing BUG: scheduling while atomic or RCU stalls.
 
-Separately from the report below, the bug was also found by a
-Coccinelle script that reports device nodes in devm-allocated memory,
-posted at
-https://lore.kernel.org/r/20261106193517.3267013-2-ca@modelmiser.com,
-and reproduced in QEMU 10.2.4 with -device vmclock. There is no access
-to EC2 hardware with this device, so the fix has only been tested in
-QEMU. QEMU's device has no notifications, so the poll() path was tested
-with a local change that lets poll() wait without them.
+Remove bpf_lsm_release_secctx from sleepable_lsm_hooks. Verified by
+line inspection on 7.4.0-rc3 (20eef29b7c84), 6.12.118 (bpf_lsm.c:347),
+and 6.6.162 (bpf_lsm.c:337), and live QEMU BPF verifier runs on
+x86_64 7.4.0-rc3 and 6.12.118 (lsm.s/release_secctx: LOADED pre-patch ->
+REJECTED post-patch with -EINVAL, "bpf_lsm_release_secctx is not
+sleepable").
 
-Fixes: 205032724226 ("ptp: Add support for the AMZNC10C 'vmclock' device")
-Reported-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-Closes: https://lore.kernel.org/all/178144969601.60470.14493569608271069160=
-@gmail.com/
-Cc: stable@vger.kernel.org # 7.0+
-Signed-off-by: Chad Aldreda <ca@modelmiser.com>
+Fixes: 423f16108c9d ("bpf: Augment the set of sleepable LSM hooks")
+Cc: stable@vger.kernel.org # 5.10+
+Signed-off-by: BoBppy <inkxiao12@gmail.com>
 ---
-v3:
-- Rebased on net/main e203d8a4751d, after the devm_kmalloc() family
-  was converted to devm_kmalloc_obj() (4dd10fbbeb9c). The line this
-  patch removes from vmclock_probe() is now devm_kzalloc_obj(dev, *st);
-  the commit message says devm_kzalloc_obj() to match. Requested by
-  Jakub Kicinski.
-- Wrapped two lines that were over 80 columns (a comment in
-  vmclock_miscdev_poll() and the container_of() in vmclock_free()).
-  No other change.
-- Dropped the Assisted-by: tag, which Documentation/process no longer
-  describes (1e035297ffda); the tool use is described at the end of
-  these notes instead.
+ kernel/bpf/bpf_lsm.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-v2: https://lore.kernel.org/r/20261112161514.1647680-2-ca@modelmiser.com
-- vmclock_remove() wakes the wait queue with wake_up_interruptible_all()
-  instead of wake_up_interruptible(), so every epoll waiter gets
-  EPOLLHUP | EPOLLERR at remove, not only the first EPOLLEXCLUSIVE one.
-  Pointed out by Paolo Abeni, from the Sashiko review.
-- The commit message says how the bug was found and tested.
-- Cc: stable carries "# 7.0+" (see below).
-
-v1: https://lore.kernel.org/r/20261107150344.3946529-2-ca@modelmiser.com
-
-Testing, all in QEMU 10.2.4 with -device vmclock, KASAN enabled, rerun
-on v3 as posted:
-- A guest process opens /dev/vmclock0, unbinds the driver through
-  /sys/bus/platform/drivers/vmclock/unbind, and reads the open file
-  again. On net/main without this patch KASAN reports the
-  slab-use-after-free in vmclock_miscdev_read(), and if the device is
-  bound again first, the read oopses on the unmapped page. With the
-  patch the read returns -ENODEV, KASAN reports nothing, and the
-  rebound device reads normally.
-- The wake-up test from v2: three threads each add the same open file
-  to their own epoll instance with EPOLLEXCLUSIVE and block in
-  epoll_wait(), then the driver is unbound. QEMU's device does not set
-  VMCLOCK_FLAG_NOTIFICATION_PRESENT, so for this test only, a local
-  change (not part of this patch) made poll() take the waiting path
-  without that flag. A run counts only if all three waiters are asleep
-  in do_epoll_wait before the unbind. All three woke at the unbind in
-  each of 4 runs, and KASAN reported nothing; without EPOLLEXCLUSIVE
-  they woke as well. As a control, v1 with the same local change (on
-  v1's base, the kernel used as v2's control) was run alongside: one
-  waiter woke and two slept until their timeout, as in v2's control
-  runs.
-- Not tested: EC2 hardware, a real notification, and mmap() after
-  unbind. There are no selftests for this driver.
-
-This is for v7.0 and later, where the per-file state was added. Before
-v7.4-rc2 the line this patch removes is still devm_kzalloc(dev,
-sizeof(*st), GFP_KERNEL), so the stable trees need that context line
-adjusted. Earlier kernels have the same bug through the devm-allocated
-state and need a separate backport.
-
-Lorenzo Stoakes' "ptp: vmclock: convert mmap hook to mmap_prepare"
-(2026-11-05, part of an mm series) also changes vmclock_miscdev_mmap()
-and is not in net/main. If the two meet I can send a resolution or
-rebase as needed.
-
-Not changed here: in vmclock_probe(), !st->miscdev.minor is never true,
-because an unregistered dynamic miscdevice keeps MISC_DYNAMIC_MINOR, so
-a device with neither interface still binds. That is a separate fix.
-
-The code, changelog and reproducers were written with an AI assistant
-(Claude Opus 5.5), and the assistant ran the tests above. I ran the
-final version myself and got the same results.
-
- drivers/ptp/ptp_vmclock.c | 63 ++++++++++++++++++++++++++++++++++-----
- 1 file changed, 55 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/ptp/ptp_vmclock.c b/drivers/ptp/ptp_vmclock.c
-index 7f25fe6c2ce2..3e32a9030661 100644
---- a/drivers/ptp/ptp_vmclock.c
-+++ b/drivers/ptp/ptp_vmclock.c
-@@ -17,6 +17,7 @@
- #include <linux/io.h>
- #include <linux/interrupt.h>
- #include <linux/kernel.h>
-+#include <linux/kref.h>
- #include <linux/miscdevice.h>
- #include <linux/mm.h>
- #include <linux/module.h>
-@@ -51,6 +52,8 @@ struct vmclock_state {
- =09enum clocksource_ids cs_id, sys_cs_id;
- =09int index;
- =09char *name;
-+=09struct kref kref;
-+=09bool removed;
- };
-=20
- #define VMCLOCK_MAX_WAIT ms_to_ktime(100)
-@@ -369,6 +372,9 @@ static int vmclock_miscdev_mmap(struct file *fp, struct=
- vm_area_struct *vma)
- =09struct vmclock_file_state *fst =3D fp->private_data;
- =09struct vmclock_state *st =3D fst->st;
-=20
-+=09if (READ_ONCE(st->removed))
-+=09=09return -ENODEV;
-+
- =09if ((vma->vm_flags & (VM_READ|VM_WRITE)) !=3D VM_READ)
- =09=09return -EROFS;
-=20
-@@ -398,6 +404,9 @@ static ssize_t vmclock_miscdev_read(struct file *fp, ch=
-ar __user *buf,
- =09uint32_t seq, old_seq;
- =09size_t max_count;
-=20
-+=09if (READ_ONCE(st->removed))
-+=09=09return -ENODEV;
-+
- =09if (*ppos >=3D PAGE_SIZE)
- =09=09return 0;
-=20
-@@ -450,6 +459,10 @@ static __poll_t vmclock_miscdev_poll(struct file *fp, =
-poll_table *wait)
-=20
- =09poll_wait(fp, &st->disrupt_wait, wait);
-=20
-+=09/* After poll_wait(), so vmclock_remove()'s wake-up is not missed */
-+=09if (READ_ONCE(st->removed))
-+=09=09return EPOLLHUP | EPOLLERR;
-+
- =09seq =3D le32_to_cpu(st->clk->seq_count);
- =09if (atomic_read(&fst->seq) !=3D seq)
- =09=09return POLLIN | POLLRDNORM;
-@@ -466,6 +479,12 @@ static int vmclock_miscdev_open(struct inode *inode, s=
-truct file *fp)
- =09if (!fst)
- =09=09return -ENOMEM;
-=20
-+=09/*
-+=09 * misc_open() calls this with misc_mtx held, and vmclock_remove()
-+=09 * calls misc_deregister(), which takes misc_mtx, before the device's
-+=09 * own reference is dropped.
-+=09 */
-+=09kref_get(&st->kref);
- =09fst->st =3D st;
- =09atomic_set(&fst->seq, 0);
-=20
-@@ -474,9 +493,22 @@ static int vmclock_miscdev_open(struct inode *inode, s=
-truct file *fp)
- =09return 0;
- }
-=20
-+static void vmclock_free(struct kref *kref)
-+{
-+=09struct vmclock_state *st =3D
-+=09=09container_of(kref, struct vmclock_state, kref);
-+
-+=09if (st->clk)
-+=09=09memunmap(st->clk);
-+=09kfree(st);
-+}
-+
- static int vmclock_miscdev_release(struct inode *inode, struct file *fp)
- {
--=09kfree(fp->private_data);
-+=09struct vmclock_file_state *fst =3D fp->private_data;
-+
-+=09kref_put(&fst->st->kref, vmclock_free);
-+=09kfree(fst);
- =09return 0;
- }
-=20
-@@ -649,9 +681,20 @@ static void vmclock_remove(void *data)
- =09if (st->miscdev.minor !=3D MISC_DYNAMIC_MINOR)
- =09=09misc_deregister(&st->miscdev);
-=20
-+=09/* Files still open now fail, and a poll() in progress returns */
-+=09WRITE_ONCE(st->removed, true);
-+=09wake_up_interruptible_all(&st->disrupt_wait);
-+
- =09dev->driver_data =3D NULL;
- }
-=20
-+static void vmclock_put(void *data)
-+{
-+=09struct vmclock_state *st =3D data;
-+
-+=09kref_put(&st->kref, vmclock_free);
-+}
-+
- static void vmclock_put_idx(void *data)
- {
- =09struct vmclock_state *st =3D data;
-@@ -665,9 +708,15 @@ static int vmclock_probe(struct platform_device *pdev)
- =09struct vmclock_state *st;
- =09int ret;
-=20
--=09st =3D devm_kzalloc_obj(dev, *st);
-+=09/* Open files can outlive the device, so st is not devm memory */
-+=09st =3D kzalloc_obj(*st);
- =09if (!st)
- =09=09return -ENOMEM;
-+=09kref_init(&st->kref);
-+
-+=09ret =3D devm_add_action_or_reset(dev, vmclock_put, st);
-+=09if (ret)
-+=09=09return ret;
-=20
- #if IS_ENABLED(CONFIG_ACPI)
- =09if (has_acpi_companion(dev))
-@@ -686,13 +735,11 @@ static int vmclock_probe(struct platform_device *pdev=
-)
- =09=09=09 resource_size(&st->res));
- =09=09return -EINVAL;
- =09}
--=09st->clk =3D devm_memremap(dev, st->res.start, resource_size(&st->res),
--=09=09=09=09MEMREMAP_WB | MEMREMAP_DEC);
--=09if (IS_ERR(st->clk)) {
--=09=09ret =3D PTR_ERR(st->clk);
-+=09st->clk =3D memremap(st->res.start, resource_size(&st->res),
-+=09=09=09   MEMREMAP_WB | MEMREMAP_DEC);
-+=09if (!st->clk) {
- =09=09dev_info(dev, "failed to map shared memory\n");
--=09=09st->clk =3D NULL;
--=09=09return ret;
-+=09=09return -ENXIO;
- =09}
-=20
- =09if (le32_to_cpu(st->clk->magic) !=3D VMCLOCK_MAGIC ||
---=20
-2.43.0
-
-
+diff --git a/kernel/bpf/bpf_lsm.c b/kernel/bpf/bpf_lsm.c
+index 468e63d..c7d683e 100644
+--- a/kernel/bpf/bpf_lsm.c
++++ b/kernel/bpf/bpf_lsm.c
+@@ -368,7 +368,6 @@ BTF_ID(func, bpf_lsm_path_chown)
+ BTF_ID(func, bpf_lsm_mmap_file)
+ BTF_ID(func, bpf_lsm_netlink_send)
+ BTF_ID(func, bpf_lsm_path_notify)
+-BTF_ID(func, bpf_lsm_release_secctx)
+ BTF_ID(func, bpf_lsm_sb_alloc_security)
+ BTF_ID(func, bpf_lsm_sb_eat_lsm_opts)
+ BTF_ID(func, bpf_lsm_sb_kern_mount)
