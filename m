@@ -1,59 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795084722;
-	b=2PspMUv1HT+ed8/sipJntLi1yX8GIGCNat0DzDb13RhOok495UvgtiWQ0+MmiUb+mCyt
-	 Ogf7y1wnSedXH8D7ygETBAiB5RCZblaVuAjCucnOlOk8aAIFOJiVYEibk/85M9Ak3mOSX
-	 Mk1L+LUF5rOf3du2mVjSlo8Za36htDL1Onr9AmV+M4C65A3juukP6FQcUc8k1NKqvdUhg
-	 O7Ibktc4ojHgawThACoeklLyDiWgoAdi7BE/aE0DqCMRd65O7ZuiqOp1+Ysxv66YIu5sO
-	 IwrEx24GrPEiX47kP9oQHBcHOFqT60UZIfwFH7PlEEoIzjP8joqKNUC6nGe1XObQpYg==
+	t=1795084815;
+	b=HFfrLDDwp6fZEsKCv7+xHKlVnRAuK1KY97IHJmBroHAndesdDgtsvFK0yOCgdFMOZt/2
+	 nG52/XDFgftYbGFuNYAoIC1lmtTh9eFP4GmBhEJLKAKyqTYf+ecEPIwYwa+XBdIAUs9XW
+	 0c13sO8c6Y3MHQ4n27RmSe6/aG60TyKkkN7jMCL+xShvLwJl007PRG08LJxSrKagRc4Hg
+	 3t0badNS2+1vPex4nJjtp2PvDZay84aD1YKQe/c2YTZTnc7lrSNuvv1kuejuXc+c3/j7T
+	 zTsgY6zzZ0Ja8QjFH23RIySSuoBigVMaxw3e+cTMEBb4IKgUNHY4bzbwbofopU9WkFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795084722;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=nzKHjSzRWrH9V9MmPTb7bDSHDOandNdhRmo9KqnTcUs=;
-	b=mxOU5/3zoBMYUoQ0ljsrAJWDdinuRRGLQpy7swSwL+F03bSDk0VB02qsJdBWSQLlYfUg
-	 Ucs+NC3xxe6oAjptJJWfwRyCdthILQ9SDqLGYxOdU6eBoOuZVGGC5uy1X+uUtLOCbJ2aw
-	 1Ncfxl5glVh7S5OM6X2iXBPHoTTKjhQXfDKWo6RbdVLxP5QZs6PLLw7tsOzSdnf/K5amM
-	 6Q167u9qAlZwcFEje2RnihUA5EaN+ynS2qrNeeqvTWqROs3zWM8Yr3Ny5j6kBqnQn0jV6
-	 TtW5Bz/Q2QuI7HhX5/KBQCBgZAGqJDwgu04NNO/X/lfzKzTQ2WBewDjprkIK5cPXrtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795084815;
+	h=DMARC-Filter:DKIM-Signature:Mime-Version:X-Original-From:Received:Cc:
+	 Subject:Content-Transfer-Encoding:X-B4-Tracking:Content-Type:From:
+	 Message-Id:X-Mailer:To:Date:X-Change-Id:X-Lms-Return-Path;
+	bh=rm1SiYSaCZ8v2XPknfKS2cqm5SsYgR5uwTL8lG+Xc0k=;
+	b=jGHB+m6OO4xDbmW1zhrx4mVLWDMFPoDsO43x3U21gOCRgMSVenjfUJe1fo/ES8LCcMVq
+	 IFZlGTUBepe+el+0OnytsmXcnzHdEPcR5ef2ZkkBMy5L/mSMNbjKdxmzwjmTbKpI8sVuF
+	 qit7T5cz43eXZZCxZFDWp6ssuz22R/9/ZeK2rSf6aVjbzhM6aVrdlMOkn95N6NtYPKQ5f
+	 PzQhUAlHKoygPr+9I75vATjRuavuqlaQegAhUER1w+6gAdRdDHWQ/iU69xDvdvIh8iIjY
+	 n1OPj+y3xg+OSE4t/mi19fueZS8wT8mscVIZm2DBKAKNl2fjzo6YJa1F2sItxZIX/vQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QeRlA3cD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=oss.cipunited.com;
+	spf=pass smtp.mailfrom=oss.cipunited.com;
+	dkim=pass header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=s8Nw7S1n;
+	arc=none smtp.remote-ip=209.127.231.50
+Received: from va-2-50.ptr.blmpb.com (va-2-50.ptr.blmpb.com [209.127.231.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A638606A32C;
-	Thu, 19 Nov 2026 10:38:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427E2606A331
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 10:40:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 427E2606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cipunited.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cipunited.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QeRlA3cD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 254121F000C7;
-	Thu, 19 Nov 2026 10:38:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795084721;
-	bh=nzKHjSzRWrH9V9MmPTb7bDSHDOandNdhRmo9KqnTcUs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QeRlA3cDT8Pc2gM234B5g/bsU5q2HTlE5qpGMe4ogmLU5pEsWz1It9/KdbayqcdP5
-	 5wnU4zvVXGC77yZq7d87qiWZ6sjcDBYl9YDrfEDaSeGXOfiTTyWKZfAKr3GB62LX+c
-	 AjPmICswFKeQ9PzKOisi56PXNs9Oz7QYuzuYWTzaWguIYWNfrqWZPEAalAnzgG+8z4
-	 hPgj+im4OCNPIrYC6yn3Aw3TqGfiAiANjkIZ2vvZYBItz5UIBaLytUDBAnRtv345gB
-	 KlRwkR0nySMc0WdEw4qri0Y5pT1rhgAtBBrItrS0qZcerENyaaiv1BHML47wtGU/wc
-	 MupC3vFHdqVgw==
-Subject: Re: [PATCH net v5 3/3] net/sched: sch_teql: keep skb->dev consistent
- on the arp-queue path
-From: netdev-bot+sashiko@kernel.org
-To: jhs@mojatatu.com
-Cc: netdev@vger.kernel.org, victor@mojatatu.com, jiri@resnulli.us,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, stable@vger.kernel.org, sashiko-bot@kernel.org
-Date: Thu, 19 Nov 2026 10:38:40 +0000
-Message-ID: <179508472073.3136.1625322377662676881@kernel.org>
-In-Reply-To: <QDISC-6HS9.v5.r0.20261116052927-3@mojatatu.com>
-References: <QDISC-6HS9.v5.r0.20261116052927-3@mojatatu.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=oss.cipunited.com header.i=@oss.cipunited.com header.a=rsa-sha256 header.s=feishu2303200042 header.b=s8Nw7S1n
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2303200042; d=oss.cipunited.com; t=1795084809;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=rm1SiYSaCZ8v2XPknfKS2cqm5SsYgR5uwTL8lG+Xc0k=;
+ b=s8Nw7S1nXUqsQ9btfT4ULm6BdNKbgMyoGgrdcJqMArS4XETqeRBAvxsibizNeoiCx3THdF
+ qq+QGGWkHr/VbPW6MsJvEjWK/C+/QATz+hIRSLJUsn+Af1On9CW+eMHiN7iip3ulgNiilC
+ KJg1miNMEk5P5reQ9GaGyRAK9GL4HkMUA2NZjMpEFz9UNAFEbpuA+hyAOdSXqn0g8D0zto
+ 6aR7RC1xZTyYTqkFtlU2gpZwh2qwHovmRXFWF8uiMCq8PLMgZy5SYYWo35vdG5/ObTMbgV
+ C1ALH4RfNvPh3fBg1DvMJlhv9Z1gMpBSqoTyL9XFJ2jtBbwZfBo0xuHvXuIOew==
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -62,162 +51,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+X-Original-From: Rong Zhang <rongrong@oss.cipunited.com>
+Received: from [127.0.1.1] ([171.15.157.139]) by smtp.feishu.cn with ESMTPS; Thu, 19 Nov 2026 18:40:06 +0800
+Cc: "Yao Zi" <me@ziyao.cc>, "Icenowy Zheng" <uwu@icenowy.me>, 
+	"Jiaxun Yang" <jiaxun.yang@flygoat.com>, "Rong Zhang" <i@rong.moe>, 
+	<linux-mips@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Mike Yang" <reimu@sudomaker.com>, 
+	"Rong Zhang" <rongrong@oss.cipunited.com>
+Subject: [PATCH 0/2] MIPS: kprobes fixes
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ7CIBBA0as0s3YSNFTAq5gugE51NLaE0aYJ4 e5FXb7F/wWEMpPApSuQaWXhZW44HjqIdz/fCHlshqi0M+5k8MVJ8JnyEkgwJKRgR+0n5c+2h1a lTBNvv+N1+Fs+4UHx/d1ArTuqwgHFcwAAAA==
+Content-Type: text/plain; charset=UTF-8
+From: "Rong Zhang" <rongrong@oss.cipunited.com>
+Message-Id: <20261119-mips-kprobes-bp-v1-0-eff03ea13503@oss.cipunited.com>
+X-Mailer: b4 0.17-dev-ce4c1
+To: "Thomas Bogendoerfer" <tsbogend@alpha.franken.de>, 
+	"David Daney" <ddaney@caviumnetworks.com>
+Date: Thu, 19 Nov 2026 18:38:59 +0800
+X-Change-Id: c0497927-mips-kprobes-bp-eb8d4af0a685
+X-Lms-Return-Path: <lba+26afed207+b41071+vger.kernel.org+rongrong@oss.cipunited.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+arch_prepare_kprobe() writes the copied instruction and a single-step
+completion breakpoint into an out-of-line instruction slot, but does not
+synchronize the instruction cache for it. Due to arch_arm_kprobe() only
+flushing the probed instruction by calling flush_insn_slot(), the
+executable slot may remain unflushed when the kprobe is hit. This
+becomes critical when get_insn_slot() reuses a just-freed slot.
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 0
+Fix it by calling flush_icache_range() to really finish the preparation.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Additionally, the breakpoint exception handler executes STI, which
+enables interrupts even when the breakpoint is located in an
+interrupt-disabled critical section. Such situations usually correlate
+with kprobes, where breakpoints are used to trap into the handlers and
+single-step the original instruction.
 
-- [Medium] The patch carries `Cc: stable@vger.kernel.org` and only works
-  if a net/core/neighbour.c fix is applied first, but the commit message…
-- [Medium] The ICMP error for a failed neighbour resolution is now routed
-  in the teql slave's L3 context instead of the master's.
+Fix it by building the breakpoint handler with KMODE to enter kernel
+mode with interrupts left as they are.
 
---
+Fixes: c1bf207d6ee1 ("MIPS: kprobe: Add support.")
+Co-developed-by: Mike Yang <reimu@sudomaker.com>
+Signed-off-by: Mike Yang <reimu@sudomaker.com>
+Signed-off-by: Rong Zhang <rongrong@oss.cipunited.com>
+---
+Rong Zhang (2):
+      MIPS: kprobes: Flush out-of-line instruction slots before use
+      MIPS: Keep interrupts as they are in breakpoint handler
 
-net/sched: sch_teql: keep skb->dev consistent on the arp-queue path
+ arch/mips/kernel/genex.S   | 6 +++++-
+ arch/mips/kernel/kprobes.c | 9 +++++++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
+---
+base-commit: 20eef29b7c8465ac98d7dd6d6f2ac07a8d8056ca
+change-id: c0497927-mips-kprobes-bp-eb8d4af0a685
 
-This patch moves the skb->dev = slave assignment in teql_master_xmit() so
-that it happens before teql_resolve(). An skb parked on the slave's
-arp_queue then names the slave instead of the teql master. This avoids a
-use-after-free when sch_teql is unloaded and the master is freed while the
-skb is still queued.
-
-Link: https://lore.kernel.org/netdev/20260824115928.4099988-1-victor@mojatatu.com/
-Link: https://lore.kernel.org/netdev/20261026160747.283702-1-horms@kernel.org/
-Link: https://lore.kernel.org/netdev/20261031165925.780930-1-horms@kernel.org/
-Link: https://lore.kernel.org/netdev/179363700308.3131.11778179538290251434@kernel.org/
-Link: https://lore.kernel.org/netdev/20261110101908.2e64e8e9@kernel.org/
-
-> A parked skb is reinjected by neigh_update_process_arp_queue(), and a
-> device that transmits straight on skb->dev has to be handed its skb back
-> there. That is a change to net/core/neighbour.c, posted as its own fix,
-> and it has to be applied before this one: without it the parked packet
-> leaves the slave directly, with no link header, because teql_master_xmit()
-> has already pulled it.
-
-[ ... ]
-
-> Cc: stable@vger.kernel.org
-
-[Severity: Medium]
-This patch carries Cc: stable, so could the prerequisite be named
-explicitly? The text only says the neighbour.c change is "posted as its
-own fix". It gives no commit id, subject or Link, and the stable tag has no
-"# depends on" note.
-
-The prerequisite looks like "net: neighbour: reinject a parked skb through
-a headerless output device". It adds this to
-neigh_update_process_arp_queue():
-
-	/* headerless output transmits on skb->dev, not n1->dev */
-	if (!n1->dev->header_ops)
-		skb->dev = n1->dev;
-	READ_ONCE(n1->output)(n1, skb);
-
-neigh_update_process_arp_queue() was only split out of __neigh_update() by
-commit 705ef89ac98648 ("net: core: neighbour: Extract ARP queue processing
-to a helper function"). So the neighbour fix will not apply cleanly to
-older stable trees.
-
-This sch_teql hunk is a one-line move. Given the earlier sch_teql patch
-that adds the &hlen argument, it would apply to those trees on its own.
-
-If this patch reaches a stable tree without the neighbour fix, would an skb
-parked on the slave's arp_queue go out with no link header?
-
-When the neighbour resolves, neigh_update_process_arp_queue() looks up n1
-again from the dst and gets the teql master's neighbour. The master has no
-header_ops, so n1->output is neigh_direct_output(). That transmits on
-skb->dev, which is now the slave:
-
-neigh_update_process_arp_queue()
-  n1->output() == neigh_direct_output()
-    dev_queue_xmit(skb)   /* skb->dev == slave, header already pulled */
-
-Would something like "Cc: stable@vger.kernel.org # depends on <commit>"
-help keep the two patches together?
-
-> diff --git a/net/sched/sch_teql.c b/net/sched/sch_teql.c
-> index 626dc001ec231..e60d8f3b127de 100644
-> --- a/net/sched/sch_teql.c
-> +++ b/net/sched/sch_teql.c
-> @@ -374,13 +374,13 @@ static netdev_tx_t teql_master_xmit(struct sk_buff *skb, struct net_device *dev)
->  			continue;
->  		}
->  
-> +		skb->dev = slave;
->  		switch (teql_resolve(skb, skb_res, slave, slave_txq, &hlen)) {
-
-[Severity: Medium]
-skb->dev is now set to the slave before teql_resolve(). So when
-__teql_resolve()->neigh_event_send() parks the skb, skb->dev is the slave
-while skb_dst(skb)->dev is still the master.
-
-Does this change the L3 context used to route the ICMP error when
-resolution fails?
-
-neigh_invalidate()
-  arp_error_report() / ndisc_error_report()
-    dst_link_failure()
-
-For IPv4, the path is
-ipv4_link_failure()->ipv4_send_dest_unreach()->__icmp_send()->icmp_route_lookup().
-icmp_route_lookup() calls icmp_get_route_lookup_dev(), which prefers
-skb->dev:
-
-	route_lookup_dev = icmp_get_route_lookup_dev(skb_in);
-	fl4->flowi4_oif = l3mdev_master_ifindex(route_lookup_dev);
-
-So the oif and the inet_addr_type_dev_table() checks now come from the
-slave rather than the master.
-
-For IPv6, icmp6_send() takes iif from skb->dev:
-
-	if (__ipv6_addr_needs_scope_id(addr_type)) {
-		iif = icmp6_iif(skb);
-	} else {
-		...
-		iif = l3mdev_master_ifindex(skb->dev);
-	}
-
-icmp6_dev() only falls back to the dst device for loopback or l3 master
-devices, so the slave is used as is.
-
-A teql master can be enslaved to a VRF, since vrf_add_slave() only rejects
-l3 masters, existing l3 slaves and loopback. The slave is normally not in
-the VRF.
-
-In that setup, the host-unreachable error would now be looked up with
-oif 0 in the main tables, not in the VRF table that holds the master's
-address. Could it then fail routing, or follow a main-table default route
-off the box?
-
-The same seems to apply to an IPv6 link-local source on the master. There
-the strict oif=slave lookup would not match the master's local route.
-
-Without a VRF and with global addresses, l3mdev_master_ifindex() is 0 for
-both devices, so nothing changes in that case.
-
-The commit message says the error path "names the slave on that path too".
-It does not mention this change in routing context. Is it intended?
-
->  		case 0:
->  			if (__netif_tx_trylock(slave_txq)) {
->  				unsigned int length = qdisc_pkt_len(skb);
->  				int rc = NETDEV_TX_BUSY;
->  
-> -				skb->dev = slave;
->  				if (!netif_xmit_frozen_or_stopped(slave_txq))
->  					rc = netdev_start_xmit(skb, slave, slave_txq, false);
->  				__netif_tx_unlock(slave_txq);
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/QDISC-6HS9.v5.r0.20261116052927%40mojatatu.com
+Thanks,
+Rong
