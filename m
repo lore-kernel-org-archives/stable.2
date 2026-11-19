@@ -1,87 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795075070;
-	b=31bfE0yi0kPu0bJYug3JHnFyLOkOuNP1SQf1EZYqkaMLuVxaHC9EA0+geDUAbzfIfrf8
-	 6cLylyJJPDkvqKb0yE+8uVKbh89Qa+mwQAFX3cnQ+9+zJiYrXFJHY/pXg5rjfTBs/ShhZ
-	 Kt+sTToEtN6KRBzZDERdL+1cgxb2lDw9aodq1ixJsSMz6ClRj/ld88mRxRVMDQpxfBlZ7
-	 98cfpiByxtH66yoZ/F8c+6FextgRKa+OzeQ83Vx+33DTNAY9kR4FAmOX2bGYsuQR9DKJE
-	 TgAax48+XsL5tMFm/0hh73MJz6hQXuNzRS/zqjmNkihxnDFXukmGvvjrtrBT8AlgMzg==
+	t=1795075303;
+	b=NIcj7V5UfOkpLEvnaw9A4So2nXEMClbZFkzWv3ZAv+5zBVTySVNYSwGL2cQZIB3zWw0U
+	 lvyrlcxKb/P9hwjNWRWPoddnquIMtbG72g6yQrVCWJFXUafKCgmEkPdgRydTgfqVv1zxO
+	 FeOphHBKoC/gbobLLvmknhKqMWSX3hvY2uhFFbanRBr7aG+vkng0MccwPbXyQXyV62B7e
+	 9KFYp74o0PxuclyuZptI/FGFkT0U9Qd8fKL7BUDoakRF4eK514weJG5Seq76RBftigzRX
+	 iExAI1uzRalo2D41m4nFs2MzckFvsVUFAj3enGAo4A+zz/FUDLCoq7v6xWDq6T3irXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795075070;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795075303;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer;
-	bh=54XwvnTRZEcAZvG4/CsgVJ6fnI4Exs8l1O0OeDpAayY=;
-	b=amw2Qs8c1K8GteqFWX61Z6JQ17jOK/TBtNbPQQKauod9qAvjS0WibbHE1hqenJBQ3g4r
-	 saK5uiS8ikakYMyp/p2JwO7wWHFWpRZSCGHM8IUL/GiUAj2TTP8vI6s3Qk/k2WxdCQkHs
-	 eiWh5b4feyGFliK90kEPWKfeqQVf+DmxCp1uLSScft/rtR3gNphyfNlcw/7e6eXYlqstx
-	 JGFMDhRh2RVDppT82EuuWcLBmNoCG9RT4hHezxzbYDM79cIkVmhhat/gPFyfjU+stjw6n
-	 hIbSlq0BXzmTGqpG/TRY2N23V163sJVgmzDXPGg5gQWrlFRK3hASPC0H6acxhvRoZlQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=BI3GiHZy5PM41ztBgWptxPosjP5yVUX7sfT56sMb9/k=;
+	b=GwQeoQZeNwk2KhieTNnKq+GGXps9Ori2QeH+t52B8gGk4ehgZsctBq4Sw0yeO8BVLkuv
+	 JBTBk0R3Ev9lNzbjFOZ7fgXDQWiGlOh87W42ihbFGbAZcSFyGcaqwU5H019AadaIk1Kwu
+	 makaihSsEXgshxu4zgvNyr5SBvfIt8h4pNa4hx2Jm5ic4IdCbTL21xjm9y0hV92pDZzmA
+	 4wLarofgjB7A8S9VgRLszRvnwwLhoz6ukxyMvK3hjKeL2bT9W7mjsBbboeTJ8QQp14LPY
+	 KMhtlssPlrUBfirZ1HSV//y0Aizn3GDzIe+9el812fQg7tULTEDyzBCxymSwuR3EcNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bu1us5l+;
-	arc=none smtp.remote-ip=209.85.221.42
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bMu2ZlI2;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E78E606A320
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 07:57:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2E78E606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAA6606A324
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 08:01:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DAA6606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Bu1us5l+
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-492f563d1c6so687883f8f.3
-        for <stable@vger.kernel.org>; Wed, 18 Nov 2026 23:57:49 -0800 (PST)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bMu2ZlI2
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so16598005e9.2
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 00:01:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1795075068; x=1795679868; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=54XwvnTRZEcAZvG4/CsgVJ6fnI4Exs8l1O0OeDpAayY=;
-        b=Bu1us5l+m9et2LjpRBEU83OjvlwVzVU/tCX1OZB8FKp1V9vmlQH9DlfXwUjA4krTbj
-         brUCQq54mMSUJZVUP0qjSqEReWeAigPEvgJpmskrc57kfM3icLp5ecJRypv9mqc0mWhz
-         PM7a5EVU/X+ZMZ6/H8QTcfhUaz9llKID4WLMWmr2zb+zwuLQBHgZyC5T/RMmZlzfeYa+
-         3bddOkRTLlDXG2FjQ7DuKkTVHw4/k4AIbO9NncTJeB0naw42fIKzwnb9+5vP8tVcOnE8
-         BwgUwGmNorfdpIVJzQai93RgCPG/3nhWspHs/zvwgy65nU7lPJlFo4SziCP8mCooVyuo
-         cMug==
+        d=gmail.com; s=20260707; t=1795075301; x=1795680101; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BI3GiHZy5PM41ztBgWptxPosjP5yVUX7sfT56sMb9/k=;
+        b=bMu2ZlI2o6HCtUAxMfEv1ledyJ03bapITiRAATkmdTsD09Vx/yhmG65NF47xEQyFYM
+         yyUHFv/l3p9H9os8ztvdv5Y0xu28YstZXhjuJBo13XU6nqBkRVl4YzAehVMUsAfk+url
+         wRi3jJszRTnEDG4/Zo5veRySKoTFPrhH/rByARHkF1AQKsJkrHSZRR5FW4O1AwClPeZ5
+         rZoWQ7RwrOLHbxRYnc1bRyGj5fGgHJ4liIAbd3FkXKhVdjDdZFkLMn7bcbQGxNBr5Zqz
+         z2DvuN7cJShasX6d2OmreaIpVZUSKLYyB8mKk0ACrEbp86SLBarcz32UGenx2mjGds38
+         M/8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1795075068; x=1795679868;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=54XwvnTRZEcAZvG4/CsgVJ6fnI4Exs8l1O0OeDpAayY=;
-        b=PXrwgXb10artCreRonWQpa4XkH1UQO64QHHKGg7UIzGHG84/Dyywq74PVs6eIDld7y
-         upi0YG9QsWbVPVqD/JEpIJlWY/yhtDuyYIK7xH2oL2Lg7xflCVso0dArt1C9zNTnTwC0
-         wjuZdUjF7T2xyPTLAHZ6OrrwMOuX73sN6BPGubMs86pgdFpfY5aZYa+2DI3pJD5t16oT
-         lYSIw2loilNIUgNjWIiShw6ImSrPTs9khhp0p3rLgCePPi5pv+Kt3QbQJtO6AlizPbg/
-         l3N2HC8gGLNjNzcL6y6cPARBxaHDH2DmaR/afQNPr2AyAzYK/Js7CkMJB6DnXOsWa4ZD
-         OAlQ==
-X-Forwarded-Encrypted: i=1; AL+hErEDhyxBHkvpH6FZDCGQXCWpvJ3REkKHFKkVvgxOdSGFVJSMehVdVw5yOapUZL2jWNyR77k3M0M=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+IceqJiEV9ZmmImHNnmNj71AaDp24OYtpSEo9XyA8Sjmzj4SVP
-	iq6RuqyNWLndQ5sYeDY3yi66/evyvLCoMxkeHpl+8agqafeGnEIIMjMg
-X-Gm-Gg: AZFdTZdpXj9wG/a2aRaw3TFEfAfZznYeKH6Y7q06/7UnLC+7B1OCqNvhwFi+qSTi52c
-	CzTyujiVY29ZZiaopvLIpLcq3NrEcD0buUwTNf6++TT4Y/5vnAgFsioLZEvONWBLtWKW5TUGb91
-	bnTw0sIrlhuaGA6U2XbRFaESMnDShEfuSL6re5Kq3F3kG+7hNpeTv7r9dadW+mN9/h8P7wnbV/x
-	Y8nw3VwO0oHwBPx5cYbx3gAI5Jeqwpr+mrAQGjUXg76ov+iQIXiQN4H6C3D/xJoMeMk5f+fdTDm
-	YQl7ODicZG+tUpOl9kjhxuyzUs0ftA4RbihJjUb4qkmGAXOGYg+nQNZnm8k7NccR5dgqso3FUFR
-	DiIoNG1HSoM830WATvJVOlhjrjzqdt69M3+PZbVo4xLOtTZWFlk6aHQ5Osmo4S4CT+WTmuW3rhh
-	zFfrRleF5KZe5KG+LoqXmfs7Vs5d+zapr1+Pv/MHEXebQCkCQ+IzSReMZ27jQRzU+S/dgCxNDO2
-	dLsSV2LDm/PLva7mik4jeLxbqltdh36TnkR1PB5LMxyROV7mnfR44z11oyCTn6HdxXyfsIXu7p4
-	TEYopdKzy2XFYocIijF50CsSpr5tEnPToOoNsCeb1iFW0ut1Sy0asKNy9Q==
-X-Received: by 2002:a05:6000:4555:b0:4a4:7328:21f1 with SMTP id ffacd0b85a97d-4a63ac6be9fmr7344622f8f.24.1795075068411;
-        Wed, 18 Nov 2026 23:57:48 -0800 (PST)
-Received: from [192.168.0.253] (5403F394.catv.pool.telekom.hu. [84.3.243.148])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4a654a8c411sm9450116f8f.16.2026.11.18.23.57.47
+        d=1e100.net; s=20260707; t=1795075301; x=1795680101;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BI3GiHZy5PM41ztBgWptxPosjP5yVUX7sfT56sMb9/k=;
+        b=ZlMhZkrsnMTZUeZtY5Kv616y0ZXte7r9HrEY6fnUHzjN9bC0IIAAh2PpWh+m6pQiT1
+         bfa+Lm6Gzm/TKz++/2ddtJaoaRf1ZUaK1TJVruHDEfxYX8w0PI9EPJQSsIMA9+LGxOuR
+         XORx7TrFNGqXwH9Yo0sTfr02OUUfHI1N0nkEu9l8mtKFU2x4kFgMK0qNcJTAbMMMgJJu
+         qc76GF7BmUvStTcnKq3/4DLmIdCZe2wGtEOIwLWQ8fpUWsLT5zUUuVzKw/+7oKQf19WT
+         zp0Zgh6tFSgOeADXBDcS3uikCnuTCakdjdxtiUjEDt3FFBdj5sV/o9YBIi7PLPR1/kAj
+         Q1CQ==
+X-Forwarded-Encrypted: i=1; AL+hErF2+XxVxTpKPbA13FKzNaCfYTn8ud9QTtcun+0MukcLiZaLlm/VJINQyT49Bjj5JldBrvnr2h8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8eFeMOpOGozetWfIoCNaUr3WMbbPM4JCDi/ZQ3qprjSJzBEgb1
+	ZvXPxcWPdtyvwROIgca3xuNvIt33ESeSwOUlSgb3gefmiUyELM5n9Lgf
+X-Gm-Gg: AYBFou2/tNetBOSzYet6yD+e1DhSKSpDlblHUqHtQW1sZG307bzehw41nkC+P1YPUys
+	pIM8ujfbq/MkSH1j6ADQvNnDi+gTTvuJzr7b2RlXSG16GDDLwWng51BKKdBJE25rGTF+Vd2o+0q
+	41y+uknLg0qLFoITlIANuD7z3+Lx8LNGZ4P7LQ/GAwnE3ASvR29Ar46yViam/TeTybnU88f90yA
+	kqaZwCSybHAMaDV9lMKA3X25ms68O5Z1b0KygdF+X2EMFevTdwHtDkVTKLcqWDSii9wJvTjsFhA
+	ptN4sv+rPbCohXIm8CLYS4kcOUdI+1swNui7exvK+VcK9UY+y3cRgLiA0IWnmOxdJcz4CrC26kF
+	nlugLmSTLnt3RKBzDbrB7GAsAbdOqRQXcyXqm8eRhb4Qpona0hrEMQyKwrLuEU9VKqKo9zkxNGD
+	qlNsr9oiRWUhEW/O9tO8Za3g2lJ1UWQtMFzx2Ee5lLQdPty+RjMRKAw7ojmaswQv8bNtLU+UAgK
+	oPoFti9/+KMC+a7dlXIc6kB2N3NWrlM5e8FwDGBOZiSpeKIivE5C0Pi/qbDNs6xHuqRk9kfcKE8
+	jr5iDnhhyyhl1lVAm/9xiqYbI+ayQow9fj4CoyaZ8EuoMDvRNowFCEgsRFKywxF9pGlhXKbTgnt
+	idJnUZQxnLgNUpQ==
+X-Received: by 2002:a05:600c:1396:b0:4a4:4d57:8462 with SMTP id 5b1f17b1804b1-4bb7da21b76mr103724785e9.24.1795075301248;
+        Thu, 19 Nov 2026 00:01:41 -0800 (PST)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4bb84e50512sm11628805e9.3.2026.11.19.00.01.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 18 Nov 2026 23:57:47 -0800 (PST)
-From: Gabor Juhos <j4g8y7@gmail.com>
-Date: Thu, 19 Nov 2026 08:57:42 +0100
-Subject: [PATCH v2] mtd: spinand: set request type explicitly in
- spinand_{is,mark}bad() functions
+        Thu, 19 Nov 2026 00:01:40 -0800 (PST)
+From: David Carlier <devnexen@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Daniel Wade <danjwade95@gmail.com>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] tracing: Ignore .function on the function trace event
+Date: Thu, 19 Nov 2026 08:01:39 +0000
+Message-ID: <20261119080139.131834-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -91,75 +99,44 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261119-spinand-set-req-type-in-bbm-functions-v2-1-4dc4f995dfad@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WNTQ6CMBBGr0Jm7RjKr3HlPQwLWqYwiRToVCIh3
- N3KDVy+L1/e20HIMwnckx08rSw8uQjZJQEztK4n5C4yZGlWKaVqlJld6zoUCuhpwbDN8eNQ6xH
- t25kQBYJ5UdclVUYVlEJ0zZ4sf87Os4k8sITJb2d2Vb/138KqUKEtqq7Uub4Zmz/6seXX1UwjN
- MdxfAGt2xLY2gAAAA==
-X-Change-ID: 20261117-spinand-set-req-type-in-bbm-functions-34775e6c14e0
-To: Miquel Raynal <miquel.raynal@bootlin.com>, 
- Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Boris Brezillon <boris.brezillon@collabora.com>
-Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
- Gabor Juhos <j4g8y7@gmail.com>
-X-Mailer: b4 0.14.3
+Content-Transfer-Encoding: 8bit
 
-Commit 701981cab016 ("mtd: nand: Add a NAND page I/O request type")
-added a 'type' member to the 'nand_page_io_req' structure and updated
-the request iterators to utilize that, but the spinand_{is,mark}bad()
-functions were not updated by the commit. However in both of these
-functions the new member is implicitly inititalized to zero which
-corresponds to NAND_PAGE_READ. This is correct for the spinand_isbad()
-function since that uses a read request to get the bad block marker
-bytes, but the spinand_markbad() function does a write request so it
-should set the request type to NAND_PAGE_WRITE.
+For the function event, parse_pred() handles the .function suffix
+before the ftrace_event_is_function() case, so "ip.function == schedule"
+builds a predicate with no regex. Setting it through perf then
+dereferences the NULL pred->regex in ftrace_function_set_filter_pred().
 
-Change the spinand_markbad() function to set the request type to the
-correct NAND_PAGE_WRITE value. For consistency, also update the
-spinand_isbad() function to set the request type to NAND_PAGE_READ
-explicitly.
+The "ip" field of that event already takes a function name, so ignore
+the suffix there and let the function event case handle it.
 
+Fixes: cfb58e278c6a ("tracing/filters: Dynamically allocate filter_pred.regex")
 Cc: stable@vger.kernel.org
-Fixes: 701981cab016 ("mtd: nand: Add a NAND page I/O request type")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/log/192383 # See "**Investigating `req->type` in NAND Write Operations**"
-Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
 Changes in v2:
-  - add stable tag
----
- drivers/mtd/nand/spi/core.c | 2 ++
- 1 file changed, 2 insertions(+)
+- Ignore the suffix instead of rejecting it (Steven)
+- Fixes: points at the commit that made regex a pointer (Daniel Wade)
+- v1: https://lore.kernel.org/linux-trace-kernel/20261114195914.2678414-1-devnexen@gmail.com/
 
-diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
-index 18bba02fbd31..35bcb4a8861b 100644
---- a/drivers/mtd/nand/spi/core.c
-+++ b/drivers/mtd/nand/spi/core.c
-@@ -1105,6 +1105,7 @@ static bool spinand_isbad(struct nand_device *nand, const struct nand_pos *pos)
- 	struct spinand_device *spinand = nand_to_spinand(nand);
- 	u8 marker[2] = { };
- 	struct nand_page_io_req req = {
-+		.type = NAND_PAGE_READ,
- 		.pos = *pos,
- 		.ooblen = sizeof(marker),
- 		.ooboffs = 0,
-@@ -1148,6 +1149,7 @@ static int spinand_markbad(struct nand_device *nand, const struct nand_pos *pos)
- 	struct spinand_device *spinand = nand_to_spinand(nand);
- 	u8 marker[2] = { };
- 	struct nand_page_io_req req = {
-+		.type = NAND_PAGE_WRITE,
- 		.pos = *pos,
- 		.ooboffs = 0,
- 		.ooblen = sizeof(marker),
+ kernel/trace/trace_events_filter.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
----
-base-commit: 760d2efe91a84363d25c1051a10572242e75fe86
-change-id: 20261117-spinand-set-req-type-in-bbm-functions-34775e6c14e0
-
-Best regards,
+diff --git a/kernel/trace/trace_events_filter.c b/kernel/trace/trace_events_filter.c
+index c10951bcfc5f..2bbcc2abe794 100644
+--- a/kernel/trace/trace_events_filter.c
++++ b/kernel/trace/trace_events_filter.c
+@@ -1708,7 +1708,9 @@ static int parse_pred(const char *str, void *data,
+ 
+ 	/* See if the field is a kernel function name */
+ 	if ((len = str_has_prefix(str + i, ".function"))) {
+-		function = true;
++		/* Ignore if event is already a function */
++		if (!ftrace_event_is_function(call))
++			function = true;
+ 		i += len;
+ 	}
+ 
 -- 
-Gabor Juhos <j4g8y7@gmail.com>
+2.55.0
 
