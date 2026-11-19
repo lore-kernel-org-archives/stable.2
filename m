@@ -1,69 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795102138;
-	b=H4riB8mOiZoQ7ThwW2b67qzE3xbtiry2LcAFsLCUWpAvo90VFH30Ebeh5rdpJn0B02B3
-	 xsPlrZWaUsA3Vjd5kjpAHXY+l7uP1CUgsaBvVlckNNXfj1tbxJxT5uiPRjAyCtaaPgtWV
-	 +Bx5AmpRlaEmBKQlaluM+n5K86OdwHI+B0ochwLcmqPPHyypzWxIkXSmYj7NpggpMJ9w7
-	 Vx95AhQcXrvEkYPT69uWEC4mT7qk2HD62upwah1RFt2rVEasIB4cMY5Y5OVddvXmx4hWC
-	 iVtAwirTAvA5Y8/w8lnJ+55vEbry0DPi6aS6nomvCE3R8AzII1WsOiZIygh49/SM9ZA==
+	t=1795102192;
+	b=Zoub1HkJPsceiX54tdB4BbBjF3P9HpTmSGqwp9Oe0gCzd/WGIoSUAJXP+8pvElDPyclv
+	 9wujl7UHK9KKSG/Br3dP1Tw4x+vC/8YZLvDjIGnv8bwRy10Gl8/Ga1P1Cc5m7bETCzNIA
+	 L/x8bPjN/SjBmwNkDqP2GI/DlCMHfL4lW1zGsWcJkGlRo/Znp8yhLioO/0/9cmlqomZQ9
+	 eVFCNGpta+FvgwikdEUCJvxDpP82NkCB+Hqz/kNsVTTGBpZzowBQPvQAz9qGgvqUYe94A
+	 BxQpqlwrB5BReLF7LVAnSgWg1eI2k0TzBHDJO2vMab6GIsK9xp/34kKOy17Of9nOcPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795102138;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=7WhtRZ2k/7EVm4x6FvChP8GlYWSfjSHXh2T11MAOs8c=;
-	b=v8cgU/3LB6hSEUiYrs2zJ/F9I5mtk9YTgXxZPPG9EjZP3kYGArn0RwcdPhCcm6+Qq1g9
-	 Y8Xhrf1Rt2lsXhgW0P1aw0FE0xkIDEIBIEI931b2QaB+ScdvYY4xmP4QnBB1go6OBjOnn
-	 pyR1aJRaWQhubkuRFWYeLgjDHdMKubzXWAVb1LLRM8JhZ/p72cCvE/wYnyOwXpX/G9hfC
-	 sBrUdq5GlGqCbCeTGyKdPLm8+eaLZIPGYVECcqY1QjNmH/4VJl9xmlR523HeWlJ8uBzpB
-	 qiukK41w8/Obd3My4Ga4nd8UacqXtep5JzmeXWWn2O5x6lyGGM5dbXLPWfUryPe+XrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795102192;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=KnbdfePd50cx23JvpChjt9LYDM6NifugSVoKNVLpHBY=;
+	b=vAOUMo/uD2tiUbnCDFx9TpjvJVHWV6IOe3YoSuk80E8PPPQCm7RAtgEsfiSs8/bW/Yeu
+	 N72ihX2sDiJg4ujrHOu/NV5ua0Uv5IQXqCMHEGblFvAbVr9WkxzGAt8UTx6rDAZudda7f
+	 /jWxn7ACNoAoG8Vwps9Xl8EXuOMsUuFcxa0R8VCvqQEHiSsYp0LogYFZmoQXtVYC0y7uq
+	 qi5EEmvdwli9AN/zZVEhLHdntHwuoI6aDfN33CL9HqIqRlEGYhW/8bXUuwamSxdH+/Ng8
+	 2yoC98oV2Y+av50NVYb//HSjUpLVuDi7Y/gOpYlPstG/stD9c/jQ1pJTFljMO2/PyCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gn45WquT;
-	arc=none smtp.remote-ip=198.175.65.21
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pTLeWf2C;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B4260A260D;
-	Thu, 19 Nov 2026 15:28:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74B4260A260D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5927606A320;
+	Thu, 19 Nov 2026 15:29:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5927606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=gn45WquT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1795102138; x=1826638138;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=hf+2gJBPqhjtTEobz463VsJzmbD+2TL1IcZlEbk4ZNw=;
-  b=gn45WquTAHJ6eHNkHWFWCKg/SwfactxMyqEWa8C1mvT6FPTpo51fKGhO
-   5kFpIIkdn0u3zNFP3AA1+2gPk1f6cM6h2kSj22IJlMW6t7wEWVR4DtQYu
-   itMhvvTtzmElhRNDDL918zGTZqxc8ihMoMe2oMixYAs8Te4Yq2dwdCmHO
-   +fmysHkR5l2O8SALBLws8+iteHz0fx8BZjQgoVSUEKnTOPVYSOP5Ec9Hb
-   bnnUQeIOntmyT6hcoFlDMtr8K/4XF9fYYFAyoens1QZ0EwcHZsfdvvNBX
-   pBSFMsTrX842tDcdg68RKiqe5/alJ1lfKhncbErooEgBYZkIfP5kt0Ygl
-   g==;
-X-CSE-ConnectionGUID: X2aG+Q8qTYC650gujhIuWQ==
-X-CSE-MsgGUID: g7e8BNl8SROUe9ijbEYS8w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11971"; a="4033863"
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="4033863"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 07:28:54 -0800
-X-CSE-ConnectionGUID: 8dXNTts8TL2AMDKYgCzYBQ==
-X-CSE-MsgGUID: N155q6NUQFCHjtcd4AtUDw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,221,1787036400"; 
-   d="scan'208";a="11028600"
-Received: from aduenasd-mobl5.amr.corp.intel.com (HELO [10.125.109.68]) ([10.125.109.68])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 07:28:53 -0800
-Message-ID: <4cabfb0e-c21d-4f73-9b41-9fb7eca5ea69@intel.com>
-Date: Thu, 19 Nov 2026 07:28:49 -0800
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=pTLeWf2C
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1795102189;
+	bh=Y31Aqu/ldrVNOH8NWT+K15XwnhuT0aa2J5qcnZjNsQE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=pTLeWf2CvggpnVn6mgPTtu2P5jyV8zAI42CrI5UNI+np2uaeGTE210VX3NcyYAPBf
+	 j0cZWJWKPf9ytklQUgkU9dJA+MJryEXSZwOKWfjdGWM/+IlWTHNqic0aYE91nM75LZ
+	 6p0LsNcqvQ6qI5PYa37igU29lzp8KNuq2uTAe3aTF3XlLSGQQLnqEONqUAA6Fr3iRz
+	 anuFN+n0URkv2ho/ZsdlTqqWc/3nSTe7Kti1RhIlrgsJYgQ7MvIp7AXTtT0wlcNJdK
+	 mf8s51IAGpzpFK7SWw3JYfTWd9V2QT6BsdnNJKTKjtfITMbMi1Pat2ChxyQDFZde1f
+	 XcJ7GYTz+mRig==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 25DD317E0A27;
+	Thu, 19 Nov 2026 16:29:48 +0100 (CET)
+Message-ID: <b1aeedac26af03a4b1bd25d5f062f9efb7c04639.camel@collabora.com>
+Subject: Re: [PATCH 2/2] media: verisilicon: Reset the VDPU2 decoder after
+ an error
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: aiyengar1990@gmail.com, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>,  Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner	
+ <heiko@sntech.de>, Jonas Karlman <jonas@kwiboo.se>, Boris Brezillon	
+ <boris.brezillon@collabora.com>, Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Thu, 19 Nov 2026 10:29:46 -0500
+In-Reply-To: <20261119-vdpu2-errreset-v1-2-f8fa403b6a3a@gmail.com>
+References: <20261119-vdpu2-errreset-v1-0-f8fa403b6a3a@gmail.com>
+	 <20261119-vdpu2-errreset-v1-2-f8fa403b6a3a@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-VNfhIxJwLPoRKtgwmuvP"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -73,117 +92,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/cpu/hygon: Work around XSAVES Erratum 1386
-To: Tina Zhang <zhang_wei@open-hieco.net>, x86@kernel.org
-Cc: puwen@hygon.cn, tglx@linutronix.de, mingo@redhat.com, bp@alien8.de,
- dave.hansen@linux.intel.com, hpa@zytor.com, linux-kernel@vger.kernel.org,
- yangzhen@hygon.cn, dengqiming@hygon.cn, stable@vger.kernel.org
-References: <20261028235712.383977-1-zhang_wei@open-hieco.net>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20261028235712.383977-1-zhang_wei@open-hieco.net>
-Content-Type: text/plain; charset=UTF-8
+
+--=-VNfhIxJwLPoRKtgwmuvP
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le jeudi 19 novembre 2026 =C3=A0 06:20 +0000, Arun Iyengar via B4 Relay a =
+=C3=A9crit=C2=A0:
+> From: Arun Iyengar <aiyengar1990@gmail.com>
+>=20
+> After a stream or bus error the decoder can still access the buffers of
+> the failed picture. On RK3588 these accesses hit buffers userspace had
+> already freed: IOMMU page faults, an IOMMU that can no longer stall and
+> corrupted output for the next job.
+>=20
+> Soft-reset the decoder on every error interrupt, as the vendor driver
+> does, and wait for the reset to complete.
+
+Its not because the vendor use a big hammer that we should use it upstream.=
+ We
+fixed a lot of these driver bugs by handling specific error correctly. When=
+ the
+TRM says the IP will self reset, it does, and you should not add extra over=
+head
+there unless you can prove something is broken.
+
+Please check G2 IRQ handler, its more aligned to were we want to bring all =
+the
+IRQ handlers in this driver.
+
+Nicolas
+
+>=20
+> Fixes: 879dee56a40c ("media: rockchip/vpu: Add MPEG2 decoding support to =
+RK3399")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+> ---
+>  .../media/platform/verisilicon/rockchip_vpu_hw.c    | 21 +++++++++++++++=
+++++--
+>  1 file changed, 19 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c b/drive=
+rs/media/platform/verisilicon/rockchip_vpu_hw.c
+> index 4bc1bdb41c70..01cd449f3ab2 100644
+> --- a/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+> +++ b/drivers/media/platform/verisilicon/rockchip_vpu_hw.c
+> @@ -7,6 +7,7 @@
+>   */
+> =20
+>  #include <linux/clk.h>
+> +#include <linux/iopoll.h>
+> =20
+>  #include "hantro.h"
+>  #include "hantro_jpeg.h"
+> @@ -384,6 +385,21 @@ static irqreturn_t rockchip_vpu1_vepu_irq(int irq, v=
+oid *dev_id)
+>  =09return IRQ_HANDLED;
+>  }
+> =20
+> +/*
+> + * After an error the decoder can still have bus accesses of the failed
+> + * picture in flight; reset it before its buffers go back to userspace.
+> + */
+> +static void rockchip_vpu2_dec_soft_reset(struct hantro_dev *vpu)
+> +{
+> +=09u32 val;
+> +
+> +=09vdpu_write(vpu, 0, VDPU_REG_EN_FLAGS);
+> +=09vdpu_write(vpu, 1, VDPU_REG_SOFT_RESET);
+> +=09if (read_poll_timeout_atomic(vdpu_read, val, !val, 0, 5, false, vpu,
+> +=09=09=09=09     VDPU_REG_SOFT_RESET))
+> +=09=09dev_warn_ratelimited(vpu->dev, "decoder soft reset timed out\n");
+> +}
+> +
+>  static irqreturn_t rockchip_vpu2_vdpu_irq(int irq, void *dev_id)
+>  {
+>  =09struct hantro_dev *vpu =3D dev_id;
+> @@ -396,6 +412,8 @@ static irqreturn_t rockchip_vpu2_vdpu_irq(int irq, vo=
+id *dev_id)
+> =20
+>  =09vdpu_write(vpu, 0, VDPU_REG_INTERRUPT);
+>  =09vdpu_write(vpu, 0, VDPU_REG_AXI_CTRL);
+> +=09if (state !=3D VB2_BUF_STATE_DONE)
+> +=09=09rockchip_vpu2_dec_soft_reset(vpu);
+> =20
+>  =09hantro_irq_done(vpu, state);
+> =20
+> @@ -482,8 +500,7 @@ static void rockchip_vpu2_dec_reset(struct hantro_ctx=
+ *ctx)
+>  =09struct hantro_dev *vpu =3D ctx->dev;
+> =20
+>  =09vdpu_write(vpu, VDPU_REG_INTERRUPT_DEC_IRQ_DIS, VDPU_REG_INTERRUPT);
+> -=09vdpu_write(vpu, 0, VDPU_REG_EN_FLAGS);
+> -=09vdpu_write(vpu, 1, VDPU_REG_SOFT_RESET);
+> +=09rockchip_vpu2_dec_soft_reset(vpu);
+>  }
+> =20
+>  static void rockchip_vpu2_enc_reset(struct hantro_ctx *ctx)
+
+--=-VNfhIxJwLPoRKtgwmuvP
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
-> +#define X86_MATCH_HYGON_MODEL_STEP_UCODE(model, step, ucode) \
-> +	X86_MATCH_VFM_STEPS(VFM_MAKE(X86_VENDOR_HYGON, 0x18, model), \
-> +			    step, step, ucode)
-> +
-> +static const struct x86_cpu_id erratum_1386_microcode[] = {
-> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x00, 0x9040000f),
-> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x04, 0x01, 0x9041000f),
-> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x00, 0x9060000f),
-> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x06, 0x01, 0x9061000f),
-> +	X86_MATCH_HYGON_MODEL_STEP_UCODE(0x10, 0x00, 0x91000004),
-> +	{}
-> +};
+-----BEGIN PGP SIGNATURE-----
 
-This part is good.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCav8V6gAKCRDZQZRRKWBy
+9E1/AQCQ/OEC7goF6NstMHroyb/dSBFTJpopbeXazJtj+GWl+QD+PV71UkvRHlSI
+DHHIB57bxeLUtYz/8hJRQEs2dAGUmAw=
+=zEAS
+-----END PGP SIGNATURE-----
 
-> +static void fix_erratum_1386(struct cpuinfo_x86 *c)
-> +{
-> +	/*
-> +	 * Affected processors enumerate no supervisor XSAVE state components,
-> +	 * so XSAVEC is equivalent and is not affected by Erratum 1386.
-> +	 * Disable XSAVES unless the microcode is known to contain the fix.
-> +	 */
-
-This comment is in the wrong place and is really hard to read. I think
-you're somehow trying to say here that the kernel *COULD* just use
-XSAVEC instead of XSAVES instead of disabling XSAVES.
-
-But this isn't the place to litigate your solution. That's for the
-changelog. This just needs to say what it does.
-
-> +	if (c->x86 != 0x18)
-> +		return;
-> +
-> +	/* Models affected by Erratum 1386. */
-> +	switch (c->x86_model) {
-> +	case 0x00 ... 0x06:
-> +	case 0x10:
-> +		break;
-> +	default:
-> +		return;
-> +	}
-
-This part is not.
-
-Why do you need an explicit 0x18 check if there's already an implicit
-one in x86_match_min_microcode_rev()? If there are unfixed
-model/steppings, then list those too.
-
-I also don't get what the switch statement does.
-
-> +	if (x86_match_min_microcode_rev(erratum_1386_microcode))
-> +		return;
-> +
-> +	clear_cpu_cap(c, X86_FEATURE_XSAVES);
-> +}
-
-My overall suggestion is to do more in erratum_1386_microcode[] and less
-in code.
+--=-VNfhIxJwLPoRKtgwmuvP--
