@@ -1,91 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795105509;
-	b=twJTIvDYnVUlLD3wEp2dgTPzc1Q6TwHFvqHcbH+tHO2l75GVjSlj7hlEsfSZvv2w9kSa
-	 sLfkGMyZ9V90M+9HoFlKPpyeUes6HOZTNrW0gw4/r8BFgcvLOL0o8USSaKQXhd7amhMcy
-	 qmd4q8z2WbhH93pWibye0nYqGP+sG07uUyaw4G4Jf+JDwpIzK1KcB26T8DDoPhgL426ry
-	 sl+gzOR1fqUalgtTSUUiMANkmcsoYGgxCDXCYuF2askWlyH1IajCRXDbnrL0zn89PwK65
-	 0cpxqjNUfgRbNB77Rr64QC3Z+ky4Q/QV4nl4nvAamHwXd3btglTf2xpwvfdyeuNisFw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795105509;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=oQva1Io/RKBUnxp8fQrcczne8fYtcm+B23zro4syO6g=;
-	b=YZXedScKRjFuY3Pi/hd64k6//3MWGwlaV3TP/mbZvGnB+8pEJl+odPRwlQ8VM1hGxwiG
-	 HnTxGqGfdTuyQnWjF2dfmboL+1/F9t3Ih1S2vcIs9Ah+x93d2q8pzL16uFiWYbt1ZWlOI
-	 B5kN5XFU/0PQleGpxpUk7DUcVMjKS6lrcnf1X6IG6uHKk20gpCNOvOsi1QRXxAQN4Zx+D
-	 rSHgSlt/WqG0JWigHyJeS/i861bx9VcFEu2o61IXY3gDaetie7YUIRKji99SHysbRA6V+
-	 N4fDtk4zdwZdoJrgBEHk+ZrAQtBLbmZrekgE86De8do2fs15yzM1AMtT0IcLjJ58H8w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=efficios.com;
-	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=UsUluFVM;
-	arc=none smtp.remote-ip=158.69.130.18
-Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1795105595;
+	b=eziryfMjVsVipLY68zkonhm6MfuheGmBCJv6dXVSgv9vlxsRxVjJ6RdPwUCSCealZIco
+	 dyufPHJq/i9o6Ib1DAyBBPj/EwRQL4hcXG3CgQuZzCLvdzJA4aWInddrq04dP1H7rdJYl
+	 V+Z10dRP8qSqZAQ9opjfFp+hs71qL8eYHcc4WMJgW7Vhzz9kc0y5cnN7i/Oxq/uN3TzqN
+	 pSyeusLLDfvIKC/3PdFWYGB4rzK878s5HOIplchex63sV96fcRQaE3eu7nD1ZbiqLu3L4
+	 Hu93A3Qt8ofoDLdixq6JD4ET1rgTvWi6q+pKx4xzHunBWCD/0/qUZfuLFI2/OH/FlTg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795105595;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type;
+	bh=+MSfWkaCvsypi1LjUwVegIyh39nXJG5xylP4jvGm2YU=;
+	b=mXUn5PkjzliPMjgJuLTELMyMTrOV+kN+niUSg7GbCDhI6s538DEYoNDkOr6D5gZuxIZH
+	 8aP9MgM/hSNBnjgnZtKXCtbmmVBlQHu3NkvRkohBlW6E26J9jE2UU8jj9fXeIRNLJznx7
+	 4SZQHaZFZyNNY77zphc6esBPplj/AnxegxxjSuTo7KDMs7qQbnQeegOiBNA9lYz9TsJMp
+	 flNcopLDWVww0yQ9lY9KNI7FPXRnotmfIV4Gz/X4KXtaNCYCMt+DW24MdqX5xV7yKbcjI
+	 9pmnT+XPQYq10UieY3UsuvZ+bqVxNBDJ3iPQU1pTvB651OwHHphTjWkGSOBM9dOnNIg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o3XcvJyP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.46
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com [209.85.217.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B43360A2630;
-	Thu, 19 Nov 2026 16:25:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B43360A2630
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C15606A33B
+	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 16:26:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61C15606A33B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=UsUluFVM
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795105504;
-	bh=oQva1Io/RKBUnxp8fQrcczne8fYtcm+B23zro4syO6g=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=UsUluFVMQBhNvfYSZ3CvXfxqOuZC7UNBlp+Rx6xSOByIHQIj+iCNlIS/36j7Ssbyt
-	 ukWDfdJrfKDHx/BCDs2PmQWyig9qtRz2jsHr+YOkjghVLvM2Wa6qfXXkcfNA8FdyV5
-	 L7mqjjzBxBWaYdVBJ/NJYm+7TBV5CSxfeRF6YJpYS8gJHLTSh0Lf1I8ugDec32napc
-	 N+kXktWibJlQtD0RtCCEgPiVrJU/VWBq7AQCz+UGz+5vV0PMFgFeOFXVwSjXW/uid7
-	 pcmXLqegmEorMLBboPdSU1KPM7KuA0mbwz28DegSpynSspgZkG2XSn8Pd06r1K8NrL
-	 TtBdByfghY/+A==
-Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVkMh0SCHzSPk;
-	Thu, 19 Nov 2026 11:25:04 -0500 (EST)
-From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-To: juri.lelli@redhat.com,
-	peterz@infradead.org,
-	mingo@redhat.com,
-	vincent.guittot@linaro.org
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	tglx@kernel.org,
-	will@kernel.org,
-	boqun@kernel.org,
-	dietmar.eggemann@arm.com,
-	rostedt@goodmis.org,
-	bsegall@google.com,
-	mgorman@suse.de,
-	vschneid@redhat.com,
-	kprateek.nayak@amd.com,
-	luca.abeni@santannapisa.it,
-	mathieu.poirier@linaro.org,
-	longman@redhat.com,
-	ridong.chen@linux.dev,
-	tj@kernel.org,
-	hannes@cmpxchg.org,
-	mkoutny@suse.com,
-	shuah@kernel.org,
-	bigeasy@linutronix.de,
-	clrkwllms@kernel.org,
-	parri.andrea@gmail.com,
-	m.szyprowski@samsung.com,
-	kayracizmeci@gmail.com,
-	weihengqiuu@gmail.com,
-	linux-kernel@vger.kernel.org,
-	cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [RESEND PATCH v4 13/17] sched/deadline: Fix this_bw when a task is changed during a remote wakeup
-Date: Thu, 19 Nov 2026 11:24:53 -0500
-Message-Id: <ac2e7feca3da0170641be1ddee0e485a42241ea0.1795105408.git.mathieu.desnoyers@efficios.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <cover.1795105408.git.mathieu.desnoyers@efficios.com>
-References: <cover.1795105408.git.mathieu.desnoyers@efficios.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o3XcvJyP
+Received: by mail-vs1-f46.google.com with SMTP id ada2fe7eead31-7d2e14babc8so1470088137.2
+        for <stable@vger.kernel.org>; Thu, 19 Nov 2026 08:26:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795105594; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Lyo3d5P8v7+G2Bf92Gg9gCnR/NrLpNuU9RGqJiKFPO015HCUf7GuZ1Y//kcLQXVRDb
+         Rl/sijp9GlWS3caaateWxK8cpYjpZR0myRooncHjVxiWIcXR3Wg0Hhr/thePIeKSZAR1
+         omYEGm3jaksJFuiB1vhDQdeMWmkBhEh3P0JdlbWX0B6usdfykrD1aAD7wOmzH/AOe81R
+         cqmfUIMKwdLqvJbW6Y3fbOeCnBTYBzpIuEUfGtLUUnNUFFPmJho2Yv5wgd5hdT6yZW/x
+         3B5f4XxlKIcGCCJlcH9N/o/svwvlCR2UpdKjRuZeJ/NQ1oG2dKVchnVo3rxK60tXFHzl
+         3qdw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=+MSfWkaCvsypi1LjUwVegIyh39nXJG5xylP4jvGm2YU=;
+        fh=4Z8kUo7ZQAE52QDzrWjAPPpNicBFhQXYM+Ho8XX93z0=;
+        b=Te5gXCep2YtG4EMhvM5TJbx+/fwXYqCWgcrR0IP2QOAyumfH7soL27EcfLaPYTylzl
+         dmi4afrl0UvX5f3gZTXYWeO7XoXPbRe/wtTdDV6Mr+Fng/o7lFDoNiXTA5DTBEVGJdrM
+         BZW2LqCzvT+PFmRChCBRS12vtM5BfSLW3bcDTU6SmdZ53O2IEFO6E3SmbWd/8Ov5oT+h
+         CG3YiyMkjGsyxgtWqeCUK77u70gzw3kexsAB0orY5T4jALCwjk8Jb8pSf47LjBOgUZ7q
+         x1qtrefajVykrOBsbAoLKVql4IK6uvA3aSAax0CESjeRPnip3K3ZgIiDtBs8bn7+7QTG
+         k3hw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1795105594; x=1795710394; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+MSfWkaCvsypi1LjUwVegIyh39nXJG5xylP4jvGm2YU=;
+        b=o3XcvJyPDMVgo+Y9ljM+UiiOmEX1i6mzTbS9AvOr5Wlrxm5UrmqSnJx63v1kqO+tgq
+         CJMCj2RP556/QMgxXBGQIZe95L3na8iuvojp21Yee8N24VgYVQjFYyjJUS8Mc0FFY1Yj
+         B1jCQ1a6AmZaJlSWIa4b+NJPb8URGzwycauK7ADiRDkwTufnCah3cD5ybG9EMxRY63P4
+         yVXRwO161+a/Fk4PjRSE6QE7SkeRCWE39PzN15zbnHk1Y5ts+Dab5csAEwCfN6KnVWzr
+         oYWseARcx4Ev4FWcWgufOdCFyv7wYLyTCWafwl7epxGrkky2l6y40EaUAFOu5qvN831L
+         TOIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1795105594; x=1795710394;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+MSfWkaCvsypi1LjUwVegIyh39nXJG5xylP4jvGm2YU=;
+        b=hOZ9TtZX2oz39Bse4H7FuiN4nY+aA9QZKezeNl+nHrPkrXCjIyTK4770c9T6xdZY/N
+         9njTAgeZgPJab94w5lDK6KqbN4g5EMv9ZLNxiD7N6MeXNYx1FrJEHxlQ8Jovb0ihw5yu
+         bkzQX9FHw8jC3JbCAm7jvl7+srVFx2HM4l9Zr34B2YfLJDDIr7cL6y3JVOsyVzS+C6U1
+         pVoxXXqVXOQkFvNjigB5tJeySqKxz2x+5S5FtbAsUzkk8dBNGv5PZeQjz7ilud00B6+/
+         npArKxGX6ajKDmvDeV87Xw6s4SNAMFpoowHoV5DdJag/DsbUJs4kKZDRowHpY/Qu3xrQ
+         6ceA==
+X-Gm-Message-State: APuU4Z9Wv6vcDQLaDX+moND39a8fLvqRbVmLOEyZd0a76v04AoONVQ/X
+	RkmfK3hmzdd7kCMXs2mFVM/bd0VKWPM2AA2fNyax/zwCcTaqrt1sOISxQB8kR6+56iQRGCl/mKZ
+	9TRAaxOIhwGNZXWBlKiCws/NLRI888n8EQwsvxYyYSDS8
+X-Gm-Gg: AYBFou1aUaOtjCDAGuA9Lexxf+qqS7MZyt3oDlF8z7RAFlSnxzt/xJ5MtHB6wGeI+wR
+	p9SgP5/FEV7PqPC3qWDwqnhz64FK/DsM6PNzZ0MGEONqkbLW1JtcYL9GEAuLbvPtzeqkuZ+pf37
+	emILYHNeuexIcU7dQHYhvZWb1T+cE+hjWc94essbOhdIoSxo3DL0/49Gqx0Th3onmli/awajp+3
+	lUssQKv2bnvlgdliTG6eHtXKaqxfnLVHPtIapLsCm3a4X9ni9UmDFkGQyjZYaciJQ8IaHJSRcmf
+	OP4eLRGsS3MYaLI0a9rVAtIw9v6DJnop19qeXbGU3OTGjF5iJdvoV+0rUrDDKIaso0hZM+WPYrd
+	R9plzWg7Ty6iiz1evBwNydcyO9RDpcX+x8UqB9Q0YVI20VlyzodI+qzLbsRmpUThaJMv5xqI+2V
+	HHbZ1VG7Ms1iSps5nYLg==
+X-Received: by 2002:a05:6102:5695:b0:7d0:b125:79b2 with SMTP id
+ ada2fe7eead31-7d6ba174dddmr3393998137.1.1795105594292; Thu, 19 Nov 2026
+ 08:26:34 -0800 (PST)
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -95,183 +100,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Yingke Xiao <inkxiao12@gmail.com>
+Date: Thu, 19 Nov 2026 11:26:23 -0500
+X-Gm-Features: Aa3M54rjo5bOdQvVn1fygWT_1nsGpBZbzMngceuQWUpmls_oZpOA_sI6n3diqnM
+Message-ID: <CAMcAce8Fc3erawRn=4SvfuZjb7rovZFN7tQZB5Zg6mLvtDKgdQ@mail.gmail.com>
+Subject: [PATCH 6.12.y] bpf: Reject NULL data/sig in bpf_verify_pkcs7_signature
+To: stable@vger.kernel.org
+Cc: bpf@vger.kernel.org, kpsingh@kernel.org, sashal@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The this_bw of a runqueue is the bandwidth of the deadline tasks
-assigned to it, running or not. GRUB uses it to compute the inactive
-utilization of the runqueue. When a task wakes up on another CPU,
-migrate_task_rq_dl() takes its bandwidth off the old runqueue. The
-enqueue adds it to the new one.
+[ Upstream commit 49b18315be4e590fae0fc39c87d46c87e9ec903c ]
 
-Between these two steps, no runqueue counts the bandwidth.
-try_to_wake_up() can leave the enqueue to the wake list of the new CPU,
-and return before it runs. task_cpu() already points at the new CPU. A
-change of the task in that window gets this_bw wrong.
+bpf_verify_pkcs7_signature() passes the return values of
+__bpf_dynptr_data(data_ptr, data_len) and __bpf_dynptr_data(sig_ptr, sig_len)
+directly to verify_pkcs7_signature() without checking for NULL. If an
+empty/null dynptr or non-linear skb/xdp dynptr is passed, __bpf_dynptr_data()
+returns NULL, leading to a NULL pointer dereference in verify_pkcs7_signature().
 
-In this example, T is a deadline task. S is another task. It changes
-the bandwidth of T from "old bw" to "new bw":
+Check for NULL and return -EINVAL.
 
-  CPU 0                               CPU 1                       CPU 2
-  T blocks
-  this_bw of CPU 0 counts T
-  <timer> try_to_wake_up(T)
-    set_task_cpu(T, 1)
-      migrate_task_rq_dl()
-        sub_rq_bw(): CPU 0 drops T
-    T on the wake list of CPU 1
-    return
-                                                                  S: sched_setattr(T)
-                                                                    task_rq_lock(T): CPU 1
-                                                                    T is not queued
-                                                                    dl_change_utilization()
-                                                                      this_bw of CPU 1:
-                                                                      - old bw + new bw
-                                      sched_ttwu_pending()
-                                        enqueue_task_dl(T)
-                                          task_contending()
-                                            add_rq_bw():
-                                            this_bw of CPU 1:
-                                            + new bw
+[ In 6.12.y, bpf_verify_pkcs7_signature() is located in
+  kernel/trace/bpf_trace.c instead of kernel/bpf/helpers.c. Adapt upstream
+  commit 49b18315be4e to kernel/trace/bpf_trace.c. ]
 
-CPU 1 then counts the new bandwidth twice, less the old one. Repeated,
-this makes this_bw drift until it underflows. If T left the class in
-that window, switched_from_dl() would take its bandwidth off CPU 1 the
-same way. A task that enters the class in that window would be counted
-twice, by switched_to_dl() and by the enqueue.
-
-This needs a wakeup that moves the task, so a root domain of more than
-one CPU, with busy CPUs. CONFIG_SCHED_PROXY_EXEC=y makes such wakeups
-more common. In testing, a task sleeps and wakes in a busy two-CPU
-partition root, and another CPU changes its runtime. The kernel warns
-within a second in each of 8 VMs:
-
-  WARNING: kernel/sched/deadline.c:352 at dl_rq_change_utilization+0x71/0x2e0, CPU#0: wake_race/109
-   __sub_rq_bw(): this_bw underflow
-  WARNING: kernel/sched/deadline.c:316 at task_contending+0x244/0x260, CPU#6: swapper/6/0
-   __add_running_bw(): running_bw overflow
-
-Fix this with a new bit, dl_bw_oncpu, that tells whether a runqueue
-counts the bandwidth of the task. add_rq_bw() adds the bandwidth only if
-no runqueue counts it. sub_rq_bw() takes it off only if one does.
-dl_change_utilization() does nothing while no runqueue counts the
-bandwidth. The enqueue adds the new one.
-
-With this patch, none of the 8 VMs warns. deadline_bw_test, added later
-in this series, tests this in params_waking. The Sashiko
-AI review of this series found the double count, and a bit that the
-first version of this patch left set.
-
-Fixes: 8fd27231c330 ("sched/deadline: Track the "total rq utilization" too")
-Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
-Cc: stable@vger.kernel.org
+Fixes: 9b2d3e911295 ("bpf: Add bpf_verify_pkcs7_signature kfunc")
+Signed-off-by: KP Singh <kpsingh@kernel.org>
+Signed-off-by: Yingke Xiao <inkxiao12@gmail.com>
 ---
- include/linux/sched.h   |  5 +++++
- kernel/sched/deadline.c | 39 +++++++++++++++++++++++++++++++++++----
- 2 files changed, 40 insertions(+), 4 deletions(-)
+ kernel/trace/bpf_trace.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index e4f6323d7855..88cda9c10cb8 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -706,6 +706,10 @@ struct sched_dl_entity {
- 	 * contributes to the root domain's total_bw. Only meaningful for server
- 	 * entities (@dl_server == 1). Allows toggling the reservation on/off
- 	 * without losing the configured @dl_runtime/@dl_period.
-+	 *
-+	 * @dl_bw_oncpu tells if the this_bw of a runqueue counts the task's
-+	 * @dl_bw: add_rq_bw() and sub_rq_bw() set and clear it, under that
-+	 * runqueue's lock. Not for servers, which keep @dl_bw_attached.
- 	 */
- 	unsigned int			dl_throttled      : 1;
- 	unsigned int			dl_yielded        : 1;
-@@ -718,6 +722,7 @@ struct sched_dl_entity {
- 	unsigned int			dl_defer_running  : 1;
- 	unsigned int			dl_defer_idle     : 1;
- 	unsigned int			dl_bw_attached    : 1;
-+	unsigned int			dl_bw_oncpu       : 1;
- 
- 	/*
- 	 * Bandwidth enforcement timer. Each -deadline task has its
-diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
-index bdeb2ecc9255..a65b1c8c5a59 100644
---- a/kernel/sched/deadline.c
-+++ b/kernel/sched/deadline.c
-@@ -267,18 +267,35 @@ void __sub_rq_bw(u64 dl_bw, struct dl_rq *dl_rq)
- 	WARN_ON_ONCE(dl_rq->running_bw > dl_rq->this_bw);
- }
- 
-+/*
-+ * @dl_se->dl_bw_oncpu tells whether the this_bw of a runqueue counts the
-+ * bandwidth of @dl_se. add_rq_bw() adds the bandwidth only if no runqueue
-+ * counts it. sub_rq_bw() subtracts it only if one does.
-+ *
-+ * A wakeup on another CPU takes the bandwidth off the old runqueue. The
-+ * enqueue on the new CPU adds it back later. A change of the task in
-+ * between must not count the bandwidth twice, nor take it off a runqueue
-+ * that does not count it.
-+ *
-+ * The servers track their bandwidth with dl_bw_attached. They call
-+ * __add_rq_bw() and __sub_rq_bw() directly.
-+ */
- static inline
- void add_rq_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
- {
--	if (!dl_entity_is_special(dl_se))
--		__add_rq_bw(dl_se->dl_bw, dl_rq);
-+	if (dl_entity_is_special(dl_se) || dl_se->dl_bw_oncpu)
-+		return;
-+	__add_rq_bw(dl_se->dl_bw, dl_rq);
-+	dl_se->dl_bw_oncpu = 1;
- }
- 
- static inline
- void sub_rq_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
- {
--	if (!dl_entity_is_special(dl_se))
--		__sub_rq_bw(dl_se->dl_bw, dl_rq);
-+	if (dl_entity_is_special(dl_se) || !dl_se->dl_bw_oncpu)
-+		return;
-+	__sub_rq_bw(dl_se->dl_bw, dl_rq);
-+	dl_se->dl_bw_oncpu = 0;
- }
- 
- static inline
-@@ -347,6 +364,14 @@ static void dl_change_utilization(struct task_struct *p, u64 new_bw)
- 	if (task_on_rq_queued(p))
- 		return;
- 
-+	/*
-+	 * The task is waking up on another CPU, and no runqueue counts its
-+	 * bandwidth. The enqueue adds it, with the new parameters that
-+	 * __setparam_dl() sets right after this.
-+	 */
-+	if (!p->dl.dl_bw_oncpu)
-+		return;
+diff --git a/kernel/trace/bpf_trace.c b/kernel/trace/bpf_trace.c
+index bac2db7..41e237d 100644
+--- a/kernel/trace/bpf_trace.c
++++ b/kernel/trace/bpf_trace.c
+@@ -1384,8 +1384,13 @@ __bpf_kfunc int
+bpf_verify_pkcs7_signature(struct bpf_dynptr *data_p,
+
+  data_len = __bpf_dynptr_size(data_ptr);
+  data = __bpf_dynptr_data(data_ptr, data_len);
++ if (!data)
++ return -EINVAL;
 +
- 	dl_rq_change_utilization(task_rq(p), &p->dl, new_bw);
- }
- 
-@@ -2751,6 +2776,11 @@ static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused
- 		 */
- 		cancel_inactive_timer(&p->dl);
- 	}
-+	/*
-+	 * set_task_cpu() points task_cpu() at the new CPU next. The runqueue
-+	 * of that CPU counts this bandwidth only once the enqueue there adds
-+	 * it. Until then, no runqueue counts it, as dl_bw_oncpu now says.
-+	 */
- 	sub_rq_bw(&p->dl, &rq->dl);
- 	rq_unlock(rq, &rf);
- }
-@@ -4050,6 +4080,7 @@ static void __dl_clear_params(struct sched_dl_entity *dl_se)
- 	dl_se->dl_defer			= 0;
- 	dl_se->dl_defer_running		= 0;
- 	dl_se->dl_defer_armed		= 0;
-+	dl_se->dl_bw_oncpu		= 0;
- 
- #ifdef CONFIG_RT_MUTEXES
- 	dl_se->pi_se			= dl_se;
--- 
-2.47.3
+  sig_len = __bpf_dynptr_size(sig_ptr);
+  sig = __bpf_dynptr_data(sig_ptr, sig_len);
++ if (!sig)
++ return -EINVAL;
 
+  return verify_pkcs7_signature(data, data_len, sig, sig_len,
+       trusted_keyring->key,
+-- 
+2.56.1
