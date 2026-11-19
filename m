@@ -1,92 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.10
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795086038;
-	b=PFisgRvGJYMiFtQyPz0wmpaW8rd3YdWNz9y9A67SCvP11yOtPNo4OWa4J3H6TVl3T83+
-	 vkjO4Quo0eCktfasFz4KCUcj0SCs0R0J990Exequ0HNf469DhX8OxhdmSs87jHddyn0jF
-	 q8EuViPvkudpLrQojPz+ZqrmbU0YjS1OzjvPVvGpzEDg28W37eoaSN7JKNDAibqIX83s8
-	 7aFkF9AGRzarwhY4fOBNOke6ypbeN6iBEoJBxtxy8BucPpNAVgep4kC1m20TanXPRk1ED
-	 xPmAeNpEik6Uz7nR+4fBYDWgand/TlJUEXyLlaD5rfgWcIVgZdEHNSvr66K0PyEBX7A==
+	t=1795086109;
+	b=K5L7Xpe07y3nelY43cXHXdgib2nopC5oTxkZQb1qUo16PGePki0h+stvrj/AIf9fX1Fa
+	 PbxUasGacQKXQnMf4v11gkxpnXdlajTDi0ILZi7Aske7kcDIiMrZsC2bGYHwujQErxSPL
+	 P3kaYuoHSg3G5BDrJdtOpfflm6ZjaXTaFUwYi0AmLvbFZwY+wtT4TiuXYeLeTBwTdTpf9
+	 R7/dFxRRlNifmcO9EaYopQFlsvE2JGeyjfzg5+Kv+FUKegeeyj164KAjrmUBnv8BHTS4h
+	 4HK+DgbHQG8ev16QXOWxKZeNdq3Ucbw7EGOku2tEv3DTtQ1lh9Z8er+hsiTIG9Uh7iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795086038;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=BwG6pO180ts3EsXk8dPvrXRrI1JUEETTIVLE0jahKVc=;
-	b=MUD7rEElfVYcgDDO2feh8/M/bY48ImBgjNN9PgBNyJpCoJsqZsk8qlo0OQaLlBm3rSUP
-	 TH7YtZ43FKh5sw4mzOH3bZqXYU+bREXM+ZaT7HszcdLIayFfV0qbVWq/fsWGm+iWHpzIb
-	 GH2iL2qaw+MEM0Ch7QtDvNoAkp4sn9RrXF9GRaNRNnEZ2MT0sEGwKkdrdn1IkgYr/dqTd
-	 yCa1upAVfc67ow03HkPeirjyBeg8T7L7+ANzAa6YmU/QXleIG2FK9PtJtYyvolmtTeq7y
-	 YdAJbHrzi5Fgr7eQHbQXHI+8PeY33U5YIS2asZ5oYrsXYfImaHqDnRRVnE75phQPB2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795086109;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:From:To:Cc:
+	 In-Reply-To:References:Subject:Message-Id:Date:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-Mailer;
+	bh=t9zctAsFenItVdzIfNxAuLJcFKGbZarY6B5DfF4Pt8Q=;
+	b=PbT395gfgz0QSg0lVofaY/oh4lHNtKXNU6Nrw7tRHF2tFOA9Cwg6QLn5lIo02xN1yZbt
+	 xt5xaiOxn2bXhiHlXaKWKYbnnzWcstjzEHuavN61Ouf8HiVdZ4B8cKIzV6RqgsoLOkFZB
+	 nckt2T6tsjqMr0jYUCIJ/ztlRFUk+lNWL7GhhReZzpw0ggAsQsdv7ZOufozQeB1LnYhV0
+	 08P+EO0lFZ/MQG6LzJ0t8f3FXfPiFf54NCNhYYoBlDGmry8zQfJwpN8yvZ0OsPBnaOoCs
+	 oPzinpIiymEXbGivgZ2YMG0tLVLLpOhEA8D4y0T/gpW359CpKS70DcaUsafzIrx4hag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ZI0ZBnr7;
-	arc=none smtp.remote-ip=185.246.85.4
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Xuq9CnSF;
+	arc=none smtp.remote-ip=198.175.65.10
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FC5606A33B
-	for <stable@vger.kernel.org>; Thu, 19 Nov 2026 11:00:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73FC5606A33B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CC0E606A324;
+	Thu, 19 Nov 2026 11:01:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CC0E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ZI0ZBnr7
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 38C8E4E41663;
-	Thu, 19 Nov 2026 11:00:36 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 01DC060237;
-	Thu, 19 Nov 2026 11:00:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 59D5A11BC0ED5;
-	Thu, 19 Nov 2026 12:00:28 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1795086033; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=BwG6pO180ts3EsXk8dPvrXRrI1JUEETTIVLE0jahKVc=;
-	b=ZI0ZBnr74DvtuFdI0t1iSYuANqwPuZZs8/7yPwybnvmZkD+2bqra+NXMQeYNgl/pEwPTn4
-	NbWRHXsDu012v6UoGT2GlL3j5wuiDR2Mbr6MD7spoZubyuUSs5oy7pQkvER1Ic7gZXfdiQ
-	ZV0Eyi4nmrogKX00d6wcEHS5JRc7IRcDvAwblO1U2y4oegMJfYIOxqdzLoSD8vjbdrCFQe
-	kpyDhDHN5ZikR3adV2fP31LgjPgPXGpZr2C8ZmTcYXyNhg2b7vxIzVI0i2I0GLREvcg848
-	hmBborznpZx1Ya6jbbZxIq+SVvcqw5wHnjeFwr8T98ArmSCCzuNwMXn+wNt01A==
-From: Herve Codina <herve.codina@bootlin.com>
-To: Andrew Lunn <andrew@lunn.ch>,
-	Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Kalle Niemi <kaleposti@gmail.com>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: linux-omap@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	driver-core@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Allan Nielsen <allan.nielsen@microchip.com>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	Daniel Machon <daniel.machon@microchip.com>,
-	Steen Hegelund <steen.hegelund@microchip.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Herve Codina <herve.codina@bootlin.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	stable@vger.kernel.org
-Subject: [PATCH v10 1/5] bus: simple-pm-bus: Avoid inconsistencies between probe() and remove()
-Date: Thu, 19 Nov 2026 12:00:07 +0100
-Message-ID: <20261119110014.582363-2-herve.codina@bootlin.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261119110014.582363-1-herve.codina@bootlin.com>
-References: <20261119110014.582363-1-herve.codina@bootlin.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Xuq9CnSF
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1795086109; x=1826622109;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=zTvOojozxEfyMQ4tzrE11s0gcs2+zCz/fbu4bK+QT5E=;
+  b=Xuq9CnSFFbS3Zd55qKW1dVM8Av6yhx/Goy+9wpv2DAC9uGDWLTP8La/k
+   inyF0gq0spO4WQ9w/M6Wlv1E4oSLaRybFbLcPW8OUPiVENFhHFNqlyNSX
+   xP3Kj01FsbgqgiujrHcfVUOAl3ZIyX84tkziudtehE6ToN1+5Ckzhhnzh
+   t/pcMtB/aBL9X/X81Xbg0fGEoHJh70+qBUn0p7eh1MW5YUx+kYOOlJx9i
+   BE4JroA2AWRIJ40DUWorhO8WRentRpjHLeuXmVqyYcDzBozRG3dF9Supc
+   TgxHaz6rW+xz8FzuoQbn7XSJHsE6y612rBjloijc+H1zCnlOArztNWHAb
+   g==;
+X-CSE-ConnectionGUID: XEWSN+hkQrqajyQi+fHIlA==
+X-CSE-MsgGUID: RDnAzVqnRs2EL93pT44BJw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11970"; a="3848780"
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="3848780"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Nov 2026 03:01:48 -0800
+X-CSE-ConnectionGUID: OhBYToKqRFS+jP6hSl3fdg==
+X-CSE-MsgGUID: eV0dZ8LTTpGc/eUawzx7uw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,220,1787036400"; 
+   d="scan'208";a="10271201"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa004.jf.intel.com with ESMTP; 19 Nov 2026 03:01:45 -0800
+Received: from black.igk.intel.com (localhost [IPv6:::1])
+	by black.igk.intel.com (Postfix) with ESMTP id 7148394;
+	Thu, 19 Nov 2026 12:01:44 +0100 (CET)
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Andy Shevchenko <andy@kernel.org>, 
+ Geert Uytterhoeven <geert@linux-m68k.org>, Yibo Tan <lhfff@tju.edu.cn>
+Cc: =?utf-8?q?Jean-Fran=C3=A7ois_Lessard?= <jefflessard3@gmail.com>, 
+ Surendra Singh Chouhan <kr494167@gmail.com>, 
+ Chris Packham <chris.packham@alliedtelesis.co.nz>, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260912161152.1683002-1-lhfff@tju.edu.cn>
+References: <20260912161152.1683002-1-lhfff@tju.edu.cn>
+Subject: Re: [PATCH v1] auxdisplay: linedisp: prepare message before
+ registration
+Message-Id: <179508610445.1209487.16986546761911617792.b4-ty@b4>
+Date: Thu, 19 Nov 2026 12:01:44 +0100
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -96,74 +86,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-At probe(), operations done depends on device_has_driver_override().
 
-At remove() a call to device_has_driver_override() is also present to
-identify operations that need to be done in order to revert operations
-previously done at probe().
+On Sun, 13 Sep 2026 00:11:52 +0800, Yibo Tan wrote:
+> Since the line-display attachment support was added, linedisp_register()
+> has displayed its initial message before calling device_add().  The
+> HT16K33, MAX6959 and GPIO segment drivers implement display updates with
+> delayed work, so that display operation can publish driver-owned work
+> before the final fallible registration step.
+> 
+> If device_add() fails, the registration error path releases the display
+> buffers and the caller's probe failure releases its managed private data.
+> The admitted worker can then access both freed objects.  In an HT16K33
+> KASAN reproducer, a real device_add() -EEXIST failure produced a
+> slab-use-after-free first in __pwq_activate_work() and then in
+> ht16k33_seg7_update().
+> 
+> [...]
 
-Nothing prevents device_has_driver_override() to return a different
-value when called at probe() and when called at remove(). Indeed, a user
-can set driver_override (or clear it) after the probe() call and before
-the remove() call.
+Applied, thanks!
 
-In that case, inconsistencies are present between pm_runtime_enable()
-called at probe() and pm_runtime_disable() called at remove().
+[1/1] auxdisplay: linedisp: prepare message before registration
+      commit: 29133e66ae15efcbaedd185cf16a09357c6d9486
 
-In order to ensure that pm_runtime_disable() is called only if
-pm_runtime_enable() has been called at probe(), use the devres version
-of pm_runtime_enable().
-
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260630105701.7D0471F00A3A@smtp.kernel.org/
-Fixes: 98e96cf80045 ("drivers: bus: simple-pm-bus: Add support for probing simple bus only devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Herve Codina <herve.codina@bootlin.com>
----
- drivers/bus/simple-pm-bus.c | 12 ++++--------
- 1 file changed, 4 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/bus/simple-pm-bus.c b/drivers/bus/simple-pm-bus.c
-index c920bd6fbaaf..4322a778e801 100644
---- a/drivers/bus/simple-pm-bus.c
-+++ b/drivers/bus/simple-pm-bus.c
-@@ -29,6 +29,7 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
- 	struct device_node *np = dev->of_node;
- 	const struct of_device_id *match;
- 	struct simple_pm_bus *bus;
-+	int ret;
- 
- 	/*
- 	 * Allow user to use driver_override to bind this driver to a
-@@ -66,7 +67,9 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
- 
- 	dev_dbg(&pdev->dev, "%s\n", __func__);
- 
--	pm_runtime_enable(&pdev->dev);
-+	ret = devm_pm_runtime_enable(&pdev->dev);
-+	if (ret)
-+		return dev_err_probe(&pdev->dev, ret, "failed enable pm_runtime\n");
- 
- 	if (np)
- 		of_platform_populate(np, NULL, lookup, &pdev->dev);
-@@ -76,14 +79,7 @@ static int simple_pm_bus_probe(struct platform_device *pdev)
- 
- static void simple_pm_bus_remove(struct platform_device *pdev)
- {
--	const void *data = of_device_get_match_data(&pdev->dev);
--
--	if (device_has_driver_override(&pdev->dev) || data)
--		return;
--
- 	dev_dbg(&pdev->dev, "%s\n", __func__);
--
--	pm_runtime_disable(&pdev->dev);
- }
- 
- static int simple_pm_bus_runtime_suspend(struct device *dev)
+Best regards,
 -- 
-2.56.0
+With Best Regards,
+Andy Shevchenko
+
+
+
 
