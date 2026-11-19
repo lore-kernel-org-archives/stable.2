@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=158.69.130.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1795105303;
-	b=xTrHuqctG7wLOs7XU7l10Ny3HJhQ2Bmj/WKbTKTqTGekqEdnSWb6B5eRsdnGC4dJLfWl
-	 91FaFs58aBy5bCEb9WpSjLqk8JV/4Rt0ExC9dFj3f1h/zklMSl71z07/VpYIKr9G6OYom
-	 nBde3LF4TONM1GRWyZVpF5Broi6qfKjVvT9UgAfwBYIud6ycFJJonm8noAg8+FPedAiqO
-	 oPqVY7MyyCyoTSiRmqSuLSdpDkwdmWyOhEhyIuCKdP4RZOByhzsEk/yxetd7BMAA1kSPI
-	 zIml4W534Ac9Ur3JaKU+84IJocYc5nhT098krAzvRRK71EH0n1pdh6I2rYhyO/39R/w==
+	b=IxOXvVDGi5nE0b1GHPSbo7nib5W/cKdsJEbYiJ9VoY5y8Fs4APKbGKX8b+lc9EX1Lawe
+	 3soa3zdC6XFp7s9GicD3rWeLQ3spJIBBNHC38lUmFhPZxsUwe0VICR+kwa9df5wPv9sjo
+	 d3rpISreYrcc8kn9NjNvHHXG0/eOuVEAVdkOPJC9+/QG9qc7Lp0nlkDBGagPIvf4RvdFE
+	 82eHqGQn9rmBHAVdA6IvB4x28EimvsnPPDQs9Oo4rJA5Ix/GRmXAdvFVaLLwUsgzb4nWE
+	 e8MAu6urp6esLPflL6TUO31sEw3U5Pd13KKS+onp6wztjCr9WEl+vyKBNh3ew9kGPbQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1795105303;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=BhOtU90QChI4MV+CFuZYuouzsBkSjlKgdR13L9qHB5s=;
-	b=2S+/Q7EA29PQ05NosEd1jlk5UPb7Ykqz4JCmqlQO5eocFzpBhp+Pqi6nr6xYPF25FlkI
-	 xBCtFKQzoVsGaIJRsXnTC3d54NjLG2rWiT1jXFDbSHl8Nks4XzwbkBi84sWptdnw7usko
-	 tYJ1ipkkqznZyCPHy3uOT22GsF+BdJ3bllk68spzkc26eo75buajr5Q7n6IrhPCC+bslA
-	 Gg44FZWTvPxgd3euPrkb1A3DNxPsKrcdcO6QlWSI5EslQSngAESVPT5Ok94FmfxloEj+5
-	 ZWjhFc+s212DHCFDEVyalauLnllhn6N1ZYSNGrB72xP2UVhut99tRiZcK+XsmJNWnRg==
+	bh=oQva1Io/RKBUnxp8fQrcczne8fYtcm+B23zro4syO6g=;
+	b=4wQrTNBSZgpc4fUvsrFy5bTtGOrikhTNyE+Ow4UobY8ZJIJ5/HUKca184BJVgcoCMPox
+	 IBK0dafhNtdcMkIIrAZjmxi0v5m3gRyCTstMH4NnsKtKHH1U4h6UpAy3MAOMU1PPXHqDR
+	 oPxjO3SN6zQe+wCNFV+mXDbe2jSiGREvBLmDWg9OK8XxeG9elIqETpAGzLvMhu38vzCod
+	 c2+B7m55FP1uvVT9P11rDJiXv2kJIFXaOA0HCq+cplgPa6WwmOQRR8wB/BqE0MNL7gFf8
+	 g26NQMHdiC6VDzJ+oGmfVimA/uu8nzFITHW6ze9zeB3+nzJouWlf1iALVy68fFuGtXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=efficios.com;
 	spf=pass smtp.mailfrom=efficios.com;
-	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=lJPCdhNc;
+	dkim=pass header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=uoVirI6u;
 	arc=none smtp.remote-ip=158.69.130.18
 Received: from smtpout.efficios.com (smtpout.efficios.com [158.69.130.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2442360A2600;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C639360A262A;
 	Thu, 19 Nov 2026 16:21:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2442360A2600
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C639360A262A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=efficios.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=efficios.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=lJPCdhNc
+	dkim=pass (2048-bit key) header.d=efficios.com header.i=@efficios.com header.a=rsa-sha256 header.s=smtpout1 header.b=uoVirI6u
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=efficios.com;
-	s=smtpout1; t=1795105300;
-	bh=BhOtU90QChI4MV+CFuZYuouzsBkSjlKgdR13L9qHB5s=;
+	s=smtpout1; t=1795105301;
+	bh=oQva1Io/RKBUnxp8fQrcczne8fYtcm+B23zro4syO6g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=lJPCdhNcpqH4qBmjPbCH2GkZHjJWSk7xpkXr/FTsj2yS23Z/OOySpYBJFGYi8jF8x
-	 6mPxTl9ZZjWls/Gl/qiQ+bSUUrBrX/gqnMHJ1rfMeXXvx4e7r34zLc+IpDVMvr28uG
-	 GXuru4ZTBu9hB3toLu3uxzfbzpF3QfUukgZxBdqhe9w28tLV/TQ92owgKNgfEAcbxo
-	 kJt5kOVe0JDi9M1BhSWsaR8/wfWiXxqXd9A6oxNMaT4AY3Xt1ZtJmaXUr9GT0ysoeP
-	 NNQrSP/dYmATt0XzU7kZPU4YPjk4C1akchFfe6QOP5tCX7/H476pUriG9MuQqvQNqy
-	 SGfLDnXYuy5QA==
+	b=uoVirI6u1RF5lS+H1Xk7f/n57zgMKsz9tqIq7N4ooo+TfTEnu+pdwepYJbnUTgrkn
+	 N4Hx9wA5zWec2PkZ/VaYxhFyFXq7Re0jmJ39a4Ps0H1JINLGINqW4Is5y0vrWLK+fg
+	 VWYnOsVvkN7IpiKF6hxC+HQxSAhiGAXCd+Btw6YQA5+sw9MaDO0Q/rvV2A5EOClD+B
+	 m7PR0vKBQbOPjKoKHAE06z3SOfdMB5ISVR17FmuaXX5UjogaKZdmJl40OnWx8+cyil
+	 mc9u4jhOaHUuemP/up3xwjAsHu+cKLZVD3D0Wck5XkGVJK4dkgh/AiYWjd10/oR25H
+	 FXBF7uf/9aw8Q==
 Received: from thinkos.internal.efficios.com (mtl.efficios.com [216.120.195.104])
-	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVkHm4k59zSSn;
-	Thu, 19 Nov 2026 11:21:40 -0500 (EST)
+	by smtpout.efficios.com (Postfix) with ESMTPSA id 4jVkHn2yqyzSkj;
+	Thu, 19 Nov 2026 11:21:41 -0500 (EST)
 From: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 To: 
 Cc: linux-kernel@vger.kernel.org,
 	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
 	Juri Lelli <juri.lelli@redhat.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v4 06/17] sched: Take cpuset_mutex for a deadline policy change only with pi
-Date: Thu, 19 Nov 2026 11:21:27 -0500
-Message-Id: <9194486f15bb0cb36b51e4525f471d1150c0d58b.1795103339.git.mathieu.desnoyers@efficios.com>
+Subject: [PATCH v4 13/17] sched/deadline: Fix this_bw when a task is changed during a remote wakeup
+Date: Thu, 19 Nov 2026 11:21:34 -0500
+Message-Id: <ac2e7feca3da0170641be1ddee0e485a42241ea0.1795103339.git.mathieu.desnoyers@efficios.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1795103339.git.mathieu.desnoyers@efficios.com>
 References: <cover.1795103339.git.mathieu.desnoyers@efficios.com>
@@ -69,105 +69,181 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__sched_setscheduler() takes cpuset_mutex for a change that involves
-SCHED_DEADLINE. On success, it releases it only when pi is set.
-normalize_rt_tasks(), for sysrq-n, is the one caller with pi unset. It
-runs under read_lock(&tasklist_lock). So sysrq-n takes the mutex in
-atomic context for a deadline task, and never releases it. Every later
-change that involves SCHED_DEADLINE then blocks forever.
+The this_bw of a runqueue is the bandwidth of the deadline tasks
+assigned to it, running or not. GRUB uses it to compute the inactive
+utilization of the runqueue. When a task wakes up on another CPU,
+migrate_task_rq_dl() takes its bandwidth off the old runqueue. The
+enqueue adds it to the new one.
 
-Commit 710da3c8ea7d ("sched/core: Prevent race condition between cpuset
-and __sched_setscheduler()") took the cpuset lock only when pi is set.
-normalize_rt_tasks() cannot take it under tasklist_lock. Its changelog
-accepts this: after sysrq-n, the deadline guarantees are gone anyway.
-Commit 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex") then took
-the mutex only for deadline tasks. It replaced the pi test by a policy
-test, and left the release under pi.
+Between these two steps, no runqueue counts the bandwidth.
+try_to_wake_up() can leave the enqueue to the wake list of the new CPU,
+and return before it runs. task_cpu() already points at the new CPU. A
+change of the task in that window gets this_bw wrong.
 
-Fix this by taking the mutex for a deadline change only when pi is
-set.
+In this example, T is a deadline task. S is another task. It changes
+the bandwidth of T from "old bw" to "new bw":
 
-The policy test reads p->policy before the runqueue lock. It is checked
-again under the lock only when the caller gave no policy. Otherwise,
-the task can enter SCHED_DEADLINE in between. The call then takes it
-out of the class without the mutex. A rebuild of the root domain
-accounting could run at the same time. So check again under the
-runqueue lock, and retry with the mutex.
+  CPU 0                               CPU 1                       CPU 2
+  T blocks
+  this_bw of CPU 0 counts T
+  <timer> try_to_wake_up(T)
+    set_task_cpu(T, 1)
+      migrate_task_rq_dl()
+        sub_rq_bw(): CPU 0 drops T
+    T on the wake list of CPU 1
+    return
+                                                                  S: sched_setattr(T)
+                                                                    task_rq_lock(T): CPU 1
+                                                                    T is not queued
+                                                                    dl_change_utilization()
+                                                                      this_bw of CPU 1:
+                                                                      - old bw + new bw
+                                      sched_ttwu_pending()
+                                        enqueue_task_dl(T)
+                                          task_contending()
+                                            add_rq_bw():
+                                            this_bw of CPU 1:
+                                            + new bw
 
-sysrq-n on v7.4-rc2, with a deadline task and lockdep on:
+CPU 1 then counts the new bandwidth twice, less the old one. Repeated,
+this makes this_bw drift until it underflows. If T left the class in
+that window, switched_from_dl() would take its bandwidth off CPU 1 the
+same way. A task that enters the class in that window would be counted
+twice, by switched_to_dl() and by the enqueue.
 
-  sysrq: Nice All RT Tasks
-  BUG: sleeping function called from invalid context at kernel/locking/mutex.c:623
-  in_atomic(): 1, irqs_disabled(): 0, non_block: 0, pid: 4356, name: deadline_switch
-  locks held by deadline_switch/4356: 4, on CPU#3:
-   ...
-   #3: ffffffff83006098 (tasklist_lock){.+.+}-{3:3}, at: normalize_rt_tasks+0x34/0x150
+This needs a wakeup that moves the task, so a root domain of more than
+one CPU, with busy CPUs. CONFIG_SCHED_PROXY_EXEC=y makes such wakeups
+more common. In testing, a task sleeps and wakes in a busy two-CPU
+partition root, and another CPU changes its runtime. The kernel warns
+within a second in each of 8 VMs:
 
-A sched_setattr(SCHED_DEADLINE) after it never returned, in 8 VMs of 8.
-The sysrq_normalize case of deadline_switch_test, added later in this
-series, tests this with DEADLINE_TEST_SYSRQ=1. It passes with this
-series.
+  WARNING: kernel/sched/deadline.c:352 at dl_rq_change_utilization+0x71/0x2e0, CPU#0: wake_race/109
+   __sub_rq_bw(): this_bw underflow
+  WARNING: kernel/sched/deadline.c:316 at task_contending+0x244/0x260, CPU#6: swapper/6/0
+   __add_running_bw(): running_bw overflow
 
-Fixes: 111cd11bbc54 ("sched/cpuset: Bring back cpuset_mutex")
+Fix this with a new bit, dl_bw_oncpu, that tells whether a runqueue
+counts the bandwidth of the task. add_rq_bw() adds the bandwidth only if
+no runqueue counts it. sub_rq_bw() takes it off only if one does.
+dl_change_utilization() does nothing while no runqueue counts the
+bandwidth. The enqueue adds the new one.
+
+With this patch, none of the 8 VMs warns. deadline_bw_test, added later
+in this series, tests this in params_waking. The Sashiko
+AI review of this series found the double count, and a bit that the
+first version of this patch left set.
+
+Fixes: 8fd27231c330 ("sched/deadline: Track the "total rq utilization" too")
 Signed-off-by: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
 Reviewed-by: Juri Lelli <juri.lelli@redhat.com>
 Cc: stable@vger.kernel.org
 ---
- kernel/sched/syscalls.c | 26 +++++++++++++++++++++++---
- 1 file changed, 23 insertions(+), 3 deletions(-)
+ include/linux/sched.h   |  5 +++++
+ kernel/sched/deadline.c | 39 +++++++++++++++++++++++++++++++++++----
+ 2 files changed, 40 insertions(+), 4 deletions(-)
 
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index cb115aa9b0b3..9b04e77297ae 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -561,9 +561,11 @@ int __sched_setscheduler(struct task_struct *p,
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index e4f6323d7855..88cda9c10cb8 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -706,6 +706,10 @@ struct sched_dl_entity {
+ 	 * contributes to the root domain's total_bw. Only meaningful for server
+ 	 * entities (@dl_server == 1). Allows toggling the reservation on/off
+ 	 * without losing the configured @dl_runtime/@dl_period.
++	 *
++	 * @dl_bw_oncpu tells if the this_bw of a runqueue counts the task's
++	 * @dl_bw: add_rq_bw() and sub_rq_bw() set and clear it, under that
++	 * runqueue's lock. Not for servers, which keep @dl_bw_attached.
+ 	 */
+ 	unsigned int			dl_throttled      : 1;
+ 	unsigned int			dl_yielded        : 1;
+@@ -718,6 +722,7 @@ struct sched_dl_entity {
+ 	unsigned int			dl_defer_running  : 1;
+ 	unsigned int			dl_defer_idle     : 1;
+ 	unsigned int			dl_bw_attached    : 1;
++	unsigned int			dl_bw_oncpu       : 1;
  
  	/*
- 	 * SCHED_DEADLINE bandwidth accounting relies on stable cpusets
--	 * information.
-+	 * information. Do not take cpuset_mutex when pi is unset: the
-+	 * caller is normalize_rt_tasks(), which holds tasklist_lock and
-+	 * cannot sleep.
- 	 */
--	if (dl_policy(policy) || dl_policy(p->policy)) {
-+	if (pi && (dl_policy(policy) || dl_policy(p->policy))) {
- 		cpuset_locked = true;
- 		cpuset_lock();
- 	}
-@@ -643,7 +645,13 @@ int __sched_setscheduler(struct task_struct *p,
- 		}
- 	}
+ 	 * Bandwidth enforcement timer. Each -deadline task has its
+diff --git a/kernel/sched/deadline.c b/kernel/sched/deadline.c
+index bdeb2ecc9255..a65b1c8c5a59 100644
+--- a/kernel/sched/deadline.c
++++ b/kernel/sched/deadline.c
+@@ -267,18 +267,35 @@ void __sub_rq_bw(u64 dl_bw, struct dl_rq *dl_rq)
+ 	WARN_ON_ONCE(dl_rq->running_bw > dl_rq->this_bw);
+ }
  
--	/* Re-check policy now with rq lock held: */
-+	/*
-+	 * The caller gave no policy (SETPARAM_POLICY): the request was
-+	 * derived from an unlocked read of p->policy above. If the task
-+	 * changed policy since, re-derive the request from scratch, and
-+	 * release cpuset_mutex: the re-derived request re-decides whether
-+	 * it is needed.
-+	 */
- 	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
- 		policy = oldpolicy = -1;
- 		task_rq_unlock(rq, p, &rf);
-@@ -654,6 +662,18 @@ int __sched_setscheduler(struct task_struct *p,
- 		goto recheck;
- 	}
++/*
++ * @dl_se->dl_bw_oncpu tells whether the this_bw of a runqueue counts the
++ * bandwidth of @dl_se. add_rq_bw() adds the bandwidth only if no runqueue
++ * counts it. sub_rq_bw() subtracts it only if one does.
++ *
++ * A wakeup on another CPU takes the bandwidth off the old runqueue. The
++ * enqueue on the new CPU adds it back later. A change of the task in
++ * between must not count the bandwidth twice, nor take it off a runqueue
++ * that does not count it.
++ *
++ * The servers track their bandwidth with dl_bw_attached. They call
++ * __add_rq_bw() and __sub_rq_bw() directly.
++ */
+ static inline
+ void add_rq_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
+ {
+-	if (!dl_entity_is_special(dl_se))
+-		__add_rq_bw(dl_se->dl_bw, dl_rq);
++	if (dl_entity_is_special(dl_se) || dl_se->dl_bw_oncpu)
++		return;
++	__add_rq_bw(dl_se->dl_bw, dl_rq);
++	dl_se->dl_bw_oncpu = 1;
+ }
+ 
+ static inline
+ void sub_rq_bw(struct sched_dl_entity *dl_se, struct dl_rq *dl_rq)
+ {
+-	if (!dl_entity_is_special(dl_se))
+-		__sub_rq_bw(dl_se->dl_bw, dl_rq);
++	if (dl_entity_is_special(dl_se) || !dl_se->dl_bw_oncpu)
++		return;
++	__sub_rq_bw(dl_se->dl_bw, dl_rq);
++	dl_se->dl_bw_oncpu = 0;
+ }
+ 
+ static inline
+@@ -347,6 +364,14 @@ static void dl_change_utilization(struct task_struct *p, u64 new_bw)
+ 	if (task_on_rq_queued(p))
+ 		return;
  
 +	/*
-+	 * The caller gave an explicit policy, so the request needs no
-+	 * re-derivation (oldpolicy is -1 above). But the decision to
-+	 * take cpuset_mutex used the same unlocked read: the task
-+	 * entered SCHED_DEADLINE since, and the change below would take
-+	 * it out of the class. Retry to take the mutex.
++	 * The task is waking up on another CPU, and no runqueue counts its
++	 * bandwidth. The enqueue adds it, with the new parameters that
++	 * __setparam_dl() sets right after this.
 +	 */
-+	if (unlikely(pi && !cpuset_locked && task_has_dl_policy(p))) {
-+		task_rq_unlock(rq, p, &rf);
-+		goto recheck;
-+	}
++	if (!p->dl.dl_bw_oncpu)
++		return;
 +
- 	oldprio = p->prio;
+ 	dl_rq_change_utilization(task_rq(p), &p->dl, new_bw);
+ }
  
- 	newprio = __normal_prio(policy, attr->sched_priority, attr->sched_nice);
+@@ -2751,6 +2776,11 @@ static void migrate_task_rq_dl(struct task_struct *p, int new_cpu __maybe_unused
+ 		 */
+ 		cancel_inactive_timer(&p->dl);
+ 	}
++	/*
++	 * set_task_cpu() points task_cpu() at the new CPU next. The runqueue
++	 * of that CPU counts this bandwidth only once the enqueue there adds
++	 * it. Until then, no runqueue counts it, as dl_bw_oncpu now says.
++	 */
+ 	sub_rq_bw(&p->dl, &rq->dl);
+ 	rq_unlock(rq, &rf);
+ }
+@@ -4050,6 +4080,7 @@ static void __dl_clear_params(struct sched_dl_entity *dl_se)
+ 	dl_se->dl_defer			= 0;
+ 	dl_se->dl_defer_running		= 0;
+ 	dl_se->dl_defer_armed		= 0;
++	dl_se->dl_bw_oncpu		= 0;
+ 
+ #ifdef CONFIG_RT_MUTEXES
+ 	dl_se->pi_se			= dl_se;
 -- 
 2.47.3
 
