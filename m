@@ -1,59 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.210.214.84
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795053151;
-	b=QcJ4OAfOZ4hME6z+mhtGdhyYouwFv0STm0rDn+kF9ps81Zpr1Ednahx9hS64IZd6lnmO
-	 VkoZwGD1MBfU6hRVGuI6/716o1b6MhBMyM6SW9cbr0WKa7zoKr81L3ZLcfmv82ZmSZ1wU
-	 eDaoDVkdDm3sgbglxMEUUkLd+UZBMT3Tys+d/7MLABTcrJi9eXXu3iMsACvIqpiKVEufT
-	 nLT8pLWvWuIc2XBfpkXKHrQqevMi8Jj6xu2L6CQT4oFK7hQOcFH9SXkwMCDeOL+64xA8a
-	 7L23+xedDiFhkfjrdNRUn/tln+tmmSu/7ohtyyv6Ild8hs4D0iH+JKbab54BGJjc3IA==
+	t=1795053152;
+	b=unpYjmH4sZcHx/VySl/N6dJFR/yDFm76nIBWHszMkFJTiFfuZkk6IUfpWbAewjWUUiv2
+	 t4rIbAsvkWlXRP+ouqxPc8h1V4W84rXZYbM3Hq98kbxxIKvhA9Xa9VJquAysOBYNOqEGY
+	 ko5FUH00BmJvrF42+Jz12Swj8U6LettPIpHt6n8LJ0AHUJcL+DiDQRC31DdQq5tkqSpF2
+	 lXBw0VTS3o9+X3+f6mvTQKDDxvVpunPWTqnxKmnabUKxl2KZm6t585qqd2OqcRi0voojJ
+	 +jI3igA04400ym5jRR8Iq/dYC0jd9KGS9DZ7j5tMRCbtGi2jY/7h5BuBNLCyqzrkJsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795053151;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:User-Agent:X-stable:X-Patchwork-Hint:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ikLpLdHBtHb+YG19uaOG7WIstszMPvQUNjKD56ZKOOI=;
-	b=idOrq5HGpss/0UY7BOas0e37JpuaoBK5H8xD8L/aDZR6z7kIYLuWPm3t7NU0gDsj7L6+
-	 /+/Ng3TWLD2srEdN2x2yEWcEtx4L1FedjilY7Xn5nip0xWUH6TQSvr9oCHxCHxjqIwmgY
-	 DYjACSgACU/ZUAVX4jkBRxjeOnzbNk6QjV8+txvPqlMtuURPwinJsPF93D/yto4frNlF2
-	 JmcpBQ0eYrv1/23IR06InJHUqnG8dzKisOAg3nBOJvL3kkEmOD9OrjJ9arCBAOjCZ4h49
-	 43bjeO/QCkJWXq8sSYkrAU91nGTycAOvn7DL7BaJqNuGEh99BHt27wDU//gsA9BAUiw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1795053152;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=drBI2u3l/Qu8rjPECXBquJdYCnYIjDkd28tJ2CdOoKs=;
+	b=mUJiAWdSbU/Jm5okaSd4uC7pKKtuFHhZmEnvAuVUvaritRusMm/FuZOXfccSAPQTJzrw
+	 pz8Hh3PGB8yXdd113pYEBKif25nhXJ1cosRvEbrYJAkuSvwaB3sXFOMArUAGMQ23sGKLy
+	 yVtc4ScUW2EdnDFsW+uqB9nLyQFdk8CdKryERRpTtdGs1v+Ur8id/EYCLlKfFr2oKPCtq
+	 7bBcPyY4YbucZXaVglKjmbziqWCT4M6IQ3wPY9BJf3VnTlzj//dnkXvBWblZPsSb5YZQs
+	 /IUfsnHD3IA1ZYMvzkgVUc0WYkZZ3JdfPvmtSUX8SDFmuH/xBC4Bz96mbDLmIlZzDMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wvN4G3LL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=codewreck.org;
+	spf=pass smtp.mailfrom=codewreck.org;
+	arc=none smtp.remote-ip=62.210.214.84
+Received: from submarine.notk.org (submarine.notk.org [62.210.214.84])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20566606A31C;
-	Thu, 19 Nov 2026 01:52:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wvN4G3LL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 739DF1F000C4;
-	Thu, 19 Nov 2026 01:52:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1795053151;
-	bh=ikLpLdHBtHb+YG19uaOG7WIstszMPvQUNjKD56ZKOOI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=wvN4G3LLEAKBOWKBsceosJSClCtAlxBoX9dgMjP4MaG2y2jDnEqFwXZBthE2YF1oK
-	 LWrxmdUhv9JNWaKLa3Ndpc3vYrdGnG0G9aqYX+glFTs8IdZ3Sawn5jWxRFMbK7peil
-	 K3tydNZ1JnYrjJ9IlrWgIyn0YM4BrdErl1vJEHus=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Guanglei Zhu <zhugl3@xiaopeng.com>,
-	Weibin Liu <liuwb@xiaopeng.com>,
-	Mark Brown <broonie@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15 0816/2214] spi: bcm-qspi: reject oversized dummy bytes in mspi exec_mem_op
-Date: Wed, 18 Nov 2026 15:41:32 +0100
-Message-ID: <20261118150044.200293826@linuxfoundation.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261118150009.797899913@linuxfoundation.org>
-References: <20261118150009.797899913@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15917606A32A;
+	Thu, 19 Nov 2026 01:52:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15917606A32A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codewreck.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codewreck.org
+Received: from gaia.codewreck.org (localhost [127.0.0.1])
+	by submarine.notk.org (Postfix) with ESMTPS id 833F014C2D6;
+	Thu, 19 Nov 2026 02:52:09 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=codewreck.org;
+	s=2; t=1795053135;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=drBI2u3l/Qu8rjPECXBquJdYCnYIjDkd28tJ2CdOoKs=;
+	b=RbGZKsMg3K0nhkZzfOhmSz6iE2G0Rh+N2AqKr/x4uCwbP8OAc8claHsfHkIBbSq8cuLCq9
+	kmHHU1z9ocF2Gg/1QbOfzmRsmoPQvUNOKmRHEtfANO6rlMS7nRDFVlcG9n9kBtoXmLNboB
+	1JhvROInVB/XGOosCq2F7TTjugGuGTCFb+vQCXFCqEKnRf3m+ffrtIfL52D91tvfmxKHXH
+	KR+ifJuXsGuZoi+r+x3I5jHmYz7wJir2GObUPiyUAloXttvmeNhs3cp8hV6ZfsoFfebv3v
+	sdccBULoblMHKny7Q2yzE15+SelLIY0p8WhU4ziHZzoFdxrQFcAs52JItJGAVg==
+Received: from localhost (gaia.codewreck.org [local])
+	by gaia.codewreck.org (OpenSMTPD) with ESMTPA id c4e01d75;
+	Thu, 19 Nov 2026 00:52:07 +0000 (UTC)
+Date: Thu, 19 Nov 2026 09:51:52 +0900
+From: Dominique Martinet <asmadeus@codewreck.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 0000/1756] 6.12.119-rc1 review
+Message-ID: <av5IKItmzhDUp-Zd@codewreck.org>
+References: <20261118150007.957976754@linuxfoundation.org>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -63,60 +70,87 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:stable+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261118150007.957976754@linuxfoundation.org>
 
-5.15-stable review patch.  If anyone has any objections, please let me know.
+Greg Kroah-Hartman wrote on Wed, Nov 18, 2026 at 03:35:27PM +0100:
+> Adam Ford <aford173@gmail.com>
+>     phy: freescale: fsl-samsung-hdmi: Fix 64-by-32 division cocci warnings
+>
+> Aristo Chen <aristo.chen@canonical.com>
+>     phy: freescale: fsl-samsung-hdmi: initialize default rate
+> 
+> Pei Xiao <xiaopei01@kylinos.cn>
+>     phy: freescale: fsl-samsung-hdmi: Use helper function devm_clk_get_enabled()
+> 
+> Adam Ford <aford173@gmail.com>
+>     phy: freescale: fsl-samsung-hdmi: Support dynamic integer
+> 
+> Adam Ford <aford173@gmail.com>
+>     phy: freescale: fsl-samsung-hdmi: Simplify REG21_PMS_S_MASK lookup
+> 
+> Adam Ford <aford173@gmail.com>
+>     phy: freescale: fsl-samsung-hdmi: Replace register defines with macro
 
-------------------
+I'm getting a boot failure around one of these on i.MX8MP:
 
-From: Weibin Liu <liuwb@xiaopeng.com>
+2026-11-19 09:01:29.454251 [    0.587255] Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+2026-11-19 09:01:29.459125 [    0.596076] Mem abort info:
+2026-11-19 09:01:29.460122 [    0.598879]   ESR = 0x0000000096000004
+2026-11-19 09:01:29.465853 [    0.602641]   EC = 0x25: DABT (current EL), IL = 32 bits
+2026-11-19 09:01:29.470643 [    0.607973]   SET = 0, FnV = 0
+2026-11-19 09:01:29.471565 [    0.611036]   EA = 0, S1PTW = 0
+2026-11-19 09:01:29.476941 [    0.614190]   FSC = 0x04: level 0 translation fault
+2026-11-19 09:01:29.481849 [    0.619077] Data abort info:
+2026-11-19 09:01:29.487329 [    0.621961]   ISV = 0, ISS = 0x00000004, ISS2 = 0x00000000
+2026-11-19 09:01:29.492669 [    0.627455]   CM = 0, WnR = 0, TnD = 0, TagAccess = 0
+2026-11-19 09:01:29.498347 [    0.632518]   GCS = 0, Overlay = 0, DirtyBit = 0, Xs = 0
+2026-11-19 09:01:29.504076 [    0.637842] [0000000000000000] user address but active_mm is swapper
+2026-11-19 09:01:29.509800 [    0.644207] Internal error: Oops: 0000000096000004 [#1] PREEMPT SMP
+2026-11-19 09:01:29.510695 [    0.650479] Modules linked in:
+2026-11-19 09:01:29.521321 [    0.653542] CPU: 2 UID: 0 PID: 12 Comm: kworker/u16:0 Not tainted 6.12.119-rc1-at0-g8f03b6a4b095 #43
+2026-11-19 09:01:29.527214 [    0.662683] Hardware name: Atmark-Techno Armadillo-IoT Gateway G4 Board (DT)
+2026-11-19 09:01:29.533048 [    0.669734] Workqueue: events_unbound deferred_probe_work_func
+2026-11-19 09:01:29.542857 [    0.675584] pstate: 80000005 (Nzcv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+2026-11-19 09:01:29.544070 [    0.682548] pc : phy_clk_recalc_rate+0x4/0xc
+2026-11-19 09:01:29.549398 [    0.686828] lr : __clk_register+0x4f0/0x8e0
+2026-11-19 09:01:29.554271 [    0.691021] sp : ffff8000800bb9e0
+2026-11-19 09:01:29.560182 [    0.694336] x29: ffff8000800bb9e0 x28: ffffa1893c634720 x27: ffff6d82c32ac080
+2026-11-19 09:01:29.566395 [    0.701486] x26: 0000000000000000 x25: ffff6d82c32ac080 x24: 0000000000000001
+2026-11-19 09:01:29.576245 [    0.708635] x23: ffff8000800bba88 x22: ffff6d82c32a16a0 x21: 0000000000000000
+2026-11-19 09:01:29.582449 [    0.715784] x20: ffff6d82c20f8100 x19: ffff6d82c32a3800 x18: 0000000000000fdf
+2026-11-19 09:01:29.588353 [    0.722932] x17: 0000000000000cf0 x16: 00000000000003fa x15: ffff6d82c214af10
+2026-11-19 09:01:29.594281 [    0.730081] x14: 000000000000014d x13: ffff6d82c214af00 x12: 0000000000000000
+2026-11-19 09:01:29.604441 [    0.737232] x11: 00000000000000c0 x10: 0000000000000000 x9 : 0000000000000000
+2026-11-19 09:01:29.610325 [    0.744381] x8 : 0101010101010101 x7 : 0000000000000000 x6 : 8080808080808080
+2026-11-19 09:01:29.616546 [    0.751528] x5 : ffff6d82c32ac080 x4 : 0000000000000000 x3 : ffff6d82c200a700
+2026-11-19 09:01:29.622413 [    0.758677] x2 : ffffa1893b813740 x1 : 00000000016e3600 x0 : 0000000000000000
+2026-11-19 09:01:29.627125 [    0.765829] Call trace:
+2026-11-19 09:01:29.632409 [    0.768277]  phy_clk_recalc_rate+0x4/0xc
+2026-11-19 09:01:29.633534 [    0.772208]  devm_clk_register+0x5c/0xbc
+2026-11-19 09:01:29.638814 [    0.776137]  fsl_samsung_hdmi_phy_probe+0x1dc/0x310
+2026-11-19 09:01:29.643768 [    0.781024]  platform_probe+0x68/0xdc
+2026-11-19 09:01:29.644748 [    0.784693]  really_probe+0xbc/0x2bc
+2026-11-19 09:01:29.650181 [    0.788278]  __driver_probe_device+0x80/0x14c
+2026-11-19 09:01:29.655274 [    0.792643]  driver_probe_device+0x40/0x130
+2026-11-19 09:01:29.660501 [    0.796831]  __device_attach_driver+0xb8/0x140
+2026-11-19 09:01:29.665772 [    0.801282]  bus_for_each_drv+0x88/0xe8
+2026-11-19 09:01:29.666809 [    0.805125]  __device_attach+0x9c/0x19c
+2026-11-19 09:01:29.671945 [    0.808966]  device_initial_probe+0x54/0x74
+2026-11-19 09:01:29.677003 [    0.813155]  __bus_probe_device+0x34/0xa0
+2026-11-19 09:01:29.678308 [    0.817171]  bus_probe_device_deferred+0x2c/0x78
+2026-11-19 09:01:29.683731 [    0.821795]  deferred_probe_work_func+0x7c/0xb4
+2026-11-19 09:01:29.688826 [    0.826335]  process_one_work+0x164/0x2bc
+2026-11-19 09:01:29.693854 [    0.830355]  worker_thread+0x180/0x2f4
+2026-11-19 09:01:29.694736 [    0.834109]  kthread+0x110/0x114
+2026-11-19 09:01:29.699938 [    0.837345]  ret_from_fork+0x10/0x20
+2026-11-19 09:01:29.705576 [    0.840932] Code: d503201f d503201f d503201f f9400c00 (b9400000) 
+2026-11-19 09:01:29.709069 [    0.847029] ---[ end trace 0000000000000000 ]---
 
-[ Upstream commit 9e44f0df3fff215d9033089e85980048c3ac132a ]
+I need to check further where the problem is exactly, will reply to this
+mail again in a couple of hours as I'm not sure I can recover the board
+remotely to check right now
 
-bcm_qspi_mspi_exec_mem_op() builds a local command buffer cmd[6]
-holding one opcode byte, up to four address bytes and one spare
-byte, and sets t[0].len = op->addr.nbytes + op->dummy.nbytes + 1.
-bcm_qspi_exec_mem_op() only validates op->addr.nbytes <= 4 and never
-bounds op->dummy.nbytes, which spi_mem_check_op() also leaves
-unrestricted. With addr.nbytes = 4 and dummy.nbytes >= 2 the length
-becomes 7 or more, so write_to_hw() reads past cmd[] on the kernel
-stack and pushes the leaked bytes into the hardware TXRAM.
-
-Reject operations whose dummy phase does not fit the remaining byte
-of cmd[] by requiring op->dummy.nbytes <= 1, so such transfers fall
-back to the generic SPI path instead of overrunning the buffer.
-
-Reviewed-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Fixes: 5f195ee7d830c ("spi: bcm-qspi: Implement the spi_mem interface")
-Cc: stable@vger.kernel.org # 4.18+
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-Link: https://patch.msgid.link/20261015-bcm-qspi-dummy-bytes-v1-1-c319da3c2497@xiaopeng.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-[ Adapted for 5.15.y: this tree returns -ENOTSUPP instead of -EOPNOTSUPP. ]
-Signed-off-by: Guanglei Zhu <zhugl3@xiaopeng.com>
-Signed-off-by: Weibin Liu <liuwb@xiaopeng.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/spi/spi-bcm-qspi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/spi/spi-bcm-qspi.c b/drivers/spi/spi-bcm-qspi.c
-index bca7ac570b94a..2c8f0d9717945 100644
---- a/drivers/spi/spi-bcm-qspi.c
-+++ b/drivers/spi/spi-bcm-qspi.c
-@@ -1025,8 +1025,9 @@ static int bcm_qspi_exec_mem_op(struct spi_mem *mem,
- 	u32 addr = 0, len;
- 	u_char *buf;
- 
-+	/* cmd[] holds 1 opcode + 4 address + 1 dummy byte at most */
- 	if (!op->data.nbytes || !op->addr.nbytes || op->addr.nbytes > 4 ||
--	    op->data.dir != SPI_MEM_DATA_IN)
-+	    op->dummy.nbytes > 1 || op->data.dir != SPI_MEM_DATA_IN)
- 		return -ENOTSUPP;
- 
- 	buf = op->data.buf.in;
 -- 
-2.53.0
-
-
-
+Dominique
