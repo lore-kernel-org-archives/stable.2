@@ -1,66 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1795084682;
-	b=BQTXPALjHiuyOrP1tKHqSGG+COAFOUggi+234hSms2UBu56/iXmLoG1Kt58kPSDXIC1R
-	 JIsXWqO9WId9mKwt+b95ioaZ9thBK0Y1yaXuzkj9ilD4ozUowTZatjFnr/9bBDd/IB1W7
-	 by+qje+P3os0DSHjEgMmPtIq25eZ1IU1w4GMlaOGgFRg4yMsPnN/V+tRu50VX0xL2Jxdf
-	 qxOgo9Xqm6RDeJgGWg7HvwAD92CthXrgIdDQB2wj1kSNpnWeYWmubATksPZBI+Ms0YnAz
-	 ONSepK4ZwerXuC0hmugiWx6vD291mAejSvUbhdtjAFNhd4yQXrCEXLwgUVR8CCJv/ZA==
+	t=1795084710;
+	b=IzTamkNSAl2iECi/S4Ul56EqXDm43vMRngnD5mxEFgw4aOdb+H1RW/COkjLZLDqZxxm5
+	 4d/16HEJUjGhFYXSNvwd5tdsvPw761kh1vOq7RBExnnHJIfVBm7xiKlk0qac5gasqjoFy
+	 p5DK5wFVAn2xxdYU3cH0LW9o41GFWw9VXCE68GO9gpo82fin7BfHyEXxj6SFBN5wJzxB3
+	 A8SLIFfRND3jdoOUpfu0kydDzVEWT9/iqCJCxGLkSB3PnO6115iwF0WBPTyeNC8Q9JB9U
+	 UZEUhq+wKRoBILuV+gMaAzxm7W1sLXfuLJhbnqFq/e++Aat948HYbxQ9dU+NaoHgaxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1795084682;
+	a=rsa-sha256; c=relaxed/relaxed; t=1795084710;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=MIajatYlF3EIxVeTZSsEVZ7p5I2aamJkZ0k2TSCz95o=;
-	b=rORdaiDn10EosQexuUdJuhaWtQp060Hinh1kPKgpi6rwtSrNA+wfQ+elhlFscigtONWZ
-	 q9CAA7ngNihbxqJTw3ujVLmqRMHamt+Dz+GWCIpvPejsyQja7q0MpoiwJWU8Do4gS02M7
-	 oz4x0JJUl7HByDXN8iJk3uHYRkUUxiFcy0dMZTFLxVR91HrxnDdTox4krd+LpewYOsY7A
-	 pNj6sfKDzHf97aE774vQY5wYGy00ZqWkuQ6gyp8r/OocUN5diBs1Qaxr3fgEfRVMMLYaX
-	 UsnaN1u2QQDTqIaM19Kc9lt9CJzMDfmvVTlrFEthIQnVZcXR7wfZ79d+F9r7KOZUPdg==
+	bh=kHeHrkVo20OQlVn8aupesKp24dbwdWxbH7wFLkk+cRg=;
+	b=yUjNpcIJi5DTtNecGkFXWPMamdCvZRy35B90NQJQ2eEHVbTlqb+XyOjxvHCLaXdqL6Mv
+	 kngkYqctVyr9f/u/pa3OgIu6h3iHa7ouagu05hfx+XxkqCcr5173cJrZC/UGYCm/WZfVn
+	 QaE5pNPSs+X80fcoWt/n543gahYQw811WSeNcT67VArUuUPVKvvUCO5AdoruYbApvdago
+	 xhqSXTfTBMhToln0dsCX3Uw3P0sAVVUQ8jNv2uBE0ZYoshwTTz1xFuM78wmpTcr5sCvhK
+	 CT+fqiLk5e6xwSwYeAhzDHMLRTced8HlaeN2yTh365QgN2P0+UV6jAa+oB12BIj28FA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HB/N8k3T";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F30581Ga;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99D9606A320;
-	Thu, 19 Nov 2026 10:38:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 1D484606A324;
+	Thu, 19 Nov 2026 10:38:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HB/N8k3T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 400D51F000C4;
-	Thu, 19 Nov 2026 10:37:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F30581Ga
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id F22071F000C4;
+	Thu, 19 Nov 2026 10:38:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1795084681;
-	bh=MIajatYlF3EIxVeTZSsEVZ7p5I2aamJkZ0k2TSCz95o=;
+	s=k20260515; t=1795084709;
+	bh=kHeHrkVo20OQlVn8aupesKp24dbwdWxbH7wFLkk+cRg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HB/N8k3TYSulYNMYpIbRhITmR8lZQfd4EIMz3JCkLqbJQ0kSoHs82/wZ4DqT9nMGw
-	 RJTDYoNzWb/T8/Urz5tv62Hz1QbGw6gFdPi6cXd5OUjIluokUGapMjSp1zQdMVEgQ3
-	 YDEulN6F30hYxsbQ1JFf94fElERuu87OB2sy8cN46G4aDcUrMsLc+KcHXRFJM6f2zd
-	 MAfSlP5LOTGY+6MgKO7Zts8KzeeTApeR1EJ0otA85TbtUxmy7n6h8lQlm1Sqxqs13b
-	 m6oXFSQSExIe8tqvy2AUkmmTjktvhwuG/f7fy70u4DfKo8ZKi6gwc8asF8AxgLnxlB
-	 WplMaulHqBIoQ==
-Date: Thu, 19 Nov 2026 10:37:55 +0000
-From: Lee Jones <lee@kernel.org>
-To: joseph@telaak.dev
-Cc: Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	=?iso-8859-1?Q?Andr=E9?= Apitzsch <git@apitzsch.eu>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 05/11] leds: rgb: ktd202x: Keep the unlit colors of a
- blinking LED off
-Message-ID: <20261119103755.GP98456@joneslee-macbookpro.roam.internal>
-References: <20261109-ktd202x-et6326-v2-0-56e97c226658@telaak.dev>
- <20261109-ktd202x-et6326-v2-5-56e97c226658@telaak.dev>
+	b=F30581Gah+Nnu/lHUNmM+YocHXjOdtAumCbf804a2kSOqA+4gEsbtwfWbVUJ11wBQ
+	 Of6ZTFxwnX4hk+NCl8izeDDTjHKK7h3J+prTV+x1XRtT4WlrWtR50qf1Yb+xkQ3c+i
+	 d84tAy0IJH/GqqZZ+lEk2yYVJoh39P4TJGlfwyjjmVK5t1CvcAeC+xfM0BsEi9FKrq
+	 jGdtN+rW8bZ2QTbSrPp9+lVALudtExdlCts+hML8C1hyUi8lRHTh+LOJxwGnoVIqhb
+	 IGMg5j1Erj+oLm57TKlwCGEIxjlpf4GAEM1Yktpf3JKJUVdrVd8+/ouFywnNhycktD
+	 hLQzVi+uEAWKA==
+Date: Thu, 19 Nov 2026 11:38:26 +0100
+From: Bartosz Golaszewski <brgl@kernel.org>
+To: Jiangshan Yi <yijiangshan@kylinos.cn>
+Cc: brendan.higgins@linux.dev, david@davidgow.net, raemoar63@gmail.com, 
+	sboyd@kernel.org, skhan@linuxfoundation.org, logang@deltatee.com, 
+	gregkh@linuxfoundation.org, linux-kselftest@vger.kernel.org, kunit-dev@googlegroups.com, 
+	linux-kernel@vger.kernel.org, 13667453960@163.com, stable@vger.kernel.org
+Subject: Re: [PATCH] kunit: fix resource leak when init fails
+Message-ID: <cupe5w2gyy5gcnviabvrel42llyrzzul5fl6fzwcz7w56zfpmd@ekgoru6l3ujz>
+References: <20261118093857.578044-1-yijiangshan@kylinos.cn>
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Post: <mailto:stable@vger.kernel.org>
@@ -72,62 +60,20 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109-ktd202x-et6326-v2-5-56e97c226658@telaak.dev>
+In-Reply-To: <20261118093857.578044-1-yijiangshan@kylinos.cn>
 
-On Mon, 09 Nov 2026, Joseph Telaak via B4 Relay wrote:
-
-> From: Joseph Telaak <joseph@telaak.dev>
+On Wed, Nov 18, 2026 at 05:38:57PM +0800, Jiangshan Yi wrote:
+> If the init function passed to kunit_alloc_resource() or
+> kunit_alloc_and_get_resource() fails, __kunit_add_resource() returns
+> before the resource is added to the test's resource list, so the
+> allocated resource is never freed. Call kfree() on the error path.
 > 
-> blink_set() switches every channel of a multicolor LED to the flash
-> timer, or to always on when delay_off is 0, including the colors whose
-> brightness is 0. Their current register still holds the last brightness
-> they had, or the 10 mA default, so for example a red blink set with a
-> multi_intensity of "255 0 0" also blinks green and blue.
+> The free function is not called on this path: init() is responsible for
+> cleaning up after a failure, and free() expects an initialized resource.
 > 
-> Leave the channels of the colors with no brightness off, as
-> brightness_set() does. A single color LED now passes its brightness too.
-> 
-> Fixes: 0ebdb7210943 ("leds: Add ktd202x driver")
+> Fixes: 0a756853586c ("kunit: test: add test resource management API")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Joseph Telaak <joseph@telaak.dev>
+> Signed-off-by: Jiangshan Yi <yijiangshan@kylinos.cn>
 > ---
->  drivers/leds/rgb/leds-ktd202x.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/leds/rgb/leds-ktd202x.c b/drivers/leds/rgb/leds-ktd202x.c
-> index feea33b7e885..042de16c28bc 100644
-> --- a/drivers/leds/rgb/leds-ktd202x.c
-> +++ b/drivers/leds/rgb/leds-ktd202x.c
-> @@ -284,6 +284,10 @@ static int ktd202x_blink_set(struct ktd202x_led *led, unsigned long *delay_on,
->  		int channel = subleds[i].channel;
->  
->  		ctrl_mask |= KTD202X_CHANNEL_CTRL_MASK(channel);
 
-I won't say this again, but it should carry across to everywhere else.
-
-'\n'
-
-> +		/* A color with no brightness stays off */
-> +		if (!subleds[i].brightness)
-> +			continue;
-> +
->  		ctrl_on |= KTD202X_CHANNEL_CTRL_ON(channel);
->  		ctrl_pwm1 |= KTD202X_CHANNEL_CTRL_PWM1(channel);
->  	}
-> @@ -359,6 +363,7 @@ static int ktd202x_blink_single_set(struct led_classdev *cdev,
->  	if (!*delay_on)
->  		return ktd202x_brightness_single_set(cdev, LED_OFF);
->  
-> +	info.brightness = cdev->brightness;
->  	info.channel = led->index;
->  
->  	return ktd202x_blink_set(led, delay_on, delay_off, &info, 1);
-> 
-> -- 
-> Git-155)
-> 
-> 
-> 
-
--- 
-Lee Jones
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
